@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { ConfigProvider } from "antd";
+import StyledComponentsRegistry from "../lib/AntdRegistry";
 import "antd/dist/reset.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "세컨아이디",
-  description: "오직 여기에서 크리에이터의 양질 콘텐츠를 매월 받아보세요",
+  title: "SECON.ID - 크리에이터 플랫폼",
+  description: "당신만의 크리에이터를 만나보세요",
 };
 
 export default function RootLayout({
@@ -14,7 +16,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <StyledComponentsRegistry>
+          <ConfigProvider
+            theme={{
+              token: {
+                colorPrimary: "#1890ff",
+              },
+            }}
+          >
+            {children}
+          </ConfigProvider>
+        </StyledComponentsRegistry>
+      </body>
     </html>
   );
 }
