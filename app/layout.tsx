@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ConfigProvider } from "antd";
 import StyledComponentsRegistry from "../lib/AntdRegistry";
+import { AuthProvider } from "./contexts/AuthContext";
 import "antd/dist/reset.css";
 import "./globals.css";
 
@@ -25,7 +26,7 @@ export default function RootLayout({
               },
             }}
           >
-            {children}
+            <AuthProvider>{children}</AuthProvider>
           </ConfigProvider>
         </StyledComponentsRegistry>
       </body>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Layout,
   Typography,
@@ -11,6 +11,8 @@ import {
   Avatar,
   Tag,
   Menu,
+  Space,
+  Modal,
 } from "antd";
 import {
   UserOutlined,
@@ -22,11 +24,15 @@ import {
   FireOutlined,
   TeamOutlined,
   SettingOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
+import { useAuth } from "./contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import LoginModal from "./components/LoginModal";
 
 const { Header, Content, Footer, Sider } = Layout;
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 // 임시 크리에이터 데이터
 const creators = [
@@ -69,6 +75,22 @@ const creators = [
 ];
 
 export default function Home() {
+  const { user, logout } = useAuth();
+  const router = useRouter();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  const handleLogout = () => {
+    //confirm
+    Modal.confirm({
+      title: "로그아웃",
+      content: "로그아웃 하시겠습니까?",
+      onOk: () => {
+        logout();
+        router.push("/");
+      },
+    });
+  };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header
@@ -97,12 +119,37 @@ export default function Home() {
           <Button type="text" icon={<SearchOutlined />}>
             검색
           </Button>
-          <Button type="text" icon={<UserOutlined />}>
-            로그인
-          </Button>
-          <Button type="text" icon={<HeartOutlined />}>
-            구독
-          </Button>
+          {user ? (
+            <Space>
+              <Text strong>{user.nickname}</Text>
+              <Text type="secondary">
+                포인트: {user.points.toLocaleString()}
+              </Text>
+              <Button type="text" icon={<HeartOutlined />}>
+                내구독
+              </Button>
+              <Button
+                type="text"
+                icon={<LogoutOutlined />}
+                onClick={handleLogout}
+              >
+                로그아웃
+              </Button>
+            </Space>
+          ) : (
+            <Space>
+              <Button
+                type="text"
+                icon={<UserOutlined />}
+                onClick={() => setIsLoginModalOpen(true)}
+              >
+                로그인
+              </Button>
+              <Button type="primary" onClick={() => router.push("/signup")}>
+                회원가입
+              </Button>
+            </Space>
+          )}
         </div>
       </Header>
 
@@ -275,6 +322,11 @@ export default function Home() {
           </Content>
         </Layout>
       </Layout>
+
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </Layout>
   );
 }
