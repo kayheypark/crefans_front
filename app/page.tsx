@@ -45,8 +45,9 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useAuth } from "./contexts/AuthContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import LoginModal from "./components/LoginModal";
+import Feed from "./components/Feed";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Paragraph, Text } = Typography;
@@ -154,6 +155,10 @@ type SearchTabKey = "creators" | "posts" | "photos" | "videos";
 export default function Landing() {
   const { user, logout } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [selectedMenu, setSelectedMenu] = useState<string>(
+    searchParams.get("menu") || "1"
+  );
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [unreadNotifications, setUnreadNotifications] = useState(2);
   const [notificationsList, setNotificationsList] = useState<NotificationList>({
@@ -942,6 +947,37 @@ export default function Landing() {
     return null;
   };
 
+  // 메인 콘텐츠 렌더링 함수 수정
+  const renderMainContent = () => {
+    switch (selectedMenu) {
+      case "1":
+        return (
+          <div style={{ padding: "20px" }}>
+            <Title level={2}>홈</Title>
+          </div>
+        );
+      case "2":
+        return <Feed />;
+      case "3":
+        return (
+          <div style={{ padding: "20px" }}>
+            <Title level={2}>탐색</Title>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  // 메뉴 변경 핸들러
+  const handleMenuChange = (menuKey: string) => {
+    setSelectedMenu(menuKey);
+    // URL 쿼리 파라미터 업데이트
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("menu", menuKey);
+    router.push(`?${params.toString()}`);
+  };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header
@@ -1085,16 +1121,28 @@ export default function Landing() {
         >
           <Menu
             mode="inline"
-            defaultSelectedKeys={["1"]}
+            selectedKeys={[selectedMenu]}
             style={{ flex: 1, borderRight: 0 }}
           >
-            <Menu.Item key="1" icon={<HomeOutlined />}>
+            <Menu.Item
+              key="1"
+              icon={<HomeOutlined />}
+              onClick={() => handleMenuChange("1")}
+            >
               홈
             </Menu.Item>
-            <Menu.Item key="2" icon={<BarsOutlined />}>
+            <Menu.Item
+              key="2"
+              icon={<BarsOutlined />}
+              onClick={() => handleMenuChange("2")}
+            >
               피드보기
             </Menu.Item>
-            <Menu.Item key="3" icon={<CompassOutlined />}>
+            <Menu.Item
+              key="3"
+              icon={<CompassOutlined />}
+              onClick={() => handleMenuChange("3")}
+            >
               탐색
             </Menu.Item>
           </Menu>
@@ -1124,76 +1172,8 @@ export default function Landing() {
         </Sider>
 
         <Layout style={{ marginLeft: 250 }}>
-          <Content style={{ padding: "24px 50px" }}>
-            {/* 메인 배너 */}
-            <div
-              style={{
-                height: "300px",
-                background: "linear-gradient(45deg, #1890ff, #722ed1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#fff",
-                marginBottom: "50px",
-                borderRadius: "8px",
-              }}
-            >
-              <div style={{ textAlign: "center" }}>
-                <Title
-                  level={2}
-                  style={{ color: "#fff", marginBottom: "20px" }}
-                >
-                  당신만의 크리에이터를 만나보세요
-                </Title>
-                <Paragraph style={{ color: "#fff", fontSize: "18px" }}>
-                  다양한 분야의 크리에이터들과 함께 특별한 경험을 시작하세요
-                </Paragraph>
-              </div>
-            </div>
-
-            {/* 서비스 소개 */}
-            <div
-              style={{
-                maxWidth: 800,
-                margin: "0 auto",
-                padding: "40px 20px",
-                textAlign: "center",
-              }}
-            >
-              <Title level={4} style={{ marginBottom: 24 }}>
-                당신만의 특별한 경험을 시작하세요
-              </Title>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gap: "32px",
-                  marginTop: 32,
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: 48, marginBottom: 16 }}>🎨</div>
-                  <Title level={5}>다양한 크리에이터</Title>
-                  <Paragraph style={{ color: "#666" }}>
-                    게임, 음악, 아트 등 다양한 분야의 크리에이터들과 함께하세요
-                  </Paragraph>
-                </div>
-                <div>
-                  <div style={{ fontSize: 48, marginBottom: 16 }}>💡</div>
-                  <Title level={5}>특별한 경험</Title>
-                  <Paragraph style={{ color: "#666" }}>
-                    크리에이터와 함께하는 독특하고 특별한 경험을 만나보세요
-                  </Paragraph>
-                </div>
-                <div>
-                  <div style={{ fontSize: 48, marginBottom: 16 }}>🌟</div>
-                  <Title level={5}>즐거운 소통</Title>
-                  <Paragraph style={{ color: "#666" }}>
-                    크리에이터와 팬들이 함께 만들어가는 즐거운 커뮤니티
-                  </Paragraph>
-                </div>
-              </div>
-            </div>
+          <Content style={{ margin: "24px 16px", padding: 24, minHeight: 280 }}>
+            {renderMainContent()}
           </Content>
         </Layout>
       </Layout>
