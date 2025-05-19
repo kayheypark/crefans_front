@@ -23,6 +23,7 @@ import {
   TeamOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import Link from "next/link";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Paragraph } = Typography;
@@ -208,23 +209,28 @@ export default function Home() {
                 .filter((creator) => creator.isSubscribed)
                 .map((creator) => (
                   <Col xs={24} sm={12} md={8} lg={6} key={creator.id}>
-                    <Card hoverable>
-                      <div style={{ textAlign: "center" }}>
-                        <Avatar
-                          size={80}
-                          src={creator.avatar}
-                          style={{ marginBottom: "16px" }}
-                        />
-                        <Title level={4}>{creator.name}</Title>
-                        <Tag color="blue" style={{ marginBottom: "8px" }}>
-                          {creator.category}
-                        </Tag>
-                        <Paragraph>{creator.description}</Paragraph>
-                        <div style={{ marginTop: "8px" }}>
-                          <StarOutlined /> {creator.followers} 팔로워
+                    <Link
+                      href={`/creator/${creator.id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Card hoverable>
+                        <div style={{ textAlign: "center" }}>
+                          <Avatar
+                            size={80}
+                            src={creator.avatar}
+                            style={{ marginBottom: "16px" }}
+                          />
+                          <Title level={4}>{creator.name}</Title>
+                          <Tag color="blue" style={{ marginBottom: "8px" }}>
+                            {creator.category}
+                          </Tag>
+                          <Paragraph>{creator.description}</Paragraph>
+                          <div style={{ marginTop: "8px" }}>
+                            <StarOutlined /> {creator.followers} 팔로워
+                          </div>
                         </div>
-                      </div>
-                    </Card>
+                      </Card>
+                    </Link>
                   </Col>
                 ))}
             </Row>
@@ -241,23 +247,28 @@ export default function Home() {
                 .filter((creator) => !creator.isSubscribed)
                 .map((creator) => (
                   <Col xs={24} sm={12} md={8} lg={6} key={creator.id}>
-                    <Card hoverable>
-                      <div style={{ textAlign: "center" }}>
-                        <Avatar
-                          size={80}
-                          src={creator.avatar}
-                          style={{ marginBottom: "16px" }}
-                        />
-                        <Title level={4}>{creator.name}</Title>
-                        <Tag color="blue" style={{ marginBottom: "8px" }}>
-                          {creator.category}
-                        </Tag>
-                        <Paragraph>{creator.description}</Paragraph>
-                        <div style={{ marginTop: "8px" }}>
-                          <StarOutlined /> {creator.followers} 팔로워
+                    <Link
+                      href={`/creator/${creator.id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Card hoverable>
+                        <div style={{ textAlign: "center" }}>
+                          <Avatar
+                            size={80}
+                            src={creator.avatar}
+                            style={{ marginBottom: "16px" }}
+                          />
+                          <Title level={4}>{creator.name}</Title>
+                          <Tag color="blue" style={{ marginBottom: "8px" }}>
+                            {creator.category}
+                          </Tag>
+                          <Paragraph>{creator.description}</Paragraph>
+                          <div style={{ marginTop: "8px" }}>
+                            <StarOutlined /> {creator.followers} 팔로워
+                          </div>
                         </div>
-                      </div>
-                    </Card>
+                      </Card>
+                    </Link>
                   </Col>
                 ))}
             </Row>
