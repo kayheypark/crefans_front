@@ -39,6 +39,9 @@ import {
   DownOutlined,
   RightOutlined,
   CompassOutlined,
+  UnorderedListOutlined,
+  DesktopOutlined,
+  BarsOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useAuth } from "./contexts/AuthContext";
@@ -1086,9 +1089,12 @@ export default function Landing() {
             style={{ flex: 1, borderRight: 0 }}
           >
             <Menu.Item key="1" icon={<HomeOutlined />}>
+              홈
+            </Menu.Item>
+            <Menu.Item key="2" icon={<BarsOutlined />}>
               피드보기
             </Menu.Item>
-            <Menu.Item key="2" icon={<CompassOutlined />}>
+            <Menu.Item key="3" icon={<CompassOutlined />}>
               탐색
             </Menu.Item>
           </Menu>
