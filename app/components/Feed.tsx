@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, MouseEvent } from "react";
 import {
   Typography,
   Card,
@@ -100,6 +100,9 @@ export default function Feed() {
   const [isSticky, setIsSticky] = useState(false);
   const stickyRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const [coverProgress, setCoverProgress] = useState<{ [key: number]: number }>(
+    {}
+  );
 
   const loadMoreData = () => {
     if (loading) return;
@@ -254,6 +257,25 @@ export default function Feed() {
     return true;
   });
 
+  // 멤버십 카드 마우스 이동 핸들러
+  const handleMembershipMouseMove = (
+    postId: number,
+    e: MouseEvent<HTMLDivElement>
+  ) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const mouseY = e.clientY - rect.top;
+    // progress: 카드 상단(0)~하단(1)
+    let progress = mouseY / rect.height;
+    progress = Math.max(0, Math.min(1, progress));
+    // 최대 절반까지만 벗겨짐
+    progress = Math.min(progress, 0.5);
+    setCoverProgress((prev) => ({ ...prev, [postId]: progress }));
+  };
+  const handleMembershipMouseLeave = (postId: number) => {
+    setCoverProgress((prev) => ({ ...prev, [postId]: 0 }));
+  };
+
   return (
     <div style={{ width: 600, margin: "0", paddingLeft: 32, paddingRight: 32 }}>
       {/* sticky 감지용 sentinel */}
@@ -394,32 +416,109 @@ export default function Feed() {
               <div
                 style={{
                   background: "#f5f5f5",
-                  padding: 16,
+                  padding: "8px 12px",
                   borderRadius: 8,
                   textAlign: "center",
+                  position: "relative",
+                  overflow: "hidden",
+                  minHeight: 100,
                 }}
+                onMouseMove={(e) => handleMembershipMouseMove(post.id, e)}
+                onMouseLeave={() => handleMembershipMouseLeave(post.id)}
               >
-                <LockOutlined style={{ fontSize: 24, color: "#999" }} />
-                <Paragraph style={{ marginTop: 8, color: "#666" }}>
-                  이 게시글은 멤버십 구독자만 볼 수 있습니다.
-                  <br />
-                  멤버십에 가입하여 더 많은 컨텐츠를 즐겨보세요!
-                </Paragraph>
-                <Button
-                  type="primary"
+                {/* 샘플 이미지와 더미 텍스트 */}
+                <div
                   style={{
-                    marginTop: 8,
-                    background:
-                      "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
-                    color: "#fff",
-                    border: "none",
-                    fontWeight: 600,
-                    fontSize: 12,
-                    boxShadow: "0 2px 8px rgba(100,0,200,0.08)",
+                    position: "relative",
+                    zIndex: 1,
+                    filter: `blur(${Math.max(
+                      3,
+                      8 - 10 * (coverProgress[post.id] || 0)
+                    )}px)`,
+                    transition: "filter 0.3s",
                   }}
                 >
-                  월 3,900원에 크리에이터1의 영상보기
-                </Button>
+                  <img
+                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+                    alt="샘플"
+                    style={{
+                      width: "100%",
+                      height: 48,
+                      objectFit: "cover",
+                      borderRadius: 6,
+                      marginBottom: 4,
+                    }}
+                  />
+                  <Paragraph
+                    style={{
+                      margin: 0,
+                      color: "#444",
+                      fontWeight: 500,
+                      fontSize: 11,
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    이 게시물은 블러 처리를 위한 샘플 텍스트입니다.🔥
+                    <br />
+                    실제 상품과는 관련이 없습니다.
+                  </Paragraph>
+                </div>
+                {/* 블러/반투명 덮개 레이어 */}
+                <div
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    top: 0,
+                    width: "100%",
+                    height: "calc(100% + 100px)",
+                    background: "rgba(255,255,255,0.4)",
+                    backdropFilter: `blur(${
+                      8 - 8 * (coverProgress[post.id] || 0)
+                    }px)`,
+                    WebkitBackdropFilter: `blur(${
+                      8 - 8 * (coverProgress[post.id] || 0)
+                    }px)`,
+                    transform: `translateY(${
+                      (coverProgress[post.id] || 0) * 100
+                    }%)`,
+                    opacity: 1 - (coverProgress[post.id] || 0) * 1.2,
+                    transition:
+                      "transform 0.3s cubic-bezier(.4,2,.6,1), opacity 0.3s, backdrop-filter 0.3s",
+                    pointerEvents: "none",
+                    zIndex: 2,
+                  }}
+                />
+                {/* 안내 문구와 버튼 */}
+                <div style={{ position: "relative", zIndex: 3, marginTop: 8 }}>
+                  <LockOutlined style={{ fontSize: 18, color: "#999" }} />
+                  <Paragraph
+                    style={{
+                      marginTop: 4,
+                      color: "#666",
+                      fontSize: 12,
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    읽기 권한 없음
+                  </Paragraph>
+                  <Button
+                    type="primary"
+                    style={{
+                      marginTop: 4,
+                      background:
+                        "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
+                      color: "#fff",
+                      border: "none",
+                      fontWeight: 600,
+                      fontSize: 11,
+                      boxShadow: "0 2px 8px rgba(100,0,200,0.08)",
+                      height: 28,
+                      padding: "0 10px",
+                    }}
+                  >
+                    월 3,900원에 해당 크리에이터의 모든 미디어 보기
+                  </Button>
+                </div>
               </div>
             ) : (
               <div style={{ position: "relative" }}>
