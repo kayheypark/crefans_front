@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Typography,
   Card,
@@ -18,6 +18,7 @@ import {
   Radio,
   Form,
   message,
+  Tabs,
 } from "antd";
 import {
   UserOutlined,
@@ -95,6 +96,10 @@ export default function Feed() {
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
     [key: number]: boolean;
   }>({});
+  const [filter, setFilter] = useState<"all" | "membership" | "public">("all");
+  const [isSticky, setIsSticky] = useState(false);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   const loadMoreData = () => {
     if (loading) return;
@@ -118,6 +123,19 @@ export default function Feed() {
 
   useEffect(() => {
     loadMoreData();
+  }, []);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([e]) => setIsSticky(!e.isIntersecting),
+      { rootMargin: "-72px 0px 0px 0px", threshold: 0 }
+    );
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current);
+    }
+    return () => {
+      if (sentinelRef.current) observer.unobserve(sentinelRef.current);
+    };
   }, []);
 
   const formatDate = (dateString: string) => {
@@ -228,10 +246,73 @@ export default function Feed() {
     reportForm.resetFields();
   };
 
+  // 필터링된 피드
+  const filteredPosts = posts.filter((post) => {
+    if (filter === "all") return true;
+    if (filter === "membership") return post.isMembershipOnly;
+    if (filter === "public") return !post.isMembershipOnly;
+    return true;
+  });
+
   return (
-    <div style={{ maxWidth: 800, margin: "0 auto" }}>
+    <div style={{ width: 600, margin: "0", paddingLeft: 32, paddingRight: 32 }}>
+      {/* sticky 감지용 sentinel */}
+      <div ref={sentinelRef} style={{ height: 1 }} />
+      {/* 피드 타이틀+필터 sticky 슬리버 */}
+      <div
+        ref={stickyRef}
+        style={{
+          position: "sticky",
+          top: 72,
+          zIndex: 10,
+          background: isSticky ? "rgba(255,255,255,0.7)" : "transparent",
+          backdropFilter: isSticky ? "blur(8px)" : "none",
+          boxShadow: isSticky ? "0 2px 8px rgba(0,0,0,0.04)" : "none",
+          padding: "16px 0 12px 0",
+          marginBottom: 8,
+          width: "100%",
+          transition: "background 0.2s, backdrop-filter 0.2s, box-shadow 0.2s",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            gap: 8,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            type={filter === "all" ? "primary" : "default"}
+            style={{
+              fontSize: 10,
+            }}
+            onClick={() => setFilter("all")}
+          >
+            전체
+          </Button>
+          <Button
+            type={filter === "membership" ? "primary" : "default"}
+            style={{
+              fontSize: 10,
+            }}
+            onClick={() => setFilter("membership")}
+          >
+            멤버십 전용
+          </Button>
+          <Button
+            type={filter === "public" ? "primary" : "default"}
+            style={{
+              fontSize: 10,
+            }}
+            onClick={() => setFilter("public")}
+          >
+            공개
+          </Button>
+        </div>
+      </div>
       <InfiniteScroll
-        dataLength={posts.length}
+        dataLength={filteredPosts.length}
         next={loadMoreData}
         hasMore={hasMore}
         loader={
@@ -248,7 +329,7 @@ export default function Feed() {
           </div>
         }
       >
-        {posts.map((post) => (
+        {filteredPosts.map((post) => (
           <Card
             key={post.id}
             style={{ marginBottom: 16, borderRadius: 8 }}
@@ -401,7 +482,7 @@ export default function Feed() {
                       }}
                       onClick={() => {}}
                     >
-                      크리에이터 홈에서 크게보기
+                      원문보기
                     </Button>
                   </div>
                 )}
@@ -481,7 +562,7 @@ export default function Feed() {
                   <Input.TextArea
                     placeholder={
                       user
-                        ? "댓글을 입력하세요..."
+                        ? "댓글을 입력하세요"
                         : "로그인하고 댓글을 작성해보세요"
                     }
                     value={commentInputs[post.id] || ""}
