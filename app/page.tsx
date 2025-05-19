@@ -13,6 +13,11 @@ import {
   Menu,
   Space,
   Modal,
+  Dropdown,
+  Badge,
+  Tabs,
+  List,
+  message,
 } from "antd";
 import {
   UserOutlined,
@@ -25,6 +30,9 @@ import {
   TeamOutlined,
   SettingOutlined,
   LogoutOutlined,
+  BellOutlined,
+  MoreOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useAuth } from "./contexts/AuthContext";
@@ -74,22 +82,217 @@ const creators = [
   },
 ];
 
+interface Notification {
+  id: number;
+  title: string;
+  time: string;
+}
+
+interface NotificationList {
+  all: Notification[];
+  messages: Notification[];
+  subscriptions: Notification[];
+}
+
+const MAX_NOTIFICATIONS_DISPLAY = 30;
+const DEFAULT_PROFILE_IMG =
+  "https://api.dicebear.com/7.x/avataaars/svg?seed=default";
+
 export default function Home() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [unreadNotifications, setUnreadNotifications] = useState(2);
+  const [notificationsList, setNotificationsList] = useState<NotificationList>({
+    all: [
+      { id: 1, title: "멤버십 가입해주셔서 감사합니다!", time: "방금 전" },
+      { id: 2, title: "구독이 갱신되었습니다.", time: "1시간 전" },
+    ],
+    messages: [
+      { id: 1, title: "멤버십 가입해주셔서 감사합니다!", time: "방금 전" },
+    ],
+    subscriptions: [
+      { id: 2, title: "구독이 갱신되었습니다.", time: "1시간 전" },
+    ],
+  });
+
+  const handleDeleteNotification = (
+    id: number,
+    category: keyof NotificationList
+  ) => {
+    setNotificationsList((prev) => {
+      const newList = { ...prev };
+      // 모든 카테고리에서 해당 알림 제거
+      (Object.keys(newList) as Array<keyof NotificationList>).forEach((key) => {
+        newList[key] = newList[key].filter((item) => item.id !== id);
+      });
+      return newList;
+    });
+    setUnreadNotifications((prev) => Math.max(0, prev - 1));
+    message.success("알림이 삭제되었습니다.");
+  };
+
+  const getNotificationMoreMenu = (
+    id: number,
+    category: keyof NotificationList
+  ) => (
+    <Menu>
+      <Menu.Item
+        key="delete"
+        icon={<DeleteOutlined />}
+        onClick={() => handleDeleteNotification(id, category)}
+      >
+        삭제하기
+      </Menu.Item>
+    </Menu>
+  );
+
+  const handleNotificationDropdownVisibleChange = (visible: boolean) => {
+    if (visible) {
+      // 실제로 보여지는 전체 알림 개수만큼만 읽음 처리
+      const unreadCount = Math.max(
+        0,
+        unreadNotifications -
+          Math.min(notificationsList.all.length, MAX_NOTIFICATIONS_DISPLAY)
+      );
+      setUnreadNotifications(unreadCount);
+    }
+  };
+
+  const renderNotificationList = (
+    items: Notification[],
+    category: keyof NotificationList
+  ) => {
+    const displayItems = items.slice(0, MAX_NOTIFICATIONS_DISPLAY);
+    return (
+      <>
+        <List
+          size="small"
+          dataSource={displayItems}
+          locale={{ emptyText: "새로운 메시지가 없습니다." }}
+          renderItem={(item) => (
+            <List.Item
+              style={{
+                padding: "0px 0px",
+                alignItems: "center",
+                borderBottom: "1px solid #f0f0f0",
+                background: "#fff",
+                borderRadius: 0,
+                minHeight: 64,
+              }}
+              extra={
+                <Dropdown
+                  overlay={getNotificationMoreMenu(item.id, category)}
+                  trigger={["click"]}
+                  placement="bottomRight"
+                >
+                  <Button
+                    type="text"
+                    icon={<MoreOutlined />}
+                    size="small"
+                    style={{ color: "#8c8c8c" }}
+                  />
+                </Dropdown>
+              }
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 20,
+                  width: "100%",
+                }}
+              >
+                <Avatar src={DEFAULT_PROFILE_IMG} size={36} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div
+                    style={{
+                      fontWeight: 500,
+                      fontSize: 15,
+                      color: "#222",
+                      marginBottom: 2,
+                      wordBreak: "break-all",
+                    }}
+                  >
+                    {item.title}
+                  </div>
+                  <div style={{ fontSize: "12px", color: "#8c8c8c" }}>
+                    {item.time}
+                  </div>
+                </div>
+              </div>
+            </List.Item>
+          )}
+          style={{ background: "#fff", borderRadius: "12px 12px 0 0" }}
+        />
+        <div
+          style={{
+            textAlign: "center",
+            color: "#8c8c8c",
+            fontSize: 13,
+            padding: "16px 0 8px",
+            background: "#fff",
+            borderRadius: "0 0 12px 12px",
+          }}
+        >
+          최근 14일 동안 받은 알림을 모두 확인했습니다.
+        </div>
+      </>
+    );
+  };
+
+  const notificationMenu = (
+    <Card style={{ width: 400, padding: 0 }}>
+      <Tabs
+        defaultActiveKey="all"
+        items={[
+          {
+            key: "all",
+            label: "전체",
+            children: renderNotificationList(notificationsList.all, "all"),
+          },
+          {
+            key: "messages",
+            label: "메시지",
+            children: renderNotificationList(
+              notificationsList.messages,
+              "messages"
+            ),
+          },
+          {
+            key: "subscriptions",
+            label: "결제 및 구독",
+            children: renderNotificationList(
+              notificationsList.subscriptions,
+              "subscriptions"
+            ),
+          },
+        ]}
+      />
+    </Card>
+  );
 
   const handleLogout = () => {
-    //confirm
     Modal.confirm({
       title: "로그아웃",
-      content: "로그아웃 하시겠습니까?",
+      content: "정말 로그아웃 하시겠습니까?",
       onOk: () => {
         logout();
         router.push("/");
       },
     });
   };
+
+  const userMenu = (
+    <Menu>
+      <Menu.Item key="myInfo" icon={<UserOutlined />}>
+        내 정보
+      </Menu.Item>
+      <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={handleLogout}>
+        로그아웃
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -121,20 +324,24 @@ export default function Home() {
           </Button>
           {user ? (
             <Space>
-              <Text strong>{user.nickname}</Text>
-              <Text type="secondary">
-                포인트: {user.points.toLocaleString()}
-              </Text>
-              <Button type="text" icon={<HeartOutlined />}>
-                내구독
-              </Button>
-              <Button
-                type="text"
-                icon={<LogoutOutlined />}
-                onClick={handleLogout}
+              <Dropdown
+                overlay={notificationMenu}
+                trigger={["click"]}
+                placement="bottomRight"
+                onVisibleChange={handleNotificationDropdownVisibleChange}
               >
-                로그아웃
-              </Button>
+                <Badge count={unreadNotifications} size="small">
+                  <Button type="text" icon={<BellOutlined />} />
+                </Badge>
+              </Dropdown>
+              <Dropdown overlay={userMenu} trigger={["click"]}>
+                <Space style={{ cursor: "pointer" }}>
+                  <Text strong>{user.nickname}</Text>
+                  <Text type="secondary">
+                    {user.points.toLocaleString()} 캐시
+                  </Text>
+                </Space>
+              </Dropdown>
             </Space>
           ) : (
             <Space>

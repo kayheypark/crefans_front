@@ -26,7 +26,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
       // TODO: API 연동
       // 임시 로그인 처리
       login({
-        nickname: "테스트유저",
+        nickname: "밥먹는 판다 28391",
         points: 1000,
       });
       message.success("로그인되었습니다!");
@@ -88,7 +88,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
         <div style={{ textAlign: "center" }}>
           <Button type="link" onClick={handleSignUp}>
-            회원가입
+            팬, 크리에이터 회원가입
           </Button>
         </div>
       </Form>
