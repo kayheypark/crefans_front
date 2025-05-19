@@ -1089,11 +1089,11 @@ export default function Landing() {
                 type="primary"
                 onClick={() => router.push("/signup")}
                 style={{
-                  background:
-                    "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
+                  //   background:
+                  //     "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
                   color: "#fff",
                   border: "none",
-                  fontWeight: 600,
+                  //   fontWeight: 600,
                   fontSize: 15,
                   boxShadow: "0 2px 8px rgba(100,0,200,0.08)",
                 }}
