@@ -510,13 +510,13 @@ export default function Feed() {
                       color: "#fff",
                       border: "none",
                       fontWeight: 600,
-                      fontSize: 11,
+                      fontSize: 12,
                       boxShadow: "0 2px 8px rgba(100,0,200,0.08)",
                       height: 28,
                       padding: "0 10px",
                     }}
                   >
-                    월 3,900원에 해당 크리에이터의 모든 미디어 보기
+                    한달에 🪱30개로 해당 크리에이터의 유료 콘텐츠 보기
                   </Button>
                 </div>
               </div>

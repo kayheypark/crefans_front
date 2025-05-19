@@ -989,7 +989,7 @@ export default function Landing() {
           padding: "0 50px",
           position: "fixed",
           width: "100%",
-          zIndex: 1,
+          zIndex: 999,
         }}
       >
         <div
@@ -1070,9 +1070,7 @@ export default function Landing() {
               <Dropdown overlay={userMenu} trigger={["click"]}>
                 <Space style={{ cursor: "pointer" }}>
                   <Text strong>{user.nickname}</Text>
-                  <Text type="secondary">
-                    {user.points.toLocaleString()} 캐시
-                  </Text>
+                  <Text type="secondary">🪱{user.points.toLocaleString()}</Text>
                 </Space>
               </Dropdown>
             </Space>
