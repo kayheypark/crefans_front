@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Button } from "antd";
+import { Avatar, Button, Tag } from "antd";
 
 interface Video {
   id: number;
@@ -67,20 +67,15 @@ export default function VideoResultItem({
           <div style={{ fontSize: 14, color: "#666", marginBottom: 4 }}>
             {video.author}
           </div>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
             {video.tags.map((tag: string, index: number) => (
-              <span
+              <Tag
                 key={index}
-                style={{
-                  background: "#f5f5f5",
-                  padding: "2px 8px",
-                  borderRadius: 12,
-                  fontSize: 13,
-                  color: "#666",
-                }}
+                color="black"
+                style={{ fontSize: 13, padding: "0 8px", borderRadius: 10 }}
               >
                 {tag}
-              </span>
+              </Tag>
             ))}
           </div>
         </div>

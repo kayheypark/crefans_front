@@ -1,0 +1,43 @@
+{
+  "creators": [
+    {
+      "key": "creator1",
+      "name": "크리에이터1",
+      "avatar": "/profile-30.png",
+      "description": "크리에이터1의 설명입니다."
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "오늘의 일상",
+      "content": "오늘은 정말 좋은 날이에요!",
+      "author": "크리에이터1",
+      "createdAt": "2024-03-20T10:00:00",
+      "likes": 120,
+      "comments": 15
+    }
+  ],
+  "photos": [
+    {
+      "id": 1,
+      "title": "일출 사진",
+      "imageUrl": "/image_1_160x120.png",
+      "author": "달그림자",
+      "createdAt": "2024-03-20T08:00:00",
+      "likes": 200
+    }
+  ],
+  "videos": [
+    {
+      "id": 1,
+      "title": "인디게임 크래프트월드 제작 비하인드",
+      "thumbnailUrl": "/dummy1.png",
+      "author": "버그맛쿠키",
+      "createdAt": "2024-03-20T09:00:00",
+      "views": 1200,
+      "duration": "03:12",
+      "tags": ["인디게임", "크래프트월드", "비하인드"]
+    }
+  ]
+}

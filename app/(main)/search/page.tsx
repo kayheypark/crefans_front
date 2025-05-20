@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Typography,
   Input,
@@ -91,53 +91,20 @@ export default function SearchPage() {
     // ... 더 많은 크리에이터 데이터
   ];
 
-  const searchResults: SearchResult = {
-    creators: searchQuery
-      ? membershipCreators.filter(
-          (creator) =>
-            creator.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            creator.description
-              ?.toLowerCase()
-              .includes(searchQuery.toLowerCase())
-        )
-      : membershipCreators,
-    posts: [
-      {
-        id: 1,
-        title: "오늘의 일상",
-        content: "오늘은 정말 좋은 날이에요!",
-        author: "크리에이터1",
-        createdAt: "2024-03-20T10:00:00",
-        likes: 120,
-        comments: 15,
-      },
-      // ... 더 많은 게시글 데이터
-    ],
-    photos: [
-      {
-        id: 1,
-        title: "일출 사진",
-        imageUrl: "/image_1_160x120.png",
-        author: "크리에이터1",
-        createdAt: "2024-03-20T08:00:00",
-        likes: 200,
-      },
-      // ... 더 많은 사진 데이터
-    ],
-    videos: [
-      {
-        id: 1,
-        title: "동영상 게시글 1",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터1",
-        createdAt: "2024-03-20T09:00:00",
-        views: 1200,
-        duration: "03:12",
-        tags: ["태그1", "태그2", "태그3"],
-      },
-      // ... 더 많은 동영상 데이터
-    ],
-  };
+  const [searchResults, setSearchResults] = useState<SearchResult>({
+    creators: [],
+    posts: [],
+    photos: [],
+    videos: [],
+  });
+
+  useEffect(() => {
+    fetch("/mock/searchResult.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setSearchResults(data);
+      });
+  }, []);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
