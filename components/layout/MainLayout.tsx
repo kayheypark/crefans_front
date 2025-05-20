@@ -176,7 +176,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const renderNotificationList = (items: any[], category: string) => {
     const displayItems = items.slice(0, MAX_NOTIFICATIONS_DISPLAY);
     return (
-      <>
+      <div style={{ maxHeight: "400px", overflowY: "auto" }}>
         <List
           size="small"
           dataSource={displayItems}
@@ -261,22 +261,26 @@ export default function MainLayout({ children }: MainLayoutProps) {
             </List.Item>
           )}
         />
-        <div
+        <List.Item
           style={{
+            padding: "16px 0 8px",
             textAlign: "center",
             color: "#8c8c8c",
             fontSize: 13,
-            padding: "16px 0 8px",
+            background: "#fff",
+            borderBottom: "none",
           }}
         >
           최근 14일 동안 받은 알림을 모두 확인했습니다.
-        </div>
-      </>
+        </List.Item>
+      </div>
     );
   };
 
   const notificationMenu = (
-    <Card style={{ width: 400, padding: 0 }}>
+    <Card
+      style={{ width: 400, padding: 0, maxHeight: "500px", overflow: "hidden" }}
+    >
       <Tabs
         defaultActiveKey="all"
         items={[
