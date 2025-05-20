@@ -3,6 +3,7 @@ import { ConfigProvider } from "antd";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { NotificationProvider } from "@/contexts/NotificationContext";
+import { Suspense } from "react";
 import "antd/dist/reset.css";
 import "./globals.css";
 
@@ -28,7 +29,9 @@ export default function RootLayout({
             }}
           >
             <AuthProvider>
-              <NotificationProvider>{children}</NotificationProvider>
+              <NotificationProvider>
+                <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+              </NotificationProvider>
             </AuthProvider>
           </ConfigProvider>
         </StyledComponentsRegistry>
