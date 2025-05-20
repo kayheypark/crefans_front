@@ -4,7 +4,7 @@ import React from "react";
 import { Modal, Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface LoginModalProps {
   isOpen: boolean;

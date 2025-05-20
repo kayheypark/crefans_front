@@ -36,8 +36,8 @@ import {
   InstagramOutlined,
 } from "@ant-design/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useAuth } from "../contexts/AuthContext";
-import LoginModal from "./LoginModal";
+import { useAuth } from "@/contexts/AuthContext";
+import LoginModal from "@/components/modals/LoginModal";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const { Title, Paragraph, Text } = Typography;

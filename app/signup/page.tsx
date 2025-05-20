@@ -32,7 +32,7 @@ import {
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import Confetti from "react-confetti";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const { Title, Text, Paragraph } = Typography;
 const { Step } = Steps;
