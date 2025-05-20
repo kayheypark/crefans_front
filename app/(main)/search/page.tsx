@@ -14,6 +14,8 @@ import {
 import { SearchOutlined } from "@ant-design/icons";
 import { useSearchParams } from "next/navigation";
 import Masonry from "react-masonry-css";
+import PhotoResultItem from "@/components/search/PhotoResultItem";
+import VideoResultItem from "@/components/search/VideoResultItem";
 
 const { Title } = Typography;
 
@@ -306,69 +308,11 @@ export default function SearchPage() {
             columnClassName="masonry-grid_column"
           >
             {(pagedData as Photo[]).map((photo: Photo) => (
-              <div
+              <PhotoResultItem
                 key={photo.id}
-                style={{ marginBottom: 24, position: "relative" }}
-              >
-                <div
-                  style={{
-                    position: "relative",
-                    cursor: "pointer",
-                    borderRadius: 8,
-                    overflow: "hidden",
-                  }}
-                >
-                  <img
-                    alt={photo.title}
-                    src={photo.imageUrl}
-                    style={{
-                      width: "100%",
-                      display: "block",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0) 100%)",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "flex-end",
-                      padding: 10,
-                      color: "#fff",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: 14,
-                        marginBottom: -2,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                      }}
-                    >
-                      {photo.title}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 12,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 4,
-                      }}
-                    >
-                      <Avatar src={DEFAULT_PROFILE_IMG} size={24} />
-                      {photo.author}
-                    </div>
-                  </div>
-                </div>
-              </div>
+                photo={photo}
+                authorAvatar={DEFAULT_PROFILE_IMG}
+              />
             ))}
           </Masonry>
           <style jsx global>{`
@@ -407,78 +351,10 @@ export default function SearchPage() {
             dataSource={pagedData as Video[]}
             renderItem={(video: Video) => (
               <List.Item>
-                <div style={{ cursor: "pointer" }}>
-                  <div style={{ position: "relative", marginBottom: 12 }}>
-                    <img
-                      alt={video.title}
-                      src={video.thumbnailUrl}
-                      style={{
-                        width: "100%",
-                        aspectRatio: "16/9",
-                        objectFit: "cover",
-                        borderRadius: 8,
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: 8,
-                        right: 8,
-                        background: "rgba(0,0,0,0.8)",
-                        color: "#fff",
-                        padding: "2px 6px",
-                        borderRadius: 4,
-                        fontSize: 12,
-                      }}
-                    >
-                      {video.duration}
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 12,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <Avatar src={DEFAULT_PROFILE_IMG} size={36} />
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div
-                        style={{
-                          fontSize: 15,
-                          fontWeight: 500,
-                          marginBottom: 4,
-                          color: "#222",
-                        }}
-                      >
-                        {video.title}
-                      </div>
-                      <div
-                        style={{ fontSize: 14, color: "#666", marginBottom: 4 }}
-                      >
-                        {video.author}
-                      </div>
-                      <div
-                        style={{ display: "flex", gap: 8, flexWrap: "wrap" }}
-                      >
-                        {video.tags.map((tag: string, index: number) => (
-                          <span
-                            key={index}
-                            style={{
-                              background: "#f5f5f5",
-                              padding: "2px 8px",
-                              borderRadius: 12,
-                              fontSize: 13,
-                              color: "#666",
-                            }}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <VideoResultItem
+                  video={video}
+                  authorAvatar={DEFAULT_PROFILE_IMG}
+                />
               </List.Item>
             )}
           />
