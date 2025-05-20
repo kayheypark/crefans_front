@@ -354,9 +354,9 @@ export default function Feed() {
                 <br />
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <Text type="secondary" style={{ fontSize: 12 }}>
-                    {relativeDatePosts[post.id] !== false
-                      ? formatDate(post.createdAt)
-                      : formatFullDate(post.createdAt)}
+                    {relativeDatePosts[post.id] === true
+                      ? formatFullDate(post.createdAt)
+                      : formatDate(post.createdAt)}
                   </Text>
                   <Button
                     type="text"
@@ -364,7 +364,7 @@ export default function Feed() {
                     style={{ padding: 0, fontSize: 12 }}
                     onClick={() => toggleDateType(post.id)}
                   >
-                    {relativeDatePosts[post.id] !== false ? "정확히" : "간단히"}
+                    {relativeDatePosts[post.id] === true ? "간단히" : "정확히"}
                   </Button>
                 </div>
               </div>
