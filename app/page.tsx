@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import {
   Layout,
   Typography,
@@ -149,7 +149,7 @@ const DEFAULT_PROFILE_IMG =
 
 type SearchTabKey = "creators" | "posts" | "photos" | "videos";
 
-export default function Landing() {
+function App() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -1389,5 +1389,13 @@ export default function Landing() {
         </div>
       </Modal>
     </Layout>
+  );
+}
+
+export default function AppWrapper() {
+  return (
+    <Suspense fallback={null}>
+      <App />
+    </Suspense>
   );
 }
