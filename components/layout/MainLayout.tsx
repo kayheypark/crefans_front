@@ -29,6 +29,7 @@ import {
   DeleteOutlined,
   LayoutOutlined,
   CompassOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -490,11 +491,23 @@ export default function MainLayout({ children }: MainLayoutProps) {
             >
               검색
             </Menu.Item>
-
-            <Menu.ItemGroup
-              key="membershipGroup"
-              title="멤버십 구독 크리에이터"
+            <Menu.Item
+              key="settings"
+              icon={<SettingOutlined />}
+              onClick={() => handleMenuChange("settings")}
             >
+              설정
+            </Menu.Item>
+
+            <div
+              style={{
+                borderTop: "1px solid #f0f0f0",
+                marginTop: 10,
+                marginBottom: 10,
+              }}
+            ></div>
+
+            <Menu.ItemGroup key="membershipGroup" title="멤버십">
               {membershipCreators.map((creator) => (
                 <Menu.Item key={creator.key} style={{ padding: 0 }}>
                   <div
@@ -523,7 +536,15 @@ export default function MainLayout({ children }: MainLayoutProps) {
               ))}
             </Menu.ItemGroup>
 
-            <Menu.ItemGroup key="followGroup" title="팔로우 크리에이터">
+            <div
+              style={{
+                borderTop: "1px solid #f0f0f0",
+                marginTop: 10,
+                marginBottom: 10,
+              }}
+            ></div>
+
+            <Menu.ItemGroup key="followGroup" title="팔로우">
               {followCreators.map((creator) => (
                 <Menu.Item key={creator.key} style={{ padding: 0 }}>
                   <div
