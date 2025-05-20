@@ -535,7 +535,7 @@ export default function Feed() {
                       padding: "0 10px",
                     }}
                   >
-                    한달에 🪱30개로 해당 크리에이터의 유료 콘텐츠 보기
+                    한달에 콩 30개로 해당 크리에이터의 유료 콘텐츠 보기
                   </Button>
                 </div>
               </div>

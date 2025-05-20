@@ -402,15 +402,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               {user ? (
                 <>
-                  <Dropdown
-                    overlay={notificationMenu}
-                    trigger={["click"]}
-                    placement="bottomRight"
-                  >
-                    <Badge count={unreadNotifications} size="small">
-                      <Button type="text" icon={<BellOutlined />} />
-                    </Badge>
-                  </Dropdown>
                   <Dropdown overlay={userMenu} trigger={["click"]}>
                     <span
                       style={{
@@ -422,9 +413,19 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     >
                       <Text strong>{user.nickname}</Text>
                       <Text type="secondary">
-                        🪱{user.points.toLocaleString()}
+                        {user.points.toLocaleString()} 콩
                       </Text>
                     </span>
+                  </Dropdown>
+                  <div style={{ flex: 1 }} />
+                  <Dropdown
+                    overlay={notificationMenu}
+                    trigger={["click"]}
+                    placement="bottomRight"
+                  >
+                    <Badge count={unreadNotifications} size="small">
+                      <Button type="text" icon={<BellOutlined />} />
+                    </Badge>
                   </Dropdown>
                 </>
               ) : (
