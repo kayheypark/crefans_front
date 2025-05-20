@@ -237,6 +237,11 @@ export default function Feed() {
     return true;
   });
 
+  // id 중복 제거
+  const uniqueFilteredPosts = Array.from(
+    new Map(filteredPosts.map((post) => [post.id, post])).values()
+  );
+
   // 멤버십 카드 마우스 이동 핸들러
   const handleMembershipMouseMove = (
     postId: number,
@@ -314,7 +319,7 @@ export default function Feed() {
         </div>
       </div>
       <InfiniteScroll
-        dataLength={filteredPosts.length}
+        dataLength={uniqueFilteredPosts.length}
         next={loadMoreData}
         hasMore={hasMore}
         loader={
@@ -331,7 +336,7 @@ export default function Feed() {
           </div>
         }
       >
-        {filteredPosts.map((post) => (
+        {uniqueFilteredPosts.map((post) => (
           <Card
             key={post.id}
             style={{ marginBottom: 16, borderRadius: 8 }}
