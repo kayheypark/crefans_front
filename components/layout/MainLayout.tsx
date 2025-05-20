@@ -288,12 +288,26 @@ export default function MainLayout({ children }: MainLayoutProps) {
           {
             key: "messages",
             label: "메시지",
-            children: renderNotificationList(notifications, "messages"),
+            children: renderNotificationList(
+              notifications.filter((n) => n.type === "message"),
+              "messages"
+            ),
           },
           {
-            key: "subscriptions",
+            key: "payments",
             label: "결제 및 구독",
-            children: renderNotificationList(notifications, "subscriptions"),
+            children: renderNotificationList(
+              notifications.filter((n) => n.type === "payment"),
+              "payments"
+            ),
+          },
+          {
+            key: "activities",
+            label: "활동",
+            children: renderNotificationList(
+              notifications.filter((n) => n.type === "activity"),
+              "activities"
+            ),
           },
         ]}
         onChange={(key) => {
