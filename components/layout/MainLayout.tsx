@@ -30,6 +30,7 @@ import {
   LayoutOutlined,
   CompassOutlined,
   SettingOutlined,
+  LoginOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -355,123 +356,102 @@ export default function MainLayout({ children }: MainLayoutProps) {
     { label: "환불 정책" },
   ];
 
+  const sideBarWidth = 335;
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          background: "#fff",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-          padding: "0 50px",
-          position: "fixed",
-          width: "100%",
-          zIndex: 999,
-        }}
-      >
-        <img src="/seconid-logo.png" alt="seconid" height={28} />
-
-        <div
-          style={{
-            marginLeft: "auto",
-            display: "flex",
-            alignItems: "center",
-            gap: 20,
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              width: 320,
-              height: 32,
-              cursor: "pointer",
-              background: "#f5f5f5",
-              borderRadius: 24,
-              padding: "2px 16px 2px 12px",
-              boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
-            }}
-            onClick={() => router.push("/search")}
-          >
-            <SearchOutlined
-              style={{ fontSize: 18, color: "#888", marginRight: 8 }}
-            />
-            <input
-              type="text"
-              placeholder="지금 핫한 @크리에이터2를 검색해보세요"
-              style={{
-                border: "none",
-                outline: "none",
-                background: "transparent",
-                fontSize: 15,
-                color: "#222",
-                width: "100%",
-                cursor: "pointer",
-              }}
-              readOnly
-              tabIndex={-1}
-            />
-          </div>
-
-          {user ? (
-            <Space>
-              <Dropdown
-                overlay={notificationMenu}
-                trigger={["click"]}
-                placement="bottomRight"
-              >
-                <Badge count={unreadNotifications} size="small">
-                  <Button type="text" icon={<BellOutlined />} />
-                </Badge>
-              </Dropdown>
-              <Dropdown overlay={userMenu} trigger={["click"]}>
-                <Space style={{ cursor: "pointer" }}>
-                  <Text strong>{user.nickname}</Text>
-                  <Text type="secondary">🪱{user.points.toLocaleString()}</Text>
-                </Space>
-              </Dropdown>
-            </Space>
-          ) : (
-            <Space>
-              <Button
-                type="text"
-                icon={<UserOutlined />}
-                onClick={() => setIsLoginModalOpen(true)}
-              >
-                로그인 해주세요
-              </Button>
-              <Button
-                type="primary"
-                onClick={() => router.push("/signup")}
-                style={{
-                  color: "#fff",
-                  border: "none",
-                  fontSize: 15,
-                  boxShadow: "0 2px 8px rgba(100,0,200,0.08)",
-                }}
-              >
-                회원가입
-              </Button>
-            </Space>
-          )}
-        </div>
-      </Header>
-
-      <Layout style={{ marginTop: 64 }}>
+      <Layout>
         <Sider
-          width={250}
+          width={sideBarWidth}
           style={{
             background: "#fff",
             position: "fixed",
-            height: "calc(100vh - 64px)",
+            height: "100vh",
             left: 0,
-            top: 64,
+            top: 0,
             boxShadow: "2px 0 8px rgba(0,0,0,0.1)",
             display: "flex",
             flexDirection: "column",
             overflowY: "auto",
+            zIndex: 999,
           }}
         >
+          <div
+            style={{
+              padding: "32px 16px 16px 16px",
+              borderBottom: "1px solid #f0f0f0",
+              background: "#fff",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: 24,
+                paddingLeft: 16,
+              }}
+            >
+              <img
+                src="/seconid-logo.png"
+                alt="seconid"
+                height={28}
+                style={{ marginRight: 8 }}
+              />
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              {user ? (
+                <>
+                  <Dropdown
+                    overlay={notificationMenu}
+                    trigger={["click"]}
+                    placement="bottomRight"
+                  >
+                    <Badge count={unreadNotifications} size="small">
+                      <Button type="text" icon={<BellOutlined />} />
+                    </Badge>
+                  </Dropdown>
+                  <Dropdown overlay={userMenu} trigger={["click"]}>
+                    <span
+                      style={{
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 6,
+                      }}
+                    >
+                      <Text strong>{user.nickname}</Text>
+                      <Text type="secondary">
+                        🪱{user.points.toLocaleString()}
+                      </Text>
+                    </span>
+                  </Dropdown>
+                </>
+              ) : (
+                <>
+                  <Button
+                    type="text"
+                    icon={<LoginOutlined />}
+                    onClick={() => setIsLoginModalOpen(true)}
+                  >
+                    로그인
+                  </Button>
+                  <Button
+                    type="primary"
+                    onClick={() => router.push("/signup")}
+                    style={{
+                      color: "#fff",
+                      border: "none",
+                      fontSize: 15,
+                      boxShadow: "0 2px 8px rgba(100,0,200,0.08)",
+                    }}
+                  >
+                    회원가입
+                  </Button>
+                </>
+              )}
+            </div>
+          </div>
           <Menu
             mode="inline"
             selectedKeys={[selectedMenu]}
@@ -499,7 +479,16 @@ export default function MainLayout({ children }: MainLayoutProps) {
               }}
             ></div>
 
-            <Menu.ItemGroup key="membershipGroup" title="멤버십">
+            <Menu.ItemGroup
+              key="membershipGroup"
+              title={
+                <Text
+                  style={{ paddingLeft: 16, fontSize: 14, fontWeight: 700 }}
+                >
+                  멤버십
+                </Text>
+              }
+            >
               {user ? (
                 membershipCreators.map((creator) => (
                   <Menu.Item key={creator.key} style={{ padding: 0 }}>
@@ -530,7 +519,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               ) : (
                 <div
                   style={{
-                    padding: "8px 16px",
+                    padding: "8px 0 8px 32px",
                     color: "#8c8c8c",
                     fontSize: 13,
                   }}
@@ -548,7 +537,16 @@ export default function MainLayout({ children }: MainLayoutProps) {
               }}
             ></div>
 
-            <Menu.ItemGroup key="followGroup" title="팔로우">
+            <Menu.ItemGroup
+              key="followGroup"
+              title={
+                <Text
+                  style={{ paddingLeft: 16, fontSize: 14, fontWeight: 700 }}
+                >
+                  팔로우
+                </Text>
+              }
+            >
               {user ? (
                 followCreators.map((creator) => (
                   <Menu.Item key={creator.key} style={{ padding: 0 }}>
@@ -579,7 +577,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               ) : (
                 <div
                   style={{
-                    padding: "8px 16px",
+                    padding: "8px 0 8px 32px",
                     color: "#8c8c8c",
                     fontSize: 13,
                   }}
@@ -599,7 +597,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               marginTop: 10,
             }}
           >
-            <div style={{ marginBottom: 8 }}>
+            <div style={{ marginBottom: 8, paddingLeft: 16 }}>
               {footerLinks.map((item, idx) => (
                 <Text
                   key={item.label}
@@ -615,41 +613,43 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 </Text>
               ))}
             </div>
-            <Paragraph style={{ marginBottom: 8, color: "#8c8c8c" }}>
-              (주) 세컨아이디
-            </Paragraph>
-            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-              대표이사 : 000
-            </Paragraph>
-            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-              이메일 : support@domain.com
-            </Paragraph>
-            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-              전화번호 : 000-0000-0000
-            </Paragraph>
-            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-              주소 : 서울시 00구 00동 00길 00호
-            </Paragraph>
-            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-              통신판매업신고번호 : 2025-서울시-00000
-            </Paragraph>
-            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-              사업자 등록번호 : 000-00-00000
-            </Paragraph>
-            <Text
-              style={{
-                display: "block",
-                marginTop: 16,
-                color: "#b0b0b0",
-                fontSize: 13,
-              }}
-            >
-              © {new Date().getFullYear()} SECONID, Inc. All rights reserved
-            </Text>
+            <div style={{ paddingLeft: 16 }}>
+              <Paragraph style={{ marginBottom: 8, color: "#8c8c8c" }}>
+                (주) 세컨아이디
+              </Paragraph>
+              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+                대표이사 : 000
+              </Paragraph>
+              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+                이메일 : support@domain.com
+              </Paragraph>
+              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+                전화번호 : 000-0000-0000
+              </Paragraph>
+              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+                주소 : 서울시 00구 00동 00길 00호
+              </Paragraph>
+              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+                통신판매업신고번호 : 2025-서울시-00000
+              </Paragraph>
+              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+                사업자 등록번호 : 000-00-00000
+              </Paragraph>
+              <Text
+                style={{
+                  display: "block",
+                  marginTop: 16,
+                  color: "#b0b0b0",
+                  fontSize: 12,
+                }}
+              >
+                © {new Date().getFullYear()} SECONID, Inc. All rights reserved
+              </Text>
+            </div>
           </div>
         </Sider>
 
-        <Layout style={{ marginLeft: 250 }}>
+        <Layout style={{ marginLeft: sideBarWidth }}>
           <Content style={{ margin: "24px 16px", padding: 24, minHeight: 280 }}>
             {children}
           </Content>
