@@ -38,6 +38,7 @@ import Masonry from "react-masonry-css";
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
+const { Paragraph } = Typography;
 
 const MAX_NOTIFICATIONS_DISPLAY = 30;
 const DEFAULT_PROFILE_IMG = "/profile-30.png";
@@ -346,6 +347,14 @@ export default function MainLayout({ children }: MainLayoutProps) {
     />
   );
 
+  const footerLinks = [
+    { label: "소개" },
+    { label: "크리에이터 센터" },
+    { label: "서비스 이용 약관" },
+    { label: "개인 정보 처리 방침", strong: true },
+    { label: "환불 정책" },
+  ];
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header
@@ -367,10 +376,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
             flexDirection: "column",
           }}
         >
-          <Title level={4} style={{ margin: 0 }}>
+          <Title level={3} style={{ margin: 0 }}>
             seconid
           </Title>
-          <Text style={{ fontSize: 10, color: "#666", marginTop: "-5px" }}>
+          <Text style={{ fontSize: 12, color: "#666", marginTop: "-5px" }}>
             인플루언서의 두번째 계정
           </Text>
         </div>
@@ -596,31 +605,60 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
           <div
             style={{
-              borderTop: "1px solid #f0f0f0",
-              marginTop: 10,
-              marginBottom: 10,
-            }}
-          ></div>
-
-          <div
-            style={{
               padding: "16px",
               color: "#8c8c8c",
-              fontSize: "12px",
+              fontSize: "13px",
+              borderTop: "1px solid #f0f0f0",
+              marginTop: 10,
             }}
           >
-            <div style={{ marginBottom: "8px" }}>
-              <div>고객센터</div>
-              <div>평일 09:00 - 18:00</div>
-              <div>주말 및 공휴일 휴무</div>
+            <div style={{ marginBottom: 8 }}>
+              {footerLinks.map((item, idx) => (
+                <Text
+                  key={item.label}
+                  strong={item.strong}
+                  style={{
+                    display: "inline-block",
+                    marginRight: idx !== footerLinks.length - 1 ? 12 : 0,
+                    cursor: "pointer",
+                    letterSpacing: "-0.05em",
+                  }}
+                >
+                  {item.label}
+                </Text>
+              ))}
             </div>
-            <div style={{ marginBottom: "8px" }}>
-              <div>회사명: 세컨아이디</div>
-              <div>대표: 홍길동</div>
-            </div>
-            <div style={{ marginTop: "16px" }}>
-              ©{new Date().getFullYear()} seconid
-            </div>
+            <Paragraph style={{ marginBottom: 8, color: "#8c8c8c" }}>
+              (주) 세컨아이디
+            </Paragraph>
+            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+              대표이사 : 000
+            </Paragraph>
+            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+              이메일 : support@domain.com
+            </Paragraph>
+            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+              전화번호 : 000-0000-0000
+            </Paragraph>
+            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+              주소 : 서울시 00구 00동 00길 00호
+            </Paragraph>
+            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+              통신판매업신고번호 : 2025-서울시-00000
+            </Paragraph>
+            <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+              사업자 등록번호 : 000-00-00000
+            </Paragraph>
+            <Text
+              style={{
+                display: "block",
+                marginTop: 16,
+                color: "#b0b0b0",
+                fontSize: 13,
+              }}
+            >
+              © {new Date().getFullYear()} SECONID, Inc. All rights reserved
+            </Text>
           </div>
         </Sider>
 
