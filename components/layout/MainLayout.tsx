@@ -31,7 +31,7 @@ import {
   CompassOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import LoginModal from "@/components/modals/LoginModal";
 import Masonry from "react-masonry-css";
 
@@ -49,14 +49,17 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const { user, logout } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [selectedMenu, setSelectedMenu] = useState<string>(
-    searchParams.get("menu") || "home"
-  );
+  const pathname = usePathname();
+  const [selectedMenu, setSelectedMenu] = useState<string>(() => {
+    if (pathname === "/" || pathname === "/home") return "home";
+    if (pathname === "/feed") return "feed";
+    if (pathname === "/explore") return "explore";
+    if (pathname === "/search") return "search";
+    return "home";
+  });
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [unreadNotifications, setUnreadNotifications] = useState(2);
   const [notifications, setNotifications] = useState<any[]>([]);
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [notificationDateType, setNotificationDateType] = useState<{
     [key: number]: boolean;
   }>({});
@@ -75,17 +78,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
     photos: 1,
     videos: 1,
   });
-  const pageSize = 10;
-
-  useEffect(() => {
-    const menuParam = searchParams.get("menu");
-    if (menuParam && menuParam !== selectedMenu) {
-      setSelectedMenu(menuParam);
-    }
-    if (!menuParam && selectedMenu !== "home") {
-      setSelectedMenu("home");
-    }
-  }, [searchParams]);
 
   useEffect(() => {
     // 알림 mock 데이터 fetch
@@ -106,6 +98,19 @@ export default function MainLayout({ children }: MainLayoutProps) {
       .then(setFollowCreators);
   }, []);
 
+  useEffect(() => {
+    // 현재 경로에 따라 메뉴 선택
+    if (pathname === "/" || pathname === "/home") {
+      setSelectedMenu("home");
+    } else if (pathname === "/feed") {
+      setSelectedMenu("feed");
+    } else if (pathname === "/explore") {
+      setSelectedMenu("explore");
+    } else if (pathname === "/search") {
+      setSelectedMenu("search");
+    }
+  }, [pathname]);
+
   const handleLogout = () => {
     Modal.confirm({
       title: "로그아웃",
@@ -119,9 +124,20 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
   const handleMenuChange = (menuKey: string) => {
     setSelectedMenu(menuKey);
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("menu", menuKey);
-    router.push(`?${params.toString()}`);
+    switch (menuKey) {
+      case "home":
+        router.push("/home");
+        break;
+      case "feed":
+        router.push("/feed");
+        break;
+      case "explore":
+        router.push("/explore");
+        break;
+      case "search":
+        router.push("/search");
+        break;
+    }
   };
 
   const formatDate = (dateString: string) => {
@@ -258,590 +274,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
     );
   };
 
-  const searchResults = {
-    creators: searchQuery
-      ? membershipCreators.filter(
-          (creator) =>
-            creator.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            creator.description
-              ?.toLowerCase()
-              .includes(searchQuery.toLowerCase())
-        )
-      : membershipCreators,
-    posts: [
-      {
-        id: 1,
-        title: "오늘의 일상",
-        content: "오늘은 정말 좋은 날이에요!",
-        author: "크리에이터1",
-        createdAt: "2024-03-20T10:00:00",
-        likes: 120,
-        comments: 15,
-      },
-      {
-        id: 2,
-        title: "새로운 프로젝트",
-        content: "새로운 프로젝트를 시작했어요",
-        author: "크리에이터2",
-        createdAt: "2024-03-19T15:30:00",
-        likes: 85,
-        comments: 8,
-      },
-    ],
-    photos: [
-      {
-        id: 1,
-        title: "일출 사진",
-        imageUrl: "/image_1_160x120.png",
-        author: "크리에이터1",
-        createdAt: "2024-03-20T08:00:00",
-        likes: 200,
-      },
-      {
-        id: 2,
-        title: "자연 풍경",
-        imageUrl: "/image_2_240x160.png",
-        author: "크리에이터2",
-        createdAt: "2024-03-19T14:20:00",
-        likes: 150,
-      },
-      {
-        id: 3,
-        title: "도시 야경",
-        imageUrl: "/image_3_320x240.png",
-        author: "크리에이터3",
-        createdAt: "2024-03-18T20:15:00",
-        likes: 180,
-      },
-      {
-        id: 4,
-        title: "바다 풍경",
-        imageUrl: "/image_4_400x240.png",
-        author: "크리에이터4",
-        createdAt: "2024-03-17T16:30:00",
-        likes: 220,
-      },
-      {
-        id: 5,
-        title: "산 정상",
-        imageUrl: "/image_5_480x320.png",
-        author: "크리에이터5",
-        createdAt: "2024-03-16T11:45:00",
-        likes: 190,
-      },
-      {
-        id: 6,
-        title: "꽃밭",
-        imageUrl: "/image_6_640x480.png",
-        author: "크리에이터6",
-        createdAt: "2024-03-15T09:20:00",
-        likes: 170,
-      },
-      {
-        id: 7,
-        title: "일출 사진",
-        imageUrl: "/image_1_160x120.png",
-        author: "크리에이터1",
-        createdAt: "2024-03-20T08:00:00",
-        likes: 200,
-      },
-      {
-        id: 8,
-        title: "자연 풍경",
-        imageUrl: "/image_2_240x160.png",
-        author: "크리에이터2",
-        createdAt: "2024-03-19T14:20:00",
-        likes: 150,
-      },
-      {
-        id: 9,
-        title: "도시 야경",
-        imageUrl: "/image_3_320x240.png",
-        author: "크리에이터3",
-        createdAt: "2024-03-18T20:15:00",
-        likes: 180,
-      },
-      {
-        id: 10,
-        title: "바다 풍경",
-        imageUrl: "/image_4_400x240.png",
-        author: "크리에이터4",
-        createdAt: "2024-03-17T16:30:00",
-        likes: 220,
-      },
-      {
-        id: 11,
-        title: "산 정상",
-        imageUrl: "/image_5_480x320.png",
-        author: "크리에이터5",
-        createdAt: "2024-03-16T11:45:00",
-        likes: 190,
-      },
-      {
-        id: 12,
-        title: "꽃밭",
-        imageUrl: "/image_6_640x480.png",
-        author: "크리에이터6",
-        createdAt: "2024-03-15T09:20:00",
-        likes: 170,
-      },
-    ],
-    videos: [
-      {
-        id: 1,
-        title: "동영상 게시글 1",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터1",
-        createdAt: "2024-03-20T09:00:00",
-        views: 1200,
-        duration: "03:12",
-        tags: ["태그1", "태그2", "태그3"],
-      },
-      {
-        id: 2,
-        title: "동영상 게시글 2",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터2",
-        createdAt: "2024-03-19T16:00:00",
-        views: 800,
-        duration: "01:18",
-        tags: ["게임", "리그오브레전드"],
-      },
-      {
-        id: 3,
-        title: "동영상 게시글 3",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터3",
-        createdAt: "2024-03-18T14:30:00",
-        views: 1500,
-        duration: "02:26",
-        tags: ["요리", "하이라이트"],
-      },
-      {
-        id: 4,
-        title: "동영상 게시글 4",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터4",
-        createdAt: "2024-03-17T21:15:00",
-        views: 2000,
-        duration: "04:44",
-        tags: ["일상", "브이로그"],
-      },
-      {
-        id: 5,
-        title: "동영상 게시글 5",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터5",
-        createdAt: "2024-03-16T19:45:00",
-        views: 950,
-        duration: "10:09",
-        tags: ["게임", "하이라이트"],
-      },
-      {
-        id: 6,
-        title: "동영상 게시글 6",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터6",
-        createdAt: "2024-03-15T17:30:00",
-        views: 1100,
-        duration: "02:08",
-        tags: ["일상", "브이로그"],
-      },
-      {
-        id: 7,
-        title: "동영상 게시글 7",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터7",
-        createdAt: "2024-03-14T17:30:00",
-        views: 1300,
-        duration: "03:40",
-        tags: ["게임", "하이라이트"],
-      },
-      {
-        id: 8,
-        title: "동영상 게시글 8",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터8",
-        createdAt: "2024-03-13T17:30:00",
-        views: 1600,
-        duration: "08:45",
-        tags: ["요리", "브이로그"],
-      },
-      {
-        id: 9,
-        title: "동영상 게시글 9",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터9",
-        createdAt: "2024-03-12T17:30:00",
-        views: 900,
-        duration: "05:04",
-        tags: ["일상", "브이로그"],
-      },
-      {
-        id: 10,
-        title: "동영상 게시글 10",
-        thumbnailUrl: "/dummy1.png",
-        author: "크리에이터10",
-        createdAt: "2024-03-11T17:30:00",
-        views: 2100,
-        duration: "06:38",
-        tags: ["게임", "하이라이트"],
-      },
-    ],
-  };
-
-  const renderSearchResults = () => {
-    const tab = activeSearchTab;
-    const data = searchResults[tab] || [];
-    const pagedData = data.slice(
-      (searchPage[tab] - 1) * pageSize,
-      searchPage[tab] * pageSize
-    );
-
-    if (tab === "creators") {
-      return (
-        <>
-          <List
-            dataSource={pagedData}
-            renderItem={(creator) => (
-              <List.Item
-                style={{
-                  padding: 0,
-                  background: "transparent",
-                  marginBottom: 24,
-                }}
-              >
-                <Card
-                  hoverable
-                  style={{
-                    borderRadius: 14,
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 32,
-                    minHeight: 120,
-                    padding: "24px 40px",
-                    width: "100%",
-                  }}
-                  bodyStyle={{
-                    width: "100%",
-                    padding: 0,
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Avatar
-                    size={80}
-                    src={creator.avatar}
-                    style={{ marginRight: 40, flexShrink: 0 }}
-                  />
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 16,
-                        marginBottom: 6,
-                      }}
-                    >
-                      <span style={{ fontWeight: 700, fontSize: 22 }}>
-                        {creator.name}
-                      </span>
-                    </div>
-                    <div style={{ color: "#444", fontSize: 16 }}>
-                      {creator.description}
-                    </div>
-                  </div>
-                </Card>
-              </List.Item>
-            )}
-            locale={{ emptyText: <Empty description="검색 결과가 없습니다" /> }}
-          />
-          <Pagination
-            current={searchPage[tab]}
-            pageSize={pageSize}
-            total={data.length}
-            onChange={(page) =>
-              setSearchPage((prev) => ({ ...prev, [tab]: page }))
-            }
-            style={{ textAlign: "center", marginTop: 24 }}
-            showSizeChanger={false}
-          />
-        </>
-      );
-    }
-
-    if (tab === "posts") {
-      return (
-        <>
-          <List
-            dataSource={pagedData}
-            renderItem={(post) => (
-              <List.Item
-                style={{
-                  padding: 0,
-                  background: "transparent",
-                  marginBottom: 24,
-                }}
-              >
-                <Card
-                  hoverable
-                  style={{
-                    borderRadius: 14,
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-                    padding: "24px",
-                    width: "100%",
-                  }}
-                >
-                  <div style={{ marginBottom: 16 }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        marginBottom: 8,
-                      }}
-                    >
-                      <Avatar size={32} src={DEFAULT_PROFILE_IMG} />
-                      <span style={{ fontWeight: 500 }}>{post.author}</span>
-                    </div>
-                    <Title level={4} style={{ margin: "8px 0" }}>
-                      {post.title}
-                    </Title>
-                    <Text style={{ color: "#666" }}>{post.content}</Text>
-                  </div>
-                  <div style={{ display: "flex", gap: 16, color: "#8c8c8c" }}>
-                    <span>❤️ {post.likes}</span>
-                    <span>💬 {post.comments}</span>
-                    <span>{formatDate(post.createdAt)}</span>
-                  </div>
-                </Card>
-              </List.Item>
-            )}
-            locale={{ emptyText: <Empty description="검색 결과가 없습니다" /> }}
-          />
-          <Pagination
-            current={searchPage[tab]}
-            pageSize={pageSize}
-            total={data.length}
-            onChange={(page) =>
-              setSearchPage((prev) => ({ ...prev, [tab]: page }))
-            }
-            style={{ textAlign: "center", marginTop: 24 }}
-            showSizeChanger={false}
-          />
-        </>
-      );
-    }
-
-    if (tab === "photos") {
-      return (
-        <>
-          <Masonry
-            breakpointCols={{
-              default: 3,
-              1100: 3,
-              700: 2,
-              500: 1,
-            }}
-            className="masonry-grid"
-            columnClassName="masonry-grid_column"
-          >
-            {pagedData.map((photo) => (
-              <div
-                key={photo.id}
-                style={{ marginBottom: 24, position: "relative" }}
-              >
-                <div
-                  style={{
-                    position: "relative",
-                    cursor: "pointer",
-                    borderRadius: 8,
-                    overflow: "hidden",
-                  }}
-                >
-                  <img
-                    alt={photo.title}
-                    src={photo.imageUrl}
-                    style={{
-                      width: "100%",
-                      display: "block",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0) 100%)",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "flex-end",
-                      padding: 10,
-                      color: "#fff",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: 14,
-                        // fontWeight: 500,
-                        marginBottom: -2,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                      }}
-                    >
-                      {photo.title}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 12,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 4,
-                      }}
-                    >
-                      <Avatar src={DEFAULT_PROFILE_IMG} size={24} />
-                      {photo.author}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </Masonry>
-          <style jsx global>{`
-            .masonry-grid {
-              display: flex;
-              margin-left: -24px;
-              width: auto;
-            }
-            .masonry-grid_column {
-              padding-left: 24px;
-              background-clip: padding-box;
-            }
-            .masonry-grid_column > div {
-              margin-bottom: 24px;
-            }
-          `}</style>
-          <Pagination
-            current={searchPage[tab]}
-            pageSize={pageSize}
-            total={data.length}
-            onChange={(page) =>
-              setSearchPage((prev) => ({ ...prev, [tab]: page }))
-            }
-            style={{ textAlign: "center", marginTop: 24 }}
-            showSizeChanger={false}
-          />
-        </>
-      );
-    }
-
-    if (tab === "videos") {
-      return (
-        <>
-          <List
-            grid={{ gutter: [24, 32], column: 4 }}
-            dataSource={pagedData}
-            renderItem={(video) => (
-              <List.Item>
-                <div style={{ cursor: "pointer" }}>
-                  <div style={{ position: "relative", marginBottom: 12 }}>
-                    <img
-                      alt={video.title}
-                      src={video.thumbnailUrl}
-                      style={{
-                        width: "100%",
-                        aspectRatio: "16/9",
-                        objectFit: "cover",
-                        borderRadius: 8,
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: 8,
-                        right: 8,
-                        background: "rgba(0,0,0,0.8)",
-                        color: "#fff",
-                        padding: "2px 6px",
-                        borderRadius: 4,
-                        fontSize: 12,
-                      }}
-                    >
-                      {video.duration}
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 12,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <Avatar src={DEFAULT_PROFILE_IMG} size={36} />
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div
-                        style={{
-                          fontSize: 15,
-                          fontWeight: 500,
-                          marginBottom: 4,
-                          color: "#222",
-                        }}
-                      >
-                        {video.title}
-                      </div>
-                      <div
-                        style={{ fontSize: 14, color: "#666", marginBottom: 4 }}
-                      >
-                        {video.author}
-                      </div>
-                      <div
-                        style={{ display: "flex", gap: 8, flexWrap: "wrap" }}
-                      >
-                        {video.tags.map((tag: string, index: number) => (
-                          <span
-                            key={index}
-                            style={{
-                              background: "#f5f5f5",
-                              padding: "2px 8px",
-                              borderRadius: 12,
-                              fontSize: 13,
-                              color: "#666",
-                            }}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </List.Item>
-            )}
-          />
-          <Pagination
-            current={searchPage[tab]}
-            pageSize={pageSize}
-            total={data.length}
-            onChange={(page) =>
-              setSearchPage((prev) => ({ ...prev, [tab]: page }))
-            }
-            style={{ textAlign: "center", marginTop: 32 }}
-            showSizeChanger={false}
-          />
-        </>
-      );
-    }
-
-    return <Empty description="검색 결과가 없습니다" />;
-  };
-
   const notificationMenu = (
     <Card style={{ width: 400, padding: 0 }}>
       <Tabs
@@ -944,7 +376,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               padding: "2px 16px 2px 12px",
               boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
             }}
-            onClick={() => setIsSearchModalOpen(true)}
+            onClick={() => router.push("/search")}
           >
             <SearchOutlined
               style={{ fontSize: 18, color: "#888", marginRight: 8 }}
@@ -1049,7 +481,14 @@ export default function MainLayout({ children }: MainLayoutProps) {
               icon={<CompassOutlined />}
               onClick={() => handleMenuChange("explore")}
             >
-              탐색
+              새로운 탐색
+            </Menu.Item>
+            <Menu.Item
+              key="search"
+              icon={<SearchOutlined />}
+              onClick={() => handleMenuChange("search")}
+            >
+              검색
             </Menu.Item>
 
             <Menu.ItemGroup
@@ -1148,65 +587,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
       />
-
-      <Modal
-        title={
-          <div style={{ textAlign: "center", marginBottom: "20px" }}>
-            <Title level={4} style={{ margin: 0 }}>
-              검색
-            </Title>
-          </div>
-        }
-        open={isSearchModalOpen}
-        onCancel={() => {
-          setIsSearchModalOpen(false);
-          setSearchQuery("");
-        }}
-        width={800}
-        footer={null}
-        style={{ top: 20 }}
-      >
-        <div style={{ padding: "0 20px" }}>
-          <Input.Search
-            placeholder="크리에이터 또는 포스팅을 검색해보세요"
-            size="large"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ marginBottom: "24px" }}
-          />
-          <Tabs
-            activeKey={activeSearchTab}
-            onChange={(key) =>
-              setActiveSearchTab(
-                key as "creators" | "posts" | "photos" | "videos"
-              )
-            }
-            items={[
-              {
-                key: "creators",
-                label: "크리에이터",
-                children: renderSearchResults(),
-              },
-              {
-                key: "posts",
-                label: "게시글",
-                children: renderSearchResults(),
-              },
-              {
-                key: "photos",
-                label: "사진",
-                children: renderSearchResults(),
-              },
-              {
-                key: "videos",
-                label: "동영상",
-                children: renderSearchResults(),
-              },
-            ]}
-            style={{ marginTop: "8px" }}
-          />
-        </div>
-      </Modal>
     </Layout>
   );
 }
