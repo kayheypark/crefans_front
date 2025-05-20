@@ -1,0 +1,74 @@
+[
+  {
+    "key": "membership-creator-1",
+    "name": "크리에이터 1",
+    "avatar": "/profile-90.png",
+    "unread": true
+  },
+  {
+    "key": "membership-creator-2",
+    "name": "크리에이터 2",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "membership-creator-3",
+    "name": "크리에이터 3",
+    "avatar": "/profile-90.png",
+    "unread": true
+  },
+  {
+    "key": "membership-creator-4",
+    "name": "크리에이터 4",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "membership-creator-5",
+    "name": "크리에이터 5",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "membership-creator-6",
+    "name": "크리에이터 6",
+    "avatar": "/profile-90.png",
+    "unread": true
+  },
+  {
+    "key": "membership-creator-7",
+    "name": "크리에이터 7",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "membership-creator-8",
+    "name": "크리에이터 8",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "membership-creator-9",
+    "name": "크리에이터 9",
+    "avatar": "/profile-90.png",
+    "unread": true
+  },
+  {
+    "key": "membership-creator-10",
+    "name": "크리에이터 10",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "membership-creator-11",
+    "name": "크리에이터 11",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "membership-creator-12",
+    "name": "크리에이터 12",
+    "avatar": "/profile-90.png",
+    "unread": true
+  }
+]

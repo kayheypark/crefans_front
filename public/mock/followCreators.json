@@ -1,0 +1,74 @@
+[
+  {
+    "key": "follow-creator-1",
+    "name": "팔로우1",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "follow-creator-2",
+    "name": "팔로우2",
+    "avatar": "/profile-90.png",
+    "unread": true
+  },
+  {
+    "key": "follow-creator-3",
+    "name": "팔로우3",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "follow-creator-4",
+    "name": "팔로우4",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "follow-creator-5",
+    "name": "팔로우5",
+    "avatar": "/profile-90.png",
+    "unread": true
+  },
+  {
+    "key": "follow-creator-6",
+    "name": "팔로우6",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "follow-creator-7",
+    "name": "팔로우7",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "follow-creator-8",
+    "name": "팔로우8",
+    "avatar": "/profile-90.png",
+    "unread": true
+  },
+  {
+    "key": "follow-creator-9",
+    "name": "팔로우9",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "follow-creator-10",
+    "name": "팔로우10",
+    "avatar": "/profile-90.png",
+    "unread": false
+  },
+  {
+    "key": "follow-creator-11",
+    "name": "팔로우11",
+    "avatar": "/profile-90.png",
+    "unread": true
+  },
+  {
+    "key": "follow-creator-12",
+    "name": "팔로우12",
+    "avatar": "/profile-90.png",
+    "unread": false
+  }
+]

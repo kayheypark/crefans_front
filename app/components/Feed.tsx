@@ -38,6 +38,7 @@ import {
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "../contexts/AuthContext";
 import LoginModal from "./LoginModal";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -56,6 +57,8 @@ interface Post {
 
 export default function Feed() {
   const { user } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [posts, setPosts] = useState<Post[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -74,7 +77,9 @@ export default function Feed() {
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
     [key: number]: boolean;
   }>({});
-  const [filter, setFilter] = useState<"all" | "membership" | "public">("all");
+  const [filter, setFilter] = useState<"all" | "membership" | "public">(
+    (searchParams.get("feedFilter") as "all" | "membership" | "public") || "all"
+  );
   const [isSticky, setIsSticky] = useState(false);
   const stickyRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -261,6 +266,20 @@ export default function Feed() {
     setCoverProgress((prev) => ({ ...prev, [postId]: 0 }));
   };
 
+  // 쿼리 파라미터(filter) 변경 시 filter 상태 동기화 (새로고침/뒤로가기 등 대응)
+  useEffect(() => {
+    const filterParam = searchParams.get("feedFilter") as
+      | "all"
+      | "membership"
+      | "public";
+    if (filterParam && filterParam !== filter) {
+      setFilter(filterParam);
+    }
+    if (!filterParam && filter !== "all") {
+      setFilter("all");
+    }
+  }, [searchParams]);
+
   return (
     <div style={{ width: 600, margin: "0", paddingLeft: 32, paddingRight: 32 }}>
       {/* sticky 감지용 sentinel */}
@@ -294,7 +313,12 @@ export default function Feed() {
             style={{
               fontSize: 10,
             }}
-            onClick={() => setFilter("all")}
+            onClick={() => {
+              setFilter("all");
+              const params = new URLSearchParams(searchParams.toString());
+              params.set("feedFilter", "all");
+              router.push(`?${params.toString()}`);
+            }}
           >
             전체
           </Button>
@@ -303,7 +327,12 @@ export default function Feed() {
             style={{
               fontSize: 10,
             }}
-            onClick={() => setFilter("membership")}
+            onClick={() => {
+              setFilter("membership");
+              const params = new URLSearchParams(searchParams.toString());
+              params.set("feedFilter", "membership");
+              router.push(`?${params.toString()}`);
+            }}
           >
             멤버십 전용
           </Button>
@@ -312,7 +341,12 @@ export default function Feed() {
             style={{
               fontSize: 10,
             }}
-            onClick={() => setFilter("public")}
+            onClick={() => {
+              setFilter("public");
+              const params = new URLSearchParams(searchParams.toString());
+              params.set("feedFilter", "public");
+              router.push(`?${params.toString()}`);
+            }}
           >
             공개
           </Button>

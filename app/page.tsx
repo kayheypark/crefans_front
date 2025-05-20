@@ -42,6 +42,7 @@ import {
   UnorderedListOutlined,
   DesktopOutlined,
   BarsOutlined,
+  LayoutOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useAuth } from "./contexts/AuthContext";
@@ -153,7 +154,7 @@ export default function Landing() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedMenu, setSelectedMenu] = useState<string>(
-    searchParams.get("menu") || "1"
+    searchParams.get("menu") || "home"
   );
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [unreadNotifications, setUnreadNotifications] = useState(2);
@@ -172,6 +173,24 @@ export default function Landing() {
   const [notificationDateType, setNotificationDateType] = useState<{
     [id: number]: boolean;
   }>({});
+  const [openGroups, setOpenGroups] = useState<{ [key: string]: boolean }>({
+    membership: true,
+    follow: true,
+  });
+  const toggleGroup = (group: "membership" | "follow") => {
+    setOpenGroups((prev) => ({ ...prev, [group]: !prev[group] }));
+  };
+
+  // 쿼리 파라미터(menu) 변경 시 selectedMenu 동기화 (새로고침/뒤로가기 등 대응)
+  useEffect(() => {
+    const menuParam = searchParams.get("menu");
+    if (menuParam && menuParam !== selectedMenu) {
+      setSelectedMenu(menuParam);
+    }
+    if (!menuParam && selectedMenu !== "home") {
+      setSelectedMenu("home");
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     // 알림 mock 데이터 fetch
@@ -968,15 +987,15 @@ export default function Landing() {
   // 메인 콘텐츠 렌더링 함수 수정
   const renderMainContent = () => {
     switch (selectedMenu) {
-      case "1":
+      case "home":
         return (
           <div style={{ padding: "20px" }}>
             <Title level={2}>홈</Title>
           </div>
         );
-      case "2":
+      case "feed":
         return <Feed />;
-      case "3":
+      case "explore":
         return (
           <div style={{ padding: "20px" }}>
             <Title level={2}>탐색</Title>
@@ -994,6 +1013,54 @@ export default function Landing() {
     const params = new URLSearchParams(searchParams.toString());
     params.set("menu", menuKey);
     router.push(`?${params.toString()}`);
+  };
+
+  const [membershipCreators, setMembershipCreators] = useState<any[]>([]);
+  const [followCreators, setFollowCreators] = useState<any[]>([]);
+  // JSON 파일에서 데이터 fetch
+  const fetchMembershipCreators = async () => {
+    const res = await fetch("/mock/membershipCreators.json");
+    const data = await res.json();
+    setMembershipCreators(data);
+  };
+  const fetchFollowCreators = async () => {
+    const res = await fetch("/mock/followCreators.json");
+    const data = await res.json();
+    setFollowCreators(data);
+  };
+  useEffect(() => {
+    fetchMembershipCreators();
+    fetchFollowCreators();
+  }, []);
+
+  useEffect(() => {
+    console.log("membershipCreators", membershipCreators);
+    console.log("followCreators", followCreators);
+  }, [membershipCreators, followCreators]);
+
+  // 최대 10개만 기본 노출, 자세히 보기 클릭 시 전체 노출
+  const visibleMembershipCreators = openGroups.membership
+    ? membershipCreators
+    : [];
+  const visibleFollowCreators = openGroups.follow ? followCreators : [];
+
+  // 버튼 스타일 공통
+  const groupToggleBtnStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    background: "#f7f7f7",
+    borderRadius: 12,
+    margin: "8px 0 16px 0",
+    padding: "8px 0",
+    fontWeight: 500,
+    fontSize: 15,
+    cursor: "pointer",
+    border: "none",
+    outline: "none",
+    color: "#222",
+    transition: "background 0.2s",
   };
 
   return (
@@ -1133,6 +1200,7 @@ export default function Landing() {
             boxShadow: "2px 0 8px rgba(0,0,0,0.1)",
             display: "flex",
             flexDirection: "column",
+            overflowY: "auto",
           }}
         >
           <Menu
@@ -1141,26 +1209,89 @@ export default function Landing() {
             style={{ flex: 1, borderRight: 0 }}
           >
             <Menu.Item
-              key="1"
+              key="home"
               icon={<HomeOutlined />}
-              onClick={() => handleMenuChange("1")}
+              onClick={() => handleMenuChange("home")}
             >
               홈
             </Menu.Item>
             <Menu.Item
-              key="2"
-              icon={<BarsOutlined />}
-              onClick={() => handleMenuChange("2")}
+              key="feed"
+              icon={<LayoutOutlined />}
+              onClick={() => handleMenuChange("feed")}
             >
               피드보기
             </Menu.Item>
             <Menu.Item
-              key="3"
+              key="explore"
               icon={<CompassOutlined />}
-              onClick={() => handleMenuChange("3")}
+              onClick={() => handleMenuChange("explore")}
             >
               탐색
             </Menu.Item>
+            <Menu.ItemGroup
+              key="membershipGroup"
+              title="멤버십 구독 크리에이터"
+            >
+              {Array.isArray(visibleMembershipCreators) &&
+                visibleMembershipCreators.map((creator) => (
+                  <Menu.Item key={creator.key} style={{ padding: 0 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        width: "100%",
+                        padding: "8px 16px",
+                      }}
+                    >
+                      <Avatar
+                        src={creator.avatar}
+                        size={24}
+                        style={{ marginRight: 8 }}
+                      />
+                      <span style={{ flex: 1 }}>{creator.name}</span>
+                      {creator.unread && (
+                        <Badge
+                          color="#1677ff"
+                          dot
+                          style={{ marginLeft: "auto" }}
+                        />
+                      )}
+                    </div>
+                  </Menu.Item>
+                ))}
+            </Menu.ItemGroup>
+            <Menu.ItemGroup key="followGroup" title="팔로우 크리에이터">
+              {Array.isArray(visibleFollowCreators) &&
+                visibleFollowCreators.map((creator) => (
+                  <Menu.Item key={creator.key} style={{ padding: 0 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        width: "100%",
+                        padding: "8px 16px",
+                      }}
+                    >
+                      <Avatar
+                        src={creator.avatar}
+                        size={24}
+                        style={{ marginRight: 8 }}
+                      />
+                      <span style={{ flex: 1 }}>{creator.name}</span>
+                      {creator.unread && (
+                        <Badge
+                          color="#1677ff"
+                          dot
+                          style={{ marginLeft: "auto" }}
+                        />
+                      )}
+                    </div>
+                  </Menu.Item>
+                ))}
+            </Menu.ItemGroup>
           </Menu>
 
           <div
