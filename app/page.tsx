@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Layout,
   Typography,
@@ -48,6 +48,7 @@ import { useAuth } from "./contexts/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import LoginModal from "./components/LoginModal";
 import Feed from "./components/Feed";
+import dayjs from "dayjs";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title, Paragraph, Text } = Typography;
@@ -136,14 +137,9 @@ const videoPosts = makeArray(100, (i) => ({
 
 interface Notification {
   id: number;
-  title: string;
-  time: string;
-}
-
-interface NotificationList {
-  all: Notification[];
-  messages: Notification[];
-  subscriptions: Notification[];
+  type: string;
+  message: string;
+  createdAt: string;
 }
 
 const MAX_NOTIFICATIONS_DISPLAY = 30;
@@ -161,18 +157,7 @@ export default function Landing() {
   );
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [unreadNotifications, setUnreadNotifications] = useState(2);
-  const [notificationsList, setNotificationsList] = useState<NotificationList>({
-    all: [
-      { id: 1, title: "멤버십 가입해주셔서 감사합니다!", time: "방금 전" },
-      { id: 2, title: "구독이 갱신되었습니다.", time: "1시간 전" },
-    ],
-    messages: [
-      { id: 1, title: "멤버십 가입해주셔서 감사합니다!", time: "방금 전" },
-    ],
-    subscriptions: [
-      { id: 2, title: "구독이 갱신되었습니다.", time: "1시간 전" },
-    ],
-  });
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeSearchTab, setActiveSearchTab] =
@@ -184,6 +169,19 @@ export default function Landing() {
     videos: 1,
   });
   const pageSize = 10;
+  const [notificationDateType, setNotificationDateType] = useState<{
+    [id: number]: boolean;
+  }>({});
+
+  useEffect(() => {
+    // 알림 mock 데이터 fetch
+    fetch("/mock/notifications.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setNotifications(data);
+        setUnreadNotifications(data.length);
+      });
+  }, []);
 
   const searchResults: Record<SearchTabKey, any[]> = {
     creators: searchQuery
@@ -222,26 +220,7 @@ export default function Landing() {
       : videoPosts,
   };
 
-  const handleDeleteNotification = (
-    id: number,
-    category: keyof NotificationList
-  ) => {
-    setNotificationsList((prev) => {
-      const newList = { ...prev };
-      // 모든 카테고리에서 해당 알림 제거
-      (Object.keys(newList) as Array<keyof NotificationList>).forEach((key) => {
-        newList[key] = newList[key].filter((item) => item.id !== id);
-      });
-      return newList;
-    });
-    setUnreadNotifications((prev) => Math.max(0, prev - 1));
-    message.success("알림이 삭제되었습니다.");
-  };
-
-  const getNotificationMoreMenu = (
-    id: number,
-    category: keyof NotificationList
-  ) => (
+  const getNotificationMoreMenu = (id: number, category: string) => (
     <Menu>
       <Menu.Item
         key="delete"
@@ -253,22 +232,49 @@ export default function Landing() {
     </Menu>
   );
 
+  const handleDeleteNotification = (id: number, category: string) => {
+    setNotifications((prev) => prev.filter((item) => item.id !== id));
+    setUnreadNotifications((prev) => Math.max(0, prev - 1));
+    message.success("알림이 삭제되었습니다.");
+  };
+
   const handleNotificationDropdownVisibleChange = (visible: boolean) => {
     if (visible) {
       // 실제로 보여지는 전체 알림 개수만큼만 읽음 처리
       const unreadCount = Math.max(
         0,
         unreadNotifications -
-          Math.min(notificationsList.all.length, MAX_NOTIFICATIONS_DISPLAY)
+          Math.min(notifications.length, MAX_NOTIFICATIONS_DISPLAY)
       );
       setUnreadNotifications(unreadCount);
     }
   };
 
-  const renderNotificationList = (
-    items: Notification[],
-    category: keyof NotificationList
-  ) => {
+  // 날짜 포맷 함수 (피드와 동일)
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    if (diffInSeconds < 60) return "방금 전";
+    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}분 전`;
+    if (diffInSeconds < 86400)
+      return `${Math.floor(diffInSeconds / 3600)}시간 전`;
+    return `${Math.floor(diffInSeconds / 86400)}일 전`;
+  };
+  const formatFullDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    const hh = String(date.getHours()).padStart(2, "0");
+    const min = String(date.getMinutes()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+  };
+  const toggleNotificationDateType = (id: number) => {
+    setNotificationDateType((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const renderNotificationList = (items: Notification[], category: string) => {
     const displayItems = items.slice(0, MAX_NOTIFICATIONS_DISPLAY);
     return (
       <>
@@ -276,7 +282,7 @@ export default function Landing() {
           size="small"
           dataSource={displayItems}
           locale={{ emptyText: "새로운 메시지가 없습니다." }}
-          renderItem={(item) => (
+          renderItem={(item: Notification) => (
             <List.Item
               style={{
                 padding: "0px 0px",
@@ -320,10 +326,28 @@ export default function Landing() {
                       wordBreak: "break-all",
                     }}
                   >
-                    {item.title}
+                    {item.message}
                   </div>
-                  <div style={{ fontSize: "12px", color: "#8c8c8c" }}>
-                    {item.time}
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      color: "#8c8c8c",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    {notificationDateType[item.id]
+                      ? formatFullDate(item.createdAt)
+                      : formatDate(item.createdAt)}
+                    <Button
+                      type="text"
+                      size="small"
+                      style={{ padding: 0, fontSize: 12 }}
+                      onClick={() => toggleNotificationDateType(item.id)}
+                    >
+                      {notificationDateType[item.id] ? "간단히" : "정확히"}
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -355,23 +379,17 @@ export default function Landing() {
           {
             key: "all",
             label: "전체",
-            children: renderNotificationList(notificationsList.all, "all"),
+            children: renderNotificationList(notifications, "all"),
           },
           {
             key: "messages",
             label: "메시지",
-            children: renderNotificationList(
-              notificationsList.messages,
-              "messages"
-            ),
+            children: renderNotificationList(notifications, "messages"),
           },
           {
             key: "subscriptions",
             label: "결제 및 구독",
-            children: renderNotificationList(
-              notificationsList.subscriptions,
-              "subscriptions"
-            ),
+            children: renderNotificationList(notifications, "subscriptions"),
           },
         ]}
       />

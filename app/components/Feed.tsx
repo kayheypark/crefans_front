@@ -54,28 +54,6 @@ interface Post {
   createdAt: string;
 }
 
-// 더미 데이터 생성
-const generateDummyPosts = (start: number, count: number): Post[] => {
-  return Array.from({ length: count }, (_, i) => ({
-    id: start + i,
-    creator: {
-      id: (i % 5) + 1,
-      name: `크리에이터${(i % 5) + 1}`,
-      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${i}`,
-    },
-    title: `게시글 제목 ${start + i}`,
-    content: `이것은 게시글 ${
-      start + i
-    }의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다. 이 게시글은 여러 줄의 텍스트를 포함하고 있어 펼치기 기능을 테스트하기에 적합합니다. 
-
-여러 줄의 텍스트가 계속됩니다. 이 부분은 펼치기를 클릭해야 볼 수 있는 내용입니다. 실제 서비스에서는 이 부분에 더 많은 내용이 들어갈 것입니다. 예를 들어, 크리에이터의 생각이나 경험, 팁이나 조언 등이 포함될 수 있습니다.
-
-또한 이미지나 동영상이 포함될 수도 있고, 다른 사용자들과의 상호작용을 위한 내용도 포함될 수 있습니다. 이렇게 긴 내용은 펼치기 기능을 통해 접근할 수 있도록 하는 것이 사용자 경험에 더 좋습니다.`,
-    isMembershipOnly: Math.random() > 0.5,
-    createdAt: new Date(Date.now() - Math.random() * 10000000000).toISOString(),
-  }));
-};
-
 export default function Feed() {
   const { user } = useAuth();
   const [posts, setPosts] = useState<Post[]>([]);
@@ -104,28 +82,30 @@ export default function Feed() {
     {}
   );
 
-  const loadMoreData = () => {
+  // JSON에서 데이터 fetch
+  const fetchFeedData = async (page: number, pageSize: number) => {
+    const res = await fetch("/mock/feed.json");
+    const data: Post[] = await res.json();
+    // 페이지네이션 흉내
+    return data.slice((page - 1) * pageSize, page * pageSize);
+  };
+
+  const loadMoreData = async () => {
     if (loading) return;
     setLoading(true);
-
-    // 더미 데이터 로딩 시뮬레이션
-    setTimeout(() => {
-      const newPosts = generateDummyPosts((page - 1) * pageSize, pageSize);
-
-      if (page >= 5) {
-        // 5페이지 이후에는 더 이상 데이터가 없다고 가정
-        setHasMore(false);
-      } else {
-        setPosts([...posts, ...newPosts]);
-        setPage(page + 1);
-      }
-
-      setLoading(false);
-    }, 1000);
+    const newPosts = await fetchFeedData(page, pageSize);
+    setPosts((prev) => [...prev, ...newPosts]);
+    if (newPosts.length < pageSize) {
+      setHasMore(false);
+    } else {
+      setPage((prev) => prev + 1);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
     loadMoreData();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -555,36 +535,34 @@ export default function Feed() {
                     }}
                   />
                 )}
-                {post.content.length > 100 && (
-                  <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                    <Button
-                      type="link"
-                      onClick={() => togglePostExpand(post.id)}
-                      style={{
-                        padding: 0,
-                        height: "auto",
-                        fontSize: "13px",
-                        color: "#666",
-                        zIndex: 1,
-                      }}
-                    >
-                      {expandedPosts.includes(post.id) ? "접기" : "펼치기"}
-                    </Button>
-                    <Button
-                      type="link"
-                      style={{
-                        padding: 0,
-                        height: "auto",
-                        fontSize: "13px",
-                        color: "#666",
-                        zIndex: 1,
-                      }}
-                      onClick={() => {}}
-                    >
-                      원문보기
-                    </Button>
-                  </div>
-                )}
+                <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+                  <Button
+                    type="link"
+                    onClick={() => togglePostExpand(post.id)}
+                    style={{
+                      padding: 0,
+                      height: "auto",
+                      fontSize: "13px",
+                      color: "#666",
+                      zIndex: 1,
+                    }}
+                  >
+                    {expandedPosts.includes(post.id) ? "접기" : "펼치기"}
+                  </Button>
+                  <Button
+                    type="link"
+                    style={{
+                      padding: 0,
+                      height: "auto",
+                      fontSize: "13px",
+                      color: "#666",
+                      zIndex: 1,
+                    }}
+                    onClick={() => {}}
+                  >
+                    원문보기
+                  </Button>
+                </div>
               </div>
             )}
 
