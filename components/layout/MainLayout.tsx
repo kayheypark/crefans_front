@@ -504,32 +504,44 @@ export default function MainLayout({ children }: MainLayoutProps) {
             ></div>
 
             <Menu.ItemGroup key="membershipGroup" title="멤버십">
-              {membershipCreators.map((creator) => (
-                <Menu.Item key={creator.key} style={{ padding: 0 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      padding: "8px 16px",
-                    }}
-                  >
-                    <Avatar
-                      src={creator.avatar}
-                      size={24}
-                      style={{ marginRight: 8 }}
-                    />
-                    <span style={{ flex: 1 }}>{creator.name}</span>
-                    {creator.unread && (
-                      <Badge
-                        color="#1677ff"
-                        dot
-                        style={{ marginLeft: "auto" }}
+              {user ? (
+                membershipCreators.map((creator) => (
+                  <Menu.Item key={creator.key} style={{ padding: 0 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        padding: "8px 16px",
+                      }}
+                    >
+                      <Avatar
+                        src={creator.avatar}
+                        size={24}
+                        style={{ marginRight: 8 }}
                       />
-                    )}
-                  </div>
-                </Menu.Item>
-              ))}
+                      <span style={{ flex: 1 }}>{creator.name}</span>
+                      {creator.unread && (
+                        <Badge
+                          color="#1677ff"
+                          dot
+                          style={{ marginLeft: "auto" }}
+                        />
+                      )}
+                    </div>
+                  </Menu.Item>
+                ))
+              ) : (
+                <div
+                  style={{
+                    padding: "8px 16px",
+                    color: "#8c8c8c",
+                    fontSize: 13,
+                  }}
+                >
+                  로그인 후 이용 가능합니다.
+                </div>
+              )}
             </Menu.ItemGroup>
 
             <div
@@ -541,39 +553,58 @@ export default function MainLayout({ children }: MainLayoutProps) {
             ></div>
 
             <Menu.ItemGroup key="followGroup" title="팔로우">
-              {followCreators.map((creator) => (
-                <Menu.Item key={creator.key} style={{ padding: 0 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      padding: "8px 16px",
-                    }}
-                  >
-                    <Avatar
-                      src={creator.avatar}
-                      size={24}
-                      style={{ marginRight: 8 }}
-                    />
-                    <span style={{ flex: 1 }}>{creator.name}</span>
-                    {creator.unread && (
-                      <Badge
-                        color="#1677ff"
-                        dot
-                        style={{ marginLeft: "auto" }}
+              {user ? (
+                followCreators.map((creator) => (
+                  <Menu.Item key={creator.key} style={{ padding: 0 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        padding: "8px 16px",
+                      }}
+                    >
+                      <Avatar
+                        src={creator.avatar}
+                        size={24}
+                        style={{ marginRight: 8 }}
                       />
-                    )}
-                  </div>
-                </Menu.Item>
-              ))}
+                      <span style={{ flex: 1 }}>{creator.name}</span>
+                      {creator.unread && (
+                        <Badge
+                          color="#1677ff"
+                          dot
+                          style={{ marginLeft: "auto" }}
+                        />
+                      )}
+                    </div>
+                  </Menu.Item>
+                ))
+              ) : (
+                <div
+                  style={{
+                    padding: "8px 16px",
+                    color: "#8c8c8c",
+                    fontSize: 13,
+                  }}
+                >
+                  로그인 후 이용 가능합니다.
+                </div>
+              )}
             </Menu.ItemGroup>
           </Menu>
 
           <div
             style={{
-              padding: "16px",
               borderTop: "1px solid #f0f0f0",
+              marginTop: 10,
+              marginBottom: 10,
+            }}
+          ></div>
+
+          <div
+            style={{
+              padding: "16px",
               color: "#8c8c8c",
               fontSize: "12px",
             }}
