@@ -292,7 +292,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       {
         id: 1,
         title: "일출 사진",
-        imageUrl: "https://picsum.photos/800/1200",
+        imageUrl: "/image_1_160x120.png",
         author: "크리에이터1",
         createdAt: "2024-03-20T08:00:00",
         likes: 200,
@@ -300,7 +300,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       {
         id: 2,
         title: "자연 풍경",
-        imageUrl: "https://picsum.photos/1200/800",
+        imageUrl: "/image_2_240x160.png",
         author: "크리에이터2",
         createdAt: "2024-03-19T14:20:00",
         likes: 150,
@@ -308,7 +308,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       {
         id: 3,
         title: "도시 야경",
-        imageUrl: "https://picsum.photos/600/900",
+        imageUrl: "/image_3_320x240.png",
         author: "크리에이터3",
         createdAt: "2024-03-18T20:15:00",
         likes: 180,
@@ -316,7 +316,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       {
         id: 4,
         title: "바다 풍경",
-        imageUrl: "https://picsum.photos/900/600",
+        imageUrl: "/image_4_400x240.png",
         author: "크리에이터4",
         createdAt: "2024-03-17T16:30:00",
         likes: 220,
@@ -324,7 +324,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       {
         id: 5,
         title: "산 정상",
-        imageUrl: "https://picsum.photos/1000/1500",
+        imageUrl: "/image_5_480x320.png",
         author: "크리에이터5",
         createdAt: "2024-03-16T11:45:00",
         likes: 190,
@@ -332,7 +332,55 @@ export default function MainLayout({ children }: MainLayoutProps) {
       {
         id: 6,
         title: "꽃밭",
-        imageUrl: "https://picsum.photos/1500/1000",
+        imageUrl: "/image_6_640x480.png",
+        author: "크리에이터6",
+        createdAt: "2024-03-15T09:20:00",
+        likes: 170,
+      },
+      {
+        id: 7,
+        title: "일출 사진",
+        imageUrl: "/image_1_160x120.png",
+        author: "크리에이터1",
+        createdAt: "2024-03-20T08:00:00",
+        likes: 200,
+      },
+      {
+        id: 8,
+        title: "자연 풍경",
+        imageUrl: "/image_2_240x160.png",
+        author: "크리에이터2",
+        createdAt: "2024-03-19T14:20:00",
+        likes: 150,
+      },
+      {
+        id: 9,
+        title: "도시 야경",
+        imageUrl: "/image_3_320x240.png",
+        author: "크리에이터3",
+        createdAt: "2024-03-18T20:15:00",
+        likes: 180,
+      },
+      {
+        id: 10,
+        title: "바다 풍경",
+        imageUrl: "/image_4_400x240.png",
+        author: "크리에이터4",
+        createdAt: "2024-03-17T16:30:00",
+        likes: 220,
+      },
+      {
+        id: 11,
+        title: "산 정상",
+        imageUrl: "/image_5_480x320.png",
+        author: "크리에이터5",
+        createdAt: "2024-03-16T11:45:00",
+        likes: 190,
+      },
+      {
+        id: 12,
+        title: "꽃밭",
+        imageUrl: "/image_6_640x480.png",
         author: "크리에이터6",
         createdAt: "2024-03-15T09:20:00",
         likes: 170,
@@ -628,19 +676,19 @@ export default function MainLayout({ children }: MainLayoutProps) {
                       right: 0,
                       bottom: 0,
                       background:
-                        "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0) 100%)",
+                        "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0) 100%)",
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "flex-end",
-                      padding: 16,
+                      padding: 10,
                       color: "#fff",
                     }}
                   >
                     <div
                       style={{
-                        fontSize: 16,
-                        fontWeight: 500,
-                        marginBottom: 8,
+                        fontSize: 14,
+                        // fontWeight: 500,
+                        marginBottom: -2,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         display: "-webkit-box",
@@ -652,10 +700,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     </div>
                     <div
                       style={{
-                        fontSize: 14,
+                        fontSize: 12,
                         display: "flex",
                         alignItems: "center",
-                        gap: 8,
+                        gap: 4,
                       }}
                     >
                       <Avatar src={DEFAULT_PROFILE_IMG} size={24} />
