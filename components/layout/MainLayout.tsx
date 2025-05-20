@@ -172,7 +172,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const handleDeleteNotification = (id: number) => {
     setNotifications((prev) => prev.filter((item) => item.id !== id));
     setUnreadNotifications((prev) => Math.max(0, prev - 1));
-    message.success("알림이 삭제되었습니다.");
+    message.success("메시지가 삭제되었습니다.");
   };
 
   const renderNotificationList = (items: any[], category: string) => {
@@ -281,7 +281,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
   const notificationMenu = (
     <Card
-      style={{ width: 400, padding: 0, maxHeight: "500px", overflow: "hidden" }}
+      style={{
+        width: 400,
+        padding: 0,
+        maxHeight: "500px",
+        overflow: "hidden",
+        boxShadow: "0 2px 8px rgba(100,0,200,0.08)",
+      }}
     >
       <Tabs
         defaultActiveKey="all"
