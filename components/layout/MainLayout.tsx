@@ -369,20 +369,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
           zIndex: 999,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <Title level={3} style={{ margin: 0 }}>
-            seconid
-          </Title>
-          <Text style={{ fontSize: 12, color: "#666", marginTop: "-5px" }}>
-            인플루언서의 두번째 계정
-          </Text>
-        </div>
+        <img src="/seconid-logo.png" alt="seconid" height={28} />
 
         <div
           style={{
