@@ -402,31 +402,117 @@ export default function MainLayout({ children }: MainLayoutProps) {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               {user ? (
                 <>
-                  <Dropdown overlay={userMenu} trigger={["click"]}>
-                    <span
+                  <div
+                    style={{
+                      width: "100%",
+                      background: "#fff",
+                      borderRadius: 16,
+                      padding: "20px 20px 16px 5px",
+                      marginBottom: 24,
+                    }}
+                  >
+                    <div
                       style={{
-                        cursor: "pointer",
                         display: "flex",
                         alignItems: "center",
-                        gap: 6,
+                        gap: 16,
                       }}
                     >
-                      <Text strong>{user.nickname}</Text>
-                      <Text type="secondary">
-                        {user.points.toLocaleString()} 콩
-                      </Text>
-                    </span>
-                  </Dropdown>
-                  <div style={{ flex: 1 }} />
-                  <Dropdown
-                    overlay={notificationMenu}
-                    trigger={["click"]}
-                    placement="bottomRight"
-                  >
-                    <Badge count={unreadNotifications} size="small">
-                      <Button type="text" icon={<BellOutlined />} />
-                    </Badge>
-                  </Dropdown>
+                      <Dropdown overlay={userMenu} trigger={["click"]}>
+                        <Avatar
+                          src={user.avatar || "/profile-90.png"}
+                          size={48}
+                          style={{
+                            border: "1px solid #eee",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            /* 추후 마이페이지 라우팅 */
+                          }}
+                        />
+                      </Dropdown>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <Text
+                          strong
+                          style={{
+                            fontSize: 14,
+                            color: "#222",
+                            marginBottom: 0,
+                          }}
+                        >
+                          {user.nickname}
+                        </Text>
+                        <Text
+                          type="secondary"
+                          style={{
+                            fontSize: 15,
+                            color: "#8c8c8c",
+                            marginTop: 0,
+                          }}
+                        >
+                          @{user.id || "u19328492"}
+                        </Text>
+                      </div>
+                      <Dropdown
+                        overlay={notificationMenu}
+                        trigger={["click"]}
+                        placement="bottomRight"
+                      >
+                        <Badge count={unreadNotifications} size="small">
+                          <Button type="text" icon={<BellOutlined />} />
+                        </Badge>
+                      </Dropdown>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: 18,
+                        border: "1.5px solid #e0e0e0",
+                        borderRadius: 5,
+                        overflow: "hidden",
+                        height: 44,
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          flex: 1,
+                          padding: "0 18px",
+                          fontSize: 15,
+                          color: "#f857a6",
+                          fontWeight: 600,
+                          background: "#fff",
+                          height: "100%",
+                          gap: 8,
+                        }}
+                      >
+                        {user.points.toLocaleString()}
+                      </div>
+                      <Button
+                        type="primary"
+                        style={{
+                          borderRadius: 0,
+                          height: "100%",
+                          fontWeight: 600,
+                          fontSize: 15,
+                          background:
+                            "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
+                          border: "none",
+                          minWidth: 90,
+                        }}
+                      >
+                        씨앗충전
+                      </Button>
+                    </div>
+                  </div>
                 </>
               ) : (
                 <>
