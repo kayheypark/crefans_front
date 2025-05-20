@@ -123,9 +123,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
     });
   };
 
-  const handleMenuChange = (menuKey: string) => {
-    setSelectedMenu(menuKey);
-    switch (menuKey) {
+  const handleMenuChange = (info: { key: string }) => {
+    setSelectedMenu(info.key);
+    switch (info.key) {
       case "home":
         router.push("/home");
         break;
@@ -461,42 +461,20 @@ export default function MainLayout({ children }: MainLayoutProps) {
           <Menu
             mode="inline"
             selectedKeys={[selectedMenu]}
-            style={{ flex: 1, borderRight: 0 }}
+            style={{ border: "none" }}
+            onClick={handleMenuChange}
           >
-            <Menu.Item
-              key="home"
-              icon={<HomeOutlined />}
-              onClick={() => handleMenuChange("home")}
-            >
+            <Menu.Item key="home" icon={<HomeOutlined />}>
               홈
             </Menu.Item>
-            <Menu.Item
-              key="feed"
-              icon={<LayoutOutlined />}
-              onClick={() => handleMenuChange("feed")}
-            >
-              피드보기
+            <Menu.Item key="feed" icon={<CompassOutlined />}>
+              피드
             </Menu.Item>
-            <Menu.Item
-              key="explore"
-              icon={<CompassOutlined />}
-              onClick={() => handleMenuChange("explore")}
-            >
-              새로운 탐색
+            <Menu.Item key="explore" icon={<CompassOutlined />}>
+              둘러보기
             </Menu.Item>
-            <Menu.Item
-              key="search"
-              icon={<SearchOutlined />}
-              onClick={() => handleMenuChange("search")}
-            >
+            <Menu.Item key="search" icon={<SearchOutlined />}>
               검색
-            </Menu.Item>
-            <Menu.Item
-              key="settings"
-              icon={<SettingOutlined />}
-              onClick={() => handleMenuChange("settings")}
-            >
-              설정
             </Menu.Item>
 
             <div
