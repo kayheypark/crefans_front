@@ -863,6 +863,15 @@ export default function MainLayout({ children }: MainLayoutProps) {
             children: renderNotificationList(notifications, "subscriptions"),
           },
         ]}
+        onChange={(key) => {
+          const displayedNotifications = notifications.slice(
+            0,
+            MAX_NOTIFICATIONS_DISPLAY
+          );
+          setUnreadNotifications((prev) =>
+            Math.max(0, prev - displayedNotifications.length)
+          );
+        }}
       />
     </Card>
   );
