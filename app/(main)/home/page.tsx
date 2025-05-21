@@ -3,23 +3,18 @@
 import React from "react";
 import { Typography, Button, Row, Col, Card, Space, Tooltip } from "antd";
 import {
-  UserOutlined,
-  LockOutlined,
-  MessageOutlined,
-  HeartOutlined,
   DollarOutlined,
-  DashboardOutlined,
-  StarOutlined,
   TeamOutlined,
   SafetyOutlined,
   RocketOutlined,
   AimOutlined,
   CloudDownloadOutlined,
-  FireOutlined,
   FlagOutlined,
   ProjectOutlined,
   VideoCameraOutlined,
   InfoCircleOutlined,
+  SketchOutlined,
+  PercentageOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
@@ -53,16 +48,16 @@ export default function HomePage() {
     {
       icon: <AimOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
       tags: ["팬"],
-      title: "개별 구매 시스템",
+      title: "콘텐츠 개별 구매",
       detail:
-        "멤버십이 부담스러우신가요? 개별 구매 시스템을 통해 원하는 컨텐츠를 구매할 수 있습니다.",
+        "멤버십은 부담스러울 수 있죠. 개별 구매 시스템을 통해 원하는 컨텐츠를 구매할 수 있습니다.",
     },
     {
       icon: <RocketOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
       tags: ["팬"],
       title: "로켓 포인트 충전",
       detail:
-        "느리고 복잡한 충전에 질리셨죠? 클릭한번으로 충전하고 당장 콘텐츠를 확인하세요. (카드 등록 이후 기준)",
+        "느리고 복잡한 충전, 이제 그만. 클릭 한번으로 충전하고 당장 콘텐츠를 확인하세요. (카드 등록 이후 기준)",
     },
     {
       icon: (
@@ -80,25 +75,25 @@ export default function HomePage() {
       icon: <FlagOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
       title: "신규 크리에이터 지원",
       description:
-        "신규 크리에이터 님들을 위해 가입즉시 무료로 크리에이터님을 홍보해드립니다.",
+        "신규 크리에이터 님들을 위해 가입 즉시 무료로 크리에이터님을 홍보해드립니다.",
     },
     {
-      icon: <DollarOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
+      icon: <PercentageOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
       title: "점점 낮아지는 수수료",
       description:
         "볼륨 디스카운트(Volume Discount) 운영 정책에 따라 멤버십 구독자가 많을수록 정산 수수료가 점점 낮아집니다.",
     },
     {
       icon: <VideoCameraOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "창작에만 신경 쓰세요",
+      title: "창작에만 몰입하세요.",
       description:
-        "기본정보만 등록하시면 나머지는 크레팬스가 알아서 해드립니다. (저작권관리, 판매 통계 등)",
+        "기본 정보만 등록하시면 나머지는 크레팬스가 알아서 해드립니다. (저작권 관리, 상품 판매 통계 등)",
     },
     {
       icon: <ProjectOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
       title: "CrefansAlgorithm™",
       description:
-        "크리에이터님의 판매량, 카테고리 등을 분석하여 구매율 높은 팬에게 노출합니다.",
+        "크리에이터님의 판매량, 활동 카테고리 등을 분석하여 구매율 높은 팬에게 노출합니다.",
     },
   ];
 
@@ -116,7 +111,10 @@ export default function HomePage() {
         style={{
           textAlign: "center",
           marginBottom: 120,
-          padding: "80px 0",
+          padding: "80px 0 110px 0",
+          borderRadius: 50,
+          border: "1px solid rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
         }}
       >
         <Title
@@ -171,7 +169,7 @@ export default function HomePage() {
           크리에이터, 팬, 플랫폼이 연결된 지속 가능한 창작 생태계
           <br />
           <Text type="secondary" style={{ textAlign: "center" }}>
-            이 모든 것들이 유기적으로 연결되어 하나의 생태계를 이루고 있습니다.
+            이 모든 것들이 유기적으로 연결되어 하나의 생태계를 이룹니다.
           </Text>
         </Title>
         <Row gutter={[32, 32]}>
@@ -225,10 +223,10 @@ export default function HomePage() {
       {/* 혜택 섹션 */}
       <div style={{ marginBottom: 120 }}>
         <Title level={2} style={{ textAlign: "center", marginBottom: 80 }}>
-          크리에이터님! 지금이 가장 좋은 타이밍입니다.
+          크리에이터 지원 프로그램
           <br />
           <Text type="secondary" style={{ textAlign: "center" }}>
-            가파르게 성장하고 있는 크레팬스에 가입하여 팬들을 선점하세요
+            크레팬스는 창작자의 재능 발전을 위해 무엇을 해야할지 알고있습니다.
           </Text>
         </Title>
 
@@ -282,7 +280,7 @@ export default function HomePage() {
             </Text>
             <Paragraph style={{ color: "#666", marginTop: 16 }}>
               당신의 콘텐츠로 충성 고객을 만드세요. (활동 지속 크리에이터 100명
-              대상 임의 3개월간 선정한 산출값)
+              대상 3개월간 산출값)
             </Paragraph>
           </Col>
 
@@ -290,7 +288,9 @@ export default function HomePage() {
             <Title level={2} style={{ color: "#1677ff" }}>
               9,420,337원+
             </Title>
-            <Text style={{ fontSize: 18, color: "#666" }}>평균 정산 금액</Text>
+            <Text style={{ fontSize: 18, color: "#666" }}>
+              월 평균 정산 금액
+            </Text>
             <Paragraph style={{ color: "#666", marginTop: 16 }}>
               최근 12개월간 활동한 1,000명의 사용자 데이터를 기반으로 산정한
               평균 정산금액입니다.
@@ -318,7 +318,7 @@ export default function HomePage() {
         }}
       >
         <Title level={2} style={{ marginBottom: 24 }}>
-          남들보다 먼저 시작하세요
+          남들보다 먼저 시작하세요.
         </Title>
         <Text
           style={{
@@ -327,12 +327,52 @@ export default function HomePage() {
             display: "block",
           }}
         >
-          2025년 하반기 베타서비스 시작 예정
+          2025년 하반기 베타 서비스 시작 예정
         </Text>
+        <div style={{ margin: "40px auto", maxWidth: 600 }}>
+          <ul
+            style={{
+              listStyle: "none",
+              padding: 100,
+              textAlign: "left",
+              display: "inline-block",
+              backgroundColor: "#f0f0f0",
+              borderRadius: 16,
+            }}
+          >
+            <li
+              style={{
+                marginBottom: 16,
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+              }}
+            >
+              <SketchOutlined style={{ color: "#722ed1", fontSize: 20 }} />
+              <Text style={{ fontSize: 16 }}>
+                크리에이터 얼리버드에게{" "}
+                <Text strong>[정산 수수료 zero 쿠폰]</Text> 1매 제공
+              </Text>
+            </li>
+            <li
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+              }}
+            >
+              <SketchOutlined style={{ color: "#722ed1", fontSize: 20 }} />
+              <Text style={{ fontSize: 16 }}>
+                팬 얼리버드에게 <Text strong>[한정판 얼리버드 뱃지]</Text> 제공
+              </Text>
+            </li>
+          </ul>
+        </div>
         <Paragraph
           style={{ color: "#666", maxWidth: 600, margin: "0 auto 32px" }}
         >
-          더 이상 망설이지 마세요. 지금 바로 시작하세요!
+          서비스를 끝까지 읽어주셔서 감사합니다. 감사의 마음을 담아 얼리버드
+          혜택을 준비했어요.
         </Paragraph>
         <Button
           type="primary"
@@ -345,23 +385,47 @@ export default function HomePage() {
             borderRadius: 24,
           }}
         >
-          얼리버드 시작
+          얼리버드로 시작
         </Button>
       </div>
 
-      {/* 푸터 섹션(랜딩페이지의 실제 범위 설명) */}
+      {/* 유의사항 섹션 */}
       <div
         style={{
           marginTop: 120,
           padding: "60px 0",
           borderTop: "1px solid #f0f0f0",
-          textAlign: "center",
         }}
       >
-        <Text type="secondary" style={{ fontSize: 14 }}>
-          본 웹사이트는 포트폴리오용 개인 프로젝트이므로 정식 및 베타 서비스
-          예정일이 바뀔 수 있습니다
+        <Text
+          type="secondary"
+          style={{ fontSize: 14, display: "block", marginBottom: 16 }}
+        >
+          [유의사항]
         </Text>
+        <ul
+          style={{
+            listStyle: "none",
+            padding: 0,
+            margin: 0,
+          }}
+        >
+          <li style={{ marginBottom: 1 }}>
+            <Text type="secondary" style={{ fontSize: 14 }}>
+              '얼리버드로 시작'은 당사 사정에 따라 조기 마감될 수 있습니다.
+            </Text>
+          </li>
+          <li style={{ marginBottom: 1 }}>
+            <Text type="secondary" style={{ fontSize: 14 }}>
+              얼리버드 혜택 관련 내용은 당사 사정에 따라 바뀔 수 있습니다.
+            </Text>
+          </li>
+          <li>
+            <Text type="secondary" style={{ fontSize: 14 }}>
+              정식 및 베타 서비스 예정일은 당사 사정에 따라 바뀔 수 있습니다.
+            </Text>
+          </li>
+        </ul>
         <div style={{ marginTop: 16 }}>
           <Text type="secondary" style={{ fontSize: 12 }}>
             © {new Date().getFullYear()} CREFANS. All rights reserved.

@@ -733,10 +733,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
             </div>
             <div style={{ paddingLeft: 16 }}>
               <Paragraph style={{ marginBottom: 8, color: "#8c8c8c" }}>
-                (주) 크레팬스
+                크레팬스
               </Paragraph>
               <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-                대표이사 : 박경호
+                대표 : 박경호
               </Paragraph>
               <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
                 이메일 : support@crefans.com
