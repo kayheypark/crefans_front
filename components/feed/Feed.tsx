@@ -311,7 +311,7 @@ export default function Feed() {
           <Button
             type={filter === "all" ? "primary" : "default"}
             style={{
-              fontSize: 10,
+              fontSize: 14,
             }}
             onClick={() => {
               setFilter("all");
@@ -325,7 +325,7 @@ export default function Feed() {
           <Button
             type={filter === "membership" ? "primary" : "default"}
             style={{
-              fontSize: 10,
+              fontSize: 14,
             }}
             onClick={() => {
               setFilter("membership");
@@ -339,7 +339,7 @@ export default function Feed() {
           <Button
             type={filter === "public" ? "primary" : "default"}
             style={{
-              fontSize: 10,
+              fontSize: 14,
             }}
             onClick={() => {
               setFilter("public");

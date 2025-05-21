@@ -13,6 +13,10 @@ import {
   TeamOutlined,
   SafetyOutlined,
   RocketOutlined,
+  AimOutlined,
+  CloudDownloadOutlined,
+  FireOutlined,
+  FlagOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
@@ -23,62 +27,75 @@ export default function HomePage() {
 
   const features = [
     {
-      icon: <LockOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "크리에이터",
-      description: "자유로운 멤버십 비용 설정",
+      icon: <SafetyOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
+      tags: ["크리에이터"],
+      title: "안전한 보안",
       detail:
-        "원하는 가격으로 멤버십을 설정하고, 낮은 수수료로 더 많은 수익을 창출하세요. 크레팬스는 최저 5%의 수수료로 운영됩니다.",
-    },
-    {
-      icon: <MessageOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "크리에이터",
-      description: "직접적인 팬 소통",
-      detail:
-        "실시간 채팅, 라이브 스트리밍, 그리고 직접적인 소통을 통해 팬들과 더 깊은 관계를 만들어보세요.",
-    },
-    {
-      icon: <HeartOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "팬",
-      description: "특별한 경험",
-      detail:
-        "좋아하는 크리에이터의 특별한 컨텐츠와 소통을 경험하세요. 공식 SNS와는 다른, 더 친근하고 진솔한 모습을 만나볼 수 있습니다.",
+        "크레팬스는 AWS와 함께하는 보안 시스템으로 크리에이터의 소중한 자산을 안전하게 보호합니다.",
     },
     {
       icon: <DollarOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "크리에이터",
-      description: "다양한 수익 모델",
+      tags: ["크리에이터"],
+      title: "멤버십 수익창출",
       detail:
-        "구독료, 후원, 광고 수익 등 다양한 수익 모델을 통해 안정적인 수익을 창출할 수 있습니다.",
+        "원하는 가격으로 멤버십을 설정하고, 낮은 수수료로 더 많은 수익을 창출하세요.",
     },
     {
-      icon: <DashboardOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "팬",
-      description: "편리한 결제 시스템",
+      icon: <TeamOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
+      tags: ["크리에이터"],
+      title: "유대감 형성",
       detail:
-        "안전하고 간편한 결제 시스템으로 원하는 크리에이터의 멤버십을 쉽게 구독할 수 있습니다.",
+        "포스팅, 채팅을 통해 팬들과 유대감을 형성할 수 있습니다. 팬들과 더 가깝게 만나보세요.",
+    },
+    {
+      icon: <AimOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
+      tags: ["팬"],
+      title: "개별 구매 시스템",
+      detail:
+        "멤버십이 부담스러우신가요? 개별 구매 시스템을 통해 원하는 컨텐츠를 구매할 수 있습니다.",
+    },
+    {
+      icon: <RocketOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
+      tags: ["팬"],
+      title: "로켓 포인트 충전",
+      detail:
+        "느리고 복잡한 충전에 질리셨죠? 클릭한번으로 충전하고 당장 콘텐츠를 확인하세요. (카드 등록 이후 기준)",
+    },
+    {
+      icon: (
+        <CloudDownloadOutlined style={{ fontSize: 32, color: "#1677ff" }} />
+      ),
+      tags: ["팬"],
+      title: "컨텐츠 다운로드",
+      detail:
+        "구매한 컨텐츠는 다운로드가 가능합니다. (크리에이터가 다운로드를 허용한 경우)",
     },
   ];
 
   const benefits = [
     {
+      icon: <FlagOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
+      title: "신규 크리에이터 지원",
+      description:
+        "신규 크리에이터 님들을 위해 가입즉시 무료로 크리에이터님을 홍보해드립니다.",
+    },
+    {
+      icon: <DollarOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
+      title: "점점 낮아지는 수수료",
+      description:
+        "볼륨 디스카운트(Volume Discount) 운영 정책에 따라 멤버십 구독자가 많을수록 정산 수수료가 점점 낮아집니다.",
+    },
+    {
       icon: <StarOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "프리미엄 멤버십",
-      description: "특별한 혜택과 독점 컨텐츠를 누려보세요",
+      title: "창작에만 신경 쓰세요",
+      description:
+        "기본정보만 등록하시면 나머지는 크레팬스가 알아서 해드립니다. (저작권관리, 판매 통계 등)",
     },
     {
       icon: <TeamOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "커뮤니티",
-      description: "같은 관심사를 가진 팬들과 소통하세요",
-    },
-    {
-      icon: <SafetyOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "안전한 결제",
-      description: "안전하고 편리한 결제 시스템",
-    },
-    {
-      icon: <RocketOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
-      title: "빠른 성장",
-      description: "효과적인 마케팅과 성장 전략",
+      title: "CrefansAlgorithm™",
+      description:
+        "크리에이터님의 판매량, 카테고리 등을 분석하여 구매율 높은 팬에게 노출합니다.",
     },
   ];
 
@@ -99,19 +116,11 @@ export default function HomePage() {
           padding: "60px 0",
         }}
       >
-        <Title level={1} style={{ marginBottom: 24 }}>
-          인플루언서의 두번째 계정
+        <Title level={2} style={{ marginBottom: 24 }}>
+          크리에이터와 팬들이 만나다
         </Title>
-        <Text
-          style={{
-            fontSize: 20,
-            color: "#666",
-            display: "block",
-            marginBottom: 40,
-          }}
-        >
-          크레팬스에서만 만나는 특별한 공간
-        </Text>
+        <Title level={3}>creator + fans</Title>
+
         <Paragraph
           style={{
             fontSize: 16,
@@ -120,8 +129,8 @@ export default function HomePage() {
             margin: "0 auto 40px",
           }}
         >
-          인플루언서와 팬들이 더 가깝게 만날 수 있는 새로운 공간을 만들어보세요.
-          공식 SNS와는 다른, 더 진솔하고 특별한 순간들을 공유하고 소통하세요.
+          크리에이터와 팬들이 더 가깝게 만날 수 있는 새로운 공간을 만들어보세요.
+          <br />더 진솔하고 특별한 순간들을 공유하고 소통하세요.
         </Paragraph>
         <Space size="large">
           <Button
@@ -147,7 +156,7 @@ export default function HomePage() {
               borderRadius: 24,
             }}
           >
-            둘러보기
+            생태계 둘러보기
           </Button>
         </Space>
       </div>
@@ -155,7 +164,7 @@ export default function HomePage() {
       {/* 특징 섹션 */}
       <div style={{ marginBottom: 80 }}>
         <Title level={2} style={{ textAlign: "center", marginBottom: 48 }}>
-          특별한 기능
+          크레팬스의 6가지 기능
         </Title>
         <Row gutter={[32, 32]}>
           {features.map((feature, index) => (
@@ -174,26 +183,26 @@ export default function HomePage() {
                     style={{
                       display: "inline-block",
                       padding: "4px 12px",
-                      background:
-                        feature.title === "크리에이터" ? "#e6f4ff" : "#f6ffed",
+                      background: feature.tags.includes("크리에이터")
+                        ? "#e6f4ff"
+                        : "#f6ffed",
                       borderRadius: 12,
                       marginBottom: 12,
                     }}
                   >
                     <Text
                       style={{
-                        color:
-                          feature.title === "크리에이터"
-                            ? "#1677ff"
-                            : "#52c41a",
+                        color: feature.tags.includes("크리에이터")
+                          ? "#1677ff"
+                          : "#52c41a",
                         fontWeight: 500,
                       }}
                     >
-                      {feature.title}
+                      {feature.tags.join(", ")}
                     </Text>
                   </div>
                   <Title level={4} style={{ marginBottom: 12 }}>
-                    {feature.description}
+                    {feature.title}
                   </Title>
                   <Text type="secondary" style={{ fontSize: 14 }}>
                     {feature.detail}
@@ -208,7 +217,9 @@ export default function HomePage() {
       {/* 혜택 섹션 */}
       <div style={{ marginBottom: 80 }}>
         <Title level={2} style={{ textAlign: "center", marginBottom: 48 }}>
-          혜택
+          크리에이터님! 지금이 제일 좋은 타이밍입니다.
+          <br />
+          가파르게 성장하고 있는 크레팬스에 가입하여 팬들을 선점하세요
         </Title>
         <Row gutter={[32, 32]}>
           {benefits.map((benefit, index) => (
@@ -245,38 +256,40 @@ export default function HomePage() {
         }}
       >
         <Title level={2} style={{ marginBottom: 48 }}>
-          성장
+          숫자로 보는 크레팬스
         </Title>
         <Row gutter={[48, 48]}>
           <Col xs={24} sm={8}>
             <Title level={2} style={{ color: "#1677ff" }}>
-              10,000+
+              92%
             </Title>
-            <Text style={{ fontSize: 18, color: "#666" }}>활성 크리에이터</Text>
+            <Text style={{ fontSize: 18, color: "#666" }}>
+              멤버십 구독 유지 비율
+            </Text>
             <Paragraph style={{ color: "#666", marginTop: 16 }}>
-              매일 새로운 크리에이터가 크레팬스에 합류하고 있습니다.
+              당신의 콘텐츠로 충성 고객을 만드세요. (활동 지속 크리에이터 100명
+              대상 임의 3개월간 선정한 산출값)
+            </Paragraph>
+          </Col>
+
+          <Col xs={24} sm={8}>
+            <Title level={2} style={{ color: "#1677ff" }}>
+              9,420,337원+
+            </Title>
+            <Text style={{ fontSize: 18, color: "#666" }}>평균 정산 금액</Text>
+            <Paragraph style={{ color: "#666", marginTop: 16 }}>
+              최근 12개월간 활동한 1,000명의 사용자 데이터를 기반으로 산정한
+              평균 정산금액입니다.
             </Paragraph>
           </Col>
           <Col xs={24} sm={8}>
             <Title level={2} style={{ color: "#1677ff" }}>
               1,000,000+
             </Title>
-            <Text style={{ fontSize: 18, color: "#666" }}>
-              월간 활성 사용자
-            </Text>
+            <Text style={{ fontSize: 18, color: "#666" }}>활동 팬</Text>
             <Paragraph style={{ color: "#666", marginTop: 16 }}>
-              전 세계 팬들이 크레팬스에서 특별한 경험을 하고 있습니다.
-            </Paragraph>
-          </Col>
-          <Col xs={24} sm={8}>
-            <Title level={2} style={{ color: "#1677ff" }}>
-              50억+
-            </Title>
-            <Text style={{ fontSize: 18, color: "#666" }}>
-              월간 컨텐츠 조회수
-            </Text>
-            <Paragraph style={{ color: "#666", marginTop: 16 }}>
-              매월 수십억 건의 컨텐츠가 크레팬스를 통해 공유됩니다.
+              더 많은 도파민을 갈망하는 전 세계 팬들이 크레팬스에서 당신을
+              기다리고 있습니다.
             </Paragraph>
           </Col>
         </Row>
@@ -298,7 +311,6 @@ export default function HomePage() {
             fontSize: 18,
             color: "#666",
             display: "block",
-            marginBottom: 32,
           }}
         >
           크레팬스와 함께 특별한 공간을 만들어보세요
@@ -306,8 +318,7 @@ export default function HomePage() {
         <Paragraph
           style={{ color: "#666", maxWidth: 600, margin: "0 auto 32px" }}
         >
-          지금 가입하시면 첫 달 무료 체험과 함께 다양한 혜택을 받아보실 수
-          있습니다. 더 이상 망설이지 마세요. 지금 바로 시작하세요!
+          더 이상 망설이지 마세요. 지금 바로 시작하세요!
         </Paragraph>
         <Button
           type="primary"

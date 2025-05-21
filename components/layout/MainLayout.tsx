@@ -123,14 +123,16 @@ export default function MainLayout({ children }: MainLayoutProps) {
   }, [pathname]);
 
   const handleLogout = () => {
-    Modal.confirm({
-      title: "로그아웃",
-      content: "정말 로그아웃 하시겠습니까?",
-      onOk: () => {
-        logout();
-        router.push("/");
-      },
-    });
+    logout();
+    router.push("/");
+    // Modal.confirm({
+    //   title: "로그아웃",
+    //   content: "정말 로그아웃 하시겠습니까?",
+    //   onOk: () => {
+    //     logout();
+    //     router.push("/");
+    //   },
+    // });
   };
 
   const handleMenuChange = (info: { key: string }) => {
@@ -558,16 +560,32 @@ export default function MainLayout({ children }: MainLayoutProps) {
             style={{ border: "none" }}
             onClick={handleMenuChange}
           >
-            <Menu.Item key="home" icon={<HomeOutlined />}>
+            <Menu.Item
+              key="home"
+              style={{ fontSize: 20 }}
+              icon={<HomeOutlined style={{ fontSize: 20 }} />}
+            >
               홈
             </Menu.Item>
-            <Menu.Item key="feed" icon={<LayoutOutlined />}>
+            <Menu.Item
+              key="feed"
+              style={{ fontSize: 20 }}
+              icon={<LayoutOutlined style={{ fontSize: 20 }} />}
+            >
               피드
             </Menu.Item>
-            <Menu.Item key="explore" icon={<CompassOutlined />}>
+            <Menu.Item
+              key="explore"
+              style={{ fontSize: 20 }}
+              icon={<CompassOutlined style={{ fontSize: 20 }} />}
+            >
               둘러보기
             </Menu.Item>
-            <Menu.Item key="search" icon={<SearchOutlined />}>
+            <Menu.Item
+              key="search"
+              style={{ fontSize: 20 }}
+              icon={<SearchOutlined style={{ fontSize: 20 }} />}
+            >
               검색
             </Menu.Item>
 
@@ -743,7 +761,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   fontSize: 12,
                 }}
               >
-                © {new Date().getFullYear()} SECONID, Inc. All rights reserved
+                © {new Date().getFullYear()} CREFANS, Inc. All rights reserved
               </Text>
             </div>
           </div>
@@ -761,7 +779,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
-                padding: "24px 16px 0 16px",
+                padding: "24px 16px",
                 marginBottom: 0,
                 minHeight: 64,
               }}
