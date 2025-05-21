@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Typography, Button, Row, Col, Card, Space } from "antd";
+import { Typography, Button, Row, Col, Card, Space, Tooltip } from "antd";
 import {
   UserOutlined,
   LockOutlined,
@@ -17,6 +17,9 @@ import {
   CloudDownloadOutlined,
   FireOutlined,
   FlagOutlined,
+  ProjectOutlined,
+  VideoCameraOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
@@ -86,13 +89,13 @@ export default function HomePage() {
         "볼륨 디스카운트(Volume Discount) 운영 정책에 따라 멤버십 구독자가 많을수록 정산 수수료가 점점 낮아집니다.",
     },
     {
-      icon: <StarOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
+      icon: <VideoCameraOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
       title: "창작에만 신경 쓰세요",
       description:
         "기본정보만 등록하시면 나머지는 크레팬스가 알아서 해드립니다. (저작권관리, 판매 통계 등)",
     },
     {
-      icon: <TeamOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
+      icon: <ProjectOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
       title: "CrefansAlgorithm™",
       description:
         "크리에이터님의 판매량, 카테고리 등을 분석하여 구매율 높은 팬에게 노출합니다.",
@@ -112,14 +115,16 @@ export default function HomePage() {
       <div
         style={{
           textAlign: "center",
-          marginBottom: 80,
-          padding: "60px 0",
+          marginBottom: 120,
+          padding: "80px 0",
         }}
       >
-        <Title level={2} style={{ marginBottom: 24 }}>
-          크리에이터와 팬들이 만나다
+        <Title
+          level={1}
+          style={{ marginBottom: 24, marginTop: 100, fontSize: 80 }}
+        >
+          Creator + Fan
         </Title>
-        <Title level={3}>creator + fans</Title>
 
         <Paragraph
           style={{
@@ -129,8 +134,7 @@ export default function HomePage() {
             margin: "0 auto 40px",
           }}
         >
-          크리에이터와 팬들이 더 가깝게 만날 수 있는 새로운 공간을 만들어보세요.
-          <br />더 진솔하고 특별한 순간들을 공유하고 소통하세요.
+          crefans. 크리에이터와 팬이 만나다.
         </Paragraph>
         <Space size="large">
           <Button
@@ -162,9 +166,13 @@ export default function HomePage() {
       </div>
 
       {/* 특징 섹션 */}
-      <div style={{ marginBottom: 80 }}>
-        <Title level={2} style={{ textAlign: "center", marginBottom: 48 }}>
-          크레팬스의 6가지 기능
+      <div style={{ marginBottom: 120 }}>
+        <Title level={2} style={{ textAlign: "center", marginBottom: 80 }}>
+          크리에이터, 팬, 플랫폼이 연결된 지속 가능한 창작 생태계
+          <br />
+          <Text type="secondary" style={{ textAlign: "center" }}>
+            이 모든 것들이 유기적으로 연결되어 하나의 생태계를 이루고 있습니다.
+          </Text>
         </Title>
         <Row gutter={[32, 32]}>
           {features.map((feature, index) => (
@@ -215,12 +223,15 @@ export default function HomePage() {
       </div>
 
       {/* 혜택 섹션 */}
-      <div style={{ marginBottom: 80 }}>
-        <Title level={2} style={{ textAlign: "center", marginBottom: 48 }}>
-          크리에이터님! 지금이 제일 좋은 타이밍입니다.
+      <div style={{ marginBottom: 120 }}>
+        <Title level={2} style={{ textAlign: "center", marginBottom: 80 }}>
+          크리에이터님! 지금이 가장 좋은 타이밍입니다.
           <br />
-          가파르게 성장하고 있는 크레팬스에 가입하여 팬들을 선점하세요
+          <Text type="secondary" style={{ textAlign: "center" }}>
+            가파르게 성장하고 있는 크레팬스에 가입하여 팬들을 선점하세요
+          </Text>
         </Title>
+
         <Row gutter={[32, 32]}>
           {benefits.map((benefit, index) => (
             <Col xs={24} sm={12} md={6} key={index}>
@@ -248,15 +259,18 @@ export default function HomePage() {
       {/* 통계 섹션 */}
       <div
         style={{
-          marginTop: 80,
-          padding: "60px",
+          marginTop: 120,
+          padding: "80px",
           background: "#f5f5f5",
           borderRadius: 24,
           textAlign: "center",
         }}
       >
         <Title level={2} style={{ marginBottom: 48 }}>
-          숫자로 보는 크레팬스
+          숫자로 보는 크레팬스의 목표
+          <Tooltip title="크레팬스 프로젝트의 목표 데이터이므로 실제 데이터와 다를 수 있습니다.">
+            <InfoCircleOutlined style={{ marginLeft: 8 }} />
+          </Tooltip>
         </Title>
         <Row gutter={[48, 48]}>
           <Col xs={24} sm={8}>
@@ -295,16 +309,16 @@ export default function HomePage() {
         </Row>
       </div>
 
-      {/* CTA 섹션 */}
+      {/* 얼리버드 섹션 */}
       <div
         style={{
-          marginTop: 80,
+          marginTop: 120,
           textAlign: "center",
-          padding: "60px 0",
+          padding: "80px 0",
         }}
       >
         <Title level={2} style={{ marginBottom: 24 }}>
-          지금 바로 시작하세요
+          남들보다 먼저 시작하세요
         </Title>
         <Text
           style={{
@@ -313,7 +327,7 @@ export default function HomePage() {
             display: "block",
           }}
         >
-          크레팬스와 함께 특별한 공간을 만들어보세요
+          2025년 하반기 베타서비스 시작 예정
         </Text>
         <Paragraph
           style={{ color: "#666", maxWidth: 600, margin: "0 auto 32px" }}
@@ -331,8 +345,28 @@ export default function HomePage() {
             borderRadius: 24,
           }}
         >
-          무료로 시작하기
+          얼리버드 시작
         </Button>
+      </div>
+
+      {/* 푸터 섹션(랜딩페이지의 실제 범위 설명) */}
+      <div
+        style={{
+          marginTop: 120,
+          padding: "60px 0",
+          borderTop: "1px solid #f0f0f0",
+          textAlign: "center",
+        }}
+      >
+        <Text type="secondary" style={{ fontSize: 14 }}>
+          본 웹사이트는 포트폴리오용 개인 프로젝트이므로 정식 및 베타 서비스
+          예정일이 바뀔 수 있습니다
+        </Text>
+        <div style={{ marginTop: 16 }}>
+          <Text type="secondary" style={{ fontSize: 12 }}>
+            © {new Date().getFullYear()} CREFANS. All rights reserved.
+          </Text>
+        </div>
       </div>
     </div>
   );

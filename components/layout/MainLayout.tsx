@@ -736,23 +736,23 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 (주) 크레팬스
               </Paragraph>
               <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-                대표이사 : 000
+                대표이사 : 박경호
               </Paragraph>
               <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-                이메일 : support@domain.com
+                이메일 : support@crefans.com
               </Paragraph>
-              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-                전화번호 : 000-0000-0000
-              </Paragraph>
-              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+              {/* <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+                전화번호 : 010-0000-0000
+              </Paragraph> */}
+              {/* <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
                 주소 : 서울시 00구 00동 00길 00호
-              </Paragraph>
-              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+              </Paragraph> */}
+              {/* <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
                 통신판매업신고번호 : 2025-서울시-00000
-              </Paragraph>
-              <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
+              </Paragraph> */}
+              {/* <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
                 사업자 등록번호 : 000-00-00000
-              </Paragraph>
+              </Paragraph> */}
               <Text
                 style={{
                   display: "block",

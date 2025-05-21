@@ -722,7 +722,7 @@ export default function Feed() {
           <Space direction="vertical" size="large" style={{ width: "100%" }}>
             <div>
               <Input
-                value={`https://seconid.com/post/${selectedPostId}`}
+                value={`https://www.crefans.com/post/${selectedPostId}`}
                 readOnly
                 suffix={
                   <Button
@@ -730,7 +730,7 @@ export default function Feed() {
                     icon={<LinkOutlined />}
                     onClick={() => {
                       navigator.clipboard.writeText(
-                        `https://seconid.com/post/${selectedPostId}`
+                        `https://www.crefans.com/post/${selectedPostId}`
                       );
                       message.success("링크가 복사되었습니다.");
                     }}

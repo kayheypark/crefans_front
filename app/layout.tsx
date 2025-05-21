@@ -8,7 +8,7 @@ import "antd/dist/reset.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SECON.ID - 크리에이터 플랫폼",
+  title: "crefans",
   description: "당신만의 크리에이터를 만나보세요",
 };
 
