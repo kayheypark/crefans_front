@@ -31,6 +31,8 @@ import {
   CompassOutlined,
   SettingOutlined,
   LoginOutlined,
+  ArrowLeftOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -376,12 +378,12 @@ export default function MainLayout({ children }: MainLayoutProps) {
         <Sider
           width={sideBarWidth}
           style={{
-            background: "#fff",
+            backgroundColor: "white", // 사이드바 배경색
+            borderRight: "1px solid #f0f0f0",
             position: "fixed",
             height: "100vh",
             left: 0,
             top: 0,
-            boxShadow: "2px 0 8px rgba(0,0,0,0.1)",
             display: "flex",
             flexDirection: "column",
             overflowY: "auto",
@@ -392,7 +394,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             style={{
               padding: "32px 16px 16px 16px",
               borderBottom: "1px solid #f0f0f0",
-              background: "#fff",
+              //   background: "#fff",
             }}
           >
             <div
@@ -417,7 +419,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   <div
                     style={{
                       width: "100%",
-                      background: "#fff",
+                      //   background: "#fff",
                       borderRadius: 16,
                       padding: "20px 20px 16px 5px",
                       marginBottom: 24,
@@ -486,8 +488,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
                         display: "flex",
                         alignItems: "center",
                         marginTop: 18,
-                        border: "1.5px solid #e0e0e0",
-                        borderRadius: 5,
+                        border: "1px solid #f0f0f0",
+                        borderRadius: 15,
                         overflow: "hidden",
                         height: 44,
                       }}
@@ -498,10 +500,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
                           alignItems: "center",
                           flex: 1,
                           padding: "0 18px",
-                          fontSize: 15,
+                          fontSize: 20,
                           color: "#f857a6",
                           fontWeight: 600,
-                          background: "#fff",
                           height: "100%",
                           gap: 8,
                         }}
@@ -511,7 +512,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                       <Button
                         type="primary"
                         style={{
-                          borderRadius: 0,
+                          borderRadius: 15,
                           height: "100%",
                           fontWeight: 600,
                           fontSize: 15,
@@ -521,7 +522,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                           minWidth: 90,
                         }}
                       >
-                        씨앗충전
+                        <PlusOutlined />콩 충전
                       </Button>
                     </div>
                   </div>
@@ -749,12 +750,41 @@ export default function MainLayout({ children }: MainLayoutProps) {
         </Sider>
 
         <Layout style={{ marginLeft: sideBarWidth }}>
-          <Content style={{ margin: "24px 16px", padding: 24, minHeight: 280 }}>
-            {pageTitles[pathname] && (
-              <Title level={2} style={{ marginBottom: 32 }}>
+          {/* 앱바 (App Bar) */}
+          {pageTitles[pathname] && (
+            <div
+              style={{
+                position: "sticky",
+                top: 0,
+                zIndex: 10,
+                background: "#fff", // 메인 컨텐츠 네비게이션 배경색
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "24px 16px 0 16px",
+                marginBottom: 0,
+                minHeight: 64,
+              }}
+            >
+              <Button
+                type="text"
+                icon={<ArrowLeftOutlined />}
+                onClick={() => router.back()}
+                style={{ marginRight: 8 }}
+              />
+              <Title level={2} style={{ margin: 0 }}>
                 {pageTitles[pathname]}
               </Title>
-            )}
+            </div>
+          )}
+          <Content
+            style={{
+              //   margin: "0 16px",
+              padding: 24,
+              minHeight: 280,
+              background: "#fff", // 메인 컨텐츠 배경색
+            }}
+          >
             {children}
           </Content>
         </Layout>
