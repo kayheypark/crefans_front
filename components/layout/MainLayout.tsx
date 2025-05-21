@@ -48,6 +48,12 @@ interface MainLayoutProps {
   children: React.ReactNode;
 }
 
+const pageTitles: { [key: string]: string } = {
+  "/feed": "피드",
+  "/explore": "둘러보기",
+  "/search": "검색",
+};
+
 export default function MainLayout({ children }: MainLayoutProps) {
   const { user, logout } = useAuth();
   const router = useRouter();
@@ -398,8 +404,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
               }}
             >
               <img
-                src="/seconid-logo.png"
-                alt="seconid"
+                src="/logo.png"
+                alt="crefans"
                 height={28}
                 style={{ marginRight: 8 }}
               />
@@ -554,7 +560,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             <Menu.Item key="home" icon={<HomeOutlined />}>
               홈
             </Menu.Item>
-            <Menu.Item key="feed" icon={<CompassOutlined />}>
+            <Menu.Item key="feed" icon={<LayoutOutlined />}>
               피드
             </Menu.Item>
             <Menu.Item key="explore" icon={<CompassOutlined />}>
@@ -708,7 +714,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             </div>
             <div style={{ paddingLeft: 16 }}>
               <Paragraph style={{ marginBottom: 8, color: "#8c8c8c" }}>
-                (주) 세컨아이디
+                (주) 크레팬스
               </Paragraph>
               <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
                 대표이사 : 000
@@ -744,6 +750,11 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
         <Layout style={{ marginLeft: sideBarWidth }}>
           <Content style={{ margin: "24px 16px", padding: 24, minHeight: 280 }}>
+            {pageTitles[pathname] && (
+              <Title level={2} style={{ marginBottom: 32 }}>
+                {pageTitles[pathname]}
+              </Title>
+            )}
             {children}
           </Content>
         </Layout>

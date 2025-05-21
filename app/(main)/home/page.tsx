@@ -27,7 +27,7 @@ export default function HomePage() {
       title: "크리에이터",
       description: "자유로운 멤버십 비용 설정",
       detail:
-        "원하는 가격으로 멤버십을 설정하고, 낮은 수수료로 더 많은 수익을 창출하세요. 세컨아이디는 최저 5%의 수수료로 운영됩니다.",
+        "원하는 가격으로 멤버십을 설정하고, 낮은 수수료로 더 많은 수익을 창출하세요. 크레팬스는 최저 5%의 수수료로 운영됩니다.",
     },
     {
       icon: <MessageOutlined style={{ fontSize: 32, color: "#1677ff" }} />,
@@ -110,7 +110,7 @@ export default function HomePage() {
             marginBottom: 40,
           }}
         >
-          세컨아이디에서만 만나는 특별한 공간
+          크레팬스에서만 만나는 특별한 공간
         </Text>
         <Paragraph
           style={{
@@ -254,7 +254,7 @@ export default function HomePage() {
             </Title>
             <Text style={{ fontSize: 18, color: "#666" }}>활성 크리에이터</Text>
             <Paragraph style={{ color: "#666", marginTop: 16 }}>
-              매일 새로운 크리에이터가 세컨아이디에 합류하고 있습니다.
+              매일 새로운 크리에이터가 크레팬스에 합류하고 있습니다.
             </Paragraph>
           </Col>
           <Col xs={24} sm={8}>
@@ -265,7 +265,7 @@ export default function HomePage() {
               월간 활성 사용자
             </Text>
             <Paragraph style={{ color: "#666", marginTop: 16 }}>
-              전 세계 팬들이 세컨아이디에서 특별한 경험을 하고 있습니다.
+              전 세계 팬들이 크레팬스에서 특별한 경험을 하고 있습니다.
             </Paragraph>
           </Col>
           <Col xs={24} sm={8}>
@@ -276,7 +276,7 @@ export default function HomePage() {
               월간 컨텐츠 조회수
             </Text>
             <Paragraph style={{ color: "#666", marginTop: 16 }}>
-              매월 수십억 건의 컨텐츠가 세컨아이디를 통해 공유됩니다.
+              매월 수십억 건의 컨텐츠가 크레팬스를 통해 공유됩니다.
             </Paragraph>
           </Col>
         </Row>
@@ -301,7 +301,7 @@ export default function HomePage() {
             marginBottom: 32,
           }}
         >
-          세컨아이디와 함께 특별한 공간을 만들어보세요
+          크레팬스와 함께 특별한 공간을 만들어보세요
         </Text>
         <Paragraph
           style={{ color: "#666", maxWidth: 600, margin: "0 auto 32px" }}
