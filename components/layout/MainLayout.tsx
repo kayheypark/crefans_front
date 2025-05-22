@@ -38,6 +38,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import LoginModal from "@/components/modals/LoginModal";
 import Masonry from "react-masonry-css";
+import SignUpModal from "@/app/(main)/home/SignUpModal";
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -69,6 +70,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
     return "home";
   });
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [unreadNotifications, setUnreadNotifications] = useState(2);
   const [notifications, setNotifications] = useState<any[]>([]);
   const [notificationDateType, setNotificationDateType] = useState<{
@@ -540,7 +542,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   </Button>
                   <Button
                     type="primary"
-                    onClick={() => router.push("/signup")}
+                    onClick={() => setIsSignUpModalOpen(true)}
                     style={{
                       color: "#fff",
                       border: "none",
@@ -811,6 +813,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
+      />
+      <SignUpModal
+        open={isSignUpModalOpen}
+        onClose={() => setIsSignUpModalOpen(false)}
       />
     </Layout>
   );

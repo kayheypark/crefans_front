@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Button, Row, Col, Card, Space, Tooltip } from "antd";
 import {
   DollarOutlined,
@@ -17,11 +17,13 @@ import {
   PercentageOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import SignUpModal from "./SignUpModal";
 
 const { Title, Text, Paragraph } = Typography;
 
 export default function HomePage() {
   const router = useRouter();
+  const [signUpOpen, setSignUpOpen] = useState(false);
 
   const features = [
     {
@@ -138,7 +140,7 @@ export default function HomePage() {
           <Button
             type="primary"
             size="large"
-            onClick={() => router.push("/signup")}
+            onClick={() => setSignUpOpen(true)}
             style={{
               height: 48,
               padding: "0 32px",
@@ -377,7 +379,7 @@ export default function HomePage() {
         <Button
           type="primary"
           size="large"
-          onClick={() => router.push("/signup")}
+          onClick={() => setSignUpOpen(true)}
           style={{
             height: 48,
             padding: "0 32px",
@@ -432,6 +434,7 @@ export default function HomePage() {
           </Text>
         </div>
       </div>
+      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} />
     </div>
   );
 }
