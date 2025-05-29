@@ -646,7 +646,8 @@ export default function Feed() {
                     >
                       <LightGallery
                         speed={500}
-                        plugins={[lgThumbnail, lgZoom]}
+                        // plugins={[lgThumbnail, lgZoom]}
+                        download={false}
                         elementClassNames="custom-wrapper-class"
                       >
                         {/* 썸네일용 첫 번째 이미지 */}
