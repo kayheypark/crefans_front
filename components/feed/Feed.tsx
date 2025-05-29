@@ -621,98 +621,94 @@ export default function Feed() {
                   </div>
                 )}
                 {/* 미디어는 항상 텍스트 아래에 노출 */}
-                {(!post.isMembershipOnly ||
-                  (user &&
-                    (user as any).memberships &&
-                    (user as any).memberships.includes(post.creator.id))) &&
-                  post.images?.length && (
+                {post.isGotMembership && post.images?.length && (
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                      marginTop: 16,
+                    }}
+                  >
+                    <LightGallery
+                      speed={500}
+                      // plugins={[lgThumbnail, lgZoom]}
+                      download={false}
+                      elementClassNames="custom-wrapper-class"
+                    >
+                      {/* 썸네일용 첫 번째 이미지 */}
+                      {post.images
+                        .filter((img) => img.isPublic)
+                        .map((img, idx) => (
+                          <a
+                            key={`${post.id}-${img.url}-${idx}`}
+                            className="gallery-item"
+                            data-src={img.url}
+                            href={img.url}
+                          >
+                            <img
+                              src={img.url}
+                              alt={noCopyGuideText}
+                              style={{
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "cover",
+                                borderRadius: 8,
+                                display: "block",
+                              }}
+                            />
+                          </a>
+                        ))}
+                      {/* 프리뷰용 나머지 이미지들 (숨김) */}
+                      {post.images
+                        .filter((img) => !img.isPublic)
+                        .map((img, idx) => (
+                          <a
+                            key={`${post.id}-${img.url}`}
+                            className="gallery-item"
+                            data-src={img.url}
+                            href={img.url}
+                            style={{ display: "none" }}
+                          >
+                            <img
+                              src={img.url}
+                              alt={noCopyGuideText}
+                              style={{
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "cover",
+                                borderRadius: 8,
+                                display: "none",
+                              }}
+                            />
+                          </a>
+                        ))}
+                    </LightGallery>
+                    {/* 미디어 개수 표시 UI */}
                     <div
                       style={{
-                        position: "relative",
-                        width: "100%",
-                        marginTop: 16,
+                        position: "absolute",
+                        right: 12,
+                        bottom: 12,
+                        background: "rgba(20, 24, 40, 0.8)",
+                        borderRadius: 16,
+                        padding: "2px 10px 2px 8px",
+                        display: "flex",
+                        alignItems: "center",
+                        color: "#fff",
+                        fontWeight: 500,
+                        fontSize: 18,
+                        gap: 4,
                       }}
                     >
-                      <LightGallery
-                        speed={500}
-                        // plugins={[lgThumbnail, lgZoom]}
-                        download={false}
-                        elementClassNames="custom-wrapper-class"
-                      >
-                        {/* 썸네일용 첫 번째 이미지 */}
-                        {post.images
-                          .filter((img) => img.isPublic)
-                          .map((img, idx) => (
-                            <a
-                              key={`${post.id}-${img.url}-${idx}`}
-                              className="gallery-item"
-                              data-src={img.url}
-                              href={img.url}
-                            >
-                              <img
-                                src={img.url}
-                                alt={noCopyGuideText}
-                                style={{
-                                  width: "100%",
-                                  height: "auto",
-                                  objectFit: "cover",
-                                  borderRadius: 8,
-                                  display: "block",
-                                }}
-                              />
-                            </a>
-                          ))}
-                        {/* 프리뷰용 나머지 이미지들 (숨김) */}
-                        {post.images
-                          .filter((img) => !img.isPublic)
-                          .map((img, idx) => (
-                            <a
-                              key={`${post.id}-${img.url}`}
-                              className="gallery-item"
-                              data-src={img.url}
-                              href={img.url}
-                              style={{ display: "none" }}
-                            >
-                              <img
-                                src={img.url}
-                                alt={noCopyGuideText}
-                                style={{
-                                  width: "100%",
-                                  height: "auto",
-                                  objectFit: "cover",
-                                  borderRadius: 8,
-                                  display: "none",
-                                }}
-                              />
-                            </a>
-                          ))}
-                      </LightGallery>
-                      {/* 미디어 개수 표시 UI */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          right: 12,
-                          bottom: 12,
-                          background: "rgba(20, 24, 40, 0.8)",
-                          borderRadius: 16,
-                          padding: "2px 10px 2px 8px",
-                          display: "flex",
-                          alignItems: "center",
-                          color: "#fff",
-                          fontWeight: 500,
-                          fontSize: 18,
-                          gap: 4,
-                        }}
-                      >
-                        <PictureOutlined
-                          style={{ fontSize: 16, marginRight: 2 }}
-                        />
-                        <span style={{ fontSize: 16, fontWeight: 400 }}>
-                          {post.images.length}
-                        </span>
-                      </div>
+                      <PictureOutlined
+                        style={{ fontSize: 16, marginRight: 2 }}
+                      />
+                      <span style={{ fontSize: 16, fontWeight: 400 }}>
+                        {post.images.length}
+                      </span>
                     </div>
-                  )}
+                  </div>
+                )}
               </div>
             )}
 
