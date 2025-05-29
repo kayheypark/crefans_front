@@ -70,6 +70,9 @@ interface Post {
     height?: number;
     isPublic?: boolean;
   }[];
+  textLength: number;
+  imageCount: number;
+  videoCount: number;
 }
 
 export default function Feed() {
@@ -465,53 +468,13 @@ export default function Feed() {
               <div
                 style={{
                   background: "#f5f5f5",
-                  padding: "8px 12px",
+                  padding: "150px 12px",
                   borderRadius: 8,
                   textAlign: "center",
                   position: "relative",
                   overflow: "hidden",
-                  minHeight: 100,
                 }}
-                onMouseMove={(e) => handleMembershipMouseMove(post.id, e)}
-                onMouseLeave={() => handleMembershipMouseLeave(post.id)}
               >
-                {/* 샘플 이미지와 더미 텍스트 */}
-                <div
-                  style={{
-                    position: "relative",
-                    zIndex: 1,
-                    filter: `blur(${Math.max(
-                      3,
-                      8 - 10 * (coverProgress[post.id] || 0)
-                    )}px)`,
-                    transition: "filter 0.3s",
-                  }}
-                >
-                  <img
-                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-                    alt="샘플"
-                    style={{
-                      width: "100%",
-                      height: 48,
-                      objectFit: "cover",
-                      borderRadius: 6,
-                      marginBottom: 4,
-                    }}
-                  />
-                  <Paragraph
-                    style={{
-                      margin: 0,
-                      color: "#444",
-                      fontWeight: 500,
-                      fontSize: 11,
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    이 게시물은 블러 처리를 위한 샘플 텍스트입니다.🔥
-                    <br />
-                    실제 상품과는 관련이 없습니다.
-                  </Paragraph>
-                </div>
                 {/* 블러/반투명 덮개 레이어 */}
                 <div
                   style={{
@@ -539,21 +502,36 @@ export default function Feed() {
                 />
                 {/* 안내 문구와 버튼 */}
                 <div style={{ position: "relative", zIndex: 3, marginTop: 8 }}>
-                  <LockOutlined style={{ fontSize: 18, color: "#999" }} />
+                  <LockOutlined style={{ fontSize: 24, color: "#999" }} />
                   <Paragraph
                     style={{
                       marginTop: 4,
                       color: "#666",
-                      fontSize: 12,
+                      fontSize: 16,
                       lineHeight: 1.4,
                     }}
                   >
                     읽기 권한 없음
                   </Paragraph>
+                  {/* 컨텐츠 개수 표시 추가 */}
+                  <div
+                    style={{
+                      marginTop: 8,
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: "16px",
+                      color: "#999",
+                      fontSize: 12,
+                    }}
+                  >
+                    <span>텍스트 {post.textLength}자</span>
+                    <span>이미지 {post.imageCount}장</span>
+                    <span>동영상 {post.videoCount}개</span>
+                  </div>
                   <Button
                     type="primary"
                     style={{
-                      marginTop: 4,
+                      marginTop: 12,
                       background:
                         "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
                       color: "#fff",
