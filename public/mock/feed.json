@@ -10,7 +10,11 @@
     "title": "게시글 제목 1",
     "content": "이것은 게시글 1의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다. 이 게시글은 여러 줄의 텍스트를 포함하고 있어 펼치기 기능을 테스트하기에 적합합니다.\n여러 줄의 텍스트가 계속됩니다. 이 부분은 펼치기를 클릭해야 볼 수 있는 내용입니다. 실제 서비스에서는 이 부분에 더 많은 내용이 들어갈 것입니다. 예를 들어, 크리에이터의 생각이나 경험, 팁이나 조언 등이 포함될 수 있습니다.\n또한 이미지나 동영상이 포함될 수도 있고, 다른 사용자들과의 상호작용을 위한 내용도 포함될 수 있습니다. 이렇게 긴 내용은 펼치기 기능을 통해 접근할 수 있도록 하는 것이 사용자 경험에 더 좋습니다. 2줄을 판단하는 여부는 텍스트의 길이로 판단하고 있습니다.",
     "isMembershipOnly": true,
+    "isGotMembership": false,
     "createdAt": "2024-03-01T12:00:00.000Z",
+    "textLength": 337,
+    "imageCount": 3,
+    "videoCount": 0,
     "images": [
       {
         "url": "/image_1_160x120.png?key=1",
@@ -42,7 +46,11 @@
     },
     "title": "게시글 제목 2",
     "content": "이것은 게시글 2의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다.\n여러 줄의 텍스트가 계속됩니다. 펼치기 기능을 테스트하기에 적합합니다.  2줄을 판단하는 여부는 텍스트의 길이로 판단하고 있습니다.",
+    "textLength": 129,
+    "imageCount": 3,
+    "videoCount": 0,
     "isMembershipOnly": false,
+    "isGotMembership": true,
     "createdAt": "2024-03-02T15:30:00.000Z",
     "images": [
       {
@@ -75,7 +83,11 @@
     },
     "title": "게시글 제목 3",
     "content": "이것은 게시글 3의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다.",
-    "isMembershipOnly": false,
+    "textLength": 54,
+    "imageCount": 3,
+    "videoCount": 0,
+    "isMembershipOnly": true,
+    "isGotMembership": true,
     "createdAt": "2024-03-03T09:10:00.000Z",
     "images": [
       {
@@ -108,7 +120,11 @@
     },
     "title": "게시글 제목 4",
     "content": "이것은 게시글 4의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다.",
+    "textLength": 54,
+    "imageCount": 0,
+    "videoCount": 0,
     "isMembershipOnly": true,
+    "isGotMembership": false,
     "createdAt": "2024-03-04T18:45:00.000Z"
   },
   {
@@ -121,7 +137,11 @@
     },
     "title": "게시글 제목 5",
     "content": "이것은 게시글 5의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다.",
+    "textLength": 54,
+    "imageCount": 0,
+    "videoCount": 0,
     "isMembershipOnly": false,
+    "isGotMembership": false,
     "createdAt": "2024-03-05T21:00:00.000Z"
   },
   {
@@ -134,7 +154,11 @@
     },
     "title": "게시글 제목 6",
     "content": "이것은 게시글 6의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다.",
+    "textLength": 54,
+    "imageCount": 0,
+    "videoCount": 0,
     "isMembershipOnly": true,
+    "isGotMembership": false,
     "createdAt": "2024-03-06T10:20:00.000Z"
   },
   {
@@ -147,7 +171,11 @@
     },
     "title": "게시글 제목 7",
     "content": "이것은 게시글 7의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다.",
+    "textLength": 54,
+    "imageCount": 0,
+    "videoCount": 0,
     "isMembershipOnly": false,
+    "isGotMembership": false,
     "createdAt": "2024-03-07T14:00:00.000Z"
   },
   {
@@ -160,7 +188,11 @@
     },
     "title": "게시글 제목 8",
     "content": "이것은 게시글 8의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다.",
+    "textLength": 54,
+    "imageCount": 0,
+    "videoCount": 0,
     "isMembershipOnly": true,
+    "isGotMembership": false,
     "createdAt": "2024-03-08T08:00:00.000Z"
   },
   {
@@ -173,7 +205,11 @@
     },
     "title": "게시글 제목 9",
     "content": "이것은 게시글 9의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다.",
+    "textLength": 54,
+    "imageCount": 0,
+    "videoCount": 0,
     "isMembershipOnly": false,
+    "isGotMembership": false,
     "createdAt": "2024-03-09T11:11:00.000Z"
   },
   {
@@ -186,7 +222,11 @@
     },
     "title": "게시글 제목 10",
     "content": "이것은 게시글 10의 내용입니다. 더미 데이터로 생성된 내용이며, 실제 데이터로 대체될 예정입니다.",
+    "textLength": 54,
+    "imageCount": 0,
+    "videoCount": 0,
     "isMembershipOnly": true,
+    "isGotMembership": false,
     "createdAt": "2024-03-10T17:30:00.000Z"
   }
 ]

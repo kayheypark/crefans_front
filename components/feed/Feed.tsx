@@ -37,6 +37,7 @@ import {
   TwitterOutlined,
   InstagramOutlined,
   PictureOutlined,
+  CheckCircleOutlined,
 } from "@ant-design/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "@/contexts/AuthContext";
@@ -61,6 +62,7 @@ interface Post {
   title: string;
   content: string;
   isMembershipOnly: boolean;
+  isGotMembership: boolean;
   createdAt: string;
   images?: {
     url: string;
@@ -435,6 +437,15 @@ export default function Feed() {
                   멤버십 전용
                 </Tag>
               )}
+              {post.isMembershipOnly && post.isGotMembership && (
+                <Tag
+                  color="green"
+                  style={{ marginLeft: "auto" }}
+                  icon={<CheckCircleOutlined />}
+                >
+                  멤버십 구독중
+                </Tag>
+              )}
               <Dropdown
                 overlay={getMoreMenu(post.id)}
                 trigger={["click"]}
@@ -450,7 +461,7 @@ export default function Feed() {
             <Title level={4} style={{ marginBottom: 12 }}>
               {post.title}
             </Title>
-            {post.isMembershipOnly ? (
+            {post.isMembershipOnly && !post.isGotMembership ? (
               <div
                 style={{
                   background: "#f5f5f5",
