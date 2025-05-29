@@ -631,7 +631,7 @@ export default function Feed() {
                   >
                     <LightGallery
                       speed={500}
-                      // plugins={[lgThumbnail, lgZoom]}
+                      plugins={[lgThumbnail]}
                       download={false}
                       elementClassNames="custom-wrapper-class"
                     >
