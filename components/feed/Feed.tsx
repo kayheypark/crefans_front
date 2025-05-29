@@ -20,6 +20,7 @@ import {
   message,
   Tabs,
   Image as AntdImageComponent,
+  Watermark,
 } from "antd";
 import {
   UserOutlined,
@@ -624,19 +625,40 @@ export default function Feed() {
                 {(!post.isMembershipOnly ||
                   (user &&
                     (user as any).memberships &&
-                    (user as any).memberships.includes(post.creator.id))) && (
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "100%",
-                      marginTop: 16,
-                    }}
-                  >
-                    {post.images?.length && (
-                      <>
-                        <AntdImageComponent.PreviewGroup>
+                    (user as any).memberships.includes(post.creator.id))) &&
+                  post.images?.length && (
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        marginTop: 16,
+                      }}
+                    >
+                      <Watermark
+                        content={`@${post.creator?.name || "handle"}`}
+                        font={{ color: "rgba(255,255,255,0.35)", fontSize: 14 }}
+                        gap={[120, 80]}
+                        zIndex={2}
+                      >
+                        <AntdImageComponent.PreviewGroup
+                          preview={{
+                            imageRender: (originNode: React.ReactElement) => (
+                              <Watermark
+                                content={`@${post.creator?.name || "handle"}`}
+                                font={{
+                                  color: "rgba(255,255,255,0.35)",
+                                  fontSize: 24,
+                                }}
+                                gap={[180, 120]}
+                                zIndex={2}
+                              >
+                                {originNode}
+                              </Watermark>
+                            ),
+                          }}
+                        >
                           {post.images
-                            ?.filter((img) => !img.isPrivate)
+                            .filter((img) => !img.isPrivate)
                             .map((img) => img.url)
                             .map((src, idx) => (
                               <AntdImageComponent
@@ -653,35 +675,33 @@ export default function Feed() {
                               />
                             ))}
                         </AntdImageComponent.PreviewGroup>
-
-                        {/* 미디어 개수 표시 UI */}
-                        <div
-                          style={{
-                            position: "absolute",
-                            right: 12,
-                            bottom: 12,
-                            background: "rgba(20, 24, 40, 0.8)",
-                            borderRadius: 16,
-                            padding: "2px 10px 2px 8px",
-                            display: "flex",
-                            alignItems: "center",
-                            color: "#fff",
-                            fontWeight: 500,
-                            fontSize: 18,
-                            gap: 4,
-                          }}
-                        >
-                          <PictureOutlined
-                            style={{ fontSize: 16, marginRight: 2 }}
-                          />
-                          <span style={{ fontSize: 16, fontWeight: 400 }}>
-                            {post.images.length}
-                          </span>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
+                      </Watermark>
+                      {/* 미디어 개수 표시 UI */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          right: 12,
+                          bottom: 12,
+                          background: "rgba(20, 24, 40, 0.8)",
+                          borderRadius: 16,
+                          padding: "2px 10px 2px 8px",
+                          display: "flex",
+                          alignItems: "center",
+                          color: "#fff",
+                          fontWeight: 500,
+                          fontSize: 18,
+                          gap: 4,
+                        }}
+                      >
+                        <PictureOutlined
+                          style={{ fontSize: 16, marginRight: 2 }}
+                        />
+                        <span style={{ fontSize: 16, fontWeight: 400 }}>
+                          {post.images.length}
+                        </span>
+                      </div>
+                    </div>
+                  )}
               </div>
             )}
 

@@ -3,6 +3,7 @@
     "id": 1,
     "creator": {
       "id": 1,
+      "handle": "creator1",
       "name": "크리에이터1",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=1"
     },
@@ -35,6 +36,7 @@
     "id": 2,
     "creator": {
       "id": 2,
+      "handle": "creator2",
       "name": "크리에이터2",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=2"
     },
@@ -67,6 +69,7 @@
     "id": 3,
     "creator": {
       "id": 3,
+      "handle": "creator3",
       "name": "크리에이터3",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=3"
     },
@@ -99,6 +102,7 @@
     "id": 4,
     "creator": {
       "id": 4,
+      "handle": "creator4",
       "name": "크리에이터4",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=4"
     },
@@ -111,6 +115,7 @@
     "id": 5,
     "creator": {
       "id": 5,
+      "handle": "creator5",
       "name": "크리에이터5",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=5"
     },
@@ -122,8 +127,9 @@
   {
     "id": 6,
     "creator": {
-      "id": 1,
-      "name": "크리에이터1",
+      "id": 6,
+      "handle": "creator6",
+      "name": "크리에이터6",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=1"
     },
     "title": "게시글 제목 6",
@@ -134,8 +140,9 @@
   {
     "id": 7,
     "creator": {
-      "id": 2,
-      "name": "크리에이터2",
+      "id": 7,
+      "handle": "creator7",
+      "name": "크리에이터7",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=2"
     },
     "title": "게시글 제목 7",
@@ -146,8 +153,9 @@
   {
     "id": 8,
     "creator": {
-      "id": 3,
-      "name": "크리에이터3",
+      "id": 8,
+      "handle": "creator8",
+      "name": "크리에이터8",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=3"
     },
     "title": "게시글 제목 8",
@@ -158,8 +166,9 @@
   {
     "id": 9,
     "creator": {
-      "id": 4,
-      "name": "크리에이터4",
+      "id": 9,
+      "handle": "creator9",
+      "name": "크리에이터9",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=4"
     },
     "title": "게시글 제목 9",
@@ -170,8 +179,9 @@
   {
     "id": 10,
     "creator": {
-      "id": 5,
-      "name": "크리에이터5",
+      "id": 10,
+      "handle": "creator10",
+      "name": "크리에이터10",
       "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=5"
     },
     "title": "게시글 제목 10",
