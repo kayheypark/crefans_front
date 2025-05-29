@@ -814,6 +814,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
+        onSignUpClick={() => setIsSignUpModalOpen(true)}
       />
       <SignUpModal
         open={isSignUpModalOpen}

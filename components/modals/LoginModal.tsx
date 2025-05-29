@@ -9,9 +9,14 @@ import { useAuth } from "../../contexts/AuthContext";
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSignUpClick?: () => void;
 }
 
-export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
+export default function LoginModal({
+  isOpen,
+  onClose,
+  onSignUpClick,
+}: LoginModalProps) {
   const router = useRouter();
   const { login } = useAuth();
   const [form] = Form.useForm();
@@ -38,7 +43,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   const handleSignUp = () => {
     onClose();
-    router.push("/signup");
+    onSignUpClick?.();
   };
 
   return (
