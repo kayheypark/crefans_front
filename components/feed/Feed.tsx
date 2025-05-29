@@ -56,6 +56,7 @@ interface Post {
   id: number;
   creator: {
     id: number;
+    handle: string;
     name: string;
     avatar: string;
   };
@@ -85,9 +86,6 @@ export default function Feed() {
   const [page, setPage] = useState(1);
   const pageSize = 10;
   const [likedPosts, setLikedPosts] = useState<number[]>([]);
-  const [commentInputs, setCommentInputs] = useState<{ [key: number]: string }>(
-    {}
-  );
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
@@ -104,6 +102,9 @@ export default function Feed() {
   const stickyRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [coverProgress, setCoverProgress] = useState<{ [key: number]: number }>(
+    {}
+  );
+  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
     {}
   );
 
@@ -170,19 +171,8 @@ export default function Feed() {
     );
   };
 
-  const handleCommentChange = (postId: number, value: string) => {
-    setCommentInputs((prev) => ({
-      ...prev,
-      [postId]: value,
-    }));
-  };
-
   const handleCommentSubmit = (postId: number) => {
-    // TODO: 댓글 제출 로직 구현
-    setCommentInputs((prev) => ({
-      ...prev,
-      [postId]: "",
-    }));
+    // TODO: 답글 제출 로직 구현
   };
 
   const handleCommentInputClick = () => {
@@ -398,13 +388,14 @@ export default function Feed() {
           <Card
             key={post.id}
             style={{ marginBottom: 16, borderRadius: 8 }}
-            bodyStyle={{ padding: 16 }}
+            bodyStyle={{ padding: "25px 0" }}
           >
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 marginBottom: 12,
+                padding: "0 16px",
               }}
             >
               <Avatar
@@ -413,22 +404,18 @@ export default function Feed() {
                 style={{ marginRight: 12 }}
               />
               <div style={{ flex: 1 }}>
-                <Text strong>{post.creator.name}</Text>
-                <br />
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    {relativeDatePosts[post.id] === true
-                      ? formatFullDate(post.createdAt)
-                      : formatDate(post.createdAt)}
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Text strong style={{ fontSize: 18, lineHeight: 1.2 }}>
+                    {post.creator.name}
                   </Text>
-                  <Button
-                    type="text"
-                    size="small"
-                    style={{ padding: 0, fontSize: 12 }}
-                    onClick={() => toggleDateType(post.id)}
+                </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Text
+                    type="secondary"
+                    style={{ fontSize: 14, lineHeight: 1.2 }}
                   >
-                    {relativeDatePosts[post.id] === true ? "간단히" : "정확히"}
-                  </Button>
+                    @{post.creator.handle}
+                  </Text>
                 </div>
               </div>
               {post.isMembershipOnly && (
@@ -461,7 +448,7 @@ export default function Feed() {
                 />
               </Dropdown>
             </div>
-            <Title level={4} style={{ marginBottom: 12 }}>
+            <Title level={4} style={{ marginBottom: 12, padding: "0 16px" }}>
               {post.title}
             </Title>
             {post.isMembershipOnly && !post.isGotMembership ? (
@@ -564,6 +551,7 @@ export default function Feed() {
                       whiteSpace: "pre-line",
                       lineHeight: "1.5",
                       fontSize: "14px",
+                      padding: "0 16px",
                     }}
                   >
                     {post.content}
@@ -652,7 +640,6 @@ export default function Feed() {
                                 width: "100%",
                                 height: "auto",
                                 objectFit: "cover",
-                                borderRadius: 8,
                                 display: "block",
                               }}
                             />
@@ -712,12 +699,37 @@ export default function Feed() {
               </div>
             )}
 
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "0 16px",
+                marginTop: 12,
+              }}
+            >
+              <Text type="secondary" style={{ fontSize: 12 }}>
+                {relativeDatePosts[post.id] === true
+                  ? formatFullDate(post.createdAt)
+                  : formatDate(post.createdAt)}{" "}
+                작성됨
+              </Text>
+              <Button
+                type="text"
+                size="small"
+                style={{ padding: 0, fontSize: 12 }}
+                onClick={() => toggleDateType(post.id)}
+              >
+                {relativeDatePosts[post.id] === true ? "간단히" : "정확히"}
+              </Button>
+            </div>
             <Divider style={{ margin: "12px 0" }} />
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                padding: "0 3px",
               }}
             >
               <Space size="small">
@@ -732,87 +744,208 @@ export default function Feed() {
                   }
                   onClick={() => handleLike(post.id)}
                 >
-                  좋아요 {likedPosts.includes(post.id) ? "1" : "0"}
+                  {likedPosts.includes(post.id) ? "1" : "0"}
                 </Button>
                 <Button type="text" icon={<MessageOutlined />}>
-                  댓글 1
+                  1
                 </Button>
               </Space>
             </div>
 
-            {/* 최근 댓글 1개 표시 */}
-            <div
-              style={{
-                marginTop: 16,
-                padding: "12px",
-                background: "#f5f5f5",
-                borderRadius: 8,
-              }}
-            >
+            {/* 댓글 리스트 - 인스타그램 스타일 */}
+
+            <div style={{ marginTop: 16, padding: "0 16px" }}>
+              {/* 단일 댓글 */}
               <div
                 style={{
                   display: "flex",
-                  alignItems: "center",
+                  alignItems: "flex-start",
+                  gap: 12,
                   marginBottom: 8,
                 }}
               >
-                <Avatar
-                  size="small"
-                  src="/profile-90.png"
-                  style={{ marginRight: 8 }}
-                />
-                <Text strong style={{ fontSize: 12 }}>
-                  사용자1
-                </Text>
-                <Text type="secondary" style={{ fontSize: 12, marginLeft: 8 }}>
-                  방금 전
-                </Text>
-              </div>
-              <Text style={{ fontSize: 13 }}>훈훈한 결말 👍</Text>
-            </div>
-
-            {/* 댓글 입력 UI */}
-            <div style={{ marginTop: 16 }}>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "12px",
-                  alignItems: "flex-start",
-                }}
-              >
-                <Avatar src={"/profile-90.png"} size={32} />
+                <Avatar size={32} src="/profile-90.png" />
                 <div style={{ flex: 1 }}>
-                  <Input.TextArea
-                    placeholder={
-                      user
-                        ? "댓글을 입력하세요"
-                        : "로그인하고 댓글을 작성해보세요"
-                    }
-                    value={commentInputs[post.id] || ""}
-                    onChange={(e) =>
-                      handleCommentChange(post.id, e.target.value)
-                    }
-                    autoSize={{ minRows: 1, maxRows: 3 }}
-                    style={{ marginBottom: 8 }}
-                    onClick={handleCommentInputClick}
-                    readOnly={!user}
-                  />
-                  {user && (
-                    <div
-                      style={{ display: "flex", justifyContent: "flex-end" }}
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  >
+                    <Text strong style={{ fontSize: 13, color: "#222" }}>
+                      팬이에요
+                    </Text>
+                    <Text
+                      type="secondary"
+                      style={{ fontSize: 13, color: "#888" }}
                     >
+                      @iamfan
+                    </Text>
+                    <Text style={{ fontSize: 13, marginLeft: 4 }}>
+                      헐 진짜?
+                    </Text>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      marginTop: 2,
+                    }}
+                  >
+                    <Text type="secondary" style={{ fontSize: 13 }}>
+                      17시간
+                    </Text>
+                    {post.isGotMembership && (
                       <Button
-                        type="default"
-                        onClick={() => handleCommentSubmit(post.id)}
-                        disabled={!commentInputs[post.id]}
+                        type="link"
+                        size="small"
+                        style={{ padding: 0, fontSize: 13, height: "auto" }}
                       >
-                        댓글 작성
+                        답글 달기
                       </Button>
+                    )}
+
+                    <Button
+                      type="link"
+                      size="small"
+                      style={{
+                        padding: 0,
+                        fontSize: 13,
+                        height: "auto",
+                        color: "#999",
+                      }}
+                    >
+                      <HeartOutlined />
+                    </Button>
+                  </div>
+                  {/* 대댓글 접기/펼치기 */}
+                  <div style={{ marginLeft: 0, marginTop: 4 }}>
+                    <Button
+                      type="text"
+                      size="small"
+                      style={{ color: "#999", padding: 0, fontSize: 13 }}
+                      onClick={() =>
+                        setOpenReplies((prev) => ({
+                          ...prev,
+                          [post.id]: !prev[post.id],
+                        }))
+                      }
+                    >
+                      ─── 답글 보기(1개)
+                    </Button>
+                  </div>
+                  {/* 대댓글 목록 (펼침 시) */}
+                  {openReplies[post.id] && (
+                    <div style={{ marginTop: 8, marginLeft: 36 }}>
+                      {/* 대댓글 1 */}
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 8,
+                          marginBottom: 6,
+                        }}
+                      >
+                        <Avatar size={28} src="/profile-90.png" />
+                        <div style={{ flex: 1 }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 8,
+                            }}
+                          >
+                            <Text strong style={{ fontSize: 14 }}>
+                              reply_user1
+                            </Text>
+                            <Text style={{ fontSize: 14 }}>
+                              저도 그렇게 생각했어요!
+                            </Text>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 12,
+                              marginTop: 2,
+                            }}
+                          >
+                            <Text type="secondary" style={{ fontSize: 12 }}>
+                              15시간
+                            </Text>
+                            {post.isGotMembership && (
+                              <Button
+                                type="link"
+                                size="small"
+                                style={{
+                                  padding: 0,
+                                  fontSize: 12,
+                                  height: "auto",
+                                }}
+                              >
+                                답글 달기
+                              </Button>
+                            )}
+
+                            <Button
+                              type="link"
+                              size="small"
+                              style={{
+                                padding: 0,
+                                fontSize: 12,
+                                height: "auto",
+                                color: "#999",
+                              }}
+                            >
+                              <HeartOutlined />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
               </div>
             </div>
+
+            {/* 답글 입력 UI */}
+            {post.isGotMembership && (
+              <div style={{ marginTop: 16, padding: "0 16px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "12px",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <Avatar src={"/profile-90.png"} size={32} />
+                  <div style={{ flex: 1 }}>
+                    <Input.TextArea
+                      key={post.id}
+                      placeholder={
+                        user
+                          ? "답글을 입력하세요"
+                          : "로그인하고 답글을 작성해보세요"
+                      }
+                      autoSize={{ minRows: 1, maxRows: 3 }}
+                      style={{ marginBottom: 8, border: "none" }}
+                      onClick={handleCommentInputClick}
+                      readOnly={!user}
+                    />
+                    {user && (
+                      <div
+                        style={{ display: "flex", justifyContent: "flex-end" }}
+                      >
+                        <Button
+                          type="default"
+                          onClick={() => handleCommentSubmit(post.id)}
+                        >
+                          답글 작성
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
           </Card>
         ))}
       </InfiniteScroll>
