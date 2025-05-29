@@ -55,7 +55,12 @@ interface Post {
   content: string;
   isMembershipOnly: boolean;
   createdAt: string;
-  images?: string[];
+  images?: {
+    url: string;
+    width?: number;
+    height?: number;
+    isPrivate?: boolean;
+  }[];
 }
 
 export default function Feed() {
@@ -627,49 +632,54 @@ export default function Feed() {
                       marginTop: 16,
                     }}
                   >
-                    <AntdImageComponent.PreviewGroup>
-                      {(post.images?.length
-                        ? post.images
-                        : ["/image_1_160x120.png"]
-                      ).map((src, idx) => (
-                        <AntdImageComponent
-                          key={`${post.id}-${src}`}
-                          src={src}
-                          alt={`포스트 이미지 ${idx + 1}`}
+                    {post.images?.length && (
+                      <>
+                        <AntdImageComponent.PreviewGroup>
+                          {post.images
+                            ?.filter((img) => !img.isPrivate)
+                            .map((img) => img.url)
+                            .map((src, idx) => (
+                              <AntdImageComponent
+                                key={`${post.id}-${src}`}
+                                src={src}
+                                alt={`포스트 이미지 ${idx + 1}`}
+                                style={{
+                                  width: "100%",
+                                  height: "auto",
+                                  objectFit: "cover",
+                                  borderRadius: 8,
+                                  display: "block",
+                                }}
+                              />
+                            ))}
+                        </AntdImageComponent.PreviewGroup>
+
+                        {/* 미디어 개수 표시 UI */}
+                        <div
                           style={{
-                            width: "100%",
-                            height: "auto",
-                            objectFit: "cover",
-                            borderRadius: 8,
-                            display: "block",
+                            position: "absolute",
+                            right: 12,
+                            bottom: 12,
+                            background: "rgba(20, 24, 40, 0.8)",
+                            borderRadius: 16,
+                            padding: "2px 10px 2px 8px",
+                            display: "flex",
+                            alignItems: "center",
+                            color: "#fff",
+                            fontWeight: 500,
+                            fontSize: 18,
+                            gap: 4,
                           }}
-                        />
-                      ))}
-                    </AntdImageComponent.PreviewGroup>
-                    {/* 미디어 개수 표시 UI */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        right: 12,
-                        bottom: 12,
-                        background: "rgba(20, 24, 40, 0.8)",
-                        borderRadius: 16,
-                        padding: "2px 10px 2px 8px",
-                        display: "flex",
-                        alignItems: "center",
-                        color: "#fff",
-                        fontWeight: 500,
-                        fontSize: 18,
-                        gap: 4,
-                      }}
-                    >
-                      <PictureOutlined
-                        style={{ fontSize: 20, marginRight: 2 }}
-                      />
-                      <span style={{ fontSize: 18, fontWeight: 500 }}>
-                        {post.images?.length || 1}
-                      </span>
-                    </div>
+                        >
+                          <PictureOutlined
+                            style={{ fontSize: 16, marginRight: 2 }}
+                          />
+                          <span style={{ fontSize: 16, fontWeight: 400 }}>
+                            {post.images.length}
+                          </span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
