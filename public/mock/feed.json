@@ -13,22 +13,22 @@
     "createdAt": "2024-03-01T12:00:00.000Z",
     "images": [
       {
-        "url": "/image_1_160x120.png",
+        "url": "/image_1_160x120.png?key=1",
         "width": 160,
         "height": 120,
-        "isPrivate": false
+        "isPublic": true
       },
       {
-        "url": "/image_1_160x120.png",
+        "url": "/image_1_160x120.png?key=2",
         "width": 160,
         "height": 120,
-        "isPrivate": false
+        "isPublic": false
       },
       {
-        "url": "/image_1_160x120.png",
+        "url": "/image_1_160x120.png?key=3",
         "width": 160,
         "height": 120,
-        "isPrivate": true
+        "isPublic": false
       }
     ]
   },
@@ -46,22 +46,22 @@
     "createdAt": "2024-03-02T15:30:00.000Z",
     "images": [
       {
-        "url": "/image_1_160x120.png",
+        "url": "/image_6_640x480.png?key=4",
         "width": 160,
         "height": 120,
-        "isPrivate": false
+        "isPublic": true
       },
       {
-        "url": "/image_1_160x120.png",
+        "url": "/image_1_160x120.png?key=5",
         "width": 160,
         "height": 120,
-        "isPrivate": false
+        "isPublic": false
       },
       {
-        "url": "/image_1_160x120.png",
+        "url": "/image_1_160x120.png?key=6",
         "width": 160,
         "height": 120,
-        "isPrivate": true
+        "isPublic": false
       }
     ]
   },
@@ -79,22 +79,22 @@
     "createdAt": "2024-03-03T09:10:00.000Z",
     "images": [
       {
-        "url": "/image_1_160x120.png",
+        "url": "/image_1_160x120.png?key=7",
         "width": 160,
         "height": 120,
-        "isPrivate": false
+        "isPublic": true
       },
       {
-        "url": "/image_1_160x120.png",
+        "url": "/image_1_160x120.png?key=8",
         "width": 160,
         "height": 120,
-        "isPrivate": false
+        "isPublic": false
       },
       {
-        "url": "/image_1_160x120.png",
+        "url": "/image_1_160x120.png?key=9",
         "width": 160,
         "height": 120,
-        "isPrivate": true
+        "isPublic": false
       }
     ]
   },

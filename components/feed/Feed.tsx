@@ -42,6 +42,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "@/contexts/AuthContext";
 import LoginModal from "@/components/modals/LoginModal";
 import { useRouter, useSearchParams } from "next/navigation";
+import LightGallery from "lightgallery/react";
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import lgZoom from "lightgallery/plugins/zoom";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -60,7 +66,7 @@ interface Post {
     url: string;
     width?: number;
     height?: number;
-    isPrivate?: boolean;
+    isPublic?: boolean;
   }[];
 }
 
@@ -95,6 +101,10 @@ export default function Feed() {
   const [coverProgress, setCoverProgress] = useState<{ [key: number]: number }>(
     {}
   );
+
+  //무단 복제금지 문구
+  const noCopyGuideText =
+    "crefans에 등록된 모든 포스팅 콘텐츠의 캡쳐 및 배포/재배포는 이용약관과 관련 법령에 의거하여 엄격히 금지되어있고, 민/형사상 처벌의 대상이 됩니다.";
 
   // JSON에서 데이터 fetch
   const fetchFeedData = async (page: number, pageSize: number) => {
@@ -634,37 +644,24 @@ export default function Feed() {
                         marginTop: 16,
                       }}
                     >
-                      <Watermark
-                        content={`@${post.creator?.name || "handle"}`}
-                        font={{ color: "rgba(255,255,255,0.35)", fontSize: 14 }}
-                        gap={[120, 80]}
-                        zIndex={2}
+                      <LightGallery
+                        speed={500}
+                        plugins={[lgThumbnail, lgZoom]}
+                        elementClassNames="custom-wrapper-class"
                       >
-                        <AntdImageComponent.PreviewGroup
-                          preview={{
-                            imageRender: (originNode: React.ReactElement) => (
-                              <Watermark
-                                content={`@${post.creator?.name || "handle"}`}
-                                font={{
-                                  color: "rgba(255,255,255,0.35)",
-                                  fontSize: 24,
-                                }}
-                                gap={[180, 120]}
-                                zIndex={2}
-                              >
-                                {originNode}
-                              </Watermark>
-                            ),
-                          }}
-                        >
-                          {post.images
-                            .filter((img) => !img.isPrivate)
-                            .map((img) => img.url)
-                            .map((src, idx) => (
-                              <AntdImageComponent
-                                key={`${post.id}-${src}`}
-                                src={src}
-                                alt={`포스트 이미지 ${idx + 1}`}
+                        {/* 썸네일용 첫 번째 이미지 */}
+                        {post.images
+                          .filter((img) => img.isPublic)
+                          .map((img, idx) => (
+                            <a
+                              key={`${post.id}-${img.url}-${idx}`}
+                              className="gallery-item"
+                              data-src={img.url}
+                              href={img.url}
+                            >
+                              <img
+                                src={img.url}
+                                alt={noCopyGuideText}
                                 style={{
                                   width: "100%",
                                   height: "auto",
@@ -673,9 +670,33 @@ export default function Feed() {
                                   display: "block",
                                 }}
                               />
-                            ))}
-                        </AntdImageComponent.PreviewGroup>
-                      </Watermark>
+                            </a>
+                          ))}
+                        {/* 프리뷰용 나머지 이미지들 (숨김) */}
+                        {post.images
+                          .filter((img) => !img.isPublic)
+                          .map((img, idx) => (
+                            <a
+                              key={`${post.id}-${img.url}`}
+                              className="gallery-item"
+                              data-src={img.url}
+                              href={img.url}
+                              style={{ display: "none" }}
+                            >
+                              <img
+                                src={img.url}
+                                alt={noCopyGuideText}
+                                style={{
+                                  width: "100%",
+                                  height: "auto",
+                                  objectFit: "cover",
+                                  borderRadius: 8,
+                                  display: "none",
+                                }}
+                              />
+                            </a>
+                          ))}
+                      </LightGallery>
                       {/* 미디어 개수 표시 UI */}
                       <div
                         style={{
