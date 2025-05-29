@@ -39,6 +39,7 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import LoginModal from "@/components/modals/LoginModal";
 import Masonry from "react-masonry-css";
 import SignUpModal from "@/app/(main)/home/SignUpModal";
+import Colors from "@/lib/constants/colors";
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -777,7 +778,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 position: "sticky",
                 top: 0,
                 zIndex: 10,
-                background: "#fff", // 메인 컨텐츠 네비게이션 배경색
+                background: Colors.BACKGROUND, // 메인 컨텐츠 네비게이션 배경색
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
@@ -802,7 +803,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               //   margin: "0 16px",
               padding: 24,
               minHeight: 280,
-              background: "#fff", // 메인 컨텐츠 배경색
+              background: Colors.BACKGROUND, // 메인 컨텐츠 배경색
             }}
           >
             {children}

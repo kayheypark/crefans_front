@@ -281,7 +281,7 @@ export default function Feed() {
   }, [searchParams]);
 
   return (
-    <div style={{ width: 600, margin: "0", paddingLeft: 32, paddingRight: 32 }}>
+    <div style={{ width: 800, margin: "0", paddingLeft: 32, paddingRight: 32 }}>
       {/* sticky 감지용 sentinel */}
       <div ref={sentinelRef} style={{ height: 1 }} />
       {/* 피드 타이틀+필터 sticky 슬리버 */}
