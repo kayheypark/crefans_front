@@ -19,6 +19,7 @@ import {
   Form,
   message,
   Tabs,
+  Image as AntdImageComponent,
 } from "antd";
 import {
   UserOutlined,
@@ -34,6 +35,7 @@ import {
   FacebookOutlined,
   TwitterOutlined,
   InstagramOutlined,
+  PictureOutlined,
 } from "@ant-design/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "@/contexts/AuthContext";
@@ -53,6 +55,7 @@ interface Post {
   content: string;
   isMembershipOnly: boolean;
   createdAt: string;
+  images?: string[];
 }
 
 export default function Feed() {
@@ -541,67 +544,134 @@ export default function Feed() {
               </div>
             ) : (
               <div style={{ position: "relative" }}>
-                <div
-                  style={{
-                    marginBottom: 0,
-                    display: "-webkit-box",
-                    WebkitLineClamp: expandedPosts.includes(post.id)
-                      ? "initial"
-                      : 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "pre-line",
-                    lineHeight: "1.5",
-                    fontSize: "14px",
-                  }}
-                >
-                  {post.content}
-                </div>
-                {/* 2줄 제한일 때만 그라데이션 오버레이 표시 */}
-                {!expandedPosts.includes(post.id) && (
+                {/* 텍스트 영역 */}
+                <div style={{ position: "relative" }}>
                   <div
                     style={{
-                      position: "absolute",
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      height: 60,
-                      background:
-                        "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%)",
-                      pointerEvents: "none",
-                      borderRadius: "0 0 8px 8px",
-                    }}
-                  />
-                )}
-                <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                  <Button
-                    type="link"
-                    onClick={() => togglePostExpand(post.id)}
-                    style={{
-                      padding: 0,
-                      height: "auto",
-                      fontSize: "13px",
-                      color: "#666",
-                      zIndex: 1,
+                      marginBottom: 0,
+                      display: "-webkit-box",
+                      WebkitLineClamp: expandedPosts.includes(post.id)
+                        ? "initial"
+                        : 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "pre-line",
+                      lineHeight: "1.5",
+                      fontSize: "14px",
                     }}
                   >
-                    {expandedPosts.includes(post.id) ? "접기" : "펼치기"}
-                  </Button>
-                  <Button
-                    type="link"
-                    style={{
-                      padding: 0,
-                      height: "auto",
-                      fontSize: "13px",
-                      color: "#666",
-                      zIndex: 1,
-                    }}
-                    onClick={() => {}}
-                  >
-                    원문보기
-                  </Button>
+                    {post.content}
+                  </div>
+                  {/* 2줄 제한일 때만 그라데이션 오버레이 표시 (텍스트에만 적용) */}
+                  {!expandedPosts.includes(post.id) &&
+                    post.content.length > 120 && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          height: 60,
+                          background:
+                            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 100%)",
+                          pointerEvents: "none",
+                          borderRadius: "0 0 8px 8px",
+                        }}
+                      />
+                    )}
                 </div>
+                {/* 펼치기/접기 UI - 100% 가로, 양쪽 선, 텍스트만 클릭 */}
+                {post.content.length > 120 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      width: "100%",
+                      margin: "16px 0",
+                    }}
+                  >
+                    <div
+                      style={{ flex: 1, height: 1, background: "#e0e0e0" }}
+                    />
+                    <span
+                      onClick={() => togglePostExpand(post.id)}
+                      style={{
+                        cursor: "pointer",
+                        color: "#888",
+                        fontWeight: 400,
+                        fontSize: 14,
+                        padding: "0 24px",
+                        userSelect: "none",
+                        background: "transparent",
+                        lineHeight: 1.2,
+                        zIndex: 1,
+                      }}
+                    >
+                      {expandedPosts.includes(post.id) ? "접기" : "더보기"}
+                    </span>
+                    <div
+                      style={{ flex: 1, height: 1, background: "#e0e0e0" }}
+                    />
+                  </div>
+                )}
+                {/* 미디어는 항상 텍스트 아래에 노출 */}
+                {(!post.isMembershipOnly ||
+                  (user &&
+                    (user as any).memberships &&
+                    (user as any).memberships.includes(post.creator.id))) && (
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                      marginTop: 16,
+                    }}
+                  >
+                    <AntdImageComponent.PreviewGroup>
+                      {(post.images?.length
+                        ? post.images
+                        : ["/image_1_160x120.png"]
+                      ).map((src, idx) => (
+                        <AntdImageComponent
+                          key={`${post.id}-${src}`}
+                          src={src}
+                          alt={`포스트 이미지 ${idx + 1}`}
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            objectFit: "cover",
+                            borderRadius: 8,
+                            display: "block",
+                          }}
+                        />
+                      ))}
+                    </AntdImageComponent.PreviewGroup>
+                    {/* 미디어 개수 표시 UI */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        right: 12,
+                        bottom: 12,
+                        background: "rgba(20, 24, 40, 0.8)",
+                        borderRadius: 16,
+                        padding: "2px 10px 2px 8px",
+                        display: "flex",
+                        alignItems: "center",
+                        color: "#fff",
+                        fontWeight: 500,
+                        fontSize: 18,
+                        gap: 4,
+                      }}
+                    >
+                      <PictureOutlined
+                        style={{ fontSize: 20, marginRight: 2 }}
+                      />
+                      <span style={{ fontSize: 18, fontWeight: 500 }}>
+                        {post.images?.length || 1}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
