@@ -18,7 +18,7 @@ interface User {
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: User | null | undefined;
   login: (userData: User) => void;
   logout: () => void;
 }
@@ -69,14 +69,12 @@ const parseIdToken = (): User | null => {
 };
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  // null: 로그아웃, User: 로그인, undefined: 아직 파싱 전(로딩)
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    // idToken에서 사용자 정보 복원
     const userData = parseIdToken();
-    if (userData) {
-      setUser(userData);
-    }
+    setUser(userData);
   }, []);
 
   const login = (userData: User) => {

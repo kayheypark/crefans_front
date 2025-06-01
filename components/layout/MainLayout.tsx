@@ -294,80 +294,65 @@ export default function MainLayout({ children }: MainLayoutProps) {
     );
   };
 
-  const notificationMenu = (
-    <Card
-      style={{
-        width: 400,
-        padding: 0,
-        maxHeight: "500px",
-        overflow: "hidden",
-        boxShadow: "0 2px 8px rgba(100,0,200,0.08)",
-      }}
-    >
-      <Tabs
-        defaultActiveKey="all"
-        items={[
-          {
-            key: "all",
-            label: "전체",
-            children: renderNotificationList(notifications, "all"),
-          },
-          {
-            key: "messages",
-            label: "메시지",
-            children: renderNotificationList(
-              notifications.filter((n) => n.type === "message"),
-              "messages"
-            ),
-          },
-          {
-            key: "payments",
-            label: "결제 및 구독",
-            children: renderNotificationList(
-              notifications.filter((n) => n.type === "payment"),
-              "payments"
-            ),
-          },
-          {
-            key: "activities",
-            label: "활동",
-            children: renderNotificationList(
-              notifications.filter((n) => n.type === "activity"),
-              "activities"
-            ),
-          },
-        ]}
-        onChange={(key) => {
-          const displayedNotifications = notifications.slice(
-            0,
-            MAX_NOTIFICATIONS_DISPLAY
-          );
-          setUnreadNotifications((prev) =>
-            Math.max(0, prev - displayedNotifications.length)
-          );
-        }}
-      />
-    </Card>
-  );
+  const notificationMenu = {
+    items: [
+      {
+        key: "all",
+        label: "전체",
+        children: renderNotificationList(notifications, "all"),
+      },
+      {
+        key: "messages",
+        label: "메시지",
+        children: renderNotificationList(
+          notifications.filter((n) => n.type === "message"),
+          "messages"
+        ),
+      },
+      {
+        key: "payments",
+        label: "결제 및 구독",
+        children: renderNotificationList(
+          notifications.filter((n) => n.type === "payment"),
+          "payments"
+        ),
+      },
+      {
+        key: "activities",
+        label: "활동",
+        children: renderNotificationList(
+          notifications.filter((n) => n.type === "activity"),
+          "activities"
+        ),
+      },
+    ],
+    onClick: ({ key }: { key: string }) => {
+      const displayedNotifications = notifications.slice(
+        0,
+        MAX_NOTIFICATIONS_DISPLAY
+      );
+      setUnreadNotifications((prev) =>
+        Math.max(0, prev - displayedNotifications.length)
+      );
+    },
+  };
 
-  const userMenu = (
-    <Menu
-      items={[
-        {
-          key: "myInfo",
-          icon: <UserOutlined />,
-          label: "내 정보",
-        },
-        {
-          key: "logout",
-          icon: <LogoutOutlined />,
-          label: "로그아웃",
-          onClick: handleLogout,
-          style: { backgroundColor: "#ff4d4f", color: "#fff" },
-        },
-      ]}
-    />
-  );
+  const userMenu = {
+    items: [
+      {
+        key: "myInfo",
+        icon: <UserOutlined />,
+        label: "내 정보",
+      },
+      {
+        key: "logout",
+        icon: <LogoutOutlined />,
+        label: "로그아웃",
+        onClick: handleLogout,
+        style: { backgroundColor: "#ff4d4f", color: "#fff" },
+      },
+    ],
+  };
 
   const footerLinks = [
     { label: "소개" },
@@ -439,7 +424,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                         gap: 16,
                       }}
                     >
-                      <Dropdown overlay={userMenu} trigger={["click"]}>
+                      <Dropdown menu={userMenu} trigger={["click"]}>
                         <Avatar
                           src={user.attributes.picture || "/profile-90.png"}
                           size={48}
@@ -483,7 +468,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                         </Text>
                       </div>
                       <Dropdown
-                        overlay={notificationMenu}
+                        menu={notificationMenu}
                         trigger={["click"]}
                         placement="bottomRight"
                       >
@@ -566,152 +551,149 @@ export default function MainLayout({ children }: MainLayoutProps) {
             selectedKeys={[selectedMenu]}
             style={{ border: "none" }}
             onClick={handleMenuChange}
-          >
-            <Menu.Item
-              key="home"
-              style={{ fontSize: 20 }}
-              icon={<HomeOutlined style={{ fontSize: 20 }} />}
-            >
-              홈
-            </Menu.Item>
-            <Menu.Item
-              key="feed"
-              style={{ fontSize: 20 }}
-              icon={<LayoutOutlined style={{ fontSize: 20 }} />}
-            >
-              피드
-            </Menu.Item>
-            <Menu.Item
-              key="explore"
-              style={{ fontSize: 20 }}
-              icon={<CompassOutlined style={{ fontSize: 20 }} />}
-            >
-              둘러보기
-            </Menu.Item>
-            <Menu.Item
-              key="search"
-              style={{ fontSize: 20 }}
-              icon={<SearchOutlined style={{ fontSize: 20 }} />}
-            >
-              검색
-            </Menu.Item>
-
-            <div
-              style={{
-                borderTop: "1px solid #f0f0f0",
-                marginTop: 10,
-                marginBottom: 10,
-              }}
-            ></div>
-
-            <Menu.ItemGroup
-              key="membershipGroup"
-              title={
-                <Text
-                  style={{ paddingLeft: 16, fontSize: 14, fontWeight: 700 }}
-                >
-                  멤버십
-                </Text>
-              }
-            >
-              {user ? (
-                membershipCreators.map((creator) => (
-                  <Menu.Item key={creator.key} style={{ padding: 0 }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        padding: "8px 16px",
-                      }}
-                    >
-                      <Avatar
-                        src={creator.avatar}
-                        size={24}
-                        style={{ marginRight: 8 }}
-                      />
-                      <span style={{ flex: 1 }}>{creator.name}</span>
-                      {creator.unread && (
-                        <Badge
-                          color="#1677ff"
-                          dot
-                          style={{ marginLeft: "auto" }}
-                        />
-                      )}
-                    </div>
-                  </Menu.Item>
-                ))
-              ) : (
-                <div
-                  style={{
-                    padding: "8px 0 8px 32px",
-                    color: "#8c8c8c",
-                    fontSize: 13,
-                  }}
-                >
-                  로그인 후 이용 가능합니다.
-                </div>
-              )}
-            </Menu.ItemGroup>
-
-            <div
-              style={{
-                borderTop: "1px solid #f0f0f0",
-                marginTop: 10,
-                marginBottom: 10,
-              }}
-            ></div>
-
-            <Menu.ItemGroup
-              key="followGroup"
-              title={
-                <Text
-                  style={{ paddingLeft: 16, fontSize: 14, fontWeight: 700 }}
-                >
-                  팔로우
-                </Text>
-              }
-            >
-              {user ? (
-                followCreators.map((creator) => (
-                  <Menu.Item key={creator.key} style={{ padding: 0 }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        padding: "8px 16px",
-                      }}
-                    >
-                      <Avatar
-                        src={creator.avatar}
-                        size={24}
-                        style={{ marginRight: 8 }}
-                      />
-                      <span style={{ flex: 1 }}>{creator.name}</span>
-                      {creator.unread && (
-                        <Badge
-                          color="#1677ff"
-                          dot
-                          style={{ marginLeft: "auto" }}
-                        />
-                      )}
-                    </div>
-                  </Menu.Item>
-                ))
-              ) : (
-                <div
-                  style={{
-                    padding: "8px 0 8px 32px",
-                    color: "#8c8c8c",
-                    fontSize: 13,
-                  }}
-                >
-                  로그인 후 이용 가능합니다.
-                </div>
-              )}
-            </Menu.ItemGroup>
-          </Menu>
+            items={[
+              {
+                key: "home",
+                icon: <HomeOutlined style={{ fontSize: 20 }} />,
+                label: "홈",
+                style: { fontSize: 20 },
+              },
+              {
+                key: "feed",
+                icon: <LayoutOutlined style={{ fontSize: 20 }} />,
+                label: "피드",
+                style: { fontSize: 20 },
+              },
+              {
+                key: "explore",
+                icon: <CompassOutlined style={{ fontSize: 20 }} />,
+                label: "둘러보기",
+                style: { fontSize: 20 },
+              },
+              {
+                key: "search",
+                icon: <SearchOutlined style={{ fontSize: 20 }} />,
+                label: "검색",
+                style: { fontSize: 20 },
+              },
+              {
+                type: "divider",
+              },
+              {
+                key: "membershipGroup",
+                label: (
+                  <Text
+                    style={{ paddingLeft: 16, fontSize: 14, fontWeight: 700 }}
+                  >
+                    멤버십
+                  </Text>
+                ),
+                children: user
+                  ? membershipCreators.map((creator) => ({
+                      key: creator.key,
+                      label: (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 8,
+                            padding: "8px 16px",
+                          }}
+                        >
+                          <Avatar
+                            src={creator.avatar}
+                            size={24}
+                            style={{ marginRight: 8 }}
+                          />
+                          <span style={{ flex: 1 }}>{creator.name}</span>
+                          {creator.unread && (
+                            <Badge
+                              color="#1677ff"
+                              dot
+                              style={{ marginLeft: "auto" }}
+                            />
+                          )}
+                        </div>
+                      ),
+                      style: { padding: 0 },
+                    }))
+                  : [
+                      {
+                        key: "membershipLoginRequired",
+                        label: (
+                          <div
+                            style={{
+                              padding: "8px 0 8px 32px",
+                              color: "#8c8c8c",
+                              fontSize: 13,
+                            }}
+                          >
+                            로그인 후 이용 가능합니다.
+                          </div>
+                        ),
+                      },
+                    ],
+              },
+              {
+                type: "divider",
+              },
+              {
+                key: "followGroup",
+                label: (
+                  <Text
+                    style={{ paddingLeft: 16, fontSize: 14, fontWeight: 700 }}
+                  >
+                    팔로우
+                  </Text>
+                ),
+                children: user
+                  ? followCreators.map((creator) => ({
+                      key: creator.key,
+                      label: (
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 8,
+                            padding: "8px 16px",
+                          }}
+                        >
+                          <Avatar
+                            src={creator.avatar}
+                            size={24}
+                            style={{ marginRight: 8 }}
+                          />
+                          <span style={{ flex: 1 }}>{creator.name}</span>
+                          {creator.unread && (
+                            <Badge
+                              color="#1677ff"
+                              dot
+                              style={{ marginLeft: "auto" }}
+                            />
+                          )}
+                        </div>
+                      ),
+                      style: { padding: 0 },
+                    }))
+                  : [
+                      {
+                        key: "followLoginRequired",
+                        label: (
+                          <div
+                            style={{
+                              padding: "8px 0 8px 32px",
+                              color: "#8c8c8c",
+                              fontSize: 13,
+                            }}
+                          >
+                            로그인 후 이용 가능합니다.
+                          </div>
+                        ),
+                      },
+                    ],
+              },
+            ]}
+          />
 
           <div
             style={{

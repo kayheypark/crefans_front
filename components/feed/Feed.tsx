@@ -209,31 +209,29 @@ export default function Feed() {
   };
 
   // 펼치기 메뉴 아이템
-  const getMoreMenu = (postId: number) => (
-    <Menu>
-      <Menu.Item
-        key="share"
-        icon={<ShareAltOutlined />}
-        onClick={() => {
+  const getMoreMenu = (postId: number) => ({
+    items: [
+      {
+        key: "share",
+        icon: <ShareAltOutlined />,
+        label: "공유하기",
+        onClick: () => {
           setSelectedPostId(postId);
           setIsShareModalVisible(true);
-        }}
-      >
-        공유하기
-      </Menu.Item>
-      <Menu.Item
-        key="report"
-        icon={<ExclamationCircleOutlined />}
-        danger
-        onClick={() => {
+        },
+      },
+      {
+        key: "report",
+        icon: <ExclamationCircleOutlined />,
+        label: "신고하기",
+        danger: true,
+        onClick: () => {
           setSelectedPostId(postId);
           setIsReportModalVisible(true);
-        }}
-      >
-        신고하기
-      </Menu.Item>
-    </Menu>
-  );
+        },
+      },
+    ],
+  });
 
   const handleShare = (type: string) => {
     // TODO: 실제 공유 기능 구현
@@ -437,7 +435,7 @@ export default function Feed() {
                 </Tag>
               )}
               <Dropdown
-                overlay={getMoreMenu(post.id)}
+                menu={getMoreMenu(post.id)}
                 trigger={["click"]}
                 placement="bottomRight"
               >
