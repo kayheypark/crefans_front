@@ -8,8 +8,9 @@ import {
   Checkbox,
   Select,
   message,
+  Spin,
 } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, MailOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const { Title, Text } = Typography;
@@ -41,6 +42,13 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     marketingMobile: true,
     marketingEmail: true,
   });
+  const [otherPlatform, setOtherPlatform] = useState("");
+  const [verificationTimer, setVerificationTimer] = useState(0);
+  const [isVerificationTimerRunning, setIsVerificationTimerRunning] =
+    useState(false);
+  const [isCheckingEmail, setIsCheckingEmail] = useState(false);
+  const [isEmailExists, setIsEmailExists] = useState(false);
+  const [emailError, setEmailError] = useState<string>("");
 
   // 약관 개별동의 핸들러
   const handleAgreementChange = (key: string, checked: boolean) => {
@@ -115,12 +123,66 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     agreements.marketingEmail,
   ]);
 
+  // 이메일 형식 검증
+  const validateEmail = (email: string) => {
+    if (!email) {
+      setEmailError("이메일을 입력해주세요.");
+      return false;
+    }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      setEmailError("올바른 이메일 형식이 아닙니다.");
+      return false;
+    }
+    return true;
+  };
+
+  // 이메일 중복 체크 함수
+  const checkEmailExists = async (email: string) => {
+    if (!validateEmail(email)) return true;
+
+    try {
+      setIsCheckingEmail(true);
+      setEmailError("");
+      const response = await axios.get(
+        `http://localhost:3001/auth/check-email?email=${email}`
+      );
+      if (response.data.exists) {
+        setEmailError("이미 사용 중인 이메일입니다.");
+        setIsEmailExists(true);
+        return true;
+      }
+      setEmailError("사용 가능한 이메일입니다.");
+      setIsEmailExists(false);
+      return false;
+    } catch (error) {
+      setEmailError("이메일 확인 중 오류가 발생했습니다.");
+      setIsEmailExists(true);
+      return true;
+    } finally {
+      setIsCheckingEmail(false);
+    }
+  };
+
+  // 이메일 입력 필드의 onBlur 이벤트 핸들러
+  const handleEmailBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+    const email = e.target.value;
+    if (email) {
+      await checkEmailExists(email);
+    }
+  };
+
   // 이메일 입력 단계 → 다음
-  const handleEmailNext = () => {
-    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      message.error("올바른 이메일을 입력하세요.");
+  const handleEmailNext = async () => {
+    if (!validateEmail(email)) {
       return;
     }
+
+    // 이메일 중복 체크 실행
+    const exists = await checkEmailExists(email);
+    if (exists) {
+      return;
+    }
+
     setStep(1);
   };
 
@@ -169,6 +231,8 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
   const handleClose = () => {
     setStep(0);
     setEmail("");
+    setIsEmailExists(false);
+    setEmailError("");
     setUserInfo({ name: "", password: "", phone: "", nickname: "" });
     setAgreements({
       all: false,
@@ -232,17 +296,46 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
             <br />
             특별한 이야기를 시작해보세요
           </Title>
-          <Input
-            size="large"
-            placeholder="이메일을 입력하세요"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{
-              marginBottom: 32,
-              borderRadius: 12,
-              border: "2px solid #bcbcff",
-            }}
-          />
+          <div>
+            <Input
+              size="large"
+              placeholder="이메일을 입력하세요"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (e.target.value) {
+                  validateEmail(e.target.value);
+                } else {
+                  setEmailError("");
+                }
+              }}
+              style={{
+                marginBottom: 8,
+                borderRadius: 12,
+                border: emailError
+                  ? emailError.includes("사용 가능")
+                    ? "2px solid #52c41a"
+                    : "2px solid #ff4d4f"
+                  : "2px solid #bcbcff",
+              }}
+              onBlur={handleEmailBlur}
+              suffix={isCheckingEmail ? <Spin size="small" /> : null}
+            />
+            {emailError && (
+              <div
+                style={{
+                  color: emailError.includes("사용 가능")
+                    ? "#52c41a"
+                    : "#ff4d4f",
+                  fontSize: 14,
+                  marginBottom: 24,
+                  marginLeft: 4,
+                }}
+              >
+                {emailError}
+              </div>
+            )}
+          </div>
           <Button
             type="primary"
             size="large"

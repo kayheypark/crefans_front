@@ -746,7 +746,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 대표 : 박경호
               </Paragraph>
               <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
-                이메일 : support@crefans.com
+                이메일 : no-reply@crefans.com (추후 변경)
               </Paragraph>
               {/* <Paragraph style={{ marginBottom: 2, color: "#8c8c8c" }}>
                 전화번호 : 010-0000-0000
