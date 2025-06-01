@@ -150,12 +150,6 @@ export default function SearchPage() {
                     padding: "24px 40px",
                     width: "100%",
                   }}
-                  bodyStyle={{
-                    width: "100%",
-                    padding: 0,
-                    display: "flex",
-                    alignItems: "center",
-                  }}
                 >
                   <Avatar
                     size={80}

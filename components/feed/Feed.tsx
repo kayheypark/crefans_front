@@ -385,8 +385,7 @@ export default function Feed() {
         {uniqueFilteredPosts.map((post) => (
           <Card
             key={post.id}
-            style={{ marginBottom: 16, borderRadius: 8 }}
-            bodyStyle={{ padding: "25px 0" }}
+            style={{ marginBottom: 16, borderRadius: 8, padding: "25px 0" }}
           >
             <div
               style={{
