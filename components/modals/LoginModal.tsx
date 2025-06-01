@@ -47,6 +47,7 @@ export default function LoginModal({
           name: userRes.data.user.attributes.name,
           sub: userRes.data.user.attributes.sub,
           picture: userRes.data.user.attributes.picture,
+          nickname: userRes.data.user.attributes.nickname,
         },
         points: 0,
       };

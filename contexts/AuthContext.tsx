@@ -12,6 +12,7 @@ interface User {
     name: string;
     sub: string;
     picture?: string;
+    nickname: string;
   };
   points: number;
 }
@@ -57,6 +58,7 @@ const parseIdToken = (): User | null => {
         name: tokenData.name,
         sub: tokenData.sub,
         picture: tokenData.picture,
+        nickname: tokenData.nickname,
       },
       points: 0,
     };

@@ -176,13 +176,11 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     if (!validateEmail(email)) {
       return;
     }
-
     // 이메일 중복 체크 실행
     const exists = await checkEmailExists(email);
     if (exists) {
       return;
     }
-
     setStep(1);
   };
 
