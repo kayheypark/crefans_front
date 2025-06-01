@@ -25,12 +25,12 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// idToken에서 사용자 정보를 파싱하는 함수
+// id_token에서 사용자 정보를 파싱하는 함수
 const parseIdToken = (): User | null => {
   try {
     const cookies = document.cookie.split(";");
     const idTokenCookie = cookies.find((cookie) =>
-      cookie.trim().startsWith("idToken=")
+      cookie.trim().startsWith("id_token=")
     );
 
     if (!idTokenCookie) return null;

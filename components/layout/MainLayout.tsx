@@ -402,6 +402,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 alt="crefans"
                 height={28}
                 style={{ marginRight: 8 }}
+                onClick={() => router.push("/")}
               />
             </div>
 
@@ -701,7 +702,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
               color: "#8c8c8c",
               fontSize: "13px",
               borderTop: "1px solid #f0f0f0",
-              marginTop: 10,
             }}
           >
             <div style={{ marginBottom: 8, paddingLeft: 16 }}>
