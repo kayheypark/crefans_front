@@ -36,9 +36,22 @@ export default function LoginModal({
       const userRes = await axios.get("http://localhost:3001/auth/me", {
         withCredentials: true,
       });
-      const user = { ...userRes.data.user, points: 0 };
-      login(user); // useAuth의 login 함수로 상태 갱신
-      localStorage.setItem("user", JSON.stringify(user));
+
+      // idToken 구조에 맞게 사용자 정보 변환
+      const user = {
+        username: userRes.data.user.attributes.preferred_username,
+        attributes: {
+          email: userRes.data.user.attributes.email,
+          email_verified: userRes.data.user.attributes.email_verified,
+          preferred_username: userRes.data.user.attributes.preferred_username,
+          name: userRes.data.user.attributes.name,
+          sub: userRes.data.user.attributes.sub,
+          picture: userRes.data.user.attributes.picture,
+        },
+        points: 0,
+      };
+
+      login(user);
       message.success("로그인되었습니다!");
       onClose();
     } catch (error: any) {

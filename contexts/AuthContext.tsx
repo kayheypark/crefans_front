@@ -7,12 +7,11 @@ interface User {
   username: string;
   attributes: {
     email: string;
-    email_verified: string;
+    email_verified: boolean;
     preferred_username: string;
     name: string;
     sub: string;
-    nickname: string;
-    picture: string;
+    picture?: string;
   };
   points: number;
 }
@@ -25,25 +24,65 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// idToken에서 사용자 정보를 파싱하는 함수
+const parseIdToken = (): User | null => {
+  try {
+    const cookies = document.cookie.split(";");
+    const idTokenCookie = cookies.find((cookie) =>
+      cookie.trim().startsWith("idToken=")
+    );
+
+    if (!idTokenCookie) return null;
+
+    const idToken = idTokenCookie.split("=")[1];
+    const base64Url = idToken.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map((c) => {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    const tokenData = JSON.parse(jsonPayload);
+
+    return {
+      username: tokenData.preferred_username,
+      attributes: {
+        email: tokenData.email,
+        email_verified: tokenData.email_verified,
+        preferred_username: tokenData.preferred_username,
+        name: tokenData.name,
+        sub: tokenData.sub,
+        picture: tokenData.picture,
+      },
+      points: 0,
+    };
+  } catch (error) {
+    console.error("Error parsing idToken:", error);
+    return null;
+  }
+};
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // TODO: 로컬 스토리지나 쿠키에서 사용자 정보 복원
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
+    // idToken에서 사용자 정보 복원
+    const userData = parseIdToken();
+    if (userData) {
+      setUser(userData);
     }
   }, []);
 
   const login = (userData: User) => {
     setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("user");
   };
 
   return (

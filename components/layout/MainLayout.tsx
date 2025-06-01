@@ -467,7 +467,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                             marginBottom: 0,
                           }}
                         >
-                          {user.attributes.nickname}
+                          {user.attributes.name}
                         </Text>
                         <Text
                           type="secondary"
