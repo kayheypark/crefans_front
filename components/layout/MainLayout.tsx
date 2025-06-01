@@ -40,6 +40,7 @@ import LoginModal from "@/components/modals/LoginModal";
 import Masonry from "react-masonry-css";
 import SignUpModal from "@/app/(main)/home/SignUpModal";
 import Colors from "@/lib/constants/colors";
+import axios from "axios";
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -125,17 +126,18 @@ export default function MainLayout({ children }: MainLayoutProps) {
     }
   }, [pathname]);
 
-  const handleLogout = () => {
-    logout();
-    router.push("/");
-    // Modal.confirm({
-    //   title: "로그아웃",
-    //   content: "정말 로그아웃 하시겠습니까?",
-    //   onOk: () => {
-    //     logout();
-    //     router.push("/");
-    //   },
-    // });
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        "http://localhost:3001/auth/signout",
+        {},
+        { withCredentials: true }
+      );
+      logout();
+      message.success("로그아웃 되었습니다.");
+    } catch (error) {
+      message.error("로그아웃 중 오류가 발생했습니다.");
+    }
   };
 
   const handleMenuChange = (info: { key: string }) => {
