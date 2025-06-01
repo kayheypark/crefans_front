@@ -439,7 +439,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     >
                       <Dropdown overlay={userMenu} trigger={["click"]}>
                         <Avatar
-                          src={user.avatar || "/profile-90.png"}
+                          src={user.attributes.picture || "/profile-90.png"}
                           size={48}
                           style={{
                             border: "1px solid #eee",
@@ -465,7 +465,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                             marginBottom: 0,
                           }}
                         >
-                          {user.nickname}
+                          {user.attributes.nickname}
                         </Text>
                         <Text
                           type="secondary"
@@ -475,7 +475,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
                             marginTop: 0,
                           }}
                         >
-                          @{user.id || "u19328492"}
+                          {user.attributes.preferred_username
+                            ? "@" + user.attributes.preferred_username
+                            : "핸들이 없습니다."}
                         </Text>
                       </div>
                       <Dropdown
@@ -512,7 +514,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                           gap: 8,
                         }}
                       >
-                        {user.points.toLocaleString()}
+                        {user.points?.toLocaleString() || 0}
                       </div>
                       <Button
                         type="primary"

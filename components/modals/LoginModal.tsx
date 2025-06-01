@@ -5,6 +5,7 @@ import { Modal, Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../contexts/AuthContext";
+import axios from "axios";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -23,21 +24,27 @@ export default function LoginModal({
 
   const onFinish = async (values: any) => {
     try {
-      if (values.password === "1") {
-        message.error("아이디 혹은 비밀번호가 일치하지 않습니다.");
-        return;
-      }
-
-      // TODO: API 연동
-      // 임시 로그인 처리
-      login({
-        nickname: "밥먹는 판다 28391",
-        points: 1000,
+      await axios.post(
+        "http://localhost:3001/auth/signin",
+        {
+          email: values.email,
+          password: values.password,
+        },
+        { withCredentials: true }
+      );
+      // 로그인 성공 후 사용자 정보 요청
+      const userRes = await axios.get("http://localhost:3001/auth/me", {
+        withCredentials: true,
       });
+      const user = { ...userRes.data.user, points: 0 };
+      login(user); // useAuth의 login 함수로 상태 갱신
+      localStorage.setItem("user", JSON.stringify(user));
       message.success("로그인되었습니다!");
       onClose();
-    } catch (error) {
-      message.error("로그인 중 오류가 발생했습니다.");
+    } catch (error: any) {
+      message.error(
+        error?.response?.data?.message || "로그인 중 오류가 발생했습니다."
+      );
     }
   };
 

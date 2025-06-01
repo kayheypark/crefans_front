@@ -2,11 +2,19 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
+//AWS Cognito 기본 구조 사용 (points 속성만 추가하였음)
 interface User {
-  nickname: string;
+  username: string;
+  attributes: {
+    email: string;
+    email_verified: string;
+    preferred_username: string;
+    name: string;
+    sub: string;
+    nickname: string;
+    picture: string;
+  };
   points: number;
-  avatar?: string;
-  id?: string;
 }
 
 interface AuthContextType {
