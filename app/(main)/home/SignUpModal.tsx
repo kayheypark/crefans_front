@@ -10,6 +10,7 @@ import {
   message,
 } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const { Title, Text } = Typography;
 
@@ -29,6 +30,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     name: "",
     password: "",
     phone: "",
+    nickname: "",
   });
   const [agreements, setAgreements] = useState({
     all: true,
@@ -130,6 +132,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
         name: values.name,
         password: values.password,
         phone: values.phone,
+        nickname: values.nickname,
       });
       setStep(2);
     } catch (e) {
@@ -138,23 +141,35 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
   };
 
   // 약관동의 단계 → 가입
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (!agreements.age || !agreements.terms || !agreements.privacy) {
       message.error("필수 약관에 동의해주세요.");
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await axios.post("http://localhost:3001/auth/signup", {
+        email,
+        password: userInfo.password,
+        name: userInfo.name,
+        nickname: userInfo.nickname,
+      });
       setStep(3);
-    }, 1200);
+      message.success("회원가입이 완료되었습니다! 이메일 인증을 진행해주세요.");
+    } catch (err: any) {
+      message.error(
+        err?.response?.data?.message || "회원가입 중 오류가 발생했습니다."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   // 모달 닫기 시 상태 초기화
   const handleClose = () => {
     setStep(0);
     setEmail("");
-    setUserInfo({ name: "", password: "", phone: "" });
+    setUserInfo({ name: "", password: "", phone: "", nickname: "" });
     setAgreements({
       all: false,
       age: false,
@@ -254,7 +269,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
               <Input disabled size="large" style={{ borderRadius: 12 }} />
             </Form.Item>
             <Form.Item
-              label="이름"
+              label="이름(실명)"
               name="name"
               rules={[{ required: true, message: "이름을 입력하세요." }]}
             >
@@ -265,16 +280,51 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
               />
             </Form.Item>
             <Form.Item
+              label="닉네임"
+              name="nickname"
+              rules={[{ required: true, message: "닉네임을 입력하세요." }]}
+            >
+              <Input
+                size="large"
+                placeholder="닉네임을 입력하세요."
+                style={{ borderRadius: 12 }}
+              />
+            </Form.Item>
+            <Form.Item
               label="비밀번호"
               name="password"
               rules={[
                 { required: true, message: "비밀번호를 입력하세요." },
-                { min: 8, message: "8자 이상 입력하세요." },
+                { min: 8, message: "비밀번호는 8자 이상이어야 합니다." },
+                {
+                  validator: (_, value) => {
+                    if (!value) return Promise.resolve();
+                    if (!/[0-9]/.test(value)) {
+                      return Promise.reject("숫자를 1개 이상 포함해야 합니다.");
+                    }
+                    if (!/[!@#$%^&*(),.?":{}|<>\[\]\\/';`~_-]/.test(value)) {
+                      return Promise.reject(
+                        "특수문자를 1개 이상 포함해야 합니다."
+                      );
+                    }
+                    if (!/[A-Z]/.test(value)) {
+                      return Promise.reject(
+                        "대문자를 1개 이상 포함해야 합니다."
+                      );
+                    }
+                    if (!/[a-z]/.test(value)) {
+                      return Promise.reject(
+                        "소문자를 1개 이상 포함해야 합니다."
+                      );
+                    }
+                    return Promise.resolve();
+                  },
+                },
               ]}
             >
               <Input.Password
                 size="large"
-                placeholder="문자, 숫자, 기호 조합 8자 이상"
+                placeholder="문자, 숫자, 기호, 대/소문자 조합 8자 이상"
                 style={{ borderRadius: 12 }}
               />
             </Form.Item>
