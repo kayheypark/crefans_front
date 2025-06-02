@@ -41,6 +41,7 @@ import Masonry from "react-masonry-css";
 import SignUpModal from "@/app/(main)/home/SignUpModal";
 import Colors from "@/lib/constants/colors";
 import axios from "axios";
+import { getApiUrl } from "@/utils/env";
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -131,7 +132,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:3001/auth/signout",
+        `${getApiUrl()}/auth/signout`,
         {},
         { withCredentials: true }
       );

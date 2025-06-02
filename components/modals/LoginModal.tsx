@@ -6,6 +6,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
+import { getApiUrl } from "@/utils/env";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -25,7 +26,7 @@ export default function LoginModal({
   const onFinish = async (values: any) => {
     try {
       await axios.post(
-        "http://localhost:3001/auth/signin",
+        `${getApiUrl()}/auth/signin`,
         {
           email: values.email,
           password: values.password,
@@ -33,7 +34,7 @@ export default function LoginModal({
         { withCredentials: true }
       );
       // 로그인 성공 후 사용자 정보 요청
-      const userRes = await axios.get("http://localhost:3001/auth/me", {
+      const userRes = await axios.get(`${getApiUrl()}/auth/me`, {
         withCredentials: true,
       });
 

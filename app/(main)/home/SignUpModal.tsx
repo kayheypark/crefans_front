@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { CloseOutlined, MailOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { getApiUrl } from "@/utils/env";
 
 const { Title, Text } = Typography;
 
@@ -144,7 +145,8 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
       setIsCheckingEmail(true);
       setEmailError("");
       const response = await axios.get(
-        `http://localhost:3001/auth/check-email?email=${email}`
+        `${getApiUrl()}/auth/check-email?email=${email}`,
+        { withCredentials: true }
       );
       if (response.data.exists) {
         setEmailError("이미 사용 중인 이메일입니다.");
