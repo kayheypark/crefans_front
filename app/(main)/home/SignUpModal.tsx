@@ -52,6 +52,8 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
   const [emailError, setEmailError] = useState<string>("");
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
+  const [resendTimer, setResendTimer] = useState(0);
+  const [isResending, setIsResending] = useState(false);
 
   // 약관 개별동의 핸들러
   const handleAgreementChange = (key: string, checked: boolean) => {
@@ -252,6 +254,33 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
       setIsVerifying(false);
     }
   };
+
+  // 인증코드 재전송 핸들러
+  const handleResendCode = async () => {
+    setIsResending(true);
+    try {
+      await axios.post(`${getApiUrl()}/auth/resend-confirmation-code`, {
+        email,
+      });
+      message.success("인증코드를 다시 전송했습니다.");
+      setResendTimer(60);
+    } catch (err: any) {
+      message.error(
+        err?.response?.data?.message ||
+          "인증코드 재전송 중 오류가 발생했습니다."
+      );
+    } finally {
+      setIsResending(false);
+    }
+  };
+
+  // 타이머 감소 effect
+  useEffect(() => {
+    if (resendTimer > 0) {
+      const timer = setTimeout(() => setResendTimer(resendTimer - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [resendTimer]);
 
   // 모달 닫기 시 상태 초기화
   const handleClose = () => {
@@ -594,18 +623,29 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
           >
             이메일로 인증코드를 전송했습니다.
           </Text>
-          <Input
-            size="large"
-            placeholder="인증코드를 입력해주세요"
-            value={verificationCode}
-            onChange={(e) => setVerificationCode(e.target.value)}
-            style={{
-              borderRadius: 12,
-              marginBottom: 6,
-              width: 280,
-              textAlign: "center",
-            }}
-          />
+          <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
+            <Input
+              size="large"
+              placeholder="인증코드를 입력해주세요"
+              value={verificationCode}
+              onChange={(e) => setVerificationCode(e.target.value)}
+              style={{
+                borderRadius: 12,
+                marginBottom: 6,
+                width: 180,
+                textAlign: "center",
+              }}
+            />
+            <Button
+              size="large"
+              style={{ borderRadius: 12, width: 90 }}
+              onClick={handleResendCode}
+              disabled={resendTimer > 0 || isResending}
+              loading={isResending}
+            >
+              {resendTimer > 0 ? `재전송(${resendTimer})` : "재전송"}
+            </Button>
+          </div>
           <Button
             type="primary"
             size="large"
