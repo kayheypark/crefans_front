@@ -9,8 +9,8 @@
 
 ```sh
 # 1. 저장소 클론
-git clone https://github.com/kayheypark/seconid_front
-cd seconid_front
+git clone https://github.com/kayheypark/crefans_front
+cd crefans_front
 
 # 2. 패키지 설치
 npm install
