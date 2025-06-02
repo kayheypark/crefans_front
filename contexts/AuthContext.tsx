@@ -19,7 +19,7 @@ interface User {
 
 interface AuthContextType {
   user: User | null | undefined;
-  login: (userData: User) => void;
+  login: (userData: User["attributes"]) => void;
   logout: () => void;
 }
 
@@ -77,8 +77,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(userData);
   }, []);
 
-  const login = (userData: User) => {
-    setUser(userData);
+  const login = (userData: User["attributes"]) => {
+    setUser({
+      username: userData.preferred_username,
+      attributes: userData,
+      points: 0,
+    });
   };
 
   const logout = () => {

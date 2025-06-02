@@ -127,7 +127,12 @@ export default function SignUp() {
       // 회원가입 성공 시 자동 로그인 처리
       login({
         nickname: values.nickname,
-        points: 1000, // 기본 포인트(임시)
+        email: values.email,
+        email_verified: false,
+        preferred_username: values.nickname,
+        name: values.nickname,
+        sub: values.nickname,
+        picture: "",
       });
       setCurrentStep(2); // 가입 완료 단계로 이동
       message.success("회원가입이 완료되었습니다!");

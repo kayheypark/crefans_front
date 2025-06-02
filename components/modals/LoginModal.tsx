@@ -53,7 +53,7 @@ export default function LoginModal({
         points: 0,
       };
 
-      login(user);
+      login(user.attributes);
       message.success("로그인되었습니다!");
       onClose();
     } catch (error: any) {
