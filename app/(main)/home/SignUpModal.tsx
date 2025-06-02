@@ -31,7 +31,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
   const [userInfo, setUserInfo] = useState({
     name: "",
     password: "",
-    phone: "",
+    phoneNumber: "",
     nickname: "",
   });
   const [agreements, setAgreements] = useState({
@@ -50,6 +50,8 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
   const [isCheckingEmail, setIsCheckingEmail] = useState(false);
   const [isEmailExists, setIsEmailExists] = useState(false);
   const [emailError, setEmailError] = useState<string>("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [isVerifying, setIsVerifying] = useState(false);
 
   // 약관 개별동의 핸들러
   const handleAgreementChange = (key: string, checked: boolean) => {
@@ -193,7 +195,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
       setUserInfo({
         name: values.name,
         password: values.password,
-        phone: values.phone,
+        phoneNumber: values.phoneNumber,
         nickname: values.nickname,
       });
       setStep(2);
@@ -210,11 +212,12 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     }
     setLoading(true);
     try {
-      await axios.post("http://localhost:3001/auth/signup", {
+      await axios.post(`${getApiUrl()}/auth/signup`, {
         email,
         password: userInfo.password,
         name: userInfo.name,
         nickname: userInfo.nickname,
+        phoneNumber: phonePrefix + userInfo.phoneNumber,
       });
       setStep(3);
       message.success("회원가입이 완료되었습니다! 이메일 인증을 진행해주세요.");
@@ -227,13 +230,37 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     }
   };
 
+  // 인증코드 확인 핸들러
+  const handleVerifyCode = async () => {
+    if (!verificationCode) {
+      message.error("인증코드를 입력해주세요.");
+      return;
+    }
+    setIsVerifying(true);
+    try {
+      await axios.post(`${getApiUrl()}/auth/confirm-signup`, {
+        email: email,
+        confirmationCode: verificationCode,
+      });
+      message.success("이메일 인증이 완료되었습니다!");
+      handleClose();
+    } catch (err: any) {
+      message.error(
+        err?.response?.data?.message || "인증코드 확인 중 오류가 발생했습니다."
+      );
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
   // 모달 닫기 시 상태 초기화
   const handleClose = () => {
     setStep(0);
     setEmail("");
     setIsEmailExists(false);
     setEmailError("");
-    setUserInfo({ name: "", password: "", phone: "", nickname: "" });
+    setVerificationCode("");
+    setUserInfo({ name: "", password: "", phoneNumber: "", nickname: "" });
     setAgreements({
       all: false,
       age: false,
@@ -423,7 +450,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
             </Form.Item>
             <Form.Item
               label="휴대폰 번호"
-              name="phone"
+              name="phoneNumber"
               rules={[{ required: true, message: "휴대폰 번호를 입력하세요." }]}
             >
               <Input
@@ -541,26 +568,71 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
         </div>
       )}
       {step === 3 && (
-        <div style={{ textAlign: "center", padding: "40px 0" }}>
-          <Title level={3} style={{ marginBottom: 16 }}>
-            가입이 완료되었습니다!
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "48px 0 40px 0",
+          }}
+        >
+          <Title
+            level={3}
+            style={{ marginBottom: 20, marginTop: 0, textAlign: "center" }}
+          >
+            인증을 완료해주세요!
           </Title>
-          <Text style={{ color: "#666", fontSize: 16 }}>
-            이제부터 크레팬스에서 활동하실 수 있습니다.
+          <Text
+            style={{
+              color: "#666",
+              fontSize: 16,
+              marginBottom: 28,
+              textAlign: "center",
+              display: "block",
+            }}
+          >
+            이메일로 인증코드를 전송했습니다.
           </Text>
+          <Input
+            size="large"
+            placeholder="인증코드를 입력해주세요"
+            value={verificationCode}
+            onChange={(e) => setVerificationCode(e.target.value)}
+            style={{
+              borderRadius: 12,
+              marginBottom: 6,
+              width: 280,
+              textAlign: "center",
+            }}
+          />
           <Button
             type="primary"
             size="large"
             style={{
-              marginTop: 32,
               borderRadius: 16,
               fontWeight: 600,
               fontSize: 18,
+              width: 280,
+              marginBottom: 18,
             }}
             block
+            loading={isVerifying}
+            onClick={handleVerifyCode}
+          >
+            인증하기
+          </Button>
+          <Button
+            type="link"
+            style={{
+              marginTop: 0,
+              color: "#888",
+              fontWeight: 400,
+              fontSize: 16,
+            }}
             onClick={handleClose}
           >
-            닫기
+            나중에 하기
           </Button>
         </div>
       )}
