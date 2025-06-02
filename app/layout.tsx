@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, App as AntdApp } from "antd";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { NotificationProvider } from "@/contexts/NotificationContext";
@@ -28,11 +28,15 @@ export default function RootLayout({
               },
             }}
           >
-            <AuthProvider>
-              <NotificationProvider>
-                <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-              </NotificationProvider>
-            </AuthProvider>
+            <AntdApp>
+              <AuthProvider>
+                <NotificationProvider>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    {children}
+                  </Suspense>
+                </NotificationProvider>
+              </AuthProvider>
+            </AntdApp>
           </ConfigProvider>
         </StyledComponentsRegistry>
       </body>

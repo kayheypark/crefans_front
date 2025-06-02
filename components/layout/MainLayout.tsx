@@ -93,6 +93,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
     photos: 1,
     videos: 1,
   });
+  const [activeNotificationTab, setActiveNotificationTab] = useState("all");
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   useEffect(() => {
     // 알림 mock 데이터 fetch
@@ -193,7 +195,16 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const renderNotificationList = (items: any[], category: string) => {
     const displayItems = items.slice(0, MAX_NOTIFICATIONS_DISPLAY);
     return (
-      <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+      <div
+        style={{
+          maxHeight: "400px",
+          overflowY: "auto",
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        }}
+      >
         <List
           size="small"
           dataSource={displayItems}
@@ -208,6 +219,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 borderRadius: 0,
                 minHeight: 64,
               }}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
               extra={
                 <Dropdown
                   menu={{
@@ -216,7 +231,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
                         key: "delete",
                         icon: <DeleteOutlined />,
                         label: "삭제하기",
-                        onClick: () => handleDeleteNotification(item.id),
+                        onClick: () => {
+                          handleDeleteNotification(item.id);
+                        },
                       },
                     ],
                   }}
@@ -228,6 +245,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     icon={<MoreOutlined />}
                     size="small"
                     style={{ color: "#8c8c8c" }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                    }}
                   />
                 </Dropdown>
               }
@@ -268,7 +289,11 @@ export default function MainLayout({ children }: MainLayoutProps) {
                       type="text"
                       size="small"
                       style={{ padding: 0, fontSize: 12 }}
-                      onClick={() => toggleNotificationDateType(item.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        toggleNotificationDateType(item.id);
+                      }}
                     >
                       {notificationDateType[item.id] ? "간단히" : "정확히"}
                     </Button>
@@ -297,44 +322,54 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const notificationMenu = {
     items: [
       {
-        key: "all",
-        label: "전체",
-        children: renderNotificationList(notifications, "all"),
-      },
-      {
-        key: "messages",
-        label: "메시지",
-        children: renderNotificationList(
-          notifications.filter((n) => n.type === "message"),
-          "messages"
-        ),
-      },
-      {
-        key: "payments",
-        label: "결제 및 구독",
-        children: renderNotificationList(
-          notifications.filter((n) => n.type === "payment"),
-          "payments"
-        ),
-      },
-      {
-        key: "activities",
-        label: "활동",
-        children: renderNotificationList(
-          notifications.filter((n) => n.type === "activity"),
-          "activities"
+        key: "notifications",
+        label: (
+          <div
+            style={{ width: 400, padding: "16px" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+          >
+            <Tabs
+              activeKey={activeNotificationTab}
+              onChange={setActiveNotificationTab}
+              items={[
+                {
+                  key: "all",
+                  label: "전체",
+                  children: renderNotificationList(notifications, "all"),
+                },
+                {
+                  key: "messages",
+                  label: "메시지",
+                  children: renderNotificationList(
+                    notifications.filter((n) => n.type === "message"),
+                    "messages"
+                  ),
+                },
+                {
+                  key: "payments",
+                  label: "결제 및 구독",
+                  children: renderNotificationList(
+                    notifications.filter((n) => n.type === "payment"),
+                    "payments"
+                  ),
+                },
+                {
+                  key: "activities",
+                  label: "활동",
+                  children: renderNotificationList(
+                    notifications.filter((n) => n.type === "activity"),
+                    "activities"
+                  ),
+                },
+              ]}
+            />
+          </div>
         ),
       },
     ],
-    onClick: ({ key }: { key: string }) => {
-      const displayedNotifications = notifications.slice(
-        0,
-        MAX_NOTIFICATIONS_DISPLAY
-      );
-      setUnreadNotifications((prev) =>
-        Math.max(0, prev - displayedNotifications.length)
-      );
-    },
   };
 
   const userMenu = {
@@ -472,6 +507,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                         menu={notificationMenu}
                         trigger={["click"]}
                         placement="bottomRight"
+                        overlayClassName="notification-dropdown"
                       >
                         <Badge count={unreadNotifications} size="small">
                           <Button type="text" icon={<BellOutlined />} />
