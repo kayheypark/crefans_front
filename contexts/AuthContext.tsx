@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-//AWS Cognito 기본 구조 사용 (points 속성만 추가하였음)
+//AWS Cognito 기본 구조 사용 (points, phone_number 속성만 추가하였음)
 interface User {
   username: string;
   attributes: {
@@ -13,6 +13,7 @@ interface User {
     sub: string;
     picture?: string;
     nickname: string;
+    phone_number: string;
   };
   points: number;
 }
@@ -59,6 +60,7 @@ const parseIdToken = (): User | null => {
         sub: tokenData.sub,
         picture: tokenData.picture,
         nickname: tokenData.nickname,
+        phone_number: tokenData.phone_number,
       },
       points: 0,
     };

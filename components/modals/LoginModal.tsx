@@ -49,6 +49,7 @@ export default function LoginModal({
           sub: userRes.data.user.attributes.sub,
           picture: userRes.data.user.attributes.picture,
           nickname: userRes.data.user.attributes.nickname,
+          phone_number: userRes.data.user.attributes.phone_number,
         },
         points: 0,
       };

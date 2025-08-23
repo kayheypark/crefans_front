@@ -58,6 +58,7 @@ const pageTitles: { [key: string]: string } = {
   "/feed": "피드",
   "/explore": "둘러보기",
   "/search": "검색",
+  "/mypage": "내 정보",
 };
 
 export default function MainLayout({ children }: MainLayoutProps) {
@@ -379,6 +380,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         key: "myInfo",
         icon: <UserOutlined />,
         label: "내 정보",
+        onClick: () => router.push("/mypage"),
       },
       {
         key: "logout",
@@ -470,7 +472,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                             cursor: "pointer",
                           }}
                           onClick={() => {
-                            /* 추후 마이페이지 라우팅 */
+                            // router.push("/mypage");
                           }}
                         />
                       </Dropdown>
