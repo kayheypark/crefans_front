@@ -133,6 +133,7 @@ export default function SignUp() {
         name: values.nickname,
         sub: values.nickname,
         picture: "",
+        phone_number: values.phone,
       });
       setCurrentStep(2); // 가입 완료 단계로 이동
       message.success("회원가입이 완료되었습니다!");
