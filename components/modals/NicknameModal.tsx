@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Modal, Form, Input, message } from "antd";
+import { userAPI } from "@/lib/api/user";
 
 interface NicknameModalProps {
   open: boolean;
@@ -19,7 +20,7 @@ export default function NicknameModal({
   const handleSave = async () => {
     try {
       const values = await form.validateFields();
-      // TODO: API 호출로 닉네임 업데이트
+      await userAPI.updateNickname(values.nickname);
       message.success("닉네임이 성공적으로 변경되었습니다.");
       onClose();
       form.resetFields();

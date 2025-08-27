@@ -152,7 +152,8 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
         `${getApiUrl()}/auth/check-email?email=${email}`,
         { withCredentials: true }
       );
-      if (response.data.exists) {
+
+      if (response.data.data.exists) {
         setEmailError("이미 사용 중인 이메일입니다.");
         setIsEmailExists(true);
         return true;

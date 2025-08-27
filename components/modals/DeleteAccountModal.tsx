@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Modal, Input, Typography, Divider, message } from "antd";
+import { userAPI } from "@/lib/api/user";
 const { Text, Paragraph } = Typography;
 
 interface DeleteAccountModalProps {
@@ -17,13 +18,19 @@ export default function DeleteAccountModal({
 }: DeleteAccountModalProps) {
   const [deleteConfirmText, setDeleteConfirmText] = useState("");
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (deleteConfirmText !== "삭제") {
       message.error("정확히 '삭제'를 입력해주세요.");
       return;
     }
-    onDelete();
-    setDeleteConfirmText("");
+
+    try {
+      await userAPI.deleteAccount();
+      onDelete();
+      setDeleteConfirmText("");
+    } catch (error) {
+      message.error("계정 삭제에 실패했습니다.");
+    }
   };
 
   const handleCancel = () => {

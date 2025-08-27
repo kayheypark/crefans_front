@@ -5,8 +5,7 @@ import { Modal, Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../contexts/AuthContext";
-import axios from "axios";
-import { getApiUrl } from "@/utils/env";
+import { authAPI } from "@/lib/api";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -25,21 +24,12 @@ export default function LoginModal({
 
   const onFinish = async (values: any) => {
     try {
-      await axios.post(
-        `${getApiUrl()}/auth/signin`,
-        {
-          email: values.email,
-          password: values.password,
-        },
-        { withCredentials: true }
-      );
+      await authAPI.signin(values.email, values.password);
       // 로그인 성공 후 사용자 정보 요청
-      const userRes = await axios.get(`${getApiUrl()}/auth/me`, {
-        withCredentials: true,
-      });
+      const userRes = await authAPI.getMe();
 
       // idToken 구조에 맞게 사용자 정보 변환
-      const user = userRes.data.data.user;
+      const user = userRes.data.user;
 
       login(user.attributes);
       message.success("로그인되었습니다!");

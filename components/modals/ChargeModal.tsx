@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { Modal, Typography, message } from "antd";
+import { paymentAPI } from "@/lib/api/payment";
+import { CHARGE_PRODUCTS } from "@/lib/constants/chargeProducts";
 const { Text } = Typography;
 
 interface ChargeModalProps {
@@ -9,32 +11,25 @@ interface ChargeModalProps {
   onClose: () => void;
 }
 
-// 충전 상품 데이터
-const chargeProducts = [
-  { beans: 10, price: 1100 },
-  { beans: 30, price: 3300 },
-  { beans: 50, price: 5500 },
-  { beans: 100, price: 11000 },
-  { beans: 300, price: 33000 },
-  { beans: 500, price: 55000 },
-  { beans: 1000, price: 110000 },
-  { beans: 5000, price: 550000 },
-];
-
 export default function ChargeModal({ open, onClose }: ChargeModalProps) {
   const [selectedChargeAmount, setSelectedChargeAmount] = useState<
     number | null
   >(null);
 
-  const handleCharge = () => {
+  const handleCharge = async () => {
     if (!selectedChargeAmount) {
       message.error("충전할 콩을 선택해주세요.");
       return;
     }
-    // TODO: 결제 API 호출
-    message.success("콩 충전이 완료되었습니다.");
-    onClose();
-    setSelectedChargeAmount(null);
+
+    try {
+      await paymentAPI.chargeBeans(selectedChargeAmount);
+      message.success("콩 충전이 완료되었습니다.");
+      onClose();
+      setSelectedChargeAmount(null);
+    } catch (error) {
+      message.error("콩 충전에 실패했습니다.");
+    }
   };
 
   const handleCancel = () => {
@@ -62,7 +57,7 @@ export default function ChargeModal({ open, onClose }: ChargeModalProps) {
           gap: 12,
         }}
       >
-        {chargeProducts.map((product) => (
+        {CHARGE_PRODUCTS.map((product) => (
           <div
             key={product.beans}
             style={{

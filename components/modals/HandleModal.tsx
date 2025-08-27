@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Modal, Form, Input, message } from "antd";
+import { userAPI } from "@/lib/api/user";
 
 interface HandleModalProps {
   open: boolean;
@@ -19,7 +20,7 @@ export default function HandleModal({
   const handleSave = async () => {
     try {
       const values = await form.validateFields();
-      // TODO: API 호출로 핸들 업데이트
+      await userAPI.updateHandle(values.preferred_username);
       message.success("핸들이 성공적으로 변경되었습니다.");
       onClose();
       form.resetFields();
