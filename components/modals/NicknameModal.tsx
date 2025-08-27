@@ -3,6 +3,7 @@
 import React from "react";
 import { Modal, Form, Input, message } from "antd";
 import { userAPI } from "@/lib/api/user";
+import { isValidNickname } from "@/lib/utils/validationUtils";
 
 interface NicknameModalProps {
   open: boolean;
@@ -47,10 +48,39 @@ export default function NicknameModal({
         <Form.Item
           label="새 닉네임"
           name="nickname"
-          rules={[{ required: true, message: "닉네임을 입력해주세요" }]}
+          rules={[
+            { required: true, message: "닉네임을 입력해주세요" },
+            {
+              validator: (_, value) => {
+                if (!value) return Promise.resolve();
+                if (!isValidNickname(value)) {
+                  return Promise.reject(
+                    "한글, 영문, 숫자 2-10자로 입력해주세요."
+                  );
+                }
+                return Promise.resolve();
+              },
+            },
+          ]}
           initialValue={currentNickname}
         >
-          <Input placeholder="새 닉네임을 입력하세요" size="large" />
+          <Input
+            placeholder="한글, 영문, 숫자 2-10자"
+            size="large"
+            onChange={(e) => {
+              // 공백 제거
+              const value = e.target.value.replace(/\s/g, "");
+              e.target.value = value;
+              form.setFieldValue("nickname", value);
+            }}
+            onCompositionEnd={(e) => {
+              // 한글 조합 완료 후 검증
+              const target = e.target as HTMLInputElement;
+              const value = target.value.replace(/[^가-힣a-zA-Z0-9]/g, "");
+              target.value = value;
+              form.setFieldValue("nickname", value);
+            }}
+          />
         </Form.Item>
       </Form>
     </Modal>

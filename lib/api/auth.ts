@@ -51,4 +51,26 @@ export const authAPI = {
     });
     return response.data;
   },
+
+  // 이메일 중복 확인
+  checkEmail: async (email: string) => {
+    const response = await axios.get(
+      `${getApiUrl()}/auth/check-email?email=${email}`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  },
+
+  // 인증코드 재전송
+  resendConfirmationCode: async (email: string) => {
+    const response = await axios.post(
+      `${getApiUrl()}/auth/resend-confirmation-code`,
+      {
+        email,
+      }
+    );
+    return response.data;
+  },
 };

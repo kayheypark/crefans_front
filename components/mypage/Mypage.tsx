@@ -29,6 +29,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import NicknameModal from "@/components/modals/NicknameModal";
 import HandleModal from "@/components/modals/HandleModal";
 import DeleteAccountModal from "@/components/modals/DeleteAccountModal";
+import { formatPhoneNumber } from "@/lib/utils/phoneUtils";
 
 const { Title, Text, Paragraph } = Typography;
 const { Sider, Content } = Layout;
@@ -255,7 +256,9 @@ export default function Mypage() {
                       휴대폰 번호
                     </div>
                     <div style={{ fontSize: 16, color: "#222" }}>
-                      {user?.attributes.phone_number || "미인증"}
+                      {user?.attributes.phone_number
+                        ? formatPhoneNumber(user.attributes.phone_number)
+                        : "미인증"}
                     </div>
                   </div>
                   <Tag color="orange">미인증</Tag>

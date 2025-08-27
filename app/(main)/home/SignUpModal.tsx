@@ -11,8 +11,12 @@ import {
   Spin,
 } from "antd";
 import { CloseOutlined, MailOutlined } from "@ant-design/icons";
-import axios from "axios";
-import { getApiUrl } from "@/utils/env";
+import { authAPI } from "@/lib/api";
+import { sanitizePhoneInput } from "@/lib/utils/phoneUtils";
+import {
+  isValidKoreanName,
+  isValidNickname,
+} from "@/lib/utils/validationUtils";
 
 const { Title, Text } = Typography;
 
@@ -148,12 +152,8 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     try {
       setIsCheckingEmail(true);
       setEmailError("");
-      const response = await axios.get(
-        `${getApiUrl()}/auth/check-email?email=${email}`,
-        { withCredentials: true }
-      );
-
-      if (response.data.data.exists) {
+      const response = await authAPI.checkEmail(email);
+      if (response.data.exists) {
         setEmailError("이미 사용 중인 이메일입니다.");
         setIsEmailExists(true);
         return true;
@@ -215,7 +215,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     }
     setLoading(true);
     try {
-      await axios.post(`${getApiUrl()}/auth/signup`, {
+      await authAPI.signup({
         email,
         password: userInfo.password,
         name: userInfo.name,
@@ -241,10 +241,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     }
     setIsVerifying(true);
     try {
-      await axios.post(`${getApiUrl()}/auth/confirm-signup`, {
-        email: email,
-        confirmationCode: verificationCode,
-      });
+      await authAPI.confirmSignup(email, verificationCode);
       message.success("이메일 인증이 완료되었습니다! 로그인을 진행해주세요");
       handleClose();
     } catch (err: any) {
@@ -260,9 +257,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
   const handleResendCode = async () => {
     setIsResending(true);
     try {
-      await axios.post(`${getApiUrl()}/auth/resend-confirmation-code`, {
-        email,
-      });
+      await authAPI.resendConfirmationCode(email);
       message.success("인증코드를 다시 전송했습니다.");
       setResendTimer(60);
     } catch (err: any) {
@@ -421,23 +416,73 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
             <Form.Item
               label="이름(실명)"
               name="name"
-              rules={[{ required: true, message: "이름을 입력하세요." }]}
+              rules={[
+                { required: true, message: "이름을 입력하세요." },
+                {
+                  validator: (_, value) => {
+                    if (!value) return Promise.resolve();
+                    if (!isValidKoreanName(value)) {
+                      return Promise.reject("한글 2-5자로 입력해주세요.");
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
             >
               <Input
                 size="large"
                 placeholder="실명을 입력하세요."
                 style={{ borderRadius: 12 }}
+                onChange={(e) => {
+                  // 공백 제거
+                  const value = e.target.value.replace(/\s/g, "");
+                  e.target.value = value;
+                  form.setFieldValue("name", value);
+                }}
+                onCompositionEnd={(e) => {
+                  // 한글 조합 완료 후 검증
+                  const target = e.target as HTMLInputElement;
+                  const value = target.value.replace(/[^가-힣]/g, "");
+                  target.value = value;
+                  form.setFieldValue("name", value);
+                }}
               />
             </Form.Item>
             <Form.Item
               label="닉네임"
               name="nickname"
-              rules={[{ required: true, message: "닉네임을 입력하세요." }]}
+              rules={[
+                { required: true, message: "닉네임을 입력하세요." },
+                {
+                  validator: (_, value) => {
+                    if (!value) return Promise.resolve();
+                    if (!isValidNickname(value)) {
+                      return Promise.reject(
+                        "한글, 영문, 숫자 2-10자로 입력해주세요."
+                      );
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
             >
               <Input
                 size="large"
                 placeholder="닉네임을 입력하세요."
                 style={{ borderRadius: 12 }}
+                onChange={(e) => {
+                  // 공백 제거
+                  const value = e.target.value.replace(/\s/g, "");
+                  e.target.value = value;
+                  form.setFieldValue("nickname", value);
+                }}
+                onCompositionEnd={(e) => {
+                  // 한글 조합 완료 후 검증
+                  const target = e.target as HTMLInputElement;
+                  const value = target.value.replace(/[^가-힣a-zA-Z0-9]/g, "");
+                  target.value = value;
+                  form.setFieldValue("nickname", value);
+                }}
               />
             </Form.Item>
             <Form.Item
@@ -479,15 +524,48 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
               />
             </Form.Item>
             <Form.Item
+              label="비밀번호 확인"
+              name="confirmPassword"
+              dependencies={["password"]}
+              rules={[
+                { required: true, message: "비밀번호를 다시 입력하세요." },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue("password") === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject("비밀번호가 일치하지 않습니다.");
+                  },
+                }),
+              ]}
+            >
+              <Input.Password
+                size="large"
+                placeholder="비밀번호를 다시 입력하세요"
+                style={{ borderRadius: 12 }}
+              />
+            </Form.Item>
+            <Form.Item
               label="휴대폰 번호"
               name="phoneNumber"
-              rules={[{ required: true, message: "휴대폰 번호를 입력하세요." }]}
+              rules={[
+                { required: true, message: "휴대폰 번호를 입력하세요." },
+                {
+                  pattern: /^010\d{8}$/,
+                  message: "올바른 휴대폰 번호 형식이 아닙니다.",
+                },
+              ]}
             >
               <Input
                 size="large"
                 addonBefore={phonePrefix}
-                placeholder="-없이 입력해주세요"
+                placeholder="010XXXXXXXX"
                 style={{ borderRadius: 12 }}
+                onChange={(e) => {
+                  const sanitizedValue = sanitizePhoneInput(e.target.value);
+                  e.target.value = sanitizedValue;
+                  form.setFieldValue("phoneNumber", sanitizedValue);
+                }}
               />
             </Form.Item>
           </Form>
