@@ -244,7 +244,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
         email: email,
         confirmationCode: verificationCode,
       });
-      message.success("이메일 인증이 완료되었습니다!");
+      message.success("이메일 인증이 완료되었습니다! 로그인을 진행해주세요");
       handleClose();
     } catch (err: any) {
       message.error(

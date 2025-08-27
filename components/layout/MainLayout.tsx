@@ -37,6 +37,7 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import LoginModal from "@/components/modals/LoginModal";
+import ChargeModal from "@/components/modals/ChargeModal";
 import Masonry from "react-masonry-css";
 import SignUpModal from "@/app/(main)/home/SignUpModal";
 import Colors from "@/lib/constants/colors";
@@ -97,6 +98,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   });
   const [activeNotificationTab, setActiveNotificationTab] = useState("all");
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [showChargeModal, setShowChargeModal] = useState(false);
 
   useEffect(() => {
     // 알림 mock 데이터 fetch
@@ -545,6 +547,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                       </div>
                       <Button
                         type="primary"
+                        onClick={() => setShowChargeModal(true)}
                         style={{
                           borderRadius: 15,
                           height: "100%",
@@ -844,6 +847,11 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <SignUpModal
         open={isSignUpModalOpen}
         onClose={() => setIsSignUpModalOpen(false)}
+      />
+
+      <ChargeModal
+        open={showChargeModal}
+        onClose={() => setShowChargeModal(false)}
       />
     </Layout>
   );

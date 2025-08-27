@@ -39,28 +39,14 @@ export default function LoginModal({
       });
 
       // idToken 구조에 맞게 사용자 정보 변환
-      const user = {
-        username: userRes.data.user.attributes.preferred_username,
-        attributes: {
-          email: userRes.data.user.attributes.email,
-          email_verified: userRes.data.user.attributes.email_verified,
-          preferred_username: userRes.data.user.attributes.preferred_username,
-          name: userRes.data.user.attributes.name,
-          sub: userRes.data.user.attributes.sub,
-          picture: userRes.data.user.attributes.picture,
-          nickname: userRes.data.user.attributes.nickname,
-          phone_number: userRes.data.user.attributes.phone_number,
-        },
-        points: 0,
-      };
+      const user = userRes.data.data.user;
 
       login(user.attributes);
       message.success("로그인되었습니다!");
       onClose();
     } catch (error: any) {
-      message.error(
-        error?.response?.data?.message || "로그인 중 오류가 발생했습니다."
-      );
+      console.info(error);
+      message.error("로그인 중 오류가 발생했습니다.");
     }
   };
 

@@ -26,6 +26,9 @@ import {
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
+import NicknameModal from "@/components/modals/NicknameModal";
+import HandleModal from "@/components/modals/HandleModal";
+import DeleteAccountModal from "@/components/modals/DeleteAccountModal";
 
 const { Title, Text, Paragraph } = Typography;
 const { Sider, Content } = Layout;
@@ -37,36 +40,9 @@ export default function Mypage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showNicknameModal, setShowNicknameModal] = useState(false);
   const [showHandleModal, setShowHandleModal] = useState(false);
-  const [nicknameForm] = Form.useForm();
-  const [handleForm] = Form.useForm();
-  const [deleteConfirmText, setDeleteConfirmText] = useState("");
 
   // 쿼리스트링에서 탭 정보 가져오기, 기본값은 "basic"
   const selectedMenu = searchParams.get("tab") || "basic";
-
-  const handleNicknameSave = async () => {
-    try {
-      const values = await nicknameForm.validateFields();
-      // TODO: API 호출로 닉네임 업데이트
-      message.success("닉네임이 성공적으로 변경되었습니다.");
-      setShowNicknameModal(false);
-      nicknameForm.resetFields();
-    } catch (error) {
-      message.error("닉네임 변경에 실패했습니다.");
-    }
-  };
-
-  const handleHandleSave = async () => {
-    try {
-      const values = await handleForm.validateFields();
-      // TODO: API 호출로 핸들 업데이트
-      message.success("핸들이 성공적으로 변경되었습니다.");
-      setShowHandleModal(false);
-      handleForm.resetFields();
-    } catch (error) {
-      message.error("핸들 변경에 실패했습니다.");
-    }
-  };
 
   const handleLogout = () => {
     logout();
@@ -75,14 +51,9 @@ export default function Mypage() {
   };
 
   const handleDeleteAccount = () => {
-    if (deleteConfirmText !== "삭제") {
-      message.error("정확히 '삭제'를 입력해주세요.");
-      return;
-    }
     // TODO: 계정 삭제 API 호출
     message.success("계정이 삭제되었습니다.");
     setShowDeleteModal(false);
-    setDeleteConfirmText("");
     logout();
     router.push("/home");
   };
@@ -108,6 +79,36 @@ export default function Mypage() {
         background: "transparent",
       }}
     >
+      {/* 프로필 섹션 */}
+      <Card
+        style={{
+          marginBottom: 16,
+          borderRadius: 8,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <Avatar
+            src={user.attributes.picture || "/profile-90.png"}
+            size={64}
+            style={{ border: "3px solid #f0f0f0" }}
+          />
+          <div style={{ flex: 1 }}>
+            <Title level={4} style={{ margin: 0, marginBottom: 4 }}>
+              {user.attributes.nickname}
+            </Title>
+            <Text type="secondary" style={{ fontSize: 14 }}>
+              @{user.attributes.preferred_username || "핸들이 없습니다"}
+            </Text>
+            <div style={{ marginTop: 8 }}>
+              <Tag color="blue" style={{ fontSize: 11 }}>
+                일반 회원
+              </Tag>
+            </div>
+          </div>
+        </div>
+      </Card>
+
       <Layout style={{ background: "transparent" }}>
         <Sider
           width={200}
@@ -430,104 +431,23 @@ export default function Mypage() {
         </Content>
       </Layout>
 
-      {/* 닉네임 변경 모달 */}
-      <Modal
-        title="닉네임 변경"
+      <NicknameModal
         open={showNicknameModal}
-        onOk={handleNicknameSave}
-        onCancel={() => {
-          setShowNicknameModal(false);
-          nicknameForm.resetFields();
-        }}
-        okText="변경"
-        cancelText="취소"
-      >
-        <Form form={nicknameForm} layout="vertical">
-          <Form.Item
-            label="새 닉네임"
-            name="nickname"
-            rules={[{ required: true, message: "닉네임을 입력해주세요" }]}
-            initialValue={user?.attributes.nickname || ""}
-          >
-            <Input placeholder="새 닉네임을 입력하세요" size="large" />
-          </Form.Item>
-        </Form>
-      </Modal>
+        onClose={() => setShowNicknameModal(false)}
+        currentNickname={user?.attributes.nickname || ""}
+      />
 
-      {/* 핸들 변경 모달 */}
-      <Modal
-        title="핸들 변경"
+      <HandleModal
         open={showHandleModal}
-        onOk={handleHandleSave}
-        onCancel={() => {
-          setShowHandleModal(false);
-          handleForm.resetFields();
-        }}
-        okText="변경"
-        cancelText="취소"
-      >
-        <Form form={handleForm} layout="vertical">
-          <Form.Item
-            label="새 핸들"
-            name="preferred_username"
-            rules={[
-              { required: true, message: "핸들을 입력해주세요" },
-              {
-                pattern: /^[a-zA-Z0-9_]+$/,
-                message: "영문, 숫자, 언더스코어만 사용 가능합니다",
-              },
-            ]}
-            initialValue={user?.attributes.preferred_username || ""}
-          >
-            <Input
-              placeholder="새 핸들을 입력하세요"
-              size="large"
-              addonBefore="@"
-            />
-          </Form.Item>
-        </Form>
-      </Modal>
+        onClose={() => setShowHandleModal(false)}
+        currentHandle={user?.attributes.preferred_username || ""}
+      />
 
-      {/* 계정 삭제 확인 모달 */}
-      <Modal
-        title="계정 삭제 확인"
+      <DeleteAccountModal
         open={showDeleteModal}
-        onOk={handleDeleteAccount}
-        onCancel={() => {
-          setShowDeleteModal(false);
-          setDeleteConfirmText("");
-        }}
-        okText="삭제"
-        cancelText="취소"
-        okButtonProps={{
-          danger: true,
-          disabled: deleteConfirmText !== "삭제",
-        }}
-      >
-        <Paragraph>
-          정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없으며, 모든
-          데이터가 영구적으로 삭제됩니다.
-        </Paragraph>
-        <Paragraph>계정을 삭제하면:</Paragraph>
-        <ul>
-          <li>모든 개인 정보가 삭제됩니다</li>
-          <li>업로드한 콘텐츠가 삭제됩니다</li>
-          <li>보유한 콩이 환불되지 않습니다</li>
-          <li>구독 정보가 모두 해지됩니다</li>
-        </ul>
-        <Divider />
-        <div>
-          <Paragraph style={{ marginBottom: 8 }}>
-            계정을 삭제하려면 아래에 <Text strong>"삭제"</Text>를 입력하세요:
-          </Paragraph>
-          <Input
-            placeholder="삭제"
-            value={deleteConfirmText}
-            onChange={(e) => setDeleteConfirmText(e.target.value)}
-            style={{ marginBottom: 16 }}
-          />
-        </div>
-      </Modal>
+        onClose={() => setShowDeleteModal(false)}
+        onDelete={handleDeleteAccount}
+      />
     </Layout>
   );
 }
