@@ -1,0 +1,318 @@
+[
+  {
+    "id": 1,
+    "title": "워싱턴 D.C. 항공 뷰",
+    "type": "video",
+    "url": "/video_1.mp4",
+    "thumbnail": "/image_1_160x120.png",
+    "createdAt": "2024-01-15T10:30:00Z",
+    "views": 15420,
+    "likes": 892,
+    "duration": "2:29"
+  },
+  {
+    "id": 2,
+    "title": "도시 스카이라인",
+    "type": "video",
+    "url": "/video_2.mp4",
+    "thumbnail": "/image_2_240x160.png",
+    "createdAt": "2024-01-14T15:45:00Z",
+    "views": 8920,
+    "likes": 456,
+    "duration": "2:31"
+  },
+  {
+    "id": 3,
+    "title": "인터뷰 하이라이트",
+    "type": "video",
+    "url": "/video_3.mp4",
+    "thumbnail": "/image_3_320x240.png",
+    "createdAt": "2024-01-13T09:20:00Z",
+    "views": 23450,
+    "likes": 1234,
+    "duration": "4:41"
+  },
+  {
+    "id": 4,
+    "title": "가족 사진",
+    "type": "image",
+    "url": "/image_4_400x240.png",
+    "thumbnail": "/image_4_400x240.png",
+    "createdAt": "2024-01-12T14:15:00Z",
+    "views": 5670,
+    "likes": 234
+  },
+  {
+    "id": 5,
+    "title": "뉴스 카드",
+    "type": "image",
+    "url": "/image_5_480x320.png",
+    "thumbnail": "/image_5_480x320.png",
+    "createdAt": "2024-01-11T11:30:00Z",
+    "views": 12340,
+    "likes": 567
+  },
+  {
+    "id": 6,
+    "title": "회담 장면",
+    "type": "image",
+    "url": "/image_6_640x480.png",
+    "thumbnail": "/image_6_640x480.png",
+    "createdAt": "2024-01-10T16:45:00Z",
+    "views": 8900,
+    "likes": 345
+  },
+  {
+    "id": 7,
+    "title": "정책 발표",
+    "type": "video",
+    "url": "/video_4.mp4",
+    "thumbnail": "/dummy1.png",
+    "createdAt": "2024-01-09T13:20:00Z",
+    "views": 18760,
+    "likes": 987,
+    "duration": "3:15"
+  },
+  {
+    "id": 8,
+    "title": "기자회견",
+    "type": "video",
+    "url": "/video_5.mp4",
+    "thumbnail": "/image_1_160x120.png",
+    "createdAt": "2024-01-08T10:10:00Z",
+    "views": 22340,
+    "likes": 1123,
+    "duration": "5:22"
+  },
+  {
+    "id": 9,
+    "title": "공식 사진",
+    "type": "image",
+    "url": "/image_2_240x160.png",
+    "thumbnail": "/image_2_240x160.png",
+    "createdAt": "2024-01-07T14:30:00Z",
+    "views": 6780,
+    "likes": 234
+  },
+  {
+    "id": 10,
+    "title": "연설 하이라이트",
+    "type": "video",
+    "url": "/video_6.mp4",
+    "thumbnail": "/image_3_320x240.png",
+    "createdAt": "2024-01-06T09:45:00Z",
+    "views": 15670,
+    "likes": 789,
+    "duration": "2:18"
+  },
+  {
+    "id": 11,
+    "title": "개인 사진",
+    "type": "image",
+    "url": "/image_4_400x240.png",
+    "thumbnail": "/image_4_400x240.png",
+    "createdAt": "2024-01-05T12:20:00Z",
+    "views": 4450,
+    "likes": 123
+  },
+  {
+    "id": 12,
+    "title": "뉴스 인터뷰",
+    "type": "video",
+    "url": "/video_7.mp4",
+    "thumbnail": "/image_5_480x320.png",
+    "createdAt": "2024-01-04T15:55:00Z",
+    "views": 19890,
+    "likes": 876,
+    "duration": "4:03"
+  },
+  {
+    "id": 13,
+    "title": "공식 행사",
+    "type": "image",
+    "url": "/image_6_640x480.png",
+    "thumbnail": "/image_6_640x480.png",
+    "createdAt": "2024-01-03T11:15:00Z",
+    "views": 7890,
+    "likes": 345
+  },
+  {
+    "id": 14,
+    "title": "정책 설명",
+    "type": "video",
+    "url": "/video_8.mp4",
+    "thumbnail": "/dummy1.png",
+    "createdAt": "2024-01-02T13:40:00Z",
+    "views": 13450,
+    "likes": 654,
+    "duration": "3:47"
+  },
+  {
+    "id": 15,
+    "title": "미팅 장면",
+    "type": "image",
+    "url": "/image_1_160x120.png",
+    "thumbnail": "/image_1_160x120.png",
+    "createdAt": "2024-01-01T16:25:00Z",
+    "views": 5670,
+    "likes": 234
+  },
+  {
+    "id": 16,
+    "title": "연설 전문",
+    "type": "video",
+    "url": "/video_9.mp4",
+    "thumbnail": "/image_2_240x160.png",
+    "createdAt": "2023-12-31T10:50:00Z",
+    "views": 25670,
+    "likes": 1234,
+    "duration": "8:15"
+  },
+  {
+    "id": 17,
+    "title": "가족 모임",
+    "type": "image",
+    "url": "/image_3_320x240.png",
+    "thumbnail": "/image_3_320x240.png",
+    "createdAt": "2023-12-30T14:05:00Z",
+    "views": 3450,
+    "likes": 156
+  },
+  {
+    "id": 18,
+    "title": "기자회견 하이라이트",
+    "type": "video",
+    "url": "/video_10.mp4",
+    "thumbnail": "/image_4_400x240.png",
+    "createdAt": "2023-12-29T09:30:00Z",
+    "views": 18760,
+    "likes": 876,
+    "duration": "2:55"
+  },
+  {
+    "id": 19,
+    "title": "공식 사진",
+    "type": "image",
+    "url": "/image_5_480x320.png",
+    "thumbnail": "/image_5_480x320.png",
+    "createdAt": "2023-12-28T12:45:00Z",
+    "views": 6780,
+    "likes": 234
+  },
+  {
+    "id": 20,
+    "title": "정책 발표회",
+    "type": "video",
+    "url": "/video_11.mp4",
+    "thumbnail": "/image_6_640x480.png",
+    "createdAt": "2023-12-27T15:20:00Z",
+    "views": 22340,
+    "likes": 1123,
+    "duration": "6:12"
+  },
+  {
+    "id": 21,
+    "title": "개인 스냅",
+    "type": "image",
+    "url": "/dummy1.png",
+    "thumbnail": "/dummy1.png",
+    "createdAt": "2023-12-26T11:10:00Z",
+    "views": 2340,
+    "likes": 89
+  },
+  {
+    "id": 22,
+    "title": "인터뷰 전문",
+    "type": "video",
+    "url": "/video_12.mp4",
+    "thumbnail": "/image_1_160x120.png",
+    "createdAt": "2023-12-25T13:55:00Z",
+    "views": 15670,
+    "likes": 789,
+    "duration": "7:33"
+  },
+  {
+    "id": 23,
+    "title": "공식 행사",
+    "type": "image",
+    "url": "/image_2_240x160.png",
+    "thumbnail": "/image_2_240x160.png",
+    "createdAt": "2023-12-24T16:40:00Z",
+    "views": 8900,
+    "likes": 345
+  },
+  {
+    "id": 24,
+    "title": "연설 하이라이트",
+    "type": "video",
+    "url": "/video_13.mp4",
+    "thumbnail": "/image_3_320x240.png",
+    "createdAt": "2023-12-23T10:25:00Z",
+    "views": 19890,
+    "likes": 876,
+    "duration": "3:28"
+  },
+  {
+    "id": 25,
+    "title": "미팅 사진",
+    "type": "image",
+    "url": "/image_4_400x240.png",
+    "thumbnail": "/image_4_400x240.png",
+    "createdAt": "2023-12-22T14:15:00Z",
+    "views": 5670,
+    "likes": 234
+  },
+  {
+    "id": 26,
+    "title": "정책 설명",
+    "type": "video",
+    "url": "/video_14.mp4",
+    "thumbnail": "/image_5_480x320.png",
+    "createdAt": "2023-12-21T09:50:00Z",
+    "views": 13450,
+    "likes": 654,
+    "duration": "4:55"
+  },
+  {
+    "id": 27,
+    "title": "개인 모임",
+    "type": "image",
+    "url": "/image_6_640x480.png",
+    "thumbnail": "/image_6_640x480.png",
+    "createdAt": "2023-12-20T12:30:00Z",
+    "views": 3450,
+    "likes": 156
+  },
+  {
+    "id": 28,
+    "title": "기자회견",
+    "type": "video",
+    "url": "/video_15.mp4",
+    "thumbnail": "/dummy1.png",
+    "createdAt": "2023-12-19T15:45:00Z",
+    "views": 25670,
+    "likes": 1234,
+    "duration": "5:47"
+  },
+  {
+    "id": 29,
+    "title": "공식 사진",
+    "type": "image",
+    "url": "/image_1_160x120.png",
+    "thumbnail": "/image_1_160x120.png",
+    "createdAt": "2023-12-18T11:20:00Z",
+    "views": 6780,
+    "likes": 234
+  },
+  {
+    "id": 30,
+    "title": "연설 전문",
+    "type": "video",
+    "url": "/video_16.mp4",
+    "thumbnail": "/image_2_240x160.png",
+    "createdAt": "2023-12-17T13:35:00Z",
+    "views": 18760,
+    "likes": 876,
+    "duration": "9:21"
+  }
+]

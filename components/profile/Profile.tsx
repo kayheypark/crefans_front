@@ -72,6 +72,7 @@ interface MediaItem {
   createdAt: string;
   views: number;
   likes: number;
+  duration?: string;
 }
 
 export default function Profile() {
@@ -99,57 +100,19 @@ export default function Profile() {
     return data;
   };
 
-  // 미디어 데이터 (임시)
-  const fetchMediaData = (): MediaItem[] => {
-    return [
-      {
-        id: 1,
-        title: "첫 번째 동영상",
-        type: "video",
-        url: "/video_1.mp4",
-        thumbnail: "/image_1_160x120.png",
-        createdAt: "2024-01-15",
-        views: 1234,
-        likes: 56,
-      },
-      {
-        id: 2,
-        title: "첫 번째 이미지",
-        type: "image",
-        url: "/image_2_240x160.png",
-        thumbnail: "/image_2_240x160.png",
-        createdAt: "2024-01-10",
-        views: 890,
-        likes: 34,
-      },
-      {
-        id: 3,
-        title: "두 번째 동영상",
-        type: "video",
-        url: "/video_1.mp4",
-        thumbnail: "/image_3_320x240.png",
-        createdAt: "2024-01-05",
-        views: 567,
-        likes: 23,
-      },
-      {
-        id: 4,
-        title: "두 번째 이미지",
-        type: "image",
-        url: "/image_4_400x240.png",
-        thumbnail: "/image_4_400x240.png",
-        createdAt: "2024-01-03",
-        views: 456,
-        likes: 12,
-      },
-    ];
+  // 미디어 데이터 fetch
+  const fetchMediaData = async () => {
+    const res = await fetch("/mock/media.json");
+    const data: MediaItem[] = await res.json();
+    return data;
   };
 
   useEffect(() => {
     const loadData = async () => {
       const feedData = await fetchFeedData();
+      const mediaData = await fetchMediaData();
       setPosts(feedData);
-      setMedia(fetchMediaData());
+      setMedia(mediaData);
     };
     loadData();
   }, []);
@@ -308,95 +271,94 @@ export default function Profile() {
     }
 
     return (
-      <Row gutter={[16, 16]} style={{ padding: "20px 0" }}>
-        {media.map((item) => (
-          <Col xs={24} sm={12} md={8} lg={6} key={item.id}>
-            <Card
-              hoverable
-              cover={
-                <div style={{ position: "relative" }}>
+      <div style={{ padding: "20px 0" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "2px",
+            width: "100%",
+          }}
+        >
+          {media.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                position: "relative",
+                aspectRatio: "1",
+                cursor: "pointer",
+                overflow: "hidden",
+              }}
+            >
+              {item.type === "video" ? (
+                <div
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
                   <img
-                    alt={item.title}
                     src={item.thumbnail}
+                    alt={item.title}
                     style={{
                       width: "100%",
-                      height: 160,
+                      height: "100%",
                       objectFit: "cover",
+                      display: "block",
                     }}
                   />
-                  {item.type === "video" && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        background: "rgba(0, 0, 0, 0.7)",
-                        borderRadius: "50%",
-                        width: 48,
-                        height: 48,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <PlayCircleOutlined
-                        style={{ fontSize: 24, color: "#fff" }}
-                      />
-                    </div>
-                  )}
-                  <Tag
-                    color={item.type === "video" ? "blue" : "green"}
+                  <div
                     style={{
                       position: "absolute",
-                      top: 8,
-                      right: 8,
-                      margin: 0,
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      background: "rgba(0, 0, 0, 0.7)",
+                      borderRadius: "50%",
+                      width: 32,
+                      height: 32,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    {item.type === "video" ? "동영상" : "이미지"}
-                  </Tag>
-                </div>
-              }
-              bodyStyle={{ padding: "12px" }}
-            >
-              <div>
-                <Title level={5} style={{ marginBottom: 8, fontSize: 14 }}>
-                  {item.title}
-                </Title>
-                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                  <div
-                    style={{ display: "flex", alignItems: "center", gap: 4 }}
-                  >
-                    <ClockCircleOutlined
-                      style={{ fontSize: 12, color: "#999" }}
+                    <PlayCircleOutlined
+                      style={{ fontSize: 16, color: "#fff" }}
                     />
-                    <Text style={{ fontSize: 11, color: "#999" }}>
-                      {formatDate(item.createdAt)}
-                    </Text>
                   </div>
                   <div
-                    style={{ display: "flex", alignItems: "center", gap: 4 }}
+                    style={{
+                      position: "absolute",
+                      bottom: 4,
+                      right: 4,
+                      background: "rgba(0, 0, 0, 0.8)",
+                      color: "#fff",
+                      padding: "1px 4px",
+                      borderRadius: 2,
+                      fontSize: 10,
+                      fontWeight: 500,
+                    }}
                   >
-                    <EyeOutlined style={{ fontSize: 12, color: "#999" }} />
-                    <Text style={{ fontSize: 11, color: "#999" }}>
-                      {item.views}
-                    </Text>
-                  </div>
-                  <div
-                    style={{ display: "flex", alignItems: "center", gap: 4 }}
-                  >
-                    <HeartOutlined style={{ fontSize: 12, color: "#999" }} />
-                    <Text style={{ fontSize: 11, color: "#999" }}>
-                      {item.likes}
-                    </Text>
+                    {item.duration || "0:00"}
                   </div>
                 </div>
-              </div>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+              ) : (
+                <img
+                  src={item.url}
+                  alt={item.title}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
     );
   };
 
