@@ -329,6 +329,14 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
                   color: idx === step ? "#1677ff" : "#222",
                   opacity: idx === step ? 1 : 0.4,
                   transition: "opacity 0.2s",
+                  cursor: idx < step && idx < 3 ? "pointer" : "default",
+                  textDecoration: idx < step && idx < 3 ? "underline" : "none",
+                }}
+                onClick={() => {
+                  // 완료 화면(step 3)이 아니고, 현재 단계보다 이전 단계인 경우에만 이동 가능
+                  if (idx < step && idx < 3) {
+                    setStep(idx);
+                  }
                 }}
               >
                 {label}
