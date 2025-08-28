@@ -25,6 +25,7 @@ export default function RootLayout({
             theme={{
               token: {
                 colorPrimary: "#1890ff",
+                colorBgContainer: "#fff",
               },
             }}
           >

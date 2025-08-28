@@ -1,5 +1,5 @@
 const Colors = {
-  BACKGROUND: "#f7f8fe",
+  BACKGROUND: "#fafafa",
   APP_BAR_BACKGROUND: "#ffffff",
 };
 

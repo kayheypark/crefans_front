@@ -809,7 +809,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
           {pageTitles[pathname] && (
             <div
               style={{
-                width: Spacings.CONTENT_LAYOUT,
+                width: Spacings.CONTENT_LAYOUT_WIDTH,
                 position: "sticky",
                 top: 0,
                 zIndex: 10,
@@ -835,11 +835,12 @@ export default function MainLayout({ children }: MainLayoutProps) {
           )}
           <Content
             style={{
-              width: pathname === "/home" ? "1200px" : Spacings.CONTENT_LAYOUT,
+              width:
+                pathname === "/home" ? "1200px" : Spacings.CONTENT_LAYOUT_WIDTH,
               paddingLeft: 15,
               paddingTop: 12,
               minHeight: 280,
-              background: Colors.BACKGROUND, // 메인 컨텐츠 배경색
+              backgroundColor: Colors.BACKGROUND, // 메인 컨텐츠 배경색
             }}
           >
             {children}
