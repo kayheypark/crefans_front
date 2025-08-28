@@ -1,0 +1,374 @@
+{
+  "ASMR": [
+    {
+      "id": 101,
+      "name": "ASMR_크리에이터_101",
+      "handle": "@asmr_creator_101",
+      "avatar": "/profile-90.png",
+      "bio": "편안한 ASMR 콘텐츠를 제공하는 크리에이터입니다. 잠들기 전 듣기 좋은 소리들을 만들어드려요.",
+      "followerCount": 12500,
+      "postCount": 89,
+      "category": "ASMR"
+    },
+    {
+      "id": 102,
+      "name": "ASMR_크리에이터_102",
+      "handle": "@asmr_creator_102",
+      "avatar": "/profile-90.png",
+      "bio": "다양한 ASMR 트리거로 여러분의 스트레스를 해소해드립니다.",
+      "followerCount": 8900,
+      "postCount": 156,
+      "category": "ASMR"
+    },
+    {
+      "id": 103,
+      "name": "ASMR_크리에이터_103",
+      "handle": "@asmr_creator_103",
+      "avatar": "/profile-90.png",
+      "bio": "자연의 소리와 함께하는 힐링 ASMR을 경험해보세요.",
+      "followerCount": 21000,
+      "postCount": 234,
+      "category": "ASMR"
+    },
+    {
+      "id": 104,
+      "name": "ASMR_크리에이터_104",
+      "handle": "@asmr_creator_104",
+      "avatar": "/profile-90.png",
+      "bio": "일상 속 소리들을 ASMR로 재해석하여 새로운 경험을 제공합니다.",
+      "followerCount": 15600,
+      "postCount": 178,
+      "category": "ASMR"
+    },
+    {
+      "id": 105,
+      "name": "ASMR_크리에이터_105",
+      "handle": "@asmr_creator_105",
+      "avatar": "/profile-90.png",
+      "bio": "수면 유도에 특화된 ASMR 콘텐츠로 여러분의 숙면을 도와드립니다.",
+      "followerCount": 18900,
+      "postCount": 267,
+      "category": "ASMR"
+    },
+    {
+      "id": 106,
+      "name": "ASMR_크리에이터_106",
+      "handle": "@asmr_creator_106",
+      "avatar": "/profile-90.png",
+      "bio": "독특한 ASMR 트리거로 새로운 감각을 경험해보세요.",
+      "followerCount": 11200,
+      "postCount": 145,
+      "category": "ASMR"
+    }
+  ],
+  "버튜버": [
+    {
+      "id": 201,
+      "name": "버튜버_크리에이터_201",
+      "handle": "@youtuber_creator_201",
+      "avatar": "/profile-90.png",
+      "bio": "다양한 주제로 재미있는 콘텐츠를 만들어가는 버튜버입니다.",
+      "followerCount": 45000,
+      "postCount": 312,
+      "category": "버튜버"
+    },
+    {
+      "id": 202,
+      "name": "버튜버_크리에이터_202",
+      "handle": "@youtuber_creator_202",
+      "avatar": "/profile-90.png",
+      "bio": "일상 브이로그와 다양한 챌린지로 여러분과 소통합니다.",
+      "followerCount": 32000,
+      "postCount": 289,
+      "category": "버튜버"
+    },
+    {
+      "id": 203,
+      "name": "버튜버_크리에이터_203",
+      "handle": "@youtuber_creator_203",
+      "avatar": "/profile-90.png",
+      "bio": "게임과 엔터테인먼트 콘텐츠로 즐거운 시간을 만들어드립니다.",
+      "followerCount": 67000,
+      "postCount": 456,
+      "category": "버튜버"
+    },
+    {
+      "id": 204,
+      "name": "버튜버_크리에이터_204",
+      "handle": "@youtuber_creator_204",
+      "avatar": "/profile-90.png",
+      "bio": "교육과 엔터테인먼트를 결합한 유익한 콘텐츠를 제공합니다.",
+      "followerCount": 28000,
+      "postCount": 198,
+      "category": "버튜버"
+    },
+    {
+      "id": 205,
+      "name": "버튜버_크리에이터_205",
+      "handle": "@youtuber_creator_205",
+      "avatar": "/profile-90.png",
+      "bio": "라이프스타일과 뷰티 콘텐츠로 여러분의 일상을 더욱 아름답게.",
+      "followerCount": 38000,
+      "postCount": 267,
+      "category": "버튜버"
+    },
+    {
+      "id": 206,
+      "name": "버튜버_크리에이터_206",
+      "handle": "@youtuber_creator_206",
+      "avatar": "/profile-90.png",
+      "bio": "음악과 커버로 여러분의 감성을 자극하는 콘텐츠를 만듭니다.",
+      "followerCount": 52000,
+      "postCount": 334,
+      "category": "버튜버"
+    }
+  ],
+  "먹방": [
+    {
+      "id": 301,
+      "name": "먹방_크리에이터_301",
+      "handle": "@mukbang_creator_301",
+      "avatar": "/profile-90.png",
+      "bio": "다양한 음식을 맛있게 먹는 모습을 보여드리는 먹방 크리에이터입니다.",
+      "followerCount": 89000,
+      "postCount": 445,
+      "category": "먹방"
+    },
+    {
+      "id": 302,
+      "name": "먹방_크리에이터_302",
+      "handle": "@mukbang_creator_302",
+      "avatar": "/profile-90.png",
+      "bio": "대용량 음식 챌린지와 다양한 먹방으로 여러분의 식욕을 자극합니다.",
+      "followerCount": 67000,
+      "postCount": 378,
+      "category": "먹방"
+    },
+    {
+      "id": 303,
+      "name": "먹방_크리에이터_303",
+      "handle": "@mukbang_creator_303",
+      "avatar": "/profile-90.png",
+      "bio": "맛집 탐방과 함께하는 먹방으로 여러분의 입맛을 돋워드립니다.",
+      "followerCount": 45000,
+      "postCount": 289,
+      "category": "먹방"
+    },
+    {
+      "id": 304,
+      "name": "먹방_크리에이터_304",
+      "handle": "@mukbang_creator_304",
+      "avatar": "/profile-90.png",
+      "bio": "홈쿡 먹방과 레시피 공유로 여러분의 요리 실력을 향상시켜드립니다.",
+      "followerCount": 34000,
+      "postCount": 234,
+      "category": "먹방"
+    },
+    {
+      "id": 305,
+      "name": "먹방_크리에이터_305",
+      "handle": "@mukbang_creator_305",
+      "avatar": "/profile-90.png",
+      "bio": "다양한 국가의 음식을 소개하는 글로벌 먹방을 즐겨보세요.",
+      "followerCount": 56000,
+      "postCount": 312,
+      "category": "먹방"
+    },
+    {
+      "id": 306,
+      "name": "먹방_크리에이터_306",
+      "handle": "@mukbang_creator_306",
+      "avatar": "/profile-90.png",
+      "bio": "디저트와 간식 먹방으로 여러분의 달콤한 시간을 만들어드립니다.",
+      "followerCount": 42000,
+      "postCount": 267,
+      "category": "먹방"
+    }
+  ],
+  "운동": [
+    {
+      "id": 401,
+      "name": "운동_크리에이터_401",
+      "handle": "@fitness_creator_401",
+      "avatar": "/profile-90.png",
+      "bio": "체계적인 운동 루틴과 건강한 라이프스타일을 공유합니다.",
+      "followerCount": 78000,
+      "postCount": 456,
+      "category": "운동"
+    },
+    {
+      "id": 402,
+      "name": "운동_크리에이터_402",
+      "handle": "@fitness_creator_402",
+      "avatar": "/profile-90.png",
+      "bio": "홈트레이닝과 바디메이킹으로 여러분의 건강한 몸을 만들어드립니다.",
+      "followerCount": 65000,
+      "postCount": 389,
+      "category": "운동"
+    },
+    {
+      "id": 403,
+      "name": "운동_크리에이터_403",
+      "handle": "@fitness_creator_403",
+      "avatar": "/profile-90.png",
+      "bio": "요가와 필라테스로 마음과 몸의 균형을 찾아보세요.",
+      "followerCount": 45000,
+      "postCount": 298,
+      "category": "운동"
+    },
+    {
+      "id": 404,
+      "name": "운동_크리에이터_404",
+      "handle": "@fitness_creator_404",
+      "avatar": "/profile-90.png",
+      "bio": "다이어트와 영양 관리로 건강한 체중 감량을 도와드립니다.",
+      "followerCount": 52000,
+      "postCount": 345,
+      "category": "운동"
+    },
+    {
+      "id": 405,
+      "name": "운동_크리에이터_405",
+      "handle": "@fitness_creator_405",
+      "avatar": "/profile-90.png",
+      "bio": "크로스핏과 고강도 운동으로 극한의 도전을 경험해보세요.",
+      "followerCount": 89000,
+      "postCount": 523,
+      "category": "운동"
+    },
+    {
+      "id": 406,
+      "name": "운동_크리에이터_406",
+      "handle": "@fitness_creator_406",
+      "avatar": "/profile-90.png",
+      "bio": "러닝과 마라톤으로 지구력을 기르고 건강한 삶을 만들어가세요.",
+      "followerCount": 34000,
+      "postCount": 234,
+      "category": "운동"
+    }
+  ],
+  "게임": [
+    {
+      "id": 501,
+      "name": "게임_크리에이터_501",
+      "handle": "@gaming_creator_501",
+      "avatar": "/profile-90.png",
+      "bio": "다양한 게임 플레이와 실시간 스트리밍으로 여러분과 함께합니다.",
+      "followerCount": 120000,
+      "postCount": 678,
+      "category": "게임"
+    },
+    {
+      "id": 502,
+      "name": "게임_크리에이터_502",
+      "handle": "@gaming_creator_502",
+      "avatar": "/profile-90.png",
+      "bio": "FPS 게임 전문가로서 정확한 조준과 전략을 보여드립니다.",
+      "followerCount": 95000,
+      "postCount": 545,
+      "category": "게임"
+    },
+    {
+      "id": 503,
+      "name": "게임_크리에이터_503",
+      "handle": "@gaming_creator_503",
+      "avatar": "/profile-90.png",
+      "bio": "모바일 게임과 캐주얼 게임으로 가볍고 재미있는 시간을 만들어드립니다.",
+      "followerCount": 67000,
+      "postCount": 412,
+      "category": "게임"
+    },
+    {
+      "id": 504,
+      "name": "게임_크리에이터_504",
+      "handle": "@gaming_creator_504",
+      "avatar": "/profile-90.png",
+      "bio": "RPG와 스토리 게임으로 몰입감 있는 게임 경험을 제공합니다.",
+      "followerCount": 78000,
+      "postCount": 456,
+      "category": "게임"
+    },
+    {
+      "id": 505,
+      "name": "게임_크리에이터_505",
+      "handle": "@gaming_creator_505",
+      "avatar": "/profile-90.png",
+      "bio": "게임 리뷰와 공략으로 여러분의 게임 실력을 향상시켜드립니다.",
+      "followerCount": 56000,
+      "postCount": 334,
+      "category": "게임"
+    },
+    {
+      "id": 506,
+      "name": "게임_크리에이터_506",
+      "handle": "@gaming_creator_506",
+      "avatar": "/profile-90.png",
+      "bio": "e스포츠와 프로게이머 인터뷰로 게임의 새로운 세계를 보여드립니다.",
+      "followerCount": 89000,
+      "postCount": 523,
+      "category": "게임"
+    }
+  ],
+  "주식": [
+    {
+      "id": 601,
+      "name": "주식_크리에이터_601",
+      "handle": "@stock_creator_601",
+      "avatar": "/profile-90.png",
+      "bio": "주식 투자와 경제 분석으로 여러분의 재테크 지식을 높여드립니다.",
+      "followerCount": 150000,
+      "postCount": 789,
+      "category": "주식"
+    },
+    {
+      "id": 602,
+      "name": "주식_크리에이터_602",
+      "handle": "@stock_creator_602",
+      "avatar": "/profile-90.png",
+      "bio": "실시간 주식 시장 분석과 투자 전략을 공유합니다.",
+      "followerCount": 120000,
+      "postCount": 645,
+      "category": "주식"
+    },
+    {
+      "id": 603,
+      "name": "주식_크리에이터_603",
+      "handle": "@stock_creator_603",
+      "avatar": "/profile-90.png",
+      "bio": "초보자를 위한 주식 투자 가이드와 기초 지식을 제공합니다.",
+      "followerCount": 89000,
+      "postCount": 456,
+      "category": "주식"
+    },
+    {
+      "id": 604,
+      "name": "주식_크리에이터_604",
+      "handle": "@stock_creator_604",
+      "avatar": "/profile-90.png",
+      "bio": "기업 분석과 재무제표 해석으로 투자 판단력을 기르세요.",
+      "followerCount": 110000,
+      "postCount": 567,
+      "category": "주식"
+    },
+    {
+      "id": 605,
+      "name": "주식_크리에이터_605",
+      "handle": "@stock_creator_605",
+      "avatar": "/profile-90.png",
+      "bio": "글로벌 주식 시장과 해외 투자 정보를 제공합니다.",
+      "followerCount": 95000,
+      "postCount": 489,
+      "category": "주식"
+    },
+    {
+      "id": 606,
+      "name": "주식_크리에이터_606",
+      "handle": "@stock_creator_606",
+      "avatar": "/profile-90.png",
+      "bio": "암호화폐와 블록체인 투자로 미래의 투자 트렌드를 선도합니다.",
+      "followerCount": 180000,
+      "postCount": 823,
+      "category": "주식"
+    }
+  ]
+}

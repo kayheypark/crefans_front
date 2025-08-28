@@ -1,0 +1,438 @@
+{
+  "newCreators": [
+    {
+      "id": 1,
+      "name": "새로운 크리에이터 1",
+      "handle": "@newcreator1",
+      "avatar": "/profile-90.png",
+      "bio": "신규 등록된 크리에이터입니다",
+      "followerCount": 150,
+      "postCount": 12,
+      "isNew": true
+    },
+    {
+      "id": 2,
+      "name": "새로운 크리에이터 2",
+      "handle": "@newcreator2",
+      "avatar": "/profile-90.png",
+      "bio": "최근에 가입한 크리에이터입니다",
+      "followerCount": 89,
+      "postCount": 8,
+      "isNew": true
+    },
+    {
+      "id": 3,
+      "name": "새로운 크리에이터 3",
+      "handle": "@newcreator3",
+      "avatar": "/profile-90.png",
+      "bio": "신규 크리에이터입니다",
+      "followerCount": 234,
+      "postCount": 15,
+      "isNew": true
+    },
+    {
+      "id": 4,
+      "name": "새로운 크리에이터 4",
+      "handle": "@newcreator4",
+      "avatar": "/profile-90.png",
+      "bio": "최근 등록된 크리에이터입니다",
+      "followerCount": 67,
+      "postCount": 5,
+      "isNew": true
+    },
+    {
+      "id": 5,
+      "name": "새로운 크리에이터 5",
+      "handle": "@newcreator5",
+      "avatar": "/profile-90.png",
+      "bio": "신규 가입한 크리에이터입니다",
+      "followerCount": 178,
+      "postCount": 10,
+      "isNew": true
+    },
+    {
+      "id": 6,
+      "name": "새로운 크리에이터 6",
+      "handle": "@newcreator6",
+      "avatar": "/profile-90.png",
+      "bio": "최근 등록된 크리에이터입니다",
+      "followerCount": 95,
+      "postCount": 7,
+      "isNew": true
+    }
+  ],
+  "popularCreators": {
+    "ASMR": [
+      {
+        "id": 101,
+        "name": "ASMR 마스터",
+        "handle": "@asmrmaster",
+        "avatar": "/profile-90.png",
+        "bio": "편안한 ASMR 콘텐츠를 제공합니다",
+        "followerCount": 15420,
+        "postCount": 234,
+        "category": "ASMR"
+      },
+      {
+        "id": 102,
+        "name": "소리 요리사",
+        "handle": "@soundchef",
+        "avatar": "/profile-90.png",
+        "bio": "다양한 소리로 편안함을 드립니다",
+        "followerCount": 8920,
+        "postCount": 156,
+        "category": "ASMR"
+      },
+      {
+        "id": 103,
+        "name": "ASMR 아티스트",
+        "handle": "@asmrartist",
+        "avatar": "/profile-90.png",
+        "bio": "창의적인 ASMR 콘텐츠",
+        "followerCount": 6780,
+        "postCount": 89,
+        "category": "ASMR"
+      },
+      {
+        "id": 104,
+        "name": "ASMR 힐링",
+        "handle": "@asmrhealing",
+        "avatar": "/profile-90.png",
+        "bio": "마음을 편안하게 하는 ASMR",
+        "followerCount": 12340,
+        "postCount": 178,
+        "category": "ASMR"
+      },
+      {
+        "id": 105,
+        "name": "ASMR 전문가",
+        "handle": "@asmrexpert",
+        "avatar": "/profile-90.png",
+        "bio": "전문적인 ASMR 콘텐츠",
+        "followerCount": 9870,
+        "postCount": 145,
+        "category": "ASMR"
+      },
+      {
+        "id": 106,
+        "name": "ASMR 스타",
+        "handle": "@asmrstar",
+        "avatar": "/profile-90.png",
+        "bio": "인기 ASMR 크리에이터",
+        "followerCount": 18760,
+        "postCount": 267,
+        "category": "ASMR"
+      }
+    ],
+    "버튜버": [
+      {
+        "id": 201,
+        "name": "버튜버 스타",
+        "handle": "@vtubestar",
+        "avatar": "/profile-90.png",
+        "bio": "가상 유튜버 콘텐츠",
+        "followerCount": 23450,
+        "postCount": 345,
+        "category": "버튜버"
+      },
+      {
+        "id": 202,
+        "name": "버튜버 프로",
+        "handle": "@vtubepro",
+        "avatar": "/profile-90.png",
+        "bio": "전문 버튜버 크리에이터",
+        "followerCount": 15670,
+        "postCount": 234,
+        "category": "버튜버"
+      },
+      {
+        "id": 203,
+        "name": "버튜버 마스터",
+        "handle": "@vtubemaster",
+        "avatar": "/profile-90.png",
+        "bio": "버튜버 전문가",
+        "followerCount": 9870,
+        "postCount": 123,
+        "category": "버튜버"
+      },
+      {
+        "id": 204,
+        "name": "버튜버 아티스트",
+        "handle": "@vtubeartist",
+        "avatar": "/profile-90.png",
+        "bio": "창의적인 버튜버 콘텐츠",
+        "followerCount": 18760,
+        "postCount": 267,
+        "category": "버튜버"
+      },
+      {
+        "id": 205,
+        "name": "버튜버 크리에이터",
+        "handle": "@vtubecreator",
+        "avatar": "/profile-90.png",
+        "bio": "다양한 버튜버 콘텐츠",
+        "followerCount": 12340,
+        "postCount": 189,
+        "category": "버튜버"
+      },
+      {
+        "id": 206,
+        "name": "버튜버 스타2",
+        "handle": "@vtubestar2",
+        "avatar": "/profile-90.png",
+        "bio": "인기 버튜버 스타",
+        "followerCount": 25670,
+        "postCount": 312,
+        "category": "버튜버"
+      }
+    ],
+    "먹방": [
+      {
+        "id": 301,
+        "name": "먹방 챔피언",
+        "handle": "@mukbangchamp",
+        "avatar": "/profile-90.png",
+        "bio": "맛있는 먹방 콘텐츠",
+        "followerCount": 18760,
+        "postCount": 267,
+        "category": "먹방"
+      },
+      {
+        "id": 302,
+        "name": "먹방 마스터",
+        "handle": "@mukbangmaster",
+        "avatar": "/profile-90.png",
+        "bio": "다양한 먹방 콘텐츠",
+        "followerCount": 12340,
+        "postCount": 189,
+        "category": "먹방"
+      },
+      {
+        "id": 303,
+        "name": "먹방 스타",
+        "handle": "@mukbangstar",
+        "avatar": "/profile-90.png",
+        "bio": "인기 먹방 크리에이터",
+        "followerCount": 8900,
+        "postCount": 145,
+        "category": "먹방"
+      },
+      {
+        "id": 304,
+        "name": "먹방 프로",
+        "handle": "@mukbangpro",
+        "avatar": "/profile-90.png",
+        "bio": "전문 먹방 크리에이터",
+        "followerCount": 15670,
+        "postCount": 234,
+        "category": "먹방"
+      },
+      {
+        "id": 305,
+        "name": "먹방 아티스트",
+        "handle": "@mukbangartist",
+        "avatar": "/profile-90.png",
+        "bio": "예술적인 먹방",
+        "followerCount": 10230,
+        "postCount": 167,
+        "category": "먹방"
+      },
+      {
+        "id": 306,
+        "name": "먹방 챔피언2",
+        "handle": "@mukbangchamp2",
+        "avatar": "/profile-90.png",
+        "bio": "맛있는 먹방 콘텐츠",
+        "followerCount": 22340,
+        "postCount": 301,
+        "category": "먹방"
+      }
+    ],
+    "운동": [
+      {
+        "id": 401,
+        "name": "피트니스 트레이너",
+        "handle": "@fitnesstrainer",
+        "avatar": "/profile-90.png",
+        "bio": "전문 운동 가이드",
+        "followerCount": 22340,
+        "postCount": 312,
+        "category": "운동"
+      },
+      {
+        "id": 402,
+        "name": "헬스 마스터",
+        "handle": "@healthmaster",
+        "avatar": "/profile-90.png",
+        "bio": "건강한 운동 라이프",
+        "followerCount": 14560,
+        "postCount": 198,
+        "category": "운동"
+      },
+      {
+        "id": 403,
+        "name": "운동 전문가",
+        "handle": "@exerciseexpert",
+        "avatar": "/profile-90.png",
+        "bio": "전문 운동 콘텐츠",
+        "followerCount": 11230,
+        "postCount": 167,
+        "category": "운동"
+      },
+      {
+        "id": 404,
+        "name": "피트니스 마스터",
+        "handle": "@fitnessmaster",
+        "avatar": "/profile-90.png",
+        "bio": "피트니스 전문가",
+        "followerCount": 18760,
+        "postCount": 267,
+        "category": "운동"
+      },
+      {
+        "id": 405,
+        "name": "헬스 트레이너",
+        "handle": "@healthtrainer",
+        "avatar": "/profile-90.png",
+        "bio": "건강 트레이너",
+        "followerCount": 13450,
+        "postCount": 189,
+        "category": "운동"
+      },
+      {
+        "id": 406,
+        "name": "피트니스 트레이너2",
+        "handle": "@fitnesstrainer2",
+        "avatar": "/profile-90.png",
+        "bio": "전문 운동 가이드",
+        "followerCount": 25670,
+        "postCount": 345,
+        "category": "운동"
+      }
+    ],
+    "게임": [
+      {
+        "id": 501,
+        "name": "게임 마스터",
+        "handle": "@gamemaster",
+        "avatar": "/profile-90.png",
+        "bio": "다양한 게임 플레이",
+        "followerCount": 25670,
+        "postCount": 423,
+        "category": "게임"
+      },
+      {
+        "id": 502,
+        "name": "게임 스트리머",
+        "handle": "@gamestreamer",
+        "avatar": "/profile-90.png",
+        "bio": "실시간 게임 스트리밍",
+        "followerCount": 18900,
+        "postCount": 289,
+        "category": "게임"
+      },
+      {
+        "id": 503,
+        "name": "게임 프로",
+        "handle": "@gamepro",
+        "avatar": "/profile-90.png",
+        "bio": "전문 게임 콘텐츠",
+        "followerCount": 13450,
+        "postCount": 201,
+        "category": "게임"
+      },
+      {
+        "id": 504,
+        "name": "게임 아티스트",
+        "handle": "@gameartist",
+        "avatar": "/profile-90.png",
+        "bio": "창의적인 게임 콘텐츠",
+        "followerCount": 16780,
+        "postCount": 234,
+        "category": "게임"
+      },
+      {
+        "id": 505,
+        "name": "게임 크리에이터",
+        "handle": "@gamecreator",
+        "avatar": "/profile-90.png",
+        "bio": "다양한 게임 콘텐츠",
+        "followerCount": 12340,
+        "postCount": 178,
+        "category": "게임"
+      },
+      {
+        "id": 506,
+        "name": "게임 마스터2",
+        "handle": "@gamemaster2",
+        "avatar": "/profile-90.png",
+        "bio": "다양한 게임 플레이",
+        "followerCount": 28760,
+        "postCount": 456,
+        "category": "게임"
+      }
+    ],
+    "주식": [
+      {
+        "id": 601,
+        "name": "주식 전문가",
+        "handle": "@stockexpert",
+        "avatar": "/profile-90.png",
+        "bio": "전문 주식 분석",
+        "followerCount": 19890,
+        "postCount": 156,
+        "category": "주식"
+      },
+      {
+        "id": 602,
+        "name": "투자 마스터",
+        "handle": "@investmentmaster",
+        "avatar": "/profile-90.png",
+        "bio": "투자 가이드",
+        "followerCount": 12340,
+        "postCount": 98,
+        "category": "주식"
+      },
+      {
+        "id": 603,
+        "name": "주식 트레이더",
+        "handle": "@stocktrader",
+        "avatar": "/profile-90.png",
+        "bio": "실시간 주식 정보",
+        "followerCount": 8760,
+        "postCount": 67,
+        "category": "주식"
+      },
+      {
+        "id": 604,
+        "name": "주식 아날리스트",
+        "handle": "@stockanalyst",
+        "avatar": "/profile-90.png",
+        "bio": "주식 분석 전문가",
+        "followerCount": 15670,
+        "postCount": 123,
+        "category": "주식"
+      },
+      {
+        "id": 605,
+        "name": "투자 전문가",
+        "handle": "@investmentexpert",
+        "avatar": "/profile-90.png",
+        "bio": "투자 전문가",
+        "followerCount": 11230,
+        "postCount": 89,
+        "category": "주식"
+      },
+      {
+        "id": 606,
+        "name": "주식 전문가2",
+        "handle": "@stockexpert2",
+        "avatar": "/profile-90.png",
+        "bio": "전문 주식 분석",
+        "followerCount": 22340,
+        "postCount": 178,
+        "category": "주식"
+      }
+    ]
+  }
+}
