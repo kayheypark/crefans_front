@@ -34,7 +34,7 @@ import { formatPhoneNumber } from "@/lib/utils/phoneUtils";
 const { Title, Text, Paragraph } = Typography;
 const { Sider, Content } = Layout;
 
-export default function Mypage() {
+export default function Settings() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -130,7 +130,7 @@ export default function Mypage() {
             onClick={({ key }) => {
               const params = new URLSearchParams(searchParams.toString());
               params.set("tab", key);
-              router.push(`/mypage?${params.toString()}`);
+              router.push(`/settings?${params.toString()}`);
             }}
             items={[
               {

@@ -59,7 +59,8 @@ const pageTitles: { [key: string]: string } = {
   "/feed": "피드",
   "/explore": "둘러보기",
   "/search": "검색",
-  "/mypage": "내 정보",
+  "/settings": "설정",
+  "/profile": "프로필",
 };
 
 export default function MainLayout({ children }: MainLayoutProps) {
@@ -379,10 +380,16 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const userMenu = {
     items: [
       {
-        key: "myInfo",
+        key: "settings",
+        icon: <SettingOutlined />,
+        label: "설정",
+        onClick: () => router.push("/settings"),
+      },
+      {
+        key: "profile",
         icon: <UserOutlined />,
-        label: "내 정보",
-        onClick: () => router.push("/mypage"),
+        label: "프로필",
+        onClick: () => router.push("/profile"),
       },
       {
         key: "logout",
@@ -473,9 +480,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                             border: "1px solid #eee",
                             cursor: "pointer",
                           }}
-                          onClick={() => {
-                            // router.push("/mypage");
-                          }}
+                          onClick={() => {}}
                         />
                       </Dropdown>
                       <div
