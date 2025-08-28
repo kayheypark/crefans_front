@@ -21,6 +21,7 @@ import {
   Tabs,
   Image as AntdImageComponent,
   Watermark,
+  Layout,
 } from "antd";
 import {
   UserOutlined,
@@ -51,6 +52,7 @@ import "lightgallery/css/lg-zoom.css";
 import "lightgallery/css/lg-thumbnail.css";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
+import Spacings from "@/lib/constants/spacings";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -108,6 +110,7 @@ export default function Feed() {
   const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
     {}
   );
+  const stickyTop = 86;
 
   //무단 복제금지 문구
   const noCopyGuideText =
@@ -142,7 +145,7 @@ export default function Feed() {
   useEffect(() => {
     const observer = new window.IntersectionObserver(
       ([e]) => setIsSticky(!e.isIntersecting),
-      { rootMargin: "-72px 0px 0px 0px", threshold: 0 }
+      { rootMargin: `-${stickyTop}px 0px 0px 0px`, threshold: 0 }
     );
     if (sentinelRef.current) {
       observer.observe(sentinelRef.current);
@@ -333,7 +336,15 @@ export default function Feed() {
   }, [searchParams]);
 
   return (
-    <div style={{ width: 800, margin: "0", paddingLeft: 32, paddingRight: 32 }}>
+    <Layout
+      style={{
+        width: "100%",
+        margin: "0",
+        paddingLeft: Spacings.CONTENT_LAYOUT_PADDING,
+        paddingRight: Spacings.CONTENT_LAYOUT_PADDING,
+        background: "transparent",
+      }}
+    >
       {/* sticky 감지용 sentinel */}
       <div ref={sentinelRef} style={{ height: 1 }} />
       {/* 피드 타이틀+필터 sticky 슬리버 */}
@@ -341,9 +352,9 @@ export default function Feed() {
         ref={stickyRef}
         style={{
           position: "sticky",
-          top: 72,
+          top: stickyTop,
           zIndex: 10,
-          background: isSticky ? "rgba(255,255,255,0.7)" : "transparent",
+          background: isSticky ? "rgba(255,255,255,0.2)" : "transparent",
           backdropFilter: isSticky ? "blur(8px)" : "none",
           boxShadow: isSticky ? "0 2px 8px rgba(0,0,0,0.04)" : "none",
           padding: "16px 0 12px 0",
@@ -518,6 +529,6 @@ export default function Feed() {
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
       />
-    </div>
+    </Layout>
   );
 }

@@ -30,6 +30,7 @@ import NicknameModal from "@/components/modals/NicknameModal";
 import HandleModal from "@/components/modals/HandleModal";
 import DeleteAccountModal from "@/components/modals/DeleteAccountModal";
 import { formatPhoneNumber } from "@/lib/utils/phoneUtils";
+import Spacings from "@/lib/constants/spacings";
 
 const { Title, Text, Paragraph } = Typography;
 const { Sider, Content } = Layout;
@@ -73,10 +74,10 @@ export default function Settings() {
   return (
     <Layout
       style={{
-        width: 800,
+        width: "100%",
         margin: "0",
-        paddingLeft: 32,
-        paddingRight: 32,
+        paddingLeft: Spacings.CONTENT_LAYOUT_PADDING,
+        paddingRight: Spacings.CONTENT_LAYOUT_PADDING,
         background: "transparent",
       }}
     >

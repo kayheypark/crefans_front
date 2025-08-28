@@ -28,6 +28,7 @@ import {
   CheckCircleOutlined,
   PictureOutlined,
   PlayCircleOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import LightGallery from "lightgallery/react";
@@ -36,6 +37,8 @@ import "lightgallery/css/lg-zoom.css";
 import "lightgallery/css/lg-thumbnail.css";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
+import Spacings from "@/lib/constants/spacings";
+import { Layout } from "antd";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -363,7 +366,15 @@ export default function Profile() {
   };
 
   return (
-    <div style={{ width: 800, margin: "0", paddingLeft: 32, paddingRight: 32 }}>
+    <Layout
+      style={{
+        width: "100%",
+        margin: "0",
+        paddingLeft: Spacings.CONTENT_LAYOUT_PADDING,
+        paddingRight: Spacings.CONTENT_LAYOUT_PADDING,
+        background: "transparent",
+      }}
+    >
       {/* 커버 이미지 */}
       <div
         style={{
@@ -423,7 +434,7 @@ export default function Profile() {
                   gap: 8,
                 }}
               >
-                <Button type="text" icon={<EditOutlined />}>
+                <Button type="text" icon={<SettingOutlined />}>
                   프로필 편집
                 </Button>
                 <Button type="text" icon={<ShareAltOutlined />}>
@@ -549,6 +560,6 @@ export default function Profile() {
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
       />
-    </div>
+    </Layout>
   );
 }

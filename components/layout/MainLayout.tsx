@@ -43,6 +43,7 @@ import SignUpModal from "@/app/(main)/home/SignUpModal";
 import Colors from "@/lib/constants/colors";
 import axios from "axios";
 import { getApiUrl } from "@/utils/env";
+import Spacings from "@/lib/constants/spacings";
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -808,10 +809,11 @@ export default function MainLayout({ children }: MainLayoutProps) {
           {pageTitles[pathname] && (
             <div
               style={{
+                width: Spacings.CONTENT_LAYOUT,
                 position: "sticky",
                 top: 0,
                 zIndex: 10,
-                background: Colors.BACKGROUND, // 메인 컨텐츠 네비게이션 배경색
+                background: Colors.APP_BAR_BACKGROUND, // 메인 컨텐츠 네비게이션 배경색
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
@@ -833,8 +835,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
           )}
           <Content
             style={{
-              //   margin: "0 16px",
-              padding: 24,
+              width: pathname === "/home" ? "1200px" : Spacings.CONTENT_LAYOUT,
+              paddingLeft: 15,
+              paddingTop: 12,
               minHeight: 280,
               background: Colors.BACKGROUND, // 메인 컨텐츠 배경색
             }}
