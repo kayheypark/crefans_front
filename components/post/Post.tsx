@@ -94,7 +94,8 @@ export default function Post({
   formatFullDate,
 }: PostProps) {
   const { user } = useAuth();
-  const noCopyGuideText = "이미지는 복사할 수 없습니다.";
+  const noCopyGuideText =
+    "crefans에 등록된 모든 포스팅 콘텐츠의 캡쳐 및 배포/재배포는 이용약관과 관련 법령에 의거하여 엄격히 금지되어있고, 민/형사상 처벌의 대상이 됩니다.";
 
   const getMoreMenu = (postId: number) => ({
     items: [
