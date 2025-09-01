@@ -8,7 +8,8 @@
       "bio": "신규 등록된 크리에이터입니다",
       "followerCount": 150,
       "postCount": 12,
-      "isNew": true
+      "isNew": true,
+      "bannerImage": "/image_1_160x120.png"
     },
     {
       "id": 2,
@@ -18,7 +19,8 @@
       "bio": "최근에 가입한 크리에이터입니다",
       "followerCount": 89,
       "postCount": 8,
-      "isNew": true
+      "isNew": true,
+      "bannerImage": "/image_2_240x160.png"
     },
     {
       "id": 3,
@@ -28,7 +30,8 @@
       "bio": "신규 크리에이터입니다",
       "followerCount": 234,
       "postCount": 15,
-      "isNew": true
+      "isNew": true,
+      "bannerImage": "/image_3_320x240.png"
     },
     {
       "id": 4,
@@ -38,7 +41,8 @@
       "bio": "최근 등록된 크리에이터입니다",
       "followerCount": 67,
       "postCount": 5,
-      "isNew": true
+      "isNew": true,
+      "bannerImage": "/image_4_400x240.png"
     },
     {
       "id": 5,
@@ -48,7 +52,8 @@
       "bio": "신규 가입한 크리에이터입니다",
       "followerCount": 178,
       "postCount": 10,
-      "isNew": true
+      "isNew": true,
+      "bannerImage": "/image_5_480x320.png"
     },
     {
       "id": 6,
@@ -58,7 +63,8 @@
       "bio": "최근 등록된 크리에이터입니다",
       "followerCount": 95,
       "postCount": 7,
-      "isNew": true
+      "isNew": true,
+      "bannerImage": "/image_6_640x480.png"
     }
   ],
   "popularCreators": {
@@ -71,7 +77,8 @@
         "bio": "편안한 ASMR 콘텐츠를 제공합니다",
         "followerCount": 15420,
         "postCount": 234,
-        "category": "ASMR"
+        "category": "ASMR",
+        "bannerImage": "/image_1_160x120.png"
       },
       {
         "id": 102,
@@ -81,7 +88,8 @@
         "bio": "다양한 소리로 편안함을 드립니다",
         "followerCount": 8920,
         "postCount": 156,
-        "category": "ASMR"
+        "category": "ASMR",
+        "bannerImage": "/image_2_240x160.png"
       },
       {
         "id": 103,
@@ -91,7 +99,8 @@
         "bio": "창의적인 ASMR 콘텐츠",
         "followerCount": 6780,
         "postCount": 89,
-        "category": "ASMR"
+        "category": "ASMR",
+        "bannerImage": "/image_3_320x240.png"
       },
       {
         "id": 104,
