@@ -29,6 +29,7 @@ import {
   PictureOutlined,
   PlayCircleOutlined,
   SettingOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -367,6 +368,32 @@ export default function Profile() {
     );
   };
 
+  const renderFollowing = () => {
+    return (
+      <div style={{ padding: "20px 0" }}>
+        <div style={{ textAlign: "center", padding: "60px 20px" }}>
+          <Empty
+            description="팔로잉한 회원이 없습니다"
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const renderFollowers = () => {
+    return (
+      <div style={{ padding: "20px 0" }}>
+        <div style={{ textAlign: "center", padding: "60px 20px" }}>
+          <Empty
+            description="팔로워가 없습니다"
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Layout
       style={{
@@ -437,11 +464,18 @@ export default function Profile() {
                 }}
               >
                 <Button
-                  type="text"
+                  type="primary"
                   icon={<SettingOutlined />}
                   onClick={() => router.push("/profile/edit")}
                 >
                   프로필 관리
+                </Button>
+                <Button
+                  type="primary"
+                  icon={<PlusOutlined />}
+                  onClick={() => router.push("/write")}
+                >
+                  글쓰기
                 </Button>
                 <Button type="text" icon={<ShareAltOutlined />}>
                   공유
@@ -461,6 +495,18 @@ export default function Profile() {
                 ? "@" + user.attributes.preferred_username
                 : "@-"}
             </Text>
+
+            {/* 회원 타입 표시 */}
+            <div style={{ marginBottom: 8 }}>
+              <Tag
+                color="gold"
+                icon={<CrownOutlined />}
+                style={{ fontSize: 12 }}
+              >
+                크리에이터
+              </Tag>
+            </div>
+
             <Text
               style={{
                 fontSize: 14,
@@ -482,13 +528,23 @@ export default function Profile() {
         items={[
           {
             key: "posts",
-            label: "게시물",
+            label: "게시물 391",
             children: renderPosts(),
           },
           {
             key: "media",
-            label: "미디어",
+            label: "미디어 1,241",
             children: renderMedia(),
+          },
+          {
+            key: "following",
+            label: "팔로잉 1",
+            children: renderFollowing(),
+          },
+          {
+            key: "followers",
+            label: "팔로워 2,567",
+            children: renderFollowers(),
           },
         ]}
         style={{ marginBottom: 24 }}
