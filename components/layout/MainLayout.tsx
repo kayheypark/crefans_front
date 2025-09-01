@@ -101,6 +101,22 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const [activeNotificationTab, setActiveNotificationTab] = useState("all");
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [showChargeModal, setShowChargeModal] = useState(false);
+  const [openMenuKeys, setOpenMenuKeys] = useState<string[]>([
+    "membershipGroup",
+    "followGroup",
+  ]);
+
+  // 클라이언트 마운트 후 로컬스토리지에서 상태 불러오기
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("sidebar_open_keys");
+      if (stored) {
+        setOpenMenuKeys(JSON.parse(stored));
+      }
+    } catch (error) {
+      console.warn("로컬스토리지 불러오기 실패:", error);
+    }
+  }, []);
 
   useEffect(() => {
     // 알림 mock 데이터 fetch
@@ -604,6 +620,20 @@ export default function MainLayout({ children }: MainLayoutProps) {
             selectedKeys={[selectedMenu]}
             style={{ border: "none" }}
             onClick={handleMenuChange}
+            openKeys={openMenuKeys}
+            onOpenChange={(keys) => {
+              const newKeys = keys as string[];
+              setOpenMenuKeys(newKeys);
+              // 로컬스토리지에 상태 저장
+              try {
+                localStorage.setItem(
+                  "sidebar_open_keys",
+                  JSON.stringify(newKeys)
+                );
+              } catch (error) {
+                console.warn("로컬스토리지 저장 실패:", error);
+              }
+            }}
             items={[
               {
                 key: "home",
