@@ -400,7 +400,7 @@ export default function MembershipManagementModal({
       {/* 멤버십 목록 */}
       <div>
         <h3 style={{ marginBottom: 20, color: "#1890ff", fontSize: 18 }}>
-          현재 멤버십 ({memberships.length}개)
+          내 판매중인 멤버십 ({memberships.length}개)
         </h3>
 
         {memberships.length > 0 ? (

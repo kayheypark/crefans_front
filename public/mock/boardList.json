@@ -1,0 +1,26 @@
+{
+  "total": 2,
+  "page": 1,
+  "limit": 10,
+  "totalPages": 1,
+  "data": [
+    {
+      "id": 1,
+      "title": "크레팬스 서비스 개발중 안내",
+      "category": "notice",
+      "createdAt": "2025-09-02 00:00:00",
+      "views": 0,
+      "isImportant": false,
+      "excerpt": "안녕하세요, 크레팬스입니다. 많은 관심과 사랑 부탁드립니다."
+    },
+    {
+      "id": 2,
+      "title": "얼리버드 이벤트",
+      "category": "event",
+      "createdAt": "2025-09-02 00:00:00",
+      "views": 0,
+      "isImportant": false,
+      "excerpt": "정식 서비스 오픈 이전까지 얼리버드로 시작하신 분들에게 한하여 선물을 지급할 예정입니다."
+    }
+  ]
+}

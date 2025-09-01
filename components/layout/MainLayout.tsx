@@ -67,6 +67,22 @@ const pageTitles: { [key: string]: string } = {
   "/profile": "프로필",
   "/profile/edit": "프로필 관리",
   "/write": "글쓰기",
+  "/board": "게시판",
+};
+
+// 동적 라우팅을 위한 페이지 제목 매칭 함수
+const getPageTitle = (pathname: string): string | undefined => {
+  // 정확한 매칭 먼저 시도
+  if (pageTitles[pathname]) {
+    return pageTitles[pathname];
+  }
+
+  // 동적 라우팅 패턴 매칭
+  if (pathname.startsWith("/board/") && pathname.split("/").length === 3) {
+    return "게시글 상세";
+  }
+
+  return undefined;
 };
 
 export default function MainLayout({ children }: MainLayoutProps) {
@@ -439,6 +455,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       href: "/support?category=privacy",
     },
     { label: "환불 정책", href: "/support?category=refund" },
+    { label: "공지사항", href: "/board?category=notice" },
   ];
 
   const sideBarWidth = isMobile ? 335 : isTablet ? 335 : 335;
@@ -582,7 +599,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 src="/logo.png"
                 alt="crefans"
                 height={28}
-                style={{ marginRight: 8 }}
+                style={{
+                  marginRight: 8,
+                  cursor: "pointer",
+                }}
                 onClick={() => router.push("/")}
               />
             </div>
@@ -964,7 +984,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
           }}
         >
           {/* 앱바 (App Bar) */}
-          {pageTitles[pathname] && (
+          {getPageTitle(pathname) && (
             <div
               style={{
                 width: isMobile
@@ -996,7 +1016,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 style={{ marginRight: 8 }}
               />
               <Title level={2} style={{ margin: 0 }}>
-                {pageTitles[pathname]}
+                {getPageTitle(pathname)}
               </Title>
             </div>
           )}
