@@ -65,6 +65,7 @@ const pageTitles: { [key: string]: string } = {
   "/search": "검색",
   "/settings": "설정",
   "/profile": "프로필",
+  "/profile/edit": "프로필 관리",
 };
 
 export default function MainLayout({ children }: MainLayoutProps) {

@@ -31,6 +31,7 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 import LightGallery from "lightgallery/react";
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
@@ -80,6 +81,7 @@ interface MediaItem {
 
 export default function Profile() {
   const { user } = useAuth();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("posts");
   const [posts, setPosts] = useState<Post[]>([]);
   const [media, setMedia] = useState<MediaItem[]>([]);
@@ -434,8 +436,12 @@ export default function Profile() {
                   gap: 8,
                 }}
               >
-                <Button type="text" icon={<SettingOutlined />}>
-                  프로필 편집
+                <Button
+                  type="text"
+                  icon={<SettingOutlined />}
+                  onClick={() => router.push("/profile/edit")}
+                >
+                  프로필 관리
                 </Button>
                 <Button type="text" icon={<ShareAltOutlined />}>
                   공유
