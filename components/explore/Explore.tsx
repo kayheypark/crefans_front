@@ -7,6 +7,7 @@ import Card from "antd/lib/card";
 import Typography from "antd/lib/typography";
 import Tag from "antd/lib/tag";
 import { UserOutlined, PlusOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 
 const { Title, Text } = Typography;
 
@@ -80,6 +81,7 @@ interface ExploreMoreData {
 }
 
 export default function Explore() {
+  const router = useRouter();
   const [exploreData, setExploreData] = useState<ExploreData | null>(null);
   const [exploreMoreData, setExploreMoreData] =
     useState<ExploreMoreData | null>(null);
@@ -87,7 +89,7 @@ export default function Explore() {
   const [displayCounts, setDisplayCounts] = useState<{ [key: string]: number }>(
     {
       ASMR: 6,
-      버튜버: 6,
+      버튼버: 6,
       먹방: 6,
       운동: 6,
       게임: 6,
@@ -232,8 +234,10 @@ export default function Explore() {
                   overflow: "hidden",
                   aspectRatio: "4/5",
                   position: "relative",
+                  cursor: "pointer",
                 }}
                 styles={{ body: { padding: 0 } }}
+                onClick={() => router.push("/profile")}
                 cover={
                   <div
                     style={{
@@ -390,8 +394,10 @@ export default function Explore() {
                         overflow: "hidden",
                         aspectRatio: "4/5",
                         position: "relative",
+                        cursor: "pointer",
                       }}
                       styles={{ body: { padding: 0 } }}
+                      onClick={() => router.push("/profile")}
                       cover={
                         <div
                           style={{

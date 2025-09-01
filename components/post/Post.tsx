@@ -26,6 +26,7 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 import LightGallery from "lightgallery/react";
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
@@ -94,6 +95,7 @@ export default function Post({
   formatFullDate,
 }: PostProps) {
   const { user } = useAuth();
+  const router = useRouter();
   const noCopyGuideText =
     "crefans에 등록된 모든 포스팅 콘텐츠의 캡쳐 및 배포/재배포는 이용약관과 관련 법령에 의거하여 엄격히 금지되어있고, 민/형사상 처벌의 대상이 됩니다.";
 
@@ -128,16 +130,25 @@ export default function Post({
         <Avatar
           src={post.creator.avatar}
           icon={<UserOutlined />}
-          style={{ marginRight: 12 }}
+          style={{ marginRight: 12, cursor: "pointer" }}
+          onClick={() => router.push("/profile")}
         />
         <div style={{ flex: 1 }}>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Text strong style={{ fontSize: 18, lineHeight: 1.2 }}>
+            <Text
+              strong
+              style={{ fontSize: 18, lineHeight: 1.2, cursor: "pointer" }}
+              onClick={() => router.push("/profile")}
+            >
               {post.creator.name}
             </Text>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <Text type="secondary" style={{ fontSize: 14, lineHeight: 1.2 }}>
+            <Text
+              type="secondary"
+              style={{ fontSize: 14, lineHeight: 1.2, cursor: "pointer" }}
+              onClick={() => router.push("/profile")}
+            >
               @{post.creator.handle}
             </Text>
           </div>
