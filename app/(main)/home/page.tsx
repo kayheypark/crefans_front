@@ -17,12 +17,14 @@ import {
   PercentageOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import { useResponsive } from "@/hooks/useResponsive";
 import SignUpModal from "./SignUpModal";
 
 const { Title, Text, Paragraph } = Typography;
 
 export default function HomePage() {
   const router = useRouter();
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const [signUpOpen, setSignUpOpen] = useState(false);
 
   const features = [
@@ -102,9 +104,9 @@ export default function HomePage() {
   return (
     <div
       style={{
-        maxWidth: 1200,
+        maxWidth: isMobile ? "100%" : isTablet ? "100%" : 1200,
         margin: "0 auto",
-        padding: "40px 20px",
+        padding: isMobile ? "20px 16px" : isTablet ? "30px 20px" : "40px 20px",
         background: "#fff",
       }}
     >
@@ -112,16 +114,24 @@ export default function HomePage() {
       <div
         style={{
           textAlign: "center",
-          marginBottom: 120,
-          padding: "80px 0 110px 0",
-          borderRadius: 50,
+          marginBottom: isMobile ? 60 : 120,
+          padding: isMobile
+            ? "40px 0 60px 0"
+            : isTablet
+            ? "60px 0 80px 0"
+            : "80px 0 110px 0",
+          borderRadius: isMobile ? 24 : 50,
           border: "1px solid rgba(0, 0, 0, 0.1)",
           boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
         }}
       >
         <Title
           level={1}
-          style={{ marginBottom: 24, marginTop: 100, fontSize: 80 }}
+          style={{
+            marginBottom: 24,
+            marginTop: isMobile ? 40 : 100,
+            fontSize: isMobile ? 48 : isTablet ? 64 : 80,
+          }}
         >
           Creator + Fan
         </Title>
@@ -136,28 +146,31 @@ export default function HomePage() {
         >
           crefans. 크리에이터와 팬이 만나다.
         </Paragraph>
-        <Space size="large">
+        <Space
+          size={isMobile ? "middle" : "large"}
+          direction={isMobile ? "vertical" : "horizontal"}
+        >
           <Button
             type="primary"
-            size="large"
+            size={isMobile ? "middle" : "large"}
             onClick={() => setSignUpOpen(true)}
             style={{
-              height: 48,
-              padding: "0 32px",
-              fontSize: 16,
-              borderRadius: 24,
+              height: isMobile ? 40 : 48,
+              padding: isMobile ? "0 24px" : "0 32px",
+              fontSize: isMobile ? 14 : 16,
+              borderRadius: isMobile ? 20 : 24,
             }}
           >
             시작하기
           </Button>
           <Button
-            size="large"
+            size={isMobile ? "middle" : "large"}
             onClick={() => router.push("/explore")}
             style={{
-              height: 48,
-              padding: "0 32px",
-              fontSize: 16,
-              borderRadius: 24,
+              height: isMobile ? 40 : 48,
+              padding: isMobile ? "0 24px" : "0 32px",
+              fontSize: isMobile ? 14 : 16,
+              borderRadius: isMobile ? 20 : 24,
             }}
           >
             생태계 둘러보기
@@ -166,10 +179,17 @@ export default function HomePage() {
       </div>
 
       {/* 특징 섹션 */}
-      <div style={{ marginBottom: 120 }}>
-        <Title level={2} style={{ textAlign: "center", marginBottom: 80 }}>
+      <div style={{ marginBottom: isMobile ? 60 : 120 }}>
+        <Title
+          level={2}
+          style={{
+            textAlign: "center",
+            marginBottom: isMobile ? 40 : 80,
+            fontSize: isMobile ? "24px" : "32px",
+          }}
+        >
           크리에이터, 팬, 플랫폼이 연결된 지속 가능한 창작 생태계
-          <br />
+          {!isMobile && <br />}
           <Text type="secondary" style={{ textAlign: "center" }}>
             이 모든 것들이 유기적으로 연결되어 하나의 생태계를 이룹니다.
           </Text>
@@ -223,10 +243,17 @@ export default function HomePage() {
       </div>
 
       {/* 혜택 섹션 */}
-      <div style={{ marginBottom: 120 }}>
-        <Title level={2} style={{ textAlign: "center", marginBottom: 80 }}>
+      <div style={{ marginBottom: isMobile ? 60 : 120 }}>
+        <Title
+          level={2}
+          style={{
+            textAlign: "center",
+            marginBottom: isMobile ? 40 : 80,
+            fontSize: isMobile ? "24px" : "32px",
+          }}
+        >
           크리에이터 지원 프로그램
-          <br />
+          {!isMobile && <br />}
           <Text type="secondary" style={{ textAlign: "center" }}>
             크레팬스는 창작자의 재능 발전을 위해 무엇을 해야할지 알고있습니다.
           </Text>
@@ -259,20 +286,26 @@ export default function HomePage() {
       {/* 통계 섹션 */}
       <div
         style={{
-          marginTop: 120,
-          padding: "80px",
+          marginTop: isMobile ? 60 : 120,
+          padding: isMobile ? "40px 20px" : isTablet ? "60px 40px" : "80px",
           background: "#f5f5f5",
-          borderRadius: 24,
+          borderRadius: isMobile ? 16 : 24,
           textAlign: "center",
         }}
       >
-        <Title level={2} style={{ marginBottom: 48 }}>
+        <Title
+          level={2}
+          style={{
+            marginBottom: isMobile ? 32 : 48,
+            fontSize: isMobile ? "24px" : "32px",
+          }}
+        >
           숫자로 보는 크레팬스의 목표
           <Tooltip title="크레팬스 프로젝트의 목표 데이터이므로 실제 데이터와 다를 수 있습니다.">
             <InfoCircleOutlined style={{ marginLeft: 8 }} />
           </Tooltip>
         </Title>
-        <Row gutter={[48, 48]}>
+        <Row gutter={isMobile ? [24, 24] : [48, 48]}>
           <Col xs={24} sm={8}>
             <Title level={2} style={{ color: "#1677ff" }}>
               92%
@@ -331,15 +364,20 @@ export default function HomePage() {
         >
           2025년 하반기 베타 서비스 시작 예정
         </Text>
-        <div style={{ margin: "40px auto", maxWidth: 600 }}>
+        <div
+          style={{
+            margin: isMobile ? "20px auto" : "40px auto",
+            maxWidth: isMobile ? "100%" : 600,
+          }}
+        >
           <ul
             style={{
               listStyle: "none",
-              padding: 100,
+              padding: isMobile ? "20px" : 100,
               textAlign: "left",
               display: "inline-block",
               backgroundColor: "#f0f0f0",
-              borderRadius: 16,
+              borderRadius: isMobile ? 12 : 16,
             }}
           >
             <li
@@ -378,13 +416,13 @@ export default function HomePage() {
         </Paragraph>
         <Button
           type="primary"
-          size="large"
+          size={isMobile ? "middle" : "large"}
           onClick={() => setSignUpOpen(true)}
           style={{
-            height: 48,
-            padding: "0 32px",
-            fontSize: 16,
-            borderRadius: 24,
+            height: isMobile ? 40 : 48,
+            padding: isMobile ? "0 24px" : "0 32px",
+            fontSize: isMobile ? 14 : 16,
+            borderRadius: isMobile ? 20 : 24,
           }}
         >
           얼리버드로 시작
@@ -394,8 +432,8 @@ export default function HomePage() {
       {/* 유의사항 섹션 */}
       <div
         style={{
-          marginTop: 120,
-          padding: "60px 0",
+          marginTop: isMobile ? 60 : 120,
+          padding: isMobile ? "30px 0" : "60px 0",
           borderTop: "1px solid #f0f0f0",
         }}
       >

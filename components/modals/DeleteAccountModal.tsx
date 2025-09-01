@@ -50,6 +50,7 @@ export default function DeleteAccountModal({
         danger: true,
         disabled: deleteConfirmText !== "삭제",
       }}
+      zIndex={1002}
     >
       <Paragraph>
         정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없으며, 모든

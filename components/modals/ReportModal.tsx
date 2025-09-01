@@ -45,6 +45,7 @@ export default function ReportModal({
       onCancel={handleCancel}
       footer={null}
       width={400}
+      zIndex={1002}
     >
       <Form form={reportForm} onFinish={handleReport} layout="vertical">
         <Form.Item

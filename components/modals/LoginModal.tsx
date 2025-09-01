@@ -79,6 +79,7 @@ export default function LoginModal({
       onCancel={onClose}
       footer={null}
       width={400}
+      zIndex={1002}
     >
       <Form
         form={form}

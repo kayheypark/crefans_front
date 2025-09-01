@@ -46,6 +46,7 @@ import LoginModal from "@/components/modals/LoginModal";
 import ReportModal from "@/components/modals/ReportModal";
 import Post from "@/components/post/Post";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useResponsive } from "@/hooks/useResponsive";
 import LightGallery from "lightgallery/react";
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
@@ -84,6 +85,7 @@ export default function Feed() {
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const [posts, setPosts] = useState<Post[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -340,8 +342,8 @@ export default function Feed() {
       style={{
         width: "100%",
         margin: "0",
-        paddingLeft: Spacings.CONTENT_LAYOUT_PADDING,
-        paddingRight: Spacings.CONTENT_LAYOUT_PADDING,
+        paddingLeft: isMobile ? "16px" : Spacings.CONTENT_LAYOUT_PADDING,
+        paddingRight: isMobile ? "16px" : Spacings.CONTENT_LAYOUT_PADDING,
         background: "transparent",
       }}
     >

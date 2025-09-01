@@ -46,6 +46,7 @@ export default function ChargeModal({ open, onClose }: ChargeModalProps) {
       okText="충전하기"
       cancelText="취소"
       width={600}
+      zIndex={1002}
     >
       <div style={{ marginBottom: 16 }}>
         <Text>충전할 콩을 선택해주세요:</Text>

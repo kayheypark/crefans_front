@@ -33,6 +33,7 @@ import {
   LoginOutlined,
   ArrowLeftOutlined,
   PlusOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -44,6 +45,8 @@ import Colors from "@/lib/constants/colors";
 import axios from "axios";
 import { getApiUrl } from "@/utils/env";
 import Spacings from "@/lib/constants/spacings";
+import { useResponsive } from "@/hooks/useResponsive";
+import { responsiveStyles } from "@/lib/constants/breakpoints";
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -69,6 +72,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const [selectedMenu, setSelectedMenu] = useState<string>(() => {
     if (pathname === "/" || pathname === "/home") return "home";
     if (pathname === "/feed") return "feed";
@@ -105,6 +109,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
     "membershipGroup",
     "followGroup",
   ]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // 클라이언트 마운트 후 로컬스토리지에서 상태 불러오기
   useEffect(() => {
@@ -180,6 +185,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
         router.push("/search");
         break;
     }
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const formatDate = (dateString: string) => {
@@ -430,24 +439,126 @@ export default function MainLayout({ children }: MainLayoutProps) {
     { label: "환불 정책", href: "/support?category=refund" },
   ];
 
-  const sideBarWidth = 335;
+  const sideBarWidth = isMobile ? 335 : isTablet ? 335 : 335;
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Layout>
+        {/* 태블릿용 축소된 사이드바 (기본 표시) */}
+        {isTablet && !isMobile && (
+          <Sider
+            width={80}
+            style={{
+              backgroundColor: "white",
+              borderRight: "1px solid #f0f0f0",
+              position: "fixed",
+              height: "100vh",
+              left: 0,
+              top: 0,
+              display: "flex",
+              flexDirection: "column",
+              overflowY: "auto",
+              zIndex: 999,
+            }}
+          >
+            {/* 햄버거 메뉴 버튼 */}
+            <div
+              style={{
+                padding: "32px 16px 16px 16px",
+                borderBottom: "1px solid #f0f0f0",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                type="text"
+                icon={<MenuOutlined />}
+                onClick={toggleSidebar}
+                style={{
+                  fontSize: 20,
+                  padding: 0,
+                  height: "auto",
+                }}
+              />
+            </div>
+
+            {/* 축소된 메뉴 아이템들 (아이콘만) */}
+            <Menu
+              mode="inline"
+              selectedKeys={[selectedMenu]}
+              style={{ border: "none" }}
+              onClick={handleMenuChange}
+              items={[
+                {
+                  key: "home",
+                  icon: <HomeOutlined style={{ fontSize: 20 }} />,
+                  label: "",
+                  style: { fontSize: 20, textAlign: "center" },
+                },
+                {
+                  key: "feed",
+                  icon: <LayoutOutlined style={{ fontSize: 20 }} />,
+                  label: "",
+                  style: { fontSize: 20, textAlign: "center" },
+                },
+                {
+                  key: "explore",
+                  icon: <CompassOutlined style={{ fontSize: 20 }} />,
+                  label: "",
+                  style: { fontSize: 20, textAlign: "center" },
+                },
+                {
+                  key: "search",
+                  icon: <SearchOutlined style={{ fontSize: 20 }} />,
+                  label: "",
+                  style: { fontSize: 20, textAlign: "center" },
+                },
+              ]}
+            />
+          </Sider>
+        )}
+
+        {/* 모바일과 태블릿 PC 버전 사이드바 오버레이 */}
+        {(isMobile || isTablet) && isSidebarOpen && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              zIndex: 998,
+            }}
+            onClick={toggleSidebar}
+          />
+        )}
+
+        {/* PC 버전 사이드바 (모바일과 태블릿에서 오버레이로 표시) */}
         <Sider
           width={sideBarWidth}
           style={{
             backgroundColor: "white", // 사이드바 배경색
-            borderRight: "1px solid #f0f0f0",
+            borderRight: isTablet ? "none" : "1px solid #f0f0f0",
             position: "fixed",
             height: "100vh",
-            left: 0,
+            left: isMobile
+              ? isSidebarOpen
+                ? 0
+                : -sideBarWidth
+              : isTablet
+              ? isSidebarOpen
+                ? 0
+                : -sideBarWidth
+              : 0,
             top: 0,
             display: "flex",
             flexDirection: "column",
             overflowY: "auto",
-            zIndex: 999,
+            zIndex: isMobile || isTablet ? 1001 : 999,
+            transition: isMobile || isTablet ? "left 0.3s ease-in-out" : "none",
+            boxShadow:
+              isMobile || isTablet ? "2px 0 8px rgba(0,0,0,0.1)" : "none",
           }}
         >
           <div
@@ -504,36 +615,38 @@ export default function MainLayout({ children }: MainLayoutProps) {
                           onClick={() => {}}
                         />
                       </Dropdown>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                        }}
-                      >
-                        <Text
-                          strong
+                      {(isDesktop || isTablet || isMobile) && (
+                        <div
                           style={{
-                            fontSize: 14,
-                            color: "#222",
-                            marginBottom: 0,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
                           }}
                         >
-                          {user.attributes.nickname}
-                        </Text>
-                        <Text
-                          type="secondary"
-                          style={{
-                            fontSize: 15,
-                            color: "#8c8c8c",
-                            marginTop: 0,
-                          }}
-                        >
-                          {user.attributes.preferred_username
-                            ? "@" + user.attributes.preferred_username
-                            : "핸들이 없습니다."}
-                        </Text>
-                      </div>
+                          <Text
+                            strong
+                            style={{
+                              fontSize: 14,
+                              color: "#222",
+                              marginBottom: 0,
+                            }}
+                          >
+                            {user.attributes.nickname}
+                          </Text>
+                          <Text
+                            type="secondary"
+                            style={{
+                              fontSize: 15,
+                              color: "#8c8c8c",
+                              marginTop: 0,
+                            }}
+                          >
+                            {user.attributes.preferred_username
+                              ? "@" + user.attributes.preferred_username
+                              : "핸들이 없습니다."}
+                          </Text>
+                        </div>
+                      )}
                       <Dropdown
                         menu={notificationMenu}
                         trigger={["click"]}
@@ -545,49 +658,51 @@ export default function MainLayout({ children }: MainLayoutProps) {
                         </Badge>
                       </Dropdown>
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginTop: 18,
-                        border: "1px solid #f0f0f0",
-                        borderRadius: 15,
-                        overflow: "hidden",
-                        height: 44,
-                      }}
-                    >
+                    {(isDesktop || isTablet) && (
                       <div
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          flex: 1,
-                          padding: "0 18px",
-                          fontSize: 20,
-                          color: "#f857a6",
-                          fontWeight: 600,
-                          height: "100%",
-                          gap: 8,
-                        }}
-                      >
-                        {user.points?.toLocaleString() || 0}
-                      </div>
-                      <Button
-                        type="primary"
-                        onClick={() => setShowChargeModal(true)}
-                        style={{
+                          marginTop: 18,
+                          border: "1px solid #f0f0f0",
                           borderRadius: 15,
-                          height: "100%",
-                          fontWeight: 600,
-                          fontSize: 15,
-                          background:
-                            "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
-                          border: "none",
-                          minWidth: 90,
+                          overflow: "hidden",
+                          height: 44,
                         }}
                       >
-                        <PlusOutlined />콩 충전
-                      </Button>
-                    </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            flex: 1,
+                            padding: "0 18px",
+                            fontSize: 20,
+                            color: "#f857a6",
+                            fontWeight: 600,
+                            height: "100%",
+                            gap: 8,
+                          }}
+                        >
+                          {user.points?.toLocaleString() || 0}
+                        </div>
+                        <Button
+                          type="primary"
+                          onClick={() => setShowChargeModal(true)}
+                          style={{
+                            borderRadius: 15,
+                            height: "100%",
+                            fontWeight: 600,
+                            fontSize: 15,
+                            background:
+                              "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
+                            border: "none",
+                            minWidth: 90,
+                          }}
+                        >
+                          <PlusOutlined />콩 충전
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </>
               ) : (
@@ -841,12 +956,20 @@ export default function MainLayout({ children }: MainLayoutProps) {
           </div>
         </Sider>
 
-        <Layout style={{ marginLeft: sideBarWidth }}>
+        <Layout
+          style={{
+            marginLeft: isMobile ? 0 : isTablet ? 80 : sideBarWidth,
+          }}
+        >
           {/* 앱바 (App Bar) */}
           {pageTitles[pathname] && (
             <div
               style={{
-                width: Spacings.CONTENT_LAYOUT_WIDTH,
+                width: isMobile
+                  ? "100%"
+                  : isTablet
+                  ? "100%"
+                  : Spacings.CONTENT_LAYOUT_WIDTH,
                 position: "sticky",
                 top: 0,
                 zIndex: 10,
@@ -854,9 +977,14 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
-                padding: "24px 16px",
+                padding: isMobile
+                  ? "16px"
+                  : isTablet
+                  ? "24px 16px"
+                  : "24px 16px",
                 marginBottom: 0,
                 minHeight: 64,
+                transition: isTablet ? "width 0.3s ease-in-out" : "none",
               }}
             >
               <Button
@@ -872,12 +1000,18 @@ export default function MainLayout({ children }: MainLayoutProps) {
           )}
           <Content
             style={{
-              width:
-                pathname === "/home" ? "1200px" : Spacings.CONTENT_LAYOUT_WIDTH,
-              paddingLeft: 15,
+              width: isMobile
+                ? "100%"
+                : isTablet
+                ? "100%"
+                : pathname === "/home"
+                ? "1200px"
+                : Spacings.CONTENT_LAYOUT_WIDTH,
+              paddingLeft: isMobile ? 0 : 15,
               paddingTop: 12,
               minHeight: 280,
               backgroundColor: Colors.BACKGROUND, // 메인 컨텐츠 배경색
+              transition: isTablet ? "width 0.3s ease-in-out" : "none",
             }}
           >
             {children}
@@ -899,6 +1033,99 @@ export default function MainLayout({ children }: MainLayoutProps) {
         open={showChargeModal}
         onClose={() => setShowChargeModal(false)}
       />
+
+      {/* 모바일 하단 네비게이션 */}
+      {isMobile && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            background: "#fff",
+            borderTop: "1px solid #f0f0f0",
+            padding: "8px 0",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              type="text"
+              icon={<MenuOutlined />}
+              onClick={() => setIsSidebarOpen(true)}
+              style={{
+                color: "#666",
+                fontSize: "12px",
+              }}
+            >
+              메뉴
+            </Button>
+            <Button
+              type="text"
+              icon={<HomeOutlined />}
+              onClick={() => router.push("/home")}
+              style={{
+                color: selectedMenu === "home" ? "#1890ff" : "#666",
+                fontSize: "12px",
+              }}
+            >
+              홈
+            </Button>
+            <Button
+              type="text"
+              icon={<LayoutOutlined />}
+              onClick={() => router.push("/feed")}
+              style={{
+                color: selectedMenu === "feed" ? "#1890ff" : "#666",
+                fontSize: "12px",
+              }}
+            >
+              피드
+            </Button>
+            <Button
+              type="text"
+              icon={<CompassOutlined />}
+              onClick={() => router.push("/explore")}
+              style={{
+                color: selectedMenu === "explore" ? "#1890ff" : "#666",
+                fontSize: "12px",
+              }}
+            >
+              둘러보기
+            </Button>
+            {user ? (
+              <Dropdown menu={userMenu} trigger={["click"]} placement="top">
+                <Avatar
+                  src={user.attributes.picture || "/profile-90.png"}
+                  size={32}
+                  style={{
+                    border: "2px solid #f0f0f0",
+                    cursor: "pointer",
+                  }}
+                />
+              </Dropdown>
+            ) : (
+              <Button
+                type="text"
+                icon={<LoginOutlined />}
+                onClick={() => setIsLoginModalOpen(true)}
+                style={{
+                  color: "#666",
+                  fontSize: "12px",
+                }}
+              >
+                로그인
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
     </Layout>
   );
 }

@@ -8,6 +8,7 @@ import Typography from "antd/lib/typography";
 import Tag from "antd/lib/tag";
 import { UserOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import { useResponsive } from "@/hooks/useResponsive";
 
 const { Title, Text } = Typography;
 
@@ -82,6 +83,7 @@ interface ExploreMoreData {
 
 export default function Explore() {
   const router = useRouter();
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const [exploreData, setExploreData] = useState<ExploreData | null>(null);
   const [exploreMoreData, setExploreMoreData] =
     useState<ExploreMoreData | null>(null);
@@ -176,7 +178,13 @@ export default function Explore() {
 
   if (loading) {
     return (
-      <div style={{ width: 800, margin: "0 auto", padding: "20px" }}>
+      <div
+        style={{
+          width: isMobile ? "100%" : isTablet ? "90%" : "800px",
+          margin: "0 auto",
+          padding: isMobile ? "16px" : "20px",
+        }}
+      >
         <div>로딩 중...</div>
       </div>
     );
@@ -184,14 +192,26 @@ export default function Explore() {
 
   if (!exploreData) {
     return (
-      <div style={{ width: 800, margin: "0 auto", padding: "20px" }}>
+      <div
+        style={{
+          width: isMobile ? "100%" : isTablet ? "90%" : "800px",
+          margin: "0 auto",
+          padding: isMobile ? "16px" : "20px",
+        }}
+      >
         <div>데이터를 불러올 수 없습니다.</div>
       </div>
     );
   }
 
   return (
-    <div style={{ width: 800, margin: "0 auto", padding: "20px" }}>
+    <div
+      style={{
+        width: isMobile ? "100%" : isTablet ? "90%" : "800px",
+        margin: "0 auto",
+        padding: isMobile ? "16px" : "20px",
+      }}
+    >
       {/* 필터 버튼 */}
       <div style={{ marginBottom: 30 }}>
         <div style={{ display: "flex", gap: "8px" }}>
@@ -222,8 +242,12 @@ export default function Explore() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "16px",
+              gridTemplateColumns: isMobile
+                ? "repeat(1, 1fr)"
+                : isTablet
+                ? "repeat(2, 1fr)"
+                : "repeat(3, 1fr)",
+              gap: isMobile ? "12px" : "16px",
             }}
           >
             {exploreData.newCreators.map((creator) => (
@@ -381,8 +405,12 @@ export default function Explore() {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gap: "16px",
+                    gridTemplateColumns: isMobile
+                      ? "repeat(1, 1fr)"
+                      : isTablet
+                      ? "repeat(2, 1fr)"
+                      : "repeat(3, 1fr)",
+                    gap: isMobile ? "12px" : "16px",
                     marginBottom: 20,
                   }}
                 >

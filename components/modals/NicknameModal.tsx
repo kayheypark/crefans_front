@@ -43,6 +43,7 @@ export default function NicknameModal({
       onCancel={handleCancel}
       okText="변경"
       cancelText="취소"
+      zIndex={1002}
     >
       <Form form={form} layout="vertical">
         <Form.Item

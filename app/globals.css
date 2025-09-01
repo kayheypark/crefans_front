@@ -30,3 +30,53 @@ body {
 .notification-dropdown .ant-dropdown-menu {
   padding: 0;
 }
+
+/* 반응형 미디어 쿼리 */
+@media (max-width: 768px) {
+  /* 모바일 스타일 */
+  .ant-layout-content {
+    padding: 16px !important;
+  }
+
+  .ant-card {
+    border-radius: 12px !important;
+  }
+
+  .ant-btn {
+    font-size: 14px !important;
+  }
+
+  .ant-typography h1 {
+    font-size: 32px !important;
+  }
+
+  .ant-typography h2 {
+    font-size: 24px !important;
+  }
+
+  .ant-typography h3 {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  /* 태블릿 스타일 */
+  .ant-layout-content {
+    padding: 20px !important;
+  }
+
+  .ant-card {
+    border-radius: 16px !important;
+  }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  .ant-btn {
+    min-height: 44px !important;
+  }
+
+  .ant-input {
+    min-height: 44px !important;
+  }
+}

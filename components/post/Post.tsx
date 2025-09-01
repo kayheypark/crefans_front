@@ -27,6 +27,7 @@ import {
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { useResponsive } from "@/hooks/useResponsive";
 import LightGallery from "lightgallery/react";
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
@@ -96,6 +97,7 @@ export default function Post({
 }: PostProps) {
   const { user } = useAuth();
   const router = useRouter();
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const noCopyGuideText =
     "crefans에 등록된 모든 포스팅 콘텐츠의 캡쳐 및 배포/재배포는 이용약관과 관련 법령에 의거하여 엄격히 금지되어있고, 민/형사상 처벌의 대상이 됩니다.";
 
@@ -124,7 +126,7 @@ export default function Post({
           display: "flex",
           alignItems: "center",
           marginBottom: 12,
-          padding: "0 16px",
+          padding: isMobile ? "0 12px" : "0 16px",
         }}
       >
         <Avatar
@@ -184,7 +186,14 @@ export default function Post({
         </Dropdown>
       </div>
 
-      <Title level={4} style={{ marginBottom: 12, padding: "0 16px" }}>
+      <Title
+        level={4}
+        style={{
+          marginBottom: 12,
+          padding: isMobile ? "0 12px" : "0 16px",
+          fontSize: isMobile ? "16px" : "18px",
+        }}
+      >
         {post.title}
       </Title>
 
@@ -277,7 +286,7 @@ export default function Post({
                 whiteSpace: "pre-line",
                 lineHeight: "1.5",
                 fontSize: "14px",
-                padding: "0 16px",
+                padding: isMobile ? "0 12px" : "0 16px",
               }}
             >
               {post.content}
@@ -423,7 +432,7 @@ export default function Post({
           display: "flex",
           alignItems: "center",
           gap: 8,
-          padding: "0 16px",
+          padding: isMobile ? "0 12px" : "0 16px",
           marginTop: 12,
         }}
       >
@@ -472,7 +481,7 @@ export default function Post({
       </div>
 
       {/* 댓글 리스트 - 인스타그램 스타일 */}
-      <div style={{ marginTop: 16, padding: "0 16px" }}>
+      <div style={{ marginTop: 16, padding: isMobile ? "0 12px" : "0 16px" }}>
         {/* 단일 댓글 */}
         <div
           style={{
@@ -614,7 +623,7 @@ export default function Post({
 
       {/* 답글 입력 UI */}
       {post.isGotMembership && (
-        <div style={{ marginTop: 16, padding: "0 16px" }}>
+        <div style={{ marginTop: 16, padding: isMobile ? "0 12px" : "0 16px" }}>
           <div
             style={{
               display: "flex",

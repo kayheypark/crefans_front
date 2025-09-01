@@ -308,6 +308,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
       width={400}
       centered
       maskClosable={false}
+      zIndex={1002}
     >
       {/* 단계별 경로 표시 */}
       <div
