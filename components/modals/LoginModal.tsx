@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import { Modal, Form, Input, Button, message } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { LockOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../contexts/AuthContext";
 import { authAPI } from "@/lib/api";
+import EmailAutoComplete from "../common/EmailAutoComplete";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -93,11 +94,10 @@ export default function LoginModal({
             { type: "email", message: "올바른 이메일 형식이 아닙니다" },
           ]}
         >
-          <Input
-            prefix={<UserOutlined />}
+          <EmailAutoComplete
             placeholder="이메일"
-            onKeyPress={(e) => handleKeyPress(e, "email")}
             disabled={loading}
+            onKeyPress={(e) => handleKeyPress(e, "email")}
           />
         </Form.Item>
 

@@ -17,6 +17,7 @@ import {
   isValidKoreanName,
   isValidNickname,
 } from "@/lib/utils/validationUtils";
+import EmailAutoComplete from "../../../components/common/EmailAutoComplete";
 
 const { Title, Text } = Typography;
 
@@ -357,18 +358,18 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
             특별한 이야기를 시작해보세요
           </Title>
           <div>
-            <Input
-              size="large"
-              placeholder="이메일을 입력하세요"
+            <EmailAutoComplete
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                if (e.target.value) {
-                  validateEmail(e.target.value);
+              onChange={(value) => {
+                setEmail(value);
+                if (value) {
+                  validateEmail(value);
                 } else {
                   setEmailError("");
                 }
               }}
+              placeholder="이메일을 입력하세요"
+              size="large"
               style={{
                 marginBottom: 8,
                 borderRadius: 12,
@@ -380,6 +381,11 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
               }}
               onBlur={handleEmailBlur}
               suffix={isCheckingEmail ? <Spin size="small" /> : null}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleEmailNext();
+                }
+              }}
             />
             {emailError && (
               <div
