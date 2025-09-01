@@ -465,20 +465,14 @@ export default function Profile() {
               >
                 <Button
                   type="primary"
-                  icon={<SettingOutlined />}
-                  onClick={() => router.push("/profile/edit")}
+                  ghost
+                  icon={<HeartOutlined />}
+                  style={{
+                    color: "#ff4d4f",
+                    borderColor: "#ff4d4f",
+                  }}
                 >
-                  프로필 관리
-                </Button>
-                <Button
-                  type="primary"
-                  icon={<PlusOutlined />}
-                  onClick={() => router.push("/write")}
-                >
-                  글쓰기
-                </Button>
-                <Button type="text" icon={<ShareAltOutlined />}>
-                  공유
+                  팔로우
                 </Button>
               </div>
             </div>
@@ -512,19 +506,73 @@ export default function Profile() {
                 fontSize: 14,
                 color: "#666",
                 lineHeight: 1.4,
+                marginBottom: 16,
               }}
             >
               내 프로필과 콘텐츠들을 확인할 수 있습니다. 다양한 활동과 관심사를
               공유하고 있습니다.
             </Text>
+
+            <div style={{ marginTop: 16, marginBottom: 16 }}>
+              <Button
+                type="text"
+                //outline
+                style={{
+                  border: "1px solid #666",
+                  borderRadius: 4,
+                  padding: "4px 8px",
+                  fontSize: 14,
+                }}
+                icon={<SettingOutlined />}
+                onClick={() => router.push("/profile/edit")}
+              >
+                프로필 관리
+              </Button>
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* 구분선과 글쓰기 버튼 */}
+      <div style={{ marginBottom: 24 }}>
+        <div
+          style={{
+            height: "1px",
+            backgroundColor: "#f0f0f0",
+            marginBottom: 16,
+          }}
+        />
+
+        <div style={{ padding: "0 16px" }}>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => router.push("/write")}
+            style={{
+              width: "100%",
+              height: "40px",
+              fontSize: "16px",
+              fontWeight: "500",
+            }}
+          >
+            글쓰기
+          </Button>
+        </div>
+
+        <div
+          style={{
+            height: "1px",
+            backgroundColor: "#f0f0f0",
+            marginTop: 16,
+          }}
+        />
       </div>
 
       {/* 탭 영역 */}
       <Tabs
         activeKey={activeTab}
         onChange={setActiveTab}
+        tabBarStyle={{ paddingLeft: "16px" }}
         items={[
           {
             key: "posts",

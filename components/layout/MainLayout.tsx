@@ -440,7 +440,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
         icon: <LogoutOutlined />,
         label: "로그아웃",
         onClick: handleLogout,
-        style: { backgroundColor: "#ff4d4f", color: "#fff" },
+        style: {
+          backgroundColor: "#ff4d4f",
+          color: "#fff",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+        },
       },
     ],
   };
@@ -1030,6 +1036,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 ? "1200px"
                 : Spacings.CONTENT_LAYOUT_WIDTH,
               paddingLeft: isMobile ? 0 : 15,
+              paddingRight: isMobile ? 0 : 15,
               paddingTop: 12,
               minHeight: 280,
               backgroundColor: Colors.BACKGROUND, // 메인 컨텐츠 배경색
@@ -1067,7 +1074,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             background: "#fff",
             borderTop: "1px solid #f0f0f0",
             padding: "8px 0",
-            zIndex: 1000,
+            zIndex: 1002,
           }}
         >
           <div
@@ -1080,24 +1087,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
             <Button
               type="text"
               icon={<MenuOutlined />}
-              onClick={() => setIsSidebarOpen(true)}
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               style={{
                 color: "#666",
                 fontSize: "12px",
               }}
             >
               메뉴
-            </Button>
-            <Button
-              type="text"
-              icon={<HomeOutlined />}
-              onClick={() => router.push("/home")}
-              style={{
-                color: selectedMenu === "home" ? "#1890ff" : "#666",
-                fontSize: "12px",
-              }}
-            >
-              홈
             </Button>
             <Button
               type="text"
@@ -1122,7 +1118,15 @@ export default function MainLayout({ children }: MainLayoutProps) {
               둘러보기
             </Button>
             {user ? (
-              <Dropdown menu={userMenu} trigger={["click"]} placement="top">
+              <Dropdown
+                menu={userMenu}
+                trigger={["click"]}
+                placement="top"
+                overlayStyle={{
+                  position: "fixed",
+                  zIndex: 1003,
+                }}
+              >
                 <Avatar
                   src={user.attributes.picture || "/profile-90.png"}
                   size={32}

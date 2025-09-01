@@ -101,7 +101,7 @@ export default function Explore() {
   const [expandedBios, setExpandedBios] = useState<{ [key: string]: boolean }>(
     {}
   );
-  const [activeFilter, setActiveFilter] = useState<string>("카테고리");
+  const [activeFilter, setActiveFilter] = useState<string>("모든 카테고리");
 
   const categories = ["ASMR", "버튜버", "먹방", "운동", "게임", "주식"];
 
@@ -215,7 +215,7 @@ export default function Explore() {
       {/* 필터 버튼 */}
       <div style={{ marginBottom: 30 }}>
         <div style={{ display: "flex", gap: "8px" }}>
-          {["카테고리", "신규", "버튜버", "주식"].map((filter) => (
+          {["모든 카테고리", "신규", "버튜버", "주식"].map((filter) => (
             <Button
               key={filter}
               type={activeFilter === filter ? "primary" : "default"}
@@ -243,7 +243,7 @@ export default function Explore() {
             style={{
               display: "grid",
               gridTemplateColumns: isMobile
-                ? "repeat(1, 1fr)"
+                ? "repeat(2, 1fr)"
                 : isTablet
                 ? "repeat(2, 1fr)"
                 : "repeat(3, 1fr)",
@@ -383,7 +383,7 @@ export default function Explore() {
       )}
 
       {/* 카테고리별 인기 크리에이터 섹션 */}
-      {(activeFilter === "카테고리" ||
+      {(activeFilter === "모든 카테고리" ||
         activeFilter === "버튜버" ||
         activeFilter === "주식") && (
         <div>
@@ -392,7 +392,7 @@ export default function Explore() {
           </Title>
           {categories
             .filter((category) => {
-              if (activeFilter === "카테고리") return true;
+              if (activeFilter === "모든 카테고리") return true;
               if (activeFilter === "버튜버") return category === "버튜버";
               if (activeFilter === "주식") return category === "주식";
               return false;
@@ -406,7 +406,7 @@ export default function Explore() {
                   style={{
                     display: "grid",
                     gridTemplateColumns: isMobile
-                      ? "repeat(1, 1fr)"
+                      ? "repeat(2, 1fr)"
                       : isTablet
                       ? "repeat(2, 1fr)"
                       : "repeat(3, 1fr)",

@@ -342,8 +342,8 @@ export default function Feed() {
       style={{
         width: "100%",
         margin: "0",
-        paddingLeft: isMobile ? "16px" : Spacings.CONTENT_LAYOUT_PADDING,
-        paddingRight: isMobile ? "16px" : Spacings.CONTENT_LAYOUT_PADDING,
+        paddingLeft: isMobile ? "0" : Spacings.CONTENT_LAYOUT_PADDING,
+        paddingRight: isMobile ? "0" : Spacings.CONTENT_LAYOUT_PADDING,
         background: "transparent",
       }}
     >
