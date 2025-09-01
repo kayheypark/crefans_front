@@ -405,9 +405,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const footerLinks = [
     { label: "소개" },
     { label: "크리에이터 센터" },
-    { label: "서비스 이용 약관" },
-    { label: "개인 정보 처리 방침", strong: true },
-    { label: "환불 정책" },
+    { label: "서비스 이용 약관", href: "/support?category=terms" },
+    {
+      label: "개인 정보 처리 방침",
+      strong: true,
+      href: "/support?category=privacy",
+    },
+    { label: "환불 정책", href: "/support?category=refund" },
   ];
 
   const sideBarWidth = 335;
@@ -762,6 +766,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     marginRight: idx !== footerLinks.length - 1 ? 12 : 0,
                     cursor: "pointer",
                     letterSpacing: "-0.05em",
+                  }}
+                  onClick={() => {
+                    if (item.href) router.push(item.href);
                   }}
                 >
                   {item.label}
