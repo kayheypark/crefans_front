@@ -9,6 +9,7 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import { useRouter, useParams } from "next/navigation";
+import { useResponsive } from "@/hooks/useResponsive";
 import Spacings from "@/lib/constants/spacings";
 
 const { Title, Text } = Typography;
@@ -28,6 +29,7 @@ interface BoardView {
 export default function BoardViewPage() {
   const router = useRouter();
   const params = useParams();
+  const { isMobile, isTablet, isDesktop } = useResponsive();
   const postId = params.id as string;
 
   const [post, setPost] = useState<BoardView | null>(null);
@@ -167,19 +169,27 @@ export default function BoardViewPage() {
             </Space>
             <Space>
               <CalendarOutlined />
-              <Text type="secondary">작성일: {formatDate(post.createdAt)}</Text>
+              <Text type="secondary">
+                {isMobile
+                  ? formatDate(post.createdAt)
+                  : `작성일: ${formatDate(post.createdAt)}`}
+              </Text>
             </Space>
             {post.updatedAt && post.updatedAt !== post.createdAt && (
               <Space>
                 <EditOutlined />
                 <Text type="secondary">
-                  수정일: {formatDate(post.updatedAt)}
+                  {isMobile
+                    ? formatDate(post.updatedAt)
+                    : `수정일: ${formatDate(post.updatedAt)}`}
                 </Text>
               </Space>
             )}
             <Space>
               <EyeOutlined />
-              <Text type="secondary">조회 {post.views}</Text>
+              <Text type="secondary">
+                {isMobile ? post.views : `조회 ${post.views}`}
+              </Text>
             </Space>
           </div>
         </div>
