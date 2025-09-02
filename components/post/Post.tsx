@@ -120,7 +120,14 @@ export default function Post({
   });
 
   return (
-    <Card style={{ marginBottom: 16, borderRadius: 8, padding: "25px 0" }}>
+    <Card
+      style={{ marginBottom: 16, borderRadius: 8, padding: "25px 0" }}
+      styles={{
+        body: {
+          padding: isMobile ? "0" : "24px",
+        },
+      }}
+    >
       <div
         style={{
           display: "flex",
@@ -216,7 +223,7 @@ export default function Post({
         level={4}
         style={{
           marginBottom: 12,
-          padding: isMobile ? "0 12px" : "0 16px",
+          padding: isMobile ? "0 16px" : "0 16px",
           fontSize: isMobile ? "16px" : "18px",
         }}
       >
