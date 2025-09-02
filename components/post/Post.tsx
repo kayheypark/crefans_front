@@ -124,7 +124,7 @@ export default function Post({
       <div
         style={{
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           marginBottom: 12,
           padding: isMobile ? "0 12px" : "0 16px",
         }}
@@ -154,24 +154,50 @@ export default function Post({
               @{post.creator.handle}
             </Text>
           </div>
+
+          {/* 모바일에서 멤버십 태그를 핸들 아래에 배치 */}
+          {(isMobile || isTablet) && (
+            <div style={{ marginTop: 8 }}>
+              {post.isMembershipOnly && (
+                <Tag
+                  color="gold"
+                  icon={<CrownOutlined />}
+                  style={{ marginRight: 8 }}
+                >
+                  멤버십 전용
+                </Tag>
+              )}
+              {post.isMembershipOnly && post.isGotMembership && (
+                <Tag color="green" icon={<CheckCircleOutlined />}>
+                  멤버십 구독중
+                </Tag>
+              )}
+            </div>
+          )}
         </div>
-        {post.isMembershipOnly && (
-          <Tag
-            color="gold"
-            style={{ marginLeft: "auto" }}
-            icon={<CrownOutlined />}
-          >
-            멤버십 전용
-          </Tag>
-        )}
-        {post.isMembershipOnly && post.isGotMembership && (
-          <Tag
-            color="green"
-            style={{ marginLeft: "auto" }}
-            icon={<CheckCircleOutlined />}
-          >
-            멤버십 구독중
-          </Tag>
+
+        {/* 데스크톱에서 멤버십 태그를 오른쪽에 배치 */}
+        {isDesktop && (
+          <>
+            {post.isMembershipOnly && (
+              <Tag
+                color="gold"
+                style={{ marginLeft: "auto" }}
+                icon={<CrownOutlined />}
+              >
+                멤버십 전용
+              </Tag>
+            )}
+            {post.isMembershipOnly && post.isGotMembership && (
+              <Tag
+                color="green"
+                style={{ marginLeft: "auto" }}
+                icon={<CheckCircleOutlined />}
+              >
+                멤버십 구독중
+              </Tag>
+            )}
+          </>
         )}
         <Dropdown
           menu={getMoreMenu(post.id)}

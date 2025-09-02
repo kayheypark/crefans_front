@@ -265,7 +265,7 @@ export default function Explore() {
                 cover={
                   <div
                     style={{
-                      height: "120px",
+                      height: isMobile ? "80px" : isTablet ? "100px" : "120px",
                       background: creator.bannerImage
                         ? `url(${creator.bannerImage})`
                         : "linear-gradient(135deg, #667eea 0%,rgb(178, 175, 182) 100%)",
@@ -429,7 +429,11 @@ export default function Explore() {
                       cover={
                         <div
                           style={{
-                            height: "120px",
+                            height: isMobile
+                              ? "80px"
+                              : isTablet
+                              ? "100px"
+                              : "120px",
                             background: creator.bannerImage
                               ? `url(${creator.bannerImage})`
                               : "rgb(154, 154, 154)",

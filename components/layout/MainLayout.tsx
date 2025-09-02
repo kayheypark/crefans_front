@@ -927,6 +927,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               color: "#8c8c8c",
               fontSize: "13px",
               borderTop: "1px solid #f0f0f0",
+              paddingBottom: isMobile ? "80px" : "16px",
             }}
           >
             <div style={{ marginBottom: 8, paddingLeft: 16 }}>

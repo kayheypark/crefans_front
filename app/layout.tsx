@@ -10,6 +10,12 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "crefans",
   description: "당신만의 크리에이터를 만나보세요",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({
