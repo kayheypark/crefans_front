@@ -104,12 +104,16 @@ export default function Feed() {
   const [filter, setFilter] = useState<"all" | "membership" | "public">(
     (searchParams.get("feedFilter") as "all" | "membership" | "public") || "all"
   );
+  const [isSticky, setIsSticky] = useState(false);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
   const [coverProgress, setCoverProgress] = useState<{ [key: number]: number }>(
     {}
   );
   const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
     {}
   );
+  const stickyTop = 86;
 
   //무단 복제금지 문구
   const noCopyGuideText =
@@ -139,6 +143,19 @@ export default function Feed() {
   useEffect(() => {
     loadMoreData();
     // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([e]) => setIsSticky(!e.isIntersecting),
+      { rootMargin: `-${stickyTop}px 0px 0px 0px`, threshold: 0 }
+    );
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current);
+    }
+    return () => {
+      if (sentinelRef.current) observer.unobserve(sentinelRef.current);
+    };
   }, []);
 
   const formatDate = (dateString: string) => {
@@ -331,23 +348,38 @@ export default function Feed() {
         background: "transparent",
       }}
     >
-      {/* 필터 */}
-      <FeedFilter
-        filter={filter}
-        onFilterChange={(newFilter) => {
-          setFilter(newFilter as "all" | "membership" | "public");
-          const params = new URLSearchParams(searchParams.toString());
-          params.set("feedFilter", newFilter);
-          router.push(`?${params.toString()}`);
+      {/* sticky 감지용 sentinel */}
+      <div ref={sentinelRef} style={{ height: 1 }} />
+      {/* 필터 sticky 래퍼 */}
+      <div
+        ref={stickyRef}
+        style={{
+          position: "sticky",
+          top: stickyTop,
+          zIndex: 10,
+          background: isSticky ? "#ffffff" : "transparent",
+          boxShadow: isSticky ? "0 2px 8px rgba(0,0,0,0.04)" : "none",
+          padding: "16px 16px 12px 16px",
+          width: "100%",
+          transition: "background 0.2s, box-shadow 0.2s",
         }}
-        filters={[
-          { key: "all", label: "모든 포스팅" },
-          { key: "membership", label: "멤버십 전용" },
-          { key: "public", label: "공개" },
-        ]}
-        type="explore"
-        style={{ paddingLeft: 16, paddingTop: 16 }}
-      />
+      >
+        <FeedFilter
+          filter={filter}
+          onFilterChange={(newFilter) => {
+            setFilter(newFilter as "all" | "membership" | "public");
+            const params = new URLSearchParams(searchParams.toString());
+            params.set("feedFilter", newFilter);
+            router.push(`?${params.toString()}`);
+          }}
+          filters={[
+            { key: "all", label: "모든 포스팅" },
+            { key: "membership", label: "멤버십 전용" },
+            { key: "public", label: "공개" },
+          ]}
+          type="explore"
+        />
+      </div>
 
       {/* 피드 컨텐츠 */}
       <div style={{ marginTop: 0 }}>

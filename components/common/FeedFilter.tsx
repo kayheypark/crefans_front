@@ -50,7 +50,7 @@ export default function FeedFilter({
 
   // explore 타입
   return (
-    <div style={{ marginBottom: 30, ...style }}>
+    <div style={{ ...style }}>
       <div style={{ display: "flex", gap: "8px" }}>
         {filters.map((filterItem) => (
           <Button
