@@ -54,6 +54,7 @@ import "lightgallery/css/lg-thumbnail.css";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 import Spacings from "@/lib/constants/spacings";
+import FeedFilter from "@/components/common/FeedFilter";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -103,16 +104,12 @@ export default function Feed() {
   const [filter, setFilter] = useState<"all" | "membership" | "public">(
     (searchParams.get("feedFilter") as "all" | "membership" | "public") || "all"
   );
-  const [isSticky, setIsSticky] = useState(false);
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const sentinelRef = useRef<HTMLDivElement>(null);
   const [coverProgress, setCoverProgress] = useState<{ [key: number]: number }>(
     {}
   );
   const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
     {}
   );
-  const stickyTop = 86;
 
   //무단 복제금지 문구
   const noCopyGuideText =
@@ -142,19 +139,6 @@ export default function Feed() {
   useEffect(() => {
     loadMoreData();
     // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    const observer = new window.IntersectionObserver(
-      ([e]) => setIsSticky(!e.isIntersecting),
-      { rootMargin: `-${stickyTop}px 0px 0px 0px`, threshold: 0 }
-    );
-    if (sentinelRef.current) {
-      observer.observe(sentinelRef.current);
-    }
-    return () => {
-      if (sentinelRef.current) observer.unobserve(sentinelRef.current);
-    };
   }, []);
 
   const formatDate = (dateString: string) => {
@@ -347,115 +331,66 @@ export default function Feed() {
         background: "transparent",
       }}
     >
-      {/* sticky 감지용 sentinel */}
-      <div ref={sentinelRef} style={{ height: 1 }} />
-      {/* 피드 타이틀+필터 sticky 슬리버 */}
-      <div
-        ref={stickyRef}
-        style={{
-          position: "sticky",
-          top: stickyTop,
-          zIndex: 10,
-          background: isSticky ? "rgba(255,255,255,0.2)" : "transparent",
-          backdropFilter: isSticky ? "blur(8px)" : "none",
-          boxShadow: isSticky ? "0 2px 8px rgba(0,0,0,0.04)" : "none",
-          padding: "16px 0 12px 0",
-          marginBottom: 8,
-          width: "100%",
-          transition: "background 0.2s, backdrop-filter 0.2s, box-shadow 0.2s",
+      {/* 필터 */}
+      <FeedFilter
+        filter={filter}
+        onFilterChange={(newFilter) => {
+          setFilter(newFilter as "all" | "membership" | "public");
+          const params = new URLSearchParams(searchParams.toString());
+          params.set("feedFilter", newFilter);
+          router.push(`?${params.toString()}`);
         }}
-      >
-        <div
-          style={{
-            display: "flex",
-            gap: 8,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+        filters={[
+          { key: "all", label: "모든 포스팅" },
+          { key: "membership", label: "멤버십 전용" },
+          { key: "public", label: "공개" },
+        ]}
+        type="explore"
+        style={{ paddingLeft: 16, paddingTop: 16 }}
+      />
+
+      {/* 피드 컨텐츠 */}
+      <div style={{ marginTop: 0 }}>
+        <InfiniteScroll
+          dataLength={uniqueFilteredPosts.length}
+          next={loadMoreData}
+          hasMore={hasMore}
+          loader={
+            <div style={{ textAlign: "center", padding: "20px" }}>
+              <Spin />
+            </div>
+          }
+          endMessage={
+            <div style={{ textAlign: "center", padding: "20px" }}>
+              <Empty
+                description="더 이상 확인할 게시글이 없습니다."
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+              />
+            </div>
+          }
         >
-          <Button
-            type={filter === "all" ? "primary" : "default"}
-            style={{
-              fontSize: 14,
-            }}
-            onClick={() => {
-              setFilter("all");
-              const params = new URLSearchParams(searchParams.toString());
-              params.set("feedFilter", "all");
-              router.push(`?${params.toString()}`);
-            }}
-          >
-            전체
-          </Button>
-          <Button
-            type={filter === "membership" ? "primary" : "default"}
-            style={{
-              fontSize: 14,
-            }}
-            onClick={() => {
-              setFilter("membership");
-              const params = new URLSearchParams(searchParams.toString());
-              params.set("feedFilter", "membership");
-              router.push(`?${params.toString()}`);
-            }}
-          >
-            멤버십 전용
-          </Button>
-          <Button
-            type={filter === "public" ? "primary" : "default"}
-            style={{
-              fontSize: 14,
-            }}
-            onClick={() => {
-              setFilter("public");
-              const params = new URLSearchParams(searchParams.toString());
-              params.set("feedFilter", "public");
-              router.push(`?${params.toString()}`);
-            }}
-          >
-            공개
-          </Button>
-        </div>
-      </div>
-      <InfiniteScroll
-        dataLength={uniqueFilteredPosts.length}
-        next={loadMoreData}
-        hasMore={hasMore}
-        loader={
-          <div style={{ textAlign: "center", padding: "20px" }}>
-            <Spin />
-          </div>
-        }
-        endMessage={
-          <div style={{ textAlign: "center", padding: "20px" }}>
-            <Empty
-              description="더 이상 확인할 게시글이 없습니다."
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
+          {uniqueFilteredPosts.map((post) => (
+            <Post
+              key={post.id}
+              post={transformPostForComponent(post)}
+              likedPosts={likedPosts}
+              expandedPosts={expandedPosts}
+              relativeDatePosts={relativeDatePosts}
+              openReplies={openReplies}
+              onLike={handleLike}
+              onToggleExpand={togglePostExpand}
+              onToggleDateType={toggleDateType}
+              onToggleReplies={toggleReplies}
+              onCommentInputClick={handleCommentInputClick}
+              onCommentSubmit={handleCommentSubmit}
+              onShare={handleSharePost}
+              onReport={handleReportPost}
+              formatDate={formatDate}
+              formatFullDate={formatFullDate}
             />
-          </div>
-        }
-      >
-        {uniqueFilteredPosts.map((post) => (
-          <Post
-            key={post.id}
-            post={transformPostForComponent(post)}
-            likedPosts={likedPosts}
-            expandedPosts={expandedPosts}
-            relativeDatePosts={relativeDatePosts}
-            openReplies={openReplies}
-            onLike={handleLike}
-            onToggleExpand={togglePostExpand}
-            onToggleDateType={toggleDateType}
-            onToggleReplies={toggleReplies}
-            onCommentInputClick={handleCommentInputClick}
-            onCommentSubmit={handleCommentSubmit}
-            onShare={handleSharePost}
-            onReport={handleReportPost}
-            formatDate={formatDate}
-            formatFullDate={formatFullDate}
-          />
-        ))}
-      </InfiniteScroll>
+          ))}
+        </InfiniteScroll>
+      </div>
 
       {/* 공유하기 모달 */}
       <Modal

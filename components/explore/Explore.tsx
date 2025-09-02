@@ -9,6 +9,7 @@ import Tag from "antd/lib/tag";
 import { UserOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { useResponsive } from "@/hooks/useResponsive";
+import FeedFilter from "@/components/common/FeedFilter";
 
 const { Title, Text } = Typography;
 
@@ -213,25 +214,17 @@ export default function Explore() {
       }}
     >
       {/* 필터 버튼 */}
-      <div style={{ marginBottom: 30 }}>
-        <div style={{ display: "flex", gap: "8px" }}>
-          {["모든 카테고리", "신규", "버튜버", "주식"].map((filter) => (
-            <Button
-              key={filter}
-              type={activeFilter === filter ? "primary" : "default"}
-              onClick={() => handleFilterChange(filter)}
-              style={{
-                borderRadius: "20px",
-                height: "32px",
-                padding: "0 16px",
-                fontSize: "14px",
-              }}
-            >
-              {filter}
-            </Button>
-          ))}
-        </div>
-      </div>
+      <FeedFilter
+        filter={activeFilter}
+        onFilterChange={handleFilterChange}
+        filters={[
+          { key: "모든 카테고리", label: "모든 카테고리" },
+          { key: "신규", label: "신규" },
+          { key: "버튜버", label: "버튜버" },
+          { key: "주식", label: "주식" },
+        ]}
+        type="explore"
+      />
 
       {/* 신규 크리에이터 섹션 */}
       {activeFilter === "신규" && (
