@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "type": "card",
+    "cardType": "visa",
+    "cardNumber": "****-****-****-1234",
+    "cardholderName": "홍길동",
+    "expiryDate": "12/25",
+    "alias": "개인카드",
+    "isDefault": true,
+    "isActive": true,
+    "createdAt": "2024-01-15T10:30:00Z"
+  },
+  {
+    "id": 2,
+    "type": "card",
+    "cardType": "mastercard",
+    "cardNumber": "****-****-****-5678",
+    "cardholderName": "홍길동",
+    "expiryDate": "08/26",
+    "alias": "회사카드",
+    "isDefault": false,
+    "isActive": true,
+    "createdAt": "2024-02-20T14:15:00Z"
+  },
+  {
+    "id": 3,
+    "type": "card",
+    "cardType": "amex",
+    "cardNumber": "****-****-****-9012",
+    "cardholderName": "홍길동",
+    "expiryDate": "03/27",
+    "alias": "해외여행카드",
+    "isDefault": false,
+    "isActive": false,
+    "createdAt": "2023-11-10T09:45:00Z"
+  }
+]
