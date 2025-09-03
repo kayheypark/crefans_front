@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Modal, Input, Typography, Divider, message } from "antd";
 import { userAPI } from "@/lib/api/user";
+import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 const { Text, Paragraph } = Typography;
 
 interface DeleteAccountModalProps {
@@ -51,6 +52,8 @@ export default function DeleteAccountModal({
         disabled: deleteConfirmText !== "삭제",
       }}
       zIndex={1002}
+      style={MODAL_STYLES.mobile.style}
+      styles={MODAL_STYLES.mobile.styles}
     >
       <Paragraph>
         정말로 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없으며, 모든

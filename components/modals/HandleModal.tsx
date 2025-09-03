@@ -3,6 +3,7 @@
 import React from "react";
 import { Modal, Form, Input, message } from "antd";
 import { userAPI } from "@/lib/api/user";
+import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 
 interface HandleModalProps {
   open: boolean;
@@ -43,6 +44,8 @@ export default function HandleModal({
       okText="변경"
       cancelText="취소"
       zIndex={1002}
+      style={MODAL_STYLES.mobile.style}
+      styles={MODAL_STYLES.mobile.styles}
     >
       <Form form={form} layout="vertical">
         <Form.Item

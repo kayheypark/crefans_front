@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Modal, Typography, message } from "antd";
 import { paymentAPI } from "@/lib/api/payment";
 import { CHARGE_PRODUCTS } from "@/lib/constants/chargeProducts";
+import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 const { Text } = Typography;
 
 interface ChargeModalProps {
@@ -47,6 +48,8 @@ export default function ChargeModal({ open, onClose }: ChargeModalProps) {
       cancelText="취소"
       width={600}
       zIndex={1002}
+      style={MODAL_STYLES.mobile.style}
+      styles={MODAL_STYLES.mobile.styles}
     >
       <div style={{ marginBottom: 16 }}>
         <Text>충전할 콩을 선택해주세요:</Text>

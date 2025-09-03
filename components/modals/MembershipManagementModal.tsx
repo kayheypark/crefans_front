@@ -23,6 +23,7 @@ import {
   DeleteOutlined,
   UndoOutlined,
 } from "@ant-design/icons";
+import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -173,7 +174,11 @@ export default function MembershipManagementModal({
       onCancel={onClose}
       footer={null}
       // width={600}
-      style={{ top: 20 }}
+      style={{
+        top: 20,
+        ...MODAL_STYLES.mobile.style,
+      }}
+      styles={MODAL_STYLES.mobile.styles}
     >
       <Divider style={{ margin: "32px 0" }} />
       {/* 멤버십 추가/수정 폼 */}

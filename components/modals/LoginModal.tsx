@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../../contexts/AuthContext";
 import { authAPI } from "@/lib/api";
 import EmailAutoComplete from "../common/EmailAutoComplete";
+import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -80,6 +81,8 @@ export default function LoginModal({
       footer={null}
       width={400}
       zIndex={1002}
+      style={MODAL_STYLES.mobile.style}
+      styles={MODAL_STYLES.mobile.styles}
     >
       <Form
         form={form}

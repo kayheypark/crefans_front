@@ -4,6 +4,7 @@ import React from "react";
 import { Modal, Form, Input, message } from "antd";
 import { userAPI } from "@/lib/api/user";
 import { isValidNickname } from "@/lib/utils/validationUtils";
+import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 
 interface NicknameModalProps {
   open: boolean;
@@ -44,6 +45,8 @@ export default function NicknameModal({
       okText="변경"
       cancelText="취소"
       zIndex={1002}
+      style={MODAL_STYLES.mobile.style}
+      styles={MODAL_STYLES.mobile.styles}
     >
       <Form form={form} layout="vertical">
         <Form.Item

@@ -9,6 +9,7 @@ import Button from "antd/lib/button";
 import Space from "antd/lib/space";
 import message from "antd/lib/message";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 
 interface ReportModalProps {
   open: boolean;
@@ -46,6 +47,8 @@ export default function ReportModal({
       footer={null}
       width={400}
       zIndex={1002}
+      style={MODAL_STYLES.mobile.style}
+      styles={MODAL_STYLES.mobile.styles}
     >
       <Form form={reportForm} onFinish={handleReport} layout="vertical">
         <Form.Item
