@@ -225,342 +225,336 @@ export default function Explore() {
           { key: "주식", label: "주식" },
         ]}
         type="explore"
+        style={{ marginBottom: 30 }}
       />
 
-      {/* 컨텐츠 래퍼 */}
-      <div style={{ marginTop: 30 }}>
-        {/* 신규 크리에이터 섹션 */}
-        {activeFilter === "신규" && (
-          <div style={{ marginBottom: 40 }}>
-            <Title level={3} style={{ marginBottom: 20 }}>
-              신규 크리에이터
-            </Title>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: isMobile
-                  ? "repeat(2, 1fr)"
-                  : isTablet
-                  ? "repeat(2, 1fr)"
-                  : "repeat(3, 1fr)",
-                gap: isMobile ? "12px" : "16px",
-              }}
-            >
-              {exploreData.newCreators.map((creator) => (
-                <Card
-                  key={creator.id}
-                  style={{
-                    borderRadius: 16,
-                    overflow: "hidden",
-                    aspectRatio: "4/5",
-                    position: "relative",
-                    cursor: "pointer",
-                  }}
-                  styles={{ body: { padding: 0 } }}
-                  onClick={() => router.push("/profile")}
-                  cover={
-                    <div
-                      style={{
-                        height: isMobile
-                          ? "80px"
-                          : isTablet
-                          ? "100px"
-                          : "120px",
-                        background: creator.bannerImage
-                          ? `url(${creator.bannerImage})`
-                          : "linear-gradient(135deg, #667eea 0%,rgb(178, 175, 182) 100%)",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        position: "relative",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {!creator.bannerImage && (
-                        <div
-                          style={{
-                            color: "rgba(255, 255, 255, 0.2)",
-                            fontSize: "24px",
-                            fontWeight: "bold",
-                            letterSpacing: "2px",
-                            userSelect: "none",
-                            textTransform: "uppercase",
-                          }}
-                        >
-                          crefans
-                        </div>
-                      )}
-                      <Tag
-                        color="red"
-                        style={{
-                          position: "absolute",
-                          top: 8,
-                          right: 8,
-                          fontSize: 10,
-                          margin: 0,
-                        }}
-                      >
-                        NEW
-                      </Tag>
-                    </div>
-                  }
-                >
-                  <div style={{ padding: "16px" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginBottom: 12,
-                        position: "relative",
-                      }}
-                    >
-                      <Avatar
-                        size={40}
-                        src={creator.avatar}
-                        icon={<UserOutlined />}
-                        style={{
-                          marginRight: 12,
-                          border: "2px solid white",
-                          marginTop: "-20px",
-                        }}
-                      />
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div
-                          style={{
-                            fontWeight: 600,
-                            fontSize: 14,
-                            marginBottom: 2,
-                          }}
-                        >
-                          <ScrollingText maxLength={12}>
-                            {creator.name}
-                          </ScrollingText>
-                        </div>
-                        <Text type="secondary" style={{ fontSize: 12 }}>
-                          {creator.handle}
-                        </Text>
-                      </div>
-                    </div>
-
-                    <Text
-                      style={{
-                        fontSize: 13,
-                        marginBottom: 12,
-                        lineHeight: "1.4",
-                        height: "35px",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                      }}
-                    >
-                      {creator.bio}
-                    </Text>
-
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginTop: "auto",
-                        fontSize: 11,
-                      }}
-                    >
-                      <Text type="secondary" style={{ fontSize: 11 }}>
-                        팔로워 {formatNumber(creator.followerCount)}
-                      </Text>
-                      <Text type="secondary" style={{ fontSize: 11 }}>
-                        게시물 {creator.postCount}개
-                      </Text>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* 카테고리별 인기 크리에이터 섹션 */}
-        {(activeFilter === "모든 카테고리" ||
-          activeFilter === "버튜버" ||
-          activeFilter === "주식") && (
-          <div>
-            <Title level={3} style={{ marginBottom: 20 }}>
-              카테고리별 인기 크리에이터
-            </Title>
-            {categories
-              .filter((category) => {
-                if (activeFilter === "모든 카테고리") return true;
-                if (activeFilter === "버튜버") return category === "버튜버";
-                if (activeFilter === "주식") return category === "주식";
-                return false;
-              })
-              .map((category) => (
-                <div key={category} style={{ marginBottom: 40 }}>
-                  <Title level={4} style={{ marginBottom: 16 }}>
-                    {category}
-                  </Title>
+      {/* 신규 크리에이터 섹션 */}
+      {activeFilter === "신규" && (
+        <div style={{ marginBottom: 40 }}>
+          <Title level={3} style={{ marginBottom: 20 }}>
+            신규 크리에이터
+          </Title>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: isMobile
+                ? "repeat(2, 1fr)"
+                : isTablet
+                ? "repeat(2, 1fr)"
+                : "repeat(3, 1fr)",
+              gap: isMobile ? "12px" : "16px",
+            }}
+          >
+            {exploreData.newCreators.map((creator) => (
+              <Card
+                key={creator.id}
+                style={{
+                  borderRadius: 16,
+                  overflow: "hidden",
+                  aspectRatio: "4/5",
+                  position: "relative",
+                  cursor: "pointer",
+                }}
+                styles={{ body: { padding: 0 } }}
+                onClick={() => router.push("/profile")}
+                cover={
                   <div
                     style={{
-                      display: "grid",
-                      gridTemplateColumns: isMobile
-                        ? "repeat(2, 1fr)"
-                        : isTablet
-                        ? "repeat(2, 1fr)"
-                        : "repeat(3, 1fr)",
-                      gap: isMobile ? "12px" : "16px",
-                      marginBottom: 20,
+                      height: isMobile ? "80px" : isTablet ? "100px" : "120px",
+                      background: creator.bannerImage
+                        ? `url(${creator.bannerImage})`
+                        : "linear-gradient(135deg, #667eea 0%,rgb(178, 175, 182) 100%)",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      position: "relative",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    {getDisplayCreators(category).map((creator) => (
-                      <Card
-                        key={creator.id}
+                    {!creator.bannerImage && (
+                      <div
                         style={{
-                          borderRadius: 16,
-                          overflow: "hidden",
-                          aspectRatio: "4/5",
-                          position: "relative",
-                          cursor: "pointer",
+                          color: "rgba(255, 255, 255, 0.2)",
+                          fontSize: "24px",
+                          fontWeight: "bold",
+                          letterSpacing: "2px",
+                          userSelect: "none",
+                          textTransform: "uppercase",
                         }}
-                        styles={{ body: { padding: 0 } }}
-                        onClick={() => router.push("/profile")}
-                        cover={
-                          <div
-                            style={{
-                              height: isMobile
-                                ? "80px"
-                                : isTablet
-                                ? "100px"
-                                : "120px",
-                              background: creator.bannerImage
-                                ? `url(${creator.bannerImage})`
-                                : "rgb(154, 154, 154)",
-                              backgroundSize: "cover",
-                              backgroundPosition: "center",
-                              position: "relative",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            {!creator.bannerImage && (
-                              <div
-                                style={{
-                                  color: "rgba(255, 255, 255, 0.2)",
-                                  fontSize: "24px",
-                                  fontWeight: "bold",
-                                  letterSpacing: "2px",
-                                  userSelect: "none",
-                                  textTransform: "uppercase",
-                                }}
-                              >
-                                crefans
-                              </div>
-                            )}
-                            <Tag
-                              color="blue"
+                      >
+                        crefans
+                      </div>
+                    )}
+                    <Tag
+                      color="red"
+                      style={{
+                        position: "absolute",
+                        top: 8,
+                        right: 8,
+                        fontSize: 10,
+                        margin: 0,
+                      }}
+                    >
+                      NEW
+                    </Tag>
+                  </div>
+                }
+              >
+                <div style={{ padding: "16px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: 12,
+                      position: "relative",
+                    }}
+                  >
+                    <Avatar
+                      size={40}
+                      src={creator.avatar}
+                      icon={<UserOutlined />}
+                      style={{
+                        marginRight: 12,
+                        border: "2px solid white",
+                        marginTop: "-20px",
+                      }}
+                    />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div
+                        style={{
+                          fontWeight: 600,
+                          fontSize: 14,
+                          marginBottom: 2,
+                        }}
+                      >
+                        <ScrollingText maxLength={12}>
+                          {creator.name}
+                        </ScrollingText>
+                      </div>
+                      <Text type="secondary" style={{ fontSize: 12 }}>
+                        {creator.handle}
+                      </Text>
+                    </div>
+                  </div>
+
+                  <Text
+                    style={{
+                      fontSize: 13,
+                      marginBottom: 12,
+                      lineHeight: "1.4",
+                      height: "35px",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                    }}
+                  >
+                    {creator.bio}
+                  </Text>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginTop: "auto",
+                      fontSize: 11,
+                    }}
+                  >
+                    <Text type="secondary" style={{ fontSize: 11 }}>
+                      팔로워 {formatNumber(creator.followerCount)}
+                    </Text>
+                    <Text type="secondary" style={{ fontSize: 11 }}>
+                      게시물 {creator.postCount}개
+                    </Text>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 카테고리별 인기 크리에이터 섹션 */}
+      {(activeFilter === "모든 카테고리" ||
+        activeFilter === "버튜버" ||
+        activeFilter === "주식") && (
+        <div>
+          <Title level={3} style={{ marginBottom: 20 }}>
+            카테고리별 인기 크리에이터
+          </Title>
+          {categories
+            .filter((category) => {
+              if (activeFilter === "모든 카테고리") return true;
+              if (activeFilter === "버튜버") return category === "버튜버";
+              if (activeFilter === "주식") return category === "주식";
+              return false;
+            })
+            .map((category) => (
+              <div key={category} style={{ marginBottom: 40 }}>
+                <Title level={4} style={{ marginBottom: 16 }}>
+                  {category}
+                </Title>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: isMobile
+                      ? "repeat(2, 1fr)"
+                      : isTablet
+                      ? "repeat(2, 1fr)"
+                      : "repeat(3, 1fr)",
+                    gap: isMobile ? "12px" : "16px",
+                    marginBottom: 20,
+                  }}
+                >
+                  {getDisplayCreators(category).map((creator) => (
+                    <Card
+                      key={creator.id}
+                      style={{
+                        borderRadius: 16,
+                        overflow: "hidden",
+                        aspectRatio: "4/5",
+                        position: "relative",
+                        cursor: "pointer",
+                      }}
+                      styles={{ body: { padding: 0 } }}
+                      onClick={() => router.push("/profile")}
+                      cover={
+                        <div
+                          style={{
+                            height: isMobile
+                              ? "80px"
+                              : isTablet
+                              ? "100px"
+                              : "120px",
+                            background: creator.bannerImage
+                              ? `url(${creator.bannerImage})`
+                              : "rgb(154, 154, 154)",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            position: "relative",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {!creator.bannerImage && (
+                            <div
                               style={{
-                                position: "absolute",
-                                top: 8,
-                                right: 8,
-                                fontSize: 10,
-                                margin: 0,
+                                color: "rgba(255, 255, 255, 0.2)",
+                                fontSize: "24px",
+                                fontWeight: "bold",
+                                letterSpacing: "2px",
+                                userSelect: "none",
+                                textTransform: "uppercase",
                               }}
                             >
-                              {category}
-                            </Tag>
-                          </div>
-                        }
-                      >
-                        <div style={{ padding: "16px" }}>
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              marginBottom: 12,
-                              position: "relative",
-                            }}
-                          >
-                            <Avatar
-                              size={52}
-                              src={creator.avatar}
-                              icon={<UserOutlined />}
-                              style={{
-                                marginRight: 2,
-                                border: "2px solid white",
-                              }}
-                            />
-                            <div style={{ flex: 1, minWidth: 0 }}>
-                              <div
-                                style={{
-                                  fontWeight: 600,
-                                  fontSize: 14,
-                                }}
-                              >
-                                <ScrollingText maxLength={12}>
-                                  {creator.name}
-                                </ScrollingText>
-                              </div>
-                              <Text type="secondary" style={{ fontSize: 12 }}>
-                                {creator.handle}
-                              </Text>
+                              crefans
                             </div>
-                          </div>
-
-                          <Text
+                          )}
+                          <Tag
+                            color="blue"
                             style={{
-                              fontSize: 13,
-                              marginBottom: 12,
-                              lineHeight: "1.4",
-                              height: "35px",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              display: "-webkit-box",
-                              WebkitLineClamp: 2,
-                              WebkitBoxOrient: "vertical",
+                              position: "absolute",
+                              top: 8,
+                              right: 8,
+                              fontSize: 10,
+                              margin: 0,
                             }}
                           >
-                            {creator.bio}
-                          </Text>
-
-                          <div
+                            {category}
+                          </Tag>
+                        </div>
+                      }
+                    >
+                      <div style={{ padding: "16px" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            marginBottom: 12,
+                            position: "relative",
+                          }}
+                        >
+                          <Avatar
+                            size={52}
+                            src={creator.avatar}
+                            icon={<UserOutlined />}
                             style={{
-                              display: "flex",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              marginTop: "auto",
-                              fontSize: 11,
+                              marginRight: 2,
+                              border: "2px solid white",
                             }}
-                          >
-                            <Text type="secondary" style={{ fontSize: 11 }}>
-                              팔로워 {formatNumber(creator.followerCount)}
-                            </Text>
-                            <Text type="secondary" style={{ fontSize: 11 }}>
-                              게시물 {creator.postCount}개
+                          />
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div
+                              style={{
+                                fontWeight: 600,
+                                fontSize: 14,
+                              }}
+                            >
+                              <ScrollingText maxLength={12}>
+                                {creator.name}
+                              </ScrollingText>
+                            </div>
+                            <Text type="secondary" style={{ fontSize: 12 }}>
+                              {creator.handle}
                             </Text>
                           </div>
                         </div>
-                      </Card>
-                    ))}
-                  </div>
-                  {hasMoreCreators(category) && (
-                    <div style={{ textAlign: "center" }}>
-                      <Button
-                        type="default"
-                        onClick={() => handleLoadMore(category)}
-                        style={{ marginTop: 16 }}
-                      >
-                        더 보기
-                      </Button>
-                    </div>
-                  )}
+
+                        <Text
+                          style={{
+                            fontSize: 13,
+                            marginBottom: 12,
+                            lineHeight: "1.4",
+                            height: "35px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                          }}
+                        >
+                          {creator.bio}
+                        </Text>
+
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            marginTop: "auto",
+                            fontSize: 11,
+                          }}
+                        >
+                          <Text type="secondary" style={{ fontSize: 11 }}>
+                            팔로워 {formatNumber(creator.followerCount)}
+                          </Text>
+                          <Text type="secondary" style={{ fontSize: 11 }}>
+                            게시물 {creator.postCount}개
+                          </Text>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
                 </div>
-              ))}
-          </div>
-        )}
-      </div>
+                {hasMoreCreators(category) && (
+                  <div style={{ textAlign: "center" }}>
+                    <Button
+                      type="default"
+                      onClick={() => handleLoadMore(category)}
+                      style={{ marginTop: 16 }}
+                    >
+                      더 보기
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 }
