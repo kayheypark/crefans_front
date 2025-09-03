@@ -18,7 +18,9 @@ import {
   Layout,
   Menu,
   Checkbox,
+  Dropdown,
 } from "antd";
+import { MoreOutlined } from "@ant-design/icons";
 import {
   UserOutlined,
   EditOutlined,
@@ -507,30 +509,37 @@ export default function Settings() {
                                 {method.expiryDate}
                               </div>
                             </div>
-                            <div
-                              style={{
-                                display: "flex",
-                                gap: 4,
+                            <Dropdown
+                              menu={{
+                                items: [
+                                  ...(!method.isDefault
+                                    ? [
+                                        {
+                                          key: "setDefault",
+                                          label: "기본으로 설정",
+                                        },
+                                      ]
+                                    : []),
+                                  {
+                                    key: "delete",
+                                    label: "삭제",
+                                    danger: true,
+                                  },
+                                ],
                               }}
+                              trigger={["click"]}
+                              placement="bottomRight"
                             >
-                              {!method.isDefault && (
-                                <Button
-                                  type="text"
-                                  size="small"
-                                  style={{ fontSize: 12 }}
-                                >
-                                  기본으로 설정
-                                </Button>
-                              )}
                               <Button
                                 type="text"
-                                size="small"
-                                danger
-                                style={{ fontSize: 12 }}
-                              >
-                                삭제
-                              </Button>
-                            </div>
+                                icon={<MoreOutlined />}
+                                style={{
+                                  color: "#666",
+                                  width: "32px",
+                                  height: "32px",
+                                }}
+                              />
+                            </Dropdown>
                           </div>
                         ))}
                       </div>
@@ -875,30 +884,37 @@ export default function Settings() {
                               {method.expiryDate}
                             </div>
                           </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: 4,
+                          <Dropdown
+                            menu={{
+                              items: [
+                                ...(!method.isDefault
+                                  ? [
+                                      {
+                                        key: "setDefault",
+                                        label: "기본으로 설정",
+                                      },
+                                    ]
+                                  : []),
+                                {
+                                  key: "delete",
+                                  label: "삭제",
+                                  danger: true,
+                                },
+                              ],
                             }}
+                            trigger={["click"]}
+                            placement="bottomRight"
                           >
-                            {!method.isDefault && (
-                              <Button
-                                type="text"
-                                size="small"
-                                style={{ fontSize: 12 }}
-                              >
-                                기본으로 설정
-                              </Button>
-                            )}
                             <Button
                               type="text"
-                              size="small"
-                              danger
-                              style={{ fontSize: 12 }}
-                            >
-                              삭제
-                            </Button>
-                          </div>
+                              icon={<MoreOutlined />}
+                              style={{
+                                color: "#666",
+                                width: "32px",
+                                height: "32px",
+                              }}
+                            />
+                          </Dropdown>
                         </div>
                       ))}
                     </div>
