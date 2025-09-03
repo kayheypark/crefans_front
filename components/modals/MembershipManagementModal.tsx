@@ -24,6 +24,7 @@ import {
   UndoOutlined,
 } from "@ant-design/icons";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
+import MembershipCard from "@/components/common/MembershipCard";
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -417,95 +418,13 @@ export default function MembershipManagementModal({
             }}
           >
             {memberships.map((membership) => (
-              <div
+              <MembershipCard
                 key={membership.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "12px",
-                  border: "1px solid #d9d9d9",
-                  borderRadius: "8px",
-                  backgroundColor: "#fff",
-                }}
-              >
-                <div style={{ flex: 1 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      marginBottom: 4,
-                    }}
-                  >
-                    <Text strong style={{ fontSize: 16 }}>
-                      {membership.name}
-                    </Text>
-                    <Tag color="default" style={{ margin: 0, fontSize: 12 }}>
-                      레벨 {membership.level}
-                    </Tag>
-                    <Tag color="default" style={{ margin: 0, fontSize: 12 }}>
-                      {membership.price.toLocaleString()}원
-                    </Tag>
-                  </div>
-                  <Text
-                    type="secondary"
-                    style={{
-                      fontSize: 12,
-                      display: "block",
-                      marginBottom: 4,
-                    }}
-                  >
-                    {membership.description}
-                  </Text>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: 4,
-                      marginBottom: 8,
-                    }}
-                  >
-                    {membership.benefits.map(
-                      (benefit: string, index: number) => (
-                        <Tag key={index} color="blue">
-                          {benefit}
-                        </Tag>
-                      )
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      gap: 8,
-                    }}
-                  >
-                    <Button
-                      type="text"
-                      icon={<EditOutlined />}
-                      onClick={() => startEditing(membership)}
-                      size="small"
-                    >
-                      수정
-                    </Button>
-                    <Popconfirm
-                      title="멤버십을 삭제하시겠습니까?"
-                      onConfirm={() => handleDelete(membership.id)}
-                      okText="삭제"
-                      cancelText="취소"
-                    >
-                      <Button
-                        type="text"
-                        danger
-                        icon={<DeleteOutlined />}
-                        size="small"
-                      >
-                        삭제
-                      </Button>
-                    </Popconfirm>
-                  </div>
-                </div>
-              </div>
+                membership={membership}
+                showActions={true}
+                onEdit={startEditing}
+                onDelete={handleDelete}
+              />
             ))}
           </div>
         ) : (

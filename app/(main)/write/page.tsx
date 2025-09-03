@@ -30,6 +30,7 @@ import {
 import { useRouter } from "next/navigation";
 import Spacings from "@/lib/constants/spacings";
 import MembershipManagementModal from "@/components/modals/MembershipManagementModal";
+import MembershipCard from "@/components/common/MembershipCard";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -993,81 +994,15 @@ export default function WritePage() {
                     style={{ display: "flex", flexDirection: "column", gap: 8 }}
                   >
                     {memberships.map((membership) => (
-                      <div
+                      <MembershipCard
                         key={membership.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          padding: "12px",
-                          border:
-                            selectedMembershipLevel === membership.level
-                              ? "2px solid #1890ff"
-                              : "1px solid #d9d9d9",
-                          borderRadius: "8px",
-                          cursor: "pointer",
-                          backgroundColor:
-                            selectedMembershipLevel === membership.level
-                              ? "#f0f8ff"
-                              : "#fff",
-                        }}
-                        onClick={() =>
+                        membership={membership}
+                        selected={selectedMembershipLevel === membership.level}
+                        showRadio={true}
+                        onSelect={(membership) =>
                           setSelectedMembershipLevel(membership.level)
                         }
-                      >
-                        <input
-                          type="radio"
-                          name="membershipLevel"
-                          value={membership.level}
-                          checked={selectedMembershipLevel === membership.level}
-                          onChange={() =>
-                            setSelectedMembershipLevel(membership.level)
-                          }
-                          style={{ marginRight: 12 }}
-                        />
-                        <div style={{ flex: 1 }}>
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 8,
-                              marginBottom: 4,
-                            }}
-                          >
-                            <Text strong>{membership.name}</Text>
-                            <Text type="secondary" style={{ fontSize: 12 }}>
-                              레벨 {membership.level}
-                            </Text>
-                            <Text type="secondary" style={{ fontSize: 12 }}>
-                              {membership.price.toLocaleString()}원
-                            </Text>
-                          </div>
-                          <Text
-                            type="secondary"
-                            style={{
-                              fontSize: 12,
-                              display: "block",
-                              marginBottom: 4,
-                            }}
-                          >
-                            {membership.description}
-                          </Text>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexWrap: "wrap",
-                              gap: 4,
-                            }}
-                          >
-                            {membership.benefits.map(
-                              (benefit: string, index: number) => (
-                                <Tag key={index} color="blue">
-                                  {benefit}
-                                </Tag>
-                              )
-                            )}
-                          </div>
-                        </div>
-                      </div>
+                      />
                     ))}
                   </div>
                   <Text type="secondary" style={{ fontSize: 12, marginTop: 8 }}>
