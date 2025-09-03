@@ -129,6 +129,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
     "followGroup",
   ]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   // 클라이언트 마운트 후 로컬스토리지에서 상태 불러오기
   useEffect(() => {
@@ -1027,32 +1029,64 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 onClick={() => router.back()}
                 style={{ marginRight: 8 }}
               />
-              <Title level={2} style={{ margin: 0, flex: 1 }}>
+              <Title
+                level={2}
+                style={{
+                  margin: 0,
+                  flex: 1,
+                  fontSize: isMobile ? "18px" : "24px",
+                  lineHeight: isMobile ? "1.2" : "1.4",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 {getPageTitle(pathname)}
               </Title>
               {isMobile && (
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    // flex: 1,
+                    maxWidth: isSearchFocused ? "190px" : "100px",
+                    transition: "max-width 0.3s ease",
+                  }}
+                >
                   <Input
-                    placeholder="검색"
+                    placeholder={isSearchFocused ? "무엇이든 찾으세요" : "검색"}
                     size="middle"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    onFocus={() => setIsSearchFocused(true)}
+                    onBlur={() => {
+                      if (!searchValue) {
+                        setIsSearchFocused(false);
+                      }
+                    }}
+                    allowClear
                     style={{
-                      width: 140,
+                      width: isSearchFocused ? "220px" : "120px",
+                      transition: "width 0.3s ease",
                       borderRadius: 20,
                       height: 40,
                     }}
                   />
-                  <Button
-                    type="text"
-                    size="middle"
-                    icon={<SearchOutlined />}
-                    style={{
-                      borderRadius: 20,
-                      minWidth: 40,
-                      height: 40,
-                      color: "#666",
-                      border: "1px solid #d9d9d9",
-                    }}
-                  />
+                  {isSearchFocused && (
+                    <Button
+                      type="text"
+                      size="middle"
+                      icon={<SearchOutlined />}
+                      style={{
+                        borderRadius: 20,
+                        minWidth: 40,
+                        height: 40,
+                        color: "#666",
+                        border: "1px solid #d9d9d9",
+                      }}
+                    />
+                  )}
                 </div>
               )}
             </div>
