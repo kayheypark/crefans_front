@@ -686,51 +686,49 @@ export default function MainLayout({ children }: MainLayoutProps) {
                         </Badge>
                       </Dropdown>
                     </div>
-                    {(isDesktop || isTablet) && (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: 18,
+                        border: "1px solid #f0f0f0",
+                        borderRadius: 15,
+                        overflow: "hidden",
+                        height: 44,
+                      }}
+                    >
                       <div
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          marginTop: 18,
-                          border: "1px solid #f0f0f0",
-                          borderRadius: 15,
-                          overflow: "hidden",
-                          height: 44,
+                          flex: 1,
+                          padding: "0 18px",
+                          fontSize: 20,
+                          color: "#f857a6",
+                          fontWeight: 600,
+                          height: "100%",
+                          gap: 8,
                         }}
                       >
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            flex: 1,
-                            padding: "0 18px",
-                            fontSize: 20,
-                            color: "#f857a6",
-                            fontWeight: 600,
-                            height: "100%",
-                            gap: 8,
-                          }}
-                        >
-                          {user.points?.toLocaleString() || 0}
-                        </div>
-                        <Button
-                          type="primary"
-                          onClick={() => setShowChargeModal(true)}
-                          style={{
-                            borderRadius: 15,
-                            height: "100%",
-                            fontWeight: 600,
-                            fontSize: 15,
-                            background:
-                              "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
-                            border: "none",
-                            minWidth: 90,
-                          }}
-                        >
-                          <PlusOutlined />콩 충전
-                        </Button>
+                        {user.points?.toLocaleString() || 0}
                       </div>
-                    )}
+                      <Button
+                        type="primary"
+                        onClick={() => setShowChargeModal(true)}
+                        style={{
+                          borderRadius: 15,
+                          height: "100%",
+                          fontWeight: 600,
+                          fontSize: 15,
+                          background:
+                            "linear-gradient(90deg, #6a5af9 0%, #f857a6 100%)",
+                          border: "none",
+                          minWidth: 90,
+                        }}
+                      >
+                        <PlusOutlined />콩 충전
+                      </Button>
+                    </div>
                   </div>
                 </>
               ) : (
@@ -1022,9 +1020,34 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 onClick={() => router.back()}
                 style={{ marginRight: 8 }}
               />
-              <Title level={2} style={{ margin: 0 }}>
+              <Title level={2} style={{ margin: 0, flex: 1 }}>
                 {getPageTitle(pathname)}
               </Title>
+              {isMobile && (
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <Input
+                    placeholder="검색"
+                    size="middle"
+                    style={{
+                      width: 140,
+                      borderRadius: 20,
+                      height: 40,
+                    }}
+                  />
+                  <Button
+                    type="text"
+                    size="middle"
+                    icon={<SearchOutlined />}
+                    style={{
+                      borderRadius: 20,
+                      minWidth: 40,
+                      height: 40,
+                      color: "#666",
+                      border: "1px solid #d9d9d9",
+                    }}
+                  />
+                </div>
+              )}
             </div>
           )}
           <Content
