@@ -411,114 +411,100 @@ export default function MembershipManagementModal({
         {memberships.length > 0 ? (
           <div
             style={{
-              border: "1px solid #f0f0f0",
-              borderRadius: "8px",
-              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
             }}
           >
-            {memberships.map((membership, index) => (
-              <div key={membership.id}>
-                <Collapse
-                  defaultActiveKey={[]}
-                  ghost
-                  style={{ background: "transparent" }}
-                >
-                  <Panel
-                    key={membership.id}
-                    header={
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 12,
-                        }}
-                      >
-                        <Text strong style={{ fontSize: 16 }}>
-                          {membership.name}
-                        </Text>
-                        <Tag
-                          color="default"
-                          style={{ margin: 0, fontSize: 12 }}
-                        >
-                          레벨 {membership.level}
-                        </Tag>
-                        <Tag
-                          color="default"
-                          style={{ margin: 0, fontSize: 12 }}
-                        >
-                          {membership.price.toLocaleString()}원
-                        </Tag>
-                      </div>
-                    }
-                    extra={
-                      <div style={{ display: "flex", gap: 8 }}>
-                        <Button
-                          type="text"
-                          icon={<EditOutlined />}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            startEditing(membership);
-                          }}
-                          size="small"
-                        >
-                          수정
-                        </Button>
-                        <Popconfirm
-                          title="멤버십을 삭제하시겠습니까?"
-                          onConfirm={() => handleDelete(membership.id)}
-                          okText="삭제"
-                          cancelText="취소"
-                          onCancel={(e) => e?.stopPropagation?.()}
-                        >
-                          <Button
-                            type="text"
-                            danger
-                            icon={<DeleteOutlined />}
-                            size="small"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            삭제
-                          </Button>
-                        </Popconfirm>
-                      </div>
-                    }
+            {memberships.map((membership) => (
+              <div
+                key={membership.id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "12px",
+                  border: "1px solid #d9d9d9",
+                  borderRadius: "8px",
+                  backgroundColor: "#fff",
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      marginBottom: 4,
+                    }}
                   >
-                    <div style={{ marginBottom: 0 }}>
-                      <Text
-                        type="secondary"
-                        style={{
-                          display: "block",
-                          lineHeight: 1.6,
-                          fontSize: 14,
-                        }}
+                    <Text strong style={{ fontSize: 16 }}>
+                      {membership.name}
+                    </Text>
+                    <Tag color="default" style={{ margin: 0, fontSize: 12 }}>
+                      레벨 {membership.level}
+                    </Tag>
+                    <Tag color="default" style={{ margin: 0, fontSize: 12 }}>
+                      {membership.price.toLocaleString()}원
+                    </Tag>
+                  </div>
+                  <Text
+                    type="secondary"
+                    style={{
+                      fontSize: 12,
+                      display: "block",
+                      marginBottom: 4,
+                    }}
+                  >
+                    {membership.description}
+                  </Text>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: 4,
+                      marginBottom: 8,
+                    }}
+                  >
+                    {membership.benefits.map(
+                      (benefit: string, index: number) => (
+                        <Tag key={index} color="blue">
+                          {benefit}
+                        </Tag>
+                      )
+                    )}
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      gap: 8,
+                    }}
+                  >
+                    <Button
+                      type="text"
+                      icon={<EditOutlined />}
+                      onClick={() => startEditing(membership)}
+                      size="small"
+                    >
+                      수정
+                    </Button>
+                    <Popconfirm
+                      title="멤버십을 삭제하시겠습니까?"
+                      onConfirm={() => handleDelete(membership.id)}
+                      okText="삭제"
+                      cancelText="취소"
+                    >
+                      <Button
+                        type="text"
+                        danger
+                        icon={<DeleteOutlined />}
+                        size="small"
                       >
-                        {membership.description}
-                      </Text>
-                    </div>
-
-                    <div>
-                      <div
-                        style={{ display: "flex", flexWrap: "wrap", gap: 6 }}
-                      >
-                        {membership.benefits.map((benefit, index) => (
-                          <Tag
-                            key={index}
-                            color="default"
-                            style={{
-                              margin: 0,
-                              fontSize: 12,
-                            }}
-                          >
-                            {benefit}
-                          </Tag>
-                        ))}
-                      </div>
-                    </div>
-                  </Panel>
-                </Collapse>
-                {index < memberships.length - 1 && (
-                  <Divider style={{ margin: 0 }} />
-                )}
+                        삭제
+                      </Button>
+                    </Popconfirm>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
