@@ -34,6 +34,7 @@ import {
   ArrowLeftOutlined,
   PlusOutlined,
   MenuOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -423,6 +424,12 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
   const userMenu = {
     items: [
+      {
+        key: "write",
+        icon: <EditOutlined />,
+        label: "글쓰기",
+        onClick: () => router.push("/write"),
+      },
       {
         key: "settings",
         icon: <SettingOutlined />,
@@ -1097,7 +1104,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             right: 0,
             background: "#fff",
             borderTop: "1px solid #f0f0f0",
-            padding: "8px 0",
+            padding: "4px 0",
             zIndex: 1002,
           }}
         >
@@ -1110,33 +1117,51 @@ export default function MainLayout({ children }: MainLayoutProps) {
           >
             <Button
               type="text"
-              icon={<MenuOutlined />}
+              icon={<MenuOutlined style={{ fontSize: "20px" }} />}
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               style={{
                 color: "#666",
                 fontSize: "12px",
+                height: "auto",
+                padding: "6px 12px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "3px",
               }}
             >
               메뉴
             </Button>
             <Button
               type="text"
-              icon={<LayoutOutlined />}
+              icon={<LayoutOutlined style={{ fontSize: "20px" }} />}
               onClick={() => router.push("/feed")}
               style={{
                 color: selectedMenu === "feed" ? "#1890ff" : "#666",
                 fontSize: "12px",
+                height: "auto",
+                padding: "6px 12px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "3px",
               }}
             >
               피드
             </Button>
             <Button
               type="text"
-              icon={<CompassOutlined />}
+              icon={<CompassOutlined style={{ fontSize: "20px" }} />}
               onClick={() => router.push("/explore")}
               style={{
                 color: selectedMenu === "explore" ? "#1890ff" : "#666",
                 fontSize: "12px",
+                height: "auto",
+                padding: "6px 12px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "3px",
               }}
             >
               둘러보기
@@ -1153,7 +1178,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               >
                 <Avatar
                   src={user.attributes.picture || "/profile-90.png"}
-                  size={32}
+                  size={44}
                   style={{
                     border: "2px solid #f0f0f0",
                     cursor: "pointer",
@@ -1163,11 +1188,17 @@ export default function MainLayout({ children }: MainLayoutProps) {
             ) : (
               <Button
                 type="text"
-                icon={<LoginOutlined />}
+                icon={<LoginOutlined style={{ fontSize: "20px" }} />}
                 onClick={() => setIsLoginModalOpen(true)}
                 style={{
                   color: "#666",
                   fontSize: "12px",
+                  height: "auto",
+                  padding: "6px 12px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "3px",
                 }}
               >
                 로그인
