@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "type": "membership",
+    "amount": 9900,
+    "currency": "KRW",
+    "status": "completed",
+    "description": "프리미엄 멤버십 구독",
+    "paymentMethod": "현대카드 (1234)",
+    "date": "2024-01-15T10:30:00Z",
+    "merchant": "크리에이터 A"
+  },
+  {
+    "id": 2,
+    "type": "bean",
+    "amount": 5000,
+    "currency": "KRW",
+    "status": "completed",
+    "description": "콩 500개 구매",
+    "paymentMethod": "신한은행 (5678)",
+    "date": "2024-01-14T15:20:00Z",
+    "merchant": "콩 충전"
+  }
+]

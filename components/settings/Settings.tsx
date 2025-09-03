@@ -31,6 +31,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useResponsive } from "@/hooks/useResponsive";
 import NicknameModal from "@/components/modals/NicknameModal";
+import PaymentHistoryItem from "@/components/common/PaymentHistoryItem";
 import HandleModal from "@/components/modals/HandleModal";
 import DeleteAccountModal from "@/components/modals/DeleteAccountModal";
 import { formatPhoneNumber } from "@/lib/utils/phoneUtils";
@@ -50,6 +51,8 @@ export default function Settings() {
   const [showPaymentMethodModal, setShowPaymentMethodModal] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
   const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
+  const [paymentHistory, setPaymentHistory] = useState<any[]>([]);
+  const [loadingPaymentHistory, setLoadingPaymentHistory] = useState(false);
 
   // 디버깅용: 모달 상태 변화 모니터링
   React.useEffect(() => {
@@ -68,6 +71,21 @@ export default function Settings() {
       .catch((error) => {
         console.error("결제수단 데이터 로드 실패:", error);
         setLoadingPaymentMethods(false);
+      });
+  }, []);
+
+  // 결제이력 데이터 로드
+  React.useEffect(() => {
+    setLoadingPaymentHistory(true);
+    fetch("/mock/paymentHistory.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setPaymentHistory(data);
+        setLoadingPaymentHistory(false);
+      })
+      .catch((error) => {
+        console.error("결제이력 데이터 로드 실패:", error);
+        setLoadingPaymentHistory(false);
       });
   }, []);
 
@@ -572,29 +590,62 @@ export default function Settings() {
                   {/* 결제 이력 */}
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
                       padding: "16px 0",
                     }}
                   >
-                    <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: "12px",
+                      }}
+                    >
                       <div
                         style={{
                           fontSize: 14,
                           color: "#8c8c8c",
-                          marginBottom: 4,
                         }}
                       >
                         결제 이력
                       </div>
-                      <div style={{ fontSize: 16, color: "#222" }}>
+                      <Button
+                        type="text"
+                        size="small"
+                        onClick={() => router.push("/payment-history")}
+                      >
+                        전체보기
+                      </Button>
+                    </div>
+
+                    {loadingPaymentHistory ? (
+                      <div style={{ fontSize: 14, color: "#666" }}>
+                        로딩 중...
+                      </div>
+                    ) : paymentHistory.length > 0 ? (
+                      <div>
+                        {/* 미리보기 1건 */}
+                        <PaymentHistoryItem {...paymentHistory[0]} />
+
+                        {/* 추가 건수 표시 */}
+                        {paymentHistory.length > 1 && (
+                          <div
+                            style={{
+                              fontSize: 12,
+                              color: "#666",
+                              textAlign: "center",
+                              marginTop: "8px",
+                            }}
+                          >
+                            외 {paymentHistory.length - 1}건 더 보기
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div style={{ fontSize: 14, color: "#666" }}>
                         결제 이력이 없습니다
                       </div>
-                    </div>
-                    <Button type="text" size="small">
-                      전체보기
-                    </Button>
+                    )}
                   </div>
                 </div>
               </Card>
@@ -947,29 +998,62 @@ export default function Settings() {
                 {/* 결제 이력 */}
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
                     padding: "16px 0",
                   }}
                 >
-                  <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "12px",
+                    }}
+                  >
                     <div
                       style={{
                         fontSize: 14,
                         color: "#8c8c8c",
-                        marginBottom: 4,
                       }}
                     >
                       결제 이력
                     </div>
-                    <div style={{ fontSize: 16, color: "#222" }}>
+                    <Button
+                      type="text"
+                      size="small"
+                      onClick={() => router.push("/payment-history")}
+                    >
+                      전체보기
+                    </Button>
+                  </div>
+
+                  {loadingPaymentHistory ? (
+                    <div style={{ fontSize: 14, color: "#666" }}>
+                      로딩 중...
+                    </div>
+                  ) : paymentHistory.length > 0 ? (
+                    <div>
+                      {/* 미리보기 1건 */}
+                      <PaymentHistoryItem {...paymentHistory[0]} />
+
+                      {/* 추가 건수 표시 */}
+                      {paymentHistory.length > 1 && (
+                        <div
+                          style={{
+                            fontSize: 12,
+                            color: "#666",
+                            textAlign: "center",
+                            marginTop: "8px",
+                          }}
+                        >
+                          외 {paymentHistory.length - 1}건 더 보기
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: 14, color: "#666" }}>
                       결제 이력이 없습니다
                     </div>
-                  </div>
-                  <Button type="text" size="small">
-                    전체보기
-                  </Button>
+                  )}
                 </div>
               </div>
             </Card>

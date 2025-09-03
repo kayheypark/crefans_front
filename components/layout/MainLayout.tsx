@@ -69,6 +69,7 @@ const pageTitles: { [key: string]: string } = {
   "/profile/edit": "프로필 관리",
   "/write": "글쓰기",
   "/board": "게시판",
+  "/payment-history": "결제이력",
 };
 
 // 동적 라우팅을 위한 페이지 제목 매칭 함수
