@@ -1199,7 +1199,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
             <Button
               type="text"
               icon={<LayoutOutlined style={{ fontSize: "20px" }} />}
-              onClick={() => router.push("/feed")}
+              onClick={() => {
+                router.push("/feed");
+                // 모바일/태블릿에서 사이드바가 열려있다면 닫기
+                if ((isMobile || isTablet) && isSidebarOpen) {
+                  setIsSidebarOpen(false);
+                }
+              }}
               style={{
                 color: selectedMenu === "feed" ? "#1890ff" : "#666",
                 fontSize: "12px",
@@ -1216,7 +1222,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
             <Button
               type="text"
               icon={<CompassOutlined style={{ fontSize: "20px" }} />}
-              onClick={() => router.push("/explore")}
+              onClick={() => {
+                router.push("/explore");
+                // 모바일/태블릿에서 사이드바가 열려있다면 닫기
+                if ((isMobile || isTablet) && isSidebarOpen) {
+                  setIsSidebarOpen(false);
+                }
+              }}
               style={{
                 color: selectedMenu === "explore" ? "#1890ff" : "#666",
                 fontSize: "12px",
