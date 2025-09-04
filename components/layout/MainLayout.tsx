@@ -207,6 +207,10 @@ export default function MainLayout({ children }: MainLayoutProps) {
         router.push("/search");
         break;
     }
+    // 모바일과 태블릿에서 사이드바 닫기
+    if (isMobile || isTablet) {
+      setIsSidebarOpen(false);
+    }
   };
 
   const toggleSidebar = () => {
@@ -431,19 +435,37 @@ export default function MainLayout({ children }: MainLayoutProps) {
         key: "write",
         icon: <EditOutlined />,
         label: "글쓰기",
-        onClick: () => router.push("/write"),
+        onClick: () => {
+          router.push("/write");
+          // 모바일과 태블릿에서 사이드바 닫기
+          if (isMobile || isTablet) {
+            setIsSidebarOpen(false);
+          }
+        },
       },
       {
         key: "settings",
         icon: <SettingOutlined />,
         label: "설정",
-        onClick: () => router.push("/settings"),
+        onClick: () => {
+          router.push("/settings");
+          // 모바일과 태블릿에서 사이드바 닫기
+          if (isMobile || isTablet) {
+            setIsSidebarOpen(false);
+          }
+        },
       },
       {
         key: "profile",
         icon: <UserOutlined />,
         label: "프로필",
-        onClick: () => router.push("/profile"),
+        onClick: () => {
+          router.push("/profile");
+          // 모바일과 태블릿에서 사이드바 닫기
+          if (isMobile || isTablet) {
+            setIsSidebarOpen(false);
+          }
+        },
       },
       {
         key: "logout",
@@ -950,7 +972,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
                     letterSpacing: "-0.05em",
                   }}
                   onClick={() => {
-                    if (item.href) router.push(item.href);
+                    if (item.href) {
+                      router.push(item.href);
+                      // 모바일과 태블릿에서 사이드바 닫기
+                      if (isMobile || isTablet) {
+                        setIsSidebarOpen(false);
+                      }
+                    }
                   }}
                 >
                   {item.label}
@@ -1104,6 +1132,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
               paddingLeft: isMobile ? 0 : 15,
               paddingRight: isMobile ? 0 : 15,
               paddingTop: isMobile ? 0 : 12,
+              paddingBottom: isMobile ? "80px" : 12,
               minHeight: 280,
               backgroundColor: Colors.BACKGROUND, // 메인 컨텐츠 배경색
               transition: isTablet ? "width 0.3s ease-in-out" : "none",
