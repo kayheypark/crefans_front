@@ -93,6 +93,26 @@ export default function RootLayout({
             </AntdApp>
           </ConfigProvider>
         </StyledComponentsRegistry>
+
+        {/* Beusable RUM - 프로덕션 환경에서만 로드 */}
+        {process.env.NEXT_PUBLIC_APP_ENV === "prod" && (
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w, d, a){
+                    w.__beusablerumclient__ = {
+                        load : function(src){
+                            var b = d.createElement("script");
+                            b.src = src; b.async=true; b.type = "text/javascript";
+                            d.getElementsByTagName("head")[0].appendChild(b);
+                        }
+                    };w.__beusablerumclient__.load(a + "?url=" + encodeURIComponent(d.URL));
+                })(window, document, "//rum.beusable.net/load/b250905e064716u981");
+              `,
+            }}
+          />
+        )}
       </body>
     </html>
   );
