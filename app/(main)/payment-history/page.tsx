@@ -128,9 +128,9 @@ export default function PaymentHistoryPage() {
   }
 
   return (
-    <div style={{ padding: isMobile ? "16px" : "24px" }}>
+    <div style={{ padding: isMobile ? "0" : "24px" }}>
       {/* 필터 및 정렬 */}
-      <div style={{ marginBottom: "24px" }}>
+      <div>
         {/* 필터 영역 */}
         <div style={{ position: "relative" }}>
           <div
@@ -143,7 +143,7 @@ export default function PaymentHistoryPage() {
               backgroundColor: "#ffffff",
               borderRadius: "8px",
               marginBottom: "16px",
-              border: "1px solid #e0e0e0",
+              //   border: isMobile ? "none" : "1px solid #e0e0e0",
               overflowX: isMobile ? "auto" : "visible",
               overflowY: "hidden",
               whiteSpace: "nowrap",
@@ -255,7 +255,13 @@ export default function PaymentHistoryPage() {
             padding: "12px 0",
           }}
         >
-          <div style={{ fontSize: "14px", color: "#666" }}>
+          <div
+            style={{
+              fontSize: "14px",
+              color: "#666",
+              paddingLeft: isMobile ? "16px" : 0,
+            }}
+          >
             총 {paymentHistory.length}건
           </div>
 

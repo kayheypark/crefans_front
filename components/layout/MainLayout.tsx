@@ -1103,7 +1103,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 : Spacings.CONTENT_LAYOUT_WIDTH,
               paddingLeft: isMobile ? 0 : 15,
               paddingRight: isMobile ? 0 : 15,
-              paddingTop: 12,
+              paddingTop: isMobile ? 0 : 12,
               minHeight: 280,
               backgroundColor: Colors.BACKGROUND, // 메인 컨텐츠 배경색
               transition: isTablet ? "width 0.3s ease-in-out" : "none",
