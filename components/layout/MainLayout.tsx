@@ -613,7 +613,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
             flexDirection: "column",
             overflowY: "auto",
             zIndex: isMobile || isTablet ? 1001 : 999,
-            transition: isMobile || isTablet ? "left 0.3s ease-in-out" : "none",
+            transition:
+              isMobile || isTablet ? "left 100ms ease-in-out" : "none",
             boxShadow:
               isMobile || isTablet ? "2px 0 8px rgba(0,0,0,0.1)" : "none",
           }}
