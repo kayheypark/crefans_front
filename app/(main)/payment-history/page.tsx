@@ -49,63 +49,15 @@ export default function PaymentHistoryPage() {
     pageSize: 10,
     total: 0,
   });
-  const [showFilters, setShowFilters] = useState(false);
+
   const [filterValues, setFilterValues] = useState({
-    type: "all",
+    type: undefined as string | undefined,
     dateRange: null as any,
-    amountRange: "all",
+    amountRange: undefined as string | undefined,
   });
   const [sortType, setSortType] = useState<
     "latest" | "oldest" | "amountHigh" | "amountLow"
   >("latest");
-
-  // 필터 요약 텍스트 생성
-  const getFilterSummary = () => {
-    const filters = [];
-
-    if (filterValues.type !== "all") {
-      const typeLabel =
-        {
-          membership: "멤버십",
-          tip: "팁",
-          bean: "콩 구매",
-        }[filterValues.type] || filterValues.type;
-      filters.push(typeLabel);
-    }
-
-    if (
-      filterValues.dateRange &&
-      filterValues.dateRange[0] &&
-      filterValues.dateRange[1]
-    ) {
-      const startDate =
-        filterValues.dateRange[0]?.format?.("YYYY. MM. DD") ||
-        new Date(filterValues.dateRange[0]).toLocaleDateString("ko-KR", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        });
-      const endDate =
-        filterValues.dateRange[1]?.format?.("YYYY. MM. DD") ||
-        new Date(filterValues.dateRange[1]).toLocaleDateString("ko-KR", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        });
-      filters.push(`${startDate} ~ ${endDate}`);
-    }
-
-    if (filterValues.amountRange !== "all") {
-      const amountLabel = {
-        "0-10000": "1만원 이하",
-        "10000-50000": "1만원~5만원",
-        "50000+": "5만원 이상",
-      }[filterValues.amountRange];
-      filters.push(amountLabel);
-    }
-
-    return filters.length > 0 ? filters.join(" • ") : "전체보기";
-  };
 
   // 정렬된 결제이력 데이터 생성
   const getSortedPaymentHistory = () => {
@@ -177,57 +129,66 @@ export default function PaymentHistoryPage() {
 
   return (
     <div style={{ padding: isMobile ? "16px" : "24px" }}>
-      {/* 필터 */}
-      <Card style={{ marginBottom: "24px" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: showFilters ? "16px" : "0",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <FilterOutlined style={{ color: "#666" }} />
-            <span style={{ fontSize: "14px", color: "#666" }}>
-              {showFilters ? "필터" : getFilterSummary()}
-            </span>
-          </div>
-          <Button
-            type="text"
-            size="small"
-            onClick={() => setShowFilters(!showFilters)}
-            style={{ fontSize: "12px" }}
-          >
-            {showFilters ? "필터 숨기기" : "필터 보기"}
-          </Button>
-        </div>
-
-        {showFilters && (
+      {/* 필터 및 정렬 */}
+      <div style={{ marginBottom: "24px" }}>
+        {/* 필터 영역 */}
+        <div style={{ position: "relative" }}>
           <div
             style={{
               display: "flex",
-              flexDirection: isMobile ? "column" : "row",
+              flexDirection: "row",
               gap: "16px",
-              alignItems: isMobile ? "stretch" : "center",
+              alignItems: "center",
+              padding: "16px",
+              backgroundColor: "#ffffff",
+              borderRadius: "8px",
+              marginBottom: "16px",
+              border: "1px solid #e0e0e0",
+              overflowX: isMobile ? "auto" : "visible",
+              overflowY: "hidden",
+              whiteSpace: "nowrap",
+              WebkitOverflowScrolling: "touch",
             }}
           >
+            {/* 초기화 아이콘 */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                backgroundColor: "#fff",
+                border: "1px solid #e0e0e0",
+                cursor: "pointer",
+                flexShrink: 0,
+                minWidth: "32px",
+                minHeight: "32px",
+              }}
+              onClick={() =>
+                setFilterValues({
+                  type: undefined,
+                  dateRange: null as any,
+                  amountRange: undefined,
+                })
+              }
+            >
+              <span style={{ fontSize: "16px", color: "#666" }}>↻</span>
+            </div>
+
             {/* 결제 타입 필터 */}
             <div style={{ minWidth: isMobile ? "auto" : "120px" }}>
-              <div
-                style={{ fontSize: "12px", color: "#666", marginBottom: "4px" }}
-              >
-                결제 타입
-              </div>
               <Select
+                allowClear
                 value={filterValues.type}
                 onChange={(value) =>
                   setFilterValues({ ...filterValues, type: value })
                 }
-                style={{ width: "100%" }}
-                size="small"
+                style={{ width: "100%", borderRadius: "20px" }}
+                size="middle"
+                placeholder="결제유형"
                 options={[
-                  { value: "all", label: "전체" },
                   { value: "membership", label: "멤버십" },
                   { value: "tip", label: "팁" },
                   { value: "bean", label: "콩 구매" },
@@ -237,100 +198,81 @@ export default function PaymentHistoryPage() {
 
             {/* 날짜 범위 필터 */}
             <div style={{ minWidth: isMobile ? "auto" : "200px" }}>
-              <div
-                style={{ fontSize: "12px", color: "#666", marginBottom: "4px" }}
-              >
-                날짜 범위
-              </div>
               <DatePicker.RangePicker
                 value={filterValues.dateRange}
                 onChange={(dates: any) =>
                   setFilterValues({ ...filterValues, dateRange: dates })
                 }
-                style={{ width: "100%" }}
-                size="small"
+                style={{ width: "100%", borderRadius: "20px" }}
+                size="middle"
                 placeholder={["시작일", "종료일"]}
               />
             </div>
 
             {/* 금액 범위 필터 */}
             <div style={{ minWidth: isMobile ? "auto" : "120px" }}>
-              <div
-                style={{ fontSize: "12px", color: "#666", marginBottom: "4px" }}
-              >
-                금액 범위
-              </div>
               <Select
+                allowClear
                 value={filterValues.amountRange}
                 onChange={(value) =>
                   setFilterValues({ ...filterValues, amountRange: value })
                 }
-                style={{ width: "100%" }}
-                size="small"
+                style={{ width: "100%", borderRadius: "20px" }}
+                size="middle"
+                placeholder="금액구간"
                 options={[
-                  { value: "all", label: "전체" },
                   { value: "0-10000", label: "1만원 이하" },
                   { value: "10000-50000", label: "1만원~5만원" },
                   { value: "50000+", label: "5만원 이상" },
                 ]}
               />
             </div>
-
-            {/* 필터 적용/초기화 버튼 */}
+          </div>
+          {/* 오른쪽 그라디언트 오버레이 */}
+          {isMobile && (
             <div
               style={{
-                display: "flex",
-                gap: "8px",
-                marginTop: isMobile ? "8px" : "0",
+                position: "absolute",
+                top: 0,
+                right: 0,
+                width: "40px",
+                height: "100%",
+                background: "linear-gradient(to right, transparent, #ffffff)",
+                pointerEvents: "none",
+                zIndex: 1,
+                borderRadius: "0 8px 8px 0",
               }}
-            >
-              <Button type="primary" size="small" style={{ fontSize: "12px" }}>
-                필터 적용
-              </Button>
-              <Button
-                size="small"
-                style={{ fontSize: "12px" }}
-                onClick={() =>
-                  setFilterValues({
-                    type: "all",
-                    dateRange: null as any,
-                    amountRange: "all",
-                  })
-                }
-              >
-                초기화
-              </Button>
-            </div>
-          </div>
-        )}
-      </Card>
-
-      {/* 정렬 옵션 */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "24px",
-        }}
-      >
-        <div style={{ fontSize: "12px", color: "#666" }}>
-          총 {paymentHistory.length}건
+            />
+          )}
         </div>
 
-        {/* 정렬 셀렉트 박스 */}
-        <Select
-          value={sortType}
-          onChange={(value) => setSortType(value)}
-          style={{ width: "120px" }}
-          size="large"
-          options={[
-            { value: "latest", label: "최신순" },
-            { value: "oldest", label: "오래된순" },
-            { value: "amountHigh", label: "금액높은순" },
-            { value: "amountLow", label: "금액낮은순" },
-          ]}
-        />
+        {/* 검색 결과 요약 및 정렬 */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "12px 0",
+          }}
+        >
+          <div style={{ fontSize: "14px", color: "#666" }}>
+            총 {paymentHistory.length}건
+          </div>
+
+          {/* 정렬 셀렉트 박스 */}
+          <Select
+            value={sortType}
+            onChange={(value) => setSortType(value)}
+            style={{ width: "140px", borderRadius: "20px" }}
+            size="middle"
+            options={[
+              { value: "latest", label: "최신순" },
+              { value: "oldest", label: "오래된순" },
+              { value: "amountHigh", label: "금액높은순" },
+              { value: "amountLow", label: "금액낮은순" },
+            ]}
+          />
+        </div>
       </div>
 
       {/* 결제이력 목록 */}
@@ -350,7 +292,6 @@ export default function PaymentHistoryPage() {
           pageSize={pagination.pageSize}
           onChange={handlePageChange}
           showSizeChanger={false}
-          showQuickJumper
           showTotal={(total, range) =>
             `${range[0]}-${range[1]} / 총 ${total}건`
           }
