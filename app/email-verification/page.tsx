@@ -2,9 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Card, Spin, Alert, Button } from "antd";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { Card, Spin, Alert, Button, Typography, Space } from "antd";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  MailOutlined,
+  HomeOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import axios from "axios";
+
+const { Title, Text } = Typography;
 
 export default function EmailLinkAuthPage() {
   const searchParams = useSearchParams();
@@ -77,42 +85,118 @@ export default function EmailLinkAuthPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#f5f5f5",
+        background: "#ffffff",
+        padding: "20px",
       }}
     >
-      <Card style={{ width: 400, textAlign: "center" }}>
+      <Card
+        style={{
+          width: "100%",
+          maxWidth: 480,
+          textAlign: "center",
+          borderRadius: "8px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          border: "1px solid #f0f0f0",
+        }}
+        bodyStyle={{ padding: "40px 32px" }}
+      >
         {loading ? (
-          <div>
+          <Space direction="vertical" size="large" style={{ width: "100%" }}>
             <Spin size="large" />
-            <p style={{ marginTop: 16 }}>이메일 인증을 처리하고 있습니다...</p>
-          </div>
+            <div>
+              <Title level={3} style={{ margin: 0, color: "#262626" }}>
+                이메일 인증 중
+              </Title>
+              <Text type="secondary" style={{ fontSize: "16px" }}>
+                잠시만 기다려주세요...
+              </Text>
+            </div>
+          </Space>
         ) : success ? (
-          <div>
+          <Space direction="vertical" size="large" style={{ width: "100%" }}>
             <CheckCircleOutlined
-              style={{ fontSize: 48, color: "#52c41a", marginBottom: 16 }}
+              style={{
+                fontSize: "48px",
+                color: "#52c41a",
+              }}
             />
-            <h2>이메일 인증 완료</h2>
-            <p>이메일 인증이 성공적으로 완료되었습니다.</p>
-            <p style={{ fontSize: "16px", color: "#1890ff", marginTop: 16 }}>
-              {countdown}초 후 메인페이지로 이동합니다.
-            </p>
-          </div>
+            <div>
+              <Title level={2} style={{ margin: 0, color: "#262626" }}>
+                인증 완료!
+              </Title>
+              <Text
+                type="secondary"
+                style={{ fontSize: "16px", display: "block", marginTop: "8px" }}
+              >
+                이메일 인증이 성공적으로 완료되었습니다.
+              </Text>
+            </div>
+            <div
+              style={{
+                background: "#f6ffed",
+                border: "1px solid #b7eb8f",
+                borderRadius: "6px",
+                padding: "16px",
+                marginTop: "16px",
+              }}
+            >
+              <Text
+                style={{ color: "#389e0d", fontSize: "16px", fontWeight: 500 }}
+              >
+                {countdown}초 후 메인페이지로 자동 이동합니다
+              </Text>
+            </div>
+            <Button
+              type="primary"
+              size="large"
+              icon={<HomeOutlined />}
+              onClick={handleGoToHome}
+              style={{
+                marginTop: "8px",
+              }}
+            >
+              지금 홈으로 가기
+            </Button>
+          </Space>
         ) : (
-          <div>
+          <Space direction="vertical" size="large" style={{ width: "100%" }}>
             <CloseCircleOutlined
-              style={{ fontSize: 48, color: "#ff4d4f", marginBottom: 16 }}
+              style={{
+                fontSize: "48px",
+                color: "#ff4d4f",
+              }}
             />
-            <h2>이메일 인증 실패</h2>
+            <div>
+              <Title level={2} style={{ margin: 0, color: "#262626" }}>
+                인증 실패
+              </Title>
+              <Text
+                type="secondary"
+                style={{ fontSize: "16px", display: "block", marginTop: "8px" }}
+              >
+                이메일 인증에 실패했습니다.
+              </Text>
+            </div>
             <Alert
               message={error}
               type="error"
-              style={{ marginBottom: 16 }}
+              style={{
+                borderRadius: "6px",
+              }}
               showIcon
             />
-            <Button type="primary" onClick={handleGoToHome}>
-              홈으로 가기
+            <Button
+              type="primary"
+              size="large"
+              icon={<HomeOutlined />}
+              onClick={handleGoToHome}
+              style={{
+                marginTop: "8px",
+              }}
+            >
+              홈으로 돌아가기
             </Button>
-          </div>
+          </Space>
         )}
       </Card>
     </div>
