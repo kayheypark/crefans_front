@@ -55,10 +55,6 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
   const [isCheckingEmail, setIsCheckingEmail] = useState(false);
   const [isEmailExists, setIsEmailExists] = useState(false);
   const [emailError, setEmailError] = useState<string>("");
-  const [verificationCode, setVerificationCode] = useState("");
-  const [isVerifying, setIsVerifying] = useState(false);
-  const [resendTimer, setResendTimer] = useState(0);
-  const [isResending, setIsResending] = useState(false);
 
   // 약관 개별동의 핸들러
   const handleAgreementChange = (key: string, checked: boolean) => {
@@ -224,7 +220,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
         phoneNumber: phonePrefix + userInfo.phoneNumber,
       });
       setStep(3);
-      message.success("회원가입이 완료되었습니다! 이메일 인증을 진행해주세요.");
+      message.success("회원가입이 완료되었습니다! 이메일을 확인해주세요.");
     } catch (err: any) {
       message.error(
         err?.response?.data?.message || "회원가입 중 오류가 발생했습니다."
@@ -234,50 +230,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     }
   };
 
-  // 인증코드 확인 핸들러
-  const handleVerifyCode = async () => {
-    if (!verificationCode) {
-      message.error("인증코드를 입력해주세요.");
-      return;
-    }
-    setIsVerifying(true);
-    try {
-      await authAPI.confirmSignup(email, verificationCode);
-      message.success("이메일 인증이 완료되었습니다! 로그인을 진행해주세요");
-      handleClose();
-    } catch (err: any) {
-      message.error(
-        err?.response?.data?.message || "인증코드 확인 중 오류가 발생했습니다."
-      );
-    } finally {
-      setIsVerifying(false);
-    }
-  };
 
-  // 인증코드 재전송 핸들러
-  const handleResendCode = async () => {
-    setIsResending(true);
-    try {
-      await authAPI.resendConfirmationCode(email);
-      message.success("인증코드를 다시 전송했습니다.");
-      setResendTimer(60);
-    } catch (err: any) {
-      message.error(
-        err?.response?.data?.message ||
-          "인증코드 재전송 중 오류가 발생했습니다."
-      );
-    } finally {
-      setIsResending(false);
-    }
-  };
-
-  // 타이머 감소 effect
-  useEffect(() => {
-    if (resendTimer > 0) {
-      const timer = setTimeout(() => setResendTimer(resendTimer - 1), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [resendTimer]);
 
   // 모달 닫기 시 상태 초기화
   const handleClose = () => {
@@ -285,7 +238,6 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     setEmail("");
     setIsEmailExists(false);
     setEmailError("");
-    setVerificationCode("");
     setUserInfo({ name: "", password: "", phoneNumber: "", nickname: "" });
     setAgreements({
       all: false,
@@ -700,62 +652,47 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
             padding: "48px 0 40px 0",
           }}
         >
+          <MailOutlined 
+            style={{ 
+              fontSize: 64, 
+              color: "#1677ff", 
+              marginBottom: 24 
+            }} 
+          />
           <Title
             level={3}
             style={{ marginBottom: 20, marginTop: 0, textAlign: "center" }}
           >
-            인증을 완료해주세요!
+            이메일을 확인해주세요!
           </Title>
           <Text
             style={{
               color: "#666",
               fontSize: 16,
-              marginBottom: 28,
+              marginBottom: 12,
               textAlign: "center",
               display: "block",
+              lineHeight: 1.5,
             }}
           >
-            이메일로 인증코드를 전송했습니다.
+            <strong>{email}</strong> 으로<br />
+            인증 링크를 전송했습니다.
           </Text>
-          <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
-            <Input
-              size="large"
-              placeholder="인증코드를 입력해주세요"
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
-              style={{
-                borderRadius: 12,
-                marginBottom: 6,
-                width: 180,
-                textAlign: "center",
-              }}
-            />
-            <Button
-              size="large"
-              style={{ borderRadius: 12, width: 90 }}
-              onClick={handleResendCode}
-              disabled={resendTimer > 0 || isResending}
-              loading={isResending}
-            >
-              {resendTimer > 0 ? `재전송(${resendTimer})` : "재전송"}
-            </Button>
-          </div>
-          <Button
-            type="primary"
-            size="large"
+          <Text
             style={{
-              borderRadius: 16,
-              fontWeight: 600,
-              fontSize: 18,
-              width: 280,
-              marginBottom: 18,
+              color: "#999",
+              fontSize: 14,
+              marginBottom: 32,
+              textAlign: "center",
+              display: "block",
+              lineHeight: 1.4,
             }}
-            block
-            loading={isVerifying}
-            onClick={handleVerifyCode}
           >
-            인증하기
-          </Button>
+            이메일의 "이메일 인증하기" 버튼을 클릭하여<br />
+            회원가입을 완료해주세요.
+          </Text>
+          
+
           <Button
             type="link"
             style={{
