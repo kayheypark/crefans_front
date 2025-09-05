@@ -323,149 +323,156 @@ export default function Feed() {
   }, [searchParams]);
 
   return (
-    <Layout
-      style={{
-        width: isMobile ? "100%" : isTablet ? "90%" : "800px",
-        margin: "0 auto",
-        padding: isMobile ? "16px" : "20px",
-        background: "transparent",
-      }}
-    >
-      {/* 필터 */}
-      <FeedFilter
-        filter={filter}
-        onFilterChange={(newFilter) => {
-          setFilter(newFilter as "all" | "membership" | "public");
-          const params = new URLSearchParams(searchParams.toString());
-          params.set("feedFilter", newFilter);
-          router.push(`?${params.toString()}`);
+    <>
+      <Layout
+        style={{
+          width: isMobile ? "100%" : isTablet ? "90%" : "800px",
+          margin: "0 auto",
+          padding: isMobile ? "16px" : "20px",
+          background: "transparent",
         }}
-        filters={[
-          { key: "all", label: "모든 포스팅" },
-          { key: "membership", label: "멤버십 전용" },
-          { key: "public", label: "공개" },
-        ]}
-        type="explore"
-        style={{ marginBottom: 30 }}
-      />
-
-      {/* 피드 컨텐츠 */}
-      <div style={{ marginTop: 0 }}>
-        <InfiniteScroll
-          dataLength={uniqueFilteredPosts.length}
-          next={loadMoreData}
-          hasMore={hasMore}
-          loader={
-            <div style={{ textAlign: "center", padding: "20px" }}>
-              <Spin />
-            </div>
-          }
-          endMessage={
-            <div style={{ textAlign: "center", padding: "20px" }}>
-              <Empty
-                description="더 이상 확인할 게시글이 없습니다."
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-              />
-            </div>
-          }
-        >
-          {uniqueFilteredPosts.map((post) => (
-            <Post
-              key={post.id}
-              post={transformPostForComponent(post)}
-              likedPosts={likedPosts}
-              expandedPosts={expandedPosts}
-              relativeDatePosts={relativeDatePosts}
-              openReplies={openReplies}
-              onLike={handleLike}
-              onToggleExpand={togglePostExpand}
-              onToggleDateType={toggleDateType}
-              onToggleReplies={toggleReplies}
-              onCommentInputClick={handleCommentInputClick}
-              onCommentSubmit={handleCommentSubmit}
-              onShare={handleSharePost}
-              onReport={handleReportPost}
-              formatDate={formatDate}
-              formatFullDate={formatFullDate}
-            />
-          ))}
-        </InfiniteScroll>
-      </div>
-
-      {/* 공유하기 모달 */}
-      <Modal
-        title="공유하기"
-        open={isShareModalVisible}
-        onCancel={() => setIsShareModalVisible(false)}
-        footer={null}
-        width={400}
       >
-        <div style={{ textAlign: "center" }}>
-          <Space direction="vertical" size="large" style={{ width: "100%" }}>
-            <div>
-              <Input
-                value={`https://www.crefans.com/post/${selectedPostId}`}
-                readOnly
-                suffix={
-                  <Button
-                    type="text"
-                    icon={<LinkOutlined />}
-                    onClick={() => {
-                      navigator.clipboard.writeText(
-                        `https://www.crefans.com/post/${selectedPostId}`
-                      );
-                      message.success("링크가 복사되었습니다.");
-                    }}
-                  />
-                }
+        {/* 필터 */}
+        <FeedFilter
+          filter={filter}
+          onFilterChange={(newFilter) => {
+            setFilter(newFilter as "all" | "membership" | "public");
+            const params = new URLSearchParams(searchParams.toString());
+            params.set("feedFilter", newFilter);
+            router.push(`?${params.toString()}`);
+          }}
+          filters={[
+            { key: "all", label: "모든 포스팅" },
+            { key: "membership", label: "멤버십 전용" },
+            { key: "public", label: "공개" },
+          ]}
+          type="explore"
+          style={{ marginBottom: 30 }}
+        />
+      </Layout>
+      <Layout>
+        {/* 피드 컨텐츠 */}
+        <div style={{ marginTop: 0 }}>
+          <InfiniteScroll
+            dataLength={uniqueFilteredPosts.length}
+            next={loadMoreData}
+            hasMore={hasMore}
+            loader={
+              <div style={{ textAlign: "center", padding: "20px" }}>
+                <Spin />
+              </div>
+            }
+            endMessage={
+              <div style={{ textAlign: "center", padding: "20px" }}>
+                <Empty
+                  description="더 이상 확인할 게시글이 없습니다."
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                />
+              </div>
+            }
+          >
+            {uniqueFilteredPosts.map((post) => (
+              <Post
+                key={post.id}
+                post={transformPostForComponent(post)}
+                likedPosts={likedPosts}
+                expandedPosts={expandedPosts}
+                relativeDatePosts={relativeDatePosts}
+                openReplies={openReplies}
+                onLike={handleLike}
+                onToggleExpand={togglePostExpand}
+                onToggleDateType={toggleDateType}
+                onToggleReplies={toggleReplies}
+                onCommentInputClick={handleCommentInputClick}
+                onCommentSubmit={handleCommentSubmit}
+                onShare={handleSharePost}
+                onReport={handleReportPost}
+                formatDate={formatDate}
+                formatFullDate={formatFullDate}
               />
-            </div>
-            <div
-              style={{ display: "flex", justifyContent: "center", gap: "24px" }}
-            >
-              <Button
-                type="text"
-                icon={
-                  <FacebookOutlined
-                    style={{ fontSize: "24px", color: "#1877F2" }}
-                  />
-                }
-                onClick={() => handleShare("Facebook")}
-              />
-              <Button
-                type="text"
-                icon={
-                  <TwitterOutlined
-                    style={{ fontSize: "24px", color: "#1DA1F2" }}
-                  />
-                }
-                onClick={() => handleShare("Twitter")}
-              />
-              <Button
-                type="text"
-                icon={
-                  <InstagramOutlined
-                    style={{ fontSize: "24px", color: "#E4405F" }}
-                  />
-                }
-                onClick={() => handleShare("Instagram")}
-              />
-            </div>
-          </Space>
+            ))}
+          </InfiniteScroll>
         </div>
-      </Modal>
 
-      {/* 신고하기 모달 */}
-      <ReportModal
-        open={isReportModalVisible}
-        onClose={() => setIsReportModalVisible(false)}
-        onSubmit={handleReport}
-      />
+        {/* 공유하기 모달 */}
+        <Modal
+          title="공유하기"
+          open={isShareModalVisible}
+          onCancel={() => setIsShareModalVisible(false)}
+          footer={null}
+          width={400}
+        >
+          <div style={{ textAlign: "center" }}>
+            <Space direction="vertical" size="large" style={{ width: "100%" }}>
+              <div>
+                <Input
+                  value={`https://www.crefans.com/post/${selectedPostId}`}
+                  readOnly
+                  suffix={
+                    <Button
+                      type="text"
+                      icon={<LinkOutlined />}
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          `https://www.crefans.com/post/${selectedPostId}`
+                        );
+                        message.success("링크가 복사되었습니다.");
+                      }}
+                    />
+                  }
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "24px",
+                }}
+              >
+                <Button
+                  type="text"
+                  icon={
+                    <FacebookOutlined
+                      style={{ fontSize: "24px", color: "#1877F2" }}
+                    />
+                  }
+                  onClick={() => handleShare("Facebook")}
+                />
+                <Button
+                  type="text"
+                  icon={
+                    <TwitterOutlined
+                      style={{ fontSize: "24px", color: "#1DA1F2" }}
+                    />
+                  }
+                  onClick={() => handleShare("Twitter")}
+                />
+                <Button
+                  type="text"
+                  icon={
+                    <InstagramOutlined
+                      style={{ fontSize: "24px", color: "#E4405F" }}
+                    />
+                  }
+                  onClick={() => handleShare("Instagram")}
+                />
+              </div>
+            </Space>
+          </div>
+        </Modal>
 
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-      />
-    </Layout>
+        {/* 신고하기 모달 */}
+        <ReportModal
+          open={isReportModalVisible}
+          onClose={() => setIsReportModalVisible(false)}
+          onSubmit={handleReport}
+        />
+
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      </Layout>
+    </>
   );
 }
