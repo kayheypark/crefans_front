@@ -1,16 +1,19 @@
-[
-  {
-    "id": 1,
-    "type": "card",
-    "cardType": "visa",
-    "cardNumber": "****-****-****-1234",
-    "cardholderName": "홍길동",
-    "expiryDate": "12/25",
-    "alias": "개인카드",
-    "isDefault": true,
-    "isActive": true,
-    "createdAt": "2024-01-15T10:30:00Z"
-  },
+{
+  "success": true,
+  "message": "결제 수단 목록을 성공적으로 조회했습니다.",
+  "data": [
+    {
+      "id": 1,
+      "type": "card",
+      "cardType": "visa",
+      "cardNumber": "****-****-****-1234",
+      "cardholderName": "홍길동",
+      "expiryDate": "12/25",
+      "alias": "개인카드",
+      "isDefault": true,
+      "isActive": true,
+      "createdAt": "2024-01-15T10:30:00Z"
+    },
   {
     "id": 2,
     "type": "card",
@@ -34,5 +37,6 @@
     "isDefault": false,
     "isActive": false,
     "createdAt": "2023-11-10T09:45:00Z"
-  }
-]
+    }
+  ]
+}

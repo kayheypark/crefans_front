@@ -102,14 +102,16 @@ export default function Profile() {
   // Feed에서 사용하는 목업 데이터 fetch
   const fetchFeedData = async () => {
     const res = await fetch("/mock/feed.json");
-    const data: Post[] = await res.json();
+    const apiResponse = await res.json();
+    const data: Post[] = apiResponse.data;
     return data;
   };
 
   // 미디어 데이터 fetch
   const fetchMediaData = async () => {
     const res = await fetch("/mock/media.json");
-    const data: MediaItem[] = await res.json();
+    const apiResponse = await res.json();
+    const data: MediaItem[] = apiResponse.data;
     return data;
   };
 

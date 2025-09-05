@@ -1,5 +1,8 @@
-[
-  {
+{
+  "success": true,
+  "message": "피드를 성공적으로 조회했습니다.",
+  "data": [
+    {
     "id": 1,
     "creator": {
       "id": 1,
@@ -228,5 +231,6 @@
     "isMembershipOnly": true,
     "isGotMembership": false,
     "createdAt": "2024-03-10T17:30:00.000Z"
-  }
-]
+    }
+  ]
+}

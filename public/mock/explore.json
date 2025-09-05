@@ -1,5 +1,8 @@
 {
-  "newCreators": [
+  "success": true,
+  "message": "탐색 데이터를 성공적으로 조회했습니다.",
+  "data": {
+    "newCreators": [
     {
       "id": 1,
       "name": "새로운 크리에이터 1",
@@ -443,5 +446,6 @@
         "category": "주식"
       }
     ]
+    }
   }
 }

@@ -1,5 +1,8 @@
 {
-  "ASMR": [
+  "success": true,
+  "message": "카테고리별 크리에이터를 성공적으로 조회했습니다.",
+  "data": {
+    "ASMR": [
     {
       "id": 101,
       "name": "ASMR_크리에이터_101",
@@ -370,5 +373,6 @@
       "postCount": 823,
       "category": "주식"
     }
-  ]
+    ]
+  }
 }

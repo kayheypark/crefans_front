@@ -118,7 +118,8 @@ export default function Feed() {
   // JSON에서 데이터 fetch
   const fetchFeedData = async (page: number, pageSize: number) => {
     const res = await fetch("/mock/feed.json");
-    const data: Post[] = await res.json();
+    const apiResponse = await res.json();
+    const data: Post[] = apiResponse.data;
     // 페이지네이션 흉내
     return data.slice((page - 1) * pageSize, page * pageSize);
   };

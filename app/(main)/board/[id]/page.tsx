@@ -42,8 +42,8 @@ export default function BoardViewPage() {
       try {
         setLoading(true);
         const response = await fetch("/mock/boardView.json");
-        const data = await response.json();
-        const postDetail = data[postId];
+        const apiResponse = await response.json();
+        const postDetail = apiResponse.data[postId];
 
         if (postDetail) {
           setPost(postDetail);

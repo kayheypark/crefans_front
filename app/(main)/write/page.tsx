@@ -91,8 +91,8 @@ export default function WritePage() {
     const fetchMemberships = async () => {
       try {
         const response = await fetch("/mock/memberships.json");
-        const data = await response.json();
-        setMemberships(data);
+        const apiResponse = await response.json();
+        setMemberships(apiResponse.data);
       } catch (error) {
         console.error("멤버십 데이터를 불러오는데 실패했습니다:", error);
       }

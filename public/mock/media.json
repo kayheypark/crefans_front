@@ -1,15 +1,18 @@
-[
-  {
-    "id": 1,
-    "title": "워싱턴 D.C. 항공 뷰",
-    "type": "video",
-    "url": "/video_1.mp4",
-    "thumbnail": "/image_1_160x120.png",
-    "createdAt": "2024-01-15T10:30:00Z",
-    "views": 15420,
-    "likes": 892,
-    "duration": "2:29"
-  },
+{
+  "success": true,
+  "message": "미디어 목록을 성공적으로 조회했습니다.",
+  "data": [
+    {
+      "id": 1,
+      "title": "워싱턴 D.C. 항공 뷰",
+      "type": "video",
+      "url": "/video_1.mp4",
+      "thumbnail": "/image_1_160x120.png",
+      "createdAt": "2024-01-15T10:30:00Z",
+      "views": 15420,
+      "likes": 892,
+      "duration": "2:29"
+    },
   {
     "id": 2,
     "title": "도시 스카이라인",
@@ -314,5 +317,6 @@
     "views": 18760,
     "likes": 876,
     "duration": "9:21"
-  }
-]
+    }
+  ]
+}

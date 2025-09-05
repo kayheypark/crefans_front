@@ -64,8 +64,8 @@ export default function Settings() {
     setLoadingPaymentMethods(true);
     fetch("/mock/paymentMethods.json")
       .then((res) => res.json())
-      .then((data) => {
-        setPaymentMethods(data);
+      .then((apiResponse) => {
+        setPaymentMethods(apiResponse.data);
         setLoadingPaymentMethods(false);
       })
       .catch((error) => {
@@ -79,8 +79,8 @@ export default function Settings() {
     setLoadingPaymentHistory(true);
     fetch("/mock/paymentHistory.json")
       .then((res) => res.json())
-      .then((data) => {
-        setPaymentHistory(data);
+      .then((apiResponse) => {
+        setPaymentHistory(apiResponse.data);
         setLoadingPaymentHistory(false);
       })
       .catch((error) => {

@@ -1,10 +1,13 @@
-[
-  {
-    "key": "membership-creator-1",
-    "name": "달그림자",
-    "avatar": "/profile-90.png",
-    "unread": true
-  },
+{
+  "success": true,
+  "message": "멤버십 크리에이터 목록을 성공적으로 조회했습니다.",
+  "data": [
+    {
+      "key": "membership-creator-1",
+      "name": "달그림자",
+      "avatar": "/profile-90.png",
+      "unread": true
+    },
   {
     "key": "membership-creator-2",
     "name": "하루콩",
@@ -70,5 +73,6 @@
     "name": "비트폭격기",
     "avatar": "/profile-90.png",
     "unread": true
-  }
-]
+    }
+  ]
+}

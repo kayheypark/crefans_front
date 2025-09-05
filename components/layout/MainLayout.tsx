@@ -149,19 +149,19 @@ export default function MainLayout({ children }: MainLayoutProps) {
     // 알림 mock 데이터 fetch
     fetch("/mock/notifications.json")
       .then((res) => res.json())
-      .then((data) => {
-        setNotifications(data);
-        setUnreadNotifications(data.length);
+      .then((apiResponse) => {
+        setNotifications(apiResponse.data);
+        setUnreadNotifications(apiResponse.data.length);
       });
 
     // 크리에이터 데이터 fetch
     fetch("/mock/membershipCreators.json")
       .then((res) => res.json())
-      .then(setMembershipCreators);
+      .then((apiResponse) => setMembershipCreators(apiResponse.data));
 
     fetch("/mock/followCreators.json")
       .then((res) => res.json())
-      .then(setFollowCreators);
+      .then((apiResponse) => setFollowCreators(apiResponse.data));
   }, []);
 
   useEffect(() => {

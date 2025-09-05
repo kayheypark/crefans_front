@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ConfigProvider, App as AntdApp } from "antd";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -10,12 +10,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "crefans",
   description: "당신만의 크리에이터를 만나보세요",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

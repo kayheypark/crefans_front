@@ -1,5 +1,8 @@
 {
-  "data": [
+  "success": true,
+  "message": "결제 내역을 성공적으로 조회했습니다.",
+  "data": {
+    "items": [
     {
       "id": 1,
       "type": "membership",
@@ -121,10 +124,11 @@
       "date": "2024-01-06T09:15:00Z",
       "merchant": "크리에이터 I"
     }
-  ],
-  "pagination": {
-    "current": 1,
-    "pageSize": 10,
-    "total": 25
+    ],
+    "pagination": {
+      "current": 1,
+      "pageSize": 10,
+      "total": 25
+    }
   }
 }

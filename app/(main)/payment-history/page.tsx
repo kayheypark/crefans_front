@@ -30,11 +30,15 @@ interface PaymentHistoryItem {
 }
 
 interface PaymentHistoryResponse {
-  data: PaymentHistoryItem[];
-  pagination: {
-    current: number;
-    pageSize: number;
-    total: number;
+  success: boolean;
+  message: string;
+  data: {
+    items: PaymentHistoryItem[];
+    pagination: {
+      current: number;
+      pageSize: number;
+      total: number;
+    };
   };
 }
 
@@ -88,18 +92,22 @@ export default function PaymentHistoryPage() {
     try {
       // 실제 API 호출 시에는 페이지 번호를 쿼리 파라미터로 전달
       const response = await fetch("/mock/paymentHistoryFull.json");
-      const data: PaymentHistoryResponse = await response.json();
+      const apiResponse: PaymentHistoryResponse = await response.json();
+
+      if (!apiResponse.success) {
+        throw new Error(apiResponse.message || "결제 내역 조회에 실패했습니다.");
+      }
 
       // 페이징 처리 (실제 API에서는 서버에서 처리)
       const startIndex = (page - 1) * pagination.pageSize;
       const endIndex = startIndex + pagination.pageSize;
-      const pageData = data.data.slice(startIndex, endIndex);
+      const pageData = apiResponse.data.items.slice(startIndex, endIndex);
 
       setPaymentHistory(pageData);
       setPagination({
         ...pagination,
         current: page,
-        total: data.pagination.total,
+        total: apiResponse.data.pagination.total,
       });
     } catch (error) {
       console.error("결제이력 조회 실패:", error);

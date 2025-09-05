@@ -1,10 +1,13 @@
-[
-  {
-    "key": "follow-creator-1",
-    "name": "겜순이네",
-    "avatar": "/profile-90.png",
-    "unread": false
-  },
+{
+  "success": true,
+  "message": "팔로우 크리에이터 목록을 성공적으로 조회했습니다.",
+  "data": [
+    {
+      "key": "follow-creator-1",
+      "name": "겜순이네",
+      "avatar": "/profile-90.png",
+      "unread": false
+    },
   {
     "key": "follow-creator-2",
     "name": "버그맛쿠키",
@@ -70,5 +73,6 @@
     "name": "리얼후기상점",
     "avatar": "/profile-90.png",
     "unread": false
-  }
-]
+    }
+  ]
+}

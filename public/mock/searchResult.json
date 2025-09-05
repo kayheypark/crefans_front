@@ -1,5 +1,8 @@
 {
-  "creators": [
+  "success": true,
+  "message": "검색 결과를 성공적으로 조회했습니다.",
+  "data": {
+    "creators": [
     {
       "key": "creator1",
       "name": "크리에이터1",
@@ -39,5 +42,6 @@
       "duration": "03:12",
       "tags": ["인디게임", "크래프트월드", "비하인드"]
     }
-  ]
+    ]
+  }
 }

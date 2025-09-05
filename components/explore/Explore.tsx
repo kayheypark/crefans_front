@@ -114,11 +114,11 @@ export default function Explore() {
           fetch("/mock/explore_more.json"),
         ]);
 
-        const exploreData = await exploreResponse.json();
-        const moreData = await moreResponse.json();
+        const exploreApiResponse = await exploreResponse.json();
+        const moreApiResponse = await moreResponse.json();
 
-        setExploreData(exploreData);
-        setExploreMoreData(moreData);
+        setExploreData(exploreApiResponse.data);
+        setExploreMoreData(moreApiResponse.data);
       } catch (error) {
         console.error("Failed to fetch explore data:", error);
       } finally {

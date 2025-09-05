@@ -54,7 +54,7 @@ export default function LoginModal({
       // 로그인 성공 후 사용자 정보 요청
       const userRes = await authAPI.getMe();
 
-      // idToken 구조에 맞게 사용자 정보 변환
+      // API 응답 구조에 맞게 사용자 정보 변환
       const user = userRes.data.user;
 
       login(user.attributes);

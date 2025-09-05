@@ -33,8 +33,8 @@ export default function BoardPage() {
     const loadBoardList = async () => {
       try {
         const response = await fetch("/mock/boardList.json");
-        const data = await response.json();
-        setBoardList(data.data);
+        const apiResponse = await response.json();
+        setBoardList(apiResponse.data.posts);
       } catch (error) {
         console.error("게시글 목록을 불러오는데 실패했습니다:", error);
       } finally {
