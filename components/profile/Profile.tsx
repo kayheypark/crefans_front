@@ -431,6 +431,7 @@ export default function Profile() {
           alignItems: "flex-start",
           gap: 16,
           marginBottom: 24,
+          padding: "0 16px",
           position: "relative",
         }}
       >
