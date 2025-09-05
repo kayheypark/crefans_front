@@ -132,6 +132,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false);
 
   // 클라이언트 마운트 후 로컬스토리지에서 상태 불러오기
   useEffect(() => {
@@ -1074,50 +1075,19 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 {getPageTitle(pathname)}
               </Title>
               {isMobile && (
-                <div
+                <Button
+                  type="text"
+                  size="middle"
+                  icon={<SearchOutlined />}
+                  onClick={() => setIsSearchOverlayOpen(true)}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    // flex: 1,
-                    maxWidth: isSearchFocused ? "190px" : "100px",
-                    transition: "max-width 0.3s ease",
+                    borderRadius: 20,
+                    minWidth: 40,
+                    height: 40,
+                    color: "#666",
+                    border: "1px solid #d9d9d9",
                   }}
-                >
-                  <Input
-                    placeholder={isSearchFocused ? "무엇이든 찾으세요" : "검색"}
-                    size="middle"
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    onFocus={() => setIsSearchFocused(true)}
-                    onBlur={() => {
-                      if (!searchValue) {
-                        setIsSearchFocused(false);
-                      }
-                    }}
-                    allowClear
-                    style={{
-                      width: isSearchFocused ? "220px" : "120px",
-                      transition: "width 0.3s ease",
-                      borderRadius: 20,
-                      height: 40,
-                    }}
-                  />
-                  {isSearchFocused && (
-                    <Button
-                      type="text"
-                      size="middle"
-                      icon={<SearchOutlined />}
-                      style={{
-                        borderRadius: 20,
-                        minWidth: 40,
-                        height: 40,
-                        color: "#666",
-                        border: "1px solid #d9d9d9",
-                      }}
-                    />
-                  )}
-                </div>
+                />
               )}
             </div>
           )}
@@ -1280,6 +1250,121 @@ export default function MainLayout({ children }: MainLayoutProps) {
               >
                 로그인
               </Button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* 검색 오버레이 */}
+      {isSearchOverlayOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 9999,
+            display: "flex",
+            flexDirection: "column",
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsSearchOverlayOpen(false);
+            }
+          }}
+        >
+          {/* 검색 헤더 */}
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              padding: "16px",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              borderBottom: "1px solid #f0f0f0",
+            }}
+          >
+            <Button
+              type="text"
+              icon={<ArrowLeftOutlined />}
+              onClick={() => setIsSearchOverlayOpen(false)}
+              style={{ minWidth: "40px", height: "40px" }}
+            />
+            <Input
+              placeholder="무엇이든 찾으세요"
+              size="large"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              autoFocus
+              allowClear
+              style={{
+                flex: 1,
+                borderRadius: "20px",
+                height: "40px",
+              }}
+            />
+            <Button
+              type="primary"
+              icon={<SearchOutlined />}
+              onClick={() => {
+                // 검색 로직 구현
+                console.log("검색:", searchValue);
+              }}
+              style={{
+                borderRadius: "20px",
+                minWidth: "40px",
+                height: "40px",
+              }}
+            />
+          </div>
+
+          {/* 검색 결과 영역 */}
+          <div
+            style={{
+              flex: 1,
+              backgroundColor: "#ffffff",
+              padding: "20px",
+              overflow: "auto",
+            }}
+          >
+            {searchValue ? (
+              <div>
+                <Title level={4} style={{ marginBottom: "16px" }}>
+                  "{searchValue}" 검색 결과
+                </Title>
+                <Empty
+                  description="검색 기능은 추후 구현 예정입니다"
+                  style={{ marginTop: "60px" }}
+                />
+              </div>
+            ) : (
+              <div>
+                <Title level={4} style={{ marginBottom: "16px" }}>
+                  인기 검색어
+                </Title>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                  {["크리에이터", "사진", "동영상", "멤버십", "팔로우"].map(
+                    (keyword) => (
+                      <Button
+                        key={keyword}
+                        type="text"
+                        size="small"
+                        onClick={() => setSearchValue(keyword)}
+                        style={{
+                          borderRadius: "16px",
+                          border: "1px solid #d9d9d9",
+                          height: "32px",
+                          padding: "0 12px",
+                        }}
+                      >
+                        {keyword}
+                      </Button>
+                    )
+                  )}
+                </div>
+              </div>
             )}
           </div>
         </div>
