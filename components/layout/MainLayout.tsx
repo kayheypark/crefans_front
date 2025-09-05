@@ -430,6 +430,23 @@ export default function MainLayout({ children }: MainLayoutProps) {
     ],
   };
 
+  // 사용자 메뉴 공통 스타일
+  const userMenuCommonStyle = {
+    height: "48px",
+    fontSize: "16px",
+    fontWeight: "500",
+  };
+
+  // 로그아웃 버튼 전용 스타일
+  const logoutButtonStyle = {
+    ...userMenuCommonStyle,
+    backgroundColor: "#ff4d4f",
+    color: "#fff",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  };
+
   const userMenu = {
     items: [
       {
@@ -443,6 +460,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             setIsSidebarOpen(false);
           }
         },
+        style: userMenuCommonStyle,
       },
       {
         key: "settings",
@@ -455,6 +473,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             setIsSidebarOpen(false);
           }
         },
+        style: userMenuCommonStyle,
       },
       {
         key: "profile",
@@ -467,19 +486,14 @@ export default function MainLayout({ children }: MainLayoutProps) {
             setIsSidebarOpen(false);
           }
         },
+        style: userMenuCommonStyle,
       },
       {
         key: "logout",
         icon: <LogoutOutlined />,
         label: "로그아웃",
         onClick: handleLogout,
-        style: {
-          backgroundColor: "#ff4d4f",
-          color: "#fff",
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-        },
+        style: logoutButtonStyle,
       },
     ],
   };
