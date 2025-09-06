@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { createPortal } from "react-dom";
 import Card from "antd/lib/card";
 import Avatar from "antd/lib/avatar";
 import Button from "antd/lib/button";
@@ -96,7 +95,6 @@ export default function Post({
   formatDate,
   formatFullDate,
 }: PostProps) {
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
   const { isMobile, isTablet, isDesktop } = useResponsive();
@@ -121,129 +119,6 @@ export default function Post({
       },
     ],
   });
-
-  // 포스팅 정보 패널 컴포넌트
-  const PostInfoPanel = () => {
-    if (!isGalleryOpen || !isDesktop) return null;
-
-    const panelContent = (
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          width: "200px",
-          height: "100vh",
-          background: "rgba(255, 255, 255, 0.95)",
-          backdropFilter: "blur(10px)",
-          zIndex: 10000,
-          padding: "20px",
-          overflowY: "auto",
-          boxSizing: "border-box",
-        }}
-      >
-        {/* 아바타 */}
-        <div
-          style={{
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            background: "#f0f0f0",
-            marginBottom: "12px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "16px",
-            color: "#666",
-          }}
-        >
-          {post.creator.name.charAt(0)}
-        </div>
-
-        {/* 크리에이터 이름 */}
-        <div
-          style={{
-            fontSize: "14px",
-            fontWeight: 600,
-            color: "#333",
-            marginBottom: "4px",
-          }}
-        >
-          {post.creator.name}
-        </div>
-
-        {/* 핸들 */}
-        <div
-          style={{
-            fontSize: "12px",
-            color: "#666",
-            marginBottom: "16px",
-          }}
-        >
-          @{post.creator.handle}
-        </div>
-
-        {/* 제목 */}
-        <div
-          style={{
-            fontSize: "16px",
-            fontWeight: 600,
-            color: "#333",
-            marginBottom: "12px",
-            lineHeight: 1.4,
-          }}
-        >
-          {post.title}
-        </div>
-
-        {/* 콘텐츠 */}
-        <div
-          style={{
-            fontSize: "14px",
-            color: "#666",
-            lineHeight: 1.5,
-            marginBottom: "20px",
-          }}
-        >
-          {post.content.length > 150
-            ? post.content.substring(0, 150) + "..."
-            : post.content}
-        </div>
-
-        {/* 댓글 섹션 */}
-        <div
-          style={{
-            borderTop: "1px solid #f0f0f0",
-            paddingTop: "16px",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "14px",
-              fontWeight: 600,
-              color: "#333",
-              marginBottom: "12px",
-            }}
-          >
-            댓글
-          </div>
-          <div
-            style={{
-              fontSize: "12px",
-              color: "#999",
-              textAlign: "center",
-              padding: "20px 0",
-            }}
-          >
-            댓글이 없습니다
-          </div>
-        </div>
-      </div>
-    );
-
-    // Portal을 사용해서 body에 직접 렌더링
-    return createPortal(panelContent, document.body);
-  };
 
   return (
     <>
@@ -514,33 +389,8 @@ export default function Post({
                   plugins={[lgThumbnail]}
                   download={false}
                   elementClassNames="custom-wrapper-class"
-                  onAfterOpen={() => {
-                    setIsGalleryOpen(true);
-                    // PC에서 갤러리 컨테이너 너비 조정
-                    if (isDesktop) {
-                      setTimeout(() => {
-                        const lgContainer =
-                          document.querySelector(".lg-container");
-                        if (lgContainer) {
-                          (lgContainer as HTMLElement).style.width =
-                            "calc(100% - 200px)";
-                          (lgContainer as HTMLElement).style.right = "0";
-                        }
-                      }, 100);
-                    }
-                  }}
-                  onAfterClose={() => {
-                    setIsGalleryOpen(false);
-                    // 갤러리 컨테이너 크기 복원
-                    if (isDesktop) {
-                      const lgContainer =
-                        document.querySelector(".lg-container");
-                      if (lgContainer) {
-                        (lgContainer as HTMLElement).style.width = "100%";
-                        (lgContainer as HTMLElement).style.right = "auto";
-                      }
-                    }
-                  }}
+                  onAfterOpen={() => {}}
+                  onAfterClose={() => {}}
                 >
                   {/* 썸네일용 첫 번째 이미지 */}
                   {post.images
@@ -851,7 +701,6 @@ export default function Post({
           </div>
         )}
       </Card>
-      <PostInfoPanel />
     </>
   );
 }
