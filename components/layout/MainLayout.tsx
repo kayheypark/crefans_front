@@ -28,6 +28,7 @@ import {
   MoreOutlined,
   DeleteOutlined,
   LayoutOutlined,
+  CrownOutlined,
   CompassOutlined,
   SettingOutlined,
   LoginOutlined,
@@ -206,6 +207,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
         break;
       case "search":
         router.push("/search");
+        break;
+      case "creator-center":
+        router.push("/creator-center");
         break;
     }
     // 모바일과 태블릿에서 사이드바 닫기
@@ -500,7 +504,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
   const footerLinks = [
     { label: "소개" },
-    { label: "크리에이터 센터" },
+    { label: "크리에이터 센터", href: "/creator-center" },
     { label: "서비스 이용 약관", href: "/support?category=terms" },
     {
       label: "개인 정보 처리 방침",
@@ -846,6 +850,12 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 key: "search",
                 icon: <SearchOutlined style={{ fontSize: 20 }} />,
                 label: "검색",
+                style: { fontSize: 20 },
+              },
+              {
+                key: "creator-center",
+                icon: <CrownOutlined style={{ fontSize: 20 }} />,
+                label: "크리에이터 센터",
                 style: { fontSize: 20 },
               },
               {
