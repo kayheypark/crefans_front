@@ -6,7 +6,7 @@ export const userAPI = {
   // 닉네임 변경
   updateNickname: async (nickname: string) => {
     const response = await axios.put(
-      `${getApiUrl()}/user/nickname`,
+      `${getApiUrl()}/auth/nickname`,
       { nickname },
       { withCredentials: true }
     );
@@ -14,10 +14,10 @@ export const userAPI = {
   },
 
   // 핸들 변경
-  updateHandle: async (preferred_username: string) => {
+  updateHandle: async (preferredUsername: string) => {
     const response = await axios.put(
-      `${getApiUrl()}/user/handle`,
-      { preferred_username },
+      `${getApiUrl()}/auth/handle`,
+      { preferredUsername },
       { withCredentials: true }
     );
     return response.data;

@@ -4,6 +4,7 @@ import React from "react";
 import { Modal, Form, Input, message } from "antd";
 import { userAPI } from "@/lib/api/user";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface HandleModalProps {
   open: boolean;
@@ -17,16 +18,18 @@ export default function HandleModal({
   currentHandle,
 }: HandleModalProps) {
   const [form] = Form.useForm();
+  const { refreshUser } = useAuth();
 
   const handleSave = async () => {
     try {
       const values = await form.validateFields();
       await userAPI.updateHandle(values.preferred_username);
       message.success("핸들이 성공적으로 변경되었습니다.");
+      await refreshUser(); // 사용자 정보 새로고침
       onClose();
       form.resetFields();
-    } catch (error) {
-      message.error("핸들 변경에 실패했습니다.");
+    } catch (error: any) {
+      message.error(error.response?.data?.message || "핸들 변경에 실패했습니다.");
     }
   };
 

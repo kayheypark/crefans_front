@@ -5,6 +5,7 @@ import { Modal, Form, Input, message } from "antd";
 import { userAPI } from "@/lib/api/user";
 import { isValidNickname } from "@/lib/utils/validationUtils";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface NicknameModalProps {
   open: boolean;
@@ -18,16 +19,18 @@ export default function NicknameModal({
   currentNickname,
 }: NicknameModalProps) {
   const [form] = Form.useForm();
+  const { refreshUser } = useAuth();
 
   const handleSave = async () => {
     try {
       const values = await form.validateFields();
       await userAPI.updateNickname(values.nickname);
       message.success("닉네임이 성공적으로 변경되었습니다.");
+      await refreshUser(); // 사용자 정보 새로고침
       onClose();
       form.resetFields();
-    } catch (error) {
-      message.error("닉네임 변경에 실패했습니다.");
+    } catch (error: any) {
+      message.error(error.response?.data?.message || "닉네임 변경에 실패했습니다.");
     }
   };
 

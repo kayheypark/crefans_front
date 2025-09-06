@@ -771,7 +771,7 @@ export default function Settings() {
                   <Button
                     type="text"
                     icon={<EditOutlined />}
-                    onClick={() => setShowNicknameModal(true)}
+                    onClick={() => setShowHandleModal(true)}
                   >
                     변경
                   </Button>

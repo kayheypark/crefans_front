@@ -73,4 +73,24 @@ export const authAPI = {
     );
     return response.data;
   },
+
+  // 닉네임 변경
+  updateNickname: async (nickname: string) => {
+    const response = await axios.put(
+      `${getApiUrl()}/auth/nickname`,
+      { nickname },
+      { withCredentials: true }
+    );
+    return response.data;
+  },
+
+  // 핸들 변경
+  updateHandle: async (preferredUsername: string) => {
+    const response = await axios.put(
+      `${getApiUrl()}/auth/handle`,
+      { preferredUsername },
+      { withCredentials: true }
+    );
+    return response.data;
+  },
 };

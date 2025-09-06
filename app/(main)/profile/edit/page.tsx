@@ -23,11 +23,12 @@ import { useAuth } from "@/contexts/AuthContext";
 import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
 import { useRouter } from "next/navigation";
+import { authAPI } from "@/lib/api/auth";
 
 const { Title, Paragraph, Text } = Typography;
 
 export default function ProfileEdit() {
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const router = useRouter();
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -38,6 +39,12 @@ export default function ProfileEdit() {
     "내 프로필과 콘텐츠들을 확인할 수 있습니다. 다양한 활동과 관심사를 공유하고 있습니다."
   );
   const [tempIntroduction, setTempIntroduction] = useState(introduction);
+  
+  // 닉네임과 핸들 편집 상태
+  const [tempNickname, setTempNickname] = useState("");
+  const [tempHandle, setTempHandle] = useState("");
+  const [isEditingNickname, setIsEditingNickname] = useState(false);
+  const [isEditingHandle, setIsEditingHandle] = useState(false);
 
   const handleReport = (values: any) => {
     message.success("신고가 접수되었습니다.");
@@ -72,6 +79,42 @@ export default function ProfileEdit() {
   const saveIntroduction = () => {
     setIntroduction(tempIntroduction);
     message.success("소개글이 저장되었습니다.");
+  };
+
+  // 닉네임 저장
+  const saveNickname = async () => {
+    if (!tempNickname.trim()) {
+      message.error("닉네임을 입력해주세요.");
+      return;
+    }
+    
+    try {
+      await authAPI.updateNickname(tempNickname.trim());
+      message.success("닉네임이 변경되었습니다.");
+      setIsEditingNickname(false);
+      // 사용자 정보를 새로 가져와서 업데이트
+      await refreshUser();
+    } catch (error: any) {
+      message.error(error.response?.data?.message || "닉네임 변경에 실패했습니다.");
+    }
+  };
+
+  // 핸들 저장
+  const saveHandle = async () => {
+    if (!tempHandle.trim()) {
+      message.error("핸들을 입력해주세요.");
+      return;
+    }
+    
+    try {
+      await authAPI.updateHandle(tempHandle.trim());
+      message.success("핸들이 변경되었습니다.");
+      setIsEditingHandle(false);
+      // 사용자 정보를 새로 가져와서 업데이트
+      await refreshUser();
+    } catch (error: any) {
+      message.error(error.response?.data?.message || "핸들 변경에 실패했습니다.");
+    }
   };
 
   return (
@@ -182,37 +225,117 @@ export default function ProfileEdit() {
         </div>
         <div style={{ flex: 1 }}>
           <div style={{ marginBottom: 8 }}>
+            {/* 닉네임 편집 영역 */}
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                marginBottom: 4,
+                marginBottom: 8,
               }}
             >
-              <Text
-                strong
-                style={{
-                  fontSize: 20,
-                  color: "#222",
-                }}
-              >
-                {user?.attributes?.nickname || "-"}
-              </Text>
+              {isEditingNickname ? (
+                <div style={{ display: "flex", alignItems: "center", gap: 8, flex: 1 }}>
+                  <Input
+                    value={tempNickname}
+                    onChange={(e) => setTempNickname(e.target.value)}
+                    placeholder="닉네임을 입력하세요"
+                    style={{ fontSize: 18, fontWeight: "bold" }}
+                    maxLength={20}
+                  />
+                  <Space>
+                    <Button type="primary" size="small" onClick={saveNickname}>
+                      저장
+                    </Button>
+                    <Button 
+                      size="small" 
+                      onClick={() => {
+                        setTempNickname(user?.attributes?.nickname || "");
+                        setIsEditingNickname(false);
+                      }}
+                    >
+                      취소
+                    </Button>
+                  </Space>
+                </div>
+              ) : (
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <Text
+                    strong
+                    style={{
+                      fontSize: 20,
+                      color: "#222",
+                    }}
+                  >
+                    {user?.attributes?.nickname || "-"}
+                  </Text>
+                  <Button 
+                    type="link" 
+                    size="small" 
+                    onClick={() => {
+                      setTempNickname(user?.attributes?.nickname || "");
+                      setIsEditingNickname(true);
+                    }}
+                  >
+                    편집
+                  </Button>
+                </div>
+              )}
             </div>
-            <Text
-              type="secondary"
-              style={{
-                fontSize: 16,
-                color: "#8c8c8c",
-                marginBottom: 4,
-                display: "block",
-              }}
-            >
-              {user?.attributes?.preferred_username
-                ? "@" + user.attributes.preferred_username
-                : "@-"}
-            </Text>
+            
+            {/* 핸들 편집 영역 */}
+            <div style={{ marginBottom: 8 }}>
+              {isEditingHandle ? (
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <Text style={{ fontSize: 16, color: "#8c8c8c" }}>@</Text>
+                  <Input
+                    value={tempHandle}
+                    onChange={(e) => setTempHandle(e.target.value)}
+                    placeholder="핸들을 입력하세요"
+                    style={{ fontSize: 16 }}
+                    maxLength={30}
+                  />
+                  <Space>
+                    <Button type="primary" size="small" onClick={saveHandle}>
+                      저장
+                    </Button>
+                    <Button 
+                      size="small" 
+                      onClick={() => {
+                        setTempHandle(user?.attributes?.preferred_username || "");
+                        setIsEditingHandle(false);
+                      }}
+                    >
+                      취소
+                    </Button>
+                  </Space>
+                </div>
+              ) : (
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <Text
+                    type="secondary"
+                    style={{
+                      fontSize: 16,
+                      color: "#8c8c8c",
+                    }}
+                  >
+                    {user?.attributes?.preferred_username
+                      ? "@" + user.attributes.preferred_username
+                      : "@-"}
+                  </Text>
+                  <Button 
+                    type="link" 
+                    size="small" 
+                    onClick={() => {
+                      setTempHandle(user?.attributes?.preferred_username || "");
+                      setIsEditingHandle(true);
+                    }}
+                  >
+                    편집
+                  </Button>
+                </div>
+              )}
+            </div>
 
             {/* 편집 가능한 소개글 */}
             <div style={{ marginBottom: 16 }}>
