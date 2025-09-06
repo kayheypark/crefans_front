@@ -34,34 +34,13 @@ import MediaGallery from "@/components/media/MediaGallery";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
 import { mediaAPI, uploadWithProgress } from "@/lib/api/media";
 import { useAuth } from "@/contexts/AuthContext";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 export default function WritePage() {
   const router = useRouter();
-  const { user } = useAuth();
-
-  // 로그인 확인
-  useEffect(() => {
-    if (user === null) {
-      // 로그아웃 상태
-      router.push('/auth/signin');
-    }
-  }, [user, router]);
-
-  // 로딩 중이거나 비로그인 상태일 때 로딩 화면
-  if (user === undefined) {
-    return (
-      <div style={{ textAlign: 'center', padding: '50px' }}>
-        <Text>로딩 중...</Text>
-      </div>
-    );
-  }
-
-  if (user === null) {
-    return null; // 리디렉트 중
-  }
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState<
@@ -83,7 +62,6 @@ export default function WritePage() {
     }[]
   >([]);
 
-
   const [isMembershipOnly, setIsMembershipOnly] = useState(false);
   const [selectedMembershipLevel, setSelectedMembershipLevel] =
     useState<number>(1);
@@ -99,7 +77,7 @@ export default function WritePage() {
   const [isMembershipModalOpen, setIsMembershipModalOpen] = useState(false);
   const [hasDraft, setHasDraft] = useState(false);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
-  
+
   // 미디어 로딩 상태
   const [isImageUploading, setIsImageUploading] = useState(false);
   const [isVideoUploading, setIsVideoUploading] = useState(false);
@@ -139,17 +117,21 @@ export default function WritePage() {
   const handleImageUpload = async (info: any) => {
     if (info.file.status === "done") {
       setIsImageUploading(true);
-      
+
       try {
         const file = info.file.originFileObj;
-        
+
         // AWS 방식 사용 시도, 실패시 기존 방식
         let mediaId;
         let s3Url;
-        
+
         try {
           // 1. AWS 업로드 준비
-          const { mediaId: awsMediaId, uploadUrl, s3Key } = await mediaAPI.prepareUpload({
+          const {
+            mediaId: awsMediaId,
+            uploadUrl,
+            s3Key,
+          } = await mediaAPI.prepareUpload({
             fileName: file.name,
             contentType: file.type,
             fileSize: file.size,
@@ -162,13 +144,13 @@ export default function WritePage() {
 
           // 3. 업로드 완료 알림
           const media = await mediaAPI.completeUpload(awsMediaId, s3Key);
-          
+
           mediaId = awsMediaId;
           s3Url = media.originalUrl;
-          
-          console.log('AWS 업로드 성공:', { mediaId, s3Url });
+
+          console.log("AWS 업로드 성공:", { mediaId, s3Url });
         } catch (awsError) {
-          console.log('AWS 업로드 실패, 기존 방식 사용:', awsError);
+          console.log("AWS 업로드 실패, 기존 방식 사용:", awsError);
           // AWS 실패시 기존 방식으로 폴백
           mediaId = Date.now().toString();
           s3Url = null;
@@ -177,7 +159,7 @@ export default function WritePage() {
         // 4. 로컬 상태에 추가 (블로브 URL 사용)
         const blobUrl = URL.createObjectURL(file);
         const img = new Image();
-        
+
         img.onload = () => {
           const newImage = {
             id: mediaId,
@@ -186,13 +168,17 @@ export default function WritePage() {
             order: images.length,
             width: img.naturalWidth,
             height: img.naturalHeight,
-            uploadType: s3Url ? 'aws' : 'local', // 업로드 타입 표시
+            uploadType: s3Url ? "aws" : "local", // 업로드 타입 표시
           };
-          
+
           setImages((prev) => [...prev, newImage]);
-          message.success(s3Url ? "이미지가 업로드되었습니다. (AWS)" : "이미지가 업로드되었습니다. (Local)");
+          message.success(
+            s3Url
+              ? "이미지가 업로드되었습니다. (AWS)"
+              : "이미지가 업로드되었습니다. (Local)"
+          );
         };
-        
+
         img.onerror = () => {
           const newImage = {
             id: mediaId,
@@ -201,18 +187,17 @@ export default function WritePage() {
             order: images.length,
             width: 0,
             height: 0,
-            uploadType: s3Url ? 'aws' : 'local',
+            uploadType: s3Url ? "aws" : "local",
           };
-          
+
           setImages((prev) => [...prev, newImage]);
           message.success("이미지가 업로드되었습니다.");
         };
-        
+
         img.src = blobUrl;
-        
       } catch (error) {
-        console.error('이미지 업로드 실패:', error);
-        message.error('이미지 업로드에 실패했습니다.');
+        console.error("이미지 업로드 실패:", error);
+        message.error("이미지 업로드에 실패했습니다.");
       } finally {
         setIsImageUploading(false);
       }
@@ -235,18 +220,22 @@ export default function WritePage() {
   const handleVideoUpload = async (info: any) => {
     if (info.file.status === "done") {
       setIsVideoUploading(true);
-      
+
       try {
         const file = info.file.originFileObj;
-        
+
         // AWS 방식 사용 시도, 실패시 기존 방식
         let mediaId;
         let s3Url;
-        let processingStatus = 'local';
-        
+        let processingStatus = "local";
+
         try {
           // 1. AWS 업로드 준비
-          const { mediaId: awsMediaId, uploadUrl, s3Key } = await mediaAPI.prepareUpload({
+          const {
+            mediaId: awsMediaId,
+            uploadUrl,
+            s3Key,
+          } = await mediaAPI.prepareUpload({
             fileName: file.name,
             contentType: file.type,
             fileSize: file.size,
@@ -259,24 +248,29 @@ export default function WritePage() {
 
           // 3. 업로드 완료 알림 (MediaConvert 시작)
           const media = await mediaAPI.completeUpload(awsMediaId, s3Key);
-          
+
           mediaId = awsMediaId;
           s3Url = media.originalUrl;
-          processingStatus = 'processing'; // MediaConvert 처리 중
-          
-          console.log('AWS 동영상 업로드 성공, MediaConvert 시작:', { mediaId, s3Url });
+          processingStatus = "processing"; // MediaConvert 처리 중
+
+          console.log("AWS 동영상 업로드 성공, MediaConvert 시작:", {
+            mediaId,
+            s3Url,
+          });
         } catch (awsError) {
-          console.log('AWS 업로드 실패, 기존 방식 사용:', awsError);
-          mediaId = `video_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+          console.log("AWS 업로드 실패, 기존 방식 사용:", awsError);
+          mediaId = `video_${Date.now()}_${Math.random()
+            .toString(36)
+            .substr(2, 9)}`;
           s3Url = null;
-          processingStatus = 'local';
+          processingStatus = "local";
         }
 
         // 4. 로컬 비디오로 메타데이터 추출
         const blobUrl = URL.createObjectURL(file);
         const video = document.createElement("video");
         video.preload = "metadata";
-        
+
         const timeoutId = setTimeout(() => {
           const newVideo = {
             id: mediaId,
@@ -285,27 +279,29 @@ export default function WritePage() {
             duration: "0:00",
             order: videos.length,
             originalFile: file,
-            uploadType: s3Url ? 'aws' : 'local',
+            uploadType: s3Url ? "aws" : "local",
             processingStatus: processingStatus,
           };
-          
+
           setVideos((prev) => [...prev, newVideo]);
-          const statusText = s3Url ? '처리 중입니다...' : '';
+          const statusText = s3Url ? "처리 중입니다..." : "";
           message.success(`동영상이 업로드되었습니다. ${statusText}`);
         }, 5000);
-        
+
         video.onloadedmetadata = () => {
           clearTimeout(timeoutId);
-          
+
           const duration = video.duration;
           let durationString = "0:00";
-          
+
           if (duration && !isNaN(duration) && duration > 0) {
             const minutes = Math.floor(duration / 60);
             const seconds = Math.floor(duration % 60);
-            durationString = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+            durationString = `${minutes}:${seconds
+              .toString()
+              .padStart(2, "0")}`;
           }
-          
+
           const newVideo = {
             id: mediaId,
             url: blobUrl,
@@ -313,18 +309,18 @@ export default function WritePage() {
             duration: durationString,
             order: videos.length,
             originalFile: file,
-            uploadType: s3Url ? 'aws' : 'local',
+            uploadType: s3Url ? "aws" : "local",
             processingStatus: processingStatus,
           };
-          
+
           setVideos((prev) => [...prev, newVideo]);
-          const statusText = s3Url ? '처리 중입니다...' : '';
+          const statusText = s3Url ? "처리 중입니다..." : "";
           message.success(`동영상이 업로드되었습니다. ${statusText}`);
         };
-        
+
         video.onerror = () => {
           clearTimeout(timeoutId);
-          
+
           const newVideo = {
             id: mediaId,
             url: blobUrl,
@@ -332,20 +328,19 @@ export default function WritePage() {
             duration: "0:00",
             order: videos.length,
             originalFile: file,
-            uploadType: s3Url ? 'aws' : 'local',
+            uploadType: s3Url ? "aws" : "local",
             processingStatus: processingStatus,
           };
-          
+
           setVideos((prev) => [...prev, newVideo]);
-          const statusText = s3Url ? '처리 중입니다...' : '';
+          const statusText = s3Url ? "처리 중입니다..." : "";
           message.success(`동영상이 업로드되었습니다. ${statusText}`);
         };
-        
+
         video.src = blobUrl;
-        
       } catch (error) {
-        console.error('동영상 업로드 실패:', error);
-        message.error('동영상 업로드에 실패했습니다.');
+        console.error("동영상 업로드 실패:", error);
+        message.error("동영상 업로드에 실패했습니다.");
       } finally {
         setIsVideoUploading(false);
       }
@@ -386,10 +381,6 @@ export default function WritePage() {
       });
     };
   }, [images, videos]);
-
-
-
-
 
   // 이미지 순서 변경
   const moveImage = (fromIndex: number, toIndex: number) => {
@@ -497,368 +488,380 @@ export default function WritePage() {
   };
 
   return (
-    <Layout
-      style={{
-        width: "100%",
-        margin: "0",
-        paddingLeft: Spacings.CONTENT_LAYOUT_PADDING,
-        paddingRight: Spacings.CONTENT_LAYOUT_PADDING,
-        background: "transparent",
-      }}
-    >
-      {/* 글 작성 폼 */}
-      <Card style={{ marginBottom: 24 }}>
-        {/* 제목 입력 */}
-        <div style={{ marginBottom: 24 }}>
-          <Text strong style={{ display: "block", marginBottom: 8 }}>
-            제목
-          </Text>
-          <Input
-            placeholder="제목을 입력하세요"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            size="large"
-            style={{ fontSize: 18 }}
-          />
-        </div>
-
-        {/* 내용 입력 */}
-        <div style={{ marginBottom: 24 }}>
-          <Text strong style={{ display: "block", marginBottom: 8 }}>
-            내용
-          </Text>
-          <TextArea
-            placeholder="내용을 입력하세요"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows={8}
-            style={{ fontSize: 16, resize: "none" }}
-          />
-        </div>
-
-        {/* 이미지 업로드 */}
-        <div style={{ marginBottom: 24 }}>
-          <Text strong style={{ display: "block", marginBottom: 8 }}>
-            이미지
-          </Text>
-          <div style={{ marginBottom: 16 }}>
-            <Upload
-              accept="image/*"
-              showUploadList={false}
-              customRequest={({ file, onSuccess }: any) => {
-                setTimeout(() => {
-                  onSuccess("ok");
-                }, 0);
-              }}
-              onChange={handleImageUpload}
-            >
-              <Button 
-                icon={<PictureOutlined />} 
-                size="large"
-                loading={isImageUploading}
-                disabled={isImageUploading}
-              >
-                {isImageUploading ? LOADING_TEXTS.UPLOADING : "이미지 추가"}
-              </Button>
-            </Upload>
+    <ProtectedRoute>
+      <Layout
+        style={{
+          width: "100%",
+          margin: "0",
+          paddingLeft: Spacings.CONTENT_LAYOUT_PADDING,
+          paddingRight: Spacings.CONTENT_LAYOUT_PADDING,
+          background: "transparent",
+        }}
+      >
+        {/* 글 작성 폼 */}
+        <Card style={{ marginBottom: 24 }}>
+          {/* 제목 입력 */}
+          <div style={{ marginBottom: 24 }}>
+            <Text strong style={{ display: "block", marginBottom: 8 }}>
+              제목
+            </Text>
+            <Input
+              placeholder="제목을 입력하세요"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              size="large"
+              style={{ fontSize: 18 }}
+            />
           </div>
 
-          {/* 업로드된 이미지 미리보기 */}
-          {images.length > 0 && (
-            <MediaGallery
-              items={images.map(img => ({
-                ...img,
-                type: "image" as const
-              }))}
-              onRemove={removeImage}
-              onReorder={moveImage}
-              isLoading={isImageUploading}
-              gridCols={3}
+          {/* 내용 입력 */}
+          <div style={{ marginBottom: 24 }}>
+            <Text strong style={{ display: "block", marginBottom: 8 }}>
+              내용
+            </Text>
+            <TextArea
+              placeholder="내용을 입력하세요"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              rows={8}
+              style={{ fontSize: 16, resize: "none" }}
             />
-          )}
-        </div>
-
-        {/* 동영상 업로드 */}
-        <div style={{ marginBottom: 24 }}>
-          <Text strong style={{ display: "block", marginBottom: 8 }}>
-            동영상
-          </Text>
-          <div style={{ marginBottom: 16 }}>
-            <Upload
-              accept="video/*"
-              showUploadList={false}
-              customRequest={({ file, onSuccess }: any) => {
-                setTimeout(() => {
-                  onSuccess("ok");
-                }, 0);
-              }}
-              onChange={handleVideoUpload}
-            >
-              <Button 
-                icon={<PlayCircleOutlined />} 
-                size="large"
-                loading={isVideoUploading}
-                disabled={isVideoUploading}
-              >
-                {isVideoUploading ? LOADING_TEXTS.UPLOADING : "동영상 추가"}
-              </Button>
-            </Upload>
           </div>
 
-          {/* 업로드된 동영상 미리보기 */}
-          {videos.length > 0 && (
-            <MediaGallery
-              items={videos.map(video => ({
-                ...video,
-                type: "video" as const
-              }))}
-              onRemove={removeVideo}
-              onReorder={moveVideo}
-              isLoading={isVideoUploading}
-              gridCols={2}
-            />
-          )}
-        </div>
-
-        <Divider />
-
-        {/* 설정 */}
-        <div style={{ marginBottom: 24 }}>
-          <Title level={4} style={{ marginBottom: 16 }}>
-            콘텐츠 설정
-          </Title>
-
-          {/* 멤버십 전용 설정 */}
-          <div style={{ marginBottom: 16 }}>
-            <Space direction="vertical" style={{ width: "100%" }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
+          {/* 이미지 업로드 */}
+          <div style={{ marginBottom: 24 }}>
+            <Text strong style={{ display: "block", marginBottom: 8 }}>
+              이미지
+            </Text>
+            <div style={{ marginBottom: 16 }}>
+              <Upload
+                accept="image/*"
+                showUploadList={false}
+                customRequest={({ file, onSuccess }: any) => {
+                  setTimeout(() => {
+                    onSuccess("ok");
+                  }, 0);
                 }}
+                onChange={handleImageUpload}
               >
-                <div>
-                  <Text strong>멤버십 전용</Text>
-                  <br />
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    허용한 경우, 멤버십 구독자만 볼 수 있습니다
-                  </Text>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <Switch
-                    checked={isMembershipOnly}
-                    onChange={setIsMembershipOnly}
-                    checkedChildren={<LockOutlined />}
-                    unCheckedChildren={<UnlockOutlined />}
-                  />
-                  <Button
-                    type="primary"
-                    size="small"
-                    onClick={openMembershipModal}
-                  >
-                    멤버십 추가
-                  </Button>
-                </div>
-              </div>
+                <Button
+                  icon={<PictureOutlined />}
+                  size="large"
+                  loading={isImageUploading}
+                  disabled={isImageUploading}
+                >
+                  {isImageUploading ? LOADING_TEXTS.UPLOADING : "이미지 추가"}
+                </Button>
+              </Upload>
+            </div>
 
-              {/* 멤버십 레벨 선택 */}
-              {isMembershipOnly && memberships.length > 0 && (
-                <div style={{ marginTop: 16 }}>
-                  <Text strong style={{ display: "block", marginBottom: 8 }}>
-                    최소 멤버십 레벨
-                  </Text>
-                  <div
-                    style={{ display: "flex", flexDirection: "column", gap: 8 }}
-                  >
-                    {memberships.map((membership) => (
-                      <MembershipCard
-                        key={membership.id}
-                        membership={membership}
-                        selected={selectedMembershipLevel === membership.level}
-                        showRadio={true}
-                        onSelect={(membership) =>
-                          setSelectedMembershipLevel(membership.level)
-                        }
-                      />
-                    ))}
+            {/* 업로드된 이미지 미리보기 */}
+            {images.length > 0 && (
+              <MediaGallery
+                items={images.map((img) => ({
+                  ...img,
+                  type: "image" as const,
+                }))}
+                onRemove={removeImage}
+                onReorder={moveImage}
+                isLoading={isImageUploading}
+                gridCols={3}
+              />
+            )}
+          </div>
+
+          {/* 동영상 업로드 */}
+          <div style={{ marginBottom: 24 }}>
+            <Text strong style={{ display: "block", marginBottom: 8 }}>
+              동영상
+            </Text>
+            <div style={{ marginBottom: 16 }}>
+              <Upload
+                accept="video/*"
+                showUploadList={false}
+                customRequest={({ file, onSuccess }: any) => {
+                  setTimeout(() => {
+                    onSuccess("ok");
+                  }, 0);
+                }}
+                onChange={handleVideoUpload}
+              >
+                <Button
+                  icon={<PlayCircleOutlined />}
+                  size="large"
+                  loading={isVideoUploading}
+                  disabled={isVideoUploading}
+                >
+                  {isVideoUploading ? LOADING_TEXTS.UPLOADING : "동영상 추가"}
+                </Button>
+              </Upload>
+            </div>
+
+            {/* 업로드된 동영상 미리보기 */}
+            {videos.length > 0 && (
+              <MediaGallery
+                items={videos.map((video) => ({
+                  ...video,
+                  type: "video" as const,
+                }))}
+                onRemove={removeVideo}
+                onReorder={moveVideo}
+                isLoading={isVideoUploading}
+                gridCols={2}
+              />
+            )}
+          </div>
+
+          <Divider />
+
+          {/* 설정 */}
+          <div style={{ marginBottom: 24 }}>
+            <Title level={4} style={{ marginBottom: 16 }}>
+              콘텐츠 설정
+            </Title>
+
+            {/* 멤버십 전용 설정 */}
+            <div style={{ marginBottom: 16 }}>
+              <Space direction="vertical" style={{ width: "100%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <Text strong>멤버십 전용</Text>
+                    <br />
+                    <Text type="secondary" style={{ fontSize: 12 }}>
+                      허용한 경우, 멤버십 구독자만 볼 수 있습니다
+                    </Text>
                   </div>
-                  <Text type="secondary" style={{ fontSize: 12, marginTop: 8 }}>
-                    선택한 레벨 이상의 멤버십 구독자만 콘텐츠를 볼 수 있습니다
-                  </Text>
+                  <div
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  >
+                    <Switch
+                      checked={isMembershipOnly}
+                      onChange={setIsMembershipOnly}
+                      checkedChildren={<LockOutlined />}
+                      unCheckedChildren={<UnlockOutlined />}
+                    />
+                    <Button
+                      type="primary"
+                      size="small"
+                      onClick={openMembershipModal}
+                    >
+                      멤버십 추가
+                    </Button>
+                  </div>
                 </div>
-              )}
-            </Space>
-          </div>
 
-          {/* 개별 구매 허용 설정 */}
-          <div style={{ marginBottom: 16 }}>
-            <Space direction="vertical" style={{ width: "100%" }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div>
-                  <Text strong>개별 구매 허용</Text>
-                  <br />
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    일회성 결제(언락 티켓)로 콘텐츠에 접근할 수 있습니다
-                  </Text>
-                </div>
-                <Switch
-                  checked={allowIndividualPurchase}
-                  onChange={setAllowIndividualPurchase}
-                />
-              </div>
-              {allowIndividualPurchase && (
-                <div style={{ marginTop: 8 }}>
-                  <InputNumber
-                    min={0}
-                    step={100}
-                    placeholder="가격을 입력하세요"
-                    value={purchasePrice}
-                    suffix="원"
-                    style={{ width: 200 }}
-                    formatter={(value) =>
-                      `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                    }
-                    parser={(value) =>
-                      Number(value!.replace(/\$\s?|(,*)/g, ""))
-                    }
-                    onChange={(value) => setPurchasePrice(Number(value))}
+                {/* 멤버십 레벨 선택 */}
+                {isMembershipOnly && memberships.length > 0 && (
+                  <div style={{ marginTop: 16 }}>
+                    <Text strong style={{ display: "block", marginBottom: 8 }}>
+                      최소 멤버십 레벨
+                    </Text>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 8,
+                      }}
+                    >
+                      {memberships.map((membership) => (
+                        <MembershipCard
+                          key={membership.id}
+                          membership={membership}
+                          selected={
+                            selectedMembershipLevel === membership.level
+                          }
+                          showRadio={true}
+                          onSelect={(membership) =>
+                            setSelectedMembershipLevel(membership.level)
+                          }
+                        />
+                      ))}
+                    </div>
+                    <Text
+                      type="secondary"
+                      style={{ fontSize: 12, marginTop: 8 }}
+                    >
+                      선택한 레벨 이상의 멤버십 구독자만 콘텐츠를 볼 수 있습니다
+                    </Text>
+                  </div>
+                )}
+              </Space>
+            </div>
+
+            {/* 개별 구매 허용 설정 */}
+            <div style={{ marginBottom: 16 }}>
+              <Space direction="vertical" style={{ width: "100%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <Text strong>개별 구매 허용</Text>
+                    <br />
+                    <Text type="secondary" style={{ fontSize: 12 }}>
+                      일회성 결제(언락 티켓)로 콘텐츠에 접근할 수 있습니다
+                    </Text>
+                  </div>
+                  <Switch
+                    checked={allowIndividualPurchase}
+                    onChange={setAllowIndividualPurchase}
                   />
                 </div>
-              )}
-            </Space>
-          </div>
-
-          {/* 댓글 설정 */}
-          <div style={{ marginBottom: 16 }}>
-            <Space direction="vertical" style={{ width: "100%" }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div>
-                  <Text strong>댓글 허용</Text>
-                  <br />
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    댓글 작성 상태를 허용합니다
-                  </Text>
-                </div>
-                <Switch checked={allowComments} onChange={setAllowComments} />
-              </div>
-            </Space>
-          </div>
-
-          {/* 예약 발행 설정 */}
-          <div style={{ marginBottom: 16 }}>
-            <Space direction="vertical" style={{ width: "100%" }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div>
-                  <Text strong>예약 발행</Text>
-                  <br />
-                  <Text type="secondary" style={{ fontSize: 12 }}>
-                    특정 날짜와 시간에 자동으로 발행됩니다
-                  </Text>
-                </div>
-                <Switch
-                  checked={scheduledPublish}
-                  onChange={setScheduledPublish}
-                />
-              </div>
-              {scheduledPublish && (
-                <div style={{ marginTop: 8 }}>
-                  <Space>
-                    <Input
-                      type="date"
-                      value={publishDate}
-                      onChange={(e) => setPublishDate(e.target.value)}
+                {allowIndividualPurchase && (
+                  <div style={{ marginTop: 8 }}>
+                    <InputNumber
+                      min={0}
+                      step={100}
+                      placeholder="가격을 입력하세요"
+                      value={purchasePrice}
+                      suffix="원"
+                      style={{ width: 200 }}
+                      formatter={(value) =>
+                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                      }
+                      parser={(value) =>
+                        Number(value!.replace(/\$\s?|(,*)/g, ""))
+                      }
+                      onChange={(value) => setPurchasePrice(Number(value))}
                     />
-                    <Input
-                      type="time"
-                      value={publishTime}
-                      onChange={(e) => setPublishTime(e.target.value)}
-                    />
-                  </Space>
+                  </div>
+                )}
+              </Space>
+            </div>
+
+            {/* 댓글 설정 */}
+            <div style={{ marginBottom: 16 }}>
+              <Space direction="vertical" style={{ width: "100%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <Text strong>댓글 허용</Text>
+                    <br />
+                    <Text type="secondary" style={{ fontSize: 12 }}>
+                      댓글 작성 상태를 허용합니다
+                    </Text>
+                  </div>
+                  <Switch checked={allowComments} onChange={setAllowComments} />
                 </div>
-              )}
-            </Space>
+              </Space>
+            </div>
+
+            {/* 예약 발행 설정 */}
+            <div style={{ marginBottom: 16 }}>
+              <Space direction="vertical" style={{ width: "100%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <Text strong>예약 발행</Text>
+                    <br />
+                    <Text type="secondary" style={{ fontSize: 12 }}>
+                      특정 날짜와 시간에 자동으로 발행됩니다
+                    </Text>
+                  </div>
+                  <Switch
+                    checked={scheduledPublish}
+                    onChange={setScheduledPublish}
+                  />
+                </div>
+                {scheduledPublish && (
+                  <div style={{ marginTop: 8 }}>
+                    <Space>
+                      <Input
+                        type="date"
+                        value={publishDate}
+                        onChange={(e) => setPublishDate(e.target.value)}
+                      />
+                      <Input
+                        type="time"
+                        value={publishTime}
+                        onChange={(e) => setPublishTime(e.target.value)}
+                      />
+                    </Space>
+                  </div>
+                )}
+              </Space>
+            </div>
+
+            {/* 민감한 콘텐츠 설정 */}
+            <div style={{ marginBottom: 16 }}>
+              <Space direction="vertical" style={{ width: "100%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div>
+                    <Text strong>민감한 콘텐츠</Text>
+                  </div>
+                  <Switch
+                    checked={sensitiveContent}
+                    onChange={setSensitiveContent}
+                  />
+                </div>
+                <Text type="secondary" style={{ fontSize: 12 }}>
+                  폭력, 성적 내용 등이 포함된 경우 체크하세요
+                </Text>
+              </Space>
+            </div>
           </div>
 
-          {/* 민감한 콘텐츠 설정 */}
-          <div style={{ marginBottom: 16 }}>
-            <Space direction="vertical" style={{ width: "100%" }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <div>
-                  <Text strong>민감한 콘텐츠</Text>
-                </div>
-                <Switch
-                  checked={sensitiveContent}
-                  onChange={setSensitiveContent}
-                />
-              </div>
-              <Text type="secondary" style={{ fontSize: 12 }}>
-                폭력, 성적 내용 등이 포함된 경우 체크하세요
-              </Text>
-            </Space>
+          <Divider style={{ margin: "32px 0" }} />
+
+          {/* 임시저장 및 발행 버튼 */}
+          <div style={{ display: "flex", gap: 16 }}>
+            <Button
+              type="default"
+              icon={<SaveOutlined />}
+              onClick={handleSaveDraft}
+              loading={isSavingDraft}
+              size="large"
+              style={{ flex: 1, height: "48px", borderRadius: "24px" }}
+            >
+              임시저장
+            </Button>
+            <Button
+              type="primary"
+              icon={<SendOutlined />}
+              onClick={handlePublish}
+              loading={isSubmitting}
+              disabled={!title.trim() || !content.trim()}
+              size="large"
+              style={{ flex: 1, height: "48px", borderRadius: "24px" }}
+            >
+              {scheduledPublish ? "예약 발행" : "발행"}
+            </Button>
           </div>
-        </div>
+        </Card>
 
-        <Divider style={{ margin: "32px 0" }} />
-
-        {/* 임시저장 및 발행 버튼 */}
-        <div style={{ display: "flex", gap: 16 }}>
-          <Button
-            type="default"
-            icon={<SaveOutlined />}
-            onClick={handleSaveDraft}
-            loading={isSavingDraft}
-            size="large"
-            style={{ flex: 1, height: "48px", borderRadius: "24px" }}
-          >
-            임시저장
-          </Button>
-          <Button
-            type="primary"
-            icon={<SendOutlined />}
-            onClick={handlePublish}
-            loading={isSubmitting}
-            disabled={!title.trim() || !content.trim()}
-            size="large"
-            style={{ flex: 1, height: "48px", borderRadius: "24px" }}
-          >
-            {scheduledPublish ? "예약 발행" : "발행"}
-          </Button>
-        </div>
-      </Card>
-
-      {/* 멤버십 관리 모달 */}
-      <MembershipManagementModal
-        open={isMembershipModalOpen}
-        onClose={() => setIsMembershipModalOpen(false)}
-        onMembershipsUpdate={handleMembershipsUpdate}
-        currentMemberships={memberships}
-      />
-
-    </Layout>
+        {/* 멤버십 관리 모달 */}
+        <MembershipManagementModal
+          open={isMembershipModalOpen}
+          onClose={() => setIsMembershipModalOpen(false)}
+          onMembershipsUpdate={handleMembershipsUpdate}
+          currentMemberships={memberships}
+        />
+      </Layout>
+    </ProtectedRoute>
   );
 }

@@ -86,9 +86,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           return;
         }
       } catch (error) {
-        console.log("Server user info fetch failed, falling back to token parsing");
+        console.log(
+          "Server user info fetch failed, falling back to token parsing"
+        );
       }
-      
+
       // 서버 요청 실패 시 토큰에서 파싱
       const userData = parseIdToken();
       setUser(userData);
@@ -111,19 +113,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const refreshUser = async () => {
     try {
-      console.log('=== refreshUser Debug ===');
+      console.log("=== refreshUser Debug ===");
       // 서버에서 최신 사용자 정보를 가져옴
       const response = await authAPI.getMe();
-      console.log('API Response:', response);
-      
+      console.log("API Response:", response);
+
       if (response.success && response.data?.user) {
-        console.log('Setting new user data:', {
+        console.log("Setting new user data:", {
           nickname: response.data.user.attributes?.nickname,
           preferred_username: response.data.user.attributes?.preferred_username,
         });
         setUser(response.data.user);
       }
-      console.log('========================');
+      console.log("========================");
     } catch (error) {
       console.error("Failed to refresh user info:", error);
       // 실패하면 토큰에서 파싱

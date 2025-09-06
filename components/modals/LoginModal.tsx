@@ -60,6 +60,13 @@ export default function LoginModal({
       login(user.attributes);
       message.success("로그인되었습니다!");
       onClose();
+
+      // redirect 쿼리스트링이 있으면 해당 경로로 이동
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectPath = urlParams.get("redirect");
+      if (redirectPath) {
+        router.push(redirectPath);
+      }
     } catch (error: any) {
       console.info(error);
       message.error("로그인 중 오류가 발생했습니다.");
