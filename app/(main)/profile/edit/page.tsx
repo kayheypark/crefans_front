@@ -24,6 +24,7 @@ import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
 import { useRouter } from "next/navigation";
 import { authAPI } from "@/lib/api/auth";
+import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -45,6 +46,10 @@ export default function ProfileEdit() {
   const [tempHandle, setTempHandle] = useState("");
   const [isEditingNickname, setIsEditingNickname] = useState(false);
   const [isEditingHandle, setIsEditingHandle] = useState(false);
+  
+  // 로딩 상태
+  const [isNicknameSaving, setIsNicknameSaving] = useState(false);
+  const [isHandleSaving, setIsHandleSaving] = useState(false);
 
   const handleReport = (values: any) => {
     message.success("신고가 접수되었습니다.");
@@ -88,6 +93,7 @@ export default function ProfileEdit() {
       return;
     }
     
+    setIsNicknameSaving(true);
     try {
       await authAPI.updateNickname(tempNickname.trim());
       message.success("닉네임이 변경되었습니다.");
@@ -96,6 +102,8 @@ export default function ProfileEdit() {
       await refreshUser();
     } catch (error: any) {
       message.error(error.response?.data?.message || "닉네임 변경에 실패했습니다.");
+    } finally {
+      setIsNicknameSaving(false);
     }
   };
 
@@ -106,6 +114,7 @@ export default function ProfileEdit() {
       return;
     }
     
+    setIsHandleSaving(true);
     try {
       await authAPI.updateHandle(tempHandle.trim());
       message.success("핸들이 변경되었습니다.");
@@ -114,6 +123,8 @@ export default function ProfileEdit() {
       await refreshUser();
     } catch (error: any) {
       message.error(error.response?.data?.message || "핸들 변경에 실패했습니다.");
+    } finally {
+      setIsHandleSaving(false);
     }
   };
 
@@ -244,8 +255,14 @@ export default function ProfileEdit() {
                     maxLength={20}
                   />
                   <Space>
-                    <Button type="primary" size="small" onClick={saveNickname}>
-                      저장
+                    <Button 
+                      type="primary" 
+                      size="small" 
+                      onClick={saveNickname}
+                      loading={isNicknameSaving}
+                      disabled={isNicknameSaving}
+                    >
+                      {isNicknameSaving ? LOADING_TEXTS.SAVING : "저장"}
                     </Button>
                     <Button 
                       size="small" 
@@ -296,8 +313,14 @@ export default function ProfileEdit() {
                     maxLength={30}
                   />
                   <Space>
-                    <Button type="primary" size="small" onClick={saveHandle}>
-                      저장
+                    <Button 
+                      type="primary" 
+                      size="small" 
+                      onClick={saveHandle}
+                      loading={isHandleSaving}
+                      disabled={isHandleSaving}
+                    >
+                      {isHandleSaving ? LOADING_TEXTS.SAVING : "저장"}
                     </Button>
                     <Button 
                       size="small" 

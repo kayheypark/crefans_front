@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Form, Input, message } from "antd";
 import { userAPI } from "@/lib/api/user";
 import { isValidNickname } from "@/lib/utils/validationUtils";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 import { useAuth } from "@/contexts/AuthContext";
+import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
 
 interface NicknameModalProps {
   open: boolean;
@@ -20,8 +21,10 @@ export default function NicknameModal({
 }: NicknameModalProps) {
   const [form] = Form.useForm();
   const { refreshUser } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSave = async () => {
+    setIsLoading(true);
     try {
       const values = await form.validateFields();
       await userAPI.updateNickname(values.nickname);
@@ -31,6 +34,8 @@ export default function NicknameModal({
       form.resetFields();
     } catch (error: any) {
       message.error(error.response?.data?.message || "닉네임 변경에 실패했습니다.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -45,8 +50,9 @@ export default function NicknameModal({
       open={open}
       onOk={handleSave}
       onCancel={handleCancel}
-      okText="변경"
+      okText={isLoading ? LOADING_TEXTS.SAVING : "변경"}
       cancelText="취소"
+      confirmLoading={isLoading}
       zIndex={1002}
       style={MODAL_STYLES.mobile.style}
       styles={MODAL_STYLES.mobile.styles}

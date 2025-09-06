@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Layout,
   Typography,
@@ -13,7 +13,6 @@ import {
   Card,
   Divider,
   Tag,
-  Modal,
   InputNumber,
 } from "antd";
 import {
@@ -31,6 +30,8 @@ import { useRouter } from "next/navigation";
 import Spacings from "@/lib/constants/spacings";
 import MembershipManagementModal from "@/components/modals/MembershipManagementModal";
 import MembershipCard from "@/components/common/MembershipCard";
+import MediaGallery from "@/components/media/MediaGallery";
+import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -57,18 +58,7 @@ export default function WritePage() {
       originalFile?: File; // 원본 파일 참조 추가
     }[]
   >([]);
-  const [previewModal, setPreviewModal] = useState<{
-    isOpen: boolean;
-    type: "image" | "video";
-    url: string;
-    index: number;
-  }>({
-    isOpen: false,
-    type: "image",
-    url: "",
-    index: 0,
-  });
-  const videoRef = useRef<HTMLVideoElement>(null);
+
 
   const [isMembershipOnly, setIsMembershipOnly] = useState(false);
   const [selectedMembershipLevel, setSelectedMembershipLevel] =
@@ -85,6 +75,10 @@ export default function WritePage() {
   const [isMembershipModalOpen, setIsMembershipModalOpen] = useState(false);
   const [hasDraft, setHasDraft] = useState(false);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
+  
+  // 미디어 로딩 상태
+  const [isImageUploading, setIsImageUploading] = useState(false);
+  const [isVideoUploading, setIsVideoUploading] = useState(false);
 
   // 멤버십 데이터 불러오기
   useEffect(() => {
@@ -120,6 +114,7 @@ export default function WritePage() {
   // 이미지 업로드 처리
   const handleImageUpload = (info: any) => {
     if (info.file.status === "done") {
+      setIsImageUploading(true);
       // Blob URL 생성 (더 안정적)
       const blobUrl = URL.createObjectURL(info.file.originFileObj);
 
@@ -135,6 +130,7 @@ export default function WritePage() {
         };
         setImages((prev) => [...prev, newImage]);
         message.success("이미지가 업로드되었습니다.");
+        setIsImageUploading(false);
       };
 
       img.onerror = () => {
@@ -148,6 +144,7 @@ export default function WritePage() {
         };
         setImages((prev) => [...prev, newImage]);
         message.success("이미지가 업로드되었습니다.");
+        setIsImageUploading(false);
       };
 
       img.src = blobUrl;
@@ -246,6 +243,7 @@ export default function WritePage() {
 
           setVideos((prev) => [...prev, newVideo]);
           message.success("동영상이 업로드되었습니다.");
+          setIsVideoUploading(false);
         }
       };
 
@@ -263,6 +261,7 @@ export default function WritePage() {
 
         setVideos((prev) => [...prev, newVideo]);
         message.success("동영상이 업로드되었습니다.");
+        setIsVideoUploading(false);
       };
 
       video.src = blobUrl;
@@ -304,130 +303,9 @@ export default function WritePage() {
     };
   }, [images, videos]);
 
-  // 동영상 미리보기 모달 상태 변경 감지
-  useEffect(() => {
-    if (
-      previewModal.isOpen &&
-      previewModal.type === "video" &&
-      videoRef.current
-    ) {
-      // 모달이 열리고 동영상 타입일 때 동영상 요소 초기화
-      const videoElement = videoRef.current;
 
-      // 동영상 로드 완료 후 재생 준비
-      const handleCanPlay = () => {
-        if (process.env.NODE_ENV === "development") {
-          console.log("동영상 재생 준비 완료:", {
-            url: previewModal.url,
-            index: previewModal.index,
-            duration: videoElement.duration,
-          });
-        }
-      };
 
-      videoElement.addEventListener("canplay", handleCanPlay);
 
-      return () => {
-        videoElement.removeEventListener("canplay", handleCanPlay);
-      };
-    }
-  }, [
-    previewModal.isOpen,
-    previewModal.type,
-    previewModal.url,
-    previewModal.index,
-  ]);
-
-  // videos 배열 변경 시 모달 상태 동기화
-  useEffect(() => {
-    if (previewModal.isOpen && previewModal.type === "video") {
-      // 현재 모달에 표시된 동영상의 URL을 기반으로 새로운 인덱스 찾기
-      const currentVideoUrl = previewModal.url;
-      const newIndex = videos.findIndex(
-        (video) => video.url === currentVideoUrl
-      );
-
-      if (newIndex !== -1 && newIndex !== previewModal.index) {
-        // 인덱스가 변경된 경우 모달 상태 업데이트
-        if (process.env.NODE_ENV === "development") {
-          console.log("동영상 모달 인덱스 동기화:", {
-            oldIndex: previewModal.index,
-            newIndex: newIndex,
-            url: currentVideoUrl,
-          });
-        }
-
-        setPreviewModal((prev) => ({
-          ...prev,
-          index: newIndex,
-        }));
-      }
-    }
-  }, [
-    videos,
-    previewModal.isOpen,
-    previewModal.type,
-    previewModal.url,
-    previewModal.index,
-  ]);
-
-  // 미리보기 모달 열기
-  const openPreviewModal = (
-    type: "image" | "video",
-    url: string,
-    index: number
-  ) => {
-    // 동영상의 경우 videos 배열에서 해당 URL을 가진 동영상의 실제 인덱스를 찾음
-    let actualIndex = index;
-    if (type === "video") {
-      // 먼저 URL로 정확한 동영상 찾기
-      const videoIndex = videos.findIndex((video) => video.url === url);
-
-      if (videoIndex !== -1) {
-        // URL로 찾은 경우 해당 인덱스 사용
-        actualIndex = videoIndex;
-      } else {
-        // URL로 찾지 못한 경우 index 사용하되 범위 체크
-        if (index >= 0 && index < videos.length) {
-          actualIndex = index;
-        } else {
-          actualIndex = 0; // 기본값
-        }
-      }
-
-      if (process.env.NODE_ENV === "development") {
-        console.log("동영상 모달 열기:", {
-          requestedUrl: url,
-          requestedIndex: index,
-          actualIndex: actualIndex,
-          videosCount: videos.length,
-          foundVideo: videos[actualIndex],
-        });
-      }
-    }
-
-    setPreviewModal({
-      isOpen: true,
-      type,
-      url,
-      index: actualIndex,
-    });
-  };
-
-  // 미리보기 모달 닫기
-  const closePreviewModal = () => {
-    // 동영상이 재생 중이면 정지
-    if (videoRef.current && previewModal.type === "video") {
-      videoRef.current.pause();
-    }
-
-    setPreviewModal({
-      isOpen: false,
-      type: "image",
-      url: "",
-      index: 0,
-    });
-  };
 
   // 이미지 순서 변경
   const moveImage = (fromIndex: number, toIndex: number) => {
@@ -590,178 +468,29 @@ export default function WritePage() {
               }}
               onChange={handleImageUpload}
             >
-              <Button icon={<PictureOutlined />} size="large">
-                이미지 추가
+              <Button 
+                icon={<PictureOutlined />} 
+                size="large"
+                loading={isImageUploading}
+                disabled={isImageUploading}
+              >
+                {isImageUploading ? LOADING_TEXTS.UPLOADING : "이미지 추가"}
               </Button>
             </Upload>
           </div>
 
           {/* 업로드된 이미지 미리보기 */}
           {images.length > 0 && (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
-                gap: 12,
-              }}
-            >
-              {images.map((image, index) => (
-                <div
-                  key={image.id}
-                  style={{
-                    position: "relative",
-                    aspectRatio: "1",
-                    borderRadius: 8,
-                    overflow: "hidden",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => openPreviewModal("image", image.url, index)}
-                >
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: "#000",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      position: "relative",
-                    }}
-                  >
-                    <img
-                      src={image.url}
-                      alt={`이미지 ${index + 1}`}
-                      style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                        objectFit: "contain",
-                        display: "block",
-                      }}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 4,
-                      left: 4,
-                      background: "rgba(0, 0, 0, 0.7)",
-                      color: "#fff",
-                      padding: "2px 6px",
-                      borderRadius: 4,
-                      fontSize: 10,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {index + 1}번째 이미지
-                  </div>
-                  <Button
-                    type="text"
-                    size="small"
-                    danger
-                    style={{
-                      position: "absolute",
-                      top: 4,
-                      right: 4,
-                      background: "rgba(255, 255, 255, 0.9)",
-                      border: "none",
-                      borderRadius: "50%",
-                      width: 24,
-                      height: 24,
-                      minWidth: 24,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeImage(index);
-                    }}
-                  >
-                    ×
-                  </Button>
-                  {/* 순서 변경 버튼들 - 오른쪽 아래에 배치 */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 4,
-                      right: 4,
-                      display: "flex",
-                      gap: 4,
-                    }}
-                  >
-                    {index > 0 && (
-                      <Button
-                        type="text"
-                        size="small"
-                        style={{
-                          background: "rgba(0, 0, 0, 0.8)",
-                          border: "none",
-                          borderRadius: "50%",
-                          width: 24,
-                          height: 24,
-                          minWidth: 24,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "12px",
-                          color: "#fff",
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          moveImage(index, index - 1);
-                        }}
-                      >
-                        ↑
-                      </Button>
-                    )}
-                    {index < images.length - 1 && (
-                      <Button
-                        type="text"
-                        size="small"
-                        style={{
-                          background: "rgba(0, 0, 0, 0.8)",
-                          border: "none",
-                          borderRadius: "50%",
-                          width: 24,
-                          height: 24,
-                          minWidth: 24,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "12px",
-                          color: "#fff",
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          moveImage(index, index + 1);
-                        }}
-                      >
-                        ↓
-                      </Button>
-                    )}
-                  </div>
-
-                  {/* 원본 해상도 정보 표시 */}
-                  {image.width && image.height && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: 4,
-                        left: 4,
-                        background: "rgba(0, 0, 0, 0.8)",
-                        color: "#fff",
-                        padding: "2px 6px",
-                        borderRadius: 4,
-                        fontSize: 10,
-                        fontWeight: 500,
-                      }}
-                    >
-                      {image.width} × {image.height}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+            <MediaGallery
+              items={images.map(img => ({
+                ...img,
+                type: "image" as const
+              }))}
+              onRemove={removeImage}
+              onReorder={moveImage}
+              isLoading={isImageUploading}
+              gridCols={3}
+            />
           )}
         </div>
 
@@ -781,164 +510,29 @@ export default function WritePage() {
               }}
               onChange={handleVideoUpload}
             >
-              <Button icon={<PlayCircleOutlined />} size="large">
-                동영상 추가
+              <Button 
+                icon={<PlayCircleOutlined />} 
+                size="large"
+                loading={isVideoUploading}
+                disabled={isVideoUploading}
+              >
+                {isVideoUploading ? LOADING_TEXTS.UPLOADING : "동영상 추가"}
               </Button>
             </Upload>
           </div>
 
           {/* 업로드된 동영상 미리보기 */}
           {videos.length > 0 && (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-                gap: 12,
-              }}
-            >
-              {videos.map((video, index) => (
-                <div
-                  key={video.id}
-                  style={{
-                    position: "relative",
-                    aspectRatio: "16/9",
-                    borderRadius: 8,
-                    overflow: "hidden",
-                    background: "#f0f0f0",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => openPreviewModal("video", video.url, index)}
-                >
-                  <video
-                    src={video.url}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 4,
-                      left: 4,
-                      background: "rgba(0, 0, 0, 0.7)",
-                      color: "#fff",
-                      padding: "2px 6px",
-                      borderRadius: 4,
-                      fontSize: 10,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {index + 1}번째 동영상
-                  </div>
-                  <Button
-                    type="text"
-                    size="small"
-                    danger
-                    style={{
-                      position: "absolute",
-                      top: 4,
-                      right: 4,
-                      background: "rgba(255, 255, 255, 0.9)",
-                      border: "none",
-                      borderRadius: "50%",
-                      width: 24,
-                      height: 24,
-                      minWidth: 24,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeVideo(index);
-                    }}
-                  >
-                    ×
-                  </Button>
-                  {/* 순서 변경 버튼들 - 오른쪽 아래에 배치 */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 4,
-                      right: 4,
-                      display: "flex",
-                      gap: 4,
-                    }}
-                  >
-                    {index > 0 && (
-                      <Button
-                        type="text"
-                        size="small"
-                        style={{
-                          background: "rgba(0, 0, 0, 0.8)",
-                          border: "none",
-                          borderRadius: "50%",
-                          width: 24,
-                          height: 24,
-                          minWidth: 24,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "12px",
-                          color: "#fff",
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          moveVideo(index, index - 1);
-                        }}
-                      >
-                        ↑
-                      </Button>
-                    )}
-                    {index < videos.length - 1 && (
-                      <Button
-                        type="text"
-                        size="small"
-                        style={{
-                          background: "rgba(0, 0, 0, 0.8)",
-                          border: "none",
-                          borderRadius: "50%",
-                          width: 24,
-                          height: 24,
-                          minWidth: 24,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "12px",
-                          color: "#fff",
-                        }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          moveVideo(index, index + 1);
-                        }}
-                      >
-                        ↓
-                      </Button>
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 4,
-                      left: 4,
-                      background: "rgba(0, 0, 0, 0.9)",
-                      color: "#fff",
-                      padding: "4px 8px",
-                      borderRadius: 6,
-                      fontSize: 11,
-                      fontWeight: 600,
-                      minWidth: "40px",
-                      textAlign: "center",
-                      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
-                    }}
-                  >
-                    {video.duration || "0:00"}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <MediaGallery
+              items={videos.map(video => ({
+                ...video,
+                type: "video" as const
+              }))}
+              onRemove={removeVideo}
+              onReorder={moveVideo}
+              isLoading={isVideoUploading}
+              gridCols={2}
+            />
           )}
         </div>
 
@@ -1181,103 +775,6 @@ export default function WritePage() {
         currentMemberships={memberships}
       />
 
-      {/* 미디어 미리보기 모달 */}
-      <Modal
-        title={`${
-          previewModal.type === "image" ? "이미지" : "동영상"
-        } 미리보기`}
-        open={previewModal.isOpen}
-        onCancel={closePreviewModal}
-        footer={null}
-        width={800}
-        style={{ top: 20 }}
-        afterOpenChange={(open) => {
-          // 모달이 열릴 때 동영상 소스 재설정
-          if (open && previewModal.type === "video" && videoRef.current) {
-            // 동영상 요소 초기화
-            videoRef.current.pause();
-            videoRef.current.currentTime = 0;
-
-            // 현재 인덱스에 해당하는 동영상의 URL 가져오기
-            const currentVideo = videos[previewModal.index];
-            if (currentVideo && currentVideo.url) {
-              videoRef.current.src = currentVideo.url;
-              videoRef.current.load(); // 동영상 소스 강제 로드
-
-              // 디버깅을 위한 로그
-              if (process.env.NODE_ENV === "development") {
-                console.log("동영상 모달 열림:", {
-                  modalUrl: previewModal.url,
-                  modalIndex: previewModal.index,
-                  currentVideoUrl: currentVideo.url,
-                  currentVideoIndex: previewModal.index,
-                  videoElement: videoRef.current,
-                });
-              }
-            } else {
-              console.error("동영상을 찾을 수 없습니다:", {
-                modalIndex: previewModal.index,
-                videosCount: videos.length,
-                videos: videos.map((v, i) => ({
-                  index: i,
-                  url: v.url,
-                  id: v.id,
-                })),
-              });
-            }
-          }
-        }}
-      >
-        <div style={{ textAlign: "center" }}>
-          {previewModal.type === "image" ? (
-            <img
-              src={previewModal.url}
-              alt={`${previewModal.type} ${previewModal.index + 1}`}
-              style={{
-                maxWidth: "100%",
-                maxHeight: "500px",
-                objectFit: "contain",
-                borderRadius: "8px",
-              }}
-            />
-          ) : (
-            <video
-              ref={videoRef}
-              key={`${previewModal.url}-${previewModal.index}`} // URL과 인덱스를 모두 포함하여 고유한 키 생성
-              src={previewModal.url}
-              controls
-              preload="metadata"
-              onLoadedMetadata={() => {
-                if (process.env.NODE_ENV === "development") {
-                  console.log("동영상 메타데이터 로드됨:", {
-                    url: previewModal.url,
-                    index: previewModal.index,
-                    duration: videoRef.current?.duration,
-                  });
-                }
-              }}
-              onError={(e) => {
-                console.error("동영상 로드 오류:", {
-                  url: previewModal.url,
-                  index: previewModal.index,
-                  error: e,
-                });
-              }}
-              style={{
-                maxWidth: "100%",
-                maxHeight: "500px",
-                borderRadius: "8px",
-              }}
-            />
-          )}
-          <div style={{ marginTop: 16 }}>
-            <Text type="secondary">
-              {previewModal.type === "image" ? "이미지" : "동영상"}{" "}
-              {previewModal.index + 1}
-            </Text>
-          </div>
-        </div>
-      </Modal>
     </Layout>
   );
 }
