@@ -1050,6 +1050,8 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   ? "100%"
                   : isTablet
                   ? "100%"
+                  : pathname === "/home" || pathname === "/"
+                  ? "1200px"
                   : Spacings.CONTENT_LAYOUT_WIDTH,
                 position: "sticky",
                 top: 0,
@@ -1111,7 +1113,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 ? "100%"
                 : isTablet
                 ? "100%"
-                : pathname === "/home"
+                : pathname === "/home" || pathname === "/"
                 ? "1200px"
                 : Spacings.CONTENT_LAYOUT_WIDTH,
               paddingLeft: isMobile ? 0 : 15,
