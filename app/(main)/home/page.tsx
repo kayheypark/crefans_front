@@ -189,7 +189,7 @@ export default function HomePage() {
           }}
         >
           크리에이터, 팬, 플랫폼이 연결된 지속 가능한 창작 생태계
-          {!isMobile && <br />}
+          <br />
           <Text type="secondary" style={{ textAlign: "center" }}>
             이 모든 것들이 유기적으로 연결되어 하나의 생태계를 이룹니다.
           </Text>
@@ -253,7 +253,7 @@ export default function HomePage() {
           }}
         >
           크리에이터 지원 프로그램
-          {!isMobile && <br />}
+          <br />
           <Text type="secondary" style={{ textAlign: "center" }}>
             크레팬스는 창작자의 재능 발전을 위해 무엇을 해야할지 알고있습니다.
           </Text>

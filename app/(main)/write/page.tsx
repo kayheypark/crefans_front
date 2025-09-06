@@ -32,12 +32,36 @@ import MembershipManagementModal from "@/components/modals/MembershipManagementM
 import MembershipCard from "@/components/common/MembershipCard";
 import MediaGallery from "@/components/media/MediaGallery";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
+import { mediaAPI, uploadWithProgress } from "@/lib/api/media";
+import { useAuth } from "@/contexts/AuthContext";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 export default function WritePage() {
   const router = useRouter();
+  const { user } = useAuth();
+
+  // 로그인 확인
+  useEffect(() => {
+    if (user === null) {
+      // 로그아웃 상태
+      router.push('/auth/signin');
+    }
+  }, [user, router]);
+
+  // 로딩 중이거나 비로그인 상태일 때 로딩 화면
+  if (user === undefined) {
+    return (
+      <div style={{ textAlign: 'center', padding: '50px' }}>
+        <Text>로딩 중...</Text>
+      </div>
+    );
+  }
+
+  if (user === null) {
+    return null; // 리디렉트 중
+  }
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState<
@@ -111,43 +135,87 @@ export default function WritePage() {
     }
   };
 
-  // 이미지 업로드 처리
-  const handleImageUpload = (info: any) => {
+  // 이미지 업로드 처리 (AWS S3 + 임시 블로브 URL)
+  const handleImageUpload = async (info: any) => {
     if (info.file.status === "done") {
       setIsImageUploading(true);
-      // Blob URL 생성 (더 안정적)
-      const blobUrl = URL.createObjectURL(info.file.originFileObj);
+      
+      try {
+        const file = info.file.originFileObj;
+        
+        // AWS 방식 사용 시도, 실패시 기존 방식
+        let mediaId;
+        let s3Url;
+        
+        try {
+          // 1. AWS 업로드 준비
+          const { mediaId: awsMediaId, uploadUrl, s3Key } = await mediaAPI.prepareUpload({
+            fileName: file.name,
+            contentType: file.type,
+            fileSize: file.size,
+          });
 
-      // 이미지 크기 정보 가져오기
-      const img = new Image();
-      img.onload = () => {
-        const newImage = {
-          id: Date.now().toString(),
-          url: blobUrl,
-          order: images.length,
-          width: img.naturalWidth,
-          height: img.naturalHeight,
+          // 2. S3에 직접 업로드
+          await uploadWithProgress(uploadUrl, file, (progress) => {
+            console.log(`이미지 업로드 진행률: ${progress}%`);
+          });
+
+          // 3. 업로드 완료 알림
+          const media = await mediaAPI.completeUpload(awsMediaId, s3Key);
+          
+          mediaId = awsMediaId;
+          s3Url = media.originalUrl;
+          
+          console.log('AWS 업로드 성공:', { mediaId, s3Url });
+        } catch (awsError) {
+          console.log('AWS 업로드 실패, 기존 방식 사용:', awsError);
+          // AWS 실패시 기존 방식으로 폴백
+          mediaId = Date.now().toString();
+          s3Url = null;
+        }
+
+        // 4. 로컬 상태에 추가 (블로브 URL 사용)
+        const blobUrl = URL.createObjectURL(file);
+        const img = new Image();
+        
+        img.onload = () => {
+          const newImage = {
+            id: mediaId,
+            url: blobUrl, // 즉시 미리보기용 블로브 URL
+            s3Url: s3Url, // AWS S3 URL (있으면)
+            order: images.length,
+            width: img.naturalWidth,
+            height: img.naturalHeight,
+            uploadType: s3Url ? 'aws' : 'local', // 업로드 타입 표시
+          };
+          
+          setImages((prev) => [...prev, newImage]);
+          message.success(s3Url ? "이미지가 업로드되었습니다. (AWS)" : "이미지가 업로드되었습니다. (Local)");
         };
-        setImages((prev) => [...prev, newImage]);
-        message.success("이미지가 업로드되었습니다.");
-        setIsImageUploading(false);
-      };
-
-      img.onerror = () => {
-        // 이미지 로드 실패 시 기본값으로 생성
-        const newImage = {
-          id: Date.now().toString(),
-          url: blobUrl,
-          order: images.length,
-          width: 0,
-          height: 0,
+        
+        img.onerror = () => {
+          const newImage = {
+            id: mediaId,
+            url: blobUrl,
+            s3Url: s3Url,
+            order: images.length,
+            width: 0,
+            height: 0,
+            uploadType: s3Url ? 'aws' : 'local',
+          };
+          
+          setImages((prev) => [...prev, newImage]);
+          message.success("이미지가 업로드되었습니다.");
         };
-        setImages((prev) => [...prev, newImage]);
-        message.success("이미지가 업로드되었습니다.");
+        
+        img.src = blobUrl;
+        
+      } catch (error) {
+        console.error('이미지 업로드 실패:', error);
+        message.error('이미지 업로드에 실패했습니다.');
+      } finally {
         setIsImageUploading(false);
-      };
-
-      img.src = blobUrl;
+      }
     }
   };
 
@@ -163,108 +231,124 @@ export default function WritePage() {
     });
   };
 
-  // 동영상 업로드 처리
-  const handleVideoUpload = (info: any) => {
+  // 동영상 업로드 처리 (AWS S3 + MediaConvert + 임시 블로브 URL)
+  const handleVideoUpload = async (info: any) => {
     if (info.file.status === "done") {
-      // Blob URL 생성 (더 안정적)
-      const blobUrl = URL.createObjectURL(info.file.originFileObj);
+      setIsVideoUploading(true);
+      
+      try {
+        const file = info.file.originFileObj;
+        
+        // AWS 방식 사용 시도, 실패시 기존 방식
+        let mediaId;
+        let s3Url;
+        let processingStatus = 'local';
+        
+        try {
+          // 1. AWS 업로드 준비
+          const { mediaId: awsMediaId, uploadUrl, s3Key } = await mediaAPI.prepareUpload({
+            fileName: file.name,
+            contentType: file.type,
+            fileSize: file.size,
+          });
 
-      // 동영상 재생시간 가져오기
-      const video = document.createElement("video");
-      video.preload = "metadata";
+          // 2. S3에 직접 업로드
+          await uploadWithProgress(uploadUrl, file, (progress) => {
+            console.log(`동영상 업로드 진행률: ${progress}%`);
+          });
 
-      // 동영상 로드 타임아웃 설정 (5초)
-      const timeoutId = setTimeout(() => {
-        if (video.readyState < 1) {
-          // HAVE_NOTHING
-          // 타임아웃 시 기본값으로 생성
+          // 3. 업로드 완료 알림 (MediaConvert 시작)
+          const media = await mediaAPI.completeUpload(awsMediaId, s3Key);
+          
+          mediaId = awsMediaId;
+          s3Url = media.originalUrl;
+          processingStatus = 'processing'; // MediaConvert 처리 중
+          
+          console.log('AWS 동영상 업로드 성공, MediaConvert 시작:', { mediaId, s3Url });
+        } catch (awsError) {
+          console.log('AWS 업로드 실패, 기존 방식 사용:', awsError);
+          mediaId = `video_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+          s3Url = null;
+          processingStatus = 'local';
+        }
+
+        // 4. 로컬 비디오로 메타데이터 추출
+        const blobUrl = URL.createObjectURL(file);
+        const video = document.createElement("video");
+        video.preload = "metadata";
+        
+        const timeoutId = setTimeout(() => {
           const newVideo = {
-            id: `video_${Date.now()}_${Math.random()
-              .toString(36)
-              .substr(2, 9)}`,
+            id: mediaId,
             url: blobUrl,
+            s3Url: s3Url,
             duration: "0:00",
             order: videos.length,
-            originalFile: info.file.originFileObj,
+            originalFile: file,
+            uploadType: s3Url ? 'aws' : 'local',
+            processingStatus: processingStatus,
           };
-
+          
           setVideos((prev) => [...prev, newVideo]);
-          message.success("동영상이 업로드되었습니다.");
-        }
-      }, 5000);
-
-      video.onloadedmetadata = () => {
-        clearTimeout(timeoutId); // 타임아웃 제거
-
-        const duration = video.duration;
-
-        // duration이 유효한 숫자인지 확인
-        if (duration && !isNaN(duration) && duration > 0) {
-          const minutes = Math.floor(duration / 60);
-          const seconds = Math.floor(duration % 60);
-          const durationString = `${minutes}:${seconds
-            .toString()
-            .padStart(2, "0")}`;
-
+          const statusText = s3Url ? '처리 중입니다...' : '';
+          message.success(`동영상이 업로드되었습니다. ${statusText}`);
+        }, 5000);
+        
+        video.onloadedmetadata = () => {
+          clearTimeout(timeoutId);
+          
+          const duration = video.duration;
+          let durationString = "0:00";
+          
+          if (duration && !isNaN(duration) && duration > 0) {
+            const minutes = Math.floor(duration / 60);
+            const seconds = Math.floor(duration % 60);
+            durationString = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+          }
+          
           const newVideo = {
-            id: `video_${Date.now()}_${Math.random()
-              .toString(36)
-              .substr(2, 9)}`, // 더 고유한 ID 생성
+            id: mediaId,
             url: blobUrl,
+            s3Url: s3Url,
             duration: durationString,
             order: videos.length,
-            originalFile: info.file.originFileObj, // 원본 파일 참조 유지
+            originalFile: file,
+            uploadType: s3Url ? 'aws' : 'local',
+            processingStatus: processingStatus,
           };
-
+          
           setVideos((prev) => [...prev, newVideo]);
-
-          if (process.env.NODE_ENV === "development") {
-            console.log("동영상 업로드됨:", {
-              id: newVideo.id,
-              url: newVideo.url,
-              order: newVideo.order,
-              duration: durationString,
-              originalDuration: duration,
-            });
-          }
-
-          message.success("동영상이 업로드되었습니다.");
-        } else {
-          // duration이 유효하지 않은 경우 기본값으로 생성
+          const statusText = s3Url ? '처리 중입니다...' : '';
+          message.success(`동영상이 업로드되었습니다. ${statusText}`);
+        };
+        
+        video.onerror = () => {
+          clearTimeout(timeoutId);
+          
           const newVideo = {
-            id: `video_${Date.now()}_${Math.random()
-              .toString(36)
-              .substr(2, 9)}`,
+            id: mediaId,
             url: blobUrl,
+            s3Url: s3Url,
             duration: "0:00",
             order: videos.length,
-            originalFile: info.file.originFileObj,
+            originalFile: file,
+            uploadType: s3Url ? 'aws' : 'local',
+            processingStatus: processingStatus,
           };
-
+          
           setVideos((prev) => [...prev, newVideo]);
-          message.success("동영상이 업로드되었습니다.");
-          setIsVideoUploading(false);
-        }
-      };
-
-      video.onerror = () => {
-        clearTimeout(timeoutId); // 타임아웃 제거
-
-        // 동영상 로드 실패 시 기본값으로 생성
-        const newVideo = {
-          id: `video_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-          url: blobUrl,
-          duration: "0:00",
-          order: videos.length,
-          originalFile: info.file.originFileObj,
+          const statusText = s3Url ? '처리 중입니다...' : '';
+          message.success(`동영상이 업로드되었습니다. ${statusText}`);
         };
-
-        setVideos((prev) => [...prev, newVideo]);
-        message.success("동영상이 업로드되었습니다.");
+        
+        video.src = blobUrl;
+        
+      } catch (error) {
+        console.error('동영상 업로드 실패:', error);
+        message.error('동영상 업로드에 실패했습니다.');
+      } finally {
         setIsVideoUploading(false);
-      };
-
-      video.src = blobUrl;
+      }
     }
   };
 
