@@ -49,6 +49,7 @@ import { getApiUrl } from "@/utils/env";
 import Spacings from "@/lib/constants/spacings";
 import { useResponsive } from "@/hooks/useResponsive";
 import { responsiveStyles } from "@/lib/constants/breakpoints";
+import { useWallet } from "@/hooks/useWallet";
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -94,6 +95,12 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { isMobile, isTablet, isDesktop } = useResponsive();
+  const {
+    wallets,
+    getTokenAmount,
+    loading: walletLoading,
+    refetch: refetchWallet,
+  } = useWallet();
   const [selectedMenu, setSelectedMenu] = useState<string>(() => {
     if (pathname === "/" || pathname === "/home") return "home";
     if (pathname === "/feed") return "feed";
@@ -165,6 +172,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
       .then((res) => res.json())
       .then((apiResponse) => setFollowCreators(apiResponse.data));
   }, []);
+
+  // 사용자가 로그인했을 때 지갑 정보 조회
+  useEffect(() => {
+    if (user) {
+      refetchWallet();
+    }
+  }, [user]); // refetchWallet을 dependency에서 제거
 
   useEffect(() => {
     // 현재 경로에 따라 메뉴 선택
@@ -762,7 +776,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
                           gap: 8,
                         }}
                       >
-                        {user.points?.toLocaleString() || 0}
+                        {user ? (
+                          walletLoading 
+                            ? "" 
+                            : wallets.length > 0 
+                            ? getTokenAmount("KNG")?.toLocaleString() || 0
+                            : "지갑없음"
+                        ) : 0}
                       </div>
                       <Button
                         type="primary"
