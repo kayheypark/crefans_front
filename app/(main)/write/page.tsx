@@ -116,10 +116,23 @@ export default function WritePage() {
   // 이미지 업로드 처리 (AWS S3 + 임시 블로브 URL)
   const handleImageUpload = async (info: any) => {
     if (info.file.status === "done") {
+      // 크레팬스 정책: 최대 10개 이미지 제한
+      if (images.length >= 10) {
+        message.error("이미지는 최대 10개까지 업로드할 수 있습니다.");
+        return;
+      }
+
       setIsImageUploading(true);
 
       try {
         const file = info.file.originFileObj;
+
+        // 파일 크기 검증 (50MB)
+        if (file.size > 50 * 1024 * 1024) {
+          message.error("이미지 파일 크기는 50MB를 초과할 수 없습니다.");
+          setIsImageUploading(false);
+          return;
+        }
 
         // AWS 방식 사용 시도, 실패시 기존 방식
         let mediaId;
@@ -219,10 +232,52 @@ export default function WritePage() {
   // 동영상 업로드 처리 (AWS S3 + MediaConvert + 임시 블로브 URL)
   const handleVideoUpload = async (info: any) => {
     if (info.file.status === "done") {
+      // 크레팬스 정책: 최대 1개 동영상 제한
+      if (videos.length >= 1) {
+        message.error("동영상은 최대 1개까지 업로드할 수 있습니다.");
+        return;
+      }
+
       setIsVideoUploading(true);
 
       try {
         const file = info.file.originFileObj;
+
+        // 파일 크기 검증 (500MB)
+        if (file.size > 500 * 1024 * 1024) {
+          message.error("동영상 파일 크기는 500MB를 초과할 수 없습니다.");
+          setIsVideoUploading(false);
+          return;
+        }
+
+        // 4K 해상도 검증 함수
+        const check4KResolution = (file: File): Promise<boolean> => {
+          return new Promise((resolve) => {
+            const video = document.createElement('video');
+            const url = URL.createObjectURL(file);
+            
+            video.onloadedmetadata = () => {
+              URL.revokeObjectURL(url);
+              const is4K = video.videoWidth > 1920 || video.videoHeight > 1080;
+              resolve(is4K);
+            };
+            
+            video.onerror = () => {
+              URL.revokeObjectURL(url);
+              resolve(false); // 오류시 허용
+            };
+            
+            video.src = url;
+          });
+        };
+
+        // 4K 해상도 체크
+        const is4K = await check4KResolution(file);
+        if (is4K) {
+          message.error("동영상 최대 해상도는 1080p입니다. 4K 업로드는 지원하지 않습니다.");
+          setIsVideoUploading(false);
+          return;
+        }
 
         // AWS 방식 사용 시도, 실패시 기존 방식
         let mediaId;
@@ -530,9 +585,12 @@ export default function WritePage() {
 
           {/* 이미지 업로드 */}
           <div style={{ marginBottom: 24 }}>
-            <Text strong style={{ display: "block", marginBottom: 8 }}>
-              이미지
-            </Text>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <Text strong>이미지</Text>
+              <Text type="secondary" style={{ fontSize: 12 }}>
+                최대 10개 • jpg, png, gif, webp • 최대 50MB
+              </Text>
+            </div>
             <div style={{ marginBottom: 16 }}>
               <Upload
                 accept="image/*"
@@ -548,9 +606,9 @@ export default function WritePage() {
                   icon={<PictureOutlined />}
                   size="large"
                   loading={isImageUploading}
-                  disabled={isImageUploading}
+                  disabled={isImageUploading || images.length >= 10}
                 >
-                  {isImageUploading ? LOADING_TEXTS.UPLOADING : "이미지 추가"}
+                  {isImageUploading ? LOADING_TEXTS.UPLOADING : images.length >= 10 ? "이미지 최대 개수 도달" : "이미지 추가"}
                 </Button>
               </Upload>
             </div>
@@ -572,9 +630,12 @@ export default function WritePage() {
 
           {/* 동영상 업로드 */}
           <div style={{ marginBottom: 24 }}>
-            <Text strong style={{ display: "block", marginBottom: 8 }}>
-              동영상
-            </Text>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <Text strong>동영상</Text>
+              <Text type="secondary" style={{ fontSize: 12 }}>
+                최대 1개 • mp4, mov, avi, mkv, webm • 최대 1080p • 최대 500MB
+              </Text>
+            </div>
             <div style={{ marginBottom: 16 }}>
               <Upload
                 accept="video/*"
@@ -590,9 +651,13 @@ export default function WritePage() {
                   icon={<PlayCircleOutlined />}
                   size="large"
                   loading={isVideoUploading}
-                  disabled={isVideoUploading}
+                  disabled={isVideoUploading || videos.length >= 1}
                 >
-                  {isVideoUploading ? LOADING_TEXTS.UPLOADING : "동영상 추가"}
+                  {isVideoUploading 
+                    ? LOADING_TEXTS.UPLOADING 
+                    : videos.length >= 1 
+                    ? "동영상 최대 개수 도달" 
+                    : "동영상 추가"}
                 </Button>
               </Upload>
             </div>
