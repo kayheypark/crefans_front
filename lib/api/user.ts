@@ -38,4 +38,20 @@ export const userAPI = {
     );
     return response.data;
   },
+
+  // 핸들로 사용자 프로필 조회
+  getUserProfileByHandle: async (handle: string) => {
+    const response = await axios.get(
+      `${getApiUrl()}/user/profile/${handle}`
+    );
+    return response.data;
+  },
+
+  // 사용자 포스트 조회
+  getUserPosts: async (handle: string, page: number = 1, limit: number = 20) => {
+    const response = await axios.get(
+      `${getApiUrl()}/user/posts/${handle}?page=${page}&limit=${limit}`
+    );
+    return response.data;
+  },
 };

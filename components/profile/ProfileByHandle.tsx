@@ -1,0 +1,738 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import Avatar from "antd/lib/avatar";
+import Button from "antd/lib/button";
+import Space from "antd/lib/space";
+import Typography from "antd/lib/typography";
+import Tabs from "antd/lib/tabs";
+import Card from "antd/lib/card";
+import Row from "antd/lib/row";
+import Col from "antd/lib/col";
+import Tag from "antd/lib/tag";
+import Empty from "antd/lib/empty";
+import Modal from "antd/lib/modal";
+import Input from "antd/lib/input";
+import message from "antd/lib/message";
+import Spin from "antd/lib/spin";
+import ReportModal from "@/components/modals/ReportModal";
+import LoginModal from "@/components/modals/LoginModal";
+import Post from "@/components/post/Post";
+import {
+  ClockCircleOutlined,
+  EyeOutlined,
+  HeartOutlined,
+  UserOutlined,
+  EditOutlined,
+  ShareAltOutlined,
+  CrownOutlined,
+  CheckCircleOutlined,
+  PictureOutlined,
+  PlayCircleOutlined,
+  SettingOutlined,
+  PlusOutlined,
+  UserAddOutlined,
+  UserDeleteOutlined,
+} from "@ant-design/icons";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import { userAPI } from "@/lib/api/user";
+import LightGallery from "lightgallery/react";
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import lgZoom from "lightgallery/plugins/zoom";
+import Spacings from "@/lib/constants/spacings";
+import { Layout } from "antd";
+
+const { Title, Paragraph, Text } = Typography;
+
+interface Post {
+  id: number;
+  creator: {
+    id: number;
+    handle: string;
+    name: string;
+    avatar: string;
+  };
+  title: string;
+  content: string;
+  isMembershipOnly: boolean;
+  isGotMembership: boolean;
+  createdAt: string;
+  images?: {
+    url: string;
+    width?: number;
+    height?: number;
+    isPublic: boolean;
+  }[];
+  textLength: number;
+  imageCount: number;
+  videoCount: number;
+}
+
+interface MediaItem {
+  id: number;
+  title: string;
+  type: "video" | "image";
+  url: string;
+  thumbnail: string;
+  createdAt: string;
+  views: number;
+  likes: number;
+  duration?: string;
+}
+
+interface UserProfile {
+  id: number;
+  handle: string;
+  name: string;
+  avatar: string;
+  bio: string;
+  isCreator: boolean;
+  isVerified: boolean;
+  followersCount: number;
+  followingCount: number;
+  postsCount: number;
+  mediaCount: number;
+}
+
+interface ProfileByHandleProps {
+  handle: string;
+}
+
+export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
+  const { user } = useAuth();
+  const router = useRouter();
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [activeTab, setActiveTab] = useState("posts");
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [media, setMedia] = useState<MediaItem[]>([]);
+  const [likedPosts, setLikedPosts] = useState<number[]>([]);
+  const [expandedPosts, setExpandedPosts] = useState<number[]>([]);
+  const [relativeDatePosts, setRelativeDatePosts] = useState<{
+    [key: number]: boolean;
+  }>({});
+  const [isShareModalVisible, setIsShareModalVisible] = useState(false);
+  const [isReportModalVisible, setIsReportModalVisible] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
+    {}
+  );
+
+  // 현재 사용자가 프로필 소유자인지 확인
+  const isOwnProfile = user?.attributes?.preferred_username === handle;
+
+  useEffect(() => {
+    fetchUserProfile();
+  }, [handle]);
+
+  useEffect(() => {
+    if (profile) {
+      fetchUserPosts();
+      fetchUserMedia();
+      if (!isOwnProfile) {
+        checkFollowStatus();
+      }
+    }
+  }, [profile, isOwnProfile]);
+
+  const fetchUserProfile = async () => {
+    setLoading(true);
+    try {
+      const response = await userAPI.getUserProfileByHandle(handle);
+
+      if (response.success) {
+        setProfile(response.data);
+      } else {
+        message.error(response.message || "프로필을 찾을 수 없습니다.");
+        setProfile(null);
+      }
+    } catch (error) {
+      console.error("프로필 정보를 가져오는데 실패했습니다:", error);
+      message.error("프로필을 찾을 수 없습니다.");
+      setProfile(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchUserPosts = async () => {
+    try {
+      const response = await userAPI.getUserPosts(handle, 1, 20);
+
+      if (response.success && response.data.posts) {
+        setPosts(response.data.posts);
+      }
+    } catch (error) {
+      console.error("포스트를 가져오는데 실패했습니다:", error);
+    }
+  };
+
+  const fetchUserMedia = async () => {
+    try {
+      // TODO: 실제 API 호출
+      setMedia([]);
+    } catch (error) {
+      console.error("미디어를 가져오는데 실패했습니다:", error);
+    }
+  };
+
+  const checkFollowStatus = async () => {
+    if (!user || isOwnProfile) return;
+
+    try {
+      // TODO: 실제 API 호출로 팔로우 상태 확인
+      setIsFollowing(Math.random() > 0.5);
+    } catch (error) {
+      console.error("팔로우 상태 확인 실패:", error);
+    }
+  };
+
+  const handleFollow = async () => {
+    if (!user) {
+      setIsLoginModalOpen(true);
+      return;
+    }
+
+    try {
+      // TODO: 실제 API 호출
+      setIsFollowing(!isFollowing);
+      message.success(
+        isFollowing ? "팔로우를 취소했습니다." : "팔로우했습니다."
+      );
+
+      // 팔로워 수 업데이트
+      if (profile) {
+        setProfile({
+          ...profile,
+          followersCount: profile.followersCount + (isFollowing ? -1 : 1),
+        });
+      }
+    } catch (error) {
+      console.error("팔로우 처리 실패:", error);
+      message.error("팔로우 처리에 실패했습니다.");
+    }
+  };
+
+  const handleLike = (postId: number) => {
+    if (!user) {
+      setIsLoginModalOpen(true);
+      return;
+    }
+
+    setLikedPosts((prev) =>
+      prev.includes(postId)
+        ? prev.filter((id) => id !== postId)
+        : [...prev, postId]
+    );
+  };
+
+  const togglePostExpand = (postId: number) => {
+    setExpandedPosts((prev) =>
+      prev.includes(postId)
+        ? prev.filter((id) => id !== postId)
+        : [...prev, postId]
+    );
+  };
+
+  const toggleDateType = (postId: number) => {
+    setRelativeDatePosts((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }));
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInHours = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60 * 60)
+    );
+
+    if (diffInHours < 1) return "방금 전";
+    if (diffInHours < 24) return `${diffInHours}시간 전`;
+    if (diffInHours < 168) return `${Math.floor(diffInHours / 24)}일 전`;
+    return date.toLocaleDateString("ko-KR");
+  };
+
+  const formatFullDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const transformPostForComponent = (post: Post) => ({
+    ...post,
+    creator: {
+      id: post.creator.id,
+      handle: post.creator.handle,
+      name: post.creator.name,
+      avatar: post.creator.avatar,
+    },
+  });
+
+  const handleCommentInputClick = () => {
+    if (!user) {
+      setIsLoginModalOpen(true);
+    }
+  };
+
+  const handleCommentSubmit = (postId: number) => {
+    message.success("답글이 작성되었습니다.");
+  };
+
+  const handleSharePost = (postId: number) => {
+    setSelectedPostId(postId);
+    setIsShareModalVisible(true);
+  };
+
+  const handleReportPost = (postId: number) => {
+    setSelectedPostId(postId);
+    setIsReportModalVisible(true);
+  };
+
+  const toggleReplies = (postId: number) => {
+    setOpenReplies((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }));
+  };
+
+  const renderPosts = () => {
+    if (posts.length === 0) {
+      return (
+        <div style={{ textAlign: "center", padding: "60px 20px" }}>
+          <Empty
+            description={
+              isOwnProfile
+                ? "아직 게시물이 없습니다"
+                : `${profile?.name}님의 게시물이 없습니다`
+            }
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div style={{ padding: "20px 0" }}>
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            post={transformPostForComponent(post)}
+            likedPosts={likedPosts}
+            expandedPosts={expandedPosts}
+            relativeDatePosts={relativeDatePosts}
+            openReplies={openReplies}
+            onLike={handleLike}
+            onToggleExpand={togglePostExpand}
+            onToggleDateType={toggleDateType}
+            onToggleReplies={toggleReplies}
+            onCommentInputClick={handleCommentInputClick}
+            onCommentSubmit={handleCommentSubmit}
+            onShare={handleSharePost}
+            onReport={handleReportPost}
+            formatDate={formatDate}
+            formatFullDate={formatFullDate}
+          />
+        ))}
+      </div>
+    );
+  };
+
+  const renderMedia = () => {
+    if (media.length === 0) {
+      return (
+        <div style={{ textAlign: "center", padding: "60px 20px" }}>
+          <Empty
+            description={
+              isOwnProfile
+                ? "아직 미디어가 없습니다"
+                : `${profile?.name}님의 미디어가 없습니다`
+            }
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div style={{ padding: "20px 0" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "2px",
+            width: "100%",
+          }}
+        >
+          {media.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                position: "relative",
+                aspectRatio: "1",
+                cursor: "pointer",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={item.thumbnail}
+                alt={item.title}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+              {item.type === "video" && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "8px",
+                    right: "8px",
+                    background: "rgba(0,0,0,0.6)",
+                    borderRadius: "4px",
+                    padding: "2px 6px",
+                    fontSize: "12px",
+                    color: "white",
+                  }}
+                >
+                  <PlayCircleOutlined style={{ marginRight: "4px" }} />
+                  {item.duration}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderFollowing = () => {
+    return (
+      <div style={{ textAlign: "center", padding: "60px 20px" }}>
+        <Empty description="팔로잉 목록" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      </div>
+    );
+  };
+
+  const renderFollowers = () => {
+    return (
+      <div style={{ textAlign: "center", padding: "60px 20px" }}>
+        <Empty description="팔로워 목록" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      </div>
+    );
+  };
+
+  if (loading) {
+    return (
+      <Layout
+        style={{
+          width: "100%",
+          margin: "0",
+          paddingLeft: Spacings.CONTENT_LAYOUT_PADDING,
+          paddingRight: Spacings.CONTENT_LAYOUT_PADDING,
+          background: "transparent",
+        }}
+      >
+        <div style={{ textAlign: "center", padding: "100px 20px" }}>
+          <Spin size="large" />
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <Layout
+        style={{
+          width: "100%",
+          margin: "0",
+          paddingLeft: Spacings.CONTENT_LAYOUT_PADDING,
+          paddingRight: Spacings.CONTENT_LAYOUT_PADDING,
+          background: "transparent",
+        }}
+      >
+        <div style={{ textAlign: "center", padding: "60px 20px" }}>
+          <Empty
+            description="프로필을 찾을 수 없습니다"
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          />
+        </div>
+      </Layout>
+    );
+  }
+
+  return (
+    <Layout
+      style={{
+        width: "100%",
+        margin: "0",
+        paddingLeft: Spacings.CONTENT_LAYOUT_PADDING,
+        paddingRight: Spacings.CONTENT_LAYOUT_PADDING,
+        background: "transparent",
+      }}
+    >
+      {/* 커버 이미지 */}
+      <div
+        style={{
+          width: "100%",
+          height: 200,
+          background: "#f0f0f0",
+          borderRadius: 12,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#999",
+          fontSize: 14,
+          marginBottom: 16,
+        }}
+      >
+        커버 이미지
+      </div>
+
+      {/* 프로필 정보 - 기존 디자인 유지 */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          gap: 16,
+          marginBottom: 24,
+          padding: "0 16px",
+          position: "relative",
+        }}
+      >
+        <Avatar size={80} src={profile.avatar} icon={<UserOutlined />} />
+        <div style={{ flex: 1 }}>
+          <div style={{ marginBottom: 8 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 4,
+              }}
+            >
+              <Text
+                strong
+                style={{
+                  fontSize: 20,
+                  color: "#222",
+                }}
+              >
+                {profile.name}
+              </Text>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                {/* 본인 프로필이 아닌 경우에만 팔로우 버튼 표시 */}
+                {!isOwnProfile && (
+                  <Button
+                    type="primary"
+                    ghost
+                    icon={<HeartOutlined />}
+                    style={{
+                      color: isFollowing ? "#666" : "#ff4d4f",
+                      borderColor: isFollowing ? "#666" : "#ff4d4f",
+                    }}
+                    onClick={handleFollow}
+                  >
+                    {isFollowing ? "팔로잉" : "팔로우"}
+                  </Button>
+                )}
+              </div>
+            </div>
+            <Text
+              type="secondary"
+              style={{
+                fontSize: 16,
+                color: "#8c8c8c",
+                marginBottom: 4,
+                display: "block",
+              }}
+            >
+              @{profile.handle}
+            </Text>
+
+            {/* 회원 타입 표시 */}
+            {profile.isCreator && (
+              <div style={{ marginBottom: 8 }}>
+                <Tag
+                  color="gold"
+                  icon={<CrownOutlined />}
+                  style={{ fontSize: 12 }}
+                >
+                  크리에이터
+                </Tag>
+                {profile.isVerified && (
+                  <CheckCircleOutlined
+                    style={{
+                      color: "#1890ff",
+                      fontSize: "16px",
+                      marginLeft: 8,
+                    }}
+                  />
+                )}
+              </div>
+            )}
+
+            <Text
+              style={{
+                fontSize: 14,
+                color: "#666",
+                lineHeight: 1.4,
+                marginBottom: 16,
+              }}
+            >
+              {profile.bio}
+            </Text>
+
+            {/* 본인 프로필인 경우에만 프로필 관리 버튼 표시 */}
+            {isOwnProfile && (
+              <div style={{ marginTop: 16, marginBottom: 16 }}>
+                <Button
+                  type="text"
+                  style={{
+                    border: "1px solid #666",
+                    borderRadius: 4,
+                    padding: "4px 8px",
+                    fontSize: 14,
+                  }}
+                  icon={<SettingOutlined />}
+                  onClick={() => router.push("/profile/edit")}
+                >
+                  프로필 관리
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* 구분선과 글쓰기 버튼 (본인 프로필일 때만) */}
+      {isOwnProfile && (
+        <div style={{ marginBottom: 24 }}>
+          <div
+            style={{
+              height: "1px",
+              backgroundColor: "#f0f0f0",
+              marginBottom: 16,
+            }}
+          />
+
+          <div style={{ padding: "0 16px" }}>
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => router.push("/write")}
+              style={{
+                width: "100%",
+                height: "40px",
+                fontSize: "16px",
+                fontWeight: "500",
+              }}
+            >
+              글쓰기
+            </Button>
+          </div>
+
+          <div
+            style={{
+              height: "1px",
+              backgroundColor: "#f0f0f0",
+              marginTop: 16,
+            }}
+          />
+        </div>
+      )}
+
+      {/* 탭 영역 */}
+      <Tabs
+        activeKey={activeTab}
+        onChange={setActiveTab}
+        tabBarStyle={{ paddingLeft: "16px" }}
+        items={[
+          {
+            key: "posts",
+            label: `게시물 ${profile.postsCount}`,
+            children: renderPosts(),
+          },
+          {
+            key: "media",
+            label: `미디어 ${profile.mediaCount.toLocaleString()}`,
+            children: renderMedia(),
+          },
+          {
+            key: "following",
+            label: `팔로잉 ${profile.followingCount}`,
+            children: renderFollowing(),
+          },
+          {
+            key: "followers",
+            label: `팔로워 ${profile.followersCount.toLocaleString()}`,
+            children: renderFollowers(),
+          },
+        ]}
+        style={{ marginBottom: 24 }}
+      />
+
+      {/* 공유하기 모달 */}
+      <Modal
+        title="공유하기"
+        open={isShareModalVisible}
+        onCancel={() => setIsShareModalVisible(false)}
+        footer={null}
+        width={400}
+      >
+        <div style={{ textAlign: "center" }}>
+          <Space direction="vertical" size="large" style={{ width: "100%" }}>
+            <div>
+              <Input
+                value={`https://www.crefans.com/post/${selectedPostId}`}
+                readOnly
+                suffix={
+                  <Button
+                    type="text"
+                    icon={<ShareAltOutlined />}
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        `https://www.crefans.com/post/${selectedPostId}`
+                      );
+                      message.success("링크가 복사되었습니다.");
+                    }}
+                  />
+                }
+              />
+            </div>
+          </Space>
+        </div>
+      </Modal>
+
+      {/* 신고 모달 */}
+      <ReportModal
+        open={isReportModalVisible}
+        onClose={() => setIsReportModalVisible(false)}
+      />
+
+      {/* 로그인 모달 */}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
+    </Layout>
+  );
+}

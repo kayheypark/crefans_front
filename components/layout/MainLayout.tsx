@@ -501,7 +501,11 @@ export default function MainLayout({ children }: MainLayoutProps) {
         icon: <UserOutlined />,
         label: "프로필",
         onClick: () => {
-          router.push("/profile");
+          if (user?.attributes?.preferred_username) {
+            router.push(`/@${user.attributes.preferred_username}`);
+          } else {
+            router.push("/profile");
+          }
           // 모바일과 태블릿에서 사이드바 닫기
           if (isMobile || isTablet) {
             setIsSidebarOpen(false);
