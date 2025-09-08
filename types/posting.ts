@@ -27,6 +27,7 @@ export interface PostingResponse {
   allow_individual_purchase: boolean;
   individual_purchase_price?: number;
   is_public: boolean;
+  is_sensitive: boolean;
   total_view_count: number;
   unique_view_count: number;
   like_count: number;
@@ -50,6 +51,7 @@ export interface CreatePostingDto {
   allow_individual_purchase?: boolean;
   individual_purchase_price?: number;
   is_public?: boolean;
+  is_sensitive?: boolean;
 }
 
 export interface UpdatePostingDto {
@@ -64,6 +66,7 @@ export interface UpdatePostingDto {
   allow_individual_purchase?: boolean;
   individual_purchase_price?: number;
   is_public?: boolean;
+  is_sensitive?: boolean;
 }
 
 export interface PostingListResponse {

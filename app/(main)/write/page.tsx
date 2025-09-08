@@ -35,6 +35,8 @@ import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
 import { mediaAPI, uploadWithProgress } from "@/lib/api/media";
 import { useAuth } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { postingApi } from "@/lib/api/posting";
+import { PostingStatus } from "@/types/posting";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -42,12 +44,16 @@ const { TextArea } = Input;
 export default function WritePage() {
   const router = useRouter();
   const { user } = useAuth();
+  
+  // 크리에이터 권한 확인
+  const isCreator = user?.isCreator || false;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState<
     {
       id: string;
-      url: string;
+      url: string; // 블로브 URL (미리보기용)
+      s3Url: string; // AWS S3 URL (필수)
       order: number;
       width?: number; // 원본 이미지 너비
       height?: number; // 원본 이미지 높이
@@ -56,10 +62,12 @@ export default function WritePage() {
   const [videos, setVideos] = useState<
     {
       id: string;
-      url: string;
+      url: string; // 블로브 URL (미리보기용)
+      s3Url: string; // AWS S3 URL (필수)
       duration?: string;
       order: number;
       originalFile?: File; // 원본 파일 참조 추가
+      processingStatus?: string; // 처리 상태
     }[]
   >([]);
 
@@ -135,62 +143,45 @@ export default function WritePage() {
           return;
         }
 
-        // AWS 방식 사용 시도, 실패시 기존 방식
-        let mediaId;
-        let s3Url;
+        // AWS S3 업로드 (필수)
+        // 1. AWS 업로드 준비
+        const {
+          mediaId,
+          uploadUrl,
+          s3Key,
+        } = await mediaAPI.prepareUpload({
+          fileName: file.name,
+          contentType: file.type,
+          fileSize: file.size,
+        });
 
-        try {
-          // 1. AWS 업로드 준비
-          const {
-            mediaId: awsMediaId,
-            uploadUrl,
-            s3Key,
-          } = await mediaAPI.prepareUpload({
-            fileName: file.name,
-            contentType: file.type,
-            fileSize: file.size,
-          });
+        // 2. S3에 직접 업로드
+        await uploadWithProgress(uploadUrl, file, (progress) => {
+          console.log(`이미지 업로드 진행률: ${progress}%`);
+        });
 
-          // 2. S3에 직접 업로드
-          await uploadWithProgress(uploadUrl, file, (progress) => {
-            console.log(`이미지 업로드 진행률: ${progress}%`);
-          });
+        // 3. 업로드 완료 알림
+        const media = await mediaAPI.completeUpload(mediaId, s3Key);
+        const s3Url = media.originalUrl;
 
-          // 3. 업로드 완료 알림
-          const media = await mediaAPI.completeUpload(awsMediaId, s3Key);
+        console.log("AWS 업로드 성공:", { mediaId, s3Url });
 
-          mediaId = awsMediaId;
-          s3Url = media.originalUrl;
-
-          console.log("AWS 업로드 성공:", { mediaId, s3Url });
-        } catch (awsError) {
-          console.log("AWS 업로드 실패, 기존 방식 사용:", awsError);
-          // AWS 실패시 기존 방식으로 폴백
-          mediaId = Date.now().toString();
-          s3Url = null;
-        }
-
-        // 4. 로컬 상태에 추가 (블로브 URL 사용)
+        // 4. 로컬 상태에 추가 (블로브 URL 사용 - 미리보기용)
         const blobUrl = URL.createObjectURL(file);
         const img = new Image();
 
         img.onload = () => {
           const newImage = {
             id: mediaId,
-            url: blobUrl, // 즉시 미리보기용 블로브 URL
-            s3Url: s3Url, // AWS S3 URL (있으면)
+            url: blobUrl, // 미리보기용 블로브 URL
+            s3Url: s3Url, // AWS S3 URL (필수)
             order: images.length,
             width: img.naturalWidth,
             height: img.naturalHeight,
-            uploadType: s3Url ? "aws" : "local", // 업로드 타입 표시
           };
 
           setImages((prev) => [...prev, newImage]);
-          message.success(
-            s3Url
-              ? "이미지가 업로드되었습니다. (AWS)"
-              : "이미지가 업로드되었습니다. (Local)"
-          );
+          message.success("이미지가 업로드되었습니다.");
         };
 
         img.onerror = () => {
@@ -201,7 +192,6 @@ export default function WritePage() {
             order: images.length,
             width: 0,
             height: 0,
-            uploadType: s3Url ? "aws" : "local",
           };
 
           setImages((prev) => [...prev, newImage]);
@@ -282,49 +272,34 @@ export default function WritePage() {
           return;
         }
 
-        // AWS 방식 사용 시도, 실패시 기존 방식
-        let mediaId;
-        let s3Url;
-        let processingStatus = "local";
+        // AWS S3 업로드 (필수)
+        // 1. AWS 업로드 준비
+        const {
+          mediaId,
+          uploadUrl,
+          s3Key,
+        } = await mediaAPI.prepareUpload({
+          fileName: file.name,
+          contentType: file.type,
+          fileSize: file.size,
+        });
 
-        try {
-          // 1. AWS 업로드 준비
-          const {
-            mediaId: awsMediaId,
-            uploadUrl,
-            s3Key,
-          } = await mediaAPI.prepareUpload({
-            fileName: file.name,
-            contentType: file.type,
-            fileSize: file.size,
-          });
+        // 2. S3에 직접 업로드
+        await uploadWithProgress(uploadUrl, file, (progress) => {
+          console.log(`동영상 업로드 진행률: ${progress}%`);
+        });
 
-          // 2. S3에 직접 업로드
-          await uploadWithProgress(uploadUrl, file, (progress) => {
-            console.log(`동영상 업로드 진행률: ${progress}%`);
-          });
+        // 3. 업로드 완료 알림 (MediaConvert 시작)
+        const media = await mediaAPI.completeUpload(mediaId, s3Key);
+        const s3Url = media.originalUrl;
+        const processingStatus = "processing"; // MediaConvert 처리 중
 
-          // 3. 업로드 완료 알림 (MediaConvert 시작)
-          const media = await mediaAPI.completeUpload(awsMediaId, s3Key);
+        console.log("AWS 동영상 업로드 성공, MediaConvert 시작:", {
+          mediaId,
+          s3Url,
+        });
 
-          mediaId = awsMediaId;
-          s3Url = media.originalUrl;
-          processingStatus = "processing"; // MediaConvert 처리 중
-
-          console.log("AWS 동영상 업로드 성공, MediaConvert 시작:", {
-            mediaId,
-            s3Url,
-          });
-        } catch (awsError) {
-          console.log("AWS 업로드 실패, 기존 방식 사용:", awsError);
-          mediaId = `video_${Date.now()}_${Math.random()
-            .toString(36)
-            .substr(2, 9)}`;
-          s3Url = null;
-          processingStatus = "local";
-        }
-
-        // 4. 로컬 비디오로 메타데이터 추출
+        // 4. 로컬 비디오로 메타데이터 추출 (미리보기용)
         const blobUrl = URL.createObjectURL(file);
         const video = document.createElement("video");
         video.preload = "metadata";
@@ -332,18 +307,16 @@ export default function WritePage() {
         const timeoutId = setTimeout(() => {
           const newVideo = {
             id: mediaId,
-            url: blobUrl,
-            s3Url: s3Url,
+            url: blobUrl, // 미리보기용 블로브 URL
+            s3Url: s3Url, // AWS S3 URL (필수)
             duration: "0:00",
             order: videos.length,
             originalFile: file,
-            uploadType: s3Url ? "aws" : "local",
             processingStatus: processingStatus,
           };
 
           setVideos((prev) => [...prev, newVideo]);
-          const statusText = s3Url ? "처리 중입니다..." : "";
-          message.success(`동영상이 업로드되었습니다. ${statusText}`);
+          message.success("동영상이 업로드되었습니다. 처리 중입니다...");
         }, 5000);
 
         video.onloadedmetadata = () => {
@@ -362,18 +335,16 @@ export default function WritePage() {
 
           const newVideo = {
             id: mediaId,
-            url: blobUrl,
-            s3Url: s3Url,
+            url: blobUrl, // 미리보기용 블로브 URL
+            s3Url: s3Url, // AWS S3 URL (필수)
             duration: durationString,
             order: videos.length,
             originalFile: file,
-            uploadType: s3Url ? "aws" : "local",
             processingStatus: processingStatus,
           };
 
           setVideos((prev) => [...prev, newVideo]);
-          const statusText = s3Url ? "처리 중입니다..." : "";
-          message.success(`동영상이 업로드되었습니다. ${statusText}`);
+          message.success("동영상이 업로드되었습니다. 처리 중입니다...");
         };
 
         video.onerror = () => {
@@ -381,18 +352,16 @@ export default function WritePage() {
 
           const newVideo = {
             id: mediaId,
-            url: blobUrl,
-            s3Url: s3Url,
+            url: blobUrl, // 미리보기용 블로브 URL
+            s3Url: s3Url, // AWS S3 URL (필수)
             duration: "0:00",
             order: videos.length,
             originalFile: file,
-            uploadType: s3Url ? "aws" : "local",
             processingStatus: processingStatus,
           };
 
           setVideos((prev) => [...prev, newVideo]);
-          const statusText = s3Url ? "처리 중입니다..." : "";
-          message.success(`동영상이 업로드되었습니다. ${statusText}`);
+          message.success("동영상이 업로드되었습니다. 처리 중입니다...");
         };
 
         video.src = blobUrl;
@@ -483,6 +452,11 @@ export default function WritePage() {
 
   // 임시저장
   const handleSaveDraft = async () => {
+    if (!title.trim() && !content.trim()) {
+      message.error("제목이나 내용을 입력해주세요.");
+      return;
+    }
+
     if (hasDraft) {
       // 기존 임시저장이 있는 경우 확인
       const confirmed = window.confirm(
@@ -494,13 +468,45 @@ export default function WritePage() {
     setIsSavingDraft(true);
 
     try {
-      // TODO: 실제 API 호출로 임시저장
-      await new Promise((resolve) => setTimeout(resolve, 500)); // 임시 딜레이
+      // 업로드된 미디어 ID들 수집 (모든 미디어가 AWS S3에 업로드됨)
+      const imageIds = images.map((img) => img.id);
+      const videoIds = videos.map((video) => video.id);
 
-      setHasDraft(true);
-      message.success("임시저장되었습니다.");
-    } catch (error) {
-      message.error("임시저장에 실패했습니다. 다시 시도해주세요.");
+      const media_ids = [...imageIds, ...videoIds];
+
+      // 임시저장 데이터 구성
+      const draftData = {
+        title: title.trim(),
+        content: content.trim(),
+        status: PostingStatus.DRAFT,
+        media_ids: media_ids.length > 0 ? media_ids : undefined,
+        // 크리에이터 전용 기능들
+        ...(isCreator && {
+          is_membership: isMembershipOnly,
+          membership_level: isMembershipOnly ? selectedMembershipLevel : undefined,
+          allow_individual_purchase: allowIndividualPurchase,
+          individual_purchase_price: allowIndividualPurchase ? purchasePrice : undefined,
+          publish_start_at: scheduledPublish && publishDate && publishTime 
+            ? new Date(`${publishDate}T${publishTime}`).toISOString() 
+            : undefined,
+          is_sensitive: sensitiveContent,
+        }),
+        is_public: true,
+      };
+
+      // API 호출
+      const response = await postingApi.createPosting(draftData);
+
+      if (response.success) {
+        setHasDraft(true);
+        message.success("임시저장되었습니다.");
+      } else {
+        throw new Error("임시저장에 실패했습니다.");
+      }
+    } catch (error: any) {
+      console.error("임시저장 오류:", error);
+      const errorMessage = error.message || "임시저장에 실패했습니다. 다시 시도해주세요.";
+      message.error(errorMessage);
     } finally {
       setIsSavingDraft(false);
     }
@@ -521,18 +527,51 @@ export default function WritePage() {
     setIsSubmitting(true);
 
     try {
-      // TODO: 실제 API 호출로 글 발행
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // 임시 딜레이
+      // 업로드된 미디어 ID들 수집 (모든 미디어가 AWS S3에 업로드됨)
+      const imageIds = images.map((img) => img.id);
+      const videoIds = videos.map((video) => video.id);
 
-      message.success("글이 발행되었습니다.");
-      // 현재 사용자의 프로필 페이지로 이동
-      if (user?.attributes?.preferred_username) {
-        router.push(`/@${user.attributes.preferred_username}`);
+      const media_ids = [...imageIds, ...videoIds];
+
+      // 포스팅 데이터 구성
+      const postingData = {
+        title: title.trim(),
+        content: content.trim(),
+        status: PostingStatus.PUBLISHED,
+        media_ids: media_ids.length > 0 ? media_ids : undefined,
+        // 크리에이터 전용 기능들
+        ...(isCreator && {
+          is_membership: isMembershipOnly,
+          membership_level: isMembershipOnly ? selectedMembershipLevel : undefined,
+          allow_individual_purchase: allowIndividualPurchase,
+          individual_purchase_price: allowIndividualPurchase ? purchasePrice : undefined,
+          publish_start_at: scheduledPublish && publishDate && publishTime 
+            ? new Date(`${publishDate}T${publishTime}`).toISOString() 
+            : undefined,
+          is_sensitive: sensitiveContent,
+        }),
+        is_public: true, // 기본적으로 공개
+      };
+
+      // API 호출
+      const response = await postingApi.createPosting(postingData);
+
+      if (response.success) {
+        message.success("글이 발행되었습니다.");
+        
+        // 현재 사용자의 프로필 페이지로 이동
+        if (user?.attributes?.preferred_username) {
+          router.push(`/@${user.attributes.preferred_username}`);
+        } else {
+          router.push("/profile");
+        }
       } else {
-        router.push("/profile");
+        throw new Error("발행에 실패했습니다.");
       }
-    } catch (error) {
-      message.error("글 발행에 실패했습니다. 다시 시도해주세요.");
+    } catch (error: any) {
+      console.error("글 발행 오류:", error);
+      const errorMessage = error.message || "글 발행에 실패했습니다. 다시 시도해주세요.";
+      message.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -711,123 +750,127 @@ export default function WritePage() {
               콘텐츠 설정
             </Title>
 
-            {/* 멤버십 전용 설정 */}
-            <div style={{ marginBottom: 16 }}>
-              <Space direction="vertical" style={{ width: "100%" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <Text strong>멤버십 전용</Text>
-                    <br />
-                    <Text type="secondary" style={{ fontSize: 12 }}>
-                      허용한 경우, 멤버십 구독자만 볼 수 있습니다
-                    </Text>
-                  </div>
+            {/* 멤버십 전용 설정 - 크리에이터만 접근 가능 */}
+            {isCreator && (
+              <div style={{ marginBottom: 16 }}>
+                <Space direction="vertical" style={{ width: "100%" }}>
                   <div
-                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    <Switch
-                      checked={isMembershipOnly}
-                      onChange={setIsMembershipOnly}
-                      checkedChildren={<LockOutlined />}
-                      unCheckedChildren={<UnlockOutlined />}
-                    />
-                    <Button
-                      type="primary"
-                      size="small"
-                      onClick={openMembershipModal}
-                    >
-                      멤버십 추가
-                    </Button>
-                  </div>
-                </div>
-
-                {/* 멤버십 레벨 선택 */}
-                {isMembershipOnly && memberships.length > 0 && (
-                  <div style={{ marginTop: 16 }}>
-                    <Text strong style={{ display: "block", marginBottom: 8 }}>
-                      최소 멤버십 레벨
-                    </Text>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 8,
-                      }}
-                    >
-                      {memberships.map((membership) => (
-                        <MembershipCard
-                          key={membership.id}
-                          membership={membership}
-                          selected={
-                            selectedMembershipLevel === membership.level
-                          }
-                          showRadio={true}
-                          onSelect={(membership) =>
-                            setSelectedMembershipLevel(membership.level)
-                          }
-                        />
-                      ))}
+                    <div>
+                      <Text strong>멤버십 전용</Text>
+                      <br />
+                      <Text type="secondary" style={{ fontSize: 12 }}>
+                        허용한 경우, 멤버십 구독자만 볼 수 있습니다
+                      </Text>
                     </div>
-                    <Text
-                      type="secondary"
-                      style={{ fontSize: 12, marginTop: 8 }}
+                    <div
+                      style={{ display: "flex", alignItems: "center", gap: 8 }}
                     >
-                      선택한 레벨 이상의 멤버십 구독자만 콘텐츠를 볼 수 있습니다
-                    </Text>
+                      <Switch
+                        checked={isMembershipOnly}
+                        onChange={setIsMembershipOnly}
+                        checkedChildren={<LockOutlined />}
+                        unCheckedChildren={<UnlockOutlined />}
+                      />
+                      <Button
+                        type="primary"
+                        size="small"
+                        onClick={openMembershipModal}
+                      >
+                        멤버십 추가
+                      </Button>
+                    </div>
                   </div>
-                )}
-              </Space>
-            </div>
 
-            {/* 개별 구매 허용 설정 */}
-            <div style={{ marginBottom: 16 }}>
-              <Space direction="vertical" style={{ width: "100%" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <Text strong>개별 구매 허용</Text>
-                    <br />
-                    <Text type="secondary" style={{ fontSize: 12 }}>
-                      일회성 결제(언락 티켓)로 콘텐츠에 접근할 수 있습니다
-                    </Text>
-                  </div>
-                  <Switch
-                    checked={allowIndividualPurchase}
-                    onChange={setAllowIndividualPurchase}
-                  />
-                </div>
-                {allowIndividualPurchase && (
-                  <div style={{ marginTop: 8 }}>
-                    <InputNumber
-                      min={0}
-                      step={100}
-                      placeholder="가격을 입력하세요"
-                      value={purchasePrice}
-                      suffix="원"
-                      style={{ width: 200 }}
-                      formatter={(value) =>
-                        `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                      }
-                      parser={(value) =>
-                        Number(value!.replace(/\$\s?|(,*)/g, ""))
-                      }
-                      onChange={(value) => setPurchasePrice(Number(value))}
+                  {/* 멤버십 레벨 선택 */}
+                  {isMembershipOnly && memberships.length > 0 && (
+                    <div style={{ marginTop: 16 }}>
+                      <Text strong style={{ display: "block", marginBottom: 8 }}>
+                        최소 멤버십 레벨
+                      </Text>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 8,
+                        }}
+                      >
+                        {memberships.map((membership) => (
+                          <MembershipCard
+                            key={membership.id}
+                            membership={membership}
+                            selected={
+                              selectedMembershipLevel === membership.level
+                            }
+                            showRadio={true}
+                            onSelect={(membership) =>
+                              setSelectedMembershipLevel(membership.level)
+                            }
+                          />
+                        ))}
+                      </div>
+                      <Text
+                        type="secondary"
+                        style={{ fontSize: 12, marginTop: 8 }}
+                      >
+                        선택한 레벨 이상의 멤버십 구독자만 콘텐츠를 볼 수 있습니다
+                      </Text>
+                    </div>
+                  )}
+                </Space>
+              </div>
+            )}
+
+            {/* 개별 구매 허용 설정 - 크리에이터만 접근 가능 */}
+            {isCreator && (
+              <div style={{ marginBottom: 16 }}>
+                <Space direction="vertical" style={{ width: "100%" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div>
+                      <Text strong>개별 구매 허용</Text>
+                      <br />
+                      <Text type="secondary" style={{ fontSize: 12 }}>
+                        일회성 결제(언락 티켓)로 콘텐츠에 접근할 수 있습니다
+                      </Text>
+                    </div>
+                    <Switch
+                      checked={allowIndividualPurchase}
+                      onChange={setAllowIndividualPurchase}
                     />
                   </div>
-                )}
-              </Space>
-            </div>
+                  {allowIndividualPurchase && (
+                    <div style={{ marginTop: 8 }}>
+                      <InputNumber
+                        min={0}
+                        step={100}
+                        placeholder="가격을 입력하세요"
+                        value={purchasePrice}
+                        suffix="원"
+                        style={{ width: 200 }}
+                        formatter={(value) =>
+                          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        parser={(value) =>
+                          Number(value!.replace(/\$\s?|(,*)/g, ""))
+                        }
+                        onChange={(value) => setPurchasePrice(Number(value))}
+                      />
+                    </div>
+                  )}
+                </Space>
+              </div>
+            )}
 
             {/* 댓글 설정 */}
             <div style={{ marginBottom: 16 }}>
@@ -851,70 +894,74 @@ export default function WritePage() {
               </Space>
             </div>
 
-            {/* 예약 발행 설정 */}
-            <div style={{ marginBottom: 16 }}>
-              <Space direction="vertical" style={{ width: "100%" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <Text strong>예약 발행</Text>
-                    <br />
-                    <Text type="secondary" style={{ fontSize: 12 }}>
-                      특정 날짜와 시간에 자동으로 발행됩니다
-                    </Text>
+            {/* 예약 발행 설정 - 크리에이터만 접근 가능 */}
+            {isCreator && (
+              <div style={{ marginBottom: 16 }}>
+                <Space direction="vertical" style={{ width: "100%" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div>
+                      <Text strong>예약 발행</Text>
+                      <br />
+                      <Text type="secondary" style={{ fontSize: 12 }}>
+                        특정 날짜와 시간에 자동으로 발행됩니다
+                      </Text>
+                    </div>
+                    <Switch
+                      checked={scheduledPublish}
+                      onChange={setScheduledPublish}
+                    />
                   </div>
-                  <Switch
-                    checked={scheduledPublish}
-                    onChange={setScheduledPublish}
-                  />
-                </div>
-                {scheduledPublish && (
-                  <div style={{ marginTop: 8 }}>
-                    <Space>
-                      <Input
-                        type="date"
-                        value={publishDate}
-                        onChange={(e) => setPublishDate(e.target.value)}
-                      />
-                      <Input
-                        type="time"
-                        value={publishTime}
-                        onChange={(e) => setPublishTime(e.target.value)}
-                      />
-                    </Space>
-                  </div>
-                )}
-              </Space>
-            </div>
+                  {scheduledPublish && (
+                    <div style={{ marginTop: 8 }}>
+                      <Space>
+                        <Input
+                          type="date"
+                          value={publishDate}
+                          onChange={(e) => setPublishDate(e.target.value)}
+                        />
+                        <Input
+                          type="time"
+                          value={publishTime}
+                          onChange={(e) => setPublishTime(e.target.value)}
+                        />
+                      </Space>
+                    </div>
+                  )}
+                </Space>
+              </div>
+            )}
 
-            {/* 민감한 콘텐츠 설정 */}
-            <div style={{ marginBottom: 16 }}>
-              <Space direction="vertical" style={{ width: "100%" }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <Text strong>민감한 콘텐츠</Text>
+            {/* 민감한 콘텐츠 설정 - 크리에이터만 접근 가능 */}
+            {isCreator && (
+              <div style={{ marginBottom: 16 }}>
+                <Space direction="vertical" style={{ width: "100%" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div>
+                      <Text strong>민감한 콘텐츠</Text>
+                    </div>
+                    <Switch
+                      checked={sensitiveContent}
+                      onChange={setSensitiveContent}
+                    />
                   </div>
-                  <Switch
-                    checked={sensitiveContent}
-                    onChange={setSensitiveContent}
-                  />
-                </div>
-                <Text type="secondary" style={{ fontSize: 12 }}>
-                  폭력, 성적 내용 등이 포함된 경우 체크하세요
-                </Text>
-              </Space>
-            </div>
+                  <Text type="secondary" style={{ fontSize: 12 }}>
+                    폭력, 성적 내용 등이 포함된 경우 체크하세요
+                  </Text>
+                </Space>
+              </div>
+            )}
           </div>
 
           <Divider style={{ margin: "32px 0" }} />
@@ -940,18 +987,20 @@ export default function WritePage() {
               size="large"
               style={{ flex: 1, height: "48px", borderRadius: "24px" }}
             >
-              {scheduledPublish ? "예약 발행" : "발행"}
+              {(isCreator && scheduledPublish) ? "예약 발행" : "발행"}
             </Button>
           </div>
         </Card>
 
-        {/* 멤버십 관리 모달 */}
-        <MembershipManagementModal
-          open={isMembershipModalOpen}
-          onClose={() => setIsMembershipModalOpen(false)}
-          onMembershipsUpdate={handleMembershipsUpdate}
-          currentMemberships={memberships}
-        />
+        {/* 멤버십 관리 모달 - 크리에이터만 접근 가능 */}
+        {isCreator && (
+          <MembershipManagementModal
+            open={isMembershipModalOpen}
+            onClose={() => setIsMembershipModalOpen(false)}
+            onMembershipsUpdate={handleMembershipsUpdate}
+            currentMemberships={memberships}
+          />
+        )}
       </Layout>
     </ProtectedRoute>
   );
