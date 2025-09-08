@@ -63,14 +63,14 @@ const parseIdToken = (): User | null => {
     return {
       username: tokenData.preferred_username,
       attributes: {
-        email: tokenData.email,
-        email_verified: tokenData.email_verified,
-        preferred_username: tokenData.preferred_username,
-        name: tokenData.name,
-        sub: tokenData.sub,
-        picture: tokenData.picture,
-        nickname: tokenData.nickname,
-        phone_number: tokenData.phone_number,
+        email: tokenData.email || "",
+        email_verified: tokenData.email_verified || false,
+        preferred_username: tokenData.preferred_username || "",
+        name: tokenData.name || "",
+        sub: tokenData.sub || "",
+        picture: tokenData.picture || undefined,
+        nickname: tokenData.nickname || "",
+        phone_number: tokenData.phone_number || "",
       },
       points: 0,
       profile: null,
@@ -90,7 +90,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const initializeUser = async () => {
       try {
         const response = await authAPI.getMe();
-        if (response.success && response.data?.user) {
+        if (
+          response.success &&
+          response.data?.user &&
+          response.data.user.attributes
+        ) {
           setUser(response.data.user);
           return;
         }
@@ -123,7 +127,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await authAPI.getMe();
       console.log("API Response:", response);
 
-      if (response.success && response.data?.user) {
+      if (
+        response.success &&
+        response.data?.user &&
+        response.data.user.attributes
+      ) {
         console.log("Setting new user data:", {
           nickname: response.data.user.attributes?.nickname,
           preferred_username: response.data.user.attributes?.preferred_username,

@@ -57,7 +57,12 @@ export default function LoginModal({
       // API 응답 구조에 맞게 사용자 정보 변환
       const user = userRes.data.user;
 
-      login(user.attributes);
+      // 사용자 정보가 올바르게 파싱되었는지 확인
+      if (!user || !user.attributes) {
+        throw new Error("사용자 정보를 가져올 수 없습니다.");
+      }
+
+      login(user);
       message.success("로그인되었습니다!");
       onClose();
 
