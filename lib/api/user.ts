@@ -23,6 +23,16 @@ export const userAPI = {
     return response.data;
   },
 
+  // 프로필 정보 업데이트
+  updateUserProfile: async (bio: string) => {
+    const response = await axios.put(
+      `${getApiUrl()}/user/profile`,
+      { bio },
+      { withCredentials: true }
+    );
+    return response.data;
+  },
+
   // 계정 삭제
   deleteAccount: async () => {
     const response = await axios.delete(`${getApiUrl()}/user/account`, {

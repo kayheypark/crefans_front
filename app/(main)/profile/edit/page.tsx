@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "antd/lib/avatar";
 import Button from "antd/lib/button";
 import Space from "antd/lib/space";
@@ -24,6 +24,7 @@ import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
 import { useRouter } from "next/navigation";
 import { authAPI } from "@/lib/api/auth";
+import { userAPI } from "@/lib/api/user";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
 
 const { Title, Paragraph, Text } = Typography;
@@ -36,10 +37,7 @@ export default function ProfileEdit() {
 
   // 프로필 편집 관련 상태
   const [bannerImage, setBannerImage] = useState<string | null>(null);
-  const [introduction, setIntroduction] = useState(
-    "내 프로필과 콘텐츠들을 확인할 수 있습니다. 다양한 활동과 관심사를 공유하고 있습니다."
-  );
-  const [tempIntroduction, setTempIntroduction] = useState(introduction);
+  const [bio, setBio] = useState("");
   
   // 닉네임과 핸들 편집 상태
   const [tempNickname, setTempNickname] = useState("");
@@ -50,6 +48,15 @@ export default function ProfileEdit() {
   // 로딩 상태
   const [isNicknameSaving, setIsNicknameSaving] = useState(false);
   const [isHandleSaving, setIsHandleSaving] = useState(false);
+  const [isBioSaving, setIsBioSaving] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setTempNickname(user.attributes.nickname || "");
+      setTempHandle(user.attributes.preferred_username || "");
+      setBio(user.profile?.bio || "");
+    }
+  }, [user]);
 
   const handleReport = (values: any) => {
     message.success("신고가 접수되었습니다.");
@@ -81,9 +88,19 @@ export default function ProfileEdit() {
   };
 
   // 소개글 저장
-  const saveIntroduction = () => {
-    setIntroduction(tempIntroduction);
-    message.success("소개글이 저장되었습니다.");
+  const saveBio = async () => {
+    console.log("Saving bio:", bio);
+    setIsBioSaving(true);
+    try {
+      await userAPI.updateUserProfile(bio);
+      message.success("소개글이 저장되었습니다.");
+      await refreshUser();
+    } catch (error: any) {
+      console.error("Failed to save bio:", error);
+      message.error(error.response?.data?.message || "소개글 저장에 실패했습니다.");
+    } finally {
+      setIsBioSaving(false);
+    }
   };
 
   // 닉네임 저장
@@ -363,8 +380,8 @@ export default function ProfileEdit() {
             {/* 편집 가능한 소개글 */}
             <div style={{ marginBottom: 16 }}>
               <TextArea
-                value={tempIntroduction}
-                onChange={(e) => setTempIntroduction(e.target.value)}
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
                 rows={3}
                 style={{ marginBottom: 8 }}
                 placeholder="소개글을 입력하세요"
@@ -379,9 +396,11 @@ export default function ProfileEdit() {
                 <Button
                   type="primary"
                   icon={<SaveOutlined />}
-                  onClick={saveIntroduction}
+                  onClick={saveBio}
+                  loading={isBioSaving}
+                  disabled={isBioSaving}
                 >
-                  소개글 저장
+                  {isBioSaving ? LOADING_TEXTS.SAVING : "소개글 저장"}
                 </Button>
               </div>
             </div>

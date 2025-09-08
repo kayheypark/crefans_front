@@ -124,8 +124,9 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     {}
   );
 
-  // 현재 사용자가 프로필 소유자인지 확인
-  const isOwnProfile = user?.attributes?.preferred_username === handle;
+  // 현재 사용자가 프로필 소유자인지 확인 (@ 기호 제거하고 비교)
+  const cleanHandle = handle.replace(/^@/, '');
+  const isOwnProfile = user?.attributes?.preferred_username === cleanHandle;
 
   useEffect(() => {
     fetchUserProfile();
@@ -144,7 +145,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const fetchUserProfile = async () => {
     setLoading(true);
     try {
-      const response = await userAPI.getUserProfileByHandle(handle);
+      const response = await userAPI.getUserProfileByHandle(cleanHandle);
 
       if (response.success) {
         setProfile(response.data);
@@ -163,7 +164,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
 
   const fetchUserPosts = async () => {
     try {
-      const response = await userAPI.getUserPosts(handle, 1, 20);
+      const response = await userAPI.getUserPosts(cleanHandle, 1, 20);
 
       if (response.success && response.data.posts) {
         setPosts(response.data.posts);
