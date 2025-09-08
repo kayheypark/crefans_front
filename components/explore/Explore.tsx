@@ -256,7 +256,7 @@ export default function Explore() {
                   cursor: "pointer",
                 }}
                 styles={{ body: { padding: 0 } }}
-                onClick={() => router.push("/profile")}
+                onClick={() => router.push(`/${creator.handle}`)}
                 cover={
                   <div
                     style={{
@@ -420,7 +420,7 @@ export default function Explore() {
                         cursor: "pointer",
                       }}
                       styles={{ body: { padding: 0 } }}
-                      onClick={() => router.push("/profile")}
+                      onClick={() => router.push(`/${creator.handle}`)}
                       cover={
                         <div
                           style={{

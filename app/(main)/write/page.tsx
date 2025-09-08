@@ -41,6 +41,7 @@ const { TextArea } = Input;
 
 export default function WritePage() {
   const router = useRouter();
+  const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState<
@@ -253,20 +254,20 @@ export default function WritePage() {
         // 4K 해상도 검증 함수
         const check4KResolution = (file: File): Promise<boolean> => {
           return new Promise((resolve) => {
-            const video = document.createElement('video');
+            const video = document.createElement("video");
             const url = URL.createObjectURL(file);
-            
+
             video.onloadedmetadata = () => {
               URL.revokeObjectURL(url);
               const is4K = video.videoWidth > 1920 || video.videoHeight > 1080;
               resolve(is4K);
             };
-            
+
             video.onerror = () => {
               URL.revokeObjectURL(url);
               resolve(false); // 오류시 허용
             };
-            
+
             video.src = url;
           });
         };
@@ -274,7 +275,9 @@ export default function WritePage() {
         // 4K 해상도 체크
         const is4K = await check4KResolution(file);
         if (is4K) {
-          message.error("동영상 최대 해상도는 1080p입니다. 4K 업로드는 지원하지 않습니다.");
+          message.error(
+            "동영상 최대 해상도는 1080p입니다. 4K 업로드는 지원하지 않습니다."
+          );
           setIsVideoUploading(false);
           return;
         }
@@ -522,7 +525,12 @@ export default function WritePage() {
       await new Promise((resolve) => setTimeout(resolve, 1000)); // 임시 딜레이
 
       message.success("글이 발행되었습니다.");
-      router.push("/profile"); // 프로필 페이지로 이동
+      // 현재 사용자의 프로필 페이지로 이동
+      if (user?.attributes?.preferred_username) {
+        router.push(`/@${user.attributes.preferred_username}`);
+      } else {
+        router.push("/profile");
+      }
     } catch (error) {
       message.error("글 발행에 실패했습니다. 다시 시도해주세요.");
     } finally {
@@ -585,7 +593,14 @@ export default function WritePage() {
 
           {/* 이미지 업로드 */}
           <div style={{ marginBottom: 24 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                marginBottom: 8,
+              }}
+            >
               <Text strong>이미지</Text>
               <Text type="secondary" style={{ fontSize: 12 }}>
                 최대 10개 • jpg, png, gif, webp • 최대 50MB
@@ -608,7 +623,11 @@ export default function WritePage() {
                   loading={isImageUploading}
                   disabled={isImageUploading || images.length >= 10}
                 >
-                  {isImageUploading ? LOADING_TEXTS.UPLOADING : images.length >= 10 ? "이미지 최대 개수 도달" : "이미지 추가"}
+                  {isImageUploading
+                    ? LOADING_TEXTS.UPLOADING
+                    : images.length >= 10
+                    ? "이미지 최대 개수 도달"
+                    : "이미지 추가"}
                 </Button>
               </Upload>
             </div>
@@ -630,7 +649,14 @@ export default function WritePage() {
 
           {/* 동영상 업로드 */}
           <div style={{ marginBottom: 24 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                marginBottom: 8,
+              }}
+            >
               <Text strong>동영상</Text>
               <Text type="secondary" style={{ fontSize: 12 }}>
                 최대 1개 • mp4, mov, avi, mkv, webm • 최대 1080p • 최대 500MB
@@ -653,10 +679,10 @@ export default function WritePage() {
                   loading={isVideoUploading}
                   disabled={isVideoUploading || videos.length >= 1}
                 >
-                  {isVideoUploading 
-                    ? LOADING_TEXTS.UPLOADING 
-                    : videos.length >= 1 
-                    ? "동영상 최대 개수 도달" 
+                  {isVideoUploading
+                    ? LOADING_TEXTS.UPLOADING
+                    : videos.length >= 1
+                    ? "동영상 최대 개수 도달"
                     : "동영상 추가"}
                 </Button>
               </Upload>

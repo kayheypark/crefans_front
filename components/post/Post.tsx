@@ -142,14 +142,14 @@ export default function Post({
             src={post.creator.avatar}
             icon={<UserOutlined />}
             style={{ marginRight: 12, cursor: "pointer" }}
-            onClick={() => router.push("/profile")}
+            onClick={() => router.push(`/@${post.creator.handle}`)}
           />
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <Text
                 strong
                 style={{ fontSize: 18, lineHeight: 1.2, cursor: "pointer" }}
-                onClick={() => router.push("/profile")}
+                onClick={() => router.push(`/@${post.creator.handle}`)}
               >
                 {post.creator.name}
               </Text>
@@ -158,7 +158,7 @@ export default function Post({
               <Text
                 type="secondary"
                 style={{ fontSize: 14, lineHeight: 1.2, cursor: "pointer" }}
-                onClick={() => router.push("/profile")}
+                onClick={() => router.push(`/@${post.creator.handle}`)}
               >
                 @{post.creator.handle}
               </Text>
