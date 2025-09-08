@@ -789,13 +789,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
                           gap: 8,
                         }}
                       >
-                        {user ? (
-                          walletLoading 
-                            ? "" 
-                            : wallets.length > 0 
+                        {user
+                          ? walletLoading
+                            ? ""
+                            : wallets.length > 0
                             ? getTokenAmount("KNG")?.toLocaleString() || 0
                             : "지갑없음"
-                        ) : 0}
+                          : 0}
                       </div>
                       <Button
                         type="primary"
@@ -883,18 +883,6 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 key: "search",
                 icon: <SearchOutlined style={{ fontSize: 20 }} />,
                 label: "검색",
-                style: { fontSize: 20 },
-              },
-              {
-                key: "creator-center",
-                icon: <CrownOutlined style={{ fontSize: 20 }} />,
-                label: "크리에이터 센터",
-                style: { fontSize: 20 },
-              },
-              {
-                key: "write",
-                icon: <EditOutlined style={{ fontSize: 20 }} />,
-                label: "글쓰기",
                 style: { fontSize: 20 },
               },
               {
