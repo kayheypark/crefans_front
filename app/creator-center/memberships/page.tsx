@@ -114,11 +114,6 @@ export default function MembershipsPage() {
     requiresCreator: true 
   });
 
-  // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
-  if (isLoading || !hasAccess) {
-    return <div>Loading...</div>;
-  }
-
   const [memberships, setMemberships] = useState(mockMemberships);
   const [subscribers, setSubscribers] = useState(mockSubscribers);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -315,6 +310,11 @@ export default function MembershipsPage() {
     (sum, m) => sum + m.monthlyRevenue,
     0
   );
+
+  // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
+  if (isLoading || !hasAccess) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <CreatorCenterLayout>

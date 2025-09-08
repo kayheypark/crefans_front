@@ -29,11 +29,6 @@ export default function WritePage() {
     requiresLogin: true, 
     requiresCreator: true 
   });
-
-  // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
-  if (isLoading || !hasAccess) {
-    return <div>Loading...</div>;
-  }
   const [form, setForm] = useState<CreatePostingDto>({
     title: "",
     content: "",
@@ -48,6 +43,11 @@ export default function WritePage() {
   const [uploading, setUploading] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [uploadedMediaIds, setUploadedMediaIds] = useState<string[]>([]);
+
+  // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
+  if (isLoading || !hasAccess) {
+    return <div>Loading...</div>;
+  }
 
   const handleInputChange = (field: keyof CreatePostingDto, value: any) => {
     setForm((prev) => ({

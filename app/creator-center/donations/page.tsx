@@ -110,11 +110,6 @@ export default function DonationsPage() {
     requiresCreator: true 
   });
 
-  // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
-  if (isLoading || !hasAccess) {
-    return <div>Loading...</div>;
-  }
-
   const [donations, setDonations] = useState(mockDonations);
   const [selectedPeriod, setSelectedPeriod] = useState("month");
   const [selectedStatus, setSelectedStatus] = useState("all");
@@ -266,6 +261,11 @@ export default function DonationsPage() {
     }
     return true;
   });
+
+  // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
+  if (isLoading || !hasAccess) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <CreatorCenterLayout>

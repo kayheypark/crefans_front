@@ -143,13 +143,13 @@ export default function EarningsPage() {
     requiresLogin: true, 
     requiresCreator: true 
   });
+  const [selectedPeriod, setSelectedPeriod] = useState("month");
+  const [selectedType, setSelectedType] = useState("all");
 
   // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
   if (isLoading || !hasAccess) {
     return <div>Loading...</div>;
   }
-  const [selectedPeriod, setSelectedPeriod] = useState("month");
-  const [selectedType, setSelectedType] = useState("all");
 
   return (
     <CreatorCenterLayout>
