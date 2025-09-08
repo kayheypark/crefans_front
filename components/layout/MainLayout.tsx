@@ -225,6 +225,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
       case "creator-center":
         router.push("/creator-center");
         break;
+      case "write":
+        router.push("/write");
+        break;
     }
     // 모바일과 태블릿에서 사이드바 닫기
     if (isMobile || isTablet) {
@@ -603,6 +606,12 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   label: "",
                   style: { fontSize: 20, textAlign: "center" },
                 },
+                {
+                  key: "write",
+                  icon: <EditOutlined style={{ fontSize: 20 }} />,
+                  label: "",
+                  style: { fontSize: 20, textAlign: "center" },
+                },
               ]}
             />
           </Sider>
@@ -876,6 +885,12 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 key: "creator-center",
                 icon: <CrownOutlined style={{ fontSize: 20 }} />,
                 label: "크리에이터 센터",
+                style: { fontSize: 20 },
+              },
+              {
+                key: "write",
+                icon: <EditOutlined style={{ fontSize: 20 }} />,
+                label: "글쓰기",
                 style: { fontSize: 20 },
               },
               {
