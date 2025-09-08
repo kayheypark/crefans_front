@@ -3,14 +3,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { authAPI } from "@/lib/api/auth";
 
-interface UserProfile {
-  user_id: string;
-  bio: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
-//AWS Cognito 기본 구조 사용 (points, phone_number 속성만 추가하였음)
 interface User {
   username: string;
   attributes: {
@@ -24,7 +16,12 @@ interface User {
     phone_number: string;
   };
   points: number;
-  profile: UserProfile | null;
+  isCreator: boolean;
+  profile?: {
+    bio?: string;
+    created_at?: string;
+    updated_at?: string;
+  };
 }
 
 interface AuthContextType {
@@ -73,7 +70,8 @@ const parseIdToken = (): User | null => {
         phone_number: tokenData.phone_number || "",
       },
       points: 0,
-      profile: null,
+      isCreator: false,
+      profile: undefined,
     };
   } catch (error) {
     console.error("Error parsing idToken:", error);

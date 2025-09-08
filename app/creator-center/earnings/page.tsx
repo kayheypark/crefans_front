@@ -23,7 +23,7 @@ import {
   DownloadOutlined,
 } from "@ant-design/icons";
 import CreatorCenterLayout from "@/components/layout/CreatorCenterLayout";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { useCreatorGuard } from "@/hooks/useCreatorGuard";
 
 const { Title, Text } = Typography;
 const { RangePicker } = DatePicker;
@@ -138,6 +138,16 @@ const columns = [
 ];
 
 export default function EarningsPage() {
+  // 로그인 및 크리에이터 권한 필수
+  const { isLoading, hasAccess } = useCreatorGuard({ 
+    requiresLogin: true, 
+    requiresCreator: true 
+  });
+
+  // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
+  if (isLoading || !hasAccess) {
+    return <div>Loading...</div>;
+  }
   const [selectedPeriod, setSelectedPeriod] = useState("month");
   const [selectedType, setSelectedType] = useState("all");
 

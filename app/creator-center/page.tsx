@@ -34,9 +34,12 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import CreatorCenterLayout from "@/components/layout/CreatorCenterLayout";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { postingApi } from "@/lib/api/posting";
 import { PostingResponse, PostingStatus } from "@/types/posting";
+import { useAuth } from "@/contexts/AuthContext";
+import { userAPI } from "@/lib/api/user";
+import { useCreatorGuard } from "@/hooks/useCreatorGuard";
+import message from "antd/lib/message";
 
 const { Title, Text } = Typography;
 
@@ -77,24 +80,18 @@ const mockRecentEarnings = [
   },
 ];
 
-const mockMonthlyData = [
-  { month: "2023-08", earnings: 120000 },
-  { month: "2023-09", earnings: 135000 },
-  { month: "2023-10", earnings: 150000 },
-  { month: "2023-11", earnings: 165000 },
-  { month: "2023-12", earnings: 170000 },
-  { month: "2024-01", earnings: 180000 },
-];
-
-const { Option } = Select;
-const { Search } = Input;
-
 export default function CreatorCenterPage() {
+  const { user, refreshUser } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const activeTab = searchParams.get("tab") || "dashboard";
+  
+  // 로그인 필수, 크리에이터 권한은 필요 없음 (홈은 누구나 접근 가능)
+  const { isLoading, hasAccess } = useCreatorGuard({ 
+    requiresLogin: true, 
+    requiresCreator: false 
+  });
 
-  const [isCreator, setIsCreator] = useState(false);
   const [loading, setLoading] = useState(false);
   const [postings, setPostings] = useState<PostingResponse[]>([]);
   const [postingsLoading, setPostingsLoading] = useState(false);
@@ -113,11 +110,16 @@ export default function CreatorCenterPage() {
   const handleBecomeCreator = async () => {
     setLoading(true);
     try {
-      // API 호출 시뮬레이션
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setIsCreator(true);
+      const response = await userAPI.becomeCreator();
+      if (response.success) {
+        message.success("크리에이터로 전환되었습니다!");
+        await refreshUser();
+      } else {
+        message.error(response.message || "크리에이터 전환에 실패했습니다.");
+      }
     } catch (error) {
       console.error("크리에이터 전환 실패:", error);
+      message.error("크리에이터 전환에 실패했습니다.");
     } finally {
       setLoading(false);
     }
@@ -159,12 +161,12 @@ export default function CreatorCenterPage() {
 
   // 포스팅 탭 활성화 시 데이터 로드
   useEffect(() => {
-    if (isCreator && activeTab === "posts") {
+    if (user?.isCreator && activeTab === "posts") {
       fetchPostings();
     }
-  }, [isCreator, activeTab]);
+  }, [user?.isCreator, activeTab]);
 
-  if (!isCreator) {
+  if (!user?.isCreator) {
     return (
       <CreatorCenterLayout>
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "40px 20px" }}>

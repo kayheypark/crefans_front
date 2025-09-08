@@ -30,7 +30,7 @@ import {
   GlobalOutlined,
 } from "@ant-design/icons";
 import CreatorCenterLayout from "@/components/layout/CreatorCenterLayout";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { useCreatorGuard } from "@/hooks/useCreatorGuard";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -39,6 +39,17 @@ const { TabPane } = Tabs;
 export default function CreatorCenterSettingsPage() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  
+  // 로그인 및 크리에이터 권한 필수
+  const { isLoading, hasAccess } = useCreatorGuard({ 
+    requiresLogin: true, 
+    requiresCreator: true 
+  });
+
+  // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
+  if (isLoading || !hasAccess) {
+    return <div>Loading...</div>;
+  }
 
   const handleSave = async () => {
     setLoading(true);

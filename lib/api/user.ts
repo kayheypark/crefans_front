@@ -64,4 +64,23 @@ export const userAPI = {
     );
     return response.data;
   },
+
+  // 크리에이터로 전환
+  becomeCreator: async () => {
+    const response = await axios.post(
+      `${getApiUrl()}/user/become-creator`,
+      {},
+      { withCredentials: true }
+    );
+    return response.data;
+  },
+
+  // 크리에이터 상태 조회
+  getCreatorStatus: async () => {
+    const response = await axios.get(
+      `${getApiUrl()}/user/creator-status`,
+      { withCredentials: true }
+    );
+    return response.data;
+  },
 };

@@ -17,11 +17,23 @@ import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 import type { UploadFile, UploadProps } from "antd";
 import { postingApi } from "@/lib/api/posting";
 import { CreatePostingDto, PostingStatus } from "@/types/posting";
+import { useCreatorGuard } from "@/hooks/useCreatorGuard";
 
 const { Option } = Select;
 
 export default function WritePage() {
   const router = useRouter();
+  
+  // 로그인 및 크리에이터 권한 필수
+  const { isLoading, hasAccess } = useCreatorGuard({ 
+    requiresLogin: true, 
+    requiresCreator: true 
+  });
+
+  // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
+  if (isLoading || !hasAccess) {
+    return <div>Loading...</div>;
+  }
   const [form, setForm] = useState<CreatePostingDto>({
     title: "",
     content: "",
