@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button, Input, Avatar, Typography } from "antd";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { Button, Input, Avatar, Typography, Dropdown, Modal, message } from "antd";
+import { HeartOutlined, HeartFilled, MoreOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { commentAPI } from "@/lib/api/comment";
 import { Comment, CreateCommentDto } from "@/types/comment";
 import { formatRelativeDate } from "@/lib/utils/dateUtils";
@@ -41,6 +41,8 @@ export default function CommentList({
   const [replyTo, setReplyTo] = useState<number | null>(null);
   const [replyContent, setReplyContent] = useState("");
   const [likedComments, setLikedComments] = useState<number[]>([]);
+  const [reportModalOpen, setReportModalOpen] = useState(false);
+  const [selectedCommentId, setSelectedCommentId] = useState<number | null>(null);
 
   useEffect(() => {
     if (postingId) {
@@ -121,6 +123,66 @@ export default function CommentList({
     );
   };
 
+  const handleDeleteComment = async (commentId: number) => {
+    Modal.confirm({
+      title: "댓글을 삭제하시겠습니까?",
+      content: "삭제된 댓글은 복구할 수 없습니다.",
+      okText: "삭제",
+      okType: "danger",
+      cancelText: "취소",
+      onOk: async () => {
+        try {
+          const response = await commentAPI.deleteComment(commentId);
+          if (response.success) {
+            message.success("댓글이 삭제되었습니다.");
+            loadComments();
+          }
+        } catch (error: any) {
+          console.error("Failed to delete comment:", error);
+          const errorMessage = error.response?.data?.message || "댓글 삭제에 실패했습니다.";
+          message.error(errorMessage);
+        }
+      },
+    });
+  };
+
+  const handleReportComment = (commentId: number) => {
+    setSelectedCommentId(commentId);
+    setReportModalOpen(true);
+  };
+
+  const handleReportSubmit = () => {
+    // TODO: 실제 신고 기능 구현
+    message.success("신고가 접수되었습니다.");
+    setReportModalOpen(false);
+    setSelectedCommentId(null);
+  };
+
+  const getCommentMoreMenu = (comment: Comment) => {
+    const isOwner = user?.attributes?.sub === comment.author_id;
+    const items = [];
+
+    if (isOwner) {
+      items.push({
+        key: "delete",
+        label: "삭제",
+        icon: <DeleteOutlined />,
+        danger: true,
+        onClick: () => handleDeleteComment(comment.id),
+      });
+    } else {
+      items.push({
+        key: "report",
+        label: "신고하기",
+        icon: <ExclamationCircleOutlined />,
+        danger: true,
+        onClick: () => handleReportComment(comment.id),
+      });
+    }
+
+    return { items };
+  };
+
   if (!allowComments) {
     return null;
   }
@@ -192,6 +254,24 @@ export default function CommentList({
                   >
                     <HeartOutlined />
                   </Button>
+                  <Dropdown
+                    menu={getCommentMoreMenu(comment)}
+                    trigger={["click"]}
+                    placement="bottomRight"
+                  >
+                    <Button
+                      type="link"
+                      size="small"
+                      style={{
+                        padding: 0,
+                        fontSize: 13,
+                        height: "auto",
+                        color: "#999",
+                      }}
+                    >
+                      <MoreOutlined />
+                    </Button>
+                  </Dropdown>
                 </div>
 
                 {/* 답글 작성 폼 */}
@@ -320,6 +400,24 @@ export default function CommentList({
                             >
                               <HeartOutlined />
                             </Button>
+                            <Dropdown
+                              menu={getCommentMoreMenu(reply)}
+                              trigger={["click"]}
+                              placement="bottomRight"
+                            >
+                              <Button
+                                type="link"
+                                size="small"
+                                style={{
+                                  padding: 0,
+                                  fontSize: 12,
+                                  height: "auto",
+                                  color: "#999",
+                                }}
+                              >
+                                <MoreOutlined />
+                              </Button>
+                            </Dropdown>
                           </div>
                         </div>
                       </div>
@@ -385,6 +483,27 @@ export default function CommentList({
           </div>
         </div>
       )}
+
+      {/* 신고하기 모달 */}
+      <Modal
+        title="댓글 신고하기"
+        open={reportModalOpen}
+        onCancel={() => {
+          setReportModalOpen(false);
+          setSelectedCommentId(null);
+        }}
+        onOk={handleReportSubmit}
+        okText="신고하기"
+        cancelText="취소"
+        okType="danger"
+      >
+        <div style={{ padding: "20px 0" }}>
+          <p>이 댓글을 신고하시겠습니까?</p>
+          <p style={{ color: "#666", fontSize: "14px" }}>
+            신고 사유는 추후 선택할 수 있도록 업데이트될 예정입니다.
+          </p>
+        </div>
+      </Modal>
     </>
   );
 }
