@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Avatar from "antd/lib/avatar";
 import Button from "antd/lib/button";
 import Space from "antd/lib/space";
@@ -123,24 +123,59 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
     {}
   );
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
+  const [hasMorePosts, setHasMorePosts] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   // 현재 사용자가 프로필 소유자인지 확인 (@ 기호 제거하고 비교)
   const cleanHandle = handle.replace(/^@/, '');
   const isOwnProfile = user?.attributes?.preferred_username === cleanHandle;
 
   useEffect(() => {
+    // handle 변경 시 posts 상태 초기화
+    setPosts([]);
+    setNextCursor(null);
+    setHasMorePosts(false);
+    setLoadingMore(false);
+    
     fetchUserProfile();
   }, [handle]);
 
   useEffect(() => {
     if (profile) {
-      fetchUserPosts();
+      fetchUserPosts(true); // 초기 로드 시 reset = true
       fetchUserMedia();
       if (!isOwnProfile) {
         checkFollowStatus();
       }
     }
   }, [profile, isOwnProfile]);
+
+  // 탭 변경 시 posts 탭으로 돌아올 때 데이터 재로드
+  useEffect(() => {
+    if (activeTab === "posts" && profile && posts.length === 0) {
+      fetchUserPosts(true);
+    }
+  }, [activeTab, profile]);
+
+  // 무한스크롤을 위한 Intersection Observer 설정
+  useEffect(() => {
+    if (!loadMoreRef.current || activeTab !== "posts") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMorePosts && !loadingMore) {
+          loadMorePosts();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(loadMoreRef.current);
+
+    return () => observer.disconnect();
+  }, [hasMorePosts, loadingMore, activeTab]);
 
   const fetchUserProfile = async () => {
     setLoading(true);
@@ -162,15 +197,33 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     }
   };
 
-  const fetchUserPosts = async () => {
+  const fetchUserPosts = async (reset: boolean = false) => {
     try {
-      const response = await userAPI.getUserPosts(cleanHandle, 1, 20);
+      const cursor = reset ? undefined : nextCursor || undefined;
+      const response = await userAPI.getUserPosts(cleanHandle, cursor, 20);
 
       if (response.success && response.data.posts) {
-        setPosts(response.data.posts);
+        if (reset) {
+          setPosts(response.data.posts);
+        } else {
+          setPosts(prev => [...prev, ...response.data.posts]);
+        }
+        setNextCursor(response.data.nextCursor);
+        setHasMorePosts(response.data.hasMore);
       }
     } catch (error) {
       console.error("포스트를 가져오는데 실패했습니다:", error);
+    }
+  };
+
+  const loadMorePosts = async () => {
+    if (loadingMore || !hasMorePosts) return;
+    
+    setLoadingMore(true);
+    try {
+      await fetchUserPosts(false);
+    } finally {
+      setLoadingMore(false);
     }
   };
 
@@ -346,6 +399,22 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
             formatFullDate={formatFullDate}
           />
         ))}
+        
+        {/* 무한스크롤 로딩 영역 */}
+        {hasMorePosts && (
+          <div
+            ref={loadMoreRef}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "20px",
+              minHeight: "60px"
+            }}
+          >
+            {loadingMore && <Spin size="small" />}
+          </div>
+        )}
       </div>
     );
   };

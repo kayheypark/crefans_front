@@ -58,9 +58,14 @@ export const userAPI = {
   },
 
   // 사용자 포스트 조회
-  getUserPosts: async (handle: string, page: number = 1, limit: number = 20) => {
+  getUserPosts: async (handle: string, cursor?: string, limit: number = 20) => {
+    const params = new URLSearchParams({ limit: limit.toString() });
+    if (cursor) {
+      params.append('cursor', cursor);
+    }
+    
     const response = await axios.get(
-      `${getApiUrl()}/user/posts/${handle}?page=${page}&limit=${limit}`
+      `${getApiUrl()}/user/posts/${handle}?${params.toString()}`
     );
     return response.data;
   },
