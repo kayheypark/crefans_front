@@ -38,12 +38,6 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { userAPI } from "@/lib/api/user";
-import LightGallery from "lightgallery/react";
-import "lightgallery/css/lightgallery.css";
-import "lightgallery/css/lg-zoom.css";
-import "lightgallery/css/lg-thumbnail.css";
-import lgThumbnail from "lightgallery/plugins/thumbnail";
-import lgZoom from "lightgallery/plugins/zoom";
 import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
 import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";

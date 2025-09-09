@@ -29,14 +29,9 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useResponsive } from "@/hooks/useResponsive";
-import LightGallery from "lightgallery/react";
-import "lightgallery/css/lightgallery.css";
-import "lightgallery/css/lg-zoom.css";
-import "lightgallery/css/lg-thumbnail.css";
-import "lightgallery/css/lg-video.css";
-import lgThumbnail from "lightgallery/plugins/thumbnail";
-import lgZoom from "lightgallery/plugins/zoom";
-import lgVideo from "lightgallery/plugins/video";
+import Lightbox from "yet-another-react-lightbox";
+import Video from "yet-another-react-lightbox/plugins/video";
+import "yet-another-react-lightbox/styles.css";
 import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
 import CommentList from "@/components/comment/CommentList";
 
@@ -119,6 +114,38 @@ export default function Post({
   const { isMobile, isTablet, isDesktop } = useResponsive();
   const [showComments, setShowComments] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  // 미디어를 lightbox 형식으로 변환
+  const getLightboxSlides = () => {
+    if (!post.media) return [];
+    
+    return post.media
+      .filter((media) => media.type === "IMAGE" || media.type === "VIDEO")
+      .map((media) => {
+        if (media.type === "IMAGE") {
+          return {
+            type: "image" as const,
+            src: media.original_url,
+            alt: noCopyGuideText,
+          };
+        } else {
+          return {
+            type: "video" as const,
+            sources: [{
+              src: media.original_url,
+              type: "video/mp4"
+            }],
+          };
+        }
+      });
+  };
+
+  const handleThumbnailClick = () => {
+    setLightboxIndex(0);
+    setLightboxOpen(true);
+  };
 
   // 디버깅용 useEffect
   useEffect(() => {
@@ -427,166 +454,101 @@ export default function Post({
                   marginTop: 16,
                 }}
               >
-                <LightGallery
-                  speed={500}
-                  plugins={[lgThumbnail, lgZoom, lgVideo]}
-                  download={false}
-                  elementClassNames="custom-wrapper-class"
-                  onAfterOpen={() => {}}
-                  onAfterClose={() => {}}
-                >
-                  {/* 공개 미디어들 */}
-                  {post.media
-                    .filter(
-                      (media) =>
-                        media.type === "IMAGE" || media.type === "VIDEO"
-                    )
-                    .slice(0, 1) // 첫 번째만 썸네일로 표시
-                    .map((media, idx) => {
-                      if (media.type === "IMAGE") {
-                        return (
-                          <a
-                            key={`${post.id}-${media.original_url}-${idx}`}
-                            className="gallery-item"
-                            data-src={media.original_url}
-                            href={media.original_url}
-                          >
-                            <img
-                              src={media.original_url}
-                              alt={noCopyGuideText}
-                              style={{
-                                width: "100%",
-                                height: "auto",
-                                maxHeight: isMobile
-                                  ? "300px"
-                                  : isTablet
-                                  ? "400px"
-                                  : "500px",
-                                objectFit: "cover",
-                                display: "block",
-                              }}
-                            />
-                          </a>
-                        );
-                      } else if (media.type === "VIDEO") {
-                        return (
-                          <a
-                            key={`${post.id}-${media.original_url}-${idx}`}
-                            className="gallery-item"
-                            data-video={`{"source": [{"src":"${media.original_url}", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}`}
-                            href={media.original_url}
+                {/* 첫 번째 미디어를 썸네일로 표시 */}
+                {post.media
+                  .filter(
+                    (media) =>
+                      media.type === "IMAGE" || media.type === "VIDEO"
+                  )
+                  .slice(0, 1)
+                  .map((media, idx) => {
+                    if (media.type === "IMAGE") {
+                      return (
+                        <div
+                          key={`${post.id}-${media.original_url}-${idx}`}
+                          onClick={handleThumbnailClick}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <img
+                            src={media.original_url}
+                            alt={noCopyGuideText}
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              maxHeight: isMobile
+                                ? "300px"
+                                : isTablet
+                                ? "400px"
+                                : "500px",
+                              objectFit: "cover",
+                              display: "block",
+                              borderRadius: 8,
+                            }}
+                          />
+                        </div>
+                      );
+                    } else if (media.type === "VIDEO") {
+                      return (
+                        <div
+                          key={`${post.id}-${media.original_url}-${idx}`}
+                          onClick={handleThumbnailClick}
+                          style={{
+                            cursor: "pointer",
+                            position: "relative",
+                            width: "100%",
+                            height: isMobile
+                              ? "300px"
+                              : isTablet
+                              ? "400px"
+                              : "500px",
+                            background: "#000",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            borderRadius: 8,
+                          }}
+                        >
+                          <video
+                            src={media.original_url}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              borderRadius: 8,
+                            }}
+                            preload="metadata"
+                          />
+                          <div
+                            style={{
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              transform: "translate(-50%, -50%)",
+                              width: 60,
+                              height: 60,
+                              borderRadius: "50%",
+                              background: "rgba(255, 255, 255, 0.9)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              cursor: "pointer",
+                            }}
                           >
                             <div
                               style={{
-                                position: "relative",
-                                width: "100%",
-                                height: isMobile
-                                  ? "300px"
-                                  : isTablet
-                                  ? "400px"
-                                  : "500px",
-                                background: "#000",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                borderRadius: 8,
-                              }}
-                            >
-                              <video
-                                src={media.original_url}
-                                style={{
-                                  width: "100%",
-                                  height: "100%",
-                                  objectFit: "cover",
-                                }}
-                                preload="metadata"
-                              />
-                              <div
-                                style={{
-                                  position: "absolute",
-                                  top: "50%",
-                                  left: "50%",
-                                  transform: "translate(-50%, -50%)",
-                                  width: 60,
-                                  height: 60,
-                                  borderRadius: "50%",
-                                  background: "rgba(255, 255, 255, 0.9)",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  cursor: "pointer",
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    width: 0,
-                                    height: 0,
-                                    borderLeft: "20px solid #333",
-                                    borderTop: "12px solid transparent",
-                                    borderBottom: "12px solid transparent",
-                                    marginLeft: 4,
-                                  }}
-                                />
-                              </div>
-                            </div>
-                          </a>
-                        );
-                      }
-                    })}
-                  {/* 나머지 미디어들 (숨김) */}
-                  {post.media
-                    .filter(
-                      (media) =>
-                        media.type === "IMAGE" || media.type === "VIDEO"
-                    )
-                    .slice(1)
-                    .map((media, idx) => {
-                      if (media.type === "IMAGE") {
-                        return (
-                          <a
-                            key={`${post.id}-${media.original_url}-hidden-${idx}`}
-                            className="gallery-item"
-                            data-src={media.original_url}
-                            href={media.original_url}
-                            style={{ display: "none" }}
-                          >
-                            <img
-                              src={media.original_url}
-                              alt={noCopyGuideText}
-                              style={{
-                                width: "100%",
-                                height: "auto",
-                                objectFit: "cover",
-                                borderRadius: 8,
-                                display: "none",
+                                width: 0,
+                                height: 0,
+                                borderLeft: "20px solid #333",
+                                borderTop: "12px solid transparent",
+                                borderBottom: "12px solid transparent",
+                                marginLeft: 4,
                               }}
                             />
-                          </a>
-                        );
-                      } else if (media.type === "VIDEO") {
-                        return (
-                          <a
-                            key={`${post.id}-${media.original_url}-hidden-${idx}`}
-                            className="gallery-item"
-                            data-video={`{"source": [{"src":"${media.original_url}", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}`}
-                            href={media.original_url}
-                            style={{ display: "none" }}
-                          >
-                            <video
-                              src={media.original_url}
-                              style={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover",
-                                display: "none",
-                              }}
-                              preload="metadata"
-                            />
-                          </a>
-                        );
-                      }
-                    })}
-                </LightGallery>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
                 {/* 미디어 개수 표시 UI */}
                 {post.media.length > 0 && (
                   <div
@@ -649,6 +611,15 @@ export default function Post({
                     )}
                   </div>
                 )}
+                
+                {/* Lightbox */}
+                <Lightbox
+                  open={lightboxOpen}
+                  close={() => setLightboxOpen(false)}
+                  index={lightboxIndex}
+                  slides={getLightboxSlides()}
+                  plugins={[Video]}
+                />
               </div>
             )}
           </div>

@@ -49,13 +49,6 @@ import ReportModal from "@/components/modals/ReportModal";
 import Post from "@/components/post/Post";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useResponsive } from "@/hooks/useResponsive";
-import LightGallery from "lightgallery/react";
-import "lightgallery/css/lightgallery.css";
-import "lightgallery/css/lg-zoom.css";
-import "lightgallery/css/lg-thumbnail.css";
-import lgThumbnail from "lightgallery/plugins/thumbnail";
-import lgZoom from "lightgallery/plugins/zoom";
-import Spacings from "@/lib/constants/spacings";
 import FeedFilter from "@/components/common/FeedFilter";
 
 const { Title, Paragraph, Text } = Typography;
@@ -81,7 +74,9 @@ export default function Feed() {
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
     [key: number]: boolean;
   }>({});
-  const [openReplies, setOpenReplies] = useState<{[key: number]: boolean}>({});
+  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
+    {}
+  );
   const [filter, setFilter] = useState<"all" | "membership" | "public">(
     (searchParams.get("feedFilter") as "all" | "membership" | "public") || "all"
   );
@@ -97,9 +92,9 @@ export default function Feed() {
   const loadMoreData = async () => {
     if (loading) return;
     setLoading(true);
-    
+
     try {
-      const response = user 
+      const response = user
         ? await feedAPI.getFeed({ page, limit: pageSize, filter })
         : await feedAPI.getPublicFeed({ page, limit: pageSize });
 
@@ -110,7 +105,7 @@ export default function Feed() {
           setHasMore(false);
           // 사용자에게 메시지 표시 (response.message가 있으면 사용)
           if (response.message) {
-            console.log('Feed message:', response.message);
+            console.log("Feed message:", response.message);
           }
         } else {
           setPosts((prev) => [...prev, ...response.data]);
@@ -121,25 +116,28 @@ export default function Feed() {
 
           // 백엔드에서 받아온 좋아요 상태로 likedPosts 초기화
           const newLikedPostIds = response.data
-            .filter(post => post.isLiked)
-            .map(post => post.id);
-          
-          setLikedPosts(prev => {
+            .filter((post) => post.isLiked)
+            .map((post) => post.id);
+
+          setLikedPosts((prev) => {
             const existingIds = new Set(prev);
-            const combined = [...prev, ...newLikedPostIds.filter(id => !existingIds.has(id))];
+            const combined = [
+              ...prev,
+              ...newLikedPostIds.filter((id) => !existingIds.has(id)),
+            ];
             return combined;
           });
         }
       } else {
         // API 요청은 성공했지만 success: false인 경우
-        console.warn('Feed API returned error:', response.message);
+        console.warn("Feed API returned error:", response.message);
         if (page === 1) {
           setPosts([]);
           setHasMore(false);
         }
       }
     } catch (error) {
-      console.error('Failed to load feed:', error);
+      console.error("Failed to load feed:", error);
       // 네트워크 오류나 기타 예외 상황
       if (page === 1) {
         setPosts([]);
@@ -185,39 +183,44 @@ export default function Feed() {
     }
 
     try {
-      const currentPost = posts.find(p => p.id === postId);
+      const currentPost = posts.find((p) => p.id === postId);
       if (!currentPost) return;
 
-      const isCurrentlyLiked = currentPost.isLiked || likedPosts.includes(postId);
+      const isCurrentlyLiked =
+        currentPost.isLiked || likedPosts.includes(postId);
 
       // 낙관적 업데이트
       if (isCurrentlyLiked) {
         // Unlike
-        setLikedPosts(prev => prev.filter(id => id !== postId));
-        setPosts(prev => prev.map(post => 
-          post.id === postId 
-            ? { 
-                ...post, 
-                isLiked: false, 
-                likeCount: Math.max(0, (post.likeCount || 0) - 1) 
-              }
-            : post
-        ));
-        
+        setLikedPosts((prev) => prev.filter((id) => id !== postId));
+        setPosts((prev) =>
+          prev.map((post) =>
+            post.id === postId
+              ? {
+                  ...post,
+                  isLiked: false,
+                  likeCount: Math.max(0, (post.likeCount || 0) - 1),
+                }
+              : post
+          )
+        );
+
         await postingApi.unlikePosting(postId);
         message.success("좋아요를 취소했습니다.");
       } else {
         // Like
-        setLikedPosts(prev => [...prev, postId]);
-        setPosts(prev => prev.map(post => 
-          post.id === postId 
-            ? { 
-                ...post, 
-                isLiked: true, 
-                likeCount: (post.likeCount || 0) + 1 
-              }
-            : post
-        ));
+        setLikedPosts((prev) => [...prev, postId]);
+        setPosts((prev) =>
+          prev.map((post) =>
+            post.id === postId
+              ? {
+                  ...post,
+                  isLiked: true,
+                  likeCount: (post.likeCount || 0) + 1,
+                }
+              : post
+          )
+        );
 
         await postingApi.likePosting(postId);
         message.success("좋아요를 눌렀습니다.");
@@ -226,38 +229,41 @@ export default function Feed() {
       console.error("Failed to toggle like:", error);
       const errorMessage = error.message || "좋아요 처리에 실패했습니다.";
       message.error(errorMessage);
-      
+
       // API 실패시 상태 롤백
-      const currentPost = posts.find(p => p.id === postId);
+      const currentPost = posts.find((p) => p.id === postId);
       if (currentPost) {
         const wasLiked = currentPost.isLiked || likedPosts.includes(postId);
         if (wasLiked) {
-          setLikedPosts(prev => [...prev, postId]);
-          setPosts(prev => prev.map(post => 
-            post.id === postId 
-              ? { 
-                  ...post, 
-                  isLiked: true, 
-                  likeCount: (post.likeCount || 0) + 1 
-                }
-              : post
-          ));
+          setLikedPosts((prev) => [...prev, postId]);
+          setPosts((prev) =>
+            prev.map((post) =>
+              post.id === postId
+                ? {
+                    ...post,
+                    isLiked: true,
+                    likeCount: (post.likeCount || 0) + 1,
+                  }
+                : post
+            )
+          );
         } else {
-          setLikedPosts(prev => prev.filter(id => id !== postId));
-          setPosts(prev => prev.map(post => 
-            post.id === postId 
-              ? { 
-                  ...post, 
-                  isLiked: false, 
-                  likeCount: Math.max(0, (post.likeCount || 0) - 1) 
-                }
-              : post
-          ));
+          setLikedPosts((prev) => prev.filter((id) => id !== postId));
+          setPosts((prev) =>
+            prev.map((post) =>
+              post.id === postId
+                ? {
+                    ...post,
+                    isLiked: false,
+                    likeCount: Math.max(0, (post.likeCount || 0) - 1),
+                  }
+                : post
+            )
+          );
         }
       }
     }
   };
-
 
   const togglePostExpand = (postId: number) => {
     setExpandedPosts((prev) =>
@@ -277,9 +283,9 @@ export default function Feed() {
 
   // 답글 토글
   const toggleReplies = (postId: number) => {
-    setOpenReplies(prev => ({
+    setOpenReplies((prev) => ({
       ...prev,
-      [postId]: !prev[postId]
+      [postId]: !prev[postId],
     }));
   };
 
@@ -292,7 +298,7 @@ export default function Feed() {
 
   // 댓글 제출
   const handleCommentSubmit = (postId: number) => {
-    console.log('Comment submitted for post:', postId);
+    console.log("Comment submitted for post:", postId);
   };
 
   // 정확한 날짜 포맷 함수
@@ -359,10 +365,11 @@ export default function Feed() {
     title: post.title,
     content: post.content,
     createdAt: post.createdAt,
-    images: post.images?.map((img) => ({
-      url: img.url,
-      isPublic: img.isPublic || false,
-    })) || [],
+    images:
+      post.images?.map((img) => ({
+        url: img.url,
+        isPublic: img.isPublic || false,
+      })) || [],
     isMembershipOnly: post.isMembershipOnly,
     isGotMembership: post.isGotMembership,
     allowComments: post.allowComments ?? true, // 기본값 true

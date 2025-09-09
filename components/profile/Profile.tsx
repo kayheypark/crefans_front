@@ -33,12 +33,6 @@ import {
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
-import LightGallery from "lightgallery/react";
-import "lightgallery/css/lightgallery.css";
-import "lightgallery/css/lg-zoom.css";
-import "lightgallery/css/lg-thumbnail.css";
-import lgThumbnail from "lightgallery/plugins/thumbnail";
-import lgZoom from "lightgallery/plugins/zoom";
 import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
 
@@ -92,7 +86,9 @@ export default function Profile() {
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
     [key: number]: boolean;
   }>({});
-  const [openReplies, setOpenReplies] = useState<{[key: number]: boolean}>({});
+  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
+    {}
+  );
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -175,9 +171,9 @@ export default function Profile() {
 
   // 답글 토글
   const toggleReplies = (postId: number) => {
-    setOpenReplies(prev => ({
+    setOpenReplies((prev) => ({
       ...prev,
-      [postId]: !prev[postId]
+      [postId]: !prev[postId],
     }));
   };
 
@@ -190,7 +186,7 @@ export default function Profile() {
 
   // 댓글 제출
   const handleCommentSubmit = (postId: number) => {
-    console.log('Comment submitted for post:', postId);
+    console.log("Comment submitted for post:", postId);
   };
 
   const handleReport = (values: any) => {
@@ -221,7 +217,6 @@ export default function Profile() {
     },
   });
 
-
   const handleSharePost = (postId: number) => {
     setSelectedPostId(postId);
     setIsShareModalVisible(true);
@@ -231,7 +226,6 @@ export default function Profile() {
     setSelectedPostId(postId);
     setIsReportModalVisible(true);
   };
-
 
   const renderPosts = () => {
     if (posts.length === 0) {
