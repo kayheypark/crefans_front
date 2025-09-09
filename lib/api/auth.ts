@@ -20,6 +20,7 @@ export const authAPI = {
     name: string;
     nickname: string;
     phoneNumber: string;
+    isEarlybird?: boolean;
   }) => {
     const response = await axios.post(`${getApiUrl()}/auth/signup`, userData);
     return response.data;

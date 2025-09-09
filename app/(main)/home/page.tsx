@@ -26,6 +26,7 @@ export default function HomePage() {
   const router = useRouter();
   const { isMobile, isTablet, isDesktop } = useResponsive();
   const [signUpOpen, setSignUpOpen] = useState(false);
+  const [isEarlybirdModal, setIsEarlybirdModal] = useState(false);
 
   const features = [
     {
@@ -417,7 +418,10 @@ export default function HomePage() {
         <Button
           type="primary"
           size={isMobile ? "middle" : "large"}
-          onClick={() => setSignUpOpen(true)}
+          onClick={() => {
+            setIsEarlybirdModal(true);
+            setSignUpOpen(true);
+          }}
           style={{
             height: isMobile ? 40 : 48,
             padding: isMobile ? "0 24px" : "0 32px",
@@ -472,7 +476,14 @@ export default function HomePage() {
           </Text>
         </div>
       </div>
-      <SignUpModal open={signUpOpen} onClose={() => setSignUpOpen(false)} />
+      <SignUpModal 
+        open={signUpOpen} 
+        onClose={() => {
+          setSignUpOpen(false);
+          setIsEarlybirdModal(false);
+        }}
+        isEarlybird={isEarlybirdModal}
+      />
     </div>
   );
 }

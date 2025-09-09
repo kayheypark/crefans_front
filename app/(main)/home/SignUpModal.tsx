@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { CloseOutlined, MailOutlined } from "@ant-design/icons";
 import { authAPI } from "@/lib/api";
+import { earlybirdApi } from "@/lib/api/earlybird";
 import { sanitizePhoneInput } from "@/lib/utils/phoneUtils";
 import {
   isValidKoreanName,
@@ -24,11 +25,12 @@ const { Title, Text } = Typography;
 interface SignUpModalProps {
   open: boolean;
   onClose: () => void;
+  isEarlybird?: boolean;
 }
 
 const phonePrefix = "+82";
 
-export default function SignUpModal({ open, onClose }: SignUpModalProps) {
+export default function SignUpModal({ open, onClose, isEarlybird = false }: SignUpModalProps) {
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
@@ -142,13 +144,28 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     return true;
   };
 
-  // 이메일 중복 체크 함수
+  // 이메일 중복 체크 함수 (얼리버드 체크 포함)
   const checkEmailExists = async (email: string) => {
     if (!validateEmail(email)) return true;
 
     try {
       setIsCheckingEmail(true);
       setEmailError("");
+      
+      // 얼리버드 모달인 경우 얼리버드 체크 추가
+      if (isEarlybird) {
+        try {
+          const earlybirdStatus = await earlybirdApi.getEarlybirdStatus();
+          if (earlybirdStatus.success && earlybirdStatus.data.isEarlybird) {
+            setEmailError("이미 얼리버드로 가입된 이메일입니다.");
+            setIsEmailExists(true);
+            return true;
+          }
+        } catch (error) {
+          // 얼리버드 상태 확인 실패는 일반 회원가입 진행
+        }
+      }
+
       const response = await authAPI.checkEmail(email);
       if (response.data.exists) {
         setEmailError("이미 사용 중인 이메일입니다.");
@@ -212,13 +229,16 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
     }
     setLoading(true);
     try {
+      // 회원가입 (얼리버드 플래그 포함)
       await authAPI.signup({
         email,
         password: userInfo.password,
         name: userInfo.name,
         nickname: userInfo.nickname,
         phoneNumber: phonePrefix + userInfo.phoneNumber,
+        isEarlybird,
       });
+
       setStep(3);
       message.success("회원가입이 완료되었습니다! 이메일을 확인해주세요.");
     } catch (err: any) {
@@ -362,7 +382,7 @@ export default function SignUpModal({ open, onClose }: SignUpModalProps) {
             style={{ borderRadius: 16, fontWeight: 600, fontSize: 18 }}
             onClick={handleEmailNext}
           >
-            시작하기
+            {isEarlybird ? "얼리버드로 시작하기" : "시작하기"}
           </Button>
         </div>
       )}
