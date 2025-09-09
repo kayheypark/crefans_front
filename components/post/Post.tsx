@@ -56,6 +56,9 @@ interface Post {
   textLength: number;
   imageCount: number;
   videoCount: number;
+  commentCount?: number;
+  likeCount?: number;
+  isLiked?: boolean;
   creator: {
     name: string;
     handle: string;
@@ -537,7 +540,7 @@ export default function Post({
             <Button
               type="text"
               icon={
-                likedPosts.includes(post.id) ? (
+                post.isLiked || likedPosts.includes(post.id) ? (
                   <HeartFilled style={{ color: "#ff4d4f" }} />
                 ) : (
                   <HeartOutlined />
@@ -545,7 +548,7 @@ export default function Post({
               }
               onClick={() => onLike(post.id)}
             >
-              {likedPosts.includes(post.id) ? "1" : "0"}
+              {post.likeCount || 0}
             </Button>
             <Button 
               type="text" 

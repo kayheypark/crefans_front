@@ -16,6 +16,8 @@ export interface FeedPost {
   imageCount: number;
   videoCount: number;
   commentCount: number;
+  likeCount?: number;
+  isLiked?: boolean;
   creator: {
     id: string;
     handle: string;

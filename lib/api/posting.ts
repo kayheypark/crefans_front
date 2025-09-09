@@ -5,6 +5,7 @@ import {
   PostingDetailResponse,
   CreatePostingResponse
 } from '@/types/posting';
+import { apiClient } from './client';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
@@ -132,5 +133,27 @@ export const postingApi = {
     }
 
     return response.json();
+  },
+
+  // 포스팅 좋아요
+  async likePosting(id: number): Promise<{ success: boolean; message: string; data: any }> {
+    try {
+      const response = await apiClient.post(`/postings/${id}/like`);
+      return response.data;
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || '좋아요 처리에 실패했습니다.';
+      throw new Error(errorMessage);
+    }
+  },
+
+  // 포스팅 좋아요 취소
+  async unlikePosting(id: number): Promise<{ success: boolean; message: string; data: any }> {
+    try {
+      const response = await apiClient.delete(`/postings/${id}/like`);
+      return response.data;
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || '좋아요 취소에 실패했습니다.';
+      throw new Error(errorMessage);
+    }
   },
 };

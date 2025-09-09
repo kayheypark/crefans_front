@@ -43,6 +43,7 @@ import {
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "@/contexts/AuthContext";
 import { feedAPI, FeedPost } from "@/lib/api/feed";
+import { postingApi } from "@/lib/api/posting";
 import LoginModal from "@/components/modals/LoginModal";
 import ReportModal from "@/components/modals/ReportModal";
 import Post from "@/components/post/Post";
@@ -117,6 +118,17 @@ export default function Feed() {
           if (response.pagination.hasMore) {
             setPage((prev) => prev + 1);
           }
+
+          // 백엔드에서 받아온 좋아요 상태로 likedPosts 초기화
+          const newLikedPostIds = response.data
+            .filter(post => post.isLiked)
+            .map(post => post.id);
+          
+          setLikedPosts(prev => {
+            const existingIds = new Set(prev);
+            const combined = [...prev, ...newLikedPostIds.filter(id => !existingIds.has(id))];
+            return combined;
+          });
         }
       } else {
         // API 요청은 성공했지만 success: false인 경우
@@ -149,6 +161,7 @@ export default function Feed() {
     setPosts([]);
     setPage(1);
     setHasMore(true);
+    setLikedPosts([]); // 필터 변경시 좋아요 상태도 초기화
     loadMoreData();
     // eslint-disable-next-line
   }, [filter, user]);
@@ -165,12 +178,84 @@ export default function Feed() {
     return `${Math.floor(diffInSeconds / 86400)}일 전`;
   };
 
-  const handleLike = (postId: number) => {
-    setLikedPosts((prev) =>
-      prev.includes(postId)
-        ? prev.filter((id) => id !== postId)
-        : [...prev, postId]
-    );
+  const handleLike = async (postId: number) => {
+    if (!user) {
+      setIsLoginModalOpen(true);
+      return;
+    }
+
+    try {
+      const currentPost = posts.find(p => p.id === postId);
+      if (!currentPost) return;
+
+      const isCurrentlyLiked = currentPost.isLiked || likedPosts.includes(postId);
+
+      // 낙관적 업데이트
+      if (isCurrentlyLiked) {
+        // Unlike
+        setLikedPosts(prev => prev.filter(id => id !== postId));
+        setPosts(prev => prev.map(post => 
+          post.id === postId 
+            ? { 
+                ...post, 
+                isLiked: false, 
+                likeCount: Math.max(0, (post.likeCount || 0) - 1) 
+              }
+            : post
+        ));
+        
+        await postingApi.unlikePosting(postId);
+        message.success("좋아요를 취소했습니다.");
+      } else {
+        // Like
+        setLikedPosts(prev => [...prev, postId]);
+        setPosts(prev => prev.map(post => 
+          post.id === postId 
+            ? { 
+                ...post, 
+                isLiked: true, 
+                likeCount: (post.likeCount || 0) + 1 
+              }
+            : post
+        ));
+
+        await postingApi.likePosting(postId);
+        message.success("좋아요를 눌렀습니다.");
+      }
+    } catch (error: any) {
+      console.error("Failed to toggle like:", error);
+      const errorMessage = error.message || "좋아요 처리에 실패했습니다.";
+      message.error(errorMessage);
+      
+      // API 실패시 상태 롤백
+      const currentPost = posts.find(p => p.id === postId);
+      if (currentPost) {
+        const wasLiked = currentPost.isLiked || likedPosts.includes(postId);
+        if (wasLiked) {
+          setLikedPosts(prev => [...prev, postId]);
+          setPosts(prev => prev.map(post => 
+            post.id === postId 
+              ? { 
+                  ...post, 
+                  isLiked: true, 
+                  likeCount: (post.likeCount || 0) + 1 
+                }
+              : post
+          ));
+        } else {
+          setLikedPosts(prev => prev.filter(id => id !== postId));
+          setPosts(prev => prev.map(post => 
+            post.id === postId 
+              ? { 
+                  ...post, 
+                  isLiked: false, 
+                  likeCount: Math.max(0, (post.likeCount || 0) - 1) 
+                }
+              : post
+          ));
+        }
+      }
+    }
   };
 
 
@@ -285,6 +370,8 @@ export default function Feed() {
     imageCount: post.imageCount,
     videoCount: post.videoCount,
     commentCount: post.commentCount,
+    likeCount: post.likeCount || 0,
+    isLiked: post.isLiked || false,
     creator: {
       name: post.creator.name,
       handle: post.creator.handle,
