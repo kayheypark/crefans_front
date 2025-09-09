@@ -254,7 +254,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     }
   };
 
-
   const handleFollow = async () => {
     if (!user) {
       setIsLoginModalOpen(true);
@@ -646,16 +645,17 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                 {!isOwnProfile && (
                   <Button
                     type="primary"
-                    ghost={!isFollowing}
-                    icon={isFollowing ? null : <HeartOutlined />}
+                    ghost={!isFollowing || !user}
+                    icon={isFollowing && user ? null : <HeartOutlined />}
                     style={{
-                      backgroundColor: !isFollowing ? "#ff4d4f" : "transparent",
+                      backgroundColor:
+                        !isFollowing || !user ? "#ff4d4f" : "transparent",
                       borderColor: "#ff4d4f",
-                      color: !isFollowing ? "#ffffff" : "#ff4d4f",
+                      color: !isFollowing || !user ? "#ffffff" : "#ff4d4f",
                     }}
                     onClick={handleFollow}
                   >
-                    {isFollowing ? "팔로우 취소" : "팔로우"}
+                    {isFollowing && user ? "팔로우 취소" : "팔로우"}
                   </Button>
                 )}
               </div>
