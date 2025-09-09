@@ -40,7 +40,6 @@ export default function CommentList({
   const [newComment, setNewComment] = useState("");
   const [replyTo, setReplyTo] = useState<number | null>(null);
   const [replyContent, setReplyContent] = useState("");
-  const [likedComments, setLikedComments] = useState<number[]>([]);
   const [reportModalOpen, setReportModalOpen] = useState(false);
   const [selectedCommentId, setSelectedCommentId] = useState<number | null>(null);
 
@@ -115,12 +114,27 @@ export default function CommentList({
     }
   };
 
-  const handleLikeComment = (commentId: number) => {
-    setLikedComments(prev => 
-      prev.includes(commentId) 
-        ? prev.filter(id => id !== commentId)
-        : [...prev, commentId]
-    );
+  const handleLikeComment = async (commentId: number, currentIsLiked: boolean) => {
+    if (!user) {
+      message.warning("로그인이 필요합니다.");
+      return;
+    }
+
+    try {
+      if (currentIsLiked) {
+        await commentAPI.unlikeComment(commentId);
+        message.success("좋아요를 취소했습니다.");
+      } else {
+        await commentAPI.likeComment(commentId);
+        message.success("좋아요를 눌렀습니다.");
+      }
+      // 댓글 목록을 새로고침하여 업데이트된 좋아요 상태를 반영
+      loadComments();
+    } catch (error: any) {
+      console.error("Failed to toggle comment like:", error);
+      const errorMessage = error.response?.data?.message || "좋아요 처리에 실패했습니다.";
+      message.error(errorMessage);
+    }
   };
 
   const handleDeleteComment = async (commentId: number) => {
@@ -248,11 +262,15 @@ export default function CommentList({
                       padding: 0,
                       fontSize: 13,
                       height: "auto",
-                      color: "#999",
+                      color: comment.is_liked ? "#ff4d4f" : "#999",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
                     }}
-                    onClick={() => handleLikeComment(comment.id)}
+                    onClick={() => handleLikeComment(comment.id, comment.is_liked)}
                   >
-                    <HeartOutlined />
+                    {comment.is_liked ? <HeartFilled /> : <HeartOutlined />}
+                    {comment.like_count > 0 && <span>{comment.like_count}</span>}
                   </Button>
                   <Dropdown
                     menu={getCommentMoreMenu(comment)}
@@ -394,11 +412,15 @@ export default function CommentList({
                                 padding: 0,
                                 fontSize: 12,
                                 height: "auto",
-                                color: "#999",
+                                color: reply.is_liked ? "#ff4d4f" : "#999",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 4,
                               }}
-                              onClick={() => handleLikeComment(reply.id)}
+                              onClick={() => handleLikeComment(reply.id, reply.is_liked)}
                             >
-                              <HeartOutlined />
+                              {reply.is_liked ? <HeartFilled /> : <HeartOutlined />}
+                              {reply.like_count > 0 && <span>{reply.like_count}</span>}
                             </Button>
                             <Dropdown
                               menu={getCommentMoreMenu(reply)}

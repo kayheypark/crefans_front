@@ -25,6 +25,8 @@ export interface Comment {
   author: CommentAuthor | null;
   tagged_user?: TaggedUser | null;
   children: Comment[];
+  like_count: number;
+  is_liked: boolean;
 }
 
 export interface CreateCommentDto {

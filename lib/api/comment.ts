@@ -45,4 +45,23 @@ export const commentAPI = {
     );
     return response.data;
   },
+
+  // 댓글 좋아요
+  likeComment: async (commentId: number): Promise<{ success: boolean; message: string; data: any }> => {
+    const response = await axios.post(
+      `${getApiUrl()}/comments/${commentId}/like`,
+      {},
+      { withCredentials: true }
+    );
+    return response.data;
+  },
+
+  // 댓글 좋아요 취소
+  unlikeComment: async (commentId: number): Promise<{ success: boolean; message: string; data: any }> => {
+    const response = await axios.delete(
+      `${getApiUrl()}/comments/${commentId}/like`,
+      { withCredentials: true }
+    );
+    return response.data;
+  },
 };
