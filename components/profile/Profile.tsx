@@ -92,13 +92,11 @@ export default function Profile() {
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
     [key: number]: boolean;
   }>({});
+  const [openReplies, setOpenReplies] = useState<{[key: number]: boolean}>({});
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
-  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
-    {}
-  );
 
   // Feed에서 사용하는 목업 데이터 fetch
   const fetchFeedData = async () => {
@@ -175,6 +173,26 @@ export default function Profile() {
     }));
   };
 
+  // 답글 토글
+  const toggleReplies = (postId: number) => {
+    setOpenReplies(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
+  };
+
+  // 댓글 입력 클릭
+  const handleCommentInputClick = () => {
+    if (!user) {
+      setIsLoginModalOpen(true);
+    }
+  };
+
+  // 댓글 제출
+  const handleCommentSubmit = (postId: number) => {
+    console.log('Comment submitted for post:', postId);
+  };
+
   const handleReport = (values: any) => {
     message.success("신고가 접수되었습니다.");
     setIsReportModalVisible(false);
@@ -203,15 +221,6 @@ export default function Profile() {
     },
   });
 
-  const handleCommentInputClick = () => {
-    if (!user) {
-      setIsLoginModalOpen(true);
-    }
-  };
-
-  const handleCommentSubmit = (postId: number) => {
-    message.success("답글이 작성되었습니다.");
-  };
 
   const handleSharePost = (postId: number) => {
     setSelectedPostId(postId);
@@ -223,12 +232,6 @@ export default function Profile() {
     setIsReportModalVisible(true);
   };
 
-  const toggleReplies = (postId: number) => {
-    setOpenReplies((prev) => ({
-      ...prev,
-      [postId]: !prev[postId],
-    }));
-  };
 
   const renderPosts = () => {
     if (posts.length === 0) {
@@ -251,11 +254,16 @@ export default function Profile() {
             likedPosts={likedPosts}
             expandedPosts={expandedPosts}
             relativeDatePosts={relativeDatePosts}
+            openReplies={openReplies}
             onLike={handleLike}
             onToggleExpand={togglePostExpand}
             onToggleDateType={toggleDateType}
+            onToggleReplies={toggleReplies}
+            onCommentInputClick={handleCommentInputClick}
+            onCommentSubmit={handleCommentSubmit}
             onShare={handleSharePost}
             onReport={handleReportPost}
+            formatDate={formatDate}
             formatFullDate={formatFullDate}
           />
         ))}

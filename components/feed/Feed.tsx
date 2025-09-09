@@ -102,6 +102,7 @@ export default function Feed() {
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
     [key: number]: boolean;
   }>({});
+  const [openReplies, setOpenReplies] = useState<{[key: number]: boolean}>({});
   const [filter, setFilter] = useState<"all" | "membership" | "public">(
     (searchParams.get("feedFilter") as "all" | "membership" | "public") || "all"
   );
@@ -169,13 +170,32 @@ export default function Feed() {
     );
   };
 
-
   // 날짜 표기 토글
   const toggleDateType = (postId: number) => {
     setRelativeDatePosts((prev) => ({
       ...prev,
       [postId]: !prev[postId],
     }));
+  };
+
+  // 답글 토글
+  const toggleReplies = (postId: number) => {
+    setOpenReplies(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
+  };
+
+  // 댓글 입력 클릭
+  const handleCommentInputClick = () => {
+    if (!user) {
+      setIsLoginModalOpen(true);
+    }
+  };
+
+  // 댓글 제출
+  const handleCommentSubmit = (postId: number) => {
+    console.log('Comment submitted for post:', postId);
   };
 
   // 정확한 날짜 포맷 함수
@@ -361,11 +381,16 @@ export default function Feed() {
                 likedPosts={likedPosts}
                 expandedPosts={expandedPosts}
                 relativeDatePosts={relativeDatePosts}
+                openReplies={openReplies}
                 onLike={handleLike}
                 onToggleExpand={togglePostExpand}
                 onToggleDateType={toggleDateType}
+                onToggleReplies={toggleReplies}
+                onCommentInputClick={handleCommentInputClick}
+                onCommentSubmit={handleCommentSubmit}
                 onShare={handleSharePost}
                 onReport={handleReportPost}
+                formatDate={formatDate}
                 formatFullDate={formatFullDate}
               />
             ))}

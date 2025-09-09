@@ -130,13 +130,11 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
     [key: number]: boolean;
   }>({});
+  const [openReplies, setOpenReplies] = useState<{[key: number]: boolean}>({});
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
-  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
-    {}
-  );
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [hasMorePosts, setHasMorePosts] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -316,6 +314,26 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   };
 
   // dateUtils의 함수를 사용하도록 변경
+  // 답글 토글
+  const toggleReplies = (postId: number) => {
+    setOpenReplies(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
+  };
+
+  // 댓글 입력 클릭
+  const handleCommentInputClick = () => {
+    if (!user) {
+      setIsLoginModalOpen(true);
+    }
+  };
+
+  // 댓글 제출
+  const handleCommentSubmit = (postId: number) => {
+    console.log('Comment submitted for post:', postId);
+  };
+
   const formatDate = (dateString: string) => {
     if (!dateString) return "날짜 없음";
     return formatRelativeDate(dateString);
@@ -356,15 +374,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     createdAt: post.created_at, // API 응답의 created_at을 createdAt으로 매핑
   });
 
-  const handleCommentInputClick = () => {
-    if (!user) {
-      setIsLoginModalOpen(true);
-    }
-  };
-
-  const handleCommentSubmit = (postId: number) => {
-    message.success("답글이 작성되었습니다.");
-  };
 
   const handleSharePost = (postId: number) => {
     setSelectedPostId(postId);
@@ -376,12 +385,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     setIsReportModalVisible(true);
   };
 
-  const toggleReplies = (postId: number) => {
-    setOpenReplies((prev) => ({
-      ...prev,
-      [postId]: !prev[postId],
-    }));
-  };
 
   const renderPosts = () => {
     if (posts.length === 0) {
@@ -408,11 +411,16 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
             likedPosts={likedPosts}
             expandedPosts={expandedPosts}
             relativeDatePosts={relativeDatePosts}
+            openReplies={openReplies}
             onLike={handleLike}
             onToggleExpand={togglePostExpand}
             onToggleDateType={toggleDateType}
+            onToggleReplies={toggleReplies}
+            onCommentInputClick={handleCommentInputClick}
+            onCommentSubmit={handleCommentSubmit}
             onShare={handleSharePost}
             onReport={handleReportPost}
+            formatDate={formatDate}
             formatFullDate={formatFullDate}
           />
         ))}

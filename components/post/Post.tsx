@@ -68,11 +68,16 @@ interface PostProps {
   likedPosts: number[];
   expandedPosts: number[];
   relativeDatePosts: { [key: number]: boolean };
+  openReplies: { [key: number]: boolean };
   onLike: (postId: number) => void;
   onToggleExpand: (postId: number) => void;
   onToggleDateType: (postId: number) => void;
+  onToggleReplies: (postId: number) => void;
+  onCommentInputClick: () => void;
+  onCommentSubmit: (postId: number) => void;
   onShare: (postId: number) => void;
   onReport: (postId: number) => void;
+  formatDate: (date: string) => string;
   formatFullDate: (date: string) => string;
 }
 
@@ -81,16 +86,23 @@ export default function Post({
   likedPosts,
   expandedPosts,
   relativeDatePosts,
+  openReplies,
   onLike,
   onToggleExpand,
   onToggleDateType,
+  onToggleReplies,
+  onCommentInputClick,
+  onCommentSubmit,
   onShare,
   onReport,
+  formatDate,
   formatFullDate,
 }: PostProps) {
   const { user } = useAuth();
   const router = useRouter();
   const { isMobile, isTablet, isDesktop } = useResponsive();
+  const [showComments, setShowComments] = useState(false);
+  const [commentCount, setCommentCount] = useState(0);
 
   // 디버깅용 useEffect
   useEffect(() => {
@@ -500,7 +512,7 @@ export default function Post({
           <Text type="secondary" style={{ fontSize: 12 }}>
             {relativeDatePosts[post.id] === true
               ? formatFullDate(post.createdAt)
-              : formatRelativeDate(post.createdAt)}{" "}
+              : formatDate(post.createdAt)}{" "}
             작성됨
           </Text>
           <Button
@@ -535,19 +547,29 @@ export default function Post({
             >
               {likedPosts.includes(post.id) ? "1" : "0"}
             </Button>
-            <Button type="text" icon={<MessageOutlined />}>
-              1
+            <Button 
+              type="text" 
+              icon={<MessageOutlined />}
+              onClick={() => setShowComments(!showComments)}
+            >
+              {commentCount}
             </Button>
           </Space>
         </div>
 
-        {/* 댓글 섹션 */}
-        <div style={{ marginTop: 16, padding: isMobile ? "0 12px" : "0 16px" }}>
-          <CommentList 
-            postingId={post.id} 
-            allowComments={post.allowComments} 
-          />
-        </div>
+        {/* 댓글 리스트 - 인스타그램 스타일 (기존 디자인 유지) */}
+        <CommentList 
+          postingId={post.id} 
+          allowComments={post.allowComments}
+          onCommentCountChange={setCommentCount}
+          openReplies={openReplies}
+          onToggleReplies={onToggleReplies}
+          onCommentInputClick={onCommentInputClick}
+          onCommentSubmit={onCommentSubmit}
+          user={user}
+          post={post}
+          isMobile={isMobile}
+        />
       </Card>
     </>
   );

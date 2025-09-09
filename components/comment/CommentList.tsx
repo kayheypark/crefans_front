@@ -1,36 +1,46 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { List, Avatar, Button, Input, message, Dropdown, Modal, AutoComplete } from "antd";
-import { 
-  MessageOutlined, 
-  MoreOutlined, 
-  EditOutlined, 
-  DeleteOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
-import { useAuth } from "@/contexts/AuthContext";
+import { Button, Input, Avatar, Typography } from "antd";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { commentAPI } from "@/lib/api/comment";
-import { Comment, CreateCommentDto, UpdateCommentDto } from "@/types/comment";
+import { Comment, CreateCommentDto } from "@/types/comment";
 import { formatRelativeDate } from "@/lib/utils/dateUtils";
 
-const { TextArea } = Input;
+const { Text } = Typography;
 
 interface CommentListProps {
   postingId: number;
   allowComments: boolean;
+  onCommentCountChange?: (count: number) => void;
+  openReplies: { [key: number]: boolean };
+  onToggleReplies: (postId: number) => void;
+  onCommentInputClick: () => void;
+  onCommentSubmit: (postId: number) => void;
+  user: any;
+  post: any;
+  isMobile: boolean;
 }
 
-export default function CommentList({ postingId, allowComments }: CommentListProps) {
-  const { user } = useAuth();
+export default function CommentList({ 
+  postingId, 
+  allowComments, 
+  onCommentCountChange,
+  openReplies,
+  onToggleReplies,
+  onCommentInputClick,
+  onCommentSubmit,
+  user,
+  post,
+  isMobile
+}: CommentListProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [replyTo, setReplyTo] = useState<number | null>(null);
   const [replyContent, setReplyContent] = useState("");
-  const [editingComment, setEditingComment] = useState<number | null>(null);
-  const [editContent, setEditContent] = useState("");
+  const [likedComments, setLikedComments] = useState<number[]>([]);
 
   useEffect(() => {
     if (postingId) {
@@ -44,25 +54,21 @@ export default function CommentList({ postingId, allowComments }: CommentListPro
       const response = await commentAPI.getCommentsByPostingId(postingId);
       if (response.success) {
         setComments(response.data);
+        // 댓글 개수 계산 (부모 댓글 + 답글)
+        const totalCount = response.data.reduce((count, comment) => {
+          return count + 1 + (comment.children?.length || 0);
+        }, 0);
+        onCommentCountChange?.(totalCount);
       }
     } catch (error) {
       console.error("Failed to load comments:", error);
-      message.error("댓글을 불러오는데 실패했습니다.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleSubmitComment = async () => {
-    if (!user) {
-      message.warning("로그인이 필요합니다.");
-      return;
-    }
-
-    if (!newComment.trim()) {
-      message.warning("댓글 내용을 입력해주세요.");
-      return;
-    }
+    if (!user || !newComment.trim()) return;
 
     try {
       setSubmitting(true);
@@ -73,29 +79,18 @@ export default function CommentList({ postingId, allowComments }: CommentListPro
 
       const response = await commentAPI.createComment(commentData);
       if (response.success) {
-        message.success("댓글이 작성되었습니다.");
         setNewComment("");
         loadComments();
       }
     } catch (error: any) {
       console.error("Failed to create comment:", error);
-      const errorMessage = error.response?.data?.message || "댓글 작성에 실패했습니다.";
-      message.error(errorMessage);
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleSubmitReply = async (parentId: number) => {
-    if (!user) {
-      message.warning("로그인이 필요합니다.");
-      return;
-    }
-
-    if (!replyContent.trim()) {
-      message.warning("답글 내용을 입력해주세요.");
-      return;
-    }
+    if (!user || !replyContent.trim()) return;
 
     try {
       setSubmitting(true);
@@ -107,299 +102,289 @@ export default function CommentList({ postingId, allowComments }: CommentListPro
 
       const response = await commentAPI.createComment(replyData);
       if (response.success) {
-        message.success("답글이 작성되었습니다.");
         setReplyContent("");
         setReplyTo(null);
         loadComments();
       }
     } catch (error: any) {
       console.error("Failed to create reply:", error);
-      const errorMessage = error.response?.data?.message || "답글 작성에 실패했습니다.";
-      message.error(errorMessage);
     } finally {
       setSubmitting(false);
     }
   };
 
-  const handleEditComment = async (commentId: number) => {
-    if (!editContent.trim()) {
-      message.warning("댓글 내용을 입력해주세요.");
-      return;
-    }
-
-    try {
-      const updateData: UpdateCommentDto = {
-        content: editContent.trim(),
-      };
-
-      const response = await commentAPI.updateComment(commentId, updateData);
-      if (response.success) {
-        message.success("댓글이 수정되었습니다.");
-        setEditingComment(null);
-        setEditContent("");
-        loadComments();
-      }
-    } catch (error: any) {
-      console.error("Failed to update comment:", error);
-      const errorMessage = error.response?.data?.message || "댓글 수정에 실패했습니다.";
-      message.error(errorMessage);
-    }
+  const handleLikeComment = (commentId: number) => {
+    setLikedComments(prev => 
+      prev.includes(commentId) 
+        ? prev.filter(id => id !== commentId)
+        : [...prev, commentId]
+    );
   };
-
-  const handleDeleteComment = async (commentId: number) => {
-    Modal.confirm({
-      title: "댓글을 삭제하시겠습니까?",
-      content: "삭제된 댓글은 복구할 수 없습니다.",
-      okText: "삭제",
-      okType: "danger",
-      cancelText: "취소",
-      onOk: async () => {
-        try {
-          const response = await commentAPI.deleteComment(commentId);
-          if (response.success) {
-            message.success("댓글이 삭제되었습니다.");
-            loadComments();
-          }
-        } catch (error: any) {
-          console.error("Failed to delete comment:", error);
-          const errorMessage = error.response?.data?.message || "댓글 삭제에 실패했습니다.";
-          message.error(errorMessage);
-        }
-      },
-    });
-  };
-
-  const getCommentActions = (comment: Comment) => {
-    const isOwner = user?.attributes?.sub === comment.author_id;
-    const actions: React.ReactNode[] = [];
-
-    // 답글 버튼
-    if (allowComments && !comment.parent_id) {
-      actions.push(
-        <Button
-          key="reply"
-          type="text"
-          size="small"
-          icon={<MessageOutlined />}
-          onClick={() => {
-            setReplyTo(comment.id);
-            setReplyContent("");
-          }}
-        >
-          답글
-        </Button>
-      );
-    }
-
-    // 더보기 메뉴 (작성자만)
-    if (isOwner) {
-      const menuItems = [
-        {
-          key: "edit",
-          label: "수정",
-          icon: <EditOutlined />,
-          onClick: () => {
-            setEditingComment(comment.id);
-            setEditContent(comment.content);
-          },
-        },
-        {
-          key: "delete",
-          label: "삭제",
-          icon: <DeleteOutlined />,
-          danger: true,
-          onClick: () => handleDeleteComment(comment.id),
-        },
-      ];
-
-      actions.push(
-        <Dropdown
-          key="more"
-          menu={{ items: menuItems }}
-          trigger={["click"]}
-        >
-          <Button type="text" size="small" icon={<MoreOutlined />} />
-        </Dropdown>
-      );
-    }
-
-    return actions;
-  };
-
-  const renderComment = (comment: Comment, isReply = false) => (
-    <List.Item
-      key={comment.id}
-      actions={getCommentActions(comment)}
-      style={{
-        paddingLeft: isReply ? 40 : 0,
-        backgroundColor: isReply ? "#fafafa" : "transparent",
-      }}
-    >
-      <List.Item.Meta
-        avatar={
-          <Avatar
-            src={comment.author?.avatar}
-            size={isReply ? 32 : 40}
-          >
-            {comment.author?.name?.[0]}
-          </Avatar>
-        }
-        title={
-          <div>
-            <strong>{comment.author?.name || "알 수 없음"}</strong>
-            <span style={{ marginLeft: 8, color: "#999", fontSize: 12 }}>
-              @{comment.author?.handle}
-            </span>
-            <span style={{ marginLeft: 8, color: "#999", fontSize: 12 }}>
-              {formatRelativeDate(comment.created_at)}
-            </span>
-          </div>
-        }
-        description={
-          editingComment === comment.id ? (
-            <div style={{ marginTop: 8 }}>
-              <TextArea
-                value={editContent}
-                onChange={(e) => setEditContent(e.target.value)}
-                autoSize={{ minRows: 2, maxRows: 6 }}
-                maxLength={1000}
-              />
-              <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
-                <Button
-                  type="primary"
-                  size="small"
-                  onClick={() => handleEditComment(comment.id)}
-                  loading={submitting}
-                >
-                  저장
-                </Button>
-                <Button
-                  size="small"
-                  onClick={() => {
-                    setEditingComment(null);
-                    setEditContent("");
-                  }}
-                >
-                  취소
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div style={{ marginTop: 4 }}>
-              {comment.tagged_user && (
-                <span style={{ color: "#1890ff", marginRight: 4 }}>
-                  @{comment.tagged_user.handle}
-                </span>
-              )}
-              {comment.content}
-              {replyTo === comment.id && (
-                <div style={{ marginTop: 12 }}>
-                  <TextArea
-                    placeholder={`@${comment.author?.handle}님에게 답글 작성`}
-                    value={replyContent}
-                    onChange={(e) => setReplyContent(e.target.value)}
-                    autoSize={{ minRows: 2, maxRows: 4 }}
-                    maxLength={1000}
-                  />
-                  <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
-                    <Button
-                      type="primary"
-                      size="small"
-                      onClick={() => handleSubmitReply(comment.id)}
-                      loading={submitting}
-                    >
-                      답글 작성
-                    </Button>
-                    <Button
-                      size="small"
-                      onClick={() => {
-                        setReplyTo(null);
-                        setReplyContent("");
-                      }}
-                    >
-                      취소
-                    </Button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )
-        }
-      />
-    </List.Item>
-  );
 
   if (!allowComments) {
-    return (
-      <div style={{ padding: "16px 0", textAlign: "center", color: "#999" }}>
-        댓글 작성이 허용되지 않은 게시물입니다.
-      </div>
-    );
+    return null;
   }
 
   return (
-    <div>
-      {/* 새 댓글 작성 */}
-      {user && (
-        <div style={{ marginBottom: 16 }}>
-          <TextArea
-            placeholder="댓글을 작성해보세요..."
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            autoSize={{ minRows: 3, maxRows: 6 }}
-            maxLength={1000}
-          />
-          <div style={{ marginTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ color: "#999", fontSize: 12 }}>
-              {newComment.length}/1000
-            </span>
-            <div>
-              <Button
-                icon={<ReloadOutlined />}
-                onClick={loadComments}
-                style={{ marginRight: 8 }}
-              >
-                새로고침
-              </Button>
-              <Button
-                type="primary"
-                onClick={handleSubmitComment}
-                loading={submitting}
-                disabled={!newComment.trim()}
-              >
-                댓글 작성
-              </Button>
+    <>
+      {/* 댓글 리스트 - 기존 하드코딩된 디자인과 정확히 동일하게 */}
+      <div style={{ marginTop: 16, padding: isMobile ? "0 12px" : "0 16px" }}>
+        {comments.map((comment) => (
+          <div key={comment.id}>
+            {/* 메인 댓글 */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 12,
+                marginBottom: 8,
+              }}
+            >
+              <Avatar 
+                size={32} 
+                src={comment.author?.avatar || "/profile-90.png"} 
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <Text strong style={{ fontSize: 13, color: "#222" }}>
+                    {comment.author?.name || "알 수 없음"}
+                  </Text>
+                  {comment.tagged_user && (
+                    <Text type="secondary" style={{ fontSize: 13, color: "#888" }}>
+                      @{comment.tagged_user.handle}
+                    </Text>
+                  )}
+                  <Text style={{ fontSize: 13, marginLeft: 4 }}>
+                    {comment.content}
+                  </Text>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    marginTop: 2,
+                  }}
+                >
+                  <Text type="secondary" style={{ fontSize: 13 }}>
+                    {formatRelativeDate(comment.created_at)}
+                  </Text>
+                  {post.isGotMembership && (
+                    <Button
+                      type="link"
+                      size="small"
+                      style={{ padding: 0, fontSize: 13, height: "auto" }}
+                      onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)}
+                    >
+                      답글 달기
+                    </Button>
+                  )}
+                  <Button
+                    type="link"
+                    size="small"
+                    style={{
+                      padding: 0,
+                      fontSize: 13,
+                      height: "auto",
+                      color: "#999",
+                    }}
+                    onClick={() => handleLikeComment(comment.id)}
+                  >
+                    <HeartOutlined />
+                  </Button>
+                </div>
+
+                {/* 답글 작성 폼 */}
+                {replyTo === comment.id && (
+                  <div style={{ marginTop: 8, marginLeft: 0 }}>
+                    <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                      <Avatar src={user?.avatar || "/profile-90.png"} size={28} />
+                      <div style={{ flex: 1 }}>
+                        <Input.TextArea
+                          placeholder={`@${comment.author?.handle}님에게 답글 작성`}
+                          value={replyContent}
+                          onChange={(e) => setReplyContent(e.target.value)}
+                          autoSize={{ minRows: 1, maxRows: 3 }}
+                          style={{ marginBottom: 8, border: "none" }}
+                        />
+                        <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
+                          <Button
+                            size="small"
+                            onClick={() => {
+                              setReplyTo(null);
+                              setReplyContent("");
+                            }}
+                          >
+                            취소
+                          </Button>
+                          <Button
+                            type="primary"
+                            size="small"
+                            onClick={() => handleSubmitReply(comment.id)}
+                            loading={submitting}
+                          >
+                            답글 작성
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 대댓글 접기/펼치기 */}
+                {comment.children && comment.children.length > 0 && (
+                  <div style={{ marginLeft: 0, marginTop: 4 }}>
+                    <Button
+                      type="text"
+                      size="small"
+                      style={{ color: "#999", padding: 0, fontSize: 13 }}
+                      onClick={() => onToggleReplies(postingId)}
+                    >
+                      ─── 답글 보기({comment.children.length}개)
+                    </Button>
+                  </div>
+                )}
+
+                {/* 대댓글 목록 (펼침 시) */}
+                {openReplies[postingId] && comment.children && comment.children.length > 0 && (
+                  <div style={{ marginTop: 8, marginLeft: 36 }}>
+                    {comment.children.map((reply) => (
+                      <div
+                        key={reply.id}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 8,
+                          marginBottom: 6,
+                        }}
+                      >
+                        <Avatar 
+                          size={28} 
+                          src={reply.author?.avatar || "/profile-90.png"} 
+                        />
+                        <div style={{ flex: 1 }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 8,
+                            }}
+                          >
+                            <Text strong style={{ fontSize: 14 }}>
+                              {reply.author?.name || "알 수 없음"}
+                            </Text>
+                            {reply.tagged_user && (
+                              <Text type="secondary" style={{ fontSize: 13, color: "#888" }}>
+                                @{reply.tagged_user.handle}
+                              </Text>
+                            )}
+                            <Text style={{ fontSize: 14 }}>
+                              {reply.content}
+                            </Text>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 12,
+                              marginTop: 2,
+                            }}
+                          >
+                            <Text type="secondary" style={{ fontSize: 12 }}>
+                              {formatRelativeDate(reply.created_at)}
+                            </Text>
+                            {post.isGotMembership && (
+                              <Button
+                                type="link"
+                                size="small"
+                                style={{
+                                  padding: 0,
+                                  fontSize: 12,
+                                  height: "auto",
+                                }}
+                                onClick={() => setReplyTo(reply.id)}
+                              >
+                                답글 달기
+                              </Button>
+                            )}
+                            <Button
+                              type="link"
+                              size="small"
+                              style={{
+                                padding: 0,
+                                fontSize: 12,
+                                height: "auto",
+                                color: "#999",
+                              }}
+                              onClick={() => handleLikeComment(reply.id)}
+                            >
+                              <HeartOutlined />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* 댓글이 없을 때 */}
+        {comments.length === 0 && !loading && (
+          <div style={{ textAlign: "center", color: "#999", padding: "20px 0", fontSize: "12px" }}>
+            첫 번째 댓글을 작성해보세요!
+          </div>
+        )}
+      </div>
+
+      {/* 답글 입력 UI - 기존 디자인과 동일 */}
+      {post.isGotMembership && (
+        <div
+          style={{ marginTop: 16, padding: isMobile ? "0 12px" : "0 16px" }}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              alignItems: "flex-start",
+            }}
+          >
+            <Avatar src={user?.avatar || "/profile-90.png"} size={32} />
+            <div style={{ flex: 1 }}>
+              <Input.TextArea
+                key={postingId}
+                placeholder={
+                  user
+                    ? "답글을 입력하세요"
+                    : "로그인하고 답글을 작성해보세요"
+                }
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                autoSize={{ minRows: 1, maxRows: 3 }}
+                style={{ marginBottom: 8, border: "none" }}
+                onClick={onCommentInputClick}
+                readOnly={!user}
+              />
+              {user && (
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <Button
+                    type="default"
+                    onClick={() => {
+                      handleSubmitComment();
+                      onCommentSubmit(postingId);
+                    }}
+                    loading={submitting}
+                  >
+                    답글 작성
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>
       )}
-
-      {!user && (
-        <div style={{ marginBottom: 16, textAlign: "center", padding: 16, backgroundColor: "#fafafa", borderRadius: 8 }}>
-          <span style={{ color: "#999" }}>
-            댓글을 작성하려면 로그인해주세요.
-          </span>
-        </div>
-      )}
-
-      {/* 댓글 목록 */}
-      <List
-        loading={loading}
-        dataSource={comments}
-        locale={{
-          emptyText: "첫 번째 댓글을 작성해보세요!"
-        }}
-        renderItem={(comment) => (
-          <div key={comment.id}>
-            {renderComment(comment)}
-            {comment.children && comment.children.length > 0 && (
-              <div style={{ marginLeft: 24 }}>
-                {comment.children.map((reply) => renderComment(reply, true))}
-              </div>
-            )}
-          </div>
-        )}
-      />
-    </div>
+    </>
   );
 }
