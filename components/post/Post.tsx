@@ -408,6 +408,11 @@ export default function Post({
                           style={{
                             width: "100%",
                             height: "auto",
+                            maxHeight: isMobile
+                              ? "300px"
+                              : isTablet
+                              ? "400px"
+                              : "500px",
                             objectFit: "cover",
                             display: "block",
                           }}
@@ -419,7 +424,7 @@ export default function Post({
                     .filter((img) => !img.isPublic)
                     .map((img, idx) => (
                       <a
-                        key={`${post.id}-${img.url}`}
+                        key={`${post.id}-${img.url}-${idx}`}
                         className="gallery-item"
                         data-src={img.url}
                         href={img.url}

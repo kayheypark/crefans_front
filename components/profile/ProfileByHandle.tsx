@@ -61,11 +61,21 @@ interface Post {
   isMembershipOnly: boolean;
   isGotMembership: boolean;
   createdAt: string;
+  created_at: string; // API 응답에서 사용하는 필드명
   images?: {
     url: string;
     width?: number;
     height?: number;
     isPublic: boolean;
+  }[];
+  media?: {
+    id: string;
+    file_name: string;
+    original_url: string;
+    s3_upload_key: string;
+    type: "IMAGE" | "VIDEO";
+    processing_status: "COMPLETED" | "PROCESSING" | "FAILED";
+    thumbnail_urls?: string[] | null;
   }[];
   textLength: number;
   imageCount: number;
@@ -129,7 +139,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   // 현재 사용자가 프로필 소유자인지 확인 (@ 기호 제거하고 비교)
-  const cleanHandle = handle.replace(/^@/, '');
+  const cleanHandle = handle.replace(/^@/, "");
   const isOwnProfile = user?.attributes?.preferred_username === cleanHandle;
 
   useEffect(() => {
@@ -138,7 +148,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     setNextCursor(null);
     setHasMorePosts(false);
     setLoadingMore(false);
-    
+
     fetchUserProfile();
   }, [handle]);
 
@@ -206,7 +216,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
         if (reset) {
           setPosts(response.data.posts);
         } else {
-          setPosts(prev => [...prev, ...response.data.posts]);
+          setPosts((prev) => [...prev, ...response.data.posts]);
         }
         setNextCursor(response.data.nextCursor);
         setHasMorePosts(response.data.hasMore);
@@ -218,7 +228,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
 
   const loadMorePosts = async () => {
     if (loadingMore || !hasMorePosts) return;
-    
+
     setLoadingMore(true);
     try {
       await fetchUserPosts(false);
@@ -302,7 +312,16 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   };
 
   const formatDate = (dateString: string) => {
+    if (!dateString) return "날짜 없음";
+
     const date = new Date(dateString);
+
+    // 유효하지 않은 날짜인지 확인
+    if (isNaN(date.getTime())) {
+      console.error("Invalid date string:", dateString);
+      return "날짜 오류";
+    }
+
     const now = new Date();
     const diffInHours = Math.floor(
       (now.getTime() - date.getTime()) / (1000 * 60 * 60)
@@ -315,7 +334,17 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   };
 
   const formatFullDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("ko-KR", {
+    if (!dateString) return "날짜 없음";
+
+    const date = new Date(dateString);
+
+    // 유효하지 않은 날짜인지 확인
+    if (isNaN(date.getTime())) {
+      console.error("Invalid date string:", dateString);
+      return "날짜 오류";
+    }
+
+    return date.toLocaleDateString("ko-KR", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -332,6 +361,20 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
       name: post.creator.name,
       avatar: post.creator.avatar,
     },
+    // 기존 images 필드로 변환하여 기존 디자인과 호환
+    images:
+      post.media
+        ?.filter((m) => m.type === "IMAGE")
+        .map((m) => ({
+          url: m.original_url,
+          isPublic: true, // 모든 이미지를 public으로 설정 (권한은 isGotMembership으로 처리)
+        })) || [],
+    textLength: post.content?.length || 0,
+    imageCount: post.media?.filter((m) => m.type === "IMAGE").length || 0,
+    videoCount: post.media?.filter((m) => m.type === "VIDEO").length || 0,
+    isGotMembership: true, // 프로필 페이지에서는 모든 미디어를 볼 수 있도록 설정
+    isMembershipOnly: false, // 프로필 페이지에서는 멤버십 전용이 아닌 것으로 설정
+    createdAt: post.created_at, // API 응답의 created_at을 createdAt으로 매핑
   });
 
   const handleCommentInputClick = () => {
@@ -399,7 +442,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
             formatFullDate={formatFullDate}
           />
         ))}
-        
+
         {/* 무한스크롤 로딩 영역 */}
         {hasMorePosts && (
           <div
@@ -409,7 +452,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
               justifyContent: "center",
               alignItems: "center",
               padding: "20px",
-              minHeight: "60px"
+              minHeight: "60px",
             }}
           >
             {loadingMore && <Spin size="small" />}

@@ -34,7 +34,7 @@ export const postingApi = {
     limit?: number;
     status?: string;
     is_membership?: boolean;
-    creator_id?: string;
+    user_sub?: string;
     search?: string;
   }): Promise<PostingListResponse> {
     const searchParams = new URLSearchParams();
@@ -43,7 +43,7 @@ export const postingApi = {
     if (params?.limit) searchParams.append('limit', params.limit.toString());
     if (params?.status) searchParams.append('status', params.status);
     if (params?.is_membership !== undefined) searchParams.append('is_membership', params.is_membership.toString());
-    if (params?.creator_id) searchParams.append('creator_id', params.creator_id);
+    if (params?.user_sub) searchParams.append('user_sub', params.user_sub);
     if (params?.search) searchParams.append('search', params.search);
 
     const response = await fetch(`${API_BASE_URL}/postings?${searchParams}`, {
