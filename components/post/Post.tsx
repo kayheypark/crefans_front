@@ -34,6 +34,7 @@ import "lightgallery/css/lg-zoom.css";
 import "lightgallery/css/lg-thumbnail.css";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
+import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
 
 const { Title, Text } = Typography;
 
@@ -74,7 +75,6 @@ interface PostProps {
   onCommentSubmit: (postId: number) => void;
   onShare: (postId: number) => void;
   onReport: (postId: number) => void;
-  formatDate: (date: string) => string;
   formatFullDate: (date: string) => string;
 }
 
@@ -92,7 +92,6 @@ export default function Post({
   onCommentSubmit,
   onShare,
   onReport,
-  formatDate,
   formatFullDate,
 }: PostProps) {
   const { user } = useAuth();
@@ -507,7 +506,7 @@ export default function Post({
           <Text type="secondary" style={{ fontSize: 12 }}>
             {relativeDatePosts[post.id] === true
               ? formatFullDate(post.createdAt)
-              : formatDate(post.createdAt)}{" "}
+              : formatRelativeDate(post.createdAt)}{" "}
             작성됨
           </Text>
           <Button

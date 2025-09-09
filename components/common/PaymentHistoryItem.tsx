@@ -1,4 +1,5 @@
 import React from "react";
+import { formatFullDate } from "@/lib/utils/dateUtils";
 
 interface PaymentHistoryItemProps {
   id: number;
@@ -62,17 +63,7 @@ export default function PaymentHistoryItem({
           ₩{formatAmount(amount)}
         </div>
         <div style={{ fontSize: "11px", color: "#999" }}>
-          {new Date(date).toLocaleDateString("ko-KR", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          }) +
-            " " +
-            new Date(date).toLocaleTimeString("ko-KR", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-            })}
+          {formatFullDate(date)}
         </div>
       </div>
     </div>

@@ -50,6 +50,7 @@ import Spacings from "@/lib/constants/spacings";
 import { useResponsive } from "@/hooks/useResponsive";
 import { responsiveStyles } from "@/lib/constants/breakpoints";
 import { useWallet } from "@/hooks/useWallet";
+import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
 
 const { Header, Content, Sider } = Layout;
 const { Title, Text } = Typography;
@@ -239,26 +240,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // dateUtils의 함수를 사용하도록 변경
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-    if (diffInSeconds < 60) return "방금 전";
-    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}분 전`;
-    if (diffInSeconds < 86400)
-      return `${Math.floor(diffInSeconds / 3600)}시간 전`;
-    return `${Math.floor(diffInSeconds / 86400)}일 전`;
-  };
-
-  const formatFullDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("ko-KR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    return formatRelativeDate(dateString);
   };
 
   const toggleNotificationDateType = (id: number) => {

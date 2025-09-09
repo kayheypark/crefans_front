@@ -45,6 +45,7 @@ import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
+import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -313,46 +314,10 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     }));
   };
 
+  // dateUtils의 함수를 사용하도록 변경
   const formatDate = (dateString: string) => {
     if (!dateString) return "날짜 없음";
-
-    const date = new Date(dateString);
-
-    // 유효하지 않은 날짜인지 확인
-    if (isNaN(date.getTime())) {
-      console.error("Invalid date string:", dateString);
-      return "날짜 오류";
-    }
-
-    const now = new Date();
-    const diffInHours = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60 * 60)
-    );
-
-    if (diffInHours < 1) return "방금 전";
-    if (diffInHours < 24) return `${diffInHours}시간 전`;
-    if (diffInHours < 168) return `${Math.floor(diffInHours / 24)}일 전`;
-    return date.toLocaleDateString("ko-KR");
-  };
-
-  const formatFullDate = (dateString: string) => {
-    if (!dateString) return "날짜 없음";
-
-    const date = new Date(dateString);
-
-    // 유효하지 않은 날짜인지 확인
-    if (isNaN(date.getTime())) {
-      console.error("Invalid date string:", dateString);
-      return "날짜 오류";
-    }
-
-    return date.toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    return formatRelativeDate(dateString);
   };
 
   const transformPostForComponent = (post: Post) => ({
@@ -450,7 +415,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
             onCommentSubmit={handleCommentSubmit}
             onShare={handleSharePost}
             onReport={handleReportPost}
-            formatDate={formatDate}
             formatFullDate={formatFullDate}
           />
         ))}

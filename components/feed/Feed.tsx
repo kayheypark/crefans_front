@@ -387,7 +387,6 @@ export default function Feed() {
                 onCommentSubmit={handleCommentSubmit}
                 onShare={handleSharePost}
                 onReport={handleReportPost}
-                formatDate={formatDate}
                 formatFullDate={formatFullDate}
               />
             ))}

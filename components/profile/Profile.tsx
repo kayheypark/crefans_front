@@ -258,7 +258,6 @@ export default function Profile() {
             onCommentSubmit={handleCommentSubmit}
             onShare={handleSharePost}
             onReport={handleReportPost}
-            formatDate={formatDate}
             formatFullDate={formatFullDate}
           />
         ))}
