@@ -372,8 +372,14 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
           isPublic: true, // 모든 이미지를 public으로 설정 (권한은 isGotMembership으로 처리)
         })) || [],
     textLength: post.textLength || post.content?.length || 0,
-    imageCount: post.imageCount || post.media?.filter((m) => m.type === "IMAGE").length || 0,
-    videoCount: post.videoCount || post.media?.filter((m) => m.type === "VIDEO").length || 0,
+    imageCount:
+      post.imageCount ||
+      post.media?.filter((m) => m.type === "IMAGE").length ||
+      0,
+    videoCount:
+      post.videoCount ||
+      post.media?.filter((m) => m.type === "VIDEO").length ||
+      0,
     // API에서 받은 hasAccess 값을 사용, 기본값은 true
     isGotMembership: post.hasAccess !== false,
     // 실제 API 데이터를 기반으로 멤버십 전용 여부 결정

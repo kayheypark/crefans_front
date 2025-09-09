@@ -195,7 +195,10 @@ export default function Post({
                 )}
                 {post.isMembershipOnly && post.isGotMembership && (
                   <Tag color="green" icon={<CheckCircleOutlined />}>
-                    멤버십 구독중
+                    {user?.attributes?.preferred_username ===
+                    post.creator.handle
+                      ? "내 포스팅"
+                      : "멤버십 구독중"}
                   </Tag>
                 )}
               </div>
@@ -220,7 +223,9 @@ export default function Post({
                   style={{ marginLeft: "auto" }}
                   icon={<CheckCircleOutlined />}
                 >
-                  멤버십 구독중
+                  {user?.attributes?.preferred_username === post.creator.handle
+                    ? "내 포스팅"
+                    : "멤버십 구독중"}
                 </Tag>
               )}
             </>
@@ -393,7 +398,7 @@ export default function Post({
               </div>
             )}
             {/* 미디어는 항상 텍스트 아래에 노출 */}
-            {post.isGotMembership && post.images?.length && (
+            {post.isGotMembership && post.images && post.images.length > 0 && (
               <div
                 style={{
                   position: "relative",
@@ -461,28 +466,30 @@ export default function Post({
                       </a>
                     ))}
                 </LightGallery>
-                {/* 미디어 개수 표시 UI */}
-                <div
-                  style={{
-                    position: "absolute",
-                    right: 12,
-                    bottom: 12,
-                    background: "rgba(20, 24, 40, 0.8)",
-                    borderRadius: 16,
-                    padding: "2px 10px 2px 8px",
-                    display: "flex",
-                    alignItems: "center",
-                    color: "#fff",
-                    fontWeight: 500,
-                    fontSize: 18,
-                    gap: 4,
-                  }}
-                >
-                  <PictureOutlined style={{ fontSize: 16, marginRight: 2 }} />
-                  <span style={{ fontSize: 16, fontWeight: 400 }}>
-                    {post.images.length}
-                  </span>
-                </div>
+                {/* 미디어 개수 표시 UI - 이미지가 있을 때만 표시 */}
+                {post.images.length > 0 && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: 12,
+                      bottom: 12,
+                      background: "rgba(20, 24, 40, 0.8)",
+                      borderRadius: 16,
+                      padding: "2px 10px 2px 8px",
+                      display: "flex",
+                      alignItems: "center",
+                      color: "#fff",
+                      fontWeight: 500,
+                      fontSize: 18,
+                      gap: 4,
+                    }}
+                  >
+                    <PictureOutlined style={{ fontSize: 16, marginRight: 2 }} />
+                    <span style={{ fontSize: 16, fontWeight: 400 }}>
+                      {post.images.length}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
           </div>

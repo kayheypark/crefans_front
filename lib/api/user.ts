@@ -65,7 +65,8 @@ export const userAPI = {
     }
     
     const response = await axios.get(
-      `${getApiUrl()}/user/posts/${handle}?${params.toString()}`
+      `${getApiUrl()}/user/posts/${handle}?${params.toString()}`,
+      { withCredentials: true }
     );
     return response.data;
   },
