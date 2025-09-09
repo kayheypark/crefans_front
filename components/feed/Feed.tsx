@@ -42,6 +42,7 @@ import {
 } from "@ant-design/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "@/contexts/AuthContext";
+import { feedAPI, FeedPost } from "@/lib/api/feed";
 import LoginModal from "@/components/modals/LoginModal";
 import ReportModal from "@/components/modals/ReportModal";
 import Post from "@/components/post/Post";
@@ -58,37 +59,14 @@ import FeedFilter from "@/components/common/FeedFilter";
 
 const { Title, Paragraph, Text } = Typography;
 
-interface Post {
-  id: number;
-  creator: {
-    id: number;
-    handle: string;
-    name: string;
-    avatar: string;
-  };
-  title: string;
-  content: string;
-  isMembershipOnly: boolean;
-  isGotMembership: boolean;
-  allowComments?: boolean;
-  createdAt: string;
-  images?: {
-    url: string;
-    width?: number;
-    height?: number;
-    isPublic?: boolean;
-  }[];
-  textLength: number;
-  imageCount: number;
-  videoCount: number;
-}
+// Post 인터페이스는 FeedPost 타입을 사용
 
 export default function Feed() {
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isMobile, isTablet, isDesktop } = useResponsive();
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<FeedPost[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -114,32 +92,66 @@ export default function Feed() {
   const noCopyGuideText =
     "crefans에 등록된 모든 포스팅 콘텐츠의 캡쳐 및 배포/재배포는 이용약관과 관련 법령에 의거하여 엄격히 금지되어있고, 민/형사상 처벌의 대상이 됩니다.";
 
-  // JSON에서 데이터 fetch
-  const fetchFeedData = async (page: number, pageSize: number) => {
-    const res = await fetch("/mock/feed.json");
-    const apiResponse = await res.json();
-    const data: Post[] = apiResponse.data;
-    // 페이지네이션 흉내
-    return data.slice((page - 1) * pageSize, page * pageSize);
-  };
-
+  // 실제 API에서 데이터 fetch
   const loadMoreData = async () => {
     if (loading) return;
     setLoading(true);
-    const newPosts = await fetchFeedData(page, pageSize);
-    setPosts((prev) => [...prev, ...newPosts]);
-    if (newPosts.length < pageSize) {
-      setHasMore(false);
-    } else {
-      setPage((prev) => prev + 1);
+    
+    try {
+      const response = user 
+        ? await feedAPI.getFeed({ page, limit: pageSize, filter })
+        : await feedAPI.getPublicFeed({ page, limit: pageSize });
+
+      if (response.success) {
+        // 빈 데이터 처리
+        if (response.data.length === 0 && page === 1) {
+          setPosts([]);
+          setHasMore(false);
+          // 사용자에게 메시지 표시 (response.message가 있으면 사용)
+          if (response.message) {
+            console.log('Feed message:', response.message);
+          }
+        } else {
+          setPosts((prev) => [...prev, ...response.data]);
+          setHasMore(response.pagination.hasMore);
+          if (response.pagination.hasMore) {
+            setPage((prev) => prev + 1);
+          }
+        }
+      } else {
+        // API 요청은 성공했지만 success: false인 경우
+        console.warn('Feed API returned error:', response.message);
+        if (page === 1) {
+          setPosts([]);
+          setHasMore(false);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load feed:', error);
+      // 네트워크 오류나 기타 예외 상황
+      if (page === 1) {
+        setPosts([]);
+        setHasMore(false);
+      }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
+  // 첫 로드
   useEffect(() => {
     loadMoreData();
     // eslint-disable-next-line
   }, []);
+
+  // 필터 변경 시 피드 새로고침
+  useEffect(() => {
+    setPosts([]);
+    setPage(1);
+    setHasMore(true);
+    loadMoreData();
+    // eslint-disable-next-line
+  }, [filter, user]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -257,7 +269,7 @@ export default function Feed() {
   };
 
   // Post 컴포넌트에서 사용할 수 있도록 데이터 변환
-  const transformPostForComponent = (post: Post) => ({
+  const transformPostForComponent = (post: FeedPost) => ({
     id: post.id,
     title: post.title,
     content: post.content,
@@ -265,13 +277,14 @@ export default function Feed() {
     images: post.images?.map((img) => ({
       url: img.url,
       isPublic: img.isPublic || false,
-    })),
+    })) || [],
     isMembershipOnly: post.isMembershipOnly,
     isGotMembership: post.isGotMembership,
     allowComments: post.allowComments ?? true, // 기본값 true
     textLength: post.textLength,
     imageCount: post.imageCount,
     videoCount: post.videoCount,
+    commentCount: post.commentCount,
     creator: {
       name: post.creator.name,
       handle: post.creator.handle,
@@ -279,17 +292,9 @@ export default function Feed() {
     },
   });
 
-  // 필터링된 피드
-  const filteredPosts = posts.filter((post) => {
-    if (filter === "all") return true;
-    if (filter === "membership") return post.isMembershipOnly;
-    if (filter === "public") return !post.isMembershipOnly;
-    return true;
-  });
-
-  // id 중복 제거
-  const uniqueFilteredPosts = Array.from(
-    new Map(filteredPosts.map((post) => [post.id, post])).values()
+  // 백엔드에서 필터링되어 오므로 중복 제거만 수행
+  const uniquePosts = Array.from(
+    new Map(posts.map((post) => [post.id, post])).values()
   );
 
   // 멤버십 카드 마우스 이동 핸들러
@@ -357,7 +362,7 @@ export default function Feed() {
         {/* 피드 컨텐츠 */}
         <div style={{ marginTop: 0 }}>
           <InfiniteScroll
-            dataLength={uniqueFilteredPosts.length}
+            dataLength={uniquePosts.length}
             next={loadMoreData}
             hasMore={hasMore}
             loader={
@@ -374,7 +379,7 @@ export default function Feed() {
               </div>
             }
           >
-            {uniqueFilteredPosts.map((post) => (
+            {uniquePosts.map((post) => (
               <Post
                 key={post.id}
                 post={transformPostForComponent(post)}
