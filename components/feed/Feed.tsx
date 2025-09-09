@@ -70,6 +70,7 @@ interface Post {
   content: string;
   isMembershipOnly: boolean;
   isGotMembership: boolean;
+  allowComments?: boolean;
   createdAt: string;
   images?: {
     url: string;
@@ -105,9 +106,6 @@ export default function Feed() {
     (searchParams.get("feedFilter") as "all" | "membership" | "public") || "all"
   );
   const [coverProgress, setCoverProgress] = useState<{ [key: number]: number }>(
-    {}
-  );
-  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
     {}
   );
 
@@ -162,16 +160,6 @@ export default function Feed() {
     );
   };
 
-  const handleCommentSubmit = (postId: number) => {
-    // TODO: 답글 제출 로직 구현
-    message.success("답글이 작성되었습니다.");
-  };
-
-  const handleCommentInputClick = () => {
-    if (!user) {
-      setIsLoginModalOpen(true);
-    }
-  };
 
   const togglePostExpand = (postId: number) => {
     setExpandedPosts((prev) =>
@@ -181,12 +169,6 @@ export default function Feed() {
     );
   };
 
-  const toggleReplies = (postId: number) => {
-    setOpenReplies((prev) => ({
-      ...prev,
-      [postId]: !prev[postId],
-    }));
-  };
 
   // 날짜 표기 토글
   const toggleDateType = (postId: number) => {
@@ -266,6 +248,7 @@ export default function Feed() {
     })),
     isMembershipOnly: post.isMembershipOnly,
     isGotMembership: post.isGotMembership,
+    allowComments: post.allowComments ?? true, // 기본값 true
     textLength: post.textLength,
     imageCount: post.imageCount,
     videoCount: post.videoCount,
@@ -378,13 +361,9 @@ export default function Feed() {
                 likedPosts={likedPosts}
                 expandedPosts={expandedPosts}
                 relativeDatePosts={relativeDatePosts}
-                openReplies={openReplies}
                 onLike={handleLike}
                 onToggleExpand={togglePostExpand}
                 onToggleDateType={toggleDateType}
-                onToggleReplies={toggleReplies}
-                onCommentInputClick={handleCommentInputClick}
-                onCommentSubmit={handleCommentSubmit}
                 onShare={handleSharePost}
                 onReport={handleReportPost}
                 formatFullDate={formatFullDate}

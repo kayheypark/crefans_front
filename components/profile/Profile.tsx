@@ -56,6 +56,7 @@ interface Post {
   content: string;
   isMembershipOnly: boolean;
   isGotMembership: boolean;
+  allowComments?: boolean;
   createdAt: string;
   images?: {
     url: string;
@@ -191,6 +192,7 @@ export default function Profile() {
     })),
     isMembershipOnly: post.isMembershipOnly,
     isGotMembership: post.isGotMembership,
+    allowComments: post.allowComments ?? true, // 기본값 true
     textLength: post.textLength,
     imageCount: post.imageCount,
     videoCount: post.videoCount,
@@ -249,13 +251,9 @@ export default function Profile() {
             likedPosts={likedPosts}
             expandedPosts={expandedPosts}
             relativeDatePosts={relativeDatePosts}
-            openReplies={openReplies}
             onLike={handleLike}
             onToggleExpand={togglePostExpand}
             onToggleDateType={toggleDateType}
-            onToggleReplies={toggleReplies}
-            onCommentInputClick={handleCommentInputClick}
-            onCommentSubmit={handleCommentSubmit}
             onShare={handleSharePost}
             onReport={handleReportPost}
             formatFullDate={formatFullDate}

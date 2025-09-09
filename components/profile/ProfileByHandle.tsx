@@ -83,6 +83,7 @@ interface Post {
   textLength: number;
   imageCount: number;
   videoCount: number;
+  allow_comments?: boolean; // API 응답에서 댓글 허용 여부를 나타내는 필드
 }
 
 interface MediaItem {
@@ -351,6 +352,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     isMembershipOnly: post.is_membership || false,
     // 실제 API 응답 데이터 사용
     content: post.content,
+    allowComments: post.allow_comments ?? true, // 기본값 true
     createdAt: post.created_at, // API 응답의 created_at을 createdAt으로 매핑
   });
 
@@ -406,13 +408,9 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
             likedPosts={likedPosts}
             expandedPosts={expandedPosts}
             relativeDatePosts={relativeDatePosts}
-            openReplies={openReplies}
             onLike={handleLike}
             onToggleExpand={togglePostExpand}
             onToggleDateType={toggleDateType}
-            onToggleReplies={toggleReplies}
-            onCommentInputClick={handleCommentInputClick}
-            onCommentSubmit={handleCommentSubmit}
             onShare={handleSharePost}
             onReport={handleReportPost}
             formatFullDate={formatFullDate}

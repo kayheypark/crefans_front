@@ -35,6 +35,7 @@ import "lightgallery/css/lg-thumbnail.css";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
+import CommentList from "@/components/comment/CommentList";
 
 const { Title, Text } = Typography;
 
@@ -51,6 +52,7 @@ interface Post {
   images?: PostImage[];
   isMembershipOnly: boolean;
   isGotMembership: boolean;
+  allowComments: boolean;
   textLength: number;
   imageCount: number;
   videoCount: number;
@@ -66,13 +68,9 @@ interface PostProps {
   likedPosts: number[];
   expandedPosts: number[];
   relativeDatePosts: { [key: number]: boolean };
-  openReplies: { [key: number]: boolean };
   onLike: (postId: number) => void;
   onToggleExpand: (postId: number) => void;
   onToggleDateType: (postId: number) => void;
-  onToggleReplies: (postId: number) => void;
-  onCommentInputClick: () => void;
-  onCommentSubmit: (postId: number) => void;
   onShare: (postId: number) => void;
   onReport: (postId: number) => void;
   formatFullDate: (date: string) => string;
@@ -83,13 +81,9 @@ export default function Post({
   likedPosts,
   expandedPosts,
   relativeDatePosts,
-  openReplies,
   onLike,
   onToggleExpand,
   onToggleDateType,
-  onToggleReplies,
-  onCommentInputClick,
-  onCommentSubmit,
   onShare,
   onReport,
   formatFullDate,
@@ -547,187 +541,13 @@ export default function Post({
           </Space>
         </div>
 
-        {/* 댓글 리스트 - 인스타그램 스타일 */}
+        {/* 댓글 섹션 */}
         <div style={{ marginTop: 16, padding: isMobile ? "0 12px" : "0 16px" }}>
-          {/* 단일 댓글 */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 12,
-              marginBottom: 8,
-            }}
-          >
-            <Avatar size={32} src="/profile-90.png" />
-            <div style={{ flex: 1 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <Text strong style={{ fontSize: 13, color: "#222" }}>
-                  팬이에요
-                </Text>
-                <Text type="secondary" style={{ fontSize: 13, color: "#888" }}>
-                  @iamfan
-                </Text>
-                <Text style={{ fontSize: 13, marginLeft: 4 }}>헐 진짜?</Text>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  marginTop: 2,
-                }}
-              >
-                <Text type="secondary" style={{ fontSize: 13 }}>
-                  17시간
-                </Text>
-                {post.isGotMembership && (
-                  <Button
-                    type="link"
-                    size="small"
-                    style={{ padding: 0, fontSize: 13, height: "auto" }}
-                  >
-                    답글 달기
-                  </Button>
-                )}
-
-                <Button
-                  type="link"
-                  size="small"
-                  style={{
-                    padding: 0,
-                    fontSize: 13,
-                    height: "auto",
-                    color: "#999",
-                  }}
-                >
-                  <HeartOutlined />
-                </Button>
-              </div>
-              {/* 대댓글 접기/펼치기 */}
-              <div style={{ marginLeft: 0, marginTop: 4 }}>
-                <Button
-                  type="text"
-                  size="small"
-                  style={{ color: "#999", padding: 0, fontSize: 13 }}
-                  onClick={() => onToggleReplies(post.id)}
-                >
-                  ─── 답글 보기(1개)
-                </Button>
-              </div>
-              {/* 대댓글 목록 (펼침 시) */}
-              {openReplies[post.id] && (
-                <div style={{ marginTop: 8, marginLeft: 36 }}>
-                  {/* 대댓글 1 */}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 8,
-                      marginBottom: 6,
-                    }}
-                  >
-                    <Avatar size={28} src="/profile-90.png" />
-                    <div style={{ flex: 1 }}>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 8,
-                        }}
-                      >
-                        <Text strong style={{ fontSize: 14 }}>
-                          reply_user1
-                        </Text>
-                        <Text style={{ fontSize: 14 }}>
-                          저도 그렇게 생각했어요!
-                        </Text>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 12,
-                          marginTop: 2,
-                        }}
-                      >
-                        <Text type="secondary" style={{ fontSize: 12 }}>
-                          15시간
-                        </Text>
-                        {post.isGotMembership && (
-                          <Button
-                            type="link"
-                            size="small"
-                            style={{
-                              padding: 0,
-                              fontSize: 12,
-                              height: "auto",
-                            }}
-                          >
-                            답글 달기
-                          </Button>
-                        )}
-
-                        <Button
-                          type="link"
-                          size="small"
-                          style={{
-                            padding: 0,
-                            fontSize: 12,
-                            height: "auto",
-                            color: "#999",
-                          }}
-                        >
-                          <HeartOutlined />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+          <CommentList 
+            postingId={post.id} 
+            allowComments={post.allowComments} 
+          />
         </div>
-
-        {/* 답글 입력 UI */}
-        {post.isGotMembership && (
-          <div
-            style={{ marginTop: 16, padding: isMobile ? "0 12px" : "0 16px" }}
-          >
-            <div
-              style={{
-                display: "flex",
-                gap: "12px",
-                alignItems: "flex-start",
-              }}
-            >
-              <Avatar src={"/profile-90.png"} size={32} />
-              <div style={{ flex: 1 }}>
-                <Input.TextArea
-                  key={post.id}
-                  placeholder={
-                    user
-                      ? "답글을 입력하세요"
-                      : "로그인하고 답글을 작성해보세요"
-                  }
-                  autoSize={{ minRows: 1, maxRows: 3 }}
-                  style={{ marginBottom: 8, border: "none" }}
-                  onClick={onCommentInputClick}
-                  readOnly={!user}
-                />
-                {user && (
-                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <Button
-                      type="default"
-                      onClick={() => onCommentSubmit(post.id)}
-                    >
-                      답글 작성
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
       </Card>
     </>
   );
