@@ -12,7 +12,6 @@ import {
 } from "antd";
 import { CloseOutlined, MailOutlined } from "@ant-design/icons";
 import { authAPI } from "@/lib/api";
-import { earlybirdApi } from "@/lib/api/earlybird";
 import { sanitizePhoneInput } from "@/lib/utils/phoneUtils";
 import {
   isValidKoreanName,
@@ -152,19 +151,6 @@ export default function SignUpModal({ open, onClose, isEarlybird = false }: Sign
       setIsCheckingEmail(true);
       setEmailError("");
       
-      // 얼리버드 모달인 경우 얼리버드 체크 추가
-      if (isEarlybird) {
-        try {
-          const earlybirdStatus = await earlybirdApi.getEarlybirdStatus();
-          if (earlybirdStatus.success && earlybirdStatus.data.isEarlybird) {
-            setEmailError("이미 얼리버드로 가입된 이메일입니다.");
-            setIsEmailExists(true);
-            return true;
-          }
-        } catch (error) {
-          // 얼리버드 상태 확인 실패는 일반 회원가입 진행
-        }
-      }
 
       const response = await authAPI.checkEmail(email);
       if (response.data.exists) {
