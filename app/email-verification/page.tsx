@@ -11,7 +11,6 @@ import {
   LoadingOutlined,
 } from "@ant-design/icons";
 import axios from "axios";
-import { earlybirdApi } from "@/lib/api/earlybird";
 
 const { Title, Text } = Typography;
 
@@ -22,7 +21,6 @@ export default function EmailLinkAuthPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [countdown, setCountdown] = useState(5);
-  const [isEarlybird, setIsEarlybird] = useState(false);
 
   const email = searchParams.get("email");
   const code = searchParams.get("code");
@@ -48,21 +46,6 @@ export default function EmailLinkAuthPage() {
 
         if (response.data.success) {
           setSuccess(true);
-          
-          // 이메일 인증 성공 후 얼리버드 상태 확인 (현재 이메일로)
-          if (email) {
-            try {
-              const response = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_URL}/earlybird/status?email=${email}`
-              );
-              if (response.data.success && response.data.data.isEarlybird) {
-                setIsEarlybird(true);
-              }
-            } catch (earlybirdError) {
-              // 얼리버드 상태 확인 실패는 무시
-              console.warn("얼리버드 상태 확인 실패:", earlybirdError);
-            }
-          }
         } else {
           setError(response.data.message || "인증에 실패했습니다.");
         }
@@ -138,16 +121,13 @@ export default function EmailLinkAuthPage() {
             />
             <div>
               <Title level={2} style={{ margin: 0, color: "#262626" }}>
-                {isEarlybird ? "얼리버드 인증 완료!" : "인증 완료!"}
+                인증 완료!
               </Title>
               <Text
                 type="secondary"
                 style={{ fontSize: "16px", display: "block", marginTop: "8px" }}
               >
-                {isEarlybird 
-                  ? "얼리버드로 회원가입이 완료되었습니다. 자세한 내용은 이벤트 게시판을 참조해주세요."
-                  : "이메일 인증이 성공적으로 완료되었습니다."
-                }
+                이메일 인증이 성공적으로 완료되었습니다.
               </Text>
             </div>
             <div

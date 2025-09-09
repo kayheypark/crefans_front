@@ -24,6 +24,7 @@ import {
   PictureOutlined,
   UserOutlined,
   LockOutlined,
+  PlayCircleOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -32,8 +33,10 @@ import LightGallery from "lightgallery/react";
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 import "lightgallery/css/lg-thumbnail.css";
+import "lightgallery/css/lg-video.css";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
+import lgVideo from "lightgallery/plugins/video";
 import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
 import CommentList from "@/components/comment/CommentList";
 
@@ -44,12 +47,22 @@ interface PostImage {
   isPublic: boolean;
 }
 
+interface PostMedia {
+  id: string;
+  file_name: string;
+  original_url: string;
+  type: "IMAGE" | "VIDEO";
+  processing_status: "COMPLETED" | "PROCESSING" | "FAILED";
+  thumbnail_urls?: string[] | null;
+}
+
 interface Post {
   id: number;
   title: string;
   content: string;
   createdAt: string;
   images?: PostImage[];
+  media?: PostMedia[];
   isMembershipOnly: boolean;
   isGotMembership: boolean;
   allowComments: boolean;
@@ -406,7 +419,7 @@ export default function Post({
               </div>
             )}
             {/* 미디어는 항상 텍스트 아래에 노출 */}
-            {post.isGotMembership && post.images && post.images.length > 0 && (
+            {post.isGotMembership && post.media && post.media.length > 0 && (
               <div
                 style={{
                   position: "relative",
@@ -416,86 +429,224 @@ export default function Post({
               >
                 <LightGallery
                   speed={500}
-                  plugins={[lgThumbnail]}
+                  plugins={[lgThumbnail, lgZoom, lgVideo]}
                   download={false}
                   elementClassNames="custom-wrapper-class"
                   onAfterOpen={() => {}}
                   onAfterClose={() => {}}
                 >
-                  {/* 썸네일용 첫 번째 이미지 */}
-                  {post.images
-                    .filter((img) => img.isPublic)
-                    .map((img, idx) => (
-                      <a
-                        key={`${post.id}-${img.url}-${idx}`}
-                        className="gallery-item"
-                        data-src={img.url}
-                        href={img.url}
-                      >
-                        <img
-                          src={img.url}
-                          alt={noCopyGuideText}
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            maxHeight: isMobile
-                              ? "300px"
-                              : isTablet
-                              ? "400px"
-                              : "500px",
-                            objectFit: "cover",
-                            display: "block",
-                          }}
-                        />
-                      </a>
-                    ))}
-                  {/* 프리뷰용 나머지 이미지들 (숨김) */}
-                  {post.images
-                    .filter((img) => !img.isPublic)
-                    .map((img, idx) => (
-                      <a
-                        key={`${post.id}-${img.url}-${idx}`}
-                        className="gallery-item"
-                        data-src={img.url}
-                        href={img.url}
-                        style={{ display: "none" }}
-                      >
-                        <img
-                          src={img.url}
-                          alt={noCopyGuideText}
-                          style={{
-                            width: "100%",
-                            height: "auto",
-                            objectFit: "cover",
-                            borderRadius: 8,
-                            display: "none",
-                          }}
-                        />
-                      </a>
-                    ))}
+                  {/* 공개 미디어들 */}
+                  {post.media
+                    .filter(
+                      (media) =>
+                        media.type === "IMAGE" || media.type === "VIDEO"
+                    )
+                    .slice(0, 1) // 첫 번째만 썸네일로 표시
+                    .map((media, idx) => {
+                      if (media.type === "IMAGE") {
+                        return (
+                          <a
+                            key={`${post.id}-${media.original_url}-${idx}`}
+                            className="gallery-item"
+                            data-src={media.original_url}
+                            href={media.original_url}
+                          >
+                            <img
+                              src={media.original_url}
+                              alt={noCopyGuideText}
+                              style={{
+                                width: "100%",
+                                height: "auto",
+                                maxHeight: isMobile
+                                  ? "300px"
+                                  : isTablet
+                                  ? "400px"
+                                  : "500px",
+                                objectFit: "cover",
+                                display: "block",
+                              }}
+                            />
+                          </a>
+                        );
+                      } else if (media.type === "VIDEO") {
+                        return (
+                          <a
+                            key={`${post.id}-${media.original_url}-${idx}`}
+                            className="gallery-item"
+                            data-video={`{"source": [{"src":"${media.original_url}", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}`}
+                            href={media.original_url}
+                          >
+                            <div
+                              style={{
+                                position: "relative",
+                                width: "100%",
+                                height: isMobile
+                                  ? "300px"
+                                  : isTablet
+                                  ? "400px"
+                                  : "500px",
+                                background: "#000",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                borderRadius: 8,
+                              }}
+                            >
+                              <video
+                                src={media.original_url}
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                }}
+                                preload="metadata"
+                              />
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  top: "50%",
+                                  left: "50%",
+                                  transform: "translate(-50%, -50%)",
+                                  width: 60,
+                                  height: 60,
+                                  borderRadius: "50%",
+                                  background: "rgba(255, 255, 255, 0.9)",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: 0,
+                                    height: 0,
+                                    borderLeft: "20px solid #333",
+                                    borderTop: "12px solid transparent",
+                                    borderBottom: "12px solid transparent",
+                                    marginLeft: 4,
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          </a>
+                        );
+                      }
+                    })}
+                  {/* 나머지 미디어들 (숨김) */}
+                  {post.media
+                    .filter(
+                      (media) =>
+                        media.type === "IMAGE" || media.type === "VIDEO"
+                    )
+                    .slice(1)
+                    .map((media, idx) => {
+                      if (media.type === "IMAGE") {
+                        return (
+                          <a
+                            key={`${post.id}-${media.original_url}-hidden-${idx}`}
+                            className="gallery-item"
+                            data-src={media.original_url}
+                            href={media.original_url}
+                            style={{ display: "none" }}
+                          >
+                            <img
+                              src={media.original_url}
+                              alt={noCopyGuideText}
+                              style={{
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "cover",
+                                borderRadius: 8,
+                                display: "none",
+                              }}
+                            />
+                          </a>
+                        );
+                      } else if (media.type === "VIDEO") {
+                        return (
+                          <a
+                            key={`${post.id}-${media.original_url}-hidden-${idx}`}
+                            className="gallery-item"
+                            data-video={`{"source": [{"src":"${media.original_url}", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}`}
+                            href={media.original_url}
+                            style={{ display: "none" }}
+                          >
+                            <video
+                              src={media.original_url}
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                                display: "none",
+                              }}
+                              preload="metadata"
+                            />
+                          </a>
+                        );
+                      }
+                    })}
                 </LightGallery>
-                {/* 미디어 개수 표시 UI - 이미지가 있을 때만 표시 */}
-                {post.images.length > 0 && (
+                {/* 미디어 개수 표시 UI */}
+                {post.media.length > 0 && (
                   <div
                     style={{
                       position: "absolute",
                       right: 12,
                       bottom: 12,
-                      background: "rgba(20, 24, 40, 0.8)",
-                      borderRadius: 16,
-                      padding: "2px 10px 2px 8px",
                       display: "flex",
-                      alignItems: "center",
-                      color: "#fff",
-                      fontWeight: 500,
-                      fontSize: 18,
-                      gap: 4,
+                      gap: 8,
                     }}
                   >
-                    <PictureOutlined style={{ fontSize: 16, marginRight: 2 }} />
-                    <span style={{ fontSize: 16, fontWeight: 400 }}>
-                      {post.images.length}
-                    </span>
+                    {/* 사진 개수 표시 */}
+                    {post.media.filter((m) => m.type === "IMAGE").length >
+                      0 && (
+                      <div
+                        style={{
+                          background: "rgba(20, 24, 40, 0.8)",
+                          borderRadius: 16,
+                          padding: "2px 10px 2px 8px",
+                          display: "flex",
+                          alignItems: "center",
+                          color: "#fff",
+                          fontWeight: 500,
+                          fontSize: 18,
+                          gap: 4,
+                        }}
+                      >
+                        <PictureOutlined
+                          style={{ fontSize: 16, marginRight: 2 }}
+                        />
+                        <span style={{ fontSize: 16, fontWeight: 400 }}>
+                          {post.media.filter((m) => m.type === "IMAGE").length}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* 동영상 개수 표시 */}
+                    {post.media.filter((m) => m.type === "VIDEO").length >
+                      0 && (
+                      <div
+                        style={{
+                          background: "rgba(20, 24, 40, 0.8)",
+                          borderRadius: 16,
+                          padding: "2px 10px 2px 8px",
+                          display: "flex",
+                          alignItems: "center",
+                          color: "#fff",
+                          fontWeight: 500,
+                          fontSize: 18,
+                          gap: 4,
+                        }}
+                      >
+                        <PlayCircleOutlined
+                          style={{ fontSize: 16, marginRight: 2 }}
+                        />
+                        <span style={{ fontSize: 16, fontWeight: 400 }}>
+                          {post.media.filter((m) => m.type === "VIDEO").length}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -550,8 +701,8 @@ export default function Post({
             >
               {post.likeCount || 0}
             </Button>
-            <Button 
-              type="text" 
+            <Button
+              type="text"
               icon={<MessageOutlined />}
               onClick={() => setShowComments(!showComments)}
             >
@@ -561,8 +712,8 @@ export default function Post({
         </div>
 
         {/* 댓글 리스트 - 인스타그램 스타일 (기존 디자인 유지) */}
-        <CommentList 
-          postingId={post.id} 
+        <CommentList
+          postingId={post.id}
           allowComments={post.allowComments}
           onCommentCountChange={setCommentCount}
           openReplies={openReplies}
