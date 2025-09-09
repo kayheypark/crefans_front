@@ -18,6 +18,7 @@ import Spin from "antd/lib/spin";
 import ReportModal from "@/components/modals/ReportModal";
 import LoginModal from "@/components/modals/LoginModal";
 import Post from "@/components/post/Post";
+import { followApi } from "@/lib/api/follow";
 import {
   ClockCircleOutlined,
   EyeOutlined,
@@ -110,6 +111,8 @@ interface UserProfile {
   followingCount: number;
   postsCount: number;
   mediaCount: number;
+  userSub?: string; // 팔로우 API 호출을 위한 userSub 추가
+  isFollowing?: boolean; // 팔로우 상태 추가
 }
 
 interface ProfileByHandleProps {
@@ -130,7 +133,9 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
     [key: number]: boolean;
   }>({});
-  const [openReplies, setOpenReplies] = useState<{[key: number]: boolean}>({});
+  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
+    {}
+  );
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -158,9 +163,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     if (profile) {
       fetchUserPosts(true); // 초기 로드 시 reset = true
       fetchUserMedia();
-      if (!isOwnProfile) {
-        checkFollowStatus();
-      }
     }
   }, [profile, isOwnProfile]);
 
@@ -196,6 +198,10 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
 
       if (response.success) {
         setProfile(response.data);
+        // 프로필 응답에서 팔로우 상태 설정
+        if (response.data.isFollowing !== undefined) {
+          setIsFollowing(response.data.isFollowing);
+        }
       } else {
         message.error(response.message || "프로필을 찾을 수 없습니다.");
         setProfile(null);
@@ -248,16 +254,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     }
   };
 
-  const checkFollowStatus = async () => {
-    if (!user || isOwnProfile) return;
-
-    try {
-      // TODO: 실제 API 호출로 팔로우 상태 확인
-      setIsFollowing(Math.random() > 0.5);
-    } catch (error) {
-      console.error("팔로우 상태 확인 실패:", error);
-    }
-  };
 
   const handleFollow = async () => {
     if (!user) {
@@ -265,23 +261,37 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
       return;
     }
 
-    try {
-      // TODO: 실제 API 호출
-      setIsFollowing(!isFollowing);
-      message.success(
-        isFollowing ? "팔로우를 취소했습니다." : "팔로우했습니다."
-      );
+    if (!profile?.userSub) {
+      message.error("사용자 정보를 찾을 수 없습니다.");
+      return;
+    }
 
-      // 팔로워 수 업데이트
-      if (profile) {
-        setProfile({
-          ...profile,
-          followersCount: profile.followersCount + (isFollowing ? -1 : 1),
-        });
+    try {
+      const response = isFollowing
+        ? await followApi.unfollowUser(profile.userSub)
+        : await followApi.followUser(profile.userSub);
+
+      if (response.success) {
+        setIsFollowing(!isFollowing);
+        message.success(
+          isFollowing ? "팔로우를 취소했습니다." : "팔로우했습니다."
+        );
+
+        // 팔로워 수 업데이트
+        if (profile) {
+          setProfile({
+            ...profile,
+            followersCount: profile.followersCount + (isFollowing ? -1 : 1),
+          });
+        }
+      } else {
+        throw new Error(response.message || "팔로우 처리에 실패했습니다.");
       }
     } catch (error) {
       console.error("팔로우 처리 실패:", error);
-      message.error("팔로우 처리에 실패했습니다.");
+      message.error(
+        error instanceof Error ? error.message : "팔로우 처리에 실패했습니다."
+      );
     }
   };
 
@@ -316,9 +326,9 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   // dateUtils의 함수를 사용하도록 변경
   // 답글 토글
   const toggleReplies = (postId: number) => {
-    setOpenReplies(prev => ({
+    setOpenReplies((prev) => ({
       ...prev,
-      [postId]: !prev[postId]
+      [postId]: !prev[postId],
     }));
   };
 
@@ -331,7 +341,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
 
   // 댓글 제출
   const handleCommentSubmit = (postId: number) => {
-    console.log('Comment submitted for post:', postId);
+    console.log("Comment submitted for post:", postId);
   };
 
   const formatDate = (dateString: string) => {
@@ -374,7 +384,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     createdAt: post.created_at, // API 응답의 created_at을 createdAt으로 매핑
   });
 
-
   const handleSharePost = (postId: number) => {
     setSelectedPostId(postId);
     setIsShareModalVisible(true);
@@ -384,7 +393,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     setSelectedPostId(postId);
     setIsReportModalVisible(true);
   };
-
 
   const renderPosts = () => {
     if (posts.length === 0) {
@@ -638,15 +646,16 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                 {!isOwnProfile && (
                   <Button
                     type="primary"
-                    ghost
-                    icon={<HeartOutlined />}
+                    ghost={!isFollowing}
+                    icon={isFollowing ? null : <HeartOutlined />}
                     style={{
-                      color: isFollowing ? "#666" : "#ff4d4f",
-                      borderColor: isFollowing ? "#666" : "#ff4d4f",
+                      backgroundColor: !isFollowing ? "#ff4d4f" : "transparent",
+                      borderColor: "#ff4d4f",
+                      color: !isFollowing ? "#ffffff" : "#ff4d4f",
                     }}
                     onClick={handleFollow}
                   >
-                    {isFollowing ? "팔로잉" : "팔로우"}
+                    {isFollowing ? "팔로우 취소" : "팔로우"}
                   </Button>
                 )}
               </div>

@@ -52,7 +52,8 @@ export const userAPI = {
   // 핸들로 사용자 프로필 조회
   getUserProfileByHandle: async (handle: string) => {
     const response = await axios.get(
-      `${getApiUrl()}/user/profile/${handle}`
+      `${getApiUrl()}/user/profile/${handle}`,
+      { withCredentials: true }
     );
     return response.data;
   },
