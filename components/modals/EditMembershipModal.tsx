@@ -117,7 +117,7 @@ export default function EditMembershipModal({
         billing_period: values.billing_period,
         trial_unit: values.trial_unit,
         trial_period: values.trial_period,
-        benefits: finalBenefits.join(','),
+        benefits: finalBenefits.join(","),
       };
 
       const response = await membershipAPI.updateMembership(

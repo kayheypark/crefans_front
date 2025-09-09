@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "antd/lib/card";
 import Avatar from "antd/lib/avatar";
 import Button from "antd/lib/button";
@@ -98,6 +98,23 @@ export default function Post({
   const { user } = useAuth();
   const router = useRouter();
   const { isMobile, isTablet, isDesktop } = useResponsive();
+
+  // 디버깅용 useEffect
+  useEffect(() => {
+    console.log("Post component rendered:", {
+      postId: post.id,
+      isMembershipOnly: post.isMembershipOnly,
+      isGotMembership: post.isGotMembership,
+      contentLength: post.content.length,
+      expandedPosts: expandedPosts,
+    });
+  }, [
+    post.id,
+    post.isMembershipOnly,
+    post.isGotMembership,
+    post.content.length,
+    expandedPosts,
+  ]);
 
   const noCopyGuideText =
     "crefans에 등록된 모든 포스팅 콘텐츠의 캡쳐 및 배포/재배포는 이용약관과 관련 법령에 의거하여 엄격히 금지되어있고, 민/형사상 처벌의 대상이 됩니다.";

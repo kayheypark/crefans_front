@@ -62,6 +62,8 @@ interface Post {
   isGotMembership: boolean;
   createdAt: string;
   created_at: string; // API 응답에서 사용하는 필드명
+  is_membership?: boolean; // API 응답에서 멤버십 전용 여부를 나타내는 필드
+  hasAccess?: boolean; // API 응답에서 접근 권한 여부를 나타내는 필드
   images?: {
     url: string;
     width?: number;
@@ -369,11 +371,15 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
           url: m.original_url,
           isPublic: true, // 모든 이미지를 public으로 설정 (권한은 isGotMembership으로 처리)
         })) || [],
-    textLength: post.content?.length || 0,
-    imageCount: post.media?.filter((m) => m.type === "IMAGE").length || 0,
-    videoCount: post.media?.filter((m) => m.type === "VIDEO").length || 0,
-    isGotMembership: true, // 프로필 페이지에서는 모든 미디어를 볼 수 있도록 설정
-    isMembershipOnly: false, // 프로필 페이지에서는 멤버십 전용이 아닌 것으로 설정
+    textLength: post.textLength || post.content?.length || 0,
+    imageCount: post.imageCount || post.media?.filter((m) => m.type === "IMAGE").length || 0,
+    videoCount: post.videoCount || post.media?.filter((m) => m.type === "VIDEO").length || 0,
+    // API에서 받은 hasAccess 값을 사용, 기본값은 true
+    isGotMembership: post.hasAccess !== false,
+    // 실제 API 데이터를 기반으로 멤버십 전용 여부 결정
+    isMembershipOnly: post.is_membership || false,
+    // 실제 API 응답 데이터 사용
+    content: post.content,
     createdAt: post.created_at, // API 응답의 created_at을 createdAt으로 매핑
   });
 
