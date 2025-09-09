@@ -16,6 +16,7 @@ import {
   Card,
   Typography,
   Collapse,
+  Spin,
 } from "antd";
 import {
   PlusOutlined,
@@ -27,6 +28,7 @@ import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 import MembershipCard from "@/components/common/MembershipCard";
 import AddMembershipModal from "./AddMembershipModal";
 import EditMembershipModal from "./EditMembershipModal";
+import { membershipAPI, MembershipItem } from "@/lib/api/membership";
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -53,31 +55,27 @@ const INPUT_STYLES = {
   },
 };
 
-interface Membership {
-  id: number;
-  name: string;
-  level: number;
-  price: number;
-  description: string;
-  benefits: string[];
+// 기존 Membership 인터페이스를 MembershipItem으로 대체하고, 호환성을 위해 확장
+interface Membership extends Omit<MembershipItem, "benefits"> {
+  benefits: string[]; // 필수 필드로 변경
 }
 
 interface MembershipManagementModalProps {
   open: boolean;
   onClose: () => void;
-  onMembershipsUpdate: (memberships: Membership[]) => void;
-  currentMemberships: Membership[];
+  onMembershipsUpdate: (memberships: MembershipItem[]) => void;
+  currentMemberships?: MembershipItem[];
 }
 
 export default function MembershipManagementModal({
   open,
   onClose,
   onMembershipsUpdate,
-  currentMemberships,
+  currentMemberships = [],
 }: MembershipManagementModalProps) {
   const [form] = Form.useForm();
-  const [memberships, setMemberships] =
-    useState<Membership[]>(currentMemberships);
+  const [memberships, setMemberships] = useState<MembershipItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -85,44 +83,68 @@ export default function MembershipManagementModal({
   const [inputValue, setInputValue] = useState("");
   const [showAddMembership, setShowAddMembership] = useState(false);
   const [showEditMembership, setShowEditMembership] = useState(false);
-  const [editingMembership, setEditingMembership] = useState<Membership | null>(
-    null
-  );
+  const [editingMembership, setEditingMembership] =
+    useState<MembershipItem | null>(null);
+
+  // 멤버십 목록 로드
+  const loadMemberships = async () => {
+    if (!open) return;
+
+    setIsLoading(true);
+    try {
+      const response = await membershipAPI.getMemberships();
+      if (response.success) {
+        setMemberships(response.data);
+        onMembershipsUpdate(response.data);
+      } else {
+        message.error(
+          response.message || "멤버십 목록을 불러오는데 실패했습니다."
+        );
+      }
+    } catch (error) {
+      console.error("멤버십 목록 로드 실패:", error);
+      message.error("멤버십 목록을 불러오는데 실패했습니다.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setMemberships(currentMemberships);
-  }, [currentMemberships]);
+    loadMemberships();
+  }, [open]);
 
   // 멤버십 추가
-  const handleMembershipAdded = (newMembership: Membership) => {
-    const updatedMemberships = [...memberships, newMembership];
-    setMemberships(updatedMemberships);
-    onMembershipsUpdate(updatedMemberships);
+  const handleMembershipAdded = (newMembership: MembershipItem) => {
+    loadMemberships(); // 새로고침하여 최신 데이터 로드
+    setShowAddMembership(false); // 멤버십 추가 모달 닫기
   };
 
   // 멤버십 수정
-  const handleMembershipUpdated = (updatedMembership: Membership) => {
-    const updatedMemberships = memberships.map((membership) =>
-      membership.id === updatedMembership.id ? updatedMembership : membership
-    );
-    setMemberships(updatedMemberships);
-    onMembershipsUpdate(updatedMemberships);
+  const handleMembershipUpdated = (updatedMembership: MembershipItem) => {
+    loadMemberships(); // 새로고침하여 최신 데이터 로드
+    setShowEditMembership(false); // 멤버십 수정 모달 닫기
   };
 
   // 멤버십 수정 시작
-  const startEditing = (membership: Membership) => {
+  const startEditing = (membership: MembershipItem) => {
     setEditingMembership(membership);
     setShowEditMembership(true);
   };
 
   // 멤버십 삭제
-  const handleDelete = (id: number) => {
-    const updatedMemberships = memberships.filter(
-      (membership) => membership.id !== id
-    );
-    setMemberships(updatedMemberships);
-    message.success("멤버십이 삭제되었습니다.");
-    onMembershipsUpdate(updatedMemberships);
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await membershipAPI.deleteMembership(id);
+      if (response.success) {
+        message.success("멤버십이 삭제되었습니다.");
+        loadMemberships(); // 새로고침하여 최신 데이터 로드
+      } else {
+        message.error(response.message || "멤버십 삭제에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("멤버십 삭제 실패:", error);
+      message.error("멤버십 삭제에 실패했습니다.");
+    }
   };
 
   // 취소
@@ -167,7 +189,14 @@ export default function MembershipManagementModal({
             paddingRight: "8px",
           }}
         >
-          {memberships.length > 0 ? (
+          {isLoading ? (
+            <div style={{ textAlign: "center", padding: "60px 20px" }}>
+              <Spin size="large" />
+              <div style={{ marginTop: 16 }}>
+                <Text type="secondary">멤버십 목록을 불러오는 중...</Text>
+              </div>
+            </div>
+          ) : memberships.length > 0 ? (
             <div
               style={{
                 display: "flex",
@@ -178,9 +207,17 @@ export default function MembershipManagementModal({
               {memberships.map((membership) => (
                 <MembershipCard
                   key={membership.id}
-                  membership={membership}
+                  membership={{
+                    ...membership,
+                    // benefits를 안전하게 배열로 변환
+                    benefits: Array.isArray(membership.benefits)
+                      ? membership.benefits
+                      : membership.benefits
+                      ? membership.benefits.split(",").map((b) => b.trim())
+                      : [],
+                  }}
                   showActions={true}
-                  onEdit={startEditing}
+                  onEdit={() => startEditing(membership)}
                   onDelete={handleDelete}
                 />
               ))}

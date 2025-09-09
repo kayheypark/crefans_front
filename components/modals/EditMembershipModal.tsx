@@ -13,9 +13,15 @@ import {
   Typography,
   Divider,
   Popconfirm,
+  Select,
 } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
+import {
+  membershipAPI,
+  MembershipItem,
+  UpdateMembershipRequest,
+} from "@/lib/api/membership";
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -41,20 +47,11 @@ const INPUT_STYLES = {
   },
 };
 
-interface Membership {
-  id: number;
-  name: string;
-  level: number;
-  price: number;
-  description: string;
-  benefits: string[];
-}
-
 interface EditMembershipModalProps {
   open: boolean;
   onClose: () => void;
-  membership: Membership | null;
-  onMembershipUpdated: (updatedMembership: Membership) => void;
+  membership: MembershipItem | null;
+  onMembershipUpdated: (updatedMembership: MembershipItem) => void;
 }
 
 export default function EditMembershipModal({
@@ -76,9 +73,24 @@ export default function EditMembershipModal({
         level: membership.level,
         price: membership.price,
         description: membership.description,
-        benefits: membership.benefits.join(", "),
+        billing_unit: membership.billing_unit,
+        billing_period: membership.billing_period,
+        trial_unit: membership.trial_unit || "DAY",
+        trial_period: membership.trial_period,
+        benefits: membership.benefits,
       });
-      setPreviewBenefits(membership.benefits);
+      // 혜택을 안전하게 배열로 변환하여 프리뷰에 표시
+      if (membership.benefits) {
+        const benefitsArray = Array.isArray(membership.benefits)
+          ? membership.benefits.filter((b) => b)
+          : membership.benefits
+              .split(",")
+              .map((b) => b.trim())
+              .filter((b) => b);
+        setPreviewBenefits(benefitsArray);
+      } else {
+        setPreviewBenefits([]);
+      }
       setInputValue("");
     }
   }, [membership, open, form]);
@@ -90,16 +102,38 @@ export default function EditMembershipModal({
     setIsSubmitting(true);
 
     try {
-      const updatedMembership: Membership = {
-        ...membership,
-        ...values,
-        benefits: values.benefits.split(",").map((b: string) => b.trim()),
+      // 입력 중인 혜택이 있다면 마지막에 추가
+      let finalBenefits = [...previewBenefits];
+      if (inputValue.trim()) {
+        finalBenefits.push(inputValue.trim());
+      }
+
+      const membershipData: UpdateMembershipRequest = {
+        name: values.name,
+        description: values.description,
+        level: values.level,
+        price: values.price,
+        billing_unit: values.billing_unit,
+        billing_period: values.billing_period,
+        trial_unit: values.trial_unit,
+        trial_period: values.trial_period,
+        benefits: finalBenefits.join(','),
       };
 
-      onMembershipUpdated(updatedMembership);
-      message.success("멤버십이 수정되었습니다.");
-      handleClose();
+      const response = await membershipAPI.updateMembership(
+        membership.id,
+        membershipData
+      );
+
+      if (response.success) {
+        onMembershipUpdated(response.data);
+        message.success("멤버십이 수정되었습니다.");
+        handleClose();
+      } else {
+        message.error(response.message || "멤버십 수정에 실패했습니다.");
+      }
     } catch (error) {
+      console.error("멤버십 수정 실패:", error);
       message.error("멤버십 수정에 실패했습니다.");
     } finally {
       setIsSubmitting(false);
@@ -278,7 +312,7 @@ export default function EditMembershipModal({
                           (_, i) => i !== index
                         );
                         setPreviewBenefits(newBenefits);
-                        form.setFieldValue("benefits", newBenefits.join(", "));
+                        form.setFieldValue("benefits", newBenefits.join(","));
                       }}
                       style={{ margin: 0 }}
                     >
@@ -310,10 +344,7 @@ export default function EditMembershipModal({
                         if (newBenefit) {
                           const newBenefits = [...previewBenefits, newBenefit];
                           setPreviewBenefits(newBenefits);
-                          form.setFieldValue(
-                            "benefits",
-                            newBenefits.join(", ")
-                          );
+                          form.setFieldValue("benefits", newBenefits.join(","));
                         }
                         // 콤마 이후 텍스트를 입력 필드에 유지
                         const remainingText = parts.slice(1).join(",").trim();
@@ -321,8 +352,19 @@ export default function EditMembershipModal({
                       }
                     }}
                     onKeyDown={(e) => {
+                      // Enter 키로 혜택 추가
+                      if (e.key === "Enter" && inputValue.trim()) {
+                        e.preventDefault();
+                        const newBenefit = inputValue.trim();
+                        if (newBenefit) {
+                          const newBenefits = [...previewBenefits, newBenefit];
+                          setPreviewBenefits(newBenefits);
+                          form.setFieldValue("benefits", newBenefits.join(","));
+                        }
+                        setInputValue("");
+                      }
                       // 백스페이스로 마지막 혜택 삭제
-                      if (
+                      else if (
                         e.key === "Backspace" &&
                         e.currentTarget.value === "" &&
                         previewBenefits.length > 0
@@ -330,12 +372,104 @@ export default function EditMembershipModal({
                         e.preventDefault();
                         const newBenefits = previewBenefits.slice(0, -1);
                         setPreviewBenefits(newBenefits);
-                        form.setFieldValue("benefits", newBenefits.join(", "));
+                        form.setFieldValue("benefits", newBenefits.join(","));
                       }
                     }}
                   />
                 </div>
               </div>
+            </Form.Item>
+
+            <Form.Item
+              name="billing_unit"
+              label="결제 주기 단위"
+              rules={[
+                { required: true, message: "결제 주기 단위를 선택하세요" },
+              ]}
+              extra={
+                <Text
+                  type={INPUT_STYLES.text.color}
+                  style={{ fontSize: INPUT_STYLES.text.fontSize }}
+                >
+                  멤버십 구독료 결제 주기의 단위를 선택하세요
+                </Text>
+              }
+            >
+              <Select
+                size={INPUT_STYLES.size}
+                placeholder="결제 주기 단위 선택"
+              >
+                <Select.Option value="DAY">일</Select.Option>
+                <Select.Option value="WEEK">주</Select.Option>
+                <Select.Option value="MONTH">월</Select.Option>
+                <Select.Option value="YEAR">년</Select.Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name="billing_period"
+              label="결제 주기"
+              rules={[{ required: true, message: "결제 주기를 입력하세요" }]}
+              extra={
+                <Text
+                  type={INPUT_STYLES.text.color}
+                  style={{ fontSize: INPUT_STYLES.text.fontSize }}
+                >
+                  결제가 반복되는 주기를 입력하세요 (예: 1개월, 3개월, 1년)
+                </Text>
+              }
+            >
+              <InputNumber
+                min={1}
+                max={12}
+                size={INPUT_STYLES.size}
+                style={{ width: "100%" }}
+                placeholder="1"
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="trial_unit"
+              label="무료 체험 기간 단위"
+              extra={
+                <Text
+                  type={INPUT_STYLES.text.color}
+                  style={{ fontSize: INPUT_STYLES.text.fontSize }}
+                >
+                  무료 체험 기간의 단위를 선택하세요
+                </Text>
+              }
+            >
+              <Select
+                size={INPUT_STYLES.size}
+                placeholder="무료 체험 기간 단위 선택"
+              >
+                <Select.Option value="DAY">일</Select.Option>
+                <Select.Option value="WEEK">주</Select.Option>
+                <Select.Option value="MONTH">월</Select.Option>
+                <Select.Option value="YEAR">년</Select.Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name="trial_period"
+              label="무료 체험 기간"
+              extra={
+                <Text
+                  type={INPUT_STYLES.text.color}
+                  style={{ fontSize: INPUT_STYLES.text.fontSize }}
+                >
+                  무료 체험 기간을 입력하세요 (0은 무료 체험 없음)
+                </Text>
+              }
+            >
+              <InputNumber
+                min={0}
+                max={30}
+                size={INPUT_STYLES.size}
+                style={{ width: "100%" }}
+                placeholder="0"
+              />
             </Form.Item>
 
             <Form.Item>

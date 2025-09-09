@@ -24,12 +24,14 @@ import {
   PlayCircleOutlined,
   SaveOutlined,
   CloseOutlined,
+  CrownOutlined,
 } from "@ant-design/icons";
 
 import { useRouter } from "next/navigation";
 import Spacings from "@/lib/constants/spacings";
 import MembershipManagementModal from "@/components/modals/MembershipManagementModal";
 import MembershipCard from "@/components/common/MembershipCard";
+import { MembershipItem } from "@/lib/api/membership";
 import MediaGallery from "@/components/media/MediaGallery";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
 import { mediaAPI, uploadWithProgress } from "@/lib/api/media";
@@ -37,6 +39,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { postingApi } from "@/lib/api/posting";
 import { PostingStatus } from "@/types/posting";
+import { membershipAPI } from "@/lib/api/membership";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -44,7 +47,7 @@ const { TextArea } = Input;
 export default function WritePage() {
   const router = useRouter();
   const { user } = useAuth();
-  
+
   // 크리에이터 권한 확인
   const isCreator = user?.isCreator || false;
   const [title, setTitle] = useState("");
@@ -74,7 +77,7 @@ export default function WritePage() {
   const [isMembershipOnly, setIsMembershipOnly] = useState(false);
   const [selectedMembershipLevel, setSelectedMembershipLevel] =
     useState<number>(1);
-  const [memberships, setMemberships] = useState<any[]>([]);
+  const [memberships, setMemberships] = useState<MembershipItem[]>([]);
   const [allowIndividualPurchase, setAllowIndividualPurchase] = useState(false);
   const [purchasePrice, setPurchasePrice] = useState(1000);
   const [allowComments, setAllowComments] = useState(true);
@@ -91,20 +94,28 @@ export default function WritePage() {
   const [isImageUploading, setIsImageUploading] = useState(false);
   const [isVideoUploading, setIsVideoUploading] = useState(false);
 
-  // 멤버십 데이터 불러오기
+  // 크리에이터인 경우 페이지 로드 시 멤버십 목록 조회
   useEffect(() => {
-    const fetchMemberships = async () => {
+    const loadMemberships = async () => {
+      if (!isCreator) return;
+
       try {
-        const response = await fetch("/mock/memberships.json");
-        const apiResponse = await response.json();
-        setMemberships(apiResponse.data);
+        const response = await membershipAPI.getMemberships();
+        if (response.success && response.data) {
+          setMemberships(response.data);
+          // 기본 선택 레벨 설정
+          if (response.data.length > 0 && !selectedMembershipLevel) {
+            setSelectedMembershipLevel(response.data[0].level);
+          }
+        }
       } catch (error) {
-        console.error("멤버십 데이터를 불러오는데 실패했습니다:", error);
+        console.error("멤버십 목록 조회 실패:", error);
+        // 에러는 조용히 처리 (사용자가 멤버십이 없을 수 있음)
       }
     };
 
-    fetchMemberships();
-  }, []);
+    loadMemberships();
+  }, [isCreator]);
 
   // 멤버십 관리 모달 열기
   const openMembershipModal = () => {
@@ -112,7 +123,7 @@ export default function WritePage() {
   };
 
   // 멤버십 업데이트 처리
-  const handleMembershipsUpdate = (updatedMemberships: any[]) => {
+  const handleMembershipsUpdate = (updatedMemberships: MembershipItem[]) => {
     setMemberships(updatedMemberships);
     // 선택된 레벨이 삭제된 경우 기본값으로 설정
     if (!updatedMemberships.find((m) => m.level === selectedMembershipLevel)) {
@@ -145,11 +156,7 @@ export default function WritePage() {
 
         // AWS S3 업로드 (필수)
         // 1. AWS 업로드 준비
-        const {
-          mediaId,
-          uploadUrl,
-          s3Key,
-        } = await mediaAPI.prepareUpload({
+        const { mediaId, uploadUrl, s3Key } = await mediaAPI.prepareUpload({
           fileName: file.name,
           contentType: file.type,
           fileSize: file.size,
@@ -274,11 +281,7 @@ export default function WritePage() {
 
         // AWS S3 업로드 (필수)
         // 1. AWS 업로드 준비
-        const {
-          mediaId,
-          uploadUrl,
-          s3Key,
-        } = await mediaAPI.prepareUpload({
+        const { mediaId, uploadUrl, s3Key } = await mediaAPI.prepareUpload({
           fileName: file.name,
           contentType: file.type,
           fileSize: file.size,
@@ -483,12 +486,17 @@ export default function WritePage() {
         // 크리에이터 전용 기능들
         ...(isCreator && {
           is_membership: isMembershipOnly,
-          membership_level: isMembershipOnly ? selectedMembershipLevel : undefined,
-          allow_individual_purchase: allowIndividualPurchase,
-          individual_purchase_price: allowIndividualPurchase ? purchasePrice : undefined,
-          publish_start_at: scheduledPublish && publishDate && publishTime 
-            ? new Date(`${publishDate}T${publishTime}`).toISOString() 
+          membership_level: isMembershipOnly
+            ? selectedMembershipLevel
             : undefined,
+          allow_individual_purchase: allowIndividualPurchase,
+          individual_purchase_price: allowIndividualPurchase
+            ? purchasePrice
+            : undefined,
+          publish_start_at:
+            scheduledPublish && publishDate && publishTime
+              ? new Date(`${publishDate}T${publishTime}`).toISOString()
+              : undefined,
           is_sensitive: sensitiveContent,
         }),
         is_public: true,
@@ -505,7 +513,8 @@ export default function WritePage() {
       }
     } catch (error: any) {
       console.error("임시저장 오류:", error);
-      const errorMessage = error.message || "임시저장에 실패했습니다. 다시 시도해주세요.";
+      const errorMessage =
+        error.message || "임시저장에 실패했습니다. 다시 시도해주세요.";
       message.error(errorMessage);
     } finally {
       setIsSavingDraft(false);
@@ -542,12 +551,17 @@ export default function WritePage() {
         // 크리에이터 전용 기능들
         ...(isCreator && {
           is_membership: isMembershipOnly,
-          membership_level: isMembershipOnly ? selectedMembershipLevel : undefined,
-          allow_individual_purchase: allowIndividualPurchase,
-          individual_purchase_price: allowIndividualPurchase ? purchasePrice : undefined,
-          publish_start_at: scheduledPublish && publishDate && publishTime 
-            ? new Date(`${publishDate}T${publishTime}`).toISOString() 
+          membership_level: isMembershipOnly
+            ? selectedMembershipLevel
             : undefined,
+          allow_individual_purchase: allowIndividualPurchase,
+          individual_purchase_price: allowIndividualPurchase
+            ? purchasePrice
+            : undefined,
+          publish_start_at:
+            scheduledPublish && publishDate && publishTime
+              ? new Date(`${publishDate}T${publishTime}`).toISOString()
+              : undefined,
           is_sensitive: sensitiveContent,
         }),
         is_public: true, // 기본적으로 공개
@@ -558,7 +572,7 @@ export default function WritePage() {
 
       if (response.success) {
         message.success("글이 발행되었습니다.");
-        
+
         // 현재 사용자의 프로필 페이지로 이동
         if (user?.attributes?.preferred_username) {
           router.push(`/@${user.attributes.preferred_username}`);
@@ -570,7 +584,8 @@ export default function WritePage() {
       }
     } catch (error: any) {
       console.error("글 발행 오류:", error);
-      const errorMessage = error.message || "글 발행에 실패했습니다. 다시 시도해주세요.";
+      const errorMessage =
+        error.message || "글 발행에 실패했습니다. 다시 시도해주세요.";
       message.error(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -781,8 +796,9 @@ export default function WritePage() {
                         type="primary"
                         size="small"
                         onClick={openMembershipModal}
+                        icon={<CrownOutlined />}
                       >
-                        멤버십 추가
+                        멤버십 관리
                       </Button>
                     </div>
                   </div>
@@ -790,7 +806,10 @@ export default function WritePage() {
                   {/* 멤버십 레벨 선택 */}
                   {isMembershipOnly && memberships.length > 0 && (
                     <div style={{ marginTop: 16 }}>
-                      <Text strong style={{ display: "block", marginBottom: 8 }}>
+                      <Text
+                        strong
+                        style={{ display: "block", marginBottom: 8 }}
+                      >
                         최소 멤버십 레벨
                       </Text>
                       <div
@@ -803,7 +822,17 @@ export default function WritePage() {
                         {memberships.map((membership) => (
                           <MembershipCard
                             key={membership.id}
-                            membership={membership}
+                            membership={{
+                              ...membership,
+                              // benefits를 안전하게 배열로 변환
+                              benefits: Array.isArray(membership.benefits)
+                                ? membership.benefits
+                                : membership.benefits
+                                ? membership.benefits
+                                    .split(",")
+                                    .map((b) => b.trim())
+                                : [],
+                            }}
                             selected={
                               selectedMembershipLevel === membership.level
                             }
@@ -818,7 +847,8 @@ export default function WritePage() {
                         type="secondary"
                         style={{ fontSize: 12, marginTop: 8 }}
                       >
-                        선택한 레벨 이상의 멤버십 구독자만 콘텐츠를 볼 수 있습니다
+                        선택한 레벨 이상의 멤버십 구독자만 콘텐츠를 볼 수
+                        있습니다
                       </Text>
                     </div>
                   )}
@@ -987,7 +1017,7 @@ export default function WritePage() {
               size="large"
               style={{ flex: 1, height: "48px", borderRadius: "24px" }}
             >
-              {(isCreator && scheduledPublish) ? "예약 발행" : "발행"}
+              {isCreator && scheduledPublish ? "예약 발행" : "발행"}
             </Button>
           </div>
         </Card>
@@ -998,7 +1028,6 @@ export default function WritePage() {
             open={isMembershipModalOpen}
             onClose={() => setIsMembershipModalOpen(false)}
             onMembershipsUpdate={handleMembershipsUpdate}
-            currentMemberships={memberships}
           />
         )}
       </Layout>

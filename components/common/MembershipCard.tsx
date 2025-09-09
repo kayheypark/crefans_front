@@ -11,7 +11,7 @@ interface Membership {
   name: string;
   level: number;
   price: number;
-  description: string;
+  description?: string;
   benefits: string[];
 }
 
@@ -83,16 +83,18 @@ export default function MembershipCard({
           </Tag>
         </div>
 
-        <Text
-          type="secondary"
-          style={{
-            fontSize: 12,
-            display: "block",
-            marginBottom: 4,
-          }}
-        >
-          {membership.description}
-        </Text>
+        {membership.description && (
+          <Text
+            type="secondary"
+            style={{
+              fontSize: 12,
+              display: "block",
+              marginBottom: 4,
+            }}
+          >
+            {membership.description}
+          </Text>
+        )}
 
         <div
           style={{
