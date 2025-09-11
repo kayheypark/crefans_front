@@ -6,6 +6,7 @@ import { userAPI } from "@/lib/api/user";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 import { useAuth } from "@/contexts/AuthContext";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
+import { getHandleValidationRule } from "@/lib/utils/validation";
 
 interface HandleModalProps {
   open: boolean;
@@ -62,10 +63,7 @@ export default function HandleModal({
           name="preferred_username"
           rules={[
             { required: true, message: "핸들을 입력해주세요" },
-            {
-              pattern: /^[a-zA-Z0-9_]+$/,
-              message: "영문, 숫자, 언더스코어만 사용 가능합니다",
-            },
+            getHandleValidationRule(),
           ]}
           initialValue={currentHandle}
         >

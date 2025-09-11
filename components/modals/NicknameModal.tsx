@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import { Modal, Form, Input, message } from "antd";
 import { userAPI } from "@/lib/api/user";
-import { isValidNickname } from "@/lib/utils/validationUtils";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 import { useAuth } from "@/contexts/AuthContext";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
+import { getNicknameValidationRule, filterNicknameInput } from "@/lib/utils/validation";
 
 interface NicknameModalProps {
   open: boolean;
@@ -63,17 +63,7 @@ export default function NicknameModal({
           name="nickname"
           rules={[
             { required: true, message: "닉네임을 입력해주세요" },
-            {
-              validator: (_, value) => {
-                if (!value) return Promise.resolve();
-                if (!isValidNickname(value)) {
-                  return Promise.reject(
-                    "한글, 영문, 숫자 2-10자로 입력해주세요."
-                  );
-                }
-                return Promise.resolve();
-              },
-            },
+            getNicknameValidationRule(),
           ]}
           initialValue={currentNickname}
         >
@@ -81,17 +71,17 @@ export default function NicknameModal({
             placeholder="한글, 영문, 숫자 2-10자"
             size="large"
             onChange={(e) => {
-              // 공백 제거
-              const value = e.target.value.replace(/\s/g, "");
-              e.target.value = value;
-              form.setFieldValue("nickname", value);
+              // 중앙화된 필터 함수 사용
+              const filteredValue = filterNicknameInput(e.target.value);
+              e.target.value = filteredValue;
+              form.setFieldValue("nickname", filteredValue);
             }}
             onCompositionEnd={(e) => {
-              // 한글 조합 완료 후 검증
+              // 한글 조합 완료 후 필터링
               const target = e.target as HTMLInputElement;
-              const value = target.value.replace(/[^가-힣a-zA-Z0-9]/g, "");
-              target.value = value;
-              form.setFieldValue("nickname", value);
+              const filteredValue = filterNicknameInput(target.value);
+              target.value = filteredValue;
+              form.setFieldValue("nickname", filteredValue);
             }}
           />
         </Form.Item>

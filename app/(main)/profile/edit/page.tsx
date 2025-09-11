@@ -27,6 +27,13 @@ import { useRouter } from "next/navigation";
 import { authAPI } from "@/lib/api/auth";
 import { userAPI } from "@/lib/api/user";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
+import { 
+  validateHandle, 
+  HANDLE_VALIDATION_MESSAGE,
+  validateNickname,
+  NICKNAME_VALIDATION_MESSAGE,
+  filterNicknameInput 
+} from "@/lib/utils/validation";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -111,6 +118,11 @@ export default function ProfileEdit() {
       return;
     }
     
+    if (!validateNickname(tempNickname)) {
+      message.error(NICKNAME_VALIDATION_MESSAGE);
+      return;
+    }
+    
     setIsNicknameSaving(true);
     try {
       await authAPI.updateNickname(tempNickname.trim());
@@ -129,6 +141,11 @@ export default function ProfileEdit() {
   const saveHandle = async () => {
     if (!tempHandle.trim()) {
       message.error("핸들을 입력해주세요.");
+      return;
+    }
+    
+    if (!validateHandle(tempHandle)) {
+      message.error(HANDLE_VALIDATION_MESSAGE);
       return;
     }
     
@@ -267,10 +284,13 @@ export default function ProfileEdit() {
                 <div style={{ display: "flex", alignItems: "center", gap: 8, flex: 1 }}>
                   <Input
                     value={tempNickname}
-                    onChange={(e) => setTempNickname(e.target.value)}
+                    onChange={(e) => {
+                      const filteredValue = filterNicknameInput(e.target.value);
+                      setTempNickname(filteredValue);
+                    }}
                     placeholder="닉네임을 입력하세요"
                     style={{ fontSize: 18, fontWeight: "bold" }}
-                    maxLength={20}
+                    maxLength={10}
                   />
                   <Space>
                     <Button 

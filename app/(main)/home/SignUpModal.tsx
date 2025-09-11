@@ -13,10 +13,12 @@ import {
 import { CloseOutlined, MailOutlined } from "@ant-design/icons";
 import { authAPI } from "@/lib/api";
 import { sanitizePhoneInput } from "@/lib/utils/phoneUtils";
-import {
-  isValidKoreanName,
-  isValidNickname,
-} from "@/lib/utils/validationUtils";
+import { isValidKoreanName } from "@/lib/utils/validationUtils";
+import { 
+  validateNickname, 
+  NICKNAME_VALIDATION_MESSAGE,
+  filterNicknameInput 
+} from "@/lib/utils/validation";
 import EmailAutoComplete from "../../../components/common/EmailAutoComplete";
 
 const { Title, Text } = Typography;
@@ -429,10 +431,8 @@ export default function SignUpModal({ open, onClose, isEarlybird = false }: Sign
                 {
                   validator: (_, value) => {
                     if (!value) return Promise.resolve();
-                    if (!isValidNickname(value)) {
-                      return Promise.reject(
-                        "한글, 영문, 숫자 2-10자로 입력해주세요."
-                      );
+                    if (!validateNickname(value)) {
+                      return Promise.reject(NICKNAME_VALIDATION_MESSAGE);
                     }
                     return Promise.resolve();
                   },
@@ -444,17 +444,15 @@ export default function SignUpModal({ open, onClose, isEarlybird = false }: Sign
                 placeholder="닉네임을 입력하세요."
                 style={{ borderRadius: 12 }}
                 onChange={(e) => {
-                  // 공백 제거
-                  const value = e.target.value.replace(/\s/g, "");
-                  e.target.value = value;
-                  form.setFieldValue("nickname", value);
+                  const filteredValue = filterNicknameInput(e.target.value);
+                  e.target.value = filteredValue;
+                  form.setFieldValue("nickname", filteredValue);
                 }}
                 onCompositionEnd={(e) => {
-                  // 한글 조합 완료 후 검증
                   const target = e.target as HTMLInputElement;
-                  const value = target.value.replace(/[^가-힣a-zA-Z0-9]/g, "");
-                  target.value = value;
-                  form.setFieldValue("nickname", value);
+                  const filteredValue = filterNicknameInput(target.value);
+                  target.value = filteredValue;
+                  form.setFieldValue("nickname", filteredValue);
                 }}
               />
             </Form.Item>
