@@ -213,8 +213,7 @@ export default function CreatorCenterPage() {
                 <Button
                   type="primary"
                   size="large"
-                  loading={loading}
-                  onClick={handleBecomeCreator}
+                  onClick={() => router.push("/creator-center/become-creator")}
                   style={{
                     height: "48px",
                     fontSize: "16px",

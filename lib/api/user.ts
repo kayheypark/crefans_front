@@ -72,11 +72,20 @@ export const userAPI = {
     return response.data;
   },
 
+  // 크리에이터 카테고리 목록 조회
+  getCreatorCategories: async () => {
+    const response = await axios.get(
+      `${getApiUrl()}/user/creator-categories`,
+      { withCredentials: true }
+    );
+    return response.data;
+  },
+
   // 크리에이터로 전환
-  becomeCreator: async () => {
+  becomeCreator: async (categoryId: string) => {
     const response = await axios.post(
       `${getApiUrl()}/user/become-creator`,
-      {},
+      { category_id: categoryId },
       { withCredentials: true }
     );
     return response.data;
