@@ -218,20 +218,27 @@ export default function CommentList({
             >
               <Avatar 
                 size={32} 
-                src={comment.author?.avatar || "/profile-90.png"} 
+                src={comment.is_deleted ? "/profile-90.png" : (comment.author?.avatar || "/profile-90.png")} 
               />
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <Text strong style={{ fontSize: 13, color: "#222" }}>
-                    {comment.author?.name || "알 수 없음"}
+                    {comment.is_deleted ? "알 수 없음" : (comment.author?.name || "알 수 없음")}
                   </Text>
                   {comment.taggedUser && (
                     <Text type="secondary" style={{ fontSize: 13, color: "#888" }}>
                       @{comment.taggedUser.handle}
                     </Text>
                   )}
-                  <Text style={{ fontSize: 13, marginLeft: 4 }}>
-                    {comment.content}
+                  <Text 
+                    style={{ 
+                      fontSize: 13, 
+                      marginLeft: 4,
+                      color: comment.is_deleted ? "#999" : "inherit",
+                      fontStyle: comment.is_deleted ? "italic" : "normal"
+                    }}
+                  >
+                    {comment.is_deleted ? "삭제된 댓글입니다." : comment.content}
                   </Text>
                 </div>
                 <div
@@ -245,7 +252,7 @@ export default function CommentList({
                   <Text type="secondary" style={{ fontSize: 13 }}>
                     {formatRelativeDate(comment.created_at)}
                   </Text>
-                  {post.isGotMembership && (
+                  {post.isGotMembership && !comment.is_deleted && (
                     <Button
                       type="link"
                       size="small"
@@ -255,41 +262,45 @@ export default function CommentList({
                       답글 달기
                     </Button>
                   )}
-                  <Button
-                    type="link"
-                    size="small"
-                    style={{
-                      padding: 0,
-                      fontSize: 13,
-                      height: "auto",
-                      color: comment.isLiked ? "#ff4d4f" : "#999",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 4,
-                    }}
-                    onClick={() => handleLikeComment(comment.id, comment.isLiked)}
-                  >
-                    {comment.isLiked ? <HeartFilled /> : <HeartOutlined />}
-                    {comment.likeCount > 0 && <span>{comment.likeCount}</span>}
-                  </Button>
-                  <Dropdown
-                    menu={getCommentMoreMenu(comment)}
-                    trigger={["click"]}
-                    placement="bottomRight"
-                  >
-                    <Button
-                      type="link"
-                      size="small"
-                      style={{
-                        padding: 0,
-                        fontSize: 13,
-                        height: "auto",
-                        color: "#999",
-                      }}
-                    >
-                      <MoreOutlined />
-                    </Button>
-                  </Dropdown>
+                  {!comment.is_deleted && (
+                    <>
+                      <Button
+                        type="link"
+                        size="small"
+                        style={{
+                          padding: 0,
+                          fontSize: 13,
+                          height: "auto",
+                          color: comment.isLiked ? "#ff4d4f" : "#999",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 4,
+                        }}
+                        onClick={() => handleLikeComment(comment.id, comment.isLiked)}
+                      >
+                        {comment.isLiked ? <HeartFilled /> : <HeartOutlined />}
+                        {comment.likeCount > 0 && <span>{comment.likeCount}</span>}
+                      </Button>
+                      <Dropdown
+                        menu={getCommentMoreMenu(comment)}
+                        trigger={["click"]}
+                        placement="bottomRight"
+                      >
+                        <Button
+                          type="link"
+                          size="small"
+                          style={{
+                            padding: 0,
+                            fontSize: 13,
+                            height: "auto",
+                            color: "#999",
+                          }}
+                        >
+                          <MoreOutlined />
+                        </Button>
+                      </Dropdown>
+                    </>
+                  )}
                 </div>
 
                 {/* 답글 작성 폼 */}
@@ -299,7 +310,7 @@ export default function CommentList({
                       <Avatar src={user?.avatar || "/profile-90.png"} size={28} />
                       <div style={{ flex: 1 }}>
                         <Input.TextArea
-                          placeholder={`@${comment.author?.handle}님에게 답글 작성`}
+                          placeholder={comment.is_deleted ? "답글 작성" : `@${comment.author?.handle}님에게 답글 작성`}
                           value={replyContent}
                           onChange={(e) => setReplyContent(e.target.value)}
                           autoSize={{ minRows: 1, maxRows: 3 }}
@@ -358,7 +369,7 @@ export default function CommentList({
                       >
                         <Avatar 
                           size={28} 
-                          src={reply.author?.avatar || "/profile-90.png"} 
+                          src={reply.is_deleted ? "/profile-90.png" : (reply.author?.avatar || "/profile-90.png")} 
                         />
                         <div style={{ flex: 1 }}>
                           <div
@@ -369,15 +380,21 @@ export default function CommentList({
                             }}
                           >
                             <Text strong style={{ fontSize: 14 }}>
-                              {reply.author?.name || "알 수 없음"}
+                              {reply.is_deleted ? "알 수 없음" : (reply.author?.name || "알 수 없음")}
                             </Text>
                             {reply.taggedUser && (
                               <Text type="secondary" style={{ fontSize: 13, color: "#888" }}>
                                 @{reply.taggedUser.handle}
                               </Text>
                             )}
-                            <Text style={{ fontSize: 14 }}>
-                              {reply.content}
+                            <Text 
+                              style={{ 
+                                fontSize: 14,
+                                color: reply.is_deleted ? "#999" : "inherit",
+                                fontStyle: reply.is_deleted ? "italic" : "normal"
+                              }}
+                            >
+                              {reply.is_deleted ? "삭제된 댓글입니다." : reply.content}
                             </Text>
                           </div>
                           <div
@@ -405,41 +422,45 @@ export default function CommentList({
                                 답글 달기
                               </Button>
                             )}
-                            <Button
-                              type="link"
-                              size="small"
-                              style={{
-                                padding: 0,
-                                fontSize: 12,
-                                height: "auto",
-                                color: reply.isLiked ? "#ff4d4f" : "#999",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 4,
-                              }}
-                              onClick={() => handleLikeComment(reply.id, reply.isLiked)}
-                            >
-                              {reply.isLiked ? <HeartFilled /> : <HeartOutlined />}
-                              {reply.likeCount > 0 && <span>{reply.likeCount}</span>}
-                            </Button>
-                            <Dropdown
-                              menu={getCommentMoreMenu(reply)}
-                              trigger={["click"]}
-                              placement="bottomRight"
-                            >
-                              <Button
-                                type="link"
-                                size="small"
-                                style={{
-                                  padding: 0,
-                                  fontSize: 12,
-                                  height: "auto",
-                                  color: "#999",
-                                }}
-                              >
-                                <MoreOutlined />
-                              </Button>
-                            </Dropdown>
+                            {!reply.is_deleted && (
+                              <>
+                                <Button
+                                  type="link"
+                                  size="small"
+                                  style={{
+                                    padding: 0,
+                                    fontSize: 12,
+                                    height: "auto",
+                                    color: reply.isLiked ? "#ff4d4f" : "#999",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 4,
+                                  }}
+                                  onClick={() => handleLikeComment(reply.id, reply.isLiked)}
+                                >
+                                  {reply.isLiked ? <HeartFilled /> : <HeartOutlined />}
+                                  {reply.likeCount > 0 && <span>{reply.likeCount}</span>}
+                                </Button>
+                                <Dropdown
+                                  menu={getCommentMoreMenu(reply)}
+                                  trigger={["click"]}
+                                  placement="bottomRight"
+                                >
+                                  <Button
+                                    type="link"
+                                    size="small"
+                                    style={{
+                                      padding: 0,
+                                      fontSize: 12,
+                                      height: "auto",
+                                      color: "#999",
+                                    }}
+                                  >
+                                    <MoreOutlined />
+                                  </Button>
+                                </Dropdown>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
