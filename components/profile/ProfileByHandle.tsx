@@ -41,46 +41,9 @@ import { userAPI } from "@/lib/api/user";
 import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
 import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
+import { IPost } from "@/types/post";
 
 const { Title, Paragraph, Text } = Typography;
-
-interface Post {
-  id: number;
-  creator: {
-    id: number;
-    handle: string;
-    name: string;
-    avatar: string;
-  };
-  title: string;
-  content: string;
-  isMembershipOnly: boolean;
-  isGotMembership: boolean;
-  createdAt: string;
-  created_at: string; // API 응답에서 사용하는 필드명
-  is_membership?: boolean; // API 응답에서 멤버십 전용 여부를 나타내는 필드
-  hasAccess?: boolean; // API 응답에서 접근 권한 여부를 나타내는 필드
-  images?: {
-    url: string;
-    width?: number;
-    height?: number;
-    isPublic: boolean;
-  }[];
-  media?: {
-    id: string;
-    fileName: string;
-    originalUrl: string;
-    s3UploadKey: string;
-    type: "IMAGE" | "VIDEO";
-    processingStatus: "COMPLETED" | "PROCESSING" | "FAILED";
-    thumbnailUrls?: string[] | null;
-  }[];
-  textLength: number;
-  imageCount: number;
-  videoCount: number;
-  allow_comments?: boolean; // API 응답에서 댓글 허용 여부를 나타내는 필드
-}
-
 interface MediaItem {
   id: number;
   title: string;
@@ -120,7 +83,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [loading, setLoading] = useState(true);
   const [isFollowing, setIsFollowing] = useState(false);
   const [activeTab, setActiveTab] = useState("posts");
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [likedPosts, setLikedPosts] = useState<number[]>([]);
   const [expandedPosts, setExpandedPosts] = useState<number[]>([]);
@@ -342,7 +305,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     return formatRelativeDate(dateString);
   };
 
-  const transformPostForComponent = (post: Post) => ({
+  const transformPostForComponent = (post: IPost) => ({
     ...post,
     creator: {
       id: post.creator.id,
@@ -373,8 +336,8 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     isMembershipOnly: post.isMembershipOnly || false,
     // 실제 API 응답 데이터 사용
     content: post.content,
-    allowComments: post.allow_comments ?? true, // 기본값 true
-    createdAt: post.created_at, // API 응답의 created_at을 createdAt으로 매핑
+    allowComments: post.allowComments ?? true, // 기본값 true
+    createdAt: post.createdAt, // API 응답의 createdAt
   });
 
   const handleSharePost = (postId: number) => {

@@ -34,48 +34,12 @@ import Video from "yet-another-react-lightbox/plugins/video";
 import "yet-another-react-lightbox/styles.css";
 import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
 import CommentList from "@/components/comment/CommentList";
+import { IPost, IPostImage, IPostMedia, IPostProps } from "@/types/post";
 
 const { Title, Text } = Typography;
 
-interface PostImage {
-  url: string;
-  isPublic: boolean;
-}
-
-interface PostMedia {
-  id: string;
-  fileName: string;
-  originalUrl: string;
-  type: "IMAGE" | "VIDEO";
-  processingStatus: "COMPLETED" | "PROCESSING" | "FAILED";
-  thumbnailUrls?: string[] | null;
-}
-
-interface Post {
-  id: number;
-  title: string;
-  content: string;
-  createdAt: string;
-  images?: PostImage[];
-  media?: PostMedia[];
-  isMembershipOnly: boolean;
-  isGotMembership: boolean;
-  allowComments: boolean;
-  textLength: number;
-  imageCount: number;
-  videoCount: number;
-  commentCount?: number;
-  likeCount?: number;
-  isLiked?: boolean;
-  creator: {
-    name: string;
-    handle: string;
-    avatar: string;
-  };
-}
-
 interface PostProps {
-  post: Post;
+  post: IPost;
   likedPosts: number[];
   expandedPosts: number[];
   relativeDatePosts: { [key: number]: boolean };
@@ -685,7 +649,7 @@ export default function Post({
         {/* 댓글 리스트 - 인스타그램 스타일 (기존 디자인 유지) */}
         <CommentList
           postingId={post.id}
-          allowComments={post.allowComments}
+          allowComments={post.allowComments ?? true}
           onCommentCountChange={setCommentCount}
           openReplies={openReplies}
           onToggleReplies={onToggleReplies}

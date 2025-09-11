@@ -42,7 +42,7 @@ import {
 } from "@ant-design/icons";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "@/contexts/AuthContext";
-import { feedAPI, FeedPost } from "@/lib/api/feed";
+import { feedAPI } from "@/lib/api/feed";
 import { postingApi } from "@/lib/api/posting";
 import LoginModal from "@/components/modals/LoginModal";
 import ReportModal from "@/components/modals/ReportModal";
@@ -50,17 +50,16 @@ import Post from "@/components/post/Post";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useResponsive } from "@/hooks/useResponsive";
 import FeedFilter from "@/components/common/FeedFilter";
+import { IPost } from "@/types/post";
 
 const { Title, Paragraph, Text } = Typography;
-
-// Post 인터페이스는 FeedPost 타입을 사용
 
 export default function Feed() {
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isMobile, isTablet, isDesktop } = useResponsive();
-  const [posts, setPosts] = useState<FeedPost[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -360,30 +359,42 @@ export default function Feed() {
   };
 
   // Post 컴포넌트에서 사용할 수 있도록 데이터 변환
-  const transformPostForComponent = (post: FeedPost) => ({
-    id: post.id,
-    title: post.title,
-    content: post.content,
-    createdAt: post.createdAt,
+  const transformPostForComponent = (post: IPost) => ({
+    ...post,
+    creator: {
+      id: post.creator.id,
+      handle: post.creator.handle,
+      name: post.creator.name,
+      avatar: post.creator.avatar,
+    },
+    // 기존 images 필드로 변환하여 기존 디자인과 호환
     images:
-      post.images?.map((img) => ({
-        url: img.url,
-        isPublic: img.isPublic || false,
-      })) || [],
-    isMembershipOnly: post.isMembershipOnly,
-    isGotMembership: post.isGotMembership,
+      post.media
+        ?.filter((m) => m.type === "IMAGE")
+        .map((m) => ({
+          url: m.originalUrl,
+          isPublic: true, // 모든 이미지를 public으로 설정 (권한은 isGotMembership으로 처리)
+        })) || [],
+    textLength: post.textLength || post.content?.length || 0,
+    imageCount:
+      post.imageCount ||
+      post.media?.filter((m) => m.type === "IMAGE").length ||
+      0,
+    videoCount:
+      post.videoCount ||
+      post.media?.filter((m) => m.type === "VIDEO").length ||
+      0,
+    // API에서 받은 hasAccess 값을 사용, 기본값은 true
+    isGotMembership: post.hasAccess !== false,
+    // 실제 API 데이터를 기반으로 멤버십 전용 여부 결정
+    isMembershipOnly: post.isMembershipOnly || false,
+    // 실제 API 응답 데이터 사용
+    content: post.content,
     allowComments: post.allowComments ?? true, // 기본값 true
-    textLength: post.textLength,
-    imageCount: post.imageCount,
-    videoCount: post.videoCount,
+    createdAt: post.createdAt,
     commentCount: post.commentCount,
     likeCount: post.likeCount || 0,
     isLiked: post.isLiked || false,
-    creator: {
-      name: post.creator.name,
-      handle: post.creator.handle,
-      avatar: post.creator.avatar,
-    },
   });
 
   // 백엔드에서 필터링되어 오므로 중복 제거만 수행

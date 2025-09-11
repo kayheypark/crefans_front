@@ -35,33 +35,9 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
+import { IPost } from "@/types/post";
 
 const { Title, Paragraph, Text } = Typography;
-
-interface Post {
-  id: number;
-  creator: {
-    id: number;
-    handle: string;
-    name: string;
-    avatar: string;
-  };
-  title: string;
-  content: string;
-  isMembershipOnly: boolean;
-  isGotMembership: boolean;
-  allowComments?: boolean;
-  createdAt: string;
-  images?: {
-    url: string;
-    width?: number;
-    height?: number;
-    isPublic?: boolean;
-  }[];
-  textLength: number;
-  imageCount: number;
-  videoCount: number;
-}
 
 interface MediaItem {
   id: number;
@@ -79,7 +55,7 @@ export default function Profile() {
   const { user } = useAuth();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("posts");
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [likedPosts, setLikedPosts] = useState<number[]>([]);
   const [expandedPosts, setExpandedPosts] = useState<number[]>([]);
@@ -98,7 +74,7 @@ export default function Profile() {
   const fetchFeedData = async () => {
     const res = await fetch("/mock/feed.json");
     const apiResponse = await res.json();
-    const data: Post[] = apiResponse.data;
+    const data: IPost[] = apiResponse.data;
     return data;
   };
 
@@ -195,7 +171,7 @@ export default function Profile() {
   };
 
   // Post 컴포넌트에서 사용할 수 있도록 데이터 변환
-  const transformPostForComponent = (post: Post) => ({
+  const transformPostForComponent = (post: IPost) => ({
     id: post.id,
     title: post.title,
     content: post.content,
@@ -210,7 +186,9 @@ export default function Profile() {
     textLength: post.textLength,
     imageCount: post.imageCount,
     videoCount: post.videoCount,
+    commentCount: post.commentCount,
     creator: {
+      id: post.creator.id,
       name: post.creator.name,
       handle: post.creator.handle,
       avatar: post.creator.avatar,

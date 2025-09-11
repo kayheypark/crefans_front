@@ -1,36 +1,9 @@
 import { apiClient } from './client';
-import { MediaResponse } from '@/types/posting';
-
-export interface FeedPost {
-  id: number;
-  title: string;
-  content: string;
-  createdAt: string;
-  isMembershipOnly: boolean;
-  isGotMembership: boolean;
-  allowComments: boolean;
-  images?: {
-    url: string;
-    isPublic: boolean;
-  }[];
-  textLength: number;
-  imageCount: number;
-  videoCount: number;
-  commentCount: number;
-  likeCount?: number;
-  isLiked?: boolean;
-  media?: MediaResponse[];
-  creator: {
-    id: string;
-    handle: string;
-    name: string;
-    avatar: string;
-  };
-}
+import { IPost } from '@/types/post';
 
 export interface FeedResponse {
   success: boolean;
-  data: FeedPost[];
+  data: IPost[];
   pagination: {
     page: number;
     limit: number;
