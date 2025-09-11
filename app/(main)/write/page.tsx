@@ -40,6 +40,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { postingApi } from "@/lib/api/posting";
 import { PostingStatus } from "@/types/posting";
 import { membershipAPI } from "@/lib/api/membership";
+import { UploadInfo, CustomUploadRequest } from "@/types/common";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -134,7 +135,7 @@ export default function WritePage() {
   };
 
   // 이미지 업로드 처리 (AWS S3 + 임시 블로브 URL)
-  const handleImageUpload = async (info: any) => {
+  const handleImageUpload = async (info: UploadInfo) => {
     if (info.file.status === "done") {
       // 크레팬스 정책: 최대 10개 이미지 제한
       if (images.length >= 10) {
@@ -146,6 +147,11 @@ export default function WritePage() {
 
       try {
         const file = info.file.originFileObj;
+        if (!file) {
+          message.error("파일을 찾을 수 없습니다.");
+          setIsImageUploading(false);
+          return;
+        }
 
         // 파일 크기 검증 (50MB)
         if (file.size > 50 * 1024 * 1024) {
@@ -228,7 +234,7 @@ export default function WritePage() {
   };
 
   // 동영상 업로드 처리 (AWS S3 + MediaConvert + 임시 블로브 URL)
-  const handleVideoUpload = async (info: any) => {
+  const handleVideoUpload = async (info: UploadInfo) => {
     if (info.file.status === "done") {
       // 크레팬스 정책: 최대 1개 동영상 제한
       if (videos.length >= 1) {
@@ -240,6 +246,11 @@ export default function WritePage() {
 
       try {
         const file = info.file.originFileObj;
+        if (!file) {
+          message.error("파일을 찾을 수 없습니다.");
+          setIsVideoUploading(false);
+          return;
+        }
 
         // 파일 크기 검증 (500MB)
         if (file.size > 500 * 1024 * 1024) {
@@ -664,9 +675,9 @@ export default function WritePage() {
               <Upload
                 accept="image/*"
                 showUploadList={false}
-                customRequest={({ file, onSuccess }: any) => {
+                customRequest={({ file, onSuccess }: CustomUploadRequest) => {
                   setTimeout(() => {
-                    onSuccess("ok");
+                    onSuccess?.("ok");
                   }, 0);
                 }}
                 onChange={handleImageUpload}
@@ -720,9 +731,9 @@ export default function WritePage() {
               <Upload
                 accept="video/*"
                 showUploadList={false}
-                customRequest={({ file, onSuccess }: any) => {
+                customRequest={({ file, onSuccess }: CustomUploadRequest) => {
                   setTimeout(() => {
-                    onSuccess("ok");
+                    onSuccess?.("ok");
                   }, 0);
                 }}
                 onChange={handleVideoUpload}

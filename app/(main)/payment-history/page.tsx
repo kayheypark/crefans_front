@@ -18,8 +18,8 @@ import PaymentHistoryItem from "@/components/common/PaymentHistoryItem";
 const { Title } = Typography;
 
 interface PaymentHistoryItem {
-  id: number;
-  type: "membership" | "tip";
+  id: string;
+  type: "membership" | "tip" | "bean";
   amount: number;
   currency: string;
   status: string;

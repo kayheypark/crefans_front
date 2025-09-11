@@ -48,6 +48,7 @@ import axios from "axios";
 import { getApiUrl } from "@/utils/env";
 import { subscriptionAPI } from "@/lib/api/subscription";
 import { followApi, type FollowUser } from "@/lib/api/follow";
+import { Notification, MembershipCreator, FollowCreator } from "@/types/common";
 import Spacings from "@/lib/constants/spacings";
 import { useResponsive } from "@/hooks/useResponsive";
 import { responsiveStyles } from "@/lib/constants/breakpoints";
@@ -114,12 +115,14 @@ export default function MainLayout({ children }: MainLayoutProps) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [unreadNotifications, setUnreadNotifications] = useState(2);
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [notificationDateType, setNotificationDateType] = useState<{
-    [key: number]: boolean;
+    [key: string]: boolean;
   }>({});
-  const [membershipCreators, setMembershipCreators] = useState<any[]>([]);
-  const [followCreators, setFollowCreators] = useState<any[]>([]);
+  const [membershipCreators, setMembershipCreators] = useState<
+    MembershipCreator[]
+  >([]);
+  const [followCreators, setFollowCreators] = useState<FollowCreator[]>([]);
   const [openGroups, setOpenGroups] = useState({
     membership: true,
     follow: true,
@@ -178,6 +181,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                 key: sub.creatorId,
                 name: sub.creatorName,
                 avatar: sub.avatar,
+                membershipType: sub.membershipType,
                 unread: sub.unread,
               }))
             );
@@ -292,17 +296,17 @@ export default function MainLayout({ children }: MainLayoutProps) {
     return formatRelativeDate(dateString);
   };
 
-  const toggleNotificationDateType = (id: number) => {
+  const toggleNotificationDateType = (id: string) => {
     setNotificationDateType((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const handleDeleteNotification = (id: number) => {
+  const handleDeleteNotification = (id: string) => {
     setNotifications((prev) => prev.filter((item) => item.id !== id));
     setUnreadNotifications((prev) => Math.max(0, prev - 1));
     message.success("메시지가 삭제되었습니다.");
   };
 
-  const renderNotificationList = (items: any[], category: string) => {
+  const renderNotificationList = (items: Notification[], category: string) => {
     const displayItems = items.slice(0, MAX_NOTIFICATIONS_DISPLAY);
     return (
       <div
@@ -987,7 +991,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   </Text>
                 ),
                 children: user
-                  ? followCreators.map((creator: any) => ({
+                  ? followCreators.map((creator: FollowCreator) => ({
                       key: creator.key,
                       label: (
                         <div

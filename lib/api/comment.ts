@@ -6,6 +6,7 @@ import {
   CommentListResponse, 
   CommentResponse 
 } from "@/types/comment";
+import { CommentLikeResponse } from '@/types/api';
 
 export const commentAPI = {
   // 댓글 생성
@@ -47,7 +48,7 @@ export const commentAPI = {
   },
 
   // 댓글 좋아요
-  likeComment: async (commentId: number): Promise<{ success: boolean; message: string; data: any }> => {
+  likeComment: async (commentId: number): Promise<CommentLikeResponse> => {
     const response = await axios.post(
       `${getApiUrl()}/comments/${commentId}/like`,
       {},
@@ -57,7 +58,7 @@ export const commentAPI = {
   },
 
   // 댓글 좋아요 취소
-  unlikeComment: async (commentId: number): Promise<{ success: boolean; message: string; data: any }> => {
+  unlikeComment: async (commentId: number): Promise<CommentLikeResponse> => {
     const response = await axios.delete(
       `${getApiUrl()}/comments/${commentId}/like`,
       { withCredentials: true }

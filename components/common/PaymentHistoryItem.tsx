@@ -2,7 +2,7 @@ import React from "react";
 import { formatFullDate } from "@/lib/utils/dateUtils";
 
 interface PaymentHistoryItemProps {
-  id: number;
+  id: string;
   type: "membership" | "tip" | "bean";
   amount: number;
   currency: string;

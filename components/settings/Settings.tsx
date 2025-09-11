@@ -28,6 +28,7 @@ import {
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
+import { PaymentMethod, PaymentHistory, PaymentMethodFormValues } from "@/types/common";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useResponsive } from "@/hooks/useResponsive";
 import NicknameModal from "@/components/modals/NicknameModal";
@@ -49,9 +50,9 @@ export default function Settings() {
   const [showNicknameModal, setShowNicknameModal] = useState(false);
   const [showHandleModal, setShowHandleModal] = useState(false);
   const [showPaymentMethodModal, setShowPaymentMethodModal] = useState(false);
-  const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
+  const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const [loadingPaymentMethods, setLoadingPaymentMethods] = useState(false);
-  const [paymentHistory, setPaymentHistory] = useState<any[]>([]);
+  const [paymentHistory, setPaymentHistory] = useState<PaymentHistory[]>([]);
   const [loadingPaymentHistory, setLoadingPaymentHistory] = useState(false);
 
   // 디버깅용: 모달 상태 변화 모니터링
@@ -106,7 +107,7 @@ export default function Settings() {
     router.push("/home");
   };
 
-  const handleAddPaymentMethod = (values: any) => {
+  const handleAddPaymentMethod = (values: PaymentMethodFormValues) => {
     // TODO: 결제수단 추가 API 호출
     console.log("결제수단 추가:", values);
 
@@ -118,17 +119,13 @@ export default function Settings() {
     }
 
     // 새 결제수단 추가 (목업데이터에 추가)
-    const newPaymentMethod = {
-      id: Date.now(), // 임시 ID 생성
-      type: "card",
-      cardType: "unknown",
-      cardNumber: `****-****-****-${values.cardNumber.slice(-4)}`,
-      cardholderName: values.cardholderName,
+    const newPaymentMethod: PaymentMethod = {
+      id: Date.now().toString(), // 임시 ID 생성
+      type: values.type,
+      name: values.cardAlias || "새 카드",
+      lastFour: values.cardNumber?.slice(-4),
       expiryDate: values.expiryDate,
-      alias: values.cardAlias || "새 카드",
-      isDefault: values.isDefault,
-      isActive: true,
-      createdAt: new Date().toISOString(),
+      isDefault: values.isDefault || false,
     };
 
     setPaymentMethods((prev) => [...prev, newPaymentMethod]);
@@ -512,7 +509,7 @@ export default function Settings() {
                                   fontWeight: 500,
                                 }}
                               >
-                                {method.alias}
+                                {method.name}
                                 {method.isDefault && (
                                   <Tag
                                     color="blue"
@@ -523,8 +520,7 @@ export default function Settings() {
                                 )}
                               </div>
                               <div style={{ fontSize: 12, color: "#666" }}>
-                                {method.cardNumber} • {method.cardholderName} •{" "}
-                                {method.expiryDate}
+                                ****-****-****-{method.lastFour} • {method.expiryDate}
                               </div>
                             </div>
                             <Dropdown
@@ -625,7 +621,7 @@ export default function Settings() {
                     ) : paymentHistory.length > 0 ? (
                       <div>
                         {/* 미리보기 1건 */}
-                        <PaymentHistoryItem {...paymentHistory[0]} />
+                        {/* <PaymentHistoryItem {...paymentHistory[0]} /> */}
 
                         {/* 추가 건수 표시 */}
                         {paymentHistory.length > 1 && (
@@ -920,7 +916,7 @@ export default function Settings() {
                                 fontWeight: 500,
                               }}
                             >
-                              {method.alias}
+                              {method.name}
                               {method.isDefault && (
                                 <Tag
                                   color="blue"
@@ -931,7 +927,7 @@ export default function Settings() {
                               )}
                             </div>
                             <div style={{ fontSize: 12, color: "#666" }}>
-                              {method.cardNumber} • {method.cardholderName} •{" "}
+                              {method.lastFour} • {method.cardholderName} •{" "}
                               {method.expiryDate}
                             </div>
                           </div>

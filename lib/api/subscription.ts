@@ -1,5 +1,5 @@
 import { apiClient } from './client';
-import { ApiResponse } from '@/types/api';
+import { ApiResponse, SubscriptionResponse, UnsubscriptionResponse } from '@/types/api';
 
 export interface SubscriptionInfo {
   creatorId: string;
@@ -30,7 +30,7 @@ export const subscriptionAPI = {
     }
   },
 
-  async subscribeToMembership(membershipItemId: number): Promise<ApiResponse<any>> {
+  async subscribeToMembership(membershipItemId: number): Promise<ApiResponse<SubscriptionResponse>> {
     try {
       const response = await apiClient.post(`/subscription/membership/${membershipItemId}`);
       return response.data;
@@ -40,7 +40,7 @@ export const subscriptionAPI = {
     }
   },
 
-  async unsubscribeFromMembership(membershipItemId: number): Promise<ApiResponse<any>> {
+  async unsubscribeFromMembership(membershipItemId: number): Promise<ApiResponse<UnsubscriptionResponse>> {
     try {
       const response = await apiClient.delete(`/subscription/membership/${membershipItemId}`);
       return response.data;

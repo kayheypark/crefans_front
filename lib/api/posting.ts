@@ -6,6 +6,7 @@ import {
   CreatePostingResponse
 } from '@/types/posting';
 import { apiClient } from './client';
+import { PostingLikeResponse } from '@/types/api';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
@@ -136,7 +137,7 @@ export const postingApi = {
   },
 
   // 포스팅 좋아요
-  async likePosting(id: number): Promise<{ success: boolean; message: string; data: any }> {
+  async likePosting(id: number): Promise<PostingLikeResponse> {
     try {
       const response = await apiClient.post(`/postings/${id}/like`);
       return response.data;
@@ -147,7 +148,7 @@ export const postingApi = {
   },
 
   // 포스팅 좋아요 취소
-  async unlikePosting(id: number): Promise<{ success: boolean; message: string; data: any }> {
+  async unlikePosting(id: number): Promise<PostingLikeResponse> {
     try {
       const response = await apiClient.delete(`/postings/${id}/like`);
       return response.data;

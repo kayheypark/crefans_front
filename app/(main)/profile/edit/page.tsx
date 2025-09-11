@@ -12,6 +12,7 @@ import Upload from "antd/lib/upload";
 import TextArea from "antd/lib/input/TextArea";
 import ReportModal from "@/components/modals/ReportModal";
 import LoginModal from "@/components/modals/LoginModal";
+import { ReportFormValues, UploadInfo, CustomUploadRequest } from "@/types/common";
 import {
   UserOutlined,
   ShareAltOutlined,
@@ -58,14 +59,14 @@ export default function ProfileEdit() {
     }
   }, [user]);
 
-  const handleReport = (values: any) => {
+  const handleReport = (values: ReportFormValues) => {
     message.success("신고가 접수되었습니다.");
     setIsReportModalVisible(false);
   };
 
   // 커버 이미지 업로드 처리
-  const handleBannerUpload = (info: any) => {
-    if (info.file.status === "done") {
+  const handleBannerUpload = (info: UploadInfo) => {
+    if (info.file.status === "done" && info.file.originFileObj) {
       const reader = new FileReader();
       reader.onload = (e) => {
         setBannerImage(e.target?.result as string);
@@ -76,8 +77,8 @@ export default function ProfileEdit() {
   };
 
   // 프로필 사진 업로드 처리
-  const handleProfileImageUpload = (info: any) => {
-    if (info.file.status === "done") {
+  const handleProfileImageUpload = (info: UploadInfo) => {
+    if (info.file.status === "done" && info.file.originFileObj) {
       const reader = new FileReader();
       reader.onload = (e) => {
         // 여기서 실제로는 API를 통해 프로필 사진을 업데이트해야 합니다
@@ -186,9 +187,9 @@ export default function ProfileEdit() {
           <Upload
             accept="image/*"
             showUploadList={false}
-            customRequest={({ file, onSuccess }: any) => {
+            customRequest={({ file, onSuccess }: CustomUploadRequest) => {
               setTimeout(() => {
-                onSuccess("ok");
+                onSuccess?.("ok");
               }, 0);
             }}
             onChange={handleBannerUpload}
@@ -227,9 +228,9 @@ export default function ProfileEdit() {
             <Upload
               accept="image/*"
               showUploadList={false}
-              customRequest={({ file, onSuccess }: any) => {
+              customRequest={({ file, onSuccess }: CustomUploadRequest) => {
                 setTimeout(() => {
-                  onSuccess("ok");
+                  onSuccess?.("ok");
                 }, 0);
               }}
               onChange={handleProfileImageUpload}
