@@ -1,4 +1,4 @@
-import { API_BASE_URL } from './config';
+import { apiClient } from './client';
 import { ApiResponse } from '@/types/api';
 
 export interface MembershipItem {
@@ -35,52 +35,35 @@ export interface UpdateMembershipRequest extends Partial<CreateMembershipRequest
   is_active?: boolean;
 }
 
-class MembershipAPI {
-  private getRequestOptions(method: string, data?: any): RequestInit {
-    const options: RequestInit = {
-      method,
-      credentials: 'include', // 쿠키 포함
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
 
-    if (data) {
-      options.body = JSON.stringify(data);
-    }
-
-    return options;
-  }
-
+export const membershipAPI = {
   async getMemberships(): Promise<ApiResponse<MembershipItem[]>> {
-    const response = await fetch(`${API_BASE_URL}/membership`, this.getRequestOptions('GET'));
-    return response.json();
-  }
+    const response = await apiClient.get('/membership');
+    return response.data;
+  },
 
   async getMembership(id: number): Promise<ApiResponse<MembershipItem>> {
-    const response = await fetch(`${API_BASE_URL}/membership/${id}`, this.getRequestOptions('GET'));
-    return response.json();
-  }
+    const response = await apiClient.get(`/membership/${id}`);
+    return response.data;
+  },
 
   async createMembership(data: CreateMembershipRequest): Promise<ApiResponse<MembershipItem>> {
-    const response = await fetch(`${API_BASE_URL}/membership`, this.getRequestOptions('POST', data));
-    return response.json();
-  }
+    const response = await apiClient.post('/membership', data);
+    return response.data;
+  },
 
   async updateMembership(id: number, data: UpdateMembershipRequest): Promise<ApiResponse<MembershipItem>> {
-    const response = await fetch(`${API_BASE_URL}/membership/${id}`, this.getRequestOptions('PUT', data));
-    return response.json();
-  }
+    const response = await apiClient.put(`/membership/${id}`, data);
+    return response.data;
+  },
 
   async deleteMembership(id: number): Promise<ApiResponse<void>> {
-    const response = await fetch(`${API_BASE_URL}/membership/${id}`, this.getRequestOptions('DELETE'));
-    return response.json();
-  }
+    const response = await apiClient.delete(`/membership/${id}`);
+    return response.data;
+  },
 
   async toggleMembershipActive(id: number): Promise<ApiResponse<MembershipItem>> {
-    const response = await fetch(`${API_BASE_URL}/membership/${id}/toggle-active`, this.getRequestOptions('PATCH'));
-    return response.json();
-  }
-}
-
-export const membershipAPI = new MembershipAPI();
+    const response = await apiClient.patch(`/membership/${id}/toggle-active`);
+    return response.data;
+  },
+};

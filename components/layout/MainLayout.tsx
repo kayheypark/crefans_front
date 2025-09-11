@@ -46,6 +46,8 @@ import SignUpModal from "@/app/(main)/home/SignUpModal";
 import Colors from "@/lib/constants/colors";
 import axios from "axios";
 import { getApiUrl } from "@/utils/env";
+import { subscriptionAPI } from "@/lib/api/subscription";
+import { followApi, type FollowUser } from "@/lib/api/follow";
 import Spacings from "@/lib/constants/spacings";
 import { useResponsive } from "@/hooks/useResponsive";
 import { responsiveStyles } from "@/lib/constants/breakpoints";
@@ -164,15 +166,60 @@ export default function MainLayout({ children }: MainLayoutProps) {
         setUnreadNotifications(apiResponse.data.length);
       });
 
-    // 크리에이터 데이터 fetch
-    fetch("/mock/membershipCreators.json")
-      .then((res) => res.json())
-      .then((apiResponse) => setMembershipCreators(apiResponse.data));
+    // 사용자가 로그인한 경우에만 구독/팔로우 데이터 fetch
+    if (user) {
+      // 구독 중인 멤버십 조회
+      subscriptionAPI
+        .getMySubscriptions()
+        .then((apiResponse) => {
+          if (apiResponse.success && apiResponse.data.subscriptions) {
+            setMembershipCreators(
+              apiResponse.data.subscriptions.map((sub) => ({
+                key: sub.creatorId,
+                name: sub.creatorName,
+                avatar: sub.avatar,
+                unread: sub.unread,
+              }))
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Failed to fetch subscriptions:", error);
+          // 에러 시 mock 데이터 사용
+          fetch("/mock/membershipCreators.json")
+            .then((res) => res.json())
+            .then((apiResponse) => setMembershipCreators(apiResponse.data));
+        });
 
-    fetch("/mock/followCreators.json")
-      .then((res) => res.json())
-      .then((apiResponse) => setFollowCreators(apiResponse.data));
-  }, []);
+      // 팔로우 중인 사용자 조회
+      followApi
+        .getMyFollowing()
+        .then((apiResponse) => {
+          if (apiResponse.success && apiResponse.data?.items) {
+            setFollowCreators(
+              apiResponse.data.items.map((follow: FollowUser) => ({
+                key: follow.userId,
+                nickname: follow.nickname,
+                avatar: follow.avatar,
+                handle: follow.handle,
+                unread: false,
+              }))
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Failed to fetch following:", error);
+          // 에러 시 mock 데이터 사용
+          fetch("/mock/followCreators.json")
+            .then((res) => res.json())
+            .then((apiResponse) => setFollowCreators(apiResponse.data));
+        });
+    } else {
+      // 로그아웃 상태일 때는 빈 배열로 초기화
+      setMembershipCreators([]);
+      setFollowCreators([]);
+    }
+  }, [user]); // user 상태 변화에 따라 다시 실행
 
   // 사용자가 로그인했을 때 지갑 정보 조회
   useEffect(() => {
@@ -878,7 +925,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   <Text
                     style={{ paddingLeft: 16, fontSize: 14, fontWeight: 700 }}
                   >
-                    멤버십
+                    멤버십 구독중
                   </Text>
                 ),
                 children: user
@@ -940,7 +987,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
                   </Text>
                 ),
                 children: user
-                  ? followCreators.map((creator) => ({
+                  ? followCreators.map((creator: any) => ({
                       key: creator.key,
                       label: (
                         <div
@@ -950,13 +997,16 @@ export default function MainLayout({ children }: MainLayoutProps) {
                             gap: 8,
                             padding: "8px 16px",
                           }}
+                          onClick={() => {
+                            router.push(`/@${creator.handle}`);
+                          }}
                         >
                           <Avatar
                             src={creator.avatar}
                             size={24}
                             style={{ marginRight: 8 }}
                           />
-                          <span style={{ flex: 1 }}>{creator.name}</span>
+                          <span style={{ flex: 1 }}>{creator.nickname}</span>
                           {creator.unread && (
                             <Badge
                               color="#1677ff"
