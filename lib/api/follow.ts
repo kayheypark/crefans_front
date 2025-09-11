@@ -6,6 +6,7 @@ export interface FollowUser {
   handle: string;
   avatar: string;
   followedAt: string;
+  isFollowedByRequester?: boolean; // 요청자가 이 사용자를 팔로우하고 있는지
 }
 
 export interface FollowListResponse {

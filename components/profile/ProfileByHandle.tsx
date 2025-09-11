@@ -18,6 +18,7 @@ import Spin from "antd/lib/spin";
 import ReportModal from "@/components/modals/ReportModal";
 import LoginModal from "@/components/modals/LoginModal";
 import Post from "@/components/post/Post";
+import FollowButton from "@/components/common/FollowButton";
 import { followApi } from "@/lib/api/follow";
 import {
   ClockCircleOutlined,
@@ -101,7 +102,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [hasMorePosts, setHasMorePosts] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const loadMoreRef = useRef<HTMLDivElement>(null);
-  
+
   // 팔로잉/팔로워 관련 상태
   const [followingList, setFollowingList] = useState<any[]>([]);
   const [followersList, setFollowersList] = useState<any[]>([]);
@@ -141,13 +142,31 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   // 팔로잉/팔로워 탭 변경시 데이터 로드
   useEffect(() => {
     if (!profile?.userSub) return;
-    
-    if (activeTab === 'following' && followingList.length === 0) {
+
+    if (activeTab === "following" && followingList.length === 0) {
       fetchFollowing();
-    } else if (activeTab === 'followers' && followersList.length === 0) {
+    } else if (activeTab === "followers" && followersList.length === 0) {
       fetchFollowers();
     }
   }, [activeTab, profile]);
+
+  // 로그인 상태 변경 시 팔로우 데이터 재로드
+  useEffect(() => {
+    if (!profile?.userSub) return;
+    
+    // 로그인 후 프로필 정보와 팔로우 데이터를 새로고침
+    if (user) {
+      // 메인 프로필의 팔로우 상태 업데이트
+      fetchUserProfile();
+      
+      // 현재 활성 탭의 데이터를 새로고침
+      if (activeTab === "following") {
+        fetchFollowing();
+      } else if (activeTab === "followers") {
+        fetchFollowers();
+      }
+    }
+  }, [user, profile?.userSub]);
 
   // 무한스크롤을 위한 Intersection Observer 설정
   useEffect(() => {
@@ -233,17 +252,21 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   // 팔로잉 목록 가져오기 (특정 사용자의 팔로잉)
   const fetchFollowing = async () => {
     if (!profile?.userSub) return;
-    
+
     setFollowingLoading(true);
     try {
-      const response = await followApi.getUserFollowing(profile.userSub, 1, 100);
+      const response = await followApi.getUserFollowing(
+        profile.userSub,
+        1,
+        100
+      );
       if (response.success && response.data) {
         setFollowingList(response.data.items);
         setFollowingCount(response.data.pagination.totalCount);
       }
     } catch (error) {
-      console.error('Failed to fetch following:', error);
-      message.error('팔로잉 목록을 가져오는데 실패했습니다.');
+      console.error("Failed to fetch following:", error);
+      message.error("팔로잉 목록을 가져오는데 실패했습니다.");
     } finally {
       setFollowingLoading(false);
     }
@@ -252,59 +275,23 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   // 팔로워 목록 가져오기 (특정 사용자의 팔로워)
   const fetchFollowers = async () => {
     if (!profile?.userSub) return;
-    
+
     setFollowersLoading(true);
     try {
-      const response = await followApi.getUserFollowers(profile.userSub, 1, 100);
+      const response = await followApi.getUserFollowers(
+        profile.userSub,
+        1,
+        100
+      );
       if (response.success && response.data) {
         setFollowersList(response.data.items);
         setFollowersCount(response.data.pagination.totalCount);
       }
     } catch (error) {
-      console.error('Failed to fetch followers:', error);
-      message.error('팔로워 목록을 가져오는데 실패했습니다.');
+      console.error("Failed to fetch followers:", error);
+      message.error("팔로워 목록을 가져오는데 실패했습니다.");
     } finally {
       setFollowersLoading(false);
-    }
-  };
-
-  const handleFollow = async () => {
-    if (!user) {
-      setIsLoginModalOpen(true);
-      return;
-    }
-
-    if (!profile?.userSub) {
-      message.error("사용자 정보를 찾을 수 없습니다.");
-      return;
-    }
-
-    try {
-      const response = isFollowing
-        ? await followApi.unfollowUser(profile.userSub)
-        : await followApi.followUser(profile.userSub);
-
-      if (response.success) {
-        setIsFollowing(!isFollowing);
-        message.success(
-          isFollowing ? "팔로우를 취소했습니다." : "팔로우했습니다."
-        );
-
-        // 팔로워 수 업데이트
-        if (profile) {
-          setProfile({
-            ...profile,
-            followersCount: profile.followersCount + (isFollowing ? -1 : 1),
-          });
-        }
-      } else {
-        throw new Error(response.message || "팔로우 처리에 실패했습니다.");
-      }
-    } catch (error) {
-      console.error("팔로우 처리 실패:", error);
-      message.error(
-        error instanceof Error ? error.message : "팔로우 처리에 실패했습니다."
-      );
     }
   };
 
@@ -534,7 +521,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     );
   };
 
-
   const renderFollowing = () => {
     if (followingLoading) {
       return (
@@ -574,7 +560,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
             bodyStyle={{ padding: 16 }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <div 
+              <div
                 style={{ cursor: "pointer" }}
                 onClick={() => router.push(`/@${followUser.handle}`)}
               >
@@ -612,19 +598,31 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                   {formatRelativeDate(followUser.followedAt)}에 팔로우
                 </div>
               </div>
-              <Button
-                type="primary"
-                ghost
-                style={{
-                  color: "#ff4d4f",
-                  borderColor: "#ff4d4f",
+              <FollowButton
+                targetUserId={followUser.userId}
+                isFollowing={followUser.isFollowedByRequester || false}
+                buttonType="auto"
+                size="middle"
+                isOwnAccount={
+                  user?.attributes?.preferred_username === followUser.handle
+                }
+                onFollowChange={(newFollowingState) => {
+                  // 팔로잉 목록에서 해당 사용자의 팔로우 상태 업데이트
+                  setFollowingList((prev) =>
+                    prev.map((item) =>
+                      item.userId === followUser.userId
+                        ? { ...item, isFollowedByRequester: newFollowingState }
+                        : item
+                    )
+                  );
+                  
+                  // 메인 프로필 버튼 상태도 업데이트 (해당 사용자가 메인 프로필인 경우)
+                  if (profile?.userSub === followUser.userId) {
+                    setIsFollowing(newFollowingState);
+                  }
                 }}
-                onClick={() => {
-                  // 팔로우/언팔로우 로직
-                }}
-              >
-                팔로잉
-              </Button>
+                onLoginRequired={() => setIsLoginModalOpen(true)}
+              />
             </div>
           </Card>
         ))}
@@ -671,7 +669,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
             bodyStyle={{ padding: 16 }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <div 
+              <div
                 style={{ cursor: "pointer" }}
                 onClick={() => router.push(`/@${follower.handle}`)}
               >
@@ -709,18 +707,31 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                   {formatRelativeDate(follower.followedAt)}에 팔로우함
                 </div>
               </div>
-              <Button
-                type="primary"
-                style={{
-                  backgroundColor: "#1890ff",
-                  borderColor: "#1890ff",
+              <FollowButton
+                targetUserId={follower.userId}
+                isFollowing={follower.isFollowedByRequester || false}
+                buttonType="auto"
+                size="middle"
+                isOwnAccount={
+                  user?.attributes?.preferred_username === follower.handle
+                }
+                onFollowChange={(newFollowingState) => {
+                  // 팔로워 목록에서 해당 사용자의 팔로우 상태 업데이트
+                  setFollowersList((prev) =>
+                    prev.map((item) =>
+                      item.userId === follower.userId
+                        ? { ...item, isFollowedByRequester: newFollowingState }
+                        : item
+                    )
+                  );
+                  
+                  // 메인 프로필 버튼 상태도 업데이트 (해당 사용자가 메인 프로필인 경우)
+                  if (profile?.userSub === follower.userId) {
+                    setIsFollowing(newFollowingState);
+                  }
                 }}
-                onClick={() => {
-                  // 팔로우 로직
-                }}
-              >
-                팔로우
-              </Button>
+                onLoginRequired={() => setIsLoginModalOpen(true)}
+              />
             </div>
           </Card>
         ))}
@@ -834,21 +845,42 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                 }}
               >
                 {/* 본인 프로필이 아닌 경우에만 팔로우 버튼 표시 */}
-                {!isOwnProfile && (
-                  <Button
-                    type="primary"
-                    ghost={!isFollowing || !user}
-                    icon={isFollowing && user ? null : <HeartOutlined />}
-                    style={{
-                      backgroundColor:
-                        !isFollowing || !user ? "#ff4d4f" : "transparent",
-                      borderColor: "#ff4d4f",
-                      color: !isFollowing || !user ? "#ffffff" : "#ff4d4f",
+                {!isOwnProfile && profile.userSub && (
+                  <FollowButton
+                    targetUserId={profile.userSub}
+                    isFollowing={isFollowing}
+                    buttonType="auto"
+                    size="middle"
+                    onFollowChange={(newFollowingState) => {
+                      setIsFollowing(newFollowingState);
+                      // 팔로워 수 업데이트
+                      if (profile) {
+                        setProfile({
+                          ...profile,
+                          followersCount:
+                            profile.followersCount +
+                            (newFollowingState ? 1 : -1),
+                        });
+                      }
+                      
+                      // 팔로잉/팔로워 목록에서도 현재 프로필 사용자의 상태 업데이트
+                      setFollowingList((prev) =>
+                        prev.map((item) =>
+                          item.userId === profile.userSub
+                            ? { ...item, isFollowedByRequester: newFollowingState }
+                            : item
+                        )
+                      );
+                      setFollowersList((prev) =>
+                        prev.map((item) =>
+                          item.userId === profile.userSub
+                            ? { ...item, isFollowedByRequester: newFollowingState }
+                            : item
+                        )
+                      );
                     }}
-                    onClick={handleFollow}
-                  >
-                    {isFollowing && user ? "팔로우 취소" : "팔로우"}
-                  </Button>
+                    onLoginRequired={() => setIsLoginModalOpen(true)}
+                  />
                 )}
               </div>
             </div>
@@ -974,12 +1006,18 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
           },
           {
             key: "following",
-            label: `팔로잉 ${followingCount > 0 ? followingCount : profile.followingCount}`,
+            label: `팔로잉 ${
+              followingCount > 0 ? followingCount : profile.followingCount
+            }`,
             children: renderFollowing(),
           },
           {
             key: "followers",
-            label: `팔로워 ${followersCount > 0 ? followersCount.toLocaleString() : profile.followersCount.toLocaleString()}`,
+            label: `팔로워 ${
+              followersCount > 0
+                ? followersCount.toLocaleString()
+                : profile.followersCount.toLocaleString()
+            }`,
             children: renderFollowers(),
           },
         ]}
