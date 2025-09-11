@@ -20,7 +20,7 @@ export const commentAPI = {
   },
 
   // 포스팅의 댓글 목록 조회
-  getCommentsByPostingId: async (postingId: number): Promise<CommentListResponse> => {
+  getCommentsByPostingId: async (postingId: string): Promise<CommentListResponse> => {
     const response = await axios.get(
       `${getApiUrl()}/comments/posting/${postingId}`,
       { withCredentials: true }
@@ -29,7 +29,7 @@ export const commentAPI = {
   },
 
   // 댓글 수정
-  updateComment: async (commentId: number, commentData: UpdateCommentDto): Promise<CommentResponse> => {
+  updateComment: async (commentId: string, commentData: UpdateCommentDto): Promise<CommentResponse> => {
     const response = await axios.put(
       `${getApiUrl()}/comments/${commentId}`,
       commentData,
@@ -39,7 +39,7 @@ export const commentAPI = {
   },
 
   // 댓글 삭제
-  deleteComment: async (commentId: number): Promise<{ success: boolean; message: string }> => {
+  deleteComment: async (commentId: string): Promise<{ success: boolean; message: string }> => {
     const response = await axios.delete(
       `${getApiUrl()}/comments/${commentId}`,
       { withCredentials: true }
@@ -48,7 +48,7 @@ export const commentAPI = {
   },
 
   // 댓글 좋아요
-  likeComment: async (commentId: number): Promise<CommentLikeResponse> => {
+  likeComment: async (commentId: string): Promise<CommentLikeResponse> => {
     const response = await axios.post(
       `${getApiUrl()}/comments/${commentId}/like`,
       {},
@@ -58,7 +58,7 @@ export const commentAPI = {
   },
 
   // 댓글 좋아요 취소
-  unlikeComment: async (commentId: number): Promise<CommentLikeResponse> => {
+  unlikeComment: async (commentId: string): Promise<CommentLikeResponse> => {
     const response = await axios.delete(
       `${getApiUrl()}/comments/${commentId}/like`,
       { withCredentials: true }

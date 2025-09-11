@@ -10,13 +10,13 @@ import { formatRelativeDate } from "@/lib/utils/dateUtils";
 const { Text } = Typography;
 
 interface CommentListProps {
-  postingId: number;
+  postingId: string;
   allowComments: boolean;
   onCommentCountChange?: (count: number) => void;
-  openReplies: { [key: number]: boolean };
-  onToggleReplies: (postId: number) => void;
+  openReplies: { [key: string]: boolean };
+  onToggleReplies: (postId: string) => void;
   onCommentInputClick: () => void;
-  onCommentSubmit: (postId: number) => void;
+  onCommentSubmit: (postId: string) => void;
   user: any;
   post: any;
   isMobile: boolean;
@@ -38,10 +38,10 @@ export default function CommentList({
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [replyTo, setReplyTo] = useState<number | null>(null);
+  const [replyTo, setReplyTo] = useState<string | null>(null);
   const [replyContent, setReplyContent] = useState("");
   const [reportModalOpen, setReportModalOpen] = useState(false);
-  const [selectedCommentId, setSelectedCommentId] = useState<number | null>(null);
+  const [selectedCommentId, setSelectedCommentId] = useState<string | null>(null);
 
   useEffect(() => {
     if (postingId) {
@@ -90,7 +90,7 @@ export default function CommentList({
     }
   };
 
-  const handleSubmitReply = async (parentId: number) => {
+  const handleSubmitReply = async (parentId: string) => {
     if (!user || !replyContent.trim()) return;
 
     try {
@@ -114,7 +114,7 @@ export default function CommentList({
     }
   };
 
-  const handleLikeComment = async (commentId: number, currentIsLiked: boolean) => {
+  const handleLikeComment = async (commentId: string, currentIsLiked: boolean) => {
     if (!user) {
       message.warning("로그인이 필요합니다.");
       return;
@@ -137,7 +137,7 @@ export default function CommentList({
     }
   };
 
-  const handleDeleteComment = async (commentId: number) => {
+  const handleDeleteComment = async (commentId: string) => {
     Modal.confirm({
       title: "댓글을 삭제하시겠습니까?",
       content: "삭제된 댓글은 복구할 수 없습니다.",
@@ -160,7 +160,7 @@ export default function CommentList({
     });
   };
 
-  const handleReportComment = (commentId: number) => {
+  const handleReportComment = (commentId: string) => {
     setSelectedCommentId(commentId);
     setReportModalOpen(true);
   };

@@ -40,18 +40,18 @@ const { Title, Text } = Typography;
 
 interface PostProps {
   post: IPost;
-  likedPosts: number[];
-  expandedPosts: number[];
-  relativeDatePosts: { [key: number]: boolean };
-  openReplies: { [key: number]: boolean };
-  onLike: (postId: number) => void;
-  onToggleExpand: (postId: number) => void;
-  onToggleDateType: (postId: number) => void;
-  onToggleReplies: (postId: number) => void;
+  likedPosts: string[];
+  expandedPosts: string[];
+  relativeDatePosts: { [key: string]: boolean };
+  openReplies: { [key: string]: boolean };
+  onLike: (postId: string) => void;
+  onToggleExpand: (postId: string) => void;
+  onToggleDateType: (postId: string) => void;
+  onToggleReplies: (postId: string) => void;
   onCommentInputClick: () => void;
-  onCommentSubmit: (postId: number) => void;
-  onShare: (postId: number) => void;
-  onReport: (postId: number) => void;
+  onCommentSubmit: (postId: string) => void;
+  onShare: (postId: string) => void;
+  onReport: (postId: string) => void;
   formatDate: (date: string) => string;
   formatFullDate: (date: string) => string;
 }
@@ -131,7 +131,7 @@ export default function Post({
   const noCopyGuideText =
     "crefans에 등록된 모든 포스팅 콘텐츠의 캡쳐 및 배포/재배포는 이용약관과 관련 법령에 의거하여 엄격히 금지되어있고, 민/형사상 처벌의 대상이 됩니다.";
 
-  const getMoreMenu = (postId: number) => ({
+  const getMoreMenu = (postId: string) => ({
     items: [
       {
         key: "share",

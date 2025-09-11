@@ -12,11 +12,11 @@ export interface TaggedUser {
 }
 
 export interface Comment {
-  id: number;
-  posting_id: number;
+  id: string;
+  posting_id: string;
   author_id: string;
   content: string;
-  parent_id?: number;
+  parent_id?: string;
   tagged_user_id?: string;
   is_deleted: boolean;
   deleted_at?: string;
@@ -30,9 +30,9 @@ export interface Comment {
 }
 
 export interface CreateCommentDto {
-  posting_id: number;
+  posting_id: string;
   content: string;
-  parent_id?: number;
+  parent_id?: string;
   tagged_user_id?: string;
 }
 

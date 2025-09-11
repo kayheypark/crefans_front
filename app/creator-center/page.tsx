@@ -150,7 +150,7 @@ export default function CreatorCenterPage() {
   };
 
   // 포스팅 삭제
-  const handleDeletePosting = async (id: number) => {
+  const handleDeletePosting = async (id: string) => {
     try {
       await postingApi.deletePosting(id);
       fetchPostings(pagination.current, pagination.pageSize);

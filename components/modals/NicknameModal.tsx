@@ -6,7 +6,7 @@ import { userAPI } from "@/lib/api/user";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 import { useAuth } from "@/contexts/AuthContext";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
-import { getNicknameValidationRule, filterNicknameInput } from "@/lib/utils/validation";
+import { getNicknameValidationRule, validateNickname } from "@/lib/utils/validation";
 
 interface NicknameModalProps {
   open: boolean;
@@ -27,6 +27,13 @@ export default function NicknameModal({
     setIsLoading(true);
     try {
       const values = await form.validateFields();
+      
+      // 클라이언트 측 추가 검증
+      if (!validateNickname(values.nickname)) {
+        message.error("한글, 영문, 숫자 2-10자로 입력해주세요");
+        return;
+      }
+      
       await userAPI.updateNickname(values.nickname);
       message.success("닉네임이 성공적으로 변경되었습니다.");
       await refreshUser(); // 사용자 정보 새로고침
@@ -70,19 +77,7 @@ export default function NicknameModal({
           <Input
             placeholder="한글, 영문, 숫자 2-10자"
             size="large"
-            onChange={(e) => {
-              // 중앙화된 필터 함수 사용
-              const filteredValue = filterNicknameInput(e.target.value);
-              e.target.value = filteredValue;
-              form.setFieldValue("nickname", filteredValue);
-            }}
-            onCompositionEnd={(e) => {
-              // 한글 조합 완료 후 필터링
-              const target = e.target as HTMLInputElement;
-              const filteredValue = filterNicknameInput(target.value);
-              target.value = filteredValue;
-              form.setFieldValue("nickname", filteredValue);
-            }}
+            maxLength={10}
           />
         </Form.Item>
       </Form>

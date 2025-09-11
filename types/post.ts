@@ -1,9 +1,9 @@
 import { MediaResponse } from './posting';
 
 export interface IPost {
-  id: number;
+  id: string;
   creator: {
-    id: string | number;
+    id: string;
     handle: string;
     name: string;
     avatar: string;
@@ -51,9 +51,9 @@ export interface IPostMedia {
 
 export interface IPostProps {
   post: IPost;
-  onLike?: (postId: number, isLiked: boolean) => void;
-  onComment?: (postId: number) => void;
-  onShare?: (postId: number) => void;
+  onLike?: (postId: string, isLiked: boolean) => void;
+  onComment?: (postId: string) => void;
+  onShare?: (postId: string) => void;
   showActions?: boolean;
   className?: string;
 }

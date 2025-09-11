@@ -89,7 +89,7 @@ export const postingApi = {
   },
 
   // 포스팅 상세 조회
-  async getPosting(id: number): Promise<PostingDetailResponse> {
+  async getPosting(id: string): Promise<PostingDetailResponse> {
     const response = await fetch(`${API_BASE_URL}/postings/${id}`, {
       method: 'GET',
       credentials: 'include',
@@ -103,7 +103,7 @@ export const postingApi = {
   },
 
   // 포스팅 수정
-  async updatePosting(id: number, data: UpdatePostingDto): Promise<{ success: boolean; message: string }> {
+  async updatePosting(id: string, data: UpdatePostingDto): Promise<{ success: boolean; message: string }> {
     const response = await fetch(`${API_BASE_URL}/postings/${id}`, {
       method: 'PATCH',
       headers: {
@@ -122,7 +122,7 @@ export const postingApi = {
   },
 
   // 포스팅 삭제
-  async deletePosting(id: number): Promise<{ success: boolean; message: string }> {
+  async deletePosting(id: string): Promise<{ success: boolean; message: string }> {
     const response = await fetch(`${API_BASE_URL}/postings/${id}`, {
       method: 'DELETE',
       credentials: 'include',
@@ -137,7 +137,7 @@ export const postingApi = {
   },
 
   // 포스팅 좋아요
-  async likePosting(id: number): Promise<PostingLikeResponse> {
+  async likePosting(id: string): Promise<PostingLikeResponse> {
     try {
       const response = await apiClient.post(`/postings/${id}/like`);
       return response.data;
@@ -148,7 +148,7 @@ export const postingApi = {
   },
 
   // 포스팅 좋아요 취소
-  async unlikePosting(id: number): Promise<PostingLikeResponse> {
+  async unlikePosting(id: string): Promise<PostingLikeResponse> {
     try {
       const response = await apiClient.delete(`/postings/${id}/like`);
       return response.data;

@@ -64,22 +64,22 @@ export default function Feed() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const pageSize = 10;
-  const [likedPosts, setLikedPosts] = useState<number[]>([]);
+  const [likedPosts, setLikedPosts] = useState<string[]>([]);
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
-  const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [expandedPosts, setExpandedPosts] = useState<number[]>([]);
+  const [expandedPosts, setExpandedPosts] = useState<string[]>([]);
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
-    [key: number]: boolean;
+    [key: string]: boolean;
   }>({});
-  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
+  const [openReplies, setOpenReplies] = useState<{ [key: string]: boolean }>(
     {}
   );
   const [filter, setFilter] = useState<"all" | "membership" | "public">(
     (searchParams.get("feedFilter") as "all" | "membership" | "public") || "all"
   );
-  const [coverProgress, setCoverProgress] = useState<{ [key: number]: number }>(
+  const [coverProgress, setCoverProgress] = useState<{ [key: string]: number }>(
     {}
   );
 
@@ -175,7 +175,7 @@ export default function Feed() {
     return `${Math.floor(diffInSeconds / 86400)}일 전`;
   };
 
-  const handleLike = async (postId: number) => {
+  const handleLike = async (postId: string) => {
     if (!user) {
       setIsLoginModalOpen(true);
       return;
@@ -264,7 +264,7 @@ export default function Feed() {
     }
   };
 
-  const togglePostExpand = (postId: number) => {
+  const togglePostExpand = (postId: string) => {
     setExpandedPosts((prev) =>
       prev.includes(postId)
         ? prev.filter((id) => id !== postId)
@@ -273,7 +273,7 @@ export default function Feed() {
   };
 
   // 날짜 표기 토글
-  const toggleDateType = (postId: number) => {
+  const toggleDateType = (postId: string) => {
     setRelativeDatePosts((prev) => ({
       ...prev,
       [postId]: !prev[postId],
@@ -281,7 +281,7 @@ export default function Feed() {
   };
 
   // 답글 토글
-  const toggleReplies = (postId: number) => {
+  const toggleReplies = (postId: string) => {
     setOpenReplies((prev) => ({
       ...prev,
       [postId]: !prev[postId],
@@ -296,7 +296,7 @@ export default function Feed() {
   };
 
   // 댓글 제출
-  const handleCommentSubmit = (postId: number) => {
+  const handleCommentSubmit = (postId: string) => {
     console.log("Comment submitted for post:", postId);
   };
 
@@ -312,7 +312,7 @@ export default function Feed() {
   };
 
   // 펼치기 메뉴 아이템
-  const getMoreMenu = (postId: number) => ({
+  const getMoreMenu = (postId: string) => ({
     items: [
       {
         key: "share",
@@ -342,12 +342,12 @@ export default function Feed() {
     setIsShareModalVisible(false);
   };
 
-  const handleSharePost = (postId: number) => {
+  const handleSharePost = (postId: string) => {
     setSelectedPostId(postId);
     setIsShareModalVisible(true);
   };
 
-  const handleReportPost = (postId: number) => {
+  const handleReportPost = (postId: string) => {
     setSelectedPostId(postId);
     setIsReportModalVisible(true);
   };
@@ -404,7 +404,7 @@ export default function Feed() {
 
   // 멤버십 카드 마우스 이동 핸들러
   const handleMembershipMouseMove = (
-    postId: number,
+    postId: string,
     e: MouseEvent<HTMLDivElement>
   ) => {
     const card = e.currentTarget;
@@ -417,7 +417,7 @@ export default function Feed() {
     progress = Math.min(progress, 0.5);
     setCoverProgress((prev) => ({ ...prev, [postId]: progress }));
   };
-  const handleMembershipMouseLeave = (postId: number) => {
+  const handleMembershipMouseLeave = (postId: string) => {
     setCoverProgress((prev) => ({ ...prev, [postId]: 0 }));
   };
 

@@ -29,10 +29,8 @@ import { userAPI } from "@/lib/api/user";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
 import { 
   validateHandle, 
-  HANDLE_VALIDATION_MESSAGE,
   validateNickname,
-  NICKNAME_VALIDATION_MESSAGE,
-  filterNicknameInput 
+  NICKNAME_VALIDATION_MESSAGE
 } from "@/lib/utils/validation";
 
 const { Title, Paragraph, Text } = Typography;
@@ -144,8 +142,10 @@ export default function ProfileEdit() {
       return;
     }
     
-    if (!validateHandle(tempHandle)) {
-      message.error(HANDLE_VALIDATION_MESSAGE);
+    // 클라이언트 측 검증 (백엔드 정책과 동일)
+    const validation = validateHandle(tempHandle.trim());
+    if (!validation.isValid) {
+      message.error(validation.errors[0]);
       return;
     }
     
@@ -284,10 +284,7 @@ export default function ProfileEdit() {
                 <div style={{ display: "flex", alignItems: "center", gap: 8, flex: 1 }}>
                   <Input
                     value={tempNickname}
-                    onChange={(e) => {
-                      const filteredValue = filterNicknameInput(e.target.value);
-                      setTempNickname(filteredValue);
-                    }}
+                    onChange={(e) => setTempNickname(e.target.value)}
                     placeholder="닉네임을 입력하세요"
                     style={{ fontSize: 18, fontWeight: "bold" }}
                     maxLength={10}
@@ -348,7 +345,7 @@ export default function ProfileEdit() {
                     onChange={(e) => setTempHandle(e.target.value)}
                     placeholder="핸들을 입력하세요"
                     style={{ fontSize: 16 }}
-                    maxLength={30}
+                    maxLength={15}
                   />
                   <Space>
                     <Button 

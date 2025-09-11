@@ -86,18 +86,18 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [activeTab, setActiveTab] = useState("posts");
   const [posts, setPosts] = useState<IPost[]>([]);
   const [media, setMedia] = useState<MediaItem[]>([]);
-  const [likedPosts, setLikedPosts] = useState<number[]>([]);
-  const [expandedPosts, setExpandedPosts] = useState<number[]>([]);
+  const [likedPosts, setLikedPosts] = useState<string[]>([]);
+  const [expandedPosts, setExpandedPosts] = useState<string[]>([]);
   const [relativeDatePosts, setRelativeDatePosts] = useState<{
-    [key: number]: boolean;
+    [key: string]: boolean;
   }>({});
-  const [openReplies, setOpenReplies] = useState<{ [key: number]: boolean }>(
+  const [openReplies, setOpenReplies] = useState<{ [key: string]: boolean }>(
     {}
   );
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [hasMorePosts, setHasMorePosts] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -295,7 +295,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     }
   };
 
-  const handleLike = (postId: number) => {
+  const handleLike = (postId: string) => {
     if (!user) {
       setIsLoginModalOpen(true);
       return;
@@ -308,7 +308,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     );
   };
 
-  const togglePostExpand = (postId: number) => {
+  const togglePostExpand = (postId: string) => {
     setExpandedPosts((prev) =>
       prev.includes(postId)
         ? prev.filter((id) => id !== postId)
@@ -316,7 +316,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     );
   };
 
-  const toggleDateType = (postId: number) => {
+  const toggleDateType = (postId: string) => {
     setRelativeDatePosts((prev) => ({
       ...prev,
       [postId]: !prev[postId],
@@ -325,7 +325,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
 
   // dateUtils의 함수를 사용하도록 변경
   // 답글 토글
-  const toggleReplies = (postId: number) => {
+  const toggleReplies = (postId: string) => {
     setOpenReplies((prev) => ({
       ...prev,
       [postId]: !prev[postId],
@@ -340,7 +340,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   };
 
   // 댓글 제출
-  const handleCommentSubmit = (postId: number) => {
+  const handleCommentSubmit = (postId: string) => {
     console.log("Comment submitted for post:", postId);
   };
 
@@ -384,12 +384,12 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     createdAt: post.createdAt, // API 응답의 createdAt
   });
 
-  const handleSharePost = (postId: number) => {
+  const handleSharePost = (postId: string) => {
     setSelectedPostId(postId);
     setIsShareModalVisible(true);
   };
 
-  const handleReportPost = (postId: number) => {
+  const handleReportPost = (postId: string) => {
     setSelectedPostId(postId);
     setIsReportModalVisible(true);
   };
