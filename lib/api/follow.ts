@@ -67,4 +67,57 @@ export const followApi = {
       throw new Error(errorMessage);
     }
   },
+
+  // 내 팔로워 목록 조회
+  async getMyFollowers(
+    page: number = 1,
+    limit: number = 20
+  ): Promise<FollowResponse> {
+    try {
+      const response = await apiClient.get("/follow/my-followers", {
+        params: { page, limit },
+      });
+      return response.data;
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message || "내 팔로워 목록 조회에 실패했습니다.";
+      throw new Error(errorMessage);
+    }
+  },
+
+  // 특정 사용자의 팔로잉 목록 조회 (공개 API)
+  async getUserFollowing(
+    userId: string,
+    page: number = 1,
+    limit: number = 20
+  ): Promise<FollowResponse> {
+    try {
+      const response = await apiClient.get(`/follow/public/user/${userId}/following`, {
+        params: { page, limit },
+      });
+      return response.data;
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message || "사용자 팔로잉 목록 조회에 실패했습니다.";
+      throw new Error(errorMessage);
+    }
+  },
+
+  // 특정 사용자의 팔로워 목록 조회 (공개 API)
+  async getUserFollowers(
+    userId: string,
+    page: number = 1,
+    limit: number = 20
+  ): Promise<FollowResponse> {
+    try {
+      const response = await apiClient.get(`/follow/public/user/${userId}/followers`, {
+        params: { page, limit },
+      });
+      return response.data;
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message || "사용자 팔로워 목록 조회에 실패했습니다.";
+      throw new Error(errorMessage);
+    }
+  },
 };

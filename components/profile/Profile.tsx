@@ -36,6 +36,8 @@ import { useRouter } from "next/navigation";
 import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
 import { IPost } from "@/types/post";
+import { followApi, FollowUser } from "@/lib/api/follow";
+import { Spin } from "antd";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -69,6 +71,12 @@ export default function Profile() {
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+  const [followingList, setFollowingList] = useState<FollowUser[]>([]);
+  const [followersList, setFollowersList] = useState<FollowUser[]>([]);
+  const [followingCount, setFollowingCount] = useState(0);
+  const [followersCount, setFollowersCount] = useState(0);
+  const [followingLoading, setFollowingLoading] = useState(false);
+  const [followersLoading, setFollowersLoading] = useState(false);
 
   // Feed에서 사용하는 목업 데이터 fetch
   const fetchFeedData = async () => {
@@ -86,6 +94,44 @@ export default function Profile() {
     return data;
   };
 
+  // 팔로잉 목록 가져오기
+  const fetchFollowing = async () => {
+    if (!user) return;
+    
+    setFollowingLoading(true);
+    try {
+      const response = await followApi.getMyFollowing(1, 100);
+      if (response.success && response.data) {
+        setFollowingList(response.data.items);
+        setFollowingCount(response.data.pagination.totalCount);
+      }
+    } catch (error) {
+      console.error('Failed to fetch following:', error);
+      message.error('팔로잉 목록을 가져오는데 실패했습니다.');
+    } finally {
+      setFollowingLoading(false);
+    }
+  };
+
+  // 팔로워 목록 가져오기
+  const fetchFollowers = async () => {
+    if (!user) return;
+    
+    setFollowersLoading(true);
+    try {
+      const response = await followApi.getMyFollowers(1, 100);
+      if (response.success && response.data) {
+        setFollowersList(response.data.items);
+        setFollowersCount(response.data.pagination.totalCount);
+      }
+    } catch (error) {
+      console.error('Failed to fetch followers:', error);
+      message.error('팔로워 목록을 가져오는데 실패했습니다.');
+    } finally {
+      setFollowersLoading(false);
+    }
+  };
+
   useEffect(() => {
     const loadData = async () => {
       const feedData = await fetchFeedData();
@@ -95,6 +141,17 @@ export default function Profile() {
     };
     loadData();
   }, []);
+
+  // 탭 변경시 데이터 로드
+  useEffect(() => {
+    if (!user) return;
+    
+    if (activeTab === 'following' && followingList.length === 0) {
+      fetchFollowing();
+    } else if (activeTab === 'followers' && followersList.length === 0) {
+      fetchFollowers();
+    }
+  }, [activeTab, user]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -348,27 +405,168 @@ export default function Profile() {
   };
 
   const renderFollowing = () => {
+    if (followingLoading) {
+      return (
+        <div style={{ padding: "20px 0", textAlign: "center" }}>
+          <Spin size="large" />
+        </div>
+      );
+    }
+
+    if (followingList.length === 0) {
+      return (
+        <div style={{ padding: "20px 0" }}>
+          <div style={{ textAlign: "center", padding: "60px 20px" }}>
+            <Empty
+              description="팔로잉한 회원이 없습니다"
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+            />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div style={{ padding: "20px 0" }}>
-        <div style={{ textAlign: "center", padding: "60px 20px" }}>
-          <Empty
-            description="팔로잉한 회원이 없습니다"
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          />
-        </div>
+        {followingList.map((followUser) => (
+          <Card
+            key={followUser.userId}
+            style={{
+              marginBottom: 12,
+              border: "1px solid #f0f0f0",
+              borderRadius: 8,
+            }}
+            bodyStyle={{ padding: 16 }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <Avatar
+                size={48}
+                src={followUser.avatar || "/profile-90.png"}
+                icon={<UserOutlined />}
+              />
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 600,
+                    color: "#222",
+                    marginBottom: 2,
+                  }}
+                >
+                  {followUser.nickname}
+                </div>
+                <div
+                  style={{
+                    fontSize: 14,
+                    color: "#8c8c8c",
+                    marginBottom: 4,
+                  }}
+                >
+                  @{followUser.handle}
+                </div>
+                <div style={{ fontSize: 12, color: "#999" }}>
+                  {formatDate(followUser.followedAt)}에 팔로우
+                </div>
+              </div>
+              <Button
+                type="primary"
+                ghost
+                style={{
+                  color: "#ff4d4f",
+                  borderColor: "#ff4d4f",
+                }}
+                onClick={() => {
+                  // 언팔로우 로직 추가 가능
+                }}
+              >
+                팔로잉
+              </Button>
+            </div>
+          </Card>
+        ))}
       </div>
     );
   };
 
   const renderFollowers = () => {
+    if (followersLoading) {
+      return (
+        <div style={{ padding: "20px 0", textAlign: "center" }}>
+          <Spin size="large" />
+        </div>
+      );
+    }
+
+    if (followersList.length === 0) {
+      return (
+        <div style={{ padding: "20px 0" }}>
+          <div style={{ textAlign: "center", padding: "60px 20px" }}>
+            <Empty
+              description="팔로워가 없습니다"
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+            />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div style={{ padding: "20px 0" }}>
-        <div style={{ textAlign: "center", padding: "60px 20px" }}>
-          <Empty
-            description="팔로워가 없습니다"
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          />
-        </div>
+        {followersList.map((follower) => (
+          <Card
+            key={follower.userId}
+            style={{
+              marginBottom: 12,
+              border: "1px solid #f0f0f0",
+              borderRadius: 8,
+            }}
+            bodyStyle={{ padding: 16 }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <Avatar
+                size={48}
+                src={follower.avatar || "/profile-90.png"}
+                icon={<UserOutlined />}
+              />
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 600,
+                    color: "#222",
+                    marginBottom: 2,
+                  }}
+                >
+                  {follower.nickname}
+                </div>
+                <div
+                  style={{
+                    fontSize: 14,
+                    color: "#8c8c8c",
+                    marginBottom: 4,
+                  }}
+                >
+                  @{follower.handle}
+                </div>
+                <div style={{ fontSize: 12, color: "#999" }}>
+                  {formatDate(follower.followedAt)}에 팔로우함
+                </div>
+              </div>
+              <Button
+                type="primary"
+                style={{
+                  backgroundColor: "#1890ff",
+                  borderColor: "#1890ff",
+                }}
+                onClick={() => {
+                  // 팔로우백 로직 추가 가능
+                }}
+              >
+                팔로우
+              </Button>
+            </div>
+          </Card>
+        ))}
       </div>
     );
   };
@@ -556,22 +754,22 @@ export default function Profile() {
         items={[
           {
             key: "posts",
-            label: "게시물 391",
+            label: `게시물 ${posts.length}`,
             children: renderPosts(),
           },
           {
             key: "media",
-            label: "미디어 1,241",
+            label: `미디어 ${media.length}`,
             children: renderMedia(),
           },
           {
             key: "following",
-            label: "팔로잉 1",
+            label: `팔로잉 ${followingCount}`,
             children: renderFollowing(),
           },
           {
             key: "followers",
-            label: "팔로워 2,567",
+            label: `팔로워 ${followersCount}`,
             children: renderFollowers(),
           },
         ]}
