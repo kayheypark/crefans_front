@@ -35,9 +35,9 @@ const PostMediaGallery: React.FC<PostMediaGalleryProps> = ({
     return medias?.map(media => ({
       id: media.id,
       type: media.type,
-      url: media.original_url,
-      thumbnailUrl: media.thumbnail_urls?.small || media.thumbnail_urls?.medium || media.original_url,
-      isProcessed: media.processing_status === 'completed'
+      url: media.originalUrl,
+      thumbnailUrl: media.thumbnailUrls?.small || media.thumbnailUrls?.medium || media.originalUrl,
+      isProcessed: media.processingStatus === 'completed'
     })) || [];
   }, [medias]);
 

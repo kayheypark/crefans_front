@@ -1,12 +1,12 @@
 export interface CommentAuthor {
-  user_id: string;
+  userId: string;
   handle: string;
   name: string;
   avatar: string;
 }
 
 export interface TaggedUser {
-  user_id: string;
+  userId: string;
   handle: string;
   name: string;
 }
@@ -23,10 +23,10 @@ export interface Comment {
   created_at: string;
   updated_at: string;
   author: CommentAuthor | null;
-  tagged_user?: TaggedUser | null;
+  taggedUser?: TaggedUser | null;
   children: Comment[];
-  like_count: number;
-  is_liked: boolean;
+  likeCount: number;
+  isLiked: boolean;
 }
 
 export interface CreateCommentDto {

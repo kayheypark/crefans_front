@@ -68,12 +68,12 @@ interface Post {
   }[];
   media?: {
     id: string;
-    file_name: string;
-    original_url: string;
-    s3_upload_key: string;
+    fileName: string;
+    originalUrl: string;
+    s3UploadKey: string;
     type: "IMAGE" | "VIDEO";
-    processing_status: "COMPLETED" | "PROCESSING" | "FAILED";
-    thumbnail_urls?: string[] | null;
+    processingStatus: "COMPLETED" | "PROCESSING" | "FAILED";
+    thumbnailUrls?: string[] | null;
   }[];
   textLength: number;
   imageCount: number;
@@ -355,7 +355,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
       post.media
         ?.filter((m) => m.type === "IMAGE")
         .map((m) => ({
-          url: m.original_url,
+          url: m.originalUrl,
           isPublic: true, // 모든 이미지를 public으로 설정 (권한은 isGotMembership으로 처리)
         })) || [],
     textLength: post.textLength || post.content?.length || 0,
@@ -370,7 +370,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     // API에서 받은 hasAccess 값을 사용, 기본값은 true
     isGotMembership: post.hasAccess !== false,
     // 실제 API 데이터를 기반으로 멤버십 전용 여부 결정
-    isMembershipOnly: post.is_membership || false,
+    isMembershipOnly: post.isMembershipOnly || false,
     // 실제 API 응답 데이터 사용
     content: post.content,
     allowComments: post.allow_comments ?? true, // 기본값 true

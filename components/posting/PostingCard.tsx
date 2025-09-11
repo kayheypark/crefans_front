@@ -36,12 +36,12 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
     try {
       setLiking(true);
       
-      if (localPosting.is_liked) {
+      if (localPosting.isLiked) {
         await postingApi.unlikePosting(localPosting.id);
         const updatedPosting = {
           ...localPosting,
-          is_liked: false,
-          like_count: localPosting.like_count - 1,
+          isLiked: false,
+          likeCount: localPosting.likeCount - 1,
         };
         setLocalPosting(updatedPosting);
         onUpdate?.(updatedPosting);
@@ -50,8 +50,8 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
         await postingApi.likePosting(localPosting.id);
         const updatedPosting = {
           ...localPosting,
-          is_liked: true,
-          like_count: localPosting.like_count + 1,
+          isLiked: true,
+          likeCount: localPosting.likeCount + 1,
         };
         setLocalPosting(updatedPosting);
         onUpdate?.(updatedPosting);
@@ -74,7 +74,7 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
           <Text strong>크리에이터</Text>
           <div>
             <Text type="secondary" style={{ fontSize: 12 }}>
-              @creator • {formatRelativeDate(localPosting.created_at)}
+              @creator • {formatRelativeDate(localPosting.createdAt)}
             </Text>
           </div>
         </div>
@@ -95,8 +95,8 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
             <div key={media.id} style={{ marginBottom: 8 }}>
               {media.type === "IMAGE" ? (
                 <img
-                  src={media.original_url}
-                  alt={media.original_name}
+                  src={media.originalUrl}
+                  alt={media.originalName}
                   style={{
                     width: "100%",
                     maxHeight: "400px",
@@ -106,7 +106,7 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
                 />
               ) : media.type === "VIDEO" ? (
                 <video
-                  src={media.original_url}
+                  src={media.originalUrl}
                   controls
                   style={{
                     width: "100%",
@@ -127,7 +127,7 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
           <Button
             type="text"
             icon={
-              localPosting.is_liked ? (
+              localPosting.isLiked ? (
                 <HeartFilled style={{ color: "#ff4d4f" }} />
               ) : (
                 <HeartOutlined />
@@ -136,13 +136,13 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
             onClick={handleLike}
             loading={liking}
             style={{
-              color: localPosting.is_liked ? "#ff4d4f" : undefined,
+              color: localPosting.isLiked ? "#ff4d4f" : undefined,
               display: "flex",
               alignItems: "center",
               gap: 4,
             }}
           >
-            {localPosting.like_count}
+            {localPosting.likeCount}
           </Button>
           <Button
             type="text"
@@ -153,7 +153,7 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
               gap: 4,
             }}
           >
-            {localPosting.comment_count}
+            {localPosting.commentCount}
           </Button>
         </Space>
       </div>

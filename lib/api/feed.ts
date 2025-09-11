@@ -1,4 +1,5 @@
 import { apiClient } from './client';
+import { MediaResponse } from '@/types/posting';
 
 export interface FeedPost {
   id: number;
@@ -18,6 +19,7 @@ export interface FeedPost {
   commentCount: number;
   likeCount?: number;
   isLiked?: boolean;
+  media?: MediaResponse[];
   creator: {
     id: string;
     handle: string;

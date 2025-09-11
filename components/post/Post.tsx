@@ -44,11 +44,11 @@ interface PostImage {
 
 interface PostMedia {
   id: string;
-  file_name: string;
-  original_url: string;
+  fileName: string;
+  originalUrl: string;
   type: "IMAGE" | "VIDEO";
-  processing_status: "COMPLETED" | "PROCESSING" | "FAILED";
-  thumbnail_urls?: string[] | null;
+  processingStatus: "COMPLETED" | "PROCESSING" | "FAILED";
+  thumbnailUrls?: string[] | null;
 }
 
 interface Post {
@@ -127,14 +127,14 @@ export default function Post({
         if (media.type === "IMAGE") {
           return {
             type: "image" as const,
-            src: media.original_url,
+            src: media.originalUrl,
             alt: noCopyGuideText,
           };
         } else {
           return {
             type: "video" as const,
             sources: [{
-              src: media.original_url,
+              src: media.originalUrl,
               type: "video/mp4"
             }],
           };
@@ -465,12 +465,12 @@ export default function Post({
                     if (media.type === "IMAGE") {
                       return (
                         <div
-                          key={`${post.id}-${media.original_url}-${idx}`}
+                          key={`${post.id}-${media.originalUrl}-${idx}`}
                           onClick={handleThumbnailClick}
                           style={{ cursor: "pointer" }}
                         >
                           <img
-                            src={media.original_url}
+                            src={media.originalUrl}
                             alt={noCopyGuideText}
                             style={{
                               width: "100%",
@@ -490,7 +490,7 @@ export default function Post({
                     } else if (media.type === "VIDEO") {
                       return (
                         <div
-                          key={`${post.id}-${media.original_url}-${idx}`}
+                          key={`${post.id}-${media.originalUrl}-${idx}`}
                           onClick={handleThumbnailClick}
                           style={{
                             cursor: "pointer",
@@ -509,7 +509,7 @@ export default function Post({
                           }}
                         >
                           <video
-                            src={media.original_url}
+                            src={media.originalUrl}
                             style={{
                               width: "100%",
                               height: "100%",

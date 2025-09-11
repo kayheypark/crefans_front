@@ -240,7 +240,7 @@ export default function CreatorCenterPage() {
       render: (text: string, record: PostingResponse) => (
         <div>
           <div>{text}</div>
-          {record.is_membership && <Tag color="gold">멤버십 전용</Tag>}
+          {record.isMembership && <Tag color="gold">멤버십 전용</Tag>}
         </div>
       ),
     },

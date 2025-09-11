@@ -225,9 +225,9 @@ export default function CommentList({
                   <Text strong style={{ fontSize: 13, color: "#222" }}>
                     {comment.author?.name || "알 수 없음"}
                   </Text>
-                  {comment.tagged_user && (
+                  {comment.taggedUser && (
                     <Text type="secondary" style={{ fontSize: 13, color: "#888" }}>
-                      @{comment.tagged_user.handle}
+                      @{comment.taggedUser.handle}
                     </Text>
                   )}
                   <Text style={{ fontSize: 13, marginLeft: 4 }}>
@@ -262,15 +262,15 @@ export default function CommentList({
                       padding: 0,
                       fontSize: 13,
                       height: "auto",
-                      color: comment.is_liked ? "#ff4d4f" : "#999",
+                      color: comment.isLiked ? "#ff4d4f" : "#999",
                       display: "flex",
                       alignItems: "center",
                       gap: 4,
                     }}
-                    onClick={() => handleLikeComment(comment.id, comment.is_liked)}
+                    onClick={() => handleLikeComment(comment.id, comment.isLiked)}
                   >
-                    {comment.is_liked ? <HeartFilled /> : <HeartOutlined />}
-                    {comment.like_count > 0 && <span>{comment.like_count}</span>}
+                    {comment.isLiked ? <HeartFilled /> : <HeartOutlined />}
+                    {comment.likeCount > 0 && <span>{comment.likeCount}</span>}
                   </Button>
                   <Dropdown
                     menu={getCommentMoreMenu(comment)}
@@ -371,9 +371,9 @@ export default function CommentList({
                             <Text strong style={{ fontSize: 14 }}>
                               {reply.author?.name || "알 수 없음"}
                             </Text>
-                            {reply.tagged_user && (
+                            {reply.taggedUser && (
                               <Text type="secondary" style={{ fontSize: 13, color: "#888" }}>
-                                @{reply.tagged_user.handle}
+                                @{reply.taggedUser.handle}
                               </Text>
                             )}
                             <Text style={{ fontSize: 14 }}>
@@ -412,15 +412,15 @@ export default function CommentList({
                                 padding: 0,
                                 fontSize: 12,
                                 height: "auto",
-                                color: reply.is_liked ? "#ff4d4f" : "#999",
+                                color: reply.isLiked ? "#ff4d4f" : "#999",
                                 display: "flex",
                                 alignItems: "center",
                                 gap: 4,
                               }}
-                              onClick={() => handleLikeComment(reply.id, reply.is_liked)}
+                              onClick={() => handleLikeComment(reply.id, reply.isLiked)}
                             >
-                              {reply.is_liked ? <HeartFilled /> : <HeartOutlined />}
-                              {reply.like_count > 0 && <span>{reply.like_count}</span>}
+                              {reply.isLiked ? <HeartFilled /> : <HeartOutlined />}
+                              {reply.likeCount > 0 && <span>{reply.likeCount}</span>}
                             </Button>
                             <Dropdown
                               menu={getCommentMoreMenu(reply)}
