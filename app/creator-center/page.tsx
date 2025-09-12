@@ -110,7 +110,8 @@ export default function CreatorCenterPage() {
   const handleBecomeCreator = async () => {
     setLoading(true);
     try {
-      const response = await userAPI.becomeCreator();
+      // TODO: 카테고리 선택 UI 구현 필요, 임시로 기본값 사용
+      const response = await userAPI.becomeCreator("default-category-id");
       if (response.success) {
         message.success("크리에이터로 전환되었습니다!");
         await refreshUser();
