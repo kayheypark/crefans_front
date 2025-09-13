@@ -95,7 +95,7 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
             <div key={media.id} style={{ marginBottom: 8 }}>
               {media.type === "IMAGE" ? (
                 <img
-                  src={media.originalUrl}
+                  src={media.mediaUrl}
                   alt={media.originalName}
                   style={{
                     width: "100%",
@@ -106,7 +106,7 @@ export default function PostingCard({ posting, onUpdate }: PostingCardProps) {
                 />
               ) : media.type === "VIDEO" ? (
                 <video
-                  src={media.originalUrl}
+                  src={media.mediaUrl}
                   controls
                   style={{
                     width: "100%",

@@ -43,7 +43,7 @@ export interface IPostImage {
 export interface IPostMedia {
   id: string;
   fileName: string;
-  originalUrl: string;
+  mediaUrl: string;
   type: "IMAGE" | "VIDEO";
   processingStatus: "COMPLETED" | "PROCESSING" | "FAILED";
   thumbnailUrls?: string[] | null;

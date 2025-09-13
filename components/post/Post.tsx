@@ -91,14 +91,14 @@ export default function Post({
         if (media.type === "IMAGE") {
           return {
             type: "image" as const,
-            src: media.originalUrl,
+            src: media.mediaUrl,
             alt: noCopyGuideText,
           };
         } else {
           return {
             type: "video" as const,
             sources: [{
-              src: media.originalUrl,
+              src: media.mediaUrl,
               type: "video/mp4"
             }],
           };
@@ -429,12 +429,12 @@ export default function Post({
                     if (media.type === "IMAGE") {
                       return (
                         <div
-                          key={`${post.id}-${media.originalUrl}-${idx}`}
+                          key={`${post.id}-${media.mediaUrl}-${idx}`}
                           onClick={handleThumbnailClick}
                           style={{ cursor: "pointer" }}
                         >
                           <img
-                            src={media.originalUrl}
+                            src={media.mediaUrl}
                             alt={noCopyGuideText}
                             style={{
                               width: "100%",
@@ -454,7 +454,7 @@ export default function Post({
                     } else if (media.type === "VIDEO") {
                       return (
                         <div
-                          key={`${post.id}-${media.originalUrl}-${idx}`}
+                          key={`${post.id}-${media.mediaUrl}-${idx}`}
                           onClick={handleThumbnailClick}
                           style={{
                             cursor: "pointer",
@@ -473,7 +473,7 @@ export default function Post({
                           }}
                         >
                           <video
-                            src={media.originalUrl}
+                            src={media.mediaUrl}
                             style={{
                               width: "100%",
                               height: "100%",

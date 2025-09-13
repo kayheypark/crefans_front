@@ -18,7 +18,7 @@ export interface MediaVersions {
 export interface Media {
   id: string;
   userSub: string;
-  originalUrl: string;
+  mediaUrl: string;
   status: "uploading" | "processing" | "completed" | "failed";
   versions: MediaVersions;
   thumbnails: string[];

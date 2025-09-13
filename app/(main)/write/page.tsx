@@ -175,7 +175,7 @@ export default function WritePage() {
 
         // 3. 업로드 완료 알림
         const media = await mediaAPI.completeUpload(mediaId, s3Key);
-        const s3Url = media.originalUrl;
+        const s3Url = media.mediaUrl;
 
         console.log("AWS 업로드 성공:", { mediaId, s3Url });
 
@@ -305,7 +305,7 @@ export default function WritePage() {
 
         // 3. 업로드 완료 알림 (MediaConvert 시작)
         const media = await mediaAPI.completeUpload(mediaId, s3Key);
-        const s3Url = media.originalUrl;
+        const s3Url = media.mediaUrl;
         const processingStatus = "processing"; // MediaConvert 처리 중
 
         console.log("AWS 동영상 업로드 성공, MediaConvert 시작:", {

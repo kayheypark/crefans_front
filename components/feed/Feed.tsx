@@ -372,7 +372,7 @@ export default function Feed() {
       post.media
         ?.filter((m) => m.type === "IMAGE")
         .map((m) => ({
-          url: m.originalUrl,
+          url: m.mediaUrl,
           isPublic: true, // 모든 이미지를 public으로 설정 (권한은 isGotMembership으로 처리)
         })) || [],
     textLength: post.textLength || post.content?.length || 0,
