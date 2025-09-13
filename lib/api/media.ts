@@ -75,39 +75,26 @@ export const mediaAPI = {
     limit: number = 20,
     offset: number = 0
   ): Promise<Media[]> => {
-    const response = await axios.get(
-      `${getApiUrl()}/media/my-media`,
-      {
-        params: { limit, offset },
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get(`${getApiUrl()}/media/my-media`, {
+      params: { limit, offset },
+      withCredentials: true,
+    });
     return response.data.data;
   },
 
   // 특정 미디어 조회
   getMedia: async (mediaId: string): Promise<Media> => {
-    const response = await axios.get(
-      `${getApiUrl()}/media/${mediaId}`,
-      { withCredentials: true }
-    );
+    const response = await axios.get(`${getApiUrl()}/media/${mediaId}`, {
+      withCredentials: true,
+    });
     return response.data.data;
   },
 
   // 처리 상태 조회
   getProcessingStatus: async (mediaId: string): Promise<ProcessingStatus> => {
-    const response = await axios.get(
-      `${getApiUrl()}/media/${mediaId}/status`,
-      { withCredentials: true }
-    );
-    return response.data.data;
-  },
-
-  // 공개 미디어 조회 (게시글에서 사용)
-  getPublicMedia: async (mediaId: string): Promise<Media> => {
-    const response = await axios.get(
-      `${getApiUrl()}/media/public/${mediaId}`
-    );
+    const response = await axios.get(`${getApiUrl()}/media/${mediaId}/status`, {
+      withCredentials: true,
+    });
     return response.data.data;
   },
 

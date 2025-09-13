@@ -17,6 +17,7 @@ import message from "antd/lib/message";
 import Spin from "antd/lib/spin";
 import ReportModal from "@/components/modals/ReportModal";
 import LoginModal from "@/components/modals/LoginModal";
+import DonationModal from "@/components/modals/DonationModal";
 import Post from "@/components/post/Post";
 import FollowButton from "@/components/common/FollowButton";
 import { followApi } from "@/lib/api/follow";
@@ -35,6 +36,7 @@ import {
   PlusOutlined,
   UserAddOutlined,
   UserDeleteOutlined,
+  GiftOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -97,6 +99,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [isShareModalVisible, setIsShareModalVisible] = useState(false);
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [hasMorePosts, setHasMorePosts] = useState(false);
@@ -153,12 +156,12 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   // 로그인 상태 변경 시 팔로우 데이터 재로드
   useEffect(() => {
     if (!profile?.userSub) return;
-    
+
     // 로그인 후 프로필 정보와 팔로우 데이터를 새로고침
     if (user) {
       // 메인 프로필의 팔로우 상태 업데이트
       fetchUserProfile();
-      
+
       // 현재 활성 탭의 데이터를 새로고침
       if (activeTab === "following") {
         fetchFollowing();
@@ -394,6 +397,25 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     setIsReportModalVisible(true);
   };
 
+  const handleDonationSubmit = async (
+    amount: number,
+    donationMessage?: string
+  ) => {
+    try {
+      // TODO: 실제 후원 API 호출
+      console.log("후원 정보:", {
+        creatorHandle: handle,
+        amount,
+        message: donationMessage,
+      });
+
+      // 임시 성공 메시지
+      message.success(`${amount}콩을 후원했습니다!`);
+    } catch (error) {
+      message.error("후원 처리 중 오류가 발생했습니다.");
+    }
+  };
+
   const renderPosts = () => {
     if (posts.length === 0) {
       return (
@@ -615,7 +637,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                         : item
                     )
                   );
-                  
+
                   // 메인 프로필 버튼 상태도 업데이트 (해당 사용자가 메인 프로필인 경우)
                   if (profile?.userSub === followUser.userId) {
                     setIsFollowing(newFollowingState);
@@ -724,7 +746,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                         : item
                     )
                   );
-                  
+
                   // 메인 프로필 버튼 상태도 업데이트 (해당 사용자가 메인 프로필인 경우)
                   if (profile?.userSub === follower.userId) {
                     setIsFollowing(newFollowingState);
@@ -844,43 +866,77 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                   gap: 8,
                 }}
               >
-                {/* 본인 프로필이 아닌 경우에만 팔로우 버튼 표시 */}
+                {/* 본인 프로필이 아닌 경우에만 팔로우 버튼과 후원하기 버튼 표시 */}
                 {!isOwnProfile && profile.userSub && (
-                  <FollowButton
-                    targetUserId={profile.userSub}
-                    isFollowing={isFollowing}
-                    buttonType="auto"
-                    size="middle"
-                    onFollowChange={(newFollowingState) => {
-                      setIsFollowing(newFollowingState);
-                      // 팔로워 수 업데이트
-                      if (profile) {
-                        setProfile({
-                          ...profile,
-                          followersCount:
-                            profile.followersCount +
-                            (newFollowingState ? 1 : -1),
-                        });
-                      }
-                      
-                      // 팔로잉/팔로워 목록에서도 현재 프로필 사용자의 상태 업데이트
-                      setFollowingList((prev) =>
-                        prev.map((item) =>
-                          item.userId === profile.userSub
-                            ? { ...item, isFollowedByRequester: newFollowingState }
-                            : item
-                        )
-                      );
-                      setFollowersList((prev) =>
-                        prev.map((item) =>
-                          item.userId === profile.userSub
-                            ? { ...item, isFollowedByRequester: newFollowingState }
-                            : item
-                        )
-                      );
-                    }}
-                    onLoginRequired={() => setIsLoginModalOpen(true)}
-                  />
+                  <>
+                    <FollowButton
+                      targetUserId={profile.userSub}
+                      isFollowing={isFollowing}
+                      buttonType="auto"
+                      size="middle"
+                      onFollowChange={(newFollowingState) => {
+                        setIsFollowing(newFollowingState);
+                        // 팔로워 수 업데이트
+                        if (profile) {
+                          setProfile({
+                            ...profile,
+                            followersCount:
+                              profile.followersCount +
+                              (newFollowingState ? 1 : -1),
+                          });
+                        }
+
+                        // 팔로잉/팔로워 목록에서도 현재 프로필 사용자의 상태 업데이트
+                        setFollowingList((prev) =>
+                          prev.map((item) =>
+                            item.userId === profile.userSub
+                              ? {
+                                  ...item,
+                                  isFollowedByRequester: newFollowingState,
+                                }
+                              : item
+                          )
+                        );
+                        setFollowersList((prev) =>
+                          prev.map((item) =>
+                            item.userId === profile.userSub
+                              ? {
+                                  ...item,
+                                  isFollowedByRequester: newFollowingState,
+                                }
+                              : item
+                          )
+                        );
+                      }}
+                      onLoginRequired={() => setIsLoginModalOpen(true)}
+                    />
+
+                    {/* 크리에이터인 경우에만 후원하기 버튼 표시 */}
+                    {profile.isCreator && (
+                      <Button
+                        type="primary"
+                        icon={<GiftOutlined />}
+                        size="middle"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%)",
+                          border: "none",
+                          borderRadius: "8px",
+                          fontWeight: "600",
+                          boxShadow: "0 2px 8px rgba(255, 107, 107, 0.3)",
+                        }}
+                        onClick={() => {
+                          if (!user) {
+                            setIsLoginModalOpen(true);
+                            return;
+                          }
+                          setIsDonationModalOpen(true);
+                        }}
+                      >
+                        후원하기
+                      </Button>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -1067,6 +1123,18 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
       />
+
+      {/* 후원하기 모달 */}
+      {profile && (
+        <DonationModal
+          open={isDonationModalOpen}
+          onClose={() => setIsDonationModalOpen(false)}
+          creatorName={profile.name}
+          creatorHandle={profile.handle}
+          creatorAvatar={profile.avatar}
+          onSubmit={handleDonationSubmit}
+        />
+      )}
     </Layout>
   );
 }
