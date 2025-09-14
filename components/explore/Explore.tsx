@@ -370,7 +370,7 @@ export default function Explore() {
                 : isTablet
                 ? "repeat(2, 1fr)"
                 : "repeat(3, 1fr)",
-              gap: isMobile ? "12px" : "16px",
+              gap: isMobile ? "8px" : isTablet ? "12px" : "16px",
             }}
           >
             {newCreators.map((creator) => (
@@ -379,11 +379,20 @@ export default function Explore() {
                 style={{
                   borderRadius: 16,
                   overflow: "hidden",
-                  aspectRatio: "4/5",
+                  height: isMobile ? "280px" : isTablet ? "320px" : "360px",
                   position: "relative",
                   cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
-                styles={{ body: { padding: 0 } }}
+                styles={{
+                  body: {
+                    padding: 0,
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                  },
+                }}
                 onClick={() => router.push(`/${creator.handle}`)}
                 cover={
                   <div
@@ -429,21 +438,29 @@ export default function Explore() {
                   </div>
                 }
               >
-                <div style={{ padding: "16px" }}>
+                <div
+                  style={{
+                    padding: isMobile ? "12px" : "16px",
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: 0,
+                  }}
+                >
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      marginBottom: 12,
+                      marginBottom: isMobile ? "8px" : "12px",
                       position: "relative",
                     }}
                   >
                     <Avatar
-                      size={40}
+                      size={isMobile ? 36 : isTablet ? 40 : 40}
                       src={creator.avatar}
                       icon={<UserOutlined />}
                       style={{
-                        marginRight: 12,
+                        marginRight: isMobile ? "8px" : "12px",
                         border: "2px solid white",
                         marginTop: "-20px",
                       }}
@@ -452,49 +469,66 @@ export default function Explore() {
                       <div
                         style={{
                           fontWeight: 600,
-                          fontSize: 14,
+                          fontSize: isMobile ? 13 : 14,
                           marginBottom: 2,
                         }}
                       >
-                        <ScrollingText maxLength={12}>
+                        <ScrollingText maxLength={isMobile ? 10 : 12}>
                           {creator.nickname}
                         </ScrollingText>
                       </div>
-                      <Text type="secondary" style={{ fontSize: 12 }}>
+                      <Text
+                        type="secondary"
+                        style={{ fontSize: isMobile ? 11 : 12 }}
+                      >
                         {creator.handle}
                       </Text>
                     </div>
                   </div>
 
-                  <Text
+                  <div
                     style={{
-                      fontSize: 13,
-                      marginBottom: 12,
-                      lineHeight: "1.4",
-                      height: "35px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
+                      flex: 1,
+                      minHeight: 0,
+                      marginBottom: isMobile ? "8px" : "12px",
                     }}
                   >
-                    {creator.bio}
-                  </Text>
+                    <Text
+                      style={{
+                        fontSize: isMobile ? 12 : 13,
+                        lineHeight: "1.4",
+                        display: "-webkit-box",
+                        WebkitLineClamp: isMobile ? 2 : 3,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {creator.bio}
+                    </Text>
+                  </div>
 
                   <div
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
+                      fontSize: isMobile ? 10 : 11,
+                      flexShrink: 0,
                       marginTop: "auto",
-                      fontSize: 11,
                     }}
                   >
-                    <Text type="secondary" style={{ fontSize: 11 }}>
+                    <Text
+                      type="secondary"
+                      style={{ fontSize: isMobile ? 10 : 11 }}
+                    >
                       팔로워 {formatNumber(creator.followerCount)}
                     </Text>
-                    <Text type="secondary" style={{ fontSize: 11 }}>
+                    <Text
+                      type="secondary"
+                      style={{ fontSize: isMobile ? 10 : 11 }}
+                    >
                       게시물 {creator.postCount}개
                     </Text>
                   </div>
@@ -519,7 +553,7 @@ export default function Explore() {
               <div
                 style={{
                   display: "flex",
-                  gap: "12px",
+                  gap: isMobile ? "8px" : "10px",
                   overflowX: "auto",
                   paddingBottom: "8px",
                   scrollbarWidth: "thin",
@@ -530,21 +564,23 @@ export default function Explore() {
                   <Button
                     key={category.id}
                     type="default"
-                    size="large"
+                    size="middle"
                     onClick={() => handleFilterChange(category.name)}
                     style={{
-                      borderRadius: "25px",
-                      height: "44px",
-                      paddingLeft: "20px",
-                      paddingRight: "20px",
-                      fontSize: "14px",
+                      borderRadius: "20px",
+                      height: isMobile ? "32px" : "36px",
+                      paddingLeft: isMobile ? "12px" : "16px",
+                      paddingRight: isMobile ? "12px" : "16px",
+                      fontSize: isMobile ? "12px" : "13px",
                       fontWeight: "500",
-                      border: "2px solid #d9d9d9",
+                      border: "1px solid #d9d9d9",
                       backgroundColor: "#fff",
                       color: "#666",
                       transition: "all 0.3s ease",
-                      minWidth: "100px",
+                      minWidth: isMobile ? "80px" : "90px",
                       flexShrink: 0,
+                      whiteSpace: "nowrap",
+                      touchAction: "pan-x",
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor =
@@ -593,7 +629,7 @@ export default function Explore() {
                       : isTablet
                       ? "repeat(2, 1fr)"
                       : "repeat(3, 1fr)",
-                    gap: isMobile ? "12px" : "16px",
+                    gap: isMobile ? "8px" : isTablet ? "12px" : "16px",
                     marginBottom: 20,
                   }}
                 >
@@ -604,11 +640,24 @@ export default function Explore() {
                         style={{
                           borderRadius: 16,
                           overflow: "hidden",
-                          aspectRatio: "4/5",
+                          height: isMobile
+                            ? "280px"
+                            : isTablet
+                            ? "320px"
+                            : "360px",
                           position: "relative",
                           cursor: "pointer",
+                          display: "flex",
+                          flexDirection: "column",
                         }}
-                        styles={{ body: { padding: 0 } }}
+                        styles={{
+                          body: {
+                            padding: 0,
+                            height: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                          },
+                        }}
                         onClick={() => router.push(`/${creator.handle}`)}
                         cover={
                           <div
@@ -655,17 +704,25 @@ export default function Explore() {
                           </div>
                         }
                       >
-                        <div style={{ padding: "16px" }}>
+                        <div
+                          style={{
+                            padding: isMobile ? "12px" : "16px",
+                            flex: 1,
+                            display: "flex",
+                            flexDirection: "column",
+                            minHeight: 0,
+                          }}
+                        >
                           <div
                             style={{
                               display: "flex",
                               alignItems: "center",
-                              marginBottom: 12,
+                              marginBottom: isMobile ? "8px" : "12px",
                               position: "relative",
                             }}
                           >
                             <Avatar
-                              size={52}
+                              size={isMobile ? 40 : isTablet ? 46 : 52}
                               src={creator.avatar}
                               icon={<UserOutlined />}
                               style={{
@@ -677,48 +734,65 @@ export default function Explore() {
                               <div
                                 style={{
                                   fontWeight: 600,
-                                  fontSize: 14,
+                                  fontSize: isMobile ? 13 : 14,
                                 }}
                               >
-                                <ScrollingText maxLength={12}>
+                                <ScrollingText maxLength={isMobile ? 10 : 12}>
                                   {creator.nickname}
                                 </ScrollingText>
                               </div>
-                              <Text type="secondary" style={{ fontSize: 12 }}>
+                              <Text
+                                type="secondary"
+                                style={{ fontSize: isMobile ? 11 : 12 }}
+                              >
                                 {creator.handle}
                               </Text>
                             </div>
                           </div>
 
-                          <Text
+                          <div
                             style={{
-                              fontSize: 13,
-                              marginBottom: 12,
-                              lineHeight: "1.4",
-                              height: "35px",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              display: "-webkit-box",
-                              WebkitLineClamp: 2,
-                              WebkitBoxOrient: "vertical",
+                              flex: 1,
+                              minHeight: 0,
+                              marginBottom: isMobile ? "8px" : "12px",
                             }}
                           >
-                            {creator.bio}
-                          </Text>
+                            <Text
+                              style={{
+                                fontSize: isMobile ? 12 : 13,
+                                lineHeight: "1.4",
+                                display: "-webkit-box",
+                                WebkitLineClamp: isMobile ? 2 : 3,
+                                WebkitBoxOrient: "vertical",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                wordBreak: "break-word",
+                              }}
+                            >
+                              {creator.bio}
+                            </Text>
+                          </div>
 
                           <div
                             style={{
                               display: "flex",
                               justifyContent: "space-between",
                               alignItems: "center",
+                              fontSize: isMobile ? 10 : 11,
+                              flexShrink: 0,
                               marginTop: "auto",
-                              fontSize: 11,
                             }}
                           >
-                            <Text type="secondary" style={{ fontSize: 11 }}>
+                            <Text
+                              type="secondary"
+                              style={{ fontSize: isMobile ? 10 : 11 }}
+                            >
                               팔로워 {formatNumber(creator.followerCount)}
                             </Text>
-                            <Text type="secondary" style={{ fontSize: 11 }}>
+                            <Text
+                              type="secondary"
+                              style={{ fontSize: isMobile ? 10 : 11 }}
+                            >
                               게시물 {creator.postCount}개
                             </Text>
                           </div>
