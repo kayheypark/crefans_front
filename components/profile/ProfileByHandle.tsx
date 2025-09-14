@@ -378,8 +378,8 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
       post.videoCount ||
       post.media?.filter((m) => m.type === "VIDEO").length ||
       0,
-    // API에서 받은 hasAccess 값을 사용, 기본값은 true
-    isGotMembership: post.hasAccess !== false,
+    // API에서 받은 실제 멤버십 상태 사용 (백엔드에서 구독 상태 기반으로 계산됨)
+    isGotMembership: post.isGotMembership,
     // 실제 API 데이터를 기반으로 멤버십 전용 여부 결정
     isMembershipOnly: post.isMembershipOnly || false,
     // 실제 API 응답 데이터 사용
