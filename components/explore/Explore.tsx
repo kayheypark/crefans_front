@@ -10,6 +10,13 @@ import { UserOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { useResponsive } from "@/hooks/useResponsive";
 import FeedFilter from "@/components/common/FeedFilter";
+import {
+  exploreAPI,
+  Creator,
+  CreatorCategory,
+  NewCreatorsResponse,
+  CreatorsByCategoryResponse
+} from "@/lib/api/explore";
 
 const { Title, Text } = Typography;
 
@@ -58,19 +65,6 @@ const ScrollingText = ({
   );
 };
 
-interface Creator {
-  id: number;
-  name: string;
-  handle: string;
-  avatar: string;
-  bio: string;
-  followerCount: number;
-  postCount: number;
-  category?: string;
-  isNew?: boolean;
-  bannerImage?: string;
-}
-
 interface ExploreData {
   newCreators: Creator[];
   popularCreators: {
@@ -85,45 +79,54 @@ interface ExploreMoreData {
 export default function Explore() {
   const router = useRouter();
   const { isMobile, isTablet, isDesktop } = useResponsive();
-  const [exploreData, setExploreData] = useState<ExploreData | null>(null);
-  const [exploreMoreData, setExploreMoreData] =
-    useState<ExploreMoreData | null>(null);
+
+  // Real API state
+  const [categories, setCategories] = useState<CreatorCategory[]>([]);
+  const [newCreators, setNewCreators] = useState<Creator[]>([]);
+  const [creatorsData, setCreatorsData] = useState<{ [key: string]: Creator[] }>({});
   const [loading, setLoading] = useState(true);
-  const [displayCounts, setDisplayCounts] = useState<{ [key: string]: number }>(
-    {
-      ASMR: 6,
-      버튜버: 6,
-      먹방: 6,
-      운동: 6,
-      게임: 6,
-      주식: 6,
-    }
-  );
-  const [expandedBios, setExpandedBios] = useState<{ [key: string]: boolean }>(
-    {}
-  );
+  const [loadingMore, setLoadingMore] = useState<{ [key: string]: boolean }>({});
+  const [cursors, setCursors] = useState<{ [key: string]: string | undefined }>({});
+  const [hasMore, setHasMore] = useState<{ [key: string]: boolean }>({});
+  const [displayCounts, setDisplayCounts] = useState<{ [key: string]: number }>({});
+  const [expandedBios, setExpandedBios] = useState<{ [key: string]: boolean }>({});
   const [activeFilter, setActiveFilter] = useState("모든 카테고리");
 
-  const categories = ["ASMR", "버튜버", "먹방", "운동", "게임", "주식"];
-
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchInitialData = async () => {
       try {
-        const [exploreResponse, moreResponse] = await Promise.all([
-          fetch("/mock/explore.json"),
-          fetch("/mock/explore_more.json"),
+        console.log("Fetching explore data...");
+
+        // Fetch categories and new creators in parallel
+        const [categoriesData, newCreatorsData] = await Promise.all([
+          exploreAPI.getCategories(),
+          exploreAPI.getNewCreators(20),
         ]);
 
-        const exploreApiResponse = await exploreResponse.json();
-        const moreApiResponse = await moreResponse.json();
+        console.log("Categories loaded:", categoriesData);
+        console.log("New creators loaded:", newCreatorsData);
 
-        console.log("로드된 데이터:", {
-          exploreData: exploreApiResponse.data,
-          moreData: moreApiResponse.data,
+        setCategories(categoriesData);
+        setNewCreators(newCreatorsData.creators);
+
+        // Initialize state for each category
+        const initialDisplayCounts: { [key: string]: number } = {};
+        const initialHasMore: { [key: string]: boolean } = {};
+        const initialCursors: { [key: string]: string | undefined } = {};
+        const initialCreatorsData: { [key: string]: Creator[] } = {};
+
+        categoriesData.forEach((category) => {
+          initialDisplayCounts[category.name] = 6;
+          initialHasMore[category.name] = true;
+          initialCursors[category.name] = undefined;
+          initialCreatorsData[category.name] = [];
         });
 
-        setExploreData(exploreApiResponse.data);
-        setExploreMoreData(moreApiResponse.data);
+        setDisplayCounts(initialDisplayCounts);
+        setHasMore(initialHasMore);
+        setCursors(initialCursors);
+        setCreatorsData(initialCreatorsData);
+
       } catch (error) {
         console.error("Failed to fetch explore data:", error);
       } finally {
@@ -131,8 +134,7 @@ export default function Explore() {
       }
     };
 
-    fetchData();
-    // eslint-disable-next-line
+    fetchInitialData();
   }, []);
 
   const formatNumber = (num: number) => {
@@ -144,11 +146,82 @@ export default function Explore() {
     return num.toString();
   };
 
-  const handleLoadMore = (category: string) => {
-    setDisplayCounts((prev) => ({
+  // Function to load creators for a specific category
+  const loadCategoryCreators = async (categoryName: string) => {
+    const category = categories.find(cat => cat.name === categoryName);
+    if (!category) return;
+
+    try {
+      const response = await exploreAPI.getCreatorsByCategory(
+        category.id,
+        displayCounts[categoryName] || 6,
+        cursors[categoryName]
+      );
+
+      setCreatorsData(prev => ({
+        ...prev,
+        [categoryName]: response.creators
+      }));
+
+      setHasMore(prev => ({
+        ...prev,
+        [categoryName]: response.hasMore
+      }));
+
+      setCursors(prev => ({
+        ...prev,
+        [categoryName]: response.nextCursor
+      }));
+    } catch (error) {
+      console.error(`Failed to load creators for ${categoryName}:`, error);
+    }
+  };
+
+  const handleLoadMore = async (categoryName: string) => {
+    if (loadingMore[categoryName]) return;
+
+    setLoadingMore(prev => ({
       ...prev,
-      [category]: prev[category] + 6,
+      [categoryName]: true
     }));
+
+    try {
+      const category = categories.find(cat => cat.name === categoryName);
+      if (!category) return;
+
+      const response = await exploreAPI.getCreatorsByCategory(
+        category.id,
+        6, // Load 6 more
+        cursors[categoryName]
+      );
+
+      setCreatorsData(prev => ({
+        ...prev,
+        [categoryName]: [...(prev[categoryName] || []), ...response.creators]
+      }));
+
+      setDisplayCounts(prev => ({
+        ...prev,
+        [categoryName]: (prev[categoryName] || 0) + 6
+      }));
+
+      setHasMore(prev => ({
+        ...prev,
+        [categoryName]: response.hasMore
+      }));
+
+      setCursors(prev => ({
+        ...prev,
+        [categoryName]: response.nextCursor
+      }));
+    } catch (error) {
+      console.error(`Failed to load more creators for ${categoryName}:`, error);
+    } finally {
+      setLoadingMore(prev => ({
+        ...prev,
+        [categoryName]: false
+      }));
+    }
   };
 
   const toggleBioExpansion = (creatorId: string) => {
@@ -162,25 +235,22 @@ export default function Explore() {
     setActiveFilter(filter);
   };
 
-  const getDisplayCreators = (category: string) => {
-    if (!exploreData || !exploreMoreData) return [];
+  // Load category data when filter changes to a specific category
+  useEffect(() => {
+    if (activeFilter !== "모든 카테고리" && activeFilter !== "신규" && categories.length > 0) {
+      const category = categories.find(cat => cat.name === activeFilter);
+      if (category && !creatorsData[activeFilter]?.length) {
+        loadCategoryCreators(activeFilter);
+      }
+    }
+  }, [activeFilter, categories]);
 
-    const initialCreators = exploreData.popularCreators[category] || [];
-    const moreCreators = exploreMoreData[category] || [];
-    const displayCount = displayCounts[category] || 6;
-
-    const allCreators = [...initialCreators, ...moreCreators];
-    return allCreators.slice(0, displayCount);
+  const getDisplayCreators = (categoryName: string) => {
+    return creatorsData[categoryName] || [];
   };
 
-  const hasMoreCreators = (category: string) => {
-    if (!exploreData || !exploreMoreData) return false;
-
-    const initialCount = exploreData.popularCreators[category]?.length || 0;
-    const moreCount = exploreMoreData[category]?.length || 0;
-    const totalCount = initialCount + moreCount;
-
-    return displayCounts[category] < totalCount;
+  const hasMoreCreators = (categoryName: string) => {
+    return hasMore[categoryName] || false;
   };
 
   if (loading) {
@@ -197,7 +267,7 @@ export default function Explore() {
     );
   }
 
-  if (!exploreData) {
+  if (!loading && categories.length === 0) {
     return (
       <div
         style={{
@@ -226,8 +296,10 @@ export default function Explore() {
         filters={[
           { key: "모든 카테고리", label: "모든 카테고리" },
           { key: "신규", label: "신규" },
-          { key: "버튜버", label: "버튜버" },
-          { key: "주식", label: "주식" },
+          ...categories.map(category => ({
+            key: category.name,
+            label: category.name
+          }))
         ]}
         type="explore"
         style={{ marginBottom: 30 }}
@@ -250,7 +322,7 @@ export default function Explore() {
               gap: isMobile ? "12px" : "16px",
             }}
           >
-            {exploreData.newCreators.map((creator) => (
+            {newCreators.map((creator) => (
               <Card
                 key={creator.id}
                 style={{
@@ -334,7 +406,7 @@ export default function Explore() {
                         }}
                       >
                         <ScrollingText maxLength={12}>
-                          {creator.name}
+                          {creator.nickname}
                         </ScrollingText>
                       </div>
                       <Text type="secondary" style={{ fontSize: 12 }}>
@@ -406,10 +478,10 @@ export default function Explore() {
               >
                 {categories.map((category) => (
                   <Button
-                    key={category}
+                    key={category.id}
                     type="default"
                     size="large"
-                    onClick={() => handleFilterChange(category)}
+                    onClick={() => handleFilterChange(category.name)}
                     style={{
                       borderRadius: "25px",
                       height: "44px",
@@ -425,8 +497,8 @@ export default function Explore() {
                       flexShrink: 0,
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "#1890ff";
-                      e.currentTarget.style.color = "#1890ff";
+                      e.currentTarget.style.borderColor = category.color_code || "#1890ff";
+                      e.currentTarget.style.color = category.color_code || "#1890ff";
                       e.currentTarget.style.backgroundColor = "#f0f8ff";
                     }}
                     onMouseLeave={(e) => {
@@ -435,7 +507,7 @@ export default function Explore() {
                       e.currentTarget.style.backgroundColor = "#fff";
                     }}
                   >
-                    {category}
+                    {category.icon} {category.name}
                   </Button>
                 ))}
               </div>
@@ -445,14 +517,13 @@ export default function Explore() {
           {categories
             .filter((category) => {
               if (activeFilter === "모든 카테고리") return true;
-              if (activeFilter === "버튜버") return category === "버튜버";
-              if (activeFilter === "주식") return category === "주식";
-              return false;
+              return category.name === activeFilter;
             })
             .map((category) => (
-              <div key={category} style={{ marginBottom: 40 }}>
-                <Title level={4} style={{ marginBottom: 16 }}>
-                  {category}
+              <div key={category.id} style={{ marginBottom: 40 }}>
+                <Title level={4} style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span>{category.icon}</span>
+                  <span>{category.name}</span>
                 </Title>
                 <div
                   style={{
@@ -466,8 +537,8 @@ export default function Explore() {
                     marginBottom: 20,
                   }}
                 >
-                  {getDisplayCreators(category).length > 0 ? (
-                    getDisplayCreators(category).map((creator) => (
+                  {getDisplayCreators(category.name).length > 0 ? (
+                    getDisplayCreators(category.name).map((creator) => (
                       <Card
                         key={creator.id}
                         style={{
@@ -520,9 +591,11 @@ export default function Explore() {
                                 right: 8,
                                 fontSize: 10,
                                 margin: 0,
+                                backgroundColor: category.color_code || "#1890ff",
+                                borderColor: category.color_code || "#1890ff",
                               }}
                             >
-                              {category}
+                              {category.name}
                             </Tag>
                           </div>
                         }
@@ -553,7 +626,7 @@ export default function Explore() {
                                 }}
                               >
                                 <ScrollingText maxLength={12}>
-                                  {creator.name}
+                                  {creator.nickname}
                                 </ScrollingText>
                               </div>
                               <Text type="secondary" style={{ fontSize: 12 }}>
@@ -607,19 +680,20 @@ export default function Explore() {
                       }}
                     >
                       <Text type="secondary" style={{ fontSize: "16px" }}>
-                        {category} 카테고리의 크리에이터가 없습니다.
+                        {category.name} 카테고리의 크리에이터가 없습니다.
                       </Text>
                     </div>
                   )}
                 </div>
-                {hasMoreCreators(category) && (
+                {hasMoreCreators(category.name) && (
                   <div style={{ textAlign: "center" }}>
                     <Button
                       type="default"
-                      onClick={() => handleLoadMore(category)}
+                      onClick={() => handleLoadMore(category.name)}
                       style={{ marginTop: 16 }}
+                      loading={loadingMore[category.name]}
                     >
-                      {category} 더보기
+                      {category.name} 더보기
                     </Button>
                   </div>
                 )}

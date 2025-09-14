@@ -45,6 +45,7 @@ import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
 import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
 import { IPost } from "@/types/post";
+import { CreatorCategory } from "@/types/creator";
 import { getPostUrl } from "@/utils/env";
 
 const { Title, Paragraph, Text } = Typography;
@@ -74,6 +75,7 @@ interface UserProfile {
   mediaCount: number;
   userSub?: string; // 팔로우 API 호출을 위한 userSub 추가
   isFollowing?: boolean; // 팔로우 상태 추가
+  category?: CreatorCategory | null; // 크리에이터 카테고리 정보 추가
 }
 
 interface ProfileByHandleProps {
@@ -959,16 +961,35 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                 <Tag
                   color="gold"
                   icon={<CrownOutlined />}
-                  style={{ fontSize: 12 }}
+                  style={{ fontSize: 12, marginRight: 8 }}
                 >
                   크리에이터
                 </Tag>
+
+                {/* 크리에이터 카테고리 태그 표시 */}
+                {profile.category && (
+                  <Tag
+                    style={{
+                      fontSize: 12,
+                      backgroundColor: profile.category.color_code || '#666',
+                      borderColor: profile.category.color_code || '#666',
+                      color: '#fff',
+                      marginRight: 8,
+                    }}
+                  >
+                    {profile.category.icon && (
+                      <span style={{ marginRight: 4 }}>{profile.category.icon}</span>
+                    )}
+                    {profile.category.name}
+                  </Tag>
+                )}
+
                 {profile.isVerified && (
                   <CheckCircleOutlined
                     style={{
                       color: "#1890ff",
                       fontSize: "16px",
-                      marginLeft: 8,
+                      marginLeft: 4,
                     }}
                   />
                 )}
