@@ -2,14 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Spin, Empty, message, Layout } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Spin, Empty, message, Layout, Modal, Input, Button, Space } from "antd";
+import { ArrowLeftOutlined, LinkOutlined, FacebookOutlined, TwitterOutlined, InstagramOutlined } from "@ant-design/icons";
 import Post from "@/components/post/Post";
+import ReportModal from "@/components/modals/ReportModal";
+import LoginModal from "@/components/modals/LoginModal";
 import { postingApi } from "@/lib/api/posting";
 import { IPost } from "@/types/post";
 import { useAuth } from "@/contexts/AuthContext";
 import { useResponsive } from "@/hooks/useResponsive";
 import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
+import { getPostUrl } from "@/utils/env";
 
 export default function PostPage() {
   const params = useParams();
@@ -20,6 +23,12 @@ export default function PostPage() {
   const [post, setPost] = useState<IPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Modal state management
+  const [isShareModalVisible, setIsShareModalVisible] = useState(false);
+  const [isReportModalVisible, setIsReportModalVisible] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
 
   // Post 컴포넌트에서 사용할 상태들
   const [likedPosts, setLikedPosts] = useState<string[]>([]);
@@ -107,7 +116,7 @@ export default function PostPage() {
   // Post 컴포넌트에서 사용할 핸들러들
   const handleLike = async (postId: string) => {
     if (!user) {
-      message.warning("로그인이 필요합니다.");
+      setIsLoginModalOpen(true);
       return;
     }
 
@@ -210,7 +219,7 @@ export default function PostPage() {
 
   const handleCommentInputClick = () => {
     if (!user) {
-      message.warning("로그인이 필요합니다.");
+      setIsLoginModalOpen(true);
     }
   };
 
@@ -219,13 +228,27 @@ export default function PostPage() {
   };
 
   const handleSharePost = (postId: string) => {
-    // 공유 기능은 상위 컴포넌트에서 처리하므로 여기서는 빈 함수
-    console.log("Share post:", postId);
+    setSelectedPostId(postId);
+    setIsShareModalVisible(true);
   };
 
   const handleReportPost = (postId: string) => {
-    // 신고 기능은 상위 컴포넌트에서 처리하므로 여기서는 빈 함수
-    console.log("Report post:", postId);
+    if (!user) {
+      setIsLoginModalOpen(true);
+      return;
+    }
+    setSelectedPostId(postId);
+    setIsReportModalVisible(true);
+  };
+
+  const handleShare = (type: string) => {
+    message.success(`${type}로 공유되었습니다.`);
+    setIsShareModalVisible(false);
+  };
+
+  const handleReport = (values: any) => {
+    message.success("신고가 접수되었습니다.");
+    setIsReportModalVisible(false);
   };
 
   const formatDate = (dateString: string) => {
@@ -368,6 +391,86 @@ export default function PostPage() {
         onReport={handleReportPost}
         formatDate={formatDate}
         formatFullDate={formatFullDate}
+      />
+
+      {/* 공유하기 모달 */}
+      <Modal
+        title="공유하기"
+        open={isShareModalVisible}
+        onCancel={() => setIsShareModalVisible(false)}
+        footer={null}
+        width={400}
+      >
+        <div style={{ textAlign: "center" }}>
+          <Space direction="vertical" size="large" style={{ width: "100%" }}>
+            <div>
+              <Input
+                value={getPostUrl(selectedPostId || "")}
+                readOnly
+                suffix={
+                  <Button
+                    type="text"
+                    icon={<LinkOutlined />}
+                    onClick={() => {
+                      navigator.clipboard.writeText(
+                        getPostUrl(selectedPostId || "")
+                      );
+                      message.success("링크가 복사되었습니다.");
+                    }}
+                  />
+                }
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "24px",
+              }}
+            >
+              <Button
+                type="text"
+                icon={
+                  <FacebookOutlined
+                    style={{ fontSize: "24px", color: "#1877F2" }}
+                  />
+                }
+                onClick={() => handleShare("Facebook")}
+              />
+              <Button
+                type="text"
+                icon={
+                  <TwitterOutlined
+                    style={{ fontSize: "24px", color: "#1DA1F2" }}
+                  />
+                }
+                onClick={() => handleShare("Twitter")}
+              />
+              <Button
+                type="text"
+                icon={
+                  <InstagramOutlined
+                    style={{ fontSize: "24px", color: "#E4405F" }}
+                  />
+                }
+                onClick={() => handleShare("Instagram")}
+              />
+            </div>
+          </Space>
+        </div>
+      </Modal>
+
+      {/* 신고하기 모달 */}
+      <ReportModal
+        open={isReportModalVisible}
+        onClose={() => setIsReportModalVisible(false)}
+        onSubmit={handleReport}
+      />
+
+      {/* 로그인 모달 */}
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
       />
     </Layout>
   );
