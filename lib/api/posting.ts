@@ -1,5 +1,5 @@
-import { 
-  CreatePostingDto, 
+import {
+  CreatePostingDto,
   UpdatePostingDto,
   PostingListResponse,
   PostingDetailResponse,
@@ -7,8 +7,7 @@ import {
 } from '@/types/posting';
 import { apiClient } from './client';
 import { PostingLikeResponse } from '@/types/api';
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+import { API_BASE_URL } from './config';
 
 export const postingApi = {
   // 포스팅 생성
