@@ -45,6 +45,7 @@ import Spacings from "@/lib/constants/spacings";
 import { Layout } from "antd";
 import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
 import { IPost } from "@/types/post";
+import { getPostUrl } from "@/utils/env";
 
 const { Title, Paragraph, Text } = Typography;
 interface MediaItem {
@@ -1092,7 +1093,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
           <Space direction="vertical" size="large" style={{ width: "100%" }}>
             <div>
               <Input
-                value={`https://www.crefans.com/post/${selectedPostId}`}
+                value={getPostUrl(selectedPostId || "")}
                 readOnly
                 suffix={
                   <Button
@@ -1100,7 +1101,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                     icon={<ShareAltOutlined />}
                     onClick={() => {
                       navigator.clipboard.writeText(
-                        `https://www.crefans.com/post/${selectedPostId}`
+                        getPostUrl(selectedPostId || "")
                       );
                       message.success("링크가 복사되었습니다.");
                     }}
