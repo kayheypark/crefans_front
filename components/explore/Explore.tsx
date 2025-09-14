@@ -10,12 +10,13 @@ import { UserOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { useResponsive } from "@/hooks/useResponsive";
 import FeedFilter from "@/components/common/FeedFilter";
+import CategoryTag from "@/components/common/CategoryTag";
 import {
   exploreAPI,
   Creator,
   CreatorCategory,
   NewCreatorsResponse,
-  CreatorsByCategoryResponse
+  CreatorsByCategoryResponse,
 } from "@/lib/api/explore";
 
 const { Title, Text } = Typography;
@@ -83,13 +84,23 @@ export default function Explore() {
   // Real API state
   const [categories, setCategories] = useState<CreatorCategory[]>([]);
   const [newCreators, setNewCreators] = useState<Creator[]>([]);
-  const [creatorsData, setCreatorsData] = useState<{ [key: string]: Creator[] }>({});
+  const [creatorsData, setCreatorsData] = useState<{
+    [key: string]: Creator[];
+  }>({});
   const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState<{ [key: string]: boolean }>({});
-  const [cursors, setCursors] = useState<{ [key: string]: string | undefined }>({});
+  const [loadingMore, setLoadingMore] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+  const [cursors, setCursors] = useState<{ [key: string]: string | undefined }>(
+    {}
+  );
   const [hasMore, setHasMore] = useState<{ [key: string]: boolean }>({});
-  const [displayCounts, setDisplayCounts] = useState<{ [key: string]: number }>({});
-  const [expandedBios, setExpandedBios] = useState<{ [key: string]: boolean }>({});
+  const [displayCounts, setDisplayCounts] = useState<{ [key: string]: number }>(
+    {}
+  );
+  const [expandedBios, setExpandedBios] = useState<{ [key: string]: boolean }>(
+    {}
+  );
   const [activeFilter, setActiveFilter] = useState("모든 카테고리");
 
   useEffect(() => {
@@ -126,7 +137,6 @@ export default function Explore() {
         setHasMore(initialHasMore);
         setCursors(initialCursors);
         setCreatorsData(initialCreatorsData);
-
       } catch (error) {
         console.error("Failed to fetch explore data:", error);
       } finally {
@@ -148,13 +158,15 @@ export default function Explore() {
 
   // Function to load creators for a specific category
   const loadCategoryCreators = async (categoryName: string) => {
-    const category = categories.find(cat => cat.name === categoryName);
+    const category = categories.find((cat) => cat.name === categoryName);
     if (!category) {
       console.log(`Category not found: ${categoryName}`);
       return;
     }
 
-    console.log(`Loading creators for category: ${categoryName} (ID: ${category.id})`);
+    console.log(
+      `Loading creators for category: ${categoryName} (ID: ${category.id})`
+    );
 
     try {
       const response = await exploreAPI.getCreatorsByCategory(
@@ -165,30 +177,30 @@ export default function Explore() {
 
       console.log(`API response for ${categoryName}:`, response);
 
-      setCreatorsData(prev => ({
+      setCreatorsData((prev) => ({
         ...prev,
-        [categoryName]: response.creators
+        [categoryName]: response.creators,
       }));
 
-      setHasMore(prev => ({
+      setHasMore((prev) => ({
         ...prev,
-        [categoryName]: response.hasMore
+        [categoryName]: response.hasMore,
       }));
 
-      setCursors(prev => ({
+      setCursors((prev) => ({
         ...prev,
-        [categoryName]: response.nextCursor
+        [categoryName]: response.nextCursor,
       }));
     } catch (error) {
       console.error(`Failed to load creators for ${categoryName}:`, error);
       // Set empty array to prevent infinite retry
-      setCreatorsData(prev => ({
+      setCreatorsData((prev) => ({
         ...prev,
-        [categoryName]: []
+        [categoryName]: [],
       }));
-      setHasMore(prev => ({
+      setHasMore((prev) => ({
         ...prev,
-        [categoryName]: false
+        [categoryName]: false,
       }));
     }
   };
@@ -196,13 +208,13 @@ export default function Explore() {
   const handleLoadMore = async (categoryName: string) => {
     if (loadingMore[categoryName]) return;
 
-    setLoadingMore(prev => ({
+    setLoadingMore((prev) => ({
       ...prev,
-      [categoryName]: true
+      [categoryName]: true,
     }));
 
     try {
-      const category = categories.find(cat => cat.name === categoryName);
+      const category = categories.find((cat) => cat.name === categoryName);
       if (!category) return;
 
       const response = await exploreAPI.getCreatorsByCategory(
@@ -211,31 +223,31 @@ export default function Explore() {
         cursors[categoryName]
       );
 
-      setCreatorsData(prev => ({
+      setCreatorsData((prev) => ({
         ...prev,
-        [categoryName]: [...(prev[categoryName] || []), ...response.creators]
+        [categoryName]: [...(prev[categoryName] || []), ...response.creators],
       }));
 
-      setDisplayCounts(prev => ({
+      setDisplayCounts((prev) => ({
         ...prev,
-        [categoryName]: (prev[categoryName] || 0) + 6
+        [categoryName]: (prev[categoryName] || 0) + 6,
       }));
 
-      setHasMore(prev => ({
+      setHasMore((prev) => ({
         ...prev,
-        [categoryName]: response.hasMore
+        [categoryName]: response.hasMore,
       }));
 
-      setCursors(prev => ({
+      setCursors((prev) => ({
         ...prev,
-        [categoryName]: response.nextCursor
+        [categoryName]: response.nextCursor,
       }));
     } catch (error) {
       console.error(`Failed to load more creators for ${categoryName}:`, error);
     } finally {
-      setLoadingMore(prev => ({
+      setLoadingMore((prev) => ({
         ...prev,
-        [categoryName]: false
+        [categoryName]: false,
       }));
     }
   };
@@ -254,24 +266,30 @@ export default function Explore() {
   // Load category data when filter changes to a specific category
   useEffect(() => {
     console.log(`Filter changed to: ${activeFilter}`);
-    console.log(`Categories available:`, categories.map(cat => cat.name));
+    console.log(
+      `Categories available:`,
+      categories.map((cat) => cat.name)
+    );
     console.log(`Current creators data:`, creatorsData);
 
     if (activeFilter === "모든 카테고리" && categories.length > 0) {
       // Load data for all categories when "모든 카테고리" is selected
-      categories.forEach(category => {
+      categories.forEach((category) => {
         if (!creatorsData[category.name]?.length) {
           console.log(`Loading data for category: ${category.name}`);
           loadCategoryCreators(category.name);
         }
       });
     } else if (activeFilter !== "신규" && categories.length > 0) {
-      const category = categories.find(cat => cat.name === activeFilter);
+      const category = categories.find((cat) => cat.name === activeFilter);
       if (category && !creatorsData[activeFilter]?.length) {
         console.log(`Triggering API call for category: ${activeFilter}`);
         loadCategoryCreators(activeFilter);
       } else if (category && creatorsData[activeFilter]?.length) {
-        console.log(`Category ${activeFilter} already has data:`, creatorsData[activeFilter]);
+        console.log(
+          `Category ${activeFilter} already has data:`,
+          creatorsData[activeFilter]
+        );
       } else if (!category) {
         console.log(`Category ${activeFilter} not found in categories list`);
       }
@@ -329,10 +347,10 @@ export default function Explore() {
         filters={[
           { key: "모든 카테고리", label: "모든 카테고리" },
           { key: "신규", label: "신규" },
-          ...categories.map(category => ({
+          ...categories.map((category) => ({
             key: category.name,
-            label: category.name
-          }))
+            label: category.name,
+          })),
         ]}
         type="explore"
         style={{ marginBottom: 30 }}
@@ -489,7 +507,7 @@ export default function Explore() {
 
       {/* 카테고리별 인기 크리에이터 섹션 */}
       {(activeFilter === "모든 카테고리" ||
-        categories.some(cat => cat.name === activeFilter)) && (
+        categories.some((cat) => cat.name === activeFilter)) && (
         <div>
           <Title level={3} style={{ marginBottom: 20 }}>
             카테고리별 인기 크리에이터
@@ -529,8 +547,10 @@ export default function Explore() {
                       flexShrink: 0,
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = category.color_code || "#1890ff";
-                      e.currentTarget.style.color = category.color_code || "#1890ff";
+                      e.currentTarget.style.borderColor =
+                        category.color_code || "#1890ff";
+                      e.currentTarget.style.color =
+                        category.color_code || "#1890ff";
                       e.currentTarget.style.backgroundColor = "#f0f8ff";
                     }}
                     onMouseLeave={(e) => {
@@ -553,7 +573,15 @@ export default function Explore() {
             })
             .map((category) => (
               <div key={category.id} style={{ marginBottom: 40 }}>
-                <Title level={4} style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Title
+                  level={4}
+                  style={{
+                    marginBottom: 16,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
                   <span>{category.icon}</span>
                   <span>{category.name}</span>
                 </Title>
@@ -615,20 +643,15 @@ export default function Explore() {
                                 crefans
                               </div>
                             )}
-                            <Tag
-                              color="blue"
+                            <div
                               style={{
                                 position: "absolute",
                                 top: 8,
                                 right: 8,
-                                fontSize: 10,
-                                margin: 0,
-                                backgroundColor: category.color_code || "#1890ff",
-                                borderColor: category.color_code || "#1890ff",
                               }}
                             >
-                              {category.name}
-                            </Tag>
+                              <CategoryTag category={category} size="small" />
+                            </div>
                           </div>
                         }
                       >

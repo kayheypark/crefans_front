@@ -20,6 +20,7 @@ import LoginModal from "@/components/modals/LoginModal";
 import DonationModal from "@/components/modals/DonationModal";
 import Post from "@/components/post/Post";
 import FollowButton from "@/components/common/FollowButton";
+import CategoryTag from "@/components/common/CategoryTag";
 import { followApi } from "@/lib/api/follow";
 import {
   ClockCircleOutlined,
@@ -968,20 +969,11 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
 
                 {/* 크리에이터 카테고리 태그 표시 */}
                 {profile.category && (
-                  <Tag
-                    style={{
-                      fontSize: 12,
-                      backgroundColor: profile.category.color_code || '#666',
-                      borderColor: profile.category.color_code || '#666',
-                      color: '#fff',
-                      marginRight: 8,
-                    }}
-                  >
-                    {profile.category.icon && (
-                      <span style={{ marginRight: 4 }}>{profile.category.icon}</span>
-                    )}
-                    {profile.category.name}
-                  </Tag>
+                  <CategoryTag
+                    category={profile.category}
+                    size="default"
+                    style={{ marginRight: 8 }}
+                  />
                 )}
 
                 {profile.isVerified && (
