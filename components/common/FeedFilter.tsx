@@ -28,7 +28,13 @@ export default function FeedFilter({
           display: "flex",
           gap: 8,
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: isMobile ? "flex-start" : "center",
+          overflowX: isMobile ? "auto" : "visible",
+          overflowY: "hidden",
+          paddingBottom: isMobile ? "8px" : "0",
+          WebkitOverflowScrolling: "touch",
+          scrollbarWidth: "thin",
+          scrollbarColor: "#d9d9d9 transparent",
           ...style,
         }}
       >
@@ -38,6 +44,9 @@ export default function FeedFilter({
             type={filter === filterItem.key ? "primary" : "default"}
             style={{
               fontSize: 14,
+              flexShrink: 0,
+              whiteSpace: "nowrap",
+              touchAction: "pan-x",
             }}
             onClick={() => onFilterChange(filterItem.key)}
           >
@@ -51,7 +60,18 @@ export default function FeedFilter({
   // explore 타입
   return (
     <div style={{ ...style }}>
-      <div style={{ display: "flex", gap: "8px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "8px",
+          overflowX: isMobile ? "auto" : "visible",
+          overflowY: "hidden",
+          paddingBottom: isMobile ? "8px" : "0",
+          WebkitOverflowScrolling: "touch",
+          scrollbarWidth: "thin",
+          scrollbarColor: "#d9d9d9 transparent",
+        }}
+      >
         {filters.map((filterItem) => (
           <Button
             key={filterItem.key}
@@ -62,6 +82,9 @@ export default function FeedFilter({
               height: "32px",
               padding: "0 16px",
               fontSize: "14px",
+              flexShrink: 0,
+              whiteSpace: "nowrap",
+              touchAction: "pan-x",
             }}
           >
             {filterItem.label}
