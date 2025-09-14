@@ -47,18 +47,24 @@ export default function PostPage() {
       content: postingData.content,
       isMembershipOnly: postingData.isMembership || false,
       // API에서 받은 실제 멤버십 상태 사용 (백엔드에서 구독 상태 기반으로 계산됨)
-      isGotMembership: postingData.isGotMembership !== undefined ? postingData.isGotMembership : true,
+      isGotMembership:
+        postingData.isGotMembership !== undefined
+          ? postingData.isGotMembership
+          : true,
       allowComments: true, // 기본값
       createdAt: postingData.createdAt,
       media: postingData.medias || [],
       textLength: postingData.content?.length || 0,
-      imageCount: postingData.medias?.filter((m: any) => m.type === "IMAGE").length || 0,
-      videoCount: postingData.medias?.filter((m: any) => m.type === "VIDEO").length || 0,
+      imageCount:
+        postingData.medias?.filter((m: any) => m.type === "IMAGE").length || 0,
+      videoCount:
+        postingData.medias?.filter((m: any) => m.type === "VIDEO").length || 0,
       commentCount: postingData.commentCount || 0,
       likeCount: postingData.likeCount || 0,
       isLiked: postingData.isLiked || false,
       // API에서 받은 실제 접근 권한 사용
-      hasAccess: postingData.hasAccess !== undefined ? postingData.hasAccess : true,
+      hasAccess:
+        postingData.hasAccess !== undefined ? postingData.hasAccess : true,
       membershipLevel: postingData.membershipLevel,
       allowIndividualPurchase: postingData.allowIndividualPurchase || false,
       individualPurchasePrice: postingData.individualPurchasePrice,
