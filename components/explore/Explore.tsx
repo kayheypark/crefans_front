@@ -149,7 +149,12 @@ export default function Explore() {
   // Function to load creators for a specific category
   const loadCategoryCreators = async (categoryName: string) => {
     const category = categories.find(cat => cat.name === categoryName);
-    if (!category) return;
+    if (!category) {
+      console.log(`Category not found: ${categoryName}`);
+      return;
+    }
+
+    console.log(`Loading creators for category: ${categoryName} (ID: ${category.id})`);
 
     try {
       const response = await exploreAPI.getCreatorsByCategory(
@@ -157,6 +162,8 @@ export default function Explore() {
         displayCounts[categoryName] || 6,
         cursors[categoryName]
       );
+
+      console.log(`API response for ${categoryName}:`, response);
 
       setCreatorsData(prev => ({
         ...prev,
@@ -174,6 +181,15 @@ export default function Explore() {
       }));
     } catch (error) {
       console.error(`Failed to load creators for ${categoryName}:`, error);
+      // Set empty array to prevent infinite retry
+      setCreatorsData(prev => ({
+        ...prev,
+        [categoryName]: []
+      }));
+      setHasMore(prev => ({
+        ...prev,
+        [categoryName]: false
+      }));
     }
   };
 
@@ -237,10 +253,27 @@ export default function Explore() {
 
   // Load category data when filter changes to a specific category
   useEffect(() => {
-    if (activeFilter !== "모든 카테고리" && activeFilter !== "신규" && categories.length > 0) {
+    console.log(`Filter changed to: ${activeFilter}`);
+    console.log(`Categories available:`, categories.map(cat => cat.name));
+    console.log(`Current creators data:`, creatorsData);
+
+    if (activeFilter === "모든 카테고리" && categories.length > 0) {
+      // Load data for all categories when "모든 카테고리" is selected
+      categories.forEach(category => {
+        if (!creatorsData[category.name]?.length) {
+          console.log(`Loading data for category: ${category.name}`);
+          loadCategoryCreators(category.name);
+        }
+      });
+    } else if (activeFilter !== "신규" && categories.length > 0) {
       const category = categories.find(cat => cat.name === activeFilter);
       if (category && !creatorsData[activeFilter]?.length) {
+        console.log(`Triggering API call for category: ${activeFilter}`);
         loadCategoryCreators(activeFilter);
+      } else if (category && creatorsData[activeFilter]?.length) {
+        console.log(`Category ${activeFilter} already has data:`, creatorsData[activeFilter]);
+      } else if (!category) {
+        console.log(`Category ${activeFilter} not found in categories list`);
       }
     }
   }, [activeFilter, categories]);
@@ -456,8 +489,7 @@ export default function Explore() {
 
       {/* 카테고리별 인기 크리에이터 섹션 */}
       {(activeFilter === "모든 카테고리" ||
-        activeFilter === "버튜버" ||
-        activeFilter === "주식") && (
+        categories.some(cat => cat.name === activeFilter)) && (
         <div>
           <Title level={3} style={{ marginBottom: 20 }}>
             카테고리별 인기 크리에이터

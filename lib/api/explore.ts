@@ -81,9 +81,11 @@ export const exploreAPI = {
       params.append("cursor", cursor);
     }
 
-    const response = await apiClient.get<ApiResponse<CreatorsByCategoryResponse>>(
-      `/explore/creators/by-category/${categoryId}?${params.toString()}`
-    );
+    const url = `/explore/creators/by-category/${categoryId}?${params.toString()}`;
+    console.log(`Making API request to: ${url}`);
+
+    const response = await apiClient.get<ApiResponse<CreatorsByCategoryResponse>>(url);
+    console.log(`API response received:`, response.data);
     return response.data.data;
   },
 };
