@@ -15,6 +15,17 @@ export function LogoutModal({ isVisible, onClose }: LogoutModalProps) {
   const router = useRouter();
 
   const handleConfirm = () => {
+    // 로그아웃 처리(쿠키 삭제)
+    const deleteCookie = (name: string) => {
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    };
+
+    // 인증 관련 쿠키 삭제
+    deleteCookie("id_token");
+    deleteCookie("access_token");
+    deleteCookie("refresh_token");
+
+    // 모달 닫기 및 홈으로 이동
     onClose();
     router.push("/");
   };
