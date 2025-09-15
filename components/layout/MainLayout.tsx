@@ -178,16 +178,15 @@ export default function MainLayout({ children }: MainLayoutProps) {
         .getMyBillingSubscriptions()
         .then((apiResponse) => {
           if (apiResponse.success && apiResponse.data) {
-            console.log(
-              "Subscription Billing API Response:",
-              apiResponse.data
-            );
+            console.log("Subscription Billing API Response:", apiResponse.data);
 
             // 서버 응답 구조에 맞게 수정: data는 직접 배열
-            const subscriptions = Array.isArray(apiResponse.data) ? apiResponse.data : [];
+            const subscriptions = Array.isArray(apiResponse.data)
+              ? apiResponse.data
+              : [];
 
             const membershipCreators = subscriptions
-              .filter(sub => sub.isActive) // 활성 구독만 표시
+              .filter((sub) => sub.isActive) // 활성 구독만 표시
               .map((sub) => ({
                 key: sub.creatorId,
                 name: sub.membershipName,
@@ -956,11 +955,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
                           }}
                         >
                           <span style={{ flex: 1 }}>{creator.name}</span>
-                          <span style={{
-                            fontSize: 12,
-                            color: "#8c8c8c",
-                            marginLeft: 8
-                          }}>
+                          <span
+                            style={{
+                              fontSize: 12,
+                              color: "#8c8c8c",
+                              marginLeft: 8,
+                            }}
+                          >
                             {creator.price?.toLocaleString()}원
                           </span>
                           {creator.unread && (

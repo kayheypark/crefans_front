@@ -30,15 +30,6 @@ export const subscriptionAPI = {
     }
   },
 
-  async subscribeToMembership(membershipItemId: number): Promise<ApiResponse<SubscriptionResponse>> {
-    try {
-      const response = await apiClient.post(`/subscription/membership/${membershipItemId}`);
-      return response.data;
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || '멤버십 구독에 실패했습니다.';
-      throw new Error(errorMessage);
-    }
-  },
 
   async unsubscribeFromMembership(membershipItemId: number): Promise<ApiResponse<UnsubscriptionResponse>> {
     try {
