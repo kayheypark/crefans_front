@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   Button,
@@ -48,10 +48,23 @@ export default function DonationModal({
   creatorAvatar,
   onSubmit,
 }: DonationModalProps) {
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(10); // 가장 작은 금액을 기본 선택
   const [customAmount, setCustomAmount] = useState<string>("");
   const [donationMessage, setDonationMessage] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // TODO: 실제 지갑 API에서 가져올 예정
+  const currentBalance = 1000; // 현재 보유콩
+
+  // 모달이 열릴 때마다 내용 초기화
+  useEffect(() => {
+    if (open) {
+      setSelectedAmount(10); // 가장 작은 금액으로 초기화
+      setCustomAmount("");
+      setDonationMessage("");
+      setIsSubmitting(false);
+    }
+  }, [open]);
 
   // 후원 금액 계산 (선택된 금액 또는 직접 입력한 금액)
   const getFinalAmount = () => {
@@ -76,6 +89,13 @@ export default function DonationModal({
       return;
     }
 
+    if (amount > currentBalance) {
+      message.error(
+        `보유콩이 부족합니다. (보유: ${currentBalance.toLocaleString()}콩)`
+      );
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       // TODO: 실제 후원 API 호출
@@ -91,12 +111,8 @@ export default function DonationModal({
     }
   };
 
-  // 모달 닫기 및 상태 초기화
+  // 모달 닫기
   const handleClose = () => {
-    setSelectedAmount(null);
-    setCustomAmount("");
-    setDonationMessage("");
-    setIsSubmitting(false);
     onClose();
   };
 
@@ -125,6 +141,7 @@ export default function DonationModal({
       footer={null}
       width={500}
       centered
+      maskClosable={false} // 모달 밖 영역 클릭으로 닫히지 않도록 설정
       styles={{
         header: {
           borderBottom: "1px solid #f0f0f0",
@@ -271,24 +288,81 @@ export default function DonationModal({
         {getFinalAmount() > 0 && (
           <div
             style={{
-              background: "#f6ffed",
-              border: "1px solid #b7eb8f",
-              borderRadius: 8,
-              padding: 16,
+              background: "#fafafa",
+              border: "1px solid #e8e8e8",
+              borderRadius: 6,
+              padding: 12,
               marginBottom: 24,
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Text strong>후원 금액:</Text>
-              <Text strong style={{ color: "#52c41a", fontSize: 18 }}>
-                {getFinalAmount()}콩
-              </Text>
-            </div>
-            {donationMessage && (
-              <div style={{ marginTop: 8 }}>
-                <Text type="secondary">메시지: {donationMessage}</Text>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 13, color: "#999" }}>현재 보유중</Text>
+                <Text style={{ fontSize: 13, color: "#666" }}>
+                  {currentBalance.toLocaleString()}콩
+                </Text>
               </div>
-            )}
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 13, color: "#999" }}>후원할 금액</Text>
+                <Text
+                  style={{ fontSize: 14, color: "#52c41a", fontWeight: "500" }}
+                >
+                  {getFinalAmount().toLocaleString()}콩
+                </Text>
+              </div>
+
+              <div
+                style={{
+                  height: "1px",
+                  backgroundColor: "#e8e8e8",
+                  margin: "4px 0",
+                }}
+              />
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 13, color: "#999" }}>
+                  후원 후 금액
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    color:
+                      currentBalance - getFinalAmount() < 0
+                        ? "#ff4d4f"
+                        : "#666",
+                  }}
+                >
+                  {(currentBalance - getFinalAmount()).toLocaleString()}콩
+                </Text>
+              </div>
+
+              {currentBalance - getFinalAmount() < 0 && (
+                <div style={{ marginTop: 6, textAlign: "center" }}>
+                  <Text style={{ color: "#ff4d4f", fontSize: 11 }}>
+                    ⚠️ 보유콩 부족
+                  </Text>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
@@ -302,7 +376,9 @@ export default function DonationModal({
             size="large"
             icon={<GiftOutlined />}
             loading={isSubmitting}
-            disabled={getFinalAmount() <= 0}
+            disabled={
+              getFinalAmount() <= 0 || getFinalAmount() > currentBalance
+            }
             onClick={handleDonate}
             style={{
               background: "linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%)",
@@ -311,7 +387,7 @@ export default function DonationModal({
             }}
           >
             {getFinalAmount() > 0
-              ? `${getFinalAmount()}콩 후원하기`
+              ? `@${creatorHandle}에게 ${getFinalAmount()}콩 후원하기`
               : "후원하기"}
           </Button>
         </div>
