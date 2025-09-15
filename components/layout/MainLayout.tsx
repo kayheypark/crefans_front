@@ -47,7 +47,9 @@ import Colors from "@/lib/constants/colors";
 import axios from "axios";
 import { getApiUrl } from "@/utils/env";
 import { subscriptionAPI } from "@/lib/api/subscription";
+import { subscriptionBillingAPI } from "@/lib/api/subscriptionBilling";
 import { followApi, type FollowUser } from "@/lib/api/follow";
+import { userAPI } from "@/lib/api/user";
 import { Notification, MembershipCreator, FollowCreator } from "@/types/common";
 import Spacings from "@/lib/constants/spacings";
 import { useResponsive } from "@/hooks/useResponsive";
@@ -171,28 +173,36 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
     // 사용자가 로그인한 경우에만 구독/팔로우 데이터 fetch
     if (user) {
-      // 구독 중인 멤버십 조회
-      subscriptionAPI
-        .getMySubscriptions()
+      // 구독 중인 멤버십 조회 (billing API 사용)
+      subscriptionBillingAPI
+        .getMyBillingSubscriptions()
         .then((apiResponse) => {
-          if (apiResponse.success && apiResponse.data.subscriptions) {
-            setMembershipCreators(
-              apiResponse.data.subscriptions.map((sub) => ({
-                key: sub.creatorId,
-                name: sub.creatorName,
-                avatar: sub.avatar,
-                membershipType: sub.membershipType,
-                unread: sub.unread,
-              }))
+          if (apiResponse.success && apiResponse.data) {
+            console.log(
+              "Subscription Billing API Response:",
+              apiResponse.data
             );
+
+            // 서버 응답 구조에 맞게 수정: data는 직접 배열
+            const subscriptions = Array.isArray(apiResponse.data) ? apiResponse.data : [];
+
+            const membershipCreators = subscriptions
+              .filter(sub => sub.isActive) // 활성 구독만 표시
+              .map((sub) => ({
+                key: sub.creatorId,
+                name: sub.membershipName,
+                price: sub.amount,
+                membershipType: sub.membershipName,
+                creatorHandle: sub.creator.handle,
+                unread: false,
+              }));
+
+            setMembershipCreators(membershipCreators);
           }
         })
         .catch((error) => {
-          console.error("Failed to fetch subscriptions:", error);
-          // 에러 시 mock 데이터 사용
-          fetch("/mock/membershipCreators.json")
-            .then((res) => res.json())
-            .then((apiResponse) => setMembershipCreators(apiResponse.data));
+          console.error("Failed to fetch billing subscriptions:", error);
+          setMembershipCreators([]);
         });
 
       // 팔로우 중인 사용자 조회
@@ -213,10 +223,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         })
         .catch((error) => {
           console.error("Failed to fetch following:", error);
-          // 에러 시 mock 데이터 사용
-          fetch("/mock/followCreators.json")
-            .then((res) => res.json())
-            .then((apiResponse) => setFollowCreators(apiResponse.data));
+          setFollowCreators([]);
         });
     } else {
       // 로그아웃 상태일 때는 빈 배열로 초기화
@@ -940,21 +947,27 @@ export default function MainLayout({ children }: MainLayoutProps) {
                           style={{
                             display: "flex",
                             alignItems: "center",
-                            gap: 8,
+                            justifyContent: "space-between",
                             padding: "8px 16px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            router.push(`/@${creator.creatorHandle}`);
                           }}
                         >
-                          <Avatar
-                            src={creator.avatar}
-                            size={24}
-                            style={{ marginRight: 8 }}
-                          />
                           <span style={{ flex: 1 }}>{creator.name}</span>
+                          <span style={{
+                            fontSize: 12,
+                            color: "#8c8c8c",
+                            marginLeft: 8
+                          }}>
+                            {creator.price?.toLocaleString()}원
+                          </span>
                           {creator.unread && (
                             <Badge
                               color="#1677ff"
                               dot
-                              style={{ marginLeft: "auto" }}
+                              style={{ marginLeft: 8 }}
                             />
                           )}
                         </div>

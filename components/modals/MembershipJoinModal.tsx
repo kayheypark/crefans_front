@@ -12,19 +12,27 @@ import {
   message,
   Card,
   Tag,
+  Switch,
+  Alert,
 } from "antd";
 import {
   CrownOutlined,
   HeartOutlined,
   CreditCardOutlined,
   CheckOutlined,
+  ReloadOutlined,
+  SafetyCertificateOutlined,
 } from "@ant-design/icons";
 import { getParticle } from "@/lib/utils/koreanUtils";
+import { useAuth } from "@/contexts/AuthContext";
+import { subscriptionAPI } from "@/lib/api/subscription";
+import { subscriptionBillingAPI } from "@/lib/api/subscriptionBilling";
+import { createBillingInstance } from "@/lib/tossPayments";
 
 const { Title, Text } = Typography;
 
 interface Membership {
-  id: number;
+  id: string;           // Updated to string for billing system
   name: string;
   level: number;
   price: number;
@@ -32,6 +40,8 @@ interface Membership {
   benefits: string[];
   billing_unit: "DAY" | "WEEK" | "MONTH" | "YEAR";
   billing_period: number;
+  trial_unit?: string;
+  trial_period?: number;
 }
 
 interface MembershipJoinModalProps {
@@ -41,8 +51,9 @@ interface MembershipJoinModalProps {
   creatorHandle: string;
   creatorAvatar?: string;
   memberships: Membership[];
-  defaultSelectedMembershipId?: number;
-  onJoin?: (membershipId: number, paymentMethod: string) => void;
+  defaultSelectedMembershipId?: string;
+  subscribedMembershipIds?: string[];
+  onJoin?: (membershipId: string, paymentMethod: string, isRecurring?: boolean) => void;
 }
 
 // 결제 수단 옵션
@@ -61,13 +72,16 @@ export default function MembershipJoinModal({
   creatorAvatar,
   memberships,
   defaultSelectedMembershipId,
+  subscribedMembershipIds = [],
   onJoin,
 }: MembershipJoinModalProps) {
+  const { user } = useAuth();
   const [selectedMembership, setSelectedMembership] =
     useState<Membership | null>(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
     useState<string>("card");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isRecurringPayment, setIsRecurringPayment] = useState(true); // Default to recurring payment
 
   // 모달이 열릴 때마다 내용 초기화
   useEffect(() => {
@@ -84,6 +98,7 @@ export default function MembershipJoinModal({
         setSelectedMembership(memberships[0]);
       }
       setSelectedPaymentMethod("card");
+      setIsRecurringPayment(true); // Reset to recurring payment
       setIsSubmitting(false);
     }
   }, [open, memberships, defaultSelectedMembershipId]);
@@ -95,18 +110,80 @@ export default function MembershipJoinModal({
       return;
     }
 
+    if (!user?.attributes?.sub) {
+      message.error("로그인이 필요합니다.");
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      // TODO: 실제 결제 API 호출
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // 임시 딜레이
-
-      onJoin?.(selectedMembership.id, selectedPaymentMethod);
-      message.success(`${selectedMembership.name}에 가입되었습니다!`);
-      handleClose();
-    } catch (error) {
-      message.error("멤버십 가입 처리 중 오류가 발생했습니다.");
+      if (isRecurringPayment) {
+        // 정기결제 (TossPayments 빌링)
+        await handleRecurringPayment();
+      } else {
+        // 일회성 결제 (기존 방식)
+        await handleOneTimePayment();
+      }
+    } catch (error: any) {
+      console.error("Membership join error:", error);
+      message.error(error.message || "멤버십 가입 처리 중 오류가 발생했습니다.");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // 정기결제 처리
+  const handleRecurringPayment = async () => {
+    if (!selectedMembership || !user?.attributes?.sub) return;
+
+    try {
+      // 1. 빌링 준비 API 호출
+      const prepareResponse = await subscriptionBillingAPI.prepareBilling({
+        membershipItemId: selectedMembership.id,
+      });
+
+      if (!prepareResponse.success || !prepareResponse.data) {
+        throw new Error(prepareResponse.message || "빌링 준비 중 오류가 발생했습니다.");
+      }
+
+      const { clientKey, customerKey, successUrl, failUrl } = prepareResponse.data;
+
+      // 2. TossPayments SDK를 사용한 정기결제 인증 요청
+      const tossPayments = await createBillingInstance();
+      const payment = tossPayments.payment({ customerKey });
+
+      await payment.requestBillingAuth({
+        method: "CARD", // 카드 자동결제 (테스트 환경에서 지원)
+        successUrl: `${successUrl}?membershipItemId=${selectedMembership.id}&userId=${user.attributes.sub}`,
+        failUrl: `${failUrl}?membershipItemId=${selectedMembership.id}&userId=${user.attributes.sub}`,
+        customerEmail: user.attributes.email || "customer@example.com",
+        customerName: user.attributes.name || user.attributes.nickname || "고객",
+      });
+
+      // TossPayments로 리다이렉트되므로 이 부분은 실행되지 않음
+    } catch (error: any) {
+      console.error("Recurring payment setup failed:", error);
+      throw new Error(error.message || "정기결제 설정 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 일회성 결제 처리 (기존 방식)
+  const handleOneTimePayment = async () => {
+    if (!selectedMembership) return;
+
+    try {
+      const response = await subscriptionAPI.subscribeToMembership(parseInt(selectedMembership.id));
+
+      if (response.success) {
+        onJoin?.(selectedMembership.id, selectedPaymentMethod, false);
+        message.success(`${selectedMembership.name}에 가입되었습니다!`);
+        handleClose();
+      } else {
+        throw new Error(response.message || "멤버십 가입 중 오류가 발생했습니다.");
+      }
+    } catch (error: any) {
+      console.error("One-time payment failed:", error);
+      throw new Error(error.message || "일회성 멤버십 가입 중 오류가 발생했습니다.");
     }
   };
 
@@ -124,6 +201,18 @@ export default function MembershipJoinModal({
       YEAR: "년",
     };
     return `${period}${unitMap[unit] || unit}`;
+  };
+
+  // 체험 기간 텍스트 변환
+  const getTrialText = (membership: Membership) => {
+    if (!membership.trial_period || !membership.trial_unit) return null;
+    const unitMap: { [key: string]: string } = {
+      DAY: "일",
+      WEEK: "주",
+      MONTH: "개월",
+      YEAR: "년",
+    };
+    return `${membership.trial_period}${unitMap[membership.trial_unit] || membership.trial_unit} 무료 체험`;
   };
 
   return (
@@ -204,7 +293,9 @@ export default function MembershipJoinModal({
 
           <div style={{ width: "100%" }}>
             <Space direction="vertical" style={{ width: "100%" }}>
-              {memberships.map((membership) => (
+              {memberships.map((membership) => {
+                const isSubscribed = subscribedMembershipIds.includes(membership.id);
+                return (
                 <div
                   key={membership.id}
                   style={{
@@ -213,7 +304,9 @@ export default function MembershipJoinModal({
                     marginBottom: 0,
                   }}
                   onClick={() => {
-                    setSelectedMembership(membership);
+                    if (!isSubscribed) {
+                      setSelectedMembership(membership);
+                    }
                   }}
                 >
                   <Card
@@ -223,14 +316,18 @@ export default function MembershipJoinModal({
                       marginTop: 8,
                       marginLeft: 0,
                       marginRight: 0,
-                      border:
-                        selectedMembership?.id === membership.id
+                      border: isSubscribed
+                        ? "2px solid #52c41a"
+                        : selectedMembership?.id === membership.id
                           ? "2px solid #faad14"
                           : "1px solid #d9d9d9",
-                      backgroundColor:
-                        selectedMembership?.id === membership.id
+                      backgroundColor: isSubscribed
+                        ? "#f6ffed"
+                        : selectedMembership?.id === membership.id
                           ? "#fffbe6"
                           : "#fff",
+                      opacity: isSubscribed ? 0.7 : 1,
+                      cursor: isSubscribed ? "not-allowed" : "pointer",
                     }}
                     bodyStyle={{
                       padding: "12px",
@@ -306,60 +403,121 @@ export default function MembershipJoinModal({
                             membership.billing_unit,
                             membership.billing_period
                           )}
+                          {getTrialText(membership) && (
+                            <div style={{ color: "#52c41a", fontSize: 11, marginTop: 2 }}>
+                              {getTrialText(membership)}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
                   </Card>
                 </div>
-              ))}
+                );
+              })}
             </Space>
           </div>
         </div>
 
         <Divider />
 
-        {/* 결제 수단 선택 */}
+        {/* 결제 방식 선택 */}
         <div style={{ marginBottom: 24 }}>
           <Title level={5} style={{ marginBottom: 16 }}>
-            <CreditCardOutlined style={{ marginRight: 8, color: "#52c41a" }} />
-            결제 수단 선택
+            <ReloadOutlined style={{ marginRight: 8, color: "#1890ff" }} />
+            결제 방식 선택
           </Title>
 
-          <Row gutter={[8, 8]}>
-            {PAYMENT_METHODS.map((method) => (
-              <Col span={12} key={method.value}>
-                <Button
-                  type={
-                    selectedPaymentMethod === method.value
-                      ? "primary"
-                      : "default"
-                  }
-                  size="large"
-                  block
+          <div style={{ marginBottom: 16 }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: 16,
+              background: isRecurringPayment ? "#f6ffed" : "#fafafa",
+              border: `1px solid ${isRecurringPayment ? "#b7eb8f" : "#d9d9d9"}`,
+              borderRadius: 8,
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <SafetyCertificateOutlined
                   style={{
-                    height: 50,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 8,
-                    background:
-                      selectedPaymentMethod === method.value
-                        ? "linear-gradient(135deg, #52c41a 0%, #73d13d 100%)"
-                        : undefined,
-                    borderColor:
-                      selectedPaymentMethod === method.value
-                        ? "transparent"
-                        : "#d9d9d9",
+                    color: isRecurringPayment ? "#52c41a" : "#999",
+                    fontSize: 20
                   }}
-                  onClick={() => setSelectedPaymentMethod(method.value)}
-                >
-                  {/* <span style={{ fontSize: 16 }}>{method.icon}</span> */}
-                  <span style={{ fontSize: 14 }}>{method.label}</span>
-                </Button>
-              </Col>
-            ))}
-          </Row>
+                />
+                <div>
+                  <div style={{ fontWeight: 500, marginBottom: 4 }}>
+                    정기결제 (자동결제)
+                  </div>
+                  <div style={{ fontSize: 12, color: "#666" }}>
+                    매월 자동으로 결제되며 언제든 해지 가능
+                  </div>
+                </div>
+              </div>
+              <Switch
+                checked={isRecurringPayment}
+                onChange={setIsRecurringPayment}
+                checkedChildren="ON"
+                unCheckedChildren="OFF"
+              />
+            </div>
+
+            {isRecurringPayment && (
+              <Alert
+                message="정기결제 안내"
+                description="TossPayments 자동결제를 통해 안전하고 편리하게 매월 자동결제됩니다. 언제든지 구독을 해지할 수 있습니다."
+                type="info"
+                showIcon
+                style={{ marginTop: 8 }}
+              />
+            )}
+          </div>
         </div>
+
+        {/* 결제 수단 선택 (일회성 결제일 때만) */}
+        {!isRecurringPayment && (
+          <div style={{ marginBottom: 24 }}>
+            <Title level={5} style={{ marginBottom: 16 }}>
+              <CreditCardOutlined style={{ marginRight: 8, color: "#52c41a" }} />
+              결제 수단 선택
+            </Title>
+
+            <Row gutter={[8, 8]}>
+              {PAYMENT_METHODS.map((method) => (
+                <Col span={12} key={method.value}>
+                  <Button
+                    type={
+                      selectedPaymentMethod === method.value
+                        ? "primary"
+                        : "default"
+                    }
+                    size="large"
+                    block
+                    style={{
+                      height: 50,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 8,
+                      background:
+                        selectedPaymentMethod === method.value
+                          ? "linear-gradient(135deg, #52c41a 0%, #73d13d 100%)"
+                          : undefined,
+                      borderColor:
+                        selectedPaymentMethod === method.value
+                          ? "transparent"
+                          : "#d9d9d9",
+                    }}
+                    onClick={() => setSelectedPaymentMethod(method.value)}
+                  >
+                    {/* <span style={{ fontSize: 16 }}>{method.icon}</span> */}
+                    <span style={{ fontSize: 14 }}>{method.label}</span>
+                  </Button>
+                </Col>
+              ))}
+            </Row>
+          </div>
+        )}
 
         {/* 결제 요약 */}
         {selectedMembership && (
@@ -443,7 +601,9 @@ export default function MembershipJoinModal({
             disabled={!selectedMembership}
             onClick={handleJoin}
             style={{
-              background: "linear-gradient(135deg, #faad14 0%, #ffc53d 100%)",
+              background: isRecurringPayment
+                ? "linear-gradient(135deg, #1890ff 0%, #40a9ff 100%)"
+                : "linear-gradient(135deg, #faad14 0%, #ffc53d 100%)",
               border: "none",
               fontWeight: "600",
             }}
@@ -454,7 +614,7 @@ export default function MembershipJoinModal({
                 )} ${selectedMembership.price.toLocaleString()}원/${getBillingText(
                   selectedMembership.billing_unit,
                   selectedMembership.billing_period
-                )} 정기결제`
+                )} ${isRecurringPayment ? '정기결제' : '가입하기'}`
               : "멤버십 가입하기"}
           </Button>
         </div>

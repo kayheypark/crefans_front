@@ -132,7 +132,7 @@ export default function MembershipManagementModal({
   };
 
   // 멤버십 삭제
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string | number) => {
     try {
       const response = await membershipAPI.deleteMembership(id);
       if (response.success) {
@@ -209,6 +209,8 @@ export default function MembershipManagementModal({
                   key={membership.id}
                   membership={{
                     ...membership,
+                    // price를 number로 변환
+                    price: typeof membership.price === 'string' ? parseFloat(membership.price) || 0 : membership.price,
                     // benefits를 안전하게 배열로 변환
                     benefits: Array.isArray(membership.benefits)
                       ? membership.benefits

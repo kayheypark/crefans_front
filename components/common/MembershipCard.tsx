@@ -7,12 +7,16 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 const { Text } = Typography;
 
 interface Membership {
-  id: number;
+  id: string;           // Updated to string for billing system
   name: string;
   level: number;
   price: number;
   description?: string;
   benefits: string[];
+  billing_unit?: string;
+  billing_period?: number;
+  trial_unit?: string;
+  trial_period?: number;
 }
 
 interface MembershipCardProps {
@@ -22,7 +26,7 @@ interface MembershipCardProps {
   showActions?: boolean;
   onSelect?: (membership: Membership) => void;
   onEdit?: (membership: Membership) => void;
-  onDelete?: (id: number) => void;
+  onDelete?: (id: string) => void;
 }
 
 export default function MembershipCard({

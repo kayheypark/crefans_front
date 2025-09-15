@@ -78,8 +78,10 @@ export interface Notification {
 export interface MembershipCreator {
   key: string;
   name: string;
-  avatar: string;
+  avatar?: string;
+  price?: number;
   membershipType: string;
+  creatorHandle?: string;
   unread: boolean;
 }
 

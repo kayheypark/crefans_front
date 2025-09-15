@@ -50,3 +50,22 @@ export interface PaymentConfirmation {
   orderId: string;
   amount: number;
 }
+
+// 자동결제(정기결제) 요청을 위한 타입 정의
+export interface BillingAuthRequest {
+  method: "CARD" | "TRANSFER"; // 카드 또는 계좌 자동결제
+  customerKey: string;
+  successUrl: string;
+  failUrl: string;
+}
+
+// 자동결제 인스턴스를 생성하는 함수
+export const createBillingInstance = async () => {
+  try {
+    const tossPayments = await loadTossPaymentsInstance();
+    return tossPayments;
+  } catch (error) {
+    console.error('Failed to create billing instance:', error);
+    throw error;
+  }
+};

@@ -835,6 +835,8 @@ export default function WritePage() {
                             key={membership.id}
                             membership={{
                               ...membership,
+                              // price를 number로 변환
+                              price: typeof membership.price === 'string' ? parseFloat(membership.price) || 0 : membership.price,
                               // benefits를 안전하게 배열로 변환
                               benefits: Array.isArray(membership.benefits)
                                 ? membership.benefits
