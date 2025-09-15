@@ -574,7 +574,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
       href: "/support?category=privacy",
     },
     { label: "환불 정책", href: "/support?category=refund" },
-    { label: "공지사항", href: "/board?category=notice" },
+    { label: "공지사항", href: "/board?category=NOTICE" },
   ];
 
   const sideBarWidth = isMobile ? 335 : isTablet ? 335 : 335;

@@ -1,7 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Layout, Typography, Card, List, Tag, Space, Select, message } from "antd";
+import {
+  Layout,
+  Typography,
+  Card,
+  List,
+  Tag,
+  Space,
+  Select,
+  message,
+} from "antd";
 import { CalendarOutlined, EyeOutlined } from "@ant-design/icons";
 import { useRouter, useSearchParams } from "next/navigation";
 import Spacings from "@/lib/constants/spacings";
@@ -64,14 +73,49 @@ export default function BoardPage() {
   };
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
+    if (!dateString) return "날짜 없음";
 
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
+    try {
+      const date = new Date(dateString);
+
+      // Invalid Date 체크
+      if (isNaN(date.getTime())) {
+        return "날짜 형식 오류";
+      }
+
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+
+      return `${year}-${month}-${day} ${hours}:${minutes}`;
+    } catch (error) {
+      console.error("날짜 포맷팅 오류:", error);
+      return "날짜 오류";
+    }
+  };
+
+  // 카테고리 한글 변환 함수
+  const getCategoryLabel = (category: string) => {
+    const categoryMap: { [key: string]: string } = {
+      NOTICE: "공지사항",
+      notice: "공지사항",
+      EVENT: "이벤트",
+      event: "이벤트",
+    };
+    return categoryMap[category] || category;
+  };
+
+  // 카테고리 색상 반환 함수
+  const getCategoryColor = (category: string) => {
+    const colorMap: { [key: string]: string } = {
+      NOTICE: "blue",
+      notice: "blue",
+      EVENT: "green",
+      event: "green",
+    };
+    return colorMap[category] || "default";
   };
 
   return (
@@ -121,8 +165,8 @@ export default function BoardPage() {
                     marginBottom: 8,
                   }}
                 >
-                  <Tag color={post.category === "NOTICE" ? "blue" : "green"}>
-                    {post.category === "NOTICE" ? "공지사항" : "이벤트"}
+                  <Tag color={getCategoryColor(post.category)}>
+                    {getCategoryLabel(post.category)}
                   </Tag>
                   {post.is_important && <Tag color="red">중요</Tag>}
                 </div>
