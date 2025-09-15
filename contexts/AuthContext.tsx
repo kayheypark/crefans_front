@@ -1,7 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 import { authAPI } from "@/lib/api/auth";
+import { isAuthTokenExpired, getAuthTimeUntilExpiry } from "@/utils/auth";
+import { LogoutModal } from "@/components/auth/LogoutModal";
 
 interface User {
   username: string;
@@ -82,6 +84,8 @@ const parseIdToken = (): User | null => {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   // null: 로그아웃, User: 로그인, undefined: 아직 파싱 전(로딩)
   const [user, setUser] = useState<User | null | undefined>(undefined);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const tokenCheckIntervalRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     // 초기 로딩 시 서버에서 최신 사용자 정보를 가져오려고 시도
@@ -110,12 +114,53 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initializeUser();
   }, []);
 
+  // 토큰 만료 체크를 위한 useEffect
+  useEffect(() => {
+    // 사용자가 로그인되어 있을 때만 토큰 체크 시작
+    if (user) {
+      const checkTokenExpiry = () => {
+        if (isAuthTokenExpired()) {
+          // 토큰이 만료되었으면 로그아웃 모달 표시
+          setShowLogoutModal(true);
+          logout();
+          return;
+        }
+
+        // 토큰 만료까지 남은 시간 확인
+        const timeUntilExpiry = getAuthTimeUntilExpiry();
+        console.log("Token expires in:", timeUntilExpiry, "ms");
+      };
+
+      // 즉시 한 번 체크
+      checkTokenExpiry();
+
+      // 30초마다 토큰 만료 체크
+      tokenCheckIntervalRef.current = setInterval(checkTokenExpiry, 30000);
+
+      // 컴포넌트 언마운트시 인터벌 정리
+      return () => {
+        if (tokenCheckIntervalRef.current) {
+          clearInterval(tokenCheckIntervalRef.current);
+        }
+      };
+    } else {
+      // 사용자가 로그아웃되면 인터벌 정리
+      if (tokenCheckIntervalRef.current) {
+        clearInterval(tokenCheckIntervalRef.current);
+      }
+    }
+  }, [user]);
+
   const login = (userData: User) => {
     setUser(userData);
   };
 
   const logout = () => {
     setUser(null);
+    // 토큰 체크 인터벌 정리
+    if (tokenCheckIntervalRef.current) {
+      clearInterval(tokenCheckIntervalRef.current);
+    }
   };
 
   const refreshUser = async () => {
@@ -145,9 +190,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const handleLogoutModalClose = () => {
+    setShowLogoutModal(false);
+  };
+
   return (
     <AuthContext.Provider value={{ user, login, logout, refreshUser }}>
       {children}
+      <LogoutModal
+        isVisible={showLogoutModal}
+        onClose={handleLogoutModalClose}
+      />
     </AuthContext.Provider>
   );
 }

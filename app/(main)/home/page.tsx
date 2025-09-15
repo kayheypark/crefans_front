@@ -476,8 +476,8 @@ export default function HomePage() {
           </Text>
         </div>
       </div>
-      <SignUpModal 
-        open={signUpOpen} 
+      <SignUpModal
+        open={signUpOpen}
         onClose={() => {
           setSignUpOpen(false);
           setIsEarlybirdModal(false);
