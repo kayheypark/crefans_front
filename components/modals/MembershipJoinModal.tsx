@@ -25,7 +25,7 @@ import { createBillingInstance } from "@/lib/tossPayments";
 const { Title, Text } = Typography;
 
 interface Membership {
-  id: string;           // Updated to string for billing system
+  id: string; // Updated to string for billing system
   name: string;
   level: number;
   price: number;
@@ -48,7 +48,6 @@ interface MembershipJoinModalProps {
   subscribedMembershipIds?: string[];
   onJoin?: (membershipId: string) => void;
 }
-
 
 export default function MembershipJoinModal({
   open,
@@ -102,7 +101,9 @@ export default function MembershipJoinModal({
       await handleRecurringPayment();
     } catch (error: any) {
       console.error("Membership join error:", error);
-      message.error(error.message || "멤버십 가입 처리 중 오류가 발생했습니다.");
+      message.error(
+        error.message || "멤버십 가입 처리 중 오류가 발생했습니다."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -119,10 +120,13 @@ export default function MembershipJoinModal({
       });
 
       if (!prepareResponse.success || !prepareResponse.data) {
-        throw new Error(prepareResponse.message || "빌링 준비 중 오류가 발생했습니다.");
+        throw new Error(
+          prepareResponse.message || "빌링 준비 중 오류가 발생했습니다."
+        );
       }
 
-      const { clientKey, customerKey, successUrl, failUrl } = prepareResponse.data;
+      const { clientKey, customerKey, successUrl, failUrl } =
+        prepareResponse.data;
 
       // 2. TossPayments SDK를 사용한 정기결제 인증 요청
       const tossPayments = await createBillingInstance();
@@ -133,7 +137,8 @@ export default function MembershipJoinModal({
         successUrl: `${successUrl}?membershipItemId=${selectedMembership.id}&userId=${user.attributes.sub}`,
         failUrl: `${failUrl}?membershipItemId=${selectedMembership.id}&userId=${user.attributes.sub}`,
         customerEmail: user.attributes.email || "customer@example.com",
-        customerName: user.attributes.name || user.attributes.nickname || "고객",
+        customerName:
+          user.attributes.name || user.attributes.nickname || "고객",
       });
 
       // TossPayments로 리다이렉트되므로 이 부분은 실행되지 않음
@@ -142,7 +147,6 @@ export default function MembershipJoinModal({
       throw new Error(error.message || "정기결제 설정 중 오류가 발생했습니다.");
     }
   };
-
 
   // 모달 닫기
   const handleClose = () => {
@@ -169,7 +173,9 @@ export default function MembershipJoinModal({
       MONTH: "개월",
       YEAR: "년",
     };
-    return `${membership.trial_period}${unitMap[membership.trial_unit] || membership.trial_unit} 무료 체험`;
+    return `${membership.trial_period}${
+      unitMap[membership.trial_unit] || membership.trial_unit
+    } 무료 체험`;
   };
 
   return (
@@ -244,132 +250,202 @@ export default function MembershipJoinModal({
         {/* 멤버십 선택 */}
         <div style={{ marginBottom: 24 }}>
           <Title level={5} style={{ marginBottom: 16 }}>
-            <CrownOutlined style={{ marginRight: 8, color: "#faad14" }} />
             멤버십 선택
           </Title>
 
           <div style={{ width: "100%" }}>
             <Space direction="vertical" style={{ width: "100%" }}>
               {memberships.map((membership) => {
-                const isSubscribed = subscribedMembershipIds.includes(membership.id);
+                const isSubscribed = subscribedMembershipIds.includes(
+                  membership.id
+                );
                 return (
-                <div
-                  key={membership.id}
-                  style={{
-                    width: "100%",
-                    display: "block",
-                    marginBottom: 0,
-                  }}
-                  onClick={() => {
-                    if (!isSubscribed) {
-                      setSelectedMembership(membership);
-                    }
-                  }}
-                >
-                  <Card
-                    size="small"
+                  <div
+                    key={membership.id}
                     style={{
                       width: "100%",
-                      marginTop: 8,
-                      marginLeft: 0,
-                      marginRight: 0,
-                      border: isSubscribed
-                        ? "2px solid #52c41a"
-                        : selectedMembership?.id === membership.id
-                          ? "2px solid #faad14"
-                          : "1px solid #d9d9d9",
-                      backgroundColor: isSubscribed
-                        ? "#f6ffed"
-                        : selectedMembership?.id === membership.id
-                          ? "#fffbe6"
-                          : "#fff",
-                      opacity: isSubscribed ? 0.7 : 1,
-                      cursor: isSubscribed ? "not-allowed" : "pointer",
+                      display: "block",
+                      marginBottom: 0,
                     }}
-                    bodyStyle={{
-                      padding: "12px",
-                      width: "100%",
+                    onClick={() => {
+                      if (!isSubscribed) {
+                        setSelectedMembership(membership);
+                      }
                     }}
                   >
-                    <div
+                    <Card
+                      size="small"
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "flex-start",
+                        width: "100%",
+                        marginTop: 8,
+                        marginLeft: 0,
+                        marginRight: 0,
+                        border: isSubscribed
+                          ? "1px solid #d9d9d9"
+                          : selectedMembership?.id === membership.id
+                          ? "2px solid #1890ff"
+                          : "1px solid #d9d9d9",
+                        backgroundColor: isSubscribed
+                          ? "#f5f5f5"
+                          : selectedMembership?.id === membership.id
+                          ? "#e6f7ff"
+                          : "#fff",
+                        opacity: isSubscribed ? 0.6 : 1,
+                        cursor: isSubscribed ? "not-allowed" : "pointer",
+                        transition: "all 0.2s ease",
+                        boxShadow:
+                          selectedMembership?.id === membership.id &&
+                          !isSubscribed
+                            ? "0 2px 8px rgba(24, 144, 255, 0.15)"
+                            : "none",
+                        position: "relative",
+                      }}
+                      bodyStyle={{
+                        padding: "12px",
+                        width: "100%",
                       }}
                     >
-                      <div style={{ flex: 1 }}>
+                      {isSubscribed && (
                         <div
                           style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 8,
-                            marginBottom: 8,
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            background: "#52c41a",
+                            color: "white",
+                            padding: "8px 16px",
+                            borderRadius: "20px",
+                            fontSize: "14px",
+                            fontWeight: "600",
+                            zIndex: 10,
+                            boxShadow: "0 2px 8px rgba(82, 196, 26, 0.3)",
                           }}
                         >
-                          <Text strong style={{ fontSize: 16 }}>
-                            {membership.name}
-                          </Text>
-                          <Tag color="gold" style={{ margin: 0, fontSize: 12 }}>
-                            레벨 {membership.level}
-                          </Tag>
+                          구독중
                         </div>
-
-                        {membership.description && (
-                          <Text
-                            type="secondary"
+                      )}
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                        }}
+                      >
+                        <div style={{ flex: 1 }}>
+                          <div
                             style={{
-                              fontSize: 12,
-                              display: "block",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 8,
                               marginBottom: 8,
                             }}
                           >
-                            {membership.description}
+                            <Text
+                              strong
+                              style={{
+                                fontSize: 16,
+                                color: isSubscribed
+                                  ? "#8c8c8c"
+                                  : selectedMembership?.id === membership.id
+                                  ? "#1890ff"
+                                  : "#262626",
+                              }}
+                            >
+                              {membership.name}
+                            </Text>
+                            <Tag
+                              color={isSubscribed ? "default" : "gold"}
+                              style={{
+                                margin: 0,
+                                fontSize: 12,
+                                opacity: isSubscribed ? 0.6 : 1,
+                              }}
+                            >
+                              레벨 {membership.level}
+                            </Tag>
+                          </div>
+
+                          {membership.description && (
+                            <Text
+                              type="secondary"
+                              style={{
+                                fontSize: 12,
+                                display: "block",
+                                marginBottom: 8,
+                                color: isSubscribed ? "#bfbfbf" : undefined,
+                              }}
+                            >
+                              {membership.description}
+                            </Text>
+                          )}
+
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: 4,
+                              marginBottom: 8,
+                            }}
+                          >
+                            {membership.benefits.map(
+                              (benefit: string, index: number) => (
+                                <Tag
+                                  key={index}
+                                  color={isSubscribed ? "default" : "blue"}
+                                  style={{
+                                    fontSize: 11,
+                                    opacity: isSubscribed ? 0.6 : 1,
+                                  }}
+                                >
+                                  {benefit}
+                                </Tag>
+                              )
+                            )}
+                          </div>
+                        </div>
+
+                        <div style={{ textAlign: "right" }}>
+                          <Text
+                            strong
+                            style={{
+                              fontSize: 18,
+                              color: isSubscribed
+                                ? "#8c8c8c"
+                                : selectedMembership?.id === membership.id
+                                ? "#1890ff"
+                                : "#faad14",
+                            }}
+                          >
+                            {membership.price.toLocaleString()}원
                           </Text>
-                        )}
-
-                        <div
-                          style={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            gap: 4,
-                            marginBottom: 8,
-                          }}
-                        >
-                          {membership.benefits.map(
-                            (benefit: string, index: number) => (
-                              <Tag
-                                key={index}
-                                color="blue"
-                                style={{ fontSize: 11 }}
+                          <div
+                            style={{
+                              fontSize: 12,
+                              color: isSubscribed ? "#bfbfbf" : "#999",
+                            }}
+                          >
+                            /{" "}
+                            {getBillingText(
+                              membership.billing_unit,
+                              membership.billing_period
+                            )}
+                            {getTrialText(membership) && (
+                              <div
+                                style={{
+                                  color: isSubscribed ? "#8c8c8c" : "#52c41a",
+                                  fontSize: 11,
+                                  marginTop: 2,
+                                }}
                               >
-                                {benefit}
-                              </Tag>
-                            )
-                          )}
+                                {getTrialText(membership)}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-
-                      <div style={{ textAlign: "right" }}>
-                        <Text strong style={{ fontSize: 18, color: "#faad14" }}>
-                          {membership.price.toLocaleString()}원
-                        </Text>
-                        <div style={{ fontSize: 12, color: "#999" }}>
-                          /{" "}
-                          {getBillingText(
-                            membership.billing_unit,
-                            membership.billing_period
-                          )}
-                          {getTrialText(membership) && (
-                            <div style={{ color: "#52c41a", fontSize: 11, marginTop: 2 }}>
-                              {getTrialText(membership)}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
+                    </Card>
+                  </div>
                 );
               })}
             </Space>
@@ -380,27 +456,29 @@ export default function MembershipJoinModal({
 
         {/* 정기결제 안내 */}
         <div style={{ marginBottom: 24 }}>
-          <div style={{
-            display: "flex",
-            alignItems: "center",
-            padding: 16,
-            background: "#f6ffed",
-            border: "1px solid #b7eb8f",
-            borderRadius: 8,
-          }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              padding: 16,
+              background: "#f6ffed",
+              border: "1px solid #b7eb8f",
+              borderRadius: 8,
+            }}
+          >
             <SafetyCertificateOutlined
               style={{
                 color: "#52c41a",
                 fontSize: 20,
-                marginRight: 12
+                marginRight: 12,
               }}
             />
             <div>
-              <div style={{ fontWeight: 500, marginBottom: 4 }}>
-                정기결제 (자동결제)
-              </div>
+              <div style={{ fontWeight: 500, marginBottom: 4 }}>정기결제</div>
               <div style={{ fontSize: 12, color: "#666" }}>
-                TossPayments 자동결제를 통해 안전하고 편리하게 매월 자동결제됩니다.
+                토스페이먼츠 자동결제를 통해 안전하고 편리하게 매월
+                자동결제됩니다. <br />
+                언제든지 구독을 취소할 수 있습니다.
               </div>
             </div>
           </div>
@@ -468,7 +546,8 @@ export default function MembershipJoinModal({
                   {getBillingText(
                     selectedMembership.billing_unit,
                     selectedMembership.billing_period
-                  )}
+                  )}{" "}
+                  마다
                 </Text>
               </div>
             </div>
