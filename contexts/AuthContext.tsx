@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useRef } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 import { authAPI } from "@/lib/api/auth";
 import { isAuthTokenExpired, getAuthTimeUntilExpiry } from "@/utils/auth";
 import { LogoutModal } from "@/components/auth/LogoutModal";
@@ -155,7 +161,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(userData);
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      // 서버에 로그아웃 요청하여 쿠키 삭제
+      await authAPI.signout();
+    } catch (error) {
+      console.error("Logout API failed:", error);
+      // API 실패해도 로컬 상태는 초기화
+    }
+
     setUser(null);
     // 토큰 체크 인터벌 정리
     if (tokenCheckIntervalRef.current) {
