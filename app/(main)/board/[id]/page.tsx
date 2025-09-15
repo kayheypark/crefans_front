@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Layout, Typography, Card, Tag, Space, Divider, Spin } from "antd";
+import { Layout, Typography, Card, Tag, Space, Divider, Spin, message } from "antd";
 import {
   CalendarOutlined,
   EyeOutlined,
@@ -11,20 +11,9 @@ import {
 import { useRouter, useParams } from "next/navigation";
 import { useResponsive } from "@/hooks/useResponsive";
 import Spacings from "@/lib/constants/spacings";
+import { boardApi, BoardPost } from "@/lib/api/board";
 
 const { Title, Text } = Typography;
-
-interface BoardView {
-  id: number;
-  title: string;
-  content: string;
-  category: string;
-  createdAt: string;
-  updatedAt: string;
-  views: number;
-  isImportant: boolean;
-  author: string;
-}
 
 export default function BoardViewPage() {
   const router = useRouter();
@@ -32,7 +21,7 @@ export default function BoardViewPage() {
   const { isMobile, isTablet, isDesktop } = useResponsive();
   const postId = params.id as string;
 
-  const [post, setPost] = useState<BoardView | null>(null);
+  const [post, setPost] = useState<BoardPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,18 +30,23 @@ export default function BoardViewPage() {
     const loadPostDetail = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/mock/boardView.json");
-        const apiResponse = await response.json();
-        const postDetail = apiResponse.data[postId];
+        const response = await boardApi.getPost(postId);
 
-        if (postDetail) {
-          setPost(postDetail);
+        if (response.success) {
+          setPost(response.data);
+          // 조회수 증가
+          try {
+            await boardApi.incrementViews(postId);
+          } catch (viewError) {
+            console.warn("조회수 증가 실패:", viewError);
+          }
         } else {
           setError("게시글을 찾을 수 없습니다.");
         }
       } catch (error) {
         console.error("게시글 상세를 불러오는데 실패했습니다:", error);
         setError("게시글을 불러오는데 실패했습니다.");
+        message.error("게시글을 불러오는데 실패했습니다.");
       } finally {
         setLoading(false);
       }
@@ -146,10 +140,10 @@ export default function BoardViewPage() {
               marginBottom: 16,
             }}
           >
-            <Tag color={post.category === "notice" ? "blue" : "green"}>
-              {post.category === "notice" ? "공지사항" : "이벤트"}
+            <Tag color={post.category === "NOTICE" ? "blue" : "green"}>
+              {post.category === "NOTICE" ? "공지사항" : "이벤트"}
             </Tag>
-            {post.isImportant && <Tag color="red">중요</Tag>}
+            {post.is_important && <Tag color="red">중요</Tag>}
           </div>
           <Title level={2} style={{ margin: "0 0 16px 0" }}>
             {post.title}
@@ -171,17 +165,17 @@ export default function BoardViewPage() {
               <CalendarOutlined />
               <Text type="secondary">
                 {isMobile
-                  ? formatDate(post.createdAt)
-                  : `작성일: ${formatDate(post.createdAt)}`}
+                  ? formatDate(post.created_at)
+                  : `작성일: ${formatDate(post.created_at)}`}
               </Text>
             </Space>
-            {post.updatedAt && post.updatedAt !== post.createdAt && (
+            {post.updated_at && post.updated_at !== post.created_at && (
               <Space>
                 <EditOutlined />
                 <Text type="secondary">
                   {isMobile
-                    ? formatDate(post.updatedAt)
-                    : `수정일: ${formatDate(post.updatedAt)}`}
+                    ? formatDate(post.updated_at)
+                    : `수정일: ${formatDate(post.updated_at)}`}
                 </Text>
               </Space>
             )}

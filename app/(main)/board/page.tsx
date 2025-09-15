@@ -1,60 +1,63 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Layout, Typography, Card, List, Tag, Space, Select } from "antd";
+import { Layout, Typography, Card, List, Tag, Space, Select, message } from "antd";
 import { CalendarOutlined, EyeOutlined } from "@ant-design/icons";
 import { useRouter, useSearchParams } from "next/navigation";
 import Spacings from "@/lib/constants/spacings";
+import { boardApi, BoardPost } from "@/lib/api/board";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
-interface BoardPost {
-  id: number;
-  title: string;
-  category: string;
-  createdAt: string;
-  views: number;
-  isImportant: boolean;
-  excerpt: string;
-}
-
 export default function BoardPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const category = searchParams.get("category") || "notice";
+  const category = searchParams.get("category") || "NOTICE";
 
   const [boardList, setBoardList] = useState<BoardPost[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(category);
   const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    total: 0,
+    totalPages: 0,
+  });
 
-  // 목업 데이터 로드
+  // 게시글 목록 로드
   useEffect(() => {
     const loadBoardList = async () => {
       try {
-        const response = await fetch("/mock/boardList.json");
-        const apiResponse = await response.json();
-        setBoardList(apiResponse.data.posts);
+        setLoading(true);
+        const response = await boardApi.getPosts({
+          category: selectedCategory,
+          page: pagination.page,
+          limit: pagination.limit,
+        });
+
+        if (response.success) {
+          setBoardList(response.data.posts);
+          setPagination(response.data.pagination);
+        } else {
+          message.error("게시글 목록을 불러오는데 실패했습니다.");
+        }
       } catch (error) {
         console.error("게시글 목록을 불러오는데 실패했습니다:", error);
+        message.error("게시글 목록을 불러오는데 실패했습니다.");
       } finally {
         setLoading(false);
       }
     };
 
     loadBoardList();
-  }, []);
+  }, [selectedCategory, pagination.page]);
 
   // 카테고리 변경 시 URL 업데이트
   useEffect(() => {
     const newUrl = `/board?category=${selectedCategory}`;
     router.replace(newUrl);
   }, [selectedCategory, router]);
-
-  // 현재 카테고리에 맞는 게시글 필터링
-  const filteredPosts = boardList.filter(
-    (post) => post.category === selectedCategory
-  );
 
   const handlePostClick = (post: BoardPost) => {
     router.push(`/board/${post.id}`);
@@ -90,8 +93,8 @@ export default function BoardPage() {
             onChange={setSelectedCategory}
             style={{ width: 200 }}
           >
-            <Option value="notice">공지사항</Option>
-            <Option value="event">이벤트</Option>
+            <Option value="NOTICE">공지사항</Option>
+            <Option value="EVENT">이벤트</Option>
           </Select>
         </Space>
       </Card>
@@ -100,7 +103,7 @@ export default function BoardPage() {
       <Card>
         <List
           loading={loading}
-          dataSource={filteredPosts}
+          dataSource={boardList}
           renderItem={(post) => (
             <List.Item
               style={{
@@ -118,10 +121,10 @@ export default function BoardPage() {
                     marginBottom: 8,
                   }}
                 >
-                  <Tag color={post.category === "notice" ? "blue" : "green"}>
-                    {post.category === "notice" ? "공지사항" : "이벤트"}
+                  <Tag color={post.category === "NOTICE" ? "blue" : "green"}>
+                    {post.category === "NOTICE" ? "공지사항" : "이벤트"}
                   </Tag>
-                  {post.isImportant && <Tag color="red">중요</Tag>}
+                  {post.is_important && <Tag color="red">중요</Tag>}
                 </div>
                 <Title level={4} style={{ margin: "8px 0", fontSize: 16 }}>
                   {post.title}
@@ -141,7 +144,7 @@ export default function BoardPage() {
                   <Space>
                     <CalendarOutlined />
                     <Text type="secondary" style={{ fontSize: 12 }}>
-                      {formatDate(post.createdAt)}
+                      {formatDate(post.created_at)}
                     </Text>
                   </Space>
                   <Space>
