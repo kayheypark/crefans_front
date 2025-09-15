@@ -393,7 +393,7 @@ export default function Explore() {
                     flexDirection: "column",
                   },
                 }}
-                onClick={() => router.push(`/${creator.handle}`)}
+                onClick={() => router.push(`/@${creator.handle}`)}
                 cover={
                   <div
                     style={{
@@ -658,7 +658,7 @@ export default function Explore() {
                             flexDirection: "column",
                           },
                         }}
-                        onClick={() => router.push(`/${creator.handle}`)}
+                        onClick={() => router.push(`/@${creator.handle}`)}
                         cover={
                           <div
                             style={{
