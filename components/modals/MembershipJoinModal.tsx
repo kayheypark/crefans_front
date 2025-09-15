@@ -46,7 +46,11 @@ interface MembershipJoinModalProps {
   memberships: Membership[];
   defaultSelectedMembershipId?: string;
   subscribedMembershipIds?: string[];
-  onJoin?: (membershipId: string) => void;
+  onJoin?: (
+    membershipId: string,
+    paymentMethod: string,
+    isRecurring?: boolean
+  ) => void;
 }
 
 export default function MembershipJoinModal({
