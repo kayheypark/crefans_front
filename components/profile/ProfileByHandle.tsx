@@ -870,77 +870,49 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                   gap: 8,
                 }}
               >
-                {/* 본인 프로필이 아닌 경우에만 팔로우 버튼과 후원하기 버튼 표시 */}
+                {/* 본인 프로필이 아닌 경우에만 팔로우 버튼 표시 */}
                 {!isOwnProfile && profile.userSub && (
-                  <>
-                    <FollowButton
-                      targetUserId={profile.userSub}
-                      isFollowing={isFollowing}
-                      buttonType="auto"
-                      size="middle"
-                      onFollowChange={(newFollowingState) => {
-                        setIsFollowing(newFollowingState);
-                        // 팔로워 수 업데이트
-                        if (profile) {
-                          setProfile({
-                            ...profile,
-                            followersCount:
-                              profile.followersCount +
-                              (newFollowingState ? 1 : -1),
-                          });
-                        }
+                  <FollowButton
+                    targetUserId={profile.userSub}
+                    isFollowing={isFollowing}
+                    buttonType="auto"
+                    size="middle"
+                    onFollowChange={(newFollowingState) => {
+                      setIsFollowing(newFollowingState);
+                      // 팔로워 수 업데이트
+                      if (profile) {
+                        setProfile({
+                          ...profile,
+                          followersCount:
+                            profile.followersCount +
+                            (newFollowingState ? 1 : -1),
+                        });
+                      }
 
-                        // 팔로잉/팔로워 목록에서도 현재 프로필 사용자의 상태 업데이트
-                        setFollowingList((prev) =>
-                          prev.map((item) =>
-                            item.userId === profile.userSub
-                              ? {
-                                  ...item,
-                                  isFollowedByRequester: newFollowingState,
-                                }
-                              : item
-                          )
-                        );
-                        setFollowersList((prev) =>
-                          prev.map((item) =>
-                            item.userId === profile.userSub
-                              ? {
-                                  ...item,
-                                  isFollowedByRequester: newFollowingState,
-                                }
-                              : item
-                          )
-                        );
-                      }}
-                      onLoginRequired={() => setIsLoginModalOpen(true)}
-                    />
-
-                    {/* 크리에이터인 경우에만 후원하기 버튼 표시 */}
-                    {profile.isCreator && (
-                      <Button
-                        type="primary"
-                        icon={<GiftOutlined />}
-                        size="middle"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%)",
-                          border: "none",
-                          borderRadius: "8px",
-                          fontWeight: "600",
-                          boxShadow: "0 2px 8px rgba(255, 107, 107, 0.3)",
-                        }}
-                        onClick={() => {
-                          if (!user) {
-                            setIsLoginModalOpen(true);
-                            return;
-                          }
-                          setIsDonationModalOpen(true);
-                        }}
-                      >
-                        후원하기
-                      </Button>
-                    )}
-                  </>
+                      // 팔로잉/팔로워 목록에서도 현재 프로필 사용자의 상태 업데이트
+                      setFollowingList((prev) =>
+                        prev.map((item) =>
+                          item.userId === profile.userSub
+                            ? {
+                                ...item,
+                                isFollowedByRequester: newFollowingState,
+                              }
+                            : item
+                        )
+                      );
+                      setFollowersList((prev) =>
+                        prev.map((item) =>
+                          item.userId === profile.userSub
+                            ? {
+                                ...item,
+                                isFollowedByRequester: newFollowingState,
+                              }
+                            : item
+                        )
+                      );
+                    }}
+                    onLoginRequired={() => setIsLoginModalOpen(true)}
+                  />
                 )}
               </div>
             </div>
@@ -1045,6 +1017,52 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
               }}
             >
               글쓰기
+            </Button>
+          </div>
+
+          <div
+            style={{
+              height: "1px",
+              backgroundColor: "#f0f0f0",
+              marginTop: 16,
+            }}
+          />
+        </div>
+      )}
+
+      {/* 구분선과 후원하기 버튼 (다른 사용자 + 크리에이터일 때만) */}
+      {!isOwnProfile && profile.isCreator && (
+        <div style={{ marginBottom: 24 }}>
+          <div
+            style={{
+              height: "1px",
+              backgroundColor: "#f0f0f0",
+              marginBottom: 16,
+            }}
+          />
+
+          <div style={{ padding: "0 16px" }}>
+            <Button
+              type="primary"
+              icon={<GiftOutlined />}
+              onClick={() => {
+                if (!user) {
+                  setIsLoginModalOpen(true);
+                  return;
+                }
+                setIsDonationModalOpen(true);
+              }}
+              style={{
+                width: "100%",
+                height: "40px",
+                fontSize: "16px",
+                fontWeight: "500",
+                background: "linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%)",
+                border: "none",
+                boxShadow: "0 2px 8px rgba(255, 107, 107, 0.3)",
+              }}
+            >
+              후원하기
             </Button>
           </div>
 
