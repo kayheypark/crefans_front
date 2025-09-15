@@ -46,11 +46,6 @@ interface MembershipJoinModalProps {
   memberships: Membership[];
   defaultSelectedMembershipId?: string;
   subscribedMembershipIds?: string[];
-  onJoin?: (
-    membershipId: string,
-    paymentMethod: string,
-    isRecurring?: boolean
-  ) => void;
 }
 
 export default function MembershipJoinModal({
@@ -62,7 +57,6 @@ export default function MembershipJoinModal({
   memberships,
   defaultSelectedMembershipId,
   subscribedMembershipIds = [],
-  onJoin,
 }: MembershipJoinModalProps) {
   const { user } = useAuth();
   const [selectedMembership, setSelectedMembership] =

@@ -14,6 +14,7 @@ import {
   Divider,
   Tag,
   InputNumber,
+  Radio,
 } from "antd";
 import {
   ArrowLeftOutlined,
@@ -30,7 +31,6 @@ import {
 import { useRouter } from "next/navigation";
 import Spacings from "@/lib/constants/spacings";
 import MembershipManagementModal from "@/components/modals/MembershipManagementModal";
-import MembershipCard from "@/components/common/MembershipCard";
 import { MembershipItem } from "@/lib/api/membership";
 import MediaGallery from "@/components/media/MediaGallery";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
@@ -831,29 +831,72 @@ export default function WritePage() {
                         }}
                       >
                         {memberships.map((membership) => (
-                          <MembershipCard
+                          <div
                             key={membership.id}
-                            membership={{
-                              ...membership,
-                              // price를 number로 변환
-                              price: typeof membership.price === 'string' ? parseFloat(membership.price) || 0 : membership.price,
-                              // benefits를 안전하게 배열로 변환
-                              benefits: Array.isArray(membership.benefits)
-                                ? membership.benefits
-                                : membership.benefits
-                                ? membership.benefits
-                                    .split(",")
-                                    .map((b) => b.trim())
-                                : [],
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              padding: "12px",
+                              border:
+                                selectedMembershipLevel === membership.level
+                                  ? "2px solid #1890ff"
+                                  : "1px solid #d9d9d9",
+                              borderRadius: "8px",
+                              backgroundColor:
+                                selectedMembershipLevel === membership.level
+                                  ? "#f0f8ff"
+                                  : "#fff",
+                              cursor: "pointer",
                             }}
-                            selected={
-                              selectedMembershipLevel === membership.level
-                            }
-                            showRadio={true}
-                            onSelect={(membership) =>
+                            onClick={() =>
                               setSelectedMembershipLevel(membership.level)
                             }
-                          />
+                          >
+                            <Radio
+                              name="membershipLevel"
+                              value={membership.level}
+                              checked={
+                                selectedMembershipLevel === membership.level
+                              }
+                              onChange={() =>
+                                setSelectedMembershipLevel(membership.level)
+                              }
+                              style={{ marginRight: 12 }}
+                            />
+                            <div style={{ flex: 1 }}>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <Text strong style={{ fontSize: 16 }}>
+                                  {membership.name}
+                                </Text>
+                                <Text
+                                  style={{
+                                    color: "#faad14",
+                                    fontSize: 16,
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  {typeof membership.price === "string"
+                                    ? parseFloat(membership.price) || 0
+                                    : membership.price}
+                                  원
+                                </Text>
+                              </div>
+                              {membership.description && (
+                                <Text
+                                  type="secondary"
+                                  style={{ fontSize: 14, marginTop: 4 }}
+                                >
+                                  {membership.description}
+                                </Text>
+                              )}
+                            </div>
+                          </div>
                         ))}
                       </div>
                       <Text

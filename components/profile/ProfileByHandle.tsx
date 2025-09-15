@@ -22,7 +22,6 @@ import MembershipJoinModal from "@/components/modals/MembershipJoinModal";
 import Post from "@/components/post/Post";
 import FollowButton from "@/components/common/FollowButton";
 import CategoryTag from "@/components/common/CategoryTag";
-import MembershipCard from "@/components/common/MembershipCard";
 import { followApi } from "@/lib/api/follow";
 import { membershipAPI, MembershipItem } from "@/lib/api/membership";
 import { subscriptionBillingAPI } from "@/lib/api/subscriptionBilling";
@@ -67,12 +66,12 @@ interface MediaItem {
 }
 
 interface Membership {
-  id: string;           // Updated to string for billing system
+  id: string; // Updated to string for billing system
   name: string;
   level: number;
-  price: number;        // Will be parsed from backend string
+  price: number; // Will be parsed from backend string
   description?: string;
-  benefits: string[];   // Will be parsed from backend string
+  benefits: string[]; // Will be parsed from backend string
   billing_unit?: string;
   billing_period?: number;
   trial_unit?: string;
@@ -131,7 +130,9 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [memberships, setMemberships] = useState<Membership[]>([]);
   const [membershipLoading, setMembershipLoading] = useState(false);
   const [membershipError, setMembershipError] = useState<string | null>(null);
-  const [subscribedMembershipIds, setSubscribedMembershipIds] = useState<string[]>([]);
+  const [subscribedMembershipIds, setSubscribedMembershipIds] = useState<
+    string[]
+  >([]);
   const [isMembershipExpanded, setIsMembershipExpanded] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
@@ -453,34 +454,6 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     }
   };
 
-  // 멤버십 가입 처리
-  const handleMembershipJoin = (
-    membershipId: string, // Updated to string
-    paymentMethod: string,
-    isRecurring?: boolean
-  ) => {
-    try {
-      console.log("멤버십 가입:", {
-        creatorHandle: handle,
-        membershipId,
-        paymentMethod,
-        isRecurring,
-      });
-
-      if (isRecurring) {
-        // 정기결제는 TossPayments 리다이렉트를 통해 처리됨
-        console.log("정기결제 처리 중...");
-      } else {
-        // 일회성 결제 완료
-        message.success("멤버십 가입이 완료되었습니다!");
-        // 프로필 새로고침 (구독 상태가 함께 업데이트됨)
-        fetchUserProfile();
-      }
-    } catch (error) {
-      message.error("멤버십 가입 처리 중 오류가 발생했습니다.");
-    }
-  };
-
   // Transform membership item data
   const transformMembershipData = (item: MembershipItem): Membership => {
     const price = parseFloat(item.price) || 0;
@@ -488,14 +461,22 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
 
     try {
       if (item.benefits) {
-        if (item.benefits.startsWith('[')) {
+        if (item.benefits.startsWith("[")) {
           benefits = JSON.parse(item.benefits);
         } else {
-          benefits = item.benefits.split(',').map(b => b.trim()).filter(b => b.length > 0);
+          benefits = item.benefits
+            .split(",")
+            .map((b) => b.trim())
+            .filter((b) => b.length > 0);
         }
       }
     } catch (e) {
-      benefits = item.benefits ? item.benefits.split(',').map(b => b.trim()).filter(b => b.length > 0) : [];
+      benefits = item.benefits
+        ? item.benefits
+            .split(",")
+            .map((b) => b.trim())
+            .filter((b) => b.length > 0)
+        : [];
     }
 
     return {
@@ -523,35 +504,42 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
 
     try {
       // Try to get memberships from user profile first
-      const response = await membershipAPI.getMembershipsFromProfile(cleanHandle);
+      const response = await membershipAPI.getMembershipsFromProfile(
+        cleanHandle
+      );
 
       if (response.success && response.data) {
-        const transformedMemberships = response.data.map(transformMembershipData);
+        const transformedMemberships = response.data.map(
+          transformMembershipData
+        );
         setMemberships(transformedMemberships);
       } else {
         // Fallback to creator-specific endpoint
         try {
-          const creatorResponse = await membershipAPI.getMembershipsByCreatorId(profile.userSub);
+          const creatorResponse = await membershipAPI.getMembershipsByCreatorId(
+            profile.userSub
+          );
           if (creatorResponse.success && creatorResponse.data) {
-            const transformedMemberships = creatorResponse.data.map(transformMembershipData);
+            const transformedMemberships = creatorResponse.data.map(
+              transformMembershipData
+            );
             setMemberships(transformedMemberships);
           } else {
             setMemberships([]);
           }
         } catch (creatorError) {
-          console.error('Failed to fetch creator memberships:', creatorError);
+          console.error("Failed to fetch creator memberships:", creatorError);
           setMemberships([]);
         }
       }
     } catch (error) {
-      console.error('Failed to load membership data:', error);
-      setMembershipError('멤버십 정보를 불러오는데 실패했습니다.');
+      console.error("Failed to load membership data:", error);
+      setMembershipError("멤버십 정보를 불러오는데 실패했습니다.");
       setMemberships([]);
     } finally {
       setMembershipLoading(false);
     }
   };
-
 
   const renderPosts = () => {
     if (posts.length === 0) {
@@ -1340,11 +1328,21 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                         <Text strong style={{ fontSize: 18, color: "#1890ff" }}>
                           {memberships[0].price.toLocaleString()}원
                         </Text>
-                        {memberships[0].billing_unit && memberships[0].billing_period && (
-                          <div style={{ fontSize: 12, color: "#999", textAlign: "right" }}>
-                            / {memberships[0].billing_period}{memberships[0].billing_unit === 'MONTH' ? '개월' : '년'}
-                          </div>
-                        )}
+                        {memberships[0].billing_unit &&
+                          memberships[0].billing_period && (
+                            <div
+                              style={{
+                                fontSize: 12,
+                                color: "#999",
+                                textAlign: "right",
+                              }}
+                            >
+                              / {memberships[0].billing_period}
+                              {memberships[0].billing_unit === "MONTH"
+                                ? "개월"
+                                : "년"}
+                            </div>
+                          )}
                         {subscribedMembershipIds.includes(memberships[0].id) ? (
                           <div
                             style={{
@@ -1485,11 +1483,21 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                           >
                             {membership.price.toLocaleString()}원
                           </Text>
-                          {membership.billing_unit && membership.billing_period && (
-                            <div style={{ fontSize: 12, color: "#999", textAlign: "right" }}>
-                              / {membership.billing_period}{membership.billing_unit === 'MONTH' ? '개월' : '년'}
-                            </div>
-                          )}
+                          {membership.billing_unit &&
+                            membership.billing_period && (
+                              <div
+                                style={{
+                                  fontSize: 12,
+                                  color: "#999",
+                                  textAlign: "right",
+                                }}
+                              >
+                                / {membership.billing_period}
+                                {membership.billing_unit === "MONTH"
+                                  ? "개월"
+                                  : "년"}
+                              </div>
+                            )}
                           {subscribedMembershipIds.includes(membership.id) ? (
                             <div
                               style={{
@@ -1696,12 +1704,15 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
           creatorAvatar={profile.avatar}
           memberships={memberships.map((m) => ({
             ...m,
-            billing_unit: (m.billing_unit || "MONTH") as "DAY" | "WEEK" | "MONTH" | "YEAR",
+            billing_unit: (m.billing_unit || "MONTH") as
+              | "DAY"
+              | "WEEK"
+              | "MONTH"
+              | "YEAR",
             billing_period: m.billing_period || 1,
           }))}
           defaultSelectedMembershipId={selectedMembershipId}
           subscribedMembershipIds={subscribedMembershipIds}
-          onJoin={handleMembershipJoin}
         />
       )}
     </Layout>
