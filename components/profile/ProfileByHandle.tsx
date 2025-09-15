@@ -21,6 +21,7 @@ import DonationModal from "@/components/modals/DonationModal";
 import Post from "@/components/post/Post";
 import FollowButton from "@/components/common/FollowButton";
 import CategoryTag from "@/components/common/CategoryTag";
+import MembershipCard from "@/components/common/MembershipCard";
 import { followApi } from "@/lib/api/follow";
 import {
   ClockCircleOutlined,
@@ -60,6 +61,15 @@ interface MediaItem {
   views: number;
   likes: number;
   duration?: string;
+}
+
+interface Membership {
+  id: number;
+  name: string;
+  level: number;
+  price: number;
+  description?: string;
+  benefits: string[];
 }
 
 interface UserProfile {
@@ -104,6 +114,8 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+  const [memberships, setMemberships] = useState<Membership[]>([]);
+  const [isMembershipExpanded, setIsMembershipExpanded] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [hasMorePosts, setHasMorePosts] = useState(false);
@@ -130,6 +142,7 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     setLoadingMore(false);
 
     fetchUserProfile();
+    loadMemberships(); // 멤버십 데이터 로드
   }, [handle]);
 
   useEffect(() => {
@@ -418,6 +431,51 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
     } catch (error) {
       message.error("후원 처리 중 오류가 발생했습니다.");
     }
+  };
+
+  // 멤버십 목업 데이터 로드
+  const loadMemberships = () => {
+    const mockMemberships: Membership[] = [
+      {
+        id: 1,
+        name: "베이직 멤버",
+        level: 1,
+        price: 5000,
+        description: "기본적인 혜택을 제공하는 멤버십입니다.",
+        benefits: ["전용 콘텐츠", "댓글 우선순위", "월 1회 Q&A"],
+      },
+      {
+        id: 2,
+        name: "프리미엄 멤버",
+        level: 2,
+        price: 15000,
+        description: "더 많은 혜택을 제공하는 프리미엄 멤버십입니다.",
+        benefits: [
+          "전용 콘텐츠",
+          "댓글 우선순위",
+          "주 1회 Q&A",
+          "개인 메시지",
+          "생방송 참여",
+        ],
+      },
+      {
+        id: 3,
+        name: "VIP 멤버",
+        level: 3,
+        price: 30000,
+        description: "최고급 혜택을 제공하는 VIP 멤버십입니다.",
+        benefits: [
+          "전용 콘텐츠",
+          "댓글 우선순위",
+          "무제한 Q&A",
+          "개인 메시지",
+          "생방송 참여",
+          "1:1 화상 상담",
+          "특별 이벤트 초대",
+        ],
+      },
+    ];
+    setMemberships(mockMemberships);
   };
 
   const renderPosts = () => {
@@ -1064,6 +1122,326 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
             >
               후원하기
             </Button>
+          </div>
+
+          <div
+            style={{
+              height: "1px",
+              backgroundColor: "#f0f0f0",
+              marginTop: 16,
+            }}
+          />
+        </div>
+      )}
+
+      {/* 멤버십 섹션 (다른 사용자 + 크리에이터일 때만) */}
+      {!isOwnProfile && profile.isCreator && (
+        <div style={{ marginBottom: 24 }}>
+          <div style={{ padding: "0 16px" }}>
+            <div style={{ marginBottom: 16 }}>
+              <Title level={4} style={{ margin: 0, fontSize: 18 }}>
+                멤버십 가입
+              </Title>
+              <Text type="secondary" style={{ fontSize: 14 }}>
+                특별한 혜택을 받을 수 있는 멤버십에 가입해보세요
+              </Text>
+            </div>
+
+            {memberships.length > 0 ? (
+              <div
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
+              >
+                {/* 첫 번째 멤버십 (항상 표시) */}
+                {memberships[0] && (
+                  <div
+                    style={{
+                      border: "1px solid #d9d9d9",
+                      borderRadius: "12px",
+                      padding: "16px",
+                      backgroundColor: "#fff",
+                      cursor: "pointer",
+                      transition: "all 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "#1890ff";
+                      e.currentTarget.style.boxShadow =
+                        "0 2px 8px rgba(24, 144, 255, 0.1)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "#d9d9d9";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                        marginBottom: 12,
+                      }}
+                    >
+                      <div style={{ flex: 1 }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 8,
+                            marginBottom: 4,
+                          }}
+                        >
+                          <Text strong style={{ fontSize: 16 }}>
+                            {memberships[0].name}
+                          </Text>
+                          <Tag color="blue" style={{ margin: 0, fontSize: 12 }}>
+                            레벨 {memberships[0].level}
+                          </Tag>
+                        </div>
+                        {memberships[0].description && (
+                          <Text
+                            type="secondary"
+                            style={{
+                              fontSize: 13,
+                              display: "block",
+                              marginBottom: 8,
+                            }}
+                          >
+                            {memberships[0].description}
+                          </Text>
+                        )}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: 4,
+                          }}
+                        >
+                          {memberships[0].benefits
+                            .slice(0, 3)
+                            .map((benefit: string, index: number) => (
+                              <Tag
+                                key={index}
+                                color="green"
+                                style={{ fontSize: 11 }}
+                              >
+                                {benefit}
+                              </Tag>
+                            ))}
+                          {memberships[0].benefits.length > 3 && (
+                            <Tag color="default" style={{ fontSize: 11 }}>
+                              +{memberships[0].benefits.length - 3}개 더
+                            </Tag>
+                          )}
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-end",
+                          gap: 8,
+                        }}
+                      >
+                        <Text strong style={{ fontSize: 18, color: "#1890ff" }}>
+                          {memberships[0].price.toLocaleString()}원
+                        </Text>
+                        <Button
+                          type="primary"
+                          size="small"
+                          style={{
+                            borderRadius: "6px",
+                            fontSize: 12,
+                            height: "28px",
+                            padding: "0 12px",
+                          }}
+                          onClick={() => {
+                            if (!user) {
+                              setIsLoginModalOpen(true);
+                              return;
+                            }
+                            // TODO: 멤버십 가입 API 호출
+                            message.success(
+                              `${memberships[0].name} 멤버십 가입이 완료되었습니다!`
+                            );
+                          }}
+                        >
+                          가입하기
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 나머지 멤버십들 (펼쳐진 상태일 때만) */}
+                {isMembershipExpanded &&
+                  memberships.slice(1).map((membership) => (
+                    <div
+                      key={membership.id}
+                      style={{
+                        border: "1px solid #d9d9d9",
+                        borderRadius: "12px",
+                        padding: "16px",
+                        backgroundColor: "#fff",
+                        cursor: "pointer",
+                        transition: "all 0.2s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = "#1890ff";
+                        e.currentTarget.style.boxShadow =
+                          "0 2px 8px rgba(24, 144, 255, 0.1)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = "#d9d9d9";
+                        e.currentTarget.style.boxShadow = "none";
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          marginBottom: 12,
+                        }}
+                      >
+                        <div style={{ flex: 1 }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 8,
+                              marginBottom: 4,
+                            }}
+                          >
+                            <Text strong style={{ fontSize: 16 }}>
+                              {membership.name}
+                            </Text>
+                            <Tag
+                              color="blue"
+                              style={{ margin: 0, fontSize: 12 }}
+                            >
+                              레벨 {membership.level}
+                            </Tag>
+                          </div>
+                          {membership.description && (
+                            <Text
+                              type="secondary"
+                              style={{
+                                fontSize: 13,
+                                display: "block",
+                                marginBottom: 8,
+                              }}
+                            >
+                              {membership.description}
+                            </Text>
+                          )}
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: 4,
+                            }}
+                          >
+                            {membership.benefits.map(
+                              (benefit: string, index: number) => (
+                                <Tag
+                                  key={index}
+                                  color="green"
+                                  style={{ fontSize: 11 }}
+                                >
+                                  {benefit}
+                                </Tag>
+                              )
+                            )}
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-end",
+                            gap: 8,
+                          }}
+                        >
+                          <Text
+                            strong
+                            style={{ fontSize: 18, color: "#1890ff" }}
+                          >
+                            {membership.price.toLocaleString()}원
+                          </Text>
+                          <Button
+                            type="primary"
+                            size="small"
+                            style={{
+                              borderRadius: "6px",
+                              fontSize: 12,
+                              height: "28px",
+                              padding: "0 12px",
+                            }}
+                            onClick={() => {
+                              if (!user) {
+                                setIsLoginModalOpen(true);
+                                return;
+                              }
+                              // TODO: 멤버십 가입 API 호출
+                              message.success(
+                                `${membership.name} 멤버십 가입이 완료되었습니다!`
+                              );
+                            }}
+                          >
+                            가입하기
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                {/* 펼치기/접기 버튼 (멤버십이 2개 이상일 때만) - 맨 하단에 위치 */}
+                {memberships.length > 1 && (
+                  <div style={{ textAlign: "center", marginTop: 8 }}>
+                    <Button
+                      type="text"
+                      onClick={() =>
+                        setIsMembershipExpanded(!isMembershipExpanded)
+                      }
+                      style={{
+                        fontSize: 14,
+                        color: "#1890ff",
+                        padding: "8px 16px",
+                      }}
+                    >
+                      {isMembershipExpanded ? (
+                        <>
+                          <span>접기</span>
+                          <span style={{ marginLeft: 4 }}>▲</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>더보기 ({memberships.length - 1}개)</span>
+                          <span style={{ marginLeft: 4 }}>▼</span>
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div
+                style={{
+                  textAlign: "center",
+                  padding: "40px 20px",
+                  backgroundColor: "#fff",
+                  borderRadius: "12px",
+                  border: "1px solid #f0f0f0",
+                }}
+              >
+                <Text type="secondary" style={{ fontSize: 16 }}>
+                  현재 구독 가능한 멤버십이 없습니다
+                </Text>
+                <br />
+                <Text type="secondary" style={{ fontSize: 14 }}>
+                  댓글로 멤버십을 만들어 달라고 해보세요
+                </Text>
+              </div>
+            )}
           </div>
 
           <div
