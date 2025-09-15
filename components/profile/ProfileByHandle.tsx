@@ -18,6 +18,7 @@ import Spin from "antd/lib/spin";
 import ReportModal from "@/components/modals/ReportModal";
 import LoginModal from "@/components/modals/LoginModal";
 import DonationModal from "@/components/modals/DonationModal";
+import MembershipJoinModal from "@/components/modals/MembershipJoinModal";
 import Post from "@/components/post/Post";
 import FollowButton from "@/components/common/FollowButton";
 import CategoryTag from "@/components/common/CategoryTag";
@@ -114,6 +115,11 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
   const [isReportModalVisible, setIsReportModalVisible] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+  const [isMembershipJoinModalOpen, setIsMembershipJoinModalOpen] =
+    useState(false);
+  const [selectedMembershipId, setSelectedMembershipId] = useState<
+    number | undefined
+  >(undefined);
   const [memberships, setMemberships] = useState<Membership[]>([]);
   const [isMembershipExpanded, setIsMembershipExpanded] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
@@ -430,6 +436,24 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
       message.success(`${amount}콩을 후원했습니다!`);
     } catch (error) {
       message.error("후원 처리 중 오류가 발생했습니다.");
+    }
+  };
+
+  // 멤버십 가입 처리
+  const handleMembershipJoin = (
+    membershipId: number,
+    paymentMethod: string
+  ) => {
+    try {
+      // TODO: 실제 멤버십 가입 API 호출
+      console.log("멤버십 가입:", {
+        creatorHandle: handle,
+        membershipId,
+        paymentMethod,
+      });
+      message.success("멤버십 가입이 완료되었습니다!");
+    } catch (error) {
+      message.error("멤버십 가입 처리 중 오류가 발생했습니다.");
     }
   };
 
@@ -1258,10 +1282,8 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                               setIsLoginModalOpen(true);
                               return;
                             }
-                            // TODO: 멤버십 가입 API 호출
-                            message.success(
-                              `${memberships[0].name} 멤버십 가입이 완료되었습니다!`
-                            );
+                            setSelectedMembershipId(memberships[0].id);
+                            setIsMembershipJoinModalOpen(true);
                           }}
                         >
                           가입하기
@@ -1381,10 +1403,8 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
                                 setIsLoginModalOpen(true);
                                 return;
                               }
-                              // TODO: 멤버십 가입 API 호출
-                              message.success(
-                                `${membership.name} 멤버십 가입이 완료되었습니다!`
-                              );
+                              setSelectedMembershipId(membership.id);
+                              setIsMembershipJoinModalOpen(true);
                             }}
                           >
                             가입하기
@@ -1543,6 +1563,24 @@ export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
           creatorHandle={profile.handle}
           creatorAvatar={profile.avatar}
           onSubmit={handleDonationSubmit}
+        />
+      )}
+
+      {/* 멤버십 가입 모달 */}
+      {profile && (
+        <MembershipJoinModal
+          open={isMembershipJoinModalOpen}
+          onClose={() => setIsMembershipJoinModalOpen(false)}
+          creatorName={profile.name}
+          creatorHandle={profile.handle}
+          creatorAvatar={profile.avatar}
+          memberships={memberships.map((m) => ({
+            ...m,
+            billing_unit: "MONTH" as const,
+            billing_period: 1,
+          }))}
+          defaultSelectedMembershipId={selectedMembershipId}
+          onJoin={handleMembershipJoin}
         />
       )}
     </Layout>
