@@ -375,7 +375,7 @@ export default function Explore() {
           >
             {newCreators.map((creator) => (
               <Card
-                key={creator.id}
+                key={creator.handle}
                 style={{
                   borderRadius: 16,
                   overflow: "hidden",
@@ -481,7 +481,7 @@ export default function Explore() {
                         type="secondary"
                         style={{ fontSize: isMobile ? 11 : 12 }}
                       >
-                        {creator.handle}
+                        @{creator.handle}
                       </Text>
                     </div>
                   </div>
@@ -505,7 +505,7 @@ export default function Explore() {
                         wordBreak: "break-word",
                       }}
                     >
-                      {creator.bio}
+                      {creator.bio || "소개글을 준비중입니다."}
                     </Text>
                   </div>
 
@@ -636,7 +636,7 @@ export default function Explore() {
                   {getDisplayCreators(category.name).length > 0 ? (
                     getDisplayCreators(category.name).map((creator) => (
                       <Card
-                        key={creator.id}
+                        key={creator.handle}
                         style={{
                           borderRadius: 16,
                           overflow: "hidden",
@@ -745,7 +745,7 @@ export default function Explore() {
                                 type="secondary"
                                 style={{ fontSize: isMobile ? 11 : 12 }}
                               >
-                                {creator.handle}
+                                @{creator.handle}
                               </Text>
                             </div>
                           </div>
@@ -769,7 +769,7 @@ export default function Explore() {
                                 wordBreak: "break-word",
                               }}
                             >
-                              {creator.bio}
+                              {creator.bio || "소개글을 준비중입니다."}
                             </Text>
                           </div>
 

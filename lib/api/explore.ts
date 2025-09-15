@@ -14,12 +14,10 @@ export interface CreatorCategory {
 
 // Creator Interface - Updated to match backend response
 export interface Creator {
-  id: string;
-  user_id: string;
   nickname: string;
   handle: string;
   avatar: string;
-  bio: string;
+  bio: string | null;
   followerCount: number;
   postCount: number;
   category?: CreatorCategory;
