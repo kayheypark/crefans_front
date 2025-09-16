@@ -125,10 +125,10 @@ export const getAuthTimeUntilExpiryFormatted = (): string => {
 };
 
 /**
- * 토큰이 1분 이하로 남았는지 확인하는 함수
+ * 토큰이 4분 50초 이하로 남았는지 확인하는 함수
  */
 export const shouldRefreshToken = (): boolean => {
   const timeMs = getAuthTimeUntilExpiry();
-  const threshold = 1 * 60 * 1000;
+  const threshold = 4 * 60 * 1000 + 50 * 1000; // 4분 50초를 밀리초로 변환
   return timeMs <= threshold && timeMs > 0;
 };

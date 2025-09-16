@@ -22,8 +22,6 @@ export function LogoutModal({ isVisible, onClose }: LogoutModalProps) {
 
     // 인증 관련 쿠키 삭제
     deleteCookie("id_token");
-    deleteCookie("access_token");
-    deleteCookie("refresh_token");
 
     // 모달 닫기 및 홈으로 이동
     onClose();

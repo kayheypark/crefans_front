@@ -159,6 +159,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               return;
             } catch (error) {
               console.error('Token refresh failed:', error);
+              // 리프레시 실패 시 로그아웃 처리
+              setShowLogoutModal(true);
+              logout();
+              return;
             }
           }
         }
