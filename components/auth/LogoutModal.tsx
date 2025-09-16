@@ -42,7 +42,7 @@ export function LogoutModal({ isVisible, onClose }: LogoutModalProps) {
       cancelText={null}
       maskClosable={false}
       keyboard={false}
-      destroyOnClose
+      destroyOnHidden
     >
       <Space
         direction="vertical"

@@ -94,4 +94,14 @@ export const authAPI = {
     );
     return response.data;
   },
+
+  // 토큰 갱신
+  refreshToken: async () => {
+    const response = await axios.post(
+      `${getApiUrl()}/auth/refresh`,
+      {},
+      { withCredentials: true }
+    );
+    return response.data;
+  },
 };

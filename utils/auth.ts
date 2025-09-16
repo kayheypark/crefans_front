@@ -7,9 +7,7 @@ export const getCookie = (name: string): string | null => {
   if (typeof document === "undefined") return null;
 
   const cookies = document.cookie.split(";");
-  const cookie = cookies.find((cookie) =>
-    cookie.trim().startsWith(`${name}=`)
-  );
+  const cookie = cookies.find((cookie) => cookie.trim().startsWith(`${name}=`));
 
   return cookie ? cookie.split("=")[1] : null;
 };
@@ -90,6 +88,17 @@ export const getTimeUntilExpiry = (token: string): number => {
 };
 
 /**
+ * 밀리초를 분:초 형태로 포맷하는 함수
+ */
+export const formatTimeToMinutesSeconds = (milliseconds: number): string => {
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+};
+
+/**
  * 현재 쿠키의 토큰 만료까지 남은 시간을 반환하는 함수
  */
 export const getAuthTimeUntilExpiry = (): number => {
@@ -105,4 +114,21 @@ export const getAuthTimeUntilExpiry = (): number => {
   }
 
   return 0;
+};
+
+/**
+ * 현재 쿠키의 토큰 만료까지 남은 시간을 분:초 형태로 반환하는 함수
+ */
+export const getAuthTimeUntilExpiryFormatted = (): string => {
+  const timeMs = getAuthTimeUntilExpiry();
+  return formatTimeToMinutesSeconds(timeMs);
+};
+
+/**
+ * 토큰이 1분 이하로 남았는지 확인하는 함수
+ */
+export const shouldRefreshToken = (): boolean => {
+  const timeMs = getAuthTimeUntilExpiry();
+  const threshold = 1 * 60 * 1000;
+  return timeMs <= threshold && timeMs > 0;
 };

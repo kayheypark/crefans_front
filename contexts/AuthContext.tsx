@@ -8,7 +8,7 @@ import React, {
   useRef,
 } from "react";
 import { authAPI } from "@/lib/api/auth";
-import { isAuthTokenExpired, getAuthTimeUntilExpiry } from "@/utils/auth";
+import { isAuthTokenExpired, getAuthTimeUntilExpiry, getAuthTimeUntilExpiryFormatted, shouldRefreshToken } from "@/utils/auth";
 import { LogoutModal } from "@/components/auth/LogoutModal";
 
 interface User {
@@ -124,17 +124,48 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // 사용자가 로그인되어 있을 때만 토큰 체크 시작
     if (user) {
-      const checkTokenExpiry = () => {
+      const checkTokenExpiry = async () => {
         if (isAuthTokenExpired()) {
-          // 토큰이 만료되었으면 로그아웃 모달 표시
+          // 페이지가 보이고 있는 경우에만 토큰 갱신 시도
+          if (document.visibilityState === 'visible') {
+            console.log('Token expired, attempting refresh...');
+            try {
+              await authAPI.refreshToken();
+              console.log('Token refreshed successfully');
+              // 토큰 갱신 성공 시 사용자 정보도 갱신
+              await refreshUser();
+              return;
+            } catch (error) {
+              console.error('Token refresh failed:', error);
+              // 리프레시 실패 시 로그아웃 처리
+            }
+          }
+
+          // 페이지가 숨겨져 있거나 리프레시 실패 시 로그아웃
           setShowLogoutModal(true);
           logout();
           return;
         }
 
-        // 토큰 만료까지 남은 시간 확인
-        const timeUntilExpiry = getAuthTimeUntilExpiry();
-        console.log("Token expires in:", timeUntilExpiry, "ms");
+        // 토큰이 4분 50초 이하로 남은 경우 리프레시 시도
+        if (shouldRefreshToken()) {
+          if (document.visibilityState === 'visible') {
+            const timeFormatted = getAuthTimeUntilExpiryFormatted();
+            console.log(`Token expires in ${timeFormatted}, attempting refresh...`);
+            try {
+              await authAPI.refreshToken();
+              console.log('Token refreshed successfully');
+              await refreshUser();
+              return;
+            } catch (error) {
+              console.error('Token refresh failed:', error);
+            }
+          }
+        }
+
+        // 토큰 만료까지 남은 시간 확인 (분:초 형태로 로깅)
+        const timeFormatted = getAuthTimeUntilExpiryFormatted();
+        console.log("Token expires in:", timeFormatted);
       };
 
       // 즉시 한 번 체크
@@ -143,11 +174,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // 30초마다 토큰 만료 체크
       tokenCheckIntervalRef.current = setInterval(checkTokenExpiry, 30000);
 
-      // 컴포넌트 언마운트시 인터벌 정리
+      // Page Visibility 이벤트 리스너 추가
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === 'visible') {
+          console.log('Page became visible, checking token status...');
+          checkTokenExpiry();
+        }
+      };
+
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+
+      // 컴포넌트 언마운트시 정리
       return () => {
         if (tokenCheckIntervalRef.current) {
           clearInterval(tokenCheckIntervalRef.current);
         }
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
       };
     } else {
       // 사용자가 로그아웃되면 인터벌 정리
