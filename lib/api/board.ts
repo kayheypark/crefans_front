@@ -8,6 +8,7 @@ export interface BoardPost {
   category: string;
   created_at: string;
   updated_at?: string;
+  published_at: string;
   views: number;
   is_important: boolean;
   is_published: boolean;

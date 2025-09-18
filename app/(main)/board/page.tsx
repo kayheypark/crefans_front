@@ -188,7 +188,7 @@ export default function BoardPage() {
                   <Space>
                     <CalendarOutlined />
                     <Text type="secondary" style={{ fontSize: 12 }}>
-                      {formatDate(post.created_at)}
+                      {formatDate(post.published_at || post.created_at)}
                     </Text>
                   </Space>
                   <Space>

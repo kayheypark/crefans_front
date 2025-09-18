@@ -209,8 +209,10 @@ export default function BoardViewPage() {
               <CalendarOutlined />
               <Text type="secondary">
                 {isMobile
-                  ? formatDate(post.created_at)
-                  : `작성일: ${formatDate(post.created_at)}`}
+                  ? formatDate(post.published_at || post.created_at)
+                  : `발행일: ${formatDate(
+                      post.published_at || post.created_at
+                    )}`}
               </Text>
             </Space>
             {post.updated_at && post.updated_at !== post.created_at && (
