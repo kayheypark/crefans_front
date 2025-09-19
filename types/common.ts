@@ -1,3 +1,18 @@
+// Utility Types for API operations
+export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+export type SortOrder = 'asc' | 'desc';
+
+export type LoadingState = 'idle' | 'pending' | 'loading' | 'success' | 'error';
+
+// Generic pagination parameters
+export interface PaginationParams {
+  page?: number;
+  limit?: number;
+  sort?: string;
+  order?: SortOrder;
+}
+
 // Form 값 관련 타입
 export interface FormValues {
   [key: string]: any;
@@ -41,6 +56,13 @@ export interface MembershipFormValues {
   benefits: string;
 }
 
+// Union types for commonly used string literals
+export type NotificationType = 'like' | 'comment' | 'follow' | 'membership' | 'donation' | 'message' | 'payment' | 'activity';
+export type CommonPaymentStatus = 'completed' | 'pending' | 'failed';
+export type PaymentMethodType = 'card' | 'bank';
+export type EarningSource = 'membership' | 'donation' | 'tip';
+export type PostingType = 'membership' | 'tip' | 'bean';
+
 export interface PaymentMethodFormValues {
   type: 'card' | 'bank';
   cardNumber?: string;
@@ -63,7 +85,7 @@ export type CustomUploadRequest = RcCustomRequestOptions;
 // 알림 관련 타입
 export interface Notification {
   id: string;
-  type: 'like' | 'comment' | 'follow' | 'membership' | 'donation' | 'message' | 'payment' | 'activity';
+  type: NotificationType;
   title: string;
   message: string;
   timestamp: string;
@@ -97,7 +119,7 @@ export interface FollowCreator {
 // 결제 수단 타입
 export interface PaymentMethod {
   id: string;
-  type: 'card' | 'bank';
+  type: PaymentMethodType;
   name: string;
   lastFour?: string;
   expiryDate?: string;
@@ -108,10 +130,10 @@ export interface PaymentMethod {
 // 결제 내역 타입
 export interface PaymentHistory {
   id: string;
-  type: "membership" | "tip" | "bean";
+  type: PostingType;
   amount: number;
   currency: string;
-  status: 'completed' | 'pending' | 'failed';
+  status: CommonPaymentStatus;
   description: string;
   paymentMethod: string;
   date: string;
@@ -125,7 +147,7 @@ export interface Donation {
   amount: number;
   message?: string;
   date: string;
-  status: 'completed' | 'pending';
+  status: Exclude<CommonPaymentStatus, 'failed'>;
   avatar?: string;
   isAnonymous: boolean;
 }
@@ -134,10 +156,10 @@ export interface Donation {
 export interface Earning {
   id: string;
   date: string;
-  source: 'membership' | 'donation' | 'tip';
+  source: EarningSource;
   amount: number;
   description: string;
-  status: 'completed' | 'pending';
+  status: Exclude<CommonPaymentStatus, 'failed'>;
 }
 
 // 멤버십 관련 타입 (테이블용)

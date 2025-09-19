@@ -1,25 +1,22 @@
 import axios from "axios";
 import { getApiUrl } from "@/utils/env";
+import {
+  PreparePaymentRequest,
+  ConfirmPaymentRequest,
+  GetPaymentHistoryRequest,
+  PreparePaymentResponse,
+  ConfirmPaymentResponse,
+  PaymentHistoryResponse
+} from '@/types/payment';
 
-// 결제 요청 데이터 타입
-export interface PaymentPrepareRequest {
-  amount: number;
-  orderName: string;
-  customerEmail?: string;
-  customerName?: string;
-}
-
-// 결제 확인 데이터 타입
-export interface PaymentConfirmRequest {
-  paymentKey: string;
-  orderId: string;
-  amount: number;
-}
+// Legacy interfaces for backward compatibility
+export interface PaymentPrepareRequest extends PreparePaymentRequest {}
+export interface PaymentConfirmRequest extends ConfirmPaymentRequest {}
 
 // 결제 관련 API 함수들
 export const paymentAPI = {
   // 결제 준비 (TossPayments 통합)
-  preparePayment: async (data: PaymentPrepareRequest) => {
+  preparePayment: async (data: PreparePaymentRequest): Promise<PreparePaymentResponse> => {
     const response = await axios.post(
       `${getApiUrl()}/payment/prepare`,
       data,
@@ -29,7 +26,7 @@ export const paymentAPI = {
   },
 
   // 결제 확인 (TossPayments 통합)
-  confirmPayment: async (data: PaymentConfirmRequest) => {
+  confirmPayment: async (data: ConfirmPaymentRequest): Promise<ConfirmPaymentResponse> => {
     const response = await axios.post(
       `${getApiUrl()}/payment/confirm`,
       data,
@@ -49,9 +46,14 @@ export const paymentAPI = {
   },
 
   // 결제 내역 조회
-  getPaymentHistory: async (page: number = 1, limit: number = 10) => {
+  getPaymentHistory: async (params?: GetPaymentHistoryRequest): Promise<PaymentHistoryResponse> => {
+    const searchParams = new URLSearchParams();
+    if (params?.page) searchParams.append('page', params.page.toString());
+    if (params?.limit) searchParams.append('limit', params.limit.toString());
+    if (params?.status) searchParams.append('status', params.status);
+
     const response = await axios.get(
-      `${getApiUrl()}/payment/history?page=${page}&limit=${limit}`,
+      `${getApiUrl()}/payment/history?${searchParams}`,
       { withCredentials: true }
     );
     return response.data;

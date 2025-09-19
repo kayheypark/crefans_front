@@ -94,8 +94,9 @@ export default function MembershipManagementModal({
     try {
       const response = await membershipAPI.getMemberships();
       if (response.success) {
-        setMemberships(response.data);
-        onMembershipsUpdate(response.data);
+        const memberships = response.data.memberships || [];
+        setMemberships(memberships);
+        onMembershipsUpdate(memberships);
       } else {
         message.error(
           response.message || "멤버십 목록을 불러오는데 실패했습니다."
@@ -114,7 +115,7 @@ export default function MembershipManagementModal({
   }, [open]);
 
   // 멤버십 추가
-  const handleMembershipAdded = (newMembership: MembershipItem) => {
+  const handleMembershipAdded = (newMembership?: MembershipItem) => {
     loadMemberships(); // 새로고침하여 최신 데이터 로드
     setShowAddMembership(false); // 멤버십 추가 모달 닫기
   };
@@ -134,7 +135,7 @@ export default function MembershipManagementModal({
   // 멤버십 삭제
   const handleDelete = async (id: string | number) => {
     try {
-      const response = await membershipAPI.deleteMembership(id);
+      const response = await membershipAPI.deleteMembership(String(id));
       if (response.success) {
         message.success("멤버십이 삭제되었습니다.");
         loadMemberships(); // 새로고침하여 최신 데이터 로드

@@ -17,7 +17,8 @@ import {
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
-import { membershipAPI, MembershipItem, CreateMembershipRequest } from "@/lib/api/membership";
+import { membershipAPI, MembershipItem } from "@/lib/api/membership";
+import { CreateMembershipRequest } from "@/types/membership";
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -46,7 +47,7 @@ const INPUT_STYLES = {
 interface AddMembershipModalProps {
   open: boolean;
   onClose: () => void;
-  onMembershipAdded: (membership: MembershipItem) => void;
+  onMembershipAdded: (membership?: MembershipItem) => void; // Make membership optional since we'll refresh the list
 }
 
 export default function AddMembershipModal({
@@ -87,7 +88,7 @@ export default function AddMembershipModal({
       const response = await membershipAPI.createMembership(membershipData);
       
       if (response.success) {
-        onMembershipAdded(response.data);
+        onMembershipAdded(); // Signal to refresh the membership list
         message.success("멤버십이 추가되었습니다.");
         closeModal(); // handleClose 대신 closeModal 직접 호출
       } else {

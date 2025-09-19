@@ -460,7 +460,7 @@ export default function Profile({ handle }: ProfileProps) {
 
   // Transform membership item data
   const transformMembershipData = (item: MembershipItem): Membership => {
-    const price = parseFloat(item.price) || 0;
+    const price = typeof item.price === 'number' ? item.price : parseFloat(item.price) || 0;
     let benefits: string[] = [];
 
     try {
@@ -513,7 +513,8 @@ export default function Profile({ handle }: ProfileProps) {
       );
 
       if (response.success && response.data) {
-        const transformedMemberships = response.data.map(
+        const memberships = response.data.memberships || [];
+        const transformedMemberships = memberships.map(
           transformMembershipData
         );
         setMemberships(transformedMemberships);
@@ -524,7 +525,8 @@ export default function Profile({ handle }: ProfileProps) {
             profile.userSub
           );
           if (creatorResponse.success && creatorResponse.data) {
-            const transformedMemberships = creatorResponse.data.map(
+            const memberships = creatorResponse.data.memberships || [];
+            const transformedMemberships = memberships.map(
               transformMembershipData
             );
             setMemberships(transformedMemberships);

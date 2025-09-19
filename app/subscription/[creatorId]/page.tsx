@@ -72,8 +72,9 @@ export default function MembershipSubscriptionPage() {
 
           if (membershipResponse.success && membershipResponse.data) {
             // 활성화된 멤버십만 필터링
-            const activeMemberships = membershipResponse.data.filter(
-              (membership) => membership.is_active !== false
+            const memberships = membershipResponse.data.memberships || [];
+            const activeMemberships = memberships.filter(
+              (membership) => membership.isActive !== false
             );
 
             setMemberships(activeMemberships);
@@ -312,7 +313,7 @@ export default function MembershipSubscriptionPage() {
                       <div style={{ textAlign: "right" }}>
                         <div style={{ marginBottom: 8 }}>
                           <Text strong style={{ fontSize: 24, color: "#faad14" }}>
-                            {parseFloat(membership.price || '0').toLocaleString()}원
+                            {(membership.price || 0).toLocaleString()}원
                           </Text>
                         </div>
                         <div style={{ marginBottom: 16 }}>

@@ -1,16 +1,19 @@
 import axios from "axios";
 import { getApiUrl } from "@/utils/env";
-import { 
-  CreateCommentDto, 
-  UpdateCommentDto, 
-  CommentListResponse, 
-  CommentResponse 
+import {
+  CreateCommentRequest,
+  UpdateCommentRequest,
+  CommentListResponse,
+  CommentResponse,
+  // Legacy DTOs for compatibility
+  CreateCommentDto,
+  UpdateCommentDto
 } from "@/types/comment";
 import { CommentLikeResponse } from '@/types/api';
 
 export const commentAPI = {
   // 댓글 생성
-  createComment: async (commentData: CreateCommentDto): Promise<CommentResponse> => {
+  createComment: async (commentData: CreateCommentRequest): Promise<CommentResponse> => {
     const response = await axios.post(
       `${getApiUrl()}/comments`,
       commentData,
@@ -29,7 +32,7 @@ export const commentAPI = {
   },
 
   // 댓글 수정
-  updateComment: async (commentId: string, commentData: UpdateCommentDto): Promise<CommentResponse> => {
+  updateComment: async (commentId: string, commentData: UpdateCommentRequest): Promise<CommentResponse> => {
     const response = await axios.put(
       `${getApiUrl()}/comments/${commentId}`,
       commentData,

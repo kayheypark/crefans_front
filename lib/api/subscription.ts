@@ -1,26 +1,19 @@
 import { apiClient } from './client';
-import { ApiResponse, SubscriptionResponse, UnsubscriptionResponse } from '@/types/api';
+import {
+  SubscriptionResponse,
+  UnsubscriptionResponse,
+  SubscriptionListResponse,
+  SubscribeMembershipRequest
+} from '@/types/subscription';
+import { BaseApiResponse } from '@/types/api';
 
-export interface SubscriptionInfo {
-  creatorId: string;
-  creatorName: string;
-  membershipType: string;
-  membershipLevel: number;
-  startedAt: string;
-  avatar: string;
-  unread: boolean;
-}
-
-export interface SubscriptionListResponse {
-  subscriptions: SubscriptionInfo[];
-}
-
+// Legacy interfaces (moved to types/subscription.ts)
 export interface SubscriptionRequest {
-  membershipItemId: number;
+  membershipItemId: string; // Changed to string to match server
 }
 
 export const subscriptionAPI = {
-  async getMySubscriptions(): Promise<ApiResponse<SubscriptionListResponse>> {
+  async getMySubscriptions(): Promise<SubscriptionListResponse> {
     try {
       const response = await apiClient.get('/subscription/my/list');
       return response.data;
@@ -31,7 +24,7 @@ export const subscriptionAPI = {
   },
 
 
-  async unsubscribeFromMembership(membershipItemId: number): Promise<ApiResponse<UnsubscriptionResponse>> {
+  async unsubscribeFromMembership(membershipItemId: string): Promise<UnsubscriptionResponse> {
     try {
       const response = await apiClient.delete(`/subscription/membership/${membershipItemId}`);
       return response.data;

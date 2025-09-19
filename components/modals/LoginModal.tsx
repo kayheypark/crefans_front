@@ -55,14 +55,33 @@ export default function LoginModal({
       const userRes = await authAPI.getMe();
 
       // API 응답 구조에 맞게 사용자 정보 변환
-      const user = userRes.data.user;
+      // Server returns { success: true, data: { user: {...} } }
+      const serverUser = userRes.data?.user;
 
       // 사용자 정보가 올바르게 파싱되었는지 확인
-      if (!user || !user.attributes) {
+      if (!serverUser) {
         throw new Error("사용자 정보를 가져올 수 없습니다.");
       }
 
-      login(user);
+      // Server always returns Cognito format
+      const authUser = {
+        username: serverUser.username || serverUser.attributes.email,
+        points: serverUser.points || 0,
+        isCreator: serverUser.isCreator || false,
+        attributes: {
+          email: serverUser.attributes.email || '',
+          email_verified: serverUser.attributes.email_verified || true,
+          preferred_username: serverUser.attributes.preferred_username || serverUser.attributes.email,
+          name: serverUser.attributes.name || '',
+          sub: serverUser.attributes.sub || '',
+          picture: serverUser.attributes.picture || undefined,
+          nickname: serverUser.attributes.nickname || '',
+          phone_number: serverUser.attributes.phone_number || '',
+        },
+        profile: serverUser.profile
+      };
+
+      login(authUser);
       message.success("로그인되었습니다!");
       onClose();
 

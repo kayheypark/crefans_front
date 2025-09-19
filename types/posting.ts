@@ -12,9 +12,13 @@ export interface MediaResponse {
   processedUrls?: any;
   thumbnailUrls?: any;
   processingStatus: string;
+  duration?: number;
+  // Additional properties that might be available
+  width?: number;
+  height?: number;
 }
 
-export interface UserResponse {
+export interface PostingUserResponse {
   id: string;
   handle: string;
   name: string;
@@ -24,7 +28,7 @@ export interface UserResponse {
 export interface PostingResponse {
   id: string;
   userSub: string;
-  user: UserResponse;
+  user: PostingUserResponse;
   title: string;
   content: string;
   status: PostingStatus;
@@ -50,7 +54,8 @@ export interface PostingResponse {
   isLiked: boolean;
 }
 
-export interface CreatePostingDto {
+// Request DTOs (matching server exactly with snake_case)
+export interface CreatePostingRequest {
   title: string;
   content: string;
   status?: PostingStatus;
@@ -66,7 +71,7 @@ export interface CreatePostingDto {
   allow_comments?: boolean;
 }
 
-export interface UpdatePostingDto {
+export interface UpdatePostingRequest {
   title?: string;
   content?: string;
   status?: PostingStatus;
@@ -81,6 +86,19 @@ export interface UpdatePostingDto {
   is_sensitive?: boolean;
   allow_comments?: boolean;
 }
+
+export interface PostingQueryRequest {
+  page?: number;
+  limit?: number;
+  status?: PostingStatus;
+  is_membership?: boolean;
+  user_sub?: string;
+  search?: string;
+}
+
+// Legacy DTOs for backwards compatibility (deprecated, use Request types)
+export type CreatePostingDto = CreatePostingRequest;
+export type UpdatePostingDto = UpdatePostingRequest;
 
 export interface PostingListResponse {
   success: boolean;
@@ -104,4 +122,29 @@ export interface CreatePostingResponse {
     id: string;
     message: string;
   };
+}
+
+export interface UpdatePostingResponse {
+  success: boolean;
+  message: string;
+}
+
+// ===== 프론트엔드 폼 상태 인터페이스들 =====
+
+export interface MediaItem {
+  id: string;
+  url: string; // 블로브 URL (미리보기용)
+  s3Url: string; // AWS S3 URL (필수)
+  order: number;
+}
+
+export interface ImageItem extends MediaItem {
+  width?: number; // 원본 이미지 너비
+  height?: number; // 원본 이미지 높이
+}
+
+export interface VideoItem extends MediaItem {
+  duration?: string;
+  originalFile?: File; // 원본 파일 참조
+  processingStatus?: string; // 처리 상태
 }

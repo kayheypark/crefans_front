@@ -17,11 +17,8 @@ import {
 } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
-import {
-  membershipAPI,
-  MembershipItem,
-  UpdateMembershipRequest,
-} from "@/lib/api/membership";
+import { membershipAPI, MembershipItem } from "@/lib/api/membership";
+import { UpdateMembershipRequest } from "@/types/membership";
 
 const { TextArea } = Input;
 const { Text } = Typography;

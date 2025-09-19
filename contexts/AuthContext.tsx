@@ -98,13 +98,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const initializeUser = async () => {
       try {
         const response = await authAPI.getMe();
-        if (
-          response.success &&
-          response.data?.user &&
-          response.data.user.attributes
-        ) {
-          setUser(response.data.user);
-          return;
+        if (response.success && response.data) {
+          // Server returns user data in Cognito format with attributes
+          const serverUser = response.data.user;
+
+          if (serverUser) {
+            // Direct Cognito format from server
+            const authUser = {
+              username: serverUser.username || serverUser.attributes.email,
+              points: serverUser.points || 0,
+              isCreator: serverUser.isCreator || false,
+              attributes: {
+                email: serverUser.attributes.email || '',
+                email_verified: serverUser.attributes.email_verified || true,
+                preferred_username: serverUser.attributes.preferred_username || serverUser.attributes.email,
+                name: serverUser.attributes.name || '',
+                sub: serverUser.attributes.sub || '',
+                picture: serverUser.attributes.picture || undefined,
+                nickname: serverUser.attributes.nickname || '',
+                phone_number: serverUser.attributes.phone_number || '',
+              },
+              profile: serverUser.profile
+            };
+            setUser(authUser);
+            return;
+          }
         }
       } catch (error) {
         console.log(
@@ -230,16 +248,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await authAPI.getMe();
       console.log("API Response:", response);
 
-      if (
-        response.success &&
-        response.data?.user &&
-        response.data.user.attributes
-      ) {
-        console.log("Setting new user data:", {
-          nickname: response.data.user.attributes?.nickname,
-          preferred_username: response.data.user.attributes?.preferred_username,
-        });
-        setUser(response.data.user);
+      if (response.success && response.data) {
+        // Server returns user data in Cognito format with attributes
+        const serverUser = response.data.user;
+
+        if (serverUser) {
+          // Direct Cognito format from server
+          const authUser = {
+            username: serverUser.username || serverUser.attributes.email,
+            points: serverUser.points || 0,
+            isCreator: serverUser.isCreator || false,
+            attributes: {
+              email: serverUser.attributes.email || '',
+              email_verified: serverUser.attributes.email_verified || true,
+              preferred_username: serverUser.attributes.preferred_username || serverUser.attributes.email,
+              name: serverUser.attributes.name || '',
+              sub: serverUser.attributes.sub || '',
+              picture: serverUser.attributes.picture || undefined,
+              nickname: serverUser.attributes.nickname || '',
+              phone_number: serverUser.attributes.phone_number || '',
+            },
+            profile: serverUser.profile
+          };
+          console.log("Setting new user data:", {
+            nickname: authUser.attributes.nickname,
+            preferred_username: authUser.attributes.preferred_username,
+          });
+          setUser(authUser);
+        }
       }
       console.log("========================");
     } catch (error) {

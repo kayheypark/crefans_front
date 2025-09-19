@@ -1,9 +1,11 @@
 import {
-  CreatePostingDto,
-  UpdatePostingDto,
+  CreatePostingRequest,
+  UpdatePostingRequest,
+  PostingQueryRequest,
   PostingListResponse,
   PostingDetailResponse,
-  CreatePostingResponse
+  CreatePostingResponse,
+  UpdatePostingResponse
 } from '@/types/posting';
 import { apiClient } from './client';
 import { PostingLikeResponse } from '@/types/api';
@@ -11,7 +13,7 @@ import { API_BASE_URL } from './config';
 
 export const postingApi = {
   // 포스팅 생성
-  async createPosting(data: CreatePostingDto): Promise<CreatePostingResponse> {
+  async createPosting(data: CreatePostingRequest): Promise<CreatePostingResponse> {
     const response = await fetch(`${API_BASE_URL}/postings`, {
       method: 'POST',
       headers: {
@@ -30,14 +32,7 @@ export const postingApi = {
   },
 
   // 포스팅 목록 조회
-  async getPostings(params?: {
-    page?: number;
-    limit?: number;
-    status?: string;
-    is_membership?: boolean;
-    user_sub?: string;
-    search?: string;
-  }): Promise<PostingListResponse> {
+  async getPostings(params?: PostingQueryRequest): Promise<PostingListResponse> {
     const searchParams = new URLSearchParams();
     
     if (params?.page) searchParams.append('page', params.page.toString());
@@ -60,13 +55,7 @@ export const postingApi = {
   },
 
   // 내 포스팅 목록 조회
-  async getMyPostings(params?: {
-    page?: number;
-    limit?: number;
-    status?: string;
-    is_membership?: boolean;
-    search?: string;
-  }): Promise<PostingListResponse> {
+  async getMyPostings(params?: Omit<PostingQueryRequest, 'user_sub'>): Promise<PostingListResponse> {
     const searchParams = new URLSearchParams();
     
     if (params?.page) searchParams.append('page', params.page.toString());
@@ -102,7 +91,7 @@ export const postingApi = {
   },
 
   // 포스팅 수정
-  async updatePosting(id: string, data: UpdatePostingDto): Promise<{ success: boolean; message: string }> {
+  async updatePosting(id: string, data: UpdatePostingRequest): Promise<UpdatePostingResponse> {
     const response = await fetch(`${API_BASE_URL}/postings/${id}`, {
       method: 'PATCH',
       headers: {

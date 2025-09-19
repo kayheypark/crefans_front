@@ -33,13 +33,14 @@ import { useRouter } from "next/navigation";
 import Spacings from "@/lib/constants/spacings";
 import MembershipManagementModal from "@/components/modals/MembershipManagementModal";
 import { MembershipItem } from "@/lib/api/membership";
+import { MembershipResponse } from "@/types/membership";
 import MediaGallery from "@/components/media/MediaGallery";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
 import { mediaAPI, uploadWithProgress } from "@/lib/api/media";
 import { useAuth } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { postingApi } from "@/lib/api/posting";
-import { PostingStatus } from "@/types/posting";
+import { PostingStatus, PostingResponse, ImageItem, VideoItem, CreatePostingRequest, UpdatePostingRequest } from "@/types/posting";
 import { membershipAPI } from "@/lib/api/membership";
 import { UploadInfo, CustomUploadRequest } from "@/types/common";
 
@@ -59,27 +60,8 @@ export default function WritePage() {
   const isCreator = user?.isCreator || false;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [images, setImages] = useState<
-    {
-      id: string;
-      url: string; // 블로브 URL (미리보기용)
-      s3Url: string; // AWS S3 URL (필수)
-      order: number;
-      width?: number; // 원본 이미지 너비
-      height?: number; // 원본 이미지 높이
-    }[]
-  >([]);
-  const [videos, setVideos] = useState<
-    {
-      id: string;
-      url: string; // 블로브 URL (미리보기용)
-      s3Url: string; // AWS S3 URL (필수)
-      duration?: string;
-      order: number;
-      originalFile?: File; // 원본 파일 참조 추가
-      processingStatus?: string; // 처리 상태
-    }[]
-  >([]);
+  const [images, setImages] = useState<ImageItem[]>([]);
+  const [videos, setVideos] = useState<VideoItem[]>([]);
 
   const [isMembershipOnly, setIsMembershipOnly] = useState(false);
   const [selectedMembershipLevel, setSelectedMembershipLevel] =
@@ -97,7 +79,7 @@ export default function WritePage() {
   const [hasDraft, setHasDraft] = useState(false);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [isLoadingPost, setIsLoadingPost] = useState(false);
-  const [originalPost, setOriginalPost] = useState<any>(null);
+  const [originalPost, setOriginalPost] = useState<PostingResponse | null>(null);
 
   // 미디어 로딩 상태
   const [isImageUploading, setIsImageUploading] = useState(false);
@@ -118,10 +100,11 @@ export default function WritePage() {
       try {
         const response = await membershipAPI.getMemberships();
         if (response.success && response.data) {
-          setMemberships(response.data);
+          setMemberships(response.data.memberships || []);
           // 기본 선택 레벨 설정
-          if (response.data.length > 0 && !selectedMembershipLevel) {
-            setSelectedMembershipLevel(response.data[0].level);
+          const memberships = response.data.memberships || [];
+          if (memberships.length > 0 && !selectedMembershipLevel) {
+            setSelectedMembershipLevel(memberships[0].level);
           }
         }
       } catch (error) {
@@ -134,7 +117,7 @@ export default function WritePage() {
   }, [isCreator]);
 
   // 수정할 게시글 데이터 로드
-  const loadPostForEdit = async (postId: string) => {
+  const loadPostForEdit = async (postId: string): Promise<void> => {
     setIsLoadingPost(true);
     try {
       const response = await postingApi.getPosting(postId);
@@ -159,9 +142,9 @@ export default function WritePage() {
 
         // 미디어 데이터 처리 (필요시 구현)
         if (post.medias && post.medias.length > 0) {
-          const mediaImages = post.medias
-            .filter((m: any) => m.type === "IMAGE")
-            .map((m: any, index: number) => ({
+          const mediaImages: ImageItem[] = post.medias
+            .filter((m) => m.type === "IMAGE")
+            .map((m, index: number) => ({
               id: m.id,
               url: m.mediaUrl, // S3 URL을 미리보기용으로 사용
               s3Url: m.mediaUrl,
@@ -170,14 +153,14 @@ export default function WritePage() {
               height: m.height || 0,
             }));
 
-          const mediaVideos = post.medias
-            .filter((m: any) => m.type === "VIDEO")
-            .map((m: any, index: number) => ({
+          const mediaVideos: VideoItem[] = post.medias
+            .filter((m) => m.type === "VIDEO")
+            .map((m, index: number) => ({
               id: m.id,
               url: m.mediaUrl, // S3 URL을 미리보기용으로 사용
               s3Url: m.mediaUrl,
               order: index,
-              duration: m.duration || "0:00",
+              duration: m.duration ? String(m.duration) : "0:00",
               processingStatus: "completed",
             }));
 
@@ -569,7 +552,7 @@ export default function WritePage() {
       const media_ids = [...imageIds, ...videoIds];
 
       // 임시저장 데이터 구성
-      const draftData = {
+      const draftData: CreatePostingRequest = {
         title: title.trim(),
         content: content.trim(),
         status: PostingStatus.DRAFT,
@@ -614,7 +597,7 @@ export default function WritePage() {
   };
 
   // 글 수정
-  const handleUpdate = async () => {
+  const handleUpdate = async (): Promise<void> => {
     if (!title.trim()) {
       message.error("제목을 입력해주세요.");
       return;
@@ -639,7 +622,7 @@ export default function WritePage() {
       const media_ids = [...imageIds, ...videoIds];
 
       // 수정 데이터 구성
-      const updateData = {
+      const updateData: UpdatePostingRequest = {
         title: title.trim(),
         content: content.trim(),
         media_ids: media_ids, // 빈 배열이어도 항상 포함
@@ -684,7 +667,7 @@ export default function WritePage() {
   };
 
   // 글 발행
-  const handlePublish = async () => {
+  const handlePublish = async (): Promise<void> => {
     if (!title.trim()) {
       message.error("제목을 입력해주세요.");
       return;
@@ -705,7 +688,7 @@ export default function WritePage() {
       const media_ids = [...imageIds, ...videoIds];
 
       // 포스팅 데이터 구성
-      const postingData = {
+      const postingData: CreatePostingRequest = {
         title: title.trim(),
         content: content.trim(),
         status: PostingStatus.PUBLISHED,
