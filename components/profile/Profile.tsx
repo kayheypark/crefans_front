@@ -97,11 +97,11 @@ interface UserProfile {
   subscribedMembershipIds?: string[]; // 내가 구독 중인 멤버십 ID 목록
 }
 
-interface ProfileByHandleProps {
+interface ProfileProps {
   handle: string;
 }
 
-export default function ProfileByHandle({ handle }: ProfileByHandleProps) {
+export default function Profile({ handle }: ProfileProps) {
   const { user } = useAuth();
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
