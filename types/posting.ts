@@ -41,6 +41,7 @@ export interface PostingResponse {
   uniqueViewCount: number;
   likeCount: number;
   commentCount: number;
+  allowComments: boolean;
   publishedAt?: string;
   archivedAt?: string;
   createdAt: string;
@@ -62,6 +63,7 @@ export interface CreatePostingDto {
   individual_purchase_price?: number;
   is_public?: boolean;
   is_sensitive?: boolean;
+  allow_comments?: boolean;
 }
 
 export interface UpdatePostingDto {
@@ -77,6 +79,7 @@ export interface UpdatePostingDto {
   individual_purchase_price?: number;
   is_public?: boolean;
   is_sensitive?: boolean;
+  allow_comments?: boolean;
 }
 
 export interface PostingListResponse {

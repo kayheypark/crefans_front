@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Layout,
   Typography,
@@ -48,6 +49,11 @@ const { TextArea } = Input;
 export default function WritePage() {
   const router = useRouter();
   const { user } = useAuth();
+  const searchParams = useSearchParams();
+
+  // Edit 모드 확인
+  const editId = searchParams.get("id");
+  const isEditMode = !!editId;
 
   // 크리에이터 권한 확인
   const isCreator = user?.isCreator || false;
@@ -90,10 +96,19 @@ export default function WritePage() {
   const [isMembershipModalOpen, setIsMembershipModalOpen] = useState(false);
   const [hasDraft, setHasDraft] = useState(false);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
+  const [isLoadingPost, setIsLoadingPost] = useState(false);
+  const [originalPost, setOriginalPost] = useState<any>(null);
 
   // 미디어 로딩 상태
   const [isImageUploading, setIsImageUploading] = useState(false);
   const [isVideoUploading, setIsVideoUploading] = useState(false);
+
+  // 수정 모드인 경우 게시글 데이터 로드
+  useEffect(() => {
+    if (isEditMode && editId) {
+      loadPostForEdit(editId);
+    }
+  }, [isEditMode, editId]);
 
   // 크리에이터인 경우 페이지 로드 시 멤버십 목록 조회
   useEffect(() => {
@@ -117,6 +132,71 @@ export default function WritePage() {
 
     loadMemberships();
   }, [isCreator]);
+
+  // 수정할 게시글 데이터 로드
+  const loadPostForEdit = async (postId: string) => {
+    setIsLoadingPost(true);
+    try {
+      const response = await postingApi.getPosting(postId);
+
+      if (response.success && response.data) {
+        const post = response.data;
+        setOriginalPost(post);
+
+        // 폼 데이터 설정
+        setTitle(post.title || "");
+        setContent(post.content || "");
+        setAllowComments(post.allowComments ?? true);
+
+        // 크리에이터 전용 설정
+        if (isCreator) {
+          setIsMembershipOnly(post.isMembership || false);
+          setSelectedMembershipLevel(post.membershipLevel || 1);
+          setAllowIndividualPurchase(post.allowIndividualPurchase || false);
+          setPurchasePrice(post.individualPurchasePrice || 1000);
+          setSensitiveContent(post.isSensitive || false);
+        }
+
+        // 미디어 데이터 처리 (필요시 구현)
+        if (post.medias && post.medias.length > 0) {
+          const mediaImages = post.medias
+            .filter((m: any) => m.type === "IMAGE")
+            .map((m: any, index: number) => ({
+              id: m.id,
+              url: m.mediaUrl, // S3 URL을 미리보기용으로 사용
+              s3Url: m.mediaUrl,
+              order: index,
+              width: m.width || 0,
+              height: m.height || 0,
+            }));
+
+          const mediaVideos = post.medias
+            .filter((m: any) => m.type === "VIDEO")
+            .map((m: any, index: number) => ({
+              id: m.id,
+              url: m.mediaUrl, // S3 URL을 미리보기용으로 사용
+              s3Url: m.mediaUrl,
+              order: index,
+              duration: m.duration || "0:00",
+              processingStatus: "completed",
+            }));
+
+          setImages(mediaImages);
+          setVideos(mediaVideos);
+        }
+
+        message.success("게시글을 불러왔습니다.");
+      } else {
+        throw new Error("게시글을 찾을 수 없습니다.");
+      }
+    } catch (error: any) {
+      console.error("게시글 로드 실패:", error);
+      message.error(error.message || "게시글을 불러오는데 실패했습니다.");
+      router.push("/write"); // 글쓰기 페이지로 리다이렉트
+    } finally {
+      setIsLoadingPost(false);
+    }
+  };
 
   // 멤버십 관리 모달 열기
   const openMembershipModal = () => {
@@ -493,7 +573,8 @@ export default function WritePage() {
         title: title.trim(),
         content: content.trim(),
         status: PostingStatus.DRAFT,
-        media_ids: media_ids.length > 0 ? media_ids : undefined,
+        media_ids: media_ids,
+        allow_comments: allowComments,
         // 크리에이터 전용 기능들
         ...(isCreator && {
           is_membership: isMembershipOnly,
@@ -532,6 +613,76 @@ export default function WritePage() {
     }
   };
 
+  // 글 수정
+  const handleUpdate = async () => {
+    if (!title.trim()) {
+      message.error("제목을 입력해주세요.");
+      return;
+    }
+
+    if (!content.trim()) {
+      message.error("내용을 입력해주세요.");
+      return;
+    }
+
+    if (!editId) {
+      message.error("수정할 게시글을 찾을 수 없습니다.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // 업로드된 미디어 ID들 수집
+      const imageIds = images.map((img) => img.id);
+      const videoIds = videos.map((video) => video.id);
+      const media_ids = [...imageIds, ...videoIds];
+
+      // 수정 데이터 구성
+      const updateData = {
+        title: title.trim(),
+        content: content.trim(),
+        media_ids: media_ids, // 빈 배열이어도 항상 포함
+        allow_comments: allowComments,
+        // 크리에이터 전용 기능들
+        ...(isCreator && {
+          is_membership: isMembershipOnly,
+          membership_level: isMembershipOnly
+            ? selectedMembershipLevel
+            : undefined,
+          allow_individual_purchase: allowIndividualPurchase,
+          individual_purchase_price: allowIndividualPurchase
+            ? purchasePrice
+            : undefined,
+          is_sensitive: sensitiveContent,
+        }),
+      };
+
+      // API 호출
+      const response = await postingApi.updatePosting(editId, updateData);
+
+      if (response.success) {
+        message.success("글이 수정되었습니다.");
+
+        // 현재 사용자의 프로필 페이지로 이동
+        if (user?.attributes?.preferred_username) {
+          router.push(`/@${user.attributes.preferred_username}`);
+        } else {
+          router.push("/profile");
+        }
+      } else {
+        throw new Error("수정에 실패했습니다.");
+      }
+    } catch (error: any) {
+      console.error("글 수정 오류:", error);
+      const errorMessage =
+        error.message || "글 수정에 실패했습니다. 다시 시도해주세요.";
+      message.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // 글 발행
   const handlePublish = async () => {
     if (!title.trim()) {
@@ -558,7 +709,8 @@ export default function WritePage() {
         title: title.trim(),
         content: content.trim(),
         status: PostingStatus.PUBLISHED,
-        media_ids: media_ids.length > 0 ? media_ids : undefined,
+        media_ids: media_ids,
+        allow_comments: allowComments,
         // 크리에이터 전용 기능들
         ...(isCreator && {
           is_membership: isMembershipOnly,
@@ -626,457 +778,496 @@ export default function WritePage() {
           background: "transparent",
         }}
       >
-        {/* 글 작성 폼 */}
-        <Card style={{ marginBottom: 24 }}>
-          {/* 제목 입력 */}
-          <div style={{ marginBottom: 24 }}>
-            <Text strong style={{ display: "block", marginBottom: 8 }}>
-              제목
-            </Text>
-            <Input
-              placeholder="제목을 입력하세요"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              size="large"
-              style={{ fontSize: 18 }}
-            />
-          </div>
-
-          {/* 내용 입력 */}
-          <div style={{ marginBottom: 24 }}>
-            <Text strong style={{ display: "block", marginBottom: 8 }}>
-              내용
-            </Text>
-            <TextArea
-              placeholder="내용을 입력하세요"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              rows={8}
-              style={{ fontSize: 16, resize: "none" }}
-            />
-          </div>
-
-          {/* 이미지 업로드 */}
-          <div style={{ marginBottom: 24 }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                marginBottom: 8,
-              }}
-            >
-              <Text strong>이미지</Text>
-              <Text type="secondary" style={{ fontSize: 12 }}>
-                최대 10개 • jpg, png, gif, webp • 최대 50MB
-              </Text>
+        {/* 로딩 상태 */}
+        {isLoadingPost ? (
+          <Card
+            style={{
+              marginBottom: 24,
+              textAlign: "center",
+              padding: "60px 20px",
+            }}
+          >
+            <div style={{ fontSize: 16, color: "#666" }}>
+              {isEditMode ? "게시글을 불러오는 중..." : "로딩 중..."}
             </div>
-            <div style={{ marginBottom: 16 }}>
-              <Upload
-                accept="image/*"
-                showUploadList={false}
-                customRequest={({ file, onSuccess }: CustomUploadRequest) => {
-                  setTimeout(() => {
-                    onSuccess?.("ok");
-                  }, 0);
-                }}
-                onChange={handleImageUpload}
-              >
-                <Button
-                  icon={<PictureOutlined />}
+          </Card>
+        ) : (
+          <>
+            {/* 글 작성 폼 */}
+            <Card style={{ marginBottom: 24 }}>
+              {/* 제목 입력 */}
+              <div style={{ marginBottom: 24 }}>
+                <Text strong style={{ display: "block", marginBottom: 8 }}>
+                  제목
+                </Text>
+                <Input
+                  placeholder="제목을 입력하세요"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   size="large"
-                  loading={isImageUploading}
-                  disabled={isImageUploading || images.length >= 10}
-                >
-                  {isImageUploading
-                    ? LOADING_TEXTS.UPLOADING
-                    : images.length >= 10
-                    ? "이미지 최대 개수 도달"
-                    : "이미지 추가"}
-                </Button>
-              </Upload>
-            </div>
-
-            {/* 업로드된 이미지 미리보기 */}
-            {images.length > 0 && (
-              <MediaGallery
-                items={images.map((img) => ({
-                  ...img,
-                  type: "image" as const,
-                }))}
-                onRemove={removeImage}
-                onReorder={moveImage}
-                isLoading={isImageUploading}
-                gridCols={3}
-              />
-            )}
-          </div>
-
-          {/* 동영상 업로드 */}
-          <div style={{ marginBottom: 24 }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                marginBottom: 8,
-              }}
-            >
-              <Text strong>동영상</Text>
-              <Text type="secondary" style={{ fontSize: 12 }}>
-                최대 1개 • mp4, mov, avi, mkv, webm • 최대 1080p • 최대 500MB
-              </Text>
-            </div>
-            <div style={{ marginBottom: 16 }}>
-              <Upload
-                accept="video/*"
-                showUploadList={false}
-                customRequest={({ file, onSuccess }: CustomUploadRequest) => {
-                  setTimeout(() => {
-                    onSuccess?.("ok");
-                  }, 0);
-                }}
-                onChange={handleVideoUpload}
-              >
-                <Button
-                  icon={<PlayCircleOutlined />}
-                  size="large"
-                  loading={isVideoUploading}
-                  disabled={isVideoUploading || videos.length >= 1}
-                >
-                  {isVideoUploading
-                    ? LOADING_TEXTS.UPLOADING
-                    : videos.length >= 1
-                    ? "동영상 최대 개수 도달"
-                    : "동영상 추가"}
-                </Button>
-              </Upload>
-            </div>
-
-            {/* 업로드된 동영상 미리보기 */}
-            {videos.length > 0 && (
-              <MediaGallery
-                items={videos.map((video) => ({
-                  ...video,
-                  type: "video" as const,
-                }))}
-                onRemove={removeVideo}
-                onReorder={moveVideo}
-                isLoading={isVideoUploading}
-                gridCols={2}
-              />
-            )}
-          </div>
-
-          <Divider />
-
-          {/* 설정 */}
-          <div style={{ marginBottom: 24 }}>
-            <Title level={4} style={{ marginBottom: 16 }}>
-              콘텐츠 설정
-            </Title>
-
-            {/* 멤버십 전용 설정 - 크리에이터만 접근 가능 */}
-            {isCreator && (
-              <div style={{ marginBottom: 16 }}>
-                <Space direction="vertical" style={{ width: "100%" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div>
-                      <Text strong>멤버십 전용</Text>
-                      <br />
-                      <Text type="secondary" style={{ fontSize: 12 }}>
-                        허용한 경우, 멤버십 구독자만 볼 수 있습니다
-                      </Text>
-                    </div>
-                    <div
-                      style={{ display: "flex", alignItems: "center", gap: 8 }}
-                    >
-                      <Switch
-                        checked={isMembershipOnly}
-                        onChange={setIsMembershipOnly}
-                        checkedChildren={<LockOutlined />}
-                        unCheckedChildren={<UnlockOutlined />}
-                      />
-                      <Button
-                        type="primary"
-                        size="small"
-                        onClick={openMembershipModal}
-                        icon={<CrownOutlined />}
-                      >
-                        멤버십 관리
-                      </Button>
-                    </div>
-                  </div>
-
-                  {/* 멤버십 레벨 선택 */}
-                  {isMembershipOnly && memberships.length > 0 && (
-                    <div style={{ marginTop: 16 }}>
-                      <Text
-                        strong
-                        style={{ display: "block", marginBottom: 8 }}
-                      >
-                        최소 멤버십 레벨
-                      </Text>
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 8,
-                        }}
-                      >
-                        {memberships.map((membership) => (
-                          <div
-                            key={membership.id}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              padding: "12px",
-                              border:
-                                selectedMembershipLevel === membership.level
-                                  ? "2px solid #1890ff"
-                                  : "1px solid #d9d9d9",
-                              borderRadius: "8px",
-                              backgroundColor:
-                                selectedMembershipLevel === membership.level
-                                  ? "#f0f8ff"
-                                  : "#fff",
-                              cursor: "pointer",
-                            }}
-                            onClick={() =>
-                              setSelectedMembershipLevel(membership.level)
-                            }
-                          >
-                            <Radio
-                              name="membershipLevel"
-                              value={membership.level}
-                              checked={
-                                selectedMembershipLevel === membership.level
-                              }
-                              onChange={() =>
-                                setSelectedMembershipLevel(membership.level)
-                              }
-                              style={{ marginRight: 12 }}
-                            />
-                            <div style={{ flex: 1 }}>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                  alignItems: "center",
-                                }}
-                              >
-                                <Text strong style={{ fontSize: 16 }}>
-                                  {membership.name}
-                                </Text>
-                                <Text
-                                  style={{
-                                    color: "#faad14",
-                                    fontSize: 16,
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  {typeof membership.price === "string"
-                                    ? parseFloat(membership.price) || 0
-                                    : membership.price}
-                                  원
-                                </Text>
-                              </div>
-                              {membership.description && (
-                                <Text
-                                  type="secondary"
-                                  style={{ fontSize: 14, marginTop: 4 }}
-                                >
-                                  {membership.description}
-                                </Text>
-                              )}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                      <Text
-                        type="secondary"
-                        style={{ fontSize: 12, marginTop: 8 }}
-                      >
-                        선택한 레벨 이상의 멤버십 구독자만 콘텐츠를 볼 수
-                        있습니다
-                      </Text>
-                    </div>
-                  )}
-                </Space>
+                  style={{ fontSize: 18 }}
+                />
               </div>
-            )}
 
-            {/* 개별 구매 허용 설정 - 크리에이터만 접근 가능 */}
-            {isCreator && (
-              <div style={{ marginBottom: 16 }}>
-                <Space direction="vertical" style={{ width: "100%" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div>
-                      <Text strong>개별 구매 허용</Text>
-                      <br />
-                      <Text type="secondary" style={{ fontSize: 12 }}>
-                        일회성 결제(언락 티켓)로 콘텐츠에 접근할 수 있습니다
-                      </Text>
-                    </div>
-                    <Switch
-                      checked={allowIndividualPurchase}
-                      onChange={setAllowIndividualPurchase}
-                    />
-                  </div>
-                  {allowIndividualPurchase && (
-                    <div style={{ marginTop: 8 }}>
-                      <InputNumber
-                        min={0}
-                        step={100}
-                        placeholder="가격을 입력하세요"
-                        value={purchasePrice}
-                        suffix="원"
-                        style={{ width: 200 }}
-                        formatter={(value) =>
-                          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                        }
-                        parser={(value) =>
-                          Number(value!.replace(/\$\s?|(,*)/g, ""))
-                        }
-                        onChange={(value) => setPurchasePrice(Number(value))}
-                      />
-                    </div>
-                  )}
-                </Space>
+              {/* 내용 입력 */}
+              <div style={{ marginBottom: 24 }}>
+                <Text strong style={{ display: "block", marginBottom: 8 }}>
+                  내용
+                </Text>
+                <TextArea
+                  placeholder="내용을 입력하세요"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  rows={8}
+                  style={{ fontSize: 16, resize: "none" }}
+                />
               </div>
-            )}
 
-            {/* 댓글 설정 */}
-            <div style={{ marginBottom: 16 }}>
-              <Space direction="vertical" style={{ width: "100%" }}>
+              {/* 이미지 업로드 */}
+              <div style={{ marginBottom: 24 }}>
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    gap: 8,
+                    marginBottom: 8,
                   }}
                 >
-                  <div>
-                    <Text strong>댓글 허용</Text>
-                    <br />
-                    <Text type="secondary" style={{ fontSize: 12 }}>
-                      댓글 작성 상태를 허용합니다
-                    </Text>
-                  </div>
-                  <Switch checked={allowComments} onChange={setAllowComments} />
-                </div>
-              </Space>
-            </div>
-
-            {/* 예약 발행 설정 - 크리에이터만 접근 가능 */}
-            {isCreator && (
-              <div style={{ marginBottom: 16 }}>
-                <Space direction="vertical" style={{ width: "100%" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div>
-                      <Text strong>예약 발행</Text>
-                      <br />
-                      <Text type="secondary" style={{ fontSize: 12 }}>
-                        특정 날짜와 시간에 자동으로 발행됩니다
-                      </Text>
-                    </div>
-                    <Switch
-                      checked={scheduledPublish}
-                      onChange={setScheduledPublish}
-                    />
-                  </div>
-                  {scheduledPublish && (
-                    <div style={{ marginTop: 8 }}>
-                      <Space>
-                        <Input
-                          type="date"
-                          value={publishDate}
-                          onChange={(e) => setPublishDate(e.target.value)}
-                        />
-                        <Input
-                          type="time"
-                          value={publishTime}
-                          onChange={(e) => setPublishTime(e.target.value)}
-                        />
-                      </Space>
-                    </div>
-                  )}
-                </Space>
-              </div>
-            )}
-
-            {/* 민감한 콘텐츠 설정 - 크리에이터만 접근 가능 */}
-            {isCreator && (
-              <div style={{ marginBottom: 16 }}>
-                <Space direction="vertical" style={{ width: "100%" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div>
-                      <Text strong>민감한 콘텐츠</Text>
-                    </div>
-                    <Switch
-                      checked={sensitiveContent}
-                      onChange={setSensitiveContent}
-                    />
-                  </div>
+                  <Text strong>이미지</Text>
                   <Text type="secondary" style={{ fontSize: 12 }}>
-                    폭력, 성적 내용 등이 포함된 경우 체크하세요
+                    최대 10개 • jpg, png, gif, webp • 최대 50MB
                   </Text>
-                </Space>
+                </div>
+                <div style={{ marginBottom: 16 }}>
+                  <Upload
+                    accept="image/*"
+                    showUploadList={false}
+                    customRequest={({
+                      file,
+                      onSuccess,
+                    }: CustomUploadRequest) => {
+                      setTimeout(() => {
+                        onSuccess?.("ok");
+                      }, 0);
+                    }}
+                    onChange={handleImageUpload}
+                  >
+                    <Button
+                      icon={<PictureOutlined />}
+                      size="large"
+                      loading={isImageUploading}
+                      disabled={isImageUploading || images.length >= 10}
+                    >
+                      {isImageUploading
+                        ? LOADING_TEXTS.UPLOADING
+                        : images.length >= 10
+                        ? "이미지 최대 개수 도달"
+                        : "이미지 추가"}
+                    </Button>
+                  </Upload>
+                </div>
+
+                {/* 업로드된 이미지 미리보기 */}
+                {images.length > 0 && (
+                  <MediaGallery
+                    items={images.map((img) => ({
+                      ...img,
+                      type: "image" as const,
+                    }))}
+                    onRemove={removeImage}
+                    onReorder={moveImage}
+                    isLoading={isImageUploading}
+                    gridCols={3}
+                  />
+                )}
               </div>
-            )}
-          </div>
 
-          <Divider style={{ margin: "32px 0" }} />
+              {/* 동영상 업로드 */}
+              <div style={{ marginBottom: 24 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    marginBottom: 8,
+                  }}
+                >
+                  <Text strong>동영상</Text>
+                  <Text type="secondary" style={{ fontSize: 12 }}>
+                    최대 1개 • mp4, mov, avi, mkv, webm • 최대 1080p • 최대
+                    500MB
+                  </Text>
+                </div>
+                <div style={{ marginBottom: 16 }}>
+                  <Upload
+                    accept="video/*"
+                    showUploadList={false}
+                    customRequest={({
+                      file,
+                      onSuccess,
+                    }: CustomUploadRequest) => {
+                      setTimeout(() => {
+                        onSuccess?.("ok");
+                      }, 0);
+                    }}
+                    onChange={handleVideoUpload}
+                  >
+                    <Button
+                      icon={<PlayCircleOutlined />}
+                      size="large"
+                      loading={isVideoUploading}
+                      disabled={isVideoUploading || videos.length >= 1}
+                    >
+                      {isVideoUploading
+                        ? LOADING_TEXTS.UPLOADING
+                        : videos.length >= 1
+                        ? "동영상 최대 개수 도달"
+                        : "동영상 추가"}
+                    </Button>
+                  </Upload>
+                </div>
 
-          {/* 임시저장 및 발행 버튼 */}
-          <div style={{ display: "flex", gap: 16 }}>
-            <Button
-              type="default"
-              icon={<SaveOutlined />}
-              onClick={handleSaveDraft}
-              loading={isSavingDraft}
-              size="large"
-              style={{ flex: 1, height: "48px", borderRadius: "24px" }}
-            >
-              임시저장
-            </Button>
-            <Button
-              type="primary"
-              icon={<SendOutlined />}
-              onClick={handlePublish}
-              loading={isSubmitting}
-              disabled={!title.trim() || !content.trim()}
-              size="large"
-              style={{ flex: 1, height: "48px", borderRadius: "24px" }}
-            >
-              {isCreator && scheduledPublish ? "예약 발행" : "발행"}
-            </Button>
-          </div>
-        </Card>
+                {/* 업로드된 동영상 미리보기 */}
+                {videos.length > 0 && (
+                  <MediaGallery
+                    items={videos.map((video) => ({
+                      ...video,
+                      type: "video" as const,
+                    }))}
+                    onRemove={removeVideo}
+                    onReorder={moveVideo}
+                    isLoading={isVideoUploading}
+                    gridCols={2}
+                  />
+                )}
+              </div>
+
+              <Divider />
+
+              {/* 설정 */}
+              <div style={{ marginBottom: 24 }}>
+                <Title level={4} style={{ marginBottom: 16 }}>
+                  콘텐츠 설정
+                </Title>
+
+                {/* 멤버십 전용 설정 - 크리에이터만 접근 가능 */}
+                {isCreator && (
+                  <div style={{ marginBottom: 16 }}>
+                    <Space direction="vertical" style={{ width: "100%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
+                          <Text strong>멤버십 전용</Text>
+                          <br />
+                          <Text type="secondary" style={{ fontSize: 12 }}>
+                            허용한 경우, 멤버십 구독자만 볼 수 있습니다
+                          </Text>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 8,
+                          }}
+                        >
+                          <Switch
+                            checked={isMembershipOnly}
+                            onChange={setIsMembershipOnly}
+                            checkedChildren={<LockOutlined />}
+                            unCheckedChildren={<UnlockOutlined />}
+                          />
+                          <Button
+                            type="primary"
+                            size="small"
+                            onClick={openMembershipModal}
+                            icon={<CrownOutlined />}
+                          >
+                            멤버십 관리
+                          </Button>
+                        </div>
+                      </div>
+
+                      {/* 멤버십 레벨 선택 */}
+                      {isMembershipOnly && memberships.length > 0 && (
+                        <div style={{ marginTop: 16 }}>
+                          <Text
+                            strong
+                            style={{ display: "block", marginBottom: 8 }}
+                          >
+                            최소 멤버십 레벨
+                          </Text>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: 8,
+                            }}
+                          >
+                            {memberships.map((membership) => (
+                              <div
+                                key={membership.id}
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  padding: "12px",
+                                  border:
+                                    selectedMembershipLevel === membership.level
+                                      ? "2px solid #1890ff"
+                                      : "1px solid #d9d9d9",
+                                  borderRadius: "8px",
+                                  backgroundColor:
+                                    selectedMembershipLevel === membership.level
+                                      ? "#f0f8ff"
+                                      : "#fff",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() =>
+                                  setSelectedMembershipLevel(membership.level)
+                                }
+                              >
+                                <Radio
+                                  name="membershipLevel"
+                                  value={membership.level}
+                                  checked={
+                                    selectedMembershipLevel === membership.level
+                                  }
+                                  onChange={() =>
+                                    setSelectedMembershipLevel(membership.level)
+                                  }
+                                  style={{ marginRight: 12 }}
+                                />
+                                <div style={{ flex: 1 }}>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <Text strong style={{ fontSize: 16 }}>
+                                      {membership.name}
+                                    </Text>
+                                    <Text
+                                      style={{
+                                        color: "#faad14",
+                                        fontSize: 16,
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      {typeof membership.price === "string"
+                                        ? parseFloat(membership.price) || 0
+                                        : membership.price}
+                                      원
+                                    </Text>
+                                  </div>
+                                  {membership.description && (
+                                    <Text
+                                      type="secondary"
+                                      style={{ fontSize: 14, marginTop: 4 }}
+                                    >
+                                      {membership.description}
+                                    </Text>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          <Text
+                            type="secondary"
+                            style={{ fontSize: 12, marginTop: 8 }}
+                          >
+                            선택한 레벨 이상의 멤버십 구독자만 콘텐츠를 볼 수
+                            있습니다
+                          </Text>
+                        </div>
+                      )}
+                    </Space>
+                  </div>
+                )}
+
+                {/* 개별 구매 허용 설정 - 크리에이터만 접근 가능 */}
+                {isCreator && (
+                  <div style={{ marginBottom: 16 }}>
+                    <Space direction="vertical" style={{ width: "100%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
+                          <Text strong>개별 구매 허용</Text>
+                          <br />
+                          <Text type="secondary" style={{ fontSize: 12 }}>
+                            일회성 결제(언락 티켓)로 콘텐츠에 접근할 수 있습니다
+                          </Text>
+                        </div>
+                        <Switch
+                          checked={allowIndividualPurchase}
+                          onChange={setAllowIndividualPurchase}
+                        />
+                      </div>
+                      {allowIndividualPurchase && (
+                        <div style={{ marginTop: 8 }}>
+                          <InputNumber
+                            min={0}
+                            step={100}
+                            placeholder="가격을 입력하세요"
+                            value={purchasePrice}
+                            suffix="원"
+                            style={{ width: 200 }}
+                            formatter={(value) =>
+                              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                            }
+                            parser={(value) =>
+                              Number(value!.replace(/\$\s?|(,*)/g, ""))
+                            }
+                            onChange={(value) =>
+                              setPurchasePrice(Number(value))
+                            }
+                          />
+                        </div>
+                      )}
+                    </Space>
+                  </div>
+                )}
+
+                {/* 댓글 설정 */}
+                <div style={{ marginBottom: 16 }}>
+                  <Space direction="vertical" style={{ width: "100%" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>
+                        <Text strong>댓글 허용</Text>
+                        <br />
+                        <Text type="secondary" style={{ fontSize: 12 }}>
+                          댓글 작성 상태를 허용합니다
+                        </Text>
+                      </div>
+                      <Switch
+                        checked={allowComments}
+                        onChange={setAllowComments}
+                      />
+                    </div>
+                  </Space>
+                </div>
+
+                {/* 예약 발행 설정 - 크리에이터만 접근 가능 */}
+                {isCreator && (
+                  <div style={{ marginBottom: 16 }}>
+                    <Space direction="vertical" style={{ width: "100%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
+                          <Text strong>예약 발행</Text>
+                          <br />
+                          <Text type="secondary" style={{ fontSize: 12 }}>
+                            특정 날짜와 시간에 자동으로 발행됩니다
+                          </Text>
+                        </div>
+                        <Switch
+                          checked={scheduledPublish}
+                          onChange={setScheduledPublish}
+                        />
+                      </div>
+                      {scheduledPublish && (
+                        <div style={{ marginTop: 8 }}>
+                          <Space>
+                            <Input
+                              type="date"
+                              value={publishDate}
+                              onChange={(e) => setPublishDate(e.target.value)}
+                            />
+                            <Input
+                              type="time"
+                              value={publishTime}
+                              onChange={(e) => setPublishTime(e.target.value)}
+                            />
+                          </Space>
+                        </div>
+                      )}
+                    </Space>
+                  </div>
+                )}
+
+                {/* 민감한 콘텐츠 설정 - 크리에이터만 접근 가능 */}
+                {isCreator && (
+                  <div style={{ marginBottom: 16 }}>
+                    <Space direction="vertical" style={{ width: "100%" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div>
+                          <Text strong>민감한 콘텐츠</Text>
+                        </div>
+                        <Switch
+                          checked={sensitiveContent}
+                          onChange={setSensitiveContent}
+                        />
+                      </div>
+                      <Text type="secondary" style={{ fontSize: 12 }}>
+                        폭력, 성적 내용 등이 포함된 경우 체크하세요
+                      </Text>
+                    </Space>
+                  </div>
+                )}
+              </div>
+
+              <Divider style={{ margin: "32px 0" }} />
+
+              {/* 버튼 */}
+              <div style={{ display: "flex", gap: 16 }}>
+                {!isEditMode && (
+                  <Button
+                    type="default"
+                    icon={<SaveOutlined />}
+                    onClick={handleSaveDraft}
+                    loading={isSavingDraft}
+                    size="large"
+                    style={{ flex: 1, height: "48px", borderRadius: "24px" }}
+                  >
+                    임시저장
+                  </Button>
+                )}
+                <Button
+                  type="primary"
+                  icon={isEditMode ? <SaveOutlined /> : <SendOutlined />}
+                  onClick={isEditMode ? handleUpdate : handlePublish}
+                  loading={isSubmitting}
+                  disabled={!title.trim() || !content.trim()}
+                  size="large"
+                  style={{ flex: 1, height: "48px", borderRadius: "24px" }}
+                >
+                  {isEditMode
+                    ? "수정 완료"
+                    : isCreator && scheduledPublish
+                    ? "예약 발행"
+                    : "발행"}
+                </Button>
+              </div>
+            </Card>
+          </>
+        )}
 
         {/* 멤버십 관리 모달 - 크리에이터만 접근 가능 */}
         {isCreator && (

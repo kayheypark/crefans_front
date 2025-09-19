@@ -25,6 +25,7 @@ import {
   UserOutlined,
   LockOutlined,
   PlayCircleOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -52,6 +53,7 @@ interface PostProps {
   onCommentSubmit: (postId: string) => void;
   onShare: (postId: string) => void;
   onReport: (postId: string) => void;
+  onEdit?: (postId: string) => void;
   formatDate: (date: string) => string;
   formatFullDate: (date: string) => string;
 }
@@ -70,6 +72,7 @@ export default function Post({
   onCommentSubmit,
   onShare,
   onReport,
+  onEdit,
   formatDate,
   formatFullDate,
 }: PostProps) {
@@ -131,23 +134,38 @@ export default function Post({
   const noCopyGuideText =
     "crefans에 등록된 모든 포스팅 콘텐츠의 캡쳐 및 배포/재배포는 이용약관과 관련 법령에 의거하여 엄격히 금지되어있고, 민/형사상 처벌의 대상이 됩니다.";
 
-  const getMoreMenu = (postId: string) => ({
-    items: [
+  const isOwnPost = user?.attributes?.preferred_username === post.creator.handle;
+
+  const getMoreMenu = (postId: string) => {
+    const menuItems = [
       {
         key: "share",
         icon: <ShareAltOutlined />,
         label: "공유하기",
         onClick: () => onShare(postId),
       },
-      {
+    ];
+
+    if (isOwnPost && onEdit) {
+      menuItems.unshift({
+        key: "edit",
+        icon: <EditOutlined />,
+        label: "수정하기",
+        onClick: () => onEdit(postId),
+      });
+    }
+
+    if (!isOwnPost) {
+      menuItems.push({
         key: "report",
         icon: <ExclamationCircleOutlined />,
         label: "신고하기",
-        danger: true,
         onClick: () => onReport(postId),
-      },
-    ],
-  });
+      } as any);
+    }
+
+    return { items: menuItems };
+  };
 
   return (
     <>

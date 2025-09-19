@@ -435,6 +435,10 @@ export default function Profile({ handle }: ProfileProps) {
     setIsReportModalVisible(true);
   };
 
+  const handleEditPost = (postId: string) => {
+    router.push(`/write?id=${postId}`);
+  };
+
   const handleDonationSubmit = async (
     amount: number,
     donationMessage?: string
@@ -575,6 +579,7 @@ export default function Profile({ handle }: ProfileProps) {
             onCommentSubmit={handleCommentSubmit}
             onShare={handleSharePost}
             onReport={handleReportPost}
+            onEdit={handleEditPost}
             formatDate={formatDate}
             formatFullDate={formatFullDate}
           />
