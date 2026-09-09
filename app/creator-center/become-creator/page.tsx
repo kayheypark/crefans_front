@@ -1,106 +1,48 @@
 "use client";
+import { Form as UiForm, message as uiMessage } from "antd";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import {
-  Card,
-  Button,
-  Typography,
-  Space,
-  Select,
-  Form,
-  Alert,
-  Row,
-  Col,
-  Divider,
-  Badge,
-} from "antd";
-import {
-  CrownOutlined,
-  CheckCircleOutlined,
-  StarOutlined,
-  RocketOutlined,
-  DollarOutlined,
-  TeamOutlined,
-  BarChartOutlined,
-  GiftOutlined,
-  HeartOutlined,
-  ThunderboltOutlined,
-} from "@ant-design/icons";
 import CreatorCenterLayout from "@/components/layout/CreatorCenterLayout";
-import { userAPI } from "@/lib/api/user";
-import { useAuth } from "@/contexts/AuthContext";
-import message from "antd/lib/message";
+import { useBecomeCreatorPageModel } from "@/features/creator-center-become-creator/useBecomeCreatorPageModel";
+import {
+  CheckCircleOutlined,
+  CrownOutlined,
+  StarOutlined,
+} from "@ant-design/icons";
+import {
+  Alert,
+  Button,
+  Card,
+  Col,
+  Form,
+  Row,
+  Select,
+  Space,
+  Typography,
+} from "antd";
 
 const { Title, Text } = Typography;
+
 const { Option } = Select;
 
-interface CreatorCategory {
-  id: string;
-  name: string;
-  description: string;
-  color_code: string;
-  icon: string;
-  sort_order: number;
+export default function BecomeCreatorPage() {
+  const [form] = UiForm.useForm();
+  const model = useBecomeCreatorPageModel({ message: uiMessage, form });
+  return <BecomeCreatorPageView model={model} />;
 }
 
-export default function BecomeCreatorPage() {
-  const { user, refreshUser } = useAuth();
-  const router = useRouter();
-  const [form] = Form.useForm();
-
-  const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState<CreatorCategory[]>([]);
-  const [categoriesLoading, setCategoriesLoading] = useState(true);
-
-  // 카테고리 목록 조회
-  const fetchCategories = async () => {
-    setCategoriesLoading(true);
-    try {
-      const response = await userAPI.getCreatorCategories();
-      if (response.success) {
-        setCategories(response.data);
-      } else {
-        message.error("카테고리 목록을 불러오는데 실패했습니다.");
-      }
-    } catch (error) {
-      console.error("카테고리 조회 실패:", error);
-      message.error("카테고리 목록을 불러오는데 실패했습니다.");
-    } finally {
-      setCategoriesLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  // 이미 크리에이터인 경우 리다이렉트
-  useEffect(() => {
-    if (user?.isCreator) {
-      router.push("/creator-center");
-    }
-  }, [user?.isCreator, router]);
-
-  // 크리에이터 전환 함수
-  const handleBecomeCreator = async (values: { category_id: string }) => {
-    setLoading(true);
-    try {
-      const response = await userAPI.becomeCreator(values.category_id);
-      if (response.success) {
-        message.success("크리에이터로 전환되었습니다!");
-        await refreshUser();
-        router.push("/creator-center");
-      } else {
-        message.error(response.message || "크리에이터 전환에 실패했습니다.");
-      }
-    } catch (error) {
-      console.error("크리에이터 전환 실패:", error);
-      message.error("크리에이터 전환에 실패했습니다.");
-    } finally {
-      setLoading(false);
-    }
-  };
+function BecomeCreatorPageView({
+  model,
+}: {
+  model: ReturnType<typeof useBecomeCreatorPageModel>;
+}) {
+  const {
+    router,
+    form,
+    loading,
+    categories,
+    categoriesLoading,
+    handleBecomeCreator,
+  } = model;
 
   return (
     <CreatorCenterLayout>

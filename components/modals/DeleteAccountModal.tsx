@@ -1,43 +1,32 @@
 "use client";
+import { message as uiMessage } from "antd";
 
-import React, { useState } from "react";
-import { Modal, Input, Typography, Divider, message } from "antd";
-import { userAPI } from "@/lib/api/user";
+import { DeleteAccountModalProps } from "@/features/modals-delete-account-modal/types";
+import { useDeleteAccountModalModel } from "@/features/modals-delete-account-modal/useDeleteAccountModalModel";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
+import { Divider, Input, Modal, Typography } from "antd";
+
 const { Text, Paragraph } = Typography;
 
-interface DeleteAccountModalProps {
-  open: boolean;
-  onClose: () => void;
-  onDelete: () => void;
+export default function DeleteAccountModal(props: DeleteAccountModalProps) {
+  const model = useDeleteAccountModalModel(props, { message: uiMessage });
+  return <DeleteAccountModalView {...props} model={model} />;
 }
 
-export default function DeleteAccountModal({
+function DeleteAccountModalView({
   open,
   onClose,
   onDelete,
-}: DeleteAccountModalProps) {
-  const [deleteConfirmText, setDeleteConfirmText] = useState("");
-
-  const handleDelete = async () => {
-    if (deleteConfirmText !== "삭제") {
-      message.error("정확히 '삭제'를 입력해주세요.");
-      return;
-    }
-
-    try {
-      await userAPI.deleteAccount();
-      onDelete();
-      setDeleteConfirmText("");
-    } catch (error) {
-      message.error("계정 삭제에 실패했습니다.");
-    }
-  };
-
-  const handleCancel = () => {
-    onClose();
-    setDeleteConfirmText("");
-  };
+  model,
+}: DeleteAccountModalProps & {
+  model: ReturnType<typeof useDeleteAccountModalModel>;
+}) {
+  const {
+    deleteConfirmText,
+    setDeleteConfirmText,
+    handleDelete,
+    handleCancel,
+  } = model;
 
   return (
     <Modal

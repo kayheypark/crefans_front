@@ -1,32 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
-import AuthGuard from "./AuthGuard";
+import AuthGuard from "@/components/auth/AuthGuard";
+import { ProtectedRouteProps } from "@/features/auth-protected-route/types";
+import { useProtectedRouteModel } from "@/features/auth-protected-route/useProtectedRouteModel";
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
+export default function ProtectedRoute(props: ProtectedRouteProps) {
+  const model = useProtectedRouteModel(props);
+  return <ProtectedRouteView {...props} model={model} />;
 }
 
-export default function ProtectedRoute({
+function ProtectedRouteView({
   children,
   fallback,
-}: ProtectedRouteProps) {
-  const { user } = useAuth();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    // 로그인 후 원래 페이지로 리디렉트
-    if (user && searchParams.get("redirect")) {
-      const redirectPath = searchParams.get("redirect");
-      if (redirectPath) {
-        router.replace(redirectPath);
-      }
-    }
-  }, [user, router, searchParams]);
+  model,
+}: ProtectedRouteProps & { model: ReturnType<typeof useProtectedRouteModel> }) {
+  const {} = model;
 
   return (
     <AuthGuard requireAuth={true} fallback={fallback}>

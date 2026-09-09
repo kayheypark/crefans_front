@@ -1,156 +1,49 @@
 "use client";
+import { message as uiMessage } from "antd";
 
-import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-import {
-  Card,
-  Typography,
-  Button,
-  Space,
-  Tag,
-  Row,
-  Col,
-  message,
-  Spin,
-  Avatar,
-  Divider,
-  Alert,
-} from "antd";
-import {
-  CrownOutlined,
-  UserOutlined,
-  HeartOutlined,
-  ArrowLeftOutlined,
-} from "@ant-design/icons";
-import { useAuth } from "@/contexts/AuthContext";
-import { membershipAPI, MembershipItem } from "@/lib/api/membership";
-import { subscriptionBillingAPI } from "@/lib/api/subscriptionBilling";
-import { loadTossPaymentsInstance } from "@/lib/tossPayments";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { useMembershipSubscriptionPageModel } from "@/features/subscription-creator-id/useMembershipSubscriptionPageModel";
+import {
+  ArrowLeftOutlined,
+  CrownOutlined,
+  HeartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import {
+  Alert,
+  Avatar,
+  Button,
+  Card,
+  Col,
+  Divider,
+  Row,
+  Space,
+  Spin,
+  Tag,
+  Typography,
+} from "antd";
 
 const { Title, Text, Paragraph } = Typography;
 
-interface Creator {
-  id: string;
-  name: string;
-  handle: string;
-  avatar?: string;
-  bio?: string;
-  membershipItems?: MembershipItem[];
+export default function MembershipSubscriptionPage() {
+  const model = useMembershipSubscriptionPageModel({ message: uiMessage });
+  return <MembershipSubscriptionPageView model={model} />;
 }
 
-export default function MembershipSubscriptionPage() {
-  const params = useParams();
-  const router = useRouter();
-  const { user } = useAuth();
-  const creatorId = params.creatorId as string;
-
-  const [creator, setCreator] = useState<Creator | null>(null);
-  const [memberships, setMemberships] = useState<MembershipItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [subscribing, setSubscribing] = useState<string | null>(null);
-
-  // 크리에이터와 멤버십 정보 로드
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
-
-        // TODO: 실제 크리에이터 정보 API 호출
-        // 현재는 mock 데이터 사용
-        const mockCreator: Creator = {
-          id: creatorId,
-          name: "크리에이터 이름",
-          handle: "creator_handle",
-          avatar: undefined,
-          bio: "안녕하세요! 다양한 콘텐츠를 만들고 있는 크리에이터입니다.",
-        };
-
-        // 멤버십 아이템 로드 (실제 API 호출 - 크리에이터별 멤버십)
-        try {
-          const membershipResponse = await membershipAPI.getMembershipsByCreatorId(creatorId);
-
-          if (membershipResponse.success && membershipResponse.data) {
-            // 활성화된 멤버십만 필터링
-            const memberships = membershipResponse.data.memberships || [];
-            const activeMemberships = memberships.filter(
-              (membership) => membership.isActive !== false
-            );
-
-            setMemberships(activeMemberships);
-            mockCreator.membershipItems = activeMemberships;
-          }
-        } catch (membershipError) {
-          console.error('Failed to load creator memberships:', membershipError);
-          // Fallback to empty array if membership loading fails
-          setMemberships([]);
-        }
-
-        setCreator(mockCreator);
-      } catch (error) {
-        console.error("Failed to load creator and membership data:", error);
-        message.error("크리에이터 정보를 불러오는데 실패했습니다.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (creatorId) {
-      loadData();
-    }
-  }, [creatorId]);
-
-  // 구독 시작 처리
-  const handleSubscribe = async (membershipItem: MembershipItem) => {
-    if (!user) {
-      message.error("로그인이 필요합니다.");
-      router.push('/auth/signin');
-      return;
-    }
-
-    try {
-      setSubscribing(membershipItem.id);
-
-      // 1. 구독 청구 준비 API 호출
-      const prepareResponse = await subscriptionBillingAPI.prepareBilling({
-        membershipItemId: membershipItem.id,
-      });
-
-      if (!prepareResponse.success || !prepareResponse.data) {
-        throw new Error(prepareResponse.message || "구독 준비에 실패했습니다.");
-      }
-
-      const { clientKey, customerKey, successUrl, failUrl } = prepareResponse.data;
-
-      // 2. TossPayments SDK 로드 및 자동결제 등록
-      const tossPayments = await loadTossPaymentsInstance();
-
-      // requestBillingAuth를 사용하여 자동결제 등록 (임시로 any 타입 사용)
-      await (tossPayments as any).requestBillingAuth({
-        method: "TRANSFER", // 계좌 자동결제
-        customerKey,
-        successUrl,
-        failUrl,
-      });
-
-    } catch (error: any) {
-      console.error("Subscription failed:", error);
-      message.error(error.message || "구독 처리 중 오류가 발생했습니다.");
-    } finally {
-      setSubscribing(null);
-    }
-  };
-
-  // 결제 주기 텍스트 변환
-  const getBillingText = (unit: string, period: number) => {
-    const unitMap: { [key: string]: string } = {
-      DAY: "일",
-      WEEK: "주",
-      MONTH: "개월",
-      YEAR: "년",
-    };
-    return `${period}${unitMap[unit] || unit}`;
-  };
+function MembershipSubscriptionPageView({
+  model,
+}: {
+  model: ReturnType<typeof useMembershipSubscriptionPageModel>;
+}) {
+  const {
+    router,
+    creator,
+    memberships,
+    loading,
+    subscribing,
+    handleSubscribe,
+    getBillingText,
+  } = model;
 
   if (loading) {
     return (
@@ -233,7 +126,9 @@ export default function MembershipSubscriptionPage() {
         {memberships.length === 0 ? (
           <Card>
             <div style={{ textAlign: "center", padding: 40 }}>
-              <HeartOutlined style={{ fontSize: 48, color: "#d9d9d9", marginBottom: 16 }} />
+              <HeartOutlined
+                style={{ fontSize: 48, color: "#d9d9d9", marginBottom: 16 }}
+              />
               <Title level={4} style={{ color: "#999" }}>
                 제공되는 멤버십이 없습니다
               </Title>
@@ -268,7 +163,14 @@ export default function MembershipSubscriptionPage() {
                   <Row gutter={[16, 16]} align="middle">
                     <Col xs={24} md={16}>
                       <div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 8,
+                            marginBottom: 8,
+                          }}
+                        >
                           <Title level={5} style={{ margin: 0 }}>
                             {membership.name}
                           </Title>
@@ -277,26 +179,42 @@ export default function MembershipSubscriptionPage() {
 
                         {membership.description && (
                           <Paragraph
-                            style={{ margin: 0, marginBottom: 12, color: "#666" }}
+                            style={{
+                              margin: 0,
+                              marginBottom: 12,
+                              color: "#666",
+                            }}
                           >
                             {membership.description}
                           </Paragraph>
                         )}
 
                         {membership.benefits && (
-                          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: 4,
+                            }}
+                          >
                             {(() => {
                               let benefits: string[] = [];
                               try {
                                 // Try to parse as JSON first, fallback to comma-separated
-                                if (membership.benefits.startsWith('[')) {
+                                if (membership.benefits.startsWith("[")) {
                                   benefits = JSON.parse(membership.benefits);
                                 } else {
-                                  benefits = membership.benefits.split(',').map(b => b.trim()).filter(b => b.length > 0);
+                                  benefits = membership.benefits
+                                    .split(",")
+                                    .map((b) => b.trim())
+                                    .filter((b) => b.length > 0);
                                 }
                               } catch (e) {
                                 // Fallback to comma-separated parsing
-                                benefits = membership.benefits.split(',').map(b => b.trim()).filter(b => b.length > 0);
+                                benefits = membership.benefits
+                                  .split(",")
+                                  .map((b) => b.trim())
+                                  .filter((b) => b.length > 0);
                               }
                               return benefits.map((benefit, index) => (
                                 <Tag key={index} color="blue">
@@ -312,13 +230,20 @@ export default function MembershipSubscriptionPage() {
                     <Col xs={24} md={8}>
                       <div style={{ textAlign: "right" }}>
                         <div style={{ marginBottom: 8 }}>
-                          <Text strong style={{ fontSize: 24, color: "#faad14" }}>
+                          <Text
+                            strong
+                            style={{ fontSize: 24, color: "#faad14" }}
+                          >
                             {(membership.price || 0).toLocaleString()}원
                           </Text>
                         </div>
                         <div style={{ marginBottom: 16 }}>
                           <Text type="secondary">
-                            / {getBillingText(membership.billing_unit, membership.billing_period)}
+                            /{" "}
+                            {getBillingText(
+                              membership.billing_unit,
+                              membership.billing_period,
+                            )}
                           </Text>
                         </div>
                         <Button
@@ -328,7 +253,8 @@ export default function MembershipSubscriptionPage() {
                           loading={subscribing === membership.id}
                           onClick={() => handleSubscribe(membership)}
                           style={{
-                            background: "linear-gradient(135deg, #faad14 0%, #ffc53d 100%)",
+                            background:
+                              "linear-gradient(135deg, #faad14 0%, #ffc53d 100%)",
                             border: "none",
                             fontWeight: "600",
                             minWidth: 120,
@@ -349,8 +275,8 @@ export default function MembershipSubscriptionPage() {
 
         <div style={{ textAlign: "center", color: "#999", fontSize: 12 }}>
           <Text type="secondary">
-            구독 후 언제든지 설정에서 취소할 수 있습니다.
-            결제는 토스페이먼츠를 통해 안전하게 처리됩니다.
+            구독 후 언제든지 설정에서 취소할 수 있습니다. 결제는 토스페이먼츠를
+            통해 안전하게 처리됩니다.
           </Text>
         </div>
       </div>

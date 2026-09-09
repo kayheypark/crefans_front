@@ -1,127 +1,113 @@
+import { PostingLikeResponse } from "@/types/api";
 import {
   CreatePostingRequest,
-  UpdatePostingRequest,
-  PostingQueryRequest,
-  PostingListResponse,
-  PostingDetailResponse,
   CreatePostingResponse,
-  UpdatePostingResponse
-} from '@/types/posting';
-import { apiClient } from './client';
-import { PostingLikeResponse } from '@/types/api';
-import { API_BASE_URL } from './config';
+  PostingDetailResponse,
+  PostingListResponse,
+  PostingQueryRequest,
+  UpdatePostingRequest,
+  UpdatePostingResponse,
+} from "@/types/posting";
+import type { AxiosResponse } from "axios";
+import { apiClient } from "./client";
+
+async function postingRequest<T>(
+  request: Promise<AxiosResponse<T>>,
+  fallback: string,
+  useServerMessage = false,
+): Promise<T> {
+  try {
+    return (await request).data;
+  } catch (error: any) {
+    throw new Error(
+      (useServerMessage && error.response?.data?.message) || fallback,
+    );
+  }
+}
 
 export const postingApi = {
   // 포스팅 생성
-  async createPosting(data: CreatePostingRequest): Promise<CreatePostingResponse> {
-    const response = await fetch(`${API_BASE_URL}/postings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || '포스팅 생성에 실패했습니다.');
-    }
-
-    return response.json();
+  async createPosting(
+    data: CreatePostingRequest,
+  ): Promise<CreatePostingResponse> {
+    return postingRequest(
+      apiClient.post("/postings", data),
+      "포스팅 생성에 실패했습니다.",
+      true,
+    );
   },
 
   // 포스팅 목록 조회
-  async getPostings(params?: PostingQueryRequest): Promise<PostingListResponse> {
+  async getPostings(
+    params?: PostingQueryRequest,
+  ): Promise<PostingListResponse> {
     const searchParams = new URLSearchParams();
-    
-    if (params?.page) searchParams.append('page', params.page.toString());
-    if (params?.limit) searchParams.append('limit', params.limit.toString());
-    if (params?.status) searchParams.append('status', params.status);
-    if (params?.is_membership !== undefined) searchParams.append('is_membership', params.is_membership.toString());
-    if (params?.user_sub) searchParams.append('user_sub', params.user_sub);
-    if (params?.search) searchParams.append('search', params.search);
 
-    const response = await fetch(`${API_BASE_URL}/postings?${searchParams}`, {
-      method: 'GET',
-      credentials: 'include',
-    });
+    if (params?.page) searchParams.append("page", params.page.toString());
+    if (params?.limit) searchParams.append("limit", params.limit.toString());
+    if (params?.status) searchParams.append("status", params.status);
+    if (params?.is_membership !== undefined)
+      searchParams.append("is_membership", params.is_membership.toString());
+    if (params?.user_sub) searchParams.append("user_sub", params.user_sub);
+    if (params?.search) searchParams.append("search", params.search);
 
-    if (!response.ok) {
-      throw new Error('포스팅 목록 조회에 실패했습니다.');
-    }
-
-    return response.json();
+    return postingRequest(
+      apiClient.get(`/postings?${searchParams}`),
+      "포스팅 목록 조회에 실패했습니다.",
+      false,
+    );
   },
 
   // 내 포스팅 목록 조회
-  async getMyPostings(params?: Omit<PostingQueryRequest, 'user_sub'>): Promise<PostingListResponse> {
+  async getMyPostings(
+    params?: Omit<PostingQueryRequest, "user_sub">,
+  ): Promise<PostingListResponse> {
     const searchParams = new URLSearchParams();
-    
-    if (params?.page) searchParams.append('page', params.page.toString());
-    if (params?.limit) searchParams.append('limit', params.limit.toString());
-    if (params?.status) searchParams.append('status', params.status);
-    if (params?.is_membership !== undefined) searchParams.append('is_membership', params.is_membership.toString());
-    if (params?.search) searchParams.append('search', params.search);
 
-    const response = await fetch(`${API_BASE_URL}/postings/my/list?${searchParams}`, {
-      method: 'GET',
-      credentials: 'include',
-    });
+    if (params?.page) searchParams.append("page", params.page.toString());
+    if (params?.limit) searchParams.append("limit", params.limit.toString());
+    if (params?.status) searchParams.append("status", params.status);
+    if (params?.is_membership !== undefined)
+      searchParams.append("is_membership", params.is_membership.toString());
+    if (params?.search) searchParams.append("search", params.search);
 
-    if (!response.ok) {
-      throw new Error('내 포스팅 목록 조회에 실패했습니다.');
-    }
-
-    return response.json();
+    return postingRequest(
+      apiClient.get(`/postings/my/list?${searchParams}`),
+      "내 포스팅 목록 조회에 실패했습니다.",
+      false,
+    );
   },
 
   // 포스팅 상세 조회
   async getPosting(id: string): Promise<PostingDetailResponse> {
-    const response = await fetch(`${API_BASE_URL}/postings/${id}`, {
-      method: 'GET',
-      credentials: 'include',
-    });
-
-    if (!response.ok) {
-      throw new Error('포스팅 조회에 실패했습니다.');
-    }
-
-    return response.json();
+    return postingRequest(
+      apiClient.get(`/postings/${id}`),
+      "포스팅 조회에 실패했습니다.",
+      false,
+    );
   },
 
   // 포스팅 수정
-  async updatePosting(id: string, data: UpdatePostingRequest): Promise<UpdatePostingResponse> {
-    const response = await fetch(`${API_BASE_URL}/postings/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || '포스팅 수정에 실패했습니다.');
-    }
-
-    return response.json();
+  async updatePosting(
+    id: string,
+    data: UpdatePostingRequest,
+  ): Promise<UpdatePostingResponse> {
+    return postingRequest(
+      apiClient.patch(`/postings/${id}`, data),
+      "포스팅 수정에 실패했습니다.",
+      true,
+    );
   },
 
   // 포스팅 삭제
-  async deletePosting(id: string): Promise<{ success: boolean; message: string }> {
-    const response = await fetch(`${API_BASE_URL}/postings/${id}`, {
-      method: 'DELETE',
-      credentials: 'include',
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || '포스팅 삭제에 실패했습니다.');
-    }
-
-    return response.json();
+  async deletePosting(
+    id: string,
+  ): Promise<{ success: boolean; message: string }> {
+    return postingRequest(
+      apiClient.delete(`/postings/${id}`),
+      "포스팅 삭제에 실패했습니다.",
+      true,
+    );
   },
 
   // 포스팅 좋아요
@@ -130,7 +116,8 @@ export const postingApi = {
       const response = await apiClient.post(`/postings/${id}/like`);
       return response.data;
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || '좋아요 처리에 실패했습니다.';
+      const errorMessage =
+        error.response?.data?.message || "좋아요 처리에 실패했습니다.";
       throw new Error(errorMessage);
     }
   },
@@ -141,7 +128,8 @@ export const postingApi = {
       const response = await apiClient.delete(`/postings/${id}/like`);
       return response.data;
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || '좋아요 취소에 실패했습니다.';
+      const errorMessage =
+        error.response?.data?.message || "좋아요 취소에 실패했습니다.";
       throw new Error(errorMessage);
     }
   },

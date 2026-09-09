@@ -1,27 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
-import { getApiUrl } from "@/utils/env";
-
-interface WalletData {
-  // id: number;
-  address: string;
-  tokenType: {
-    // id: number;
-    symbol: string;
-    name: string;
-    price: number;
-  };
-  amount: number;
-  ownedSince: string;
-}
-
-interface WalletResponse {
-  success: boolean;
-  data: {
-    wallets: WalletData[];
-    totalValue: number;
-  };
-}
+import { walletAPI } from "@/lib/api/wallet";
+import type { WalletData } from "@/types/wallet";
+import { useCallback, useEffect, useState } from "react";
 
 export const useWallet = () => {
   const [wallets, setWallets] = useState<WalletData[]>([]);
@@ -34,21 +13,16 @@ export const useWallet = () => {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get<WalletResponse>(
-        `${getApiUrl()}/wallet`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await walletAPI.getWallet();
 
-      if (response.data.success) {
-        setWallets(response.data.data.wallets);
-        setTotalValue(response.data.data.totalValue);
+      if (response.success) {
+        setWallets(response.data.wallets);
+        setTotalValue(response.data.totalValue);
       }
     } catch (err: any) {
       console.error("지갑 정보 조회 실패:", err);
       setError(
-        err.response?.data?.message || "지갑 정보를 불러올 수 없습니다."
+        err.response?.data?.message || "지갑 정보를 불러올 수 없습니다.",
       );
     } finally {
       setLoading(false);

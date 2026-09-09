@@ -1,43 +1,29 @@
 "use client";
+import { Form as UiForm, message as uiMessage } from "antd";
 
-import React from "react";
-import Modal from "antd/lib/modal";
-import Form from "antd/lib/form";
-import Radio from "antd/lib/radio";
-import Input from "antd/lib/input";
-import Button from "antd/lib/button";
-import Space from "antd/lib/space";
-import message from "antd/lib/message";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { ReportModalProps } from "@/features/modals-report-modal/types";
+import { useReportModalModel } from "@/features/modals-report-modal/useReportModalModel";
 import { MODAL_STYLES } from "@/lib/constants/modalStyles";
+import Button from "antd/lib/button";
+import Form from "antd/lib/form";
+import Input from "antd/lib/input";
+import Modal from "antd/lib/modal";
+import Radio from "antd/lib/radio";
+import Space from "antd/lib/space";
 
-interface ReportModalProps {
-  open: boolean;
-  onClose: () => void;
-  onSubmit?: (values: any) => void;
+export default function ReportModal(props: ReportModalProps) {
+  const [reportForm] = UiForm.useForm();
+  const model = useReportModalModel(props, { message: uiMessage, reportForm });
+  return <ReportModalView {...props} model={model} />;
 }
 
-export default function ReportModal({
+function ReportModalView({
   open,
   onClose,
   onSubmit,
-}: ReportModalProps) {
-  const [reportForm] = Form.useForm();
-
-  const handleReport = (values: any) => {
-    if (onSubmit) {
-      onSubmit(values);
-    } else {
-      message.success("신고가 접수되었습니다.");
-    }
-    onClose();
-    reportForm.resetFields();
-  };
-
-  const handleCancel = () => {
-    onClose();
-    reportForm.resetFields();
-  };
+  model,
+}: ReportModalProps & { model: ReturnType<typeof useReportModalModel> }) {
+  const { reportForm, handleReport, handleCancel } = model;
 
   return (
     <Modal

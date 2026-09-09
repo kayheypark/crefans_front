@@ -1,100 +1,39 @@
 "use client";
+import { Form as UiForm, message as uiMessage } from "antd";
 
-import { useState } from "react";
+import CreatorCenterLayout from "@/components/layout/CreatorCenterLayout";
+import { useDonationsPageModel } from "@/features/creator-center-donations/useDonationsPageModel";
 import {
-  Card,
-  Row,
-  Col,
+  DollarOutlined,
+  GiftOutlined,
+  HeartOutlined,
+  MessageOutlined,
+  StarOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import {
+  Avatar,
   Button,
-  Typography,
-  Table,
-  Tag,
-  Space,
-  Modal,
+  Card,
+  Col,
+  DatePicker,
   Form,
   Input,
-  InputNumber,
-  DatePicker,
+  Modal,
+  Row,
   Select,
-  message,
+  Space,
   Statistic,
-  Avatar,
-  List,
-  Divider,
+  Table,
+  Tag,
+  Typography,
 } from "antd";
-import {
-  HeartOutlined,
-  UserOutlined,
-  DollarOutlined,
-  MessageOutlined,
-  GiftOutlined,
-  StarOutlined,
-  CalendarOutlined,
-} from "@ant-design/icons";
-import CreatorCenterLayout from "@/components/layout/CreatorCenterLayout";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import { useCreatorGuard } from "@/hooks/useCreatorGuard";
 
 const { Title, Text } = Typography;
+
 const { RangePicker } = DatePicker;
+
 const { TextArea } = Input;
-
-// 목업 데이터
-const mockDonations = [
-  {
-    id: 1,
-    donorName: "김후원자",
-    donorAvatar: null,
-    amount: 50000,
-    message: "항상 응원하고 있어요! 좋은 콘텐츠 감사합니다.",
-    date: "2024-01-15",
-    status: "completed",
-    isAnonymous: false,
-    tier: "gold",
-  },
-  {
-    id: 2,
-    donorName: "익명 후원자",
-    donorAvatar: null,
-    amount: 25000,
-    message: "",
-    date: "2024-01-14",
-    status: "completed",
-    isAnonymous: true,
-    tier: "silver",
-  },
-  {
-    id: 3,
-    donorName: "이후원자",
-    donorAvatar: null,
-    amount: 100000,
-    message: "크리에이터님의 열정이 느껴져요. 더 멋진 콘텐츠 기대합니다!",
-    date: "2024-01-13",
-    status: "completed",
-    isAnonymous: false,
-    tier: "platinum",
-  },
-  {
-    id: 4,
-    donorName: "박후원자",
-    donorAvatar: null,
-    amount: 15000,
-    message: "응원합니다!",
-    date: "2024-01-12",
-    status: "pending",
-    isAnonymous: false,
-    tier: "bronze",
-  },
-];
-
-const mockDonationStats = {
-  totalDonations: 190000,
-  monthlyDonations: 190000,
-  totalDonors: 4,
-  averageDonation: 47500,
-  topDonor: "이후원자",
-  topDonationAmount: 100000,
-};
 
 const donationTiers = {
   bronze: { min: 0, max: 29999, color: "#cd7f32", name: "브론즈" },
@@ -104,18 +43,32 @@ const donationTiers = {
 };
 
 export default function DonationsPage() {
-  // 로그인 및 크리에이터 권한 필수
-  const { isLoading, hasAccess } = useCreatorGuard({ 
-    requiresLogin: true, 
-    requiresCreator: true 
-  });
+  const [form] = UiForm.useForm();
+  const model = useDonationsPageModel({ message: uiMessage, form });
+  return <DonationsPageView model={model} />;
+}
 
-  const [donations, setDonations] = useState(mockDonations);
-  const [selectedPeriod, setSelectedPeriod] = useState("month");
-  const [selectedStatus, setSelectedStatus] = useState("all");
-  const [isThankYouModalOpen, setIsThankYouModalOpen] = useState(false);
-  const [selectedDonation, setSelectedDonation] = useState<any>(null);
-  const [form] = Form.useForm();
+function DonationsPageView({
+  model,
+}: {
+  model: ReturnType<typeof useDonationsPageModel>;
+}) {
+  const {
+mockDonationStats,
+    isLoading,
+    hasAccess,
+    selectedPeriod,
+    setSelectedPeriod,
+    selectedStatus,
+    setSelectedStatus,
+    isThankYouModalOpen,
+    setIsThankYouModalOpen,
+    selectedDonation,
+    form,
+    handleThankYou,
+    handleThankYouSubmit,
+    filteredDonations,
+  } = model;
 
   const donationColumns = [
     {
@@ -237,30 +190,6 @@ export default function DonationsPage() {
       ),
     });
   };
-
-  const handleThankYou = (donation: any) => {
-    setSelectedDonation(donation);
-    form.resetFields();
-    setIsThankYouModalOpen(true);
-  };
-
-  const handleThankYouSubmit = async () => {
-    try {
-      const values = await form.validateFields();
-      message.success("감사 메시지가 전송되었습니다.");
-      setIsThankYouModalOpen(false);
-      form.resetFields();
-    } catch (error) {
-      console.error("폼 검증 실패:", error);
-    }
-  };
-
-  const filteredDonations = donations.filter((donation) => {
-    if (selectedStatus !== "all" && donation.status !== selectedStatus) {
-      return false;
-    }
-    return true;
-  });
 
   // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
   if (isLoading || !hasAccess) {

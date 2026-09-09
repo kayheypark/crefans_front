@@ -1,36 +1,45 @@
 "use client";
 
-import { useState } from "react";
-import { Layout, Menu, Button, Avatar, Typography, Space, Badge } from "antd";
+import { CreatorCenterLayoutProps } from "@/features/creator-center-layout/types";
+import { useCreatorCenterLayoutModel } from "@/features/creator-center-layout/useCreatorCenterLayoutModel";
 import {
+  ArrowLeftOutlined,
   DashboardOutlined,
-  UserOutlined,
   DollarOutlined,
   HeartOutlined,
-  SettingOutlined,
-  MenuOutlined,
   LogoutOutlined,
-  ArrowLeftOutlined,
+  MenuOutlined,
+  SettingOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
-import { useRouter, usePathname } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
-import { useResponsive } from "@/hooks/useResponsive";
+import { Avatar, Button, Layout, Menu, Typography } from "antd";
 
 const { Sider, Content, Header } = Layout;
+
 const { Text } = Typography;
 
-interface CreatorCenterLayoutProps {
-  children: React.ReactNode;
+export default function CreatorCenterLayout(props: CreatorCenterLayoutProps) {
+  const model = useCreatorCenterLayoutModel(props);
+  return <CreatorCenterLayoutView {...props} model={model} />;
 }
 
-export default function CreatorCenterLayout({
+function CreatorCenterLayoutView({
   children,
-}: CreatorCenterLayoutProps) {
-  const [collapsed, setCollapsed] = useState(false);
-  const { user, logout } = useAuth();
-  const router = useRouter();
-  const pathname = usePathname();
-  const { isMobile, isTablet } = useResponsive();
+  model,
+}: CreatorCenterLayoutProps & {
+  model: ReturnType<typeof useCreatorCenterLayoutModel>;
+}) {
+  const {
+    collapsed,
+    setCollapsed,
+    user,
+    pathname,
+    isMobile,
+    isTablet,
+    handleMenuClick,
+    handleLogout,
+    handleBackToCrefans,
+  } = model;
 
   const menuItems = [
     {
@@ -59,23 +68,6 @@ export default function CreatorCenterLayout({
       label: "설정",
     },
   ];
-
-  const handleMenuClick = ({ key }: { key: string }) => {
-    router.push(key);
-    // 모바일/태블릿에서 메뉴 클릭 시 사이드바 닫기
-    if (isMobile || isTablet) {
-      setCollapsed(true);
-    }
-  };
-
-  const handleLogout = () => {
-    logout();
-    router.push("/");
-  };
-
-  const handleBackToCrefans = () => {
-    router.push("/");
-  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
