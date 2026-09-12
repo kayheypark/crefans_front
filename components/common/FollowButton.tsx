@@ -11,7 +11,7 @@ export default function FollowButton(props: FollowButtonProps) {
   return <FollowButtonView {...props} model={model} />;
 }
 
-function FollowButtonView({
+export function FollowButtonView({
   targetUserId,
   isFollowing,
   buttonType = "auto",

@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { ConfigProvider, App as AntdApp } from "antd";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
-import { AuthProvider } from "@/contexts/AuthContext";
-import { NotificationProvider } from "@/contexts/NotificationContext";
+import ApplicationProviders from "@/components/providers/ApplicationProviders";
+import { appTheme } from "@/lib/theme";
 import { Suspense } from "react";
 import "antd/dist/reset.css";
 import "./globals.css";
@@ -75,22 +75,11 @@ export default function RootLayout({
           </noscript>
         )}
         <StyledComponentsRegistry>
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: "#1890ff",
-                colorBgContainer: "#fff",
-              },
-            }}
-          >
+          <ConfigProvider theme={appTheme}>
             <AntdApp>
-              <AuthProvider>
-                <NotificationProvider>
-                  <Suspense fallback={<div>Loading...</div>}>
-                    {children}
-                  </Suspense>
-                </NotificationProvider>
-              </AuthProvider>
+              <ApplicationProviders>
+                <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+              </ApplicationProviders>
             </AntdApp>
           </ConfigProvider>
         </StyledComponentsRegistry>

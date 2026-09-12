@@ -38,7 +38,7 @@ export default function Post(props: PostProps) {
   return <PostView {...props} model={model} />;
 }
 
-function PostView({
+export function PostView({
   post,
   likedPosts,
   expandedPosts,
@@ -56,7 +56,11 @@ function PostView({
   formatDate,
   formatFullDate,
   model,
-}: PostProps & { model: ReturnType<typeof usePostModel> }) {
+  comments,
+}: PostProps & {
+  model: ReturnType<typeof usePostModel>;
+  comments?: React.ReactNode;
+}) {
   const {
     user,
     router,
@@ -604,18 +608,22 @@ function PostView({
         </div>
 
         {/* 댓글 리스트 - 인스타그램 스타일 (기존 디자인 유지) */}
-        <CommentList
-          postingId={post.id}
-          allowComments={post.allowComments ?? true}
-          onCommentCountChange={setCommentCount}
-          openReplies={openReplies}
-          onToggleReplies={onToggleReplies}
-          onCommentInputClick={onCommentInputClick}
-          onCommentSubmit={onCommentSubmit}
-          user={user}
-          post={post}
-          isMobile={isMobile}
-        />
+        {comments !== undefined ? (
+          comments
+        ) : (
+          <CommentList
+            postingId={post.id}
+            allowComments={post.allowComments ?? true}
+            onCommentCountChange={setCommentCount}
+            openReplies={openReplies}
+            onToggleReplies={onToggleReplies}
+            onCommentInputClick={onCommentInputClick}
+            onCommentSubmit={onCommentSubmit}
+            user={user}
+            post={post}
+            isMobile={isMobile}
+          />
+        )}
       </Card>
     </>
   );
