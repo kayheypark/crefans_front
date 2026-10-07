@@ -1,15 +1,16 @@
 .shell {
-  --ds-ink: #1d2635;
-  --ds-muted: #687386;
-  --ds-line: #e5e9f0;
-  background: #f6f8fb;
+  --ds-ink: var(--cf-color-text);
+  --ds-muted: var(--cf-color-textSecondary);
+  --ds-line: var(--cf-color-border);
+  background: var(--cf-color-canvas);
+  font-family: var(--cf-typography-fontFamily);
   color: var(--ds-ink);
   min-height: 100vh;
 }
 .header {
   height: 76px;
   border-bottom: 1px solid var(--ds-line);
-  background: #fff;
+  background: var(--cf-color-surface);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,7 +25,7 @@
 .brand strong {
   font-size: 26px;
   letter-spacing: -1.2px;
-  color: #1890ff;
+  color: var(--cf-color-accent);
 }
 .brand span {
   font-size: 13px;
@@ -80,8 +81,8 @@
 }
 .nav a:hover,
 .nav a:focus-visible {
-  background: #eaf3ff;
-  color: #1677d7;
+  background: var(--cf-color-accentSoft);
+  color: var(--cf-color-accent);
 }
 .sidebarFoot {
   border-top: 1px solid var(--ds-line);
@@ -99,7 +100,7 @@
   font-size: 11px;
   letter-spacing: 1.8px;
   font-weight: 600;
-  color: #1890ff;
+  color: var(--cf-color-accent);
   margin-bottom: 16px;
 }
 .hero h1 {
@@ -126,9 +127,9 @@
   color: #758197;
 }
 .controls {
-  background: #fff;
+  background: var(--cf-color-surface);
   border: 1px solid var(--ds-line);
-  border-radius: 10px;
+  border-radius: var(--cf-radius-card);
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -169,7 +170,7 @@
   display: grid;
   place-items: center;
   border: 1px solid #dce5f0;
-  background: #fff;
+  background: var(--cf-color-surface);
   color: #7c8da4;
   height: 30px;
   min-width: 30px;
@@ -195,9 +196,9 @@
   gap: 18px;
 }
 .specimen {
-  background: #fff;
+  background: var(--cf-color-surface);
   border: 1px solid var(--ds-line);
-  border-radius: 10px;
+  border-radius: var(--cf-radius-card);
   min-width: 0;
   overflow: hidden;
 }
@@ -275,7 +276,7 @@
   color: #79869a;
 }
 .spacingBar {
-  background: #b6daff;
+  background: var(--cf-color-accentBorder);
   min-height: 10px;
   border-radius: 2px;
 }
@@ -284,10 +285,10 @@
   height: 54px;
   display: grid;
   place-items: center;
-  background: #eff6ff;
-  border: 1px solid #bfdcff;
+  background: var(--cf-color-accentSoft);
+  border: 1px solid var(--cf-color-accentBorder);
   font-size: 11px;
-  color: #3174be;
+  color: var(--cf-color-accent);
 }
 .typeSample {
   border-bottom: 1px solid #eff2f6;
@@ -359,7 +360,7 @@
 .motion {
   height: 7px;
   width: 80px;
-  background: #b6daff;
+  background: var(--cf-color-accentBorder);
   border-radius: 8px;
   transition-property: width;
 }
@@ -402,7 +403,7 @@
   .sidebar {
     height: auto;
     padding: 12px 18px;
-    background: #fff;
+    background: var(--cf-color-surface);
     border-right: 0;
     border-bottom: 1px solid var(--ds-line);
     z-index: 5;
@@ -466,3 +467,20 @@
     transition: none;
   }
 }
+
+.redesignFoundation { margin: 32px 0; padding: var(--cf-space-6); background: var(--cf-color-surface); border: 1px solid var(--cf-color-border); border-radius: var(--cf-radius-card); box-shadow: var(--cf-shadow-card); }
+.foundationHeading { display: flex; justify-content: space-between; gap: var(--cf-space-6); align-items: center; margin-bottom: var(--cf-space-6); }
+.foundationHeading h2 { font-size: var(--cf-typography-h2-size); margin: 12px 0; letter-spacing: -.8px; }
+.foundationHeading p { font-size: var(--cf-typography-body-size); color: var(--cf-color-textSecondary); line-height: 1.7; }
+.tokenArchitecture { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--cf-space-3); margin-bottom: var(--cf-space-8); }
+.tokenArchitecture > div { background: var(--cf-color-accentSoft); padding: var(--cf-space-4); border-radius: var(--cf-radius-control); }
+.tokenArchitecture small { color: var(--cf-color-accent); font-size: 10px; }
+.tokenArchitecture strong { display: block; margin-top: var(--cf-space-2); font-size: 15px; }
+.tokenArchitecture p, .tokenRole { font-size: 11px; color: var(--cf-color-textSecondary); margin: 8px 0 0; }
+.tokenDetails { margin-top: var(--cf-space-6); }
+.tokenDetails details { padding: 14px 0; border-top: 1px solid var(--cf-color-border); }
+.tokenDetails summary { cursor: pointer; font-size: 13px; font-weight: 600; }
+.tokenDetails summary span { color: var(--cf-color-textMuted); font-size: 11px; margin-left: 12px; }
+.tokenValue { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; font-size: 12px; overflow-wrap: anywhere; }
+.tokenValue span { text-align: right; }
+@media (max-width: 800px) { .foundationHeading { align-items: flex-start; flex-direction: column; } .tokenArchitecture { grid-template-columns: 1fr; } .redesignFoundation { padding: var(--cf-space-4); } }

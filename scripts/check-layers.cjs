@@ -30,7 +30,8 @@ for (const file of files) {
     ts.ScriptTarget.Latest,
     true,
   );
-  const isView = /^(app|components|contexts)\//.test(name);
+  const isServerRoute = /^app\/api\/.*\/route\.ts$/.test(name);
+  const isView = /^(app|components|contexts)\//.test(name) && !isServerRoute;
   const isModel = /^features\//.test(name) && /\/use\w+\.ts$/.test(name);
   const isApi = /^lib\/api\//.test(name);
   const isType = /^types\//.test(name) || name.endsWith("/types.ts");

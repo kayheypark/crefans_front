@@ -58,3 +58,11 @@ npm run build
 - 11개 동작 테스트: 피드 응답 역전/취소/계정 전환/페이지네이션, 결제 확인, 구독 취소, API 메서드/쿼리/자격증명 정책/오류 계약을 확인한다. 네트워크 및 실제 결제는 호출하지 않는다.
 
 새 디자인을 의도적으로 적용하면 해당 렌더링 기준도 검토 후 갱신해야 한다. 현재 기준은 리팩터링 중 의도하지 않은 디자인 변경을 잡기 위한 것이다.
+
+## 전면 UI 개편의 공통 표시 계층
+
+신규 팬·크리에이터 UI는 `components/crefans`에 두고, 목업 컨테이너는 `components/preview`에 둔다. 표시 계층은 같은 props 계약을 만족하는 실제 기능 모델로 교체할 수 있다. 샘플 데이터/샘플 액션은 표시 컴포넌트에 포함하지 않는다. `tests/crefans-contract.test.cjs`가 이 의존 경계를 검사한다. 페이지 및 API 래퍼 설명은 `docs/preview-pages.md`를 참조한다.
+
+## 실제 서비스 연결 (2026-10-07)
+
+`/service/*` → `components/service` 컨테이너 → `features/service` 모델 → `lib/api/platform` → `/api/v1` 실제 API 경계를 추가했다. `/preview/*`는 그대로 유지하며 표시 컴포넌트만 공유한다. 신규 프론트는 local member 세션을 사용하고 기존 Cognito context를 적용하지 않는다. 전체 목록·외부 설정·운영 경계는 `docs/service-api-binding.md`에 기록한다.

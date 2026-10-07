@@ -12,7 +12,7 @@ export default function ApplicationProviders({
 }) {
   const pathname = usePathname();
   // The component catalogue uses injected fixtures, without a user session or API calls.
-  if (pathname === "/design-system") return <>{children}</>;
+  if (pathname === "/design-system" || pathname.startsWith("/preview/") || pathname.startsWith("/service")) return <>{children}</>;
   return (
     <AuthProvider>
       <NotificationProvider>{children}</NotificationProvider>

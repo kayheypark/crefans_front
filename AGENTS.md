@@ -6,6 +6,8 @@
 - 상위 디렉터리의 `AGENTS.md`와 작업 대상 디렉터리의 추가 지침도 함께 확인한다.
 - 사용자의 명시적인 요청이 이 문서의 기본 규칙보다 우선한다.
 - 프론트 구조를 변경할 때는 `docs/frontend-architecture.md`를 확인한다. 디자인 시스템 작업은 `docs/design-system.md`도 확인한다.
+- 현재 진행 상태·결정·다음 할 일은 `PROGRESS.md`에 있다. 작업 전에 읽고, 작업 후 갱신한다.
+- 신규 UI의 정보구조 기준은 `docs/service-hierarchy.md`(계층도 원문)이며 화면 경로 대응은 `docs/preview-pages.md`다.
 
 ## 브랜치 생성 규칙
 
@@ -126,3 +128,24 @@ style: 공통 컴포넌트 코드 포맷 정리
 - 스테이징된 diff를 확인하고 제목·본문이 실제 커밋 범위와 일치하는지 점검한다.
 - 기존 사용자 변경이나 `.DS_Store` 같은 무관한 파일을 함께 포함하지 않는다.
 - 사용자가 요청하지 않은 기존 커밋 메시지 수정이나 히스토리 재작성은 하지 않는다.
+
+## 신규 UI의 데이터 주입 규칙
+
+- 새로운 UI는 `components/ui/`의 기본 요소 또는 `components/crefans/`의 서비스 공통 컴포넌트로 구현한다. 디자인 시스템에 정상·빈 값/목록·오류·disabled·readOnly·loading 중 해당하는 상태를 등록한 다음 같은 컴포넌트를 목업에서 재사용한다.
+- 같은 UI가 이미 있으면 공통 컴포넌트를 재사용하거나 필요한 범위에서 확장한다. 디자인 시스템·서비스·목업마다 동일한 UI를 별도 JSX와 CSS로 복제하지 않는다.
+- 신규 UI의 단일·다중 목록 선택은 공통 `SelectField`를 사용한다. 네이티브 `<select>`로 기기 기본 선택창을 새로 만들지 않는다. 옵션·선택 값·변경 콜백을 props로 전달한다.
+- 표의 정렬은 기본 순서(`null`) → 오름차순(`asc`) → 내림차순(`desc`) → 기본 순서로 순환한다. 다른 열은 오름차순부터 시작한다. 기본 순서는 주입된 원본 순서이며, 원본을 변경하지 않는 안정 정렬 후 페이지를 나눈다. 정렬·필터 변경 시 페이지 초기화는 호출부에서 처리하고 실제 API의 서버 정렬·페이지네이션 계약은 유지한다.
+- 실제 서비스와 `/preview`는 `components/crefans/`의 동일한 표시 컴포넌트를 사용한다. 목업 전용 복제 컴포넌트를 만들지 않는다.
+- 표시 컴포넌트는 props로 받은 데이터·권한·상태·콜백으로 내용을 표시하거나 생략한다. fixture, 목업 Provider, API 클라이언트를 직접 import하지 않는다.
+- 예시 인물, 가격, 통계, 댓글, 계좌, 처리 결과를 표시 컴포넌트에 하드코딩하거나 데이터가 비어 있을 때 샘플로 대체하지 않는다.
+- 목업 데이터와 상태 변경은 `components/preview/`의 컨테이너/모델에서 주입한다. 실제 연결에서는 API/기능 모델 어댑터를 교체하고 표시 컴포넌트는 재사용한다.
+- 목업 안내는 `app/preview/layout.tsx`의 최상단 작은 띠배너에 `목업 페이지입니다`로 한 번만 표시한다. 개별 컴포넌트·모달·처리 결과에 목업/체험 안내나 검수용 이동 링크를 반복하지 않는다. 입력 도움말, 오류, 권한·계약 조건 안내와 실제 서비스 탐색 동선은 유지한다.
+- API 응답은 `types/crefans.ts`의 `ApiResult<T>` 형식(`success`, `data`, `errorMessage`, `errorCode`)을 임시 계약으로 사용한다. 서버 계약 확정 시 어댑터와 타입을 맞춘다. 기존 API를 일괄 변경하지 않는다.
+- 데이터 요청의 래퍼는 경계에서 해석한다. 상태 변경은 성공 응답을 받은 뒤 완료를 표시하며 오류 응답을 임의의 성공으로 바꾸지 않는다.
+- 로고는 `components/crefans/Brand.tsx`, 디자인 토큰은 `lib/design/tokens.ts`에서 관리한다.
+
+## 실제 서비스 API 연결
+
+- `/preview/*`는 목업으로 유지한다. `/service/*`는 같은 표시 컴포넌트에 `features/service` 실제 모델을 주입한다.
+- 계약·경로·검증·외부 설정은 `docs/service-api-binding.md` 및 백엔드 `docs/platform-implementation.md`/`docs/platform-api.md`를 확인한다. 신규 실제 UI가 fixture/mock이나 legacy Cognito provider를 import하지 않도록 유지한다.
+- 새 API는 `/api/v1`, 응답 `{success,data,errorMessage,errorCode}`. 실패 시 샘플 성공 데이터로 대체하지 않는다.

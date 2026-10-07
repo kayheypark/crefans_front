@@ -44,7 +44,7 @@ export function TokensSection() {
     ["colorBgContainer", token.colorBgContainer],
     ["colorBgContainerDisabled", token.colorBgContainerDisabled],
     ["colorBgLayout", token.colorBgLayout],
-    ["Colors.BACKGROUND", Colors.BACKGROUND],
+    ["기존 서비스 · Colors.BACKGROUND", Colors.BACKGROUND],
   ];
   function exportTokens() {
     const data = JSON.stringify(
@@ -70,13 +70,13 @@ export function TokensSection() {
     <CatalogSection
       id="tokens"
       number="01"
-      title="디자인 토큰"
-      description="현재 공통 테마에서 계산된 실제 값입니다. 서비스별 인라인 스타일은 아래 실제 컴포넌트에서 함께 확인하세요."
+      title="컴포넌트에 적용된 토큰"
+      description="새 개편 테마에서 계산된 실제 값입니다. 기존 서비스 상수는 비교용으로 명시하며 새 토큰과 구분합니다."
     >
       <div className={styles.grid}>
         <Specimen
           title="색상 · 역할에 따라 사용하는 팔레트"
-          spec="theme.useToken() · lib/theme.ts · lib/constants/colors.ts"
+          spec="theme.useToken() · lib/design/theme.ts"
           wide
         >
           <div className={styles.swatches}>
@@ -167,7 +167,7 @@ export function TokensSection() {
           </p>
         </Specimen>
         <Specimen
-          title="레이아웃과 반응형 기준"
+          title="기존 서비스 레이아웃 · 비교용"
           spec="BREAKPOINTS · CONTENT_LAYOUT_WIDTH"
         >
           <div className={styles.specRows}>

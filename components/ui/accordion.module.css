@@ -1,0 +1,10 @@
+.item{border-bottom:1px solid var(--cf-color-border)}
+.trigger{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:16px 4px;border:0;background:none;color:var(--cf-color-textSecondary);font:inherit;font-size:13px;text-align:left;cursor:pointer;transition:color var(--cf-motion-fast)}
+.trigger:hover{color:var(--cf-color-text)}.trigger:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px;border-radius:6px}
+.item[data-open=true] .trigger{color:var(--cf-color-text);font-weight:600}
+.chevron{flex:none;color:var(--cf-color-textMuted);transition:transform var(--cf-motion-normal) var(--cf-motion-easing)}.item[data-open=true] .chevron{transform:rotate(180deg)}
+.panel{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows var(--cf-motion-normal) var(--cf-motion-easing),opacity var(--cf-motion-normal) var(--cf-motion-easing)}
+.item[data-open=true] .panel{grid-template-rows:1fr;opacity:1}
+.panelInner{min-height:0;overflow:hidden}
+.content{padding:0 4px 18px;color:var(--cf-color-textMuted);font-size:12px;line-height:1.9}
+@media(prefers-reduced-motion:reduce){.panel,.chevron,.trigger{transition:none}}

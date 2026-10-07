@@ -1,0 +1,1 @@
+.actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:var(--cf-space-3);width:100%;min-width:0}.actions>*{flex:0 0 auto;max-width:100%}

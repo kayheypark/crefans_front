@@ -1,0 +1,24 @@
+.avatar{
+  --avatar-dimension:var(--avatar-size-override,var(--avatar-size));
+  position:relative;
+  display:inline-grid;
+  place-items:center;
+  vertical-align:middle;
+  box-sizing:border-box;
+  width:var(--avatar-dimension);
+  height:var(--avatar-dimension);
+  min-width:var(--avatar-dimension);
+  max-width:var(--avatar-dimension);
+  min-height:var(--avatar-dimension);
+  max-height:var(--avatar-dimension);
+  flex:0 0 var(--avatar-dimension);
+  aspect-ratio:1;
+  padding:0;
+  border-radius:50%;
+  overflow:hidden;
+  background:var(--cf-color-avatarBg);
+  color:var(--cf-color-avatarInk);
+  line-height:0;
+}
+.avatar>img{display:block;width:100%;height:100%;object-fit:cover}
+.avatar>svg{display:block;width:100%;height:100%;color:var(--cf-color-avatarInk)}

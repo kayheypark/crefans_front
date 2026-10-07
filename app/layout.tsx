@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { ConfigProvider, App as AntdApp } from "antd";
+import PresentationProviders from "@/components/providers/PresentationProviders";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
 import ApplicationProviders from "@/components/providers/ApplicationProviders";
-import { appTheme } from "@/lib/theme";
 import { Suspense } from "react";
 import "antd/dist/reset.css";
 import "./globals.css";
@@ -75,13 +74,11 @@ export default function RootLayout({
           </noscript>
         )}
         <StyledComponentsRegistry>
-          <ConfigProvider theme={appTheme}>
-            <AntdApp>
+          <PresentationProviders>
               <ApplicationProviders>
                 <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
               </ApplicationProviders>
-            </AntdApp>
-          </ConfigProvider>
+            </PresentationProviders>
         </StyledComponentsRegistry>
 
         {/* Beusable RUM - 프로덕션 환경에서만 로드 */}

@@ -1,6 +1,10 @@
 "use client";
 
-import { ConfigProvider, Empty, Input, Segmented, Select, Switch } from "antd";
+import { App as AntdApp, ConfigProvider, Empty, Input, Segmented, Select, Switch } from "antd";
+import { redesignTheme } from "@/lib/design/theme";
+import { designVariables } from "@/lib/design/tokens";
+import type { CSSProperties } from "react";
+import RedesignTokens from "./RedesignTokens";
 import koKR from "antd/locale/ko_KR";
 import { SearchOutlined } from "@ant-design/icons";
 import { useDesignSystemModel } from "@/features/design-system/useDesignSystemModel";
@@ -17,7 +21,7 @@ import styles from "./design-system.module.css";
 
 export default function DesignSystem() {
   const model = useDesignSystemModel();
-  return <DesignSystemView model={model} />;
+  return <ConfigProvider theme={redesignTheme} locale={koKR}><AntdApp><DesignSystemView model={model} /></AntdApp></ConfigProvider>;
 }
 
 function DesignSystemView({
@@ -40,14 +44,14 @@ function DesignSystemView({
   const has = (id: string) =>
     visibleSections.some((section) => section.id === id);
   return (
-    <div className={styles.shell}>
+    <div className={styles.shell} style={designVariables as CSSProperties}>
       <header className={styles.header}>
         <div className={styles.brand}>
-          <strong>crefans</strong>
+          <img src="/logo.png" alt="crefans" width={126} height={25} />
           <span>Design system</span>
         </div>
         <div className={styles.headerNote}>
-          DESIGN REFERENCE / COMPONENT LIBRARY
+          REDESIGN V1 / WHITE & VIOLET
         </div>
       </header>
       <div className={styles.layout}>
@@ -62,7 +66,7 @@ function DesignSystemView({
             ))}
           </nav>
           <div className={styles.sidebarFoot}>
-            실제 테마와 컴포넌트
+            개편 테마와 컴포넌트
             <br />
             상태별 UI 미리보기
             <br />
@@ -72,7 +76,7 @@ function DesignSystemView({
         <main className={styles.main}>
           <div className={styles.hero}>
             <div className={styles.eyebrow}>CREFANS / DESIGN LIBRARY</div>
-            <h1>하나의 기준, 다양한 모습.</h1>
+            <h1>새로운 크레팬스의 디자인 기준.</h1>
             <p>
               타이포그래피와 디자인 토큰부터 데이터에 반응하는 컴포넌트까지.
               <br />
@@ -84,6 +88,7 @@ function DesignSystemView({
               <span>INTERACTIVE STATES</span>
             </div>
           </div>
+          {has("tokens") && <RedesignTokens />}
           <div className={styles.controls}>
             <div className={`${styles.control} ${styles.search}`}>
               <label htmlFor="catalog-search">컴포넌트 찾기</label>

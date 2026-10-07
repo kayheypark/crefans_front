@@ -1,0 +1,15 @@
+'use client';
+import type {ButtonHTMLAttributes,ReactNode} from 'react';
+import {Avatar as ProfileAvatar} from '@/components/ui/Avatar';
+import s from './service.module.css';
+export function Avatar({creator,size=40}:{creator?:{name:string;image?:string;position?:string};size?:number}){
+  return <ProfileAvatar src={creator?.image} name={creator?.name} position={creator?.position} size={size}/>;
+}
+export function PageTitle({children,action}:{children:ReactNode;action?:ReactNode}){return <header className={s.pageTitle}><h1>{children}</h1>{action}</header>;}
+/** Quiet empty state: no glyph, small secondary text, dashed frame. */
+export function Empty({title,description,action}:{title:string;description?:string;action?:ReactNode}){return <div className={s.empty} role="status"><p className={s.emptyTitle}>{title}</p>{description&&<p>{description}</p>}{action}</div>;}
+export function Action({variant='primary',children,className='',...props}:ButtonHTMLAttributes<HTMLButtonElement>&{variant?:'primary'|'brand'|'secondary'|'danger'}){return <button {...props} className={`${s.action} ${s[variant]} ${className}`}>{children}</button>;}
+export function Notice({children}:{children:ReactNode}){return <p className={s.notice}>{children}</p>;}
+export function NavIcon({name}:{name:'home'|'explore'|'message'|'bell'|'user'|'grid'|'settings'|'pencil'|'membership'|'coin'|'chart'}){
+  return <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{name==='home'?<path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/>:name==='explore'?<><circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/></>:name==='message'?<path d="M3 4h18v13H9l-6 4V4Zm4 5h10M7 13h6"/>:name==='bell'?<><path d="M4 17h16l-2-3V9a6 6 0 0 0-12 0v5Zm5 3h6"/></>:name==='chart'?<><path d="M4 20h16"/><path d="M7 16v-5M12 16V6M17 16v-8"/></>:name==='coin'?<><circle cx="12" cy="12" r="8.5"/><path d="M8.5 8.5 10.2 15l1.8-5 1.8 5 1.7-6.5M8 12h8"/></>:name==='pencil'?<><path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z"/><path d="m13.5 6.5 3 3"/></>:name==='membership'?<><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M3 10h18M7 14h4"/></>:name==='settings'?<><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></>:name==='grid'?<><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>:<><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></>}</svg>;
+}
