@@ -1,0 +1,10 @@
+import {test as base,expect,APIRequestContext,Page} from '@playwright/test';
+type Scenario={id:string;creator:string;planId:string;postId:string;privateBody:string;orderId:string;signupEmail:string;password:string;users:{id:string;email:string;role:string}[]};
+export const test=base.extend<{scenario:Scenario;control:(action:string,body?:object)=>Promise<any>}>({
+ page:async({page},use)=>{const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));await use(page);expect(errors,'browser runtime errors').toEqual([]);},
+ scenario:async({request},use)=>{const r=await request.post('http://127.0.0.1:3012/__test/seed',{headers:{'x-e2e-token':process.env.CREFANS_E2E_TOKEN!}});expect(r.ok()).toBeTruthy();const f=await r.json();try{await use(f);}finally{const cleanup=await request.post('http://127.0.0.1:3012/__test/dispose',{headers:{'x-e2e-token':process.env.CREFANS_E2E_TOKEN!},data:{fixtureId:f.id}});expect(cleanup.ok(),'test fixture cleanup').toBeTruthy();}},
+ control:async({request,scenario},use)=>{await use(async(action,body={})=>{const r=await request.post(`http://127.0.0.1:3012/__test/${action}`,{headers:{'x-e2e-token':process.env.CREFANS_E2E_TOKEN!},data:{fixtureId:scenario.id,...body}});expect(r.ok(),action).toBeTruthy();return r.json();});},
+});
+export {expect};
+export async function login(page:Page,f:Scenario,role='fan'){await page.goto('/service/login');await page.getByLabel('이메일',{exact:true}).fill(f.users.find(u=>u.role===role)!.email);await page.getByLabel('비밀번호',{exact:true}).fill(f.password);const response=page.waitForResponse(r=>r.url().endsWith('/api/v1/auth/login')&&r.request().method()==='POST');await page.getByRole('button',{name:'로그인',exact:true}).click();expect((await response).ok()).toBeTruthy();await expect(page.getByRole('link',{name:`E2E ${role} 내 프로필`,exact:true})).toBeVisible();}
+export async function api(request:APIRequestContext,path:string,body?:object){const r=body?await request.post('/api/v1'+path,{data:body,headers:{Origin:'http://127.0.0.1:3011'}}):await request.get('/api/v1'+path);return{status:r.status(),...(await r.json())};}

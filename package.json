@@ -18,9 +18,20 @@
     "check:layers": "node scripts/check-layers.cjs",
     "typecheck": "tsc --noEmit --incremental false",
     "test": "node --test tests/*.test.cjs",
-    "check": "npm run check:layers && npm run typecheck && npm test"
+    "check": "npm run check:layers && npm run typecheck && npm test",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:report": "playwright show-report",
+    "test:e2e:install": "playwright install chromium",
+    "check:docs": "python3 scripts/check-docs.py",
+    "docs:contracts": "python3 scripts/check-docs.py --contracts",
+    "docs:record": "python3 scripts/check-docs.py --record",
+    "docs:prove": "python3 scripts/check-docs.py --prove",
+    "test:docs": "python3 scripts/check-docs.py --self-test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",

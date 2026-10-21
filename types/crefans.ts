@@ -32,6 +32,7 @@ export type ServiceViewModel=AccountModel&SocialModel&{
   liked:string[];toggleLike:(id:string)=>void;saved:string[];toggleSave:(id:string)=>void;
   read:string[];markRead:(ids:string[])=>void;
   subscriptions:Subscription[];subscribe:(creatorId:string,planId:string)=>Promise<ApiResult<{message:string;nextPath?:string}>>;cancelSubscription:(creatorId:string)=>Promise<ApiResult<{message:string}>>;
+  refundOrder?:(orderId:string)=>Promise<ApiResult<{message:string}>>;
   directory?:{creators:Creator[];search:(query:string,category:string)=>void;hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
   feedPaging?:{hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
   canAccess:(creatorId:string,rank:number,requiredPlanId?:string)=>boolean;

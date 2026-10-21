@@ -18,9 +18,17 @@ test('local media store accepts images and videos with separate limits and rejec
   assert.equal(image.success,true);assert.equal(image.data.type,'image');assert.equal(video.success,true);assert.equal(video.data.type,'video');
   assert.notEqual(image.data.id,video.data.id);assert.ok(store.owns(video.data.url));
   assert.equal((await store.uploadMedia(file('image/gif'))).errorCode,'INVALID_MEDIA_TYPE');
+  assert.equal((await store.uploadMedia(file('video/webm'))).success,true);
+  const mov=await store.uploadMedia(file('video/quicktime'));
+  assert.equal(mov.errorCode,'INVALID_MEDIA_TYPE');assert.doesNotMatch(mov.errorMessage,/MOV/);
   assert.equal((await store.uploadMedia(file('image/png',6*1024*1024))).errorCode,'INVALID_MEDIA_SIZE');
   assert.equal((await store.uploadMedia(file('video/mp4',301*1024*1024))).errorCode,'INVALID_MEDIA_SIZE');
   assert.equal((await store.upload(file('video/mp4'))).errorCode,'INVALID_IMAGE_TYPE');
+});
+
+test('post media file picker advertises only server-supported formats',()=>{
+  const {mediaUploadAccept}=loadTypeScript('lib/design/image-upload.ts');
+  assert.deepEqual(mediaUploadAccept.split(','),['image/jpeg','image/png','image/webp','video/mp4','video/webm']);
 });
 
 function mount(props){

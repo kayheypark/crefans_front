@@ -124,7 +124,7 @@ export function MembershipPage({model,id,initialPlanId}:{model:ServiceViewModel;
 
 export function SubscriptionsPage({model}:{model:ServiceViewModel}){
   const {subscriptions,cancelSubscription,basePath,data:{creators,paymentHistory}}=model;
-  const searchParams=useSearchParams();
+  const searchParams=useSearchParams(),router=useRouter();
   const requestedTab=searchParams.get('tab')==='payments'?'결제 내역':'내 구독';
   const [tab,setTab]=useState(requestedTab);
   useEffect(()=>{setTab(requestedTab);},[requestedTab]);
@@ -135,11 +135,11 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
   const [error,setError]=useState('');
   const active=subscriptions.filter(item=>item.status!=='expired');
   const expired=subscriptions.filter(item=>item.status==='expired');
-  const card=(subscription:Subscription)=>{
+  const card=(subscription:Subscription,index:number)=>{
     const creator=creators.find(item=>item.id===subscription.creatorId);
     const plan=getSubscriptionPlan(model.data,subscription);
-    if(!creator||!plan)return <Empty key={subscription.creatorId} title="멤버십 정보를 확인할 수 없어요" description="크리에이터 또는 멤버십 정보가 제공되지 않았습니다."/>;
-    return <article key={subscription.creatorId} className={s.subscriptionCard}>
+    if(!creator||!plan)return <Empty key={`${subscription.creatorId}-${subscription.planId}-${subscription.renewAt}-${index}`} title="멤버십 정보를 확인할 수 없어요" description="크리에이터 또는 멤버십 정보가 제공되지 않았습니다."/>;
+    return <article key={`${subscription.creatorId}-${subscription.planId}-${subscription.renewAt}-${index}`} className={s.subscriptionCard}>
       <Link href={`${basePath}/creator/${creator.id}`} className={s.subscriptionIdentity}><Avatar creator={creator} size={54}/><div><h3>{creator.name} · {plan.name}</h3><p>{money(subscription.price)} /월</p><span>{subscription.status==='active'?'다음 갱신':subscription.status==='cancelled'?'이용 종료':'기간 종료'} {date(subscription.renewAt)}</span></div></Link>
       <div className={s.subscriptionEnd}><span className={s.status} data-status={subscription.status}>{statusLabels[subscription.status]}</span>{subscription.status==='active'?<Action variant="secondary" disabled={pending} onClick={()=>{setError('');setCancelling(subscription);}}>갱신 해지</Action>:subscription.status==='cancelled'?<small>종료일까지 이용 가능</small>:<TextLink href={`${basePath}/membership/${creator.id}`}>멤버십 보기</TextLink>}</div>
     </article>;
@@ -155,7 +155,7 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
   };
   return <div className={s.subscriptions}>
     <PageTitle>{tab}</PageTitle>
-    <div className={s.tabs} aria-label="구독과 결제">{['내 구독','결제 내역'].map(item=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}</button>)}</div>
+    <div className={s.tabs} aria-label="구독과 결제">{['내 구독','결제 내역'].map(item=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>{setTab(item);router.push(`${basePath}/subscriptions${item==='결제 내역'?'?tab=payments':''}`,{scroll:false});}}>{item}</button>)}</div>
     <div role="status" aria-live="polite">{message&&<Notice>{message}</Notice>}</div>
     {tab==='내 구독'?<>
       <section className={s.subscriptionSection}><h2>현재 이용 중인 멤버십</h2>{active.length?active.map(card):<Empty title="이용 중인 멤버십이 없어요" action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>}</section>
@@ -163,13 +163,13 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
     </>:<section className={s.subscriptionSection}><h2>결제 내역</h2>{paymentHistory.length?<div className={s.receiptList}>{paymentHistory.map((item,index)=>{
       const creator=creators.find(c=>c.id===item.creatorId);
       const plan=getSubscriptionPlan(model.data,item);
-      return <button type="button" key={`${item.creatorId}-${item.planId}-${item.renewAt}-${index}`} className={s.receiptRow} onClick={()=>setReceipt(item)}><span><strong>{creator?.name||'크리에이터 정보 없음'} · {plan?.name||'멤버십 정보 없음'}</strong><small>{item.paidAt?`${date(item.paidAt)}${item.paymentStatus==='refunded'?' · 환불 완료':item.paymentStatus==='refunding'?' · 환불 확인 중':''}`:`결제 내역 ${index+1}`}</small></span><span><strong>{money(item.price)}</strong><small>상세 보기 <Icon name="chevron" width="12" height="12"/></small></span></button>;
+      return <button type="button" key={`${item.creatorId}-${item.planId}-${item.renewAt}-${index}`} className={s.receiptRow} onClick={()=>{setReceipt(item);setError('');}}><span><strong>{creator?.name||'크리에이터 정보 없음'} · {plan?.name||'멤버십 정보 없음'}</strong><small>{item.paidAt?`${date(item.paidAt)}${item.paymentStatus==='refunded'?' · 환불 완료':item.paymentStatus==='refunding'?' · 환불 확인 중':''}`:`결제 내역 ${index+1}`}</small></span><span><strong>{money(item.price)}</strong><small>상세 보기 <Icon name="chevron" width="12" height="12"/></small></span></button>;
     })}</div>:<Empty title="아직 결제 내역이 없어요"/>}</section>}
     <Dialog open={!!cancelling} onClose={()=>setCancelling(null)} title="다음 갱신을 해지할까요?">
       {cancelling&&<div className={s.dialogContent}><p>{creators.find(item=>item.id===cancelling.creatorId)?.name}의 멤버십은 <strong>{date(cancelling.renewAt)}</strong>까지 이용할 수 있습니다.</p><p className={s.helper}>해지 후 다음 자동 갱신이 중단됩니다. 남은 이용 기간 동안 멤버십 콘텐츠 이용 권한은 유지됩니다.</p>{error&&<p className={s.error} role="alert">{error}</p>}<DialogActions style={{marginTop:5}}><Action variant="secondary" disabled={pending} onClick={()=>setCancelling(null)}>구독 유지</Action><Action variant="danger" disabled={pending} aria-busy={pending} onClick={confirmCancellation}>{pending?'해지 중…':'갱신 해지하기'}</Action></DialogActions></div>}
     </Dialog>
-    <Dialog open={!!receipt} onClose={()=>setReceipt(null)} title="결제 상세">
-      {receipt&&<div className={s.dialogContent}><dl className={s.summaryRows}><div><dt>크리에이터</dt><dd>{creators.find(item=>item.id===receipt.creatorId)?.name||'정보 없음'}</dd></div><div><dt>멤버십</dt><dd>{getSubscriptionPlan(model.data,receipt)?.name||'정보 없음'}</dd></div><div><dt>금액</dt><dd>{money(receipt.price)}</dd></div><div><dt>{receipt.paidAt?'결제일':'이용 기간 종료'}</dt><dd>{date(receipt.paidAt||receipt.renewAt)}</dd></div></dl><DialogActions><Action variant="secondary" onClick={()=>setReceipt(null)}>닫기</Action></DialogActions></div>}
+    <Dialog open={!!receipt} onClose={()=>{if(!pending)setReceipt(null);}} title="결제 상세">
+      {receipt&&<div className={s.dialogContent}><dl className={s.summaryRows}><div><dt>크리에이터</dt><dd>{creators.find(item=>item.id===receipt.creatorId)?.name||'정보 없음'}</dd></div><div><dt>멤버십</dt><dd>{getSubscriptionPlan(model.data,receipt)?.name||'정보 없음'}</dd></div><div><dt>금액</dt><dd>{money(receipt.price)}</dd></div><div><dt>{receipt.paidAt?'결제일':'이용 기간 종료'}</dt><dd>{date(receipt.paidAt||receipt.renewAt)}</dd></div></dl>{error&&<p className={s.error} role="alert">{error}</p>}<DialogActions><Action variant="secondary" disabled={pending} onClick={()=>setReceipt(null)}>닫기</Action>{receipt.paymentStatus==='refunding'&&<p role="status">환불 결과를 확인 중입니다.</p>}{receipt.paymentStatus==='refunded'&&<p role="status">환불 완료</p>}</DialogActions></div>}
     </Dialog>
   </div>;
 }

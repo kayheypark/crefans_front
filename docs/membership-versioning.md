@@ -1,5 +1,7 @@
 # 멤버십 조건과 버전 보존 설계
 
+> 문서 상태 (2026-10-08): 신규 `src/platform/studio.service.ts`는 `MembershipVersion` 불변 기록과 낙관적 버전 충돌 검사, `finance.service.ts`는 주문·구독 snapshot/갱신 회차를 구현한다. 아래 “현재 확인된 구현과 차이”는 2026-09-13 구형 런타임 분석이다. 별도 CheckoutQuote/expectedCurrentVersionId 전달·이력 UI 등 아래 이상 설계 전체가 구현됐다는 뜻은 아니다. 현재 주문은 생성 시 30분 snapshot을 고정한다. 실제 구현 기준은 [서비스 바인딩](./service-api-binding.md) 및 백엔드 플랫폼 계약이다.
+
 검토일: 2026-09-13. 이 문서는 향후 서버·이력 화면 구현을 위한 설계다. 이번 작업에서는 DB, 결제, 갱신 로직과 버전 이력 화면을 변경하지 않는다.
 
 ## 지킬 정책
@@ -79,5 +81,5 @@
 
 ## 검토한 코드
 
-- 프론트: [목업 수정과 스냅샷](/Users/ethan/repository/crefans_front/components/preview/studio/useMockManagement.ts), [표시 계약](/Users/ethan/repository/crefans_front/types/crefans-studio-management.ts), [구독자 상세](/Users/ethan/repository/crefans_front/components/crefans/studio/ManagementPages.tsx)
-- 서버: [DB 스키마](/Users/ethan/repository/crefans_server/prisma/schema.prisma:212), [상품 수정](/Users/ethan/repository/crefans_server/src/membership/membership.service.ts:72), [가입·승인](/Users/ethan/repository/crefans_server/src/subscription/subscription.service.ts:116), [서버 갱신](/Users/ethan/repository/crefans_server/src/subscription/subscription.service.ts:409), [Lambda 갱신](/Users/ethan/repository/crefans_server/lambda/subscription-billing/subscription-billing.ts:71), [권한 조회](/Users/ethan/repository/crefans_server/src/common/services/membership-access.service.ts:19)
+- 프론트: [목업 수정과 스냅샷](../components/preview/studio/useMockManagement.ts), [표시 계약](../types/crefans-studio-management.ts), [구독자 상세](../components/crefans/studio/ManagementPages.tsx)
+- 서버: [DB 스키마](../../crefans_server/prisma/schema.prisma:212), [상품 수정](../../crefans_server/src/membership/membership.service.ts:72), [가입·승인](../../crefans_server/src/subscription/subscription.service.ts:116), [서버 갱신](../../crefans_server/src/subscription/subscription.service.ts:409), [Lambda 갱신](../../crefans_server/lambda/subscription-billing/subscription-billing.ts:71), [권한 조회](../../crefans_server/src/common/services/membership-access.service.ts:19)

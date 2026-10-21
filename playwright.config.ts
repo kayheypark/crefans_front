@@ -1,0 +1,6 @@
+import {defineConfig,devices} from '@playwright/test';
+import {randomBytes} from 'node:crypto';
+import path from 'node:path';
+const server=path.resolve(process.env.CREFANS_SERVER_DIR||'../crefans_server');
+process.env.CREFANS_E2E_TOKEN=process.env.CREFANS_E2E_TOKEN||randomBytes(32).toString('hex');
+export default defineConfig({testDir:'./e2e',fullyParallel:false,workers:1,timeout:60000,expect:{timeout:15000},retries:process.env.CI?1:0,forbidOnly:!!process.env.CI,reporter:[['list'],['html',{open:'never'}]],use:{actionTimeout:15000,navigationTimeout:30000,baseURL:'http://127.0.0.1:3011',trace:'retain-on-failure',screenshot:'only-on-failure',video:'retain-on-failure'},projects:[{name:'chromium',use:{...devices['Desktop Chrome']}},{name:'mobile-chromium',testMatch:/preview\.spec\.ts/,use:{...devices['Pixel 7']}}],webServer:[{command:'npm run build && node tests/e2e-server.cjs',cwd:server,url:'http://127.0.0.1:3012/__test/health',reuseExistingServer:false,timeout:120000,gracefulShutdown:{signal:'SIGTERM',timeout:15000},env:{CREFANS_E2E:'true',CREFANS_E2E_TOKEN:process.env.CREFANS_E2E_TOKEN}},{command:'npm run dev -- --hostname 127.0.0.1 --port 3011',url:'http://127.0.0.1:3011/preview/login',reuseExistingServer:false,timeout:120000,gracefulShutdown:{signal:'SIGTERM',timeout:15000},env:{CREFANS_E2E:'true',PLATFORM_API_ORIGIN:'http://127.0.0.1:3012'}}]});

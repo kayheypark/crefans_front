@@ -168,7 +168,7 @@ export function FeedEnd(){return <p className={s.feedEnd} role="status">모두 �
 /** No search or 추천/팔로잉 tabs: the backend ranks the feed, the view just renders the posts it receives in order. */
 export function FeedPage({model}:{model:ServiceViewModel}){
   const {data,basePath}=model;
-  return <div className={s.feed}>{data.posts.length?<>{data.posts.map(post=><PostCard key={post.id} post={post} model={model} context={data.posts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>{model.feedPaging.loading?'불러오는 중…':'더 보기'}</Action>:<FeedEnd/>}</>:<Empty title="아직 게시물이 없어요" description="마음에 드는 크리에이터를 만나보세요." action={<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>}</div>;
+  return <div className={`${s.feed} ${data.posts.length?'':s.emptyFeed}`}>{data.posts.length?<>{data.posts.map(post=><PostCard key={post.id} post={post} model={model} context={data.posts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>{model.feedPaging.loading?'불러오는 중…':'더 보기'}</Action>:<FeedEnd/>}</>:<Empty title="아직 게시물이 없어요" description="마음에 드는 크리에이터를 만나보세요." action={<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>}</div>;
 }
 
 /** Replies stay collapsed until asked for, then load once through the model; a second click only hides them. */

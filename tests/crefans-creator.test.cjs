@@ -237,3 +237,6 @@ test('the 소개 tab shows only the long intro and SNS links: no title, no membe
   assert.match(text(tree),/주입된 소개/,'falls back to the tagline');assert.equal(tree.root.findAllByType('ul').length,0);
   act(()=>tree.unmount());
 });
+test('payment detail has no refund entry even when the model exposes a refund action',()=>{
+ const {SubscriptionsPage,search}=pages();search.set('tab','payments');const model=inputs();model.data.paymentHistory=[{creatorId:'artist-42',planId:'independent-plan',status:'active',renewAt:'2030-02-08',price:27500,orderId:'order-one',paidAt:'2030-01-08',paymentStatus:'paid'}];model.refundOrder=async()=>{throw Error('must not run');};let tree;act(()=>{tree=create(h(SubscriptionsPage,{model}));});act(()=>tree.root.findAllByType('button').find(node=>flatten(node.children).includes('상세 보기')).props.onClick());assert.equal(button(tree,'환불 요청'),undefined);assert.equal(button(tree,'전액 환불하기'),undefined);assert.ok(button(tree,'닫기'));act(()=>tree.unmount());
+});

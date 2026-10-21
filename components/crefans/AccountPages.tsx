@@ -143,7 +143,7 @@ export function SettingsPage({model}:{model:ServiceViewModel}){
     if(panel==='password'&&(!currentPassword||newPassword.length<8||newPassword!==confirmPassword)){setError(!currentPassword?'현재 비밀번호를 입력해주세요.':newPassword.length<8?'새 비밀번호를 8자 이상 입력해주세요.':'새 비밀번호가 서로 일치하지 않습니다.');return;}
     if(panel==='account'){void task.run(()=>accountActions.updateProfile({name:name.trim(),bio:bio.trim()}),message=>{setNotice(message);setPanel(null);});return;}
     let input:AccountSettingsUpdate;
-    if(panel==='email')input={section:panel,email};
+    if(panel==='email')input={section:panel,email,...(model.mode==='live'?{code:emailCode}:{})};
     else if(panel==='password')input={section:panel,currentPassword,newPassword};
     else if(panel==='notifications')input={section:panel,contentAlert:preferences.contentAlert,messageAlert:preferences.messageAlert,marketingAlert:preferences.marketingAlert};
     else if(panel==='privacy')input={section:panel,showActivity:preferences.showActivity,allowSearch:preferences.allowSearch,showFollowing:preferences.showFollowing};
