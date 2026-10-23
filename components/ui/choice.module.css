@@ -1,4 +1,4 @@
-.choice{display:inline-flex;align-items:flex-start;gap:9px;font-size:13px;line-height:1.5;color:var(--cf-color-text);cursor:pointer}
+.choice{display:inline-flex;align-items:flex-start;gap:9px;font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.5;color:var(--cf-color-text);cursor:pointer}
 .choice[data-disabled]{cursor:not-allowed;color:var(--cf-color-disabledText)}
 .choice input[type=checkbox],.choice input[type=radio]{appearance:none;flex:none;display:grid;place-content:center;width:18px;height:18px;min-height:18px;max-height:18px;margin:1px 0 0;padding:0;border:1.5px solid var(--cf-color-borderStrong);border-radius:var(--cf-radius-small);background:var(--cf-color-surface);cursor:inherit;transition:background .12s,border-color .12s}
 .choice input[type=radio]{border-radius:50%}
@@ -11,5 +11,5 @@
 .choice input:focus-visible{outline:2px solid var(--cf-service-brand);outline-offset:2px}
 .choice input:disabled{opacity:.45}
 .text{display:flex;flex-direction:column;gap:2px;min-width:0}
-.description{font-size:11px;color:var(--cf-color-textMuted)}
+.description{font-size:max(11px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted)}
 @media(prefers-reduced-motion:reduce){.choice input,.choice input::before{transition:none}}

@@ -1,8 +1,8 @@
 .scroll{max-width:100%;overflow-x:auto;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control);background:var(--cf-color-surface)}
 .scroll:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px}
-.table{width:100%;min-width:640px;border-collapse:collapse;text-align:left;color:var(--cf-color-text);font-size:13px;line-height:1.6}
+.table{width:100%;min-width:640px;border-collapse:collapse;text-align:left;color:var(--cf-color-text);font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.6}
 .table caption{caption-side:top;text-align:left;padding:16px 18px;font-size:14px;font-weight:650}
-.table th{padding:11px 18px;border-block:1px solid var(--cf-color-border);background:var(--cf-color-surfaceSubtle);font-size:12px;font-weight:600;white-space:nowrap}
+.table th{padding:11px 18px;border-block:1px solid var(--cf-color-border);background:var(--cf-color-surfaceSubtle);font-size:max(12px,var(--cf-mobile-font-min,0px));font-weight:600;white-space:nowrap}
 .table th button{display:inline-flex;align-items:center;gap:10px;min-height:28px;padding:0;border:0;border-radius:3px;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer}
 .table th button span{color:var(--cf-color-textMuted)}
 .table th[aria-sort=ascending],.table th[aria-sort=descending],.table th[aria-sort=ascending] span,.table th[aria-sort=descending] span{color:var(--cf-color-accent)}
