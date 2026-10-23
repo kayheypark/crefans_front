@@ -1,90 +1,34 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Card,
-  Row,
-  Col,
-  Statistic,
-  Typography,
-  Table,
-  Tag,
-  Space,
-  DatePicker,
-  Select,
-  Button,
-  Tabs,
-} from "antd";
-import {
-  DollarOutlined,
-  UserOutlined,
-  HeartOutlined,
-  ArrowUpOutlined,
-  DownloadOutlined,
-} from "@ant-design/icons";
 import CreatorCenterLayout from "@/components/layout/CreatorCenterLayout";
-import { useCreatorGuard } from "@/hooks/useCreatorGuard";
+import { useEarningsPageModel } from "@/features/creator-center-earnings/useEarningsPageModel";
+import {
+  ArrowUpOutlined,
+  DollarOutlined,
+  DownloadOutlined,
+  HeartOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import {
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Row,
+  Select,
+  Space,
+  Statistic,
+  Table,
+  Tabs,
+  Tag,
+  Typography,
+} from "antd";
 
 const { Title, Text } = Typography;
+
 const { RangePicker } = DatePicker;
+
 const { TabPane } = Tabs;
-
-// 목업 데이터
-const mockEarningsData = [
-  {
-    key: "1",
-    date: "2024-01-15",
-    type: "membership",
-    member: "김크리에이터",
-    amount: 50000,
-    status: "completed",
-    description: "프리미엄 멤버십 구독",
-  },
-  {
-    key: "2",
-    date: "2024-01-14",
-    type: "donation",
-    member: "이후원자",
-    amount: 25000,
-    status: "completed",
-    description: "후원",
-  },
-  {
-    key: "3",
-    date: "2024-01-13",
-    type: "membership",
-    member: "박구독자",
-    amount: 30000,
-    status: "completed",
-    description: "베이직 멤버십 구독",
-  },
-  {
-    key: "4",
-    date: "2024-01-12",
-    type: "donation",
-    member: "최후원자",
-    amount: 15000,
-    status: "completed",
-    description: "후원",
-  },
-  {
-    key: "5",
-    date: "2024-01-11",
-    type: "membership",
-    member: "정구독자",
-    amount: 50000,
-    status: "pending",
-    description: "프리미엄 멤버십 구독",
-  },
-];
-
-const mockMonthlyStats = {
-  totalEarnings: 170000,
-  membershipEarnings: 130000,
-  donationEarnings: 40000,
-  growthRate: 15.2,
-  totalTransactions: 5,
-};
 
 const columns = [
   {
@@ -138,13 +82,24 @@ const columns = [
 ];
 
 export default function EarningsPage() {
-  // 로그인 및 크리에이터 권한 필수
-  const { isLoading, hasAccess } = useCreatorGuard({ 
-    requiresLogin: true, 
-    requiresCreator: true 
-  });
-  const [selectedPeriod, setSelectedPeriod] = useState("month");
-  const [selectedType, setSelectedType] = useState("all");
+  const model = useEarningsPageModel();
+  return <EarningsPageView model={model} />;
+}
+
+function EarningsPageView({
+  model,
+}: {
+  model: ReturnType<typeof useEarningsPageModel>;
+}) {
+  const {
+mockEarningsData, mockMonthlyStats,
+    isLoading,
+    hasAccess,
+    selectedPeriod,
+    setSelectedPeriod,
+    selectedType,
+    setSelectedType,
+  } = model;
 
   // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
   if (isLoading || !hasAccess) {
@@ -361,7 +316,7 @@ export default function EarningsPage() {
               <Table
                 columns={columns}
                 dataSource={mockEarningsData.filter(
-                  (item) => item.type === "membership"
+                  (item) => item.type === "membership",
                 )}
                 pagination={{
                   pageSize: 10,
@@ -376,7 +331,7 @@ export default function EarningsPage() {
               <Table
                 columns={columns}
                 dataSource={mockEarningsData.filter(
-                  (item) => item.type === "donation"
+                  (item) => item.type === "donation",
                 )}
                 pagination={{
                   pageSize: 10,

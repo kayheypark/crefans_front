@@ -1,0 +1,1164 @@
+{
+  "verifiedAt": "2026-10-23T23:14:06.292485+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": {
+    "createdAt": "2026-10-23T22:59:20.799359+00:00",
+    "branch": "feat/mobile-14px-typography",
+    "from": "feat/operations-security",
+    "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+    "remoteDev": "280845bcad54709ad9f70aca43a6238cdc8a6148",
+    "reason": "Continue current deployed code and preserve preexisting dirty work; remote dev is two commits behind current HEAD."
+  },
+  "workingTreeDirty": true,
+  "requirements": [
+    {
+      "requirement": "Create new frontend branch while preserving current deployed work",
+      "result": "PASS: feat/mobile-14px-typography; old branch pointer and dirty files preserved. No commit/push."
+    },
+    {
+      "requirement": "Raise general mobile text to 14px without changing desktop sizes",
+      "result": "PASS: 767px and below inherits body token as font minimum; explicit small text uses max(original size,minimum). Larger headings preserved. 12 routes compared across local before/after and production."
+    },
+    {
+      "requirement": "Temporarily deploy the variant",
+      "result": "PASS: frontend image replaced; prior image and backup retained; no rollback schedule was specified."
+    }
+  ],
+  "implementation": {
+    "sourceChanges": {
+      "changed": [
+        "components/crefans/account.module.css",
+        "components/crefans/common.module.css",
+        "components/crefans/creator.module.css",
+        "components/crefans/landing.module.css",
+        "components/crefans/service.module.css",
+        "components/crefans/social.module.css",
+        "components/design-system/CustomDesignSystem.tsx",
+        "components/design-system/custom.module.css",
+        "components/ui/accordion.module.css",
+        "components/ui/amount-presets.module.css",
+        "components/ui/benefits-field.module.css",
+        "components/ui/charts.module.css",
+        "components/ui/choice.module.css",
+        "components/ui/data-table.module.css",
+        "components/ui/date-range-picker.module.css",
+        "components/ui/field.module.css",
+        "components/ui/image-upload.module.css",
+        "components/ui/media-upload.module.css",
+        "components/ui/pagination.module.css",
+        "components/ui/select.module.css",
+        "components/ui/shell.module.css",
+        "components/ui/toggle.module.css",
+        "components/ui/ui.module.css"
+      ],
+      "added": [],
+      "removed": [],
+      "runtimeFiles": 473
+    },
+    "cssDeclarations": [
+      {
+        "file": "components/crefans/account.module.css",
+        "fontDeclarations": 34,
+        "scope": null
+      },
+      {
+        "file": "components/crefans/common.module.css",
+        "fontDeclarations": 16,
+        "scope": null
+      },
+      {
+        "file": "components/crefans/creator.module.css",
+        "fontDeclarations": 47,
+        "scope": null
+      },
+      {
+        "file": "components/crefans/landing.module.css",
+        "fontDeclarations": 39,
+        "scope": ".page"
+      },
+      {
+        "file": "components/crefans/service.module.css",
+        "fontDeclarations": 14,
+        "scope": ".root"
+      },
+      {
+        "file": "components/crefans/social.module.css",
+        "fontDeclarations": 45,
+        "scope": null
+      },
+      {
+        "file": "components/ui/accordion.module.css",
+        "fontDeclarations": 2,
+        "scope": null
+      },
+      {
+        "file": "components/ui/amount-presets.module.css",
+        "fontDeclarations": 2,
+        "scope": null
+      },
+      {
+        "file": "components/ui/benefits-field.module.css",
+        "fontDeclarations": 2,
+        "scope": null
+      },
+      {
+        "file": "components/ui/charts.module.css",
+        "fontDeclarations": 3,
+        "scope": null
+      },
+      {
+        "file": "components/ui/choice.module.css",
+        "fontDeclarations": 2,
+        "scope": null
+      },
+      {
+        "file": "components/ui/data-table.module.css",
+        "fontDeclarations": 2,
+        "scope": null
+      },
+      {
+        "file": "components/ui/date-range-picker.module.css",
+        "fontDeclarations": 8,
+        "scope": null
+      },
+      {
+        "file": "components/ui/field.module.css",
+        "fontDeclarations": 3,
+        "scope": null
+      },
+      {
+        "file": "components/ui/image-upload.module.css",
+        "fontDeclarations": 7,
+        "scope": null
+      },
+      {
+        "file": "components/ui/media-upload.module.css",
+        "fontDeclarations": 5,
+        "scope": null
+      },
+      {
+        "file": "components/ui/pagination.module.css",
+        "fontDeclarations": 1,
+        "scope": null
+      },
+      {
+        "file": "components/ui/select.module.css",
+        "fontDeclarations": 7,
+        "scope": null
+      },
+      {
+        "file": "components/ui/shell.module.css",
+        "fontDeclarations": 4,
+        "scope": null
+      },
+      {
+        "file": "components/ui/toggle.module.css",
+        "fontDeclarations": 2,
+        "scope": null
+      },
+      {
+        "file": "components/ui/ui.module.css",
+        "fontDeclarations": 6,
+        "scope": null
+      },
+      {
+        "file": "components/design-system/custom.module.css",
+        "fontDeclarations": 14,
+        "scope": ".root"
+      }
+    ],
+    "scope": "Fan ServiceShell, LandingPage and design-system root activate minimum only <=767px; shared UI inherits. Legacy app and unsupported mobile studio remain outside activated scope. Preview notice remains 11px.",
+    "layoutAdjustments": [
+      "Membership notice negative inline margin matches 16px mobile padding through 767px; corrected existing 701-767px overflow.",
+      "Landing benefit icons above text <=600px; stacked CTA <=360px to accommodate larger text."
+    ],
+    "sourceHashes": {
+      "components/crefans/account.module.css": "6e7fbf140b59bb36a73f3764c37024bf015a06999a1053db790515824ff0caf7",
+      "components/crefans/common.module.css": "8fd52069a6b596c73b7cf35932e9de5a71dc5ae5a90f13cd1c2bdadefb188823",
+      "components/crefans/creator.module.css": "fde259d9306b2ddc1d377999f9e7cc680fcc684d568b3f57923e2c10fbb83c31",
+      "components/crefans/landing.module.css": "560ced87e595fd2e0847b3ca9be88092bbe51c75a3403001a6f421b9e883bd5c",
+      "components/crefans/service.module.css": "7877ab72718f7a4ff63f6813771e265a394b5cb8ac4cd3b2b77be52d97425cbe",
+      "components/crefans/social.module.css": "38520fe0925279f9dcf1bf5412880afe50a2e3abc85d3f588c48b77b6ad44144",
+      "components/design-system/CustomDesignSystem.tsx": "f5ce51f6176a57bf62e5d71059d77317d0c17a85e890ecaa9a35fe96f72ac874",
+      "components/design-system/custom.module.css": "af939a77194df0556a9d65662248813195dfa292aeee235f1a7b7bbeb0c3cdb8",
+      "components/ui/accordion.module.css": "b89a1a050069422e6d9a1f11c0a4a446ba3ee6c269f0229ca29ee6712b5bb194",
+      "components/ui/amount-presets.module.css": "5e11ab033aec3f18077d8db32204b8a51e72e4a1fecba3a1d8dcc7bd013504c5",
+      "components/ui/benefits-field.module.css": "8b65792de610df399f701d0a898a58135461a265eb932cf156d9011d9d7ec0d1",
+      "components/ui/charts.module.css": "28b031f41fef22badb5a9cee82df54c4c0d81c57765a1d46a08b6c61d81453b6",
+      "components/ui/choice.module.css": "a9880390cfde523179a99572fdaf6ef663b27638e94ab8d3c092d6faedcd6b31",
+      "components/ui/data-table.module.css": "89dbd7b51372e342e6f3c3b63eaa5c61b4122de1f18f303e5b1dccb10a13a362",
+      "components/ui/date-range-picker.module.css": "8560f73551993e71164a6cda9c1e313dc667a460c8282b5ec32aa9c725e6d902",
+      "components/ui/field.module.css": "4acd80670e6c028c3b649e32280cffce01e1213d89545c30f30b8b2498ff80eb",
+      "components/ui/image-upload.module.css": "c0f00619e82bae7baa5f7a86fe8e1f1bcb15bf2adaffc8a69b73ebe22795a6f9",
+      "components/ui/media-upload.module.css": "9b2b84689504e4787b6db17cfc6d3a9c0fff0d762cd0b24fd962acca20bcb35d",
+      "components/ui/pagination.module.css": "3e57dc4238356582a1e981164646634ee841f78e5c842232e67be328af87ef40",
+      "components/ui/select.module.css": "9baa7e2a88b840f6f5a9dd7528621869cec0a80ace7b10bf635400b1276ffb67",
+      "components/ui/shell.module.css": "f91592db25b97385e6e94d827a2a208b3d7521f5ab8d51d35996c3e6bf85050b",
+      "components/ui/toggle.module.css": "5b605268351373b3043c14c4ef54ddc6145548305aeb3141495a387a36b6036e",
+      "components/ui/ui.module.css": "152313e45091e991fbaecc1c4df6cf18d09514ee9a75ade7e1ec574e748af723"
+    }
+  },
+  "checks": {
+    "command": "npm run check",
+    "startedAt": "2026-10-23T23:02:06.340656+00:00",
+    "finishedAt": "2026-10-23T23:02:14.037713+00:00",
+    "exitCode": 0,
+    "passed": 283,
+    "failed": 0,
+    "layerAndTypeChecks": "PASS",
+    "note": "Full check after typography/Catalog change; subsequent CSS-only narrow-layout adjustments verified in browser and final production build."
+  },
+  "localBrowser": {
+    "beforeAfter": [
+      {
+        "path": "/preview/feed",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 78,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/explore",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 34,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/creator/sion",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 32,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/membership/sion",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 20,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/notifications",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 16,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/messages",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 14,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/subscriptions",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 23,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/login",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 8,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/signup",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 13,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/settings",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 25,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/support",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 21,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/landing",
+        "width": 390,
+        "desktopFontsUnchanged": null,
+        "smallTextBefore": 42,
+        "smallTextAfter": 1,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/feed",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 82,
+        "smallTextAfter": 82,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/explore",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 33,
+        "smallTextAfter": 33,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/creator/sion",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 36,
+        "smallTextAfter": 36,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/membership/sion",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 23,
+        "smallTextAfter": 23,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/notifications",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 20,
+        "smallTextAfter": 20,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/messages",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 32,
+        "smallTextAfter": 32,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/subscriptions",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 24,
+        "smallTextAfter": 24,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/login",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 8,
+        "smallTextAfter": 8,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/signup",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 13,
+        "smallTextAfter": 13,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/settings",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 29,
+        "smallTextAfter": 29,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/support",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 25,
+        "smallTextAfter": 25,
+        "noOverflow": true
+      },
+      {
+        "path": "/preview/landing",
+        "width": 1280,
+        "desktopFontsUnchanged": true,
+        "smallTextBefore": 44,
+        "smallTextAfter": 44,
+        "noOverflow": true
+      }
+    ],
+    "breakpointsInitial": [
+      {
+        "path": "/preview/feed",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/explore",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/creator/sion",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/membership/sion",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/notifications",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/messages",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/subscriptions",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/login",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/signup",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/settings",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/support",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/landing",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/feed",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/explore",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/creator/sion",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/membership/sion",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 775,
+        "width": 767
+      },
+      {
+        "path": "/preview/notifications",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/messages",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/subscriptions",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/login",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/signup",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/settings",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/support",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/landing",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/feed",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/explore",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/creator/sion",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/membership/sion",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/notifications",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/messages",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/subscriptions",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/login",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/signup",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/settings",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/support",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/landing",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      }
+    ],
+    "breakpointCorrection": {
+      "scrollWidth": 767,
+      "width": 767
+    },
+    "finalLayoutChecks": [
+      {
+        "path": "/preview/membership/sion",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/landing",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 320,
+        "width": 320
+      },
+      {
+        "path": "/preview/membership/sion",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 390,
+        "width": 390
+      },
+      {
+        "path": "/preview/landing",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 390,
+        "width": 390
+      },
+      {
+        "path": "/preview/membership/sion",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/landing",
+        "brokenImages": 0,
+        "floor": "14px",
+        "scrollWidth": 767,
+        "width": 767
+      },
+      {
+        "path": "/preview/membership/sion",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/landing",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 768,
+        "width": 768
+      },
+      {
+        "path": "/preview/membership/sion",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 1280,
+        "width": 1280
+      },
+      {
+        "path": "/preview/landing",
+        "brokenImages": 0,
+        "floor": "",
+        "scrollWidth": 1280,
+        "width": 1280
+      }
+    ],
+    "dialog": "Membership confirmation body, labels and controls all14px; agreement gate preserved; no checkout executed.",
+    "designSystem": "390px shared controls at14px; no horizontal overflow.",
+    "errors": []
+  },
+  "release": "crefans-front:mobile-14px-20261024",
+  "previousRelease": "crefans-front:membership-identity-20261024",
+  "build": {
+    "command": "docker build --platform linux/amd64 -f infra/platform/Dockerfile -t crefans-front:mobile-14px-20261024 .",
+    "startedAt": "2026-10-23T23:06:17.996194+00:00",
+    "finishedAt": "2026-10-23T23:07:49.797991+00:00",
+    "exitCode": 0
+  },
+  "environment": {
+    "platform": "linux/amd64",
+    "dockerConfig": "crefans_server/.local/beta-build-config",
+    "host": "Mac development; existing3010 untouched"
+  },
+  "image": {
+    "at": "2026-10-23T23:07:57.798891+00:00",
+    "imageId": "sha256:b22c533c974d4cfbe72ce0e741260c0b974cbdf51bb7c02614d7f420ee650ffc",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 473
+  },
+  "imageSmoke": {
+    "at": "2026-10-23T23:08:00.563514+00:00",
+    "routes": [
+      {
+        "route": "preview/membership/sion",
+        "status": 200
+      },
+      {
+        "route": "preview/membership/moka",
+        "status": 200
+      },
+      {
+        "route": "service/membership/sion",
+        "status": 200
+      },
+      {
+        "route": "service/feed",
+        "status": 200
+      }
+    ],
+    "containerRemoved": true,
+    "scope": "HTTP shells; visual UI checked separately in browser."
+  },
+  "archive": {
+    "sha256": "989a08ba765e6208949292e08048e18384eff409e3e09b75784f0fbd754600c5",
+    "bytes": 487786299,
+    "startedAt": "2026-10-23T23:08:00.564429+00:00",
+    "finishedAt": "2026-10-23T23:08:09.234656+00:00",
+    "exitCode": 0
+  },
+  "deployment": {
+    "command": "python3 .local/mobile-14px-20261024/guarded-release.py",
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-23T23:08:18.401026+00:00",
+        "finishedAt": "2026-10-23T23:08:20.705546+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-23T23:08:20.706196+00:00",
+        "finishedAt": "2026-10-23T23:08:28.622013+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-23T23:08:28.622578+00:00",
+        "finishedAt": "2026-10-23T23:08:40.714559+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-23T23:08:40.715957+00:00",
+        "finishedAt": "2026-10-23T23:08:47.748041+00:00",
+        "exitCode": 0
+      }
+    ],
+    "result": {
+      "frontendImage": "sha256:b22c533c974d4cfbe72ce0e741260c0b974cbdf51bb7c02614d7f420ee650ffc",
+      "running": true,
+      "restarts": 0,
+      "preservedServices": [
+        "database",
+        "api",
+        "worker",
+        "admin",
+        "proxy"
+      ]
+    },
+    "rollbackSettings": "/opt/crefans-backup-mobile-14px-20261024",
+    "healthSuccess": true,
+    "nineHTTPRoutes": 200,
+    "sshCleanup": {
+      "at": "2026-10-23T23:08:48.992124+00:00",
+      "removedRuleIds": [
+        "sgr-0c29e20345ad52f55"
+      ],
+      "originalPermissionsRestored": true
+    }
+  },
+  "productionBrowser": {
+    "fontComparison": {
+      "at": "2026-10-23T23:12:14.444373+00:00",
+      "checks": [
+        {
+          "path": "/preview/feed",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/explore",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/creator/sion",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/membership/sion",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/notifications",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/messages",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/subscriptions",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/login",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/signup",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/settings",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/support",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/landing",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/feed",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/explore",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/creator/sion",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/membership/sion",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/notifications",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/messages",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/subscriptions",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/login",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/signup",
+          "width": 390,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/settings",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/support",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        },
+        {
+          "path": "/preview/landing",
+          "width": 1280,
+          "result": "PASS",
+          "basis": "prechange local and deployed DOM"
+        }
+      ],
+      "previousReleaseContainerRemoved": true,
+      "note": "Development CSS order yields 12px auth labels, whereas old and new production both use 13px. No production change in these labels."
+    },
+    "serviceAndEdgeChecks": [
+      {
+        "path": "/service/feed",
+        "width": 390,
+        "brokenImages": 0,
+        "floor": "14px",
+        "inputFonts": [],
+        "scrollWidth": 390
+      },
+      {
+        "path": "/service/login",
+        "width": 390,
+        "brokenImages": 0,
+        "floor": "14px",
+        "inputFonts": [
+          "14px",
+          "14px",
+          "14px"
+        ],
+        "scrollWidth": 390
+      },
+      {
+        "path": "/preview/membership/sion",
+        "width": 767,
+        "brokenImages": 0,
+        "floor": "14px",
+        "inputFonts": [],
+        "scrollWidth": 767
+      },
+      {
+        "path": "/service/landing",
+        "width": 390,
+        "floor": "14px",
+        "inputFonts": [
+          "14px"
+        ],
+        "scrollWidth": 390
+      },
+      {
+        "path": "/preview/landing",
+        "width": 320,
+        "floor": "14px",
+        "inputFonts": [
+          "14px"
+        ],
+        "scrollWidth": 320
+      }
+    ],
+    "errors": [],
+    "viewportRestored": true,
+    "deliverableTab": "https://beta.crefans.com/preview/feed"
+  },
+  "screenshots": [
+    {
+      "path": ".local/mobile-14px-20261024/local-dialog-mobile.png",
+      "sha256": "551e4ac11cd25942635d30cacb9db9e683b423e5eacbd26e2c9444654806ec4e"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/local-explore-mobile.png",
+      "sha256": "a45e5b456252ab5277fe700485e236aa341a5e99d23fe82072112dd33e2b181b"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/local-feed-mobile.png",
+      "sha256": "2b9fccee367278af9c73a3d63f700147aa9328b821d02cdf6a0d318b9f06e661"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/local-landing-320.png",
+      "sha256": "e5ce64c084df01b98be62ea45e806c3808002d9d389f6ba92ef22ef44bb13438"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/local-landing-benefits-320.png",
+      "sha256": "e3276b58fd1d138393e481cc5d1d9528221f538a2774b40a19c2c8e367ebc2ac"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/local-membership-mobile.png",
+      "sha256": "93bdfd0de4f659ce4754dae8f71132d9688b3fa4a60c59205824f5c3f78dd605"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/local-signup-320.png",
+      "sha256": "40567dc49fea701580c4cefc92bf104164216273afffc6d2c65de897210263cb"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/local-subscriptions-320.png",
+      "sha256": "4a7b3fbe35ac01729c0c3993dde159d2a4f69e3d8e49b462c8881b4ec75cb96f"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/production-explore-mobile.png",
+      "sha256": "19cff9cbc62f76f2bce110fa06cf6983dc877e05cb948099c6fb5e77da4a31bc"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/production-feed-mobile.png",
+      "sha256": "99ac1c98dd3dea6870282a888245a191242ce6367ec39ec290b26bf1bd36915c"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/production-sion-mobile.png",
+      "sha256": "b31f172288b7d7c5829e09fc49fee9d228353bfb64b6e28b2d106300fde12ee9"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": ".local/mobile-14px-20261024/fonts-before.json",
+      "sha256": "e19488d1184d4f73257bb4fc109d3b81753e20adeb8d07866c2e88e08ab5b2c0"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/fonts-after.json",
+      "sha256": "fc063029c986ff2c9c0b7764d8b9ff5b1aa5798a9b5c66d730b99ae1be6614d7"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/font-comparison.json",
+      "sha256": "af5f570910e788d97a141628c107d2aedb0448b458eeaced4c12d17c71e83784"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/fonts-production-settled.json",
+      "sha256": "027f1723c6bd866c5a3801e30104934916825cdab746624fff85b0b5f37a9531"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/production-comparison.json",
+      "sha256": "c69842326e4bce4d11f1e10cf2d03415f7d3d98c221e75e4d184f467a28b9651"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/previous-release-auth-fonts.json",
+      "sha256": "45c4511412a0c503901c7f5e5f8f1cb720b2ea95f79931af0c9b6e06de6b55ca"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/checks.log",
+      "sha256": "dd19b2509752a6ddcec3cd3e34e49c4561f7629d7e45ac9b75c21cbd1d049c67"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/build.log",
+      "sha256": "ed737ba26ced14aa841db8d3a20ec4afec96740ff6bf4a9310f0fae55004d284"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/attempt-1-build.log",
+      "sha256": "5cddc6ece9eb49de094476cbbe30ebbd093269dbf6747da6f5f402e840c8f4de"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/release-hashes.json",
+      "sha256": "beb2b7fa0bf5b4c22274ea04b5868ba59e39b18d4bd107ba48059c7223b8f9f3"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/final-deploy.log",
+      "sha256": "b25f3a2ae76aa73fcbd3ba24bff367f5dae26fcf7b3970f5616b99a15f72a511"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/final-load.log",
+      "sha256": "13e5e669b2ed990e4c1fb536c4db9e8c0f0ca047166ce1973963e2c559a8b53b"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/deploy.sh",
+      "sha256": "c0714b210568ced82121214953448411c5e6c30d07ae7659dadf25ce998b1eb7"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/guarded-release.py",
+      "sha256": "fac404b6d19b46fb62b1c8b72e2429fc909b89baa63e328a13b7b7cf0e11cc3a"
+    },
+    {
+      "path": ".local/mobile-14px-20261024/prepare-release.py",
+      "sha256": "6c9cca6ca5371ed0f5300f873e9e0621dc0e58f6f57b273d15fdff70efd504ee"
+    }
+  ],
+  "verificationCorrections": [
+    "First build intentionally cancelled after narrow landing visual review; final build includes corrections and succeeded.",
+    "Initial fast production observations included loading/cascade transition states; discarded for completion claims and replaced by settled DOM measurements.",
+    "Production auth labels differ from dev CSS ordering; compared against isolated previous production image and confirmed same13px on desktop. Baseline container removed."
+  ],
+  "limits": [
+    "Viewport emulation is not a physical iPhone/Safari test.",
+    "No live signup, payment, private-media or backend functional changes/tests in this typography task.",
+    "No API/DB/worker/admin/proxy image changes.",
+    "Temporary trial remains until user decides to retain or revert; no automatic rollback scheduled.",
+    "Documentation checks verify references/contracts/snapshots, not UI behavior."
+  ]
+}

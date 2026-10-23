@@ -1,0 +1,4 @@
+.brand[data-brand]{display:inline-flex;align-items:center;flex:none;vertical-align:middle;line-height:1;text-decoration:none}
+.brand[data-brand]>.logo{display:block;width:auto;height:var(--cf-brand-height,24px);max-width:none;flex:none;object-fit:contain}
+
+@media(max-width:360px){.brand[data-brand]>.logo{height:var(--cf-brand-height,22px)}}

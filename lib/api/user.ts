@@ -1,41 +1,40 @@
-import axios from "axios";
-import { getApiUrl } from "@/utils/env";
+import { apiClient } from "./client";
 
 // 사용자 정보 관련 API 함수들
 export const userAPI = {
   // 닉네임 변경
   updateNickname: async (nickname: string) => {
-    const response = await axios.put(
-      `${getApiUrl()}/auth/nickname`,
+    const response = await apiClient.put(
+      `/auth/nickname`,
       { nickname },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },
 
   // 핸들 변경
   updateHandle: async (preferredUsername: string) => {
-    const response = await axios.put(
-      `${getApiUrl()}/auth/handle`,
+    const response = await apiClient.put(
+      `/auth/handle`,
       { preferredUsername },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },
 
   // 프로필 정보 업데이트
   updateUserProfile: async (bio: string) => {
-    const response = await axios.put(
-      `${getApiUrl()}/user/profile`,
+    const response = await apiClient.put(
+      `/user/profile`,
       { bio },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },
 
   // 계정 삭제
   deleteAccount: async () => {
-    const response = await axios.delete(`${getApiUrl()}/user/account`, {
+    const response = await apiClient.delete(`/user/account`, {
       withCredentials: true,
     });
     return response.data;
@@ -43,18 +42,18 @@ export const userAPI = {
 
   // 닉네임 중복 확인
   checkNickname: async (nickname: string) => {
-    const response = await axios.get(
-      `${getApiUrl()}/user/check-nickname?nickname=${nickname}`
+    const response = await apiClient.get(
+      `/user/check-nickname?nickname=${nickname}`,
+      { withCredentials: false },
     );
     return response.data;
   },
 
   // 핸들로 사용자 프로필 조회
   getUserProfileByHandle: async (handle: string) => {
-    const response = await axios.get(
-      `${getApiUrl()}/user/profile/${handle}`,
-      { withCredentials: true }
-    );
+    const response = await apiClient.get(`/user/profile/${handle}`, {
+      withCredentials: true,
+    });
     return response.data;
   },
 
@@ -62,41 +61,39 @@ export const userAPI = {
   getUserPosts: async (handle: string, cursor?: string, limit: number = 20) => {
     const params = new URLSearchParams({ limit: limit.toString() });
     if (cursor) {
-      params.append('cursor', cursor);
+      params.append("cursor", cursor);
     }
-    
-    const response = await axios.get(
-      `${getApiUrl()}/user/posts/${handle}?${params.toString()}`,
-      { withCredentials: true }
+
+    const response = await apiClient.get(
+      `/user/posts/${handle}?${params.toString()}`,
+      { withCredentials: true },
     );
     return response.data;
   },
 
   // 크리에이터 카테고리 목록 조회
   getCreatorCategories: async () => {
-    const response = await axios.get(
-      `${getApiUrl()}/user/creator-categories`,
-      { withCredentials: true }
-    );
+    const response = await apiClient.get(`/user/creator-categories`, {
+      withCredentials: true,
+    });
     return response.data;
   },
 
   // 크리에이터로 전환
   becomeCreator: async (categoryId: string) => {
-    const response = await axios.post(
-      `${getApiUrl()}/user/become-creator`,
+    const response = await apiClient.post(
+      `/user/become-creator`,
       { category_id: categoryId },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },
 
   // 크리에이터 상태 조회
   getCreatorStatus: async () => {
-    const response = await axios.get(
-      `${getApiUrl()}/user/creator-status`,
-      { withCredentials: true }
-    );
+    const response = await apiClient.get(`/user/creator-status`, {
+      withCredentials: true,
+    });
     return response.data;
   },
 };

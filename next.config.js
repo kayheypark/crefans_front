@@ -2,6 +2,7 @@
 const nextConfig = {
   // 개발 환경에서 Strict Mode 비활성화 (HTTP 중복 요청 방지)
   reactStrictMode: false,
+  distDir: process.env.CREFANS_E2E === 'true' ? '.next-e2e' : '.next',
 }
 
 module.exports = nextConfig

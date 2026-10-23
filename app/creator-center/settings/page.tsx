@@ -1,75 +1,60 @@
 "use client";
+import { Form as UiForm, message as uiMessage } from "antd";
 
-import { useState } from "react";
+import CreatorCenterLayout from "@/components/layout/CreatorCenterLayout";
+import { useCreatorCenterSettingsPageModel } from "@/features/creator-center-settings/useCreatorCenterSettingsPageModel";
 import {
+  BellOutlined,
+  CameraOutlined,
+  DollarOutlined,
+  GlobalOutlined,
+  LockOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import {
+  Alert,
+  Avatar,
+  Button,
   Card,
-  Row,
   Col,
-  Typography,
+  Divider,
   Form,
   Input,
-  Switch,
-  Button,
-  Upload,
-  Avatar,
-  Divider,
-  Space,
-  message,
-  Tabs,
-  Select,
   InputNumber,
-  Alert,
+  message,
+  Row,
+  Select,
+  Space,
+  Switch,
+  Tabs,
+  Typography,
+  Upload,
 } from "antd";
-import {
-  UserOutlined,
-  CameraOutlined,
-  SettingOutlined,
-  BellOutlined,
-  DollarOutlined,
-  LockOutlined,
-  GlobalOutlined,
-} from "@ant-design/icons";
-import CreatorCenterLayout from "@/components/layout/CreatorCenterLayout";
-import { useCreatorGuard } from "@/hooks/useCreatorGuard";
 
 const { Title, Text } = Typography;
+
 const { TextArea } = Input;
+
 const { TabPane } = Tabs;
 
 export default function CreatorCenterSettingsPage() {
-  const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
-  
-  // 로그인 및 크리에이터 권한 필수
-  const { isLoading, hasAccess } = useCreatorGuard({ 
-    requiresLogin: true, 
-    requiresCreator: true 
-  });
+  const [form] = UiForm.useForm();
+  const model = useCreatorCenterSettingsPageModel({ message: uiMessage, form });
+  return <CreatorCenterSettingsPageView model={model} />;
+}
+
+function CreatorCenterSettingsPageView({
+  model,
+}: {
+  model: ReturnType<typeof useCreatorCenterSettingsPageModel>;
+}) {
+  const { form, loading, isLoading, hasAccess, handleSave, handleReset } =
+    model;
 
   // 권한이 없으면 로딩 표시 또는 리다이렉트 처리
   if (isLoading || !hasAccess) {
     return <div>Loading...</div>;
   }
-
-  const handleSave = async () => {
-    setLoading(true);
-    try {
-      const values = await form.validateFields();
-      // API 호출 시뮬레이션
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      message.success("설정이 저장되었습니다.");
-    } catch (error) {
-      console.error("설정 저장 실패:", error);
-      message.error("설정 저장에 실패했습니다.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleReset = () => {
-    form.resetFields();
-    message.info("설정이 초기화되었습니다.");
-  };
 
   return (
     <CreatorCenterLayout>
@@ -120,7 +105,7 @@ export default function CreatorCenterSettingsPage() {
                           onChange={(info) => {
                             if (info.file.status === "done") {
                               message.success(
-                                "프로필 사진이 업로드되었습니다."
+                                "프로필 사진이 업로드되었습니다.",
                               );
                             }
                           }}

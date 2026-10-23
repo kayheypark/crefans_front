@@ -1,0 +1,6 @@
+const test=require('node:test'),assert=require('node:assert/strict'),React=require('react'),{create,act}=require('react-test-renderer'),{loadTypeScript}=require('./load-typescript.cjs');
+test('one-time callback clears provider secrets, confirms once and preserves order navigation',async()=>{
+ const id='12345678-1234-1234-1234-123456789012',query=new URLSearchParams({id,orderId:id,amount:'1000',paymentKey:'private-test-key'}),urls=[],calls=[];let result;
+ const {useOneTimePayment}=loadTypeScript('features/service/useOneTimePayment.ts',{'next/navigation':{useSearchParams:()=>query,useRouter:()=>({replace:u=>urls.push(u)})},'@/lib/api/one-time-payment':{},'@/lib/api/platform':{platformRequest:async(path,body)=>{calls.push({path,body});return{success:true,data:{message:'가입 완료'}};}}});
+ function Probe(){result=useOneTimePayment(true,true);return null;}let tree;try{await act(async()=>{tree=create(React.createElement(Probe));});assert.equal(result.status,'success');assert.equal(result.returnPath,`/service/checkout/${id}`);assert.equal(calls[0].body.amount,1000);assert.ok(urls.every(u=>!u.includes('private-test-key')));await act(async()=>{await result.retry();});assert.equal(calls.length,1);}finally{act(()=>tree?.unmount());}
+});

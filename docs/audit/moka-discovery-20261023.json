@@ -1,0 +1,181 @@
+{
+  "verifiedAt": "2026-10-23T14:34:02.285420+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/operations-security",
+  "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+  "worktree": "dirty; pre-existing changes preserved; no commit or push",
+  "scope": [
+    "asset landing hero/first featured card/closing collage show Moka",
+    "preview explore first featured card and name search",
+    "preview feed first public Moka post; multi-image position respected",
+    "asset landing search/browse use same preview data source as profile cards; live defaults to service"
+  ],
+  "acceptance": {
+    "landing": true,
+    "creatorSearch": true,
+    "feed": true,
+    "productionDeployment": true,
+    "desktopAndMobile": true
+  },
+  "testedSourceSha256": {
+    "lib/content/landing.ts": "fd12b180742636d8deb9a2aa57cacd987e05b666e9803c133d249568b232f4e7",
+    "components/preview/service/fixtures.ts": "9a88f735f5b573b64433c08be549e11101697dff536558ef0107640f4f7fff95",
+    "components/crefans/LandingPage.tsx": "4e47d3d235a5f25863383a01f0365a2487013d84e6fd405521d63250771d4862",
+    "components/crefans/SocialPages.tsx": "9de2fdb22e78061850a5bbb865793b65778e74c74a31facc9e89e200b75337ed",
+    "types/crefans-landing.ts": "6f8f64258c6d66fe318d0e3f44b913c12c6a87d508a028ee35d485e3ea67f6de",
+    "tests/service-landing.test.cjs": "71409700aa207f3c4acdfe40463f858ebb746bbbd3d4884cbf7507f4f5587972",
+    "tests/crefans-social.test.cjs": "c81a828ff5856593b38411c6dfdddfff56537068875fd19d148be83089ffff96"
+  },
+  "checks": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "layers": "passed",
+    "typescript": "passed",
+    "unitTests": {
+      "passed": 283,
+      "failed": 0
+    },
+    "log": ".local/moka-discovery-20261023/check-final.log",
+    "logSha256": "38b623ae19d46869b47b3b01404a71b218dece514001eef9210f3c9efccfad9f",
+    "note": "Regression cases cover landing search/browse base paths and multi-media image position."
+  },
+  "build": {
+    "command": "DOCKER_CONFIG=<existing beta-build-config> docker build --platform linux/amd64 -f infra/platform/Dockerfile -t crefans-front:moka-discovery-20261023 .",
+    "exitCode": 0,
+    "logSha256": "f2bfbbaf4a5e73b75b305e9609f086e1f2254d2ce355bacd46e6c9e6fa698f2a",
+    "imageId": "sha256:f86f4cca792f339df5d83a329f41dbea2746d119ad611dedcde9938cae23e7e3",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 470,
+    "changedFiles": [
+      "components/crefans/LandingPage.tsx",
+      "components/crefans/SocialPages.tsx",
+      "components/preview/service/fixtures.ts",
+      "lib/content/landing.ts",
+      "types/crefans-landing.ts"
+    ],
+    "runtimeHashManifest": ".local/moka-discovery-20261023/release-hashes.json",
+    "runtimeHashManifestSha256": "7ed81bfbe75f3aeeb54f099cd1e506ccdbb181734c0d72b3a8df97625ca96929"
+  },
+  "imageSmoke": {
+    "at": "2026-10-23T14:30:34.347297+00:00",
+    "routes": [
+      {
+        "route": "preview/landing",
+        "status": 200
+      },
+      {
+        "route": "preview/explore",
+        "status": 200
+      },
+      {
+        "route": "preview/feed",
+        "status": 200
+      },
+      {
+        "route": "service/landing",
+        "status": 200
+      }
+    ],
+    "fourAssetHashesMatched": true,
+    "removed": true,
+    "limitation": "HTTP checks shell and assets; visible Moka rendering requires browser hydration. Initial two attempts incorrectly expected client-rendered content in SSR HTML. Harness corrected, product code unchanged."
+  },
+  "production": {
+    "baseUrl": "https://beta.crefans.com",
+    "imageTag": "crefans-front:moka-discovery-20261023",
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-23T14:30:47.821247+00:00",
+        "finishedAt": "2026-10-23T14:30:49.103421+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-23T14:30:49.103786+00:00",
+        "finishedAt": "2026-10-23T14:30:56.880055+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-23T14:30:56.880839+00:00",
+        "finishedAt": "2026-10-23T14:31:09.675987+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-23T14:31:09.676576+00:00",
+        "finishedAt": "2026-10-23T14:31:17.030805+00:00",
+        "exitCode": 0
+      }
+    ],
+    "healthAndRoutes": {
+      "health": 200,
+      "preview/landing": 200,
+      "preview/explore": 200,
+      "preview/feed": 200,
+      "service/landing": 200,
+      "service/feed": 200
+    },
+    "frontend": {
+      "imageId": "sha256:f86f4cca792f339df5d83a329f41dbea2746d119ad611dedcde9938cae23e7e3",
+      "running": true,
+      "restarts": 0
+    },
+    "preservedContainerIds": [
+      "database",
+      "api",
+      "worker",
+      "admin",
+      "proxy"
+    ],
+    "deployLogSha256": "3362baa5f0c777687d408674bb0cca5adbadd5734da87f22e70c45afe5cc9bbb",
+    "rollbackBackup": "/opt/crefans-backup-moka-discovery-20261023",
+    "temporarySshAccessRemoved": true,
+    "originalSecurityGroupPermissionsRestored": true
+  },
+  "browser": {
+    "tool": "CUA in-app Chromium",
+    "viewports": [
+      [
+        1280,
+        720
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "local": [
+      "asset service landing hero and first card",
+      "landing name search to preview result",
+      "preview feed top post face crop",
+      "mobile landing and explore"
+    ],
+    "production": [
+      "service landing Moka hero and first card",
+      "search Moka leads to /preview/explore?q=모카 and matches Moka only",
+      "cleared search places Moka first featured card",
+      "preview feed starts with public Moka post and image loaded; object-position 50% 0%",
+      "mobile feed/landing/explore width390 without document overflow",
+      "preview landing browse-more leads to /preview/explore",
+      "viewport reset and service landing left open"
+    ],
+    "capturedConsoleErrors": [],
+    "screenshots": {
+      ".local/moka-discovery-20261023/landing-live-desktop.png": "52a023200003a57a9d478ff601f7d33ad32e473126d2042af956da37d834782e",
+      ".local/moka-discovery-20261023/landing-live-mobile.png": "b41f3d7d4d5fdbb9b41057ec01e54b8aa476586f922ec4b709f973372aed0aed",
+      ".local/moka-discovery-20261023/explore-live-desktop.png": "6c56f96d1d746fdc0738ad0fd5d389bda1f8ddd047578ef7183012e3eab26869",
+      ".local/moka-discovery-20261023/explore-live-mobile.png": "65b0ce5ffda077270d2ab09ea5d794b1e87503e2fdec96ce483c76317e7d3636",
+      ".local/moka-discovery-20261023/feed-live-desktop.png": "ccd8db34202dab4f495990dde1e78ccf273d7e88848fab638706bde22950070b",
+      ".local/moka-discovery-20261023/feed-live-mobile.png": "0978e4277c6ba030966b379e734f7a5593b99c1010132684c3455a48b0a6b6cd"
+    }
+  },
+  "limitations": [
+    "Moka is a fictional public asset/preview sample, not a real production creator DB account.",
+    "Production /service/explore and /service/feed still use actual API data without injected samples.",
+    "HTTP checks verify shell/asset responses; client-rendered content verified in browser after hydration.",
+    "Initial smoke harness incorrectly assumed preview content was server rendered. Corrected harness after inspecting Suspense fallback; no product change required.",
+    "No migrations, financial execution, external email or provider integration changes."
+  ]
+}

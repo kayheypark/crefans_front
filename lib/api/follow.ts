@@ -1,31 +1,10 @@
+import type { FollowResponse } from "@/types/api/follow";
 import { apiClient } from "./client";
-
-export interface FollowUser {
-  userId: string;
-  nickname: string;
-  handle: string;
-  avatar: string;
-  followedAt: string;
-  isFollowedByRequester?: boolean; // 요청자가 이 사용자를 팔로우하고 있는지
-}
-
-export interface FollowListResponse {
-  items: FollowUser[];
-  pagination: {
-    page: number;
-    limit: number;
-    totalCount: number;
-    totalPages: number;
-    hasNext: boolean;
-    hasPrev: boolean;
-  };
-}
-
-export interface FollowResponse {
-  success: boolean;
-  message?: string;
-  data?: FollowListResponse;
-}
+export type {
+  FollowListResponse,
+  FollowResponse,
+  FollowUser,
+} from "@/types/api/follow";
 
 export const followApi = {
   // 팔로우하기
@@ -55,7 +34,7 @@ export const followApi = {
   // 내 팔로잉 목록 조회
   async getMyFollowing(
     page: number = 1,
-    limit: number = 20
+    limit: number = 20,
   ): Promise<FollowResponse> {
     try {
       const response = await apiClient.get("/follow/my-following", {
@@ -72,7 +51,7 @@ export const followApi = {
   // 내 팔로워 목록 조회
   async getMyFollowers(
     page: number = 1,
-    limit: number = 20
+    limit: number = 20,
   ): Promise<FollowResponse> {
     try {
       const response = await apiClient.get("/follow/my-followers", {
@@ -90,16 +69,20 @@ export const followApi = {
   async getUserFollowing(
     userId: string,
     page: number = 1,
-    limit: number = 20
+    limit: number = 20,
   ): Promise<FollowResponse> {
     try {
-      const response = await apiClient.get(`/follow/public/user/${userId}/following`, {
-        params: { page, limit },
-      });
+      const response = await apiClient.get(
+        `/follow/public/user/${userId}/following`,
+        {
+          params: { page, limit },
+        },
+      );
       return response.data;
     } catch (error: any) {
       const errorMessage =
-        error.response?.data?.message || "사용자 팔로잉 목록 조회에 실패했습니다.";
+        error.response?.data?.message ||
+        "사용자 팔로잉 목록 조회에 실패했습니다.";
       throw new Error(errorMessage);
     }
   },
@@ -108,16 +91,20 @@ export const followApi = {
   async getUserFollowers(
     userId: string,
     page: number = 1,
-    limit: number = 20
+    limit: number = 20,
   ): Promise<FollowResponse> {
     try {
-      const response = await apiClient.get(`/follow/public/user/${userId}/followers`, {
-        params: { page, limit },
-      });
+      const response = await apiClient.get(
+        `/follow/public/user/${userId}/followers`,
+        {
+          params: { page, limit },
+        },
+      );
       return response.data;
     } catch (error: any) {
       const errorMessage =
-        error.response?.data?.message || "사용자 팔로워 목록 조회에 실패했습니다.";
+        error.response?.data?.message ||
+        "사용자 팔로워 목록 조회에 실패했습니다.";
       throw new Error(errorMessage);
     }
   },

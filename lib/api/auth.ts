@@ -1,64 +1,81 @@
-import axios from "axios";
-import { getApiUrl } from "@/utils/env";
+import { BaseApiResponse } from "@/types/api";
 import {
-  SignInRequest,
-  SignUpRequest,
   ConfirmSignUpRequest,
-  ResendConfirmationCodeRequest,
-  UpdateNicknameRequest,
-  UpdateHandleRequest,
-  SignInResponse,
-  SignUpResponse,
   ConfirmSignUpResponse,
-  SignOutResponse,
+  GetMeResponse,
+  ResendConfirmationCodeRequest,
   ResendConfirmationCodeResponse,
-  UpdateNicknameResponse,
+  SignInRequest,
+  SignInResponse,
+  SignOutResponse,
+  SignUpRequest,
+  SignUpResponse,
+  UpdateHandleRequest,
   UpdateHandleResponse,
-  UserResponse,
-  GetMeResponse
-} from '@/types/auth';
-import { BaseApiResponse } from '@/types/api';
+  UpdateNicknameRequest,
+  UpdateNicknameResponse,
+} from "@/types/auth";
+import { apiClient } from "./client";
 
 // 인증 관련 API 함수들
 export const authAPI = {
+  async confirmEmailVerification(email: string, code: string) {
+    const response = await apiClient.get<{
+      success: boolean;
+      message?: string;
+    }>("/auth/confirm-email-verification", {
+      params: { email, code },
+      withCredentials: false,
+    });
+    return response.data;
+  },
   // 로그인
   signin: async (email: string, password: string): Promise<SignInResponse> => {
-    const response = await axios.post(
-      `${getApiUrl()}/auth/signin`,
+    const response = await apiClient.post(
+      `/auth/signin`,
       { email, password } as SignInRequest,
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },
 
   // 회원가입
   signup: async (userData: SignUpRequest): Promise<SignUpResponse> => {
-    const response = await axios.post(`${getApiUrl()}/auth/signup`, userData);
+    const response = await apiClient.post(`/auth/signup`, userData, {
+      withCredentials: false,
+    });
     return response.data;
   },
 
   // 이메일 인증 확인
-  confirmSignup: async (email: string, confirmationCode: string): Promise<ConfirmSignUpResponse> => {
-    const response = await axios.post(`${getApiUrl()}/auth/confirm-signup`, {
-      email,
-      confirmationCode,
-    } as ConfirmSignUpRequest);
+  confirmSignup: async (
+    email: string,
+    confirmationCode: string,
+  ): Promise<ConfirmSignUpResponse> => {
+    const response = await apiClient.post(
+      `/auth/confirm-signup`,
+      {
+        email,
+        confirmationCode,
+      } as ConfirmSignUpRequest,
+      { withCredentials: false },
+    );
     return response.data;
   },
 
   // 로그아웃
   signout: async (): Promise<SignOutResponse> => {
-    const response = await axios.post(
-      `${getApiUrl()}/auth/signout`,
+    const response = await apiClient.post(
+      `/auth/signout`,
       {},
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },
 
   // 사용자 정보 조회
   getMe: async (): Promise<BaseApiResponse<GetMeResponse>> => {
-    const response = await axios.get(`${getApiUrl()}/auth/me`, {
+    const response = await apiClient.get(`/auth/me`, {
       withCredentials: true,
     });
     return response.data;
@@ -66,52 +83,54 @@ export const authAPI = {
 
   // 이메일 중복 확인
   checkEmail: async (email: string) => {
-    const response = await axios.get(
-      `${getApiUrl()}/auth/check-email?email=${email}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await apiClient.get(`/auth/check-email?email=${email}`, {
+      withCredentials: true,
+    });
     return response.data;
   },
 
   // 인증코드 재전송
-  resendConfirmationCode: async (email: string): Promise<ResendConfirmationCodeResponse> => {
-    const response = await axios.post(
-      `${getApiUrl()}/auth/resend-confirmation-code`,
+  resendConfirmationCode: async (
+    email: string,
+  ): Promise<ResendConfirmationCodeResponse> => {
+    const response = await apiClient.post(
+      `/auth/resend-confirmation-code`,
       {
         email,
-      } as ResendConfirmationCodeRequest
+      } as ResendConfirmationCodeRequest,
+      { withCredentials: false },
     );
     return response.data;
   },
 
   // 닉네임 변경
   updateNickname: async (nickname: string): Promise<UpdateNicknameResponse> => {
-    const response = await axios.put(
-      `${getApiUrl()}/auth/nickname`,
+    const response = await apiClient.put(
+      `/auth/nickname`,
       { nickname } as UpdateNicknameRequest,
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },
 
   // 핸들 변경
-  updateHandle: async (preferredUsername: string): Promise<UpdateHandleResponse> => {
-    const response = await axios.put(
-      `${getApiUrl()}/auth/handle`,
+  updateHandle: async (
+    preferredUsername: string,
+  ): Promise<UpdateHandleResponse> => {
+    const response = await apiClient.put(
+      `/auth/handle`,
       { preferredUsername } as UpdateHandleRequest,
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },
 
   // 토큰 갱신
   refreshToken: async () => {
-    const response = await axios.post(
-      `${getApiUrl()}/auth/refresh`,
+    const response = await apiClient.post(
+      `/auth/refresh`,
       {},
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data;
   },

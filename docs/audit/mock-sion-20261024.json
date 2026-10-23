@@ -1,0 +1,116 @@
+{
+  "verifiedAt": "2026-10-23T21:10:43.924946+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/operations-security",
+  "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+  "worktree": "Existing dirty changes preserved; no commit/push. Current task changes only shared asset data, preview fixture, new assets and documentation.",
+  "acceptance": [
+    "Sion appears in landing and explore using shared creator data",
+    "Public photo post and membership-only note available through existing feed/profile/detail components",
+    "Approved realistic portrait preserved byte-for-byte; avatar recognizably matches",
+    "Mock membership signup changes note visibility and lists subscription",
+    "Desktop/mobile render without broken images or horizontal overflow"
+  ],
+  "sourceSha256": {
+    "lib/content/landing.ts": "7e0ff05add88276cc3532d6239fd27b8db9da61a9fb17e6af33a734278e3892c",
+    "components/preview/service/fixtures.ts": "f327f757dab3b372532d7ce6d29c61f77423d9c30c6e5d93c0c8b8b7edc8c529",
+    "public/illustrations/creators/sion/portrait-v1.png": "e3f804a5cbe8f946c06d6698fc1c7ef10034435fa2c76361111709d1283469d4",
+    "public/illustrations/creators/sion/avatar-v1.png": "fd5c9218442fdcf175e05ef8b9f6d309710e10c026f4e3631011dbf6a6cbbc31",
+    "public/illustrations/creators/sion/generation.json": "059ca64901124ae80d923e571defbe342eeb2628ebb38dd7242e8ba8d850721f"
+  },
+  "check": {
+    "command": "npm run check",
+    "startedAt": "2026-10-23T21:08:12.010665+00:00",
+    "finishedAt": "2026-10-23T21:08:19.011867+00:00",
+    "exitCode": 0,
+    "layers": "PASS",
+    "typescript": "PASS",
+    "unitTestsPassed": 283,
+    "unitTestsFailed": 0,
+    "logSha256": "090f69bdc5fe4ab00531d6ebbe920976267ea242b32b10d7a1ea6e648c52e189",
+    "initialFailures": "Text-only fixture lacked required image and position fields; aligned to existing empty-image contract and reran all checks successfully."
+  },
+  "fixtureValidation": {
+    "checkedAt": "2026-10-23T21:08:13.331Z",
+    "creators": 8,
+    "sionPosts": 2,
+    "sionPlans": 1,
+    "assetHashes": {
+      "/illustrations/creators/sion/avatar-v1.png": "fd5c9218442fdcf175e05ef8b9f6d309710e10c026f4e3631011dbf6a6cbbc31",
+      "/illustrations/creators/sion/portrait-v1.png": "e3f804a5cbe8f946c06d6698fc1c7ef10034435fa2c76361111709d1283469d4"
+    },
+    "previewAccess": [
+      {
+        "label": "public guest",
+        "expected": true,
+        "passed": true
+      },
+      {
+        "label": "members-only guest",
+        "expected": false,
+        "passed": true
+      },
+      {
+        "label": "other creator subscription",
+        "expected": false,
+        "passed": true
+      },
+      {
+        "label": "sion active",
+        "expected": true,
+        "passed": true
+      },
+      {
+        "label": "sion cancelled until term end",
+        "expected": true,
+        "passed": true
+      },
+      {
+        "label": "sion expired",
+        "expected": false,
+        "passed": true
+      }
+    ],
+    "landingSecond": "sion",
+    "existingMokaHeroAndFirstCardPreserved": true,
+    "scope": "Mock fixture validation only, not production authorization tests"
+  },
+  "browser": {
+    "tool": "CUA in-app browser",
+    "origin": "http://127.0.0.1:3010",
+    "viewports": [
+      [
+        1280,
+        720
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "observations": [
+      "Profile cover/avatar,name,handle,counts,one plan and two posts visible",
+      "Public gallery opens overlay; next media displays second photo",
+      "About and media tabs populated correctly",
+      "Before signup note body hidden; mock signup confirmation disabled before acknowledgement",
+      "Mock signup adds Sion Noir Club to subscriptions; profile shows joined and full note body",
+      "Landing second card is Sion; search redirects and returns Sion only",
+      "Mobile cosplay filter shows Moka and Sion side-by-side",
+      "Home feed links to Sion first shoot and profile",
+      "Reload restored original unsubscribed state",
+      "No broken images; document width matches viewport on desktop/mobile",
+      "Viewport reset and profile left open"
+    ],
+    "consoleErrors": [],
+    "screenshots": {
+      ".local/sion-preview-20261024/profile-desktop.png": "bf5f541f1cf7f16cd8419c596a2866585943e141d2ff3de36c6e94dceeebd7b7",
+      ".local/sion-preview-20261024/explore-mobile.png": "d5d65caed4f8ae0a7d83eb82a10c104ffa9c71049403074cca1c9e350d7d5cb7",
+      ".local/sion-preview-20261024/profile-mobile.png": "58a067713c0563b514cc9873da72e7fc69885d6281b2e757220546208416d76c"
+    }
+  },
+  "limits": [
+    "Local preview implementation only; not deployed.",
+    "Mock membership/prices/statistics and access matrix are not production financial/security verification.",
+    "Public static sample assets; no real member/creator DB records or provider calls."
+  ]
+}

@@ -1,754 +1,97 @@
 "use client";
+import { message as uiMessage } from "antd";
 
-import React, { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import MediaGallery from "@/components/media/MediaGallery";
+import MembershipManagementModal from "@/components/modals/MembershipManagementModal";
+import { useWritePageModel } from "@/features/write/useWritePageModel";
+import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
+import Spacings from "@/lib/constants/spacings";
+import { CustomUploadRequest } from "@/types/common";
 import {
-  Layout,
-  Typography,
-  Input,
-  Button,
-  Upload,
-  Switch,
-  Space,
-  message,
-  Card,
-  Divider,
-  Tag,
-  InputNumber,
-  Radio,
-} from "antd";
-import {
-  ArrowLeftOutlined,
-  PictureOutlined,
-  SendOutlined,
+  CrownOutlined,
   LockOutlined,
-  UnlockOutlined,
+  PictureOutlined,
   PlayCircleOutlined,
   SaveOutlined,
-  CloseOutlined,
-  CrownOutlined,
+  SendOutlined,
+  UnlockOutlined,
 } from "@ant-design/icons";
-
-import { useRouter } from "next/navigation";
-import Spacings from "@/lib/constants/spacings";
-import MembershipManagementModal from "@/components/modals/MembershipManagementModal";
-import { MembershipItem } from "@/lib/api/membership";
-import { MembershipResponse } from "@/types/membership";
-import MediaGallery from "@/components/media/MediaGallery";
-import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
-import { mediaAPI, uploadWithProgress } from "@/lib/api/media";
-import { useAuth } from "@/contexts/AuthContext";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import { postingApi } from "@/lib/api/posting";
-import { PostingStatus, PostingResponse, ImageItem, VideoItem, CreatePostingRequest, UpdatePostingRequest } from "@/types/posting";
-import { membershipAPI } from "@/lib/api/membership";
-import { UploadInfo, CustomUploadRequest } from "@/types/common";
+import {
+  Button,
+  Card,
+  Divider,
+  Input,
+  InputNumber,
+  Layout,
+  Radio,
+  Space,
+  Switch,
+  Typography,
+  Upload,
+} from "antd";
 
 const { Title, Text } = Typography;
+
 const { TextArea } = Input;
 
 export default function WritePage() {
-  const router = useRouter();
-  const { user } = useAuth();
-  const searchParams = useSearchParams();
-
-  // Edit 모드 확인
-  const editId = searchParams.get("id");
-  const isEditMode = !!editId;
-
-  // 크리에이터 권한 확인
-  const isCreator = user?.isCreator || false;
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [images, setImages] = useState<ImageItem[]>([]);
-  const [videos, setVideos] = useState<VideoItem[]>([]);
-
-  const [isMembershipOnly, setIsMembershipOnly] = useState(false);
-  const [selectedMembershipLevel, setSelectedMembershipLevel] =
-    useState<number>(1);
-  const [memberships, setMemberships] = useState<MembershipItem[]>([]);
-  const [allowIndividualPurchase, setAllowIndividualPurchase] = useState(false);
-  const [purchasePrice, setPurchasePrice] = useState(1000);
-  const [allowComments, setAllowComments] = useState(true);
-  const [scheduledPublish, setScheduledPublish] = useState(false);
-  const [publishDate, setPublishDate] = useState("");
-  const [publishTime, setPublishTime] = useState("");
-  const [sensitiveContent, setSensitiveContent] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isMembershipModalOpen, setIsMembershipModalOpen] = useState(false);
-  const [hasDraft, setHasDraft] = useState(false);
-  const [isSavingDraft, setIsSavingDraft] = useState(false);
-  const [isLoadingPost, setIsLoadingPost] = useState(false);
-  const [originalPost, setOriginalPost] = useState<PostingResponse | null>(null);
-
-  // 미디어 로딩 상태
-  const [isImageUploading, setIsImageUploading] = useState(false);
-  const [isVideoUploading, setIsVideoUploading] = useState(false);
-
-  // 수정 모드인 경우 게시글 데이터 로드
-  useEffect(() => {
-    if (isEditMode && editId) {
-      loadPostForEdit(editId);
-    }
-  }, [isEditMode, editId]);
-
-  // 크리에이터인 경우 페이지 로드 시 멤버십 목록 조회
-  useEffect(() => {
-    const loadMemberships = async () => {
-      if (!isCreator) return;
-
-      try {
-        const response = await membershipAPI.getMemberships();
-        if (response.success && response.data) {
-          setMemberships(response.data.memberships || []);
-          // 기본 선택 레벨 설정
-          const memberships = response.data.memberships || [];
-          if (memberships.length > 0 && !selectedMembershipLevel) {
-            setSelectedMembershipLevel(memberships[0].level);
-          }
-        }
-      } catch (error) {
-        console.error("멤버십 목록 조회 실패:", error);
-        // 에러는 조용히 처리 (사용자가 멤버십이 없을 수 있음)
-      }
-    };
-
-    loadMemberships();
-  }, [isCreator]);
-
-  // 수정할 게시글 데이터 로드
-  const loadPostForEdit = async (postId: string): Promise<void> => {
-    setIsLoadingPost(true);
-    try {
-      const response = await postingApi.getPosting(postId);
-
-      if (response.success && response.data) {
-        const post = response.data;
-        setOriginalPost(post);
-
-        // 폼 데이터 설정
-        setTitle(post.title || "");
-        setContent(post.content || "");
-        setAllowComments(post.allowComments ?? true);
-
-        // 크리에이터 전용 설정
-        if (isCreator) {
-          setIsMembershipOnly(post.isMembership || false);
-          setSelectedMembershipLevel(post.membershipLevel || 1);
-          setAllowIndividualPurchase(post.allowIndividualPurchase || false);
-          setPurchasePrice(post.individualPurchasePrice || 1000);
-          setSensitiveContent(post.isSensitive || false);
-        }
-
-        // 미디어 데이터 처리 (필요시 구현)
-        if (post.medias && post.medias.length > 0) {
-          const mediaImages: ImageItem[] = post.medias
-            .filter((m) => m.type === "IMAGE")
-            .map((m, index: number) => ({
-              id: m.id,
-              url: m.mediaUrl, // S3 URL을 미리보기용으로 사용
-              s3Url: m.mediaUrl,
-              order: index,
-              width: m.width || 0,
-              height: m.height || 0,
-            }));
-
-          const mediaVideos: VideoItem[] = post.medias
-            .filter((m) => m.type === "VIDEO")
-            .map((m, index: number) => ({
-              id: m.id,
-              url: m.mediaUrl, // S3 URL을 미리보기용으로 사용
-              s3Url: m.mediaUrl,
-              order: index,
-              duration: m.duration ? String(m.duration) : "0:00",
-              processingStatus: "completed",
-            }));
-
-          setImages(mediaImages);
-          setVideos(mediaVideos);
-        }
-
-        message.success("게시글을 불러왔습니다.");
-      } else {
-        throw new Error("게시글을 찾을 수 없습니다.");
-      }
-    } catch (error: any) {
-      console.error("게시글 로드 실패:", error);
-      message.error(error.message || "게시글을 불러오는데 실패했습니다.");
-      router.push("/write"); // 글쓰기 페이지로 리다이렉트
-    } finally {
-      setIsLoadingPost(false);
-    }
-  };
-
-  // 멤버십 관리 모달 열기
-  const openMembershipModal = () => {
-    setIsMembershipModalOpen(true);
-  };
-
-  // 멤버십 업데이트 처리
-  const handleMembershipsUpdate = (updatedMemberships: MembershipItem[]) => {
-    setMemberships(updatedMemberships);
-    // 선택된 레벨이 삭제된 경우 기본값으로 설정
-    if (!updatedMemberships.find((m) => m.level === selectedMembershipLevel)) {
-      setSelectedMembershipLevel(
-        updatedMemberships.length > 0 ? updatedMemberships[0].level : 1
-      );
-    }
-  };
-
-  // 이미지 업로드 처리 (AWS S3 + 임시 블로브 URL)
-  const handleImageUpload = async (info: UploadInfo) => {
-    if (info.file.status === "done") {
-      // 크레팬스 정책: 최대 10개 이미지 제한
-      if (images.length >= 10) {
-        message.error("이미지는 최대 10개까지 업로드할 수 있습니다.");
-        return;
-      }
-
-      setIsImageUploading(true);
-
-      try {
-        const file = info.file.originFileObj;
-        if (!file) {
-          message.error("파일을 찾을 수 없습니다.");
-          setIsImageUploading(false);
-          return;
-        }
-
-        // 파일 크기 검증 (50MB)
-        if (file.size > 50 * 1024 * 1024) {
-          message.error("이미지 파일 크기는 50MB를 초과할 수 없습니다.");
-          setIsImageUploading(false);
-          return;
-        }
-
-        // AWS S3 업로드 (필수)
-        // 1. AWS 업로드 준비
-        const { mediaId, uploadUrl, s3Key } = await mediaAPI.prepareUpload({
-          fileName: file.name,
-          contentType: file.type,
-          fileSize: file.size,
-        });
-
-        // 2. S3에 직접 업로드
-        await uploadWithProgress(uploadUrl, file, (progress) => {
-          console.log(`이미지 업로드 진행률: ${progress}%`);
-        });
-
-        // 3. 업로드 완료 알림
-        const media = await mediaAPI.completeUpload(mediaId, s3Key);
-        const s3Url = media.mediaUrl;
-
-        console.log("AWS 업로드 성공:", { mediaId, s3Url });
-
-        // 4. 로컬 상태에 추가 (블로브 URL 사용 - 미리보기용)
-        const blobUrl = URL.createObjectURL(file);
-        const img = new Image();
-
-        img.onload = () => {
-          const newImage = {
-            id: mediaId,
-            url: blobUrl, // 미리보기용 블로브 URL
-            s3Url: s3Url, // AWS S3 URL (필수)
-            order: images.length,
-            width: img.naturalWidth,
-            height: img.naturalHeight,
-          };
-
-          setImages((prev) => [...prev, newImage]);
-          message.success("이미지가 업로드되었습니다.");
-        };
-
-        img.onerror = () => {
-          const newImage = {
-            id: mediaId,
-            url: blobUrl,
-            s3Url: s3Url,
-            order: images.length,
-            width: 0,
-            height: 0,
-          };
-
-          setImages((prev) => [...prev, newImage]);
-          message.success("이미지가 업로드되었습니다.");
-        };
-
-        img.src = blobUrl;
-      } catch (error) {
-        console.error("이미지 업로드 실패:", error);
-        message.error("이미지 업로드에 실패했습니다.");
-      } finally {
-        setIsImageUploading(false);
-      }
-    }
-  };
-
-  // 이미지 제거
-  const removeImage = (index: number) => {
-    setImages((prev) => {
-      const imageToRemove = prev[index];
-      if (imageToRemove) {
-        // Blob URL 해제
-        URL.revokeObjectURL(imageToRemove.url);
-      }
-      return prev.filter((_, i) => i !== index);
-    });
-  };
-
-  // 동영상 업로드 처리 (AWS S3 + MediaConvert + 임시 블로브 URL)
-  const handleVideoUpload = async (info: UploadInfo) => {
-    if (info.file.status === "done") {
-      // 크레팬스 정책: 최대 1개 동영상 제한
-      if (videos.length >= 1) {
-        message.error("동영상은 최대 1개까지 업로드할 수 있습니다.");
-        return;
-      }
-
-      setIsVideoUploading(true);
-
-      try {
-        const file = info.file.originFileObj;
-        if (!file) {
-          message.error("파일을 찾을 수 없습니다.");
-          setIsVideoUploading(false);
-          return;
-        }
-
-        // 파일 크기 검증 (500MB)
-        if (file.size > 500 * 1024 * 1024) {
-          message.error("동영상 파일 크기는 500MB를 초과할 수 없습니다.");
-          setIsVideoUploading(false);
-          return;
-        }
-
-        // 4K 해상도 검증 함수
-        const check4KResolution = (file: File): Promise<boolean> => {
-          return new Promise((resolve) => {
-            const video = document.createElement("video");
-            const url = URL.createObjectURL(file);
-
-            video.onloadedmetadata = () => {
-              URL.revokeObjectURL(url);
-              const is4K = video.videoWidth > 1920 || video.videoHeight > 1080;
-              resolve(is4K);
-            };
-
-            video.onerror = () => {
-              URL.revokeObjectURL(url);
-              resolve(false); // 오류시 허용
-            };
-
-            video.src = url;
-          });
-        };
-
-        // 4K 해상도 체크
-        const is4K = await check4KResolution(file);
-        if (is4K) {
-          message.error(
-            "동영상 최대 해상도는 1080p입니다. 4K 업로드는 지원하지 않습니다."
-          );
-          setIsVideoUploading(false);
-          return;
-        }
-
-        // AWS S3 업로드 (필수)
-        // 1. AWS 업로드 준비
-        const { mediaId, uploadUrl, s3Key } = await mediaAPI.prepareUpload({
-          fileName: file.name,
-          contentType: file.type,
-          fileSize: file.size,
-        });
-
-        // 2. S3에 직접 업로드
-        await uploadWithProgress(uploadUrl, file, (progress) => {
-          console.log(`동영상 업로드 진행률: ${progress}%`);
-        });
-
-        // 3. 업로드 완료 알림 (MediaConvert 시작)
-        const media = await mediaAPI.completeUpload(mediaId, s3Key);
-        const s3Url = media.mediaUrl;
-        const processingStatus = "processing"; // MediaConvert 처리 중
-
-        console.log("AWS 동영상 업로드 성공, MediaConvert 시작:", {
-          mediaId,
-          s3Url,
-        });
-
-        // 4. 로컬 비디오로 메타데이터 추출 (미리보기용)
-        const blobUrl = URL.createObjectURL(file);
-        const video = document.createElement("video");
-        video.preload = "metadata";
-
-        const timeoutId = setTimeout(() => {
-          const newVideo = {
-            id: mediaId,
-            url: blobUrl, // 미리보기용 블로브 URL
-            s3Url: s3Url, // AWS S3 URL (필수)
-            duration: "0:00",
-            order: videos.length,
-            originalFile: file,
-            processingStatus: processingStatus,
-          };
-
-          setVideos((prev) => [...prev, newVideo]);
-          message.success("동영상이 업로드되었습니다. 처리 중입니다...");
-        }, 5000);
-
-        video.onloadedmetadata = () => {
-          clearTimeout(timeoutId);
-
-          const duration = video.duration;
-          let durationString = "0:00";
-
-          if (duration && !isNaN(duration) && duration > 0) {
-            const minutes = Math.floor(duration / 60);
-            const seconds = Math.floor(duration % 60);
-            durationString = `${minutes}:${seconds
-              .toString()
-              .padStart(2, "0")}`;
-          }
-
-          const newVideo = {
-            id: mediaId,
-            url: blobUrl, // 미리보기용 블로브 URL
-            s3Url: s3Url, // AWS S3 URL (필수)
-            duration: durationString,
-            order: videos.length,
-            originalFile: file,
-            processingStatus: processingStatus,
-          };
-
-          setVideos((prev) => [...prev, newVideo]);
-          message.success("동영상이 업로드되었습니다. 처리 중입니다...");
-        };
-
-        video.onerror = () => {
-          clearTimeout(timeoutId);
-
-          const newVideo = {
-            id: mediaId,
-            url: blobUrl, // 미리보기용 블로브 URL
-            s3Url: s3Url, // AWS S3 URL (필수)
-            duration: "0:00",
-            order: videos.length,
-            originalFile: file,
-            processingStatus: processingStatus,
-          };
-
-          setVideos((prev) => [...prev, newVideo]);
-          message.success("동영상이 업로드되었습니다. 처리 중입니다...");
-        };
-
-        video.src = blobUrl;
-      } catch (error) {
-        console.error("동영상 업로드 실패:", error);
-        message.error("동영상 업로드에 실패했습니다.");
-      } finally {
-        setIsVideoUploading(false);
-      }
-    }
-  };
-
-  // 동영상 제거
-  const removeVideo = (index: number) => {
-    setVideos((prev) => {
-      const videoToRemove = prev[index];
-      if (videoToRemove) {
-        // Blob URL 해제
-        URL.revokeObjectURL(videoToRemove.url);
-
-        if (process.env.NODE_ENV === "development") {
-          console.log("동영상 제거됨:", {
-            id: videoToRemove.id,
-            url: videoToRemove.url,
-            index,
-          });
-        }
-      }
-      // 제거 후 순서 재정렬
-      const filteredVideos = prev.filter((_, i) => i !== index);
-      return filteredVideos.map((video, i) => ({ ...video, order: i }));
-    });
-  };
-
-  // Blob URL 정리
-  useEffect(() => {
-    return () => {
-      // 컴포넌트 언마운트 시 모든 Blob URL 해제
-      images.forEach((image) => {
-        URL.revokeObjectURL(image.url);
-      });
-      videos.forEach((video) => {
-        URL.revokeObjectURL(video.url);
-      });
-    };
-  }, [images, videos]);
-
-  // 이미지 순서 변경
-  const moveImage = (fromIndex: number, toIndex: number) => {
-    setImages((prev) => {
-      const newImages = [...prev];
-      const [movedImage] = newImages.splice(fromIndex, 1);
-      newImages.splice(toIndex, 0, movedImage);
-      return newImages.map((img, index) => ({ ...img, order: index }));
-    });
-  };
-
-  // 동영상 순서 변경
-  const moveVideo = (fromIndex: number, toIndex: number) => {
-    setVideos((prev) => {
-      const newVideos = [...prev];
-      const [movedVideo] = newVideos.splice(fromIndex, 1);
-      newVideos.splice(toIndex, 0, movedVideo);
-      // 순서만 업데이트하고 기존 객체와 URL은 유지
-      const reorderedVideos = newVideos.map((video, index) => ({
-        ...video,
-        order: index,
-      }));
-
-      // 디버깅을 위한 로그 (개발 환경에서만)
-      if (process.env.NODE_ENV === "development") {
-        console.log("동영상 순서 변경:", {
-          fromIndex,
-          toIndex,
-          videos: reorderedVideos.map((v) => ({
-            id: v.id,
-            url: v.url,
-            order: v.order,
-          })),
-        });
-      }
-
-      // 모달 상태 동기화는 useEffect에서 처리됨
-
-      return reorderedVideos;
-    });
-  };
-
-  // 임시저장
-  const handleSaveDraft = async () => {
-    if (!title.trim() && !content.trim()) {
-      message.error("제목이나 내용을 입력해주세요.");
-      return;
-    }
-
-    if (hasDraft) {
-      // 기존 임시저장이 있는 경우 확인
-      const confirmed = window.confirm(
-        "이전 임시저장이 있습니다. 새로운 임시저장으로 덮어쓰시겠습니까?\n\n기존 임시저장 데이터는 유실됩니다."
-      );
-      if (!confirmed) return;
-    }
-
-    setIsSavingDraft(true);
-
-    try {
-      // 업로드된 미디어 ID들 수집 (모든 미디어가 AWS S3에 업로드됨)
-      const imageIds = images.map((img) => img.id);
-      const videoIds = videos.map((video) => video.id);
-
-      const media_ids = [...imageIds, ...videoIds];
-
-      // 임시저장 데이터 구성
-      const draftData: CreatePostingRequest = {
-        title: title.trim(),
-        content: content.trim(),
-        status: PostingStatus.DRAFT,
-        media_ids: media_ids,
-        allow_comments: allowComments,
-        // 크리에이터 전용 기능들
-        ...(isCreator && {
-          is_membership: isMembershipOnly,
-          membership_level: isMembershipOnly
-            ? selectedMembershipLevel
-            : undefined,
-          allow_individual_purchase: allowIndividualPurchase,
-          individual_purchase_price: allowIndividualPurchase
-            ? purchasePrice
-            : undefined,
-          publish_start_at:
-            scheduledPublish && publishDate && publishTime
-              ? new Date(`${publishDate}T${publishTime}`).toISOString()
-              : undefined,
-          is_sensitive: sensitiveContent,
-        }),
-        is_public: true,
-      };
-
-      // API 호출
-      const response = await postingApi.createPosting(draftData);
-
-      if (response.success) {
-        setHasDraft(true);
-        message.success("임시저장되었습니다.");
-      } else {
-        throw new Error("임시저장에 실패했습니다.");
-      }
-    } catch (error: any) {
-      console.error("임시저장 오류:", error);
-      const errorMessage =
-        error.message || "임시저장에 실패했습니다. 다시 시도해주세요.";
-      message.error(errorMessage);
-    } finally {
-      setIsSavingDraft(false);
-    }
-  };
-
-  // 글 수정
-  const handleUpdate = async (): Promise<void> => {
-    if (!title.trim()) {
-      message.error("제목을 입력해주세요.");
-      return;
-    }
-
-    if (!content.trim()) {
-      message.error("내용을 입력해주세요.");
-      return;
-    }
-
-    if (!editId) {
-      message.error("수정할 게시글을 찾을 수 없습니다.");
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      // 업로드된 미디어 ID들 수집
-      const imageIds = images.map((img) => img.id);
-      const videoIds = videos.map((video) => video.id);
-      const media_ids = [...imageIds, ...videoIds];
-
-      // 수정 데이터 구성
-      const updateData: UpdatePostingRequest = {
-        title: title.trim(),
-        content: content.trim(),
-        media_ids: media_ids, // 빈 배열이어도 항상 포함
-        allow_comments: allowComments,
-        // 크리에이터 전용 기능들
-        ...(isCreator && {
-          is_membership: isMembershipOnly,
-          membership_level: isMembershipOnly
-            ? selectedMembershipLevel
-            : undefined,
-          allow_individual_purchase: allowIndividualPurchase,
-          individual_purchase_price: allowIndividualPurchase
-            ? purchasePrice
-            : undefined,
-          is_sensitive: sensitiveContent,
-        }),
-      };
-
-      // API 호출
-      const response = await postingApi.updatePosting(editId, updateData);
-
-      if (response.success) {
-        message.success("글이 수정되었습니다.");
-
-        // 현재 사용자의 프로필 페이지로 이동
-        if (user?.attributes?.preferred_username) {
-          router.push(`/@${user.attributes.preferred_username}`);
-        } else {
-          router.push("/profile");
-        }
-      } else {
-        throw new Error("수정에 실패했습니다.");
-      }
-    } catch (error: any) {
-      console.error("글 수정 오류:", error);
-      const errorMessage =
-        error.message || "글 수정에 실패했습니다. 다시 시도해주세요.";
-      message.error(errorMessage);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // 글 발행
-  const handlePublish = async (): Promise<void> => {
-    if (!title.trim()) {
-      message.error("제목을 입력해주세요.");
-      return;
-    }
-
-    if (!content.trim()) {
-      message.error("내용을 입력해주세요.");
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      // 업로드된 미디어 ID들 수집 (모든 미디어가 AWS S3에 업로드됨)
-      const imageIds = images.map((img) => img.id);
-      const videoIds = videos.map((video) => video.id);
-
-      const media_ids = [...imageIds, ...videoIds];
-
-      // 포스팅 데이터 구성
-      const postingData: CreatePostingRequest = {
-        title: title.trim(),
-        content: content.trim(),
-        status: PostingStatus.PUBLISHED,
-        media_ids: media_ids,
-        allow_comments: allowComments,
-        // 크리에이터 전용 기능들
-        ...(isCreator && {
-          is_membership: isMembershipOnly,
-          membership_level: isMembershipOnly
-            ? selectedMembershipLevel
-            : undefined,
-          allow_individual_purchase: allowIndividualPurchase,
-          individual_purchase_price: allowIndividualPurchase
-            ? purchasePrice
-            : undefined,
-          publish_start_at:
-            scheduledPublish && publishDate && publishTime
-              ? new Date(`${publishDate}T${publishTime}`).toISOString()
-              : undefined,
-          is_sensitive: sensitiveContent,
-        }),
-        is_public: true, // 기본적으로 공개
-      };
-
-      // API 호출
-      const response = await postingApi.createPosting(postingData);
-
-      if (response.success) {
-        message.success("글이 발행되었습니다.");
-
-        // 현재 사용자의 프로필 페이지로 이동
-        if (user?.attributes?.preferred_username) {
-          router.push(`/@${user.attributes.preferred_username}`);
-        } else {
-          router.push("/profile");
-        }
-      } else {
-        throw new Error("발행에 실패했습니다.");
-      }
-    } catch (error: any) {
-      console.error("글 발행 오류:", error);
-      const errorMessage =
-        error.message || "글 발행에 실패했습니다. 다시 시도해주세요.";
-      message.error(errorMessage);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // 뒤로가기
-  const handleBack = () => {
-    if (title || content || images.length > 0) {
-      // 내용이 있으면 확인 모달 표시
-      if (window.confirm("작성 중인 내용이 있습니다. 정말 나가시겠습니까?")) {
-        router.back();
-      }
-    } else {
-      router.back();
-    }
-  };
+  const model = useWritePageModel({ message: uiMessage });
+  return <WritePageView model={model} />;
+}
+
+function WritePageView({
+  model,
+}: {
+  model: ReturnType<typeof useWritePageModel>;
+}) {
+  const {
+    isEditMode,
+    isCreator,
+    title,
+    setTitle,
+    content,
+    setContent,
+    images,
+    videos,
+    isMembershipOnly,
+    setIsMembershipOnly,
+    selectedMembershipLevel,
+    setSelectedMembershipLevel,
+    memberships,
+    allowIndividualPurchase,
+    setAllowIndividualPurchase,
+    purchasePrice,
+    setPurchasePrice,
+    allowComments,
+    setAllowComments,
+    scheduledPublish,
+    setScheduledPublish,
+    publishDate,
+    setPublishDate,
+    publishTime,
+    setPublishTime,
+    sensitiveContent,
+    setSensitiveContent,
+    isSubmitting,
+    isMembershipModalOpen,
+    setIsMembershipModalOpen,
+    isSavingDraft,
+    isLoadingPost,
+    isImageUploading,
+    isVideoUploading,
+    openMembershipModal,
+    handleMembershipsUpdate,
+    handleImageUpload,
+    removeImage,
+    handleVideoUpload,
+    removeVideo,
+    moveImage,
+    moveVideo,
+    handleSaveDraft,
+    handleUpdate,
+    handlePublish,
+  } = model;
 
   return (
     <ProtectedRoute>
@@ -844,8 +187,8 @@ export default function WritePage() {
                       {isImageUploading
                         ? LOADING_TEXTS.UPLOADING
                         : images.length >= 10
-                        ? "이미지 최대 개수 도달"
-                        : "이미지 추가"}
+                          ? "이미지 최대 개수 도달"
+                          : "이미지 추가"}
                     </Button>
                   </Upload>
                 </div>
@@ -904,8 +247,8 @@ export default function WritePage() {
                       {isVideoUploading
                         ? LOADING_TEXTS.UPLOADING
                         : videos.length >= 1
-                        ? "동영상 최대 개수 도달"
-                        : "동영상 추가"}
+                          ? "동영상 최대 개수 도달"
+                          : "동영상 추가"}
                     </Button>
                   </Upload>
                 </div>
@@ -1244,8 +587,8 @@ export default function WritePage() {
                   {isEditMode
                     ? "수정 완료"
                     : isCreator && scheduledPublish
-                    ? "예약 발행"
-                    : "발행"}
+                      ? "예약 발행"
+                      : "발행"}
                 </Button>
               </div>
             </Card>

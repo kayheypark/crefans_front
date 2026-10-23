@@ -1,54 +1,25 @@
 "use client";
+import { message as uiMessage } from "antd";
 
-import React, { useState, useEffect } from "react";
+import { MembershipJoinModalProps } from "@/features/modals-membership-join-modal/types";
+import { useMembershipJoinModalModel } from "@/features/modals-membership-join-modal/useMembershipJoinModalModel";
+import { getParticle } from "@/lib/utils/koreanUtils";
 import {
-  Modal,
-  Button,
-  Typography,
-  Space,
-  Divider,
-  message,
-  Card,
-  Tag,
-} from "antd";
-import {
+  CheckOutlined,
   CrownOutlined,
   HeartOutlined,
-  CheckOutlined,
   SafetyCertificateOutlined,
 } from "@ant-design/icons";
-import { getParticle } from "@/lib/utils/koreanUtils";
-import { useAuth } from "@/contexts/AuthContext";
-import { subscriptionBillingAPI } from "@/lib/api/subscriptionBilling";
-import { createBillingInstance } from "@/lib/tossPayments";
+import { Button, Card, Divider, Modal, Space, Tag, Typography } from "antd";
 
 const { Title, Text } = Typography;
 
-interface Membership {
-  id: string; // Updated to string for billing system
-  name: string;
-  level: number;
-  price: number;
-  description?: string;
-  benefits: string[];
-  billing_unit: "DAY" | "WEEK" | "MONTH" | "YEAR";
-  billing_period: number;
-  trial_unit?: string;
-  trial_period?: number;
+export default function MembershipJoinModal(props: MembershipJoinModalProps) {
+  const model = useMembershipJoinModalModel(props, { message: uiMessage });
+  return <MembershipJoinModalView {...props} model={model} />;
 }
 
-interface MembershipJoinModalProps {
-  open: boolean;
-  onClose: () => void;
-  creatorName: string;
-  creatorHandle: string;
-  creatorAvatar?: string;
-  memberships: Membership[];
-  defaultSelectedMembershipId?: string;
-  subscribedMembershipIds?: string[];
-}
-
-export default function MembershipJoinModal({
+function MembershipJoinModalView({
   open,
   onClose,
   creatorName,
@@ -57,124 +28,19 @@ export default function MembershipJoinModal({
   memberships,
   defaultSelectedMembershipId,
   subscribedMembershipIds = [],
-}: MembershipJoinModalProps) {
-  const { user } = useAuth();
-  const [selectedMembership, setSelectedMembership] =
-    useState<Membership | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // 모달이 열릴 때마다 내용 초기화
-  useEffect(() => {
-    if (open) {
-      // defaultSelectedMembershipId가 있으면 해당 멤버십 선택, 없으면 첫 번째 멤버십 선택
-      if (defaultSelectedMembershipId) {
-        const defaultMembership = memberships.find(
-          (m) => m.id === defaultSelectedMembershipId
-        );
-        setSelectedMembership(
-          defaultMembership || (memberships.length > 0 ? memberships[0] : null)
-        );
-      } else if (!selectedMembership && memberships.length > 0) {
-        setSelectedMembership(memberships[0]);
-      }
-      setIsSubmitting(false);
-    }
-  }, [open, memberships, defaultSelectedMembershipId]);
-
-  // 멤버십 가입 처리
-  const handleJoin = async () => {
-    if (!selectedMembership) {
-      message.error("멤버십을 선택해주세요.");
-      return;
-    }
-
-    if (!user?.attributes?.sub) {
-      message.error("로그인이 필요합니다.");
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      // 정기결제 (TossPayments 빌링)만 지원
-      await handleRecurringPayment();
-    } catch (error: any) {
-      console.error("Membership join error:", error);
-      message.error(
-        error.message || "멤버십 가입 처리 중 오류가 발생했습니다."
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // 정기결제 처리
-  const handleRecurringPayment = async () => {
-    if (!selectedMembership || !user?.attributes?.sub) return;
-
-    try {
-      // 1. 빌링 준비 API 호출
-      const prepareResponse = await subscriptionBillingAPI.prepareBilling({
-        membershipItemId: selectedMembership.id,
-      });
-
-      if (!prepareResponse.success || !prepareResponse.data) {
-        throw new Error(
-          prepareResponse.message || "빌링 준비 중 오류가 발생했습니다."
-        );
-      }
-
-      const { clientKey, customerKey, successUrl, failUrl } =
-        prepareResponse.data;
-
-      // 2. TossPayments SDK를 사용한 정기결제 인증 요청
-      const tossPayments = await createBillingInstance();
-      const payment = tossPayments.payment({ customerKey });
-
-      await payment.requestBillingAuth({
-        method: "CARD", // 카드 자동결제 (테스트 환경에서 지원)
-        successUrl: `${successUrl}?membershipItemId=${selectedMembership.id}&userId=${user.attributes.sub}`,
-        failUrl: `${failUrl}?membershipItemId=${selectedMembership.id}&userId=${user.attributes.sub}`,
-        customerEmail: user.attributes.email || "customer@example.com",
-        customerName:
-          user.attributes.name || user.attributes.nickname || "고객",
-      });
-
-      // TossPayments로 리다이렉트되므로 이 부분은 실행되지 않음
-    } catch (error: any) {
-      console.error("Recurring payment setup failed:", error);
-      throw new Error(error.message || "정기결제 설정 중 오류가 발생했습니다.");
-    }
-  };
-
-  // 모달 닫기
-  const handleClose = () => {
-    onClose();
-  };
-
-  // 결제 주기 텍스트 변환
-  const getBillingText = (unit: string, period: number) => {
-    const unitMap: { [key: string]: string } = {
-      DAY: "일",
-      WEEK: "주",
-      MONTH: "개월",
-      YEAR: "년",
-    };
-    return `${period}${unitMap[unit] || unit}`;
-  };
-
-  // 체험 기간 텍스트 변환
-  const getTrialText = (membership: Membership) => {
-    if (!membership.trial_period || !membership.trial_unit) return null;
-    const unitMap: { [key: string]: string } = {
-      DAY: "일",
-      WEEK: "주",
-      MONTH: "개월",
-      YEAR: "년",
-    };
-    return `${membership.trial_period}${
-      unitMap[membership.trial_unit] || membership.trial_unit
-    } 무료 체험`;
-  };
+  model,
+}: MembershipJoinModalProps & {
+  model: ReturnType<typeof useMembershipJoinModalModel>;
+}) {
+  const {
+    selectedMembership,
+    setSelectedMembership,
+    isSubmitting,
+    handleJoin,
+    handleClose,
+    getBillingText,
+    getTrialText,
+  } = model;
 
   return (
     <Modal
@@ -255,7 +121,7 @@ export default function MembershipJoinModal({
             <Space direction="vertical" style={{ width: "100%" }}>
               {memberships.map((membership) => {
                 const isSubscribed = subscribedMembershipIds.includes(
-                  membership.id
+                  membership.id,
                 );
                 return (
                   <div
@@ -281,13 +147,13 @@ export default function MembershipJoinModal({
                         border: isSubscribed
                           ? "1px solid #d9d9d9"
                           : selectedMembership?.id === membership.id
-                          ? "2px solid #1890ff"
-                          : "1px solid #d9d9d9",
+                            ? "2px solid #1890ff"
+                            : "1px solid #d9d9d9",
                         backgroundColor: isSubscribed
                           ? "#f5f5f5"
                           : selectedMembership?.id === membership.id
-                          ? "#e6f7ff"
-                          : "#fff",
+                            ? "#e6f7ff"
+                            : "#fff",
                         opacity: isSubscribed ? 0.6 : 1,
                         cursor: isSubscribed ? "not-allowed" : "pointer",
                         transition: "all 0.2s ease",
@@ -346,8 +212,8 @@ export default function MembershipJoinModal({
                                 color: isSubscribed
                                   ? "#8c8c8c"
                                   : selectedMembership?.id === membership.id
-                                  ? "#1890ff"
-                                  : "#262626",
+                                    ? "#1890ff"
+                                    : "#262626",
                               }}
                             >
                               {membership.name}
@@ -398,7 +264,7 @@ export default function MembershipJoinModal({
                                 >
                                   {benefit}
                                 </Tag>
-                              )
+                              ),
                             )}
                           </div>
                         </div>
@@ -411,8 +277,8 @@ export default function MembershipJoinModal({
                               color: isSubscribed
                                 ? "#8c8c8c"
                                 : selectedMembership?.id === membership.id
-                                ? "#1890ff"
-                                : "#faad14",
+                                  ? "#1890ff"
+                                  : "#faad14",
                             }}
                           >
                             {membership.price.toLocaleString()}원
@@ -426,7 +292,7 @@ export default function MembershipJoinModal({
                             /{" "}
                             {getBillingText(
                               membership.billing_unit,
-                              membership.billing_period
+                              membership.billing_period,
                             )}
                             {getTrialText(membership) && (
                               <div
@@ -543,7 +409,7 @@ export default function MembershipJoinModal({
                 <Text style={{ fontSize: 13, color: "#666" }}>
                   {getBillingText(
                     selectedMembership.billing_unit,
-                    selectedMembership.billing_period
+                    selectedMembership.billing_period,
                   )}{" "}
                   마다
                 </Text>
@@ -572,10 +438,10 @@ export default function MembershipJoinModal({
           >
             {selectedMembership
               ? `@${creatorHandle}의 ${selectedMembership.name}${getParticle(
-                  selectedMembership.name
+                  selectedMembership.name,
                 )} ${selectedMembership.price.toLocaleString()}원/${getBillingText(
                   selectedMembership.billing_unit,
-                  selectedMembership.billing_period
+                  selectedMembership.billing_period,
                 )} 정기결제`
               : "멤버십 가입하기"}
           </Button>

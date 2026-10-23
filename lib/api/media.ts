@@ -1,71 +1,47 @@
-import axios from "axios";
-import { getApiUrl } from "@/utils/env";
-
-export interface MediaMetadata {
-  duration?: number;
-  width?: number;
-  height?: number;
-  fileSize?: number;
-  codec?: string;
-}
-
-export interface MediaVersions {
-  "1080p"?: string;
-  "720p"?: string;
-  "480p"?: string;
-}
-
-export interface Media {
-  id: string;
-  userSub: string;
-  mediaUrl: string;
-  status: "uploading" | "processing" | "completed" | "failed";
-  versions: MediaVersions;
-  thumbnails: string[];
-  metadata: MediaMetadata;
-  createdAt: string;
-  processedAt?: string;
-}
-
-export interface CreateMediaDto {
-  fileName: string;
-  contentType: string;
-  fileSize?: number;
-}
-
-export interface PrepareUploadResponse {
-  mediaId: string;
-  uploadUrl: string;
-  s3Key: string;
-}
-
-export interface ProcessingStatus {
-  status: string;
-  progress?: number;
-}
+import type {
+  CreateMediaDto,
+  Media,
+  PrepareUploadResponse,
+  ProcessingStatus,
+} from "@/types/api/media";
+import { apiClient } from "./client";
+export type {
+  CreateMediaDto,
+  Media,
+  MediaMetadata,
+  MediaVersions,
+  PrepareUploadResponse,
+  ProcessingStatus,
+} from "@/types/api/media";
 
 export const mediaAPI = {
+  async uploadFile(
+    file: File,
+  ): Promise<{ success: boolean; data: { id: string }; message?: string }> {
+    const body = new FormData();
+    body.append("file", file);
+    const response = await apiClient.post("/media/upload", body);
+    return response.data;
+  },
   // 업로드 준비
   prepareUpload: async (
-    data: CreateMediaDto
+    data: CreateMediaDto,
   ): Promise<PrepareUploadResponse> => {
-    const response = await axios.post(
-      `${getApiUrl()}/media/prepare-upload`,
-      data,
-      { withCredentials: true }
-    );
+    const response = await apiClient.post(`/media/prepare-upload`, data, {
+      withCredentials: true,
+    });
     return response.data.data;
   },
 
   // 업로드 완료 알림
   completeUpload: async (mediaId: string, s3Key: string): Promise<Media> => {
-    const response = await axios.post(
-      `${getApiUrl()}/media/complete-upload`,
+    const response = await apiClient.post(
+      `/media/complete-upload`,
       {
         mediaId,
         s3Key,
       },
-      { withCredentials: true }
+      { withCredentials: true },
     );
     return response.data.data;
   },
@@ -73,9 +49,9 @@ export const mediaAPI = {
   // 내 미디어 목록 조회
   getMyMedia: async (
     limit: number = 20,
-    offset: number = 0
+    offset: number = 0,
   ): Promise<Media[]> => {
-    const response = await axios.get(`${getApiUrl()}/media/my-media`, {
+    const response = await apiClient.get(`/media/my-media`, {
       params: { limit, offset },
       withCredentials: true,
     });
@@ -84,7 +60,7 @@ export const mediaAPI = {
 
   // 특정 미디어 조회
   getMedia: async (mediaId: string): Promise<Media> => {
-    const response = await axios.get(`${getApiUrl()}/media/${mediaId}`, {
+    const response = await apiClient.get(`/media/${mediaId}`, {
       withCredentials: true,
     });
     return response.data.data;
@@ -92,7 +68,7 @@ export const mediaAPI = {
 
   // 처리 상태 조회
   getProcessingStatus: async (mediaId: string): Promise<ProcessingStatus> => {
-    const response = await axios.get(`${getApiUrl()}/media/${mediaId}/status`, {
+    const response = await apiClient.get(`/media/${mediaId}/status`, {
       withCredentials: true,
     });
     return response.data.data;
@@ -114,7 +90,7 @@ export const mediaAPI = {
 export const uploadWithProgress = (
   uploadUrl: string,
   file: File,
-  onProgress?: (progress: number) => void
+  onProgress?: (progress: number) => void,
 ): Promise<void> => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();

@@ -1,0 +1,12 @@
+.shell{min-height:100vh;background:var(--cf-color-surface);color:var(--cf-color-text);font:var(--cf-typography-body-size)/1.6 var(--cf-typography-fontFamily)}
+.header{height:72px;display:flex;align-items:center;gap:24px;padding:0 5%;border-bottom:1px solid var(--cf-color-border);background:var(--cf-color-surface)}
+.header>span{font-size:max(12px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted)}.header>a:last-child{margin-left:auto;font-size:max(12px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textSecondary);text-decoration:none}
+.navigation{position:fixed;bottom:0;left:0;right:0;z-index:10;background:var(--cf-color-surface);display:flex;justify-content:space-around;border-top:1px solid var(--cf-color-border);padding:8px 8px max(8px,env(safe-area-inset-bottom))}
+.navigation button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 8px;min-height:48px;min-width:64px;font:inherit;font-size:max(11px,var(--cf-mobile-font-min,0px));background:none;border:0;color:var(--cf-color-textMuted);cursor:pointer;border-radius:var(--cf-radius-control)}
+.navigation button>span{font-size:21px;line-height:24px}.navigation button[aria-current]{color:var(--cf-color-accent);background:var(--cf-color-accentSoft)}
+.navigation button:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}.main{max-width:1120px;margin:auto;padding:32px 20px 112px;min-width:0}
+.navigation button:not(:disabled):not([aria-disabled=true]):hover{background:var(--cf-color-accentSoft);color:var(--cf-color-accent)}
+.navigation button[aria-current]:not(:disabled):not([aria-disabled=true]):hover{background:var(--cf-color-accentBorder)}
+@media(max-width:1023px){.navigation{overflow-x:auto;justify-content:flex-start}.navigation button{flex:1;min-width:62px;white-space:nowrap}}
+@media(min-width:1024px){.navigation{top:72px;bottom:0;width:200px;right:auto;flex-direction:column;justify-content:flex-start;gap:10px;padding:32px 16px;border-top:0;border-right:1px solid var(--cf-color-border)}.navigation button{flex-direction:row;gap:14px;justify-content:flex-start;font-size:max(13px,var(--cf-mobile-font-min,0px));padding:12px}.main{margin-left:200px;padding:56px 5% 80px;max-width:none}}
+@media(max-width:480px){.header{height:64px;padding:0 20px}.header>span{display:none}}

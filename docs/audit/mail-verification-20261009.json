@@ -1,0 +1,99 @@
+{
+  "verifiedAt": "2026-10-09T03:22:29.170662+00:00",
+  "environment": "macOS local API3001/front3010, loopback MySQL3307 dev and dedicated E2E DB; no production",
+  "repos": {
+    "server": {
+      "head": "425e1a46dbd6cf0aa13140d2bba0768baba082ca",
+      "branch": "feat/documentation-verification",
+      "dirty": true,
+      "files": {
+        "src/auth/local/member-mail.service.ts": "4b7f4f4a0d3ba44da6635f717b4bb95a2e3223ea88729a31a9404e7b4c5b1c32",
+        "src/auth/local/local-member.service.ts": "2825b84fc03d363dd2dfd29f5d46cfd87501b7532949bfd390fc9d11a6186a40",
+        "src/auth/local/mail/templates.ts": "72a007e1471b5d85781173dd4612224a01cdb22be63c8bd53448dbaf2eab74c2",
+        "src/auth/local/mail/logo.ts": "cf9a5d0f2f326d14bcc7155e4fe047ac35d56113f5c60913e6ace091e1330393",
+        "src/platform/email-change.service.ts": "a277646aaa7bb311803be4bd580c5750bed45d8ae30445e4a088cb899582933c",
+        "tests/mail-templates.test.cjs": "c247a7ee0401c027b4a4c68fee39fc46640b58ad3360d9179424c2cb10e421d1",
+        "tests/platform-mail.integration.test.cjs": "8dddd3b518cea72bef7ec68ddb9792540bc1a5c539c21cebe384b44c56c41500",
+        "tests/e2e-server.cjs": "bc5a86465c20210ad045425318a9a3f349cecec03da851d048a367f2c19bdbf6",
+        "tests/local-members.test.cjs": "8bffd8c188c00fd9db385823feb9747e209c0868d421a444bdbaa39cf9b81b46",
+        "package.json": "627c11927897c92662655cf10f23042b98fb523003fce332dd7281127bae640e"
+      }
+    },
+    "front": {
+      "head": "280845bcad54709ad9f70aca43a6238cdc8a6148",
+      "branch": "feat/documentation-verification",
+      "dirty": true,
+      "files": {
+        "components/crefans/AccountPages.tsx": "1e21f41e6cb336afa857dd27c490e29887d58cab76f1aba396548fc5ccb2adb0",
+        "e2e/mail.spec.ts": "aafeeda999252be42cefd4164683c67fdd569e01aa3da489ab1615b5b0d6ff6f"
+      }
+    }
+  },
+  "checks": [
+    {
+      "command": "npm run test:mail",
+      "repo": "server",
+      "exitCode": 0,
+      "passed": 53,
+      "kind": "template + real loopback SMTP + local DB/HTTP + mocked PASS/bank"
+    },
+    {
+      "command": "npm run test:e2e -- --project=chromium --grep '메일|회원가입 이메일'",
+      "repo": "front",
+      "exitCode": 0,
+      "passed": 3,
+      "kind": "Playwright, isolated E2E DB, fake email/PASS"
+    },
+    {
+      "command": "npm run check",
+      "repo": "front",
+      "exitCode": 0,
+      "passed": 273,
+      "kind": "unit/type/layer"
+    },
+    {
+      "command": "npm run test:e2e -- --project=chromium mail.spec.ts (before fix)",
+      "repo": "front",
+      "exitCode": 1,
+      "failed": 2,
+      "findings": [
+        "Email-change form omitted code (product bug, fixed)",
+        "Reset test selector did not include required marker (test bug, fixed)"
+      ]
+    }
+  ],
+  "liveSMTP": {
+    "time": "2026-10-09T03:18:20.832Z",
+    "checks": [
+      {
+        "scenario": "reset-request",
+        "result": "SMTP accepted",
+        "time": "2026-10-09T03:17:09.648Z"
+      },
+      {
+        "scenario": "reset-confirm",
+        "result": "PASS: received code, old session and password revoked, replay rejected",
+        "time": "2026-10-09T03:17:41.443Z"
+      },
+      {
+        "scenario": "change-request",
+        "result": "SMTP accepted",
+        "time": "2026-10-09T03:17:44.774Z"
+      },
+      {
+        "scenario": "change-confirm",
+        "result": "PASS: received code, address changed, session revoked, replay rejected",
+        "time": "2026-10-09T03:18:20.713Z"
+      }
+    ],
+    "fixtureRemoved": true,
+    "signup": "Browser received SMTP code and verified; PASS not configured"
+  },
+  "gaps": [
+    "Gmail spam for all three HTML mails",
+    "PASS real signup not configured",
+    "8 notification template families not wired to business events",
+    "New HTML Naver/Outlook and cross-client visual delivery not verified",
+    "Sender mailbox profile image/BIMI unchanged"
+  ]
+}

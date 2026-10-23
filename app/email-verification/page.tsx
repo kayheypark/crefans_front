@@ -1,81 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Card, Spin, Alert, Button, Typography, Space } from "antd";
+import { useEmailLinkAuthPageModel } from "@/features/email-verification/useEmailLinkAuthPageModel";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
-  MailOutlined,
   HomeOutlined,
-  LoadingOutlined,
 } from "@ant-design/icons";
-import axios from "axios";
+import { Alert, Button, Card, Space, Spin, Typography } from "antd";
 
 const { Title, Text } = Typography;
 
 export default function EmailLinkAuthPage() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [countdown, setCountdown] = useState(5);
+  const model = useEmailLinkAuthPageModel();
+  return <EmailLinkAuthPageView model={model} />;
+}
 
-  const email = searchParams.get("email");
-  const code = searchParams.get("code");
-
-  useEffect(() => {
-    const confirmEmailVerification = async () => {
-      if (!email || !code) {
-        setError("이메일과 인증 코드가 필요합니다.");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/confirm-email-verification`,
-          {
-            params: {
-              email,
-              code,
-            },
-          }
-        );
-
-        if (response.data.success) {
-          setSuccess(true);
-        } else {
-          setError(response.data.message || "인증에 실패했습니다.");
-        }
-      } catch (err: any) {
-        setError(
-          err.response?.data?.message || "이메일 인증 중 오류가 발생했습니다."
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    confirmEmailVerification();
-  }, [email, code]);
-
-  // 카운트다운 타이머
-  useEffect(() => {
-    if (success && countdown > 0) {
-      const timer = setTimeout(() => {
-        setCountdown(countdown - 1);
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else if (success && countdown === 0) {
-      router.push("/");
-    }
-  }, [success, countdown, router]);
-
-  const handleGoToHome = () => {
-    router.push("/");
-  };
+function EmailLinkAuthPageView({
+  model,
+}: {
+  model: ReturnType<typeof useEmailLinkAuthPageModel>;
+}) {
+  const { loading, success, error, countdown, handleGoToHome } = model;
 
   return (
     <div

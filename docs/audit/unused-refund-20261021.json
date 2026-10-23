@@ -1,0 +1,76 @@
+{
+  "checkedAt": "2026-10-21T06:18:26.203456+00:00",
+  "scope": "Unused subscription full-refund API and server-authoritative consumption; no user entry UI",
+  "repositories": {
+    "front": {
+      "head": "280845bcad54709ad9f70aca43a6238cdc8a6148",
+      "branch": "feat/toss-test-integration",
+      "dirty": true
+    },
+    "server": {
+      "head": "425e1a46dbd6cf0aa13140d2bba0768baba082ca",
+      "branch": "feat/toss-test-integration",
+      "dirty": true
+    }
+  },
+  "checks": [
+    {
+      "command": "npx prisma generate && npm run build",
+      "exitCode": 0,
+      "scope": "backend generated client and TypeScript build"
+    },
+    {
+      "command": "guarded .local/platform.env + npx prisma migrate deploy",
+      "exitCode": 0,
+      "environment": "127.0.0.1:3307/crefans_platform_dev only",
+      "applied": "20261021070000_unused_content_refund"
+    },
+    {
+      "command": "npm run check",
+      "repository": "front",
+      "exitCode": 0,
+      "testsPassed": 274,
+      "log": "/tmp/crefans-unused-refund-front.log",
+      "logSha256": "8b0acf9b01cc42ff9fc81ef872fdd1cdbfe336352126b3b1cab7c672a70ee835"
+    },
+    {
+      "command": "node --test tests/platform-access.integration.test.cjs tests/platform-billing.test.cjs tests/platform-payment-lifecycle.test.cjs tests/platform-payment-http.test.cjs tests/platform-billing-config.test.cjs",
+      "repository": "server",
+      "exitCode": 0,
+      "testsPassed": 60,
+      "log": "/tmp/crefans-unused-refund-back.log",
+      "logSha256": "00a3d25663dd4e50527b55946b9248677fc2b8f7530d7f35b00045156ea7efb2"
+    }
+  ],
+  "negativeControls": [
+    "Used paid content rejects refund with CONTENT_ALREADY_ACCESSED",
+    "Legacy tracking absent rejects REFUND_USAGE_UNKNOWN",
+    "Foreign and unauthenticated eligibility requests return 404/401",
+    "Claimed/uncertain refund prevents concurrent paid disclosure",
+    "Corrupted provider cancel response cannot reverse ledger",
+    "Live key / wrong DB launch rejected"
+  ],
+  "limitations": [
+    "Payment provider is a substitute in this run; no live or real Toss cancellation executed",
+    "No full product E2E or operating policy/legal compliance proof",
+    "Pre-tracking real sandbox purchase retained; not assumed unused",
+    "Allowed media HEAD requests and failed delivery conservatively record consumption",
+    "Default bootstrap intentionally omits paid bodies/media; explicit feed/detail/collection routes consume"
+  ],
+  "sourceSha256": {
+    "front/components/crefans/CreatorPages.tsx": "aba62d7b54a4191e0e160253298574af087c9fb6dee7ed0f6ac8d6d51f275ad6",
+    "front/features/service/useServiceModel.ts": "6647c145ba311674e21f2e2e9a9491dc154c5c75e1bad3a06ec1e52ca8c5a458",
+    "front/tests/crefans-creator.test.cjs": "8c765bad6c3ca3c7b40bec782e414a1f1663de7e73fa940eec0e0ae8b4f8de7e",
+    "server/src/platform/service.ts": "b289ffcfc1fd5b567dc6e46c7636c88a6b4e1e1fc5d4ccc12a6be2ceb90f42e7",
+    "server/src/platform/controller.ts": "9a83e5360a125d1ce7b0f28b53f0efd4a8a311f37563985747971174b2c96ee4",
+    "server/src/platform/finance.service.ts": "f9a0c0951501c7334e6d37581881124b2f6f52d7d8a59380af77e69e438999ff",
+    "server/src/platform/finance.controller.ts": "45ed102b5dd17fdff49be87ec6b370cea01fe9c475995f2a1e0f4dcdf782aeaa",
+    "server/src/platform/media.controller.ts": "ce024a3c6632592148f2d82f0c020d493b8d984d2293d3f10e26a8ae8e7f8f29",
+    "server/prisma/schema.prisma": "a5dff2164555a5598a1e00a801590b5f77b6cfa8cb37d3134a4f0e750c953ca8",
+    "server/prisma/migrations/20261021070000_unused_content_refund/migration.sql": "5d1e2290f77bcc448a8eccd4e2270600f339f38422fd7b4a56714d666887ad98",
+    "server/scripts/platform-billing-test.cjs": "672c61a73b7ae355f45bcf06871769c3723c83b249754a3e1d63382879d25809",
+    "server/tests/platform-payment-lifecycle.test.cjs": "afa3be1ab44809e2e9c27f705b9da388a8869f84fead59d050ef361fc4abf3e3",
+    "server/tests/platform-payment-http.test.cjs": "99868829a4ed85a8329e3fbd2cd71ce9718f5a5b0eb5fc071f1fe032cca87a72",
+    "server/tests/platform-access.integration.test.cjs": "5f61953885cd617c2578d25eafc4bdbb74b3b72c59de71de5ebf3c7c30239b68"
+  }
+}

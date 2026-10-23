@@ -1,0 +1,60 @@
+{
+  "recordedAt": "2026-10-21T22:54:25.782281+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+  "dirty": true,
+  "environment": {
+    "python": "3.14.5",
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O"
+  },
+  "scope": "Official-source research, reproducible estimate and document contract/link verification only",
+  "executions": [
+    {
+      "command": [
+        "python3",
+        "docs/audit/commission-model-20261022.py"
+      ],
+      "startedAt": "2026-10-21T22:54:25.293020+00:00",
+      "finishedAt": "2026-10-21T22:54:25.356079+00:00",
+      "exitCode": 0,
+      "output": "{\"result\": \"PASS\", \"rows\": 5, \"breakevenSubscriptions\": 345, \"output\": \"/Users/ethan/repository/crefans_front/docs/audit/commission-model-20261022.json\"}\n",
+      "outputSha256": "aab412b6b0d5ce979ecad65d57f5af49082b2a625fff2b5c12f702d9a339fe04"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "startedAt": "2026-10-21T22:54:25.356116+00:00",
+      "finishedAt": "2026-10-21T22:54:25.771871+00:00",
+      "exitCode": 0,
+      "output": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-21T22:54:08.882644+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 57, \"documentsByRepo\": {\"front\": 34, \"server\": 23}, \"routes\": 96, \"screens\": 41, \"models\": 60, \"enums\": 15, \"migrations\": 16, \"localMarkdownTargets\": 154, \"externalInlineLinksNotFetched\": 135}\n",
+      "outputSha256": "fafb0a743e91c819ecbd338d4617feef3842920c4168203d5d9bf6eaa8441f22"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-10-21T22:54:25.771910+00:00",
+      "finishedAt": "2026-10-21T22:54:25.782257+00:00",
+      "exitCode": 0,
+      "output": "",
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "fileSha256": {
+    "AGENTS.md": "cbee465d8b47da56a6c0ae7e7f0041a21a884c203a6c2d488b74198a2591b9d7",
+    "PROGRESS.md": "72d02f7d168745c3967d20b33cc0f5b142e878c777e597a5ca38d6e7c7adf302",
+    "docs/financial.md": "98c15d032e7b7cf0e0148c1abd96a66c10a7d48c33d720b7747b04a1247c34a4",
+    "docs/release-test-scenarios.md": "b752ccda9db729953700da971169220264397aa54f2d4b2eeea6cbcb74d992be",
+    "docs/audit/manifest.json": "f0cb5de359c80a6fea4d551e908ef63cf4ad5082483c6fc5ac6b15e4cc76f488",
+    "docs/audit/commission-model-20261022.py": "a5c4fb17e1d79c567f699f31d7ab2f2fad2a8c744ea4159b19d8ffc6d70ff7e1",
+    "docs/audit/commission-model-20261022.json": "946e797a0817e220c0952b4049c41804da161653a7dfe8a547a0164f929e4b15"
+  },
+  "runtimePolicyChanged": false,
+  "productTestsRerun": false,
+  "limits": "No actual invoice, signed supplier fee contract, current OnlyFans official terms or staffing profitability verification; see calculation evidence for assumptions and access limitations"
+}

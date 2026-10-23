@@ -1,64 +1,44 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Card from "antd/lib/card";
-import Avatar from "antd/lib/avatar";
-import Button from "antd/lib/button";
-import Space from "antd/lib/space";
-import Typography from "antd/lib/typography";
-import Divider from "antd/lib/divider";
-import Dropdown from "antd/lib/dropdown";
-import Input from "antd/lib/input";
-import Tag from "antd/lib/tag";
-import message from "antd/lib/message";
-import Paragraph from "antd/lib/typography/Paragraph";
+import CommentList from "@/components/comment/CommentList";
+import { PostProps } from "@/features/post-card/types";
+import { usePostModel } from "@/features/post-card/usePostModel";
 import {
-  HeartOutlined,
+  CheckCircleOutlined,
+  CrownOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
   HeartFilled,
+  HeartOutlined,
+  LockOutlined,
   MessageOutlined,
   MoreOutlined,
-  ShareAltOutlined,
-  ExclamationCircleOutlined,
-  CrownOutlined,
-  CheckCircleOutlined,
   PictureOutlined,
-  UserOutlined,
-  LockOutlined,
   PlayCircleOutlined,
-  EditOutlined,
+  ShareAltOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
-import { useAuth } from "@/contexts/AuthContext";
-import { useRouter } from "next/navigation";
-import { useResponsive } from "@/hooks/useResponsive";
+import Avatar from "antd/lib/avatar";
+import Button from "antd/lib/button";
+import Card from "antd/lib/card";
+import Divider from "antd/lib/divider";
+import Dropdown from "antd/lib/dropdown";
+import Space from "antd/lib/space";
+import Tag from "antd/lib/tag";
+import Typography from "antd/lib/typography";
+import Paragraph from "antd/lib/typography/Paragraph";
 import Lightbox from "yet-another-react-lightbox";
 import Video from "yet-another-react-lightbox/plugins/video";
 import "yet-another-react-lightbox/styles.css";
-import { formatRelativeDate, formatFullDate } from "@/lib/utils/dateUtils";
-import CommentList from "@/components/comment/CommentList";
-import { IPost, IPostImage, IPostMedia, IPostProps } from "@/types/post";
 
 const { Title, Text } = Typography;
 
-interface PostProps {
-  post: IPost;
-  likedPosts: string[];
-  expandedPosts: string[];
-  relativeDatePosts: { [key: string]: boolean };
-  openReplies: { [key: string]: boolean };
-  onLike: (postId: string) => void;
-  onToggleExpand: (postId: string) => void;
-  onToggleDateType: (postId: string) => void;
-  onToggleReplies: (postId: string) => void;
-  onCommentInputClick: () => void;
-  onCommentSubmit: (postId: string) => void;
-  onShare: (postId: string) => void;
-  onReport: (postId: string) => void;
-  onEdit?: (postId: string) => void;
-  formatDate: (date: string) => string;
-  formatFullDate: (date: string) => string;
+export default function Post(props: PostProps) {
+  const model = usePostModel(props);
+  return <PostView {...props} model={model} />;
 }
 
-export default function Post({
+export function PostView({
   post,
   likedPosts,
   expandedPosts,
@@ -75,66 +55,30 @@ export default function Post({
   onEdit,
   formatDate,
   formatFullDate,
-}: PostProps) {
-  const { user } = useAuth();
-  const router = useRouter();
-  const { isMobile, isTablet, isDesktop } = useResponsive();
-  const [showComments, setShowComments] = useState(false);
-  const [commentCount, setCommentCount] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-
-  // 미디어를 lightbox 형식으로 변환
-  const getLightboxSlides = () => {
-    if (!post.media) return [];
-    
-    return post.media
-      .filter((media) => media.type === "IMAGE" || media.type === "VIDEO")
-      .map((media) => {
-        if (media.type === "IMAGE") {
-          return {
-            type: "image" as const,
-            src: media.mediaUrl,
-            alt: noCopyGuideText,
-          };
-        } else {
-          return {
-            type: "video" as const,
-            sources: [{
-              src: media.mediaUrl,
-              type: "video/mp4"
-            }],
-          };
-        }
-      });
-  };
-
-  const handleThumbnailClick = () => {
-    setLightboxIndex(0);
-    setLightboxOpen(true);
-  };
-
-  // 디버깅용 useEffect
-  useEffect(() => {
-    console.log("Post component rendered:", {
-      postId: post.id,
-      isMembershipOnly: post.isMembershipOnly,
-      isGotMembership: post.isGotMembership,
-      contentLength: post.content.length,
-      expandedPosts: expandedPosts,
-    });
-  }, [
-    post.id,
-    post.isMembershipOnly,
-    post.isGotMembership,
-    post.content.length,
-    expandedPosts,
-  ]);
-
-  const noCopyGuideText =
-    "crefans에 등록된 모든 포스팅 콘텐츠의 캡쳐 및 배포/재배포는 이용약관과 관련 법령에 의거하여 엄격히 금지되어있고, 민/형사상 처벌의 대상이 됩니다.";
-
-  const isOwnPost = user?.attributes?.preferred_username === post.creator.handle;
+  model,
+  comments,
+}: PostProps & {
+  model: ReturnType<typeof usePostModel>;
+  comments?: React.ReactNode;
+}) {
+  const {
+    user,
+    router,
+    isMobile,
+    isTablet,
+    isDesktop,
+    showComments,
+    setShowComments,
+    commentCount,
+    setCommentCount,
+    lightboxOpen,
+    setLightboxOpen,
+    lightboxIndex,
+    getLightboxSlides,
+    handleThumbnailClick,
+    noCopyGuideText,
+    isOwnPost,
+  } = model;
 
   const getMoreMenu = (postId: string) => {
     const menuItems = [
@@ -439,8 +383,7 @@ export default function Post({
                 {/* 첫 번째 미디어를 썸네일로 표시 */}
                 {post.media
                   .filter(
-                    (media) =>
-                      media.type === "IMAGE" || media.type === "VIDEO"
+                    (media) => media.type === "IMAGE" || media.type === "VIDEO",
                   )
                   .slice(0, 1)
                   .map((media, idx) => {
@@ -460,8 +403,8 @@ export default function Post({
                               maxHeight: isMobile
                                 ? "300px"
                                 : isTablet
-                                ? "400px"
-                                : "500px",
+                                  ? "400px"
+                                  : "500px",
                               objectFit: "cover",
                               display: "block",
                               borderRadius: 8,
@@ -481,8 +424,8 @@ export default function Post({
                             height: isMobile
                               ? "300px"
                               : isTablet
-                              ? "400px"
-                              : "500px",
+                                ? "400px"
+                                : "500px",
                             background: "#000",
                             display: "flex",
                             alignItems: "center",
@@ -593,7 +536,7 @@ export default function Post({
                     )}
                   </div>
                 )}
-                
+
                 {/* Lightbox */}
                 <Lightbox
                   open={lightboxOpen}
@@ -665,18 +608,22 @@ export default function Post({
         </div>
 
         {/* 댓글 리스트 - 인스타그램 스타일 (기존 디자인 유지) */}
-        <CommentList
-          postingId={post.id}
-          allowComments={post.allowComments ?? true}
-          onCommentCountChange={setCommentCount}
-          openReplies={openReplies}
-          onToggleReplies={onToggleReplies}
-          onCommentInputClick={onCommentInputClick}
-          onCommentSubmit={onCommentSubmit}
-          user={user}
-          post={post}
-          isMobile={isMobile}
-        />
+        {comments !== undefined ? (
+          comments
+        ) : (
+          <CommentList
+            postingId={post.id}
+            allowComments={post.allowComments ?? true}
+            onCommentCountChange={setCommentCount}
+            openReplies={openReplies}
+            onToggleReplies={onToggleReplies}
+            onCommentInputClick={onCommentInputClick}
+            onCommentSubmit={onCommentSubmit}
+            user={user}
+            post={post}
+            isMobile={isMobile}
+          />
+        )}
       </Card>
     </>
   );

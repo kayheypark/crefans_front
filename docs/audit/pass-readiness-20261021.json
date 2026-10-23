@@ -1,0 +1,42 @@
+{
+  "timestampUTC": "2026-10-21T10:23:30.468950+00:00",
+  "status": "waiting-for-existing-provider-contract-and-official-specification",
+  "repositories": {
+    "front": {
+      "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+      "dirty": true
+    },
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirty": true
+    }
+  },
+  "checkedFiles": {
+    "/Users/ethan/repository/crefans_server/src/platform/identity-provider.ts": "fb350cc75566c4199abf1598a14b615bac7f495e950121516ea7e0ac909ffb0d",
+    "/Users/ethan/repository/crefans_server/src/platform/identity.controller.ts": "75c26a2fc5fdf824d29ebe46d5b334c531ab4584790023dc0ccbf76642011330"
+  },
+  "probe": {
+    "command": "curl POST https://beta.crefans.com/api/v1/identity/start with purpose signup and allowed Origin",
+    "exitCode": 0,
+    "httpStatus": 503,
+    "errorCode": "PASS_NOT_CONFIGURED",
+    "realProviderRequestSent": false
+  },
+  "configurationReview": {
+    "localPlatformEnv": "identity adapter settings empty",
+    "privateBetaRuntime": "identity adapter settings absent",
+    "secretsLogged": false,
+    "providerContractExistence": "not known; user clarification pending"
+  },
+  "officialSourcesChecked": [
+    "https://www.niceid.co.kr/cpsite/prod_mobile.nc",
+    "https://www.niceid.co.kr/cpsite/serv_qstn.nc",
+    "https://b2b.niceid.co.kr/inquiry",
+    "https://help.portone.io/category/service/identity-verification"
+  ],
+  "limitations": [
+    "NICE API homepage could not be fetched; no vendor cryptographic/API specification verified.",
+    "Inquiry page body not extractable through web tool. No claim of form completion.",
+    "No supplier application, contract, fees, real identity test, source implementation or deployment performed."
+  ]
+}

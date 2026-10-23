@@ -1,0 +1,571 @@
+{
+  "timestamp": "2026-10-21T08:28:01.631027+00:00",
+  "status": "beta-deployed-and-smoke-verified",
+  "approval": "User explicitly approved the described EC2/network/cost/SMTP-test-runtime scope after the initial automatic review block.",
+  "repositories": {
+    "front": {
+      "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+      "branch": "feat/toss-test-integration",
+      "dirty": true
+    },
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/toss-test-integration",
+      "dirty": true
+    }
+  },
+  "infrastructure": {
+    "timestamp": "2026-10-21T08:17:28.203103+00:00",
+    "checks": {
+      "instanceRunning": true,
+      "correctSize": true,
+      "oneApprovedSecurityGroup": true,
+      "noIAMProfile": true,
+      "imdsV2": true,
+      "oneEncrypted50GiBGp3Disk": true,
+      "standardCredits": true,
+      "exactIngressRules": true,
+      "betaDNS": true,
+      "correctPublicIP": true
+    },
+    "resources": {
+      "InstanceId": "i-0c24409aae93555f2",
+      "GroupId": "sg-0fa9862683387a4df",
+      "AllocationId": "eipalloc-0c5d4b507fde06e13",
+      "PublicIp": "15.164.140.26",
+      "DnsChangeId": "/change/C06968563F0665MONYG6M"
+    },
+    "volumeId": "vol-0bce242d71aed98bc"
+  },
+  "publicHTTPS": {
+    "timestamp": "2026-10-21T08:25:36.426528+00:00",
+    "checks": [
+      {
+        "method": "GET",
+        "path": "/",
+        "expected": 302,
+        "actual": 302,
+        "pass": true,
+        "bytes": 0,
+        "location": "/service/feed",
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/service/feed",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 18336,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/service/notifications",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 18387,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/service/me",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 18346,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/service/studio",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 16684,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/preview/feed",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 53645,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/preview/creator/haneul",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 50707,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/preview/landing",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 18894,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/.env",
+        "expected": 404,
+        "actual": 404,
+        "pass": true,
+        "bytes": 0,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime.env",
+        "expected": 404,
+        "actual": 404,
+        "pass": true,
+        "bytes": 0,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/health",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 94,
+        "envelope": {
+          "success": true,
+          "data": {
+            "status": "ready",
+            "version": "v1"
+          },
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "noStore": true,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/financial-policy",
+        "expected": 401,
+        "actual": 401,
+        "pass": true,
+        "bytes": 103,
+        "errorCode": "UNAUTHORIZED",
+        "noStore": true,
+        "nosniff": true
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/media",
+        "expected": 401,
+        "actual": 401,
+        "pass": true,
+        "bytes": 103,
+        "errorCode": "UNAUTHORIZED",
+        "nosniff": true
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/login",
+        "expected": 403,
+        "actual": 403,
+        "pass": true,
+        "bytes": 112,
+        "errorCode": "INVALID_ORIGIN",
+        "nosniff": true
+      }
+    ],
+    "tls": {
+      "protocol": "TLSv1.3",
+      "expires": "Jan 19 07:24:16 2027 GMT",
+      "dnsNames": [
+        "beta.crefans.com"
+      ]
+    }
+  },
+  "runtime": {
+    "timestamp": "2026-10-21T08:23:27.495Z",
+    "config": {
+      "production": true,
+      "localAuth": true,
+      "tossTestOnly": true,
+      "payoutsDisabled": true,
+      "mediaDeletionDisabled": true,
+      "noAWSKeys": true,
+      "noPASSBridge": true,
+      "correctPublicOrigin": true,
+      "correctSender": true
+    },
+    "migrations": 12,
+    "financialPolicyUninitialized": true,
+    "counts": {
+      "members": 0,
+      "subscriptions": 0,
+      "orders": 0
+    },
+    "worker": {
+      "completedAt": "2026-10-21T08:22:45.481Z",
+      "failures": {}
+    },
+    "smtp": {
+      "authenticated": true,
+      "tlsRequired": true,
+      "messageSent": false
+    }
+  },
+  "containers": [
+    {
+      "Service": "api",
+      "State": "running",
+      "Health": "",
+      "Ports": "",
+      "Publishers": []
+    },
+    {
+      "Service": "database",
+      "State": "running",
+      "Health": "healthy",
+      "Ports": "3306/tcp, 33060/tcp",
+      "Publishers": [
+        {
+          "URL": "",
+          "TargetPort": 3306,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "",
+          "TargetPort": 33060,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ]
+    },
+    {
+      "Service": "frontend",
+      "State": "running",
+      "Health": "",
+      "Ports": "3010/tcp",
+      "Publishers": [
+        {
+          "URL": "",
+          "TargetPort": 3010,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ]
+    },
+    {
+      "Service": "proxy",
+      "State": "running",
+      "Health": "",
+      "Ports": "0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp, 443/udp, 2019/tcp",
+      "Publishers": [
+        {
+          "URL": "0.0.0.0",
+          "TargetPort": 80,
+          "PublishedPort": 80,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "::",
+          "TargetPort": 80,
+          "PublishedPort": 80,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "0.0.0.0",
+          "TargetPort": 443,
+          "PublishedPort": 443,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "::",
+          "TargetPort": 443,
+          "PublishedPort": 443,
+          "Protocol": "tcp"
+        },
+        {
+          "URL": "",
+          "TargetPort": 443,
+          "PublishedPort": 0,
+          "Protocol": "udp"
+        },
+        {
+          "URL": "",
+          "TargetPort": 2019,
+          "PublishedPort": 0,
+          "Protocol": "tcp"
+        }
+      ]
+    },
+    {
+      "Service": "worker",
+      "State": "running",
+      "Health": "",
+      "Ports": "",
+      "Publishers": []
+    }
+  ],
+  "hostVerification": {
+    "actualAPImage": "sha256:30d070d779b586acab4ae2c8a6546263eb4bbdd1a021b54c2b339a7d118c23d8",
+    "actualFrontendImage": "sha256:e86b8da0eccf4e8db86b76b953f640d373c02b2664a421278790b10d36875368",
+    "platform": "linux/amd64",
+    "imageArchiveSHA256": "04a2b8eb08c17cf519dba4f3010f5aaefbe28e921806757dbc19f5021043429b",
+    "hostFingerprintMatchedAWSConsole": true,
+    "runtimePermissions": "600; parent directory700",
+    "onlyProxyHostPorts": true,
+    "temporaryUploadArchivesRemoved": true
+  },
+  "browser": {
+    "provider": "Chrome via cua_repl",
+    "observed": [
+      "root redirect to service/feed and hydrated empty feed",
+      "notifications and profile hydrated login-required state",
+      "preview/landing loaded asset content"
+    ],
+    "consoleErrorsObserved": 0,
+    "screenshots": [
+      {
+        "path": "/tmp/crefans-beta-live-feed.png",
+        "sha256": "89a1e9b46a9c0ca905bf15eb86caceccbb226158ba546c297c1dab70a9913072"
+      },
+      {
+        "path": "/tmp/crefans-beta-live-landing.png",
+        "sha256": "b9278c3b819fd1adcf4a60f4b4e8819f5690f4792552de749426f60e96e8b864"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "command": "AWS create dedicated SG / approved ingress / run-instances / one EIP / CREATE beta A record",
+      "exitCode": 0
+    },
+    {
+      "command": "remote bootstrap Ubuntu24.04 + official Docker",
+      "exitCode": 0
+    },
+    {
+      "command": "SSH transfer and archive SHA256 comparison",
+      "exitCode": 0
+    },
+    {
+      "command": "remote docker load and prisma migrate deploy",
+      "exitCode": 0
+    },
+    {
+      "command": "remote docker compose up -d --no-build",
+      "exitCode": 0
+    },
+    {
+      "command": "remote Caddy validate + reload",
+      "exitCode": 0
+    },
+    {
+      "command": "public HTTPS verifier",
+      "exitCode": 0,
+      "checks": 14
+    },
+    {
+      "command": "remote Prisma + runtime scope + SMTP verify",
+      "exitCode": 0
+    },
+    {
+      "command": "HTTP root curl",
+      "exitCode": 0,
+      "status": 308,
+      "location": "https://beta.crefans.com/"
+    }
+  ],
+  "initialFailure": {
+    "privateConfigPaths": "The legacy catchall returned HTML200, not environment file content. First standalone respond rule also failed due Caddy directive ordering. Separate handle matcher then passed404.",
+    "beforeFixHTTP": {
+      "timestamp": "2026-10-21T08:23:21.121689+00:00",
+      "checks": [
+        {
+          "method": "GET",
+          "path": "/",
+          "expected": 302,
+          "actual": 302,
+          "pass": true,
+          "bytes": 0,
+          "location": "/service/feed",
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/service/feed",
+          "expected": 200,
+          "actual": 200,
+          "pass": true,
+          "bytes": 18336,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/service/notifications",
+          "expected": 200,
+          "actual": 200,
+          "pass": true,
+          "bytes": 18387,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/service/me",
+          "expected": 200,
+          "actual": 200,
+          "pass": true,
+          "bytes": 18346,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/service/studio",
+          "expected": 200,
+          "actual": 200,
+          "pass": true,
+          "bytes": 16684,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/preview/feed",
+          "expected": 200,
+          "actual": 200,
+          "pass": true,
+          "bytes": 53645,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/preview/creator/haneul",
+          "expected": 200,
+          "actual": 200,
+          "pass": true,
+          "bytes": 50707,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/preview/landing",
+          "expected": 200,
+          "actual": 200,
+          "pass": true,
+          "bytes": 18894,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/.env",
+          "expected": 404,
+          "actual": 200,
+          "pass": false,
+          "bytes": 365836,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/runtime.env",
+          "expected": 404,
+          "actual": 200,
+          "pass": false,
+          "bytes": 365871,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/health",
+          "expected": 200,
+          "actual": 200,
+          "pass": true,
+          "bytes": 94,
+          "envelope": {
+            "success": true,
+            "data": {
+              "status": "ready",
+              "version": "v1"
+            },
+            "errorMessage": null,
+            "errorCode": null
+          },
+          "noStore": true,
+          "nosniff": true
+        },
+        {
+          "method": "GET",
+          "path": "/api/v1/admin/financial-policy",
+          "expected": 401,
+          "actual": 401,
+          "pass": true,
+          "bytes": 103,
+          "errorCode": "UNAUTHORIZED",
+          "noStore": true,
+          "nosniff": true
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/media",
+          "expected": 401,
+          "actual": 401,
+          "pass": true,
+          "bytes": 103,
+          "errorCode": "UNAUTHORIZED",
+          "nosniff": true
+        },
+        {
+          "method": "POST",
+          "path": "/api/v1/auth/login",
+          "expected": 403,
+          "actual": 403,
+          "pass": true,
+          "bytes": 112,
+          "errorCode": "INVALID_ORIGIN",
+          "nosniff": true
+        }
+      ],
+      "tls": {
+        "protocol": "TLSv1.3",
+        "expires": "Jan 19 07:24:16 2027 GMT",
+        "dnsNames": [
+          "beta.crefans.com"
+        ]
+      }
+    },
+    "expectationsRelaxed": false
+  },
+  "sourceHashes": {
+    "/Users/ethan/repository/crefans_server/infra/platform/Caddyfile": "d2ea94887f21dd88e2aed839a18601ba7d7b84bbc40f021315f9bf89d365ffff",
+    "/Users/ethan/repository/crefans_server/infra/platform/compose.yml": "253ad5d7f83ea39da877dce563a6cc827b14673fcf3d495161361cca49c4c0f8",
+    "/Users/ethan/repository/crefans_server/infra/platform/compose.beta.yml": "05303c0929458924dddddcec0ae99dc782cbe4d8143c9e8befdd87fa4303fc3f",
+    "/Users/ethan/repository/crefans_server/infra/platform/bootstrap-ubuntu.sh": "96c9d2617cd2073f4094bab8b6e071d39f19dcb03575b7567322f4fa1fb7def4",
+    "/Users/ethan/repository/crefans_server/infra/platform/Dockerfile": "21833a3a841637515b87f4545e38432ef717c399d77d3df0a43ff00214792426"
+  },
+  "sourceAndRemoteCaddySHA256Match": true,
+  "logs": {
+    "/tmp/crefans-beta-remote-deploy.log": "d695e94a7205dd27c708e4cc7e132433ca907c9c3a6cd568aa607c6bd708032b",
+    "/tmp/crefans-beta-remote-start.log": "fc5ea922993258d7ba7b78fdcb0a7ef9d752757ce87738ee2fc8dce6213394d9",
+    "/tmp/crefans-beta-caddy-validation.log": "1b2758fdc4f0aabb7b9c56dd75581cc028cf2fbbca5e4e60bd773d8f3ea6c1eb"
+  },
+  "boundaries": [
+    "No live payment, transfer or email was initiated. SMTP verify is not mail delivery evidence.",
+    "No local user/payment data was copied. Financial policy is intentionally uninitialized.",
+    "PASS, bank provider, published legal content, business/renewal policy and full live scenarios remain.",
+    "No backup per explicit beta scope. No stress/recovery/full role E2E verification on AWS.",
+    "No IAM policy/profile/SSH key creation or public GitHub push."
+  ],
+  "officialSourcesChecked20261021": [
+    "https://docs.docker.com/engine/install/ubuntu/",
+    "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/security-group-rules-reference.html",
+    "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html",
+    "https://caddyserver.com/docs/caddyfile/directives/handle",
+    "https://caddyserver.com/docs/caddyfile/directives#directive-order"
+  ]
+}

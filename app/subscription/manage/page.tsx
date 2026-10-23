@@ -1,126 +1,83 @@
 "use client";
+import { message as uiMessage } from "antd";
 
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import {
-  Card,
-  Typography,
-  Button,
-  Space,
-  Tag,
-  Row,
-  Col,
-  message,
-  Spin,
-  Avatar,
-  Table,
-  Popconfirm,
-  Empty,
-  Statistic,
-  Modal,
-} from "antd";
-import {
-  CrownOutlined,
-  UserOutlined,
-  DeleteOutlined,
-  ExclamationCircleOutlined,
-  CalendarOutlined,
-  DollarOutlined,
-} from "@ant-design/icons";
-import { useAuth } from "@/contexts/AuthContext";
-import { subscriptionBillingAPI, MyBillingSubscription } from "@/lib/api/subscriptionBilling";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { useMySubscriptionsPageModel } from "@/features/subscription-manage/useMySubscriptionsPageModel";
+import type { MyBillingSubscription } from "@/types/api/subscriptionBilling";
+import {
+  CalendarOutlined,
+  CrownOutlined,
+  DeleteOutlined,
+  DollarOutlined,
+  ExclamationCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import {
+  Avatar,
+  Button,
+  Card,
+  Col,
+  Empty,
+  Modal,
+  Row,
+  Space,
+  Spin,
+  Statistic,
+  Table,
+  Tag,
+  Typography,
+} from "antd";
 
 const { Title, Text, Paragraph } = Typography;
+
 const { confirm } = Modal;
 
 export default function MySubscriptionsPage() {
-  const router = useRouter();
-  const { user } = useAuth();
+  const model = useMySubscriptionsPageModel({ message: uiMessage });
+  return <MySubscriptionsPageView model={model} />;
+}
 
-  const [subscriptions, setSubscriptions] = useState<MyBillingSubscription[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [canceling, setCanceling] = useState<string | null>(null);
-
-  // 구독 목록 로드
-  useEffect(() => {
-    const loadSubscriptions = async () => {
-      try {
-        setLoading(true);
-        const response = await subscriptionBillingAPI.getMyBillingSubscriptions();
-
-        if (response.success && response.data) {
-          setSubscriptions(response.data.subscriptions);
-        } else {
-          message.error(response.message || "구독 목록을 불러오는데 실패했습니다.");
-        }
-      } catch (error: any) {
-        console.error("Failed to load subscriptions:", error);
-        message.error("구독 목록을 불러오는데 실패했습니다.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadSubscriptions();
-  }, []);
+function MySubscriptionsPageView({
+  model,
+}: {
+  model: ReturnType<typeof useMySubscriptionsPageModel>;
+}) {
+  const {
+    router,
+    subscriptions,
+    loading,
+    canceling,
+    cancelSubscription,
+    getBillingText,
+    activeSubscriptions,
+    cancelledSubscriptions,
+    expiredSubscriptions,
+    totalMonthlyAmount,
+  } = model;
 
   // 구독 취소 처리
-  const handleCancelSubscription = async (subscription: MyBillingSubscription) => {
+  const handleCancelSubscription = async (
+    subscription: MyBillingSubscription,
+  ) => {
     confirm({
-      title: '구독을 취소하시겠습니까?',
+      title: "구독을 취소하시겠습니까?",
       icon: <ExclamationCircleOutlined />,
       content: (
         <div>
-          <p><strong>{subscription.creator.name}</strong>의 <strong>{subscription.membershipItem.name}</strong> 멤버십 구독을 취소합니다.</p>
-          <p>취소 후에는 다음 결제일부터 결제가 중단되며, 현재 결제 기간이 끝날 때까지는 멤버십 혜택을 이용할 수 있습니다.</p>
+          <p>
+            <strong>{subscription.creator.name}</strong>의{" "}
+            <strong>{subscription.membershipItem.name}</strong> 멤버십 구독을
+            취소합니다.
+          </p>
+          <p>
+            취소 후에는 다음 결제일부터 결제가 중단되며, 현재 결제 기간이 끝날
+            때까지는 멤버십 혜택을 이용할 수 있습니다.
+          </p>
         </div>
       ),
-      onOk: async () => {
-        try {
-          setCanceling(subscription.subscriptionId);
-
-          const response = await subscriptionBillingAPI.cancelBillingSubscription(subscription.subscriptionId);
-
-          if (response.success) {
-            message.success('구독이 취소되었습니다.');
-
-            // 구독 목록 새로고침
-            const updatedResponse = await subscriptionBillingAPI.getMyBillingSubscriptions();
-            if (updatedResponse.success && updatedResponse.data) {
-              setSubscriptions(updatedResponse.data.subscriptions);
-            }
-          } else {
-            message.error(response.message || '구독 취소에 실패했습니다.');
-          }
-        } catch (error: any) {
-          console.error("Failed to cancel subscription:", error);
-          message.error('구독 취소에 실패했습니다.');
-        } finally {
-          setCanceling(null);
-        }
-      },
+      onOk: () => cancelSubscription(subscription),
     });
   };
-
-  // 결제 주기 텍스트 변환
-  const getBillingText = (unit: string, period: number) => {
-    const unitMap: { [key: string]: string } = {
-      DAY: "일",
-      WEEK: "주",
-      MONTH: "개월",
-      YEAR: "년",
-    };
-    return `${period}${unitMap[unit] || unit}`;
-  };
-
-  // 구독 상태별 필터링
-  const activeSubscriptions = subscriptions.filter(sub => sub.status === 'ACTIVE');
-  const cancelledSubscriptions = subscriptions.filter(sub => sub.status === 'CANCELLED');
-  const expiredSubscriptions = subscriptions.filter(sub => sub.status === 'EXPIRED');
-
-  // 통계 계산
-  const totalMonthlyAmount = activeSubscriptions.reduce((sum, sub) => sum + sub.membershipItem.price, 0);
 
   const columns = [
     {
@@ -155,7 +112,12 @@ export default function MySubscriptionsPage() {
             {record.membershipItem.price.toLocaleString()}원
           </Text>
           <Text type="secondary" style={{ fontSize: 12 }}>
-            {" "}/ {getBillingText(record.membershipItem.billing_unit, record.membershipItem.billing_period)}
+            {" "}
+            /{" "}
+            {getBillingText(
+              record.membershipItem.billing_unit,
+              record.membershipItem.billing_period,
+            )}
           </Text>
         </div>
       ),
@@ -171,12 +133,15 @@ export default function MySubscriptionsPage() {
           EXPIRED: { color: "default", text: "만료됨" },
         };
 
-        const statusInfo = statusMap[status as keyof typeof statusMap] || { color: "default", text: status };
+        const statusInfo = statusMap[status as keyof typeof statusMap] || {
+          color: "default",
+          text: status,
+        };
 
         return (
           <div>
             <Tag color={statusInfo.color}>{statusInfo.text}</Tag>
-            {status === 'ACTIVE' && (
+            {status === "ACTIVE" && (
               <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>
                 자동 갱신: {record.autoRenew ? "ON" : "OFF"}
               </div>
@@ -189,10 +154,10 @@ export default function MySubscriptionsPage() {
       title: "다음 결제일",
       key: "nextBilling",
       render: (_: any, record: MyBillingSubscription) => {
-        if (record.status !== 'ACTIVE') {
+        if (record.status !== "ACTIVE") {
           return record.cancelledAt
             ? new Date(record.cancelledAt).toLocaleDateString()
-            : '-';
+            : "-";
         }
 
         return (
@@ -217,8 +182,8 @@ export default function MySubscriptionsPage() {
       title: "액션",
       key: "action",
       render: (_: any, record: MyBillingSubscription) => {
-        if (record.status !== 'ACTIVE') {
-          return '-';
+        if (record.status !== "ACTIVE") {
+          return "-";
         }
 
         return (
@@ -318,7 +283,7 @@ export default function MySubscriptionsPage() {
                 </div>
               }
             >
-              <Button type="primary" onClick={() => router.push('/')}>
+              <Button type="primary" onClick={() => router.push("/")}>
                 크리에이터 둘러보기
               </Button>
             </Empty>
@@ -393,9 +358,9 @@ export default function MySubscriptionsPage() {
             <br />
             • 구독을 취소하면 다음 결제일부터 자동결제가 중단됩니다.
             <br />
-            • 취소 후에도 현재 결제 기간이 끝날 때까지는 멤버십 혜택을 이용할 수 있습니다.
-            <br />
-            • 결제는 토스페이먼츠를 통해 안전하게 처리됩니다.
+            • 취소 후에도 현재 결제 기간이 끝날 때까지는 멤버십 혜택을 이용할 수
+            있습니다.
+            <br />• 결제는 토스페이먼츠를 통해 안전하게 처리됩니다.
           </Text>
         </Card>
       </div>

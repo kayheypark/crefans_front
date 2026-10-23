@@ -1,55 +1,26 @@
 "use client";
+import { Form as UiForm, message as uiMessage } from "antd";
 
-import React, { useState } from "react";
-import { Modal, Form, Input, message } from "antd";
-import { userAPI } from "@/lib/api/user";
-import { MODAL_STYLES } from "@/lib/constants/modalStyles";
-import { useAuth } from "@/contexts/AuthContext";
+import { NicknameModalProps } from "@/features/modals-nickname-modal/types";
+import { useNicknameModalModel } from "@/features/modals-nickname-modal/useNicknameModalModel";
 import { LOADING_TEXTS } from "@/lib/constants/loadingTexts";
-import { getNicknameValidationRule, validateNickname } from "@/lib/utils/validation";
+import { MODAL_STYLES } from "@/lib/constants/modalStyles";
+import { getNicknameValidationRule } from "@/lib/utils/validation";
+import { Form, Input, Modal } from "antd";
 
-interface NicknameModalProps {
-  open: boolean;
-  onClose: () => void;
-  currentNickname: string;
+export default function NicknameModal(props: NicknameModalProps) {
+  const [form] = UiForm.useForm();
+  const model = useNicknameModalModel(props, { message: uiMessage, form });
+  return <NicknameModalView {...props} model={model} />;
 }
 
-export default function NicknameModal({
+function NicknameModalView({
   open,
   onClose,
   currentNickname,
-}: NicknameModalProps) {
-  const [form] = Form.useForm();
-  const { refreshUser } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSave = async () => {
-    setIsLoading(true);
-    try {
-      const values = await form.validateFields();
-      
-      // 클라이언트 측 추가 검증
-      if (!validateNickname(values.nickname)) {
-        message.error("한글, 영문, 숫자 2-10자로 입력해주세요");
-        return;
-      }
-      
-      await userAPI.updateNickname(values.nickname);
-      message.success("닉네임이 성공적으로 변경되었습니다.");
-      await refreshUser(); // 사용자 정보 새로고침
-      onClose();
-      form.resetFields();
-    } catch (error: any) {
-      message.error(error.response?.data?.message || "닉네임 변경에 실패했습니다.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleCancel = () => {
-    onClose();
-    form.resetFields();
-  };
+  model,
+}: NicknameModalProps & { model: ReturnType<typeof useNicknameModalModel> }) {
+  const { form, isLoading, handleSave, handleCancel } = model;
 
   return (
     <Modal

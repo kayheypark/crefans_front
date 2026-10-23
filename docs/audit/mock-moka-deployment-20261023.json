@@ -1,0 +1,249 @@
+{
+  "verifiedAt": "2026-10-23T14:17:39.605668+00:00",
+  "repository": "crefans_front",
+  "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+  "branch": "feat/operations-security",
+  "workingTreeDirty": true,
+  "scope": "Deploy the already validated moka preview fixtures and four generated photos to the existing beta frontend. No live creator records or payment policy created.",
+  "release": "crefans-front:mock-moka-20261023",
+  "image": {
+    "id": "sha256:786bd70091f75b3a55cd4e1b0f0a1bba7fac95feb9119a6413465da533d516a6",
+    "architecture": "amd64",
+    "builtAt": "2026-10-23T14:13:35.470373388Z"
+  },
+  "build": {
+    "command": "DOCKER_CONFIG=crefans_server/.local/beta-build-config docker build --platform linux/amd64 -f infra/platform/Dockerfile -t crefans-front:mock-moka-20261023 .",
+    "exitCode": 0,
+    "logSha256": "e0fa8131beff61b4d49c76c1f5687d705a18370a454f6bd73bd0a03d4a20cc30",
+    "note": "First attempt stalled in desktop credential helper and was cancelled. Rebuilt with existing deployment Docker config. No product change for this tooling issue."
+  },
+  "runtimeSourceDiff": {
+    "compared": 465,
+    "changed": [
+      "components/preview/service/fixtures.ts"
+    ],
+    "added": [
+      "public/illustrations/creators/moka/avatar-v1.png",
+      "public/illustrations/creators/moka/backstage-v1.png",
+      "public/illustrations/creators/moka/cover-v1.png",
+      "public/illustrations/creators/moka/editorial-v1.png",
+      "public/illustrations/creators/moka/generation.json"
+    ],
+    "removed": []
+  },
+  "priorVerification": {
+    "evidence": "docs/audit/mock-moka-20261023.json",
+    "sourceAndAssetRevalidation": {
+      "checks": {
+        "components/preview/service/fixtures.ts": true,
+        "public/illustrations/creators/moka/generation.json": true,
+        "components/preview/service/PreviewProvider.tsx": true,
+        "components/preview/service/access.ts": true,
+        "components/crefans/CreatorPages.tsx": true,
+        "components/crefans/SocialPages.tsx": true,
+        "lib/content/landing.ts": true,
+        "public/illustrations/creators/moka/avatar-v1.png": true,
+        "public/illustrations/creators/moka/cover-v1.png": true,
+        "public/illustrations/creators/moka/backstage-v1.png": true,
+        "public/illustrations/creators/moka/editorial-v1.png": true,
+        "public/illustrations/creators/cosplay-anime-v3.png": true
+      },
+      "result": "PASS"
+    },
+    "unitResult": "282/282 + layer/type checks passed in immediately prior task, with relevant source/assets unchanged; not rerun unnecessarily."
+  },
+  "imageSmoke": {
+    "method": "New amd64 image bound to local loopback 3013, removed after verification",
+    "exitCode": 0,
+    "results": [
+      {
+        "route": "preview/creator/moka",
+        "status": 200
+      },
+      {
+        "route": "preview/membership/moka",
+        "status": 200
+      },
+      {
+        "route": "preview/post/moka-first-shoot",
+        "status": 200
+      },
+      {
+        "route": "preview/post/moka-backstage",
+        "status": 200
+      },
+      {
+        "route": "preview/post/moka-pink-portrait",
+        "status": 200
+      },
+      {
+        "route": "preview/explore",
+        "status": 200
+      },
+      {
+        "generatedImages": 4,
+        "bytesMatch": "PASS"
+      }
+    ]
+  },
+  "archive": {
+    "sha256": "f0c236ff02e1dde1803cd13416674e99dfe803c960a23bf1179fc7777a808e68",
+    "bytes": 483400546,
+    "note": "Python hashlib generated checksum after local Perl/shasum locale failure; sha256sum -c succeeded on deployment host."
+  },
+  "deploymentSteps": [
+    {
+      "step": "prepare",
+      "startedAt": "2026-10-23T14:14:43.114142+00:00",
+      "finishedAt": "2026-10-23T14:14:44.093015+00:00",
+      "exitCode": 0
+    },
+    {
+      "step": "upload",
+      "startedAt": "2026-10-23T14:14:44.093622+00:00",
+      "finishedAt": "2026-10-23T14:14:51.998423+00:00",
+      "exitCode": 0
+    },
+    {
+      "step": "load",
+      "startedAt": "2026-10-23T14:14:51.999516+00:00",
+      "finishedAt": "2026-10-23T14:15:06.216133+00:00",
+      "exitCode": 0
+    },
+    {
+      "step": "deploy",
+      "startedAt": "2026-10-23T14:15:06.216712+00:00",
+      "finishedAt": "2026-10-23T14:15:13.340008+00:00",
+      "exitCode": 0
+    }
+  ],
+  "deploymentResult": {
+    "frontendRunning": true,
+    "restartCount": 0,
+    "preservedContainers": [
+      "database",
+      "api",
+      "worker",
+      "admin",
+      "proxy"
+    ],
+    "rollbackSettings": "/opt/crefans-backup-mock-moka-20261023",
+    "resultLogSha256": "ac2e39ebf038503dbf546bf5d004c3fb8fd2e1263d230ddabd985850f9c8c247"
+  },
+  "productionHTTP": {
+    "checkedAt": "2026-10-23T14:15:38.168667+00:00",
+    "pages": [
+      {
+        "route": "preview/creator/moka",
+        "status": 200,
+        "moka": true
+      },
+      {
+        "route": "preview/membership/moka",
+        "status": 200,
+        "moka": true
+      },
+      {
+        "route": "preview/post/moka-first-shoot",
+        "status": 200,
+        "moka": true
+      },
+      {
+        "route": "preview/post/moka-backstage",
+        "status": 200,
+        "moka": true
+      },
+      {
+        "route": "preview/post/moka-pink-portrait",
+        "status": 200,
+        "moka": true
+      },
+      {
+        "route": "preview/explore",
+        "status": 200,
+        "moka": true
+      },
+      {
+        "route": "service/feed",
+        "status": 200,
+        "moka": false
+      },
+      {
+        "route": "service/landing",
+        "status": 200,
+        "moka": false
+      }
+    ],
+    "assets": [
+      {
+        "file": "public/illustrations/creators/moka/backstage-v1.png",
+        "status": 200,
+        "sha256": "75a06ba96ada7671a0623db126e8cc10ce9a51488e0ba4f99a2ddd700959348c"
+      },
+      {
+        "file": "public/illustrations/creators/moka/cover-v1.png",
+        "status": 200,
+        "sha256": "405fd73639ef37d3c7809c76dba796d6b3b41b67865f1995f72efdbc96b1ee54"
+      },
+      {
+        "file": "public/illustrations/creators/moka/editorial-v1.png",
+        "status": 200,
+        "sha256": "e80542f829fd267956aebe3c697c0e78f378453a56993552d85345938a55fc44"
+      },
+      {
+        "file": "public/illustrations/creators/moka/avatar-v1.png",
+        "status": 200,
+        "sha256": "2a5c20871f976bd7d19caad6b051bccf480c22f9d68869c953df57411d0a324b"
+      }
+    ]
+  },
+  "browser": {
+    "url": "https://beta.crefans.com/preview/creator/moka",
+    "viewports": [
+      [
+        1280,
+        720
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "result": "PASS",
+    "observations": [
+      "Cover/avatar and public post images loaded",
+      "3 posts and 2 memberships displayed",
+      "Join action opens correct membership and selected plan",
+      "Membership photo cards loaded",
+      "Unsubscribed preview keeps members-only posts locked",
+      "No horizontal overflow or broken profile images",
+      "Captured console error list empty"
+    ],
+    "screenshots": [
+      {
+        "path": ".local/moka-preview-20261023/production-membership-desktop.png",
+        "sha256": "681ff4582a08f8be16d4e154b108b7976ea33daa0e663e6e725c952b37bc6841"
+      },
+      {
+        "path": ".local/moka-preview-20261023/production-profile-mobile.png",
+        "sha256": "59a6cd7ae05abf9992b0c3d532c9c88b33c7dec58c82eeb777476edfe635b3ea"
+      },
+      {
+        "path": ".local/moka-preview-20261023/production-profile-desktop.png",
+        "sha256": "270999752d1cf58b2909c671f1a7dbdc4b8a9c81a9a2e3336a55df850c3ba05f"
+      }
+    ]
+  },
+  "sshCleanup": {
+    "removedRuleIds": [
+      "sgr-0bae95d8fdf5bd65d"
+    ],
+    "restoredToBefore": true,
+    "checkedAt": "2026-10-23T14:15:39.612695+00:00"
+  },
+  "limits": [
+    "No real-provider or production financial action performed",
+    "Preview static photos are public assets; this is not a production private-media security test",
+    "No API, worker, DB migration, admin deployment or Git commit/push"
+  ]
+}

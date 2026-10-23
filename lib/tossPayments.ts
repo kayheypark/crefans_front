@@ -3,12 +3,9 @@ import { loadTossPayments } from '@tosspayments/tosspayments-sdk';
 // TossPayments 클라이언트 키
 export const TOSS_CLIENT_KEY = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY || '';
 
-if (!TOSS_CLIENT_KEY) {
-  throw new Error('NEXT_PUBLIC_TOSS_CLIENT_KEY is required');
-}
-
 // TossPayments 인스턴스를 로드하는 함수
 export const loadTossPaymentsInstance = async () => {
+  if (!TOSS_CLIENT_KEY) throw new Error('NEXT_PUBLIC_TOSS_CLIENT_KEY is required');
   try {
     const tossPayments = await loadTossPayments(TOSS_CLIENT_KEY);
     return tossPayments;

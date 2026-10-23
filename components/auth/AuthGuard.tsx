@@ -1,45 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import { Spin, Alert } from "antd";
-import { useAuth } from "@/contexts/AuthContext";
+import { AuthGuardProps } from "@/features/auth-auth-guard/types";
+import { useAuthGuardModel } from "@/features/auth-auth-guard/useAuthGuardModel";
+import { Spin } from "antd";
 
-interface AuthGuardProps {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
-  redirectTo?: string;
-  requireAuth?: boolean;
+export default function AuthGuard(props: AuthGuardProps) {
+  const model = useAuthGuardModel(props);
+  return <AuthGuardView {...props} model={model} />;
 }
 
-export default function AuthGuard({
+function AuthGuardView({
   children,
   fallback,
   redirectTo = "/",
   requireAuth = true,
-}: AuthGuardProps) {
-  const { user } = useAuth();
-  const router = useRouter();
-  const pathname = usePathname();
-  const [isRedirecting, setIsRedirecting] = useState(false);
-
-  useEffect(() => {
-    // 인증이 필요한 페이지인지 확인
-    if (!requireAuth) return;
-
-    // 로딩 중이면 대기
-    if (user === undefined) return;
-
-    // 로그아웃 상태면 리디렉트
-    if (user === null) {
-      setIsRedirecting(true);
-      router.push(redirectTo);
-      return;
-    }
-
-    // 로그인 상태면 리디렉트 상태 해제
-    setIsRedirecting(false);
-  }, [user, router, redirectTo, requireAuth]);
+  model,
+}: AuthGuardProps & { model: ReturnType<typeof useAuthGuardModel> }) {
+  const { user, isRedirecting } = model;
 
   // 로딩 중
   if (user === undefined) {

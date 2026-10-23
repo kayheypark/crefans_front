@@ -1,0 +1,6 @@
+.root{display:grid;gap:10px;min-width:0}
+.toolbar{display:flex;align-items:center;justify-content:flex-end}
+.presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.root .control{min-height:36px;padding:7px 10px;font-size:max(12px,var(--cf-mobile-font-min,0px));border-radius:8px;white-space:nowrap}
+.hint{margin:0;color:var(--cf-color-textMuted);font-size:max(12px,var(--cf-mobile-font-min,0px));line-height:1.6}
+@media(min-width:600px){.presets{grid-template-columns:repeat(6,minmax(0,1fr))}}

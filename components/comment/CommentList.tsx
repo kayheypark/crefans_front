@@ -1,30 +1,32 @@
 "use client";
+import { message as uiMessage, Modal as UiModal } from "antd";
 
-import { useState, useEffect } from "react";
-import { Button, Input, Avatar, Typography, Dropdown, Modal, message } from "antd";
-import { HeartOutlined, HeartFilled, MoreOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import { commentAPI } from "@/lib/api/comment";
-import { Comment, CreateCommentDto } from "@/types/comment";
+import { CommentListProps } from "@/features/comments/types";
+import { useCommentListModel } from "@/features/comments/useCommentListModel";
 import { formatRelativeDate } from "@/lib/utils/dateUtils";
+import { Comment } from "@/types/comment";
+import {
+  DeleteOutlined,
+  ExclamationCircleOutlined,
+  HeartFilled,
+  HeartOutlined,
+  MoreOutlined,
+} from "@ant-design/icons";
+import { Avatar, Button, Dropdown, Input, Modal, Typography } from "antd";
 
 const { Text } = Typography;
 
-interface CommentListProps {
-  postingId: string;
-  allowComments: boolean;
-  onCommentCountChange?: (count: number) => void;
-  openReplies: { [key: string]: boolean };
-  onToggleReplies: (postId: string) => void;
-  onCommentInputClick: () => void;
-  onCommentSubmit: (postId: string) => void;
-  user: any;
-  post: any;
-  isMobile: boolean;
+export default function CommentList(props: CommentListProps) {
+  const model = useCommentListModel(props, {
+    message: uiMessage,
+    confirm: (request) => UiModal.confirm(request),
+  });
+  return <CommentListView {...props} model={model} />;
 }
 
-export default function CommentList({ 
-  postingId, 
-  allowComments, 
+function CommentListView({
+  postingId,
+  allowComments,
   onCommentCountChange,
   openReplies,
   onToggleReplies,
@@ -32,145 +34,33 @@ export default function CommentList({
   onCommentSubmit,
   user,
   post,
-  isMobile
-}: CommentListProps) {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [newComment, setNewComment] = useState("");
-  const [replyTo, setReplyTo] = useState<string | null>(null);
-  const [replyContent, setReplyContent] = useState("");
-  const [reportModalOpen, setReportModalOpen] = useState(false);
-  const [selectedCommentId, setSelectedCommentId] = useState<string | null>(null);
+  isMobile,
+  model,
+}: CommentListProps & { model: ReturnType<typeof useCommentListModel> }) {
+  const {
+    comments,
+    loading,
+    submitting,
+    newComment,
+    setNewComment,
+    replyTo,
+    setReplyTo,
+    replyContent,
+    setReplyContent,
+    reportModalOpen,
+    setReportModalOpen,
+    setSelectedCommentId,
+    handleSubmitComment,
+    handleSubmitReply,
+    handleLikeComment,
+    handleDeleteComment,
+    handleReportComment,
+    handleReportSubmit,
+  } = model;
 
-  useEffect(() => {
-    if (postingId) {
-      loadComments();
-    }
-  }, [postingId]);
-
-  const loadComments = async () => {
-    try {
-      setLoading(true);
-      const response = await commentAPI.getCommentsByPostingId(postingId);
-      if (response.success) {
-        setComments(response.data);
-        // 댓글 개수 계산 (부모 댓글 + 답글)
-        const totalCount = response.data.reduce((count, comment) => {
-          return count + 1 + (comment.children?.length || 0);
-        }, 0);
-        onCommentCountChange?.(totalCount);
-      }
-    } catch (error) {
-      console.error("Failed to load comments:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSubmitComment = async () => {
-    if (!user || !newComment.trim()) return;
-
-    try {
-      setSubmitting(true);
-      const commentData: CreateCommentDto = {
-        posting_id: postingId,
-        content: newComment.trim(),
-      };
-
-      const response = await commentAPI.createComment(commentData);
-      if (response.success) {
-        setNewComment("");
-        loadComments();
-      }
-    } catch (error: any) {
-      console.error("Failed to create comment:", error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleSubmitReply = async (parentId: string) => {
-    if (!user || !replyContent.trim()) return;
-
-    try {
-      setSubmitting(true);
-      const replyData: CreateCommentDto = {
-        posting_id: postingId,
-        content: replyContent.trim(),
-        parent_id: parentId,
-      };
-
-      const response = await commentAPI.createComment(replyData);
-      if (response.success) {
-        setReplyContent("");
-        setReplyTo(null);
-        loadComments();
-      }
-    } catch (error: any) {
-      console.error("Failed to create reply:", error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const handleLikeComment = async (commentId: string, currentIsLiked: boolean) => {
-    if (!user) {
-      message.warning("로그인이 필요합니다.");
-      return;
-    }
-
-    try {
-      if (currentIsLiked) {
-        await commentAPI.unlikeComment(commentId);
-        message.success("좋아요를 취소했습니다.");
-      } else {
-        await commentAPI.likeComment(commentId);
-        message.success("좋아요를 눌렀습니다.");
-      }
-      // 댓글 목록을 새로고침하여 업데이트된 좋아요 상태를 반영
-      loadComments();
-    } catch (error: any) {
-      console.error("Failed to toggle comment like:", error);
-      const errorMessage = error.response?.data?.message || "좋아요 처리에 실패했습니다.";
-      message.error(errorMessage);
-    }
-  };
-
-  const handleDeleteComment = async (commentId: string) => {
-    Modal.confirm({
-      title: "댓글을 삭제하시겠습니까?",
-      content: "삭제된 댓글은 복구할 수 없습니다.",
-      okText: "삭제",
-      okType: "danger",
-      cancelText: "취소",
-      onOk: async () => {
-        try {
-          const response = await commentAPI.deleteComment(commentId);
-          if (response.success) {
-            message.success("댓글이 삭제되었습니다.");
-            loadComments();
-          }
-        } catch (error: any) {
-          console.error("Failed to delete comment:", error);
-          const errorMessage = error.response?.data?.message || "댓글 삭제에 실패했습니다.";
-          message.error(errorMessage);
-        }
-      },
-    });
-  };
-
-  const handleReportComment = (commentId: string) => {
-    setSelectedCommentId(commentId);
-    setReportModalOpen(true);
-  };
-
-  const handleReportSubmit = () => {
-    // TODO: 실제 신고 기능 구현
-    message.success("신고가 접수되었습니다.");
-    setReportModalOpen(false);
-    setSelectedCommentId(null);
-  };
+  if (!allowComments) {
+    return null;
+  }
 
   const getCommentMoreMenu = (comment: Comment) => {
     const isOwner = user?.attributes?.sub === comment.author_id;
@@ -197,10 +87,6 @@ export default function CommentList({
     return { items };
   };
 
-  if (!allowComments) {
-    return null;
-  }
-
   return (
     <>
       {/* 댓글 리스트 - 기존 하드코딩된 디자인과 정확히 동일하게 */}
@@ -216,29 +102,40 @@ export default function CommentList({
                 marginBottom: 8,
               }}
             >
-              <Avatar 
-                size={32} 
-                src={comment.is_deleted ? "/profile-90.png" : (comment.author?.avatar || "/profile-90.png")} 
+              <Avatar
+                size={32}
+                src={
+                  comment.is_deleted
+                    ? "/profile-90.png"
+                    : comment.author?.avatar || "/profile-90.png"
+                }
               />
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                   <Text strong style={{ fontSize: 13, color: "#222" }}>
-                    {comment.is_deleted ? "알 수 없음" : (comment.author?.name || "알 수 없음")}
+                    {comment.is_deleted
+                      ? "알 수 없음"
+                      : comment.author?.name || "알 수 없음"}
                   </Text>
                   {comment.taggedUser && (
-                    <Text type="secondary" style={{ fontSize: 13, color: "#888" }}>
+                    <Text
+                      type="secondary"
+                      style={{ fontSize: 13, color: "#888" }}
+                    >
                       @{comment.taggedUser.handle}
                     </Text>
                   )}
-                  <Text 
-                    style={{ 
-                      fontSize: 13, 
+                  <Text
+                    style={{
+                      fontSize: 13,
                       marginLeft: 4,
                       color: comment.is_deleted ? "#999" : "inherit",
-                      fontStyle: comment.is_deleted ? "italic" : "normal"
+                      fontStyle: comment.is_deleted ? "italic" : "normal",
                     }}
                   >
-                    {comment.is_deleted ? "삭제된 댓글입니다." : comment.content}
+                    {comment.is_deleted
+                      ? "삭제된 댓글입니다."
+                      : comment.content}
                   </Text>
                 </div>
                 <div
@@ -257,7 +154,9 @@ export default function CommentList({
                       type="link"
                       size="small"
                       style={{ padding: 0, fontSize: 13, height: "auto" }}
-                      onClick={() => setReplyTo(replyTo === comment.id ? null : comment.id)}
+                      onClick={() =>
+                        setReplyTo(replyTo === comment.id ? null : comment.id)
+                      }
                     >
                       답글 달기
                     </Button>
@@ -276,10 +175,14 @@ export default function CommentList({
                           alignItems: "center",
                           gap: 4,
                         }}
-                        onClick={() => handleLikeComment(comment.id, comment.isLiked)}
+                        onClick={() =>
+                          handleLikeComment(comment.id, comment.isLiked)
+                        }
                       >
                         {comment.isLiked ? <HeartFilled /> : <HeartOutlined />}
-                        {comment.likeCount > 0 && <span>{comment.likeCount}</span>}
+                        {comment.likeCount > 0 && (
+                          <span>{comment.likeCount}</span>
+                        )}
                       </Button>
                       <Dropdown
                         menu={getCommentMoreMenu(comment)}
@@ -306,17 +209,36 @@ export default function CommentList({
                 {/* 답글 작성 폼 */}
                 {replyTo === comment.id && (
                   <div style={{ marginTop: 8, marginLeft: 0 }}>
-                    <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-                      <Avatar src={user?.avatar || "/profile-90.png"} size={28} />
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 8,
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <Avatar
+                        src={user?.avatar || "/profile-90.png"}
+                        size={28}
+                      />
                       <div style={{ flex: 1 }}>
                         <Input.TextArea
-                          placeholder={comment.is_deleted ? "답글 작성" : `@${comment.author?.handle}님에게 답글 작성`}
+                          placeholder={
+                            comment.is_deleted
+                              ? "답글 작성"
+                              : `@${comment.author?.handle}님에게 답글 작성`
+                          }
                           value={replyContent}
                           onChange={(e) => setReplyContent(e.target.value)}
                           autoSize={{ minRows: 1, maxRows: 3 }}
                           style={{ marginBottom: 8, border: "none" }}
                         />
-                        <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            gap: 8,
+                          }}
+                        >
                           <Button
                             size="small"
                             onClick={() => {
@@ -355,75 +277,75 @@ export default function CommentList({
                 )}
 
                 {/* 대댓글 목록 (펼침 시) */}
-                {openReplies[postingId] && comment.children && comment.children.length > 0 && (
-                  <div style={{ marginTop: 8, marginLeft: 36 }}>
-                    {comment.children.map((reply) => (
-                      <div
-                        key={reply.id}
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: 8,
-                          marginBottom: 6,
-                        }}
-                      >
-                        <Avatar 
-                          size={28} 
-                          src={reply.is_deleted ? "/profile-90.png" : (reply.author?.avatar || "/profile-90.png")} 
-                        />
-                        <div style={{ flex: 1 }}>
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 8,
-                            }}
-                          >
-                            <Text strong style={{ fontSize: 14 }}>
-                              {reply.is_deleted ? "알 수 없음" : (reply.author?.name || "알 수 없음")}
-                            </Text>
-                            {reply.taggedUser && (
-                              <Text type="secondary" style={{ fontSize: 13, color: "#888" }}>
-                                @{reply.taggedUser.handle}
-                              </Text>
-                            )}
-                            <Text 
-                              style={{ 
-                                fontSize: 14,
-                                color: reply.is_deleted ? "#999" : "inherit",
-                                fontStyle: reply.is_deleted ? "italic" : "normal"
+                {openReplies[postingId] &&
+                  comment.children &&
+                  comment.children.length > 0 && (
+                    <div style={{ marginTop: 8, marginLeft: 36 }}>
+                      {comment.children.map((reply) => (
+                        <div
+                          key={reply.id}
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: 8,
+                            marginBottom: 6,
+                          }}
+                        >
+                          <Avatar
+                            size={28}
+                            src={
+                              reply.is_deleted
+                                ? "/profile-90.png"
+                                : reply.author?.avatar || "/profile-90.png"
+                            }
+                          />
+                          <div style={{ flex: 1 }}>
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 8,
                               }}
                             >
-                              {reply.is_deleted ? "삭제된 댓글입니다." : reply.content}
-                            </Text>
-                          </div>
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 12,
-                              marginTop: 2,
-                            }}
-                          >
-                            <Text type="secondary" style={{ fontSize: 12 }}>
-                              {formatRelativeDate(reply.created_at)}
-                            </Text>
-                            {post.isGotMembership && (
-                              <Button
-                                type="link"
-                                size="small"
+                              <Text strong style={{ fontSize: 14 }}>
+                                {reply.is_deleted
+                                  ? "알 수 없음"
+                                  : reply.author?.name || "알 수 없음"}
+                              </Text>
+                              {reply.taggedUser && (
+                                <Text
+                                  type="secondary"
+                                  style={{ fontSize: 13, color: "#888" }}
+                                >
+                                  @{reply.taggedUser.handle}
+                                </Text>
+                              )}
+                              <Text
                                 style={{
-                                  padding: 0,
-                                  fontSize: 12,
-                                  height: "auto",
+                                  fontSize: 14,
+                                  color: reply.is_deleted ? "#999" : "inherit",
+                                  fontStyle: reply.is_deleted
+                                    ? "italic"
+                                    : "normal",
                                 }}
-                                onClick={() => setReplyTo(reply.id)}
                               >
-                                답글 달기
-                              </Button>
-                            )}
-                            {!reply.is_deleted && (
-                              <>
+                                {reply.is_deleted
+                                  ? "삭제된 댓글입니다."
+                                  : reply.content}
+                              </Text>
+                            </div>
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 12,
+                                marginTop: 2,
+                              }}
+                            >
+                              <Text type="secondary" style={{ fontSize: 12 }}>
+                                {formatRelativeDate(reply.created_at)}
+                              </Text>
+                              {post.isGotMembership && (
                                 <Button
                                   type="link"
                                   size="small"
@@ -431,21 +353,14 @@ export default function CommentList({
                                     padding: 0,
                                     fontSize: 12,
                                     height: "auto",
-                                    color: reply.isLiked ? "#ff4d4f" : "#999",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 4,
                                   }}
-                                  onClick={() => handleLikeComment(reply.id, reply.isLiked)}
+                                  onClick={() => setReplyTo(reply.id)}
                                 >
-                                  {reply.isLiked ? <HeartFilled /> : <HeartOutlined />}
-                                  {reply.likeCount > 0 && <span>{reply.likeCount}</span>}
+                                  답글 달기
                                 </Button>
-                                <Dropdown
-                                  menu={getCommentMoreMenu(reply)}
-                                  trigger={["click"]}
-                                  placement="bottomRight"
-                                >
+                              )}
+                              {!reply.is_deleted && (
+                                <>
                                   <Button
                                     type="link"
                                     size="small"
@@ -453,20 +368,50 @@ export default function CommentList({
                                       padding: 0,
                                       fontSize: 12,
                                       height: "auto",
-                                      color: "#999",
+                                      color: reply.isLiked ? "#ff4d4f" : "#999",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      gap: 4,
                                     }}
+                                    onClick={() =>
+                                      handleLikeComment(reply.id, reply.isLiked)
+                                    }
                                   >
-                                    <MoreOutlined />
+                                    {reply.isLiked ? (
+                                      <HeartFilled />
+                                    ) : (
+                                      <HeartOutlined />
+                                    )}
+                                    {reply.likeCount > 0 && (
+                                      <span>{reply.likeCount}</span>
+                                    )}
                                   </Button>
-                                </Dropdown>
-                              </>
-                            )}
+                                  <Dropdown
+                                    menu={getCommentMoreMenu(reply)}
+                                    trigger={["click"]}
+                                    placement="bottomRight"
+                                  >
+                                    <Button
+                                      type="link"
+                                      size="small"
+                                      style={{
+                                        padding: 0,
+                                        fontSize: 12,
+                                        height: "auto",
+                                        color: "#999",
+                                      }}
+                                    >
+                                      <MoreOutlined />
+                                    </Button>
+                                  </Dropdown>
+                                </>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                      ))}
+                    </div>
+                  )}
               </div>
             </div>
           </div>
@@ -474,7 +419,14 @@ export default function CommentList({
 
         {/* 댓글이 없을 때 */}
         {comments.length === 0 && !loading && (
-          <div style={{ textAlign: "center", color: "#999", padding: "20px 0", fontSize: "12px" }}>
+          <div
+            style={{
+              textAlign: "center",
+              color: "#999",
+              padding: "20px 0",
+              fontSize: "12px",
+            }}
+          >
             첫 번째 댓글을 작성해보세요!
           </div>
         )}
@@ -482,9 +434,7 @@ export default function CommentList({
 
       {/* 답글 입력 UI - 기존 디자인과 동일 */}
       {post.isGotMembership && (
-        <div
-          style={{ marginTop: 16, padding: isMobile ? "0 12px" : "0 16px" }}
-        >
+        <div style={{ marginTop: 16, padding: isMobile ? "0 12px" : "0 16px" }}>
           <div
             style={{
               display: "flex",
@@ -497,9 +447,7 @@ export default function CommentList({
               <Input.TextArea
                 key={postingId}
                 placeholder={
-                  user
-                    ? "답글을 입력하세요"
-                    : "로그인하고 답글을 작성해보세요"
+                  user ? "답글을 입력하세요" : "로그인하고 답글을 작성해보세요"
                 }
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}

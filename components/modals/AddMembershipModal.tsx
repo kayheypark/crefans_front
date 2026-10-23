@@ -1,26 +1,24 @@
 "use client";
+import { Form as UiForm, message as uiMessage } from "antd";
 
-import React, { useState, useEffect } from "react";
+import { AddMembershipModalProps } from "@/features/modals-add-membership-modal/types";
+import { useAddMembershipModalModel } from "@/features/modals-add-membership-modal/useAddMembershipModalModel";
+import { MODAL_STYLES } from "@/lib/constants/modalStyles";
 import {
-  Modal,
+  Button,
   Form,
   Input,
   InputNumber,
-  Button,
-  Space,
-  message,
-  Tag,
-  Typography,
-  Divider,
+  Modal,
   Popconfirm,
   Select,
+  Space,
+  Tag,
+  Typography,
 } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { MODAL_STYLES } from "@/lib/constants/modalStyles";
-import { membershipAPI, MembershipItem } from "@/lib/api/membership";
-import { CreateMembershipRequest } from "@/types/membership";
 
 const { TextArea } = Input;
+
 const { Text } = Typography;
 
 // 일관된 스타일을 위한 상수
@@ -44,85 +42,32 @@ const INPUT_STYLES = {
   },
 };
 
-interface AddMembershipModalProps {
-  open: boolean;
-  onClose: () => void;
-  onMembershipAdded: (membership?: MembershipItem) => void; // Make membership optional since we'll refresh the list
+export default function AddMembershipModal(props: AddMembershipModalProps) {
+  const [form] = UiForm.useForm();
+  const model = useAddMembershipModalModel(props, { message: uiMessage, form });
+  return <AddMembershipModalView {...props} model={model} />;
 }
 
-export default function AddMembershipModal({
+function AddMembershipModalView({
   open,
   onClose,
   onMembershipAdded,
-}: AddMembershipModalProps) {
-  const [form] = Form.useForm();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [previewBenefits, setPreviewBenefits] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState("");
-  const [hasChanges, setHasChanges] = useState(false);
-
-  // 멤버십 추가
-  const handleSubmit = async (values: any) => {
-    setIsSubmitting(true);
-
-    try {
-      // 입력 중인 혜택이 있다면 마지막에 추가
-      let finalBenefits = [...previewBenefits];
-      if (inputValue.trim()) {
-        finalBenefits.push(inputValue.trim());
-      }
-
-      // CreateMembershipRequest 형식으로 데이터 변환
-      const membershipData: CreateMembershipRequest = {
-        name: values.name,
-        description: values.description,
-        level: values.level,
-        price: values.price,
-        billing_unit: values.billing_unit || 'MONTH',
-        billing_period: values.billing_period || 1,
-        trial_unit: values.trial_unit || 'DAY',
-        trial_period: values.trial_period || 0,
-        benefits: finalBenefits.join(','),
-      };
-
-      const response = await membershipAPI.createMembership(membershipData);
-      
-      if (response.success) {
-        onMembershipAdded(); // Signal to refresh the membership list
-        message.success("멤버십이 추가되었습니다.");
-        closeModal(); // handleClose 대신 closeModal 직접 호출
-      } else {
-        message.error(response.message || "멤버십 추가에 실패했습니다.");
-      }
-    } catch (error) {
-      console.error("멤버십 추가 실패:", error);
-      message.error("멤버십 추가에 실패했습니다.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // 폼 변경 감지
-  const handleFormChange = () => {
-    setHasChanges(true);
-  };
-
-  const handleClose = () => {
-    if (hasChanges) {
-      // Popconfirm이 자동으로 처리하므로 여기서는 아무것도 하지 않음
-      return;
-    } else {
-      closeModal();
-    }
-  };
-
-  const closeModal = () => {
-    form.resetFields();
-    setPreviewBenefits([]);
-    setInputValue("");
-    setHasChanges(false);
-    onClose();
-  };
+  model,
+}: AddMembershipModalProps & {
+  model: ReturnType<typeof useAddMembershipModalModel>;
+}) {
+  const {
+    form,
+    isSubmitting,
+    previewBenefits,
+    setPreviewBenefits,
+    inputValue,
+    setInputValue,
+    handleSubmit,
+    handleFormChange,
+    handleClose,
+    closeModal,
+  } = model;
 
   return (
     <>
@@ -149,9 +94,9 @@ export default function AddMembershipModal({
             initialValues={{
               level: 1,
               price: 5000,
-              billing_unit: 'MONTH',
+              billing_unit: "MONTH",
               billing_period: 1,
-              trial_unit: 'DAY',
+              trial_unit: "DAY",
               trial_period: 0,
             }}
           >
@@ -277,7 +222,7 @@ export default function AddMembershipModal({
                       closable
                       onClose={() => {
                         const newBenefits = previewBenefits.filter(
-                          (_, i) => i !== index
+                          (_, i) => i !== index,
                         );
                         setPreviewBenefits(newBenefits);
                         form.setFieldValue("benefits", newBenefits.join(","));
@@ -312,10 +257,7 @@ export default function AddMembershipModal({
                         if (newBenefit) {
                           const newBenefits = [...previewBenefits, newBenefit];
                           setPreviewBenefits(newBenefits);
-                          form.setFieldValue(
-                            "benefits",
-                            newBenefits.join(",")
-                          );
+                          form.setFieldValue("benefits", newBenefits.join(","));
                         }
                         // 콤마 이후 텍스트를 입력 필드에 유지
                         const remainingText = parts.slice(1).join(",").trim();
@@ -343,7 +285,9 @@ export default function AddMembershipModal({
             <Form.Item
               name="billing_unit"
               label="결제 주기 단위"
-              rules={[{ required: true, message: "결제 주기 단위를 선택하세요" }]}
+              rules={[
+                { required: true, message: "결제 주기 단위를 선택하세요" },
+              ]}
               extra={
                 <Text
                   type={INPUT_STYLES.text.color}
@@ -353,7 +297,10 @@ export default function AddMembershipModal({
                 </Text>
               }
             >
-              <Select size={INPUT_STYLES.size} placeholder="결제 주기 단위 선택">
+              <Select
+                size={INPUT_STYLES.size}
+                placeholder="결제 주기 단위 선택"
+              >
                 <Select.Option value="DAY">일</Select.Option>
                 <Select.Option value="WEEK">주</Select.Option>
                 <Select.Option value="MONTH">월</Select.Option>
@@ -395,7 +342,10 @@ export default function AddMembershipModal({
                 </Text>
               }
             >
-              <Select size={INPUT_STYLES.size} placeholder="무료 체험 기간 단위 선택">
+              <Select
+                size={INPUT_STYLES.size}
+                placeholder="무료 체험 기간 단위 선택"
+              >
                 <Select.Option value="DAY">일</Select.Option>
                 <Select.Option value="WEEK">주</Select.Option>
                 <Select.Option value="MONTH">월</Select.Option>

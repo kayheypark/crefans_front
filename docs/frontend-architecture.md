@@ -1,0 +1,70 @@
+# 프론트엔드 레이어와 디자인 변경 가이드
+
+> 문서 상태 (2026-10-08): 본문의 초기 앱·사업안·리팩터링 설명은 과거 기록이다. Cognito/콩/개별 구매/초기 출시 수치·일정은 현재 서비스 계약이 아니다. 신규 `/preview`·`/service` 구조는 [실제 서비스 바인딩](./service-api-binding.md), 화면은 [화면 검수](./preview-pages.md)를 우선한다. 이 기록의 예전 명령·계획을 신규 실행 안내로 사용하지 않는다.
+
+기준 브랜치: `refactor/frontend-view-data-separation`
+기존 화면/업무 동작의 기준 커밋: `b12678ed0ab4d7654112fed38294b265de8c6062`.
+
+## 의존 방향
+
+```text
+app / components: container → view
+                         ↓
+features: 기능별 모델 훅 → 데이터 훅
+                         ↓
+lib/api: 도메인 API → 공통 apiClient
+                         ↓
+                      서버 API
+
+공유 데이터 계약: types/
+```
+
+- **컨테이너**: 기존 컴포넌트의 default export. 모델 훅을 호출하고 폼·알림·확인창 어댑터를 전달한다.
+- **뷰**: 같은 파일의 `…View` 함수. 모델이 반환한 데이터와 이벤트를 받아 JSX, 스타일, 표 컬럼, 메뉴, 모달 등을 렌더링한다. HTTP/API 호출을 하지 않는다.
+- **모델**: `features/<기능>/use…Model.ts`. 조회·저장·결제 흐름, 상태, 입력 검증, 화면에 필요한 데이터 변환을 관리한다. JSX나 Ant Design 런타임을 import하지 않는다.
+- **데이터 훅**: 서버 데이터의 수명이 복잡한 피드는 `features/feed/useFeedData.ts`가 조회·페이지·취소·응답 순서·중복 요청을 관리한다. 나머지 기능은 모델이 API를 호출한다. 캐시 라이브러리를 새로 도입하지 않았다.
+- **API**: `lib/api/*`. 애플리케이션 서버 호출은 `apiClient`를 사용한다. S3 서명 URL 업로드는 기존 fetch/XHR를 유지해 앱 인증 정책을 섞지 않는다. 정적 목업 JSON은 `demoAPI`를 사용한다.
+- **계약**: `types/api/*`는 API DTO, `features/*/types.ts`는 해당 화면의 props/타입이다. API 파일의 기존 타입 export는 호환성을 위해 유지한다.
+- **인증**: `features/auth-session/useAuthSession.ts`가 세션을 관리하고, `contexts/AuthContext.tsx`는 Context 제공과 만료 안내 렌더링을 담당한다.
+
+## 디자인 작업 시 수정 범위
+
+| 작업                        | 우선 수정할 곳                                                   |
+| --------------------------- | ---------------------------------------------------------------- |
+| 피드 배치·카드·메뉴·스타일  | `components/feed/Feed.tsx`, `components/post/Post.tsx`           |
+| 프로필 탭·헤더·목록         | `components/profile/Profile.tsx`                                 |
+| 헤더·사이드바·공통 레이아웃 | `components/layout/MainLayout.tsx`                               |
+| 글쓰기 폼·미디어 배치       | `app/(main)/write/page.tsx`, `components/media/MediaGallery.tsx` |
+| 결제·구독 안내 화면         | `app/payment/*`, `app/subscription/*`, `components/modals/*`     |
+| 조회 조건·API 변경          | 해당 `features/*`, `lib/api/*`, `types/*`                        |
+
+뷰의 데이터 조회 코드를 다시 작성하지 않고 모델의 반환값과 이벤트를 연결한다. 컴포넌트 props는 유지했으므로 기존 호출부를 교체할 필요가 없다. 호버·드래그·탭처럼 UI에만 속한 상태는 표시 컴포넌트에 남길 수 있다.
+
+폼 인스턴스는 컨테이너가 생성하며 현재 Ant Design `FormInstance` 타입 계약을 유지한다. CSS/레이아웃 변경은 모델 수정 없이 가능하지만, 폼 라이브러리를 교체할 때는 이 어댑터 계약도 맞춰야 한다. 모델은 React와 Next의 탐색/인증 훅을 사용하는 클라이언트 코드이며 서버 전용 도메인 계층은 아니다.
+
+## 변경한 동작과 유지한 범위
+
+피드에서는 초기 중복 조회, 필터 변경 후 이전 페이지로 요청하는 문제, 늦은 이전 계정/필터 응답이 새 목록에 합쳐지는 문제를 함께 수정했다. 요청 취소와 세대 검사를 둘 다 적용하고, 로딩 중 연속 호출과 중복 게시물도 방지한다.
+
+그 외에는 화면 카피, 스타일, API 경로와 페이로드, 기존 결제/구독 흐름을 유지했다. 기존 목업 수익·후원·설정·신고 기능은 실제 기능으로 전환하지 않았다. 이전 보안 감사의 서버 결제/권한 문제를 이 리팩터링으로 해결한 것은 아니다. 프론트의 결제 중복 방지도 서버 멱등성을 대신하지 않는다.
+
+## 검증
+
+```sh
+npm run check
+npm run build
+```
+
+- 레이어 검사: 뷰의 API/HTTP 의존, 모델의 UI 런타임/JSX, 하위 계층의 상위 계층 의존을 차단한다.
+- 46개 렌더링 파일 비교: 리팩터링 전 커밋의 JSX 구조·문구·스타일·이벤트 바인딩을 AST로 정규화한 기준과 비교한다. 공백/따옴표 포맷 차이는 제외한다. 이는 브라우저 픽셀 비교나 실제 서비스 E2E 검증이 아니다.
+- 11개 동작 테스트: 피드 응답 역전/취소/계정 전환/페이지네이션, 결제 확인, 구독 취소, API 메서드/쿼리/자격증명 정책/오류 계약을 확인한다. 네트워크 및 실제 결제는 호출하지 않는다.
+
+새 디자인을 의도적으로 적용하면 해당 렌더링 기준도 검토 후 갱신해야 한다. 현재 기준은 리팩터링 중 의도하지 않은 디자인 변경을 잡기 위한 것이다.
+
+## 전면 UI 개편의 공통 표시 계층
+
+신규 팬·크리에이터 UI는 `components/crefans`에 두고, 목업 컨테이너는 `components/preview`에 둔다. 표시 계층은 같은 props 계약을 만족하는 실제 기능 모델로 교체할 수 있다. 샘플 데이터/샘플 액션은 표시 컴포넌트에 포함하지 않는다. `tests/crefans-contract.test.cjs`가 이 의존 경계를 검사한다. 페이지 및 API 래퍼 설명은 `docs/preview-pages.md`를 참조한다.
+
+## 실제 서비스 연결 (2026-10-07)
+
+`/service/*` → `components/service` 컨테이너 → `features/service` 모델 → `lib/api/platform` → `/api/v1` 실제 API 경계를 추가했다. `/preview/*`는 그대로 유지하며 표시 컴포넌트만 공유한다. 신규 프론트는 local member 세션을 사용하고 기존 Cognito context를 적용하지 않는다. 전체 목록·외부 설정·운영 경계는 `docs/service-api-binding.md`에 기록한다.

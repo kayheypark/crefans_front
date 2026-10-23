@@ -1,0 +1,16 @@
+node_modules
+.next
+.git
+.env*
+output
+.DS_Store
+
+# Exclude local sessions, test results and runtime secrets from deployment images.
+.local
+.next-e2e
+playwright-report
+test-results
+playwright/.auth
+**/.env
+**/.env.*
+**/.DS_Store
