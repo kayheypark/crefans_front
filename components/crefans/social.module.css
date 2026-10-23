@@ -1,5 +1,9 @@
 .feed{width:100%;max-width:480px;margin:0;color:var(--cf-color-text)}
 .emptyFeed{max-width:none}
+.feedFooter{max-width:480px;margin:24px auto 0;padding-top:16px;border-top:1px solid var(--cf-landing-line)}
+.feedFooter nav{display:flex;justify-content:center;flex-wrap:wrap;column-gap:20px}
+.feedFooter a{display:inline-flex;align-items:center;min-height:44px;font-size:12px;color:var(--cf-color-textMuted);text-decoration:none}
+.feedFooter a:hover{color:var(--cf-service-brand);text-decoration:underline;text-underline-offset:3px}
 .search{display:flex;align-items:center;gap:9px;min-width:0;background:var(--cf-landing-soft);border-radius:24px;padding:11px 14px;color:var(--cf-color-textMuted)}
 .search input{font:inherit;font-size:13px;color:var(--cf-color-text);outline:0;min-width:0;width:100%;border:0;background:transparent}
 .search:focus-within{outline:2px solid var(--cf-service-brand);outline-offset:2px}.search:focus-within input:focus-visible{outline:none;box-shadow:none}

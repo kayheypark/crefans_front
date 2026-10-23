@@ -1,0 +1,287 @@
+{
+  "checkedAt": "2026-10-21T23:40:01.714144+00:00",
+  "scope": "Research and arithmetic only; no financial policy, cloud resources, or production data changed",
+  "repository": {
+    "path": "/Users/ethan/repository/crefans_front",
+    "branch": "feat/operations-security",
+    "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+    "dirty": true
+  },
+  "scriptSha256": "29300dba407e2db8019f3ee7e31e5302d3a27d3efeaae127e135a31cb24046f2",
+  "inputs": {
+    "subscriptionPriceKRW": 10000,
+    "fixedMonthlyBudgetKRW": 150000,
+    "pgPublishedRate": 0.034,
+    "pgCashRateIncludingVat": 0.0374,
+    "lossReserveRate": 0.01,
+    "commissionVatAssumption": 0.1,
+    "inputVatCreditAssumed": 0,
+    "fxBudgetKRWPerUSD": 1400,
+    "usdPricesTaxMultiplier": 1.1,
+    "minutesPerSubscription": 100,
+    "averageMbps": 4,
+    "transferHeadroom": 1.1,
+    "availableSharedAwsFreeOutboundGB": 100,
+    "ec2FirstTierOutboundUSDPerGB": 0.126,
+    "ec2BaseMonthlyUSD": 42.374
+  },
+  "formula": "G = monthly paid subscriptions * price; balance = G * (all-in commission / 1.1 - 0.0374 - 0.01) - F; required commission = 1.1 * (F/G + 0.0374 + 0.01)",
+  "rows": [
+    {
+      "subscriptions": 20,
+      "grossKRW": 200000,
+      "outboundGB": 66.0,
+      "directEc2AwsOnlyKRW": 65256,
+      "requiredAllInFeePercent": 87.71,
+      "fees": [
+        {
+          "ratePercent": 10,
+          "deductionKRW": 20000,
+          "creatorBeforeOwnTaxesKRW": 180000,
+          "balanceAfterBudgetAndReservesKRW": -141298,
+          "directEc2BalanceBeforeOtherCostsKRW": -56554
+        },
+        {
+          "ratePercent": 15,
+          "deductionKRW": 30000,
+          "creatorBeforeOwnTaxesKRW": 170000,
+          "balanceAfterBudgetAndReservesKRW": -132207,
+          "directEc2BalanceBeforeOtherCostsKRW": -47463
+        },
+        {
+          "ratePercent": 20,
+          "deductionKRW": 40000,
+          "creatorBeforeOwnTaxesKRW": 160000,
+          "balanceAfterBudgetAndReservesKRW": -123116,
+          "directEc2BalanceBeforeOtherCostsKRW": -38372
+        }
+      ]
+    },
+    {
+      "subscriptions": 100,
+      "grossKRW": 1000000,
+      "outboundGB": 330.0,
+      "directEc2AwsOnlyKRW": 109885,
+      "requiredAllInFeePercent": 21.71,
+      "fees": [
+        {
+          "ratePercent": 10,
+          "deductionKRW": 100000,
+          "creatorBeforeOwnTaxesKRW": 900000,
+          "balanceAfterBudgetAndReservesKRW": -106491,
+          "directEc2BalanceBeforeOtherCostsKRW": -66376
+        },
+        {
+          "ratePercent": 15,
+          "deductionKRW": 150000,
+          "creatorBeforeOwnTaxesKRW": 850000,
+          "balanceAfterBudgetAndReservesKRW": -61036,
+          "directEc2BalanceBeforeOtherCostsKRW": -20922
+        },
+        {
+          "ratePercent": 20,
+          "deductionKRW": 200000,
+          "creatorBeforeOwnTaxesKRW": 800000,
+          "balanceAfterBudgetAndReservesKRW": -15582,
+          "directEc2BalanceBeforeOtherCostsKRW": 24533
+        }
+      ]
+    },
+    {
+      "subscriptions": 200,
+      "grossKRW": 2000000,
+      "outboundGB": 660.0,
+      "directEc2AwsOnlyKRW": 173918,
+      "requiredAllInFeePercent": 13.46,
+      "fees": [
+        {
+          "ratePercent": 10,
+          "deductionKRW": 200000,
+          "creatorBeforeOwnTaxesKRW": 1800000,
+          "balanceAfterBudgetAndReservesKRW": -62982,
+          "directEc2BalanceBeforeOtherCostsKRW": -86900
+        },
+        {
+          "ratePercent": 15,
+          "deductionKRW": 300000,
+          "creatorBeforeOwnTaxesKRW": 1700000,
+          "balanceAfterBudgetAndReservesKRW": 27927,
+          "directEc2BalanceBeforeOtherCostsKRW": 4009
+        },
+        {
+          "ratePercent": 20,
+          "deductionKRW": 400000,
+          "creatorBeforeOwnTaxesKRW": 1600000,
+          "balanceAfterBudgetAndReservesKRW": 118836,
+          "directEc2BalanceBeforeOtherCostsKRW": 94918
+        }
+      ]
+    },
+    {
+      "subscriptions": 400,
+      "grossKRW": 4000000,
+      "outboundGB": 1320.0,
+      "directEc2AwsOnlyKRW": 301985,
+      "requiredAllInFeePercent": 9.34,
+      "fees": [
+        {
+          "ratePercent": 10,
+          "deductionKRW": 400000,
+          "creatorBeforeOwnTaxesKRW": 3600000,
+          "balanceAfterBudgetAndReservesKRW": 24036,
+          "directEc2BalanceBeforeOtherCostsKRW": -127948
+        },
+        {
+          "ratePercent": 15,
+          "deductionKRW": 600000,
+          "creatorBeforeOwnTaxesKRW": 3400000,
+          "balanceAfterBudgetAndReservesKRW": 205855,
+          "directEc2BalanceBeforeOtherCostsKRW": 53870
+        },
+        {
+          "ratePercent": 20,
+          "deductionKRW": 800000,
+          "creatorBeforeOwnTaxesKRW": 3200000,
+          "balanceAfterBudgetAndReservesKRW": 387673,
+          "directEc2BalanceBeforeOtherCostsKRW": 235688
+        }
+      ]
+    },
+    {
+      "subscriptions": 1155,
+      "grossKRW": 11550000,
+      "outboundGB": 3811.5,
+      "directEc2AwsOnlyKRW": 785435,
+      "requiredAllInFeePercent": 6.64,
+      "fees": [
+        {
+          "ratePercent": 10,
+          "deductionKRW": 1155000,
+          "creatorBeforeOwnTaxesKRW": 10395000,
+          "balanceAfterBudgetAndReservesKRW": 352530,
+          "directEc2BalanceBeforeOtherCostsKRW": -282905
+        },
+        {
+          "ratePercent": 15,
+          "deductionKRW": 1732500,
+          "creatorBeforeOwnTaxesKRW": 9817500,
+          "balanceAfterBudgetAndReservesKRW": 877530,
+          "directEc2BalanceBeforeOtherCostsKRW": 242095
+        },
+        {
+          "ratePercent": 20,
+          "deductionKRW": 2310000,
+          "creatorBeforeOwnTaxesKRW": 9240000,
+          "balanceAfterBudgetAndReservesKRW": 1402530,
+          "directEc2BalanceBeforeOtherCostsKRW": 767095
+        }
+      ]
+    }
+  ],
+  "tenPercentBreakevenSubscriptions": 345,
+  "priceSensitivityAtTenPercent": [
+    {
+      "monthlyPriceKRW": 5000,
+      "paidSubscriptions": 690,
+      "creatorsAt50PaidSubscriptionsEach": 14
+    },
+    {
+      "monthlyPriceKRW": 9900,
+      "paidSubscriptions": 349,
+      "creatorsAt50PaidSubscriptionsEach": 7
+    },
+    {
+      "monthlyPriceKRW": 10000,
+      "paidSubscriptions": 345,
+      "creatorsAt50PaidSubscriptionsEach": 7
+    },
+    {
+      "monthlyPriceKRW": 14900,
+      "paidSubscriptions": 232,
+      "creatorsAt50PaidSubscriptionsEach": 5
+    }
+  ],
+  "fixedBudgetSensitivity": [
+    {
+      "fixedKRW": 100000,
+      "tenPercentBreakEvenSubscriptions": 230
+    },
+    {
+      "fixedKRW": 150000,
+      "tenPercentBreakEvenSubscriptions": 345
+    },
+    {
+      "fixedKRW": 200000,
+      "tenPercentBreakEvenSubscriptions": 460
+    },
+    {
+      "fixedKRW": 300000,
+      "tenPercentBreakEvenSubscriptions": 690
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://www.pd-ing.com/",
+      "method": "Official page search-index text; direct extraction rendered app shell",
+      "claim": "Creator share General 80%, Best 85%, Partner 90%; infer platform 20%,15%,10%"
+    },
+    {
+      "url": "https://legal.pd-ing.com/terms-of-service",
+      "method": "Official current page full text",
+      "claim": "Fees vary; processing, disbursement, conversion fees described, numeric total not public; prepaid individual purchases, not recurring subscriptions"
+    },
+    {
+      "url": "https://committees.parliament.uk/writtenevidence/40780/default/",
+      "method": "Company submission hosted by UK Parliament; historical 2021 primary source",
+      "claim": "OnlyFans fee 20% of fan payments excluding VAT element; creator share80%"
+    },
+    {
+      "url": "https://www.theguardian.com/commentisfree/2026/jun/18/the-guardian-view-on-onlyfans-revelations-of-abusive-middlemen-merit-mps-attention",
+      "method": "2026-06-18 secondary corroboration",
+      "claim": "OnlyFans platform commission20%; latest official terms direct access unavailable"
+    },
+    {
+      "url": "https://www.tosspayments.com/about/fee",
+      "method": "Official published pricing",
+      "claim": "General cards3.4% VAT excluded; actual billing/marketplace contract may differ; joining220000 and annual110000KRW contract-dependent"
+    },
+    {
+      "url": "https://aws.amazon.com/cloudfront/pricing/",
+      "method": "Official current pricing",
+      "claim": "Pro15USD per distribution/month,50TB and10M requests; not complete system cost"
+    },
+    {
+      "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/flat-rate-pricing-plan.html",
+      "method": "Official current documentation",
+      "claim": "Private S3 OAC and signed URLs available; usage/eligibility/feature limits still need deployment validation"
+    },
+    {
+      "url": "https://aws.amazon.com/ec2/pricing/on-demand/",
+      "method": "Official current policy plus prior-day AWS Calculator evidence ec2-beta-cost-20261021.json",
+      "claim": "100GB internet free allowance shared across AWS; Seoul first-tier rate from calculator0.126USD/GB"
+    },
+    {
+      "url": "https://d.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7693&mi=2401",
+      "method": "National Tax Service general guidance",
+      "claim": "General VAT10%, input tax credit exists; not a determination of this business tax/merchant structure"
+    }
+  ],
+  "limits": [
+    "Initial creator count, member price, actual view bitrate/minutes and supplier contracts not confirmed",
+    "150000KRW is a CDN-enabled planning budget, not a measured current monthly bill; CDN not deployed by this research",
+    "Cloud reference about117277KRW = current EC2base42.374 + CDN15 + prior modeled transcoding6.8 + storage1.98 + backup5 + miscellaneous5 USD, times1540; prior2026-10-08 storage/transcoding rates not freshly requoted",
+    "Remaining about32723KRW inside150000 is a provisional allowance, not confirmed PASS, mail, banking or PG annual fees",
+    "No founder/staff salary, marketing, legal/accounting retainers, corporate/income tax, initial setup fees or catastrophic chargeback loss; no staffing sustainability claim",
+    "Commission VAT reserve assumes taxable intermediary commission; ignores input credits conservatively; merchant-of-record structure and creator taxes require confirmation",
+    "1% loss reserve is a chosen sensitivity assumption, not observed refund frequency; G should use successfully collected non-refunded revenue, reserve covers unrecovered losses",
+    "OnlyFans current official terms browser blocked by site policy; no workaround attempted; historical primary and recent secondary evidence distinguished",
+    "PDing headline platform fees are not verified all-inclusive charges; currency/points/tax bases differ",
+    "DirectEC2 rows estimate bandwidth charges only with assumed unused100GB allowance; capacity/disk sufficiency and other internet traffic are not proven"
+  ],
+  "checks": {
+    "decimalArithmetic": "PASS",
+    "knownExample400And1155": "PASS",
+    "integerBreakevenBoundary344vs345": "PASS",
+    "priceSensitivityIntegerBoundaries": "PASS"
+  }
+}

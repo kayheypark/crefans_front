@@ -258,12 +258,13 @@ test('the feed ends with a small "모두 확인했습니다" note, but an empty 
 });
 
 test('card gallery: mouse drag scrolls the track, snaps to the nearest slide on release and does not open the overlay; arrows step slides',()=>{
-  const gallery={...post,media:[{type:'image',url:'/one.png'},{type:'image',url:'/two.png'},{type:'image',url:'/three.png'}]};
+  const gallery={...post,position:'center top',media:[{type:'image',url:'/one.png'},{type:'image',url:'/two.png'},{type:'image',url:'/three.png'}]};
   const input=model({data:{...data,posts:[gallery]},commentsByPost:{[post.id]:[]},loadReplies:async()=>ok});
   const scrolls=[];const node={scrollLeft:0,clientWidth:300,style:{},scrollTo({left}){scrolls.push(left);node.scrollLeft=left;}};
   let tree;act(()=>{tree=create(element(PostCard,{post:gallery,model:input}),{createNodeMock:el=>el.props.className==='galleryTrack'?node:null});});
   try{
     const track=()=>tree.root.findByProps({className:'galleryTrack'});
+    assert.deepEqual(track().findAllByType('img').map(img=>img.props.style.objectPosition),['center top','center top','center top'],'multi-image cards preserve the supplied crop position');
     const dialogs=()=>tree.root.findAllByProps({role:'dialog'});
     act(()=>track().props.onPointerDown({pointerType:'mouse',button:0,clientX:200}));
     act(()=>track().props.onPointerMove({clientX:197}));

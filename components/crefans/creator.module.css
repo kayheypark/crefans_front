@@ -52,7 +52,8 @@
 .membershipHeading{text-align:center;margin:0 0 36px}
 .membershipHeading h1{font-size:27px;line-height:1.4;margin:22px 0 8px;font-weight:750;word-break:keep-all}
 .membershipHeading p{font-size:14px;color:var(--cf-color-textMuted);line-height:1.7}
-.backLink{display:block;text-align:left;color:var(--cf-color-textMuted);text-decoration:none;font-size:12px}
+.membershipCreator{display:flex;align-items:center;justify-content:center;gap:12px;min-width:0}
+.membershipCreator strong{font-size:18px;font-weight:700;line-height:1.4;overflow-wrap:anywhere;text-align:left}
 .planGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 0 18px}
 .plan{display:flex;position:relative;flex-direction:column;border:1px solid var(--cf-landing-line);border-radius:8px;padding:28px 17px 17px;background:var(--cf-color-surface);min-width:0}
 .selectedPlan{border-color:var(--cf-color-accentBorder);background:linear-gradient(var(--cf-color-surface),var(--cf-service-brand-soft));box-shadow:0 0 0 1px var(--cf-service-brand-soft)}
@@ -128,3 +129,5 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 .creatorRow small{font-size:12px;color:var(--cf-color-textMuted)}
 .creatorRow:hover strong{color:var(--cf-color-accent)}
 .creatorRow:focus-visible{outline:2px solid var(--cf-service-brand);outline-offset:2px;border-radius:6px}
+
+.billingIssue{flex-basis:100%;font-size:13px;line-height:1.65;color:var(--cf-color-textMuted);padding-top:12px}.billingIssue p{margin:0 0 8px}.subscriptionCard:has(.billingIssue){flex-wrap:wrap}

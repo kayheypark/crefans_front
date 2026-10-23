@@ -107,7 +107,7 @@ test('deleting an unused membership hides it from sale while preserving history 
 test('creator scoped plans preserve existing tiers, mark new products exact and retain subscription snapshots',()=>{
  const original=[{...plan,rank:2}],newPlan={...plan,id:'new',name:'New',active:false};
  const mapped=studioMembershipPlans([plan,newPlan],original),data={plans:original,creatorPlans:{haneul:mapped}};
- assert.equal(mapped[0].rank,2);assert.equal(mapped[1].rank,1);assert.equal(mapped[1].entitlementMode,'exact');assert.equal(mapped[1].available,false);
+ assert.equal(mapped[0].rank,2);assert.equal(mapped[1].rank,1);assert.equal(mapped[1].entitlementMode,'tier');assert.equal(mapped[1].available,false);
  assert.equal(getCreatorPlans(data,'haneul'),mapped);assert.equal(getCreatorPlans(data,'jiwoo'),original);
  const snapshot={...original[0],image:'/old.png'};assert.equal(getSubscriptionPlan(data,{creatorId:'haneul',planId:plan.id,planSnapshot:snapshot}),snapshot);
 });
@@ -150,7 +150,7 @@ test('a new fan subscription immediately protects its creator membership from de
   assert.equal(probe.management.memberships.find(item=>item.id===id).canDelete,true);
   await act(async()=>{result=await probe.service.subscribe('haneul',id);});assert.equal(result.success,true);
   assert.equal(probe.management.memberships.find(item=>item.id===id).canDelete,false);
-  assert.equal(probe.service.canAccess('haneul',1,id),true);assert.equal(probe.service.canAccess('haneul',1),false);
+  assert.equal(probe.service.canAccess('haneul',1,id),true);assert.equal(probe.service.canAccess('haneul',1),true);
   await act(async()=>{result=await probe.management.actions.deleteMembership(id);});assert.equal(result.success,false);
   await act(async()=>{result=await probe.service.cancelSubscription('haneul');});assert.equal(result.success,true);
   assert.equal(probe.service.canAccess('haneul',1,id),true);

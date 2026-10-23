@@ -38,7 +38,7 @@
 
 `useCheckoutModel`은 서버 주문·등록된 기본 카드·승인 결과를 표시한다. Toss 공개 키는 서버 설정 조회로 받으며 브라우저에서 server secret이나 billing key를 읽지 않는다. PASS는 팝업 시작→서버 결과 확인→서버 proof 흐름이다.
 
-Next `/api/v1/[...path]`는 고정 PLATFORM_API_ORIGIN으로만 프록시한다. 쿠키·Origin·Range·PASS 서명·응답 쿠키를 보존하고 업로드/파일 응답을 스트리밍한다. 같은 출처 배포에서는 Caddy가 API에 직접 연결한다.
+Next `/api/v1/[...path]`는 고정 PLATFORM_API_ORIGIN으로만 프록시한다. 쿠키·Origin·Range·PASS 서명·응답 쿠키를 보존하고 업로드/파일 응답을 스트리밍한다. 같은 출처 배포의 일반 API는 Caddy가 API에 연결하고, CDN 보호 미디어 경로는 엣지가 현재 권한 API를 확인한 뒤 S3 파일을 전달한다.
 
 실제 코드에서 오래된 Cognito/Ant Design 앱의 provider를 적용하지 않는다. 기존 화면 자체는 사용자 지시대로 전환 대상이며 신규 바인딩 대상으로 삼지 않았다. legacy Toss 키 검증은 모듈 import가 아닌 SDK 사용 시에 실행해 계정값 없이도 전체 프로젝트를 빌드할 수 있다.
 
@@ -58,7 +58,7 @@ SMTP/Toss 계정 설정과 실제 테스트 환경 검증, PASS/은행 공급사
 - `lib/content/landing.ts`의 이미지·문구·3단계 소개를 `/preview/landing`과 `/service/landing`이 함께 사용한다. 실제 모드에서도 고정 서비스 소개/히어로는 유지하고 카드/콜라주만 서버 데이터로 구성한다.
 - 에셋 모드 샘플 프로필은 `/preview/creator/*`, 팔로우는 랜딩 내부 상태. 로그인·회원가입·탐색은 `/service` 경로를 유지한다. 그 외 실제 서비스 페이지의 API 연결은 그대로다.
 
-로고 클릭은 `/feed`, 랜딩 진입은 팬 사이드바의 고객센터 바로 위 `서비스 소개`(`/landing`), 스튜디오에서는 기존 하단 링크. `/preview`에서도 동일한 basePath 경로 규칙을 사용한다.
+로고 클릭은 `/feed`, 랜딩 진입은 팬 사이드바의 고객센터 바로 위 `서비스 소개`(`/landing`), 스튜디오에서는 기존 하단 링크. 빈 홈 피드에는 서비스 소개·고객센터·공지사항·크리에이터 스튜디오 푸터 링크를 추가로 표시해 모바일에서도 접근할 수 있다. 사이드바와 빈 피드는 `components/crefans/ServiceLinks.tsx`를 공유하며 `/preview`에서도 동일한 basePath 경로 규칙을 사용한다.
 
 ### 결제수단 등록 (2026-10-07)
 - `/api/v1/billing/registrations`에서 회원 전용 비공개 customerKey, registrationId/state, 승인된 복귀 경로를 받고 Toss 등록창으로 이동한다. 카드번호/CVC는 서비스 서버가 수집하지 않는다.
@@ -112,3 +112,31 @@ npm run test:e2e:report                 # 최근 HTML 결과 확인
 ### 2026-10-21 미이용 전액 환불 API 준비
 
 일반 구독 종료는 갱신 해지 예약을 유지한다. 결제 상세의 셀프 환불 진입을 제거했고, 환불 action/API는 미이용 검증을 붙여 보존한다. `GET /api/v1/checkout/:id/refund-eligibility`로 UI 추가 전에 가능 여부를 조회할 수 있다. 공통 bootstrap은 유료 본문/미디어를 제외하며 저장·좋아요 모아보기(`/service/me?tab=saved|liked`)만 `collection` query로 해당 콘텐츠를 요청한다. 실제 제공 경계에서 서버가 회차별 최초 이용 시각을 기록하므로 결제/설정 화면 진입만으로 소비되지 않는다. 과거 미추적 결제는 수동 확인 대상이다. 상세 계약은 [공급사/환불 계약](../../crefans_server/docs/provider-contracts.md)을 따른다.
+
+2026-10-21 금융 정책 DB 전환: 수수료율/정산 보류를 관리자 API로 변경할 수 있다. 최고 관리자만 GET/PUT `/api/v1/admin/financial-policy` 및 이력 조회 가능하며, 일반 팬/스튜디오 화면에는 설정 UI를 추가하지 않았다. 신규 최초 결제에는 DB 최신값을 읽고 기존 구독 갱신과 승인 복구에는 기존 snapshot을 유지한다. 재시작은 필요하지 않으며 운영 설정이 없으면 신규 결제는 차단된다.
+
+
+### 사고 추적 보완 (2026-10-22, 로컬 구현)
+
+`/service`에서 전역 오류·Promise rejection·React error boundary를 수집한다. `/preview`는 유지한다. 전송은 lib/api/browser-errors.ts에 한정하며 오류 종류와 `_next/static` JS 위치만 허용한다. 메일/비밀번호/본문/URL/query/원문 stack은 보내지 않는다. 페이지당5건과 중복 억제, 서버 IP별10회/분 제한을 적용했다. 클라이언트 보고는 비신뢰 입력이고 보안 자동 차단/Telegram을 직접 유발하지 않는다. 서버 X-Request-ID를 프록시에서 전달하고 5xx 안내에 표시한다. 별도 운영 콘솔 `/console/logs`와 [서버 수집 범위](../../crefans_server/docs/operational-logging.md), [이번 검증](../../crefans_server/docs/logging-implementation-20261022.json)을 참고한다. 운영 반영은 아직 하지 않았다.
+
+
+### 결제수단 불능·갱신 대기 (2026-10-22)
+
+`requiresUpdate` 카드는 카드 관리에서 변경 안내와 기본선택 비활성으로 표시한다. 실제 checkout도 불능 기본카드로 새 청구를 시작하지 않는다. `subscriptions.renewalPending`은 유효 이용권한과 구분된 갱신 대기 섹션에 표시하며 `billingIssue`/`retryAt`로 카드변경/다음시도·해지 동선을 제공한다. `/preview`와 공통 뷰를 유지한다. PC/390px 브라우저 검증은 `e2e/billing-recovery.spec.ts`, 실제 DB/공급사대역·SMTP 및 운영 결과는 서버 `docs/billing-recovery-20261022.json`. 실제 분실카드 청구/외부메일 전달성 검증을 대신하지 않는다.
+
+### 세션 보호 미디어 (2026-10-22)
+
+미디어 URL은 `/api/v1/media/:id/file`만 사용한다. GET/HEAD/Range마다 API가 세션·소유권/구독/기간/열람 기록을 검증한다. 운영 CDN은 캐시 적중 전 이 API를 호출하고 비공개 S3 바이트를 직접 전달한다. 쿠키를 S3로 보내거나 bearer 서명 URL을 사용하지 않는다. 직접 API 스트리밍은 같은 권한의 롤백/legacy 경로이며 legacy 파일만 동일 호스트 origin-file 경로로 이동할 수 있다. Next 프록시는 HEAD와 취소 신호·보호 헤더도 전달한다. 카드·오버레이·편집 썸네일의 `MediaVideo`는 관리형 API 주소의 재생 실패 시 같은 인증 API로 제한된 재시도를 하고 위치를 복원한다. 목업/외부/blob URL은 재시도하지 않는다. 다른 세션에서 복사한 이미지·영상 주소의 접근 거절을 실제 브라우저로 검증하며 [서버 운영 문서](../../crefans_server/docs/private-media.md)를 따른다.
+
+### 2026-10-22 멤버십 레벨 공개
+
+공통 ManagementPages에서 멤버십 rank(1~100), 게시물 `전체 공개`/`레벨 N 이상`/`상품명 전용`을 설정한다. 실제 모델은 accessLevel/rank를 API에 전달하고 목업도 같은 표시 컴포넌트와 검증 계약을 쓴다. 기존 상품 전용은 유지. 신규 가입 스냅샷의 레벨로 최소 공개를 판정하고 과거 계약은 상품 수정으로 변경하지 않는다. 팬 잠금 안내·카드·미리보기에도 조건을 표시한다. 백엔드 [플랫폼 API](../../crefans_server/docs/platform-api.md)와 [미디어 계약](../../crefans_server/docs/private-media.md)을 따른다.
+
+## 법률문서와 가입 안내 (2026-10-22)
+
+실제 `/service/legal/{terms,privacy,policy}`와 가입 모달은 서버 코드 원본 `legal-documents.ts`를 같은 `LegalDocumentBody`로 표시한다. 가입 화면의 필수 개인정보 항목은 처리방침 확인이며 마케팅 동의와 분리한다. 주입된 버전/본문 해시를 signup.policyVersions로 전송하고, 최신 시행본과 불일치하면 서버409로 거부한다. 안내를 열었다고 체크박스를 자동 체크하지 않는다. `/preview`는 같은 컴포넌트에 별도 예시 문서를 주입하고 기존 링크를 유지한다.
+
+현재 문서는 운영 공개본2026-10-22.1이며, 공개일과 신규가입 적용 시행일을 구분한다. documentsPublished=true라도 signupReady=false이면 가입·가입인증메일을 차단한다. 사업자 정보는 확인했으나 보유·파기, 국외이전 및 콘텐츠 허용 범위가 미해결이다. 가입연령은 만19세 이상으로 확정하고 서버 검사를 적용했다. 발행본 대역으로 통과한 E2E를 실제 가입 개방/법률검토/공급자 검증으로 해석하지 않는다. 상세 근거와 완료 조건은 [백엔드 구현](../../crefans_server/docs/platform-implementation.md)의 코드 관리 약관 절을 따른다.
+
+- 가입 UI와 약관은 만19세 이상 기준을 함께 안내한다. 실제 권한은 서버의 서명된 공급사 결과/DB proof로 검사하며 프론트 체크박스·자가신고로 연령을 증명하지 않는다. 목업은 공유 UI/샘플 본문을 사용하고 PASS 성공 대역임을 표시한다.

@@ -9,6 +9,6 @@ export async function platformRequest<T>(path:string,body?:unknown,method=body==
  try{const options={method,credentials:'same-origin' as const,cache:'no-store' as const,headers:body instanceof FormData?undefined:{'Content-Type':'application/json'},body:body===undefined?undefined:body instanceof FormData?body:JSON.stringify(body)};
    let response=await fetch(`/api/v1${path}`,options);
    if(response.status===401&&!path.startsWith('/auth/')){await renew();response=await fetch(`/api/v1${path}`,options);}
-   const result=await response.json();if(typeof result.success!=='boolean'||!('data'in result))throw new Error('Invalid response');return result;
+   const result=await response.json();if(typeof result.success!=='boolean'||!('data'in result))throw new Error('Invalid response');const requestId=response.headers?.get('X-Request-ID');if(!result.success&&response.status>=500&&/^[a-f0-9-]{36}$/i.test(requestId||''))result.errorMessage=`${result.errorMessage||'요청 처리에 실패했습니다.'} (요청 ID: ${requestId})`;return result;
  }catch{return{success:false,data:null,errorMessage:'서버에 연결하지 못했습니다. 다시 시도해주세요.',errorCode:'NETWORK_ERROR'};}
 }

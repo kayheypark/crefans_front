@@ -1,0 +1,266 @@
+{
+  "verifiedAt": "2026-10-23T22:56:30.941937+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+  "branch": "feat/operations-security",
+  "workingTreeDirty": true,
+  "requirements": [
+    {
+      "requirement": "Show creator avatar and name together in membership header",
+      "result": "PASS: existing shared Avatar, 48px, and injected creator.name; PC/mobile visual inspection."
+    },
+    {
+      "requirement": "Remove profile return link/button",
+      "result": "PASS: replaced normal header TextLink with non-interactive identity; removed empty-plan profile action; zero creator links in page content."
+    },
+    {
+      "requirement": "Keep preview and live service UI unified",
+      "result": "PASS: both ServiceRouter files import same MembershipPage; only data and basePath differ."
+    }
+  ],
+  "sourceHashes": {
+    "components/crefans/CreatorPages.tsx": "de31702f9174be13725ef772770104323f6e93a6a70e07654d535bcc2332085f",
+    "components/crefans/creator.module.css": "962c3cdf599b447b87fe5d009792e0acbcc7c7406298fa922d80bc8623cbf644",
+    "components/crefans/ServiceUI.tsx": "46c9aba62d7d8dc4e0d28a49d6c430676dc7452f67c3c811046ace4fffbb5008",
+    "components/ui/Avatar.tsx": "6c33c500f4208d86c577b0e9096ed921a41ad9235882e64f84dd61b8db3444b2",
+    "components/service/ServiceRouter.tsx": "8d6e40a521d8298eb9edc9a08316d055cc6fb0c736b71e05fecb7afe0fd8af5f",
+    "components/preview/service/ServiceRouter.tsx": "7baf72bdd77318bf6d6f915a0f1cab5f20762857b14b46d6ee0def690d7f22a9",
+    "tests/crefans-creator.test.cjs": "cc9d10c78d1d25b9be421ad5bba3470ff6d9d8410ad97866ec963d36c8851283"
+  },
+  "checks": {
+    "command": "npm run check",
+    "startedAt": "2026-10-23T22:52:03.428436+00:00",
+    "finishedAt": "2026-10-23T22:52:10.826895+00:00",
+    "exitCode": 0,
+    "result": "283 passed, 0 failed; layer and TypeScript checks passed."
+  },
+  "localBrowser": {
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "result": "PASS",
+    "observations": [
+      "Avatar and name shown together; no profile return action",
+      "No broken images or horizontal overflow",
+      "Select and continue opens existing membership confirmation; submit stays disabled until agreement",
+      "No subscription/payment executed"
+    ],
+    "errors": []
+  },
+  "release": "crefans-front:membership-identity-20261024",
+  "build": {
+    "command": "docker build --platform linux/amd64 -f infra/platform/Dockerfile -t crefans-front:membership-identity-20261024 .",
+    "startedAt": "2026-10-23T22:52:45.369295+00:00",
+    "finishedAt": "2026-10-23T22:54:16.101571+00:00",
+    "exitCode": 0
+  },
+  "buildEnvironment": {
+    "architecture": "linux/amd64",
+    "dockerConfig": "crefans_server/.local/beta-build-config",
+    "separateFromLocalNextDev": true
+  },
+  "image": {
+    "at": "2026-10-23T22:54:24.887065+00:00",
+    "imageId": "sha256:f174cafcd896c1b86eb1ee25508a1020b8241b2ce39584f8e505149b5980c75f",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 473
+  },
+  "runtimeSourceDiff": {
+    "changed": [
+      "components/crefans/CreatorPages.tsx",
+      "components/crefans/creator.module.css"
+    ],
+    "added": [],
+    "removed": [],
+    "runtimeFiles": 473
+  },
+  "imageSmoke": {
+    "at": "2026-10-23T22:54:27.639638+00:00",
+    "routes": [
+      {
+        "route": "preview/membership/sion",
+        "status": 200
+      },
+      {
+        "route": "preview/membership/moka",
+        "status": 200
+      },
+      {
+        "route": "service/membership/sion",
+        "status": 200
+      },
+      {
+        "route": "service/feed",
+        "status": 200
+      }
+    ],
+    "containerRemoved": true,
+    "scope": "HTTP shells; visual UI checked separately in browser."
+  },
+  "archive": {
+    "sha256": "0ae4b7287b2ac141078715ca7bc1a480aa549336311ec92ed864bfbab1453dba",
+    "bytes": 487804425,
+    "startedAt": "2026-10-23T22:54:27.640483+00:00",
+    "finishedAt": "2026-10-23T22:54:36.145844+00:00",
+    "exitCode": 0
+  },
+  "deployment": {
+    "command": "python3 .local/membership-identity-20261024/guarded-release.py",
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-23T22:54:46.123911+00:00",
+        "finishedAt": "2026-10-23T22:54:48.426696+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-23T22:54:48.427856+00:00",
+        "finishedAt": "2026-10-23T22:54:56.402444+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-23T22:54:56.402968+00:00",
+        "finishedAt": "2026-10-23T22:55:08.409302+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-23T22:55:08.410066+00:00",
+        "finishedAt": "2026-10-23T22:55:15.326330+00:00",
+        "exitCode": 0
+      }
+    ],
+    "result": {
+      "frontendImage": "sha256:f174cafcd896c1b86eb1ee25508a1020b8241b2ce39584f8e505149b5980c75f",
+      "running": true,
+      "restarts": 0,
+      "preservedServices": [
+        "database",
+        "api",
+        "worker",
+        "admin",
+        "proxy"
+      ]
+    },
+    "rollback": "/opt/crefans-backup-membership-identity-20261024",
+    "healthSuccess": true,
+    "ninePreviewServiceHTTPRoutes": 200,
+    "sshCleanup": {
+      "at": "2026-10-23T22:55:16.603222+00:00",
+      "removedRuleIds": [
+        "sgr-069c300edb4e5344c"
+      ],
+      "originalPermissionsRestored": true
+    }
+  },
+  "productionBrowser": {
+    "url": "https://beta.crefans.com/preview/membership/sion",
+    "viewports": [
+      [
+        390,
+        844
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "result": "PASS",
+    "profileLinksInMain": 0,
+    "horizontalOverflow": false,
+    "brokenImages": 0,
+    "observations": [
+      "Creator avatar and name shown, header is membership invitation without repeated name",
+      "Existing plan image, price and benefits remain visible",
+      "Viewport restored; production membership tab retained"
+    ],
+    "errors": []
+  },
+  "screenshots": [
+    {
+      "path": ".local/membership-identity-20261024/local-desktop.png",
+      "sha256": "1308755ec8cc3fcdf42929bca504b88057f663c0ddd137bcb3d249fa461b4493"
+    },
+    {
+      "path": ".local/membership-identity-20261024/local-mobile.png",
+      "sha256": "9ed359420591369140a7d7b13dabbbb0de0aa3a41446f6bc8414ce0a4d504563"
+    },
+    {
+      "path": ".local/membership-identity-20261024/production-desktop.png",
+      "sha256": "2ab7febd3766e28e89db580d78daa3de3c2d88333e46a8e8ce19ef2bf7e3c3ee"
+    },
+    {
+      "path": ".local/membership-identity-20261024/production-mobile.png",
+      "sha256": "18212c85eabd6c791d3d494bdc00a3ad42e7dedb92dcaf555f0c697e1ec5398f"
+    }
+  ],
+  "logsAndScripts": [
+    {
+      "path": ".local/membership-identity-20261024/checks.log",
+      "sha256": "6f72a9f7746e83a2d47372cc12130203c2fea294d7aabc528748b283abeea779"
+    },
+    {
+      "path": ".local/membership-identity-20261024/build.log",
+      "sha256": "af88773d9b86524d12a2b9f7069ae85a9c6134ea8fc95fe729d68a20e9da2cc2"
+    },
+    {
+      "path": ".local/membership-identity-20261024/release-hashes.json",
+      "sha256": "c6f288eb46697d483c5cf61576ea932fa3be77492cc6d9dad1f30345c282ae72"
+    },
+    {
+      "path": ".local/membership-identity-20261024/prepare-release.py",
+      "sha256": "eb4fa31c7b9f9823739fefb954debcecbaf1fbda36e75d3c6ef2cbef593b04a6"
+    },
+    {
+      "path": ".local/membership-identity-20261024/guarded-release.py",
+      "sha256": "3caba156220bc3f1fc0a9becb085dd75497313786ea32817b3a1a34627804025"
+    },
+    {
+      "path": ".local/membership-identity-20261024/release.py",
+      "sha256": "944a7db6d83a69efddfe6b7e89220cd1e59dc113406aa3c57bd790b627f8820b"
+    },
+    {
+      "path": ".local/membership-identity-20261024/deploy.sh",
+      "sha256": "6c53d87e87cf5dbfe71748ac1db53845c5d1380da1f02b1f6cec43b773e2f3e0"
+    },
+    {
+      "path": ".local/membership-identity-20261024/final-prepare.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local/membership-identity-20261024/final-upload.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".local/membership-identity-20261024/final-load.log",
+      "sha256": "0547b3a2c69ae92752a70b9482097c1da7f8275d9c0e3536b3110eceb4620a72"
+    },
+    {
+      "path": ".local/membership-identity-20261024/final-deploy.log",
+      "sha256": "9be02a0ed40cbfa6932c2e6f34a0104428d9189776116238b75d7eb6f355ab03"
+    },
+    {
+      "path": ".local/membership-identity-20261024/local-browser-errors.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": ".local/membership-identity-20261024/production-browser-errors.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    }
+  ],
+  "limits": [
+    "Cosmetic shared component change; no API, DB, subscription/payment business logic or policy changes.",
+    "Rendered production verification used preview Sion; no live creator/account seeded for UI checks.",
+    "HTTP smoke checks HTML shell only; rendered appearance checked through browser separately.",
+    "Existing uncommitted work preserved; no commit/push."
+  ]
+}

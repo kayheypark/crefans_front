@@ -1,0 +1,75 @@
+{
+  "checkedAt": "2026-10-21T07:09:56.893554+00:00",
+  "scope": "DB-backed platform fee and settlement hold; admin API, policy history, snapshot preservation",
+  "repositories": {
+    "front": {
+      "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+      "branch": "feat/toss-test-integration",
+      "dirty": true
+    },
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/toss-test-integration",
+      "dirty": true
+    }
+  },
+  "sourceSha256": {
+    "server/src/platform/financial-policy.ts": "1bd65378e2c62504a64e6b8ef4fb391c917540e49dbb4b780de51765b4237542",
+    "server/src/platform/admin.controller.ts": "ee726d43465842e31518a78dc2c01a3a136f07f32c6c25f7370fc95d13c6d41d",
+    "server/src/platform/finance.service.ts": "a178cd517b6d5d142828a1dacade8c7d6aadc7b0779764d00e5af8de756cf890",
+    "server/prisma/schema.prisma": "8ad491312ad4e5f8d4adc06d392f7bfb0e33bfcd41abff2e244143231aa31717",
+    "server/prisma/migrations/20261021080000_db_financial_policy/migration.sql": "80ba545b2b74906641d70418e33119d00ae3d80116ff68865b8c6d90580d7c95",
+    "server/scripts/platform-billing-test.cjs": "fb5392dfa69a69b2422ce29c1c745beeaf9d1471b0a3589865813681fafd4aa6",
+    "server/tests/platform-financial-policy.test.cjs": "fb78656d9e8b7fa4d19204e1d65191e88f002ae1094cb2f9bc55512fd7d62a03",
+    "server/tests/e2e-db-lock.cjs": "692dd5fe8e5f7ffdeedddfb91778c4e0355c675ea2b784488efe3ac9c7b0a8b8",
+    "server/tests/e2e-server.cjs": "0375d70fcd53ca0e7ef3726e63040d203ed4c2a4e165774b1e138f3cd93a41ad",
+    "server/tests/platform-finance.test.cjs": "515c3005319c181cfb126ed397e693470efb37750b07664de670fe8f804288d2",
+    "server/tests/platform-billing-config.test.cjs": "4886c218f1b649e3484c282254ed3e217670186e3eeb51acccd4b8cba380defd",
+    "server/package.json": "588257bde5809e954b2d104fd3f18933ddcd55362aec5fb929d08a62d9ce2243"
+  },
+  "checks": [
+    {
+      "command": "npx prisma generate; npm run build",
+      "exitCode": 0
+    },
+    {
+      "command": "guarded local dev prisma migrate deploy; initializeLocalPolicy",
+      "exitCode": 0,
+      "migration": "20261021080000_db_financial_policy",
+      "scope": "loopback3307/crefans_platform_dev; test-only initial 1000bps/0days if missing"
+    },
+    {
+      "command": "npm run test:policy",
+      "exitCode": 0,
+      "passed": 8,
+      "scope": "existing crefans_platform_e2e; exclusive named lock; previous policy/history restored; substitute payment provider",
+      "log": "/tmp/crefans-db-policy-tests.log",
+      "logSha256": "8cc6f1f36f7059bb470cce171b932eccd81776089749bcda411d8197a8b57c17"
+    },
+    {
+      "command": "node --test tests/platform-payment-lifecycle.test.cjs tests/platform-payment-http.test.cjs tests/platform-finance.test.cjs tests/platform-billing.test.cjs tests/platform-billing-config.test.cjs",
+      "exitCode": 0,
+      "passed": 60,
+      "scope": "isolated loopback development DB, substitute provider, existing local test fee1000bps/hold0days",
+      "log": "/tmp/crefans-db-policy-regression.log",
+      "logSha256": "7c22e710dc49d0bf983050d1adfbe5be2a4786ae89f5654b734200693f051683"
+    }
+  ],
+  "negativeControls": [
+    "Unauthenticated/ordinary/admin/moderator/inactive users denied",
+    "Invalid ranges, fractions, numeric strings, missing values/reason rejected",
+    "Concurrent stale version rejected with409",
+    "Simulated audit persistence failure rolls back policy update",
+    "Missing DB policy refuses charges despite configured environment values",
+    "Existing renewal and approval recovery keep the original policy snapshot",
+    "Local restart initialization does not overwrite an edited policy"
+  ],
+  "limits": [
+    "No management UI added; authenticated SUPER_ADMIN API ready",
+    "Only platform fee and settlement hold moved to DB; payout fees/minimums/retries excluded",
+    "No operating policy approved; local10percent/0days remains a test initialization",
+    "No actual PG charge/refund or production deployment executed",
+    "Existing financial regression tests use the local standard test policy; dedicated policy-change tests preserve the E2E policy",
+    "New temporary DB setup initially failed due to database privileges; persistent grant was rejected and was not executed; existing E2E DB was used instead"
+  ]
+}

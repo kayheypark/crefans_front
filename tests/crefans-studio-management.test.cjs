@@ -125,7 +125,7 @@ test('membership editing saves individually edited, added and removed benefits a
   act(()=>benefitAction(tree,'혜택 추가').props.onClick());changeMembershipField(tree,'혜택 2',' 새 혜택 ');
   act(()=>benefitAction(tree,'혜택 추가').props.onClick());
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
-  assert.deepEqual(calls,[{id:original.id,name:original.name,price:original.price,benefits:['수정한 혜택','새 혜택']}]);
+  assert.deepEqual(calls,[{id:original.id,name:original.name,rank:1,price:original.price,benefits:['수정한 혜택','새 혜택']}]);
   assert.deepEqual(original.benefits,['기존 혜택','삭제할 혜택']);
   assert.equal(tree.root.findAllByType('form').length,0);
  }finally{act(()=>tree.unmount());probe.close();}
@@ -143,7 +143,7 @@ test('new membership rejects empty benefits and preserves entered rows when the 
   assert.equal(calls.length,0);assert.match(json(tree),/혜택을 하나 이상 입력해주세요/);
   act(()=>benefitAction(tree,'혜택 추가').props.onClick());changeMembershipField(tree,'혜택 1','직접 입력한 혜택');
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
-  assert.deepEqual(calls[0],{id:undefined,name:'새 멤버십',price:15000,benefits:['직접 입력한 혜택']});
+  assert.deepEqual(calls[0],{id:undefined,name:'새 멤버십',rank:1,price:15000,benefits:['직접 입력한 혜택']});
   assert.equal(membershipField(tree,'혜택 1').props.value,'직접 입력한 혜택');assert.match(json(tree),/저장이 거절되었습니다/);
  }finally{act(()=>tree.unmount());probe.close();}
 });
@@ -199,4 +199,24 @@ test('editor comment toggle follows the studio-wide switch and saves the per-pos
     assert.equal(toggle.props.disabled,true);assert.match(json(locked),/크리에이터 설정에서 먼저 켜 주세요/);
   }finally{act(()=>locked.unmount());}
   probe.close();
+});
+
+
+test('minimum-level content roundtrips without becoming public and rejects conflicting or invalid scopes',async()=>{
+ const probe=fixtureHook();
+ try{
+  const tier={...initialContent,accessPlanId:null,accessLevel:2};let result;
+  await act(async()=>{result=await probe.model.actions.saveContent(tier);});assert.equal(result.success,true);assert.equal(probe.model.contents[0].accessLevel,2);
+  const tree=mount(ContentEditorPage,probe.model,'draft1');
+  try{const field=tree.root.findAll(node=>node.type?.name==='SelectField'&&node.props.label==='공개 범위')[0];assert.equal(field.props.value,'level:2');assert.ok(field.props.options.some(o=>o.label==='레벨 2 이상'));await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(probe.model.contents[0].accessLevel,2);assert.equal(probe.model.contents[0].accessPlanId,null);}finally{act(()=>tree.unmount());}
+  for(const accessLevel of [0,-1,101,1.5,'2']){await act(async()=>{result=await probe.model.actions.saveContent({...tier,accessLevel});});assert.equal(result.success,false);}
+  await act(async()=>{result=await probe.model.actions.saveContent({...tier,accessPlanId:'plan1'});});assert.equal(result.success,false);
+ }finally{probe.close();}
+});
+test('membership rank is validated and edits preserve subscriber snapshot',async()=>{
+ const probe=fixtureHook(),original=JSON.stringify(probe.model.subscribers);let result;
+ try{
+  for(const rank of [0,-1,101,1.5,'2']){await act(async()=>{result=await probe.model.actions.saveMembership({...plan,rank});});assert.equal(result.success,false);}
+  await act(async()=>{result=await probe.model.actions.saveMembership({...plan,rank:3});});assert.equal(result.success,true);assert.equal(probe.model.memberships[0].rank,3);assert.equal(JSON.stringify(probe.model.subscribers),original);
+ }finally{probe.close();}
 });

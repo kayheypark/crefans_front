@@ -1,0 +1,71 @@
+{
+  "command": [
+    "ssh",
+    "-i",
+    "/Users/ethan/Downloads/crefans.pem",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "-o",
+    "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+    "ubuntu@15.164.140.26",
+    "sudo -n docker exec -i -e CREFANS_SET_FEE_DRAFT=2000 crefans-beta-api-1 node"
+  ],
+  "startedAt": "2026-10-22T08:51:12.248660+00:00",
+  "finishedAt": "2026-10-22T08:51:14.239674+00:00",
+  "exitCode": 0,
+  "scriptSha256": "6d4e32e24a56bff5b9b8b198c0a0eab30414d5ece9446ee74fad63a433750236",
+  "result": {
+    "at": "2026-10-22T08:51:14.214Z",
+    "release": "media-edge-final-20261022",
+    "before": {
+      "version": 0,
+      "platformFeeBps": null,
+      "settlementHoldDays": null,
+      "configured": false
+    },
+    "after": {
+      "version": 0,
+      "platformFeeBps": 2000,
+      "settlementHoldDays": null,
+      "configured": false
+    },
+    "alreadyApplied": false,
+    "auditRecorded": true,
+    "onlyFeeChanged": true,
+    "policyStillIncomplete": true,
+    "paymentPolicyStillBlocks": true,
+    "noOrdersOrSubscriptionsOrRevenue": true,
+    "example": {
+      "gross": 10000,
+      "platformFee": 2000,
+      "creatorNet": 8000
+    },
+    "passed": true
+  },
+  "repository": {
+    "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+    "dirty": true
+  },
+  "sourceHashes": {
+    "src/platform/financial-policy.ts": "39f77f75fdd00e0c85462c1ed5b34e9b9fb76f5a785fd4ea5619edd63eead2b0",
+    "src/platform/finance.service.ts": "e30888d386f7ebcb658c4a5104b47accb92d1255a485e3697ca5f7e84e04689d",
+    "src/platform/audit.ts": "152ac60ca0dcd8755668b2e69d611b8f95b3c9472e35ba1870e15f8c7b245706",
+    "prisma/schema.prisma": "302ea383ea17cfe0cfdc5f9a34447c7d607bf5b9bc05a98a49904faf71db42a9"
+  },
+  "scope": "User-authorized initial fee draft only, 2000 basis points. Unpublished version0, hold remains null; same transaction audit. No payment, payout, active policy publication, schema or code change.",
+  "holdDefinition": {
+    "start": "payment-success processing time used when creating revenue entry",
+    "unit": "24-hour calendar days, not business days",
+    "effect": "net revenue becomes eligible for withdrawal request after available_at; does not automatically transfer money",
+    "notEquivalentTo": "PG settlement arrival or refund expiry"
+  },
+  "sources": [
+    {
+      "url": "https://docs.tosspayments.com/resources/glossary/settlement",
+      "checkedAt": "2026-10-22",
+      "finding": "PG payout cycle is set by contract and may use business days. Crefans internal hold is a separate policy."
+    }
+  ]
+}

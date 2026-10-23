@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-23T21:02:53.080592+00:00",
+  "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+  "worktree": "existing dirty changes preserved",
+  "generation": ".local/creator-concepts/sion/generation-v2.json",
+  "generationSha256": "95627d8a2264feebadd5df7f1009ab66b1284f5f0622def7eddedc5b80440e71",
+  "image": ".local/creator-concepts/sion/portrait-v2-realistic.png",
+  "dimensions": [
+    1122,
+    1402
+  ],
+  "imageSha256": "e3f804a5cbe8f946c06d6698fc1c7ef10034435fa2c76361111709d1283469d4",
+  "exactSourceCopy": true,
+  "visualReview": "기존 남성 인상·검은 코트 유지, 밝은 회색 스튜디오와 부드러운 조명으로 변경. 피부·손·직물 질감 및 단일 인물·문자 없음 육안 확인.",
+  "scope": "Concept image edit only. No runtime code, fixture, DB or deployment changes. Product tests not applicable."
+}

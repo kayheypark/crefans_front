@@ -24,8 +24,17 @@ test('explicit product access is independent of rank and expired active records 
  assert.equal(hasPreviewAccess([], 'haneul',0,'2026-09-12',[exactPlan],'custom'),false);
  assert.equal(hasPreviewAccess([exactSubscription], 'haneul',1,'2026-09-12',[exactPlan],'custom'),true);
  assert.equal(hasPreviewAccess([exactSubscription], 'haneul',1,'2026-09-12',[exactPlan],'other'),false);
- assert.equal(hasPreviewAccess([exactSubscription], 'haneul',1,'2026-09-12',[exactPlan]),false);
+ assert.equal(hasPreviewAccess([exactSubscription], 'haneul',1,'2026-09-12',[exactPlan]),true);
  assert.equal(hasPreviewAccess([subscription], 'haneul',1,'2026-09-12',plans,'custom'),false);
  assert.equal(hasPreviewAccess([{...subscription,renewAt:'2026-09-11'}], 'haneul',2,'2026-09-12',plans),false);
  assert.equal(hasPreviewAccess([{...subscription,planSnapshot:{id:'standard',rank:2}}], 'haneul',2,'2026-09-12',[]),true);
+});
+
+test('all purchased ranks obey minimum-level matrix even with historical exact snapshot metadata',()=>{
+ for(const rank of[1,2,3])for(const required of[1,2,3]){
+  const s={...subscription,planSnapshot:{id:'standard',rank,entitlementMode:'exact'}};
+  assert.equal(hasPreviewAccess([s],'haneul',required,'2026-09-12',[]),rank>=required);
+  assert.equal(hasPreviewAccess([s],'other',required,'2026-09-12',[]),false);
+ }
+ assert.equal(hasPreviewAccess([{...subscription,planSnapshot:{rank:'3'}}],'haneul',2,'2026-09-12',[]),false);
 });

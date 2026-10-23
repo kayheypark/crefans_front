@@ -1,4 +1,6 @@
 'use client';
+import {MediaVideo} from '@/components/ui/MediaVideo';
+
 
 import {DialogActions} from '@/components/ui/DialogActions';
 import Link from 'next/link';
@@ -10,6 +12,7 @@ import type {Post,ServiceData,ServiceViewModel} from '@/types/crefans';
 import type {MessagesViewModel,SocialActionResult,SocialComment,SocialReply} from '@/types/crefans-social';
 import Icon from './Icon';
 import {Action,Avatar,Empty,PageTitle} from './ServiceUI';
+import {ServiceLinks} from './ServiceLinks';
 import {CommentMentions} from './CommentMentions';
 import {MediaTypeIcon} from '@/components/ui/MediaTypeIcon';
 import {usePresence} from '@/components/ui/usePresence';
@@ -70,7 +73,7 @@ function PostHeading({post,model,readOnly=false}:{post:Post;model:PostCardModel;
 function PostMedia({post,locked,model,readOnly=false,onOpen}:{post:Post;locked:boolean;model:PostCardModel;readOnly?:boolean;onOpen?:(index:number)=>void}){
   const creator=model.data.creators.find(item=>item.id===post.creatorId);
   const plan=(model.data.creatorPlans?.[post.creatorId]||model.data.plans).find(item=>post.requiredPlanId?item.id===post.requiredPlanId:item.rank===post.requiredRank);
-  if(locked)return <div className={s.lockedMedia}><Icon name="lock" width={30} height={30}/><strong>멤버십 전용 콘텐츠입니다</strong><p>{plan?.name} 멤버십으로 더 많은 이야기를 만나보세요.</p><PostNavigation readOnly={readOnly} className={s.subscribe} href={`${model.basePath}/membership/${post.creatorId}`}>멤버십 살펴보기</PostNavigation></div>;
+  if(locked)return <div className={s.lockedMedia}><Icon name="lock" width={30} height={30}/><strong>멤버십 전용 콘텐츠입니다</strong><p>{post.requiredPlanId?`${plan?.name||'지정된'} 멤버십 전용입니다.`:`레벨 ${post.requiredRank} 이상 멤버십으로 볼 수 있습니다.`}</p><PostNavigation readOnly={readOnly} className={s.subscribe} href={`${model.basePath}/membership/${post.creatorId}`}>멤버십 살펴보기</PostNavigation></div>;
   const alt=`${creator?.name||'크리에이터'}의 ${post.title}`;
   const media=post.media&&post.media.length>0?post.media:post.image?[{type:'image' as const,url:post.image}]:[];
   if(!media.length)return null;
@@ -96,9 +99,9 @@ function PostGallery({media,alt,position,onOpen,readOnly=false}:{media:NonNullab
   function down(event:ReactPointerEvent<HTMLDivElement>){if(event.pointerType!=='mouse'||event.button!==0||!track.current)return;drag.current={x:event.clientX,left:track.current.scrollLeft,moved:false};track.current.style.scrollSnapType='none';/* mandatory snap would undo every scrollLeft change mid-drag, so pause it synchronously */}
   function move(event:ReactPointerEvent<HTMLDivElement>){const state=drag.current,node=track.current;if(!state||!node)return;const delta=event.clientX-state.x;if(!state.moved){if(Math.abs(delta)<galleryDragThreshold)return;state.moved=true;setDragging(true);}node.scrollLeft=state.left-delta;}
   function up(){const state=drag.current,node=track.current;drag.current=null;if(!node)return;const settled=Math.round(node.scrollLeft/Math.max(1,node.clientWidth));node.style.scrollSnapType='';if(!state?.moved)return;setDragging(false);suppress.current=true;setTimeout(()=>{suppress.current=false;},0);goTo(settled);}
-  if(media.length===1)return media[0].type==='video'?<video className={s.postImage} src={media[0].url} controls playsInline preload="metadata" aria-label={alt}/>:<Zoomable onOpen={onOpen?()=>onOpen(0):undefined} label={`${alt} 크게 보기`}><img className={s.postImage} src={media[0].url} alt={alt} style={{objectPosition:position}}/></Zoomable>;
+  if(media.length===1)return media[0].type==='video'?<MediaVideo className={s.postImage} src={media[0].url} controls playsInline preload="metadata" aria-label={alt}/>:<Zoomable onOpen={onOpen?()=>onOpen(0):undefined} label={`${alt} 크게 보기`}><img className={s.postImage} src={media[0].url} alt={alt} style={{objectPosition:position}}/></Zoomable>;
   return <div className={s.gallery} role="group" aria-label={`${alt} 미디어 ${media.length}개`}>
-    <div ref={track} className={s.galleryTrack} data-dragging={dragging||undefined} onScroll={event=>{if(drag.current)return;const node=event.currentTarget;setIndex(Math.round(node.scrollLeft/Math.max(1,node.clientWidth)));}} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onPointerLeave={up} onClickCapture={event=>{if(suppress.current){event.preventDefault();event.stopPropagation();}}}>{media.map((item,position)=><div key={`${item.url}-${position}`} className={s.gallerySlide}>{item.type==='video'?<video className={s.postImage} src={item.url} controls playsInline preload="metadata" aria-label={`${alt} 동영상 ${position+1}`}/>:<Zoomable onOpen={onOpen?()=>onOpen(position):undefined} label={`${alt} ${position+1} 크게 보기`}><img className={s.postImage} src={item.url} alt={`${alt} ${position+1}`} draggable={false}/></Zoomable>}</div>)}</div>
+    <div ref={track} className={s.galleryTrack} data-dragging={dragging||undefined} onScroll={event=>{if(drag.current)return;const node=event.currentTarget;setIndex(Math.round(node.scrollLeft/Math.max(1,node.clientWidth)));}} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onPointerLeave={up} onClickCapture={event=>{if(suppress.current){event.preventDefault();event.stopPropagation();}}}>{media.map((item,mediaIndex)=><div key={`${item.url}-${mediaIndex}`} className={s.gallerySlide}>{item.type==='video'?<MediaVideo className={s.postImage} src={item.url} controls playsInline preload="metadata" aria-label={`${alt} 동영상 ${mediaIndex+1}`}/>:<Zoomable onOpen={onOpen?()=>onOpen(mediaIndex):undefined} label={`${alt} ${mediaIndex+1} 크게 보기`}><img className={s.postImage} src={item.url} alt={`${alt} ${mediaIndex+1}`} style={{objectPosition:position}} draggable={false}/></Zoomable>}</div>)}</div>
     {index>0&&<button type="button" className={`${s.galleryNav} ${s.galleryPrevious}`} aria-label="이전 미디어" disabled={readOnly} onClick={()=>goTo(index-1)}><Icon name="chevron"/></button>}
     {index<media.length-1&&<button type="button" className={`${s.galleryNav} ${s.galleryNext}`} aria-label="다음 미디어" disabled={readOnly} onClick={()=>goTo(index+1)}><Icon name="chevron"/></button>}
     <div className={s.galleryDots} aria-hidden="true">{media.map((item,position)=><i key={`${item.url}-${position}`} data-active={position===index||undefined}/>)}</div>
@@ -148,7 +151,7 @@ function PostOverlay({post:initialPost,model,inline,initialIndex,context,open,on
   const alt=`${creator?.name||'크리에이터'}의 ${post.title}`;
   return <div className={s.overlay} role="dialog" aria-modal="true" aria-label={post.title} data-state={open?'open':'closing'} onClick={onClose}>
     <div className={s.stage} onClick={event=>event.stopPropagation()} onPointerDown={swipeStart} onPointerMove={swipeMove} onPointerUp={swipeEnd} onPointerCancel={()=>{swipe.current=null;setOffset(0);}}>
-      <div className={s.stageTrack} data-index={index} data-dragging={offset!==0||undefined} style={{transform:`translateX(calc(${-index*100}% + ${offset}px))`}}>{media.map((item,slide)=><div key={`${item.url}-${slide}`} className={s.stageSlide} aria-hidden={slide!==index||undefined}>{item.type==='video'?<video src={item.url} controls={slide===index} playsInline preload="metadata" aria-label={`${alt} 동영상 ${slide+1}`}/>:<img src={item.url} alt={media.length>1?`${alt} ${slide+1}`:alt} draggable={false}/>}</div>)}</div>
+      <div className={s.stageTrack} data-index={index} data-dragging={offset!==0||undefined} style={{transform:`translateX(calc(${-index*100}% + ${offset}px))`}}>{media.map((item,slide)=><div key={`${item.url}-${slide}`} className={s.stageSlide} aria-hidden={slide!==index||undefined}>{item.type==='video'?<MediaVideo src={item.url} controls={slide===index} playsInline preload="metadata" aria-label={`${alt} 동영상 ${slide+1}`}/>:<img src={item.url} alt={media.length>1?`${alt} ${slide+1}`:alt} draggable={false}/>}</div>)}</div>
       {media.length>1&&<>{index>0&&<button type="button" className={`${s.stageNav} ${s.stagePrevious}`} aria-label="이전 미디어" onClick={previous}><Icon name="chevron"/></button>}{index<media.length-1&&<button type="button" className={`${s.stageNav} ${s.stageNext}`} aria-label="다음 미디어" onClick={next}><Icon name="chevron"/></button>}<div className={`${s.galleryDots} ${s.stageDots}`} aria-hidden="true">{media.map((item,dot)=><i key={`${item.url}-${dot}`} data-active={dot===index||undefined}/>)}</div></>}
       <button type="button" ref={closeButton} className={s.overlayClose} aria-label="닫기" onClick={onClose}>×</button>
     </div>
@@ -168,7 +171,7 @@ export function FeedEnd(){return <p className={s.feedEnd} role="status">모두 �
 /** No search or 추천/팔로잉 tabs: the backend ranks the feed, the view just renders the posts it receives in order. */
 export function FeedPage({model}:{model:ServiceViewModel}){
   const {data,basePath}=model;
-  return <div className={`${s.feed} ${data.posts.length?'':s.emptyFeed}`}>{data.posts.length?<>{data.posts.map(post=><PostCard key={post.id} post={post} model={model} context={data.posts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>{model.feedPaging.loading?'불러오는 중…':'더 보기'}</Action>:<FeedEnd/>}</>:<Empty title="아직 게시물이 없어요" description="마음에 드는 크리에이터를 만나보세요." action={<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>}</div>;
+  return <div className={`${s.feed} ${data.posts.length?'':s.emptyFeed}`}>{data.posts.length?<>{data.posts.map(post=><PostCard key={post.id} post={post} model={model} context={data.posts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>{model.feedPaging.loading?'불러오는 중…':'더 보기'}</Action>:<FeedEnd/>}</>:<><Empty title="아직 게시물이 없어요" description="마음에 드는 크리에이터를 만나보세요." action={<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/><footer className={s.feedFooter}><nav aria-label="서비스 안내"><ServiceLinks basePath={basePath}/></nav></footer></>}</div>;
 }
 
 /** Replies stay collapsed until asked for, then load once through the model; a second click only hides them. */

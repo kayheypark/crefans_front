@@ -1,0 +1,109 @@
+{
+  "checkedAt": "2026-10-21T23:40:01.667919+00:00",
+  "repository": {
+    "path": "/Users/ethan/repository/crefans_front",
+    "branch": "feat/operations-security",
+    "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+    "dirty": true
+  },
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.5"
+  },
+  "scope": "Community research, documentation, and planning arithmetic only. No runtime, financial policy, production or external messages changed.",
+  "acceptance": [
+    "Read relevant original bodies and distinguish self-reported payments, intent and verified receipts",
+    "Preserve source dates and uncertainty; no representative market average claimed",
+    "Recalculate price sensitivity using prior cost assumptions",
+    "Validate document registry, local links, and freshness"
+  ],
+  "sources": [
+    {
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=asmr&no=52137",
+      "postDate": "2023-03-16",
+      "method": "web search and original body lines352-373",
+      "finding": "One-month membership at30000KRW described as expensive but worthwhile; intention to continue, no receipt/retention verification"
+    },
+    {
+      "url": "https://gall.dcinside.com/mgallery/board/view/?id=asmr&no=59550",
+      "postDate": "2023-12-14",
+      "method": "original body lines349-365",
+      "finding": "Satisfied but student budget cannot afford every month; plans to resubscribe after videos accumulate; no stated price"
+    },
+    {
+      "url": "https://www.reddit.com/r/canceledpod/comments/1e6nyv5/",
+      "postDate": "2024-07-18",
+      "method": "dated search and original discussion body/comments",
+      "finding": "Self-reported10USD purchase and satisfaction conditional on consistent posting; irregular posting would lead to cancellation"
+    },
+    {
+      "url": "https://www.reddit.com/r/Sinisterhood/comments/wase55/",
+      "postYear": 2022,
+      "method": "search and original discussion body/comments",
+      "finding": "10USD monthly equivalent annual prepayment; dissatisfaction at25USD upgrade for some content; another subscriber satisfied at25USD. Other comments refuse above10USD"
+    },
+    {
+      "url": "https://www.reddit.com/r/patreon/comments/1lfxpy1/",
+      "postYear": 2025,
+      "method": "search, original body and find Even my",
+      "finding": "Commenter says highest own subscription20USD due to long-term support; unsourced platform-average claims excluded"
+    },
+    {
+      "url": "https://v.daum.net/v/cDadJu7sPQ",
+      "postDate": "2020-09-18",
+      "method": "original interview and dated search",
+      "finding": "Company-reported average20000KRW historical only; excluded from current average/forecast"
+    }
+  ],
+  "limits": [
+    "Convenience sample of public self-reports, not transaction data or representative survey",
+    "Korean price-specific case is historical2023; current Korean creator ARPPU and conversion remain unknown",
+    "RedditUSD prices are overseas comparisons, not converted into Korean willingness to pay",
+    "Searched DCInside,TheQoo,FMKorea,Ruliweb,Reddit; only five directly relevant community threads included",
+    "Price9900/14900 optimality and creator50paid subscribers not proven; proposal uses9900 and14900, financial sensitivity uses5000",
+    "Prior F150000 budget assumes cost controls/CDN, excludes labor and marketing; no actual deployment/invoice verified here",
+    "Earlier commission-research-verification document/script hashes are historical, superseded for changed files by this record"
+  ],
+  "commands": [
+    {
+      "command": "python3 docs/audit/commission-model-20261022.py",
+      "startedAt": "2026-10-21T23:40:01.690368+00:00",
+      "finishedAt": "2026-10-21T23:40:01.738691+00:00",
+      "exitCode": 0,
+      "outputSha256": "aab412b6b0d5ce979ecad65d57f5af49082b2a625fff2b5c12f702d9a339fe04",
+      "summary": "{\"result\": \"PASS\", \"rows\": 5, \"breakevenSubscriptions\": 345, \"output\": \"/Users/ethan/repository/crefans_front/docs/audit/commission-model-20261022.json\"}"
+    },
+    {
+      "command": "npm run docs:record",
+      "startedAt": "2026-10-21T23:40:01.738879+00:00",
+      "finishedAt": "2026-10-21T23:40:02.711259+00:00",
+      "exitCode": 0,
+      "outputSha256": "17ed8b628db73f33a790e69acd369f2e2c96b44c3e1fe0816234ea5a6baf1600",
+      "summary": "> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 57, \"documentsByRepo\": {\"front\": 34, \"server\": 23}, \"routes\": 96, \"screens\": 41, \"models\": 60, \"enums\": 15, \"migrations\": 16, \"localMarkdownTargets\": 157, \"externalInlineLinksNotFetched\": 141}"
+    },
+    {
+      "command": "npm run check:docs",
+      "startedAt": "2026-10-21T23:40:02.711587+00:00",
+      "finishedAt": "2026-10-21T23:40:03.091915+00:00",
+      "exitCode": 0,
+      "outputSha256": "c61d312e614120505791da06e97d1c6709b9e04f42cecd2e57db6b2a56e70d66",
+      "summary": "> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-21T23:40:02.492980+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 57, \"documentsByRepo\": {\"front\": 34, \"server\": 23}, \"routes\": 96, \"screens\": 41, \"models\": 60, \"enums\": 15, \"migrations\": 16, \"localMarkdownTargets\": 157, \"externalInlineLinksNotFetched\": 141}"
+    },
+    {
+      "command": "git diff --check",
+      "startedAt": "2026-10-21T23:40:03.092189+00:00",
+      "finishedAt": "2026-10-21T23:40:03.105781+00:00",
+      "exitCode": 0,
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": ""
+    }
+  ],
+  "filesSha256": {
+    "docs/financial.md": "299791b9b972912856598a7e9c53ab12bc6bea6c08d55f76314c7da9958185b7",
+    "PROGRESS.md": "52885256f2065b6888f595844de33dcd64e38c3407cd71d0942dc10927c6460c",
+    "docs/audit/manifest.json": "8fb03ef8681d20990e0aa93555ed1015a5cb328ec2b1757b00b3892ac75b4792",
+    "docs/audit/commission-model-20261022.py": "29300dba407e2db8019f3ee7e31e5302d3a27d3efeaae127e135a31cb24046f2",
+    "docs/audit/commission-model-20261022.json": "3056ee02233a47503700a0e7d3f2016edca27dbd0111b7aa836843a4c2c4fc19"
+  },
+  "result": "PASS within stated research/arithmetic/document scope; no product or live-provider tests run"
+}

@@ -1,0 +1,77 @@
+{
+  "command": [
+    "ssh",
+    "-i",
+    "/Users/ethan/Downloads/crefans.pem",
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "StrictHostKeyChecking=yes",
+    "-o",
+    "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+    "ubuntu@15.164.140.26",
+    "sudo -n docker exec -i crefans-beta-api-1 node"
+  ],
+  "startedAt": "2026-10-22T08:39:03.984882+00:00",
+  "finishedAt": "2026-10-22T08:39:05.746831+00:00",
+  "exitCode": 0,
+  "scriptSha256": "43a1ec110b2bc292b6fe4c1de7ec85ed4f2b4a19098aa28b31c79c32b851fe1a",
+  "productionReadOnly": true,
+  "result": {
+    "checkedAt": "2026-10-22T08:39:05.688Z",
+    "release": "media-edge-final-20261022",
+    "passConfigured": false,
+    "billingKeys": {
+      "client": "test",
+      "secret": "test"
+    },
+    "bankConfigured": false,
+    "automaticPayouts": false,
+    "financialPolicy": {
+      "version": 0,
+      "platform_fee_bps": null,
+      "settlement_hold_days": null
+    },
+    "requiredDocumentsPublished": {
+      "terms": false,
+      "privacy": false
+    },
+    "workerLastCompletedAt": "2026-10-22T08:38:22.329Z",
+    "workerFailures": {}
+  },
+  "repository": {
+    "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+    "dirty": true
+  },
+  "sourceHashes": {
+    "src/platform/auth.service.ts": "fdb11ec42f86ee6acff13e77fcdc5be480aa27c1e2c9202e65796a577a0edfc3",
+    "src/platform/identity-provider.ts": "fb350cc75566c4199abf1598a14b615bac7f495e950121516ea7e0ac909ffb0d",
+    "src/platform/financial-policy.ts": "39f77f75fdd00e0c85462c1ed5b34e9b9fb76f5a785fd4ea5619edd63eead2b0",
+    "src/platform/service.ts": "cf1f25e42f8acd2c49aba7f54250d03eec91445ff663709e655c292b807a7520"
+  },
+  "priorMediaEvidence": "server/docs/media-edge-20261022.json",
+  "officialReferences": [
+    {
+      "url": "https://docs.tosspayments.com/reference/using-api/api-keys",
+      "checkedAt": "2026-10-22",
+      "finding": "Test keys do not charge actual money; do not treat test-mode approval as live collection."
+    },
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+      "checkedAt": "2026-10-22",
+      "finding": "Permission checks per request, default deny, explicit authorization tests; passing media tests does not prove signup/payment release readiness."
+    }
+  ],
+  "judgment": {
+    "recruitmentAnnouncements": "Can begin recruiting a private pilot; no fixed immediate start promise",
+    "selfServiceOnboarding": "Not ready: PASS and published terms/privacy required by current code are absent",
+    "testModeSubscription": "Financial policy must be configured before checkout; keep test billing explicit",
+    "livePaidBeta": "Requires provider live activation/credentials and actual lifecycle verification; bank payout unconfigured",
+    "remainingValidation": [
+      "physical iPhone and Android happy path",
+      "small distinct-user pilot before 2 creators plus20 fans",
+      "backup/restore remains deferred by user; database recovery not established"
+    ]
+  },
+  "scope": "Read-only production configuration/DB flags and source guard inspection; no signup, charge, external notification or deployment performed"
+}

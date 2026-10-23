@@ -47,3 +47,5 @@
 .signInPrompt .signInPrimary{background:var(--cf-service-brand);color:var(--cf-color-onAccent);border-color:var(--cf-service-brand)}
 
 .menuGroup{margin-top:22px}.menuGroup h3{margin:0 0 2px;padding:0 5px;font-size:12px;font-weight:600;color:var(--cf-color-textMuted)}.menuGroup .menuList{margin-top:0;padding-top:0;border:0}
+
+.legalLink{border:0;padding:0;background:none;color:var(--cf-service-brand);font:inherit;text-decoration:underline;cursor:pointer}

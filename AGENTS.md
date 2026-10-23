@@ -1,5 +1,7 @@
 # AGENTS.md
 
+- 크레팬스 팬 서비스·크리에이터 스튜디오 프론트. Next.js 14 App Router + React 18 + TypeScript + CSS Modules. 현재 작업 상태는 `PROGRESS.md`를 먼저 읽는다.
+
 ## 작업 시작 시 먼저 확인
 
 - 공통 조사 규약: 애매한 요구사항·구현·검증이나 결정이 필요한 부분은 공식 문서·현행 법령·OWASP를 웹검색하여 업계 기준을 면밀히 조사한다. 출처·확인일·적용 판단과 미결정 사업 정책을 기록한다. 출시 검수 기준은 `docs/release-test-scenarios.md`; 테스트 대역 통과를 실제 PG/PASS/은행·운영 검증으로 간주하지 않는다.
@@ -164,3 +166,15 @@ style: 공통 컴포넌트 코드 포맷 정리
 ## 서드파티 연결 재개 규칙
 
 - 사용자가 나중에 서드파티 연결을 진행하겠다고 하면 프론트 `docs/third-party-setup.md`를 먼저 읽고 그 실행 순서·공식 신청 링크·사용자 역할·추가 개발·검증 기준을 안내한다. 오래된 계약/가격/공급사 절차는 공식 문서로 재확인한다. 키 입력만으로 PASS·지급대행·신규 S3 업로드가 완료된다고 안내하지 않는다.
+
+- 실제 /service 브라우저 오류 수집은 components/service → features/service → lib/api 계층을 따른다. /preview에는 적용하지 않는다. 원문 메시지/URL/query/form/stack을 보내지 않고 정적 JS 위치만 보낸다. 서버 요청 ID 응답 헤더를 프록시와 5xx 안내에서 보존한다.
+
+- 갱신 결제 대기(renewalPending)는 유효 구독 권한과 구분한다. requiresUpdate 카드는 새 결제/기본 선택을 막고 카드 변경·갱신 해지 동선을 유지한다. 실제 회귀는 e2e/billing-recovery.spec.ts로 검사한다.
+
+- 유료 미디어는 세션·구독을 검사하는 `/api/v1/media/:id/file`만 사용한다. 브라우저에 S3/CDN 서명 URL을 제공하지 않는다. GET/HEAD/Range와 공유 URL의 타 계정 차단을 함께 검증한다.
+
+- 게시물 공개는 상품 전용(accessPlanId)과 최소 레벨(accessLevel)을 구분한다. 레벨 판정은 동일 크리에이터의 가입 당시 snapshot.rank 기준이며 상품 가격/현재 레벨로 추정하지 않는다. 기존 상품 전용 글·구독 조건을 자동 확대/변경하지 않고 본문·댓글·GET/HEAD/Range 권한을 함께 검증한다.
+
+- 약관·개인정보·운영정책 원본은 server `src/platform/legal-documents.ts`의 코드 릴리스다. 관리자 DB문서로 덮어쓰지 않는다. 공개일(publishedAt)과 가입 적용 시행일(effectiveAt)/준비상태(signupReady)를 분리한다. 공개 화면과 가입 동의 본문/버전·해시를 일치시키고 미해결 필수사항·미래 시행본은 가입에 사용하지 않는다. 테스트 발행본 주입은 tests/ 격리 런타임에서만 한다.
+
+- 가입은 생일 기준 만19세 이상만 허용한다. 서명된 본인확인 공급사 결과와 서버 proof를 검사하며 자가신고·단순 연도 기준을 믿지 않는다. 실제 공급사 연결 전 대역 검증을 실연동 완료로 보고하지 않는다.

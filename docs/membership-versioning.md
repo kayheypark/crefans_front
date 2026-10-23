@@ -2,6 +2,8 @@
 
 > 문서 상태 (2026-10-08): 신규 `src/platform/studio.service.ts`는 `MembershipVersion` 불변 기록과 낙관적 버전 충돌 검사, `finance.service.ts`는 주문·구독 snapshot/갱신 회차를 구현한다. 아래 “현재 확인된 구현과 차이”는 2026-09-13 구형 런타임 분석이다. 별도 CheckoutQuote/expectedCurrentVersionId 전달·이력 UI 등 아래 이상 설계 전체가 구현됐다는 뜻은 아니다. 현재 주문은 생성 시 30분 snapshot을 고정한다. 실제 구현 기준은 [서비스 바인딩](./service-api-binding.md) 및 백엔드 플랫폼 계약이다.
 
+> 2026-10-22 추가: 신규 스튜디오에서 레벨(1~100)과 게시물 최소 레벨/상품 전용 공개를 관리한다. 가격·레벨 수정은 새 버전을 만들고 기존 구독 snapshot은 보존한다. 아래 구형 런타임 분석과 구분한다. 구현은 백엔드 [플랫폼 API](../../crefans_server/docs/platform-api.md) 및 src/platform/studio.service.ts/access 검사를 따른다.
+
 검토일: 2026-09-13. 이 문서는 향후 서버·이력 화면 구현을 위한 설계다. 이번 작업에서는 DB, 결제, 갱신 로직과 버전 이력 화면을 변경하지 않는다.
 
 ## 지킬 정책

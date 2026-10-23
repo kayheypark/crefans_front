@@ -28,3 +28,24 @@ test('one false flag uses live creators and actions while retaining introduction
  assert.deepEqual(props.content.creators.map(c=>c.id),['live-0','live-1','live-2','live-3','live-4']);
  assert.equal(props.content.collage.length,4);assert.ok(props.content.collage.every(c=>c.id.startsWith('live-')));
 });
+
+test('landing search and browse stay in the same data source as creator cards',()=>{
+ const pushed=[],styles=new Proxy({},{get:(_,key)=>String(key)});
+ const LandingPage=loadTypeScript('components/crefans/LandingPage.tsx',{
+  'next/navigation':{useRouter:()=>({push:url=>pushed.push(url)})},
+  './landing.module.css':styles,'./Brand':{Brand:()=>null},
+  './Icon':{__esModule:true,default:()=>null},
+  '@/components/ui/Primitives':{Dialog:()=>null},
+  '@/components/ui/TextLink':{TextLink:()=>null},
+ }).default;
+ for(const creatorBasePath of ['/preview',undefined]){
+  pushed.length=0;
+  let tree;act(()=>{tree=create(React.createElement(LandingPage,{model:{basePath:'/service',following:[],toggleFollow(){}},content:assets,creatorBasePath}));});
+  act(()=>tree.root.findByProps({'aria-label':'크리에이터 검색'}).props.onChange({target:{value:' 모카 '}}));
+  act(()=>tree.root.findByProps({role:'search'}).props.onSubmit({preventDefault(){}}));
+  act(()=>tree.root.findAllByType('button').find(button=>button.children.includes('더보기 ')).props.onClick());
+  const prefix=creatorBasePath??'/service';
+  assert.deepEqual(pushed,[`${prefix}/explore?q=${encodeURIComponent('모카')}`,`${prefix}/explore`]);
+  act(()=>tree.unmount());
+ }
+});

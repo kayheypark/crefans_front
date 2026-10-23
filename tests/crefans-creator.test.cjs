@@ -147,13 +147,13 @@ test('profile lock labels use an explicit product ID while legacy tiers retain t
  let tree;act(()=>tree=create(h(CreatorProfilePage,{model,id:'artist-42'})));
  act(()=>button(tree,'미디어').props.onClick());
  const tile=()=>tree.root.findAllByType('a').find(node=>node.props.href==='/catalogue/post/restricted');
- assert.equal(tile().props['aria-label'],'수업 기록 · 드로잉 클래스 멤버에게 공개');
+ assert.equal(tile().props['aria-label'],'수업 기록 · 드로잉 클래스 전용 멤버에게 공개');
  const gather=node=>typeof node==='string'?node:node.children.map(gather).join('');const tileText=()=>gather(tile());
  assert.match(tileText(),/드로잉 클래스/);assert.doesNotMatch(tileText(),/베이직|클래스 이상/);
  act(()=>tree.update(h(CreatorProfilePage,{model:{...model,data:{...model.data,posts:[{...post,requiredPlanId:undefined}]}},id:'artist-42'})));
- assert.equal(tile().props['aria-label'],'수업 기록 · 베이직 이상 멤버에게 공개');assert.match(text(tree),/베이직 이상/);
+ assert.equal(tile().props['aria-label'],'수업 기록 · 레벨 1 이상 멤버에게 공개');assert.match(text(tree),/레벨 1 이상/);
  act(()=>tree.update(h(CreatorProfilePage,{model:{...model,data:{...model.data,posts:[{...post,requiredPlanId:'missing'}]}},id:'artist-42'})));
- assert.equal(tile().props['aria-label'],'수업 기록 · 멤버십 전용 콘텐츠');assert.doesNotMatch(text(tree),/베이직 이상/);
+ assert.equal(tile().props['aria-label'],'수업 기록 · 지정 멤버십 전용 멤버에게 공개');assert.doesNotMatch(text(tree),/레벨 1 이상/);
  act(()=>tree.unmount());
 });
 

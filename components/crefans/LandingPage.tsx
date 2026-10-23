@@ -17,7 +17,7 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
   const {following,toggleFollow:follow,basePath}=model;
   const {creators:results,steps:gettingStarted,hero,collage}=content;
   const open=(type:'login'|'signup'|'notice')=>{if(type==='notice')setNotice(true);else router.push(`${basePath}/${type}`);};
-  const findCreators=(event:FormEvent)=>{event.preventDefault();router.push(`${basePath}/explore?q=${encodeURIComponent(search.trim())}`);};
+  const findCreators=(event:FormEvent)=>{event.preventDefault();router.push(`${creatorBasePath}/explore?q=${encodeURIComponent(search.trim())}`);};
   return <div className={s.page} style={designVariables as CSSProperties}>
     <a className={s.skip} href="#main">본문으로 이동</a>
     <header className={s.header}><div className={s.headerInner}>
@@ -28,7 +28,7 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
     </div></header>
     <main id="main">
       {hero&&<section className={s.hero} aria-labelledby="hero-heading">
-        {hero.image&&<img className={s.heroImage} src={hero.image} alt={hero.imageAlt} fetchPriority="high"/>}
+        {hero.image&&<img className={s.heroImage} src={hero.image} alt={hero.imageAlt} style={{objectPosition:hero.position}} fetchPriority="high"/>}
         <div className={s.heroShade}/>
         <div className={s.heroInner}><div className={s.heroCopy}>
           <h1 id="hero-heading">{hero.title.map((line,index)=><span key={index}>{index>0&&<br/>}{line}</span>)}</h1>
@@ -46,7 +46,7 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
         <div className={s.stepGrid}>{gettingStarted.map((step,index)=><article key={step.title}><span className={s.stepIcon}><Icon name={step.icon}/></span><h3>{step.title}</h3><p>{step.description[0]}<br/>{step.description[1]}</p>{index<2&&<Icon className={s.stepArrow} name="chevron"/>}</article>)}</div>
       </div></section>}
       {results.length>0&&<section id="creators" className={s.creators} aria-labelledby="creators-heading"><div className={s.container}>
-        <div className={s.sectionHeading}><h2 id="creators-heading">지금 주목할 크리에이터</h2><button onClick={()=>router.push(`${basePath}/explore`)}>더보기 <Icon name="arrow"/></button></div>
+        <div className={s.sectionHeading}><h2 id="creators-heading">지금 주목할 크리에이터</h2><button onClick={()=>router.push(`${creatorBasePath}/explore`)}>더보기 <Icon name="arrow"/></button></div>
         <div className={s.creatorGrid}>{results.map(c=><article key={c.name} className={s.creatorCard}>
           <button className={s.creatorPhoto} aria-label={`${c.name} 프로필 보기`} onClick={()=>router.push(`${creatorBasePath}/creator/${c.id}`)}>{c.image&&<img src={c.image} style={{objectPosition:c.position}} alt={`${c.name} 크리에이터`} loading="lazy"/>}<span className={s.tags}>{c.tags.map(tag=><span key={tag}>{tag}</span>)}</span></button>
           <div className={s.creatorInfo}><button onClick={()=>router.push(`${creatorBasePath}/creator/${c.id}`)} className={s.creatorName}>{c.name}</button>{c.bio&&<p>{c.bio}</p>}<button className={s.follow} aria-label={`${c.name} ${following.includes(c.id)?'팔로우 취소':'팔로우'}`} aria-pressed={following.includes(c.id)} onClick={()=>follow(c.id)}><Icon name={following.includes(c.id)?'check':'plus'}/>{following.includes(c.id)?'팔로잉':'팔로우'}</button></div>

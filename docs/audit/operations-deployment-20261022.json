@@ -1,0 +1,281 @@
+{
+  "verifiedAt": "2026-10-21T15:27:28.466646+00:00",
+  "target": "https://beta.crefans.com",
+  "release": "operations-20261022",
+  "apiAndWorkerImage": "sha256:48763dc75668cf5c92dced009bcc6b85ab986885475ee22279d610e00abee0be",
+  "frontend": "crefans-front:beta-20261021 (unchanged)",
+  "repository": {
+    "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+    "branch": "feat/operations-security",
+    "uncommittedChanges": true
+  },
+  "applicationSourceMatches162TestEvidence": true,
+  "remoteRuntimeSourceHashes": {
+    "src/platform/operations.service.ts": "d28ae077233e985c53c77d9b34c8b4f2fa2852d9dd577085330f571dee69a9f3",
+    "src/platform/security.service.ts": "9a02c966832986613a0ccdfce41314373f2240dd7c457eb96e3d40ab65adf4fa",
+    "src/platform/jobs.service.ts": "d4fa4c5d4bf8b2c1cf99f1d8815a7204d05facd49b377f1d742daa8d9df8b218",
+    "prisma/schema.prisma": "9370f1e00ad355158864618cbe9590616a0440e9ff3a7e232bb5da0307d28c45"
+  },
+  "configurationHashes": {
+    "compose.yml": "f4de2e897c3c473fd05e7461aebcb3f034be7a806939a39c457402e5d921d6ad",
+    "compose.beta.yml": "05303c0929458924dddddcec0ae99dc782cbe4d8143c9e8befdd87fa4303fc3f",
+    "Caddyfile": "24d08272f560f113a9c291e09bdf28dd299f1e7d4379bdbc3fb9d97f4fd72d7f"
+  },
+  "migrationsApplied": 14,
+  "containersRunning": 5,
+  "dataVolumesPreserved": [
+    "crefans-beta_database",
+    "crefans-beta_media",
+    "crefans-beta_caddy"
+  ],
+  "publicHttps": {
+    "timestamp": "2026-10-21T15:24:15.934380+00:00",
+    "checks": [
+      {
+        "method": "GET",
+        "path": "/",
+        "expected": 302,
+        "actual": 302,
+        "pass": true,
+        "bytes": 0,
+        "location": "/service/feed",
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/service/feed",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 18336,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/service/notifications",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 18387,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/service/me",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 18346,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/service/studio",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 16684,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/preview/feed",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 53645,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/preview/creator/haneul",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 50707,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/preview/landing",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 18894,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/.env",
+        "expected": 404,
+        "actual": 404,
+        "pass": true,
+        "bytes": 0,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime.env",
+        "expected": 404,
+        "actual": 404,
+        "pass": true,
+        "bytes": 0,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/health",
+        "expected": 200,
+        "actual": 200,
+        "pass": true,
+        "bytes": 94,
+        "envelope": {
+          "success": true,
+          "data": {
+            "status": "ready",
+            "version": "v1"
+          },
+          "errorMessage": null,
+          "errorCode": null
+        },
+        "noStore": true,
+        "nosniff": true
+      },
+      {
+        "method": "GET",
+        "path": "/api/v1/admin/financial-policy",
+        "expected": 401,
+        "actual": 401,
+        "pass": true,
+        "bytes": 103,
+        "errorCode": "UNAUTHORIZED",
+        "noStore": true,
+        "nosniff": true
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/media",
+        "expected": 401,
+        "actual": 401,
+        "pass": true,
+        "bytes": 103,
+        "errorCode": "UNAUTHORIZED",
+        "nosniff": true
+      },
+      {
+        "method": "POST",
+        "path": "/api/v1/auth/login",
+        "expected": 403,
+        "actual": 403,
+        "pass": true,
+        "bytes": 112,
+        "errorCode": "INVALID_ORIGIN",
+        "nosniff": true
+      }
+    ],
+    "tls": {
+      "protocol": "TLSv1.3",
+      "expires": "Jan 19 07:24:16 2027 GMT",
+      "dnsNames": [
+        "beta.crefans.com"
+      ]
+    }
+  },
+  "securityVerification": {
+    "checks": [
+      {
+        "path": "/api/v1/health",
+        "expected": 200,
+        "actual": 200,
+        "errorCode": null,
+        "pass": true
+      },
+      {
+        "path": "/api/v1/health?categoryId=1%20UNION%20SELECT%20NULL",
+        "expected": 403,
+        "actual": 403,
+        "errorCode": "INJECTION_DETECTED",
+        "pass": true
+      },
+      {
+        "path": "/api/v1/health?categoryId=1%20UNION%20SELECT%20NULL",
+        "expected": 403,
+        "actual": 403,
+        "errorCode": "IP_BLOCKED",
+        "pass": true
+      },
+      {
+        "path": "/api/v1/health",
+        "expected": 403,
+        "actual": 403,
+        "errorCode": "IP_BLOCKED",
+        "pass": true
+      },
+      {
+        "path": "/api/v1/health",
+        "expected": 200,
+        "actual": 200,
+        "errorCode": null,
+        "pass": true
+      },
+      {
+        "path": "/api/v1/identity/start",
+        "expected": 503,
+        "actual": 503,
+        "errorCode": "PASS_NOT_CONFIGURED",
+        "pass": true
+      }
+    ],
+    "actualSourceIpVerified": true,
+    "forgedIpHeadersIgnored": true,
+    "proxyPeer": "172.30.90.2",
+    "apiBlockedThenReleased": true,
+    "ownTestBlockCleared": true,
+    "http503ErrorPersistedWithIp": true,
+    "eventsPending": 4
+  },
+  "worker": {
+    "recordedRuns": 3,
+    "lastHealth": {
+      "completed_at": "2026-10-21T15:25:03.892Z",
+      "note": "{\"failures\":{}}"
+    },
+    "realHourlySummaryWaitNotPerformed": true
+  },
+  "telegram": {
+    "configured": false,
+    "deliveryVerified": false,
+    "reason": "dedicated bot token/channel ID not configured; events retained in durable queue"
+  },
+  "sshTemporaryRuleRemoved": true,
+  "ingressRestoredToOriginalThreeRules": true,
+  "deploymentFailuresResolved": [
+    "raw docker env-file did not parse dotenv quoting; preflight stopped and existing configuration restored; switched to Compose run env parsing",
+    "static Caddy IP collided with dynamic container address; rollback completed preserving volumes; restricted dynamic allocation to 172.30.90.128/25 and validated real Docker networking",
+    "initial API readiness returned502 briefly; bounded retry reached expected v1 health"
+  ],
+  "verificationScope": "deployment/HTTPS/real IP/security/worker DB evidence; no financial transactions, signup fixtures, real mail or Telegram delivery",
+  "privateArtifactHashes": {
+    "beta-deploy-final.log": "8d2329873f0baa4232e5cf02d11421ab39403c2134ba36f9ef8142176351e95e",
+    "beta-runtime-check.log": "f59c7bf5ef4bbb09a0973bcc0a272f91a216d5d5a97848fb7f5f360ba3cfa398",
+    "beta-final-host-proof.log": "b97f76fd6832403518cf1ae0de49f1a7f9dd86ae388ad5990ce12b476c069ef0",
+    "ssh-rules-after.json": "4a285c99ace5bb3095fc46a508d6e7688ab431cfcf3de911cca87409c7f44de2",
+    "beta-feed-deployed.png": "89a1e9b46a9c0ca905bf15eb86caceccbb226158ba546c297c1dab70a9913072"
+  },
+  "officialSource": {
+    "checkedAt": "2026-10-22",
+    "url": "https://docs.docker.com/reference/compose-file/networks/#ipam",
+    "application": "separate dynamic container allocation range from fixed trusted Caddy address"
+  },
+  "privateArtifactsLocation": "server/.local/operations-verification and server/.local/aws-beta (no credentials or real client IP copied to this report)",
+  "localInfrastructureRegression": {
+    "command": "python3 tests/platform-proxy.py",
+    "environment": "local Docker Desktop; official Caddy2 + synthetic Node echo upstream; no providers/DB",
+    "startedAt": "2026-10-21T15:27:49.465257+00:00",
+    "finishedAt": "2026-10-21T15:27:50.807958+00:00",
+    "exitCode": 0,
+    "outputSha256": "95dd7b4630ee051a10605ac86ccff3d21ae7d641fc8f941c0581614bbaccfcb6",
+    "sourceSha256": "2b62843ff53dba78def2b1f4d0e345a7dbfe47dba9c45f2625de35dbbc78c974",
+    "summary": "Caddy PASS: exact static proxy peer, forged client header overwritten, CF removed, secret paths404/root302"
+  }
+}

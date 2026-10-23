@@ -14,7 +14,7 @@ export type Plan={id:string;name:string;price:number;rank:number;benefits:string
 export type PostMediaItem={type:'image'|'video';url:string};
 /** `image` stays the cover for cards; `media` carries the full gallery (images and videos, up to 10) when present. */
 export type Post={id:string;creatorId:string;title:string;body:string;image:string;position:string;likes:number;comments:number;requiredRank:number;requiredPlanId?:string;time:string;media?:PostMediaItem[];/** Effective flag after the studio-wide switch; undefined means open. */commentsEnabled?:boolean;canAccess?:boolean};
-export type Subscription={orderId?:string;paidAt?:string;paymentStatus?:'paid'|'refunding'|'refunded';creatorId:string;planId:string;status:'active'|'cancelled'|'expired';renewAt:string;price:number;planSnapshot?:Plan};
+export type Subscription={renewalPending?:boolean;billingIssue?:'action_required'|'retrying';retryAt?:string;orderId?:string;paidAt?:string;paymentStatus?:'paid'|'refunding'|'refunded';creatorId:string;planId:string;status:'active'|'cancelled'|'expired';renewAt:string;price:number;planSnapshot?:Plan};
 export type Notification={id:string;creatorId:string|null;type:string;text:string;time:string;href:string};
 export type Message={id:number;body:string;mine:boolean;time:string};
 export type Faq={question:string;answer:string};

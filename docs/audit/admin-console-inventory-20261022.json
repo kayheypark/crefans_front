@@ -1,0 +1,93 @@
+{
+  "investigatedAt": "2026-10-21T15:31:32.083422+00:00",
+  "method": "read-only source route/controller/auth inspection; no login or production mutation",
+  "newFrontendAdminRoutesFound": [],
+  "newFrontendSearchScope": [
+    "app",
+    "components",
+    "features",
+    "lib",
+    "types"
+  ],
+  "legacyAdminExists": true,
+  "legacyRoutes": [
+    "/dashboard",
+    "/users",
+    "/posts",
+    "/media",
+    "/board",
+    "/reports",
+    "/login"
+  ],
+  "legacyContract": "non-versioned /admin/auth and /admin APIs; server auth controller uses Cognito",
+  "newPlatformAdminPrefix": "/api/v1/admin",
+  "newPlatformAdminEndpoints": [
+    [
+      "Get",
+      "financial-policy"
+    ],
+    [
+      "Put",
+      "financial-policy"
+    ],
+    [
+      "Get",
+      "financial-policy/history"
+    ],
+    [
+      "Get",
+      "inquiries"
+    ],
+    [
+      "Post",
+      "inquiries/:id/reply"
+    ],
+    [
+      "Get",
+      "reports"
+    ],
+    [
+      "Post",
+      "reports/:id/resolve"
+    ],
+    [
+      "Get",
+      "documents"
+    ],
+    [
+      "Post",
+      "documents"
+    ],
+    [
+      "Post",
+      "categories"
+    ],
+    [
+      "Post",
+      "creators/:id/promotion"
+    ]
+  ],
+  "newPlatformAdminGuard": "PlatformAuthGuard + active Admin record; financial-policy SUPER_ADMIN only",
+  "notImplementedInNewAdminUi": [
+    "all administrator screens",
+    "member/creator admin listing and suspension",
+    "admin post listing/hide/restore",
+    "admin payment/subscription/payout listings",
+    "operational audit/IP ban listings"
+  ],
+  "proofScope": "repository source and known deployed compose; legacy admin runtime and unknown external hosting not verified",
+  "sourceSha256": {
+    "crefans_server/src/platform/admin.controller.ts": "ee726d43465842e31518a78dc2c01a3a136f07f32c6c25f7370fc95d13c6d41d",
+    "crefans_server/src/platform/module.ts": "2043b951c37c63a331c1aa0d627d78506486d6b586cb0835c7bab01bfd0a9b7f",
+    "crefans_server/src/admin/admin-auth.controller.ts": "cd9041c1e1d1b52a7222ecad64b261b718a97a32221ba7e12e8b11c7a2a1e6c2",
+    "crefans_server/infra/platform/compose.yml": "f4de2e897c3c473fd05e7461aebcb3f034be7a806939a39c457402e5d921d6ad",
+    "crefans_admin/src/lib/api.ts": "454863665e0c37a2093bc1e845b64cba5142d5057619f400420539c33ee13e59",
+    "crefans_admin/src/lib/api/admin-auth.ts": "80ec59ac99b84b62cb8f840a7f6294b5de6bee6c97e18df5db5047524618df2e",
+    "crefans_admin/src/components/AdminLayout.tsx": "cb9cef8f7b8bc6564186fd6385029e3445f699e3d2f285148b22bd4d7c4319c3"
+  },
+  "heads": {
+    "front": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+    "server": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+    "legacyAdmin": "7928cb6fc70c27bbcb8f5ec4a760023a5ffda01c"
+  }
+}

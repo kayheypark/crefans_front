@@ -1,0 +1,228 @@
+{
+  "checkedAt": "2026-10-21T23:48:55.626016+00:00",
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.5"
+  },
+  "repository": {
+    "path": "/Users/ethan/repository/crefans_front",
+    "branch": "feat/operations-security",
+    "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+    "dirty": true
+  },
+  "scope": "Research, planning sensitivity, and documents only; no runtime, pricing policy, infrastructure or deployment changes",
+  "inputs": {
+    "priceKRW": 9900,
+    "allInCommission": 0.2,
+    "pgCashRate": 0.0374,
+    "commissionVatDivisor": 1.1,
+    "lossReserveRate": 0.01,
+    "budgetRangesAreChosenScenariosNotQuotes": true,
+    "minutesPerPaidSubscription": 100,
+    "Mbps": 4,
+    "transferHeadroom": 1.1
+  },
+  "formula": "N * 9900 * (0.20 / 1.1 - 0.0374 - 0.01) - budget",
+  "contributionPerSubscriptionKRW": 1330.74,
+  "rows": [
+    {
+      "creators": 3,
+      "paidSubscriptionsEach": 10,
+      "paidSubscriptions": 30,
+      "grossKRW": 297000,
+      "budgetInputKRW": [
+        150000,
+        200000
+      ],
+      "balanceRangeKRW": [
+        -160078,
+        -110078
+      ],
+      "outboundTBAt100Minutes4Mbps": 0.099
+    },
+    {
+      "creators": 5,
+      "paidSubscriptionsEach": 20,
+      "paidSubscriptions": 100,
+      "grossKRW": 990000,
+      "budgetInputKRW": [
+        150000,
+        200000
+      ],
+      "balanceRangeKRW": [
+        -66926,
+        -16926
+      ],
+      "outboundTBAt100Minutes4Mbps": 0.33
+    },
+    {
+      "creators": 5,
+      "paidSubscriptionsEach": 50,
+      "paidSubscriptions": 250,
+      "grossKRW": 2475000,
+      "budgetInputKRW": [
+        150000,
+        250000
+      ],
+      "balanceRangeKRW": [
+        82685,
+        182685
+      ],
+      "outboundTBAt100Minutes4Mbps": 0.825
+    },
+    {
+      "creators": 10,
+      "paidSubscriptionsEach": 50,
+      "paidSubscriptions": 500,
+      "grossKRW": 4950000,
+      "budgetInputKRW": [
+        200000,
+        300000
+      ],
+      "balanceRangeKRW": [
+        365370,
+        465370
+      ],
+      "outboundTBAt100Minutes4Mbps": 1.65
+    },
+    {
+      "creators": 20,
+      "paidSubscriptionsEach": 50,
+      "paidSubscriptions": 1000,
+      "grossKRW": 9900000,
+      "budgetInputKRW": [
+        300000,
+        500000
+      ],
+      "balanceRangeKRW": [
+        830740,
+        1030740
+      ],
+      "outboundTBAt100Minutes4Mbps": 3.3
+    },
+    {
+      "creators": 30,
+      "paidSubscriptionsEach": 100,
+      "paidSubscriptions": 3000,
+      "grossKRW": 29700000,
+      "budgetInputKRW": [
+        500000,
+        1000000
+      ],
+      "balanceRangeKRW": [
+        2992220,
+        3492220
+      ],
+      "outboundTBAt100Minutes4Mbps": 9.9
+    },
+    {
+      "creators": 50,
+      "paidSubscriptionsEach": 100,
+      "paidSubscriptions": 5000,
+      "grossKRW": 49500000,
+      "budgetInputKRW": [
+        800000,
+        1500000
+      ],
+      "balanceRangeKRW": [
+        5153700,
+        5853700
+      ],
+      "outboundTBAt100Minutes4Mbps": 16.5
+    }
+  ],
+  "boundaries": [
+    {
+      "budgetKRW": 150000,
+      "neededSubscriptions": 113
+    },
+    {
+      "budgetKRW": 200000,
+      "neededSubscriptions": 151
+    },
+    {
+      "budgetKRW": 300000,
+      "neededSubscriptions": 226
+    },
+    {
+      "budgetKRW": 500000,
+      "neededSubscriptions": 376
+    },
+    {
+      "budgetKRW": 1000000,
+      "neededSubscriptions": 752
+    }
+  ],
+  "directEc21000SubscriptionsAwsOnlyKRW": 686184,
+  "sourcesChecked20261022": [
+    {
+      "url": "https://aws.amazon.com/cloudfront/pricing/",
+      "finding": "Pro15USD per distribution monthly;50TB,10Mrequests allowance;S3storagecredit50GB"
+    },
+    {
+      "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/flat-rate-pricing-plan.html",
+      "finding": "OAC and signedURLs available onPro; sustained allowance excess can affect delivery; history-based eligibility"
+    },
+    {
+      "url": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html",
+      "finding": "Scale on load metrics such asCPU and requests per target; no paid-member capacity guarantee"
+    },
+    {
+      "url": "https://aws.amazon.com/s3/pricing/",
+      "finding": "Storage amount/duration, requests and other operations incur costs separately"
+    },
+    {
+      "url": "https://aws.amazon.com/ec2/pricing/on-demand/",
+      "finding": "Shared100GB internet allowance and additional charges; regional unit prices reused from previous-day AWS calculator evidence"
+    }
+  ],
+  "limits": [
+    "Budget ranges are judgmental scenario inputs, NOT itemizedAWS quotes or measured costs",
+    "No live remote telemetry or load tests; current runtime only reviewed from existing deployment records",
+    "Low cost scenarios assume privateS3/CDN separation not yet deployed; current directEC2 video delivery can exceed these budgets",
+    "Free traffic, concurrency, requests, video viewing time, uploads, retained originals, encoding and uptime objectives unknown",
+    "No founder/staff pay, marketing, legal/accounting retainers, income tax or setup costs; no profit assurance",
+    "An extra100minutes or additional bitrates alter delivery/storage;5000subscriptions at400minutes =66TB exceedsPro data allowance",
+    "PG/tax/loss assumptions retained for comparison, not final merchant/tax advice or contract",
+    "Earlier documentation hashes are historical after this append"
+  ],
+  "checks": {
+    "decimalArithmetic": "PASS",
+    "integerBudgetBoundaries": "PASS",
+    "known1000Case": "PASS",
+    "transferCalculation": "PASS"
+  },
+  "commands": [
+    {
+      "command": "npm run docs:record",
+      "startedAt": "2026-10-21T23:48:55.659005+00:00",
+      "finishedAt": "2026-10-21T23:48:56.618797+00:00",
+      "exitCode": 0,
+      "outputSha256": "54596fab515811f2b17f9b632205a371be3f3fd75a67dd5ee8f6dfcca3b0df55",
+      "summary": "> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 57, \"documentsByRepo\": {\"front\": 34, \"server\": 23}, \"routes\": 96, \"screens\": 41, \"models\": 60, \"enums\": 15, \"migrations\": 16, \"localMarkdownTargets\": 159, \"externalInlineLinksNotFetched\": 146}"
+    },
+    {
+      "command": "npm run check:docs",
+      "startedAt": "2026-10-21T23:48:56.619160+00:00",
+      "finishedAt": "2026-10-21T23:48:56.993262+00:00",
+      "exitCode": 0,
+      "outputSha256": "d7bae84ff7933a8bc2eb4a84b93b790ef6c60a090fbaa5b6d9cbc6d84122759f",
+      "summary": "> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-21T23:48:56.404155+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 57, \"documentsByRepo\": {\"front\": 34, \"server\": 23}, \"routes\": 96, \"screens\": 41, \"models\": 60, \"enums\": 15, \"migrations\": 16, \"localMarkdownTargets\": 159, \"externalInlineLinksNotFetched\": 146}"
+    },
+    {
+      "command": "git diff --check",
+      "startedAt": "2026-10-21T23:48:56.993560+00:00",
+      "finishedAt": "2026-10-21T23:48:57.005911+00:00",
+      "exitCode": 0,
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summary": ""
+    }
+  ],
+  "filesSha256": {
+    "docs/audit/growth-scaling-20261022.py": "ad65516e2bc06e35edecff1f46a7221c8c7c2d6049c82c6fe93ede42e4124a44",
+    "docs/financial.md": "493872cf0aa54d6bf1a77c749ea86f8727df9534ff6866fd1720be16dbd868c8",
+    "PROGRESS.md": "92668c4e924c05d442462468fdb2676af90f28d5adf95f53c5379365df8fb8e4",
+    "docs/audit/manifest.json": "c704a1e114c1269db2b8003b3269b1f13d702c3e1720f0990b433d5c550c6285"
+  },
+  "result": "PASS within arithmetic and document scope; no runtime/live-provider tests"
+}

@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-23T14:37:01.310178+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+  "worktree": "existing dirty changes preserved; concept-only additions",
+  "sourceImage": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-35846898-2ddc-4051-a06e-bfeacc520224.png",
+  "image": ".local/creator-concepts/sion/portrait-v1.png",
+  "imageSha256": "65d30aeb84b06167b75e0b90c6e9e145d2607dda9781851674d8c4731133cafa",
+  "sourceCopyMatches": true,
+  "dimensions": [
+    1122,
+    1402
+  ],
+  "concept": ".local/creator-concepts/sion/concept.json",
+  "conceptSha256": "bf00df78748dc7e78f267046bcee1cc1d2086092843b9ce9c2875b9935a3fa35",
+  "verification": [
+    "Generated output visually inspected: one mature adult man, black hair, cold expression, black aristocratic coat, no text or logo.",
+    "PNG signature/dimensions/hash and original-to-workspace exact copy verified."
+  ],
+  "scope": "Image concept only; no product code, fixture, deployment or DB change; product tests not applicable."
+}
