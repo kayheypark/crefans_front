@@ -147,13 +147,13 @@ test('profile lock labels use an explicit product ID while legacy tiers retain t
  let tree;act(()=>tree=create(h(CreatorProfilePage,{model,id:'artist-42'})));
  act(()=>button(tree,'미디어').props.onClick());
  const tile=()=>tree.root.findAllByType('a').find(node=>node.props.href==='/catalogue/post/restricted');
- assert.equal(tile().props['aria-label'],'수업 기록 · 드로잉 클래스 멤버에게 공개');
+ assert.equal(tile().props['aria-label'],'수업 기록 · 드로잉 클래스 전용 멤버에게 공개');
  const gather=node=>typeof node==='string'?node:node.children.map(gather).join('');const tileText=()=>gather(tile());
  assert.match(tileText(),/드로잉 클래스/);assert.doesNotMatch(tileText(),/베이직|클래스 이상/);
  act(()=>tree.update(h(CreatorProfilePage,{model:{...model,data:{...model.data,posts:[{...post,requiredPlanId:undefined}]}},id:'artist-42'})));
- assert.equal(tile().props['aria-label'],'수업 기록 · 베이직 이상 멤버에게 공개');assert.match(text(tree),/베이직 이상/);
+ assert.equal(tile().props['aria-label'],'수업 기록 · 레벨 1 이상 멤버에게 공개');assert.match(text(tree),/레벨 1 이상/);
  act(()=>tree.update(h(CreatorProfilePage,{model:{...model,data:{...model.data,posts:[{...post,requiredPlanId:'missing'}]}},id:'artist-42'})));
- assert.equal(tile().props['aria-label'],'수업 기록 · 멤버십 전용 콘텐츠');assert.doesNotMatch(text(tree),/베이직 이상/);
+ assert.equal(tile().props['aria-label'],'수업 기록 · 지정 멤버십 전용 멤버에게 공개');assert.doesNotMatch(text(tree),/레벨 1 이상/);
  act(()=>tree.unmount());
 });
 
@@ -236,4 +236,7 @@ test('the 소개 tab shows only the long intro and SNS links: no title, no membe
   act(()=>tree.update(h(CreatorProfilePage,{model:{...model,data:{...model.data,creators:[{...creator,about:undefined,links:undefined}]}},id:'artist-42'})));
   assert.match(text(tree),/주입된 소개/,'falls back to the tagline');assert.equal(tree.root.findAllByType('ul').length,0);
   act(()=>tree.unmount());
+});
+test('payment detail has no refund entry even when the model exposes a refund action',()=>{
+ const {SubscriptionsPage,search}=pages();search.set('tab','payments');const model=inputs();model.data.paymentHistory=[{creatorId:'artist-42',planId:'independent-plan',status:'active',renewAt:'2030-02-08',price:27500,orderId:'order-one',paidAt:'2030-01-08',paymentStatus:'paid'}];model.refundOrder=async()=>{throw Error('must not run');};let tree;act(()=>{tree=create(h(SubscriptionsPage,{model}));});act(()=>tree.root.findAllByType('button').find(node=>flatten(node.children).includes('상세 보기')).props.onClick());assert.equal(button(tree,'환불 요청'),undefined);assert.equal(button(tree,'전액 환불하기'),undefined);assert.ok(button(tree,'닫기'));act(()=>tree.unmount());
 });

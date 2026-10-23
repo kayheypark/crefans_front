@@ -1,0 +1,90 @@
+{
+  "checkedAt": "2026-10-09T10:17:39.496079+00:00",
+  "scope": "Official provider documentation and local code cross-check only",
+  "repositories": {
+    "front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "head": "280845bcad54709ad9f70aca43a6238cdc8a6148",
+      "branch": "feat/documentation-verification",
+      "dirty": true
+    },
+    "server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "head": "425e1a46dbd6cf0aa13140d2bba0768baba082ca",
+      "branch": "feat/documentation-verification",
+      "dirty": true
+    }
+  },
+  "sources": {
+    "front/docs/third-party-setup.md": "d3359a8d3a13b422a4e6eac03866645038001dbc497936ad31dcfe3d3c6b2108",
+    "front/lib/api/billing.ts": "bd888539e42009d1d56adcb135a5b88a3e901dfb76136b21c248a7380c1910d9",
+    "server/src/platform/payment-provider.ts": "c08b8b2792a722be96ca8aec64391946d404b6d0fec5b76a67cf6315370c9b27",
+    "server/src/platform/identity-provider.ts": "fb350cc75566c4199abf1598a14b615bac7f495e950121516ea7e0ac909ffb0d",
+    "server/src/platform/bank-provider.ts": "e8fb30001e44cce2d55d4aea8943e805583fea6024c9a530db67a022c10e29c4",
+    "server/src/platform/media.controller.ts": "dbd73dfce66a0edb90749536f909ca79514bbe8ac405148688136876b3ed9e7d",
+    "server/infra/platform/compose.yml": "253ad5d7f83ea39da877dce563a6cc827b14673fcf3d495161361cca49c4c0f8",
+    "server/infra/platform/Caddyfile": "3ec9717536a436ead9a2ba103ecf7528ca363a04313736918de7ddfdd0903544",
+    "server/infra/platform/runtime.env.example": "c94a2d3186e80945a5200a76b45fa9a46e564193c6e9d2ad0ad7cd44470adf56"
+  },
+  "officialUrls": [
+    "https://b2b.niceid.co.kr/inquiry",
+    "https://caddyserver.com/docs/automatic-https",
+    "https://developers.popbill.com/guide/accountcheck/pb/introduction/service-introduction",
+    "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html",
+    "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html",
+    "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Alarms.html",
+    "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+    "https://docs.aws.amazon.com/cost-management/latest/userguide/bcm-lite-create-a-budget.html",
+    "https://docs.aws.amazon.com/lightsail/latest/userguide/getting-started-with-amazon-lightsail.html",
+    "https://docs.aws.amazon.com/lightsail/latest/userguide/understanding-snapshots-in-amazon-lightsail.html",
+    "https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html",
+    "https://docs.aws.amazon.com/ses/latest/dg/setting-up.html",
+    "https://docs.aws.amazon.com/ses/latest/dg/smtp-credentials.html",
+    "https://docs.tosspayments.com/guides/v2/billing",
+    "https://docs.tosspayments.com/guides/v2/billing/integration",
+    "https://docs.tosspayments.com/guides/v2/deploy-checklist",
+    "https://docs.tosspayments.com/guides/v2/get-started/environment",
+    "https://docs.tosspayments.com/guides/v2/get-started/payment-products",
+    "https://docs.tosspayments.com/guides/v2/payouts",
+    "https://docs.tosspayments.com/reference/additional",
+    "https://support.google.com/mail/answer/14668346?hl=en",
+    "https://support.google.com/mail/answer/16740603?hl=en",
+    "https://support.google.com/mail/answer/9981691?hl=en",
+    "https://www.niceid.co.kr/cpsite/prod_mobile.nc",
+    "https://www.ok-name.co.kr/"
+  ],
+  "limitations": [
+    "NICE inquiry direct read empty; indexed application fields and public product page checked",
+    "Contract-only PASS SDK unavailable",
+    "No provider applications, secret changes, paid resources, transfers or mail sends",
+    "No new application unit/integration/E2E tests"
+  ],
+  "checks": [
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "result": "No whitespace errors"
+    },
+    {
+      "command": "npm run docs:record",
+      "exitCode": 0,
+      "result": "Snapshot only; 56 documents, 78 API routes, 41 screens, 54 models, 15 enums, 10 migrations"
+    },
+    {
+      "command": "npm run check:docs",
+      "exitCode": 0,
+      "result": "PASS; 111 local Markdown targets; official web reads are separate from this checker"
+    },
+    {
+      "command": "npm run test:docs",
+      "exitCode": 0,
+      "result": "5 negative control groups passed: missing link, new document, changed source, changed document, changed route; valid link accepted"
+    }
+  ],
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.5",
+    "node": "v22.7.0"
+  },
+  "verifiedAt": "2026-10-09T10:18:05.748424+00:00"
+}

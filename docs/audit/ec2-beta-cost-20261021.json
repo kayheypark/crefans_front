@@ -1,0 +1,79 @@
+{
+  "checkedAt": "2026-10-21T07:27:13.521157+00:00",
+  "method": "Actual AWS Pricing Calculator Chrome UI; no AWS resource provisioned",
+  "calculator": "https://calculator.aws/#/estimate",
+  "inputs": {
+    "region": "Asia Pacific (Seoul)",
+    "instance": "t3a.medium",
+    "os": "Linux",
+    "tenancy": "Shared",
+    "instances": 1,
+    "hoursPerMonth": 730,
+    "purchase": "On-Demand",
+    "gp3GB": 50,
+    "extraIOPS": 0,
+    "extraThroughput": 0,
+    "snapshots": 0,
+    "publicIPv4": 1,
+    "basePaidOutboundGB": 0
+  },
+  "unitPricesUSD": {
+    "instanceHour": 0.0468,
+    "gp3GBMonth": 0.0912,
+    "IPv4Hour": 0.005,
+    "SeoulInternetGBFirstTier": 0.126
+  },
+  "monthlyUSD": {
+    "compute": 34.164,
+    "gp3": 4.56,
+    "IPv4": 3.65,
+    "baseExact": 42.374,
+    "calculatorDisplayed": 42.37
+  },
+  "assumptions": {
+    "USDToKRW": 1400,
+    "fxIsIllustrativeNotLiveRate": true,
+    "VAT": 0.1,
+    "availableSharedAWSInternetFreeGB": 100,
+    "calculatorDoesNotAutomaticallyDeductInternetAllowance": true
+  },
+  "trafficScenarios": [
+    {
+      "outboundGB": 100,
+      "chargeableGB": 0,
+      "outboundUSD": 0.0,
+      "totalPretaxUSD": 42.374,
+      "totalVATIncludedKRW": 65256
+    },
+    {
+      "outboundGB": 300,
+      "chargeableGB": 200,
+      "outboundUSD": 25.2,
+      "totalPretaxUSD": 67.574,
+      "totalVATIncludedKRW": 104064
+    },
+    {
+      "outboundGB": 1000,
+      "chargeableGB": 900,
+      "outboundUSD": 113.4,
+      "totalPretaxUSD": 155.774,
+      "totalVATIncludedKRW": 239892
+    }
+  ],
+  "sources": [
+    "https://calculator.aws/#/createCalculator/ec2-enhancement",
+    "https://aws.amazon.com/vpc/pricing/",
+    "https://aws.amazon.com/ec2/pricing/on-demand/",
+    "https://aws.amazon.com/tax-help/apac-vat-rates/"
+  ],
+  "screenshot": "/tmp/crefans-ec2-beta-estimate.png",
+  "screenshotSHA256": "576ac4aa6001ba5ab790ad9f56141eee76ba28107a837b55d0e71eb8cf7e54fe",
+  "limits": [
+    "Free100GB is shared across AWS services/regions; unused allowance assumed",
+    "No free-tier credit or savings-plan discount assumed",
+    "Excludes CPU surplus credits, domains/DNS charges, paid support, Workspace/PASS/PG/bank fees",
+    "No RDS/S3/CDN/NAT/ALB/backups included, as beta scope requested",
+    "Actual usage, exchange rate, billing month and taxes can change invoice",
+    "Disk capacity/throughput adequacy not proven by estimate"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "time": "2026-10-21T05:53:04.759Z",
+  "environment": "real Toss sandbox / local DB / Chrome service UI",
+  "testKeysOnly": true,
+  "realMoneyCharged": false,
+  "checks": {
+    "paidOrder": true,
+    "providerStatus": "DONE",
+    "amount": 1000,
+    "subscription": "ONGOING",
+    "autoRenew": true,
+    "nextBillingDate": "2026-11-21T05:52:07.443Z",
+    "encryptedBillingKeyPresent": true,
+    "workerLastCompleted": "2026-10-21T05:52:56.227Z",
+    "workerFailures": {}
+  },
+  "automated": {
+    "command": "npm run build; node --test tests/platform-billing-config.test.cjs tests/platform-billing.test.cjs tests/platform-payment-lifecycle.test.cjs tests/platform-payment-http.test.cjs",
+    "exitCode": 0,
+    "testsPassed": 47,
+    "logSha256": "61c9a9cb90cd8e273700ca948445c03de2990e505ff0a1b8bc32ba412fba09b3"
+  },
+  "head": "425e1a46dbd6cf0aa13140d2bba0768baba082ca",
+  "dirty": true,
+  "sources": {
+    "scripts/platform-billing-test.cjs": "d8f1961f7b9c926092b690942252171f60e249b134845a1986d6a5b2cd4d5d7d",
+    "tests/platform-billing-config.test.cjs": "7c086f993d85ee1d713b532775ad7c0fd4d23be53e54013a3c193f4719853897",
+    "package.json": "75ee3f136f9b24f332bcd541e14a1271bbf3aaa16f0ceac721dbfea08f1907dc"
+  },
+  "limitations": [
+    "Live billing contract/key and production policies pending",
+    "One-time card authentication still pending",
+    "Next calendar month not waited: scheduler active, prior sandbox forced-due renewal verified"
+  ]
+}

@@ -5,7 +5,7 @@ const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const styles=new Proxy({},{get:(_,key)=>String(key)});
 const pages=loadTypeScript('components/crefans/AccountPages.tsx',{'./accordion.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},
-  './account.module.css':styles,'./creator.module.css':styles,'./choice.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./toggle.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./service.module.css':styles,'./ui.module.css':styles,'./avatar.module.css':styles,'./select.module.css':styles,'./field.module.css':styles,'./brand.module.css':styles,
+  './common.module.css':styles,'./account.module.css':styles,'./creator.module.css':styles,'./choice.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./toggle.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./service.module.css':styles,'./ui.module.css':styles,'./avatar.module.css':styles,'./select.module.css':styles,'./field.module.css':styles,'./brand.module.css':styles,
   'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),
   'next/navigation':{useRouter(){throw new Error('Presentation must not navigate independently');},useSearchParams(){throw new Error('Route state must be injected');}},
   '@/components/ui/Primitives':{
@@ -87,7 +87,7 @@ function button(tree,label){return tree.root.findAllByType('button').find(item=>
  });
 
  test('failed signup shows the injected error and never opens its completion dialog',async()=>{
-  const data=model(),calls=[],codes=[];data.accountActions.signup=async input=>{calls.push(input);return failure('이 이메일로 가입할 수 없습니다.');};
+  const data=model(),calls=[],codes=[];data.account.agreements=loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements;data.accountActions.signup=async input=>{calls.push(input);return failure('이 이메일로 가입할 수 없습니다.');};
   data.accountActions.requestSignupCode=async email=>{codes.push(email);return {success:true,data:{message:'코드 전송'},errorMessage:null,errorCode:null};};
   data.accountActions.verifySignupCode=async input=>input.code==='000000'?{success:true,data:{message:'이메일 인증 완료'},errorMessage:null,errorCode:null}:failure('코드 불일치');
   data.accountActions.verifyIdentity=async()=>({success:true,data:{message:'PASS 완료'},errorMessage:null,errorCode:null});
@@ -109,7 +109,7 @@ function button(tree,label){return tree.root.findAllByType('button').find(item=>
   await act(async()=>button('PASS 앱으로 인증하기').props.onClick());assert.equal(tree.root.findAll(node=>node.props['data-dialog']==='PASS 본인인증').length,0);
   assert.equal(submitButton().props.disabled,false);
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
-  assert.equal(calls.length,1);assert.equal(calls[0].email,'injected@example.test');assert.equal(calls[0].terms,true);assert.equal(calls[0].marketing,false);assert.equal(calls[0].emailVerified,true);assert.equal(calls[0].identityVerified,true);
+  assert.equal(calls.length,1);assert.equal(calls[0].email,'injected@example.test');assert.equal(calls[0].terms,true);assert.equal(calls[0].marketing,false);assert.equal(calls[0].emailVerified,true);assert.equal(calls[0].identityVerified,true);assert.deepEqual(calls[0].policyVersions,data.account.agreements.versions);
   assert.match(text(tree),/이 이메일로 가입할 수 없습니다/);
   assert.equal(tree.root.findAll(node=>node.props['data-dialog']==='가입 완료').length,0);
   assert.doesNotMatch(text(tree),/가입이 완료/);
@@ -196,3 +196,15 @@ test('the settings page is split into 계정 설정 / 항목 모아보기 / 공�
   assert.ok(tree.root.findAllByType('textarea').some(node=>node.props['data-label']==='소개'||node.props['aria-label']==='소개'||true),'프로필 수정 edits the tagline too');
   act(()=>tree.unmount());
 });
+
+ test('live signup shows published documents without enabling signup before processing is ready',()=>{
+  const data=model();data.account.agreements={...loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements,published:true,documentsPublished:true,signupReady:false,blockingMessage:'가입 준비 안내'};
+  const tree=mount(pages.SignupPage,data);
+  assert.equal(button(tree,'인증 코드 받기').props.disabled,true);assert.equal(button(tree,'PASS 본인인증').props.disabled,true);
+  act(()=>tree.root.findByProps({'aria-label':'이용약관 보기'}).props.onClick());
+  assert.match(text(tree),/다음 결제 해지를 예약해도/);assert.doesNotMatch(text(tree),/주입된 약관/);
+  act(()=>button(tree,'확인').props.onClick());act(()=>tree.root.findByProps({'aria-label':'개인정보 수집 및 이용 안내 보기'}).props.onClick());
+  assert.match(text(tree),/마케팅 수신 여부는 별도로/);assert.match(text(tree),/본인확인 결과/);
+  assert.equal(tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox').every(n=>n.props.checked===false),true);
+  act(()=>tree.unmount());
+ });

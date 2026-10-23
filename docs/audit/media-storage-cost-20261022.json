@@ -1,0 +1,185 @@
+{
+  "checkedAt": "2026-10-22T03:42:57.143947+00:00",
+  "scope": "Research and reproducible arithmetic only; no runtime/infrastructure changes",
+  "repositories": {
+    "/Users/ethan/repository/crefans_front": {
+      "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+      "branch": "feat/operations-security",
+      "dirty": true
+    },
+    "/Users/ethan/repository/crefans_server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/operations-security",
+      "dirty": true
+    }
+  },
+  "s3Pricing": {
+    "fetchedAt": "2026-10-22T03:41:57.550377+00:00",
+    "source": "https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonS3/current/ap-northeast-2/index.json",
+    "publicationDate": "2026-10-15T17:35:40Z",
+    "responseSha256": "b75cea56bcebb0ab9cac498e872cca50fc9971f7c0fa91e25d1626dbe39a0eb6",
+    "standardStoragePrices": [
+      {
+        "sku": "3JSN7K7UDDNCYCDM",
+        "attributes": {
+          "servicecode": "AmazonS3",
+          "location": "Asia Pacific (Seoul)",
+          "locationType": "AWS Region",
+          "availability": "99.99%",
+          "storageClass": "General Purpose",
+          "volumeType": "Standard",
+          "usagetype": "APN2-TimedStorage-ByteHrs",
+          "operation": "",
+          "durability": "99.999999999%",
+          "regionCode": "ap-northeast-2",
+          "servicename": "Amazon Simple Storage Service"
+        },
+        "effectiveDate": "2026-10-01T00:00:00Z",
+        "dimension": {
+          "rateCode": "3JSN7K7UDDNCYCDM.JRTCKXETXF.PGHJ3S3EYE",
+          "description": "$0.025 per GB - first 50 TB / month of storage used",
+          "beginRange": "0",
+          "endRange": "51200",
+          "unit": "GB-Mo",
+          "pricePerUnit": {
+            "USD": "0.0250000000"
+          },
+          "appliesTo": []
+        }
+      },
+      {
+        "sku": "3JSN7K7UDDNCYCDM",
+        "attributes": {
+          "servicecode": "AmazonS3",
+          "location": "Asia Pacific (Seoul)",
+          "locationType": "AWS Region",
+          "availability": "99.99%",
+          "storageClass": "General Purpose",
+          "volumeType": "Standard",
+          "usagetype": "APN2-TimedStorage-ByteHrs",
+          "operation": "",
+          "durability": "99.999999999%",
+          "regionCode": "ap-northeast-2",
+          "servicename": "Amazon Simple Storage Service"
+        },
+        "effectiveDate": "2026-10-01T00:00:00Z",
+        "dimension": {
+          "rateCode": "3JSN7K7UDDNCYCDM.JRTCKXETXF.D42MF2PVJS",
+          "description": "$0.024 per GB - next 450 TB / month of storage used",
+          "beginRange": "51200",
+          "endRange": "512000",
+          "unit": "GB-Mo",
+          "pricePerUnit": {
+            "USD": "0.0240000000"
+          },
+          "appliesTo": []
+        }
+      },
+      {
+        "sku": "3JSN7K7UDDNCYCDM",
+        "attributes": {
+          "servicecode": "AmazonS3",
+          "location": "Asia Pacific (Seoul)",
+          "locationType": "AWS Region",
+          "availability": "99.99%",
+          "storageClass": "General Purpose",
+          "volumeType": "Standard",
+          "usagetype": "APN2-TimedStorage-ByteHrs",
+          "operation": "",
+          "durability": "99.999999999%",
+          "regionCode": "ap-northeast-2",
+          "servicename": "Amazon Simple Storage Service"
+        },
+        "effectiveDate": "2026-10-01T00:00:00Z",
+        "dimension": {
+          "rateCode": "3JSN7K7UDDNCYCDM.JRTCKXETXF.PXJDJ3YRG3",
+          "description": "$0.023 per GB - storage used / month over 500 TB",
+          "beginRange": "512000",
+          "endRange": "Inf",
+          "unit": "GB-Mo",
+          "pricePerUnit": {
+            "USD": "0.0230000000"
+          },
+          "appliesTo": []
+        }
+      }
+    ]
+  },
+  "ebsSource": "docs/audit/ec2-beta-cost-20261021.json (actual calculator 2026-10-21)",
+  "sourceSha256": {
+    "crefans_server/infra/platform/compose.yml": "ba8323e272080d618d958a22d171c0ea77c36368b85910e86fb3134976d05f1d",
+    "crefans_server/src/platform/media.controller.ts": "ce024a3c6632592148f2d82f0c020d493b8d984d2293d3f10e26a8ae8e7f8f29",
+    "crefans_front/docs/audit/ec2-beta-cost-20261021.json": "215f9af704c7462ec0fc0153e009e33e9d42c9eaa38e4e91fff65e477fe8107f",
+    "crefans_front/docs/financial.md": "34d13a10350d749f59644043192cbd5d6ee9cb5c50679a914f381aadaf689b3a"
+  },
+  "scenario": {
+    "storedBillingGB": 1000,
+    "egressBillingGB": 1000,
+    "remainingSharedFreeEgressGB": 100,
+    "ebsGp3UsdGbMonth": "0.0912",
+    "ec2EgressUsdGb": "0.126",
+    "s3StandardUsdGbMonth": "0.025",
+    "cloudFrontProUsdMonth": "15",
+    "ebsPlusDirectEgressUsd": "204.6000",
+    "s3PlusProBaseUsd": "40.0000000000",
+    "excluded": [
+      "S3 requests",
+      "backups",
+      "encoding",
+      "extra EBS performance",
+      "API server and DB",
+      "tax",
+      "S3 storage credit discount"
+    ],
+    "conditions": [
+      "CloudFront Pro eligibility unverified on actual account",
+      "one distribution",
+      "requests within 10M/month",
+      "traffic within 50TB/month allowance",
+      "required caching features fit Pro",
+      "no total-system cost or availability guarantee"
+    ]
+  },
+  "officialSources": [
+    "https://aws.amazon.com/cloudfront/pricing/",
+    "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/flat-rate-pricing-plan.html",
+    "https://aws.amazon.com/ko/blogs/tech/aws-networking-dto-dp-01/",
+    "https://aws.amazon.com/ebs/pricing/",
+    "https://aws.amazon.com/s3/pricing/",
+    "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html"
+  ],
+  "arithmeticCheck": {
+    "command": "python3 Decimal arithmetic and assertions",
+    "exitCode": 0,
+    "result": "PASS"
+  },
+  "documentationChecks": [
+    {
+      "command": "npm run docs:record",
+      "startedAt": "2026-10-22T03:43:12.331293+00:00",
+      "finishedAt": "2026-10-22T03:43:13.321694+00:00",
+      "exitCode": 0,
+      "logSha256": "2d38ec0fd3af3148c5b527c01d5baf1afe1b49b47614bed12f3bafa6022e271e",
+      "output": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 57, \"documentsByRepo\": {\"front\": 34, \"server\": 23}, \"routes\": 96, \"screens\": 41, \"models\": 60, \"enums\": 15, \"migrations\": 16, \"localMarkdownTargets\": 163, \"externalInlineLinksNotFetched\": 157}\n",
+      "note": "Documentation snapshot/check only, not product or provider validation"
+    },
+    {
+      "command": "npm run check:docs",
+      "startedAt": "2026-10-22T03:43:13.321778+00:00",
+      "finishedAt": "2026-10-22T03:43:13.662355+00:00",
+      "exitCode": 0,
+      "logSha256": "6d19995d907506e4301f16a937135c40b1aa8ceb4f638d67a0f0fabd3227a71d",
+      "output": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-22T03:43:13.103750+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 57, \"documentsByRepo\": {\"front\": 34, \"server\": 23}, \"routes\": 96, \"screens\": 41, \"models\": 60, \"enums\": 15, \"migrations\": 16, \"localMarkdownTargets\": 163, \"externalInlineLinksNotFetched\": 157}\n",
+      "note": "Documentation snapshot/check only, not product or provider validation"
+    },
+    {
+      "command": "git diff --check",
+      "startedAt": "2026-10-22T03:43:13.662427+00:00",
+      "finishedAt": "2026-10-22T03:43:13.678211+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "output": "",
+      "note": "Documentation snapshot/check only, not product or provider validation"
+    }
+  ]
+}

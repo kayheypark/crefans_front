@@ -3,6 +3,7 @@ import {Suspense} from 'react';
 import {useSearchParams} from 'next/navigation';
 import PublicMemberPage from '@/components/crefans/PublicMemberPage';
 import {useService} from './ServiceProvider';
+import {PaymentResult} from './PaymentResult';
 import {CheckoutPage,BillingResult} from './CheckoutPage';
 import ServiceShell from '@/components/crefans/ServiceShell';
 import {SignupPage,LoginPage,MyProfilePage,SettingsPage,SupportPage,SignInPrompt} from '@/components/crefans/AccountPages';
@@ -17,6 +18,7 @@ export default function ServiceRouter({segments}:{segments:string[]}){
  const {model,common,loading,error,refresh,publicProfile}=useService(),query=useSearchParams(),[screen,id]=segments,basePath=model.basePath;
  function content(){if(loading)return <p role="status">불러오는 중…</p>;if(!model.signedIn&&['messages','notifications','me','subscriptions','settings','following','followers','payment-methods','checkout'].includes(screen))return <SignInPrompt basePath={basePath}/>;switch(screen){
   case 'checkout':return <CheckoutPage id={id}/>;
+  case 'payment':return <PaymentResult success={id==='success'}/>;
   case 'billing':return <BillingResult success={id==='success'}/>;
   case 'explore':return <ExplorePage model={model}/>;
   case 'creator':return publicProfile?.isCreator===false?<PublicMemberPage profile={publicProfile} model={model}/>:<CreatorProfilePage model={model} id={publicProfile?.id||id}/>;

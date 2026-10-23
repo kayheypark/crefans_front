@@ -1,0 +1,73 @@
+name: Playwright E2E
+on:
+  workflow_dispatch:
+    inputs:
+      server_repository:
+        description: Backend repository (owner/crefans_server)
+        required: true
+      server_ref:
+        description: Backend branch containing tests/e2e-server.cjs and current migrations
+        required: true
+        default: dev
+permissions:
+  contents: read
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: e2e-disposable-password
+          MYSQL_ROOT_HOST: '%'
+          MYSQL_DATABASE: crefans_platform_dev
+        ports:
+          - 3307:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -pe2e-disposable-password"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: crefans_front
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.server_repository }}
+          ref: ${{ inputs.server_ref }}
+          path: crefans_server
+          token: ${{ secrets.E2E_REPO_TOKEN || github.token }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            crefans_front/package-lock.json
+            crefans_server/package-lock.json
+      - name: Install dependencies
+        run: |
+          npm ci --prefix crefans_server
+          npm ci --prefix crefans_front
+      - name: Configure disposable database
+        working-directory: crefans_server
+        run: |
+          mkdir -p .local
+          printf '%s\n' 'DATABASE_URL=mysql://root:e2e-disposable-password@127.0.0.1:3307/crefans_platform_dev' > .local/platform.env
+          chmod 600 .local/platform.env
+      - name: Install browser
+        working-directory: crefans_front
+        run: npx playwright install --with-deps chromium
+      - name: Run checks and E2E
+        working-directory: crefans_front
+        run: |
+          npm run check
+          npm run test:e2e
+      - name: Save report and failure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            crefans_front/playwright-report
+            crefans_front/test-results
+          retention-days: 7

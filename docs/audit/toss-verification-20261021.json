@@ -1,0 +1,89 @@
+{
+  "time": "2026-10-21T05:39:27.171Z",
+  "environment": "Toss actual sandbox + local DB",
+  "checks": [
+    {
+      "name": "billing initial approval and duplicate suppression",
+      "passed": true,
+      "amount": 1000
+    },
+    {
+      "name": "billing subscription scheduled",
+      "passed": true
+    },
+    {
+      "name": "billing renewal actual sandbox approval",
+      "passed": true,
+      "amount": 1000
+    },
+    {
+      "name": "renewal cancellation prevents next charge",
+      "passed": true
+    },
+    {
+      "name": "initial and renewal refunds reconciled",
+      "passed": true
+    },
+    {
+      "name": "billing key revoked and encrypted secret erased",
+      "passed": true
+    }
+  ],
+  "recordedAt": "2026-10-21T05:47:02.145673+00:00",
+  "billing": "actual Toss sandbox passed: browser registration and initial approval; service/provider lookup renewal/cancel/refund/revocation",
+  "oneTime": "SDK card window opened, Shinhan/KB real card authentication reached; user unavailable; approval/refund NOT RUN",
+  "scope": "local development DB only, no actual charge, no joining fee, no live keys; policies are temporary test values",
+  "localApi": "stopped: restart approval rejected",
+  "automated": [
+    {
+      "command": "npm run check",
+      "repository": "front",
+      "exitCode": 0,
+      "testsPassed": 274,
+      "logSha256": "919294feb48708b4b47ffd84372a2b77427b551ba98277a8e510c7ca8826c0ff"
+    },
+    {
+      "command": "npm run build; node --test tests/platform-payment-lifecycle.test.cjs tests/platform-billing.test.cjs tests/platform-payment-http.test.cjs",
+      "repository": "server",
+      "exitCode": 0,
+      "testsPassed": 45,
+      "provider": "fake provider + local real DB",
+      "logSha256": "455defe6e69d6693c666a197983c5dfbdfec7caeb849bf30153f9623a330ec91"
+    }
+  ],
+  "repositories": {
+    "front": {
+      "head": "280845bcad54709ad9f70aca43a6238cdc8a6148",
+      "branch": "feat/toss-test-integration",
+      "dirty": true,
+      "existingUncommittedChangesPreserved": true
+    },
+    "server": {
+      "head": "425e1a46dbd6cf0aa13140d2bba0768baba082ca",
+      "branch": "feat/toss-test-integration",
+      "dirty": true,
+      "existingUncommittedChangesPreserved": true
+    }
+  },
+  "sources": {
+    "front/components/service/CheckoutPage.tsx": "8dcfb173e0870402048b1904f20f79bd56ba18f0c8ebefed1ab73d0bc47d5dfb",
+    "front/components/service/PaymentResult.tsx": "ffef2218e71a4f51eae5e4c7985fff57aea2319f1e739c7f708f2dac0f50c14a",
+    "front/components/service/ServiceRouter.tsx": "8d6e40a521d8298eb9edc9a08316d055cc6fb0c736b71e05fecb7afe0fd8af5f",
+    "front/components/crefans/CommonPages.tsx": "6cff0c64b038d896cedeb698c44b7a9ca16bf82987b98d7eb6433302be6bc7c2",
+    "front/features/service/useCheckoutModel.ts": "eaccb117fba1e7fb260a24504c43d00fe917246774b06039ab47d44ae4254fc6",
+    "front/features/service/useOneTimePayment.ts": "6a37f32adbc5a6097bffc2ab6631ecccf9316b59ea7c73b75c2509ce9e2c0627",
+    "front/lib/api/one-time-payment.ts": "19c65ef16730557185a913c90fb757a121e8648996f2b11599d66128cd0706b5",
+    "front/app/service/[...screen]/page.tsx": "da913f4c20941c88f3360ee57da090e403e73157fa08b536dff85e47a4401794",
+    "front/tests/billing-registration.test.cjs": "8e8154911c2511bd354b5f06254020fb4577557858e234ca82122e87fb92af7b",
+    "front/tests/one-time-payment.test.cjs": "e71286bfaf805430e7b1eb75170f65a5d268353ce28b445819033e1c8289793c",
+    "server/src/platform/finance.controller.ts": "44aa8f3a3128c3bac6831a5695ad1c22439de59111e41b5f182f37fe46d19988",
+    "server/src/platform/finance.service.ts": "bc43292813bc2ad2925f503ad0e0a7e19f55f2f049b3f6cd62f2557d84b4aef3",
+    "server/src/platform/payment-provider.ts": "755692c5b2570712e3ffc75619c39ecb308b8c2ef735828bebe22c6c4b37827f",
+    "server/tests/platform-payment-lifecycle.test.cjs": "a00f3b1e867ef955039d557b1efba8dda3f62283841928a638d124d676dfb30a"
+  },
+  "officialSources": [
+    "https://docs.tosspayments.com/guides/v2/billing/integration",
+    "https://docs.tosspayments.com/guides/v2/payment-window/integration",
+    "https://docs.tosspayments.com/guides/v2/get-started/environment"
+  ]
+}

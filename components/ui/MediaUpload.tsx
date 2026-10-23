@@ -1,4 +1,6 @@
 'use client';
+import {MediaVideo} from './MediaVideo';
+
 import {useId,useLayoutEffect,useRef,useState,type CSSProperties,type DragEvent,type KeyboardEvent,type PointerEvent} from 'react';
 import {indexAt,slotFor,type Box} from './media-order';
 import {MediaTypeIcon} from './MediaTypeIcon';
@@ -74,7 +76,7 @@ export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,ac
     <div className={s.heading}><span className={s.label} id={`${id}-label`}>{label}</span><span className={s.count} aria-live="polite">{`${items.length}/${max}`}</span></div>
     <input ref={input} className={s.file} id={id} type="file" multiple accept={accept} aria-label={label} disabled={blocked} onChange={event=>{const list=event.currentTarget.files;select(list);event.currentTarget.value='';}}/>
     {items.length>0&&<ul ref={list} className={s.grid} aria-label={`${label} 목록`} data-reorderable={canReorder||undefined}>{items.map((item,index)=><li key={item.id} className={s.tile} data-media-id={item.id} data-dragging={drag?.from===index||undefined} style={tileStyle(index)} tabIndex={canReorder?0:undefined} aria-label={canReorder?`${index+1}번째 ${item.type==='video'?'동영상':'이미지'}, 끌거나 화살표 키로 순서 변경`:undefined} onPointerDown={event=>pointerDown(event,index)} onPointerMove={pointerMove} onPointerUp={()=>finishDrag(true)} onPointerCancel={()=>finishDrag(false)} onKeyDown={event=>keyReorder(event,index)}>
-      {item.type==='video'?<video className={s.media} src={item.url} muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>:<img className={s.media} src={item.url} alt={`이미지 ${index+1}`} draggable={false}/>}
+      {item.type==='video'?<MediaVideo className={s.media} src={item.url} muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>:<img className={s.media} src={item.url} alt={`이미지 ${index+1}`} draggable={false}/>}
       <span className={s.badge} aria-label={item.type==='video'?'동영상':'이미지'}><MediaTypeIcon type={item.type}/></span>
       <button type="button" className={s.remove} aria-label={`${index+1}번째 ${item.type==='video'?'동영상':'이미지'} 삭제`} disabled={disabled||uploading} onClick={()=>onRemove(item.id)}>×</button>
     </li>)}</ul>}

@@ -9,6 +9,6 @@ export function canDeleteMembership(id:string,subscribers:StudioSubscriber[],tod
 export function studioMembershipPlans(memberships:StudioMembership[],original:Plan[]):Plan[]{
   return memberships.map(item=>{
     const previous=original.find(plan=>plan.id===item.id);
-    return {...previous,id:item.id,name:item.name,price:item.price,benefits:[...item.benefits],rank:previous?.rank??1,entitlementMode:previous?.entitlementMode??(previous?'tier':'exact'),image:item.image,version:item.version,available:item.active};
+    return {...previous,id:item.id,name:item.name,price:item.price,benefits:[...item.benefits],rank:item.rank??previous?.rank??1,entitlementMode:'tier',image:item.image,version:item.version,available:item.active};
   });
 }

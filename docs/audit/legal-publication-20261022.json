@@ -1,0 +1,597 @@
+{
+  "checkedAt": "2026-10-22T09:27:32.937666+00:00",
+  "scope": "Code-managed legal draft, consent versions and adult-only signup. Not an effective policy or launch-readiness certification.",
+  "repository": {
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/operations-security",
+      "dirty": true,
+      "statusSha256": "bc5f1b1394d51044ee8a155fc2804ee2708df6eead6fbc922f5fa3e76cebc296",
+      "changedFilesCount": 108
+    },
+    "front": {
+      "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+      "branch": "feat/operations-security",
+      "dirty": true,
+      "statusSha256": "a172906d74b13e2a1f670c44a6790dfad5d0dbffda72fc6ea83b779edeef31fd",
+      "changedFilesCount": 90
+    }
+  },
+  "research": {
+    "checkedAt": "2026-10-22T09:15:03.887626+00:00",
+    "guide": {
+      "publisher": "개인정보보호위원회",
+      "title": "개인정보 처리방침 작성지침",
+      "edition": "2026.4",
+      "pdfPages": 185,
+      "sha256": "56363ea6c1a72a685b4103ef4636a8cc3b5eafa0f9d7e5a2a413f8d24b564f0e",
+      "reviewedPrintedPages": [
+        12,
+        14,
+        24,
+        26,
+        31,
+        32,
+        35,
+        36,
+        42,
+        45,
+        46,
+        47,
+        48,
+        72,
+        83,
+        84
+      ],
+      "renderInspectedPdfPage": 47
+    },
+    "businessIdentity": {
+      "operatorNameConfirmedByUser": true,
+      "localAmendmentSubmissionMatchesCompanyWebsite": true,
+      "companyPrivacyContactFound": true,
+      "commerceRegistrationNumberFound": false,
+      "originalPrivateDocumentsCopied": false
+    },
+    "officialSources": [
+      {
+        "url": "https://law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1020398611",
+        "effective": "2026-09-11",
+        "application": "국외 이전 항목·국가·시기/방법·수령 법인/연락처·목적/기간·거부 절차 확인 필요. 계약상 필요성만으로 고지 생략 안 됨."
+      },
+      {
+        "url": "https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1018638379",
+        "effective": "2026-07-21",
+        "application": "전자상거래 해당 기록5년/3년/6개월 및 탈퇴자 거래기록 분리. 계정·콘텐츠 전체5년 보유로 확장하지 않음."
+      },
+      {
+        "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/data-protection-summary.html",
+        "application": "글로벌 전송/엣지 처리와 서울 원본 저장을 구분. 실제 국가·계약은 아직 미확정."
+      },
+      {
+        "url": "https://support.google.com/a/answer/14310028?hl=en-GB",
+        "application": "리전 선택은 에디션/설정/지원 데이터에 한정. 현 계정 미국 저장으로 임의 단정 금지."
+      },
+      {
+        "url": "https://cloud.google.com/terms/data-processing-addendum/",
+        "application": "일반 공개 DPA는 현 계정 계약 체결·보관 설정 증거가 아님."
+      },
+      {
+        "url": "https://telegram.org/privacy",
+        "application": "EEA/영국 이용자 네덜란드 보관 설명을 한국 Bot채널의 실제 국가로 확장하지 않음."
+      },
+      {
+        "url": "https://moleg.go.kr/menu.es?mid=a10111060000+",
+        "application": "만 나이 원칙 확인. 서비스 정책으로 생일 기준19세 적용."
+      },
+      {
+        "url": "https://www.law.go.kr/lsLawLinkInfo.do?chrClsCd=010202&lsJoLnkSeq=1000976201",
+        "effective": "2026-10-08",
+        "application": "청소년보호법 연초예외를 서비스 가입 기준으로 혼용하지 않음."
+      }
+    ],
+    "manualCodeFindings": [
+      {
+        "path": "src/platform/service.ts",
+        "finding": "탈퇴는 비활성화·세션삭제. 일반 개인정보 파기 미구현."
+      },
+      {
+        "path": "src/platform/audit-retention.ts",
+        "finding": "일반 요청 외 감사 보유기간 기본0은 미결정 보존대기."
+      },
+      {
+        "path": "src/platform/operations.service.ts",
+        "finding": "IP·ID 운영 알림 국외 전송, 완료 outbox30일 정리와 외부 메시지 파기는 별개."
+      },
+      {
+        "path": "src/platform/finance.service.ts",
+        "finding": "해지예약/미사용환불·fees/net0·미결정정산보류와20% 수수료 구분."
+      },
+      {
+        "path": "src/platform/legal-documents.ts",
+        "finding": "초안·시행일null, 처리방침 확인/마케팅동의 분리, 표시내용 해시 및 가입원자성 검증."
+      }
+    ],
+    "notProven": [
+      "시행본 적법성 또는 외부 법률검토",
+      "실제 국외 수탁 계약/모든 국가/보유기간",
+      "탈퇴후 파기·법정기록 분리 완료",
+      "통신판매업 신고 상태",
+      "PASS/은행/운영 PG 연동 완료"
+    ],
+    "decisions": {
+      "minimumSignupAge": 19,
+      "basis": "2026-10-22 explicit user answer",
+      "birthdayBased": true,
+      "legalYearExemptionNotUsed": true
+    }
+  },
+  "commands": [
+    {
+      "stage": "legal-20261022/domain",
+      "command": [
+        "env",
+        "CREFANS_E2E=true",
+        "npm",
+        "run",
+        "test:platform:domain"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:11:26.559857+00:00",
+      "finishedAt": "2026-10-22T09:11:29.489862+00:00",
+      "exitCode": 1,
+      "logSha256": "367a646159ab68d565dc885c50b974d6f72a2b08ae9d5b4d17452f262e6fb52d"
+    },
+    {
+      "stage": "legal-20261022/domain-final",
+      "command": [
+        "env",
+        "CREFANS_E2E=true",
+        "npm",
+        "run",
+        "test:platform:domain"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:12:42.761088+00:00",
+      "finishedAt": "2026-10-22T09:12:45.801258+00:00",
+      "exitCode": 0,
+      "logSha256": "43eef3f24ee4224915e44fc3356e4126a717e07f9c66f090692a4c5c5f20ecd0"
+    },
+    {
+      "stage": "legal-20261022/operations-signup",
+      "command": [
+        "env",
+        "CREFANS_E2E=true",
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "tests/platform-operations-events.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:13:04.768656+00:00",
+      "finishedAt": "2026-10-22T09:13:06.333970+00:00",
+      "exitCode": 0,
+      "logSha256": "26fd00f98d9bba287fe1aff332295c02781134a1cf19b4d70e211cee2feecd3d"
+    },
+    {
+      "stage": "legal-20261022/age-server-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:19:36.991131+00:00",
+      "finishedAt": "2026-10-22T09:19:41.576402+00:00",
+      "exitCode": 0,
+      "logSha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2"
+    },
+    {
+      "stage": "legal-20261022/age-front-check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-22T09:19:38.195307+00:00",
+      "finishedAt": "2026-10-22T09:19:45.870791+00:00",
+      "exitCode": 0,
+      "logSha256": "fd0e1c75033d9849f7b4080e6ac134dbf27c487f59ec817fef0744e0ec19ca58"
+    },
+    {
+      "stage": "legal-20261022/age-domain",
+      "command": [
+        "env",
+        "CREFANS_E2E=true",
+        "node",
+        "--test",
+        "--test-concurrency=1",
+        "tests/platform-legal.test.cjs",
+        "tests/platform-auth.test.cjs",
+        "tests/platform-provider-http.test.cjs",
+        "tests/platform-provider-lifecycle.test.cjs",
+        "tests/platform-mail.integration.test.cjs",
+        "tests/platform-operations-events.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:20:04.693215+00:00",
+      "finishedAt": "2026-10-22T09:20:16.400732+00:00",
+      "exitCode": 0,
+      "logSha256": "df916b02880d2b4aed8fb56b2966dc1828ab74d2ef45a393777b15ecf263c3b3"
+    },
+    {
+      "stage": "legal-20261022/release",
+      "command": [
+        "python3",
+        ".local/legal-20261022/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:13:37.969353+00:00",
+      "finishedAt": "2026-10-22T09:15:29.043082+00:00",
+      "exitCode": 0,
+      "logSha256": "4695e827fff3410c8e7cf5aacf626973b53709a98773336ca1d5f835226cc7f8"
+    },
+    {
+      "stage": "legal-age-20261022/build-api",
+      "command": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--build-arg",
+        "APP_RELEASE=legal-age-20261022",
+        "-f",
+        "infra/platform/Dockerfile",
+        "-t",
+        "crefans-api:legal-age-20261022",
+        "."
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:20:17.781977+00:00",
+      "finishedAt": "2026-10-22T09:21:47.686025+00:00",
+      "exitCode": 0,
+      "logSha256": "4b58747b0064e622f0b41c0d6537f605095686741bede6f0118bfbfc29ea0684"
+    },
+    {
+      "stage": "legal-age-20261022/build-front",
+      "command": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        "infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:legal-age-20261022",
+        "."
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-22T09:20:20.863540+00:00",
+      "finishedAt": "2026-10-22T09:22:14.296877+00:00",
+      "exitCode": 0,
+      "logSha256": "037e8180aa7464fdc8a95370e844da1a79155db2debfa18c5a0d1a9b90a18a82"
+    },
+    {
+      "stage": "legal-age-20261022/bundle",
+      "command": [
+        "python3",
+        ".local/legal-age-20261022/bundle.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:22:33.181095+00:00",
+      "finishedAt": "2026-10-22T09:22:52.224101+00:00",
+      "exitCode": 0,
+      "logSha256": "fcdfa13758ec8f7c7fe5b395fd44839d98719b08fdfef2158b83f57e3e7263f3"
+    },
+    {
+      "stage": "legal-age-20261022/e2e",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e",
+        "--",
+        "--project=chromium",
+        "e2e/service.spec.ts"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-22T09:20:33.006209+00:00",
+      "finishedAt": "2026-10-22T09:21:25.127137+00:00",
+      "exitCode": 0,
+      "logSha256": "9a8af2f9e0db5a7e3fe0596e7deaeac90eecf35664a92ede2e9f16f5a8505631"
+    },
+    {
+      "stage": "legal-age-20261022/release",
+      "command": [
+        "python3",
+        ".local/legal-age-20261022/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:23:19.777996+00:00",
+      "finishedAt": "2026-10-22T09:25:14.581008+00:00",
+      "exitCode": 0,
+      "logSha256": "4695e827fff3410c8e7cf5aacf626973b53709a98773336ca1d5f835226cc7f8"
+    },
+    {
+      "stage": "legal-age-20261022/browser",
+      "command": [
+        "node",
+        ".local/legal-age-20261022/browser.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:27:15.154791+00:00",
+      "finishedAt": "2026-10-22T09:27:19.790158+00:00",
+      "exitCode": 0,
+      "logSha256": "f3f306e88aa0b0b5f58226f82bc5848a0f2146594b9e84775329153c991895e2"
+    },
+    {
+      "stage": "legal-age-20261022/inspect",
+      "command": [
+        "python3",
+        ".local/legal-age-20261022/inspect.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "startedAt": "2026-10-22T09:26:02.204914+00:00",
+      "finishedAt": "2026-10-22T09:26:04.669382+00:00",
+      "exitCode": 0,
+      "logSha256": "3c91244b9c6749dd2bccca21830cb81afdb240ab7769c1072d133378fe6acf25"
+    },
+    {
+      "stage": "legal-age-20261022/docs-contracts",
+      "command": [
+        "npm",
+        "run",
+        "docs:contracts"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-22T09:23:51.036862+00:00",
+      "finishedAt": "2026-10-22T09:23:51.458650+00:00",
+      "exitCode": 0,
+      "logSha256": "5b2c947fb7bb141d6711c4aa95383cb6cb7e61b6aa33bcc9713e02404e432d43"
+    },
+    {
+      "stage": "legal-age-20261022/docs-record",
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-22T09:27:43.241651+00:00",
+      "finishedAt": "2026-10-22T09:27:44.266067+00:00",
+      "exitCode": 0,
+      "logSha256": "5c3f7204be82510e9693c9206f2ec0009c42299b0733727c05a250f9a295f473"
+    },
+    {
+      "stage": "legal-age-20261022/docs-check",
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-22T09:27:51.318674+00:00",
+      "finishedAt": "2026-10-22T09:27:51.713460+00:00",
+      "exitCode": 0,
+      "logSha256": "db5585d6220b36e8ec7878c3b44b46d35009100cec708a2619e5ba8128a40147"
+    },
+    {
+      "stage": "legal-age-20261022/docs-test",
+      "command": [
+        "npm",
+        "run",
+        "test:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-22T09:27:52.030984+00:00",
+      "finishedAt": "2026-10-22T09:27:52.359476+00:00",
+      "exitCode": 0,
+      "logSha256": "61c8c3c4d5c5c0f1af1b85c42a59015ae5a8454c65d33a8cd12d4e0f1b4751f4"
+    }
+  ],
+  "results": {
+    "serverBeforeAgeDomain": 95,
+    "serverFinalAffectedCases": 58,
+    "frontendFinalUnit": 282,
+    "browserE2EFinal": 12,
+    "providerMode": "isolated MySQL + SMTP/PASS/PG/bank doubles; no actual payment/email/real PASS test",
+    "firstDomainFailure": "4 old fixture cases lacked published-policy test injection; corrected only the test fixture and all95 passed; draft gate not weakened",
+    "production": {
+      "checkedAt": "2026-10-22T09:26:04.622Z",
+      "release": "legal-age-20261022",
+      "legal": {
+        "version": "2026-10-22.draft-2",
+        "published": false,
+        "minimumAge": 19,
+        "signupEmailBlockedWithoutDbOrSend": true
+      },
+      "financialPolicy": {
+        "version": 0,
+        "platform_fee_bps": 2000,
+        "settlement_hold_days": null
+      },
+      "counts": {
+        "members": 1,
+        "creators": 0,
+        "media": 0
+      },
+      "workerLastCompletedAt": "2026-10-22T09:25:12.145Z",
+      "workerFailures": {},
+      "auditHttp5xxSinceRelease": 0
+    },
+    "browser": {
+      "checkedAt": "2026-10-22T09:27:19.760Z",
+      "browser": "Chromium headless",
+      "source": "production HTTPS, no account creation/mail/payment",
+      "documentSha256": "af4ac71cc4631ea99d4c3584e3ad999438a3f742a9ef5d75bcbb8e7b40a218f2",
+      "results": [
+        {
+          "width": 1440,
+          "route": "/service/legal/terms",
+          "status": "draft",
+          "toc": 10,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "route": "/service/legal/privacy",
+          "status": "draft",
+          "toc": 14,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "route": "/service/signup",
+          "unpublishedEmailAndSignupBlocked": true,
+          "fullDocumentInDialog": true,
+          "noAutomaticConsent": true
+        },
+        {
+          "width": 390,
+          "route": "/service/legal/terms",
+          "status": "draft",
+          "toc": 10,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "route": "/service/legal/privacy",
+          "status": "draft",
+          "toc": 14,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "route": "/service/signup",
+          "unpublishedEmailAndSignupBlocked": true,
+          "fullDocumentInDialog": true,
+          "noAutomaticConsent": true
+        },
+        {
+          "route": "/preview/signup",
+          "preserved": true,
+          "pageErrors": 0
+        }
+      ]
+    },
+    "releaseSteps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-22T09:23:19.797115+00:00",
+        "finishedAt": "2026-10-22T09:23:21.385063+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-22T09:23:21.385767+00:00",
+        "finishedAt": "2026-10-22T09:24:37.522557+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-22T09:24:37.523800+00:00",
+        "finishedAt": "2026-10-22T09:25:05.523721+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-22T09:25:05.524466+00:00",
+        "finishedAt": "2026-10-22T09:25:14.569451+00:00",
+        "exitCode": 0
+      }
+    ]
+  },
+  "images": [
+    {
+      "tag": "crefans-api:legal-age-20261022",
+      "id": "sha256:de9e2ba5a4b8cffc71f4e5c2c92f331739f5498c12fc2fc109e143e7b72dda3a",
+      "architecture": "amd64",
+      "verifiedSourceFiles": 181,
+      "sourceManifestSha256": "0b24d8db238e84b5f1c7472703ef2f3f9dceec73f00988c7651fa7252d13dd6f"
+    },
+    {
+      "tag": "crefans-front:legal-age-20261022",
+      "id": "sha256:834e1c070465e1ab640275b6ce69a924ea9cedb4c0253671d9f3b7957fc7cfbc",
+      "architecture": "amd64",
+      "verifiedSourceFiles": 464,
+      "sourceManifestSha256": "d901a405ee8fc1f93828b44cb1dfc3ce21190243a90b506dceb2802c66cf9fb0"
+    }
+  ],
+  "sourceHashes": {
+    "crefans_server/src/platform/legal-documents.ts": "2536e750b9ee0cfde9072166cb73aafe1c7910e7c8726268e93ef510505b25a0",
+    "crefans_server/src/platform/auth.service.ts": "5b80d473e1f95dcc18e0c25bd6608778a8e7f2847090d7890a962c3711b22154",
+    "crefans_server/src/platform/identity-provider.ts": "d3460eb36d68cc48503a7cc433c8d7ec19b4ac9b61051f93478bbd1056be1af3",
+    "crefans_server/src/platform/service.ts": "54187751678c8d2451382b3b6f548c3b921525e449d0d206a5b192d841609c05",
+    "crefans_server/src/platform/admin.controller.ts": "e2eb278e80a030d66c145f65b65c9780ceb1aca1fbb69b7189ba3c5840c82745",
+    "crefans_server/src/platform/module.ts": "c156962f95eac062395a2a05a1e527929b1394f0b98f990d212c05050256d68c",
+    "crefans_server/tests/legal-fixture.cjs": "823dad29fb546d83a7b9d8ea1e37c5a31bd3ce6336aa237fff2a8859cca9c5af",
+    "crefans_server/tests/platform-legal.test.cjs": "2ec8b38f9fee67287180db90f409347835ca7f531c5e5a5fcd02981d8632c25d",
+    "crefans_server/tests/platform-auth.test.cjs": "518c912824945ef7d709a0a6abf8db0ab8c62d95e4170901c098d6ad0b4d4188",
+    "crefans_server/docs/provider-contracts.md": "4b99b3444c166d3f26e19fba0fa5ac2193bfffc95e8d93f784b2eba1fcb833aa",
+    "crefans_front/components/crefans/LegalDocumentBody.tsx": "efd7f917337e3f25c028f5e3cb3406061fd3241abf399d68c838a9691e2d6365",
+    "crefans_front/components/crefans/AccountPages.tsx": "c3306945752d44eb5917a8f6dd3550a23f779d8410f1fa049ad24a2334451aa7",
+    "crefans_front/components/crefans/CommonPages.tsx": "5974d453dcff984dfdf94b289950b80cd19af521b8d3da40eda8adc3eef461d3",
+    "crefans_front/components/crefans/common.module.css": "2aee33697f66f94ecc29f1af78f2b79d397b810e280a88130bff02b73094ac9a",
+    "crefans_front/components/crefans/account.module.css": "c346d9d03ad73e13e2422f0ed38f0e129bd494b1adb4f686fa33e1beb3451f90",
+    "crefans_front/components/preview/service/legal-fixtures.ts": "d6ae3fb59f85ac7be16e74c0ce382b2dd0d40d7a569536177fec8ef78d1209c5",
+    "crefans_front/components/preview/service/useMockAccount.ts": "e22334bca07faab8b0c5dcaf472540f87acee6d9b6eafbf5641c7b2c0f2ccb29",
+    "crefans_front/components/preview/service/useMockCommon.ts": "435b25890c1f97eb86fe5b704bc938656d6cec67227605f9078a23d07543232d",
+    "crefans_front/types/crefans-account.ts": "213cbfab07c089666f814749847eb1bfe9b282026ea5ebf58879d614e5f74cce",
+    "crefans_front/types/crefans-common.ts": "e766c3c3b05c70133760a00a8ab7ba18e658aa88ecbd913b5773a93fb40b32cd",
+    "crefans_front/e2e/service.spec.ts": "e4ede1bac3b9d29af939d7bdca62b89804e5e3099fff4a7b1a3784dac6753af9"
+  },
+  "negativeControls": [
+    "unsigned/invalidly signed PASS callback rejected",
+    "signed adultVerified missing/false/string/number does not create proof",
+    "DB adult=false rejects signup despite client adult/date claims; no proof consumption or member creation",
+    "old/missing/forged consent versions rejected atomically",
+    "draft/future versions cannot authorize signup or send signup email",
+    "admin create/legacy-ID repurpose cannot override code legal documents",
+    "opening notice does not automatically check consent"
+  ],
+  "notCompleted": [
+    "Effective terms/privacy publication (currently draft-2)",
+    "Account erasure, statutory separation and complete retention schedule",
+    "Actual overseas recipient/country/retention/contract details for AWS/Google/Telegram",
+    "Commerce-registration status and final content/settlement/tax/cost policies",
+    "Real PASS birthday-boundary integration and PG/bank operational verification"
+  ],
+  "deployment": {
+    "tags": "legal-age-20261022",
+    "schemaChanged": false,
+    "dbAdminProxyPreserved": true,
+    "mediaConfigChanged": false,
+    "financialPolicyChanged": false,
+    "rollbackBackup": "/opt/crefans-backup-legal-age-20261022",
+    "gitCommitPushPerformed": false
+  },
+  "privateScreenshotHashes": {
+    "signup-privacy-1440.png": "c60998463316e607f302900ebf0dc3ebf7c892389772f918988b78e5ff935e5b",
+    "privacy-rights-1440.png": "0dfee494f1c9928f832d65c25de78ca29b716fedb56c6587fcd89ac0705ad4bc",
+    "privacy-390.png": "a77f64acd39f8522e197f18bc5d84b5b5ef8fd1d319114f85d034c5498135dc7",
+    "signup-privacy-390.png": "e5bce21d0f6477b9d187ac9307c6d921ca47457aa531fda36ee45c7bb0608469",
+    "privacy-1440.png": "d3ce36cb7b84ea2eeb7e3240158e1a91307811549c275d87b2c993a05932fcdf",
+    "terms-390.png": "0fa9a011a2f9d1d04d1be0a3b6fb531cddfe0129ef1675661269b5d2c92287fa",
+    "terms-1440.png": "4dee13de25ca69b510f8aeb95d13f2a81e3b34ff3d22f244e271c3bbf3c425a8",
+    "privacy-rights-390.png": "cdc3f402d388d477cf3f01e3c49435c86f057f7ebe7f69c2c84b29899deaf503"
+  },
+  "browserScriptSha256": "6a7d3d85d01ab6b4410b777ae348363f687d0fa65b5f437809b6b86a90d7ba28",
+  "readOnlyProductionScriptSha256": "cbf053ee309d7a3048301dc73e322984a25b70047fd0ead10130aca96c125416",
+  "releaseScriptSha256": "3b273938298f04f5b714867383e9032dd372db74de9ae4b79c0c286a866c6a4d",
+  "manualVisualReview": {
+    "screens": [
+      "privacy-1440.png",
+      "terms-390.png",
+      "signup-privacy-390.png"
+    ],
+    "confirmed": [
+      "draft/date/version visible",
+      "readable single-column text and table of contents",
+      "mobile dialog visible after animation; scrollable full content"
+    ],
+    "scope": "Selected frames only, not all devices or accessibility certification"
+  },
+  "cleanup": {
+    "remoteStagingRemoved": true,
+    "rollbackBackupsPreserved": true
+  }
+}

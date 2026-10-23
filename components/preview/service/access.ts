@@ -6,6 +6,6 @@ export function hasPreviewAccess(subscriptions:Subscription[],creatorId:string,r
     if(subscription.creatorId!==creatorId||subscription.status==='expired'||subscription.renewAt<today)return false;
     if(requiredPlanId)return subscription.planId===requiredPlanId;
     const plan=subscription.planSnapshot??plans.find(plan=>plan.id===subscription.planId);
-    return !!plan&&plan.entitlementMode!=='exact'&&plan.rank>=requiredRank;
+    return !!plan&&Number.isSafeInteger(plan.rank)&&plan.rank>=1&&Number.isSafeInteger(requiredRank)&&requiredRank>=1&&plan.rank>=requiredRank;
   });
 }

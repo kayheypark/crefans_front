@@ -1,0 +1,220 @@
+{
+  "recordedAt": "2026-10-21T23:55:47.786322+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/operations-security",
+  "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+  "dirty": true,
+  "gitStatus": [
+    "M .dockerignore",
+    " M AGENTS.md",
+    " M PROGRESS.md",
+    " M app/service/layout.tsx",
+    " M components/crefans/CommonPages.tsx",
+    " M components/crefans/CreatorPages.tsx",
+    " M components/crefans/ServiceShell.tsx",
+    " M components/crefans/SocialPages.tsx",
+    " M components/crefans/common.module.css",
+    " M components/crefans/creator.module.css",
+    " M components/crefans/social.module.css",
+    " M components/service/CheckoutPage.tsx",
+    " M docs/audit/evidence.json",
+    " M docs/audit/manifest.json",
+    " M docs/financial.md",
+    " M docs/preview-pages.md",
+    " M docs/release-test-scenarios.md",
+    " M docs/service-api-binding.md",
+    " M docs/third-party-setup.md",
+    " M lib/api/platform.ts",
+    " M lib/api/platformProxy.ts",
+    " M tests/platform-client.test.cjs",
+    " M types/crefans-common.ts",
+    " M types/crefans.ts",
+    "?? app/service/error.tsx",
+    "?? components/crefans/ServiceLinks.tsx",
+    "?? components/service/BrowserErrors.tsx",
+    "?? docs/audit/admin-console-inventory-20261022.json",
+    "?? docs/audit/aws-beta-deployment-20261021.json",
+    "?? docs/audit/aws-beta-preparation-20261021.json",
+    "?? docs/audit/billing-final-checks-20261022.json",
+    "?? docs/audit/billing-recovery-desktop.png",
+    "?? docs/audit/billing-recovery-mobile.png",
+    "?? docs/audit/commission-model-20261022.json",
+    "?? docs/audit/commission-model-20261022.py",
+    "?? docs/audit/commission-research-verification-20261022.json",
+    "?? docs/audit/db-financial-policy-20261021.json",
+    "?? docs/audit/ec2-beta-cost-20261021.json",
+    "?? docs/audit/empty-feed-desktop-20261022.png",
+    "?? docs/audit/empty-feed-mobile-20261022.png",
+    "?? docs/audit/growth-scaling-20261022.json",
+    "?? docs/audit/growth-scaling-20261022.py",
+    "?? docs/audit/operations-deployment-20261022.json",
+    "?? docs/audit/operations-security-20261022.json",
+    "?? docs/audit/pass-readiness-20261021.json",
+    "?? docs/audit/subscription-price-research-20261022.json",
+    "?? e2e/billing-recovery.spec.ts",
+    "?? features/service/useBrowserErrors.ts",
+    "?? lib/api/browser-errors.ts",
+    "?? tests/browser-errors.test.cjs"
+  ],
+  "environment": {
+    "system": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "browser": "Playwright Chromium headless",
+    "baseURL": "http://127.0.0.1:3010",
+    "existingDevServerReused": true
+  },
+  "scope": "빈 홈 피드 보조 링크 UI. 공유 표시 컴포넌트, 로컬 실제 API 빈 응답 및 채워진 목업만 확인. 운영 배포/금융/외부 발송 없음.",
+  "sourceSha256": {
+    "components/crefans/ServiceLinks.tsx": "0c48abad23acbfd6e5604fcd8c2a0e39169d06934e83b59ef46c1cf9060b7c62",
+    "components/crefans/ServiceShell.tsx": "926a6c6a29c275b150f7d0aa9bc7084d446e5ad39a36d35c24e3c7bc3afed615",
+    "components/crefans/SocialPages.tsx": "fa03978d8992e0326bd6f086803ecd633903bbbbc4f537656b3c90f5c8ebdd92",
+    "components/crefans/social.module.css": "d07cf53288b91339a8b924ba91aed2d1e95fe8b809c9285127041311d15e5fe0",
+    "docs/preview-pages.md": "ddebe943b65d9a040e0a07877d1add9c2bcc3cb81eeaedf5247590782c92333f",
+    "docs/service-api-binding.md": "c073b10b21f98edcb80d30c5c12feeaad408492b8160c4cdbb3a521a7ac8922a",
+    "PROGRESS.md": "c51fbbae560f8b0af235754d32b848f02a60ccaf12044e720992c9d8246aa6c2",
+    "docs/audit/manifest.json": "cef1f555dded888d3f2412e2eee3afb4e9ec7b003e63b06b37a2804ece80d253"
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "logModifiedAt": "2026-10-21T23:54:37.676506+00:00",
+      "outputSha256": "89db5327ec5a51f41687dee4dc93008a6c2b33efd57e759669716a26d7530407",
+      "summary": "hile failed validation does not consume the grant\n  ---\n  duration_ms: 1.769792\n  ...\n# Subtest: five incorrect PINs impose a thirty-second lock and a correct PIN cannot bypass the lock\nok 273 - five incorrect PINs impose a thirty-second lock and a correct PIN cannot bypass the lock\n  ---\n  duration_ms: 1.006958\n  ...\n# Subtest: parallel setup and PIN checks do not overwrite the verifier or bypass serialized attempt accounting\nok 274 - parallel setup and PIN checks do not overwrite the verifier or bypass serialized attempt accounting\n  ---\n  duration_ms: 0.544291\n  ...\n# Subtest: authorization belongs to one provider session and old callbacks stop accepting requests after unmount\nok 275 - authorization belongs to one provider session and old callbacks stop accepting requests after unmount\n  ---\n  duration_ms: 1.369541\n  ...\n# Subtest: a correct PIN cannot authorize an invalid amount, an unverified account or an insufficient balance\nok 276 - a correct PIN cannot authorize an invalid amount, an unverified account or an insufficient balance\n  ---\n  duration_ms: 1.04825\n  ...\n1..276\n# tests 276\n# suites 0\n# pass 276\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 2137.873167\n"
+    },
+    {
+      "command": "npm run docs:record",
+      "exitCode": 0,
+      "logModifiedAt": "2026-10-21T23:55:34.669296+00:00",
+      "outputSha256": "54596fab515811f2b17f9b632205a371be3f3fd75a67dd5ee8f6dfcca3b0df55",
+      "summary": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 57, \"documentsByRepo\": {\"front\": 34, \"server\": 23}, \"routes\": 96, \"screens\": 41, \"models\": 60, \"enums\": 15, \"migrations\": 16, \"localMarkdownTargets\": 159, \"externalInlineLinksNotFetched\": 146}\n"
+    },
+    {
+      "command": "npm run check:docs",
+      "exitCode": 0,
+      "logModifiedAt": "2026-10-21T23:55:38.714009+00:00",
+      "outputSha256": "25328d185c9173cd9d65f45b52443a1a8d59b084a8e75688a1b097c727d3ba41",
+      "summary": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-21T23:55:34.431441+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 57, \"documentsByRepo\": {\"front\": 34, \"server\": 23}, \"routes\": 96, \"screens\": 41, \"models\": 60, \"enums\": 15, \"migrations\": 16, \"localMarkdownTargets\": 159, \"externalInlineLinksNotFetched\": 146}\n"
+    },
+    {
+      "command": "git diff --check -- components/crefans/ServiceShell.tsx components/crefans/SocialPages.tsx components/crefans/social.module.css docs/preview-pages.md docs/service-api-binding.md PROGRESS.md",
+      "exitCode": 0
+    },
+    {
+      "command": "node /tmp/crefans-empty-feed-verify.cjs",
+      "exitCode": 0,
+      "result": {
+        "time": "2026-10-21T23:55:12.218Z",
+        "records": [
+          {
+            "width": 1440,
+            "scenario": "empty real local API feed, four footer destinations clicked",
+            "links": [
+              {
+                "text": "서비스 소개",
+                "href": "/service/landing"
+              },
+              {
+                "text": "고객센터",
+                "href": "/service/support"
+              },
+              {
+                "text": "공지사항",
+                "href": "/service/notices"
+              },
+              {
+                "text": "크리에이터 스튜디오 ↗",
+                "href": "/service/studio"
+              }
+            ],
+            "geometry": {
+              "horizontalOverflow": false,
+              "footerBottom": 331.375,
+              "footerCenter": 815,
+              "mainCenter": 815,
+              "bottomNavTop": 900
+            },
+            "pageErrors": []
+          },
+          {
+            "width": 390,
+            "scenario": "empty real local API feed, four footer destinations clicked",
+            "links": [
+              {
+                "text": "서비스 소개",
+                "href": "/service/landing"
+              },
+              {
+                "text": "고객센터",
+                "href": "/service/support"
+              },
+              {
+                "text": "공지사항",
+                "href": "/service/notices"
+              },
+              {
+                "text": "크리에이터 스튜디오 ↗",
+                "href": "/service/studio"
+              }
+            ],
+            "geometry": {
+              "horizontalOverflow": false,
+              "footerBottom": 259.375,
+              "footerCenter": 195,
+              "mainCenter": 195,
+              "bottomNavTop": 781
+            },
+            "pageErrors": []
+          },
+          {
+            "width": 320,
+            "scenario": "empty real local API feed, four footer destinations clicked",
+            "links": [
+              {
+                "text": "서비스 소개",
+                "href": "/service/landing"
+              },
+              {
+                "text": "고객센터",
+                "href": "/service/support"
+              },
+              {
+                "text": "공지사항",
+                "href": "/service/notices"
+              },
+              {
+                "text": "크리에이터 스튜디오 ↗",
+                "href": "/service/studio"
+              }
+            ],
+            "geometry": {
+              "horizontalOverflow": false,
+              "footerBottom": 303.375,
+              "footerCenter": 160,
+              "mainCenter": 160,
+              "bottomNavTop": 781
+            },
+            "pageErrors": []
+          },
+          {
+            "scenario": "populated preview feed remains free of empty-state footer",
+            "passed": true
+          }
+        ]
+      },
+      "script": "const {chromium,expect}=require(process.cwd()+'/node_modules/@playwright/test');\nconst fs=require('node:fs');\nconst assert=require('node:assert/strict');\nconst records=[];\n(async()=>{\n const browser=await chromium.launch({headless:true});\n try{\n  for(const width of [1440,390,320]){\n   const page=await browser.newPage({viewport:{width,height:width===1440?900:844},isMobile:width<768,hasTouch:width<768});\n   const errors=[];page.on('pageerror',e=>errors.push(e.message));\n   const response=await page.goto('http://127.0.0.1:3010/service/feed');assert.equal(response.status(),200);\n   await expect(page.getByText('아직 게시물이 없어요',{exact:true})).toBeVisible();\n   const footer=page.locator('main footer');await expect(footer).toBeVisible();\n   const links=await footer.locator('a').evaluateAll(nodes=>nodes.map(n=>({text:n.textContent,href:n.getAttribute('href')})));\n   assert.deepEqual(links.map(x=>x.href),['/service/landing','/service/support','/service/notices','/service/studio']);\n   const geometry=await page.evaluate(()=>{\n    const footer=document.querySelector('main footer').getBoundingClientRect(),nav=document.querySelector('nav[aria-label=\"하단 메뉴\"]');\n    const main=document.querySelector('main').getBoundingClientRect();\n    return {horizontalOverflow:document.documentElement.scrollWidth>innerWidth,footerBottom:footer.bottom,footerCenter:(footer.left+footer.right)/2,mainCenter:(main.left+main.right)/2,bottomNavTop:getComputedStyle(nav).display==='none'?innerHeight:nav.getBoundingClientRect().top};\n   });\n   assert.equal(geometry.horizontalOverflow,false);assert.ok(geometry.footerBottom<geometry.bottomNavTop);assert.ok(Math.abs(geometry.footerCenter-geometry.mainCenter)<1);\n   if(width!==320)await page.screenshot({path:`docs/audit/empty-feed-${width===1440?'desktop':'mobile'}-20261022.png`});\n   for(const {text,href} of links){\n    await page.locator('main footer').getByRole('link',{name:text,exact:true}).click();await expect(page).toHaveURL('http://127.0.0.1:3010'+href);\n    await expect(page.locator('body')).not.toContainText('Application error');\n    await page.goto('http://127.0.0.1:3010/service/feed');await expect(page.getByText('아직 게시물이 없어요',{exact:true})).toBeVisible();\n   }\n   assert.deepEqual(errors,[]);records.push({width,scenario:'empty real local API feed, four footer destinations clicked',links,geometry,pageErrors:errors});await page.close();\n  }\n  const preview=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});\n  await preview.goto('http://127.0.0.1:3010/preview/feed');await expect(preview.locator('main article').first()).toBeVisible();await expect(preview.locator('main footer')).toHaveCount(0);\n  records.push({scenario:'populated preview feed remains free of empty-state footer',passed:true});await preview.close();\n }finally{await browser.close();}\n fs.writeFileSync('/tmp/crefans-empty-feed-browser-result.json',JSON.stringify({time:new Date().toISOString(),records},null,2));console.log(JSON.stringify({passed:true,scenarios:records.length,viewportWidths:[1440,390,320],footerNavigationClicks:12}));\n})().catch(e=>{console.error(e);process.exit(1)});\n"
+    }
+  ],
+  "visualReview": {
+    "screenshots": [
+      "docs/audit/empty-feed-desktop-20261022.png",
+      "docs/audit/empty-feed-mobile-20261022.png"
+    ],
+    "result": "PC·390px 스크린샷에서 중앙 안내 아래 작은 링크 네 개와 구분선 확인. 모바일 고정 하단 메뉴에 가리지 않음."
+  },
+  "limitations": [
+    "운영 미배포",
+    "목업의 빈 상태는 기존 공유 컴포넌트 단위 테스트로 렌더링 확인; 목업 브라우저는 기본 게시물 목록 유지 확인",
+    "문서 해시 스냅샷은 제품 테스트의 증거를 대신하지 않음"
+  ]
+}

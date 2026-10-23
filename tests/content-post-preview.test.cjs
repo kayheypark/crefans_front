@@ -44,7 +44,7 @@ test('draft adapter injects unsaved content and selected membership without chan
  assert.equal(post.title,content.title);assert.equal(post.body,content.body);assert.equal(post.image,content.media[0].url);assert.deepEqual(post.media,[{type:'image',url:'/draft-private-image.jpg'},{type:'video',url:'/draft-private-video.mp4'}]);assert.equal(post.position,'center');assert.equal(post.creatorId,creator.id);
  assert.equal(preview.data.plans[0].name,membership.name);assert.equal(post.requiredRank,3);assert.equal(post.requiredPlanId,membership.id);assert.equal(preview.likeCounts.existing,16);assert.equal(JSON.stringify(model),before);
  const newPlan={...membership,id:'new-plan'};const withNewPlan=draftPostModel({...props,memberships:[newPlan],content:{...content,accessPlanId:newPlan.id}});
- assert.equal(withNewPlan.data.plans[0].entitlementMode,'exact');assert.equal(withNewPlan.data.posts[0].requiredPlanId,newPlan.id);assert.ok(withNewPlan.data.posts[0].requiredRank>0);
+ assert.equal(withNewPlan.data.plans[0].entitlementMode,'tier');assert.equal(withNewPlan.data.posts[0].requiredPlanId,newPlan.id);assert.ok(withNewPlan.data.posts[0].requiredRank>0);
  const empty=draftPostModel({...props,content:{...content,id:'',accessPlanId:null,title:'',body:'',media:[]}});
  assert.equal(empty.data.posts[0].body,'');assert.equal(empty.data.posts[0].requiredRank,0);assert.equal(empty.data.posts[0].likes,0);assert.deepEqual(empty.commentsByPost,{});
  assert.equal(draftPostModel({...props,creatorId:'missing'}),null);assert.equal(draftPostModel({...props,content:{...content,accessPlanId:'missing'}}),null);

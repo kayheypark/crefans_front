@@ -1,0 +1,56 @@
+{
+  "documentationChecks": [
+    {
+      "name": "billing-docs-record",
+      "repository": "/Users/ethan/repository/crefans_front",
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "startedAt": "2026-10-21T17:50:16.571736+00:00",
+      "finishedAt": "2026-10-21T17:50:17.537122+00:00",
+      "exitCode": 0,
+      "logSha256": "6369297a87ad2376001847222b9a59ee72a33ed3d1f0dc46ac06485dcae0e4e8",
+      "logBytes": 342
+    },
+    {
+      "name": "billing-docs-check",
+      "repository": "/Users/ethan/repository/crefans_front",
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "startedAt": "2026-10-21T17:50:24.913057+00:00",
+      "finishedAt": "2026-10-21T17:50:25.338647+00:00",
+      "exitCode": 0,
+      "logSha256": "58b2ababcd6d8f10b5bd60fbc032339089de80b02d8d05abbd3806be366f7776",
+      "logBytes": 375
+    }
+  ],
+  "diffChecks": {
+    "at": "2026-10-21T17:50:24.954411+00:00",
+    "checks": [
+      {
+        "repository": "crefans_server",
+        "command": "git diff --check",
+        "exitCode": 0,
+        "output": ""
+      },
+      {
+        "repository": "crefans_front",
+        "command": "git diff --check",
+        "exitCode": 0,
+        "output": ""
+      },
+      {
+        "repository": "crefans_admin",
+        "command": "git diff --check",
+        "exitCode": 0,
+        "output": ""
+      }
+    ]
+  },
+  "note": "Documentation snapshot and whitespace checks only. Product and production verification are in crefans_server/docs/billing-recovery-20261022.json."
+}

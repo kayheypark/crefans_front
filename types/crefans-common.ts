@@ -3,12 +3,12 @@ import type {ApiResult} from './crefans';
 export type CommonActionResult=ApiResult<{message:string}>;
 export type ServiceNotice={id:string;title:string;category:string;date:string;pinned:boolean;paragraphs:string[]};
 export type LegalKind='terms'|'privacy'|'policy';
-export type LegalDocument={title:string;updatedAt:string;notice?:string;sections:{title:string;body:string}[]};
+export type LegalDocument={title:string;updatedAt:string;version?:string;publishedAt?:string;effectiveAt?:string|null;status?:'draft'|'published';notice?:string;sections:{title:string;body:string;links?:{label:string;href:string}[]}[]};
 export type CommonModel={
   notices:ServiceNotice[];
   legal:Record<LegalKind,LegalDocument>;
   auth:{email:string;guidance:string;codeHint?:string};
-  paymentMethods:{id:string;label:string;description:string;isDefault:boolean}[];
+  paymentMethods:{id:string;label:string;description:string;isDefault:boolean;requiresUpdate?:boolean}[];
   paymentGuidance:string;
   registrationPreview?:{cards:{value:'shinhan'|'samsung'|'kb';label:string;number:string}[];expiry:string;code:string};
   actions:{

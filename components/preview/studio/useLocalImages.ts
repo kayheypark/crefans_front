@@ -17,7 +17,7 @@ export function createLocalImageStore(){
     /** Post media accepts images and videos with separate size limits. */
     uploadMedia:async(file:File):Promise<ApiResult<StudioMedia>>=>{
       const image=imageUploadAccept.split(',').includes(file.type),video=videoUploadAccept.split(',').includes(file.type);
-      if(!image&&!video)return {success:false,data:null,errorMessage:'JPG·PNG·WebP 이미지 또는 MP4·WebM·MOV 동영상을 선택해주세요.',errorCode:'INVALID_MEDIA_TYPE'};
+      if(!image&&!video)return {success:false,data:null,errorMessage:'JPG·PNG·WebP 이미지 또는 MP4·WebM 동영상을 선택해주세요.',errorCode:'INVALID_MEDIA_TYPE'};
       if(!file.size||file.size>(image?imageUploadMaxBytes:videoUploadMaxBytes))return {success:false,data:null,errorMessage:image?'이미지는 5MB 이하만 올릴 수 있어요.':'동영상은 300MB 이하만 올릴 수 있어요.',errorCode:'INVALID_MEDIA_SIZE'};
       return {success:true,data:{id:`media-${++sequence}`,type:image?'image':'video',url:register(file)},errorMessage:null,errorCode:null};
     },

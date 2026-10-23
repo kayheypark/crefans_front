@@ -1,0 +1,22 @@
+{
+  "creatorId": "sion",
+  "name": "시온",
+  "fictional": true,
+  "age": 28,
+  "method": "built-in image_gen",
+  "assets": [
+    {
+      "file": "portrait-v1.png",
+      "source": "/Users/ethan/repository/crefans_front/.local/creator-concepts/sion/portrait-v2-realistic.png",
+      "description": "사용자가 승인한 밝은 스튜디오 실사 코스프레 버전. 변경 없이 복사.",
+      "promptRecord": ".local/creator-concepts/sion/generation-v2.json"
+    },
+    {
+      "file": "avatar-v1.png",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-dae5de29-d6fc-466e-aee8-908657ba9086.png",
+      "reference": "portrait-v1.png",
+      "prompt": "Use case: identity-preserve.\nEdit the supplied approved photo of fictional adult male cosplayer SION into a square close-up avatar photograph. Preserve EXACTLY this man's recognizable face, age 28, black hair, calm cold expression, natural skin texture and proportions, the black aristocratic coat with silver trim and ivory shirt, and the softly lit neutral grey real photography studio. This is a tighter camera framing of the same person in the same shoot, not a new character design. Head and upper shoulders only. Face fills about 45 percent of image height; entire hairstyle visible with modest headroom, face centered horizontally and slightly above center. Shoulder fur/black collar visible at bottom. Match the approved realistic daylight studio photography, neutral colors, believable skin and natural light. No cinematic background, no digital fantasy styling, no beautification or facial redesign, no pink hair, no extra people, no letters, no logo, no watermark. One square photorealistic creator profile photo, suitable for round avatar cropping."
+    }
+  ],
+  "scope": "Public mock assets; not protected paid media."
+}

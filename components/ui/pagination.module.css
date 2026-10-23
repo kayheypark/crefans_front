@@ -1,5 +1,5 @@
 .pagination{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;padding:14px 0;color:var(--cf-color-textSecondary)}
-.pagination button{display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;padding:6px 9px;border:1px solid transparent;border-radius:var(--cf-radius-small);background:transparent;color:inherit;font:inherit;font-size:12px;cursor:pointer}
+.pagination button{display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;padding:6px 9px;border:1px solid transparent;border-radius:var(--cf-radius-small);background:transparent;color:inherit;font:inherit;font-size:max(12px,var(--cf-mobile-font-min,0px));cursor:pointer}
 .pagination button:hover:enabled{background:var(--cf-color-accentSoft);color:var(--cf-color-accent)}
 .pagination button[aria-current=page]{border-color:var(--cf-color-accentBorder);background:var(--cf-color-accentSoft);color:var(--cf-color-accent);font-weight:700;cursor:default}
 .pagination button:disabled:not([aria-current]){color:var(--cf-color-disabledText);cursor:not-allowed}

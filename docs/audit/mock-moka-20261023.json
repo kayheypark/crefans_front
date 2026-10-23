@@ -1,0 +1,159 @@
+{
+  "verifiedAt": "2026-10-23T14:06:41.448811+00:00",
+  "repository": "crefans_front",
+  "head": "dc3d663e63c7b22bb57dc8c198af2ab6d963488a",
+  "branch": "feat/operations-security",
+  "workingTree": {
+    "dirty": true,
+    "existingChangesPreserved": true,
+    "changedEntryCount": 95,
+    "statusSha256": "a17389b66ecdbd6f432fa25217246f8f05c08752c2229d96313774ec275fa41d"
+  },
+  "scope": "Preview-only fictional adult cosplay creator moka; four new images, three posts, two sample memberships. No production API, DB, deployment or landing dataset change.",
+  "acceptance": [
+    "Same reference model used for four coherent photos",
+    "Creator reachable in explore/profile/feed/media/about/membership",
+    "All local image paths resolve",
+    "Public and membership preview states agree with ranks",
+    "Desktop/mobile image presentation and gallery navigation work"
+  ],
+  "sourceSha256": {
+    "components/preview/service/fixtures.ts": "f5dee70e13d1357fe2d70c06ce90d9b4af618ab06286ab7938a1d757fe1387c2",
+    "public/illustrations/creators/moka/generation.json": "ed73d39db3a541d8f78145037f5c9b0dbd1d88d8d78d1293c6d8e86330bdf8f2",
+    "components/preview/service/PreviewProvider.tsx": "38fcf1d2f66cac2c7eecb27aeb0edd06c607aff42999602cec70d55c5282d326",
+    "components/preview/service/access.ts": "d216955d0f12c9418ee313f57eb0deaa32f9fe1a050bce096ae7554f969a74d8",
+    "components/crefans/CreatorPages.tsx": "2663f679a02f30bdfc4ffeca8d905a666e736f38046c307435e22ac58c88e8e0",
+    "components/crefans/SocialPages.tsx": "0d00e94ccd2a31c5aa61f61ac2d72ab5c298c879e611e31f4810e09a475fb7b1",
+    "lib/content/landing.ts": "8100242f805112b63a1c8c04388a03f4032db2ba2b9f6629a593deab6a52bbe3"
+  },
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "reference": "public/illustrations/creators/cosplay-anime-v3.png",
+    "promptSet": "public/illustrations/creators/moka/generation.json",
+    "newPhotos": 4,
+    "visualReview": "All four generated photos reviewed for facial/wardrobe consistency; profile and membership cropping inspected in browser."
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "environment": "macOS local, Node v22.7.0",
+      "exitCode": 0,
+      "result": "Layer checks, TypeScript and 282/282 tests passed",
+      "log": ".local/moka-preview-20261023/check.log",
+      "logSha256": "a0e6ad3cf5c6c93368da1f2bf0969a8ceb99a06e5e9f6db393c9110b2d844430"
+    },
+    {
+      "command": "node (stdin: TypeScript fixture evaluation with ES import hoisting, unique IDs / referenced assets / post count / rank matrix assertions)",
+      "exitCode": 0,
+      "result": {
+        "checkedAt": "2026-10-23T14:05:20.784Z",
+        "result": "PASS",
+        "creatorCount": 7,
+        "newCreator": "moka",
+        "newPosts": [
+          "moka-first-shoot",
+          "moka-backstage",
+          "moka-pink-portrait"
+        ],
+        "newPlans": [
+          "moka-backstage",
+          "moka-photo-club"
+        ],
+        "previewAccessMatrix": [
+          [
+            true,
+            false,
+            false
+          ],
+          [
+            true,
+            true,
+            false
+          ],
+          [
+            true,
+            true,
+            true
+          ]
+        ],
+        "assets": [
+          {
+            "path": "public/illustrations/creators/moka/avatar-v1.png",
+            "bytes": 2100491,
+            "sha256": "2a5c20871f976bd7d19caad6b051bccf480c22f9d68869c953df57411d0a324b"
+          },
+          {
+            "path": "public/illustrations/creators/moka/cover-v1.png",
+            "bytes": 1722966,
+            "sha256": "405fd73639ef37d3c7809c76dba796d6b3b41b67865f1995f72efdbc96b1ee54"
+          },
+          {
+            "path": "public/illustrations/creators/moka/backstage-v1.png",
+            "bytes": 1888409,
+            "sha256": "75a06ba96ada7671a0623db126e8cc10ce9a51488e0ba4f99a2ddd700959348c"
+          },
+          {
+            "path": "public/illustrations/creators/moka/editorial-v1.png",
+            "bytes": 1729368,
+            "sha256": "e80542f829fd267956aebe3c697c0e78f378453a56993552d85345938a55fc44"
+          },
+          {
+            "path": "public/illustrations/creators/cosplay-anime-v3.png",
+            "bytes": 1715572,
+            "sha256": "552c171fa68a22a48ce7a8b5f16882913b2c85ba94b7d79909c47db988dde72f"
+          }
+        ]
+      },
+      "harnessNote": "First CommonJS-only loader attempt failed because a pre-existing import appears after its first use. Validation harness hoisted ES imports with TypeScript AST; product source was not changed for this harness limitation."
+    },
+    {
+      "method": "Local browser UI, 1280x720 and 390x844",
+      "result": "PASS",
+      "observations": [
+        "Explore cosplay filter shows moka",
+        "Profile cover/avatar render, 3 posts and 2 memberships shown",
+        "Public gallery opens and next image displays original reference",
+        "Unsubscribed preview hides rank 1 and 2 post media",
+        "Mock rank 1 signup requires confirmation checkbox, then subscription list shows moka",
+        "After rank 1 signup backstage opens, rank 2 remains locked",
+        "Media and about tabs render expected data",
+        "Mobile overlay opens full portrait and next post shows backstage",
+        "No broken profile images or horizontal overflow at desktop/mobile widths",
+        "Captured browser error logs empty",
+        "Reload restores initial unsubscribed mock state"
+      ],
+      "screenshots": [
+        {
+          "path": ".local/moka-preview-20261023/media-rank1.png",
+          "sha256": "676412047dc2eddac82758a9f64a201acf1dbd2ea503b1f549a58d9b158a18ee"
+        },
+        {
+          "path": ".local/moka-preview-20261023/explore-cosplay.png",
+          "sha256": "bb2e0273c5d5d6a3c63ae5967d9c9013f980af3aac2aa57d6f9299ebbb63cfa3"
+        },
+        {
+          "path": ".local/moka-preview-20261023/overlay-mobile.png",
+          "sha256": "8ddef03a6ba53d7b587900dba1cc3430157c1c9119475d48d69bab68d2ad0289"
+        },
+        {
+          "path": ".local/moka-preview-20261023/profile-desktop.png",
+          "sha256": "a2857dea7bb13051f42cc358a3ad96c89047d3c8ae4d4f8895eec566c95bcc4e"
+        },
+        {
+          "path": ".local/moka-preview-20261023/membership-desktop.png",
+          "sha256": "681ff4582a08f8be16d4e154b108b7976ea33daa0e663e6e725c952b37bc6841"
+        },
+        {
+          "path": ".local/moka-preview-20261023/profile-mobile.png",
+          "sha256": "3cf0a6738950f43d5a9e76722616ebac73e9d6bcd6fc8187e0c55ce4df201358"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    "Static generated assets are public mock files, not protected production paid media",
+    "Membership access checked against preview model, not production authorization",
+    "No real payment, mail or third-party account mutation",
+    "No deployment or commit performed"
+  ]
+}

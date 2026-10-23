@@ -33,6 +33,7 @@ export function useMockManagement({getProtectedPlanIds=()=>[]}:{getProtectedPlan
       if(media.some(item=>!item.url||(item.type!=='image'&&item.type!=='video')||(!validMedia(item.url)&&!images.owns(item.url))))return fail('미디어를 다시 선택해주세요.');
       if(input.accessPlanId&&!memberships.some(item=>item.id===input.accessPlanId))return fail('공개 범위의 멤버십을 다시 선택해주세요.');
       if(input.status==='scheduled'&&(!input.scheduledAt||!Number.isFinite(Date.parse(input.scheduledAt))||Date.parse(input.scheduledAt)<=Date.parse(managementNow)))return fail('예약 시각을 현재보다 미래로 선택해주세요.');
+      if(input.accessLevel!=null&&(!Number.isSafeInteger(input.accessLevel)||input.accessLevel<1||input.accessLevel>100||input.accessPlanId))return fail('공개할 최소 레벨을 확인해주세요.');
       const id=input.id||crypto.randomUUID();
       const next:StudioContent={...input,id,title:input.title.trim(),body:input.body.trim(),media,scheduledAt:input.status==='scheduled'?input.scheduledAt:null,updatedAt:managementNow};
       media.forEach(item=>images.retain(item.url));
@@ -48,7 +49,8 @@ export function useMockManagement({getProtectedPlanIds=()=>[]}:{getProtectedPlan
       const previous=memberships.find(item=>item.id===input.id),id=input.id||crypto.randomUUID();
       const image=input.image===undefined?previous?.image:input.image.trim();
       if(image&&!validMedia(image)&&!images.owns(image))return fail('이미지를 다시 선택해주세요.');
-      const next:StudioMembership={id,name:input.name.trim(),price:input.price,benefits,image:image||undefined,active:previous?.active??true,version:(previous?.version||0)+1};
+      const rank=input.rank??previous?.rank??1;if(!Number.isSafeInteger(rank)||rank<1||rank>100)return fail('멤버십 레벨은 1~100의 정수입니다.');
+      const next:StudioMembership={id,rank,name:input.name.trim(),price:input.price,benefits,image:image||undefined,active:previous?.active??true,version:(previous?.version||0)+1};
       images.retain(image);
       setMemberships(items=>input.id?items.map(item=>item.id===id?next:item):[...items,next]);
       return ok({id,message:previous?'신규 구독에 적용할 멤버십이 수정되었습니다. 기존 구독 조건은 유지됩니다.':'새 멤버십이 만들어졌습니다.'});

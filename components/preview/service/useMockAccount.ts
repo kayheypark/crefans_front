@@ -1,5 +1,6 @@
 'use client';
 
+import {previewAgreements} from './legal-fixtures';
 import {useState,type Dispatch,type SetStateAction,useRef} from 'react';
 import {useRouter,useSearchParams} from 'next/navigation';
 import type {Creator,Viewer} from '@/types/crefans';
@@ -24,7 +25,7 @@ export function useMockAccount({viewer,setViewer,setSignedIn,basePath,creators}:
     account:{email,stats:{posts:12,followers:56},preferences,blockedCreatorIds,paymentMethods:[],tickets,inquiryCategories,
       banner:creators[0]?{src:'/illustrations/redesign/variety/haneul-courtyard-v3.png',alt:`테라스에서 커피를 즐기는 크리에이터 ${creators[0].name}`} : null,
       policies:{terms:'이용약관을 준비하고 있습니다.',privacy:'개인정보 수집 및 이용 안내를 준비하고 있습니다.'},
-      guidance:{},
+      agreements:previewAgreements,guidance:{},
       route:{profileTab:query.get('tab')==='saved'?'saved':query.get('tab')==='liked'?'liked':null,supportTab:query.get('tab')==='qna'?'qna':'faq',settingsSection:(['account','password','email','notifications','payment','privacy','blocked'] as const).find(section=>section===query.get('section'))||null},
     },
     accountActions:{
