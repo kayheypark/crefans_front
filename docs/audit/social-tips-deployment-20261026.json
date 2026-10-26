@@ -1,0 +1,362 @@
+{
+  "at": "2026-10-26T05:29:31.061304+00:00",
+  "release": "social-tips-20261026",
+  "deployed": true,
+  "backup": "/opt/crefans-backup-social-tips-20261026",
+  "dbBackup": true,
+  "migrations": [
+    "20261026090000_post_supporters",
+    "20261026100000_profile_connections"
+  ],
+  "testResults": {
+    "frontend": 348,
+    "isolatedDatabase": 19,
+    "openapi": 11
+  },
+  "containers": {
+    "crefans-beta-frontend-1": {
+      "id": "6c606a787a56116e7a3598cbc46475551237e4df341c37ae7aa8b3667d5d39ae",
+      "image": "sha256:0dd55ea135c59c2d70b4fb185ae06602037aee83adc0a1ebbcd80c7a458c5648",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-api-1": {
+      "id": "6e8628ff4cc401141f401df2f6c5202077e7151b29c2e5743c253fcb3993756c",
+      "image": "sha256:6058d5c899b87d88f9dda949999d813800cad1e3f55a0a56470f87bd9833a888",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-worker-1": {
+      "id": "c4dd765f2c602607a0d3bbf7a49626933a13bf93a135c7ca2343438ff15317e7",
+      "image": "sha256:6058d5c899b87d88f9dda949999d813800cad1e3f55a0a56470f87bd9833a888",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-admin-1": {
+      "id": "78b88fd041adf7851e55e8c122f5314a0ba52f66a30318dd7a6cc341ec626b70",
+      "image": "sha256:7b191b4298d3b6548dff2a96163f2ac1fd72a187f81d425e0b90d67e4a391649",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-proxy-1": {
+      "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+      "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-database-1": {
+      "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+      "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    }
+  },
+  "runningSourceHashes": {
+    "server": 200,
+    "front": 619
+  },
+  "http": [
+    {
+      "url": "https://beta.crefans.com/api/v1/health",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/api/v1/bootstrap",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/beans/charge",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/me",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/studio/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/creator/moka",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/feed",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/beans/charge",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/signup",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://admin.crefans.com/login",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/api/v1/beans/wallet",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "url": "https://admin.crefans.com/api/v1/admin/beans/overview",
+      "status": 401,
+      "expected": 401
+    }
+  ],
+  "financialCountsAndPolicyPreserved": true,
+  "worker": {
+    "startedAt": "2026-10-26T05:27:19.770319022Z",
+    "completedAt": "2026-10-26T05:27:21.808Z",
+    "failures": {}
+  },
+  "checks": {
+    "post-tip-browser": [
+      {
+        "engine": "chromium",
+        "width": 390,
+        "icon": true,
+        "postTitle": true,
+        "confirmation": true,
+        "twoTipsUniqueSupporterCount": 1
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "icon": true,
+        "postTitle": true,
+        "confirmation": true,
+        "twoTipsUniqueSupporterCount": 1
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "icon": true,
+        "postTitle": true,
+        "confirmation": true,
+        "twoTipsUniqueSupporterCount": 1
+      }
+    ],
+    "post-tip-return": [
+      {
+        "width": 390,
+        "tipChargeResume": true,
+        "normalChargeNoReturn": true
+      },
+      {
+        "width": 1280,
+        "tipChargeResume": true,
+        "normalChargeNoReturn": true
+      }
+    ],
+    "connections-browser": [
+      {
+        "width": 390,
+        "id": "sion",
+        "kind": "followers",
+        "passed": true
+      },
+      {
+        "width": 390,
+        "id": "sion",
+        "kind": "following",
+        "passed": true
+      },
+      {
+        "width": 390,
+        "id": "jiwoo",
+        "kind": "followers",
+        "passed": true
+      },
+      {
+        "width": 390,
+        "id": "jiwoo",
+        "kind": "following",
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "id": "sion",
+        "kind": "followers",
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "id": "sion",
+        "kind": "following",
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "id": "jiwoo",
+        "kind": "followers",
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "id": "jiwoo",
+        "kind": "following",
+        "passed": true
+      }
+    ],
+    "padding": [
+      {
+        "width": 390,
+        "buttonWidth": 358,
+        "inset": 0,
+        "height": 44,
+        "passed": true
+      },
+      {
+        "width": 700,
+        "buttonWidth": 480,
+        "inset": 0,
+        "height": 44,
+        "passed": true
+      },
+      {
+        "width": 701,
+        "buttonWidth": 428,
+        "inset": 26,
+        "height": 44,
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "buttonWidth": 428,
+        "inset": 26,
+        "height": 44,
+        "passed": true
+      }
+    ],
+    "live-connections": {
+      "checks": [
+        {
+          "kind": "followers",
+          "status": 200,
+          "expected": 200
+        },
+        {
+          "kind": "following",
+          "status": 200,
+          "expected": 200
+        }
+      ],
+      "readOnly": true,
+      "noPersonalFieldsRecorded": true
+    },
+    "public-api-check": {
+      "checks": [
+        {
+          "invalidQuery": true,
+          "status": 400
+        }
+      ],
+      "publicProfileAvailable": false,
+      "readOnly": true
+    },
+    "remote-space": {
+      "removedUnusedImages": [
+        {
+          "tag": "crefans-front:beta-20261021",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:billing-recovery-20261022",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:empty-feed-20261022",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:media-cdn-20261022",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:media-session-20261022",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:membership-level-20261022",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:legal-draft-20261022",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:legal-age-20261022",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:legal-public-20261022",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:profile-category-20261025",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:inbox-dividers-20261025",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:post-views-20261025",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:post-views-icon-20261025",
+          "sameLayersRetainedLocally": true
+        },
+        {
+          "tag": "crefans-front:ui-batch-20261025",
+          "sameLayersRetainedLocally": true
+        }
+      ],
+      "freeBytes": 10855055360
+    }
+  },
+  "repositories": {
+    "front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirty": true,
+      "sourceManifestSha256": "18b4f8514d7217e6dabca197afd78d95e76fdb64796721c8069e85f5e47eb73e"
+    },
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirty": true,
+      "sourceManifestSha256": "0c51eed0f7db05b48a1b18094e3b670f7b8d5f74fbde828748f78f5290e3bf50"
+    }
+  },
+  "boundary": "UI flow verified on production /preview without real payments; real list API read-only checked; private access denial verified in isolated DB. No live money movement."
+}

@@ -1,0 +1,557 @@
+{
+  "recordedAt": "2026-10-24T02:09:12.474722+00:00",
+  "repository": "crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "dirty; previous changes preserved",
+  "scope": {
+    "at": "2026-10-24T02:06:05.817110+00:00",
+    "baseImage": "crefans-front:dialog-close-20261024",
+    "baseId": "sha256:9764f4b57fdfc3c99aee69052b158e8fc1049d2e4c661a26f33472de8ff4ee8c",
+    "runtimeFiles": 475,
+    "changed": [
+      "components/crefans/ServiceUI.tsx",
+      "components/crefans/SocialPages.tsx"
+    ],
+    "added": [
+      "components/crefans/CommentIcon.tsx"
+    ],
+    "pendingSignupFilesExcluded": true,
+    "localChangedSourceSha256": {
+      "components/crefans/ServiceUI.tsx": "38a2711c376c3c3585d49eb0358de5bf2570edd2e0631965102a8315d6e9439a",
+      "components/crefans/SocialPages.tsx": "9d3864425be1550297c83f1aec1d8060305a166095e965949cac6bdca167b5bb",
+      "components/crefans/CommentIcon.tsx": "9d86c449cdc4732d4d17e1d97c2f1e79aacc5055b3266f1812fcec448724a7a6"
+    }
+  },
+  "image": {
+    "at": "2026-10-24T02:08:03.762143+00:00",
+    "imageId": "sha256:7c51ea1c10784df0bfc03eba1f55a5a5762bea980e367d22652530e95f6d530e",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 475
+  },
+  "requirements": {
+    "icon": "GNB and sidebar messages use the same CommentIcon component as post comments",
+    "preserved": "Message destination, accessible name, active state and touch targets"
+  },
+  "checks": {
+    "check": {
+      "command": "npm run check",
+      "startedAt": "2026-10-24T02:05:27.781417+00:00",
+      "finishedAt": "2026-10-24T02:05:35.397352+00:00",
+      "exitCode": 0,
+      "logSha256": "4120294ba3d88a3635370eeb92ce31df44153d54551d86a522587c5bc3563b8b"
+    },
+    "unitTests": {
+      "passed": 289,
+      "failed": 0
+    },
+    "build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        "infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:gnb-comment-20261024",
+        "."
+      ],
+      "startedAt": "2026-10-24T02:06:05.818487+00:00",
+      "finishedAt": "2026-10-24T02:07:42.043851+00:00",
+      "exitCode": 0,
+      "logSha256": "2f398cf9ecfdadcdb8d9ae1dff62dc798d18d4dff3855bd42942c5f21c4a793b"
+    },
+    "browser": {
+      "local": {
+        "at": "2026-10-24T02:06:40.337Z",
+        "command": "node /Users/ethan/repository/crefans_front/.local/gnb-comment-deploy-20261024/browser.cjs http://127.0.0.1:3010 local",
+        "exitCode": 0,
+        "origin": "http://127.0.0.1:3010",
+        "results": [
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 320,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              }
+            ],
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 390,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              }
+            ],
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 1280,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 169,
+                  "height": 45
+                },
+                "iconOnly": false
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 169,
+                  "height": 45
+                },
+                "iconOnly": false
+              }
+            ],
+            "errors": []
+          },
+          {
+            "engine": "webkit",
+            "browser": "27.2",
+            "width": 390,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              }
+            ],
+            "errors": []
+          }
+        ]
+      },
+      "image": {
+        "at": "2026-10-24T02:08:10.091Z",
+        "command": "node /Users/ethan/repository/crefans_front/.local/gnb-comment-deploy-20261024/browser.cjs http://127.0.0.1:3013 image",
+        "exitCode": 0,
+        "origin": "http://127.0.0.1:3013",
+        "results": [
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 320,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              }
+            ],
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 390,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              }
+            ],
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 1280,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 169,
+                  "height": 45
+                },
+                "iconOnly": false
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 169,
+                  "height": 45
+                },
+                "iconOnly": false
+              }
+            ],
+            "errors": []
+          },
+          {
+            "engine": "webkit",
+            "browser": "27.2",
+            "width": 390,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              }
+            ],
+            "errors": []
+          }
+        ]
+      },
+      "production": {
+        "at": "2026-10-24T02:09:12.417Z",
+        "command": "node /Users/ethan/repository/crefans_front/.local/gnb-comment-deploy-20261024/browser.cjs https://beta.crefans.com production",
+        "exitCode": 0,
+        "origin": "https://beta.crefans.com",
+        "results": [
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 320,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              }
+            ],
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 390,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              }
+            ],
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 1280,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 169,
+                  "height": 45
+                },
+                "iconOnly": false
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 169,
+                  "height": 45
+                },
+                "iconOnly": false
+              }
+            ],
+            "errors": []
+          },
+          {
+            "engine": "webkit",
+            "browser": "27.2",
+            "width": 390,
+            "routes": [
+              {
+                "basePath": "/preview",
+                "iconMatchesPostComment": true,
+                "href": "/preview/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              },
+              {
+                "basePath": "/service",
+                "iconMatchesPostComment": true,
+                "href": "/service/messages",
+                "activeState": true,
+                "target": {
+                  "width": 56,
+                  "height": 48
+                },
+                "iconOnly": true
+              }
+            ],
+            "errors": []
+          }
+        ]
+      }
+    },
+    "imageHttpSmoke": {
+      "at": "2026-10-24T02:08:06.361426+00:00",
+      "routes": [
+        {
+          "route": "preview/messages",
+          "status": 200
+        },
+        {
+          "route": "preview/notifications",
+          "status": 200
+        },
+        {
+          "route": "service/messages",
+          "status": 200
+        },
+        {
+          "route": "service/notifications",
+          "status": 200
+        }
+      ],
+      "scope": "HTTP shells only; browser check required separately."
+    }
+  },
+  "deployment": {
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-24T02:08:19.090693+00:00",
+        "finishedAt": "2026-10-24T02:08:20.384168+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T02:08:20.384856+00:00",
+        "finishedAt": "2026-10-24T02:08:28.389048+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T02:08:28.389806+00:00",
+        "finishedAt": "2026-10-24T02:08:39.550237+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T02:08:39.550808+00:00",
+        "finishedAt": "2026-10-24T02:08:46.352159+00:00",
+        "exitCode": 0
+      }
+    ],
+    "result": " Container crefans-beta-frontend-1 Recreate \n Container crefans-beta-frontend-1 Recreated \n Container crefans-beta-frontend-1 Starting \n Container crefans-beta-frontend-1 Started \nHealth and ten preview/service routes passed\n{\"frontendImage\": \"sha256:7c51ea1c10784df0bfc03eba1f55a5a5762bea980e367d22652530e95f6d530e\", \"running\": true, \"restarts\": 0, \"preservedServices\": [\"database\", \"api\", \"worker\", \"admin\", \"proxy\"]}\n",
+    "rollback": "/opt/crefans-backup-gnb-comment-20261024; previous image retained",
+    "homeSshRule": "unchanged",
+    "otherServices": "database/api/worker/admin/proxy container IDs preserved"
+  },
+  "evidenceDirectory": "/Users/ethan/repository/crefans_front/.local/gnb-comment-deploy-20261024",
+  "artifactSha256": {
+    "image-webkit-390-preview.png": "01240d6545ba81cd1e0aa1bfacd3d5a9ee9c5f725ad3330e9d687eaa4500c24e",
+    "final-load.log": "b3c443e8e7da7889b1756e4fda4c05222bdbb91bfe3a885ade071e6c1d65a822",
+    "local-chromium-390-preview.png": "c2a7801f42c9d8bb45cb319d805d6e3c9d71a5b7c7dc6e909de07058910d4004",
+    "local-chromium-320-service.png": "7d2a8beb7378de051b35c8c2f568f85f6bd8dae262099f8f5205f7aecb44e8b9",
+    "release.py": "c61700bb4a98b804867473969a68708d334a1cddc8537802efaee316119dd289",
+    "production-chromium-320-preview.png": "5d4c181166816f262e4d597c3177cb1187dc24625b8ec91cc2285d9f67fe596d",
+    "production-chromium-390-service.png": "e3c30c73993ca3993d903bbf06a7b293c75ae6c1d7eb783c476285bafdcea7db",
+    "local-chromium-320-preview.png": "0971c52a7ba80112437c9da9d674309414166cdb87499355b35eee583ba6de36",
+    "local-chromium-390-service.png": "e3c30c73993ca3993d903bbf06a7b293c75ae6c1d7eb783c476285bafdcea7db",
+    "browser.cjs": "ac20e61c4906d2399d912df4e6a9aee243ad2b92c3bd4284b65082ee936574ea",
+    "image-webkit-390-service.png": "9e94b549f255f5687b820435cfe5d2888d5f5315676b3dba08e7bffc6432f364",
+    "finalize.py": "576d7a9b2a4d0ccc8c938f1b426174db99a1bd03d8793b3d2e11edfda595ae0b",
+    "final-deploy.log": "f413ae6a7f3d203b5ce229c9ba52be95a9b6ac05573eb3765e9420593f07edeb",
+    "production-chromium-390-preview.png": "afeea2a31097248cf17d19af3b36affa598f24d34b9785e7a27f719c0cc581ba",
+    "production-chromium-320-service.png": "397d61120f3803dc79f6608286649364e5ca67d36d566553fa8f01a9393ff566",
+    "production-chromium-1280-preview.png": "0417818eed753df8542ac3ecb47c4169faf38f3f7e403eec11c47bb53a7fb1b1",
+    "image-chromium-1280-preview.png": "ec49697c70f331bee93da42a5f7e4f2086b89182383b935268c3e0f80d92013c",
+    "image-chromium-320-service.png": "397d61120f3803dc79f6608286649364e5ca67d36d566553fa8f01a9393ff566",
+    "image-chromium-390-preview.png": "c2a7801f42c9d8bb45cb319d805d6e3c9d71a5b7c7dc6e909de07058910d4004",
+    "production-webkit-390-preview.png": "a602b96d75ba2ef4de886d7df11d25458f32e1b9dad6c8762fb1c50bfca25214",
+    "local-chromium-1280-service.png": "15ad42e5754a87d88d93805b23c2304d5d60c240f7eb242b2172d83ff8666d83",
+    "final-upload.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "smoke-image.py": "c534af25c46c1ad3edc4d6c21cee291581ea87b9175dd1e5398ef4c40e22da64",
+    "image-browser.log": "15bd63fa59cf9778897796b089acc37ab9b48366de9e0e1334fd0ac49955e730",
+    "archive.py": "a7755326a2b6db9b4bb4ad9363630de15b9f36bd85da0eb2b1a094896bc27975",
+    "local-webkit-390-preview.png": "01240d6545ba81cd1e0aa1bfacd3d5a9ee9c5f725ad3330e9d687eaa4500c24e",
+    "deploy.sh": "a29a891d73b78715105ab60ed655f167bf50b4e976f33db361cd26e44ab923a7",
+    "production-webkit-390-service.png": "9e94b549f255f5687b820435cfe5d2888d5f5315676b3dba08e7bffc6432f364",
+    "image-chromium-390-service.png": "e3c30c73993ca3993d903bbf06a7b293c75ae6c1d7eb783c476285bafdcea7db",
+    "image-chromium-320-preview.png": "0971c52a7ba80112437c9da9d674309414166cdb87499355b35eee583ba6de36",
+    "local-chromium-1280-preview.png": "ec49697c70f331bee93da42a5f7e4f2086b89182383b935268c3e0f80d92013c",
+    "check.log": "4120294ba3d88a3635370eeb92ce31df44153d54551d86a522587c5bc3563b8b",
+    "local-browser.log": "15bd63fa59cf9778897796b089acc37ab9b48366de9e0e1334fd0ac49955e730",
+    "image-chromium-1280-service.png": "15ad42e5754a87d88d93805b23c2304d5d60c240f7eb242b2172d83ff8666d83",
+    "production-chromium-1280-service.png": "15ad42e5754a87d88d93805b23c2304d5d60c240f7eb242b2172d83ff8666d83",
+    "production-browser.log": "15bd63fa59cf9778897796b089acc37ab9b48366de9e0e1334fd0ac49955e730",
+    "verify-image.py": "99fded3bd2b0e28e3fe008c1e0772abbcc43b328871bb3528f8c4cad2687b213",
+    "final-prepare.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "local-webkit-390-service.png": "9e94b549f255f5687b820435cfe5d2888d5f5315676b3dba08e7bffc6432f364",
+    "build.log": "2f398cf9ecfdadcdb8d9ae1dff62dc798d18d4dff3855bd42942c5f21c4a793b"
+  },
+  "limitations": [
+    "Mobile viewport Chromium/WebKit, not a physical iPhone.",
+    "No actual messages sent.",
+    "Pending signup edits not deployed.",
+    "No commit, merge or push."
+  ]
+}

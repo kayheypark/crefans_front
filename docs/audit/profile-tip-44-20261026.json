@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-26T12:46:17.905340+09:00",
+  "image": "crefans-front:profile-tip-44-20261026",
+  "imageSourceFiles": 616,
+  "allRunning": true,
+  "otherContainersPreserved": true,
+  "backup": "/opt/crefans-backup-profile-tip-44-20261026",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "uncommitted",
+  "cssSha256": "3882a9c3d3f7114006a906d2e84aebd791c1d08be36de5f8fb01aa30a8bb4c6b",
+  "check": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 348
+  },
+  "browser": {
+    "command": "node /tmp/profile-tip-44-check.cjs https://beta.crefans.com",
+    "exitCode": 0,
+    "height": 44,
+    "results": [
+      {
+        "viewport": 320,
+        "width": 288,
+        "parent": 288,
+        "left": 0,
+        "background": "linear-gradient(110deg, rgb(72, 128, 12), rgb(22, 129, 60) 36%, rgb(7, 129, 100) 70%, rgb(11, 117, 123))",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "viewport": 390,
+        "width": 358,
+        "parent": 358,
+        "left": 0,
+        "background": "linear-gradient(110deg, rgb(72, 128, 12), rgb(22, 129, 60) 36%, rgb(7, 129, 100) 70%, rgb(11, 117, 123))",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "viewport": 1280,
+        "width": 480,
+        "parent": 480,
+        "left": 0,
+        "background": "linear-gradient(110deg, rgb(72, 128, 12), rgb(22, 129, 60) 36%, rgb(7, 129, 100) 70%, rgb(11, 117, 123))",
+        "color": "rgb(255, 255, 255)"
+      }
+    ]
+  },
+  "returnFlow": {
+    "command": "node /tmp/tip-return-production.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "width": 390,
+        "tipChargeResume": true,
+        "normalChargeNoReturn": true
+      },
+      {
+        "width": 1280,
+        "tipChargeResume": true,
+        "normalChargeNoReturn": true
+      }
+    ],
+    "scope": "mock charge only"
+  }
+}

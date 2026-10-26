@@ -34,7 +34,7 @@ export function calculateFinanceSummary(state:MockFinanceState):FinanceSummary{
 }
 
 export function reviewMockWithdrawal(state:MockFinanceState,input:WithdrawalInput):ApiResult<WithdrawalQuote>{
-  if(!Number.isFinite(input.amount)||!Number.isSafeInteger(input.amount)||input.amount<=0)return failure('출금 금액은 1원 이상의 정수로 입력해 주세요.','INVALID_AMOUNT');
+  if(!Number.isFinite(input.amount)||!Number.isSafeInteger(input.amount)||input.amount<10000)return failure('최소 출금 금액은 10,000원입니다.','INVALID_AMOUNT');
   const account=state.accounts.find(item=>item.id===input.accountId);
   if(!account)return failure('수령 계좌를 선택해 주세요.','ACCOUNT_NOT_FOUND');
   if(!account.verified)return failure('확인이 완료된 계좌로만 출금을 요청할 수 있습니다.','ACCOUNT_NOT_VERIFIED');

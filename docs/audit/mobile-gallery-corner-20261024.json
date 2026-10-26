@@ -1,0 +1,109 @@
+{
+  "verifiedAt": "2026-10-24T00:01:19.621337+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "workingTreeDirty": true,
+  "requirement": "Mobile gallery expansion toggle sits inside the gallery bottom-right in normal and expanded modes",
+  "result": "PASS",
+  "browser": {
+    "at": "2026-10-24T00:00:46.403Z",
+    "url": "http://127.0.0.1:3010/preview/creator/moka",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "measurements": [
+      {
+        "bottomGap": 10,
+        "galleryHeight": 472.6328125,
+        "mode": "default",
+        "rightGap": 10,
+        "scrollLeft": 0
+      },
+      {
+        "bottomGap": 10,
+        "galleryHeight": 844,
+        "mode": "expanded",
+        "rightGap": 10,
+        "scrollLeft": 0
+      }
+    ],
+    "errors": []
+  },
+  "checks": {
+    "check": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "startedAt": "2026-10-23T23:58:06.586676+00:00",
+      "finishedAt": "2026-10-23T23:58:14.745516+00:00",
+      "exitCode": 0,
+      "logSha256": "30f0e20cc081e28d0baaf3554621c906fac7c24c71b22cd8c79094287509f465"
+    },
+    "checkPassed": 286,
+    "checkScope": "TypeScript/layer/unit passed before final CSS-only overflow:clip correction; final browser E2E verified that correction",
+    "productionCodeChangedAfterCheck": [
+      "components/crefans/social.module.css (overflow:clip only)"
+    ],
+    "initialE2E": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/mobile-gallery-corner-20261024/playwright.config.ts"
+      ],
+      "startedAt": "2026-10-23T23:58:06.587087+00:00",
+      "finishedAt": "2026-10-23T23:58:15.303945+00:00",
+      "exitCode": 1,
+      "logSha256": "303bcc45bd142d566d680064d24f957ca7aedf0fcd32fd97fc28e3b305d94e4d",
+      "passed": 1,
+      "failed": 2
+    },
+    "finalE2E": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/mobile-gallery-corner-20261024/playwright.config.ts"
+      ],
+      "startedAt": "2026-10-23T23:59:51.209883+00:00",
+      "finishedAt": "2026-10-24T00:00:07.223103+00:00",
+      "exitCode": 0,
+      "logSha256": "aeb148240f95907c78e3625c0c04eb96d90fe566144cd9b32e95f01d702b6d91",
+      "passed": 3,
+      "failed": 0
+    }
+  },
+  "regression": "Moving the button into an overflow:hidden gallery exposed horizontal native scrolling during expansion with mixed media. A bottom/right geometry assertion reproduced the displacement in both mobile engines. Mobile overflow:clip corrected it while transform-based swipes continued to pass.",
+  "sourceHashes": {
+    "components/crefans/SocialPages.tsx": "168014f347a86b27e06f2bc9ffba27c4960ebf765977d7657039507b47cd9e44",
+    "components/crefans/social.module.css": "5149a0d042e9e44cd0022e3623a1e33c39dbdf59b327b050d7fa7a4ea9176b47",
+    "components/design-system/ServicePatternCatalog.tsx": "96ad54132961c5a1b03bbf428563518fb4a97b88ac2af9429114ccb3847291f0",
+    "e2e/preview.spec.ts": "d9c7f4a10f335dfdb29e1e682cdda5f52078040b85ff7a22ca06a18eb49eac3e",
+    "tests/crefans-social.test.cjs": "f7169e6230318360e4a7b6dc20c560a72831e8382689a4249ca403cfee2f1daa"
+  },
+  "artifacts": {
+    "default.png": "8314cb03be7c1ff03bbce45c71d7f7e2c48ed147bd8a7a68c9cf0126953dbf60",
+    "expanded.png": "b2559cdf7d253c1b6c9db2a6e7c08c818743de61b74272a058410992d18a989f",
+    "browser.json": "ebc6c7dd00d1c9cf4d34153da3255ef3dbe27b232756df510d84361e6f7f4090",
+    "check.log": "30f0e20cc081e28d0baaf3554621c906fac7c24c71b22cd8c79094287509f465",
+    "e2e.log": "303bcc45bd142d566d680064d24f957ca7aedf0fcd32fd97fc28e3b305d94e4d",
+    "e2e-final.log": "aeb148240f95907c78e3625c0c04eb96d90fe566144cd9b32e95f01d702b6d91"
+  },
+  "localArtifacts": "/Users/ethan/repository/crefans_front/.local/mobile-gallery-corner-20261024",
+  "source": {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow",
+    "checkedAt": "2026-10-24",
+    "application": "overflow:hidden is scrollable by focus/programmatic actions; clip does not create a scroll container. Applied to the mobile transform-based gallery."
+  },
+  "limits": [
+    "Local only; no deployment or commit.",
+    "Physical iPhone Safari not tested.",
+    "When the detail panel fills the screen the gallery and its expansion button are hidden; drag the existing handle down to show them."
+  ]
+}

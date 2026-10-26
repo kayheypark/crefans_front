@@ -1,0 +1,88 @@
+{
+  "at": "2026-10-26T10:21:03.952298+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/bean-support",
+  "uncommitted": true,
+  "tool": "image_gen.imagegen",
+  "artifacts": [
+    {
+      "file": "design/beta-event-concepts/20261026/01-soft-3d.png",
+      "sha256": "9260e247c6403bb8a1520e74d165338d1dc5eb457a888431c8c3300ee3c81919",
+      "bytes": 1497470,
+      "width": 1024,
+      "height": 1536,
+      "visualReview": {
+        "allFourBenefitsCorrect": true,
+        "fanCountBottomRight": true,
+        "fanCountSecondary": true,
+        "noInventedDates": true
+      }
+    },
+    {
+      "file": "design/beta-event-concepts/20261026/02-round-flat.png",
+      "sha256": "013ee2211862082a08f4d605498ea5bfcd6097f6e24d4165c8fc7a0b3b4e79ef",
+      "bytes": 1354036,
+      "width": 1024,
+      "height": 1536,
+      "visualReview": {
+        "allFourBenefitsCorrect": true,
+        "fanCountBottomRight": true,
+        "fanCountSecondary": true,
+        "noInventedDates": true
+      }
+    },
+    {
+      "file": "design/beta-event-concepts/20261026/03-editorial.png",
+      "sha256": "875d13d5edcd4cac68c5ec319c6bfbef99a12d3a6a45ad3890faeae7fcd14357",
+      "bytes": 1496691,
+      "width": 1024,
+      "height": 1536,
+      "visualReview": {
+        "allFourBenefitsCorrect": true,
+        "fanCountBottomRight": true,
+        "fanCountSecondary": true,
+        "noInventedDates": true
+      }
+    },
+    {
+      "file": "design/beta-event-concepts/20261026/04-mint-beans.png",
+      "sha256": "36ff8de4933d6d01629c268cc90cc1597f9ceed35a5c58ec80e46493c1984e5f",
+      "bytes": 1838022,
+      "width": 1024,
+      "height": 1536,
+      "visualReview": {
+        "allFourBenefitsCorrect": true,
+        "fanCountBottomRight": true,
+        "fanCountSecondary": true,
+        "noInventedDates": true
+      }
+    },
+    {
+      "file": "design/beta-event-concepts/20261026/05-midnight.png",
+      "sha256": "e50e5e02187c0fe21553966888d48f69db87cac932879768a6412b288bbd79d2",
+      "bytes": 1744530,
+      "width": 1024,
+      "height": 1536,
+      "visualReview": {
+        "allFourBenefitsCorrect": true,
+        "fanCountBottomRight": true,
+        "fanCountSecondary": true,
+        "noInventedDates": true
+      }
+    }
+  ],
+  "promptSet": "design/beta-event-concepts/20261026/prompts.json",
+  "promptSetSha256": "1a648b513cd202785b5757cc53c0694da3b4a9b131975ba8dc2264f963716b94",
+  "productionPosterUnchanged": true,
+  "productionPosterSha256": "e5f67d49f06a4f8ab6fc28c96a040994dbfab56fccc837e5e12c160c8dedb95c",
+  "verification": "PNG dimensions and copied bytes checked automatically; image text, hierarchy and placement manually reviewed from generated output",
+  "commands": [
+    "python3: PNG signature/struct dimensions/SHA-256 checks",
+    "npm run docs:record",
+    "npm run check:docs"
+  ],
+  "applicationTestsRun": false,
+  "deployed": false,
+  "next": "User selects a concept before replacement"
+}

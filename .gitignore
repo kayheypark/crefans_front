@@ -9,3 +9,6 @@ test-results/
 playwright/.auth/
 .local/
 .DS_Store
+
+# Local generated files
+*.tsbuildinfo

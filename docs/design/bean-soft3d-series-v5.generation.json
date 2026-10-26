@@ -1,0 +1,210 @@
+{
+  "at": "2026-10-25T08:48:55.094993+00:00",
+  "mode": "built-in image_gen",
+  "useCase": "precise-object-edit",
+  "requests": [
+    {
+      "quantity": 30,
+      "prompt": "Use case: precise-object-edit. Target: this one isolated transparent mint-bean skewer icon for 30beans. REMOVE ONLY the dark '×10' multiplication typography at the bottom-right. Erase the entire multiplication symbol and digits to genuine transparent pixels, leaving no traces or replacement text. PRESERVE THE BEAN AND BAMBOO ARTWORK EXACTLY: the same 3 green kidney-bean tokens, all cream inlaid marks, ONE bamboo stick, each token's size, position, orientation, spacing, soft3D satin shading, same overall composition and transparent margins. Do NOT recenter, enlarge, redraw or change the skewer; keep its original coordinates and framing so a standard UI label can later occupy the now-empty lower-right space. Preserve current image shape/aspect, no cropping. No new text, labels, backgrounds, numbers, watermark, panels, shadow changes or loose beans. Output one genuine transparent PNG: identical skewer, only the old ×10 removed.",
+      "reference": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v4/30.png",
+      "output": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-073b6d37-15da-4c00-b05c-61cd0b54a2d5.png"
+    },
+    {
+      "quantity": 50,
+      "prompt": "Use case: precise-object-edit. Target: this one isolated transparent mint-bean skewer icon for 50beans. REMOVE ONLY the dark '×10' multiplication typography at the bottom-right. Erase the entire multiplication symbol and digits to genuine transparent pixels, leaving no traces or replacement text. PRESERVE THE BEAN AND BAMBOO ARTWORK EXACTLY: the same 5 green kidney-bean tokens, all cream inlaid marks, ONE bamboo stick, each token's size, position, orientation, spacing, soft3D satin shading, same overall composition and transparent margins. Do NOT recenter, enlarge, redraw or change the skewer; keep its original coordinates and framing so a standard UI label can later occupy the now-empty lower-right space. Preserve current image shape/aspect, no cropping. No new text, labels, backgrounds, numbers, watermark, panels, shadow changes or loose beans. Output one genuine transparent PNG: identical skewer, only the old ×10 removed.",
+      "reference": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v4/50.png",
+      "output": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-049e5737-e731-47b7-a25c-f9f12553f691.png"
+    },
+    {
+      "quantity": 100,
+      "prompt": "Use case: precise-object-edit. Target: this one isolated transparent mint-bean skewer icon for 100beans. REMOVE ONLY the dark '×10' multiplication typography at the bottom-right. Erase the entire multiplication symbol and digits to genuine transparent pixels, leaving no traces or replacement text. PRESERVE THE BEAN AND BAMBOO ARTWORK EXACTLY: the same 10 green kidney-bean tokens, all cream inlaid marks, ONE bamboo stick, each token's size, position, orientation, spacing, soft3D satin shading, same overall composition and transparent margins. Do NOT recenter, enlarge, redraw or change the skewer; keep its original coordinates and framing so a standard UI label can later occupy the now-empty lower-right space. Preserve current image shape/aspect, no cropping. No new text, labels, backgrounds, numbers, watermark, panels, shadow changes or loose beans. Output one genuine transparent PNG: identical skewer, only the old ×10 removed.",
+      "reference": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v4/100.png",
+      "output": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-5cba91b1-3cd0-4cc0-bdad-55428e86b702.png"
+    }
+  ],
+  "outputs": [
+    {
+      "key": "10",
+      "quantity": 10,
+      "motif": "5개짜리 꼬치 2개",
+      "destination": "public/brand/beans/soft3d-v5/10.png",
+      "selectedFrom": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v4/10.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v4.selection.json",
+      "sha256": "24afb640b0e7edcc6ae2f0a01635aaa259fe47b3666f405d1ee8df932f725d8d",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 10,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 772659,
+      "alpha": [
+        0,
+        255
+      ],
+      "multiplierRendering": null
+    },
+    {
+      "key": "30",
+      "quantity": 30,
+      "motif": "3개짜리 꼬치 ×10",
+      "destination": "public/brand/beans/soft3d-v5/30.png",
+      "selectedFrom": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-073b6d37-15da-4c00-b05c-61cd0b54a2d5.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v5.generation.json",
+      "sha256": "ee9e431608f52bb85fbe9a8d2152cb30ab7c3d9c2c9f6d35e3b15a0c8dca8e62",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 3,
+      "countMethod": "manual visual review",
+      "multiplier": 10,
+      "bytes": 644830,
+      "alpha": [
+        0,
+        255
+      ],
+      "multiplierRendering": "shared CSS text overlay ×10, not baked into PNG"
+    },
+    {
+      "key": "50",
+      "quantity": 50,
+      "motif": "5개짜리 꼬치 ×10",
+      "destination": "public/brand/beans/soft3d-v5/50.png",
+      "selectedFrom": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-049e5737-e731-47b7-a25c-f9f12553f691.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v5.generation.json",
+      "sha256": "c6a13ccd77aa2d5212977068819a4cb394ee38e1839c27446fac16b2c3cc2c18",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": 10,
+      "bytes": 608071,
+      "alpha": [
+        0,
+        255
+      ],
+      "multiplierRendering": "shared CSS text overlay ×10, not baked into PNG"
+    },
+    {
+      "key": "100",
+      "quantity": 100,
+      "motif": "10개짜리 꼬치 ×10",
+      "destination": "public/brand/beans/soft3d-v5/100.png",
+      "selectedFrom": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-5cba91b1-3cd0-4cc0-bdad-55428e86b702.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v5.generation.json",
+      "sha256": "b17485ef0ea14bb1560a7ca2e6bcc9deff63632bbb376f3ea0085008a07d1255",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 10,
+      "countMethod": "manual visual review",
+      "multiplier": 10,
+      "bytes": 464565,
+      "alpha": [
+        0,
+        255
+      ],
+      "multiplierRendering": "shared CSS text overlay ×10, not baked into PNG"
+    },
+    {
+      "key": "300",
+      "quantity": 300,
+      "motif": "나무 소쿠리",
+      "destination": "public/brand/beans/soft3d-v5/300.png",
+      "selectedFrom": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v4/300.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v4.selection.json",
+      "sha256": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1159805,
+      "alpha": [
+        0,
+        255
+      ],
+      "multiplierRendering": null
+    },
+    {
+      "key": "500",
+      "quantity": 500,
+      "motif": "비단 보따리",
+      "destination": "public/brand/beans/soft3d-v5/500.png",
+      "selectedFrom": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v4/500.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v4.selection.json",
+      "sha256": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1444472,
+      "alpha": [
+        0,
+        255
+      ],
+      "multiplierRendering": null
+    },
+    {
+      "key": "1000",
+      "quantity": 1000,
+      "motif": "종이박스",
+      "destination": "public/brand/beans/soft3d-v5/1000.png",
+      "selectedFrom": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v4/1000.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v4.selection.json",
+      "sha256": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1177311,
+      "alpha": [
+        0,
+        255
+      ],
+      "multiplierRendering": null
+    },
+    {
+      "key": "5000",
+      "quantity": 5000,
+      "motif": "나무 보물상자",
+      "destination": "public/brand/beans/soft3d-v5/5000.png",
+      "selectedFrom": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v4/5000.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v4.selection.json",
+      "sha256": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 4,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1359765,
+      "alpha": [
+        0,
+        255
+      ],
+      "multiplierRendering": null
+    },
+    {
+      "key": "10000",
+      "quantity": 10000,
+      "motif": "금색 보물상자",
+      "destination": "public/brand/beans/soft3d-v5/10000.png",
+      "selectedFrom": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v4/10000.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v4.selection.json",
+      "sha256": "b55985106da99db5d20e8b54dcfed67a8aeb5a82ed9b29ffdc17e6092937f534",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1462310,
+      "alpha": [
+        0,
+        255
+      ],
+      "multiplierRendering": null
+    }
+  ],
+  "manualReview": "Removed old ×10 from 30/50/100, preserved bean counts 3/5/10 and one skewer. Other six are exact copies of approved v4 assets. Counts are visual observations, not automated detection.",
+  "ui": "components/crefans/BeanChargePage.tsx; components/crefans/beans.module.css",
+  "typography": "30/50/100 use identical ×10 span; desktop16px/mobile14px, weight700, line-height1; native quantity labels unchanged"
+}

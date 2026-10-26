@@ -1,0 +1,10 @@
+{
+  "source": "design/beta-event-concepts/20261026/09-event-list-no-chevron-v3.png",
+  "sourceSha256": "1fcf3573999dce393c2ad3f7cd497d7ddf3c15e861ad1bb971718cba82082145",
+  "generationMetadata": "design/beta-event-concepts/20261026/09-event-list-no-chevron-v3.generation.json",
+  "output": "public/brand/events/beta-first/list-banner-openbeta-v3.webp",
+  "width": 2172,
+  "height": 724,
+  "sha256": "32c479d51578f469622bf1b33748df54dea1ed46b030e751f60dbb1c1d63f084",
+  "conversion": "Sharp resize2172x724, WebP quality92 effort6"
+}

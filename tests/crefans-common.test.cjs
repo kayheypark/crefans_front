@@ -5,7 +5,7 @@ const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const el=React.createElement;
 const styles={__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})};
-const ui={Action:({children,variant,...props})=>el('button',props,children),Avatar:({creator})=>el('img',{src:creator?.image,alt:creator?.name}),Empty:({title})=>el('p',{'data-empty':true},title),Notice:({children})=>el('p',null,children),PageTitle:({children,action})=>el('header',null,el('h1',null,children),action)};
+const ui={Action:({children,variant,...props})=>el('button',props,children),Avatar:({creator})=>el('img',{src:creator?.image,alt:creator?.name}),Empty:({title})=>el('p',{'data-empty':true},title),Notice:({children})=>el('p',null,children),PageTitle:({children,action,back})=>el('header',null,back,el('h1',null,children),action)};
 const primitives={Dialog:({open,children})=>open?el('dialog',null,children):null,Field:({label,hint,error,...props})=>el('label',null,label,el('input',{'data-label':label,...props}),error&&el('p',{role:'alert'},error))};
 const pages=loadTypeScript('components/crefans/CommonPages.tsx',{'./common.module.css':styles,'./choice.module.css':styles,'./select.module.css':styles,'./field.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./ServiceUI':ui,'./Icon':()=>el('svg'),'@/components/ui/Primitives':primitives,'next/link':({children,...props})=>el('a',props,children)});
 const {useMockCommon}=loadTypeScript('components/preview/service/useMockCommon.ts');

@@ -1,0 +1,98 @@
+{
+  "at": "2026-10-24T01:46:16.247162+00:00",
+  "repository": "crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "dirty; prior changes preserved",
+  "scope": "Shared message send up arrow and mobile circular back arrow; no deployment",
+  "before": {
+    "at": "2026-10-24T01:44:29.207930+00:00",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "sourceSha256": {
+      "components/crefans/Icon.tsx": "9f28014623abb6fc1cf9f671da50f5ee14fe2bf26f69a6dac8c92815125cb231",
+      "components/crefans/SocialPages.tsx": "be3a6a12f17dfa0cdb7f921e5d31f6d2f7596a7fa298a3cbf449135b0dec6ab2",
+      "components/crefans/social.module.css": "e4d45e4af4568f8f4ea8d06dfbd6e8299769a37e7d9576ec4cd6c8757cbb4db1"
+    }
+  },
+  "sourceSha256": {
+    "components/crefans/Icon.tsx": "eb76e9c27c21da1ddf735b60e0a4668a3e6eee7a8ca40f954aa6378a6d60ea78",
+    "components/crefans/SocialPages.tsx": "2cf0f49a5112955ff635e121d7200899a008702fb55a85dd51022427b82e97cc",
+    "components/crefans/social.module.css": "901de2dd6504fe8c532180950b6d8232b322f1bad3b6bd8407de815226e112b5"
+  },
+  "checks": [
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/crefans-social.test.cjs",
+      "exitCode": 0,
+      "passed": 19,
+      "logSha256": "bc59bb5a8fc75a0c92d85c096b0642e4becf95a3e2f854cf76d4a46e7e3d6381"
+    },
+    {
+      "command": "node .local/message-buttons-20261024/verify.cjs",
+      "exitCode": 0,
+      "result": {
+        "at": "2026-10-24T01:45:29.712Z",
+        "browser": "156.0.8078.4",
+        "results": [
+          {
+            "width": 320,
+            "arrow": "M12 20V4m-6 6 6-6 6 6",
+            "back": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "background": "rgb(250, 251, 253)",
+              "icon": "M20 12H4m6-6-6 6 6 6"
+            },
+            "sendAndClear": true,
+            "emptyDisabled": true,
+            "returnToList": true,
+            "errors": []
+          },
+          {
+            "width": 390,
+            "arrow": "M12 20V4m-6 6 6-6 6 6",
+            "back": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "background": "rgb(250, 251, 253)",
+              "icon": "M20 12H4m6-6-6 6 6 6"
+            },
+            "sendAndClear": true,
+            "emptyDisabled": true,
+            "returnToList": true,
+            "errors": []
+          },
+          {
+            "width": 1280,
+            "arrow": "M12 20V4m-6 6 6-6 6 6",
+            "back": null,
+            "sendAndClear": true,
+            "emptyDisabled": true,
+            "returnToList": false,
+            "errors": []
+          }
+        ]
+      }
+    }
+  ],
+  "initialBrowserAttempt": "Stopped on duplicate text locator after successful mock send; narrowed to conversation body and reran all3 viewports",
+  "visualReview": "after-390.png inspected; no icon clipping or button overlap",
+  "sharedConsumers": [
+    "components/preview/service/ServiceRouter.tsx",
+    "components/service/ServiceRouter.tsx",
+    "components/crefans/studio/CommunityPages.tsx",
+    "components/design-system/ServicePatternCatalog.tsx"
+  ],
+  "notExecuted": [
+    "production deploy",
+    "real-account send",
+    "physical device"
+  ],
+  "historicalQaReport": "CF-QA-20261024-01 remains a snapshot of the pre-icon-change source; not updated to imply new full351 validation"
+}

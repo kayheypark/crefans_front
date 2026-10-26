@@ -1,0 +1,178 @@
+{
+  "at": "2026-10-25T13:04:44.839756+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "uncommitted": true,
+  "scope": "User-selected A front retained; smaller Pretendard type",
+  "acceptanceCriteria": [
+    "Same A layout and unchanged original logo",
+    "Pretendard Regular/Medium loaded without system fallback",
+    "Name12pt,contacts7.5pt,company7pt,role6.8pt",
+    "Exact supplied fields and one90x50mm PDF page",
+    "Preview and final PDF render have no clipping or overlap"
+  ],
+  "source": {
+    "at": "2026-10-25T13:03:48.285440+00:00",
+    "scope": "Selected A front layout retained, font replaced and smaller text",
+    "repository": "/Users/ethan/repository/crefans_front",
+    "branch": "feat/bean-support",
+    "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "uncommitted": true,
+    "font": "Pretendard1.3.9 Regular/Medium",
+    "fontSource": "https://github.com/orioncactus/pretendard/tree/v1.3.9/packages/pretendard/dist/web/static/woff2",
+    "licenseSource": "https://github.com/orioncactus/pretendard/blob/v1.3.9/LICENSE",
+    "sizesPt": {
+      "name": 12,
+      "contacts": 7.5,
+      "website": 7.5,
+      "company": 7,
+      "role": 6.8
+    },
+    "previousSizesPt": {
+      "name": 16.5,
+      "contacts": 8.5,
+      "website": 8,
+      "company": 7.6,
+      "role": 7.5
+    },
+    "logoPreserved": true,
+    "dimensionsMm": [
+      90,
+      50
+    ],
+    "fonts": {
+      "Pretendard-Regular.woff2": "fad853f7f47c6c8b103171e7193fa095708cdcd70850a71d93aa5379e8a61d63",
+      "Pretendard-Medium.woff2": "d03481330eeba0659ab5b87f25ceb504a35de377dd90a0d0aba2982eb2d05e2c"
+    }
+  },
+  "browser": {
+    "at": "2026-10-25T13:03:49.130Z",
+    "results": [
+      {
+        "variant": "a",
+        "providedFieldsExact": true,
+        "checks": {
+          "fonts": [
+            {
+              "family": "Pretendard",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "Pretendard",
+              "weight": "500",
+              "status": "loaded"
+            }
+          ],
+          "nameFont": "Pretendard, sans-serif",
+          "geometry": [
+            {
+              "class": "logo",
+              "inside": true
+            },
+            {
+              "class": "name",
+              "inside": true
+            },
+            {
+              "class": "role",
+              "inside": true
+            },
+            {
+              "class": "company",
+              "inside": true
+            },
+            {
+              "class": "contacts",
+              "inside": true
+            },
+            {
+              "class": "site",
+              "inside": true
+            }
+          ],
+          "logo": true
+        },
+        "actualNameFonts": [
+          {
+            "familyName": "Pretendard Medium",
+            "postScriptName": "Pretendard-Medium",
+            "isCustomFont": true,
+            "glyphCount": 3
+          }
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "pdf": {
+    "at": "2026-10-25T13:03:58.628110+00:00",
+    "checks": [
+      {
+        "file": "output/design/crefans-business-card/crefans-business-card-front-v4.pdf",
+        "sha256": "a159aa288c53c9bb5046db7a20afaf3481c72bf255b9a09a22f47d1f0f1412b8",
+        "pages": [
+          {
+            "page": 1,
+            "mediaMm": [
+              90.0,
+              50.0
+            ],
+            "trimBoxPoints": [
+              0.0,
+              0.0,
+              255.11811023622047,
+              141.73228346456693
+            ],
+            "fontCount": 2,
+            "glyphsSelfContained": true,
+            "fontStorage": "embedded outline fonts or Type3 vector glyph procedures",
+            "textVerified": true
+          }
+        ],
+        "bleedMm": 0,
+        "renderer": "pdftoppm 180dpi"
+      }
+    ]
+  },
+  "visualReview": "Preview PNG and final Poppler180dpi PDF page directly inspected; no clipping or overlap",
+  "artifacts": {
+    "output/design/crefans-business-card/crefans-business-card-front-v4.png": {
+      "sha256": "51d4d9b76d4432638a6277344d69f20389615c58f9cfb1d141feab72edef8b6e",
+      "bytes": 50323
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v4.pdf": {
+      "sha256": "a159aa288c53c9bb5046db7a20afaf3481c72bf255b9a09a22f47d1f0f1412b8",
+      "bytes": 14403
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v4.html": {
+      "sha256": "63f5df2900fffc5016317c972024c911f886de47852657fa33e8bd2bb9c1aaea",
+      "bytes": 2070763
+    },
+    "output/design/crefans-business-card/front-v4-specification.json": {
+      "sha256": "6cf58d6124f0dd128061097d6493716802050c0f1cd83f8f037c1437e0e858f6",
+      "bytes": 1051
+    }
+  },
+  "commands": [
+    {
+      "command": "python3 .local/business-card-front-v4-20261025/create.py",
+      "exitCode": 0
+    },
+    {
+      "command": "node .local/business-card-front-v4-20261025/render.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "bundled python3 .local/business-card-front-v4-20261025/verify_pdf.py",
+      "exitCode": 0
+    }
+  ],
+  "environment": "macOS-15.2-arm64-arm-64bit-Mach-O",
+  "limits": [
+    "RGB design proof; physical print/CMYK not verified",
+    "Isolated design output, no app changes/deployment or product tests",
+    "Contact values omitted from audit, preserved in requested card artifacts"
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "recordedAt": "2026-10-24T06:42:11.397460+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/beta-signup",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "Pre-existing dirty work preserved. This change is uncommitted and not deployed. Production still uses message-time-20261024; earlier local mobile composer is not yet shipped.",
+  "scope": "Show the shared mobile gallery comment dock immediately, independently of the expanded comment list. Keep desktop list-triggered textarea and deferred list loading.",
+  "acceptance": [
+    "Mobile gallery opens with a single-line dock and no input autofocus",
+    "List toggle and panel snap/expand preserve the same post draft",
+    "Collapsed list does not fetch comments on opening; expansion loads comments",
+    "Next post starts a fresh draft; closed comments have no dock; locked posts cannot open gallery",
+    "API adapter pending/duplicate prevention, failure draft retention, retry success",
+    "Desktop only shows textarea after comment expansion"
+  ],
+  "implementation": {
+    "runtimeDelta": [
+      "PostOverlay keeps CommentsSection mounted inside a hidden list wrapper, with key=post.id",
+      "CommentsSection collapsed flag defers loadComments; existing CommentComposer portal renders in the visible independent dock"
+    ],
+    "unchanged": [
+      "CommentComposer and its CSS",
+      "API endpoints and permission logic",
+      "Desktop rendering styles",
+      "Other existing dirty features"
+    ]
+  },
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "origin": "http://127.0.0.1:3010",
+    "browsers": "Playwright desktop Chromium, mobile Chromium, mobile WebKit; widths320/390/767 plus desktop"
+  },
+  "checks": [
+    {
+      "command": "npx playwright test --config .local/gallery-comment-dock-20261024/playwright.config.ts --project=mobile --grep '갤러리 댓글'",
+      "phase": "before runtime fix",
+      "exitCode": 1,
+      "result": "Expected failure: visible gallery comment textbox missing immediately after opening. Original failure text retained; screenshot/trace from this first run were overwritten by the next run.",
+      "log": ".local/gallery-comment-dock-20261024/reproduction.log",
+      "logSha256": "2b9890ba2d9f7a840f61cd7b4b56be65657d41b0e688025ce48bbb4c6888c067"
+    },
+    {
+      "command": "npm run check",
+      "start": "2026-10-24T06:40:10.309971+00:00",
+      "end": "2026-10-24T06:40:18.838578+00:00",
+      "exitCode": 0,
+      "result": "layers/typecheck and 300 node tests passed",
+      "log": ".local/gallery-comment-dock-20261024/check.log",
+      "logSha256": "99728e0f1dee0c17bb027e3e53fb9c115cef5bf2bbe8e3653ca6489ff38146fe"
+    },
+    {
+      "command": "npx playwright test --config .local/gallery-comment-dock-20261024/playwright.config.ts",
+      "exitCode": 0,
+      "stats": {
+        "startTime": "2026-10-24T06:39:59.048Z",
+        "duration": 44300.986999999994,
+        "expected": 19,
+        "skipped": 2,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "result": "19 passed, 2 desktop skips for mobile-only tests, 0 failures",
+      "log": ".local/gallery-comment-dock-20261024/e2e.log",
+      "logSha256": "88b06012c29c4ef608c902d8fb135f93b3ba3a2edaf4a7e580f2f73bd8f6cbe7",
+      "report": ".local/gallery-comment-dock-20261024/e2e-results.json",
+      "reportSha256": "010ba8938c688e6405320ce8a72d26f146d2fc63e336f625daf97142c6ebaf04"
+    },
+    {
+      "command": "Node Playwright screenshot capture for /preview/creator/haneul gallery initial state",
+      "exitCode": 0,
+      "result": {
+        "time": "2026-10-24T06:40:57.308Z",
+        "results": [
+          {
+            "name": "mobile",
+            "initialInputVisible": true,
+            "dock": {
+              "x": 0,
+              "y": 603,
+              "width": 390,
+              "height": 61
+            },
+            "viewport": {
+              "width": 390,
+              "height": 664
+            }
+          },
+          {
+            "name": "desktop",
+            "initialInputVisible": false,
+            "dock": null,
+            "viewport": {
+              "width": 1280,
+              "height": 900
+            }
+          }
+        ]
+      },
+      "visualReview": "Mobile dock visible at viewport bottom, no keyboard autofocus; desktop panel unchanged and dock hidden; both images visually inspected."
+    }
+  ],
+  "sourceSha256": {
+    "components/crefans/SocialPages.tsx": "abf6694b59917b3812bfacc9f2a8ec081fa7d35ba373961dfa8331ff869a7d16",
+    "components/crefans/CommentComposer.tsx": "b089978627f4ad5ffd3ef4376521ca303d92ce43f5fc4d41e995d18e352ef1e4",
+    "components/crefans/MediaOverlay.tsx": "c3245bbdac06facb91982fd503857eae7d7189013ba27107e5ea3eeb49ecc90d",
+    "components/crefans/social.module.css": "4ee396cd90738b159ff75b7c0f1fab78c4fcfcff853d800cbf87d4ebdcf6791b",
+    "components/crefans/ServiceShell.tsx": "345829b57fea0d12b63a971a9b80ec632a2716044a776ee982c8739537ba6fdc",
+    "e2e/mobile-comments.spec.ts": "9fd0028cf18b6a8daee5596d24fcc60d1ad066e6cf1bf22c07d64df1fd26cf2e",
+    "e2e/preview.spec.ts": "4df1afb5cc6134301d684d9aca5b4e26eead13ee6bcf5f7ad948f3af92c687e1",
+    "docs/design-system.md": "2c6708738ae2a3e16797d619e6b51f392f8662da0d4f30170e6fe0fb3758dc3b"
+  },
+  "screenshots": {
+    ".local/gallery-comment-dock-20261024/gallery-initial-desktop.png": "100fb3b494967a06ae840532077cae1ad90b9a90b6a81d5d375221a8f914bf1f",
+    ".local/gallery-comment-dock-20261024/gallery-initial-mobile.png": "a057a02040281ef1aa19d8ced4bc3f22225ba042d29f2e6ae47dc5fe70669e8b"
+  },
+  "boundaries": [
+    "Service UI tests intercept API responses locally, including failure and retry. No real comment posted.",
+    "VisualViewport height changes are simulated; no physical iPhone software-keyboard test.",
+    "No deployment, real account, payment, infrastructure or production data changes.",
+    "Historical mobile-comment-composer proof describes earlier code; this record is the current gallery behavior proof."
+  ]
+}

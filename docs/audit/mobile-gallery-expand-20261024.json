@@ -1,0 +1,134 @@
+{
+  "verifiedAt": "2026-10-23T23:55:35.286595+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "workingTreeDirty": true,
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "url": "http://127.0.0.1:3010",
+    "existingDevServerReused": true
+  },
+  "requirements": [
+    {
+      "requirement": "Mobile expand button hides detail panel and gives media the full overlay height, with contain aspect ratio",
+      "result": "PASS: browser touch/keyboard, screenshot, 320/390/767px measurements"
+    },
+    {
+      "requirement": "Shrink restores all three previous panel heights without resetting media index, video node or comment draft",
+      "result": "PASS: unit + Chromium/WebKit E2E"
+    },
+    {
+      "requirement": "Close/reopen starts normal mode; close and media swipe remain available while expanded",
+      "result": "PASS: Chromium touch and WebKit pointer E2E"
+    },
+    {
+      "requirement": "Desktop layout stays side by side with expand toggle hidden, including after mobile expansion and resize",
+      "result": "PASS: desktop E2E and 768/1280px browser measurements"
+    }
+  ],
+  "executions": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "startedAt": "2026-10-23T23:53:59.168052+00:00",
+      "finishedAt": "2026-10-23T23:54:07.319551+00:00",
+      "exitCode": 0,
+      "logSha256": "a8efa6f38f230c4a87b63df481d185e1692f67ccba7dc95421002ba72279634d"
+    },
+    {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/mobile-gallery-expand-20261024/playwright.config.ts"
+      ],
+      "startedAt": "2026-10-23T23:53:59.168347+00:00",
+      "finishedAt": "2026-10-23T23:54:15.251467+00:00",
+      "exitCode": 0,
+      "logSha256": "2e64d2f25d07df71f17859dcc3b482b3ebada6a3cb697cac1a0e84cf1c5cd3ae"
+    }
+  ],
+  "testResults": {
+    "npmCheckPassed": 286,
+    "e2ePassed": 3,
+    "e2eProjects": [
+      "desktop Chromium",
+      "mobile Chromium",
+      "mobile WebKit"
+    ]
+  },
+  "sourceHashes": {
+    "components/crefans/Icon.tsx": "9f28014623abb6fc1cf9f671da50f5ee14fe2bf26f69a6dac8c92815125cb231",
+    "components/crefans/SocialPages.tsx": "04750bd3d07df5d8f06b04bfad757104b93f16401a30e6cca1c7bbcee9753e83",
+    "components/crefans/social.module.css": "3eb401e0eab9862b8c09f1d79e82622c8e93137c2386fe5d09505ff76842b2e5",
+    "components/design-system/ServicePatternCatalog.tsx": "9aa3b565ed06359fac68ddcf19215ab44bc521b549d1686178558f9cd8e07ec1",
+    "tests/crefans-social.test.cjs": "99a98fd1f806fb173a04cad8cc7405ca6dd8e4d414b8ac783b6a9a659211db8b",
+    "e2e/preview.spec.ts": "81115ac422cad1608fd4476946e5fe2e011dd47c05efb5630ba0ae13f7acbef9"
+  },
+  "browser": {
+    "route": "/preview/creator/moka",
+    "expandedMediaVisible": true,
+    "restoredDefaultPanel": true,
+    "consoleErrors": [],
+    "breakpoints": [
+      {
+        "overflow": false,
+        "overlayHeight": 844,
+        "panelDisplay": "none",
+        "stageHeight": 844,
+        "toggleDisplay": "flex",
+        "width": 320
+      },
+      {
+        "overflow": false,
+        "overlayHeight": 844,
+        "panelDisplay": "none",
+        "stageHeight": 844,
+        "toggleDisplay": "flex",
+        "width": 390
+      },
+      {
+        "overflow": false,
+        "overlayHeight": 844,
+        "panelDisplay": "none",
+        "stageHeight": 844,
+        "toggleDisplay": "flex",
+        "width": 767
+      },
+      {
+        "overflow": false,
+        "overlayHeight": 844,
+        "panelDisplay": "flex",
+        "stageHeight": 796,
+        "toggleDisplay": "none",
+        "width": 768
+      },
+      {
+        "overflow": false,
+        "overlayHeight": 844,
+        "panelDisplay": "flex",
+        "stageHeight": 796,
+        "toggleDisplay": "none",
+        "width": 1280
+      }
+    ]
+  },
+  "artifacts": {
+    "default.png": "ffa179816287c6cbe790440ba5be544d6fceae82b70af6507de7c89cdd8736ce",
+    "expanded.png": "ab60d0ea204a7dcd576b9d30a262db95cc1f262a4b0f335fbd0ab22112e11982",
+    "breakpoints.json": "d28d3814ba91655acca2f5ade58925a2f2392cca68968df6747ee5428927d59e",
+    "check.log": "a8efa6f38f230c4a87b63df481d185e1692f67ccba7dc95421002ba72279634d",
+    "e2e.log": "2e64d2f25d07df71f17859dcc3b482b3ebada6a3cb697cac1a0e84cf1c5cd3ae"
+  },
+  "localArtifacts": "/Users/ethan/repository/crefans_front/.local/mobile-gallery-expand-20261024",
+  "limits": [
+    "Local working tree only; production remains mobile-gallery-sheet-20261024 without the expansion toggle. No commit or deployment in this change.",
+    "Physical iPhone Safari was not tested. WebKit test uses pointer drag, Chromium uses CDP touch.",
+    "Expansion maximizes media inside the browser viewport; it does not remove browser chrome or crop images."
+  ]
+}

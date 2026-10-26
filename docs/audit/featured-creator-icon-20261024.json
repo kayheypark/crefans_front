@@ -1,0 +1,69 @@
+{
+  "startedAt": "2026-10-24T09:49:15.922Z",
+  "finishedAt": "2026-10-24T09:49:16.281Z",
+  "command": [
+    "node",
+    ".local/featured-creator-icon-20261024/check.cjs"
+  ],
+  "exitCode": 0,
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "Pre-existing dirty changes preserved; added image/generation record and progress evidence only.",
+  "asset": "public/brand/featured-creators-v1.png",
+  "sha256": "20b16371cdbd99421f386aef60262bbef3ac2e1bed9761d3efc0d5fe7007663d",
+  "bytes": 432011,
+  "copiedWithoutEditing": true,
+  "actual": {
+    "naturalWidth": 1254,
+    "naturalHeight": 1254,
+    "width": 22,
+    "height": 22,
+    "alphaMin": 0,
+    "alphaMax": 255,
+    "transparentPixels": 1270035,
+    "overflow": false
+  },
+  "limits": [
+    "Isolated HTML heading preview only; no product page change or deployment."
+  ],
+  "method": "built-in image_gen",
+  "promptRecord": "public/brand/featured-creators-v1.generation.json",
+  "visualReview": "heading-preview.png:22px 별빛 아이콘과14px 제목의 표시·간격 육안 확인",
+  "initialVerificationAttempts": [
+    {
+      "exitCode": 1,
+      "result": "기본 Python에PIL이 없어 파일읽기검사 중단. 파일 복사는 완료됐으며 이미지 수정은 없었다."
+    },
+    {
+      "exitCode": 1,
+      "result": "file://의 캔버스 픽셀읽기가 origin 제한으로 거부돼 검수 브라우저에 동일 PNG data URL을 주입해 재검증했다. 보안 설정 변경 없음."
+    }
+  ],
+  "documentationChecks": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:50:04.678656+00:00",
+      "finishedAt": "2026-10-24T09:50:05.819002+00:00",
+      "exitCode": 0,
+      "logSha256": "aa0ba0f1a24dbc9086e313eab939ac25be7365bc4d1919bedc5053a40eb7a7b6"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:50:05.849777+00:00",
+      "finishedAt": "2026-10-24T09:50:06.233082+00:00",
+      "exitCode": 0,
+      "logSha256": "2a39b141a8b0a29622707f4e5147d5737f2ff9bdbefb7039a7076d4ed75b97a9"
+    }
+  ]
+}

@@ -1,0 +1,381 @@
+{
+  "recordedAt": "2026-10-24T01:53:07.363124+00:00",
+  "repository": "crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "dirty; previous changes preserved",
+  "scope": {
+    "at": "2026-10-24T01:48:43.832052+00:00",
+    "baseImage": "crefans-front:mobile-shell-20261024",
+    "baseId": "sha256:ee3a8489953f3a0d262c03076d2f868cbbaacd5d87fa4295b0a05480d2fa7fa5",
+    "runtimeFiles": 474,
+    "changed": [
+      "components/crefans/Icon.tsx",
+      "components/crefans/SocialPages.tsx",
+      "components/crefans/social.module.css"
+    ],
+    "pendingSignupFilesExcluded": true,
+    "localChangedSourceSha256": {
+      "components/crefans/Icon.tsx": "eb76e9c27c21da1ddf735b60e0a4668a3e6eee7a8ca40f954aa6378a6d60ea78",
+      "components/crefans/SocialPages.tsx": "6553aac3e1e166f3ed11f5a28ef7cb7251c551b12c5f08c2df3505a9a2b290e5",
+      "components/crefans/social.module.css": "24a9589d3a780e909196163371606d4b85f9c7b070659680091c406e37000ceb"
+    }
+  },
+  "image": {
+    "at": "2026-10-24T01:51:10.000537+00:00",
+    "imageId": "sha256:757f7a1cc5e84c6371a649e12d0e540d5bd87d3f62578b863752ab2b3868fecc",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 474
+  },
+  "checks": {
+    "typescript": {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    "regression": {
+      "command": "node --test tests/crefans-social.test.cjs tests/content-post-preview.test.cjs",
+      "passed": 24,
+      "failed": 0,
+      "exitCode": 0,
+      "logSha256": "ae623fffad32f62ab62de7138ca005358dcf404549af9d25fde7c84b9d81a409"
+    },
+    "build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        "infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:back-buttons-20261024",
+        "."
+      ],
+      "startedAt": "2026-10-24T01:49:14.478071+00:00",
+      "finishedAt": "2026-10-24T01:50:46.691264+00:00",
+      "exitCode": 0,
+      "logSha256": "9566e911b5e171eca1f1dd2ab3d25a9b931e80dd6a92f0638c9e0b0144b48660"
+    },
+    "browser": {
+      "local": {
+        "at": "2026-10-24T01:49:22.751Z",
+        "origin": "http://127.0.0.1:3010",
+        "results": [
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 320,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 390,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 1280,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": false,
+            "errors": []
+          },
+          {
+            "engine": "webkit",
+            "browser": "27.2",
+            "width": 390,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": true,
+            "errors": []
+          }
+        ]
+      },
+      "image": {
+        "at": "2026-10-24T01:51:16.575Z",
+        "origin": "http://127.0.0.1:3013",
+        "results": [
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 320,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 390,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 1280,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": false,
+            "errors": []
+          },
+          {
+            "engine": "webkit",
+            "browser": "27.2",
+            "width": 390,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": true,
+            "errors": []
+          }
+        ]
+      },
+      "production": {
+        "at": "2026-10-24T01:52:10.367Z",
+        "origin": "https://beta.crefans.com",
+        "results": [
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 320,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 390,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 1280,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": false,
+            "errors": []
+          },
+          {
+            "engine": "webkit",
+            "browser": "27.2",
+            "width": 390,
+            "postBack": {
+              "width": 44,
+              "height": 44,
+              "radius": "50%",
+              "text": "",
+              "icon": "M20 12H4m6-6-6 6 6 6",
+              "href": "/preview/feed"
+            },
+            "missingPostBack": true,
+            "feedNavigation": true,
+            "messageSendAndClear": true,
+            "mobileBack": true,
+            "errors": []
+          }
+        ]
+      }
+    },
+    "imageHttp": {
+      "at": "2026-10-24T01:51:12.640138+00:00",
+      "routes": [
+        {
+          "route": "preview/messages",
+          "status": 200
+        },
+        {
+          "route": "preview/notifications",
+          "status": 200
+        },
+        {
+          "route": "service/messages",
+          "status": 200
+        },
+        {
+          "route": "service/notifications",
+          "status": 200
+        }
+      ],
+      "scope": "HTTP shells only; browser check required separately."
+    },
+    "diff": {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  },
+  "deployment": {
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-24T01:51:34.278712+00:00",
+        "finishedAt": "2026-10-24T01:51:35.283705+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T01:51:35.284321+00:00",
+        "finishedAt": "2026-10-24T01:51:43.230366+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T01:51:43.230856+00:00",
+        "finishedAt": "2026-10-24T01:51:54.977936+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T01:51:54.978431+00:00",
+        "finishedAt": "2026-10-24T01:52:02.159499+00:00",
+        "exitCode": 0
+      }
+    ],
+    "origin": "https://beta.crefans.com",
+    "logSha256": "cacefc8a8b03b9bd3224e61dd751af329c63cd833890f0748765df23c19b636c",
+    "healthAndRoutesPassed": 10,
+    "frontendRunning": true,
+    "frontendRestartCount": 0,
+    "unchangedContainerIds": [
+      "database",
+      "api",
+      "worker",
+      "admin",
+      "proxy"
+    ],
+    "rollbackDirectory": "/opt/crefans-backup-back-buttons-20261024",
+    "sshRule": "Existing approved home /32 retained; no firewall changes",
+    "archive": {
+      "sha256": "723e229dbfe94f1df4cf0e02ed8f3b799511359ea3472223d5a71bda06cf0386",
+      "bytes": 487920114,
+      "startedAt": "2026-10-24T01:51:16.797454+00:00",
+      "finishedAt": "2026-10-24T01:51:25.309969+00:00",
+      "exitCode": 0
+    }
+  },
+  "visualReview": "Local and production mobile WebKit390 screenshots inspected; round back button, arrow and content layout present",
+  "notExecuted": [
+    "physical iPhone/Android",
+    "real-account messaging",
+    "new signup policy activation",
+    "commit/merge/push"
+  ],
+  "historicalQaReport": "Previous report retains its original source baseline and is not expanded to this deployment"
+}

@@ -1,4 +1,5 @@
 'use client';
+import {BackButton} from '../BackButton';
 
 import {useEffect,useId,useState} from 'react';
 import type {StudioReport,StudioReportModel} from '@/types/crefans-studio-reports';
@@ -17,7 +18,7 @@ const navigation=[{id:'revenue',label:'순수익'},{id:'subscribers',label:'구�
 
 export function ReportPage({model,basePath}:Props){
   return <section className={s.page}>
-    <TextLink className={s.back} href={basePath}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg>대시보드로</TextLink>
+    <BackButton className={s.back} href={basePath} label="대시보드로 돌아가기"/>
     <ApiState response={model.response} loading={model.loading}>
       {report=><ReportContent key={report.id} report={report} model={model} basePath={basePath}/>}
     </ApiState>

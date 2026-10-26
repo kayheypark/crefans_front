@@ -208,6 +208,7 @@ const h=React.createElement,styles={__esModule:true,default:new Proxy({},{get:(_
 let chartMounts=0;
 function ChartProbe({items}){React.useEffect(()=>{chartMounts++;},[]);return h('div',{'data-chart-items':items});}
 const {ReportPage}=loadTypeScript('components/crefans/studio/ReportPage.tsx',{
+  'next/link':props=>h('a',props),
   './report.module.css':styles,'./data-table.module.css':styles,'./pagination.module.css':styles,'./date-range-picker.module.css':styles,
   '@/components/ui/Charts':{BarChart:ChartProbe},
   './Primitives':{Button:({loading,tone,...props})=>h('button',{...props,disabled:props.disabled||loading})},

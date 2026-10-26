@@ -1,0 +1,1156 @@
+{
+  "task": "Gallery close option 1 production deployment",
+  "at": "2026-10-24T22:39:24.423539+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/beta-signup",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirty": true,
+  "scope": {
+    "changed": [
+      "components/crefans/MediaOverlay.tsx",
+      "components/crefans/social.module.css"
+    ],
+    "unchangedRuntimeFiles": 533,
+    "totalRuntimeFiles": 535,
+    "iconPx": 24,
+    "touchTargetPx": 44,
+    "background": "rgba(0,0,0,.4)",
+    "shape": "circle",
+    "lightPanelContrastRule": "preserved",
+    "proposal": "docs/audit/gallery-close-proposals-20261025.json"
+  },
+  "image": {
+    "at": "2026-10-24T22:37:52.559746+00:00",
+    "tag": "crefans-front:gallery-close-soft-20261025",
+    "id": "sha256:fd092a45487d1a9127a813c0c6b577a467020290afa02f8b1e5ec3ef9a4e697a",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 535,
+    "archiveSha256": "b6dead21b4fba3ea8cd3d9e18ca78fe4ba0e014ceeac65de56ad6ca5a417554e",
+    "archiveBytes": 521595797
+  },
+  "production": {
+    "at": "2026-10-24T22:38:51.586141+00:00",
+    "runtimeFilesMatched": 535,
+    "runtime": {
+      "crefans-beta-frontend-1": {
+        "id": "4db3344372fd44464d22ed298a6eb80de257cce5059c07580527693b0c55c165",
+        "image": "sha256:fd092a45487d1a9127a813c0c6b577a467020290afa02f8b1e5ec3ef9a4e697a",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-api-1": {
+        "id": "13431e31d272c24a18ef0845f7fce015e189d1d0467af9ad94406ed3b874cc18",
+        "image": "sha256:7de8b1853c04aafe783799f58105b45a75e2c8fbd667b8c1a0d9f1efeb66d2f0",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-worker-1": {
+        "id": "07e51cfd0a96f967278d12b5b11accf097ba3ce600d01cd98b8cd5ba48cc41d0",
+        "image": "sha256:7de8b1853c04aafe783799f58105b45a75e2c8fbd667b8c1a0d9f1efeb66d2f0",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-admin-1": {
+        "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+        "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      }
+    },
+    "http": [
+      {
+        "url": "https://beta.crefans.com/preview/explore",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/explore",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/login",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200
+      }
+    ],
+    "freeDiskBytes": 1898770432
+  },
+  "checks": {
+    "layers": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T22:35:55.816449+00:00",
+      "finishedAt": "2026-10-24T22:35:56.373078+00:00",
+      "exitCode": 0,
+      "logSha256": "066769b0847ce7b821fb23504fe26b3a3b4d2dd5ba440e20cdb53e6c7f8a3807"
+    },
+    "image-build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/gallery-close-soft-20261025/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:gallery-close-soft-20261025",
+        ".local/gallery-close-soft-20261025/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T22:35:11.807278+00:00",
+      "finishedAt": "2026-10-24T22:36:48.618685+00:00",
+      "exitCode": 0,
+      "logSha256": "8ab86596c3f40489d5517ca9b9d6eb1357a767dffe70752df2bf3b42b05db548"
+    },
+    "browser-before": {
+      "command": [
+        "node",
+        ".local/gallery-close-soft-20261025/verify.cjs",
+        "https://beta.crefans.com",
+        "before-browser"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T22:36:11.073541+00:00",
+      "finishedAt": "2026-10-24T22:36:12.983933+00:00",
+      "exitCode": 1,
+      "logSha256": "57b0d8f24ae3b58f12320d8a812899b695bafbba95739de573bd0a227f0b7cee"
+    },
+    "browser-image": {
+      "command": [
+        "node",
+        ".local/gallery-close-soft-20261025/verify.cjs",
+        "http://127.0.0.1:3128",
+        "image-browser"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T22:37:40.719853+00:00",
+      "finishedAt": "2026-10-24T22:37:59.767654+00:00",
+      "exitCode": 0,
+      "logSha256": "6f2518fe87e9793a17401f55b0aa3a0a2664a198e6ae19d278bf45bbcb03ec01"
+    },
+    "archive": {
+      "command": [
+        "python3",
+        ".local/gallery-close-soft-20261025/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T22:37:40.719831+00:00",
+      "finishedAt": "2026-10-24T22:37:52.565178+00:00",
+      "exitCode": 0,
+      "logSha256": "4bc4269fe51cf9e2976790f20ebc95fb2e1875a697f751b0d6b465227b0bcbc7"
+    },
+    "browser-production": {
+      "command": [
+        "node",
+        ".local/gallery-close-soft-20261025/verify.cjs",
+        "https://beta.crefans.com",
+        "production-browser"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T22:38:51.546990+00:00",
+      "finishedAt": "2026-10-24T22:39:09.701581+00:00",
+      "exitCode": 0,
+      "logSha256": "6f2518fe87e9793a17401f55b0aa3a0a2664a198e6ae19d278bf45bbcb03ec01"
+    },
+    "production-verify": {
+      "command": [
+        "python3",
+        ".local/gallery-close-soft-20261025/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T22:38:51.543873+00:00",
+      "finishedAt": "2026-10-24T22:38:53.990210+00:00",
+      "exitCode": 0,
+      "logSha256": "ba988d192dd102270344c707963b73b7f4ebdc75e3e84d071f9a82370ff67780"
+    }
+  },
+  "browser": {
+    "image-browser": {
+      "base": "http://127.0.0.1:3128",
+      "startedAt": "2026-10-24T22:37:40.948Z",
+      "results": [
+        {
+          "environment": "chromium320",
+          "state": "post-default",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium320",
+          "state": "post-panel-full",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgb(242, 244, 248)",
+          "color": "rgb(32, 35, 51)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium320",
+          "state": "post-media-full",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium320",
+          "state": "profile-avatar",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium320",
+          "state": "profile-cover",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "post-default",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "post-panel-full",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgb(242, 244, 248)",
+          "color": "rgb(32, 35, 51)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "post-media-full",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "profile-avatar",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "profile-cover",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium1280",
+          "state": "post-default",
+          "button": {
+            "x": 820,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 830,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 1280,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium1280",
+          "state": "profile-avatar",
+          "button": {
+            "x": 1224,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 1234,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 1280,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium1280",
+          "state": "profile-cover",
+          "button": {
+            "x": 1224,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 1234,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 1280,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "post-default",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "post-panel-full",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgb(242, 244, 248)",
+          "color": "rgb(32, 35, 51)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "post-media-full",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "profile-avatar",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "profile-cover",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      ],
+      "finishedAt": "2026-10-24T22:37:59.756Z",
+      "exitCode": 0
+    },
+    "production-browser": {
+      "base": "https://beta.crefans.com",
+      "startedAt": "2026-10-24T22:38:51.753Z",
+      "results": [
+        {
+          "environment": "chromium320",
+          "state": "post-default",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium320",
+          "state": "post-panel-full",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgb(242, 244, 248)",
+          "color": "rgb(32, 35, 51)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium320",
+          "state": "post-media-full",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium320",
+          "state": "profile-avatar",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium320",
+          "state": "profile-cover",
+          "button": {
+            "x": 264,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 274,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 320,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "post-default",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "post-panel-full",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgb(242, 244, 248)",
+          "color": "rgb(32, 35, 51)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "post-media-full",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "profile-avatar",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium390",
+          "state": "profile-cover",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium1280",
+          "state": "post-default",
+          "button": {
+            "x": 820,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 830,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 1280,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium1280",
+          "state": "profile-avatar",
+          "button": {
+            "x": 1224,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 1234,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 1280,
+            "height": 844
+          }
+        },
+        {
+          "environment": "chromium1280",
+          "state": "profile-cover",
+          "button": {
+            "x": 1224,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 1234,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 1280,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "post-default",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "post-panel-full",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgb(242, 244, 248)",
+          "color": "rgb(32, 35, 51)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "post-media-full",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "profile-avatar",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        },
+        {
+          "environment": "webkit390",
+          "state": "profile-cover",
+          "button": {
+            "x": 334,
+            "y": 12,
+            "width": 44,
+            "height": 44
+          },
+          "icon": {
+            "x": 344,
+            "y": 22,
+            "width": 24,
+            "height": 24
+          },
+          "background": "rgba(0, 0, 0, 0.4)",
+          "color": "rgb(255, 255, 255)",
+          "radius": "50%",
+          "border": "0px",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      ],
+      "finishedAt": "2026-10-24T22:39:09.694Z",
+      "exitCode": 0
+    }
+  },
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "startedAt": "2026-10-24T22:38:13.227564+00:00",
+      "finishedAt": "2026-10-24T22:38:14.265598+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "startedAt": "2026-10-24T22:38:14.266366+00:00",
+      "finishedAt": "2026-10-24T22:38:22.945267+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "startedAt": "2026-10-24T22:38:22.945897+00:00",
+      "finishedAt": "2026-10-24T22:38:38.335800+00:00",
+      "exitCode": 0,
+      "logSha256": "d642f8469ce26af2034bdc771b63b084dbf5b0f715650cc3db22e4fe8da4180f"
+    },
+    {
+      "step": "deploy",
+      "startedAt": "2026-10-24T22:38:38.336455+00:00",
+      "finishedAt": "2026-10-24T22:38:45.266774+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "artifactFiles": [
+    {
+      "path": ".local/gallery-close-soft-20261025/production-browser/chromium1280-post.png",
+      "sha256": "bcede8e299a6039c3c70a15e76c83f8eee136ab0d64d8ebbb24c7de6469d5ef1"
+    },
+    {
+      "path": ".local/gallery-close-soft-20261025/production-browser/chromium320-panel.png",
+      "sha256": "d6594c9f902a6bdde9d7d50608e127a292678b7ecf84426f5e122eeba5741319"
+    },
+    {
+      "path": ".local/gallery-close-soft-20261025/production-browser/chromium320-post.png",
+      "sha256": "c51e536dfc3c5c89fd024552afc28281df042d59c7166bb89de01fa281962aa4"
+    },
+    {
+      "path": ".local/gallery-close-soft-20261025/production-browser/chromium390-panel.png",
+      "sha256": "95b98798c0a1b4c5f3ac92293a60153e353f2279352296a06c77e7f7bfc1d1db"
+    },
+    {
+      "path": ".local/gallery-close-soft-20261025/production-browser/chromium390-post.png",
+      "sha256": "635f41b67f6160c3400bff6c5365a42b4cefe82455d5653eb7f9046ed29a75cc"
+    },
+    {
+      "path": ".local/gallery-close-soft-20261025/production-browser/webkit390-panel.png",
+      "sha256": "653dd1608c5b35419a417d4a5997bac33e3a69c21111e7d23f828b162384d191"
+    },
+    {
+      "path": ".local/gallery-close-soft-20261025/production-browser/webkit390-post.png",
+      "sha256": "7ff3e75f6d14cec34518d2a19798d64834b7aae75c77950311aa9563082ee659"
+    }
+  ],
+  "limitations": [
+    "Browser emulation; physical iPhone not tested.",
+    "No behavior changes to focus trap or focus restoration; previous WebKit restoration limitation remains.",
+    "No real account, payment, API or database changes."
+  ],
+  "notes": [
+    "Pre-change negative check correctly failed: expected24, received36.",
+    "Preparation first stopped because old isolated source had no .dockerignore; added local build exclusions and repeated all535 source checks.",
+    "Screenshots visually reviewed for mobile and desktop.",
+    "Home SSH allow rule preserved. Existing unrelated working-tree changes preserved. No commit or push."
+  ],
+  "rollbackImage": "crefans-front:ui-batch-ready-20261025",
+  "configurationBackup": "/opt/crefans-backup-gallery-close-soft-20261025"
+}

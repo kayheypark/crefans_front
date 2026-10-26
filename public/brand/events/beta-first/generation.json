@@ -1,0 +1,64 @@
+{
+  "tool": "image_gen.imagegen",
+  "reference": "design/beta-event-concepts/20261026/03-editorial-ad-v7.png",
+  "createdAt": "2026-10-26T10:52:39.341Z",
+  "processing": "Transparent margin trim; contain to448px;32px transparent border;512px WebP quality90 with alpha preserved",
+  "assets": [
+    {
+      "key": "badge",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-bc998dfa-5b7e-401a-bc68-78e40482dc47.png",
+      "prompt": "Use case: background-extraction. Edit target: attached crefans event poster. Extract ONLY the lavender scalloped rosette / star badge illustration at the left of the FIRST reward section, including the purple five-point star, soft shadow and its two small lavender accent rays. No lettering. Preserve that existing illustration's exact shape, proportions, color, soft 3D look and orientation. Isolate ONLY this specified object on a genuinely TRANSPARENT alpha background. Exclude all poster background, curved corner graphics, divider lines, logo, text and other reward illustrations. Center this single cutout in a SQUARE canvas with a generous approximately 12% transparent margin so the accents and soft shadow are not clipped. High-quality reusable website illustration, not a redesign. Do not add anything.",
+      "output": "public/brand/events/beta-first/badge.webp",
+      "dimensions": [
+        512,
+        512
+      ],
+      "sha256": "8b2d62e517352a7e66faacb94eef2b806dda97ee0430dcde507d94dd41917abd",
+      "bytes": 41000,
+      "hasAlpha": true,
+      "transparent": true
+    },
+    {
+      "key": "crown",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-c27b4598-e764-430e-a573-edc411db5401.png",
+      "prompt": "Use case: background-extraction. Edit target: attached crefans event poster. Extract ONLY the folded pale lavender origami crown illustration at the left of the SECOND reward section, including the small lavender sparkle above it, soft purple shading and shadow. No lettering. Preserve that existing illustration's exact shape, proportions, color, soft 3D look and orientation. Isolate ONLY this specified object on a genuinely TRANSPARENT alpha background. Exclude all poster background, curved corner graphics, divider lines, logo, text and other reward illustrations. Center this single cutout in a SQUARE canvas with a generous approximately 12% transparent margin so the accents and soft shadow are not clipped. High-quality reusable website illustration, not a redesign. Do not add anything.",
+      "output": "public/brand/events/beta-first/crown.webp",
+      "dimensions": [
+        512,
+        512
+      ],
+      "sha256": "bc5d427aeb6e4428ba1f0f94be4fba4f731ad0ea961e1caf2e88f11d0d99020f",
+      "bytes": 42116,
+      "hasAlpha": true,
+      "transparent": true
+    },
+    {
+      "key": "beans",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-dbfdbabc-8260-4155-9c05-eebf2b04c1f1.png",
+      "prompt": "Use case: background-extraction. Edit target: attached crefans event poster. Extract ONLY the TWO cute green bean illustrations at the left of the THIRD reward section, including their smooth light highlights, soft shadow and tiny lavender accent rays. Exactly TWO beans. No lettering. Preserve that existing illustration's exact shape, proportions, color, soft 3D look and orientation. Isolate ONLY this specified object on a genuinely TRANSPARENT alpha background. Exclude all poster background, curved corner graphics, divider lines, logo, text and other reward illustrations. Center this single cutout in a SQUARE canvas with a generous approximately 12% transparent margin so the accents and soft shadow are not clipped. High-quality reusable website illustration, not a redesign. Do not add anything.",
+      "output": "public/brand/events/beta-first/beans.webp",
+      "dimensions": [
+        512,
+        512
+      ],
+      "sha256": "1f13e8599bcda55a519d6ab0112318e62ed67657adfd28a0d86623dade233c42",
+      "bytes": 39744,
+      "hasAlpha": true,
+      "transparent": true
+    },
+    {
+      "key": "gift-card",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-06af39ad-be3c-489e-92a6-bc17bf6a2c8e.png",
+      "prompt": "Use case: background-extraction. Edit target: attached crefans event poster. Extract ONLY the lavender rounded rectangular gift-card illustration with dark purple bow and ribbon at the left of the FOURTH reward section, including its slight diagonal tilt and soft shadow. No lettering. Preserve that existing illustration's exact shape, proportions, color, soft 3D look and orientation. Isolate ONLY this specified object on a genuinely TRANSPARENT alpha background. Exclude all poster background, curved corner graphics, divider lines, logo, text and other reward illustrations. Center this single cutout in a SQUARE canvas with a generous approximately 12% transparent margin so the accents and soft shadow are not clipped. High-quality reusable website illustration, not a redesign. Do not add anything.",
+      "output": "public/brand/events/beta-first/gift-card.webp",
+      "dimensions": [
+        512,
+        512
+      ],
+      "sha256": "0c172eb71ce7a96d5a627db40ff158514f7624f0a648fe66ccb7fff076e879e2",
+      "bytes": 41526,
+      "hasAlpha": true,
+      "transparent": true
+    }
+  ]
+}

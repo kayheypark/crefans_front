@@ -1,0 +1,413 @@
+{
+  "recordedAt": "2026-10-24T06:18:23.085005+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "dirty": true,
+  "scope": "Home search design shared with explore through CreatorSearch; preview and service use the same view. Search model/filter behavior and page-specific container widths preserved.",
+  "acceptance": [
+    "Home design remains unchanged in measured normal state; explore matches height/padding/gap/radius/background/border/font/icon dimensions",
+    "Home remains a navigation link; explore remains an editable search input with filtering/reset/category and q URL support",
+    "Shared component is used in catalog, mock and service",
+    "Keyboard focus is visible without nested visible outlines; no horizontal document overflow at 320px"
+  ],
+  "environment": {
+    "node": "v22.7.0",
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "browserServer": "existing Next dev http://127.0.0.1:3010",
+    "playwright": "1.64.0"
+  },
+  "sourceSha256": {
+    "components/crefans/CreatorSearch.tsx": "fd1cef2a8250b7c4d324982370a8da66209ea5e34a10bd8d110627de6898e98b",
+    "components/crefans/creator-search.module.css": "58cf7fe4f52d60b97e73045a70ade3f2b8ddfb4ce98b9591f41cfd6d0ebde08d",
+    "components/crefans/CreatorPages.tsx": "0a11a629cd564a8a7aff1efab10d4397b8b047e6f1b83328950db83b6ea2d63e",
+    "components/crefans/SocialPages.tsx": "a4d084278576e512693b8db9e5d3ceaba6208b3414042faab62e9c6ec108383f",
+    "components/crefans/creator.module.css": "0b088156fcb0c9b1d6f48809e2c6df6462c70d55724a8b908ed015fad2fbeffd",
+    "components/crefans/social.module.css": "d6c97688525a6eb8649d8585abad849a086dff1dac5090e440d784c6219cc3ae",
+    "components/design-system/ServicePatternCatalog.tsx": "24ee2ffdff316230024a744e57cbecdde48cfc3bf4e769e697333b67b761435f"
+  },
+  "beforeSourceSha256": {
+    "components/crefans/SocialPages.tsx": "379971b1c811dcbd515bb321adedbab09606d5cf9f1016ed0652b8f7be6b8837",
+    "components/crefans/CreatorPages.tsx": "0d2e2dc2ce9bb94c555d7bc217d6da1bbc783ff8c30a42b5c3e1206114096dd4",
+    "components/crefans/creator.module.css": "18636af160e7f17cdcdf5364ebf8bd2e578d674dd3d962dbe4aac72c8ada9eec",
+    "components/crefans/social.module.css": "8740170ea478da4c29a28c3ac44dfb5bca12a5a96a25981b339b548389fd4c8c",
+    "components/design-system/ServicePatternCatalog.tsx": "1d1f54b1412e3c8669e882b400e4d988b24d158c9d96f1f0b48ed69653c3d177"
+  },
+  "commands": [
+    {
+      "command": "npm run check:layers",
+      "startedAt": "2026-10-24T06:17:23.809798+00:00",
+      "completedAt": "2026-10-24T06:17:24.354632+00:00",
+      "exitCode": 0,
+      "log": ".local/creator-search-20261024/layers.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "startedAt": "2026-10-24T06:17:24.354669+00:00",
+      "completedAt": "2026-10-24T06:17:29.005769+00:00",
+      "exitCode": 0,
+      "log": ".local/creator-search-20261024/types.log"
+    },
+    {
+      "command": "node --test tests/crefans-creator.test.cjs tests/crefans-social.test.cjs",
+      "startedAt": "2026-10-24T06:17:29.005795+00:00",
+      "completedAt": "2026-10-24T06:17:30.091399+00:00",
+      "exitCode": 0,
+      "log": ".local/creator-search-20261024/targeted-tests.log"
+    }
+  ],
+  "before": {
+    "at": "2026-10-24T06:10:48.912Z",
+    "rows": [
+      {
+        "width": 320,
+        "route": "feed",
+        "height": 46,
+        "padding": "11px 14px",
+        "gap": "9px",
+        "radius": "24px",
+        "background": "rgb(250, 251, 253)",
+        "border": "0px",
+        "fontSize": "14px",
+        "lineHeight": "22.4px",
+        "iconWidth": 20,
+        "iconHeight": 20
+      },
+      {
+        "width": 320,
+        "route": "explore",
+        "height": 48.390625,
+        "padding": "0px 18px",
+        "gap": "12px",
+        "radius": "24px",
+        "background": "rgb(250, 251, 253)",
+        "border": "1px",
+        "fontSize": "14px",
+        "lineHeight": "22.4px",
+        "iconWidth": 20.84375,
+        "iconHeight": 24
+      },
+      {
+        "width": 390,
+        "route": "feed",
+        "height": 46,
+        "padding": "11px 14px",
+        "gap": "9px",
+        "radius": "24px",
+        "background": "rgb(250, 251, 253)",
+        "border": "0px",
+        "fontSize": "14px",
+        "lineHeight": "22.4px",
+        "iconWidth": 20,
+        "iconHeight": 20
+      },
+      {
+        "width": 390,
+        "route": "explore",
+        "height": 48.390625,
+        "padding": "0px 18px",
+        "gap": "12px",
+        "radius": "24px",
+        "background": "rgb(250, 251, 253)",
+        "border": "1px",
+        "fontSize": "14px",
+        "lineHeight": "22.4px",
+        "iconWidth": 21.484375,
+        "iconHeight": 24
+      },
+      {
+        "width": 1280,
+        "route": "feed",
+        "height": 46,
+        "padding": "11px 14px",
+        "gap": "9px",
+        "radius": "24px",
+        "background": "rgb(250, 251, 253)",
+        "border": "0px",
+        "fontSize": "14px",
+        "lineHeight": "22.4px",
+        "iconWidth": 20,
+        "iconHeight": 20
+      },
+      {
+        "width": 1280,
+        "route": "explore",
+        "height": 48.390625,
+        "padding": "0px 18px",
+        "gap": "12px",
+        "radius": "24px",
+        "background": "rgb(250, 251, 253)",
+        "border": "1px",
+        "fontSize": "14px",
+        "lineHeight": "22.4px",
+        "iconWidth": 23.109375,
+        "iconHeight": 24
+      }
+    ]
+  },
+  "browser": {
+    "startedAt": "2026-10-24T06:16:15.293Z",
+    "completedAt": "2026-10-24T06:16:29.412Z",
+    "command": "node .local/creator-search-20261024/verify.cjs",
+    "exitCode": 0,
+    "rows": [
+      {
+        "scope": "preview",
+        "browser": "chromium",
+        "width": 320,
+        "home": {
+          "height": 46,
+          "padding": "11px 14px",
+          "gap": "9px",
+          "radius": "24px",
+          "background": "rgb(250, 251, 253)",
+          "border": "0px",
+          "fontSize": "14px",
+          "lineHeight": "22.4px",
+          "iconWidth": 20,
+          "iconHeight": 20
+        },
+        "explore": {
+          "height": 46,
+          "padding": "11px 14px",
+          "gap": "9px",
+          "radius": "24px",
+          "background": "rgb(250, 251, 253)",
+          "border": "0px",
+          "fontSize": "14px",
+          "lineHeight": "22.4px",
+          "iconWidth": 20,
+          "iconHeight": 20
+        },
+        "keyboardNavigation": true,
+        "focusOutline": true,
+        "queryFilter": true,
+        "emptyReset": true,
+        "categoryFilter": true,
+        "urlQuery": true,
+        "noOverflow": true,
+        "errors": []
+      },
+      {
+        "scope": "preview",
+        "browser": "chromium",
+        "width": 390,
+        "home": {
+          "height": 46,
+          "padding": "11px 14px",
+          "gap": "9px",
+          "radius": "24px",
+          "background": "rgb(250, 251, 253)",
+          "border": "0px",
+          "fontSize": "14px",
+          "lineHeight": "22.4px",
+          "iconWidth": 20,
+          "iconHeight": 20
+        },
+        "explore": {
+          "height": 46,
+          "padding": "11px 14px",
+          "gap": "9px",
+          "radius": "24px",
+          "background": "rgb(250, 251, 253)",
+          "border": "0px",
+          "fontSize": "14px",
+          "lineHeight": "22.4px",
+          "iconWidth": 20,
+          "iconHeight": 20
+        },
+        "keyboardNavigation": true,
+        "focusOutline": true,
+        "queryFilter": true,
+        "emptyReset": true,
+        "categoryFilter": true,
+        "urlQuery": true,
+        "noOverflow": true,
+        "errors": []
+      },
+      {
+        "scope": "preview",
+        "browser": "chromium",
+        "width": 1280,
+        "home": {
+          "height": 46,
+          "padding": "11px 14px",
+          "gap": "9px",
+          "radius": "24px",
+          "background": "rgb(250, 251, 253)",
+          "border": "0px",
+          "fontSize": "14px",
+          "lineHeight": "22.4px",
+          "iconWidth": 20,
+          "iconHeight": 20
+        },
+        "explore": {
+          "height": 46,
+          "padding": "11px 14px",
+          "gap": "9px",
+          "radius": "24px",
+          "background": "rgb(250, 251, 253)",
+          "border": "0px",
+          "fontSize": "14px",
+          "lineHeight": "22.4px",
+          "iconWidth": 20,
+          "iconHeight": 20
+        },
+        "keyboardNavigation": true,
+        "focusOutline": true,
+        "queryFilter": true,
+        "emptyReset": true,
+        "categoryFilter": true,
+        "urlQuery": true,
+        "noOverflow": true,
+        "errors": []
+      },
+      {
+        "scope": "service model with intercepted API",
+        "browser": "chromium",
+        "width": 390,
+        "sameStyle": true,
+        "queryAndCategoryRequests": true,
+        "emptyReset": true,
+        "noOverflow": true,
+        "requests": [
+          "/api/v1/creators?query=&category=%EC%A0%84%EC%B2%B4",
+          "/api/v1/creators?query=%EC%97%AC%ED%96%89&category=%EC%A0%84%EC%B2%B4",
+          "/api/v1/creators?query=%EC%97%AC%ED%96%89&category=%EC%95%84%ED%8A%B8",
+          "/api/v1/creators?query=&category=%EC%A0%84%EC%B2%B4"
+        ],
+        "errors": []
+      },
+      {
+        "scope": "service model with intercepted API",
+        "browser": "chromium",
+        "width": 1280,
+        "sameStyle": true,
+        "queryAndCategoryRequests": true,
+        "emptyReset": true,
+        "noOverflow": true,
+        "requests": [
+          "/api/v1/creators?query=&category=%EC%A0%84%EC%B2%B4",
+          "/api/v1/creators?query=%EC%97%AC%ED%96%89&category=%EC%A0%84%EC%B2%B4",
+          "/api/v1/creators?query=%EC%97%AC%ED%96%89&category=%EC%95%84%ED%8A%B8",
+          "/api/v1/creators?query=&category=%EC%A0%84%EC%B2%B4"
+        ],
+        "errors": []
+      },
+      {
+        "scope": "catalog",
+        "browser": "chromium",
+        "width": 1280,
+        "allFourSharedStyles": true,
+        "controlledInput": true,
+        "readOnly": true,
+        "disabled": true,
+        "color": "rgb(108, 114, 131)"
+      },
+      {
+        "scope": "preview",
+        "browser": "webkit",
+        "width": 390,
+        "home": {
+          "height": 46,
+          "padding": "11px 14px",
+          "gap": "9px",
+          "radius": "24px",
+          "background": "rgb(250, 251, 253)",
+          "border": "0px",
+          "fontSize": "14px",
+          "lineHeight": "22.4px",
+          "iconWidth": 20,
+          "iconHeight": 20
+        },
+        "explore": {
+          "height": 46,
+          "padding": "11px 14px",
+          "gap": "9px",
+          "radius": "24px",
+          "background": "rgb(250, 251, 253)",
+          "border": "0px",
+          "fontSize": "14px",
+          "lineHeight": "22.4px",
+          "iconWidth": 20,
+          "iconHeight": 20
+        },
+        "keyboardNavigation": true,
+        "focusOutline": true,
+        "queryFilter": true,
+        "emptyReset": true,
+        "categoryFilter": true,
+        "urlQuery": true,
+        "noOverflow": true,
+        "errors": []
+      }
+    ]
+  },
+  "visualReview": {
+    "reviewedAt": "2026-10-24T06:18:23.172974+00:00",
+    "screens": [
+      "after-chromium-390.png",
+      "after-chromium-1280.png",
+      "catalog.png"
+    ],
+    "result": "Mobile and desktop search placement, spacing and shared four catalog examples inspected; no clipping or conflicting text colors observed."
+  },
+  "failuresAndCorrections": [
+    {
+      "file": "failed-initial.json",
+      "reason": "Test incorrectly required outlineWidth=0 for outline-style:none. Browser computes width=3px although no outline is painted. Changed assertion to outlineStyle=none; no product focus change was needed."
+    },
+    {
+      "file": "failed-before-catalog-fix.json",
+      "reason": "Catalog ancestor link color overrode shared search color. Added component-scoped href selector, then reran all seven browser scenarios successfully."
+    }
+  ],
+  "rawEvidence": ".local/creator-search-20261024",
+  "rawSha256": {
+    "before.json": "bf0c5bec2e510e0be94779b0aeb64639fcccb4d24f66e895ee55cb6e81ccb198",
+    "types.log": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+    "failed-initial.json": "8c7b6061d0d4ec750228df39d081da38c665af8a206a7c4437d940ef7cfe8752",
+    "browser.log": "999db10527dc01bb8c3e5e7ac4bb1fc5cbbd68aa22508ef20a3118cc1b1bd5f8",
+    "catalog.png": "ac9085bc064e8968e818ff145fd50ef18e10a96670b918f52eb4963ff9effe47",
+    "failed-before-catalog-fix.json": "59d8ed4e311f722c1803194ff9cfb41bc220d05258eef6690496d36eb9fbea88",
+    "browser-initial.log": "d2d0b69e86b389f8651247ba5fdff99c7e4029215b1a2ed0d56941ea56df76bf",
+    "after-chromium-1280.png": "432f9ce198ae32723bad87ace4e005c5e6a9a9d0414aba18b98dc50cad9582f2",
+    "before-feed.png": "d12c227d6a538c58ec1d096b314e6f05137f96f31aa826a13e95cfb45ceb5aef",
+    "browser-before-catalog-fix.log": "5de7f2052c8fe89179a3f49da7870473994a98f5525e7909b141eff75ec081aa",
+    "targeted-tests.log": "26a8efcac01b10538fe3cf2987187e14527db27dc2d44abb92feb9d6d4986e46",
+    "after-chromium-390.png": "0db5f0a93461a4710f9b556466b861344149d949cb45f590da5757f0fbe034fa",
+    "verify.cjs": "edd147d8de88b2bb74101644757658747ba86c6a26cebcf24796431630c17d34",
+    "after.json": "964ebc0476c4663ecd5a2b046097492e61eaaf49ec39e8885427b181f89137ba",
+    "checks.json": "f4c69b92464bf728dfc89b44f8a1453161cdb1a71f6ed8be1d1297616d643a21",
+    "before.cjs": "1bb60affc452eec490862311a0f34e05ec5a86b4819d65726ff7ee6b088feb32",
+    "after-webkit-390.png": "6efd658f288e246618e8c821f902e03594661d74d3bc8c18d48f5d6b747f1619",
+    "failed.json": "59d8ed4e311f722c1803194ff9cfb41bc220d05258eef6690496d36eb9fbea88",
+    "before-explore.png": "a7728f778197a5b7fed34e31fb3dc76dce1b3cd99f8ff173de4f8221241b52d0",
+    "before.log": "8623accbc9f1f9bcb3ab5b659d87daf0b2c63f7869abd4728a44717af8418df1",
+    "layers.log": "d0c73f9d2a0f8ef4706d94c9d5dc2e99902a1d49bf1ccb5ffab2a1faf57df910"
+  },
+  "deployment": {
+    "performed": false,
+    "reason": "Current request is design unification; deployment not requested for this change."
+  },
+  "limits": [
+    "Local browser verification on dev server; no production or physical iPhone validation.",
+    "Service model behavior uses intercepted API response doubles, not real backend requests.",
+    "31 targeted existing tests, not full repository unit/integration/e2e suites.",
+    "Existing unrelated uncommitted changes retained; no commit, merge or push."
+  ],
+  "documentationVerification": {
+    "command": "npm run docs:record && npm run check:docs",
+    "exitCode": 0,
+    "completedAt": "2026-10-24T06:18:24.484935+00:00",
+    "result": "PASS: 60 documents, 100 routes, 41 screens, 245 local Markdown targets. Snapshot validates documentation/contracts only; targeted tests and browser evidence are recorded separately.",
+    "logs": {
+      "docs-record.log": "0776b606415d1410532a630b14b825da3a37f9af13548c7a45356b10889869d7",
+      "docs-check.log": "d0dd8e44ff657bb731b6dec43219b830f4334b6d7fd83a86046f2c81e21de8b5"
+    }
+  },
+  "diffCheck": {
+    "command": "git diff --check -- <changed existing source files and documentation>",
+    "exitCode": 0
+  }
+}

@@ -54,7 +54,8 @@ test('locked detail omits protected source, body, comments and form even when a 
   const serialized=JSON.stringify(tree.toJSON());
   assert.doesNotMatch(serialized,/private-photo-sentinel|PROTECTED_BODY_SENTINEL|PROTECTED_COMMENT_SENTINEL/);
   assert.equal(tree.root.findAllByType('textarea').length,0);
-  assert.ok(tree.root.findAllByType('a').some(node=>node.props.href==='/actual-service/membership/museum'));
+  assert.ok(tree.root.findAllByType('button').some(node=>node.props['aria-haspopup']==='dialog'));
+  assert.equal(tree.root.findAllByType('a').some(node=>node.props.href==='/actual-service/membership/museum'),false,'the notice opens a layer rather than navigating');
   act(()=>tree.update(element(PostDetailPage,{id:post.id,model:input,forceLocked:false})));
   assert.match(JSON.stringify(tree.toJSON()),/private-photo-sentinel/);
   assert.match(JSON.stringify(tree.toJSON()),/PROTECTED_BODY_SENTINEL/);
@@ -203,10 +204,10 @@ test('posts with comments closed by the creator hide the comment toggle and show
   }finally{close(detail);}
 });
 
-test('clicking a feed image opens the post overlay with the media stage and a white detail panel; arrows, Escape and backdrop work',async()=>{
+for(const surface of ['feed','detail'])test(`clicking a ${surface} image opens the post overlay with the media stage and a white detail panel; arrows, Escape and backdrop work`,async()=>{
   const gallery={...post,media:[{type:'image',url:'/one.png'},{type:'video',url:'/two.mp4'},{type:'image',url:'/three.png'}],body:'OVERLAY_BODY_SENTINEL'};
   const input=model({data:{...data,posts:[gallery]},commentsByPost:{[post.id]:[]},loadReplies:async()=>ok});
-  let tree;act(()=>{tree=create(element(PostCard,{post:gallery,model:input}));});
+  let tree;act(()=>{tree=create(surface==='feed'?element(PostCard,{post:gallery,model:input}):element(PostDetailPage,{id:gallery.id,model:input}));});
   try{
     const dialog=()=>tree.root.findAllByProps({role:'dialog'});
     assert.equal(dialog().length,0);
@@ -217,7 +218,7 @@ test('clicking a feed image opens the post overlay with the media stage and a wh
     const current=()=>Number(dialog()[0].findByProps({className:'stageTrack'}).props['data-index']);
     assert.equal(current(),2,'opens at the clicked media');
     assert.match(dialog()[0].findByProps({className:'stageTrack'}).props.style.transform,/-200%/,'the track is translated to the current slide');
-    assert.match(JSON.stringify(dialog()[0].children.map(child=>child.props?.className)),/panel/);
+    assert.equal(dialog()[0].findByType('aside').props.className,'panel');
     assert.match(JSON.stringify(tree.toJSON()),/OVERLAY_BODY_SENTINEL/);
     const nav=label=>dialog()[0].findAllByType('button').find(button=>button.props['aria-label']===label);
     assert.equal(nav('다음 미디어'),undefined,'no next arrow on the last media (ends clamp, no wrap)');
@@ -226,7 +227,7 @@ test('clicking a feed image opens the post overlay with the media stage and a wh
     act(()=>nav('이전 미디어').props.onClick());
     assert.equal(current(),0);assert.equal(nav('이전 미디어'),undefined,'no previous arrow on the first media');
     assert.equal(dialog()[0].props['data-state'],'open','enter animation state');
-    act(()=>nav('닫기').props.onClick());
+    act(()=>nav('닫기').props.onClick({stopPropagation(){}}));
     assert.equal(dialog().length,1);assert.equal(dialog()[0].props['data-state'],'closing','stays mounted through the exit animation');
     await act(async()=>{await new Promise(resolve=>setTimeout(resolve,160));});
     assert.equal(dialog().length,0);
@@ -249,12 +250,57 @@ test('the overlay is not offered for locked posts or read-only previews',()=>{
   act(()=>tree.unmount());
 });
 
+test('detail gallery closes when the post changes, access is lost or preview becomes read-only',()=>{
+  const input=model({data,loadReplies:async()=>ok});
+  for(const changed of [
+    {id:'missing',model:input},
+    {id:post.id,model:model({data,canAccess:()=>false})},
+    {id:post.id,model:model({data:{...data,posts:[{...post,canAccess:false}]}})},
+    {id:post.id,model:input,forceLocked:true},
+    {id:post.id,model:input,readOnly:true},
+  ]){
+    const tree=mount(PostDetailPage,{id:post.id,model:input});
+    try{
+      act(()=>tree.root.findAllByType('button').find(button=>String(button.props['aria-label']).includes('크게 보기')).props.onClick());
+      assert.equal(tree.root.findAllByProps({role:'dialog'}).length,1);
+      act(()=>tree.update(element(PostDetailPage,changed)));
+      assert.equal(tree.root.findAllByProps({role:'dialog'}).length,0);
+      assert.equal(tree.root.findAllByType('button').filter(button=>String(button.props['aria-label']).includes('크게 보기')).length,0);
+      act(()=>tree.update(element(PostDetailPage,{id:post.id,model:input})));
+      assert.equal(tree.root.findAllByProps({role:'dialog'}).length,0,'restored access does not reopen a stale viewer');
+    }finally{close(tree);}
+  }
+});
+
 test('the feed ends with a small "모두 확인했습니다" note, but an empty feed shows only the empty state',()=>{
   let tree;act(()=>{tree=create(element(FeedPage,{model:model({data})}));});
   assert.match(JSON.stringify(tree.toJSON()),/모두 확인했습니다/);
   act(()=>tree.update(element(FeedPage,{model:model({data:{...data,posts:[]}})})));
   assert.doesNotMatch(JSON.stringify(tree.toJSON()),/모두 확인했습니다/);
   act(()=>tree.unmount());
+});
+
+test('feed category chips filter complete preview data, preserve order and reset an empty category',()=>{
+  const other={...creator,id:'other',tags:['여행']},source={...data,categories:['전체','아트','여행','음악'],creators:[{...creator,tags:['아트']},other],posts:[post,{...post,id:'trip',creatorId:other.id,title:'여행 게시물'}]};
+  const tree=mount(FeedPage,{model:model({data:source,mode:'mock'})});
+  const chips=()=>tree.root.findByProps({'aria-label':'관심 카테고리'}).findAllByType('button');
+  const choose=label=>act(()=>chips().find(button=>button.children.includes(label)).props.onClick());
+  assert.equal(chips().filter(button=>button.children.includes('전체')).length,1);
+  assert.equal(tree.root.findByProps({'aria-label':'크리에이터 검색'}).props.href,'/actual-service/explore');
+  assert.equal(tree.root.findAllByType('input').length,0);
+  choose('여행');assert.deepEqual(tree.root.findAllByType(PostCard).map(node=>node.props.post.id),['trip']);
+  assert.deepEqual(tree.root.findByType(PostCard).props.context.map(p=>p.id),['trip']);
+  choose('음악');assert.equal(tree.root.findAllByType(PostCard).length,0);assert.match(JSON.stringify(tree.toJSON()),/이 카테고리의 게시물이 없어요/);
+  act(()=>tree.root.findAllByType('button').find(button=>button.children.includes('전체 피드 보기')).props.onClick());
+  assert.deepEqual(tree.root.findAllByType(PostCard).map(node=>node.props.post.id),['exhibition','trip']);close(tree);
+});
+
+test('live feed delegates category selection and pagination to the supplied model',()=>{
+  const calls=[],tree=mount(FeedPage,{model:model({data:{...data,categories:['아트']},feedCategory:{value:'아트',select:value=>calls.push(value)},feedPaging:{hasMore:true,loading:false,loadMore:async()=>{calls.push('next');}}})});
+  assert.equal(tree.root.findAllByType(PostCard).length,1,'Server page is authoritative, not re-filtered by partial creator metadata');
+  act(()=>tree.root.findAllByType('button').find(button=>button.children.includes('전체')).props.onClick());
+  act(()=>tree.root.findAllByType('button').find(button=>button.children.includes('더 보기')).props.onClick());
+  assert.deepEqual(calls,['전체','next']);close(tree);
 });
 
 test('card gallery: mouse drag scrolls the track, snaps to the nearest slide on release and does not open the overlay; arrows step slides',()=>{
@@ -364,4 +410,91 @@ test('overlay stage swipes between media with touch or mouse, ignoring short or 
     act(()=>stage().props.onPointerUp({clientX:100,clientY:100}));
     assert.equal(current(),0,'gestures starting on a video are left to its controls');
   }finally{act(()=>tree.unmount());}
+});
+
+test('mobile detail panel follows the pointer and snaps to all three heights; cancellation and unrelated pointers cannot move it',()=>{
+  const viewport={clientWidth:390,clientHeight:800},captured=new Set();
+  const handleNode={setPointerCapture:id=>captured.add(id),hasPointerCapture:id=>captured.has(id),releasePointerCapture:id=>captured.delete(id)};
+  let tree;act(()=>{tree=create(element(PostCard,{post,model:model({data})}),{createNodeMock:node=>node.props.role==='dialog'?viewport:null});});
+  try{
+    act(()=>tree.root.findAllByType('button').find(button=>String(button.props['aria-label']).includes('크게 보기')).props.onClick());
+    const dialog=()=>tree.root.findByProps({role:'dialog'}),handle=()=>tree.root.findByProps({className:'panelHandle'});
+    const event=(y,extra={})=>({pointerId:1,isPrimary:true,button:0,clientX:180,clientY:y,currentTarget:handleNode,...extra});
+    const drag=(from,to)=>{act(()=>handle().props.onPointerDown(event(from)));act(()=>handle().props.onPointerMove(event(to)));act(()=>handle().props.onPointerUp(event(to)));};
+    assert.equal(dialog().props['data-panel-snap'],0);
+    act(()=>handle().props.onPointerDown(event(470)));
+    act(()=>handle().props.onPointerMove(event(200)));
+    assert.ok(parseFloat(dialog().props.style['--post-media-height'])<30,'panel follows the vertical drag');
+    assert.equal(dialog().props['data-panel-dragging'],true);
+    act(()=>handle().props.onPointerUp(event(200)));
+    assert.equal(dialog().props['data-panel-snap'],1);assert.equal(captured.size,0);
+    act(()=>handle().props.onClick({detail:1}));
+    assert.equal(dialog().props['data-panel-snap'],1,'release click must not advance another step');
+    drag(200,10);assert.equal(dialog().props['data-panel-snap'],2);
+    drag(30,900);assert.equal(dialog().props['data-panel-snap'],0,'drag beyond the bottom clamps to default');
+    act(()=>handle().props.onPointerDown(event(470)));
+    act(()=>handle().props.onPointerMove(event(20,{pointerId:2})));
+    assert.equal(dialog().props['data-panel-dragging'],undefined,'other pointer ignored');
+    act(()=>handle().props.onPointerMove(event(20)));
+    act(()=>handle().props.onPointerCancel());
+    assert.equal(dialog().props['data-panel-snap'],0);assert.equal(dialog().props['data-panel-dragging'],undefined,'cancel restores last snap');
+    act(()=>handle().props.onPointerDown(event(470)));
+    act(()=>handle().props.onPointerMove(event(460,{clientX:300})));
+    act(()=>handle().props.onPointerUp(event(460,{clientX:300})));
+    assert.equal(dialog().props['data-panel-snap'],0,'horizontal movement is not a panel drag');
+    viewport.clientWidth=1280;drag(470,20);assert.equal(dialog().props['data-panel-snap'],0,'desktop cannot resize the panel');
+  }finally{act(()=>tree.unmount());}
+});
+
+test('panel handle supports tap and keyboard alternatives, including boundaries',()=>{
+  const tree=mount(PostCard,{post,model:model({data})});
+  try{
+    act(()=>tree.root.findAllByType('button').find(button=>String(button.props['aria-label']).includes('크게 보기')).props.onClick());
+    const handle=()=>tree.root.findByProps({className:'panelHandle'}),dialog=()=>tree.root.findByProps({role:'dialog'});
+    for(const snap of [1,2,0]){act(()=>handle().props.onClick({detail:0}));assert.equal(dialog().props['data-panel-snap'],snap);}
+    for(const [key,snap] of [['ArrowUp',1],['ArrowUp',2],['ArrowUp',2],['ArrowDown',1],['Home',0],['ArrowDown',0],['End',2]]){
+      act(()=>handle().props.onKeyDown({key,preventDefault(){}}));assert.equal(dialog().props['data-panel-snap'],snap);
+    }
+    assert.match(handle().props['aria-label'],/상세 전체 보기/);
+  }finally{close(tree);}
+});
+
+test('mobile media expansion restores visible gallery panel heights without resetting the selected media or remounting video',()=>{
+  const mixed={...post,media:[{type:'image',url:'/photo.jpg'},{type:'video',url:'/clip.mp4'}]};
+  const tree=mount(PostCard,{post:mixed,model:model({data})});
+  try{
+    act(()=>tree.root.findAllByType('button').find(button=>String(button.props['aria-label']).includes('크게 보기')).props.onClick());
+    const dialog=()=>tree.root.findByProps({role:'dialog'}),handle=()=>tree.root.findByProps({className:'panelHandle'});
+    const toggle=()=>dialog().findByProps({className:'mediaExpand'}),track=()=>dialog().findByProps({className:'stageTrack'});
+    act(()=>dialog().findByProps({'aria-label':'다음 미디어'}).props.onClick());
+    const video=dialog().findByType('video');
+    let stopped=0;
+    for(const [snap,height] of [[0,'56%'],[1,'22%']]){
+      assert.equal(dialog().props['data-panel-snap'],snap);
+      act(()=>toggle().props.onClick({stopPropagation(){stopped++;}}));
+      assert.equal(dialog().props['data-media-expanded'],true);
+      assert.equal(dialog().props.style['--post-media-height'],'100%');
+      assert.equal(toggle().props['aria-label'],'미디어 축소');
+      assert.equal(toggle().props['aria-expanded'],false);
+      assert.equal(track().props['data-index'],1);
+      assert.equal(dialog().findByType('video'),video,'video must stay mounted');
+      act(()=>toggle().props.onClick({stopPropagation(){stopped++;}}));
+      assert.equal(dialog().props['data-media-expanded'],undefined);
+      assert.equal(dialog().props['data-panel-snap'],snap);
+      assert.ok(Math.abs(parseFloat(dialog().props.style['--post-media-height'])-parseFloat(height))<.001);
+      assert.equal(toggle().props['aria-label'],'미디어 확대');
+      assert.equal(toggle().props['aria-expanded'],true);
+      act(()=>handle().props.onClick({detail:0}));
+    }
+    assert.equal(stopped,4,'toggle clicks must not close the overlay');
+  }finally{close(tree);}
+});
+
+
+test('feed, detail and read-only preview share supplied views without manufacturing missing counts',()=>{
+ const counted={...post,views:24831},input=model({data:{...data,posts:[counted]}});
+ for(const [Component,props]of [[FeedPage,{model:input}],[PostDetailPage,{id:post.id,model:input}],[PostDetailPage,{id:post.id,model:input,readOnly:true}]]){
+  const tree=mount(Component,props);const count=tree.root.findByProps({'data-post-views':24831});assert.equal(count.props['aria-label'],'조회수 24,831회');close(tree);
+ }
+ const missing=mount(PostCard,{post,model:model({data})});assert.equal(missing.root.findAll(item=>item.props['data-post-views']!==undefined).length,0);close(missing);
 });

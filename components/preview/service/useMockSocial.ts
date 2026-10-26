@@ -15,6 +15,7 @@ export function useMockSocial({data,viewer,canAccess,today,liked=[],initialComme
   const [messagesByCreator,setMessages]=useState<Record<string,SocialMessage[]>>(()=>Object.fromEntries(Object.entries(data.messages).map(([id,messages])=>[id,messages.map(message=>({...message,statusLabel:message.mine?'전송됨':undefined}))])));
   const [blockedCreatorIds,setBlocked]=useState<string[]>([]),[read,setRead]=useState<string[]>([]);
   const markRead=(ids:string[])=>{const valid=ids.filter(id=>data.notifications.some(item=>item.id===id));setRead(previous=>Array.from(new Set([...previous,...valid])));};
+  const markConversationRead=async(id:string,ids:(string|number)[])=>{setMessages(previous=>({...previous,[id]:(previous[id]||[]).map(message=>!message.mine&&ids.includes(message.id)?{...message,unread:false}:message)}));return success('읽음 처리했습니다.');};
   const addComment=async(postId:string,body:string):Promise<SocialActionResult>=>{
     const post=data.posts.find(item=>item.id===postId),text=body.trim();
     if(!post)return failure('게시물을 찾을 수 없어요.','POST_NOT_FOUND');
@@ -49,7 +50,7 @@ export function useMockSocial({data,viewer,canAccess,today,liked=[],initialComme
   };
   const reportPost=async(postId:string):Promise<SocialActionResult>=>data.posts.some(item=>item.id===postId)?success('신고를 접수했어요. 검토 후 안내드릴게요.'):failure('게시물을 찾을 수 없어요.','POST_NOT_FOUND');
   const reportConversation=async(creatorId:string):Promise<SocialActionResult>=>data.creators.some(item=>item.id===creatorId)?success('신고를 접수했어요.'):failure('대화 상대를 찾을 수 없어요.','CREATOR_NOT_FOUND');
-  return {commentsByPost,commentCounts,reportPost,loadReplies,likeCounts:Object.fromEntries(data.posts.map(post=>[post.id,post.likes+(liked.includes(post.id)?1:0)])),messagesByCreator,blockedCreatorIds,read,markRead,addComment,sendMessage,setConversationBlocked,reportConversation,
+  return {commentsByPost,commentCounts,reportPost,loadReplies,likeCounts:Object.fromEntries(data.posts.map(post=>[post.id,post.likes+(liked.includes(post.id)?1:0)])),messagesByCreator,blockedCreatorIds,read,markRead,markConversationRead,addComment,sendMessage,setConversationBlocked,reportConversation,
     conversationLabels:Object.fromEntries(Object.keys(messagesByCreator).map(id=>[id,today.replaceAll('-','.')])),
     socialCopy:{reportDescription:'이 대화를 신고할까요?',blockDescription:'차단하면 이 대화에서 새 메시지를 보낼 수 없어요. 대화 옵션에서 언제든 해제할 수 있습니다.'}};
 }

@@ -1,0 +1,1572 @@
+{
+  "at": "2026-10-24T08:24:18.480749+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "workspace": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": [
+      " M AGENTS.md",
+      " M PROGRESS.md",
+      " M app/preview/layout.tsx",
+      " M app/preview/preview.module.css",
+      " M components/crefans/AccountPages.tsx",
+      " M components/crefans/CommonPages.tsx",
+      " M components/crefans/CreatorCard.tsx",
+      " M components/crefans/CreatorPages.tsx",
+      " M components/crefans/Icon.tsx",
+      " M components/crefans/LandingPage.tsx",
+      " M components/crefans/ProfileHeader.tsx",
+      " M components/crefans/ServiceShell.tsx",
+      " M components/crefans/ServiceUI.tsx",
+      " M components/crefans/SocialPages.tsx",
+      " M components/crefans/account.module.css",
+      " M components/crefans/creator.module.css",
+      " M components/crefans/service.module.css",
+      " M components/crefans/social.module.css",
+      " M components/crefans/studio/ContentPostPreview.tsx",
+      " M components/design-system/ServicePatternCatalog.tsx",
+      " M components/preview/comment-fixtures.ts",
+      " M components/preview/service/ServiceRouter.tsx",
+      " M components/preview/service/fixtures.ts",
+      " M components/preview/service/useMockAccount.ts",
+      " M components/preview/service/useMockSocial.ts",
+      " M components/preview/studio/useMockCommunity.ts",
+      " M components/service/ServiceRouter.tsx",
+      " M components/ui/Primitives.tsx",
+      " M components/ui/chip-row.module.css",
+      " M components/ui/ui.module.css",
+      " M docs/audit/evidence.json",
+      " M docs/audit/manifest.json",
+      " M docs/creator-image-variety.md",
+      " M docs/design-system.md",
+      " M docs/preview-pages.md",
+      " M docs/release-test-scenarios.md",
+      " M docs/service-api-binding.md",
+      " M e2e/preview.spec.ts",
+      " M features/service/useServiceModel.ts",
+      " M features/service/useStudioModel.ts",
+      " M lib/content/landing.ts",
+      " M lib/crefans/membership-plans.ts",
+      " M playwright.config.ts",
+      " M tests/content-post-preview.test.cjs",
+      " M tests/crefans-account.test.cjs",
+      " M tests/crefans-creator.test.cjs",
+      " M tests/crefans-social.test.cjs",
+      " M tests/load-typescript.cjs",
+      " M tests/service-access-state.test.cjs",
+      " M tsconfig.tsbuildinfo",
+      " M types/crefans-account.ts",
+      " M types/crefans-social.ts",
+      " M types/crefans.ts",
+      "?? components/crefans/CommentComposer.tsx",
+      "?? components/crefans/CommentIcon.tsx",
+      "?? components/crefans/CreatorName.tsx",
+      "?? components/crefans/CreatorSearch.tsx",
+      "?? components/crefans/MediaOverlay.tsx",
+      "?? components/crefans/PostMembershipNotice.tsx",
+      "?? components/crefans/creator-name.module.css",
+      "?? components/crefans/creator-search.module.css",
+      "?? docs/audit/back-buttons-deployment-20261024.json",
+      "?? docs/audit/beta-cohort-plan-20261024.json",
+      "?? docs/audit/beta-signup-20261024.json",
+      "?? docs/audit/chip-row-inset-20261024.json",
+      "?? docs/audit/creator-badge-fixtures-20261024.json",
+      "?? docs/audit/creator-search-20261024.json",
+      "?? docs/audit/creator-search-deployment-20261024.json",
+      "?? docs/audit/creator-search-live-desktop-20261024.png",
+      "?? docs/audit/creator-search-live-mobile-20261024.png",
+      "?? docs/audit/creator-verification-20261024.json",
+      "?? docs/audit/creator-verification-deployment-20261024.json",
+      "?? docs/audit/creator-verification-live-desktop-20261024.png",
+      "?? docs/audit/creator-verification-live-mobile-20261024.png",
+      "?? docs/audit/dialog-close-deployment-20261024.json",
+      "?? docs/audit/empty-comments-deployment-20261024.json",
+      "?? docs/audit/empty-comments-live-desktop-20261024.png",
+      "?? docs/audit/empty-comments-live-webkit390-20261024.png",
+      "?? docs/audit/feed-inbox-deployment-20261024.json",
+      "?? docs/audit/feed-toolbar-20261024.json",
+      "?? docs/audit/gallery-comment-dock-20261024.json",
+      "?? docs/audit/gallery-comments-deployment-20261024.json",
+      "?? docs/audit/gallery-comments-live-desktop-20261024.png",
+      "?? docs/audit/gallery-comments-live-mobile-20261024.png",
+      "?? docs/audit/gnb-comment-deployment-20261024.json",
+      "?? docs/audit/gnb-icon-size-20261024.json",
+      "?? docs/audit/gnb-icon-size-deployment-20261024.json",
+      "?? docs/audit/gnb-size-live-preview-20261024.png",
+      "?? docs/audit/gnb-size-live-service-20261024.png",
+      "?? docs/audit/inbox-unread-20261024.json",
+      "?? docs/audit/jiwoo-content-20261024.json",
+      "?? docs/audit/jiwoo-deployment-20261024.json",
+      "?? docs/audit/jiwoo-natural-20261024.json",
+      "?? docs/audit/membership-offer-20261024.json",
+      "?? docs/audit/membership-ui-deployment-20261024.json",
+      "?? docs/audit/message-buttons-20261024.json",
+      "?? docs/audit/message-time-color-20261024.json",
+      "?? docs/audit/message-time-deployment-20261024.json",
+      "?? docs/audit/message-time-live-1280-20261024.png",
+      "?? docs/audit/message-time-live-390-20261024.png",
+      "?? docs/audit/mobile-comment-composer-20261024.json",
+      "?? docs/audit/mobile-gallery-corner-20261024.json",
+      "?? docs/audit/mobile-gallery-deployment-20261024.json",
+      "?? docs/audit/mobile-gallery-expand-20261024.json",
+      "?? docs/audit/mobile-gallery-sheet-20261024.json",
+      "?? docs/audit/mobile-gnb-icons-20261024.json",
+      "?? docs/audit/mobile-inbox-deployment-20261024.json",
+      "?? docs/audit/mobile-inbox-spacing-20261024.json",
+      "?? docs/audit/mobile-settings-links-20261024.json",
+      "?? docs/audit/mobile-shell-20261024.json",
+      "?? docs/audit/mobile-ui-deployment-20261024.json",
+      "?? docs/audit/post-detail-back-20261024.json",
+      "?? docs/audit/profile-media-20261024.json",
+      "?? docs/audit/profile-media-deployment-20261024.json",
+      "?? docs/audit/qa-report-20261024.json",
+      "?? docs/audit/verified-creator-icon-20261024.json",
+      "?? docs/beta-role-test-plan.md",
+      "?? e2e/creator-verification.spec.ts",
+      "?? e2e/mobile-comments.spec.ts",
+      "?? e2e/mobile-shell.spec.ts",
+      "?? e2e/signup-deferred.spec.ts",
+      "?? output/pdf/",
+      "?? public/brand/verified-creator-v1.png",
+      "?? public/illustrations/creators/jiwoo/",
+      "?? tests/creator-verification.test.cjs",
+      "?? tests/post-membership-offer.test.cjs",
+      "?? tests/profile-media.test.cjs"
+    ]
+  },
+  "scope": {
+    "at": "2026-10-24T08:20:10.280274+00:00",
+    "baselineFilesMatched": 499,
+    "changed": [
+      "components/crefans/AccountPages.tsx",
+      "components/crefans/account.module.css"
+    ],
+    "change": "Mobile settings service-information section and six existing destinations; desktop unchanged",
+    "excluded": [
+      "Unshipped PASS/signup changes in AccountPages and other unrelated dirty files"
+    ],
+    "preserved": "Backend/worker/admin/database/proxy and SSH rules"
+  },
+  "image": {
+    "at": "2026-10-24T08:22:45.849639+00:00",
+    "tag": "crefans-front:mobile-settings-20261024",
+    "id": "sha256:9132c0f9d85227763ae1df7a43437fe4d817a98cf7fbf8c802d298e9771e3243",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 499,
+    "archiveSha256": "46463f7eba4b5330831d915f7e1d5b2497ba2b2367f8b128f19b3a72c18496fd",
+    "archiveBytes": 514606333
+  },
+  "rollback": "/opt/crefans-backup-mobile-settings-20261024",
+  "checks": {
+    "prepare": {
+      "command": [
+        "python3",
+        ".local/mobile-settings-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:20:07.943951+00:00",
+      "finishedAt": "2026-10-24T08:20:10.312458+00:00",
+      "exitCode": 0,
+      "logSha256": "b6b5cbea1eb43fd9b5c62249a20ffdc8ff22d9cba6fa1b39df17a5a2fab93bf5"
+    },
+    "selected-check": {
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=the settings page keeps account groups",
+        ".local/mobile-settings-deploy-20261024/verification/tests/crefans-account.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:20:45.495656+00:00",
+      "finishedAt": "2026-10-24T08:20:45.910175+00:00",
+      "exitCode": 0,
+      "logSha256": "e2c6ff2e045da9400909ec6c30c6684ae6faec58aabf05b33599ae4521ac74c2"
+    },
+    "image-build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/mobile-settings-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:mobile-settings-20261024",
+        ".local/mobile-settings-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:20:46.210887+00:00",
+      "finishedAt": "2026-10-24T08:22:19.578903+00:00",
+      "exitCode": 0,
+      "logSha256": "ef860be3c70f0dca793966ca9b45654d0b796f5a809c7a86b50ac79fa3193ff3"
+    },
+    "image-check": {
+      "command": [
+        "env",
+        "BASE_URL=http://127.0.0.1:3023",
+        "PHASE=image",
+        "node",
+        ".local/mobile-settings-deploy-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:22:37.081472+00:00",
+      "finishedAt": "2026-10-24T08:22:47.257438+00:00",
+      "exitCode": 0,
+      "logSha256": "d87bc0120ff62df0f8a4404eb3706092e4baf8ba1e570abd043f802a3ad22a24"
+    },
+    "archive": {
+      "command": [
+        "python3",
+        ".local/mobile-settings-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:22:33.869834+00:00",
+      "finishedAt": "2026-10-24T08:22:45.858146+00:00",
+      "exitCode": 0,
+      "logSha256": "bd4ce9560ad31dbe9d42bf276d2c6fa06d79632e7ad38bc98715c59cafa35700"
+    },
+    "production-check": {
+      "command": [
+        "env",
+        "BASE_URL=https://beta.crefans.com",
+        "PHASE=production",
+        "node",
+        ".local/mobile-settings-deploy-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:23:50.589016+00:00",
+      "finishedAt": "2026-10-24T08:24:04.694557+00:00",
+      "exitCode": 0,
+      "logSha256": "d87bc0120ff62df0f8a4404eb3706092e4baf8ba1e570abd043f802a3ad22a24"
+    },
+    "production-verify-run": {
+      "command": [
+        "python3",
+        ".local/mobile-settings-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:23:50.589016+00:00",
+      "finishedAt": "2026-10-24T08:23:52.706288+00:00",
+      "exitCode": 0,
+      "logSha256": "aa3b73ef4d0f4fec72ac0f15599c2df7dfbf23979f2fb38dca817f8c3ad5e27d"
+    },
+    "public-check": {
+      "command": [
+        "node",
+        ".local/mobile-settings-deploy-20261024/public.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:23:50.589017+00:00",
+      "finishedAt": "2026-10-24T08:23:55.122353+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:24:18.511905+00:00",
+      "finishedAt": "2026-10-24T08:24:19.510656+00:00",
+      "exitCode": 0,
+      "logSha256": "f17c4c346c5448ccc70f4bf8a5e69fdcfb720162f424d3227e0a13902d468570"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:24:19.536310+00:00",
+      "finishedAt": "2026-10-24T08:24:19.925464+00:00",
+      "exitCode": 0,
+      "logSha256": "464c1b8c9ca2e8799356355c2bdbed5cf04ed45274c4b5eeebb019ea6221402e"
+    }
+  },
+  "browser": {
+    "image": {
+      "startedAt": "2026-10-24T08:22:37.456Z",
+      "endedAt": "2026-10-24T08:22:47.249Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "width": 320,
+          "mode": "preview",
+          "navigation": [],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 288
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "width": 320,
+          "mode": "API double",
+          "navigation": [],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 288
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "navigation": [
+            {
+              "label": "서비스 소개",
+              "path": "/preview/landing",
+              "title": "좋아하는 크리에이터를\n더 가까이, 더 특별하게"
+            },
+            {
+              "label": "공지사항",
+              "path": "/preview/notices",
+              "title": "공지사항"
+            },
+            {
+              "label": "고객센터",
+              "path": "/preview/support",
+              "title": "고객센터"
+            },
+            {
+              "label": "이용약관",
+              "path": "/preview/legal/terms",
+              "title": "이용약관"
+            },
+            {
+              "label": "개인정보처리방침",
+              "path": "/preview/legal/privacy",
+              "title": "개인정보처리방침"
+            },
+            {
+              "label": "운영정책",
+              "path": "/preview/legal/policy",
+              "title": "운영정책"
+            }
+          ],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 358
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "navigation": [
+            {
+              "label": "서비스 소개",
+              "path": "/service/landing",
+              "title": "좋아하는 크리에이터를\n더 가까이, 더 특별하게"
+            },
+            {
+              "label": "공지사항",
+              "path": "/service/notices",
+              "title": "공지사항"
+            },
+            {
+              "label": "고객센터",
+              "path": "/service/support",
+              "title": "고객센터"
+            },
+            {
+              "label": "이용약관",
+              "path": "/service/legal/terms",
+              "title": "이용약관"
+            },
+            {
+              "label": "개인정보처리방침",
+              "path": "/service/legal/privacy",
+              "title": "개인정보처리방침"
+            },
+            {
+              "label": "운영정책",
+              "path": "/service/legal/policy",
+              "title": "운영정책"
+            }
+          ],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 358
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium767",
+          "prefix": "preview",
+          "width": 767,
+          "mode": "preview",
+          "navigation": [],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "공지사항",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "고객센터",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "이용약관",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "운영정책",
+              "height": 54,
+              "width": 660
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium767",
+          "prefix": "service",
+          "width": 767,
+          "mode": "API double",
+          "navigation": [],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "공지사항",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "고객센터",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "이용약관",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "운영정책",
+              "height": 54,
+              "width": 660
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium768",
+          "prefix": "preview",
+          "width": 768,
+          "mode": "preview",
+          "navigation": [],
+          "mobileSectionHidden": true,
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium768",
+          "prefix": "service",
+          "width": 768,
+          "mode": "API double",
+          "navigation": [],
+          "mobileSectionHidden": true,
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "width": 1280,
+          "mode": "preview",
+          "navigation": [],
+          "mobileSectionHidden": true,
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "width": 1280,
+          "mode": "API double",
+          "navigation": [],
+          "mobileSectionHidden": true,
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "navigation": [
+            {
+              "label": "서비스 소개",
+              "path": "/preview/landing",
+              "title": "좋아하는 크리에이터를\n더 가까이, 더 특별하게"
+            },
+            {
+              "label": "공지사항",
+              "path": "/preview/notices",
+              "title": "공지사항"
+            },
+            {
+              "label": "고객센터",
+              "path": "/preview/support",
+              "title": "고객센터"
+            },
+            {
+              "label": "이용약관",
+              "path": "/preview/legal/terms",
+              "title": "이용약관"
+            },
+            {
+              "label": "개인정보처리방침",
+              "path": "/preview/legal/privacy",
+              "title": "개인정보처리방침"
+            },
+            {
+              "label": "운영정책",
+              "path": "/preview/legal/policy",
+              "title": "운영정책"
+            }
+          ],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 358
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "navigation": [
+            {
+              "label": "서비스 소개",
+              "path": "/service/landing",
+              "title": "좋아하는 크리에이터를\n더 가까이, 더 특별하게"
+            },
+            {
+              "label": "공지사항",
+              "path": "/service/notices",
+              "title": "공지사항"
+            },
+            {
+              "label": "고객센터",
+              "path": "/service/support",
+              "title": "고객센터"
+            },
+            {
+              "label": "이용약관",
+              "path": "/service/legal/terms",
+              "title": "이용약관"
+            },
+            {
+              "label": "개인정보처리방침",
+              "path": "/service/legal/privacy",
+              "title": "개인정보처리방침"
+            },
+            {
+              "label": "운영정책",
+              "path": "/service/legal/policy",
+              "title": "운영정책"
+            }
+          ],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 358
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        }
+      ]
+    },
+    "production": {
+      "startedAt": "2026-10-24T08:23:50.914Z",
+      "endedAt": "2026-10-24T08:24:04.686Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "width": 320,
+          "mode": "preview",
+          "navigation": [],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 288
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "width": 320,
+          "mode": "API double",
+          "navigation": [],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 288
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 288
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "navigation": [
+            {
+              "label": "서비스 소개",
+              "path": "/preview/landing",
+              "title": "좋아하는 크리에이터를\n더 가까이, 더 특별하게"
+            },
+            {
+              "label": "공지사항",
+              "path": "/preview/notices",
+              "title": "공지사항"
+            },
+            {
+              "label": "고객센터",
+              "path": "/preview/support",
+              "title": "고객센터"
+            },
+            {
+              "label": "이용약관",
+              "path": "/preview/legal/terms",
+              "title": "이용약관"
+            },
+            {
+              "label": "개인정보처리방침",
+              "path": "/preview/legal/privacy",
+              "title": "개인정보처리방침"
+            },
+            {
+              "label": "운영정책",
+              "path": "/preview/legal/policy",
+              "title": "운영정책"
+            }
+          ],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 358
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "navigation": [
+            {
+              "label": "서비스 소개",
+              "path": "/service/landing",
+              "title": "좋아하는 크리에이터를\n더 가까이, 더 특별하게"
+            },
+            {
+              "label": "공지사항",
+              "path": "/service/notices",
+              "title": "공지사항"
+            },
+            {
+              "label": "고객센터",
+              "path": "/service/support",
+              "title": "고객센터"
+            },
+            {
+              "label": "이용약관",
+              "path": "/service/legal/terms",
+              "title": "이용약관"
+            },
+            {
+              "label": "개인정보처리방침",
+              "path": "/service/legal/privacy",
+              "title": "개인정보처리방침"
+            },
+            {
+              "label": "운영정책",
+              "path": "/service/legal/policy",
+              "title": "운영정책"
+            }
+          ],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 358
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium767",
+          "prefix": "preview",
+          "width": 767,
+          "mode": "preview",
+          "navigation": [],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "공지사항",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "고객센터",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "이용약관",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "운영정책",
+              "height": 54,
+              "width": 660
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium767",
+          "prefix": "service",
+          "width": 767,
+          "mode": "API double",
+          "navigation": [],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "공지사항",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "고객센터",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "이용약관",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 54,
+              "width": 660
+            },
+            {
+              "label": "운영정책",
+              "height": 54,
+              "width": 660
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium768",
+          "prefix": "preview",
+          "width": 768,
+          "mode": "preview",
+          "navigation": [],
+          "mobileSectionHidden": true,
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "chromium768",
+          "prefix": "service",
+          "width": 768,
+          "mode": "API double",
+          "navigation": [],
+          "mobileSectionHidden": true,
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "width": 1280,
+          "mode": "preview",
+          "navigation": [],
+          "mobileSectionHidden": true,
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "width": 1280,
+          "mode": "API double",
+          "navigation": [],
+          "mobileSectionHidden": true,
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "navigation": [
+            {
+              "label": "서비스 소개",
+              "path": "/preview/landing",
+              "title": "좋아하는 크리에이터를\n더 가까이, 더 특별하게"
+            },
+            {
+              "label": "공지사항",
+              "path": "/preview/notices",
+              "title": "공지사항"
+            },
+            {
+              "label": "고객센터",
+              "path": "/preview/support",
+              "title": "고객센터"
+            },
+            {
+              "label": "이용약관",
+              "path": "/preview/legal/terms",
+              "title": "이용약관"
+            },
+            {
+              "label": "개인정보처리방침",
+              "path": "/preview/legal/privacy",
+              "title": "개인정보처리방침"
+            },
+            {
+              "label": "운영정책",
+              "path": "/preview/legal/policy",
+              "title": "운영정책"
+            }
+          ],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 358
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "navigation": [
+            {
+              "label": "서비스 소개",
+              "path": "/service/landing",
+              "title": "좋아하는 크리에이터를\n더 가까이, 더 특별하게"
+            },
+            {
+              "label": "공지사항",
+              "path": "/service/notices",
+              "title": "공지사항"
+            },
+            {
+              "label": "고객센터",
+              "path": "/service/support",
+              "title": "고객센터"
+            },
+            {
+              "label": "이용약관",
+              "path": "/service/legal/terms",
+              "title": "이용약관"
+            },
+            {
+              "label": "개인정보처리방침",
+              "path": "/service/legal/privacy",
+              "title": "개인정보처리방침"
+            },
+            {
+              "label": "운영정책",
+              "path": "/service/legal/policy",
+              "title": "운영정책"
+            }
+          ],
+          "links": [
+            {
+              "label": "서비스 소개",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "공지사항",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "고객센터",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "이용약관",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "개인정보처리방침",
+              "height": 53,
+              "width": 358
+            },
+            {
+              "label": "운영정책",
+              "height": 53,
+              "width": 358
+            }
+          ],
+          "overflow": false,
+          "errors": [],
+          "writes": []
+        }
+      ]
+    }
+  },
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "install -d -m 0700 /home/ubuntu/crefans-mobile-settings-20261024"
+      ],
+      "startedAt": "2026-10-24T08:22:53.148429+00:00",
+      "finishedAt": "2026-10-24T08:22:54.148195+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "command": [
+        "scp",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "/Users/ethan/repository/crefans_front/.local/mobile-settings-deploy-20261024/image.tar.gz",
+        "/Users/ethan/repository/crefans_front/.local/mobile-settings-deploy-20261024/image.sha256",
+        "/Users/ethan/repository/crefans_front/.local/mobile-settings-deploy-20261024/deploy.sh",
+        "/Users/ethan/repository/crefans_front/.local/mobile-settings-deploy-20261024/before.json",
+        "ubuntu@15.164.140.26:/home/ubuntu/crefans-mobile-settings-20261024/"
+      ],
+      "startedAt": "2026-10-24T08:22:54.148864+00:00",
+      "finishedAt": "2026-10-24T08:23:03.044008+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "cd /home/ubuntu/crefans-mobile-settings-20261024 && sha256sum -c image.sha256 && sudo -n docker load -i image.tar.gz && rm image.tar.gz"
+      ],
+      "startedAt": "2026-10-24T08:23:03.045150+00:00",
+      "finishedAt": "2026-10-24T08:23:16.611972+00:00",
+      "exitCode": 0,
+      "logSha256": "e47f932fbe3da9231b26e2b55e490a37a168e112e8dd155cc20290b88f8377be"
+    },
+    {
+      "step": "deploy",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "bash /home/ubuntu/crefans-mobile-settings-20261024/deploy.sh"
+      ],
+      "startedAt": "2026-10-24T08:23:16.612319+00:00",
+      "finishedAt": "2026-10-24T08:23:23.719974+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "production": {
+    "at": "2026-10-24T08:23:50.637983+00:00",
+    "runtimeFilesMatched": 499,
+    "runtime": {
+      "crefans-beta-api-1": {
+        "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-worker-1": {
+        "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-frontend-1": {
+        "id": "30c26f4413eface0f434adb9a06a257e435729b8c540ac0536174abd9d0214c0",
+        "image": "sha256:9132c0f9d85227763ae1df7a43437fe4d817a98cf7fbf8c802d298e9771e3243",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-admin-1": {
+        "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+        "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      }
+    },
+    "http": [
+      {
+        "url": "https://beta.crefans.com/preview/settings",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/settings",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/login",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200
+      }
+    ]
+  },
+  "realPublicApiPages": {
+    "at": "2026-10-24T08:23:51.171Z",
+    "mode": "real public API; no login or state change",
+    "pages": [
+      {
+        "route": "notices",
+        "status": 200,
+        "title": "공지사항"
+      },
+      {
+        "route": "legal/terms",
+        "status": 200,
+        "title": "이용약관"
+      },
+      {
+        "route": "legal/privacy",
+        "status": 200,
+        "title": "개인정보처리방침"
+      },
+      {
+        "route": "legal/policy",
+        "status": 200,
+        "title": "운영정책"
+      }
+    ],
+    "errors": [],
+    "exitCode": 0
+  },
+  "visualReview": [
+    "image-webkit390-preview.png",
+    "production-webkit390-preview.png",
+    "production-desktop-preview.png"
+  ],
+  "limits": [
+    "Signed-in /service browser tests use API doubles; no real account mutations",
+    "Preview fixtures are not real production member data",
+    "No physical iPhone test",
+    "Only frontend container changed; no backend/worker/admin/database/proxy/SSH changes",
+    "Unrelated local signup/PASS changes excluded; no commit or push"
+  ],
+  "files": {
+    ".local/mobile-settings-deploy-20261024/before.json": "d84bf110155c592fba1aca76ae31358a7fa6a86740fee43b255eeffbc17ac1bd",
+    ".local/mobile-settings-deploy-20261024/archive.json": "8b7375c6fd1dabb054e5cf3f9ba4e843fd4b54855d51ed91a644fcde4dd6747e",
+    ".local/mobile-settings-deploy-20261024/run.py": "eb3ccb9a7e08a49794a3ffe07da11c32991f08852ef3c63fe404d2be95709637",
+    ".local/mobile-settings-deploy-20261024/image-webkit390-preview.png": "10c4a01d0756d75f1cfbfc1e2b3677651be684ec73f13291c3be9388cb0503f4",
+    ".local/mobile-settings-deploy-20261024/workspace.json": "954a0cdcc6cf80a40e2c24d4e8c77b10108084c52e0e8274b23f32037b9cb98f",
+    ".local/mobile-settings-deploy-20261024/verify-production.py": "96b497a2cb049ebe9dd5411139264b7a33689020516d5a876e4e2e5baf34c8ee",
+    ".local/mobile-settings-deploy-20261024/release.py": "40b3c68463771de4e83737585e82f5a5e8d8e09bd5704b733ef29e029dd187d7",
+    ".local/mobile-settings-deploy-20261024/production-webkit390-preview.png": "b94c5981188cfb7563047e0e9f73d71070292f8e93f87564ba0a0a8c045dd40c",
+    ".local/mobile-settings-deploy-20261024/image-check.json": "da5416b698ef84acf0ea85d4ae7bcc8e9bda8cee8f774871b73aeb939f31f031",
+    ".local/mobile-settings-deploy-20261024/production-desktop-preview.png": "ec173428a4b4bb192e50d9400fbcaad41033efb6481ee5cc77b9053659249c4f",
+    ".local/mobile-settings-deploy-20261024/selected-check.log": "e2c6ff2e045da9400909ec6c30c6684ae6faec58aabf05b33599ae4521ac74c2",
+    ".local/mobile-settings-deploy-20261024/production-chromium390-service.png": "55c87d84f24b689d13cd8aea50b7217d156f46950ce5e4bbcfa5948be9b67b36",
+    ".local/mobile-settings-deploy-20261024/image-build.json": "aecfbdf6530a56f4f540d257fcd4beb2c6ee4540b458d3cfa83e09ff15a5568b",
+    ".local/mobile-settings-deploy-20261024/scope.json": "a9661b8589d7f8008595b9496ae6c183ef6bf9ccc41290f3891e8c7ec2144050",
+    ".local/mobile-settings-deploy-20261024/image-webkit390-service.png": "0cf5b9dcad80f361349534e74cfd2ad3ad9e3f1e901c3184b811ab935f195ae9",
+    ".local/mobile-settings-deploy-20261024/selected-check.json": "c4d2537d7f4e7c3b3e98486805f129a2c34c7bf5856ee5020d915eb984134d74",
+    ".local/mobile-settings-deploy-20261024/production-results.json": "55b703b1461b81b7bea58243c02835b57c9620efe5e61a0611d25d5b55f32d73",
+    ".local/mobile-settings-deploy-20261024/upload.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/mobile-settings-deploy-20261024/selected-release.diff": "9e74a26e27c21a0af28d6fd66028f004e4c50ccfb322769a032c24f1fc3484aa",
+    ".local/mobile-settings-deploy-20261024/public-results.json": "5a454dec90fb116a982dddb7d1fd0b633eb3f3957f9b6e43b145305f431376e1",
+    ".local/mobile-settings-deploy-20261024/production-webkit390-service.png": "0cf5b9dcad80f361349534e74cfd2ad3ad9e3f1e901c3184b811ab935f195ae9",
+    ".local/mobile-settings-deploy-20261024/deploy.log": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5",
+    ".local/mobile-settings-deploy-20261024/production-verified.json": "9d304fd99e11c7ca7abb842bd09ea9e2270c85d83a0eef3fba076d15319362cc",
+    ".local/mobile-settings-deploy-20261024/check.cjs": "6789d4e433708ae4f15708ef1a7e8b4e65889aae142db80a4a2f78dedb1ceb37",
+    ".local/mobile-settings-deploy-20261024/public-check.json": "f8ddb7803aed4f784630fefe307d3650de6ee88de6164300735d20bb7094d26d",
+    ".local/mobile-settings-deploy-20261024/upload-directory.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/mobile-settings-deploy-20261024/release.json": "2eb9b94f3689b8822d46dfb02a88e56bfc52f4871cc3d9fbe5afb76ba6b3b84a",
+    ".local/mobile-settings-deploy-20261024/production-verify-run.log": "aa3b73ef4d0f4fec72ac0f15599c2df7dfbf23979f2fb38dca817f8c3ad5e27d",
+    ".local/mobile-settings-deploy-20261024/public-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/mobile-settings-deploy-20261024/prepare.json": "99cfe707b4e60a0046a2bab969ef8d4333ded08f1f5650730cf0c67711ee4202",
+    ".local/mobile-settings-deploy-20261024/record.py": "4acbe4981cc756caa331fb8621a949a9212a210db13faa4ff4d45cfd8df40f07",
+    ".local/mobile-settings-deploy-20261024/archive.py": "cd598a2ec1fa832f0c472c936aec5b16b94697db3434ce873d42e1f83fda8cc3",
+    ".local/mobile-settings-deploy-20261024/production-check.log": "d87bc0120ff62df0f8a4404eb3706092e4baf8ba1e570abd043f802a3ad22a24",
+    ".local/mobile-settings-deploy-20261024/prepare.log": "b6b5cbea1eb43fd9b5c62249a20ffdc8ff22d9cba6fa1b39df17a5a2fab93bf5",
+    ".local/mobile-settings-deploy-20261024/deploy.sh": "5962fa53cf68deb27567ab3e9e41715dc97ebce8a22da257e8f795d13288dcc6",
+    ".local/mobile-settings-deploy-20261024/production-check.json": "1eb219b95e82e2209e2952f8323f1e8021d0c688e76011ef227782c2a2e30784",
+    ".local/mobile-settings-deploy-20261024/image-check.log": "d87bc0120ff62df0f8a4404eb3706092e4baf8ba1e570abd043f802a3ad22a24",
+    ".local/mobile-settings-deploy-20261024/load.log": "e47f932fbe3da9231b26e2b55e490a37a168e112e8dd155cc20290b88f8377be",
+    ".local/mobile-settings-deploy-20261024/production-verify-run.json": "58b66d6ace0352dd5f50ad3b2a139a8f1d9e22528538fdc2dd2770ea3dd849db",
+    ".local/mobile-settings-deploy-20261024/image.json": "af2dfce844e3d2519a5afbe0d102fb13dacb47c6976d322c9bf21f4acda138b2",
+    ".local/mobile-settings-deploy-20261024/image-build.log": "ef860be3c70f0dca793966ca9b45654d0b796f5a809c7a86b50ac79fa3193ff3",
+    ".local/mobile-settings-deploy-20261024/image-chromium390-service.png": "55c87d84f24b689d13cd8aea50b7217d156f46950ce5e4bbcfa5948be9b67b36",
+    ".local/mobile-settings-deploy-20261024/archive.log": "bd4ce9560ad31dbe9d42bf276d2c6fa06d79632e7ad38bc98715c59cafa35700",
+    ".local/mobile-settings-deploy-20261024/public.cjs": "bbcef7bd215589e7a07cd216020c40866d350fa405350f90a47630d494b92bcf",
+    ".local/mobile-settings-deploy-20261024/prepare.py": "b7813bed75722d768a6cd3d3342793c44ad0ecb63d13223757aa27f9e6e89c57",
+    ".local/mobile-settings-deploy-20261024/image-results.json": "3b5c25cfac7f74ac7a9e1a6a50927f5351765850f0badde0fe31ce17ff24f2ee",
+    ".local/mobile-settings-deploy-20261024/image-desktop-preview.png": "fe202d535fc2ba3fcb8a13c349d6b7fb662bc27b3677d9f480656c75a2ddef95",
+    ".local/mobile-settings-deploy-20261024/release-steps.json": "6b650eca260513bda3a6e6f0f9f9fe54d2a9c4beef8f4196dd12e3c21b2cb0e7"
+  }
+}

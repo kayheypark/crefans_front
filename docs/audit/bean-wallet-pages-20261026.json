@@ -1,0 +1,309 @@
+{
+  "date": "2026-10-26",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "pre-existing uncommitted work preserved, no commit/push",
+  "requirements": [
+    "wallet heading and metadata say 지갑",
+    "three dedicated history pages linked through at most two boxed buttons per row",
+    "balance detail accordion initially expanded and remains collapsible",
+    "single-bean existing image left of charge text, prominent gradient CTA",
+    "shared UI across preview/service/catalog; loading, error, empty, disabled supported",
+    "existing order retry, amount snapshot, approval and pagination behavior retained"
+  ],
+  "runs": [
+    {
+      "command": "npm run check",
+      "log": ".local/bean-wallet-pages-20261026/check-final.log",
+      "startedAt": "2026-10-26T00:16:05.239473+00:00",
+      "finishedAt": "2026-10-26T00:16:14.754338+00:00",
+      "timeSource": "captured log timestamps",
+      "exitCode": 1,
+      "result": "342 pass, 1 test selector failure: tooltip image also matched; scoped selector fixed",
+      "sha256": "e8ba079f78d99c8473ebdf5ed0880b612d86952b153435e1c11594dd5b40fa55"
+    },
+    {
+      "command": "npm run check",
+      "log": ".local/bean-wallet-pages-20261026/check-verified.log",
+      "startedAt": "2026-10-26T00:16:34.147195+00:00",
+      "finishedAt": "2026-10-26T00:16:43.864427+00:00",
+      "timeSource": "captured log timestamps",
+      "exitCode": 0,
+      "result": "343 pass, layer and type checks pass",
+      "sha256": "3850394854b43fef81a09cd05873d42ee249928d5008eaa9a376648636a4e09c"
+    },
+    {
+      "command": "npx playwright test e2e/beans.spec.ts --project=chromium",
+      "log": ".local/bean-wallet-pages-20261026/e2e.log",
+      "startedAt": "2026-10-26T00:16:35.289550+00:00",
+      "finishedAt": "2026-10-26T00:17:30.645411+00:00",
+      "timeSource": "captured log timestamps",
+      "exitCode": 1,
+      "result": "6 pass, 1 test navigation race: clicked wallet promotion100 before charge page finished; added heading wait",
+      "sha256": "727d0fed93f5c2b6dbbe29b125b310cbc0ad123caa62aac982c37163db8e4d6f"
+    },
+    {
+      "command": "npx playwright test e2e/beans.spec.ts --project=chromium",
+      "log": ".local/bean-wallet-pages-20261026/e2e-verified.log",
+      "startedAt": "2026-10-26T00:18:03.043592+00:00",
+      "finishedAt": "2026-10-26T00:18:40.665890+00:00",
+      "timeSource": "captured log timestamps",
+      "exitCode": 0,
+      "result": "7 pass, isolated DB and supplier doubles",
+      "sha256": "2dbc2180dc53918066e9da03ac1577291faa2725badfd45994dbc4872b63ab49"
+    },
+    {
+      "command": "npm run check",
+      "log": ".local/bean-wallet-pages-20261026/check-final-source.log",
+      "startedAt": "2026-10-26T00:19:37.166114+00:00",
+      "finishedAt": "2026-10-26T00:19:47.195323+00:00",
+      "timeSource": "captured log timestamps",
+      "exitCode": 0,
+      "result": "343 pass after reusing CreatorName for tip recipient",
+      "sha256": "59bbd3ec01a5ae30be2db12514938912e78220941125d59b9093c9329c760028"
+    },
+    {
+      "command": "npx playwright test e2e/beans.spec.ts --project=chromium --grep '목업 콩'",
+      "log": ".local/bean-wallet-pages-20261026/e2e-final-view.log",
+      "startedAt": "2026-10-26T00:19:38.247151+00:00",
+      "finishedAt": "2026-10-26T00:19:54.678258+00:00",
+      "timeSource": "captured log timestamps",
+      "exitCode": 0,
+      "result": "2 relevant mock flow scenarios repeated after final recipient display change",
+      "sha256": "59c5b39e46591bd5a4bcf4ff367adfaeb1f55a7f6df6f2f1c37d5fdfca5909b6"
+    },
+    {
+      "command": "node .local/bean-wallet-pages-20261026/visual.cjs",
+      "log": ".local/bean-wallet-pages-20261026/visual-verified.log",
+      "startedAt": "2026-10-26T00:18:04.160963+00:00",
+      "finishedAt": "2026-10-26T00:18:12.348858+00:00",
+      "timeSource": "captured log timestamps",
+      "exitCode": 0,
+      "result": "Chromium320/390/1280 and WebKit390, two-column links, default-open accordion, 3 routes and back, 60px gradient charge link, no overflow/broken images/pageerror",
+      "sha256": "66aff03f2919405b129b771215736be98af0876e9c65c44850d9824045f869ab"
+    }
+  ],
+  "environment": {
+    "node": "v22.7.0",
+    "previewPort": 3010,
+    "e2ePorts": [
+      3011,
+      3012
+    ],
+    "e2eDatabase": "crefans_platform_e2e",
+    "providers": "PG/bank doubles, no financial execution"
+  },
+  "visual": {
+    "checkedAt": "2026-10-26T00:18:12.348Z",
+    "rows": [
+      {
+        "name": "chromium",
+        "width": 320,
+        "overflow": false,
+        "broken": 0,
+        "charge": {
+          "background": "linear-gradient(110deg, rgb(37, 91, 219) 0%, rgb(66, 85, 216) 55%, rgb(104, 68, 203) 100%)",
+          "height": 60,
+          "image": "/brand/beans/soft3d-v2/10.png"
+        },
+        "links": [
+          {
+            "href": "/preview/beans/charges",
+            "text": "충전 주문",
+            "top": 871.40625,
+            "left": 16,
+            "width": 139,
+            "height": 100
+          },
+          {
+            "href": "/preview/beans/history",
+            "text": "콩 이동 내역",
+            "top": 871.40625,
+            "left": 165,
+            "width": 139,
+            "height": 100
+          },
+          {
+            "href": "/preview/beans/tips",
+            "text": "보낸 후원",
+            "top": 981.40625,
+            "left": 16,
+            "width": 139,
+            "height": 100
+          }
+        ],
+        "errors": [],
+        "screenshot": ".local/bean-wallet-pages-20261026/chromium-320.png"
+      },
+      {
+        "name": "chromium",
+        "width": 390,
+        "overflow": false,
+        "broken": 0,
+        "charge": {
+          "background": "linear-gradient(110deg, rgb(37, 91, 219) 0%, rgb(66, 85, 216) 55%, rgb(104, 68, 203) 100%)",
+          "height": 60,
+          "image": "/brand/beans/soft3d-v2/10.png"
+        },
+        "links": [
+          {
+            "href": "/preview/beans/charges",
+            "text": "충전 주문",
+            "top": 871.40625,
+            "left": 16,
+            "width": 174,
+            "height": 100
+          },
+          {
+            "href": "/preview/beans/history",
+            "text": "콩 이동 내역",
+            "top": 871.40625,
+            "left": 200,
+            "width": 174,
+            "height": 100
+          },
+          {
+            "href": "/preview/beans/tips",
+            "text": "보낸 후원",
+            "top": 981.40625,
+            "left": 16,
+            "width": 174,
+            "height": 100
+          }
+        ],
+        "errors": [],
+        "screenshot": ".local/bean-wallet-pages-20261026/chromium-390.png"
+      },
+      {
+        "name": "chromium",
+        "width": 1280,
+        "overflow": false,
+        "broken": 0,
+        "charge": {
+          "background": "linear-gradient(110deg, rgb(37, 91, 219) 0%, rgb(66, 85, 216) 55%, rgb(104, 68, 203) 100%)",
+          "height": 60,
+          "image": "/brand/beans/soft3d-v2/10.png"
+        },
+        "links": [
+          {
+            "href": "/preview/beans/charges",
+            "text": "충전 주문",
+            "top": 911.21875,
+            "left": 246,
+            "width": 294,
+            "height": 104
+          },
+          {
+            "href": "/preview/beans/history",
+            "text": "콩 이동 내역",
+            "top": 911.21875,
+            "left": 552,
+            "width": 294,
+            "height": 104
+          },
+          {
+            "href": "/preview/beans/tips",
+            "text": "보낸 후원",
+            "top": 1027.21875,
+            "left": 246,
+            "width": 294,
+            "height": 104
+          }
+        ],
+        "errors": [],
+        "screenshot": ".local/bean-wallet-pages-20261026/chromium-1280.png"
+      },
+      {
+        "name": "webkit",
+        "width": 390,
+        "overflow": false,
+        "broken": 0,
+        "charge": {
+          "background": "linear-gradient(110deg, rgb(37, 91, 219) 0%, rgb(66, 85, 216) 55%, rgb(104, 68, 203) 100%)",
+          "height": 60,
+          "image": "/brand/beans/soft3d-v2/10.png"
+        },
+        "links": [
+          {
+            "href": "/preview/beans/charges",
+            "text": "충전 주문",
+            "top": 871.40625,
+            "left": 16,
+            "width": 174,
+            "height": 100
+          },
+          {
+            "href": "/preview/beans/history",
+            "text": "콩 이동 내역",
+            "top": 871.40625,
+            "left": 200,
+            "width": 174,
+            "height": 100
+          },
+          {
+            "href": "/preview/beans/tips",
+            "text": "보낸 후원",
+            "top": 981.40625,
+            "left": 16,
+            "width": 174,
+            "height": 100
+          }
+        ],
+        "errors": [],
+        "screenshot": ".local/bean-wallet-pages-20261026/webkit-390.png"
+      }
+    ]
+  },
+  "manualReviewed": [
+    "chromium-390.png",
+    "chromium-390-links.png",
+    "chromium-1280.png",
+    "beans-tips-390.png",
+    "pending charge page screenshot from full E2E run"
+  ],
+  "sources": {
+    "components/crefans/BeanWalletPages.tsx": "c3ad9913229b2f917aef18937262605f96ee8c27f139e8124525f2f92f807ed7",
+    "components/crefans/BeanBalanceSummary.tsx": "86a446bcc3d83e37296da3b4ae42af311c7b46c26a69ea18f3b066f3b155d381",
+    "components/crefans/BeanPages.tsx": "82af7ca1308aec04601f90c5c4216bbe33483dc3919117146aaaba48b15d8c46",
+    "components/crefans/BeanChargePage.tsx": "6c4280c1981acb97389588de5b6711c4d5ab780e174953ed25d25bd0ce837400",
+    "components/crefans/beans.module.css": "a9b90a2a3f3ed7725b4580cd9e472e15665ff93cd441ec6e4647782248b4757b",
+    "components/crefans/CreatorName.tsx": "17726c468feffee75c1e5a83933b2da41fd0c36963267552eddbd66b35960de5",
+    "components/service/ServiceRouter.tsx": "8fcfcf0e32b5b183d8827f0a831448e7acb4e4ff3333d288de033df5f6737f02",
+    "components/preview/service/ServiceRouter.tsx": "702a5794b3dc066e7c54802ceb6020c1f6ecf63b2eb560e710377056fe36bf1b",
+    "components/preview/service/useMockBeans.ts": "9c6acb6860599129737e9ff298a1c561cbf4a0935fbf85e024daf67ef124370b",
+    "components/preview/service/PreviewProvider.tsx": "a6d877cbfdf3aa9ebed0b80ebd0551f8ebc8482f6707e552ce355961b229eee6",
+    "components/preview/screen-catalog.ts": "d2aca993a586b09bbd11098cbcfae83602c1601b55b95e1cfba155249b5489bf",
+    "components/design-system/ServicePatternCatalog.tsx": "346c97e5842a04413dd9ef73fa3bec3e33f8b997dce11b2f5367aceec65210ba",
+    "features/service/useBeansModel.ts": "bf5fb4c7f3ec16de3f14870cd05b4820a214e4347a4899fba068bdc57de40dab",
+    "types/crefans-beans.ts": "234c5cabbd740470b7778901fc6bb0c31213449143e7876444c40e678139da73",
+    "app/preview/[...screen]/page.tsx": "fc29030ee8529a63aec2fe48a53b82fce56f0493939c9e3ed9cb102951016a3b",
+    "app/service/[...screen]/page.tsx": "1c6f867256dce23d4c23bd99024d4a0ee45083564ba64462b13c7cd4efdc4ac0",
+    "tests/bean-balance-summary.test.cjs": "ab1530f96193acb37aef1651d295bf1967cf2249a2fce49f61b2c94954620f9a",
+    "tests/bean-wallet-pages.test.cjs": "ed5204911be2b3c9e6c6490ee87ac89b62299b88ed0806b5af6d58ac2a016184",
+    "e2e/beans.spec.ts": "8260aa7fae3461ebfd914b51ff1fad6f2a625e2ab43d74bf2fb8578c79bb771c",
+    "public/brand/beans/soft3d-v2/10.png": "9c83f0e87d0572a3efac55a5e7383c4485f9e15f3d7646c4c0612e9c6a6728d5"
+  },
+  "screenshots": {
+    ".local/bean-wallet-pages-20261026/beans-tips-1280.png": "1ef645fc1b08f1ebd0f207dd5aeda4dd7024bcb92e3c71b98f85c2af303e8cd6",
+    ".local/bean-wallet-pages-20261026/beans-completion-390.png": "0df708ba546dbf03e062634133f7ed254436aed6ef1b88eca21ba3cf55e00884",
+    ".local/bean-wallet-pages-20261026/webkit-390.png": "a49619f4471268603a3a0453271833734b912df62c58ad576935953e5d692849",
+    ".local/bean-wallet-pages-20261026/chromium-390.png": "e558669ee5fac0ad6efacc31966a104f57a04af02c2be58a676dcc39b105c543",
+    ".local/bean-wallet-pages-20261026/chromium-320.png": "05689885aacc72105a6858066e427547376dacb34a91d358b246486ea732710c",
+    ".local/bean-wallet-pages-20261026/chromium-320-links.png": "92c344c7a0705514a9a8ff6e1fb9734be206aa7350675abdbeb92de7f7c024d6",
+    ".local/bean-wallet-pages-20261026/chromium-1280.png": "01d2675e26599a6484a4e3d1f650c84b80e0f5ebc312a3addaf7739ba93cda29",
+    ".local/bean-wallet-pages-20261026/chromium-390-links.png": "f757700cfba0210aaff1424d7bd2a5da38671a893a30754c83c813129a913569",
+    ".local/bean-wallet-pages-20261026/beans-tips-390.png": "162b0f813a8a9566ca6986a315e27b688969270957642f3e8d90f100a1d1b454",
+    ".local/bean-wallet-pages-20261026/beans-history-1280.png": "239a1045cb5354405d4a068ca5b3b6ed4cc26a2ba089c837afd368151b020d97",
+    ".local/bean-wallet-pages-20261026/chromium-1280-links.png": "b0ab9a6aa2c0e9e0d9afbf3dd801e4f55ce2623143da23b14492575653bc94e3",
+    ".local/bean-wallet-pages-20261026/beans-history-390.png": "2c419ee134bfcc1b9b218cb063182e4cbb8ccc09ee6b13e71b957e4b782650b3",
+    ".local/bean-wallet-pages-20261026/webkit-390-links.png": "d45a23d0ccac81d22dec317549f6593387941082695ada18e4fddc898fdd94d4",
+    ".local/bean-wallet-pages-20261026/beans-completion-1280.png": "66fe43c713170d4c211e44f5750bf7016cb9c9b35c17ac567f470766e811e74f"
+  },
+  "limits": [
+    "local only; production remains bean-vat-20261025",
+    "charge list uses existing API latest20 limit, history/sent20 per page",
+    "mock data remains memory-only",
+    "no physical iPhone, actual PG or payout verification"
+  ]
+}

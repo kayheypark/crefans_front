@@ -1,0 +1,390 @@
+{
+  "at": "2026-10-25T02:45:21.121386+00:00",
+  "result": "deployed-and-verified-with-stated-scope",
+  "release": "beans-20261025",
+  "repositories": {
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "stagedSourceManifestSha256": "a3be2b161fbe7b5b8dc311af9c08c5ed97e3431092fb460da14d1c1abb97de44"
+    },
+    "front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "stagedSourceManifestSha256": "1fd4e96a56fd236fca01124f6ce050dfb6faaca461cb5eccd617ec6002452798"
+    },
+    "admin": {
+      "head": "7928cb6fc70c27bbcb8f5ec4a760023a5ffda01c",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "stagedSourceManifestSha256": "b5a21e0a9c2ae9edd048990be2769b87d5771be74eb24ffc6ea87f6ad0fbcd04"
+    }
+  },
+  "authorization": "2026-10-25 user explicitly requested deployment; live-money gates remain off",
+  "localPreflight": "bean-product-20261025.json: server86/front321/admin5 and34 local browser scenarios; three production image builds",
+  "deployment": {
+    "host": "crefans-beta EC2",
+    "backup": "/opt/crefans-backup-beans-20261025",
+    "backupDumpSha256": "cc581b64540115d48b4dfad08acdaac8271b43bd6f31ece1bc5c5826a036f0a9",
+    "imageTransport": "private SSH stream; archive SHA verified before docker load",
+    "images": {
+      "at": "2026-10-25T02:36:03.737430+00:00",
+      "images": {
+        "server": {
+          "tag": "crefans-api:beans-20261025",
+          "imageId": "sha256:bd95019be9cc628c2e7e9110479a78e3dce084056c5ee448eb0d828502d1ccdf",
+          "runtimeImage": "sha256:bd95019be9cc628c2e7e9110479a78e3dce084056c5ee448eb0d828502d1ccdf",
+          "architecture": "amd64",
+          "sourceFiles": 196,
+          "rootFsLayers": [
+            "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+            "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+            "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+            "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+            "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+            "sha256:401f2dc7734176ec96e2ccecbe7bef70868b72ce8d8d6786f4b503fc20625a36",
+            "sha256:538848ccbc946a90acb5c4d704022d7c10c2b52b1f217056faf5fd1acdf6a0b6",
+            "sha256:fd3faf857f1081150e4cc6ccc876ee9019b6a9a185b0aec70188586fafe57883",
+            "sha256:2f850ea08006c793e7e42de43c38f9a78f5aca9734ac5c88c5badc15d9567a7b",
+            "sha256:93f7c38c42095267644bc7e82a9e9f6655d7275e4319304470b790836125338b",
+            "sha256:c65ef3fa8cb8876005cf4b497b523b81b0e6c406d34926021fe9c7d3880b40f2",
+            "sha256:a487113f92a790bbaea8b6e61b46a28008f6e0c68b56475c3fdf825ae50346e6",
+            "sha256:b48d7a92f19fe2d492f30e0535832f667f85b4c8450ccacce4a6612bde486485",
+            "sha256:de5e833df784532c62247e798038401810456698d20c04749476dff4c7b49c2e",
+            "sha256:7cdc5656a168b3e06af5f7fa7b90cad796af57907eaa57cc8a0031a8d345e84f"
+          ],
+          "releaseLabel": "beans-20261025"
+        },
+        "front": {
+          "tag": "crefans-front:beans-20261025",
+          "imageId": "sha256:20da247ac8830e37c60c4f3345a4607f6b9cf80637e638f535e75839d76eaaae",
+          "runtimeImage": "sha256:20da247ac8830e37c60c4f3345a4607f6b9cf80637e638f535e75839d76eaaae",
+          "architecture": "amd64",
+          "sourceFiles": 551,
+          "rootFsLayers": [
+            "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+            "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+            "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+            "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+            "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+            "sha256:401f2dc7734176ec96e2ccecbe7bef70868b72ce8d8d6786f4b503fc20625a36",
+            "sha256:8ddcc7b02157c904be4aaf8d064ad43b24061668491ec2e8b83dd25bc972d31b",
+            "sha256:18568fd25fb5c8f29643af3e1b925e84ef4074f9dac96abef26ae6e950f18d0e",
+            "sha256:faf48a38bc58a8e79610d106d98101b33fa4015879166ee3702b03f52e0c73cb",
+            "sha256:c3066a7da26e2f5e2cc6b08f617df488743d13cc6d3b35028a0543ac925a6796"
+          ],
+          "releaseLabel": "beans-20261025"
+        },
+        "admin": {
+          "tag": "crefans-admin:beans-20261025",
+          "imageId": "sha256:ed7ebe9b8eb7f683b5970efcff99fa72032ffa9e24ab7f9c40c249895ed5cd85",
+          "runtimeImage": "sha256:ed7ebe9b8eb7f683b5970efcff99fa72032ffa9e24ab7f9c40c249895ed5cd85",
+          "architecture": "amd64",
+          "sourceFiles": 59,
+          "rootFsLayers": [
+            "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+            "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+            "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+            "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+            "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+            "sha256:401f2dc7734176ec96e2ccecbe7bef70868b72ce8d8d6786f4b503fc20625a36",
+            "sha256:50b9fdca40f206b6c76b00c699aad94763974e2f688061eae894784e70740b76",
+            "sha256:2caf64504f825624b25cacc7eeec38ca38a256bf84b8026738a634180982c07d",
+            "sha256:23353bc4275d7bbc0283f8c354cc4ab14e48dfe77cd7576caa43c68cbb043ace"
+          ],
+          "releaseLabel": "beans-20261025"
+        }
+      },
+      "archiveSha256": "d6a313728c897bd2d8dc6e165b85d0ad8a93ca1697a8287f04a857bdc04b57a4",
+      "archiveBytes": 739548464,
+      "directPrivateSshStream": true
+    },
+    "steps": [
+      {
+        "step": "upload-metadata",
+        "startedAt": "2026-10-25T02:36:36.232331+00:00",
+        "finishedAt": "2026-10-25T02:36:36.882001+00:00",
+        "exitCode": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-25T02:36:36.882786+00:00",
+        "finishedAt": "2026-10-25T02:37:07.275400+00:00",
+        "exitCode": 0,
+        "logSha256": "644aed540ca1af8913b1cab77a8c8c5745be281a8ff0c219604cd4d6f785d7ff"
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-25T02:37:07.276007+00:00",
+        "finishedAt": "2026-10-25T02:37:28.444420+00:00",
+        "exitCode": 0,
+        "logSha256": "35ce954dd16f11e026f5f659c3132c51547efa5e363c2e07487c5c685ba3e5a6"
+      }
+    ],
+    "schemaFinal": {
+      "appliedMigrations": 21,
+      "newMigrations": [
+        "20261025100000_beta_policy",
+        "20261025110000_marketing_delivery_claim",
+        "20261025120000_bean_ledger",
+        "20261025130000_bean_product"
+      ],
+      "logSha256": "8394572a1e62ffd5505c687bd3689fb1721f41c53ca96fcd263f46ce873ed666"
+    },
+    "unchangedProxyAndDatabaseContainerIds": true,
+    "unchangedSshRule": true,
+    "unchangedOtherSettingsAndSecrets": true,
+    "bankAndLivePaymentDisabled": true
+  },
+  "runtime": {
+    "release": "beans-20261025",
+    "flags": {
+      "beta": true,
+      "beans": true,
+      "liveSales": false,
+      "bankPayouts": false,
+      "marketing": false,
+      "testRuntime": false
+    },
+    "paymentEnvironment": "test",
+    "appliedMigrations": 21,
+    "genesisCount": 1,
+    "companyStock": "100000000",
+    "balancedLedger": true,
+    "policy": {
+      "version": 2,
+      "feeBps": 2000,
+      "holdDays": 7
+    },
+    "counts": {
+      "members": 1,
+      "creators": 0,
+      "orders": 0,
+      "charges": 0,
+      "tips": 0,
+      "payouts": 0,
+      "liveCharges": 0
+    }
+  },
+  "containers": {
+    "crefans-beta-api-1": {
+      "id": "92466765fe9cab48680a2bbac029a35e499ee22db6d5ba81474b51f4c07e04c8",
+      "image": "sha256:965e14df545071b251feeaa4945e7ec302c94a724735830c66f3de27af665c93",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-worker-1": {
+      "id": "620cb5769f2396fd35be4befaad8e4f9afbd27a9ca99c600b69b0806067e1302",
+      "image": "sha256:965e14df545071b251feeaa4945e7ec302c94a724735830c66f3de27af665c93",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-frontend-1": {
+      "id": "9b873c70fe1b62d3b74708e0355898905124120312d85e653e62723402b5b5b4",
+      "image": "sha256:cac5febe5739e572a1932c99a88c7fb3a7f9983c88b80427d4d28316b0f97625",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-admin-1": {
+      "id": "78b88fd041adf7851e55e8c122f5314a0ba52f66a30318dd7a6cc341ec626b70",
+      "image": "sha256:7b191b4298d3b6548dff2a96163f2ac1fd72a187f81d425e0b90d67e4a391649",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-database-1": {
+      "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+      "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-proxy-1": {
+      "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+      "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    }
+  },
+  "actualRunningSourceHashesMatched": {
+    "server": 196,
+    "front": 551
+  },
+  "contentIdentity": "Docker save/load changes OCI index vs runtime image IDs; each deployed image architecture/release label and complete RootFS layer digests match the verified local image",
+  "https": [
+    {
+      "url": "https://beta.crefans.com/api/v1/health",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/api/v1/bootstrap",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/studio/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/creator/moka",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/feed",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/feed",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/login",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/studio/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://admin.crefans.com/login",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/api/v1/beans/wallet",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "url": "https://admin.crefans.com/api/v1/admin/beans/overview",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "url": "https://beta.crefans.com/api/v1/admin/docs/user",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "url": "https://beta.crefans.com/api/v1/admin/docs/studio",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "url": "https://beta.crefans.com/api/v1/admin/docs/console",
+      "status": 401,
+      "expected": 401
+    }
+  ],
+  "browser": {
+    "at": "2026-10-25T02:42:08.688Z",
+    "results": [
+      {
+        "screen": "preview wallet/mock charge",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "preview wallet/mock charge",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "preview profile shared support dialog",
+        "passed": true
+      },
+      {
+        "screen": "preview studio min1000 and 20% quote",
+        "passed": true
+      },
+      {
+        "screen": "real wallet anonymous login guard",
+        "passed": true
+      },
+      {
+        "screen": "independent console anonymous guard",
+        "passed": true
+      }
+    ]
+  },
+  "negativeControl": {
+    "at": "2026-10-25T02:26:05.749Z",
+    "results": [
+      {
+        "negativeControl": "new bean wallet absent in old production",
+        "passed": true
+      }
+    ]
+  },
+  "workerHealth": {
+    "completedAt": "2026-10-25T02:42:53.530Z",
+    "failures": {},
+    "healthy": true
+  },
+  "rollback": {
+    "apiWorker": "crefans-api:post-views-20261025",
+    "frontend": "crefans-front:gallery-close-soft-20261025",
+    "admin": "crefans-admin:creator-verification-20261024",
+    "procedure": "Restore backed-up .env/runtime.env and recreate only api/worker/frontend/admin; preserve additive schema, financial journals and approved policy history. No down, seed or DB reset."
+  },
+  "storage": {
+    "serverBeforeFree": "1.8GB,97% used",
+    "serverAfterFree": "15GB,70% used",
+    "cleanup": "Only named unused older frontend images, five superseded local generated archives and inactive test/build caches; current and immediate rollback images, source, proof logs, DB and media volumes preserved"
+  },
+  "issuesCorrectedBeforeCompletion": [
+    "First generated archive hit Mac disk exhaustion; incomplete archive removed, obsolete generated files cleaned and unresponsive local Docker restarted without resetting its volumes; final verified images streamed directly over SSH",
+    "Packaging preflight found omitted root middleware in a temporary snapshot; restored before final frontend rebuild, and final image/production source bytes verified. Hidden .DS_Store/PSD source artifacts excluded",
+    "sudo dropped the initial API_IMAGE override, so first migration invocation used old image and left four new migrations unapplied; explicit sudo env plus noninteractive compose run applied the exact21-migration image, then restarted API/worker",
+    "An initial bash-stdin correction lost commands to interactive compose input; final migration was issued explicitly without stdin consumption; logs confirm four migrations successfully applied and heartbeat failures empty",
+    "Initial browser assertion expected a heading for the existing quiet login notice; matched the actual text/401 guard and reran all six deployed-browser checks successfully"
+  ],
+  "limits": [
+    "No actual user charge, support, promotion grant, bank transfer, external mail or deliberate Telegram test message was executed in production verification",
+    "PG recharge/support/cashability merchant approval and bank bridge/real settlement/transfer validation remain pending; live payment approval false, bank payouts false, beta true",
+    "Signup legal readiness/invitation gates were preserved; deployment does not itself announce signup opening",
+    "No exhaustive production load, backup restore or physical iPhone financial scenario validation",
+    "Historical worker errors during the initial schema mismatch are retained; final worker-health heartbeat is fresh with failures={}"
+  ],
+  "logs": {
+    "archive.log": "2834c7f9f5d025d72e2903071051be6c62fb8fcf15140b0e8e8929ae153eec94",
+    "archive-stream-final.log": "f42cb28ec161069673f8977b13d5ea68c611059ac07ad1515a29359659899964",
+    "load.log": "644aed540ca1af8913b1cab77a8c8c5745be281a8ff0c219604cd4d6f785d7ff",
+    "deploy.log": "35ce954dd16f11e026f5f659c3132c51547efa5e363c2e07487c5c685ba3e5a6",
+    "schema-correction.log": "d23037a95d547851424824f81647f98333cdd4edd47279fae83cfbb34dbe7ebc",
+    "schema-final.log": "8394572a1e62ffd5505c687bd3689fb1721f41c53ca96fcd263f46ce873ed666",
+    "verify-final.log": "eedf008f47d45c3969262a3caee177b622c4228eae0892f9631234d81bbaf597",
+    "browser-final.log": "ea24b9272ef70e2a1aa7224f8f60b35a2833b2325a475115180b5c931dc1f1b1",
+    "image-cleanup.log": "8b94dfe3eb0f48036b7a870978c2fde17ec807e30499f9ebc731fd260f5bd125",
+    "final-host.log": "eea3021d2f7b413e6ac1134f966dbf8c240c5b6167fb35c701363d0c873bcdbd"
+  },
+  "captures": {
+    "production-studio-quote.png": "b7588fb1b3fdf2946a8a0d16a4cec4709b1d8ce230e76105b31674e37855b528",
+    "production-wallet-390.png": "0c585245a646c40336f317d921e4a3c9f264a05ee142c50c19766191ccdef1d5",
+    "production-wallet-1280.png": "cc1e771b9fef21b4bda5ac2365e246339136a4e1a7a65b3bb9a9373152926fb9"
+  }
+}

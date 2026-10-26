@@ -1,0 +1,19 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "text-only-edit",
+  "createdAt": "2026-10-26",
+  "input": "design/beta-event-concepts/20261026/03-editorial-user-reference.jpg",
+  "output": "design/beta-event-concepts/20261026/03-editorial-text-v3.png",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0c498a71-23a2-4221-a1d1-c0ff28a77a21.png",
+  "prompt": "Use case: text-localization / precise text-only edit. EDIT THE ATTACHED POSTER, do not redesign it. The user explicitly wants this exact design preserved. Keep the original logo, full top title block, layout, margins, every illustration, illustration size and placement, colors, gradients, background curved lavender shapes, thin divider lines and relative section positions unchanged. Keep the purple star badge at left of section 1, folded purple crown at left of section 2, the TWO green beans at left of section 3, and the purple ribbon gift card at left of section 4. These illustrations MUST remain present and visually the same. Do not remove, replace, redraw into a different style, enlarge or rearrange the illustrations. No new boxes/cards. No full-width text-only redesign.\n\nABSOLUTELY KEEP THE TOP HEADER exactly as the attached image: lowercase \"crefans\", large navy \"크레팬스 베타 1기\", and gray \"함께 만들어 주셔서 감사합니다\". Preserve these title and subtitle texts and their typographic scale. Do not add an asterisk to this unchanged top title block.\n\nOnly change the text in the FOUR reward sections and bottom footer as specified below. Preserve the existing left illustration / right text-column alignment. Primary benefit titles remain rich purple bold. Small explanatory text is regular muted slate with a literal \"*\" asterisk at the start, written in natural Korean sentences. No star emoji.\n\nSECTION 1 (same star badge illustration on left):\nReplace the small \"참여자 전원\" with \"* 참여자 전원에게 드립니다.\"\nReplace the big \"한정 배지\" with EXACTLY \"원년멤버 한정판 뱃지\", all on ONE SINGLE LINE inside the same right text column. Use a smaller bold purple font size ONLY for this longer title as needed to fit one line without overlapping the illustration or exceeding right margin. Still clearly bigger than secondary copy. Do not wrap the headline.\nReplace the two supporting lines with:\n\"* 프로필 페이지에 노출됩니다.\"\n\"* 표시 여부는 직접 선택할 수 있습니다.\"\nRemove the old separate '크레팬스 베타 1기' line in this section.\n\nSECTION 2 (same crown on left):\nSmall text above headline: \"* 크리에이터 3명에게 드립니다.\"\nKEEP large purple headline EXACTLY as original: \"1만원 상당 선물\".\nSecondary line below: \"* 주목할 크리에이터로 30일 동안 노출됩니다.\"\n\nSECTION 3 (same two beans on left):\nSmall text above headline: \"* 팬 참여자에게 드리는 혜택입니다.\"\nKEEP large purple headline EXACTLY as original: \"프로모션 100콩\".\nAt BOTTOM RIGHT of this section, replace the current small eligibility note with \"* 팬 참여자 13명에게 지급합니다.\" Keep it small, muted, right-aligned, NOT a headline or pill.\n\nSECTION 4 (same ribbon gift card on left):\nSmall text above headline: \"* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다.\"\nKEEP large purple headline EXACTLY as original: \"5천원 상품권\".\n\nBottom small footer: \"* 참여 기간과 혜택 지급 일정은 별도 안내합니다.\"\n\nKeep original proportions and overall composition. Only text replacement is permitted. ALL benefit amounts, eligibility and wording must be correct. Title block and illustrations are invariants. No invented extra text or benefit, no dates, no new decorative elements. Keep the fine airy editorial feel of the input, not the previous heavy text-only poster.",
+  "review": {
+    "topTitleAndSubtitlePreserved": true,
+    "fourIllustrationsPreservedVisually": true,
+    "layoutAndColorPreservedVisually": true,
+    "badgeHeadlineOneLine": true,
+    "benefitSecondaryTextAsteriskSentences": true,
+    "fan13SmallBottomRight": true,
+    "benefitAmountsAndEligibilityPreserved": true
+  },
+  "state": "corrected-concept-not-deployed"
+}

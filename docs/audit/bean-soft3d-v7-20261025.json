@@ -1,0 +1,209 @@
+{
+  "at": "2026-10-25T13:25:17.908350+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "uncommitted": true,
+  "scope": "Design proposal only; shared UI remains v6 and production remains v5",
+  "criteria": [
+    "100beans shown as a cup with4 visible beans; no×10",
+    "500/1000 original images swapped byte-identically",
+    "10000 is a new mint/cream delivery truck",
+    "Full9-tier draft with unchanged quantities/prices,only50has×10",
+    "Images retain alpha and are recognizable at80px"
+  ],
+  "generation": "docs/design/bean-soft3d-v7.generation.json",
+  "assets": [
+    {
+      "quantity": 100,
+      "file": "public/brand/beans/soft3d-v7/100.png",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-01734935-400d-4bf9-99df-6c6cb4d6af79.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "8edaa470a4fd3d8e4c16c541f581137ad6e9157179731002c5d64e849f367e54",
+      "manualReview": "Cup with4 visible beans"
+    },
+    {
+      "quantity": 500,
+      "file": "public/brand/beans/soft3d-v7/500.png",
+      "source": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/1000.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+      "manualReview": "Former1000 open paper box"
+    },
+    {
+      "quantity": 1000,
+      "file": "public/brand/beans/soft3d-v7/1000.png",
+      "source": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/500.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+      "manualReview": "Former500 open silk bundle"
+    },
+    {
+      "quantity": 10000,
+      "file": "public/brand/beans/soft3d-v7/10000.png",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-330d8e4b-8287-4870-8c21-ce70ec37a387.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "3fdb1bdec8d9480fd658dd8ea1ae6f332caea0feedc582e23608eb2559240700",
+      "manualReview": "Cream/mint parcel truck with bean emblem"
+    }
+  ],
+  "browser": {
+    "at": "2026-10-25T13:24:26.981Z",
+    "scope": "Standalone design preview only",
+    "checks": [
+      {
+        "width": 930,
+        "labels": 9,
+        "prices": 9,
+        "images": 18,
+        "only50Multiplier": true,
+        "noOverflow": true,
+        "smallPreviewSizes": [
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          }
+        ]
+      },
+      {
+        "width": 390,
+        "labels": 9,
+        "prices": 9,
+        "images": 18,
+        "only50Multiplier": true,
+        "noOverflow": true,
+        "smallPreviewSizes": [
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          },
+          {
+            "width": 80,
+            "height": 80
+          }
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "visualReview": [
+    "Cup/truck generated outputs inspected",
+    "Full9-tier comparison inspected",
+    "Mobile80px grid inspected; cup handle and truck silhouette visible, no clipping or overflow"
+  ],
+  "runtimeCodeUnchangedSha256": "312ee5aae7c8fa0807685a3f2196a49a331e6638913ab69729831b895b807eb1",
+  "outputs": {
+    "docs/design/bean-soft3d-v7.generation.json": {
+      "sha256": "78e0aabf5c6d855de293cfc4f9941af19ded068e80410f0a5913eff5552f36bd",
+      "bytes": 5228
+    },
+    "docs/design/bean-soft3d-v7.preview.html": {
+      "sha256": "b4305582dc2c4f51a844143121468099dd319cb694075ba801fb4719f0dc52b7",
+      "bytes": 5114
+    },
+    "docs/design/bean-soft3d-v7.preview.png": {
+      "sha256": "6f09b2f242bf9beb972f7459143746e8196aaded87023085a5fcb0d1ec2e39fd",
+      "bytes": 844134
+    }
+  },
+  "commands": [
+    {
+      "command": "node .local/bean-soft3d-v7-20261025/render.cjs",
+      "exitCode": 0,
+      "result": "930/390draft,18images,9quantities/prices,50-only multiplier,80px check pass"
+    }
+  ],
+  "limits": [
+    "No runtime change, deployment, real payment or external message",
+    "No product regression rerun for design-only artifacts",
+    "Human visual review, not automated object count recognition"
+  ]
+}

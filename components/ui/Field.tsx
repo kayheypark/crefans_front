@@ -13,7 +13,7 @@ export type FieldProps=Omit<InputHTMLAttributes<HTMLInputElement>,'prefix'> & Fi
 };
 export type TextAreaFieldProps=TextareaHTMLAttributes<HTMLTextAreaElement> & FieldText & {showCount?:boolean};
 
-function FieldIcon({name}:{name:'search'|'clear'|'show'|'hide'}){
+export function FieldIcon({name}:{name:'search'|'clear'|'show'|'hide'}){
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{name==='search'?<><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></>:name==='clear'?<path d="m7 7 10 10M17 7 7 17"/>:<><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>{name==='hide'&&<path d="m3 3 18 18"/>}</>}</svg>;
 }
 

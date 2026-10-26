@@ -1,0 +1,404 @@
+{
+  "verifiedAt": "2026-10-24T00:19:38.207235+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "workingTreeDirty": true,
+  "target": "https://beta.crefans.com",
+  "features": [
+    "Icon-only mobile GNB, uniform 56x48px targets and accessible link names",
+    "Gallery lower-right expand/restore toggle, full-height media and saved panel height",
+    "Mobile chip initial 16px inset with edge-to-edge scroll viewport"
+  ],
+  "scope": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "changedRuntimeFiles": [
+      "components/crefans/Icon.tsx",
+      "components/crefans/ServiceShell.tsx",
+      "components/crefans/SocialPages.tsx",
+      "components/crefans/service.module.css",
+      "components/crefans/social.module.css",
+      "components/design-system/ServicePatternCatalog.tsx",
+      "components/ui/chip-row.module.css"
+    ],
+    "runtimeFiles": 473
+  },
+  "check": {
+    "command": [
+      "npm",
+      "run",
+      "check"
+    ],
+    "startedAt": "2026-10-24T00:14:06.746911+00:00",
+    "finishedAt": "2026-10-24T00:14:14.538303+00:00",
+    "exitCode": 0,
+    "passedUnitTests": 286
+  },
+  "build": {
+    "command": [
+      "docker",
+      "--config",
+      "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "-f",
+      "infra/platform/Dockerfile",
+      "-t",
+      "crefans-front:mobile-ui-20261024",
+      "."
+    ],
+    "startedAt": "2026-10-24T00:14:06.744706+00:00",
+    "finishedAt": "2026-10-24T00:15:41.204200+00:00",
+    "exitCode": 0
+  },
+  "image": {
+    "at": "2026-10-24T00:16:41.936748+00:00",
+    "imageId": "sha256:bfc045fcd9776fd5767f21c0efcc70b696c2cde611a6343144bd85f5decb362c",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 473
+  },
+  "source": {
+    "runtimeFilesMatched": 473,
+    "manifestSha256": "807471345961fc206631b9b9b5496f2c242a72476f29c8ba73bac3cd11caf0da",
+    "changedFiles": {
+      "components/crefans/Icon.tsx": "9f28014623abb6fc1cf9f671da50f5ee14fe2bf26f69a6dac8c92815125cb231",
+      "components/crefans/ServiceShell.tsx": "caaadf2e678ee64fb6e53d695852a6acbb6cc18c96b42cccf6adc8fae304a685",
+      "components/crefans/SocialPages.tsx": "168014f347a86b27e06f2bc9ffba27c4960ebf765977d7657039507b47cd9e44",
+      "components/crefans/service.module.css": "16332c1c7728cbca79850f84b5b651ca0fdaa0057328f57cb7ffa40bc9172548",
+      "components/crefans/social.module.css": "50a615b08ad664ec432e598a0926eee402f059c6807adf2d383805021f20c5ab",
+      "components/design-system/ServicePatternCatalog.tsx": "96ad54132961c5a1b03bbf428563518fb4a97b88ac2af9429114ccb3847291f0",
+      "components/ui/chip-row.module.css": "5fb709753b37b965ca1123cbe5a5200ffafea861153a793680740e2c85ff6f2f"
+    },
+    "recheckedAfterDeployment": true
+  },
+  "builtImageE2E": {
+    "startedAt": "2026-10-24T00:16:44.548262+00:00",
+    "finishedAt": "2026-10-24T00:17:00.010721+00:00",
+    "exitCode": 0,
+    "scope": "Built production image on loopback3013; preview interactions only",
+    "passed": 3,
+    "failed": 0
+  },
+  "productionE2E": {
+    "command": [
+      "npx",
+      "playwright",
+      "test",
+      "--config",
+      ".local/mobile-ui-deploy-20261024/production-playwright.config.ts"
+    ],
+    "startedAt": "2026-10-24T00:17:51.916648+00:00",
+    "finishedAt": "2026-10-24T00:18:08.190451+00:00",
+    "exitCode": 0,
+    "logSha256": "dc8548a5d155da61bbab734955b18cdbf4b14bf877a9a934ac0fdf8974cefb1b",
+    "passed": 3,
+    "failed": 0,
+    "projects": [
+      "desktop Chromium",
+      "mobile Chromium",
+      "mobile WebKit"
+    ]
+  },
+  "testAdjustment": {
+    "firstBuiltImageAttempt": {
+      "startedAt": "2026-10-24T00:15:55.195205+00:00",
+      "finishedAt": "2026-10-24T00:16:05.725352+00:00",
+      "exitCode": 1,
+      "scope": "Built production image on loopback3013; preview interactions only"
+    },
+    "cause": "Corner assertion read button and parent boxes in separate animation frames during overlay entrance.",
+    "change": "Read both rectangles in one evaluation and poll unchanged <1px tolerance around the 10px corner offset.",
+    "testSourceSha256": "91e0feeab99e12091c04561cf4c6dd6872e5172d9e0e952a7adaead1685fe673",
+    "productChangeRequired": false
+  },
+  "deployment": {
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-24T00:17:15.653761+00:00",
+        "finishedAt": "2026-10-24T00:17:16.691849+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T00:17:16.692413+00:00",
+        "finishedAt": "2026-10-24T00:17:24.616600+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T00:17:24.617186+00:00",
+        "finishedAt": "2026-10-24T00:17:36.535436+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T00:17:36.536383+00:00",
+        "finishedAt": "2026-10-24T00:17:43.895967+00:00",
+        "exitCode": 0
+      }
+    ],
+    "result": {
+      "frontendImage": "sha256:bfc045fcd9776fd5767f21c0efcc70b696c2cde611a6343144bd85f5decb362c",
+      "running": true,
+      "restarts": 0,
+      "preservedServices": [
+        "database",
+        "api",
+        "worker",
+        "admin",
+        "proxy"
+      ]
+    },
+    "frontendOnly": true,
+    "apiHealthPassed": true,
+    "httpRoutesPassed": 9
+  },
+  "manualBrowser": {
+    "at": "2026-10-24T00:18:13.125Z",
+    "url": "https://beta.crefans.com/preview/explore",
+    "measurements": [
+      {
+        "chipRow": {
+          "firstLeft": 16,
+          "left": 0,
+          "right": 320,
+          "scrollLeft": 0,
+          "scrollPadding": "16px"
+        },
+        "links": [
+          {
+            "height": 48,
+            "label": "홈",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "탐색하기",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "메시지",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "알림 5개",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "내 프로필",
+            "text": "",
+            "width": 56
+          }
+        ],
+        "navVisible": true,
+        "pageWidth": 320,
+        "width": 320
+      },
+      {
+        "chipRow": {
+          "firstLeft": 16,
+          "left": 0,
+          "right": 390,
+          "scrollLeft": 0,
+          "scrollPadding": "16px"
+        },
+        "links": [
+          {
+            "height": 48,
+            "label": "홈",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "탐색하기",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "메시지",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "알림 5개",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "내 프로필",
+            "text": "",
+            "width": 56
+          }
+        ],
+        "navVisible": true,
+        "pageWidth": 390,
+        "width": 390
+      },
+      {
+        "chipRow": {
+          "firstLeft": 16,
+          "left": 0,
+          "right": 767,
+          "scrollLeft": 0,
+          "scrollPadding": "16px"
+        },
+        "links": [
+          {
+            "height": 48,
+            "label": "홈",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "탐색하기",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "메시지",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "알림 5개",
+            "text": "",
+            "width": 56
+          },
+          {
+            "height": 48,
+            "label": "내 프로필",
+            "text": "",
+            "width": 56
+          }
+        ],
+        "navVisible": true,
+        "pageWidth": 767,
+        "width": 767
+      },
+      {
+        "chipRow": {
+          "firstLeft": 190,
+          "left": 190,
+          "right": 744,
+          "scrollLeft": 0,
+          "scrollPadding": "auto"
+        },
+        "links": [
+          {
+            "height": 0,
+            "label": "홈",
+            "text": "",
+            "width": 0
+          },
+          {
+            "height": 0,
+            "label": "탐색하기",
+            "text": "",
+            "width": 0
+          },
+          {
+            "height": 0,
+            "label": "메시지",
+            "text": "",
+            "width": 0
+          },
+          {
+            "height": 0,
+            "label": "알림 5개",
+            "text": "",
+            "width": 0
+          },
+          {
+            "height": 0,
+            "label": "내 프로필",
+            "text": "",
+            "width": 0
+          }
+        ],
+        "navVisible": false,
+        "pageWidth": 768,
+        "width": 768
+      }
+    ],
+    "service": {
+      "links": [
+        {
+          "height": 48,
+          "label": "홈",
+          "text": "",
+          "width": 56
+        },
+        {
+          "height": 48,
+          "label": "탐색하기",
+          "text": "",
+          "width": 56
+        },
+        {
+          "height": 48,
+          "label": "메시지",
+          "text": "",
+          "width": 56
+        },
+        {
+          "height": 48,
+          "label": "알림",
+          "text": "",
+          "width": 56
+        },
+        {
+          "height": 48,
+          "label": "내 프로필",
+          "text": "",
+          "width": 56
+        }
+      ],
+      "main": "아직 게시물이 없어요마음에 드는 크리에이터를 만나보세요.크리에이터 둘러보기서비스 소개고객센터공지사항크리에이터 스튜디오 ↗",
+      "url": "https://beta.crefans.com/service/feed"
+    },
+    "errors": []
+  },
+  "ssh": {
+    "at": "2026-10-24T00:14:44.305224+00:00",
+    "ruleId": "sgr-0042cbcbcd1b74b35",
+    "persistentHomeSshRulePresent": true,
+    "changeMade": false
+  },
+  "rollback": {
+    "previousImage": "crefans-front:mobile-gallery-sheet-20261024",
+    "configurationBackup": "/opt/crefans-backup-mobile-ui-20261024"
+  },
+  "artifactHashes": {
+    "check.log": "8929ee89db7f68a0df948dc9d4e69a8a1c8df38355ec11a89696f3384caef651",
+    "build.log": "b34cdedeaa35cd1114ea7d9aa826162d7a7c3940e3f4d2bce94249fe853fa06f",
+    "image-e2e.log": "cc643f90d3b4a8c9bc68353bd736f29534150ee4c624f7c2f9b8f27ece9ee82c",
+    "first-image-e2e.log": "df35c4a6b684c617287592e3ae30f0a65a2a44dc0d1bac1347c918c7f4bc28b6",
+    "production-e2e.log": "dc8548a5d155da61bbab734955b18cdbf4b14bf877a9a934ac0fdf8974cefb1b",
+    "final-deploy.log": "c35b85999c2e69a5f48f0da2b77b452dc7645e6c2503e0acfe9a386d63405f44",
+    "production-browser.json": "ccdcbabb6c9da19888c7b716145821950cad806553c37cd3ac90c85c66f16421",
+    "production-before.png": "5bd260827b0ad9e9f314a13e8a84762e2565e10c4c50cb875ac63ccdf05ec47b",
+    "production-explore.png": "4554f291be594713d498e1b3b2245ab80aac78cb68d5e246ceb87717cd5f082f"
+  },
+  "localArtifacts": "/Users/ethan/repository/crefans_front/.local/mobile-ui-deploy-20261024",
+  "limits": [
+    "Physical iPhone Safari not tested; browser viewport emulation and mobile WebKit checked.",
+    "Production preview interactions use shared service components; no live financial or account mutation.",
+    "Uncommitted working tree deployed; no commit, merge or push."
+  ]
+}

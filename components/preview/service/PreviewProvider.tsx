@@ -1,4 +1,6 @@
 'use client';
+import {BeanContext} from '@/components/crefans/BeanContext';
+import {useMockBeans} from './useMockBeans';
 import {createContext,useContext,useEffect,useRef,useState,type ReactNode} from 'react';
 import type {ApiResult,ServiceData,ServiceViewModel,Subscription,Viewer,Creator} from '@/types/crefans';
 import {ApiState} from '@/components/crefans/ApiState';
@@ -48,14 +50,15 @@ function StateProvider({data,children}:{data:ServiceData;children:ReactNode}){
   const [currentData,setData]=useState(()=>({...data,paymentHistory:data.paymentHistory.map(item=>{const plan=item.planSnapshot??getCreatorPlans(data,item.creatorId).find(plan=>plan.id===item.planId);return {...item,planSnapshot:plan?{...plan,benefits:[...plan.benefits]}:undefined};})}));
   const protectedPlans=useRef<string[]>([]);
   const management=useMockManagement({getProtectedPlanIds:()=>protectedPlans.current});
-  const serviceData={...currentData,creatorPlans:{...currentData.creatorPlans,haneul:studioMembershipPlans(management.memberships,currentData.plans)}};
+  const serviceData={...currentData,posts:currentData.posts.map(post=>({...post,tipsEnabled:management.contents.find(item=>post.creatorId==='haneul'&&item.id===post.id)?.tipsEnabled??post.tipsEnabled??true})),creatorPlans:{...currentData.creatorPlans,haneul:studioMembershipPlans(management.memberships,currentData.plans)}};
   const state=usePreviewState(serviceData);
+  const beans=useMockBeans(state.signedIn,data.creators,serviceData.posts);
   protectedPlans.current=state.subscriptions.filter(item=>item.creatorId==='haneul'&&item.status!=='expired'&&item.renewAt>=today).map(item=>item.planId);
   const sharedManagement={...management,memberships:management.memberships.map(item=>({...item,canDelete:canDeleteMembership(item.id,management.subscribers,today)&&!protectedPlans.current.includes(item.id)}))};
   const common=useMockCommon({email:state.account.email});
   const model:ServiceViewModel={...state,account:{...state.account,paymentMethods:common.paymentMethods},accountActions:state.accountActions};
   const updateCreator=(id:string,patch:Partial<Creator>)=>setData(previous=>({...previous,creators:previous.creators.map(creator=>creator.id===id?{...creator,...patch}:creator)}));
-  return <Context.Provider value={model}><CommonContext.Provider value={common}><Controls.Provider value={updateCreator}><ManagementContext.Provider value={sharedManagement}>{children}</ManagementContext.Provider></Controls.Provider></CommonContext.Provider></Context.Provider>;
+  return <Context.Provider value={model}><BeanContext.Provider value={beans}><CommonContext.Provider value={common}><Controls.Provider value={updateCreator}><ManagementContext.Provider value={sharedManagement}>{children}</ManagementContext.Provider></Controls.Provider></CommonContext.Provider></BeanContext.Provider></Context.Provider>;
 }
 export function PreviewProvider({children,response=mockServiceResponse}:{children:ReactNode;response?:ApiResult<ServiceData>}){return <ApiState response={response}>{data=><StateProvider data={data}>{children}</StateProvider>}</ApiState>;}
 export function usePreview(){const value=useContext(Context);if(!value)throw new Error('PreviewProvider is required');return value;}

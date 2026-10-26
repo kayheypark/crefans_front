@@ -1,0 +1,20 @@
+{
+  "createdAt": "2026-10-25T06:35:53.490Z",
+  "tool": "built-in image_gen",
+  "useCase": "style-transfer",
+  "prompt": "Use case: style-transfer. Asset type: ONE alternative concept presentation sheet for CREFANS bean recharge artwork. Edit the attached 3-by-3 FLAT concept sheet into a CUTE SOFT 3D version. Preserve the identical mint-green, cream, pale coral and butter-yellow palette, exact 3x3 composition, abundant white space, all nine correct captions and quantity order: top 10콩 / 30콩 / 50콩; middle 100콩 / 300콩 / 500콩; bottom 1,000콩 / 5,000콩 / 10,000콩. Preserve exactly one, two, three generously spaced bean shapes in the top row. Preserve a SINGLE CLOSED little pouch for each middle cell and SINGLE CLOSED gift box for each bottom cell, with matching simple bean emblem/ribbon/star details. Change ONLY the rendering language: gently rounded inflated silhouettes, shallow bevels, smooth satin matte surfaces, soft broad studio illumination, delicate ambient occlusion and faint soft contact shadows. Premium friendly app-illustration 3D, simple toy-like shapes, clear silhouettes, restrained depth, mostly front view. The cream accent on each green bean is a smooth broad INLAID graphic mark, not a slit, groove, pore or wrinkle. Pouches are stylized smooth rounded volumes with simple cartoon tops and thick simple ties, not real textile: NO stitching, no fine folds, no grain. Ribbons are soft thick rounded shapes with at most one broad fold. Absolutely NO dense piles, no overflowing beans, no scattered particles, no tiny repeated objects, no realistic seeds, no clammy gloss, no organic flesh appearance, no pores, no clay fingerprints, no speckles, no gritty texture, no intricate treasure chests. Avoid deep creases and excessive highlights. Keep the same closed pouch/box motifs and airy layout, do not invent new decorations or faces. Background clean white, not transparent. Only text is the nine captions; keep each clean dark charcoal, exact and readable. This is a comparison board, not a sprite sheet or website screenshot.",
+  "reference": "docs/design/bean-flat-sheet-v1.png",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0ff9909d-6d02-46aa-a1f0-a0a8eef58ce5.png",
+  "destination": "docs/design/bean-soft3d-sheet-v1.png",
+  "purpose": "Single nine-quantity comparison board; not nine production assets",
+  "appliedToUi": false,
+  "deployed": false,
+  "output": {
+    "sha256": "405344e738291abd63536fb8c14feb93120cc53df59c215bac9d1d2c17cb553b",
+    "width": 1312,
+    "height": 1199,
+    "mode": "RGB",
+    "bytes": 1341678
+  },
+  "referenceSha256": "53cd1d32d3a37a31e771a08038bf5691662462048df08fb5e75ca2d598816e12"
+}

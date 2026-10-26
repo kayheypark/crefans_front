@@ -1,0 +1,7 @@
+.icon{display:block;flex:none;object-fit:contain;filter:grayscale(1);opacity:.8}
+.icon[data-active=true]{filter:none;opacity:1}
+.profile{display:inline-flex;flex:none}
+.profile [data-avatar=fallback]{background:transparent;border-radius:0;overflow:visible}
+
+.icon[data-navigation-icon=home],.icon[data-navigation-icon=bell]{transform:scale(1.2)}
+.icon[data-navigation-icon=user]{transform:scale(1.1)}

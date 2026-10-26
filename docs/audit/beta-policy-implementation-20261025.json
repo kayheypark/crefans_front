@@ -1,0 +1,343 @@
+{
+  "task": "Implement the 16 approved beta policy selections",
+  "at": "2026-10-25T00:17:50.419327+00:00",
+  "status": "implemented-and-locally-verified-opening-blocked",
+  "selected": {
+    "1": "A",
+    "2": "A",
+    "3": "A",
+    "4": "A",
+    "5": "A",
+    "6": "A",
+    "7": "C",
+    "8": "A",
+    "9": "A",
+    "10": "C",
+    "11": "A",
+    "12": "A",
+    "13": "B",
+    "14": "A",
+    "15": "A",
+    "16": "C"
+  },
+  "environment": {
+    "host": "Darwin",
+    "node": "v22.7.0",
+    "database": "crefans_platform_e2e on loopback 3307 only",
+    "browser": "Chromium, desktop1280 and mobile390; not physical iPhone",
+    "externalCalls": "SMTP/Toss/PASS/bank doubles only; no real sends/charges/transfers"
+  },
+  "repositories": {
+    "front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "branch": "feat/beta-signup",
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirty": true,
+      "dirtyPathCount": 250
+    },
+    "server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "branch": "feat/beta-signup",
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirty": true,
+      "dirtyPathCount": 129
+    }
+  },
+  "scope": {
+    "migrationsAppliedTo": "isolated-e2e only",
+    "productionDeployed": false,
+    "developmentDatabaseMigrated": false,
+    "runtimeEnvironmentChanged": false,
+    "committedOrPushed": false,
+    "financialPolicy": "20%/7d tested through versioned API helper; operating DB remains unchanged and must be applied via existing SUPER_ADMIN API during release",
+    "guideRoutes": [
+      "/preview/guide/fan",
+      "/preview/guide/creator",
+      "/service/guide/fan",
+      "/service/guide/creator"
+    ]
+  },
+  "verification": {
+    "backendTests": 46,
+    "frontendUnitTests": 321,
+    "uniqueBrowserScenariosPassed": 19,
+    "sourceDiffWhitespaceCheck": "git diff --check passed in both repos",
+    "commands": [
+      {
+        "repository": "server",
+        "command": "npm run build",
+        "exitCode": 0,
+        "result": "Nest TypeScript build passed. Final HTML fix also compiled by the final Playwright webServer build.",
+        "kind": "compile",
+        "completedAtFromLogMtime": "2026-10-25T00:11:19.279046+00:00",
+        "logPath": "/Users/ethan/repository/crefans_server/.local/beta-policy-implementation-20261025/build-verified.log",
+        "logSha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2"
+      },
+      {
+        "repository": "server",
+        "command": "CREFANS_E2E=true node --test --test-concurrency=1 tests/platform-beta-policy.test.cjs tests/platform-beta-cohort.test.cjs tests/platform-financial-policy.test.cjs tests/platform-finance.test.cjs tests/platform-openapi.test.cjs tests/platform-legal.test.cjs",
+        "exitCode": 0,
+        "result": {
+          "passed": 46,
+          "failed": 0,
+          "cohort": "17 synthetic accounts, 432 inner permission assertions"
+        },
+        "kind": "isolated DB / provider doubles / HTTP",
+        "completedAtFromLogMtime": "2026-10-25T00:15:18.734062+00:00",
+        "logPath": "/Users/ethan/repository/crefans_server/.local/beta-policy-implementation-20261025/backend-final-http.log",
+        "logSha256": "ba9212eac665af18a7100ed5bef01ab62898ae682f5e9f3c33bf058513a79639"
+      },
+      {
+        "repository": "front",
+        "command": "npm run check",
+        "exitCode": 0,
+        "result": {
+          "passed": 321,
+          "failed": 0,
+          "layers": "passed",
+          "typescript": "passed"
+        },
+        "kind": "unit / static",
+        "completedAtFromLogMtime": "2026-10-25T00:15:22.723719+00:00",
+        "logPath": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/front-final-proxy.log",
+        "logSha256": "92a744fc913bdc1c501747359b04d8e2b9bec1cd84953c2aa6bc291a311fdbef"
+      },
+      {
+        "repository": "front",
+        "command": "npx playwright test e2e/beta-policy.spec.ts e2e/signup-deferred.spec.ts e2e/service.spec.ts e2e/billing-recovery.spec.ts --project=chromium",
+        "exitCode": 1,
+        "result": {
+          "passed": 16,
+          "failed": 2,
+          "causes": [
+            "test selector omitted switch description",
+            "legacy 5000 KRW fixture now correctly below 10000 minimum"
+          ]
+        },
+        "kind": "browser / isolated API / doubles",
+        "completedAtFromLogMtime": "2026-10-25T00:08:43.461561+00:00",
+        "logPath": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/playwright-first.log",
+        "logSha256": "182a01e5809a771ed4808db911af7eea90eb513cb6d041051db35dd35f5931e8"
+      },
+      {
+        "repository": "front",
+        "command": "npx playwright test e2e/beta-policy.spec.ts e2e/service.spec.ts --project=chromium --grep '광고 이메일|은행 계좌'",
+        "exitCode": 0,
+        "result": {
+          "passed": 2,
+          "failed": 0,
+          "minimum": "9999 disabled, 10000 accepted"
+        },
+        "kind": "browser regression",
+        "completedAtFromLogMtime": "2026-10-25T00:09:53.374613+00:00",
+        "logPath": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/playwright-followup.log",
+        "logSha256": "8d081e6e9f1704dad50599efcc616d16d126f9626f1c3b7e2fe35763054e890d"
+      },
+      {
+        "repository": "front",
+        "command": "npx playwright test e2e/beta-policy.spec.ts --project=chromium",
+        "exitCode": 0,
+        "result": {
+          "passed": 3,
+          "failed": 0,
+          "widths": [
+            390,
+            1280
+          ]
+        },
+        "kind": "browser guide/settings final",
+        "completedAtFromLogMtime": "2026-10-25T00:12:07.718773+00:00",
+        "logPath": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/playwright-guide-final.log",
+        "logSha256": "b4b5f4d8a4ed84214d48f9fc65c8ccc63e2f99a869a474e1421ceace5c2aa6f8"
+      },
+      {
+        "repository": "front",
+        "command": "npx playwright test e2e/beta-policy.spec.ts --project=chromium --grep '메일 수신거부 링크'",
+        "exitCode": 1,
+        "result": {
+          "failed": 1,
+          "cause": "HTML POST manually sent response and Nest passthrough sent again; isolated server exited",
+          "fix": "explicit Res response, JSON uses common envelope, HTML single send; Accept/CSP forwarded"
+        },
+        "kind": "negative regression evidence",
+        "completedAtFromLogMtime": "2026-10-25T00:13:36.166595+00:00",
+        "logPath": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/playwright-unsubscribe.log",
+        "logSha256": "e42c37e2e8c20e4cae5d66ff9fa8ea9a1ea6f85129e15a0900f8458b923b2368"
+      },
+      {
+        "repository": "front",
+        "command": "npx playwright test e2e/beta-policy.spec.ts --project=chromium --grep '메일 수신거부 링크'",
+        "exitCode": 0,
+        "result": {
+          "passed": 1,
+          "failed": 0,
+          "checks": [
+            "anonymous confirmation",
+            "HTML success",
+            "CSP through proxy",
+            "subsequent login/server alive",
+            "preference disabled"
+          ]
+        },
+        "kind": "browser regression",
+        "completedAtFromLogMtime": "2026-10-25T00:14:48.282526+00:00",
+        "logPath": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/playwright-unsubscribe-final.log",
+        "logSha256": "490d6e8e9acbb767e0019ebec2a1139a574d010259fa67e8af39f496f023f204"
+      }
+    ],
+    "timeLimit": "Original execution start times were not instrumented; completion times come from original log modification times, not inferred start times.",
+    "screenshots": [
+      {
+        "path": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/browser-guides/beta-guide-service-390.png",
+        "sha256": "69938c54530003402a0037d99b7dee0f2997710edf3eee892358a80524df08c2",
+        "visualReview": "PC and mobile creator guide inspected; shared layout, no horizontal overflow. Browser verified both audiences and both data modes."
+      },
+      {
+        "path": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/browser-guides/beta-guide-preview-1280.png",
+        "sha256": "0709920f0348e26fe1c2bb8831eeb80e179dd5f3fae3593ed7125dac95ca55f6",
+        "visualReview": "PC and mobile creator guide inspected; shared layout, no horizontal overflow. Browser verified both audiences and both data modes."
+      },
+      {
+        "path": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/browser-guides/beta-guide-preview-390.png",
+        "sha256": "1105ce5b7dad3427c1050520662609db1d7688c34406d0562af50bc8ef318a7d",
+        "visualReview": "PC and mobile creator guide inspected; shared layout, no horizontal overflow. Browser verified both audiences and both data modes."
+      },
+      {
+        "path": "/Users/ethan/repository/crefans_front/.local/beta-policy-implementation-20261025/browser-guides/beta-guide-service-1280.png",
+        "sha256": "fd9161434d0b1a5fcc02c129d2de47b1dcd0c414a7289d86368490880009e6a7",
+        "visualReview": "PC and mobile creator guide inspected; shared layout, no horizontal overflow. Browser verified both audiences and both data modes."
+      }
+    ],
+    "failedFixtureCleanup": {
+      "exactTracedFixtureCount": 1,
+      "memberCount": 3,
+      "serviceDocumentCount": 2,
+      "remainingTargetMembers": 0,
+      "target": "only IDs from failed trace, isolated DB lock; unrelated rows preserved"
+    }
+  },
+  "negativeCases": [
+    "empty invite list rejected",
+    "live/mixed payment keys denied in beta",
+    "sensitive owner access denied in beta",
+    "refund 7d+1ms denied; exact7d allowed",
+    "old refund snapshots unchanged",
+    "non-owner refund denied",
+    "test contract with live keys denied before provider call",
+    "unconfirmed PG proceeds unavailable",
+    "receipt wrong role/amount/test order denied",
+    "withdrawal9999 disabled and rejected",
+    "new payout non-Wednesday denied, pending reconciled Thursday",
+    "first failure plus exactly3 additional charges",
+    "forged unsubscribe link denied; GET non-mutating",
+    "unsubscribed/stale consent excluded",
+    "SMTP ambiguous/interrupted rows uncertain and not retried",
+    "HTML POST continued serving after response"
+  ],
+  "remaining": [
+    "Private invitation emails and beta start date",
+    "Actual item-level retention/destruction workflow and legal publishing date; signupReady false",
+    "AWS/Google/Telegram transfer countries, contracts and retention facts; Telegram IP/event policy retained",
+    "Operating DB migrations and financial policy 2000bps/7d, new runtime BETA_MODE; no release performed",
+    "Marketing signing secret, activation, SMTP/DKIM and recipient one-click recognition; per-campaign human authorization",
+    "Actual PG/tax/bank contracts, verified own account, holiday/cutoff rules before paid operation",
+    "Actual 17 participants, concurrency/load, physical devices and operational recovery not proved"
+  ],
+  "sources": [
+    {
+      "url": "https://docs.tosspayments.com/reference/using-api/api-keys",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1029563135",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lspttninfSeq=81508",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://www.kisa.kr/401/form?postSeq=3608",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://spam.kisa.or.kr/spam/main.do",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8058",
+      "checkedAt": "2026-10-25"
+    }
+  ],
+  "localGuide": {
+    "path": "/Users/ethan/Downloads/2026 개인정보 처리방침 작성지침.pdf",
+    "usedFor": "Actual processing/retention/destruction and international-transfer disclosures must match; not an approval of unknown facts"
+  },
+  "sourceHashes": {
+    "front/components/crefans/ServiceGuidePage.tsx": "074136b437bd5dc460f72b75a8f01d9974011b6d298bda11dcebea3646b0864b",
+    "front/components/crefans/AccountPages.tsx": "220e5974707609e9b327b78f515d63d4238cf9bde1f16ef4dddbc516c2797e2b",
+    "front/components/crefans/studio/FinancePages.tsx": "beec83515fd3797b60704ea2e19ff5bc8a7c93f157366ce9d38ba56f42973704",
+    "front/components/service/CheckoutPage.tsx": "c05c7e42dc27ad710bc7d153e3da32a122b6f366bf84eaee367f85ed0653c6bc",
+    "front/components/service/ServiceRouter.tsx": "c3f32c5514357cc4460bd7bfc66334bd615b151d018e055041347ab3f802433d",
+    "front/components/preview/service/ServiceRouter.tsx": "722eb12782d85aa9c6b35c0facaf9d77145a0f9ef372af57cc9f060ff017006c",
+    "front/components/preview/service/fixtures.ts": "535d8314a2d146a45cb071d3785efb644673f009f1bc5cffd89a86eb0c074a6e",
+    "front/components/preview/studio/useMockFinance.ts": "90d745f0c26e9d1771edab53301082da48a190f0a5084c8abcbf1aa546bdb9de",
+    "front/components/preview/screen-catalog.ts": "19045ae48ef62932050f2b3a9201953998c4a6c9c824b3c001141f16305a64e5",
+    "front/features/service/useServiceModel.ts": "e4c76e0dba0ec397d67c80e5479b8c5a473056a6d619b5a1b1a6a3a4b280155b",
+    "front/lib/api/platformProxy.ts": "653f6e140b519fc24e7c5a2936364af1b2655892fea28780178bd1d4f0527b6c",
+    "front/lib/crefans/support.ts": "d533fc07de6a334d9aac6d2e97b605e03b65a68ae916434e8f9c64c6301786d3",
+    "front/types/crefans-account.ts": "cd33b0f391f183e3b08665363016a2475f5047da90b1f722dffc6f57e77892e6",
+    "front/app/service/[...screen]/page.tsx": "a3821c7587556d641f9602e7f7bba90d8171b90d51e1be11bde94cbab9abc3aa",
+    "front/app/preview/[...screen]/page.tsx": "5ae03c1d843b6583836fb02f47cf80a8196c11d784b9814e6559fe8e44355b77",
+    "front/tests/crefans-finance.test.cjs": "76d7a0e47436e84b71cf7e40827be7bc6bd956fec7ea0618c59d68267cc2a29b",
+    "front/e2e/beta-policy.spec.ts": "973d5013ea47241e73e174dcd9ef504207b7291b20a9104566a0cb90ab383744",
+    "front/e2e/service.spec.ts": "b04373a955c8878d218fd271d6fe489c8557d7cc708dc41cf0aba6036a04d472",
+    "front/docs/beta-role-test-plan.md": "2f3a846d85f0c1f69e04d428db338c5e2aa63461304831ed89e0f00b2912a9f8",
+    "server/src/platform/beta-policy.ts": "230eaaee772bec6855899e096abf9a1535ac8d529fbe271ead34f83be359991b",
+    "server/src/platform/settlement-receipts.ts": "0755edaa457223fc853ea2565a8fd19637001b4e3667f620fdeff95240100411",
+    "server/src/platform/marketing.service.ts": "321f4c75de45505449428995fbb4a9e63c86336382688e9acd6556b0a5f70eed",
+    "server/src/platform/marketing.controller.ts": "a09e8057aa2e19e0faa8f330b1bf2887fde14541496d703f4caa9626172b598b",
+    "server/src/platform/signup-policy.ts": "564bf33dc55c9465ebf4738f056841605ceecbadad32bbd594e58671d29d4bbe",
+    "server/src/platform/payment-provider.ts": "78d3edce602244a816e14f1ee5e7880a33d640c7a712d64c641f47ae2b2d7844",
+    "server/src/platform/finance.service.ts": "0ce9551886acebacae5a61ea2095ad721a3a346f48b6049661b173f188b4e1f8",
+    "server/src/platform/service.ts": "3e5370b64dcf5ab2503e72dafa3852861df6d7070afc0e787d4056c99a980f11",
+    "server/src/platform/studio.service.ts": "2dfb617bf45fa1305442d0a30165caa8fa570daabca3655b4303283a98f7dc6e",
+    "server/src/platform/auth.service.ts": "c9bfab1bbe2a46d8788a9db949da9301d79e0cd4d3e8cf330e8ec9b8e884db3b",
+    "server/src/platform/jobs.service.ts": "0606a02fce944981bbd20eab41bcd83956a5e8d09c86c4fa60dbddad3f9426b5",
+    "server/src/platform/admin.controller.ts": "43ebccbabea247db70103fd416d535d3b670cc723e37964e87694354512f6985",
+    "server/src/platform/module.ts": "4b97410baa44f6d6cb51b9d4e684e75085d2ad3ebd1bea8762c586578efa2c42",
+    "server/src/platform/main.ts": "1697a9544bfae9f423cbafd2002be95db6c0f4cc7f525b8274316f2604a41c64",
+    "server/src/platform/audit.ts": "af3b0536f11bce39ffdfad3f8c0d9f02d7ba75cfd6704b9a6072b2e6817de19a",
+    "server/src/platform/openapi.ts": "a42291b8ee1cf1951a72f63f2cce51ef7b93a7e2ebd4ab8e06e3ebf6515619d6",
+    "server/src/platform/openapi-contract.ts": "bb8664520fb856d991e5e77bdd508e424b0305754e3111ed5a879b8cac7913d9",
+    "server/src/platform/legal-documents.ts": "6095e010cc4bd8032280cbdeae88b88e6ba43fd6585d64ca3ea3bb6978a43766",
+    "server/src/auth/local/member-mail.service.ts": "d26e672cc8b5a08d8ebd8c427c79f6a63e458d1f72c2d7f51578a5deb6c57caa",
+    "server/src/auth/local/mail/templates.ts": "b2a4fdaf8d91d2769bea4a7ae478448ad16bbe79cf04750b8ad807f552d242fb",
+    "server/prisma/schema.prisma": "5e09248e5e64ea60e55a9b0de1544d0052199b957fc36f6764d7ae2aab6cf1cf",
+    "server/prisma/migrations/20261025100000_beta_policy/migration.sql": "1fd23a64220156108978d59061d2fcdb62022c6c44e10145d069c2258f069f90",
+    "server/prisma/migrations/20261025110000_marketing_delivery_claim/migration.sql": "be6b7ae38fe19d5dea989193316c5d60a58cb9565c913040d64603110b183573",
+    "server/infra/platform/runtime.env.example": "a52097c152b3d849f87dc8633eb72a363efe0c66680c2f84cb8fb2312dd03d45",
+    "server/tests/platform-beta-policy.test.cjs": "536b2c9a2d38b880cfdd43d08d3c12302f7dcf469e9be6186d5c0c0a5dec8df8",
+    "server/tests/platform-finance.test.cjs": "5fbb01e12c9ce3a90b260496b08be8105749ddda5af02419e7c95cceff603836",
+    "server/tests/platform-openapi.test.cjs": "70088b1c86c5195cd07b5456ccf5689d1eaf0d9ded5ac365537f188c2f529896",
+    "server/tests/e2e-server.cjs": "039c0a5988fecc01d11743c041bf5e8968b5619efb38c8511d5416ae2fa94c43",
+    "server/docs/platform-api.md": "8e3829f1672a0e42771439f32ba9a94ac8098ebd7b37fe0fad9b78e21987a85e"
+  },
+  "documentationVerification": {
+    "status": "passed",
+    "contract": {
+      "documents": 60,
+      "routes": 104,
+      "screens": 43,
+      "models": 61,
+      "migrations": 19
+    },
+    "checkCommand": "npm run check:docs",
+    "checkExitCode": 0,
+    "negativeCommand": "npm run test:docs",
+    "negativeExitCode": 0,
+    "logSha256": "d1a06697473cbd7b7d526c330a684ccd3087607e35d2064b05f693cfdff69e97",
+    "negativeLogSha256": "61c8c3c4d5c5c0f1af1b85c42a59015ae5a8454c65d33a8cd12d4e0f1b4751f4",
+    "note": "Manifest review + regenerated contracts + negative controls + fresh hashes; snapshot is documentation freshness, product test evidence is separate."
+  }
+}

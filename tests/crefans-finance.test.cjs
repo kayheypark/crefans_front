@@ -41,13 +41,13 @@ test('finance ledger partitions net income without counting reserved or paid mon
 test('withdrawal review rejects invalid KRW, insufficient balances, and unverified or missing accounts without mutation',()=>{
   const state=createInitialFinanceState();
   const before=JSON.stringify(state);
-  for(const amount of [0,-1,1.5,NaN,Infinity,Number.MAX_SAFE_INTEGER+1]){
+  for(const amount of [0,-1,1.5,9999,NaN,Infinity,Number.MAX_SAFE_INTEGER+1]){
     const result=reviewMockWithdrawal(state,{amount,accountId:'account-verified'});
     assert.equal(result.success,false);
     assert.equal(result.errorCode,'INVALID_AMOUNT');
   }
-  assert.equal(reviewMockWithdrawal(state,{amount:1,accountId:'account-unverified'}).errorCode,'ACCOUNT_NOT_VERIFIED');
-  assert.equal(reviewMockWithdrawal(state,{amount:1,accountId:'missing'}).errorCode,'ACCOUNT_NOT_FOUND');
+  assert.equal(reviewMockWithdrawal(state,{amount:10000,accountId:'account-unverified'}).errorCode,'ACCOUNT_NOT_VERIFIED');
+  assert.equal(reviewMockWithdrawal(state,{amount:10000,accountId:'missing'}).errorCode,'ACCOUNT_NOT_FOUND');
   assert.equal(reviewMockWithdrawal(state,{amount:1151901,accountId:'account-verified'}).errorCode,'INSUFFICIENT_BALANCE');
   const quote=reviewMockWithdrawal(state,{amount:100000,accountId:'account-verified'});
   assert.equal(quote.success,true);
@@ -78,7 +78,7 @@ test('requesting the full balance reaches zero without touching pending or compl
   const view=financeView();
   try{
     await setupPin(view);
-    const all={amount:view.model.data.summary.available,accountId:'account-verified'},extra={amount:1,accountId:'account-verified'};
+    const all={amount:view.model.data.summary.available,accountId:'account-verified'},extra={amount:10000,accountId:'account-verified'};
     const authorizationId=await authorize(view,all),extraAuthorizationId=await authorize(view,extra);
     const transaction=await request(view,{...all,requestId:'all-available',authorizationId});
     assert.equal(transaction.success,true);const summary=invariant(view.model.data);assert.equal(summary.available,0);

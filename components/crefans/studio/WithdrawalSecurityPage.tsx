@@ -1,8 +1,8 @@
 'use client';
+import {BackButton} from '../BackButton';
 
 import {useRef,useState,type FormEvent} from 'react';
 import Link from 'next/link';
-import {TextLink} from '@/components/ui/TextLink';
 import {PinField} from '@/components/ui/PinField';
 import type {StudioFinanceModel} from '@/types/crefans-studio-finance';
 import {Action,PageTitle} from '../ServiceUI';
@@ -27,13 +27,12 @@ export function WithdrawalSecurityPage({model,basePath}:{model:StudioFinanceMode
     finally{setPin('');setConfirmation('');busy.current=false;setPending(false);}
   };
   return <section className={s.page}>
-    <PageTitle>출금 PIN 설정</PageTitle>
+    <PageTitle back={<BackButton href={`${basePath}/earnings`} label="수익 현황으로 돌아가기"/>}>출금 PIN 설정</PageTitle>
     <p className={s.lead}>출금 요청을 확인할 때 사용할 숫자 6자리를 설정해 주세요.</p>
     {model.pinConfigured?<div className={s.configured}><span className={s.icon}><Icon name="lock"/></span><h2>출금 PIN이 설정되어 있어요</h2><p>출금 금액과 수령 계좌를 확인한 뒤 PIN을 입력해 주세요.</p>{message&&<p role="status">{message}</p>}<Link className={s.primaryLink} href={`${basePath}/withdraw`}>출금 요청으로 이동</Link></div>:<form className={s.form} noValidate onSubmit={submit}>
       <PinField label="새 출금 PIN" value={pin} onChange={value=>{setPin(value);setError('');}} autoComplete="new-password" required disabled={pending} hint="다른 사람에게 알려주지 않는 번호를 사용해 주세요."/>
       <PinField label="출금 PIN 확인" value={confirmation} onChange={value=>{setConfirmation(value);setError('');}} autoComplete="new-password" required disabled={pending} error={error||undefined}/>
       <Action type="submit" variant="brand" disabled={pending||!/^\d{6}$/.test(pin)||pin!==confirmation} aria-busy={pending}>{pending?'설정 중…':'PIN 설정하기'}</Action>
     </form>}
-    <TextLink className={s.back} href={`${basePath}/earnings`}>수익 현황으로 돌아가기</TextLink>
   </section>;
 }

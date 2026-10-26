@@ -1,0 +1,191 @@
+{
+  "verifiedAt": "2026-10-24T00:46:45.890140+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "workingTreeDirty": true,
+  "target": "https://beta.crefans.com",
+  "scope": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "changedRuntimeFiles": [
+      "components/crefans/social.module.css"
+    ],
+    "runtimeFiles": 474,
+    "localBrowserEvidenceValid": true,
+    "excluded": ".DS_Store per .dockerignore"
+  },
+  "build": {
+    "command": [
+      "docker",
+      "--config",
+      "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "-f",
+      "infra/platform/Dockerfile",
+      "-t",
+      "crefans-front:mobile-inbox-20261024",
+      "."
+    ],
+    "startedAt": "2026-10-24T00:42:11.321895+00:00",
+    "finishedAt": "2026-10-24T00:43:44.153598+00:00",
+    "exitCode": 0
+  },
+  "image": {
+    "at": "2026-10-24T00:43:52.576298+00:00",
+    "imageId": "sha256:d0c408e9fe47d584e91b40adbb8402e930e7a0ad7bb0d90644f21bd8c1e45f51",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 474
+  },
+  "source": {
+    "runtimeFilesMatched": 474,
+    "manifestSha256": "b89ccde7dbeb500d62f6e63e9805d23ce447dcc48dd1fc5016ac4a2755291911",
+    "changedFiles": {
+      "components/crefans/social.module.css": "dfc9e0469e3dd21c27147f3d2ce661c6cc43bbefe17eaa3f79efabd9cc1e25f9"
+    },
+    "recheckedAfterDeployment": true
+  },
+  "builtImageHttp": {
+    "at": "2026-10-24T00:43:55.198059+00:00",
+    "routes": [
+      {
+        "route": "preview/messages",
+        "status": 200
+      },
+      {
+        "route": "preview/notifications",
+        "status": 200
+      },
+      {
+        "route": "service/messages",
+        "status": 200
+      },
+      {
+        "route": "service/notifications",
+        "status": 200
+      }
+    ],
+    "scope": "HTTP shells only; browser check required separately."
+  },
+  "builtImageBrowser": {
+    "verifiedAt": "2026-10-24T00:44:17.581026+00:00",
+    "command": [
+      "python3",
+      ".local/mobile-inbox-deploy-20261024/verify-layout.py",
+      "image"
+    ],
+    "exitCode": 0,
+    "stage": "image",
+    "mobileCases": 2,
+    "desktopCases": 4,
+    "mobileWidths": [
+      390
+    ],
+    "desktopWidths": [
+      768,
+      1280
+    ],
+    "allRows": 27,
+    "sameAsLocallyVerifiedLayout": true,
+    "desktopSameAsBeforeCssChange": true
+  },
+  "productionBrowser": {
+    "verifiedAt": "2026-10-24T00:45:40.180491+00:00",
+    "command": [
+      "python3",
+      ".local/mobile-inbox-deploy-20261024/verify-layout.py",
+      "production"
+    ],
+    "exitCode": 0,
+    "stage": "production",
+    "mobileCases": 6,
+    "desktopCases": 4,
+    "mobileWidths": [
+      320,
+      390,
+      767
+    ],
+    "desktopWidths": [
+      768,
+      1280
+    ],
+    "allRows": 45,
+    "sameAsLocallyVerifiedLayout": true,
+    "desktopSameAsBeforeCssChange": true
+  },
+  "manualBrowser": {
+    "at": "2026-10-24T00:46:10.204Z",
+    "environment": "Production preview fixtures, Codex in-app Chromium",
+    "messageOpenAndBack": true,
+    "markAllRead": true,
+    "errors": [],
+    "measurementNote": "Initial 1280px message measurement ran during page loading; resumed after heading became visible. No product change or page failure."
+  },
+  "deployment": {
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-24T00:44:26.553998+00:00",
+        "finishedAt": "2026-10-24T00:44:27.547599+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T00:44:27.548241+00:00",
+        "finishedAt": "2026-10-24T00:44:35.481683+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T00:44:35.482252+00:00",
+        "finishedAt": "2026-10-24T00:44:46.420594+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T00:44:46.421133+00:00",
+        "finishedAt": "2026-10-24T00:44:53.831694+00:00",
+        "exitCode": 0
+      }
+    ],
+    "result": {
+      "frontendImage": "sha256:d0c408e9fe47d584e91b40adbb8402e930e7a0ad7bb0d90644f21bd8c1e45f51",
+      "running": true,
+      "restarts": 0,
+      "preservedServices": [
+        "database",
+        "api",
+        "worker",
+        "admin",
+        "proxy"
+      ]
+    },
+    "frontendOnly": true,
+    "apiHealthPassed": true,
+    "httpRoutesPassed": 9
+  },
+  "rollback": {
+    "previousImage": "crefans-front:profile-media-20261024",
+    "backup": "/opt/crefans-backup-mobile-inbox-20261024",
+    "used": false
+  },
+  "sshAccess": "Existing user-approved persistent home SSH rule unchanged; no network-rule mutations",
+  "artifactHashes": {
+    "build.log": "9964a8ba5dacb9dcf19326f80f978a15262b9a24de0eea2b54b57458396d668d",
+    "production-before.json": "ed1e272203bed818375bcd0d686fce05c11c5b9cd6300fe3ca550bf479879ad5",
+    "image-layout.json": "2629aebc4af6bfc2446fd7cb4f5fbc9a7dd8cce43d4e541bdc8421c1e52d8fd8",
+    "production-layout.json": "954fc4b4f58f2f46168e58f98070c3a474514be7add9617be2635a6bbdcce90f",
+    "verify-layout.py": "0f645eefaea1f91dd4df359ca1587279264df695f99af2619d8e0e67a980b08f",
+    "final-deploy.log": "ff58d4ab0445e71ad895e582c620cb5be86101b2b6a89371dce8fc2dc613ec35",
+    "production-messages.png": "eef19cfb255c65ebd71c6fe59985468698bc7f03339b712556269fe0c678ca5c",
+    "production-notifications.png": "201bfea00e516569799c791f0ab99977a74e380cfd63c80cc106eb398dd79b2d"
+  },
+  "localArtifacts": ".local/mobile-inbox-deploy-20261024",
+  "limits": [
+    "Browser layout verification on preview fixtures; live-account lists not exercised.",
+    "Physical mobile devices not tested.",
+    "CSS-only change; targeted browser measurement used instead of repeating unrelated unit/E2E suites.",
+    "Working tree remains uncommitted; no branch merge or push performed."
+  ]
+}

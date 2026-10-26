@@ -1,0 +1,1386 @@
+{
+  "at": "2026-10-24T09:29:03.395198+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "기존미커밋보존, 운영 기준에서 CSS선언1개 삭제만 선택",
+  "workspaceStatusSha256": "e1f97e105195b274c3aa2490e4c6331fba1484f1ca44c4e94779a5bfdaab72d4",
+  "scope": {
+    "at": "2026-10-24T09:25:09.025633+00:00",
+    "baselineFilesMatched": 499,
+    "changed": [
+      "components/crefans/account.module.css"
+    ],
+    "change": "Remove border-block from mobile settings divider pseudo-elements only",
+    "excluded": [
+      "Unshipped PASS/signup changes in AccountPages and other unrelated dirty files"
+    ],
+    "preserved": "Backend/worker/admin/database/proxy and SSH rules"
+  },
+  "image": {
+    "at": "2026-10-24T09:27:23.612391+00:00",
+    "tag": "crefans-front:settings-divider-color-20261024",
+    "id": "sha256:35d5a5a5a8ca65c21741852c24257be25211173f66b73bcec3bb88b87279b3df",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 499,
+    "archiveSha256": "fa9e175ea7253a7da648dfd740bfdd95b99ef03eaaebdce1de63088d027275f7",
+    "archiveBytes": 514663851
+  },
+  "releaseManifest": {
+    "path": "/Users/ethan/repository/crefans_front/.local/settings-divider-color-deploy-20261024/release.json",
+    "sha256": "adbf3f109bb1908d7f8c3388ae3458e596df9bf1b388a21f13697f3ccba278ec"
+  },
+  "commands": {
+    "prepare": {
+      "command": [
+        "python3",
+        ".local/settings-divider-color-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:25:06.165191+00:00",
+      "finishedAt": "2026-10-24T09:25:09.072979+00:00",
+      "exitCode": 0,
+      "logSha256": "89e782f6edd4d5b3a01613e6e7d18d9c39e1e3c66582faee5f2a2ea8c0849145"
+    },
+    "before-check": {
+      "command": [
+        "node",
+        ".local/settings-divider-color-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "before"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:25:06.165191+00:00",
+      "finishedAt": "2026-10-24T09:25:12.709642+00:00",
+      "exitCode": 0,
+      "logSha256": "6a5c5de9fa6657ae72db20e963791c6e3f77f245e30d785cebb191b0cb121793"
+    },
+    "image-build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/settings-divider-color-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:settings-divider-color-20261024",
+        ".local/settings-divider-color-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:25:24.592628+00:00",
+      "finishedAt": "2026-10-24T09:26:57.010013+00:00",
+      "exitCode": 0,
+      "logSha256": "577bd19d8f7383f533d90d0b3e251597d4a96e18c4a870918221cd20947d3047"
+    },
+    "image-check": {
+      "command": [
+        "python3",
+        ".local/settings-divider-color-deploy-20261024/verify-image.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:27:10.485579+00:00",
+      "finishedAt": "2026-10-24T09:27:20.538396+00:00",
+      "exitCode": 0,
+      "logSha256": "fb65cef20ced3a4566f48ed77149ee6ce5d1a2e2d272e912a6b65a24542ff197"
+    },
+    "archive": {
+      "command": [
+        "python3",
+        ".local/settings-divider-color-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:27:10.485579+00:00",
+      "finishedAt": "2026-10-24T09:27:23.622521+00:00",
+      "exitCode": 0,
+      "logSha256": "bd4ce9560ad31dbe9d42bf276d2c6fa06d79632e7ad38bc98715c59cafa35700"
+    },
+    "production-check": {
+      "command": [
+        "node",
+        ".local/settings-divider-color-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:28:12.973870+00:00",
+      "finishedAt": "2026-10-24T09:28:19.042233+00:00",
+      "exitCode": 0,
+      "logSha256": "62bb34a0f3a74f0c871be192e3b9b22ec140fa38631c6e0de7f0301739b51e1b"
+    },
+    "production-verify": {
+      "command": [
+        "python3",
+        ".local/settings-divider-color-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:28:12.973910+00:00",
+      "finishedAt": "2026-10-24T09:28:14.789974+00:00",
+      "exitCode": 0,
+      "logSha256": "aa3b73ef4d0f4fec72ac0f15599c2df7dfbf23979f2fb38dca817f8c3ad5e27d"
+    },
+    "cleanup": {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "crefans-settings-divider-color-qa"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:28:14.102603+00:00",
+      "finishedAt": "2026-10-24T09:28:14.344869+00:00",
+      "exitCode": 0,
+      "logSha256": "f8cbc96ac8dd12a0aa2c5f0dae1ae47a99cff5ca3b420f0557ccc324c07e7530"
+    }
+  },
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "install -d -m 0700 /home/ubuntu/crefans-settings-divider-color-20261024"
+      ],
+      "startedAt": "2026-10-24T09:27:33.014317+00:00",
+      "finishedAt": "2026-10-24T09:27:34.056194+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "command": [
+        "scp",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "/Users/ethan/repository/crefans_front/.local/settings-divider-color-deploy-20261024/image.tar.gz",
+        "/Users/ethan/repository/crefans_front/.local/settings-divider-color-deploy-20261024/image.sha256",
+        "/Users/ethan/repository/crefans_front/.local/settings-divider-color-deploy-20261024/deploy.sh",
+        "/Users/ethan/repository/crefans_front/.local/settings-divider-color-deploy-20261024/before.json",
+        "ubuntu@15.164.140.26:/home/ubuntu/crefans-settings-divider-color-20261024/"
+      ],
+      "startedAt": "2026-10-24T09:27:34.057560+00:00",
+      "finishedAt": "2026-10-24T09:27:43.153192+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "cd /home/ubuntu/crefans-settings-divider-color-20261024 && sha256sum -c image.sha256 && sudo -n docker load -i image.tar.gz && rm image.tar.gz"
+      ],
+      "startedAt": "2026-10-24T09:27:43.153916+00:00",
+      "finishedAt": "2026-10-24T09:27:56.294724+00:00",
+      "exitCode": 0,
+      "logSha256": "2f13be33a5d1a698b1d1926dcb1c32db56fc240e9067a11989d2ba201975096b"
+    },
+    {
+      "step": "deploy",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "bash /home/ubuntu/crefans-settings-divider-color-20261024/deploy.sh"
+      ],
+      "startedAt": "2026-10-24T09:27:56.295880+00:00",
+      "finishedAt": "2026-10-24T09:28:03.331365+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "verification": {
+    "browser": {
+      "before": {
+        "startedAt": "2026-10-24T09:25:06.498Z",
+        "endedAt": "2026-10-24T09:25:12.701Z",
+        "exitCode": 0,
+        "records": [
+          {
+            "name": "chromium390",
+            "prefix": "preview",
+            "width": 390,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 16,
+                  "y": 368.46875,
+                  "width": 358,
+                  "height": 260.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 16,
+                  "y": 644.859375,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 16,
+                  "y": 762.25,
+                  "width": 358,
+                  "height": 207.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 16,
+                  "y": 985.640625,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "서비스 안내",
+                  "x": 16,
+                  "y": 1103.03125,
+                  "width": 358,
+                  "height": 366.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 16,
+                  "y": 1485.421875,
+                  "width": 358,
+                  "height": 103.78125,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                }
+              ],
+              "overflow": false
+            }
+          },
+          {
+            "name": "service390",
+            "prefix": "service",
+            "width": 390,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 16,
+                  "y": 342.96875,
+                  "width": 358,
+                  "height": 260.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 16,
+                  "y": 619.359375,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 16,
+                  "y": 736.75,
+                  "width": 358,
+                  "height": 207.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 16,
+                  "y": 960.140625,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "서비스 안내",
+                  "x": 16,
+                  "y": 1077.53125,
+                  "width": 358,
+                  "height": 366.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 16,
+                  "y": 1459.921875,
+                  "width": 358,
+                  "height": 103.78125,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                }
+              ],
+              "overflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "prefix": "preview",
+            "width": 1280,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 246,
+                  "y": 452.875,
+                  "width": 660,
+                  "height": 237.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 246,
+                  "y": 712.0625,
+                  "width": 660,
+                  "height": 75.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 246,
+                  "y": 809.25,
+                  "width": 660,
+                  "height": 183.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 246,
+                  "y": 1014.4375,
+                  "width": 660,
+                  "height": 75.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 246,
+                  "y": 1105.625,
+                  "width": 660,
+                  "height": 97.59375,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                }
+              ],
+              "overflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "prefix": "preview",
+            "width": 390,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 16,
+                  "y": 368.46875,
+                  "width": 358,
+                  "height": 260.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 16,
+                  "y": 644.859375,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 16,
+                  "y": 762.25,
+                  "width": 358,
+                  "height": 207.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 16,
+                  "y": 985.640625,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "서비스 안내",
+                  "x": 16,
+                  "y": 1103.03125,
+                  "width": 358,
+                  "height": 366.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 16,
+                  "y": 1485.421875,
+                  "width": 358,
+                  "height": 103.78125,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "1px",
+                  "borderBottom": "1px"
+                }
+              ],
+              "overflow": false
+            }
+          }
+        ]
+      },
+      "image": {
+        "startedAt": "2026-10-24T09:27:15.608Z",
+        "endedAt": "2026-10-24T09:27:20.520Z",
+        "exitCode": 0,
+        "records": [
+          {
+            "name": "chromium390",
+            "prefix": "preview",
+            "width": 390,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 16,
+                  "y": 368.46875,
+                  "width": 358,
+                  "height": 260.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 16,
+                  "y": 644.859375,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 16,
+                  "y": 762.25,
+                  "width": 358,
+                  "height": 207.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 16,
+                  "y": 985.640625,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "서비스 안내",
+                  "x": 16,
+                  "y": 1103.03125,
+                  "width": 358,
+                  "height": 366.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 16,
+                  "y": 1485.421875,
+                  "width": 358,
+                  "height": 103.78125,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                }
+              ],
+              "overflow": false
+            }
+          },
+          {
+            "name": "service390",
+            "prefix": "service",
+            "width": 390,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 16,
+                  "y": 342.96875,
+                  "width": 358,
+                  "height": 260.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 16,
+                  "y": 619.359375,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 16,
+                  "y": 736.75,
+                  "width": 358,
+                  "height": 207.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 16,
+                  "y": 960.140625,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "서비스 안내",
+                  "x": 16,
+                  "y": 1077.53125,
+                  "width": 358,
+                  "height": 366.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 16,
+                  "y": 1459.921875,
+                  "width": 358,
+                  "height": 103.78125,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                }
+              ],
+              "overflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "prefix": "preview",
+            "width": 1280,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 246,
+                  "y": 452.875,
+                  "width": 660,
+                  "height": 237.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 246,
+                  "y": 712.0625,
+                  "width": 660,
+                  "height": 75.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 246,
+                  "y": 809.25,
+                  "width": 660,
+                  "height": 183.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 246,
+                  "y": 1014.4375,
+                  "width": 660,
+                  "height": 75.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 246,
+                  "y": 1105.625,
+                  "width": 660,
+                  "height": 97.59375,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                }
+              ],
+              "overflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "prefix": "preview",
+            "width": 390,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 16,
+                  "y": 368.46875,
+                  "width": 358,
+                  "height": 260.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 16,
+                  "y": 644.859375,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 16,
+                  "y": 762.25,
+                  "width": 358,
+                  "height": 207.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 16,
+                  "y": 985.640625,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "서비스 안내",
+                  "x": 16,
+                  "y": 1103.03125,
+                  "width": 358,
+                  "height": 366.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 16,
+                  "y": 1485.421875,
+                  "width": 358,
+                  "height": 103.78125,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                }
+              ],
+              "overflow": false
+            }
+          }
+        ]
+      },
+      "production": {
+        "startedAt": "2026-10-24T09:28:13.317Z",
+        "endedAt": "2026-10-24T09:28:19.033Z",
+        "exitCode": 0,
+        "records": [
+          {
+            "name": "chromium390",
+            "prefix": "preview",
+            "width": 390,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 16,
+                  "y": 368.46875,
+                  "width": 358,
+                  "height": 260.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 16,
+                  "y": 644.859375,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 16,
+                  "y": 762.25,
+                  "width": 358,
+                  "height": 207.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 16,
+                  "y": 985.640625,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "서비스 안내",
+                  "x": 16,
+                  "y": 1103.03125,
+                  "width": 358,
+                  "height": 366.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 16,
+                  "y": 1485.421875,
+                  "width": 358,
+                  "height": 103.78125,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                }
+              ],
+              "overflow": false
+            }
+          },
+          {
+            "name": "service390",
+            "prefix": "service",
+            "width": 390,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 16,
+                  "y": 342.96875,
+                  "width": 358,
+                  "height": 260.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 16,
+                  "y": 619.359375,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 16,
+                  "y": 736.75,
+                  "width": 358,
+                  "height": 207.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 16,
+                  "y": 960.140625,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "서비스 안내",
+                  "x": 16,
+                  "y": 1077.53125,
+                  "width": 358,
+                  "height": 366.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 16,
+                  "y": 1459.921875,
+                  "width": 358,
+                  "height": 103.78125,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                }
+              ],
+              "overflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "prefix": "preview",
+            "width": 1280,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 246,
+                  "y": 452.875,
+                  "width": 660,
+                  "height": 237.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 246,
+                  "y": 712.0625,
+                  "width": 660,
+                  "height": 75.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 246,
+                  "y": 809.25,
+                  "width": 660,
+                  "height": 183.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 246,
+                  "y": 1014.4375,
+                  "width": 660,
+                  "height": 75.1875,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 246,
+                  "y": 1105.625,
+                  "width": 660,
+                  "height": 97.59375,
+                  "left": null,
+                  "right": null,
+                  "stripeHeight": "auto",
+                  "background": "rgba(0, 0, 0, 0)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                }
+              ],
+              "overflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "prefix": "preview",
+            "width": 390,
+            "actual": {
+              "stripes": [
+                {
+                  "title": "항목 모아보기",
+                  "x": 16,
+                  "y": 368.46875,
+                  "width": 358,
+                  "height": 260.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "공개 설정",
+                  "x": 16,
+                  "y": 644.859375,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "알림과 결제",
+                  "x": 16,
+                  "y": 762.25,
+                  "width": 358,
+                  "height": 207.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 관리",
+                  "x": 16,
+                  "y": 985.640625,
+                  "width": 358,
+                  "height": 101.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "서비스 안내",
+                  "x": 16,
+                  "y": 1103.03125,
+                  "width": 358,
+                  "height": 366.390625,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                },
+                {
+                  "title": "계정 액션",
+                  "x": 16,
+                  "y": 1485.421875,
+                  "width": 358,
+                  "height": 103.78125,
+                  "left": 0,
+                  "right": 390,
+                  "stripeHeight": "8px",
+                  "background": "rgb(250, 251, 253)",
+                  "borderTop": "0px",
+                  "borderBottom": "0px"
+                }
+              ],
+              "overflow": false
+            }
+          }
+        ]
+      }
+    },
+    "runtime": {
+      "at": "2026-10-24T09:28:13.021032+00:00",
+      "runtimeFilesMatched": 499,
+      "runtime": {
+        "crefans-beta-api-1": {
+          "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-frontend-1": {
+          "id": "167ffede006cc667bb9628805f6c75e39e1060830f60b518d3fafe2545fd63fe",
+          "image": "sha256:35d5a5a5a8ca65c21741852c24257be25211173f66b73bcec3bb88b87279b3df",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+          "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        }
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/preview/settings",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/settings",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200
+        }
+      ]
+    },
+    "visualReview": [
+      "image.png",
+      "production.png: 테두리 없이 옅은 배경띠만 남음"
+    ]
+  },
+  "rollback": "/opt/crefans-backup-settings-divider-color-20261024",
+  "limits": [
+    "Chromium390 목업/서비스GET대역, Chromium1280 목업, WebKit390 목업",
+    "실회원 변경·물리iPhone검증 없음",
+    "단일CSS선언삭제: 전체유닛/새영구테스트 미실행",
+    "프론트만 교체; 나머지5개 컨테이너ID/이미지와 집SSH규칙 유지",
+    "커밋/푸시없음"
+  ],
+  "artifacts": "/Users/ethan/repository/crefans_front/.local/settings-divider-color-deploy-20261024",
+  "documentationChecks": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:29:03.423943+00:00",
+      "finishedAt": "2026-10-24T09:29:04.435860+00:00",
+      "exitCode": 0,
+      "logSha256": "5469a6e54d5189ea327fd2411d3bc0e6f815c85aa9889d569169ca9fa74b3766"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:29:04.462687+00:00",
+      "finishedAt": "2026-10-24T09:29:04.849122+00:00",
+      "exitCode": 0,
+      "logSha256": "6ea0e059d49cbd9455bacf34f1f1e46e385385d60bc5b6aea3a2c4f2f5946a1e"
+    }
+  ]
+}

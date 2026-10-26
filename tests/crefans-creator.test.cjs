@@ -53,7 +53,8 @@ test('creator exploration and profile render supplied identity and routes withou
   assert.match(text(tree),/다른 크리에이터/);
   assert.match(text(tree),/주입된 소개/);
   assert.match(text(tree),/드로잉/);
-  assert.ok(tree.root.findAllByType('img').length>=2,'portrait and avatar both render');assert.ok(tree.root.findAllByType('img').every(image=>image.props.src===undefined||image.props.src==='/injected-portrait.png'));
+  const portraits=tree.root.findAllByType('img').filter(image=>image.props['aria-hidden']!=='true');
+  assert.ok(portraits.length>=2,'portrait and avatar both render');assert.ok(portraits.every(image=>image.props.src===undefined||image.props.src==='/injected-portrait.png'));
   assert.ok(tree.root.findAllByType('a').every(link=>link.props.href==='/catalogue/creator/artist-42'));
   act(()=>button(tree,'팔로우').props.onClick());
   assert.deepEqual(followed,['artist-42']);
@@ -138,7 +139,7 @@ test('subscription cancellation failure preserves the view and supplied errors; 
   act(()=>tree.unmount());
 });
 
-test('profile lock labels use an explicit product ID while legacy tiers retain their rank wording',()=>{
+test('profile lock labels use creator membership names for both product and minimum-tier posts',()=>{
  const {CreatorProfilePage}=pages(),model=inputs();
  const legacy={...model.data.plans[0],id:'basic',name:'베이직',rank:1};
  const exact={...legacy,id:'custom',name:'드로잉 클래스',entitlementMode:'exact'};
@@ -151,9 +152,9 @@ test('profile lock labels use an explicit product ID while legacy tiers retain t
  const gather=node=>typeof node==='string'?node:node.children.map(gather).join('');const tileText=()=>gather(tile());
  assert.match(tileText(),/드로잉 클래스/);assert.doesNotMatch(tileText(),/베이직|클래스 이상/);
  act(()=>tree.update(h(CreatorProfilePage,{model:{...model,data:{...model.data,posts:[{...post,requiredPlanId:undefined}]}},id:'artist-42'})));
- assert.equal(tile().props['aria-label'],'수업 기록 · 레벨 1 이상 멤버에게 공개');assert.match(text(tree),/레벨 1 이상/);
+ assert.equal(tile().props['aria-label'],'수업 기록 · 베이직 이상 멤버에게 공개');assert.doesNotMatch(text(tree),/레벨 1 이상/);
  act(()=>tree.update(h(CreatorProfilePage,{model:{...model,data:{...model.data,posts:[{...post,requiredPlanId:'missing'}]}},id:'artist-42'})));
- assert.equal(tile().props['aria-label'],'수업 기록 · 지정 멤버십 전용 멤버에게 공개');assert.doesNotMatch(text(tree),/레벨 1 이상/);
+ assert.equal(tile().props['aria-label'],'수업 기록 · 멤버십 전용 멤버에게 공개');assert.doesNotMatch(text(tree),/레벨 1 이상/);
  act(()=>tree.unmount());
 });
 
@@ -202,7 +203,7 @@ test('creator profile lists the memberships on sale before the posts and presele
   assert.match(JSON.stringify(tree.toJSON()),/판매 중인 멤버십이 없어요/);
   const second={id:'second-plan',name:'두 번째 멤버십',price:5000,rank:1,benefits:['혜택']};
   let membership;act(()=>membership=create(h(MembershipPage,{model:{...model,data:{...model.data,plans:[model.data.plans[0],second]}},id:'artist-42',initialPlanId:'second-plan'})));
-  assert.match(JSON.stringify(membership.toJSON()),/"두 번째 멤버십"," · 월 "/);
+  const summary=membership.root.findAllByType('strong').find(node=>node.findAllByProps({title:'두 번째 멤버십'}).length);assert.ok(summary);assert.ok(summary.findAllByType('span').some(node=>node.children.includes('₩5,000')));
 });
 
 test('explore shows paid placements as cards and everyone else as one-line rows without follow buttons',()=>{

@@ -5,6 +5,7 @@ import type {Plan,Post} from '@/types/crefans';
 import type {StudioContent,StudioMembership} from '@/types/crefans-studio-management';
 import {SelectField} from '@/components/ui/SelectField';
 import {postCommentsAllowed} from '@/lib/crefans/comments';
+import {getCreatorPlans,studioMembershipPlans} from '@/lib/crefans/membership-plans';
 import {PostDetailPage,type PostDetailModel} from '../SocialPages';
 import {Empty,Notice} from '../ServiceUI';
 import {PhoneFrame} from './PhoneFrame';
@@ -18,13 +19,12 @@ export function draftPostModel({content,memberships,model,creatorId,commentsGlob
   const creator=model.data.creators.find(item=>item.id===(creatorId||source?.creatorId));
   const selected=content.accessPlanId?memberships.find(plan=>plan.id===content.accessPlanId):undefined;
   if(!creator||content.accessPlanId&&!selected)return null;
-  const priorPlan=(model.data.creatorPlans?.[creator.id]||model.data.plans).find(plan=>plan.id===selected?.id);
   const cover=content.media.find(item=>item.type==='image')?.url||'';
-  const plans:Plan[]=selected?[{...selected,rank:selected.rank??priorPlan?.rank??1,available:selected.active,entitlementMode:'tier'}]:[];
+  const plans:Plan[]=studioMembershipPlans(memberships,getCreatorPlans(model.data,creator.id));
   const post:Post={
     id:content.id||'draft-preview',creatorId:creator.id,title:content.title,body:content.body,image:cover,media:content.media.map(item=>({type:item.type,url:item.url})),
-    position:source?.image===cover?source.position:'center',likes:source?.likes??0,comments:source?.comments??0,
-    requiredRank:content.accessLevel??plans[0]?.rank??0,requiredPlanId:selected?.id,commentsEnabled:postCommentsAllowed(commentsGloballyEnabled,content.commentsEnabled),time:source?.time||new Date(content.updatedAt).toLocaleString('ko-KR',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}),
+    position:source?.image===cover?source.position:'center',likes:source?.likes??0,comments:source?.comments??0,views:source?.views??(content.status==='draft'?0:undefined),
+    requiredRank:content.accessLevel??(selected?plans.find(plan=>plan.id===selected.id)?.rank??1:0),requiredPlanId:selected?.id,tipsEnabled:content.tipsEnabled??true,commentsEnabled:postCommentsAllowed(commentsGloballyEnabled,content.commentsEnabled),time:source?.time||new Date(content.updatedAt).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}),
   };
   return {...model,data:{creators:[creator],posts:[post],plans,creatorPlans:{[creator.id]:plans}},canAccess:()=>true,
     liked:source?model.liked:[],saved:source?model.saved:[],likeCounts:source?model.likeCounts:{},commentCounts:source?model.commentCounts:{},commentsByPost:source?model.commentsByPost:{},

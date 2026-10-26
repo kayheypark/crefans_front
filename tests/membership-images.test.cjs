@@ -15,7 +15,7 @@ const {canDeleteMembership,studioMembershipPlans,getCreatorPlans,getSubscription
 function urls(t){let next=0;const revoked=[];t.mock.method(URL,'createObjectURL',()=>`blob:test-${++next}`);t.mock.method(URL,'revokeObjectURL',url=>revoked.push(url));return revoked;}
 function fixture({memberships=[plan],subscribers=[subscriber],protectedPlans=[]}={}){
  const {useMockManagement}=loadTypeScript('components/preview/studio/useMockManagement.ts',{
-  'next/navigation':{useSearchParams:()=>new URLSearchParams()},
+  'next/navigation':{useSearchParams:()=>new URLSearchParams(),useRouter:()=>({push(){}})},
   './management-fixtures':{managementNow:now,managementContents:[],managementMemberships:memberships,managementSubscribers:subscribers},
  });
  let model,tree;function Probe(){model=useMockManagement({getProtectedPlanIds:()=>protectedPlans});return null;}
@@ -116,7 +116,7 @@ function previewFixture(){
  const plans=[{...plan,rank:2}],initial={creatorId:'haneul',planId:plan.id,status:'active',renewAt:'2026-10-12',price:plan.price};
  const data={creators:[{id:'haneul'},{id:'jiwoo'}],plans,posts:[],notifications:[],messages:{},faqs:[],categories:[],paymentHistory:[initial]};
  const exports=loadTypeScript('components/preview/service/PreviewProvider.tsx',{
-  'next/navigation':{useSearchParams:()=>new URLSearchParams()},
+  'next/navigation':{useSearchParams:()=>new URLSearchParams(),useRouter:()=>({push(){}})},
   '@/components/crefans/ApiState':{ApiState:({response,children})=>children(response.data)},
   './fixtures':{initialSubscriptions:[initial],initialComments:{},mockServiceResponse:ok(data)},
   './useMockAccount':{useMockAccount:()=>({account:{email:'fan@example.com'},accountActions:{signup:async()=>ok({})}})},

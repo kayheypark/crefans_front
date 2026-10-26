@@ -1,0 +1,908 @@
+{
+  "recordedAt": "2026-10-26T12:51:50.731683+00:00",
+  "release": "promotion-payout-20261026",
+  "decision": "User approved cash-out of all promotional bean tip earnings, including eligible existing lots. Direct grants/purchases remain nonwithdrawable.",
+  "policy": {
+    "earnedBuckets": [
+      "earned-paid",
+      "earned-promotion"
+    ],
+    "minimumGrossKrw": 100000,
+    "minimumBeans": 1000,
+    "feeBps": 2000,
+    "minimumNetKrw": 80000,
+    "promotionFunding": "company; not PG revenue",
+    "actualBankTransfersDuringValidation": 0
+  },
+  "repositories": {
+    "server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "gitStatusSha256": "61d3d651bd7afbe2de21da06581fe8cd373a971224d9dee5a88c130623e7c49a",
+      "preexistingWorkPreserved": true,
+      "AGENTSUnchangedThisTask": true,
+      "files": {
+        "src/platform/bean-policy.ts": "1370b74deca6ae4dc359640bf9a2f962dcd6f2a67e9312352d7e341fa9f6c3b3",
+        "src/platform/bean-ledger.ts": "9818dfc362350df42b48c7da68466e018e430296859c3e7b9364e982d1431a5f",
+        "src/platform/beans.service.ts": "67075fc82b71a6c76a48cbd263bf7b94bcd3a8d1cf6adb3bec73d44c8ad6790b",
+        "src/platform/bean-attribution.ts": "1cf99e86a9721d1f8e9519636e6d68ce3892d4e99b82b00de6a4a2876202ac33",
+        "src/platform/openapi-contract.ts": "4766e3e80b408c451d1bbec496d62a355a921737233152468826c545bff9a182",
+        "tests/platform-beans.test.cjs": "f018ecba11aacff4b6b07d06711d3080c1ed61b7d7121256a3d0530031091b80",
+        "tests/platform-bean-ledger.test.cjs": "8d0ba2b05318b87ecd008c1fe7908330215959a6707245374f6bb08013c3f989",
+        "tests/e2e-server.cjs": "67a62fb33b2d4cee88a80ddff0d555253e3fb3c0167ff9135ac1f9d096610bc1",
+        "docs/platform-api.md": "bd230692f91794ea18b6a4687bee8cc14d7e2cb1fa6e7519d116ca16e21828c7",
+        "docs/platform-implementation.md": "fd55f2ae9caaefe55f75a876d6ab132f11c2a072fc052cf29916e6bf9eb1dd8a",
+        "docs/current-contracts.md": "6192b29928397b51432af7376cddc3cd059abcf29c5dedf6a99284408adb254d",
+        "AGENTS.md": "57fd6b033c62ad3c23532745bb6f7fc87928192f2ccb32558954f6ef00bae610",
+        "PROGRESS.md": "c4e7abc4f82c56526ce8e076e1a9e2904086bec734fbddd13e36c3346b3c8833"
+      }
+    },
+    "front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "gitStatusSha256": "13c9a0b24186265d8c787944f2417c9dc8f172c2ddac2dbf774292d224d9de05",
+      "preexistingWorkPreserved": true,
+      "AGENTSUnchangedThisTask": true,
+      "files": {
+        "types/crefans-beans.ts": "c99b708434c3df6f69a2aed727fa20684755647d7ab08fc6e48d12953fa5d5de",
+        "components/crefans/BeanBalanceSummary.tsx": "28c0588cd2b0e6e19d37dc455ec9556e1c1e278db9d1c5fe53d48fe5592533fa",
+        "components/crefans/BeanPages.tsx": "ce0d594058f11461755938cd570af836fdab9b4d78f3fe1c796c27d676d02ac5",
+        "components/crefans/BeanAttribution.tsx": "54987c7356d851f5d0064513a46e2ae21a59a2aa920a4fbfc81c587672726e78",
+        "components/preview/service/useMockBeans.ts": "e991d0403cf3d8dbadf87ba025e49f4ff955c59025b592cb50e857829cedc662",
+        "lib/content/events.ts": "0e5ae7cc783242f3292582c5e8d1795b48eaaeb9679f244d12b14060fef6dc63",
+        "tests/bean-balance-summary.test.cjs": "7fd01b581e2afdfdd3b390b26d06cd5f6d0dfebd6435834feb7e3e36edea65ce",
+        "tests/bean-attribution.test.cjs": "31a95c7248a6be1157cd5981803eb9162d6ed43dd12846bd07a6f753feb619a1",
+        "tests/crefans-events.test.cjs": "74418dfa7d7e291841d90f64a0354658dad8848f80244eb6f1d07cd5cfb28190",
+        "e2e/promotion-payout.spec.ts": "afd4b173f07e54f47f6478cc0f5973dc6dccb067b94349406ffdc01fdb753d0e",
+        "docs/service-api-binding.md": "b9c0b0db831b3fda635b7524179f2d0af68fbcffa358c799e962f1dc9829289a",
+        "AGENTS.md": "b6755d437570213859181316b39539a08d3f3d7f857d4fd4f7ef684c2bb802fd",
+        "PROGRESS.md": "1ebe3cecdc9d988a3879c9b82ab7d17efa5aa83a0f0b100416ce32df77541260"
+      }
+    },
+    "admin": {
+      "path": "/Users/ethan/repository/crefans_admin",
+      "head": "7928cb6fc70c27bbcb8f5ec4a760023a5ffda01c",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "gitStatusSha256": "93aace31da8bdf69b3fb2efc99ba92b7ab4e16ba029c27e4df433f56a91bc908",
+      "preexistingWorkPreserved": true,
+      "AGENTSUnchangedThisTask": true,
+      "files": {
+        "src/components/console/Beans.tsx": "12454f67546a1388d252018d861ad2763c8e9dbe6fc1d6df82190fc805a18305",
+        "e2e/beans.spec.ts": "0c43fbcca3754cd2a1126931882a7db9949cc848eb6fb662d3ef9f3767036387",
+        "AGENTS.md": "bd25f16b88e996f2e2818125c54a456fcc8621ff233c84da059961069260539c",
+        "PROGRESS.md": "d4925d6bf4aaf73b610e4a0c9dfdbd4ad1a80b3252068cace75643af31f0c834"
+      }
+    }
+  },
+  "checks": [
+    {
+      "repository": "server",
+      "command": "npm run test:beans",
+      "exitCode": 0,
+      "result": "36/36: build, real isolated MySQL, synthetic PG/bank, ledger and Swagger",
+      "logPath": "crefans_server/.local/promotion-payout-20261026/tests.log",
+      "logSha256": "916bc2e616fdd7c97aac87d8c4af9bec1413433ff8a80dd79f1d0e57a7dad0f6",
+      "logLastWriteAt": "2026-10-26T12:32:29.756434+00:00"
+    },
+    {
+      "repository": "front",
+      "command": "npm run check",
+      "exitCode": 0,
+      "result": "355/355 plus layers/types",
+      "logPath": "crefans_front/.local/promotion-payout-20261026/check-final.log",
+      "logSha256": "5f5d9a96365ea4dbf24f9ba3a1d9e0edd48913bae39227b63ad25143394e79c9",
+      "logLastWriteAt": "2026-10-26T12:34:48.816801+00:00"
+    },
+    {
+      "repository": "admin",
+      "command": "npm run check",
+      "exitCode": 0,
+      "result": "5/5 plus types",
+      "logPath": "crefans_admin/.local/promotion-payout-20261026/check-final.log",
+      "logSha256": "f88f6e90a47b537ac02711d492db50967fabc1ea4080d176348dbc4b8881161e",
+      "logLastWriteAt": "2026-10-26T12:36:58.317188+00:00"
+    },
+    {
+      "repository": "front",
+      "command": "npx playwright test e2e/promotion-payout.spec.ts --project=chromium",
+      "exitCode": 1,
+      "result": "2 pass; 1 fails due to ambiguous dd selector matching total and lifetime received",
+      "logPath": "crefans_front/.local/promotion-payout-20261026/e2e.log",
+      "logSha256": "92332da845e2cc6c82a6064110364983e5c9aea7e92343b2dd452438158672e5",
+      "logLastWriteAt": "2026-10-26T12:35:15.076776+00:00"
+    },
+    {
+      "repository": "front",
+      "command": "npx playwright test e2e/promotion-payout.spec.ts --project=chromium --grep \"실제 API\"",
+      "exitCode": 0,
+      "result": "Failed scenario retried after exact total selector: 1/1 pass. Combined 3 distinct scenarios passed.",
+      "logPath": "crefans_front/.local/promotion-payout-20261026/e2e-retest.log",
+      "logSha256": "4229b42a2e165ec94c73eda68ebbb8058af23bedd28990a85b0c5d691780bb48",
+      "logLastWriteAt": "2026-10-26T12:36:42.979965+00:00"
+    },
+    {
+      "repository": "admin",
+      "command": "npx playwright test e2e/beans.spec.ts",
+      "exitCode": 0,
+      "result": "2/2: real isolated API grant/ledger plus response-fixture attribution UI",
+      "logPath": "crefans_admin/.local/promotion-payout-20261026/e2e.log",
+      "logSha256": "51bf4e5bb009ff2319b122f63d1d598957d3b2fd7c198b12809a5202c2e8a6b5",
+      "logLastWriteAt": "2026-10-26T12:37:09.101197+00:00"
+    },
+    {
+      "repository": "front",
+      "command": "npm run check:docs",
+      "exitCode": 0,
+      "result": "PASS: 60 documents,124 routes,52 screens,73 models,25 migrations; snapshot consistency, not financial test proof",
+      "logPath": "crefans_front/.local/promotion-payout-20261026/check-docs.log",
+      "logSha256": "c808fec12c3169276a8b9453fd22988c17161a3a075dda5bb8738341826b5014",
+      "logLastWriteAt": "2026-10-26T12:50:50.228767+00:00"
+    },
+    {
+      "repository": "front",
+      "command": "python3 .local/promotion-payout-20261026/verify.py && python3 .local/promotion-payout-20261026/ledger-probe.py after",
+      "exitCode": 0,
+      "result": "16 HTTPS, source/image checks, DB/ledger unchanged, worker healthy",
+      "logPath": "crefans_front/.local/promotion-payout-20261026/verify.log",
+      "logSha256": "4a0df3ad7464b8c05257a93a40d68028b6cd35589c8838823e30fd8f3a3dcece",
+      "logLastWriteAt": "2026-10-26T12:48:11.826576+00:00"
+    },
+    {
+      "repository": "front",
+      "command": "node .local/promotion-payout-20261026/browser.cjs",
+      "exitCode": 0,
+      "result": "Chromium390/1280 and WebKit390: 6 event route checks plus mixed preview payout; wallets checked on each width",
+      "logPath": "crefans_front/.local/promotion-payout-20261026/browser.log",
+      "logSha256": "9d67b98949d283f4eb25884244609abbc4a3dd93364f8f579e17f3f93d3d547d",
+      "logLastWriteAt": "2026-10-26T12:49:46.426237+00:00"
+    }
+  ],
+  "frontBaselineSource": "Head/AGENTS from prior event-promotion-note-20261026.json and file snapshots in .local/promotion-payout-20261026/before; before.json in release folder now stores deployment-container baseline.",
+  "earlierFailures": [
+    "Front text-content test helper did not flatten React fragments; helper fixed, final 355 pass.",
+    "Release context assertion initially included intentionally replaced .dockerignore; preserved established build exclusion and verified all actual runtime files. No deployment happened at failure.",
+    "First disk preflight candidate had no local image, stopped without deleting anything. Replaced with 6 verified identical recoverable unused images.",
+    "Initial production WebKit sweep recorded aborted background RSC prefetch during forced full-document navigation. Independent pages showed all affected requests HTTP200/no errors; waiting for network completion before script navigation reran the full sweep successfully. No production code changed and errors were not suppressed."
+  ],
+  "financialCases": [
+    "direct grant/purchased reserve denied",
+    "self-tip denied",
+    "paid origin remains live/received/7-day/unfrozen",
+    "promotion grant/tip/source ownership and allocation verified",
+    "past valid promotion lots included",
+    "missing grant/frozen/held lots excluded",
+    "mixed and promotion-only reservations keep bucket provenance",
+    "PIN/account/one-time authorization/idempotency/concurrent overdraw guards",
+    "admin/bank rejection restores exact original buckets",
+    "beta/bank-disabled guards; pure promotion does not fake PG receipt",
+    "duplicate bank success does not double movements/fees",
+    "journal reconstruction and total supply conservation",
+    "company-funded promotion net payout separated from PG charge revenue"
+  ],
+  "webkitDiagnostic": [
+    {
+      "route": "/preview/beans",
+      "errors": [],
+      "failed": [],
+      "responses": [
+        {
+          "url": "https://beta.crefans.com/preview/me?_rsc=1r1gj",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/beans/history?_rsc=1r1gj",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/beans/charge?_rsc=1r1gj",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/beans/charges?_rsc=1r1gj",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/feed?_rsc=1r1gj",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/messages?_rsc=1r1gj",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/explore?_rsc=1r1gj",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/notifications?_rsc=1r1gj",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "route": "/preview/events/beta-first",
+      "errors": [],
+      "failed": [],
+      "responses": [
+        {
+          "url": "https://beta.crefans.com/preview/notifications?_rsc=g51li",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/explore?_rsc=g51li",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/feed?_rsc=g51li",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/events?_rsc=g51li",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/messages?_rsc=g51li",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/preview/me?_rsc=g51li",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "route": "/service/events/beta-first",
+      "errors": [],
+      "failed": [],
+      "responses": [
+        {
+          "url": "https://beta.crefans.com/service/notifications?_rsc=7dxif",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/events?_rsc=7dxif",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/explore?_rsc=7dxif",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed?_rsc=7dxif",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/messages?_rsc=7dxif",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/me?_rsc=7dxif",
+          "status": 200
+        }
+      ]
+    }
+  ],
+  "research": [
+    {
+      "url": "https://www.prisma.io/docs/orm/v6/prisma-client/queries/transactions",
+      "checkedAt": "2026-10-26",
+      "applies": "Prisma6.9 atomic commit/rollback and idempotency; not v8 docs"
+    },
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transaction_Authorization_Cheat_Sheet.html",
+      "checkedAt": "2026-10-26",
+      "applies": "server authorization, one-use proof, execution-time gate; does not approve commercial policy"
+    }
+  ],
+  "source-delta": {
+    "server": {
+      "files": 206,
+      "delta": [
+        "src/platform/bean-attribution.ts",
+        "src/platform/bean-ledger.ts",
+        "src/platform/bean-policy.ts",
+        "src/platform/beans.service.ts",
+        "src/platform/openapi-contract.ts"
+      ],
+      "baseline": ".local/tip-attribution-deploy-20261026"
+    },
+    "front": {
+      "files": 647,
+      "delta": [
+        "components/crefans/BeanAttribution.tsx",
+        "components/crefans/BeanBalanceSummary.tsx",
+        "components/crefans/BeanPages.tsx",
+        "components/preview/service/useMockBeans.ts",
+        "types/crefans-beans.ts",
+        "lib/content/events.ts"
+      ],
+      "baseline": ".local/event-banner-clean-20261026"
+    },
+    "admin": {
+      "files": 59,
+      "delta": [
+        "src/components/console/Beans.tsx"
+      ],
+      "baseline": ".local/tip-attribution-deploy-20261026"
+    }
+  },
+  "builds": [
+    {
+      "label": "server",
+      "tag": "crefans-api:promotion-payout-20261026",
+      "startedAt": "2026-10-26T12:41:13.128834+00:00",
+      "finishedAt": "2026-10-26T12:42:24.083136+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "d2f37dc1c0d0ce00b2afe9f60c3d080141584398148bca64caa60b501969fa0f"
+    },
+    {
+      "label": "front",
+      "tag": "crefans-front:promotion-payout-20261026",
+      "startedAt": "2026-10-26T12:42:24.083519+00:00",
+      "finishedAt": "2026-10-26T12:44:02.923902+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "1ab53540d9bf933888a1f213d0722b320cbb74327e12c929640ebd5031e21e0d"
+    },
+    {
+      "label": "admin",
+      "tag": "crefans-admin:promotion-payout-20261026",
+      "startedAt": "2026-10-26T12:44:02.924283+00:00",
+      "finishedAt": "2026-10-26T12:45:24.787054+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "3841e59695f81564a351e58440d0cae2c01bccee5ee19abc26db307ccb823f20"
+    }
+  ],
+  "images": {
+    "at": "2026-10-26T12:46:53.711522+00:00",
+    "images": {
+      "server": {
+        "sourceManifestSha256": "d2f37dc1c0d0ce00b2afe9f60c3d080141584398148bca64caa60b501969fa0f",
+        "tag": "crefans-api:promotion-payout-20261026",
+        "imageId": "sha256:14d09250d47d7b4d189565f5c09d075088c076fb5a4122801051e20e7c7593fe",
+        "runtimeImage": "sha256:14d09250d47d7b4d189565f5c09d075088c076fb5a4122801051e20e7c7593fe",
+        "architecture": "amd64",
+        "sourceFiles": 203,
+        "rootFsLayers": [
+          "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+          "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+          "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+          "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+          "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+          "sha256:433d52c8f2f03e3808cfb9dd86fde1a7c7adbcd3c527b86238213c34e25437aa",
+          "sha256:a255c094d9192141d8046b79ce523d024c85452cbbee95505ab1a8129df98119",
+          "sha256:8b4f145251783662709c6a19f6e0619bdff088ce9e72dd666778bc19c6deeffd",
+          "sha256:850d959a0fd36255218029974ba22133bc8ab84e3a3ea3122edb3fd24d2f1f3b",
+          "sha256:1771ee5007e88cc546aa519bb7d9bb3ef3c0d6871f66a3f72624539196ccb95a",
+          "sha256:b103ffb21d2b806955444dace140b0f1c6c32ecb26850cd1fff4c9bbce1d3bf5",
+          "sha256:02a52fa4554cf6788f81acb0876802246c3230280184e1e445ac56985a428d24",
+          "sha256:416173239b84fdf1cc9bb3fe6edf8c88ca1a4c1c336168235b8e0c7724b0470f",
+          "sha256:a2271d45fb142e3655df866a8ef3eef847f32934cc1df430cf86948a9a3fe75e",
+          "sha256:a4aa09a216666dde98ef0846365f519e689d26abe9bf71069acb107829d215f0"
+        ]
+      },
+      "front": {
+        "sourceManifestSha256": "1ab53540d9bf933888a1f213d0722b320cbb74327e12c929640ebd5031e21e0d",
+        "tag": "crefans-front:promotion-payout-20261026",
+        "imageId": "sha256:465d5d1db937eb977d991291ea44b88e8e0dfc9ff6254d702a3478664d0566ef",
+        "runtimeImage": "sha256:465d5d1db937eb977d991291ea44b88e8e0dfc9ff6254d702a3478664d0566ef",
+        "architecture": "amd64",
+        "sourceFiles": 646,
+        "rootFsLayers": [
+          "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+          "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+          "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+          "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+          "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+          "sha256:433d52c8f2f03e3808cfb9dd86fde1a7c7adbcd3c527b86238213c34e25437aa",
+          "sha256:60c01942713e8e6f5b8b6cd7765fca2f1c05e0cae0764a16a9101c3bbf027fa4",
+          "sha256:0fef3fbb20f4d2df5835ecff6aa2469f1e45aeb008cc5b13ae4cd5077f985ea2",
+          "sha256:123e98b745f06160429c1a19e1db1f73cda91254b774d49003543fbb28cfa164",
+          "sha256:442a9c9e179c03b97c7a3e78eaab4caa1b0afda14864c4cf7288acc6737bcfca"
+        ]
+      },
+      "admin": {
+        "sourceManifestSha256": "3841e59695f81564a351e58440d0cae2c01bccee5ee19abc26db307ccb823f20",
+        "tag": "crefans-admin:promotion-payout-20261026",
+        "imageId": "sha256:94c06b37673a9277e0c6986387758333b4c9153e191ffd3f10a2ab9a73394bbb",
+        "runtimeImage": "sha256:94c06b37673a9277e0c6986387758333b4c9153e191ffd3f10a2ab9a73394bbb",
+        "architecture": "amd64",
+        "sourceFiles": 59,
+        "rootFsLayers": [
+          "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+          "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+          "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+          "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+          "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+          "sha256:433d52c8f2f03e3808cfb9dd86fde1a7c7adbcd3c527b86238213c34e25437aa",
+          "sha256:777f9e9e1ad94770e306777e21ff9a39394f089f28d9b4a9095847530adf23e5",
+          "sha256:c9a8d55b3db06c30aef250d464350f8fa83bc8dd60ef2bce1bea70ed51b29ebd",
+          "sha256:f2c1135e2222d533eec79564e1bc967e19503fc2988f01d7eee3c3329657c1b1"
+        ]
+      }
+    },
+    "archiveSha256": "9cb50e3e9433f9684c46b5b82d2ac9b877fc06a020afcd76a0c91c79de7bd508",
+    "archiveBytes": 797369596,
+    "directPrivateSshStream": true
+  },
+  "deployment-command": {
+    "command": "ssh private verified host: sudo -n bash /home/ubuntu/crefans-promotion-payout-20261026/deploy.sh",
+    "startedAt": "2026-10-26T12:47:29.578590+00:00",
+    "finishedAt": "2026-10-26T12:47:42.356855+00:00",
+    "exitCode": 0,
+    "scope": "frontend/API/worker/admin; no migrations or financial data changes"
+  },
+  "production-verification": {
+    "at": "2026-10-26T12:48:02.842677+00:00",
+    "http": [
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/bootstrap",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/me",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/studio/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/creator/moka",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/signup",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/events/beta-first",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/events/beta-first",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/beans/wallet",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://admin.crefans.com/api/v1/admin/beans/overview",
+        "status": 401,
+        "expected": 401
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "0780e448da29fbb7189444028db5cd54dc9f3842c59d1a699eb78628a7acab36",
+        "image": "sha256:99b36f21175ccd4c2885b915405a2d21528ecf915d9370878308d2427eabd8b8",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      }
+    },
+    "runningSourceHashes": {
+      "server": 203,
+      "front": 646
+    },
+    "runtime": {
+      "at": "2026-10-26T12:48:08.868Z",
+      "flags": {
+        "APP_RELEASE": "promotion-payout-20261026",
+        "BETA_MODE": "true",
+        "BEAN_LEDGER_ENABLED": "true",
+        "BEAN_LIVE_PAYMENTS_APPROVED": "false",
+        "BANK_PAYOUTS_ENABLED": "false",
+        "MARKETING_MAIL_ENABLED": "false",
+        "SIGNUP_IDENTITY_MODE": "email-only",
+        "CREFANS_E2E": "false",
+        "MEDIA_STORAGE": "s3"
+      },
+      "counts": {
+        "members": 1,
+        "creators": 0,
+        "orders": 0,
+        "charges": 0,
+        "tips": 0,
+        "payouts": 0
+      },
+      "migrations": [
+        {
+          "migration_name": "0_init",
+          "checksum": "3833bea35684a61c3d59c5f04b590d6f34ca459b9220fd0425cb0a0356904219"
+        },
+        {
+          "migration_name": "20260910000000_local_members",
+          "checksum": "3076434a542b6badcf5549fd713cf7a3a9ffcbc7dd5606d92d617873d3ee471a"
+        },
+        {
+          "migration_name": "20261007000000_platform_v1",
+          "checksum": "4076884920bbaa5c0bab99d08a9fa4db1e39f48779f66d84dfa7b9ddb238ba01"
+        },
+        {
+          "migration_name": "20261007010000_platform_hardening",
+          "checksum": "14b6ef2d8e6eb443a6afc08b7d6a0e4e0c5c58a5946680848f905fe4129abdcc"
+        },
+        {
+          "migration_name": "20261007020000_platform_jobs",
+          "checksum": "e0b23da51ac54a4143af2496c6d6da39912efb3f37a2c26345f341475e0a6008"
+        },
+        {
+          "migration_name": "20261007030000_platform_completion",
+          "checksum": "2b7f8288195ee6b81160d9047bac6435abc87019eda946953106694cc14ac6f4"
+        },
+        {
+          "migration_name": "20261007040000_platform_audit",
+          "checksum": "f46af57baf903d9c9164518917a08e9bd799666f51f1cc7ff7316c5619b6f82b"
+        },
+        {
+          "migration_name": "20261007050000_platform_age_gate",
+          "checksum": "1445731150a5fa2045bbaa7c3bfeb83a8f4dad46d6159396d1261708269d24dc"
+        },
+        {
+          "migration_name": "20261007060000_billing_registration",
+          "checksum": "8565a40c6393a36834870fd41f362d699ebd507346a7f87fad53eb4d9f419ef2"
+        },
+        {
+          "migration_name": "20261008000000_payment_lifecycle",
+          "checksum": "360fe0032ff09a9e7c48e0da34cd893b72d6fda87a26ccf58e4ad74b015357cc"
+        },
+        {
+          "migration_name": "20261021070000_unused_content_refund",
+          "checksum": "5d1e2290f77bcc448a8eccd4e2270600f339f38422fd7b4a56714d666887ad98"
+        },
+        {
+          "migration_name": "20261021080000_db_financial_policy",
+          "checksum": "80ba545b2b74906641d70418e33119d00ae3d80116ff68865b8c6d90580d7c95"
+        },
+        {
+          "migration_name": "20261021160000_platform_security_ip",
+          "checksum": "1dfd3a3c4b1fc8147ea840c23772fef342810e6f683c65b66da21d663c4670e6"
+        },
+        {
+          "migration_name": "20261021161000_operational_events",
+          "checksum": "0ce6cf718f5ee4497dc90300d3c97e61a070e379cf58eb3b3df6b34bc9aa8701"
+        },
+        {
+          "migration_name": "20261022020000_audit_logs",
+          "checksum": "c3312aca7d23bfd77a2c71c497dc1e26a2b2570d575f5e6cf1fc446f91e06eef"
+        },
+        {
+          "migration_name": "20261022030000_billing_recovery",
+          "checksum": "67e4f2729a36db3717d8ecc234c6a5dd2c3936b76e27a1cc43c2c0e4b6e66b47"
+        },
+        {
+          "migration_name": "20261024120000_creator_verification",
+          "checksum": "8cbf4a870e12e5199ee2b6823edeb9e00d88a7ffd18f58cf4c3c74cf5d0155dc"
+        },
+        {
+          "migration_name": "20261025100000_beta_policy",
+          "checksum": "1fd23a64220156108978d59061d2fcdb62022c6c44e10145d069c2258f069f90"
+        },
+        {
+          "migration_name": "20261025110000_marketing_delivery_claim",
+          "checksum": "be6b7ae38fe19d5dea989193316c5d60a58cb9565c913040d64603110b183573"
+        },
+        {
+          "migration_name": "20261025120000_bean_ledger",
+          "checksum": "887ae3eb12b4543c8ee08341931f2b0869e81ea4d209ed19cf2c3c3b1b08ce7f"
+        },
+        {
+          "migration_name": "20261025130000_bean_product",
+          "checksum": "ca637f1ac797c4bb43ff839a5f9bb82aba2392578e29eeb5d73c520988aa281f"
+        },
+        {
+          "migration_name": "20261026090000_post_supporters",
+          "checksum": "afa16d89dd49a0979dcb5c944fb222e9101377ebecb4404e14c748ebd6284ff9"
+        },
+        {
+          "migration_name": "20261026100000_profile_connections",
+          "checksum": "d455891503b36cf404c87e80d6c6532ed273bc6fcf113a3bf3c73110b3897410"
+        },
+        {
+          "migration_name": "20261026110000_post_tip_setting",
+          "checksum": "f7b767fe44b5875038fdc689646ac8f19d07e93a4f7687098e368c81a6225c0b"
+        },
+        {
+          "migration_name": "20261026120000_tip_attribution",
+          "checksum": "8e860ea85e66de6559954979770a58872217fc1057ed523b38181e17fc1066f0"
+        }
+      ],
+      "policy": {
+        "version": 2,
+        "feeBps": 2000,
+        "holdDays": 7
+      },
+      "worker": {
+        "id": "worker-health",
+        "locked_until": "2026-10-21T08:22:45.481Z",
+        "completed_at": "2026-10-26T12:47:35.766Z",
+        "note": "{\"failures\":{}}"
+      }
+    },
+    "unchangedMigrationsCountsAndFinancialPolicy": true,
+    "newWorkerHeartbeat": {
+      "startedAt": "2026-10-26T12:47:33.660064322Z",
+      "completedAt": "2026-10-26T12:47:35.766Z",
+      "failures": {}
+    },
+    "signup": {
+      "identityRequired": false,
+      "inviteOnly": true,
+      "signupReady": false
+    },
+    "deployedBeanPolicy": {
+      "krwPerBean": 100,
+      "chargeKrwPerBean": 110,
+      "withdrawalFeeBps": 2000,
+      "minimumWithdrawalKrw": 100000,
+      "minimumWithdrawalBeans": 1000,
+      "consumptionOrder": [
+        "promotion",
+        "purchased"
+      ],
+      "withdrawableBucket": "earned-paid",
+      "withdrawableBuckets": [
+        "earned-paid",
+        "earned-promotion"
+      ],
+      "earnedPromotionCashWithdrawal": true,
+      "promotionCashWithdrawal": false,
+      "purchasedCashWithdrawal": false
+    }
+  },
+  "ledger-before": {
+    "at": "2026-10-26T12:44:34.422Z",
+    "counts": {
+      "accounts": 7,
+      "lots": 0,
+      "grants": 0,
+      "movements": 1,
+      "entries": 2,
+      "tipAllocations": 0,
+      "payoutAllocations": 0
+    },
+    "netBalance": "0",
+    "accountBalancesSha256": "9ef3d30dae6107ed1e34d1c7c3510b5e3d06d0becec3b98ab228ab53411aee04"
+  },
+  "ledger-after": {
+    "at": "2026-10-26T12:48:11.809Z",
+    "counts": {
+      "accounts": 7,
+      "lots": 0,
+      "grants": 0,
+      "movements": 1,
+      "entries": 2,
+      "tipAllocations": 0,
+      "payoutAllocations": 0
+    },
+    "netBalance": "0",
+    "accountBalancesSha256": "9ef3d30dae6107ed1e34d1c7c3510b5e3d06d0becec3b98ab228ab53411aee04"
+  },
+  "space-cleanup": {
+    "beforeFreeBytes": 2477543424,
+    "afterFreeBytes": 7677571072,
+    "removedTags": [
+      "crefans-front:profile-tip-icon-20261026",
+      "crefans-front:profile-tip-final-20261026",
+      "crefans-front:profile-tip-44-20261026",
+      "crefans-front:profile-tip-padding-20261026",
+      "crefans-front:social-tips-20261026",
+      "crefans-front:post-tip-setting-20261026"
+    ],
+    "databaseVolumesTouched": false,
+    "currentAndRecentRollbackPreserved": true,
+    "at": "2026-10-26T12:42:53.537525+00:00"
+  },
+  "browser": {
+    "time": "2026-10-26T12:49:46.425Z",
+    "scope": "Public event read-only plus isolated client-side preview state. No production grant/payment/transfer or member edits.",
+    "results": [
+      {
+        "engine": "chromium",
+        "width": 390,
+        "mode": "preview",
+        "result": "pass",
+        "eventFootnote": {
+          "fontSize": "11px",
+          "color": "rgb(98, 107, 139)",
+          "textAlign": "right"
+        }
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "mode": "service",
+        "result": "pass",
+        "eventFootnote": {
+          "fontSize": "11px",
+          "color": "rgb(98, 107, 139)",
+          "textAlign": "right"
+        }
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "result": "pass",
+        "eventFootnote": {
+          "fontSize": "15.6px",
+          "color": "rgb(98, 107, 139)",
+          "textAlign": "right"
+        }
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "result": "pass",
+        "eventFootnote": {
+          "fontSize": "15.6px",
+          "color": "rgb(98, 107, 139)",
+          "textAlign": "right"
+        }
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "scope": "mixed payout 3000 paid +50 promotion; fee61000/net244000; remaining0; no real transfer",
+        "result": "pass"
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "mode": "preview",
+        "result": "pass",
+        "eventFootnote": {
+          "fontSize": "11px",
+          "color": "rgb(98, 107, 139)",
+          "textAlign": "right"
+        }
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "mode": "service",
+        "result": "pass",
+        "eventFootnote": {
+          "fontSize": "11px",
+          "color": "rgb(98, 107, 139)",
+          "textAlign": "right"
+        }
+      }
+    ]
+  },
+  "deploymentScope": "API/worker/frontend/independent admin; no migrations, data rewrites, config gate changes or real financial execution",
+  "boundaries": [
+    "BETA_MODE true; BANK_PAYOUTS_ENABLED false; live payments not approved. This is deployed code, not actual cash transfer availability.",
+    "Production has zero bean grants/tips/payouts; end-to-end financial flow is isolated MySQL with provider doubles, not production customer/real bank validation.",
+    "Admin internal UI verified with local E2E and identical deployed image; production unauthenticated protection verified, not a logged-in admin walkthrough.",
+    "Existing signup/legal gate remains; no real award/email/PG/bank test initiated.",
+    "No schema migration; 25 migration checksums and financial account hash/record counts unchanged."
+  ],
+  "screenshots": {
+    ".local/promotion-payout-20261026/screens/event-preview-chromium-1280.png": {
+      "sha256": "3d3e4151c6fa95c59b17a7fd0fd07031e3e2e5f2b24e7d32b2ec5af7b135adfb"
+    },
+    ".local/promotion-payout-20261026/screens/event-preview-chromium-390.png": {
+      "sha256": "5a4df6add52d1829f42424810ed8a4918b5b516aa3de7d0e3bcdca31c184d172"
+    },
+    ".local/promotion-payout-20261026/screens/event-preview-webkit-390.png": {
+      "sha256": "b4e7ad3a2c1c2a8416d5716dbbcebab583445bbe86d9b628a5464dd2ea3eae75"
+    },
+    ".local/promotion-payout-20261026/screens/event-service-chromium-1280.png": {
+      "sha256": "f7dde182df1c78092d02926b98b3a9efbc7bd5ccf05639086f7794ed503d905c"
+    },
+    ".local/promotion-payout-20261026/screens/event-service-chromium-390.png": {
+      "sha256": "b811a1299bb3cd9874d40c6150ce947a6f9cd9b691161d52bb1969870a466c60"
+    },
+    ".local/promotion-payout-20261026/screens/event-service-webkit-390.png": {
+      "sha256": "fa29ef941dbcb8795a8870689fa21570952b52170f02e3a0108904c3b62cdc67"
+    },
+    ".local/promotion-payout-20261026/screens/promotion-service-payout.png": {
+      "sha256": "b379f04128aad0730ed170c65208100ee28aa12090cd2d2c633991edeed94e0b"
+    },
+    ".local/promotion-payout-20261026/screens/studio-preview-1280.png": {
+      "sha256": "0aad0c01cb0db395264801e32fe9e76708fb01b341775df7a651dd10fc37b94f"
+    },
+    ".local/promotion-payout-20261026/screens/tip-attribution-1280.png": {
+      "sha256": "fa0dc568e017470d4668dcdb76bc0e77ccb2c8dfd68e18a29462b59289ff0fc7"
+    },
+    ".local/promotion-payout-20261026/screens/tip-attribution-390.png": {
+      "sha256": "416d18b29791128cdb13c56dbbb58d28809e361ad3604914d454757e1f3cfabc"
+    },
+    ".local/promotion-payout-20261026/screens/wallet-chromium-1280.png": {
+      "sha256": "ad69f1492fedf2bf339fc7257205ff6690588a3bc90bfab1efc8966d5c034f32"
+    },
+    ".local/promotion-payout-20261026/screens/wallet-chromium-390.png": {
+      "sha256": "65356536908da84f324a5947fd2e912ad643e5947eaec99e879bbab98f3fe879"
+    },
+    ".local/promotion-payout-20261026/screens/wallet-webkit-390.png": {
+      "sha256": "12d7e9fcf10ef1a120cae297d842b2d5ab0ead7ac28499cc61260c4c7cf986e2"
+    }
+  }
+}

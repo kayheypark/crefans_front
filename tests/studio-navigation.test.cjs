@@ -19,7 +19,7 @@ function mount(overrides={}){
 function group(view,label){return view.root.findAllByType('button').find(button=>button.props.className==='groupToggle'&&button.findAllByType('span').some(span=>span.children.includes(label)));}
 function viewport(initial){
  const previous=global.window,listeners=new Set(),media={matches:initial,addEventListener(_event,listener){listeners.add(listener);},removeEventListener(_event,listener){listeners.delete(listener);}};
- global.window={matchMedia:()=>media};
+ global.window={addEventListener(){},removeEventListener(){},matchMedia:()=>media};
  return {resize(matches){act(()=>{media.matches=matches;listeners.forEach(listener=>listener());});},restore(){global.window=previous;},listeners};
 }
 

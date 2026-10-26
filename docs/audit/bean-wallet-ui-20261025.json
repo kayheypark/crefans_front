@@ -1,0 +1,105 @@
+{
+  "verifiedAt": "2026-10-25T03:10:10.253103+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 272,
+  "statusSha256": "919d0caabaeb66a360008687fedb6cc2f95e195e95bff698625ca121d0afc169",
+  "deployed": false,
+  "requirements": {
+    "currencyHelp": "Existing InfoTooltip next to wallet title; 1콩 = 100원, promotion beans consumed first",
+    "mobileProfile": "Wallet at cover upper left, settings upper right; touch height >=44px at <=767px",
+    "desktop": "Existing wallet link position preserved",
+    "sharing": "BeanPages/AccountPages shared by preview and service routers; provider feature flag retained"
+  },
+  "filesSha256": {
+    "components/crefans/BeanPages.tsx": "0bab1090efede2235a4847ef3be696a7be6632a76dcfd5ed81b2ab617c6a6ccb",
+    "components/crefans/AccountPages.tsx": "19eba307d1240d824bb0e37f4e0675b8b6a78e07327db88a130f86fade9e7766",
+    "components/crefans/creator.module.css": "6dabbf29dcf41bdf662a1af7bbed016797a2465851db6079af1e3d19043ac31c"
+  },
+  "commands": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check:layers",
+      "exitCode": 0,
+      "typeScriptFiles": 354
+    },
+    {
+      "command": "node --test tests/crefans-account.test.cjs",
+      "exitCode": 0,
+      "passed": 12
+    },
+    {
+      "command": "node .local/bean-wallet-ui-20261025/browser.cjs",
+      "exitCode": 0,
+      "passed": 8
+    }
+  ],
+  "browser": {
+    "at": "2026-10-25T03:09:28.052Z",
+    "origin": "http://127.0.0.1:3010",
+    "checks": [
+      {
+        "screen": "profile wallet navigation",
+        "width": 360,
+        "passed": true
+      },
+      {
+        "screen": "shared tooltip tap / Escape / viewport",
+        "width": 360,
+        "passed": true
+      },
+      {
+        "screen": "profile wallet navigation",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "shared tooltip tap / Escape / viewport",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "profile wallet navigation",
+        "width": 767,
+        "passed": true
+      },
+      {
+        "screen": "shared tooltip tap / Escape / viewport",
+        "width": 767,
+        "passed": true
+      },
+      {
+        "screen": "profile wallet navigation",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "shared tooltip tap / Escape / viewport",
+        "width": 1280,
+        "passed": true
+      }
+    ],
+    "pageErrors": []
+  },
+  "artifacts": {
+    "browser.log": "8cdc53a4bc30247b2e9ce0d212cd059200099f031117f5ee330d45ab82b8f241",
+    "wallet-tooltip-1280.png": "bf29b843728f5eb740a2b55ad5f88e908465410e6d2a406ae667e166bb6b6d4e",
+    "wallet-tooltip-767.png": "5592e21545943329d5f9ce5a5281caad9b707bd8b5cf7658d27acc40e677bf02",
+    "profile-360.png": "1461f39fd439c2eefcda34a43b6626c61b9d0b64650e2af161d8a8bceae8ec74",
+    "wallet-tooltip-360.png": "9a2275c8182945ed2b359f2fdd09a746beb46fe559b2d8a73f5ee5647e7d07ce",
+    "profile-767.png": "0d4b3e279845e3d2631a9510c9268831438da04fffd4af9f9d7eec3043b861b0",
+    "browser.cjs": "9eb4b6752fc67dfd00598e30a12b5e32f3b0c42e8e508c3eff5e2a0aec723ccb",
+    "profile-390.png": "de582164bfd5206a5636e48af8fc030e49933ef8b2d7326e37672efac8efacbf",
+    "wallet-tooltip-390.png": "12e90df756fe49d9052ac258e9794c9e96ca8b4b36850f7446eac4991e7b2e07",
+    "account-tests.log": "55d441eea4deb8e570e1504f393fce4bf4e2ec55d026a53f0e6b5f25f7acf725",
+    "browser.json": "8c75462d96859d37d3310b3282fb995d4606707cfd9d40ac967c3ef1019c0bee"
+  },
+  "limits": [
+    "Local mock browser verification, no real financial writes or production rollout.",
+    "Unchanged shared tooltip and API/financial behavior were reused; not a new provider integration test."
+  ]
+}

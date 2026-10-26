@@ -1,0 +1,1167 @@
+{
+  "at": "2026-10-24T08:33:03.448727+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "workspace": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": [
+      " M AGENTS.md",
+      " M PROGRESS.md",
+      " M app/preview/layout.tsx",
+      " M app/preview/preview.module.css",
+      " M components/crefans/AccountPages.tsx",
+      " M components/crefans/CommonPages.tsx",
+      " M components/crefans/CreatorCard.tsx",
+      " M components/crefans/CreatorPages.tsx",
+      " M components/crefans/Icon.tsx",
+      " M components/crefans/LandingPage.tsx",
+      " M components/crefans/ProfileHeader.tsx",
+      " M components/crefans/ServiceShell.tsx",
+      " M components/crefans/ServiceUI.tsx",
+      " M components/crefans/SocialPages.tsx",
+      " M components/crefans/account.module.css",
+      " M components/crefans/creator.module.css",
+      " M components/crefans/service.module.css",
+      " M components/crefans/social.module.css",
+      " M components/crefans/studio/ContentPostPreview.tsx",
+      " M components/design-system/ServicePatternCatalog.tsx",
+      " M components/preview/comment-fixtures.ts",
+      " M components/preview/service/ServiceRouter.tsx",
+      " M components/preview/service/fixtures.ts",
+      " M components/preview/service/useMockAccount.ts",
+      " M components/preview/service/useMockSocial.ts",
+      " M components/preview/studio/useMockCommunity.ts",
+      " M components/service/ServiceRouter.tsx",
+      " M components/ui/Primitives.tsx",
+      " M components/ui/chip-row.module.css",
+      " M components/ui/ui.module.css",
+      " M docs/audit/evidence.json",
+      " M docs/audit/manifest.json",
+      " M docs/creator-image-variety.md",
+      " M docs/design-system.md",
+      " M docs/preview-pages.md",
+      " M docs/release-test-scenarios.md",
+      " M docs/service-api-binding.md",
+      " M e2e/preview.spec.ts",
+      " M features/service/useServiceModel.ts",
+      " M features/service/useStudioModel.ts",
+      " M lib/content/landing.ts",
+      " M lib/crefans/membership-plans.ts",
+      " M playwright.config.ts",
+      " M tests/content-post-preview.test.cjs",
+      " M tests/crefans-account.test.cjs",
+      " M tests/crefans-creator.test.cjs",
+      " M tests/crefans-social.test.cjs",
+      " M tests/load-typescript.cjs",
+      " M tests/service-access-state.test.cjs",
+      " M tsconfig.tsbuildinfo",
+      " M types/crefans-account.ts",
+      " M types/crefans-social.ts",
+      " M types/crefans.ts",
+      "?? components/crefans/CommentComposer.tsx",
+      "?? components/crefans/CommentIcon.tsx",
+      "?? components/crefans/CreatorName.tsx",
+      "?? components/crefans/CreatorSearch.tsx",
+      "?? components/crefans/MediaOverlay.tsx",
+      "?? components/crefans/PostMembershipNotice.tsx",
+      "?? components/crefans/creator-name.module.css",
+      "?? components/crefans/creator-search.module.css",
+      "?? docs/audit/back-buttons-deployment-20261024.json",
+      "?? docs/audit/beta-cohort-plan-20261024.json",
+      "?? docs/audit/beta-signup-20261024.json",
+      "?? docs/audit/chip-row-inset-20261024.json",
+      "?? docs/audit/creator-badge-fixtures-20261024.json",
+      "?? docs/audit/creator-search-20261024.json",
+      "?? docs/audit/creator-search-deployment-20261024.json",
+      "?? docs/audit/creator-search-live-desktop-20261024.png",
+      "?? docs/audit/creator-search-live-mobile-20261024.png",
+      "?? docs/audit/creator-verification-20261024.json",
+      "?? docs/audit/creator-verification-deployment-20261024.json",
+      "?? docs/audit/creator-verification-live-desktop-20261024.png",
+      "?? docs/audit/creator-verification-live-mobile-20261024.png",
+      "?? docs/audit/dialog-close-deployment-20261024.json",
+      "?? docs/audit/empty-comments-deployment-20261024.json",
+      "?? docs/audit/empty-comments-live-desktop-20261024.png",
+      "?? docs/audit/empty-comments-live-webkit390-20261024.png",
+      "?? docs/audit/feed-inbox-deployment-20261024.json",
+      "?? docs/audit/feed-toolbar-20261024.json",
+      "?? docs/audit/gallery-comment-dock-20261024.json",
+      "?? docs/audit/gallery-comments-deployment-20261024.json",
+      "?? docs/audit/gallery-comments-live-desktop-20261024.png",
+      "?? docs/audit/gallery-comments-live-mobile-20261024.png",
+      "?? docs/audit/gnb-comment-deployment-20261024.json",
+      "?? docs/audit/gnb-icon-size-20261024.json",
+      "?? docs/audit/gnb-icon-size-deployment-20261024.json",
+      "?? docs/audit/gnb-size-live-preview-20261024.png",
+      "?? docs/audit/gnb-size-live-service-20261024.png",
+      "?? docs/audit/inbox-unread-20261024.json",
+      "?? docs/audit/jiwoo-content-20261024.json",
+      "?? docs/audit/jiwoo-deployment-20261024.json",
+      "?? docs/audit/jiwoo-natural-20261024.json",
+      "?? docs/audit/membership-offer-20261024.json",
+      "?? docs/audit/membership-ui-deployment-20261024.json",
+      "?? docs/audit/message-buttons-20261024.json",
+      "?? docs/audit/message-time-color-20261024.json",
+      "?? docs/audit/message-time-deployment-20261024.json",
+      "?? docs/audit/message-time-live-1280-20261024.png",
+      "?? docs/audit/message-time-live-390-20261024.png",
+      "?? docs/audit/mobile-comment-composer-20261024.json",
+      "?? docs/audit/mobile-gallery-corner-20261024.json",
+      "?? docs/audit/mobile-gallery-deployment-20261024.json",
+      "?? docs/audit/mobile-gallery-expand-20261024.json",
+      "?? docs/audit/mobile-gallery-sheet-20261024.json",
+      "?? docs/audit/mobile-gnb-icons-20261024.json",
+      "?? docs/audit/mobile-inbox-deployment-20261024.json",
+      "?? docs/audit/mobile-inbox-spacing-20261024.json",
+      "?? docs/audit/mobile-settings-deployment-20261024.json",
+      "?? docs/audit/mobile-settings-links-20261024.json",
+      "?? docs/audit/mobile-shell-20261024.json",
+      "?? docs/audit/mobile-ui-deployment-20261024.json",
+      "?? docs/audit/post-detail-back-20261024.json",
+      "?? docs/audit/profile-media-20261024.json",
+      "?? docs/audit/profile-media-deployment-20261024.json",
+      "?? docs/audit/qa-report-20261024.json",
+      "?? docs/audit/settings-divider-20261024.json",
+      "?? docs/audit/verified-creator-icon-20261024.json",
+      "?? docs/beta-role-test-plan.md",
+      "?? e2e/creator-verification.spec.ts",
+      "?? e2e/mobile-comments.spec.ts",
+      "?? e2e/mobile-shell.spec.ts",
+      "?? e2e/signup-deferred.spec.ts",
+      "?? output/pdf/",
+      "?? public/brand/verified-creator-v1.png",
+      "?? public/illustrations/creators/jiwoo/",
+      "?? tests/creator-verification.test.cjs",
+      "?? tests/post-membership-offer.test.cjs",
+      "?? tests/profile-media.test.cjs"
+    ]
+  },
+  "scope": {
+    "at": "2026-10-24T08:28:28.254019+00:00",
+    "baselineFilesMatched": 499,
+    "changed": [
+      "components/crefans/account.module.css"
+    ],
+    "change": "Restore32px margin above inquiry history; add mobile settings section divider",
+    "excluded": [
+      "Unshipped PASS/signup changes in AccountPages and other unrelated dirty files"
+    ],
+    "preserved": "Backend/worker/admin/database/proxy and SSH rules"
+  },
+  "image": {
+    "at": "2026-10-24T08:30:55.609789+00:00",
+    "tag": "crefans-front:support-spacing-20261024",
+    "id": "sha256:95f04ea40ac230c4b07aa17f3e9624cfed80bb9bff21920a7eace476ed8f7fdb",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 499,
+    "archiveSha256": "40cc1032ab4949909028d1d3204028ed8f39893256d671177225fd2005326613",
+    "archiveBytes": 514626406
+  },
+  "rollback": "/opt/crefans-backup-support-spacing-20261024",
+  "beforeLayout": [
+    {
+      "width": 390,
+      "marginTop": "0px",
+      "marginBottom": "12px",
+      "gap": 0,
+      "previousTag": "FORM",
+      "fontSize": "17px"
+    },
+    {
+      "width": 1280,
+      "marginTop": "0px",
+      "marginBottom": "12px",
+      "gap": 0,
+      "previousTag": "FORM",
+      "fontSize": "17px"
+    }
+  ],
+  "firstImageAttempt": {
+    "startedAt": "2026-10-24T08:30:47.684Z",
+    "endedAt": "2026-10-24T08:30:52.068Z",
+    "exitCode": 1,
+    "results": [
+      {
+        "name": "chromium320",
+        "prefix": "preview",
+        "width": 320,
+        "mode": "preview",
+        "before": {
+          "margin": "32px",
+          "gap": 32,
+          "overflow": false
+        },
+        "divider": {
+          "border": "1px",
+          "padding": "22px",
+          "display": "block"
+        },
+        "errors": []
+      },
+      {
+        "name": "chromium320",
+        "prefix": "service",
+        "width": 320,
+        "mode": "API double",
+        "before": {
+          "margin": "32px",
+          "gap": 32,
+          "overflow": false
+        },
+        "divider": {
+          "border": "1px",
+          "padding": "22px",
+          "display": "block"
+        },
+        "errors": []
+      },
+      {
+        "name": "chromium390",
+        "prefix": "preview",
+        "width": 390,
+        "mode": "preview",
+        "before": {
+          "margin": "32px",
+          "gap": 32,
+          "overflow": false
+        },
+        "afterMockSubmit": {
+          "margin": "32px",
+          "gap": 32,
+          "overflow": false
+        },
+        "divider": {
+          "border": "1px",
+          "padding": "22px",
+          "display": "block"
+        },
+        "errors": []
+      },
+      {
+        "name": "chromium390",
+        "prefix": "service",
+        "width": 390,
+        "mode": "API double",
+        "before": {
+          "margin": "32px",
+          "gap": 32,
+          "overflow": false
+        },
+        "divider": {
+          "border": "1px",
+          "padding": "22px",
+          "display": "block"
+        },
+        "errors": []
+      },
+      {
+        "name": "desktop",
+        "prefix": "preview",
+        "width": 1280,
+        "mode": "preview",
+        "before": {
+          "margin": "32px",
+          "gap": 32,
+          "overflow": false
+        },
+        "divider": {
+          "border": "0px",
+          "padding": "0px",
+          "display": "none"
+        },
+        "errors": []
+      },
+      {
+        "name": "desktop",
+        "prefix": "service",
+        "width": 1280,
+        "mode": "API double",
+        "before": {
+          "margin": "32px",
+          "gap": 32,
+          "overflow": false
+        },
+        "divider": {
+          "border": "0px",
+          "padding": "0px",
+          "display": "none"
+        },
+        "errors": []
+      },
+      {
+        "name": "webkit390",
+        "prefix": "preview",
+        "width": 390,
+        "mode": "preview",
+        "before": {
+          "margin": "32px",
+          "gap": 32,
+          "overflow": false
+        },
+        "divider": {
+          "border": "1px",
+          "padding": "22px",
+          "display": "block"
+        },
+        "errors": []
+      },
+      {
+        "failure": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 3\n\n- Array []\n+ Array [\n+   \"/127.0.0.1:3023/service/support?_rsc=hp4vx due to access control checks.\",\n+ ]\n    at captureRawStack (/Users/ethan/repository/crefans_front/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ethan/repository/crefans_front/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toEqual (/Users/ethan/repository/crefans_front/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at /Users/ethan/repository/crefans_front/.local/support-spacing-deploy-20261024/check.cjs:22:17"
+      }
+    ]
+  },
+  "retryReason": "WebKit reported a pending Next RSC prefetch access-control cancellation during forced page navigation. The verifier now waits for network idle before changing pages; product CSS unchanged.",
+  "checks": {
+    "prepare": {
+      "command": [
+        "python3",
+        ".local/support-spacing-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:28:25.899224+00:00",
+      "finishedAt": "2026-10-24T08:28:28.301792+00:00",
+      "exitCode": 0,
+      "logSha256": "8ccc5b1de0903eb5fc9f9a52b62e1c75aed5fd5cc221fe2b3cb88baf5e19539a"
+    },
+    "local-check": {
+      "command": [
+        "env",
+        "BASE_URL=http://127.0.0.1:3010",
+        "PHASE=local",
+        "node",
+        ".local/support-spacing-deploy-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:28:27.055349+00:00",
+      "finishedAt": "2026-10-24T08:28:33.481337+00:00",
+      "exitCode": 0,
+      "logSha256": "ad8252d8b5a449603261a79e055063e63a47120da3301c3bbe71857d3798b5c6"
+    },
+    "image-build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/support-spacing-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:support-spacing-20261024",
+        ".local/support-spacing-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:28:51.174757+00:00",
+      "finishedAt": "2026-10-24T08:30:22.177315+00:00",
+      "exitCode": 0,
+      "logSha256": "3400cde254f6ec4502a93a457f31d83a2ee7e7114c3752182c9bac8ef1d703c2"
+    },
+    "image-check": {
+      "command": [
+        "env",
+        "BASE_URL=http://127.0.0.1:3023",
+        "PHASE=image",
+        "node",
+        ".local/support-spacing-deploy-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:31:30.069958+00:00",
+      "finishedAt": "2026-10-24T08:31:42.251713+00:00",
+      "exitCode": 0,
+      "logSha256": "ad8252d8b5a449603261a79e055063e63a47120da3301c3bbe71857d3798b5c6"
+    },
+    "archive": {
+      "command": [
+        "python3",
+        ".local/support-spacing-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:30:42.753749+00:00",
+      "finishedAt": "2026-10-24T08:30:55.614932+00:00",
+      "exitCode": 0,
+      "logSha256": "bd4ce9560ad31dbe9d42bf276d2c6fa06d79632e7ad38bc98715c59cafa35700"
+    },
+    "production-check": {
+      "command": [
+        "env",
+        "BASE_URL=https://beta.crefans.com",
+        "PHASE=production",
+        "node",
+        ".local/support-spacing-deploy-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:32:30.345251+00:00",
+      "finishedAt": "2026-10-24T08:32:47.330228+00:00",
+      "exitCode": 0,
+      "logSha256": "ad8252d8b5a449603261a79e055063e63a47120da3301c3bbe71857d3798b5c6"
+    },
+    "production-verify-run": {
+      "command": [
+        "python3",
+        ".local/support-spacing-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:32:30.345215+00:00",
+      "finishedAt": "2026-10-24T08:32:32.424869+00:00",
+      "exitCode": 0,
+      "logSha256": "aa3b73ef4d0f4fec72ac0f15599c2df7dfbf23979f2fb38dca817f8c3ad5e27d"
+    },
+    "public-check": {
+      "command": [
+        "node",
+        ".local/support-spacing-deploy-20261024/public.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:32:30.345240+00:00",
+      "finishedAt": "2026-10-24T08:32:33.708935+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:33:03.479906+00:00",
+      "finishedAt": "2026-10-24T08:33:04.471787+00:00",
+      "exitCode": 0,
+      "logSha256": "f17c4c346c5448ccc70f4bf8a5e69fdcfb720162f424d3227e0a13902d468570"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:33:04.496256+00:00",
+      "finishedAt": "2026-10-24T08:33:04.881913+00:00",
+      "exitCode": 0,
+      "logSha256": "871138b35462e5693cb2274b21e4bc0da056ca8475a325b659f8098654bfd151"
+    },
+    "cleanup": {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "crefans-support-spacing-qa"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:32:20.918040+00:00",
+      "finishedAt": "2026-10-24T08:32:21.117940+00:00",
+      "exitCode": 0,
+      "logSha256": "f992bd82ca1a71d1cc52cd42e4b4193803b90833d7dfd710ae5a5057a1fd728a"
+    }
+  },
+  "browser": {
+    "local": {
+      "startedAt": "2026-10-24T08:28:27.391Z",
+      "endedAt": "2026-10-24T08:28:33.472Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "width": 320,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "width": 320,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "afterMockSubmit": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "width": 1280,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "0px",
+            "padding": "0px",
+            "display": "none"
+          },
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "width": 1280,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "0px",
+            "padding": "0px",
+            "display": "none"
+          },
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        }
+      ]
+    },
+    "image": {
+      "startedAt": "2026-10-24T08:31:30.402Z",
+      "endedAt": "2026-10-24T08:31:42.242Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "width": 320,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "width": 320,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "afterMockSubmit": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "width": 1280,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "0px",
+            "padding": "0px",
+            "display": "none"
+          },
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "width": 1280,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "0px",
+            "padding": "0px",
+            "display": "none"
+          },
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        }
+      ]
+    },
+    "production": {
+      "startedAt": "2026-10-24T08:32:30.690Z",
+      "endedAt": "2026-10-24T08:32:47.322Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "width": 320,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "width": 320,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "afterMockSubmit": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "width": 1280,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "0px",
+            "padding": "0px",
+            "display": "none"
+          },
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "width": 1280,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "0px",
+            "padding": "0px",
+            "display": "none"
+          },
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "width": 390,
+          "mode": "preview",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "width": 390,
+          "mode": "API double",
+          "before": {
+            "margin": "32px",
+            "gap": 32,
+            "overflow": false
+          },
+          "divider": {
+            "border": "1px",
+            "padding": "22px",
+            "display": "block"
+          },
+          "errors": []
+        }
+      ]
+    }
+  },
+  "publicApi": {
+    "start": "2026-10-24T08:32:30.547Z",
+    "end": "2026-10-24T08:32:33.702Z",
+    "mode": "real public API; no inquiry submission",
+    "exitCode": 0,
+    "results": [
+      {
+        "width": 390,
+        "status": 200,
+        "actual": {
+          "margin": "32px",
+          "gap": 32
+        }
+      },
+      {
+        "width": 1280,
+        "status": 200,
+        "actual": {
+          "margin": "32px",
+          "gap": 32
+        }
+      }
+    ]
+  },
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "install -d -m 0700 /home/ubuntu/crefans-support-spacing-20261024"
+      ],
+      "startedAt": "2026-10-24T08:31:50.690106+00:00",
+      "finishedAt": "2026-10-24T08:31:51.689939+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "command": [
+        "scp",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "/Users/ethan/repository/crefans_front/.local/support-spacing-deploy-20261024/image.tar.gz",
+        "/Users/ethan/repository/crefans_front/.local/support-spacing-deploy-20261024/image.sha256",
+        "/Users/ethan/repository/crefans_front/.local/support-spacing-deploy-20261024/deploy.sh",
+        "/Users/ethan/repository/crefans_front/.local/support-spacing-deploy-20261024/before.json",
+        "ubuntu@15.164.140.26:/home/ubuntu/crefans-support-spacing-20261024/"
+      ],
+      "startedAt": "2026-10-24T08:31:51.690674+00:00",
+      "finishedAt": "2026-10-24T08:32:00.578856+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "cd /home/ubuntu/crefans-support-spacing-20261024 && sha256sum -c image.sha256 && sudo -n docker load -i image.tar.gz && rm image.tar.gz"
+      ],
+      "startedAt": "2026-10-24T08:32:00.579460+00:00",
+      "finishedAt": "2026-10-24T08:32:13.011433+00:00",
+      "exitCode": 0,
+      "logSha256": "40a2dec4c17930fffa0ee81ed661f1c1f91ab1a1d26e989c59b96bbcb2093c9f"
+    },
+    {
+      "step": "deploy",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "bash /home/ubuntu/crefans-support-spacing-20261024/deploy.sh"
+      ],
+      "startedAt": "2026-10-24T08:32:13.012031+00:00",
+      "finishedAt": "2026-10-24T08:32:19.523780+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "production": {
+    "at": "2026-10-24T08:32:30.397172+00:00",
+    "runtimeFilesMatched": 499,
+    "runtime": {
+      "crefans-beta-api-1": {
+        "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-worker-1": {
+        "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-frontend-1": {
+        "id": "c1c602ebaeaa5764b4fa54adee9d988ef7335e878a334437f6f2c6f6546ce387",
+        "image": "sha256:95f04ea40ac230c4b07aa17f3e9624cfed80bb9bff21920a7eace476ed8f7fdb",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-admin-1": {
+        "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+        "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      }
+    },
+    "http": [
+      {
+        "url": "https://beta.crefans.com/preview/support?tab=qna",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/support?tab=qna",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/login",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200
+      }
+    ]
+  },
+  "visualReview": [
+    "local-webkit390-support.png",
+    "image-webkit390-support.png",
+    "production-webkit390-support.png",
+    "production-desktop-support.png",
+    "production-settings.png"
+  ],
+  "limits": [
+    "Signed-in /service browser scenarios use API doubles; only public read verified with actual production API",
+    "Inquiry submit performed only in preview mock; no real inquiries sent",
+    "No physical iPhone test",
+    "Only frontend/CSS changed; unrelated dirty signup/PASS work excluded"
+  ],
+  "artifacts": {
+    ".local/support-spacing-deploy-20261024/before.json": "cc8a2277d55ff09b0f6ea71fe9e86e838a176cca872be70d92156fc79ebd0425",
+    ".local/support-spacing-deploy-20261024/archive.json": "6dbcd27b6c595389381294ea29a4a1dd3c69404167b534abd18eef4cafcaaad7",
+    ".local/support-spacing-deploy-20261024/run.py": "eb3ccb9a7e08a49794a3ffe07da11c32991f08852ef3c63fe404d2be95709637",
+    ".local/support-spacing-deploy-20261024/image-webkit390-support.png": "bf726d60974d1de069939b074362ba3ac626bf3b50131ad1883a749f541a9c25",
+    ".local/support-spacing-deploy-20261024/workspace.json": "3c724dd2ee670bf7cdbef44af6418e96f25b3d4e8550afba3f9e1c7f74453f88",
+    ".local/support-spacing-deploy-20261024/image-check-first.log": "bb51f566d41fda6fdeeb89ba609109e87de6647c2c9f8ed1a7c0e3f665c05c9d",
+    ".local/support-spacing-deploy-20261024/verify-production.py": "2ee1bdbb98d4727d9d886de3825fb31fb4093ec7296b01522467ad364d72b052",
+    ".local/support-spacing-deploy-20261024/release.py": "f7e3a5b4e304217b44f9447bf1743b141ba8b291282cd23c33c63e041080f3e5",
+    ".local/support-spacing-deploy-20261024/local-settings.png": "f446c4c39a0181c7e3393b9491f4977accc3070250f20815f66b20f23a308eb9",
+    ".local/support-spacing-deploy-20261024/production-webkit390-support.png": "75b9916331b8a026f1ddd925e893f7df6e624edbfb9588a7f52098864d93c898",
+    ".local/support-spacing-deploy-20261024/production-settings.png": "cd9b02f2f1fcaab3a7ee2ce305d01523d0a343569ae19e142abd1f7441607ef7",
+    ".local/support-spacing-deploy-20261024/image-check.json": "49da1f414e1f40d347211b6c9eb19da260e5f41430299c7acc309b26f7817ec2",
+    ".local/support-spacing-deploy-20261024/production-desktop-support.png": "6eff16f0a91adabeb19a0de207980e29112a3616620ca191bf2262b35e608d7e",
+    ".local/support-spacing-deploy-20261024/image-build.json": "4b8e99c933d02a01ca7948f889669585d15ce7dab0f9b641b548b86134e1e90b",
+    ".local/support-spacing-deploy-20261024/scope.json": "bf514ebe29ad80c6ea349bbfbbcf09c27604899301dd2c8fe5a05386a66893af",
+    ".local/support-spacing-deploy-20261024/local-results.json": "6af5e764e0b8f1cc0e92f63f02e2b023bad81e53bf3ac143773c7221d3244820",
+    ".local/support-spacing-deploy-20261024/production-results.json": "e5b80079cb4dd1876b6f323fa0a146b071f70d872d7aa63136157340f7c59f1f",
+    ".local/support-spacing-deploy-20261024/upload.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/support-spacing-deploy-20261024/selected-release.diff": "b37954b3b404f88c1954641458fa15e5a65714cc4246569af713547b0fa44ea8",
+    ".local/support-spacing-deploy-20261024/public-results.json": "5fa969c72d9c9854dce8b31ef291c774cfbea7b657f81dadff5dcecd48036595",
+    ".local/support-spacing-deploy-20261024/image-check-first.json": "22366a02d566df2596b4fc1689b087ab725479231a27aaad489487819bfac0c2",
+    ".local/support-spacing-deploy-20261024/local-check.log": "ad8252d8b5a449603261a79e055063e63a47120da3301c3bbe71857d3798b5c6",
+    ".local/support-spacing-deploy-20261024/deploy.log": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5",
+    ".local/support-spacing-deploy-20261024/cleanup.json": "7baceb8cc83133d4261885e2df5399a50514170ea14c88eb4203f396a0473a46",
+    ".local/support-spacing-deploy-20261024/before-layout.json": "6765689850c5642d26b96aa5bb8bbfbb079bf947e1cc6cd69b452cd143e4c40f",
+    ".local/support-spacing-deploy-20261024/production-verified.json": "f9f2f0c7717474ca88aa018ef1031fd19f839df8d3f37a7a79259b75cb99e240",
+    ".local/support-spacing-deploy-20261024/check.cjs": "954c5bf45649f63ade2480deb48081ac4120c6ceb0da72e6c8f7a151f762082e",
+    ".local/support-spacing-deploy-20261024/public-check.json": "45df199bede037a7048dc707c0bad91803a2463c3b3733e1f25df22dd85c2bfd",
+    ".local/support-spacing-deploy-20261024/image-settings.png": "f446c4c39a0181c7e3393b9491f4977accc3070250f20815f66b20f23a308eb9",
+    ".local/support-spacing-deploy-20261024/upload-directory.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/support-spacing-deploy-20261024/release.json": "a031156c1ee126985453a9921ee409b59aa86033c17e1683fbbd4c215fcfb160",
+    ".local/support-spacing-deploy-20261024/cleanup.log": "f992bd82ca1a71d1cc52cd42e4b4193803b90833d7dfd710ae5a5057a1fd728a",
+    ".local/support-spacing-deploy-20261024/local-webkit390-support.png": "bf726d60974d1de069939b074362ba3ac626bf3b50131ad1883a749f541a9c25",
+    ".local/support-spacing-deploy-20261024/production-verify-run.log": "aa3b73ef4d0f4fec72ac0f15599c2df7dfbf23979f2fb38dca817f8c3ad5e27d",
+    ".local/support-spacing-deploy-20261024/local-check.json": "9df34874609e7e9684f610f4d4394871be1c6315d2ce6728ce483073cf65c476",
+    ".local/support-spacing-deploy-20261024/public-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/support-spacing-deploy-20261024/local-desktop-support.png": "86fc2aa81ba28b0425529a4e7feb590cc0d47d623c8bcce20a0c5f272604568f",
+    ".local/support-spacing-deploy-20261024/prepare.json": "5994a37694d76eaf5056e9dea169bc610495d08a8855fa3547f2024339e86eb0",
+    ".local/support-spacing-deploy-20261024/record.py": "e98302f205bc7987291c7351d223ff83285cbe15458d10e2909baee9c7c9de3f",
+    ".local/support-spacing-deploy-20261024/archive.py": "0de51e711c3d837e20ea78c2174571485fb459f7821eb25dbb40e13086bc0372",
+    ".local/support-spacing-deploy-20261024/production-check.log": "ad8252d8b5a449603261a79e055063e63a47120da3301c3bbe71857d3798b5c6",
+    ".local/support-spacing-deploy-20261024/prepare.log": "8ccc5b1de0903eb5fc9f9a52b62e1c75aed5fd5cc221fe2b3cb88baf5e19539a",
+    ".local/support-spacing-deploy-20261024/deploy.sh": "4c7a57aa3359d3fa9c38e4359b6257b06ea0a44e66fbdffd9cae1368851c2379",
+    ".local/support-spacing-deploy-20261024/production-check.json": "ceaf7d00cffdf982c5d91fc29c8a4567245b6413cfa7c122d825c8b2def57468",
+    ".local/support-spacing-deploy-20261024/image-check.log": "ad8252d8b5a449603261a79e055063e63a47120da3301c3bbe71857d3798b5c6",
+    ".local/support-spacing-deploy-20261024/load.log": "40a2dec4c17930fffa0ee81ed661f1c1f91ab1a1d26e989c59b96bbcb2093c9f",
+    ".local/support-spacing-deploy-20261024/production-verify-run.json": "a02b155a76c729341e651e3753b53efb8b758c00beaea329d369504f1a9cee8c",
+    ".local/support-spacing-deploy-20261024/image.json": "03f636b3ec7ec80569b92477cc960615f32a446ef7d8c33c4110d83e1b4449cf",
+    ".local/support-spacing-deploy-20261024/image-build.log": "3400cde254f6ec4502a93a457f31d83a2ee7e7114c3752182c9bac8ef1d703c2",
+    ".local/support-spacing-deploy-20261024/archive.log": "bd4ce9560ad31dbe9d42bf276d2c6fa06d79632e7ad38bc98715c59cafa35700",
+    ".local/support-spacing-deploy-20261024/public.cjs": "09ab3e2ca0e2fa266c597eb3fa2d8faa747a78c69292a1ba7ee4f863b6ea3f00",
+    ".local/support-spacing-deploy-20261024/prepare.py": "519f03a6f44916da3f4a067a67bd21223dcda58a7137e72c017995e1f041fc09",
+    ".local/support-spacing-deploy-20261024/image-results.json": "8119db9b27bd0076e15447c530c26acfd33852e2006335106ac35d2f506b0c63",
+    ".local/support-spacing-deploy-20261024/image-desktop-support.png": "6eff16f0a91adabeb19a0de207980e29112a3616620ca191bf2262b35e608d7e",
+    ".local/support-spacing-deploy-20261024/image-results-first.json": "a07a21e9ccaf339749b1acc3ad289ffeb6b670e2a77f6cde46963c6728f5a498",
+    ".local/support-spacing-deploy-20261024/release-steps.json": "a9b2108ebfdffef877e764753b4f4e1c3ae51a7f489e8de60504d1bac2aeef02"
+  }
+}

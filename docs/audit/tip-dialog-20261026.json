@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-26T11:51:56.192115+09:00",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "state": "uncommitted; preexisting changes preserved",
+  "hashes": {
+    "components/crefans/BeanPages.tsx": "10341803804943fa22237fa8bdb96f372657043234541f408b5e8df83c690bed",
+    "components/crefans/beans.module.css": "42a875544c917681906165f178e0dd0865ac7db7edf92913d21889f4c897fb95",
+    "components/crefans/social.module.css": "aad088ff406c5261a9f53e325f239239caf847ae9310d8f740e25aef4f56e511"
+  },
+  "checks": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 348
+  },
+  "browser": {
+    "command": "node /tmp/tip-design-browser.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "engine": "chromium",
+        "width": 320,
+        "presets": 6,
+        "invalidAndInsufficientDisabled": true,
+        "success": true,
+        "reopen": true,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "presets": 6,
+        "invalidAndInsufficientDisabled": true,
+        "success": true,
+        "reopen": true,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "presets": 6,
+        "invalidAndInsufficientDisabled": true,
+        "success": true,
+        "reopen": true,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "presets": 6,
+        "invalidAndInsufficientDisabled": true,
+        "success": true,
+        "reopen": true,
+        "overflow": false,
+        "errors": []
+      }
+    ],
+    "initialAttempt": "ambiguous multi-button locator; narrowed to first profile button and reran",
+    "visualReview": "390px form and completion PNGs inspected"
+  },
+  "scope": "local mock only; no live transfer, no deployment; existing monetary policy unchanged"
+}

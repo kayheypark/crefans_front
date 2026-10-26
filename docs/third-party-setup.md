@@ -196,3 +196,20 @@ DB 수수료율/정산 보류 정책과 `RENEWAL_MAX_RETRIES`, `RENEWAL_RETRY_HO
 2026-10-21 환불 정책 갱신: 기본 종료는 갱신 해지 예약. 미이용 결제에 한해 전액 환불 API를 준비하고 UI 진입은 숨긴다. 종전 REFUND_WINDOW_DAYS는 현재 미사용이며 이용 기록 없는 과거 결제는 자동 판정하지 않는다. 상세는 백엔드 `docs/provider-contracts.md`의 미이용 환불 절을 따른다.
 
 2026-10-21 추가: 수수료율/정산 보류는 환경 키가 아닌 DB financial_policies에서 관리한다. 활성 SUPER_ADMIN용 GET/PUT /api/v1/admin/financial-policy와 이력 API가 준비되어 있으며, 신규 구독 결제에 재시작 없이 적용하고 기존 구독 갱신은 snapshot을 유지한다. 운영 초기값은 미정이며 테스트10%/0일은 로컬 최초 초기화에만 사용한다.
+
+
+## 카카오톡 게시물 공유 (추가 확인일 2026-10-25)
+
+**현재:** 공유 레이어와 JavaScript 연결 코드는 구현했다. 확인한 프로젝트 설정에는 카카오 키가 없으며 실제 앱/허용 도메인 연결·카카오톡 전송은 아직 검증하지 않았다. 버튼을 누르기 전에 자동으로 메시지를 보내지 않는다. 기존 다른 서비스의 카카오 앱이나 키를 임의로 재사용하지 않는다.
+
+1. 사용할 카카오 Developers 앱을 정한다. [앱 설정 공식 문서](https://developers.kakao.com/docs/en/app-setting/app)를 참고한다.
+2. `[앱] > [플랫폼 키] > [JavaScript 키]`에서 공개 JavaScript 키를 확인하고, JavaScript SDK 도메인에 사용할 사이트 origin을 등록한다. 베타는 `https://beta.crefans.com`, 로컬 검증이 필요하면 정확한 개발 origin/포트도 등록한다.
+3. `[앱] > [제품 링크] > [웹 도메인]`에도 공유된 게시물 링크가 열릴 도메인을 등록한다. SDK 도메인만 등록하면 링크 검증까지 끝난 것이 아니다. [공식 튜토리얼](https://developers.kakao.com/docs/en/tutorial/js-share).
+4. 프론트 `.env.local`에 `NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY`를 설정한 뒤 개발 서버를 다시 시작한다. REST API/어드민 키를 넣지 않는다. 배포는 `infra/platform/Dockerfile`의 같은 이름 build arg를 전달해 **재빌드**한다. 런타임 환경변수만 바꿔도 이미 빌드된 브라우저 번들이 갱신되는 것은 아니다.
+5. 허용 도메인에서 공유 레이어 → 카카오톡을 눌러 PC 웹/모바일 카카오톡의 대상 선택, 취소, 실제 승인한 수신 대상의 링크 열기를 검증한다. 유료 글 링크 수신자의 구독 권한 검사도 별도로 확인한다.
+
+**공식 근거와 적용 판단:** [카카오 공유 JavaScript](https://developers.kakao.com/docs/ko/kakaotalk-share/js-link)의 커스텀 버튼용 `Kakao.Share.sendDefault`와 텍스트 템플릿을 적용한다. [기본 템플릿](https://developers.kakao.com/docs/ko/message-template/default)의 텍스트200자 한도를 유니코드 단위로 제한하고, 공개 제목·페이지 링크만 넣는다. 공급사에 유료 미디어를 업로드/스크랩하지 않는다. [공식 SDK2.8.4](https://developers.kakao.com/docs/ko/javascript/download), 2026-10-19 배포본을 고정하고 공개 SRI와 실제 다운로드 SHA-384 일치를 확인했다. [공식 버튼 예제](https://developers.kakao.com/tool/demo/message/kakaolink?default_template=text)의 PNG를 변형 없이 보관한다(`public/brand/kakaotalk-share-official.source.json`).
+
+**기기 공유:** [MDN navigator.share](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share)와 [W3C Web Share](https://www.w3.org/TR/web-share/)를 근거로 기능 탐지/지원 데이터 확인 후 클릭의 사용자 활성화 안에서 직접 호출한다. HTTPS가 필요하며 기기·브라우저별 지원과 공유 대상이 다르다. 취소(AbortError)는 실패 경고를 띄우지 않고, 미지원은 복사 대안을 제공한다. Promise 완료를 실제 수신/전송 성공의 증명으로 간주하지 않는다.
+
+코드/대역/브라우저 검증과 실공급자 검증은 분리한다. [이번 실행 증거](./audit/post-share-20261025.json). 사용자에게 기존 카카오 앱 유무를 질문했고, 답변/연결 전까지 미연결 상태로 유지한다.

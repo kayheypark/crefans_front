@@ -1,0 +1,1891 @@
+{
+  "verifiedAt": "2026-10-25T13:45:58.288799+00:00",
+  "release": "bean-vat-20261025",
+  "deployed": true,
+  "repositories": {
+    "front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "branch": "feat/bean-support",
+      "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirtyEntries": 305,
+      "statusSha256": "3a0ed56ab88895391d09e6950567c3b3efaa8d6671d43c6cd38812f435ee3ca2",
+      "runtimeManifestSha256": "2ca885bb79f952cf314475fa2cf167a1d5a6fcd4c08a4c4ce0117bb3fe0bdadd",
+      "runtimeManifest": {
+        "components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
+        "components/crefans/BeanBalanceSummary.tsx": "de4f64358505608929d361382cf79cee9570145b0cf9e150cb4acbc38c55199a",
+        "components/crefans/BeanChargePage.tsx": "c1adff5eb80ef0401f6cc7652d0d4b6ec9d60e99741f5bc18827133b3d2ec4ac",
+        "components/crefans/BeanContext.tsx": "55502dc6bd10ff84c1d31e4e9e4e63ff967d8f1e85e7e0a175d98188fa4246ed",
+        "components/crefans/BeanPages.tsx": "9774c3a0102b7762e746221ffc16437b8cdbf1d399982c89a07f3f380a398ac5",
+        "components/crefans/CategoryChip.tsx": "9badf6766cc946b10099dd22c3b8726c83b7218411a6d10d211713a3f4db9cec",
+        "components/crefans/CommentComposer.tsx": "a2ca07e20d406133d5d2162e01b99e722be8ad0d454d4702bfa28802acf888cc",
+        "components/crefans/CommentIcon.tsx": "9d86c449cdc4732d4d17e1d97c2f1e79aacc5055b3266f1812fcec448724a7a6",
+        "components/crefans/CreatorName.tsx": "17726c468feffee75c1e5a83933b2da41fd0c36963267552eddbd66b35960de5",
+        "components/crefans/CreatorSearch.tsx": "fd1cef2a8250b7c4d324982370a8da66209ea5e34a10bd8d110627de6898e98b",
+        "components/crefans/MediaOverlay.tsx": "41ae6a3bcbe2ca7992cd1c1772e4bdb9b9e7f8b2d10a003d0d41793b3ee78838",
+        "components/crefans/NavigationIcon.tsx": "6ba2bdeb668202bd7ab98fce9db6b711f5e04e73ce530ddabb3b1c893bd2a9f7",
+        "components/crefans/PostMembershipNotice.tsx": "6ad4b29f59ae58fa2970fa2cf4609002fb0055936a20422969ba574bdc51d654",
+        "components/crefans/PostShareDialog.tsx": "167354b0d1b2246d8cff309ef334063d1d5e3680dbf6f1ebce7f225a55b75682",
+        "components/crefans/PostViews.tsx": "b5620fc4eaf8a3444d3a845a8dd4c1f435aae41b080f473ed2e340f509c135be",
+        "components/crefans/ServiceGuidePage.tsx": "074136b437bd5dc460f72b75a8f01d9974011b6d298bda11dcebea3646b0864b",
+        "components/crefans/SignInPrompt.tsx": "97edc09eb62198203e11fe868fb610a1610263c9e1ae25da3ae66993d6d47f7f",
+        "components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
+        "components/crefans/beans.module.css": "fec52d1f450601ac8d28854e313fc026aeec377e7efe7aa311b9cc664c8ec03c",
+        "components/crefans/creator-name.module.css": "e17863c06c47e6806951e05f13fd2c119a884a702c854e14f0849d5ee705577a",
+        "components/crefans/creator-search.module.css": "58cf7fe4f52d60b97e73045a70ade3f2b8ddfb4ce98b9591f41cfd6d0ebde08d",
+        "components/crefans/navigation-icon.module.css": "f7d03cc17dfb95e9ad57ca08744fa9041f89b5fe6341c2a45d68ae35769e5091",
+        "components/crefans/post-share-dialog.module.css": "a13badc625bda1b61325a927250993d609dfbb9933cbe42c81298df8a8aa77d4",
+        "components/crefans/post-views.module.css": "b4d76e716a5addb479c0ff4e1f750757feadcf078c4bcc750ca08bb0a546a0de",
+        "components/preview/service/useMockBeans.ts": "501289f51a9e7b567308e152c62af2d70b036beabbd17f7f8e1bdd67e13eae24",
+        "components/service/BeanPaymentResult.tsx": "e76cda5c7a1bb967bddec244427e83a64c9d96dd24bcb76531ea27d37a42d8b5",
+        "components/ui/InfoTooltip.tsx": "7f8dbebd17b274b68fa9166d9a91159228b7d51a1732ecaaa07728c3278628e5",
+        "components/ui/MarqueeText.tsx": "d444b1aea8dd2ab378d94a20b1875a5a9ed78bab793c620504610ac912f0dd1b",
+        "components/ui/UnreadBadge.tsx": "8634517704d1d0f8e3cd4e4c1ae59515e768a2b4c3f5fdc1aec3ac47373ee1af",
+        "components/ui/info-tooltip.module.css": "9b6c9a56365a80ead4f832ed6c5ef9c1c3a95853b89aa592be08e013c46158bf",
+        "components/ui/marquee-text.module.css": "29f90b586473ed421ebebeefa70cefe0802b9c6692700d296ae9139f4f231939",
+        "components/ui/unread-badge.module.css": "0d710392ec38bba70f89f8b3126d02c62f617a89f58a7dad0c66c301f12cb8f0",
+        "features/post-share/usePostShare.ts": "eb3bc287c9d67b5d41013a996f401a4a5d5084b0763e38f104572b687763896b",
+        "features/service/useBeanPaymentResult.ts": "54de3b60c3873b86b11c210c522d8cc8d955e74daedd2c109ea7bc616bcf62f9",
+        "features/service/useBeansModel.ts": "ed1a4a1ce0d54d0ea12d567c72079cd9beda3e10a5242e5e23d3d5043b5ffa3e",
+        "lib/browser/post-share.ts": "bafdc5358cc55560add52658914c8e2e5677f8cae8f0049d80fad0fe35800c84",
+        "lib/crefans/bean-pricing.ts": "e89f2713c3b9a15da8da1beb80e2ae47a44e3dd73c4b414fccbfc3b07ab8647a",
+        "lib/crefans/support.ts": "d533fc07de6a334d9aac6d2e97b605e03b65a68ae916434e8f9c64c6301786d3",
+        "public/brand/beans/clay-v1/1.png": "ed55c8a0c35b8b1dc6c0248055e6de376d33ffa8e528203b7a80cb32d66c9d9a",
+        "public/brand/beans/clay-v1/10.png": "878ee0c7fc02ec2dc05961d17b46b5b80d5ec5e03af628d89a89a517c7f71656",
+        "public/brand/beans/clay-v1/100.png": "a4a3fc99f1093d8fb3e659efddf80a4f3277932ad109731e9b5ee527431f5ede",
+        "public/brand/beans/clay-v1/1000.png": "698901a388b85e9621d9ad52425141c14129d29c632f4c20d04cae3a577cb982",
+        "public/brand/beans/clay-v1/10000.png": "a08893a94aacdacf8d58af3d23d614bc2a0c5ae58d4cdcd956cd69b2031aefbb",
+        "public/brand/beans/clay-v1/30.png": "4d726a832667541196b7affa87f4c9156e2505a208e0870c74b44d11cb846756",
+        "public/brand/beans/clay-v1/300.png": "5038ec64e0cdf9cf02f9e0ea0c37693b2945e0cf5d2b88745fb7d85018d90548",
+        "public/brand/beans/clay-v1/50.png": "cb00bee243e192d30449b32aa8ab873db2ca96401eb6000de6114c59bbfd8e2a",
+        "public/brand/beans/clay-v1/500.png": "32e89663f4562eca324f20336233ebdf3a4d7ab26a74e991d59d063159a2ccb0",
+        "public/brand/beans/clay-v1/5000.png": "e9ee0219cf500b09af5a48b91369a9fc79f20b9eafc4a6b1190255d9fe83ea42",
+        "public/brand/beans/soft3d-v2/10.png": "9c83f0e87d0572a3efac55a5e7383c4485f9e15f3d7646c4c0612e9c6a6728d5",
+        "public/brand/beans/soft3d-v2/100.png": "aa6e75abd572008ec7971451dd5c4c2e3dd1043a3dac59949b142feae0ff9319",
+        "public/brand/beans/soft3d-v2/1000.png": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e",
+        "public/brand/beans/soft3d-v2/10000.png": "b55985106da99db5d20e8b54dcfed67a8aeb5a82ed9b29ffdc17e6092937f534",
+        "public/brand/beans/soft3d-v2/30.png": "3f289d986281efb8401f355d859fa36fb41d98ff1e68c4c099109b951bcd48a3",
+        "public/brand/beans/soft3d-v2/300.png": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28",
+        "public/brand/beans/soft3d-v2/50.png": "64964f5d26f82da3a2c618dd8bc8f0dc7c52b664b4cca8c92012dad261157efc",
+        "public/brand/beans/soft3d-v2/500.png": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+        "public/brand/beans/soft3d-v2/5000.png": "a6a58aa195ee42060f215129212282ccd4c969ae02d57effab0999e594cae63f",
+        "public/brand/beans/soft3d-v2/alternatives/double-skewer.png": "6c63f9b7022c528b9245af1674e35576f8677beeb16a4ef028231b8007f0aa71",
+        "public/brand/beans/soft3d-v2/alternatives/paper-box.png": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+        "public/brand/beans/soft3d-v3/10.png": "9c83f0e87d0572a3efac55a5e7383c4485f9e15f3d7646c4c0612e9c6a6728d5",
+        "public/brand/beans/soft3d-v3/100.png": "aa6e75abd572008ec7971451dd5c4c2e3dd1043a3dac59949b142feae0ff9319",
+        "public/brand/beans/soft3d-v3/1000.png": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+        "public/brand/beans/soft3d-v3/10000.png": "b55985106da99db5d20e8b54dcfed67a8aeb5a82ed9b29ffdc17e6092937f534",
+        "public/brand/beans/soft3d-v3/30.png": "3f289d986281efb8401f355d859fa36fb41d98ff1e68c4c099109b951bcd48a3",
+        "public/brand/beans/soft3d-v3/300.png": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28",
+        "public/brand/beans/soft3d-v3/50.png": "64964f5d26f82da3a2c618dd8bc8f0dc7c52b664b4cca8c92012dad261157efc",
+        "public/brand/beans/soft3d-v3/500.png": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+        "public/brand/beans/soft3d-v3/5000.png": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e",
+        "public/brand/beans/soft3d-v3/alternatives/double-skewer.png": "6c63f9b7022c528b9245af1674e35576f8677beeb16a4ef028231b8007f0aa71",
+        "public/brand/beans/soft3d-v4/10.png": "24afb640b0e7edcc6ae2f0a01635aaa259fe47b3666f405d1ee8df932f725d8d",
+        "public/brand/beans/soft3d-v4/100.png": "67a57c4b6023102868da5ee3b5cfffcbf4505e6e480461380175aca96c1a5ea2",
+        "public/brand/beans/soft3d-v4/1000.png": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+        "public/brand/beans/soft3d-v4/10000.png": "b55985106da99db5d20e8b54dcfed67a8aeb5a82ed9b29ffdc17e6092937f534",
+        "public/brand/beans/soft3d-v4/30.png": "77f0dfc5d570ea438197b7d3d4fdb1c6bdc967b4581f2554c41e37ee5007acd9",
+        "public/brand/beans/soft3d-v4/300.png": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28",
+        "public/brand/beans/soft3d-v4/50.png": "982704b83c00262e1e52422e1e8a707ce58e015597b3b43af1cb1ecfde49e677",
+        "public/brand/beans/soft3d-v4/500.png": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+        "public/brand/beans/soft3d-v4/5000.png": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e",
+        "public/brand/beans/soft3d-v5/10.png": "24afb640b0e7edcc6ae2f0a01635aaa259fe47b3666f405d1ee8df932f725d8d",
+        "public/brand/beans/soft3d-v5/100.png": "b17485ef0ea14bb1560a7ca2e6bcc9deff63632bbb376f3ea0085008a07d1255",
+        "public/brand/beans/soft3d-v5/1000.png": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+        "public/brand/beans/soft3d-v5/10000.png": "b55985106da99db5d20e8b54dcfed67a8aeb5a82ed9b29ffdc17e6092937f534",
+        "public/brand/beans/soft3d-v5/30.png": "ee9e431608f52bb85fbe9a8d2152cb30ab7c3d9c2c9f6d35e3b15a0c8dca8e62",
+        "public/brand/beans/soft3d-v5/300.png": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28",
+        "public/brand/beans/soft3d-v5/50.png": "c6a13ccd77aa2d5212977068819a4cb394ee38e1839c27446fac16b2c3cc2c18",
+        "public/brand/beans/soft3d-v5/500.png": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+        "public/brand/beans/soft3d-v5/5000.png": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e",
+        "public/brand/beans/soft3d-v6/10.png": "0fe3947fb4da0ca2d386cce829574a2058f02a8aa995d57e630fc61fd64bd5e5",
+        "public/brand/beans/soft3d-v6/100.png": "24afb640b0e7edcc6ae2f0a01635aaa259fe47b3666f405d1ee8df932f725d8d",
+        "public/brand/beans/soft3d-v6/30.png": "53275dcb2a6ffad2af818e169505cd99c431c0c8226d00cf68928de4d4a34f65",
+        "public/brand/beans/soft3d-v7/100.png": "8edaa470a4fd3d8e4c16c541f581137ad6e9157179731002c5d64e849f367e54",
+        "public/brand/beans/soft3d-v7/1000.png": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+        "public/brand/beans/soft3d-v7/10000.png": "3fdb1bdec8d9480fd658dd8ea1ae6f332caea0feedc582e23608eb2559240700",
+        "public/brand/beans/soft3d-v7/500.png": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+        "public/brand/categories/all-round-flat-v1.png": "3c8b92550b4d21cc10fd0fd2507c899acf92e6f2a6295a6d79369bbad6a7dfdc",
+        "public/brand/categories/art-round-flat-v1.png": "08d15934bee1866e78ad7ca2afc8805ead7f62e7db371ee1a7dd9492909e04a5",
+        "public/brand/categories/beauty-round-flat-v1.png": "c37470b95d537fe3bc4b560eeff58d0e8fb887dc6b0b4c4584f397f676da8aed",
+        "public/brand/categories/cosplay-round-flat-v1.png": "3613038326dd7c95e62f0d92da7cf2d48c21655fd51de23699877abd01a32144",
+        "public/brand/categories/daily-round-flat-v1.png": "2ce3939e2c7db87f95abe7be531b618ae937ac93cf1711854f573cb4aa32744c",
+        "public/brand/categories/fitness-round-flat-v1.png": "cbde48343907d00912fe2b40da775e65b6770cfb3098a6221cac0033468489b6",
+        "public/brand/categories/gaming-round-flat-v1.png": "d66c5cda4e968ccfa559b295ddf5c9dbccdfed255820e0c0da9588405877c1bc",
+        "public/brand/categories/lifestyle-round-flat-v1.png": "3fe713aaf2cf96f6629db9c4a640eee4d875554e9d13d9f4e0fba916a8a7106f",
+        "public/brand/categories/music-round-flat-v1.png": "9904b4e20865b4a96b10b6dadaee648d0fff7962434124255e9933ace2141385",
+        "public/brand/categories/travel-round-flat-v1.png": "7b03cee7aab8524021173919816c465240b53428e832715303d15a3c2bb77405",
+        "public/brand/featured-creators-v1.generation.json": "dea7497c765efb0c2094684fd739c43e5015732b2ce4865252b42ca692e0b578",
+        "public/brand/featured-creators-v1.png": "20b16371cdbd99421f386aef60262bbef3ac2e1bed9761d3efc0d5fe7007663d",
+        "public/brand/kakaotalk-share-official.png": "16f79531bbf7fe6e0e18fcc84177e37736b4af2caecfefa275f78ac6e927294f",
+        "public/brand/kakaotalk-share-official.source.json": "80a5e8525576f9ccaae102a8144f474bdb694f1142c77efdd5c75c8b15ac9f40",
+        "public/brand/navigation/bell-round-flat-v1.png": "a4f7115e0d74425b24c85c07628415ceb7cb24b97c535d7ab0feece7a3c0f344",
+        "public/brand/navigation/explore-round-flat-v1.png": "2e120ed94afe1a0528f43f5d5fa3f2ddee263eb8035dd80505fb01fa7b89c529",
+        "public/brand/navigation/home-round-flat-v1.png": "3fbbffa3aab0cff61d125443105318379f5c48220d159bf180bcc636b3911109",
+        "public/brand/navigation/message-round-flat-v1.png": "2a5cedd3fbef4b23c31ec3d3ab74bfbbd61390093adab347f11f1aad262286e8",
+        "public/brand/navigation/user-round-flat-v1.png": "f6520264ac256669a8b4dd5fe38a1cd7ffe31665bad18efa648c5957bd869688",
+        "public/brand/tooltip-info-v1.generation.json": "2e8300dec28d1870105c93a071e7bbe917b88315d1ec4e3c7306831e2a2a5c80",
+        "public/brand/tooltip-info-v1.png": "cd27ad4f6e43010ff3421ace98eca6e59dbb0768eb7e60e6ffb15dada4484b75",
+        "public/brand/verified-creator-v1.png": "11ecdb1d9881a7cb42feb100fc995ac4995131121fbba9a761aa5df3b921f791",
+        "public/illustrations/creators/jiwoo/avatar-trail-v1.png": "79c518fec2d0e16ba6c8838330ece7f1940aceb229591d77a5c314b546506c88",
+        "public/illustrations/creators/jiwoo/avatar-trail-v2.png": "5f5bbbfb8a8c27e95f0b1b7150900c4bcdc012aea3c25d674712d3d5d87db76d",
+        "public/illustrations/creators/jiwoo/camp-coffee-v1.png": "6c7baf973d820685a68c2d6331b2af29050525f1d2111568a65a453d06194740",
+        "public/illustrations/creators/jiwoo/camp-coffee-v2.png": "4f14a73f87a9c11bcb8ecac8005d7ef0a9dc0a923b739b74b3561ed63a7e2813",
+        "public/illustrations/creators/jiwoo/camp-morning-v1.png": "d50422c219120838adbdfe7bc57804d866e94a3a68f0ac804ab016fe3afa1cd7",
+        "public/illustrations/creators/jiwoo/camp-morning-v2.png": "8a171f9bf5332e1531aa7b7136f6ccf5a7202a7a00808c7652ead5c692e66ee5",
+        "public/illustrations/creators/jiwoo/coastal-walk-v1.png": "30c7a96b0537e88e0bba4383e11a28904c9ae39ef89ba933b33bfa49a8a196a9",
+        "public/illustrations/creators/jiwoo/coastal-walk-v2.png": "127b8c9b0af5e31c9770ced4ad80731097c55bfe804802d58270bdcf208b6533",
+        "public/illustrations/creators/jiwoo/cover-lakeside-v1.png": "41aa88e1aa6cc8522de43b696b623abc5c4c4176e7fe5346885baed456422a69",
+        "public/illustrations/creators/jiwoo/cover-lakeside-v2.png": "a6085d53bf31c7d6e6e232fbf46481021f51a1cf179ab478d59fb3660343832a",
+        "public/illustrations/creators/jiwoo/generation-v2.json": "195b4ae707c2fb59917550798cfbd8c6fb812c59ea76466b320288f3e8b5de81",
+        "public/illustrations/creators/jiwoo/generation.json": "fbbea6c7a17c61719724679477c315145c0e6c336d7132a0a43ca36ce60d5bb4",
+        "types/crefans-beans.ts": "f149d9582ce7f380eefee98ab067c2c6654d0d89a68caa8f17e2758d48bb56ee",
+        ".dockerignore": "82dfc40a67283da05ef11a67f14f1aa1dc2e59086d166684e19b79d7e0ae0e8d",
+        "app/(auth)/login/page.tsx": "1382ea462d90147f3e65519799df6ed8bce0e744ac6330291a4e4685c0672a7b",
+        "app/(main)/[handle]/page.tsx": "9e402adcd79955f343fe18856e0c0d1a2fcd28dd3c77e920a698653f40d8ed55",
+        "app/(main)/board/[id]/page.tsx": "776dfcc14ae195edb9c076489e8294945fe9d52748d09347a1474509761466c8",
+        "app/(main)/board/page.tsx": "e12e61ecb5caae902a71fb59e8d4adfef7daa06d115cf1f68907018add87ee6e",
+        "app/(main)/explore/page.tsx": "4bebd0c02efcd11c79c8647919edd782c3716834feb1edcb65144c3d513aa881",
+        "app/(main)/feed/page.tsx": "3918cd81a64b83d3edcf630d7e32216075d8795443cdc459c61e4b9e62b7c9cd",
+        "app/(main)/home/SignUpModal.tsx": "f00020909d48f465c550916e356fefca51a42d5cb0081c78da91930a41ec114f",
+        "app/(main)/home/page.tsx": "1b5d3b9dcc45e828a953eeb2a188660dc9b6eaed95bdcbc2c06de2e83fcae8f5",
+        "app/(main)/layout.tsx": "e84c2e352460de565c7c45daeffec6a09504a20b8e6f02d57f338d6e028fe699",
+        "app/(main)/payment-history/page.tsx": "09c37fe18caf8e11800fed065a04ab98fc1c0d4ae5d9a38a4cc41005826945df",
+        "app/(main)/profile/edit/page.tsx": "9a5b1e5b2b95a7752f4f6f5fa7081064f5e325c78162d734199472f5e628ee73",
+        "app/(main)/profile/page.tsx": "f6cf3606024157a736c4797fd7ab7308b28cc78547eae4b4765fee094a1da13e",
+        "app/(main)/search/page.tsx": "6759ccb7ad1d17583c36bf8166262755ff172cd72d28d3e91ad6153d08e460c7",
+        "app/(main)/settings/page.tsx": "51ecb661fe7b89fec4e70d8b52b4b9b382a7c661fc9cff93b914b361292c6cf2",
+        "app/(main)/support/page.tsx": "868ed6da27853c77e9af4f1295584ec2da408dacf89c63de89f12b6fc8f1b25f",
+        "app/(main)/write/page.tsx": "c5ee000dcc5115b03ba8b45db91325d77a36dcc3c2680dc08dc3073ab9cc0b27",
+        "app/api/v1/[...path]/route.ts": "e33f3539857d8d93a91ae247724166eeb6a82e85f054e8895e6fe001c8b98610",
+        "app/creator-center/become-creator/page.tsx": "b88f9febea382a8620899901c31315a1cb4b09c26ea9f5195be5a632c4c937b3",
+        "app/creator-center/donations/page.tsx": "e11663dabc311e6b50bc0d1573a911dafabbe40daca81603efd37ca55b7d0d72",
+        "app/creator-center/earnings/page.tsx": "000f1aa7a5eab4438c019dd7c41f9d17a3a2fc71d5a70129dd07f5235369c88a",
+        "app/creator-center/memberships/page.tsx": "07710025c18ee194f80aa053ce9a75711c8063ce6644a2dba01a08c7e64b1359",
+        "app/creator-center/page.tsx": "8945a79ff882ad4ca7f9233b1250381be5fb1292458f88aeaebc2dc6fc5d0b8d",
+        "app/creator-center/settings/page.tsx": "eac794b7f4fdaf3489750a1789cf47f94171ca4b9ae2c8efacef01607850b4fd",
+        "app/creator-center/write/page.tsx": "09c7967fe5398050cb5a218dc31cc7a71f944d28adae9bf948ceff6aacaa25c5",
+        "app/design-system/page.tsx": "b637a1056ea57737960c2897d5d2413b4f5aaff03f861e5d23b13d599e65dcf3",
+        "app/email-verification/page.tsx": "67781f4f44d1fd3bf39d1c5c439267a1073070710dc503900844c18610b4ed4e",
+        "app/globals.css": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "app/layout.tsx": "3dc83f2add76f787be4356d2f2e1d0f8f9c3db1d3761cb9e8ab079f3713d1b7b",
+        "app/not-found.tsx": "5aca8adb85f46df855a812cb3e8270aa7f1564430a48e9bcc4d8fc34e5c74e81",
+        "app/page.tsx": "405ed41768fb3bf46909a53ccbdeba20396ebf4d89054db438ad5d732128b67e",
+        "app/payment/fail/page.tsx": "638ca23a2143d96e889c27ab3ef0a409a502a7d4987daa540425be85ef3e5fbb",
+        "app/payment/success/page.tsx": "d0879eb5d985b25a58923d4e690b4446cb1c7fc7ca384881fb855c9b6caf8573",
+        "app/post/[id]/page.tsx": "79e5a79b2d1f4542886f3a07ad63f486a669b00041661cc61ff4090e760625e2",
+        "app/preview/[...screen]/page.tsx": "f9d48f227878a723371306299b5c6754a59912c16b27dd098062037e4bbdc6c4",
+        "app/preview/landing/page.tsx": "8ab209de16841c172ac3cac78a12e2443b809427336181561abafacc0f34ce7d",
+        "app/preview/layout.tsx": "76c978d5d492f2e1e1c24092cba684687d2e14c2c0123b381debb51eb1005c98",
+        "app/preview/preview.module.css": "5e33e8d0c79f01dba0f7f8b0762e1473c5902d5adc2e3ec90f2e3fa53da97f35",
+        "app/preview/studio/[[...screen]]/page.tsx": "46e3107526a4a8fb37535d2ee20dcdc36a111f9674108f0c36c496349425b3e1",
+        "app/service/[...screen]/page.tsx": "e0909f8addd81d36b614c0e55e8007c2541e4419a70a39500992bcdf8fce7ef1",
+        "app/service/error.tsx": "47d8aeafda52d6cac3db1772fa4305b8d35eac21fda9c68fb6e2f04b0d4f3e0e",
+        "app/service/landing/page.tsx": "943e6b08007f1a41b0f83ae0c15e38517c3a6accb8e52f2103f4519c4831f606",
+        "app/service/layout.tsx": "1a8947e65adfbc109d5522daf9deef93760a50b048de0bc49ed77cacfb9840ca",
+        "app/service/page.tsx": "365a0e01a5f23be08c3e39bccf978354a93656f6e82329f938cc6a0c9555e553",
+        "app/service/studio/[[...screen]]/page.tsx": "238337b8ef4bf777b2d80fc52518296828ea5c97521b5247ac6f5eadba14e8c0",
+        "app/subscription/[creatorId]/page.tsx": "15edb1776295cd168d8a0e2b69dbfa4fe1e6987ffe3868fd5b1fa06059250fad",
+        "app/subscription/billing/fail/page.tsx": "8fb2db9af3240d345ad2d929cf0c96c52e5e19bf6e29732bb68f6446d9bf5e54",
+        "app/subscription/billing/success/page.tsx": "30d8357648287570da7544b8733b8e9de7e9c4865594994512214474609046ad",
+        "app/subscription/manage/page.tsx": "86a4d991aafccc9f3efcd8b2a38fee7cb1231cef778d3e69ae8d874d61578efc",
+        "components/auth/AuthGuard.tsx": "5e52669ea05c8e39d8e3113689150e0e08fbb68cba65d57ade64883852afecdb",
+        "components/auth/LogoutModal.tsx": "4cb3c015104a946b9383d6383cf91f94024ad69f1795bde8f6e808e3ff5295bf",
+        "components/auth/ProtectedRoute.tsx": "1d4cfd204e66a99c4da0d0c0d8320ec7790569abdc711d56d751cfc305a6f66b",
+        "components/comment/CommentList.tsx": "b395488844c59b4e476805c05d2bdb9d2918988f11d5bc216567859678e9684a",
+        "components/common/CategoryTag.tsx": "12da80de465514d4d0fcbb5c50b589d1b2f85a0bb85bc173b0fd6602c127bec3",
+        "components/common/EmailAutoComplete.tsx": "3b9383ca24a557de8a1aa9a673b0a73e13e8af4ea75ce67040be470a45650141",
+        "components/common/FeedFilter.tsx": "5c526fdc2db9be17ba291805763839a3ec16e413d9fdc7b06f3f4220ce554f4b",
+        "components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
+        "components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
+        "components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
+        "components/crefans/AccountPages.tsx": "19eba307d1240d824bb0e37f4e0675b8b6a78e07327db88a130f86fade9e7766",
+        "components/crefans/ApiState.tsx": "038bd2df27bb5772e1adf66c332b426374a4288db6381e0821de93331169f9f6",
+        "components/crefans/Brand.tsx": "119ea0f8bcb412e1d6122cb945a2af49639b988b1176a90b870d545495f143b6",
+        "components/crefans/CommentMentions.tsx": "7b88d6d313a00a531ca9d824822dd26f5b8502cbdc9a8387666c7751828de4fb",
+        "components/crefans/CommonPages.tsx": "5364af6aeca2e153cb4348e54d4cde7da7a9a91ed8fecaf0fe1880cde112ac02",
+        "components/crefans/CreatorCard.tsx": "c5717eabbc6a00d7afdcf236e550036a7f53683308402629a6e26ed80543ecda",
+        "components/crefans/CreatorPages.tsx": "436bd22f69d25a9fab5212034618423ec9f6f263c95ac5a608fca483a39543a2",
+        "components/crefans/FollowButton.tsx": "351e0114e0288d38fa46d0af4fbee47891ccd4e7b294d736d470f50da9b9fc95",
+        "components/crefans/Icon.tsx": "fc44ab0731283ca297ea9416fc76661493ab8e672452a2555d849870e83b4fb7",
+        "components/crefans/LandingPage.tsx": "3276c55682dccfbca79dc3d61f95c2c053e808f0005c1b54b852520fec2418ca",
+        "components/crefans/LegalDocumentBody.tsx": "c37b3d457e411386a1c1694bbd946e767b7694ef5062d5ff1c6ba95c2ac586aa",
+        "components/crefans/MembershipPlanCard.tsx": "22a0ad0dcc55ec617f8eea7a72ad0c7d6f874879723876213480736fd2702804",
+        "components/crefans/ProfileHeader.tsx": "185d89854aa945da058ab19ccb6819bee4d906e19f6e8314f6fd67a2a9f6190a",
+        "components/crefans/PublicMemberPage.tsx": "ec44f369da9e8de210b4386876bfe05b91b9325df5325957329c26bdca03b8e7",
+        "components/crefans/ServiceLinks.tsx": "933725b79940ce465686fbb7e34aa3998145021579fdd26a0b9ccfb1104b1527",
+        "components/crefans/ServiceShell.tsx": "ffe3393e3f93311147c096c7eb664847b7148a4c1d93970ae95f49fb4c46d1b6",
+        "components/crefans/ServiceUI.tsx": "f77655ea8486d672b93cc18af9d25ac6b76f6570a597ed551d2e2d214afc22d8",
+        "components/crefans/SocialPages.tsx": "6617e8e2ff1dec13cea77051ef0bef0fb67f0dd122e37f7b62f0601c2b1ea38c",
+        "components/crefans/account.module.css": "8f8175ea9b575c928215c91679c3c794c2dcdc6896595f9ba96e2d0607236b17",
+        "components/crefans/brand.module.css": "65d9cc3926d095f6d120bce555e570fff4bbd1bf8068f77da0923501fc1c0da1",
+        "components/crefans/common.module.css": "e83bc03176ae7ca296de6f5ace03f9b9a1e34e9bd1f7408a5b014f806030778a",
+        "components/crefans/creator.module.css": "6dabbf29dcf41bdf662a1af7bbed016797a2465851db6079af1e3d19043ac31c",
+        "components/crefans/landing.module.css": "dca60967dd33de362250207a08e091e0ead9ea470e3ff5ba885c1a52d162b449",
+        "components/crefans/service.module.css": "a2bc16cbc5a60756bf4d1f1274c57c440f4eb63dbcbbd527850eb7185fa7ef5c",
+        "components/crefans/social.module.css": "391ffcc2a4c950a5aaec3bd3cd1048b408013b4b6b7e6dcdd104143c9eadf588",
+        "components/crefans/studio/CommunityPages.tsx": "b9f1d1e9ac68ee40acf58ec761a5ce15ad98355dbabbc380a8fd41b1e1c5228d",
+        "components/crefans/studio/ContentPostPreview.tsx": "f40c3d35dee43f23e35e0d158ed60ffe44ee5e4e3bec9057442b50fb8e7e6e0c",
+        "components/crefans/studio/FinancePages.tsx": "58cde06f85fe11574e24f2d9c671e876c3d0aefa0da6cfc36f6e4b38bf4fcd04",
+        "components/crefans/studio/ManagementPages.tsx": "8c6ff9b260267cdbc23e43923ef58901140e45fe523b21954495cfc39261a8d7",
+        "components/crefans/studio/OverviewPages.tsx": "58c4d6d17586b36f16236d875fbab80b693a4523a967894343a2cefefc3e5a6f",
+        "components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
+        "components/crefans/studio/ReportPage.tsx": "4a4fc524f4c3995880f3a538a81879bd647b0a6b970cb26d862f9552e20c9cf3",
+        "components/crefans/studio/StudioShell.tsx": "72e47c2e75c00391c2b6c92dd4ac550555e081af81bb4b2c58a6707d140e4554",
+        "components/crefans/studio/WithdrawalSecurityPage.tsx": "24fe550b3051c4f84a423668b47ae87fcbbefdc0ecff85c314277e8d57d0f7eb",
+        "components/crefans/studio/community.module.css": "1a629e1c23d2250d7f168acf45d42718dc4c4328f2885c4a0f945fdc57256961",
+        "components/crefans/studio/content-post-preview.module.css": "396d45d2e8950c26fe19cc7a8a529d03729c9e01f1e0165184f71ad840267e06",
+        "components/crefans/studio/finance.module.css": "315dcf598aeddfad1ccd7b35452bd215571df3a1d452f8297d2a6de596c39777",
+        "components/crefans/studio/management.module.css": "e4642d58a681d2d94facab145faa8d55e19feb7d93b974003fa9ce5a6d3e7efc",
+        "components/crefans/studio/overview.module.css": "d4776ac84a44219096a67b200639848d42daba67c25051915db6414a3dc233c8",
+        "components/crefans/studio/phone-frame.module.css": "ba6ee4a4ee534d630ddb4debd8d6d45b5bc5e9bca580880acfb3e7d44af58058",
+        "components/crefans/studio/report.module.css": "22105b666f4fd8581c047e39fa4337b78a2ef1461543a0d0b40d40ff918ac63a",
+        "components/crefans/studio/studio.module.css": "503c2a1d1d63cd8c70cdd3c5f4c2a88e82a41c271fa25778ec8342403547c203",
+        "components/crefans/studio/withdrawal-security.module.css": "a84a4634933becda94f201d334f1fb8dbf07b298de6e75db28d861d26ca92f5f",
+        "components/design-system/AmountPresetsCatalog.tsx": "60950a938150232ced90e99f801371c8bbffe0bdb06ce122331d1d859b58d32c",
+        "components/design-system/BenefitsFieldCatalog.tsx": "66ed5c24481dcd06753fe34aa0db714525affaa176364fa9b9147f32866157aa",
+        "components/design-system/ChartMotionCatalog.tsx": "eca287ae6dcc2aeb8c3a705536bc064290dfe59695ccce675e5ccc0b37a1564a",
+        "components/design-system/Controls.tsx": "cf1e3d0e71f16aca59a98e93903219bd5f2cc42d21d2e46c6f00a53abfbc7e36",
+        "components/design-system/CustomDesignSystem.tsx": "f5ce51f6176a57bf62e5d71059d77317d0c17a85e890ecaa9a35fe96f72ac874",
+        "components/design-system/DataDisplayCatalog.tsx": "fa1a495660d0a828f0f3fa980296780107e5caccae3b389ffb49d249c5d7a0e3",
+        "components/design-system/DesignSystem.tsx": "ea84054c383a69a3ad4b9532e7512a09ee3b1d8b08d8afdbeee4ec7c0c73250e",
+        "components/design-system/FormControlsCatalog.tsx": "a88d46f14cdceb287e163eda8b8fdcc0647346529e1c593f916d24395b03835c",
+        "components/design-system/Foundations.tsx": "d66026025d6a9281e36535da0621340ccd1bcb5d259bb81aeffc0f4c295c1524",
+        "components/design-system/ImageUploadCatalog.tsx": "762cf80b673dc58125b70006d743b6459a263fa065d4219626a94dbbaa170243",
+        "components/design-system/Patterns.tsx": "b4d128f6253d966db98b6cf6419e18e2474dcae227443a2acb723a3c1a7ad55a",
+        "components/design-system/PinFieldCatalog.tsx": "c3462b275b28dda5c5d370127b7ac5ec3b7233165a1a700b9bbcb8e3c252ab73",
+        "components/design-system/PostPreview.tsx": "3404104a9282109a2e7b3abde67f04658c638917b3f08183e8fbb64d082e4e3a",
+        "components/design-system/Primitives.tsx": "2d9b33d5e1006e167d038b44d8d95dad72c22940a8d2eb9450f1f9c726f4422a",
+        "components/design-system/RedesignTokens.tsx": "633705124b05db79caaeadf237e15055b7d73d08778b125b2d3b3db7a863889c",
+        "components/design-system/ServiceComponents.tsx": "0f2b2fc75e7e04aa1392bf7a782f37bf68276ba71049d02496fe92843ee23e2c",
+        "components/design-system/ServicePatternCatalog.tsx": "9f2c3bcbca2e80e7aada9489748828f57b19677074e8013087d228d5b424a906",
+        "components/design-system/custom.module.css": "af939a77194df0556a9d65662248813195dfa292aeee235f1a7b7bbeb0c3cdb8",
+        "components/design-system/design-system.module.css": "e817d1d7d1cec3e855ac81d6953302d75facd51339907cd13e939b016825853e",
+        "components/explore/Explore.tsx": "7db6b75a075baf8dea7ba13c05ac8205e41b875aa65ecf6cbf7e1eeb29fe8368",
+        "components/feed/Feed.tsx": "f2b8a22d731882c46eb80cd3da6816c4efbb342c2062edbccb1eff8add213570",
+        "components/landing/HeroSlider.tsx": "c32a6e56a94b2b54ab10176d68fa23d8a25601e9813ca25204207d709ec832c2",
+        "components/landing/LandingPage.tsx": "1b6942a79e9ef6af6a12825eefd2abbef441cb0d6fa3141d7be7f5d7133ae40c",
+        "components/landing/ServiceIntroduction.tsx": "f22f1842edcddd0764282e1d7bcfb50bb22c13fa0a21d635d220fde891da4bec",
+        "components/landing/ServiceShowcase.tsx": "38a3005af5d4f1952f54065cad09450f870bf9f096fd2f3684842f5431d3f43a",
+        "components/landing/landing.module.css": "a3a8407de29c86a493944c5edd839607750cc453ba2f7a2ddfd7067ba415ed5d",
+        "components/landing/showcase.module.css": "745a1378c529d5a2a77f31d7359f41df718f3c27bcdb9803be03d12239647fae",
+        "components/layout/CreatorCenterLayout.tsx": "c57cdc1bdd2ddd439512be44deca21a5395ab19d9e9dcf50b440ccf21e7e7cb0",
+        "components/layout/MainLayout.tsx": "c87f19eefef553d665c804a030f5f6d63dbb324adde076815380d7666a9ad314",
+        "components/media/MediaGallery.tsx": "6efb6002834835d8c0b1db31471188c7b502f36274497bb40f7cd7616e9e2592",
+        "components/modals/AddMembershipModal.tsx": "6f611fee68c8b225948b51fc37e6f065e5ea617bcbbc2e2008a78f9a95d2e026",
+        "components/modals/ChargeModal.tsx": "c94fff1f3c570dd481752841ccd70e6518a21db3076bed16579c20433f73671d",
+        "components/modals/DeleteAccountModal.tsx": "caf016a94a5acaf025aaced193fc20dafbd1e89abebfa94f65abd9e30da015b0",
+        "components/modals/DonationModal.tsx": "8a1d8e47c15e2cd693078ddfe71211ce336d07163290c8e5c4fbf7990cad55c1",
+        "components/modals/EditMembershipModal.tsx": "5c0dd26a0be53d0088c87a3295f33b77e1e0ff740fa31343b5270402432ccd06",
+        "components/modals/HandleModal.tsx": "2cccc77123fbbd2670d3115672f3bebcbb990e8de5e6ad29d54a8a501142a8f9",
+        "components/modals/LoginModal.tsx": "f9acf05b878d26d0db3bfa3a8750956891d8dd2aa56c6d759c88444d9feb1cd0",
+        "components/modals/MembershipJoinModal.tsx": "5fdc617b13181fedb84902df4f37998955a84c458297edc259be23600488aafe",
+        "components/modals/MembershipManagementModal.tsx": "b100368a7603e6ee73897adc08f323249d6d63f1a59322efd245947106bed349",
+        "components/modals/NicknameModal.tsx": "449828a486e97830570f7847a019b0005c648a26645b71eefbe0ec994e16edae",
+        "components/modals/ReportModal.tsx": "239fa13604f2130bd34e6a6ee950f15cce7347383bf38b9c2df27e7d8f436d44",
+        "components/post/Post.tsx": "9b8006ca4e34c800278928b1b7d331b5fdda769c74868e2ec0b0d4851749d6e5",
+        "components/preview/LandingIcon.tsx": "77ca4ae2a7ae3474fd7f511c45262a37db257bc96e4da56f55c944bf16d0a1ef",
+        "components/preview/LandingPreview.tsx": "9532cc04eb2efcbe4278edb05e177e92433c3ee62607d1fc406fb993f72a14f7",
+        "components/preview/comment-fixtures.ts": "c8e13950be6c33e56e63a464dba6c5c1542bdfe966689c707f2c18537ddf0b50",
+        "components/preview/landing-data.ts": "e812681669acd7ff59c0ab731cedd94d884c1445bf2794b1af3de46ef25ca5b9",
+        "components/preview/screen-catalog.ts": "de0143f2ed4f9c575f6224170d0759e98825e5b728355ac7a2d29f027e4d3cf0",
+        "components/preview/service/PreviewProvider.tsx": "3a080e1b810778507e9c9a1d2507057c6517bab4ae92fed953625ada610afee5",
+        "components/preview/service/ServiceRouter.tsx": "79b73098a08482eb658f7327e7020c9401e821d4fbbc4914aec5a028fe6e6265",
+        "components/preview/service/access.ts": "d216955d0f12c9418ee313f57eb0deaa32f9fe1a050bce096ae7554f969a74d8",
+        "components/preview/service/fixtures.ts": "535d8314a2d146a45cb071d3785efb644673f009f1bc5cffd89a86eb0c074a6e",
+        "components/preview/service/legal-fixtures.ts": "d6ae3fb59f85ac7be16e74c0ce382b2dd0d40d7a569536177fec8ef78d1209c5",
+        "components/preview/service/useMockAccount.ts": "cb204a26e3f78540dea05f28f00b686e4d37931c4b4a6a4b9d4a1db0904d9ab0",
+        "components/preview/service/useMockCommon.ts": "435b25890c1f97eb86fe5b704bc938656d6cec67227605f9078a23d07543232d",
+        "components/preview/service/useMockSocial.ts": "6e91cde593b1d0ecfd8efdc630939b1db6fa30d2b741fcf6630b8cf411dfc6bc",
+        "components/preview/studio/StudioProvider.tsx": "5d4b3edf0cb94007b95cd3ae1df570aa006ce5d1a08c8c52bc562530896e5ce6",
+        "components/preview/studio/StudioRouter.tsx": "7e7b8bb6006d6e700fce67fb6ad7fb59b2cafed070eaddf7b3ca2888a085cc42",
+        "components/preview/studio/finance-fixtures.ts": "e2b7a24fc07e819aeb82049c91d8fbe54fd35c866e6b866a17a29907e7b7efb4",
+        "components/preview/studio/management-fixtures.ts": "8e0443bf7082cb5137817593c248990c001892fcf652d207b13e12368b4cd9ce",
+        "components/preview/studio/useLocalImages.ts": "2f123b590b8685a672b22dcf405ce7299d8b09cf57506b0a3e4290dd2a8abb27",
+        "components/preview/studio/useMockCommunity.ts": "c52bf66ab3daec86096b59c2c85d5b25573648ea0cd13b16358c97d18328c4c7",
+        "components/preview/studio/useMockFinance.ts": "90d745f0c26e9d1771edab53301082da48a190f0a5084c8abcbf1aa546bdb9de",
+        "components/preview/studio/useMockManagement.ts": "227126d13158b3b2d81f8c82064734283461c9931159d1243410651fcea20d8e",
+        "components/preview/studio/useMockOverview.ts": "c2f3a494fb3f98efae74fb5daf2e03a16d3553e46dd760f60f5e267c8e924c46",
+        "components/preview/studio/useMockReports.ts": "9b7809fb7633634e34ecb2efcc8ed34347a3be0bc8c460a8a31ae4a56da6916f",
+        "components/profile/Profile.tsx": "91583baf187e8097f2bfb10baacbfccb38020cd205d9d3140a46b210ff1bde8d",
+        "components/providers/ApplicationProviders.tsx": "75168ef6b5ff371865c769d49a450a1269f5a3cb88e97875412037e3259761b7",
+        "components/providers/PresentationProviders.tsx": "6c71d6be149623ddfdf8773efebde6b320eae949cb3f45cc0e10f34cc69df48a",
+        "components/service/BrowserErrors.tsx": "441cd43641c97272b1c07679f5224b54b104706d348ce0739eb97b16c7aac79b",
+        "components/service/CheckoutPage.tsx": "c05c7e42dc27ad710bc7d153e3da32a122b6f366bf84eaee367f85ed0653c6bc",
+        "components/service/Landing.tsx": "48336d737088dfc4d78aa1f02af83dd750832619e687e28da6b765f63525f5f9",
+        "components/service/PaymentResult.tsx": "ffef2218e71a4f51eae5e4c7985fff57aea2319f1e739c7f708f2dac0f50c14a",
+        "components/service/ServiceProvider.tsx": "d53c05ff9cc2f51401dc20bb8e3a6ab66ed65a94c4aab9ab5fefc571cf6a82bc",
+        "components/service/ServiceRouter.tsx": "d5b6474907450967506b4686363185f4f639af5acdba4db872bb2b3659a2707d",
+        "components/service/StudioRouter.tsx": "689513a6bbc08aabcabb5b9dde2df358f5979782e1870fce7daf1f6df351106a",
+        "components/settings/Settings.tsx": "f505dbbc972b7a0e4ee4d919e3ae450e90ef5c2481571ed174b377637f2dab8e",
+        "components/ui/Accordion.tsx": "6df9c21b2a9d5b1925af52b5052f0fcf8fdfb8fccc090ad1ac7b2affb5d0386c",
+        "components/ui/AmountPresets.tsx": "93ba6e96505cda34508e01e0e79d112580f7eb74ee26dcfa2a8f637f1797106f",
+        "components/ui/AppShell.tsx": "1877e2ab3fd34f6bad22bfe788919f7cfa09367071f9cb57288107fad12548d0",
+        "components/ui/Avatar.tsx": "4735a5e5c8b52f06879460a7d980d90f1cad9dcf3d8a4636e84995f16b2b50e2",
+        "components/ui/BenefitsField.tsx": "e7968edf61f1fcfba131a4dfe4bcd8a593d8e4cfc8fc29d9c22cbe33138bc81f",
+        "components/ui/Charts.tsx": "5ed303baa8fe558f6298e567b6af6d65d895deaa82bc190f578bb6a7adfac76e",
+        "components/ui/ChipRow.tsx": "c5eae8b3be1a4aa60078c2de80655bf5095ce599afc21f279a1d105f7d678c0b",
+        "components/ui/Choice.tsx": "01e56fb929f57c976113b69b44502c68f5e21bbc2406ef2a0ccae7a6a2ed6bfa",
+        "components/ui/Content.tsx": "aeb692acbdd8d5a21b7db54b02aa1d01a72f79b497530e8aa163114a84822b73",
+        "components/ui/DataTable.tsx": "c3c8ff56027dcdde8909fdecd8a1d38cd6b1051e781de16ad3b68cc7e352e266",
+        "components/ui/DateRangePicker.tsx": "7aa41a94fcb762395c5252584137aa61d5c12229bc7bc0ca46595925383f87d8",
+        "components/ui/DialogActions.tsx": "87e8064ac7f72c89f2587806cea7c1feb5f9ab67c2f136044f34c1b9622c503f",
+        "components/ui/Field.tsx": "5967248eec45ded92ecc51df0de7f6b38089c1e18a899754d64ca431721b3142",
+        "components/ui/ImageUpload.tsx": "a52c81488d8c15595adc75ac0aa645d96449bcf24489567cd511d1bef1059d6d",
+        "components/ui/MediaTypeIcon.tsx": "9ab0de97e949487436fa8c10c9e33a31fdf278a82fd34b42d49c6a177723fb35",
+        "components/ui/MediaUpload.tsx": "2fece78c27d8553b97bdcfc0e6d99abc81b0822189cbc3f3c3f0b061a1e3c603",
+        "components/ui/MediaVideo.tsx": "6eb692fe6958ebe5a09e100a451a6879fc163d921955e2691e1c8155e4924f9c",
+        "components/ui/OptionalImage.tsx": "e91eb5ae72dc5f6bd656d0328c000521f3e2d924268cf250a1caa83e2cf3b86b",
+        "components/ui/Pagination.tsx": "3f3c081782cb7e4ee2be39c214f658d5cd06de3e330b0281d3604115b59cb907",
+        "components/ui/PinField.tsx": "fb82250c7367f362a9e420f0630f418d32b99940a879870acda5da7a2501209f",
+        "components/ui/Primitives.tsx": "a5b3fed8ec452270c244ee77cc8f99dccb2a57aa5eee38972d8aea9effd4117f",
+        "components/ui/SelectField.tsx": "24d70857fbecc35f977afc15ca93ea37fdc164a3a4519c521dec4bb5e003e4ac",
+        "components/ui/TextLink.tsx": "810b4e1a731bd1db69eac26666d04741e3d7f02269b223a5aebe3c5d10f3fd34",
+        "components/ui/Toggle.tsx": "4ce3e039f681de39b2d521ceda89355baa7f857a8866edfb0da314c4bb47931d",
+        "components/ui/accordion.module.css": "b89a1a050069422e6d9a1f11c0a4a446ba3ee6c269f0229ca29ee6712b5bb194",
+        "components/ui/amount-presets.module.css": "5e11ab033aec3f18077d8db32204b8a51e72e4a1fecba3a1d8dcc7bd013504c5",
+        "components/ui/avatar.module.css": "8177c0b7e1830accba95fd5263ccb823bb9f985231f1ba5e73ea16b3af4ed54e",
+        "components/ui/benefits-field.module.css": "8b65792de610df399f701d0a898a58135461a265eb932cf156d9011d9d7ec0d1",
+        "components/ui/charts.module.css": "28b031f41fef22badb5a9cee82df54c4c0d81c57765a1d46a08b6c61d81453b6",
+        "components/ui/chip-row.module.css": "5fb709753b37b965ca1123cbe5a5200ffafea861153a793680740e2c85ff6f2f",
+        "components/ui/choice.module.css": "a9880390cfde523179a99572fdaf6ef663b27638e94ab8d3c092d6faedcd6b31",
+        "components/ui/data-table.module.css": "89dbd7b51372e342e6f3c3b63eaa5c61b4122de1f18f303e5b1dccb10a13a362",
+        "components/ui/date-range-picker.module.css": "8560f73551993e71164a6cda9c1e313dc667a460c8282b5ec32aa9c725e6d902",
+        "components/ui/date-range.ts": "619b518545fc88e57a955eba0e5fd68fceb2bc4076f1be23fef72cd9d56d44f4",
+        "components/ui/dialog-actions.module.css": "b2e062c782277e5f97617c05c4b9b9f84dc760ba279891df1e0209d758e4e569",
+        "components/ui/field.module.css": "4acd80670e6c028c3b649e32280cffce01e1213d89545c30f30b8b2498ff80eb",
+        "components/ui/image-upload.module.css": "c0f00619e82bae7baa5f7a86fe8e1f1bcb15bf2adaffc8a69b73ebe22795a6f9",
+        "components/ui/media-order.ts": "4d15735fd5a2d19704d27211ec5f6ed8815a91247fc56990414dfa9ef7e3922c",
+        "components/ui/media-upload.module.css": "9b2b84689504e4787b6db17cfc6d3a9c0fff0d762cd0b24fd962acca20bcb35d",
+        "components/ui/optional-image.module.css": "0c0f3dabf4cd9a10f5118d62f5b4624e4188e81c9eb91ca0a864545618e10535",
+        "components/ui/pagination.module.css": "3e57dc4238356582a1e981164646634ee841f78e5c842232e67be328af87ef40",
+        "components/ui/pin-field.module.css": "7a4066fc3fc1ff3fba812376b1d723677421c36a23fa78841fe8e9ba7b061f39",
+        "components/ui/select.module.css": "2471d783be43071dac1d6ca311e6335eaf4796e17959d37f987c49f5489dd9f4",
+        "components/ui/shell.module.css": "f91592db25b97385e6e94d827a2a208b3d7521f5ab8d51d35996c3e6bf85050b",
+        "components/ui/text-link.module.css": "9e1db8bd6b8d4b8a5d415a44a7c89fa4e9408126ae71ff18e581da52925961ea",
+        "components/ui/toggle.module.css": "5b605268351373b3043c14c4ef54ddc6145548305aeb3141495a387a36b6036e",
+        "components/ui/ui.module.css": "680c4401a3cc5da17ad4d16bf828d74b86938b833297241d31ac56f010e8ca3a",
+        "components/ui/useAnimatedChartValues.ts": "5226c4d945797a96ac0f5d62c962a9b2be84fabf7a248c1e04ed87e804022137",
+        "components/ui/usePresence.ts": "92f08086fbe9f1597611e7ba678526185040737680de188d8069e6a6b1d6e4ef",
+        "contexts/AuthContext.tsx": "3e8529c93be4b5af1c9901b56a0886dcab83105d883e9bd1b6bdcf67a4eb7893",
+        "contexts/NotificationContext.tsx": "d14da026f5e013f1cfbf5b5bf77f592af9a385cab86504eb8f7780e4df48c1ab",
+        "features/auth-auth-guard/types.ts": "7542dcbf86b1fc6dca2483073983fdc207c0e236d189893a879852861c80fd61",
+        "features/auth-auth-guard/useAuthGuardModel.ts": "bde798d435e9fe21de19a49055e0608a90012dec18c13162940f86d813a2d439",
+        "features/auth-protected-route/types.ts": "63eb9df88564c42ce4f0dd088bb0d1340e112f7aaa97b7dcfa06a92319884538",
+        "features/auth-protected-route/useProtectedRouteModel.ts": "1da23d2b4bac16126801cd68f04e6b049190ac88fe73bb0fee3d08c9e549c664",
+        "features/auth-session/useAuthSession.ts": "8d7f0586d755cdf07da5e197d93f2b87e0360f94913d04d34f87a19e8a7cddeb",
+        "features/board-id/useBoardViewPageModel.ts": "a333683ab22f197db72ecf6629ad261783086f8d660592cf73b3a8b5695ed3eb",
+        "features/board/useBoardPageModel.ts": "e69d4cf54468e9a77965b491c1d445ffcb4f8f34caa2d15517068040f96a4b7b",
+        "features/comments/types.ts": "1c54ea4669ed529b6f315b58bfa6660b2e9dbe7435ecb5c26fbcd69c4b7f1d89",
+        "features/comments/useCommentListModel.ts": "d6f0b9967ce81caf1553b00430a825723afd9ebfe1f0260213a0de52efdb35d8",
+        "features/creator-center-become-creator/types.ts": "a5ac04f69ee1e67966cfcf68388e75f88f1c11466e011a1c16c080ca074bd55c",
+        "features/creator-center-become-creator/useBecomeCreatorPageModel.ts": "a34cd53d658fb49cd3451426d733b97478656ebd3d06d8a064e6e8c3fc140c6a",
+        "features/creator-center-donations/useDonationsPageModel.ts": "d5a5b3e117fbbadeb997e66c142319c6a9a0ac5233f5511157bb4b1a601d44b4",
+        "features/creator-center-earnings/useEarningsPageModel.ts": "bbed58688b5910227701a1479c5d3c611bcc821324fca97c32a5d7d98f861538",
+        "features/creator-center-layout/types.ts": "014d0cc9b129c476b3a035dcb65eac7eee3e232c308647dfcdef5034f585a3c3",
+        "features/creator-center-layout/useCreatorCenterLayoutModel.ts": "23e16c104eda703fb532c249f2cddaee30b130ea6abbd44ffd1a9f899d014f4b",
+        "features/creator-center-memberships/useMembershipsPageModel.ts": "52c5d78f4d38ae428d3519d5405e874c23d4f35649a892847fe4eab9aece092a",
+        "features/creator-center-settings/useCreatorCenterSettingsPageModel.ts": "a856b87f70ab3fc9651e40c62082051415217df065e8c77c8a5b9ad86e5be756",
+        "features/creator-center-write/useWritePageModel.ts": "3570bf0f7c8e2cdfabe38567765bd6d8af750a5e72be8706c4be32a3379a7d9e",
+        "features/creator-center/useCreatorCenterPageModel.ts": "854693fdb4e0ff162e59d29e53c381e3076ab2a5c443d8776a984ac2173009ef",
+        "features/creator-profile/types.ts": "ce869e57a128666dd4ef6aae2a4f4dd4c2870ab19250aee467413bfcc669a088",
+        "features/creator-profile/useProfileModel.ts": "f3d472dacbf441209dc871fb3f7b523759284c8b379019312a454641617b00d4",
+        "features/design-system/catalog.ts": "69b059b7a39b6b76e89119b5a9f47fb875ffb67fd2dca70eb96172561fc38bbc",
+        "features/design-system/useDesignSystemModel.ts": "930a3a04b9e32dd416728d6beb658e27948ceff0370ac25e0f7ceff4e5605d7e",
+        "features/email-verification/useEmailLinkAuthPageModel.ts": "16bec12d0a0b60c865807e4f0e1f0e8d5618d87a35727a73798abc7acb20bee5",
+        "features/explore/types.ts": "7b52fe7c4eb338123b3b182f601f75b357d946274c8831e89c5a9682c974e5da",
+        "features/explore/useExploreModel.ts": "93bc56fed4310332378858265136fe29d2c1e37c6b4d73dcf15a6c900aede75f",
+        "features/feed/useFeedData.ts": "f128aee8d1cefa828dfeb712d339735d8167cfa1918b3880e00c17ab80f1bce8",
+        "features/feed/useFeedModel.ts": "4702bc256503fae1382093725d585e33bf863b28fee08b01dc877b1926d60085",
+        "features/follow-button/types.ts": "2ab2393a9f1321eae915ec2c0e7ac0a05e395ec52bdf8b9a55edc8a726e0e9a5",
+        "features/follow-button/useFollowButtonModel.ts": "2fc76571bbc1b3de6908b7fc01728955412e74e0d47ef2f350e2ec6d69ee578f",
+        "features/home-sign-up-modal/types.ts": "d9fd7f9543451d10bdb67a4755f59c35bff8e9739efa16db57826e135f333b64",
+        "features/home-sign-up-modal/useSignUpModalModel.ts": "49681783b4525a0302f010c566ebc03f1a931625a59a72dcb75da524f592f323",
+        "features/landing/content.ts": "612b7fd251960fb92192be9203975f86ae947aafba0bdf83a9de0bb6ecdea0f2",
+        "features/landing/service-demo.ts": "54a6e8b285f074b0d8af0f651b5470eb1b5fc8fa18380f4d4b327681572b0e7b",
+        "features/landing/useLandingModel.ts": "657aac7d5c9556b91a1239710e7272ee7daf5a0d50d87c6d06b434a14906c9bb",
+        "features/login/useLoginPageModel.ts": "7df9a89d42d68d638ef1bfcd1a0c843205b33570a10b79d3e0376f5ebad19251",
+        "features/main-layout/types.ts": "ae76ce0a87ebb595942fd4b896d0a379939ada3ea6168f9796b0088f1edaf56f",
+        "features/main-layout/useMainLayoutModel.ts": "39b6ccab66d104959c061c1c8d421c570954d32f8fc8a2a2dd904b5639e6e313",
+        "features/modals-add-membership-modal/types.ts": "f06d14fde1c15e6e7e966581b60e43877275f463c1683264106929bcf46e6ded",
+        "features/modals-add-membership-modal/useAddMembershipModalModel.ts": "8d47cb9813f6cf5be56fa0011b53f02e7e81edb2b57fbb06c07a6243a3e6fda1",
+        "features/modals-charge-modal/types.ts": "369826dcc232f37689bb1cdd60cd31bd7cc5d937f9358ce9da983069c926d91d",
+        "features/modals-charge-modal/useChargeModalModel.ts": "a98c9f5339d4a4d8f807e859d0c3ccfd70600ec9dff0fd99bd60b10caf71d4d5",
+        "features/modals-delete-account-modal/types.ts": "2301458231ce8f4395fa4b619ecad5fb4d4bd0f1d7a142e1010c70df7a2830b5",
+        "features/modals-delete-account-modal/useDeleteAccountModalModel.ts": "18db5bd678a7f6df3cac2473814e9268c6830503f601fc7a7406351c7e2e5f9e",
+        "features/modals-donation-modal/types.ts": "3b4545b6bcde54d63c77a86415a9e601cca3271b1978faa5662b832bb7d63463",
+        "features/modals-donation-modal/useDonationModalModel.ts": "3644c6511fdd11b43201626d99f961fa1f21082f954e5a1b3fabd2bb0f76ba79",
+        "features/modals-edit-membership-modal/types.ts": "a0d5697ee6f87ebb11a03968c6ae369162c714891bc12b38b4952d79717886f3",
+        "features/modals-edit-membership-modal/useEditMembershipModalModel.ts": "98ac4564c9b83028600f26cdc1ab613da5c050f9544ef1a3a89b7023c7e5a97e",
+        "features/modals-handle-modal/types.ts": "b456e26583952baf91a337d8943da5bea33c5cdb5c19019162020784c2a2ed3c",
+        "features/modals-handle-modal/useHandleModalModel.ts": "b525e90af25c9cf7934a80dab3fdcfdc1859f8fca473349971d9ddff77d076e0",
+        "features/modals-login-modal/types.ts": "49646468f6244c141a2acc8dd48d6e2ad3950c374487490e533df71759772262",
+        "features/modals-login-modal/useLoginModalModel.ts": "e48c27071a3dc5b8698818b9a6183e7bf65bbf20774845401e58507748a7d79c",
+        "features/modals-membership-join-modal/types.ts": "8c93bd8370fef13270c3d275125f02d3616be20ca305462f6e43429c92a4fdaf",
+        "features/modals-membership-join-modal/useMembershipJoinModalModel.ts": "e9c182a6319bb8dc920e8022cb9636e88f008d344fc001c834f308a8ec8233ed",
+        "features/modals-membership-management-modal/types.ts": "3f1f8284925e72c21ae84955ecf3342e6a56f86c00ba84d180350c7cb3e360ce",
+        "features/modals-membership-management-modal/useMembershipManagementModalModel.ts": "067f405559c35bc1e9bdedc02a4dc06a3ab8167459435f309ae58caf59534ba8",
+        "features/modals-nickname-modal/types.ts": "3e3f560baab2fc529ac22d4bfa41dc4328e609cd27611a28e0ecb6c5ac87cd2f",
+        "features/modals-nickname-modal/useNicknameModalModel.ts": "7a204bb028181067d312b1251216bde16ada2729572bfbf37d136ad7cabb73ec",
+        "features/modals-report-modal/types.ts": "35c0c886e46a9e4154af9fd51f799729ac9b9b3503a01c55bda097a1e4563c30",
+        "features/modals-report-modal/useReportModalModel.ts": "45e59e020808e35234c222c52cf7b745f3ee0bbc35c5b4e82f8b6c7794209eb6",
+        "features/payment-fail/usePaymentFailPageModel.ts": "448b8f9a726478051f90e90fc4c3217d5237ad455e0aab1c88e8950a19cd3f89",
+        "features/payment-history/types.ts": "cc0b835bc9fe1cfe0d762404f3e06b0d6bc40f1d38b00b3e44ca1fcacc47c958",
+        "features/payment-history/usePaymentHistoryPageModel.ts": "a0118833efd1eefb5a3abdb78288e5627e0e1489d139ae7e7fc52e1f7bc95b39",
+        "features/payment-success/usePaymentSuccessPageModel.ts": "5ced47141066cbe9b47194655ed096f638034ae80d1c5515f1e85cb923d12757",
+        "features/post-card/types.ts": "caeef848132e88d7446d414868462dcf2ada24cadd29d9e37827acb1513da492",
+        "features/post-card/usePostModel.ts": "9c36101ba6e2f5a4c9d57b37574cca33f1b32a37f8c6c32218c2a619d2cf5be8",
+        "features/post-id/usePostPageModel.ts": "61bd75e5b069db17b343d458e27fe605667511901d75351a97959a4a951f3e2d",
+        "features/profile-edit/useProfileEditModel.ts": "df245d9a0967f7e7ed6fb7dbde710f15d98be84d657432e864fd1cde71dfd68a",
+        "features/profile/useProfilePageModel.ts": "5a129c24a5548af682e2995485e35dc76976bdb65b134612469c647a251a08f1",
+        "features/service/useBrowserErrors.ts": "a2ae28321acafd6cd15fd22b13e2ad897a8289506bdf7c913e245dbefa751cee",
+        "features/service/useCheckoutModel.ts": "eaccb117fba1e7fb260a24504c43d00fe917246774b06039ab47d44ae4254fc6",
+        "features/service/useDirectoryModel.ts": "eab8a70fd5bf58905db2f5f2e9f841e971644f85ca10b66242c056e45b278377",
+        "features/service/useOneTimePayment.ts": "6a37f32adbc5a6097bffc2ab6631ecccf9316b59ea7c73b75c2509ce9e2c0627",
+        "features/service/useServiceModel.ts": "e4c76e0dba0ec397d67c80e5479b8c5a473056a6d619b5a1b1a6a3a4b280155b",
+        "features/service/useStudioModel.ts": "e581cab8d620e4c9a711f2d5db7a871ce5371169046ee3a13f2c3b05cc151acf",
+        "features/settings/useSettingsModel.ts": "111e9b81d6c13a10eaef3df1e11cae1978b069be1d64f292bcabd30d3c20df3a",
+        "features/subscription-billing-fail/useSubscriptionBillingFailPageModel.ts": "12072ba774de5cb7c36d6a5b6b825c2eb5d58e1611004cab64255f5e83dae050",
+        "features/subscription-billing-success/useSubscriptionBillingSuccessPageModel.ts": "3c352c8963e6da47da56f7b3e4849722594bb3bbb1e3af6768f5d3826f998c75",
+        "features/subscription-creator-id/types.ts": "67e3e178bc3320df09b201ce804ea690a1ce03f2a4d0608fa91cb9ee2cb85cca",
+        "features/subscription-creator-id/useMembershipSubscriptionPageModel.ts": "32b0d2468c761966f9c0473ec1dcbd274762daf6b0f9a12b27782d84b7481fb3",
+        "features/subscription-manage/useMySubscriptionsPageModel.ts": "29f07f2b1c4e26198e3c7b9bd768ae790b0af9f9f50eb8b7af4697479d76cf9c",
+        "features/write/useWritePageModel.ts": "7dd634578fb515b9951719bb1cbe5907774bc83947c0e55a9908b458a42de498",
+        "hooks/useAuthGuard.ts": "5796c829c86576c4244fa005dbf1f2e18a9f270c4177e1379764e9eacff0aa64",
+        "hooks/useCreatorGuard.ts": "b8d31fd9abb450398592243e8b68515e27f1a989f596cb05dc1d23a350d12d78",
+        "hooks/useResponsive.ts": "383fbfa125fecaac8eae8ab8da69b2506fb9ce7f53396533e6d69d4f6be906be",
+        "hooks/useWallet.ts": "7e0dcd822fe58bd2c6a3e7aa75a7d05ed2d06346954b84db7cc45c03ea189e61",
+        "lib/AntdRegistry.tsx": "a9b5999d36b6854fccc17176c7bd009736f6a6b5ac8f129c0d5a0879884cddfe",
+        "lib/api/auth.ts": "4a2a5991f9da503b87edac10fdbfba9a629caadfa2373c2d7f73a5cb335e9753",
+        "lib/api/billing.ts": "bd888539e42009d1d56adcb135a5b88a3e901dfb76136b21c248a7380c1910d9",
+        "lib/api/board.ts": "1324a8f0487a766ea32428f398fe6c9d44c6527331f2e1d282f2b28b824ad7fd",
+        "lib/api/browser-errors.ts": "20174786d519cdb0e7e246936ad17e9b892145cb79bb05438e10a7f4bb04e5d7",
+        "lib/api/client.ts": "05b5b464a5bc060b0dfd95adbc7c98efa77701af2ce9b0892d177332989ef496",
+        "lib/api/comment.ts": "efbc51232f1e18221f9ab2e16d424a5f83fc34ba441dba429e31371e232b2a4c",
+        "lib/api/config.ts": "86e6baa6de852a61c8a27acf168332fe987f7d83c830be6b8799658ad71c7144",
+        "lib/api/demo.ts": "c4f3df835a5f1c8474fcb4613cdbb4124ceb911ee7212df435653e066911abdf",
+        "lib/api/explore.ts": "400bede78be0583878b08d6802ba6c2dcbfcbec76de6345294c8cd1bd9aa7894",
+        "lib/api/feed.ts": "c9db9dc556065fa6df680e3d956320f44e9236e73bf51c2595b5e272b15a0e5c",
+        "lib/api/follow.ts": "70be85a57c8aa79a19364501666488294eacfd2c697ca9be23e967eb23e92d31",
+        "lib/api/identity.ts": "a9dab45ef5b638a04011ab7f0badcae70c8af3d7133da4e866ef99b6327b4a12",
+        "lib/api/index.ts": "1233b7b4359785eef408ffea35b850ede887610bd95ad45171d6c0d3e1249ed4",
+        "lib/api/media.ts": "78df6e7b63555d8217429d26a9ae4fcda4bab49f5a7a02ffea59cd4377331202",
+        "lib/api/membership.ts": "d97954701c58f62c9a9706d1159821902d627cfec478c6e6a6d6a73c268a5ad3",
+        "lib/api/one-time-payment.ts": "19c65ef16730557185a913c90fb757a121e8648996f2b11599d66128cd0706b5",
+        "lib/api/payment.ts": "691a9908dd908844f3ef09a0e7ab3ac6b6ab85f5214a3f51d300abf25cb16fc5",
+        "lib/api/platform.ts": "a5ddbc96fd1039e54ddbb8ffa81cffc910b338d15b750defebe2ae7b3cdc4b64",
+        "lib/api/platformProxy.ts": "653f6e140b519fc24e7c5a2936364af1b2655892fea28780178bd1d4f0527b6c",
+        "lib/api/posting.ts": "03d136fece62b0484ee1ae0a7886f7c86989dd3b089310708f8a43af5f6c040c",
+        "lib/api/subscription.ts": "4a2331d78fa6c072a01b1feca5ace6749cc0b4553861e51fd20172730603acb2",
+        "lib/api/subscriptionBilling.ts": "4c113b11a26f4544edaec90da28ce8e179e37359c6c19a8189a24d45675f61b0",
+        "lib/api/user.ts": "9807d75390baee17ea9327006b3e132aad1beba052f9b40c8698d6b847c868f3",
+        "lib/api/wallet.ts": "fbc850009c7048f49d185eae9f370933632b00d7a317933aa7c9d100bb4d031e",
+        "lib/constants/breakpoints.ts": "928a7e7860130c86e2e87809b6b4d06c547f7b9724965ebf49d1679b8f2f46ac",
+        "lib/constants/chargeProducts.ts": "9cfab9b9047e364e1ed3a63d91eefbf00267b82f6fe54f9434d6c57886eb74d7",
+        "lib/constants/colors.ts": "747574b16758a5198107d0b5a79209d6b6ceb30b58be67cb6c431aeb17d6430c",
+        "lib/constants/loadingTexts.ts": "0068c9e2fe0fb4b64cecd837f1eeaa1db881083dad9bcfba19bfe230840f92b3",
+        "lib/constants/modalStyles.ts": "4a80ae8bb24de98c42e2e168754a9db32beb297fbd177597726ff336cfd103cd",
+        "lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
+        "lib/content/landing.ts": "3f91d932134313f5720d8ffc0930ea07e316ba536cd4561b62c2fb838c52042a",
+        "lib/crefans/comments.ts": "4819453f4696c174416deba97e0644cd79ccf014087e66004b05dc2cf31e52a4",
+        "lib/crefans/membership-plans.ts": "52a45c9c11252de623afe18d22d8ffcacabf55d7e9888f722565bb93e133d806",
+        "lib/design/amount-presets.ts": "0e7a2ad4b13b954419742403f323e6cb6e8f776908aaefd0eaf0f2285edbc911",
+        "lib/design/image-upload.ts": "f3933e1e55362b0474946f08af4a8e72f73de35040bbe8d01d38b911357bb1e9",
+        "lib/design/theme.ts": "11b7448072f1a8a734cdec153f04f94cafd008dbd107de235d579fd6c4b05436",
+        "lib/design/tokens.ts": "66eea7bc6d97eacd0d4b9f2c66c3b7e32c7c9547de2c1a2c882ff1463221fc9d",
+        "lib/theme.ts": "2f5c7b82d95f1e49fdfd297ed566436e491f759d051e192e60988b628598dde6",
+        "lib/tossPayments.ts": "9bdb4d808a7cc9ec5d1c5fd7a0c954f896d33466b3eb4099302ccc2473a4111a",
+        "lib/utils/dateUtils.ts": "59fdd7677430f4561c5d54a60698d0e0dd7db11f0d8cbb98ac3db1497645e04a",
+        "lib/utils/koreanUtils.ts": "c5833d5a3069db469a85245d7129848dcfff5d740c4e7ef53d64423b9676c969",
+        "lib/utils/phoneUtils.ts": "1a4a223f820e0fd8443e3929bf26ac0068a34017eb9ad07d7f85150a84791cea",
+        "lib/utils/validation.ts": "fa4cd58e6d97edf09f0eef5d03b3cf333cf0b773c0dacf6b3ae74a7e617708a5",
+        "lib/utils/validationUtils.ts": "05324d7c15888649a9477677d3b97bf9934c2ddc87db9126df78b558b75ec878",
+        "middleware.ts": "66af5dd86759f1c82fe679c622e1835622f7244a618ec6dc1a7787ce50acfed0",
+        "next-env.d.ts": "9dd9d642cdb87d4d5b3173217e0c45429b3e47a6f5cf5fb0ead6c644ec5fed01",
+        "next.config.js": "20ea937c60055830679f2cccdcfd407e41adb700b460f3e0740832ceb136df92",
+        "package-lock.json": "077483eb2424e3858bc50b00487856594eca90a4cdb58bb3ff5c020d5db5a5d3",
+        "package.json": "7dd1c3a11cdfd87246f6c5780b6daf543b2be53130c88f100e1e297efcc16871",
+        "public/brand/crefans-logo-inverse.svg": "c0063b0f7468a9ae00a7ff7d6d73f5f2999dab98ed436c33c7f700e5d601f851",
+        "public/brand/crefans-logo.svg": "85a3a166adb3b66c00984d2ece3192228a1a3967adea3dce65ee55e33b601330",
+        "public/brand/crefans-mark.svg": "1503cfc8da52f7fd7bf619b299b0c89af80a115369a37c6167f2e126146400d5",
+        "public/dummy1.png": "c3e7a26f8b5c1ded3c216ed70de7eccfd2f2884030b8f71e49e33ba88accd742",
+        "public/illustrations/community/README.md": "9d69ffad897ec8d210fe0f9103ed97b2a2d62b6779a26b86ad034210588722d0",
+        "public/illustrations/community/creator-fans-v1.png": "1f0a26aa178388ffde8b5b2182e347e52490dc5829a6ca778110168588129c24",
+        "public/illustrations/creators/README.md": "6384b8477faa69a6d1a578497794ed446d7511e713ef7e014e3f43a4378b9572",
+        "public/illustrations/creators/cosplay-anime-v3-prompt.md": "4ba9ef898e44a04091d442a40ff078f84df33fc0f54fab34b314a9a1dab0c068",
+        "public/illustrations/creators/cosplay-anime-v3.png": "552c171fa68a22a48ce7a8b5f16882913b2c85ba94b7d79909c47db988dde72f",
+        "public/illustrations/creators/cosplay-v2-prompt.md": "c662f2ecf1b6196787fd4edee45ac1894f168660fec27cf9418d010c512121f0",
+        "public/illustrations/creators/cosplay-v2.png": "34566c97243afc7d85d8268d0bbcda6f179d078461f8f72a0402fa3968432264",
+        "public/illustrations/creators/cosplay.png": "187e049fbaea6a611fd017b90dcad519e6c85440d59fdfa09307c37a270abe82",
+        "public/illustrations/creators/dance.png": "c737c489839f35fd51e26f5849a16aa86b8fde30cdda531b842dac8cda4cabb4",
+        "public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
+        "public/illustrations/creators/gaming-broadcast-v2.png": "1cb47c15b87ef44bb8febc88521712604b1abf4b4c8e1efc35ee89873faf4339",
+        "public/illustrations/creators/gaming.png": "23d5f71b797ffb70a82bd3f6add65828397b2d963175a7179138713555dba345",
+        "public/illustrations/creators/moka/avatar-v1.png": "2a5c20871f976bd7d19caad6b051bccf480c22f9d68869c953df57411d0a324b",
+        "public/illustrations/creators/moka/backstage-v1.png": "75a06ba96ada7671a0623db126e8cc10ce9a51488e0ba4f99a2ddd700959348c",
+        "public/illustrations/creators/moka/cover-v1.png": "405fd73639ef37d3c7809c76dba796d6b3b41b67865f1995f72efdbc96b1ee54",
+        "public/illustrations/creators/moka/editorial-v1.png": "e80542f829fd267956aebe3c697c0e78f378453a56993552d85345938a55fc44",
+        "public/illustrations/creators/moka/generation.json": "ed73d39db3a541d8f78145037f5c9b0dbd1d88d8d78d1293c6d8e86330bdf8f2",
+        "public/illustrations/creators/sion/avatar-v1.png": "fd5c9218442fdcf175e05ef8b9f6d309710e10c026f4e3631011dbf6a6cbbc31",
+        "public/illustrations/creators/sion/generation.json": "059ca64901124ae80d923e571defbe342eeb2628ebb38dd7242e8ba8d850721f",
+        "public/illustrations/creators/sion/portrait-v1.png": "e3f804a5cbe8f946c06d6698fc1c7ef10034435fa2c76361111709d1283469d4",
+        "public/illustrations/creators/voice.png": "6ee98f3ba69b10557a37937fa424113a44e66bbe4049d79a39ae9b6eb2cf6891",
+        "public/illustrations/fitness/seoyun-gym-row.png": "c91a8ee14bd185689a912bda878ced98118e9c30f58112cadb73dd032ef43d3a",
+        "public/illustrations/fitness/seoyun-selfie.png": "bc4453f95204610ab1858da71afb95ed36ac82484df24ae4f9be411b8a936181",
+        "public/illustrations/fitness/seoyun.png": "87e7bea5c4445d524777c6f94689dd3b2dd88c8b8d9243a167714be9c6cc142b",
+        "public/illustrations/glass/connection.png": "a5741e56a7801ca15af9252a9ab23d07b645090b3f1d1568a4e6bf04925f2dfa",
+        "public/illustrations/glass/creation.png": "b780b3c6f9370a906ae0fe9dd3188b3263d4c3ae8f854355fc95e102fe4dcab8",
+        "public/illustrations/glass/tickets.png": "5b25f17c02b88fc0ecd2c14b23ab6da239caf4f0e50b06e63f8465afa47df304",
+        "public/illustrations/redesign/beach-day.png": "5b8591991e3fd3cde33ee1c8375d2813cd5649eddc9a78d664cc2d24ef5e8503",
+        "public/illustrations/redesign/daily-cat.png": "9a820ffddf53d5a3f1086b686372a725450cd58af5b3822c22118617235a251d",
+        "public/illustrations/redesign/hero-woman.png": "eeddd2108955e4863524a9d520470bc0877ff3d449d349998e46093bc0a37e6d",
+        "public/illustrations/redesign/jiwoo.png": "017da348fd5707415c4a7a7d1ae6de0a253759ddf14ba3db09f2622e67bbed02",
+        "public/illustrations/redesign/minji.png": "55fc306e573d4614e60885acdde31744fa3f21c364e224096e4130d2d44e4e26",
+        "public/illustrations/redesign/seoyeon.png": "a1524772a2068ebaedff02f1081d2dabaf7e32738a8f6e7445d8abd65b263d3f",
+        "public/illustrations/redesign/variety/haneul-bookshop-v3.png": "cdea1e24e1c7b590ce7910a9262c8796b809b8ad6cbcded28b10e76c2709bd9a",
+        "public/illustrations/redesign/variety/haneul-courtyard-v3.png": "08098ce6290ddd539f186ff2b73f3bb56be2215ad2e79c02a96e549f7acc025c",
+        "public/illustrations/redesign/variety/jiwoo-terrace-v3.png": "8bf44adcde84f4813baf0f47c6b68d57168b18c1c7fb9cfec603b8f9b7afe2e3",
+        "public/illustrations/redesign/variety/minji-gallery-v3.png": "3292476c5d5b4e10562c19e2f1bbcaac6aaaf7fa76943f0cc9ef39fb66478d38",
+        "public/illustrations/redesign/variety/seoyeon-music-v3.png": "5b8fdaf885d8aa23504c5ca246e9b82c9d2d19c049493a8d31bcfccd584e2e1e",
+        "public/illustrations/redesign/variety/yerin-wellness-v3.png": "d6f237466413148e4ae376c2ebdc841f275346ec294784024afb58d2846c1c02",
+        "public/illustrations/redesign/yerin.png": "69db7e09a070c1b8de354f83d42ac079b1e0f8153eb3d00bc242f5b53aafe576",
+        "public/illustrations/tactile/connection.png": "02eed5a3fe3ee420eef5deda065a6a178b561c70ac9397879154e928cfb18d84",
+        "public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
+        "public/illustrations/tactile/creation-v2.png": "d8494fae3a01245ef551c80bed61c84cc2bb58f916569c84b981d0def0255b33",
+        "public/illustrations/tactile/creation.png": "cee00b2c3dccd2e2591873d18213d700e31162115a468bfec8dce39d2ba49579",
+        "public/illustrations/tactile/tickets.png": "6f55dd78e071547120330cc89d1b962d52b5c6783af5ba809a0f05a3c2329385",
+        "public/image_1_160x120.png": "e318b3f874bc31c54cea5fe5d50d2a2d2fbb5248323069dc85ea3585a56f8dee",
+        "public/image_2_240x160.png": "449a87da528f778ea995c3ed30111908b26af0f5a21d9fa73c26ae8f9be48585",
+        "public/image_3_320x240.png": "154a2377006278bf1fa74720ee4e6393f268e4b2a925c9a5ebb38cc9bd9f5a11",
+        "public/image_4_400x240.png": "36735aa77fef63076bd4ad9cc2b03c56cd8337467f55d7f69234c6259bca636f",
+        "public/image_5_480x320.png": "fa4965fb042baa2c4f4ddb0000cd2719b4bac61fc079a5fab99cb0d89a97defc",
+        "public/image_6_640x480.png": "5841820ae55064dc2ead3a270463113b34618e4dcf3fb1254ca339b6a4786f1e",
+        "public/logo.png": "cb51f0a97464fc13154cb34e1e975c2b1ad390e5997b93a4886ffaf45f7b8263",
+        "public/logo_icon.png": "942a1237a79587b2fc1a152e44c9f5bae5c3d2d76b86738bc7be5a7c8ccbd82a",
+        "public/mock/boardList.json": "1eef8bf96816f7cd89ff0fa026fec295196badf1d98d731d2eb3d51bab5a38e5",
+        "public/mock/boardView.json": "c36ff2fc5dc447da110e83c0258fd99fec879d008ee8405031492a5648b1b2f8",
+        "public/mock/explore.json": "3de8c135ff6d6dd933324d680bb75e3fc2c1cea59ddb22f08bf53ea183019d50",
+        "public/mock/explore_more.json": "a908ab2b1ec69c963c48de4f52388beeaa42da0645072c9283f77a79d17e0e3e",
+        "public/mock/feed.json": "9accb022d848bfe68156fcb1fa56f62417ac1010a146ba5b3d7b06c97304d6f2",
+        "public/mock/followCreators.json": "0833872045d660f46c249750b73441b6e52a39f890962b328c9e3deefca5fcdf",
+        "public/mock/media.json": "370dcadc66717c85de0d475fdb151762a149fcc5278a31f8151d2fe3b5a923a2",
+        "public/mock/membershipCreators.json": "525402bc31927dc1a5418f21d95e16203447616e72d1680d8fe8680483b3f897",
+        "public/mock/memberships.json": "8aa7c46bab7991ef66ce5342beaaa931e5d66becba02b0fec6de3ee39e731fcc",
+        "public/mock/notifications.json": "923a1241c32f6397a51c15dca5dec2f5813d284c39df0bdac2523e632da8be0f",
+        "public/mock/paymentHistory.json": "309a8dc2116f33ab4537b8e0c32fc1838c05e964b11802136482a576e3c46b84",
+        "public/mock/paymentHistoryFull.json": "837ec241e386df5bd58182ef41709cf81414cbb36e0d2565ae13c621086637dc",
+        "public/mock/paymentMethods.json": "dd938341f2d7899c650c584e5005af27ee70444721f3db104ba080f7789af189",
+        "public/mock/searchResult.json": "3ba107122c2c01b230a76eb6709a53343975bd78128e49adfec46dbe627d837c",
+        "public/noimage-50.png": "7845af27ca4276744fefe628fcccfa62a72f5443cc83c9717ab590342635b71f",
+        "public/profile-30.png": "c420ea05cbb353426784e10dbd17abbcdf28f4dc5920249d51557390c59603d1",
+        "public/profile-90.png": "3bebb5d55f99af2374eaab99da82e8911b9a94c025bfc8e712a5fb2cf376ba6e",
+        "public/video_1.mp4": "71944d7430c461f0cd6e7fd10cee7eb72786352a3678fc7bc0ae3d410f72aece",
+        "scripts/check-docs.py": "13753e6a7e51c98c0ef9e0c78d33fa13583e54558c8cd5f1fe9fadbb393d6f0f",
+        "scripts/check-layers.cjs": "8caaf2b6ed91abb1d9c49277d75a78f075defea8997528d4eb330bb67afd36a1",
+        "scripts/doc-contracts.cjs": "d2c28a186cc2048efb6f08a1f3a373db579aa2010a35519993ff404ddf9d95ca",
+        "tsconfig.json": "f335979a32c7515a0ace65383312f3d184fa1296e127fad3cf66e7e443cf8f44",
+        "types/api.ts": "8d2ba4aa84a9e25b07159998d441a112a3c91b20257216547f31f4cb0e3ac883",
+        "types/api/board.ts": "d1688cfaad5af61e3f534c6a54f95f41d23691bacbf86f64ccd81e05a3e7f85e",
+        "types/api/explore.ts": "a97ed5d2c26e820aa380abb54f0d68f34656f8295cd6126b7b0b3a0f06442e7e",
+        "types/api/feed.ts": "40136670ec01ef6a23e25a0d4a8503fa833970b2620cfa775ddfa70c8fa2582d",
+        "types/api/follow.ts": "da6b3b2f494bea05e615afe5b8a76aea91abc8324a52e0c57dfae05fdc71dd97",
+        "types/api/media.ts": "ea1d3b63d9fba2fd62d34f7e90004c619495d5465f6ce5e1f74e91b0b57a3e01",
+        "types/api/membership.ts": "19a916605423554f488184bd34af3dd94490d79c6c9307a5d342c56cc0d1ff5b",
+        "types/api/payment.ts": "957eaedf5fc7a02d3da4a53795a4e0fe643dcef93ab166e8bc5c1b4f11f6a350",
+        "types/api/subscription.ts": "b81155e11dff6bc3495fb1aff0420594b15438df80c708c4bc72eda46b75b2f1",
+        "types/api/subscriptionBilling.ts": "66e40ecb9a456250de8a3eb54a88ed8e1fe6688d15ad6dbfe1f5be7fa091ad1c",
+        "types/auth.ts": "ccd5f66a2610f43126f593d5dfd6e77902c25df0c5ee8fe553b9cf544ca7dc79",
+        "types/authSession.ts": "c772531462fb626ca08b1d8338a0c9b259cc18018a5391462a7e0d5565e6576b",
+        "types/comment.ts": "b5f669ae9732dc1e1b15119f25fb4b3a05e74f23a8e991b847c58262d6017fcf",
+        "types/common.ts": "5cca0cde6c4d88f78b514352dddf51dae3d75361318f486bada5cb8aaac08133",
+        "types/creator.ts": "cd21a58f93536f98d8ed9dfaf8fd8ff00638f8f57f2d5ad86e345704d49dd53b",
+        "types/crefans-account.ts": "cd33b0f391f183e3b08665363016a2475f5047da90b1f722dffc6f57e77892e6",
+        "types/crefans-common.ts": "cc83a791f0aae70237e2a3b3eb2c4775c344ce478249a59452240b1c6c985a43",
+        "types/crefans-community.ts": "db8c39866312b3ea7d1cdf0ab8cd700d095baa07ab32ad878346e76ad0e2f9e9",
+        "types/crefans-landing.ts": "6f8f64258c6d66fe318d0e3f44b913c12c6a87d508a028ee35d485e3ea67f6de",
+        "types/crefans-social.ts": "90802fe8ce1f85276fc11775c27ceb7281eed49ebfc7a76d0d90ce024e3a8637",
+        "types/crefans-studio-finance.ts": "265ea478be6dc00f6f8338728610a5ea0dc49d1bafaed2155093687339765bc5",
+        "types/crefans-studio-management.ts": "7e51f3fe5ce60f7c1996c46de7cecf5fa4f321c4cd2d42cfd481aa69a470ce91",
+        "types/crefans-studio-reports.ts": "0b7a87fe23f4f629af5532f349613eb7dc9401d9ae97d4b9679217a232d69527",
+        "types/crefans-studio.ts": "1fb246fc1226e65d82608a2243de5218d66408d4b17694c2ada8a94ea01ad4f7",
+        "types/crefans.ts": "22bbf1c14f7fc2e2e3d861acfbfaa840a96e3571f3342e75ae773b1df5e5decd",
+        "types/env.d.ts": "574bc36e6978cfa56d0319b424ed6e05498c83b264e90d34bd857a2f9caea7fd",
+        "types/index.ts": "15a8c60cfbdbf07e65ef50fec15c3739c3acb3f08b7d6a26454619cd79308d8e",
+        "types/membership.ts": "a52206a67c47f5b0b3863170b3967c14cc32426c28ee6195034b5b3fab724014",
+        "types/payment.ts": "c02b2c2be4f509dd0e22b899d32eb39affe4ef2f2e7f34a5b61c160f955bac41",
+        "types/paymentHistory.ts": "5640b357e7790c89dab4925a7eb437ff73649c91cccd6fb680b2ea803fc3f769",
+        "types/post.ts": "81175b688d63c3dceea740c36610e9141e5387e211dbee0712ed2583655cd832",
+        "types/posting.ts": "979c5277e00404fe80fb3d66bcdf331628f6212a59093dbf33fea8ed845c648f",
+        "types/presentation.ts": "7746aa64a9a9346a9609a7f50f40a5c338d2ecdf9676ffa96e0d336a37455a7e",
+        "types/subscription.ts": "9755699035bd946dccf0a5267a63bfe9ef57bce8bb566c285fc706904767e7eb",
+        "types/wallet.ts": "f855baadab4a9f4ba86bf3e4ed6f9ca15d14614727fecc53c2274e256bfb578c",
+        "utils/auth.ts": "931290dd983c185ff43188cd147cf3d90001263c1ab622a8f007141ef2aba3a7",
+        "utils/env.ts": "dfe8882b754ac3e962ba6b24c1af04f9ea9be16553d82ff1c4a5c1f3a338c793",
+        "infra/platform/Dockerfile": "1a659121a5a7a207e854cd943ce59ac1a5cd1c0633ae6169854142e47ecfa9e0"
+      }
+    },
+    "server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "branch": "feat/bean-support",
+      "commit": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirtyEntries": 138,
+      "statusSha256": "75751ae8acbbc6cf44ee4f7f646009e4df093016abbdb3907b833bfd09be2790",
+      "runtimeManifestSha256": "1a798ae058c897aa95bcf98c59a7fef244cda0a74b4af9396e07961d66860cb7",
+      "runtimeManifest": {
+        "prisma/migrations/20261021080000_db_financial_policy/migration.sql": "80ba545b2b74906641d70418e33119d00ae3d80116ff68865b8c6d90580d7c95",
+        "prisma/migrations/20261021160000_platform_security_ip/migration.sql": "1dfd3a3c4b1fc8147ea840c23772fef342810e6f683c65b66da21d663c4670e6",
+        "prisma/migrations/20261021161000_operational_events/migration.sql": "0ce6cf718f5ee4497dc90300d3c97e61a070e379cf58eb3b3df6b34bc9aa8701",
+        "prisma/migrations/20261022020000_audit_logs/migration.sql": "c3312aca7d23bfd77a2c71c497dc1e26a2b2570d575f5e6cf1fc446f91e06eef",
+        "prisma/migrations/20261022030000_billing_recovery/migration.sql": "67e4f2729a36db3717d8ecc234c6a5dd2c3936b76e27a1cc43c2c0e4b6e66b47",
+        "prisma/migrations/20261024120000_creator_verification/migration.sql": "8cbf4a870e12e5199ee2b6823edeb9e00d88a7ffd18f58cf4c3c74cf5d0155dc",
+        "prisma/migrations/20261025100000_beta_policy/migration.sql": "1fd23a64220156108978d59061d2fcdb62022c6c44e10145d069c2258f069f90",
+        "prisma/migrations/20261025110000_marketing_delivery_claim/migration.sql": "be6b7ae38fe19d5dea989193316c5d60a58cb9565c913040d64603110b183573",
+        "prisma/migrations/20261025120000_bean_ledger/migration.sql": "887ae3eb12b4543c8ee08341931f2b0869e81ea4d209ed19cf2c3c3b1b08ce7f",
+        "prisma/migrations/20261025130000_bean_product/migration.sql": "ca637f1ac797c4bb43ff839a5f9bb82aba2392578e29eeb5d73c520988aa281f",
+        "scripts/platform-audit-export.cjs": "d17a00b8a7739f359c62bc4ea3815c51c033894d4246842e5c562b920e4523da",
+        "scripts/platform-audit-security-test.cjs": "a7f15d10ff046798a7aa5ff783f1ac781b280983544cfab1d5c361799d25e8eb",
+        "scripts/platform-external-monitor.cjs": "99c264f05a5b60ed587de0145f8c4cff3954349a3836ebcfdea40df56e1bc81f",
+        "scripts/platform-operations-test.cjs": "d71e603f704270bd4605f868d41b075cca73fa44f2b0a294d304ba982ba0bc7d",
+        "src/platform/admin-console.ts": "538b81e634139a7b30a7a27adfebcbe7047ac1f0702896ca1e8d561b7d426dc7",
+        "src/platform/admin-dashboard.ts": "cc74f9be672b91feda85742a045227ea754204e9d87a32ca780c02997b0222ca",
+        "src/platform/admin-logs.ts": "6696603b3c003f24e31d475256bd64623c317b5892ef0b5881b5733612db50e0",
+        "src/platform/audit-retention.ts": "487d5d5f655208a810d43a7807da934430b516be7418419107894d4073b77618",
+        "src/platform/audit.ts": "af3b0536f11bce39ffdfad3f8c0d9f02d7ba75cfd6704b9a6072b2e6817de19a",
+        "src/platform/bean-ledger.ts": "94ac1d16fdc9ab930d99e0c79529c01bc885bc03723f150b64a99305d1efe9bb",
+        "src/platform/bean-policy.ts": "1396634572232efcde7307c009bf3ea03cc5353ecc2f851fe34d17812a540510",
+        "src/platform/beans.controller.ts": "b59677a5711276f67f682dab5b50ab1b8420cdc1a181d5cf414b8adee534d06d",
+        "src/platform/beans.service.ts": "fb8103d8b8e26180c8102624e5922e843b819d3871c1950d017c024a624927ff",
+        "src/platform/beta-policy.ts": "230eaaee772bec6855899e096abf9a1535ac8d529fbe271ead34f83be359991b",
+        "src/platform/billing-failures.ts": "904a353da61a38c5a7e06627a390f55ee792c3aec3fd3665f337d666301c9872",
+        "src/platform/billing-notices.service.ts": "057c5f0a9f968963406c4b0205bad73014d30d04e1a7e757f637207f2a9ca949",
+        "src/platform/client-errors.ts": "21e152e7315fd2c5eeec74e7b70cdc3e42b1ea7083e22a04f2b02d7f6215a97c",
+        "src/platform/financial-policy.ts": "39f77f75fdd00e0c85462c1ed5b34e9b9fb76f5a785fd4ea5619edd63eead2b0",
+        "src/platform/legal-documents.ts": "6095e010cc4bd8032280cbdeae88b88e6ba43fd6585d64ca3ea3bb6978a43766",
+        "src/platform/marketing.controller.ts": "a09e8057aa2e19e0faa8f330b1bf2887fde14541496d703f4caa9626172b598b",
+        "src/platform/marketing.service.ts": "321f4c75de45505449428995fbb4a9e63c86336382688e9acd6556b0a5f70eed",
+        "src/platform/media-edge-handler.ts": "0419837cf1d7ecfda67ab542ff3ccbfee9411f6c87e00cf718805ec93327f035",
+        "src/platform/media-edge-protocol.ts": "e86ae42a430e372788255a5ada7b12036d6bebb1578a42be8494c722df17ecef",
+        "src/platform/media-storage.ts": "eeb242e738bbaec0f7800b64f1eda7a63f6144efcdb7c8c46346e255157b94a2",
+        "src/platform/openapi-contract.ts": "3dbc6ddaf99d5e08e7e66cb184d8488c17ca02045c976d7084203935bb5d1b3d",
+        "src/platform/openapi.ts": "ead80628c7e4c253c044972834027115795a20f7d5fb2d3f001626c055a38ef3",
+        "src/platform/operations-events.ts": "fd9f0a020e0aa2f2fe0de7f20f1b9bc76c32f9a406e8e58f215926525a53d9e1",
+        "src/platform/operations.service.ts": "76670715cf871420aa6cbc82d6b359da6d5bb5337d7c30e31803172e544d3b4b",
+        "src/platform/request-context.ts": "6918d05ad00b22891a504aeba2938df10e13ad4c33133e8916720a2e904f8cd1",
+        "src/platform/security.service.ts": "01ce7b56af876e3250e6181f573222683addf0c2930769fdf4e49411069fa3ef",
+        "src/platform/settlement-receipts.ts": "0755edaa457223fc853ea2565a8fd19637001b4e3667f620fdeff95240100411",
+        "src/platform/signup-policy.ts": "564bf33dc55c9465ebf4738f056841605ceecbadad32bbd594e58671d29d4bbe",
+        "src/platform/telemetry.controller.ts": "940e2e43998e7cb020461b6d1e971a228375a6c4cbada80bf7929e4de6493a4c",
+        ".dockerignore": "0f06aa38d7972af8c867c0765aedfc25eab18f71efc1000088ef73a691ad9e59",
+        "nest-cli.json": "2850f78cb47701adddfea972ebeebc37c6634bfb7325f461b80d0e263d809c04",
+        "package-lock.json": "8ce1e65281a4136187fe642a0ded9073e6a10b356e680f89b6af082dbd666216",
+        "package.json": "fe0467bae58f82416de9d7f221f00fb02afeaf04f1f7d54e452405e0e39e5326",
+        "prisma/migrations/0_init/migration.sql": "3833bea35684a61c3d59c5f04b590d6f34ca459b9220fd0425cb0a0356904219",
+        "prisma/migrations/20260910000000_local_members/migration.sql": "3076434a542b6badcf5549fd713cf7a3a9ffcbc7dd5606d92d617873d3ee471a",
+        "prisma/migrations/20261007000000_platform_v1/migration.sql": "4076884920bbaa5c0bab99d08a9fa4db1e39f48779f66d84dfa7b9ddb238ba01",
+        "prisma/migrations/20261007010000_platform_hardening/migration.sql": "14b6ef2d8e6eb443a6afc08b7d6a0e4e0c5c58a5946680848f905fe4129abdcc",
+        "prisma/migrations/20261007020000_platform_jobs/migration.sql": "e0b23da51ac54a4143af2496c6d6da39912efb3f37a2c26345f341475e0a6008",
+        "prisma/migrations/20261007030000_platform_completion/migration.sql": "2b7f8288195ee6b81160d9047bac6435abc87019eda946953106694cc14ac6f4",
+        "prisma/migrations/20261007040000_platform_audit/migration.sql": "f46af57baf903d9c9164518917a08e9bd799666f51f1cc7ff7316c5619b6f82b",
+        "prisma/migrations/20261007050000_platform_age_gate/migration.sql": "1445731150a5fa2045bbaa7c3bfeb83a8f4dad46d6159396d1261708269d24dc",
+        "prisma/migrations/20261007060000_billing_registration/migration.sql": "8565a40c6393a36834870fd41f362d699ebd507346a7f87fad53eb4d9f419ef2",
+        "prisma/migrations/20261008000000_payment_lifecycle/migration.sql": "360fe0032ff09a9e7c48e0da34cd893b72d6fda87a26ccf58e4ad74b015357cc",
+        "prisma/migrations/20261021070000_unused_content_refund/migration.sql": "5d1e2290f77bcc448a8eccd4e2270600f339f38422fd7b4a56714d666887ad98",
+        "prisma/schema.prisma": "3b0eb0c9397e4204f40ba56c8355e0078defbdbb53f90a4440d737374993fbc1",
+        "prisma/seed.ts": "f692e313fe7c655b82746f52778ebc005c8c7d13421c5c0e7042b45a6ce89baa",
+        "scripts/audit-members.ts": "66f1b4e407b056fbb47b907221528fe32776a34bd0431710c4f4f94a8724671c",
+        "scripts/export-cognito-members.ts": "0922fb554b78c4dce3ee11baf525af02dbbbdc66be26572ab2863212e6caf5c6",
+        "scripts/migrate-members.ts": "46a0fc15c43283aff37ee682295ef1dd550aeb49ffc4f433099f9fb51e22ba90",
+        "scripts/platform-admin.cjs": "8943111716aa01f34e74f883049400b31816425f6917778287b8505f0cf977d4",
+        "scripts/platform-audit.cjs": "ab1f9fdae88dbfa416d0a6054e23b1fa5c453e24d3a80668006c6b6f167dfde3",
+        "scripts/platform-billing-test.cjs": "fb5392dfa69a69b2422ce29c1c745beeaf9d1471b0a3589865813681fafd4aa6",
+        "scripts/platform-dev.cjs": "9dcb30b19dab45ba0f442b0cd390cf3c2a460c0b135695f19915660668930d10",
+        "src/admin/admin-auth.controller.ts": "cd9041c1e1d1b52a7222ecad64b261b718a97a32221ba7e12e8b11c7a2a1e6c2",
+        "src/admin/admin.controller.ts": "8f36e2f0bedfffeeb8f1eb9b73950a67bd04462a678a01b0061a4cd55dd38b3e",
+        "src/admin/admin.module.ts": "fbed03a84289330265132eb48e6d1e17c528e66156abcea87946985185994466",
+        "src/admin/admin.service.ts": "d062d6e0de36d3c4785f98173dbbea18dce53996aeca499174bd56abeee14c6c",
+        "src/admin/guards/admin-auth.guard.ts": "a276099589f0ebc79a99f0d45a26bd58846d8e979fb2c22c5b2fb8bf66af4412",
+        "src/app.controller.ts": "86e9adee40ba9b91137aab21f4cf6561a2a5db19b01d90631a15d1df5a03a5d7",
+        "src/app.module.ts": "54e666c96993a9f558528cfeab434ff1774e4a8c4af0f6625e46684076b0d9e6",
+        "src/app.service.ts": "1c5f4f6906cac27d31d72b1d44ce256f373257962d17ac216b383f45fef13f9a",
+        "src/auth/auth.controller.ts": "94325cf509cbc7d54839993a9d2aa3c5ae78e10c79ce536d133d964f3fd4d1a9",
+        "src/auth/auth.module.ts": "96d4172a939ace0db407ae34a6227e91445d46db5231f2a07590c77104f1f2b1",
+        "src/auth/auth.service.ts": "3af291f52ecadbcadc8daf09af7e10924a3d018d95cd54eaee4d6204206b597e",
+        "src/auth/aws-cognito.service.ts": "38d1d96decaabed7f40fee43b04a6488481cb39eaf5f44e1d017de2135634c46",
+        "src/auth/cognito.service.ts": "1ed56803fbf56506ad5fddc79dc38d745c133a40202a401c311af04d79431589",
+        "src/auth/dto/auth.dto.ts": "52073261277a9ef8708ae4f158703ca0876ccd33d06cad64f6fe6a1b2bb434d4",
+        "src/auth/exceptions/cognito.exception.ts": "80f0016b9f950159836eb04072bae642c9ad028f6e897c3faf6a8e845950a59e",
+        "src/auth/filters/cognito-exception.filter.ts": "e7dd4949f1f78d48b3b9df73481fd1e47a8f1c10f4a2d0361c406cf28c19e795",
+        "src/auth/local/credentials.ts": "943df7663dc1cc9eb32cd7e79e41ced12782087ebf9419fcc12e6101ef8aaf62",
+        "src/auth/local/import-members.ts": "8dcd900c11c3b5dfa9a6f9dfaba4a18aa8dbbe8e719d97222c66c00d9d8f9176",
+        "src/auth/local/local-member.module.ts": "66fd4695d04bdc411a27fab03886c74a85d7ed485cb64e0aeb6c201163fc84e6",
+        "src/auth/local/local-member.service.ts": "2825b84fc03d363dd2dfd29f5d46cfd87501b7532949bfd390fc9d11a6186a40",
+        "src/auth/local/mail/logo.ts": "cf9a5d0f2f326d14bcc7155e4fe047ac35d56113f5c60913e6ace091e1330393",
+        "src/auth/local/mail/templates.ts": "b2a4fdaf8d91d2769bea4a7ae478448ad16bbe79cf04750b8ad807f552d242fb",
+        "src/auth/local/member-mail.service.ts": "d26e672cc8b5a08d8ebd8c427c79f6a63e458d1f72c2d7f51578a5deb6c57caa",
+        "src/auth/utils/cookie.util.ts": "9362343d6cd1b5bee3f8e5f15cf8b3a08a4a59a56984a2eccb80b924ebe9b181",
+        "src/board/admin-board-category.controller.ts": "9d918c61da5272b61e0b551e14d7ab7740789674d790d4c0c3e91da362828591",
+        "src/board/admin-board.controller.ts": "d0a6b8b8a99595091716b2302782b30a14adda4c9f471d52dcf43c8c45924bda",
+        "src/board/admin-board.service.ts": "76816393a20ef17620747b6dc7cf27570f23d56f8c63732198c513dfe1462c66",
+        "src/board/board-category.controller.ts": "1fa896a2e910d4b68cb401360aa1f36f720b31f972b5a9fcb927d3b93a6e727c",
+        "src/board/board-category.service.ts": "bc812ef442c47c369e7a0d0ae5e44cdb3a9668f62516b6a0cbe66cdf43f90355",
+        "src/board/board.controller.ts": "3823f797d31c978266a22475275c81be613a1f881d2d26c08b18ed593228995a",
+        "src/board/board.module.ts": "e9823efa2030fa1439ab63bdce0c69a54312d72310a8da08ca232d0824fdfaa4",
+        "src/board/board.service.ts": "6568b4fad9d12dd0874548f65bbbe7e16db8537149c53448cf97b6584717de17",
+        "src/board/dto/board-category.dto.ts": "561a96f8cfc762f609255b4e53fcf62aa2795d43c74e5df56d33de851e1d0aee",
+        "src/board/dto/board.dto.ts": "284b0c8c587184c18265011a2c2bbbaec2a7b6d80ba4027b413602bbc84d7a93",
+        "src/comment/comment-like.controller.ts": "0ee4114056b24bfee3cfbb290583ac7721870c2da52e96f4f9b26678fe52efb4",
+        "src/comment/comment-like.service.ts": "9fc1eac837d7f9ecd1dfcbb541b20915d6a14c2a14ffa0a1cd3e311ebbf47c3a",
+        "src/comment/comment.controller.ts": "bc58bec3a851adb6421184e3cbcb40fa1534c4e78cc43bff9e8d7dc59610231a",
+        "src/comment/comment.module.ts": "821684070d8a488c45a48138ee9daa4e95ed4ee508f47dcea8f526a70993b938",
+        "src/comment/comment.service.ts": "05bb04cd95edfdb0ccc425ea8d095b4d3dc1fe9af84a9a9268ef23b611cf41bf",
+        "src/comment/dto/comment-like.dto.ts": "abf9622ece6e1a22fb3ca26cc3d23c473875ee7d1a892194e97f2cfda859940f",
+        "src/comment/dto/comment.dto.ts": "7d6825443e6beb7b651dcca785311e2fda36283ee8f72a49eef25341c13114de",
+        "src/common/decorators/current-user.decorator.ts": "5d88ad427300ff3fbfe68f62d965283b3e32cc18b144bcc4c95fb2875cbb3bd1",
+        "src/common/dto/api-response.dto.ts": "39c9d1443f60aac56664faaa1e0167d1bec4b017689b9cb0045f29427da2cc85",
+        "src/common/filters/global-exception.filter.ts": "80c5bad3e2c472d7aa2dc33c03d886938bca57fa631c1e36b7e4dc138b4235cf",
+        "src/common/guards/auth.guard.ts": "8a09b9ad3a4dcd40c4cf7ee1805359d3283078594a9975229c5ad9deb8be5dd6",
+        "src/common/guards/creator.guard.ts": "79b8e6460e0f68e2b5ca0040c8016f13b70969f572e6b60a6d02c3b4680dd9f8",
+        "src/common/guards/optional-auth.guard.ts": "8b81b6ba742b203f5d0b3329212ada7df87f5bb218a5552549f0bcf5b1e9030b",
+        "src/common/interceptors/logging.interceptor.ts": "55df63f79cef315b4ba0218188be837524abe62a7c44e58816f3bcab86522417",
+        "src/common/logger/logger.module.ts": "0349de13cdcd1cc9fdfa325f16a48b04bbb470a578915eb9804f29ad35a22f5d",
+        "src/common/logger/logger.service.ts": "4155870e832842d0a4dc66e6836955bcdbdf6bfda9a5acae52d49eaa424b3819",
+        "src/common/services/membership-access.service.ts": "ca3e7b979f3edfa9b7fa5bc7f528258850666d5789edb08570222dfd6d10f010",
+        "src/common/utils/media-stream.util.ts": "315ee32f0105474578187a1d2e15dae348470888924ee9f22efbb633f5b777f6",
+        "src/common/utils/pagination.util.ts": "0c4de0cfd9fd09bbfceb1fef37afbb5b168c893d20ed809b40bd723e728a8889",
+        "src/common/utils/user-transformation.util.ts": "665cd505e4329d7e352366cbb31859016c781858223925e575c3e91e19d8949a",
+        "src/config/app.config.ts": "26f2cb7f8d629c136e3c8d9de37cfa37d1634e24711b0b5bffd692399b5b64b3",
+        "src/config/aws.config.ts": "e93451c63807b9e2315303c948714588c10d0d59fb43aff6818c28d57890ce63",
+        "src/config/database.config.ts": "e0b36970177f6c3e11a2e093cd7cc07c3b3fc2bcd40678df05b5ac5603d3b241",
+        "src/explore/dto/explore.dto.ts": "3c6710300d26890dedea25f8ee97a480b633db99b30739516e06abfd2309e954",
+        "src/explore/explore.controller.ts": "55687de3d3e3322ec6c740fad43e27118095cf89aa8042c5899619cc9dd8f71a",
+        "src/explore/explore.module.ts": "19406ccb0b37f8aed1c15c29af4a72dbf09df4c0459c236a12e79eab74d7a088",
+        "src/explore/explore.service.ts": "a23862363ca8cd98e1248ca3ad8a70aa1b2191791b20c46644d1c50d5e7d7157",
+        "src/feed/feed.controller.ts": "5d66c438d0c65620ef5e4db6ec783abf9d1678ea4cd641a56f173681a9f8fe18",
+        "src/feed/feed.module.ts": "888f1ad82c1b10211f6af48591a5fab871e16188a4a95d5ce6da1d7b12069083",
+        "src/feed/feed.service.ts": "36826b1828a23fdbf719b7d1e8f17289f575a3f376cbfb6731704ac944f49d37",
+        "src/follow/follow.controller.ts": "a9e3fac482e7925979f2b6d82316dc8dcfd12b153bd299a274504b094c339b0e",
+        "src/follow/follow.module.ts": "9e87c744063d25406f95489a898ec2596857823da96baa32ff1a390e54381c66",
+        "src/follow/follow.service.ts": "8694e1fa787b3bb56c509781ffc404c67db7858a160da5b297f7cc7b8c834ba8",
+        "src/main.ts": "913b91505be811f7158c379c89cc46efb181201086b0620228973636181486ec",
+        "src/media/dto/media.dto.ts": "fbc4400ce861627b6ce96d5491e783cddf0ed54069c9800c45f0623a8ff9d1e1",
+        "src/media/image-processing.service.ts": "c449c6c03031f04eb04f78f660657232dd495ba999563b39f54c51db67e53b4e",
+        "src/media/media.controller.ts": "46cd810db3e17e0d0708f65578c254951ef409195d1dc0416f3ff88473a321a6",
+        "src/media/media.module.ts": "2619478fdb8191e64276e5c4897e367421ae4548426b99740d28068f17eb0005",
+        "src/media/media.service.ts": "434f29f371baee1a4f13e1a262debd000ed12053702746bbfb7a89ba41b85364",
+        "src/media/s3.service.ts": "a9b8ab0098820800d9c0e42ac7cacb2671b6a4c9835586197b9bb498091c9a9b",
+        "src/membership/dto/create-membership.dto.ts": "9de5b32dea14c90ead549a78ef1a8ab4fa0529ea13c4a333192cb145b498d571",
+        "src/membership/dto/update-membership.dto.ts": "4fae485f9db534625e2f2c2015ba5e7c0296852f619ef2bc8de265d8f98a0d7e",
+        "src/membership/membership.controller.ts": "1a4810c41b206ad9edbb561a2e8cd04a5f4fddbaeaebcc275f58700e5bd9f1f7",
+        "src/membership/membership.module.ts": "63c9938b80df52d6127f2e07214894eebe07a6c4cbdfc624ee4276a11ebb49ca",
+        "src/membership/membership.service.ts": "5708a96eaad6c50b1303681416980fe894fa4994911d8a8e77df27349311518a",
+        "src/payment/dto/payment.dto.ts": "0194f6f006faa73e638cc2a82cf609d204ea56f9ff3b90b248db26479d4c101b",
+        "src/payment/payment.controller.ts": "8ccf4927759e33ce2815e0962a454fc0ab9943654a5ee17a6654df25c6962253",
+        "src/payment/payment.module.ts": "1c11ff02553566229551038921ad72d564e232ae5224673983f88e2feea99f2b",
+        "src/payment/payment.service.ts": "10e1e55f230c2cd4ef31b28c4765029c6a021febd9d72b1eee9fc029323687e8",
+        "src/payment/tosspayments.service.ts": "a43176b342198a2329037b5db24533031151efa6fba935f0b55081466328fa83",
+        "src/platform/admin.controller.ts": "7ed03294233cc12835c7f4bac5165fee82e0530a79563e16817f5dba438342c1",
+        "src/platform/auth.controller.ts": "894748867a454698f3359388074ebc044ee5b47324839cb1c1691c9eeb3bff1f",
+        "src/platform/auth.service.ts": "f8367f796cc91678770a2215ac2627765b39723c6434427cfefe7efbe4434390",
+        "src/platform/bank-provider.ts": "2973b468a2b2e82cdc67398530fa200781d812455c6157fd580965c7b6742ba7",
+        "src/platform/billing-card.ts": "0578f2ca288c165ab6c669d8e33e2f7be69fe3f6bc7a243929a2be1f8b5823cd",
+        "src/platform/controller.ts": "a58a60f39289cd20ead686b7724f559c7a3d2bf0158ac584d04b4705b3ac2b25",
+        "src/platform/email-change.service.ts": "a277646aaa7bb311803be4bd580c5750bed45d8ae30445e4a088cb899582933c",
+        "src/platform/finance.controller.ts": "45ed102b5dd17fdff49be87ec6b370cea01fe9c475995f2a1e0f4dcdf782aeaa",
+        "src/platform/finance.service.ts": "ba5a055f397f779f1d41e4593d006cac8badfd5fabc5338bf6fe146afd34f761",
+        "src/platform/http.ts": "fa6719725948b8119c078cea4dd2a2264e77ba0d773a37cf5bef4d7988434f09",
+        "src/platform/identity-provider.ts": "d3460eb36d68cc48503a7cc433c8d7ec19b4ac9b61051f93478bbd1056be1af3",
+        "src/platform/identity.controller.ts": "75c26a2fc5fdf824d29ebe46d5b334c531ab4584790023dc0ccbf76642011330",
+        "src/platform/jobs.service.ts": "1577086969bf5cee9090e38337249480c09e7602f1611a9c4440296a74155fac",
+        "src/platform/main.ts": "1697a9544bfae9f423cbafd2002be95db6c0f4cc7f525b8274316f2604a41c64",
+        "src/platform/media.controller.ts": "6e6fc2f8ff5ac4c27306e711da349ff6bf8161fda47e04ff962013e2eb410356",
+        "src/platform/middleware.ts": "c85f434cbc23fae90611210e31874eca05fb8214b83c14f151c2464093c77556",
+        "src/platform/module.ts": "4d37a5bb3f8b67374669a68247dddd18fde66ddc2275fe7107a12a5cc35e6a16",
+        "src/platform/payment-provider.ts": "78d3edce602244a816e14f1ee5e7880a33d640c7a712d64c641f47ae2b2d7844",
+        "src/platform/platform-auth.guard.ts": "c472cc4d981cc0351111ac7d68161d464619d1cb48493c26c958bc2451945a9b",
+        "src/platform/service.ts": "b456a2f1322941b7222320250873389825c03cbee312e999dddafc303076668e",
+        "src/platform/studio.controller.ts": "03373f54a2ff4a8f7705ef451ce401d530578774aae3f055d0f551ad1ed9c85e",
+        "src/platform/studio.service.ts": "2dfb617bf45fa1305442d0a30165caa8fa570daabca3655b4303283a98f7dc6e",
+        "src/platform/worker.ts": "dbccbeebd3eca3c9736ba4f2dc11eed87d378288d558657da38ab528c3f4c62b",
+        "src/posting/dto/posting.dto.ts": "59310289db4a147a6380c357fedb54d0e8c72ba3cb33be074efbccc9d7e1a576",
+        "src/posting/posting-like.controller.ts": "18bc8fcab75958ce5aaaaedd1368961d960763431d1e12e2d111ede63d874d21",
+        "src/posting/posting-like.service.ts": "4432b75cb07659a461d66f27ad94fc917776af7ae3d73f7d270aaa9828554696",
+        "src/posting/posting.controller.ts": "fe493a2203aa43938a801e6b7ad31f715149c9bbdbc94c5a02d221b8df7d0407",
+        "src/posting/posting.module.ts": "588f6f3f11196e3bc5e7a20da2ea5f4cd122030d013e42fac2c4b33ed812d25f",
+        "src/posting/posting.service.ts": "528a98dc1c7dad50602d94ec595607b477cb18e7e839d3ac0950377f6e24c222",
+        "src/prisma/prisma.module.ts": "02b450aceff810c4e49bf6d038ca599d2044bf608d757e17d0394e620abdfa1a",
+        "src/prisma/prisma.service.ts": "34731afef83f55ad8bdf484fa7dcb0054179ee9be3494cf2a45e5ff98c2dc937",
+        "src/subscription/dto/subscription.dto.ts": "ee46c58d24a61eaa4ed91172e7e0c5b2b3a8366f0a01fdbcf42648c94340194c",
+        "src/subscription/subscription.controller.ts": "9a4731df902def9fcb7116d5f2c7e4b1427930f6a86f716e4a5d9cd721d12466",
+        "src/subscription/subscription.module.ts": "0a0d705c92d13b4c00030f482adaa25340eed2db947fa2f66d9a02e0407488a9",
+        "src/subscription/subscription.service.ts": "14ad15a616edde3393b44935d045e714e14d9dd23a90e1ee79ee66e33275bab4",
+        "src/token/token.module.ts": "3d72893bf85b74946af014b2dbbe2720fa040dc868dd7f087379048588f58b6b",
+        "src/token/token.service.ts": "5020358594d372a66ccd1145a7d91a8d99347266fc4eed4d909c9b7b921c0205",
+        "src/user/dto/creator-application.dto.ts": "3d514a54f95d03728d9e461fabf1cc219d7aad0d18f745ee01d032fa8805b2b2",
+        "src/user/dto/user.dto.ts": "2545394ee2d63878a94f6e1c03069bf0693b097969f9287750c2079d324101f2",
+        "src/user/user.controller.ts": "215fd0919f0c984d041754dc0cc15c54bab120741e0225887612e45a50ea51a1",
+        "src/user/user.module.ts": "d458148402b41f763e8c84ef8f676c19d877469a4f5653380af990f0f228929c",
+        "src/user/user.service.ts": "f0e10d8fef277dd9c7d587d05d8286f7cf3006c38c15f02fee182732ed99e86d",
+        "src/wallet/dto/wallet.dto.ts": "fedd56b8815d140ff8c7dca897dff0db3ecae95704fcc7270c042e82365ccab9",
+        "src/wallet/wallet.controller.ts": "9431eef11810dd5275eb3cf64386dc05a0993edb022f1bd2be499ba15d68820b",
+        "src/wallet/wallet.module.ts": "53cdb857bec7fac16bed8294d0ed9268daeb764ce5137fcfa4d4848a11f6c1bc",
+        "src/wallet/wallet.service.ts": "359397ec4de375e9c679e148bc2f3da5d9f73e61c8fe83b95758994a1549a8a2",
+        "tsconfig.json": "eb51473ff1a63eed2f1c8777ce0d01f9fb05d413a4f76ed673af9f26d4bc40d4",
+        "infra/platform/Dockerfile": "7cf2608ddafe43fa28128c2204025fafdf3d4ae3ef17339ea357552b0f8d6c9c"
+      }
+    }
+  },
+  "acceptanceCriteria": [
+    "30 uses skewer without multiplier;50 uses zipper bag; no ×10 UI or orphan multiplier CSS.",
+    "All9 recharge options display VAT 포함 가격 and quantity×110 KRW. Mock and server orders match.",
+    "Server rejects tampered/missing VAT amounts for new orders; persisted legacy orders retain original amounts.",
+    "Money price changes do not increase bean quantity or creator cash-out value;100KRW basis/20% fee/min1000 unchanged.",
+    "Shared preview/service UI, production asset bytes and actual server runtime policy agree.",
+    "Only frontend/API/worker images change; migration, financial policy, non-release configuration and DB/admin/proxy preserved."
+  ],
+  "sourceDelta": {
+    "front": {
+      "changed": [
+        "components/crefans/BeanChargePage.tsx",
+        "components/crefans/BeanPages.tsx",
+        "components/crefans/beans.module.css",
+        "components/preview/service/useMockBeans.ts"
+      ],
+      "added": [
+        "lib/crefans/bean-pricing.ts"
+      ],
+      "removed": []
+    },
+    "server": {
+      "changed": [
+        "src/platform/bean-policy.ts",
+        "src/platform/beans.service.ts"
+      ],
+      "added": [],
+      "removed": []
+    }
+  },
+  "pricing": {
+    "chargeKrwPerBean": 110,
+    "referenceValueKrw": 100,
+    "withdrawalFeeBps": 2000,
+    "minimumWithdrawalBeans": 1000,
+    "options": [
+      {
+        "quantity": 10,
+        "amount": 1100,
+        "label": "VAT 포함 가격"
+      },
+      {
+        "quantity": 30,
+        "amount": 3300,
+        "label": "VAT 포함 가격"
+      },
+      {
+        "quantity": 50,
+        "amount": 5500,
+        "label": "VAT 포함 가격"
+      },
+      {
+        "quantity": 100,
+        "amount": 11000,
+        "label": "VAT 포함 가격"
+      },
+      {
+        "quantity": 300,
+        "amount": 33000,
+        "label": "VAT 포함 가격"
+      },
+      {
+        "quantity": 500,
+        "amount": 55000,
+        "label": "VAT 포함 가격"
+      },
+      {
+        "quantity": 1000,
+        "amount": 110000,
+        "label": "VAT 포함 가격"
+      },
+      {
+        "quantity": 5000,
+        "amount": 550000,
+        "label": "VAT 포함 가격"
+      },
+      {
+        "quantity": 10000,
+        "amount": 1100000,
+        "label": "VAT 포함 가격"
+      }
+    ],
+    "legacyOrders": "Original stored amount remains authoritative; no data rewrite."
+  },
+  "research": {
+    "checkedAt": "2026-10-25",
+    "sources": [
+      {
+        "url": "https://docs.tosspayments.com/guides/v2/learn/tax",
+        "finding": "Taxable payment total includes supply plus VAT; VAT calculation uses total less exempt amount divided by11. Merchant tax type is contractual."
+      },
+      {
+        "url": "https://docs.tosspayments.com/guides/v2/payment-window/integration",
+        "finding": "Request and approval amounts must match stored order; authenticate then confirm on server."
+      }
+    ],
+    "application": "User-approved charge price110KRW with VAT-inclusive label. Existing PG amount validation and contract handling retained; this is not certification of merchant tax classification or revenue recognition."
+  },
+  "commands": [
+    {
+      "command": "npm run check",
+      "startedAt": "2026-10-25T13:38:20.126198+00:00",
+      "finishedAt": "2026-10-25T13:38:30.376122+00:00",
+      "exitCode": 0,
+      "log": "/Users/ethan/repository/crefans_front/.local/bean-vat-deploy-20261025/check.log",
+      "sha256": "9eb4a3a44301f29b04f42fb43bde69d54b19819bac52d902207dfd4c0754b778"
+    },
+    {
+      "command": "npm run test:beans",
+      "startedAt": "2026-10-25T13:38:20.127364+00:00",
+      "finishedAt": "2026-10-25T13:38:31.372079+00:00",
+      "exitCode": 0,
+      "log": "/Users/ethan/repository/crefans_server/.local/bean-vat-deploy-20261025/test-beans.log",
+      "sha256": "a899a0afa76a7bbc5a69667dc9bae171a1fcd1a55b373b0a96550efa8215fca4"
+    },
+    {
+      "command": "npx playwright test e2e/beans.spec.ts --project=chromium",
+      "startedAt": "2026-10-25T13:39:04.158326+00:00",
+      "finishedAt": "2026-10-25T13:39:30.958541+00:00",
+      "exitCode": 0,
+      "log": "/Users/ethan/repository/crefans_front/.local/bean-vat-deploy-20261025/e2e.log",
+      "sha256": "e4649c86c059694939b3fce9d2f0924109f13dffffbeafc7807d3b512ff78d59"
+    }
+  ],
+  "tests": {
+    "frontend": 329,
+    "serverBeanLedgerAndContract": 30,
+    "isolatedDbProviderDoubleE2E": 4,
+    "localBrowser": {
+      "at": "2026-10-25T13:39:16.026Z",
+      "origin": "http://127.0.0.1:3010",
+      "results": [
+        {
+          "engine": "chromium",
+          "width": 360,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        },
+        {
+          "engine": "chromium",
+          "width": 767,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        },
+        {
+          "engine": "chromium",
+          "width": 1280,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        }
+      ],
+      "errors": [],
+      "scope": "Mock state transitions and anonymous actual route only; no real charge"
+    },
+    "productionBrowser": {
+      "at": "2026-10-25T13:45:17.456Z",
+      "origin": "https://beta.crefans.com",
+      "results": [
+        {
+          "engine": "chromium",
+          "width": 360,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        },
+        {
+          "engine": "chromium",
+          "width": 767,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        },
+        {
+          "engine": "chromium",
+          "width": 1280,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "loadedImages": 9,
+          "correctAssets": true,
+          "vatLabels": 9,
+          "prices": [
+            {
+              "quantity": 10,
+              "amount": 1100
+            },
+            {
+              "quantity": 30,
+              "amount": 3300
+            },
+            {
+              "quantity": 50,
+              "amount": 5500
+            },
+            {
+              "quantity": 100,
+              "amount": 11000
+            },
+            {
+              "quantity": 300,
+              "amount": 33000
+            },
+            {
+              "quantity": 500,
+              "amount": 55000
+            },
+            {
+              "quantity": 1000,
+              "amount": 110000
+            },
+            {
+              "quantity": 5000,
+              "amount": 550000
+            },
+            {
+              "quantity": 10000,
+              "amount": 1100000
+            }
+          ],
+          "multipliers": 0,
+          "imageSelection": true,
+          "keyboardSelection": true,
+          "mockCharge": true,
+          "noOverflow": true,
+          "anonymousGuard": true
+        }
+      ],
+      "errors": [],
+      "scope": "Mock state transitions and anonymous actual route only; no real charge"
+    }
+  },
+  "builds": [
+    {
+      "label": "server",
+      "tag": "crefans-api:bean-vat-20261025",
+      "startedAt": "2026-10-25T13:40:34.753830+00:00",
+      "finishedAt": "2026-10-25T13:41:50.209961+00:00",
+      "exitCode": 0
+    },
+    {
+      "label": "front",
+      "tag": "crefans-front:bean-vat-20261025",
+      "startedAt": "2026-10-25T13:40:34.755032+00:00",
+      "finishedAt": "2026-10-25T13:42:15.371647+00:00",
+      "exitCode": 0
+    }
+  ],
+  "deployment": {
+    "command": "ssh private verified host: sudo -n bash /home/ubuntu/crefans-bean-vat-20261025/deploy.sh",
+    "startedAt": "2026-10-25T13:43:50.482134+00:00",
+    "finishedAt": "2026-10-25T13:44:01.362763+00:00",
+    "exitCode": 0,
+    "scope": "frontend/API/worker only; no database migration"
+  },
+  "production": {
+    "at": "2026-10-25T13:45:00.668060+00:00",
+    "http": [
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/bootstrap",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/me",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/studio/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/creator/moka",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/signup",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/beans/wallet",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://admin.crefans.com/api/v1/admin/beans/overview",
+        "status": 401,
+        "expected": 401
+      }
+    ],
+    "containers": {
+      "crefans-beta-api-1": {
+        "id": "68b7b575e148e202cf3d0c9c6a85ef053fdc518fa53898223b8552afb3790c84",
+        "image": "sha256:c4d3c294d5fe96e009a8c38254aa5aaaa7126f17bc0cc6ce8f022f708034de78",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "03cff259e79fca8bf9b6611aac1e34cb9bd0e9f12b555e3ced8c3eb96d65a7a8",
+        "image": "sha256:c4d3c294d5fe96e009a8c38254aa5aaaa7126f17bc0cc6ce8f022f708034de78",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-frontend-1": {
+        "id": "433d8dadf43d029b9d17f1678e7ec03ec51a72725834f172d7506c0e1b5db366",
+        "image": "sha256:189335773ab657b88d5f54cdfb2632d3ba97ddda1e20d2f1257c011a6aaa87cd",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "78b88fd041adf7851e55e8c122f5314a0ba52f66a30318dd7a6cc341ec626b70",
+        "image": "sha256:7b191b4298d3b6548dff2a96163f2ac1fd72a187f81d425e0b90d67e4a391649",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      }
+    },
+    "runningSourceHashes": {
+      "server": 196,
+      "front": 610
+    },
+    "runtime": {
+      "at": "2026-10-25T13:45:08.515Z",
+      "flags": {
+        "APP_RELEASE": "bean-vat-20261025",
+        "BETA_MODE": "true",
+        "BEAN_LEDGER_ENABLED": "true",
+        "BEAN_LIVE_PAYMENTS_APPROVED": "false",
+        "BANK_PAYOUTS_ENABLED": "false",
+        "MARKETING_MAIL_ENABLED": "false",
+        "SIGNUP_IDENTITY_MODE": "email-only",
+        "CREFANS_E2E": "false",
+        "MEDIA_STORAGE": "s3"
+      },
+      "counts": {
+        "members": 1,
+        "creators": 0,
+        "orders": 0,
+        "charges": 0,
+        "tips": 0,
+        "payouts": 0
+      },
+      "migrations": [
+        {
+          "migration_name": "0_init",
+          "checksum": "3833bea35684a61c3d59c5f04b590d6f34ca459b9220fd0425cb0a0356904219"
+        },
+        {
+          "migration_name": "20260910000000_local_members",
+          "checksum": "3076434a542b6badcf5549fd713cf7a3a9ffcbc7dd5606d92d617873d3ee471a"
+        },
+        {
+          "migration_name": "20261007000000_platform_v1",
+          "checksum": "4076884920bbaa5c0bab99d08a9fa4db1e39f48779f66d84dfa7b9ddb238ba01"
+        },
+        {
+          "migration_name": "20261007010000_platform_hardening",
+          "checksum": "14b6ef2d8e6eb443a6afc08b7d6a0e4e0c5c58a5946680848f905fe4129abdcc"
+        },
+        {
+          "migration_name": "20261007020000_platform_jobs",
+          "checksum": "e0b23da51ac54a4143af2496c6d6da39912efb3f37a2c26345f341475e0a6008"
+        },
+        {
+          "migration_name": "20261007030000_platform_completion",
+          "checksum": "2b7f8288195ee6b81160d9047bac6435abc87019eda946953106694cc14ac6f4"
+        },
+        {
+          "migration_name": "20261007040000_platform_audit",
+          "checksum": "f46af57baf903d9c9164518917a08e9bd799666f51f1cc7ff7316c5619b6f82b"
+        },
+        {
+          "migration_name": "20261007050000_platform_age_gate",
+          "checksum": "1445731150a5fa2045bbaa7c3bfeb83a8f4dad46d6159396d1261708269d24dc"
+        },
+        {
+          "migration_name": "20261007060000_billing_registration",
+          "checksum": "8565a40c6393a36834870fd41f362d699ebd507346a7f87fad53eb4d9f419ef2"
+        },
+        {
+          "migration_name": "20261008000000_payment_lifecycle",
+          "checksum": "360fe0032ff09a9e7c48e0da34cd893b72d6fda87a26ccf58e4ad74b015357cc"
+        },
+        {
+          "migration_name": "20261021070000_unused_content_refund",
+          "checksum": "5d1e2290f77bcc448a8eccd4e2270600f339f38422fd7b4a56714d666887ad98"
+        },
+        {
+          "migration_name": "20261021080000_db_financial_policy",
+          "checksum": "80ba545b2b74906641d70418e33119d00ae3d80116ff68865b8c6d90580d7c95"
+        },
+        {
+          "migration_name": "20261021160000_platform_security_ip",
+          "checksum": "1dfd3a3c4b1fc8147ea840c23772fef342810e6f683c65b66da21d663c4670e6"
+        },
+        {
+          "migration_name": "20261021161000_operational_events",
+          "checksum": "0ce6cf718f5ee4497dc90300d3c97e61a070e379cf58eb3b3df6b34bc9aa8701"
+        },
+        {
+          "migration_name": "20261022020000_audit_logs",
+          "checksum": "c3312aca7d23bfd77a2c71c497dc1e26a2b2570d575f5e6cf1fc446f91e06eef"
+        },
+        {
+          "migration_name": "20261022030000_billing_recovery",
+          "checksum": "67e4f2729a36db3717d8ecc234c6a5dd2c3936b76e27a1cc43c2c0e4b6e66b47"
+        },
+        {
+          "migration_name": "20261024120000_creator_verification",
+          "checksum": "8cbf4a870e12e5199ee2b6823edeb9e00d88a7ffd18f58cf4c3c74cf5d0155dc"
+        },
+        {
+          "migration_name": "20261025100000_beta_policy",
+          "checksum": "1fd23a64220156108978d59061d2fcdb62022c6c44e10145d069c2258f069f90"
+        },
+        {
+          "migration_name": "20261025110000_marketing_delivery_claim",
+          "checksum": "be6b7ae38fe19d5dea989193316c5d60a58cb9565c913040d64603110b183573"
+        },
+        {
+          "migration_name": "20261025120000_bean_ledger",
+          "checksum": "887ae3eb12b4543c8ee08341931f2b0869e81ea4d209ed19cf2c3c3b1b08ce7f"
+        },
+        {
+          "migration_name": "20261025130000_bean_product",
+          "checksum": "ca637f1ac797c4bb43ff839a5f9bb82aba2392578e29eeb5d73c520988aa281f"
+        }
+      ],
+      "policy": {
+        "version": 2,
+        "feeBps": 2000,
+        "holdDays": 7
+      },
+      "worker": {
+        "id": "worker-health",
+        "locked_until": "2026-10-21T08:22:45.481Z",
+        "completed_at": "2026-10-25T13:44:58.065Z",
+        "note": "{\"failures\":{}}"
+      }
+    },
+    "unchangedMigrationsCountsAndFinancialPolicy": true,
+    "newWorkerHeartbeat": {
+      "startedAt": "2026-10-25T13:43:55.987975066Z",
+      "completedAt": "2026-10-25T13:44:58.065Z",
+      "failures": {}
+    },
+    "signup": {
+      "identityRequired": false,
+      "inviteOnly": true,
+      "signupReady": false
+    },
+    "assetChecks": [
+      {
+        "quantity": 10,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v6/10.png",
+        "sha256": "0fe3947fb4da0ca2d386cce829574a2058f02a8aa995d57e630fc61fd64bd5e5"
+      },
+      {
+        "quantity": 30,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v5/50.png",
+        "sha256": "c6a13ccd77aa2d5212977068819a4cb394ee38e1839c27446fac16b2c3cc2c18"
+      },
+      {
+        "quantity": 50,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v6/30.png",
+        "sha256": "53275dcb2a6ffad2af818e169505cd99c431c0c8226d00cf68928de4d4a34f65"
+      },
+      {
+        "quantity": 100,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v7/100.png",
+        "sha256": "8edaa470a4fd3d8e4c16c541f581137ad6e9157179731002c5d64e849f367e54"
+      },
+      {
+        "quantity": 300,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v5/300.png",
+        "sha256": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28"
+      },
+      {
+        "quantity": 500,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v7/500.png",
+        "sha256": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c"
+      },
+      {
+        "quantity": 1000,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v7/1000.png",
+        "sha256": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d"
+      },
+      {
+        "quantity": 5000,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v5/5000.png",
+        "sha256": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e"
+      },
+      {
+        "quantity": 10000,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v7/10000.png",
+        "sha256": "3fdb1bdec8d9480fd658dd8ea1ae6f332caea0feedc582e23608eb2559240700"
+      }
+    ],
+    "deployedBeanPolicy": {
+      "krwPerBean": 100,
+      "chargeKrwPerBean": 110,
+      "withdrawalFeeBps": 2000,
+      "minimumWithdrawalKrw": 100000,
+      "minimumWithdrawalBeans": 1000,
+      "consumptionOrder": [
+        "promotion",
+        "purchased"
+      ],
+      "withdrawableBucket": "earned-paid",
+      "promotionCashWithdrawal": false,
+      "purchasedCashWithdrawal": false
+    }
+  },
+  "visualReview": [
+    "Local Chromium390 grid andPC1280 inspected",
+    "Production WebKit390 andChromium1280 inspected"
+  ],
+  "screenshots": [
+    "docs/design/bean-vat.mobile.png",
+    "docs/design/bean-vat.desktop.png"
+  ],
+  "limits": [
+    "Actual PG approval/merchant tax-type/real payment or payout not exercised. Existing live-sale and payout gates stay off.",
+    "E2E uses isolated MySQL and synthetic PG/bank providers, not real third-party transactions.",
+    "Mobile WebKit viewport is not a physical iPhone test.",
+    "No database migration, image pixel regeneration, commit or push."
+  ],
+  "rollback": {
+    "frontend": "crefans-front:bean-icons-v7-20261025",
+    "apiWorker": "crefans-api:bean-wallet-20261025",
+    "settingsBackup": "/opt/crefans-backup-bean-vat-20261025"
+  },
+  "archiveCleanup": {
+    "at": "2026-10-25T13:37:05.029120+00:00",
+    "scope": "Superseded generated transfer archives only. Source, logs, current images and recovery configurations preserved.",
+    "files": [
+      {
+        "path": ".local/featured-icon-deploy-20261024/image.tar.gz",
+        "bytes": 514944425
+      },
+      {
+        "path": ".local/gnb-unread-deploy-20261024/image.tar.gz",
+        "bytes": 515318589
+      },
+      {
+        "path": ".local/settings-divider-color-deploy-20261024/image.tar.gz",
+        "bytes": 514663851
+      },
+      {
+        "path": ".local/follow-toggle-deploy-20261024/image.tar.gz",
+        "bytes": 515017931
+      },
+      {
+        "path": ".local/gallery-comments-deploy-20261024/image.tar.gz",
+        "bytes": 514586641
+      },
+      {
+        "path": ".local/creator-search-deploy-20261024/image.tar.gz",
+        "bytes": 514527522
+      },
+      {
+        "path": ".local/featured-tooltip-deploy-20261024/image.tar.gz",
+        "bytes": 515277547
+      },
+      {
+        "path": ".local/collection-back-deploy-20261024/image.tar.gz",
+        "bytes": 514607522
+      }
+    ]
+  },
+  "transfer": {
+    "at": "2026-10-25T13:43:50.481206+00:00",
+    "remoteGeneratedArchiveRemovedAfterVerifiedLoad": true,
+    "localArchiveCreated": false
+  }
+}

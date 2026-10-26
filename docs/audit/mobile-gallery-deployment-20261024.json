@@ -1,0 +1,166 @@
+{
+  "verifiedAt": "2026-10-23T23:49:08.819644+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "workingTreeDirty": true,
+  "target": "https://beta.crefans.com",
+  "featureEvidence": "docs/audit/mobile-gallery-sheet-20261024.json",
+  "build": {
+    "command": [
+      "docker",
+      "--config",
+      "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "-f",
+      "infra/platform/Dockerfile",
+      "-t",
+      "crefans-front:mobile-gallery-sheet-20261024",
+      "."
+    ],
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "workingTreeDirty": true,
+    "changedRuntimeFiles": [
+      "components/crefans/SocialPages.tsx",
+      "components/crefans/social.module.css",
+      "components/design-system/ServicePatternCatalog.tsx"
+    ],
+    "startedAt": "2026-10-23T23:43:08.950014+00:00",
+    "finishedAt": "2026-10-23T23:44:39.911148+00:00",
+    "exitCode": 0
+  },
+  "image": {
+    "at": "2026-10-23T23:44:47.082187+00:00",
+    "imageId": "sha256:3d3922a2a4e315014cb464554c050c781f7a1d475686f0f4329eb26eac2a1e0a",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 473
+  },
+  "source": {
+    "runtimeFilesMatched": 473,
+    "manifestSha256": "63eee9eee2ed95d18f88c714060c4fbbfde586966f52e23edfe521b68970c7a2",
+    "changedFiles": {
+      "components/crefans/SocialPages.tsx": "313206c5a3a9ca7e31f09d611834dad6176c79698e9fdcc47f82dd3b51229b75",
+      "components/crefans/social.module.css": "3754f821cf3fbe5283a8199a91d14af9ed2d43c77a5c9b9a937c3010090b7d8d",
+      "components/design-system/ServicePatternCatalog.tsx": "7e90f6733953e7d0be5302475cda3a69b70385cf097f8125de5a2ee407bd4bb9"
+    },
+    "recheckedAfterDeployment": true
+  },
+  "deployment": {
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-23T23:45:20.366941+00:00",
+        "finishedAt": "2026-10-23T23:45:21.712313+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-23T23:45:21.712989+00:00",
+        "finishedAt": "2026-10-23T23:45:29.675113+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-23T23:45:29.675781+00:00",
+        "finishedAt": "2026-10-23T23:45:41.662365+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-23T23:45:41.663125+00:00",
+        "finishedAt": "2026-10-23T23:45:48.302878+00:00",
+        "exitCode": 0
+      }
+    ],
+    "result": {
+      "frontendImage": "sha256:3d3922a2a4e315014cb464554c050c781f7a1d475686f0f4329eb26eac2a1e0a",
+      "running": true,
+      "restarts": 0,
+      "preservedServices": [
+        "database",
+        "api",
+        "worker",
+        "admin",
+        "proxy"
+      ]
+    },
+    "httpRoutesPassed": 9,
+    "apiHealthPassed": true,
+    "frontendOnly": true
+  },
+  "builtImageE2E": {
+    "startedAt": "2026-10-23T23:44:49.685154+00:00",
+    "finishedAt": "2026-10-23T23:44:57.951273+00:00",
+    "exitCode": 0,
+    "scope": "Built production image on loopback3013; preview interactions only",
+    "command": [
+      "npx",
+      "playwright",
+      "test",
+      "--config",
+      ".local/mobile-gallery-deploy-20261024/image-playwright.config.ts"
+    ],
+    "passed": 3,
+    "failed": 0
+  },
+  "productionE2E": {
+    "command": [
+      "npx",
+      "playwright",
+      "test",
+      "--config",
+      ".local/mobile-gallery-deploy-20261024/production-playwright.config.ts"
+    ],
+    "startedAt": "2026-10-23T23:46:07.623421+00:00",
+    "finishedAt": "2026-10-23T23:46:17.006859+00:00",
+    "exitCode": 0,
+    "logSha256": "eaa2a7ddd090d4e21ddc2a98a5b51ecbc6e00d94f7df92ab51cc6066c8a7cb83",
+    "scope": "https://beta.crefans.com/preview/creator/haneul; shared gallery UI only; no live account or payment mutation",
+    "passed": 3,
+    "failed": 0,
+    "projects": [
+      "desktop Chromium",
+      "mobile Chromium",
+      "mobile WebKit"
+    ]
+  },
+  "manualBrowser": {
+    "at": "2026-10-23T23:46:37.610Z",
+    "url": "https://beta.crefans.com/preview/creator/moka",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "dragModes": [
+      0,
+      1,
+      2
+    ],
+    "errors": [],
+    "method": "Native pointer drag, observed rendered labels and three screenshots"
+  },
+  "rollback": {
+    "previousImage": "crefans-front:mobile-14px-20261024",
+    "configurationBackup": "/opt/crefans-backup-mobile-gallery-sheet-20261024"
+  },
+  "temporarySshAccess": {
+    "originalPermissionsRestored": true
+  },
+  "artifactHashes": {
+    "build.log": "233bcc7125e4acdd6c0745c2b3b474b2bebc76a8972a0768983335a91e774a03",
+    "image-e2e.log": "773e403bb5f9585b12d3d21dd9be4e4b6696ac98e1578599816b820c297b9200",
+    "final-deploy.log": "3d80adf3249df8be9f13d3b20f5aae60a4ba91efb3df417147f1ebda9512d531",
+    "production-e2e.log": "eaa2a7ddd090d4e21ddc2a98a5b51ecbc6e00d94f7df92ab51cc6066c8a7cb83",
+    "production-default.png": "1485c5e128e33d74e87c637c9e238094ef8dd10ee0f453298e6ca1c6620ab1ad",
+    "production-compact.png": "c5436f3d9d0ebfde82532cb020567d552724df38d8d80633f336753acf4c617d",
+    "production-full.png": "c4559ec0f9d2a1c8a7914931caa4b8f90bc2f7251389059944c68d306dc490ec"
+  },
+  "localArtifacts": "/Users/ethan/repository/crefans_front/.local/mobile-gallery-deploy-20261024",
+  "limits": [
+    "Physical iPhone Safari was not tested. Mobile WebKit used pointer input and focus-induced panel scrolling; Chromium used CDP touch input.",
+    "Browser interaction checks used production-hosted preview data with the same shared PostOverlay as /service. No live accounts, payments or API records were mutated.",
+    "Deployment used the verified uncommitted feature working tree; no commit, merge or push was performed."
+  ]
+}

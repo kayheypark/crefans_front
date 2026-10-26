@@ -1,0 +1,116 @@
+{
+  "checkedAt": "2026-10-26T00:36:53.686080+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/bean-support",
+  "workingTree": "dirty; existing work preserved",
+  "scope": "Green multicolor wallet charge CTA; CSS only",
+  "sha256": "46149ec4ae7502e8b91622e4129e32d891043cb6456eabe7e303293f59689dd6",
+  "file": "components/crefans/beans.module.css",
+  "command": "node .local/bean-charge-green-blend-20261026/verify.cjs",
+  "environment": "Existing local Next dev3010; Chromium390/1280,WebKit390",
+  "exitCode": 0,
+  "results": {
+    "checkedAt": "2026-10-26T00:36:42.464Z",
+    "rows": [
+      {
+        "name": "chromium",
+        "width": 390,
+        "background": "linear-gradient(110deg, rgb(72, 128, 12) 0%, rgb(22, 129, 60) 36%, rgb(7, 129, 100) 70%, rgb(11, 117, 123) 100%)",
+        "color": "rgb(255, 255, 255)",
+        "height": 60,
+        "svgs": 0,
+        "images": [
+          {
+            "src": "/brand/beans/soft3d-v2/10.png",
+            "width": 1254
+          }
+        ],
+        "overflow": false,
+        "errors": [],
+        "screenshot": ".local/bean-charge-green-blend-20261026/chromium-390.png"
+      },
+      {
+        "name": "chromium",
+        "width": 1280,
+        "background": "linear-gradient(110deg, rgb(72, 128, 12) 0%, rgb(22, 129, 60) 36%, rgb(7, 129, 100) 70%, rgb(11, 117, 123) 100%)",
+        "color": "rgb(255, 255, 255)",
+        "height": 60,
+        "svgs": 0,
+        "images": [
+          {
+            "src": "/brand/beans/soft3d-v2/10.png",
+            "width": 1254
+          }
+        ],
+        "overflow": false,
+        "errors": [],
+        "screenshot": ".local/bean-charge-green-blend-20261026/chromium-1280.png"
+      },
+      {
+        "name": "webkit",
+        "width": 390,
+        "background": "linear-gradient(110deg, rgb(72, 128, 12) 0%, rgb(22, 129, 60) 36%, rgb(7, 129, 100) 70%, rgb(11, 117, 123) 100%)",
+        "color": "rgb(255, 255, 255)",
+        "height": 60,
+        "svgs": 0,
+        "images": [
+          {
+            "src": "/brand/beans/soft3d-v2/10.png",
+            "width": 1254
+          }
+        ],
+        "overflow": false,
+        "errors": [],
+        "screenshot": ".local/bean-charge-green-blend-20261026/webkit-390.png"
+      }
+    ]
+  },
+  "contrast": [
+    {
+      "color": "#48800c",
+      "brightness": 1,
+      "whiteContrast": 4.81
+    },
+    {
+      "color": "#48800c",
+      "brightness": 1.02,
+      "whiteContrast": 4.65
+    },
+    {
+      "color": "#16813c",
+      "brightness": 1,
+      "whiteContrast": 4.95
+    },
+    {
+      "color": "#16813c",
+      "brightness": 1.02,
+      "whiteContrast": 4.79
+    },
+    {
+      "color": "#078164",
+      "brightness": 1,
+      "whiteContrast": 4.85
+    },
+    {
+      "color": "#078164",
+      "brightness": 1.02,
+      "whiteContrast": 4.69
+    },
+    {
+      "color": "#0b757b",
+      "brightness": 1,
+      "whiteContrast": 5.46
+    },
+    {
+      "color": "#0b757b",
+      "brightness": 1.02,
+      "whiteContrast": 5.29
+    }
+  ],
+  "notPerformed": [
+    "deployment",
+    "financial E2E rerun",
+    "actual payment"
+  ]
+}

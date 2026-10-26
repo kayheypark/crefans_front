@@ -1,0 +1,251 @@
+{
+  "createdAt": "2026-10-25T08:07:53.852Z",
+  "tool": "built-in image_gen",
+  "reference": "/Users/ethan/repository/crefans_front/docs/design/bean-soft3d-open-eight-v1.png",
+  "scope": "Nine separate transparent quantity assets and two optional alternatives; UI/deployment unchanged",
+  "outputs": [
+    {
+      "key": "10",
+      "quantity": 10,
+      "count": 1,
+      "motif": "one bean",
+      "detail": "Exactly ONE large mint bean token standing at a slight playful tilt. No container, stick or other objects.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: Exactly ONE large mint bean token standing at a slight playful tilt. No container, stick or other objects.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-7f01eac2-96f7-480f-be9d-76fdc840a944.png",
+      "destination": "public/brand/beans/soft3d-v2/10.png",
+      "sha256": "9c83f0e87d0572a3efac55a5e7383c4485f9e15f3d7646c4c0612e9c6a6728d5",
+      "bytes": 716119,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 1,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "30",
+      "quantity": 30,
+      "count": 2,
+      "motif": "two beans",
+      "detail": "Exactly TWO large matching mint bean tokens in a loose balanced side-by-side arrangement, with distinct silhouettes and slight space between them. No container or stick.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: Exactly TWO large matching mint bean tokens in a loose balanced side-by-side arrangement, with distinct silhouettes and slight space between them. No container or stick.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-53ff03e3-5a33-4929-9903-4115a7be7185.png",
+      "destination": "public/brand/beans/soft3d-v2/30.png",
+      "sha256": "3f289d986281efb8401f355d859fa36fb41d98ff1e68c4c099109b951bcd48a3",
+      "bytes": 640688,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 2,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "50",
+      "quantity": 50,
+      "count": 3,
+      "motif": "three beans",
+      "detail": "Exactly THREE large matching mint bean tokens in a loose airy triangular arrangement; each bean has a clear silhouette, not a pile. No other objects.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: Exactly THREE large matching mint bean tokens in a loose airy triangular arrangement; each bean has a clear silhouette, not a pile. No other objects.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-a3f3228a-80b6-4a9b-9a3d-78efb67dd053.png",
+      "destination": "public/brand/beans/soft3d-v2/50.png",
+      "sha256": "64964f5d26f82da3a2c618dd8bc8f0dc7c52b664b4cca8c92012dad261157efc",
+      "bytes": 793868,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 3,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "100",
+      "quantity": 100,
+      "count": 5,
+      "motif": "five-bean skewer",
+      "detail": "ONE slim light bamboo skewer threaded through exactly FIVE matching large mint bean tokens, arranged evenly along a graceful lower-left to upper-right diagonal. All FIVE countable, with small gaps between them. Keep bean kidney shapes, not spheres or mochi balls. Show stick at both ends, no damage or realistic holes.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: ONE slim light bamboo skewer threaded through exactly FIVE matching large mint bean tokens, arranged evenly along a graceful lower-left to upper-right diagonal. All FIVE countable, with small gaps between them. Keep bean kidney shapes, not spheres or mochi balls. Show stick at both ends, no damage or realistic holes.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-19124a94-e55e-440d-8396-5c4c812d1444.png",
+      "destination": "public/brand/beans/soft3d-v2/100.png",
+      "sha256": "aa6e75abd572008ec7971451dd5c4c2e3dd1043a3dac59949b142feae0ff9319",
+      "bytes": 581647,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "300",
+      "quantity": 300,
+      "count": 5,
+      "motif": "wooden basket",
+      "detail": "ONE shallow warm honey-wood/bamboo sokuri basket containing exactly FIVE chunky mint bean tokens in one loose shallow arrangement. Elevated view so all5 can be counted. Basket weave uses only a handful of broad clean strips, no fine wicker or many tiny intersections. No handle. Not overflowing.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: ONE shallow warm honey-wood/bamboo sokuri basket containing exactly FIVE chunky mint bean tokens in one loose shallow arrangement. Elevated view so all5 can be counted. Basket weave uses only a handful of broad clean strips, no fine wicker or many tiny intersections. No handle. Not overflowing.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-d0a326f7-7935-4ca8-a3e0-423767da1f1c.png",
+      "destination": "public/brand/beans/soft3d-v2/300.png",
+      "sha256": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28",
+      "bytes": 1159805,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "500",
+      "quantity": 500,
+      "count": 5,
+      "motif": "silk bundle",
+      "detail": "ONE OPEN cream-colored SILK BOJAGI cloth bundle containing exactly FIVE large mint beans. Fabric corners fold outward to reveal all5. Add broad elegant mint edging and a very subtle silk sheen over smooth simplified folds, no realistic fibers or lace, no dense decorations. Luxurious little Korean wrapped bundle, no drawstrings or handles, never tied shut.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: ONE OPEN cream-colored SILK BOJAGI cloth bundle containing exactly FIVE large mint beans. Fabric corners fold outward to reveal all5. Add broad elegant mint edging and a very subtle silk sheen over smooth simplified folds, no realistic fibers or lace, no dense decorations. Luxurious little Korean wrapped bundle, no drawstrings or handles, never tied shut.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-85dba634-42e1-4981-910a-fcf1e0e59719.png",
+      "destination": "public/brand/beans/soft3d-v2/500.png",
+      "sha256": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+      "bytes": 1444472,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "1000",
+      "quantity": 1000,
+      "count": 5,
+      "motif": "wooden treasure chest",
+      "detail": "ONE OPEN warm honey-brown WOODEN treasure chest, rounded domed lid hinged back, two broad cream/gold bands and one simple latch. Exactly FIVE large mint beans visible inside in a loose shallow arrangement. A few broad plank divisions only, no grain noise. Small mint bean emblem on front, not a physical extra bean.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: ONE OPEN warm honey-brown WOODEN treasure chest, rounded domed lid hinged back, two broad cream/gold bands and one simple latch. Exactly FIVE large mint beans visible inside in a loose shallow arrangement. A few broad plank divisions only, no grain noise. Small mint bean emblem on front, not a physical extra bean.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-efbd8eb0-f626-4cbd-bb46-ec589ca34bf9.png",
+      "destination": "public/brand/beans/soft3d-v2/1000.png",
+      "sha256": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e",
+      "bytes": 1359765,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 4,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "5000",
+      "quantity": 5000,
+      "count": 5,
+      "motif": "silver treasure chest",
+      "detail": "ONE OPEN SILVER treasure chest, rounded domed lid hinged back. Clearly silver satin-metal body with soft cool-gray highlights, ivory trim and tiny mint accents. Exactly FIVE large mint beans visible inside in a loose shallow arrangement. Two broad clean metal bands and one simple latch, no filigree, jewel studs, coins or extra objects. Small mint bean emblem on front. Premium but restrained, not chrome mirror.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: ONE OPEN SILVER treasure chest, rounded domed lid hinged back. Clearly silver satin-metal body with soft cool-gray highlights, ivory trim and tiny mint accents. Exactly FIVE large mint beans visible inside in a loose shallow arrangement. Two broad clean metal bands and one simple latch, no filigree, jewel studs, coins or extra objects. Small mint bean emblem on front. Premium but restrained, not chrome mirror.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-9b6c81cf-2761-4348-8455-a37fcec05893.png",
+      "destination": "public/brand/beans/soft3d-v2/5000.png",
+      "sha256": "a6a58aa195ee42060f215129212282ccd4c969ae02d57effab0999e594cae63f",
+      "bytes": 1574520,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "10000",
+      "quantity": 10000,
+      "count": 5,
+      "motif": "gold treasure chest",
+      "detail": "ONE OPEN GOLD treasure chest, rounded domed lid hinged back. Rich warm pale-gold satin-metal body, cream trim and a tiny mint bean emblem. Exactly FIVE large mint beans inside in a loose shallow arrangement, every bean countable. Two broad rounded gold bands, one simple latch, and at most ONE small decorative sparkle near the lid to suggest premium tier. No jewels/filigree/coins/ornate tiny details, no extra beans, never overflowing.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: ONE OPEN GOLD treasure chest, rounded domed lid hinged back. Rich warm pale-gold satin-metal body, cream trim and a tiny mint bean emblem. Exactly FIVE large mint beans inside in a loose shallow arrangement, every bean countable. Two broad rounded gold bands, one simple latch, and at most ONE small decorative sparkle near the lid to suggest premium tier. No jewels/filigree/coins/ornate tiny details, no extra beans, never overflowing.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-ef66d59c-6249-4cf1-95c0-2e61dfda73a5.png",
+      "destination": "public/brand/beans/soft3d-v2/10000.png",
+      "sha256": "b55985106da99db5d20e8b54dcfed67a8aeb5a82ed9b29ffdc17e6092937f534",
+      "bytes": 1462310,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "alternative-paper-box",
+      "alternativeFor": 500,
+      "count": 5,
+      "motif": "paper parcel alternative",
+      "detail": "ONE OPEN light-kraft cardboard parcel containing exactly FIVE large mint beans in one shallow loose arrangement. Four broad simple open flaps, a mint tape stripe and small flat mint bean emblem. Clear paper-box silhouette, soft rounded edges, no paper grain or shipping text. No ribbon. All5 visible.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: ONE OPEN light-kraft cardboard parcel containing exactly FIVE large mint beans in one shallow loose arrangement. Four broad simple open flaps, a mint tape stripe and small flat mint bean emblem. Clear paper-box silhouette, soft rounded edges, no paper grain or shipping text. No ribbon. All5 visible.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-58cda615-7184-4afa-8d90-7a4b905cb6b5.png",
+      "destination": "public/brand/beans/soft3d-v2/alternatives/paper-box.png",
+      "sha256": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+      "bytes": 1177311,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "alternative-double-skewer",
+      "alternativeFor": 300,
+      "count": 6,
+      "motif": "two-skewer alternative",
+      "detail": "Exactly TWO light bamboo skewers arranged as a loose parallel fan, each with exactly THREE matching mint bean tokens: SIX bean tokens TOTAL and no others. Distinct kidney silhouettes, small gaps, no intersection pile. Not5per stick: explicitly3on each of2sticks. Keep all6 countable, no10-bean composition. No container or other props.",
+      "prompt": "Use case: stylized-concept. Asset type: ONE separate production-ready CREFANS virtual bean currency illustration, transparent PNG. Use the reference board only for the matching smooth soft3D mint bean design, cream inlaid graphic mark, gently rounded volume and warm cream/wood palette. Extract/recompose ONLY the specified motif; do NOT copy the full board. Center a single coherent composition in a square with comfortable10–15% clear padding, fully visible, consistent gentle three-quarter front view, broad soft studio light, subtle contact shading, smooth satin-matte toy finish. Bean identity: plump mint-green kidney silhouette with one broad cream graphic inlay, not a realistic slit or seed crease. No faces, no pores, no wrinkles, no speckles, no grain or gritty texture, no wet shine. Large countable beans with space between silhouettes, never densely stacked. All containers must be OPEN to show3–5 large beans, never an implied hidden layer of many tiny beans. No loose beans outside containers, no scattered fragments, no dense repeated details, no10-or-more bean objects under any circumstances. Transparent background with real alpha, no colored backdrop, no fake checkerboard, no platform or border, no captions, quantity numerals, letters, logo text or watermark. The bean emblem on a container, if any, is a simple flat decorative mark, not a separate physical bean. Amount names are metadata, MUST NOT be drawn into the picture.\n\nSPECIFIC MOTIF: Exactly TWO light bamboo skewers arranged as a loose parallel fan, each with exactly THREE matching mint bean tokens: SIX bean tokens TOTAL and no others. Distinct kidney silhouettes, small gaps, no intersection pile. Not5per stick: explicitly3on each of2sticks. Keep all6 countable, no10-bean composition. No container or other props.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-aa8e3e41-8d5c-4246-9624-7bf9e4fc91bf.png",
+      "destination": "public/brand/beans/soft3d-v2/alternatives/double-skewer.png",
+      "sha256": "6c63f9b7022c528b9245af1674e35576f8677beeb16a4ef028231b8007f0aa71",
+      "bytes": 842972,
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 6,
+      "countMethod": "manual visual review; emblems excluded"
+    }
+  ],
+  "corrections": [
+    {
+      "key": "100",
+      "reason": "Initial4beans corrected to5",
+      "initialSource": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-bec8e462-8a23-48fa-b6a2-e6b890ca42a9.png",
+      "prompt": "Use case: precise-object-edit. Edit only this single isolated bamboo-skewer artwork. There are currently FOUR mint-green bean tokens on the stick. Make it exactly FIVE mint bean tokens on ONE continuous bamboo skewer. Re-space or shrink the beans slightly to fit the fifth clearly on the same diagonal stick, with clear outlines and small gaps, both stick ends visible, entire motif inside square with10% transparent padding. Retain matching mint-green satin soft3D kidney-bean shapes and broad cream inlay marks, light bamboo, lighting and proportions. No extra stick, no detached beans, no text, no realistic seed slits, no grain or texture, no repeated tiny beads. True transparent background; preserve alpha. The required output is one five-bean skewer and nothing else.",
+      "finalSource": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-19124a94-e55e-440d-8396-5c4c812d1444.png"
+    }
+  ],
+  "appliedToUi": false,
+  "deployed": false,
+  "referenceSha256": "f92a450594be043278de96f641a499391d45fdf967e13054e0179096ef4fadbe"
+}

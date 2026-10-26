@@ -1,0 +1,401 @@
+{
+  "status": "deployed-and-verified",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "dirtyStatus": [
+    " M AGENTS.md",
+    " M PROGRESS.md",
+    " M app/preview/layout.tsx",
+    " M app/preview/preview.module.css",
+    " M components/crefans/Icon.tsx",
+    " M components/crefans/ProfileHeader.tsx",
+    " M components/crefans/ServiceShell.tsx",
+    " M components/crefans/SocialPages.tsx",
+    " M components/crefans/creator.module.css",
+    " M components/crefans/service.module.css",
+    " M components/crefans/social.module.css",
+    " M components/design-system/ServicePatternCatalog.tsx",
+    " M components/preview/service/ServiceRouter.tsx",
+    " M components/service/ServiceRouter.tsx",
+    " M components/ui/chip-row.module.css",
+    " M docs/audit/evidence.json",
+    " M docs/audit/manifest.json",
+    " M docs/design-system.md",
+    " M docs/preview-pages.md",
+    " M e2e/preview.spec.ts",
+    " M tests/crefans-account.test.cjs",
+    " M tests/crefans-social.test.cjs",
+    "?? components/crefans/MediaOverlay.tsx",
+    "?? docs/audit/chip-row-inset-20261024.json",
+    "?? docs/audit/mobile-gallery-corner-20261024.json",
+    "?? docs/audit/mobile-gallery-deployment-20261024.json",
+    "?? docs/audit/mobile-gallery-expand-20261024.json",
+    "?? docs/audit/mobile-gallery-sheet-20261024.json",
+    "?? docs/audit/mobile-gnb-icons-20261024.json",
+    "?? docs/audit/mobile-inbox-deployment-20261024.json",
+    "?? docs/audit/mobile-inbox-spacing-20261024.json",
+    "?? docs/audit/mobile-ui-deployment-20261024.json",
+    "?? docs/audit/profile-media-20261024.json",
+    "?? docs/audit/profile-media-deployment-20261024.json",
+    "?? e2e/mobile-shell.spec.ts",
+    "?? tests/profile-media.test.cjs"
+  ],
+  "sourceSha256": {
+    "app/preview/layout.tsx": "76c978d5d492f2e1e1c24092cba684687d2e14c2c0123b381debb51eb1005c98",
+    "app/preview/preview.module.css": "5e33e8d0c79f01dba0f7f8b0762e1473c5902d5adc2e3ec90f2e3fa53da97f35",
+    "components/crefans/ServiceShell.tsx": "ff26027d5ee7944ecd9e233812c32a54d59971c1db2cee41556ecbe946af64f1",
+    "components/crefans/service.module.css": "046c98c8908b5ad3d2df1e0adab136477c6812cd2da8945757fc5b329026c265",
+    "components/crefans/social.module.css": "e4d45e4af4568f8f4ea8d06dfbd6e8299769a37e7d9576ec4cd6c8757cbb4db1",
+    "components/preview/service/ServiceRouter.tsx": "f746dd9df9e9fb3dc4ee685afc38fd43cb78a28509b1f344642b4ef5a1acdc6e",
+    "components/service/ServiceRouter.tsx": "a8bbef8118f4fe3d942242d66f673192fd3eb752e3aaaff8853424ec84ee958b",
+    "e2e/mobile-shell.spec.ts": "13a57285f0fb3a0d8ec49b437a75123e30ea08f67208673a2460220968e69b17"
+  },
+  "acceptance": [
+    "Mobile navigation bottom equals viewport bottom on short and long content",
+    "Document does not scroll; long content scrolls above navigation",
+    "Navigation resets content scroll on route changes",
+    "Message input remains above navigation at reduced viewport height",
+    "Overlay locks/restores internal content scroll; existing gallery interactions preserved",
+    "PC message/notification geometry unchanged at768/1280",
+    "Shared preview/service shell and production frontend deployment"
+  ],
+  "checks": {
+    "check": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "startedAt": "2026-10-24T00:52:32.061998+00:00",
+      "finishedAt": "2026-10-24T00:52:39.877209+00:00",
+      "exitCode": 0,
+      "logSha256": "5ae2b70ec16c1f5abee0ed9620654b17bde9365fd4c84eac21168de116daffcf"
+    },
+    "e2e": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        "/Users/ethan/repository/crefans_front/.local/mobile-shell-20261024/playwright.config.ts"
+      ],
+      "startedAt": "2026-10-24T00:55:04.168332+00:00",
+      "finishedAt": "2026-10-24T00:55:33.808746+00:00",
+      "exitCode": 0,
+      "logSha256": "b305961ce9fb187d56da5dda943200e1beef85a0196eaf8a30ac3b008a03b624"
+    },
+    "before": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        "/Users/ethan/repository/crefans_front/.local/mobile-shell-20261024/before.config.ts",
+        "--project=mobile"
+      ],
+      "startedAt": "2026-10-24T00:52:32.061997+00:00",
+      "finishedAt": "2026-10-24T00:52:41.487392+00:00",
+      "exitCode": 1,
+      "logSha256": "0bb532214d580776aa006486223c57e597ba2159243d18c7f51b27dcdcc431ca"
+    }
+  },
+  "results": {
+    "unitChecks": 288,
+    "localE2E": {
+      "passed": 11,
+      "skipped": 1,
+      "skipReason": "Mobile-only scenario on desktop"
+    },
+    "negativeControl": {
+      "target": "Previous production mobile-inbox image, preview notifications",
+      "exitCode": 1,
+      "assertion": "Document height exceeds viewport by26px (allowed<=1px)",
+      "scope": "Demonstrates document overflow only; not a physical iOS compositor reproduction"
+    },
+    "firstE2EFailure": "Mobile WebKit does not support mouse.wheel; test skips wheel input for WebKit while checking programmatic scrolling and viewport boundaries. Retest passed; no product workaround for test failure."
+  },
+  "pcComparison": {
+    "at": "2026-10-24T00:58:53.243274+00:00",
+    "baseline": ".local/mobile-inbox-deploy-20261024/production-layout.json",
+    "actual": ".local/mobile-shell-20261024/local-pc.json",
+    "equalCases": 4,
+    "widths": [
+      768,
+      1280
+    ]
+  },
+  "feedEnd": {
+    "at": "2026-10-24T00:57:45.155Z",
+    "lastContent": {
+      "bottom": 747.0859375,
+      "height": 58.3984375,
+      "left": 16,
+      "right": 374,
+      "top": 688.6875,
+      "width": 358,
+      "x": 16,
+      "y": 688.6875
+    },
+    "navBottom": 844,
+    "scroll": 7245,
+    "viewport": 844,
+    "window": 0
+  },
+  "research": {
+    "checkedAt": "2026-10-24",
+    "sources": [
+      "https://bugs.webkit.org/show_bug.cgi?id=312149",
+      "https://bugs.webkit.org/show_bug.cgi?id=297779",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length",
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overscroll-behavior"
+    ],
+    "decision": "Related iOS reports; exact user-device cause unconfirmed. Separate mobile body scroller and normal-flow GNB in dynamic viewport layout instead of applying guessed fixed offsets."
+  },
+  "limits": [
+    "Desktop browser emulation including WebKit, not physical iPhone or native Chrome/Safari toolbar validation",
+    "Reduced viewport test is not a real software keyboard",
+    "Preview fixtures only for authenticated interactions; no live account/payment changes"
+  ],
+  "build": {
+    "command": [
+      "docker",
+      "--config",
+      "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "-f",
+      "infra/platform/Dockerfile",
+      "-t",
+      "crefans-front:mobile-shell-20261024",
+      "."
+    ],
+    "startedAt": "2026-10-24T00:55:56.251297+00:00",
+    "finishedAt": "2026-10-24T00:57:29.258737+00:00",
+    "exitCode": 0,
+    "logSha256": "2b0f2acdeda62823bdf8962255fc6b2e5ce45c4ea936a391bfa6bb2d8f56b33b"
+  },
+  "environment": {
+    "node": "v22.7.0",
+    "playwright": "1.64.0",
+    "platform": "Darwin arm64"
+  },
+  "imageChecks": {
+    "image-verification": {
+      "at": "2026-10-24T00:58:00.966601+00:00",
+      "imageId": "sha256:ee3a8489953f3a0d262c03076d2f868cbbaacd5d87fa4295b0a05480d2fa7fa5",
+      "architecture": "amd64",
+      "runtimeFilesMatched": 474
+    },
+    "image-smoke": {
+      "at": "2026-10-24T00:58:03.563056+00:00",
+      "routes": [
+        {
+          "route": "preview/messages",
+          "status": 200
+        },
+        {
+          "route": "preview/notifications",
+          "status": 200
+        },
+        {
+          "route": "service/messages",
+          "status": 200
+        },
+        {
+          "route": "service/notifications",
+          "status": 200
+        }
+      ],
+      "scope": "HTTP shells only; browser check required separately."
+    },
+    "image-e2e-result": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        "/Users/ethan/repository/crefans_front/.local/mobile-shell-deploy-20261024/image.config.ts"
+      ],
+      "startedAt": "2026-10-24T00:58:18.489058+00:00",
+      "finishedAt": "2026-10-24T00:58:41.588518+00:00",
+      "exitCode": 0,
+      "logSha256": "a5cc7f57b43ef733c992c026fafd33e7b3cc9d82236ec267d4768df3a6625a54"
+    },
+    "archive": {
+      "sha256": "c805285f84497565635b991fe1eae1b7c6a3f9b62421c1d4bef6f484614fd00d",
+      "bytes": 487912002,
+      "startedAt": "2026-10-24T00:58:59.371762+00:00",
+      "finishedAt": "2026-10-24T00:59:08.178525+00:00",
+      "exitCode": 0
+    },
+    "e2eCounts": {
+      "passed": 11,
+      "skipped": 1
+    }
+  },
+  "runtimeDiff": [
+    "app/preview/layout.tsx",
+    "app/preview/preview.module.css",
+    "components/crefans/ServiceShell.tsx",
+    "components/crefans/service.module.css",
+    "components/crefans/social.module.css",
+    "components/preview/service/ServiceRouter.tsx",
+    "components/service/ServiceRouter.tsx"
+  ],
+  "manifestSha256": "424371fd9456f88057ce50adf794a47fd7b344bccb2090f1eb65d2b91d830215",
+  "finishedAt": "2026-10-24T01:03:00.635114+00:00",
+  "deployment": {
+    "url": "https://beta.crefans.com",
+    "image": "crefans-front:mobile-shell-20261024",
+    "imageId": "sha256:ee3a8489953f3a0d262c03076d2f868cbbaacd5d87fa4295b0a05480d2fa7fa5",
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-24T00:59:24.639296+00:00",
+        "finishedAt": "2026-10-24T00:59:25.630190+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T00:59:25.630558+00:00",
+        "finishedAt": "2026-10-24T00:59:33.529397+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T00:59:33.529988+00:00",
+        "finishedAt": "2026-10-24T00:59:44.870303+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T00:59:44.870773+00:00",
+        "finishedAt": "2026-10-24T00:59:52.242778+00:00",
+        "exitCode": 0
+      }
+    ],
+    "postDeployChecks": {
+      "healthAndNineRoutes": "passed",
+      "frontendRunning": true,
+      "restartCount": 0,
+      "preservedContainerIds": [
+        "database",
+        "api",
+        "worker",
+        "admin",
+        "proxy"
+      ]
+    },
+    "rollback": {
+      "image": "crefans-front:mobile-inbox-20261024",
+      "settingsBackup": "/opt/crefans-backup-mobile-shell-20261024"
+    },
+    "homeSshRule": "unchanged, persistent user-approved rule",
+    "productionE2E": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        "/Users/ethan/repository/crefans_front/.local/mobile-shell-deploy-20261024/production.config.ts"
+      ],
+      "startedAt": "2026-10-24T01:00:05.377138+00:00",
+      "finishedAt": "2026-10-24T01:00:32.598769+00:00",
+      "exitCode": 0,
+      "logSha256": "48a8720fe9bb3eb5c3aa3cd917a480ff2de34bae50a6e10fb0e0d843e9442d77"
+    },
+    "productionE2ECounts": {
+      "passed": 11,
+      "skipped": 1
+    },
+    "pcComparison": {
+      "equalCases": 4,
+      "widths": [
+        768,
+        1280
+      ],
+      "baseline": ".local/mobile-inbox-deploy-20261024/production-layout.json",
+      "actual": ".local/mobile-shell-deploy-20261024/production-pc.json"
+    },
+    "notifications": {
+      "documentHeight": 844,
+      "menu": {
+        "bottom": 844,
+        "height": 65,
+        "left": 0,
+        "right": 390,
+        "top": 779,
+        "width": 390,
+        "x": 0,
+        "y": 779
+      },
+      "scrollStyle": "auto",
+      "url": "https://beta.crefans.com/preview/notifications",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "guest": [
+      {
+        "documentHeight": 844,
+        "height": 844,
+        "navBottom": 844,
+        "overflow": false,
+        "page": "/service/feed"
+      },
+      {
+        "documentHeight": 844,
+        "height": 844,
+        "navBottom": 844,
+        "overflow": false,
+        "page": "/service/notifications"
+      }
+    ],
+    "browserErrors": {
+      "mobile": [],
+      "desktop": []
+    },
+    "screenshots": [
+      ".local/mobile-shell-deploy-20261024/production-notifications.png"
+    ],
+    "measurementNotes": [
+      "A viewport change initially applied to another selected tab; measurements with actual390px were discarded from PC comparison. Final four PC measurements assert actual768/1280px.",
+      "Login required text is a paragraph, not heading. First heading wait timed out; verified the actual paragraph and geometry."
+    ]
+  },
+  "artifacts": {
+    ".local/mobile-shell-deploy-20261024/final-load.log": "aad6c4ae1fc0058a61364714084358e7f825e6589481c994a5062f7b6c063aca",
+    ".local/mobile-shell-deploy-20261024/archive.json": "0b08fc60894043c7392c15f1a2354239aef3a766412b0d76fa2d90be0d26d13a",
+    ".local/mobile-shell-deploy-20261024/runtime-diff.json": "79faa86d855fdb8f4d47a76fc9bb39433e5e468a1d06b4ccc91538c2b45d09fe",
+    ".local/mobile-shell-deploy-20261024/test-release.py": "f2ce3c70a39e5cfeca9d419bdc588ee575078c4345826f868729c01fa05beb2f",
+    ".local/mobile-shell-deploy-20261024/production.config.ts": "00e9d88640e25434b6c88b21e5cb8fc2e74378a6900f678fd45459b1d88c48d6",
+    ".local/mobile-shell-deploy-20261024/release.py": "07e470488b5008738148fa448da4f38a760adc54e6ca45defa8feac4acdbe696",
+    ".local/mobile-shell-deploy-20261024/production-e2e-result.json": "c8b03c3df2f6b95f4159fadad458f08090e65e719fc801e72bd62b6061b46aa2",
+    ".local/mobile-shell-deploy-20261024/image-verification.json": "902e2a89f8dba9b1e19d126a04ff81647bdc5992247eaa48937e78bb20419586",
+    ".local/mobile-shell-deploy-20261024/image-e2e.log": "a5cc7f57b43ef733c992c026fafd33e7b3cc9d82236ec267d4768df3a6625a54",
+    ".local/mobile-shell-deploy-20261024/production-notifications.png": "7faf25f01117b3b7497c0d818519a71922a7548880547ddc532836eafc7ffd83",
+    ".local/mobile-shell-deploy-20261024/image-smoke.json": "2a832b7484e3d9d60fb3d8448d523ff782de80b7c54ba411d0ab2277e2f61ea4",
+    ".local/mobile-shell-deploy-20261024/final-deploy.log": "b675ca66d9428f41feb9a9629e5dcbae1314834f1e1ed42d9aa4e82ffffd4901",
+    ".local/mobile-shell-deploy-20261024/image.config.ts": "ffdeefc831edb94f1bf74df0545bb04fff2b8940bcb2ea10c6a4e1a8dd854018",
+    ".local/mobile-shell-deploy-20261024/final-steps.json": "ff4f1eece5044b441993bac7b1b04b160d651df0adf78e637a901b1de4f10178",
+    ".local/mobile-shell-deploy-20261024/image-e2e-result.json": "b766421fe7a5247e2576e12f85876f674418b2e45cf8b0b39c22788e2619ea78",
+    ".local/mobile-shell-deploy-20261024/production-e2e.log": "48a8720fe9bb3eb5c3aa3cd917a480ff2de34bae50a6e10fb0e0d843e9442d77",
+    ".local/mobile-shell-deploy-20261024/final-upload.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/mobile-shell-deploy-20261024/smoke-image.py": "b1a9faac0697cb8e98ab606c1cd40f23718fcef1dacf14700029e08942b636a3",
+    ".local/mobile-shell-deploy-20261024/browser-errors.json": "a3323f9df099cd7c8e2ea194cd09b1a398b40a1b6df99622547b6f1bf830707a",
+    ".local/mobile-shell-deploy-20261024/local-hashes.json": "3de3e3daa9a0cc7e1971e34bafd96dbaa8c8035a7b47d1a8c223d6702362b81c",
+    ".local/mobile-shell-deploy-20261024/archive.py": "75c2b8bc06d42f18354d699d0ab84dae5529a3d8b5e62faad804c6ebf28d6070",
+    ".local/mobile-shell-deploy-20261024/production-notifications.json": "fba4dac84a642d8b7b7cdd13a1e6aee8a4cc7244fcd7467d90929f34848b2323",
+    ".local/mobile-shell-deploy-20261024/deploy.sh": "0863fb6436efad018c3581a252d2033963ef93ae46cd6541b56527ff1a4167f7",
+    ".local/mobile-shell-deploy-20261024/release-hashes.json": "424371fd9456f88057ce50adf794a47fd7b344bccb2090f1eb65d2b91d830215",
+    ".local/mobile-shell-deploy-20261024/verify-image.py": "2d3b4aebe0abc1093480f43ada6fbc58d848c5273ff1a0888493a7d27a168fed",
+    ".local/mobile-shell-deploy-20261024/final-prepare.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".local/mobile-shell-deploy-20261024/production-pc.json": "414af31949e6331e15eca9739a90d4b5a514e28755935ad16dff368c0b885545",
+    ".local/mobile-shell-deploy-20261024/production-guest.json": "2886771608819d672412d8e8aa0778289612b9240de1068af675b82f3ac9bd8e",
+    ".local/mobile-shell-deploy-20261024/build-result.json": "16af90fa83cd79236e6c4d8ea117796e99749d68a43e2538797051ccfd83ac54",
+    ".local/mobile-shell-deploy-20261024/build.log": "2b0f2acdeda62823bdf8962255fc6b2e5ce45c4ea936a391bfa6bb2d8f56b33b"
+  }
+}

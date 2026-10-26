@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-10-25T07:49:20.992Z",
+  "tool": "built-in image_gen",
+  "useCase": "style-transfer / concept board",
+  "reference": "docs/design/bean-soft3d-sheet-v1.png",
+  "prompt": "Use case: style-transfer and concept-board recomposition. Asset type: ONE six-design comparison sheet for CREFANS virtual bean currency. Use the attached image ONLY as reference for bean identity, mint/cream palette, and smooth cute SOFT 3D rendering. Create a NEW clean 2-row by 3-column board with exactly SIX motifs, generous whitespace on white, crisp dark charcoal Korean captions below each. Top row: (left) ONE rounded mint bean with a broad cream graphic mark, caption '1개'; (middle) exactly TWO separated matching beans, caption '2개'; (right) exactly THREE separated beans in a relaxed triangle, caption '3개'. Bottom row: (left) ONE closed Korean cloth bundle / bojagi wrapping, soft cream cloth tied in a simple large top knot, mint bean emblem on the front, caption '보따리'; (middle) ONE closed small PAPER CARDBOARD SHIPPING BOX, warm cream/light kraft paper, simple folded top and a mint paper tape strip, small mint bean emblem on front, caption '종이상자'; (right) ONE closed WOODEN TREASURE CHEST with rounded domed lid, warm honey-brown wooden body, just two broad cream/gold bands and one simple latch, small mint bean emblem, caption '나무 보물상자'. Important: cardboard box must read as a plain little parcel, NOT a ribbon gift box. Wooden chest must visibly be wood, not a gift box, but keep plank divisions to just2 or3 broad clean lines; NO detailed wood grain or many boards. Korean cloth bundle must be a tied wrapping/bundle rather than a drawstring purse, NO drawstrings or handles. Keep all six in a coherent soft3D family, gently inflated rounded silhouette, smooth matte satin surfaces, very soft broad light and subtle contact shadow. Beans look like abstract toy tokens, NOT realistic seeds, no deep slits/pores/creases. The cream bean mark is an inlaid graphic decal. No faces. Absolutely NO piles of tiny beans, NO overflowing contents, NO loose beans around any container, NO open lids, NO dense clusters, NO grainy textures, NO realistic cloth wrinkles, NO stitching, NO grunge, NO photorealism, NO excessive shine. Only1/2/3 bean objects in the first row; bottom row each contains exactly one closed container and nothing else. Minimal adorable proportions, clear silhouettes readable at small display size. Do not show the old nine quantities or prices. The only text on the board is the six specified captions. No frame, no UI controls, no watermark. One polished presentation sheet, not separate asset exports.",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-00f90c45-5f80-47e8-819d-28489808ca9f.png",
+  "destination": "docs/design/bean-soft3d-six-v1.png",
+  "appliedToUi": false,
+  "deployed": false,
+  "output": {
+    "width": 1608,
+    "height": 978,
+    "mode": "RGB",
+    "sha256": "0a8883ffd68cdf009e21eef59b17bd2d863293a69b727094fa73436c3cc88d8a",
+    "bytes": 1395512
+  },
+  "referenceSha256": "405344e738291abd63536fb8c14feb93120cc53df59c215bac9d1d2c17cb553b"
+}

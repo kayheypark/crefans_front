@@ -1,0 +1,87 @@
+{
+  "at": "2026-10-26T11:45:59.134372+09:00",
+  "image": "crefans-front:tip-buttons-20261026",
+  "imageSourceFiles": 615,
+  "allRunning": true,
+  "otherContainersPreserved": true,
+  "backup": "/opt/crefans-backup-tip-buttons-20261026",
+  "repositoryHead": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "uncommitted changes included",
+  "browser": {
+    "command": "node /tmp/verify-tip-production.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "viewportWidth": 390,
+        "route": "feed",
+        "text": "후원",
+        "border": "1px",
+        "width": 50.234375,
+        "parentWidth": 358,
+        "height": 44,
+        "icons": 0,
+        "dialogOpened": true
+      },
+      {
+        "viewportWidth": 390,
+        "route": "post/moka-first-shoot",
+        "text": "후원",
+        "border": "1px",
+        "width": 50.234375,
+        "parentWidth": 358,
+        "height": 44,
+        "icons": 0,
+        "dialogOpened": true
+      },
+      {
+        "viewportWidth": 390,
+        "route": "creator/moka",
+        "text": "콩 후원",
+        "border": "1px",
+        "width": 326,
+        "parentWidth": 358,
+        "height": 44.390625,
+        "icons": 0,
+        "dialogOpened": true
+      },
+      {
+        "viewportWidth": 1280,
+        "route": "feed",
+        "text": "후원",
+        "border": "1px",
+        "width": 50.234375,
+        "parentWidth": 480,
+        "height": 44,
+        "icons": 0,
+        "dialogOpened": true
+      },
+      {
+        "viewportWidth": 1280,
+        "route": "post/moka-first-shoot",
+        "text": "후원",
+        "border": "1px",
+        "width": 50.234375,
+        "parentWidth": 480,
+        "height": 44,
+        "icons": 0,
+        "dialogOpened": true
+      },
+      {
+        "viewportWidth": 1280,
+        "route": "creator/moka",
+        "text": "콩 후원",
+        "border": "1px",
+        "width": 448,
+        "parentWidth": 480,
+        "height": 44.390625,
+        "icons": 0,
+        "dialogOpened": true
+      }
+    ]
+  },
+  "build": {
+    "command": "docker build --platform linux/amd64",
+    "exitCode": 0
+  },
+  "limitations": "No actual tip/payment executed; Chromium emulation, not physical iPhone"
+}

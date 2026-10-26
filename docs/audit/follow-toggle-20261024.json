@@ -1,0 +1,1804 @@
+{
+  "task": "공통 팔로우 버튼 색상 반전·아이콘24px·프로필 설정 글자 최소14px",
+  "createdAt": "2026-10-24T10:20:45.950034+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "Pre-existing dirty tree preserved; task-only diff in .local/follow-toggle-20261024/changes.patch; no commit/push/deployment.",
+  "before": {
+    "at": "2026-10-24T10:15:44.217222+00:00",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": [
+      " M AGENTS.md",
+      " M PROGRESS.md",
+      " M app/preview/layout.tsx",
+      " M app/preview/preview.module.css",
+      " M components/crefans/AccountPages.tsx",
+      " M components/crefans/CommonPages.tsx",
+      " M components/crefans/CreatorCard.tsx",
+      " M components/crefans/CreatorPages.tsx",
+      " M components/crefans/FollowButton.tsx",
+      " M components/crefans/Icon.tsx",
+      " M components/crefans/LandingPage.tsx",
+      " M components/crefans/ProfileHeader.tsx",
+      " M components/crefans/ServiceShell.tsx",
+      " M components/crefans/ServiceUI.tsx",
+      " M components/crefans/SocialPages.tsx",
+      " M components/crefans/account.module.css",
+      " M components/crefans/common.module.css",
+      " M components/crefans/creator.module.css",
+      " M components/crefans/service.module.css",
+      " M components/crefans/social.module.css",
+      " M components/crefans/studio/ContentPostPreview.tsx",
+      " M components/crefans/studio/FinancePages.tsx",
+      " M components/crefans/studio/ManagementPages.tsx",
+      " M components/crefans/studio/ReportPage.tsx",
+      " M components/crefans/studio/WithdrawalSecurityPage.tsx",
+      " M components/crefans/studio/report.module.css",
+      " M components/crefans/studio/withdrawal-security.module.css",
+      " M components/design-system/ServicePatternCatalog.tsx",
+      " M components/preview/comment-fixtures.ts",
+      " M components/preview/service/ServiceRouter.tsx",
+      " M components/preview/service/fixtures.ts",
+      " M components/preview/service/useMockAccount.ts",
+      " M components/preview/service/useMockSocial.ts",
+      " M components/preview/studio/useMockCommunity.ts",
+      " M components/service/ServiceRouter.tsx",
+      " M components/ui/Primitives.tsx",
+      " M components/ui/chip-row.module.css",
+      " M components/ui/ui.module.css",
+      " M docs/audit/evidence.json",
+      " M docs/audit/manifest.json",
+      " M docs/creator-image-variety.md",
+      " M docs/design-system.md",
+      " M docs/preview-pages.md",
+      " M docs/release-test-scenarios.md",
+      " M docs/service-api-binding.md",
+      " M e2e/preview.spec.ts",
+      " M features/service/useServiceModel.ts",
+      " M features/service/useStudioModel.ts",
+      " M lib/content/landing.ts",
+      " M lib/crefans/membership-plans.ts",
+      " M playwright.config.ts",
+      " M tests/content-post-preview.test.cjs",
+      " M tests/crefans-account.test.cjs",
+      " M tests/crefans-common.test.cjs",
+      " M tests/crefans-creator.test.cjs",
+      " M tests/crefans-social.test.cjs",
+      " M tests/crefans-studio-reports.test.cjs",
+      " M tests/load-typescript.cjs",
+      " M tests/service-access-state.test.cjs",
+      " M tsconfig.tsbuildinfo",
+      " M types/crefans-account.ts",
+      " M types/crefans-social.ts",
+      " M types/crefans.ts",
+      "?? components/crefans/BackButton.tsx",
+      "?? components/crefans/CommentComposer.tsx",
+      "?? components/crefans/CommentIcon.tsx",
+      "?? components/crefans/CreatorName.tsx",
+      "?? components/crefans/CreatorSearch.tsx",
+      "?? components/crefans/MediaOverlay.tsx",
+      "?? components/crefans/PostMembershipNotice.tsx",
+      "?? components/crefans/back-button.module.css",
+      "?? components/crefans/creator-name.module.css",
+      "?? components/crefans/creator-search.module.css",
+      "?? docs/audit/back-buttons-deployment-20261024.json",
+      "?? docs/audit/back-navigation-20261024.json",
+      "?? docs/audit/back-navigation-inventory-20261024.json",
+      "?? docs/audit/beta-cohort-plan-20261024.json",
+      "?? docs/audit/beta-signup-20261024.json",
+      "?? docs/audit/chip-row-inset-20261024.json",
+      "?? docs/audit/close-spacing-20261024.json",
+      "?? docs/audit/collection-back-deployment-20261024.json",
+      "?? docs/audit/comment-close-20261024.json",
+      "?? docs/audit/creator-badge-fixtures-20261024.json",
+      "?? docs/audit/creator-search-20261024.json",
+      "?? docs/audit/creator-search-deployment-20261024.json",
+      "?? docs/audit/creator-search-live-desktop-20261024.png",
+      "?? docs/audit/creator-search-live-mobile-20261024.png",
+      "?? docs/audit/creator-verification-20261024.json",
+      "?? docs/audit/creator-verification-deployment-20261024.json",
+      "?? docs/audit/creator-verification-live-desktop-20261024.png",
+      "?? docs/audit/creator-verification-live-mobile-20261024.png",
+      "?? docs/audit/dialog-close-deployment-20261024.json",
+      "?? docs/audit/empty-comments-deployment-20261024.json",
+      "?? docs/audit/empty-comments-live-desktop-20261024.png",
+      "?? docs/audit/empty-comments-live-webkit390-20261024.png",
+      "?? docs/audit/featured-creator-icon-20261024.json",
+      "?? docs/audit/featured-icon-deployment-20261024.json",
+      "?? docs/audit/feed-inbox-deployment-20261024.json",
+      "?? docs/audit/feed-toolbar-20261024.json",
+      "?? docs/audit/follow-icon-20261024.json",
+      "?? docs/audit/gallery-comment-dock-20261024.json",
+      "?? docs/audit/gallery-comments-deployment-20261024.json",
+      "?? docs/audit/gallery-comments-live-desktop-20261024.png",
+      "?? docs/audit/gallery-comments-live-mobile-20261024.png",
+      "?? docs/audit/gnb-comment-deployment-20261024.json",
+      "?? docs/audit/gnb-icon-size-20261024.json",
+      "?? docs/audit/gnb-icon-size-deployment-20261024.json",
+      "?? docs/audit/gnb-size-live-preview-20261024.png",
+      "?? docs/audit/gnb-size-live-service-20261024.png",
+      "?? docs/audit/inbox-unread-20261024.json",
+      "?? docs/audit/jiwoo-content-20261024.json",
+      "?? docs/audit/jiwoo-deployment-20261024.json",
+      "?? docs/audit/jiwoo-natural-20261024.json",
+      "?? docs/audit/membership-offer-20261024.json",
+      "?? docs/audit/membership-ui-deployment-20261024.json",
+      "?? docs/audit/message-buttons-20261024.json",
+      "?? docs/audit/message-time-color-20261024.json",
+      "?? docs/audit/message-time-deployment-20261024.json",
+      "?? docs/audit/message-time-live-1280-20261024.png",
+      "?? docs/audit/message-time-live-390-20261024.png",
+      "?? docs/audit/mobile-comment-composer-20261024.json",
+      "?? docs/audit/mobile-gallery-corner-20261024.json",
+      "?? docs/audit/mobile-gallery-deployment-20261024.json",
+      "?? docs/audit/mobile-gallery-expand-20261024.json",
+      "?? docs/audit/mobile-gallery-sheet-20261024.json",
+      "?? docs/audit/mobile-gnb-icons-20261024.json",
+      "?? docs/audit/mobile-inbox-deployment-20261024.json",
+      "?? docs/audit/mobile-inbox-spacing-20261024.json",
+      "?? docs/audit/mobile-settings-deployment-20261024.json",
+      "?? docs/audit/mobile-settings-links-20261024.json",
+      "?? docs/audit/mobile-shell-20261024.json",
+      "?? docs/audit/mobile-ui-deployment-20261024.json",
+      "?? docs/audit/post-detail-back-20261024.json",
+      "?? docs/audit/profile-media-20261024.json",
+      "?? docs/audit/profile-media-deployment-20261024.json",
+      "?? docs/audit/qa-report-20261024.json",
+      "?? docs/audit/settings-categories-20261024.json",
+      "?? docs/audit/settings-categories-deployment-20261024.json",
+      "?? docs/audit/settings-divider-20261024.json",
+      "?? docs/audit/settings-divider-color-20261024.json",
+      "?? docs/audit/settings-divider-color-deployment-20261024.json",
+      "?? docs/audit/settings-edge-dividers-20261024.json",
+      "?? docs/audit/support-spacing-deployment-20261024.json",
+      "?? docs/audit/verified-creator-icon-20261024.json",
+      "?? docs/beta-role-test-plan.md",
+      "?? e2e/creator-verification.spec.ts",
+      "?? e2e/mobile-comments.spec.ts",
+      "?? e2e/mobile-shell.spec.ts",
+      "?? e2e/signup-deferred.spec.ts",
+      "?? output/pdf/",
+      "?? public/brand/featured-creators-v1.generation.json",
+      "?? public/brand/featured-creators-v1.png",
+      "?? public/brand/verified-creator-v1.png",
+      "?? public/illustrations/creators/jiwoo/",
+      "?? tests/creator-verification.test.cjs",
+      "?? tests/post-membership-offer.test.cjs",
+      "?? tests/profile-media.test.cjs"
+    ],
+    "hashes": {
+      "components/crefans/FollowButton.tsx": "51c99271dc6d925b125d6a740a3380f2f9dd16582b05fa51cb61070ecae4b2fb",
+      "components/crefans/creator.module.css": "8f668669b0b06126143c6b0c0996adaa9f01195e6d05f052fedfa2cb7ad3e34a",
+      "components/crefans/AccountPages.tsx": "3ea10249470a5815652cacc3d04143624bd9ec769209ce93962db3c98bdaafe5",
+      "tests/follow-button.test.cjs": "708231f82e68bfca185a169941a77482151238fc0b917091bb4843a696a16b48",
+      "docs/design-system.md": "82020fd7e6d92b949353dc68b2824f76de9c8591d4e40b4343128ad1143366cd"
+    }
+  },
+  "acceptance": [
+    "미팔로우 파란 배경/흰 글자, 팔로우 중 흰 배경/진한 글자",
+    "탐색·프로필·팔로잉·카탈로그 공용 아이콘24px",
+    "프로필 설정 아이콘24px/PC·모바일 글자 최소14px",
+    "320px 한 줄 유지·넘침 없음·기존 팔로우 해제 확인/취소 보존"
+  ],
+  "changedFileSha256": {
+    "components/crefans/FollowButton.tsx": "54a68e6628eddd5fa7a173d34715afd6b2aead09a5e1ab2b0cbb182afaf9732b",
+    "components/crefans/AccountPages.tsx": "88c0a01e2b450dadc1825c090179eacd4f5eaee797463bff07a67d90946f69af",
+    "components/crefans/creator.module.css": "82f030c01d7e2452a9ef84e4b30e81c9608e1d70a91b9c105ddb9dc32df12409",
+    "tests/follow-button.test.cjs": "d3b9e8092a3ec5e24b05cac09bb8923ad20def260835f3af13710a98f54a82e7",
+    "docs/design-system.md": "1b8e212683b9f5a5fa72ea73aabeefa6a9a837ea5af3a74895ef751b3def862c"
+  },
+  "commands": {
+    "unit-check": {
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=following immediately|unfollowing asks|following list keeps|account view renders injected profile",
+        "tests/follow-button.test.cjs",
+        "tests/crefans-common.test.cjs",
+        "tests/crefans-account.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:16:02.671985+00:00",
+      "finishedAt": "2026-10-24T10:16:03.110719+00:00",
+      "exitCode": 0,
+      "logSha256": "cab8076ed490c8debdb0ba02d42169a264f7c72c908609062e20e810c651b540"
+    },
+    "typecheck": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:16:03.135882+00:00",
+      "finishedAt": "2026-10-24T10:16:08.005000+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "layer-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:16:08.034204+00:00",
+      "finishedAt": "2026-10-24T10:16:08.461363+00:00",
+      "exitCode": 0,
+      "logSha256": "eb0b463c8972a0da028297168754c83e3785ef94a20a26a12199805dda949569"
+    },
+    "browser-check": {
+      "command": [
+        "node",
+        ".local/follow-toggle-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:18:38.435002+00:00",
+      "finishedAt": "2026-10-24T10:18:40.382050+00:00",
+      "exitCode": 1,
+      "logSha256": "f48a3ecde6e4d64af5e28bdb8a68ffae87fcb3cf2d97a205d8ca9a62ec4a6535"
+    },
+    "browser-check-corrected": {
+      "command": [
+        "node",
+        ".local/follow-toggle-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:18:55.381826+00:00",
+      "finishedAt": "2026-10-24T10:19:44.956563+00:00",
+      "exitCode": 0,
+      "logSha256": "56973ba9bdb5f2af70265071dba21c1a393962d57603363255e08402be9f6aa1"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:20:46.001695+00:00",
+      "finishedAt": "2026-10-24T10:20:46.962139+00:00",
+      "exitCode": 0,
+      "logSha256": "a67eb672c16f6bee80c1a74d3d6f8f94945be99e2ad6e3894c44b0f19b4eea3d"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:20:46.986123+00:00",
+      "finishedAt": "2026-10-24T10:20:47.390032+00:00",
+      "exitCode": 0,
+      "logSha256": "07ed0db5201edbd86878bae3e83010a2b30600ee00ab618d00cc4a9ed1e339fd"
+    }
+  },
+  "verification": {
+    "unitTests": {
+      "passed": 4,
+      "failed": 0
+    },
+    "browser": {
+      "start": "2026-10-24T10:18:55.546Z",
+      "end": "2026-10-24T10:19:44.950Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "explore",
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed",
+          "overflow": false
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "creator/moka",
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 36,
+              "width": 89.34375,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed",
+          "overflow": false
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "following",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 44,
+              "width": 134.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 44,
+              "width": 134.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "existing follow: confirmation and cancel preserved",
+          "overflow": false
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "me",
+          "settings": {
+            "text": "설정",
+            "pressed": null,
+            "icon": 24,
+            "height": 36,
+            "width": 75.234375,
+            "background": "rgba(255, 255, 255, 0.92)",
+            "color": "rgb(32, 35, 51)",
+            "font": "14px",
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          "settingsNavigation": true,
+          "overflow": false
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "explore",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 120,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "creator/moka",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 36,
+              "width": 129.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "following",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 44,
+              "width": 134.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "me",
+          "settings": {
+            "text": "설정",
+            "pressed": null,
+            "icon": 24,
+            "height": 36,
+            "width": 75.234375,
+            "background": "rgba(255, 255, 255, 0.92)",
+            "color": "rgb(32, 35, 51)",
+            "font": "14px",
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          "settingsNavigation": true,
+          "overflow": false
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "route": "explore",
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed",
+          "overflow": false
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "route": "creator/moka",
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 36,
+              "width": 89.34375,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed",
+          "overflow": false
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "route": "following",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 44,
+              "width": 134.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 44,
+              "width": 134.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "existing follow: confirmation and cancel preserved",
+          "overflow": false
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "route": "me",
+          "settings": {
+            "text": "설정",
+            "pressed": null,
+            "icon": 24,
+            "height": 36,
+            "width": 75.234375,
+            "background": "rgba(255, 255, 255, 0.92)",
+            "color": "rgb(32, 35, 51)",
+            "font": "14px",
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          "settingsNavigation": true,
+          "overflow": false
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "route": "explore",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "route": "creator/moka",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 36,
+              "width": 129.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "route": "following",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 44,
+              "width": 134.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "route": "me",
+          "settings": {
+            "text": "설정",
+            "pressed": null,
+            "icon": 24,
+            "height": 36,
+            "width": 75.234375,
+            "background": "rgba(255, 255, 255, 0.92)",
+            "color": "rgb(32, 35, 51)",
+            "font": "14px",
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          "settingsNavigation": true,
+          "overflow": false
+        },
+        {
+          "name": "chromium390",
+          "catalog": true,
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 110.34375,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 110.34375,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed"
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "explore",
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 286.65625,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 286.671875,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 286.65625,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 286.65625,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 286.671875,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed",
+          "overflow": false
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "creator/moka",
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 36,
+              "width": 89.34375,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed",
+          "overflow": false
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "following",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 150.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 150.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "existing follow: confirmation and cancel preserved",
+          "overflow": false
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "me",
+          "settings": {
+            "text": "설정",
+            "pressed": null,
+            "icon": 24,
+            "height": 36,
+            "width": 75.234375,
+            "background": "rgba(255, 255, 255, 0.92)",
+            "color": "rgb(32, 35, 51)",
+            "font": "14px",
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          "settingsNavigation": true,
+          "overflow": false
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "explore",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 286.65625,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 286.671875,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 286.65625,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 286.65625,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 286.671875,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "creator/moka",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 36,
+              "width": 129.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "following",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 150.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "me",
+          "settings": {
+            "text": "설정",
+            "pressed": null,
+            "icon": 24,
+            "height": 36,
+            "width": 75.234375,
+            "background": "rgba(255, 255, 255, 0.92)",
+            "color": "rgb(32, 35, 51)",
+            "font": "14px",
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          "settingsNavigation": true,
+          "overflow": false
+        },
+        {
+          "name": "desktop",
+          "catalog": true,
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 107.75,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "13px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 107.75,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "13px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed"
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "explore",
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed",
+          "overflow": false
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "creator/moka",
+          "buttons": [
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 36,
+              "width": 89.34375,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "follow, cancel unfollow, confirm unfollow: passed",
+          "overflow": false
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "following",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 44,
+              "width": 134.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 44,
+              "width": 134.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "interaction": "existing follow: confirmation and cancel preserved",
+          "overflow": false
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "me",
+          "settings": {
+            "text": "설정",
+            "pressed": null,
+            "icon": 24,
+            "height": 36,
+            "width": 75.234375,
+            "background": "rgba(255, 255, 255, 0.92)",
+            "color": "rgb(32, 35, 51)",
+            "font": "14px",
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          "settingsNavigation": true,
+          "overflow": false
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "explore",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            },
+            {
+              "text": "팔로우",
+              "pressed": "false",
+              "icon": 24,
+              "height": 46,
+              "width": 155,
+              "background": "rgb(37, 99, 235)",
+              "color": "rgb(255, 255, 255)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "creator/moka",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 36,
+              "width": 129.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "following",
+          "buttons": [
+            {
+              "text": "팔로우 하는중",
+              "pressed": "true",
+              "icon": 24,
+              "height": 44,
+              "width": 134.453125,
+              "background": "rgb(255, 255, 255)",
+              "color": "rgb(32, 35, 51)",
+              "font": "14px",
+              "textLines": 1,
+              "textOverflow": false,
+              "scrollOverflow": false
+            }
+          ],
+          "overflow": false
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "me",
+          "settings": {
+            "text": "설정",
+            "pressed": null,
+            "icon": 24,
+            "height": 36,
+            "width": 75.234375,
+            "background": "rgba(255, 255, 255, 0.92)",
+            "color": "rgb(32, 35, 51)",
+            "font": "14px",
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          "settingsNavigation": true,
+          "overflow": false
+        }
+      ],
+      "errors": [],
+      "requests": [
+        {
+          "name": "chromium320",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/creators",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/posts",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/profiles/moka",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium320",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/creators",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/posts",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/profiles/moka",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "chromium390",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/creators",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/posts",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/profiles/moka",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "desktop",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/creators",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/posts",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/profiles/moka",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/common",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/bootstrap",
+          "method": "GET"
+        },
+        {
+          "name": "webkit390",
+          "endpoint": "/common",
+          "method": "GET"
+        }
+      ],
+      "scope": "Local browser UI; service API GET fixtures; preview state-only interactions; no production or real account changes."
+    },
+    "visualReview": {
+      "screenshots": [
+        ".local/follow-toggle-20261024/webkit390-profile-settings.png",
+        ".local/follow-toggle-20261024/mobile-creator-moka.png",
+        ".local/follow-toggle-20261024/desktop-profile-settings.png",
+        ".local/follow-toggle-20261024/mobile-explore.png"
+      ],
+      "result": "Viewed all four screenshots; blue/white states, 24px icons and readable profile settings verified."
+    },
+    "initialFailure": "First browser helper included category chips without SVG; narrowed selector to follow buttons with SVG. Product unchanged; first output and result preserved.",
+    "artifacts": {
+      "before.json": "2886c70d55e48d02032d8e88503c5c957106214ef3a7a53e2c84b0c0ea516cdd",
+      "unit-check.log": "cab8076ed490c8debdb0ba02d42169a264f7c72c908609062e20e810c651b540",
+      "unit-check.json": "7a0b50562449543c39c92adb08bebe26c4a8ee4b30ff790dfc263019868196bf",
+      "changes.patch": "17bb8b49503695874d71a9ba05470e0e644c987981688232e19ef34b7db7688b",
+      "webkit390-profile-settings.png": "b286b2970728f67fff907defcc3403de38753e35f42f1e21de67d9e4976119d0",
+      "layer-check.log": "eb0b463c8972a0da028297168754c83e3785ef94a20a26a12199805dda949569",
+      "typecheck.log": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+      "browser-results-first.json": "db47cd54a1f89935638410c8ac5ea4299daca8c3f1bd4531b400fb7ea2c92d67",
+      "browser-check.log": "f48a3ecde6e4d64af5e28bdb8a68ffae87fcb3cf2d97a205d8ca9a62ec4a6535",
+      "check.cjs": "7c423accb8d1520465b7acc287385b190598bf8819e6b0a60e9beeecf858c4e7",
+      "mobile-creator-moka.png": "e1f5a456e0ff17b31177332dcdbb9aec22840a5c0b5baafc9821918c87271a0e",
+      "desktop-profile-settings.png": "cf59b03752000d65001468ae26c229228df49c4df68624f91be2c83b0f483fd0",
+      "browser-check.json": "900113db8a7526047001aeba76bac89d56f80030b25b2ef465a1deffa6b9211a",
+      "layer-check.json": "f44fe5a2fd28d0431ddaf37ee4ee54425c423f0a4a276264a75ec9ce7ac38199",
+      "browser-results.json": "2f2b13dc995e2de4cf40fd063ec46a7549339cffe0ca15b1860c5f165d79231b",
+      "mobile-explore.png": "42b4054790b51f4e74128a21b116c20bcfa274fd8d0fd1ee4967109e83314a9b",
+      "browser-check-corrected.log": "56973ba9bdb5f2af70265071dba21c1a393962d57603363255e08402be9f6aa1",
+      "fixtures.json": "a6f1b7e938bc7a6dcad2fff79718aff79fe5b2331bd9d27a93b215a677f74d7d",
+      "typecheck.json": "520314462e243b4362bab8b017c2fcdc1f07cc6ccf52352a68da127fc4039b55",
+      "browser-check-corrected.json": "b6c0bafde786dcadacd1104996faf32a6763e8839e3adf2a377d9e3085fcaa6b"
+    }
+  },
+  "limits": [
+    "Local Next dev3010 only; not production deployed.",
+    "Service routes used isolated GET API fixtures; interactions used preview in-memory data.",
+    "Chromium320/390/1280 and WebKit390; not physical iPhone or real member changes.",
+    "No claim of general financial/security/full release QA."
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "at": "2026-10-26T12:28:15.638211+09:00",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "state": "uncommitted; not deployed",
+  "files": {
+    "components/crefans/BeanPages.tsx": "8e09af36f83342515bd77fac615024958e0638314efda5ff6e09a903bc3b7776",
+    "components/crefans/CreatorPages.tsx": "81a5d27ef90395874211fa9b6151b1b1b2d7fb6c2c25cc71580c6f94b1c07e7b",
+    "components/crefans/SocialPages.tsx": "6321ffb1ba5b8e6d0772d66b21fb96a4de909f32be662eb2e02cdc3fd4962593",
+    "components/crefans/beans.module.css": "330f40abf03d6a02ced0fe9c6e61d4c2801d435e24701f23beb303cbdd78ddfb"
+  },
+  "checks": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 348
+  },
+  "browser": {
+    "command": "node /tmp/tip-identity.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "width": 320,
+        "route": "creator/moka",
+        "verified": true,
+        "avatar": true,
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "route": "post/moka-first-shoot",
+        "verified": true,
+        "avatar": true,
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "route": "creator/seoyeon",
+        "verified": false,
+        "avatar": true,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "route": "creator/moka",
+        "verified": true,
+        "avatar": true,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "route": "post/moka-first-shoot",
+        "verified": true,
+        "avatar": true,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "route": "creator/seoyeon",
+        "verified": false,
+        "avatar": true,
+        "overflow": false
+      },
+      {
+        "width": 1280,
+        "route": "creator/moka",
+        "verified": true,
+        "avatar": true,
+        "overflow": false
+      },
+      {
+        "width": 1280,
+        "route": "post/moka-first-shoot",
+        "verified": true,
+        "avatar": true,
+        "overflow": false
+      },
+      {
+        "width": 1280,
+        "route": "creator/seoyeon",
+        "verified": false,
+        "avatar": true,
+        "overflow": false
+      }
+    ]
+  },
+  "notes": "Initial mobile overflow fixed using minmax grid column; final browser run after CSS adjustment. No real tips sent."
+}

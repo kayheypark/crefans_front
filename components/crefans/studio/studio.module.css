@@ -8,3 +8,5 @@
 .sidebar nav .dashboardLink[aria-current]{color:var(--cf-color-accent)}
 
 .sidebarFooter{margin-top:auto;padding:24px 14px 0}.sidebarFooter a{font-size:11px;color:var(--cf-color-textMuted)}.sidebarFooter a:hover{color:var(--cf-color-text)}
+
+.identity>div{min-width:0;flex:1}.sidebarFooter>button{display:block}

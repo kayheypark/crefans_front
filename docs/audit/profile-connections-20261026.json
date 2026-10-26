@@ -1,0 +1,86 @@
+{
+  "at": "2026-10-26T05:00:03.592326+00:00",
+  "deployment": false,
+  "checks": {
+    "front": "npm run check: 348 passed",
+    "server": "npm run build: exit 0",
+    "api": "CREFANS_E2E=true node --test tests/platform-connections.test.cjs: 3 passed; isolated DB only",
+    "openapi": "npm run test:openapi: 11 passed",
+    "browser": [
+      {
+        "width": 390,
+        "id": "sion",
+        "kind": "followers",
+        "passed": true
+      },
+      {
+        "width": 390,
+        "id": "sion",
+        "kind": "following",
+        "passed": true
+      },
+      {
+        "width": 390,
+        "id": "jiwoo",
+        "kind": "followers",
+        "passed": true
+      },
+      {
+        "width": 390,
+        "id": "jiwoo",
+        "kind": "following",
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "id": "sion",
+        "kind": "followers",
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "id": "sion",
+        "kind": "following",
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "id": "jiwoo",
+        "kind": "followers",
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "id": "jiwoo",
+        "kind": "following",
+        "passed": true
+      }
+    ]
+  },
+  "repositories": {
+    "crefans_front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirty": true,
+      "sha256": {
+        "components/crefans/ProfileHeader.tsx": "738cdfe2ae909836c2da23437f9ac7826139a8886b1c23ee6eb9219712d8fec7",
+        "components/crefans/ProfileConnectionsPage.tsx": "a2565796a922a0a04897abf93f892c2ecf993c87e36baa1b93480c69f088b6e0",
+        "components/crefans/CreatorPages.tsx": "b92ae7a5666733b9128da7dbc5ea00cd300ad670977cc54486ab127e2fd41200",
+        "components/preview/service/PreviewConnections.tsx": "a1ba1a24850662ba8cd2953108fe716ac2ad8f6a71f7a68e114bae2ece6fed57",
+        "features/service/profile-connections.ts": "4c4731bfdc3409d3098b54315d2ce2dbbb2248f200e14b82041a71288390db6e",
+        "lib/content/landing.ts": "2ca9059e2d7af81053b89c9bc1feacecd7219e8ea58d520555bef77f3d6351fc",
+        "types/crefans.ts": "bfd8493f57d5d121e851968c25fc64224d8215e193f305551efd88e2b10bf3a8"
+      }
+    },
+    "crefans_server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirty": true,
+      "sha256": {
+        "src/platform/service.ts": "935da365f2db35f67a1507768a9c74d7eb44596e6d707897f8e4a3aaa837f288",
+        "src/platform/controller.ts": "5369b15892bee9c3833068da71cdf3756c7c3ed4ac0392cb62f5c0f69aab20a6",
+        "prisma/schema.prisma": "709bf20df8938dc3889cea7acd4c4262855ab249dd890244273fcb43b47b7984",
+        "prisma/migrations/20261026100000_profile_connections/migration.sql": "d455891503b36cf404c87e80d6c6532ed273bc6fcf113a3bf3c73110b3897410",
+        "tests/platform-connections.test.cjs": "8d1badccfc1ba81b140aeb9f029025ad22f4b4eb1622fff6be20ad2d62ff3f78"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "tool": "built-in image_gen",
+  "mode": "generate",
+  "prompt": "Use case: logo-brand. Asset type: a tiny information tooltip icon for the CREFANS website beside the Korean heading '주목할 크리에이터'. Primary request: ONE restrained, highly legible information icon, a lowercase i centered inside a single clean circular outline. Flat 2D professional UI symbol, rounded ends, balanced stroke weight, dark neutral slate gray (#727A8B), transparent interior and genuinely transparent background. The circle should fill about 88 percent of a square canvas, with equal transparent padding on all sides. Center the i perfectly and keep it readable when displayed at 20 by 20 pixels. No other text, no title, no badge decoration, no sparkle, no gradient, no shadow, no 3D, no extra circle, no background tile, no watermark. Deliver just one icon, not a sheet of alternatives.",
+  "transparentBackground": true,
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0b036ef6-075c-45bc-ae01-5de0651e863a.png",
+  "asset": "public/brand/tooltip-info-v1.png",
+  "scope": "Shared InfoTooltip in exploration and design system; deployed to beta.crefans.com preview/service on2026-10-24; original pixels/alpha preserved with Next Image optimization.",
+  "deploymentEvidence": "docs/audit/featured-tooltip-deployment-20261024.json"
+}

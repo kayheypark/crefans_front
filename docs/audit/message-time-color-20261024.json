@@ -1,0 +1,701 @@
+{
+  "recordedAt": "2026-10-24T06:28:57.691634+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "dirty": true,
+  "scope": "Remove one selected-contact timestamp color override; all message list dates/times use existing textMuted token, matching room timestamps/date separators.",
+  "acceptance": [
+    "Selected and unselected contact timestamps match muted text color",
+    "Switching conversations retains neutral timestamp color",
+    "Existing neutral room dates/times, unread yellow backgrounds and red dots unchanged"
+  ],
+  "sourceSha256": {
+    "before": "d6c97688525a6eb8649d8585abad849a086dff1dac5090e440d784c6219cc3ae",
+    "after": "4ee396cd90738b159ff75b7c0f1fab78c4fcfcff853d800cbf87d4ebdcf6791b",
+    "script": "0ef8ec043f8ec039a98f90258dac31c7db93044d07753bae6c712e76a1e06345"
+  },
+  "environment": {
+    "server": "existing Next dev http://127.0.0.1:3010",
+    "node": "v22.7.0"
+  },
+  "before": {
+    "command": "node .local/message-time-color-20261024/check.cjs before",
+    "startedAt": "2026-10-24T06:27:28.290Z",
+    "completedAt": "2026-10-24T06:27:34.638Z",
+    "exitCode": 0,
+    "rows": [
+      {
+        "browser": "chromium",
+        "width": 390,
+        "path": "/preview/messages",
+        "before": [
+          {
+            "selected": true,
+            "unread": true,
+            "time": "rgb(37, 99, 235)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "afterSelect": [
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(37, 99, 235)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(242, 244, 248)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "roomTimestamps": [
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "2026.09.12"
+          },
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "오전 11:20"
+          }
+        ],
+        "overflow": false
+      },
+      {
+        "browser": "chromium",
+        "width": 1280,
+        "path": "/preview/messages",
+        "before": [
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(37, 99, 235)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(242, 244, 248)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "afterSelect": [
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(37, 99, 235)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "color(srgb 0.897412 0.926588 0.990588)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "roomTimestamps": [
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "2026.09.12"
+          },
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "오전 11:20"
+          }
+        ],
+        "overflow": false
+      },
+      {
+        "browser": "webkit",
+        "width": 390,
+        "path": "/preview/messages",
+        "before": [
+          {
+            "selected": true,
+            "unread": true,
+            "time": "rgb(37, 99, 235)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "afterSelect": [
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(37, 99, 235)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(242, 244, 248)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "roomTimestamps": [
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "2026.09.12"
+          },
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "오전 11:20"
+          }
+        ],
+        "overflow": false
+      },
+      {
+        "browser": "chromium",
+        "width": 1280,
+        "path": "/preview/studio/messages",
+        "before": [
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(37, 99, 235)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(242, 244, 248)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "afterSelect": [
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(37, 99, 235)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "color(srgb 0.897412 0.926588 0.990588)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "roomTimestamps": [
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "2026.09.12"
+          },
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "오후 2:30"
+          }
+        ],
+        "overflow": false
+      }
+    ]
+  },
+  "after": {
+    "command": "node .local/message-time-color-20261024/check.cjs after",
+    "startedAt": "2026-10-24T06:27:48.228Z",
+    "completedAt": "2026-10-24T06:27:52.548Z",
+    "exitCode": 0,
+    "rows": [
+      {
+        "browser": "chromium",
+        "width": 390,
+        "path": "/preview/messages",
+        "before": [
+          {
+            "selected": true,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "afterSelect": [
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(242, 244, 248)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "roomTimestamps": [
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "2026.09.12"
+          },
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "오전 11:20"
+          }
+        ],
+        "overflow": false
+      },
+      {
+        "browser": "chromium",
+        "width": 1280,
+        "path": "/preview/messages",
+        "before": [
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(242, 244, 248)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "afterSelect": [
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "color(srgb 0.897412 0.926588 0.990588)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "roomTimestamps": [
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "2026.09.12"
+          },
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "오전 11:20"
+          }
+        ],
+        "overflow": false
+      },
+      {
+        "browser": "webkit",
+        "width": 390,
+        "path": "/preview/messages",
+        "before": [
+          {
+            "selected": true,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "afterSelect": [
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(242, 244, 248)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "roomTimestamps": [
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "2026.09.12"
+          },
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "오전 11:20"
+          }
+        ],
+        "overflow": false
+      },
+      {
+        "browser": "chromium",
+        "width": 1280,
+        "path": "/preview/studio/messages",
+        "before": [
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(242, 244, 248)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": true,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 251, 235)",
+            "dot": "rgb(220, 38, 38)"
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "afterSelect": [
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          },
+          {
+            "selected": true,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "color(srgb 0.897412 0.926588 0.990588)",
+            "dot": null
+          },
+          {
+            "selected": false,
+            "unread": false,
+            "time": "rgb(108, 114, 131)",
+            "muted": "rgb(108, 114, 131)",
+            "background": "rgb(255, 255, 255)",
+            "dot": null
+          }
+        ],
+        "roomTimestamps": [
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "2026.09.12"
+          },
+          {
+            "color": "rgb(108, 114, 131)",
+            "text": "오후 2:30"
+          }
+        ],
+        "overflow": false
+      }
+    ]
+  },
+  "preservationCheck": {
+    "result": "PASS",
+    "scope": "All4 initial-contact arrays match before/after except time color; unread/selection/background/dot unchanged"
+  },
+  "visualReview": {
+    "path": ".local/message-time-color-20261024/after-390.png",
+    "sha256": "219e7380c0a73aad843d7788c1978c4f91540db593e0a03e002293574dcb3800",
+    "result": "Mobile message list inspected: selected/unselected timestamps gray; unread yellow row and red dot retained"
+  },
+  "rawEvidence": ".local/message-time-color-20261024",
+  "limits": [
+    "Local preview browser checks, not production/real-account validation.",
+    "Shared MessagesPage usage by preview/service/studio confirmed in router source.",
+    "Single CSS override removal; no new unit tests or full suite rerun.",
+    "Not deployed; no commit/merge/push; unrelated working changes preserved."
+  ],
+  "documentationVerification": {
+    "command": "npm run docs:record && npm run check:docs",
+    "exitCode": 0,
+    "completedAt": "2026-10-24T06:28:59.066393+00:00",
+    "logSha256": "d8c1903d028691401576b9d059043baf6512c94d179b569357c3f773960d3c2e",
+    "scope": "Documentation snapshot/contracts only; browser evidence separately recorded."
+  }
+}

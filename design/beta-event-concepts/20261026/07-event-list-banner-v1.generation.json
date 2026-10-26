@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-10-26T11:22:21.976792+00:00",
+  "tool": "built-in image_gen",
+  "scope": "banner-proposal-only",
+  "reference": "design/beta-event-concepts/20261026/06-color-banner-v1.png",
+  "original": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-34a1a6a4-8a15-4519-a0ed-b227c6e5b1bd.png",
+  "output": "design/beta-event-concepts/20261026/07-event-list-banner-v1.png",
+  "width": 2172,
+  "height": 724,
+  "sha256": "07f281b35f3b2081787c30978b0eefc89042697730fa16a0a297923999899d1d",
+  "prompt": "Use case: ads-marketing.\nAsset type: ONE wide promotional banner for the CREFANS event LIST page. Produce a single finished banner, NOT a webpage, NOT a poster, NOT a set of variants.\nReference image: the approved CREFANS event DETAIL design. Borrow its exact premium soft-3D lavender star badge, green beans, lavender gift voucher and its pastel-lavender/mint palette, bold dark-navy Korean typography. Do not reproduce the four-card layout.\nCanvas: 1800 x 600, a strict 3:1 landscape ratio. A single broad rounded rectangle fills the canvas with minimal white corner space. Wide mobile-friendly composition like a polished Korean delivery-app event banner. Pale lavender background on left transitioning through almost-white lilac in the text area to a subtle pale-mint glow on right. Soft light, no busy patterns.\nComposition: LEFT 33% contains a coherent, large soft-3D illustration cluster: the scalloped lavender STAR commemorative badge is the hero, a modest lavender ribbon gift voucher sits behind/to its side, and exactly TWO fresh green beans sit in front near the bottom. Only two tiny sparkle accents. Do not add a crown, extra coins, confetti, faces or other objects. Objects do not cover text.\nRIGHT 62% contains a strong two-line Korean headline, in deep navy #080D3B, heavy Pretendard-like sans-serif, same large size on both lines, comfortably spaced. It should read immediately at a 358px mobile display width. Generous margins. Secondary explanatory line is much smaller, muted slate-lavender #626B8B, right aligned at bottom right. A discreet slim right-chevron at the far right signals the whole banner can be tapped, no separate button box.\nText (verbatim):\nMain line 1: \"크레팬스 베타 1기\"\nMain line 2: \"참여 감사 이벤트\"\nSmall bottom-right secondary line: \"* 한정판 배지와 참여 혜택을 확인해 보세요.\"\nNo additional text whatsoever. Do NOT include reward amounts, participant counts, dates, brand logos unrelated to CREFANS, app header, device frame, screenshot chrome, footer, categories, website URL or fine-print blocks. No flat monochrome icons, no noisy sparkle field, no oversized green beans. Match the reference's inviting refined three-dimensional illustration and light pastel color quality. This is the only banner that will appear on the event list. Crisp accurate Korean text, make it commercially usable.",
+  "manualVisualReview": [
+    "Single 3:1 banner, not four-card poster",
+    "Approved navy headline with lavender-to-mint background",
+    "Star badge, lavender gift card and exactly two green beans",
+    "Exact Korean title and asterisk-prefixed small bottom-right text",
+    "No invented participant counts, dates or new benefits"
+  ]
+}

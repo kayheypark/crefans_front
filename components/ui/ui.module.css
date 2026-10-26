@@ -11,6 +11,9 @@
 .button:focus-visible,.chip:focus-visible,.iconButton:focus-visible { outline:2px solid var(--cf-color-focus); outline-offset:3px; }
 .chip { min-height:40px; padding:9px 17px; border:0; border-radius:var(--cf-radius-pill); background:var(--cf-color-surfaceSubtle); color:var(--cf-color-textSecondary); font:inherit; font-size:max(13px,var(--cf-mobile-font-min,0px)); cursor:pointer; }
 .chip[aria-pressed=true] { background:var(--cf-color-accentSoft); color:var(--cf-color-accent); }
+.chipWithIcon{display:inline-flex;align-items:center;gap:6px;vertical-align:middle}
+.chipIcon{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex:none}
+.chipIcon img{width:20px;height:20px;object-fit:contain}
 .chip:not(:disabled):not([aria-disabled=true]):hover { background:var(--cf-color-accentSoft); color:var(--cf-color-accent); }
 .chip[aria-pressed=true]:not(:disabled):not([aria-disabled=true]):hover { background:var(--cf-color-accentBorder); }
 .badge { display:inline-flex; align-items:center; border-radius:var(--cf-radius-pill); padding:5px 10px; font-size:max(11px,var(--cf-mobile-font-min,0px)); color:var(--cf-color-accent); background:var(--cf-color-accentSoft); white-space:nowrap; }
@@ -27,6 +30,8 @@
 .dialog[open][data-state=closing]::backdrop { animation:backdropOut var(--cf-motion-fast) ease-in both; }
 .dialog header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px; }
 .dialog h2 { font-size:24px; margin:0; }
+.dialog>header>h2:focus { outline:none; }
+.dialogClose { display:inline-flex; align-items:center; justify-content:center; padding:0; }
 .dialog p { line-height:1.7; color:var(--cf-color-textSecondary); }
 .toast { position:fixed; z-index:100; left:50%; bottom:92px; transform:translateX(-50%); width:max-content; max-width:calc(100vw - 32px); box-sizing:border-box; display:flex; align-items:center; gap:16px; padding:8px 8px 8px 20px; background:var(--cf-color-text); color:var(--cf-color-surface); border-radius:var(--cf-radius-card); box-shadow:var(--cf-shadow-popover); font-size:14px; overflow:hidden; }
 .toastProgress { position:absolute; inset:auto 0 0; height:3px; background:var(--cf-color-accent); transform-origin:left; animation:toastCountdown linear forwards; }
@@ -66,3 +71,5 @@
 .transaction>div:last-child {display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 @media(max-width:767px) { .sheet {width:100%;max-width:100%;margin:auto 0 0;border-radius:24px 24px 0 0;padding-bottom:max(24px,env(safe-area-inset-bottom));} }
 @media(prefers-reduced-motion:reduce) { .button {transition:none}.spinner,.dialog[open],.dialog[open]::backdrop,.toast {animation:none!important}.toastProgress {animation-timing-function:steps(4,end)} }
+
+.dialog>header>h2{min-width:0;flex:1}

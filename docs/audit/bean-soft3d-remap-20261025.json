@@ -1,0 +1,138 @@
+{
+  "at": "2026-10-25T08:22:04.432685+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 292,
+  "statusSha256": "85956a4d308f32a1393fce5fd332c25dde7d54c5e4d2a6cd0d1e8d5c589b8253",
+  "operation": "Existing PNG reuse and quantity reassignment; no image-generation or pixel edit",
+  "changes": {
+    "1000": "paper box, formerly optional500alternative",
+    "5000": "wooden treasure chest, formerly1000",
+    "silverChest": "Excluded from current v3; previous design history preserved"
+  },
+  "selection": "docs/design/bean-soft3d-series-v3.selection.json",
+  "assets": [
+    {
+      "key": "10",
+      "selectedFrom": "public/brand/beans/soft3d-v2/10.png",
+      "destination": "public/brand/beans/soft3d-v3/10.png",
+      "sha256": "9c83f0e87d0572a3efac55a5e7383c4485f9e15f3d7646c4c0612e9c6a6728d5",
+      "observedBeanCount": 1
+    },
+    {
+      "key": "30",
+      "selectedFrom": "public/brand/beans/soft3d-v2/30.png",
+      "destination": "public/brand/beans/soft3d-v3/30.png",
+      "sha256": "3f289d986281efb8401f355d859fa36fb41d98ff1e68c4c099109b951bcd48a3",
+      "observedBeanCount": 2
+    },
+    {
+      "key": "50",
+      "selectedFrom": "public/brand/beans/soft3d-v2/50.png",
+      "destination": "public/brand/beans/soft3d-v3/50.png",
+      "sha256": "64964f5d26f82da3a2c618dd8bc8f0dc7c52b664b4cca8c92012dad261157efc",
+      "observedBeanCount": 3
+    },
+    {
+      "key": "100",
+      "selectedFrom": "public/brand/beans/soft3d-v2/100.png",
+      "destination": "public/brand/beans/soft3d-v3/100.png",
+      "sha256": "aa6e75abd572008ec7971451dd5c4c2e3dd1043a3dac59949b142feae0ff9319",
+      "observedBeanCount": 5
+    },
+    {
+      "key": "300",
+      "selectedFrom": "public/brand/beans/soft3d-v2/300.png",
+      "destination": "public/brand/beans/soft3d-v3/300.png",
+      "sha256": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28",
+      "observedBeanCount": 5
+    },
+    {
+      "key": "500",
+      "selectedFrom": "public/brand/beans/soft3d-v2/500.png",
+      "destination": "public/brand/beans/soft3d-v3/500.png",
+      "sha256": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+      "observedBeanCount": 5
+    },
+    {
+      "key": "1000",
+      "selectedFrom": "public/brand/beans/soft3d-v2/alternatives/paper-box.png",
+      "destination": "public/brand/beans/soft3d-v3/1000.png",
+      "sha256": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+      "observedBeanCount": 5
+    },
+    {
+      "key": "5000",
+      "selectedFrom": "public/brand/beans/soft3d-v2/1000.png",
+      "destination": "public/brand/beans/soft3d-v3/5000.png",
+      "sha256": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e",
+      "observedBeanCount": 4
+    },
+    {
+      "key": "10000",
+      "selectedFrom": "public/brand/beans/soft3d-v2/10000.png",
+      "destination": "public/brand/beans/soft3d-v3/10000.png",
+      "sha256": "b55985106da99db5d20e8b54dcfed67a8aeb5a82ed9b29ffdc17e6092937f534",
+      "observedBeanCount": 5
+    },
+    {
+      "key": "alternative-double-skewer",
+      "selectedFrom": "public/brand/beans/soft3d-v2/alternatives/double-skewer.png",
+      "destination": "public/brand/beans/soft3d-v3/alternatives/double-skewer.png",
+      "sha256": "6c63f9b7022c528b9245af1674e35576f8677beeb16a4ef028231b8007f0aa71",
+      "observedBeanCount": 6
+    }
+  ],
+  "checks": {
+    "at": "2026-10-25T08:21:01.051Z",
+    "browser": "Chromium",
+    "primaryCards": 9,
+    "alternatives": 1,
+    "loadedImages": 40,
+    "dimensions": [
+      {
+        "size": 80,
+        "images": 10
+      },
+      {
+        "size": 112,
+        "images": 10
+      }
+    ],
+    "desktopNoOverflow": true,
+    "mobile390NoOverflow": true,
+    "errors": [],
+    "scope": "Static review gallery only; no application/payment integration"
+  },
+  "validation": [
+    "All10PNG copies match original hashes and preserve alpha0–255",
+    "No selected asset has the previous silver chest hash",
+    "Active1000=paper and5000=wood labels checked in browser, silver label absent",
+    "9primary cards and1remaining alternative,80/112px and mobile390 no overflow",
+    "Final9card screenshot inspected manually"
+  ],
+  "commands": [
+    {
+      "command": "bundled Python remap.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 gallery.py",
+      "exitCode": 0
+    },
+    {
+      "command": "node gallery.cjs",
+      "exitCode": 0
+    }
+  ],
+  "preview": {
+    "path": "docs/design/bean-soft3d-series-v3.preview.png",
+    "sha256": "93f992180ef32370c83cdd7445c679bb29bebd04ad1a0c8d1dd977c9aa1e731f"
+  },
+  "limits": [
+    "Current v3 excludes silver; historical v2 art/evidence preserved",
+    "Only static art selection and review gallery changed; production still clay-v1",
+    "No UI/deployment/financial action or product tests this turn"
+  ]
+}

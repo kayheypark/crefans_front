@@ -1,0 +1,142 @@
+{
+  "verifiedAt": "2026-10-24T00:28:17.478368+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "workingTreeDirty": true,
+  "scope": "Reusable MediaOverlay extraction and shared ProfileHeader avatar/cover viewer; local only",
+  "check": {
+    "command": [
+      "npm",
+      "run",
+      "check"
+    ],
+    "startedAt": "2026-10-24T00:26:19.222464+00:00",
+    "finishedAt": "2026-10-24T00:26:26.637479+00:00",
+    "exitCode": 0,
+    "passed": 288
+  },
+  "e2e": {
+    "command": [
+      "npx",
+      "playwright",
+      "test",
+      "--config",
+      ".local/profile-media-20261024/playwright.config.ts"
+    ],
+    "startedAt": "2026-10-24T00:26:26.638078+00:00",
+    "finishedAt": "2026-10-24T00:26:48.362273+00:00",
+    "exitCode": 0,
+    "passed": 6,
+    "projects": [
+      "desktop Chromium",
+      "mobile Chromium",
+      "mobile WebKit"
+    ]
+  },
+  "firstE2E": {
+    "command": [
+      "npx",
+      "playwright",
+      "test",
+      "--config",
+      ".local/profile-media-20261024/playwright.config.ts"
+    ],
+    "startedAt": "2026-10-24T00:24:45.958246+00:00",
+    "finishedAt": "2026-10-24T00:25:18.121917+00:00",
+    "exitCode": 1
+  },
+  "repair": "WebKit pointer activation did not focus the opener; focus it before mounting the viewer so close reliably restores it. Final six tests passed.",
+  "browser": {
+    "at": "2026-10-24T00:27:00.376Z",
+    "environment": "Local IAB Chromium; mobile viewport emulation",
+    "screens": [
+      {
+        "bodyOverflow": "hidden",
+        "close": {
+          "bottom": 56,
+          "height": 44,
+          "left": 334,
+          "right": 378,
+          "top": 12,
+          "width": 44,
+          "x": 334,
+          "y": 12
+        },
+        "fit": "contain",
+        "image": "/illustrations/creators/moka/avatar-v1.png",
+        "mediaOnly": "true",
+        "rect": {
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 390,
+          "top": 0,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "title": "모카 프로필 사진"
+      },
+      {
+        "fit": "contain",
+        "image": "/illustrations/creators/moka/cover-v1.png",
+        "naturalHeight": 1024,
+        "naturalWidth": 1536,
+        "rect": {
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 390,
+          "top": 0,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "title": "모카 배경사진"
+      },
+      {
+        "pageWidth": 1280,
+        "panelCount": 0,
+        "rect": {
+          "bottom": 900,
+          "height": 900,
+          "left": 0,
+          "right": 1280,
+          "top": 0,
+          "width": 1280,
+          "x": 0,
+          "y": 0
+        },
+        "title": "모카 배경사진"
+      }
+    ],
+    "errors": []
+  },
+  "sourceHashes": {
+    "components/crefans/MediaOverlay.tsx": "7ce4e7d74ffba6eb25effdce0fb124988b802adcf45a5d539ffdf18e07895aae",
+    "components/crefans/ProfileHeader.tsx": "75a0074b383bcdc199be2303cf9d02afc6255dac7a6d0b8462f3ea42db3cc163",
+    "components/crefans/SocialPages.tsx": "be3a6a12f17dfa0cdb7f921e5d31f6d2f7596a7fa298a3cbf449135b0dec6ab2",
+    "components/crefans/creator.module.css": "18636af160e7f17cdcdf5364ebf8bd2e578d674dd3d962dbe4aac72c8ada9eec",
+    "components/crefans/social.module.css": "b79de1cbc230b95534c8adcbaa3842833f529e71bf2e2edf3bbfd42de07e6313",
+    "components/design-system/ServicePatternCatalog.tsx": "8783895a2b9fd383edba14772e4ed1a25d0b815592c0fc1a698cc421abe3edd4",
+    "tests/profile-media.test.cjs": "774615dd2e9002d675e023ff7f5cd7d66d9f58444e512084f41bfe6c90d0f466",
+    "tests/crefans-account.test.cjs": "e3b43f8b4701858d39a61654e2d203304255dcbe89997f5a16fa652424201cc4",
+    "e2e/preview.spec.ts": "682a8ce5621953d72d0758add6bb53508b112fa8e5c706f6f0d54fe9ede9977e"
+  },
+  "artifactHashes": {
+    "check-final.log": "24bd4239cf0bf55678f25d69f0de02c2f2fc29bc14031085c57205916559979a",
+    "e2e-final.log": "40210631ea96e5447d43e17b9e4908bbf31395ce31bd53dd07056fb6eb80b317",
+    "e2e-first.log": "c7395b088967aa02c3a876d5d448b6335bae5e373dfcee15e2acb83acae8beee",
+    "browser.json": "3e044891b7a8b810c1a67da6992302d9256de416f2b427f2103e9ebd312cebbc",
+    "mobile-avatar.png": "a5bf23422f450102c316f2f370a83916a79847a1de1fe2b127d8130c44147f80",
+    "mobile-cover.png": "42f00713e6ab18b29ebbe2c16dde5ebf23019bcc3f12ebe93510633af830fac1",
+    "desktop-cover.png": "af7a3aa0a04c223a2453083e60dd42c6a50dfecee491740124c6d4d128a013ae"
+  },
+  "localArtifacts": "/Users/ethan/repository/crefans_front/.local/profile-media-20261024",
+  "limits": [
+    "No deployment or commit; production remains crefans-front:mobile-ui-20261024.",
+    "No physical iPhone test or live account/API mutation.",
+    "Presentation code is shared by preview/service, browser interactions used preview models."
+  ]
+}

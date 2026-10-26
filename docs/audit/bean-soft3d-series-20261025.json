@@ -1,0 +1,302 @@
+{
+  "at": "2026-10-25T08:10:36.468015+00:00",
+  "generationStartedAt": "2026-10-25T07:58:17.061Z",
+  "repository": {
+    "path": "/Users/ethan/repository/crefans_front",
+    "branch": "feat/bean-support",
+    "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirtyEntries": 291,
+    "statusSha256": "6c6bba5d08481857d51c8e775efe3b0d8d8ba10b3a80efabfc4a777599cb30cf"
+  },
+  "tool": "built-in image_gen: one call per asset;11separate assets +1skewer correction =12calls",
+  "requirements": [
+    "Nine quantities10/30/50/100/300/500/1000/5000/10000",
+    "Soft3D, sparse large beans; no10-or-more visible bean tokens",
+    "Open containers with3–5beans; five-bean skewer",
+    "Extra ideas: silver/gold treasure chests, silk wrapping, paperbox and two-skewer options",
+    "Separate real-alpha PNGs preserved; no app deployment requested"
+  ],
+  "metadata": "docs/design/bean-soft3d-series-v2.generation.json",
+  "assets": [
+    {
+      "key": "10",
+      "motif": "one bean",
+      "destination": "public/brand/beans/soft3d-v2/10.png",
+      "sha256": "9c83f0e87d0572a3efac55a5e7383c4485f9e15f3d7646c4c0612e9c6a6728d5",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 1,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "30",
+      "motif": "two beans",
+      "destination": "public/brand/beans/soft3d-v2/30.png",
+      "sha256": "3f289d986281efb8401f355d859fa36fb41d98ff1e68c4c099109b951bcd48a3",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 2,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "50",
+      "motif": "three beans",
+      "destination": "public/brand/beans/soft3d-v2/50.png",
+      "sha256": "64964f5d26f82da3a2c618dd8bc8f0dc7c52b664b4cca8c92012dad261157efc",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 3,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "100",
+      "motif": "five-bean skewer",
+      "destination": "public/brand/beans/soft3d-v2/100.png",
+      "sha256": "aa6e75abd572008ec7971451dd5c4c2e3dd1043a3dac59949b142feae0ff9319",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "300",
+      "motif": "wooden basket",
+      "destination": "public/brand/beans/soft3d-v2/300.png",
+      "sha256": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "500",
+      "motif": "silk bundle",
+      "destination": "public/brand/beans/soft3d-v2/500.png",
+      "sha256": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "1000",
+      "motif": "wooden treasure chest",
+      "destination": "public/brand/beans/soft3d-v2/1000.png",
+      "sha256": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 4,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "5000",
+      "motif": "silver treasure chest",
+      "destination": "public/brand/beans/soft3d-v2/5000.png",
+      "sha256": "a6a58aa195ee42060f215129212282ccd4c969ae02d57effab0999e594cae63f",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "10000",
+      "motif": "gold treasure chest",
+      "destination": "public/brand/beans/soft3d-v2/10000.png",
+      "sha256": "b55985106da99db5d20e8b54dcfed67a8aeb5a82ed9b29ffdc17e6092937f534",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "alternative-paper-box",
+      "motif": "paper parcel alternative",
+      "destination": "public/brand/beans/soft3d-v2/alternatives/paper-box.png",
+      "sha256": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 5,
+      "countMethod": "manual visual review; emblems excluded"
+    },
+    {
+      "key": "alternative-double-skewer",
+      "motif": "two-skewer alternative",
+      "destination": "public/brand/beans/soft3d-v2/alternatives/double-skewer.png",
+      "sha256": "6c63f9b7022c528b9245af1674e35576f8677beeb16a4ef028231b8007f0aa71",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "observedBeanCount": 6,
+      "countMethod": "manual visual review; emblems excluded"
+    }
+  ],
+  "validation": {
+    "at": "2026-10-25T08:08:21.737907+00:00",
+    "files": [
+      "public/brand/beans/soft3d-v2/10.png",
+      "public/brand/beans/soft3d-v2/30.png",
+      "public/brand/beans/soft3d-v2/50.png",
+      "public/brand/beans/soft3d-v2/100.png",
+      "public/brand/beans/soft3d-v2/300.png",
+      "public/brand/beans/soft3d-v2/500.png",
+      "public/brand/beans/soft3d-v2/1000.png",
+      "public/brand/beans/soft3d-v2/5000.png",
+      "public/brand/beans/soft3d-v2/10000.png",
+      "public/brand/beans/soft3d-v2/alternatives/paper-box.png",
+      "public/brand/beans/soft3d-v2/alternatives/double-skewer.png"
+    ],
+    "totalBytes": 11753477,
+    "distinctHashes": 11,
+    "allAlpha0to255": true,
+    "observedBeanCounts": {
+      "10": 1,
+      "30": 2,
+      "50": 3,
+      "100": 5,
+      "300": 5,
+      "500": 5,
+      "1000": 4,
+      "5000": 5,
+      "10000": 5,
+      "alternative-paper-box": 5,
+      "alternative-double-skewer": 6
+    },
+    "noTenOrMoreBeans": true,
+    "initialHarnessFailure": "Pillow.verify called after alpha read; corrected by separate verify/open passes. No asset alteration."
+  },
+  "gallery": {
+    "at": "2026-10-25T08:09:09.889Z",
+    "browser": "Chromium",
+    "primaryCards": 9,
+    "alternatives": 2,
+    "loadedImages": 44,
+    "dimensions": [
+      {
+        "size": 80,
+        "images": 11
+      },
+      {
+        "size": 112,
+        "images": 11
+      }
+    ],
+    "desktopNoOverflow": true,
+    "mobile390NoOverflow": true,
+    "errors": [],
+    "scope": "Static review gallery only; no application/payment integration"
+  },
+  "commands": [
+    {
+      "command": "bundled Python validate.py",
+      "exitCode": 0,
+      "scope": "PNG verify, alpha, source-copy SHA,11unique outputs"
+    },
+    {
+      "command": "python3 gallery.py",
+      "exitCode": 0,
+      "scope": "HTML layout referencing original PNGs, no image pixel editing"
+    },
+    {
+      "command": "node gallery.cjs",
+      "exitCode": 0,
+      "scope": "Static review gallery in Chromium,44loaded images,9/2labels and80/112sizes"
+    }
+  ],
+  "manualVisualReview": [
+    "All11generated cutouts reviewed inline for count/motif/style",
+    "Final9-card overview and2alternative overview inspected",
+    "80px/112px and dark-background screenshots inspected"
+  ],
+  "expectedCountVariation": "Wooden chest target5, actual4; within user3–5range. All other final targets met. Initial skewer4 corrected to5. Counts are manually observed, not automated detection.",
+  "reviewArtifacts": {
+    "docs/design/bean-soft3d-series-v2.preview.html": {
+      "sha256": "7fde9d3f721d30046e1ba41a3514e74999af6a4e0087239982fb6ada57e49dd8",
+      "bytes": 9462
+    },
+    "docs/design/bean-soft3d-series-v2.preview.png": {
+      "sha256": "8d01380e181103362c203063c8e3034e6cc6557c7fa3eef3da4e705b699dc6eb",
+      "bytes": 478156
+    },
+    "docs/design/bean-soft3d-series-v2.alternatives.png": {
+      "sha256": "955f79633f689c7db6d9b8fd54e5f33f8cf19fb7f08ff67ea70e6d4f516bff54",
+      "bytes": 106096
+    },
+    ".local/bean-soft3d-series-20261025/size-80.png": {
+      "sha256": "4daefa203396a58f0484e9be76214fc3f0a9f4b059006d9e63ddaa8593c9c805",
+      "bytes": 108829
+    },
+    ".local/bean-soft3d-series-20261025/size-112.png": {
+      "sha256": "b3accae69e4b992fdac32e35ba5d459742de1dbf89bf4c935cbbe75e58e1e6ba",
+      "bytes": 168098
+    },
+    ".local/bean-soft3d-series-20261025/dark-80.png": {
+      "sha256": "9a3df9e2cb7c1302bdb79dca7abe7e479a35091957bcfd01fac04ccffd743ce2",
+      "bytes": 112718
+    },
+    ".local/bean-soft3d-series-20261025/mobile390.png": {
+      "sha256": "6135a1f15280358aa9c74ff4cef01ab8c62772adc2e730d39e838d0f717111ad",
+      "bytes": 111509
+    }
+  },
+  "limits": [
+    "Static art/review only; shared charge component still uses previous clay assets",
+    "No production deployment, payment, transfer, mail, promo or financial-policy change",
+    "No product/unit/E2E rerun: runtime UI unchanged",
+    "No user recognition study or physical iPhone inspection",
+    "Existing dirty work preserved, no commit/push"
+  ]
+}
