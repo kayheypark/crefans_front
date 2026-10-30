@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-30T07:35:25.521855+00:00",
+  "checkedAt": "2026-10-30T08:09:37.789988+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -13,7 +13,7 @@
       "front": 39,
       "server": 29
     },
-    "routes": 165,
+    "routes": 166,
     "screens": 56,
     "models": 82,
     "enums": 15,
@@ -30,14 +30,14 @@
   ],
   "repositories": {
     "front": {
-      "head": "9030e3b5fd999888d6d815133eb20733305ba19f",
+      "head": "54067d1a3ce91e64882e6d3f4021c221ba4ceba2",
       "branch": "feat/iphone-input-zoom",
       "dirty": true
     },
     "server": {
       "head": "572b048f8082835e0cb7bd4114098f43a83ae2b7",
       "branch": "feat/studio-comment-replies",
-      "dirty": false
+      "dirty": true
     }
   },
   "state": {
@@ -82,12 +82,12 @@
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "server/AGENTS.md": "57fd6b033c62ad3c23532745bb6f7fc87928192f2ccb32558954f6ef00bae610",
-      "server/PROGRESS.md": "b92cb5c041b7ffef68da918a1078d8ee88e16be5380edba5538cc69af27c42de",
+      "server/PROGRESS.md": "c589e2894f7845fc7bd4b522c70c150bd84a794147209c5c3d018d8cd44bb6ac",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
       "server/docs/bean-refund-research-20261029.md": "6510fcd50f3f5d5b8d4cd82c4e566e2043fa7d1298e705438415b68721cfc91b",
-      "server/docs/current-contracts.md": "ed04959f6c7fea05484097c8fc86a938309c93146dc533c413951ce3a71eb351",
+      "server/docs/current-contracts.md": "7f93a30c2b1a7c8ced3f76c2480388fd8253350aeb7fabb177e01da754063bbd",
       "server/docs/database-schema.md": "a35b1a6dbf45ed0125df0c81a400d1bb2004707883ad98da4438ba94e2b03132",
       "server/docs/deployment-setup.md": "b7764f6d2e665c8018f83f58b836db49e66b700cddcaee3c3c3d40a46348601c",
       "server/docs/feature.md": "a0dd0ddd6d124cb86e9b21ce66af1ca8c6049e591c4380a967d354b861e0805c",
@@ -97,7 +97,7 @@
       "server/docs/inicis-identity-research-20261029.md": "d606311615d05eb7a27c5e5271c93b596f468bcfdebec6c7c6f68935399db498",
       "server/docs/local-member-migration.md": "12c7dd11c9009870f95bfb4a8961bf72107367c2c5ae38c01fec7012fd53172c",
       "server/docs/operational-logging.md": "6fd3d621ec0e41e8987876522c299e6ca677dab45a7d0ecaeda44344dcada771",
-      "server/docs/platform-api.md": "ce2f17cfa2916aa06bb34c3b19f823ac3043c58a06da2d29711f94046bd4376c",
+      "server/docs/platform-api.md": "2474d1706d1eb14f79d23fe3f8f177dd4b8589362612798e45e1aff4fea1ce39",
       "server/docs/platform-implementation.md": "96886b10fe4aa71538862ef3f2ebf3cd226aaa9e3e1d2c4359166f5c735646c8",
       "server/docs/prd.md": "4acd7a59320dd75f569cac956225942022f960ade6ca2f2518a2dd71e1669299",
       "server/docs/private-media.md": "10ce50fc4975346692b0739565b82f1696c1e9a96d307a2d8f4e80d402962306",
@@ -929,7 +929,7 @@
       "server/src/payment/payment.service.ts": "10e1e55f230c2cd4ef31b28c4765029c6a021febd9d72b1eee9fc029323687e8",
       "server/src/payment/tosspayments.service.ts": "a43176b342198a2329037b5db24533031151efa6fba935f0b55081466328fa83",
       "server/src/platform/admin-auth.ts": "bfa9293da61b082e1d8a8d9b195035dc0f8bf92e0f8e44fdee8af3ca195a306f",
-      "server/src/platform/admin-console.ts": "c2f299a8b47308e219c53e469623c6942d0063870c3f6373d772f75fefc3b47d",
+      "server/src/platform/admin-console.ts": "a485d29660f705e256097307cd171d9592716364170fa6f4ccc64f1d447863c8",
       "server/src/platform/admin-dashboard.ts": "cc74f9be672b91feda85742a045227ea754204e9d87a32ca780c02997b0222ca",
       "server/src/platform/admin-logs.ts": "7137ce1d1c173d7170ce3eb2600a24f74a4c976dee985ee65ba2c55868623d4d",
       "server/src/platform/admin-operators.ts": "bcb3cc87e987c91bc3a44711e0b2b359a808ef8d89f68f4f3584c98a3820c1fe",
@@ -973,11 +973,11 @@
       "server/src/platform/media-storage.ts": "eeb242e738bbaec0f7800b64f1eda7a63f6144efcdb7c8c46346e255157b94a2",
       "server/src/platform/media.controller.ts": "2e40674b9cfa5a91241fd194da56b55257e717f3ea26722ac52881fbc2d88645",
       "server/src/platform/member-notices.ts": "33de92ab27ef503f84f11e638c5d8f7d9fac5fb5deb625686af1c8edec687d0c",
-      "server/src/platform/member-purge.ts": "6a67fefffce3dfa10534906a0ca065ecb0efc9be6765c6b9a90ca8f01b461eca",
+      "server/src/platform/member-purge.ts": "bef03e6c1b4d99c9b3ce4b1f405378328d6eecf825f5954937d652309ee0b75b",
       "server/src/platform/middleware.ts": "cf37cb13be4147327a8fd4909068f546194a7c71b86618e3d295dcbbc50beedd",
-      "server/src/platform/moderation.ts": "a7cb8d7df78b654ce5c7b99a068c2b51e9df81a8c6bb8a22304c81996e202268",
+      "server/src/platform/moderation.ts": "5c6404b4148041a0bfcb19a8b9a964d0a1bcb3ef3c39da23df5db7490eea15e9",
       "server/src/platform/module.ts": "68cfd903a0815e79305889dca6e38f300cfdb1ce48bfb74519e17812f5c9e6ec",
-      "server/src/platform/openapi-contract.ts": "81f6b820d9c707fd9f3965d7d0ef8269363f05f110ba9f2aaa0be1d41b5e4db1",
+      "server/src/platform/openapi-contract.ts": "18a15a6dba5308580902cb1dda0769a9d9d218faf0a09def7f67481db22b2917",
       "server/src/platform/openapi.ts": "324ebb0d0064143b13781842b1e7d7c90ca283be68134c7e6339d2f09d556990",
       "server/src/platform/operations-events.ts": "fd9f0a020e0aa2f2fe0de7f20f1b9bc76c32f9a406e8e58f215926525a53d9e1",
       "server/src/platform/operations.service.ts": "280d62d9c24d50d8bcf1b48fbef3fde81a6dc79dc87b590f7aed01cbb239a14b",
@@ -986,7 +986,7 @@
       "server/src/platform/post-supporters.ts": "40badc18dd2428c41c88cfd1b0706654d6f4813ef44280a9aae81341a0edb8a8",
       "server/src/platform/request-context.ts": "6918d05ad00b22891a504aeba2938df10e13ad4c33133e8916720a2e904f8cd1",
       "server/src/platform/security.service.ts": "01ce7b56af876e3250e6181f573222683addf0c2930769fdf4e49411069fa3ef",
-      "server/src/platform/service.ts": "c7381256c5272522dd2c425e1c565c4b2e6e1ac15c267855d749d9133ddb15d4",
+      "server/src/platform/service.ts": "51c5d2f59aa037ef499c5a3a8b87748cd6e1c99e5e3ddaf17189ac3b7b92b6f5",
       "server/src/platform/settlement-receipts.ts": "162a5361c7e953e8db068bfbe7f4509583532f683d433da29268d4e94365f387",
       "server/src/platform/signup-invites.controller.ts": "5de2d3fb4248694bc15f28b35aa1a59656e1727fdb8ebd0f8df87ad3f4c342c1",
       "server/src/platform/signup-invites.ts": "a62e5742c253f3b57622e23873986a76090b96d109630024bee004e54f058a93",
@@ -1080,9 +1080,10 @@
       "server/tests/platform-media-cloud.integration.test.cjs": "3115c7dd4b86344e274813e3f6300f482bf72a1c73ad3ca2d937fb4355003ae6",
       "server/tests/platform-media-edge.test.cjs": "edb15b920dc5ba42ca1c5d769b15415f9b76bcf047ea0eab7d2f61b30cabedbe",
       "server/tests/platform-media-storage.test.cjs": "52bafa85f105c4afae5bd23f172758c7ebb8cedce4a067524ebdb988e4e75e85",
+      "server/tests/platform-member-erase.test.cjs": "c91495fa34af6055cef366395363da585d5d285a2643ec667b879e5705559d29",
       "server/tests/platform-message-read.test.cjs": "393278225d67cd5cd258dfa4a2b49e55001e599a983733f90f3be5eaee5305cf",
       "server/tests/platform-moderation.test.cjs": "6fa9b6fc295a9e08b4005fa292fb825b2b00b10e4bd4093204a733b12083caa3",
-      "server/tests/platform-openapi.test.cjs": "8d3febc1a0a0fa206396c9e78f219044280e6795b82ae8a32207c49ba8f8f1e6",
+      "server/tests/platform-openapi.test.cjs": "d8aeefb8637704f746705d0dd7383e6f7c5f877645827e0e85f301056b0f8113",
       "server/tests/platform-operations-events.test.cjs": "30eb9e03d79e010011844dc2dc5234c9c0dc442caf5323a206f36b37e6189173",
       "server/tests/platform-operations-http.test.cjs": "9dad998737d75e3d0c150fe8d64448d3d3df6bb38046f94ef233015f68ba75f9",
       "server/tests/platform-operations.test.cjs": "1705c685fa2033e90b28762507aaae1a1fe5be1bc50827d0f12a126a2c49c855",
