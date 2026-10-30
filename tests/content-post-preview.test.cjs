@@ -10,6 +10,7 @@ const {Field,TextAreaField}=loadTypeScript('components/ui/Field.tsx',{'./field.m
 function SelectField(){return null;}
 const ui={
  Action:({variant,...props})=>element('button',props),
+ ActionLink:({variant,...props})=>element('a',props),
  Avatar:({creator})=>element('img',{src:creator?.image,alt:creator?.name}),
  Empty:({title,description,action})=>element('section',null,element('h2',null,title),description,action),
  PageTitle:({children,action})=>element('header',null,element('h1',null,children),action),
@@ -28,7 +29,7 @@ const mocks={
 const {ContentPostPreview,draftPostModel}=loadTypeScript('components/crefans/studio/ContentPostPreview.tsx',mocks);
 const {ContentEditorPage,ContentManagementPage}=loadTypeScript('components/crefans/studio/ManagementPages.tsx',mocks);
 const creator={id:'injected-creator',name:'주입된 작성자',handle:'creator',image:'/creator.jpg',position:'center',tags:[],bio:'',followers:'0'};
-const original={id:'existing',creatorId:creator.id,title:'기존 제목',body:'기존 본문',image:'/old.jpg',position:'65% 30%',requiredRank:3,time:'어제',likes:15,comments:2,views:1234};
+const original={id:'existing',creatorId:creator.id,title:'기존 제목',body:'기존 본문',image:'/old.jpg',position:'65% 30%',requiredRank:3,time:'어제',likes:15,comments:2,supporterCount:9,views:1234};
 const membership={id:'selected-plan',name:'새로 수정한 멤버십',price:15000,image:'/membership-cover.jpg',benefits:['혜택'],active:true,version:1};
 const content={id:'existing',title:'초안 제목',body:'DRAFT_PRIVATE_BODY',commentsEnabled:true,media:[{id:'m1',type:'image',url:'/draft-private-image.jpg'},{id:'m2',type:'video',url:'/draft-private-video.mp4'}],accessPlanId:membership.id,status:'draft',scheduledAt:null,updatedAt:'2026-09-13T09:00:00.000Z'};
 const calls=[];
@@ -41,7 +42,7 @@ const json=view=>JSON.stringify(view.toJSON());
 
 test('draft adapter injects unsaved content and selected membership without changing fan data',()=>{
  const before=JSON.stringify(model);const preview=draftPostModel(props),post=preview.data.posts[0];
- assert.equal(post.views,1234);assert.equal(post.title,content.title);assert.equal(post.body,content.body);assert.equal(post.image,content.media[0].url);assert.deepEqual(post.media,[{type:'image',url:'/draft-private-image.jpg'},{type:'video',url:'/draft-private-video.mp4'}]);assert.equal(post.position,'center');assert.equal(post.creatorId,creator.id);
+ assert.equal(post.supporterCount,9);assert.equal(post.views,1234);assert.equal(post.title,content.title);assert.equal(post.body,content.body);assert.equal(post.image,content.media[0].url);assert.deepEqual(post.media,[{type:'image',url:'/draft-private-image.jpg'},{type:'video',url:'/draft-private-video.mp4'}]);assert.equal(post.position,'center');assert.equal(post.creatorId,creator.id);
  assert.equal(preview.data.plans[0].name,membership.name);assert.equal(post.requiredRank,3);assert.equal(post.requiredPlanId,membership.id);assert.equal(preview.likeCounts.existing,16);assert.equal(JSON.stringify(model),before);
  const newPlan={...membership,id:'new-plan'};const withNewPlan=draftPostModel({...props,memberships:[newPlan],content:{...content,accessPlanId:newPlan.id}});
  assert.equal(withNewPlan.data.plans[0].entitlementMode,'tier');assert.equal(withNewPlan.data.posts[0].requiredPlanId,newPlan.id);assert.ok(withNewPlan.data.posts[0].requiredRank>0);
@@ -119,4 +120,12 @@ test('new draft preview uses the same Seoul timestamp on server and browser time
   });
   assert.deepEqual(values,['9월 13일 오후 06:00','9월 13일 오후 06:00','9월 13일 오후 06:00']);
  }finally{if(previous===undefined)delete process.env.TZ;else process.env.TZ=previous;}
+});
+
+test('an operator-hidden post is marked in the studio content list so its author knows why fans cannot see it',()=>{
+ const hidden={...management,contents:[{...content,hiddenByOperator:true}]};
+ const view=mount(ContentManagementPage,{model:hidden,basePath:'/studio',previewModel:model,previewCreatorId:creator.id});
+ try{assert.equal(view.root.findAll(n=>n.type==='span'&&n.children?.join?.('')==='운영 정책에 따라 숨김').length,1);}finally{act(()=>view.unmount());}
+ const shown=mount(ContentManagementPage,{model:management,basePath:'/studio',previewModel:model,previewCreatorId:creator.id});
+ try{assert.equal(shown.root.findAll(n=>n.type==='span'&&n.children?.join?.('')==='운영 정책에 따라 숨김').length,0);}finally{act(()=>shown.unmount());}
 });

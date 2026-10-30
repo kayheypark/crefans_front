@@ -1,5 +1,9 @@
+import type {SocialComment} from '@/types/crefans-social';
+import {messyCommentThreads,messyFanPool,toSocialComments,toSocialReplies} from '../comment-fixtures';
 import {betaFaqs} from '@/lib/crefans/support';
-import {landingCreators as creators} from '@/lib/content/landing';
+import {landingCreators} from '@/lib/content/landing';
+import {foundingCreatorIds} from '../founding-members';
+const creators=landingCreators.map(person=>({...person,isFoundingMember:foundingCreatorIds.includes(person.id)}));
 import type {Plan} from '@/types/crefans';
 const mokaImages='/illustrations/creators/moka';
 const sionImages='/illustrations/creators/sion';
@@ -37,7 +41,8 @@ export const posts=[
 export type {Post} from '@/types/crefans';
 import type {Follower,Subscription} from '@/types/crefans';
 /** 56 followers to match `account.stats.followers`; handles derive from the fan pool ids. */
-export const followers:Follower[]=messyFanPool.slice(0,56).map(fan=>({id:fan.id,name:fan.name,handle:fan.id.replace('-',''),image:fan.image}));
+// Badges vary across the mock list: verified only, founding member only, both, and most with none.
+export const followers:Follower[]=messyFanPool.slice(0,56).map((fan,i)=>({id:fan.id,name:fan.name,handle:fan.id.replace('-',''),image:fan.image,...(i%6===1||i%10===3?{isVerified:true}:{}),...(i%4===2||i%10===3?{isFoundingMember:true}:{})}));
 export type {Subscription} from '@/types/crefans';
 export const initialSubscriptions:Subscription[]=[
   {creatorId:'moka',planId:'moka-photo-club',status:'expired',renewAt:'2026-09-01',price:19900},
@@ -67,8 +72,9 @@ export const initialMessages:Record<string,import('@/types/crefans').Message[]>=
 export const categories=['전체','라이프스타일','뷰티','코스프레','피트니스','음악','여행','게임','아트','일상'];
 export const mockServiceResponse:import('@/types/crefans').ApiResult<import('@/types/crefans').ServiceData>={success:true,data:{creators,plans,creatorPlans,posts,notifications,followers,paymentHistory:initialSubscriptions,messages:initialMessages,faqs,categories},errorMessage:null,errorCode:null};
 
-import {messyCommentThreads,messyFanPool,toSocialComments,toSocialReplies} from '../comment-fixtures';
 /** Messy on purpose: 37 threads with replies and mass mentions on `morning`, a handful on `cat-day`, none on `behind`. */
 const commentThreads={morning:messyCommentThreads('morning',37),'cat-day':messyCommentThreads('cat-day',4)};
-export const initialComments={morning:toSocialComments(commentThreads.morning),'cat-day':toSocialComments(commentThreads['cat-day']),behind:[]};
+// Show every comment state in the mock: the viewer's own comment (edit/delete), edited comments, and a deleted one kept for its replies.
+const withCommentStates=(list:SocialComment[])=>{const removed=list.findIndex((c,i)=>i>2&&(c.replyCount||0)>0&&!c.own);return list.map((c,i)=>i===removed?{...c,deleted:true,body:'',author:{name:'',image:''},mentions:[],fromCreator:undefined}:i===0||i===4?{...c,edited:true}:c);};
+export const initialComments={morning:withCommentStates(toSocialComments(commentThreads.morning)),'cat-day':toSocialComments(commentThreads['cat-day']),behind:[]};
 export const initialReplies={...toSocialReplies(commentThreads.morning),...toSocialReplies(commentThreads['cat-day'])};

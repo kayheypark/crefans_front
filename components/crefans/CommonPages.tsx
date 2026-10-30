@@ -1,4 +1,6 @@
 'use client';
+import {Toast} from '@/components/ui/Toast';
+import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {MarqueeText} from '@/components/ui/MarqueeText';
 
 import {BackButton} from './BackButton';
@@ -20,11 +22,11 @@ import Icon from './Icon';
 import s from './common.module.css';
 
 function useTask(){
-  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useState('');
+  const [busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useSnackbarMessage();
   async function run(action:()=>Promise<CommonActionResult>,success?:()=>void){if(busy)return;setBusy(true);setError('');setMessage('');try{const result=await action();if(result.success){setMessage(result.data.message);success?.();}else setError(result.errorMessage);}catch{setError('요청을 처리하지 못했어요. 다시 시도해 주세요.');}finally{setBusy(false);}}
-  return {busy,error,message,run,setError};
+  return {busy,error,message,run,setError,clearMessage:()=>setMessage('')};
 }
-function Status({task}:{task:ReturnType<typeof useTask>}){return <>{task.error&&<p className={s.error} role="alert">{task.error}</p>}{task.message&&<p className={s.status} role="status">{task.message}</p>}</>;}
+function Status({task}:{task:ReturnType<typeof useTask>}){return <>{task.error&&<p className={s.error} role="alert">{task.error}</p>}<Toast message={task.message} onClose={task.clearMessage}/></>;}
 export function CommonNavigation({basePath}:{basePath:string}){return <nav className={s.supportNav} aria-label="서비스 안내">{[['notices','공지사항'],['events','이벤트 안내'],['support','고객센터'],['legal/terms','이용약관'],['legal/privacy','개인정보처리방침'],['legal/policy','운영정책']].map(([path,label])=><Link key={path} href={`${basePath}/${path}`}>{label}</Link>)}</nav>;}
 
 export function FollowingPage({model}:{model:ServiceViewModel}){
@@ -56,7 +58,8 @@ export function NoticeDetailPage({id,model,basePath}:{id:string;model:CommonMode
 }
 export function LegalPage({kind,model,basePath}:{kind:LegalKind;model:CommonModel;basePath:string}){
   const document=model.legal[kind];
-  if(!document)return <Empty title="문서를 찾을 수 없어요" action={<TextLink href={`${basePath}/support`}>고객센터</TextLink>}/>;
+  if(!document&&model.legalStatus==='loading')return <p className={s.page} role="status">불러오는 중…</p>;
+  if(!document)return <Empty title={model.legalStatus==='error'?'문서를 불러오지 못했어요':'문서를 찾을 수 없어요'} action={<TextLink href={`${basePath}/support`}>고객센터</TextLink>}/>;
   return <article className={s.page}><PageTitle>{document.title}</PageTitle><LegalDocumentBody document={document} idPrefix={kind} contents/><CommonNavigation basePath={basePath}/></article>;
 }
 

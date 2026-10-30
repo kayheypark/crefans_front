@@ -8,7 +8,7 @@
 .icon{display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:var(--cf-color-surfaceSubtle);color:var(--cf-color-textSecondary)}
 .icon svg{width:26px;height:26px}
 .icon img{display:block;width:52px;height:52px;object-fit:contain}
-.content .hint,.content .message,.content .error{margin:8px 0 0;font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.6}
+.content .hint,.content .error{margin:8px 0 0;font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.6}
 .content .error{color:var(--cf-color-danger)}
 .manual{display:block;margin-top:12px;font-size:max(13px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textSecondary)}
 .manual input{display:block;box-sizing:border-box;width:100%;margin-top:8px;min-height:44px;padding:10px 12px;border:1px solid var(--cf-color-border);border-radius:8px;background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;font-size:16px}

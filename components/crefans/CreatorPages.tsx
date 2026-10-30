@@ -1,4 +1,6 @@
 'use client';
+import {Toast} from '@/components/ui/Toast';
+import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {TipButton} from './BeanPages';
 import {MarqueeText} from '@/components/ui/MarqueeText';
 
@@ -13,7 +15,7 @@ import {TextLink} from '@/components/ui/TextLink';
 import {Checkbox} from '@/components/ui/Choice';
 import {getCreatorPlans,getSubscriptionPlan,getPostMembershipOffer} from '@/lib/crefans/membership-plans';
 import {useRouter,useSearchParams} from 'next/navigation';
-import {Dialog} from '@/components/ui/Primitives';
+import {Badge,Dialog} from '@/components/ui/Primitives';
 import {ChipRow} from '@/components/ui/ChipRow';
 import {CategoryChip} from './CategoryChip';
 import {InfoTooltip} from '@/components/ui/InfoTooltip';
@@ -23,7 +25,7 @@ import {MembershipPlanCard} from './MembershipPlanCard';
 import {FollowButton} from './FollowButton';
 import {ProfileHeader} from './ProfileHeader';
 import {FeedEnd,PostCard} from './SocialPages';
-import {Action,Avatar,Empty,Notice,PageTitle} from './ServiceUI';
+import {Action,Avatar,Empty,PageTitle} from './ServiceUI';
 import type {ServiceViewModel,Subscription} from '@/types/crefans';
 import s from './creator.module.css';
 
@@ -51,14 +53,14 @@ export function ExplorePage({model}:{model:ServiceViewModel}){
     <ChipRow className={s.filters} label="크리에이터 카테고리">{['전체',...categories.filter(item=>item!=='전체')].map(item=><CategoryChip key={item} label={item} selected={category===item} onClick={()=>setCategory(item)}/>)}</ChipRow>
     {model.directory?.loading&&<p role="status">크리에이터를 불러오는 중…</p>}
     {visible.length ? <>
-      {promoted.length>0&&<><div className={s.featuredHeading}><h2 className={s.listHeading}><Image className={s.featuredIcon} src="/brand/featured-creators-v1.png" width={22} height={22} alt="" aria-hidden="true"/><span>주목할 크리에이터</span></h2><InfoTooltip label="주목할 크리에이터 안내" content="홍보성 프로모션이 적용된 크리에이터나 해당 광고 상품을 이용중인 크리에이터가 노출될 수 있습니다."/></div><div className={s.creatorGrid}>{promoted.map(creator=><CreatorCard key={creator.id} creator={creator} href={`${basePath}/creator/${creator.id}`} following={following.includes(creator.id)} onFollow={()=>toggleFollow(creator.id)}/>)}</div></>}
+      {promoted.length>0&&<><div className={s.featuredHeading}><h2 className={s.listHeading}><Image className={s.featuredIcon} src="/brand/featured-creators-v1.png" width={22} height={22} alt="" aria-hidden="true"/><span>주목할 크리에이터</span><Badge tone="outline" label="광고">AD</Badge></h2><InfoTooltip label="주목할 크리에이터 안내" content="홍보성 프로모션이 적용된 크리에이터나 해당 광고 상품을 이용중인 크리에이터가 노출될 수 있습니다."/></div><div className={s.creatorGrid}>{promoted.map(creator=><CreatorCard key={creator.id} creator={creator} href={`${basePath}/creator/${creator.id}`} following={following.includes(creator.id)} onFollow={()=>toggleFollow(creator.id)}/>)}</div></>}
       {others.length>0&&<>{promoted.length>0&&<h2 className={s.listHeading}>모든 크리에이터</h2>}<ul className={s.creatorList}>{others.map(creator=><li key={creator.id}><Link href={`${basePath}/creator/${creator.id}`} className={s.creatorRow}><Avatar creator={creator} size={36}/><span><strong><CreatorName person={creator}/></strong><small><MarqueeText text={`@${creator.handle}`}/></small></span></Link></li>)}</ul></>}
     </> : model.directory?.loading?null:creators.length||term||category!=='전체'?<Empty title="검색 결과가 없어요" description="다른 이름이나 카테고리로 찾아보세요." action={<Action variant="secondary" onClick={()=>{setQuery('');setCategory('전체');}}>전체 크리에이터 보기</Action>}/>:<Empty title="아직 크리에이터가 없어요" description="새로운 크리에이터를 기다려 주세요."/>}
     {model.directory?.hasMore&&<Action variant="secondary" disabled={model.directory.loading} onClick={()=>void model.directory?.loadMore()}>크리에이터 더 보기</Action>}
   </div>;
 }
 
-export function CreatorProfilePage({model,id}:{model:ServiceViewModel;id:string}){
+export function CreatorProfilePage({model,id,previewLogin}:{model:ServiceViewModel;id:string;previewLogin?:{label:string;onClick:()=>void}}){
   const router=useRouter();
   const {following,toggleFollow,canAccess,basePath,subscriptions,data:{creators,posts}}=model;
   const plans=getCreatorPlans(model.data,id),onSale=plans.filter(plan=>plan.available!==false);
@@ -71,6 +73,7 @@ export function CreatorProfilePage({model,id}:{model:ServiceViewModel;id:string}
   const social=socialKeys.filter(key=>creator.links?.[key]).map(key=>[key,creator.links![key]!] as const);
   return <div className={s.profile}>
     <ProfileHeader cover={creator.cover??creator.image} coverPosition={creator.position} person={creator} handle={creator.handle} bio={creator.bio} tags={creator.tags} counts={[{label:'게시물',value:ownPosts.length},{label:'팔로워',private:creator.followersPublic===false,value:creator.followers,href:`${basePath}/followers?profile=${encodeURIComponent(creator.id)}`},{label:'팔로잉',private:creator.followingPublic===false||creator.followingCount===undefined,href:`${basePath}/following?profile=${encodeURIComponent(creator.id)}`,value:creator.followingCount!==undefined?creator.followingCount:<span className={s.lockedCount} role="img" aria-label="팔로잉 비공개" title="비공개"><Icon name="lock" width="16" height="16"/></span>}]} action={<FollowButton following={following.includes(id)} name={creator.name} onToggle={()=>toggleFollow(id)}/>}/>
+    {model.mode==='mock'&&previewLogin&&<div className={s.profilePlans}><Action variant="secondary" className={s.previewLogin} onClick={previewLogin.onClick}>{previewLogin.label}</Action></div>}
     <TipButton creatorId={creator.id} name={creator.name} creator={creator} profile/>
     <section className={s.profilePlans} aria-labelledby="profile-plans"><h2 id="profile-plans">멤버십</h2>{onSale.length?<div className={s.planList}>{onSale.map(plan=><MembershipPlanCard key={plan.id} plan={plan} compact selected={plan.id===activePlanId} disabled={plan.id===activePlanId} actionLabel={plan.id===activePlanId?'가입 중':'가입하기'} onSelect={()=>router.push(`${basePath}/membership/${id}?plan=${plan.id}`)}/>)}</div>:<p className={s.noPlans}>판매 중인 멤버십이 없어요.</p>}</section>
     <div className={s.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={s.tabCount}>{count}</span>}</button>)}</div>
@@ -138,7 +141,7 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
   useEffect(()=>{setTab(requestedTab);},[requestedTab]);
   const [cancelling,setCancelling]=useState<Subscription|null>(null);
   const [receipt,setReceipt]=useState<Subscription|null>(null);
-  const [message,setMessage]=useState('');
+  const [message,setMessage]=useSnackbarMessage();
   const [pending,setPending]=useState(false);
   const [error,setError]=useState('');
   const active=subscriptions.filter(item=>item.status!=='expired'&&!item.renewalPending);
@@ -166,7 +169,7 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
   return <div className={s.subscriptions}>
     <PageTitle>{tab}</PageTitle>
     <div className={s.tabs} aria-label="구독과 결제">{['내 구독','결제 내역'].map(item=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>{setTab(item);router.push(`${basePath}/subscriptions${item==='결제 내역'?'?tab=payments':''}`,{scroll:false});}}>{item}</button>)}</div>
-    <div role="status" aria-live="polite">{message&&<Notice>{message}</Notice>}</div>
+    <Toast message={message} onClose={()=>setMessage('')}/>
     {tab==='내 구독'?<>
       <section className={s.subscriptionSection}><h2>현재 이용 중인 멤버십</h2>{active.length?active.map(card):<Empty title="이용 중인 멤버십이 없어요" action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>}</section>
       {recovering.length>0&&<section className={s.subscriptionSection}><h2>갱신 결제 대기</h2>{recovering.map(card)}</section>}

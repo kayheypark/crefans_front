@@ -24,3 +24,4 @@ button.creatorPhoto:disabled:hover>img{transform:none}
 .creatorName{min-width:0;max-width:100%}
 
 .motionPreference{max-width:1200px;margin:0 auto;padding:12px 20px;color:var(--cf-color-textMuted)}
+.motionPreference>label{display:inline-flex;gap:16px}.motionPreference>label strong{font-weight:400;color:inherit}

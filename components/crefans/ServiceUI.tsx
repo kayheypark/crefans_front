@@ -1,5 +1,6 @@
 'use client';
-import type {ButtonHTMLAttributes,ReactNode} from 'react';
+import type {ButtonHTMLAttributes,ComponentProps,ReactNode} from 'react';
+import Link from 'next/link';
 import {Avatar as ProfileAvatar} from '@/components/ui/Avatar';
 import s from './service.module.css';
 import CommentIcon from './CommentIcon';
@@ -10,6 +11,8 @@ export function PageTitle({children,action,back}:{children:ReactNode;action?:Rea
 /** Quiet empty state: no glyph, small secondary text, dashed frame. */
 export function Empty({title,description,action}:{title:string;description?:string;action?:ReactNode}){return <div className={s.empty} role="status"><p className={s.emptyTitle}>{title}</p>{description&&<p>{description}</p>}{action}</div>;}
 export function Action({variant='primary',children,className='',...props}:ButtonHTMLAttributes<HTMLButtonElement>&{variant?:'primary'|'brand'|'secondary'|'danger'}){return <button {...props} className={`${s.action} ${s[variant]} ${className}`}>{children}</button>;}
+// Navigation that should look like Action: keeps link semantics (new tab, prefetch) with the same size and color.
+export function ActionLink({variant='primary',className='',...props}:ComponentProps<typeof Link>&{variant?:'primary'|'secondary'|'danger'}){return <Link {...props} className={`${s.action} ${s[variant]} ${s.actionLink} ${className}`}/>;}
 export function Notice({children}:{children:ReactNode}){return <p className={s.notice}>{children}</p>;}
 export function NavIcon({name}:{name:'home'|'explore'|'message'|'bell'|'user'|'grid'|'settings'|'pencil'|'membership'|'coin'|'chart'}){
   if(name==='message')return <CommentIcon/>;

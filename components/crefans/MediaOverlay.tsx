@@ -6,17 +6,23 @@ import s from './social.module.css';
 
 type MediaOverlayProps=Omit<HTMLAttributes<HTMLDivElement>,'title'> & {
   media:ReadonlyArray<{type:'image'|'video';url:string}>;title:string;alt:string;
-  index:number;onIndexChange:(index:number)=>void;open:boolean;onClose:()=>void;stageAction?:ReactNode;
+  index:number;onIndexChange:(index:number)=>void;open:boolean;onClose:()=>void;stageAction?:ReactNode;onImageClick?:()=>void;
 };
 const overlaySwipeThreshold=40,overlayDragThreshold=6;
 /** Shared full-screen media stage. Optional children supply a detail panel; URLs and access decisions belong to the caller. */
-export const MediaOverlay=forwardRef<HTMLDivElement,MediaOverlayProps>(function MediaOverlay({media,title,alt,index,onIndexChange,open,onClose,stageAction,children,...props},ref){
+export const MediaOverlay=forwardRef<HTMLDivElement,MediaOverlayProps>(function MediaOverlay({media,title,alt,index,onIndexChange,open,onClose,stageAction,onImageClick,children,...props},ref){
   const closeButton=useRef<HTMLButtonElement>(null);
   /** The stage is a sliding track: the finger/mouse drags it live, release snaps to the neighbour with a transition. Ends clamp (no wrap). Videos keep their controls. */
-  const [offset,setOffset]=useState(0),swipe=useRef<{x:number;y:number;axis:'x'|'y'|null}|null>(null);
-  const swipeStart=(event:ReactPointerEvent<HTMLDivElement>)=>{if(media.length<2||(event.target as HTMLElement).tagName==='VIDEO')return;swipe.current={x:event.clientX,y:event.clientY,axis:null};};
-  const swipeMove=(event:ReactPointerEvent<HTMLDivElement>)=>{const start=swipe.current;if(!start)return;const dx=event.clientX-start.x,dy=event.clientY-start.y;if(!start.axis){if(Math.abs(dx)<overlayDragThreshold&&Math.abs(dy)<overlayDragThreshold)return;start.axis=Math.abs(dx)>=Math.abs(dy)?'x':'y';}if(start.axis!=='x')return;const atEdge=(index===0&&dx>0)||(index===media.length-1&&dx<0);setOffset(atEdge?dx/3:dx);};
-  const swipeEnd=(event:ReactPointerEvent<HTMLDivElement>)=>{const start=swipe.current;swipe.current=null;setOffset(0);if(!start||start.axis!=='x')return;const dx=event.clientX-start.x;if(Math.abs(dx)<overlaySwipeThreshold)return;if(dx<0)next();else previous();};
+  const [offset,setOffset]=useState(0),swipe=useRef<{id:number;x:number;y:number;axis:'x'|'y'|null}|null>(null),suppressImageClick=useRef(false);
+  const swipeStart=(event:ReactPointerEvent<HTMLDivElement>)=>{
+    if(event.isPrimary===false||event.button>0){swipe.current=null;suppressImageClick.current=true;setOffset(0);return;}
+    suppressImageClick.current=false;
+    const target=event.target as HTMLElement;
+    if((media.length<2&&!onImageClick)||target.tagName==='VIDEO'||target.closest?.('button,a,input,textarea,select'))return;
+    swipe.current={id:event.pointerId,x:event.clientX,y:event.clientY,axis:null};
+  };
+  const swipeMove=(event:ReactPointerEvent<HTMLDivElement>)=>{const start=swipe.current;if(!start||start.id!==event.pointerId)return;const dx=event.clientX-start.x,dy=event.clientY-start.y;if(!start.axis){if(Math.abs(dx)<overlayDragThreshold&&Math.abs(dy)<overlayDragThreshold)return;start.axis=Math.abs(dx)>=Math.abs(dy)?'x':'y';suppressImageClick.current=true;}if(start.axis!=='x'||media.length<2)return;const atEdge=(index===0&&dx>0)||(index===media.length-1&&dx<0);setOffset(atEdge?dx/3:dx);};
+  const swipeEnd=(event:ReactPointerEvent<HTMLDivElement>)=>{const start=swipe.current;if(start&&start.id!==event.pointerId)return;swipe.current=null;setOffset(0);if(!start)return;const dx=event.clientX-start.x,dy=event.clientY-start.y;if(Math.max(Math.abs(dx),Math.abs(dy))>=overlayDragThreshold)suppressImageClick.current=true;if(start.axis!=='x'||media.length<2||Math.abs(dx)<overlaySwipeThreshold)return;if(dx<0)next();else previous();};
   const previous=()=>onIndexChange(Math.max(0,index-1)),next=()=>onIndexChange(Math.min(media.length-1,index+1));
   useEffect(()=>{
     if(typeof document==='undefined')return;
@@ -42,7 +48,7 @@ export const MediaOverlay=forwardRef<HTMLDivElement,MediaOverlayProps>(function 
     }
   };
   return <div {...props} ref={ref} className={s.overlay} role="dialog" aria-modal="true" aria-label={title} data-state={open?'open':'closing'} data-media-only={!children||undefined} onKeyDown={keyDown} onClick={onClose}>
-    <div className={s.stage} onClick={event=>event.stopPropagation()} onPointerDown={swipeStart} onPointerMove={swipeMove} onPointerUp={swipeEnd} onPointerCancel={()=>{swipe.current=null;setOffset(0);}}>
+    <div className={s.stage} onClick={event=>{event.stopPropagation();if(open&&!suppressImageClick.current&&(event.target as HTMLElement).tagName==='IMG')onImageClick?.();}} onPointerDown={swipeStart} onPointerMove={swipeMove} onPointerUp={swipeEnd} onPointerCancel={()=>{swipe.current=null;suppressImageClick.current=true;setOffset(0);}}>
       <div className={s.stageTrack} data-index={index} data-dragging={offset!==0||undefined} style={{transform:`translateX(calc(${-index*100}% + ${offset}px))`}}>{media.map((item,slide)=><div key={`${item.url}-${slide}`} className={s.stageSlide} aria-hidden={slide!==index||undefined}>{item.type==='video'?<MediaVideo src={item.url} controls={slide===index} playsInline preload="metadata" aria-label={`${alt} 동영상 ${slide+1}`}/>:<img src={item.url} alt={media.length>1?`${alt} ${slide+1}`:alt} draggable={false}/>}</div>)}</div>
       {media.length>1&&<>{index>0&&<button type="button" className={`${s.stageNav} ${s.stagePrevious}`} aria-label="이전 미디어" onClick={previous}><Icon name="chevron"/></button>}{index<media.length-1&&<button type="button" className={`${s.stageNav} ${s.stageNext}`} aria-label="다음 미디어" onClick={next}><Icon name="chevron"/></button>}<div className={`${s.galleryDots} ${s.stageDots}`} aria-hidden="true">{media.map((item,dot)=><i key={`${item.url}-${dot}`} data-active={dot===index||undefined}/>)}</div></>}
       {stageAction}

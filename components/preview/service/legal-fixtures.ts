@@ -1,7 +1,7 @@
 import type {AccountModel} from '@/types/crefans-account';
-import type {CommonModel,LegalDocument} from '@/types/crefans-common';
+import type {LegalDocument,LegalKind} from '@/types/crefans-common';
 const document=(title:string,body:string):LegalDocument=>({title,updatedAt:'2026-10-22',version:'preview-1',sections:[{title:'이용 안내',body}]});
-export const previewLegal:CommonModel['legal']={
+export const previewLegal:Record<LegalKind,LegalDocument>={
  terms:document('이용약관','회원가입은 생일 기준 만 19세 이상만 가능합니다. 멤버십의 가격과 이용 기간을 확인한 뒤 구독합니다. 다음 결제 해지를 예약해도 현재 이용 기간은 유지됩니다.'),
  privacy:document('개인정보처리방침','계정과 인증을 위해 이메일·비밀번호 검증 값·닉네임·본인확인 결과를 처리합니다. 개인정보 관련 문의는 고객센터에서 접수할 수 있습니다.'),
  policy:document('운영정책','타인의 권리 침해와 불법 콘텐츠, 계정 공유와 접근 제한 우회는 허용하지 않습니다.'),

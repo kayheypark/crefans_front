@@ -1,5 +1,6 @@
 import {NextRequest} from 'next/server';
-export async function proxyPlatform(request:NextRequest,{params}:{params:{path:string[]}}){
+export async function proxyPlatform(request:NextRequest,props:{params:Promise<{path:string[]}>}){
+ const params=await props.params;
  const origin=process.env.PLATFORM_API_ORIGIN||'http://127.0.0.1:3001';
  const url=new URL(`/api/v1/${params.path.map(encodeURIComponent).join('/')}${request.nextUrl.search}`,origin);
  const headers=new Headers();for(const name of['accept','content-type','cookie','origin','range','x-pass-signature']){const value=request.headers.get(name);if(value)headers.set(name,value);}

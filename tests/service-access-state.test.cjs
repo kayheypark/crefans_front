@@ -59,3 +59,26 @@ test('feed pages and post details keep each returned creator’s latest membersh
   path='/service/post/paid';updatedPlans=[];await act(async()=>tree.update(React.createElement(Probe)));assert.deepEqual(value.model.data.creatorPlans.artist,[],'no bootstrap fallback when current profile has no plans');
  }finally{act(()=>tree.unmount());}
 });
+test('live comment edit/delete call PUT/DELETE on the comment, refresh the list, and lower the count only after a delete succeeds; report and tag lookups use their routes',async t=>{
+ const previous=global.document;global.document={visibilityState:'visible',addEventListener(){},removeEventListener(){}};t.after(()=>{global.document=previous;});
+ const calls=[];let fail=false,value;
+ const {useServiceModel}=loadTypeScript('features/service/useServiceModel.ts',{
+  'next/navigation':{useSearchParams:()=>new URLSearchParams(),usePathname:()=>'/service/me'},'./useDirectoryModel':{useDirectoryModel:()=>({})},
+  '@/lib/api/identity':{verifyIdentity:async()=>denied},'@/lib/api/billing':{startBillingRegistration:async()=>denied},
+  '@/lib/api/platform':{platformRequest:async(path,body,method)=>{if(path==='/bootstrap')return ok(bootstrap());if(path==='/common')return ok({});calls.push([method||(body?'POST':'GET'),path,body]);if(path.endsWith('/mention-candidates'))return fail?denied:ok([{name:'하늘',image:''}]);if(method||body)return fail?denied:ok({message:'완료'});return ok({comments:[],nextOffset:null});}}
+ });
+ function Probe(){value=useServiceModel();return null;}let tree;await act(async()=>{tree=create(React.createElement(Probe));});
+ await act(async()=>{await value.model.addComment('paid','답글','c1');});
+ assert.deepEqual(calls.splice(0),[['POST','/posts/paid/comments',{body:'답글',parentId:'c1'}],['GET','/posts/paid/comments-page',undefined]]);
+ await act(async()=>{await value.model.editComment('paid','c 1','고친 댓글');});
+ assert.deepEqual(calls.splice(0),[['PUT','/posts/paid/comments/c%201',{body:'고친 댓글'}],['GET','/posts/paid/comments-page',undefined]]);
+ fail=true;await act(async()=>{await value.model.deleteComment('paid','c1');});
+ assert.deepEqual(calls.splice(0).map(c=>c[0]),['DELETE']);assert.equal(value.model.data.posts[0].comments,2,'a failed delete keeps the count (1 + the reply)');
+ fail=false;await act(async()=>{await value.model.deleteComment('paid','c1');});
+ assert.deepEqual(calls.splice(0).map(c=>c.slice(0,2)),[['DELETE','/posts/paid/comments/c1'],['GET','/posts/paid/comments-page']]);assert.equal(value.model.data.posts[0].comments,1);
+ let reported;await act(async()=>{reported=await value.model.reportComment('c1','SPAM');});assert.equal(reported.success,true);
+ assert.deepEqual(calls.splice(0),[['POST','/reports',{id:'c1',kind:'COMMENT',reason:'SPAM'}]]);
+ assert.deepEqual(await value.model.mentionCandidates('paid 1'),[{name:'하늘',image:''}]);assert.deepEqual(calls.splice(0),[['GET','/posts/paid%201/mention-candidates',undefined]]);
+ fail=true;assert.deepEqual(await value.model.mentionCandidates('paid'),[],'a failed lookup offers nobody instead of throwing');fail=false;
+ act(()=>tree.unmount());
+});

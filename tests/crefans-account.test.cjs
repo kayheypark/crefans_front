@@ -4,8 +4,10 @@ const React=require('react');
 const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const styles=new Proxy({},{get:(_,key)=>String(key)});
+const beanContext=React.createContext(null);
 const pages=loadTypeScript('components/crefans/AccountPages.tsx',{'./accordion.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},
   './social.module.css':styles,'./common.module.css':styles,'./account.module.css':styles,'./creator.module.css':styles,'./choice.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./toggle.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./service.module.css':styles,'./ui.module.css':styles,'./avatar.module.css':styles,'./select.module.css':styles,'./field.module.css':styles,'./brand.module.css':styles,
+  './BeanContext':{useBeans:()=>React.useContext(beanContext)},
   'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),
   'next/navigation':{useRouter(){throw new Error('Presentation must not navigate independently');},useSearchParams(){throw new Error('Route state must be injected');}},
   '@/components/ui/Primitives':{
@@ -182,7 +184,7 @@ test('fans control 팔로워/팔로잉 공개 in 설정 > 개인정보, the save
   act(()=>open.unmount());
 });
 
-test('the settings page keeps account groups and adds mobile service information',()=>{
+test('the settings page keeps account groups and shares service information across devices',()=>{
   const data=model();
   const tree=mount(pages.SettingsPage,data);
   const headings=tree.root.findAllByType('h3').map(node=>node.props.children);
@@ -210,13 +212,14 @@ test('settings categories filter their own items and keep account actions in acc
     ['공개 설정',['개인정보 관리'],[]],
     ['알림과 결제',['알림 설정','결제수단 관리'],['/service/subscriptions']],
     ['계정 관리',['차단한 사용자','로그아웃','회원 탈퇴'],[]],
-    ['서비스 안내',[],['/service/landing','/service/notices','/service/events','/service/support','/service/legal/terms','/service/legal/privacy','/service/legal/policy']],
+    ['서비스 안내',[],['/service/landing','https://guide.crefans.com/','/service/notices','/service/events','/service/support','/service/legal/terms','/service/legal/privacy','/service/legal/policy']],
   ];
   for(const [category,buttons,links] of cases){
     choose(category);assert.deepEqual(headings(),[category]);
     assert.deepEqual(categories.findAllByType('button').filter(node=>node.props['aria-pressed']).map(flat),[category]);
     assert.deepEqual(tree.root.findAllByType('button').filter(node=>node.props['aria-pressed']===undefined).map(node=>flat(node).trim()),buttons);
-    assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href),links);
+    assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href).filter(href=>!/^(mailto|tel):/.test(href)),links);
+    assert.equal(tree.root.findAllByProps({'aria-label':'사업자 정보'}).length,1);
   }
   choose('계정 설정');act(()=>button(tree,'프로필 수정').props.onClick());
   assert.equal(tree.root.findAllByProps({'data-dialog':'프로필 수정'}).length,1);
@@ -228,8 +231,9 @@ test('settings categories filter their own items and keep account actions in acc
 });
 
  test('live signup shows published documents without enabling signup before processing is ready',()=>{
-  const data=model();data.account.agreements={...loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements,published:true,documentsPublished:true,signupReady:false,blockingMessage:'가입 준비 안내'};
+  const data=model();data.account.agreements={...loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements,published:true,documentsPublished:true,signupReady:false,blockingMessage:'가입 준비 안내'};data.account.guidance={...data.account.guidance,signup:'2주 베타 안내'};
   const tree=mount(pages.SignupPage,data);
+  assert.doesNotMatch(text(tree),/가입 준비 안내|2주 베타 안내|만 19세 이상만 가입할 수 있습니다/,'signup hides beta/preparation notices and the age hint');
   assert.equal(button(tree,'인증 코드 받기').props.disabled,true);assert.equal(button(tree,'PASS 본인인증').props.disabled,true);
   act(()=>tree.root.findByProps({'aria-label':'이용약관 보기'}).props.onClick());
   assert.match(text(tree),/다음 결제 해지를 예약해도/);assert.doesNotMatch(text(tree),/주입된 약관/);
@@ -248,4 +252,87 @@ test('deferred identity signup hides PASS and requires email plus age acknowledg
  const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');act(()=>{checks[1].props.onChange({target:{checked:true}});checks[2].props.onChange({target:{checked:true}});});
  assert.equal(submit().props.disabled,true);await act(async()=>button('인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button('확인').props.onClick());assert.equal(submit().props.disabled,true);
  act(()=>checks[0].props.onChange({target:{checked:true}}));assert.equal(submit().props.disabled,false);await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.length,1);assert.equal(calls[0].identityVerified,false);assert.equal(calls[0].ageAcknowledged,true);assert.equal(calls[0].emailVerified,true);act(()=>tree.unmount());
+});
+
+test('my profile uses one shared cover wallet entry on every device',()=>{
+ let tree;act(()=>{tree=create(React.createElement(beanContext.Provider,{value:{enabled:true}},React.createElement(pages.MyProfilePage,{model:model()})));});
+ const wallets=tree.root.findAllByType('a').filter(link=>link.props.href==='/service/beans');
+ assert.equal(wallets.length,1);assert.equal(flat(wallets[0]),'내 지갑');
+ act(()=>tree.unmount());
+ // With the wallet loaded the chip reads "내 지갑(1,000콩)" and asks for the wallet once.
+ let loads=0;act(()=>{tree=create(React.createElement(beanContext.Provider,{value:{enabled:true,signedIn:true,wallet:{spendableBeans:1000},refresh:async()=>{loads++;}}},React.createElement(pages.MyProfilePage,{model:model()})));});
+ assert.equal(flat(tree.root.findAllByType('a').find(link=>link.props.href==='/service/beans')),'내 지갑(1,000콩)');assert.equal(loads,1);
+ act(()=>tree.update(React.createElement(beanContext.Provider,{value:{enabled:true,signedIn:true,wallet:{spendableBeans:1000},refresh:async()=>{loads++;}}},React.createElement(pages.MyProfilePage,{model:model()}))));assert.equal(loads,1,'a new refresh function on rerender must not reload (was an infinite loop in preview)');
+ const settings=tree.root.findAllByType('a').find(l=>l.props.href==='/service/settings');assert.deepEqual(tree.root.findAll(n=>n.type?.name==='ChipLink').map(n=>n.props.href),['/service/beans','/service/settings'],'wallet and settings use the category chip look');assert.match(flat(settings),/설정/);
+ act(()=>tree.unmount());
+});
+
+
+test('preview moka credentials reject wrong passwords without changing persona or session',async()=>{
+ const paths=[],personas=[],sessions=[];
+ const {useMockAccount}=loadTypeScript('components/preview/service/useMockAccount.ts',{'@/features/preview/login':{requestPreviewLogin:async()=>failure('이메일 또는 비밀번호를 확인해주세요.')},'next/navigation':{useRouter:()=>({push:path=>paths.push(path)}),useSearchParams:()=>new URLSearchParams('')}});
+ let state,tree;function Probe(){state=useMockAccount({viewer:{name:'팬',handle:'fan',bio:'',image:''},setViewer(){},setSignedIn:value=>sessions.push(value),onCreatorLogin:id=>personas.push(id),basePath:'/preview',creators:[]});return null;}
+ act(()=>{tree=create(React.createElement(Probe));});
+ try{let result;await act(async()=>{result=await state.accountActions.login({email:'MOKA@gmail.com',password:'incorrect-password'});});assert.equal(result.success,false);assert.deepEqual(paths,[]);assert.deepEqual(personas,[]);assert.deepEqual(sessions,[]);
+ await act(async()=>{result=await state.accountActions.login({email:'fan@example.test',password:'example-password'});});assert.equal(result.success,true);assert.deepEqual(paths,['/preview/feed']);assert.deepEqual(personas,['haneul']);assert.deepEqual(sessions,[true]);
+ }finally{act(()=>tree.unmount());}
+});
+
+ test('settings save feedback uses a dismissible shared snackbar while errors stay with the form',async()=>{
+  const data=model();let succeed=true;data.accountActions.updateSettings=async()=>succeed?success('설정을 저장했습니다.'):failure('저장에 실패했습니다.');
+  const tree=mount(pages.SettingsPage,data);
+  try{
+   act(()=>button(tree,'개인정보 관리').props.onClick());
+   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+   const snackbar=tree.root.findByProps({'aria-label':'알림 닫기'}).parent;
+   assert.match(flat(snackbar),/설정을 저장했습니다/);
+   assert.equal(tree.root.findAllByType('p').some(node=>flat(node).includes('설정을 저장했습니다')),false,'success must not remain as an in-flow paragraph');
+   act(()=>snackbar.findByProps({'aria-label':'알림 닫기'}).props.onClick());
+   assert.equal(tree.root.findByProps({'aria-label':'알림 닫기'}).parent.props['data-state'],'closing');
+   succeed=false;act(()=>button(tree,'개인정보 관리').props.onClick());
+   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+   assert.match(flat(tree.root.findByProps({role:'alert'})),/저장에 실패/);
+   assert.equal(tree.root.findAllByProps({'data-dialog':'개인정보 관리'}).length,1,'failed form stays open');
+  }finally{act(()=>tree.unmount());}
+ });
+test('signed-out prompt carries service links and operator details for mobile visitors',()=>{
+  let tree;act(()=>{tree=create(React.createElement(pages.SignInPrompt,{basePath:'/service'}));});
+  assert.equal(tree.root.findAllByProps({'aria-label':'사업자 정보'}).length,1);
+  assert.ok(tree.root.findAllByType('a').some(node=>node.props.href==='/service/legal/privacy'));
+  act(()=>tree.unmount());
+});
+test('legal documents show only the effective date above the sections, without publication status, version or notice',()=>{
+  const {LegalDocumentBody}=loadTypeScript('components/crefans/LegalDocumentBody.tsx',{'./common.module.css':{__esModule:true,default:styles}});
+  const document={title:'개인정보처리방침',version:'2026-10-29.2',updatedAt:'2026-10-29',publishedAt:'2026-10-22',effectiveAt:null,status:'published',notice:'공개 안내',sections:[{title:'1. 범위',body:'본문'}]};
+  let tree;act(()=>{tree=create(React.createElement(LegalDocumentBody,{document}));});
+  const text=JSON.stringify(tree.toJSON());
+  assert.match(text,/시행일 /);assert.match(text,/2026년 10월 29일/);
+  for(const hidden of ['공개본','공개일','작성·수정일','버전','2026-10-29.2','공개 안내'])assert.doesNotMatch(text,new RegExp(hidden));
+  act(()=>tree.update(React.createElement(LegalDocumentBody,{document:{...document,effectiveAt:'2026-11-15'}})));
+  assert.match(JSON.stringify(tree.toJSON()),/2026년 11월 15일/);
+  act(()=>tree.unmount());
+});
+test('live signup lets a visitor request a code before signup opens and shows the server beta notice for a non-invited email',async()=>{
+  const data=model();data.mode='live';data.account.agreements={...loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements,published:true,documentsPublished:true,signupReady:false,blockingMessage:'가입 준비 안내'};
+  const notice='베타 안내 문구';data.accountActions.requestSignupCode=async()=>({success:false,data:null,errorMessage:notice,errorCode:'SIGNUP_INVITE_REQUIRED'});
+  const tree=mount(pages.SignupPage,data);
+  change(field(tree,'이메일'),'stranger@example.test');
+  assert.equal(button(tree,'인증 코드 받기').props.disabled,false);
+  await act(async()=>button(tree,'인증 코드 받기').props.onClick());
+  const dialog=tree.root.findAllByProps({'data-dialog':'가입 안내'});assert.equal(dialog.length,1);assert.match(text(tree),/베타 안내 문구/);
+  assert.equal(tree.root.findAllByProps({role:'alert'}).length,0,'the notice is a dialog, not an inline error');
+  await act(async()=>button(tree,'확인').props.onClick());assert.equal(tree.root.findAllByProps({'data-dialog':'가입 안내'}).length,0);
+  act(()=>tree.unmount());
+});
+
+test('the withdraw dialog points purchased beans to the wallet refund and shows creator conditions only to creators',()=>{
+  for(const [owners,creatorLine] of [[[],false],[['haneul'],true]]){
+    const tree=mount(pages.SettingsPage,{...model(),ownCreatorIds:owners});
+    act(()=>tree.root.findAllByType('button').find(item=>flat(item).trim()==='회원 탈퇴').props.onClick());
+    const dialog=tree.root.findByProps({'data-dialog':'회원 탈퇴'}),text=dialog.findAllByType('p').map(flat).join(' ');
+    assert.match(text,/남은 충전 콩은 지갑의 충전 내역에서 환불을 신청한 뒤 탈퇴해주세요/);
+    assert.ok(dialog.findAllByType('a').some(link=>link.props.href==='/service/beans/charges'),'refund link');
+    assert.equal(/크리에이터는 멤버십 판매 중단/.test(text),creatorLine,owners.length?'creator':'fan');
+    act(()=>tree.unmount());
+  }
 });

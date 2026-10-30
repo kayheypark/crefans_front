@@ -1,5 +1,6 @@
 'use client';
 
+import {requestPreviewLogin} from '@/features/preview/login';
 import {previewAgreements} from './legal-fixtures';
 import {useState,type Dispatch,type SetStateAction,useRef} from 'react';
 import {useRouter,useSearchParams} from 'next/navigation';
@@ -10,9 +11,9 @@ const validEmail=(value:string)=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
 const success=(message:string):AccountActionResult=>({success:true,data:{message},errorMessage:null,errorCode:null});
 const failure=(message:string):AccountActionResult=>({success:false,data:null,errorMessage:message,errorCode:'VALIDATION_ERROR'});
 
-export function useMockAccount({viewer,setViewer,setSignedIn,basePath,creators}:{viewer:Viewer;setViewer:Dispatch<SetStateAction<Viewer>>;setSignedIn:Dispatch<SetStateAction<boolean>>;basePath:string;creators:Creator[]}):AccountModel{
+export function useMockAccount({viewer,setViewer,setSignedIn,basePath,creators,onCreatorLogin,initialEmail}:{viewer:Viewer;setViewer:Dispatch<SetStateAction<Viewer>>;setSignedIn:Dispatch<SetStateAction<boolean>>;basePath:string;creators:Creator[];onCreatorLogin?:(id:string)=>void;initialEmail?:string}):AccountModel{
   const router=useRouter(),query=useSearchParams();
-  const [email,setEmail]=useState('fanjimin@example.com');
+  const [email,setEmail]=useState(initialEmail||'fanjimin@example.com');
   const [preferences,setPreferences]=useState<AccountPreferences>({contentAlert:true,messageAlert:true,marketingAlert:false,showActivity:false,allowSearch:true,showFollowers:true,showFollowing:true});
   const [blockedCreatorIds,setBlockedCreatorIds]=useState<string[]>(creators.some(creator=>creator.id==='minji')?['minji']:[]);
   const [tickets,setTickets]=useState<AccountTicket[]>([]);
@@ -33,7 +34,16 @@ export function useMockAccount({viewer,setViewer,setSignedIn,basePath,creators}:
       requestSignupCode:async value=>{if(!validEmail(value))return failure('올바른 이메일 주소를 입력해주세요.');const pending=signupCode.current,now=Date.now();if(pending&&pending.email===value.trim()&&now-pending.sentAt<RESEND_COOLDOWN_MS){const minutes=Math.ceil((RESEND_COOLDOWN_MS-(now-pending.sentAt))/60000);return {success:false,data:null,errorMessage:`이미 보낸 인증 코드가 있어요. 받은 코드를 입력하거나 ${minutes}분 후 다시 요청할 수 있습니다.`,errorCode:'RESEND_COOLDOWN'};}signupCode.current={email:value.trim(),sentAt:now};return success('인증 코드를 보냈어요. 10분 안에 입력해 주세요. 검수용 코드는 123456입니다.');},
       verifySignupCode:async input=>{const pending=signupCode.current;if(!pending||input.email.trim()!==pending.email)return failure('인증 코드를 먼저 요청해주세요.');if(Date.now()-pending.sentAt>CODE_TTL_MS){signupCode.current=null;return failure('인증 코드가 만료되었어요. 다시 요청해 주세요.');}if(input.code.trim()!=='123456')return failure('인증 코드가 올바르지 않습니다.');signupCode.current=null;return success('이메일 인증이 완료되었습니다.');},
       verifyIdentity:async()=>success('PASS 본인인증이 완료되었습니다.'),
-      login:async input=>{if(!validEmail(input.email)||input.password.length<8)return failure('이메일과 8자 이상 비밀번호를 입력해주세요.');setSignedIn(true);router.push(`${basePath}/feed`);return success('로그인되었습니다.');},
+      login:async input=>{
+        if(!validEmail(input.email)||input.password.length<8)return failure('이메일과 8자 이상 비밀번호를 입력해주세요.');
+        const moka=input.email.trim().toLowerCase()==='moka@gmail.com';
+        if(moka){
+          const result=await requestPreviewLogin(input);
+          if(!result.success)return failure(result.errorMessage||'이메일 또는 비밀번호를 확인해주세요.');
+        }
+        setEmail(input.email.trim());setSignedIn(true);onCreatorLogin?.(moka?'moka':'haneul');
+        router.push(`${basePath}/${moka?'studio':'feed'}`);return success('로그인되었습니다.');
+      },
       updateProfile:async input=>{if(!input.name.trim())return failure('닉네임을 입력해주세요.');setViewer({...viewer,name:input.name.trim(),bio:input.bio.trim()});return success('프로필을 저장했습니다.');},
       updateSettings:async input=>{
         if(input.section==='account'){if(!input.name.trim())return failure('닉네임을 입력해주세요.');setViewer({...viewer,name:input.name.trim()});}

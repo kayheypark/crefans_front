@@ -20,7 +20,7 @@ function pages(){
     'next/navigation':{useRouter:()=>({push:path=>navigations.push(path)}),useSearchParams:()=>search},
     './creator.module.css':styles,'./choice.module.css':styles,'./social.module.css':styles,'./chip-row.module.css':styles,'./media-type-icon.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./optional-image.module.css':new Proxy({},{get:(_,key)=>String(key)}),
     './Icon':()=>h('svg'),
-    '@/components/ui/Primitives':{Dialog:({open,title,children})=>open?h('section',{role:'dialog','aria-label':title},children):null,Chip:({selected,children,onClick})=>h('button',{type:'button','aria-pressed':selected,onClick},children)},
+    '@/components/ui/Primitives':{Dialog:({open,title,children})=>open?h('section',{role:'dialog','aria-label':title},children):null,Chip:({selected,children,onClick})=>h('button',{type:'button','aria-pressed':selected,onClick},children),Badge:({children,tone,label})=>h('span',{'data-tone':tone,'aria-label':label},children)},
     './ServiceUI':{
       Action:({variant,children,...props})=>h('button',props,children),
       Avatar:({creator})=>h('img',{alt:creator?.name}),
@@ -217,6 +217,7 @@ test('explore shows paid placements as cards and everyone else as one-line rows 
   assert.doesNotMatch(text(tree),/ROW_BIO_HIDDEN/,'rows stay minimal');
   assert.equal(tree.root.findAllByType('button').filter(node=>/^팔로우/.test(flatten(node.props.children))).length,1,'rows have no follow toggle');
   assert.match(text(tree),/주목할 크리에이터/);assert.match(text(tree),/모든 크리에이터/);
+  const ad=tree.root.findAllByProps({'aria-label':'광고'});assert.equal(ad.length,1);assert.equal(ad[0].props['data-tone'],'outline');assert.match(text(tree),/AD/);
   assert.ok(tree.root.findAllByType('a').some(link=>link.props.href==='/catalogue/creator/plain-1'));
   act(()=>tree.update(h(ExplorePage,{model:{...model,data:{...model.data,creators:[plain]}}})));
   assert.equal(tree.root.findAllByType('article').length,0);assert.doesNotMatch(text(tree),/주목할 크리에이터|모든 크리에이터/,'no headings when there are no cards above');
@@ -240,4 +241,15 @@ test('the 소개 tab shows only the long intro and SNS links: no title, no membe
 });
 test('payment detail has no refund entry even when the model exposes a refund action',()=>{
  const {SubscriptionsPage,search}=pages();search.set('tab','payments');const model=inputs();model.data.paymentHistory=[{creatorId:'artist-42',planId:'independent-plan',status:'active',renewAt:'2030-02-08',price:27500,orderId:'order-one',paidAt:'2030-01-08',paymentStatus:'paid'}];model.refundOrder=async()=>{throw Error('must not run');};let tree;act(()=>{tree=create(h(SubscriptionsPage,{model}));});act(()=>tree.root.findAllByType('button').find(node=>flatten(node.children).includes('상세 보기')).props.onClick());assert.equal(button(tree,'환불 요청'),undefined);assert.equal(button(tree,'전액 환불하기'),undefined);assert.ok(button(tree,'닫기'));act(()=>tree.unmount());
+});
+
+
+test('preview persona button delegates the injected action and never appears in live profiles',()=>{
+ const {CreatorProfilePage}=pages(),model=inputs(),calls=[];let tree;
+ const previewLogin={label:'모카로 로그인',onClick:()=>calls.push('moka')};
+ act(()=>{tree=create(h(CreatorProfilePage,{model:{...model,mode:'mock'},id:'artist-42',previewLogin}));});
+ assert.ok(button(tree,'모카로 로그인'));act(()=>button(tree,'모카로 로그인').props.onClick());assert.deepEqual(calls,['moka']);
+ act(()=>tree.update(h(CreatorProfilePage,{model,id:'artist-42',previewLogin})));assert.equal(button(tree,'모카로 로그인'),undefined);
+ act(()=>tree.update(h(CreatorProfilePage,{model:{...model,mode:'mock'},id:'artist-42'})));assert.equal(button(tree,'모카로 로그인'),undefined);
+ act(()=>tree.unmount());
 });

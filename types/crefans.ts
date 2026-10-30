@@ -8,8 +8,8 @@ export type ApiResult<T> =
 /** External profiles the creator manages in the studio; shown on the fan profile's 소개 tab. */
 export type CreatorLinks={youtube?:string;instagram?:string;facebook?:string};
 /** `bio` is the one-line tagline under the name; `about` is the long 소개 text. `promoted` is the paid placement: shown as a full card at the top of explore; everyone else is a one-line row. */
-export type Creator={id:string;name:string;handle:string;tags:string[];image:string;cover?:string;position:string;bio:string;about?:string;links?:CreatorLinks;followers:string;followerCount?:number;followingCount?:number;followersPublic?:boolean;followingPublic?:boolean;promoted?:boolean;isCreator?:boolean;/** Assigned only by an administrator, independently of PASS. */isVerified?:boolean;searchable?:boolean;postCount?:number};
-export type Viewer={name:string;handle:string;bio:string;image:string;isVerified?:boolean};
+export type Creator={id:string;name:string;handle:string;tags:string[];image:string;cover?:string;position:string;bio:string;about?:string;links?:CreatorLinks;followers:string;followerCount?:number;followingCount?:number;followersPublic?:boolean;followingPublic?:boolean;promoted?:boolean;isCreator?:boolean;/** Assigned only by an administrator, independently of PASS. */isVerified?:boolean;isFoundingMember?:boolean;searchable?:boolean;postCount?:number};
+export type Viewer={name:string;handle:string;bio:string;image:string;isVerified?:boolean;isFoundingMember?:boolean};
 export type Plan={id:string;name:string;price:number;rank:number;benefits:string[];description?:string;recommended?:boolean;image?:string;version?:number;available?:boolean;entitlementMode?:'tier'|'exact'};
 export type PostMediaItem={type:'image'|'video';url:string};
 /** `image` stays the cover for cards; `media` carries the full gallery (images and videos, up to 10) when present. */
@@ -19,7 +19,7 @@ export type Notification={id:string;creatorId:string|null;type:string;text:strin
 export type Message={id:string|number;body:string;mine:boolean;time:string;unread?:boolean};
 export type Faq={question:string;answer:string};
 /** Someone following the signed-in fan; listed under 항목 모아보기 > 팔로워 목록. */
-export type Follower={id:string;name:string;handle:string;image:string;isVerified?:boolean};
+export type Follower={id:string;name:string;handle:string;image:string;isVerified?:boolean;isFoundingMember?:boolean};
 export type ServiceData={creators:Creator[];plans:Plan[];creatorPlans?:Record<string,Plan[]>;posts:Post[];notifications:Notification[];paymentHistory:Subscription[];messages:Record<string,Message[]>;faqs:Faq[];categories:string[];followers?:Follower[]};
 /** Presentation inputs. Containers may back these with fixtures or API/model adapters. */
 export type ServiceViewModel=AccountModel&SocialModel&{

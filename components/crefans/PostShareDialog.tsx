@@ -1,4 +1,5 @@
 'use client';
+import {Toast} from '@/components/ui/Toast';
 import {useEffect,useRef} from 'react';
 import {Dialog} from '@/components/ui/Primitives';
 import {usePostShare} from '@/features/post-share/usePostShare';
@@ -23,7 +24,7 @@ export function ShareDialog({open,onClose,title,state}:{open:boolean;onClose:()=
    {state.kakao==='loading'&&<p className={s.hint} role="status">카카오톡 공유를 준비하고 있어요.</p>}
    {state.kakao==='error'&&<p className={s.hint} role="alert">카카오톡 공유를 불러오지 못했어요. 공유창을 다시 열어 주세요.</p>}
    {!state.nativeSupported&&<p className={s.hint}>이 브라우저는 기기 공유를 지원하지 않아요. 복사를 이용해 주세요.</p>}
-   {state.message&&<p className={s.message} role="status">{state.message}</p>}
+   <Toast message={state.message} onClose={state.dismissMessage}/>
    {state.error&&<p className={s.error} role="alert">{state.error}</p>}
    {state.manualCopy&&<label className={s.manual}>공유 링크<input ref={link} readOnly value={state.url} onFocus={event=>event.currentTarget.select()}/></label>}
   </div>

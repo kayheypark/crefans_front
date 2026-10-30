@@ -31,5 +31,5 @@ export function usePostShare({open,basePath,postId,title}:{open:boolean;basePath
    if(kind==='copy')setManualCopy(true);
   }finally{if(token===generation.current){busy.current=false;setPending(false);}}
  }
- return{url,nativeSupported,kakao,pending,message,error,manualCopy,copy:()=>perform('copy'),shareKakao:()=>perform('kakao'),shareMore:()=>perform('more')};
+ return{url,nativeSupported,kakao,pending,message,error,manualCopy,dismissMessage:()=>setMessage(''),copy:()=>perform('copy'),shareKakao:()=>perform('kakao'),shareMore:()=>perform('more')};
 }

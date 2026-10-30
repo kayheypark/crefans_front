@@ -39,6 +39,8 @@
 .login .homeLink{display:grid;margin:8px auto 0}
 
 .signInPrompt{width:100%;min-height:calc(100svh - 180px);display:grid;place-items:center;margin:0;padding:48px 16px}
+/* Phones: the page body already has the 16px side gutter (same as the feed), so the prompt adds none. */
+@media(max-width:767px){.signInPrompt{padding-inline:0}}
 .signInPrompt>div{width:100%;max-width:400px;padding:0;gap:12px}
 .signInPrompt>div>p:first-child{font-size:24px;line-height:1.4;letter-spacing:-.6px;color:var(--cf-color-text)}
 .signInPrompt>div>p:not(:first-child){font-size:14px;line-height:1.8}
@@ -48,14 +50,15 @@
 
 .menuGroup{margin-top:22px}.menuGroup h3{margin:0 0 2px;padding:0 5px;font-size:max(12px,var(--cf-mobile-font-min,0px));font-weight:600;color:var(--cf-color-textMuted)}.menuGroup .menuList{margin-top:0;padding-top:0;border:0}
 .settingsCategories{margin-block:0 22px;padding-block:4px}
-.mobileMenuGroup,.mobileCategory{display:none}
 @media(max-width:767px){
   .settings{max-width:none}
-  .mobileMenuGroup,.mobileCategory{display:block}
   .settings>.menuGroup+.menuGroup,.settings>.accountActions{position:relative;margin-top:16px;padding-top:24px;border-top:0}
   .settings>.menuGroup+.menuGroup::before,.settings>.accountActions::before{content:"";position:absolute;inset:0 -16px auto;height:8px;box-sizing:border-box;background:var(--cf-landing-soft);pointer-events:none}
 }
 
-.legalLink{border:0;padding:0;background:none;color:var(--cf-service-brand);font:inherit;text-decoration:underline;cursor:pointer}
 
 .blocked>div{min-width:0;flex:1}.blocked>button{flex:none}
+.settings>label{min-height:54px;padding:13px 5px}.settings>label strong{font-weight:400;color:var(--cf-color-textSecondary)}
+/* Operator details close the settings page on mobile; the PC sidebar already shows them. */
+.settingsBusiness{margin-top:32px;padding-top:20px;border-top:1px solid var(--cf-landing-line)}
+@media(min-width:768px){.settings>.settingsBusiness{display:none}}
