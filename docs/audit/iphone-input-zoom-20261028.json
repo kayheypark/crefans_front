@@ -1,0 +1,3045 @@
+{
+  "at": "2026-10-28T14:43:40.183527+00:00",
+  "request": "아이폰 입력 클릭 자동 확대 방지: 팬·스튜디오·운영 콘솔",
+  "productionDeployed": false,
+  "repositories": {
+    "crefans_front": {
+      "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+      "branch": "feat/iphone-input-zoom",
+      "dirty": true,
+      "preExistingChangesPreserved": true,
+      "baseline": ".local/iphone-input-20261028/baseline.json",
+      "files": {
+        "app/globals.css": "c7f30b0a864e151d626118cc1b909d0481904f19dd253b7b81816810aedc39e3",
+        "app/layout.tsx": "1cec6a5bb100b3b8bc4849ec5be3694ccceb522c2ec0f9aaf7dea03c7bb8492c",
+        "AGENTS.md": "738a7abd9720d7abdd2c1d751e12a72e48e282bf5520b3b7e40a891b2e3035d8",
+        "PROGRESS.md": "7acffbeedc603d7229bd76f8c694008456a2d8add3b71479be2c08cf4433b30f",
+        "docs/design-system.md": "a513a27d2e96184d9e15a65bfc7282d20c54a8d722e220bb759e7f021f8c6c0e"
+      }
+    },
+    "crefans_admin": {
+      "head": "8cf5025fa746afd09d06d10b4182787713f86bbd",
+      "branch": "feat/iphone-input-zoom",
+      "dirty": true,
+      "preExistingChangesPreserved": true,
+      "baseline": ".local/iphone-input-20261028/baseline.json",
+      "files": {
+        "src/app/globals.css": "9ba098071ff3775d8d429f003b193f8e12430398b211b0710e76f587c363abc6",
+        "AGENTS.md": "b4664e4200785db4e23f9a7c26166ada059e1415d0c6f3875b24d43c6b91405e",
+        "PROGRESS.md": "621fe230ed31985f2cce3e29ffd0fce16bdfd79568886b5a308cb3db491ab644"
+      }
+    }
+  },
+  "environment": {
+    "node": "v22.23.4",
+    "frontOrigin": "http://127.0.0.1:3010",
+    "adminOrigin": "http://127.0.0.1:3002",
+    "databaseModified": false
+  },
+  "checks": {
+    "before": {
+      "at": "2026-10-28T14:37:26.395Z",
+      "phase": "before",
+      "exitCode": 0,
+      "results": [
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":Rajjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 14,
+              "width": 320,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rijjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 14,
+              "width": 271,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/signup",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":R4jjjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 14,
+              "width": 187.765625,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1jjjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 14,
+              "width": 271,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1rjjtt7qj6:",
+              "label": "비밀번호 확인",
+              "fontSize": 14,
+              "width": 271,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R23jjtt7qj6:",
+              "label": "닉네임",
+              "fontSize": 14,
+              "width": 320,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/explore",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "search",
+              "id": "",
+              "label": "크리에이터 검색",
+              "fontSize": 14,
+              "width": 301,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/messages",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "대화 검색",
+              "fontSize": 14,
+              "width": 304.40625,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/support",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "자주 묻는 질문 검색",
+              "fontSize": 14,
+              "width": 300,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/studio/content/new",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R36vjttt7qj6:",
+              "label": "제목",
+              "fontSize": 14,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R56vjttt7qj6:",
+              "label": "본문",
+              "fontSize": 14,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "datetime-local",
+              "id": "",
+              "label": "예약 게시 시각",
+              "fontSize": 14,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "post-comment-:R2alavjttt7qj6:",
+              "label": "댓글 남기기",
+              "fontSize": 14,
+              "width": 306,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/studio/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R18nvjttt7qj6:",
+              "label": "크리에이터 활동명 *",
+              "fontSize": 14,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R28nvjttt7qj6:",
+              "label": "프로필 주소 *",
+              "fontSize": 14,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R48nvjttt7qj6:",
+              "label": "소개",
+              "fontSize": 14,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R1cnvjttt7qj6:",
+              "label": "소개 글",
+              "fontSize": 14,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":Rqcnvjttt7qj6:",
+              "label": "유튜브",
+              "fontSize": 14,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1acnvjttt7qj6:",
+              "label": "인스타그램",
+              "fontSize": 14,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1qcnvjttt7qj6:",
+              "label": "페이스북",
+              "fontSize": 14,
+              "width": 328,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/studio/security",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R7vjttt7qj6:",
+              "label": "새 출금 PIN *",
+              "fontSize": 14,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rbvjttt7qj6:",
+              "label": "출금 PIN 확인 *",
+              "fontSize": 14,
+              "width": 328,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "fan-profile-dialog",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r0:",
+              "label": "닉네임",
+              "fontSize": 14,
+              "width": 273.38330078125,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r1:",
+              "label": "사용자 이름",
+              "fontSize": 14,
+              "width": 273.38330078125,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":r2:",
+              "label": "소개",
+              "fontSize": 14,
+              "width": 302.88507080078125,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "studio-reply",
+          "fields": [
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "reply-morning-c1",
+              "label": "답글 작성",
+              "fontSize": 14,
+              "width": 306,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "admin/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": "",
+              "label": "이메일",
+              "fontSize": 13,
+              "width": 292,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": "",
+              "label": "비밀번호",
+              "fontSize": 13,
+              "width": 292,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "admin/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 13,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 13,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유",
+              "fontSize": 13,
+              "width": 328,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "admin/confirm",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 13,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 13,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유레이아웃 검증, 제출하지 않음",
+              "fontSize": 13,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "계속하려면 정책 변경을 그대로 입력하세요",
+              "fontSize": 13,
+              "width": 316,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":Rajjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 13,
+              "width": 350,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rijjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 13,
+              "width": 301,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/signup",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":R4jjjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 13,
+              "width": 257.765625,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1jjjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 13,
+              "width": 341,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1rjjtt7qj6:",
+              "label": "비밀번호 확인",
+              "fontSize": 13,
+              "width": 341,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R23jjtt7qj6:",
+              "label": "닉네임",
+              "fontSize": 13,
+              "width": 390,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/explore",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "search",
+              "id": "",
+              "label": "크리에이터 검색",
+              "fontSize": 14,
+              "width": 921,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/messages",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "대화 검색",
+              "fontSize": 13,
+              "width": 215.890625,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "message-draft",
+              "label": "메시지 입력",
+              "fontSize": 12,
+              "width": 569,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/support",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "자주 묻는 질문 검색",
+              "fontSize": 12,
+              "width": 602,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/studio/content/new",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R36vjttt7qj6:",
+              "label": "제목",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R56vjttt7qj6:",
+              "label": "본문",
+              "fontSize": 13,
+              "width": 552,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "datetime-local",
+              "id": "",
+              "label": "예약 게시 시각",
+              "fontSize": 13,
+              "width": 264,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "post-comment-:R2alavjttt7qj6:",
+              "label": "댓글 남기기",
+              "fontSize": 13,
+              "width": 320,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/studio/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R18nvjttt7qj6:",
+              "label": "크리에이터 활동명 *",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R28nvjttt7qj6:",
+              "label": "프로필 주소 *",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R48nvjttt7qj6:",
+              "label": "소개",
+              "fontSize": 13,
+              "width": 552,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R1cnvjttt7qj6:",
+              "label": "소개 글",
+              "fontSize": 13,
+              "width": 552,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":Rqcnvjttt7qj6:",
+              "label": "유튜브",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1acnvjttt7qj6:",
+              "label": "인스타그램",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1qcnvjttt7qj6:",
+              "label": "페이스북",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/studio/security",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R7vjttt7qj6:",
+              "label": "새 출금 PIN *",
+              "fontSize": 13,
+              "width": 610,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rbvjttt7qj6:",
+              "label": "출금 PIN 확인 *",
+              "fontSize": 13,
+              "width": 610,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "fan-profile-dialog",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r0:",
+              "label": "닉네임",
+              "fontSize": 13,
+              "width": 395.14794921875,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r1:",
+              "label": "사용자 이름",
+              "fontSize": 13,
+              "width": 395.14794921875,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":r2:",
+              "label": "소개",
+              "fontSize": 13,
+              "width": 424.6366271972656,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "studio-reply",
+          "fields": [
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "reply-morning-c1",
+              "label": "답글 작성",
+              "fontSize": 13,
+              "width": 745,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "admin/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": "",
+              "label": "이메일",
+              "fontSize": 13,
+              "width": 370,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": "",
+              "label": "비밀번호",
+              "fontSize": 13,
+              "width": 370,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "admin/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "admin/confirm",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유레이아웃 검증, 제출하지 않음",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "계속하려면 정책 변경을 그대로 입력하세요",
+              "fontSize": 13,
+              "width": 438,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        }
+      ],
+      "limitations": "Desktop WebKit/Chromium device emulation; not an actual iPhone native keyboard or pinch-zoom test."
+    },
+    "after": {
+      "at": "2026-10-28T14:39:40.829048+00:00",
+      "phase": "after",
+      "exitCode": 0,
+      "results": [
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":Rajjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 16,
+              "width": 320,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rijjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 16,
+              "width": 271,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/signup",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":R4jjjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 16,
+              "width": 187.765625,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1jjjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 16,
+              "width": 271,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1rjjtt7qj6:",
+              "label": "비밀번호 확인",
+              "fontSize": 16,
+              "width": 271,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R23jjtt7qj6:",
+              "label": "닉네임",
+              "fontSize": 16,
+              "width": 320,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/explore",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "search",
+              "id": "",
+              "label": "크리에이터 검색",
+              "fontSize": 16,
+              "width": 301,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/messages",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "대화 검색",
+              "fontSize": 16,
+              "width": 304.40625,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/support",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "자주 묻는 질문 검색",
+              "fontSize": 16,
+              "width": 300,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/studio/content/new",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R36vjttt7qj6:",
+              "label": "제목",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R56vjttt7qj6:",
+              "label": "본문",
+              "fontSize": 16,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "datetime-local",
+              "id": "",
+              "label": "예약 게시 시각",
+              "fontSize": 16,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "post-comment-:R2alavjttt7qj6:",
+              "label": "댓글 남기기",
+              "fontSize": 16,
+              "width": 306,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/studio/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R18nvjttt7qj6:",
+              "label": "크리에이터 활동명 *",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R28nvjttt7qj6:",
+              "label": "프로필 주소 *",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R48nvjttt7qj6:",
+              "label": "소개",
+              "fontSize": 16,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R1cnvjttt7qj6:",
+              "label": "소개 글",
+              "fontSize": 16,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":Rqcnvjttt7qj6:",
+              "label": "유튜브",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1acnvjttt7qj6:",
+              "label": "인스타그램",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1qcnvjttt7qj6:",
+              "label": "페이스북",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/studio/security",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R7vjttt7qj6:",
+              "label": "새 출금 PIN *",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rbvjttt7qj6:",
+              "label": "출금 PIN 확인 *",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "fan-profile-dialog",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r0:",
+              "label": "닉네임",
+              "fontSize": 16,
+              "width": 273.26153564453125,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r1:",
+              "label": "사용자 이름",
+              "fontSize": 16,
+              "width": 273.26153564453125,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":r2:",
+              "label": "소개",
+              "fontSize": 16,
+              "width": 302.75018310546875,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "studio-reply",
+          "fields": [
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "reply-morning-c1",
+              "label": "답글 작성",
+              "fontSize": 16,
+              "width": 306,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "admin/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": "",
+              "label": "이메일",
+              "fontSize": 16,
+              "width": 292,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": "",
+              "label": "비밀번호",
+              "fontSize": 16,
+              "width": 292,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "admin/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "admin/confirm",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유레이아웃 검증, 제출하지 않음",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "계속하려면 정책 변경을 그대로 입력하세요",
+              "fontSize": 16,
+              "width": 316,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "preview/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":Rajjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 16,
+              "width": 350,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rijjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 16,
+              "width": 301,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "preview/signup",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":R4jjjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 16,
+              "width": 257.765625,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1jjjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 16,
+              "width": 341,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1rjjtt7qj6:",
+              "label": "비밀번호 확인",
+              "fontSize": 16,
+              "width": 341,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R23jjtt7qj6:",
+              "label": "닉네임",
+              "fontSize": 16,
+              "width": 390,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "preview/explore",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "search",
+              "id": "",
+              "label": "크리에이터 검색",
+              "fontSize": 16,
+              "width": 573,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "preview/messages",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "대화 검색",
+              "fontSize": 16,
+              "width": 161.40625,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "message-draft",
+              "label": "메시지 입력",
+              "fontSize": 16,
+              "width": 286,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "preview/support",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "자주 묻는 질문 검색",
+              "fontSize": 16,
+              "width": 572,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "preview/studio/content/new",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R36vjttt7qj6:",
+              "label": "제목",
+              "fontSize": 16,
+              "width": 586,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R56vjttt7qj6:",
+              "label": "본문",
+              "fontSize": 16,
+              "width": 616,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "datetime-local",
+              "id": "",
+              "label": "예약 게시 시각",
+              "fontSize": 16,
+              "width": 296,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "post-comment-:R2alavjttt7qj6:",
+              "label": "댓글 남기기",
+              "fontSize": 16,
+              "width": 320,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "preview/studio/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R18nvjttt7qj6:",
+              "label": "크리에이터 활동명 *",
+              "fontSize": 16,
+              "width": 586,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R28nvjttt7qj6:",
+              "label": "프로필 주소 *",
+              "fontSize": 16,
+              "width": 586,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R48nvjttt7qj6:",
+              "label": "소개",
+              "fontSize": 16,
+              "width": 616,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R1cnvjttt7qj6:",
+              "label": "소개 글",
+              "fontSize": 16,
+              "width": 616,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":Rqcnvjttt7qj6:",
+              "label": "유튜브",
+              "fontSize": 16,
+              "width": 586,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1acnvjttt7qj6:",
+              "label": "인스타그램",
+              "fontSize": 16,
+              "width": 586,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1qcnvjttt7qj6:",
+              "label": "페이스북",
+              "fontSize": 16,
+              "width": 586,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "preview/studio/security",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R7vjttt7qj6:",
+              "label": "새 출금 PIN *",
+              "fontSize": 16,
+              "width": 586,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rbvjttt7qj6:",
+              "label": "출금 PIN 확인 *",
+              "fontSize": 16,
+              "width": 586,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "fan-profile-dialog",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r0:",
+              "label": "닉네임",
+              "fontSize": 16,
+              "width": 394.7765808105469,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r1:",
+              "label": "사용자 이름",
+              "fontSize": 16,
+              "width": 394.7765808105469,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":r2:",
+              "label": "소개",
+              "fontSize": 16,
+              "width": 424.2375183105469,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "studio-reply",
+          "fields": [
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "reply-morning-c1",
+              "label": "답글 작성",
+              "fontSize": 16,
+              "width": 561,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "admin/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": "",
+              "label": "이메일",
+              "fontSize": 16,
+              "width": 370,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": "",
+              "label": "비밀번호",
+              "fontSize": 16,
+              "width": 370,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "admin/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 16,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 16,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유",
+              "fontSize": 16,
+              "width": 600,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 844,
+          "height": 390,
+          "mobile": true,
+          "label": "admin/confirm",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 16,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 16,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유레이아웃 검증, 제출하지 않음",
+              "fontSize": 16,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "계속하려면 정책 변경을 그대로 입력하세요",
+              "fontSize": 16,
+              "width": 438,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":Rajjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 13,
+              "width": 350,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rijjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 13,
+              "width": 301,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/signup",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":R4jjjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 13,
+              "width": 257.765625,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1jjjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 13,
+              "width": 341,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1rjjtt7qj6:",
+              "label": "비밀번호 확인",
+              "fontSize": 13,
+              "width": 341,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R23jjtt7qj6:",
+              "label": "닉네임",
+              "fontSize": 13,
+              "width": 390,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/explore",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "search",
+              "id": "",
+              "label": "크리에이터 검색",
+              "fontSize": 14,
+              "width": 921,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/messages",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "대화 검색",
+              "fontSize": 13,
+              "width": 215.890625,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "message-draft",
+              "label": "메시지 입력",
+              "fontSize": 12,
+              "width": 569,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/support",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "자주 묻는 질문 검색",
+              "fontSize": 12,
+              "width": 602,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/studio/content/new",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R36vjttt7qj6:",
+              "label": "제목",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R56vjttt7qj6:",
+              "label": "본문",
+              "fontSize": 13,
+              "width": 552,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "datetime-local",
+              "id": "",
+              "label": "예약 게시 시각",
+              "fontSize": 13,
+              "width": 264,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "post-comment-:R2alavjttt7qj6:",
+              "label": "댓글 남기기",
+              "fontSize": 13,
+              "width": 320,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/studio/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R18nvjttt7qj6:",
+              "label": "크리에이터 활동명 *",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R28nvjttt7qj6:",
+              "label": "프로필 주소 *",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R48nvjttt7qj6:",
+              "label": "소개",
+              "fontSize": 13,
+              "width": 552,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R1cnvjttt7qj6:",
+              "label": "소개 글",
+              "fontSize": 13,
+              "width": 552,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":Rqcnvjttt7qj6:",
+              "label": "유튜브",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1acnvjttt7qj6:",
+              "label": "인스타그램",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1qcnvjttt7qj6:",
+              "label": "페이스북",
+              "fontSize": 13,
+              "width": 522,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "preview/studio/security",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R7vjttt7qj6:",
+              "label": "새 출금 PIN *",
+              "fontSize": 13,
+              "width": 610,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rbvjttt7qj6:",
+              "label": "출금 PIN 확인 *",
+              "fontSize": 13,
+              "width": 610,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "fan-profile-dialog",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r0:",
+              "label": "닉네임",
+              "fontSize": 13,
+              "width": 395.3240051269531,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r1:",
+              "label": "사용자 이름",
+              "fontSize": 13,
+              "width": 395.3240051269531,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":r2:",
+              "label": "소개",
+              "fontSize": 13,
+              "width": 424.8258056640625,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "studio-reply",
+          "fields": [
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "reply-morning-c1",
+              "label": "답글 작성",
+              "fontSize": 13,
+              "width": 745,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "admin/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": "",
+              "label": "이메일",
+              "fontSize": 13,
+              "width": 370,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": "",
+              "label": "비밀번호",
+              "fontSize": 13,
+              "width": 370,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "admin/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "webkit",
+          "width": 1280,
+          "height": 900,
+          "mobile": false,
+          "label": "admin/confirm",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유레이아웃 검증, 제출하지 않음",
+              "fontSize": 13,
+              "width": 600,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "계속하려면 정책 변경을 그대로 입력하세요",
+              "fontSize": 13,
+              "width": 438,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": false,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":Rajjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 16,
+              "width": 320,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rijjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 16,
+              "width": 271,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/signup",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": ":R4jjjtt7qj6:",
+              "label": "이메일",
+              "fontSize": 16,
+              "width": 187.765625,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1jjjtt7qj6:",
+              "label": "비밀번호",
+              "fontSize": 16,
+              "width": 271,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R1rjjtt7qj6:",
+              "label": "비밀번호 확인",
+              "fontSize": 16,
+              "width": 271,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R23jjtt7qj6:",
+              "label": "닉네임",
+              "fontSize": 16,
+              "width": 320,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/explore",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "search",
+              "id": "",
+              "label": "크리에이터 검색",
+              "fontSize": 16,
+              "width": 301,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/messages",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "대화 검색",
+              "fontSize": 16,
+              "width": 304.40625,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/support",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "자주 묻는 질문 검색",
+              "fontSize": 16,
+              "width": 300,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/studio/content/new",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R36vjttt7qj6:",
+              "label": "제목",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R56vjttt7qj6:",
+              "label": "본문",
+              "fontSize": 16,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "datetime-local",
+              "id": "",
+              "label": "예약 게시 시각",
+              "fontSize": 16,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "post-comment-:R2alavjttt7qj6:",
+              "label": "댓글 남기기",
+              "fontSize": 16,
+              "width": 306,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/studio/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R18nvjttt7qj6:",
+              "label": "크리에이터 활동명 *",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":R28nvjttt7qj6:",
+              "label": "프로필 주소 *",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R48nvjttt7qj6:",
+              "label": "소개",
+              "fontSize": 16,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":R1cnvjttt7qj6:",
+              "label": "소개 글",
+              "fontSize": 16,
+              "width": 358,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":Rqcnvjttt7qj6:",
+              "label": "유튜브",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1acnvjttt7qj6:",
+              "label": "인스타그램",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "url",
+              "id": ":R1qcnvjttt7qj6:",
+              "label": "페이스북",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "preview/studio/security",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":R7vjttt7qj6:",
+              "label": "새 출금 PIN *",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": ":Rbvjttt7qj6:",
+              "label": "출금 PIN 확인 *",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "fan-profile-dialog",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r0:",
+              "label": "닉네임",
+              "fontSize": 16,
+              "width": 270.49346923828125,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "text",
+              "id": ":r1:",
+              "label": "사용자 이름",
+              "fontSize": 16,
+              "width": 270.49346923828125,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": ":r2:",
+              "label": "소개",
+              "fontSize": 16,
+              "width": 299.68341064453125,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "studio-reply",
+          "fields": [
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "reply-morning-c1",
+              "label": "답글 작성",
+              "fontSize": 16,
+              "width": 306,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "admin/login",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "email",
+              "id": "",
+              "label": "이메일",
+              "fontSize": 16,
+              "width": 292,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "password",
+              "id": "",
+              "label": "비밀번호",
+              "fontSize": 16,
+              "width": 292,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "admin/settings",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        },
+        {
+          "engine": "chromium",
+          "width": 390,
+          "height": 844,
+          "mobile": true,
+          "label": "admin/confirm",
+          "fields": [
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "플랫폼 수수료율 (%)",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": "number",
+              "id": "",
+              "label": "정산 보류 기간 (일)",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "TEXTAREA",
+              "type": null,
+              "id": "",
+              "label": "변경 사유레이아웃 검증, 제출하지 않음",
+              "fontSize": 16,
+              "width": 328,
+              "disabled": false
+            },
+            {
+              "tag": "INPUT",
+              "type": null,
+              "id": "",
+              "label": "계속하려면 정책 변경을 그대로 입력하세요",
+              "fontSize": 16,
+              "width": 316,
+              "disabled": false
+            }
+          ],
+          "viewport": "width=device-width, initial-scale=1",
+          "coarse": true,
+          "overflow": false,
+          "scale": 1
+        }
+      ],
+      "comparison": "Identical desktop field fonts; width difference<1 CSSpx, allowing dialog animation subpixel sampling",
+      "initialComparisonFailure": "Desktop unchanged: fan-profile-dialog\n+ actual - expected\n... Skipped lines\n\n  [\n    {\n      disabled: false,\n      fontSize: 13,\n      id: ':r0:',\n...\n      type: 'text',\n+     width: 395.3240051269531\n-     width: 395.14794921875\n    },\n    {\n      disabled: false,\n      fontSize: 13,\n      id: ':r1:',\n...\n      type: 'text',\n+     width: 395.3240051269531\n-     width: 395.14794921875\n    },\n    {\n      disabled: false,\n      fontSize: 13,\n      id: ':r2:',\n...\n      type: null,\n+     width: 424.8258056640625\n-     width: 424.6366271972656\n    }\n  ]\n",
+      "limitations": "Desktop WebKit/Chromium device emulation; not an actual iPhone native keyboard or pinch-zoom test."
+    },
+    "serviceLogin": {
+      "at": "2026-10-28T14:43:40.158284+00:00",
+      "result": "not-verified",
+      "reason": "Local /service/login remained loading before input rendering, even with browser API stubs",
+      "sharedGlobalStyles": "app/globals.css loaded by shared root layout",
+      "previewEquivalent": "login/signup passed in main browser matrix",
+      "noLoginSubmitted": true
+    },
+    "front": {
+      "command": "npm run check",
+      "exitCode": 0,
+      "testsPassed": 379,
+      "layerAndTypeChecks": "passed"
+    },
+    "admin": {
+      "command": "npm run check",
+      "exitCode": 0,
+      "testsPassed": 8,
+      "typeCheck": "passed"
+    }
+  },
+  "sources": [
+    {
+      "url": "https://www.telerik.com/products/aspnet-ajax/documentation/knowledge-base/common-disable-autozoom-input-safari-iphone",
+      "checkedOn": "2026-10-28",
+      "applied": "Input font-size>=16px at normal page scale; no scaling workaround"
+    },
+    {
+      "url": "https://www.w3.org/WAI/standards-guidelines/act/rules/b4f0c3/",
+      "checkedOn": "2026-10-28",
+      "applied": "Remove user-scalable=no / maximum-scale1; retain manual zoom"
+    }
+  ],
+  "limits": [
+    "No physical iPhone native keyboard/pinch test",
+    "No production deployment",
+    "Console layout data stubbed only in browser; service-login stayed loading and is unverified; no server changes",
+    "Normal initial page scale1; custom OS/browser zoom preferences not tested"
+  ],
+  "documentationChecks": [
+    {
+      "command": "npm run docs:record",
+      "startedAt": "2026-10-28T14:43:43.460747+00:00",
+      "finishedAt": "2026-10-28T14:43:44.457750+00:00",
+      "exitCode": 0,
+      "output": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 137, \"screens\": 52, \"models\": 74, \"enums\": 15, \"migrations\": 27, \"localMarkdownTargets\": 393, \"externalInlineLinksNotFetched\": 288}\n"
+    },
+    {
+      "command": "npm run check:docs",
+      "startedAt": "2026-10-28T14:43:44.457796+00:00",
+      "finishedAt": "2026-10-28T14:43:44.793153+00:00",
+      "exitCode": 0,
+      "output": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-28T14:43:44.222811+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 137, \"screens\": 52, \"models\": 74, \"enums\": 15, \"migrations\": 27, \"localMarkdownTargets\": 393, \"externalInlineLinksNotFetched\": 288}\n"
+    }
+  ],
+  "sourceHashesUnchangedAfterChecks": true
+}

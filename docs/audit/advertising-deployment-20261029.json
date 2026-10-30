@@ -1,0 +1,702 @@
+{
+  "at": "2026-10-28T18:23:59.861063+00:00",
+  "release": "advertising-20261029",
+  "status": "deployed-and-verified",
+  "sourceDelta": {
+    "at": "2026-10-28T18:06:47.993960+00:00",
+    "release": "advertising-20261029",
+    "baselines": {
+      "front": "npay-reward-deploy-20261029",
+      "server": "studio-input-console-deploy-20261029",
+      "admin": "studio-input-console-deploy-20261029"
+    },
+    "changes": {
+      "front": [
+        {
+          "file": "app/preview/studio/[[...screen]]/page.tsx",
+          "before": "46e3107526a4a8fb37535d2ee20dcdc36a111f9674108f0c36c496349425b3e1",
+          "after": "cf427c989c192b1c756ca9bd1448d12ada5f569669b5b6b996e1bd24776e8a38"
+        },
+        {
+          "file": "app/service/studio/[[...screen]]/page.tsx",
+          "before": "238337b8ef4bf777b2d80fc52518296828ea5c97521b5247ac6f5eadba14e8c0",
+          "after": "9a0f2a9322abde998921f022b1365f677ea893d33858400cfed90b2f83cc6fcf"
+        },
+        {
+          "file": "components/crefans/AccountPages.tsx",
+          "before": "3542f8f77ffccc108682538121a9a28f0bc06fdd58d6ae5a9027468c61ff9a3e",
+          "after": "be13df85db5244418130de9d2320d3f029d5ff9a044548b9e0ed66b6d4885599"
+        },
+        {
+          "file": "components/crefans/BeanPages.tsx",
+          "before": "422ac0971a951b0eb78b87609c4e30e3731d73807eb47d7f94e4325291db6baf",
+          "after": "ceadecff60199aeee8544b6a5529cb95b0e3defa7bcb05478720767cfac09e05"
+        },
+        {
+          "file": "components/crefans/BeanWalletPages.tsx",
+          "before": "f92e32a2957fe2eb87b2d430ba3ec63e9afac7d02e95c92b6161ca1b3244e994",
+          "after": "216fab1b44a3c58d8baa55cc0d6fe7161442f61429097ed8bfe6956c1ef0c0b2"
+        },
+        {
+          "file": "components/crefans/CommonPages.tsx",
+          "before": "e768f84180d328fc7c2461cce285763b9513b1516b518c3587efaab77d672987",
+          "after": "d136f123cb7f4aa4184887c1ce0138a7ba4c778a595054f1714fb2bd332b51ed"
+        },
+        {
+          "file": "components/crefans/CreatorPages.tsx",
+          "before": "c721697dba95f9d72281235d1b9ac663ab68abf99d73d1a2987ac8d70aa0ff80",
+          "after": "752bdc3cb9ccce60f278e4c073a876b0bda242bc06f8fc2cc8e0d9f827a6ee0d"
+        },
+        {
+          "file": "components/crefans/MediaOverlay.tsx",
+          "before": "41ae6a3bcbe2ca7992cd1c1772e4bdb9b9e7f8b2d10a003d0d41793b3ee78838",
+          "after": "f032d35547d9b3ae168bd7ed41efbd1a476c8f1bea9d46dbf74100b5cebeef86"
+        },
+        {
+          "file": "components/crefans/PostShareDialog.tsx",
+          "before": "167354b0d1b2246d8cff309ef334063d1d5e3680dbf6f1ebce7f225a55b75682",
+          "after": "c1d216293adb81cfd10ad4727fc461f7eca3fd718e8462f2e6ad8bbc743c6247"
+        },
+        {
+          "file": "components/crefans/SocialPages.tsx",
+          "before": "daf460466b41a9fa4fc7a86d83aa11a78a924844c849feccc7d2f5f83e6f5cc7",
+          "after": "34996d579625dad298e77632bc0bc49f7f55571cea49fb8a5b430785be0871f9"
+        },
+        {
+          "file": "components/crefans/beans.module.css",
+          "before": "95903052b69035aa8642423d75022bd7ea34a610ed8c05406ebb23c517e40e7b",
+          "after": "9d96bd88114d18f3421535e4cdef60fd4bd01303af5145da7dd3cb7886a63d38"
+        },
+        {
+          "file": "components/crefans/common.module.css",
+          "before": "e83bc03176ae7ca296de6f5ace03f9b9a1e34e9bd1f7408a5b014f806030778a",
+          "after": "de0c1f195a9de1c1ed2377b1909d25e617d6e0a4d4edf2930029dd7d345298db"
+        },
+        {
+          "file": "components/crefans/post-share-dialog.module.css",
+          "before": "a13badc625bda1b61325a927250993d609dfbb9933cbe42c81298df8a8aa77d4",
+          "after": "e3f6a25b9d84a1f2cda731893b3c220aabb369d99115b9d47a98cdf700b7fe53"
+        },
+        {
+          "file": "components/crefans/social.module.css",
+          "before": "87d1ff90b4a2aedec26d8d22d3c89a8c7d55d23f2b4a4baef5c7f1784137663f",
+          "after": "002f812f69f6a1c1784adf9dcc96028876a4794055ef6ad917c7de3da9f229af"
+        },
+        {
+          "file": "components/crefans/studio/AdvertisingPage.tsx",
+          "before": null,
+          "after": "5197c1b50429f3fcbe7e6ee5f76ef1418aa12f6ddfa6750d3cc8d10f44cdc82f"
+        },
+        {
+          "file": "components/crefans/studio/CommunityPages.tsx",
+          "before": "0f42b6425034566b136439b1ab0ba139b77486004dbf94bdfa8903a6700f1fcd",
+          "after": "bd84d14581722007abbb2fba19df0d552c1ffc11c04901de17f27ee02f569175"
+        },
+        {
+          "file": "components/crefans/studio/FinancePages.tsx",
+          "before": "1c556485fafe13c6a568b8502969a133ac3ed4f312fef2187bc00a80e0dee450",
+          "after": "09257e03b18f37bfa7ad3bdad078deec8a0fd3fac929405018c13de81e810b73"
+        },
+        {
+          "file": "components/crefans/studio/ManagementPages.tsx",
+          "before": "58b324bf972ffbfcda11324c66e83d5c4f52b875024b1040622ad3a5afd5423c",
+          "after": "4b74d927ca6e9efed2a0cec912ae7675a5c01f12dbc73b1fbb5e8f7bf22331e7"
+        },
+        {
+          "file": "components/crefans/studio/OverviewPages.tsx",
+          "before": "bdd788a62e266aef01d02f8ef2652284680c8a6e0219a959a13d82405cfd53f4",
+          "after": "fa18ac2dd98f898d98bcded73ddf9ce0bc5f5d487ceab2753204ea8f67834d55"
+        },
+        {
+          "file": "components/crefans/studio/StudioShell.tsx",
+          "before": "fdd76b8e2540807905b00da4b307f5a661db96467158e9e62b9e1c9ca0d56811",
+          "after": "dbe90b5b21f3b9830a702e62da7dcb89952b4e629aef15d53942af1fcd5313a7"
+        },
+        {
+          "file": "components/crefans/studio/WithdrawalSecurityPage.tsx",
+          "before": "24fe550b3051c4f84a423668b47ae87fcbbefdc0ecff85c314277e8d57d0f7eb",
+          "after": "6d1d3054a9e6e364f2da2ba23f0aa3c7ff2b0f9d41359912b191fbc562689c28"
+        },
+        {
+          "file": "components/crefans/studio/advertising.module.css",
+          "before": null,
+          "after": "1b49fef41463e0038b743c99b9b19c94f021490ff45cae89ae144e8e31dcd2ee"
+        },
+        {
+          "file": "components/crefans/studio/community.module.css",
+          "before": "77eceaaadb94bdb4e8930ad449fe0ddd99091bd080af6e7149d68099063c5982",
+          "after": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e"
+        },
+        {
+          "file": "components/crefans/studio/management.module.css",
+          "before": "b0e8ea0d907394ea55b75e20ccc8f8448464a2781b4c6ef2524735bbcb219e98",
+          "after": "b2e0b2e26b92f08ffe04985db4539f7bfbac16340b3d07feab861bf3ef7a2a52"
+        },
+        {
+          "file": "components/crefans/studio/overview.module.css",
+          "before": "71ee588cc0cac02ea414ae99cb1204b3397d011ae0707bd28c0ff482495d68ca",
+          "after": "6b2d74861e34bc5a8e6ca54a0bb8637839434ca4cfb53d98a16af4bbee1a9564"
+        },
+        {
+          "file": "components/design-system/CustomDesignSystem.tsx",
+          "before": "f5ce51f6176a57bf62e5d71059d77317d0c17a85e890ecaa9a35fe96f72ac874",
+          "after": "a9060931ae4b644c558ec28cc00ec42967c809910e391825fe9d32877fbef78c"
+        },
+        {
+          "file": "components/design-system/ServicePatternCatalog.tsx",
+          "before": "b3a18397424262158405b2a3202a69ad360a1216ca5aa526be05e0c2dac4f92b",
+          "after": "b2516e9f49c2a2045a8362bf3b607bbc6fb94ce15bbf0747435e48fc63eee152"
+        },
+        {
+          "file": "components/preview/screen-catalog.ts",
+          "before": "c39b3dca9dc2c1cf0053bf2b2761244537e53e331281df4a7672c33bba425010",
+          "after": "11cc6cc6abe92e7d8bf1c7ec7478d8f962cb6f5373552f708d5a31e616e10149"
+        },
+        {
+          "file": "components/preview/studio/AdvertisingPreview.tsx",
+          "before": null,
+          "after": "150957892f17e32fa3ae01b52471b7dfd71b383a3fcb37c18bcb3011fd48b42b"
+        },
+        {
+          "file": "components/preview/studio/StudioRouter.tsx",
+          "before": "7e7b8bb6006d6e700fce67fb6ad7fb59b2cafed070eaddf7b3ca2888a085cc42",
+          "after": "392bf8527051ad17342b7226d9594449f7b0e1d95a85e7d105b3bc0317fd8c48"
+        },
+        {
+          "file": "components/providers/PresentationProviders.tsx",
+          "before": "3930f932f6e3c189fd031074652351110c6b41bfb751e70615ed45c95d2e459f",
+          "after": "deda60079037c24274efed727c3a7089799c3386f1a6070237e9cba9f0f48e26"
+        },
+        {
+          "file": "components/service/AdvertisingContainer.tsx",
+          "before": null,
+          "after": "2eae6c95516c7f03f4375df5a5c68f32d8ea7d38214a51f131e7f5acd47de21b"
+        },
+        {
+          "file": "components/service/StudioRouter.tsx",
+          "before": "689513a6bbc08aabcabb5b9dde2df358f5979782e1870fce7daf1f6df351106a",
+          "after": "78446c0b841488720a0e7b005346284e5bdcade29f0e07d215337492420f76cb"
+        },
+        {
+          "file": "components/ui/Primitives.tsx",
+          "before": "a5b3fed8ec452270c244ee77cc8f99dccb2a57aa5eee38972d8aea9effd4117f",
+          "after": "26cc2dbb87f01b2f0a6e1da8db80b02c0e26ccae6d0d5aada6312d4885bf69b9"
+        },
+        {
+          "file": "components/ui/SnackbarProvider.tsx",
+          "before": null,
+          "after": "bdaa3039a692f7cd36249d279b7bad10698ee9cbbecdfc0745181469745da6e1"
+        },
+        {
+          "file": "components/ui/Toast.tsx",
+          "before": null,
+          "after": "defe7ec6d73e061ffb9f2055427d27ec62033c3d9d96d2fcb60644776637ae9f"
+        },
+        {
+          "file": "components/ui/ui.module.css",
+          "before": "680c4401a3cc5da17ad4d16bf828d74b86938b833297241d31ac56f010e8ca3a",
+          "after": "a32fb860a34012d2fa6ad4d0676e2f6001ae1af126afd5d70265c4132de10ae5"
+        },
+        {
+          "file": "features/post-share/usePostShare.ts",
+          "before": "eb3bc287c9d67b5d41013a996f401a4a5d5084b0763e38f104572b687763896b",
+          "after": "668fcf0f4b81cb6f415e4f1a16a8fb406d804b1b5370883af9a66035881d60d6"
+        },
+        {
+          "file": "features/service/useAdvertisingModel.ts",
+          "before": null,
+          "after": "af4e89c034094a55a64e575ce2d692b7d7640efa0171a63c28fdfce6befa3d58"
+        },
+        {
+          "file": "public/brand/post-actions/support-coin-flat-v1.png",
+          "before": null,
+          "after": "cca396068a55dbc93836eacbce54ae4e4e8ecba3703fc6218f6007c0d0712d5f"
+        },
+        {
+          "file": "types/crefans-advertising.ts",
+          "before": null,
+          "after": "e486701d1c61854e84a59643f5fdeef235da0fe6b420ad281a7b97d7b4567544"
+        }
+      ],
+      "server": [
+        {
+          "file": "prisma/migrations/20261029020000_ad_products/migration.sql",
+          "before": null,
+          "after": "161905850192a6393612609c5d44ad36a19cef61c24056540661c141a91a0ed3"
+        },
+        {
+          "file": "prisma/schema.prisma",
+          "before": "4a4ad8ea13323430b72d9bbfbe8303602db7d3bd87b401720f31191ed4f39aaa",
+          "after": "d54855846f15e89f753108277655f0bda7bf8beee7060d1e8810a37cf6454621"
+        },
+        {
+          "file": "src/platform/admin-permissions.ts",
+          "before": "92c2cd64977a12c65bb0050a7f098f56340ae7db275563fd6b1fa8cbf98333e9",
+          "after": "34d4cf8209ca19e03b921e5cde8b0afdfc843a37a7c9b8007c545e20c37d2e54"
+        },
+        {
+          "file": "src/platform/advertising-catalog.ts",
+          "before": null,
+          "after": "a535b49fb8cc0c827ab1fdc3c652bc876e4965c00995b90145cf0f7ad7aa5b5a"
+        },
+        {
+          "file": "src/platform/advertising.controller.ts",
+          "before": null,
+          "after": "6ff05ce2bef06f91918f35110174a6318036bbac8011ad4694b55e33eade5770"
+        },
+        {
+          "file": "src/platform/audit.ts",
+          "before": "af3b0536f11bce39ffdfad3f8c0d9f02d7ba75cfd6704b9a6072b2e6817de19a",
+          "after": "a9cc27cf873956d00610ec5f7416bc055ad07082639b2ef8b909c2b41cd1cddb"
+        },
+        {
+          "file": "src/platform/module.ts",
+          "before": "9ce7d0520015d37a53dbac19803bfb91f39ebdaf17581410418b09a119fba480",
+          "after": "a487fbcb962a6d21e38d72fa4777b914b2542682d1693f821d8d033b6bc86d5e"
+        },
+        {
+          "file": "src/platform/openapi-contract.ts",
+          "before": "f8af69166ad9a38b36127c2144398ab6418a8fb37fbaf9a94f412cccaf71a8d8",
+          "after": "bb96754b39b68e3a37816d38d2a75cb89152945bc7fcb33f1c183889b98c0dc0"
+        }
+      ],
+      "admin": [
+        {
+          "file": "src/app/console/[[...section]]/page.tsx",
+          "before": "8c1d704b23aa60c2c3f645b59bc5499efb6fbdf0024494146066a468f9571200",
+          "after": "35268fa29c26616afb13ca74a7fcf3f848adc809b1f3919b72f1cdf82a8c6e0d"
+        },
+        {
+          "file": "src/app/globals.css",
+          "before": "7f3472acf387a4e0454a51120ce7d8fd4058b63fafd478449fb8e109fb6b8447",
+          "after": "12479ab9eef7abe8e6d1c87a3a00040d28c7372e360c4a8d5b7143957a240cca"
+        },
+        {
+          "file": "src/components/console/Advertising.tsx",
+          "before": null,
+          "after": "02a9932c49a4d2ab07eaf348c4e4c2ddb43bda699bbf295f433db582d9577f29"
+        },
+        {
+          "file": "src/components/console/Console.tsx",
+          "before": "cce61a5908d8b7a019a5751a2650764f8dffda3e4660d2e8c06f6ba5be9a2cdc",
+          "after": "7229259973ae7be349fb4ecd04f1a4113fb87c9c5eb1c90542540cf528901fe4"
+        },
+        {
+          "file": "src/components/console/ConsoleIcon.tsx",
+          "before": "79be31a827b7265793513ba322b069859a746365760b78c26b7c12299b6ad117",
+          "after": "81e1d72f9dd112d433df13aa87adfa27afa487f514d241174a99e42e66198924"
+        },
+        {
+          "file": "src/components/console/Operators.tsx",
+          "before": "e82baddf0352f558953c600f31d40e82f605638bafbab3cc47fb291734870a28",
+          "after": "146d0bff6003cd43818369b82385ac00d52acd9c7fc5f1b1aca2d144d47b5f5c"
+        },
+        {
+          "file": "src/components/console/Snackbar.tsx",
+          "before": null,
+          "after": "8de0526e6bcadb7593a4276b468e2e16dfdfecbdccca9213858b10506959b08c"
+        }
+      ]
+    },
+    "newMigrations": 1,
+    "excludedUnrelated": [
+      "front/public/logo_icon.psd",
+      "Finder .DS_Store files"
+    ],
+    "purchaseImplementation": "not included: policy decisions pending; purchase disabled in service"
+  },
+  "repositories": {
+    "at": "2026-10-28T18:08:24.250798+00:00",
+    "repositories": {
+      "front": {
+        "branch": "feat/iphone-input-zoom",
+        "commit": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+        "status": "M .env.example\n M AGENTS.md\n M PROGRESS.md\n M app/globals.css\n M app/layout.tsx\n M app/preview/studio/[[...screen]]/page.tsx\n M app/service/landing/page.tsx\n M app/service/studio/[[...screen]]/page.tsx\n M components/crefans/AccountPages.tsx\n M components/crefans/BeanPages.tsx\n M components/crefans/BeanWalletPages.tsx\n M components/crefans/CommonPages.tsx\n M components/crefans/CreatorPages.tsx\n M components/crefans/MediaOverlay.tsx\n M components/crefans/PostShareDialog.tsx\n M components/crefans/ServiceGuidePage.tsx\n M components/crefans/ServiceUI.tsx\n M components/crefans/SocialPages.tsx\n M components/crefans/account.module.css\n M components/crefans/beans.module.css\n M components/crefans/common.module.css\n M components/crefans/creator.module.css\n M components/crefans/landing.module.css\n M components/crefans/post-share-dialog.module.css\n M components/crefans/service.module.css\n M components/crefans/social.module.css\n M components/crefans/studio/CommunityPages.tsx\n M components/crefans/studio/FinancePages.tsx\n M components/crefans/studio/ManagementPages.tsx\n M components/crefans/studio/OverviewPages.tsx\n M components/crefans/studio/ReportPage.tsx\n M components/crefans/studio/StudioShell.tsx\n M components/crefans/studio/WithdrawalSecurityPage.tsx\n M components/crefans/studio/community.module.css\n M components/crefans/studio/content-post-preview.module.css\n M components/crefans/studio/finance.module.css\n M components/crefans/studio/management.module.css\n M components/crefans/studio/overview.module.css\n M components/crefans/studio/report.module.css\n M components/crefans/studio/studio.module.css\n M components/crefans/studio/withdrawal-security.module.css\n M components/design-system/CustomDesignSystem.tsx\n M components/design-system/ServicePatternCatalog.tsx\n M components/preview/comment-fixtures.ts\n M components/preview/screen-catalog.ts\n M components/preview/service/PreviewProvider.tsx\n M components/preview/service/ServiceRouter.tsx\n M components/preview/service/useMockAccount.ts\n M components/preview/service/useMockBeans.ts\n M components/preview/studio/StudioProvider.tsx\n M components/preview/studio/StudioRouter.tsx\n M components/preview/studio/finance-fixtures.ts\n M components/preview/studio/useMockCommunity.ts\n M components/preview/studio/useMockFinance.ts\n M components/preview/studio/useMockManagement.ts\n M components/preview/studio/useMockOverview.ts\n M components/providers/ApplicationProviders.tsx\n M components/providers/PresentationProviders.tsx\n M components/service/StudioRouter.tsx\n M components/ui/DataTable.tsx\n M components/ui/DateRangePicker.tsx\n M components/ui/MarqueeText.tsx\n M components/ui/Primitives.tsx\n M components/ui/data-table.module.css\n M components/ui/date-range-picker.module.css\n M components/ui/marquee-text.module.css\n M components/ui/select.module.css\n M components/ui/ui.module.css\n M docs/audit/evidence.json\n M docs/audit/manifest.json\n M docs/beta-role-test-plan.md\n M docs/design-system.md\n M docs/preview-pages.md\n M docs/release-test-scenarios.md\n M docs/service-api-binding.md\n M e2e/beans.spec.ts\n M e2e/marquee-text.spec.ts\n M e2e/preview.spec.ts\n M e2e/service.spec.ts\n M features/post-share/usePostShare.ts\n M features/service/useStudioModel.ts\n M lib/content/events.ts\n M lib/crefans/support.ts\n M middleware.ts\n M playwright.config.ts\n M tests/content-post-preview.test.cjs\n M tests/crefans-account.test.cjs\n M tests/crefans-community.test.cjs\n M tests/crefans-creator.test.cjs\n M tests/crefans-events.test.cjs\n M tests/crefans-finance.test.cjs\n M tests/crefans-social.test.cjs\n M tests/crefans-studio-management.test.cjs\n M tests/crefans-studio-reports.test.cjs\n M tests/dashboard-links.test.cjs\n M tests/overlay-motion.test.cjs\n M tests/studio-metric.test.cjs\n M tests/studio-navigation.test.cjs\n M tests/withdrawal-pin-ui.test.cjs\n M tests/withdrawal-pin.test.cjs\n M types/crefans-community.ts\n?? after-375-active.png\n?? app/api/preview/\n?? app/card/\n?? components/business-card/\n?? components/crefans/PolicyNotes.tsx\n?? components/crefans/policy-notes.module.css\n?? components/crefans/studio/AdvertisingPage.tsx\n?? components/crefans/studio/StudioCommentReply.tsx\n?? components/crefans/studio/advertising.module.css\n?? components/preview/studio/AdvertisingPreview.tsx\n?? components/service/AdvertisingContainer.tsx\n?? components/ui/SnackbarProvider.tsx\n?? components/ui/Toast.tsx\n?? docs/audit/advertising-20261029.json\n?? docs/audit/business-card-20261027.json\n?? docs/audit/business-card-animation-20261027.json\n?? docs/audit/card-controls-20261027.json\n?? docs/audit/card-greeting-20261027.json\n?? docs/audit/card-visible-20261027.json\n?? docs/audit/gallery-image-tap-20261029.json\n?? docs/audit/iphone-input-zoom-20261028.json\n?? docs/audit/landing-ready-20261027.json\n?? docs/audit/moka-demo-button-20261027.json\n?? docs/audit/moka-demo-button-deployment-20261027.json\n?? docs/audit/moka-preview-deployment-20261027.json\n?? docs/audit/moka-preview-login-20261027.json\n?? docs/audit/moka-preview-secure-login-20261027.json\n?? docs/audit/npay-event-deployment-20261029.json\n?? docs/audit/post-support-icon-20261029.json\n?? docs/audit/profile-card-sync-20261027.json\n?? docs/audit/snackbar-20261029.json\n?? docs/audit/studio-comment-replies-20261028.json\n?? docs/audit/studio-input-console-deployment-20261029.json\n?? docs/design/post-support-icon-v1.generation.json\n?? e2e/advertising.spec.ts\n?? e2e/gallery-image-tap.spec.ts\n?? e2e/snackbar.spec.ts\n?? features/preview/\n?? features/service/useAdvertisingModel.ts\n?? infra/platform/image-retention.py\n?? lib/api/preview.ts\n?? lib/crefans/creator-payout-policy.ts\n?? notes-beans-1280.png\n?? notes-beans-375.png\n?? notes-earnings-1280.png\n?? notes-earnings-375.png\n?? output/pdf/crefans-api-spec-20261027.pdf\n?? output/pdf/crefans-qa-evidence-20261027.zip\n?? output/pdf/crefans-qa-report-20261027.html\n?? output/pdf/crefans-qa-report-20261027.pdf\n?? prod-1280.png\n?? prod-375.png\n?? prod-768.png\n?? prod.json\n?? public/brand/business-cards/\n?? public/brand/events/beta-first/naverpay-10000-v1.jpg\n?? public/brand/post-actions/\n?? tests/business-card.test.cjs\n?? tests/preview-login-route.test.cjs\n?? tests/studio-comment-reply.test.cjs\n?? tests/studio-community-binding.test.cjs\n?? tests/support-faq-policy.test.cjs\n?? types/crefans-advertising.ts"
+      },
+      "server": {
+        "branch": "feat/studio-comment-replies",
+        "commit": "0d6044e5b1d595688bf5f82cad08f6a623df6719",
+        "status": "M PROGRESS.md\n M docs/current-contracts.md\n M docs/platform-api.md\n M docs/platform-implementation.md\n M docs/provider-contracts.md\n M infra/platform/Caddyfile\n M infra/platform/README.md\n M infra/platform/compose.yml\n M infra/platform/runtime.env.example\n M prisma/schema.prisma\n M scripts/platform-admin.cjs\n M src/platform/admin-console.ts\n M src/platform/admin-logs.ts\n M src/platform/admin.controller.ts\n M src/platform/audit.ts\n M src/platform/beans.controller.ts\n M src/platform/beans.service.ts\n M src/platform/beta-policy.ts\n M src/platform/finance.service.ts\n M src/platform/financial-policy.ts\n M src/platform/jobs.service.ts\n M src/platform/legal-documents.ts\n M src/platform/module.ts\n M src/platform/openapi-contract.ts\n M src/platform/openapi.ts\n M src/platform/settlement-receipts.ts\n M src/platform/studio.controller.ts\n M src/platform/studio.service.ts\n M tests/admin-console-server.cjs\n M tests/e2e-server.cjs\n M tests/platform-admin-console.test.cjs\n M tests/platform-beans.test.cjs\n M tests/platform-beta-policy.test.cjs\n M tests/platform-finance.test.cjs\n M tests/platform-financial-policy.test.cjs\n M tests/platform-openapi.test.cjs\n M tests/platform-provider-http.test.cjs\n?? prisma/migrations/20261028120000_admin_permissions/\n?? prisma/migrations/20261028150000_admin_accounts/\n?? prisma/migrations/20261029020000_ad_products/\n?? src/platform/admin-auth.ts\n?? src/platform/admin-operators.ts\n?? src/platform/admin-permissions.ts\n?? src/platform/advertising-catalog.ts\n?? src/platform/advertising.controller.ts\n?? tests/admin-session.cjs\n?? tests/platform-admin-operators.test.cjs\n?? tests/platform-advertising.test.cjs\n?? tests/platform-studio-replies.test.cjs"
+      },
+      "admin": {
+        "branch": "feat/console-mypage-logout",
+        "commit": "8cf5025fa746afd09d06d10b4182787713f86bbd",
+        "status": "M AGENTS.md\n M PROGRESS.md\n M e2e/console.spec.ts\n M next.config.mjs\n M src/app/console/[[...section]]/page.tsx\n M src/app/globals.css\n M src/app/login/page.tsx\n M src/components/console/Beans.tsx\n M src/components/console/Console.tsx\n M src/components/console/ConsoleIcon.tsx\n M src/lib/console-api.ts\n?? e2e/advertising.spec.ts\n?? src/components/console/Advertising.tsx\n?? src/components/console/Operators.tsx\n?? src/components/console/Snackbar.tsx\n?? src/components/console/TypedConfirm.tsx\n?? src/lib/korean.ts\n?? tests/korean.test.cjs"
+      },
+      "guide": {
+        "branch": "",
+        "commit": "",
+        "status": ""
+      }
+    }
+  },
+  "verification": {
+    "localPrior": "docs/audit/advertising-20261029.json",
+    "frozenSourcesMatchPriorChecks": {
+      "crefans_front": {
+        "matchingPreviouslyTestedSourceFiles": 14
+      },
+      "crefans_server": {
+        "matchingPreviouslyTestedSourceFiles": 10
+      },
+      "crefans_admin": {
+        "matchingPreviouslyTestedSourceFiles": 8
+      }
+    },
+    "builds": [
+      {
+        "label": "server",
+        "tag": "crefans-api:advertising-20261029",
+        "startedAt": "2026-10-28T18:07:39.338317+00:00",
+        "finishedAt": "2026-10-28T18:08:47.138233+00:00",
+        "exitCode": 0,
+        "sourceManifestSha256": "d6041a9db2eeb140d648d289a3918b7fff23add18639a72b2fa237b9d851ca59"
+      },
+      {
+        "label": "admin",
+        "tag": "crefans-admin:advertising-20261029",
+        "startedAt": "2026-10-28T18:08:47.138835+00:00",
+        "finishedAt": "2026-10-28T18:09:52.314346+00:00",
+        "exitCode": 0,
+        "sourceManifestSha256": "451e7353e61a06de73f6d3688f8eb7625647d2151db75fd5e4246100bb5f86e2"
+      },
+      {
+        "label": "front",
+        "tag": "crefans-front:advertising-20261029",
+        "startedAt": "2026-10-28T18:09:52.314731+00:00",
+        "finishedAt": "2026-10-28T18:11:28.738221+00:00",
+        "exitCode": 0,
+        "sourceManifestSha256": "928db93177dc9e5c4c4cbc4440c684c18361cc09513f982b73037b11ee380cd3"
+      }
+    ],
+    "runtime": {
+      "at": "2026-10-28T18:13:37.862735+00:00",
+      "containers": {
+        "crefans-beta-frontend-1": {
+          "id": "8ce8c86ad233768119f2d1652a4a5095ced2c864c6f66a75c503801aed20eba7",
+          "image": "sha256:b3fd7c711bfb866860b3e00e61c86d84b15d7b3a636a7b6850b010871c8d2258",
+          "running": true,
+          "restarts": 0,
+          "unchanged": false
+        },
+        "crefans-beta-api-1": {
+          "id": "393bd963b4508a810a84361d3a22b0ba50c144611e7f485e5096c23092430110",
+          "image": "sha256:c2d81fc9ae2850b4694aeb596e610aacff6619728411bf079f165e5c08f2f0ce",
+          "running": true,
+          "restarts": 0,
+          "unchanged": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "c11c01992c5889b337f6f665e20e8fd9cbe091bad9f430c8dcad9b1a77084b97",
+          "image": "sha256:c2d81fc9ae2850b4694aeb596e610aacff6619728411bf079f165e5c08f2f0ce",
+          "running": true,
+          "restarts": 0,
+          "unchanged": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "06905b83399e49eb7ca261f02b491f0b8a576cb86ecda577633a19ad9eb898a7",
+          "image": "sha256:34c9e79212c9c97885d639fc211801a38cc836d964cf53c93e2b1d4277a11861",
+          "running": true,
+          "restarts": 0,
+          "unchanged": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "unchanged": true
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "unchanged": true
+        }
+      },
+      "sourceMatches": {
+        "frontend": 669,
+        "api": 211,
+        "worker": 211
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200,
+          "bytes": 94
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200,
+          "bytes": 54091
+        },
+        {
+          "url": "https://beta.crefans.com/preview/studio/advertising",
+          "status": 200,
+          "bytes": 45400
+        },
+        {
+          "url": "https://beta.crefans.com/service/studio/advertising",
+          "status": 200,
+          "bytes": 20694
+        },
+        {
+          "url": "https://admin.crefans.com/console/advertising",
+          "status": 200,
+          "bytes": 6576
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200,
+          "bytes": 6256
+        },
+        {
+          "url": "https://business.crefans.com/card?who=khpark",
+          "status": 200,
+          "bytes": 14101
+        },
+        {
+          "url": "https://guide.crefans.com/",
+          "status": 200,
+          "bytes": 16566
+        },
+        {
+          "path": "/api/v1/studio/advertising/products",
+          "method": "GET",
+          "status": 401,
+          "authenticated": false,
+          "productionDataChanged": false
+        },
+        {
+          "path": "/api/v1/admin/advertising/products",
+          "method": "GET",
+          "status": 401,
+          "authenticated": false,
+          "productionDataChanged": false
+        }
+      ],
+      "manualZoomNotBlocked": true,
+      "limitations": [
+        "No production password or authenticated production write test.",
+        "iPhone native keyboard/pinch not tested on physical device.",
+        "Console browser layout checks use intercepted API stubs."
+      ]
+    },
+    "browsers": {
+      "front": {
+        "passed": 18,
+        "failed": 0
+      },
+      "admin": {
+        "passed": 4,
+        "failed": 0,
+        "API": "browser intercepted, not production CRUD"
+      }
+    },
+    "retention": {
+      "local": {
+        "at": "2026-10-28T18:14:40.422517+00:00",
+        "apply": true,
+        "keepPerRepository": 3,
+        "freeBytesBefore": 32740085760,
+        "kept": [
+          {
+            "tag": "crefans-front:advertising-20261029",
+            "id": "sha256:c8861dbb7f36a0103dafa2119a319c610fb8ee58b85b84a1e5be8b3e38269584",
+            "created": "2026-10-28T18:11:24.181744167Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-front:npay-reward-20261029",
+            "id": "sha256:27030763b4e61cb90bbdadcc84a94b21a6ef0038f92e27183143d90753880e25",
+            "created": "2026-10-28T16:21:15.462798211Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-front:studio-input-console-20261029",
+            "id": "sha256:d9da085c512efc84cb74c15c87993decbace2d569a5cdfb2c485d8364486098b",
+            "created": "2026-10-28T15:10:53.759421005Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-api:advertising-20261029",
+            "id": "sha256:da1c6132b54a9ef6424354d294df8a73a094ca97ace009bfddfce8936a7748a7",
+            "created": "2026-10-28T18:08:37.905685466Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-api:studio-input-console-20261029",
+            "id": "sha256:b3c029d62653eaed67d899f9830375db70694341f6f022e4f349aeab3c97ec6c",
+            "created": "2026-10-28T15:07:48.146970086Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-api:admin-accounts-20261028",
+            "id": "sha256:7dbd52a7b326ae68d3f27074820955a9a854f4f57cc1e57c2cf0fd4f4f269ddd",
+            "created": "2026-10-28T08:15:36.603039544Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-admin:advertising-20261029",
+            "id": "sha256:ed53d7ec6cea9a8f01ef2e888147d455e41bebed810b207a6c06c86b950b3c75",
+            "created": "2026-10-28T18:09:50.429393763Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-admin:studio-input-console-20261029",
+            "id": "sha256:2d2e458ed61f2a2528d74692967e4fe215322e8eda791355fdf6da206a93ca86",
+            "created": "2026-10-28T15:09:21.475519838Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-admin:admin-accounts-20261028",
+            "id": "sha256:f191f7ae7f172ababaf09990dfd9337c57ed1820814f41a1fd1262745e0e2c74",
+            "created": "2026-10-28T08:16:42.308814797Z",
+            "reason": "newest"
+          }
+        ],
+        "planned": [
+          {
+            "tag": "crefans-front:faq-payout-20261028",
+            "id": "sha256:332b05e3962db0ac8f3de121ac2977bc49b1b01f193fc7138e14de25430d8a42",
+            "created": "2026-10-28T08:45:57.89448767Z"
+          },
+          {
+            "tag": "crefans-api:operators-20261028",
+            "id": "sha256:7c4bd66da5eb51e30ef32f0780fae71609dba8d94f81005e1e3d718a0a97b91f",
+            "created": "2026-10-28T07:09:49.467621669Z"
+          },
+          {
+            "tag": "crefans-admin:operators-20261028",
+            "id": "sha256:87a6cdbcd7893eb6e00f418423e4c6c15022beb36775dcf40c5bc0555a9388d9",
+            "created": "2026-10-28T07:10:55.361959255Z"
+          }
+        ],
+        "removed": [
+          {
+            "tag": "crefans-front:faq-payout-20261028",
+            "usedIdFallback": false
+          },
+          {
+            "tag": "crefans-api:operators-20261028",
+            "usedIdFallback": false
+          },
+          {
+            "tag": "crefans-admin:operators-20261028",
+            "usedIdFallback": false
+          }
+        ],
+        "errors": [],
+        "freeBytesAfter": 32735080448
+      },
+      "remote": {
+        "at": "2026-10-28T18:14:48.108800+00:00",
+        "apply": true,
+        "keepPerRepository": 3,
+        "freeBytesBefore": 34942328832,
+        "kept": [
+          {
+            "tag": "crefans-front:advertising-20261029",
+            "id": "sha256:b3fd7c711bfb866860b3e00e61c86d84b15d7b3a636a7b6850b010871c8d2258",
+            "created": "2026-10-28T18:11:24.181744167Z",
+            "reason": "in-use"
+          },
+          {
+            "tag": "crefans-front:npay-reward-20261029",
+            "id": "sha256:a7e426c7e7100e9a90fa7fdee6067d7a277dbec1946d2b2d889e064fb9a3e038",
+            "created": "2026-10-28T16:21:15.462798211Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-front:studio-input-console-20261029",
+            "id": "sha256:8a7d29dd45067fb0ae0ae66cf5ccbe53965718fda3328d55bb224bfe3e73d748",
+            "created": "2026-10-28T15:10:53.759421005Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-api:advertising-20261029",
+            "id": "sha256:c2d81fc9ae2850b4694aeb596e610aacff6619728411bf079f165e5c08f2f0ce",
+            "created": "2026-10-28T18:08:37.905685466Z",
+            "reason": "in-use"
+          },
+          {
+            "tag": "crefans-api:studio-input-console-20261029",
+            "id": "sha256:87d27e1724f37b6375b0027ace3d0d6c967efa3f16815527d162bd45cd68b378",
+            "created": "2026-10-28T15:07:48.146970086Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-api:admin-accounts-20261028",
+            "id": "sha256:5821d63ab0731df477117483ff2f4844a0fee0e7f16ea415a89a18e849feb491",
+            "created": "2026-10-28T08:15:36.603039544Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-admin:advertising-20261029",
+            "id": "sha256:34c9e79212c9c97885d639fc211801a38cc836d964cf53c93e2b1d4277a11861",
+            "created": "2026-10-28T18:09:50.429393763Z",
+            "reason": "in-use"
+          },
+          {
+            "tag": "crefans-admin:studio-input-console-20261029",
+            "id": "sha256:5d0bd4346413a5e1827d2f87dadbada38d5237fd766a8a9b69a8eaf0af334cd6",
+            "created": "2026-10-28T15:09:21.475519838Z",
+            "reason": "newest"
+          },
+          {
+            "tag": "crefans-admin:admin-accounts-20261028",
+            "id": "sha256:64597416113c85fbc1a9e190c38bd3570e9e24bf28d6ac2a762309644d71d0db",
+            "created": "2026-10-28T08:16:42.308814797Z",
+            "reason": "newest"
+          }
+        ],
+        "planned": [
+          {
+            "tag": "crefans-front:faq-payout-20261028",
+            "id": "sha256:f3bb39bfd30ee81afe19682da1613a656fc0e31120d21fcb19b7ad4e3c7d61d4",
+            "created": "2026-10-28T08:45:57.89448767Z"
+          },
+          {
+            "tag": "crefans-api:operators-20261028",
+            "id": "sha256:4ede802de2d89a9ff18a2d934f09beab51cbbc67ddc85a3e1e0898bb374c40d4",
+            "created": "2026-10-28T07:09:49.467621669Z"
+          },
+          {
+            "tag": "crefans-admin:operators-20261028",
+            "id": "sha256:44e1516cb83b4a0398643b8ee16c9888c93e8262b8d52ded20642832adae0007",
+            "created": "2026-10-28T07:10:55.361959255Z"
+          }
+        ],
+        "removed": [
+          {
+            "tag": "crefans-front:faq-payout-20261028",
+            "usedIdFallback": false
+          },
+          {
+            "tag": "crefans-api:operators-20261028",
+            "usedIdFallback": false
+          },
+          {
+            "tag": "crefans-admin:operators-20261028",
+            "usedIdFallback": false
+          }
+        ],
+        "errors": [],
+        "freeBytesAfter": 36683812864
+      }
+    },
+    "docker": {
+      "at": "2026-10-28T18:23:59.859754+00:00",
+      "stopExitCode": 0,
+      "status": "",
+      "statusExitCode": 1
+    }
+  },
+  "limits": [
+    "광고상품 실제 주문/PG 결제/기간 자동노출/광고매출 처리는 미구현, 서비스 구매 비활성",
+    "운영 계정 로그인·상품 쓰기·결제·은행·메일·Telegram 시험 발송 미실행",
+    "guide 소개서 프레임 미배포 변경은 이 앱 배포에 포함하지 않음"
+  ],
+  "evidenceDirectory": "/Users/ethan/repository/crefans_front/.local/advertising-deploy-20261029"
+}

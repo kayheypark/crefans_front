@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-28T17:31:17.072851+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "branch": "feat/iphone-input-zoom",
+  "preExistingDirtyFiles": 135,
+  "deployment": false,
+  "request": "일시적인 완료 안내를 문서 흐름 밖의 재사용 가능한 하단 스낵바로 표시",
+  "filesSha256": {
+    "components/crefans/AccountPages.tsx": "be13df85db5244418130de9d2320d3f029d5ff9a044548b9e0ed66b6d4885599",
+    "components/crefans/BeanPages.tsx": "ceadecff60199aeee8544b6a5529cb95b0e3defa7bcb05478720767cfac09e05",
+    "components/crefans/BeanWalletPages.tsx": "216fab1b44a3c58d8baa55cc0d6fe7161442f61429097ed8bfe6956c1ef0c0b2",
+    "components/crefans/CommonPages.tsx": "d136f123cb7f4aa4184887c1ce0138a7ba4c778a595054f1714fb2bd332b51ed",
+    "components/crefans/CreatorPages.tsx": "752bdc3cb9ccce60f278e4c073a876b0bda242bc06f8fc2cc8e0d9f827a6ee0d",
+    "components/crefans/PostShareDialog.tsx": "c1d216293adb81cfd10ad4727fc461f7eca3fd718e8462f2e6ad8bbc743c6247",
+    "components/crefans/SocialPages.tsx": "34996d579625dad298e77632bc0bc49f7f55571cea49fb8a5b430785be0871f9",
+    "components/crefans/common.module.css": "de0c1f195a9de1c1ed2377b1909d25e617d6e0a4d4edf2930029dd7d345298db",
+    "components/crefans/post-share-dialog.module.css": "e3f6a25b9d84a1f2cda731893b3c220aabb369d99115b9d47a98cdf700b7fe53",
+    "components/crefans/social.module.css": "002f812f69f6a1c1784adf9dcc96028876a4794055ef6ad917c7de3da9f229af",
+    "components/crefans/studio/CommunityPages.tsx": "bd84d14581722007abbb2fba19df0d552c1ffc11c04901de17f27ee02f569175",
+    "components/crefans/studio/FinancePages.tsx": "09257e03b18f37bfa7ad3bdad078deec8a0fd3fac929405018c13de81e810b73",
+    "components/crefans/studio/ManagementPages.tsx": "4b74d927ca6e9efed2a0cec912ae7675a5c01f12dbc73b1fbb5e8f7bf22331e7",
+    "components/crefans/studio/OverviewPages.tsx": "fa18ac2dd98f898d98bcded73ddf9ce0bc5f5d487ceab2753204ea8f67834d55",
+    "components/crefans/studio/WithdrawalSecurityPage.tsx": "6d1d3054a9e6e364f2da2ba23f0aa3c7ff2b0f9d41359912b191fbc562689c28",
+    "components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
+    "components/crefans/studio/management.module.css": "b2e0b2e26b92f08ffe04985db4539f7bfbac16340b3d07feab861bf3ef7a2a52",
+    "components/crefans/studio/overview.module.css": "6b2d74861e34bc5a8e6ca54a0bb8637839434ca4cfb53d98a16af4bbee1a9564",
+    "components/design-system/CustomDesignSystem.tsx": "a9060931ae4b644c558ec28cc00ec42967c809910e391825fe9d32877fbef78c",
+    "components/design-system/ServicePatternCatalog.tsx": "c7d7e9fcd3a3bba1f9f630297aaa815f61e6618b712fd51146150cf55febe9ec",
+    "components/providers/PresentationProviders.tsx": "deda60079037c24274efed727c3a7089799c3386f1a6070237e9cba9f0f48e26",
+    "components/ui/Primitives.tsx": "26cc2dbb87f01b2f0a6e1da8db80b02c0e26ccae6d0d5aada6312d4885bf69b9",
+    "components/ui/SnackbarProvider.tsx": "bdaa3039a692f7cd36249d279b7bad10698ee9cbbecdfc0745181469745da6e1",
+    "components/ui/Toast.tsx": "defe7ec6d73e061ffb9f2055427d27ec62033c3d9d96d2fcb60644776637ae9f",
+    "components/ui/ui.module.css": "a32fb860a34012d2fa6ad4d0676e2f6001ae1af126afd5d70265c4132de10ae5",
+    "e2e/snackbar.spec.ts": "885974021329934a20c0cb53448ffb2a9b3fc34cd8a2d038f79687a58796e513",
+    "features/post-share/usePostShare.ts": "668fcf0f4b81cb6f415e4f1a16a8fb406d804b1b5370883af9a66035881d60d6",
+    "playwright.config.ts": "3c41967b0c23c5628ceb6fd2c7b1e582c1d5e3aad64dcf95f1b81c346c3613e5",
+    "tests/crefans-account.test.cjs": "95683fcfb2f03942bff39a919213399ac933213839c02b8580f62695ca01c66f",
+    "tests/overlay-motion.test.cjs": "574c8c81bda1b330a3894aa6027a3a69ce3b3e9e0ff648a685828f1541190a4c"
+  },
+  "commands": [
+    {
+      "command": "node --test --test-name-pattern=settings save feedback uses tests/crefans-account.test.cjs (before implementation)",
+      "startedAt": "2026-10-28T17:28:43.770114+00:00",
+      "exitCode": 1,
+      "finishedAt": "2026-10-28T17:28:44.392577+00:00"
+    },
+    {
+      "command": "npm run check",
+      "startedAt": "2026-10-28T17:28:44.392945+00:00",
+      "finishedAt": "2026-10-28T17:28:55.727539+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test --config .local/snackbar-20261029/playwright.config.cjs",
+      "startedAt": "2026-10-28T17:29:08.613454+00:00",
+      "exitCode": 0,
+      "finishedAt": "2026-10-28T17:29:51.896174+00:00"
+    }
+  ],
+  "results": {
+    "check": "382/382 passed; layer375; typecheck passed",
+    "browser": {
+      "startTime": "2026-10-28T17:29:09.199Z",
+      "duration": 42682.471,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "acceptance": [
+    "완료 문구가 본문 문단으로 렌더되지 않음·설정 본문 높이 유지",
+    "모바일/PC 하단 중앙·GNB 위·모달 위에서 클릭 가능",
+    "4초 자동닫힘·수동닫기·같은 메시지 재실행·포커스 보존",
+    "실서비스 저장 refresh 중 화면이 재생성되어도 공용 호스트에 안내 유지",
+    "오류는 폼에 남기고 실패 폼 유지",
+    "목업/서비스/스튜디오/디자인 카탈로그 공용 Toast"
+  ],
+  "environment": {
+    "node": "v22.7.0",
+    "frontend": "isolated .next-e2e / 127.0.0.1:3011",
+    "browsers": [
+      "Chromium mobile375x844",
+      "Chromium desktop1280x900",
+      "WebKit mobile375x844",
+      "WebKit desktop1280x900"
+    ]
+  },
+  "initialFailures": [
+    {
+      "log": "before-test-invalid-selector.log",
+      "cause": "회귀 테스트 최초 폼 선택자 오류; 최종 before-test-final.log에서 올바른 선택자로 미구현 실패 재현"
+    },
+    {
+      "log": "check-first.log",
+      "cause": "기존 테스트의 부분 모듈 대역에 Toast 없음; Toast 독립 모듈로 분리 후 통과"
+    },
+    {
+      "log": "check.log",
+      "cause": "회귀 테스트의 CSS 모듈 대역 선택자 오류; 접근성 선택자로 수정"
+    },
+    {
+      "log": "browser-first.log",
+      "cause": "실서비스 저장 후 refresh로 지역 메시지 소실 및 modal portal DOM 이동 타이밍; 공용 호스트와 조건 대기로 보완"
+    }
+  ],
+  "evidenceDirectory": "/Users/ethan/repository/crefans_front/.local/snackbar-20261029",
+  "visualReview": [
+    "mobile-webkit/settings-snackbar.png: GNB 위·본문 밀림 없음",
+    "desktop-chromium/dialog-snackbar.png: 모달 밖 하단·백드롭 위 노출"
+  ],
+  "references": {
+    "checkedOn": "2026-10-29",
+    "urls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover",
+      "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover",
+      "https://bugzilla.mozilla.org/show_bug.cgi?id=1961535"
+    ]
+  },
+  "limitations": [
+    "service 브라우저 API 대역, 실제 API/DB 저장 검증 아님",
+    "실기기 iPhone/구형 브라우저/OS 음성 리더 미검증",
+    "운영 배포·외부 발송·금융 실행 없음",
+    "운영 콘솔 별도 저장소는 적용 범위 밖",
+    "기존 다른 미커밋 작업과 배포 상태는 별도 기록에 따름"
+  ]
+}

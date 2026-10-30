@@ -1,0 +1,211 @@
+{
+  "at": "2026-10-27T00:48:01.548564+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "release": "profile-card-sync-20261027",
+  "baseRelease": "business-card-animation-20261027",
+  "sourceDelta": [
+    "components/business-card/BusinessCard.tsx",
+    "components/business-card/business-card.module.css",
+    "components/crefans/AccountPages.tsx",
+    "components/crefans/account.module.css",
+    "components/crefans/creator.module.css"
+  ],
+  "sourceManifestSha256": "1140f364e1998c024845a4a80a0696d7a9feda5cf83692079e02829a96487945",
+  "runtimeFilesVerified": 651,
+  "tests": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "passed": 362,
+    "negativeControl": "hour11 incorrectly assigned morning causes boundary test failure; source restored"
+  },
+  "browser": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "walletCount": 1,
+      "walletLabel": "내 지갑",
+      "walletMinHeight": 44,
+      "settingsVisible": true,
+      "categorySurvivesResize": true,
+      "greetings": [
+        "아침",
+        "점심",
+        "저녁"
+      ],
+      "englishRemoved": true,
+      "serviceLinkLabel": "서비스 소개",
+      "errors": [],
+      "consoleStatus": "clean"
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "walletCount": 1,
+      "walletLabel": "내 지갑",
+      "walletMinHeight": 44,
+      "settingsVisible": true,
+      "categorySurvivesResize": true,
+      "greetings": [
+        "아침",
+        "점심",
+        "저녁"
+      ],
+      "englishRemoved": true,
+      "serviceLinkLabel": "서비스 소개",
+      "errors": [],
+      "consoleStatus": "clean"
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "walletCount": 1,
+      "walletLabel": "내 지갑",
+      "walletMinHeight": 44,
+      "settingsVisible": true,
+      "categorySurvivesResize": true,
+      "greetings": [
+        "아침",
+        "점심",
+        "저녁"
+      ],
+      "englishRemoved": true,
+      "serviceLinkLabel": "서비스 소개",
+      "errors": [
+        "/beta.crefans.com/preview/beans/charge?_rsc=yuadp due to access control checks."
+      ],
+      "consoleStatus": "prefetch-warning"
+    }
+  ],
+  "production": {
+    "at": "2026-10-27T00:42:13.866137+00:00",
+    "checks": [
+      {
+        "url": "https://business.crefans.com/card?who=khpark",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://business.crefans.com/card?who=unknown",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card?who=unknown"
+      },
+      {
+        "url": "https://business.crefans.com/card",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card"
+      },
+      {
+        "url": "https://business.crefans.com/api/v1/health",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://business.crefans.com/.env",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/.env"
+      },
+      {
+        "url": "https://business.crefans.com/service/feed",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/service/feed"
+      },
+      {
+        "url": "https://business.crefans.com/brand/business-cards/khpark-front.png",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/brand/business-cards/khpark-front.png"
+      },
+      {
+        "url": "https://business.crefans.com/",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://beta.crefans.com/service/landing",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/landing"
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/feed"
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "finalUrl": "https://admin.crefans.com/login"
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "2f9102fa1b15298761075f69ca994547faf47de2ec3a770d27563bc691146bca",
+        "image": "sha256:142882c3473de99cdd6ef9ac4854aa61ed2fdbabf101bca7013f2012be54a606",
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "restarts": 0
+      }
+    },
+    "tls": "system trust and original hostname verified; no TLS bypass",
+    "dns": "business A from authoritative/1.1.1.1/8.8.8.8; explicit resolution for stale local negative cache"
+  },
+  "deployment": {
+    "startedAt": "2026-10-27T00:41:52.696434+00:00",
+    "finishedAt": "2026-10-27T00:41:59.002615+00:00",
+    "exitCode": 0,
+    "scope": "frontend and business host Caddy; API/DB unchanged",
+    "backup": "/opt/crefans-backup-profile-card-sync-20261027"
+  },
+  "auditScope": [
+    "AccountPages, CreatorPages, ProfileHeader and related responsive profile/settings styles",
+    "Shared creator profile sections retain common JSX; desktop-only legacy wallet branch removed",
+    "Service information settings made common; category remains selected after resize",
+    "GNB/sidebar, mobile comment/gallery panels and studio mobile unsupported notice retain intentional responsive layout"
+  ],
+  "greetingHours": {
+    "morning": "05:00–10:59",
+    "lunch": "11:00–16:59",
+    "evening": "17:00–04:59",
+    "clock": "device getHours; mount and every60seconds"
+  },
+  "limits": [
+    "No physical iPhone test; Playwright Chromium/WebKit",
+    "WebKit repeatedly reports preview/beans/charge RSC prefetch access-control warning; profile/card functional assertions passed but console-clean is not claimed; retained in browser results. This charge component is unchanged and is a separate follow-up.",
+    "No financial policy/API/DB changes; unrelated working-tree edits excluded",
+    "DNS resolved from public A for prior local negative cache; normal TLS verification retained",
+    "Frontend replacement observed one transient readiness502 before verification"
+  ],
+  "logSha256": {
+    "check.log": "4d9e03bf6bebc2da3d6ad9ee5f5a6a03e38076118e2c7048ea952700a1e7e3a7",
+    "negative-control.log": "5bae6f80a28099298db7bcdfdfb11321c08b9930cabac2aa06d65daf6bfff6d9",
+    "build.log": "7fdfbd42a12645c4a194deb0bdf4f71f59a45fd7af85792eef013da5320a7283"
+  }
+}

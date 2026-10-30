@@ -1,0 +1,174 @@
+{
+  "at": "2026-10-27T01:43:12.794238+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "release": "card-greeting-20261027",
+  "baseRelease": "card-controls-20261027",
+  "sourceDelta": [
+    "components/business-card/BusinessCard.tsx"
+  ],
+  "sourceManifestSha256": "8477d8c5872488fddd4faf56012b570bcb67a630f97e633c3fcf832b7b812392",
+  "runtimeFilesVerified": 651,
+  "text": "안녕하세요, 만나서 반갑습니다.",
+  "tests": {
+    "command": "node --test tests/business-card.test.cjs",
+    "exitCode": 0,
+    "passed": 8,
+    "scope": "existing card lifecycle/control/render/route tests; expected greeting changed; no new tests"
+  },
+  "browser": [
+    {
+      "engine": "chromium",
+      "width": 320,
+      "status": 200,
+      "exactText": true,
+      "overflow": false,
+      "controls": 3,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "status": 200,
+      "exactText": true,
+      "overflow": false,
+      "controls": 3,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "status": 200,
+      "exactText": true,
+      "overflow": false,
+      "controls": 3,
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "status": 200,
+      "exactText": true,
+      "overflow": false,
+      "controls": 3,
+      "errors": []
+    }
+  ],
+  "production": {
+    "at": "2026-10-27T01:42:58.669424+00:00",
+    "checks": [
+      {
+        "url": "https://business.crefans.com/card?who=khpark",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://business.crefans.com/card?who=unknown",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card?who=unknown"
+      },
+      {
+        "url": "https://business.crefans.com/card",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card"
+      },
+      {
+        "url": "https://business.crefans.com/api/v1/health",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://business.crefans.com/.env",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/.env"
+      },
+      {
+        "url": "https://business.crefans.com/service/feed",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/service/feed"
+      },
+      {
+        "url": "https://business.crefans.com/brand/business-cards/khpark-front.png",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/brand/business-cards/khpark-front.png"
+      },
+      {
+        "url": "https://business.crefans.com/",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://beta.crefans.com/service/landing",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/landing"
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/feed"
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "finalUrl": "https://admin.crefans.com/login"
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "0a98860e43490390c63293430258acaf4358fdab4fb6e5ad5e9688ff99787f64",
+        "image": "sha256:406531725e5be28bafa1c228b4edce1b9fd24f5ae56974f2eb981435c391576a",
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "restarts": 0
+      }
+    },
+    "tls": "system trust and original hostname verified; no TLS bypass",
+    "dns": "business A from authoritative/1.1.1.1/8.8.8.8; explicit resolution for stale local negative cache"
+  },
+  "deployment": {
+    "startedAt": "2026-10-27T01:42:30.903885+00:00",
+    "finishedAt": "2026-10-27T01:42:37.096164+00:00",
+    "exitCode": 0,
+    "scope": "frontend and business host Caddy; API/DB unchanged",
+    "backup": "/opt/crefans-backup-card-greeting-20261027"
+  },
+  "limits": [
+    "Only card tests and build/typecheck run for this text change; no repeated full product suite",
+    "Chromium/WebKit automation, no physical iPhone",
+    "Public DNS explicitly resolved through loopback CONNECT for prior local negative cache; normal TLS validation retained",
+    "API/DB/policies unchanged; unrelated working-tree edits excluded"
+  ],
+  "logSha256": {
+    "tests.log": "44c29d4cdcdb7a1e3c270b49c8de70b5ee74dfea393bb06ce6806f085a678e2f",
+    "build.log": "504bb5addf6e256f8de1239d6b48668243b361d88aa738961d5f8efc900fe857"
+  }
+}

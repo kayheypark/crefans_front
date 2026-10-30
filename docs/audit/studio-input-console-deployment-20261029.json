@@ -1,0 +1,1174 @@
+{
+  "at": "2026-10-28T15:32:21.691780+00:00",
+  "release": "studio-input-console-20261029",
+  "scope": [
+    "studio reply identity/edit/delete",
+    "touch input minimum 16px with manual zoom allowed",
+    "console MyPage logout at bottom"
+  ],
+  "approval": "User explicitly requested 배포해 on 2026-10-29; no production password or authenticated business-data mutation performed.",
+  "repositories": {
+    "front": {
+      "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+      "branch": "feat/iphone-input-zoom",
+      "status": " M .env.example\n M AGENTS.md\n M PROGRESS.md\n M app/globals.css\n M app/layout.tsx\n M app/service/landing/page.tsx\n M components/crefans/AccountPages.tsx\n M components/crefans/BeanPages.tsx\n M components/crefans/CreatorPages.tsx\n M components/crefans/ServiceGuidePage.tsx\n M components/crefans/ServiceUI.tsx\n M components/crefans/SocialPages.tsx\n M components/crefans/account.module.css\n M components/crefans/beans.module.css\n M components/crefans/creator.module.css\n M components/crefans/landing.module.css\n M components/crefans/service.module.css\n M components/crefans/social.module.css\n M components/crefans/studio/CommunityPages.tsx\n M components/crefans/studio/FinancePages.tsx\n M components/crefans/studio/ManagementPages.tsx\n M components/crefans/studio/OverviewPages.tsx\n M components/crefans/studio/ReportPage.tsx\n M components/crefans/studio/StudioShell.tsx\n M components/crefans/studio/community.module.css\n M components/crefans/studio/content-post-preview.module.css\n M components/crefans/studio/finance.module.css\n M components/crefans/studio/management.module.css\n M components/crefans/studio/overview.module.css\n M components/crefans/studio/report.module.css\n M components/crefans/studio/studio.module.css\n M components/crefans/studio/withdrawal-security.module.css\n M components/design-system/ServicePatternCatalog.tsx\n M components/preview/comment-fixtures.ts\n M components/preview/service/PreviewProvider.tsx\n M components/preview/service/ServiceRouter.tsx\n M components/preview/service/useMockAccount.ts\n M components/preview/service/useMockBeans.ts\n M components/preview/studio/StudioProvider.tsx\n M components/preview/studio/finance-fixtures.ts\n M components/preview/studio/useMockCommunity.ts\n M components/preview/studio/useMockFinance.ts\n M components/preview/studio/useMockManagement.ts\n M components/preview/studio/useMockOverview.ts\n M components/providers/ApplicationProviders.tsx\n M components/providers/PresentationProviders.tsx\n M components/ui/DataTable.tsx\n M components/ui/DateRangePicker.tsx\n M components/ui/MarqueeText.tsx\n M components/ui/data-table.module.css\n M components/ui/date-range-picker.module.css\n M components/ui/marquee-text.module.css\n M components/ui/select.module.css\n M docs/audit/evidence.json\n M docs/beta-role-test-plan.md\n M docs/design-system.md\n M docs/preview-pages.md\n M docs/release-test-scenarios.md\n M docs/service-api-binding.md\n M e2e/beans.spec.ts\n M e2e/marquee-text.spec.ts\n M e2e/preview.spec.ts\n M e2e/service.spec.ts\n M features/service/useStudioModel.ts\n M lib/crefans/support.ts\n M middleware.ts\n M tests/content-post-preview.test.cjs\n M tests/crefans-account.test.cjs\n M tests/crefans-community.test.cjs\n M tests/crefans-creator.test.cjs\n M tests/crefans-finance.test.cjs\n M tests/crefans-studio-management.test.cjs\n M tests/crefans-studio-reports.test.cjs\n M tests/dashboard-links.test.cjs\n M tests/studio-metric.test.cjs\n M tests/studio-navigation.test.cjs\n M tests/withdrawal-pin-ui.test.cjs\n M tests/withdrawal-pin.test.cjs\n M types/crefans-community.ts\n?? after-375-active.png\n?? app/api/preview/\n?? app/card/\n?? components/business-card/\n?? components/crefans/PolicyNotes.tsx\n?? components/crefans/policy-notes.module.css\n?? components/crefans/studio/StudioCommentReply.tsx\n?? docs/audit/business-card-20261027.json\n?? docs/audit/business-card-animation-20261027.json\n?? docs/audit/card-controls-20261027.json\n?? docs/audit/card-greeting-20261027.json\n?? docs/audit/card-visible-20261027.json\n?? docs/audit/iphone-input-zoom-20261028.json\n?? docs/audit/landing-ready-20261027.json\n?? docs/audit/moka-demo-button-20261027.json\n?? docs/audit/moka-demo-button-deployment-20261027.json\n?? docs/audit/moka-preview-deployment-20261027.json\n?? docs/audit/moka-preview-login-20261027.json\n?? docs/audit/moka-preview-secure-login-20261027.json\n?? docs/audit/profile-card-sync-20261027.json\n?? docs/audit/studio-comment-replies-20261028.json\n?? features/preview/\n?? infra/platform/image-retention.py\n?? lib/api/preview.ts\n?? lib/crefans/creator-payout-policy.ts\n?? notes-beans-1280.png\n?? notes-beans-375.png\n?? notes-earnings-1280.png\n?? notes-earnings-375.png\n?? output/pdf/crefans-api-spec-20261027.pdf\n?? output/pdf/crefans-qa-evidence-20261027.zip\n?? output/pdf/crefans-qa-report-20261027.html\n?? output/pdf/crefans-qa-report-20261027.pdf\n?? prod-1280.png\n?? prod-375.png\n?? prod-768.png\n?? prod.json\n?? public/brand/business-cards/\n?? tests/business-card.test.cjs\n?? tests/preview-login-route.test.cjs\n?? tests/studio-comment-reply.test.cjs\n?? tests/studio-community-binding.test.cjs\n?? tests/support-faq-policy.test.cjs\n"
+    },
+    "server": {
+      "head": "0d6044e5b1d595688bf5f82cad08f6a623df6719",
+      "branch": "feat/studio-comment-replies",
+      "status": " M PROGRESS.md\n M docs/current-contracts.md\n M docs/platform-api.md\n M docs/platform-implementation.md\n M docs/provider-contracts.md\n M infra/platform/Caddyfile\n M infra/platform/README.md\n M infra/platform/compose.yml\n M infra/platform/runtime.env.example\n M prisma/schema.prisma\n M scripts/platform-admin.cjs\n M src/platform/admin-console.ts\n M src/platform/admin-logs.ts\n M src/platform/admin.controller.ts\n M src/platform/beans.controller.ts\n M src/platform/beans.service.ts\n M src/platform/beta-policy.ts\n M src/platform/finance.service.ts\n M src/platform/financial-policy.ts\n M src/platform/jobs.service.ts\n M src/platform/legal-documents.ts\n M src/platform/module.ts\n M src/platform/openapi-contract.ts\n M src/platform/openapi.ts\n M src/platform/settlement-receipts.ts\n M src/platform/studio.controller.ts\n M src/platform/studio.service.ts\n M tests/admin-console-server.cjs\n M tests/e2e-server.cjs\n M tests/platform-admin-console.test.cjs\n M tests/platform-beans.test.cjs\n M tests/platform-beta-policy.test.cjs\n M tests/platform-finance.test.cjs\n M tests/platform-financial-policy.test.cjs\n M tests/platform-openapi.test.cjs\n M tests/platform-provider-http.test.cjs\n?? prisma/migrations/20261028120000_admin_permissions/\n?? prisma/migrations/20261028150000_admin_accounts/\n?? src/platform/admin-auth.ts\n?? src/platform/admin-operators.ts\n?? src/platform/admin-permissions.ts\n?? tests/admin-session.cjs\n?? tests/platform-admin-operators.test.cjs\n?? tests/platform-studio-replies.test.cjs\n"
+    },
+    "admin": {
+      "head": "8cf5025fa746afd09d06d10b4182787713f86bbd",
+      "branch": "feat/console-mypage-logout",
+      "status": " M AGENTS.md\n M PROGRESS.md\n M e2e/console.spec.ts\n M next.config.mjs\n M src/app/console/[[...section]]/page.tsx\n M src/app/globals.css\n M src/app/login/page.tsx\n M src/components/console/Beans.tsx\n M src/components/console/Console.tsx\n M src/components/console/ConsoleIcon.tsx\n M src/lib/console-api.ts\n?? src/components/console/Operators.tsx\n?? src/components/console/TypedConfirm.tsx\n?? src/lib/korean.ts\n?? tests/korean.test.cjs\n"
+    }
+  },
+  "sourceDelta": {
+    "at": "2026-10-28T15:05:35.485379+00:00",
+    "release": "studio-input-console-20261029",
+    "baselines": {
+      "front": "faq-payout-deploy-20261028",
+      "server": "admin-accounts-deploy-20261028",
+      "admin": "admin-accounts-deploy-20261028"
+    },
+    "changes": {
+      "front": [
+        {
+          "file": "app/globals.css",
+          "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "after": "c7f30b0a864e151d626118cc1b909d0481904f19dd253b7b81816810aedc39e3"
+        },
+        {
+          "file": "app/layout.tsx",
+          "before": "3dc83f2add76f787be4356d2f2e1d0f8f9c3db1d3761cb9e8ab079f3713d1b7b",
+          "after": "1cec6a5bb100b3b8bc4849ec5be3694ccceb522c2ec0f9aaf7dea03c7bb8492c"
+        },
+        {
+          "file": "components/crefans/studio/CommunityPages.tsx",
+          "before": "272cb74b5fc2985b4e69e8d59619d71c52d89a9e7cdf86122a57bddeeb9da422",
+          "after": "0f42b6425034566b136439b1ab0ba139b77486004dbf94bdfa8903a6700f1fcd"
+        },
+        {
+          "file": "components/crefans/studio/community.module.css",
+          "before": "3daa801ce36904dfef94c9cccee817b8c0ca7395dd5fefbf9cece70df91dd25a",
+          "after": "77eceaaadb94bdb4e8930ad449fe0ddd99091bd080af6e7149d68099063c5982"
+        },
+        {
+          "file": "components/crefans/studio/StudioCommentReply.tsx",
+          "before": null,
+          "after": "adb1606ef0803adddaeda389d7a91c4070238d20ecba563457d79f8907e2b6c3"
+        },
+        {
+          "file": "components/design-system/ServicePatternCatalog.tsx",
+          "before": "3953ed03868d0378764ad84a623d3873c70b51d5374478829574ef3ecd4f5c71",
+          "after": "b3a18397424262158405b2a3202a69ad360a1216ca5aa526be05e0c2dac4f92b"
+        },
+        {
+          "file": "components/preview/comment-fixtures.ts",
+          "before": "c8e13950be6c33e56e63a464dba6c5c1542bdfe966689c707f2c18537ddf0b50",
+          "after": "2ee450a870fa367c3813fa51ccb2f2d0610108afee03635bcb88fceef1746202"
+        },
+        {
+          "file": "components/preview/studio/StudioProvider.tsx",
+          "before": "b6a2796312e072f31ba0065ddb02c164225d694190785cf0a5a56e2d92ceaa3d",
+          "after": "80bb00ae8ac71a81d77de3288376611a4fdf347a4b6b5f90bb4ccdf610dc3b1f"
+        },
+        {
+          "file": "components/preview/studio/useMockCommunity.ts",
+          "before": "c52bf66ab3daec86096b59c2c85d5b25573648ea0cd13b16358c97d18328c4c7",
+          "after": "3260b4472fe4a0a38845ffdff080bcab52a74bbdf336c6dcce5c8f20f90ffb39"
+        },
+        {
+          "file": "features/service/useStudioModel.ts",
+          "before": "e581cab8d620e4c9a711f2d5db7a871ce5371169046ee3a13f2c3b05cc151acf",
+          "after": "06e9c3fef7818caae838cc985350137d3860c80effcd3b8e4ac1dc6d27f3a755"
+        },
+        {
+          "file": "types/crefans-community.ts",
+          "before": "db8c39866312b3ea7d1cdf0ab8cd700d095baa07ab32ad878346e76ad0e2f9e9",
+          "after": "f99ae9d85ec347d2febfad14940ecced4d04041f1e1446e3d5efd09bc087d875"
+        }
+      ],
+      "server": [
+        {
+          "file": "src/platform/openapi-contract.ts",
+          "before": "6914d7d52e1844c1106ec300837b6a7fc6caf485e6831697ab7533460fb3a740",
+          "after": "f8af69166ad9a38b36127c2144398ab6418a8fb37fbaf9a94f412cccaf71a8d8"
+        },
+        {
+          "file": "src/platform/studio.controller.ts",
+          "before": "03373f54a2ff4a8f7705ef451ce401d530578774aae3f055d0f551ad1ed9c85e",
+          "after": "34165be87416d136567c5c80353bb4833285d068529d15f944edd5f3259d7e93"
+        },
+        {
+          "file": "src/platform/studio.service.ts",
+          "before": "c95b4bf20be00df35289e8bf79ca890a93a2c5c483d6e303c466e5aff44a9f9d",
+          "after": "3a8c3711f714a12fa564cf708f6dc32202ed04a4c4980e2816cb99a181c0bf28"
+        }
+      ],
+      "admin": [
+        {
+          "file": "src/app/globals.css",
+          "before": "3e5b1882cc0c2594cfdf794c4fb7b2627783110b39a6f6bc3c29e2c50a22fda0",
+          "after": "7f3472acf387a4e0454a51120ce7d8fd4058b63fafd478449fb8e109fb6b8447"
+        },
+        {
+          "file": "src/components/console/Operators.tsx",
+          "before": "05b06a43b095e3f5b20cb280e7d49492e2db1e79a3bbbd4bbb7249ad9e8ca454",
+          "after": "e82baddf0352f558953c600f31d40e82f605638bafbab3cc47fb291734870a28"
+        }
+      ]
+    },
+    "newMigrations": 0
+  },
+  "checks": {
+    "front": [
+      {
+        "command": [
+          "npm",
+          "run",
+          "check"
+        ],
+        "startedAt": "2026-10-28T15:04:19.008047+00:00",
+        "finishedAt": "2026-10-28T15:04:30.143503+00:00",
+        "exitCode": 0,
+        "log": "front-check-0.log"
+      }
+    ],
+    "server": [
+      {
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "startedAt": "2026-10-28T15:04:18.981503+00:00",
+        "finishedAt": "2026-10-28T15:04:24.472017+00:00",
+        "exitCode": 0,
+        "log": "server-check-0.log"
+      },
+      {
+        "command": [
+          "node",
+          "--test",
+          "--test-concurrency=1",
+          "tests/platform-studio-replies.test.cjs",
+          "tests/platform-openapi.test.cjs",
+          "tests/platform-admin-operators.test.cjs"
+        ],
+        "startedAt": "2026-10-28T15:04:24.472540+00:00",
+        "finishedAt": "2026-10-28T15:04:30.607968+00:00",
+        "exitCode": 0,
+        "log": "server-check-1.log"
+      }
+    ],
+    "admin": [
+      {
+        "command": [
+          "npm",
+          "run",
+          "check"
+        ],
+        "startedAt": "2026-10-28T15:04:18.861481+00:00",
+        "finishedAt": "2026-10-28T15:04:21.796220+00:00",
+        "exitCode": 0,
+        "log": "admin-check-0.log"
+      }
+    ]
+  },
+  "builds": [
+    {
+      "label": "server",
+      "tag": "crefans-api:studio-input-console-20261029",
+      "startedAt": "2026-10-28T15:06:45.547806+00:00",
+      "finishedAt": "2026-10-28T15:07:57.232477+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "3a9c93f169beceacad41bab53cfea199d4412dd884db6e35923039cc8804d0ee"
+    },
+    {
+      "label": "admin",
+      "tag": "crefans-admin:studio-input-console-20261029",
+      "startedAt": "2026-10-28T15:07:57.233157+00:00",
+      "finishedAt": "2026-10-28T15:09:23.354336+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "1b4434e9ecf94bc7e2ed35de6be5c35cccb06c4cb4a1d162f54c36991c935df4"
+    },
+    {
+      "label": "front",
+      "tag": "crefans-front:studio-input-console-20261029",
+      "startedAt": "2026-10-28T15:09:23.354827+00:00",
+      "finishedAt": "2026-10-28T15:10:58.356192+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "345a031c06d23eed325fcf7ab35248c9fea967abcd02bad28156faa333da195b"
+    }
+  ],
+  "imageVerification": {
+    "admin": {
+      "sourceFiles": 59,
+      "runtimeFiles": 122,
+      "sourceMatched": true,
+      "artifactsMatched": true,
+      "buildStage": "sha256:e3a901ebf12e664c9707f16fd4ef0840ef8f74568fa751c0ef5fa04ed1474cfe"
+    },
+    "running": {
+      "at": "2026-10-28T15:19:45.663837+00:00",
+      "containers": {
+        "crefans-beta-frontend-1": {
+          "id": "a1b7255b8613f5977f60fe447e091b43f4c74b160fdfe69e60fb224fe76d9a57",
+          "image": "sha256:8a7d29dd45067fb0ae0ae66cf5ccbe53965718fda3328d55bb224bfe3e73d748",
+          "running": true,
+          "restarts": 0,
+          "unchanged": false
+        },
+        "crefans-beta-api-1": {
+          "id": "4fb96794492702055c78486d253b4998983aee036c6303bc1c2c32f0c0a7e256",
+          "image": "sha256:87d27e1724f37b6375b0027ace3d0d6c967efa3f16815527d162bd45cd68b378",
+          "running": true,
+          "restarts": 0,
+          "unchanged": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "59f9ccd2253871ecf61dea149c83f3baa9b25578636653103f00194a4104e0a6",
+          "image": "sha256:87d27e1724f37b6375b0027ace3d0d6c967efa3f16815527d162bd45cd68b378",
+          "running": true,
+          "restarts": 0,
+          "unchanged": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "c306f762e1ef379014165781df1c6a7594118a44251aa41f7ff1abcc17af7f9c",
+          "image": "sha256:5d0bd4346413a5e1827d2f87dadbada38d5237fd766a8a9b69a8eaf0af334cd6",
+          "running": true,
+          "restarts": 0,
+          "unchanged": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "unchanged": true
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "unchanged": true
+        }
+      },
+      "sourceMatches": {
+        "frontend": 658,
+        "api": 208,
+        "worker": 208
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200,
+          "bytes": 94
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200,
+          "bytes": 51222
+        },
+        {
+          "url": "https://beta.crefans.com/preview/studio/comments",
+          "status": 200,
+          "bytes": 107559
+        },
+        {
+          "url": "https://beta.crefans.com/preview/login",
+          "status": 200,
+          "bytes": 30040
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200,
+          "bytes": 16579
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200,
+          "bytes": 6256
+        },
+        {
+          "url": "https://business.crefans.com/card?who=khpark",
+          "status": 200,
+          "bytes": 10302
+        },
+        {
+          "url": "https://guide.crefans.com/",
+          "status": 200,
+          "bytes": 16566
+        },
+        {
+          "url": "https://guide.crefans.com/downloads/crefans-service-introduction.pdf",
+          "status": 200,
+          "bytes": 4178362
+        },
+        {
+          "path": "/api/v1/studio/comments/d893f6bc-b71f-45b7-8bf8-b81025ea07a0/replies/d893f6bc-b71f-45b7-8bf8-b81025ea07a0",
+          "method": "PUT",
+          "status": 401,
+          "authenticated": false,
+          "productionDataChanged": false
+        },
+        {
+          "path": "/api/v1/studio/comments/d893f6bc-b71f-45b7-8bf8-b81025ea07a0/replies/d893f6bc-b71f-45b7-8bf8-b81025ea07a0",
+          "method": "DELETE",
+          "status": 401,
+          "authenticated": false,
+          "productionDataChanged": false
+        }
+      ],
+      "manualZoomNotBlocked": true,
+      "limitations": [
+        "No production password or authenticated production write test.",
+        "iPhone native keyboard/pinch not tested on physical device.",
+        "Console browser layout checks use intercepted API stubs."
+      ]
+    },
+    "transferSha256": "423c14d1c227768bdb37e44fc0cc6e83974cac49253bd76a804af835803134d2"
+  },
+  "deployment": {
+    "command": "ssh private verified host: sudo -n bash /home/ubuntu/crefans-studio-input-console-20261029/deploy.sh",
+    "startedAt": "2026-10-28T15:13:15.216984+00:00",
+    "finishedAt": "2026-10-28T15:13:33.080867+00:00",
+    "exitCode": 0,
+    "scope": "API/worker/admin/front; studio reply endpoints and UI input/logout fixes; no new migrations"
+  },
+  "metadataBefore": {
+    "migrations": [
+      {
+        "name": "0_init",
+        "checksum": "3833bea35684a61c3d59c5f04b590d6f34ca459b9220fd0425cb0a0356904219",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20260910000000_local_members",
+        "checksum": "3076434a542b6badcf5549fd713cf7a3a9ffcbc7dd5606d92d617873d3ee471a",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007000000_platform_v1",
+        "checksum": "4076884920bbaa5c0bab99d08a9fa4db1e39f48779f66d84dfa7b9ddb238ba01",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007010000_platform_hardening",
+        "checksum": "14b6ef2d8e6eb443a6afc08b7d6a0e4e0c5c58a5946680848f905fe4129abdcc",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007020000_platform_jobs",
+        "checksum": "e0b23da51ac54a4143af2496c6d6da39912efb3f37a2c26345f341475e0a6008",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007030000_platform_completion",
+        "checksum": "2b7f8288195ee6b81160d9047bac6435abc87019eda946953106694cc14ac6f4",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007040000_platform_audit",
+        "checksum": "f46af57baf903d9c9164518917a08e9bd799666f51f1cc7ff7316c5619b6f82b",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007050000_platform_age_gate",
+        "checksum": "1445731150a5fa2045bbaa7c3bfeb83a8f4dad46d6159396d1261708269d24dc",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007060000_billing_registration",
+        "checksum": "8565a40c6393a36834870fd41f362d699ebd507346a7f87fad53eb4d9f419ef2",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261008000000_payment_lifecycle",
+        "checksum": "360fe0032ff09a9e7c48e0da34cd893b72d6fda87a26ccf58e4ad74b015357cc",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261021070000_unused_content_refund",
+        "checksum": "5d1e2290f77bcc448a8eccd4e2270600f339f38422fd7b4a56714d666887ad98",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261021080000_db_financial_policy",
+        "checksum": "80ba545b2b74906641d70418e33119d00ae3d80116ff68865b8c6d90580d7c95",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261021160000_platform_security_ip",
+        "checksum": "1dfd3a3c4b1fc8147ea840c23772fef342810e6f683c65b66da21d663c4670e6",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261021161000_operational_events",
+        "checksum": "0ce6cf718f5ee4497dc90300d3c97e61a070e379cf58eb3b3df6b34bc9aa8701",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261022020000_audit_logs",
+        "checksum": "c3312aca7d23bfd77a2c71c497dc1e26a2b2570d575f5e6cf1fc446f91e06eef",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261022030000_billing_recovery",
+        "checksum": "67e4f2729a36db3717d8ecc234c6a5dd2c3936b76e27a1cc43c2c0e4b6e66b47",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261024120000_creator_verification",
+        "checksum": "8cbf4a870e12e5199ee2b6823edeb9e00d88a7ffd18f58cf4c3c74cf5d0155dc",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261025100000_beta_policy",
+        "checksum": "1fd23a64220156108978d59061d2fcdb62022c6c44e10145d069c2258f069f90",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261025110000_marketing_delivery_claim",
+        "checksum": "be6b7ae38fe19d5dea989193316c5d60a58cb9565c913040d64603110b183573",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261025120000_bean_ledger",
+        "checksum": "887ae3eb12b4543c8ee08341931f2b0869e81ea4d209ed19cf2c3c3b1b08ce7f",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261025130000_bean_product",
+        "checksum": "ca637f1ac797c4bb43ff839a5f9bb82aba2392578e29eeb5d73c520988aa281f",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261026090000_post_supporters",
+        "checksum": "afa16d89dd49a0979dcb5c944fb222e9101377ebecb4404e14c748ebd6284ff9",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261026100000_profile_connections",
+        "checksum": "d455891503b36cf404c87e80d6c6532ed273bc6fcf113a3bf3c73110b3897410",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261026110000_post_tip_setting",
+        "checksum": "f7b767fe44b5875038fdc689646ac8f19d07e93a4f7687098e368c81a6225c0b",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261026120000_tip_attribution",
+        "checksum": "8e860ea85e66de6559954979770a58872217fc1057ed523b38181e17fc1066f0",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261028120000_admin_permissions",
+        "checksum": "b0a2d999665a1c53d89134d3026da523d512d6d1c7fe44bbf9315ebe74d8886f",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261028150000_admin_accounts",
+        "checksum": "b5510f7188fc92d87a07f2fd7e7a0986c0c849113ddc77dc430c7af34ffbf74c",
+        "finished": true,
+        "rolledBack": false
+      }
+    ],
+    "flags": {
+      "BETA_MODE": "true",
+      "BEAN_LEDGER_ENABLED": "true",
+      "BEAN_LIVE_PAYMENTS_APPROVED": "false",
+      "BANK_PAYOUTS_ENABLED": "false",
+      "SIGNUP_IDENTITY_MODE": "email-only",
+      "MARKETING_MAIL_ENABLED": "false"
+    },
+    "worker": {
+      "at": "2026-10-28T15:08:24.094Z",
+      "failures": {}
+    },
+    "at": "2026-10-28T15:08:50.871683+00:00",
+    "readOnly": true
+  },
+  "metadataAfter": {
+    "migrations": [
+      {
+        "name": "0_init",
+        "checksum": "3833bea35684a61c3d59c5f04b590d6f34ca459b9220fd0425cb0a0356904219",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20260910000000_local_members",
+        "checksum": "3076434a542b6badcf5549fd713cf7a3a9ffcbc7dd5606d92d617873d3ee471a",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007000000_platform_v1",
+        "checksum": "4076884920bbaa5c0bab99d08a9fa4db1e39f48779f66d84dfa7b9ddb238ba01",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007010000_platform_hardening",
+        "checksum": "14b6ef2d8e6eb443a6afc08b7d6a0e4e0c5c58a5946680848f905fe4129abdcc",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007020000_platform_jobs",
+        "checksum": "e0b23da51ac54a4143af2496c6d6da39912efb3f37a2c26345f341475e0a6008",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007030000_platform_completion",
+        "checksum": "2b7f8288195ee6b81160d9047bac6435abc87019eda946953106694cc14ac6f4",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007040000_platform_audit",
+        "checksum": "f46af57baf903d9c9164518917a08e9bd799666f51f1cc7ff7316c5619b6f82b",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007050000_platform_age_gate",
+        "checksum": "1445731150a5fa2045bbaa7c3bfeb83a8f4dad46d6159396d1261708269d24dc",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261007060000_billing_registration",
+        "checksum": "8565a40c6393a36834870fd41f362d699ebd507346a7f87fad53eb4d9f419ef2",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261008000000_payment_lifecycle",
+        "checksum": "360fe0032ff09a9e7c48e0da34cd893b72d6fda87a26ccf58e4ad74b015357cc",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261021070000_unused_content_refund",
+        "checksum": "5d1e2290f77bcc448a8eccd4e2270600f339f38422fd7b4a56714d666887ad98",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261021080000_db_financial_policy",
+        "checksum": "80ba545b2b74906641d70418e33119d00ae3d80116ff68865b8c6d90580d7c95",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261021160000_platform_security_ip",
+        "checksum": "1dfd3a3c4b1fc8147ea840c23772fef342810e6f683c65b66da21d663c4670e6",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261021161000_operational_events",
+        "checksum": "0ce6cf718f5ee4497dc90300d3c97e61a070e379cf58eb3b3df6b34bc9aa8701",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261022020000_audit_logs",
+        "checksum": "c3312aca7d23bfd77a2c71c497dc1e26a2b2570d575f5e6cf1fc446f91e06eef",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261022030000_billing_recovery",
+        "checksum": "67e4f2729a36db3717d8ecc234c6a5dd2c3936b76e27a1cc43c2c0e4b6e66b47",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261024120000_creator_verification",
+        "checksum": "8cbf4a870e12e5199ee2b6823edeb9e00d88a7ffd18f58cf4c3c74cf5d0155dc",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261025100000_beta_policy",
+        "checksum": "1fd23a64220156108978d59061d2fcdb62022c6c44e10145d069c2258f069f90",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261025110000_marketing_delivery_claim",
+        "checksum": "be6b7ae38fe19d5dea989193316c5d60a58cb9565c913040d64603110b183573",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261025120000_bean_ledger",
+        "checksum": "887ae3eb12b4543c8ee08341931f2b0869e81ea4d209ed19cf2c3c3b1b08ce7f",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261025130000_bean_product",
+        "checksum": "ca637f1ac797c4bb43ff839a5f9bb82aba2392578e29eeb5d73c520988aa281f",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261026090000_post_supporters",
+        "checksum": "afa16d89dd49a0979dcb5c944fb222e9101377ebecb4404e14c748ebd6284ff9",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261026100000_profile_connections",
+        "checksum": "d455891503b36cf404c87e80d6c6532ed273bc6fcf113a3bf3c73110b3897410",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261026110000_post_tip_setting",
+        "checksum": "f7b767fe44b5875038fdc689646ac8f19d07e93a4f7687098e368c81a6225c0b",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261026120000_tip_attribution",
+        "checksum": "8e860ea85e66de6559954979770a58872217fc1057ed523b38181e17fc1066f0",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261028120000_admin_permissions",
+        "checksum": "b0a2d999665a1c53d89134d3026da523d512d6d1c7fe44bbf9315ebe74d8886f",
+        "finished": true,
+        "rolledBack": false
+      },
+      {
+        "name": "20261028150000_admin_accounts",
+        "checksum": "b5510f7188fc92d87a07f2fd7e7a0986c0c849113ddc77dc430c7af34ffbf74c",
+        "finished": true,
+        "rolledBack": false
+      }
+    ],
+    "flags": {
+      "BETA_MODE": "true",
+      "BEAN_LEDGER_ENABLED": "true",
+      "BEAN_LIVE_PAYMENTS_APPROVED": "false",
+      "BANK_PAYOUTS_ENABLED": "false",
+      "SIGNUP_IDENTITY_MODE": "email-only",
+      "MARKETING_MAIL_ENABLED": "false"
+    },
+    "worker": {
+      "at": "2026-10-28T15:31:25.757Z",
+      "failures": {}
+    },
+    "at": "2026-10-28T15:32:21.646448+00:00",
+    "readOnly": true
+  },
+  "browser": {
+    "replies": {
+      "at": "2026-10-28T15:15:00.268Z",
+      "checks": [
+        {
+          "engine": "chromium",
+          "width": 375,
+          "persona": "moka",
+          "identityAvatarLoaded": true,
+          "createdEditedDeleted": true,
+          "deleteCancelledSafely": true,
+          "fanActionsAbsent": true,
+          "horizontalOverflow": false,
+          "pageErrors": []
+        },
+        {
+          "engine": "chromium",
+          "width": 1280,
+          "persona": "moka",
+          "identityAvatarLoaded": true,
+          "createdEditedDeleted": true,
+          "deleteCancelledSafely": true,
+          "fanActionsAbsent": true,
+          "horizontalOverflow": false,
+          "pageErrors": []
+        },
+        {
+          "engine": "webkit",
+          "width": 375,
+          "persona": "haneul",
+          "identityAvatarLoaded": true,
+          "createdEditedDeleted": true,
+          "deleteCancelledSafely": true,
+          "fanActionsAbsent": true,
+          "horizontalOverflow": false,
+          "pageErrors": []
+        }
+      ],
+      "exitCode": 0
+    },
+    "inputs": {
+      "command": [
+        "node",
+        "verify-inputs.cjs",
+        "after"
+      ],
+      "exitCode": 0,
+      "scenarios": 52,
+      "mobileInputInstances": 106,
+      "under16": 0,
+      "desktopFontsUnchanged": true,
+      "overflow": false,
+      "initialFailureRetained": "production-inputs/after-failure.json"
+    },
+    "logout": {
+      "at": "2026-10-28T15:15:53.069Z",
+      "command": [
+        "node",
+        "/Users/ethan/repository/crefans_front/.local/studio-input-console-deploy-20261029/verify-logout.cjs"
+      ],
+      "exitCode": 0,
+      "results": [
+        {
+          "engine": "chromium",
+          "width": 1280,
+          "height": 900,
+          "buttonCount": 1,
+          "lastContentElement": true,
+          "topButtonAbsent": true,
+          "topGap": 24,
+          "logoutRequestCount": 1,
+          "navigatedToLogin": true,
+          "pageErrors": []
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "height": 844,
+          "buttonCount": 1,
+          "lastContentElement": true,
+          "topButtonAbsent": true,
+          "topGap": 24,
+          "logoutRequestCount": 1,
+          "navigatedToLogin": true,
+          "pageErrors": []
+        }
+      ],
+      "scope": "Production UI with browser API stubs; no real login/logout or production data changed."
+    },
+    "realServiceInputPages": {
+      "at": "2026-10-28T15:14:52.542Z",
+      "results": [
+        {
+          "engine": "webkit",
+          "width": 390,
+          "path": "/service/login",
+          "ready": true,
+          "fields": [
+            {
+              "type": "email",
+              "font": 16
+            },
+            {
+              "type": "password",
+              "font": 16
+            }
+          ],
+          "errors": []
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "path": "/service/signup",
+          "ready": true,
+          "fields": [
+            {
+              "type": "email",
+              "font": 16
+            },
+            {
+              "type": "password",
+              "font": 16
+            },
+            {
+              "type": "password",
+              "font": 16
+            },
+            {
+              "type": "text",
+              "font": 16
+            }
+          ],
+          "errors": []
+        },
+        {
+          "engine": "chromium",
+          "width": 1280,
+          "path": "/service/login",
+          "ready": true,
+          "fields": [
+            {
+              "type": "email",
+              "font": 13
+            },
+            {
+              "type": "password",
+              "font": 13
+            }
+          ],
+          "errors": []
+        },
+        {
+          "engine": "chromium",
+          "width": 1280,
+          "path": "/service/signup",
+          "ready": true,
+          "fields": [
+            {
+              "type": "email",
+              "font": 13
+            },
+            {
+              "type": "password",
+              "font": 13
+            },
+            {
+              "type": "password",
+              "font": 13
+            },
+            {
+              "type": "text",
+              "font": 13
+            }
+          ],
+          "errors": []
+        }
+      ],
+      "scope": "Real unauthenticated production page loads only; no form submission or test account creation."
+    }
+  },
+  "corrections": {
+    "at": "2026-10-28T15:19:41.821040+00:00",
+    "productChanges": false,
+    "initialFailures": [
+      {
+        "check": "runtime image",
+        "reason": "Compared local index ID to loaded linux/amd64 manifest ID",
+        "resolution": "Require exact exported platform manifest, remote tag, layers, source label and live file hashes to match"
+      },
+      {
+        "check": "input desktop comparison",
+        "reason": "React generated IDs differ between local dev and production build",
+        "resolution": "Compare field tag/type/label/disabled/font size, not generated id"
+      },
+      {
+        "check": "dialog width baseline",
+        "reason": "Old fan profile dialog width captured during transform animation, difference 4.24px; stable 12 other screens have zero difference",
+        "resolution": "Wait animation in final run; retain all font/overflow checks and stable-screen width checks; do not claim old animated dialog width equality"
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://docs.docker.com/dhi/explore/security-concepts/digests/",
+        "checked": "2026-10-29",
+        "application": "Index and per-platform manifest digests represent different objects"
+      },
+      {
+        "url": "https://react.dev/reference/react/useId",
+        "checked": "2026-10-29",
+        "application": "Generated ID depends on component parent path; not a typography/layout comparison key"
+      }
+    ],
+    "unsupportedProbe": "Installed Docker CLI does not support image inspect --platform; build export manifest and layers used instead",
+    "initialPreparation": "Old admin .dockerignore differed from recorded manifest; restored recorded file in isolated build context",
+    "approvalReview": "Separating archive from ship was rejected; no rejected edit executed; original mandatory archive invocation retained"
+  },
+  "retention": {
+    "local": {
+      "at": "2026-10-28T15:29:32.950294+00:00",
+      "apply": true,
+      "keepPerRepository": 3,
+      "freeBytesBefore": 43670392832,
+      "kept": [
+        {
+          "tag": "crefans-front:studio-input-console-20261029",
+          "id": "sha256:d9da085c512efc84cb74c15c87993decbace2d569a5cdfb2c485d8364486098b",
+          "created": "2026-10-28T15:10:53.759421005Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:faq-payout-20261028",
+          "id": "sha256:332b05e3962db0ac8f3de121ac2977bc49b1b01f193fc7138e14de25430d8a42",
+          "created": "2026-10-28T08:45:57.89448767Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:bean-notes-20261028",
+          "id": "sha256:a84763b39bc097f3a0d8ce04d652c58ad473f4fd88b8bd925179c9b19700f047",
+          "created": "2026-10-28T08:26:56.960671212Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:studio-input-console-20261029",
+          "id": "sha256:b3c029d62653eaed67d899f9830375db70694341f6f022e4f349aeab3c97ec6c",
+          "created": "2026-10-28T15:07:48.146970086Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:admin-accounts-20261028",
+          "id": "sha256:7dbd52a7b326ae68d3f27074820955a9a854f4f57cc1e57c2cf0fd4f4f269ddd",
+          "created": "2026-10-28T08:15:36.603039544Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:operators-20261028",
+          "id": "sha256:7c4bd66da5eb51e30ef32f0780fae71609dba8d94f81005e1e3d718a0a97b91f",
+          "created": "2026-10-28T07:09:49.467621669Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:studio-input-console-20261029",
+          "id": "sha256:2d2e458ed61f2a2528d74692967e4fe215322e8eda791355fdf6da206a93ca86",
+          "created": "2026-10-28T15:09:21.475519838Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:admin-accounts-20261028",
+          "id": "sha256:f191f7ae7f172ababaf09990dfd9337c57ed1820814f41a1fd1262745e0e2c74",
+          "created": "2026-10-28T08:16:42.308814797Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:operators-20261028",
+          "id": "sha256:87a6cdbcd7893eb6e00f418423e4c6c15022beb36775dcf40c5bc0555a9388d9",
+          "created": "2026-10-28T07:10:55.361959255Z",
+          "reason": "newest"
+        }
+      ],
+      "planned": [
+        {
+          "tag": "crefans-front:messages-back-20261028",
+          "id": "sha256:d095c855fe51e9ace8242cd93d586b26d7b2c5b9eddf54459f5ec781c0faafb9",
+          "created": "2026-10-28T05:24:12.685991587Z"
+        },
+        {
+          "tag": "crefans-api:payout-policy-20261028",
+          "id": "sha256:83429c63815cc1d139e8120d1ea4d13eabe0e12dfd2fc4c22ea117d9b846ae12",
+          "created": "2026-10-27T23:55:19.308885842Z"
+        },
+        {
+          "tag": "crefans-admin:console-drawer-20261028",
+          "id": "sha256:6da7365f1ebf082808e73b68788e0088f4de30523f8fa09ae0c1eff986b49a49",
+          "created": "2026-10-28T06:28:08.381828418Z"
+        }
+      ],
+      "removed": [
+        {
+          "tag": "crefans-front:messages-back-20261028",
+          "usedIdFallback": true
+        },
+        {
+          "tag": "crefans-api:payout-policy-20261028",
+          "usedIdFallback": false
+        },
+        {
+          "tag": "crefans-admin:console-drawer-20261028",
+          "usedIdFallback": false
+        }
+      ],
+      "errors": [],
+      "freeBytesAfter": 43661385728
+    },
+    "remote": {
+      "at": "2026-10-28T15:29:44.447918+00:00",
+      "apply": true,
+      "keepPerRepository": 3,
+      "freeBytesBefore": 35010146304,
+      "kept": [
+        {
+          "tag": "crefans-front:studio-input-console-20261029",
+          "id": "sha256:8a7d29dd45067fb0ae0ae66cf5ccbe53965718fda3328d55bb224bfe3e73d748",
+          "created": "2026-10-28T15:10:53.759421005Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-front:faq-payout-20261028",
+          "id": "sha256:f3bb39bfd30ee81afe19682da1613a656fc0e31120d21fcb19b7ad4e3c7d61d4",
+          "created": "2026-10-28T08:45:57.89448767Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:bean-notes-20261028",
+          "id": "sha256:0f01cd4013a1d83edb63f907dd82019c7510c86c9f0941962339a334a02f6eb6",
+          "created": "2026-10-28T08:26:56.960671212Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:studio-input-console-20261029",
+          "id": "sha256:87d27e1724f37b6375b0027ace3d0d6c967efa3f16815527d162bd45cd68b378",
+          "created": "2026-10-28T15:07:48.146970086Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-api:admin-accounts-20261028",
+          "id": "sha256:5821d63ab0731df477117483ff2f4844a0fee0e7f16ea415a89a18e849feb491",
+          "created": "2026-10-28T08:15:36.603039544Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:operators-20261028",
+          "id": "sha256:4ede802de2d89a9ff18a2d934f09beab51cbbc67ddc85a3e1e0898bb374c40d4",
+          "created": "2026-10-28T07:09:49.467621669Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:studio-input-console-20261029",
+          "id": "sha256:5d0bd4346413a5e1827d2f87dadbada38d5237fd766a8a9b69a8eaf0af334cd6",
+          "created": "2026-10-28T15:09:21.475519838Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-admin:admin-accounts-20261028",
+          "id": "sha256:64597416113c85fbc1a9e190c38bd3570e9e24bf28d6ac2a762309644d71d0db",
+          "created": "2026-10-28T08:16:42.308814797Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:operators-20261028",
+          "id": "sha256:44e1516cb83b4a0398643b8ee16c9888c93e8262b8d52ded20642832adae0007",
+          "created": "2026-10-28T07:10:55.361959255Z",
+          "reason": "newest"
+        }
+      ],
+      "planned": [
+        {
+          "tag": "crefans-front:messages-back-20261028",
+          "id": "sha256:71319f408624c9eb870366491d521c37dadf30e2a248737ab9bfc36b32ffe562",
+          "created": "2026-10-28T05:24:12.685991587Z"
+        },
+        {
+          "tag": "crefans-api:payout-policy-20261028",
+          "id": "sha256:fb14c6004a3a0bf24168790e4aa4172090c14f3ef7dfaed380643bd0b6d1008e",
+          "created": "2026-10-27T23:55:19.308885842Z"
+        },
+        {
+          "tag": "crefans-admin:console-drawer-20261028",
+          "id": "sha256:6162f2783e092b430a53a7469606389197fca015231db275824aab00ec017d09",
+          "created": "2026-10-28T06:28:08.381828418Z"
+        }
+      ],
+      "removed": [
+        {
+          "tag": "crefans-front:messages-back-20261028",
+          "usedIdFallback": false
+        },
+        {
+          "tag": "crefans-api:payout-policy-20261028",
+          "usedIdFallback": false
+        },
+        {
+          "tag": "crefans-admin:console-drawer-20261028",
+          "usedIdFallback": false
+        }
+      ],
+      "errors": [],
+      "freeBytesAfter": 36751384576
+    }
+  },
+  "retentionRepair": {
+    "file": "infra/platform/image-retention.py",
+    "sha256": "270fee56db7bd1f50d64da199c1d873a5034b5be94c34437cf93c97696c17600",
+    "observed": "Old local images listed with exact RepoTags and IDs but name-based inspect returned No such image; root cause not established.",
+    "change": "Fallback only on No such image, exact planned ID, one matching tag, matching repository digests and fresh not-in-use check; docker rmi without force.",
+    "verification": {
+      "at": "2026-10-28T15:29:32.735173+00:00",
+      "command": "python3 infra/platform/image-retention.py --self-test",
+      "exitCode": 0,
+      "idFallbackSafetyCases": 5,
+      "unsafeInUseControlExitCode": 1,
+      "controlDetected": true
+    },
+    "source": "https://docs.docker.com/reference/cli/docker/image/rm/",
+    "checked": "2026-10-29"
+  },
+  "limitations": [
+    "Physical iPhone native keyboard/pinch behavior not exercised.",
+    "Console authenticated UI uses browser API stubs; no production-password login.",
+    "Real authenticated reply writes verified in isolated local MySQL, not against production member data.",
+    "No commits or pushes."
+  ],
+  "privateEvidenceDirectory": "/Users/ethan/repository/crefans_front/.local/studio-input-console-deploy-20261029",
+  "backupDirectory": "/opt/crefans-backup-studio-input-console-20261029",
+  "postRetention": {
+    "at": "2026-10-28T15:33:22.766880+00:00",
+    "unchangedContainers": 6,
+    "running": 6,
+    "restarts": 0,
+    "oom": false
+  },
+  "dockerStopped": {
+    "at": "2026-10-28T15:33:30.177592+00:00",
+    "exitCode": 0,
+    "output": "✓ Stopping Docker Desktop\n"
+  },
+  "operationalToolDelta": {
+    "file": "infra/platform/image-retention.py",
+    "beforeSha256": "6b4b63d81b8182279ac093274ce8ad86dbd9c55334df4f816d0c2a4d0f75c11b",
+    "afterSha256": "270fee56db7bd1f50d64da199c1d873a5034b5be94c34437cf93c97696c17600",
+    "includedInAppImages": false
+  },
+  "guidanceSha256": {
+    "front": "dcfe9155375d7db6a9bbd16f37ca8bdb9b5adfd47098c7e6447417b8161694e1",
+    "server": "57fd6b033c62ad3c23532745bb6f7fc87928192f2ccb32558954f6ef00bae610",
+    "admin": "b4664e4200785db4e23f9a7c26166ada059e1415d0c6f3875b24d43c6b91405e"
+  },
+  "documentationChecks": [
+    {
+      "command": "npm run docs:record",
+      "startedAt": "2026-10-28T15:34:24.406426+00:00",
+      "finishedAt": "2026-10-28T15:34:25.450091+00:00",
+      "exitCode": 0,
+      "log": "docs-record.log"
+    },
+    {
+      "command": "npm run check:docs",
+      "startedAt": "2026-10-28T15:34:25.450431+00:00",
+      "finishedAt": "2026-10-28T15:34:25.785829+00:00",
+      "exitCode": 0,
+      "log": "check-docs.log"
+    }
+  ],
+  "finishedAt": "2026-10-28T15:34:25.786098+00:00"
+}

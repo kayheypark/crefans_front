@@ -42,6 +42,8 @@
 
 `useStudioModel`은 overview/finance/community와 날짜별 reports를 표시 모델 계약에 맞춘다. 미등록 계정은 크리에이터 시작하기 화면으로 유도한다. 업로드는 FormData API에 연결하고 표시용 object URL을 실제 저장 주소로 오인하지 않는다. 전역 댓글 설정·가입 당시 멤버십 버전·계좌 확인·금액/계좌에 묶인 출금 인증을 서버에 맡긴다.
 
+스튜디오 댓글 답글은 `StudioCommentReply`를 목업·서비스·디자인 시스템에서 공유한다. `CommunityReply.author`와 `fromCreator`로 작성자 사진·이름·본인 여부를 표시한다. `useStudioModel.updateReply/deleteReply`는 `/studio/comments/:id/replies/:replyId`의 PUT/DELETE에 연결하고 성공 시 목록을 다시 조회한다. 실패 시 변경 내용을 성공으로 표시하지 않으며 편집 초안을 유지한다. `/preview`는 선택한 목업 크리에이터의 활동명·사진과 메모리 상태를 사용한다. 2026-10-28 추가, 운영 미배포.
+
 `useCheckoutModel`은 서버 주문·등록된 기본 카드·승인 결과를 표시한다. Toss 공개 키는 서버 설정 조회로 받으며 브라우저에서 server secret이나 billing key를 읽지 않는다. PASS는 팝업 시작→서버 결과 확인→서버 proof 흐름이다.
 
 Next `/api/v1/[...path]`는 고정 PLATFORM_API_ORIGIN으로만 프록시한다. 쿠키·Origin·Range·PASS 서명·응답 쿠키를 보존하고 업로드/파일 응답을 스트리밍한다. 같은 출처 배포의 일반 API는 Caddy가 API에 연결하고, CDN 보호 미디어 경로는 엣지가 현재 권한 API를 확인한 뒤 S3 파일을 전달한다.
@@ -160,7 +162,7 @@ npm run test:e2e:report                 # 최근 HTML 결과 확인
 
 ### 2026-10-25 확정 베타 정책 연결
 
-공통 ServiceGuidePage를 `/preview/guide/{fan,creator}`와 `/service/guide/{fan,creator}`에 연결하고 고객센터 FAQ/안내 링크를 공유한다. 설정에서 광고 수신 선택을 저장할 때 marketingVersion을 전달하며, 실제 데이터는 서버의 버전 동의/철회 이력을 따른다. 프록시는 수신거부 HTML과 Accept/CSP/Referrer-Policy를 전달한다. 가입·법률 게이트는 유지한다. 출금 공통 UI·목업도 최소1만원이며 정산 날짜는 확정 입금일로 오인하지 않도록 보류기간 종료일로 표시한다. 신규 주문의 테스트 결제/미사용7일 정책은 checkout snapshot을 표시한다. 별도 환불 버튼은 없다.
+공통 ServiceGuidePage를 `/preview/guide/{fan,creator}`와 `/service/guide/{fan,creator}`에 연결하고 고객센터 FAQ/안내 링크를 공유한다. 설정에서 광고 수신 선택을 저장할 때 marketingVersion을 전달하며, 실제 데이터는 서버의 버전 동의/철회 이력을 따른다. 프록시는 수신거부 HTML과 Accept/CSP/Referrer-Policy를 전달한다. 가입·법률 게이트는 유지한다. 출금 공통 UI·목업도 최소10만원이며 정산 날짜는 확정 입금일로 오인하지 않도록 보류기간 종료일로 표시한다. 신규 주문의 테스트 결제/미사용7일 정책은 checkout snapshot을 표시한다. 별도 환불 버튼은 없다.
 
 검증: `e2e/beta-policy.spec.ts`, `e2e/service.spec.ts`, `e2e/billing-recovery.spec.ts`, `e2e/signup-deferred.spec.ts`. 실제 SMTP/PG/PASS/은행이 아닌 격리 DB·공급사 대역이다. 적용/남은 개방 조건은 [베타 계획](./beta-role-test-plan.md)을 따른다.
 
@@ -230,3 +232,23 @@ UI 조사(2026-10-26): [쿠팡 공식 주문목록 진입 안내](https://news.c
 프로필 숫자는 `/service/followers?profile={id}` 또는 `/service/following?profile={id}`로 이동하며 공개 API `/profiles/:id/connections`를 조회한다. 본인 숫자는 기존 내 목록으로 이동한다. `/preview`는 동일 목록 UI와 목업 공급자를 사용한다. 시온만 두 목록 비공개이며 서버 데이터의 시온 계정을 변경하지 않는다. API는 공개설정·소유자 확인 후 20명 단위로 제공한다. 2026-10-26 social-tips-20261026 릴리스로 운영 배포했다.
 
 설정→개인정보 관리의 팔로워 공개·팔로잉 공개는 독립 스위치다. showFollowers/showFollowing 저장 후 실제 모델을 갱신하며 목업도 같은 화면·저장 동작을 사용한다. 비공개 표시는 숫자·링크 대신 자물쇠다.
+
+## 공개 명함 QR 진입 (2026-10-27)
+
+- 2026-10-29 차콜09(Apple SD Gothic Neo) 앞·뒷면으로 변경. 공개 연락처는 khpark@crefans.com. 명함 이미지 URL에 버전 쿼리를 붙여 이전 분홍색 이미지 캐시와 구분하며 화면 배경·재생 제어도 차콜로 통일한다. 기존 타이머/중지/재생/다시보기/공개 who 검증은 유지한다. 별도 인쇄 QR 뒷면은 동일 `https://business.crefans.com/card?who=khpark`를 담는다. 배포 증거는 `docs/audit/card-charcoal-20261029.json`.
+
+- `https://business.crefans.com/card?who=khpark`: 로그인 없이 명함을 보여주는 독립 페이지. 소스는 `app/card/page.tsx`, `components/business-card/`이며 서비스/목업 회원 모델과 구형 인증 Provider를 사용하지 않는다.
+- 상단 ‘안녕하세요, 만나서 반갑습니다.’는 AOS 형식의 fade-up CSS 연출이다. 시간대 인사와 하단 연락처·안내·입장 링크·계속 보기 UI는 제거했다. 별도 애니메이션 패키지는 추가하지 않는다.
+- 양면 이미지 로드 후 3D 등장0.8초, 뒷면1초, 앞면 전환0.7초를 거친다. 앞면의 진행 막대5초 완료 후 고정 주소 `https://beta.crefans.com/service/landing`으로 replace한다. 양면 캐시 완료를 감지하고 이미지 실패 시 자동 이동을 중지한다.
+- 진행 막대 오른쪽에44px 아이콘 버튼 중지/재생/다시보기를 표시한다. requestAnimationFrame과 단일 누적 시간축으로 회전·진행·자동 입장을 관리한다. 중지는 현재 위치를 보존, 재생은 이어서, 다시보기는 인사/명함/진행을 처음부터 재시작한다. 중복 프레임은 정리하며 동작 줄이기는 이동 연출을 생략한다.
+- 잘못되거나 누락·중복된 who는 middleware404다. 사업 도메인은 server `infra/platform/Caddyfile`에서 명함·관련 이미지·Next 정적 파일만 제공하고 나머지 경로는404다. 기존 beta 금융/가입 정책은 바꾸지 않는다.
+- 최초 배포 증거 `.local/business-card-20261027/`, 3D 배포 `.local/business-card-animation-20261027/`, 프로필 동기화 `.local/profile-card-sync-20261027/`, 현재 재생 제어 `.local/card-controls-20261027/`와 PROGRESS를 따른다. 타이머/중지/재생/다시보기/404 단위 검사 및 모바일·PC 브라우저와 HTTPS를 검증한다. 실제 인쇄물의 휴대폰 QR 스캔은 별도다.
+- PC·모바일 내 프로필은 공용 커버의 내 지갑 버튼 하나를 사용하며 설정 서비스 안내도 동일하게 표시한다. 반응형 여백/하단 메뉴/댓글 입력 같은 의도된 배치 차이는 유지한다.
+
+- 2026-10-27 미노출 복구: 로딩/첫 프레임 대기가1.2초 넘으면 CSS만으로 받은 앞면을 정적으로 표시한다. JS 비활성·스크립트 차단 시에도 앞면 표시가 가능하며 정상 연출 준비 후에는 기존 순서를 따른다. 이미지 자체가 아직 내려오지 않았거나 실패했다면 표시 가능하다고 보장하지 않는다.
+- 가시성 변경 때 기준시각을 재설정하고 hidden 구간은 진행시키지 않는다. 프레임 간격은100ms까지만 반영해 긴 정지 이후 곧바로7500ms 완료로 처리하지 않는다. 저성능 기기에서는 실제 연출이 더 길어질 수 있다.
+- 근거 확인2026-10-27: [MDN requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame), [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API), [이미지 complete](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/complete). 정상 이미지 여부는 기존 naturalWidth 확인을 유지한다. 당사자 기기의 실제 원인 확정과 재현 가능한 코드 결함을 구분한다. 증거 `.local/card-visible-20261027/`, PROGRESS의 ‘명함 미노출 조사·복구’ 참조.
+
+- 초기 서버 HTML에는 영구적인 inline 숨김을 넣지 않는다. 정상 스타일/스크립트에서는 기존 등장 연출을 유지하고, 스타일이 차단된 경우에도 앞면 HTML 자체를 숨기지 않는다. 무스타일 전체 외관을 인증한 것은 아니다. 최종 검증은 `docs/audit/card-visible-20261027.json`에 기록한다.
+
+- 2026-10-27 서비스 소개 초기 HTML: `app/service/landing/page.tsx`의 `dynamic=force-dynamic`으로 공통 query Provider가 브라우저 스크립트를 기다리며 소개 전체를 준비 문구로 대체하지 않도록 한다. 현재 에셋 모드의 소개 본문은 JS 비활성·차단에서도 제공하며 상호작용은 JS가 필요하다. 실제 신고된 명함 주소의 정확한 원인은 미확정이며 별개로 재현된 이동 대상 문제를 보완했다. 근거 [Next14 useSearchParams](https://nextjs.org/docs/14/app/api-reference/functions/use-search-params), 검증 `docs/audit/landing-ready-20261027.json`.

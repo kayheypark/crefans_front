@@ -19,10 +19,15 @@
 
 ### 이벤트 안내 (2026-10-26)
 
-- `EventPages.tsx`의 공통 목록·상세를 서비스 UI 카탈로그에서 정상 상세/목록·빈 목록·없는 이벤트 상태로 확인한다. `/preview`와 `/service`는 `lib/content/events.ts`의 동일한 공개 편집 콘텐츠를 주입한다.
-- 상세는 통이미지 대신 HTML 제목·혜택·보조문구와 `public/brand/events/beta-first/color-cards-v1/`의 투명 WebP4개를 조합한다. 라벤더·하늘·민트·핑크 그라데이션 카드에 좌측 일러스트, 우측 남색(#080d3b) 제목을 배치한다. 제목은 Pretendard Black(900), clamp(17px,5.8cqw,44px) 한 규칙으로 통일한다. 보조문구는 Pretendard Regular(400), clamp(11px,2cqw,16px), #626b8b로 각 혜택 우측하단에 둔다. 목록은 `list-banner-openbeta-v3.webp`의3:1 가로 배너 한 개만 표시하며 전체를 상세 진입 링크로 사용한다. 이미지 대체 텍스트에 이벤트 제목을 제공하고 별도 설명 박스는 표시하지 않는다. [Pretendard 공식 배포본](https://github.com/orioncactus/pretendard) v1.3.9 서브셋2종을 public/fonts/pretendard에서 자체 제공하며, 원본 LICENSE와 source.json을 보관한다(확인2026-10-26). 이벤트 영역만 적용해 다른 화면의 글꼴은 유지한다.
-- 최신 혜택은 원년멤버 한정판 배지, 크리에이터3명 주목할 크리에이터 광고상품30일, 팬13명 프로모션100콩, 유용한 피드백최대3명 배민1만원 상품권이다. 지급·선정·노출 실행 기능을 추가한 것은 아니며 일정은 별도 안내한다.
+- `EventPages.tsx`의 공통 목록·상세를 서비스 UI 카탈로그에서 4종 정상 상세/목록·빈 목록·없는 이벤트 상태로 확인한다. `/preview`와 `/service`는 `lib/content/events.ts`의 동일한 공개 편집 콘텐츠를 주입한다.
+- 상세는 통이미지 대신 HTML 제목·혜택·보조문구와 개별 에셋을 조합한다. 네이버페이 상품권은 공식 화면에서 크롭한 `naverpay-10000-cropped-v2.png`, 나머지 혜택은 `public/brand/events/beta-first/color-cards-v1/`의 투명 WebP를 사용한다. 파스텔 카드에 좌측 이미지, 우측 정렬 남색(#080d3b) 제목을 배치하며 이미지·글 사이와 카드 안쪽에 최소18px 여백을 둔다. 제목은 Pretendard Black(900), clamp(17px,5.8cqw,44px) 한 규칙으로 통일한다. 보조문구는 Pretendard Regular(400), clamp(11px,2cqw,16px), #626b8b로 각 혜택 우측하단에 둔다. 목록은 네이버페이 상품권→광고상품30일→프로모션100콩→원년멤버 배지 순서로 이미지·HTML 제목·대상 안내를 조합한 배너4개를 표시하며 각각 해당 상세로 이동한다. 상세마다 한 혜택과 공통·전용 유의사항을 표시한다. 공통 원문2개 그룹을 재사용해 누락·내용 차이를 방지하며, 순번 대신 theme을 주입해 목록과 단독 상세에서도 광고상품의 하늘색·콩의 민트색·배지의 라벤더색을 유지한다. 링크의 접근성 이름에 이벤트 제목을 제공하고 이미지는 장식으로 처리한다. 상품권을 메인으로 강조하되 “유용한 피드백 제공자 최대3명” 조건은 유지한다. [Pretendard 공식 배포본](https://github.com/orioncactus/pretendard) v1.3.9 서브셋2종을 public/fonts/pretendard에서 자체 제공하며, 원본 LICENSE와 source.json을 보관한다(확인2026-10-26). 이벤트 영역만 적용해 다른 화면의 글꼴은 유지한다.
+- 최신 혜택 표시 순서는 유용한 피드백최대3명 네이버페이1만원 상품권, 크리에이터3명 주목할 크리에이터 광고상품30일, 팬13명 프로모션100콩, 원년멤버 한정판 배지다. 지급·선정·노출 실행 기능을 추가한 것은 아니며 일정은 별도 안내한다.
 - 2026-10-26 유의사항 보완: 참여 확정 테스터(크리에이터3명/팬13명)·혜택별1인1회, 피드백의 구체성·재현 가능성·개선 기여도 기준을 사용자 승인으로 명시. 7개 소제목과14px 본문으로 구분하며 콩 카드에는 직접 출금 불가·최소1,000콩·수수료20%·베타 실제 은행출금 미제공을14px 별도 안내한다. 장식 보조문구보다 중요한 제한을 더 읽기 쉽게 표시한다. 기간/완료 기준/지급일·광고 실행 일정·상품권 발급조건은 미정이며, 배지 지급·표시 설정은 제공 예정으로 구분한다. 근거·로컬검증은 [이벤트 유의사항 검토](./audit/event-terms-20261026.json), 운영 반영은 [event-terms-20261026 배포 검증](./audit/event-terms-deployment-20261026.json)을 따른다.
+
+### 원년멤버 기념 배지 (2026-10-29)
+
+- `CreatorName`은 `isFoundingMember===true`일 때 기존 이벤트 보라색 별 배지를 이름 오른쪽에 표시한다. 파란 인증 배지와 독립적이며 인증 권한을 부여하지 않는다. 공용 이름 컴포넌트를 사용하므로 프로필·게시물·댓글·답글에 같은 표시 규칙이 적용된다. 카탈로그에 기념/인증 동시 표시·팬 표시·미지급·긴 이름 예시를 둔다.
+- 목업 데이터에서만 하늘·지우·팬지민을 지정했다. 댓글 예시와 팬의 새 댓글도 동일한 이름·사진·배지를 사용한다. 실제 회원 지급 API·관리자 부여·표시/숨김 설정은 이번 변경 범위가 아니다. 개발 검증: [증거](./audit/event-priority-badges-20261029.json). 이벤트 배치·공식 상품권 크롭과 목업 배지의 운영 반영: [event-priority-20261029 배포 검증](./audit/event-priority-deployment-20261029.json).
 
 ### 지갑·내역 탐색 (2026-10-26)
 
@@ -68,6 +73,12 @@
 - 공유 데이터는 게시물 제목과 해당 `/preview/post/:id` 또는 `/service/post/:id` 주소뿐이다. 현재 화면의 query/hash·세션값·본문·미디어 주소는 전달하지 않는다. 공유 링크의 기존 구독 접근 검사는 유지한다.
 
 구현 근거/설정은 [외부 연결 안내의 카카오톡 공유](./third-party-setup.md), [검증 증거](./audit/post-share-20261025.json). 현재 로컬 구현이며 카카오 앱 미연결·실기기 공유 대상 선택/전송·운영 배포는 미검증이다.
+
+### 게시물 후원 아이콘 (2026-10-29)
+
+공용 `BeanPages.tsx`의 `TipButton`에서 게시물 후원 아이콘을 이미지젠으로 제작한 노란 동전 PNG로 교체했다. 피드·프로필 피드·상세·갤러리와 목업/실서비스가 같은 표시부를 사용한다. 24×24px, 기존 최소44px 클릭 높이와 후원 인원수·접근성 이름을 유지하고 이미지 자체는 장식용으로 처리한다. Next Image 최적화를 사용하며 검증 환경에서 전송 이미지1,881B를 확인했다. 프로필의 큰 후원 버튼과 스튜디오 메뉴의 동전 SVG는 기존 디자인을 유지한다.
+
+[에셋](../public/brand/post-actions/support-coin-flat-v1.png), [생성 도구·전체 프롬프트](./design/post-support-icon-v1.generation.json), [검증 기록](./audit/post-support-icon-20261029.json). 최초 아이콘 교체는 광고상품 배포에 포함되었다. 2026-10-29 누락 보완으로 본인 게시물·스튜디오 읽기 전용 미리보기·BeanContext 없는 카탈로그에서도 같은 동전과 후원 수를 비상호작용 표시한다. 일반 팬의 후원 버튼은 유지하며, 게시물 후원 설정 또는 전체 기능이 꺼지면 표시하지 않는다. 미리보기는 원본 후원 수를 유지한다. 저장·좋아요 목록은 반응 버튼 없는 썸네일 목록이며 상세 진입 후 공용 표시를 사용한다. [누락 보완·운영 배포 검증](./audit/post-coin-deployment-20261029.json).
 
 ### 게시물 조회수
 
@@ -217,6 +228,8 @@
 
 - 모달·바텀시트 하단 액션은 `components/ui/DialogActions.tsx`를 사용한다. 취소·확인 또는 단독 닫기·저장 버튼을 오른쪽으로 정렬하며, 좁은 화면에서도 정렬을 유지한 채 필요한 경우 줄을 바꾼다.
 - `Toast` 하단의 3px 막대는 자동 닫힘까지 남은 4초를 표시한다. 새 메시지에서는 막대와 타이머를 함께 다시 시작하며, 부모의 일반 재렌더링이나 콜백 변경은 남은 시간을 초기화하지 않는다. 모션 감소 설정에서는 연속 축소 대신 1초 단위로 줄어든다. 시간 막대는 보조 장식으로 처리해 알림 문구의 음성 안내를 반복하지 않는다.
+- 2026-10-29: 일시적인 저장·수정·삭제·공유 완료 안내는 본문 문단 대신 공용 [Toast](../components/ui/Toast.tsx)로 표시한다. [SnackbarProvider와 useSnackbarMessage](../components/ui/SnackbarProvider.tsx)를 `PresentationProviders`에서 공유해 API 저장 후 페이지가 재생성되어도 완료 메시지가 유지된다. 최신 안내 한 개만 표시하고 같은 내용의 새 안내는 4초 타이머를 새로 시작한다. 경로 변경·수동 닫기는 안내를 지우며, 입력 오류·조회 상태·결제/출금 결과 화면은 각 문맥에 남긴다. `/preview`와 `/service`의 팬·스튜디오가 같은 구현을 사용한다. 운영 콘솔은 별도 저장소로 이번 적용 범위가 아니다.
+- 스낵바는 문서 흐름 밖의 하단 중앙에 표시하며 모바일 GNB·safe-area를 피한다. 열린 dialog가 있으면 그 내부에 portal을 두고, 지원 브라우저의 수동 popover top layer를 사용해 모달의 잘림·비활성화 영향을 피한다. 사용자의 포커스를 가져오지 않고 `role=status`로 안내한다. 근거: [MDN popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover), [showPopover](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/showPopover), [Firefox modal/popover 사례](https://bugzilla.mozilla.org/show_bug.cgi?id=1961535), 확인2026-10-29. 물리 iPhone·구형 미지원 브라우저 검증과 최신 WebKit 에뮬레이션을 구분한다. [검증 기록](./audit/snackbar-20261029.json).
 - 활성 버튼은 hover의 배경·색상 변화와 키보드 `focus-visible` 외곽선을 제공한다. 비활성 버튼에는 hover 강조를 적용하지 않는다. 검색 입력처럼 외부 래퍼가 포커스를 표시하는 경우 내부 input 외곽선은 중복해서 그리지 않는다.
 
 검증은 `npm run check`와 브라우저 확인으로 나눈다. `tests/field.test.cjs`는 입력 속성·콜백·접근성 연결·보조 버튼·글자 수를, `tests/data-table.test.cjs`는 3단계 정렬·안정 정렬·원본 보존·정렬 후 페이지 분할·페이지 경계를 검사한다. 브라우저에서는 선택창 키보드 이동·모달 내부 선택·좁은 화면·모션 감소 설정과 실제 표시 상태를 확인한다. 문서에 적힌 상태가 등록되었다고 해서 실제 서버 기능의 검증이 완료된 것으로 간주하지 않는다.
@@ -277,7 +290,7 @@ NEXT_PUBLIC_APP_ENV=local npm run dev -- --hostname 127.0.0.1 --port 3010
 V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는다. `/design-system`은 `CustomDesignSystem`을 렌더링하며 `components/ui`의 기본 요소와 `components/crefans`의 실제 서비스 표시 컴포넌트를 함께 사용한다. V1 파일은 기존 작업 보존용이며 이 경로에서 import하지 않는다.
 
 - `AppShell`: 모바일 하단 내비게이션, 데스크톱 사이드 탐색. 현재 메뉴는 카탈로그용이며 이후 실제 팬 라우트를 연결한다.
-- `Primitives`: Button, Chip, Badge, EmptyState, Dialog/BottomSheet, Toast. Field, TextAreaField, SelectField는 전용 파일에서 구현하고 이 경로에서도 다시 export한다. AntD 래핑 없음.
+- `Primitives`: Button, Chip, Badge, EmptyState, Dialog/BottomSheet, Toast. Toast, Field, TextAreaField, SelectField는 전용 파일에서 구현하고 이 경로에서도 다시 export한다. AntD 래핑 없음.
 - `Content`: V2 초기에 만든 CreatorCard, PostCard, MembershipCard, TransactionItem 예시는 보존한다. 현재 카탈로그는 탐색·피드·멤버십·정산 화면에서 재사용하는 `components/crefans`의 공통 컴포넌트를 직접 등록한다.
 - 네이티브 dialog: showModal, Escape, 취소, 배경 클릭, 포커스 복귀 및 배경 스크롤 잠금. 모바일에서 bottom sheet 변형 사용.
 - 공유 토큰 원본은 `lib/design/tokens.ts`. 기존 `lib/design/theme.ts`는 V1 어댑터로 새 페이지에서 사용하지 않는다.
@@ -311,7 +324,8 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 
 ### 모바일 14px 표시 기준 (2026-10-24)
 
-- 사용자가 채택한 팬 서비스·랜딩·디자인 카탈로그의 767px 이하 글자 크기는 최소 14px다. 기존 `typography.body.size` 토큰을 `--cf-mobile-font-min`으로 상속하고, 작은 본문·라벨·버튼·입력 도움말·공용 UI는 `max(기존 크기, 모바일 최소 크기)`를 사용한다. 큰 제목은 유지하며 768px 이상과 모바일 스튜디오 안내·구형 앱에는 이 최소값을 설정하지 않는다.
+- 사용자가 채택한 팬 서비스·랜딩·디자인 카탈로그의 767px 이하 글자 크기는 최소 14px다. 기존 `typography.body.size` 토큰을 `--cf-mobile-font-min`으로 상속하고, 작은 본문·라벨·버튼·입력 도움말·공용 UI는 `max(기존 크기, 모바일 최소 크기)`를 사용한다. 큰 제목은 유지하며 768px 이상의 팬 화면과 구형 앱에는 이 최소값을 설정하지 않는다.
+- 2026-10-28 크리에이터 스튜디오도 같은 방식을 쓴다. 스튜디오 루트가 `--cf-mobile-font-min`을 PC 13px, 767px 이하 14px(`typography.body.size`)로 정의하고, 스튜디오 CSS의 14px 미만 글자와 공용 선택 상자·기간 선택기 필드는 `max(기존 크기, 최소값)`을 따른다. 정책·정산 안내글은 본문 14px·제목 15px, 리포트 항목 칩은 공용 Chip 규격(높이40px·패딩9/17px·14px·선택 시 accentSoft)과 같다.
 - 실제 `/service`와 `/preview`는 동일 컴포넌트/CSS를 사용한다. 목업 안내 띠는 제품 UI 밖의 작은 검수 표식이므로 기존 11px를 유지한다. 타이포그래피 카탈로그는 기본 토큰 수치와 현재 모바일 표시 정책을 함께 설명한다.
 - 320px 랜딩 CTA는 세로로 배치하고, 모바일 혜택 문구는 아이콘 아래에 놓아 14px에서 읽기 쉽게 조정한다. 멤버십 안내 배경의 음수 여백도 공통 모바일 패딩 경계(767px)에 맞춘다.
 - 2026-10-24 사용자 확인으로 운영 기본값으로 채택했다. 이전 운영 이미지는 `crefans-front:membership-identity-20261024`. 적용 범위·전후 글자 크기·화면/배포 검증은 [모바일 14px 증거](./audit/mobile-14px-20261024.json)에 기록한다.
@@ -341,6 +355,7 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 - `SocialPages.tsx`의 공통 `PostCard`에서 이미지를 열면 사용하는 `PostOverlay`에 적용한다. 서비스/목업/디자인 카탈로그가 같은 표시 계층을 쓴다.
 - 767px 이하: 미디어 높이 56%(기본) → 22%(축소) → 0%(상세 전체). 손잡이 드래그 후 가까운 높이에 고정한다. 클릭은 세 단계를 순환하고, 위/아래 방향키와 Home/End도 지원한다. PC에서는 손잡이를 숨기고 기존 좌우 배치를 유지한다.
 - 모바일 갤러리 영역 오른쪽 아래 확대·축소 아이콘은 상세 패널을 완전히 숨기고 미디어 높이를 브라우저 표시 영역의 100%로 늘린다. 원본 비율을 유지하며, 축소하면 직전 패널 높이·미디어 위치·작성 중인 댓글을 유지한다. 동영상 노드를 다시 만들지 않는다. 닫고 다시 열면 기본 모드다. PC에서는 이 버튼을 숨긴다.
+- 2026-10-29 로컬: 767px 이하 게시물 갤러리는 이미지 자체를 탭해도 같은 전체 보기 모드를 전환한다. 다시 탭하거나 우측 아래 축소 버튼을 누르면 이전 패널 높이로 복원한다. 단일 이미지도 지원하며 스와이프·6px 이상 이동·포인터 취소·다중 터치 후 클릭은 제외한다. 동영상·PC·프로필 사진 전용 뷰어의 클릭 동작은 유지한다. [이미지 탭 검증](./audit/gallery-image-tap-20261029.json), 운영 배포 대기.
 - 확대·축소 버튼은 갤러리 영역 안의 오른쪽·아래 10px에 배치하고 확대 시 기기 안전 여백을 반영한다. 상세 전체로 갤러리가 숨겨지면 버튼도 숨긴다. 모바일 갤러리는 `overflow:clip`으로 네이티브 포커스 스크롤을 막고 기존 transform 기반 넘김을 유지한다([MDN overflow](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow), 2026-10-24 확인). 위치·회귀 증거: [갤러리 아이콘 위치](./audit/mobile-gallery-corner-20261024.json).
 - 손잡이는 독립된 44px 터치 영역이고 전체 보기에서는 닫기 버튼·상단 안전 여백을 확보한다. 본문/댓글 스크롤과 미디어의 가로 넘김은 분리한다. 포인터 취소·창 크기 변경은 마지막 높이로 복원하며 reduced-motion에서는 높이 전환 애니메이션을 끈다.
 - 근거 확인(2026-10-24): [MDN touch-action](https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action), [MDN setPointerCapture](https://developer.mozilla.org/en-US/docs/Web/API/Element/setPointerCapture). 브라우저의 기본 세로 스크롤은 본문에 남기고 사용자 정의 세로 드래그는 손잡이에만 적용했다.
@@ -406,3 +421,15 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 2026-10-26 지갑 이력 필터(로컬 반영, 운영 미배포): 기존 `Chip`/`ChipRow` 기간 선택과 `SelectField` 상태·방향 선택을 `BeanHistoryView`에서 재사용한다. 후원 검색은 `CreatorSearch`의 label/placeholder/maxLength 주입을 사용한다. 기본 크리에이터 검색의 문구·디자인은 보존한다. 카탈로그의 지갑 화면/데이터 상태에서 동일한 필터·검색·빈 결과·초기화·결제 중 비활성을 확인할 수 있다. 주문 UUID 본문 대신 공용 `beanOrderNumber`의 생성시각 표시를 사용한다. [개발 검증](./audit/bean-history-filters-20261026.json).
 
 2026-10-26 후속 운영 반영: 위 주문번호·세 이력 필터와 예시 데이터를 frontend/API/worker `bean-history-20261026`로 배포했다. 이전 미배포 표기는 당시 기록이다. 소스해시·주요HTTP·worker·운영 목업4브라우저 조건 통과, DB/금융정책 유지. [배포 검증](./audit/bean-history-deployment-20261026.json).
+
+- 스튜디오 답글: `components/crefans/studio/StudioCommentReply.tsx`를 패턴 카탈로그에서도 재사용. 내 답글/팬 읽기 전용/변경 실패/저장·삭제 중 상태, 빈·변경 없는 수정 제출 비활성화와 삭제 확인을 검수한다(2026-10-28).
+
+- 2026-10-28 터치 입력 예외: 모바일 일반 글자 최소14px 규칙과 별개로 텍스트 입력·textarea·select·편집 가능 영역은 `app/globals.css`에서 최소16px로 유지한다. 입력 포커스의 iPhone 자동 확대를 피하기 위한 규칙이며 PC·버튼·체크박스 크기는 유지한다. 화면 폭이 큰 휴대폰 가로 모드도 포인터 조건으로 적용하며 손가락 확대는 허용한다. 독립 운영 콘솔은 자체 전역 CSS에 같은 기준을 둔다. 검증 범위는 [입력 확대 증거](./audit/iphone-input-zoom-20261028.json) 참고.
+
+### 스튜디오 광고상품 (2026-10-29)
+
+`AdvertisingPage`는 `AdvertisingModel`을 받는 공용 표시 컴포넌트다. 상품 카드·VAT 포함 금액·안내 모달·구매 내역에 기존 Action/Chip/Dialog/BackButton/Toast와 색상 토큰을 재사용한다. 표시부는 직접 API나 PG를 호출하지 않는다. `/design-system`의 서비스 UI > 스튜디오 광고상품에서 일반·판매중지·빈 목록·로딩·실패·구매 비활성 상태를 확인한다. 예시 컨테이너는 목업 구매만 수행하며 실제 서비스는 현재 상품 조회까지 연결, 결제 기능은 미구현이다. [증거](./audit/advertising-20261029.json).
+
+### 미구독 게시물 가격 안내 (2026-10-29)
+
+공용 `PostMembershipNotice`는 판매 중인 적격 멤버십 이름·이미지·월 원화 구독료와 참고 콩 환산액을 함께 표시한다. `lib/crefans/bean-pricing.ts`의 참고 가치는1콩100원이며 실제 충전가110원(VAT포함)과 다르다. 원화 카드 결제·콩 결제 불가를 표시하고 모달에서 환산 기준을 설명한다. 빈 목록·판매 종료·특정 상품 전용에 임의 가격을 만들지 않으며 기존 결제 로직은 유지한다.

@@ -1,0 +1,192 @@
+{
+  "checkedAt": "2026-10-28T23:32:05.969292+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "branch": "feat/iphone-input-zoom",
+  "dirtyBefore": true,
+  "dirtyAfter": true,
+  "deployment": false,
+  "sourceDelta": [
+    "types/crefans-events.ts",
+    "lib/content/events.ts",
+    "components/crefans/EventPages.tsx",
+    "components/crefans/events.module.css",
+    "types/crefans.ts",
+    "types/crefans-social.ts",
+    "components/crefans/CreatorName.tsx",
+    "components/crefans/creator-name.module.css",
+    "components/crefans/ProfileHeader.tsx",
+    "components/preview/service/fixtures.ts",
+    "components/preview/service/PreviewProvider.tsx",
+    "components/preview/service/useMockSocial.ts",
+    "components/preview/comment-fixtures.ts",
+    "components/preview/studio/StudioProvider.tsx",
+    "components/preview/studio/useMockCommunity.ts",
+    "components/design-system/ServicePatternCatalog.tsx",
+    "components/preview/founding-members.ts"
+  ],
+  "sourceSHA256": {
+    "types/crefans-events.ts": "cdf8c12d498c8d2a0e94bacaa4a4b8e2b5dc951112e5cd4102e10d0f34312ac7",
+    "lib/content/events.ts": "b97303531a4f31c45fb103a88469d143dea1260774e8b7017cf4f49bbf1c13b9",
+    "components/crefans/EventPages.tsx": "6e70f2456547803521b383f2bf629dba5825e7e793081600fd6d7418b17868f0",
+    "components/crefans/events.module.css": "fe0f7d4076eb12513d01d2e4106457557a6a622fd003971d03e64217ec2ae005",
+    "types/crefans.ts": "23291c9bca7125778a0c6d20a8bbb036c7ee82e6f0843b0390ece2ff4a805b8d",
+    "types/crefans-social.ts": "9e0a2980bd74e020ab9586a24a0b54354f2c3cea32545fbc9b43e3f5618077e1",
+    "components/crefans/CreatorName.tsx": "aabeb01d83c7fa05d43cb62c0323f99498d2cded0abf58e8560905ce39bc682e",
+    "components/crefans/creator-name.module.css": "0c0e91c88caf0b99a3b0d0dd35f0f4cb406803f219cebd1c9e41628b23232a9b",
+    "components/crefans/ProfileHeader.tsx": "59f5af4ec1e186c4317e849a09e7d5b132f9aeb68e38e9c1cc06e4dcc9778049",
+    "components/preview/service/fixtures.ts": "cea23e97673429e58342178d7d58da41f7b31dedb847e6b882b1f464e5ff471d",
+    "components/preview/service/PreviewProvider.tsx": "275856ba0459e6048c2529d8de1c245ba6684bee7ffac65f6a0cf6548dc154b2",
+    "components/preview/service/useMockSocial.ts": "fe5eec484e537ab2ce9b86d0b934e5f80c3b90fccb287eb50dc2b47f0d1c886f",
+    "components/preview/comment-fixtures.ts": "99c0299b7cae82816621b051a41c8b3903319a679441327db28361f029f52dc3",
+    "components/preview/studio/StudioProvider.tsx": "cc3ef2a1b2014c423bd28b6d9db52a1698bcde0bb52496b22ac6dd7fa7df166f",
+    "components/preview/studio/useMockCommunity.ts": "aeadbf9a6d59545a82184513c3a4287ea54761eb9a04d535ce60f75e68c76bf9",
+    "components/design-system/ServicePatternCatalog.tsx": "9e2c807a80c2a179fa06e8b83bda1b36cd41a5c5eb423fa6c3bb8eabc761cc49",
+    "components/preview/founding-members.ts": "8ce6f63d3feca214d1c045665c9923c474efafad85dee84eab884b7b6553cc26"
+  },
+  "snapshotMatchesCurrentProductFiles": {
+    "types/crefans-events.ts": true,
+    "lib/content/events.ts": true,
+    "components/crefans/EventPages.tsx": true,
+    "components/crefans/events.module.css": true,
+    "types/crefans.ts": true,
+    "types/crefans-social.ts": true,
+    "components/crefans/CreatorName.tsx": true,
+    "components/crefans/creator-name.module.css": true,
+    "components/crefans/ProfileHeader.tsx": true,
+    "components/preview/service/fixtures.ts": true,
+    "components/preview/service/PreviewProvider.tsx": true,
+    "components/preview/service/useMockSocial.ts": true,
+    "components/preview/comment-fixtures.ts": true,
+    "components/preview/studio/StudioProvider.tsx": true,
+    "components/preview/studio/useMockCommunity.ts": true,
+    "components/design-system/ServicePatternCatalog.tsx": true,
+    "components/preview/founding-members.ts": true
+  },
+  "requirements": {
+    "eventOrder": [
+      "네이버페이 1만원 상품권",
+      "주목할 크리에이터 광고상품 30일",
+      "프로모션 100콩",
+      "원년멤버 한정판 배지"
+    ],
+    "titles": "Right aligned; minimum 18px card padding and image/text gap",
+    "entryBanner": "Official cropped Naver Pay image with HTML title and maximum 3 recipients condition",
+    "previewRecipients": [
+      "하늘",
+      "지우",
+      "팬지민"
+    ],
+    "surfaces": [
+      "profile",
+      "post heading",
+      "comment",
+      "reply",
+      "new preview comment"
+    ],
+    "serviceBadgeGrant": false,
+    "verificationBadgeIndependent": true
+  },
+  "verification": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "testsPassed": 385,
+      "layers": 381,
+      "environment": "Node22.23.4, Next14.2.28/React18 before concurrent dependency upgrade; historical full-check evidence only",
+      "log": "/Users/ethan/repository/crefans_front/.local/event-priority-badges-20261029/check.log"
+    },
+    {
+      "command": "node --test tests/crefans-events.test.cjs tests/creator-verification.test.cjs tests/crefans-social.test.cjs",
+      "environment": "Node22.23.4 Next15.5.28 React19.1.10 after concurrent dependency upgrade",
+      "result": "34/34 passed in current checkout",
+      "log": "/Users/ethan/repository/crefans_front/.local/event-priority-badges-20261029/targeted-current-tests.log",
+      "exitCode": 0,
+      "passed": 34
+    },
+    {
+      "command": "node .local/event-priority-badges-20261029/browser.cjs",
+      "exitCode": 0,
+      "environment": "Isolated frozen source copy; Next15.5.28 React19.1.10; http://127.0.0.1:3013",
+      "passed": 36,
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        375,
+        1280
+      ],
+      "pageErrors": [],
+      "detail": "/Users/ethan/repository/crefans_front/.local/event-priority-badges-20261029/browser-result.json"
+    }
+  ],
+  "resolvedFailures": [
+    "Initial test loader import ordering: moved comment fixture import before first use",
+    "Initial full type check raced with dev cache regeneration; repeated check passed",
+    "Concurrent Next/React update and shared build-cache changes: separated source and build directory on port3013",
+    "Mobile banner aspect ratio and min-height widened to432px: explicitly constrained width100%; rerun passed",
+    "Browser harness corrected logo selector and expanded comment pagination before checking appended comment"
+  ],
+  "negativeCases": [
+    "Absent/false/string/numeric founding flag does not render a badge",
+    "Promoted/verified status alone does not grant founding membership",
+    "Moka profile has no founding badge",
+    "Shared service landing fixture has no preview membership awards"
+  ],
+  "manualVisualReview": [
+    "banner-375.png",
+    "banner-1280.png",
+    "detail-375.png",
+    "detail-1280.png",
+    "profile-375.png",
+    "comments-375.png",
+    "comments-1280.png"
+  ],
+  "limitations": [
+    "No deployment or real account changes",
+    "No admin grant/persistence/visibility toggle implemented",
+    "No physical iPhone test",
+    "Service event content tested without running API; bootstrap/common returned503 but public event pages rendered normally",
+    "React19 development act/inert warnings in test snapshot are not represented as product-runtime failures; concurrent framework upgrade is separate work"
+  ],
+  "documentationValidation": {
+    "status": "failed due to concurrent repository changes outside this UI task",
+    "commands": [
+      {
+        "command": "npm run docs:record",
+        "startedAt": "2026-10-28T23:32:33.582399+00:00",
+        "finishedAt": "2026-10-28T23:32:35.241404+00:00",
+        "exitCode": 1,
+        "log": "/Users/ethan/repository/crefans_front/.local/event-priority-badges-20261029/docs-record.log"
+      },
+      {
+        "command": "npm run check:docs",
+        "startedAt": "2026-10-28T23:33:53.722208+00:00",
+        "finishedAt": "2026-10-28T23:33:55.407131+00:00",
+        "exitCode": 1,
+        "log": "/Users/ethan/repository/crefans_front/.local/event-priority-badges-20261029/docs-check.log"
+      }
+    ],
+    "errors": [
+      "Unreviewed document: server/infra/platform/resilience-runbook.md",
+      "Generated contracts stale"
+    ],
+    "taskDocumentationUpdated": [
+      "PROGRESS.md",
+      "docs/design-system.md"
+    ],
+    "outsideScopeDocumentsNotModified": true
+  },
+  "cleanup": {
+    "at": "2026-10-28T23:33:53.651867+00:00",
+    "existing3010Untouched": true,
+    "testPort": 3013,
+    "stoppedParent": 91542,
+    "stoppedServer": 91543
+  },
+  "finalProductHashCheck": {
+    "at": "2026-10-28T23:34:59.043435+00:00",
+    "unchangedSinceBrowserVerification": true
+  }
+}

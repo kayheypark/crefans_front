@@ -1,0 +1,192 @@
+{
+  "at": "2026-10-28T23:08:34.125529+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "branch": "feat/iphone-input-zoom",
+  "preexistingDirtyPreserved": true,
+  "scope": "Event reward image only; shared preview/service content. No event wording, benefit, layout or policy change.",
+  "acceptance": [
+    "Use the supplied green 10,000 won gift card",
+    "No white/pale background around the card",
+    "Preserve original logo, amount and visible RGB source pixels",
+    "Preview/service use same image and retain all four rewards"
+  ],
+  "crop": {
+    "at": "2026-10-28T23:05:54.067Z",
+    "inputSha256": "d4b873e1af0ffea64f0cc656ee10359553bea3618cbe5f588719f3096ca496a7",
+    "output": "public/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+    "outputSha256": "9515fb66ca492aaad355d19572910d09b6bf261ac9ee2fb9f265de52e71d4026",
+    "crop": {
+      "left": 49,
+      "top": 335,
+      "width": 211,
+      "height": 123
+    },
+    "transparentCornerPixels": 144,
+    "changedVisibleRGBPixels": 0,
+    "paleBackgroundPixels": 0,
+    "sourceType": "User supplied official product screenshot; exact RGB crop",
+    "generatedCandidateUsed": false
+  },
+  "changedFiles": [
+    {
+      "path": "lib/content/events.ts",
+      "sha256": "488a4072bd7ec56ab4dccf3226ea3d89d8121d11d046c5daecbf2c08e4b7d76f"
+    },
+    {
+      "path": "public/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+      "sha256": "9515fb66ca492aaad355d19572910d09b6bf261ac9ee2fb9f265de52e71d4026"
+    }
+  ],
+  "checks": [
+    {
+      "command": "node --test tests/crefans-events.test.cjs",
+      "startedAt": "2026-10-28T23:07:07.256989+00:00",
+      "finishedAt": "2026-10-28T23:07:08.488825+00:00",
+      "exitCode": 0,
+      "log": "event-tests.log",
+      "node": "22.23.4"
+    },
+    {
+      "command": "node .local/npay-event-crop-20261029/verify.cjs",
+      "startedAt": "2026-10-28T23:07:08.489221+00:00",
+      "finishedAt": "2026-10-28T23:07:20.181480+00:00",
+      "exitCode": 0,
+      "log": "browser.log",
+      "node": "22.23.4"
+    }
+  ],
+  "browser": {
+    "at": "2026-10-28T23:07:20.174Z",
+    "base": "http://127.0.0.1:3011",
+    "checks": [
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "status": 200,
+        "src": "/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+        "naturalWidth": 211,
+        "naturalHeight": 123,
+        "fit": "contain",
+        "pale": 0,
+        "transparent": 144,
+        "overflow": false
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "status": 200,
+        "src": "/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+        "naturalWidth": 211,
+        "naturalHeight": 123,
+        "fit": "contain",
+        "pale": 0,
+        "transparent": 144,
+        "overflow": false
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "status": 200,
+        "src": "/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+        "naturalWidth": 211,
+        "naturalHeight": 123,
+        "fit": "contain",
+        "pale": 0,
+        "transparent": 144,
+        "overflow": false
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "status": 200,
+        "src": "/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+        "naturalWidth": 211,
+        "naturalHeight": 123,
+        "fit": "contain",
+        "pale": 0,
+        "transparent": 144,
+        "overflow": false
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "status": 200,
+        "src": "/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+        "naturalWidth": 211,
+        "naturalHeight": 123,
+        "fit": "contain",
+        "pale": 0,
+        "transparent": 144,
+        "overflow": false
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "status": 200,
+        "src": "/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+        "naturalWidth": 211,
+        "naturalHeight": 123,
+        "fit": "contain",
+        "pale": 0,
+        "transparent": 144,
+        "overflow": false
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "status": 200,
+        "src": "/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+        "naturalWidth": 211,
+        "naturalHeight": 123,
+        "fit": "contain",
+        "pale": 0,
+        "transparent": 144,
+        "overflow": false
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "status": 200,
+        "src": "/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+        "naturalWidth": 211,
+        "naturalHeight": 123,
+        "fit": "contain",
+        "pale": 0,
+        "transparent": 144,
+        "overflow": false
+      }
+    ],
+    "errors": [],
+    "negativeControl": {
+      "source": "naverpay-10000-v1.jpg",
+      "paleBackgroundPixels": 133017,
+      "rejected": true
+    },
+    "deployment": false
+  },
+  "manualVisualReview": [
+    ".local/npay-event-crop-20261029/reward-375.png",
+    ".local/npay-event-crop-20261029/reward-1280.png"
+  ],
+  "discardedAttempt": {
+    "kind": "imagegen background extraction",
+    "reason": "Changed typography proportions and introduced rough edges; not used in product"
+  },
+  "toolSetupNote": "Frontend has no direct sharp dependency; crop used existing guide/node_modules/sharp without package changes.",
+  "evidenceDirectory": ".local/npay-event-crop-20261029/",
+  "deployment": false,
+  "limitations": [
+    "Local Chromium/WebKit checks; no physical-device or production verification",
+    "Guide/brochure image is outside this event-page change"
+  ],
+  "documentationChecks": ".local/npay-event-crop-20261029/docs-checks.json"
+}

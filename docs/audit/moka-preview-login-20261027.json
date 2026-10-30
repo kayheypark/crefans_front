@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-27T13:28:10.642507+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "scope": "Local preview only; no deployment, real account or database modification",
+  "filesSha256": {
+    "components/preview/service/PreviewProvider.tsx": "356b21d334b6f396b01b5d5d5c6dad58dd94b2a8bb9191eda7629a99f701a70a",
+    "components/preview/service/useMockAccount.ts": "c1949f44f299ed84103f8645180125b3144fa7eb0a8224372d58137e8ee75a11",
+    "components/preview/service/useMockBeans.ts": "f648b5a78442546b8913d1729e6318838096f2bcc6021a3682fac35b7ece753e",
+    "components/preview/studio/StudioProvider.tsx": "b6a2796312e072f31ba0065ddb02c164225d694190785cf0a5a56e2d92ceaa3d",
+    "components/preview/studio/useMockManagement.ts": "20bac495cf19dcce94f671915a54a4d405fd47f4869828723b8c92fe06cabb57",
+    "components/preview/studio/useMockOverview.ts": "309ccecaa11c186d3777693e7ffd795edfb67ab0156caa0e35d54edd38c57c95",
+    "tests/crefans-account.test.cjs": "1997e62fd109e214fdd2460316a70c22c602089dc5bc327c656787110d251e08"
+  },
+  "checks": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "passed": 368,
+    "logSha256": "cbd1bc9275cbaf7afb9bfdae034c6444bff22fe013bfa6314127c0f4edc8352d"
+  },
+  "browser": {
+    "at": "2026-10-27T13:27:05.835Z",
+    "engine": "chromium",
+    "width": 1440,
+    "wrongPasswordRejected": true,
+    "correctPasswordToStudio": true,
+    "mokaPosts": true,
+    "mokaMemberships": true,
+    "mokaProfileAfterReload": true,
+    "returnToFan": true,
+    "apiRequests": 0,
+    "pageErrors": []
+  },
+  "negativeCase": "Wrong mock creator password rejected before session/persona/navigation changes",
+  "storage": "Only selected creator ID and signed-in flag in tab sessionStorage; no password persisted",
+  "limits": [
+    "Client-only preview persona, not a production authentication mechanism",
+    "Studio reports and finance still use sample fixtures, no actual creator earnings",
+    "Preview edits reset on reload as before; selected persona alone persists per tab",
+    "Chromium local PC verification only; not deployed or production tested"
+  ],
+  "resolvedDuringVerification": "Category initialization initially failed one legacy fixture without tags; optional fallback restored compatibility, final 368 tests pass.",
+  "supersededBy": "docs/audit/moka-preview-secure-login-20261027.json",
+  "status": "Historical local-only client comparator, never deployed; replaced with server-only verifier"
+}

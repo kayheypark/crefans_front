@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-27T14:30:57.649279+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "scope": "Local mock profile button only; no deployment",
+  "filesSha256": {
+    "components/preview/service/PreviewProvider.tsx": "bbbbdaf076fc53fa0a307888aae231a4e1cced11ccb72c90580af4399001cb43",
+    "components/preview/service/ServiceRouter.tsx": "03770e6ffe051ad4263fb9edb4a2079095e4bfd8399e10d4f670825ccbfa56b7",
+    "components/crefans/CreatorPages.tsx": "c721697dba95f9d72281235d1b9ac663ab68abf99d73d1a2987ac8d70aa0ff80",
+    "components/crefans/creator.module.css": "8e02593627bb7df32ecd29f53a0eb03b60ae94325f0dd2ef801656c56c52f162",
+    "tests/crefans-creator.test.cjs": "2103f5e34a1c2decb828ddf3766d248dae874f2504d6e19a2f076e5271ddc1cd"
+  },
+  "checks": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "passed": 372,
+    "logSha256": "7e754c1a5167cf87a29a89a0989d96d3ba7460adee5111928596c56ef2e42bd0"
+  },
+  "browser": {
+    "at": "2026-10-27T14:29:52.959Z",
+    "scope": "local preview",
+    "mokaOnly": true,
+    "buttonMinHeight": 44.390625,
+    "oneClickStudio": true,
+    "personaAfterReload": true,
+    "signedOutMokaCanSwitch": true,
+    "apiRequests": 0,
+    "pageErrors": []
+  },
+  "negativeCoverage": [
+    "Another mock creator does not receive the injected action",
+    "Live profile never renders the demo control even if passed by mistake",
+    "Mock profile without the injected action renders no button"
+  ],
+  "boundary": "Client-only mock persona selection with no credentials, verifier call, member cookie/token, real account or DB changes; manual mock credential login remains separate",
+  "limits": [
+    "Local Chromium desktop/mobile dimensions, not yet production tested or deployed",
+    "Studio remains desktop-only as previously configured"
+  ]
+}

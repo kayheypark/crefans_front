@@ -1,0 +1,527 @@
+{
+  "checkedAt": "2026-10-29T00:52:54.693767+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "branch": "feat/iphone-input-zoom",
+  "dirtyBefore": true,
+  "dirtyAfter": true,
+  "deployment": true,
+  "release": "event-priority-20261029",
+  "baselineRelease": "security-20261029",
+  "sourceDelta": {
+    "at": "2026-10-29T00:39:59.424109+00:00",
+    "baselineRelease": "security-20261029",
+    "changes": {
+      "front": [
+        {
+          "file": "types/crefans-events.ts",
+          "before": "7d6cb25a8be57c40b6f59b3568b9447020dc341933e11f705dfb3a8cad685f24",
+          "after": "cdf8c12d498c8d2a0e94bacaa4a4b8e2b5dc951112e5cd4102e10d0f34312ac7"
+        },
+        {
+          "file": "lib/content/events.ts",
+          "before": "a180698cc2f755cacf6b274bacba67fdb05c60bf915ce5981a2fdaf4e84f2663",
+          "after": "b97303531a4f31c45fb103a88469d143dea1260774e8b7017cf4f49bbf1c13b9"
+        },
+        {
+          "file": "components/crefans/EventPages.tsx",
+          "before": "9d1252312e13d0b807f4b882c5013f24f4a37eba9cb6d732a5b87e11ef61e30d",
+          "after": "6e70f2456547803521b383f2bf629dba5825e7e793081600fd6d7418b17868f0"
+        },
+        {
+          "file": "components/crefans/events.module.css",
+          "before": "8a80742f11ca189a7d82cf6e76954aaa0e0ac072a0974a3dd3aa66976785936a",
+          "after": "fe0f7d4076eb12513d01d2e4106457557a6a622fd003971d03e64217ec2ae005"
+        },
+        {
+          "file": "types/crefans.ts",
+          "before": "cede21e383fc5ef504cfaef19730c9f5f9b8b8ff8f0b357f8314a86e1dad45a0",
+          "after": "23291c9bca7125778a0c6d20a8bbb036c7ee82e6f0843b0390ece2ff4a805b8d"
+        },
+        {
+          "file": "types/crefans-social.ts",
+          "before": "90802fe8ce1f85276fc11775c27ceb7281eed49ebfc7a76d0d90ce024e3a8637",
+          "after": "9e0a2980bd74e020ab9586a24a0b54354f2c3cea32545fbc9b43e3f5618077e1"
+        },
+        {
+          "file": "components/crefans/CreatorName.tsx",
+          "before": "17726c468feffee75c1e5a83933b2da41fd0c36963267552eddbd66b35960de5",
+          "after": "aabeb01d83c7fa05d43cb62c0323f99498d2cded0abf58e8560905ce39bc682e"
+        },
+        {
+          "file": "components/crefans/creator-name.module.css",
+          "before": "e17863c06c47e6806951e05f13fd2c119a884a702c854e14f0849d5ee705577a",
+          "after": "0c0e91c88caf0b99a3b0d0dd35f0f4cb406803f219cebd1c9e41628b23232a9b"
+        },
+        {
+          "file": "components/crefans/ProfileHeader.tsx",
+          "before": "292e3f5d96016e17e755e1a2521fe6d6c6ddb590e055fccc90dcff7d579877db",
+          "after": "59f5af4ec1e186c4317e849a09e7d5b132f9aeb68e38e9c1cc06e4dcc9778049"
+        },
+        {
+          "file": "components/preview/service/fixtures.ts",
+          "before": "535d8314a2d146a45cb071d3785efb644673f009f1bc5cffd89a86eb0c074a6e",
+          "after": "cea23e97673429e58342178d7d58da41f7b31dedb847e6b882b1f464e5ff471d"
+        },
+        {
+          "file": "components/preview/service/PreviewProvider.tsx",
+          "before": "bbbbdaf076fc53fa0a307888aae231a4e1cced11ccb72c90580af4399001cb43",
+          "after": "275856ba0459e6048c2529d8de1c245ba6684bee7ffac65f6a0cf6548dc154b2"
+        },
+        {
+          "file": "components/preview/service/useMockSocial.ts",
+          "before": "6e91cde593b1d0ecfd8efdc630939b1db6fa30d2b741fcf6630b8cf411dfc6bc",
+          "after": "fe5eec484e537ab2ce9b86d0b934e5f80c3b90fccb287eb50dc2b47f0d1c886f"
+        },
+        {
+          "file": "components/preview/comment-fixtures.ts",
+          "before": "2ee450a870fa367c3813fa51ccb2f2d0610108afee03635bcb88fceef1746202",
+          "after": "99c0299b7cae82816621b051a41c8b3903319a679441327db28361f029f52dc3"
+        },
+        {
+          "file": "components/preview/studio/StudioProvider.tsx",
+          "before": "80bb00ae8ac71a81d77de3288376611a4fdf347a4b6b5f90bb4ccdf610dc3b1f",
+          "after": "cc3ef2a1b2014c423bd28b6d9db52a1698bcde0bb52496b22ac6dd7fa7df166f"
+        },
+        {
+          "file": "components/preview/studio/useMockCommunity.ts",
+          "before": "3260b4472fe4a0a38845ffdff080bcab52a74bbdf336c6dcce5c8f20f90ffb39",
+          "after": "aeadbf9a6d59545a82184513c3a4287ea54761eb9a04d535ce60f75e68c76bf9"
+        },
+        {
+          "file": "components/design-system/ServicePatternCatalog.tsx",
+          "before": "b2516e9f49c2a2045a8362bf3b607bbc6fb94ce15bbf0747435e48fc63eee152",
+          "after": "9e2c807a80c2a179fa06e8b83bda1b36cd41a5c5eb423fa6c3bb8eabc761cc49"
+        },
+        {
+          "file": "components/preview/founding-members.ts",
+          "before": null,
+          "after": "8ce6f63d3feca214d1c045665c9923c474efafad85dee84eab884b7b6553cc26"
+        },
+        {
+          "file": "public/brand/events/beta-first/naverpay-10000-cropped-v2.png",
+          "before": null,
+          "after": "9515fb66ca492aaad355d19572910d09b6bf261ac9ee2fb9f265de52e71d4026"
+        },
+        {
+          "file": "tests/crefans-events.test.cjs",
+          "before": "9e49c67d30a91eee30c9583c37ea1e8833e65c2c35c85372392ec222cc68d708",
+          "after": "f6f848189ba14e93a473e9d4939105a6841f8d3fc44f2b776371a973c974acf7"
+        },
+        {
+          "file": "tests/creator-verification.test.cjs",
+          "before": null,
+          "after": "1fce8939e5c32ce2aa9f1e8099999c0d0229d248a5fcb81955b0a762a14da5bc"
+        },
+        {
+          "file": "tests/crefans-social.test.cjs",
+          "before": null,
+          "after": "4057ba31b02dec23422afab3b865162053d380237c958decbec4db3e76c4f3a8"
+        },
+        {
+          "file": "tests/load-typescript.cjs",
+          "before": null,
+          "after": "b6cf0d17c7798a7e5b9950b2e79155f856bfcb8155836d425296a0d0bf070f96",
+          "reason": "Required helper for the three release regression tests"
+        }
+      ]
+    },
+    "unchangedBaselineFiles": 653,
+    "scope": "event-priority and founding-member preview badge only"
+  },
+  "sourceFreeze": {
+    "at": "2026-10-29T00:46:19.091242+00:00",
+    "matched": true,
+    "files": 675,
+    "changedFiles": 22,
+    "manifestSha256": "a8c51151b5e484ead4f5dbbed190c4d401a30236836a018bc1038c9a4ad19a33"
+  },
+  "image": {
+    "sourceManifestSha256": "a8c51151b5e484ead4f5dbbed190c4d401a30236836a018bc1038c9a4ad19a33",
+    "tag": "crefans-front:event-priority-20261029",
+    "imageId": "sha256:8d4dda71c2199303eabb4d1fd772039277b776475d45d2156f1e754bf639b3d2",
+    "runtimeImage": "sha256:8d4dda71c2199303eabb4d1fd772039277b776475d45d2156f1e754bf639b3d2",
+    "architecture": "amd64",
+    "sourceFiles": 674,
+    "rootFsLayers": [
+      "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+      "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+      "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+      "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+      "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+      "sha256:20452624f48c9d584527666bd2819fd75c8afb6f1039b1f4921dc9d652c5023e",
+      "sha256:12b275e073e98172caccd3710f217cb4d3f6a2a5f7a5f958123856e247d78b1f",
+      "sha256:44e0fcdf03bbacad30f8c0f441fd30240c7425c716d2be9cf3094a80858b3ff8",
+      "sha256:24331c232efbce20dd43acaf05cd746a7bcbd7d46d8796685bcef62dacc28e4c",
+      "sha256:24037e61b5f00b4bc00e24dc2f6af58e537624c4355e0dff1024b9f661f0d5a7"
+    ]
+  },
+  "builds": [
+    {
+      "label": "front",
+      "tag": "crefans-front:event-priority-20261029",
+      "startedAt": "2026-10-29T00:42:29.965303+00:00",
+      "finishedAt": "2026-10-29T00:44:11.666690+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "a8c51151b5e484ead4f5dbbed190c4d401a30236836a018bc1038c9a4ad19a33"
+    }
+  ],
+  "deploy": {
+    "command": "ssh private verified host: sudo -n bash /home/ubuntu/crefans-event-priority-20261029/deploy.sh",
+    "startedAt": "2026-10-29T00:46:52.365098+00:00",
+    "finishedAt": "2026-10-29T00:46:59.695105+00:00",
+    "exitCode": 0,
+    "scope": "frontend only; API/worker/admin/DB unchanged"
+  },
+  "runtime": {
+    "at": "2026-10-29T00:47:27.798648+00:00",
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "image": "sha256:bef61a18cd38",
+        "restarts": 0,
+        "unchanged": false,
+        "health": null
+      },
+      "crefans-beta-api-1": {
+        "image": "sha256:9f54ae7d0ad6",
+        "restarts": 0,
+        "unchanged": true,
+        "health": "healthy"
+      },
+      "crefans-beta-worker-1": {
+        "image": "sha256:9f54ae7d0ad6",
+        "restarts": 0,
+        "unchanged": true,
+        "health": null
+      },
+      "crefans-beta-admin-1": {
+        "image": "sha256:34c9e79212c9",
+        "restarts": 0,
+        "unchanged": true,
+        "health": null
+      },
+      "crefans-beta-database-1": {
+        "image": "sha256:7dcddc01f13b",
+        "restarts": 0,
+        "unchanged": true,
+        "health": "healthy"
+      },
+      "crefans-beta-proxy-1": {
+        "image": "sha256:d8542f48d34a",
+        "restarts": 0,
+        "unchanged": true,
+        "health": null
+      }
+    },
+    "sourceMatches": {
+      "frontend": 674
+    },
+    "configSha256": [
+      "e0be6d52fd2825ff2fe6fc87531e2ab103d78e32154c43350c3665bb075d9123  /opt/crefans/compose.yml",
+      "cbd0e80292e494d30c47eea04634cee3c9f2d55fa802000e0e8257c030c4cf02  /opt/crefans/Caddyfile",
+      "cbd0e80292e494d30c47eea04634cee3c9f2d55fa802000e0e8257c030c4cf02  /etc/caddy/Caddyfile",
+      ""
+    ]
+  },
+  "http": {
+    "at": "2026-10-29T00:47:27.665604+00:00",
+    "pages": {
+      "/service/events": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hsts": "max-age=31536000"
+      },
+      "/service/events/beta-first": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hsts": "max-age=31536000"
+      },
+      "/preview/events": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hsts": "max-age=31536000"
+      },
+      "/preview/events/beta-first": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hsts": "max-age=31536000"
+      },
+      "/preview/creator/haneul": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hsts": "max-age=31536000"
+      },
+      "/preview/creator/jiwoo": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hsts": "max-age=31536000"
+      },
+      "/preview/me": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hsts": "max-age=31536000"
+      },
+      "/preview/post/morning": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hsts": "max-age=31536000"
+      },
+      "/service/feed": {
+        "status": 200,
+        "contentType": "text/html; charset=utf-8",
+        "hsts": "max-age=31536000"
+      },
+      "/api/v1/health": {
+        "status": 200,
+        "contentType": "application/json; charset=utf-8",
+        "hsts": "max-age=31536000"
+      }
+    },
+    "asset": {
+      "status": 200,
+      "sha256": "9515fb66ca492aaad355d19572910d09b6bf261ac9ee2fb9f265de52e71d4026",
+      "matchesReviewedSource": true
+    }
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "cwd": "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029/front-source",
+      "environment": "Node22.23.4; Next15.5.28; React19.1.10; assembled deployed snapshot",
+      "exitCode": 0,
+      "layers": 381,
+      "testsPassed": 34,
+      "scope": "three related test modules only, not full repository suite",
+      "log": "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029/source-check.log",
+      "evidenceSha256": "9d4cb817dc9caa97fe519a62b0564a08b502d47579cc08651315416625f682d0",
+      "evidenceModifiedAt": "2026-10-29T00:41:55.322152+00:00"
+    },
+    {
+      "command": "node predeploy-browser/check.cjs",
+      "exitCode": 0,
+      "cases": 16,
+      "result": "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029/predeploy-browser/result.json",
+      "evidenceSha256": "025aa4681beebfd69d5fee7f0201d6c7dfd6b02ece4cce9803df250adbde597e",
+      "evidenceModifiedAt": "2026-10-29T00:45:45.083470+00:00"
+    },
+    {
+      "command": "node .local/event-priority-deploy-20261029/browser.cjs",
+      "exitCode": 0,
+      "cases": 36,
+      "pageErrors": [],
+      "engines": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        375,
+        1280
+      ],
+      "result": "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029/browser-result.json",
+      "evidenceSha256": "5cbdaaed890f256a82c836c7af224ba64eb01f4a4a5f0b5a341036b5532765f5",
+      "evidenceModifiedAt": "2026-10-29T00:48:10.580361+00:00"
+    }
+  ],
+  "visualInspection": {
+    "files": [
+      "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029/banner-375.png",
+      "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029/detail-375.png",
+      "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029/profile-375.png",
+      "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029/comments-375.png"
+    ],
+    "result": "gift card cutout and right titles/order, profile/comment commemorative badges reviewed"
+  },
+  "retention": {
+    "local": {
+      "at": "2026-10-29T00:51:07.283412+00:00",
+      "apply": true,
+      "keepPerRepository": 3,
+      "freeBytesBefore": 14434623488,
+      "kept": [
+        {
+          "tag": "crefans-front:event-priority-20261029",
+          "id": "sha256:8d4dda71c2199303eabb4d1fd772039277b776475d45d2156f1e754bf639b3d2",
+          "created": "2026-10-29T00:44:06.012695375Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:security-20261029",
+          "id": "sha256:11a6306c115e30828f35024b0570736354c107c1cf08f22f4c2ac2ec875e90c7",
+          "created": "2026-10-29T00:14:44.100865294Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:advertising-20261029",
+          "id": "sha256:c8861dbb7f36a0103dafa2119a319c610fb8ee58b85b84a1e5be8b3e38269584",
+          "created": "2026-10-28T18:11:24.181744167Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:security-20261029",
+          "id": "sha256:80032613e6f2a399d51f6df3bad6266fb92927359c61020f23b4feeefd6d8eee",
+          "created": "2026-10-29T00:12:48.701968046Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:advertising-20261029",
+          "id": "sha256:da1c6132b54a9ef6424354d294df8a73a094ca97ace009bfddfce8936a7748a7",
+          "created": "2026-10-28T18:08:37.905685466Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:studio-input-console-20261029",
+          "id": "sha256:b3c029d62653eaed67d899f9830375db70694341f6f022e4f349aeab3c97ec6c",
+          "created": "2026-10-28T15:07:48.146970086Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:advertising-20261029",
+          "id": "sha256:ed53d7ec6cea9a8f01ef2e888147d455e41bebed810b207a6c06c86b950b3c75",
+          "created": "2026-10-28T18:09:50.429393763Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:studio-input-console-20261029",
+          "id": "sha256:2d2e458ed61f2a2528d74692967e4fe215322e8eda791355fdf6da206a93ca86",
+          "created": "2026-10-28T15:09:21.475519838Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:admin-accounts-20261028",
+          "id": "sha256:f191f7ae7f172ababaf09990dfd9337c57ed1820814f41a1fd1262745e0e2c74",
+          "created": "2026-10-28T08:16:42.308814797Z",
+          "reason": "newest"
+        }
+      ],
+      "planned": [
+        {
+          "tag": "crefans-front:npay-reward-20261029",
+          "id": "sha256:27030763b4e61cb90bbdadcc84a94b21a6ef0038f92e27183143d90753880e25",
+          "created": "2026-10-28T16:21:15.462798211Z"
+        }
+      ],
+      "removed": [
+        {
+          "tag": "crefans-front:npay-reward-20261029",
+          "usedIdFallback": false
+        }
+      ],
+      "errors": [],
+      "freeBytesAfter": 14434590720
+    },
+    "remote": {
+      "at": "2026-10-29T00:51:09.608542+00:00",
+      "apply": true,
+      "keepPerRepository": 3,
+      "freeBytesBefore": 34348269568,
+      "kept": [
+        {
+          "tag": "crefans-front:event-priority-20261029",
+          "id": "sha256:bef61a18cd386cf79f7eb719eae774d7b5d0709e500a38eb17ca604b2295064b",
+          "created": "2026-10-29T00:44:06.012695375Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-front:security-20261029",
+          "id": "sha256:095efc919997d7786d5975c847779642b2b2b20ffd828513a69a5388833fa0c0",
+          "created": "2026-10-29T00:14:44.100865294Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:advertising-20261029",
+          "id": "sha256:b3fd7c711bfb866860b3e00e61c86d84b15d7b3a636a7b6850b010871c8d2258",
+          "created": "2026-10-28T18:11:24.181744167Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:security-20261029",
+          "id": "sha256:9f54ae7d0ad69411e6f4bdf66b721847684a97655b561b20fa6bdc38f738a972",
+          "created": "2026-10-29T00:12:48.701968046Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-api:advertising-20261029",
+          "id": "sha256:c2d81fc9ae2850b4694aeb596e610aacff6619728411bf079f165e5c08f2f0ce",
+          "created": "2026-10-28T18:08:37.905685466Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:studio-input-console-20261029",
+          "id": "sha256:87d27e1724f37b6375b0027ace3d0d6c967efa3f16815527d162bd45cd68b378",
+          "created": "2026-10-28T15:07:48.146970086Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:advertising-20261029",
+          "id": "sha256:34c9e79212c9c97885d639fc211801a38cc836d964cf53c93e2b1d4277a11861",
+          "created": "2026-10-28T18:09:50.429393763Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-admin:studio-input-console-20261029",
+          "id": "sha256:5d0bd4346413a5e1827d2f87dadbada38d5237fd766a8a9b69a8eaf0af334cd6",
+          "created": "2026-10-28T15:09:21.475519838Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:admin-accounts-20261028",
+          "id": "sha256:64597416113c85fbc1a9e190c38bd3570e9e24bf28d6ac2a762309644d71d0db",
+          "created": "2026-10-28T08:16:42.308814797Z",
+          "reason": "newest"
+        }
+      ],
+      "planned": [
+        {
+          "tag": "crefans-front:npay-reward-20261029",
+          "id": "sha256:a7e426c7e7100e9a90fa7fdee6067d7a277dbec1946d2b2d889e064fb9a3e038",
+          "created": "2026-10-28T16:21:15.462798211Z"
+        }
+      ],
+      "removed": [
+        {
+          "tag": "crefans-front:npay-reward-20261029",
+          "usedIdFallback": false
+        }
+      ],
+      "errors": [],
+      "freeBytesAfter": 35224952832
+    }
+  },
+  "dockerCleanup": {
+    "command": "docker desktop stop; docker desktop status",
+    "startedAt": "2026-10-29T00:51:31.902860+00:00",
+    "finishedAt": "2026-10-29T00:51:47.563392+00:00",
+    "stopExitCode": 0,
+    "statusExitCode": 1,
+    "stopOutput": "✓ Stopping Docker Desktop\n",
+    "status": "Could not retrieve status. Is Docker Desktop running?\nYou can start Docker Desktop by running 'docker desktop start'.\n",
+    "processCheck": {
+      "command": "pgrep -f Docker Desktop/backend executable paths",
+      "at": "2026-10-29T00:52:02.163658+00:00",
+      "exitCode": 1,
+      "matchingProcessCount": 0
+    },
+    "stoppedConfirmed": true,
+    "statusNote": "desktop status exits 1 when Desktop has fully quit; initial textual stopped assertion was invalid"
+  },
+  "failuresResolved": [
+    "Initial assembled tests could not find load-typescript.cjs; included helper and all34 passed",
+    "Initial local image browser ran before server ready; retried after readiness and16 passed",
+    "Docker desktop status after full shutdown exits1; verified no Docker backend/Desktop process"
+  ],
+  "boundaries": [
+    "Commemorative badges assigned only to preview identities; no live award/API/visibility settings changed",
+    "Production preview comments only modify browser state; no production member/DB writes",
+    "No physical iPhone check, external message, payment, payout or unrelated service-flow test",
+    "Working tree was already dirty; preserved and did not commit/push"
+  ],
+  "documentationValidation": {
+    "commands": [
+      "npm run docs:record",
+      "npm run check:docs"
+    ],
+    "resultFile": "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029/docs-checks.json",
+    "proofType": "documentation snapshot/contracts only, not product test proof"
+  },
+  "evidenceDirectory": "/Users/ethan/repository/crefans_front/.local/event-priority-deploy-20261029"
+}

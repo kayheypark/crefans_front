@@ -1,0 +1,1218 @@
+{
+  "at": "2026-10-29T05:11:10.670751+00:00",
+  "release": "event-guide-20261029",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "statusBefore": "repositories-before.json (private detailed file list)",
+  "workingTree": "Existing dirty work preserved; release uses frozen last-production source + exact9 file overlay, not HEAD alone",
+  "sourceDelta": {
+    "at": "2026-10-29T04:45:53.133971+00:00",
+    "baselineRelease": "post-coin-20261029",
+    "changes": {
+      "front": [
+        {
+          "file": "lib/content/events.ts",
+          "before": "b97303531a4f31c45fb103a88469d143dea1260774e8b7017cf4f49bbf1c13b9",
+          "after": "a3a016c8d315ea5b37708d1720ca56c9d771706e7eb52f6b6856a1b725699e91"
+        },
+        {
+          "file": "types/crefans-events.ts",
+          "before": "cdf8c12d498c8d2a0e94bacaa4a4b8e2b5dc951112e5cd4102e10d0f34312ac7",
+          "after": "0c1ea4d5fbe7c682ef0f88cbcdfd044c02f29efc39388e95a2a94867e34c7752"
+        },
+        {
+          "file": "components/crefans/EventPages.tsx",
+          "before": "6e70f2456547803521b383f2bf629dba5825e7e793081600fd6d7418b17868f0",
+          "after": "567707d8f96592d6cdaf891b9d99be3e6c1ee7cb0ab12d1d78196ecce9047a5d"
+        },
+        {
+          "file": "components/crefans/events.module.css",
+          "before": "fe0f7d4076eb12513d01d2e4106457557a6a622fd003971d03e64217ec2ae005",
+          "after": "8da0539a829a215e1c5e833cd000f15b816767f249268ab7a8b254c1a4eb2f75"
+        },
+        {
+          "file": "components/preview/screen-catalog.ts",
+          "before": "11cc6cc6abe92e7d8bf1c7ec7478d8f962cb6f5373552f708d5a31e616e10149",
+          "after": "5b5e6601c013dfa92b8aa1e246eca67952f5579f74ddc2d0edf287ac4be4a120"
+        },
+        {
+          "file": "components/design-system/ServicePatternCatalog.tsx",
+          "before": "9e2c807a80c2a179fa06e8b83bda1b36cd41a5c5eb423fa6c3bb8eabc761cc49",
+          "after": "9dabe0db8849934b8c7d83668961739cc5664c479240112c6d78d1b13fbd2610"
+        },
+        {
+          "file": "app/preview/[...screen]/page.tsx",
+          "before": "d555b929f0ad608f41f36cf83ef37f9611745637fac8a5880c5831023b6640a9",
+          "after": "1d9c6be44ca9c8bfb47d6850bf6479b6398db1cdda8a78a51ce0b2f40e0a1fc6"
+        },
+        {
+          "file": "app/service/[...screen]/page.tsx",
+          "before": "ec84c068c889f4db6d49f807602b6a68c175666baacbfe2f6fee603fb12f40fd",
+          "after": "ca5aefc369039f0458d4ac532ca6207fe10521523edf9ef8398750f3dde1e52d"
+        },
+        {
+          "file": "tests/crefans-events.test.cjs",
+          "before": "f6f848189ba14e93a473e9d4939105a6841f8d3fc44f2b776371a973c974acf7",
+          "after": "61bc1487cacec14194c6961d4237e0d710f77f8ac607469df3cc8fde4acf9fb4"
+        }
+      ]
+    },
+    "scope": "Four event banners/details and isolated notes; membership price notice excluded"
+  },
+  "scopeVerification": {
+    "at": "2026-10-29T04:51:49.488105+00:00",
+    "baselineFiles": 677,
+    "releaseFiles": 677,
+    "changedFiles": 9,
+    "unchangedFiles": 668,
+    "unrequestedMembershipPriceChangesExcluded": true,
+    "exactDelta": true
+  },
+  "build": [
+    {
+      "label": "front",
+      "tag": "crefans-front:event-guide-20261029",
+      "startedAt": "2026-10-29T04:46:35.504736+00:00",
+      "finishedAt": "2026-10-29T04:48:16.414480+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "aa99a804d817b97d493523948644e0db80c9ac842a52104119b110c10c55395c"
+    }
+  ],
+  "deployment": {
+    "command": "ssh private verified host: sudo -n bash /home/ubuntu/crefans-event-guide-20261029/deploy.sh",
+    "startedAt": "2026-10-29T04:58:51.430962+00:00",
+    "finishedAt": "2026-10-29T04:59:00.185621+00:00",
+    "exitCode": 0,
+    "scope": "frontend only; API/worker/admin/DB unchanged"
+  },
+  "runtime": {
+    "at": "2026-10-29T05:01:36.442698+00:00",
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "image": "sha256:4a1034702785",
+        "restarts": 0,
+        "unchanged": false,
+        "health": null
+      },
+      "crefans-beta-api-1": {
+        "image": "sha256:9f54ae7d0ad6",
+        "restarts": 0,
+        "unchanged": true,
+        "health": "healthy"
+      },
+      "crefans-beta-worker-1": {
+        "image": "sha256:9f54ae7d0ad6",
+        "restarts": 0,
+        "unchanged": true,
+        "health": null
+      },
+      "crefans-beta-admin-1": {
+        "image": "sha256:34c9e79212c9",
+        "restarts": 0,
+        "unchanged": true,
+        "health": null
+      },
+      "crefans-beta-database-1": {
+        "image": "sha256:7dcddc01f13b",
+        "restarts": 0,
+        "unchanged": true,
+        "health": "healthy"
+      },
+      "crefans-beta-proxy-1": {
+        "image": "sha256:d8542f48d34a",
+        "restarts": 0,
+        "unchanged": true,
+        "health": null
+      }
+    },
+    "sourceMatches": {
+      "frontend": 676
+    },
+    "configSha256": [
+      "e0be6d52fd2825ff2fe6fc87531e2ab103d78e32154c43350c3665bb075d9123  /opt/crefans/compose.yml",
+      "462e569e7b2ea4e420faa9c557407d3681ed5c6de54e9e8a42caeaf86c39da14  /opt/crefans/Caddyfile",
+      "462e569e7b2ea4e420faa9c557407d3681ed5c6de54e9e8a42caeaf86c39da14  /etc/caddy/Caddyfile",
+      ""
+    ]
+  },
+  "browserLocal": {
+    "at": "2026-10-29T04:57:41.683Z",
+    "base": "http://127.0.0.1:3014",
+    "checks": [
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "legacy-redirect",
+        "destination": "/preview/events"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "legacy-redirect",
+        "destination": "/service/events"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "legacy-redirect",
+        "destination": "/preview/events"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "legacy-redirect",
+        "destination": "/service/events"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "legacy-redirect",
+        "destination": "/preview/events"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "legacy-redirect",
+        "destination": "/service/events"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "legacy-redirect",
+        "destination": "/preview/events"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "legacy-redirect",
+        "destination": "/service/events"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "not-found",
+        "isolatedTab": true
+      }
+    ],
+    "errors": [],
+    "serviceApi": "anonymous bootstrap stub"
+  },
+  "browserProduction": {
+    "at": "2026-10-29T05:06:43.570Z",
+    "base": "https://beta.crefans.com",
+    "checks": [
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "legacy-redirect",
+        "destination": "/preview/events"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "preview",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "legacy-redirect",
+        "destination": "/service/events"
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "mode": "service",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "legacy-redirect",
+        "destination": "/preview/events"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "legacy-redirect",
+        "destination": "/service/events"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "mode": "service",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "legacy-redirect",
+        "destination": "/preview/events"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "preview",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "legacy-redirect",
+        "destination": "/service/events"
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "mode": "service",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "legacy-redirect",
+        "destination": "/preview/events"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "preview",
+        "screen": "not-found",
+        "isolatedTab": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "list",
+        "banners": 4
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-feedback",
+        "noteGroups": 4,
+        "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0px, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-creator-advertising",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-promotion-beans",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "beta-founding-badge",
+        "noteGroups": 3,
+        "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0px, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "legacy-redirect",
+        "destination": "/service/events"
+      },
+      {
+        "engine": "webkit",
+        "width": 1280,
+        "mode": "service",
+        "screen": "not-found",
+        "isolatedTab": true
+      }
+    ],
+    "errors": [],
+    "serviceApi": "actual public production API, no mutations"
+  },
+  "retention": {
+    "local": {
+      "at": "2026-10-29T05:09:01.725566+00:00",
+      "apply": true,
+      "keepPerRepository": 3,
+      "freeBytesBefore": 67308441600,
+      "kept": [
+        {
+          "tag": "crefans-front:event-guide-20261029",
+          "id": "sha256:a9d42fd4eaa5a0a47926e4ebc498a3719fbe99a3007c5389b4254c569f18c247",
+          "created": "2026-10-29T04:48:10.589669928Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:post-coin-20261029",
+          "id": "sha256:4cf5c03fccd83e3580fb0fd0c0de312737e89eeadca2df8403b9f10d243bdcff",
+          "created": "2026-10-29T01:06:05.388993263Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:event-priority-20261029",
+          "id": "sha256:8d4dda71c2199303eabb4d1fd772039277b776475d45d2156f1e754bf639b3d2",
+          "created": "2026-10-29T00:44:06.012695375Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:security-20261029",
+          "id": "sha256:80032613e6f2a399d51f6df3bad6266fb92927359c61020f23b4feeefd6d8eee",
+          "created": "2026-10-29T00:12:48.701968046Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:advertising-20261029",
+          "id": "sha256:da1c6132b54a9ef6424354d294df8a73a094ca97ace009bfddfce8936a7748a7",
+          "created": "2026-10-28T18:08:37.905685466Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:studio-input-console-20261029",
+          "id": "sha256:b3c029d62653eaed67d899f9830375db70694341f6f022e4f349aeab3c97ec6c",
+          "created": "2026-10-28T15:07:48.146970086Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:advertising-20261029",
+          "id": "sha256:ed53d7ec6cea9a8f01ef2e888147d455e41bebed810b207a6c06c86b950b3c75",
+          "created": "2026-10-28T18:09:50.429393763Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:studio-input-console-20261029",
+          "id": "sha256:2d2e458ed61f2a2528d74692967e4fe215322e8eda791355fdf6da206a93ca86",
+          "created": "2026-10-28T15:09:21.475519838Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:admin-accounts-20261028",
+          "id": "sha256:f191f7ae7f172ababaf09990dfd9337c57ed1820814f41a1fd1262745e0e2c74",
+          "created": "2026-10-28T08:16:42.308814797Z",
+          "reason": "newest"
+        }
+      ],
+      "planned": [
+        {
+          "tag": "crefans-front:security-20261029",
+          "id": "sha256:11a6306c115e30828f35024b0570736354c107c1cf08f22f4c2ac2ec875e90c7",
+          "created": "2026-10-29T00:14:44.100865294Z"
+        }
+      ],
+      "removed": [
+        {
+          "tag": "crefans-front:security-20261029",
+          "usedIdFallback": false
+        }
+      ],
+      "errors": [],
+      "freeBytesAfter": 67311869952
+    },
+    "remote": {
+      "at": "2026-10-29T05:09:03.331913+00:00",
+      "apply": true,
+      "keepPerRepository": 3,
+      "freeBytesBefore": 35189596160,
+      "kept": [
+        {
+          "tag": "crefans-front:event-guide-20261029",
+          "id": "sha256:4a10347027854fbdfdafdb78a90d5e1834b595fd0e7381a8d2a696c7deed7dd6",
+          "created": "2026-10-29T04:48:10.589669928Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-front:post-coin-20261029",
+          "id": "sha256:459e281ab012db10cff027f2f8e22ac4ad6ffdf4c9910e5e7dbaad97081eeaf9",
+          "created": "2026-10-29T01:06:05.388993263Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:event-priority-20261029",
+          "id": "sha256:bef61a18cd386cf79f7eb719eae774d7b5d0709e500a38eb17ca604b2295064b",
+          "created": "2026-10-29T00:44:06.012695375Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:security-20261029",
+          "id": "sha256:9f54ae7d0ad69411e6f4bdf66b721847684a97655b561b20fa6bdc38f738a972",
+          "created": "2026-10-29T00:12:48.701968046Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-api:advertising-20261029",
+          "id": "sha256:c2d81fc9ae2850b4694aeb596e610aacff6619728411bf079f165e5c08f2f0ce",
+          "created": "2026-10-28T18:08:37.905685466Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:studio-input-console-20261029",
+          "id": "sha256:87d27e1724f37b6375b0027ace3d0d6c967efa3f16815527d162bd45cd68b378",
+          "created": "2026-10-28T15:07:48.146970086Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:advertising-20261029",
+          "id": "sha256:34c9e79212c9c97885d639fc211801a38cc836d964cf53c93e2b1d4277a11861",
+          "created": "2026-10-28T18:09:50.429393763Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-admin:studio-input-console-20261029",
+          "id": "sha256:5d0bd4346413a5e1827d2f87dadbada38d5237fd766a8a9b69a8eaf0af334cd6",
+          "created": "2026-10-28T15:09:21.475519838Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:admin-accounts-20261028",
+          "id": "sha256:64597416113c85fbc1a9e190c38bd3570e9e24bf28d6ac2a762309644d71d0db",
+          "created": "2026-10-28T08:16:42.308814797Z",
+          "reason": "newest"
+        }
+      ],
+      "planned": [
+        {
+          "tag": "crefans-front:security-20261029",
+          "id": "sha256:095efc919997d7786d5975c847779642b2b2b20ffd828513a69a5388833fa0c0",
+          "created": "2026-10-29T00:14:44.100865294Z"
+        }
+      ],
+      "removed": [
+        {
+          "tag": "crefans-front:security-20261029",
+          "usedIdFallback": false
+        }
+      ],
+      "errors": [],
+      "freeBytesAfter": 36158033920
+    }
+  },
+  "commands": [
+    {
+      "command": "python3 capture_before.py; build.py; archive.py; ship.py",
+      "exitCode": 0,
+      "logs": [
+        "front-build.log",
+        "deploy.log",
+        "load.log"
+      ]
+    },
+    {
+      "command": "NODE_PATH=frontend/node_modules node --test tests/crefans-events.test.cjs (frozen source)",
+      "exitCode": 0,
+      "result": "6/6",
+      "log": "events-unit.log"
+    },
+    {
+      "command": "node browser.cjs (local anonymous bootstrap stub)",
+      "exitCode": 0,
+      "result": "56/56",
+      "log": "local-browser.log"
+    },
+    {
+      "command": "BASE_URL=https://beta.crefans.com node browser.cjs (public API, no mutation)",
+      "exitCode": 0,
+      "result": "56/56",
+      "log": "production-browser.log"
+    },
+    {
+      "command": "python3 verify-runtime.py",
+      "exitCode": 0,
+      "log": "runtime-check.log"
+    },
+    {
+      "command": "image-retention.py --keep 3 plan then --apply local/remote",
+      "exitCode": 0
+    },
+    {
+      "command": "docker stop/rm two task validation containers; stop guide4322; docker desktop stop",
+      "exitCode": 0
+    }
+  ],
+  "verificationAdjustments": [
+    "Initial assertions ran before dynamic title/image/list finished rendering; polling added, final local/production pass. Failure logs retained.",
+    "Local rapid legacy-to-missing transition produced React419; fresh14 routes, baseline comparisons and final404 in separate tab had no error. No errors filtered, root cause of rapid transition not conclusively resolved.",
+    "Runtime script stale hardcoded Caddy checksum replaced with captured pre-deploy checksum, which matched repo and production. Caddy unchanged by this release."
+  ],
+  "visualReview": [
+    "Production mobile list and gift detail",
+    "Production desktop list"
+  ],
+  "limitations": [
+    "Physical iPhone not tested",
+    "Real financial/provider transactions, logged-in production and production DB writes excluded",
+    "Pending membership KRW/bean reference notice intentionally excluded",
+    "Local rapid invalid-route transition warning is documented; not proof of universal navigation correctness"
+  ],
+  "guideEvidence": "../../../crefans_guide/docs/event-guide-deployment-20261029.json",
+  "evidenceDirectory": "/Users/ethan/repository/crefans_front/.local/event-guide-deploy-20261029",
+  "docsChecks": "docs-checks.json"
+}

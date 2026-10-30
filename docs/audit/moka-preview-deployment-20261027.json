@@ -1,0 +1,233 @@
+{
+  "proxyHostFix": {
+    "at": "2026-10-27T14:12:22.786679+00:00",
+    "exitCode": 0,
+    "scope": "Only /api/preview/v1/login upstream Host equals configured public APP_DOMAIN; Origin validation preserved",
+    "caddySha256": "fe478ef4fcedf4147ae2b87ba66257510f79c326ed6f57cf60fd7bbf1bf310b9",
+    "reference": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/RequestAndResponseBehaviorCustomOrigin.html"
+  },
+  "originProduction": {
+    "at": "2026-10-27T14:13:14.120931+00:00",
+    "checks": [
+      {
+        "originKind": "foreign",
+        "status": 403,
+        "memberCookieIssued": false
+      },
+      {
+        "originKind": "same",
+        "status": 401,
+        "memberCookieIssued": false
+      }
+    ]
+  },
+  "initialDeploymentFailure": {
+    "startedAt": "2026-10-27T14:05:51.225383+00:00",
+    "finishedAt": "2026-10-27T14:05:53.582078+00:00",
+    "exitCode": 1,
+    "scope": "frontend and business host Caddy; API/DB unchanged",
+    "backup": "/opt/crefans-backup-moka-preview-deploy-20261027"
+  },
+  "capacity": {
+    "buildGuard": {
+      "ready": false,
+      "reason": "insufficient_disk",
+      "freeBytes": 7445778432,
+      "requiredBytes": 8589934592
+    },
+    "streamGuard": {
+      "ready": true,
+      "freeBytes": 5496766464,
+      "requiredBytes": 1073741824,
+      "dockerVersion": "28.0.4"
+    },
+    "limitation": "Default 8GiB guard failed after final build had started. Build completed successfully. No further build, stream-only 1GiB guard passed; no local archive created; old cache and verified duplicate contexts cleaned without removing recovery images"
+  },
+  "timezoneRegression": {
+    "negativeBefore": 1,
+    "finalSuitePass": 371,
+    "fix": "Content list timestamps explicitly Asia/Seoul"
+  },
+  "publicBundleScan": {
+    "at": "2026-10-27T14:21:02.061048+00:00",
+    "filesChecked": 139,
+    "credentialMatches": 0,
+    "injectedCredentialControlDetected": true,
+    "scope": "User password, original client SHA256 and server-only scrypt setting absent from image public static assets"
+  },
+  "at": "2026-10-27T14:24:13.191341+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "release": "moka-preview-ready-20261027",
+  "baseRelease": "landing-ready-20261027",
+  "sourceDelta": [
+    "app/api/preview/v1/login/route.ts",
+    "components/crefans/studio/ManagementPages.tsx",
+    "components/preview/service/PreviewProvider.tsx",
+    "components/preview/service/useMockAccount.ts",
+    "components/preview/service/useMockBeans.ts",
+    "components/preview/studio/StudioProvider.tsx",
+    "components/preview/studio/useMockManagement.ts",
+    "components/preview/studio/useMockOverview.ts",
+    "features/preview/login.ts",
+    "lib/api/preview.ts"
+  ],
+  "sourceManifestSha256": "2cacf6292531509d0379007f7aec99ad2935b64225e779960524c88854644264",
+  "runtimeFilesVerified": 654,
+  "localTestEvidence": "docs/audit/moka-preview-secure-login-20261027.json",
+  "build": {
+    "startedAt": "2026-10-27T14:17:32.576911+00:00",
+    "finishedAt": "2026-10-27T14:19:18.883979+00:00",
+    "command": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--label",
+      "crefans.release=moka-preview-ready-20261027",
+      "--label",
+      "crefans.source-sha256=2cacf6292531509d0379007f7aec99ad2935b64225e779960524c88854644264",
+      "-t",
+      "crefans-front:moka-preview-ready-20261027",
+      "-f",
+      "infra/platform/Dockerfile",
+      "."
+    ],
+    "exitCode": 0,
+    "sourceManifestSha256": "2cacf6292531509d0379007f7aec99ad2935b64225e779960524c88854644264",
+    "logSha256": "d6d551f4fd2820650012a178288d2be4cc932821423e4994de09b5e4f9b5c8f7"
+  },
+  "deployment": {
+    "startedAt": "2026-10-27T14:22:47.681404+00:00",
+    "finishedAt": "2026-10-27T14:22:54.386752+00:00",
+    "exitCode": 0,
+    "scope": "frontend and business host Caddy; API/DB unchanged",
+    "backup": "/opt/crefans-backup-moka-preview-ready-20261027"
+  },
+  "browser": {
+    "at": "2026-10-27T14:23:23.928Z",
+    "engine": "chromium",
+    "width": 1440,
+    "wrongPasswordRejected": true,
+    "correctPasswordToStudio": true,
+    "mokaPosts": true,
+    "mokaMemberships": true,
+    "mokaProfileAfterReload": true,
+    "returnToFan": true,
+    "apiRequests": 0,
+    "mockVerificationRequests": 2,
+    "pageErrors": []
+  },
+  "production": {
+    "at": "2026-10-27T14:23:23.473972+00:00",
+    "checks": [
+      {
+        "url": "https://business.crefans.com/card?who=khpark",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://business.crefans.com/card?who=unknown",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card?who=unknown"
+      },
+      {
+        "url": "https://business.crefans.com/card",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card"
+      },
+      {
+        "url": "https://business.crefans.com/api/v1/health",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://business.crefans.com/.env",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/.env"
+      },
+      {
+        "url": "https://business.crefans.com/service/feed",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/service/feed"
+      },
+      {
+        "url": "https://business.crefans.com/brand/business-cards/khpark-front.png",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/brand/business-cards/khpark-front.png"
+      },
+      {
+        "url": "https://business.crefans.com/",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://beta.crefans.com/service/landing",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/landing"
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/feed"
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "finalUrl": "https://admin.crefans.com/login"
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "9ee65a2bd48adfda17752758cf15eab3a468c4e29d9736da9ce0fea1cb618ed3",
+        "image": "sha256:4cfa4fe7a8eebeff222db5844f8d06e0f7a035f946915365a532efdc08dba8c5",
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "restarts": 0
+      }
+    },
+    "tls": "system trust and original hostname verified; no TLS bypass",
+    "dns": "business A from authoritative/1.1.1.1/8.8.8.8; explicit resolution for stale local negative cache"
+  },
+  "transient502DuringReady": 1,
+  "limits": [
+    "Client-only preview persona selection, not production authentication",
+    "No real user creation or service credentials submitted to API",
+    "Existing financial/sample figures remain illustrative",
+    "Other pending finance/legal/QA changes excluded; five other containers unchanged",
+    "Chromium desktop production check; full product suite not repeated after identical-source deployment"
+  ],
+  "logSha256": {
+    "build.log": "d6d551f4fd2820650012a178288d2be4cc932821423e4994de09b5e4f9b5c8f7",
+    "deploy.log": "081c9de1b95c8b62b397577c471d97f7742ed1b5ba2ebd9b86a33e9b11603ebf"
+  }
+}

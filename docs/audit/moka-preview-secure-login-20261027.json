@@ -1,0 +1,65 @@
+{
+  "at": "2026-10-27T14:23:05.212588+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "filesSha256": {
+    "app/api/preview/v1/login/route.ts": "8edfd298d918272925c28568d0a21189222085764b4e19b8005d577f08da9c85",
+    "components/crefans/studio/ManagementPages.tsx": "3aaf017e5ff14fc1285b877c27c9aa9625ec81c9b7e1a12f259cfb90a53b7e3e",
+    "components/preview/service/PreviewProvider.tsx": "356b21d334b6f396b01b5d5d5c6dad58dd94b2a8bb9191eda7629a99f701a70a",
+    "components/preview/service/useMockAccount.ts": "3ca367fe71988a8e9e239b3a1bf22937690bdf84896e0385e31e7044c99ae0f0",
+    "components/preview/service/useMockBeans.ts": "f648b5a78442546b8913d1729e6318838096f2bcc6021a3682fac35b7ece753e",
+    "components/preview/studio/StudioProvider.tsx": "b6a2796312e072f31ba0065ddb02c164225d694190785cf0a5a56e2d92ceaa3d",
+    "components/preview/studio/useMockManagement.ts": "20bac495cf19dcce94f671915a54a4d405fd47f4869828723b8c92fe06cabb57",
+    "components/preview/studio/useMockOverview.ts": "309ccecaa11c186d3777693e7ffd795edfb67ab0156caa0e35d54edd38c57c95",
+    "features/preview/login.ts": "4ea347789626a13e4081542e4b99e0a7e83da52e2e535edce187067104f8ba69",
+    "lib/api/preview.ts": "b008dddcd01a46d2e8140c79eca766877bee42526d744a547e58d34811d1f66f",
+    "tests/crefans-account.test.cjs": "6f89260875c35e92578801ea165d2cd965a83018b692b8ac6d2b3bdd9e3470c3",
+    "tests/preview-login-route.test.cjs": "d43f08d1c24d37e5d5344908eac28433b2c06f2bdc0c88882a35d62be3a36c3a",
+    "tests/crefans-studio-management.test.cjs": "cb69e90acd23228a291cb3dfa953d4071cfecf98252dddc794946f87a1d77b45"
+  },
+  "checks": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "passed": 371,
+    "logSha256": "27c5e130b6622219afdaca288c1829e9e8905671585fb5547b58b663d22aac68"
+  },
+  "browser": {
+    "at": "2026-10-27T14:04:02.355Z",
+    "engine": "chromium",
+    "width": 1440,
+    "wrongPasswordRejected": true,
+    "correctPasswordToStudio": true,
+    "mokaPosts": true,
+    "mokaMemberships": true,
+    "mokaProfileAfterReload": true,
+    "returnToFan": true,
+    "apiRequests": 0,
+    "mockVerificationRequests": 2,
+    "pageErrors": []
+  },
+  "supersedes": "docs/audit/moka-preview-login-20261027.json",
+  "changes": "Removed public client credential comparison; dedicated versioned mock verifier reads private runtime scrypt setting and never grants real member sessions",
+  "configuration": {
+    "repository": "crefans_server",
+    "head": "0d6044e5b1d595688bf5f82cad08f6a623df6719",
+    "composeSha256": "150494c6ab30c90a04f607eb37e55de64b450bd938525f3695f474704cb825e8",
+    "defaultEmptyFailsClosed": true
+  },
+  "references": [
+    "https://nextjs.org/docs/14/app/building-your-application/configuring/environment-variables",
+    "https://nextjs.org/docs/14/app/building-your-application/routing/route-handlers",
+    "https://nodejs.org/api/crypto.html"
+  ],
+  "checkedAt": "2026-10-27",
+  "limits": [
+    "Preview persona only; not real account authentication or a permission boundary",
+    "Worker-scoped 20/min limiter resets with frontend restart; not a replacement for production auth controls",
+    "Only server configuration key, never value, recorded here"
+  ],
+  "timezoneRegression": {
+    "beforeExitCode": 1,
+    "afterCoveredBy371PassingTests": true,
+    "finding": "UTC server 09:00 differs from Korean browser18:00; fixed display Asia/Seoul only, no scheduling arithmetic change"
+  }
+}

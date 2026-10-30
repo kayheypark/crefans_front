@@ -1,0 +1,599 @@
+{
+  "at": "2026-10-27T05:05:46.661703+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "release": "landing-ready-20261027",
+  "baseRelease": "card-visible-20261027",
+  "sourceDelta": [
+    "app/service/landing/page.tsx"
+  ],
+  "sourceManifestSha256": "794a1f3c5b57f5b52ca58fa8d8397a67354225963e41c8d14dd65da48d5e5a7c",
+  "runtimeFilesVerified": 651,
+  "reportedUrl": "https://business.crefans.com/card",
+  "reportedSymptom": "화면을 준비하고 있어요.",
+  "finding": "Exact reported card symptom not reproduced. Current card HTML lacks this phrase; desktop Chrome extension verified card then service landing. Separate destination landing stalls under unavailable scripts in prior production.",
+  "before": [
+    {
+      "engine": "chromium",
+      "scenario": "normal",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": [
+        "/service/feed"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "scenario": "nojs",
+      "status": 200,
+      "heading": 0,
+      "loadingText": true,
+      "errors": [],
+      "failed": [
+        "/_next/static/chunks/webpack-a710cf715bb603a4.js"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "scenario": "blocked",
+      "status": 200,
+      "heading": 0,
+      "loadingText": true,
+      "errors": [],
+      "failed": [
+        "/_next/static/chunks/webpack-a710cf715bb603a4.js",
+        "/_next/static/chunks/fd9d1056-1752ab696d445788.js",
+        "/_next/static/chunks/2117-8bf26b4bd58aa061.js",
+        "/_next/static/chunks/main-app-5294d1645fe5526e.js",
+        "/_next/static/chunks/5726-a3f313e196fba81a.js",
+        "/_next/static/chunks/6756-123686a7fe3eec2b.js",
+        "/_next/static/chunks/707-a478966b08f995a0.js",
+        "/_next/static/chunks/9853-1e77438539ac83c5.js",
+        "/_next/static/chunks/app/service/landing/page-188cae1e0d3b9cf6.js",
+        "/_next/static/chunks/app/service/layout-76588ef458824384.js",
+        "/_next/static/chunks/app/service/error-5d76111393f0b6f9.js",
+        "/_next/static/chunks/8510-f8782de251d7e4ad.js",
+        "/_next/static/chunks/129-7d5f824af70d2c01.js",
+        "/_next/static/chunks/9525-b1a48990a2d8a0c8.js",
+        "/_next/static/chunks/447-a1faafc4695a9857.js",
+        "/_next/static/chunks/3310-ab990315ee125324.js",
+        "/_next/static/chunks/3464-9d67ccae3aaefcad.js",
+        "/_next/static/chunks/1923-ab0a2b1650a55874.js",
+        "/_next/static/chunks/6207-58e6fb55fe50c1bf.js",
+        "/_next/static/chunks/5745-405bbdbc9bf6b933.js",
+        "/_next/static/chunks/6586-47813c35c4f71ddf.js",
+        "/_next/static/chunks/3743-54b0f68c31a3806b.js",
+        "/_next/static/chunks/4029-39e108d11174af0a.js",
+        "/_next/static/chunks/4643-8902bac6a1fecc9d.js",
+        "/_next/static/chunks/4418-2c4947120e0975d4.js",
+        "/_next/static/chunks/app/layout-cb54373a7d3ba10a.js",
+        "/_next/static/chunks/app/not-found-064dc67ec59c1f6c.js"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "scenario": "normal",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "engine": "webkit",
+      "scenario": "nojs",
+      "status": 200,
+      "heading": 0,
+      "loadingText": true,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "engine": "webkit",
+      "scenario": "blocked",
+      "status": 200,
+      "heading": 0,
+      "loadingText": true,
+      "errors": [],
+      "failed": [
+        "/_next/static/chunks/webpack-a710cf715bb603a4.js",
+        "/_next/static/chunks/fd9d1056-1752ab696d445788.js",
+        "/_next/static/chunks/2117-8bf26b4bd58aa061.js",
+        "/_next/static/chunks/main-app-5294d1645fe5526e.js",
+        "/_next/static/chunks/5726-a3f313e196fba81a.js",
+        "/_next/static/chunks/6756-123686a7fe3eec2b.js",
+        "/_next/static/chunks/707-a478966b08f995a0.js",
+        "/_next/static/chunks/9853-1e77438539ac83c5.js",
+        "/_next/static/chunks/app/service/landing/page-188cae1e0d3b9cf6.js",
+        "/_next/static/chunks/app/service/layout-76588ef458824384.js",
+        "/_next/static/chunks/app/service/error-5d76111393f0b6f9.js",
+        "/_next/static/chunks/8510-f8782de251d7e4ad.js",
+        "/_next/static/chunks/129-7d5f824af70d2c01.js",
+        "/_next/static/chunks/9525-b1a48990a2d8a0c8.js",
+        "/_next/static/chunks/447-a1faafc4695a9857.js",
+        "/_next/static/chunks/3310-ab990315ee125324.js",
+        "/_next/static/chunks/3464-9d67ccae3aaefcad.js",
+        "/_next/static/chunks/1923-ab0a2b1650a55874.js",
+        "/_next/static/chunks/6207-58e6fb55fe50c1bf.js",
+        "/_next/static/chunks/5745-405bbdbc9bf6b933.js",
+        "/_next/static/chunks/6586-47813c35c4f71ddf.js",
+        "/_next/static/chunks/3743-54b0f68c31a3806b.js",
+        "/_next/static/chunks/4029-39e108d11174af0a.js",
+        "/_next/static/chunks/4643-8902bac6a1fecc9d.js",
+        "/_next/static/chunks/4418-2c4947120e0975d4.js",
+        "/_next/static/chunks/app/layout-cb54373a7d3ba10a.js",
+        "/_next/static/chunks/app/not-found-064dc67ec59c1f6c.js"
+      ]
+    }
+  ],
+  "localAfter": [
+    {
+      "engine": "chromium",
+      "scenario": "normal",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "engine": "chromium",
+      "scenario": "nojs",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": [
+        "/_next/static/chunks/webpack.js"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "scenario": "blocked",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": [
+        "/_next/static/chunks/app-pages-internals.js",
+        "/_next/static/chunks/app/service/landing/page.js",
+        "/_next/static/chunks/app/service/layout.js",
+        "/_next/static/chunks/app/service/error.js",
+        "/_next/static/chunks/app/layout.js",
+        "/_next/static/chunks/app/not-found.js"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "scenario": "normal",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "engine": "webkit",
+      "scenario": "nojs",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "engine": "webkit",
+      "scenario": "blocked",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": [
+        "/_next/static/chunks/app-pages-internals.js",
+        "/_next/static/chunks/app/service/landing/page.js",
+        "/_next/static/chunks/app/service/layout.js",
+        "/_next/static/chunks/app/service/error.js",
+        "/_next/static/chunks/app/layout.js",
+        "/_next/static/chunks/app/not-found.js"
+      ]
+    }
+  ],
+  "productionAfter": [
+    {
+      "engine": "chromium",
+      "scenario": "normal",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": [
+        "/service/feed"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "scenario": "nojs",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": [
+        "/_next/static/chunks/webpack-3c5f7ac6dc82a068.js"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "scenario": "blocked",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": [
+        "/_next/static/chunks/webpack-3c5f7ac6dc82a068.js",
+        "/_next/static/chunks/fd9d1056-1752ab696d445788.js",
+        "/_next/static/chunks/2117-8bf26b4bd58aa061.js",
+        "/_next/static/chunks/main-app-5294d1645fe5526e.js",
+        "/_next/static/chunks/5726-a3f313e196fba81a.js",
+        "/_next/static/chunks/6756-123686a7fe3eec2b.js",
+        "/_next/static/chunks/707-a478966b08f995a0.js",
+        "/_next/static/chunks/9853-1e77438539ac83c5.js",
+        "/_next/static/chunks/app/service/landing/page-188cae1e0d3b9cf6.js",
+        "/_next/static/chunks/app/service/layout-76588ef458824384.js",
+        "/_next/static/chunks/app/service/error-5d76111393f0b6f9.js",
+        "/_next/static/chunks/8510-f8782de251d7e4ad.js",
+        "/_next/static/chunks/129-7d5f824af70d2c01.js",
+        "/_next/static/chunks/9525-b1a48990a2d8a0c8.js",
+        "/_next/static/chunks/447-a1faafc4695a9857.js",
+        "/_next/static/chunks/3310-ab990315ee125324.js",
+        "/_next/static/chunks/3464-9d67ccae3aaefcad.js",
+        "/_next/static/chunks/1923-740f414d3a037912.js",
+        "/_next/static/chunks/6207-58e6fb55fe50c1bf.js",
+        "/_next/static/chunks/5745-405bbdbc9bf6b933.js",
+        "/_next/static/chunks/6586-47813c35c4f71ddf.js",
+        "/_next/static/chunks/3743-54b0f68c31a3806b.js",
+        "/_next/static/chunks/4029-39e108d11174af0a.js",
+        "/_next/static/chunks/4643-8902bac6a1fecc9d.js",
+        "/_next/static/chunks/4418-2c4947120e0975d4.js",
+        "/_next/static/chunks/app/layout-cb54373a7d3ba10a.js",
+        "/_next/static/chunks/app/not-found-064dc67ec59c1f6c.js"
+      ]
+    },
+    {
+      "engine": "webkit",
+      "scenario": "normal",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "engine": "webkit",
+      "scenario": "nojs",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": []
+    },
+    {
+      "engine": "webkit",
+      "scenario": "blocked",
+      "status": 200,
+      "heading": 1,
+      "loadingText": false,
+      "errors": [],
+      "failed": [
+        "/_next/static/chunks/webpack-3c5f7ac6dc82a068.js",
+        "/_next/static/chunks/fd9d1056-1752ab696d445788.js",
+        "/_next/static/chunks/2117-8bf26b4bd58aa061.js",
+        "/_next/static/chunks/main-app-5294d1645fe5526e.js",
+        "/_next/static/chunks/5726-a3f313e196fba81a.js",
+        "/_next/static/chunks/6756-123686a7fe3eec2b.js",
+        "/_next/static/chunks/707-a478966b08f995a0.js",
+        "/_next/static/chunks/9853-1e77438539ac83c5.js",
+        "/_next/static/chunks/app/service/landing/page-188cae1e0d3b9cf6.js",
+        "/_next/static/chunks/app/service/layout-76588ef458824384.js",
+        "/_next/static/chunks/app/service/error-5d76111393f0b6f9.js",
+        "/_next/static/chunks/8510-f8782de251d7e4ad.js",
+        "/_next/static/chunks/129-7d5f824af70d2c01.js",
+        "/_next/static/chunks/9525-b1a48990a2d8a0c8.js",
+        "/_next/static/chunks/447-a1faafc4695a9857.js",
+        "/_next/static/chunks/3310-ab990315ee125324.js",
+        "/_next/static/chunks/3464-9d67ccae3aaefcad.js",
+        "/_next/static/chunks/1923-740f414d3a037912.js",
+        "/_next/static/chunks/6207-58e6fb55fe50c1bf.js",
+        "/_next/static/chunks/5745-405bbdbc9bf6b933.js",
+        "/_next/static/chunks/6586-47813c35c4f71ddf.js",
+        "/_next/static/chunks/3743-54b0f68c31a3806b.js",
+        "/_next/static/chunks/4029-39e108d11174af0a.js",
+        "/_next/static/chunks/4643-8902bac6a1fecc9d.js",
+        "/_next/static/chunks/4418-2c4947120e0975d4.js",
+        "/_next/static/chunks/app/layout-cb54373a7d3ba10a.js",
+        "/_next/static/chunks/app/not-found-064dc67ec59c1f6c.js"
+      ]
+    }
+  ],
+  "cardPcFaultConditions": [
+    {
+      "engine": "chromium",
+      "scenario": "JavaScript disabled",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "chromium",
+      "scenario": "scripts aborted",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "chromium",
+      "scenario": "delayed back image",
+      "phase": "loading",
+      "opacity": "1",
+      "rotation": "none",
+      "frontComplete": true,
+      "frontWidth": 1364
+    },
+    {
+      "engine": "chromium",
+      "scenario": "synthetic eight-second frame stall",
+      "phase": "entering",
+      "opacity": "1",
+      "urlStillCard": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "JavaScript disabled",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "scripts aborted",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "delayed back image",
+      "phase": "loading",
+      "opacity": "1",
+      "rotation": "none",
+      "frontComplete": true,
+      "frontWidth": 1364
+    },
+    {
+      "engine": "webkit",
+      "scenario": "synthetic eight-second frame stall",
+      "phase": "entering",
+      "opacity": "1",
+      "urlStillCard": true
+    }
+  ],
+  "productionCardControls": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7748,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7825,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7811,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "motion": "reduce",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7794,
+      "overflow": false,
+      "errors": []
+    }
+  ],
+  "build": {
+    "startedAt": "2026-10-27T05:01:25.151617+00:00",
+    "finishedAt": "2026-10-27T05:03:15.094761+00:00",
+    "command": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--label",
+      "crefans.release=landing-ready-20261027",
+      "--label",
+      "crefans.source-sha256=794a1f3c5b57f5b52ca58fa8d8397a67354225963e41c8d14dd65da48d5e5a7c",
+      "-t",
+      "crefans-front:landing-ready-20261027",
+      "-f",
+      "infra/platform/Dockerfile",
+      "."
+    ],
+    "exitCode": 0,
+    "sourceManifestSha256": "794a1f3c5b57f5b52ca58fa8d8397a67354225963e41c8d14dd65da48d5e5a7c",
+    "logSha256": "d1ff0dbc676870583be76cbc41d902f712d2b39afab1d196671934d1d2c4158d"
+  },
+  "deployment": {
+    "startedAt": "2026-10-27T05:03:59.220677+00:00",
+    "finishedAt": "2026-10-27T05:04:06.177965+00:00",
+    "exitCode": 0,
+    "scope": "frontend and business host Caddy; API/DB unchanged",
+    "backup": "/opt/crefans-backup-landing-ready-20261027"
+  },
+  "production": {
+    "at": "2026-10-27T05:04:33.808778+00:00",
+    "checks": [
+      {
+        "url": "https://business.crefans.com/card?who=khpark",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://business.crefans.com/card?who=unknown",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card?who=unknown"
+      },
+      {
+        "url": "https://business.crefans.com/card",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card"
+      },
+      {
+        "url": "https://business.crefans.com/api/v1/health",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://business.crefans.com/.env",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/.env"
+      },
+      {
+        "url": "https://business.crefans.com/service/feed",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/service/feed"
+      },
+      {
+        "url": "https://business.crefans.com/brand/business-cards/khpark-front.png",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/brand/business-cards/khpark-front.png"
+      },
+      {
+        "url": "https://business.crefans.com/",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://beta.crefans.com/service/landing",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/landing"
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/feed"
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "finalUrl": "https://admin.crefans.com/login"
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "afb43d01b462da99ea23915d2ba845fb1072bd8107ac48d464ffef41a8bd1375",
+        "image": "sha256:113fd21c00710ddaba200f20cfbd55f05f0bf6425dd1e0079689e549cae0d616",
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "restarts": 0
+      }
+    },
+    "tls": "system trust and original hostname verified; no TLS bypass",
+    "dns": "business A from authoritative/1.1.1.1/8.8.8.8; explicit resolution for stale local negative cache"
+  },
+  "transient502DuringReady": 2,
+  "references": [
+    {
+      "checkedAt": "2026-10-27",
+      "url": "https://nextjs.org/docs/14/app/api-reference/functions/use-search-params",
+      "application": "Static rendering suspends client subtree; dynamic route renders query-dependent provider during initial server render."
+    }
+  ],
+  "limits": [
+    "Original visitor device and exact cause unconfirmed; destination fix is not proof of original card cause",
+    "No-JS/blocked scripts now show public asset introduction HTML; interactive actions require JavaScript",
+    "Existing assets/live data flag and API/auth policies preserved; live flag false behavior was not toggled in production",
+    "Only one runtime route file deployed; card assets/code and API/DB unchanged; unrelated finance/legal edits excluded",
+    "Build/typecheck plus targeted browser checks; full product suite not repeated for one route config change"
+  ],
+  "logSha256": {
+    "build.log": "d1ff0dbc676870583be76cbc41d902f712d2b39afab1d196671934d1d2c4158d",
+    "deploy.log": "66b56e7a968f8be019c25b2b566a80f246d389c92580ddb9f6c9f99baeb4fd05"
+  }
+}
