@@ -1,5 +1,10 @@
 # PROGRESS: crefans_front
 
+## 2026-10-30 후원 창 닉네임·핸들 간격 축소 (미배포, 커밋 완료·푸시 안 함)
+- 사용자 지적: 아바타 오른쪽 닉네임과 아래 핸들 사이가 너무 넓음. 측정 결과 margin 4px에 닉네임 줄높이 1.6(25.6px)·핸들 줄높이 1.6(22.4px)의 위아래 여백이 더해져 글자 사이가 약 13px.
+- `beans.module.css`: 핸들 margin-top 0·line-height 1.4, 닉네임(내부 마키 포함) line-height 1.35. 측정 후 상자 간격 0px(닉네임 23px·핸들 20px), 390·1280px 후원 입력·확인 창 캡처 확인. 아래 안내 문구 간격은 그대로.
+- 검증: `npm run -s check` 통과, e2e beans·marquee-text 통과(아래 커밋 메시지 참조).
+
 ## 2026-10-30 후원 확인창 크리에이터 제공 동의 + 확인 항목 상단 정렬 (미배포, 커밋 완료·푸시 안 함)
 - 후원 확인 대화상자에 받는 사람·항목·목적·보유 기간과 '(필수) 제공 동의' 체크, 체크 전 '확인하고 후원하기' 비활성. 요청에 creatorProvision(TIP_PROVISION 버전) 전송.
 - 사용자 요청 "vertical align top": 멤버십 확인창 `.summaryRows` 행과 후원 동의 `.provisionRows` 행을 align-items:flex-start로 맞춰 여러 줄 값 옆 라벨이 위에 붙도록 함.
