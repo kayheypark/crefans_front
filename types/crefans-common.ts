@@ -6,7 +6,8 @@ export type LegalKind='terms'|'privacy'|'policy';
 export type LegalDocument={title:string;updatedAt:string;version?:string;publishedAt?:string;effectiveAt?:string|null;status?:'draft'|'published';notice?:string;sections:{title:string;body:string;links?:{label:string;href:string}[]}[]};
 export type CommonModel={
   notices:ServiceNotice[];
-  legal:Partial<Record<LegalKind,LegalDocument>>;
+  /** `terms-next`/`policy-next`: a published revision before its effective date. */
+  legal:Partial<Record<LegalKind|`${LegalKind}-next`,LegalDocument>>;
   /** Preview loads the published legal text from the public API; absent means ready. */
   legalStatus?:'loading'|'error';
   auth:{email:string;guidance:string;codeHint?:string};

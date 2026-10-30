@@ -1,5 +1,16 @@
 # PROGRESS: crefans_front
 
+## 2026-10-31 /pilot-work: 앱 도움말·약관 개정본 표시·잠긴 게시물 후원·최소 출금 (운영 배포 guide-sync-20261031, 커밋 완료·푸시 안 함)
+- FAQ 3문항 추가(콩 환불·유효기간, 구독·후원 정보 제공 동의 이유, 탈퇴 후 재가입 30일), 구독 FAQ에 동의, 신고 FAQ에 결과 알림. 서비스 안내에 '콩 후원' 카드·구독 동의 단계. 명칭 '오픈베타(가입은 초대 이메일)'. 이벤트에 프로모션콩 유효기간 5년·만료 알림·소멸 문장.
+- 약관 화면: `/common` legal의 `terms-next`/`policy-next`를 '2026.11.30 시행 개정본 보기' 접이식으로 표시(`CommonPages.LegalPage`).
+- 잠긴 게시물 카드: 후원 버튼 대신 후원 수만(`SocialPages.PostActions`, 서버 POST_ACCESS_REQUIRED와 짝).
+- 멤버십 출금 화면 최소 금액: `creatorTerms.minimumWithdrawalKrw`(없으면 기본 10만 원). `tests/withdrawal-pin-ui.test.cjs` 신규(하드코딩 복원 대조 시 1건 실패).
+- 검증: `npm run -s check` 421/421, 로컬 e2e 서버로 약관 개정본 표시 확인(390px), check:docs PASS. Codex 세션의 미커밋 후원 내역 작업과 `docs/audit/evidence.json`(그 작업 문서까지 반영해 재생성됨)은 커밋하지 않음. 배포는 운영 기준 bean-tip-filter-20261030 위에 이 세션 파일만 덮음(server PROGRESS 같은 날짜).
+
+## 2026-10-30 밤 night-work: 소개서·가이드 ↔ 정책·코드 동기화 조사 (문서만, 코드 변경 없음)
+- 문서: `crefans_front/.local/night-work/2026-10-30-2213.md` (22:13~22:21, 범위 소진으로 조기 종료).
+- 숫자·소개서 수익 계산은 코드와 일치. 상위: 콩 규칙이 시행 약관에 없음(개정 공지 시점 결정), 구독·후원 제공 동의·보관 기간·즉시 삭제·재가입 30일 제한이 가이드·앱 FAQ에 없음, 세금 문구 약관 불일치, 전용 게시물 비구독자 후원 가능(가이드와 다름), 회사 귀책 환불은 운영자만, 가이드 검사가 원본 변경을 감지 못함, `FinancePages.tsx:67` 최소 출금 하드코딩. 결정 필요 9건은 문서 요약 참조.
+
 ## 2026-10-30 후원 구분 라벨에 동전 아이콘 (미배포, 커밋 완료·푸시 안 함)
 - 사용자 요청: '게시물 후원'·'프로필 후원' 구분 라벨(`BeanAttribution.BeanTipKind`) 왼쪽에 기존 후원 동전 아이콘(`/brand/post-actions/support-coin-flat-v1.png`, 18px, 장식용 alt "")을 넣음. 보낸 후원·지갑 내역·스튜디오 받은 후원에 함께 적용.
 - 검증: 390·1280px 캡처(보낸 후원 20개·스튜디오 받은 후원 2개 아이콘 표시), `npm run -s check`, e2e beans(아래 커밋 메시지 참조).

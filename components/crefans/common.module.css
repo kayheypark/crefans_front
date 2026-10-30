@@ -15,3 +15,7 @@
 .legalMeta{display:flex;flex-wrap:wrap;gap:8px 16px;margin:12px 0 20px;color:var(--cf-color-textMuted);font-size:max(12px,var(--cf-mobile-font-min,0px))}.legalMeta strong{color:var(--cf-color-text)}.legalContents{display:grid;gap:9px;margin:24px 0;padding:18px 20px;background:var(--cf-landing-soft);border-radius:8px;font-size:max(13px,var(--cf-mobile-font-min,0px))}.legalContents a,.documentBody a{color:var(--cf-service-brand);text-decoration:underline;text-underline-offset:3px}.documentBody section{scroll-margin-top:100px}.documentBody a{overflow-wrap:anywhere}
 
 .following>a>span:not([data-avatar]){flex:1}.followerName{flex:1}
+/* A published terms/policy revision shown above the current text until it takes effect. */
+.legalNext{margin:0 0 24px;padding:14px 16px;border:1px solid var(--cf-landing-line);border-radius:12px;background:var(--cf-landing-soft)}
+.legalNext>summary{cursor:pointer;font-weight:600;color:var(--cf-color-accent)}
+.legalNext[open]>summary{margin-bottom:12px}

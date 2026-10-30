@@ -12,7 +12,7 @@ import {SelectField} from '@/components/ui/SelectField';
 import {AmountPresets} from '@/components/ui/AmountPresets';
 import {PinField} from '@/components/ui/PinField';
 import {krwAmountPresets} from '@/lib/design/amount-presets';
-import {membershipPayoutNotesFor,minimumWithdrawalHintFor} from '@/lib/crefans/creator-payout-policy';
+import {creatorPayoutPolicy,membershipPayoutNotesFor,minimumWithdrawalHintFor} from '@/lib/crefans/creator-payout-policy';
 import {PolicyNotes} from '../PolicyNotes';
 import {CreatorClosingNotes,closingAllowed} from '../CreatorClosingNotes';
 import {Checkbox} from '@/components/ui/Choice';
@@ -64,7 +64,7 @@ export function WithdrawalPage({model,basePath}:Props){
   const operationId=useId();
   const attempt=useRef(0);
   const {summary,accounts}=model.data;
-  const [amount,setAmount]=useState(''),[closing,setClosing]=useState(false),canClose=closingAllowed(model.data.closingBlockers)&&summary.available>0,minimum=closing?1:100000;
+  const [amount,setAmount]=useState(''),[closing,setClosing]=useState(false),canClose=closingAllowed(model.data.closingBlockers)&&summary.available>0,minimum=closing?1:(model.data.creatorTerms?.minimumWithdrawalKrw??creatorPayoutPolicy.minimumWithdrawalKrw);
   const requestedAmount=Number(amount);
   const remainingAmount=Number.isSafeInteger(requestedAmount)&&requestedAmount>=0&&requestedAmount<=summary.available?summary.available-requestedAmount:null;
   const [accountId,setAccountId]=useState(()=>accounts.find(account=>account.verified&&account.isDefault)?.id||accounts.find(account=>account.verified)?.id||'');

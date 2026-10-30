@@ -126,3 +126,13 @@ test('withdrawal balance shows the remainder and does not invent a balance for i
   change(view.root.findByProps({type:'number'}),'');assert.equal(remainder(),'₩100,000');
  }finally{close(view);}
 });
+
+test('the membership payout minimum follows the creator’s individual terms, falling back to the default 100,000원',()=>{
+ for(const [terms,expected] of [[null,100000],[{platformFeeBps:null,settlementHoldDays:null,beanWithdrawalFeeBps:null,minimumWithdrawalKrw:50000},50000]]){
+  const base=model(),view=mount(WithdrawalPage,{basePath:'/preview/studio',model:{...base,data:{...base.data,creatorTerms:terms}}});
+  try{
+   const input=view.root.findByProps({type:'number'});assert.equal(input.props.min,expected);
+   change(input,'60000');assert.equal(button(view,'신청 내용 확인').props.disabled,expected>60000,`minimum ${expected}`);
+  }finally{close(view);}
+ }
+});
