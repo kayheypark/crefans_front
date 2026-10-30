@@ -145,7 +145,7 @@ npm run test:e2e:report                 # 최근 HTML 결과 확인
 
 실제 `/service/legal/{terms,privacy,policy}`와 가입 모달은 서버 코드 원본 `legal-documents.ts`를 같은 `LegalDocumentBody`로 표시한다. 가입 화면의 필수 개인정보 항목은 처리방침 확인이며 마케팅 동의와 분리한다. 주입된 버전/본문 해시를 signup.policyVersions로 전송하고, 최신 시행본과 불일치하면 서버409로 거부한다. 안내를 열었다고 체크박스를 자동 체크하지 않는다. `/preview`는 같은 컴포넌트에 별도 예시 문서를 주입하고 기존 링크를 유지한다.
 
-현재 문서는 운영 공개본2026-10-22.1이며, 공개일과 신규가입 적용 시행일을 구분한다. documentsPublished=true라도 signupReady=false이면 가입·가입인증메일을 차단한다. 사업자 정보는 확인했으나 보유·파기, 국외이전 및 콘텐츠 허용 범위가 미해결이다. 가입연령은 만19세 이상으로 확정하고 서버 검사를 적용했다. 발행본 대역으로 통과한 E2E를 실제 가입 개방/법률검토/공급자 검증으로 해석하지 않는다. 상세 근거와 완료 조건은 [백엔드 구현](../../crefans_server/docs/platform-implementation.md)의 코드 관리 약관 절을 따른다.
+현재 문서는 2026-10-30.2(공개일2026-10-22, 시행일2026-10-30)이며 공개일과 신규가입 적용 시행일을 구분한다. documentsPublished=true라도 signupReady=false이면 가입·가입인증메일을 차단한다. 2026-10-30 사용자 확인(국외이전 내용·일반 콘텐츠 베타 검수)과 처리방침 7·8·9조 보완(파기·보관기간, AWS Korea·Google Asia Pacific·Telegram 국외 이전, 구독 시 크리에이터 제공 동의)으로 blockers를 비우고 signupReady=true가 되었다. 베타 초대 명단 검사는 그대로다. 가입연령은 만19세 이상으로 확정하고 서버 검사를 적용했다. 발행본 대역으로 통과한 E2E를 실제 가입 개방/법률검토/공급자 검증으로 해석하지 않는다. 상세 근거와 완료 조건은 [백엔드 구현](../../crefans_server/docs/platform-implementation.md)의 코드 관리 약관 절을 따른다.
 
 - 가입 UI와 약관은 만19세 이상 기준을 함께 안내한다. 실제 권한은 서버의 서명된 공급사 결과/DB proof로 검사하며 프론트 체크박스·자가신고로 연령을 증명하지 않는다. 목업은 공유 UI/샘플 본문을 사용하고 PASS 성공 대역임을 표시한다.
 

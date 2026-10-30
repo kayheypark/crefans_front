@@ -1,4 +1,5 @@
 'use client';
+import {CREATOR_PROVISION} from '@/lib/crefans/creator-provision';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {TipButton} from './BeanPages';
@@ -96,17 +97,18 @@ export function MembershipPage({model,id,initialPlanId}:{model:ServiceViewModel;
   const [selected,setSelected]=useState(initialPlanId||'');
   const [open,setOpen]=useState(false);
   const [agreed,setAgreed]=useState(false);
+  const [shared,setShared]=useState(false);
   const [pending,setPending]=useState(false);
   const [error,setError]=useState('');
   const creator=creators.find(item=>item.id===id);
   const plan=plans.find(item=>item.id===selected)||plans.find(item=>item.recommended)||plans[0];
   const nextDate=model.nextRenewAt;
-  useEffect(()=>{setAgreed(false);},[id,plan?.id,plan?.price,nextDate]);
+  useEffect(()=>{setAgreed(false);setShared(false);},[id,plan?.id,plan?.price,nextDate]);
   if(!creator)return <Empty title="멤버십을 찾을 수 없어요" action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>;
   if(!plan)return <Empty title="아직 멤버십이 없어요" description="이용 가능한 멤버십이 등록되지 않았습니다."/>;
-  const selectPlan=(planId:string)=>{setSelected(planId);setAgreed(false);setError('');setOpen(true);};
+  const selectPlan=(planId:string)=>{setSelected(planId);setAgreed(false);setShared(false);setError('');setOpen(true);};
   const confirmMembership=async()=>{
-    if(pending||!agreed)return;
+    if(pending||!agreed||!shared)return;
     setPending(true);setError('');
     try{
       const result=await subscribe(id,plan.id);
@@ -126,8 +128,11 @@ export function MembershipPage({model,id,initialPlanId}:{model:ServiceViewModel;
         <p className={s.helper}>갱신을 해지하면 다음 자동 갱신을 중단하고, 이용 기간 종료일까지 혜택을 유지합니다.</p>
         
         <Checkbox label="선택한 멤버십, 금액, 갱신 내용을 확인했습니다." checked={agreed} disabled={pending} onChange={setAgreed}/>
+        <dl className={s.summaryRows} aria-label="크리에이터에게 제공하는 정보"><div><dt>받는 사람</dt><dd>{CREATOR_PROVISION.recipient}</dd></div><div><dt>제공 항목</dt><dd>{CREATOR_PROVISION.items}</dd></div><div><dt>목적</dt><dd>{CREATOR_PROVISION.purpose}</dd></div><div><dt>보유 기간</dt><dd>{CREATOR_PROVISION.retention}</dd></div></dl>
+        <p className={s.helper}>{CREATOR_PROVISION.refusal}</p>
+        <Checkbox label="(필수) 위 정보를 크리에이터에게 제공하는 데 동의합니다." checked={shared} disabled={pending} onChange={setShared}/>
         {error&&<p className={s.error} role="alert">{error}</p>}
-        <DialogActions style={{marginTop:5}}><Action variant="secondary" disabled={pending} onClick={()=>setOpen(false)}>다시 선택</Action><Action variant="brand" disabled={!agreed||pending} aria-busy={pending} onClick={confirmMembership}>{pending?'확인 중…':'확인하고 계속'}</Action></DialogActions>
+        <DialogActions style={{marginTop:5}}><Action variant="secondary" disabled={pending} onClick={()=>setOpen(false)}>다시 선택</Action><Action variant="brand" disabled={!agreed||!shared||pending} aria-busy={pending} onClick={confirmMembership}>{pending?'확인 중…':'확인하고 계속'}</Action></DialogActions>
       </div>
     </Dialog>
   </div>;
