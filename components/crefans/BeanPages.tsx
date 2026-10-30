@@ -1,4 +1,5 @@
 'use client';
+import {TIP_PROVISION} from '@/lib/crefans/creator-provision';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanTipSource,BeanPayoutSource} from './BeanAttribution';
@@ -37,7 +38,7 @@ export function BeanWalletLink({basePath,className}:{basePath:string;className?:
  return className?<ChipLink href={`${basePath}/beans`} className={className}>{balance===null?'내 지갑':`내 지갑(${balance.toLocaleString('ko-KR')}콩)`}</ChipLink>:<div style={{padding:'12px 16px'}}><Link href={`${basePath}/beans`}>내 콩 지갑</Link></div>;}
 export function BeanIncomeLink({basePath}:{basePath:string}){const model=useBeans();return model?.enabled?<p className={s.incomeLink}>이 화면은 멤버십 원화 수익 기준입니다. <Link href={`${basePath}/beans`}>콩 후원 수익·출금 보기</Link></p>:null;}
 export function TipButton({creatorId,name,postId,post,creator,disabled=false,profile=false}:{creatorId:string;name:string;postId?:string;post?:Post;creator?:Creator;disabled?:boolean;profile?:boolean}){
- const model=useBeans(),[open,setOpen]=useState(false),[confirming,setConfirming]=useState(false),[quantity,setQuantity]=useState('10'),[message,setMessage]=useState(''),[error,setError]=useState(''),[result,setResult]=useState<BeanTip|null>(null),[pending,setPending]=useState(false),request=useRef(''),busy=useRef(false);
+ const model=useBeans(),[open,setOpen]=useState(false),[confirming,setConfirming]=useState(false),[quantity,setQuantity]=useState('10'),[message,setMessage]=useState(''),[error,setError]=useState(''),[result,setResult]=useState<BeanTip|null>(null),[pending,setPending]=useState(false),[shared,setShared]=useState(false),request=useRef(''),busy=useRef(false);
  useEffect(()=>{if(typeof window!=='undefined'&&(profile||!!postId)&&new URLSearchParams(window.location.search).get('tip')==='1'){setOpen(true);const url=new URL(window.location.href);url.searchParams.delete('tip');window.history.replaceState(window.history.state,'',url.toString());}},[profile,postId]);
  const own=!!model?.ownCreatorIds.includes(creatorId),supporterCount=model?.postSupporterCounts?.[postId||'']??post?.supporterCount??0;
  const postIcon=<><Image className={s.postTipIcon} src="/brand/post-actions/support-coin-flat-v1.png" width={24} height={24} sizes="24px" alt="" aria-hidden="true" draggable={false}/><span>{supporterCount.toLocaleString()}</span></>;
@@ -46,7 +47,7 @@ export function TipButton({creatorId,name,postId,post,creator,disabled=false,pro
  if(postId&&(disabled||own||!model))return <span className={s.postTip} data-post-support-count={true} role="img" aria-label={`게시물 후원 · ${supporterCount}명`}>{postIcon}</span>;
  if(!model?.enabled||disabled||own)return null;
  const available=model.wallet?.spendableBeans??(model.wallet?.accounts||[]).filter(a=>['purchased','promotion'].includes(a.bucket)).reduce((n,a)=>n+Number(a.balance),0),amount=Number(quantity),ready=Number.isSafeInteger(amount)&&amount>0&&amount<=available&&amount<=100000;
- async function send(){if(!confirming||busy.current||!ready||!model)return;busy.current=true;setPending(true);setError('');request.current ||=crypto.randomUUID();try{const r=await model.tip(creatorId,{quantity:amount,message,postId,requestId:request.current});if(r.success)setResult(r.data);else setError(r.errorMessage);}catch{setError('후원 결과를 확인하지 못했습니다. 같은 요청으로 다시 확인해주세요.');}finally{busy.current=false;setPending(false);setConfirming(false);}}
+ async function send(){if(!confirming||busy.current||!ready||!shared||!model)return;busy.current=true;setPending(true);setError('');request.current ||=crypto.randomUUID();try{const r=await model.tip(creatorId,{quantity:amount,message,postId,requestId:request.current,creatorProvision:TIP_PROVISION.version});if(r.success)setResult(r.data);else setError(r.errorMessage);}catch{setError('후원 결과를 확인하지 못했습니다. 같은 요청으로 다시 확인해주세요.');}finally{busy.current=false;setPending(false);setConfirming(false);}}
  return <><Action variant="secondary" data-tip-button="true" aria-label={postId?`게시물 후원 · ${supporterCount}명`:undefined} className={profile?`${s.walletCharge} ${s.profileTip}`:s.postTip} onClick={()=>{setOpen(true);setResult(null);setError('');request.current='';}}>{profile?<><img src="/brand/beans/soft3d-v2/10.png" width={28} height={28} alt=""/><span>후원하기</span></>:postIcon}</Action>
  <Dialog open={open} onClose={()=>{if(!pending)setOpen(false);}} title={result?(postId?'게시물 후원 완료':'후원 완료'):postId?'이 게시물 후원하기':'콩 후원'}>
   {!model.signedIn?<SignInPrompt basePath={model.basePath}/>:result?<div className={s.tipComplete}>
@@ -68,7 +69,7 @@ export function TipButton({creatorId,name,postId,post,creator,disabled=false,pro
    <Field label="응원 메시지 (선택)" placeholder="크리에이터에게 응원의 한마디를 남겨보세요" value={message} maxLength={500} onChange={e=>{setMessage(e.target.value);request.current='';}} disabled={pending}/>
    <p className={s.tipHint}>프로모션콩부터 사용합니다. 후원은 멤버십 이용 권한을 제공하지 않습니다.</p>
    {error&&<p role="alert" className={s.tipError}>{error}</p>}
-   <Action className={s.tipSubmit} disabled={pending||model.loading||!ready} onClick={()=>{if(ready&&!pending)setConfirming(true);}}>{pending?'후원 확인 중…':`${ready?beans(amount)+' ':''}후원하기`}</Action>
+   <Action className={s.tipSubmit} disabled={pending||model.loading||!ready} onClick={()=>{if(ready&&!pending){setShared(false);setConfirming(true);}}}>{pending?'후원 확인 중…':`${ready?beans(amount)+' ':''}후원하기`}</Action>
   </div>}
  </Dialog>
  <Dialog open={open&&confirming} onClose={()=>{if(!pending)setConfirming(false);}} title="후원 확인">
@@ -77,7 +78,10 @@ export function TipButton({creatorId,name,postId,post,creator,disabled=false,pro
    {post&&<div className={s.tipPost}><span>후원할 게시물</span><strong>{post.title}</strong></div>}
    <p className={s.tipConfirmQuestion}><strong>{beans(amount)}</strong>을 정말 후원하시겠어요?</p>
    {message&&<blockquote className={s.tipSentMessage}>{message}</blockquote>}
-   <DialogActions><Action variant="secondary" disabled={pending} onClick={()=>setConfirming(false)}>취소</Action><Action disabled={pending||model.loading||!ready} onClick={()=>void send()}>{pending?'후원 중…':'확인하고 후원하기'}</Action></DialogActions>
+   <dl className={s.provisionRows} aria-label="크리에이터에게 제공하는 정보"><div><dt>받는 사람</dt><dd>{TIP_PROVISION.recipient}</dd></div><div><dt>제공 항목</dt><dd>{TIP_PROVISION.items}</dd></div><div><dt>목적</dt><dd>{TIP_PROVISION.purpose}</dd></div><div><dt>보유 기간</dt><dd>{TIP_PROVISION.retention}</dd></div></dl>
+   <p className={s.tipHint}>{TIP_PROVISION.refusal}</p>
+   <Checkbox label="(필수) 위 정보를 크리에이터에게 제공하는 데 동의합니다." checked={shared} disabled={pending} onChange={setShared}/>
+   <DialogActions><Action variant="secondary" disabled={pending} onClick={()=>setConfirming(false)}>취소</Action><Action disabled={pending||model.loading||!ready||!shared} onClick={()=>void send()}>{pending?'후원 중…':'확인하고 후원하기'}</Action></DialogActions>
   </div>
  </Dialog></>;
 

@@ -1,5 +1,10 @@
 # PROGRESS: crefans_front
 
+## 2026-10-30 후원 확인창 크리에이터 제공 동의 + 확인 항목 상단 정렬 (미배포, 커밋 완료·푸시 안 함)
+- 후원 확인 대화상자에 받는 사람·항목·목적·보유 기간과 '(필수) 제공 동의' 체크, 체크 전 '확인하고 후원하기' 비활성. 요청에 creatorProvision(TIP_PROVISION 버전) 전송.
+- 사용자 요청 "vertical align top": 멤버십 확인창 `.summaryRows` 행과 후원 동의 `.provisionRows` 행을 align-items:flex-start로 맞춰 여러 줄 값 옆 라벨이 위에 붙도록 함.
+- 검증: `npm run -s check` 419/419, e2e beans 7/7(목업 동의 전 비활성 확인 + 실 API 후원이 동의 체크 후 성공), marquee-text 17/17, 390·1280px 후원 확인창 캡처 확인, check:docs PASS.
+
 ## 2026-10-30 구독 시 크리에이터 정보 제공 동의 화면 + 초대 가입 개방 (운영 배포 signup-open-20261030, 커밋 완료·푸시 안 함)
 - 멤버십 선택 확인창에 받는 사람·제공 항목·목적·보유 기간과 '(필수) 크리에이터 제공 동의' 체크 추가, 두 체크가 모두 있어야 '확인하고 계속'. 주문 요청에 creatorProvision 버전(`lib/crefans/creator-provision.ts`, 서버와 같은 문구) 전송.
 - 검증: `npm run -s check` 419/419, crefans-creator 단위에 동의 필수 검사 추가(동의 무시 대조 시 1건 실패), marquee-text e2e 17/17 + 375px 확인창 캡처 확인. 문서 check:docs PASS(release-test-scenarios·service-api-binding 갱신).

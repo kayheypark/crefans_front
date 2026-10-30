@@ -80,7 +80,7 @@
 .dialogCreator strong{display:block}
 .dialogCreator>div>span{display:block;color:var(--cf-color-textMuted);font-size:max(13px,var(--cf-mobile-font-min,0px))}
 .summaryRows{margin:0;padding:16px 0;border-top:1px solid var(--cf-landing-line);border-bottom:1px solid var(--cf-landing-line);display:flex;flex-direction:column;gap:12px}
-.summaryRows>div{display:flex;gap:16px;justify-content:space-between;align-items:center}
+.summaryRows>div{display:flex;gap:16px;justify-content:space-between;align-items:flex-start}
 .summaryRows dt{color:var(--cf-color-textMuted)}
 .summaryRows dd{font-weight:600;text-align:right;margin:0}
 .helper{font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.7;color:var(--cf-color-textMuted)}

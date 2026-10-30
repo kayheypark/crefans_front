@@ -53,3 +53,9 @@
 
 .historyBody{position:relative}
 .historyActions{gap:12px;align-items:center;flex-wrap:wrap}.walletExpiry{margin:12px 0 0;font-size:14px;line-height:1.6;color:var(--cf-color-textSecondary)}
+
+/* Consent details in the tip confirmation: label column stays at the top of multi-line values. */
+.provisionRows{margin:0;padding:14px 0;border-top:1px solid var(--cf-color-border);border-bottom:1px solid var(--cf-color-border);display:flex;flex-direction:column;gap:10px}
+.provisionRows>div{display:flex;gap:16px;justify-content:space-between;align-items:flex-start}
+.provisionRows dt{flex:none;color:var(--cf-color-textMuted)}
+.provisionRows dd{margin:0;min-width:0;font-weight:600;text-align:right}
