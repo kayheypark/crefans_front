@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-30T07:17:31.833573+00:00",
+  "checkedAt": "2026-10-30T07:35:25.521855+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+      "head": "9030e3b5fd999888d6d815133eb20733305ba19f",
       "branch": "feat/iphone-input-zoom",
       "dirty": true
     },
     "server": {
-      "head": "0d6044e5b1d595688bf5f82cad08f6a623df6719",
+      "head": "572b048f8082835e0cb7bd4114098f43a83ae2b7",
       "branch": "feat/studio-comment-replies",
-      "dirty": true
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "d1aaf1f4f6ee0568f386a43de794699a4b365486a6f0ec2ae7924e71fcf68103",
-      "front/PROGRESS.md": "0e1a3a983ceb2287a33bf5cd2bac4db38cde4960957a5a5f4925b35c27d80f62",
+      "front/PROGRESS.md": "40077e6f5475d4295cc3094215011ba7ae53fa9a178eb0493bd031a1194009d4",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "c0f3c318b0a8bfdf49a1e2e5b8c7ea6e3085275fe422d4c4f57a9680fe1b8c2a",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
@@ -82,7 +82,7 @@
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "server/AGENTS.md": "57fd6b033c62ad3c23532745bb6f7fc87928192f2ccb32558954f6ef00bae610",
-      "server/PROGRESS.md": "17938f8dd2a02247e9ab356bc1aba1af86d58a2c764ee079f0a5cc660b12aa6e",
+      "server/PROGRESS.md": "b92cb5c041b7ffef68da918a1078d8ee88e16be5380edba5538cc69af27c42de",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
