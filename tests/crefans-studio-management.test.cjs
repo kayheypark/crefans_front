@@ -220,3 +220,8 @@ test('membership rank is validated and edits preserve subscriber snapshot',async
   await act(async()=>{result=await probe.model.actions.saveMembership({...plan,rank:3});});assert.equal(result.success,true);assert.equal(probe.model.memberships[0].rank,3);assert.equal(JSON.stringify(probe.model.subscribers),original);
  }finally{probe.close();}
 });
+
+test('content timestamps agree between UTC servers and Korean browser timezones',()=>{
+ const prior=process.env.TZ,probe=fixtureHook(),values=[];
+ try{for(const timezone of ['UTC','Asia/Seoul']){process.env.TZ=timezone;const tree=mount(ContentManagementPage,probe.model);const label=tree.root.findAllByType('span').find(node=>typeof node.props.children==='string'&&node.props.children.endsWith(' 수정'));assert.ok(label);values.push(label.props.children);act(()=>tree.unmount());}assert.equal(values[0],values[1]);assert.match(values[0],/오후 06:00/);}finally{if(prior===undefined)delete process.env.TZ;else process.env.TZ=prior;probe.close();}
+});

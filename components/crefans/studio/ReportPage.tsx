@@ -1,4 +1,6 @@
 'use client';
+import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
+import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import {BackButton} from '../BackButton';
 
 import {useEffect,useId,useState} from 'react';
@@ -9,7 +11,7 @@ import {Pagination} from '@/components/ui/Pagination';
 import {DateRangePicker} from '@/components/ui/DateRangePicker';
 import {TextLink} from '@/components/ui/TextLink';
 import {ApiState} from '../ApiState';
-import {Empty} from '../ServiceUI';
+import {ActionLink,Empty} from '../ServiceUI';
 import s from './report.module.css';
 
 type Props={model:StudioReportModel;basePath:string};
@@ -17,11 +19,13 @@ type ReportRow=StudioReport['rows'][number];
 const navigation=[{id:'revenue',label:'순수익'},{id:'subscribers',label:'구독자'},{id:'followers',label:'팔로워'}] as const;
 
 export function ReportPage({model,basePath}:Props){
+  const slow=useDelayedLoading(!!model.loading||!!model.pending);
   return <section className={s.page}>
     <BackButton className={s.back} href={basePath} label="대시보드로 돌아가기"/>
-    <ApiState response={model.response} loading={model.loading}>
-      {report=><ReportContent key={report.id} report={report} model={model} basePath={basePath}/>}
-    </ApiState>
+    {/* Loading rule: a first load shows nothing for 1s, then a spinner; a range change keeps the report and dims it after 1s. */}
+    {model.loading?(slow&&<LoadingSpinner/>):<ApiState response={model.response}>
+      {report=><div className={s.reportBody}>{slow&&<LoadingSpinner overlay/>}<ReportContent key={report.id} report={report} model={model} basePath={basePath}/></div>}
+    </ApiState>}
   </section>;
 }
 
@@ -63,6 +67,6 @@ function ReportContent({report,model,basePath}:Props&{report:StudioReport}){
       {report.rows.length>pageSize&&<Pagination page={page} totalItems={report.rows.length} pageSize={pageSize} onPageChange={setPage} label={`${report.title} 상세 내역 페이지`}/>}
     </section>
     {report.guidance.length>0&&<aside className={s.guidance} aria-labelledby={`${id}-guidance`}><h2 id={`${id}-guidance`}>집계 기준 안내</h2><ul>{report.guidance.map((item,index)=><li key={index}>{item}</li>)}</ul></aside>}
-    {report.links.length>0&&<nav className={s.related} aria-label="관련 화면">{report.links.map(link=><TextLink key={link.path} href={`${basePath}/${link.path}`}>{link.label}<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></TextLink>)}</nav>}
+    {report.links.length>0&&<nav className={s.related} aria-label="관련 화면">{report.links.map(link=><ActionLink variant="secondary" key={link.path} href={`${basePath}/${link.path}`}>{link.label}</ActionLink>)}</nav>}
   </>;
 }

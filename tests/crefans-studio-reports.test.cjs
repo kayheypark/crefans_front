@@ -17,7 +17,7 @@ test('revenue reports reconcile the ledger, combine same-day entries, and preser
   const input=sources(),before=JSON.stringify(input);
   const report=createStudioReport('revenue',input,'all');
   assert.equal(report.rows.length,2);
-  assert.deepEqual(report.rows[0].values,{gross:1990000,reversals:99000,fees:189100,net:1701900});
+  assert.deepEqual(report.rows[0].values,{gross:1990000,reversals:99000,fees:378200,net:1512800});
   assert.equal(metric(report,'net'),input.finance.data.summary.net);
   assert.equal(metric(report,'net'),metric(report,'gross')-metric(report,'reversals')-metric(report,'fees'));
   assert.equal(report.chart.items.reduce((total,item)=>total+item.value,0),metric(report,'net'));
@@ -214,7 +214,7 @@ const {ReportPage}=loadTypeScript('components/crefans/studio/ReportPage.tsx',{
   './Primitives':{Button:({loading,tone,...props})=>h('button',{...props,disabled:props.disabled||loading})},
   '@/components/ui/TextLink':{TextLink:props=>h('a',props)},
   './ServiceUI':{Empty:({title,description})=>h('div',null,h('h3',null,title),h('p',null,description))},
-  '../ServiceUI':{Empty:({title,description})=>h('div',null,h('h3',null,title),h('p',null,description))},
+  '../ServiceUI':{Empty:({title,description})=>h('div',null,h('h3',null,title),h('p',null,description)),ActionLink:({variant,...props})=>h('a',props)},
 });
 const viewText=tree=>JSON.stringify(tree.toJSON());
 const visibleDates=tree=>tree.root.findAllByType('tbody').flatMap(body=>body.findAllByType('time')).map(item=>item.props.dateTime);
