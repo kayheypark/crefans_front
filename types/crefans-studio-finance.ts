@@ -1,4 +1,5 @@
 import type {ApiResult} from './crefans';
+import type {CreatorTerms} from '@/lib/crefans/creator-payout-policy';
 
 export type StudioEarning={id:string;settlementId:string;date:string;title:string;gross:number;reversals:number;fees:number;net:number};
 export type StudioSettlement={id:string;period:string;status:'pending'|'available';availableAt:string};
@@ -6,10 +7,12 @@ export type SettlementAccount={id:string;bank:string;holderAlias:string;lastFour
 export type SettlementAccountInput=Pick<SettlementAccount,'bank'|'holderAlias'|'lastFour'>&{accountNumber?:string};
 export type StudioWithdrawal={id:string;requestId:string;accountId:string;accountLabel:string;amount:number;requestedAt:string;status:'requested'|'processing'|'paid'|'rejected';statusNote:string};
 export type FinanceSummary={gross:number;reversals:number;fees:number;net:number;pending:number;available:number;requested:number;paid:number};
-export type WithdrawalInput={amount:number;accountId:string};
+export type WithdrawalInput={amount:number;accountId:string;closing?:boolean};
+export type CreatorReceivable={id:string;kind:'membership'|'beans';amount:number;createdAt:string};
+export type ClosingBlocker={code:string;message:string};
 export type WithdrawalRequest=WithdrawalInput&{requestId:string;authorizationId:string};
 export type WithdrawalQuote={amount:number;account:SettlementAccount;availableAfterRequest:number};
-export type StudioFinanceData={summary:FinanceSummary;earnings:StudioEarning[];settlements:StudioSettlement[];withdrawals:StudioWithdrawal[];accounts:SettlementAccount[];policyNotice?:string};
+export type StudioFinanceData={summary:FinanceSummary;earnings:StudioEarning[];settlements:StudioSettlement[];withdrawals:StudioWithdrawal[];accounts:SettlementAccount[];policyNotice?:string;creatorTerms?:CreatorTerms|null;receivables?:CreatorReceivable[];closingBlockers?:ClosingBlocker[]};
 /** All amounts are whole KRW. Request acceptance does not imply bank transfer. */
 export type StudioFinanceModel={
   mode:'mock'|'live';today:string;data:StudioFinanceData;pinConfigured:boolean;

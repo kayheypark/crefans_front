@@ -1,15 +1,21 @@
 'use client';
 import Link from 'next/link';
+import {Toast} from '@/components/ui/Toast';
+import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanTipSource} from './BeanAttribution';
 import {beanOrderNumber,beanHistoryQuery,emptyBeanHistoryFilters,type BeanHistoryFilters} from '@/lib/crefans/bean-history';
 import {SelectField} from '@/components/ui/SelectField';
 import {ChipRow} from '@/components/ui/ChipRow';
-import {Chip} from '@/components/ui/Primitives';
+import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
+import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
+import {Chip,Dialog} from '@/components/ui/Primitives';
+import {DialogActions} from '@/components/ui/DialogActions';
 import {CreatorSearch} from './CreatorSearch';
 import {useEffect,useRef,useState} from 'react';
 import {InfoTooltip} from '@/components/ui/InfoTooltip';
 import {beanPriceNotice} from '@/lib/crefans/bean-pricing';
-import type {BeanCharge,BeanModel,BeanWallet} from '@/types/crefans-beans';
+import {beanExpiryDate,beanRefundOutcome} from '@/lib/crefans/bean-refund';
+import type {BeanCharge,BeanModel,BeanRefundQuote,BeanWallet} from '@/types/crefans-beans';
 import {useBeans} from './BeanContext';
 import {BeanBalanceSummary} from './BeanBalanceSummary';
 import {CreatorName} from './CreatorName';
@@ -34,6 +40,7 @@ export function BeanWalletOverview({basePath,wallet,loading,error}:{basePath:str
   <PageTitle back={<BackButton href={`${basePath}/me`} label="내 프로필로 돌아가기"/>} action={<InfoTooltip label="콩 단위 안내" content={beanPriceNotice}/>}>지갑</PageTitle>
   {error&&<p role="alert">{error}</p>}
   <BeanBalanceSummary wallet={wallet} loading={loading} action={<BeanChargeLink basePath={basePath}/>}/>
+  {wallet?.expiringSoon&&<p className={s.walletExpiry} role="status">{beans(wallet.expiringSoon.quantity)}이 {beanExpiryDate(wallet.expiringSoon.expiresAt)}에 유효기간이 끝나요</p>}
   <nav className={s.walletLinks} aria-label="지갑 내역">
    {(['charges','history','tips'] as const).map(kind=><Link key={kind} href={`${basePath}/beans/${kind}`}><Icon name={kind==='charges'?'card':kind==='history'?'arrow':'heart'} width={26} height={26}/><span>{titles[kind]}</span><Icon name="chevron" width={16} height={16}/></Link>)}
   </nav>
@@ -62,26 +69,30 @@ function HistoryFilters({kind,value,onChange,disabled}:{kind:BeanHistoryKind;val
  </div>;
 }
 type HistoryModel=Pick<BeanModel,'basePath'|'wallet'|'sent'|'sentTotal'|'loading'|'error'>;
-export function BeanHistoryView({kind,model,error='',notice='',pending=false,filters=emptyBeanHistoryFilters,onFiltersChange=()=>{},onPay,onPage}:{kind:BeanHistoryKind;model:HistoryModel;error?:string;notice?:string;pending?:boolean;filters?:BeanHistoryFilters;onFiltersChange?:(filters:BeanHistoryFilters)=>void;onPay:(charge:BeanCharge)=>void;onPage:(page:number)=>void}){
+export function BeanHistoryView({kind,model,error='',notice='',onNoticeClose=()=>{},pending=false,filters=emptyBeanHistoryFilters,onFiltersChange=()=>{},onPay,onPage,onRefund,refund=null,onRefundConfirm=()=>{},onRefundClose=()=>{}}:{kind:BeanHistoryKind;model:HistoryModel;error?:string;notice?:string;onNoticeClose?:()=>void;pending?:boolean;filters?:BeanHistoryFilters;onFiltersChange?:(filters:BeanHistoryFilters)=>void;onPay:(charge:BeanCharge)=>void;onPage:(page:number)=>void;onRefund?:(charge:BeanCharge)=>void;refund?:{quote:BeanRefundQuote;error:string}|null;onRefundConfirm?:()=>void;onRefundClose?:()=>void}){
  const wallet=model.wallet,page=wallet?.page||1,items=kind==='charges'?wallet?.charges:kind==='history'?wallet?.entries:model.sent;
  const issue=error||model.error,total=kind==='charges'?wallet?.chargesTotal:kind==='history'?wallet?.entriesTotal:model.sentTotal;
  const filtered=filters.period!=='all'||filters.status!=='all'||filters.direction!=='all'||!!filters.search;
+ // Loading rule: keep the previous list (nothing on a first load) for 1s, then a spinner; results replace the screen only when the response arrives.
+ const received=!!model.error||!!wallet||model.sentTotal!==undefined,slow=useDelayedLoading(model.loading);
  return <section className={`${s.page} ${s.walletPage}`}>
   <PageTitle back={<BackButton href={`${model.basePath}/beans`} label="지갑으로 돌아가기"/>}>{titles[kind]}</PageTitle>
   <HistoryFilters kind={kind} value={filters} onChange={onFiltersChange} disabled={pending}/>
-  {!model.loading&&!model.error&&total!==undefined&&<p className={s.historyCount} role="status">총 {total.toLocaleString('ko-KR')}건</p>}
+  {received&&!model.error&&total!==undefined&&<p className={s.historyCount} role="status">총 {total.toLocaleString('ko-KR')}건</p>}
   {issue&&<p role="alert" className={s.historyMessage}>{issue}</p>}
   {model.error&&<Action variant="secondary" disabled={model.loading||pending} onClick={()=>onPage(page)}>다시 불러오기</Action>}
-  {notice&&<p role="status" className={s.historyMessage}>{notice}</p>}
-  {model.loading?<p role="status" className={s.historyMessage}>내역을 불러오는 중…</p>:model.error?null:!items?.length?<Empty title={filtered?'조건에 맞는 내역이 없습니다.':`${titles[kind]}이 없습니다.`}/>:<ul className={s.historyList} aria-label={titles[kind]}>
+  <Toast message={notice} onClose={onNoticeClose}/>
+  {!received||model.error?(slow&&<LoadingSpinner/>):!items?.length?(slow?<LoadingSpinner/>:<Empty title={filtered?'조건에 맞는 내역이 없습니다.':`${titles[kind]}이 없습니다.`}/>):<div className={s.historyBody}>{slow&&<LoadingSpinner overlay/>}<ul className={s.historyList} aria-label={titles[kind]}>
    {kind==='charges'&&(wallet?.charges||[]).map(order=><li key={order.id} className={s.historyItem}>
     {order.createdAt&&<time className={s.historyOrderDate} dateTime={order.createdAt}>{date(order.createdAt)}</time>}
     <div className={s.historyTop}><strong>{beans(order.quantity)}</strong><span className={s.chargeStatus} data-status={order.status}>{statusNames[order.status]||order.status}</span></div>
     <p className={s.historyAmount}>{won(order.amount)} <small>VAT 포함</small></p>
     <p className={s.historyMeta}>주문번호 {beanOrderNumber(order.createdAt)}</p>
+    {!!order.refundedQuantity&&<p className={s.historyMeta}>환불 {beans(order.refundedQuantity)} · {won(order.refundedAmount||0)}</p>}
     <div className={s.historyActions}>
      {order.status==='pending'&&<Action variant="secondary" disabled={pending} onClick={()=>onPay(order)}>{pending?'결제 준비 중…':'결제 계속'}</Action>}
      {order.status==='processing'&&<Action variant="secondary" disabled={pending} onClick={()=>onPage(1)}>결과 다시 조회</Action>}
+     {order.status==='paid'&&onRefund&&(order.refundedQuantity||0)<order.quantity&&<Action variant="secondary" disabled={pending} onClick={()=>onRefund(order)}>환불 신청</Action>}
      {order.status==='paid'&&<Link href={`${model.basePath}/beans/success?id=${encodeURIComponent(order.id)}`}>충전 상세 보기 <Icon name="chevron" width={16} height={16}/></Link>}
     </div>
    </li>)}
@@ -95,12 +106,18 @@ export function BeanHistoryView({kind,model,error='',notice='',pending=false,fil
     {tip.message&&<p className={s.tipMessage}>{tip.message}</p>}
     <time className={s.historyMeta} dateTime={tip.created_at}>{date(tip.created_at)}</time>
    </li>)}
-  </ul>}
+  </ul></div>}
   {(page>1||(total!==undefined?total>20:(items?.length||0)>=20))&&<nav className={s.historyPagination} aria-label="내역 페이지"><Action variant="secondary" disabled={model.loading||pending||page<=1} onClick={()=>onPage(page-1)}>이전 내역</Action><span>{page}페이지</span><Action variant="secondary" disabled={model.loading||pending||!!model.error||(total!==undefined?page*20>=total:(items?.length||0)<20)} onClick={()=>onPage(page+1)}>다음 내역</Action></nav>}
+  <Dialog open={!!refund} onClose={()=>{if(!pending)onRefundClose();}} title="콩 환불 신청">{refund&&<div className={s.form}>
+   {refund.quote.quantity>0?<><dl className={s.quote}><dt>환불 콩 수</dt><dd>{beans(refund.quote.quantity)}</dd><dt>결제 금액 기준</dt><dd>{won(refund.quote.gross)}</dd><dt>공제액(7일 이후 10%)</dt><dd>{refund.quote.deduction?`− ${won(refund.quote.deduction)}`:won(0)}</dd><dt>환불 예정 금액</dt><dd><strong>{won(refund.quote.amount)}</strong></dd></dl>
+   <p className={s.tipHint}>{refund.quote.fullRefundWindow?'결제 후 7일 이내라 공제 없이 환불됩니다. ':''}사용하지 않은 충전 콩만 환불되며 원래 결제수단으로 돌려드립니다. 카드 환불은 카드사 사정으로 영업일 기준 3~4일이 걸릴 수 있습니다.</p></>:<p>환불할 수 있는 미사용 콩이 없습니다. 사용한 콩과 프로모션콩은 환불되지 않습니다.</p>}
+   {refund.error&&<p role="alert" className={s.tipError}>{refund.error}</p>}
+   <DialogActions><Action variant="secondary" disabled={pending} onClick={onRefundClose}>{refund.quote.quantity>0?'취소':'닫기'}</Action>{refund.quote.quantity>0&&<Action disabled={pending} onClick={onRefundConfirm}>{pending?'환불 처리 중…':`${won(refund.quote.amount)} 환불 신청`}</Action>}</DialogActions>
+  </div>}</Dialog>
  </section>;
 }
 export function BeanHistoryPage({kind}:{kind:BeanHistoryKind}){
- const model=useBeans(),[error,setError]=useState(''),[notice,setNotice]=useState(''),[pending,setPending]=useState(false),[selection,setSelection]=useState({kind,filters:{...emptyBeanHistoryFilters}}),busy=useRef(false),current=useRef(model);
+ const model=useBeans(),[error,setError]=useState(''),[notice,setNotice]=useSnackbarMessage(),[pending,setPending]=useState(false),[refund,setRefund]=useState<{quote:BeanRefundQuote;error:string;requestId:string}|null>(null),[selection,setSelection]=useState({kind,filters:{...emptyBeanHistoryFilters}}),busy=useRef(false),current=useRef(model);
  current.current=model;
  const filters=selection.kind===kind?selection.filters:emptyBeanHistoryFilters;
  useEffect(()=>{setError('');setNotice('');if(current.current?.enabled&&current.current.signedIn)void current.current.refresh(false,1,beanHistoryQuery(filters));},[kind,filters,model?.enabled,model?.signedIn]);
@@ -113,5 +130,20 @@ export function BeanHistoryPage({kind}:{kind:BeanHistoryKind}){
   catch{setError('결제 결과를 확인하지 못했습니다. 같은 주문으로 다시 확인해주세요.');}
   finally{busy.current=false;setPending(false);}
  }
- return <BeanHistoryView kind={kind} model={model} error={error} notice={notice} pending={pending} filters={filters} onFiltersChange={filters=>setSelection({kind,filters})} onPay={order=>void pay(order)} onPage={page=>void model.refresh(false,page,beanHistoryQuery(filters))}/>;
+ async function quoteRefund(order:BeanCharge){
+  if(busy.current||!model)return;
+  busy.current=true;setPending(true);setError('');setNotice('');
+  try{const r=await model.refundQuote(order.id);if(r.success)setRefund({quote:r.data,error:'',requestId:crypto.randomUUID()});else setError(r.errorMessage);}
+  catch{setError('환불 가능 금액을 확인하지 못했습니다. 다시 시도해주세요.');}
+  finally{busy.current=false;setPending(false);}
+ }
+ // The request id stays for this dialog, so a retry after an unknown result cannot refund twice.
+ async function confirmRefund(){
+  if(busy.current||!model||!refund)return;
+  busy.current=true;setPending(true);
+  try{const r=await model.refundCharge(refund.quote.chargeId,refund.requestId),outcome=beanRefundOutcome(r,refund.requestId,()=>crypto.randomUUID());if(!r.success)setRefund({...refund,error:r.errorMessage,requestId:outcome.requestId});else{setRefund(null);setNotice(outcome.kind==='done'?`${beans(r.data.quantity)}을 환불했어요. ${won(r.data.amount)}이 원래 결제수단으로 돌아갑니다.`:'결제사에서 환불 결과를 확인하고 있어요. 확인되면 지갑과 충전 내역에 반영됩니다.');await model.refresh(false,1,beanHistoryQuery(filters));}}
+  catch{setRefund({...refund,error:'환불 결과를 확인하지 못했습니다. 같은 요청으로 다시 확인해주세요.'});}
+  finally{busy.current=false;setPending(false);}
+ }
+ return <BeanHistoryView kind={kind} model={model} error={error} notice={notice} onNoticeClose={()=>setNotice('')} pending={pending} filters={filters} onFiltersChange={filters=>setSelection({kind,filters})} onPay={order=>void pay(order)} onPage={page=>void model.refresh(false,page,beanHistoryQuery(filters))} onRefund={order=>void quoteRefund(order)} refund={refund} onRefundConfirm={()=>void confirmRefund()} onRefundClose={()=>setRefund(null)}/>;
 }

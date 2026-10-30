@@ -3,9 +3,15 @@
 /* One shared layout for the published event and its preview. */
 .page{max-width:780px;min-width:0;margin:0}
 .list{display:grid;gap:24px}
-.card{display:block;min-width:0;border-radius:18px}
+.card{display:block;min-width:0;border-radius:18px;text-decoration:none;container-type:inline-size}
 .card:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:4px}
 .card img{display:block;width:100%;height:auto;border-radius:inherit}
+.banner{width:100%;min-width:0;display:grid;grid-template-columns:34% minmax(0,1fr);align-items:center;gap:clamp(16px,4cqw,32px);aspect-ratio:3/1;min-height:144px;padding:clamp(18px,4cqw,32px);border-radius:inherit;background:radial-gradient(ellipse at 20% 15%,#f7fff9,transparent 70%),linear-gradient(115deg,#d1f7e4,#e8fbef);color:#080d3b;font-family:"Pretendard Event",var(--cf-typography-fontFamily)}
+.banner img{border-radius:0;object-fit:contain}
+.bannerCopy{min-width:0;text-align:right}
+.bannerCopy>span{font-size:clamp(11px,2cqw,16px);color:#34614c}
+.bannerCopy h2{margin:8px 0 0;font-size:clamp(22px,6cqw,46px);line-height:1.15;font-weight:900;letter-spacing:-.05em;white-space:pre-line;word-break:keep-all}
+.bannerCopy p{margin:12px 0 0;font-size:clamp(11px,2cqw,16px);line-height:1.5;color:#466154;word-break:keep-all}
 .campaign{container-type:inline-size;background:#fff;color:#080d3b;font-family:"Pretendard Event",var(--cf-typography-fontFamily);font-synthesis:none}
 .campaignBody{padding:0}
 .campaignHeader{padding:8px 2.4cqw clamp(24px,4.3cqw,36px)}
@@ -13,13 +19,13 @@
 .campaignHeader h2{margin:0;color:#080d3b;font-size:clamp(28px,9cqw,70px);font-weight:900;line-height:1.15;letter-spacing:-.055em;word-break:keep-all}
 .campaignHeader p{margin:10px 0 0;font-size:clamp(15px,4.6cqw,36px);font-weight:400;line-height:1.4;letter-spacing:-.04em;color:#686c8e;word-break:keep-all}
 .rewardList{display:grid;gap:clamp(12px,2cqw,20px);list-style:none;margin:0;padding:0}
-.reward{display:grid;grid-template-columns:32% minmax(0,1fr);gap:clamp(6px,1.5cqw,14px);align-items:center;min-height:clamp(112px,24cqw,200px);padding:clamp(14px,3cqw,26px) clamp(12px,3.2cqw,28px) clamp(14px,3cqw,26px) clamp(8px,1.5cqw,14px);border:0;border-radius:clamp(14px,2.7cqw,26px);background:radial-gradient(ellipse at 48% 38%,#fbf3ff 0%,transparent 72%),linear-gradient(110deg,#eee3ff,#e9dcff)}
-.reward:nth-child(4n+2){background:radial-gradient(ellipse at 48% 40%,#e9fbff 0%,transparent 74%),linear-gradient(110deg,#c4f4fc,#cef3ff)}
-.reward:nth-child(4n+3){background:radial-gradient(ellipse at 50% 40%,#eefff3 0%,transparent 74%),linear-gradient(110deg,#d0fce2,#d8fdeb)}
-.reward:nth-child(4n+4){background:radial-gradient(ellipse at 47% 38%,#fff1fd 0%,transparent 74%),linear-gradient(110deg,#fde3ff,#ffe0fa)}
+.reward{display:grid;grid-template-columns:29% minmax(0,1fr);gap:clamp(18px,4cqw,32px);align-items:center;min-height:clamp(112px,24cqw,200px);padding:clamp(18px,3.6cqw,30px) clamp(18px,4cqw,32px);border:0;border-radius:clamp(14px,2.7cqw,26px);background:radial-gradient(ellipse at 48% 38%,#fbf3ff 0%,transparent 72%),linear-gradient(110deg,#eee3ff,#e9dcff)}
+.banner[data-theme="advertising"],.reward[data-theme="advertising"]{background:radial-gradient(ellipse at 48% 40%,#e9fbff 0%,transparent 74%),linear-gradient(110deg,#c4f4fc,#cef3ff)}
+.banner[data-theme="beans"],.reward[data-theme="beans"]{background:radial-gradient(ellipse at 50% 40%,#eefff3 0%,transparent 74%),linear-gradient(110deg,#d0fce2,#d8fdeb)}
+.banner[data-theme="badge"],.reward[data-theme="badge"]{background:radial-gradient(ellipse at 47% 38%,#fff1fd 0%,transparent 74%),linear-gradient(110deg,#eee3ff,#e9dcff)}
 .rewardImage{display:block;width:100%;height:clamp(84px,23cqw,180px);object-fit:contain}
 .rewardCopy{min-width:0;display:flex;flex-direction:column;gap:clamp(14px,3.6cqw,30px)}
-.rewardTitle{margin:0;color:#080d3b;font-size:clamp(17px,5.8cqw,44px);font-weight:900;line-height:1.18;letter-spacing:-.055em;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere}
+.rewardTitle{margin:0;text-align:right;color:#080d3b;font-size:clamp(17px,5.8cqw,44px);font-weight:900;line-height:1.18;letter-spacing:-.055em;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere}
 .rewardDetails{list-style:none;margin:0;padding:0;text-align:right;color:#626b8b;font-size:clamp(11px,2cqw,16px);font-weight:400;line-height:1.5;letter-spacing:-.025em;word-break:keep-all;overflow-wrap:anywhere}
 .rewardDetails li+li{margin-top:3px}
 .rewardNotice{grid-column:1/-1;margin:8px 0 0;padding-left:4px;color:#344b42;font-size:14px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}

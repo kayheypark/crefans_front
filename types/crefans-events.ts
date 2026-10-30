@@ -5,6 +5,8 @@ export type ServiceEvent={
  campaignTitle:string;
  campaignSubtitle:string;
  schedule:string;
+ theme?:'gift'|'advertising'|'beans'|'badge';
+ banner?:{title:string;description:string};
  image:string;
  imageWidth:number;
  imageHeight:number;

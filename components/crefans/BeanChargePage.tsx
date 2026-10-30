@@ -5,7 +5,8 @@ import Link from 'next/link';
 import {useId,useRef,useState} from 'react';
 import {Radio} from '@/components/ui/Choice';
 import {InfoTooltip} from '@/components/ui/InfoTooltip';
-import {beanChargeKrwPerBean,beanPriceNotice} from '@/lib/crefans/bean-pricing';
+import {beanChargeKrwPerBean,beanPriceNotice,beanRefundNotes} from '@/lib/crefans/bean-pricing';
+import {PolicyNotes} from './PolicyNotes';
 import type {BeanCharge} from '@/types/crefans-beans';
 import {useBeans} from './BeanContext';
 import {Action,PageTitle} from './ServiceUI';
@@ -60,5 +61,6 @@ export function BeanChargePage(){
       {notice&&<p role="status">{notice} <Link href={`${model.basePath}/beans`}>내 콩 지갑 보기</Link></p>}
       <Action className={s.chargeSubmit} type="submit" disabled={pending||!ready}>{pending?'결제 준비 중…':order?'같은 충전 주문 다시 결제':'충전 결제하기'}</Action>
     </form>
+    <PolicyNotes title="환불·유효기간" notes={beanRefundNotes}/>
   </section>;
 }

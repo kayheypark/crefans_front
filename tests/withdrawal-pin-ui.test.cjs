@@ -18,6 +18,7 @@ const mocks={
  '@/components/ui/DialogActions':{DialogActions:({children})=>React.createElement('footer',null,children)},
  '@/components/ui/Primitives':{Field,Dialog:({open,onClose,title,children})=>open?React.createElement('section',{'data-dialog':true,'aria-label':title},React.createElement('button',{type:'button',onClick:onClose,'aria-label':'모달 닫기'},'×'),children):null},
  '../ServiceUI':{
+  ActionLink:({variant,...props})=>link(props),
   Action:({variant,...props})=>React.createElement('button',props),
   PageTitle:({children,action})=>React.createElement('header',null,React.createElement('h1',null,children),action),
   Notice:({children})=>React.createElement('aside',null,children),

@@ -6,7 +6,7 @@ for(const width of [390,1280])test(`프로모션 후원 잔액과 이벤트 보�
  await expect(page.getByText('출금 제외 후원콩',{exact:true}).locator('..')).toContainText('0콩');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  await page.screenshot({path:`test-results/promotion-wallet-${width}.png`,fullPage:true});
- await page.goto('/preview/events/beta-first');const note=page.getByText('프로모션 콩은 후원받은 사람이 출금할 수 있습니다.',{exact:false});await expect(note).toBeVisible();await expect(note).toHaveCSS('text-align','right');
+ await page.goto('/preview/events/beta-promotion-beans');const note=page.getByText('프로모션 콩은 후원받은 사람이 출금할 수 있습니다.',{exact:false});await expect(note).toBeVisible();await expect(note).toHaveCSS('text-align','right');
  await page.screenshot({path:`test-results/promotion-event-${width}.png`,fullPage:true});
 });
 test('프로모션 후원: 실제 API 출금 잔액·PIN·1000콩 예약·은행 대역 지급·중복 방지',async({page,scenario,control})=>{
