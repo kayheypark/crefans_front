@@ -1,8 +1,8 @@
 import type {ApiResult} from './crefans';
 import type {InboxContact,MessagesViewModel} from './crefans-social';
 
-/** A reply without `author` is the creator's own answer. */
-export type CommunityReply={id:string;body:string;time:string;author?:InboxContact;mentions?:InboxContact[]};
+/** Creator ownership is explicit; author is always supplied by the model. */
+export type CommunityReply={id:string;body:string;time:string;author:InboxContact;fromCreator:boolean;mentions?:InboxContact[]};
 export type CommunityComment={id:string;postId:string;author:InboxContact;body:string;time:string;hidden:boolean;replies:CommunityReply[];mentions?:InboxContact[]};
 export type CommunityPost={id:string;title:string};
 export type StudioCommunityModel={
@@ -11,5 +11,7 @@ export type StudioCommunityModel={
   comments:CommunityComment[];
   visibilityGuidance:string;
   replyToComment:(commentId:string,body:string)=>Promise<ApiResult<{message:string}>>;
+  updateReply:(commentId:string,replyId:string,body:string)=>Promise<ApiResult<{message:string}>>;
+  deleteReply:(commentId:string,replyId:string)=>Promise<ApiResult<{message:string}>>;
   setCommentHidden:(commentId:string,hidden:boolean)=>Promise<ApiResult<{message:string}>>;
 };

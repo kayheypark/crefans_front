@@ -96,7 +96,93 @@ test('a failed message action preserves its draft and does not fabricate a sent 
   close(tree);
 });
 
+test('comment rows show 수정됨, an italic deleted placeholder, and 수정·삭제 only on the viewer\'s own rows outside read-only views',async()=>{
+  const calls=[];const open={...post,requiredRank:0};
+  const list=[{id:'mine',author:creator,body:'내 댓글',time:'어제',own:true,edited:true},{id:'gone',deleted:true,author:{name:'',image:''},body:'',time:'어제',replyCount:1},{id:'other',author:creator,body:'남의 댓글',time:'어제'}];
+  const input=model({data:{...data,posts:[open]},commentsByPost:{[open.id]:list},commentCounts:{[open.id]:3},loadReplies:async()=>({...ok,data:[]}),editComment:async(...args)=>{calls.push(['edit',...args]);return ok;},deleteComment:async(...args)=>{calls.push(['delete',...args]);return ok;}});
+  const rows=tree=>tree.root.findAllByProps({className:'comment'});
+  const tree=mount(PostDetailPage,{id:open.id,model:input});
+  assert.equal(rows(tree).length,3);
+  assert.equal(rows(tree)[0].findAllByProps({className:'editedMark'}).length,1);
+  assert.equal(rows(tree)[1].props['data-deleted'],'true');
+  assert.equal(rows(tree)[1].findByProps({className:'deletedComment'}).props.children,'삭제된 댓글입니다.');
+  assert.equal(rows(tree).map(row=>row.findAllByProps({className:'commentOwnActions'}).length).join(),'1,0,0');
+  const own=()=>rows(tree)[0].findByProps({className:'commentOwnActions'}).findAllByType('button');
+  act(()=>own()[0].props.onClick());
+  const field=tree.root.findByProps({'aria-label':'댓글 수정'});
+  act(()=>field.props.onChange({target:{value:'  고친 댓글 '}}));
+  await act(async()=>tree.root.findByProps({className:'commentEdit'}).props.onSubmit({preventDefault(){}}));
+  assert.deepEqual(calls.shift(),['edit',open.id,'mine','고친 댓글']);
+  assert.equal(tree.root.findAllByProps({'aria-label':'댓글 수정'}).length,0,'edit form closes after saving');
+  act(()=>own()[1].props.onClick());
+  const confirm=tree.root.findAllByType('button').find(button=>button.props.children==='삭제'&&button.props.variant===undefined&&!button.parent?.props?.className?.includes?.('commentOwnActions'));
+  assert.ok(confirm,'delete asks for confirmation first');assert.equal(calls.length,0);
+  await act(async()=>confirm.props.onClick());
+  assert.deepEqual(calls.shift(),['delete',open.id,'mine']);
+  close(tree);
+  const readOnly=mount(PostDetailPage,{id:open.id,model:input,readOnly:true});
+  assert.equal(readOnly.root.findAllByProps({className:'commentOwnActions'}).length,0,'read-only previews never offer 수정·삭제');
+  close(readOnly);
+});
+test('답글 달기 opens an input under a live top-level comment, posts with parentId and shows the reloaded replies',async()=>{
+  const sent=[];const open={...post,requiredRank:0};let replies=[];
+  const list=[{id:'top',author:creator,body:'원댓글',time:'어제',replyCount:0},{id:'gone',deleted:true,author:{name:'',image:''},body:'',time:'어제',replyCount:1}];
+  const input=model({data:{...data,posts:[open]},commentsByPost:{[open.id]:list},commentCounts:{[open.id]:2},addComment:async(...args)=>{sent.push(args);replies=[{id:'r-new',author:creator,body:args[1],time:'방금',own:true}];return ok;},loadReplies:async()=>({...ok,data:replies})});
+  const tree=mount(PostDetailPage,{id:open.id,model:input});
+  const replyButtons=()=>tree.root.findAllByProps({className:'commentReplyAction'});
+  assert.equal(replyButtons().length,1,'only the live top-level comment offers 답글 달기 (not the deleted placeholder)');
+  act(()=>replyButtons()[0].props.onClick());
+  const field=tree.root.findByProps({'aria-label':'답글 쓰기'});
+  assert.equal(field.props.placeholder,'새로운 작가님에게 답글');
+  act(()=>field.props.onChange({target:{value:'  답글 내용 '}}));
+  await act(async()=>tree.root.findByProps({className:'commentEdit replyForm'}).props.onSubmit({preventDefault(){}}));
+  assert.deepEqual(sent,[[open.id,'답글 내용','top']]);
+  assert.equal(tree.root.findAllByProps({'aria-label':'답글 쓰기'}).length,0,'the input closes after posting');
+  assert.deepEqual(tree.root.findAllByProps({className:'replies'})[0].findAllByType('p').map(node=>node.props.children).filter(Boolean),['답글 내용']);
+  close(tree);
+  const readOnly=mount(PostDetailPage,{id:open.id,model:input,readOnly:true});
+  assert.equal(readOnly.root.findAllByProps({className:'commentReplyAction'}).length,0,'read-only previews cannot reply');
+  close(readOnly);
+});
+test('mock replies land under their parent, bump replyCount and reject a deleted parent',async()=>{
+  let state;const me={name:'검수자',image:'/viewer.png'};
+  function Probe(){state=useMockSocial({data,viewer:me,canAccess:()=>true,today:'2030-01-01',initialComments:{[post.id]:[{id:'top',author:creator,body:'원댓글',time:'어제',replyCount:0},{id:'gone',deleted:true,author:{name:'',image:''},body:'',time:'어제',replyCount:1}]},initialReplies:{gone:[{id:'g1',author:creator,body:'남은 답글',time:'방금'}]},replyDelay:0});return null;}
+  const tree=mount(Probe);const start=state.commentCounts[post.id];let result;
+  await act(async()=>{result=await state.addComment(post.id,'내 답글','top');});
+  assert.equal(result.success,true);
+  await act(async()=>{result=await state.loadReplies(post.id,'top');});
+  assert.deepEqual(result.data.map(r=>[r.body,r.own]),[['내 답글',true]]);
+  assert.equal(state.commentsByPost[post.id].length,2,'a reply is not a new top-level comment');
+  assert.equal(state.commentsByPost[post.id][0].replyCount,1);assert.equal(state.commentCounts[post.id],start+1);
+  await act(async()=>{result=await state.addComment(post.id,'삭제된 곳','gone');});
+  assert.equal(result.errorCode,'INVALID_PARENT');
+  close(tree);
+});
 const {useMockSocial}=loadTypeScript('components/preview/service/useMockSocial.ts');
+test('mock adapter edits and deletes only the viewer\'s own comments, keeping a deleted parent as a placeholder while replies remain',async()=>{
+  let state;const me={name:'검수자',image:'/viewer.png'};
+  function Probe(){state=useMockSocial({data,viewer:me,canAccess:()=>true,today:'2030-01-01',initialComments:{[post.id]:[{id:'mine',author:me,body:'내 댓글',time:'어제',replyCount:2,own:true},{id:'other',author:creator,body:'남의 댓글',time:'어제'}]},initialReplies:{mine:[{id:'r1',author:me,body:'내 답글',time:'방금',own:true},{id:'r2',author:creator,body:'답글',time:'방금'}]},replyDelay:0});return null;}
+  const tree=mount(Probe);const count=()=>state.commentCounts[post.id];const start=count();let result;
+  await act(async()=>{result=await state.editComment(post.id,'other','바꿈');});
+  assert.equal(result.errorCode,'NOT_COMMENT_AUTHOR');
+  await act(async()=>{result=await state.deleteComment(post.id,'other');});
+  assert.equal(result.errorCode,'NOT_COMMENT_AUTHOR');assert.equal(state.commentsByPost[post.id].length,2);
+  await act(async()=>{result=await state.editComment(post.id,'mine','  고친 댓글  ');});
+  assert.equal(result.success,true);
+  assert.deepEqual(state.commentsByPost[post.id].map(c=>[c.body,!!c.edited]),[['고친 댓글',true],['남의 댓글',false]]);
+  await act(async()=>{result=await state.editComment(post.id,'r1','고친 답글');});
+  await act(async()=>{result=await state.loadReplies(post.id,'mine');});
+  assert.deepEqual(result.data.map(r=>[r.body,!!r.edited]),[['고친 답글',true],['답글',false]]);
+  await act(async()=>{result=await state.deleteComment(post.id,'mine');});
+  const placeholder=state.commentsByPost[post.id][0];
+  assert.equal(placeholder.deleted,true);assert.equal(placeholder.body,'');assert.equal(placeholder.own,false);assert.equal(count(),start-1);
+  await act(async()=>{result=await state.editComment(post.id,'mine','부활');});
+  assert.equal(result.errorCode,'COMMENT_NOT_FOUND');
+  await act(async()=>{result=await state.deleteComment(post.id,'r1');});
+  await act(async()=>{result=await state.loadReplies(post.id,'mine');});
+  assert.deepEqual(result.data.map(r=>r.id),['r2']);assert.equal(state.commentsByPost[post.id][0].replyCount,1);assert.equal(count(),start-2);
+  close(tree);
+});
 test('mock adapter denies unauthorized comments and blocked or whitespace messages without mutating data',async()=>{
   let state;
   function Probe(){state=useMockSocial({data,viewer:{name:'검수자',image:'/viewer.png'},canAccess:()=>false,today:'2030-01-01',initialComments:{[post.id]:[{id:'c1',author:creator,body:'댓글',time:'어제',replyCount:1}]},initialReplies:{c1:[{id:'c1-r1',author:creator,body:'답글',time:'방금',fromCreator:true}]},replyDelay:0});return null;}
@@ -138,7 +224,7 @@ test('feed card opens comments inline with paging and mentions instead of naviga
     assert.match(JSON.stringify(tree.toJSON()),/13개 남음/);
     act(()=>more.props.onClick());
     assert.equal(tree.root.findAllByProps({className:'comment'}).filter(node=>node.parent?.props?.className!=='replies').length,20);
-    assert.ok(tree.root.findAllByProps({className:'mention'}).length>0);
+    assert.ok(tree.root.findAllByProps({className:'mentionLink'}).length>0);
     assert.equal(tree.root.findAllByProps({className:'replies'}).length,0,'replies are not shipped with the list');
     const creatorRows=tree.root.findAllByProps({className:'comment'}).filter(node=>node.props['data-creator']===true);
     assert.ok(creatorRows.length>0,'creator top-level comments are highlighted');
@@ -165,7 +251,7 @@ test('feed card opens comments inline with paging and mentions instead of naviga
 
 test('post ··· menu offers 신고·공유 and 수정 only for own posts, reports through the model, and stays inert in readOnly previews',async()=>{
   const reports=[];
-  const input=model({data,ownCreatorIds:[creator.id],reportPost:async id=>{reports.push(id);return ok;}});
+  const input=model({data,ownCreatorIds:[creator.id],reportPost:async (id,reason)=>{reports.push([id,reason]);return ok;}});
   let tree;act(()=>{tree=create(element(PostCard,{post,model:input}));});
   try{
     const trigger=()=>tree.root.findAllByType('button').find(button=>button.props['aria-haspopup']==='menu');
@@ -176,8 +262,12 @@ test('post ··· menu offers 신고·공유 and 수정 only for own posts, repo
     assert.equal(menu.findAllByType('a')[0].props.href,'/actual-service/studio/content/exhibition/edit');
     act(()=>menu.findAll(node=>node.props.role==='menuitem'&&typeof node.type==='string')[0].props.onClick());
     assert.equal(tree.root.findAllByProps({role:'menu'}).length,0);
-    await act(async()=>tree.root.findAllByType('button').find(button=>button.children.includes('신고하기')).props.onClick());
-    assert.deepEqual(reports,[post.id]);assert.match(JSON.stringify(tree.toJSON()),/서버 확인/);
+    const submit=()=>tree.root.findAllByType('button').find(button=>button.children.includes('신고하기'));
+    assert.equal(submit().props.disabled,true,'a reason must be chosen first');
+    assert.deepEqual(tree.root.findAll(node=>node.type==='input'&&node.props.type==='radio').length,6);
+    act(()=>tree.root.findAll(node=>node.type==='input'&&node.props.type==='radio')[4].props.onChange({target:{checked:true}}));
+    await act(async()=>submit().props.onClick());
+    assert.deepEqual(reports,[[post.id,'PRIVACY']]);assert.match(JSON.stringify(tree.toJSON()),/서버 확인/);
   }finally{act(()=>tree.unmount());}
   let other;act(()=>{other=create(element(PostCard,{post,model:model({data})}));});
   try{
@@ -421,7 +511,8 @@ test('mobile detail panel follows the pointer and snaps to all three heights; ca
     const dialog=()=>tree.root.findByProps({role:'dialog'}),handle=()=>tree.root.findByProps({className:'panelHandle'});
     const event=(y,extra={})=>({pointerId:1,isPrimary:true,button:0,clientX:180,clientY:y,currentTarget:handleNode,...extra});
     const drag=(from,to)=>{act(()=>handle().props.onPointerDown(event(from)));act(()=>handle().props.onPointerMove(event(to)));act(()=>handle().props.onPointerUp(event(to)));};
-    assert.equal(dialog().props['data-panel-snap'],0);
+    assert.equal(dialog().props['data-panel-snap'],1,'mobile gallery opens at media peek');
+    drag(200,900);assert.equal(dialog().props['data-panel-snap'],0);
     act(()=>handle().props.onPointerDown(event(470)));
     act(()=>handle().props.onPointerMove(event(200)));
     assert.ok(parseFloat(dialog().props.style['--post-media-height'])<30,'panel follows the vertical drag');
@@ -451,8 +542,9 @@ test('panel handle supports tap and keyboard alternatives, including boundaries'
   try{
     act(()=>tree.root.findAllByType('button').find(button=>String(button.props['aria-label']).includes('크게 보기')).props.onClick());
     const handle=()=>tree.root.findByProps({className:'panelHandle'}),dialog=()=>tree.root.findByProps({role:'dialog'});
-    for(const snap of [1,2,0]){act(()=>handle().props.onClick({detail:0}));assert.equal(dialog().props['data-panel-snap'],snap);}
-    for(const [key,snap] of [['ArrowUp',1],['ArrowUp',2],['ArrowUp',2],['ArrowDown',1],['Home',0],['ArrowDown',0],['End',2]]){
+    assert.equal(dialog().props['data-panel-snap'],1,'opens at media peek');
+    for(const snap of [2,0,1]){act(()=>handle().props.onClick({detail:0}));assert.equal(dialog().props['data-panel-snap'],snap);}
+    for(const [key,snap] of [['ArrowUp',2],['ArrowUp',2],['ArrowDown',1],['Home',0],['ArrowDown',0],['End',2]]){
       act(()=>handle().props.onKeyDown({key,preventDefault(){}}));assert.equal(dialog().props['data-panel-snap'],snap);
     }
     assert.match(handle().props['aria-label'],/상세 전체 보기/);
@@ -469,6 +561,7 @@ test('mobile media expansion restores visible gallery panel heights without rese
     act(()=>dialog().findByProps({'aria-label':'다음 미디어'}).props.onClick());
     const video=dialog().findByType('video');
     let stopped=0;
+    act(()=>handle().props.onKeyDown({key:'Home',preventDefault(){}}));
     for(const [snap,height] of [[0,'56%'],[1,'22%']]){
       assert.equal(dialog().props['data-panel-snap'],snap);
       act(()=>toggle().props.onClick({stopPropagation(){stopped++;}}));
@@ -497,4 +590,66 @@ test('feed, detail and read-only preview share supplied views without manufactur
   const tree=mount(Component,props);const count=tree.root.findByProps({'data-post-views':24831});assert.equal(count.props['aria-label'],'조회수 24,831회');close(tree);
  }
  const missing=mount(PostCard,{post,model:model({data})});assert.equal(missing.root.findAll(item=>item.props['data-post-views']!==undefined).length,0);close(missing);
+});
+
+test('mobile gallery image tap toggles full media mode and restores the panel; desktop remains unchanged',()=>{
+ for(const media of [undefined,[{type:'image',url:'/one.png'},{type:'image',url:'/two.png'}]]){
+  const viewport={clientWidth:390,clientHeight:800},gallery={...post,media};let tree;
+  act(()=>{tree=create(element(PostCard,{post:gallery,model:model({data})}),{createNodeMock:node=>node.props.role==='dialog'?viewport:null});});
+  try{
+   act(()=>tree.root.findAllByType('button').find(b=>String(b.props['aria-label']).includes('크게 보기')).props.onClick());
+   const dialog=()=>tree.root.findByProps({role:'dialog'}),stage=()=>dialog().findByProps({className:'stage'});
+   const tap=()=>{const e={pointerId:1,isPrimary:true,button:0,clientX:150,clientY:150,target:{tagName:'IMG'}};act(()=>stage().props.onPointerDown(e));act(()=>stage().props.onPointerUp(e));act(()=>stage().props.onClick({...e,stopPropagation(){}}));};
+   assert.equal(dialog().props['data-panel-snap'],1,'mobile gallery opens at media peek');
+   for(const width of [390,767]){viewport.clientWidth=width;tap();assert.equal(dialog().props['data-media-expanded'],true);assert.equal(dialog().props.style['--post-media-height'],'100%');tap();assert.equal(dialog().props['data-media-expanded'],undefined);assert.equal(dialog().props['data-panel-snap'],1);assert(Math.abs(parseFloat(dialog().props.style['--post-media-height'])-22)<.001);}
+   for(const width of [768,1280]){viewport.clientWidth=width;tap();assert.equal(dialog().props['data-media-expanded'],undefined,'desktop image click must not hide its side panel');}
+  }finally{close(tree);}
+ }
+});
+
+test('mobile gallery image tap ignores drag-release, cancelled, multitouch and video gestures',()=>{
+ const gallery={...post,media:[{type:'image',url:'/one.png'},{type:'image',url:'/two.png'},{type:'video',url:'/clip.mp4'}]},viewport={clientWidth:390,clientHeight:800};let tree;
+ act(()=>{tree=create(element(PostCard,{post:gallery,model:model({data})}),{createNodeMock:node=>node.props.role==='dialog'?viewport:null});});
+ try{
+  act(()=>tree.root.findAllByType('button').find(b=>String(b.props['aria-label']).includes('크게 보기')).props.onClick());
+  const dialog=()=>tree.root.findByProps({role:'dialog'}),stage=()=>dialog().findByProps({className:'stage'}),track=()=>dialog().findByProps({className:'stageTrack'});
+  const e=(x=200,y=200,extra={})=>({pointerId:1,isPrimary:true,button:0,clientX:x,clientY:y,target:{tagName:'IMG'},stopPropagation(){},...extra});
+  const release=(event)=>{act(()=>stage().props.onPointerUp(event));act(()=>stage().props.onClick(event));};
+  for(const [dx,dy] of [[-100,0],[8,0],[0,60]]){act(()=>stage().props.onPointerDown(e()));act(()=>stage().props.onPointerMove(e(200+dx,200+dy)));release(e(200+dx,200+dy));assert.equal(dialog().props['data-media-expanded'],undefined);}
+  assert.equal(track().props['data-index'],1,'swipe still advances to next image');
+  act(()=>stage().props.onPointerDown(e()));act(()=>stage().props.onPointerCancel());release(e());assert.equal(dialog().props['data-media-expanded'],undefined);
+  act(()=>stage().props.onPointerDown(e()));act(()=>stage().props.onPointerDown(e(210,210,{pointerId:2,isPrimary:false})));release(e());assert.equal(dialog().props['data-media-expanded'],undefined);
+  act(()=>stage().props.onPointerDown(e()));act(()=>stage().props.onPointerMove(e(202,201)));release(e(202,201));assert.equal(dialog().props['data-media-expanded'],true,'small finger jitter still counts as tap');assert.equal(track().props['data-index'],1);
+  act(()=>dialog().findByProps({className:'mediaExpand'}).props.onClick({stopPropagation(){}}));
+  act(()=>dialog().findByProps({'aria-label':'다음 미디어'}).props.onClick());const video=dialog().findByType('video');const v=e(200,200,{target:{tagName:'VIDEO'}});act(()=>stage().props.onPointerDown(v));release(v);assert.equal(dialog().props['data-media-expanded'],undefined);assert.equal(dialog().findByType('video'),video);
+ }finally{close(tree);}
+});
+
+test('posting a preview comment preserves the current viewer commemorative badge without granting verification',async()=>{
+ const {previewViewer}=loadTypeScript('components/preview/founding-members.ts');
+ let state;
+ function Probe(){state=useMockSocial({data,viewer:previewViewer,canAccess:()=>true,today:'2030-01-01'});return null;}
+ const tree=mount(Probe);
+ await act(async()=>{const result=await state.addComment(post.id,'베타 참여 댓글');assert.equal(result.success,true);});
+ const author=state.commentsByPost[post.id][0].author;
+ assert.equal(author.name,previewViewer.name);
+ assert.equal(author.isFoundingMember,true);
+ assert.equal(author.isVerified,undefined);
+ close(tree);
+});
+test('mobile footer with operator details follows a non-empty home feed',()=>{
+  const tree=mount(FeedPage,{model:model({data,mode:'mock'})});
+  assert.ok(tree.root.findAllByType(PostCard).length>0);
+  assert.equal(tree.root.findAllByProps({'aria-label':'사업자 정보'}).length,1);
+  assert.equal(tree.root.findAllByProps({'aria-label':'서비스 안내'}).length,1);
+  close(tree);
+});
+
+test('a membership post header shows the monthly KRW price after its access label and never a bean conversion',()=>{
+  const heading=input=>{let tree;act(()=>{tree=create(element(PostCard,{post:input.post,model:model({data:{...data,...input.data}})}));});try{return tree.root.findByProps({className:'postHeading'}).findByType('small').children.join('');}finally{act(()=>tree.unmount());}};
+  assert.match(heading({post}),/멤버십 전용 · 월 ₩7,000$/);
+  const plans=[{id:'a',name:'A',rank:2,price:9900,benefits:[]},{id:'b',name:'B',rank:3,price:19900,benefits:[]},{id:'c',name:'C',rank:2,price:5000,benefits:[],available:false}];
+  assert.match(heading({post,data:{plans}}),/월 ₩9,900부터$/,'cheapest on-sale plan, retired plans ignored');
+  assert.match(heading({post:{...post,requiredPlanId:'b'},data:{plans}}),/월 ₩19,900$/);
+  assert.doesNotMatch(heading({post:{...post,requiredRank:0}}),/월 ₩/);assert.doesNotMatch(heading({post,data:{plans}}),/콩/);
 });

@@ -17,7 +17,7 @@ const {useMockCommunity}=loadTypeScript('components/preview/studio/useMockCommun
 const fan={id:'api-fan',name:'서버 팬',image:'/fan-api.png'};
 const comment={id:'api-comment',postId:'api-post',author:fan,body:'주입된 댓글',time:'어제',hidden:false,replies:[]};
 const ok={success:true,data:{message:'처리 완료'},errorMessage:null,errorCode:null};
-function model(overrides={}){return {inbox:{data:{creators:[]}},posts:[{id:'api-post',title:'API 게시물'}],comments:[],visibilityGuidance:'전달된 상태 안내',replyToComment:async()=>ok,setCommentHidden:async()=>ok,...overrides};}
+function model(overrides={}){return {inbox:{data:{creators:[]}},posts:[{id:'api-post',title:'API 게시물'}],comments:[],visibilityGuidance:'전달된 상태 안내',replyToComment:async()=>ok,updateReply:async()=>ok,deleteReply:async()=>ok,setCommentHidden:async()=>ok,...overrides};}
 function mount(Component,props){let tree;act(()=>{tree=create(el(Component,props));});return tree;}
 const close=tree=>act(()=>tree.unmount());
 
@@ -67,5 +67,14 @@ test('studio comment list pages ten threads at a time and shows mentions and fan
   assert.equal(tree.root.findAllByType('article').length,3);
   const text=JSON.stringify(tree.toJSON());
   assert.match(text,/@/);
+ }finally{close(tree);}
+});
+
+test('creator reply mock uses the selected identity and permits only own reply changes',async()=>{
+ let state;function Probe(){state=useMockCommunity({creatorId:'moka',creatorName:'모카',creatorImage:'/moka.png',posts:[{id:'post-a',title:'게시물'}],fans:[fan]});return null;}const tree=mount(Probe);try{const id=state.comments[0].id;await act(async()=>{await state.replyToComment(id,'새 답글');});let reply=state.comments[0].replies[0];assert.equal(reply.author.name,'모카');assert.equal(reply.author.image,'/moka.png');assert.equal(reply.fromCreator,true);
+ await act(async()=>{assert.equal((await state.updateReply(id,reply.id,'수정 내용')).success,true);});assert.equal(state.comments[0].replies[0].body,'수정 내용');
+ await act(async()=>{assert.equal((await state.updateReply(id,reply.id,'  ')).success,false);});assert.equal(state.comments[0].replies[0].body,'수정 내용');
+ const fanComment=state.comments.find(c=>c.replies.some(r=>!r.fromCreator)),fanReply=fanComment.replies.find(r=>!r.fromCreator);await act(async()=>{assert.equal((await state.updateReply(fanComment.id,fanReply.id,'변조')).success,false);assert.equal((await state.deleteReply(fanComment.id,fanReply.id)).success,false);assert.equal((await state.deleteReply('wrong',reply.id)).success,false);});
+ await act(async()=>{assert.equal((await state.deleteReply(id,reply.id)).success,true);});assert.equal(state.comments[0].replies.length,0);await act(async()=>{assert.equal((await state.deleteReply(id,reply.id)).success,false);});
  }finally{close(tree);}
 });
