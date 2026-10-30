@@ -1,5 +1,39 @@
 # PROGRESS: crefans_front
 
+## 2026-10-30 후원 구분 라벨에 동전 아이콘 (미배포, 커밋 완료·푸시 안 함)
+- 사용자 요청: '게시물 후원'·'프로필 후원' 구분 라벨(`BeanAttribution.BeanTipKind`) 왼쪽에 기존 후원 동전 아이콘(`/brand/post-actions/support-coin-flat-v1.png`, 18px, 장식용 alt "")을 넣음. 보낸 후원·지갑 내역·스튜디오 받은 후원에 함께 적용.
+- 검증: 390·1280px 캡처(보낸 후원 20개·스튜디오 받은 후원 2개 아이콘 표시), `npm run -s check`, e2e beans(아래 커밋 메시지 참조).
+
+## 2026-10-30 후원 구분 왼쪽 동전 이미지
+- 공용 BeanTipKind에 기존 포스팅 후원 동전 에셋 `/brand/post-actions/support-coin-flat-v1.png`를18px로 재사용. 게시물 후원·프로필 후원 문구 왼쪽6px 간격·세로중앙 정렬, 장식이미지 alt빈값·aria-hidden. 보낸 후원과 콩 이동 내역의 공유 구분 표시에 적용. 메시지 위16px 간격 유지.
+- 검증: 관련 단위7개 PASS. 로컬 Chromium390/1280에서 tips/history4조합의 보이는 동전 로드·18×18px·문구 왼쪽6px·가로넘침없음 확인, 모바일 육안검수. 증거 `.local/bean-history-edge-20261030/coin-tests.log`, `coin-verification.json`, `coin-390.png`, `coin-1280.png`. 운영 미배포.
+
+## 2026-10-30 보낸 후원 메시지 위 간격 수정
+- 원인: 서비스 셸 `.root p`의 margin-top:0이 `.tipMessage`보다 우선해 모바일·PC 모두 실제 간격0px. `.historyItem>.tipMessage`에 margin16px 0 0을 적용하고 기존 모바일8px 선언 제거. 게시물 제목 링크 또는 프로필 정보와 메시지 박스 사이를 공통16px로 보정. 메시지 없는 항목에는 여백 추가 없음.
+- 검증: 로컬 Playwright Chromium390/767/1280에서 게시물·프로필 후원 메시지 전 항목의 실제 간격16px, 가로넘침없음 확인(종료0). 모바일 스크린샷 육안검수. CSS만 수정하여 단위검사/빌드 반복 안 함. 증거 `.local/bean-history-edge-20261030/message-gap-verification.json`, `message-gap-390.png`, `message-gap-1280.png`. 목업/실서비스 공용 CSS이며 운영 미배포.
+
+## 2026-10-30 보낸 후원 구분을 아바타 위로 이동
+- 게시물 후원·프로필 후원을 각 항목 맨 위에 표시. 그 아래 아바타·이름·인증배지·핸들·콩 수량, 게시물 링크·메시지·시각 순으로 배치. 공용 BeanTipKind를 분리하고 BeanTipSource의 기본 동작은 유지하여 다른 사용처의 구분 표시는 보존.
+- 관련 단위7개 종료0. 로컬 Chromium390/1280 각20항목에서 구분 위치가 아바타 위이며 중복 구분0, 아바타20개 로드·배지/핸들·가로넘침없음 확인. 모바일 스크린샷 육안 검수. 증거 `.local/bean-history-edge-20261030/kind-verification.json`, `kind-tests.log`, 최신 `identity-*.png`/`identity-browser.json`. 운영 미배포.
+
+## 2026-10-30 보낸 후원 인증배지·핸들
+- 아바타 옆 이름에 공용 CreatorName 인증배지, 아래 @핸들에 공용 MarqueeText 적용. BeanTip creatorHandle/creatorIsVerified를 목업 초기내역·새후원 및 실제 서버 후원목록 응답에 연결. 미인증은 배지없음, 핸들없음은 행생략.
+- 단위9개·프론트typecheck·서버build 통과. 목업 PC/모바일 표시 검증은 front `.local/bean-history-edge-20261030/identity-*`. 운영 미배포·실API 응답 검증 미실행.
+
+
+## 2026-10-30 보낸 후원 크리에이터 아바타
+- 공용 BeanHistoryView 크리에이터 링크에 공용 Avatar36px 추가. creatorAvatar 선택필드를 BeanTip 및 목업 초기내역/새후원 데이터에 연결. 서버 후원목록 creators조회에서 avatar를 선택해 creatorAvatar로 반환(미등록null), 기존권한/결제/후원처리 불변.
+- 검증: 프론트 bean-history/bean-wallet-pages 9검사·typecheck 종료0, 서버 npm run build 종료0. 목업 Chromium390/1280에서 각20항목 아바타20개·이미지로드·가로넘침없음 확인, 모바일 육안확인. 증거 front `.local/bean-history-edge-20261030/avatar-*`. 실API 수신 검증과 운영 배포는 미실행.
+
+
+## 2026-10-30 콩 이력 모바일 세로 간격 후속 보정
+- 필터 내부12px, 필터→건수20px, 건수→첫 항목16px. 항목 상하24px(첫 항목 위16px), 날짜→정보12px, 금액4px/메타6px/후원 내용8px/버튼12px로 관련정보 묶음. 기존 전체너비·좌우16px 유지, PC는 변경하지 않음.
+- Playwright 3페이지×390/767/1280px9조합에서 양끝·내부패딩·가로넘침 확인, PC전후 동일. 후원 목록 육안검수. CSS전용 수정으로 제품 단위검사 반복 안 함. 증거 `.local/bean-history-edge-20261030/spacing-verification.json`, `spacing-after.json`, 최신 after-*.png. 운영 미배포.
+
+## 2026-10-30 콩 이력 3페이지 모바일 전체 너비 목록
+- 충전 주문·콩 이동 내역·보낸 후원의 공용 BeanHistoryView에 historyPage 클래스 추가. 767px 이하에서 래퍼 최대너비 해제, 목록 좌우-16px, 항목 간격0/테두리0/모서리0/내부16px. 메시지·알림 모바일 목록과 같은 좌우 패딩이며 PC는 유지. 목업·실서비스 공용 표시 컴포넌트에 적용.
+- 검증: 로컬 Playwright 3페이지×390/767/1280px 전후9조합. 모바일 양끝0/viewport·안쪽16px·테두리/모서리0·가로넘침없음, PC전후측정동일. 충전 주문 스크린샷 육안확인. 기존 bean-history/bean-wallet-pages 검사 로그 및 소스SHA·HEAD·측정증거는 `.local/bean-history-edge-20261030/`. 운영 배포 요청 없음, 로컬만 수정.
+
 ## 2026-10-30 후원 창 닉네임·핸들 간격 축소 (운영 배포 tip-consent-20261030, 커밋 완료·푸시 안 함)
 - 사용자 지적: 아바타 오른쪽 닉네임과 아래 핸들 사이가 너무 넓음. 측정 결과 margin 4px에 닉네임 줄높이 1.6(25.6px)·핸들 줄높이 1.6(22.4px)의 위아래 여백이 더해져 글자 사이가 약 13px.
 - `beans.module.css`: 핸들 margin-top 0·line-height 1.4, 닉네임(내부 마키 포함) line-height 1.35. 측정 후 상자 간격 0px(닉네임 23px·핸들 20px), 390·1280px 후원 입력·확인 창 캡처 확인. 아래 안내 문구 간격은 그대로.
