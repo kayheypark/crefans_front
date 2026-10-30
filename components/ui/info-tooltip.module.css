@@ -4,3 +4,6 @@
 .trigger:hover{background:var(--cf-color-accentSoft)}
 .trigger:focus-visible{outline:2px solid var(--cf-color-accent);outline-offset:-4px}
 .popup{position:fixed;inset:auto;margin:0;box-sizing:border-box;width:min(260px,calc(100vw - 16px));padding:12px 14px;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control);background:var(--cf-color-surface);color:var(--cf-color-textSecondary);box-shadow:var(--cf-shadow-popover);font:400 14px/1.6 var(--cf-typography-fontFamily);text-align:left;word-break:keep-all;overflow-wrap:anywhere;z-index:1000}
+
+/* Badge-shaped trigger: no extra hit padding around the image; the image keeps its own size. */
+.customTrigger{width:auto;height:auto;padding:2px;border-radius:6px}.customTrigger img{width:auto;height:auto}

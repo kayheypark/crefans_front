@@ -5,7 +5,5 @@
 .viewport:hover>.track,a:focus-visible .track,button:focus-visible .track{animation-play-state:paused}
 .viewport[data-paused=true]{overflow:visible;text-align:inherit}
 .viewport[data-paused=true]>.track{width:auto;max-width:100%;white-space:normal;overflow-wrap:anywhere;animation:none;transform:none}
-.control{display:inline-flex;align-items:center;min-height:44px;padding:8px 0;border:0;background:transparent;color:inherit;font:inherit;font-size:14px;cursor:pointer;text-align:left}
-.control:focus-visible{outline:2px solid var(--cf-service-brand,var(--cf-color-accent));outline-offset:3px}
 @keyframes marqueeText{0%,12%{transform:translateX(0)}88%,100%{transform:translateX(var(--marquee-end))}}
 @media(prefers-reduced-motion:reduce){.viewport{overflow:visible;text-align:inherit}.viewport>.track{width:auto;max-width:100%;white-space:normal;overflow-wrap:anywhere;animation:none!important;transform:none}}

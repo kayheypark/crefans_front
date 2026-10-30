@@ -15,3 +15,7 @@
 .table tbody tr:hover{background:var(--cf-color-accentSoft)}
 .table .message{text-align:center;padding:36px 18px;color:var(--cf-color-textMuted)}
 @media(max-width:600px){.table th,.table td{padding:11px 13px}.table caption{padding:14px 13px}}
+
+.sortIcon{display:inline-flex;flex:none}
+.sortIcon svg{display:block}
+.sortIcon[data-direction=asc] .sortDown,.sortIcon[data-direction=desc] .sortUp{opacity:.28}

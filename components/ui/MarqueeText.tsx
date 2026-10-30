@@ -31,9 +31,9 @@ export function MarqueeText({text,className=''}:{text:string;className?:string})
 }
 
 /** Device preference shared across pages; stopping reveals full labels without motion. */
-export function MarqueeMotionControl({variant='button'}:{variant?:'button'|'switch'}){
+export function MarqueeMotionControl(){
   const stopped=useTextMotionPaused();
   function setEnabled(enabled:boolean){paused=!enabled;try{localStorage.setItem(preferenceKey,paused?'off':'on');}catch{}window.dispatchEvent(new Event(changeEvent));}
-  if(variant==='switch')return <Toggle label="텍스트 움직임" checked={!stopped} onChange={setEnabled}/>;
-  return <button type="button" className={s.control} aria-pressed={stopped} onClick={()=>setEnabled(stopped)}>{stopped?'텍스트 움직임 켜기':'텍스트 움직임 끄기'}</button>;
+  return <Toggle label="텍스트 움직임" checked={!stopped} onChange={setEnabled}/>;
 }
+

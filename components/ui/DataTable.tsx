@@ -40,7 +40,7 @@ export function DataTable<T>({rows,columns,rowKey,sort,onSortChange,caption,load
       <thead><tr>{columns.map(column=>{
         const direction=sort?.key===column.key?sort.direction:null;
         return <th key={column.key} scope="col" aria-sort={column.sortValue?(direction==='asc'?'ascending':direction==='desc'?'descending':'none'):undefined}>
-          {column.sortValue?<button type="button" disabled={loading} onClick={()=>changeSort(column.key)} aria-label={`${column.label}: ${direction==='asc'?'내림차순 정렬':direction==='desc'?'기본 순서로 보기':'오름차순 정렬'}`}>{column.label}<span aria-hidden="true">{direction==='asc'?'↑':direction==='desc'?'↓':'↕'}</span></button>:column.label}
+          {column.sortValue?<button type="button" disabled={loading} onClick={()=>changeSort(column.key)} aria-label={`${column.label}: ${direction==='asc'?'내림차순 정렬':direction==='desc'?'기본 순서로 보기':'오름차순 정렬'}`}>{column.label}<span className={s.sortIcon} data-direction={direction||'none'} aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path className={s.sortUp} d="M5 6.5 8 3.5l3 3"/><path className={s.sortDown} d="M5 9.5 8 12.5l3-3"/></svg></span></button>:column.label}
         </th>;
       })}</tr></thead>
       <tbody>{loading?<tr><td colSpan={Math.max(columns.length,1)} className={s.message}><span role="status">불러오는 중이에요.</span></td></tr>:visible.length?visible.map(({row})=><tr key={rowKey(row)}>{columns.map(column=><td key={column.key}>{column.render(row)}</td>)}</tr>):<tr><td colSpan={Math.max(columns.length,1)} className={s.message}>{emptyMessage}</td></tr>}</tbody>

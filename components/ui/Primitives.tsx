@@ -3,13 +3,13 @@ import {MarqueeText} from '@/components/ui/MarqueeText';
 import { useEffect, useId, useRef, useState } from 'react';
 import type { ButtonHTMLAttributes, KeyboardEvent, ReactNode } from 'react';
 import {designTokens} from '@/lib/design/tokens';
+export {Toast} from './Toast';
 import {usePresence} from './usePresence';
 import s from './ui.module.css';
 export {Field,TextAreaField} from './Field';
 export {SelectField} from './SelectField';
 let scrollLocks=0;
 let originalOverflow='';
-const toastDuration=4000;
 
 export function Button({tone='brand', loading=false, children, className='', disabled, ...props}: ButtonHTMLAttributes<HTMLButtonElement> & {tone?:'brand'|'secondary'|'quiet'|'danger';loading?:boolean}) {
   return <button {...props} disabled={disabled || loading} aria-busy={loading || undefined} className={`${s.button} ${s[tone]} ${className}`}>{loading && <span className={s.spinner} aria-hidden="true" />}{children}</button>;
@@ -17,7 +17,8 @@ export function Button({tone='brand', loading=false, children, className='', dis
 export function Chip({selected=false,children,onClick,icon}: {selected?:boolean;children:ReactNode;onClick?:()=>void;icon?:ReactNode}) {
   return <button type="button" className={`${s.chip}${icon?` ${s.chipWithIcon}`:''}`} aria-pressed={selected} onClick={onClick}>{icon&&<span className={s.chipIcon} aria-hidden="true">{icon}</span>}{children}</button>;
 }
-export function Badge({children,tone='brand'}:{children:ReactNode;tone?:'brand'|'success'|'danger'}) {return <span className={s.badge} data-tone={tone}>{children}</span>;}
+/** `outline` is a small bordered gray label (e.g. AD); `label` gives it a spoken name when the visible text is an abbreviation. */
+export function Badge({children,tone='brand',label}:{children:ReactNode;tone?:'brand'|'success'|'danger'|'outline';label?:string}) {return <span className={s.badge} data-tone={tone} {...(label?{role:'img','aria-label':label,title:label}:{})}>{children}</span>;}
 export function EmptyState({title,description,action}:{title:string;description:string;action?:ReactNode}) {return <div className={s.empty} role="status"><p className={s.emptyTitle}>{title}</p><p>{description}</p>{action}</div>;}
 export function Dialog({open,onClose,title,children,sheet=false}:{open:boolean;onClose:()=>void;title:string;children:ReactNode;sheet?:boolean}) {
   const ref=useRef<HTMLDialogElement>(null), titleRef=useRef<HTMLHeadingElement>(null), id=useId();
@@ -37,12 +38,4 @@ export function Dialog({open,onClose,title,children,sheet=false}:{open:boolean;o
     items[next].focus();
   }
   return <dialog ref={ref} className={`${s.dialog} ${sheet?s.sheet:''}`} data-state={open?'open':'closing'} aria-labelledby={id} onKeyDown={keepFocus} onCancel={e=>{if(e.target!==e.currentTarget)return;e.preventDefault();if(open)onClose();}} onClose={()=>{if(open)onClose();}} onClickCapture={e=>{if(!open){e.preventDefault();e.stopPropagation();}}} onClick={e=>{if(e.target===e.currentTarget){const b=e.currentTarget.getBoundingClientRect();if(e.clientX<b.left || e.clientX>b.right || e.clientY<b.top || e.clientY>b.bottom)onClose();}}}><header><h2 ref={titleRef} id={id} tabIndex={-1}><MarqueeText text={open?title:snapshot.title}/></h2><button type="button" className={`${s.iconButton} ${s.dialogClose}`} aria-label="닫기" onClick={onClose}><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true" focusable="false"><path d="m5 5 14 14M5 19 19 5"/></svg></button></header>{open?children:present?snapshot.children:null}</dialog>;
-}
-export function Toast({message,onClose}:{message:string;onClose:()=>void}) {
-  const present=usePresence(!!message,designTokens.motion.fast),[lastMessage,setLastMessage]=useState(message);
-  const closeRef=useRef(onClose);
-  useEffect(()=>{closeRef.current=onClose;},[onClose]);
-  useEffect(()=>{if(message)setLastMessage(message);},[message]);
-  useEffect(()=>{if(!message)return;const timer=setTimeout(()=>closeRef.current(),toastDuration);return()=>clearTimeout(timer);},[message]);
-  return <div role="status" aria-live="polite" aria-atomic="true">{present && <div className={s.toast} data-state={message?'open':'closing'}><span>{message||lastMessage}</span><button type="button" className={s.iconButton} aria-label="알림 닫기" disabled={!message} onClick={onClose}>×</button>{message && <div key={message} className={s.toastProgress} aria-hidden="true" style={{animationDuration:`${toastDuration}ms`}}/>}</div>}</div>;
 }

@@ -1,11 +1,12 @@
 'use client';
 
 import {useEffect,useId,useRef,useState} from 'react';
-import type {CSSProperties} from 'react';
+import type {CSSProperties,ReactNode} from 'react';
 import Image from 'next/image';
 import s from './info-tooltip.module.css';
 
-export function InfoTooltip({label,content}:{label:string;content:string}){
+/** `trigger` replaces the default info icon (e.g. a badge image) and keeps the same open/pin/close behavior. */
+export function InfoTooltip({label,content,trigger:custom}:{label:string;content:string;trigger?:ReactNode}){
   const id=useId(),root=useRef<HTMLSpanElement>(null),trigger=useRef<HTMLButtonElement>(null),popup=useRef<HTMLSpanElement>(null);
   const pinned=useRef(false),keyboardFocus=useRef(false),pointerDown=useRef(false);
   const [open,setOpen]=useState(false),[position,setPosition]=useState<CSSProperties|null>(null);
@@ -34,12 +35,12 @@ export function InfoTooltip({label,content}:{label:string;content:string}){
   return <span ref={root} className={s.root}
     onPointerEnter={event=>{if(event.pointerType==='mouse')setOpen(true);}}
     onPointerLeave={event=>{if(event.pointerType==='mouse'&&!pinned.current&&!keyboardFocus.current)close();}}>
-    <button ref={trigger} type="button" className={s.trigger} aria-label={label} aria-describedby={open?id:undefined}
+    <button ref={trigger} type="button" className={custom?`${s.trigger} ${s.customTrigger}`:s.trigger} aria-label={label} aria-describedby={open?id:undefined}
       onPointerDown={()=>{pointerDown.current=true;}}
       onFocus={()=>{if(!pointerDown.current){keyboardFocus.current=true;setOpen(true);}}}
       onBlur={()=>{keyboardFocus.current=false;pointerDown.current=false;close();}}
       onClick={()=>{pointerDown.current=false;if(pinned.current)close();else{pinned.current=true;setOpen(true);}}}>
-      <Image src="/brand/tooltip-info-v1.png" width={20} height={20} alt="" aria-hidden="true"/>
+      {custom??<Image src="/brand/tooltip-info-v1.png" width={20} height={20} alt="" aria-hidden="true"/>}
     </button>
     {open&&<span ref={popup} id={id} role="tooltip" {...{popover:'manual'}} className={s.popup} style={{...position,visibility:position?'visible':'hidden'}}>{content}</span>}
   </span>;
