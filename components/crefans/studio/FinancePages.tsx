@@ -45,6 +45,8 @@ export function EarningsPage({model,basePath}:Props){
   </div>;
 }
 
+// Why a pending settlement is held (creator agreement 7⑥); older API responses without reasons keep the plain end date.
+const holdText=(item:StudioSettlement)=>item.status==='pending'&&item.holdReasons?.length?item.holdReasons.map(r=>r==='period'?`보류기간 중(${date(item.availableAt)} 종료)`:'PG 입금 대사 대기').join(' · '):null;
 export function SettlementsPage({model,basePath}:Props){
   const [selected,setSelected]=useState<StudioSettlement|null>(null);
   const totals=(settlement:StudioSettlement)=>{
@@ -54,9 +56,9 @@ export function SettlementsPage({model,basePath}:Props){
   };
   const selectedAmounts=selected?totals(selected):null;
   return <div className={s.page}><PageTitle back={<BackButton href={`${basePath}/earnings`} label="수익 현황으로 돌아가기"/>}>정산 내역</PageTitle><p className={s.subtitle}>기간별 수익 정산과 출금 가능 전환 상태를 확인하세요.</p>
-    {model.data.settlements.length?<div className={s.section}>{model.data.settlements.map(item=><LedgerRow key={item.id} title={`${item.period} 정산`} detail={`보류기간 종료 ${date(item.availableAt)}`} amount={totals(item)?.net??null} status={<span className={s.badge} data-status={item.status}>{item.status==='available'?'전환 완료':'정산 대기'}</span>} onClick={()=>setSelected(item)}/>)}</div>:<Empty title="정산 내역이 없어요" description="정산 정보가 준비되면 안내해 드립니다."/>}
+    {model.data.settlements.length?<div className={s.section}>{model.data.settlements.map(item=><LedgerRow key={item.id} title={`${item.period} 정산`} detail={holdText(item)?`대기 사유: ${holdText(item)}`:`보류기간 종료 ${date(item.availableAt)}`} amount={totals(item)?.net??null} status={<span className={s.badge} data-status={item.status}>{item.status==='available'?'전환 완료':'정산 대기'}</span>} onClick={()=>setSelected(item)}/>)}</div>:<Empty title="정산 내역이 없어요" description="정산 정보가 준비되면 안내해 드립니다."/>}
     <Notice>보류기간이 끝나고 PG 실제 입금 대사가 완료되어야 출금할 수 있습니다. 출금 가능 전환은 은행 지급 완료와 다릅니다.</Notice><BeanIncomeLink basePath={basePath}/><Policy model={model}/>
-    <Dialog open={!!selected} onClose={()=>setSelected(null)} title="정산 상세">{selected&&<div className={s.dialogBody}><h3>{selected.period} 정산</h3><span className={s.badge} data-status={selected.status}>{selected.status==='available'?'출금 가능 전환 완료':'정산 대기'}</span>{selectedAmounts?<AmountRows {...selectedAmounts}/>:<Empty title="정산 상세 금액을 확인할 수 없어요" description="연결된 수익 내역이 제공되지 않았습니다."/>}<p className={s.helper}>보류기간 종료일: {date(selected.availableAt)}</p><DialogActions><Action variant="secondary" onClick={()=>setSelected(null)}>닫기</Action><Link href={`${basePath}/withdraw`} className={s.brandLink}>출금 가능 금액 확인</Link></DialogActions></div>}</Dialog>
+    <Dialog open={!!selected} onClose={()=>setSelected(null)} title="정산 상세">{selected&&<div className={s.dialogBody}><h3>{selected.period} 정산</h3><span className={s.badge} data-status={selected.status}>{selected.status==='available'?'출금 가능 전환 완료':'정산 대기'}</span>{selectedAmounts?<AmountRows {...selectedAmounts}/>:<Empty title="정산 상세 금액을 확인할 수 없어요" description="연결된 수익 내역이 제공되지 않았습니다."/>}<p className={s.helper}>보류기간 종료일: {date(selected.availableAt)}</p>{holdText(selected)&&<p className={s.helper}>대기 사유: {holdText(selected)}</p>}<DialogActions><Action variant="secondary" onClick={()=>setSelected(null)}>닫기</Action><Link href={`${basePath}/withdraw`} className={s.brandLink}>출금 가능 금액 확인</Link></DialogActions></div>}</Dialog>
   </div>;
 }
 

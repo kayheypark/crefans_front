@@ -6,7 +6,10 @@ export const businessInfo={
  address:'서울특별시 관악구 관천로24길 43, 301호(신림동)',
  email:'khpark@crefans.com',
  phone:'010-3211-3164',
-} as const;
+ // 통신판매업 신고번호: filed with the Toss Payments live registration (2026-10-31 decision). Shown in the footer once set;
+ // the terms (2026-11-30 revision, article 1) promise it before paid service starts.
+ mailOrderNumber:null as string|null,
+};
 
 /** Public product guide (crefans_guide), opened in a new tab from the sidebar and settings. */
 export const guideSiteUrl='https://guide.crefans.com/';

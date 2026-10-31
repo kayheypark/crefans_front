@@ -2,7 +2,7 @@ import type {ApiResult} from './crefans';
 import type {CreatorTerms} from '@/lib/crefans/creator-payout-policy';
 
 export type StudioEarning={id:string;settlementId:string;date:string;title:string;gross:number;reversals:number;fees:number;net:number};
-export type StudioSettlement={id:string;period:string;status:'pending'|'available';availableAt:string};
+export type StudioSettlement={id:string;period:string;status:'pending'|'available';availableAt:string;holdReasons?:Array<'period'|'receipt'>};
 export type SettlementAccount={id:string;bank:string;holderAlias:string;lastFour:string;verified:boolean;isDefault:boolean};
 export type SettlementAccountInput=Pick<SettlementAccount,'bank'|'holderAlias'|'lastFour'>&{accountNumber?:string};
 export type StudioWithdrawal={id:string;requestId:string;accountId:string;accountLabel:string;amount:number;requestedAt:string;status:'requested'|'processing'|'paid'|'rejected';statusNote:string};
