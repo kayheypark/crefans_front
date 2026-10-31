@@ -6,6 +6,8 @@ export const creatorPayoutPolicy={feeRatePercent:20,settlementHoldDays:7,minimum
 
 const {feeRatePercent,settlementHoldDays,minimumWithdrawalKrw,payoutWeekday}=creatorPayoutPolicy;
 const won=(value:number)=>`${value.toLocaleString('ko-KR')}원`;
+// 2026-10-31 user decision (server beta-policy payoutCutoff): Tuesday 23:59 KST cutoff, Wednesday payout, holiday → next business day.
+export const payoutScheduleNote=`화요일 23:59(한국 시간)까지 신청한 출금은 그 주 ${payoutWeekday}에 지급하며, ${payoutWeekday}이 공휴일이면 다음 영업일에 지급합니다.`;
 
 /** A creator's own terms from the studio finance API (server signup-invites studioTerms); null fields use the defaults above. */
 export type CreatorTerms={platformFeeBps:number|null;settlementHoldDays:number|null;beanWithdrawalFeeBps:number|null;minimumWithdrawalKrw:number|null};
@@ -14,7 +16,7 @@ const pick=(t:CreatorTerms|null|undefined)=>({fee:t?.platformFeeBps!=null?t.plat
 export function membershipPayoutNotesFor(terms?:CreatorTerms|null){const {fee,hold,minimum}=pick(terms);return [
   `멤버십 결제 시 총 공제율 ${fee}%(PG 비용·플랫폼 수수료 부가세 포함)를 차감한 금액이 수익으로 기록됩니다. 세금 처리 방식(원천징수 여부 포함)은 정식 정산 전에 안내합니다.`,
   `결제 후 ${hold}일 보류가 끝나고 PG 실제 입금 대사가 완료된 수익부터 출금할 수 있습니다.`,
-  `최소 ${won(minimum)}부터 신청할 수 있으며 매주 ${payoutWeekday} 지급을 기준으로 합니다. 출금할 때 추가 수수료는 없으며 이체 수수료는 플랫폼이 부담합니다.`,
+  `최소 ${won(minimum)}부터 신청할 수 있습니다. ${payoutScheduleNote} 출금할 때 추가 수수료는 없으며 이체 수수료는 플랫폼이 부담합니다.`,
   '출금은 확인된 본인 명의 정산 계좌로만 받을 수 있습니다.',
 ];}
 export const membershipPayoutNotes=membershipPayoutNotesFor();
@@ -24,7 +26,7 @@ export function beanPayoutNotesFor(terms?:CreatorTerms|null){const {beanFee,mini
   `후원받은 콩은 후원 후 ${beanTipHoldDays}일 보류가 끝나야 출금할 수 있습니다. 일반콩은 실제 입금 확인도 필요하고, 프로모션콩은 지급 출처를 확인합니다.`,
   '직접 충전한 콩과 운영자가 지급한 프로모션콩은 출금할 수 없습니다.',
   `${Math.ceil(minimum/100).toLocaleString('ko-KR')}콩(총액 ${won(minimum)})부터 신청하며 수수료는 출금 시 ${beanFee}%입니다.`,
-  `매주 ${payoutWeekday} 지급을 기준으로 합니다.`,
+  payoutScheduleNote,
 ];}
 export const beanPayoutNotes=beanPayoutNotesFor();
 
