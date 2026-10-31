@@ -1,0 +1,7 @@
+.card{margin:16px 0;padding:18px;border:1px solid var(--cf-color-border);border-radius:14px;background:var(--cf-color-surface)}
+.card h2{margin:0 0 6px;font-size:17px;font-weight:700}
+.lead{margin:0 0 12px;font-size:14px;line-height:1.6;color:var(--cf-color-textSecondary)}
+.link{display:flex;gap:8px;align-items:center}.link input{flex:1;min-width:0;height:40px;padding:0 10px;border:1px solid var(--cf-color-border);border-radius:8px;background:var(--cf-color-surfaceSubtle);color:var(--cf-color-text);font:inherit;font-size:13px}
+.status{margin:6px 0 0;font-size:13px;color:var(--cf-color-textMuted)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin:14px 0;gap:8px}.stats div{padding:10px;border-radius:10px;background:var(--cf-color-surfaceSubtle);text-align:center}.stats dt{font-size:12px;color:var(--cf-color-textMuted)}.stats dd{margin:4px 0 0;font-size:16px;font-weight:700}
+.terms{margin:12px 0 0;padding-left:18px;font-size:12.5px;line-height:1.7;color:var(--cf-color-textMuted)}
