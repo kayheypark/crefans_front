@@ -1,7 +1,8 @@
 import {test,expect} from '@playwright/test';
 // D9: "@" opens the people who can be tagged, tags read as blue profile links, and someone else's comment can be reported.
 
-test('"@"을 치면 태그할 사람이 뜨고, 고르면 본문에 파란 링크로 남는다',async({page},info)=>{
+test('"@"을 치면 태그할 사람이 뜨고, 고르면 본문에 파란 링크로 남는다',async({page,isMobile},info)=>{
+  test.skip(isMobile,'PC 본문 댓글 입력창 전제. 휴대폰은 하단 한 줄 입력이며 "모바일 하단 입력창에서는 태그 목록이 입력창 위로 열린다"에서 확인');
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto('/preview/post/morning');
   const section=page.locator('[data-post-detail] #comments-morning');
@@ -63,7 +64,8 @@ test('모바일 하단 입력창에서는 태그 목록이 입력창 위로 열�
   await input.press('Enter');await expect(input).toHaveValue('@하늘 ');await expect(list).toHaveCount(0);
 });
 
-test('피드 카드·사진 크게 보기·프로필 댓글에도 신고·태그 링크·"@" 목록이 있다',async({page},info)=>{
+test('피드 카드·사진 크게 보기·프로필 댓글에도 신고·태그 링크·"@" 목록이 있다',async({page,isMobile},info)=>{
+  test.skip(isMobile,'PC 본문 댓글 입력창 전제. 휴대폰 댓글 입력은 mobile-comments.spec.ts에서 확인');
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
   const card=page.locator('article').filter({hasText:'오늘도 좋은 하루였어요'}).first();
   const check=async(scope:import('@playwright/test').Locator,label:string)=>{

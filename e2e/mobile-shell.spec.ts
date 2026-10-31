@@ -49,8 +49,8 @@ test('모바일 메시지 입력·목록 복귀와 모달은 GNB·본문 스크�
   await expect(page.getByRole('textbox',{name:'대화 검색'})).toBeVisible();await atViewportBottom(page);
   await page.goto('/preview/creator/moka');
   const scroll=page.locator('[data-service-scroll]');
-  await page.getByRole('button',{name:'모카 프로필 사진 크게 보기',exact:true}).click();
-  await expect(page.getByRole('dialog',{name:'모카 프로필 사진',exact:true})).toBeVisible();
+  await page.getByRole('button',{name:/^모카.* 프로필 사진 크게 보기$/}).first().click();// the mock creator's display name is long now
+  await expect(page.getByRole('dialog',{name:/^모카.* 프로필 사진$/})).toBeVisible();
   expect(await scroll.evaluate(node=>getComputedStyle(node).overflowY)).toBe('hidden');
   await page.getByRole('dialog').getByRole('button',{name:'닫기',exact:true}).click();
   await expect(page.getByRole('dialog')).toBeHidden();

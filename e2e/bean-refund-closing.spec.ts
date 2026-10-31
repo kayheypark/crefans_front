@@ -1,7 +1,8 @@
 import {test,expect} from './fixtures';
 import type {Page} from '@playwright/test';
 // Studio state lives in the preview layout, so moves between studio screens use in-app links (a reload resets the mock).
-async function studioNav(page:Page,path:string,group='수익,정산,출금 관리'){const toggle=page.getByRole('button',{name:group,exact:true}).first();if(await toggle.getAttribute('aria-expanded')!=='true')await toggle.click();await expect(toggle).toHaveAttribute('aria-expanded','true');
+async function studioNav(page:Page,path:string,group='수익,정산,출금 관리'){const menu=page.getByRole('button',{name:'스튜디오 메뉴 열기',exact:true});if(await menu.isVisible())await menu.click();// phones open the studio menu first
+ const toggle=page.getByRole('button',{name:group,exact:true}).first();if(await toggle.getAttribute('aria-expanded')!=='true')await toggle.click();await expect(toggle).toHaveAttribute('aria-expanded','true');
  await expect(async()=>{await page.locator(`a[href="/preview/studio/${path}"]:visible`).first().click({timeout:3000});await expect(page).toHaveURL(new RegExp(`/preview/studio/${path}$`),{timeout:3000});}).toPass();}
 
 test('콩 환불: 7일 이내 새 충전은 전액, 지난 충전은 10% 공제 후 환불하고 내역에 표시',async({page})=>{
