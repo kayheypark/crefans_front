@@ -39,7 +39,7 @@ function button(tree,label){return tree.root.findAllByType('button').find(item=>
   data.accountActions.updateProfile=async input=>{calls.push(input);return success('서버에서 받은 완료 문구');};
   const profile=mount(pages.MyProfilePage,data);
   assert.match(text(profile),/주입된 이름/);assert.match(text(profile),/주입된 소개/);
-  assert.equal(profile.root.findByType('img').props.src,'/custom-avatar.jpg');
+  assert.deepEqual(profile.root.findAllByType('img').map(img=>img.props.src),['/brand/crefans-logo-inverse.svg','/custom-avatar.jpg'],'no background photo: white logo on the empty cover');
   assert.match(text(profile),/"19"/);
   const settingsLink=profile.root.findAllByType('a').find(link=>flat(link)==='설정');
   assert.equal(settingsLink.props.href,'/service/settings','the cover ⚙ 설정 button is the only way into settings');
