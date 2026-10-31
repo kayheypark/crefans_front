@@ -29,5 +29,5 @@ export function ProfilePhotoDialog({open,onClose,image,cover,onSave}:{open:boole
 function PhotoButtons({label,busy,has,onFile,onRemove}:{label:string;busy:boolean;has:boolean;onFile:(file?:File)=>void;onRemove:()=>void}){
   const input=useRef<HTMLInputElement>(null),id=useId();
   return <div className={s.buttons}><input ref={input} id={id} className={s.file} type="file" accept={accept} aria-label={`${label} 파일`} disabled={busy} onChange={event=>{const file=event.currentTarget.files?.[0];event.currentTarget.value='';onFile(file);}}/>
-    <button type="button" className={s.pick} disabled={busy} onClick={()=>input.current?.click()}><CameraIcon/>{`${label} 선택`}</button>{has&&<button type="button" className={s.remove} disabled={busy} onClick={onRemove}>{`${label} 삭제`}</button>}</div>;
+    <button type="button" className={s.pick} disabled={busy} onClick={()=>input.current?.click()}><CameraIcon/>{`${label} 선택`}</button><button type="button" className={s.remove} disabled={busy||!has} onClick={onRemove}>{`${label} 삭제`}</button></div>;
 }
