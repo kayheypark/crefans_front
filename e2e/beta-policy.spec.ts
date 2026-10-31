@@ -6,7 +6,7 @@ for(const width of [390,1280])test(`베타 이용안내·FAQ 목업/서비스 �
   await page.goto(`${base}/support`);
   await page.getByRole('link',{name:'팬 이용안내',exact:true}).click();
   await expect(page.getByRole('heading',{name:'팬 이용안내',exact:true})).toBeVisible();
-  await expect(page.getByText(/베타 테스트 결제는 실제 청구되지 않습니다/)).toBeVisible();
+  await expect(page.getByText(/결제 개시 전에는 실제로 청구되지 않습니다/)).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
   await page.getByRole('link',{name:'고객센터로 돌아가기',exact:true}).click();
   await page.getByRole('link',{name:'크리에이터 이용안내',exact:true}).click();
@@ -14,8 +14,8 @@ for(const width of [390,1280])test(`베타 이용안내·FAQ 목업/서비스 �
   await expect(page.getByText(/총 공제율 20%/)).toBeVisible();
   await page.screenshot({path:`test-results/beta-guide-${base.slice(1)}-${width}.png`,fullPage:true});
   await page.goto(`${base}/support`);
-  await page.getByRole('button',{name:'베타에서도 실제로 결제되나요?',exact:true}).click();
-  await expect(page.getByText(/실제 청구와 출금은 하지 않습니다/)).toBeVisible();
+  await page.getByRole('button',{name:'지금 결제하면 실제로 청구되나요?',exact:true}).click();
+  await expect(page.getByText(/아직 실제 청구와 송금을 하지 않습니다/)).toBeVisible();
  }
 });
 

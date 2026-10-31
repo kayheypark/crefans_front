@@ -24,7 +24,7 @@ test('beta appreciation content preserves the approved four rewards without inve
   {audience:'유용한 피드백 제공자 최대 3명',title:'네이버페이\n1만원 상품권',details:['유용한 피드백을 주신 분 중 최대 3명에게 드립니다.']},
   {audience:'크리에이터 3명',title:'주목할 크리에이터\n광고상품 30일',details:['크리에이터 3명에게 드립니다.','주목할 크리에이터 광고상품 이용권을 제공합니다.']},
   {audience:'팬 참여자 13명',title:'프로모션 100콩',details:['팬 참여자 13명에게 지급합니다.','프로모션 콩은 후원받은 사람이 출금할 수 있습니다.']},
-  {audience:'참여 확정 테스터 전원',title:'원년멤버 한정판 뱃지',details:['참여가 확정된 테스터 전원에게 드립니다.','배지 지급 후 프로필 페이지에 표시됩니다.','표시 여부는 직접 선택할 수 있습니다.']},
+  {audience:'참여 확정 회원 전원',title:'원년멤버 한정판 뱃지',details:['참여가 확정된 회원 전원에게 드립니다.','배지 지급 후 프로필 페이지에 표시됩니다.','표시 여부는 직접 선택할 수 있습니다.']},
  ]);
  assert.ok(serviceEvents.every(event=>event.schedule.includes('미정')));
  assert.ok(serviceEvents[2].notes.flatMap(note=>note.items).some(note=>note.includes('직접 출금할 수 없으며 후원에 사용할 수 있습니다')));

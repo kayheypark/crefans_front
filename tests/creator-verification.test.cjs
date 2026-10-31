@@ -54,7 +54,7 @@ test('on the profile each badge is a button that shows its short meaning when cl
  let view;act(()=>{view=create(React.createElement(CreatorName,{person:{name:'원년 작가',isVerified:true,isFoundingMember:true},explain:true}));});
  const buttons=view.root.findAllByType('button');assert.deepEqual(buttons.map(b=>b.props['aria-label']),['인증 크리에이터 배지 설명','원년멤버 배지 설명']);
  assert.equal(view.root.findAllByProps({role:'tooltip'}).length,0);
- act(()=>buttons[1].props.onClick());const tip=view.root.findByProps({role:'tooltip'});assert.equal(tip.children.join(''),'원년멤버: 크레팬스 오픈베타 원년멤버 기념 배지예요.');
+ act(()=>buttons[1].props.onClick());const tip=view.root.findByProps({role:'tooltip'});assert.equal(tip.children.join(''),'원년멤버: 크레팬스 원년멤버 기념 배지예요.');
  act(()=>buttons[1].props.onClick());assert.equal(view.root.findAllByProps({role:'tooltip'}).length,0,'a second click closes it');
  act(()=>buttons[0].props.onClick());assert.match(view.root.findByProps({role:'tooltip'}).children.join(''),/운영자가 확인한 크리에이터/);
  view.unmount();
