@@ -1,4 +1,5 @@
 'use client';
+import {displayTime} from '@/lib/crefans/display-time';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {MarqueeText} from '@/components/ui/MarqueeText';
@@ -24,7 +25,7 @@ export function MetricCard({metric,href}:{metric:StudioMetric;href?:string}){
  return <article className={s.metric}><span>{metric.label}</span><div className={s.metricValue}><strong>{metric.value}</strong></div><small>{metric.description}</small><Trend points={metric.points} label={`${metric.label} 추이`} className={s.trend}/>{href&&<ActionLink variant="secondary" href={href} className={s.moreButton} aria-label={`${metric.label} 리포트 보기`}>리포트 보기</ActionLink>}</article>;
 }
 function ActivityRow({activity,basePath}:{activity:StudioOverviewModel['activities'][number];basePath:string}){
- const content=<><i aria-hidden="true"/><div><strong>{activity.title}</strong><p>{activity.description}</p><small>{activity.time}</small></div></>;
+ const content=<><i aria-hidden="true"/><div><strong>{activity.title}</strong><p>{activity.description}</p><small>{displayTime(activity.time)}</small></div></>;
  return activity.path?<Link className={s.activity} href={`${basePath}/${activity.path}`}>{content}</Link>:<article className={s.activity}>{content}</article>;
 }
 export function DashboardPage({model,basePath}:Props){

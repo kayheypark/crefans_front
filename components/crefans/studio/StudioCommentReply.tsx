@@ -1,4 +1,5 @@
 'use client';
+import {displayTime} from '@/lib/crefans/display-time';
 import {useState,type FormEvent} from 'react';
 import type {CommunityReply} from '@/types/crefans-community';
 import type {SocialActionResult} from '@/types/crefans-social';
@@ -15,7 +16,7 @@ export function StudioCommentReply({reply,onEdit,onDelete,onFeedback}:Props){
  async function save(event:FormEvent){event.preventDefault();const body=draft.trim();if(pending||!body||body.length>1000||body===reply.body)return;setPending(true);setError('');try{const result=await onEdit(body);if(result.success){setEditing(false);onFeedback?.(result.data.message);}else setError(result.errorMessage);}catch{setError('답글을 수정하지 못했어요. 다시 시도해 주세요.');}finally{setPending(false);}}
  async function remove(){if(pending)return;setPending(true);setError('');try{const result=await onDelete();if(result.success){setDeleting(false);onFeedback?.(result.data.message);}else setError(result.errorMessage);}catch{setError('답글을 삭제하지 못했어요. 다시 시도해 주세요.');}finally{setPending(false);}}
  return <div className={s.reply} data-fan={!reply.fromCreator||undefined} role="group" aria-label={`${reply.author.name}의 답글`}>
-  <div className={s.replyAuthor}><Avatar creator={reply.author} size={32}/><div className={s.replyIdentity}><strong><CreatorName person={reply.author}/></strong>{reply.fromCreator&&<span className={s.creatorBadge}>작성자</span>}<small>{reply.time}</small></div></div>
+  <div className={s.replyAuthor}><Avatar creator={reply.author} size={32}/><div className={s.replyIdentity}><strong><CreatorName person={reply.author}/></strong>{reply.fromCreator&&<span className={s.creatorBadge}>작성자</span>}<small>{displayTime(reply.time)}</small></div></div>
   <CommentMentions mentions={reply.mentions}/>
   {editing?<form className={s.replyForm} onSubmit={event=>void save(event)}><TextAreaField label="답글 수정" id={`edit-reply-${reply.id}`} value={draft} maxLength={1000} disabled={pending} onChange={event=>setDraft(event.target.value)}/><DialogActions><Action variant="secondary" disabled={pending} onClick={()=>{setEditing(false);setError('');}}>취소</Action><Action type="submit" disabled={pending||!draft.trim()||draft.trim().length>1000||draft.trim()===reply.body}>{pending?'저장 중...':'저장'}</Action></DialogActions></form>:<p>{reply.body}</p>}
   {reply.fromCreator&&!editing&&<div className={s.commentActions}><button type="button" disabled={pending} onClick={()=>{setDraft(reply.body);setEditing(true);setError('');}}>수정</button><button type="button" disabled={pending} onClick={()=>{setDeleting(true);setError('');}}>삭제</button></div>}
