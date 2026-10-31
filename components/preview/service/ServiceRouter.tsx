@@ -8,6 +8,8 @@ import {BeanWalletPage,BeanHistoryPage} from '@/components/crefans/BeanWalletPag
 import {PreviewBeanPaymentResult} from './PreviewBeanPaymentResult';
 import {ServiceGuidePage} from '@/components/crefans/ServiceGuidePage';
 import {Suspense} from 'react';
+import {BeanWithdrawPage} from '@/components/crefans/BeanWithdrawPage';
+import {useStudio} from '../studio/StudioProvider';
 import Link from 'next/link';
 import {useRouter,useSearchParams} from 'next/navigation';
 import {usePreview,usePreviewCommon,usePreviewMokaLogin} from './PreviewProvider';
@@ -22,7 +24,7 @@ export {screenLinks} from '../screen-catalog';
 import {screenLinks,studioLinks,commonLinks} from '../screen-catalog';
 function Screens(){return <section className={s.catalogue}><h1>전체 화면</h1><p>팬 서비스와 크리에이터 스튜디오의 각 화면으로 이동합니다.</p>{[['팬 서비스',screenLinks],['크리에이터 스튜디오',studioLinks],['공통 기능',commonLinks]].map(([title,items])=><section key={String(title)}><h2 style={{marginTop:36}}>{String(title)}</h2><div className={s.screenGrid}>{(items as string[][]).map(([path,title,description],index)=><Link key={path} href={`/preview/${path}`}><small>{String(index+1).padStart(2,'0')}</small><h2>{title} ↗</h2><p>{description}</p></Link>)}</div></section>)}</section>;}
 export default function ServiceRouter({segments}:{segments:string[]}){
- const selectMoka=usePreviewMokaLogin(),router=useRouter(),model=usePreview(),common=usePreviewCommon(),query=useSearchParams(),[screen,id]=segments,basePath=model.basePath;
+ const selectMoka=usePreviewMokaLogin(),router=useRouter(),model=usePreview(),common=usePreviewCommon(),query=useSearchParams(),{finance}=useStudio(),[screen,id]=segments,basePath=model.basePath;
  function content(){switch(screen){
   case 'guide':return <ServiceGuidePage audience={id==='creator'?'creator':'fan'} basePath={basePath}/>;
   case 'explore':return <ExplorePage model={model}/>;
@@ -30,7 +32,7 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'membership':return <MembershipPage model={model} id={id} initialPlanId={query.get('plan')||undefined}/>;
   case 'signup':return id==='complete'?<SignupCompletePage basePath={basePath} live={false}/>:<SignupPage model={model} onComplete={()=>router.push(`${basePath}/signup/complete`)}/>;
   case 'login':return <LoginPage model={model} next={query.get('next')} navigate={path=>router.replace(path)}/>;
-  case 'beans':return id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<PreviewBeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
+  case 'beans':return id==='withdraw'?<BeanWithdrawPage finance={finance} basePath={basePath}/>:id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<PreviewBeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
   case 'feed':return <FeedPage model={model}/>;
   case 'post':return <PostDetailPage model={model} id={id} forceLocked={query.get('locked')==='1'}/>;
   case 'messages':return <MessagesPage model={model}/>;

@@ -11,7 +11,7 @@ import {Action,PageTitle} from '../ServiceUI';
 import Icon from '../Icon';
 import s from './withdrawal-security.module.css';
 
-export function WithdrawalSecurityPage({model,basePath}:{model:StudioFinanceModel;basePath:string}){
+export function WithdrawalSecurityPage({model,basePath,embedded=false}:{model:StudioFinanceModel;basePath:string;embedded?:boolean}){
   const [pin,setPin]=useState(''),[confirmation,setConfirmation]=useState(''),[error,setError]=useState(''),[message,setMessage]=useSnackbarMessage(),[pending,setPending]=useState(false);
   const busy=useRef(false);
   const submit=async(event:FormEvent)=>{
@@ -29,7 +29,7 @@ export function WithdrawalSecurityPage({model,basePath}:{model:StudioFinanceMode
     finally{setPin('');setConfirmation('');busy.current=false;setPending(false);}
   };
   return <section className={s.page}>
-    <PageTitle back={<BackButton href={`${basePath}/earnings`} label="수익 현황으로 돌아가기"/>}>출금 PIN 설정</PageTitle>
+    <PageTitle back={embedded?undefined:<BackButton href={`${basePath}/earnings`} label="수익 현황으로 돌아가기"/>}>출금 PIN 설정</PageTitle>
     <p className={s.lead}>출금 요청을 확인할 때 사용할 숫자 6자리를 설정해 주세요.</p>
     {model.pinConfigured?<div className={s.configured}><span className={s.icon}><Icon name="lock"/></span><h2>출금 PIN이 설정되어 있어요</h2><p>출금 금액과 수령 계좌를 확인한 뒤 PIN을 입력해 주세요.</p><Toast message={message} onClose={()=>setMessage('')}/><Link className={s.primaryLink} href={`${basePath}/withdraw`}>출금 요청으로 이동</Link></div>:<form className={s.form} noValidate onSubmit={submit}>
       <PinField label="새 출금 PIN" value={pin} onChange={value=>{setPin(value);setError('');}} autoComplete="new-password" required disabled={pending} hint="다른 사람에게 알려주지 않는 번호를 사용해 주세요."/>

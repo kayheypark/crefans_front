@@ -9,6 +9,7 @@ import {BeanWalletPage,BeanHistoryPage} from '@/components/crefans/BeanWalletPag
 import {BeanPaymentResult} from '@/components/service/BeanPaymentResult';
 import {ServiceGuidePage} from '@/components/crefans/ServiceGuidePage';
 import {Suspense} from 'react';
+import {BeanWithdrawContainer} from './BeanWithdrawContainer';
 import {useRouter,useSearchParams} from 'next/navigation';
 import PublicMemberPage from '@/components/crefans/PublicMemberPage';
 import {useService} from './ServiceProvider';
@@ -36,7 +37,7 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'membership':return <MembershipPage model={model} id={publicProfile?.id||id} initialPlanId={query.get('plan')||undefined}/>;
   case 'signup':return id==='complete'?<SignupCompletePage basePath={basePath} live leave={path=>router.replace(path)}/>:<SignupPage model={model} onComplete={()=>router.push(`${basePath}/signup/complete`)}/>;
   case 'login':return <LoginPage model={model} next={query.get('next')} navigate={path=>router.replace(path)}/>;
-  case 'beans':return id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<BeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
+  case 'beans':return id==='withdraw'?<BeanWithdrawContainer signedIn={model.signedIn} basePath={basePath}/>:id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<BeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
   case 'feed':return <FeedPage model={model}/>;
   case 'post':return <PostDetailPage model={model} id={id} forceLocked={query.get('locked')==='1'}/>;
   case 'messages':return <MessagesPage model={model}/>;
