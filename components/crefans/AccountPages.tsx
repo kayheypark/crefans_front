@@ -28,6 +28,7 @@ import type {ServiceViewModel} from '@/types/crefans';
 import type {AccountActionResult,AccountSettingsUpdate,AccountPreferences} from '@/types/crefans-account';
 import Icon,{type LandingIconName as IconName} from './Icon';
 import {ProfileHeader} from './ProfileHeader';
+import {ProfilePhotoDialog} from './ProfilePhotoDialog';
 import c from './creator.module.css';
 import {Brand} from './Brand';
 import {Action, Avatar, Empty, Notice, PageTitle} from './ServiceUI';
@@ -134,8 +135,10 @@ function MyProfileContent({model}:{model:ServiceViewModel}){
   /** Same shell as a creator profile; the only differences are the ⚙ 설정 entry on the cover, no membership block, and empty feeds until the fan posts. */
   const privateFollowing=account.preferences.showFollowing===false;
   const tabs:[string,number|null][]=[['피드',0],['미디어',0],['소개',null]];
+  const [photos,setPhotos]=useState(false),updatePhotos=model.accountActions.updatePhotos;
   return <div className={c.profile}>
-    <ProfileHeader person={viewer} handle={viewer.handle} bio={viewer.bio} counts={[{label:'게시물',value:account.stats.posts},{label:'팔로워',private:account.preferences.showFollowers===false,value:account.stats.followers,href:`${basePath}/followers`},{label:'팔로잉',private:privateFollowing,href:`${basePath}/following`,value:<>{following.length}{privateFollowing&&<Icon name="lock" width="12" height="12" aria-label="비공개"/>}</>}]} action={<><BeanWalletLink basePath={basePath} className={`${c.coverChip} ${c.coverWallet}`}/><ChipLink href={`${basePath}/settings`} className={c.coverChip} icon={<Icon name="settings" width="16" height="16"/>}>설정</ChipLink></>}/>
+    {updatePhotos&&<ProfilePhotoDialog open={photos} onClose={()=>setPhotos(false)} image={viewer.image} cover={viewer.cover} onSave={updatePhotos}/>}
+    <ProfileHeader cover={viewer.cover} onEditPhotos={updatePhotos?()=>setPhotos(true):undefined} person={viewer} handle={viewer.handle} bio={viewer.bio} counts={[{label:'게시물',value:account.stats.posts},{label:'팔로워',private:account.preferences.showFollowers===false,value:account.stats.followers,href:`${basePath}/followers`},{label:'팔로잉',private:privateFollowing,href:`${basePath}/following`,value:<>{following.length}{privateFollowing&&<Icon name="lock" width="12" height="12" aria-label="비공개"/>}</>}]} action={<><BeanWalletLink basePath={basePath} className={`${c.coverChip} ${c.coverWallet}`}/><ChipLink href={`${basePath}/settings`} className={c.coverChip} icon={<Icon name="settings" width="16" height="16"/>}>설정</ChipLink></>}/>
     <div className={c.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={c.tabCount}>{count}</span>}</button>)}</div>
     {tab==='소개'?<section className={c.about}><p>{viewer.bio||'아직 등록된 소개가 없습니다.'}</p></section>:<Empty title={tab==='피드'?'아직 게시물이 없어요':'아직 미디어가 없어요'} description="첫 게시물을 올리면 이곳에 모여요."/>}
   </div>;

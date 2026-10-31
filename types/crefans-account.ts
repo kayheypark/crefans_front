@@ -11,6 +11,8 @@ export type AccountSettingsUpdate=
   | {section:'notifications';contentAlert:boolean;messageAlert:boolean;marketingAlert:boolean;marketingVersion?:string}
   | {section:'privacy';showActivity:boolean;allowSearch:boolean;showFollowers?:boolean;showFollowing:boolean};
 export type AccountActionResult=ApiResult<{message:string}>;
+/** File = new photo, null = remove, omitted = keep. */
+export type ProfilePhotoChange={avatar?:File|null;cover?:File|null};
 export type AccountModel={
   account:{
     email:string;
@@ -37,6 +39,8 @@ export type AccountModel={
     login:(input:{email:string;password:string;remember:boolean})=>Promise<AccountActionResult>;
     /** handle: the one public user name (2026-10-31) — also the creator profile address. */
     updateProfile:(input:{name:string;bio:string;handle?:string})=>Promise<AccountActionResult>;
+    /** Profile and background photo of the own profile page; a creator profile uses the same photos. */
+    updatePhotos?:(input:ProfilePhotoChange)=>Promise<AccountActionResult>;
     requestEmailChange?:(email:string,currentPassword:string)=>Promise<AccountActionResult>;
     updateSettings:(input:AccountSettingsUpdate)=>Promise<AccountActionResult>;
     unblockCreator:(id:string)=>Promise<AccountActionResult>;
