@@ -10,7 +10,7 @@ test('studio payout notes follow a creator\'s own terms and fall back per field'
 });
 test('membership price hint uses the creator\'s own fee with the server rounding',()=>{
  const none={platformFeeBps:0,settlementHoldDays:null,beanWithdrawalFeeBps:null,minimumWithdrawalKrw:null};
- assert.equal(membershipPriceHint(9900,none),'결제 시 총 공제율 0%가 차감되어 수익으로 기록됩니다. 세금 처리는 정식 정산 전에 안내합니다. 예상 수익 9,900원 (수수료 0원)');
+ assert.equal(membershipPriceHint(9900,none),'결제 시 총 공제율 0%가 차감되어 수익으로 기록됩니다. 원천징수가 필요하면 크레팬스가 부담합니다. 예상 수익 9,900원 (수수료 0원)');
  assert.deepEqual(membershipRevenuePreview(9999,{...none,platformFeeBps:1550}),{fee:1549,net:8450});
  assert.deepEqual(membershipRevenuePreview(9900),{fee:1980,net:7920});assert.match(membershipPriceHint(9900,null),/총 공제율 20%.*예상 수익 7,920원/);
 });

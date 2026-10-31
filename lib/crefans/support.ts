@@ -1,5 +1,5 @@
 import type {Faq} from '@/types/crefans';
-import {creatorPayoutPolicy,payoutScheduleNote} from './creator-payout-policy';
+import {creatorPayoutPolicy,payoutScheduleNote,payoutTaxNote} from './creator-payout-policy';
 
 // Payout figures come from the shared policy so the FAQ cannot drift from studio and terms.
 const {feeRatePercent,settlementHoldDays,minimumWithdrawalKrw}=creatorPayoutPolicy;
@@ -11,7 +11,7 @@ export const betaFaqs:Faq[]=[
  {question:'구독을 해지하고 싶어요.',answer:'내 구독에서 다음 결제를 해지예약하세요. 이미 결제한 이용 기간은 유지됩니다. 이용 기간이 끝나면 멤버십 전용 콘텐츠를 볼 수 없습니다.'},
  {question:'환불 규정이 어떻게 되나요?',answer:'새 정책이 적용된 결제는 결제 후 7일 이내이고 구독 콘텐츠를 이용하지 않은 경우 전액 환불을 요청할 수 있습니다. 콘텐츠를 제공받을 수 있었던 페이지 진입도 이용에 포함됩니다. 별도 버튼 대신 고객센터로 문의하세요. 법정 청약철회·환불 권리는 별도입니다.'},
  {question:'갱신 결제가 실패하면 어떻게 되나요?',answer:'첫 실패 후 24시간 간격으로 최대 3회 추가 시도합니다. 분실·정지 카드는 교체가 필요합니다. 재시도 중에도 기존 결제 기간이 끝나면 전용 콘텐츠 이용은 제한됩니다.'},
- {question:'크리에이터 수수료와 출금 기준은 무엇인가요?',answer:`총 공제율은 ${feeRatePercent}%이며 PG 비용과 플랫폼 수수료 부가세를 포함합니다. ${settlementHoldDays}일 보류 및 PG 실제 입금 대사 후 최소 ${minimumWithdrawalKrw/10000}만 원부터 신청할 수 있습니다. ${payoutScheduleNote} 베타에서는 실제 송금하지 않습니다. 세금 처리 방식(원천징수 여부 포함)은 정식 정산 전에 안내합니다.`},
+ {question:'크리에이터 수수료와 출금 기준은 무엇인가요?',answer:`총 공제율은 ${feeRatePercent}%이며 PG 비용과 플랫폼 수수료 부가세를 포함합니다. ${settlementHoldDays}일 보류 및 PG 실제 입금 대사 후 최소 ${minimumWithdrawalKrw/10000}만 원부터 신청할 수 있습니다. ${payoutScheduleNote} 베타에서는 실제 송금하지 않습니다. ${payoutTaxNote}`},
  {question:'댓글을 고치거나 지울 수 있나요?',answer:'내 댓글·답글 아래 수정·삭제를 누르세요. 고친 댓글에는 "수정됨"이 표시되고, 답글이 남은 댓글을 지우면 "삭제된 댓글입니다."로 남습니다. 답글의 답글은 같은 줄에 "@이름"으로 달립니다.'},
  {question:'댓글에서 다른 사람을 태그하려면요?',answer:'댓글 입력창에 @를 입력하면 그 게시물의 크리에이터와 댓글을 단 사람 중에서 고를 수 있습니다. 댓글 하나에 최대 10명까지 태그되며, 태그된 사람에게 알림이 갑니다.'},
  {question:'부적절한 댓글은 어떻게 신고하나요?',answer:'다른 사람 댓글 아래 신고를 누르고 사유를 고르세요. 운영팀이 검토해 필요하면 댓글을 숨기며, 신고한 사람은 작성자에게 공개되지 않으며, 검토가 끝나면 신고한 분에게 앱 알림으로 결과를 알려 드립니다.'},

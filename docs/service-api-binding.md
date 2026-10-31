@@ -239,7 +239,7 @@ UI 조사(2026-10-26): [쿠팡 공식 주문목록 진입 안내](https://news.c
 
 - `https://business.crefans.com/card?who=khpark`: 로그인 없이 명함을 보여주는 독립 페이지. 소스는 `app/card/page.tsx`, `components/business-card/`이며 서비스/목업 회원 모델과 구형 인증 Provider를 사용하지 않는다.
 - 상단 ‘안녕하세요, 만나서 반갑습니다.’는 AOS 형식의 fade-up CSS 연출이다. 시간대 인사와 하단 연락처·안내·입장 링크·계속 보기 UI는 제거했다. 별도 애니메이션 패키지는 추가하지 않는다.
-- 양면 이미지 로드 후 3D 등장0.8초, 뒷면1초, 앞면 전환0.7초를 거친다. 앞면의 진행 막대5초 완료 후 고정 주소 `https://beta.crefans.com/service/landing`으로 replace한다. 양면 캐시 완료를 감지하고 이미지 실패 시 자동 이동을 중지한다.
+- 양면 이미지 로드 후 3D 등장0.8초, 뒷면1초, 앞면 전환0.7초를 거친다. 앞면의 진행 막대5초 완료 후 고정 주소 `https://crefans.com/service/landing`으로 replace한다. 양면 캐시 완료를 감지하고 이미지 실패 시 자동 이동을 중지한다.
 - 진행 막대 오른쪽에44px 아이콘 버튼 중지/재생/다시보기를 표시한다. requestAnimationFrame과 단일 누적 시간축으로 회전·진행·자동 입장을 관리한다. 중지는 현재 위치를 보존, 재생은 이어서, 다시보기는 인사/명함/진행을 처음부터 재시작한다. 중복 프레임은 정리하며 동작 줄이기는 이동 연출을 생략한다.
 - 잘못되거나 누락·중복된 who는 middleware404다. 사업 도메인은 server `infra/platform/Caddyfile`에서 명함·관련 이미지·Next 정적 파일만 제공하고 나머지 경로는404다. 기존 beta 금융/가입 정책은 바꾸지 않는다.
 - 최초 배포 증거 `.local/business-card-20261027/`, 3D 배포 `.local/business-card-animation-20261027/`, 프로필 동기화 `.local/profile-card-sync-20261027/`, 현재 재생 제어 `.local/card-controls-20261027/`와 PROGRESS를 따른다. 타이머/중지/재생/다시보기/404 단위 검사 및 모바일·PC 브라우저와 HTTPS를 검증한다. 실제 인쇄물의 휴대폰 QR 스캔은 별도다.
