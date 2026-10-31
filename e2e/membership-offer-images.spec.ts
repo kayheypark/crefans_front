@@ -1,4 +1,6 @@
 import {test,expect,type Locator,type Page} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 async function loaded(images:Locator){
   await expect.poll(()=>images.evaluateAll(nodes=>nodes.every(node=>(node as HTMLImageElement).complete&&(node as HTMLImageElement).naturalWidth>0))).toBe(true);
 }

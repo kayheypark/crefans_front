@@ -1,4 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 const toast=(page:Page)=>page.locator('[role="status"] > [data-state="open"]').filter({has:page.getByRole('button',{name:'알림 닫기',exact:true})});
 async function ready(page:Page,path:string){await page.goto(path);await expect(page.locator('main')).not.toHaveAttribute('aria-busy','true');}
 async function saveSettings(page:Page){await page.getByRole('button',{name:'알림 설정',exact:true}).click();await page.getByRole('dialog').getByRole('button',{name:'저장하기',exact:true}).click();}

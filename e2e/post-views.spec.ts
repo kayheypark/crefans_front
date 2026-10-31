@@ -1,4 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 async function fits(page:Page){
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBeTruthy();
  const rows=await page.locator('[data-post-views]:visible').evaluateAll(elements=>elements.map(el=>{

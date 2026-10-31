@@ -1,4 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 
 async function checkGallery(page:Page){
   const article=page.locator('[data-post-detail] > article');

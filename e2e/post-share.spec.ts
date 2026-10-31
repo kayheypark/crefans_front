@@ -1,5 +1,7 @@
+import {settledShot} from './qa-settled';
 import {test,expect,type Page} from '@playwright/test';
 // Assert each visible UI and action below; offscreen lazy images must not gate document readiness in WebKit.
+test.afterEach(settledShot);
 const title='분홍빛 첫 인사';
 const shareLayer=(page:Page)=>page.getByRole('dialog',{name:'게시물 공유',exact:true});
 async function browserAPIs(page:Page,{native='success',clipboard='success'}={}){

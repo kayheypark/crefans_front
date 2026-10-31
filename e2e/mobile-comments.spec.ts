@@ -1,4 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 // Assert each visible UI and action below; offscreen lazy images must not gate document readiness in WebKit.
 
 const input=(page:Page)=>page.getByRole('textbox',{name:'댓글 남기기',exact:true});
@@ -123,7 +125,9 @@ test('갤러리 댓글 입력은 패널 하단에 남고 확대·축소 및 키�
   await expect(dialog).not.toHaveAttribute('data-comment-keyboard','true');
   await page.screenshot({path:info.outputPath('gallery-comments.png')});
   await dialog.getByRole('button',{name:'닫기',exact:true}).click();await expect(dialog).toBeHidden();await expect(input(page)).toHaveCount(0);
-  await page.goto('/preview/post/morning',{waitUntil:'domcontentloaded'});await input(page).fill('키보드 복귀 확인');
+  await page.goto('/preview/post/morning',{waitUntil:'domcontentloaded'});
+  // the phone dock input mounts after hydration; until then only the hidden desktop textarea carries this name
+  await expect(page.locator('[data-comment-dock] input')).toBeVisible();await input(page).fill('키보드 복귀 확인');
   await page.evaluate(()=>{Object.defineProperty(visualViewport!,'height',{configurable:true,get:()=>450});visualViewport!.dispatchEvent(new Event('resize'));});
   await expect(page.locator('[data-mobile-shell]')).toHaveAttribute('data-comment-keyboard','true');
   await expect(page.getByRole('navigation',{name:'하단 메뉴',exact:true})).toBeHidden();

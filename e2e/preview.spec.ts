@@ -1,4 +1,6 @@
 import {test,expect} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 for(const route of['landing','feed','explore','creator/haneul','membership/haneul','post/morning','following','subscriptions','me?tab=saved','me?tab=liked','notifications','login','signup','reset-password','support']){
  test(`목업 /preview/${route} 렌더링`,async({page})=>{const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));const r=await page.goto('/preview/'+route);expect(r?.status()).toBe(200);await expect(page.getByText('목업 페이지입니다',{exact:true})).toBeVisible();await expect(page.locator('body')).not.toContainText('Application error');expect(errors).toEqual([]);});
 }

@@ -1,4 +1,6 @@
 import {test,expect,type Locator,type Page} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 // Mock comments carry every state: the viewer's own (수정·삭제), edited (수정됨) and a deleted parent kept for its replies (italic).
 async function expectStates(scope:Locator){
   const section=scope.locator('#comments-morning');

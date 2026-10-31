@@ -1,4 +1,6 @@
 import {test,expect,type Page,type Locator} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 
 const activeImage=(dialog:Locator)=>dialog.locator('[class*="stageSlide"]:not([aria-hidden]) > img');
 async function tapImage(page:Page,dialog:Locator){const image=activeImage(dialog);await image.evaluate((i:HTMLImageElement)=>i.decode());if((page.viewportSize()?.width??1280)<=767)await image.tap();else await image.click();}

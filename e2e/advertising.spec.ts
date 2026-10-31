@@ -1,4 +1,6 @@
 import {test,expect} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 test('광고상품 목업: 안내·판매 중지·구매 완료 내역·반응형',async({page},info)=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));const mutations:string[]=[];page.on('request',r=>{if(r.url().includes('/api/v1/')&&r.method()!=='GET')mutations.push(r.url());});
  await page.goto('/preview/studio/advertising');await expect(page.getByRole('heading',{name:'광고상품',exact:true})).toBeVisible();

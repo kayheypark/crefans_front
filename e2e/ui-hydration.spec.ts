@@ -1,4 +1,6 @@
 import {test,expect} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 
 for(const screen of ['settings','feed'] as const){
   test(`early ${screen} actions wait for client initialization`,async({page})=>{

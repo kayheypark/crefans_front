@@ -5,7 +5,9 @@ import type {Browser,BrowserContext,Page,TestInfo} from '@playwright/test';
 // (before / action / result) as attachments so the PC and Mobile projects each keep their own evidence.
 const ORIGIN={Origin:'http://127.0.0.1:3011'};
 type Cohort={ids:Record<string,string>;creators:Record<string,{id:string;plans:Record<string,string>;posts:Record<string,{id:string;media:string;body:string}>}>;orders:Record<string,{id:string}>;password:string;users:{id:string;email:string;role:string}[]};
-async function snap(page:Page,info:TestInfo,step:string){const n=String(info.attachments.filter(a=>a.name.startsWith('step-')).length+1).padStart(2,'0');
+async function snap(page:Page,info:TestInfo,step:string){
+ // wait for running CSS/Web animations (overlay fades, sheet slides) so the screenshot shows the settled state
+ await page.evaluate(()=>Promise.race([Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>null))),new Promise(r=>setTimeout(r,2000))]));const n=String(info.attachments.filter(a=>a.name.startsWith('step-')).length+1).padStart(2,'0');
  const file=info.outputPath(`step-${n}.png`);await page.screenshot({path:file,fullPage:false});await info.attach(`step-${n} ${step}`,{path:file,contentType:'image/png'});}
 async function contextFor(browser:Browser,info:TestInfo):Promise<BrowserContext>{
  const u:any=info.project.use;return browser.newContext({baseURL:u.baseURL,viewport:u.viewport,userAgent:u.userAgent,deviceScaleFactor:u.deviceScaleFactor,isMobile:u.isMobile,hasTouch:u.hasTouch,locale:'ko-KR'});}
@@ -141,7 +143,9 @@ test.describe('QA 회원 여정',()=>{
   info.annotations.push({type:'financial-policy',description:`격리 DB 정책 platformFeeBps=${policy.platformFeeBps}, holdDays=${policy.settlementHoldDays}, version=${policy.version}`});
   expect(f.summary.gross).toBe(90000);expect(f.summary.fees).toBe(fees);expect(f.summary.net).toBe(90000-fees);
   await c10.page.goto('/service/studio/earnings');await expect(c10.page.getByText(/90,000/).first()).toBeVisible();await snap(c10.page,info,'C10 수익 화면: 매출 90,000원');
-  await c10.page.goto('/service/studio/settlements');await snap(c10.page,info,'C10 정산 화면: 보류·출금 가능');
+  // Creator agreement 7⑥: each held settlement names its reason (no PG deposit reconciliation recorded in the cohort).
+  expect(f.settlements.every((x:any)=>x.status==='pending'&&x.holdReasons.includes('receipt'))).toBe(true);
+  await c10.page.goto('/service/studio/settlements');await expect(c10.page.getByText(/대기 사유: .*PG 입금 대사 대기/).first()).toBeVisible();await snap(c10.page,info,'C10 정산 화면: 건별 대기 사유');
   await c10.ctx.close();
  });
 });

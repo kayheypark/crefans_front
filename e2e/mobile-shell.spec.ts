@@ -1,4 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 
 async function atViewportBottom(page:Page){
   await expect.poll(()=>page.getByRole('navigation',{name:'하단 메뉴',exact:true}).evaluate(node=>Math.abs(node.getBoundingClientRect().bottom-window.innerHeight))).toBeLessThan(1);

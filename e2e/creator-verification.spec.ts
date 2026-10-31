@@ -1,4 +1,6 @@
 import {test,expect} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 
 test('verified creator names share the badge across profile, feed, membership and explore',async({page},info)=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));

@@ -1,4 +1,6 @@
 import {test,expect} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 // D9: "@" opens the people who can be tagged, tags read as blue profile links, and someone else's comment can be reported.
 
 test('"@"을 치면 태그할 사람이 뜨고, 고르면 본문에 파란 링크로 남는다',async({page,isMobile},info)=>{

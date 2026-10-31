@@ -1,4 +1,6 @@
 import {test,expect,type Page} from '@playwright/test';
+import {settledShot} from './qa-settled';
+test.afterEach(settledShot);
 // Assert each visible UI and action below; offscreen lazy images must not gate document readiness in WebKit.
 const nickname='모카의 분홍빛 코스프레와 일상이야기',handle='@moka_cosplay_story_daily';
 const plan='모카와 함께 보는 특별한 코스프레 화보 컬렉션 멤버십';
