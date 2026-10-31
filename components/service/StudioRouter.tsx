@@ -15,7 +15,9 @@ import type {StudioReportId} from '@/types/crefans-studio-reports';
 import {WithdrawalSecurityPage} from '@/components/crefans/studio/WithdrawalSecurityPage';
 const basePath='/service/studio';
 export default function StudioRouter({segments}:{segments:string[]}){
- const [screen='',id]=segments,{model:fan}=useService(),{overview,management,finance,community,reports,error,loading,refresh}=useStudioModel(fan.signedIn);
+ const [screen='',id]=segments,{model:fan,loading:fanLoading}=useService(),{overview,management,finance,community,reports,error,loading,refresh}=useStudioModel(fan.signedIn);
+ // The account loads first; until then signedIn is the empty default, so the login prompt must not flash (2026-10-31).
+ if(fanLoading)return <p role="status">불러오는 중…</p>;
  if(!fan.signedIn)return <ServiceShell model={fan} active="studio" auth><SignInPrompt basePath="/service" description="크리에이터 스튜디오를 이용하려면 로그인해주세요."/></ServiceShell>;
  if(loading)return <p role="status">불러오는 중…</p>;
  if(!overview||!management||!finance||!community)return <div role="alert"><p>{error||'화면을 불러오지 못했습니다.'}</p><button onClick={()=>void refresh()}>다시 불러오기</button></div>;

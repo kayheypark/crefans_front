@@ -35,7 +35,8 @@ export type AccountModel={
     /** PASS 본인인증. The mock resolves immediately; live wiring opens the PASS flow. */
     verifyIdentity:()=>Promise<AccountActionResult>;
     login:(input:{email:string;password:string;remember:boolean})=>Promise<AccountActionResult>;
-    updateProfile:(input:{name:string;bio:string})=>Promise<AccountActionResult>;
+    /** handle: the one public user name (2026-10-31) — also the creator profile address. */
+    updateProfile:(input:{name:string;bio:string;handle?:string})=>Promise<AccountActionResult>;
     requestEmailChange?:(email:string,currentPassword:string)=>Promise<AccountActionResult>;
     updateSettings:(input:AccountSettingsUpdate)=>Promise<AccountActionResult>;
     unblockCreator:(id:string)=>Promise<AccountActionResult>;

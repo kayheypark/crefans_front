@@ -44,7 +44,7 @@ export function useMockAccount({viewer,setViewer,setSignedIn,basePath,creators,o
         setEmail(input.email.trim());setSignedIn(true);onCreatorLogin?.(moka?'moka':'haneul');
         router.push(`${basePath}/${moka?'studio':'feed'}`);return success('로그인되었습니다.');
       },
-      updateProfile:async input=>{if(!input.name.trim())return failure('닉네임을 입력해주세요.');setViewer({...viewer,name:input.name.trim(),bio:input.bio.trim()});return success('프로필을 저장했습니다.');},
+      updateProfile:async input=>{if(!input.name.trim())return failure('닉네임을 입력해주세요.');setViewer({...viewer,name:input.name.trim(),bio:input.bio.trim(),...(input.handle?{handle:input.handle}:{})});return success('프로필을 저장했습니다.');},
       updateSettings:async input=>{
         if(input.section==='account'){if(!input.name.trim())return failure('닉네임을 입력해주세요.');setViewer({...viewer,name:input.name.trim()});}
         if(input.section==='email'){if(!validEmail(input.email))return failure('올바른 이메일 주소를 입력해주세요.');setEmail(input.email.trim());return success('이메일 변경을 요청했습니다.');}

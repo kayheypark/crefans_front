@@ -50,7 +50,7 @@ function button(tree,label){return tree.root.findAllByType('button').find(item=>
   act(()=>button(tree,'프로필 수정').props.onClick());
   change(field(tree,'닉네임'),'수정 요청 이름');
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
-  assert.deepEqual(calls,[{name:'수정 요청 이름',bio:'주입된 소개'}]);
+  assert.deepEqual(calls,[{name:'수정 요청 이름',bio:'주입된 소개',handle:'injected'}]);// the user name is saved with the profile (2026-10-31)
   assert.equal(data.viewer.name,'주입된 이름');
   assert.match(text(tree),/서버에서 받은 완료 문구/);
   assert.equal(tree.root.findAllByProps({'data-dialog':'프로필 수정'}).length,0,'the panel closes after a successful save');
