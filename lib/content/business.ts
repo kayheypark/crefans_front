@@ -13,3 +13,6 @@ export const businessInfo={
 
 /** Public product guide (crefans_guide), opened in a new tab from the sidebar and settings. */
 export const guideSiteUrl='https://guide.crefans.com/';
+// 2026-10-31: the closed beta host now only points visitors to the main service (components/service/BetaClosedNotice).
+export const mainServiceOrigin='https://crefans.com';
+export const closedBetaHost='beta.crefans.com';
