@@ -4,11 +4,12 @@ import {serviceEvents} from '@/lib/content/events';
 import {ProfileConnectionsPage} from '@/components/crefans/ProfileConnectionsPage';
 import {loadProfileConnections} from '@/features/service/profile-connections';
 import {BeanChargePage} from '@/components/crefans/BeanChargePage';
+import {SignupCompletePage} from '@/components/crefans/SignupCompletePage';
 import {BeanWalletPage,BeanHistoryPage} from '@/components/crefans/BeanWalletPages';
 import {BeanPaymentResult} from '@/components/service/BeanPaymentResult';
 import {ServiceGuidePage} from '@/components/crefans/ServiceGuidePage';
 import {Suspense} from 'react';
-import {useSearchParams} from 'next/navigation';
+import {useRouter,useSearchParams} from 'next/navigation';
 import PublicMemberPage from '@/components/crefans/PublicMemberPage';
 import {useService} from './ServiceProvider';
 import {PaymentResult} from './PaymentResult';
@@ -23,7 +24,7 @@ import s from '@/components/crefans/service.module.css';
 
 
 export default function ServiceRouter({segments}:{segments:string[]}){
- const {model,common,loading,error,refresh,publicProfile}=useService(),query=useSearchParams(),[screen,id]=segments,basePath=model.basePath;
+ const {model,common,loading,error,refresh,publicProfile}=useService(),query=useSearchParams(),router=useRouter(),[screen,id]=segments,basePath=model.basePath;
  function content(){if(loading)return <p role="status">불러오는 중…</p>;if(!model.signedIn&&!(['following','followers'].includes(screen)&&query.get('profile'))&&['messages','notifications','me','subscriptions','settings','following','followers','payment-methods','checkout','beans'].includes(screen))return <SignInPrompt basePath={basePath}/>;switch(screen){
   case 'checkout':return <CheckoutPage id={id}/>;
   case 'payment':return <PaymentResult success={id==='success'}/>;
@@ -33,8 +34,8 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'creator':return publicProfile?.isCreator===false?<PublicMemberPage profile={publicProfile} model={model}/>:<CreatorProfilePage model={model} id={publicProfile?.id||id}/>;
   case 'member':return publicProfile?<PublicMemberPage profile={publicProfile} model={model}/>:null;
   case 'membership':return <MembershipPage model={model} id={publicProfile?.id||id} initialPlanId={query.get('plan')||undefined}/>;
-  case 'signup':return <SignupPage model={model}/>;
-  case 'login':return <LoginPage model={model}/>;
+  case 'signup':return id==='complete'?<SignupCompletePage basePath={basePath} live leave={path=>router.replace(path)}/>:<SignupPage model={model} onComplete={()=>router.push(`${basePath}/signup/complete`)}/>;
+  case 'login':return <LoginPage model={model} next={query.get('next')} navigate={path=>router.replace(path)}/>;
   case 'beans':return id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<BeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
   case 'feed':return <FeedPage model={model}/>;
   case 'post':return <PostDetailPage model={model} id={id} forceLocked={query.get('locked')==='1'}/>;

@@ -8,7 +8,7 @@ export async function generateMetadata(props:{params:Promise<{screen:string[]}>}
 export default async function Page(props:{params:Promise<{screen:string[]}>}){
  const params=await props.params;
  const [screen,id]=params.screen,detail=['guide','creator','membership','post','legal','checkout','billing','payment','member'].includes(screen);
- const valid=titles[screen]&&(detail?params.screen.length===2:screen==='beans'?params.screen.length===1||params.screen.length===2&&['charge','success','fail','charges','history','tips'].includes(id):['notices','events'].includes(screen)?params.screen.length<=2:params.screen.length===1)&&(!(screen==='legal')||['terms','privacy','policy'].includes(id));
+ const valid=titles[screen]&&(detail?params.screen.length===2:screen==='beans'?params.screen.length===1||params.screen.length===2&&['charge','success','fail','charges','history','tips'].includes(id):['notices','events'].includes(screen)?params.screen.length<=2:screen==='signup'?params.screen.length===1||id==='complete'&&params.screen.length===2:params.screen.length===1)&&(!(screen==='legal')||['terms','privacy','policy'].includes(id));
  if(screen==='events'&&id==='beta-first'&&params.screen.length===2)redirect('/service/events');
  if(!valid||(screen==='events'&&id&&!serviceEvents.some(event=>event.id===id))||(screen==='guide'&&!['fan','creator'].includes(id)))notFound();return <ServiceRouter segments={params.screen}/>;
 }

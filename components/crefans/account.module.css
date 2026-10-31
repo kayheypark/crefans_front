@@ -62,3 +62,4 @@
 /* Operator details close the settings page on mobile; the PC sidebar already shows them. */
 .settingsBusiness{margin-top:32px;padding-top:20px;border-top:1px solid var(--cf-landing-line)}
 @media(min-width:768px){.settings>.settingsBusiness{display:none}}
+.agreements>.agreeAll{padding-bottom:10px;margin-bottom:2px;border-bottom:1px solid var(--cf-color-border);color:var(--cf-color-text);font-weight:650}

@@ -98,7 +98,7 @@ function button(tree,label){return tree.root.findAllByType('button').find(item=>
   const submitButton=()=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
   change(field(tree,'이메일'),'injected@example.test');change(field(tree,'비밀번호'),'test-password');change(field(tree,'비밀번호 확인'),'test-passwor');change(field(tree,'닉네임'),'새 이름');
   const checks=tree.root.findAllByType('input').filter(input=>input.props.type==='checkbox');
-  act(()=>{checks[0].props.onChange({target:{checked:true}});checks[1].props.onChange({target:{checked:true}});});
+  act(()=>{checks[1].props.onChange({target:{checked:true}});checks[2].props.onChange({target:{checked:true}});});// checks[0] is 전체 동의 (2026-10-31); 1·2 are terms and privacy
   assert.match(text(tree),/서로 일치하지 않습니다/);change(field(tree,'비밀번호 확인'),'test-password');
   assert.equal(submitButton().props.disabled,true);
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));

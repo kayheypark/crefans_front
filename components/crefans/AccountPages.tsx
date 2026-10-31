@@ -3,6 +3,7 @@ import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanWalletLink} from './BeanPages';
 import {SignInPrompt} from './SignInPrompt';
+import {SIGNUP_COMPLETE_KEY,loginTarget} from '@/lib/crefans/login-return';
 export {SignInPrompt} from './SignInPrompt';
 import {MarqueeText,MarqueeMotionControl} from '@/components/ui/MarqueeText';
 
@@ -13,7 +14,7 @@ import {LegalDocumentBody} from './LegalDocumentBody';
 import {BusinessInfo} from './BusinessInfo';
 import {guideSiteUrl} from '@/lib/content/business';
 import {DialogActions} from '@/components/ui/DialogActions';
-import {useState, type FormEvent, type ReactNode} from 'react';
+import {useEffect,useState, type FormEvent, type ReactNode} from 'react';
 import Link from 'next/link';
 import {TextLink} from '@/components/ui/TextLink';
 import {Toggle} from '@/components/ui/Toggle';
@@ -48,11 +49,12 @@ function useActionFeedback(){
   return {busy,error,run,clearError:()=>setError('')};
 }
 
-export function SignupPage({model}:{model:ServiceViewModel}){
+/** `onComplete` is the router's move to the completion page (presentation does not navigate by itself). */
+export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete?:()=>void}){
   const {account,accountActions,basePath}=model,task=useActionFeedback();
   const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[confirm,setConfirm]=useState(''),[nickname,setNickname]=useState('');
   const [terms,setTerms]=useState(false),[privacy,setPrivacy]=useState(false),[marketing,setMarketing]=useState(false);
-  const [submitted,setSubmitted]=useState(false),[completion,setCompletion]=useState(''),[policy,setPolicy]=useState<'terms'|'privacy'|'marketing'|null>(null);
+  const [submitted,setSubmitted]=useState(false),[policy,setPolicy]=useState<'terms'|'privacy'|'marketing'|null>(null);
   // Requirements come from the server; deferring PASS never marks the identity as verified.
   const [codeSent,setCodeSent]=useState(false),[code,setCode]=useState(''),[emailVerified,setEmailVerified]=useState(false),[emailNotice,setEmailNotice]=useState(''),[emailError,setEmailError]=useState(''),[verifying,setVerifying]=useState(false);
   const identityRequired=account.signupRequirements?.identityRequired!==false;
@@ -66,7 +68,10 @@ export function SignupPage({model}:{model:ServiceViewModel}){
   async function requestCode(){if(verifying||!emailIsValid(email))return;setVerifying(true);setEmailError('');setEmailNotice('');try{const result=await accountActions.requestSignupCode(email);if(result.success){setCodeSent(true);setEmailNotice(result.data.message);}else if(result.errorCode==='SIGNUP_INVITE_REQUIRED')setInviteNotice(result.errorMessage||'');else{setEmailError(result.errorMessage);if(result.errorCode==='RESEND_COOLDOWN')setCodeSent(true);}}catch{setEmailError('인증 코드를 보내지 못했어요. 다시 시도해주세요.');}finally{setVerifying(false);}}
   async function verifyCode(){if(verifying||!code.trim())return;setVerifying(true);setEmailError('');try{const result=await accountActions.verifySignupCode({email,code:code.trim()});if(result.success){setEmailVerified(true);setEmailNotice(result.data.message);}else setEmailError(result.errorMessage);}catch{setEmailError('인증 코드를 확인하지 못했어요. 다시 시도해주세요.');}finally{setVerifying(false);}}
   async function verifyPass(){if(passPending)return;setPassPending(true);setPassError('');try{const result=await accountActions.verifyIdentity();if(result.success){setIdentityVerified(true);setPassOpen(false);}else setPassError(result.errorMessage);}catch{setPassError('본인인증을 완료하지 못했어요. 다시 시도해주세요.');}finally{setPassPending(false);}}
-  function submit(event:FormEvent){event.preventDefault();setSubmitted(true);if(ready)void task.run(()=>accountActions.signup({email,password,nickname,terms,privacy,marketing,emailVerified,identityVerified,ageAcknowledged,...(account.agreements?{policyVersions:account.agreements.versions}:{})}),message=>{setCompletion(message);setPassword('');setConfirm('');});}
+  function submit(event:FormEvent){event.preventDefault();setSubmitted(true);if(ready)void task.run(()=>accountActions.signup({email,password,nickname,terms,privacy,marketing,emailVerified,identityVerified,ageAcknowledged,...(account.agreements?{policyVersions:account.agreements.versions}:{})}),()=>{try{sessionStorage.setItem(SIGNUP_COMPLETE_KEY,email);}catch{}setSubmitted(false);setPassword('');setConfirm('');onComplete?.();});}
+  // 전체 동의 (2026-10-31): checks or clears every item shown, required and optional; clearing any one item clears it too.
+  const allAgreed=terms&&privacy&&marketing&&(identityRequired||ageAcknowledged);
+  function agreeAll(checked:boolean){setTerms(checked);setPrivacy(checked);setMarketing(checked);if(!identityRequired)setAgeAcknowledged(checked);}
   return <section className={s.signup}><h1>회원가입</h1>
       <form onSubmit={submit} noValidate className={s.form}>
         <div className={s.verifyRow}><Field label="이메일" type="email" autoComplete="email" value={email} readOnly={emailVerified} onChange={e=>changeEmail(e.target.value)} placeholder="이메일을 입력하세요" error={submitted?errors.email:undefined}/>{emailVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={verifying||!emailIsValid(email)} onClick={()=>void requestCode()}>{codeSent?'다시 받기':'인증 코드 받기'}</Action>}</div>
@@ -77,6 +82,7 @@ export function SignupPage({model}:{model:ServiceViewModel}){
         <Field label="닉네임" autoComplete="nickname" maxLength={20} value={nickname} onChange={e=>setNickname(e.target.value)} placeholder="닉네임을 입력하세요" error={submitted?errors.nickname:undefined}/>
         {identityRequired&&<div className={s.identityRow}><div><strong>본인인증</strong><span>{identityVerified?'PASS 본인인증 완료':'PASS 앱으로 본인인증을 진행합니다.'}</span></div>{identityVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={!policiesReady} onClick={()=>{setPassError('');setPassOpen(true);}}>PASS 본인인증</Action>}</div>}
         <div className={s.agreements}>
+          <div className={s.agreeAll}><Checkbox label="전체 동의" description="필수 항목과 선택 항목(마케팅 정보 수신)에 모두 동의합니다. 선택 항목은 동의하지 않아도 가입할 수 있어요." checked={allAgreed} onChange={agreeAll}/></div>
           {!identityRequired&&<div><Checkbox label="만 19세 이상입니다 (필수)" checked={ageAcknowledged} onChange={setAgeAcknowledged}/></div>}
           <div><Checkbox label="이용약관 동의 (필수)" checked={terms} onChange={setTerms}/><button type="button" aria-label="이용약관 보기" onClick={()=>setPolicy('terms')}><Chevron/></button></div>
           <div><Checkbox label="개인정보 처리방침 확인 (필수)" checked={privacy} onChange={setPrivacy}/><button type="button" aria-label="개인정보 수집 및 이용 안내 보기" onClick={()=>setPolicy('privacy')}><Chevron/></button></div>
@@ -88,15 +94,18 @@ export function SignupPage({model}:{model:ServiceViewModel}){
       </form>
     {identityRequired&&<Dialog open={passOpen} onClose={()=>{if(!passPending)setPassOpen(false);}} title="PASS 본인인증"><div className={s.dialogBody}><p>통신사 PASS 앱으로 연결해 본인인증을 진행합니다. 인증이 끝나면 이 화면으로 돌아옵니다.</p>{model.mode!=='live'&&<p className={s.hint}>목업에서는 아래 버튼을 누르면 인증이 완료된 것으로 처리됩니다.</p>}{passError&&<p className={s.error} role="alert">{passError}</p>}<DialogActions><Action variant="secondary" disabled={passPending} onClick={()=>setPassOpen(false)}>취소</Action><Action disabled={passPending} onClick={()=>void verifyPass()}>{passPending?'연결 중…':'PASS 앱으로 인증하기'}</Action></DialogActions></div></Dialog>}
     <Dialog open={!!inviteNotice} onClose={()=>setInviteNotice('')} title="가입 안내"><div className={s.dialogBody}><p>{inviteNotice}</p><DialogActions><Action type="button" onClick={()=>setInviteNotice('')}>확인</Action></DialogActions></div></Dialog>
-    <Dialog open={!!completion} onClose={()=>setCompletion('')} title="가입 완료"><div className={s.dialogBody}><Feedback>{completion}</Feedback><DialogActions><Link href={`${basePath}/login`} className={s.primaryLink}>로그인하러 가기</Link></DialogActions></div></Dialog>
     <Dialog open={!!policy} onClose={()=>setPolicy(null)} title={policy==='terms'?'이용약관':policy==='marketing'?'마케팅 정보 수신 동의':'개인정보 처리방침'}><div className={s.dialogBody}>{policy&&(account.agreements?<>{policy==='privacy'&&<LegalDocumentBody document={account.agreements.collection} idPrefix="signup-collection"/>}<LegalDocumentBody document={account.agreements.documents[policy]} idPrefix={`signup-${policy}`}/></>:<p className={s.ticketMessage}>{policy==='marketing'?'선택 동의입니다.':account.policies[policy]}</p>)}<DialogActions><Action variant="secondary" onClick={()=>setPolicy(null)}>확인</Action></DialogActions></div></Dialog>
   </section>;
 }
 
-export function LoginPage({model}:{model:ServiceViewModel}){
-  const {account,accountActions,basePath}=model,task=useActionFeedback();
+/** `next` (the screen that asked for login) and `navigate` are injected by the router. */
+export function LoginPage({model,next=null,navigate}:{model:ServiceViewModel;next?:string|null;navigate?:(path:string)=>void}){
+  const {account,accountActions,basePath}=model,task=useActionFeedback(),target=loginTarget(basePath,next);
   const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[remember,setRemember]=useState(false),[submitted,setSubmitted]=useState(false);
-  function submit(event:FormEvent){event.preventDefault();setSubmitted(true);if(emailIsValid(email)&&password.length>=8)void task.run(()=>accountActions.login({email,password,remember}),()=>setPassword(''));}
+  // A just-registered email fills the form. A live member who is already signed in does not stay on this page (preview starts signed in).
+  useEffect(()=>{try{const registered=sessionStorage.getItem(SIGNUP_COMPLETE_KEY);if(registered)setEmail(registered);}catch{}},[]);
+  useEffect(()=>{if(model.mode==='live'&&model.signedIn)navigate?.(target);},[model.mode,model.signedIn,target,navigate]);
+  function submit(event:FormEvent){event.preventDefault();setSubmitted(true);if(emailIsValid(email)&&password.length>=8)void task.run(()=>accountActions.login({email,password,remember}),()=>{setPassword('');try{sessionStorage.removeItem(SIGNUP_COMPLETE_KEY);}catch{}if(model.mode==='live'||next)navigate?.(target);});}// preview login picks its own landing unless a return path was given
   return <section className={s.login}><h1>로그인</h1>
     <form onSubmit={submit} noValidate className={s.form}>
       <Field label="이메일" type="email" autoComplete="email" placeholder="이메일" value={email} onChange={e=>setEmail(e.target.value)} error={submitted&&!emailIsValid(email)?'올바른 이메일 주소를 입력해주세요.':undefined}/>

@@ -7,7 +7,7 @@ import s from './beans.module.css';
 
 const beans=(value:number|undefined,loading:boolean)=>value===undefined?(loading?'불러오는 중…':'확인할 수 없습니다'):value.toLocaleString('ko-KR')+'콩';
 
-export function BeanBalanceSummary({wallet,loading=false,withdrawableBeans,action}:{wallet:BeanWallet|null|undefined;loading?:boolean;withdrawableBeans?:number;action?:ReactNode}){
+export function BeanBalanceSummary({wallet,loading=false,withdrawableBeans,action,detailsOpen=true}:{wallet:BeanWallet|null|undefined;loading?:boolean;withdrawableBeans?:number;action?:ReactNode;detailsOpen?:boolean}){
   const available=wallet?.spendableBeans,withdrawable=withdrawableBeans??wallet?.withdrawableBeans;
   const purchased=wallet?.spendableBreakdown?.purchased,promotion=wallet?.spendableBreakdown?.promotion;
   const balance=(bucket:string)=>wallet?Number(wallet.accounts.find(account=>account.bucket===bucket)?.balance||0):undefined;
@@ -20,7 +20,7 @@ export function BeanBalanceSummary({wallet,loading=false,withdrawableBeans,actio
       <div><dt>출금 가능한 콩</dt><dd>{amount(withdrawable)}</dd></div>
     </dl>
     {action}
-    <div className={s.balanceDetails}><AccordionItem title="콩 세부 내역" defaultOpen>
+    <div className={s.balanceDetails}><AccordionItem title="콩 세부 내역" defaultOpen={detailsOpen}>
       <ul className={s.balanceTree}>
         <li><div><strong>사용 가능한 콩</strong><span>{amount(available)}</span></div><ul>
           <li><div><span>일반콩</span><span>{amount(purchased)}</span></div></li>

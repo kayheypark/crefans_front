@@ -2,6 +2,7 @@
 import {EventsPage,EventDetailPage} from '@/components/crefans/EventPages';
 import {serviceEvents} from '@/lib/content/events';
 import {PreviewConnections} from './PreviewConnections';
+import {SignupCompletePage} from '@/components/crefans/SignupCompletePage';
 import {BeanChargePage} from '@/components/crefans/BeanChargePage';
 import {BeanWalletPage,BeanHistoryPage} from '@/components/crefans/BeanWalletPages';
 import {PreviewBeanPaymentResult} from './PreviewBeanPaymentResult';
@@ -27,8 +28,8 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'explore':return <ExplorePage model={model}/>;
   case 'creator':return <CreatorProfilePage model={model} id={id} previewLogin={id==='moka'?{label:'모카로 로그인',onClick:()=>{selectMoka();router.push(`${basePath}/studio`);}}:undefined}/>;
   case 'membership':return <MembershipPage model={model} id={id} initialPlanId={query.get('plan')||undefined}/>;
-  case 'signup':return <SignupPage model={model}/>;
-  case 'login':return <LoginPage model={model}/>;
+  case 'signup':return id==='complete'?<SignupCompletePage basePath={basePath} live={false}/>:<SignupPage model={model} onComplete={()=>router.push(`${basePath}/signup/complete`)}/>;
+  case 'login':return <LoginPage model={model} next={query.get('next')} navigate={path=>router.replace(path)}/>;
   case 'beans':return id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<PreviewBeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
   case 'feed':return <FeedPage model={model}/>;
   case 'post':return <PostDetailPage model={model} id={id} forceLocked={query.get('locked')==='1'}/>;
