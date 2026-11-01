@@ -1,10 +1,21 @@
 # PROGRESS: crefans_front
 
-## 2026-11-01 11:47 KST 지갑 잔액 로딩 규칙(/ux-spinner) 적용 (로컬·미커밋·미배포)
+## 2026-11-01 공개 페이지 검색 노출·공유 미리보기(OG) — seo-og-20261101 운영 배포
 
-- `BeanBalanceSummary`: 대기 중 미확인 금액은 빈칸, 1초 뒤 공통 `LoadingSpinner overlay`를 두 합계 위에 표시, 이전 값은 응답까지 유지. 지갑은 첫 응답 전을 대기로 취급해 `확인할 수 없습니다`가 오류 응답 뒤에만 보임. 같은 컴포넌트를 쓰는 콩 출금 화면도 동일.
-- 검증: `npm test` 433 통과, tsc 0, 브라우저 측정 5경우·대조 검사는 `.local/ux-spinner-20261101/README.md`.
-- 남은 일: 커밋·배포는 사용자 지시 대기. `BeanWalletPages.tsx`는 다른 세션 미커밋 변경이 있어 커밋 시 내 한 줄만 스테이징.
+- 사용자 결정(클릭형): 공개 페이지만 색인 / 크리에이터별 동적 미리보기 / 공개 게시물은 본문 사용 / 대표 문구 '크레팬스 crefans - 크리에이터 멤버십·후원 플랫폼'.
+- 구현(f4ce014): `lib/seo/site.ts`(사이트 상수·`shareMetadata`·비로그인 `publicApi`), `lib/seo/service-metadata.ts`(화면별 메타·JSON-LD), `app/robots.ts`, `app/sitemap.ts`(검색 허용 크리에이터 포함, 요청 시 생성), 루트 `metadataBase`·OG·트위터 카드, 대표 이미지 `public/og/crefans-og.png`(원본 `scripts/og/`, `node scripts/render-og.cjs`).
+- 색인: 홈(feed)·탐색·크리에이터·멤버십·공개 게시물·이벤트·이용안내·약관·공지·고객센터. 그 외(지갑·설정·메시지·결제·팬 프로필·로그인 등)는 noindex. 검색 비허용(`searchable=false`)·팬 프로필·없는 프로필은 noindex. 게시물은 비로그인 `canAccess=true`일 때만 본문·이미지, 잠긴(유료·성인·숨김) 게시물은 크리에이터 정보만·noindex.
+- Next 15.5는 동적 메타를 스트리밍하므로 `next.config.js` `htmlLimitedBots`에 카카오톡·다음·네이버·라인·텔레그램·밴드 스크래퍼 추가.
+- 검증: npm test 437 통과, tsc 0, 대조(잠금 판정 제거·robots `/service/me` 접두어 오류 시 실패), 로컬 가짜 API 카카오 UA 추출, 운영 카카오/구글 UA 메타·robots.txt·sitemap(15)·og.png 200. 증거 `.local/seo-og-deploy-20261101/`.
+- 사용자 조치 필요: 네이버 서치어드바이저·구글 서치콘솔 사이트 등록과 sitemap 제출(소유 확인 코드는 사용자 계정에서 발급), 이미 카톡에 공유된 링크는 카카오 공유 디버거에서 캐시 초기화.
+- 남은 일: 이벤트 URL id에 `beta-` 접두어가 남아 sitemap에 노출됨(주소 변경 여부 결정 필요). `npm run check:docs`는 기존 레퍼럴·프로필 사진 API 설명 누락으로 실패(이번 변경과 무관, 미해결).
+
+## 2026-11-01 지갑·화면 전환·탐색 로딩 규칙(/ux-spinner)과 탐색 카드 빈 배경 — card-wallet / explore-spinner 배포
+
+- 커밋: 2eeedee(탐색 카드 배경 사진, 없으면 연회색+흰 로고), e28ad9b(지갑 잔액 1초 지연 스피너), a0062e0(ServiceRouter 화면 전환 문구 → 지연 스피너; 사용자 제보: 모바일 하단 탭마다 '불러오는 중…'), fcc3a19(탐색 '크리에이터를 불러오는 중…' → 지연 스피너).
+- 운영 프론트 `card-wallet-20261101` → `explore-spinner-20261101`: 직전 운영 소스에 위 변경만 적용. 운영 모바일 확인: 탐색 진입 시 문구 없음, '크레팬스' 카드 연회색+로고.
+- 측정·대조: `.local/ux-spinner-20261101/`(지갑 5경우, 하단 탭·탐색 빠른/2.5초, 수정 전 코드 대조).
+- 남은 일: StudioRouter·BeanWithdrawContainer·CommonPages·BeanChargePage의 '불러오는 중…' 문구는 범위 밖.
 
 ## 2026-10-31 /pilot-work: 앱 도움말·약관 개정본 표시·잠긴 게시물 후원·최소 출금 (운영 배포 guide-sync-20261031, 커밋 완료·푸시 안 함)
 - FAQ 3문항 추가(콩 환불·유효기간, 구독·후원 정보 제공 동의 이유, 탈퇴 후 재가입 30일), 구독 FAQ에 동의, 신고 FAQ에 결과 알림. 서비스 안내에 '콩 후원' 카드·구독 동의 단계. 명칭 '오픈베타(가입은 초대 이메일)'. 이벤트에 프로모션콩 유효기간 5년·만료 알림·소멸 문장.
