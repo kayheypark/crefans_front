@@ -129,3 +129,7 @@ test('a converting iPhone video keeps its own thumbnail with a small optimizing 
     assert.doesNotMatch(JSON.stringify(picker.view.toJSON()),/영상 최적화 중/);assert.equal(picker.view.root.findByType('video').props.src,'/api/v1/media/m/file#t=0.001');
   }finally{picker.unmount();}
 });
+test('a watermarking photo shows a processing notice instead of requesting the unfinished image',()=>{
+ const picker=mount({items:[{id:'photo',type:'image',url:'/api/v1/media/photo/file',processing:true}]});
+ try{assert.equal(picker.view.root.findAllByType('img').length,0);assert.match(JSON.stringify(picker.view.toJSON()),/워터마크 적용 중/);picker.update({items:[{id:'photo',type:'image',url:'/api/v1/media/photo/file'}]});assert.equal(picker.view.root.findAllByType('img').length,1);assert.doesNotMatch(JSON.stringify(picker.view.toJSON()),/워터마크 적용 중/);}finally{picker.unmount();}
+});
