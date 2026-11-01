@@ -3344,3 +3344,10 @@
 - 운영 `/service/feed`, `/service/explore`와 `/preview/feed`, `/preview/explore`, `/preview/me` 5경로에서 콘텐츠 로딩 완료 후 당김 표시·현재 URL reload·HTTP200 확인. 최초 스크린샷은 로딩 중 화면이어서 콘텐츠 표시/네트워크 안정 후 재촬영했다. 운영 preview 설정은 PC Enter·모바일 tap,44px 클릭 영역,24px 아이콘,수정 모달 닫기 유지 등2환경 통과. 로그인된 실제 운영 내 프로필은 직접 검사하지 않았으며 같은 공용 셸을 쓰는 운영 preview로 검증했다.
 - 운영 JS/CSS50파일이 검증한 이미지와 SHA-256 일치. 프론트만 재생성, API/worker/관리자/DB/proxy 기존 컨테이너 동일·정상 실행, 마이그레이션 없음. 최신3이미지/사용중/직전 watermark 복구 이미지 보호를 확인한 뒤 로컬·운영의 오래된 ad-tabs 이미지 각1개 정리. Docker Desktop은 유지.
 - 증거: `.local/pull-refresh-deploy-20261101/verification.json`, `deployment-command.json`, `source-delta.json`, `served-assets.json`, `live-page-verification.json`, `settings-verification.json`, `image-ui/results.json`, `production-ui/results.json`, 화면 PNG 및 retention 결과. Playwright 상대 출력은 설정 폴더 아래 생성되어 원본을 보존하고 증거 폴더에 그대로 복사했다. 본 문서 기록도 prod 기준 신규 feat에서 dev→prod로 통합하며 제품 파일은 배포 이미지와 동일하다. AGENTS 변경 없음.
+
+## 2026-11-02 지갑·전체 조회 화면 당겨서 새로고침 확대
+- 요청: 지갑도 새로고침되지 않으므로 나머지 페이지를 전수 조사해 같은 문제 개선·운영 배포. 최신 prod(6809708)에서 feat/mobile-refresh-pages 분기. 라우트 파일39개, 팬 화면 분류27개, 스튜디오 분류18개의 등록/스크롤 호스트 조사. 전체 기능 QA가 아닌 모바일 스크롤 경계 조사이며 별도 운영콘솔은 범위 밖. 목록·제외 이유·소스 해시·등록 누락 대조 검사는 docs/audit/mobile-refresh-route-audit-20261102.json.
+- 기존5개 화면 한정 정책을 지갑/충전 주문/콩 이동/보낸 후원/친구초대·이력, 알림, 메시지 목록, 팔로우 목록, 구독/결제 이력, 게시물, 설정/결제수단 목록, FAQ·공지·이벤트·정책·가이드 조회로 확대. 결제·출금·가입/인증·멤버십 선택/공급사 결과 처리는 제외. 문의 tab=qna도 전체 제외.
+- 메시지 목록은 별도 contacts 스크롤의 최상단 경계를 명시적으로 공유. 대화방·전송 중·다른 대화의 보관 초안도 보호. 기존 댓글·모달·포커스·가로 스와이프 제외 유지. 지갑 이력/구독/결제수단/설정 변경 요청 중에는 보호 표시를 사용. 스튜디오·랜딩·레거시는 문서 스크롤이므로 같은 문제가 아니며 구조 유지. API/금융/정책 변경 없음.
+- 로컬 npm run check exit0(489검사/타입/레이어), 브라우저99통과/기기조건48제외/실패0: 모바일 조회 경로37개 각각 Chromium/WebKit, 문의·메시지 초안, 내부 목록 경계,PC·스튜디오/랜딩 문서 스크롤,실제 Chromium CDP 지갑 터치,기존 GNB/모달/댓글. `.local/mobile-refresh-pages-20261102/ui/results.json` 및 각 경로 화면 캡처. 실물 iPhone Chrome·로그인된 운영 지갑 미검증이며 운영 preview 검사를 실계정 금융 검증으로 간주하지 않는다.
+- AGENTS에 내부 스크롤 경로 정책·초안/진행 상태 보호 규칙1줄 추가. 현재 운영 pull-refresh-20261101 기준 제품7파일만 동결하여 `.local/pull-refresh-pages-deploy-20261102/`에 빌드 중. 다음: 이미지 브라우저검사→dev 통합·검사→prod 승격→프론트 운영 배포·운영 재검증.

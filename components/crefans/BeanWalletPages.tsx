@@ -91,7 +91,7 @@ export function BeanHistoryView({kind,model,error='',notice='',onNoticeClose=()=
  const filtered=filters.period!=='all'||filters.status!=='all'||filters.direction!=='all'||filters.sourceType!=='all'||!!filters.search;
  // Loading rule: keep the previous list (nothing on a first load) for 1s, then a spinner; results replace the screen only when the response arrives.
  const received=!!model.error||!!wallet||model.sentTotal!==undefined,slow=useDelayedLoading(model.loading);
- return <section className={`${s.page} ${s.walletPage} ${s.historyPage}`}>
+ return <section className={`${s.page} ${s.walletPage} ${s.historyPage}`} data-pull-refresh-block={pending||undefined}>
   <PageTitle back={<BackButton href={`${model.basePath}/beans`} label="지갑으로 돌아가기"/>}>{titles[kind]}</PageTitle>
   <HistoryFilters kind={kind} value={filters} onChange={onFiltersChange} disabled={pending}/>
   {received&&!model.error&&total!==undefined&&<p className={s.historyCount} role="status">총 {total.toLocaleString('ko-KR')}건</p>}

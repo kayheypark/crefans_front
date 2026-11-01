@@ -47,8 +47,8 @@ test('짧은 당김·취소·가로·위쪽·다중 터치·스크롤 중·입�
   await page.waitForTimeout(250);expect(navigations).toEqual([]);await expect(page.getByText('놓으면 새로고침',{exact:true})).toHaveCount(0);
 });
 
-test('PC와 설정·메시지는 기존 동작을 유지한다',async({page,isMobile})=>{
-  for(const route of isMobile?['settings','messages']:['feed','explore','me']){
+test('PC와 결제·출금 화면은 기존 동작을 유지한다',async({page,isMobile})=>{
+  for(const route of isMobile?['beans/charge','beans/withdraw']:['feed','explore','me']){
     await page.goto('/preview/'+route);await expect(page.locator('#page-content')).not.toHaveAttribute('inert');
     await page.evaluate(()=>{(window as any).__refreshGuard=true;});await gesture(page);
     await page.waitForTimeout(100);expect(await page.evaluate(()=>(window as any).__refreshGuard)).toBe(true);
