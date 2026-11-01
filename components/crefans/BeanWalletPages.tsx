@@ -51,7 +51,7 @@ export function BeanWalletPage(){
  const model=useBeans();
  if(!model?.enabled)return <p>콩 후원을 준비 중입니다.</p>;
  if(!model.signedIn)return <SignInPrompt basePath={model.basePath}/>;
- return <><BeanWalletOverview basePath={model.basePath} wallet={model.wallet} loading={model.loading} error={model.error}/>{model.referral&&<ReferralCard referral={model.referral} basePath={model.basePath}/>}</>;
+ return <><BeanWalletOverview basePath={model.basePath} wallet={model.wallet} loading={model.loading} error={model.error}/>{model.referral&&<ReferralCard referral={model.referral}/>}</>;
 }
 
 const periods=[['all','전체 기간'],['1','최근 1개월'],['3','최근 3개월'],['6','최근 6개월'],['12','최근 1년']];

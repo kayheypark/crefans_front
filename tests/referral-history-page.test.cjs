@@ -38,3 +38,21 @@ test('empty and error answers appear only after the response',async()=>{
  let tree=mount(async()=>result([]));await act(async()=>{});try{assert.match(text(tree.toJSON()),/아직 초대로 가입한 친구가 없어요/);}finally{act(()=>tree.unmount());}
  tree=mount(async()=>({success:false,data:null,errorMessage:'불러오지 못했어요',errorCode:'X'}));await act(async()=>{});try{assert.match(text(tree.toJSON()),/불러오지 못했어요/);assert.doesNotMatch(text(tree.toJSON()),/없어요/);}finally{act(()=>tree.unmount());}
 });
+
+// 2026-11-01 decisions: rewards are promotional beans for tips only; a disabled inviter's reward is forfeited ('소멸').
+test('a forfeited reward shows as 소멸 and the note says rewards are for tips',async()=>{
+ const tree=mount(()=>Promise.resolve(result([item('f','forfeited','kay**********')])));
+ try{await act(async()=>{});assert.match(rows(tree)[0],/소멸/);assert.match(text(tree.toJSON()),/후원에 쓸 수 있는 프로모션콩/);}finally{act(()=>tree.unmount());}
+});
+{
+ const {ReferralCard}=loadTypeScript('components/crefans/ReferralCard.tsx',{'@/components/ui/SnackbarProvider':{useSnackbarMessage:()=>React.useState('')},'@/components/ui/Toast':{Toast:()=>null}});
+ test('the invite card offers no bean withdrawal and states the reward rules',()=>{
+  const hadWindow='window' in globalThis;if(!hadWindow)globalThis.window={location:{origin:'https://crefans.com'}};
+  let tree;act(()=>{tree=create(React.createElement(ReferralCard,{referral:{code:'c',invited:3,qualified:1,rewarded:2,rewardBeans:200,rewardPerInvite:100,holdDays:7,monthlyCap:10}}));});
+  try{
+   assert.equal(tree.root.findAll(n=>typeof n.props?.href==='string'&&n.props.href.includes('withdraw')).length,0);
+   const all=text(tree.toJSON());assert.doesNotMatch(all,/출금하기|출금 가능한/);
+   for(const rule of [/출금할 수 없어요/,/일부라도 환불·취소되면 보상 전체를 회수/,/소멸/,/운영자가 확인해/,/닉네임 앞 세 글자/])assert.match(all,rule);
+  }finally{act(()=>tree.unmount());if(!hadWindow)delete globalThis.window;}
+ });
+}
