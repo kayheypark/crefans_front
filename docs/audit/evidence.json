@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-01T14:27:27.290643+00:00",
+  "checkedAt": "2026-11-01T14:32:51.350436+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,7 +18,7 @@
     "models": 86,
     "enums": 15,
     "migrations": 44,
-    "localMarkdownTargets": 427,
+    "localMarkdownTargets": 430,
     "externalInlineLinksNotFetched": 348
   },
   "negativeControls": [
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "715f0fdf8ffa6e234ce4f6301261ef55015c0df9",
+      "head": "4360c2e56abcd0887c0bb99ff474f7ebbd107ef3",
       "branch": "feat/creator-media-watermark",
       "dirty": true
     },
     "server": {
-      "head": "1c08675c573e18eb37173fb3b1b4ce80826a2c58",
+      "head": "ead628810c671e578ab82e5f27de732bcc814d48",
       "branch": "feat/creator-media-watermark",
       "dirty": true
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f923895598528c0d35878f707b91602fa44128e3b86db3bf973278c39a2dfbd9",
-      "front/PROGRESS.md": "385abd1f79093545e80959c1950d57591f4052b7fccee96929f2f6d7902a1fef",
+      "front/PROGRESS.md": "2c712212a3249b5a746f609beb08cf610d3cb316118b07dbe42b48b798ea1e5d",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -83,7 +83,7 @@
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "server/AGENTS.md": "1baddcefc7a1a911ccc4ab90beb120a4ad502db57bc684491b834f4176915535",
-      "server/PROGRESS.md": "17f1f2738c07a6ded06247d15e3a3e17bea2898da1ef4932adbcb37b8fbe9828",
+      "server/PROGRESS.md": "6f67743b0873f29ec227961f2ea0ba3a99d24ab9ec42c965f361e97764f5c57a",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -106,7 +106,7 @@
       "server/docs/platform-api.md": "6079ec902478c370ad4de8e92f2200a869c5c1e92a85f85e6181687d4168b3da",
       "server/docs/platform-implementation.md": "35f1abae75cb4e32e8356f5475f9a99ad64a757ed398654c538d2099e02170b1",
       "server/docs/prd.md": "4acd7a59320dd75f569cac956225942022f960ade6ca2f2518a2dd71e1669299",
-      "server/docs/private-media.md": "2f8ef3aa1ceb9fcaaa1973ab76b542d53167a696edff290f013d94cab2a45bee",
+      "server/docs/private-media.md": "a398d6de0e8abb0eae017396e3cfb96d3aaae1880cf16fb70b68eba13c6d5820",
       "server/docs/provider-contracts.md": "2262cf7c3b137b4799974778a1622bfbdc0d18ea9449eec3fe87afc6416edf8d",
       "server/docs/referral-design-20261101.md": "11a1f3712f1619c67a280e1d3eb90c60933d9e86fac29fcafc7d0d7c41bad3fc",
       "server/docs/roadmap.md": "fdec0e1a6c54393cfae4b586c1d2e068de7086ab1e20a88a90aa8dab2f820fa5",
@@ -820,6 +820,7 @@
       "server/docs/swagger-20261023.json": "f9546d21a4c93e6b06ceb1593c1a7ce70cc3b9b33e639892dfaf397b642beaa3",
       "server/docs/swagger-split-20261023.json": "614edde8b37193be66c738231c2f10a2cf155a193119cfb5740a1c7f1be11735",
       "server/docs/swagger-three-20261023.json": "2a9b3f59af933fe532805eac6a63fe978bec6a22b77b65d1ccfeded77a95980e",
+      "server/docs/watermark-20261101.json": "10fadd12fc2e95ef51bf543e15f69b1d15d0eecfbb212d70a63835847c287b18",
       "server/infra/platform/Caddyfile": "de85b711d8f4eb6d61ec61636fe9b18362d240667bb41004cf681625e58b6125",
       "server/infra/platform/Dockerfile": "387de6623a7c7bec5de68d6fb2f1d4e46adee5ac017d91f35b210b12d2a443b0",
       "server/infra/platform/compose.admin.yml": "def7c2a421a915d8f745de716149bf95963bc4bd02528b40fab6af2dc26dbe70",
