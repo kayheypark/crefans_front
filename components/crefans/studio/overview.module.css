@@ -31,3 +31,7 @@
 /* Dashboard 'more' navigation uses the shared secondary ActionLink; restore its type and color inside .sectionTitle. */
 .moreButton{display:flex;width:fit-content;margin-top:14px;align-self:flex-start}
 .sectionTitle .moreButton{display:inline-flex;margin-top:0}
+
+.dashboardGreeting{display:flex;align-items:center;gap:12px;min-width:0;max-width:100%}
+.dashboardGreeting>:first-child{flex:none}
+.dashboardGreeting>:last-child{min-width:0}
