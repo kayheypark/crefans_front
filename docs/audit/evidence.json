@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-01T22:10:49.198276+00:00",
+  "checkedAt": "2026-11-01T22:12:35.489651+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "794301103b2ee4a4e184d6a4ccb21dddb69d0154",
+      "head": "6bc6349b8a6625f80a6ad8606c5efa0a265a1bb0",
       "branch": "feat/video-processing-status-ui",
       "dirty": true
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "5f3e09e6bdff861aa4f78a7da570ab5f071a70654b0eb460352160ad07e020cd",
-      "front/PROGRESS.md": "5a01b143a8da45bddc36334ec3569474c196e3d7b3f18ce50997396b9874e090",
+      "front/PROGRESS.md": "979f3a82f0e74adb29bcc275a18cd7f96d1579af070df6afa1e18dec696d3119",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -674,7 +674,7 @@
       "front/lib/utils/validation.ts": "fa4cd58e6d97edf09f0eef5d03b3cf333cf0b773c0dacf6b3ae74a7e617708a5",
       "front/lib/utils/validationUtils.ts": "05324d7c15888649a9477677d3b97bf9934c2ddc87db9126df78b558b75ec878",
       "front/middleware.ts": "0643087b06dc7b5c327e93607e555ccfdcc9e647439f32db75f957b20a6df343",
-      "front/next-env.d.ts": "e6189d2dc9edacd7ce9c749997f80c05e5de39cf4acd12b6b9d329d8a2a250af",
+      "front/next-env.d.ts": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
       "front/next.config.js": "e8f60fbebed08a4551b60e00b868096f4ce810133ac97b7c2035798facc396ba",
       "front/package-lock.json": "20afd46fb5fe38cc9a9beda045149b68ce696ecdc59fc5ced2c0a107f76f84d2",
       "front/package.json": "83fd3adcdd4912491852b2cbd0873d29577975da9ad86be717b593d2aedd0c55",
