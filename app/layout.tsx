@@ -5,10 +5,20 @@ import ApplicationProviders from "@/components/providers/ApplicationProviders";
 import { Suspense } from "react";
 import "antd/dist/reset.css";
 import "./globals.css";
+import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo/site";
 
+// Site-wide search and share defaults (lib/seo/site.ts); public service pages refine them, private ones opt out.
 export const metadata: Metadata = {
-  title: "crefans",
-  description: "당신만의 크리에이터를 만나보세요",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: SITE_KEYWORDS,
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  formatDetection: { telephone: false, email: false, address: false },
+  openGraph: { type: "website", siteName: SITE_NAME, locale: "ko_KR", url: "/", title: SITE_TITLE, description: SITE_DESCRIPTION, images: [DEFAULT_OG_IMAGE] },
+  twitter: { card: "summary_large_image", title: SITE_TITLE, description: SITE_DESCRIPTION, images: [DEFAULT_OG_IMAGE.url] },
 };
 
 export const viewport: Viewport = {
