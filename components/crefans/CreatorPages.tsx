@@ -10,6 +10,8 @@ import {CreatorSearch} from './CreatorSearch';
 
 import {DialogActions} from '@/components/ui/DialogActions';
 import {useEffect,useState} from 'react';
+import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
+import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import Image from 'next/image';
 import Link from 'next/link';
 import {TextLink} from '@/components/ui/TextLink';
@@ -48,11 +50,13 @@ export function ExplorePage({model}:{model:ServiceViewModel}){
   const visible=creators.filter(creator=>creator.isCreator!==false&&creator.searchable!==false&&(category==='전체'||creator.tags.includes(category))&&`${creator.name} ${creator.handle} ${creator.tags.join(' ')} ${creator.bio}`.toLocaleLowerCase().includes(term));
   /** Paid placements get the full card; everyone else is a one-line row so the page stays light as the roster grows. */
   const promoted=visible.filter(creator=>creator.promoted),others=visible.filter(creator=>!creator.promoted);
+  // Loading rule: no '불러오는 중…' text on every visit; the shared spinner appears only after 1s.
+  const slow=useDelayedLoading(!!model.directory?.loading);
   return <div className={s.explore}>
     <h1 className={s.srOnly}>탐색하기</h1>
     <CreatorSearch value={query} onChange={setQuery}/>
     <ChipRow className={s.filters} label="크리에이터 카테고리">{['전체',...categories.filter(item=>item!=='전체')].map(item=><CategoryChip key={item} label={item} selected={category===item} onClick={()=>setCategory(item)}/>)}</ChipRow>
-    {model.directory?.loading&&<p role="status">크리에이터를 불러오는 중…</p>}
+    {slow&&<LoadingSpinner/>}
     {visible.length ? <>
       {promoted.length>0&&<><div className={s.featuredHeading}><h2 className={s.listHeading}><Image className={s.featuredIcon} src="/brand/featured-creators-v1.png" width={22} height={22} alt="" aria-hidden="true"/><span>주목할 크리에이터</span><Badge tone="outline" label="광고">AD</Badge></h2><InfoTooltip label="주목할 크리에이터 안내" content="홍보성 프로모션이 적용된 크리에이터나 해당 광고 상품을 이용중인 크리에이터가 노출될 수 있습니다."/></div><div className={s.creatorGrid}>{promoted.map(creator=><CreatorCard key={creator.id} creator={creator} href={`${basePath}/creator/${creator.id}`} following={following.includes(creator.id)} onFollow={()=>toggleFollow(creator.id)}/>)}</div></>}
       {others.length>0&&<>{promoted.length>0&&<h2 className={s.listHeading}>모든 크리에이터</h2>}<ul className={s.creatorList}>{others.map(creator=><li key={creator.id}><Link href={`${basePath}/creator/${creator.id}`} className={s.creatorRow}><Avatar creator={creator} size={36}/><span><strong><CreatorName person={creator}/></strong><small><MarqueeText text={`@${creator.handle}`}/></small></span></Link></li>)}</ul></>}
