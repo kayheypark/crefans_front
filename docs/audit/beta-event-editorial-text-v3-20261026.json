@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-26T10:34:22.802578+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "uncommitted": true,
+  "asset": "design/beta-event-concepts/20261026/03-editorial-text-v3.png",
+  "sha256": "bb7c8fa45bc56c28ada827386ebf5e2b868da20126d0b352ffb97518ae2ae193",
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "sourceCopyIdentical": true,
+  "reference": "design/beta-event-concepts/20261026/03-editorial-user-reference.jpg",
+  "referenceSha256": "156361abd26056e2ec6bfded5d7bf9e555a2b4099b5b09d1fa621803c48e933b",
+  "metadata": "design/beta-event-concepts/20261026/03-editorial-text-v3.generation.json",
+  "manualImageReview": {
+    "topTitleAndSubtitlePreserved": true,
+    "fourIllustrationsPreservedVisually": true,
+    "layoutAndColorPreservedVisually": true,
+    "badgeHeadlineOneLine": true,
+    "benefitSecondaryTextAsteriskSentences": true,
+    "fan13SmallBottomRight": true,
+    "benefitAmountsAndEligibilityPreserved": true
+  },
+  "pixelIdenticalPreservationClaimed": false,
+  "productionImageUnchanged": true,
+  "applicationTestsRun": false,
+  "deployed": false
+}

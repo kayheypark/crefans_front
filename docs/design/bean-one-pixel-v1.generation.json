@@ -1,0 +1,23 @@
+{
+  "id": "pixel",
+  "label": "④ 픽셀",
+  "style": "Style: polished retro pixel-art game currency icon, visibly chunky square pixels, intentional staircase contour, limited 6-color emerald and lime palette, blocky pale cream curved seam, readable chunky silhouette as if drawn on a 48-by-48 pixel grid and enlarged using nearest-neighbor. No antialiasing, no smooth edges, no 3D rendering, no extra sparkles.",
+  "prompt": "Use case: stylized-concept. Asset type: virtual currency icon for CREFANS, one of four contrasting style proposals. Exactly ONE green kidney bean with a small curved cream crease, consistent clear bean silhouette, diagonally oriented, no face. Centered isolated subject in square canvas, around 65 percent image coverage with generous transparent padding, legible as a small mobile app icon. Genuine transparent alpha background. No text, numerals, logos, watermark, other beans, leaves, containers, coins, background panel, decorative badge, or scene. A single asset, not a comparison sheet. Style: polished retro pixel-art game currency icon, visibly chunky square pixels, intentional staircase contour, limited 6-color emerald and lime palette, blocky pale cream curved seam, readable chunky silhouette as if drawn on a 48-by-48 pixel grid and enlarged using nearest-neighbor. No antialiasing, no smooth edges, no 3D rendering, no extra sparkles.",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-82f5c77f-ff59-49af-80e7-b7ecf8d93e3b.png",
+  "tool": "built-in image_gen",
+  "savedPath": "/Users/ethan/repository/crefans_front/docs/design/bean-one-pixel-v1.png",
+  "createdAt": "2026-10-25T05:51:17.681378+00:00",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alphaRange": [
+    0,
+    255
+  ],
+  "sha256": "1562e59877f78ab999fc1688c1d03bcb69f9f61561cf121d54671855b79f0171",
+  "bytes": 564360,
+  "appliedToUi": false,
+  "deployed": false
+}

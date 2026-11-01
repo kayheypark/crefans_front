@@ -1,0 +1,132 @@
+{
+  "at": "2026-10-24T22:31:52.442Z",
+  "url": "https://beta.crefans.com/preview/post/morning",
+  "scope": "browser-only design proposals; no source changes or deployment",
+  "base": {
+    "button": {
+      "x": 340,
+      "y": 10,
+      "width": 40,
+      "height": 40,
+      "top": 10,
+      "right": 380,
+      "bottom": 50,
+      "left": 340
+    },
+    "icon": {
+      "x": 342,
+      "y": 12,
+      "width": 36,
+      "height": 36,
+      "top": 12,
+      "right": 378,
+      "bottom": 48,
+      "left": 342
+    }
+  },
+  "measurements": [
+    {
+      "id": "a",
+      "button": {
+        "x": 334,
+        "y": 12,
+        "width": 44,
+        "height": 44,
+        "top": 12,
+        "right": 378,
+        "bottom": 56,
+        "left": 334
+      },
+      "icon": {
+        "x": 344,
+        "y": 22,
+        "width": 24,
+        "height": 24,
+        "top": 22,
+        "right": 368,
+        "bottom": 46,
+        "left": 344
+      }
+    },
+    {
+      "id": "b",
+      "button": {
+        "x": 334,
+        "y": 12,
+        "width": 44,
+        "height": 44,
+        "top": 12,
+        "right": 378,
+        "bottom": 56,
+        "left": 334
+      },
+      "icon": {
+        "x": 344,
+        "y": 22,
+        "width": 24,
+        "height": 24,
+        "top": 22,
+        "right": 368,
+        "bottom": 46,
+        "left": 344
+      }
+    },
+    {
+      "id": "c",
+      "button": {
+        "x": 334,
+        "y": 12,
+        "width": 44,
+        "height": 44,
+        "top": 12,
+        "right": 378,
+        "bottom": 56,
+        "left": 334
+      },
+      "icon": {
+        "x": 345,
+        "y": 23,
+        "width": 22,
+        "height": 22,
+        "top": 23,
+        "right": 367,
+        "bottom": 45,
+        "left": 345
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "a.png",
+      "sha256": "a9f08b308db809e9629b8a15f7eaf35d844f0f35d97f66dfb1eea00b106a3471"
+    },
+    {
+      "file": "b.png",
+      "sha256": "070154ea23c9a45ac4f5f188fcb37ee9dde9077470119ae476d0b4c748812177"
+    },
+    {
+      "file": "c.png",
+      "sha256": "d406b2c2f2e0c4af2fe552093bd3bfecdbf544134bca697562f0e64528368c5c"
+    },
+    {
+      "file": "comparison.html",
+      "sha256": "b83af1069cc4f9ce1d27b2f6c90f38d8851a8109ff070b03d8b825feb1045c10"
+    },
+    {
+      "file": "comparison.png",
+      "sha256": "cdcf6cb2183acf24607e9e2968170bb35a6b0fe8ca5b07722caed3267c867df1"
+    }
+  ],
+  "exitCode": 0,
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/beta-signup",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "existing uncommitted changes preserved; this task creates proposal artifacts and documentation only",
+  "command": "PW_TEST_SCREENSHOT_NO_FONTS_READY=1 node .local/gallery-close-proposals-20261025/render.cjs",
+  "environment": "Playwright Chromium, mobile viewport 390x844, deviceScaleFactor 2",
+  "visualReview": "Comparison viewed: three consistent gallery frames, smaller close icons and unclipped labels. Design proposals only.",
+  "sourceHashes": {
+    "components/crefans/MediaOverlay.tsx": "079caf0577f2a73eea40e3714e094619e309b6f699928e175cac77824d1957e7",
+    "components/crefans/social.module.css": "b37776914858bf7166e06fa40b770cdaf168146900d5f42a7c0132c3e78c4971"
+  }
+}

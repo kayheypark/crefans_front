@@ -1,0 +1,196 @@
+{
+  "verifiedAt": "2026-10-24T00:35:49.112947+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "workingTreeDirty": true,
+  "target": "https://beta.crefans.com",
+  "features": [
+    "Shared MediaOverlay for posts and profile avatar/cover photos",
+    "Creator and fan ProfileHeader photo click, original aspect ratio, close/Escape/focus restoration",
+    "Existing post gallery gestures and mobile panel preserved"
+  ],
+  "scope": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "changedRuntimeFiles": [
+      "components/crefans/MediaOverlay.tsx",
+      "components/crefans/ProfileHeader.tsx",
+      "components/crefans/SocialPages.tsx",
+      "components/crefans/creator.module.css",
+      "components/crefans/social.module.css",
+      "components/design-system/ServicePatternCatalog.tsx"
+    ],
+    "runtimeFiles": 474,
+    "existingFeatureEvidenceValid": true
+  },
+  "check": {
+    "command": [
+      "npm",
+      "run",
+      "check"
+    ],
+    "startedAt": "2026-10-24T00:26:19.222464+00:00",
+    "finishedAt": "2026-10-24T00:26:26.637479+00:00",
+    "exitCode": 0,
+    "passed": 288,
+    "reuseReason": "No tested source hashes changed since passing local check; all nine evidence source hashes revalidated."
+  },
+  "build": {
+    "command": [
+      "docker",
+      "--config",
+      "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "-f",
+      "infra/platform/Dockerfile",
+      "-t",
+      "crefans-front:profile-media-20261024",
+      "."
+    ],
+    "startedAt": "2026-10-24T00:29:25.079179+00:00",
+    "finishedAt": "2026-10-24T00:30:58.022798+00:00",
+    "exitCode": 0
+  },
+  "image": {
+    "at": "2026-10-24T00:32:37.508630+00:00",
+    "imageId": "sha256:156e90d919a522761021a822a02f578fdc0276937b7b0510259ca8adeece51cc",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 474
+  },
+  "source": {
+    "runtimeFilesMatched": 474,
+    "manifestSha256": "ca034e9cf964b71d270e4131b15978a0c79528311bc9f1eb5eee8edfdaec52b0",
+    "changedFiles": {
+      "components/crefans/MediaOverlay.tsx": "7ce4e7d74ffba6eb25effdce0fb124988b802adcf45a5d539ffdf18e07895aae",
+      "components/crefans/ProfileHeader.tsx": "75a0074b383bcdc199be2303cf9d02afc6255dac7a6d0b8462f3ea42db3cc163",
+      "components/crefans/SocialPages.tsx": "be3a6a12f17dfa0cdb7f921e5d31f6d2f7596a7fa298a3cbf449135b0dec6ab2",
+      "components/crefans/creator.module.css": "18636af160e7f17cdcdf5364ebf8bd2e578d674dd3d962dbe4aac72c8ada9eec",
+      "components/crefans/social.module.css": "b79de1cbc230b95534c8adcbaa3842833f529e71bf2e2edf3bbfd42de07e6313",
+      "components/design-system/ServicePatternCatalog.tsx": "8783895a2b9fd383edba14772e4ed1a25d0b815592c0fc1a698cc421abe3edd4"
+    },
+    "recheckedAfterDeployment": true
+  },
+  "builtImageE2E": {
+    "startedAt": "2026-10-24T00:32:40.123382+00:00",
+    "finishedAt": "2026-10-24T00:32:59.026102+00:00",
+    "exitCode": 0,
+    "scope": "Built production image on loopback3013; preview interactions only",
+    "command": [
+      "npx",
+      "playwright",
+      "test",
+      "--config",
+      ".local/profile-media-deploy-20261024/image-playwright.config.ts"
+    ],
+    "passed": 6,
+    "failed": 0
+  },
+  "productionE2E": {
+    "command": [
+      "npx",
+      "playwright",
+      "test",
+      "--config",
+      ".local/profile-media-deploy-20261024/production-playwright.config.ts"
+    ],
+    "startedAt": "2026-10-24T00:33:51.897847+00:00",
+    "finishedAt": "2026-10-24T00:34:12.630622+00:00",
+    "exitCode": 0,
+    "logSha256": "c09191c6f0766033c51671c57c9fc10bef6a6cada588db67bf090bd418291274",
+    "passed": 6,
+    "failed": 0,
+    "projects": [
+      "desktop Chromium",
+      "mobile Chromium",
+      "mobile WebKit"
+    ],
+    "scope": "Production /preview profile and gallery interactions; no live-account mutation"
+  },
+  "deployment": {
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-24T00:33:17.271203+00:00",
+        "finishedAt": "2026-10-24T00:33:18.305941+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T00:33:18.306304+00:00",
+        "finishedAt": "2026-10-24T00:33:26.284462+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T00:33:26.285043+00:00",
+        "finishedAt": "2026-10-24T00:33:38.130566+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T00:33:38.131319+00:00",
+        "finishedAt": "2026-10-24T00:33:45.384962+00:00",
+        "exitCode": 0
+      }
+    ],
+    "result": {
+      "frontendImage": "sha256:156e90d919a522761021a822a02f578fdc0276937b7b0510259ca8adeece51cc",
+      "running": true,
+      "restarts": 0,
+      "preservedServices": [
+        "database",
+        "api",
+        "worker",
+        "admin",
+        "proxy"
+      ]
+    },
+    "frontendOnly": true,
+    "apiHealthPassed": true,
+    "httpRoutesPassed": 9
+  },
+  "manualBrowser": {
+    "at": "2026-10-24T00:34:41.889Z",
+    "url": "https://beta.crefans.com/preview/creator/moka",
+    "avatar": {
+      "loaded": true,
+      "mediaOnly": true,
+      "closeWidth": 44,
+      "closeHeight": 44,
+      "bodyScrollLocked": true,
+      "closeRestoredFocus": true
+    },
+    "cover": {
+      "fit": "contain",
+      "height": 844,
+      "loaded": true,
+      "src": "/illustrations/creators/moka/cover-v1.png",
+      "title": "모카 배경사진",
+      "width": 390
+    },
+    "errors": []
+  },
+  "rollback": {
+    "previousImage": "crefans-front:mobile-ui-20261024",
+    "backup": "/opt/crefans-backup-profile-media-20261024",
+    "used": false
+  },
+  "sshAccess": "Existing user-approved persistent home SSH rule unchanged; no network-rule mutations",
+  "artifactHashes": {
+    "build.log": "06b7de942df5a9bf19ece3dd212eccab04157306209e6cc16d5d54dd135752d8",
+    "image-e2e.log": "898775414441ad226baf07336a61813c0a3c93db36e3334740adedc3c07385cb",
+    "production-e2e.log": "c09191c6f0766033c51671c57c9fc10bef6a6cada588db67bf090bd418291274",
+    "final-deploy.log": "7795e0da12be42acf5b84d96b1abb50bc5e895032d9dbba3da72d2fba2c388c9",
+    "mobile-avatar.png": "5bffd2cde5e80cdb0592d46ed460c9445ef9339afda87e1db31925a920d21a41",
+    "mobile-cover.png": "4bd554cf36ebd65fd26787d9eb5985f2d3fc32bd29b744d1453e83aef2243f21"
+  },
+  "localArtifacts": ".local/profile-media-deploy-20261024",
+  "limits": [
+    "Physical iPhone Safari not tested; mobile WebKit emulation passed.",
+    "Production behavior tests use preview fixtures; real-account photo upload/edit not exercised.",
+    "No backend/API/DB or financial changes.",
+    "Working tree remains uncommitted; no branch merge or push performed."
+  ]
+}

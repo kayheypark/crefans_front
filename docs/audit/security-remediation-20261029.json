@@ -1,0 +1,104 @@
+{
+ "createdAt": "2026-10-28T23:55:18.421103+00:00",
+ "scope": "security-review-20261029 remediation, local only; not deployed; AWS not applied",
+ "repos": {
+  "crefans_server": {
+   "head": "0d6044e",
+   "dirty": true
+  },
+  "crefans_front": {
+   "head": "94f8ff0",
+   "dirty": true
+  }
+ },
+ "fileSha256": {
+  "crefans_server/src/auth/local/credentials.ts": "327c3c63b49217792782585dc07afdd84e017ef7cf3e5a8208821015eeb74f05",
+  "crefans_server/src/auth/local/local-member.service.ts": "14e0ae9cda2d8e36a28dc9eb2b1c37e1a015d58c39df2cd2427ed35ee879c4ef",
+  "crefans_server/src/platform/admin-auth.ts": "ec7f93219b1ca312393bdb0073a0a7024522f2ba2419f8b1a2be7ee83f1bbb8c",
+  "crefans_server/src/platform/email-change.service.ts": "08faa608f2fa64ff9e3bd66625694131e0545cb2219099d11f6d9db76e3f561a",
+  "crefans_server/src/platform/middleware.ts": "cf37cb13be4147327a8fd4909068f546194a7c71b86618e3d295dcbbc50beedd",
+  "crefans_server/src/platform/payment-provider.ts": "0b981691bace46097efafc704eb646aff94c3d9233d0887690a1b874cd3df57f",
+  "crefans_server/src/platform/finance.service.ts": "7330fb49d8f251577d391d917159ee48b17e315fd47d3ca67a829aae4e4f807c",
+  "crefans_server/src/platform/jobs.service.ts": "c8e8dd571688415f5fa877f71d319628c2127c521896da3660fb9d7f863fd645",
+  "crefans_server/src/platform/beans.service.ts": "20fbb3fde67823baaefaafc09dddb03bea13a48327f68b42d3909632bd17c076",
+  "crefans_server/src/platform/operations.service.ts": "280d62d9c24d50d8bcf1b48fbef3fde81a6dc79dc87b590f7aed01cbb239a14b",
+  "crefans_server/src/platform/worker.ts": "f4ef3f7b1f6393849082a0205708e362c8d0a92da2c2df55e264d02aab26b3c7",
+  "crefans_server/src/platform/marketing.service.ts": "fc0e729cec4f09e4d436d136917253de9ab0df912d01dd840ae296dc4c4c1a4a",
+  "crefans_server/src/platform/audit-retention.ts": "8be93126bcf33000a50bccbb6d3a99d36db00f5b6f62490599ac2344d787e93e",
+  "crefans_server/infra/platform/Caddyfile": "cbd0e80292e494d30c47eea04634cee3c9f2d55fa802000e0e8257c030c4cf02",
+  "crefans_server/infra/platform/compose.yml": "e0be6d52fd2825ff2fe6fc87531e2ab103d78e32154c43350c3665bb075d9123",
+  "crefans_server/infra/platform/backup-offsite.sh": "ce1973a341a3fd49a5e264c46d514691aa987011194e04f992e4b6d7a711c8f1",
+  "crefans_server/infra/platform/restore-rehearsal.sh": "5aa0b2cba47494d2b3b64ca61a5e5c006e25272e8b57e2d859a1383bea25bfe6",
+  "crefans_server/package.json": "33cb9cacdcd6ce437bf207ccb6f3d4821194443d2b44bd24be30e13e504f3db7",
+  "crefans_front/components/crefans/AccountPages.tsx": "7e38b747664248a02846098910cf652c21f40ba361ff16818dcbcce8c6ef5069",
+  "crefans_front/package.json": "83fd3adcdd4912491852b2cbd0873d29577975da9ad86be717b593d2aedd0c55"
+ },
+ "executions": [
+  {
+   "command": "CREFANS_E2E=true npm run build (server)",
+   "exit": 0
+  },
+  {
+   "command": "CREFANS_E2E=true node --test --test-concurrency=1 <12-file review regression set>",
+   "exit": 0,
+   "result": "100 pass / 1 skip / 0 fail (same as review baseline)"
+  },
+  {
+   "command": "CREFANS_E2E=true node --test --test-concurrency=1 tests/*.test.cjs except local-members (API on 3001)",
+   "exit": 1,
+   "result": "361 tests: 355 pass / 1 skip / 5 fail",
+   "failuresUnrelated": [
+    "platform-media-cloud.integration: live AWS opt-in required",
+    "platform.integration checkout + billing registration: local TOSS test keys configured (expects unconfigured)",
+    "platform.integration /admin/documents expects 403, gets 401 since 2026-10-28 operator separation",
+    "platform-beta-cohort 18 roles: admin guard expects member session (stale since 2026-10-28)"
+   ]
+  },
+  {
+   "command": "AUTH_TEST_DATABASE_URL=<loopback crefans_auth_test> node --test tests/local-members.test.cjs",
+   "exit": 0,
+   "result": "12/12"
+  },
+  {
+   "command": "mutation control: revert AUTH-02, FIN-01, FIN-03 in dist and run new regressions",
+   "exit": 1,
+   "result": "3 expected failures; restored build 54/54 pass"
+  },
+  {
+   "command": "docker run caddy:2-alpine caddy validate (Caddyfile)",
+   "exit": 0,
+   "result": "Valid; HSTS x4, frame-ancestors x4, member auth not routed on admin host"
+  },
+  {
+   "command": "restore-rehearsal.sh <local dev dump>",
+   "exit": 0,
+   "controls": {
+    "broken migration row": 1,
+    "checksum mismatch": 1
+   }
+  },
+  {
+   "command": "npm audit --omit=dev (server)",
+   "before": "25 (high15/mod8/low2)",
+   "after": "8 (high2/mod6); remaining need Nest 11, affected features unused"
+  },
+  {
+   "command": "npm run check (front, Next 15.5.28 / React 19.1.10)",
+   "exit": 0,
+   "result": "385/385"
+  },
+  {
+   "command": "npm run docs:record && npm run check:docs",
+   "exit": 0
+  }
+ ],
+ "notVerified": [
+  "front next build in repo (concurrent dev servers wrote .next; built in isolated copy by subagent)",
+  "front E2E specs needing test API on 3012 incl. mail.spec email change",
+  "production deploy, real PG/bank/mail, AWS changes",
+  "RPO/RTO measurement on production-size data"
+ ],
+ "localStateChanges": [
+  "local dev DB crefans_platform_dev: applied 3 pending migrations already in production (0 rows deleted)"
+ ]
+}

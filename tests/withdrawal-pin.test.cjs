@@ -35,7 +35,7 @@ test('new withdrawal requests cannot bypass PIN authorization through either moc
   assert.equal((await call(()=>view.model.verifyWithdrawalPin(pin,intent))).errorCode,'PIN_NOT_CONFIGURED');
   assert.equal((await submit(view,'forged')).errorCode,'WITHDRAWAL_AUTH_REQUIRED');
   await setup(view);assert.equal((await submit(view,undefined)).errorCode,'WITHDRAWAL_AUTH_REQUIRED');
-  assert.equal(view.model.data.withdrawals.length,3);assert.equal(view.model.data.summary.available,1151900);
+  assert.equal(view.model.data.withdrawals.length,3);assert.equal(view.model.data.summary.available,962800);
  }finally{view.close();}
 });
 

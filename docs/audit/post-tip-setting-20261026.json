@@ -1,0 +1,186 @@
+{
+  "at": "2026-10-26T05:44:13.430454+00:00",
+  "release": "post-tip-setting-20261026",
+  "deployed": true,
+  "backup": "/opt/crefans-backup-post-tip-setting-20261026",
+  "migration": "20261026110000_post_tip_setting",
+  "tests": {
+    "front": 348,
+    "isolatedBeans": 16,
+    "openapi": 11,
+    "serverBuild": 0
+  },
+  "production": {
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "e58f28af9051f718b8c6325cb54e4c0a41785b4fcb9bdb3284e440720d9abd71",
+        "image": "sha256:4c83552007c7238f5983d7a63e4553e23e33053491f179b99dd642a5f1ad148d",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "c2ce4f9072e8f2ab48afe9fdd8d2e45b7ca97caeb9dbc6bdd8ede6d520d94d6a",
+        "image": "sha256:a991e3f3a758c91406f4691ac66697c2ee27d98f088b5e189e17ce12f0590171",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "f7dbaada2028a0a00da1399ac225f241b4299e2b75573295c512a800c61c5f79",
+        "image": "sha256:a991e3f3a758c91406f4691ac66697c2ee27d98f088b5e189e17ce12f0590171",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "78b88fd041adf7851e55e8c122f5314a0ba52f66a30318dd7a6cc341ec626b70",
+        "image": "sha256:7b191b4298d3b6548dff2a96163f2ac1fd72a187f81d425e0b90d67e4a391649",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      }
+    },
+    "runningSourceHashes": {
+      "server": 201,
+      "front": 619
+    },
+    "http": [
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/bootstrap",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/me",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/studio/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/creator/moka",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/signup",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/beans/wallet",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://admin.crefans.com/api/v1/admin/beans/overview",
+        "status": 401,
+        "expected": 401
+      }
+    ],
+    "worker": {
+      "startedAt": "2026-10-26T05:43:05.815205878Z",
+      "completedAt": "2026-10-26T05:43:07.936Z",
+      "failures": {}
+    },
+    "financialCountsAndPolicyPreserved": true
+  },
+  "browser": {
+    "studioDefault": true,
+    "disableSave": true,
+    "enableSave": true,
+    "publicPostTip": true
+  },
+  "postTipBrowser": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "icon": true,
+      "postTitle": true,
+      "confirmation": true,
+      "twoTipsUniqueSupporterCount": 1
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "icon": true,
+      "postTitle": true,
+      "confirmation": true,
+      "twoTipsUniqueSupporterCount": 1
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "icon": true,
+      "postTitle": true,
+      "confirmation": true,
+      "twoTipsUniqueSupporterCount": 1
+    }
+  ],
+  "boundary": "Real public-post success, disabled rejection with balance/count unchanged, reenable and idempotent retry tested in isolated DB. Live UI tested via /preview. No actual payment or tip on production members.",
+  "repositories": {
+    "front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirty": true,
+      "sourceManifestSha256": "64cd68159610df27960f22bc6aeea1cbbd838abbe5ff28cbc4fa50ca0b48823b"
+    },
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirty": true,
+      "sourceManifestSha256": "241d36d57d8f079d3a3a941132befd81df41a27f9a732f3b3511ccbab96ed9c6"
+    }
+  }
+}

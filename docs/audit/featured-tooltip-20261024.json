@@ -1,0 +1,595 @@
+{
+  "at": "2026-10-24T10:35:55.213977+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "before": {
+    "at": "2026-10-24T10:31:22.505030+00:00",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": [
+      " M AGENTS.md",
+      " M PROGRESS.md",
+      " M app/preview/layout.tsx",
+      " M app/preview/preview.module.css",
+      " M components/crefans/AccountPages.tsx",
+      " M components/crefans/CommonPages.tsx",
+      " M components/crefans/CreatorCard.tsx",
+      " M components/crefans/CreatorPages.tsx",
+      " M components/crefans/FollowButton.tsx",
+      " M components/crefans/Icon.tsx",
+      " M components/crefans/LandingPage.tsx",
+      " M components/crefans/ProfileHeader.tsx",
+      " M components/crefans/ServiceShell.tsx",
+      " M components/crefans/ServiceUI.tsx",
+      " M components/crefans/SocialPages.tsx",
+      " M components/crefans/account.module.css",
+      " M components/crefans/common.module.css",
+      " M components/crefans/creator.module.css",
+      " M components/crefans/service.module.css",
+      " M components/crefans/social.module.css",
+      " M components/crefans/studio/ContentPostPreview.tsx",
+      " M components/crefans/studio/FinancePages.tsx",
+      " M components/crefans/studio/ManagementPages.tsx",
+      " M components/crefans/studio/ReportPage.tsx",
+      " M components/crefans/studio/WithdrawalSecurityPage.tsx",
+      " M components/crefans/studio/report.module.css",
+      " M components/crefans/studio/withdrawal-security.module.css",
+      " M components/design-system/ServicePatternCatalog.tsx",
+      " M components/preview/comment-fixtures.ts",
+      " M components/preview/service/ServiceRouter.tsx",
+      " M components/preview/service/fixtures.ts",
+      " M components/preview/service/useMockAccount.ts",
+      " M components/preview/service/useMockSocial.ts",
+      " M components/preview/studio/useMockCommunity.ts",
+      " M components/service/ServiceRouter.tsx",
+      " M components/ui/Primitives.tsx",
+      " M components/ui/chip-row.module.css",
+      " M components/ui/ui.module.css",
+      " M docs/audit/evidence.json",
+      " M docs/audit/manifest.json",
+      " M docs/creator-image-variety.md",
+      " M docs/design-system.md",
+      " M docs/preview-pages.md",
+      " M docs/release-test-scenarios.md",
+      " M docs/service-api-binding.md",
+      " M e2e/preview.spec.ts",
+      " M features/service/useServiceModel.ts",
+      " M features/service/useStudioModel.ts",
+      " M lib/content/landing.ts",
+      " M lib/crefans/membership-plans.ts",
+      " M playwright.config.ts",
+      " M tests/content-post-preview.test.cjs",
+      " M tests/crefans-account.test.cjs",
+      " M tests/crefans-common.test.cjs",
+      " M tests/crefans-creator.test.cjs",
+      " M tests/crefans-social.test.cjs",
+      " M tests/crefans-studio-reports.test.cjs",
+      " M tests/follow-button.test.cjs",
+      " M tests/load-typescript.cjs",
+      " M tests/service-access-state.test.cjs",
+      " M tsconfig.tsbuildinfo",
+      " M types/crefans-account.ts",
+      " M types/crefans-social.ts",
+      " M types/crefans.ts",
+      "?? components/crefans/BackButton.tsx",
+      "?? components/crefans/CommentComposer.tsx",
+      "?? components/crefans/CommentIcon.tsx",
+      "?? components/crefans/CreatorName.tsx",
+      "?? components/crefans/CreatorSearch.tsx",
+      "?? components/crefans/MediaOverlay.tsx",
+      "?? components/crefans/PostMembershipNotice.tsx",
+      "?? components/crefans/back-button.module.css",
+      "?? components/crefans/creator-name.module.css",
+      "?? components/crefans/creator-search.module.css",
+      "?? docs/audit/back-buttons-deployment-20261024.json",
+      "?? docs/audit/back-navigation-20261024.json",
+      "?? docs/audit/back-navigation-inventory-20261024.json",
+      "?? docs/audit/beta-cohort-plan-20261024.json",
+      "?? docs/audit/beta-signup-20261024.json",
+      "?? docs/audit/chip-row-inset-20261024.json",
+      "?? docs/audit/close-spacing-20261024.json",
+      "?? docs/audit/collection-back-deployment-20261024.json",
+      "?? docs/audit/comment-close-20261024.json",
+      "?? docs/audit/creator-badge-fixtures-20261024.json",
+      "?? docs/audit/creator-search-20261024.json",
+      "?? docs/audit/creator-search-deployment-20261024.json",
+      "?? docs/audit/creator-search-live-desktop-20261024.png",
+      "?? docs/audit/creator-search-live-mobile-20261024.png",
+      "?? docs/audit/creator-verification-20261024.json",
+      "?? docs/audit/creator-verification-deployment-20261024.json",
+      "?? docs/audit/creator-verification-live-desktop-20261024.png",
+      "?? docs/audit/creator-verification-live-mobile-20261024.png",
+      "?? docs/audit/dialog-close-deployment-20261024.json",
+      "?? docs/audit/empty-comments-deployment-20261024.json",
+      "?? docs/audit/empty-comments-live-desktop-20261024.png",
+      "?? docs/audit/empty-comments-live-webkit390-20261024.png",
+      "?? docs/audit/featured-creator-icon-20261024.json",
+      "?? docs/audit/featured-icon-deployment-20261024.json",
+      "?? docs/audit/feed-inbox-deployment-20261024.json",
+      "?? docs/audit/feed-toolbar-20261024.json",
+      "?? docs/audit/follow-icon-20261024.json",
+      "?? docs/audit/follow-toggle-20261024.json",
+      "?? docs/audit/follow-toggle-deployment-20261024.json",
+      "?? docs/audit/gallery-comment-dock-20261024.json",
+      "?? docs/audit/gallery-comments-deployment-20261024.json",
+      "?? docs/audit/gallery-comments-live-desktop-20261024.png",
+      "?? docs/audit/gallery-comments-live-mobile-20261024.png",
+      "?? docs/audit/gnb-comment-deployment-20261024.json",
+      "?? docs/audit/gnb-icon-size-20261024.json",
+      "?? docs/audit/gnb-icon-size-deployment-20261024.json",
+      "?? docs/audit/gnb-size-live-preview-20261024.png",
+      "?? docs/audit/gnb-size-live-service-20261024.png",
+      "?? docs/audit/inbox-unread-20261024.json",
+      "?? docs/audit/jiwoo-content-20261024.json",
+      "?? docs/audit/jiwoo-deployment-20261024.json",
+      "?? docs/audit/jiwoo-natural-20261024.json",
+      "?? docs/audit/membership-offer-20261024.json",
+      "?? docs/audit/membership-ui-deployment-20261024.json",
+      "?? docs/audit/message-buttons-20261024.json",
+      "?? docs/audit/message-time-color-20261024.json",
+      "?? docs/audit/message-time-deployment-20261024.json",
+      "?? docs/audit/message-time-live-1280-20261024.png",
+      "?? docs/audit/message-time-live-390-20261024.png",
+      "?? docs/audit/mobile-comment-composer-20261024.json",
+      "?? docs/audit/mobile-gallery-corner-20261024.json",
+      "?? docs/audit/mobile-gallery-deployment-20261024.json",
+      "?? docs/audit/mobile-gallery-expand-20261024.json",
+      "?? docs/audit/mobile-gallery-sheet-20261024.json",
+      "?? docs/audit/mobile-gnb-icons-20261024.json",
+      "?? docs/audit/mobile-inbox-deployment-20261024.json",
+      "?? docs/audit/mobile-inbox-spacing-20261024.json",
+      "?? docs/audit/mobile-settings-deployment-20261024.json",
+      "?? docs/audit/mobile-settings-links-20261024.json",
+      "?? docs/audit/mobile-shell-20261024.json",
+      "?? docs/audit/mobile-ui-deployment-20261024.json",
+      "?? docs/audit/post-detail-back-20261024.json",
+      "?? docs/audit/profile-media-20261024.json",
+      "?? docs/audit/profile-media-deployment-20261024.json",
+      "?? docs/audit/qa-report-20261024.json",
+      "?? docs/audit/settings-categories-20261024.json",
+      "?? docs/audit/settings-categories-deployment-20261024.json",
+      "?? docs/audit/settings-divider-20261024.json",
+      "?? docs/audit/settings-divider-color-20261024.json",
+      "?? docs/audit/settings-divider-color-deployment-20261024.json",
+      "?? docs/audit/settings-edge-dividers-20261024.json",
+      "?? docs/audit/support-spacing-deployment-20261024.json",
+      "?? docs/audit/verified-creator-icon-20261024.json",
+      "?? docs/beta-role-test-plan.md",
+      "?? e2e/creator-verification.spec.ts",
+      "?? e2e/mobile-comments.spec.ts",
+      "?? e2e/mobile-shell.spec.ts",
+      "?? e2e/signup-deferred.spec.ts",
+      "?? output/pdf/",
+      "?? public/brand/featured-creators-v1.generation.json",
+      "?? public/brand/featured-creators-v1.png",
+      "?? public/brand/verified-creator-v1.png",
+      "?? public/illustrations/creators/jiwoo/",
+      "?? tests/creator-verification.test.cjs",
+      "?? tests/post-membership-offer.test.cjs",
+      "?? tests/profile-media.test.cjs"
+    ],
+    "hashes": {
+      "components/crefans/CreatorPages.tsx": "0676300f44bdc439aa03f55618fe26bf6b499af4c973a5037afd8910c7b7eed8",
+      "components/crefans/creator.module.css": "82f030c01d7e2452a9ef84e4b30e81c9608e1d70a91b9c105ddb9dc32df12409",
+      "components/design-system/ServicePatternCatalog.tsx": "c38b374fbd9b9b05449e222d0d83cf66ad46e81141ed5d202b60d3c19111d47d",
+      "docs/design-system.md": "f9a0b7d2d2e1e8a1d578ad9392c207b15169057619791921506fd9e724dc6bf0"
+    }
+  },
+  "requirement": "주목할 크리에이터 설명 툴팁과 imagegen 아이콘",
+  "acceptance": [
+    "요청 문구 그대로 표시: 홍보성 프로모션 혹은 광고상품을 구매한 크리에이터가 노출됩니다",
+    "공용 InfoTooltip을 탐색 목업/실서비스 및 디자인시스템에서 재사용",
+    "20px 이미지젠 아이콘/44px 클릭영역/14px 설명글자",
+    "터치 토글·바깥선택·키보드포커스/Enter/Escape·마우스/팝업hover 유지",
+    "320px~1280px 화면 내 위치·넘침 없음·검색결과에서 제목과 함께 숨김"
+  ],
+  "sourceHashes": {
+    "components/ui/InfoTooltip.tsx": "7f8dbebd17b274b68fa9166d9a91159228b7d51a1732ecaaa07728c3278628e5",
+    "components/ui/info-tooltip.module.css": "9b6c9a56365a80ead4f832ed6c5ef9c1c3a95853b89aa592be08e013c46158bf",
+    "components/crefans/CreatorPages.tsx": "073162b67fe701f04ae50b6138a38715ee585c4f92399ecd9ae9ffb4f6418f36",
+    "components/crefans/creator.module.css": "f0090eaa9075b8ef0b2aeb84bce8b153b519242693b1c7151a8dcb4df16e2117",
+    "components/design-system/ServicePatternCatalog.tsx": "6a061fc8cbdb3d3c750f00df12459b0703a0ab7ee176d5c74969b7789dc4c4ed",
+    "public/brand/tooltip-info-v1.png": "cd27ad4f6e43010ff3421ace98eca6e59dbb0768eb7e60e6ffb15dada4484b75",
+    "public/brand/tooltip-info-v1.generation.json": "f73ec147ff89f689f39283d657023ece9e194e80070cec51c3d63542205a2094"
+  },
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:31:57.772881+00:00",
+      "finishedAt": "2026-10-24T10:32:02.734699+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:32:02.761383+00:00",
+      "finishedAt": "2026-10-24T10:32:03.214904+00:00",
+      "exitCode": 0,
+      "logSha256": "cf0ef5d61a8fe3f0f6770368d95d28b2799e6ce4813f3079ea05e58d4eea964c"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=creator exploration and profile|explore shows paid placements",
+        "tests/crefans-creator.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:32:03.239632+00:00",
+      "finishedAt": "2026-10-24T10:32:03.718935+00:00",
+      "exitCode": 0,
+      "logSha256": "da174a52c83bfbff2a90161c9b04ab1542a0c21f89377b4fc619e8712fee07c3"
+    },
+    {
+      "command": [
+        "node",
+        ".local/featured-tooltip-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:33:01.421326+00:00",
+      "finishedAt": "2026-10-24T10:33:16.763065+00:00",
+      "exitCode": 0,
+      "logSha256": "d9f507f954babf07618d1ddfa0ce304e874f227038189c29526f27bd2f7f0212"
+    },
+    {
+      "command": [
+        "node",
+        ".local/featured-tooltip-20261024/asset-check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:34:29.224054+00:00",
+      "finishedAt": "2026-10-24T10:34:30.170580+00:00",
+      "exitCode": 0,
+      "logSha256": "5f4dd8f1e01d08bae0b6feb647617a2cb70b18996d38f59d7b9c878b01b73f10"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:35:55.247504+00:00",
+      "finishedAt": "2026-10-24T10:35:56.280864+00:00",
+      "exitCode": 0,
+      "logSha256": "decba800d8c2e13d1e25901b4a31a7c5ddf995a9cce51b401db40f9fc10af748"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:35:56.307229+00:00",
+      "finishedAt": "2026-10-24T10:35:56.680356+00:00",
+      "exitCode": 0,
+      "logSha256": "499ac473234386580459d0ca5961549c646d61bcdb02bde0664824b81e7c81bc"
+    }
+  ],
+  "checks": {
+    "unitPassed": 2,
+    "browser": {
+      "start": "2026-10-24T10:33:01.616Z",
+      "end": "2026-10-24T10:33:16.757Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "chromium320",
+          "mode": "preview",
+          "trigger": {
+            "x": 144.453125,
+            "y": 163.890625,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 52,
+            "right": 312,
+            "top": 207.890625,
+            "bottom": 278.671875,
+            "font": "14px",
+            "width": 320,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "not applicable",
+          "filter": "hidden with heading and restored closed"
+        },
+        {
+          "name": "chromium320",
+          "mode": "service",
+          "trigger": {
+            "x": 144.453125,
+            "y": 138.390625,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 52,
+            "right": 312,
+            "top": 182.390625,
+            "bottom": 253.171875,
+            "font": "14px",
+            "width": 320,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "not applicable",
+          "filter": "hidden with heading and restored closed"
+        },
+        {
+          "name": "chromium390",
+          "mode": "preview",
+          "trigger": {
+            "x": 144.453125,
+            "y": 163.890625,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 122,
+            "right": 382,
+            "top": 207.890625,
+            "bottom": 278.671875,
+            "font": "14px",
+            "width": 390,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "not applicable",
+          "filter": "hidden with heading and restored closed"
+        },
+        {
+          "name": "chromium390",
+          "mode": "service",
+          "trigger": {
+            "x": 144.453125,
+            "y": 138.390625,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 122,
+            "right": 382,
+            "top": 182.390625,
+            "bottom": 253.171875,
+            "font": "14px",
+            "width": 390,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "not applicable",
+          "filter": "hidden with heading and restored closed"
+        },
+        {
+          "name": "chromium390",
+          "mode": "catalog",
+          "trigger": {
+            "x": 141.671875,
+            "y": 7156.453125,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 122,
+            "right": 382,
+            "top": 444.453125,
+            "bottom": 515.234375,
+            "font": "14px",
+            "width": 390,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "not applicable",
+          "filter": "not applicable"
+        },
+        {
+          "name": "desktop",
+          "mode": "preview",
+          "trigger": {
+            "x": 374.453125,
+            "y": 235.890625,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 374.453125,
+            "right": 634.453125,
+            "top": 279.890625,
+            "bottom": 350.671875,
+            "font": "14px",
+            "width": 1280,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "trigger and bubble persistence/mouseout/Escape passed",
+          "filter": "hidden with heading and restored closed"
+        },
+        {
+          "name": "desktop",
+          "mode": "service",
+          "trigger": {
+            "x": 374.453125,
+            "y": 210.390625,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 374.453125,
+            "right": 634.453125,
+            "top": 254.390625,
+            "bottom": 325.171875,
+            "font": "14px",
+            "width": 1280,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "trigger and bubble persistence/mouseout/Escape passed",
+          "filter": "hidden with heading and restored closed"
+        },
+        {
+          "name": "desktop",
+          "mode": "catalog",
+          "trigger": {
+            "x": 385.671875,
+            "y": 5892.640625,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 385.671875,
+            "right": 645.671875,
+            "top": 443.640625,
+            "bottom": 514.421875,
+            "font": "14px",
+            "width": 1280,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "trigger and bubble persistence/mouseout/Escape passed",
+          "filter": "not applicable"
+        },
+        {
+          "name": "webkit390",
+          "mode": "preview",
+          "trigger": {
+            "x": 144.453125,
+            "y": 163.890625,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 122,
+            "right": 382,
+            "top": 207.890625,
+            "bottom": 278.671875,
+            "font": "14px",
+            "width": 390,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "not applicable",
+          "filter": "hidden with heading and restored closed"
+        },
+        {
+          "name": "webkit390",
+          "mode": "service",
+          "trigger": {
+            "x": 144.453125,
+            "y": 138.390625,
+            "width": 44,
+            "height": 44
+          },
+          "metrics": {
+            "x": 122,
+            "right": 382,
+            "top": 182.390625,
+            "bottom": 253.171875,
+            "font": "14px",
+            "width": 390,
+            "height": 844,
+            "scrollOverflow": false,
+            "bodyOverflow": false
+          },
+          "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+          "touch": "first/second tap and outside close passed",
+          "hover": "not applicable",
+          "filter": "hidden with heading and restored closed"
+        }
+      ],
+      "errors": []
+    },
+    "asset": {
+      "at": "2026-10-24T10:34:30.143Z",
+      "asset": {
+        "width": 1254,
+        "height": 1254,
+        "alphaMin": 0,
+        "alphaMax": 255,
+        "transparentPixels": 1360855
+      },
+      "optimized": {
+        "src": "http://127.0.0.1:3010/_next/image?url=%2Fbrand%2Ftooltip-info-v1.png&w=32&q=75",
+        "width": 32,
+        "bytes": 1173,
+        "status": 200
+      },
+      "originalBytes": 340700,
+      "sha256": "cd27ad4f6e43010ff3421ace98eca6e59dbb0768eb7e60e6ffb15dada4484b75",
+      "originalCopyMatches": true
+    },
+    "visualReview": [
+      "chromium320-tooltip.png",
+      "webkit390-tooltip.png",
+      "desktop-tooltip.png"
+    ],
+    "visualResult": "Three screenshots inspected: title decoration preserved, compact information icon and readable unclipped tooltip."
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "mode": "generate",
+    "prompt": "Use case: logo-brand. Asset type: a tiny information tooltip icon for the CREFANS website beside the Korean heading '주목할 크리에이터'. Primary request: ONE restrained, highly legible information icon, a lowercase i centered inside a single clean circular outline. Flat 2D professional UI symbol, rounded ends, balanced stroke weight, dark neutral slate gray (#727A8B), transparent interior and genuinely transparent background. The circle should fill about 88 percent of a square canvas, with equal transparent padding on all sides. Center the i perfectly and keep it readable when displayed at 20 by 20 pixels. No other text, no title, no badge decoration, no sparkle, no gradient, no shadow, no 3D, no extra circle, no background tile, no watermark. Deliver just one icon, not a sheet of alternatives.",
+    "transparentBackground": true,
+    "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0b036ef6-075c-45bc-ae01-5de0651e863a.png",
+    "asset": "public/brand/tooltip-info-v1.png",
+    "scope": "Shared information tooltip icon; original pixels and transparency preserved. Local implementation; not deployed."
+  },
+  "references": [
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html",
+      "checkedAt": "2026-10-24T10:35:55.213977+00:00",
+      "finding": "Hover/focus content should be dismissible, hoverable and persistent.",
+      "application": "Escape dismissal, keyboard-focus behavior, hover retained over popup and button, touch/click toggle plus outside dismissal."
+    },
+    {
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/",
+      "checkedAt": "2026-10-24T10:35:55.213977+00:00",
+      "finding": "Tooltip role, aria-describedby linkage, trigger retains focus, Escape dismissal. APG page states pattern is work in progress without task-force consensus.",
+      "application": "Used as implementation reference, not a certification or conformance claim."
+    }
+  ],
+  "artifacts": "/Users/ethan/repository/crefans_front/.local/featured-tooltip-20261024",
+  "limits": [
+    "로컬3010에서 검증, 운영미배포.",
+    "service경로는 GET API대역, 목업·실서비스 UI공유 확인. 실회원 변경 없음.",
+    "Chromium320/390/1280·WebKit390과 카탈로그2환경. 물리기기/스크린리더 검증 아님.",
+    "기존미커밋 보존, 커밋/푸시 없음."
+  ]
+}

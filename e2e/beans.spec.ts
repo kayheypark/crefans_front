@@ -1,0 +1,74 @@
+import {test,expect,login,api} from './fixtures';
+for(const width of [390,1280])test(`목업 콩 충전·프로모션 우선 후원·잔액 ${width}px`,async({page})=>{
+ await page.setViewportSize({width,height:844});await page.goto('/preview/beans');await expect(page.getByRole('heading',{name:'지갑',exact:true})).toBeVisible();{const details=page.getByRole('button',{name:'콩 세부 내역',exact:true});await expect(details).toHaveAttribute('aria-expanded','false');await details.click();await expect(details).toHaveAttribute('aria-expanded','true');await details.click();}await page.getByRole('link',{name:'콩 충전',exact:true}).click();await expect(page.getByRole('heading',{name:'콩 충전',exact:true})).toBeVisible();await page.getByText('100콩',{exact:true}).click();await expect(page.getByRole('radio',{name:'100콩 · 11,000원 · VAT 포함 가격',exact:true})).toBeChecked();await page.getByRole('button',{name:'충전 결제하기',exact:true}).click();await expect(page.getByRole('heading',{name:'콩 충전 완료',exact:true})).toBeVisible();await expect(page.locator('dd').filter({hasText:'100콩'})).toBeVisible();await expect(page.locator('dd').filter({hasText:'11,000원'})).toBeVisible();await page.screenshot({path:`test-results/beans-completion-${width}.png`,fullPage:true});await page.getByRole('link',{name:'내 콩 지갑 보기',exact:true}).click();await expect(page.locator('dd').filter({hasText:'2,700콩'})).toBeVisible();await page.locator('a[href="/preview/explore"]:visible').first().click();await page.locator('a[href="/preview/creator/moka"]:visible').first().click();// Current tip flow: profile '후원하기' → amount → '{n}콩 후원하기' → '확인하고 후원하기' → '{n}콩 후원을 보냈어요'.
+ await page.getByRole('button',{name:'후원하기',exact:true}).first().click();const tipDialog=page.getByRole('dialog');await tipDialog.getByLabel('직접 입력 (콩)',{exact:true}).fill('110');await tipDialog.getByLabel('응원 메시지 (선택)',{exact:true}).fill('목업 후원 검수');await tipDialog.getByRole('button',{name:'110콩 후원하기',exact:true}).click();await expect(tipDialog.getByText('닉네임, 후원 수량·메시지·일시, 후원한 게시물',{exact:true})).toBeVisible();await expect(tipDialog.getByRole('button',{name:'확인하고 후원하기',exact:true})).toBeDisabled();await tipDialog.getByText('(필수) 위 정보를 크리에이터에게 제공하는 데 동의합니다.',{exact:true}).click();await page.waitForTimeout(400);await page.screenshot({path:test.info().outputPath('tip-consent-'+width+'.png')});await tipDialog.getByRole('button',{name:'확인하고 후원하기',exact:true}).click();await expect(tipDialog.getByText('110콩 후원을 보냈어요',{exact:true})).toBeVisible();await tipDialog.getByRole('link',{name:'보낸 후원 보기',exact:true}).click();await expect(page.getByText('목업 후원 검수',{exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:`test-results/beans-tips-${width}.png`,fullPage:true});await page.getByRole('link',{name:'지갑으로 돌아가기',exact:true}).click();await page.getByRole('link',{name:'콩 이동 내역',exact:true}).click();await expect(page.getByText('-110콩',{exact:true})).toBeVisible();await expect(page.getByText('+100콩',{exact:true})).toBeVisible();await page.screenshot({path:`test-results/beans-history-${width}.png`,fullPage:true});await page.getByRole('link',{name:'지갑으로 돌아가기',exact:true}).click();await page.getByRole('link',{name:'충전 주문',exact:true}).click();await page.getByRole('link',{name:'충전 상세 보기',exact:true}).first().click();await expect(page.getByRole('heading',{name:'콩 충전 완료',exact:true})).toBeVisible();
+});
+test('실제 API 충전금액 검증·멱등 승인·후원과 내역',async({page,scenario})=>{
+ await login(page,scenario);const o=await api(page.request,'/beans/charges',{quantity:120,requestId:crypto.randomUUID()});expect(o.success).toBe(true);const id=o.data.id;const forged=await api(page.request,'/beans/webhook',{eventType:'PAYMENT_STATUS_CHANGED',data:{orderId:id,status:'DONE',totalAmount:1}});expect(forged.success).toBe(true);expect((await api(page.request,'/beans/wallet')).data.accounts.find((a:any)=>a.bucket==='purchased').balance).toBe('0');const body={orderId:id,amount:13200,paymentKey:'e2e-'+id};expect((await api(page.request,`/beans/charges/${id}/confirm`,{...body,amount:1})).errorCode).toBe('PAYMENT_MISMATCH');expect((await api(page.request,`/beans/charges/${id}/confirm`,body)).success).toBe(true);expect((await api(page.request,`/beans/charges/${id}/confirm`,body)).success).toBe(true);await page.goto('/service/creator/'+scenario.creator);await page.getByRole('button',{name:'후원하기',exact:true}).first().click();const liveTip=page.getByRole('dialog');await liveTip.getByLabel('직접 입력 (콩)',{exact:true}).fill('20');await liveTip.getByRole('button',{name:'20콩 후원하기',exact:true}).click();await liveTip.getByText('(필수) 위 정보를 크리에이터에게 제공하는 데 동의합니다.',{exact:true}).click();await liveTip.getByRole('button',{name:'확인하고 후원하기',exact:true}).click();await expect(liveTip.getByText('20콩 후원을 보냈어요',{exact:true})).toBeVisible();const w=await api(page.request,'/beans/wallet');expect(w.data.accounts.find((a:any)=>a.bucket==='purchased').balance).toBe('100');await page.goto('/service/beans');await page.getByRole('link',{name:'보낸 후원',exact:true}).click();await expect(page.getByRole('heading',{name:'보낸 후원',exact:true})).toBeVisible();await page.screenshot({path:'test-results/beans-live-wallet.png',fullPage:true});
+});
+test('스튜디오 최소1000콩·PIN검사·출금예약·은행대역 지급',async({page,scenario,control})=>{
+ await control('bean-funds');await login(page,scenario,'creator');await page.goto('/service/studio/beans');await expect(page.getByRole('heading',{name:'콩 후원·출금',exact:true})).toBeVisible();await page.getByLabel('출금할 콩',{exact:true}).fill('999');await expect(page.getByRole('button',{name:'출금 내용 확인',exact:true})).toBeDisabled();await page.getByLabel('출금할 콩',{exact:true}).fill('1000');await page.getByRole('button',{name:'출금 내용 확인',exact:true}).click();await expect(page.getByText('80,000원',{exact:true})).toBeVisible();await page.getByLabel('콩 출금 PIN',{exact:true}).fill('000000');await page.getByRole('button',{name:'출금 신청하기',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'출금 PIN을 확인'})).toBeVisible();await page.getByLabel('콩 출금 PIN',{exact:true}).fill('123456');await page.getByRole('button',{name:'출금 신청하기',exact:true}).click();await expect(page.getByText(/후원콩 출금이 접수되었습니다/)).toBeVisible();await control('bean-pay');await page.reload();await expect(page.getByText(/1,000콩 · 완료/)).toBeVisible();await page.screenshot({path:'test-results/beans-studio-payout.png',fullPage:true});
+});
+
+test('충전 완료 화면: 서버 승인·새로고침·동일 주문 확인·잔액 중복 방지',async({page,scenario})=>{
+ await login(page,scenario);
+ const order=await api(page.request,'/beans/charges',{quantity:100,requestId:crypto.randomUUID()});expect(order.success).toBe(true);
+ const id=order.data.id;let confirms=0;
+ page.on('request',request=>{if(request.url().endsWith(`/beans/charges/${id}/confirm`))confirms++;});
+ await page.goto(`/service/beans/success?id=${id}&orderId=${id}&amount=11000&paymentKey=e2e-${id}`);
+ await expect(page.getByRole('heading',{name:'콩 충전 완료',exact:true})).toBeVisible();
+ await expect(page.locator('dd').filter({hasText:'11,000원'})).toBeVisible();
+ await expect(page).toHaveURL(new RegExp(`/service/beans/success\\?id=${id}$`));
+ await page.reload();await expect(page.getByRole('heading',{name:'콩 충전 완료',exact:true})).toBeVisible();expect(confirms).toBe(1);
+ const wallet=await api(page.request,'/beans/wallet');expect(wallet.data.accounts.find((a:any)=>a.bucket==='purchased').balance).toBe('100');
+ await page.screenshot({path:'test-results/beans-service-completion.png',fullPage:true});
+ await page.getByRole('link',{name:'내 콩 지갑 보기',exact:true}).click();await expect(page.getByRole('heading',{name:'지갑',exact:true})).toBeVisible();
+});
+test('완료 주소 임의 접근·금액 변조·다른 계정 주문은 완료 표시와 충전을 막는다',async({page,scenario})=>{
+ await login(page,scenario);
+ const order=await api(page.request,'/beans/charges',{quantity:10,requestId:crypto.randomUUID()});expect(order.success).toBe(true);const id=order.data.id;
+ await page.goto(`/service/beans/success?id=${id}`);await expect(page.getByRole('heading',{name:'충전 확인이 필요해요',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'같은 주문 결과 다시 확인',exact:true}).click();await expect(page.getByRole('heading',{name:'충전 확인이 필요해요',exact:true})).toBeVisible();
+ await page.goto(`/service/beans/success?id=${id}&orderId=${id}&amount=1&paymentKey=e2e-${id}`);await expect(page.getByRole('heading',{name:'충전 결과를 확인해주세요',exact:true})).toBeVisible();
+ expect((await api(page.request,'/beans/wallet')).data.accounts.find((a:any)=>a.bucket==='purchased').balance).toBe('0');
+ await page.goto(`/service/beans/fail?id=${id}`);await expect(page.getByRole('heading',{name:'결제를 완료하지 않았어요',exact:true})).toBeVisible();
+ await page.context().clearCookies();await login(page,scenario,'creator');
+ await page.goto(`/service/beans/success?id=${id}`);await expect(page.getByRole('heading',{name:'충전 결과를 확인해주세요',exact:true})).toBeVisible();await expect(page.locator('dd')).toHaveCount(0);
+});
+
+test('전용 지갑 내역의 빈 상태·결제 재시도·조회 오류·비로그인 보호',async({page,scenario})=>{
+ await login(page,scenario);await page.goto('/service/beans');
+ await page.getByRole('link',{name:'충전 주문',exact:true}).click();await expect(page.getByText('충전 주문이 없습니다.',{exact:true})).toBeVisible();
+ const order=await api(page.request,'/beans/charges',{quantity:30,requestId:crypto.randomUUID()});expect(order.success).toBe(true);await page.reload();
+ await expect(page.getByText('결제 대기',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'결제 계속',exact:true})).toBeEnabled();
+ await page.screenshot({path:'test-results/beans-pending-order.png',fullPage:true});
+ await page.route('**/api/v1/beans/tips?*',route=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({success:false,data:null,errorMessage:'후원 내역 조회 실패',errorCode:'UNAVAILABLE'})}));
+ await page.goto('/service/beans/tips');await expect(page.getByRole('alert').filter({hasText:'후원 내역 조회 실패'})).toBeVisible();await expect(page.getByText('보낸 후원이 없습니다.',{exact:true})).toHaveCount(0);
+ await page.unroute('**/api/v1/beans/tips?*');await page.getByRole('button',{name:'다시 불러오기',exact:true}).click();await expect(page.getByText('보낸 후원이 없습니다.',{exact:true})).toBeVisible();
+ await page.context().clearCookies();for(const kind of ['charges','history','tips']){await page.goto(`/service/beans/${kind}`);await expect(page.getByText('로그인이 필요해요',{exact:true})).toBeVisible();await expect(page.locator('li').filter({hasText:'30콩'})).toHaveCount(0);}
+});
+
+for(const width of [390,1280])test(`후원 구분 셀렉트: 목업 검색·초기화·페이지 복귀 ${width}px`,async({page})=>{
+ await page.setViewportSize({width,height:844});await page.goto('/preview/beans/tips');
+ const list=page.getByRole('list',{name:'보낸 후원',exact:true}),select=page.getByRole('combobox',{name:'후원 구분',exact:true});
+ await expect(list.locator(':scope > li')).toHaveCount(20);const total=await page.locator('p[role="status"]').innerText();
+ await page.getByRole('button',{name:'다음 내역',exact:true}).click();await expect(page.getByText('2페이지',{exact:true})).toBeVisible();
+ await select.click();await page.getByRole('option',{name:'게시물 후원',exact:true}).click();
+ await expect(select).toHaveText('게시물 후원');await expect(list.locator('p[class*=historyKind]').first()).toHaveText('게시물 후원');await expect(page.getByText('2페이지',{exact:true})).toHaveCount(0);
+ for(const kind of await list.locator('p[class*=historyKind]').allTextContents())expect(kind).toBe('게시물 후원');
+ await select.click();await page.getByRole('option',{name:'프로필 후원',exact:true}).click();await expect(list.locator('p[class*=historyKind]').first()).toHaveText('프로필 후원');
+ for(const kind of await list.locator('p[class*=historyKind]').allTextContents())expect(kind).toBe('프로필 후원');
+ await page.getByRole('searchbox',{name:'후원 검색',exact:true}).fill('no-match-filter-fixture');await page.getByRole('button',{name:'검색',exact:true}).click();await expect(page.getByText('조건에 맞는 내역이 없습니다.',{exact:true})).toBeVisible();await expect(page.locator('p[role="status"]')).toHaveText('총 0건');
+ await page.getByRole('button',{name:'초기화',exact:true}).click();await expect(select).toHaveText('전체 후원');await expect(page.locator('p[role="status"]')).toHaveText(total);await expect(list.locator(':scope > li')).toHaveCount(20);
+ await select.click();await page.screenshot({path:`test-results/tip-source-select-${width}.png`});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+test('후원 구분 셀렉트: 실제 API 조건 전달·총수·잘못된 값 거부',async({page,scenario})=>{
+ await login(page,scenario);const order=await api(page.request,'/beans/charges',{quantity:10,requestId:crypto.randomUUID()});expect(order.success).toBe(true);const id=order.data.id;expect((await api(page.request,`/beans/charges/${id}/confirm`,{orderId:id,amount:1100,paymentKey:'e2e-'+id})).success).toBe(true);
+ expect((await api(page.request,`/creators/${scenario.creator}/tips`,{quantity:1,requestId:crypto.randomUUID(),creatorProvision:'2026-10-30.1',postId:scenario.postId})).errorCode).toBe('POST_ACCESS_REQUIRED');
+ expect((await api(page.request,`/checkout/${scenario.orderId}/pay`,{})).success).toBe(true);
+ for(const postId of [undefined,scenario.postId])expect((await api(page.request,`/creators/${scenario.creator}/tips`,{quantity:1,requestId:crypto.randomUUID(),creatorProvision:'2026-10-30.1',message:'Source filter e2e',...(postId?{postId}:{})})).success).toBe(true);
+ await page.goto('/service/beans/tips');await expect(page.locator('p[role="status"]')).toHaveText('총 2건');
+ const select=page.getByRole('combobox',{name:'후원 구분',exact:true});await select.click();const response=page.waitForResponse(r=>r.url().includes('/api/v1/beans/tips?')&&r.url().includes('sourceType=post'));await page.getByRole('option',{name:'게시물 후원',exact:true}).click();const data=await(await response).json();expect(data.data.total).toBe(1);expect(data.data.items[0].post_id).toBe(scenario.postId);await expect(page.locator('p[role="status"]')).toHaveText('총 1건');
+ await select.click();await page.getByRole('option',{name:'프로필 후원',exact:true}).click();await expect(page.getByRole('list',{name:'보낸 후원',exact:true}).locator('p[class*=historyKind]')).toHaveText('프로필 후원');
+ expect((await api(page.request,'/beans/tips?sourceType=invalid')).errorCode).toBe('INVALID_HISTORY_FILTER');
+});

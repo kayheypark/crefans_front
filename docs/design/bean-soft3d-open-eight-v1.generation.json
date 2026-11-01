@@ -1,0 +1,50 @@
+{
+  "createdAt": "2026-10-25T07:54:39.323Z",
+  "tool": "built-in image_gen",
+  "type": "Eight-motif comparison board; not eight separate production assets",
+  "reference": "docs/design/bean-soft3d-six-v1.png",
+  "requirements": {
+    "newMotifs": [
+      "꼬치",
+      "소쿠리(나무바구니)"
+    ],
+    "containers": "Open bundle, paper box and wooden chest with3–5 large visible beans; supersedes prior closed-container rule"
+  },
+  "attempts": [
+    {
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-6e413f32-0ddf-4c7d-8eb6-b07b41400f17.png",
+      "prompt": "Use case: precise-object-edit and concept-board expansion. Asset type: ONE revised eight-motif soft3D bean currency concept presentation. Use the reference sheet for matching mint beans, cream accent, soft rounded toy-like3D style and warm wood palette. Recompose as TWO ROWS OF FOUR equal cells on an airy white landscape sheet, generous spacing, small clean dark charcoal Korean captions below. Top row: exactly ONE bean caption '1개'; exactly TWO beans caption '2개'; exactly THREE beans caption '3개'; ONE slim bamboo skewer with exactly THREE matching mint beans spaced along the stick like a cute dango stick, caption '꼬치'. Bottom row: ONE shallow honey-colored WOODEN WOVEN BASKET / sokuri with exactly FOUR large mint beans visible inside, caption '소쿠리'; ONE OPEN cream Korean cloth bundle / bojagi wrapping, its four soft corners loosely folded outward and exactly THREE large mint beans visible inside, caption '보따리'; ONE OPEN light-kraft CARDBOARD PARCEL with its top flaps opened and exactly FOUR large mint beans visible inside, caption '종이상자'; ONE OPEN warm honey-brown WOODEN TREASURE CHEST with domed lid hinged back and exactly FIVE large mint beans visible inside, caption '나무 보물상자'. CRITICAL CHANGE: the bundle, box and treasure chest must now be visibly OPEN with readable interior contents. The previous closed-container rule is superseded. View these from a gentle elevated three-quarter front angle so every large bean in each container is clearly countable. The basket has FOUR, cloth bundle THREE, cardboard box FOUR, chest FIVE beans total. No extra small beans, no suggestion of a dense layer of tiny beans underneath, no beans outside containers. One loose shallow arrangement only, with air between large shapes, never crowded or overflowing. The skewer should visibly thread the three toy bean tokens without realistic damage, holes or any food texture; do not turn them into spheres, retain bean identity. Basket should be wooden/bamboo with just a few broad stylized weave bands, NO fine wicker pattern. Cloth bundle is an open wrapping, no tight top knot, no drawstrings, no handles. Cardboard has broad simple flaps and a mint bean emblem on front; not a gift box. Treasure chest has just two broad cream/gold bands, one simple latch and restrained broad plank divisions. Keep iconic chunky smooth shapes, mint-green/cream and warm wood colors, very soft light and subtle contact shadows, minimal clean surfaces, adorable proportions. Bean cream marks are broad flat inlaid graphics, never seed slits or realistic creases. No faces. NO dense piles, no tiny repeated details, no loose scattered pieces, no grain/noise, no heavy texture, no photorealistic wrinkles or realistic seeds, no excessive gloss. Keep all8 motifs similar visual weight and fully inside their own cells. Only text is the eight captions. No title, no border, no UI or watermark. This is a comparison board, NOT separate production assets or a sprite sheet.",
+      "destination": "docs/design/bean-soft3d-open-eight-v1-initial.png"
+    },
+    {
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-8feb24e5-8b68-452d-96d8-79cb9003ea15.png",
+      "prompt": "Use case: precise-object-edit. Edit ONLY the open cream CLOTH BUNDLE in the bottom row, second column (caption 보따리) of this eight-motif concept board. It currently visibly shows just TWO beans. Add ONE additional large clearly recognizable mint bean inside the back upper center of this open cloth bundle, so there are exactly THREE visible beans inside it, arranged loosely in a triangle, all with recognizable cream marks and clear silhouettes. Slightly adjust only the bundle opening if needed so the third bean is plainly visible above/behind the front two; no extra tiny beans or hidden pile. Preserve the open cream cloth corners and same soft3D finish. Leave EVERY OTHER motif, all eight captions, layout, colors, white background, skewer, basket, cardboard box and wooden treasure chest unchanged. Keep loose sparse arrangement, no crowding or spilling. No new text.",
+      "destination": "docs/design/bean-soft3d-open-eight-v1.png",
+      "editReason": "Initial bundle visibly contained2beans; corrected to3"
+    }
+  ],
+  "selectedAttempt": 2,
+  "appliedToUi": false,
+  "deployed": false,
+  "outputs": [
+    {
+      "path": "docs/design/bean-soft3d-open-eight-v1-initial.png",
+      "sha256": "3c84ee4d27c1590160b58776c3e8a09c517b57bdf55eaa2b0c207a98f25f092b",
+      "width": 1608,
+      "height": 978,
+      "mode": "RGB",
+      "bytes": 1695835,
+      "sourceCopyMatches": true
+    },
+    {
+      "path": "docs/design/bean-soft3d-open-eight-v1.png",
+      "sha256": "f92a450594be043278de96f641a499391d45fdf967e13054e0179096ef4fadbe",
+      "width": 1608,
+      "height": 978,
+      "mode": "RGB",
+      "bytes": 1733562,
+      "sourceCopyMatches": true
+    }
+  ],
+  "referenceSha256": "0a8883ffd68cdf009e21eef59b17bd2d863293a69b727094fa73436c3cc88d8a"
+}

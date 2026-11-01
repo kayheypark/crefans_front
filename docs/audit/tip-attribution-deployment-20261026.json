@@ -1,0 +1,601 @@
+{
+  "recordedAt": "2026-10-26T08:08:03.858838+00:00",
+  "release": "tip-attribution-20261026",
+  "deployed": true,
+  "scope": "server/worker, service+preview frontend, independent admin; post/profile tip classification and payout source quantities",
+  "repositories": {
+    "crefans_server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "files": {
+        "src/platform/bean-attribution.ts": "107da3e7359d880b9257a4b262ee2d234c81fb9c3e6246fc108b07e31be20288",
+        "src/platform/beans.service.ts": "1c90654ffd7746b3f0d68905da2efbb76c290e50e75b32f779f9230706125519",
+        "src/platform/openapi-contract.ts": "378e9d3f0587db0bd9b070117a4cba376bc516f0670c2233d77215af37df1588",
+        "prisma/schema.prisma": "f9960a9fc89cb175b2bcb1a9b87e0624ae1b4c4be27a691272e4e0d4652fe5fe",
+        "prisma/migrations/20261026120000_tip_attribution/migration.sql": "8e860ea85e66de6559954979770a58872217fc1057ed523b38181e17fc1066f0",
+        "tests/platform-beans.test.cjs": "4257d5a335cfc48121c8e1c4494e313ab3eb60b8c4fbf79ad83ca2d5af5f57d0",
+        "docs/platform-api.md": "0b18f71fe759b126af34b4abf2208256fbff0b936263ffe415c8a3e797901a84",
+        "docs/platform-implementation.md": "4a95a3ea7b0d9adc18aa4f6d443ee5acfe8d3eaa8a04fad848ed07fb03e5abff",
+        "PROGRESS.md": "0df8c959ee505bb492a3d3e913f7e1cf03d336fcfec953b2cbd3dc3cda0de356"
+      }
+    },
+    "crefans_front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "files": {
+        "types/crefans-beans.ts": "a4cc40c0d47f03437d42aeb1b60438cda0ae581e9a40777708c1ebe146ce91c8",
+        "components/crefans/BeanAttribution.tsx": "5195c76a84fd8f417ce600421c76fdfa190b55039a8335a8f3bb6ce360cfddf4",
+        "components/crefans/BeanPages.tsx": "eff20770c7aa545f45dbd15cde657977e3a0ab400d9ea73c16bf9d3262bbe412",
+        "components/crefans/BeanWalletPages.tsx": "f92e32a2957fe2eb87b2d430ba3ec63e9afac7d02e95c92b6161ca1b3244e994",
+        "components/crefans/beans.module.css": "db42272a5b93dea0e08d43e739ce238a968b08a25148d6466fc87ecb45173c5e",
+        "components/design-system/ServicePatternCatalog.tsx": "6aa3be9e4cbef5c8ca13612589eac82b6772da0d73f20019db018605ceb48a32",
+        "components/preview/service/bean-fixtures.ts": "78acae97ea1e9a7c499337e677fa8de16f1756dcac45b99c1ec207ab299a0221",
+        "components/preview/service/useMockBeans.ts": "a23d036133948ad8878e1f52a425ceb8ba509506204e23778ba285b826b9316a",
+        "lib/crefans/bean-history.ts": "6ab2a176f55a6f6f55d6aa61db30671b23eff76dd94f6ce1fb5ea8487e9ff477",
+        "tests/bean-attribution.test.cjs": "147f6234a37cd749090513189724cc5c51974d9f0c882b4049e227969806e301",
+        "PROGRESS.md": "7b06cf112101077dd9f685a39488afd35aa99fc164058cb5eda2b424f808304a"
+      }
+    },
+    "crefans_admin": {
+      "path": "/Users/ethan/repository/crefans_admin",
+      "head": "7928cb6fc70c27bbcb8f5ec4a760023a5ffda01c",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "files": {
+        "src/components/console/Beans.tsx": "b464c82d197024bdfbb75c2d8b32abc57fcd32e1543497ed988e566fb64936d1",
+        "src/app/globals.css": "db63b10bc94b0922a2a7a9eb43edcf56ad591f1c0ea7f7cae90fc61dc445b491",
+        "e2e/beans.spec.ts": "4e496ae8dd332424694f7b46d9d0b571424f442b12ddf1231d15549f14f7dc32",
+        "PROGRESS.md": "1ffb5d9091fb0e00535abe68148b0511b48ce5c25c98e87488813f893ba64a25"
+      }
+    }
+  },
+  "implementationEvidence": "tip-attribution-20261026.json",
+  "testedSourceMatchBeforeBuild": {
+    "verified": true,
+    "files": {
+      "crefans_server": 9,
+      "crefans_front": 11,
+      "crefans_admin": 4
+    }
+  },
+  "frozenSource": {
+    "at": "2026-10-26T08:01:44.020415+00:00",
+    "matched": true,
+    "files": {
+      "front": 621,
+      "server": 206,
+      "admin": 59
+    },
+    "manifestSha256": "30afcb7360591fd10b15ed7a826201e4d42bdce8ea54d85bb80b0f93280e3cba"
+  },
+  "builds": [
+    {
+      "label": "server",
+      "tag": "crefans-api:tip-attribution-20261026",
+      "startedAt": "2026-10-26T07:56:40.000325+00:00",
+      "finishedAt": "2026-10-26T07:57:50.770009+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "f38c392b7ac925b93a8a8144cba5f84bbd8954093769f2a32a984a7aa0101ff5"
+    },
+    {
+      "label": "front",
+      "tag": "crefans-front:tip-attribution-20261026",
+      "startedAt": "2026-10-26T07:57:50.770497+00:00",
+      "finishedAt": "2026-10-26T07:59:28.545191+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "30afcb7360591fd10b15ed7a826201e4d42bdce8ea54d85bb80b0f93280e3cba"
+    },
+    {
+      "label": "admin",
+      "tag": "crefans-admin:tip-attribution-20261026",
+      "startedAt": "2026-10-26T07:59:28.545710+00:00",
+      "finishedAt": "2026-10-26T08:00:50.923095+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "6ca5c9d8c3fb096f2f789a97846dc224d27ef5ec59e8348015af1eae185e1e13"
+    }
+  ],
+  "deployment": {
+    "command": "ssh private verified host: sudo -n bash /home/ubuntu/crefans-tip-attribution-20261026/deploy.sh",
+    "startedAt": "2026-10-26T08:02:46.805069+00:00",
+    "finishedAt": "2026-10-26T08:03:01.923634+00:00",
+    "exitCode": 0,
+    "scope": "frontend/API/worker/admin; one nullable title snapshot migration"
+  },
+  "backup": "/opt/crefans-backup-tip-attribution-20261026",
+  "productionVerification": {
+    "at": "2026-10-26T08:03:14.112179+00:00",
+    "http": [
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/bootstrap",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/me",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/studio/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/creator/moka",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/signup",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/beans/wallet",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://admin.crefans.com/api/v1/admin/beans/overview",
+        "status": 401,
+        "expected": 401
+      }
+    ],
+    "containers": {
+      "crefans-beta-api-1": {
+        "id": "5fdfcec9fad808cac39d7a6a7ed7c6f76b68e65e0111408c9f64d253b4a72d8d",
+        "image": "sha256:15410ca56382ab1ab9f78d6b01b5d8495995e95bb0f3da590696c01109885be7",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "cd8ce790d347c6bf5d2f643c916e842ee52df576dd4fa9ccb2d1da804ad80bb7",
+        "image": "sha256:15410ca56382ab1ab9f78d6b01b5d8495995e95bb0f3da590696c01109885be7",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-frontend-1": {
+        "id": "592396fbd61922bc1d7c6ecf5bb9f125ef7c58281c40adbd39accc924ed1ddb9",
+        "image": "sha256:014ac1b7fac9f8c12b11c076981faf7de8af173a92ab7e12cc912fb5da658cd7",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "bf6679b55b9d9d515ee81983758b8eaab2e1ece0551ff9907447edc3925686d7",
+        "image": "sha256:71a7c67ad37217d2d24986eaec360eb81679fdd9771e5dc3e181595c42ef4286",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      }
+    },
+    "runningSourceHashes": {
+      "server": 203,
+      "front": 620
+    },
+    "runtime": {
+      "at": "2026-10-26T08:03:19.413Z",
+      "flags": {
+        "APP_RELEASE": "tip-attribution-20261026",
+        "BETA_MODE": "true",
+        "BEAN_LEDGER_ENABLED": "true",
+        "BEAN_LIVE_PAYMENTS_APPROVED": "false",
+        "BANK_PAYOUTS_ENABLED": "false",
+        "MARKETING_MAIL_ENABLED": "false",
+        "SIGNUP_IDENTITY_MODE": "email-only",
+        "CREFANS_E2E": "false",
+        "MEDIA_STORAGE": "s3"
+      },
+      "counts": {
+        "members": 1,
+        "creators": 0,
+        "orders": 0,
+        "charges": 0,
+        "tips": 0,
+        "payouts": 0
+      },
+      "migrations": [
+        {
+          "migration_name": "0_init",
+          "checksum": "3833bea35684a61c3d59c5f04b590d6f34ca459b9220fd0425cb0a0356904219"
+        },
+        {
+          "migration_name": "20260910000000_local_members",
+          "checksum": "3076434a542b6badcf5549fd713cf7a3a9ffcbc7dd5606d92d617873d3ee471a"
+        },
+        {
+          "migration_name": "20261007000000_platform_v1",
+          "checksum": "4076884920bbaa5c0bab99d08a9fa4db1e39f48779f66d84dfa7b9ddb238ba01"
+        },
+        {
+          "migration_name": "20261007010000_platform_hardening",
+          "checksum": "14b6ef2d8e6eb443a6afc08b7d6a0e4e0c5c58a5946680848f905fe4129abdcc"
+        },
+        {
+          "migration_name": "20261007020000_platform_jobs",
+          "checksum": "e0b23da51ac54a4143af2496c6d6da39912efb3f37a2c26345f341475e0a6008"
+        },
+        {
+          "migration_name": "20261007030000_platform_completion",
+          "checksum": "2b7f8288195ee6b81160d9047bac6435abc87019eda946953106694cc14ac6f4"
+        },
+        {
+          "migration_name": "20261007040000_platform_audit",
+          "checksum": "f46af57baf903d9c9164518917a08e9bd799666f51f1cc7ff7316c5619b6f82b"
+        },
+        {
+          "migration_name": "20261007050000_platform_age_gate",
+          "checksum": "1445731150a5fa2045bbaa7c3bfeb83a8f4dad46d6159396d1261708269d24dc"
+        },
+        {
+          "migration_name": "20261007060000_billing_registration",
+          "checksum": "8565a40c6393a36834870fd41f362d699ebd507346a7f87fad53eb4d9f419ef2"
+        },
+        {
+          "migration_name": "20261008000000_payment_lifecycle",
+          "checksum": "360fe0032ff09a9e7c48e0da34cd893b72d6fda87a26ccf58e4ad74b015357cc"
+        },
+        {
+          "migration_name": "20261021070000_unused_content_refund",
+          "checksum": "5d1e2290f77bcc448a8eccd4e2270600f339f38422fd7b4a56714d666887ad98"
+        },
+        {
+          "migration_name": "20261021080000_db_financial_policy",
+          "checksum": "80ba545b2b74906641d70418e33119d00ae3d80116ff68865b8c6d90580d7c95"
+        },
+        {
+          "migration_name": "20261021160000_platform_security_ip",
+          "checksum": "1dfd3a3c4b1fc8147ea840c23772fef342810e6f683c65b66da21d663c4670e6"
+        },
+        {
+          "migration_name": "20261021161000_operational_events",
+          "checksum": "0ce6cf718f5ee4497dc90300d3c97e61a070e379cf58eb3b3df6b34bc9aa8701"
+        },
+        {
+          "migration_name": "20261022020000_audit_logs",
+          "checksum": "c3312aca7d23bfd77a2c71c497dc1e26a2b2570d575f5e6cf1fc446f91e06eef"
+        },
+        {
+          "migration_name": "20261022030000_billing_recovery",
+          "checksum": "67e4f2729a36db3717d8ecc234c6a5dd2c3936b76e27a1cc43c2c0e4b6e66b47"
+        },
+        {
+          "migration_name": "20261024120000_creator_verification",
+          "checksum": "8cbf4a870e12e5199ee2b6823edeb9e00d88a7ffd18f58cf4c3c74cf5d0155dc"
+        },
+        {
+          "migration_name": "20261025100000_beta_policy",
+          "checksum": "1fd23a64220156108978d59061d2fcdb62022c6c44e10145d069c2258f069f90"
+        },
+        {
+          "migration_name": "20261025110000_marketing_delivery_claim",
+          "checksum": "be6b7ae38fe19d5dea989193316c5d60a58cb9565c913040d64603110b183573"
+        },
+        {
+          "migration_name": "20261025120000_bean_ledger",
+          "checksum": "887ae3eb12b4543c8ee08341931f2b0869e81ea4d209ed19cf2c3c3b1b08ce7f"
+        },
+        {
+          "migration_name": "20261025130000_bean_product",
+          "checksum": "ca637f1ac797c4bb43ff839a5f9bb82aba2392578e29eeb5d73c520988aa281f"
+        },
+        {
+          "migration_name": "20261026090000_post_supporters",
+          "checksum": "afa16d89dd49a0979dcb5c944fb222e9101377ebecb4404e14c748ebd6284ff9"
+        },
+        {
+          "migration_name": "20261026100000_profile_connections",
+          "checksum": "d455891503b36cf404c87e80d6c6532ed273bc6fcf113a3bf3c73110b3897410"
+        },
+        {
+          "migration_name": "20261026110000_post_tip_setting",
+          "checksum": "f7b767fe44b5875038fdc689646ac8f19d07e93a4f7687098e368c81a6225c0b"
+        },
+        {
+          "migration_name": "20261026120000_tip_attribution",
+          "checksum": "8e860ea85e66de6559954979770a58872217fc1057ed523b38181e17fc1066f0"
+        }
+      ],
+      "policy": {
+        "version": 2,
+        "feeBps": 2000,
+        "holdDays": 7
+      },
+      "worker": {
+        "id": "worker-health",
+        "locked_until": "2026-10-21T08:22:45.481Z",
+        "completed_at": "2026-10-26T08:02:55.295Z",
+        "note": "{\"failures\":{}}"
+      }
+    },
+    "additiveMigrationsAndUnchangedCountsAndFinancialPolicy": true,
+    "newWorkerHeartbeat": {
+      "startedAt": "2026-10-26T08:02:53.091439955Z",
+      "completedAt": "2026-10-26T08:02:55.295Z",
+      "failures": {}
+    },
+    "signup": {
+      "identityRequired": false,
+      "inviteOnly": true,
+      "signupReady": false
+    },
+    "assetChecks": [
+      {
+        "quantity": 10,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v6/10.png",
+        "sha256": "0fe3947fb4da0ca2d386cce829574a2058f02a8aa995d57e630fc61fd64bd5e5"
+      },
+      {
+        "quantity": 30,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v5/50.png",
+        "sha256": "c6a13ccd77aa2d5212977068819a4cb394ee38e1839c27446fac16b2c3cc2c18"
+      },
+      {
+        "quantity": 50,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v6/30.png",
+        "sha256": "53275dcb2a6ffad2af818e169505cd99c431c0c8226d00cf68928de4d4a34f65"
+      },
+      {
+        "quantity": 100,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v7/100.png",
+        "sha256": "8edaa470a4fd3d8e4c16c541f581137ad6e9157179731002c5d64e849f367e54"
+      },
+      {
+        "quantity": 300,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v5/300.png",
+        "sha256": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28"
+      },
+      {
+        "quantity": 500,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v7/500.png",
+        "sha256": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c"
+      },
+      {
+        "quantity": 1000,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v7/1000.png",
+        "sha256": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d"
+      },
+      {
+        "quantity": 5000,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v5/5000.png",
+        "sha256": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e"
+      },
+      {
+        "quantity": 10000,
+        "url": "https://beta.crefans.com/brand/beans/soft3d-v7/10000.png",
+        "sha256": "3fdb1bdec8d9480fd658dd8ea1ae6f332caea0feedc582e23608eb2559240700"
+      }
+    ],
+    "deployedBeanPolicy": {
+      "krwPerBean": 100,
+      "chargeKrwPerBean": 110,
+      "withdrawalFeeBps": 2000,
+      "minimumWithdrawalKrw": 100000,
+      "minimumWithdrawalBeans": 1000,
+      "consumptionOrder": [
+        "promotion",
+        "purchased"
+      ],
+      "withdrawableBucket": "earned-paid",
+      "promotionCashWithdrawal": false,
+      "purchasedCashWithdrawal": false
+    }
+  },
+  "productionAttributionReadOnly": {
+    "at": "2026-10-26T08:03:23.895Z",
+    "tipSampleCount": 0,
+    "payoutSampleCount": 0,
+    "sourceCategories": [
+      "post",
+      "profile"
+    ],
+    "schema": [
+      {
+        "COLUMN_NAME": "post_title_snapshot",
+        "IS_NULLABLE": "YES",
+        "DATA_TYPE": "text"
+      }
+    ],
+    "succeeded": true,
+    "readOnly": true,
+    "emptyHistoryLimits": true
+  },
+  "productionBrowser": {
+    "at": "2026-10-26T08:08:03.768557+00:00",
+    "method": "manual Chrome via cua_repl; live production preview URLs, DOM/AX and screenshot inspection",
+    "checks": [
+      {
+        "url": "https://beta.crefans.com/preview/beans/tips",
+        "viewport": 390,
+        "result": "post/profile labels; post-title search returns 5 mock tips; no horizontal overflow"
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans/history",
+        "viewport": 390,
+        "result": "post/profile movement reason; relevant post title links; scrollWidth=390"
+      },
+      {
+        "url": "https://beta.crefans.com/preview/studio/beans",
+        "viewport": 1280,
+        "result": "received totals: post 2000 paid/0 promo; profile 1000 paid/50 promo; mock-only 1200 withdrawal shows post1200/profile0 and gross120000/fee24000/net96000; scrollWidth=1280"
+      },
+      {
+        "url": "https://admin.crefans.com/console/beans",
+        "result": "unauthenticated redirect /login; login protection retained; authenticated production console not exercised"
+      }
+    ],
+    "mockOnlyMutations": true,
+    "viewportReset": true
+  },
+  "images": {
+    "at": "2026-10-26T08:02:13.699660+00:00",
+    "images": {
+      "server": {
+        "sourceManifestSha256": "f38c392b7ac925b93a8a8144cba5f84bbd8954093769f2a32a984a7aa0101ff5",
+        "tag": "crefans-api:tip-attribution-20261026",
+        "imageId": "sha256:77e127c8dea4538d261905d163e461fe90762c6099be8039aacdf48f338f6192",
+        "runtimeImage": "sha256:77e127c8dea4538d261905d163e461fe90762c6099be8039aacdf48f338f6192",
+        "architecture": "amd64",
+        "sourceFiles": 203,
+        "rootFsLayers": [
+          "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+          "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+          "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+          "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+          "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+          "sha256:401f2dc7734176ec96e2ccecbe7bef70868b72ce8d8d6786f4b503fc20625a36",
+          "sha256:de369c3b865ebc7e678a596018fc5fb791bc6987815db53469e31a582b87ee29",
+          "sha256:63029c2dec1345c70bc4fa20bfb9f2b51fab75a3f2116b623759a76387a4214a",
+          "sha256:7a4ba31458fe0cba73ff9017d4c1ba1c8cb98f04b686f6f22da32dd5bd92eb33",
+          "sha256:af0a3e0add6f18f28a33d1b725572b4e76cf6c5141a5fd693a655fe211dc252d",
+          "sha256:dc266f1b32987eee6c913f59021e2c96d6ce79763d76e922d60f9c890a65c3a1",
+          "sha256:cfbdcea5ccbce890011337b731b22a1d4602e1e08542f8dd128001bb568cf91e",
+          "sha256:4804d5d55eb646f2d144b3c2573e969659e9ef23d1fe81c9f22cc606e540b9dd",
+          "sha256:c3735b9846c85b8c3b0e8dfd889442d2b37e58ab4a00f4588fd9b1d0169cc813",
+          "sha256:fcb66f61a8ab1584faa31e57a1331163b794fd890d70f3ab0a1b68bffb46f7b5"
+        ]
+      },
+      "front": {
+        "sourceManifestSha256": "30afcb7360591fd10b15ed7a826201e4d42bdce8ea54d85bb80b0f93280e3cba",
+        "tag": "crefans-front:tip-attribution-20261026",
+        "imageId": "sha256:f52d1785ff117fafc4ae50459f36996bde91773eabac8d4f4d28d32c68155bb8",
+        "runtimeImage": "sha256:f52d1785ff117fafc4ae50459f36996bde91773eabac8d4f4d28d32c68155bb8",
+        "architecture": "amd64",
+        "sourceFiles": 620,
+        "rootFsLayers": [
+          "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+          "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+          "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+          "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+          "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+          "sha256:401f2dc7734176ec96e2ccecbe7bef70868b72ce8d8d6786f4b503fc20625a36",
+          "sha256:8ddcc7b02157c904be4aaf8d064ad43b24061668491ec2e8b83dd25bc972d31b",
+          "sha256:18568fd25fb5c8f29643af3e1b925e84ef4074f9dac96abef26ae6e950f18d0e",
+          "sha256:7024e290d3f06d6e4c263422bd4f7c63d500ee729b399a07512da055d7be5cf7",
+          "sha256:643759ecbd0410b6f78c504da6b5c5ff5f11e61b369567623bd254a78be7e71a"
+        ]
+      },
+      "admin": {
+        "sourceManifestSha256": "6ca5c9d8c3fb096f2f789a97846dc224d27ef5ec59e8348015af1eae185e1e13",
+        "tag": "crefans-admin:tip-attribution-20261026",
+        "imageId": "sha256:72ee28a1b78ed42ac2c6740c6355bd7799113fd26f68aedcfbf157ceee235544",
+        "runtimeImage": "sha256:72ee28a1b78ed42ac2c6740c6355bd7799113fd26f68aedcfbf157ceee235544",
+        "architecture": "amd64",
+        "sourceFiles": 59,
+        "rootFsLayers": [
+          "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+          "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+          "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+          "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+          "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+          "sha256:401f2dc7734176ec96e2ccecbe7bef70868b72ce8d8d6786f4b503fc20625a36",
+          "sha256:f6e6b6988c0a1d834c210688e8ba7e86fbe0cdf285efb0da38c31e8df013208c",
+          "sha256:de5e0f7c4ca71a554e245a6ef133515d721b0a1e26685d15e67846bad8338e87",
+          "sha256:7c14e8fc0ea41852140df6ea0c5b91d1396726ce481e22acf10eb589af97eff5"
+        ]
+      }
+    },
+    "archiveSha256": "b3d9024e8fe1aef2f8d8120e8008bc79484742a0f16615a590c3c1ec032e3e68",
+    "archiveBytes": 794724107,
+    "directPrivateSshStream": true
+  },
+  "preserved": [
+    "database/proxy containers",
+    "prior migration checksums",
+    "financial record counts and policies",
+    "20% fee, 7-day hold",
+    "live sales and bank payouts disabled",
+    "signupReady=false/inviteOnly=true",
+    "existing home SSH access rule"
+  ],
+  "limitations": [
+    "No actual production payment, tip or bank transfer executed.",
+    "Production tip and payout history empty; no real-user financial end-to-end assertion.",
+    "Authenticated production admin UI not exercised because no session; prior isolated admin E2E and running image equality checked.",
+    "Production browser check Chrome only; prior local WebKit checks remain historical."
+  ],
+  "privateEvidenceHashes": {
+    "verify.py": "088dcec689c1ef3aee5d8a75e3eff3e13bdc38f5f49244e6516043c630e5d67e",
+    "attribution-readonly.py": "44116caed41e820811da4f9c876d5a04fc2ebc72d4869492774e527617be6195",
+    "deploy.sh": "f96624527b9dad6b3700e7c236905e3baaafa6b266861771c2c9776aad874c79",
+    "deploy.log": "9ad4ea3c8df7d4a82169cc6dd31f261a6a0dfda564f41dd722fd89983f19680d",
+    "load.log": "2aab54d78f0ac21ffcabcd0a4de0abb9c0e144553a876d07122390a13c57b06d",
+    "server-build.log": "9e6c73ed42871bf941885116303fc3535889f2b6c63c89887c31d92e32068cc5",
+    "front-build.log": "bee5eb8b026863f4ddb572002a6fc0ffe4f558df09463e0f5ba0c49db2bceada",
+    "admin-build.log": "d2865b55acdaff1badef82a1cdf52e33b8856413364e623760001dbcc676fcd5",
+    "browser-manual.json": "5b2996db2c3dd2c32dc5ba51f4186a7a78b7a49fa152ae7aaa343739746a6e26"
+  },
+  "documentationRuns": [
+    {
+      "command": "npm run docs:record",
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-26T08:08:03.860822+00:00",
+      "finishedAt": "2026-10-26T08:08:04.842237+00:00",
+      "exitCode": 0,
+      "logSha256": "f0c74d4c25d3d983d84fc1a5ff79976075e5d75dcae0c47b3cc708df93ab138f"
+    },
+    {
+      "command": "npm run check:docs",
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-26T08:08:04.842436+00:00",
+      "finishedAt": "2026-10-26T08:08:05.242407+00:00",
+      "exitCode": 0,
+      "logSha256": "5b488c6bd071f207eaeaac278f18c0cdda57e19db3ec9e3cdec3a118063f84af"
+    }
+  ]
+}

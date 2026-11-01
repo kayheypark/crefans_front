@@ -1,0 +1,98 @@
+{
+  "createdAt": "2026-10-25T08:29:12.413Z",
+  "tool": "built-in image_gen",
+  "reference": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v3/100.png",
+  "outputs": [
+    {
+      "key": "10",
+      "count": 10,
+      "sticks": 2,
+      "perStick": 5,
+      "multiplier": null,
+      "prompt": "Use case: precise-object-edit / motif recomposition. Asset: ONE isolated CREFANS soft3D bean-currency package icon, actual transparent PNG. Reference image establishes ONLY the mint-green plump kidney-bean token with broad cream inlaid graphic mark, smooth satin toy3D material and light bamboo stick. Preserve this identity and style. Count the bean tokens carefully. Each bean must have its own clear cream mark. A bean is an abstract toy token, NOT a realistic seed: no slit, pores, wrinkles, organic grain or food texture. Broad soft lighting, minimal shadows, no extra decorative objects, no faces, no pile or clump. Square canvas with clear transparent padding so entire sticks/beans/text are uncropped. No background, no checkerboard, no quantity title or currency price; only explicitly requested multiplication text. Spaced regular arrangement on distinct straight bamboo sticks, keep silhouettes separate. Never add extra loose beans.\nSPECIFIC: TWO separate parallel bamboo skewers, each with EXACTLY FIVE mint bean tokens, making EXACTLY TEN beans total. Both sticks angled lower-left to upper-right in a loose side-by-side fan, with generous transparent gap between the two skewers. Within each stick5tokens are equally spaced and individually countable; do not merge them, no6-or4per stick. All10beans remain about the same size. No multiplication label or text for this icon. This exact ten-token layout is intentionally authorized; do not reduce counts. No other objects.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-2251c7a4-c47a-48ec-90a0-465c5a300143.png",
+      "destination": "public/brand/beans/soft3d-v4/10.png",
+      "validation": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "sha256": "24afb640b0e7edcc6ae2f0a01635aaa259fe47b3666f405d1ee8df932f725d8d",
+        "sourceCopyMatches": true,
+        "observedBeans": 10,
+        "observedSticks": 2,
+        "observedMultiplier": null,
+        "countMethod": "manual visual review"
+      }
+    },
+    {
+      "key": "30",
+      "count": 3,
+      "sticks": 1,
+      "perStick": 3,
+      "multiplier": 10,
+      "prompt": "Use case: precise-object-edit / motif recomposition. Asset: ONE isolated CREFANS soft3D bean-currency package icon, actual transparent PNG. Reference image establishes ONLY the mint-green plump kidney-bean token with broad cream inlaid graphic mark, smooth satin toy3D material and light bamboo stick. Preserve this identity and style. Count the bean tokens carefully. Each bean must have its own clear cream mark. A bean is an abstract toy token, NOT a realistic seed: no slit, pores, wrinkles, organic grain or food texture. Broad soft lighting, minimal shadows, no extra decorative objects, no faces, no pile or clump. Square canvas with clear transparent padding so entire sticks/beans/text are uncropped. No background, no checkerboard, no quantity title or currency price; only explicitly requested multiplication text. Spaced regular arrangement on distinct straight bamboo sticks, keep silhouettes separate. Never add extra loose beans.\nSPECIFIC: ONE light bamboo skewer with EXACTLY THREE mint kidney-bean tokens, evenly spaced, angled lower-left to upper-right. Add clear flat dark-charcoal typography reading exactly '×10' in the lower-right transparent negative space, large enough to be legible in a small UI. Just one3bean stick and that multiplier; do NOT draw10sticks or extra beans. The multiplication symbol and10 are one clean group, no outline/pill/background panel. No other text or objects.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-c94b00ea-c6e4-4059-bae0-f38ca57513fb.png",
+      "destination": "public/brand/beans/soft3d-v4/30.png",
+      "validation": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "sha256": "77f0dfc5d570ea438197b7d3d4fdb1c6bdc967b4581f2554c41e37ee5007acd9",
+        "sourceCopyMatches": true,
+        "observedBeans": 3,
+        "observedSticks": 1,
+        "observedMultiplier": 10,
+        "countMethod": "manual visual review"
+      }
+    },
+    {
+      "key": "100",
+      "count": 10,
+      "sticks": 1,
+      "perStick": 10,
+      "multiplier": 10,
+      "prompt": "Use case: precise-object-edit / motif recomposition. Asset: ONE isolated CREFANS soft3D bean-currency package icon, actual transparent PNG. Reference image establishes ONLY the mint-green plump kidney-bean token with broad cream inlaid graphic mark, smooth satin toy3D material and light bamboo stick. Preserve this identity and style. Count the bean tokens carefully. Each bean must have its own clear cream mark. A bean is an abstract toy token, NOT a realistic seed: no slit, pores, wrinkles, organic grain or food texture. Broad soft lighting, minimal shadows, no extra decorative objects, no faces, no pile or clump. Square canvas with clear transparent padding so entire sticks/beans/text are uncropped. No background, no checkerboard, no quantity title or currency price; only explicitly requested multiplication text. Spaced regular arrangement on distinct straight bamboo sticks, keep silhouettes separate. Never add extra loose beans.\nSPECIFIC: ONE LONG straight bamboo skewer holding EXACTLY TEN mint kidney-bean tokens. Show all10evenly spaced and countable, in a clean single diagonal line from lower-left to upper-right. Make beans smaller as needed to fit10on ONE stick with clear gaps, but never make a pile, beads, spheres or realistic seeds. Show both stick ends, no cropping. Add clean flat dark-charcoal text exactly '×10' in the lower-right transparent negative space. One10bean stick plus multiplier only; do NOT draw10sticks. This ten-token layout is explicitly required and supersedes previous count caps. No other text or objects.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-64259989-2acb-4237-be35-296d7583422a.png",
+      "destination": "public/brand/beans/soft3d-v4/100.png",
+      "validation": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "sha256": "67a57c4b6023102868da5ee3b5cfffcbf4505e6e480461380175aca96c1a5ea2",
+        "sourceCopyMatches": true,
+        "observedBeans": 10,
+        "observedSticks": 1,
+        "observedMultiplier": 10,
+        "countMethod": "manual visual review"
+      }
+    }
+  ],
+  "corrections": [
+    {
+      "key": "100",
+      "initialSource": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-a6dd395f-68f6-4d19-9dc3-eb8f7d5bbd86.png",
+      "prompt": "Use case: precise-object-edit. This single transparent icon currently has NINE green bean tokens along one diagonal bamboo stick, plus '×10'. Correct it to EXACTLY TEN green kidney-bean tokens on that same ONE stick. Re-layout the entire chain slightly smaller with even spacing so all10 tokens fit between both visible bamboo ends within the canvas; count1,2,3,4,5,6,7,8,9,10 from bottom-left to top-right. Every one of the10 must have its own distinct broad cream graphic mark and separated silhouette, none hidden or merged. Keep the same mint/cream smooth soft3D toy style and the clean dark '×10' multiplier in the lower-right. No second stick, no loose beans, no new text, no quantity caption. Keep actual transparency and padding. The only requested change is9beans to10, not a different composition with many extra beans.",
+      "finalSource": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-64259989-2acb-4237-be35-296d7583422a.png",
+      "reason": "Initial9beans corrected to10"
+    }
+  ],
+  "pending": {
+    "quantity": 50,
+    "question": "5beans×10=50 recommended, or literal10beans×10=100 as requested? Awaiting human answer; no50generated."
+  },
+  "appliedToUi": false,
+  "deployed": false,
+  "referenceSha256": "aa6e75abd572008ec7971451dd5c4c2e3dd1043a3dac59949b142feae0ff9319"
+}

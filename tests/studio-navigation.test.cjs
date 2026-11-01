@@ -19,7 +19,7 @@ function mount(overrides={}){
 function group(view,label){return view.root.findAllByType('button').find(button=>button.props.className==='groupToggle'&&button.findAllByType('span').some(span=>span.children.includes(label)));}
 function viewport(initial){
  const previous=global.window,listeners=new Set(),media={matches:initial,addEventListener(_event,listener){listeners.add(listener);},removeEventListener(_event,listener){listeners.delete(listener);}};
- global.window={matchMedia:()=>media};
+ global.window={addEventListener(){},removeEventListener(){},matchMedia:()=>media};
  return {resize(matches){act(()=>{media.matches=matches;listeners.forEach(listener=>listener());});},restore(){global.window=previous;},listeners};
 }
 
@@ -41,7 +41,7 @@ test('groups can be collapsed and navigation into nested content automatically o
  try{
   act(()=>group(view,'리포트').props.onClick());assert.equal(group(view,'리포트').props['aria-expanded'],false);
   const panel=view.root.findByProps({id:group(view,'리포트').props['aria-controls']});
-  assert.equal(panel.props['aria-hidden'],true);assert.equal(panel.props.inert,'');assert.equal(panel.props['data-open'],false);
+  assert.equal(panel.props['aria-hidden'],true);assert.equal(panel.props.inert,true);assert.equal(panel.props['data-open'],false);
   assert.equal(panel.props.hidden,undefined);assert.equal(panel.findAllByType('a').length,4);
   update({active:'content/new'});assert.equal(group(view,'콘텐츠').props['aria-expanded'],true);
   const current=view.root.findAllByType('a').find(link=>link.props['aria-current']==='page');assert.equal(current.props.href,'/creator-space/content');
@@ -63,7 +63,7 @@ test('rapid group reversal retains link instances and immediately restores keybo
  try{
   const control=group(view,'리포트'),panel=()=>view.root.findByProps({id:control.props['aria-controls']}),link=panel().findAllByType('a')[0];
   act(()=>control.props.onClick());
-  assert.equal(panel().props.inert,'');assert.equal(panel().props['data-open'],false);
+  assert.equal(panel().props.inert,true);assert.equal(panel().props['data-open'],false);
   assert.equal(panel().findAllByType('a')[0],link);
   act(()=>group(view,'리포트').props.onClick());
   assert.equal(panel().props.inert,undefined);assert.equal(panel().props['aria-hidden'],undefined);assert.equal(panel().props['data-open'],true);
@@ -71,16 +71,34 @@ test('rapid group reversal retains link instances and immediately restores keybo
  }finally{close();}
 });
 
-test('mobile viewports replace the studio with an unsupported notice and restore navigation on desktop',()=>{
+test('mobile viewports keep the studio open behind a menu button and restore the sidebar on desktop',()=>{
  const screen=viewport(true),{view,close}=mount({mock:true});
  try{
-  assert.equal(view.root.findAllByType('nav').length,0);assert.equal(view.root.findAllByType('aside').length,0);
-  assert.match(JSON.stringify(view.toJSON()),/모바일에서는 지원하지 않습니다/);
-  assert.doesNotMatch(JSON.stringify(view.toJSON()),/페이지 본문/);
-  assert.equal(view.root.findByType('main').findByType('a').props.href,'/fan-space/feed');
+  const menu=()=>view.root.findAll(node=>node.type==='button'&&typeof node.props['aria-label']==='string'&&node.props['aria-label'].startsWith('스튜디오 메뉴'));
+  const aside=()=>view.root.findByType('aside');
+  assert.doesNotMatch(JSON.stringify(view.toJSON()),/모바일에서는 지원하지 않습니다/);
+  assert.match(JSON.stringify(view.toJSON()),/페이지 본문/);
+  assert.equal(menu().length,1);assert.equal(menu()[0].props['aria-expanded'],false);
+  assert.equal(aside().props['aria-hidden'],true);assert.equal(aside().props.inert,true);assert.equal(aside().props['data-open'],false);assert.equal(aside().props['data-mobile'],true);
+  act(()=>menu()[0].props.onClick());
+  assert.equal(menu()[0].props['aria-expanded'],true);assert.equal(menu()[0].props['aria-label'],'스튜디오 메뉴 닫기');
+  assert.equal(aside().props['aria-hidden'],undefined);assert.equal(aside().props.inert,undefined);assert.equal(aside().props['data-open'],true);
+  const backdrop=()=>view.root.findAll(node=>node.type==='div'&&node.props['aria-hidden']==='true'&&typeof node.props.onClick==='function');
+  assert.equal(backdrop().length,1);
+  act(()=>backdrop()[0].props.onClick());assert.equal(aside().props['data-open'],false);assert.equal(backdrop().length,0);
+  act(()=>menu()[0].props.onClick());assert.equal(aside().props['data-open'],true);
+  act(()=>menu()[0].props.onClick());assert.equal(aside().props['data-open'],false);
   screen.resize(false);
-  assert.equal(view.root.findAllByType('nav').length,1);assert.match(JSON.stringify(view.toJSON()),/페이지 본문/);
+  assert.equal(menu().length,0);assert.equal(aside().props['data-open'],true);assert.equal(aside().props.inert,undefined);assert.equal(aside().props['data-mobile'],undefined);
   assert.equal(group(view,'수익,정산,출금 관리').props['aria-expanded'],false);
-  screen.resize(true);assert.equal(view.root.findAllByType('nav').length,0);
+  screen.resize(true);assert.equal(menu().length,1);assert.equal(aside().props['data-open'],false);
  }finally{close();assert.equal(screen.listeners.size,0);screen.restore();}
+});
+
+// 2026-11-01: before the screen size is known (server render / first frame) the mobile drawer must not show. The mobile
+// drawer rule needs data-mobile, which only appears once the media query says mobile; desktop ignores data-open.
+test('mobile drawer CSS requires data-mobile, so the first frame never shows an open drawer',()=>{
+  const css=require('fs').readFileSync(require('path').join(__dirname,'../components/crefans/studio/studio.module.css'),'utf8');
+  assert.match(css,/\.sidebar\[data-open=true\]\[data-mobile\]\{display:flex;position:fixed/);
+  assert.doesNotMatch(css,/\.sidebar\[data-open=true\]\{display:flex;position:fixed/);
 });

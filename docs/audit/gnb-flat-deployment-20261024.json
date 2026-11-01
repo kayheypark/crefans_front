@@ -1,0 +1,668 @@
+{
+  "at": "2026-10-24T13:57:41.591347+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "dirty": true,
+  "commitOrPush": false,
+  "scope": {
+    "at": "2026-10-24T13:51:21.328949+00:00",
+    "baselineFilesMatched": 518,
+    "changed": [
+      "components/crefans/ServiceShell.tsx",
+      "components/ui/Avatar.tsx",
+      "components/crefans/service.module.css",
+      "components/design-system/ServicePatternCatalog.tsx"
+    ],
+    "added": [
+      "components/crefans/NavigationIcon.tsx",
+      "components/crefans/navigation-icon.module.css",
+      "public/brand/navigation/bell-round-flat-v1.png",
+      "public/brand/navigation/explore-round-flat-v1.png",
+      "public/brand/navigation/home-round-flat-v1.png",
+      "public/brand/navigation/message-round-flat-v1.png",
+      "public/brand/navigation/user-round-flat-v1.png"
+    ],
+    "change": "Round flat navigation icons in shared fan shell/catalog, preserving unread counts and profile photo fallback",
+    "preserved": "Other dirty changes; backend/worker/admin/database/proxy; SSH rules"
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "reference": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-4cd41384-70be-45c1-a8d0-a9f5b4d0cd2d.png",
+    "prompts": [
+      {
+        "key": "home",
+        "prompt": "Use case: logo-brand. Production asset: one isolated CREFANS navigation icon, normally displayed at28px.\nReference image is STYLE REFERENCE ONLY: match ONLY the first row titled 01 라운드 플랫. Ignore every other style, UI strip, heading and badge.\nSubject: a simple solid blue house silhouette, peaked roof and softly rounded corners, small lavender rounded door at the bottom center.\nStyle: simple ROUND FLAT filled geometric shapes with smooth rounded contours. Saturated royal blue #2563eb and lavender #b4a6ff only. Strong clean readable silhouette, front-on. Exactly the same visual family as the first-row house icon.\nComposition: square canvas. Center the icon with its dominant dimension occupying88 percent of canvas, consistent6 percent padding. One icon only, no sheet.\nActual transparent background and preserve transparent negative spaces. NO white field or checkerboard baked into pixels. No enclosing tile, red badge, text, watermark, outline around the whole asset, gradient, shadows, gloss, bevels or 3D.\nThe image must remain identifiable at28x28 pixels."
+      },
+      {
+        "key": "explore",
+        "prompt": "Use case: logo-brand. Production asset: one isolated CREFANS navigation icon, normally displayed at28px.\nReference image is STYLE REFERENCE ONLY: match ONLY the first row titled 01 라운드 플랫. Ignore every other style, UI strip, heading and badge.\nSubject: one thick blue circular magnifying glass ring, transparent center, short rounded lavender handle extending diagonally down-right.\nStyle: simple ROUND FLAT filled geometric shapes with smooth rounded contours. Saturated royal blue #2563eb and lavender #b4a6ff only. Strong clean readable silhouette, front-on. Exactly the same visual family as the first-row house icon.\nComposition: square canvas. Center the icon with its dominant dimension occupying88 percent of canvas, consistent6 percent padding. One icon only, no sheet.\nActual transparent background and preserve transparent negative spaces. NO white field or checkerboard baked into pixels. No enclosing tile, red badge, text, watermark, outline around the whole asset, gradient, shadows, gloss, bevels or 3D.\nThe image must remain identifiable at28x28 pixels."
+      },
+      {
+        "key": "message",
+        "prompt": "Use case: logo-brand. Production asset: one isolated CREFANS navigation icon, normally displayed at28px.\nReference image is STYLE REFERENCE ONLY: match ONLY the first row titled 01 라운드 플랫. Ignore every other style, UI strip, heading and badge.\nSubject: ONE thick blue rounded speech-bubble outline with a tail at lower left. The entire interior is TRANSPARENT. No dots, text or inner lines. Single bubble only.\nStyle: simple ROUND FLAT filled geometric shapes with smooth rounded contours. Saturated royal blue #2563eb and lavender #b4a6ff only. Strong clean readable silhouette, front-on. Exactly the same visual family as the first-row house icon.\nComposition: square canvas. Center the icon with its dominant dimension occupying88 percent of canvas, consistent6 percent padding. One icon only, no sheet.\nActual transparent background and preserve transparent negative spaces. NO white field or checkerboard baked into pixels. No enclosing tile, red badge, text, watermark, outline around the whole asset, gradient, shadows, gloss, bevels or 3D.\nThe image must remain identifiable at28x28 pixels."
+      },
+      {
+        "key": "bell",
+        "prompt": "Use case: logo-brand. Production asset: one isolated CREFANS navigation icon, normally displayed at28px.\nReference image is STYLE REFERENCE ONLY: match ONLY the first row titled 01 라운드 플랫. Ignore every other style, UI strip, heading and badge.\nSubject: one filled blue bell with a rounded domed top and rounded flared bottom rim, a small lavender clapper underneath.\nStyle: simple ROUND FLAT filled geometric shapes with smooth rounded contours. Saturated royal blue #2563eb and lavender #b4a6ff only. Strong clean readable silhouette, front-on. Exactly the same visual family as the first-row house icon.\nComposition: square canvas. Center the icon with its dominant dimension occupying88 percent of canvas, consistent6 percent padding. One icon only, no sheet.\nActual transparent background and preserve transparent negative spaces. NO white field or checkerboard baked into pixels. No enclosing tile, red badge, text, watermark, outline around the whole asset, gradient, shadows, gloss, bevels or 3D.\nThe image must remain identifiable at28x28 pixels."
+      },
+      {
+        "key": "user",
+        "prompt": "Use case: logo-brand. Production asset: one isolated CREFANS navigation icon, normally displayed at28px.\nReference image is STYLE REFERENCE ONLY: match ONLY the first row titled 01 라운드 플랫. Ignore every other style, UI strip, heading and badge.\nSubject: generic profile fallback icon: one circular solid blue head above a broad rounded lavender shoulder-and-chest silhouette. No face details, no enclosing circle.\nStyle: simple ROUND FLAT filled geometric shapes with smooth rounded contours. Saturated royal blue #2563eb and lavender #b4a6ff only. Strong clean readable silhouette, front-on. Exactly the same visual family as the first-row house icon.\nComposition: square canvas. Center the icon with its dominant dimension occupying88 percent of canvas, consistent6 percent padding. One icon only, no sheet.\nActual transparent background and preserve transparent negative spaces. NO white field or checkerboard baked into pixels. No enclosing tile, red badge, text, watermark, outline around the whole asset, gradient, shadows, gloss, bevels or 3D.\nThe image must remain identifiable at28x28 pixels."
+      }
+    ],
+    "assets": [
+      {
+        "key": "home",
+        "path": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-2233aebc-cf00-4b13-a050-92f3fe36d7ce.png",
+        "projectPath": "public/brand/navigation/home-round-flat-v1.png",
+        "sha256": "3fbbffa3aab0cff61d125443105318379f5c48220d159bf180bcc636b3911109"
+      },
+      {
+        "key": "explore",
+        "path": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-2366f8b4-5705-44ef-bdd1-1dd4b974785c.png",
+        "projectPath": "public/brand/navigation/explore-round-flat-v1.png",
+        "sha256": "2e120ed94afe1a0528f43f5d5fa3f2ddee263eb8035dd80505fb01fa7b89c529"
+      },
+      {
+        "key": "message",
+        "path": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-8cd7a49a-6dbf-42ab-a6dd-41cc551985ed.png",
+        "projectPath": "public/brand/navigation/message-round-flat-v1.png",
+        "sha256": "2a5cedd3fbef4b23c31ec3d3ab74bfbbd61390093adab347f11f1aad262286e8"
+      },
+      {
+        "key": "bell",
+        "path": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-048aa7e5-cdc1-4d8d-b4d6-daa263f5b337.png",
+        "projectPath": "public/brand/navigation/bell-round-flat-v1.png",
+        "sha256": "a4f7115e0d74425b24c85c07628415ceb7cb24b97c535d7ab0feece7a3c0f344"
+      },
+      {
+        "key": "user",
+        "path": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-89466a9e-c9b5-4cd6-a7be-b963db08995c.png",
+        "projectPath": "public/brand/navigation/user-round-flat-v1.png",
+        "sha256": "f6520264ac256669a8b4dd5fe38a1cd7ffe31665bad18efa648c5957bd869688"
+      }
+    ],
+    "inspection": {
+      "at": "2026-10-24T13:53:14.128Z",
+      "results": [
+        {
+          "key": "home",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1079205,
+          "opaquePixels": 480245,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "explore",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1168290,
+          "opaquePixels": 383628,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "message",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1253294,
+          "opaquePixels": 294514,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "bell",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1188976,
+          "opaquePixels": 373891,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "user",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1120216,
+          "opaquePixels": 439868,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "source": "Generated alpha-preserving originals; HTML preview at100px and28px; no pixel modifications"
+    },
+    "visualReview": "5 transparent originals inspected at100px/28px, and actual28px mobile/21px sidebar. Slight tonal texture in generated originals; no 3D or drop shadows. Original bytes preserved; CSS grayscale for inactive state and optical scale for transparent margins.",
+    "preview": "/Users/ethan/repository/crefans_front/.local/gnb-flat-deploy-20261024/asset-preview.png"
+  },
+  "checks": {
+    "prepare": {
+      "command": [
+        "python3",
+        ".local/gnb-flat-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:51:19.519921+00:00",
+      "finishedAt": "2026-10-24T13:51:21.651904+00:00",
+      "exitCode": 0,
+      "logSha256": "e88294549d4b617f791b019a49bd55e2682979b2a2469eb9504cb87bc8f975dc"
+    },
+    "unit-check": {
+      "command": [
+        "node",
+        "--test",
+        "tests/avatar.test.cjs",
+        "tests/gnb-unread.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:50:52.393641+00:00",
+      "finishedAt": "2026-10-24T13:50:52.686705+00:00",
+      "exitCode": 0,
+      "logSha256": "7dd51eb77af76b809dad127a58ac9a4ddfdfe3a23b60714204bd9a8801bd1118"
+    },
+    "layer-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:50:52.984611+00:00",
+      "finishedAt": "2026-10-24T13:50:53.526318+00:00",
+      "exitCode": 0,
+      "logSha256": "2805d291b746955c9bb31c4ae4642b0c9b34a9cad349a5a4113e7828f333f493"
+    },
+    "assets-check": {
+      "command": [
+        "node",
+        ".local/gnb-flat-deploy-20261024/assets-check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:53:13.348849+00:00",
+      "finishedAt": "2026-10-24T13:53:14.155467+00:00",
+      "exitCode": 0,
+      "logSha256": "df0360ae540abd5238636519810ea3ca8595772c82fc1da96a3985de5388ec3a"
+    },
+    "local-check": {
+      "command": [
+        "node",
+        ".local/gnb-flat-deploy-20261024/check.cjs",
+        "http://127.0.0.1:3010",
+        "local"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:51:48.937955+00:00",
+      "finishedAt": "2026-10-24T13:52:45.021305+00:00",
+      "exitCode": 0,
+      "logSha256": "e90a07e5705d18e83a2cd4d2f248d811372311dc032a92688d4d76ce8cceab49"
+    },
+    "local-asset-check": {
+      "command": [
+        "node",
+        ".local/gnb-flat-deploy-20261024/http-assets.cjs",
+        "http://127.0.0.1:3010",
+        "local"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:53:44.257436+00:00",
+      "finishedAt": "2026-10-24T13:53:45.413818+00:00",
+      "exitCode": 0,
+      "logSha256": "8f1d0a057f6dce36ee0040881dfef7e3acbc7cc4bbab5e3776538577d82e7e61"
+    },
+    "image-build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/gnb-flat-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:gnb-flat-20261024",
+        ".local/gnb-flat-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:52:03.857292+00:00",
+      "finishedAt": "2026-10-24T13:53:44.233511+00:00",
+      "exitCode": 0,
+      "logSha256": "9bc66b9fe2c2fe37504ef9b328ee02e6a015009f239b61b4ee5eb4ebd629642d"
+    },
+    "image-check": {
+      "command": [
+        "python3",
+        ".local/gnb-flat-deploy-20261024/verify-image.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:53:59.987571+00:00",
+      "finishedAt": "2026-10-24T13:54:48.377798+00:00",
+      "exitCode": 0,
+      "logSha256": "ddb91239045745eb66e26b606cb85700ab1c6ddc4396a84bf9ce4843b3664e66"
+    },
+    "image-asset-check": {
+      "command": [
+        "node",
+        ".local/gnb-flat-deploy-20261024/http-assets.cjs",
+        "http://127.0.0.1:3125",
+        "image"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:55:32.444802+00:00",
+      "finishedAt": "2026-10-24T13:55:33.614584+00:00",
+      "exitCode": 0,
+      "logSha256": "8f1d0a057f6dce36ee0040881dfef7e3acbc7cc4bbab5e3776538577d82e7e61"
+    },
+    "archive": {
+      "command": [
+        "python3",
+        ".local/gnb-flat-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:53:59.987571+00:00",
+      "finishedAt": "2026-10-24T13:54:13.935765+00:00",
+      "exitCode": 0,
+      "logSha256": "1a603fd0387d670fe5464b9b488a5a3573befaa4cd3d4287fa816247c7a79f59"
+    },
+    "release-run": {
+      "command": [
+        "python3",
+        ".local/gnb-flat-deploy-20261024/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:55:43.153975+00:00",
+      "finishedAt": "2026-10-24T13:56:13.985275+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    "production-check": {
+      "command": [
+        "node",
+        ".local/gnb-flat-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:56:34.838755+00:00",
+      "finishedAt": "2026-10-24T13:57:32.001942+00:00",
+      "exitCode": 0,
+      "logSha256": "e90a07e5705d18e83a2cd4d2f248d811372311dc032a92688d4d76ce8cceab49"
+    },
+    "production-asset-check": {
+      "command": [
+        "node",
+        ".local/gnb-flat-deploy-20261024/http-assets.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:56:34.838760+00:00",
+      "finishedAt": "2026-10-24T13:56:35.923464+00:00",
+      "exitCode": 0,
+      "logSha256": "8f1d0a057f6dce36ee0040881dfef7e3acbc7cc4bbab5e3776538577d82e7e61"
+    },
+    "production-runtime": {
+      "command": [
+        "python3",
+        ".local/gnb-flat-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:56:34.838760+00:00",
+      "finishedAt": "2026-10-24T13:56:37.430167+00:00",
+      "exitCode": 0,
+      "logSha256": "f4e7dd3935d5387d158d8faee96f75470c1d8ad159b1635394c963e5b3a1f1d1"
+    }
+  },
+  "browserVerification": {
+    "casesPerEnvironment": {
+      "local": 53,
+      "image": 53,
+      "production": 53
+    },
+    "engines": [
+      "Chromium320",
+      "Chromium1280",
+      "WebKit390"
+    ],
+    "assertions": [
+      "all5 destinations and selected/inactive images",
+      "shared navigation component for service/preview/catalog",
+      "28px mobile layout box;21px desktop;mobile link>=44px",
+      "profile photos unfiltered;missing/failed source uses same generated user icon;new source recovers",
+      "red badges0/1/9/99/100/125;visible99+;screenreader actual count;read failure retained;success clears;logout hides",
+      "no page overflow;PNG raw hashes match;optimized images each below10KB"
+    ],
+    "screenshotsVisuallyInspected": [
+      "asset-preview.png",
+      "local/mobile320-navigation.png",
+      "local/desktop-navigation.png",
+      "local/catalog.png",
+      "image/mobile320-99plus.png",
+      "image/webkit390-navigation.png",
+      "production/mobile320-navigation.png",
+      "production/desktop-navigation.png",
+      "production/webkit390-99plus.png"
+    ],
+    "scope": "Service GET/PUT intercepted fixtures; preview local state. No real member mutations or physical iPhone testing.",
+    "assetHttp": {
+      "local": {
+        "at": "2026-10-24T13:53:45.346Z",
+        "results": [
+          {
+            "key": "home",
+            "sha256": "3fbbffa3aab0cff61d125443105318379f5c48220d159bf180bcc636b3911109",
+            "originalBytes": 524546,
+            "optimizedBytes": 910,
+            "status": 200
+          },
+          {
+            "key": "explore",
+            "sha256": "2e120ed94afe1a0528f43f5d5fa3f2ddee263eb8035dd80505fb01fa7b89c529",
+            "originalBytes": 492887,
+            "optimizedBytes": 1624,
+            "status": 200
+          },
+          {
+            "key": "message",
+            "sha256": "2a5cedd3fbef4b23c31ec3d3ab74bfbbd61390093adab347f11f1aad262286e8",
+            "originalBytes": 401151,
+            "optimizedBytes": 1438,
+            "status": 200
+          },
+          {
+            "key": "bell",
+            "sha256": "a4f7115e0d74425b24c85c07628415ceb7cb24b97c535d7ab0feece7a3c0f344",
+            "originalBytes": 425684,
+            "optimizedBytes": 862,
+            "status": 200
+          },
+          {
+            "key": "user",
+            "sha256": "f6520264ac256669a8b4dd5fe38a1cd7ffe31665bad18efa648c5957bd869688",
+            "originalBytes": 497026,
+            "optimizedBytes": 1002,
+            "status": 200
+          }
+        ]
+      },
+      "image": {
+        "at": "2026-10-24T13:55:33.589Z",
+        "results": [
+          {
+            "key": "home",
+            "sha256": "3fbbffa3aab0cff61d125443105318379f5c48220d159bf180bcc636b3911109",
+            "originalBytes": 524546,
+            "optimizedBytes": 910,
+            "status": 200
+          },
+          {
+            "key": "explore",
+            "sha256": "2e120ed94afe1a0528f43f5d5fa3f2ddee263eb8035dd80505fb01fa7b89c529",
+            "originalBytes": 492887,
+            "optimizedBytes": 1624,
+            "status": 200
+          },
+          {
+            "key": "message",
+            "sha256": "2a5cedd3fbef4b23c31ec3d3ab74bfbbd61390093adab347f11f1aad262286e8",
+            "originalBytes": 401151,
+            "optimizedBytes": 1438,
+            "status": 200
+          },
+          {
+            "key": "bell",
+            "sha256": "a4f7115e0d74425b24c85c07628415ceb7cb24b97c535d7ab0feece7a3c0f344",
+            "originalBytes": 425684,
+            "optimizedBytes": 862,
+            "status": 200
+          },
+          {
+            "key": "user",
+            "sha256": "f6520264ac256669a8b4dd5fe38a1cd7ffe31665bad18efa648c5957bd869688",
+            "originalBytes": 497026,
+            "optimizedBytes": 1002,
+            "status": 200
+          }
+        ]
+      },
+      "production": {
+        "at": "2026-10-24T13:56:35.892Z",
+        "results": [
+          {
+            "key": "home",
+            "sha256": "3fbbffa3aab0cff61d125443105318379f5c48220d159bf180bcc636b3911109",
+            "originalBytes": 524546,
+            "optimizedBytes": 910,
+            "status": 200
+          },
+          {
+            "key": "explore",
+            "sha256": "2e120ed94afe1a0528f43f5d5fa3f2ddee263eb8035dd80505fb01fa7b89c529",
+            "originalBytes": 492887,
+            "optimizedBytes": 1624,
+            "status": 200
+          },
+          {
+            "key": "message",
+            "sha256": "2a5cedd3fbef4b23c31ec3d3ab74bfbbd61390093adab347f11f1aad262286e8",
+            "originalBytes": 401151,
+            "optimizedBytes": 1438,
+            "status": 200
+          },
+          {
+            "key": "bell",
+            "sha256": "a4f7115e0d74425b24c85c07628415ceb7cb24b97c535d7ab0feece7a3c0f344",
+            "originalBytes": 425684,
+            "optimizedBytes": 862,
+            "status": 200
+          },
+          {
+            "key": "user",
+            "sha256": "f6520264ac256669a8b4dd5fe38a1cd7ffe31665bad18efa648c5957bd869688",
+            "originalBytes": 497026,
+            "optimizedBytes": 1002,
+            "status": 200
+          }
+        ]
+      }
+    }
+  },
+  "deployment": {
+    "image": {
+      "at": "2026-10-24T13:54:13.922554+00:00",
+      "tag": "crefans-front:gnb-flat-20261024",
+      "id": "sha256:90fb4a4cc17c2ccf08e621fb959b2fa2b77c68a79077e5b34b4db6aa40865f82",
+      "architecture": "amd64",
+      "runtimeFilesMatched": 525,
+      "archiveSha256": "9efdea018ff766af2b8e61211835c9dddc78938f489f3b0b3ae94637341b48f7",
+      "archiveBytes": 521307008
+    },
+    "runtime": {
+      "at": "2026-10-24T13:56:34.889746+00:00",
+      "runtimeFilesMatched": 525,
+      "runtime": {
+        "crefans-beta-api-1": {
+          "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-frontend-1": {
+          "id": "4370dec2e6bc06b1d8ee4b36f833daaf42981eb2e3bcd4f685165bece36e4442",
+          "image": "sha256:90fb4a4cc17c2ccf08e621fb959b2fa2b77c68a79077e5b34b4db6aa40865f82",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+          "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        }
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/preview/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200
+        }
+      ],
+      "freeDiskBytes": 4224516096
+    },
+    "steps": [
+      {
+        "step": "upload-directory",
+        "startedAt": "2026-10-24T13:55:43.176340+00:00",
+        "finishedAt": "2026-10-24T13:55:44.171627+00:00",
+        "exitCode": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T13:55:44.172068+00:00",
+        "finishedAt": "2026-10-24T13:55:53.231804+00:00",
+        "exitCode": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T13:55:53.232687+00:00",
+        "finishedAt": "2026-10-24T13:56:06.827733+00:00",
+        "exitCode": 0,
+        "logSha256": "f50f90170e57dd2b40955f1a64853bb8a45e8484b9b96a6bac51187e70c775e6"
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T13:56:06.829315+00:00",
+        "finishedAt": "2026-10-24T13:56:13.976498+00:00",
+        "exitCode": 0,
+        "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+      }
+    ],
+    "rollback": "/opt/crefans-backup-gnb-flat-20261024",
+    "ssh": "Previously authorized persistent home rule unchanged",
+    "diskCleanup": {
+      "at": "2026-10-24T13:50:56.607477+00:00",
+      "removedUnusedTags": [
+        {
+          "tag": "crefans-front:featured-tooltip-20261024",
+          "id": "sha256:1473bd23c3de6febacf68f7a10b32a3770cc6e570d14abb5929bd76193686113",
+          "archive": "/Users/ethan/repository/crefans_front/.local/featured-tooltip-deploy-20261024/image.tar.gz",
+          "sha256": "6b085e22c55544c0d315a78886e5712e2c4e200a67a05e58b7175dacc3d62c7d"
+        },
+        {
+          "tag": "crefans-front:follow-toggle-20261024",
+          "id": "sha256:78c7fd88c26c469b414a8d85eda79ea39b55c2d2205af2d49922d8e5905236e4",
+          "archive": "/Users/ethan/repository/crefans_front/.local/follow-toggle-deploy-20261024/image.tar.gz",
+          "sha256": "c08afefa320fae21d9b1bfb4133a395df909f450c534c456d2d46c900c168402"
+        },
+        {
+          "tag": "crefans-front:featured-icon-20261024",
+          "id": "sha256:e3fcdba8776d266b1ddb6d5e9e86effbabb42d0fef69db3a89e54b61294b8331",
+          "archive": "/Users/ethan/repository/crefans_front/.local/featured-icon-deploy-20261024/image.tar.gz",
+          "sha256": "85116c9a0de10a80c632d53a6bcf61611b0384b4c0176aefc0b9967892a84f0a"
+        }
+      ],
+      "preservedSixContainers": true,
+      "currentAndImmediatePreviousPreserved": true,
+      "availableBytesBefore": 2782932992,
+      "availableBytesAfter": 4967829504
+    },
+    "cleanup": "Only local QA container removed. Previous unused remote frontend images removed after checking recovery archives and no container use. No volumes removed."
+  },
+  "selectedSourceSha256": {
+    "components/crefans/ServiceShell.tsx": "7cf062783e7a5fb5feb398f6a74fdba8b2db7d792c31e1e210127cc5c9d23034",
+    "components/ui/Avatar.tsx": "4735a5e5c8b52f06879460a7d980d90f1cad9dcf3d8a4636e84995f16b2b50e2",
+    "components/crefans/service.module.css": "abeff94fefbba1ad02929554272a0e7faad7abd55c5d299909998d1981151e30",
+    "components/design-system/ServicePatternCatalog.tsx": "c9c10cf147dddd2c464d82555a4381d483b2d67b6de0d47a7bcb7813e25de007",
+    "components/crefans/NavigationIcon.tsx": "6ba2bdeb668202bd7ab98fce9db6b711f5e04e73ce530ddabb3b1c893bd2a9f7",
+    "components/crefans/navigation-icon.module.css": "f7d03cc17dfb95e9ad57ca08744fa9041f89b5fe6341c2a45d68ae35769e5091",
+    "public/brand/navigation/bell-round-flat-v1.png": "a4f7115e0d74425b24c85c07628415ceb7cb24b97c535d7ab0feece7a3c0f344",
+    "public/brand/navigation/explore-round-flat-v1.png": "2e120ed94afe1a0528f43f5d5fa3f2ddee263eb8035dd80505fb01fa7b89c529",
+    "public/brand/navigation/home-round-flat-v1.png": "3fbbffa3aab0cff61d125443105318379f5c48220d159bf180bcc636b3911109",
+    "public/brand/navigation/message-round-flat-v1.png": "2a5cedd3fbef4b23c31ec3d3ab74bfbbd61390093adab347f11f1aad262286e8",
+    "public/brand/navigation/user-round-flat-v1.png": "f6520264ac256669a8b4dd5fe38a1cd7ffe31665bad18efa648c5957bd869688"
+  },
+  "releaseManifestSha256": "a1cbbb659e2eaaa98a5b7e42105402ade7a8ddf10929979e354b3d482f9858e1",
+  "limitations": [
+    "No live member mutations",
+    "Browser emulation rather than physical iPhone",
+    "No backend/API/financial behavior changes"
+  ],
+  "rawArtifacts": "/Users/ethan/repository/crefans_front/.local/gnb-flat-deploy-20261024"
+}

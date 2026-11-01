@@ -5,7 +5,7 @@ import type {StudioOverviewModel,StudioProfile} from '@/types/crefans-studio';
 const ok=(message:string):ApiResult<{message:string}>=>({success:true,data:{message},errorMessage:null,errorCode:null});
 const error=(message:string):ApiResult<{message:string}>=>({success:false,data:null,errorMessage:message,errorCode:'INVALID_PROFILE'});
 export function useMockOverview(creator:Creator|undefined,onProfileChange:(id:string,patch:Partial<Creator>)=>void):StudioOverviewModel{
- const [profile,setProfile]=useState<StudioProfile>({name:creator?.name||'',handle:creator?.handle||'',bio:creator?.bio||'',about:creator?.about||'',links:{...creator?.links},avatar:creator?.image||'',avatarPosition:creator?.position,cover:creator?.image||'',category:'라이프스타일',active:true,commentsEnabled:true});
+ const [profile,setProfile]=useState<StudioProfile>({name:creator?.name||'',handle:creator?.handle||'',bio:creator?.bio||'',about:creator?.about||'',links:{...creator?.links},avatar:creator?.image||'',avatarPosition:creator?.position,cover:creator?.cover||creator?.image||'',category:creator?.tags?.[0]||'라이프스타일',active:true,commentsEnabled:true});
  const [started,setStarted]=useState(true);
  const categories=['라이프스타일','사진','음악','피트니스','게임','코스프레','성우','아트'];
  const update=async(input:Pick<StudioProfile,'name'|'handle'|'bio'|'category'|'about'|'links'>)=>{

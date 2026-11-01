@@ -63,7 +63,7 @@ test('loading and empty states expose their actual status without sample rows',(
   let calls=0;
   const tree=mount(DataTable,{...base,loading:true,onSortChange:()=>calls++});
   assert.equal(tree.root.findByType('table').props['aria-busy'],true);
-  assert.equal(tree.root.findAllByProps({role:'status'}).length,1);
+  assert.equal(tree.root.findAllByProps({role:'status'}).length,0,'loading rule: nothing for the first second (timing in loading-rule.test.cjs)');
   const button=tree.root.findAllByType('button')[0];
   assert.equal(button.props.disabled,true);
   act(()=>button.props.onClick());

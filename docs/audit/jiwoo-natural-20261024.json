@@ -1,0 +1,259 @@
+{
+  "at": "2026-10-24T04:07:09.780354+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "uncommitted; pre-existing work preserved; no deployment",
+  "criteria": [
+    "same fictional adult Jiwoo identity/clothing/pose",
+    "less stylized backgrounds/natural colors judged visually",
+    "all five replacement assets linked in shared mock data",
+    "original v1 and generated files preserved",
+    "profile/feed/explore/landing/overlay image loading and crop verified"
+  ],
+  "tool": "image_gen.imagegen built-in edits",
+  "assets": [
+    {
+      "key": "coast",
+      "input": "public/illustrations/creators/jiwoo/coastal-walk-v1.png",
+      "output": "public/illustrations/creators/jiwoo/coastal-walk-v2.png",
+      "generatedSource": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-c8380622-e692-4231-8006-d7a844fbd9fd.png",
+      "prompt": "Use case: identity-preserve. This is an EDIT of the attached existing fictional adult creator Jiwoo photo, NOT a new face or new character. Keep exactly the same recognizable 25-year-old woman's facial identity, facial proportions, expression, hair color and hairstyle, clothing, body pose and framing. Preserve her attractiveness while making the image read as an ordinary candid travel photo. Primary request: the background currently looks synthetic and excessively idealized; replace/rebuild the environment as believable unremarkable real-world scenery. Photographic medium: a natural unfiltered phone/compact-camera photograph, modest dynamic range, restrained natural colors, realistic white balance, subtle optical softness, coherent daylight on person and scenery. No HDR, no edge halos, no airbrushed skin, no artificial glowing sunlight, no dreamy CGI, no teal-and-orange grading, no fantasy mountains, no perfectly arranged stock-photo scenery. Do not add text, logo, watermark, collage, frame or extra people. Keep the exact over-the-shoulder walking pose, ivory overshirt, white tee, jeans and olive backpack. Portrait 1024x1536. Replace the bright turquoise postcard coast with a modest Korean east-coast footpath: ordinary weathered wooden safety rail with physically consistent post joints and straight perspective, sparse scrubby pines, dry grass and irregular dark rocks, muted grey-blue sea with small uneven waves, flat pale overcast sky and a slightly hazy horizon. No giant rock formations. A little unevenness and wear in real timber and vegetation, coherent scale throughout. Use soft overcast light, with naturally less polished skin/hair rendering and no cutout outline. This should look like a friend casually took her photo during an ordinary seaside walk.",
+      "sha256": "127b8c9b0af5e31c9770ced4ad80731097c55bfe804802d58270bdcf208b6533",
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "key": "camp",
+      "input": "public/illustrations/creators/jiwoo/camp-morning-v1.png",
+      "output": "public/illustrations/creators/jiwoo/camp-morning-v2.png",
+      "generatedSource": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-7012d7bd-7d17-4bf0-99d7-e20447b8a217.png",
+      "prompt": "Use case: identity-preserve. This is an EDIT of the attached existing fictional adult creator Jiwoo photo, NOT a new face or new character. Keep exactly the same recognizable 25-year-old woman's facial identity, facial proportions, expression, hair color and hairstyle, clothing, body pose and framing. Preserve her attractiveness while making the image read as an ordinary candid travel photo. Primary request: the background currently looks synthetic and excessively idealized; replace/rebuild the environment as believable unremarkable real-world scenery. Photographic medium: a natural unfiltered phone/compact-camera photograph, modest dynamic range, restrained natural colors, realistic white balance, subtle optical softness, coherent daylight on person and scenery. No HDR, no edge halos, no airbrushed skin, no artificial glowing sunlight, no dreamy CGI, no teal-and-orange grading, no fantasy mountains, no perfectly arranged stock-photo scenery. Do not add text, logo, watermark, collage, frame or extra people. Keep the exact seated woman, cream fleece, olive trousers, both natural hands holding the same cream mug, and chair. Portrait 1024x1536. Replace the alpine lake/mountain backdrop with a low-key Korean reservoir campground: low rounded forested hills at long distance, grey-green lake with modest wind ripples, an ordinary beige nylon tent at right with real seams, guy ropes and slight wrinkles, irregular thin pine trees, worn gravel and dry needles on the level ground. No dramatic mountain peaks or emerald water. The tent is a practical tent on a normal pitch, not a luxury styled photoshoot. Soft slightly cloudy morning daylight matching her skin and clothes. Modest contrast, realistic shadows and naturally imperfect material texture, deep enough focus to make background objects readable without excessive sharpness. A friend took this relaxed camping snapshot.",
+      "sha256": "8a171f9bf5332e1531aa7b7136f6ccf5a7202a7a00808c7652ead5c692e66ee5",
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "key": "cover",
+      "input": "public/illustrations/creators/jiwoo/cover-lakeside-v1.png",
+      "output": "public/illustrations/creators/jiwoo/cover-lakeside-v2.png",
+      "generatedSource": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-bfdc7c87-0924-4cab-976b-aaca1b00a4f0.png",
+      "prompt": "Use case: precise-object-edit. Edit target: the attached wide campsite profile cover. Primary request: replace its excessively idealized AI-looking landscape with a believable ordinary camping-site photograph. Keep the same overall wide landscape 1536x1024 composition: water and open space left/center, one beige tent and two chairs with a small table on the right, suitable for a shallow website banner crop centered vertically. Make this an unfiltered travel snapshot of a modest Korean reservoir campsite. Low rounded wooded hills with an irregular treeline, muted grey-green water with tiny irregular wind ripples, pale cloudy morning sky, scrub and reeds at the actual shoreline, compacted gravel/earth with pine needles and a few weeds in foreground, weathered practical folding chairs/table, beige nylon tent with plausible poles/guy lines/seams and naturally uneven fabric. Remove the cinematic sunburst, mountain layers, glowing highlights, oversaturated vegetation and polished resort-like arrangements. Natural overcast daylight, coherent perspective and scale, realistic modest dynamic range and slightly soft camera texture. No people, text, logos, brands, watermarks, collages or illustration.",
+      "sha256": "a6085d53bf31c7d6e6e232fbf46481021f51a1cf179ab478d59fb3660343832a",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "key": "avatar",
+      "input": "public/illustrations/creators/jiwoo/avatar-trail-v1.png",
+      "output": "public/illustrations/creators/jiwoo/avatar-trail-v2.png",
+      "generatedSource": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0d8f4ea4-5b5c-42bb-b80d-6588f38d767d.png",
+      "prompt": "Use case: identity-preserve. Edit target: the attached existing fictional adult creator Jiwoo profile photograph. Preserve the SAME exact 25-year-old woman's facial identity, eyes/nose/lips, expression, light-brown wavy hair and bangs, ivory overshirt and opaque white tee, backpack strap, and square head-and-shoulders framing. Primary request: make her photo look like a real casual travel snapshot; the existing stylized mountain scenery and glossy lighting feel artificial. Replace the backdrop with an ordinary Korean pine-wood walking trail, simple earth and gravel path with scattered needles, a few irregular trunks and dry shrubs, no high peaks, no scenic panorama. Mild cloudy daylight, neutral natural color, realistic modest contrast, slight photographic softness at a believable depth of field. Preserve pleasing facial features but soften the synthetic highlight gloss, retain subtle genuine-looking skin texture and stray hair. Background should be simple and secondary; do not exaggerate dirt or imperfections or desaturate to a dull grey filter. Keep the face centered with room for circle crop. One natural square photograph 1024x1024, no extra people, signs, text, logo, watermark, collage, illustration, HDR or CGI.",
+      "sha256": "5f5bbbfb8a8c27e95f0b1b7150900c4bcdc012aea3c25d674712d3d5d87db76d",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "key": "detail",
+      "input": "public/illustrations/creators/jiwoo/camp-coffee-v1.png",
+      "output": "public/illustrations/creators/jiwoo/camp-coffee-v2.png",
+      "generatedSource": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-6d283165-1557-4257-83be-9e35df55012b.png",
+      "prompt": "Use case: precise-object-edit. Edit target: the attached outdoor coffee photograph. Rebuild the unrealistic alpine backdrop as a modest everyday Korean reservoir campground, keeping the foreground still-life subject, its general perspective, and landscape 1536x1024 framing. Primary request: a convincingly real travel snapshot rather than polished AI editorial imagery. Background: low rounded wooded hills, muted grey-green wind-rippled water and a slightly hazy cloudy sky, ordinary beige nylon tent with seams and natural wrinkles at left, irregular pine trunks and gravel/needles on level ground. Foreground: the same practical worn folding wooden table, small steel pour-over kettle, a physically plausible paper filter and wire dripper seated properly on the glass server, enamel mug and simple toast on a plate, subtle ordinary scratches and crumbs, genuine soft contact shadows. Remove exaggerated shiny rim lighting, bright turquoise water, dramatic triangular peaks, excessive sharpening and artificial glowing steam. Soft natural overcast daylight across both objects and background, restrained neutral color, modest camera dynamic range. Objects remain sharp enough to read, background moderately soft like an ordinary compact-camera photo. No person, hands, extra styled decorations, text, branding, watermark, collage or painting.",
+      "sha256": "4f14a73f87a9c11bcb8ecac8005d7ef0a9dc0a923b739b74b3561ed63a7e2813",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    }
+  ],
+  "sourceSha256": {
+    "lib/content/landing.ts": "c8678ba0e044a17a96ed8a669343e4a6dd9f2c9f8e9d7c44a360df76bafe77fe",
+    "components/preview/service/fixtures.ts": "ede2741549f26f75efbfb6cf10a137e382fc2cb6cbc9da6efcf49c71cfeecd09",
+    "public/illustrations/creators/jiwoo/generation-v2.json": "195b4ae707c2fb59917550798cfbd8c6fb812c59ea76466b320288f3e8b5de81",
+    "public/illustrations/creators/jiwoo/coastal-walk-v2.png": "127b8c9b0af5e31c9770ced4ad80731097c55bfe804802d58270bdcf208b6533",
+    "public/illustrations/creators/jiwoo/camp-morning-v2.png": "8a171f9bf5332e1531aa7b7136f6ccf5a7202a7a00808c7652ead5c692e66ee5",
+    "public/illustrations/creators/jiwoo/cover-lakeside-v2.png": "a6085d53bf31c7d6e6e232fbf46481021f51a1cf179ab478d59fb3660343832a",
+    "public/illustrations/creators/jiwoo/avatar-trail-v2.png": "5f5bbbfb8a8c27e95f0b1b7150900c4bcdc012aea3c25d674712d3d5d87db76d",
+    "public/illustrations/creators/jiwoo/camp-coffee-v2.png": "4f14a73f87a9c11bcb8ecac8005d7ef0a9dc0a923b739b74b3561ed63a7e2813"
+  },
+  "priorAssetHashes": {
+    "lib/content/landing.ts": "55f20f8f68e63d289104b0837792cae7fd52b18d6cc7bfee3b3c52ce1bc674dc",
+    "components/preview/service/fixtures.ts": "dc673b8cc5f0893c285d32f182625fe3b463856115f265492e9b7934eca2cfe0",
+    "public/illustrations/creators/jiwoo/camp-coffee-v1.png": "6c7baf973d820685a68c2d6331b2af29050525f1d2111568a65a453d06194740",
+    "public/illustrations/creators/jiwoo/camp-morning-v1.png": "d50422c219120838adbdfe7bc57804d866e94a3a68f0ac804ab016fe3afa1cd7",
+    "public/illustrations/creators/jiwoo/avatar-trail-v1.png": "79c518fec2d0e16ba6c8838330ece7f1940aceb229591d77a5c314b546506c88",
+    "public/illustrations/creators/jiwoo/generation.json": "fbbea6c7a17c61719724679477c315145c0e6c336d7132a0a43ca36ce60d5bb4",
+    "public/illustrations/creators/jiwoo/cover-lakeside-v1.png": "41aa88e1aa6cc8522de43b696b623abc5c4c4176e7fe5346885baed456422a69",
+    "public/illustrations/creators/jiwoo/coastal-walk-v1.png": "30c7a96b0537e88e0bba4383e11a28904c9ae39ef89ba933b33bfa49a8a196a9"
+  },
+  "checks": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "startedAt": "2026-10-24T04:04:35.181405+00:00",
+      "endedAt": "2026-10-24T04:04:35.680436+00:00",
+      "exitCode": 0,
+      "log": ".local/jiwoo-natural-20261024/layers.log"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "startedAt": "2026-10-24T04:04:35.680558+00:00",
+      "endedAt": "2026-10-24T04:04:40.241113+00:00",
+      "exitCode": 0,
+      "log": ".local/jiwoo-natural-20261024/types.log"
+    }
+  ],
+  "browserRun": {
+    "command": [
+      "node",
+      ".local/jiwoo-natural-20261024/browser.cjs"
+    ],
+    "startedAt": "2026-10-24T04:05:34.114643+00:00",
+    "endedAt": "2026-10-24T04:06:02.141819+00:00",
+    "exitCode": 0
+  },
+  "browserResults": {
+    "at": "2026-10-24T04:06:02.135Z",
+    "origin": "http://127.0.0.1:3010",
+    "results": [
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 320,
+        "profilePosts": 3,
+        "travelFilterPosts": 3,
+        "avatarAndCoverOverlays": true,
+        "campGalleryNext": true,
+        "mediaAndAboutTabs": true,
+        "exploreAndBothLandings": true,
+        "postRoutes": 3,
+        "pageErrors": []
+      },
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 390,
+        "profilePosts": 3,
+        "travelFilterPosts": 3,
+        "avatarAndCoverOverlays": true,
+        "campGalleryNext": true,
+        "mediaAndAboutTabs": true,
+        "exploreAndBothLandings": true,
+        "postRoutes": 3,
+        "pageErrors": []
+      },
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 1280,
+        "profilePosts": 3,
+        "travelFilterPosts": 3,
+        "avatarAndCoverOverlays": true,
+        "campGalleryNext": true,
+        "mediaAndAboutTabs": true,
+        "exploreAndBothLandings": true,
+        "postRoutes": 3,
+        "pageErrors": []
+      },
+      {
+        "engine": "webkit",
+        "browser": "27.2",
+        "width": 390,
+        "profilePosts": 3,
+        "travelFilterPosts": 3,
+        "avatarAndCoverOverlays": true,
+        "campGalleryNext": true,
+        "mediaAndAboutTabs": true,
+        "exploreAndBothLandings": true,
+        "postRoutes": 3,
+        "pageErrors": []
+      }
+    ]
+  },
+  "httpAssets": {
+    "at": "2026-10-24T04:06:02.189736+00:00",
+    "results": [
+      {
+        "url": "http://127.0.0.1:3010/illustrations/creators/jiwoo/coastal-walk-v2.png",
+        "status": 200,
+        "sha256": "127b8c9b0af5e31c9770ced4ad80731097c55bfe804802d58270bdcf208b6533"
+      },
+      {
+        "url": "http://127.0.0.1:3010/illustrations/creators/jiwoo/camp-morning-v2.png",
+        "status": 200,
+        "sha256": "8a171f9bf5332e1531aa7b7136f6ccf5a7202a7a00808c7652ead5c692e66ee5"
+      },
+      {
+        "url": "http://127.0.0.1:3010/illustrations/creators/jiwoo/cover-lakeside-v2.png",
+        "status": 200,
+        "sha256": "a6085d53bf31c7d6e6e232fbf46481021f51a1cf179ab478d59fb3660343832a"
+      },
+      {
+        "url": "http://127.0.0.1:3010/illustrations/creators/jiwoo/avatar-trail-v2.png",
+        "status": 200,
+        "sha256": "5f5bbbfb8a8c27e95f0b1b7150900c4bcdc012aea3c25d674712d3d5d87db76d"
+      },
+      {
+        "url": "http://127.0.0.1:3010/illustrations/creators/jiwoo/camp-coffee-v2.png",
+        "status": 200,
+        "sha256": "4f14a73f87a9c11bcb8ecac8005d7ef0a9dc0a923b739b74b3561ed63a7e2813"
+      }
+    ]
+  },
+  "initialFailure": {
+    "type": "verification script error, not product failure",
+    "cause": "Copied navigation wait code assigned an undefined wait result to response",
+    "resolution": "Use existing verified goto helper returning navigation response; rerun all four browser environments",
+    "log": "/Users/ethan/repository/crefans_front/.local/jiwoo-natural-20261024/initial-browser.log"
+  },
+  "visualReview": [
+    "all five generated images: identity and framing retained, subdued scenery, plausible ordinary materials",
+    "Chromium390 profile: avatar and shallow cover crop display",
+    "Chromium1280 filtered feed: revised coast image and avatar display"
+  ],
+  "boundaries": [
+    "subjective realism judgment; generated images, not real trip photographs",
+    "local browsers; WebKit is not a physical iPhone",
+    "service landing uses existing asset flag; no production DB image replacement",
+    "no deployment/commit/merge/push",
+    "image references only; no new tests or broad unit suite rerun"
+  ],
+  "artifactSha256": {
+    ".local/jiwoo-natural-20261024/before.json": "c8d7b941ba9387f83d586affb691e92a0b469dbd0ffbb144d514ca9ed369f1ba",
+    ".local/jiwoo-natural-20261024/initial-browser.log": "f12194734cd34ec0aa5294e42e51519b07bfad0c4ed0be06f367ef2469efcdc1",
+    ".local/jiwoo-natural-20261024/types.log": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+    ".local/jiwoo-natural-20261024/chromium-320-travel-feed.png": "c95d56a570ff7782cda12ec80a3e0e5eb50c1b5fb30a01d2de2aa5f6c4b9a396",
+    ".local/jiwoo-natural-20261024/browser.log": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b",
+    ".local/jiwoo-natural-20261024/http-assets.json": "a68539a3814dccbe1d08fb4f14db50a96abd0c821518feceea05fb07e6f24f12",
+    ".local/jiwoo-natural-20261024/chromium-390-travel-feed.png": "24cea45d7884f85dd37af4957ea4c7ed537e16f32180e01fea25bc11ac6386df",
+    ".local/jiwoo-natural-20261024/chromium-320-profile.png": "c31aae6df658d1f13a444c54590d04d8242ae97057c70a3972ec440992bef895",
+    ".local/jiwoo-natural-20261024/webkit-390-profile.png": "39c1842a4ee49e78d5e102f3128127ae2be7050284068a5a3a4dd301056f4d9d",
+    ".local/jiwoo-natural-20261024/initial-browser.cjs": "874ff4e0c634de6abc591a7d2adfb53cc874e6b1d894c1d3a663e2d42b46d223",
+    ".local/jiwoo-natural-20261024/browser.cjs": "59b3fee724aacb5a8c7c2de8058efaa1487488763d23294071db06ffd4a47d62",
+    ".local/jiwoo-natural-20261024/initial-browser-run.json": "e7b0875f9b342b1343ff0a10c537bcc6764b732ef73aaddf1e5ec0ce1f621a69",
+    ".local/jiwoo-natural-20261024/chromium-390-profile.png": "8771ab2d9c1f644f997bce5390a7e0f9293eccadceeda164e71902f0b3f7d93f",
+    ".local/jiwoo-natural-20261024/checks.json": "1b5aac2d8d8444d42c36e3adea0e0fc86f9e89321696184c99e81b29d41b5db5",
+    ".local/jiwoo-natural-20261024/browser-run.json": "ffc10e4db042463c4a8e5172b1d2b9e695c1d81da1bb21439a289c4c6f2c5c42",
+    ".local/jiwoo-natural-20261024/chromium-1280-profile.png": "90d7792b8b6b9d452ec3ee19765fcf0dd0468444eec300d6c70d5367d665c0e7",
+    ".local/jiwoo-natural-20261024/webkit-390-travel-feed.png": "047b71d4ff066155f241ec770d0fdfcd87779a4517c7e4c8952cdaead1dba086",
+    ".local/jiwoo-natural-20261024/assets.json": "13a8b58c2b7054c797a0cf0ecf30a7dbea2aa74dc7e629df37c3994ed4cac473",
+    ".local/jiwoo-natural-20261024/layers.log": "905aeae523a45b994bd4b7f233ea4b82915c2b7af43833e6d6ef3f1b2a90fb9b",
+    ".local/jiwoo-natural-20261024/browser.json": "b7ba8e429d12cef8048f816ec3ad4627535db06c959611f15a673ec8e5aff9d2",
+    ".local/jiwoo-natural-20261024/chromium-1280-travel-feed.png": "a87bbbb14ce40bc208020cc8b5a29853f5e50739f2da6b03babb1bdb0ce0b945"
+  }
+}

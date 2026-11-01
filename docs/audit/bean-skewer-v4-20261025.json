@@ -1,0 +1,124 @@
+{
+  "at": "2026-10-25T08:30:20.547389+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 293,
+  "statusSha256": "44d50664d80042d30b1f3bc6a46c946752973e04c384649f21ae79fd566fbdee",
+  "tool": "built-in image_gen3individual calls +1count correction",
+  "metadata": "docs/design/bean-skewer-v4.generation.json",
+  "assets": [
+    {
+      "key": "10",
+      "count": 10,
+      "sticks": 2,
+      "perStick": 5,
+      "multiplier": null,
+      "destination": "public/brand/beans/soft3d-v4/10.png",
+      "validation": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "sha256": "24afb640b0e7edcc6ae2f0a01635aaa259fe47b3666f405d1ee8df932f725d8d",
+        "sourceCopyMatches": true,
+        "observedBeans": 10,
+        "observedSticks": 2,
+        "observedMultiplier": null,
+        "countMethod": "manual visual review"
+      }
+    },
+    {
+      "key": "30",
+      "count": 3,
+      "sticks": 1,
+      "perStick": 3,
+      "multiplier": 10,
+      "destination": "public/brand/beans/soft3d-v4/30.png",
+      "validation": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "sha256": "77f0dfc5d570ea438197b7d3d4fdb1c6bdc967b4581f2554c41e37ee5007acd9",
+        "sourceCopyMatches": true,
+        "observedBeans": 3,
+        "observedSticks": 1,
+        "observedMultiplier": 10,
+        "countMethod": "manual visual review"
+      }
+    },
+    {
+      "key": "100",
+      "count": 10,
+      "sticks": 1,
+      "perStick": 10,
+      "multiplier": 10,
+      "destination": "public/brand/beans/soft3d-v4/100.png",
+      "validation": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "alphaRange": [
+          0,
+          255
+        ],
+        "sha256": "67a57c4b6023102868da5ee3b5cfffcbf4505e6e480461380175aca96c1a5ea2",
+        "sourceCopyMatches": true,
+        "observedBeans": 10,
+        "observedSticks": 1,
+        "observedMultiplier": 10,
+        "countMethod": "manual visual review"
+      }
+    }
+  ],
+  "pending50": {
+    "quantity": 50,
+    "question": "5beans×10=50 recommended, or literal10beans×10=100 as requested? Awaiting human answer; no50generated."
+  },
+  "manualVisualReview": [
+    "10beans:2sticks with5beans each, total10, no multiplier",
+    "30beans:1stick with3beans and×10",
+    "100beans:initial9count corrected to exactly10beans on1stick with×10",
+    "Final white-background comparison and80px preview inspected"
+  ],
+  "previewCheck": {
+    "at": "2026-10-25T08:29:13.788Z",
+    "cards": 3,
+    "loadedImages": 9,
+    "sizes": [
+      80,
+      112
+    ],
+    "mobile390NoOverflow": true,
+    "errors": [],
+    "pending50": true,
+    "scope": "Static asset preview only"
+  },
+  "previewSha256": "1308906954c1120bce78338acec5d5291d959ab6675c212879e4f10173788cc2",
+  "commands": [
+    {
+      "command": "bundled Python save.py",
+      "exitCode": 0,
+      "scope": "3PNG integrity/alpha/source-copy SHA"
+    },
+    {
+      "command": "node review.cjs",
+      "exitCode": 0,
+      "scope": "3static cards,9image instances,80/112px and mobile390"
+    }
+  ],
+  "limits": [
+    "50notgenerated; human clarification pending because10×10=100 rather than50",
+    "v4partial candidate, not a complete nine-quantity selection",
+    "No app UI/production deployment, payment or financial-policy change",
+    "Existing ten-or-more-beans constraint superseded only for these explicitly requested10/100motifs",
+    "No product tests; asset/static-preview checks only"
+  ]
+}

@@ -1,0 +1,34 @@
+.page{min-height:100svh;display:grid;place-items:center;padding:40px 20px;background:#f5f5f6;color:#171717;font-family:'Apple SD Gothic Neo',Pretendard,sans-serif}
+.content{width:100%;max-width:760px;text-align:center}
+.heading{font-size:clamp(20px,4vw,30px);font-weight:600;margin:0 0 32px;letter-spacing:-.035em;animation:greeting .8s cubic-bezier(.16,1,.3,1) both}
+.paused .heading{animation-play-state:paused}
+.scene{perspective:1200px;aspect-ratio:1364/756;width:100%}
+.entrance{width:100%;height:100%;transform-style:preserve-3d}
+.card{position:relative;width:100%;height:100%;transform-style:preserve-3d;border-radius:12px;box-shadow:0 16px 60px #34363c25}
+.face{position:absolute;inset:0;display:block;width:100%;height:100%;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:white}
+.face.back{transform:rotateY(180deg)}
+.face img{display:block;width:100%;height:100%;border-radius:inherit}
+.scene[data-phase="front"] .back{visibility:hidden}
+.playback{display:flex;align-items:center;gap:12px;max-width:480px;margin:24px auto 0}
+.progress{flex:1;min-width:0;height:3px;border-radius:3px;overflow:hidden;background:#dedee1}
+.progressFill{display:block;width:100%;height:100%;background:#34363c;transform-origin:left}
+.controls{display:flex;align-items:center;gap:2px;flex:none}
+.controls button{display:grid;place-items:center;width:44px;height:44px;padding:10px;border:0;border-radius:50%;background:transparent;color:#34363c;cursor:pointer}
+.controls button:hover:not(:disabled){background:#e8e8eb}
+.controls button:disabled{opacity:.3;cursor:default}
+.controls button:focus-visible{outline:2px solid #34363c;outline-offset:2px}
+.controls svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.scene[data-phase="loading"] .entrance{opacity:0;transform:translateY(90px) rotateX(65deg) rotateZ(-5deg)}
+.scene[data-phase="loading"] .entrance,.scene[data-phase="entering"] .entrance{animation:waitingCard 1ms 1.2s forwards}
+.scene[data-phase="loading"] .card{transform:none!important}
+.scene[data-phase="loading"] .back{visibility:hidden}
+.scene[data-phase="entering"] .card{animation:waitingFace 1ms 1.2s forwards}
+.scene[data-phase="entering"] .back{animation:waitingBack 1ms 1.2s forwards}
+@keyframes waitingFace{to{transform:none}}
+@keyframes waitingBack{to{visibility:hidden}}
+@keyframes waitingCard{to{opacity:1;transform:none}}
+@keyframes greeting{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.heading{animation:none}.entrance{transform:none!important;opacity:1!important}.scene[data-phase="loading"] .entrance{opacity:1!important}.card{transform:rotateY(180deg)!important}.scene[data-phase="flipping"] .card,.scene[data-phase="front"] .card{transform:rotateY(0)!important}}
+@media(max-width:480px){.page{padding:32px 16px}.heading{margin-bottom:24px}.card,.face{border-radius:8px}.playback{gap:8px}}
+
+@media(prefers-reduced-motion:reduce){.scene[data-phase="entering"] .card,.scene[data-phase="entering"] .back{animation:none}}

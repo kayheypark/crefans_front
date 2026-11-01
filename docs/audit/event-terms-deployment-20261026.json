@@ -1,0 +1,570 @@
+{
+  "recordedAt": "2026-10-26T13:21:19.466030+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/bean-support",
+  "workingTreeState": {
+    "dirty": true,
+    "baselineInventory": "docs/audit/event-terms-20261026.json",
+    "statusSha256": "d35b68e0de58aa4038422b4085f06c197421e0533e9f34eef91063a2db0d18b9"
+  },
+  "release": "event-terms-20261026",
+  "userAuthorization": "운영배포",
+  "scope": "Frontend event terms only; no API/worker/admin/DB/proxy deployments, grants, payments, messages, commit or push",
+  "preflight": {
+    "at": "2026-10-26T13:14:18.439954+00:00",
+    "remoteFreeBytes": 5931986944,
+    "previousImageSizeBytes": 581785551,
+    "sourceFiles": 647,
+    "runtimeChanges": [
+      "types/crefans-events.ts",
+      "lib/content/events.ts",
+      "components/crefans/EventPages.tsx",
+      "components/crefans/events.module.css"
+    ],
+    "baselineContainers": 6
+  },
+  "runtimeSourceDelta": [
+    "types/crefans-events.ts",
+    "lib/content/events.ts",
+    "components/crefans/EventPages.tsx",
+    "components/crefans/events.module.css"
+  ],
+  "sourceHashes": {
+    "types/crefans-events.ts": "7d6cb25a8be57c40b6f59b3568b9447020dc341933e11f705dfb3a8cad685f24",
+    "lib/content/events.ts": "2a83e36ece1364e9aa9ef5919d63cd507082f1eca71f7349d590fa0658199111",
+    "components/crefans/EventPages.tsx": "9d1252312e13d0b807f4b882c5013f24f4a37eba9cb6d732a5b87e11ef61e30d",
+    "components/crefans/events.module.css": "8a80742f11ca189a7d82cf6e76954aaa0e0ac072a0974a3dd3aa66976785936a"
+  },
+  "sourceManifest": "/Users/ethan/repository/crefans_front/.local/event-terms-deploy-20261026/front-source.json",
+  "sourceManifestSha256": "4d36fa33ea4d071916b2746fed8faec138769b189f7ed50f7657e7b635dac11a",
+  "priorLocalVerification": "docs/audit/event-terms-20261026.json",
+  "priorLocalVerifiedSourceUnchanged": true,
+  "build": {
+    "startedAt": "2026-10-26T13:14:41.701237+00:00",
+    "finishedAt": "2026-10-26T13:16:25.581022+00:00",
+    "command": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--label",
+      "crefans.release=event-terms-20261026",
+      "--label",
+      "crefans.source-sha256=4d36fa33ea4d071916b2746fed8faec138769b189f7ed50f7657e7b635dac11a",
+      "-t",
+      "crefans-front:event-terms-20261026",
+      "-f",
+      "infra/platform/Dockerfile",
+      "."
+    ],
+    "exitCode": 0,
+    "sourceManifestSha256": "4d36fa33ea4d071916b2746fed8faec138769b189f7ed50f7657e7b635dac11a",
+    "logSha256": "516f68976f2c8fe6bc1cdb9e41be86a719c086f87a5db3c462a2a343c4800ffd"
+  },
+  "image": {
+    "tag": "crefans-front:event-terms-20261026",
+    "id": "sha256:f59aee74c30aa3a8f3bcedfdcb39264ed3bbf2495bf272b9f4fe8fec109c94c5",
+    "architecture": "amd64",
+    "sourceFiles": 646,
+    "rootFsLayers": [
+      "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+      "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+      "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+      "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+      "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+      "sha256:433d52c8f2f03e3808cfb9dd86fde1a7c7adbcd3c527b86238213c34e25437aa",
+      "sha256:60c01942713e8e6f5b8b6cd7765fca2f1c05e0cae0764a16a9101c3bbf027fa4",
+      "sha256:0fef3fbb20f4d2df5835ecff6aa2469f1e45aeb008cc5b13ae4cd5077f985ea2",
+      "sha256:69b56f39f26cbed61c0cdd5c3503a56214bd38930c6f40a686084a3859ab560b",
+      "sha256:f2f5e42b6054420e4b053248950fc7b24059164a02fe07d5a7a7aaf347c8f533"
+    ],
+    "manifestSha256": "4d36fa33ea4d071916b2746fed8faec138769b189f7ed50f7657e7b635dac11a"
+  },
+  "transfer": {
+    "at": "2026-10-26T13:17:26.765164+00:00",
+    "bytes": 579748035,
+    "sha256": "fd2f63b6b5ad2fb7307216ef9f724635ade060f3f6b5b0ea2c1805087476a571",
+    "directPrivateSshStream": true
+  },
+  "deployment": {
+    "startedAt": "2026-10-26T13:17:44.092151+00:00",
+    "finishedAt": "2026-10-26T13:17:50.611418+00:00",
+    "exitCode": 0,
+    "scope": "frontend only",
+    "backup": "/opt/crefans-backup-event-terms-20261026"
+  },
+  "production": {
+    "at": "2026-10-26T13:20:18.743418+00:00",
+    "http": [
+      {
+        "url": "https://beta.crefans.com/service/events",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/events/beta-first",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/events",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/events/beta-first",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/signup",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/bootstrap",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/beans/wallet",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "expected": 200
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "26af029c83e70daebbee50df81828a66004b8421c85f5ca438f3298892f82faa",
+        "image": "sha256:4c0e89290b9c3b566fe07df245de76071e1c55b4611f52b6f982262f2956d351",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      }
+    },
+    "runningSourceHashes": {
+      "matched": true,
+      "files": 646
+    },
+    "unchangedRuntimeFlags": {
+      "APP_RELEASE": "promotion-payout-20261026",
+      "BETA_MODE": "true",
+      "BANK_PAYOUTS_ENABLED": "false",
+      "BEAN_LIVE_PAYMENTS_APPROVED": "false"
+    }
+  },
+  "browser": {
+    "recordedAt": "2026-10-26T13:18:44.812Z",
+    "base": "https://beta.crefans.com",
+    "results": [
+      {
+        "engine": "chromium",
+        "width": 320,
+        "base": "preview",
+        "httpStatus": 200,
+        "viewport": 320,
+        "documentWidth": 320,
+        "noteFont": "14px",
+        "headings": [
+          {
+            "text": "원년멤버 한정판 뱃지",
+            "size": "17px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "size": "17px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "프로모션 100콩",
+            "size": "17px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "배민 1만원 상품권",
+            "size": "17px",
+            "color": "rgb(8, 13, 59)"
+          }
+        ],
+        "notesText": "꼭 확인해 주세요\n참여 대상과 지급 기준\n운영자가 참여를 확정한 만 19세 이상 테스터가 대상입니다. 크리에이터 3명과 팬 13명으로 구성하며, “참여자 전원”은 이 테스터를 뜻합니다. 회원가입만으로 혜택이 자동 지급되지는 않습니다.\n같은 혜택은 1인 1회 지급합니다. 크리에이터 광고상품과 팬 프로모션 콩은 참여가 확정된 역할에 따라 제공하며, 여러 계정으로 중복 수령할 수 없습니다.\n참여 기간, 참여 방법과 완료 기준, 피드백 접수·선정 일정, 혜택 지급일은 아직 미정입니다. 확정 후 이 페이지에 안내하며, 안내되지 않은 활동 조건을 나중에 소급해 적용하지 않습니다.\n원년멤버 한정판 배지\n참여 확정 테스터 전원에게 제공하는 기념 배지입니다. 크리에이터 인증이나 서비스의 품질·신뢰를 보증하는 표시는 아닙니다.\n배지는 지급 시 프로필에서 표시하거나 숨길 수 있도록 제공할 예정이며, 제공 일정은 별도 안내합니다.\n주목할 크리에이터 광고상품\n참여가 확정된 크리에이터 3명에게 “주목할 크리에이터” 영역의 광고상품 30일 이용권을 제공합니다. 노출 시작·종료 일정과 적용 방식은 제공 전에 안내합니다.\n특정 순위의 고정 노출, 노출 횟수, 팔로워·구독자 증가나 매출을 보장하는 혜택은 아닙니다.\n프로모션 100콩과 출금\n참여가 확정된 팬 13명에게 100콩씩 지급합니다. 현금 지급 혜택은 아닙니다. 이벤트로 지급받은 프로모션 콩은 직접 출금할 수 없으며 후원에 사용할 수 있습니다. 본인 계정에 대한 후원은 허용되지 않습니다.\n프로모션 콩을 후원받은 크리에이터의 수익은 출금 대상에 포함됩니다. 출금 조건을 충족한 후원 수익이 1,000콩(수수료 차감 전 10만원) 이상이어야 하며, 수수료 20%를 차감합니다. 1,000콩 출금 시 실지급액은 8만원입니다.\n후원·지급 이력과 본인 계좌 확인이 필요하며, 보류·동결된 수익은 출금 가능액에서 제외됩니다. 이벤트 100콩만 후원받은 경우에는 최소 출금 수량을 충족하지 않습니다.\n현재 베타에서는 실제 은행 출금을 제공하지 않습니다. 실제 출금 서비스 개시 일정은 별도 안내합니다.\n유용한 피드백 선정\n참여 확정 테스터 중 운영자가 피드백의 구체성, 문제의 재현 가능성, 서비스 개선 기여도를 종합해 최대 3명을 선정합니다. 칭찬 여부나 결제 금액은 평가 기준이 아니며, 불편 사항과 비판적인 의견도 같은 기준으로 검토합니다.\n크리에이터와 팬 모두 선정 대상이며, 피드백 상품권은 기본 참여 혜택과 별도로 1인 1회 받을 수 있습니다. 선정 결과와 지급 방법은 대상자에게 개별 안내합니다.\n배민 1만원 상품권\n선정된 분께 배민 1만원 상품권을 제공합니다. 등록 기한, 사용처, 유효기간, 연장·환불 가능 여부는 실제 발급 상품의 조건을 지급 전에 안내합니다. 모든 상품권의 조건이 동일한 것은 아닙니다.\n배달의민족 앱 이용과 본인확인 등 발행사의 사용 조건을 충족해야 합니다. 연락처 오류, 미수신 또는 등록 문제는 고객센터로 문의해 주세요.\n개인정보·부정 참여·문의\n상품권 발송에 추가 정보가 필요하면 선정된 분께 필요한 최소한의 정보만 요청하며, 수집 목적·항목·보유 기간과 제공 거부 시 영향을 먼저 안내합니다. 이벤트 참여가 광고성 정보 수신이나 프로필·피드백의 외부 광고 활용 동의를 뜻하지는 않습니다.\n중복 수령, 타인 계정 도용, 참여 기록 조작이 확인되면 해당 신청의 혜택 지급이 제한될 수 있습니다. 제한 사유의 확인과 이의 제기는 고객센터에서 접수합니다.\n일정이나 제공 방식의 변경이 필요하면 사유와 변경 내용을 이 페이지에 안내합니다. 이미 충족한 지급 조건을 소급해 불리하게 변경하지 않습니다. 지급 누락이나 안내와 다른 내용도 고객센터로 알려주세요.",
+        "pageErrors": [],
+        "screenshot": ".local/event-terms-deploy-20261026/screens/preview-chromium-320.png",
+        "backAndBannerNavigation": true,
+        "supportDestination": true
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "base": "preview",
+        "httpStatus": 200,
+        "viewport": 390,
+        "documentWidth": 390,
+        "noteFont": "14px",
+        "headings": [
+          {
+            "text": "원년멤버 한정판 뱃지",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "프로모션 100콩",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "배민 1만원 상품권",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          }
+        ],
+        "notesText": "꼭 확인해 주세요\n참여 대상과 지급 기준\n운영자가 참여를 확정한 만 19세 이상 테스터가 대상입니다. 크리에이터 3명과 팬 13명으로 구성하며, “참여자 전원”은 이 테스터를 뜻합니다. 회원가입만으로 혜택이 자동 지급되지는 않습니다.\n같은 혜택은 1인 1회 지급합니다. 크리에이터 광고상품과 팬 프로모션 콩은 참여가 확정된 역할에 따라 제공하며, 여러 계정으로 중복 수령할 수 없습니다.\n참여 기간, 참여 방법과 완료 기준, 피드백 접수·선정 일정, 혜택 지급일은 아직 미정입니다. 확정 후 이 페이지에 안내하며, 안내되지 않은 활동 조건을 나중에 소급해 적용하지 않습니다.\n원년멤버 한정판 배지\n참여 확정 테스터 전원에게 제공하는 기념 배지입니다. 크리에이터 인증이나 서비스의 품질·신뢰를 보증하는 표시는 아닙니다.\n배지는 지급 시 프로필에서 표시하거나 숨길 수 있도록 제공할 예정이며, 제공 일정은 별도 안내합니다.\n주목할 크리에이터 광고상품\n참여가 확정된 크리에이터 3명에게 “주목할 크리에이터” 영역의 광고상품 30일 이용권을 제공합니다. 노출 시작·종료 일정과 적용 방식은 제공 전에 안내합니다.\n특정 순위의 고정 노출, 노출 횟수, 팔로워·구독자 증가나 매출을 보장하는 혜택은 아닙니다.\n프로모션 100콩과 출금\n참여가 확정된 팬 13명에게 100콩씩 지급합니다. 현금 지급 혜택은 아닙니다. 이벤트로 지급받은 프로모션 콩은 직접 출금할 수 없으며 후원에 사용할 수 있습니다. 본인 계정에 대한 후원은 허용되지 않습니다.\n프로모션 콩을 후원받은 크리에이터의 수익은 출금 대상에 포함됩니다. 출금 조건을 충족한 후원 수익이 1,000콩(수수료 차감 전 10만원) 이상이어야 하며, 수수료 20%를 차감합니다. 1,000콩 출금 시 실지급액은 8만원입니다.\n후원·지급 이력과 본인 계좌 확인이 필요하며, 보류·동결된 수익은 출금 가능액에서 제외됩니다. 이벤트 100콩만 후원받은 경우에는 최소 출금 수량을 충족하지 않습니다.\n현재 베타에서는 실제 은행 출금을 제공하지 않습니다. 실제 출금 서비스 개시 일정은 별도 안내합니다.\n유용한 피드백 선정\n참여 확정 테스터 중 운영자가 피드백의 구체성, 문제의 재현 가능성, 서비스 개선 기여도를 종합해 최대 3명을 선정합니다. 칭찬 여부나 결제 금액은 평가 기준이 아니며, 불편 사항과 비판적인 의견도 같은 기준으로 검토합니다.\n크리에이터와 팬 모두 선정 대상이며, 피드백 상품권은 기본 참여 혜택과 별도로 1인 1회 받을 수 있습니다. 선정 결과와 지급 방법은 대상자에게 개별 안내합니다.\n배민 1만원 상품권\n선정된 분께 배민 1만원 상품권을 제공합니다. 등록 기한, 사용처, 유효기간, 연장·환불 가능 여부는 실제 발급 상품의 조건을 지급 전에 안내합니다. 모든 상품권의 조건이 동일한 것은 아닙니다.\n배달의민족 앱 이용과 본인확인 등 발행사의 사용 조건을 충족해야 합니다. 연락처 오류, 미수신 또는 등록 문제는 고객센터로 문의해 주세요.\n개인정보·부정 참여·문의\n상품권 발송에 추가 정보가 필요하면 선정된 분께 필요한 최소한의 정보만 요청하며, 수집 목적·항목·보유 기간과 제공 거부 시 영향을 먼저 안내합니다. 이벤트 참여가 광고성 정보 수신이나 프로필·피드백의 외부 광고 활용 동의를 뜻하지는 않습니다.\n중복 수령, 타인 계정 도용, 참여 기록 조작이 확인되면 해당 신청의 혜택 지급이 제한될 수 있습니다. 제한 사유의 확인과 이의 제기는 고객센터에서 접수합니다.\n일정이나 제공 방식의 변경이 필요하면 사유와 변경 내용을 이 페이지에 안내합니다. 이미 충족한 지급 조건을 소급해 불리하게 변경하지 않습니다. 지급 누락이나 안내와 다른 내용도 고객센터로 알려주세요.",
+        "pageErrors": [],
+        "screenshot": ".local/event-terms-deploy-20261026/screens/preview-chromium-390.png",
+        "backAndBannerNavigation": true,
+        "supportDestination": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "base": "preview",
+        "httpStatus": 200,
+        "viewport": 1280,
+        "documentWidth": 1280,
+        "noteFont": "14px",
+        "headings": [
+          {
+            "text": "원년멤버 한정판 뱃지",
+            "size": "44px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "size": "44px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "프로모션 100콩",
+            "size": "44px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "배민 1만원 상품권",
+            "size": "44px",
+            "color": "rgb(8, 13, 59)"
+          }
+        ],
+        "notesText": "꼭 확인해 주세요\n참여 대상과 지급 기준\n운영자가 참여를 확정한 만 19세 이상 테스터가 대상입니다. 크리에이터 3명과 팬 13명으로 구성하며, “참여자 전원”은 이 테스터를 뜻합니다. 회원가입만으로 혜택이 자동 지급되지는 않습니다.\n같은 혜택은 1인 1회 지급합니다. 크리에이터 광고상품과 팬 프로모션 콩은 참여가 확정된 역할에 따라 제공하며, 여러 계정으로 중복 수령할 수 없습니다.\n참여 기간, 참여 방법과 완료 기준, 피드백 접수·선정 일정, 혜택 지급일은 아직 미정입니다. 확정 후 이 페이지에 안내하며, 안내되지 않은 활동 조건을 나중에 소급해 적용하지 않습니다.\n원년멤버 한정판 배지\n참여 확정 테스터 전원에게 제공하는 기념 배지입니다. 크리에이터 인증이나 서비스의 품질·신뢰를 보증하는 표시는 아닙니다.\n배지는 지급 시 프로필에서 표시하거나 숨길 수 있도록 제공할 예정이며, 제공 일정은 별도 안내합니다.\n주목할 크리에이터 광고상품\n참여가 확정된 크리에이터 3명에게 “주목할 크리에이터” 영역의 광고상품 30일 이용권을 제공합니다. 노출 시작·종료 일정과 적용 방식은 제공 전에 안내합니다.\n특정 순위의 고정 노출, 노출 횟수, 팔로워·구독자 증가나 매출을 보장하는 혜택은 아닙니다.\n프로모션 100콩과 출금\n참여가 확정된 팬 13명에게 100콩씩 지급합니다. 현금 지급 혜택은 아닙니다. 이벤트로 지급받은 프로모션 콩은 직접 출금할 수 없으며 후원에 사용할 수 있습니다. 본인 계정에 대한 후원은 허용되지 않습니다.\n프로모션 콩을 후원받은 크리에이터의 수익은 출금 대상에 포함됩니다. 출금 조건을 충족한 후원 수익이 1,000콩(수수료 차감 전 10만원) 이상이어야 하며, 수수료 20%를 차감합니다. 1,000콩 출금 시 실지급액은 8만원입니다.\n후원·지급 이력과 본인 계좌 확인이 필요하며, 보류·동결된 수익은 출금 가능액에서 제외됩니다. 이벤트 100콩만 후원받은 경우에는 최소 출금 수량을 충족하지 않습니다.\n현재 베타에서는 실제 은행 출금을 제공하지 않습니다. 실제 출금 서비스 개시 일정은 별도 안내합니다.\n유용한 피드백 선정\n참여 확정 테스터 중 운영자가 피드백의 구체성, 문제의 재현 가능성, 서비스 개선 기여도를 종합해 최대 3명을 선정합니다. 칭찬 여부나 결제 금액은 평가 기준이 아니며, 불편 사항과 비판적인 의견도 같은 기준으로 검토합니다.\n크리에이터와 팬 모두 선정 대상이며, 피드백 상품권은 기본 참여 혜택과 별도로 1인 1회 받을 수 있습니다. 선정 결과와 지급 방법은 대상자에게 개별 안내합니다.\n배민 1만원 상품권\n선정된 분께 배민 1만원 상품권을 제공합니다. 등록 기한, 사용처, 유효기간, 연장·환불 가능 여부는 실제 발급 상품의 조건을 지급 전에 안내합니다. 모든 상품권의 조건이 동일한 것은 아닙니다.\n배달의민족 앱 이용과 본인확인 등 발행사의 사용 조건을 충족해야 합니다. 연락처 오류, 미수신 또는 등록 문제는 고객센터로 문의해 주세요.\n개인정보·부정 참여·문의\n상품권 발송에 추가 정보가 필요하면 선정된 분께 필요한 최소한의 정보만 요청하며, 수집 목적·항목·보유 기간과 제공 거부 시 영향을 먼저 안내합니다. 이벤트 참여가 광고성 정보 수신이나 프로필·피드백의 외부 광고 활용 동의를 뜻하지는 않습니다.\n중복 수령, 타인 계정 도용, 참여 기록 조작이 확인되면 해당 신청의 혜택 지급이 제한될 수 있습니다. 제한 사유의 확인과 이의 제기는 고객센터에서 접수합니다.\n일정이나 제공 방식의 변경이 필요하면 사유와 변경 내용을 이 페이지에 안내합니다. 이미 충족한 지급 조건을 소급해 불리하게 변경하지 않습니다. 지급 누락이나 안내와 다른 내용도 고객센터로 알려주세요.",
+        "pageErrors": [],
+        "screenshot": ".local/event-terms-deploy-20261026/screens/preview-chromium-1280.png",
+        "backAndBannerNavigation": true,
+        "supportDestination": true
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "base": "service",
+        "httpStatus": 200,
+        "viewport": 390,
+        "documentWidth": 390,
+        "noteFont": "14px",
+        "headings": [
+          {
+            "text": "원년멤버 한정판 뱃지",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "프로모션 100콩",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "배민 1만원 상품권",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          }
+        ],
+        "notesText": "꼭 확인해 주세요\n참여 대상과 지급 기준\n운영자가 참여를 확정한 만 19세 이상 테스터가 대상입니다. 크리에이터 3명과 팬 13명으로 구성하며, “참여자 전원”은 이 테스터를 뜻합니다. 회원가입만으로 혜택이 자동 지급되지는 않습니다.\n같은 혜택은 1인 1회 지급합니다. 크리에이터 광고상품과 팬 프로모션 콩은 참여가 확정된 역할에 따라 제공하며, 여러 계정으로 중복 수령할 수 없습니다.\n참여 기간, 참여 방법과 완료 기준, 피드백 접수·선정 일정, 혜택 지급일은 아직 미정입니다. 확정 후 이 페이지에 안내하며, 안내되지 않은 활동 조건을 나중에 소급해 적용하지 않습니다.\n원년멤버 한정판 배지\n참여 확정 테스터 전원에게 제공하는 기념 배지입니다. 크리에이터 인증이나 서비스의 품질·신뢰를 보증하는 표시는 아닙니다.\n배지는 지급 시 프로필에서 표시하거나 숨길 수 있도록 제공할 예정이며, 제공 일정은 별도 안내합니다.\n주목할 크리에이터 광고상품\n참여가 확정된 크리에이터 3명에게 “주목할 크리에이터” 영역의 광고상품 30일 이용권을 제공합니다. 노출 시작·종료 일정과 적용 방식은 제공 전에 안내합니다.\n특정 순위의 고정 노출, 노출 횟수, 팔로워·구독자 증가나 매출을 보장하는 혜택은 아닙니다.\n프로모션 100콩과 출금\n참여가 확정된 팬 13명에게 100콩씩 지급합니다. 현금 지급 혜택은 아닙니다. 이벤트로 지급받은 프로모션 콩은 직접 출금할 수 없으며 후원에 사용할 수 있습니다. 본인 계정에 대한 후원은 허용되지 않습니다.\n프로모션 콩을 후원받은 크리에이터의 수익은 출금 대상에 포함됩니다. 출금 조건을 충족한 후원 수익이 1,000콩(수수료 차감 전 10만원) 이상이어야 하며, 수수료 20%를 차감합니다. 1,000콩 출금 시 실지급액은 8만원입니다.\n후원·지급 이력과 본인 계좌 확인이 필요하며, 보류·동결된 수익은 출금 가능액에서 제외됩니다. 이벤트 100콩만 후원받은 경우에는 최소 출금 수량을 충족하지 않습니다.\n현재 베타에서는 실제 은행 출금을 제공하지 않습니다. 실제 출금 서비스 개시 일정은 별도 안내합니다.\n유용한 피드백 선정\n참여 확정 테스터 중 운영자가 피드백의 구체성, 문제의 재현 가능성, 서비스 개선 기여도를 종합해 최대 3명을 선정합니다. 칭찬 여부나 결제 금액은 평가 기준이 아니며, 불편 사항과 비판적인 의견도 같은 기준으로 검토합니다.\n크리에이터와 팬 모두 선정 대상이며, 피드백 상품권은 기본 참여 혜택과 별도로 1인 1회 받을 수 있습니다. 선정 결과와 지급 방법은 대상자에게 개별 안내합니다.\n배민 1만원 상품권\n선정된 분께 배민 1만원 상품권을 제공합니다. 등록 기한, 사용처, 유효기간, 연장·환불 가능 여부는 실제 발급 상품의 조건을 지급 전에 안내합니다. 모든 상품권의 조건이 동일한 것은 아닙니다.\n배달의민족 앱 이용과 본인확인 등 발행사의 사용 조건을 충족해야 합니다. 연락처 오류, 미수신 또는 등록 문제는 고객센터로 문의해 주세요.\n개인정보·부정 참여·문의\n상품권 발송에 추가 정보가 필요하면 선정된 분께 필요한 최소한의 정보만 요청하며, 수집 목적·항목·보유 기간과 제공 거부 시 영향을 먼저 안내합니다. 이벤트 참여가 광고성 정보 수신이나 프로필·피드백의 외부 광고 활용 동의를 뜻하지는 않습니다.\n중복 수령, 타인 계정 도용, 참여 기록 조작이 확인되면 해당 신청의 혜택 지급이 제한될 수 있습니다. 제한 사유의 확인과 이의 제기는 고객센터에서 접수합니다.\n일정이나 제공 방식의 변경이 필요하면 사유와 변경 내용을 이 페이지에 안내합니다. 이미 충족한 지급 조건을 소급해 불리하게 변경하지 않습니다. 지급 누락이나 안내와 다른 내용도 고객센터로 알려주세요.",
+        "pageErrors": [],
+        "screenshot": ".local/event-terms-deploy-20261026/screens/service-chromium-390.png",
+        "backAndBannerNavigation": true,
+        "supportDestination": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "base": "service",
+        "httpStatus": 200,
+        "viewport": 1280,
+        "documentWidth": 1280,
+        "noteFont": "14px",
+        "headings": [
+          {
+            "text": "원년멤버 한정판 뱃지",
+            "size": "44px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "size": "44px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "프로모션 100콩",
+            "size": "44px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "배민 1만원 상품권",
+            "size": "44px",
+            "color": "rgb(8, 13, 59)"
+          }
+        ],
+        "notesText": "꼭 확인해 주세요\n참여 대상과 지급 기준\n운영자가 참여를 확정한 만 19세 이상 테스터가 대상입니다. 크리에이터 3명과 팬 13명으로 구성하며, “참여자 전원”은 이 테스터를 뜻합니다. 회원가입만으로 혜택이 자동 지급되지는 않습니다.\n같은 혜택은 1인 1회 지급합니다. 크리에이터 광고상품과 팬 프로모션 콩은 참여가 확정된 역할에 따라 제공하며, 여러 계정으로 중복 수령할 수 없습니다.\n참여 기간, 참여 방법과 완료 기준, 피드백 접수·선정 일정, 혜택 지급일은 아직 미정입니다. 확정 후 이 페이지에 안내하며, 안내되지 않은 활동 조건을 나중에 소급해 적용하지 않습니다.\n원년멤버 한정판 배지\n참여 확정 테스터 전원에게 제공하는 기념 배지입니다. 크리에이터 인증이나 서비스의 품질·신뢰를 보증하는 표시는 아닙니다.\n배지는 지급 시 프로필에서 표시하거나 숨길 수 있도록 제공할 예정이며, 제공 일정은 별도 안내합니다.\n주목할 크리에이터 광고상품\n참여가 확정된 크리에이터 3명에게 “주목할 크리에이터” 영역의 광고상품 30일 이용권을 제공합니다. 노출 시작·종료 일정과 적용 방식은 제공 전에 안내합니다.\n특정 순위의 고정 노출, 노출 횟수, 팔로워·구독자 증가나 매출을 보장하는 혜택은 아닙니다.\n프로모션 100콩과 출금\n참여가 확정된 팬 13명에게 100콩씩 지급합니다. 현금 지급 혜택은 아닙니다. 이벤트로 지급받은 프로모션 콩은 직접 출금할 수 없으며 후원에 사용할 수 있습니다. 본인 계정에 대한 후원은 허용되지 않습니다.\n프로모션 콩을 후원받은 크리에이터의 수익은 출금 대상에 포함됩니다. 출금 조건을 충족한 후원 수익이 1,000콩(수수료 차감 전 10만원) 이상이어야 하며, 수수료 20%를 차감합니다. 1,000콩 출금 시 실지급액은 8만원입니다.\n후원·지급 이력과 본인 계좌 확인이 필요하며, 보류·동결된 수익은 출금 가능액에서 제외됩니다. 이벤트 100콩만 후원받은 경우에는 최소 출금 수량을 충족하지 않습니다.\n현재 베타에서는 실제 은행 출금을 제공하지 않습니다. 실제 출금 서비스 개시 일정은 별도 안내합니다.\n유용한 피드백 선정\n참여 확정 테스터 중 운영자가 피드백의 구체성, 문제의 재현 가능성, 서비스 개선 기여도를 종합해 최대 3명을 선정합니다. 칭찬 여부나 결제 금액은 평가 기준이 아니며, 불편 사항과 비판적인 의견도 같은 기준으로 검토합니다.\n크리에이터와 팬 모두 선정 대상이며, 피드백 상품권은 기본 참여 혜택과 별도로 1인 1회 받을 수 있습니다. 선정 결과와 지급 방법은 대상자에게 개별 안내합니다.\n배민 1만원 상품권\n선정된 분께 배민 1만원 상품권을 제공합니다. 등록 기한, 사용처, 유효기간, 연장·환불 가능 여부는 실제 발급 상품의 조건을 지급 전에 안내합니다. 모든 상품권의 조건이 동일한 것은 아닙니다.\n배달의민족 앱 이용과 본인확인 등 발행사의 사용 조건을 충족해야 합니다. 연락처 오류, 미수신 또는 등록 문제는 고객센터로 문의해 주세요.\n개인정보·부정 참여·문의\n상품권 발송에 추가 정보가 필요하면 선정된 분께 필요한 최소한의 정보만 요청하며, 수집 목적·항목·보유 기간과 제공 거부 시 영향을 먼저 안내합니다. 이벤트 참여가 광고성 정보 수신이나 프로필·피드백의 외부 광고 활용 동의를 뜻하지는 않습니다.\n중복 수령, 타인 계정 도용, 참여 기록 조작이 확인되면 해당 신청의 혜택 지급이 제한될 수 있습니다. 제한 사유의 확인과 이의 제기는 고객센터에서 접수합니다.\n일정이나 제공 방식의 변경이 필요하면 사유와 변경 내용을 이 페이지에 안내합니다. 이미 충족한 지급 조건을 소급해 불리하게 변경하지 않습니다. 지급 누락이나 안내와 다른 내용도 고객센터로 알려주세요.",
+        "pageErrors": [],
+        "screenshot": ".local/event-terms-deploy-20261026/screens/service-chromium-1280.png",
+        "backAndBannerNavigation": true,
+        "supportDestination": true
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "base": "preview",
+        "httpStatus": 200,
+        "viewport": 390,
+        "documentWidth": 390,
+        "noteFont": "14px",
+        "headings": [
+          {
+            "text": "원년멤버 한정판 뱃지",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "프로모션 100콩",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          },
+          {
+            "text": "배민 1만원 상품권",
+            "size": "20.764px",
+            "color": "rgb(8, 13, 59)"
+          }
+        ],
+        "notesText": "꼭 확인해 주세요\n참여 대상과 지급 기준\n운영자가 참여를 확정한 만 19세 이상 테스터가 대상입니다. 크리에이터 3명과 팬 13명으로 구성하며, “참여자 전원”은 이 테스터를 뜻합니다. 회원가입만으로 혜택이 자동 지급되지는 않습니다.\n같은 혜택은 1인 1회 지급합니다. 크리에이터 광고상품과 팬 프로모션 콩은 참여가 확정된 역할에 따라 제공하며, 여러 계정으로 중복 수령할 수 없습니다.\n참여 기간, 참여 방법과 완료 기준, 피드백 접수·선정 일정, 혜택 지급일은 아직 미정입니다. 확정 후 이 페이지에 안내하며, 안내되지 않은 활동 조건을 나중에 소급해 적용하지 않습니다.\n원년멤버 한정판 배지\n참여 확정 테스터 전원에게 제공하는 기념 배지입니다. 크리에이터 인증이나 서비스의 품질·신뢰를 보증하는 표시는 아닙니다.\n배지는 지급 시 프로필에서 표시하거나 숨길 수 있도록 제공할 예정이며, 제공 일정은 별도 안내합니다.\n주목할 크리에이터 광고상품\n참여가 확정된 크리에이터 3명에게 “주목할 크리에이터” 영역의 광고상품 30일 이용권을 제공합니다. 노출 시작·종료 일정과 적용 방식은 제공 전에 안내합니다.\n특정 순위의 고정 노출, 노출 횟수, 팔로워·구독자 증가나 매출을 보장하는 혜택은 아닙니다.\n프로모션 100콩과 출금\n참여가 확정된 팬 13명에게 100콩씩 지급합니다. 현금 지급 혜택은 아닙니다. 이벤트로 지급받은 프로모션 콩은 직접 출금할 수 없으며 후원에 사용할 수 있습니다. 본인 계정에 대한 후원은 허용되지 않습니다.\n프로모션 콩을 후원받은 크리에이터의 수익은 출금 대상에 포함됩니다. 출금 조건을 충족한 후원 수익이 1,000콩(수수료 차감 전 10만원) 이상이어야 하며, 수수료 20%를 차감합니다. 1,000콩 출금 시 실지급액은 8만원입니다.\n후원·지급 이력과 본인 계좌 확인이 필요하며, 보류·동결된 수익은 출금 가능액에서 제외됩니다. 이벤트 100콩만 후원받은 경우에는 최소 출금 수량을 충족하지 않습니다.\n현재 베타에서는 실제 은행 출금을 제공하지 않습니다. 실제 출금 서비스 개시 일정은 별도 안내합니다.\n유용한 피드백 선정\n참여 확정 테스터 중 운영자가 피드백의 구체성, 문제의 재현 가능성, 서비스 개선 기여도를 종합해 최대 3명을 선정합니다. 칭찬 여부나 결제 금액은 평가 기준이 아니며, 불편 사항과 비판적인 의견도 같은 기준으로 검토합니다.\n크리에이터와 팬 모두 선정 대상이며, 피드백 상품권은 기본 참여 혜택과 별도로 1인 1회 받을 수 있습니다. 선정 결과와 지급 방법은 대상자에게 개별 안내합니다.\n배민 1만원 상품권\n선정된 분께 배민 1만원 상품권을 제공합니다. 등록 기한, 사용처, 유효기간, 연장·환불 가능 여부는 실제 발급 상품의 조건을 지급 전에 안내합니다. 모든 상품권의 조건이 동일한 것은 아닙니다.\n배달의민족 앱 이용과 본인확인 등 발행사의 사용 조건을 충족해야 합니다. 연락처 오류, 미수신 또는 등록 문제는 고객센터로 문의해 주세요.\n개인정보·부정 참여·문의\n상품권 발송에 추가 정보가 필요하면 선정된 분께 필요한 최소한의 정보만 요청하며, 수집 목적·항목·보유 기간과 제공 거부 시 영향을 먼저 안내합니다. 이벤트 참여가 광고성 정보 수신이나 프로필·피드백의 외부 광고 활용 동의를 뜻하지는 않습니다.\n중복 수령, 타인 계정 도용, 참여 기록 조작이 확인되면 해당 신청의 혜택 지급이 제한될 수 있습니다. 제한 사유의 확인과 이의 제기는 고객센터에서 접수합니다.\n일정이나 제공 방식의 변경이 필요하면 사유와 변경 내용을 이 페이지에 안내합니다. 이미 충족한 지급 조건을 소급해 불리하게 변경하지 않습니다. 지급 누락이나 안내와 다른 내용도 고객센터로 알려주세요.",
+        "pageErrors": [],
+        "screenshot": ".local/event-terms-deploy-20261026/screens/preview-webkit-390.png",
+        "backAndBannerNavigation": true,
+        "supportDestination": true
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": "python3 infra/platform/deploy-preflight.py",
+      "exitCode": 0,
+      "result": {
+        "localFreeGiB": 32.96,
+        "dockerReady": true
+      }
+    },
+    {
+      "startedAt": "2026-10-26T13:14:41.701237+00:00",
+      "finishedAt": "2026-10-26T13:16:25.581022+00:00",
+      "command": [
+        "docker",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "--label",
+        "crefans.release=event-terms-20261026",
+        "--label",
+        "crefans.source-sha256=4d36fa33ea4d071916b2746fed8faec138769b189f7ed50f7657e7b635dac11a",
+        "-t",
+        "crefans-front:event-terms-20261026",
+        "-f",
+        "infra/platform/Dockerfile",
+        "."
+      ],
+      "exitCode": 0,
+      "sourceManifestSha256": "4d36fa33ea4d071916b2746fed8faec138769b189f7ed50f7657e7b635dac11a",
+      "logSha256": "516f68976f2c8fe6bc1cdb9e41be86a719c086f87a5db3c462a2a343c4800ffd"
+    },
+    {
+      "startedAt": "2026-10-26T13:17:44.092151+00:00",
+      "finishedAt": "2026-10-26T13:17:50.611418+00:00",
+      "exitCode": 0,
+      "scope": "frontend only",
+      "backup": "/opt/crefans-backup-event-terms-20261026"
+    },
+    {
+      "command": "python3 /tmp/verify-event-deploy.py",
+      "exitCode": 0,
+      "results": "/Users/ethan/repository/crefans_front/.local/event-terms-deploy-20261026/production-verification.json"
+    },
+    {
+      "command": "node /tmp/event-terms-live-browser.cjs",
+      "exitCode": 0,
+      "results": "/Users/ethan/repository/crefans_front/.local/event-terms-deploy-20261026/browser.json"
+    },
+    {
+      "command": "node /tmp/event-terms-live-visual.cjs",
+      "exitCode": 0,
+      "results": "/Users/ethan/repository/crefans_front/.local/event-terms-deploy-20261026/visual.json"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "startedAt": "2026-10-26T13:21:37.882982+00:00",
+      "finishedAt": "2026-10-26T13:21:39.005044+00:00",
+      "exitCode": 0,
+      "logSha256": "e31c2ab21e7d1071afb16a14ca90e58108edb180a5f0f3fcb0321d503232acac"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "startedAt": "2026-10-26T13:21:39.005935+00:00",
+      "finishedAt": "2026-10-26T13:21:39.502567+00:00",
+      "exitCode": 0,
+      "logSha256": "985d4ef1b9bc1136994908cb09fd1b5b69e6310fb82d171eae3a2df974344477"
+    }
+  ],
+  "visual": {
+    "reviewed": true,
+    "scope": "All seven mobile note groups and beans card; scrolling captures, not clipped whole-section screenshot",
+    "screenshots": [
+      {
+        "path": ".local/event-terms-deploy-20261026/screens/note-1-mobile.png",
+        "sha256": "010a28e7675b7ec2be5d780ffa8da95a7e288b670a138707163fca7aa8efc4f0"
+      },
+      {
+        "path": ".local/event-terms-deploy-20261026/screens/note-2-mobile.png",
+        "sha256": "38a6d491382df703212b55310df8ca0a119e6d888983e80ac497d09f2ac1eb49"
+      },
+      {
+        "path": ".local/event-terms-deploy-20261026/screens/note-3-mobile.png",
+        "sha256": "a2d051fa23b99b303b428515fe2b26f5fdbd9e837bbacc61571eac9c1ceee104"
+      },
+      {
+        "path": ".local/event-terms-deploy-20261026/screens/note-4-mobile.png",
+        "sha256": "7e54d4661363885adb35a1a46a2c0d786e2cc63e10fe0746de1a8bd195c01555"
+      },
+      {
+        "path": ".local/event-terms-deploy-20261026/screens/note-5-mobile.png",
+        "sha256": "1eeeea69b7d691b7d62fcd0645a440e9f3e6183b2e21fbbef1842b8593392bf3"
+      },
+      {
+        "path": ".local/event-terms-deploy-20261026/screens/note-6-mobile.png",
+        "sha256": "4c4360d85689ceffa4e1505af488fd60f5a7c85718ac3a44bba6148c6c099216"
+      },
+      {
+        "path": ".local/event-terms-deploy-20261026/screens/note-7-mobile.png",
+        "sha256": "fc9dab80709412d009f5fd04c874021f0ecbf435407fd62935a94677de2c3d9c"
+      },
+      {
+        "path": ".local/event-terms-deploy-20261026/screens/beans-card-mobile.png",
+        "sha256": "0b7b72ca325b274472282b5abd56a269f3bec50bf82159ea8d6fb3bf3cf96fa7"
+      }
+    ]
+  },
+  "verificationRetry": {
+    "reason": "Initial HTTP verifier expected service event text in initial HTML. Read-only diagnostic showed service HTTP200 loading shell while preview includes text. Production browser independently verified exact hydrated content in both routes. Removed only the invalid raw-HTML assertion; no product changes.",
+    "diagnostic": "html-diagnostic.json",
+    "finalHttpAndBrowserPassed": true
+  },
+  "startup": {
+    "healthRetries502": 2,
+    "resolved": true,
+    "finalHealthAndBrowserPassed": true
+  },
+  "agentsUnchanged": true,
+  "noRemoteCleanupExceptGeneratedTransferArchive": true,
+  "pending": "Dates/completion criteria/delivery schedule, ad execution and voucher terms, commemorative badge award/display preparation remain as stated in event-terms-20261026.json",
+  "limits": [
+    "Read-only public production browsing, no financial transaction/provider payout/grant verification this turn",
+    "No zero-downtime claim; frontend restart health retries are recorded",
+    "Documentation hash record is not product behavioral proof"
+  ]
+}

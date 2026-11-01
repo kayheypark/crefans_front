@@ -1,0 +1,973 @@
+{
+  "checkedAt": "2026-10-28T16:31:17.636950+00:00",
+  "release": "npay-reward-20261029",
+  "request": "감사 이벤트의 배민 1만원 상품권을 네이버페이 1만원 상품권 및 실제 상품 이미지로 변경",
+  "repositories": {
+    "front": {
+      "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+      "dirtyFilesBefore": 123
+    },
+    "server": {
+      "head": "0d6044e5b1d595688bf5f82cad08f6a623df6719",
+      "dirtyFilesBefore": 44
+    },
+    "admin": {
+      "head": "8cf5025fa746afd09d06d10b4182787713f86bbd",
+      "dirtyFilesBefore": 15
+    },
+    "guide": {
+      "git": "uninitialized; unchanged"
+    }
+  },
+  "sourceDelta": {
+    "front": [
+      {
+        "path": "lib/content/events.ts",
+        "before": "2a83e36ece1364e9aa9ef5919d63cd507082f1eca71f7349d590fa0658199111",
+        "after": "a180698cc2f755cacf6b274bacba67fdb05c60bf915ce5981a2fdaf4e84f2663"
+      },
+      {
+        "path": "public/brand/events/beta-first/naverpay-10000-v1.jpg",
+        "before": null,
+        "after": "5b8413dc8bddecf3e07bb3f560398479de79e8b4ae9711b2f34da10da688b584"
+      },
+      {
+        "path": "tests/crefans-events.test.cjs",
+        "before": null,
+        "after": "9e49c67d30a91eee30c9583c37ea1e8833e65c2c35c85372392ec222cc68d708"
+      }
+    ],
+    "guide": [
+      {
+        "path": "brochure/service-introduction.html",
+        "before": "7a0e13a930ee22a2a9f05c46f9fdf397a868a66b14ed530eaaa72ae97b4a220d",
+        "after": "404c2b2f171a04f7314cb15527ff69888902bebf390267a14620cc67e1cb83a0"
+      },
+      {
+        "path": "src/content/docs/start/event.md",
+        "before": "975470cb7c3e0e72b323b107c56ec522c2ffe5f0db5cd52c320810c91dcf581d",
+        "after": "56d50e4a89ea8ae3f40b8091d71605b4540800ba38a6c741fa6b79c89ad92ced"
+      },
+      {
+        "path": "public/downloads/crefans-service-introduction.pdf",
+        "before": "980a83bd51d8a12975408bc989117467f32f76f87a643c12e06f3d632377a0be",
+        "after": "9505dc59bf2034bd7d281f2a9870d39b7ac6954605d4301ded2b4c750753efd7"
+      },
+      {
+        "path": "public/images/events/naverpay-10000-v1.jpg",
+        "before": null,
+        "after": "5b8413dc8bddecf3e07bb3f560398479de79e8b4ae9711b2f34da10da688b584"
+      }
+    ]
+  },
+  "asset": {
+    "checkedAt": "2026-10-28T16:15:40.238307+00:00",
+    "sourcePage": "https://biz.giftishow.com/ggoods/detail?goodsNo=40224",
+    "sourceImage": "https://bizimg.giftishow.com/Resource/goods/2023/G00001621942/G00001621942.jpg",
+    "productName": "네이버페이 포인트 10,000원 모바일쿠폰",
+    "imageSha256": "5b8413dc8bddecf3e07bb3f560398479de79e8b4ae9711b2f34da10da688b584",
+    "imageBytesUnmodified": true,
+    "scope": "Reward product identification only. No standalone Npay payment/partnership logo, coupon purchase or issuance. Separate asset use permission has not been verified.",
+    "brandGuide": "https://developers.pay.naver.com/design/terms",
+    "changes": {
+      "rewardAmountKRW": 10000,
+      "maxRecipients": 3,
+      "provider": "Naver Pay point coupon"
+    }
+  },
+  "checks": [
+    {
+      "command": "node --test tests/crefans-events.test.cjs",
+      "repo": "crefans_front",
+      "exitCode": 0,
+      "passed": 3
+    },
+    {
+      "command": "npm run check:layers",
+      "repo": "crefans_front",
+      "exitCode": 0,
+      "files": 373
+    },
+    {
+      "command": "npm run typecheck",
+      "repo": "crefans_front",
+      "exitCode": 0
+    },
+    {
+      "command": "node brochure/build-pdf.cjs && npm run build && npm run check:guides",
+      "repo": "crefans_guide",
+      "exitCode": 0,
+      "pages": 10,
+      "documents": 27,
+      "internalLinksAndAnchors": 1260,
+      "incomeScenarios": 3
+    }
+  ],
+  "localBrowser": {
+    "at": "2026-10-28T16:23:10.609Z",
+    "checks": [
+      {
+        "engine": "chromium",
+        "width": 375,
+        "route": "/preview/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "route": "/start/event/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "route": "/resources/service-introduction/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "route": "/preview/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "route": "/start/event/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "route": "/resources/service-introduction/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "route": "/preview/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "route": "/start/event/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "route": "/resources/service-introduction/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "route": "/preview/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "route": "/start/event/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "route": "/resources/service-introduction/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      }
+    ],
+    "errors": [],
+    "exitCode": 0
+  },
+  "productionBrowser": {
+    "at": "2026-10-28T16:26:42.736Z",
+    "checks": [
+      {
+        "engine": "chromium",
+        "width": 375,
+        "route": "/preview/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "route": "/service/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "route": "/start/event/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 375,
+        "route": "/resources/service-introduction/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "route": "/preview/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "route": "/service/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "route": "/start/event/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "route": "/resources/service-introduction/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "route": "/preview/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "route": "/service/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "route": "/start/event/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 375,
+        "route": "/resources/service-introduction/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "route": "/preview/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "route": "/service/events/beta-first",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "route": "/start/event/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      },
+      {
+        "engine": "webkit",
+        "width": 1440,
+        "route": "/resources/service-introduction/",
+        "status": 200,
+        "noOldReward": true,
+        "noOverflow": true
+      }
+    ],
+    "errors": [],
+    "exitCode": 0
+  },
+  "pdf": {
+    "pageCount": 10,
+    "pages": [
+      {
+        "page": 1,
+        "unchangedPixels": true,
+        "noOldReward": true
+      },
+      {
+        "page": 2,
+        "unchangedPixels": true,
+        "noOldReward": true
+      },
+      {
+        "page": 3,
+        "unchangedPixels": true,
+        "noOldReward": true
+      },
+      {
+        "page": 4,
+        "unchangedPixels": true,
+        "noOldReward": true
+      },
+      {
+        "page": 5,
+        "unchangedPixels": true,
+        "noOldReward": true
+      },
+      {
+        "page": 6,
+        "unchangedPixels": true,
+        "noOldReward": true
+      },
+      {
+        "page": 7,
+        "unchangedPixels": true,
+        "noOldReward": true
+      },
+      {
+        "page": 8,
+        "unchangedPixels": true,
+        "noOldReward": true
+      },
+      {
+        "page": 9,
+        "unchangedPixels": false,
+        "noOldReward": true
+      },
+      {
+        "page": 10,
+        "unchangedPixels": true,
+        "noOldReward": true
+      }
+    ],
+    "pdfSha256": "9505dc59bf2034bd7d281f2a9870d39b7ac6954605d4301ded2b4c750753efd7"
+  },
+  "pdfLayout": {
+    "at": "2026-10-28T16:20:46.952Z",
+    "pages": 10,
+    "titles": [
+      "첫 팬들과 시작하는 멤버십, 크레팬스",
+      "작품을 공개하는 곳에서, 팬과 관계를 이어가는 곳으로",
+      "혜택과 가격은 크리에이터가 정합니다",
+      "작품 하나에도 응원을 보낼 수 있습니다",
+      "첫 게시물부터 수익 확인까지, 한곳에서",
+      "내 유료 구독자 수로 계산해 보세요",
+      "멤버십 수익과 후원콩의 출금 기준",
+      "첫 프로필과 첫 멤버십부터 준비하세요",
+      "베타 참여자를 위한 감사 혜택",
+      "첫 멤버십을 준비하고 있다면, 베타 참여를 문의해 주세요."
+    ],
+    "links": [
+      "mailto:khpark@grade.im?subject=크레팬스%20베타%20참여%20문의",
+      "https://beta.crefans.com/preview/explore",
+      "https://guide.crefans.com/creators/income-scenarios/",
+      "https://guide.crefans.com/creators/start/",
+      "https://beta.crefans.com/service/events/beta-first",
+      "mailto:khpark@grade.im?subject=크레팬스%20베타%20참여%20문의",
+      "https://beta.crefans.com/preview/explore",
+      "https://guide.crefans.com/creators/start/",
+      "https://beta.crefans.com/service/support"
+    ],
+    "imagesLoaded": true,
+    "noTextIllustrationOverlap": true,
+    "contentBounds": true,
+    "oversizeNegativeControlDetected": true,
+    "policyStatements": true
+  },
+  "activeSourceScan": {
+    "files": 657,
+    "oldRewardMatches": 0,
+    "operatingFrontAssetMatches": true
+  },
+  "frontBuild": [
+    {
+      "label": "front",
+      "tag": "crefans-front:npay-reward-20261029",
+      "startedAt": "2026-10-28T16:19:42.679878+00:00",
+      "finishedAt": "2026-10-28T16:21:19.872388+00:00",
+      "exitCode": 0,
+      "sourceManifestSha256": "7ae94a41be05305eabfb71b0ec5bf18a8a06138c4b6b4f78d4d43b26a13e41ab"
+    }
+  ],
+  "frontDeployment": {
+    "command": "ssh private verified host: sudo -n bash /home/ubuntu/crefans-npay-reward-20261029/deploy.sh",
+    "startedAt": "2026-10-28T16:24:54.528698+00:00",
+    "finishedAt": "2026-10-28T16:25:00.988404+00:00",
+    "exitCode": 0,
+    "scope": "frontend only; API/worker/admin/DB unchanged"
+  },
+  "guideDeployment": {
+    "startedAt": "2026-10-28T16:25:39.411359+00:00",
+    "finishedAt": "2026-10-28T16:25:40.541171+00:00",
+    "exitCode": 0,
+    "scope": "Guide static files only; no Caddy config or app containers changed",
+    "files": 100,
+    "archiveStreamedBytes": 7878570,
+    "rollback": "guide-before-npay-reward-20261029"
+  },
+  "guideOperatingHashes": {
+    "at": "2026-10-28T16:26:32.502984+00:00",
+    "files": [
+      {
+        "path": "_astro/MobileTableOfContents.astro_astro_type_script_index_0_lang.C3fM4Kra.js",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "_astro/Search.astro_astro_type_script_index_0_lang.Djc9ZKGJ.js",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "_astro/TableOfContents.astro_astro_type_script_index_0_lang.BpJaGz7G.js",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "_astro/common.D85DZVxE.css",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/css; charset=utf-8"
+      },
+      {
+        "path": "_astro/ec.0vx5m.js",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "_astro/ec.w36nc.css",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/css; charset=utf-8"
+      },
+      {
+        "path": "_astro/logo-dark.T73qfxNA.svg",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "image/svg+xml"
+      },
+      {
+        "path": "_astro/logo.l86Ya4H1.svg",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "image/svg+xml"
+      },
+      {
+        "path": "_astro/page.cNngjUgL.js",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "_astro/print.ehPL0gv-.css",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/css; charset=utf-8"
+      },
+      {
+        "path": "_astro/starlight-toc.D4UDIxQL.js",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "_astro/ui-core.B94qsovR.js",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "path": "creators/community/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "creators/content/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "creators/income-scenarios/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "creators/memberships/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "creators/payout-setup/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "creators/payouts/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "creators/reports/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "creators/settings/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "creators/start/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "downloads/crefans-service-introduction.pdf",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "application/pdf"
+      },
+      {
+        "path": "fans/beans/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "fans/discover/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "fans/membership/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "fans/messages-notifications/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "fans/payment-methods/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "fans/posts/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "fans/profile-settings/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "fans/wallet-history/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "help/contact/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "help/policies/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "help/troubleshooting/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "images/brochure-cover.png",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "image/png"
+      },
+      {
+        "path": "images/events/naverpay-10000-v1.jpg",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "image/jpeg"
+      },
+      {
+        "path": "images/product/membership-card.png",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "image/png"
+      },
+      {
+        "path": "images/product/tip-dialog.png",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "image/png"
+      },
+      {
+        "path": "index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "resources/service-introduction/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "start/about/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "start/account/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "start/event/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "start/navigation/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      },
+      {
+        "path": "start/preview/index.html",
+        "status": 200,
+        "sha256Matches": true,
+        "contentType": "text/html; charset=utf-8"
+      }
+    ],
+    "services": [
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/landing",
+        "status": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200
+      },
+      {
+        "url": "https://business.crefans.com/card?who=khpark",
+        "status": 200
+      }
+    ],
+    "containersUnchanged": true,
+    "containerCount": 6,
+    "caddyUnchangedAndMatchesRepo": true,
+    "exitCode": 0
+  },
+  "runtimeAfter": {
+    "crefans-beta-frontend-1": {
+      "id": "18ac2b461f5c8c6c3c6d444dc8992b06a19a6de6dfcba93984bc474a107acd58",
+      "image": "sha256:a7e426c7e7100e9a90fa7fdee6067d7a277dbec1946d2b2d889e064fb9a3e038",
+      "running": true,
+      "restarts": 0,
+      "oom": false
+    },
+    "crefans-beta-api-1": {
+      "id": "4fb96794492702055c78486d253b4998983aee036c6303bc1c2c32f0c0a7e256",
+      "image": "sha256:87d27e1724f37b6375b0027ace3d0d6c967efa3f16815527d162bd45cd68b378",
+      "running": true,
+      "restarts": 0,
+      "oom": false
+    },
+    "crefans-beta-worker-1": {
+      "id": "59f9ccd2253871ecf61dea149c83f3baa9b25578636653103f00194a4104e0a6",
+      "image": "sha256:87d27e1724f37b6375b0027ace3d0d6c967efa3f16815527d162bd45cd68b378",
+      "running": true,
+      "restarts": 0,
+      "oom": false
+    },
+    "crefans-beta-admin-1": {
+      "id": "c306f762e1ef379014165781df1c6a7594118a44251aa41f7ff1abcc17af7f9c",
+      "image": "sha256:5d0bd4346413a5e1827d2f87dadbada38d5237fd766a8a9b69a8eaf0af334cd6",
+      "running": true,
+      "restarts": 0,
+      "oom": false
+    },
+    "crefans-beta-database-1": {
+      "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+      "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+      "running": true,
+      "restarts": 0,
+      "oom": false
+    },
+    "crefans-beta-proxy-1": {
+      "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+      "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+      "running": true,
+      "restarts": 0,
+      "oom": false
+    }
+  },
+  "retention": {
+    "local": {
+      "at": "2026-10-28T16:28:33.244440+00:00",
+      "apply": true,
+      "keepPerRepository": 3,
+      "freeBytesBefore": 39655976960,
+      "kept": [
+        {
+          "tag": "crefans-front:npay-reward-20261029",
+          "id": "sha256:27030763b4e61cb90bbdadcc84a94b21a6ef0038f92e27183143d90753880e25",
+          "created": "2026-10-28T16:21:15.462798211Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:studio-input-console-20261029",
+          "id": "sha256:d9da085c512efc84cb74c15c87993decbace2d569a5cdfb2c485d8364486098b",
+          "created": "2026-10-28T15:10:53.759421005Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:faq-payout-20261028",
+          "id": "sha256:332b05e3962db0ac8f3de121ac2977bc49b1b01f193fc7138e14de25430d8a42",
+          "created": "2026-10-28T08:45:57.89448767Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:studio-input-console-20261029",
+          "id": "sha256:b3c029d62653eaed67d899f9830375db70694341f6f022e4f349aeab3c97ec6c",
+          "created": "2026-10-28T15:07:48.146970086Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:admin-accounts-20261028",
+          "id": "sha256:7dbd52a7b326ae68d3f27074820955a9a854f4f57cc1e57c2cf0fd4f4f269ddd",
+          "created": "2026-10-28T08:15:36.603039544Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:operators-20261028",
+          "id": "sha256:7c4bd66da5eb51e30ef32f0780fae71609dba8d94f81005e1e3d718a0a97b91f",
+          "created": "2026-10-28T07:09:49.467621669Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:studio-input-console-20261029",
+          "id": "sha256:2d2e458ed61f2a2528d74692967e4fe215322e8eda791355fdf6da206a93ca86",
+          "created": "2026-10-28T15:09:21.475519838Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:admin-accounts-20261028",
+          "id": "sha256:f191f7ae7f172ababaf09990dfd9337c57ed1820814f41a1fd1262745e0e2c74",
+          "created": "2026-10-28T08:16:42.308814797Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:operators-20261028",
+          "id": "sha256:87a6cdbcd7893eb6e00f418423e4c6c15022beb36775dcf40c5bc0555a9388d9",
+          "created": "2026-10-28T07:10:55.361959255Z",
+          "reason": "newest"
+        }
+      ],
+      "planned": [
+        {
+          "tag": "crefans-front:bean-notes-20261028",
+          "id": "sha256:a84763b39bc097f3a0d8ce04d652c58ad473f4fd88b8bd925179c9b19700f047",
+          "created": "2026-10-28T08:26:56.960671212Z"
+        }
+      ],
+      "removed": [
+        {
+          "tag": "crefans-front:bean-notes-20261028",
+          "usedIdFallback": false
+        }
+      ],
+      "errors": [],
+      "freeBytesAfter": 39655944192
+    },
+    "remote": {
+      "at": "2026-10-28T16:28:36.022082+00:00",
+      "apply": true,
+      "keepPerRepository": 3,
+      "freeBytesBefore": 35829657600,
+      "kept": [
+        {
+          "tag": "crefans-front:npay-reward-20261029",
+          "id": "sha256:a7e426c7e7100e9a90fa7fdee6067d7a277dbec1946d2b2d889e064fb9a3e038",
+          "created": "2026-10-28T16:21:15.462798211Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-front:studio-input-console-20261029",
+          "id": "sha256:8a7d29dd45067fb0ae0ae66cf5ccbe53965718fda3328d55bb224bfe3e73d748",
+          "created": "2026-10-28T15:10:53.759421005Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-front:faq-payout-20261028",
+          "id": "sha256:f3bb39bfd30ee81afe19682da1613a656fc0e31120d21fcb19b7ad4e3c7d61d4",
+          "created": "2026-10-28T08:45:57.89448767Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:studio-input-console-20261029",
+          "id": "sha256:87d27e1724f37b6375b0027ace3d0d6c967efa3f16815527d162bd45cd68b378",
+          "created": "2026-10-28T15:07:48.146970086Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-api:admin-accounts-20261028",
+          "id": "sha256:5821d63ab0731df477117483ff2f4844a0fee0e7f16ea415a89a18e849feb491",
+          "created": "2026-10-28T08:15:36.603039544Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-api:operators-20261028",
+          "id": "sha256:4ede802de2d89a9ff18a2d934f09beab51cbbc67ddc85a3e1e0898bb374c40d4",
+          "created": "2026-10-28T07:09:49.467621669Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:studio-input-console-20261029",
+          "id": "sha256:5d0bd4346413a5e1827d2f87dadbada38d5237fd766a8a9b69a8eaf0af334cd6",
+          "created": "2026-10-28T15:09:21.475519838Z",
+          "reason": "in-use"
+        },
+        {
+          "tag": "crefans-admin:admin-accounts-20261028",
+          "id": "sha256:64597416113c85fbc1a9e190c38bd3570e9e24bf28d6ac2a762309644d71d0db",
+          "created": "2026-10-28T08:16:42.308814797Z",
+          "reason": "newest"
+        },
+        {
+          "tag": "crefans-admin:operators-20261028",
+          "id": "sha256:44e1516cb83b4a0398643b8ee16c9888c93e8262b8d52ded20642832adae0007",
+          "created": "2026-10-28T07:10:55.361959255Z",
+          "reason": "newest"
+        }
+      ],
+      "planned": [
+        {
+          "tag": "crefans-front:bean-notes-20261028",
+          "id": "sha256:0f01cd4013a1d83edb63f907dd82019c7510c86c9f0941962339a334a02f6eb6",
+          "created": "2026-10-28T08:26:56.960671212Z"
+        }
+      ],
+      "removed": [
+        {
+          "tag": "crefans-front:bean-notes-20261028",
+          "usedIdFallback": false
+        }
+      ],
+      "errors": [],
+      "freeBytesAfter": 36705460224
+    }
+  },
+  "dockerDesktop": "stopped after deployment and cleanup",
+  "limits": [
+    "No gift card purchase/issuance, payment or business DB writes",
+    "No separate image-use license obtained; published seller packshot used unchanged for reward identification, not a payment partnership claim",
+    "Existing historical documents/private snapshots are preserved",
+    "Local API3001 was not running: local service route could not complete; production service route passed with actual API",
+    "Initial PDF page9 overflow fixed before successful regeneration; failed PDF build did not deploy",
+    "crefans.com and www.crefans.com DNS did not resolve; verified active domains beta/guide/admin/business",
+    "Physical devices and printed output not tested; Chromium/WebKit responsive browser checks used"
+  ],
+  "documentationVerification": {
+    "observedAt": "2026-10-28T16:32:52.053625+00:00",
+    "command": "npm run docs:record && npm run check:docs",
+    "exitCode": 0,
+    "documents": 60,
+    "routes": 137,
+    "localMarkdownTargets": 393,
+    "level": "snapshot-only-not-test-proof"
+  }
+}

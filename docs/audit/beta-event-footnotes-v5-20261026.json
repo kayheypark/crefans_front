@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-26T10:39:55.330653+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "uncommitted": true,
+  "asset": "design/beta-event-concepts/20261026/03-editorial-footnotes-v5.png",
+  "sha256": "f7693c36bc679fd95cc21db7371471975d2297d1f0c73f7a5f65001c18136d85",
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "sourceCopyIdentical": true,
+  "reference": "design/beta-event-concepts/20261026/03-editorial-baemin-v4.png",
+  "metadata": "design/beta-event-concepts/20261026/03-editorial-footnotes-v5.generation.json",
+  "manualImageReview": {
+    "allBenefitFootnotesRightAlignedLowerRightOfEachSection": true,
+    "smallerAndLighterThanReference": true,
+    "allFootnoteSentencesPreserved": true,
+    "literalAsterisksPreserved": true,
+    "creatorRewardBaemin10000": true,
+    "topTitleAndSubtitlePreserved": true,
+    "fourIllustrationsPreservedVisually": true,
+    "badgeHeadlineOneLine": true,
+    "feedback5000Unchanged": true
+  },
+  "pixelIdenticalPreservationClaimed": false,
+  "productionImageUnchanged": true,
+  "applicationTestsRun": false,
+  "deployed": false,
+  "environment": "macOS-15.2-arm64-arm-64bit-Mach-O",
+  "documentationChecks": [
+    {
+      "command": "npm run docs:record",
+      "at": "2026-10-26T10:39:55.387760+00:00",
+      "exitCode": 0,
+      "output": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 52, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 275}\n"
+    },
+    {
+      "command": "npm run check:docs",
+      "at": "2026-10-26T10:39:56.445921+00:00",
+      "exitCode": 0,
+      "output": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-26T10:39:56.213364+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 52, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 275}\n"
+    }
+  ]
+}

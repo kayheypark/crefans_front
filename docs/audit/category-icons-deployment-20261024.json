@@ -1,0 +1,706 @@
+{
+  "at": "2026-10-24T13:29:05.307581+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "dirty": true,
+  "commitOrPush": false,
+  "scope": {
+    "at": "2026-10-24T13:21:12.751907+00:00",
+    "baselineFilesMatched": 507,
+    "changed": [
+      "components/ui/Primitives.tsx",
+      "components/ui/ui.module.css",
+      "components/crefans/SocialPages.tsx",
+      "components/crefans/CreatorPages.tsx",
+      "components/design-system/ServicePatternCatalog.tsx",
+      "components/crefans/creator.module.css",
+      "components/crefans/social.module.css"
+    ],
+    "added": [
+      "components/crefans/CategoryChip.tsx",
+      "public/brand/categories/all-round-flat-v1.png",
+      "public/brand/categories/art-round-flat-v1.png",
+      "public/brand/categories/beauty-round-flat-v1.png",
+      "public/brand/categories/cosplay-round-flat-v1.png",
+      "public/brand/categories/daily-round-flat-v1.png",
+      "public/brand/categories/fitness-round-flat-v1.png",
+      "public/brand/categories/gaming-round-flat-v1.png",
+      "public/brand/categories/lifestyle-round-flat-v1.png",
+      "public/brand/categories/music-round-flat-v1.png",
+      "public/brand/categories/travel-round-flat-v1.png"
+    ],
+    "change": "Round flat category icons on shared feed/explore/catalog; previously requested solid-red liked heart",
+    "preserved": "Other dirty changes; backend/worker/admin/database/proxy; SSH rules"
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "styleReference": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-11a6c2d4-398b-4f9a-93e9-2348c5e26397.png",
+    "prompts": [
+      {
+        "key": "all",
+        "label": "전체",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 전체 category icon: four equally sized rounded squares arranged as a compact 2 by 2 grid, alternating blue and violet.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      },
+      {
+        "key": "lifestyle",
+        "label": "라이프스타일",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 라이프스타일 category icon: a cozy simple small house, pink rounded roof and warm peach square body, a single white door.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      },
+      {
+        "key": "beauty",
+        "label": "뷰티",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 뷰티 category icon: one upright rose-pink lipstick in a lavender case, thick simple silhouette.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      },
+      {
+        "key": "cosplay",
+        "label": "코스프레",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 코스프레 category icon: one bold coral pink bow ribbon with two rounded loops and two tails, a tiny yellow four point sparkle at upper right.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      },
+      {
+        "key": "fitness",
+        "label": "피트니스",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 피트니스 category icon: one blue horizontal dumbbell with chunky rounded weights, centered symmetrically.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      },
+      {
+        "key": "music",
+        "label": "음악",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 음악 category icon: one bold violet beamed double musical note, simple rounded stems and two filled noteheads.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      },
+      {
+        "key": "travel",
+        "label": "여행",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 여행 category icon: one upright bright blue suitcase, rounded rectangular body, simple top handle and two tiny wheels, two light-blue vertical stripes.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      },
+      {
+        "key": "gaming",
+        "label": "게임",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 게임 category icon: one indigo game controller with rounded grips, one white plus control left and four small pale buttons right.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      },
+      {
+        "key": "art",
+        "label": "아트",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 아트 category icon: one lavender artist paint palette, rounded bean silhouette, three large pink blue yellow paint spots, simple circular thumb hole.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      },
+      {
+        "key": "daily",
+        "label": "일상",
+        "prompt": "Use case: logo-brand. Asset type: a single production UI category icon for the CREFANS category chip, displayed at 20x20 CSS pixels.\nReference image role: STYLE REFERENCE ONLY. Match ONLY the FIRST ROW labeled 01 라운드 플랫. Do not copy any other row, text, chips, board or background.\nPrimary request: create the 일상 category icon: one warm coral coffee mug with rounded body, simple handle on right and one small soft rising steam stroke.\nStyle: rounded flat filled geometric illustration, friendly clean shapes, crisp smooth contours, restrained 2-3 solid colors, no outline, no 3D, no drop shadow, no glossy shine, no gradients or texture. Strong silhouette legible at tiny size.\nComposition: ONE isolated icon centered in a square, main silhouette occupies about 84 percent of both canvas dimensions, consistent 8 percent transparent margin. Never a sheet or multiple options.\nBackground: genuinely transparent alpha. No white tile, no circle background, no lettering, no label, no watermark. The output is only this one icon."
+      }
+    ],
+    "assets": [
+      {
+        "key": "all",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-ea013328-e29e-4dbf-9944-4ec54fc51f80.png",
+        "path": "public/brand/categories/all-round-flat-v1.png",
+        "bytes": 451997,
+        "sha256": "3c8b92550b4d21cc10fd0fd2507c899acf92e6f2a6295a6d79369bbad6a7dfdc",
+        "size": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "key": "lifestyle",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-15639c14-be79-483c-b143-58aea9135281.png",
+        "path": "public/brand/categories/lifestyle-round-flat-v1.png",
+        "bytes": 580318,
+        "sha256": "3fe713aaf2cf96f6629db9c4a640eee4d875554e9d13d9f4e0fba916a8a7106f",
+        "size": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "key": "beauty",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-22c164f6-93e6-41bc-8cc4-0c952f0fb4e5.png",
+        "path": "public/brand/categories/beauty-round-flat-v1.png",
+        "bytes": 380686,
+        "sha256": "c37470b95d537fe3bc4b560eeff58d0e8fb887dc6b0b4c4584f397f676da8aed",
+        "size": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "key": "cosplay",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-f5e8b32f-f261-4529-aa61-4c058809c8af.png",
+        "path": "public/brand/categories/cosplay-round-flat-v1.png",
+        "bytes": 535971,
+        "sha256": "3613038326dd7c95e62f0d92da7cf2d48c21655fd51de23699877abd01a32144",
+        "size": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "key": "fitness",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-2eb01d8c-b5b7-421d-8266-ad700144860f.png",
+        "path": "public/brand/categories/fitness-round-flat-v1.png",
+        "bytes": 404300,
+        "sha256": "cbde48343907d00912fe2b40da775e65b6770cfb3098a6221cac0033468489b6",
+        "size": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "key": "music",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-e1711603-26fa-4fc4-9c07-c30896382e76.png",
+        "path": "public/brand/categories/music-round-flat-v1.png",
+        "bytes": 455261,
+        "sha256": "9904b4e20865b4a96b10b6dadaee648d0fff7962434124255e9933ace2141385",
+        "size": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "key": "travel",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-c63576f2-ad2c-4a7c-91a4-be47135b3aff.png",
+        "path": "public/brand/categories/travel-round-flat-v1.png",
+        "bytes": 466040,
+        "sha256": "7b03cee7aab8524021173919816c465240b53428e832715303d15a3c2bb77405",
+        "size": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "key": "gaming",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-194280f8-9290-4571-9264-9ac16a7ea2b2.png",
+        "path": "public/brand/categories/gaming-round-flat-v1.png",
+        "bytes": 606113,
+        "sha256": "d66c5cda4e968ccfa559b295ddf5c9dbccdfed255820e0c0da9588405877c1bc",
+        "size": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "key": "art",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-04d0f983-bbd4-4b61-a5c3-9efa6c0db1e4.png",
+        "path": "public/brand/categories/art-round-flat-v1.png",
+        "bytes": 657689,
+        "sha256": "08d15934bee1866e78ad7ca2afc8805ead7f62e7db371ee1a7dd9492909e04a5",
+        "size": [
+          1254,
+          1254
+        ]
+      },
+      {
+        "key": "daily",
+        "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-1f029b05-bb9c-40bb-95af-54aa5545ec46.png",
+        "path": "public/brand/categories/daily-round-flat-v1.png",
+        "bytes": 483869,
+        "sha256": "2ce3939e2c7db87f95abe7be531b618ae937ac93cf1711854f573cb4aa32744c",
+        "size": [
+          1254,
+          1254
+        ]
+      }
+    ],
+    "inspection": {
+      "at": "2026-10-24T13:20:25.472Z",
+      "results": [
+        {
+          "key": "all",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1162075,
+          "opaquePixels": 393229,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "lifestyle",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1010536,
+          "opaquePixels": 548623,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "beauty",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1229812,
+          "opaquePixels": 334545,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "cosplay",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1114238,
+          "opaquePixels": 439733,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "fitness",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1201565,
+          "opaquePixels": 356327,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "music",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1172035,
+          "opaquePixels": 386007,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "travel",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1125334,
+          "opaquePixels": 435180,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "gaming",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1014893,
+          "opaquePixels": 548150,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "art",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 987784,
+          "opaquePixels": 571660,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "key": "daily",
+          "width": 1254,
+          "height": 1254,
+          "alphaMin": 0,
+          "alphaMax": 255,
+          "clearPixels": 1149829,
+          "opaquePixels": 400992,
+          "corners": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "source": "Generated alpha-preserving originals; HTML preview at100px and20px; no pixel modifications"
+    },
+    "visualReview": "All10 inspected in HTML at100px and20px; rounded filled subjects, transparent margins, no labels/watermarks. Original bytes preserved. Slight tonal variation remains on some fills; no 3D or drop shadows.",
+    "preview": "/Users/ethan/repository/crefans_front/.local/category-icons-deploy-20261024/asset-preview.png"
+  },
+  "checks": {
+    "prepare": {
+      "command": [
+        "python3",
+        ".local/category-icons-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:21:10.392705+00:00",
+      "finishedAt": "2026-10-24T13:21:13.097646+00:00",
+      "exitCode": 0,
+      "logSha256": "95f9dee47d5ee0f71a01fbbc84b0b28344921f25280a52f9f8cf0eb38f0dc80d"
+    },
+    "unit-check": {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-creator.test.cjs",
+        "tests/crefans-social.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:18:59.820180+00:00",
+      "finishedAt": "2026-10-24T13:19:01.030585+00:00",
+      "exitCode": 0,
+      "logSha256": "b9fc93f5f0ebc5f9b9e2b2bbadf5ed5c9667bc580fb0c3fa905935829b9dbeb8"
+    },
+    "layer-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:18:59.820180+00:00",
+      "finishedAt": "2026-10-24T13:19:00.392204+00:00",
+      "exitCode": 0,
+      "logSha256": "4c2c050a41373b5b6030dd61b83d17c5ec56cb8a2974f90a878e6bd9c51aa31e"
+    },
+    "assets-check": {
+      "command": [
+        "node",
+        ".local/category-icons-deploy-20261024/assets-check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:20:23.996503+00:00",
+      "finishedAt": "2026-10-24T13:20:25.504604+00:00",
+      "exitCode": 0,
+      "logSha256": "d5c3841adb3e26672b06fa43a17907b388cbabc257994263d766530091196656"
+    },
+    "local-check": {
+      "command": [
+        "node",
+        ".local/category-icons-deploy-20261024/check.cjs",
+        "http://127.0.0.1:3010",
+        "local"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:25:48.323124+00:00",
+      "finishedAt": "2026-10-24T13:26:13.883518+00:00",
+      "exitCode": 0,
+      "logSha256": "85bf462cac56e70e5787959ca909da9b0e1a0e631be88731e4e97aa3dcb53c0e"
+    },
+    "image-build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/category-icons-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:category-icons-20261024",
+        ".local/category-icons-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:21:33.491277+00:00",
+      "finishedAt": "2026-10-24T13:23:10.806735+00:00",
+      "exitCode": 0,
+      "logSha256": "b861ccab78659495224961efb01396a6a24bfda077519b7680ac9e9a90907353"
+    },
+    "image-check": {
+      "command": [
+        "node",
+        ".local/category-icons-deploy-20261024/check.cjs",
+        "http://127.0.0.1:3125",
+        "image"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:25:49.593664+00:00",
+      "finishedAt": "2026-10-24T13:26:13.489958+00:00",
+      "exitCode": 0,
+      "logSha256": "85bf462cac56e70e5787959ca909da9b0e1a0e631be88731e4e97aa3dcb53c0e"
+    },
+    "archive": {
+      "command": [
+        "python3",
+        ".local/category-icons-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:23:50.638431+00:00",
+      "finishedAt": "2026-10-24T13:24:07.163137+00:00",
+      "exitCode": 0,
+      "logSha256": "b9ba87cad47887417d4e6587b796e04b1fbfedc7c7af7f7fc02cac265e2cfaba"
+    },
+    "release-run": {
+      "command": [
+        "python3",
+        ".local/category-icons-deploy-20261024/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:26:32.735052+00:00",
+      "finishedAt": "2026-10-24T13:27:02.051189+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    "production-check": {
+      "command": [
+        "node",
+        ".local/category-icons-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:28:20.103571+00:00",
+      "finishedAt": "2026-10-24T13:28:57.237744+00:00",
+      "exitCode": 0,
+      "logSha256": "85bf462cac56e70e5787959ca909da9b0e1a0e631be88731e4e97aa3dcb53c0e"
+    },
+    "production-runtime": {
+      "command": [
+        "python3",
+        ".local/category-icons-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:28:18.957709+00:00",
+      "finishedAt": "2026-10-24T13:28:22.223670+00:00",
+      "exitCode": 0,
+      "logSha256": "8ba92aa83e9dea4859f6fcfb823edcfee1e50a819cdee7b46dd31728cd7e8bbd"
+    }
+  },
+  "browserVerification": {
+    "casesPerEnvironment": {
+      "local": 19,
+      "image": 19,
+      "production": 19
+    },
+    "engines": [
+      "Chromium320",
+      "Chromium1280",
+      "WebKit390"
+    ],
+    "assertions": [
+      "10 category icons,20px size,6px gap,decorative image alt",
+      "shared preview/service feed and explore; category filter and reset",
+      "initial mobile16px inset; scroll viewport reaches both edges; no page horizontal overflow; mouse drag does not select",
+      "optimized image response each below10KB",
+      "catalog uses shared icons; unknown label has no unrelated icon",
+      "previously requested solid red like and outline unlike"
+    ],
+    "screenshotsVisuallyInspected": [
+      "asset-preview.png",
+      "local/mobile320-explore.png",
+      "image/desktop-explore.png",
+      "image/webkit390-explore.png",
+      "production/mobile320-explore.png",
+      "production/desktop-explore.png",
+      "production/webkit390-explore.png"
+    ],
+    "scope": "Service responses and like mutations intercepted; preview state only. No real member mutations or physical iPhone testing."
+  },
+  "deployment": {
+    "image": {
+      "at": "2026-10-24T13:24:07.156858+00:00",
+      "tag": "crefans-front:category-icons-20261024",
+      "id": "sha256:66cd2c3ba2d0596f2ac02b874cf257539f332fb67863650c1bc49544e161f73d",
+      "architecture": "amd64",
+      "runtimeFilesMatched": 518,
+      "archiveSha256": "174fa18f877bbed2e731aa30284d533d3515e2b54260797b4ed06b3790dd942e",
+      "archiveBytes": 519418937
+    },
+    "runtime": {
+      "at": "2026-10-24T13:28:18.999502+00:00",
+      "runtimeFilesMatched": 518,
+      "runtime": {
+        "crefans-beta-api-1": {
+          "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-frontend-1": {
+          "id": "e5fbc72be183f6abee59070cc4cd945ca2925945e5f7b981d1bb20de0aedd57f",
+          "image": "sha256:66cd2c3ba2d0596f2ac02b874cf257539f332fb67863650c1bc49544e161f73d",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+          "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        }
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/preview/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200
+        }
+      ],
+      "freeDiskBytes": 2783879168
+    },
+    "steps": [
+      {
+        "step": "upload-directory",
+        "startedAt": "2026-10-24T13:26:32.758977+00:00",
+        "finishedAt": "2026-10-24T13:26:33.760779+00:00",
+        "exitCode": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T13:26:33.761149+00:00",
+        "finishedAt": "2026-10-24T13:26:42.494986+00:00",
+        "exitCode": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T13:26:42.495682+00:00",
+        "finishedAt": "2026-10-24T13:26:54.829059+00:00",
+        "exitCode": 0,
+        "logSha256": "dc1217ba2c75455656540c43f327d0fb9082f3f09a0783a3abc2a37e5f5a7c74"
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T13:26:54.829991+00:00",
+        "finishedAt": "2026-10-24T13:27:02.043542+00:00",
+        "exitCode": 0,
+        "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+      }
+    ],
+    "rollback": "/opt/crefans-backup-category-icons-20261024",
+    "ssh": "Previously authorized persistent home rule unchanged",
+    "cleanup": "Temporary local QA container removed; no server image pruning or volume changes"
+  },
+  "selectedSourceSha256": {
+    "components/ui/Primitives.tsx": "35b82f5d3bfa10d212a58edf2ada1958b90b111e93232314dadab8d74d0043a9",
+    "components/ui/ui.module.css": "d79a996208fd2b11d57cac63d9bd46f48dd33967365ccf55bb576ee43caa9c36",
+    "components/crefans/SocialPages.tsx": "00bcc3f8987a14200f485ee6e3e1c1cf08d4b45b52883c0a8c488e68ce91459d",
+    "components/crefans/CreatorPages.tsx": "ed675056323d077f6d5b9cdc5e961d4556613b3eca5b1cb99e7cf757c3577e48",
+    "components/design-system/ServicePatternCatalog.tsx": "51f4ce60a209f3ddaee24259ed8a21418bac9d9d6b5ebabfd51395b815703e15",
+    "components/crefans/creator.module.css": "56c35aa33beb69d3f6c93b6cfe9ae82dd0277c951a5a9fcab833f9cbaab9f7a9",
+    "components/crefans/social.module.css": "cedbbcdc247642a74791941425910dec014d19c9f68dd05a06fe10147c55f8d2",
+    "components/crefans/CategoryChip.tsx": "fdfc4f3ba62260c7f072c125125bc8ae97648013f59f27e2a7d34aa1907cf9e7",
+    "public/brand/categories/all-round-flat-v1.png": "3c8b92550b4d21cc10fd0fd2507c899acf92e6f2a6295a6d79369bbad6a7dfdc",
+    "public/brand/categories/art-round-flat-v1.png": "08d15934bee1866e78ad7ca2afc8805ead7f62e7db371ee1a7dd9492909e04a5",
+    "public/brand/categories/beauty-round-flat-v1.png": "c37470b95d537fe3bc4b560eeff58d0e8fb887dc6b0b4c4584f397f676da8aed",
+    "public/brand/categories/cosplay-round-flat-v1.png": "3613038326dd7c95e62f0d92da7cf2d48c21655fd51de23699877abd01a32144",
+    "public/brand/categories/daily-round-flat-v1.png": "2ce3939e2c7db87f95abe7be531b618ae937ac93cf1711854f573cb4aa32744c",
+    "public/brand/categories/fitness-round-flat-v1.png": "cbde48343907d00912fe2b40da775e65b6770cfb3098a6221cac0033468489b6",
+    "public/brand/categories/gaming-round-flat-v1.png": "d66c5cda4e968ccfa559b295ddf5c9dbccdfed255820e0c0da9588405877c1bc",
+    "public/brand/categories/lifestyle-round-flat-v1.png": "3fe713aaf2cf96f6629db9c4a640eee4d875554e9d13d9f4e0fba916a8a7106f",
+    "public/brand/categories/music-round-flat-v1.png": "9904b4e20865b4a96b10b6dadaee648d0fff7962434124255e9933ace2141385",
+    "public/brand/categories/travel-round-flat-v1.png": "7b03cee7aab8524021173919816c465240b53428e832715303d15a3c2bb77405"
+  },
+  "releaseManifestSha256": "18ae4c93005b8dc5d0dda286e49b1dc8fca2052ce626f52d0352dd3bc5121e17",
+  "firstFailuresAndCorrections": [
+    {
+      "failure": "Mobile explore category row began16px too far inward because its margin shorthand overwrote common horizontal margins.",
+      "correction": "Use margin-block only. Retest mobile initial16px chip inset and edge-to-edge scroll viewport.",
+      "evidence": "local-initial/browser-results.json"
+    },
+    {
+      "failure": "Initial release preparation expected an unrelated local-only catalog anchor absent in production.",
+      "correction": "Use existing production search-section anchor; no unrelated catalog changes included.",
+      "evidence": "prepare.log-initial"
+    },
+    {
+      "failure": "Test assumed every PC row could scroll more than80px; wide explore had33px overflow.",
+      "correction": "Bound scroll expectations to measured overflow. Product unchanged.",
+      "evidence": "local-scroll-assumption/browser-results.json"
+    },
+    {
+      "failure": "Service feed filter refresh replaced/moved the row during synthetic dragging. Network idle alone did not guarantee final displayed state.",
+      "correction": "Wait for final fixture post to be visible before measuring and dragging; all19 checks passed on local/image/production. Product unchanged.",
+      "evidence": [
+        "local-navigation-race/browser-results.json",
+        "local-drag-position/browser-results.json",
+        "local-detached/browser-results.json",
+        "image-drag-position/browser-results.json"
+      ]
+    }
+  ],
+  "limitations": [
+    "No live member data writes",
+    "Browser emulation rather than physical iPhone",
+    "No backend/API/financial behavior changes"
+  ],
+  "rawArtifacts": "/Users/ethan/repository/crefans_front/.local/category-icons-deploy-20261024"
+}

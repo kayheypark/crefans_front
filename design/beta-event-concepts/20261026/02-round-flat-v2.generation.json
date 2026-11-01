@@ -1,0 +1,19 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "edit",
+  "createdAt": "2026-10-26",
+  "input": "design/beta-event-concepts/20261026/02-round-flat.png",
+  "output": "design/beta-event-concepts/20261026/02-round-flat-v2.png",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-2e1f5035-dbaf-4271-bf57-6aad9e0b8dcf.png",
+  "prompt": "Edit the supplied Korean crefans event poster. Preserve its portrait 1024x1536 proportions, white background, round flat 2D illustration style, navy Korean sans-serif typography, lavender/pink/mint/light-blue rounded reward panels, and cute badge/gift/bean/voucher visual language. This is a TYPOGRAPHY AND COPY REVISION of this selected flat concept, not a new style. Keep exactly four reward panels and all benefit amounts and eligibility unchanged. No 3D renders.\nCritical user requirement: In the FIRST panel, replace the old large \"한정 배지\" plus separate \"크레팬스 베타 1기\" lines with ONE single large headline reading EXACTLY \"원년멤버 한정판 뱃지\". It MUST fit ON ONE LINE with no wrapping. Give this headline the full width of the panel, and move/shrink the badge illustration below/right if needed. Do not print any other large headline in that panel.\nALL secondary text everywhere must start with a literal asterisk \"*\" and be a complete natural Korean sentence. No fragment labels or count pills. Remove all old pill labels and replace with the appropriate asterisk sentences. Main benefit titles and the brand do not use asterisk. Use smaller regular-weight muted slate text for these explanatory sentences, clearly secondary to the main titles.\n\nThe COMPLETE text content is as follows; do not retain any old or add any other text:\nTop brand: \"crefans\"\nMain heading: \"크레팬스 베타 1기\"\nSmaller hero subheading: \"* 함께 만들어 주셔서 감사합니다.\"\n\nPanel 1, lavender:\nONE LARGE LINE: \"원년멤버 한정판 뱃지\"\nSecondary line: \"* 프로필 페이지에 노출됩니다.\"\nSecondary sentence: \"* 모든 참여자에게 드리며, 표시 여부는 직접 선택할 수 있습니다.\"\nKeep these small explanation sentences readable, wrapping naturally if required, while the main headline stays on one line.\n\nPanel 2, blush pink:\nLarge main title: \"1만원 상당 선물\"\nSecondary sentence: \"* 크리에이터 3명에게 드립니다.\"\nSecondary sentence: \"* 주목할 크리에이터로 30일 동안 노출됩니다.\"\nGift illustration aligned right without overlapping text.\n\nPanel 3, mint:\nLarge main title: \"프로모션 100콩\"\nSmall secondary sentence ONLY at the bottom RIGHT of this panel: \"* 팬 참여자 13명에게 지급합니다.\"\nDo not place the number 13 in a heading, badge, pill or large type. Retain only 3 simple cute green bean illustrations.\n\nPanel 4, pale blue:\nLarge main title: \"5천원 상품권\"\nSecondary sentence: \"* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다.\"\nCoupon illustration on right.\n\nBottom small footer: \"* 참여 기간과 혜택 지급 일정은 별도 안내합니다.\"\n\nMake the layout calmer with better spacing now the pills are removed. The asterisks must be visibly printed, not star emoji or decorative star icons. ALL explanatory copy, including hero subtitle and footer, must start with this literal asterisk. Keep Korean spelling exactly as supplied, particularly \"원년멤버 한정판 뱃지\". No em dashes, no dates, no button, no QR code, no new offers. Final finished event poster, no surrounding device or mockup.",
+  "review": {
+    "headlineExact": "원년멤버 한정판 뱃지",
+    "headlineSingleLine": true,
+    "profileExplanationExact": "* 프로필 페이지에 노출됩니다.",
+    "allSecondaryCopyBeginsWithLiteralAsterisk": true,
+    "allSecondaryCopyNaturalSentences": true,
+    "fan13BottomRight": true,
+    "benefitsPreserved": true
+  },
+  "state": "revised-concept-not-deployed"
+}

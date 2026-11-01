@@ -1,0 +1,37 @@
+{
+  "createdAt": "2026-10-25T06:21:39.889Z",
+  "mode": "built-in image_gen",
+  "type": "Single concept presentation board, not nine separate production assets",
+  "attempts": [
+    {
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-b2a95960-0e14-4c2e-ad05-4049d1dde4e4.png",
+      "prompt": "Use case: stylized-concept. Asset type: ONE concept presentation board for the CREFANS bean virtual-currency recharge illustrations, NOT final separate production icons. Create a polished airy 3-by-3 comparison sheet of nine coordinated cute 2D FLAT illustrations. Solid white background, ample white space, evenly sized motifs, consistent baseline, small clean dark charcoal quantity labels under each motif. Palette: fresh soft mint green, warm cream, tiny pale coral or butter yellow accents. Completely flat crisp solid color shapes, no gradients, absolutely no 3D, clay, gloss, photorealism, material textures, shadows or wrinkles. Simple rounded friendly silhouettes that would read clearly at 80px. The green bean is a smooth plump kidney-bean silhouette with at most one broad cream decorative mark, NOT a realistic seed with a slit, pore or crease. No faces. Essential constraint: NO dense clusters, NO piles, NO overflowing beans, NO scattered small bits, NO tiny repeated details. For large packages show a SINGLE CLOSED container with a simple bean emblem rather than visible contents. Top row left to right: one mint bean labeled '10콩'; two generously spaced mint beans labeled '30콩'; exactly three generously spaced mint beans in a simple loose triangular arrangement labeled '50콩'. Middle row: one closed little cream drawstring pouch with a mint bean emblem labeled '100콩'; one closed mint pouch with a broad simple cream ribbon labeled '300콩'; one closed cream pouch with a mint bean emblem and ONE tiny coral star decoration labeled '500콩'. Bottom row: one rounded square mint gift box with a broad cream ribbon and bean emblem labeled '1,000콩'; one rounded cream gift box with mint ribbon and a simple bow labeled '5,000콩'; one rounded mint gift box with a broad cream bow and just ONE small butter-yellow sparkle above it labeled '10,000콩'. The boxes are simple gifts, NOT detailed treasure chests. Containers should be minimal graphic silhouettes, flat front view, no seams, stitches, laces, bulging lumps or realistic folds. Keep every motif visually light, adorable, uncluttered and harmonious. No frames, UI controls, gradients, fake checkerboard, watermark or extra text. The ONLY text is the nine Korean quantity labels exactly specified."
+    },
+    {
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0b1db397-da17-4862-a554-1d3e3fce1ffd.png",
+      "prompt": "Use case: style-transfer. Edit target: attached nine-item bean concept sheet. Preserve the exact 3x3 layout, every Korean quantity label (10콩,30콩,50콩,100콩,300콩,500콩,1,000콩,5,000콩,10,000콩), object counts, mint/cream palette, large whitespace, and cute rounded silhouettes. Change ONLY the rendering style: make this STRICTLY FLAT 2D digital vector-style art with completely UNIFORM SOLID COLOR FILLS. Remove all subtle gradients, grain, paper texture, lighting, soft shadows, dimensional shading and highlights. There must be ZERO gradients and ZERO photorealistic material. Mint areas should be one perfectly even green, cream areas one perfectly even cream. Ribbons may use ONE additional flat color shape for separation, never soft shading. Pouches have smooth simple closed shapes, no seams or wrinkly texture. Keep the bean's cream accent as a clean flat graphic mark, not a realistic crease. Keep the large simple motifs and correct nine captions legible. Single white presentation sheet, no border or watermark, not a production sprite sheet.",
+      "editReference": "attempt1"
+    }
+  ],
+  "selected": "attempt2",
+  "appliedToUi": false,
+  "deployed": false,
+  "outputs": [
+    {
+      "path": "docs/design/bean-flat-sheet-v1-initial.png",
+      "width": 1312,
+      "height": 1199,
+      "mode": "RGB",
+      "sha256": "1a920e087bd53ba50f80ed9a4ca2266ef2588c43e8209b734d1ce6bcea76ec8e",
+      "sourceCopyMatches": true
+    },
+    {
+      "path": "docs/design/bean-flat-sheet-v1.png",
+      "width": 1312,
+      "height": 1199,
+      "mode": "RGB",
+      "sha256": "53cd1d32d3a37a31e771a08038bf5691662462048df08fb5e75ca2d598816e12",
+      "sourceCopyMatches": true
+    }
+  ]
+}

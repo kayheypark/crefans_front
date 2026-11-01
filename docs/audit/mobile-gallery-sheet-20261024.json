@@ -1,0 +1,358 @@
+{
+  "verifiedAt": "2026-10-23T23:41:06.907025+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "workingTreeDirty": true,
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "url": "http://127.0.0.1:3010",
+    "existingDevServerReused": true
+  },
+  "requirements": [
+    {
+      "requirement": "Mobile detail sheet has default, small-media and full-detail snap modes",
+      "result": "PASS",
+      "mediaHeightFractions": [
+        0.56,
+        0.22,
+        0
+      ]
+    },
+    {
+      "requirement": "Vertical panel drag follows pointer then snaps without click duplication",
+      "result": "PASS: unit + native pointer UI + Chromium CDP touch input"
+    },
+    {
+      "requirement": "Media horizontal swipe and comments scrolling remain independent",
+      "result": "PASS: Chromium touch E2E; WebKit pointer drag and focus-induced panel scrolling"
+    },
+    {
+      "requirement": "Desktop layout remains side by side; close remains accessible in full mobile mode",
+      "result": "PASS: browser E2E and 320/390/767/768/1280px DOM measurements"
+    }
+  ],
+  "executions": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "repository": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-23T23:39:37.925565+00:00",
+      "finishedAt": "2026-10-23T23:39:45.951085+00:00",
+      "exitCode": 0,
+      "logSha256": "b9f66bfc6e4b59632515c714037ffd06b033603cc6be2155626e345643d1d70f"
+    },
+    {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/mobile-gallery-sheet-20261024/playwright.config.ts"
+      ],
+      "repository": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-23T23:39:37.925728+00:00",
+      "finishedAt": "2026-10-23T23:39:47.732186+00:00",
+      "exitCode": 0,
+      "logSha256": "0e3534be0270a5bb5aa5c68c9000a4afdc0fe720240c01a5e4fe94413a2c2f77"
+    }
+  ],
+  "sourceHashes": {
+    "components/crefans/SocialPages.tsx": "313206c5a3a9ca7e31f09d611834dad6176c79698e9fdcc47f82dd3b51229b75",
+    "components/crefans/social.module.css": "3754f821cf3fbe5283a8199a91d14af9ed2d43c77a5c9b9a937c3010090b7d8d",
+    "components/design-system/ServicePatternCatalog.tsx": "7e90f6733953e7d0be5302475cda3a69b70385cf097f8125de5a2ee407bd4bb9",
+    "e2e/preview.spec.ts": "848a8f1f42739181f38c16194fe512fa6b3cb27000f9eb2aa63c80be0a82a56d",
+    "tests/crefans-social.test.cjs": "43480f4820de3d3ded27525ecf325bc82036237cff57e218007dec72c510be64"
+  },
+  "browser": {
+    "e2e": {
+      "passed": 3,
+      "failed": 0,
+      "projects": [
+        "desktop Chromium",
+        "mobile Chromium",
+        "mobile WebKit"
+      ]
+    },
+    "manual": {
+      "route": "/preview/creator/moka",
+      "dragModes": [
+        0,
+        1,
+        2,
+        0
+      ],
+      "tapAndKeyboard": true,
+      "close": true,
+      "consoleErrors": []
+    },
+    "breakpoints": [
+      {
+        "close": {
+          "bottom": 50,
+          "height": 40,
+          "left": 270,
+          "right": 310,
+          "top": 10,
+          "width": 40,
+          "x": 270,
+          "y": 10
+        },
+        "handleDisplay": "flex",
+        "horizontalOverflow": false,
+        "mode": "0",
+        "overlay": {
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 320,
+          "top": 0,
+          "width": 320,
+          "x": 0,
+          "y": 0
+        },
+        "panel": {
+          "bottom": 844,
+          "height": 371.3671875,
+          "left": 0,
+          "right": 320,
+          "top": 472.6328125,
+          "width": 320,
+          "x": 0,
+          "y": 472.6328125
+        },
+        "stage": {
+          "bottom": 472.6328125,
+          "height": 472.6328125,
+          "left": 0,
+          "right": 320,
+          "top": 0,
+          "width": 320,
+          "x": 0,
+          "y": 0
+        },
+        "width": 320
+      },
+      {
+        "close": {
+          "bottom": 50,
+          "height": 40,
+          "left": 340,
+          "right": 380,
+          "top": 10,
+          "width": 40,
+          "x": 340,
+          "y": 10
+        },
+        "handleDisplay": "flex",
+        "horizontalOverflow": false,
+        "mode": "0",
+        "overlay": {
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 390,
+          "top": 0,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "panel": {
+          "bottom": 844,
+          "height": 371.3671875,
+          "left": 0,
+          "right": 390,
+          "top": 472.6328125,
+          "width": 390,
+          "x": 0,
+          "y": 472.6328125
+        },
+        "stage": {
+          "bottom": 472.6328125,
+          "height": 472.6328125,
+          "left": 0,
+          "right": 390,
+          "top": 0,
+          "width": 390,
+          "x": 0,
+          "y": 0
+        },
+        "width": 390
+      },
+      {
+        "close": {
+          "bottom": 50,
+          "height": 40,
+          "left": 717,
+          "right": 757,
+          "top": 10,
+          "width": 40,
+          "x": 717,
+          "y": 10
+        },
+        "handleDisplay": "flex",
+        "horizontalOverflow": false,
+        "mode": "0",
+        "overlay": {
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 767,
+          "top": 0,
+          "width": 767,
+          "x": 0,
+          "y": 0
+        },
+        "panel": {
+          "bottom": 844,
+          "height": 371.3671875,
+          "left": 0,
+          "right": 767,
+          "top": 472.6328125,
+          "width": 767,
+          "x": 0,
+          "y": 472.6328125
+        },
+        "stage": {
+          "bottom": 472.6328125,
+          "height": 472.6328125,
+          "left": 0,
+          "right": 767,
+          "top": 0,
+          "width": 767,
+          "x": 0,
+          "y": 0
+        },
+        "width": 767
+      },
+      {
+        "close": {
+          "bottom": 54,
+          "height": 40,
+          "left": 372,
+          "right": 412,
+          "top": 14,
+          "width": 40,
+          "x": 372,
+          "y": 14
+        },
+        "handleDisplay": "none",
+        "horizontalOverflow": false,
+        "mode": "0",
+        "overlay": {
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 768,
+          "top": 0,
+          "width": 768,
+          "x": 0,
+          "y": 0
+        },
+        "panel": {
+          "bottom": 844,
+          "height": 844,
+          "left": 428,
+          "right": 768,
+          "top": 0,
+          "width": 340,
+          "x": 428,
+          "y": 0
+        },
+        "stage": {
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 428,
+          "top": 0,
+          "width": 428,
+          "x": 0,
+          "y": 0
+        },
+        "width": 768
+      },
+      {
+        "close": {
+          "bottom": 54,
+          "height": 40,
+          "left": 824,
+          "right": 864,
+          "top": 14,
+          "width": 40,
+          "x": 824,
+          "y": 14
+        },
+        "handleDisplay": "none",
+        "horizontalOverflow": false,
+        "mode": "0",
+        "overlay": {
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 1280,
+          "top": 0,
+          "width": 1280,
+          "x": 0,
+          "y": 0
+        },
+        "panel": {
+          "bottom": 844,
+          "height": 844,
+          "left": 880,
+          "right": 1280,
+          "top": 0,
+          "width": 400,
+          "x": 880,
+          "y": 0
+        },
+        "stage": {
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 880,
+          "top": 0,
+          "width": 880,
+          "x": 0,
+          "y": 0
+        },
+        "width": 1280
+      }
+    ],
+    "screenshots": {
+      "default.png": {
+        "path": ".local/mobile-gallery-sheet-20261024/default.png",
+        "sha256": "f2e87653cd8224337692bb9d044339fd67411b950de258fd366db46441ca971f"
+      },
+      "compact.png": {
+        "path": ".local/mobile-gallery-sheet-20261024/compact.png",
+        "sha256": "2b54c479896ce4f69188433cb0982402d19b867990bb82658c0096b9da0fb4e0"
+      },
+      "full.png": {
+        "path": ".local/mobile-gallery-sheet-20261024/full.png",
+        "sha256": "25403043a83041b2710062f4ca44fa86bc5c4af94630644c70d08c899032d4ad"
+      }
+    }
+  },
+  "research": [
+    {
+      "checkedAt": "2026-10-24",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action",
+      "application": "Custom vertical drag is restricted to the handle; browser scrolling remains on detail body."
+    },
+    {
+      "checkedAt": "2026-10-24",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Element/setPointerCapture",
+      "application": "Pointer capture preserves dragging outside the handle; cancellation restores the previous snap."
+    }
+  ],
+  "limits": [
+    "Not deployed or committed in this task",
+    "Mobile WebKit browser emulation is not physical iPhone Safari",
+    "No live-account/API/payment/provider tests; shared rendering and gestures only",
+    "Prior test harness failures (close-event mock, incorrect comment text locator, mobile WebKit wheel support) corrected before final checks; not product success evidence"
+  ]
+}

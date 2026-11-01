@@ -1,0 +1,27 @@
+{
+  "createdAt": "2026-10-25T08:40:06.836Z",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit. This is a single transparent CREFANS mint-bean soft3D icon showing exactly FIVE mint kidney-bean tokens threaded on ONE diagonal bamboo skewer. Preserve all FIVE beans, ONE stick, the broad cream inlaid marks, proportions, smooth satin soft3D finish, mint/cream colors and light. Add ONLY clean dark-charcoal typography reading exactly '×10' in the transparent negative space at lower-right, matching the simple bold multiplier used in previous30/100bean package icons. Reposition the whole unchanged five-bean stick slightly if needed so the multiplier is clearly separated, with clear transparent padding, no overlap or cropping. Do NOT add/remove beans: exactly FIVE physical beans plus text×10 means50. No other text, no50caption, no extra stick or loose beans, no background/panel/border, no realistic seed texture. Preserve genuine transparency. Output one isolated five-bean-skewer with×10.",
+  "reference": "public/brand/beans/soft3d-v3/100.png",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-4ba0e552-3720-4fbb-8bf3-028c9f662a05.png",
+  "destination": "public/brand/beans/soft3d-v4/50.png",
+  "humanDecision": "User confirmed5beans per skewer ×10 for50beans",
+  "count": 5,
+  "sticks": 1,
+  "multiplier": 10,
+  "appliedToUi": false,
+  "deployed": false,
+  "validation": {
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "982704b83c00262e1e52422e1e8a707ce58e015597b3b43af1cb1ecfde49e677",
+    "observedBeans": 5,
+    "observedMultiplier": 10,
+    "countMethod": "manual visual review"
+  }
+}

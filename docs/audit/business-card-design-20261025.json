@@ -1,0 +1,208 @@
+{
+  "at": "2026-10-25T09:00:28.468105+00:00",
+  "scope": "Two-sided CREFANS CEO business card design; design outputs only, no product/runtime/production changes.",
+  "repository": {
+    "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/bean-support",
+    "dirty": true
+  },
+  "dirtyEntries": 297,
+  "statusSha256": "413bef4726c6d4c61076ca1e4c4461b42c144ad6b9cc6296a1c24644eac61f0d",
+  "acceptanceCriteria": [
+    "Reuse exact existing normal/inverse SVG brand assets and site colors.",
+    "All user-provided name/title/company/telephone/email match DOM; phone separators only changed.",
+    "Two sides in each two-page PDF; exact90x50mm trim and96x56mm bleed MediaBox with90x50mm TrimBox.",
+    "PDF contact text after extraction whitespace normalization; vector glyph procedures self-contained.",
+    "All four rendered PDF pages manually reviewed for alignment, clipping, missing glyphs and contact accuracy."
+  ],
+  "design": {
+    "trimMm": [
+      90,
+      50
+    ],
+    "bleedMm": 3,
+    "safeMarginMm": 6,
+    "front": "white, exact existing SVG logo, name and contacts, narrow brand gradient edge",
+    "back": "existing ink #202333, exact inverse SVG wordmark and low opacity enlarged existing symbol",
+    "colors": [
+      "#202333",
+      "#687082",
+      "#f49bdc",
+      "#a47bf4",
+      "#87a8ff"
+    ],
+    "font": "Apple SD Gothic Neo / Arial",
+    "logoHandling": "Original repo-native SVG reused; no regenerated brand mark, no imagegen needed for exact typography and vector logo.",
+    "website": "crefans.com",
+    "websiteNote": "Brand domain included; not changed to temporary beta URL. Not a claim about apex redirect status."
+  },
+  "sourceHashes": {
+    "public/brand/crefans-logo.svg": "85a3a166adb3b66c00984d2ece3192228a1a3967adea3dce65ee55e33b601330",
+    "public/brand/crefans-logo-inverse.svg": "c0063b0f7468a9ae00a7ff7d6d73f5f2999dab98ed436c33c7f700e5d601f851"
+  },
+  "outputs": {
+    "output/design/crefans-business-card/front-preview.png": {
+      "bytes": 34914,
+      "sha256": "5b39102790345dc88c3d6c9c2297a2e4778722d5a419fb1907fbb18334ecc221"
+    },
+    "output/design/crefans-business-card/design-specification.json": {
+      "bytes": 1521,
+      "sha256": "6b1526014c3139288bbe3c4c2cff7a4b1199d397fce9abef851986901778c099"
+    },
+    "output/design/crefans-business-card/crefans-business-card-96x56mm-bleed.pdf": {
+      "bytes": 41605,
+      "sha256": "6c2d742623bb006091b9ac841c8065939f9929b10f914db5c4b4a3ed1f0d8d16"
+    },
+    "output/design/crefans-business-card/crefans-business-card-preview.png": {
+      "bytes": 105202,
+      "sha256": "0b3c49547c5e705a110f32c1406f468972bde834a6b5d78f9b2110073a3366a1"
+    },
+    "output/design/crefans-business-card/crefans-business-card-90x50mm.pdf": {
+      "bytes": 41492,
+      "sha256": "249e0eb933725fba53b1bfcbf09c7c54b75ffdeccfc2329021b4514bdee1aefb"
+    },
+    "output/design/crefans-business-card/back-preview.png": {
+      "bytes": 32109,
+      "sha256": "069cbcc2baa1d8acdc61b466612b8223977f48c3d5a8b02ee06ce01767cd3557"
+    },
+    "output/design/crefans-business-card/crefans-business-card.html": {
+      "bytes": 14582,
+      "sha256": "2be59dc490e16ac1c608ebeec542f8ee2b3fbab9f1ac37c3b508e1b82997872f"
+    }
+  },
+  "browser": {
+    "at": "2026-10-25T08:56:51.703Z",
+    "name": true,
+    "company": true,
+    "role": true,
+    "phoneExactDigits": true,
+    "email": true,
+    "originalLogosLoaded": true,
+    "errors": []
+  },
+  "pdf": {
+    "at": "2026-10-25T08:59:24.189279+00:00",
+    "checks": [
+      {
+        "file": "output/design/crefans-business-card/crefans-business-card-90x50mm.pdf",
+        "sha256": "249e0eb933725fba53b1bfcbf09c7c54b75ffdeccfc2329021b4514bdee1aefb",
+        "pages": [
+          {
+            "page": 1,
+            "mediaMm": [
+              90.0,
+              50.0
+            ],
+            "trimBoxPoints": [
+              0.0,
+              0.0,
+              255.11811023622047,
+              141.73228346456693
+            ],
+            "fontCount": 9,
+            "glyphsSelfContained": true,
+            "fontStorage": "Type3 embedded vector glyph procedures",
+            "textVerified": true
+          },
+          {
+            "page": 2,
+            "mediaMm": [
+              90.0,
+              50.0
+            ],
+            "trimBoxPoints": [
+              0.0,
+              0.0,
+              255.11811023622047,
+              141.73228346456693
+            ],
+            "fontCount": 1,
+            "glyphsSelfContained": true,
+            "fontStorage": "Type3 embedded vector glyph procedures",
+            "textVerified": true
+          }
+        ],
+        "bleedMm": 0,
+        "renderer": "pdftoppm 180dpi"
+      },
+      {
+        "file": "output/design/crefans-business-card/crefans-business-card-96x56mm-bleed.pdf",
+        "sha256": "6c2d742623bb006091b9ac841c8065939f9929b10f914db5c4b4a3ed1f0d8d16",
+        "pages": [
+          {
+            "page": 1,
+            "mediaMm": [
+              96.0,
+              56.0
+            ],
+            "trimBoxPoints": [
+              8.503937007874017,
+              8.503937007874017,
+              263.6220472440945,
+              150.23622047244095
+            ],
+            "fontCount": 9,
+            "glyphsSelfContained": true,
+            "fontStorage": "Type3 embedded vector glyph procedures",
+            "textVerified": true
+          },
+          {
+            "page": 2,
+            "mediaMm": [
+              96.0,
+              56.0
+            ],
+            "trimBoxPoints": [
+              8.503937007874017,
+              8.503937007874017,
+              263.6220472440945,
+              150.23622047244095
+            ],
+            "fontCount": 1,
+            "glyphsSelfContained": true,
+            "fontStorage": "Type3 embedded vector glyph procedures",
+            "textVerified": true
+          }
+        ],
+        "bleedMm": 3,
+        "renderer": "pdftoppm 180dpi"
+      }
+    ]
+  },
+  "visualReview": [
+    "Paired browser preview inspected",
+    "Latest trim PDF pages1/2 inspected",
+    "Latest bleed PDF pages1/2 inspected"
+  ],
+  "commands": [
+    {
+      "command": "python3 .local/business-card-20261025/create.py",
+      "exitCode": 0
+    },
+    {
+      "command": "node .local/business-card-20261025/render.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "bundled python3 .local/business-card-20261025/verify_pdf.py",
+      "exitCode": 0
+    },
+    {
+      "command": "pdftoppm -r 180 -png, both final PDFs",
+      "exitCode": 0
+    }
+  ],
+  "verificationAdjustments": [
+    "Initial extractor inserted whitespace in email despite correct DOM and appearance; compare normalized extraction and exact DOM separately.",
+    "Chrome exports self-contained Type3 outline glyph procedures instead of FontFile streams; verify CharProcs and absence of raster image invocation.",
+    "Chrome fractional CSS paper rounding normalized with exact page boxes; all final page sizes rechecked and re-rendered.",
+    "Failed intermediary verification assertions and one temporary script indentation error were corrected before final validation; no product changes."
+  ],
+  "limits": [
+    "RGB design proof; CMYK conversion / printing vendor press proof not performed.",
+    "Apex brand domain printed; live redirect behavior not part of this design check.",
+    "No unit/E2E product retest because application code is unchanged.",
+    "No deployment, external message, commit or push."
+  ],
+  "privacy": "User contact values are present only in requested design artifacts, omitted from audit text."
+}

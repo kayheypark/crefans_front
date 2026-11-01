@@ -20,7 +20,7 @@ function pages(){
     'next/navigation':{useRouter:()=>({push:path=>navigations.push(path)}),useSearchParams:()=>search},
     './creator.module.css':styles,'./choice.module.css':styles,'./social.module.css':styles,'./chip-row.module.css':styles,'./media-type-icon.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./optional-image.module.css':new Proxy({},{get:(_,key)=>String(key)}),
     './Icon':()=>h('svg'),
-    '@/components/ui/Primitives':{Dialog:({open,title,children})=>open?h('section',{role:'dialog','aria-label':title},children):null,Chip:({selected,children,onClick})=>h('button',{type:'button','aria-pressed':selected,onClick},children)},
+    '@/components/ui/Primitives':{Dialog:({open,title,children})=>open?h('section',{role:'dialog','aria-label':title},children):null,Chip:({selected,children,onClick})=>h('button',{type:'button','aria-pressed':selected,onClick},children),Badge:({children,tone,label})=>h('span',{'data-tone':tone,'aria-label':label},children)},
     './ServiceUI':{
       Action:({variant,children,...props})=>h('button',props,children),
       Avatar:({creator})=>h('img',{alt:creator?.name}),
@@ -33,7 +33,7 @@ function pages(){
 }
 
 function inputs(){
-  const creator={id:'artist-42',name:'다른 크리에이터',handle:'different',tags:['드로잉'],image:'/injected-portrait.png',position:'center',bio:'주입된 소개',followers:'37',promoted:true};
+  const creator={id:'artist-42',name:'다른 크리에이터',handle:'different',tags:['드로잉'],image:'/injected-portrait.png',cover:'/injected-cover.png',position:'center',bio:'주입된 소개',followers:'37',promoted:true};
   const plan={id:'independent-plan',name:'새로운 멤버십',price:27500,rank:2,benefits:['주입된 혜택']};
   return {
     basePath:'/catalogue',mode:'live',today:'2030-01-08',nextRenewAt:'2030-02-08',
@@ -53,7 +53,8 @@ test('creator exploration and profile render supplied identity and routes withou
   assert.match(text(tree),/다른 크리에이터/);
   assert.match(text(tree),/주입된 소개/);
   assert.match(text(tree),/드로잉/);
-  assert.ok(tree.root.findAllByType('img').length>=2,'portrait and avatar both render');assert.ok(tree.root.findAllByType('img').every(image=>image.props.src===undefined||image.props.src==='/injected-portrait.png'));
+  const portraits=tree.root.findAllByType('img').filter(image=>image.props['aria-hidden']!=='true');
+  assert.ok(portraits.length>=2,'card background and avatar both render');assert.ok(portraits.every(image=>image.props.src===undefined||['/injected-portrait.png','/injected-cover.png'].includes(image.props.src)));
   assert.ok(tree.root.findAllByType('a').every(link=>link.props.href==='/catalogue/creator/artist-42'));
   act(()=>button(tree,'팔로우').props.onClick());
   assert.deepEqual(followed,['artist-42']);
@@ -97,12 +98,17 @@ test('membership awaits the action result, blocks duplicate requests, and naviga
   act(()=>{tree=create(h(MembershipPage,{model,id:'artist-42'}));});
   act(()=>button(tree,'선택하고 계속').props.onClick());
   assert.match(text(tree),/2030.02.08/);
-  act(()=>tree.root.findByType('input').props.onChange({target:{checked:true}}));
+  const [confirmBox]=tree.root.findAllByType('input');
+  act(()=>confirmBox.props.onChange({target:{checked:true}}));
+  assert.match(text(tree),/닉네임, 프로필 식별명, 프로필 사진/);assert.match(text(tree),/동의하지 않으면 멤버십에 가입할 수 없습니다/);
+  assert.equal(button(tree,'확인하고 계속').props.disabled,true,'consent to share with the creator is required');
+  await act(async()=>{await button(tree,'확인하고 계속').props.onClick();});assert.deepEqual(calls,[]);
+  act(()=>tree.root.findAllByType('input')[1].props.onChange({target:{checked:true}}));
   act(()=>{request=button(tree,'확인하고 계속').props.onClick();});
   const pendingButton=button(tree,'확인 중…');
   assert.equal(pendingButton.props.disabled,true);
   assert.equal(pendingButton.props['aria-busy'],true);
-  assert.equal(tree.root.findByType('input').props.disabled,true);
+  assert.ok(tree.root.findAllByType('input').every(input=>input.props.disabled===true));
   act(()=>{pendingButton.props.onClick();});
   assert.deepEqual(calls,[['artist-42','independent-plan']]);
   assert.deepEqual(navigations,[]);
@@ -138,7 +144,7 @@ test('subscription cancellation failure preserves the view and supplied errors; 
   act(()=>tree.unmount());
 });
 
-test('profile lock labels use an explicit product ID while legacy tiers retain their rank wording',()=>{
+test('profile lock labels use creator membership names for both product and minimum-tier posts',()=>{
  const {CreatorProfilePage}=pages(),model=inputs();
  const legacy={...model.data.plans[0],id:'basic',name:'베이직',rank:1};
  const exact={...legacy,id:'custom',name:'드로잉 클래스',entitlementMode:'exact'};
@@ -151,9 +157,9 @@ test('profile lock labels use an explicit product ID while legacy tiers retain t
  const gather=node=>typeof node==='string'?node:node.children.map(gather).join('');const tileText=()=>gather(tile());
  assert.match(tileText(),/드로잉 클래스/);assert.doesNotMatch(tileText(),/베이직|클래스 이상/);
  act(()=>tree.update(h(CreatorProfilePage,{model:{...model,data:{...model.data,posts:[{...post,requiredPlanId:undefined}]}},id:'artist-42'})));
- assert.equal(tile().props['aria-label'],'수업 기록 · 레벨 1 이상 멤버에게 공개');assert.match(text(tree),/레벨 1 이상/);
+ assert.equal(tile().props['aria-label'],'수업 기록 · 베이직 이상 멤버에게 공개');assert.doesNotMatch(text(tree),/레벨 1 이상/);
  act(()=>tree.update(h(CreatorProfilePage,{model:{...model,data:{...model.data,posts:[{...post,requiredPlanId:'missing'}]}},id:'artist-42'})));
- assert.equal(tile().props['aria-label'],'수업 기록 · 지정 멤버십 전용 멤버에게 공개');assert.doesNotMatch(text(tree),/레벨 1 이상/);
+ assert.equal(tile().props['aria-label'],'수업 기록 · 멤버십 전용 멤버에게 공개');assert.doesNotMatch(text(tree),/레벨 1 이상/);
  act(()=>tree.unmount());
 });
 
@@ -202,7 +208,7 @@ test('creator profile lists the memberships on sale before the posts and presele
   assert.match(JSON.stringify(tree.toJSON()),/판매 중인 멤버십이 없어요/);
   const second={id:'second-plan',name:'두 번째 멤버십',price:5000,rank:1,benefits:['혜택']};
   let membership;act(()=>membership=create(h(MembershipPage,{model:{...model,data:{...model.data,plans:[model.data.plans[0],second]}},id:'artist-42',initialPlanId:'second-plan'})));
-  assert.match(JSON.stringify(membership.toJSON()),/"두 번째 멤버십"," · 월 "/);
+  const summary=membership.root.findAllByType('strong').find(node=>node.findAllByProps({title:'두 번째 멤버십'}).length);assert.ok(summary);assert.ok(summary.findAllByType('span').some(node=>node.children.includes('₩5,000')));
 });
 
 test('explore shows paid placements as cards and everyone else as one-line rows without follow buttons',()=>{
@@ -216,6 +222,7 @@ test('explore shows paid placements as cards and everyone else as one-line rows 
   assert.doesNotMatch(text(tree),/ROW_BIO_HIDDEN/,'rows stay minimal');
   assert.equal(tree.root.findAllByType('button').filter(node=>/^팔로우/.test(flatten(node.props.children))).length,1,'rows have no follow toggle');
   assert.match(text(tree),/주목할 크리에이터/);assert.match(text(tree),/모든 크리에이터/);
+  const ad=tree.root.findAllByProps({'aria-label':'광고'});assert.equal(ad.length,1);assert.equal(ad[0].props['data-tone'],'outline');assert.match(text(tree),/AD/);
   assert.ok(tree.root.findAllByType('a').some(link=>link.props.href==='/catalogue/creator/plain-1'));
   act(()=>tree.update(h(ExplorePage,{model:{...model,data:{...model.data,creators:[plain]}}})));
   assert.equal(tree.root.findAllByType('article').length,0);assert.doesNotMatch(text(tree),/주목할 크리에이터|모든 크리에이터/,'no headings when there are no cards above');
@@ -239,4 +246,24 @@ test('the 소개 tab shows only the long intro and SNS links: no title, no membe
 });
 test('payment detail has no refund entry even when the model exposes a refund action',()=>{
  const {SubscriptionsPage,search}=pages();search.set('tab','payments');const model=inputs();model.data.paymentHistory=[{creatorId:'artist-42',planId:'independent-plan',status:'active',renewAt:'2030-02-08',price:27500,orderId:'order-one',paidAt:'2030-01-08',paymentStatus:'paid'}];model.refundOrder=async()=>{throw Error('must not run');};let tree;act(()=>{tree=create(h(SubscriptionsPage,{model}));});act(()=>tree.root.findAllByType('button').find(node=>flatten(node.children).includes('상세 보기')).props.onClick());assert.equal(button(tree,'환불 요청'),undefined);assert.equal(button(tree,'전액 환불하기'),undefined);assert.ok(button(tree,'닫기'));act(()=>tree.unmount());
+});
+
+
+test('preview persona button delegates the injected action and never appears in live profiles',()=>{
+ const {CreatorProfilePage}=pages(),model=inputs(),calls=[];let tree;
+ const previewLogin={label:'모카로 로그인',onClick:()=>calls.push('moka')};
+ act(()=>{tree=create(h(CreatorProfilePage,{model:{...model,mode:'mock'},id:'artist-42',previewLogin}));});
+ assert.ok(button(tree,'모카로 로그인'));act(()=>button(tree,'모카로 로그인').props.onClick());assert.deepEqual(calls,['moka']);
+ act(()=>tree.update(h(CreatorProfilePage,{model,id:'artist-42',previewLogin})));assert.equal(button(tree,'모카로 로그인'),undefined);
+ act(()=>tree.update(h(CreatorProfilePage,{model:{...model,mode:'mock'},id:'artist-42'})));assert.equal(button(tree,'모카로 로그인'),undefined);
+ act(()=>tree.unmount());
+});
+
+test('a creator card without a profile background shows the light gray cover with the white logo (2026-11-01)',()=>{
+  const {CreatorCard}=loadTypeScript('components/crefans/CreatorCard.tsx',{'next/link':({href,children,...props})=>h('a',{href,...props},children),'./creator.module.css':styles,'./profile-photo.module.css':styles,'./ServiceUI':{Avatar:({creator})=>h('img',{alt:creator?.name})},'./FollowButton':{FollowButton:()=>h('button')},'./CreatorName':{CreatorName:({person})=>h('span',null,person.name)},'@/components/ui/MarqueeText':{MarqueeText:({text})=>h('span',null,text)}});
+  const base={id:'c1',name:'배경 없음',handle:'nocover',tags:[],image:'/avatar.png',position:'center',bio:'',followers:'0'};
+  let tree;act(()=>{tree=create(h(CreatorCard,{creator:base,href:'/c',following:false,onFollow:()=>{}}));});
+  assert.deepEqual(tree.root.findAllByType('img').filter(i=>i.props.src==='/brand/crefans-logo-inverse.svg').length,1,'white logo');
+  act(()=>{tree.update(h(CreatorCard,{creator:{...base,cover:'/cover.png'},href:'/c',following:false,onFollow:()=>{}}));});
+  assert.equal(tree.root.findAllByType('img').filter(i=>i.props.src==='/brand/crefans-logo-inverse.svg').length,0);assert.ok(tree.root.findAllByType('img').some(i=>i.props.src==='/cover.png'),'background shown');
 });

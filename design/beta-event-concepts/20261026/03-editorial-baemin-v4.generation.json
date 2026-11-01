@@ -1,0 +1,10 @@
+{
+  "tool": "image_gen.imagegen",
+  "prompt": "Make a single localized Korean text edit to the attached poster. In the SECOND reward section (the section with the purple folded crown illustration and the small sentence \"* 크리에이터 3명에게 드립니다.\"), change ONLY the large purple headline \"1만원 상당 선물\" to EXACTLY \"배민 1만원 상품권\". Keep it as one line, same bold rich-purple style, same right text column and alignment. Adjust the font size minimally only if necessary to fit.\n\nPreserve EVERYTHING ELSE: logo, title, subtitle, badge headline \"원년멤버 한정판 뱃지\", every other small asterisk sentence, 30-day exposure benefit, \"프로모션 100콩\", fan 13-person note, \"5천원 상품권\" in the fourth section, footer, star badge/crown/two beans/gift-card illustrations, all positions and sizes, whitespace, background shapes, thin rules, palette and proportions. Do NOT change the 5천원 feedback reward. Do NOT add any Baemin logo, brand graphic, endorsement or extra text. This is text replacement only, not a redesign. Keep the exact existing 1024x1536 composition.",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-d29ac6ea-d1c5-4589-8074-7a775ec3fc89.png",
+  "reference": "design/beta-event-concepts/20261026/03-editorial-text-v3.png",
+  "output": "design/beta-event-concepts/20261026/03-editorial-baemin-v4.png",
+  "status": "draft-not-deployed",
+  "edit": "크리에이터 혜택 1만원 상당 선물 → 배민 1만원 상품권",
+  "createdAt": "2026-10-26T10:38:07.673477+00:00"
+}

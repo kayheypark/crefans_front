@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-25T05:47:52.498711+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/bean-support",
+  "dirty": true,
+  "asset": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "40245868b6707fa77c88a9918940df84f8eba21736c37f8214756bf6cc7ebde0",
+    "bytes": 827524
+  },
+  "assetPath": "docs/design/bean-one-v1.png",
+  "generationRecord": "docs/design/bean-one-v1.generation.json",
+  "walletNotice": {
+    "at": "2026-10-25T05:45:48.978Z",
+    "origin": "http://127.0.0.1:3010",
+    "walletNoticeRemoved": true,
+    "globalPreviewBannerKept": true,
+    "summaryPreserved": true,
+    "deployed": false
+  },
+  "walletSourceSha256": "e6ec76d57b89593fd8986f0a314d4ffd2f731e9bd0312d370c8610bc80137429",
+  "deployed": false,
+  "limits": [
+    "Single draft not applied to UI or deployed.",
+    "Simple wallet notice removal checked locally, no new financial tests or deployment."
+  ],
+  "initialVerificationIssue": "System Python had no Pillow; inspected with bundled dependency Python, no installation or image alteration."
+}

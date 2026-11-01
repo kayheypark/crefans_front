@@ -9,3 +9,12 @@ test-results/
 playwright/.auth/
 .local/
 .DS_Store
+
+# Local generated files
+*.tsbuildinfo
+
+# Generated local previews and QA artifacts (retained on disk)
+/.next-*/
+/output/
+/*.png
+/prod.json

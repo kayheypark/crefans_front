@@ -1,0 +1,186 @@
+{
+  "at": "2026-10-26T07:27:26.226100+00:00",
+  "release": "follow-privacy-20261026",
+  "deployed": true,
+  "backup": "/opt/crefans-backup-follow-privacy-20261026",
+  "newMigrations": 0,
+  "tests": {
+    "front": 348,
+    "isolatedPrivacy": 4,
+    "openapi": 11
+  },
+  "browser": [
+    {
+      "width": 390,
+      "savedBothPrivate": true,
+      "independentToggle": true
+    },
+    {
+      "width": 1280,
+      "savedBothPrivate": true,
+      "independentToggle": true
+    }
+  ],
+  "locks": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "privateLock": true,
+      "noPrivateLinks": true,
+      "publicLinks": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "privateLock": true,
+      "noPrivateLinks": true,
+      "publicLinks": true
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "privateLock": true,
+      "noPrivateLinks": true,
+      "publicLinks": true
+    }
+  ],
+  "containers": {
+    "crefans-beta-frontend-1": {
+      "id": "adbf940f70d459c13ffd953c97d0c78f45d6fbd7c7ef43059694878ea2e377ae",
+      "image": "sha256:8608d4ac35ba63c5669f734351cbe359ce0e37b424e59f8e69e0e21d94ea4e01",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-worker-1": {
+      "id": "df8a85f9ee1b7e4e4a57f6f4c88b472efdd72dfc5485d23d115f314ba4876cd4",
+      "image": "sha256:832ae32485817063576e46a416ce176b79746c5b22475f956f0f60e4ec4c2eb4",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-api-1": {
+      "id": "b549fa6d932cc2f5dd5f3691c68bb13ed6fbaf0dd7d11967e5101d2d2dee1ca8",
+      "image": "sha256:832ae32485817063576e46a416ce176b79746c5b22475f956f0f60e4ec4c2eb4",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-admin-1": {
+      "id": "78b88fd041adf7851e55e8c122f5314a0ba52f66a30318dd7a6cc341ec626b70",
+      "image": "sha256:7b191b4298d3b6548dff2a96163f2ac1fd72a187f81d425e0b90d67e4a391649",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-proxy-1": {
+      "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+      "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    },
+    "crefans-beta-database-1": {
+      "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+      "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+      "running": true,
+      "oom": false,
+      "restarts": 0
+    }
+  },
+  "sourceHashes": {
+    "server": 201,
+    "front": 619
+  },
+  "http": [
+    {
+      "url": "https://beta.crefans.com/api/v1/health",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/api/v1/bootstrap",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/beans/charge",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/me",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/studio/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/preview/creator/moka",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/feed",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/beans",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/beans/charge",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/service/signup",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://admin.crefans.com/login",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "url": "https://beta.crefans.com/api/v1/beans/wallet",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "url": "https://admin.crefans.com/api/v1/admin/beans/overview",
+      "status": 401,
+      "expected": 401
+    }
+  ],
+  "worker": {
+    "startedAt": "2026-10-26T07:26:09.600487162Z",
+    "completedAt": "2026-10-26T07:26:11.683Z",
+    "failures": {}
+  },
+  "financialPolicyAndCountsPreserved": true,
+  "boundary": "Settings writes and access denial verified in isolated DB; production /preview interactions and runtime hashes checked. Real member preferences not modified.",
+  "repositories": {
+    "front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirty": true,
+      "manifestHash": "0d318511489949e0d966cd2909c8910b5f8dbad89d5072b84230553cd92bdeeb"
+    },
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirty": true,
+      "manifestHash": "656f1ceffa54dad69f2a666b4ceb5de6b82bb6c19b2a3c62d2c06ef9f35985f0"
+    }
+  }
+}

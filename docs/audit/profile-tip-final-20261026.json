@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-26T12:32:27.139393+09:00",
+  "image": "crefans-front:profile-tip-final-20261026",
+  "imageSourceFiles": 615,
+  "allRunning": true,
+  "otherContainersPreserved": true,
+  "backup": "/opt/crefans-backup-profile-tip-final-20261026",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "state": "uncommitted",
+  "cssSha256": "897888df9056ae76d44c854d6403eb49446fbc210b0570fca6c3dc90b8004444",
+  "checks": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 348
+  },
+  "browser": {
+    "command": "node /tmp/tip-final-production.cjs",
+    "exitCode": 0,
+    "fontSize": "16px",
+    "avatarAndVerifiedBadge": true,
+    "results": [
+      {
+        "width": 320,
+        "presets": 9,
+        "thirdRow": [
+          1000,
+          5000,
+          10000
+        ],
+        "imagesLoaded": true,
+        "selection": true,
+        "insufficientBalanceDisabled": true
+      },
+      {
+        "width": 390,
+        "presets": 9,
+        "thirdRow": [
+          1000,
+          5000,
+          10000
+        ],
+        "imagesLoaded": true,
+        "selection": true,
+        "insufficientBalanceDisabled": true
+      },
+      {
+        "width": 1280,
+        "presets": 9,
+        "thirdRow": [
+          1000,
+          5000,
+          10000
+        ],
+        "imagesLoaded": true,
+        "selection": true,
+        "insufficientBalanceDisabled": true
+      }
+    ]
+  }
+}

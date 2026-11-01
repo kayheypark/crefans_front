@@ -1,0 +1,10 @@
+.search{display:flex;align-items:center;gap:9px;min-width:0;min-height:46px;box-sizing:border-box;background:var(--cf-landing-soft);border:0;border-radius:24px;padding:11px 14px;color:var(--cf-color-textMuted);font-size:14px;line-height:1.6;text-decoration:none}
+.search[href]{color:var(--cf-color-textMuted)}
+.search>svg{flex:none}
+.search>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search input{appearance:none;min-width:0;width:100%;margin:0;padding:0;border:0;background:transparent;font:inherit;color:var(--cf-color-text);outline:none;box-shadow:none}
+.search input::placeholder{color:var(--cf-color-textMuted);opacity:1}
+.search:focus-within{outline:2px solid var(--cf-service-brand);outline-offset:2px}
+.search:focus-within input:focus-visible{outline:none;box-shadow:none}
+.search[data-disabled]{opacity:.5;cursor:not-allowed}
+.search input:disabled{cursor:not-allowed}

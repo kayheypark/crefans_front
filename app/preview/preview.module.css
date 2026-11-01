@@ -1,1 +1,7 @@
 .banner{box-sizing:border-box;width:100%;padding:4px 16px;text-align:center;background:var(--cf-color-accentSoft);color:var(--cf-color-textSecondary);border-bottom:1px solid var(--cf-color-border);font:11px/1.5 var(--cf-typography-fontFamily)}
+
+@media(max-width:767px){
+  .frame:has(>[data-mobile-shell]){height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+  .frame:has(>[data-mobile-shell])>.banner{flex:none}
+  .frame>[data-mobile-shell]{flex:1;height:auto;min-height:0}
+}

@@ -1,0 +1,130 @@
+{
+  "recordedAt": "2026-10-24T05:14:49.828247+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/beta-signup",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "pre-existing uncommitted changes preserved; new changes uncommitted; no deployment",
+  "scope": "Mobile single-line comment dock shared by preview and service, including gallery; desktop textarea preserved",
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "origin": "http://127.0.0.1:3010",
+    "browsers": "Playwright Chromium desktop/Pixel7 and WebKit iPhone13 emulation; viewport resizing 320/767/1280"
+  },
+  "acceptance": {
+    "mobile": "Single 44px text input and 44px submit button outside scrolling region; shell above GNB, gallery at panel bottom",
+    "drafts": "One active feed composer; per-post draft survives switching; failure keeps draft, success clears it",
+    "input": "Whitespace disabled; pending prevents extra requests; IME Enter does not submit",
+    "restriction": "No dock on locked or comments-disabled posts; readonly composer remains inline and inert",
+    "keyboard": "Simulated VisualViewport height450 keeps dock inside visible area; GNB restored after blur; gallery Tab stays inside modal",
+    "regression": "Desktop textarea; GNB layout, messages, gallery drag/snap/swipe/expand and profile viewer"
+  },
+  "checks": [
+    {
+      "start": "2026-10-24T05:10:20.285998+00:00",
+      "command": "npm run check",
+      "environment": "local existing workspace; no production requests",
+      "end": "2026-10-24T05:10:29.084086+00:00",
+      "exitCode": 0,
+      "summary": "layers + types + 298 node tests PASS",
+      "log": ".local/mobile-comment-composer-20261024/check-verified.log"
+    },
+    {
+      "command": "npx playwright test --config .local/mobile-comment-composer-20261024/playwright.config.ts",
+      "exitCode": 0,
+      "stats": {
+        "startTime": "2026-10-24T05:10:19.765Z",
+        "duration": 47871.868,
+        "expected": 21,
+        "skipped": 3,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "log": ".local/mobile-comment-composer-20261024/e2e-verified.log",
+      "report": ".local/mobile-comment-composer-20261024/.local/mobile-comment-composer-20261024/e2e-results-verified.json",
+      "apiBoundary": "/service model and router tested with intercepted API; no real server mutation"
+    },
+    {
+      "command": "node .local/mobile-comment-composer-20261024/catalog.cjs",
+      "exitCode": 0,
+      "report": ".local/mobile-comment-composer-20261024/catalog-result.json",
+      "summary": "390/1280 × normal, failure, pending, readonly states PASS"
+    },
+    {
+      "command": "npm run docs:record && npm run check:docs",
+      "exitCode": 0,
+      "summary": "60 documents; 99 routes; 41 screens; 60 models;16 migrations; snapshot/link/contract check only",
+      "log": ".local/mobile-comment-composer-20261024/docs-check.log"
+    }
+  ],
+  "visualReview": [
+    "initial.png: detail mobile dock above GNB",
+    "gallery-clean.png: modal dock and default media/panel alignment",
+    "catalog-1280.png: desktop textarea retained"
+  ],
+  "research": [
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport",
+      "checked": "2026-10-24",
+      "application": "Software keyboard may reduce only visual viewport; observe resize/scroll and height/offsetTop."
+    },
+    {
+      "url": "https://react.dev/reference/react-dom/createPortal",
+      "checked": "2026-10-24",
+      "application": "Keep comment state/context in original component, render mobile form in shell or gallery host; gallery host remains inside modal DOM."
+    },
+    {
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+      "checked": "2026-10-24",
+      "application": "Tab and Shift+Tab cycle within modal including the new mobile composer."
+    }
+  ],
+  "initialFailures": [
+    "One unit assertion inspected React provider rather than actual aside; selector corrected.",
+    "API error selector matched Next route announcer; scoped to error text.",
+    "Scroll position comparison sampled gallery entrance animation; await animation completion.",
+    "WebKit native Tab skipped submit button; MediaOverlay now explicitly cycles visible focusable controls.",
+    "Catalog screenshot wait initially matched unrelated persistent closing dialogs; changed to the select popup detachment and reran both viewport/state checks."
+  ],
+  "limitations": [
+    "Physical iPhone/software keyboard and assistive technology not tested.",
+    "Service tests use API stubs; no production comment creation or deployment.",
+    "No claim of full application/release validation."
+  ],
+  "files": {
+    "components/crefans/CommentComposer.tsx": "b089978627f4ad5ffd3ef4376521ca303d92ce43f5fc4d41e995d18e352ef1e4",
+    "components/crefans/ServiceShell.tsx": "345829b57fea0d12b63a971a9b80ec632a2716044a776ee982c8739537ba6fdc",
+    "components/crefans/SocialPages.tsx": "c1855a93c41636b2bdc6489daccb728029d37ba0b366e29da090cdac59efc541",
+    "components/crefans/MediaOverlay.tsx": "c3245bbdac06facb91982fd503857eae7d7189013ba27107e5ea3eeb49ecc90d",
+    "components/crefans/service.module.css": "91715ec14b570fe35e7abc0b02cef21ea6e3a18e3e32653c5c43407c23f60f94",
+    "components/crefans/social.module.css": "8740170ea478da4c29a28c3ac44dfb5bca12a5a96a25981b339b548389fd4c8c",
+    "components/design-system/ServicePatternCatalog.tsx": "4964cdd528a21cfd8905c84ef93df34325099bcf7d3690257b318a6e666ed5c4",
+    "tests/crefans-social.test.cjs": "9ac76ffb64a6dcf10a127c5bd04ae609dbe855b5f3ddb2187ef5c2b86082eda2",
+    "e2e/mobile-comments.spec.ts": "7de303af5e968246551863c1d5c16d8fbd02fc7da33d5250c49529db618a6d01",
+    "e2e/preview.spec.ts": "4df1afb5cc6134301d684d9aca5b4e26eead13ee6bcf5f7ad948f3af92c687e1",
+    "playwright.config.ts": "cd0784944dd9a37e11ef606af37c22b90d19cfb370846b439ea2ab404d296f99"
+  },
+  "beforeHashes": {
+    "components/crefans/ServiceShell.tsx": "d66aef51d4502c1fefda22149423613899bd563f589072abbafb29fb73932009",
+    "components/crefans/SocialPages.tsx": "1366449f0d4851c8917322fe22a57869810e41562000dde927bd1a2229ae08a7",
+    "components/crefans/service.module.css": "8d2efe75e62923bcc969218e9d1971dce1e97ddd44af7398c3f78e407050c754",
+    "components/crefans/social.module.css": "4e36fcf880c42d98b4200bc42cf81246f998cbc0dfb0ada44680cabf9f9cde14",
+    "docs/design-system.md": "c03b12069ec45f04206361feb727514bb6d3b1c8d3a054c013c313296e1e2242",
+    "PROGRESS.md": "e47962323261b7b1f0ca5b5272977f8020e52143fb74fcb2b9e77c5368611dde"
+  },
+  "artifactHashes": {
+    ".local/mobile-comment-composer-20261024/before.json": "8e142ac29daaf08ac352aa783da874b93645a2d8635c1b00ea3f3989fb2feb82",
+    ".local/mobile-comment-composer-20261024/check.log": "bb780f9ccd3262d709e872c2b88c0d504fc8df0c7347a2add39f191ccdbbcecf",
+    ".local/mobile-comment-composer-20261024/check-final.log": "5cca922669adc818b34b82ef14fcce868633fb052e9993b01912d1647c8d4647",
+    ".local/mobile-comment-composer-20261024/check-verified.log": "6491c305e64d9e34faccd276db03c9944606bf5809acf77ed299eaddf8ddf9fd",
+    ".local/mobile-comment-composer-20261024/check-result.json": "107e4e0a099985cc572d0076c7a6c33ce04dec44d6eb02cdd900597598c54273",
+    ".local/mobile-comment-composer-20261024/e2e.log": "286768ffe7d33df66c6a0b16cd12d190016985d2d3276ca64f3e93592a29ba77",
+    ".local/mobile-comment-composer-20261024/e2e-final.log": "db571970f1cb243300d4dcc8cfa58a47d009db5e56e50ca30fb0160847ecde29",
+    ".local/mobile-comment-composer-20261024/e2e-verified.log": "10a3994668a726c6255ed5e4885a792c60107439865061dd916b6546aacc4703",
+    ".local/mobile-comment-composer-20261024/catalog.log": "9397b0511862e9f88eff47050a3074c72e2859074c2819d11b7c1c870fb669e0",
+    ".local/mobile-comment-composer-20261024/catalog-result.json": "4c5f568c658c2acefa21584a44e89c9c92a9cab1520a2d64bf3ab0100095b221",
+    ".local/mobile-comment-composer-20261024/catalog-screenshot-wait-failed.log": "2ebf4f51bd76f034237b075620a595619aa473e31af591246b090f5ac62dc802",
+    ".local/mobile-comment-composer-20261024/docs-record.log": "47a548ecf22a7ecdbacd890df977125540d150cbd8951d1c619053a52f05ffc9",
+    ".local/mobile-comment-composer-20261024/docs-check.log": "7f77d3f9323c2ec52566befc512c5f7fd04efd18d7f2905361ee5e59a6b98fa7"
+  }
+}

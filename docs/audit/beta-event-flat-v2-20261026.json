@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-26T10:27:34.749302+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "uncommitted": true,
+  "asset": "design/beta-event-concepts/20261026/02-round-flat-v2.png",
+  "sha256": "5836afeaa449fbbf47fee93c23cfdbd24fc96651372fe89c37c0984d2c9b9f5a",
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "sourceCopyIdentical": true,
+  "metadata": "design/beta-event-concepts/20261026/02-round-flat-v2.generation.json",
+  "manualImageReview": {
+    "headlineExact": "원년멤버 한정판 뱃지",
+    "headlineSingleLine": true,
+    "profileExplanationExact": "* 프로필 페이지에 노출됩니다.",
+    "allSecondaryCopyBeginsWithLiteralAsterisk": true,
+    "allSecondaryCopyNaturalSentences": true,
+    "fan13BottomRight": true,
+    "benefitsPreserved": true
+  },
+  "productionImageUnchanged": true,
+  "applicationTestsRun": false,
+  "deployed": false
+}

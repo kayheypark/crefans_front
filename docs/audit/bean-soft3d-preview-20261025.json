@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-25T06:35:53.967866+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 288,
+  "statusSha256": "fb302fd083004c3d5f0e930d36fdbfd6d64de371b1f39a46e3c9a444317a40ef",
+  "metadata": "docs/design/bean-soft3d-sheet-v1.generation.json",
+  "output": {
+    "sha256": "405344e738291abd63536fb8c14feb93120cc53df59c215bac9d1d2c17cb553b",
+    "width": 1312,
+    "height": 1199,
+    "mode": "RGB",
+    "bytes": 1341678
+  },
+  "sourceCopyMatches": true,
+  "manualVisualReview": [
+    "All nine quantity captions correct",
+    "Top row contains1/2/3 separate beans",
+    "Each middle/bottom cell contains one closed pouch/giftbox",
+    "Mint/cream palette and flat-board composition preserved",
+    "Soft rounded volume and smooth shading; no dense piles, overflowing contents or fine texture"
+  ],
+  "limits": [
+    "Comparison board with white background; no separate transparent production icons",
+    "No UI or production deployment this turn",
+    "No product/unit/E2E/payment tests for this image-only concept",
+    "80px/112px integration not performed"
+  ]
+}

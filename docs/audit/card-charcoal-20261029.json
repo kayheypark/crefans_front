@@ -1,0 +1,194 @@
+{
+  "at": "2026-10-29T07:52:38.170693+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "workingTree": "pre-existing uncommitted work preserved; only four card runtime files deployed",
+  "release": "card-charcoal-20261029",
+  "changedFiles": {
+    "changes": {
+      "front": [
+        {
+          "file": "components/business-card/BusinessCard.tsx",
+          "before": "a543faea053c2988608ed7e4ca5b3ca7d81172577480f0e19d2ad89f6a7ce9fd",
+          "after": "140c4638ff1f5d6c95e5a75d15ab7a44225af3e82e5ba5eb246860aca6b1df7b"
+        },
+        {
+          "file": "components/business-card/business-card.module.css",
+          "before": "3da63f02bf469f56fc06dfac96fa458f2a672afca508d4ace77f9a471eeb921d",
+          "after": "7c49a9044b1378bbf52b2ab1c2d3374c66e06b65d4e59ca86fd5e5b31887c86e"
+        },
+        {
+          "file": "public/brand/business-cards/khpark-back.png",
+          "before": "517820a9a462d2543c9a77af9f5a73019eb4b418471dbc078f6f664c14657855",
+          "after": "fe5ea4c6b4b29caf431fb38fac3db5c2bc6cd8524b042c390a8744ef0f79cae5"
+        },
+        {
+          "file": "public/brand/business-cards/khpark-front.png",
+          "before": "7c71c237fe994cca09356e236e53ad3b2794eb12713a91db4fa7a8640dc8500e",
+          "after": "202c84dbfcb217844b94f28a5e2fc2f96b6d18cb235b5fc11c52f13e92ac34ac"
+        }
+      ]
+    }
+  },
+  "checks": {
+    "unit": "node --test tests/business-card.test.cjs: 11/11 PASS, exit 0",
+    "build": [
+      {
+        "label": "front",
+        "tag": "crefans-front:card-charcoal-20261029",
+        "startedAt": "2026-10-29T07:48:11.072762+00:00",
+        "finishedAt": "2026-10-29T07:49:48.158840+00:00",
+        "exitCode": 0,
+        "sourceManifestSha256": "dff1ad17919bbd81d6c2110bb6b819f78ad133c1d13477ab793b146ea384f136"
+      }
+    ],
+    "runtime": {
+      "at": "2026-10-29T07:51:15.207951+00:00",
+      "containers": {
+        "crefans-beta-frontend-1": {
+          "image": "sha256:b57211e1125d",
+          "restarts": 0,
+          "unchanged": false,
+          "health": null
+        },
+        "crefans-beta-api-1": {
+          "image": "sha256:ce5250bfef23",
+          "restarts": 0,
+          "unchanged": true,
+          "health": "healthy"
+        },
+        "crefans-beta-worker-1": {
+          "image": "sha256:ce5250bfef23",
+          "restarts": 0,
+          "unchanged": true,
+          "health": null
+        },
+        "crefans-beta-admin-1": {
+          "image": "sha256:34c9e79212c9",
+          "restarts": 0,
+          "unchanged": true,
+          "health": null
+        },
+        "crefans-beta-database-1": {
+          "image": "sha256:7dcddc01f13b",
+          "restarts": 0,
+          "unchanged": true,
+          "health": "healthy"
+        },
+        "crefans-beta-proxy-1": {
+          "image": "sha256:d8542f48d34a",
+          "restarts": 0,
+          "unchanged": true,
+          "health": null
+        }
+      },
+      "sourceMatches": {
+        "frontend": 681
+      },
+      "configSha256": [
+        "e0be6d52fd2825ff2fe6fc87531e2ab103d78e32154c43350c3665bb075d9123  /opt/crefans/compose.yml",
+        "5aa1a3d6e13fe4fc3ba89a1e2ab8a1321ce6eae4a6d1a7d18de85cef4afb523d  /opt/crefans/Caddyfile",
+        "5aa1a3d6e13fe4fc3ba89a1e2ab8a1321ce6eae4a6d1a7d18de85cef4afb523d  /etc/caddy/Caddyfile",
+        ""
+      ]
+    },
+    "browser": [
+      {
+        "engine": "chromium",
+        "width": 390,
+        "overflow": false,
+        "bg": "rgb(245, 245, 246)",
+        "images": [
+          {
+            "src": "/brand/business-cards/khpark-front.png?v=charcoal-20261029",
+            "alt": "크레팬스 박경호 대표, Gyeongho Park. 전화 010-3211-3164, 이메일 khpark@crefans.com, 웹사이트 crefans.com. 주소 08706 서울특별시 관악구 관천로24길 43, 301호.",
+            "loaded": true
+          },
+          {
+            "src": "/brand/business-cards/khpark-back.png?v=charcoal-20261029",
+            "alt": "크레팬스 명함 뒷면",
+            "loaded": true
+          }
+        ],
+        "autoNavigation": "https://beta.crefans.com/service/landing",
+        "pageErrors": []
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "overflow": false,
+        "bg": "rgb(245, 245, 246)",
+        "images": [
+          {
+            "src": "/brand/business-cards/khpark-front.png?v=charcoal-20261029",
+            "alt": "크레팬스 박경호 대표, Gyeongho Park. 전화 010-3211-3164, 이메일 khpark@crefans.com, 웹사이트 crefans.com. 주소 08706 서울특별시 관악구 관천로24길 43, 301호.",
+            "loaded": true
+          },
+          {
+            "src": "/brand/business-cards/khpark-back.png?v=charcoal-20261029",
+            "alt": "크레팬스 명함 뒷면",
+            "loaded": true
+          }
+        ],
+        "autoNavigation": "https://beta.crefans.com/service/landing",
+        "pageErrors": []
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "overflow": false,
+        "bg": "rgb(245, 245, 246)",
+        "images": [
+          {
+            "src": "/brand/business-cards/khpark-front.png?v=charcoal-20261029",
+            "alt": "크레팬스 박경호 대표, Gyeongho Park. 전화 010-3211-3164, 이메일 khpark@crefans.com, 웹사이트 crefans.com. 주소 08706 서울특별시 관악구 관천로24길 43, 301호.",
+            "loaded": true
+          },
+          {
+            "src": "/brand/business-cards/khpark-back.png?v=charcoal-20261029",
+            "alt": "크레팬스 명함 뒷면",
+            "loaded": true
+          }
+        ],
+        "autoNavigation": "https://beta.crefans.com/service/landing",
+        "pageErrors": []
+      },
+      {
+        "jsDisabledFrontVisible": true
+      },
+      {
+        "query": "",
+        "status": 404
+      },
+      {
+        "query": "?who=unknown",
+        "status": 404
+      },
+      {
+        "query": "?who=khpark&who=unknown",
+        "status": 404
+      }
+    ],
+    "assets": {
+      "khpark-front.png": "202c84dbfcb217844b94f28a5e2fc2f96b6d18cb235b5fc11c52f13e92ac34ac",
+      "khpark-back.png": "fe5ea4c6b4b29caf431fb38fac3db5c2bc6cd8524b042c390a8744ef0f79cae5"
+    }
+  },
+  "limits": [
+    "Local development JavaScript-disabled streaming showed Loading; production check passed.",
+    "Physical printed QR and physical iPhone not tested."
+  ],
+  "qr": {
+    "destination": "https://business.crefans.com/card?who=khpark",
+    "digitalWidths": [
+      1364,
+      1063,
+      708,
+      360
+    ],
+    "printPdfDpi": 300,
+    "decode": "PASS",
+    "location": "Documents/크레팬스/명함/09-애플고딕-QR버전"
+  },
+  "evidenceDirectory": ".local/card-charcoal-20261029/"
+}

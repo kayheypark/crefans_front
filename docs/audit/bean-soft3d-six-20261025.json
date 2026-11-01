@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-25T07:49:21.509748+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 289,
+  "statusSha256": "849f19498b64649e93e87a303a2fef5547ee0b51349ddb965c8c28275175a64f",
+  "output": {
+    "width": 1608,
+    "height": 978,
+    "mode": "RGB",
+    "sha256": "0a8883ffd68cdf009e21eef59b17bd2d863293a69b727094fa73436c3cc88d8a",
+    "bytes": 1395512
+  },
+  "promptMetadata": "docs/design/bean-soft3d-six-v1.generation.json",
+  "sourceCopyMatches": true,
+  "manualVisualReview": [
+    "Top row bean counts1/2/3 and corresponding captions correct",
+    "Bottom row tied Korean cloth bundle, closed cardboard parcel and closed wooden domed treasure chest",
+    "Six captions correct; no prices or package mapping invented",
+    "Soft3D style and mint/cream retained, warm wood added",
+    "No dense piles or overflowing contents"
+  ],
+  "limits": [
+    "Single white-background concept board, not six transparent production assets",
+    "No UI/deployment/financial operation or quantity-price policy changes",
+    "No product tests; image format/hash and visual inspection only"
+  ]
+}

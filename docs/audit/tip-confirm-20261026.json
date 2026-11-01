@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-26T13:46:49.285250+09:00",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "state": "uncommitted; not deployed",
+  "sha256": {
+    "components/crefans/BeanPages.tsx": "7e37656ff987fb1786ec13c8d73e30f222b76572d62ed754474ae52fb4c5893e",
+    "components/crefans/beans.module.css": "5922577659d74f44b54122a1ae10c9a17fdc5c47e7f9c9b04489b8a6a9a733c0"
+  },
+  "check": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 348
+  },
+  "browser": {
+    "command": "node /tmp/tip-confirm.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "engine": "chromium",
+        "width": 390,
+        "confirmBeforeSend": true,
+        "cancelPreservesInputAndBalance": true,
+        "confirmedSingleDebit": 30
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "confirmBeforeSend": true,
+        "cancelPreservesInputAndBalance": true,
+        "confirmedSingleDebit": 30
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "confirmBeforeSend": true,
+        "cancelPreservesInputAndBalance": true,
+        "confirmedSingleDebit": 30
+      }
+    ]
+  },
+  "scope": "mock only; no live transfer"
+}

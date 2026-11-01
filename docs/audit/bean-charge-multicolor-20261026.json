@@ -1,0 +1,133 @@
+{
+  "checkedAt": "2026-10-26T00:33:21.553814+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "dirty; prior work preserved",
+  "scope": "Wallet charge CTA four-color gradient; no plus icon; shared preview/service/catalog",
+  "reference": [
+    "components/post/Post.tsx:290",
+    "components/layout/MainLayout.tsx:637"
+  ],
+  "sources": {
+    "components/crefans/beans.module.css": "9dc927852b8f28f9e586456fa4de05febabf2add521c89fadcc4b7d761e5deb0",
+    "components/crefans/BeanWalletPages.tsx": "8de914ac1d36f18fbe925c9ec093a2d2817164290e33230e45948f2e33d3d0ca"
+  },
+  "checks": [
+    {
+      "command": "node .local/bean-charge-multicolor-20261026/verify.cjs",
+      "exitCode": 0,
+      "environment": "Existing local Next dev 3010; Chromium390/1280 and WebKit390",
+      "result": {
+        "checkedAt": "2026-10-26T00:32:52.351Z",
+        "rows": [
+          {
+            "name": "chromium",
+            "width": 390,
+            "background": "linear-gradient(110deg, rgb(112, 64, 212) 0%, rgb(163, 45, 175) 36%, rgb(199, 45, 118) 70%, rgb(198, 75, 53) 100%)",
+            "color": "rgb(255, 255, 255)",
+            "height": 60,
+            "svgs": 0,
+            "images": [
+              {
+                "src": "/brand/beans/soft3d-v2/10.png",
+                "width": 1254
+              }
+            ],
+            "overflow": false,
+            "errors": [],
+            "screenshot": ".local/bean-charge-multicolor-20261026/chromium-390.png"
+          },
+          {
+            "name": "chromium",
+            "width": 1280,
+            "background": "linear-gradient(110deg, rgb(112, 64, 212) 0%, rgb(163, 45, 175) 36%, rgb(199, 45, 118) 70%, rgb(198, 75, 53) 100%)",
+            "color": "rgb(255, 255, 255)",
+            "height": 60,
+            "svgs": 0,
+            "images": [
+              {
+                "src": "/brand/beans/soft3d-v2/10.png",
+                "width": 1254
+              }
+            ],
+            "overflow": false,
+            "errors": [],
+            "screenshot": ".local/bean-charge-multicolor-20261026/chromium-1280.png"
+          },
+          {
+            "name": "webkit",
+            "width": 390,
+            "background": "linear-gradient(110deg, rgb(112, 64, 212) 0%, rgb(163, 45, 175) 36%, rgb(199, 45, 118) 70%, rgb(198, 75, 53) 100%)",
+            "color": "rgb(255, 255, 255)",
+            "height": 60,
+            "svgs": 0,
+            "images": [
+              {
+                "src": "/brand/beans/soft3d-v2/10.png",
+                "width": 1254
+              }
+            ],
+            "overflow": false,
+            "errors": [],
+            "screenshot": ".local/bean-charge-multicolor-20261026/webkit-390.png"
+          }
+        ]
+      },
+      "logSha256": "4af0442768d20701409d6fe4c1db46ba9d0c316fe079c4ebe324204cc3ef9dc5"
+    },
+    {
+      "method": "sRGB relative luminance / white contrast at all four gradient stops, default and hover",
+      "exitCode": 0,
+      "result": [
+        {
+          "color": "#7040d4",
+          "brightness": 1,
+          "whiteContrast": 6.23
+        },
+        {
+          "color": "#7040d4",
+          "brightness": 1.02,
+          "whiteContrast": 6.04
+        },
+        {
+          "color": "#a32daf",
+          "brightness": 1,
+          "whiteContrast": 5.91
+        },
+        {
+          "color": "#a32daf",
+          "brightness": 1.02,
+          "whiteContrast": 5.73
+        },
+        {
+          "color": "#c72d76",
+          "brightness": 1,
+          "whiteContrast": 5.17
+        },
+        {
+          "color": "#c72d76",
+          "brightness": 1.02,
+          "whiteContrast": 5.0
+        },
+        {
+          "color": "#c64b35",
+          "brightness": 1,
+          "whiteContrast": 4.71
+        },
+        {
+          "color": "#c64b35",
+          "brightness": 1.02,
+          "whiteContrast": 4.55
+        }
+      ],
+      "initialFinding": "Hover1.04 coral4.41 contrast; adjusted to1.02; minimum final4.55"
+    }
+  ],
+  "manual": "Mobile and desktop rendered button screenshots inspected",
+  "notPerformed": [
+    "Deployment",
+    "Financial E2E rerun",
+    "Actual payment"
+  ]
+}

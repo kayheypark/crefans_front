@@ -1,0 +1,1153 @@
+{
+  "recordedAt": "2026-10-24T05:55:56.397751+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "dirty": true,
+  "scope": "Mobile shared GNB icon21→28px, profile avatar24→28px. Only two rules added inside max-width767px. Touch targets56×48 and desktop unchanged.",
+  "acceptance": [
+    "All five mobile graphics28×28px",
+    "Existing link targets/spacing and red unread indicators unchanged",
+    "320/390/767px: no horizontal overflow, GNB at viewport bottom",
+    "Explore navigation and active link retained",
+    "1280px sidebar still21px; image/fallback avatar display verified"
+  ],
+  "sourceSha256": {
+    "beforeCSS": "91715ec14b570fe35e7abc0b02cef21ea6e3a18e3e32653c5c43407c23f60f94",
+    "afterCSS": "0f79a0f376a02d91cf54eaaf644582b6887830b08c1f26a1e8a450147e40b7e8",
+    "verificationScript": "0638c9fa4f20546f87c0c5531fbb882dcae16b7f7a6813bcdf781dda37f62b97"
+  },
+  "runs": [
+    {
+      "command": "node .local/gnb-icon-size-20261024/check.cjs before",
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T05:54:17.733Z",
+      "finishedAt": "2026-10-24T05:54:28.481Z",
+      "exitCode": 0,
+      "logSha256": "9432522232f546b4b2a5aff98fafb728690c03957d900e61182fb40ae07103ac"
+    },
+    {
+      "command": "node .local/gnb-icon-size-20261024/check.cjs after",
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T05:54:47.856Z",
+      "finishedAt": "2026-10-24T05:54:59.134Z",
+      "exitCode": 0,
+      "logSha256": "1c8920fc8f6e88cc62626552483e6024cfa53cf11e6439eaab14dd7da33d4413"
+    }
+  ],
+  "before": [
+    {
+      "engine": "chromium",
+      "width": 320,
+      "route": "/preview/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림 5개",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 24,
+          "graphicHeight": 24,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "image",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 320,
+      "route": "/service/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 24,
+          "graphicHeight": 24,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "fallback",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "route": "/preview/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림 5개",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 24,
+          "graphicHeight": 24,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "image",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "route": "/service/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 24,
+          "graphicHeight": 24,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "fallback",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 767,
+      "route": "/preview/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림 5개",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 24,
+          "graphicHeight": 24,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "image",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 767,
+      "route": "/service/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 24,
+          "graphicHeight": 24,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "fallback",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "route": "/preview/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림 5개",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 24,
+          "graphicHeight": 24,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "image",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "route": "/service/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 24,
+          "graphicHeight": 24,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "fallback",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "route": "/preview/feed",
+      "navBottom": 378.5,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "route": "/service/feed",
+      "navBottom": 353,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        }
+      ]
+    }
+  ],
+  "after": [
+    {
+      "engine": "chromium",
+      "width": 320,
+      "route": "/preview/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림 5개",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "image",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 320,
+      "route": "/service/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "fallback",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "route": "/preview/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림 5개",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "image",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "route": "/service/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "fallback",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 767,
+      "route": "/preview/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림 5개",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "image",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 767,
+      "route": "/service/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "fallback",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "route": "/preview/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림 5개",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "image",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "route": "/service/feed",
+      "navBottom": 844,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 28,
+          "graphicHeight": 28,
+          "targetWidth": 56,
+          "targetHeight": 48,
+          "avatar": "fallback",
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "route": "/preview/feed",
+      "navBottom": 378.5,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": "rgb(220, 38, 38)"
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "route": "/service/feed",
+      "navBottom": 353,
+      "viewport": 844,
+      "overflow": false,
+      "items": [
+        {
+          "label": "홈",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "탐색하기",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "메시지",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "알림",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        },
+        {
+          "label": "내 프로필",
+          "graphicWidth": 21,
+          "graphicHeight": 21,
+          "targetWidth": 169,
+          "targetHeight": 45,
+          "avatar": null,
+          "dot": null
+        }
+      ]
+    }
+  ],
+  "visualReview": [
+    ".local/gnb-icon-size-20261024/after-preview.png",
+    ".local/gnb-icon-size-20261024/after-service.png"
+  ],
+  "limits": [
+    "Local3010 only; production not deployed.",
+    "Service shell rendered API-unavailable state because local backend not connected. Verified navigation geometry/fallback avatar, not successful API integration.",
+    "Chromium/WebKit emulation; no physical device verification.",
+    "No new permanent unit test or full regression run for CSS sizing-only change."
+  ],
+  "committed": false
+}

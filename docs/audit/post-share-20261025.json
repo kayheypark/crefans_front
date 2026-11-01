@@ -1,0 +1,214 @@
+{
+  "recordedAt": "2026-10-24T15:42:05.253299+00:00",
+  "startedAt": "2026-10-24T15:26:59.463142+00:00",
+  "requirements": [
+    "Share opens a common layer without copying automatically",
+    "Three choices: copy, Kakao Talk, native device share",
+    "Preserve explicit user activation and handle cancellation, unsupported APIs and failures",
+    "Share only the canonical post page URL and public title, excluding query/hash/body/media",
+    "Shared preview/service/catalog UI and mobile 44px minimum targets"
+  ],
+  "repositories": {
+    "crefans_front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/beta-signup",
+      "dirty": true,
+      "statusSha256": "6b17b38e444b07b5b0abf48916b06c76913ad49eb2bb19dc743990d1f6aba9e8",
+      "files": {
+        "components/crefans/SocialPages.tsx": "00821ef21fcdd56d849a2d09943fe22af61e2106e20cd6d8550821088ba31889",
+        "components/crefans/Icon.tsx": "fc44ab0731283ca297ea9416fc76661493ab8e672452a2555d849870e83b4fb7",
+        "components/design-system/ServicePatternCatalog.tsx": "5d2ac6556af413193bc79104348ab119856e811d30db3c9004276423ec5be349",
+        "tests/crefans-social.test.cjs": "5dc38ca1efae4cb56b0c82dfaacc0bee3506536e7aec57984a783de3064048ca",
+        "docs/design-system.md": "9ea8f214606b8d47019a6d84ce6a1f0bbc9ede3784229f8452dbd966ea5ca4d3",
+        "docs/service-api-binding.md": "3c3cac244e08c489b6a18c17e7a5d80c586749adc0fb38acb5bdc70ccab5268b",
+        "docs/third-party-setup.md": "5445a612f372d3922dfda4610e0e4c8e35a9ef6a81953dc3f860076c192cc070",
+        "docs/audit/manifest.json": "3735d888bf0b6f5b2d879bf806d4c561021cff183aff0a8a9e97b7d718ef3e60",
+        "PROGRESS.md": "8b7735989793fbec151774c46982709a2d76d0018999b547f4b1c769ac30cc17",
+        ".env.example": "5f065846c125bfa87903e8fb4e428aefd31373b60fe47f206b038f934b6b23db",
+        "infra/platform/Dockerfile": "1a659121a5a7a207e854cd943ce59ac1a5cd1c0633ae6169854142e47ecfa9e0",
+        "lib/browser/post-share.ts": "bafdc5358cc55560add52658914c8e2e5677f8cae8f0049d80fad0fe35800c84",
+        "features/post-share/usePostShare.ts": "eb3bc287c9d67b5d41013a996f401a4a5d5084b0763e38f104572b687763896b",
+        "components/crefans/PostShareDialog.tsx": "167354b0d1b2246d8cff309ef334063d1d5e3680dbf6f1ebce7f225a55b75682",
+        "components/crefans/post-share-dialog.module.css": "a13badc625bda1b61325a927250993d609dfbb9933cbe42c81298df8a8aa77d4",
+        "tests/post-share.test.cjs": "2166dcadfcba77f5f50ba3370e62a8f75739527ab470d798c2c42428696cb39c",
+        "e2e/post-share.spec.ts": "c519731b2c9fd2fddd99752685a741c2a53c9add5a3bd25188b5be33242a1f01",
+        "public/brand/kakaotalk-share-official.png": "16f79531bbf7fe6e0e18fcc84177e37736b4af2caecfefa275f78ac6e927294f",
+        "public/brand/kakaotalk-share-official.source.json": "80a5e8525576f9ccaae102a8144f474bdb694f1142c77efdd5c75c8b15ac9f40"
+      },
+      "beforeFiles": {
+        "components/crefans/SocialPages.tsx": "4502eb5e4d9c536e23077d5116b06747c8bbd22caf837e029e0efad91c695396",
+        "components/crefans/Icon.tsx": "12611ce2b12bbbfe060e88eac3734bd5f04a248eca0601522a73961c90480139",
+        "components/design-system/ServicePatternCatalog.tsx": "db7d8174100d6c20b0e125e837af41dd0a82a44493f14b32489b8f1ff1e3b93c",
+        "tests/crefans-social.test.cjs": "5dc38ca1efae4cb56b0c82dfaacc0bee3506536e7aec57984a783de3064048ca",
+        "docs/design-system.md": "35fc2fde2ba00f8a05a0d863db0dce08a906ce10c263d213d1b4b244345e05f6",
+        "docs/service-api-binding.md": "058967c5d109f1810337e7d2ec2aa654d59bf36ac5478016e64cb259c14ebd76",
+        "docs/third-party-setup.md": "974c8a7a782f4e4014b0cd5931d8b3409f354ec9217ff9526b6fc8af018af1bd",
+        "docs/audit/manifest.json": "c06ab1f6e1b428c5af3a56d21724d48317365677219e41f1b31bb624a1eb63c9",
+        "PROGRESS.md": "720c05e42983dc3131d7e7cb2b6e17bcddb1c86e35fcd08e0f48043d37f7a756",
+        ".env.example": "d4e04307b37fe575b1482fc9ec9afee1006e4847d9cbc7959a96836cf97bf7f3",
+        "infra/platform/Dockerfile": "9540cac3d4a33fbff2cd8ce007b43b9841ba7fdb5640de35c69eb0105e55e63a"
+      }
+    },
+    "crefans_server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirty": true,
+      "changedByThisTask": {
+        "docs/current-contracts.md": "955e9631281edf21b23bd5b7e81a0b1a88f95f03f6382974765719bc910c1b7e"
+      },
+      "before": {
+        "docs/current-contracts.md": "972e685c8d86471b94f9d74734f97aecf9fa3f4a95e9a6cdeb3dec59213e0d74"
+      },
+      "change": "Generated environment key inventory adds NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY only; no runtime/API/DB changes"
+    }
+  },
+  "checks": [
+    {
+      "name": "share-unit",
+      "command": [
+        "node",
+        "--test",
+        "tests/post-share.test.cjs"
+      ],
+      "startedAt": "2026-10-24T15:32:09.246079+00:00",
+      "endedAt": "2026-10-24T15:32:09.569297+00:00",
+      "exitCode": 0,
+      "passed": 8,
+      "logSha256": "07c28ccde2ccebb098abf9501f7e31cafe5f4ae7a9a457d223024486d041d33c",
+      "logPath": "/Users/ethan/repository/crefans_front/.local/post-share-20261025/share-unit.log"
+    },
+    {
+      "name": "front-final",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "startedAt": "2026-10-24T15:35:38.591568+00:00",
+      "endedAt": "2026-10-24T15:35:49.798868+00:00",
+      "exitCode": 0,
+      "passed": 316,
+      "logSha256": "3e933a2d936c5ee023379312ccee7742c0a4ec924aff6ad4d07517dde757a77a",
+      "logPath": "/Users/ethan/repository/crefans_front/.local/post-share-20261025/front-final.log"
+    },
+    {
+      "name": "browser-final",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/post-share-20261025/playwright.config.cjs"
+      ],
+      "startedAt": "2026-10-24T15:35:39.830472+00:00",
+      "endedAt": "2026-10-24T15:36:13.295843+00:00",
+      "exitCode": 0,
+      "passed": 27,
+      "logSha256": "249c7b12c52c51fb1b0aa1750a95781d00836cdbf0bff74ddfbb7ac4440653e1",
+      "logPath": "/Users/ethan/repository/crefans_front/.local/post-share-20261025/browser-final.log"
+    },
+    {
+      "name": "contracts",
+      "command": [
+        "npm",
+        "run",
+        "docs:contracts"
+      ],
+      "startedAt": "2026-10-24T15:41:07.199978+00:00",
+      "endedAt": "2026-10-24T15:41:07.624927+00:00",
+      "exitCode": 0,
+      "passed": null,
+      "logSha256": "5b2c947fb7bb141d6711c4aa95383cb6cb7e61b6aa33bcc9713e02404e432d43",
+      "logPath": "/Users/ethan/repository/crefans_front/.local/post-share-20261025/contracts.log"
+    },
+    {
+      "name": "docs-record",
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "startedAt": "2026-10-24T15:41:51.395051+00:00",
+      "endedAt": "2026-10-24T15:41:52.438553+00:00",
+      "exitCode": 0,
+      "passed": null,
+      "logSha256": "d2b791baf0ffda6fa40daf30d66e2cacd90f45b976192677770906e12367c0b8",
+      "logPath": "/Users/ethan/repository/crefans_front/.local/post-share-20261025/docs-record.log"
+    },
+    {
+      "name": "docs-check",
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "startedAt": "2026-10-24T15:41:52.461586+00:00",
+      "endedAt": "2026-10-24T15:41:52.862743+00:00",
+      "exitCode": 0,
+      "passed": null,
+      "logSha256": "55f8ad2625b768097876b6ba706d143507fa58991a2dc62503d7a164158c67a4",
+      "logPath": "/Users/ethan/repository/crefans_front/.local/post-share-20261025/docs-check.log"
+    }
+  ],
+  "browserResult": {
+    "startTime": "2026-10-24T15:35:40.407Z",
+    "duration": 32873.74,
+    "expected": 27,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "visualReview": [
+    "Final Chromium320 share bottom sheet",
+    "Final desktop component catalog",
+    "Earlier WebKit390 and desktop modal inspected before hint font adjustment; final browser regression passed"
+  ],
+  "screenshots": {
+    ".local/post-share-20261025/results/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-webkit390/share.png": "d145b259f945e65e3507c43426dd55a500cb2fda8efda5b27429d71f4aba366d",
+    ".local/post-share-20261025/results/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-narrow320/share.png": "f6c6dc3e2ecbc998eb715a202b7706f8195970029e496bd3abe4b3ae1246805f",
+    ".local/post-share-20261025/results/post-share-catalog-uses-th-868e8-vailable-and-loading-states-desktop/catalog.png": "6be45ab42b613688164e3be4caf40ec33394a1cb446298391734cdd76d9ee38d",
+    ".local/post-share-20261025/results/post-share-catalog-uses-th-868e8-vailable-and-loading-states-mobile390/catalog.png": "0c85fdd68ed0e4b46570cab0d086eb45c90e6fb53a1a14c02e9aaec6d5213de0",
+    ".local/post-share-20261025/results/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-desktop/share.png": "b7e04496caa43126916976ac614951d4586fff7c4f96ae8da00699626103d975",
+    ".local/post-share-20261025/results/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-mobile390/share.png": "2a5885b0eee9f4d17183acd0a08b26a499d38f72ac5819f114ec6f991046aad4",
+    ".local/post-share-20261025/results/post-share-catalog-uses-th-868e8-vailable-and-loading-states-narrow320/catalog.png": "e34bdf02e6f683401283f759dceb59c1b82a86f889096236e81626028eb237ad",
+    ".local/post-share-20261025/results/post-share-catalog-uses-th-868e8-vailable-and-loading-states-webkit390/catalog.png": "5cc81079576f05b5ae8e1c846b7112c57971a1f51e1bd08684fe6aa6101f63e1"
+  },
+  "sdk": {
+    "version": "2.8.4",
+    "published": "2026-10-19",
+    "verifiedSRI": "sha384-BGX7Wb16GmRFagri4bLJV2DgipVZaU2AI812GZtHtHzzDQJnfHasDXN5houxv45w",
+    "source": "https://developers.kakao.com/docs/ko/javascript/download"
+  },
+  "asset": {
+    "source": "https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png",
+    "reference": "https://developers.kakao.com/tool/demo/message/kakaolink?default_template=text",
+    "sha256": "16f79531bbf7fe6e0e18fcc84177e37736b4af2caecfefa275f78ac6e927294f",
+    "modified": false,
+    "retrievedAt": "2026-10-25 Asia/Seoul",
+    "sdk": {
+      "url": "https://t1.kakaocdn.net/kakao_js_sdk/2.8.4/kakao.min.js",
+      "integrity": "sha384-BGX7Wb16GmRFagri4bLJV2DgipVZaU2AI812GZtHtHzzDQJnfHasDXN5houxv45w",
+      "matchesOfficialSRI": true
+    }
+  },
+  "sourcesCheckedOn": "2026-10-25 Asia/Seoul",
+  "officialSources": [
+    "https://developers.kakao.com/docs/ko/kakaotalk-share/js-link",
+    "https://developers.kakao.com/docs/ko/javascript/download",
+    "https://developers.kakao.com/docs/ko/message-template/default",
+    "https://developers.kakao.com/docs/en/app-setting/app",
+    "https://developers.kakao.com/docs/en/tutorial/js-share",
+    "https://developers.kakao.com/sdk/reference/js/release/Kakao.Share.html",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share",
+    "https://www.w3.org/TR/web-share/"
+  ],
+  "scopeNotes": [
+    "Local implementation only; no deployment, external messages, commit or push",
+    "Existing dirty worktree and prior view-count changes preserved",
+    "Native share and Kakao actions use controlled test doubles; actual physical OS share sheet and Kakao delivery not verified",
+    "Actual Chromium clipboard write/read verified in three projects; WebKit clipboard permission test explicitly skipped",
+    "Service page data uses GET response fixtures; no real account or protected content mutation",
+    "No Kakao key found in inspected project configuration; SDK remains unloaded and Kakao disabled until public JS key plus SDK/product-link domains are configured and bundle rebuilt",
+    "Full check includes eight new share tests; do not add these eight again to the total316"
+  ],
+  "sourceSnapshotNotTestProof": false
+}

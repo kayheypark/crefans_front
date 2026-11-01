@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-26T11:54:37.947711+09:00",
+  "image": "crefans-front:tip-dialog-20261026",
+  "imageSourceFiles": 615,
+  "allRunning": true,
+  "otherContainersPreserved": true,
+  "backup": "/opt/crefans-backup-tip-dialog-20261026",
+  "browser": {
+    "command": "node /tmp/tip-dialog-production.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "engine": "chromium",
+        "width": 320,
+        "presets": 6,
+        "invalidAndInsufficientDisabled": true,
+        "success": true,
+        "reopen": true,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "width": 390,
+        "presets": 6,
+        "invalidAndInsufficientDisabled": true,
+        "success": true,
+        "reopen": true,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "presets": 6,
+        "invalidAndInsufficientDisabled": true,
+        "success": true,
+        "reopen": true,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "presets": 6,
+        "invalidAndInsufficientDisabled": true,
+        "success": true,
+        "reopen": true,
+        "overflow": false,
+        "errors": []
+      }
+    ]
+  },
+  "limits": "mock transfer only; no live money movement",
+  "disk": "initial preflight below8GiB; shell continued build; old generated contexts cleaned and preflight rechecked passed at10.49GB before transfer"
+}

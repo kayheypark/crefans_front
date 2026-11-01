@@ -17,6 +17,7 @@ function loadTypeScript(relativePath, mocks = {}) {
   const module = { exports: {} };
   const localRequire = (name) => {
     if (Object.hasOwn(mocks, name)) return mocks[name];
+    if (name.endsWith('.module.css')) return new Proxy({}, {get: (_, key) => String(key)});
     if (name.startsWith("@/") || name.startsWith(".")) {
       const location = name.startsWith("@/")
         ? path.join(root, name.slice(2))

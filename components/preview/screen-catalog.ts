@@ -1,7 +1,22 @@
 export const screenLinks=[
+ ['beans','지갑','잔액 · 충전 · 내역 바로가기'],
+ ['beans/charges','충전 주문','충전 상태 · 결제 재시도 · 상세'],
+ ['beans/history','콩 이동 내역','콩 증감 · 사유 · 일시'],
+ ['beans/referral','친구 초대','초대 링크 · 보상 현황 · 안내'],
+ ['beans/tips','보낸 후원','크리에이터 · 후원 수량 · 메시지'],
+ ['beans/charge','콩 충전','수량 선택 · 결제 금액 확인'],
+ ['beans/success','콩 충전 완료','충전 수량 · 결제 금액 · 지갑 이동'],
  ['landing','랜딩페이지','서비스 소개와 크리에이터 추천'],['explore','탐색하기','검색 · 카테고리 · 팔로우'],['creator/haneul','크리에이터 프로필','게시물 · 미디어 · 소개'],['membership/haneul','멤버십 구독','등급 선택 · 결제 전 확인'],['signup','회원가입','필수 동의 · 이메일 인증 안내'],['login','로그인','이메일 로그인 · 비밀번호 찾기'],['feed','홈','피드 · 좋아요 · 인라인 댓글'],['post/behind?locked=1','게시물 상세','멤버 전용 콘텐츠 접근 안내'],['messages','메시지','대화 검색 · 전송 · 차단'],['notifications','알림','읽음 상태 · 유형별 필터'],['me','내 프로필','프로필 편집 · 저장 · 좋아요'],['subscriptions','내 구독','자동 갱신 · 취소 · 결제 내역'],['settings','설정','계정 · 알림 · 개인정보'],['support','고객센터','FAQ 검색 · 문의 등록'],['following','팔로잉 목록','팔로우한 크리에이터'],['followers','팔로워 목록','나를 팔로우하는 사람'],['payment-methods','결제수단 관리','등록 · 기본수단 · 삭제'],
 ];
 export const studioLinks=[
+ ['studio/advertising','광고상품','상품 안내 · 목업 구매 · 구매 이력'],
+ ['studio/beans','콩 후원·출금','받은 후원 · 지급 가능 · 출금 신청'],
  ['studio','대시보드','핵심 수치 · 할 일 · 최근 활동'],['studio/start','크리에이터 시작하기','기본 정보 · 프로필 확인 · 완료'],['studio/content','게시물','발행 · 임시저장 · 예약'],['studio/content/new','게시물 작성','공개 범위 · 저장 · 발행'],['studio/memberships','멤버십','가격 · 혜택 · 이미지 · 활성화 · 삭제'],['studio/subscribers','구독자','등급 · 상태 · 상세'],['studio/messages','메시지','대화 목록 · 메시지 · 차단'],['studio/comments','댓글','게시물 필터 · 답글 · 숨김'],['studio/analytics','통계 요약','구독 · 팔로워 · 매출 · 콘텐츠'],['studio/reports/revenue','순수익 리포트','기간별 매출 · 환불 · 수수료 · 순수익'],['studio/reports/subscribers','구독자 리포트','신규 가입 · 이용 종료 · 유효 구독자'],['studio/reports/followers','팔로워 리포트','팔로우 · 해제 · 기간별 증감'],['studio/earnings','수익 현황','매출 · 환불 · 수수료 · 순수익'],['studio/settlements','정산 내역','정산 대기 · 확정 · 상세'],['studio/withdraw','출금 신청','금액 · 계좌 · 확인 · 접수'],['studio/withdrawals','출금 내역','접수 · 처리 · 완료 · 반려'],['studio/accounts','정산 계좌','가상 계좌 · 확인 · 기본 설정'],['studio/security','출금 PIN 설정','6자리 설정 · 확인 · 출금 보안'],['studio/settings','크리에이터 설정','공개 프로필 · 활동 상태'],
 ];
-export const commonLinks=[['reset-password','비밀번호 재설정','메일 확인 · 코드 · 새 비밀번호'],['notices','공지사항','목록 · 공지 상세'],['legal/terms','이용약관','문서 표시 레이아웃'],['legal/privacy','개인정보처리방침','문서 표시 레이아웃'],['legal/policy','운영정책','문서 표시 레이아웃']];
+export const commonLinks=[
+ ['events','이벤트 안내','네 가지 혜택 · 이벤트 목록'],
+ ['events/feedback','네이버페이 1만원 상품권 이벤트','공통 안내 · 혜택별 유의사항'],
+ ['events/creator-advertising','주목할 크리에이터 광고상품 30일 이벤트','공통 안내 · 혜택별 유의사항'],
+ ['events/promotion-beans','프로모션 100콩 이벤트','공통 안내 · 혜택별 유의사항'],
+ ['events/founding-badge','원년멤버 한정판 뱃지 이벤트','공통 안내 · 혜택별 유의사항'],
+ ['guide/fan','팬 이용안내','가입 · 구독 · 해지 · 환불'],['guide/creator','크리에이터 이용안내','게시 · 멤버십 · 정산'],['reset-password','비밀번호 재설정','메일 확인 · 코드 · 새 비밀번호'],['notices','공지사항','목록 · 공지 상세'],['legal/terms','이용약관','문서 표시 레이아웃'],['legal/privacy','개인정보처리방침','문서 표시 레이아웃'],['legal/policy','운영정책','문서 표시 레이아웃']];

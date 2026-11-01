@@ -44,6 +44,9 @@ export function DateRangePicker({label,value,defaultValue,maxDate,minDate=null,o
     setPosition(null);setPresent(true);setOpen(true);
   }
   function close(restoreFocus=false){setOpen(false);setHover(null);if(restoreFocus)trigger.current?.focus();}
+  // Narrow single-calendar layout scrolls presets sideways: bring the selected one into view on open.
+  const shown=open&&!!position;
+  useEffect(()=>{if(!shown)return;const group=popup.current?.querySelector<HTMLElement>('[role=group]'),active=group?.querySelector<HTMLElement>('[aria-pressed=true]');if(!group||!active||group.scrollWidth<=group.clientWidth)return;const g=group.getBoundingClientRect(),r=active.getBoundingClientRect();group.scrollLeft=Math.max(0,group.scrollLeft+r.left-g.left-(g.width-r.width)/2);},[shown]);
   function reveal(range:DateRange){setView(addMonths(startOfMonth(range.endDate),1-panels));setFocusDate(range.startDate);}
   function choosePreset(range:DateRange){setDraft({start:range.startDate,end:range.endDate});setError('');reveal(range);}
   function pick(date:string){

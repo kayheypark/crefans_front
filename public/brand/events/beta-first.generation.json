@@ -1,0 +1,12 @@
+{
+  "tool": "image_gen.imagegen",
+  "createdAt": "2026-10-26",
+  "prompt": "Create a polished Korean promotional EVENT DETAIL POSTER for the creator membership platform \"crefans\", portrait 2:3, high resolution. It will be embedded full width on mobile websites. Refined friendly modern Korean product branding: milky white and very pale lavender background, dark navy large legible typography, restrained pink-purple-periwinkle gradients, small soft 3D green bean currency and gift objects. Clean, spacious professional layout, NOT a busy game banner. Modern Korean sans serif like Pretendard, consistent aligned grid, generous margins, no handwritten lettering. At top small lowercase \"crefans\" wordmark, then the exact main heading \"크레팬스 베타 1기\" and subtitle \"함께 만들어 주셔서 감사합니다\". A single tasteful dimensional gift box and glossy violet badge medallion with a simple star decorates the hero, not too much. Below, FOUR distinct readable reward sections with clear hierarchy and only the exact following Korean text:\nSection 1 label \"참여자 전원\", main \"'크레팬스 베타 1기' 한정 배지\", supporting \"표시·숨김을 직접 선택\"\nSection 2 label \"크리에이터 3명\", main \"1만원 상당 선물\", second line \"+ 주목할 크리에이터 30일 노출권\"\nSection 3 label \"팬 참여자 13명\", main \"프로모션 100콩\", illustration of just THREE cute smooth emerald green beans with cream center not a pile.\nSection 4 label \"유용한 피드백 제공자 최대 3명\", main \"5천원 상품권\", small elegant gift voucher icon.\nBottom small text \"참여 기간과 혜택 지급 일정은 별도 안내합니다.\"\nAll words must be correct, large enough for mobile reading. No extra invented terms or dates, no CTA button, no QR code, no sponsor logos, no currency conversion, no cash out claim. This is a finished flat graphic poster, no phone mockup, no perspective, no surrounding desk. Give each section ample height. Make it feel premium but welcoming, like a Korean creator economy beta appreciation campaign.",
+  "asset": "/brand/events/beta-first.png",
+  "source": "exec-3319d764-aa08-46ae-9052-c85f097f1081.png",
+  "review": {
+    "allFourBenefits": true,
+    "koreanTextReviewed": true,
+    "scheduleNotInvented": true
+  }
+}

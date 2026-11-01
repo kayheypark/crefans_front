@@ -1,0 +1,41 @@
+{
+  "createdAt": "2026-10-25T08:56:50.726983+00:00",
+  "request": {
+    "name": "박경호",
+    "role": "CEO",
+    "company": "크레팬스",
+    "telephone": "01032113164",
+    "email": "khpark@grade.im"
+  },
+  "design": {
+    "trimMm": [
+      90,
+      50
+    ],
+    "bleedMm": 3,
+    "safeMarginMm": 6,
+    "front": "white, exact existing SVG logo, name and contacts, narrow brand gradient edge",
+    "back": "existing ink #202333, exact inverse SVG wordmark and low opacity enlarged existing symbol",
+    "colors": [
+      "#202333",
+      "#687082",
+      "#f49bdc",
+      "#a47bf4",
+      "#87a8ff"
+    ],
+    "font": "Apple SD Gothic Neo / Arial",
+    "logoHandling": "Original repo-native SVG reused; no regenerated brand mark, no imagegen needed for exact typography and vector logo.",
+    "website": "crefans.com",
+    "websiteNote": "Brand domain included; not changed to temporary beta URL. Not a claim about apex redirect status."
+  },
+  "sources": {
+    "public/brand/crefans-logo.svg": "85a3a166adb3b66c00984d2ece3192228a1a3967adea3dce65ee55e33b601330",
+    "public/brand/crefans-logo-inverse.svg": "c0063b0f7468a9ae00a7ff7d6d73f5f2999dab98ed436c33c7f700e5d601f851"
+  },
+  "repo": {
+    "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/bean-support",
+    "dirty": true
+  },
+  "printing": "RGB design PDF, original SVG logos and self-contained Type3 vector glyph procedures; precise MediaBox/TrimBox and bleed version. CMYK conversion and print-shop press proof not performed."
+}

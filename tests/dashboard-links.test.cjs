@@ -10,7 +10,7 @@ const mocks={
  '@/components/ui/TextLink':{TextLink:props=>h('a',props)},
  '@/components/ui/Charts':{Trend:()=>null},
  '@/components/ui/DialogActions':{},'@/components/ui/Toggle':{Toggle:()=>null},'@/components/ui/SelectField':{},'@/components/ui/Primitives':{},
- '../ServiceUI':{PageTitle:({children,action})=>h('header',null,h('h1',null,children),action),Avatar:()=>h('span'),Empty:({title})=>h('p',null,title)},
+ '../ServiceUI':{PageTitle:({children,action})=>h('header',null,h('h1',null,children),action),Avatar:()=>h('span'),Empty:({title})=>h('p',null,title),ActionLink:({variant,...props})=>h('a',props)},
 };
 const {DashboardPage}=loadTypeScript('components/crefans/studio/OverviewPages.tsx',mocks);
 

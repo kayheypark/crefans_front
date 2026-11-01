@@ -1,0 +1,213 @@
+{
+  "verifiedAt": "2026-10-24T00:06:29.858236+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/mobile-gallery-sheet",
+  "workingTreeDirty": true,
+  "requirement": "Mobile first chip aligns to body padding while scroll viewport reaches both device edges",
+  "implementation": [
+    "Shared ChipRow scroll-padding-inline:16px matches existing internal padding and prevents initial snap from scrolling away the leading inset.",
+    "Align mobile media query to service shell at <=767px.",
+    "Notifications override only padding-block, preserving the shared horizontal inset."
+  ],
+  "before": {
+    "viewportWidth": 390,
+    "firstLeft": 0,
+    "parentLeft": 16,
+    "rowLeft": 0,
+    "rowRight": 390,
+    "scrollLeft": 16,
+    "padding": "16px",
+    "scrollPadding": "auto"
+  },
+  "after": {
+    "at": "2026-10-24T00:05:50.161Z",
+    "checks": [
+      {
+        "firstLeft": 16,
+        "padding": "16px",
+        "parentLeft": 16,
+        "route": "notifications",
+        "rowLeft": 0,
+        "rowRight": 390,
+        "scrollLeft": 0,
+        "scrollPadding": "16px",
+        "width": 390
+      },
+      {
+        "firstLeft": 16,
+        "parentLeft": 16,
+        "route": "explore",
+        "rowLeft": 0,
+        "rowRight": 320,
+        "scrollLeft": 0,
+        "scrollPadding": "16px",
+        "width": 320
+      },
+      {
+        "firstLeft": 16,
+        "parentLeft": 16,
+        "route": "explore",
+        "rowLeft": 0,
+        "rowRight": 390,
+        "scrollLeft": 0,
+        "scrollPadding": "16px",
+        "width": 390
+      },
+      {
+        "firstLeft": 16,
+        "parentLeft": 16,
+        "route": "explore",
+        "rowLeft": 0,
+        "rowRight": 701,
+        "scrollLeft": 0,
+        "scrollPadding": "16px",
+        "width": 701
+      },
+      {
+        "firstLeft": 16,
+        "parentLeft": 16,
+        "route": "explore",
+        "rowLeft": 0,
+        "rowRight": 767,
+        "scrollLeft": 0,
+        "scrollPadding": "16px",
+        "width": 767
+      },
+      {
+        "firstLeft": 190,
+        "parentLeft": 190,
+        "route": "explore",
+        "rowLeft": 190,
+        "rowRight": 744,
+        "scrollLeft": 0,
+        "scrollPadding": "auto",
+        "width": 768
+      },
+      {
+        "firstLeft": 246,
+        "parentLeft": 246,
+        "route": "explore",
+        "rowLeft": 246,
+        "rowRight": 1224,
+        "scrollLeft": 0,
+        "scrollPadding": "auto",
+        "width": 1280
+      }
+    ],
+    "errors": []
+  },
+  "nativeDrag": {
+    "children": [
+      {
+        "left": -165,
+        "right": -106.7734375,
+        "text": "전체"
+      },
+      {
+        "left": -98.7734375,
+        "right": 7.890625,
+        "text": "라이프스타일"
+      },
+      {
+        "left": 15.890625,
+        "right": 74.1171875,
+        "text": "뷰티"
+      },
+      {
+        "left": 82.1171875,
+        "right": 164.5625,
+        "text": "코스프레"
+      },
+      {
+        "left": 172.5625,
+        "right": 255.0078125,
+        "text": "피트니스"
+      },
+      {
+        "left": 263.0078125,
+        "right": 321.234375,
+        "text": "음악"
+      },
+      {
+        "left": 329.234375,
+        "right": 387.4609375,
+        "text": "여행"
+      },
+      {
+        "left": 395.4609375,
+        "right": 453.6875,
+        "text": "게임"
+      },
+      {
+        "left": 461.6875,
+        "right": 519.9140625,
+        "text": "아트"
+      },
+      {
+        "left": 527.9140625,
+        "right": 586.140625,
+        "text": "일상"
+      }
+    ],
+    "firstSelected": "true",
+    "row": {
+      "bottom": 152.296875,
+      "height": 40.3984375,
+      "left": 0,
+      "right": 390,
+      "top": 111.8984375,
+      "width": 390,
+      "x": 0,
+      "y": 111.8984375
+    },
+    "scrollLeft": 181
+  },
+  "execution": {
+    "command": [
+      "node",
+      "--test",
+      "tests/chip-row.test.cjs"
+    ],
+    "startedAt": "2026-10-24T00:04:13.592795+00:00",
+    "finishedAt": "2026-10-24T00:04:13.859693+00:00",
+    "exitCode": 0,
+    "logSha256": "cfbdc1c24db676fe26d56d4149c6349ae613a39d76f4e4936d3fa7a161f797d0"
+  },
+  "result": {
+    "existingChipRowUnitTestsPassed": 2,
+    "mobileWidthsPassed": [
+      320,
+      390,
+      701,
+      767
+    ],
+    "desktopWidthsPassed": [
+      768,
+      1280
+    ],
+    "notificationsFirstInset": 16,
+    "dragPreservesSelectedCategory": true
+  },
+  "sourceHashes": {
+    "components/ui/chip-row.module.css": "5fb709753b37b965ca1123cbe5a5200ffafea861153a793680740e2c85ff6f2f",
+    "components/crefans/social.module.css": "50a615b08ad664ec432e598a0926eee402f059c6807adf2d383805021f20c5ab"
+  },
+  "artifacts": {
+    "initial.png": "309ad8821763975172740b07d7b30dfb40c35459099dea5dce877a63e4d73f37",
+    "scrolled.png": "843effb574489b371e6fc407d0ddcf22d09c3ae9583d622bdec1ca31c27eb0eb",
+    "browser-final.json": "c8e9b13ced7e027061461002fb5a4b265951186ca5bde634cda23c3a35b02a31",
+    "test.log": "cfbdc1c24db676fe26d56d4149c6349ae613a39d76f4e4936d3fa7a161f797d0"
+  },
+  "localArtifacts": "/Users/ethan/repository/crefans_front/.local/chip-row-inset-20261024",
+  "reference": {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-padding-inline",
+    "checkedAt": "2026-10-24",
+    "application": "Scroll padding offsets snap target region without narrowing the rendered scroll viewport."
+  },
+  "limits": [
+    "Local CSS-only change; no production deployment or commit.",
+    "Native browser pointer drag and geometry measurements; no physical iPhone touch/Safari verification.",
+    "Only existing ChipRow unit tests executed, not the full application suite for this CSS-only edit."
+  ]
+}

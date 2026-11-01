@@ -58,7 +58,7 @@ export function useAuthSession() {
   // null: 로그아웃, User: 로그인, undefined: 아직 파싱 전(로딩)
   const [user, setUser] = useState<User | null | undefined>(undefined);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const tokenCheckIntervalRef = useRef<NodeJS.Timeout>();
+  const tokenCheckIntervalRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
     // 초기 로딩 시 서버에서 최신 사용자 정보를 가져오려고 시도

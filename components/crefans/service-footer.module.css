@@ -1,0 +1,8 @@
+.footer{max-width:480px;margin:32px auto 0;padding-top:16px;border-top:1px solid var(--cf-landing-line)}
+.footer nav{display:flex;justify-content:center;flex-wrap:wrap;column-gap:20px}
+.footer nav a{display:inline-flex;align-items:center;min-height:44px;font-size:max(12px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted);text-decoration:none}
+.footer nav a:hover{color:var(--cf-service-brand);text-decoration:underline;text-underline-offset:3px}
+.business{margin-top:16px;padding-top:16px;border-top:1px solid var(--cf-landing-line)}
+/* Mobile: links in a repeating two-column grid (2026-11-01). */
+@media(max-width:767px){.footer nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}.footer nav a{justify-content:flex-start;overflow-wrap:anywhere}}
+@media(min-width:768px){.footer:not([data-always]),.footer .business{display:none}}

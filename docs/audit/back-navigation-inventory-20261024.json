@@ -1,0 +1,1543 @@
+{
+  "at": "2026-10-24T08:55:52.274Z",
+  "scope": [
+    "components/crefans",
+    "components/preview",
+    "components/service",
+    "components/ui",
+    "app/preview",
+    "app/service"
+  ],
+  "inspectedFiles": [
+    "components/service/ServiceProvider.tsx",
+    "components/ui/date-range.ts",
+    "app/service/page.tsx",
+    "app/service/error.tsx",
+    "app/service/layout.tsx",
+    "components/service/StudioRouter.tsx",
+    "components/service/ServiceRouter.tsx",
+    "components/service/Landing.tsx",
+    "components/service/BrowserErrors.tsx",
+    "components/service/PaymentResult.tsx",
+    "components/service/CheckoutPage.tsx",
+    "components/preview/LandingPreview.tsx",
+    "components/preview/comment-fixtures.ts",
+    "components/preview/landing-data.ts",
+    "app/preview/layout.tsx",
+    "app/service/[...screen]/page.tsx",
+    "components/crefans/ServiceShell.tsx",
+    "components/crefans/CommonPages.tsx",
+    "components/crefans/CreatorSearch.tsx",
+    "components/crefans/Brand.tsx",
+    "components/crefans/CommentMentions.tsx",
+    "components/crefans/MembershipPlanCard.tsx",
+    "components/crefans/ApiState.tsx",
+    "components/crefans/CreatorName.tsx",
+    "components/crefans/ServiceUI.tsx",
+    "components/crefans/PostMembershipNotice.tsx",
+    "components/crefans/CommentIcon.tsx",
+    "components/crefans/ProfileHeader.tsx",
+    "components/crefans/AccountPages.tsx",
+    "components/crefans/CreatorCard.tsx",
+    "components/crefans/LandingPage.tsx",
+    "components/crefans/LegalDocumentBody.tsx",
+    "components/crefans/CommentComposer.tsx",
+    "components/crefans/PublicMemberPage.tsx",
+    "components/crefans/CreatorPages.tsx",
+    "components/crefans/FollowButton.tsx",
+    "components/crefans/Icon.tsx",
+    "components/crefans/MediaOverlay.tsx",
+    "components/ui/media-order.ts",
+    "components/ui/TextLink.tsx",
+    "components/ui/OptionalImage.tsx",
+    "components/ui/BenefitsField.tsx",
+    "components/ui/Toggle.tsx",
+    "components/ui/SelectField.tsx",
+    "components/ui/Choice.tsx",
+    "components/ui/AmountPresets.tsx",
+    "components/ui/DataTable.tsx",
+    "components/ui/Avatar.tsx",
+    "components/ui/MediaUpload.tsx",
+    "components/ui/ImageUpload.tsx",
+    "components/ui/Accordion.tsx",
+    "components/ui/DialogActions.tsx",
+    "components/ui/AppShell.tsx",
+    "components/ui/Primitives.tsx",
+    "components/ui/useAnimatedChartValues.ts",
+    "components/ui/DateRangePicker.tsx",
+    "components/ui/Field.tsx",
+    "components/ui/Content.tsx",
+    "components/ui/Charts.tsx",
+    "components/ui/MediaVideo.tsx",
+    "components/ui/PinField.tsx",
+    "components/ui/usePresence.ts",
+    "components/ui/Pagination.tsx",
+    "components/ui/ChipRow.tsx",
+    "components/ui/MediaTypeIcon.tsx",
+    "components/preview/screen-catalog.ts",
+    "components/preview/LandingIcon.tsx",
+    "components/crefans/ServiceLinks.tsx",
+    "components/crefans/SocialPages.tsx",
+    "app/preview/[...screen]/page.tsx",
+    "app/service/landing/page.tsx",
+    "app/preview/landing/page.tsx",
+    "app/service/studio/[[...screen]]/page.tsx",
+    "app/preview/studio/[[...screen]]/page.tsx",
+    "components/preview/service/ServiceRouter.tsx",
+    "components/preview/service/legal-fixtures.ts",
+    "components/preview/service/access.ts",
+    "components/preview/service/useMockCommon.ts",
+    "components/preview/service/PreviewProvider.tsx",
+    "components/preview/service/useMockSocial.ts",
+    "components/preview/service/useMockAccount.ts",
+    "components/preview/service/fixtures.ts",
+    "components/preview/studio/StudioRouter.tsx",
+    "components/preview/studio/useLocalImages.ts",
+    "components/preview/studio/useMockOverview.ts",
+    "components/preview/studio/useMockFinance.ts",
+    "components/preview/studio/useMockCommunity.ts",
+    "components/preview/studio/useMockReports.ts",
+    "components/preview/studio/finance-fixtures.ts",
+    "components/preview/studio/useMockManagement.ts",
+    "components/preview/studio/management-fixtures.ts",
+    "components/preview/studio/StudioProvider.tsx",
+    "components/crefans/studio/ManagementPages.tsx",
+    "components/crefans/studio/ContentPostPreview.tsx",
+    "components/crefans/studio/ReportPage.tsx",
+    "components/crefans/studio/CommunityPages.tsx",
+    "components/crefans/studio/WithdrawalSecurityPage.tsx",
+    "components/crefans/studio/FinancePages.tsx",
+    "components/crefans/studio/PhoneFrame.tsx",
+    "components/crefans/studio/StudioShell.tsx",
+    "components/crefans/studio/OverviewPages.tsx"
+  ],
+  "excluded": [
+    "legacy app routes outside /preview and /service",
+    "separate admin console repository",
+    "node_modules, generated artifacts, docs"
+  ],
+  "method": "TypeScript AST enumerated Link/TextLink/a and backward-navigation button candidates in every TS/TSX file; reviewed each candidate and both service/preview router mappings. This inventory is static review, not runtime coverage of all application states.",
+  "candidateCount": 121,
+  "changedTextReturnSites": 13,
+  "existingIconSitesConsolidated": 2,
+  "sharedBackButtonSites": 15,
+  "screens": [
+    [
+      "landing",
+      "랜딩페이지",
+      "서비스 소개와 크리에이터 추천"
+    ],
+    [
+      "explore",
+      "탐색하기",
+      "검색 · 카테고리 · 팔로우"
+    ],
+    [
+      "creator/haneul",
+      "크리에이터 프로필",
+      "게시물 · 미디어 · 소개"
+    ],
+    [
+      "membership/haneul",
+      "멤버십 구독",
+      "등급 선택 · 결제 전 확인"
+    ],
+    [
+      "signup",
+      "회원가입",
+      "필수 동의 · 이메일 인증 안내"
+    ],
+    [
+      "login",
+      "로그인",
+      "이메일 로그인 · 비밀번호 찾기"
+    ],
+    [
+      "feed",
+      "홈",
+      "피드 · 좋아요 · 인라인 댓글"
+    ],
+    [
+      "post/behind?locked=1",
+      "게시물 상세",
+      "멤버 전용 콘텐츠 접근 안내"
+    ],
+    [
+      "messages",
+      "메시지",
+      "대화 검색 · 전송 · 차단"
+    ],
+    [
+      "notifications",
+      "알림",
+      "읽음 상태 · 유형별 필터"
+    ],
+    [
+      "me",
+      "내 프로필",
+      "프로필 편집 · 저장 · 좋아요"
+    ],
+    [
+      "subscriptions",
+      "내 구독",
+      "자동 갱신 · 취소 · 결제 내역"
+    ],
+    [
+      "settings",
+      "설정",
+      "계정 · 알림 · 개인정보"
+    ],
+    [
+      "support",
+      "고객센터",
+      "FAQ 검색 · 문의 등록"
+    ],
+    [
+      "following",
+      "팔로잉 목록",
+      "팔로우한 크리에이터"
+    ],
+    [
+      "followers",
+      "팔로워 목록",
+      "나를 팔로우하는 사람"
+    ],
+    [
+      "payment-methods",
+      "결제수단 관리",
+      "등록 · 기본수단 · 삭제"
+    ],
+    [
+      "studio",
+      "대시보드",
+      "핵심 수치 · 할 일 · 최근 활동"
+    ],
+    [
+      "studio/start",
+      "크리에이터 시작하기",
+      "기본 정보 · 프로필 확인 · 완료"
+    ],
+    [
+      "studio/content",
+      "게시물",
+      "발행 · 임시저장 · 예약"
+    ],
+    [
+      "studio/content/new",
+      "게시물 작성",
+      "공개 범위 · 저장 · 발행"
+    ],
+    [
+      "studio/memberships",
+      "멤버십",
+      "가격 · 혜택 · 이미지 · 활성화 · 삭제"
+    ],
+    [
+      "studio/subscribers",
+      "구독자",
+      "등급 · 상태 · 상세"
+    ],
+    [
+      "studio/messages",
+      "메시지",
+      "대화 목록 · 메시지 · 차단"
+    ],
+    [
+      "studio/comments",
+      "댓글",
+      "게시물 필터 · 답글 · 숨김"
+    ],
+    [
+      "studio/analytics",
+      "통계 요약",
+      "구독 · 팔로워 · 매출 · 콘텐츠"
+    ],
+    [
+      "studio/reports/revenue",
+      "순수익 리포트",
+      "기간별 매출 · 환불 · 수수료 · 순수익"
+    ],
+    [
+      "studio/reports/subscribers",
+      "구독자 리포트",
+      "신규 가입 · 이용 종료 · 유효 구독자"
+    ],
+    [
+      "studio/reports/followers",
+      "팔로워 리포트",
+      "팔로우 · 해제 · 기간별 증감"
+    ],
+    [
+      "studio/earnings",
+      "수익 현황",
+      "매출 · 환불 · 수수료 · 순수익"
+    ],
+    [
+      "studio/settlements",
+      "정산 내역",
+      "정산 대기 · 확정 · 상세"
+    ],
+    [
+      "studio/withdraw",
+      "출금 신청",
+      "금액 · 계좌 · 확인 · 접수"
+    ],
+    [
+      "studio/withdrawals",
+      "출금 내역",
+      "접수 · 처리 · 완료 · 반려"
+    ],
+    [
+      "studio/accounts",
+      "정산 계좌",
+      "가상 계좌 · 확인 · 기본 설정"
+    ],
+    [
+      "studio/security",
+      "출금 PIN 설정",
+      "6자리 설정 · 확인 · 출금 보안"
+    ],
+    [
+      "studio/settings",
+      "크리에이터 설정",
+      "공개 프로필 · 활동 상태"
+    ],
+    [
+      "reset-password",
+      "비밀번호 재설정",
+      "메일 확인 · 코드 · 새 비밀번호"
+    ],
+    [
+      "notices",
+      "공지사항",
+      "목록 · 공지 상세"
+    ],
+    [
+      "legal/terms",
+      "이용약관",
+      "문서 표시 레이아웃"
+    ],
+    [
+      "legal/privacy",
+      "개인정보처리방침",
+      "문서 표시 레이아웃"
+    ],
+    [
+      "legal/policy",
+      "운영정책",
+      "문서 표시 레이아웃"
+    ]
+  ],
+  "decisions": [
+    {
+      "file": "components/service/CheckoutPage.tsx",
+      "line": 15,
+      "owner": "CheckoutPage",
+      "tag": "Link",
+      "attrs": "href=\"/service/subscriptions\"",
+      "text": "내 구독 확인",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/service/CheckoutPage.tsx",
+      "line": 15,
+      "owner": "CheckoutPage",
+      "tag": "Link",
+      "attrs": "href=\"/service/payment-methods\"",
+      "text": "결제수단 관리",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/ServiceShell.tsx",
+      "line": 18,
+      "owner": "ServiceShell",
+      "tag": "a",
+      "attrs": "href=\"#page-content\" className={s.skip}",
+      "text": "본문으로 이동",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/ServiceShell.tsx",
+      "line": 19,
+      "owner": "ServiceShell",
+      "tag": "Link",
+      "attrs": "aria-label={`알림 ${unread}개`} className={s.bell} href={`${basePath}/notifications`}",
+      "text": "<NavIcon name=\"bell\"/>{unread>0&&<i/>}",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/ServiceShell.tsx",
+      "line": 19,
+      "owner": "ServiceShell",
+      "tag": "Link",
+      "attrs": "aria-label={`${viewer.name} 내 프로필`} href={`${basePath}/me`}",
+      "text": "<Avatar creator={viewer} size={30}/>",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/ServiceShell.tsx",
+      "line": 19,
+      "owner": "ServiceShell",
+      "tag": "Link",
+      "attrs": "className={s.authLink} href={`${basePath}/login`}",
+      "text": "로그인",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/ServiceShell.tsx",
+      "line": 19,
+      "owner": "ServiceShell",
+      "tag": "Link",
+      "attrs": "className={`${s.authLink} ${s.authPrimary}`} href={`${basePath}/signup`}",
+      "text": "회원가입",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/ServiceShell.tsx",
+      "line": 21,
+      "owner": "ServiceShell",
+      "tag": "Link",
+      "attrs": "key={item.id} aria-current={active===item.id?'page':undefined} href={`${basePath}/${item.id}`}",
+      "text": "<span className={s.bell}><NavIcon name={item.icon}/>{((item.id==='messages'&&messageUnread>0)||(item.id==='notifications'&&unread>0))&&<i/>}</span>{item.label}",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/ServiceShell.tsx",
+      "line": 25,
+      "owner": "ServiceShell",
+      "tag": "Link",
+      "attrs": "key={item.id} aria-current={active===item.id?'page':undefined} href={`${basePath}/${item.id}`} aria-label={item.id==='notifications'&&unread>0?`알림 ${unread}개`:item.label}",
+      "text": "{item.id==='me'?<Avatar creator={signedIn?viewer:undefined} size={24}/>:item.id==='notifications'||item.id==='messages'?<span className={s.bell}><NavIcon name={item.icon}/>{(item.id==='notifications'?unread:messageUnread)>0&&<i/>}</span>:<NavIcon name={item.icon}/>}",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 25,
+      "owner": "CommonNavigation",
+      "tag": "Link",
+      "attrs": "key={path} href={`${basePath}/${path}`}",
+      "text": "{label}",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 34,
+      "owner": "FollowingPage",
+      "tag": "TextLink",
+      "attrs": "className={s.textLink} href={`${model.basePath}/me`}",
+      "text": "내 프로필",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 34,
+      "owner": "FollowingPage",
+      "tag": "Link",
+      "attrs": "href={`${model.basePath}/creator/${creator.id}`}",
+      "text": "<Avatar creator={creator} size={52}/><span><strong><CreatorName person={creator}/></strong><small>@{creator.handle}</small><p>{creator.bio}</p></span>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 34,
+      "owner": "FollowingPage",
+      "tag": "TextLink",
+      "attrs": "href={`${model.basePath}/explore`}",
+      "text": "크리에이터 둘러보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 41,
+      "owner": "FollowersPage",
+      "tag": "TextLink",
+      "attrs": "className={s.textLink} href={`${model.basePath}/me`}",
+      "text": "내 프로필",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 47,
+      "owner": "NoticesPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/notices/${notice.id}`} key={notice.id}",
+      "text": "<div><span className={s.badge}>{notice.pinned?'중요':notice.category}</span><h2>{notice.title}</h2><small>{notice.date}</small></div><Icon name=\"chevron\" width={18} height={18}/>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 51,
+      "owner": "NoticeDetailPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/notices`}",
+      "text": "공지 목록으로",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 52,
+      "owner": "NoticeDetailPage",
+      "tag": "TextLink",
+      "attrs": "className={s.back} href={`${basePath}/notices`}",
+      "text": "공지사항",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 56,
+      "owner": "LegalPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/support`}",
+      "text": "고객센터",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 64,
+      "owner": "PasswordResetPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/login`} className={s.primaryLink}",
+      "text": "로그인하기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 64,
+      "owner": "PasswordResetPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/login`} className={s.textLink}",
+      "text": "로그인 화면으로",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 70,
+      "owner": "PaymentMethodsPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/subscriptions?tab=payments`} className={s.textLink}",
+      "text": "결제 내역 확인",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 78,
+      "owner": "PaymentRegistrationPreview",
+      "tag": "DialogActions",
+      "attrs": "",
+      "text": "<Action variant=\"secondary\" disabled={busy} onClick={()=>{if(step===2)setStep(1);else onClose();}}>{step===2?'이전':'취소'}</Action><Action disabled={busy||(step===1?!consent:code!==config.code)} onClick={()=>{if(step===1)setStep(2);else onRegister(card);}}>{busy?'등록 중…':step===1?'다음':'인증하고 등록'}</Action>",
+      "decision": "retain",
+      "reason": "In-page steps, media, pagination or date navigation; not a page-level return."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 78,
+      "owner": "PaymentRegistrationPreview",
+      "tag": "Action",
+      "attrs": "variant=\"secondary\" disabled={busy} onClick={()=>{if(step===2)setStep(1);else onClose();}}",
+      "text": "{step===2?'이전':'취소'}",
+      "decision": "retain",
+      "reason": "In-page steps, media, pagination or date navigation; not a page-level return."
+    },
+    {
+      "file": "components/crefans/CommonPages.tsx",
+      "line": 83,
+      "owner": "BillingRegistrationResultPage",
+      "tag": "TextLink",
+      "attrs": "href={returnPath}",
+      "text": "{checkout?'멤버십 결제로 돌아가기':kind==='payment'?'내 구독으로 이동':'결제수단 관리로 이동'}",
+      "decision": "replace with shared BackButton",
+      "reason": "Checkout recovery branch is a return; successful subscription/payment-method destination actions remain text."
+    },
+    {
+      "file": "components/crefans/CreatorSearch.tsx",
+      "line": 11,
+      "owner": "CreatorSearch",
+      "tag": "Link",
+      "attrs": "className={s.search} href={props.href} aria-label=\"크리에이터 검색\"",
+      "text": "{icon}<span>{placeholder}</span>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/Brand.tsx",
+      "line": 7,
+      "owner": "Brand",
+      "tag": "Link",
+      "attrs": "href={href} className={`${s.brand} ${className}`} data-brand aria-label={`${name} 홈`}",
+      "text": "<img className={s.logo} src={asset} alt={name} width={844} height={150}/>",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/PostMembershipNotice.tsx",
+      "line": 22,
+      "owner": "PostMembershipNotice",
+      "tag": "Link",
+      "attrs": "className={s.subscribe} href={`${basePath}/membership/${encodeURIComponent(post.creatorId)}?plan=${encodeURIComponent(plan.id)}`} aria-label={`${plan.name} 선택하고 계속`} onClick={()=>setOpen(false)}",
+      "text": "선택하고 계속",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 80,
+      "owner": "SignupPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/login`} className={s.primaryLink}",
+      "text": "로그인하러 가기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 93,
+      "owner": "LoginPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/reset-password`}",
+      "text": "비밀번호 찾기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 96,
+      "owner": "LoginPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/signup`}",
+      "text": "회원가입",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 98,
+      "owner": "LoginPage",
+      "tag": "TextLink",
+      "attrs": "className={s.homeLink} href={`${basePath}/landing`}",
+      "text": "메인으로 돌아가기",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 104,
+      "owner": "SignInPrompt",
+      "tag": "Link",
+      "attrs": "className={s.signInPrimary} href={`${basePath}/login`}",
+      "text": "로그인",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 104,
+      "owner": "SignInPrompt",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/signup`}",
+      "text": "회원가입",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 116,
+      "owner": "MyProfileContent",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/me`} className={s.textLink}",
+      "text": "내 프로필",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 116,
+      "owner": "MyProfileContent",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/post/${post.id}`} key={post.id}",
+      "text": "{model.canAccess(post.creatorId,post.requiredRank,post.requiredPlanId)?(post.image?<img src={post.image} alt={post.title} style={{objectPosition:post.position}}/>:<div className={s.collectionLocked}><Icon name=\"card\"/><small>텍스트 게시물</small></div>):<div className={s.collectionLocked}><Icon name=\"lock\"/><small>멤버십 전용</small></div>}<span>{post.title}</span>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 121,
+      "owner": "MyProfileContent",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/settings`} className={c.coverLink}",
+      "text": "<Icon name=\"settings\" width=\"14\" height=\"14\"/>설정",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 164,
+      "owner": "SettingsPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/${href}`} key={href}",
+      "text": "{icon&&<Icon name={icon} width={19} height={19}/>}<span>{label}</span><Chevron/>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 174,
+      "owner": "SettingsPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/subscriptions`} className={s.textLink} onClick={()=>setPanel(null)}",
+      "text": "내 구독 확인하기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 177,
+      "owner": "SettingsPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/payment-methods`} className={s.primaryLink} onClick={()=>setPanel(null)}",
+      "text": "결제수단 관리하기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 189,
+      "owner": "SupportPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/support`} aria-current={!isQna?'page':undefined}",
+      "text": "자주 묻는 질문",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 189,
+      "owner": "SupportPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/support?tab=qna`} aria-current={isQna?'page':undefined}",
+      "text": "문의하기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/AccountPages.tsx",
+      "line": 190,
+      "owner": "SupportPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/support?tab=qna`} className={s.textLink}",
+      "text": "문의하기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorCard.tsx",
+      "line": 12,
+      "owner": "CreatorCard",
+      "tag": "Link",
+      "attrs": "href={href} className={s.portraitLink}",
+      "text": "{creator.image&&<img src={creator.image} style={{objectPosition:creator.position}} alt={`${creator.name} 크리에이터`}/>}",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorCard.tsx",
+      "line": 13,
+      "owner": "CreatorCard",
+      "tag": "Link",
+      "attrs": "href={href} className={s.creatorHead}",
+      "text": "<Avatar creator={creator} size={40}/><span><span className={s.creatorName}><CreatorName person={creator}/></span><span className={s.handle}>@{creator.handle}</span></span>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/LandingPage.tsx",
+      "line": 23,
+      "owner": "LandingPage",
+      "tag": "a",
+      "attrs": "className={s.skip} href=\"#main\"",
+      "text": "본문으로 이동",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/LandingPage.tsx",
+      "line": 26,
+      "owner": "LandingPage",
+      "tag": "a",
+      "attrs": "href=\"#creators\"",
+      "text": "크리에이터",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/LandingPage.tsx",
+      "line": 26,
+      "owner": "LandingPage",
+      "tag": "a",
+      "attrs": "href=\"#creators\"",
+      "text": "둘러보기",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/LandingPage.tsx",
+      "line": 26,
+      "owner": "LandingPage",
+      "tag": "a",
+      "attrs": "href=\"#membership\"",
+      "text": "멤버십",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/LandingPage.tsx",
+      "line": 26,
+      "owner": "LandingPage",
+      "tag": "a",
+      "attrs": "href={`${basePath}/notices`}",
+      "text": "공지사항",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/LandingPage.tsx",
+      "line": 37,
+      "owner": "LandingPage",
+      "tag": "a",
+      "attrs": "className={s.secondary} href=\"#creators\"",
+      "text": "크리에이터 둘러보기",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/LandingPage.tsx",
+      "line": 63,
+      "owner": "LandingPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/support`}",
+      "text": "고객센터 및 Q&A로 이동",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/LegalDocumentBody.tsx",
+      "line": 10,
+      "owner": "LegalDocumentBody",
+      "tag": "a",
+      "attrs": "key={index} href={`#${idPrefix}-${index}`}",
+      "text": "{section.title}",
+      "decision": "retain",
+      "reason": "Document contents or an external source link."
+    },
+    {
+      "file": "components/crefans/LegalDocumentBody.tsx",
+      "line": 11,
+      "owner": "LegalDocumentBody",
+      "tag": "a",
+      "attrs": "href={link.href} target=\"_blank\" rel=\"noopener noreferrer\"",
+      "text": "{link.label}",
+      "decision": "retain",
+      "reason": "Document contents or an external source link."
+    },
+    {
+      "file": "components/crefans/CreatorPages.tsx",
+      "line": 49,
+      "owner": "ExplorePage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/creator/${creator.id}`} className={s.creatorRow}",
+      "text": "<Avatar creator={creator} size={36}/><span><strong><CreatorName person={creator}/></strong><small>@{creator.handle}</small></span>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorPages.tsx",
+      "line": 62,
+      "owner": "CreatorProfilePage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/explore`}",
+      "text": "크리에이터 둘러보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorPages.tsx",
+      "line": 70,
+      "owner": "CreatorProfilePage",
+      "tag": "a",
+      "attrs": "href={url} target=\"_blank\" rel=\"noopener noreferrer\"",
+      "text": "<Icon name={key} width=\"16\" height=\"16\"/>{socialLabels[key]}",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorPages.tsx",
+      "line": 74,
+      "owner": "CreatorProfilePage",
+      "tag": "Link",
+      "attrs": "className={s.postTile} key={post.id} href={`${basePath}/post/${post.id}`} aria-label={`${post.title}${accessible?'':` · ${accessLabel}`}`}",
+      "text": "{accessible?(post.image?<img src={post.image} style={{objectPosition:post.position}} alt={post.title}/>:<div className={s.lockedTile}><Icon name=\"card\"/><span>텍스트 게시물</span></div>):<div className={s.lockedTile}><Icon name=\"lock\"/><span>{planLabel||'멤버 전용'}</span></div>}{post.requiredRank>0&&accessible&&<span className={s.memberLabel}>멤버 전용</span>}",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorPages.tsx",
+      "line": 95,
+      "owner": "MembershipPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/explore`}",
+      "text": "크리에이터 둘러보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorPages.tsx",
+      "line": 145,
+      "owner": "SubscriptionsPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/creator/${creator.id}`} className={s.subscriptionIdentity}",
+      "text": "<Avatar creator={creator} size={54}/><div><h3><CreatorName person={creator}/> · {plan.name}</h3><p>{money(subscription.price)} /월</p><span>{subscription.status==='active'?'다음 갱신':subscription.status==='cancelled'?'이용 종료':'기간 종료'} {date(subscription.renewAt)}</span></div>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorPages.tsx",
+      "line": 146,
+      "owner": "SubscriptionsPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/membership/${creator.id}`}",
+      "text": "멤버십 보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorPages.tsx",
+      "line": 147,
+      "owner": "SubscriptionsPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/payment-methods`}",
+      "text": "결제수단 변경",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/CreatorPages.tsx",
+      "line": 164,
+      "owner": "SubscriptionsPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/explore`}",
+      "text": "크리에이터 둘러보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/MediaOverlay.tsx",
+      "line": 47,
+      "owner": "",
+      "tag": "button",
+      "attrs": "type=\"button\" className={`${s.stageNav} ${s.stagePrevious}`} aria-label=\"이전 미디어\" onClick={previous}",
+      "text": "<Icon name=\"chevron\"/>",
+      "decision": "retain",
+      "reason": "In-page steps, media, pagination or date navigation; not a page-level return."
+    },
+    {
+      "file": "components/ui/TextLink.tsx",
+      "line": 6,
+      "owner": "TextLink",
+      "tag": "Link",
+      "attrs": "{...props} data-text-link className={`${s.link} ${className}`}",
+      "text": "",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/ui/AppShell.tsx",
+      "line": 6,
+      "owner": "AppShell",
+      "tag": "a",
+      "attrs": "href={homeHref}",
+      "text": "서비스 보기 ↗",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/ui/DateRangePicker.tsx",
+      "line": 132,
+      "owner": "DateRangePicker",
+      "tag": "button",
+      "attrs": "type=\"button\" className={s.navButton} aria-label=\"이전 달\" disabled={applying} onClick={()=>setView(addMonths(view,-1))}",
+      "text": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"1.8\" aria-hidden=\"true\"><path d=\"m14 6-6 6 6 6\"/></svg>",
+      "decision": "retain",
+      "reason": "In-page steps, media, pagination or date navigation; not a page-level return."
+    },
+    {
+      "file": "components/ui/Pagination.tsx",
+      "line": 23,
+      "owner": "Pagination",
+      "tag": "button",
+      "attrs": "type=\"button\" className={s.direction} aria-label=\"이전 페이지\" disabled={currentPage===1} onClick={()=>changePage(currentPage-1)}",
+      "text": "이전",
+      "decision": "retain",
+      "reason": "In-page steps, media, pagination or date navigation; not a page-level return."
+    },
+    {
+      "file": "components/crefans/ServiceLinks.tsx",
+      "line": 7,
+      "owner": "ServiceLinks",
+      "tag": "Link",
+      "attrs": "key={path} href={`${basePath}/${path}`}",
+      "text": "{label}",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 33,
+      "owner": "PostNavigation",
+      "tag": "Link",
+      "attrs": "href={href} className={className} aria-label={label}",
+      "text": "{children}",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 65,
+      "owner": "PostMenu",
+      "tag": "Link",
+      "attrs": "role=\"menuitem\" href={`${model.basePath}/studio/content/${post.id}/edit`} onClick={()=>setOpen(false)}",
+      "text": "수정",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 108,
+      "owner": "PostGallery",
+      "tag": "button",
+      "attrs": "type=\"button\" className={`${s.galleryNav} ${s.galleryPrevious}`} aria-label=\"이전 미디어\" disabled={readOnly} onClick={()=>goTo(index-1)}",
+      "text": "<Icon name=\"chevron\"/>",
+      "decision": "retain",
+      "reason": "In-page steps, media, pagination or date navigation; not a page-level return."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 127,
+      "owner": "PostCard",
+      "tag": "Link",
+      "attrs": "className={s.postCopy} href={`${basePath}/post/${post.id}`}",
+      "text": "<h2>{post.title}</h2><p>{locked?'멤버십으로 이어지는 조금 더 가까운 이야기.':post.body}</p>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 176,
+      "owner": "PostOverlay",
+      "tag": "Action",
+      "attrs": "variant=\"secondary\" disabled={!previousPost} onClick={()=>jump(previousPost)}",
+      "text": "이전 게시물",
+      "decision": "retain",
+      "reason": "In-page steps, media, pagination or date navigation; not a page-level return."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 199,
+      "owner": "FeedPage",
+      "tag": "TextLink",
+      "attrs": "className={s.textLink} href={`${basePath}/explore`}",
+      "text": "크리에이터 둘러보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 246,
+      "owner": "PostDetailPage",
+      "tag": "Link",
+      "attrs": "className={s.backButton} href={`${basePath}/feed`} aria-label=\"피드로 돌아가기\"",
+      "text": "<Icon name=\"arrowLeft\" width={22} height={22}/>",
+      "decision": "reuse shared BackButton",
+      "reason": "Already an icon back control; consolidate without changing the existing destination or local action."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 286,
+      "owner": "MessagesPage",
+      "tag": "button",
+      "attrs": "type=\"button\" className={`${s.backButton} ${s.mobileBack}`} aria-label=\"대화 목록으로\" onClick={()=>setRoomOpen(false)}",
+      "text": "<Icon name=\"arrowLeft\" width={22} height={22}/>",
+      "decision": "reuse shared BackButton",
+      "reason": "Already an icon back control; consolidate without changing the existing destination or local action."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 286,
+      "owner": "MessagesPage",
+      "tag": "Link",
+      "attrs": "className={s.identity} href={model.contactHref?.(creator.id)||`${basePath}/creator/${creator.id}`}",
+      "text": "<Avatar creator={creator} size={40}/><span><strong><CreatorName person={creator}/></strong><small>{isBlocked?'차단됨':model.contactRoleLabel||'크리에이터'}</small></span>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/SocialPages.tsx",
+      "line": 294,
+      "owner": "NotificationsPage",
+      "tag": "Link",
+      "attrs": "className={s.notification} data-unread={unread} href={item.href} key={item.id} onClick={()=>markRead([item.id])}",
+      "text": "{creator?<Avatar creator={creator} size={43}/>:<span className={s.systemIcon}><Icon name=\"card\" width={21} height={21}/></span>}<span className={s.notificationText}><span>{item.text}</span><small>{item.time}</small></span>{unread&&<span className={s.unreadDot} aria-label=\"읽지 않음\"/>}<Icon name=\"chevron\" width={16} height={16}/>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/preview/service/ServiceRouter.tsx",
+      "line": 15,
+      "owner": "Screens",
+      "tag": "Link",
+      "attrs": "key={path} href={`/preview/${path}`}",
+      "text": "<small>{String(index+1).padStart(2,'0')}</small><h2>{title} ↗</h2><p>{description}</p>",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/studio/ManagementPages.tsx",
+      "line": 57,
+      "owner": "ContentManagementPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/content/${item.id}/edit`}",
+      "text": "{item.title}",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/ManagementPages.tsx",
+      "line": 61,
+      "owner": "ContentManagementPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/content/${item.id}/edit`}",
+      "text": "수정",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/ManagementPages.tsx",
+      "line": 63,
+      "owner": "ContentManagementPage",
+      "tag": "Link",
+      "attrs": "className={s.primaryLink} href={`${basePath}/content/new`}",
+      "text": "<Icon name=\"plus\" width={17} height={17}/>게시물 작성",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/ManagementPages.tsx",
+      "line": 66,
+      "owner": "ContentManagementPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/content/new`} className={s.textLink}",
+      "text": "첫 게시물 작성하기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/ManagementPages.tsx",
+      "line": 76,
+      "owner": "ContentEditorPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/content`} className={s.textLink}",
+      "text": "콘텐츠 목록으로",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/studio/ManagementPages.tsx",
+      "line": 113,
+      "owner": "ContentEditor",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/content`} className={s.textLink}",
+      "text": "목록으로",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/studio/ManagementPages.tsx",
+      "line": 151,
+      "owner": "MembershipManagementPage",
+      "tag": "TextLink",
+      "attrs": "className={s.memberLink} href={`${basePath}/subscribers?plan=${plan.id}`}",
+      "text": "가입자 {model.subscribers.filter(subscriber=>subscriber.planId===plan.id&&subscriber.status!=='expired'&&subscriber.joinedAt<=model.now.slice(0,10)&&subscriber.renewAt>=model.now.slice(0,10)).length}명",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/ReportPage.tsx",
+      "line": 20,
+      "owner": "ReportPage",
+      "tag": "TextLink",
+      "attrs": "className={s.back} href={basePath}",
+      "text": "<svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"1.8\" aria-hidden=\"true\"><path d=\"m14 6-6 6 6 6\"/></svg>대시보드로",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/studio/ReportPage.tsx",
+      "line": 49,
+      "owner": "ReportContent",
+      "tag": "TextLink",
+      "attrs": "key={item.id} className={s.reportLink} href={`${basePath}/reports/${item.id}`} aria-current={report.id===item.id?'page':undefined}",
+      "text": "{item.label}",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/ReportPage.tsx",
+      "line": 65,
+      "owner": "ReportContent",
+      "tag": "TextLink",
+      "attrs": "key={link.path} href={`${basePath}/${link.path}`}",
+      "text": "{link.label}<svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"1.8\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/CommunityPages.tsx",
+      "line": 26,
+      "owner": "CreatorCommentsPage",
+      "tag": "TextLink",
+      "attrs": "className={s.postTitle} href={`${basePath}/content/${comment.postId}/edit`}",
+      "text": "{post?.title||'게시물 정보 없음'}",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/WithdrawalSecurityPage.tsx",
+      "line": 32,
+      "owner": "WithdrawalSecurityPage",
+      "tag": "Link",
+      "attrs": "className={s.primaryLink} href={`${basePath}/withdraw`}",
+      "text": "출금 요청으로 이동",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/WithdrawalSecurityPage.tsx",
+      "line": 37,
+      "owner": "WithdrawalSecurityPage",
+      "tag": "TextLink",
+      "attrs": "className={s.back} href={`${basePath}/earnings`}",
+      "text": "수익 현황으로 돌아가기",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 30,
+      "owner": "EarningsPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/withdraw`} className={s.brandLink}",
+      "text": "출금 요청",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 34,
+      "owner": "EarningsPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/settlements`}",
+      "text": "정산 내역 보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 48,
+      "owner": "SettlementsPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/earnings`}",
+      "text": "수익 현황",
+      "decision": "replace with shared BackButton",
+      "reason": "Page-level return to the existing parent or list destination."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 51,
+      "owner": "SettlementsPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/withdraw`} className={s.brandLink}",
+      "text": "출금 가능 금액 확인",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 94,
+      "owner": "WithdrawalPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/withdrawals`}",
+      "text": "출금 내역",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 96,
+      "owner": "WithdrawalPage",
+      "tag": "Link",
+      "attrs": "className={s.brandLink} href={`${basePath}/security`}",
+      "text": "출금 PIN 설정하기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 96,
+      "owner": "WithdrawalPage",
+      "tag": "Link",
+      "attrs": "className={s.brandLink} href={`${basePath}/withdrawals`}",
+      "text": "출금 내역 보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 98,
+      "owner": "WithdrawalPage",
+      "tag": "TextLink",
+      "attrs": "className={s.textLink} href={`${basePath}/accounts`}",
+      "text": "정산 계좌 관리",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 98,
+      "owner": "WithdrawalPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/accounts`} className={s.brandLink}",
+      "text": "정산 계좌 관리",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 109,
+      "owner": "WithdrawalsPage",
+      "tag": "Link",
+      "attrs": "href={`${basePath}/withdraw`} className={s.brandLink}",
+      "text": "출금 요청",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/FinancePages.tsx",
+      "line": 137,
+      "owner": "SettlementAccountsPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/withdraw`} className={s.textLink}",
+      "text": "출금 요청으로 이동",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/StudioShell.tsx",
+      "line": 35,
+      "owner": "StudioShell",
+      "tag": "a",
+      "attrs": "href=\"#studio-content\" className={s.skip}",
+      "text": "본문으로 이동",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/studio/StudioShell.tsx",
+      "line": 36,
+      "owner": "StudioShell",
+      "tag": "Link",
+      "attrs": "href={`${fanPath}/feed`}",
+      "text": "팬 화면으로",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/studio/StudioShell.tsx",
+      "line": 37,
+      "owner": "StudioShell",
+      "tag": "Link",
+      "attrs": "href={`${fanPath}/feed`}",
+      "text": "팬 화면으로 이동",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/studio/StudioShell.tsx",
+      "line": 42,
+      "owner": "StudioShell",
+      "tag": "Link",
+      "attrs": "className={s.dashboardLink} href={href('')} aria-current={active===''?'page':undefined}",
+      "text": "<NavIcon name=\"home\"/>대시보드",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/studio/StudioShell.tsx",
+      "line": 45,
+      "owner": "StudioShell",
+      "tag": "Link",
+      "attrs": "key={item.path} href={href(item.path)} aria-current={matches(active,item.path)?'page':undefined}",
+      "text": "{item.label}",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/studio/StudioShell.tsx",
+      "line": 48,
+      "owner": "StudioShell",
+      "tag": "Link",
+      "attrs": "className={s.onboardingLink} href={href('start')} aria-current={active==='start'?'page':undefined}",
+      "text": "크리에이터 시작 안내 ↗",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/studio/StudioShell.tsx",
+      "line": 49,
+      "owner": "StudioShell",
+      "tag": "Link",
+      "attrs": "href={`${fanPath}/landing`}",
+      "text": "서비스 소개",
+      "decision": "retain",
+      "reason": "Primary navigation, service switching, footer, brand, catalogue or skip-to-content link."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 20,
+      "owner": "MetricCard",
+      "tag": "TextLink",
+      "attrs": "href={href} className={s.metricDetail} aria-label={`${metric.label} 리포트 보기`}",
+      "text": "리포트 보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 24,
+      "owner": "ActivityRow",
+      "tag": "Link",
+      "attrs": "className={s.activity} href={`${basePath}/${activity.path}`}",
+      "text": "{content}",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 27,
+      "owner": "DashboardPage",
+      "tag": "Link",
+      "attrs": "className={s.primaryLink} href={`${basePath}/content/new`}",
+      "text": "새 게시물 작성 +",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 27,
+      "owner": "DashboardPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/content`}",
+      "text": "콘텐츠 관리",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 27,
+      "owner": "DashboardPage",
+      "tag": "Link",
+      "attrs": "className={s.task} key={task.id} href={`${basePath}/${task.path}`}",
+      "text": "<span className={s.taskIcon}>↗</span><span><strong>{task.title}</strong><small>{task.description}</small></span>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 27,
+      "owner": "DashboardPage",
+      "tag": "Link",
+      "attrs": "className={s.creatorBanner} href={`${basePath}/settings`}",
+      "text": "<Avatar creator={{name:model.profile.name,image:model.profile.avatar,position:model.profile.avatarPosition}} size={56}/><span><strong>나를 소개하는 가장 좋은 방법</strong><small>프로필을 가꾸고 팬들에게 더 가까이</small></span><span>→</span>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 27,
+      "owner": "DashboardPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/comments`}",
+      "text": "소통 관리",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 27,
+      "owner": "DashboardPage",
+      "tag": "TextLink",
+      "attrs": "href={`${basePath}/analytics`}",
+      "text": "통계 더보기",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 27,
+      "owner": "DashboardPage",
+      "tag": "Link",
+      "attrs": "className={s.performanceRow} href={`${basePath}/content/${post.id}/edit`} key={post.id}",
+      "text": "{post.image?<img src={post.image} alt=\"\"/>:<span className={s.textThumbnail} aria-label=\"텍스트 게시물\">Aa</span>}<strong>{post.title}</strong><span>조회 <b>{post.views.toLocaleString()}</b></span><span>좋아요 <b>{post.likes.toLocaleString()}</b></span><span>댓글 <b>{post.comments.toLocaleString()}</b></span>",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 48,
+      "owner": "CreatorStartPage",
+      "tag": "Link",
+      "attrs": "className={s.primaryLink} href={basePath}",
+      "text": "스튜디오 시작하기 →",
+      "decision": "retain",
+      "reason": "Forward action, content entry, related destination, recovery CTA or internal tab; destination text remains useful."
+    },
+    {
+      "file": "components/crefans/studio/OverviewPages.tsx",
+      "line": 49,
+      "owner": "CreatorStartPage",
+      "tag": "Action",
+      "attrs": "variant=\"secondary\" disabled={pending} onClick={()=>setStep(1)}",
+      "text": "이전",
+      "decision": "retain",
+      "reason": "In-page steps, media, pagination or date navigation; not a page-level return."
+    }
+  ]
+}

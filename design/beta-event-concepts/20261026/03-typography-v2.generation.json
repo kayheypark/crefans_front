@@ -1,0 +1,18 @@
+{
+  "tool": "image_gen.imagegen",
+  "mode": "edit",
+  "createdAt": "2026-10-26",
+  "input": "design/beta-event-concepts/20261026/02-round-flat-v2.png",
+  "output": "design/beta-event-concepts/20261026/03-typography-v2.png",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-c00151a2-3a89-412e-9202-149a338d05d3.png",
+  "prompt": "Use case: style-transfer. Redesign the attached crefans event poster as a sophisticated TYPOGRAPHY-LED EDITORIAL POSTER. Preserve the Korean text and all benefits exactly, but radically change the visual treatment from illustrated rounded cards to refined typographic design.\n\nPortrait 1024x1536. Warm white / near-white solid background. Deep ink navy type with a restrained rich violet accent on key reward numerals. Modern professional Korean neo-grotesque sans serif, like Pretendard / SUIT, crisp and carefully typeset, varied medium, bold and extra-bold weights. Elegant editorial Swiss-grid feel, not a playful game banner. Excellent left alignment and consistent margins. Four airy horizontal sections separated by very fine pale lavender rules, NO rounded rectangles, NO tinted card backgrounds. Generous negative space. Typography is the only hero: remove all badges, gifts, beans, coupon illustrations, decorative stars, confetti and hearts. No 3D, no icons, no shadows. Keep the literal \"*\" characters required in the copy. Use differences of size, weight, spacing and violet color to create visual rhythm.\n\nThe complete exact text:\nSmall brand \"crefans\" at top left.\nMain heading \"크레팬스 베타 1기\".\nSmaller muted subtitle \"* 함께 만들어 주셔서 감사합니다.\"\n\nSection 1:\nLarge bold single line \"원년멤버 한정판 뱃지\" (absolutely MUST be ONE line, with no wrapping; use the full text area width and a slightly smaller headline size if needed, but still prominent).\nSmaller regular weight muted text:\n\"* 프로필 페이지에 노출됩니다.\"\n\"* 모든 참여자에게 드리며, 표시 여부는 직접 선택할 수 있습니다.\"\n\nSection 2:\nLarge headline \"1만원 상당 선물\" with \"1만원\" emphasized violet.\nSmaller regular weight muted sentences:\n\"* 크리에이터 3명에게 드립니다.\"\n\"* 주목할 크리에이터로 30일 동안 노출됩니다.\"\n\nSection 3:\nLarge headline \"프로모션 100콩\" with \"100콩\" as the largest numeral in the poster and violet.\nONLY at bottom RIGHT of this section, one small right-aligned muted secondary sentence:\n\"* 팬 참여자 13명에게 지급합니다.\"\n13명 must never appear in big type or a badge, just this discreet footnote.\n\nSection 4:\nLarge headline \"5천원 상품권\" with \"5천원\" emphasized violet.\nSmall muted secondary sentence:\n\"* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다.\"\n\nBottom footer, small muted:\n\"* 참여 기간과 혜택 지급 일정은 별도 안내합니다.\"\n\nEVERY secondary explanatory line must visibly start with the literal asterisk '*', and be a complete natural Korean sentence. Do not add any other text or labels, category pills, date, number labels, QR, button, hashtags or em dash. Spell \"원년멤버 한정판 뱃지\" exactly. Maintain all margins, avoid clipping, no overlap. Main badge headline stays one line; explanatory lines can wrap naturally if necessary. Final standalone artwork, not a webpage screenshot or paper mockup. Aim for polished understated creator-brand campaign typography, not a dense document.",
+  "visualReview": {
+    "typographyLed": true,
+    "noIllustrationsOrCards": true,
+    "headlineSingleLine": true,
+    "allSecondaryTextAsteriskSentences": true,
+    "fan13BottomRightSecondary": true,
+    "benefitsAndCopyPreserved": true
+  },
+  "state": "revised-concept-not-deployed"
+}

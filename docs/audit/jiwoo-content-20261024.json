@@ -1,0 +1,711 @@
+{
+  "at": "2026-10-24T03:08:23.476127+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "dirty; prior changes preserved",
+  "request": "Survey mock creator coverage first; enhance Jiwoo travel/camping profile, cover, and posts",
+  "surveyBefore": {
+    "at": "2026-10-24T02:55:29.580Z",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "creatorCount": 8,
+    "postCount": 13,
+    "creators": [
+      {
+        "id": "moka",
+        "name": "모카",
+        "tags": [
+          "코스프레",
+          "아트"
+        ],
+        "posts": 3,
+        "publicPosts": 1,
+        "membershipPosts": 2,
+        "avatar": "/illustrations/creators/moka/avatar-v1.png",
+        "cover": "/illustrations/creators/moka/cover-v1.png",
+        "coverFallbackToAvatar": false,
+        "uniquePostImages": [
+          "/illustrations/creators/moka/editorial-v1.png",
+          "/illustrations/creators/cosplay-anime-v3.png",
+          "/illustrations/creators/moka/backstage-v1.png",
+          "/illustrations/creators/moka/cover-v1.png",
+          "/illustrations/creators/moka/avatar-v1.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 2,
+        "hasAbout": true
+      },
+      {
+        "id": "sion",
+        "name": "시온",
+        "tags": [
+          "코스프레",
+          "아트"
+        ],
+        "posts": 2,
+        "publicPosts": 1,
+        "membershipPosts": 1,
+        "avatar": "/illustrations/creators/sion/avatar-v1.png",
+        "cover": "/illustrations/creators/sion/portrait-v1.png",
+        "coverFallbackToAvatar": false,
+        "uniquePostImages": [
+          "/illustrations/creators/sion/portrait-v1.png",
+          "/illustrations/creators/sion/avatar-v1.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 1,
+        "hasAbout": true
+      },
+      {
+        "id": "haneul",
+        "name": "하늘",
+        "tags": [
+          "사진",
+          "일상"
+        ],
+        "posts": 6,
+        "publicPosts": 3,
+        "membershipPosts": 3,
+        "avatar": "/illustrations/redesign/hero-woman.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [
+          "/illustrations/redesign/variety/haneul-courtyard-v3.png",
+          "/illustrations/redesign/variety/haneul-bookshop-v3.png",
+          "/illustrations/redesign/daily-cat.png",
+          "/illustrations/redesign/beach-day.png",
+          "/illustrations/redesign/hero-woman.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 0,
+        "hasAbout": true
+      },
+      {
+        "id": "jiwoo",
+        "name": "지우",
+        "tags": [
+          "여행",
+          "브이로그"
+        ],
+        "posts": 1,
+        "publicPosts": 1,
+        "membershipPosts": 0,
+        "avatar": "/illustrations/redesign/variety/jiwoo-terrace-v3.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [
+          "/illustrations/redesign/variety/jiwoo-terrace-v3.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 0,
+        "hasAbout": true
+      },
+      {
+        "id": "seoyeon",
+        "name": "서연",
+        "tags": [
+          "음악",
+          "커버"
+        ],
+        "posts": 1,
+        "publicPosts": 0,
+        "membershipPosts": 1,
+        "avatar": "/illustrations/redesign/variety/seoyeon-music-v3.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [
+          "/illustrations/redesign/variety/seoyeon-music-v3.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 0,
+        "hasAbout": false
+      },
+      {
+        "id": "minji",
+        "name": "민지",
+        "tags": [
+          "소통",
+          "라이브"
+        ],
+        "posts": 0,
+        "publicPosts": 0,
+        "membershipPosts": 0,
+        "avatar": "/illustrations/redesign/variety/minji-gallery-v3.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [],
+        "promoted": false,
+        "specificMemberships": 0,
+        "hasAbout": false
+      },
+      {
+        "id": "yerin",
+        "name": "예린",
+        "tags": [
+          "피트니스",
+          "라이프스타일"
+        ],
+        "posts": 0,
+        "publicPosts": 0,
+        "membershipPosts": 0,
+        "avatar": "/illustrations/redesign/variety/yerin-wellness-v3.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [],
+        "promoted": false,
+        "specificMemberships": 0,
+        "hasAbout": false
+      },
+      {
+        "id": "sua",
+        "name": "수아",
+        "tags": [
+          "일상",
+          "사진"
+        ],
+        "posts": 0,
+        "publicPosts": 0,
+        "membershipPosts": 0,
+        "avatar": "/illustrations/redesign/minji.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [],
+        "promoted": false,
+        "specificMemberships": 0,
+        "hasAbout": false
+      }
+    ],
+    "coverage": [
+      {
+        "category": "라이프스타일",
+        "creators": [
+          "yerin"
+        ],
+        "postCount": 0
+      },
+      {
+        "category": "뷰티",
+        "creators": [],
+        "postCount": 0
+      },
+      {
+        "category": "코스프레",
+        "creators": [
+          "moka",
+          "sion"
+        ],
+        "postCount": 5
+      },
+      {
+        "category": "피트니스",
+        "creators": [
+          "yerin"
+        ],
+        "postCount": 0
+      },
+      {
+        "category": "음악",
+        "creators": [
+          "seoyeon"
+        ],
+        "postCount": 1
+      },
+      {
+        "category": "여행",
+        "creators": [
+          "jiwoo"
+        ],
+        "postCount": 1
+      },
+      {
+        "category": "게임",
+        "creators": [],
+        "postCount": 0
+      },
+      {
+        "category": "아트",
+        "creators": [
+          "moka",
+          "sion"
+        ],
+        "postCount": 5
+      },
+      {
+        "category": "일상",
+        "creators": [
+          "haneul",
+          "sua"
+        ],
+        "postCount": 6
+      }
+    ],
+    "landingCreatorIds": [
+      "moka",
+      "sion",
+      "haneul",
+      "jiwoo",
+      "seoyeon"
+    ],
+    "sourceSha256": {
+      "lib/content/landing.ts": "7e0ff05add88276cc3532d6239fd27b8db9da61a9fb17e6af33a734278e3892c",
+      "components/preview/service/fixtures.ts": "7e35378996ed9b17596a80873846900bf85c37f74b6339b9b16f6c00256cda49",
+      "components/crefans/CreatorPages.tsx": "de31702f9174be13725ef772770104323f6e93a6a70e07654d535bcc2332085f",
+      "components/crefans/ProfileHeader.tsx": "75a0074b383bcdc199be2303cf9d02afc6255dac7a6d0b8462f3ea42db3cc163",
+      "components/crefans/SocialPages.tsx": "7f1e46d0f7e44d44dab561137a44b97567542531838674565a689277c87ebda2"
+    }
+  },
+  "surveyAfter": {
+    "at": "2026-10-24T03:00:35.598Z",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "creatorCount": 8,
+    "postCount": 15,
+    "creators": [
+      {
+        "id": "moka",
+        "name": "모카",
+        "tags": [
+          "코스프레",
+          "아트"
+        ],
+        "posts": 3,
+        "publicPosts": 1,
+        "membershipPosts": 2,
+        "avatar": "/illustrations/creators/moka/avatar-v1.png",
+        "cover": "/illustrations/creators/moka/cover-v1.png",
+        "coverFallbackToAvatar": false,
+        "uniquePostImages": [
+          "/illustrations/creators/moka/editorial-v1.png",
+          "/illustrations/creators/cosplay-anime-v3.png",
+          "/illustrations/creators/moka/backstage-v1.png",
+          "/illustrations/creators/moka/cover-v1.png",
+          "/illustrations/creators/moka/avatar-v1.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 2,
+        "hasAbout": true
+      },
+      {
+        "id": "sion",
+        "name": "시온",
+        "tags": [
+          "코스프레",
+          "아트"
+        ],
+        "posts": 2,
+        "publicPosts": 1,
+        "membershipPosts": 1,
+        "avatar": "/illustrations/creators/sion/avatar-v1.png",
+        "cover": "/illustrations/creators/sion/portrait-v1.png",
+        "coverFallbackToAvatar": false,
+        "uniquePostImages": [
+          "/illustrations/creators/sion/portrait-v1.png",
+          "/illustrations/creators/sion/avatar-v1.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 1,
+        "hasAbout": true
+      },
+      {
+        "id": "haneul",
+        "name": "하늘",
+        "tags": [
+          "사진",
+          "일상"
+        ],
+        "posts": 6,
+        "publicPosts": 3,
+        "membershipPosts": 3,
+        "avatar": "/illustrations/redesign/hero-woman.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [
+          "/illustrations/redesign/variety/haneul-courtyard-v3.png",
+          "/illustrations/redesign/variety/haneul-bookshop-v3.png",
+          "/illustrations/redesign/daily-cat.png",
+          "/illustrations/redesign/beach-day.png",
+          "/illustrations/redesign/hero-woman.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 0,
+        "hasAbout": true
+      },
+      {
+        "id": "jiwoo",
+        "name": "지우",
+        "tags": [
+          "여행",
+          "캠핑",
+          "브이로그"
+        ],
+        "posts": 3,
+        "publicPosts": 2,
+        "membershipPosts": 1,
+        "avatar": "/illustrations/creators/jiwoo/avatar-trail-v1.png",
+        "cover": "/illustrations/creators/jiwoo/cover-lakeside-v1.png",
+        "coverFallbackToAvatar": false,
+        "uniquePostImages": [
+          "/illustrations/creators/jiwoo/coastal-walk-v1.png",
+          "/illustrations/creators/jiwoo/camp-morning-v1.png",
+          "/illustrations/creators/jiwoo/cover-lakeside-v1.png",
+          "/illustrations/creators/jiwoo/camp-coffee-v1.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 0,
+        "hasAbout": true
+      },
+      {
+        "id": "seoyeon",
+        "name": "서연",
+        "tags": [
+          "음악",
+          "커버"
+        ],
+        "posts": 1,
+        "publicPosts": 0,
+        "membershipPosts": 1,
+        "avatar": "/illustrations/redesign/variety/seoyeon-music-v3.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [
+          "/illustrations/redesign/variety/seoyeon-music-v3.png"
+        ],
+        "promoted": true,
+        "specificMemberships": 0,
+        "hasAbout": false
+      },
+      {
+        "id": "minji",
+        "name": "민지",
+        "tags": [
+          "소통",
+          "라이브"
+        ],
+        "posts": 0,
+        "publicPosts": 0,
+        "membershipPosts": 0,
+        "avatar": "/illustrations/redesign/variety/minji-gallery-v3.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [],
+        "promoted": false,
+        "specificMemberships": 0,
+        "hasAbout": false
+      },
+      {
+        "id": "yerin",
+        "name": "예린",
+        "tags": [
+          "피트니스",
+          "라이프스타일"
+        ],
+        "posts": 0,
+        "publicPosts": 0,
+        "membershipPosts": 0,
+        "avatar": "/illustrations/redesign/variety/yerin-wellness-v3.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [],
+        "promoted": false,
+        "specificMemberships": 0,
+        "hasAbout": false
+      },
+      {
+        "id": "sua",
+        "name": "수아",
+        "tags": [
+          "일상",
+          "사진"
+        ],
+        "posts": 0,
+        "publicPosts": 0,
+        "membershipPosts": 0,
+        "avatar": "/illustrations/redesign/minji.png",
+        "cover": null,
+        "coverFallbackToAvatar": true,
+        "uniquePostImages": [],
+        "promoted": false,
+        "specificMemberships": 0,
+        "hasAbout": false
+      }
+    ],
+    "coverage": [
+      {
+        "category": "라이프스타일",
+        "creators": [
+          "yerin"
+        ],
+        "postCount": 0
+      },
+      {
+        "category": "뷰티",
+        "creators": [],
+        "postCount": 0
+      },
+      {
+        "category": "코스프레",
+        "creators": [
+          "moka",
+          "sion"
+        ],
+        "postCount": 5
+      },
+      {
+        "category": "피트니스",
+        "creators": [
+          "yerin"
+        ],
+        "postCount": 0
+      },
+      {
+        "category": "음악",
+        "creators": [
+          "seoyeon"
+        ],
+        "postCount": 1
+      },
+      {
+        "category": "여행",
+        "creators": [
+          "jiwoo"
+        ],
+        "postCount": 3
+      },
+      {
+        "category": "게임",
+        "creators": [],
+        "postCount": 0
+      },
+      {
+        "category": "아트",
+        "creators": [
+          "moka",
+          "sion"
+        ],
+        "postCount": 5
+      },
+      {
+        "category": "일상",
+        "creators": [
+          "haneul",
+          "sua"
+        ],
+        "postCount": 6
+      }
+    ],
+    "landingCreatorIds": [
+      "moka",
+      "sion",
+      "haneul",
+      "jiwoo",
+      "seoyeon"
+    ],
+    "sourceSha256": {
+      "lib/content/landing.ts": "55f20f8f68e63d289104b0837792cae7fd52b18d6cc7bfee3b3c52ce1bc674dc",
+      "components/preview/service/fixtures.ts": "dc673b8cc5f0893c285d32f182625fe3b463856115f265492e9b7934eca2cfe0",
+      "components/crefans/CreatorPages.tsx": "de31702f9174be13725ef772770104323f6e93a6a70e07654d535bcc2332085f",
+      "components/crefans/ProfileHeader.tsx": "75a0074b383bcdc199be2303cf9d02afc6255dac7a6d0b8462f3ea42db3cc163",
+      "components/crefans/SocialPages.tsx": "7f1e46d0f7e44d44dab561137a44b97567542531838674565a689277c87ebda2"
+    }
+  },
+  "recommendation": {
+    "newCreators": 2,
+    "categories": [
+      "뷰티",
+      "게임"
+    ],
+    "targetCount": 10,
+    "basis": "Current nine category filters, preserve existing creator identities. Product-specific content coverage, not external industry minimum.",
+    "existingPriority": [
+      "jiwoo completed locally",
+      "yerin",
+      "seoyeon",
+      "haneul cover",
+      "sion cover/secondary photo",
+      "minji and sua review"
+    ],
+    "newCreatorsAdded": 0
+  },
+  "change": {
+    "images": [
+      {
+        "path": "public/illustrations/creators/jiwoo/avatar-trail-v1.png",
+        "width": 1254,
+        "height": 1254,
+        "bytes": 2657430,
+        "sha256": "79c518fec2d0e16ba6c8838330ece7f1940aceb229591d77a5c314b546506c88",
+        "sameAsGeneratedOriginal": true
+      },
+      {
+        "path": "public/illustrations/creators/jiwoo/cover-lakeside-v1.png",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 2998997,
+        "sha256": "41aa88e1aa6cc8522de43b696b623abc5c4c4176e7fe5346885baed456422a69",
+        "sameAsGeneratedOriginal": true
+      },
+      {
+        "path": "public/illustrations/creators/jiwoo/coastal-walk-v1.png",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 2450840,
+        "sha256": "30c7a96b0537e88e0bba4383e11a28904c9ae39ef89ba933b33bfa49a8a196a9",
+        "sameAsGeneratedOriginal": true
+      },
+      {
+        "path": "public/illustrations/creators/jiwoo/camp-morning-v1.png",
+        "width": 1024,
+        "height": 1536,
+        "bytes": 2591954,
+        "sha256": "d50422c219120838adbdfe7bc57804d866e94a3a68f0ac804ab016fe3afa1cd7",
+        "sameAsGeneratedOriginal": true
+      },
+      {
+        "path": "public/illustrations/creators/jiwoo/camp-coffee-v1.png",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 2736544,
+        "sha256": "6c7baf973d820685a68c2d6331b2af29050525f1d2111568a65a453d06194740",
+        "sameAsGeneratedOriginal": true
+      }
+    ],
+    "postsBefore": 1,
+    "postsAfter": 3,
+    "publicPosts": 2,
+    "membershipPosts": 1,
+    "newPostIds": [
+      "jiwoo-camp-morning",
+      "jiwoo-camp-coffee"
+    ],
+    "preservedPostId": "travel",
+    "sourceSha256": {
+      "lib/content/landing.ts": "55f20f8f68e63d289104b0837792cae7fd52b18d6cc7bfee3b3c52ce1bc674dc",
+      "components/preview/service/fixtures.ts": "dc673b8cc5f0893c285d32f182625fe3b463856115f265492e9b7934eca2cfe0"
+    },
+    "generator": "built-in image_gen.imagegen",
+    "promptsAndOriginals": "public/illustrations/creators/jiwoo/generation.json"
+  },
+  "checks": {
+    "check": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "startedAt": "2026-10-24T03:01:36.126206+00:00",
+      "finishedAt": "2026-10-24T03:01:43.858371+00:00",
+      "exitCode": 0,
+      "passedTests": 292
+    },
+    "browser": {
+      "at": "2026-10-24T03:06:52.286Z",
+      "origin": "http://127.0.0.1:3010",
+      "results": [
+        {
+          "engine": "chromium",
+          "browser": "156.0.8078.4",
+          "width": 320,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        },
+        {
+          "engine": "chromium",
+          "browser": "156.0.8078.4",
+          "width": 390,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        },
+        {
+          "engine": "chromium",
+          "browser": "156.0.8078.4",
+          "width": 1280,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        },
+        {
+          "engine": "webkit",
+          "browser": "27.2",
+          "width": 390,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        }
+      ]
+    },
+    "visualReview": [
+      "Five generated photos inspected against existing fictional Jiwoo identity; natural travel/camping scenes",
+      "Chromium320 profile crop, Chromium390 travel feed, Chromium1280 profile layout"
+    ],
+    "dataScope": "8 creators retained, 13 to 15 total posts; only Jiwoo creator summary changed; generated PNG copies byte-identical to originals"
+  },
+  "initialFailures": [
+    {
+      "step": "inventory",
+      "cause": "Generic CJS test loader did not hoist bottom-of-file ES import; followers initializer raised ReferenceError",
+      "resolution": "Read selected data literals via TypeScript AST; no product module loader change"
+    },
+    {
+      "step": "browser selectors",
+      "cause": "All article elements included membership cards; media button name also includes creator name",
+      "resolution": "Scope post count to post menu and use observed complete accessible name"
+    },
+    {
+      "step": "WebKit search",
+      "cause": "Immediate text entry after direct navigation did not remain applied; five original cards remained",
+      "resolution": "For asset-link verification use supported q=지우 initial search route; keyboard timing behavior not changed or claimed fixed"
+    }
+  ],
+  "limits": [
+    "Local changes only; no production deployment, commit, merge or push.",
+    "New beauty/game creators are recommendations and were not generated or inserted.",
+    "Fictional photographs and mock profiles, not actual creator registrations or genuine travel records.",
+    "Browser viewports are not physical phone testing; no financial/external communications executed."
+  ],
+  "evidenceDirectory": "/Users/ethan/repository/crefans_front/.local/jiwoo-content-20261024",
+  "artifactSha256": {
+    "chromium-320-travel-feed.png": "b81d931890c849f7150242fc11c51cf7c2c806a2319c1399e462b4461521cc28",
+    "browser.log": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b",
+    "chromium-390-travel-feed.png": "0aec04f338d7d7e1f5e0b22fbe6deba2e89bc417e8784fc1d6cb1d02e6dc5770",
+    "browser-initial.log": "284a4756bfc1084279b5ede4e51a5dd2d7f8233d36e6ff0b6a646b116b9a5c2e",
+    "chromium-320-profile.png": "b1ec4ac5fe36c34dc7313212338d87f7c8870b8baf87746bdb0a85f778ccbcd7",
+    "inventory-after.log": "2c46b9f046f02cdcd72ff3464f98e2ce72a007b7b8a88f50b33c3647a9a8bc08",
+    "webkit-390-profile.png": "f600c32e4f9cb46bda9bc21205d1159908d64ac2082fa3c761640e8b03852570",
+    "fixtures.ts.diff": "2348d805d3900f4d2a131f9579e5f39f5c0827877bbb08163697cd9b1ea55473",
+    "browser-webkit-initial.log": "c912d7272009f54e2e52a762846d52e0a514dbd9b462c1cd9ed324d15b0dc582",
+    "browser.cjs": "d5a2afaaffa62748cf7b8b75deaadb1738219648dff2b80695f1cf6b590fd8c4",
+    "finalize.py": "1cee9c31f7d980ed7d8676a91523286632637db8835062db6d36c54bb4bc7600",
+    "inventory-after.cjs": "87e51d8010e51b738cf05f8be1ce81f1a91b568c3ad3c7d180fbb541602da20f",
+    "landing.ts.diff": "cd7e030ec9e67dd9ad52da3f8cae727b6eb3b0dd223a1c55b7d269df56daad2b",
+    "chromium-390-profile.png": "55c76269c07284b3c2457f75840bd737ffdfc400adb1f9d1268764dc5ad87cef",
+    "inventory.cjs": "27864206045f20b57b80af617517edfbe529ae4a571aaa15d94d01b6f3a37fa8",
+    "chromium-1280-profile.png": "53cd437d74e412cbfa57b0856be8645529159fd756cea3945a08c9e118521802",
+    "check.log": "cdda62cee74b5f2e7d97ac0f51b883f9d2af3b527351a1db8b11b4d3efe77d02",
+    "webkit-390-travel-feed.png": "10be383a6e747c8f647f98927c80e34109a1d6ccc4a8a9a6287150b377ee5982",
+    "browser-label-initial.log": "80e784c51654bef41fd62451d2d64df38c4e873bd2cd409bbab42292dd16a766",
+    "chromium-1280-travel-feed.png": "6617bf2fdd24abcc62412e1e3a6adc54d48a0c3d5da016093150347e950bf338"
+  }
+}

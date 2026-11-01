@@ -9,6 +9,17 @@ function mount(Component,props){let tree;act(()=>{tree=create(React.createElemen
 function update(tree,Component,props){act(()=>tree.update(React.createElement(Component,props)));}
 function close(tree){act(()=>tree.unmount());}
 
+test('external field action is beside the bordered control and outside its label',()=>{
+  const tree=mount(Field,{label:'핸들',value:'available',onChange:()=>{},action:React.createElement('button',{type:'button'},'중복 확인')});
+  const input=tree.root.findByType('input'),button=tree.root.findByType('button');
+  assert.equal(input.parent.type,'div');
+  assert.equal(input.parent.findAllByType('button').length,0);
+  assert.equal(button.parent.type,'div');
+  assert.equal(input.parent.parent,button.parent);
+  assert.equal(tree.root.findByType('label').findAllByType('button').length,0);
+  close(tree);
+});
+
 test('fields preserve native input attributes and associate external help with their own error',()=>{
   const changes=[];
   const tree=mount(Field,{label:'금액',id:'price',type:'number',value:'012.50',min:0,step:0.01,required:true,name:'price','aria-describedby':'payment-policy','aria-label':'월 구독 금액',error:'금액을 확인해 주세요',hint:'월 단위 결제',suffix:'원',onChange:event=>changes.push(event.target.value)});

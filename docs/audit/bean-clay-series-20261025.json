@@ -1,0 +1,242 @@
+{
+  "verifiedAt": "2026-10-25T05:58:14.241149+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirty": true,
+  "quantityCount": 10,
+  "newGenerations": 9,
+  "approvedReferenceReused": 1,
+  "tool": "built-in image_gen",
+  "visualReview": "Soft pastel mint beans and cream grooves match clay reference across all9 outputs. 10/30/50 grow as loose piles,100/300/500 use1/2/3 cream pouches,1000 a crate,5000 open chest,10000 chest plus two pouches. No quantity text, faces or coins. Figures are symbolic, not a literal physical bean count.",
+  "assets": [
+    {
+      "quantity": 1,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/1.png",
+      "url": "/brand/beans/clay-v1/1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        8,
+        1182,
+        1254
+      ],
+      "sha256": "ed55c8a0c35b8b1dc6c0248055e6de376d33ffa8e528203b7a80cb32d66c9d9a",
+      "bytes": 858324
+    },
+    {
+      "quantity": 10,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/10.png",
+      "url": "/brand/beans/clay-v1/10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        103,
+        1226,
+        1212
+      ],
+      "sha256": "878ee0c7fc02ec2dc05961d17b46b5b80d5ec5e03af628d89a89a517c7f71656",
+      "bytes": 877835
+    },
+    {
+      "quantity": 30,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/30.png",
+      "url": "/brand/beans/clay-v1/30.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        17,
+        1216,
+        1254
+      ],
+      "sha256": "4d726a832667541196b7affa87f4c9156e2505a208e0870c74b44d11cb846756",
+      "bytes": 1076649
+    },
+    {
+      "quantity": 50,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/50.png",
+      "url": "/brand/beans/clay-v1/50.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        103,
+        1236,
+        1254
+      ],
+      "sha256": "cb00bee243e192d30449b32aa8ab873db2ca96401eb6000de6114c59bbfd8e2a",
+      "bytes": 1132820
+    },
+    {
+      "quantity": 100,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/100.png",
+      "url": "/brand/beans/clay-v1/100.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        49,
+        23,
+        1224,
+        1232
+      ],
+      "sha256": "a4a3fc99f1093d8fb3e659efddf80a4f3277932ad109731e9b5ee527431f5ede",
+      "bytes": 1210542
+    },
+    {
+      "quantity": 300,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/300.png",
+      "url": "/brand/beans/clay-v1/300.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        9,
+        1220,
+        1254
+      ],
+      "sha256": "5038ec64e0cdf9cf02f9e0ea0c37693b2945e0cf5d2b88745fb7d85018d90548",
+      "bytes": 1223584
+    },
+    {
+      "quantity": 500,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/500.png",
+      "url": "/brand/beans/clay-v1/500.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        24,
+        1242,
+        1237
+      ],
+      "sha256": "32e89663f4562eca324f20336233ebdf3a4d7ab26a74e991d59d063159a2ccb0",
+      "bytes": 1264805
+    },
+    {
+      "quantity": 1000,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/1000.png",
+      "url": "/brand/beans/clay-v1/1000.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        12,
+        1238,
+        1254
+      ],
+      "sha256": "698901a388b85e9621d9ad52425141c14129d29c632f4c20d04cae3a577cb982",
+      "bytes": 1197599
+    },
+    {
+      "quantity": 5000,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/5000.png",
+      "url": "/brand/beans/clay-v1/5000.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "sha256": "e9ee0219cf500b09af5a48b91369a9fc79f20b9eafc4a6b1190255d9fe83ea42",
+      "bytes": 1364867
+    },
+    {
+      "quantity": 10000,
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/10000.png",
+      "url": "/brand/beans/clay-v1/10000.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        2,
+        1240,
+        1254
+      ],
+      "sha256": "a08893a94aacdacf8d58af3d23d614bc2a0c5ae58d4cdcd956cd69b2031aefbb",
+      "bytes": 1642422
+    }
+  ],
+  "generationRecord": "docs/design/bean-clay-series-v1.generation.json",
+  "appliedToUi": false,
+  "deployed": false,
+  "limits": [
+    "PNG alpha, completeness, distinct digests and visual family checked; not pixel-perfect cross-render consistency.",
+    "Image generation only. Charge card UI, app logic, financial operations and production deployment unchanged.",
+    "Prior wallet notice removal remains undeployed."
+  ]
+}

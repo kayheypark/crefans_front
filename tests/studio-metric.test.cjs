@@ -9,7 +9,7 @@ const {MetricCard}=loadTypeScript('components/crefans/studio/OverviewPages.tsx',
  '@/components/ui/DialogActions':{},'@/components/ui/Toggle':{Toggle:()=>null},
  '@/components/ui/SelectField':{},
  '@/components/ui/Primitives':{},
- '../ServiceUI':{},
+ '../ServiceUI':{ActionLink:({variant,...props})=>React.createElement('a',props)},
  '@/components/ui/Charts':{Trend:()=>null},
  '@/components/ui/TextLink':{TextLink:props=>React.createElement('a',props)},
 });

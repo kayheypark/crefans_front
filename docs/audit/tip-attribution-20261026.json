@@ -1,0 +1,174 @@
+{
+  "recordedAt": "2026-10-26T07:51:05.427823+00:00",
+  "scope": "Post/profile tip attribution in wallet/studio/admin with historical title snapshots and actual payout source quantities",
+  "deployed": false,
+  "repositories": {
+    "crefans_server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "files": {
+        "src/platform/bean-attribution.ts": "107da3e7359d880b9257a4b262ee2d234c81fb9c3e6246fc108b07e31be20288",
+        "src/platform/beans.service.ts": "1c90654ffd7746b3f0d68905da2efbb76c290e50e75b32f779f9230706125519",
+        "src/platform/openapi-contract.ts": "378e9d3f0587db0bd9b070117a4cba376bc516f0670c2233d77215af37df1588",
+        "prisma/schema.prisma": "f9960a9fc89cb175b2bcb1a9b87e0624ae1b4c4be27a691272e4e0d4652fe5fe",
+        "prisma/migrations/20261026120000_tip_attribution/migration.sql": "8e860ea85e66de6559954979770a58872217fc1057ed523b38181e17fc1066f0",
+        "tests/platform-beans.test.cjs": "4257d5a335cfc48121c8e1c4494e313ab3eb60b8c4fbf79ad83ca2d5af5f57d0",
+        "docs/platform-api.md": "eba39fbed0fd68a12ba8efe5096f65dcb666cbfa6a35a23beb748dafb5f38e8c",
+        "docs/platform-implementation.md": "5c61e1849982be11eeb01260627360ac84edda9db220027d9ddcbe1045d49cdb",
+        "PROGRESS.md": "4a4ec68b17a384bdb4319930137d4b37593fef47ce459526d9146f94a7680a0b"
+      }
+    },
+    "crefans_front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "files": {
+        "types/crefans-beans.ts": "a4cc40c0d47f03437d42aeb1b60438cda0ae581e9a40777708c1ebe146ce91c8",
+        "components/crefans/BeanAttribution.tsx": "5195c76a84fd8f417ce600421c76fdfa190b55039a8335a8f3bb6ce360cfddf4",
+        "components/crefans/BeanPages.tsx": "eff20770c7aa545f45dbd15cde657977e3a0ab400d9ea73c16bf9d3262bbe412",
+        "components/crefans/BeanWalletPages.tsx": "f92e32a2957fe2eb87b2d430ba3ec63e9afac7d02e95c92b6161ca1b3244e994",
+        "components/crefans/beans.module.css": "db42272a5b93dea0e08d43e739ce238a968b08a25148d6466fc87ecb45173c5e",
+        "components/design-system/ServicePatternCatalog.tsx": "6aa3be9e4cbef5c8ca13612589eac82b6772da0d73f20019db018605ceb48a32",
+        "components/preview/service/bean-fixtures.ts": "78acae97ea1e9a7c499337e677fa8de16f1756dcac45b99c1ec207ab299a0221",
+        "components/preview/service/useMockBeans.ts": "a23d036133948ad8878e1f52a425ceb8ba509506204e23778ba285b826b9316a",
+        "lib/crefans/bean-history.ts": "6ab2a176f55a6f6f55d6aa61db30671b23eff76dd94f6ce1fb5ea8487e9ff477",
+        "tests/bean-attribution.test.cjs": "147f6234a37cd749090513189724cc5c51974d9f0c882b4049e227969806e301",
+        "PROGRESS.md": "e4a4c8fb43b23fa040dcb287c31a1f3d1ec1d384e8f25a068acca1b38950cff6"
+      }
+    },
+    "crefans_admin": {
+      "path": "/Users/ethan/repository/crefans_admin",
+      "head": "7928cb6fc70c27bbcb8f5ec4a760023a5ffda01c",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "files": {
+        "src/components/console/Beans.tsx": "b464c82d197024bdfbb75c2d8b32abc57fcd32e1543497ed988e566fb64936d1",
+        "src/app/globals.css": "db63b10bc94b0922a2a7a9eb43edcf56ad591f1c0ea7f7cae90fc61dc445b491",
+        "e2e/beans.spec.ts": "4e496ae8dd332424694f7b46d9d0b571424f442b12ddf1231d15549f14f7dc32",
+        "PROGRESS.md": "f9a14a4130721af356642bd57545386d5fb9d00a746798b5e6d0e535e2f45f25"
+      }
+    }
+  },
+  "runs": [
+    {
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "command": "npm run build",
+      "completedAt": "2026-10-26T07:44:48.440654+00:00",
+      "exitCode": 0,
+      "result": "passed",
+      "logSha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2",
+      "privateLog": "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/bean-attribution-server-build.log"
+    },
+    {
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "command": "CREFANS_E2E=true node --test tests/platform-beans.test.cjs",
+      "completedAt": "2026-10-26T07:44:57.124452+00:00",
+      "exitCode": 0,
+      "result": "18 passed, 0 failed; isolated MySQL; synthetic PG/bank",
+      "logSha256": "dcfef6400f2c9002bb6e0826638ac32ceb6f7a7c8620c9e18699be36e07b8acc",
+      "privateLog": "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/bean-attribution-integration.log"
+    },
+    {
+      "cwd": "/Users/ethan/repository/crefans_server",
+      "command": "npm run test:openapi",
+      "completedAt": "2026-10-26T07:46:10.619404+00:00",
+      "exitCode": 0,
+      "result": "11 passed, 0 failed",
+      "logSha256": "11e963c010d94ed5a92c1f67c4a55484a9fb8c3b275c5492016123b8769d5296",
+      "privateLog": "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/bean-attribution-openapi.log"
+    },
+    {
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "command": "npm run check",
+      "completedAt": "2026-10-26T07:49:35.009440+00:00",
+      "exitCode": 0,
+      "result": "layer/type + 350 passed, 0 failed",
+      "logSha256": "3d42350c6d8c6a94cc5238469ee41bd0d5398ff289a19c78881e07416434552e",
+      "privateLog": "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/bean-attribution-front-check.log"
+    },
+    {
+      "cwd": "/Users/ethan/repository/crefans_admin",
+      "command": "npm run check",
+      "completedAt": "2026-10-26T07:47:47.287820+00:00",
+      "exitCode": 0,
+      "result": "type + 5 passed, 0 failed",
+      "logSha256": "6811138ab7e8b0306bbf7ba89428965889ceba693c9ac20bb636a86441d34f43",
+      "privateLog": "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/bean-attribution-admin-check.log"
+    },
+    {
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "command": "node .local/tip-attribution-20261026/browser.cjs",
+      "completedAt": "2026-10-26T07:48:27.891393+00:00",
+      "exitCode": 0,
+      "result": "Chromium390/1280, WebKit390; preview data",
+      "logSha256": "84c63f758f2c234231a18417c64cbf2eb49f629aa9dbee13370c9764d064bef1",
+      "privateLog": "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/bean-attribution-browser.log"
+    },
+    {
+      "cwd": "/Users/ethan/repository/crefans_admin",
+      "command": "npx playwright test e2e/beans.spec.ts",
+      "completedAt": "2026-10-26T07:50:16.158465+00:00",
+      "exitCode": 0,
+      "result": "2 passed; isolated API wallet/provision test and route-fixture attribution UI; 390/1280",
+      "logSha256": "fa3eb093758fa7a141da5179de8c05d114536aa1a37b3860cf0b4bf6f2b5e013",
+      "privateLog": "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/bean-attribution-admin-browser.log"
+    }
+  ],
+  "browser": {
+    "time": "2026-10-26T07:48:27.890Z",
+    "results": [
+      {
+        "engine": "chromium",
+        "width": 390,
+        "result": "pass",
+        "scope": "sent and movement"
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "result": "pass",
+        "scope": "sent, movement, received, preview payout sources"
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "result": "pass",
+        "scope": "sent and movement"
+      }
+    ]
+  },
+  "screenshots": {
+    "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/screens/admin-tip-attribution-table.png": "76e531353372d376ccbeeae9886efbf0234538a15beed8c9aab5f01429251997",
+    "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/screens/tips-chromium-390.png": "908da0b6275aabb9c70ae516ac7a4781e684839eef26493e0ee1cc5f26722722",
+    "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/screens/admin-tip-attribution-1280.png": "0e512da771358c8155f4474ab0ad9f4220b9a4bebfa6825d4703096b2ea01380",
+    "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/screens/tips-webkit-390.png": "87482d4a39f7970e206c7ee59034d723151f6cd3eed2417043d21e93d6d13017",
+    "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/screens/tips-chromium-1280.png": "123c1f9f9d4cf12b6848cf4c40d7472787eb8082fd7747e4280758dc797d8e50",
+    "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/screens/received-tips.png": "b2e97bc4eb75acfee265ba217aa29a42092c9e5f75444f507ae7a9943c560cb6",
+    "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/screens/studio-1280.png": "b6563d7a0f1fab98d03c599a0ec9c2336427f79793877920db011b09891f2759",
+    "/Users/ethan/repository/crefans_front/.local/tip-attribution-20261026/screens/admin-tip-attribution-390.png": "6d235d9a570ae315edd868736b864fc634af4f1c198093f46dc8bb02a954b05e"
+  },
+  "acceptance": [
+    "New post tip title saved atomically with movement; idempotent replay retains original title after editing.",
+    "Legacy current title labelled explicitly; deleted posts keep sourceType post and saved title, no dead link.",
+    "Paid post1000+promotion50 and profile500: payout1200 attributed post1000/profile200; gross120000 fee24000 net96000.",
+    "Promotion excluded from payout; own history scoped; provider replay invokes bank once; confirmed fee increase once.",
+    "Admin live/test/promotion split and source summary; charge inflow and tip use remain separate.",
+    "Shared preview/service components; independent admin; PC/mobile visible source labels, links and no document horizontal overflow."
+  ],
+  "initialIssues": [
+    "Admin type name typo corrected before final check",
+    "Search input role searchbox, verification locator corrected to accessible label",
+    "Screenshot initially taken during dialog exit animation; recaptured after hidden",
+    "Admin inline small text visually cramped; scoped line breaks added and browser CSS assertion passed"
+  ],
+  "limits": [
+    "Production images and DB unchanged. Migration only deployed to isolated E2E DB.",
+    "Real PG/bank/operational user scenarios not executed.",
+    "UI browser tests use preview fixtures and isolated admin/route-fixture data; not production validation.",
+    "Historical missing snapshots are not backfilled with invented past titles.",
+    "Unrelated pre-existing uncommitted changes preserved; no commit or push."
+  ]
+}

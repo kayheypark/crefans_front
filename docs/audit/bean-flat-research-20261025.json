@@ -1,0 +1,146 @@
+{
+  "at": "2026-10-25T06:11:54.683009+00:00",
+  "repository": {
+    "path": "/Users/ethan/repository/crefans_front",
+    "branch": "feat/bean-support",
+    "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirtyEntries": 286,
+    "statusSha256": "da551db29bdb4ffbb5ca3be91f1bb0e5697273c8d176706511853f464e084074"
+  },
+  "request": "Research official fan-platform/game-currency references before flat redesign; avoid dense clusters; cute, simple style.",
+  "sources": [
+    {
+      "url": "https://blog.duolingo.com/shape-language-duolingos-art-style/",
+      "kind": "Official design-team explanation; historical design rationale",
+      "confirmed": "Rounded, playful minimal illustrations; few necessary details and clear silhouette/negative space, including small screens.",
+      "application": "Flat rounded bean silhouettes with restrained detail. This is a design recommendation, not a virtual-currency standard."
+    },
+    {
+      "url": "https://www.roblox.com/upgrades/robux",
+      "kind": "Official live public store; rendered browser observation",
+      "confirmed": "Nine Robux packages reuse a small currency symbol next to explicit amount/price; larger packages do not require a larger pile of individual objects.",
+      "application": "Keep quantity and KRW labels authoritative; decorative pictures need not literally count beans."
+    },
+    {
+      "url": "https://store.supercell.com/brawlstars",
+      "kind": "Official public storefront; limited to pre-login promotion",
+      "confirmed": "Public promotion for gems/offers is visible; live purchase offers require login. Cookie dialog obscures initial screenshot.",
+      "application": "Currency/package store reference only. No claim that Supercell uses a flat art standard or that all package designs were inspected."
+    },
+    {
+      "url": "https://fantrie.com/",
+      "kind": "Official site; limited access",
+      "confirmed": "Web reader redirects to login; local rendered browser returned403. Current charge package art was not verified.",
+      "application": "Do not claim Fantrie uses flat currency art, or infer charge screen from third-party screenshots."
+    },
+    {
+      "url": "https://www.nngroup.com/articles/icon-usability/",
+      "kind": "Primary UX research guidance published2014",
+      "confirmed": "Use simple schematic icons with fewer details and visible labels to reduce ambiguity.",
+      "application": "Keep amount/price labels and validate recognition at actual display size."
+    },
+    {
+      "url": "https://google.github.io/material-design-icons/",
+      "kind": "Official Google icon guide, general UI guidance",
+      "confirmed": "Simple minimal forms optimized for clarity at both small and large sizes.",
+      "application": "Consistency/clarity reference; not a binding rule for currency product illustrations."
+    }
+  ],
+  "methods": [
+    "Web search and official page reads",
+    "Chromium public page text/image inventory and screenshots",
+    "Manual review of Roblox package screenshot, Duolingo shape-language screenshot, Supercell cookie overlay screenshot"
+  ],
+  "browserCaptureCommand": {
+    "commands": [
+      "node .local/bean-flat-research-20261025/research.cjs",
+      "node .local/bean-flat-research-20261025/details.cjs"
+    ],
+    "exitCodes": [
+      0,
+      0
+    ],
+    "observedAt": [
+      "2026-10-25T06:09:25.953Z",
+      "2026-10-25T06:10:05.989Z"
+    ]
+  },
+  "proposal": {
+    "status": "Recommendation only; no generation/UI/deployment this turn",
+    "style": "Rounded2Dflat; mint/cream with restrained accent; no realistic wrinkles, bean seams, shine, texture or shadows",
+    "density": "At most3 separate bean silhouettes; pouches/boxes remain single closed silhouettes with bean emblem, no overflowing beans",
+    "quantities": {
+      "10": "one bean",
+      "30": "two spaced beans",
+      "50": "three spaced beans",
+      "100": "one mini pouch with bean emblem",
+      "300": "one pouch with simple ribbon",
+      "500": "one pouch with single small star",
+      "1000": "one gift box with bean emblem",
+      "5000": "one gift box with bow",
+      "10000": "one gift box with small star accent"
+    },
+    "checksBeforeApplication": [
+      "Inspect actual80px mobile/112px desktop rendering",
+      "No crowded repeated beans or tiny decorative texture",
+      "All nine amount and KRW labels remain correct",
+      "Shared preview/service component and existing order/payment behavior remain intact"
+    ]
+  },
+  "limits": [
+    "No single codified industry standard for virtual currency art was identified.",
+    "Reference principles are separated from recommended palette/object count, which are project choices.",
+    "No authenticated Fantrie charge screen or current Supercell sale offers inspected.",
+    "No customer data, login, payment, generated art, code or production deployment changed."
+  ],
+  "artifacts": {
+    ".local/bean-flat-research-20261025/browser.log": {
+      "sha256": "5dd0baad93fc70550c8706c90e1be02c392c3cdad595397b4b6529ffa0217df4",
+      "bytes": 310
+    },
+    ".local/bean-flat-research-20261025/supercell.png": {
+      "sha256": "021c4dce92f58b36128e0245879b1efc10e3ca1eb6aa93311a7816efb6481dff",
+      "bytes": 123439
+    },
+    ".local/bean-flat-research-20261025/robux-packages.png": {
+      "sha256": "094dd70be71c740682b98a17f8702e0165121a6a53187fb5023d1cc78ecd605a",
+      "bytes": 156533
+    },
+    ".local/bean-flat-research-20261025/duolingo-shape.png": {
+      "sha256": "a8ea08e208b4ed76c4e368fe12594ea5f1abdcbb54ddadba25c1516a61cdce5b",
+      "bytes": 154371
+    },
+    ".local/bean-flat-research-20261025/details.json": {
+      "sha256": "9b73bffa5c27181dde9c1dc22b158f5d5768b5089e594d18ab0e0b3b23ed8b43",
+      "bytes": 10066
+    },
+    ".local/bean-flat-research-20261025/details.cjs": {
+      "sha256": "caec174334e2e70a084ca27747ab3f07ed7e10a8bd4f925d61693ff566caada1",
+      "bytes": 1137
+    },
+    ".local/bean-flat-research-20261025/duolingo.png": {
+      "sha256": "ce6a25cde5d06eccb590d35fcda3f5dbbfebd265067e7a30ba087f2ba43e6b4b",
+      "bytes": 168217
+    },
+    ".local/bean-flat-research-20261025/observations.json": {
+      "sha256": "52f1593039b4599a6ef27ab814481b7477045ae24b8393dd4d724ed4f4c9acad",
+      "bytes": 13752
+    },
+    ".local/bean-flat-research-20261025/roblox.png": {
+      "sha256": "06bf26df6b2afb65a4f61a0d3e07732ddacc2b554de63194be3a5f7d927fd311",
+      "bytes": 157196
+    },
+    ".local/bean-flat-research-20261025/research.cjs": {
+      "sha256": "eaa3ae2d1f48fc084521178dde10872b356375f47ef9d8209c142093662aafda",
+      "bytes": 1330
+    },
+    ".local/bean-flat-research-20261025/details.log": {
+      "sha256": "9dea2500efb5c5b7c5c871e9920b0b3694e0ef33b6642d0baf4019f24ec3311b",
+      "bytes": 33
+    },
+    ".local/bean-flat-research-20261025/fantrie.png": {
+      "sha256": "220a42da7b3d062bd1041bd806a7a779a48da01bfd49dcd27c13c5597547623d",
+      "bytes": 12501
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "at": "2026-10-25T13:09:15.886Z",
+  "mode": "built-in image_gen",
+  "requests": [
+    {
+      "quantity": 10,
+      "prompt": "Use case: stylized-concept. Asset: small CREFANS virtual bean currency package icon for the 10-bean option. Reference image is STYLE AND BEAN IDENTITY only: preserve its smooth rounded jade/emerald-green kidney-bean tokens, creamy curved inlaid bean-shaped mark, soft satin 3D material, friendly toy-like proportions and gentle studio lighting. Create a small loose scattering of EXACTLY FIVE chunky beans lying on an implied flat surface, each independently rotated, arranged naturally with clear gaps and at most minor overlap. No container and NO sticks or skewers. Not a mound, not stacked, not floating. Three-quarter overhead view, compact balanced cluster filling roughly 80% of a square canvas, centered with generous transparent padding. Gentle contact shadows only immediately beneath the beans; real transparent background everywhere else, no white plate or white floor. Keep the cream marks clearly readable at 80px. No text, numbers, multiplication marks, logo, watermark, faces, legs, leaves, coins, crumbs, many tiny beans or clutter. The illustration is a package symbol; quantity label is supplied separately by the UI.",
+      "referenced_image_paths": [
+        "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/300.png"
+      ],
+      "transparent_background": true,
+      "output": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-19bd4d99-992b-428a-965c-2cef58109f26.png"
+    },
+    {
+      "quantity": 30,
+      "prompt": "Use case: stylized-concept. Asset: small CREFANS virtual bean currency package icon for the 30-bean option. Reference image is STYLE AND BEAN IDENTITY only: preserve smooth rounded jade/emerald-green kidney-bean tokens with creamy curved inlaid bean-shaped marks, soft satin 3D material, friendly toy-like proportions and gentle studio lighting. Create ONE cute clear resealable ZIPPER STORAGE BAG holding EXACTLY FIVE large visible green beans. The bag should immediately read as a transparent food-storage zipper bag with a straight horizontal mint-green zipper seal along the top, soft rounded bottom corners, transparent thin plastic with a few gentle highlights and no excessive folds. Upright, slightly three-quarter view. Beans visible through the clear plastic, arranged loosely in two layers, not densely piled. Pale mint seams and zipper, no opaque label and no branding. Center on a square canvas filling roughly 80% with clear margins. Real transparent background around the bag; bag interior should also visually preserve transparency and not become a white solid block. No basket, sticks, skewers, ties, drawstrings, box, coins, text, numbers, multiplication mark, watermark, faces, leaves or tiny bean clutter. The 30-bean quantity will be shown separately in the UI; do not depict 30 beans.",
+      "referenced_image_paths": [
+        "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/300.png"
+      ],
+      "transparent_background": true,
+      "output": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0402421d-44e4-4454-a53f-5b7fd983f02c.png"
+    }
+  ],
+  "assets": [
+    {
+      "quantity": 10,
+      "file": "public/brand/beans/soft3d-v6/10.png",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-19bd4d99-992b-428a-965c-2cef58109f26.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "0fe3947fb4da0ca2d386cce829574a2058f02a8aa995d57e630fc61fd64bd5e5",
+      "observedBeans": 5,
+      "manualVisualReview": true,
+      "multiplier": null
+    },
+    {
+      "quantity": 30,
+      "file": "public/brand/beans/soft3d-v6/30.png",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0402421d-44e4-4454-a53f-5b7fd983f02c.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "53275dcb2a6ffad2af818e169505cd99c431c0c8226d00cf68928de4d4a34f65",
+      "observedBeans": 5,
+      "manualVisualReview": true,
+      "multiplier": null
+    },
+    {
+      "quantity": 100,
+      "file": "public/brand/beans/soft3d-v6/100.png",
+      "source": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "24afb640b0e7edcc6ae2f0a01635aaa259fe47b3666f405d1ee8df932f725d8d",
+      "observedBeans": 10,
+      "manualVisualReview": true,
+      "multiplier": 10
+    }
+  ],
+  "uiChange": "10/30/100 use v6 assets; multiplier only for50/100. Existing shared CSS typography retained. Other quantities and prices unchanged.",
+  "productionDeployed": false
+}

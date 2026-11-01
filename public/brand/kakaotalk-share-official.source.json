@@ -1,0 +1,12 @@
+{
+  "source": "https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png",
+  "reference": "https://developers.kakao.com/tool/demo/message/kakaolink?default_template=text",
+  "sha256": "16f79531bbf7fe6e0e18fcc84177e37736b4af2caecfefa275f78ac6e927294f",
+  "modified": false,
+  "retrievedAt": "2026-10-25 Asia/Seoul",
+  "sdk": {
+    "url": "https://t1.kakaocdn.net/kakao_js_sdk/2.8.4/kakao.min.js",
+    "integrity": "sha384-BGX7Wb16GmRFagri4bLJV2DgipVZaU2AI812GZtHtHzzDQJnfHasDXN5houxv45w",
+    "matchesOfficialSRI": true
+  }
+}

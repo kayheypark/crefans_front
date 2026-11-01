@@ -1,0 +1,104 @@
+{
+  "recordedAt": "2026-10-24T17:13:41.968301+00:00",
+  "baseline": {
+    "at": "2026-10-24T17:13:04.664842+00:00",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "files": {
+      "components/crefans/SocialPages.tsx": "f611b01709731e6dc70531e4227156f33122ecebf8a9c3dba4c6169a17aac0fc",
+      "docs/design-system.md": "132612d621025b11a12c50f1a4e8ec974a930eaa81a0fed97c36638dd6ef6991",
+      "docs/audit/manifest.json": "5a6378a688d0a2e9bb3d69ad69e40e7f19968fb694fbcfec51ff04cdee24cca6",
+      "PROGRESS.md": "707fe848fc2f248f87ca69772c3b92181198f96ebff474f6720b452eec4c2073"
+    }
+  },
+  "requirements": [
+    "Exclude live notification chip in shared preview/service UI",
+    "Preserve other filters and notifications"
+  ],
+  "checks": {
+    "browser": {
+      "command": [
+        "node",
+        ".local/notification-live-chip-20261025/verify.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:13:05.110372+00:00",
+      "finishedAt": "2026-10-24T17:13:07.645099+00:00",
+      "exitCode": 0,
+      "logSha256": "94812bfca255f070e3412da78bd86c208819abd714688812a047f56f0121dea1"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:13:41.996192+00:00",
+      "finishedAt": "2026-10-24T17:13:42.806297+00:00",
+      "exitCode": 0,
+      "logSha256": "3323618296c1ec90ed6f282d4a72ea1b5b59b675abe673a0c820f15df22eecc8"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:13:42.832224+00:00",
+      "finishedAt": "2026-10-24T17:13:43.230808+00:00",
+      "exitCode": 0,
+      "logSha256": "66b3acabdc38fad9d717817111ac57071245947e9f94e785b346e80f5ced1c07"
+    }
+  },
+  "browserResults": [
+    {
+      "width": 390,
+      "route": "preview",
+      "liveChip": 0,
+      "otherFilters": true,
+      "existingLiveNoticePreserved": true
+    },
+    {
+      "width": 390,
+      "route": "service",
+      "liveChip": 0,
+      "commentFilter": true,
+      "existingLiveNoticePreserved": true,
+      "pageErrors": []
+    },
+    {
+      "width": 1280,
+      "route": "preview",
+      "liveChip": 0,
+      "otherFilters": true,
+      "existingLiveNoticePreserved": true
+    },
+    {
+      "width": 1280,
+      "route": "service",
+      "liveChip": 0,
+      "commentFilter": true,
+      "existingLiveNoticePreserved": true,
+      "pageErrors": []
+    }
+  ],
+  "files": {
+    "components/crefans/SocialPages.tsx": "723f399b2a4e3eec69d2e0b450a94005e6337f54ee7828bb50d12819c8d5324e",
+    "docs/design-system.md": "eb9f98538c2ada9864182f93464c399b4d7a42cc951292873bbb0ab6b4f77b5f",
+    "docs/audit/manifest.json": "df07fb5dfb1d7205c97a36c02d44a1dab283d8466c1beeeced83d04c8584e17d",
+    "PROGRESS.md": "16058c90b1661c3b663ea51eb5dfb2b9cccc57a08c50f1dbe047e11da8f6ae3d"
+  },
+  "screenshots": {
+    ".local/notification-live-chip-20261025/preview-1280.png": "30f6bb70b0d52bb411bc801e9b66ead003d79ce9f42a96eb6a0ead771b7aa40e",
+    ".local/notification-live-chip-20261025/preview-390.png": "c613489b1a791b2a376e5972f0b3587bccd37f153d92953cfe48cd1a7f52f9b0"
+  },
+  "visualReview": "390px preview: whole/membership/comment/like/system filters; no live chip",
+  "deployment": "Not performed; local only",
+  "limitations": [
+    "Service GET API mocked; no production notifications modified",
+    "No physical device/production verification"
+  ],
+  "documentationSnapshot": "PASS; snapshot-only-not-test-proof; browser evidence recorded separately"
+}

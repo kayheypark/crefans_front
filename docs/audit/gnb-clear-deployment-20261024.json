@@ -1,0 +1,331 @@
+{
+  "at": "2026-10-24T14:05:39.420375+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "dirty": true,
+  "commitOrPush": false,
+  "scope": {
+    "at": "2026-10-24T14:00:02.311410+00:00",
+    "baselineFilesMatched": 525,
+    "changed": [
+      "components/crefans/service.module.css"
+    ],
+    "added": [],
+    "change": "Remove selected navigation button backgrounds only; preserve icon colors, touch target, badges and focus indication",
+    "preserved": "Other dirty changes; backend/worker/admin/database/proxy; SSH rules"
+  },
+  "checks": {
+    "before-check": {
+      "command": [
+        "node",
+        ".local/gnb-clear-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "before"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T14:03:30.954591+00:00",
+      "finishedAt": "2026-10-24T14:03:44.599415+00:00",
+      "exitCode": 0,
+      "logSha256": "038f37b5e1bbf3b5b01c2f47a2ee823c5b37eda6a7f7a50668d7d0cb1480b5b7"
+    },
+    "prepare": {
+      "command": [
+        "python3",
+        ".local/gnb-clear-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T13:59:59.851362+00:00",
+      "finishedAt": "2026-10-24T14:00:02.636708+00:00",
+      "exitCode": 0,
+      "logSha256": "845ca801b533d2fb5b566b9946ee63d12297eb7802d3096baaab8093ee82e65d"
+    },
+    "local-check": {
+      "command": [
+        "node",
+        ".local/gnb-clear-deploy-20261024/check.cjs",
+        "http://127.0.0.1:3010",
+        "local"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T14:00:01.144751+00:00",
+      "finishedAt": "2026-10-24T14:00:11.369247+00:00",
+      "exitCode": 0,
+      "logSha256": "038f37b5e1bbf3b5b01c2f47a2ee823c5b37eda6a7f7a50668d7d0cb1480b5b7"
+    },
+    "image-build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/gnb-clear-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:gnb-clear-20261024",
+        ".local/gnb-clear-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T14:00:52.571622+00:00",
+      "finishedAt": "2026-10-24T14:02:27.204264+00:00",
+      "exitCode": 0,
+      "logSha256": "22f21622b20c2eae8b0e1747fffce5b991b3ebe31594e3a0e4a1cfb9b8cc8e79"
+    },
+    "image-check": {
+      "command": [
+        "python3",
+        ".local/gnb-clear-deploy-20261024/verify-image.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T14:03:32.096856+00:00",
+      "finishedAt": "2026-10-24T14:03:44.474026+00:00",
+      "exitCode": 0,
+      "logSha256": "d39b3ded98ef405067afd1af75d36aace18aec87532e20d4f714213899e4686a"
+    },
+    "archive": {
+      "command": [
+        "python3",
+        ".local/gnb-clear-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T14:03:32.096901+00:00",
+      "finishedAt": "2026-10-24T14:03:46.521293+00:00",
+      "exitCode": 0,
+      "logSha256": "1a603fd0387d670fe5464b9b488a5a3573befaa4cd3d4287fa816247c7a79f59"
+    },
+    "release-run": {
+      "command": [
+        "python3",
+        ".local/gnb-clear-deploy-20261024/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T14:04:19.471260+00:00",
+      "finishedAt": "2026-10-24T14:04:49.284522+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    "production-runtime": {
+      "command": [
+        "python3",
+        ".local/gnb-clear-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T14:05:02.736471+00:00",
+      "finishedAt": "2026-10-24T14:05:05.698148+00:00",
+      "exitCode": 0,
+      "logSha256": "f4e7dd3935d5387d158d8faee96f75470c1d8ad159b1635394c963e5b3a1f1d1"
+    },
+    "production-check": {
+      "command": [
+        "node",
+        ".local/gnb-clear-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T14:05:02.736441+00:00",
+      "finishedAt": "2026-10-24T14:05:15.575821+00:00",
+      "exitCode": 0,
+      "logSha256": "038f37b5e1bbf3b5b01c2f47a2ee823c5b37eda6a7f7a50668d7d0cb1480b5b7"
+    },
+    "qa-cleanup": {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "crefans-gnb-clear-qa"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T14:05:23.349976+00:00",
+      "finishedAt": "2026-10-24T14:05:23.567686+00:00",
+      "exitCode": 0,
+      "logSha256": "5d997af499a031ff75ca751ba486a5db75dab348feb917f8b9c4299f14a0b9a1"
+    }
+  },
+  "browserVerification": {
+    "casesPerPhase": {
+      "before": 9,
+      "local": 9,
+      "image": 9,
+      "production": 9
+    },
+    "screenshotLimits": {
+      "before": [
+        {
+          "name": "webkit390",
+          "route": "/preview/explore",
+          "reason": "unavailable: external font loading timeout"
+        }
+      ],
+      "local": [],
+      "image": [],
+      "production": []
+    },
+    "engines": [
+      "Chromium320",
+      "Chromium1280",
+      "WebKit390"
+    ],
+    "pages": [
+      "preview/explore",
+      "service/explore",
+      "preview/me"
+    ],
+    "verified": [
+      "Before active backgrounds rgb(239,246,255); after all5 links transparent",
+      "Selected icon active state and color filtering retained",
+      "Mobile links56x48;no horizontal overflow",
+      "Red badges1 and99+ retained",
+      "Profile photo and selected ring retained",
+      "Keyboard focus outline retained"
+    ],
+    "screenshotsVisuallyReviewed": [
+      "local/mobile320--preview-explore.png",
+      "local/desktop1280--preview-explore.png",
+      "local/webkit390--preview-me.png",
+      "image/mobile320--preview-explore.png",
+      "production/mobile320--preview-explore.png",
+      "production/desktop1280--preview-explore.png",
+      "production/webkit390--preview-me.png"
+    ],
+    "scope": "Service GET intercepted fixtures, preview state. No real member writes; browser emulation rather than physical iPhone."
+  },
+  "initialFailures": [
+    {
+      "file": "before-check-initial.json",
+      "failure": "Network-idle wait timed out on initial baseline page.",
+      "correction": "Wait for DOM and visible decoded navigation images, which are the inspected UI."
+    },
+    {
+      "file": "before-check-font-timeout.json",
+      "failure": "Baseline WebKit screenshot waited more than30s for fonts. UI assertions had not failed.",
+      "correction": "Bound font-dependent screenshot capture and report unavailable captures explicitly; preserve all UI assertions."
+    }
+  ],
+  "deployment": {
+    "image": {
+      "at": "2026-10-24T14:03:46.515818+00:00",
+      "tag": "crefans-front:gnb-clear-20261024",
+      "id": "sha256:1dfef51851f98b8ace9751bac1b0872c04e07d06663d435e99b520f43ee6e875",
+      "architecture": "amd64",
+      "runtimeFilesMatched": 525,
+      "archiveSha256": "643b53d1f3695e2e3c2ba792fae4f071432f62c998562b19782ba0c43008fb67",
+      "archiveBytes": 521339476
+    },
+    "runtime": {
+      "at": "2026-10-24T14:05:02.781021+00:00",
+      "runtimeFilesMatched": 525,
+      "runtime": {
+        "crefans-beta-api-1": {
+          "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-frontend-1": {
+          "id": "d1fad86b89335c8edfbeeca28dcdfbcaccfca07f6d4d7ecb7428f9d6ad1fb1f5",
+          "image": "sha256:1dfef51851f98b8ace9751bac1b0872c04e07d06663d435e99b520f43ee6e875",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+          "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        }
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/preview/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200
+        }
+      ],
+      "freeDiskBytes": 3479392256
+    },
+    "rollback": "/opt/crefans-backup-gnb-clear-20261024",
+    "steps": [
+      {
+        "step": "upload-directory",
+        "startedAt": "2026-10-24T14:04:19.495007+00:00",
+        "finishedAt": "2026-10-24T14:04:20.521382+00:00",
+        "exitCode": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T14:04:20.521864+00:00",
+        "finishedAt": "2026-10-24T14:04:29.632618+00:00",
+        "exitCode": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T14:04:29.633346+00:00",
+        "finishedAt": "2026-10-24T14:04:42.749115+00:00",
+        "exitCode": 0,
+        "logSha256": "f3eedc714ae6df30cfe5771c31f60a713890591072668d9d342c7e2d59c2440d"
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T14:04:42.749840+00:00",
+        "finishedAt": "2026-10-24T14:04:49.276546+00:00",
+        "exitCode": 0,
+        "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+      }
+    ],
+    "preserved": "Other5 container IDs/images and persistent home SSH rule. No remote image cleanup or volume changes."
+  },
+  "sourceSha256": {
+    "components/crefans/service.module.css": "acf9529ea60c17a9418fe31cd02a69d9b93966fa7912cef4c8b9a8d1ec0a9e03"
+  },
+  "manifestSha256": "e43ae197b73c110454a80be46a5862d79db3d6d29c9f6dbd859cbd3ee5adaa58",
+  "rawArtifacts": "/Users/ethan/repository/crefans_front/.local/gnb-clear-deploy-20261024",
+  "testScope": "Two CSS background declarations only; no new unit test or full product suite. Production build includes type checking."
+}

@@ -1,0 +1,1042 @@
+{
+  "at": "2026-10-26T11:01:30.575183+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/bean-support",
+  "uncommitted": true,
+  "preExistingChangesPreserved": true,
+  "acceptance": [
+    "Four independent transparent illustrations; no poster embedded in detail",
+    "Approved v7 rewards rendered as semantic HTML with shared preview/service component",
+    "All four reward titles use the same computed font size",
+    "Footnotes are smaller, lighter and right-aligned below each title",
+    "Mobile and desktop have no horizontal overflow; list/detail/back navigation works",
+    "Verified frontend-only production deployment"
+  ],
+  "sourceSha256": {
+    "components/design-system/ServicePatternCatalog.tsx": "15ad45c459c63ae1750f3fa0d32bad10a19e62579da4ea9e6518ffe09a46da91",
+    "types/crefans-events.ts": "0e316b337590ff52f267dbbbe82a7650b967a339ecae726ff68f347071eb68ad",
+    "lib/content/events.ts": "fbfc630c8be3375fa451e5769e70bcd269ad70aaf6b2074302ffb07ad3874c10",
+    "components/crefans/EventPages.tsx": "07e35916b8dfa4dd9b21288602af034d4bb6074e399d0806ddd98acaf9d71a5f",
+    "components/crefans/events.module.css": "c9945b87dbb2f8e541783b60e6d98e287723544adb0d82d4f340b6a5a58cb853",
+    "public/brand/events/beta-first/badge.webp": "8b2d62e517352a7e66faacb94eef2b806dda97ee0430dcde507d94dd41917abd",
+    "public/brand/events/beta-first/crown.webp": "bc5d427aeb6e4428ba1f0f94be4fba4f731ad0ea961e1caf2e88f11d0d99020f",
+    "public/brand/events/beta-first/beans.webp": "1f13e8599bcda55a519d6ab0112318e62ed67657adfd28a0d86623dade233c42",
+    "public/brand/events/beta-first/gift-card.webp": "0c172eb71ce7a96d5a627db40ff158514f7624f0a648fe66ccb7fff076e879e2",
+    "public/brand/events/beta-first/generation.json": "a006bbff35fe3a66efd857d68a06b7ad81d259a90c8434d906ecac4812a64a28",
+    "tests/crefans-events.test.cjs": "addfae728d0bd380fbd6d55271fdc8183056f9aeee2a502fcb5cccaaf25dc3c8",
+    "docs/preview-pages.md": "e01c6cfea6f58185009f78e2bba921532cf3249333aa4c8c6b26376dbb9b1260",
+    "docs/design-system.md": "f7695ab2a588e75e2a3d7a74a1b64ce6c37ae412333c4033f2d02db238c23149",
+    "PROGRESS.md": "f910a9d9184fbccd36785ac768f18ba8bd1eb00da696d2f7c864018eedb6d023"
+  },
+  "checks": {
+    "command": "npm run check",
+    "startedAt": "2026-10-26T10:54:44.073536+00:00",
+    "finishedAt": "2026-10-26T10:54:54.528593+00:00",
+    "exitCode": 0
+  },
+  "testSummary": {
+    "passed": 353,
+    "failed": 0
+  },
+  "build": {
+    "command": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--label",
+      "crefans.release=beta-event-html-20261026",
+      "--label",
+      "crefans.source-sha256=3f9e423e1b69640857616bb7664c8e51f61ebe49f6793828996d6a8e77f4d642",
+      "-t",
+      "crefans-front:beta-event-html-20261026",
+      "-f",
+      "infra/platform/Dockerfile",
+      "."
+    ],
+    "startedAt": "2026-10-26T10:56:52.281827+00:00",
+    "finishedAt": "2026-10-26T10:58:36.522734+00:00",
+    "exitCode": 0,
+    "sourceManifestSha256": "3f9e423e1b69640857616bb7664c8e51f61ebe49f6793828996d6a8e77f4d642"
+  },
+  "localHttp": {
+    "at": "2026-10-26T10:59:06.231308+00:00",
+    "checks": [
+      {
+        "path": "/preview/events",
+        "status": 200
+      },
+      {
+        "path": "/preview/events/beta-first",
+        "status": 200
+      },
+      {
+        "path": "/service/events",
+        "status": 200
+      },
+      {
+        "path": "/service/events/beta-first",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/badge.webp",
+        "status": 200,
+        "bytes": 41000,
+        "sha256": "8b2d62e517352a7e66faacb94eef2b806dda97ee0430dcde507d94dd41917abd"
+      },
+      {
+        "path": "/brand/events/beta-first/crown.webp",
+        "status": 200,
+        "bytes": 42116,
+        "sha256": "bc5d427aeb6e4428ba1f0f94be4fba4f731ad0ea961e1caf2e88f11d0d99020f"
+      },
+      {
+        "path": "/brand/events/beta-first/beans.webp",
+        "status": 200,
+        "bytes": 39744,
+        "sha256": "1f13e8599bcda55a519d6ab0112318e62ed67657adfd28a0d86623dade233c42"
+      },
+      {
+        "path": "/brand/events/beta-first/gift-card.webp",
+        "status": 200,
+        "bytes": 41526,
+        "sha256": "0c172eb71ce7a96d5a627db40ff158514f7624f0a648fe66ccb7fff076e879e2"
+      }
+    ]
+  },
+  "browser": {
+    "local": {
+      "at": "2026-10-26T10:57:42.705Z",
+      "method": "cua_repl Chrome DOM and screenshots",
+      "localApiOffline": true,
+      "checks": [
+        {
+          "artwork": [
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/badge.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/crown.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/beans.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/gift-card.webp",
+              "width": 512
+            }
+          ],
+          "details": [
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 30일 이용권을 제공합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 팬 참여자에게 드리는 혜택입니다.* 팬 참여자 13명에게 지급합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+            }
+          ],
+          "overflow": false,
+          "posterAbsent": true,
+          "titles": [
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "원년멤버 한정판 뱃지",
+              "width": 246.8125
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "주목할 크리에이터 광고상품",
+              "width": 246.8125
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "프로모션 100콩",
+              "width": 246.8125
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "배민 1만원 상품권",
+              "width": 246.8125
+            }
+          ],
+          "url": "http://127.0.0.1:3010/preview/events/beta-first",
+          "width": 390
+        },
+        {
+          "artwork": [
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/badge.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/crown.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/beans.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/gift-card.webp",
+              "width": 512
+            }
+          ],
+          "details": [
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 30일 이용권을 제공합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 팬 참여자에게 드리는 혜택입니다.* 팬 참여자 13명에게 지급합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+            }
+          ],
+          "overflow": false,
+          "posterAbsent": true,
+          "titles": [
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "원년멤버 한정판 뱃지",
+              "width": 192.2421875
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "주목할 크리에이터 광고상품",
+              "width": 192.2421875
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "프로모션 100콩",
+              "width": 192.2421875
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "배민 1만원 상품권",
+              "width": 192.2421875
+            }
+          ],
+          "url": "http://127.0.0.1:3010/preview/events/beta-first",
+          "width": 320
+        },
+        {
+          "artwork": [
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/badge.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/crown.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/beans.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/gift-card.webp",
+              "width": 512
+            }
+          ],
+          "details": [
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 30일 이용권을 제공합니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 팬 참여자에게 드리는 혜택입니다.* 팬 참여자 13명에게 지급합니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+            }
+          ],
+          "overflow": false,
+          "posterAbsent": true,
+          "titles": [
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "원년멤버 한정판 뱃지",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "주목할 크리에이터 광고상품",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "프로모션 100콩",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "배민 1만원 상품권",
+              "width": 543.515625
+            }
+          ],
+          "url": "http://127.0.0.1:3010/preview/events/beta-first",
+          "width": 1280
+        },
+        {
+          "check": "preview-list-detail-back",
+          "passed": true
+        },
+        {
+          "artwork": [
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/badge.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/crown.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/beans.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/gift-card.webp",
+              "width": 512
+            }
+          ],
+          "details": [
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 30일 이용권을 제공합니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 팬 참여자에게 드리는 혜택입니다.* 팬 참여자 13명에게 지급합니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+            }
+          ],
+          "overflow": false,
+          "posterAbsent": true,
+          "titles": [
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "원년멤버 한정판 뱃지",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "주목할 크리에이터 광고상품",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "프로모션 100콩",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "배민 1만원 상품권",
+              "width": 543.515625
+            }
+          ],
+          "url": "http://127.0.0.1:3010/service/events/beta-first",
+          "width": 1280
+        },
+        {
+          "check": "catalog-empty-list",
+          "passed": true
+        },
+        {
+          "check": "catalog-missing-detail",
+          "passed": true
+        }
+      ]
+    },
+    "production": {
+      "at": "2026-10-26T11:00:38.064Z",
+      "method": "cua_repl Chrome DOM and screenshots",
+      "checks": [
+        {
+          "artwork": [
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/badge.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/crown.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/beans.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/gift-card.webp",
+              "width": 512
+            }
+          ],
+          "details": [
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 30일 이용권을 제공합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 팬 참여자에게 드리는 혜택입니다.* 팬 참여자 13명에게 지급합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+            }
+          ],
+          "overflow": false,
+          "posterAbsent": true,
+          "titles": [
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "원년멤버 한정판 뱃지",
+              "width": 246.8125
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "주목할 크리에이터 광고상품",
+              "width": 246.8125
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "프로모션 100콩",
+              "width": 246.8125
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "배민 1만원 상품권",
+              "width": 246.8125
+            }
+          ],
+          "url": "https://beta.crefans.com/service/events/beta-first",
+          "width": 390
+        },
+        {
+          "artwork": [
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/badge.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/crown.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/beans.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/gift-card.webp",
+              "width": 512
+            }
+          ],
+          "details": [
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 30일 이용권을 제공합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 팬 참여자에게 드리는 혜택입니다.* 팬 참여자 13명에게 지급합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+            }
+          ],
+          "overflow": false,
+          "posterAbsent": true,
+          "titles": [
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "원년멤버 한정판 뱃지",
+              "width": 192.2421875
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "주목할 크리에이터 광고상품",
+              "width": 192.2421875
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "프로모션 100콩",
+              "width": 192.2421875
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "배민 1만원 상품권",
+              "width": 192.2421875
+            }
+          ],
+          "url": "https://beta.crefans.com/service/events/beta-first",
+          "width": 320
+        },
+        {
+          "artwork": [
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/badge.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/crown.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/beans.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/gift-card.webp",
+              "width": 512
+            }
+          ],
+          "details": [
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 30일 이용권을 제공합니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 팬 참여자에게 드리는 혜택입니다.* 팬 참여자 13명에게 지급합니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+            }
+          ],
+          "overflow": false,
+          "posterAbsent": true,
+          "titles": [
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "원년멤버 한정판 뱃지",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "주목할 크리에이터 광고상품",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "프로모션 100콩",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "배민 1만원 상품권",
+              "width": 543.515625
+            }
+          ],
+          "url": "https://beta.crefans.com/service/events/beta-first",
+          "width": 1280
+        },
+        {
+          "check": "service-list-detail-back",
+          "passed": true
+        },
+        {
+          "artwork": [
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/badge.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/crown.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/beans.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/gift-card.webp",
+              "width": 512
+            }
+          ],
+          "details": [
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 30일 이용권을 제공합니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 팬 참여자에게 드리는 혜택입니다.* 팬 참여자 13명에게 지급합니다."
+            },
+            {
+              "align": "right",
+              "size": "14px",
+              "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+            }
+          ],
+          "overflow": false,
+          "posterAbsent": true,
+          "titles": [
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "원년멤버 한정판 뱃지",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "주목할 크리에이터 광고상품",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "프로모션 100콩",
+              "width": 543.515625
+            },
+            {
+              "height": 43.1953125,
+              "size": "32px",
+              "text": "배민 1만원 상품권",
+              "width": 543.515625
+            }
+          ],
+          "url": "https://beta.crefans.com/preview/events/beta-first",
+          "width": 1280
+        },
+        {
+          "artwork": [
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/badge.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/crown.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/beans.webp",
+              "width": 512
+            },
+            {
+              "complete": true,
+              "height": 512,
+              "src": "/brand/events/beta-first/gift-card.webp",
+              "width": 512
+            }
+          ],
+          "details": [
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 30일 이용권을 제공합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 팬 참여자에게 드리는 혜택입니다.* 팬 참여자 13명에게 지급합니다."
+            },
+            {
+              "align": "right",
+              "size": "12px",
+              "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+            }
+          ],
+          "overflow": false,
+          "posterAbsent": true,
+          "titles": [
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "원년멤버 한정판 뱃지",
+              "width": 246.8125
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "주목할 크리에이터 광고상품",
+              "width": 246.8125
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "프로모션 100콩",
+              "width": 246.8125
+            },
+            {
+              "height": 24.296875,
+              "size": "18px",
+              "text": "배민 1만원 상품권",
+              "width": 246.8125
+            }
+          ],
+          "url": "https://beta.crefans.com/preview/events/beta-first",
+          "width": 390
+        }
+      ],
+      "serviceAlerts": [],
+      "logs": []
+    }
+  },
+  "screenshots": [
+    {
+      "path": ".local/beta-event-html-20261026/local-mobile-bottom.jpg",
+      "sha256": "9c528fdb54856800f84765187d0bce5b85cebc7024fe54290d93f8f02fa67e18"
+    },
+    {
+      "path": ".local/beta-event-html-20261026/local-desktop.jpg",
+      "sha256": "b31bee820b84b57fd89347d9da940045f610c252225c677adfc6ce7286c2bbd9"
+    },
+    {
+      "path": ".local/beta-event-html-20261026/production-mobile.jpg",
+      "sha256": "12aa3585b39e97901e5c5750d293cc014dbeb0e3754ce67b5d3aa587c20c2c87"
+    },
+    {
+      "path": ".local/beta-event-html-20261026/production-mobile-bottom.jpg",
+      "sha256": "d1cd4adec82cf25aed8648f33538cb933e6374821eea2e2dd1fdb702d338582c"
+    },
+    {
+      "path": ".local/beta-event-html-20261026/production-desktop.jpg",
+      "sha256": "2ec0c963f4cb96973892fba34ec5a5a2aeea0c9c6b8849d18c2be0f5af42060e"
+    }
+  ],
+  "assets": {
+    "generator": "image_gen.imagegen",
+    "metadata": "public/brand/events/beta-first/generation.json",
+    "bytesTotal": 164386,
+    "count": 4,
+    "transparent": true,
+    "httpHashes": [
+      {
+        "path": "/brand/events/beta-first/badge.webp",
+        "status": 200,
+        "sha256": "8b2d62e517352a7e66faacb94eef2b806dda97ee0430dcde507d94dd41917abd",
+        "bytes": 41000
+      },
+      {
+        "path": "/brand/events/beta-first/crown.webp",
+        "status": 200,
+        "sha256": "bc5d427aeb6e4428ba1f0f94be4fba4f731ad0ea961e1caf2e88f11d0d99020f",
+        "bytes": 42116
+      },
+      {
+        "path": "/brand/events/beta-first/beans.webp",
+        "status": 200,
+        "sha256": "1f13e8599bcda55a519d6ab0112318e62ed67657adfd28a0d86623dade233c42",
+        "bytes": 39744
+      },
+      {
+        "path": "/brand/events/beta-first/gift-card.webp",
+        "status": 200,
+        "sha256": "0c172eb71ce7a96d5a627db40ff158514f7624f0a648fe66ccb7fff076e879e2",
+        "bytes": 41526
+      }
+    ]
+  },
+  "deployment": {
+    "startedAt": "2026-10-26T10:59:07.808663+00:00",
+    "finishedAt": "2026-10-26T10:59:14.574422+00:00",
+    "exitCode": 0,
+    "release": "beta-event-html-20261026",
+    "image": "crefans-front:beta-event-html-20261026",
+    "runtimeImageId": "sha256:951d6296cb5d276431bcc0bc021a3ac996c6da2c535b8802e1974a09f5da6319",
+    "sourceManifestSha256": "3f9e423e1b69640857616bb7664c8e51f61ebe49f6793828996d6a8e77f4d642",
+    "sourceFilesMatched": 631,
+    "changedSourceFiles": [
+      "components/design-system/ServicePatternCatalog.tsx",
+      "types/crefans-events.ts",
+      "lib/content/events.ts",
+      "components/crefans/EventPages.tsx",
+      "components/crefans/events.module.css",
+      "public/brand/events/beta-first/badge.webp",
+      "public/brand/events/beta-first/crown.webp",
+      "public/brand/events/beta-first/beans.webp",
+      "public/brand/events/beta-first/gift-card.webp",
+      "public/brand/events/beta-first/generation.json"
+    ],
+    "otherContainersPreserved": true,
+    "states": {
+      "crefans-beta-frontend-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": false
+      },
+      "crefans-beta-admin-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-api-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-worker-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-proxy-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-database-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      }
+    },
+    "http": [
+      {
+        "path": "/preview/events",
+        "status": 200
+      },
+      {
+        "path": "/preview/events/beta-first",
+        "status": 200
+      },
+      {
+        "path": "/service/events",
+        "status": 200
+      },
+      {
+        "path": "/service/events/beta-first",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/badge.webp",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/crown.webp",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/beans.webp",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/gift-card.webp",
+        "status": 200
+      },
+      {
+        "path": "/api/v1/health",
+        "status": 200
+      }
+    ],
+    "backup": "/opt/crefans-backup-beta-event-html-20261026",
+    "archiveBytes": 578754016,
+    "archiveSha256": "b99a056dad39e0eb244819270fee50124d9d7235383f12a539dfb505c0297b95",
+    "rootFsLayersMatched": true,
+    "noDatabaseOrBackendChanges": true
+  },
+  "boundaries": [
+    "Display/announcement only; no actual badge grants, gift purchases, promotional beans or ad scheduling executed",
+    "Participation and payout dates remain separately announced",
+    "Local API offline; production public service verified without error banner",
+    "Browser verification was cua_repl Chrome responsive emulation, not physical iPhone or Playwright runner",
+    "No database, backend, payment, account or admin changes",
+    "No git commit or push; existing dirty branch preserved"
+  ],
+  "documentationChecks": [
+    {
+      "command": "npm run docs:record",
+      "at": "2026-10-26T11:01:30.608019+00:00",
+      "exitCode": 0,
+      "output": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 52, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 275}\n"
+    },
+    {
+      "command": "npm run check:docs",
+      "at": "2026-10-26T11:01:31.727155+00:00",
+      "exitCode": 0,
+      "output": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-26T11:01:31.462322+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 52, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 275}\n"
+    }
+  ]
+}
