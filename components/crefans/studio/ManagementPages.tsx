@@ -7,6 +7,7 @@ import {membershipPriceHint} from '@/lib/crefans/creator-payout-policy';
 
 import {BackButton} from '../BackButton';
 import {MediaVideo} from '@/components/ui/MediaVideo';
+import {VideoProcessing} from '@/components/ui/VideoProcessing';
 
 
 import {DialogActions} from '@/components/ui/DialogActions';
@@ -62,7 +63,7 @@ export function ContentManagementPage({model,basePath,previewModel,previewCreato
   const planName=(item:StudioContent)=>item.accessLevel?`레벨 ${item.accessLevel} 이상`:item.accessPlanId?`${model.memberships.find(plan=>plan.id===item.accessPlanId)?.name||'멤버십'} 전용`:'전체 공개';
   const when=(item:StudioContent)=>item.status==='scheduled'&&item.scheduledAt?`${date(item.scheduledAt)} 게시 예정`:`${date(item.updatedAt)} 수정`;
   const columns:TableColumn<StudioContent>[]=[
-    {key:'title',label:'게시물',sortValue:item=>item.title,render:item=><div className={s.contentCell}>{item.media[0]?.type==='image'&&item.media[0].processing?<span className={s.noMedia} role="img" aria-label="워터마크 적용 중"><Icon name="card"/></span>:item.media[0]?.type==='image'?<img src={item.media[0].url} alt=""/>:item.media[0]?.type==='video'?<MediaVideo src={item.media[0].url} firstFrame optimizing={item.media[0].processing} muted playsInline preload="metadata" aria-label="동영상"/>:<span className={s.noMedia}><Icon name="card"/></span>}<Link href={`${basePath}/content/${item.id}/edit`}>{item.title}</Link></div>},
+    {key:'title',label:'게시물',sortValue:item=>item.title,render:item=><div className={s.contentCell}>{item.media[0]?.type==='image'&&item.media[0].processing?<span className={s.noMedia} role="img" aria-label="워터마크 적용 중"><Icon name="card"/></span>:item.media[0]?.type==='image'?<img src={item.media[0].url} alt=""/>:item.media[0]?.type==='video'&&item.media[0].processing?<VideoProcessing variant="thumbnail"/>:item.media[0]?.type==='video'?<MediaVideo src={item.media[0].url} firstFrame muted playsInline preload="metadata" aria-label="동영상"/>:<span className={s.noMedia}><Icon name="card"/></span>}<div className={s.contentLabel}><Link href={`${basePath}/content/${item.id}/edit`}>{item.title}</Link>{item.media.some(media=>media.type==='video'&&media.processing)&&<VideoProcessing variant="badge"/>}</div></div>},
     {key:'status',label:'상태',sortValue:item=>statusLabels[item.status],render:item=><span className={s.statusCell}><Status value={item.status}/>{item.hiddenByOperator&&<span className={s.status}>운영 정책에 따라 숨김</span>}{!postCommentsAllowed(commentsGloballyEnabled,item.commentsEnabled)&&<span className={s.status}>댓글 닫힘</span>}</span>},
     {key:'access',label:'공개 범위',sortValue:item=>planName(item),render:item=><MarqueeText text={planName(item)}/>},
     {key:'date',label:'일시',sortValue:item=>item.status==='scheduled'&&item.scheduledAt?item.scheduledAt:item.updatedAt,render:item=><span className={s.muted}>{when(item)}</span>},

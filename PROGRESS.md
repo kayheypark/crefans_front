@@ -3377,3 +3377,10 @@
 - 운영 JS/CSS48파일과 가이드/PDF44파일 SHA-256 일치. 소개서13쪽은 이전 검증 산출물과 동일, 변경쪽은7쪽뿐. 가이드의 기존 소스 잠금 불일치31건은 미해결로 유지(전체 검사 실패); 링크1350·경로57·정책문구15·서비스링크45의 범위 검증, 본문 미변경24HTML/CSS 비교·수정4페이지 검증은 통과.
 - 초기 빌드 컨테이너 준비 전 접속 실패는 HTTP 준비 대기 후 통과. 추가 서비스 가이드 검사에서 미등록 /service/guide 경로를 사용한 검증 스크립트를 카탈로그의 /service/guide/fan으로 정정 후 통과. 최초 로그도 보존. API/worker/admin/DB/proxy5개 ID 불변, 운영6서비스 정상, DB migration 없음. 현재·직전 복구 이미지 보호 후 최신3개 유지 정책 적용.
 - 증거 .local/wallet-release-20261102/verification.json, deployment-git.json, source-delta.json, deployment-command.json, served-assets.json, service-guide-results.json, image-ui/, production-ui/, retention JSON. 가이드 .local/deploy-wallet-release-20261102/의 배포·파일 해시·범위 검증 및 PDF 이전 렌더 증거. 가이드 기존 미커밋 PROGRESS30줄은 보존하며 본 완료 기록만 별도 커밋. 이 기록도 prod 기준 feat→dev→prod로 반영. AGENTS 변경 없음.
+
+## 2026-11-02 영상 최적화 표시 선택 시안 적용
+- 요청: 작성1안·목록2안·피드1안 확정 조합을 구현·운영 배포. 최신 origin/prod7943011에서 feat/video-processing-status-ui 분기. 합격 조건은 작성 썸네일 아래 상태 문구, 제목 아래 최적화 칩/게시 상태 구분, 피드 중앙 카메라·스피너·보조문구, 완료/실패·로컬 미리보기·삭제/순서변경 보존이다.
+- 공용 VideoProcessing을 통해 서비스·목업·갤러리에 동일한 상태 표시. 작성 중 로컬 영상 미리보기는 유지하고 미완성 서버 파일 요청을 차단한다. 진행률/예상시간을 만들지 않으며 reduced-motion에서는 회전하지 않는다. 카탈로그에 처리 중/미리보기/완료/실패/빈 상태 등록. API·worker 변환/DB/금융 로직 변경 없음.
+- 레이어·타입·단위490건 통과. 최초 타입검사에서 카탈로그 accept 누락을 보완했다. 브라우저 최초 실패는 기존 오류 문구를 별도 DOM/마침표로 잘못 기대한 테스트 선택자였으며 실제 span 내용을 기준으로 정정하고 재검증한다. PC1440/WebKit390/Chromium320 공용 컴포넌트 및 정상 목업 경로·운영 이미지 검증 증거는 .local/video-processing-ui-20261102/. 실물 아이폰·실제 운영 업로드/변환은 검증 범위 밖이다.
+- 현재 운영 wallet-release-20261102 레이어와 동결 소스를 대조하고 제품9파일만 반영할 예정. 다음: 브라우저·빌드검사→dev 통합검증→prod 승격·프론트 배포 후 운영 재검증. AGENTS 변경 없음.
+- 후속 검증: PC1440·iPhone13 WebKit·Chromium320에서 선택 UI/상태 전환 및 기존 편집기·목록·게시물 경로6건 통과. 모든 미완성 미디어 요청0건, reduced-motion 회전 중지, 본문 가로 넘침 없음 확인. 카탈로그 캡처에서는 검수 도구의 고정 내비게이션만 숨겼으며 제품 컴포넌트는 수정하지 않았다. dev 통합 코드 검사490건 통과. docs:record 당시 개발 서버가 자동 변경한 next-env.d.ts를 원복한 뒤 문서 해시 증거를 재기록했다.
