@@ -12,8 +12,7 @@ import navigationButton from './back-button.module.css';
 import {CreatorName} from './CreatorName';
 
 import {LegalDocumentBody} from './LegalDocumentBody';
-import {BusinessInfo} from './BusinessInfo';
-import {guideSiteUrl} from '@/lib/content/business';
+import {ServiceFooter} from './ServiceFooter';
 import {DialogActions} from '@/components/ui/DialogActions';
 import {useEffect,useRef,useState, type FormEvent, type ReactNode} from 'react';
 import Link from 'next/link';
@@ -155,7 +154,7 @@ const settingsGroups:{title:string;items?:SettingsItem['key'][];links?:SettingsL
   {title:'공개 설정',items:['privacy']},
   {title:'알림과 결제',items:['notifications','payment'],links:[['내 구독','subscriptions','card']]},
   {title:'계정 관리',items:['blocked']},
-  {title:'서비스 안내',links:[['서비스 소개','landing'],['크레팬스 가이드',guideSiteUrl],['공지사항','notices'],['이벤트 안내','events'],['고객센터','support'],['이용약관','legal/terms'],['개인정보처리방침','legal/privacy'],['운영정책','legal/policy']]},
+  {title:'서비스 안내'},
 ];
 export function SettingsPage({model}:{model:ServiceViewModel}){
   const {viewer,account,accountActions,data,basePath}=model,task=useActionFeedback();
@@ -200,7 +199,7 @@ export function SettingsPage({model}:{model:ServiceViewModel}){
       <Chip selected={category==='전체'} onClick={()=>setCategory('전체')}>전체</Chip>
       {settingsGroups.map(group=><span key={group.title}><Chip selected={category===group.title} onClick={()=>setCategory(group.title)}>{group.title}</Chip></span>)}
     </ChipRow>
-    {settingsGroups.filter(group=>category==='전체'||category===group.title).map(group=><section className={s.menuGroup} key={group.title}><h3>{group.title}</h3><div className={s.menuList}>{group.items?.map(key=>{const item=settingsItems.find(entry=>entry.key===key)!;return <button key={item.key} type="button" onClick={()=>open(item.key)}><Icon name={item.icon} width={19} height={19}/><span>{item.label}</span><Chevron/></button>;})}{group.links?.map(([label,href,icon])=>/^https:/.test(href)?<a href={href} key={href} target="_blank" rel="noopener noreferrer"><span>{label} ↗</span><Chevron/></a>:<Link href={`${basePath}/${href}`} key={href}>{icon&&<Icon name={icon} width={19} height={19}/>}<span>{label}</span><Chevron/></Link>)}</div></section>)}
+    {settingsGroups.filter(group=>group.title!=='서비스 안내'&&(category==='전체'||category===group.title)).map(group=><section className={s.menuGroup} key={group.title}><h3>{group.title}</h3><div className={s.menuList}>{group.items?.map(key=>{const item=settingsItems.find(entry=>entry.key===key)!;return <button key={item.key} type="button" onClick={()=>open(item.key)}><Icon name={item.icon} width={19} height={19}/><span>{item.label}</span><Chevron/></button>;})}{group.links?.map(([label,href,icon])=>/^https:/.test(href)?<a href={href} key={href} target="_blank" rel="noopener noreferrer"><span>{label} ↗</span><Chevron/></a>:<Link href={`${basePath}/${href}`} key={href}>{icon&&<Icon name={icon} width={19} height={19}/>}<span>{label}</span><Chevron/></Link>)}</div></section>)}
     <MarqueeMotionControl/>{(category==='전체'||category==='계정 관리')&&<div className={s.accountActions}><button disabled={task.busy} onClick={()=>void task.run(accountActions.logout,setNotice)}>로그아웃</button><button className={s.danger} onClick={()=>open('withdraw')}>회원 탈퇴 <Chevron/></button></div>}<Toast message={notice} onClose={()=>setNotice('')}/>{task.error&&!panel&&<p className={s.error} role="alert">{task.error}</p>}
     <Dialog open={!!panel} title={title} onClose={()=>{resetHandleCheck();setPanel(null);}}><form className={s.dialogBody} noValidate onSubmit={save}>
       {panel==='account'&&<><Avatar creator={viewer} size={64}/><Field label="사용자명" tooltip="크리에이터로 전환하지 않았을 때 프로필에 표시됩니다." value={name} onChange={e=>setName(e.target.value)} maxLength={20}/><div className={s.handleField}><Field label="핸들" value={handle} maxLength={24} autoComplete="username" autoCapitalize="none" spellCheck={false} disabled={task.busy} onChange={e=>{resetHandleCheck();setHandle(e.target.value.toLowerCase());setError('');task.clearError();}} action={<button className={s.handleCheck} type="button" disabled={task.busy||handleBusy||!handleValid} onClick={()=>void checkHandle()}>{handleBusy?'확인 중':'중복 확인'}</button>} error={handleChanged&&!handleValid?'핸들은 영문 소문자, 숫자, 밑줄 3~24자입니다.':undefined} hint="나를 구분하는 고유한 @아이디로, 프로필 주소에도 쓰여요. 영문 소문자, 숫자, 밑줄 3~24자."/><p className={s.handleStatus} data-state={handleCheck?.status} role="status" aria-live="polite">{handleCheck?.message||(handleChanged?'핸들을 변경하려면 중복 확인을 해주세요.':'현재 사용 중인 핸들입니다.')}</p></div><TextAreaField label="소개" tooltip="일반 회원 소개와 크리에이터 소개를 모두 입력하면, 프로필 페이지에는 크리에이터 소개가 우선 표시됩니다." value={bio} maxLength={120} rows={3} onChange={e=>setBio(e.target.value)}/><Guidance text={account.guidance.profile}/></>}
@@ -215,8 +214,7 @@ export function SettingsPage({model}:{model:ServiceViewModel}){
       {panel&&['account','password','email','notifications','privacy'].includes(panel)&&<DialogActions><Action type="submit" disabled={task.busy||!panelReady||(panel==='email'&&model.mode==='live'&&emailSent&&!/^\d{6}$/.test(emailCode))}>{task.busy?'저장 중…':panel==='email'?(model.mode==='live'&&emailSent?'인증하고 변경':'인증 요청 확인'):'저장하기'}</Action></DialogActions>}
       {(panel==='payment'||panel==='blocked')&&<DialogActions><Action variant="secondary" type="button" onClick={()=>setPanel(null)}>닫기</Action>{panel==='payment'&&<Link href={`${basePath}/payment-methods`} className={s.primaryLink} onClick={()=>setPanel(null)}>결제수단 관리하기</Link>}</DialogActions>}
     </form></Dialog>
-    <div className={`${s.menuList} ${s.studioLink}`}><Link href={`${basePath}/studio`}><span>크리에이터 스튜디오</span><Chevron/></Link></div>
-    <BusinessInfo className={s.settingsBusiness}/>
+    {(category==='전체'||category==='서비스 안내')&&<section className={`${s.menuGroup} ${s.settingsService}`}><h3>서비스 안내</h3><ServiceFooter basePath={basePath} always/></section>}
   </section>;
 }
 

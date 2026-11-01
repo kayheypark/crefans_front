@@ -3390,3 +3390,8 @@
 - 로컬·실제 빌드 이미지·운영 주소에서 각각 브라우저6건 통과: PC Chromium1440, iPhone13 WebKit390, Chromium320. 작성 문구 위치/목록 칩과 게시 상태 분리/피드 중앙 정렬/미완성 파일 요청0건/완료·실패·삭제/감소된 모션 및 기존 목업 정상 미디어 경로 확인. 코드490건·문서75개·운영 빌드 통과. 실제 운영 업로드·worker 변환 및 실물 iPhone Chrome 검증은 수행하지 않았다.
 - 운영 공개 페이지5경로 HTTP200, JS/CSS57파일이 검증 이미지와 SHA-256 일치. 운영6서비스 정상, API·worker·admin·DB·proxy5개 ID 불변·마이그레이션 없음. 현재·직전 wallet-release 복구 이미지 보호 후 오래된 pull-refresh-20261101 로컬/원격 각1개만 정리. 임시 검사 컨테이너/3011 서버 종료, Docker Desktop과 기존 guide4321 유지.
 - 증거 `.local/video-processing-ui-20261102/verification.json`, deployment-git.json, source-delta.json, deployment-command.json, served-assets.json, runtime-after.json, local-ui-final/, image-ui/, production-ui/, production-settled/ 및 retention JSON. 초기 캡처에서 아바타가 로딩 중이어서 이미지·폰트 로딩 후 PC/모바일6장 재촬영했다. 이 완료 기록은 prod 기준 새 feat→dev→prod 통합하며 제품 소스는 동일하다. AGENTS 변경 없음.
+
+## 2026-11-02 설정 서비스 안내를 공용 2열 푸터로 통일
+- 요청: 설정의 서비스 안내에 별도 링크 행을 두는 대신 최근2열 버전 푸터 표시. 최신 origin/prod7fa8418에서 feat/settings-service-footer 분기. 기존 ServiceFooter/ServiceLinks를 그대로 재사용하고 설정 하단에 배치했다. 전체·서비스 안내 카테고리에서 표시하며, 중복 스튜디오 행/사업자 정보는 제거했다. 모바일은2열·44px 링크, PC는 기존 푸터 배치/사이드바 사업자 정보 기준을 유지한다.
+- 합격 조건: 안내 링크9개 목적지 유지, 푸터/스튜디오 진입 중복 없음, 카테고리 필터 유지, 모바일2열/가로넘침 없음, 공지사항 이동·프로필 수정 모달·설정 닫기 동작 유지. PC1440 Chromium·iPhone13 WebKit390·Chromium320에서 모두 확인하고 캡처했다. 기존 계정 단위22건·타입·레이어 검사 통과. 단위 기대값 수정 중 비로그인 안내의 무관한 검사가 함께 바뀐 것을 되돌린 뒤22건 재통과.
+- 증거 `.local/settings-service-footer-20261102/`의 verify.cjs, results.json, PC/모바일 PNG, typecheck.log, account-test-final.log, layers.log, verification.json. 로컬 공용/목업 화면 검증이며 실물 기기·로그인된 운영 화면·운영 배포는 미실행. API·권한·금융·푸터 공통 링크 정의는 변경하지 않았다. 임시3011 서버 종료·next-env 자동변경 원복. AGENTS 불변 규약 변경 없음. 소스는 기존 dev→prod 통합 순서를 따르며 다음 운영 배포 시 제품2파일만 포함하면 된다.

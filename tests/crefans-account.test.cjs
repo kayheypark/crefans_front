@@ -192,6 +192,7 @@ test('the settings page keeps account groups and shares service information acro
   const hrefs=tree.root.findAllByType('a').map(link=>link.props.href);
   for(const expected of ['/service/me?tab=saved','/service/me?tab=liked','/service/following','/service/followers','/service/subscriptions'])assert.ok(hrefs.includes(expected),expected);
   for(const path of ['landing','notices','support','legal/terms','legal/privacy','legal/policy'])assert.ok(hrefs.includes(`/service/${path}`),path);
+  assert.equal(tree.root.findAllByType('footer').length,1);assert.equal(hrefs.filter(href=>href==='/service/studio').length,1,'studio entry is shared by the footer without a duplicate row');
   const labels=tree.root.findAllByType('button').map(flat);
   for(const expected of ['프로필 수정','이메일 설정','비밀번호 변경','개인정보 관리','알림 설정','결제수단 관리','차단한 사용자','로그아웃'])assert.ok(labels.includes(expected),expected);
   assert.equal(labels.filter(label=>label==='계정 정보').length,0,'the old 닉네임-only panel is replaced by 프로필 수정');
@@ -212,14 +213,15 @@ test('settings categories filter their own items and keep account actions in acc
     ['공개 설정',['개인정보 관리'],[]],
     ['알림과 결제',['알림 설정','결제수단 관리'],['/service/subscriptions']],
     ['계정 관리',['차단한 사용자','로그아웃','회원 탈퇴'],[]],
-    ['서비스 안내',[],['/service/landing','https://guide.crefans.com/','/service/notices','/service/events','/service/support','/service/legal/terms','/service/legal/privacy','/service/legal/policy']],
+    ['서비스 안내',[],['/service/landing','/service/support','/service/notices','/service/events','/service/legal/terms','/service/legal/privacy','/service/legal/policy','/service/studio','https://guide.crefans.com/']],
   ];
   for(const [category,buttons,links] of cases){
     choose(category);assert.deepEqual(headings(),[category]);
     assert.deepEqual(categories.findAllByType('button').filter(node=>node.props['aria-pressed']).map(flat),[category]);
     assert.deepEqual(tree.root.findAllByType('button').filter(node=>node.props['aria-pressed']===undefined).map(node=>flat(node).trim()),buttons);
-    assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href).filter(href=>!/^(mailto|tel):/.test(href)),['/service/me',...links,'/service/studio']);
-    assert.equal(tree.root.findAllByProps({'aria-label':'사업자 정보'}).length,1);
+    assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href).filter(href=>!/^(mailto|tel):/.test(href)),['/service/me',...links]);
+    assert.equal(tree.root.findAllByProps({'aria-label':'사업자 정보'}).length,category==='서비스 안내'?1:0);
+    assert.equal(tree.root.findAllByType('footer').length,category==='서비스 안내'?1:0);
   }
   choose('계정 설정');act(()=>button(tree,'프로필 수정').props.onClick());
   assert.equal(tree.root.findAllByProps({'data-dialog':'프로필 수정'}).length,1);
