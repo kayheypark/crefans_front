@@ -39,6 +39,7 @@ export type AccountModel={
     login:(input:{email:string;password:string;remember:boolean})=>Promise<AccountActionResult>;
     /** handle: the one public user name (2026-10-31) — also the creator profile address. */
     updateProfile:(input:{name:string;bio:string;handle?:string})=>Promise<AccountActionResult>;
+    checkHandle:(handle:string)=>Promise<ApiResult<{handle:string;available:boolean}>>;
     /** Profile and background photo of the own profile page; a creator profile uses the same photos. */
     updatePhotos?:(input:ProfilePhotoChange)=>Promise<AccountActionResult>;
     requestEmailChange?:(email:string,currentPassword:string)=>Promise<AccountActionResult>;

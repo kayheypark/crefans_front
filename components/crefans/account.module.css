@@ -63,3 +63,12 @@
 .settingsBusiness{margin-top:32px;padding-top:20px;border-top:1px solid var(--cf-landing-line)}
 @media(min-width:768px){.settings>.settingsBusiness{display:none}}
 .agreements>.agreeAll{padding-bottom:10px;margin-bottom:2px;border-bottom:1px solid var(--cf-color-border);color:var(--cf-color-text);font-weight:650}
+
+.handleField{display:flex;flex-direction:column;gap:6px;min-width:0}
+.handleCheck{border:1px solid var(--cf-color-accentBorder);border-radius:var(--cf-radius-control);min-height:48px;padding:8px 14px;background:var(--cf-color-accentSoft);color:var(--cf-color-accent);font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+.handleCheck:disabled{background:var(--cf-color-disabledBg);color:var(--cf-color-disabledText);cursor:not-allowed}
+.handleCheck:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
+.handleStatus{margin:0;font-size:max(12px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted);line-height:1.5}
+.handleStatus[data-state=available]{color:var(--cf-color-accent)}
+.handleStatus[data-state=unavailable],.handleStatus[data-state=error]{color:var(--cf-color-danger)}
+.settings>.studioLink{margin-top:24px;padding-top:12px;border-top:1px solid var(--cf-landing-line)}

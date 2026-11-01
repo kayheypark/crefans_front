@@ -14,7 +14,7 @@ import {LegalDocumentBody} from './LegalDocumentBody';
 import {BusinessInfo} from './BusinessInfo';
 import {guideSiteUrl} from '@/lib/content/business';
 import {DialogActions} from '@/components/ui/DialogActions';
-import {useEffect,useState, type FormEvent, type ReactNode} from 'react';
+import {useEffect,useRef,useState, type FormEvent, type ReactNode} from 'react';
 import Link from 'next/link';
 import {TextLink} from '@/components/ui/TextLink';
 import {Toggle} from '@/components/ui/Toggle';
@@ -22,7 +22,6 @@ import {Checkbox} from '@/components/ui/Choice';
 import {AccordionItem} from '@/components/ui/Accordion';
 import {SelectField} from '@/components/ui/SelectField';
 import {Chip,Dialog, Field,TextAreaField} from '@/components/ui/Primitives';
-import {ChipLink} from '@/components/ui/ChipLink';
 import {ChipRow} from '@/components/ui/ChipRow';
 import type {ServiceViewModel} from '@/types/crefans';
 import type {AccountActionResult,AccountSettingsUpdate,AccountPreferences} from '@/types/crefans-account';
@@ -138,7 +137,7 @@ function MyProfileContent({model}:{model:ServiceViewModel}){
   const [photos,setPhotos]=useState(false),updatePhotos=model.accountActions.updatePhotos;
   return <div className={c.profile}>
     {updatePhotos&&<ProfilePhotoDialog open={photos} onClose={()=>setPhotos(false)} image={viewer.image} cover={viewer.cover} onSave={updatePhotos}/>}
-    <ProfileHeader cover={viewer.cover} onEditPhotos={updatePhotos?()=>setPhotos(true):undefined} person={viewer} handle={viewer.handle} bio={viewer.bio} counts={[{label:'게시물',value:account.stats.posts},{label:'팔로워',private:account.preferences.showFollowers===false,value:account.stats.followers,href:`${basePath}/followers`},{label:'팔로잉',private:privateFollowing,href:`${basePath}/following`,value:<>{following.length}{privateFollowing&&<Icon name="lock" width="12" height="12" aria-label="비공개"/>}</>}]} action={<><BeanWalletLink basePath={basePath} className={`${c.coverChip} ${c.coverWallet}`}/><ChipLink href={`${basePath}/settings`} className={c.coverChip} icon={<Icon name="settings" width="16" height="16"/>}>설정</ChipLink></>}/>
+    <ProfileHeader cover={viewer.cover} onEditPhotos={updatePhotos?()=>setPhotos(true):undefined} person={viewer} handle={viewer.handle} bio={viewer.bio} counts={[{label:'게시물',value:account.stats.posts},{label:'팔로워',private:account.preferences.showFollowers===false,value:account.stats.followers,href:`${basePath}/followers`},{label:'팔로잉',private:privateFollowing,href:`${basePath}/following`,value:<>{following.length}{privateFollowing&&<Icon name="lock" width="12" height="12" aria-label="비공개"/>}</>}]} action={<><BeanWalletLink basePath={basePath} className={`${c.coverControl} ${c.coverWallet}`}/><Link href={`${basePath}/settings`} className={`${c.coverControl} ${c.coverSettings}`} aria-label="설정"><Icon name="settings" width="18" height="18" aria-hidden="true"/></Link></>}/>
     <div className={c.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={c.tabCount}>{count}</span>}</button>)}</div>
     {tab==='소개'?<section className={c.about}><p>{viewer.bio||'아직 등록된 소개가 없습니다.'}</p></section>:<Empty title={tab==='피드'?'아직 게시물이 없어요':'아직 미디어가 없어요'} description="첫 게시물을 올리면 이곳에 모여요."/>}
   </div>;
@@ -162,16 +161,29 @@ export function SettingsPage({model}:{model:ServiceViewModel}){
   const [category,setCategory]=useState('전체');
   const [panel,setPanel]=useState<SettingsPanel>(account.route.settingsSection),[notice,setNotice]=useSnackbarMessage();
   const [name,setName]=useState(viewer.name),[handle,setHandle]=useState(viewer.handle),[bio,setBio]=useState(viewer.bio),[email,setEmail]=useState(account.email),[currentPassword,setCurrentPassword]=useState(''),[newPassword,setNewPassword]=useState(''),[confirmPassword,setConfirmPassword]=useState(''),[error,setError]=useState('');
+  const handleRequest=useRef(0),[handleCheck,setHandleCheck]=useState<{value:string;status:'checking'|'available'|'unavailable'|'error';message:string}|null>(null);
+  const normalizedHandle=handle.trim(),handleValid=/^[a-z0-9_]{3,24}$/.test(normalizedHandle),handleChanged=normalizedHandle!==viewer.handle;
+  const handleConfirmed=!handleChanged||(handleCheck?.value===normalizedHandle&&handleCheck.status==='available');
+  const handleBusy=handleCheck?.status==='checking';
+  function resetHandleCheck(){handleRequest.current++;setHandleCheck(null);}
+  useEffect(()=>()=>{handleRequest.current++;},[]);
+  async function checkHandle(){
+    if(!handleValid||handleBusy)return;const value=normalizedHandle,request=++handleRequest.current;
+    setHandleCheck({value,status:'checking',message:'핸들을 확인하고 있어요.'});
+    try{const result=await accountActions.checkHandle(value);if(request!==handleRequest.current)return;
+      setHandleCheck(result.success&&result.data.handle===value?{value,status:result.data.available?'available':'unavailable',message:result.data.available?'사용할 수 있는 핸들입니다.':'이미 사용 중인 핸들입니다.'}:{value,status:'error',message:result.errorMessage||'확인하지 못했습니다. 다시 시도해주세요.'});
+    }catch{if(request===handleRequest.current)setHandleCheck({value,status:'error',message:'확인하지 못했습니다. 다시 시도해주세요.'});}
+  }
   const [emailCode,setEmailCode]=useState(''),[emailSent,setEmailSent]=useState(false);
   const [preferences,setPreferences]=useState<AccountPreferences>({...account.preferences}),[confirmWithdraw,setConfirmWithdraw]=useState(false);
   const blockedCreators=data.creators.filter(creator=>account.blockedCreatorIds.includes(creator.id));
-  function open(value:SettingsPanel){setError('');task.clearError();setNotice('');setCurrentPassword('');setNewPassword('');setConfirmPassword('');setConfirmWithdraw(false);setName(viewer.name);setHandle(viewer.handle);setBio(viewer.bio);setEmail(account.email);setEmailCode('');setEmailSent(false);setPreferences({...account.preferences});setPanel(value);}
+  function open(value:SettingsPanel){resetHandleCheck();setError('');task.clearError();setNotice('');setCurrentPassword('');setNewPassword('');setConfirmPassword('');setConfirmWithdraw(false);setName(viewer.name);setHandle(viewer.handle);setBio(viewer.bio);setEmail(account.email);setEmailCode('');setEmailSent(false);setPreferences({...account.preferences});setPanel(value);}
   function save(event:FormEvent){event.preventDefault();setError('');
-    if(panel==='account'&&!name.trim()){setError('닉네임을 입력해주세요.');return;}
+    if(panel==='account'&&!name.trim()){setError('사용자명을 입력해주세요.');return;}
     if(panel==='email'&&model.mode==='live'&&!emailSent){if(!currentPassword){setError('현재 비밀번호를 입력해주세요.');return;}if(accountActions.requestEmailChange)void task.run(()=>accountActions.requestEmailChange!(email,currentPassword),message=>{setEmailSent(true);setCurrentPassword('');setNotice(message);});return;}
     if(panel==='email'&&!emailIsValid(email)){setError('올바른 이메일 주소를 입력해주세요.');return;}
     if(panel==='password'&&(!currentPassword||newPassword.length<8||newPassword!==confirmPassword)){setError(!currentPassword?'현재 비밀번호를 입력해주세요.':newPassword.length<8?'새 비밀번호를 8자 이상 입력해주세요.':'새 비밀번호가 서로 일치하지 않습니다.');return;}
-    if(panel==='account'){if(!/^[a-z0-9_]{3,24}$/.test(handle.trim())){setError('사용자 이름은 영문 소문자, 숫자, 밑줄 3~24자입니다.');return;}void task.run(()=>accountActions.updateProfile({name:name.trim(),bio:bio.trim(),handle:handle.trim()}),message=>{setNotice(message);setPanel(null);});return;}
+    if(panel==='account'){if(handleChanged&&!handleValid){setError('핸들은 영문 소문자, 숫자, 밑줄 3~24자입니다.');return;}if(!handleConfirmed||handleBusy){setError('핸들 중복 확인을 완료해주세요.');return;}void task.run(async()=>{const result=await accountActions.updateProfile({name:name.trim(),bio:bio.trim(),...(handleChanged||handleValid?{handle:normalizedHandle}:{})});if(!result.success&&result.errorCode==='HANDLE_TAKEN')setHandleCheck({value:normalizedHandle,status:'unavailable',message:'이미 사용 중인 핸들입니다. 다시 확인해주세요.'});return result;},message=>{setNotice(message);setPanel(null);});return;}
     let input:AccountSettingsUpdate;
     if(panel==='email')input={section:panel,email,...(model.mode==='live'?{code:emailCode}:{})};
     else if(panel==='password')input={section:panel,currentPassword,newPassword};
@@ -181,7 +193,7 @@ export function SettingsPage({model}:{model:ServiceViewModel}){
     void task.run(()=>accountActions.updateSettings(input),message=>{setNotice(message);setCurrentPassword('');setNewPassword('');setConfirmPassword('');setPanel(null);});
   }
   const title=panel==='withdraw'?'회원 탈퇴':settingsItems.find(item=>item.key===panel)?.label||'설정';
-  const panelReady=panel==='account'?!!name.trim():panel==='email'?emailIsValid(email):panel==='password'?!!currentPassword&&newPassword.length>=8&&newPassword===confirmPassword:true;
+  const panelReady=panel==='account'?!!name.trim()&&(!handleChanged||handleValid)&&handleConfirmed&&!handleBusy:panel==='email'?emailIsValid(email):panel==='password'?!!currentPassword&&newPassword.length>=8&&newPassword===confirmPassword:true;
   return <section className={s.settings}><PageTitle>설정</PageTitle>
     <ChipRow label="설정 카테고리" className={s.settingsCategories}>
       <Chip selected={category==='전체'} onClick={()=>setCategory('전체')}>전체</Chip>
@@ -189,8 +201,8 @@ export function SettingsPage({model}:{model:ServiceViewModel}){
     </ChipRow>
     {settingsGroups.filter(group=>category==='전체'||category===group.title).map(group=><section className={s.menuGroup} key={group.title}><h3>{group.title}</h3><div className={s.menuList}>{group.items?.map(key=>{const item=settingsItems.find(entry=>entry.key===key)!;return <button key={item.key} type="button" onClick={()=>open(item.key)}><Icon name={item.icon} width={19} height={19}/><span>{item.label}</span><Chevron/></button>;})}{group.links?.map(([label,href,icon])=>/^https:/.test(href)?<a href={href} key={href} target="_blank" rel="noopener noreferrer"><span>{label} ↗</span><Chevron/></a>:<Link href={`${basePath}/${href}`} key={href}>{icon&&<Icon name={icon} width={19} height={19}/>}<span>{label}</span><Chevron/></Link>)}</div></section>)}
     <MarqueeMotionControl/>{(category==='전체'||category==='계정 관리')&&<div className={s.accountActions}><button disabled={task.busy} onClick={()=>void task.run(accountActions.logout,setNotice)}>로그아웃</button><button className={s.danger} onClick={()=>open('withdraw')}>회원 탈퇴 <Chevron/></button></div>}<Toast message={notice} onClose={()=>setNotice('')}/>{task.error&&!panel&&<p className={s.error} role="alert">{task.error}</p>}
-    <Dialog open={!!panel} title={title} onClose={()=>setPanel(null)}><form className={s.dialogBody} noValidate onSubmit={save}>
-      {panel==='account'&&<><Avatar creator={viewer} size={64}/><Field label="닉네임" value={name} onChange={e=>setName(e.target.value)} maxLength={20}/><Field label="사용자 이름" value={handle} maxLength={24} autoComplete="username" onChange={e=>setHandle(e.target.value.toLowerCase())} hint="영문 소문자, 숫자, 밑줄 3~24자. 크리에이터 프로필 주소로도 쓰여요."/><TextAreaField label="소개" value={bio} maxLength={120} rows={3} onChange={e=>setBio(e.target.value)}/><Guidance text={account.guidance.profile}/></>}
+    <Dialog open={!!panel} title={title} onClose={()=>{resetHandleCheck();setPanel(null);}}><form className={s.dialogBody} noValidate onSubmit={save}>
+      {panel==='account'&&<><Avatar creator={viewer} size={64}/><Field label="사용자명" tooltip="크리에이터로 전환하지 않았을 때 프로필에 표시됩니다." value={name} onChange={e=>setName(e.target.value)} maxLength={20}/><div className={s.handleField}><Field label="핸들" value={handle} maxLength={24} autoComplete="username" autoCapitalize="none" spellCheck={false} disabled={task.busy} onChange={e=>{resetHandleCheck();setHandle(e.target.value.toLowerCase());setError('');task.clearError();}} action={<button className={s.handleCheck} type="button" disabled={task.busy||handleBusy||!handleValid} onClick={()=>void checkHandle()}>{handleBusy?'확인 중':'중복 확인'}</button>} error={handleChanged&&!handleValid?'핸들은 영문 소문자, 숫자, 밑줄 3~24자입니다.':undefined} hint="나를 구분하는 고유한 @아이디로, 프로필 주소에도 쓰여요. 영문 소문자, 숫자, 밑줄 3~24자."/><p className={s.handleStatus} data-state={handleCheck?.status} role="status" aria-live="polite">{handleCheck?.message||(handleChanged?'핸들을 변경하려면 중복 확인을 해주세요.':'현재 사용 중인 핸들입니다.')}</p></div><TextAreaField label="소개" tooltip="일반 회원 소개와 크리에이터 소개를 모두 입력하면, 프로필 페이지에는 크리에이터 소개가 우선 표시됩니다." value={bio} maxLength={120} rows={3} onChange={e=>setBio(e.target.value)}/><Guidance text={account.guidance.profile}/></>}
       {panel==='password'&&<><Field label="현재 비밀번호" type="password" autoComplete="current-password" value={currentPassword} onChange={e=>setCurrentPassword(e.target.value)}/><Field label="새 비밀번호" type="password" autoComplete="new-password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} hint="8자 이상 입력해주세요."/><Field label="새 비밀번호 확인" type="password" autoComplete="new-password" value={confirmPassword} onChange={e=>setConfirmPassword(e.target.value)}/><Guidance text={account.guidance.credentials}/></>}
       {panel==='email'&&<><Field label="이메일 주소" type="email" value={email} onChange={e=>{setEmail(e.target.value);setEmailSent(false);setEmailCode('');}}/>{model.mode==='live'&&!emailSent&&<Field label="현재 비밀번호" type="password" autoComplete="current-password" value={currentPassword} onChange={e=>setCurrentPassword(e.target.value)} hint="본인 확인을 위해 현재 비밀번호를 입력해주세요."/>}{model.mode==='live'&&emailSent&&<Field label="인증 코드" value={emailCode} onChange={e=>setEmailCode(e.target.value)} maxLength={6} inputMode="numeric"/>}<p className={s.hint}>새 이메일 주소의 인증을 완료한 뒤 변경됩니다.</p></>}
       {panel==='notifications'&&<><Toggle label="새 콘텐츠 알림" description="구독한 크리에이터의 새로운 소식" checked={preferences.contentAlert} onChange={value=>setPreferences(previous=>({...previous,contentAlert:value}))}/><Toggle label="메시지 알림" description="새 메시지가 도착했을 때. 내 게시물·댓글에 달린 댓글·답글과 나를 태그한 댓글 알림은 항상 받습니다" checked={preferences.messageAlert} onChange={value=>setPreferences(previous=>({...previous,messageAlert:value}))}/><Toggle label="마케팅 알림" description="이메일·닉네임을 이벤트·프로모션 안내에 이용합니다. 동의 철회 또는 탈퇴 시까지 이용하며, 거부해도 필수 기능에 영향이 없습니다. 설정이나 메일 하단에서 무료로 철회할 수 있습니다. · 선택" checked={preferences.marketingAlert} onChange={value=>setPreferences(previous=>({...previous,marketingAlert:value}))}/><p className={s.hint}>구독·결제 등 필수 안내는 별도로 제공됩니다.</p></>}
@@ -202,6 +214,7 @@ export function SettingsPage({model}:{model:ServiceViewModel}){
       {panel&&['account','password','email','notifications','privacy'].includes(panel)&&<DialogActions><Action type="submit" disabled={task.busy||!panelReady||(panel==='email'&&model.mode==='live'&&emailSent&&!/^\d{6}$/.test(emailCode))}>{task.busy?'저장 중…':panel==='email'?(model.mode==='live'&&emailSent?'인증하고 변경':'인증 요청 확인'):'저장하기'}</Action></DialogActions>}
       {(panel==='payment'||panel==='blocked')&&<DialogActions><Action variant="secondary" type="button" onClick={()=>setPanel(null)}>닫기</Action>{panel==='payment'&&<Link href={`${basePath}/payment-methods`} className={s.primaryLink} onClick={()=>setPanel(null)}>결제수단 관리하기</Link>}</DialogActions>}
     </form></Dialog>
+    <div className={`${s.menuList} ${s.studioLink}`}><Link href={`${basePath}/studio`}><span>크리에이터 스튜디오</span><Chevron/></Link></div>
     <BusinessInfo className={s.settingsBusiness}/>
   </section>;
 }
