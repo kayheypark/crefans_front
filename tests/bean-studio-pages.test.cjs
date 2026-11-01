@@ -31,5 +31,5 @@ test('withdraw page: amount available, the form, policy notice last; no tip or p
 test('tips and payouts pages show only their own list without notices',()=>{
  const tips=render('tips'),payouts=render('payouts');
  assert.match(tips.page,/^받은 후원/);assert.doesNotMatch(tips.page,/출금 내용 확인|최근 50건|콩 출금 기준/);
- assert.match(payouts.page,/^콩 출금 내역/);assert.match(payouts.page,/최근 50건/);assert.doesNotMatch(payouts.page,/출금 내용 확인|다음 후원|콩 출금 기준/);
+ assert.match(payouts.page,/^콩 출금 내역/);assert.doesNotMatch(payouts.page,/최근 50건/);assert.match(payouts.page,/아직 출금 내역이 없습니다/);assert.doesNotMatch(payouts.page,/출금 내용 확인|다음 후원|콩 출금 기준/);
 });

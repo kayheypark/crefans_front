@@ -3304,3 +3304,12 @@
 - 사용자 승인 후 최신 ad-tabs-20261101 운영 이미지/소스 확인, BeanPages.tsx만 분리해 `crefans-front:beans-empty-20261101` 배포. 다른 서비스 유지.
 - 빌드/배포 exit0. 배포 이미지 및 운영 주소에서 각각 PC Chromium·모바일 WebKit 2테스트 통과(각 테스트 두 화면): 중앙 정렬, 빈 목록 불필요 문구/버튼 숨김, 가로 넘침 없음. 빈 금융 API 대역이며 실제 금융 작업은 수행하지 않음. 모바일 캡처 시각 확인.
 - 최신3개·직전 ad-tabs 보호하여 로컬/운영 이미지 정리. 증거 `.local/beans-empty-deploy-20261101/verification.json`, production-results 및 front-ui-results. 기존 미커밋 보존, AGENTS 변경 없음.
+
+## 2026-11-01 prod 기준 작업·dev 통합·prod 승격 전환
+- 사용자 명시 요청에 따라 새 작업 기준을 dev에서 prod로 변경. docs/branch-workflow.md와 AGENTS.md 동기화. 기존 변경은 먼저 보존 커밋, backup/branch-workflow-20261101 태그·로컬 패치 저장 후 prod에서 feat/prod-dev-workflow를 생성하여 기존 개발 이력을 병합.
+- 관리자 콘솔은 origin/main을 보존 기준으로 prod/dev 초기 생성. 생성 캐시/개인 QA 파일은 삭제 없이 Git 제외. 이번 작업은 Git 통합이며 운영 배포 아님. 다음: 통합 검사 후 dev→prod 및 원격 동기화.
+
+### 통합 검증 및 승격 절차
+- 기존 이력 병합에 충돌 없음. 관리자 타입검사+11단위 통과, 서버 Nest 빌드 통과. 프론트 기존488검사 중 빈 출금의 최근50건 표시를 기대하던1건은 최신 빈 상태 요구사항에 맞춰 수정 후 재검사. 제품 코드 변경 없이 테스트 기대값 정정. 문서 계약의 이벤트 slug 4개를 현재 카탈로그와 동기화, Git 제외 QA 출력 README는 문서 인벤토리에서 제거(파일 보존).
+- 과거 별도 프론트 signup-success 모달은 최신 SignupCompletePage로 대체됨, video-first-frame은 현행 MediaVideo에 반영되어 개선 유지. 이 과거 브랜치/작업트리는 삭제·역병합하지 않고 보존.
+- 이번 검증은 Git 이력·소스 보존/타입·단위·빌드·문서 검사 범위. 전체 E2E/실결제/운영 재배포는 수행하지 않음. dev에 통합 후 동일 트리를 prod에 일반 병합하고 원격 push, dev를 prod로 fast-forward 동기화한다. 최종 SHA/원격 일치/clean 증거는 `.local/branch-workflow-20261101/after.json`에 기록한다.
