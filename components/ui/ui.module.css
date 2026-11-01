@@ -79,3 +79,11 @@
 @media(prefers-reduced-motion:reduce) { .button {transition:none}.spinner,.dialog[open],.dialog[open]::backdrop,.toast {animation:none!important}.toastProgress {animation-timing-function:steps(4,end)} }
 
 .dialog>header>h2{min-width:0;flex:1}
+
+/* Illustrated completion dialogs keep the shared focus, dismissal and scroll behavior. */
+.illustratedDialog{width:min(420px,calc(100vw - 32px));padding:44px 28px 28px}
+.illustratedDialog>header{flex-direction:column;gap:24px;margin-bottom:12px;text-align:center}
+.illustratedDialog>header>h2{flex:none;width:100%;line-height:1.4;letter-spacing:-.5px}
+.illustratedDialog .dialogClose{position:absolute;top:10px;right:10px}
+.dialogIllustration{display:flex;align-items:center;justify-content:center}
+@media(max-width:767px){.illustratedDialog{padding:44px 24px 24px}.illustratedDialog>header>h2{font-size:22px}}
