@@ -5,14 +5,22 @@ const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const h=React.createElement,styles={__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})};
 const mocks={
- './overview.module.css':styles,'./phone-frame.module.css':styles,'./choice.module.css':styles,'../CreatorPages':{CreatorProfilePage:()=>null},
+ './overview.module.css':styles,'./dashboard.module.css':styles,'./phone-frame.module.css':styles,'./choice.module.css':styles,'../CreatorPages':{CreatorProfilePage:()=>null},
  'next/link':props=>h('a',props),
  '@/components/ui/TextLink':{TextLink:props=>h('a',props)},
  '@/components/ui/Charts':{Trend:()=>null},
  '@/components/ui/DialogActions':{},'@/components/ui/Toggle':{Toggle:()=>null},'@/components/ui/SelectField':{},'@/components/ui/Primitives':{},
- '../ServiceUI':{PageTitle:({children,action})=>h('header',null,h('h1',null,children),action),Avatar:()=>h('span'),Empty:({title})=>h('p',null,title),ActionLink:({variant,...props})=>h('a',props)},
+ '../ServiceUI':{PageTitle:({children,action})=>h('header',null,h('h1',null,children),action),Avatar:()=>h('span'),NavIcon:()=>h('svg'),Empty:({title})=>h('p',null,title),ActionLink:({variant,...props})=>h('a',props)},
 };
 const {DashboardPage}=loadTypeScript('components/crefans/studio/OverviewPages.tsx',mocks);
+
+test('dashboard keeps zero and negative revenue, adds missing units and never doubles an existing unit',()=>{
+ for(const [value,expected] of [['-12000','-12,000원'],['0','0원'],['1,234원','1,234원']]){
+  const model={profile:{name:'검증'},metrics:[{id:'revenue',label:'누적 순수익',value,description:'원',points:[]},{id:'followers',label:'팔로워',value:'35명',description:'',points:[]}],tasks:[],activities:[],contentPerformance:[]};
+  let tree;act(()=>{tree=create(h(DashboardPage,{model,basePath:'/service/studio'}));});
+  try{const values=tree.root.findAllByType('strong').filter(node=>node.props.className==='metricValue').map(node=>node.children.join(''));assert.deepEqual(values,[expected,'35명']);}finally{act(()=>tree.unmount());}
+ }
+});
 
 test('dashboard row links use injected destinations and activity without a destination remains noninteractive',()=>{
  const model={profile:{name:'주입된 크리에이터'},metrics:[],tasks:[{id:'task',title:'할 일',description:'내용',path:'accounts'}],activities:[{id:'linked',title:'연결된 활동',description:'활동 설명',time:'방금',path:'comments?post=provided'},{id:'static',title:'이동 없는 활동',description:'안내',time:'어제'}],contentPerformance:[{id:'provided-post',title:'주입된 게시물',image:'',views:8,likes:3,comments:1}]};
@@ -22,7 +30,7 @@ test('dashboard row links use injected destinations and activity without a desti
   assert.equal(anchors.find(item=>item.props.className==='task').props.href,'/custom/studio/accounts');
   assert.equal(anchors.find(item=>item.props.className==='activity').props.href,'/custom/studio/comments?post=provided');
   assert.equal(anchors.find(item=>item.props.className==='performanceRow').props.href,'/custom/studio/content/provided-post/edit');
-  assert.equal(anchors.find(item=>item.props.className==='creatorBanner').props.href,'/custom/studio/settings');
+  assert.ok(anchors.some(item=>item.props.className==='shortcut'&&item.props.href==='/custom/studio/settings'));
   const staticActivity=tree.root.findAllByType('article').find(item=>item.props.className==='activity');
   assert.equal(staticActivity.findByType('strong').children[0],'이동 없는 활동');
   assert.equal(staticActivity.props.tabIndex,undefined);assert.equal(staticActivity.props.onClick,undefined);

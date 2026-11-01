@@ -3438,3 +3438,11 @@
 - 요청: 이전3D 자물쇠의 열쇠구멍을 흰색 또는 투명으로 바꾼 변형 시안. 최신 origin/prod9c5cf0e에서 feat/signin-lock-keyhole-variants 분기. 기존 선명한3D와 은은한 입체 원본을 내장 image_gen 편집에 전달해 각각 흰색/투명4종 생성. 원본은 보존하고 `.local/signin-lock-keyholes-20261102/`에 PNG4개·최종 prompts.json·comparison.html/PNG·compare.cjs·verification.json 저장했다.
 - RGBA1254×1254·모서리 투명·해시 확인. 흰색01/03의 구멍 중앙 샘플은 약RGB253·알파254, 투명02/04의 중앙은알파0이다. 중앙 사각영역 완전 투명 비율은92.1%/85.2%로, 생성 결과의 가장자리 잔흔까지 완전히 제거됐다고 보장하지 않는다. 이미지젠 외 픽셀 후처리는 수행하지 않았다. 체크 배경 비교판으로 구멍을 통한 배경 투과와 흰색의 차이를 직접 확인했다. 실제 운영 적용 전 선택 에셋의 작은 크기/경계 재검수가 필요하다.
 - 디자인 비교만 완료, 사용자 선택/제품 적용·배포는 미정. 제품 코드 변경 없음·현재 운영 service-footer-20261102 유지. AGENTS 불변 규약 변경 없음. 기록만 dev→prod 순서로 통합한다.
+
+## 2026-11-02 선택한 로그인 자물쇠·스튜디오 빠른 작업 적용
+- 최신 origin/prod fb38605에서 feat/signin-lock-quick-dashboard 분기. 사용자 선택한 기존3D 가운데 투명02 원본을 공용 SignInPrompt에88px로 적용, 로그인 복귀 URL·회원가입·모바일16px 여백/2열 서비스 푸터 유지. PNG SHA-256 0d3309a1261bb10edee709f6389ef09a11ba2d27f9646e5d686981c9c03e9ad5, 생성 출처 JSON 포함. 이미지 재생성/재가공 없음.
+- 보류되었던 feat/studio-quick-dashboard의 제품/검증 변경을 현재 prod에 복구하고 사용자 확정대로 빠른 작업을2열3행(게시물·댓글·메시지·출금 신청·콩 후원·출금·크리에이터 설정)으로 구성. 멤버십 출금/콩 후원 출금은 기존 목적지를 유지, API·금융 계산 변경 없음. 데이터 주입형 공용 화면을 목업·실제 서비스·디자인 시스템에서 재사용하고 빈 목록/긴 활동명 상태 등록.
+- 합격 기준: 선택 에셋 일치·깨짐 없음, 로그인/가입 경로 보존, 모바일320/390/767px 좌우16px/가로 넘침 없음, PC 사이드바 유지, 빠른 작업6개/2×3 및 각 실제 메뉴 목적지, 서버 주입 데이터/빈 목록/긴 활동명. 근거: components/crefans/SignInPrompt.tsx, studio/DashboardPage.tsx, e2e/signin-prompt-gutter.spec.ts, e2e/studio-dashboard.spec.ts, docs/design-system.md.
+- 검증: npm run check491건 통과(계층408파일·타입 포함). 로컬3011 Playwright 대시보드9건(Chromium PC·모바일/WebKit), 로그인10건(Chromium/WebKit) 통과. PC·모바일 캡처 육안 확인. 최초 실패: 테스트 HTMLCollection 순회 타입 오류→Array.from 수정; 목업 settings를 보호 경로로 오인한 테스트→목업3경로와 실제 ServiceRouter5경로 API대역 검증으로 분리. 실패 로그 보존.
+- 증거: .local/signin-dashboard-20261102/의 check-final.log, dashboard-e2e.log, signin-e2e-final.log, results/, signin-ui-final/. 로컬 대역/브라우저 검증이며 실계정 로그인·실아이폰·실금융 시험은 아님. 다음: dev 통합 검사→prod 승격→사용자 승인 운영 배포/서빙 검증. AGENTS 불변 규약 변경 없음.
+- 추가 요청 PC UX: 현재 상단 아바타는 프로필 링크뿐, 로그아웃은 설정의 계정 관리에만 있음 확인. 사용자에게 상단 아바타 메뉴/사이드바/둘 다 중 첫 위치 결정을 질문, 답변 대기. 아직 관련 코드 변경 없음.

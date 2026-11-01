@@ -1,0 +1,9 @@
+{
+  "generatedAt": "2026-11-02",
+  "tool": "built-in image_gen",
+  "selectedVariant": "02 · 기존 3D / 투명 구멍",
+  "prompt": "Use case: precise-object-edit. Asset type: standalone open-padlock icon PNG for Crefans. The supplied image is the edit target. Keep the existing lock silhouette, open shackle, front view, exact overall color palette, size, position, material and all shading outside the central keyhole unchanged. Do not add a backdrop, a circle, a tile, sparkles, text, or other objects. Preserve the transparent exterior. Clean antialiased edges, transparent-background PNG. Change ONLY the central dark keyhole: make the ENTIRE interior of the keyhole a genuine transparent cut-through opening with alpha ZERO, following the exact existing keyhole silhouette. A background placed behind this PNG must be visible through the central keyhole, just like through the open shackle. Do not draw white, black, gray, colored or checkerboard pixels inside the keyhole. It is an empty punched-out hole in the image alpha, NOT a painted white shape or dark recess. A tiny narrow dimensional rim outside the opening is okay. Preserve the solid opaque body surrounding the hole.",
+  "transparentBackground": true,
+  "sha256": "0d3309a1261bb10edee709f6389ef09a11ba2d27f9646e5d686981c9c03e9ad5",
+  "postprocessing": "None; original generated PNG preserved. Next Image optimizes delivery at 88 CSS pixels."
+}

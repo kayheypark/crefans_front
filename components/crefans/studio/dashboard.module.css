@@ -1,0 +1,46 @@
+.dashboard{max-width:1100px;min-width:0;padding-bottom:32px}
+.dashboard a{text-decoration:none}
+.dashboard .compose{color:var(--cf-color-onAccent)}
+.dashboard .reportLink,.dashboard .draft{color:var(--cf-color-accent)}
+.dashboard .task{color:var(--cf-color-textSecondary)}
+.greeting{display:flex;align-items:center;gap:12px;min-width:0;max-width:100%;font-size:22px;line-height:1.4;letter-spacing:-.5px;margin:0 0 24px}
+.greeting>:first-child{flex:none}.greeting>:last-child{min-width:0}
+.overview{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+.actions{min-width:0}.compose{width:100%;min-height:48px;font-size:16px;font-weight:600}
+.shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.shortcut{display:flex;align-items:center;gap:12px;min-width:0;min-height:78px;padding:16px;border:1px solid var(--cf-color-border);border-radius:12px;background:var(--cf-color-surface)}
+.shortcut strong{font-size:14px;font-weight:600;line-height:1.5;overflow-wrap:anywhere}
+.shortcut>svg{margin-left:auto;flex:none;color:var(--cf-color-accent)}
+.shortcutIcon{display:flex;flex:none;color:var(--cf-color-accent)}.shortcutIcon svg{width:26px;height:26px}
+.draft,.task{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px;min-height:44px;margin-top:8px;padding:8px 4px;color:var(--cf-color-textSecondary)}
+.draft{color:var(--cf-color-accent)}.draft svg,.task svg{flex:none}.task strong,.task small{display:block}.task strong{font-size:14px;font-weight:500}.task small{margin-top:4px;font-size:13px;color:var(--cf-color-textMuted)}
+.summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));padding:24px;border-radius:14px;background:var(--cf-landing-soft)}
+.metric{min-width:0;padding:22px 16px 0 0}.metric[data-wide]{grid-column:1/-1;padding:0 0 20px;border-bottom:1px solid var(--cf-color-border)}
+.metric:not([data-wide])+.metric:not([data-wide]){padding-left:18px;padding-right:0;border-left:1px solid var(--cf-color-border);margin-top:22px;padding-top:0}
+.metricLabel{display:flex;flex-direction:column;gap:4px;color:var(--cf-color-textSecondary);font-size:14px}
+.metric[data-wide] .metricLabel{flex-direction:row;justify-content:space-between;align-items:center;gap:12px}
+.metricValue{display:block;margin-top:8px;font-size:28px;font-weight:700;line-height:1.3;letter-spacing:-.7px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.metric[data-wide] .metricValue{font-size:34px}
+.metric small{display:block;font-size:13px;line-height:1.6;color:var(--cf-color-textMuted);margin-top:8px;overflow-wrap:anywhere}
+.reportLink{display:inline-flex;align-items:center;gap:4px;min-height:44px;font-size:14px;font-weight:500;color:var(--cf-color-accent);width:fit-content}
+.reportLink svg{flex:none}
+.details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:32px}.details>section{min-width:0}
+.sectionHeading{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;margin-bottom:12px}.sectionHeading h2{font-size:18px;line-height:1.4;margin:0;letter-spacing:-.4px}
+.activityList,.performanceList{border:1px solid var(--cf-color-border);border-radius:12px;padding:0 16px}
+.activity{display:flex;align-items:center;gap:12px;padding:18px 0;min-width:0}.activity+.activity,.performanceRow+.performanceRow{border-top:1px solid var(--cf-color-border)}
+.activityIcon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex:none;border-radius:50%;color:var(--cf-color-accent);background:var(--cf-color-accentSoft)}
+.activityText{min-width:0;flex:1;overflow-wrap:anywhere}.activityText strong{font-size:14px;font-weight:600}.activityText p,.activityText small{display:block;font-size:13px;line-height:1.6;color:var(--cf-color-textMuted);margin:4px 0 0}
+.activityDestination{display:flex;align-items:center;gap:4px;flex:none;font-size:13px;color:var(--cf-color-accent)}
+.performanceRow{display:flex;align-items:center;gap:12px;padding:16px 0;min-width:0}.performanceRow img,.textThumbnail{width:48px;height:56px;flex:none;border-radius:8px;object-fit:cover}
+.textThumbnail{display:grid;place-items:center;background:var(--cf-color-accentSoft);color:var(--cf-color-accent)}
+.postText{flex:1;min-width:0;overflow-wrap:anywhere}.postText strong{font-size:14px;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.postText small{display:block;margin-top:6px;color:var(--cf-color-textMuted);font-size:12px}
+.views{flex:none;text-align:right;font-size:12px;color:var(--cf-color-textMuted)}.views b{display:block;font-size:18px;line-height:1.4;font-weight:650;color:var(--cf-color-text);font-variant-numeric:tabular-nums}
+.shortcut,.activity,.performanceRow{transition:background var(--cf-motion-fast),border-color var(--cf-motion-fast)}
+.shortcut:hover{background:var(--cf-color-accentSoft);border-color:var(--cf-color-accentBorder)}
+a.activity:hover,.performanceRow:hover{background:var(--cf-color-accentSoft)}
+.reportLink:hover,.draft:hover,.task:hover{color:var(--cf-color-accentHover)}
+.dashboard a:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px}
+@media(max-width:1100px){.overview,.details{grid-template-columns:minmax(0,1fr)}.summary{margin-top:0}}
+@media(max-width:767px){.greeting{font-size:20px;margin-bottom:20px}.overview{gap:20px}.shortcuts{gap:10px}.shortcut{gap:10px;padding:14px 12px;min-height:76px}.shortcutIcon svg{width:24px;height:24px}.shortcut>svg{width:14px}.summary{padding:20px}.metricValue{font-size:26px}.metric[data-wide] .metricValue{font-size:32px}.details{gap:26px;margin-top:28px}.activityList,.performanceList{padding:0 12px}.activityDestination{font-size:12px}.activityText p{font-size:13px}.postText small{font-size:12px}}
+@media(max-width:359px){.shortcut{gap:8px;padding:12px 10px}.shortcut>svg{display:none}.summary{padding:16px}.metricValue{font-size:24px}.metric[data-wide] .metricValue{font-size:30px}.activityDestination{font-size:0;gap:0}.activity{gap:10px}}
+@media(prefers-reduced-motion:reduce){.shortcut,.activity,.performanceRow{transition:none}}
