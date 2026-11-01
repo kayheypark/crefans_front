@@ -4,10 +4,10 @@ import type {Metadata} from 'next';
 // preview; public posts may use their text and image, while locked/adult/hidden posts show only the creator.
 export const SITE_URL=(process.env.NEXT_PUBLIC_SITE_URL||'https://crefans.com').replace(/\/$/,'');
 export const SITE_NAME='크레팬스';
-export const SITE_TITLE='크레팬스 crefans - 크리에이터 멤버십·후원 플랫폼';
-export const SITE_DESCRIPTION='좋아하는 크리에이터를 멤버십으로 구독하고 콩으로 후원하세요. 크리에이터는 팬과 함께 창작 수익을 만듭니다.';
+export const SITE_TITLE='크레팬스';
+export const SITE_DESCRIPTION='크리에이터와 팬을 잇는 플랫폼';
 export const SITE_KEYWORDS=['크레팬스','crefans','크리에이터','멤버십','구독','후원','팬덤','창작자','크리에이터 후원','팬 커뮤니티','유료 구독','코스프레','일러스트','아트'];
-export const DEFAULT_OG_IMAGE={url:'/og/crefans-og.png',width:1200,height:630,alt:'크레팬스 - 크리에이터 멤버십·후원 플랫폼'};
+export const DEFAULT_OG_IMAGE={url:'/og/crefans-og-simple-v1.png',width:1730,height:909,alt:'크레팬스 — 크리에이터와 팬을 잇는 플랫폼'};
 
 export type ShareInput={title:string;description:string;path:string;image?:string|null;index:boolean;type?:'website'|'article'|'profile'};
 export const clip=(text:string,max=160)=>{const t=text.replace(/<[^>]*>/g,' ').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();return t.length>max?t.slice(0,max-1).trimEnd()+'…':t;};
