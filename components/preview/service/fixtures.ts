@@ -70,7 +70,7 @@ export const initialMessages:Record<string,import('@/types/crefans').Message[]>=
 };
 
 export const categories=['전체','라이프스타일','뷰티','코스프레','피트니스','음악','여행','게임','아트','일상'];
-export const mockServiceResponse:import('@/types/crefans').ApiResult<import('@/types/crefans').ServiceData>={success:true,data:{creators,plans,creatorPlans,posts,notifications,followers,paymentHistory:initialSubscriptions,messages:initialMessages,faqs,categories},errorMessage:null,errorCode:null};
+export const mockServiceResponse:import('@/types/crefans').ApiResult<import('@/types/crefans').ServiceData>={success:true,data:{creators,newCreatorIds:['jiwoo','moka','sion'],plans,creatorPlans,posts,notifications,followers,paymentHistory:initialSubscriptions,messages:initialMessages,faqs,categories},errorMessage:null,errorCode:null};
 
 /** Messy on purpose: 37 threads with replies and mass mentions on `morning`, a handful on `cat-day`, none on `behind`. */
 const commentThreads={morning:messyCommentThreads('morning',37),'cat-day':messyCommentThreads('cat-day',4)};
