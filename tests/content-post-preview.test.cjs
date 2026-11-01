@@ -27,7 +27,7 @@ const mocks={
  '@/components/ui/Primitives':{Field,TextAreaField,Dialog:({open,children})=>open?element('section',null,children):null},
 };
 const {ContentPostPreview,draftPostModel}=loadTypeScript('components/crefans/studio/ContentPostPreview.tsx',mocks);
-const {ContentEditorPage,ContentManagementPage}=loadTypeScript('components/crefans/studio/ManagementPages.tsx',mocks);
+const {ContentEditorPage,ContentManagementPage}=loadTypeScript('components/crefans/studio/ManagementPages.tsx',{...mocks,'next/navigation':{useRouter:()=>({push(){}})}});
 const creator={id:'injected-creator',name:'주입된 작성자',handle:'creator',image:'/creator.jpg',position:'center',tags:[],bio:'',followers:'0'};
 const original={id:'existing',creatorId:creator.id,title:'기존 제목',body:'기존 본문',image:'/old.jpg',position:'65% 30%',requiredRank:3,time:'어제',likes:15,comments:2,supporterCount:9,views:1234};
 const membership={id:'selected-plan',name:'새로 수정한 멤버십',price:15000,image:'/membership-cover.jpg',benefits:['혜택'],active:true,version:1};

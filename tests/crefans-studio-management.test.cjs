@@ -18,10 +18,12 @@ function fixtureHook(){
   act(()=>{tree=create(React.createElement(Probe));});
   return {get model(){return current;},close(){act(()=>tree.unmount());}};
 }
+const pushed=[];
 const {ContentManagementPage,ContentEditorPage,MembershipManagementPage,SubscriberManagementPage}=loadTypeScript('components/crefans/studio/ManagementPages.tsx',{
   './social.module.css':styles,'./chip-row.module.css':styles,'./content-post-preview.module.css':styles,'./phone-frame.module.css':styles,
   './management.module.css':styles,'./benefits-field.module.css':styles,'./data-table.module.css':styles,'./pagination.module.css':styles,'./media-upload.module.css':styles,'./toggle.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./optional-image.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./image-upload.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./toggle.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./service.module.css':styles,'./ui.module.css':styles,'./avatar.module.css':styles,'./select.module.css':styles,'./field.module.css':styles,
   'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),
+  'next/navigation':{useRouter:()=>({push:url=>pushed.push(url)})},
   '@/components/ui/Primitives':{
     ...loadTypeScript('components/ui/Primitives.tsx',{'./ui.module.css':styles,'./field.module.css':styles,'./select.module.css':styles,'./choice.module.css':styles}),
     Dialog:({open,title,children})=>open?React.createElement('section',{'data-dialog':title},children):null,
@@ -234,4 +236,31 @@ test('a new post shows no status badge until saved and uses plain placeholders (
   const placeholders=fresh.root.findAll(node=>typeof node.type==='string'&&node.props.placeholder).map(node=>node.props.placeholder);
   assert.ok(placeholders.includes('제목을 입력하세요'));assert.ok(placeholders.includes('내용을 입력하세요'));
  }finally{act(()=>fresh.unmount());act(()=>saved.unmount());}
+});
+test('publishing or scheduling returns to the content list; a draft save keeps editing (2026-11-01)',async()=>{
+  const probe=fixtureHook(),calls=[];pushed.length=0;
+  const model={...probe.model,actions:{...probe.model.actions,saveContent:async input=>{calls.push(input);return {success:true,data:{message:'Saved',id:'draft1'}};}}};
+  let tree=mount(ContentEditorPage,model,'draft1');
+  await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.at(-1).status,'draft');assert.deepEqual(pushed,[]);
+  await act(async()=>button(tree,'지금 게시하기').props.onClick());assert.equal(calls.at(-1).status,'published');assert.deepEqual(pushed,['/studio/content']);
+  act(()=>tree.unmount());pushed.length=0;tree=mount(ContentEditorPage,model,'draft1');
+  act(()=>tree.root.findAllByProps({role:'switch'})[0].props.onChange({target:{checked:true}}));act(()=>tree.root.findByProps({type:'datetime-local'}).props.onChange({target:{value:'2026-09-13T19:30'}}));
+  await act(async()=>button(tree,'예약하기').props.onClick());assert.equal(calls.at(-1).status,'scheduled');assert.deepEqual(pushed,['/studio/content']);
+  act(()=>tree.unmount());probe.close();
+});
+test('an uploaded iPhone video shows its own thumbnail while converting, is polled, and the label goes when done (2026-11-01)',async t=>{
+  t.mock.timers.enable({apis:['setInterval']});
+  const previous=global.URL.createObjectURL,revoked=[];global.URL.createObjectURL=()=>'blob:own-video';const revoke=global.URL.revokeObjectURL;global.URL.revokeObjectURL=url=>revoked.push(url);
+  t.after(()=>{global.URL.createObjectURL=previous;global.URL.revokeObjectURL=revoke;});
+  const probe=fixtureHook(),saved=[];let state='processing';
+  const model={...probe.model,actions:{...probe.model.actions,uploadContentMedia:async()=>({success:true,data:{id:'v1',type:'video',url:'/api/v1/media/v1/file',processing:true}}),mediaStatus:async()=>({success:true,data:{status:state}}),saveContent:async input=>{saved.push(input);return {success:true,data:{message:'Saved',id:'draft1'}};}}};
+  const tree=mount(ContentEditorPage,model,'draft1');
+  await act(async()=>tree.root.findByProps({type:'file'}).props.onChange({currentTarget:{files:[{name:'IMG.MOV',type:'video/quicktime',size:10}],value:'x'}}));
+  assert.ok(tree.root.findAllByType('video').some(v=>v.props.src==='blob:own-video#t=0.001'));assert.match(json(tree),/영상 최적화 중/);
+  await act(async()=>{t.mock.timers.tick(5000);await Promise.resolve();});assert.match(json(tree),/영상 최적화 중/,'still converting');
+  state='completed';await act(async()=>{t.mock.timers.tick(5000);await Promise.resolve();await Promise.resolve();});
+  assert.doesNotMatch(json(tree),/영상 최적화 중/,'label gone everywhere once converted');
+  assert.ok(tree.root.findAllByType('video').some(v=>v.props.src==='/api/v1/media/v1/file#t=0.001'));assert.deepEqual(revoked,['blob:own-video']);
+  await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.deepEqual(Object.keys(saved[0].media.at(-1)).sort(),['id','type','url'],'local preview never sent');
+  act(()=>tree.unmount());probe.close();
 });

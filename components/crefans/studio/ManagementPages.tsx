@@ -1,4 +1,5 @@
 'use client';
+import {useRouter} from 'next/navigation';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {MarqueeText} from '@/components/ui/MarqueeText';
@@ -61,7 +62,7 @@ export function ContentManagementPage({model,basePath,previewModel,previewCreato
   const planName=(item:StudioContent)=>item.accessLevel?`레벨 ${item.accessLevel} 이상`:item.accessPlanId?`${model.memberships.find(plan=>plan.id===item.accessPlanId)?.name||'멤버십'} 전용`:'전체 공개';
   const when=(item:StudioContent)=>item.status==='scheduled'&&item.scheduledAt?`${date(item.scheduledAt)} 게시 예정`:`${date(item.updatedAt)} 수정`;
   const columns:TableColumn<StudioContent>[]=[
-    {key:'title',label:'게시물',sortValue:item=>item.title,render:item=><div className={s.contentCell}>{item.media[0]?.type==='image'?<img src={item.media[0].url} alt=""/>:item.media[0]?.type==='video'?<MediaVideo src={item.media[0].url} firstFrame muted playsInline preload="metadata" aria-label="동영상"/>:<span className={s.noMedia}><Icon name="card"/></span>}<Link href={`${basePath}/content/${item.id}/edit`}>{item.title}</Link></div>},
+    {key:'title',label:'게시물',sortValue:item=>item.title,render:item=><div className={s.contentCell}>{item.media[0]?.type==='image'?<img src={item.media[0].url} alt=""/>:item.media[0]?.type==='video'?<MediaVideo src={item.media[0].url} firstFrame optimizing={item.media[0].processing} muted playsInline preload="metadata" aria-label="동영상"/>:<span className={s.noMedia}><Icon name="card"/></span>}<Link href={`${basePath}/content/${item.id}/edit`}>{item.title}</Link></div>},
     {key:'status',label:'상태',sortValue:item=>statusLabels[item.status],render:item=><span className={s.statusCell}><Status value={item.status}/>{item.hiddenByOperator&&<span className={s.status}>운영 정책에 따라 숨김</span>}{!postCommentsAllowed(commentsGloballyEnabled,item.commentsEnabled)&&<span className={s.status}>댓글 닫힘</span>}</span>},
     {key:'access',label:'공개 범위',sortValue:item=>planName(item),render:item=><MarqueeText text={planName(item)}/>},
     {key:'date',label:'일시',sortValue:item=>item.status==='scheduled'&&item.scheduledAt?item.scheduledAt:item.updatedAt,render:item=><span className={s.muted}>{when(item)}</span>},
@@ -90,10 +91,19 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   const levels=Array.from(new Set([...model.memberships.map(plan=>plan.rank??1),...(accessLevel?[accessLevel]:[])])).sort((a,b)=>a-b);
   const draftMedia=useRef<string[]>([]),mediaRequest=useRef(0),discard=useRef(model.actions.discardContentMedia);
   discard.current=model.actions.discardContentMedia;
-  useEffect(()=>()=>{mediaRequest.current++;draftMedia.current.forEach(url=>discard.current(url));},[]);
+  useEffect(()=>()=>{mediaRequest.current++;draftMedia.current.forEach(url=>discard.current(url));previews.current.forEach(url=>URL.revokeObjectURL(url));},[]);
+  // iPhone videos convert on the server: thumbnail from the creator's own file, polled until done (2026-11-01).
+  const previews=useRef(new Set<string>()),router=useRouter(),converting=media.filter(item=>item.processing).map(item=>item.id).join(','),mediaStatus=model.actions.mediaStatus;
+  const dropPreview=(url?:string)=>{if(url&&previews.current.delete(url))URL.revokeObjectURL(url);};
+  useEffect(()=>{
+    if(!converting||!mediaStatus)return;let live=true;
+    const check=async()=>{for(const id of converting.split(',')){const result=await mediaStatus(id);if(!live||!result.success||result.data.status==='processing')continue;
+      setMedia(previous=>previous.map(item=>{if(item.id!==id)return item;dropPreview(item.preview);return {id:item.id,type:item.type,url:item.url,...(result.data.status==='failed'?{failed:true}:{})};}));}};
+    const timer=setInterval(()=>void check(),5000);return()=>{live=false;clearInterval(timer);};
+  },[converting,mediaStatus]);
   const task=useManagementAction(),current=model.contents.find(item=>item.id===savedId),status=current?.status||'draft';
   function removeMedia(id:string){
-    setMedia(previous=>{const item=previous.find(entry=>entry.id===id);if(item&&draftMedia.current.includes(item.url)){discard.current(item.url);draftMedia.current=draftMedia.current.filter(url=>url!==item.url);}return previous.filter(entry=>entry.id!==id);});
+    setMedia(previous=>{const item=previous.find(entry=>entry.id===id);dropPreview(item?.preview);if(item&&draftMedia.current.includes(item.url)){discard.current(item.url);draftMedia.current=draftMedia.current.filter(url=>url!==item.url);}return previous.filter(entry=>entry.id!==id);});
     setMediaError('');
   }
   async function upload(files:File[]){
@@ -105,7 +115,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       for(const file of files.slice(0,room)){
         const result=await model.actions.uploadContentMedia(file);
         if(request!==mediaRequest.current){if(result.success)discard.current(result.data.url);return;}
-        if(result.success){draftMedia.current=[...draftMedia.current,result.data.url];setMedia(previous=>[...previous,result.data]);}
+        if(result.success){draftMedia.current=[...draftMedia.current,result.data.url];let preview:string|undefined;if(result.data.processing&&typeof URL.createObjectURL==='function'){preview=URL.createObjectURL(file);previews.current.add(preview);}setMedia(previous=>[...previous,{...result.data,...(preview?{preview}:{})}]);}
         else{setMediaError(result.errorMessage);break;}
       }
     }catch{if(request===mediaRequest.current)setMediaError('미디어를 불러오지 못했어요. 다시 선택해주세요.');}
@@ -114,10 +124,12 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   function save(nextStatus:StudioContentStatus){setError('');if(!title.trim()){setError('제목을 입력해주세요.');return;}if(nextStatus!=='draft'&&!body.trim()){setError('게시할 내용을 입력해주세요.');return;}
     const scheduled=scheduledAt?new Date(scheduledAt):null;
     if(nextStatus==='scheduled'&&(!scheduled||!Number.isFinite(scheduled.getTime())||scheduled.getTime()<=Date.parse(model.now))){setError('예약 시각을 현재보다 미래로 선택해주세요.');return;}
-    void task.run(()=>model.actions.saveContent({id:savedId,title,body,media,commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);});
+    void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:media.map(({id,type,url})=>({id,type,url})),commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);
+      // Publishing, scheduling or saving a published post returns to the list; a draft save keeps editing (2026-11-01).
+      if(nextStatus!=='draft')router.push(`${basePath}/content`);});
   }
-  // Videos still converting (or failed) are not playable yet, so the fan preview leaves them out.
-  const draft:StudioContent={id:savedId||'',title,body,media:media.filter(item=>!item.processing&&!item.failed),commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status,scheduledAt:null,updatedAt:model.now};
+  // The fan preview shows converting videos as "optimizing" like fans would see them; failed ones are left out.
+  const draft:StudioContent={id:savedId||'',title,body,media:media.filter(item=>!item.failed),commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status,scheduledAt:null,updatedAt:model.now};
   return <section className={s.page}><PageTitle back={<BackButton href={`${basePath}/content`} label="콘텐츠 목록으로"/>}>{savedId?'게시물 수정':'게시물 작성'}</PageTitle>
     <div className={s.editorLayout}><div className={s.editorColumn}>
     {/* A new post has no state until it is saved: show the badge only for saved posts (2026-11-01). */}

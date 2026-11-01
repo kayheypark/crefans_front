@@ -119,11 +119,13 @@ test('design B: one add button first, then its guidance, then the thumbnails (20
     assert.match(JSON.stringify(picker.view.toJSON()),/사진·동영상 추가/);
   }finally{picker.unmount();}
 });
-test('an iPhone .mov being converted shows a placeholder tile instead of an unplayable video (2026-11-01)',()=>{
-  const picker=mount({items:[{id:'m',type:'video',url:'/api/v1/media/m/file',processing:true},{id:'f',type:'video',url:'/api/v1/media/f/file',failed:true}]});
+test('a converting iPhone video keeps its own thumbnail with a small optimizing label; without a local copy it shows the notice (2026-11-01)',()=>{
+  const picker=mount({items:[{id:'m',type:'video',url:'/api/v1/media/m/file',processing:true,preview:'blob:local-m'},{id:'n',type:'video',url:'/api/v1/media/n/file',processing:true},{id:'f',type:'video',url:'/api/v1/media/f/file',failed:true}]});
   try{
-    assert.equal(picker.view.root.findAllByType('video').length,0);
-    const text=JSON.stringify(picker.view.toJSON());assert.match(text,/동영상 변환 중/);assert.match(text,/변환 실패/);
-    assert.equal(picker.buttons().filter(item=>/삭제$/.test(item.props['aria-label']||'')).length,2,'both can still be removed');
+    const videos=picker.view.root.findAllByType('video');assert.equal(videos.length,1);assert.equal(videos[0].props.src,'blob:local-m#t=0.001');
+    const text=JSON.stringify(picker.view.toJSON());assert.equal((text.match(/영상 최적화 중/g)||[]).length,3,'label on the thumbnail, notice text and its aria-label');assert.match(text,/변환 실패/);assert.doesNotMatch(text,/동영상 변환 중/);
+    assert.equal(picker.buttons().filter(item=>/삭제$/.test(item.props['aria-label']||'')).length,3,'all can still be removed');
+    picker.update({items:[{id:'m',type:'video',url:'/api/v1/media/m/file'}]});
+    assert.doesNotMatch(JSON.stringify(picker.view.toJSON()),/영상 최적화 중/);assert.equal(picker.view.root.findByType('video').props.src,'/api/v1/media/m/file#t=0.001');
   }finally{picker.unmount();}
 });

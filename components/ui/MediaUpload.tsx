@@ -6,7 +6,7 @@ import {indexAt,slotFor,type Box} from './media-order';
 import {MediaTypeIcon} from './MediaTypeIcon';
 import s from './media-upload.module.css';
 
-export type MediaUploadItem={id:string;type:'image'|'video';url:string;processing?:boolean;failed?:boolean};
+export type MediaUploadItem={id:string;type:'image'|'video';url:string;processing?:boolean;failed?:boolean;preview?:string};
 type Props={label:string;items:MediaUploadItem[];max:number;onFilesSelect:(files:File[])=>void|Promise<void>;onRemove:(id:string)=>void;onReorder?:(from:number,to:number)=>void;accept:string;disabled?:boolean;uploading?:boolean;error?:string;hint?:string};
 type Drag={from:number;to:number;dx:number;dy:number;boxes:Box[]};
 const DRAG_THRESHOLD=6;
@@ -82,7 +82,8 @@ export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,ac
     </button>
     {hint&&<small id={`${id}-hint`} className={s.hint}>{hint}</small>}
     {items.length>0&&<ul ref={list} className={s.grid} aria-label={`${label} 목록`} data-reorderable={canReorder||undefined}>{items.map((item,index)=><li key={item.id} className={s.tile} data-media-id={item.id} data-dragging={drag?.from===index||undefined} style={tileStyle(index)} tabIndex={canReorder?0:undefined} aria-label={canReorder?`${index+1}번째 ${item.type==='video'?'동영상':'이미지'}, 끌거나 화살표 키로 순서 변경`:undefined} onPointerDown={event=>pointerDown(event,index)} onPointerMove={pointerMove} onPointerUp={()=>finishDrag(true)} onPointerCancel={()=>finishDrag(false)} onKeyDown={event=>keyReorder(event,index)}>
-      {item.processing||item.failed?<span className={s.pending} data-failed={item.failed||undefined}>{item.failed?'변환 실패':'동영상 변환 중'}</span>:item.type==='video'?<MediaVideo className={s.media} src={item.url} firstFrame muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>:<img className={s.media} src={item.url} alt={`이미지 ${index+1}`} draggable={false}/>}
+      {item.failed?<span className={s.pending} data-failed="true">변환 실패</span>:item.type==='video'?<MediaVideo className={s.media} src={item.processing?item.preview:item.url} optimizing={item.processing&&!item.preview} firstFrame muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>:<img className={s.media} src={item.url} alt={`이미지 ${index+1}`} draggable={false}/>}
+      {item.processing&&item.preview&&<span className={s.optimizing}>영상 최적화 중</span>}
       <span className={s.badge} aria-label={item.type==='video'?'동영상':'이미지'}><MediaTypeIcon type={item.type}/></span>
       <button type="button" className={s.remove} aria-label={`${index+1}번째 ${item.type==='video'?'동영상':'이미지'} 삭제`} disabled={disabled||uploading} onClick={()=>onRemove(item.id)}>×</button>
     </li>)}</ul>}
