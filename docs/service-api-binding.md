@@ -252,3 +252,21 @@ UI 조사(2026-10-26): [쿠팡 공식 주문목록 진입 안내](https://news.c
 - 초기 서버 HTML에는 영구적인 inline 숨김을 넣지 않는다. 정상 스타일/스크립트에서는 기존 등장 연출을 유지하고, 스타일이 차단된 경우에도 앞면 HTML 자체를 숨기지 않는다. 무스타일 전체 외관을 인증한 것은 아니다. 최종 검증은 `docs/audit/card-visible-20261027.json`에 기록한다.
 
 - 2026-10-27 서비스 소개 초기 HTML: `app/service/landing/page.tsx`의 `dynamic=force-dynamic`으로 공통 query Provider가 브라우저 스크립트를 기다리며 소개 전체를 준비 문구로 대체하지 않도록 한다. 현재 에셋 모드의 소개 본문은 JS 비활성·차단에서도 제공하며 상호작용은 JS가 필요하다. 실제 신고된 명함 주소의 정확한 원인은 미확정이며 별개로 재현된 이동 대상 문제를 보완했다. 근거 [Next14 useSearchParams](https://nextjs.org/docs/14/app/api-reference/functions/use-search-params), 검증 `docs/audit/landing-ready-20261027.json`.
+
+### 2026-10-30 보낸 후원 구분 필터 (운영 반영: bean-tip-filter-20261030)
+
+보낸 후원의 기간 칩 아래 공용 `SelectField`에 전체 후원·게시물 후원·프로필 후원을 제공한다. `BeanHistoryFilters.sourceType`과 `BeanHistoryQuery.sourceType`으로 연결하며 전체는 쿼리 생략, 게시물은 `post`, 프로필은 `profile`을 `/beans/tips`에만 전송한다. 기존 검색·기간과 AND 조건이고 조건 변경/초기화 시1페이지로 복귀한다. 목업도 전체 자료에서 필터한 다음 페이지를 나누며 총수·빈 결과에 반영한다. 서버는 본인 범위에서 `post_id IS NOT NULL`/`IS NULL`을 기준으로 조회/건수 조건을 함께 적용한다. 게시물이 삭제·비공개여도 후원 구분은 바뀌지 않는다. 가격·잔액·후원/출금 실행과 DB schema 변경 없음.
+
+운영 배포 및 검증 증거는 프론트 `.local/bean-tip-filter-deploy-20261030/verification.json`과 양쪽 `PROGRESS.md`의 같은 릴리스 항목에 기록한다. 운영 브라우저 확인은 목업 자료와 비로그인 접근 제한이며, 본인 범위의 실제 API 필터는 격리 DB/E2E로 검증했다.
+
+### 운영 활동 분야 아이콘·순서 (2026-10-31)
+
+bootstrap.data.categories의 서버 정렬 순서를 홈·탐색에 그대로 사용한다(‘전체’는 맨 앞). optional categoryIcons 사전을 CategoryChip/ProfileHeader에 props로 전달하여 업로드 이미지도 같은 표시 컴포넌트로 노출한다. 목업은 기존 기본 이미지 매핑을 유지한다. 업로드 URL은 /api/v1/categories/:id/icon/:version으로 직접 조회하며 URL 버전이 변경되면 새 이미지를 받는다. 상세 관리·권한·파일 검증 계약은 서버 platform-api.md의 활동 분야 절을 따른다.
+
+### 탐색 신규 크리에이터 (2026-10-31)
+
+`GET /creators` 첫 응답의 `newCreators`를 주목할 크리에이터 아래, 전체 목록 위에 표시한다. 서버가 크리에이터 등록일 내림차순으로 최신 6명을 선정하며 광고 여부와 무관하다. 특정 기간 내 등록자라는 별도 기간 정책은 없다. 동일 검색어·카테고리와 검색 공개/활성 조건을 적용하며 후속 페이지의 빈 newCreators 배열로 첫 페이지 신규 목록을 지우지 않는다. `useDirectoryModel`의 요청 세대 검사로 이전 검색 응답이 새 검색을 덮지 않는다. 목업은 `ServiceData.newCreatorIds`로 지우·모카·시온을 예시 주입한다. 실제 서비스는 이를 대체 데이터로 사용하지 않는다. 공통 `CreatorCard`의 프로필·팔로우 동작과 `/brand/new-creators-sprout-v1.png` 이미지젠 아이콘(22px)을 사용한다.
+
+### 프로필 핸들 중복 확인 (2026-10-31)
+
+설정의 프로필 수정에서 `GET /me/handle-availability?handle=...`를 호출한다. 회원 인증이 필요하고 반환값은 핸들·사용 가능 여부뿐이며 본인 소유는 제외한다. 변경된 핸들만 중복 확인 성공 후 저장하며, 재입력·닫기·다시 열기는 이전 확인을 무효화한다. 늦은 응답은 요청 세대로 무시한다. 기존 형식의 핸들을 그대로 둔 이름·소개 수정은 핸들 값을 보내지 않아 막히지 않는다. 목업은 fixture의 크리에이터 핸들로 같은 UI를 검증하고 실서비스에 샘플을 섞지 않는다. 스튜디오 링크는 목업/서비스 각각의 `/studio`로 이동한다. 확인은 예약이 아니며 서버 저장·DB 고유 제약이 최종 중복을 거부한다.

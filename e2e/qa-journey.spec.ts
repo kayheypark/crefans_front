@@ -52,7 +52,7 @@ test.describe('QA 회원 여정',()=>{
   const {name}=await control('category');
   try{
    await page.reload();await expect(page.getByRole('heading',{name:'크리에이터 시작하기'})).toBeVisible();
-   await page.getByLabel('크리에이터 활동명').fill('QA 신규 크리에이터');await expect(page.getByLabel('프로필 주소')).toHaveValue(/^@/);// the address is the account user name (2026-10-31), read-only here
+   await page.getByLabel('크리에이터 활동명').fill('QA 신규 크리에이터');await expect(page.getByLabel('핸들',{exact:true})).toHaveValue(/^@/);// the address is the account user name (2026-10-31), read-only here
    await page.getByLabel('주요 활동 분야').click();await page.getByRole('option',{name}).click();await snap(page,info,'분야 추가 후 기본 정보 입력');
    await page.getByRole('button',{name:'다음 단계 →'}).click();
    const agree=page.getByRole('checkbox');await agree.first().check();await snap(page,info,'공개 프로필 확인·동의');

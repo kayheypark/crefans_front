@@ -180,3 +180,31 @@ npx playwright test e2e/service.spec.ts e2e/mail.spec.ts e2e/billing-recovery.sp
 npm run build
 CREFANS_E2E=true node --test --test-concurrency=1 tests/platform-signup-mode.test.cjs tests/platform-beta-cohort.test.cjs tests/platform-auth.test.cjs tests/platform-legal.test.cjs tests/platform-openapi.test.cjs tests/platform-admin-console.test.cjs tests/platform-financial-policy.test.cjs
 ```
+
+## 2026-10-30 테스트용 이메일 최소 수 산정
+
+이번 산정은 이메일 생성·초대·계정 검수 실행이 아니라, 기존 구독자0/2/10명 기준과 출시97개 시나리오 및 콩·콘솔 추가 기능의 역할 배정 검토다. 기준 역할을 겸임하지 않고 상태 전환을 순차 실행하는 조건에서 **신규 별칭16개**를 준비한다. 기존 최고 관리자 이메일을 포함한 고유 이메일17개, 서비스 회원16개+콘솔 운영자2개=로그인 계정18개다. 앞의 초기17계정 표에는 별도 제한 운영자가 없으며, 이 차이는 이메일 추가가 아닌 독립 콘솔 계정 추가다.
+
+| 주소 배정(모두 테스트용 별칭) | 수 | 역할 |
+| --- | ---: | --- |
+| test-creator-1~3 | 3 | C0/C2/C10, 유효 구독자0/2/10명 |
+| test-fan-1~2 | 2 | S01/S02, C2의 레벨1/2 |
+| test-fan-3~12 | 10 | S03~S12, C10의 레벨1 네 명/2 네 명/3 두 명 |
+| test-fan-13 | 1 | N0, 비구독·가입 실패·정지·탈퇴 검사. 같은 이메일로 별도 제한 콘솔 운영자 A1을 등록 가능 |
+| 기존 최고 관리자 이메일 | 신규0 | A0, 테스트 중 권한·접속 유지 |
+| 비로그인 브라우저 | 0 | 쿠키 없는 별도 BrowserContext |
+
+최초 산정은 사용자 제공 정보인 기존 별칭2개를 전제로 2+16=18개·12개 여유였다. 이후 2026-10-30 생성 작업에서 Google Admin을 확인한 결과 기존 기본 별칭은3개였고, 요청한16개 추가 후 **19/30개·11개 여유**다. `crefans.com`은 `grade.im`의 사용자 별칭 도메인으로, 기본 도메인에 추가한16개와 같은 이름의 `@crefans.com` 주소16개가 자동 생성되었음을 저장 후 새로고침해 확인했다. 기존 Workspace 받은편지함으로 연결되며 유료 사용자를 추가하지 않았다. 서비스 가입은 실제 초대·이메일 검증을 따르며, 메일 실수신·크레팬스 계정 생성·초대는 이번 별칭 생성 작업에서 실행하지 않았다.
+
+- 산정 하한은 사용자가 지정한 서로 다른12구독자+비구독1+크리에이터3=16개 서비스 회원 주소다. 이 초기 인원 조건을 없애거나 크리에이터·팬을 겸임하면 더 줄일 수 있지만 이번 계산에서는 원래 배정을 유지한다.
+- 서버 `src/platform/admin-operators.ts`는 admins에서만 이메일 중복을 검사하고 별도 user_sub/비밀번호/세션을 만든다. `prisma/schema.prisma`도 Admin.email과 Member.email이 서로 다른 테이블의 unique다. 따라서 A1은 N0와 이메일을 공유하되 실제 로그인·권한은 분리한다. A0를 비활성화하거나 테스트용으로 탈퇴시키지 않는다. 이것은 코드 검토 결과이며 운영 생성 검증이 아니다.
+- 가입 실패→초대/가입→0/2/10 기준점→권한·팬 기능·콩→구독 갱신/환불/정산→콘솔 제한/비활성→정지/탈퇴 순서다. 정상·해지예약·갱신실패·환불 상태마다 새 이메일을 만들지 않고 별도 주문·구독 식별자와 전제 상태를 기록한다. S08 미열람과 S09 열람 상태를 환불 검사까지 유지하고, 소유권 교차 검사는 두 독립 세션을 동시에 유지한다. 정지·탈퇴·파기 등 이후 검수에 영향을 주는 검사는 마지막 또는 격리 fixture에서만 실행한다.
+- 콩의 일반/프로모션·직접 충전/후원 수익·보류/출금가용·미수금은 같은 계정의 원장/lot 구분이다. 게시물/프로필 후원과 두 수신자 교차 검수도 위 계정으로 배정한다. 조건별 금융 기록을 덮어쓰거나 운영 DB/시계를 임의 수정하지 않는다.
+- 탈퇴 후30일 경과·미성년/PASS 실패·PG 응답 유실·은행 실패·백업/부하 검사는 계정 수만으로 해결되지 않는다. 격리 시간 제어/공급사 허용 fixture 또는 실제 기간·연동이 필요하다. 모든 비정상 상태를 동시에 보존하거나 기준17역할을 계속 유지하려면 추가 주소/계정이 필요하다.
+- 선택 사항: 반복 검수 편의를 위한 별칭2개(test-admin-1/test-lifecycle-1)를 더해 신규18개를 준비할 수 있지만 최소 산정에는 포함하지 않는다. Google의 +주소는 별도 별칭 등록 없이 기존 받은편지함으로 수신되고, 현재 normalizeEmail은 trim/lowercase만 하므로 +부분을 제거하지 않는다. 추가 일회용 주소는 초대/실수신을 별도 확인하고 사용한다.
+
+공식 근거 확인 2026-10-30: [Google 별칭 계정당30개 무료](https://knowledge.workspace.google.com/admin/users/add-or-delete-an-alternate-email-address-email-alias), [Google +주소](https://support.google.com/a/users/answer/9282734?hl=en), [OWASP WSTG4.2 권한 우회 검수](https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/05-Authorization_Testing/02-Testing_for_Bypassing_Authorization_Schema/). Google 한도는 공급사 사실,16개 배정은 프로젝트의 조건부 계산이며 OWASP가 정한 계정 수가 아니다. OWASP의 동등 권한 계정 간 수평 접근·다른 권한 간 수직 접근 검사를 역할 순차 재사용 시에도 생략하지 않는다.
+
+증거: 프론트 `.local/qa-mail-account-count-20261030/verification.json`에97개 ID 누락 대조·역할 배정·산식·검토 파일 SHA/HEAD/dirty 상태를 기록했다. 제품 테스트·실메일·운영 시나리오는 이번에 실행하지 않았다.
+
+별칭 생성 검증(2026-10-30): 프론트 `.local/workspace-test-aliases-20261030/verified-aliases.json`의 요청 주소16개와 Google Admin의 저장 후 표시 주소16개가 일치한다. 기존 기본 별칭3개도 보존했다. 저장 직후 일부 주소가 늦게 표시되어 최종 재조회로 확인했으며, 이메일 수신은 별도 검증 대상이다. [Google 사용자 별칭 도메인 안내](https://knowledge.workspace.google.com/admin/domains/add-a-user-alias-domain-or-secondary-domain)에 따라 기존 사용자에게 같은 주소를 자동 제공하고 추가 사용자 요금이 발생하지 않는 방식을 적용했다. 공식 별칭 문서는 변경 반영에 최대24시간이 걸릴 수 있다고 안내한다.

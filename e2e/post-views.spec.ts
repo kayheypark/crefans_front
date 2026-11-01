@@ -5,7 +5,8 @@ async function fits(page:Page){
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBeTruthy();
  const rows=await page.locator('[data-post-views]:visible').evaluateAll(elements=>elements.map(el=>{
   const row=el.closest('[class*=postActions]')||el.parentElement!,box=row.getBoundingClientRect();
-  const children=Array.from(row.children).map(child=>child.getBoundingClientRect());
+  // Closed <dialog> elements (tip dialogs render inside the row) are display:none and have no rects; measure only drawn children.
+  const children=Array.from(row.children).filter(child=>child.getClientRects().length>0).map(child=>child.getBoundingClientRect());
   return {within:children.every(r=>r.left>=box.left-1&&r.right<=box.right+1),separate:children.every((r,i)=>!i||r.left>=children[i-1].right-1)};
  }));
  expect(rows.every(row=>row.within&&row.separate)).toBeTruthy();

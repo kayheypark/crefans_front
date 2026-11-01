@@ -10,7 +10,7 @@ async function checkGallery(page:Page){
   await expect(track).toHaveAttribute('data-index','2');
   await expect(dialog.getByRole('button',{name:'이전 게시물',exact:true})).toHaveCount(0);
   await expect(dialog.getByRole('button',{name:'댓글 쓰기',exact:true})).toBeHidden();
-  await expect(dialog.getByRole('button',{name:'닫기',exact:true}).locator('svg')).toHaveCSS('width','36px');
+  await expect(dialog.getByRole('button',{name:'닫기',exact:true}).locator('svg')).toHaveCSS('width','24px');/* 24px soft close icon shipped 2026-10-25 (gallery-close-soft-deployment-20261025) */
   await dialog.getByRole('button',{name:'이전 미디어',exact:true}).click();
   await expect(track).toHaveAttribute('data-index','1');
   await expect(dialog.locator('video[controls]')).toHaveCount(1);

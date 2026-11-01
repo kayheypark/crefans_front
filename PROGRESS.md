@@ -1,5 +1,48 @@
 # PROGRESS: crefans_front
 
+## 2026-11-01 스튜디오 모바일 메뉴 첫 화면 닫힘 + 약관 시행일 선택 시안
+- b8dfd43 → studio-menu-20261101 프론트만 배포(사용자 승인): 모바일 드로어 CSS가 data-mobile(화면 크기 감지 후에만 붙음)을 요구 → 첫 프레임에 메뉴가 열려 보이지 않음. 운영 CSS에 규칙 반영 확인, 검증 studio-navigation 7 pass(되돌리면 2 fail), 전체 487 pass.
+- 약관·운영정책·개인정보처리방침 시행일 선택: be8573b → legal-version-20261101 프론트 배포(사용자 '배포'). 기본은 최신 시행일(공지된 개정본 포함, 사용자 최초 지시), 옵션 '(예정)·(현재)' 텍스트 표기, 버전 1개면 표기 없음, 기존 '개정본 보기' 제거. 검증 crefans-common 9 pass(되돌리면 1 fail), 전체 488 pass, 로컬 API+목업과 운영 화면에서 기본 11.30 확인. 이전 기록(시안 단계): 제목 오른쪽 위 셀렉트박스, 최신 시행일(2026.11.30) 기본, '예정·현재'는 뱃지 대신 회색 텍스트(사용자 지시). 시안 .local/legal-version-mock-20261101/. 실제 버전은 약관·운영정책 2개(10.30 현재, 11.30 예정), 개인정보처리방침 1개뿐 — 그 이전 시행본은 코드에 없음. 미결: 기본 선택을 최신(예정본)으로 할지 현재 시행본으로 할지 확인 필요.
+
+## 2026-11-01 밤 전체 배포·스튜디오 개선·푸터 (운영 배포 완료)
+- full-sync-20261101(사용자 '다 배포'): API·워커·프론트·관리자를 운영 원본+커밋된 변경으로 교체(레퍼럴 출금 불가, 이벤트 주소 301, 로딩 일괄, 스튜디오 수정, 관리자 소멸 문구). 서버 4·프론트 30·관리자 2 파일, 마이그레이션 없음. 운영 진단 기동 성공, 배포 후 릴리스 태그·주요 경로 200·옛 이벤트 주소 301 확인.
+- Caddy www→crefans.com 301: 운영 APP_DOMAIN=beta.crefans.com 확인(충돌 없음), 운영 Caddyfile이 384f5ea 직전본과 해시 일치 확인 후 검증·리로드, www 301·apex/beta/admin/guide 200. 증거 .local/full-sync-deploy-20261101/(caddy-www.sh, caddy-deploy.log).
+- 통계 요약 차트(017df46): 서버가 원래 30일 일별 데이터를 보내 모바일에서 숫자·날짜가 겹침(오늘 배포와 무관). 막대 12개 초과 시 막대 위 숫자 숨김(툴팁·접근성 유지), 날짜 MM.DD 7일 간격+마지막.
+- 스튜디오 콩(bd6b951): /studio/beans 개요(잔액·출금하기 버튼·세부 내역 접힘·받은 후원/출금 내역 링크·안내 최하단), /withdraw·/tips·/payouts 전용 페이지. 팬 출금 경로는 기존 한 페이지.
+- 리포트 탭(eb50f5a): 공용 ChipLink(selected 추가)로 교체, TextLink 밑줄 제거.
+- 모바일 글쓰기 미리보기(ca5ca2d): 1000px 이하에서 하단 미리보기 숨김, 저장 버튼 위 테두리 버튼 → 전용 모달.
+- 위 4건 studio-polish-20261101, 푸터 2열(91a3914) footer-grid-20261101로 프론트만 교체·확인. 각 커밋 대조 검사(되돌리면 실패)·전체 486 pass·tsc 0.
+- 발견(미수정): 스튜디오 셸의 모바일 메뉴가 첫 렌더에서 열림 상태(isMobile 초기값 false → data-open=true)라 실제 기기에서 첫 프레임에 메뉴가 잠깐 보일 수 있음. 테스트 브라우저에서는 열린 채로 남는 경우가 반복됨.
+
+## 2026-11-01 '더 보기' 버튼의 '불러오는 중…'도 지연 로딩 (커밋, 미배포)
+- 사용자 지시 '불러오는중…도 지연로딩 해'. 피드·크리에이터 피드·댓글 더 보기: 라벨 유지+비활성, 1초 뒤 inline 스피너(components/ui/DelayedSpinner.tsx의 DelayedInlineSpinner). 커밋은 위 로그 참조.
+- 검증: tests/crefans-social.test.cjs 시점 측정(0~999ms 문구 없음, 1000ms 스피너), HEAD로 되돌리면 실패, 전체 479 pass, tsc 0.
+- 운영에는 아직 스튜디오·약관·출금·광고·댓글 등의 즉시 '불러오는 중…'이 남아 있음 — 로딩 일괄 커밋 fd3fba7이 미배포이기 때문. 구형 화면(app/(main)/write, MembershipManagementModal, profile/Profile.tsx)의 '...불러오는 중...'은 서비스 경로가 아니어서 손대지 않음.
+
+## 2026-11-01 스튜디오 진입 시 '화면을 불러오지 못했습니다' 순간 노출 수정 (/ux-spinner) — studio-loading-20261101 운영 배포
+- 원인: useStudioModel이 로그인 확인 전 loading=false로 바꾼 뒤, 로그인 후 요청 시작 때 true로 돌리지 않아 StudioRouter가 응답 전에 오류 화면을 표시. 커뮤니티 실패는 오류 문구 없음.
+- 수정: features/service/useStudioModel.ts 두 곳(로그아웃 상태 loading=true 유지, 커뮤니티 실패 문구). 새 테스트 tests/studio-loading.test.cjs(실제 훅+실제 라우터).
+- 검증: 4 pass, 수정 전으로 되돌리면 4 fail(0~2500ms 오류 노출 재현), 전체 478 pass, tsc 0. 증거: .local/ux-spinner-20261101-studio/README.md. 브라우저·운영 캡처는 미확인.
+- 커밋 bd5c989. 배포(사용자 승인 '1'): 운영 프론트(video-harden) 원본에 이 수정 4줄만 얹어 프론트만 교체, API·워커·DB·프록시·관리자 유지. 기준선 일치 확인, deploy.sh 'Frontend ready', FRONTEND_IMAGE=crefans-front:studio-loading-20261101, /service/studio·/service/feed 200, 운영 스튜디오 청크에서 로그아웃 분기 loading=true 확인. 이미지 정리(롤백용 video-harden 보호). 증거: .local/studio-loading-deploy-20261101/. 실제 로그인 화면 캡처는 미확인. 커밋된 다른 프론트 변경(레퍼럴 문구·이벤트 주소·로딩 일괄)은 이번 배포에 포함하지 않음.
+
+## 2026-11-01 저녁 /pilot-work 결정 동기화 (커밋 완료·배포 대기)
+- 결정(클릭 답): 보상 출금 불가·남은 만큼 회수·일부 환불 전체 회수(약관 명시 예정)·비활성 소멸·상한 초과 종결·내역 고지·부정 문구 완화, 원천징수는 회사가 플랫폼 수수료 안에서 부담, 가이드 틀린3+누락5, SEO 새 주소+301·www→apex, 로딩 일괄 정리, 업로드 상한+감시, 재시도+안내, 오프사이트 백업 나중에, 관리자 수수료 그대로.
+- 커밋: 서버 ebb3406(레퍼럴 출금 불가)·46fe73e(관리자 소멸 상태)·b65f083(API 설명 7건·설계 문서)·384f5ea(Caddy www 301), 프론트 d2af2a6(초대 카드·내역)·0c1d481(이벤트 주소 301), 관리자 93f4c28, 가이드 ee0aed7·053ac97. 미커밋 유지: 계약 폴더(docs/contracts 전체가 미추적), 프론트 docs/audit manifest·evidence(다른 세션 변경과 섞임).
+- 검증: 서버 referrals+beans+openapi 57 pass(보상 로트 되돌리면 3 fail), 프론트 초대 테스트 5 pass(HEAD 카드면 1 fail), 이벤트 301 테스트(302면 1 fail)·개발 서버 curl 301, Caddy validate(APP_DOMAIN=www면 실패), 가이드 사본 check-guides 링크·앵커 1345(앵커 훼손 대조 검출), 계약 PDF v2.36 7쪽 자동 PASS·전 쪽 육안, check:docs PASS.
+- 배포 대기: video-harden-20261101(API·워커·프론트, 이미지 운영 서버 적재·진단 기동 성공, deploy.sh 실행은 승인 필요로 미실행), 레퍼럴·이벤트 주소·Caddy·가이드는 아직 빌드 전.
+- 미해결: ① 약관 개정(11-30 시행본은 10-30 공지 완료 — 레퍼럴 조항·원천징수 문구를 여기에 넣을지 별도 개정으로 할지) ② 운영 APP_DOMAIN이 www가 아닌지 배포 전 확인(같으면 Caddy 기동 실패) ③ 가이드 check:guides 소스 잠금 52건 차이(전체 재검토 필요), beans/referral 가이드 매핑 없음 ④ 배포·미커밋 67개(night-work/drift-20261101.md) ⑤ 로딩 규칙 12곳 진행 중.
+- 사고: 18:33 서버 docs/platform-api.md를 스크립트 실수로 0바이트로 만듦 → 10/31 사본+codex 기록 1건 재적용으로 복원, 기록 해시 f27e3b36 일치 확인 후 행 추가.
+- 19:10 추가: 사용자 결정 '기능 묶음별 커밋'으로 배포·미커밋 67개 정리 → 재측정 결과 세 저장소 모두 0개(남은 운영≠HEAD는 커밋 후 배포 대기분). 서버 2c3e5ae·e6472c9·fd999f0·910bf63·3b56003, 프론트 f81a056~fca06d0(9개)·5f95e58, 관리자 514e53c·4de157b·be481cc. 각 커밋은 배포 사본 SHA-256 일치 확인, 스냅숏 검사: 서버 tsc·build·openapi 11 pass, 프론트 tsc·전체 455 pass, 관리자 tsc·11 pass. 다른 세션의 미배포 테스트(서버 tests/*, platform-categories·new-creators 테스트)는 아직 미커밋.
+- 로딩 규칙 12곳(서브에이전트): 프론트 fd3fba7, 관리자 b04aaf7. 스냅숏 474 pass, ApiState 되돌리면 2 fail. 프론트 e2e/advertising 문구는 미실행.
+- 약관: 사용자 결정 '별도 개정으로 새로 공지' — 레퍼럴 조항·원천징수 회사 부담 문구를 담은 새 개정본(30일 전 공지)을 준비할 차례. 공지 게시·시행일은 사용자 확인 필요.
+- 19:25 video-harden-20261101 운영 배포 완료(사용자 '배포' 승인): API·워커·프론트 교체, 관리자·DB·프록시 유지, 마이그레이션 없음. 배포 직전 기준선 API save-fix·프론트 message-read 일치, 진단 기동 성공. 배포 후 APP_RELEASE=video-harden-20261101, /service/feed·/api/v1/health 200, media status 무인증 401, api healthy, 워커 5분 로그 오류 0건. 이미지 정리 --keep 3(롤백용 save-fix·message-read·ad-form 보호) 로컬·원격 각 3개 삭제. 증거: crefans_front/.local/video-harden-deploy-20261101/. 실제 아이폰 영상 업로드·10분/4K 거부·재시도는 운영에서 직접 시험하지 않음.
+
+
+## 2026-11-01 15:43 night-work 조사 문서
+
+- 위치: `crefans_front/.local/night-work/2026-11-01-1543.md`(읽기 전용 조사, 코드 변경 없음).
+- 상위: ① 변환 중 아이폰 영상이 든 게시물 저장 시 409(studio.service 트랜잭션 재검사가 COMPLETED만 허용, 운영 반영) ② 운영 코드 76개 파일이 git에 없음 ③ 변환이 384MB 워커에서 돌고 감시 없음 ④ 서버 밖 백업 꺼짐 ⑤ 친구 초대 내역·약관·계약 제6조③·회수 알림 정합성과 보상 결함(G1·G3·G7).
+
 ## 2026-11-01 메시지 전송됨·읽음 표시 — message-read-20261101 운영 배포(API·프론트)
 
 - 내 메시지 아래 체크 1개+"전송됨", 상대가 읽으면 체크 2개+"읽음"(브랜드 색). 상대 메시지는 표시 없음. 서버 inbox가 내 메시지에 read(read_at 존재)를 붙임.
@@ -68,6 +111,280 @@
 - 측정·대조: `.local/ux-spinner-20261101/`(지갑 5경우, 하단 탭·탐색 빠른/2.5초, 수정 전 코드 대조).
 - 남은 일: StudioRouter·BeanWithdrawContainer·CommonPages·BeanChargePage의 '불러오는 중…' 문구는 범위 밖.
 
+## 2026-11-01 레퍼럴 디자인 폴리싱·복사 하단 스낵바 (로컬 완료·미배포)
+- 요청/합격 기준: 팬 친구 초대와 콘솔 레퍼럴 관리가 각 서비스의 기존 톤앤매너를 따르며, 복사 성공은 본문 이동 없이 하단 스낵바로 표시한다. PC·모바일 레이아웃과 실패·반복 복사를 검증하고 기존 정책·권한·API를 유지한다.
+- 구현: 기존 콩 이미지·연한 초록 보상 영역, 링크 복사 아이콘/44px 버튼, 분리된 세 가지 참여 지표, 안내 간격을 적용. holdDays는 응답값을 표시한다. 공통 SnackbarProvider/Toast를 재사용하여 복사 완료를4초 표시하며 오류는 링크 옆에 유지. 카탈로그에 참여 있음/없음 예시 추가.
+- 검증: npm run check 통과(레이어·TypeScript·단위430/430). 별도 loopback 개발 서버에서 Playwright PC Chromium/iPhone13 WebKit 2/2 PASS. 클립보드 성공/거부 대역, 재복사·자동/수동 닫기, 링크 내용·가로 넘침 및 본문 높이 불변 확인. 화면 캡처 육안 점검. 물리 iPhone·OS 클립보드 및 실운영/실공급사 검증 아님.
+- 최초 실패/보완: 관리자 기존 테스트가 모바일 메뉴를 열지 않았고 Next route-announcer까지 alert로 선택해 실패. 검증 selector를 보정 후 재통과. 캡처 전 스낵바 opacity=1 대기 추가, 모바일 표 이메일 줄바꿈 보완 후 최종 재검증. 제품의 결제/보상/계정 정책 변경 없음.
+- 증거: `.local/referral-polish-20261101/verification.json`에 HEAD·미커밋 상태·변경 파일 SHA256·명령/시각/종료코드·캡처 위치. before/원본, ui-first 및 results-first 실패 증거, check-final/ui-final 최종 로그 보존. AGENTS의 공통 스낵바 규약 유지. 기존 타 작업 변경을 보존했고 커밋/푸시/운영 배포 없음.
+- 다음: 운영 반영 요청 시 최신 운영 소스·이미지 기준을 확인해 해당 변경만 배포. 미결정 정책 없음. 프론트 docs:record/check:docs는 기존 server/docs/referral-design-20261101.md 미분류, 레퍼럴4개·프로필 사진1개 API 설명 누락 및 생성 계약 만료로 실패했다. UI 수정 범위 밖의 기존 계약 문서를 임의 갱신하지 않았으며 문서 현행화 작업이 남았다. 상세는 같은 증거 폴더 docs-checks.json.
+
+
+## 2026-10-31 20:49 KST 자기 팔로우·로그인 필요 공통 모달 복구 및 운영 배포
+- 요구/합격 조건: 자기 팔로우 오류가 페이지 맨 위 텍스트·다시 불러오기 버튼으로 출력되는 문제를 없애고 기존 공통 Dialog 디자인으로 표시한다. 비로그인 팔로우·좋아요·저장은 로그인/나중에 안내, 만료 세션도 로그인 이동과 원래 화면 복귀를 지원한다. 기존 정상 팔로우·해제와 페이지 위치를 유지한다.
+- 원인/변경: useServiceModel.toggle이 거절 응답을 조회 오류용 전역 error에 넣고 ServiceRouter가 이를 임시 div로 출력했다. 동작 안내 actionNotice를 구분하고 같은 Dialog/DialogActions/Action을 재사용했다. 조회 오류도 닫기/다시 불러오기 모달로 표시한다. 비로그인 토글은 쓰기 요청을 보내지 않고, 지난 화면의 늦은 응답을 무시한다. 경로가 바뀐 첫 렌더는 loadedPath로 초기 조회 완료 전까지 표시를 보류하여 이전 signedIn 상태로 로그인 화면에서 튕기던 현상을 수정했다. 서버 거절·권한 규칙 및 공통 모달 CSS는 변경하지 않았다.
+- 로컬 검증: npm run check(레이어·TypeScript·단위430/430) PASS. 격리 DB·실제 API E2E Desktop Chromium/iPhone13 WebKit 6/6 PASS: 실제 SELF_FOLLOW400, 페이지 위치 유지, 제목 포커스, 확인/ESC 닫기, 정상 팔로우·해제, 비로그인3동작 쓰기0회, 로그인 후 요청 화면 복귀, 실제 세션 만료401 안내. 브라우저 오류0, 물리 iPhone은 미검증. 캡처는 모달 애니메이션 종료 후 육안 확인했다.
+- 최초 실패/조치: 새 단위검사의 document 복원 순서 오류는 unmount 후 복원으로 수정했다. E2E에서 만료 세션의 이전 로그인 상태로 돌아가던 제품 문제는 loadedPath로 수정했다. 로그인 폼을 닫히는 native dialog의 inert 해제 전 채우던 자동화는 dialog[open] 제거를 기다리도록 보정했다. 모달 등장 중 찍힌 첫 캡처를 보존하고 애니메이션 종료 후 재촬영했다. 최종 E2E 재검사도6/6 통과했다.
+- 배포: crefans-front:action-dialog-20261031, 2026-10-31 20:49:36 KST. profile-round 운영 스냅샷704파일 중 런타임2파일만 변경, amd64 이미지 빌드·내부 SHA·전송 체크섬 대조 후 frontend만 교체했다. 배포 직전6컨테이너 ID 재대조, API/worker/admin/DB/proxy 유지·마이그레이션 없음·재시작0/OOM없음·health/화면200. 이전 배포 복구 설정과 이미지를 보존했다.
+- 운영 검증: PC·iPhone13 WebKit 에뮬레이션2/2 PASS. 공식 프로필의 비로그인 팔로우→로그인 모달(쓰기0회), 승인된 합성 계정 로그인→원래 프로필 복귀, 해당 계정 공개 회원 프로필의 실제 SELF_FOLLOW400→공통 모달·확인/ESC·위치 유지 확인. 운영 데이터의 성공한 팔로우 변경/콘텐츠/금융 쓰기0회. 테스트 계정은 크리에이터 전환 전이므로 첫 ownCreatorIds 기대를 일반 회원 프로필로 수정했다. WebKit에서 로그인 직후 강제 탐색으로 진행 중 요청을 중단한 최초 기록도 보존했고, 화면 로딩 완료 후 같은 검증을 다시 실행하여 페이지 오류0을 확인했다. 실제 크리에이터 자기 팔로우는 로컬 격리 DB로 검증한 범위다.
+- 증거: .local/action-dialog-20261031/의 before·check-final-run/log·첫 실패 및 최종 E2E JSON/log/캡처·verification.json; .local/action-dialog-deploy-20261031/의 source-delta/manifest·builds·source-freeze·deployment-command·runtime-after·production-browser(최초 실패 포함)·운영 PC/모바일 캡처·retention JSON. HEAD553540e 위 미커밋 변경이며 기존 다른 작업을 보존했고 커밋/푸시하지 않았다. AGENTS·docs/preview-pages의 오류 모달/경로 상태 설명을 갱신했다. 문서 snapshot은 제품 통과 증거로 취급하지 않는다.
+
+## 2026-10-31 19:27 KST 프로필 지갑·설정 버튼 3번 라운드 아이콘 적용·운영 배포
+- 사용자 결정: 앞서 제안한 5종 중 3번을 선택했다. 이전 로그의 미선택/미적용 상태는 이 배포로 해소됐다. 합격 조건은 흰색 지갑 pill에 콩 아이콘+사용 가능 잔액만 표시, 오른쪽 설정은 원형 아이콘만 표시, PC·모바일 모두44px 클릭 영역과 기존 이동·잔액 조회 유지다.
+- 변경: AccountPages의 설정 링크를 접근성 이름 ‘설정’인 원형 버튼으로 표시, BeanPages의 지갑 링크에 기존 콩 이미지20px와 잔액을 표시한다. 조회 전에는 ‘내 지갑’으로 안내하고 사용 가능 잔액의 기존 계산/마운트당1회 조회를 유지했다. creator.module.css에44px 높이/원형44×44px,18px 설정 아이콘, 흰 배경·얕은 그림자·키보드 focus를 적용했다. 목업과 실서비스가 같은 표시 컴포넌트를 쓴다. 결제/후원/권한/서버 변경 없음.
+- 로컬 검증: npm run check(레이어·TypeScript·단위429/429) PASS. 첫 검사1건은 ‘설정’이 눈에 보이는 텍스트라는 기존 선택자를 접근성 이름 기준으로 바꾼 후 통과, 실패 로그 보존. 브라우저 PC Chromium1280px·iPhone13 WebKit390px·좁은320px 3/3 PASS: 이미지 로딩, 잔액 표시, 흰 배경/테두리0, 버튼44px, 아이콘18px, 넘침 없음, 지갑·설정 페이지 이동. 수집된 페이지 오류0, 물리 iPhone은 미검증.
+- 운영 배포: crefans-front:profile-round-20261031, 2026-10-31 19:27:39 KST 완료. 직전 studio-polish 운영 스냅샷에 위 런타임3파일만 반영,704파일 immutable manifest·amd64 이미지 내부 SHA 대조 후 배포. frontend만 교체, API/worker/admin/DB/proxy 컨테이너 유지, 마이그레이션 없음, health/관련 화면200·재시작0·OOM없음. 현재와 직전2개 프론트 이미지를 보존하고 오래된 handle-sync 프론트 태그만 로컬·운영에서 정리했다.
+- 운영 확인: PC·모바일 각각 /preview/me 및 승인된 합성 팬 계정의 /service/me 총4조합 PASS. 실제 잔액0콩/목업2,600콩, 버튼 치수·이미지·페이지 이동 확인, 폰트 loaded·가로 넘침/수집 페이지 오류0. 운영 프로필 저장·결제0회. 운영 캡처를 육안 확인했다.
+- 증거: .local/profile-round-20261031/의 before·check-final-run/check-final.log·local-browser/production-browser JSON·PC/모바일 캡처·verification.json, .local/profile-round-deploy-20261031/의 소스 manifest/delta·빌드/전송/배포·runtime-after·retention JSON. HEAD553540e 위 미커밋 변경이며 기존 다른 작업 보존, 이 작업 커밋/푸시 없음. docs/preview-pages.md의 프로필 설명을 갱신하고 docs:record/check:docs 결과를 증거에 남긴다. 기존 AGENTS 규약을 계속 적용하며 새 정책·미결정 사항은 없다.
+
+## 2026-10-31 스튜디오 예약 UI·아바타·이미지 로고·핸들 확인 배치 운영 배포
+- 요청/합격 조건: 예약 사용 스위치로 게시 시각을 활성/비활성화하고 값 지우기·재입력을 지원한다. 저장된 예약은 명시적 임시저장 성공 시에만 취소한다. 대시보드 인사 왼쪽 아바타, 콘솔 톤의 symbol+studio 이미지 로고, 핸들 인풋 바깥 오른쪽의 중복 확인 버튼을 PC·모바일에 적용한다. 프로필 지갑/설정 버튼은 5종 실제 화면 시안을 먼저 제안한다.
+- 구현: ManagementPages의 scheduleEnabled와 공통 Toggle/Field.clearable을 사용, 끄면 편집 값 초기화·비활성화하고 예약 제출을 차단한다. 기존 예약 취소는 status=draft/scheduledAt=null 저장 성공 후 확정하며 날짜는 기기 시간대에서 기존 ISO 변환을 사용한다. OverviewPages 인사는 Avatar44px+MarqueeText로 묶었다. 공통 Field.action은 테두리 있는 입력과 같은 행의 외부 버튼이며 AccountPages와 카탈로그에 적용했다. API/DB/권한 정책 변경 없음.
+- 로고: 운영 콘솔 console-logo.png를 참조해 built-in image_gen으로 studio 워드마크를 생성했다. 원본 alpha 이미지는 투명 여백 trim/840×170 리사이즈 후 public/brand/studio-logo-v1.png로 저장, 정확한 프롬프트·참조·원본·후처리는 studio-logo-v1.generation.json에 기록했다. StudioShell의 브랜드 링크는 스튜디오 대시보드로 연결된다.
+- 검증: npm run check 레이어·TypeScript·단위429/429 PASS. 격리 DB E2E PC Chromium/iPhone13 WebKit 4/4 PASS: 로고·아바타·외부 버튼 배치·실제 중복 조회, 예약 값 지우기·off/on 초기화·예약 저장·다시 열어 명시적 임시저장 취소·재조회 확인. 실제 iPhone은 미검증. 첫 단위2건은 기존 첫 switch 선택자를 댓글 허용 기준으로 수정하고 CSS mock에 의존한 구조 검사를 실제 노드 형제로 보정했다. 첫 E2E2건은 이미지 없는 테스트 크리에이터의 정상 fallback 아바타를 기대하도록 수정했다. 실패 기록도 보존한다.
+- 배포: crefans-front:studio-polish-20261031, 2026-10-31 19:13:06 KST 완료. 직전 handle-check 운영 스냅샷에 런타임13파일만 반영, immutable manifest704파일·이미지 내부 SHA 일치 및 amd64 빌드 PASS. 배포 직전 운영 기준선 재대조, frontend만 교체하고 API/worker/admin/DB/proxy ID 유지, 마이그레이션 없음. health·관련 페이지·로고200, 재시작0/OOM없음. 직전 복구 설정/이미지 보존. 로컬·운영 이미지 keep3 정리로 오래된 front:new-creators 태그1개씩 제거, 오류0.
+- 운영 확인: PC·모바일 모두 PASS. 운영 호스트의 공통 preview 스튜디오에서 로고·아바타·예약 편집 UI를 확인하고, 승인된 합성 팬 계정의 실제 설정에서 외부 중복 확인 버튼과 중복 거부를 검증했다. 운영 콘텐츠/프로필 저장0회이며 실제 예약 저장·취소는 격리 DB 검증 범위다. 수집 브라우저 오류0. 최초 모바일 캡처는 웹폰트 대기로 timeout, 재검사에서 전체 폰트 대기만 비활성화하고 별도로 font status loaded/Pretendard ready를 확인했다. 운영 예약 worker 실행 검증으로 확대하지 않는다.
+- 프로필 버튼 시안: output/design/studio-polish-20261031/comparison.html 및 comparison.png, profile-controls-1~5.png. 실제 프로필 화면을 바탕으로 화이트 아웃라인/차콜 글라스/라운드 아이콘/소프트 스퀘어/라일락 포인트를 비교하며 최소44px 조작영역을 유지한다. 사용자 선택 질문을 보냈고 아직 미선택이므로 이 디자인은 미적용·미배포다.
+- 증거: .local/studio-polish-20261031/의 before·check-final2.log·e2e-final.log·results·verification.json, .local/studio-polish-deploy-20261031/의 source-delta/manifests·builds·source-freeze·deployment-command·runtime-after·production-browser·운영 캡처·retention JSON. front HEAD553540e 위 미커밋 변경이며 기존 다른 세션 변경을 보존했다. 커밋/푸시는 하지 않았다. AGENTS에 예약 취소 확정 시점을 기록했고 디자인/화면 문서를 갱신했다. docs:record/check:docs 결과는 verification.json에 기록하며 문서 스냅샷을 제품 테스트 증거로 간주하지 않는다.
+
+## 2026-10-31 18:55 KST 프로필 핸들 중복 확인·설정 하단 스튜디오 링크 운영 배포
+- 요청/합격 조건: 프로필 수정에서 핸들 사용 가능 여부를 확인하고, 변경한 핸들은 최신 확인 성공 후에만 저장한다. 중복·잘못된 형식·요청 실패·늦은 응답·저장 직전 선점은 거부한다. 설정 하단에서 PC·모바일 모두 스튜디오로 이동한다. 앞선 사용자명/활동명/소개 우선순위 툴팁도 함께 배포한다.
+- 구현: 인증된 GET /api/v1/me/handle-availability?handle=..., private/no-store, 본인 제외 회원 핸들과 크리에이터 주소를 함께 조회하며 타인 정보는 반환하지 않는다. 저장 시 재확인 및 DB 고유 제약을 유지하고 실제 Prisma P2002 충돌을 HANDLE_TAKEN으로 변환한다. 스키마/마이그레이션 변경 없음. 프론트는 공통 Field에 중복 확인 버튼·상태 문구, 입력/재진입 시 확인 무효화·늦은 응답 무시, 실패 재시도, 변경 없는 기존 핸들 호환을 적용했다. 하단 링크는 현재 basePath의 /studio를 사용한다.
+- 호환 보완: 현행 핸들 형식(소문자·숫자·밑줄3~24자)과 다른 기존 핸들은 그대로 두고 이름·소개를 수정할 수 있다. 바꾸는 경우에만 새 형식과 중복 확인을 요구한다. 목업은 fixture 중복만 확인하며 실서비스 API 성공으로 간주하지 않는다.
+- 근거 조사(2026-10-31): Prisma6 공식 API https://www.prisma.io/docs/orm/v6/reference/prisma-client-reference 및 예외 처리 https://docs.prisma.io/docs/orm/prisma-client/debugging-and-troubleshooting/handling-exceptions-and-errors . 조회 결과는 예약이 아니므로 최종 저장의 unique/P2002 처리를 유지한다는 기술적 판단이다.
+- 로컬 검증: server npm run build PASS, handle-unify5건+OpenAPI11건 총16/16 PASS. front npm run check(레이어·TS·단위426/426) PASS. 격리 DB E2E PC Chromium/iPhone13 WebKit 총4/4 PASS(툴팁2·중복확인/실제 저장/공개 주소/스튜디오 이동2). 저장 전 다른 계정 선점409, 인증 없음401, 유효하지 않은 핸들400, 본인 핸들 허용, 응답 불일치/지연/오류·입력 변경 무효화 포함. 실제 iPhone은 검사하지 않았다.
+- 최초 실패/조치: 새 링크와 API 때문에 예전 링크 목록/177→178·73→74 OpenAPI 기대값 갱신. E2E가 기존 형식 핸들의 저장 비활성화를 발견해 제품 호환 수정 및 단위 회귀 추가. 로그인 effect 이동 대기, 운영 goto/waitForURL의 전체 load 대기를 DOM 및 실제 UI 표시 대기로 바꿔 재실행했다. 실패 로그도 보존했다.
+- 배포: handle-check-20261031, 2026-10-31 18:52:36 KST 완료. 직전 실제 운영 handle-sync-20261031 소스에서 front10·server3파일만 반영, immutable source manifest·이미지 내부 파일 SHA-256·amd64 확인 후 배포 직전 6컨테이너 ID/image 기준선 대조. API/worker/frontend 교체, admin/DB/proxy 동일 ID 유지, 재시작0·OOM없음, health/페이지200·비로그인 중복조회401. env 변경은 API_IMAGE/FRONTEND_IMAGE/APP_RELEASE만, 자동 복구 스크립트·직전 이미지 보존.
+- 운영 검증: 승인된 합성 팬 테스트 계정으로 crefans.com PC Chromium·iPhone13 WebKit 각각 기능 시나리오 PASS. 중복 핸들 거부·사용 가능 표시·재입력 시 저장 비활성·기존값 불변·툴팁·스튜디오 이동 확인. 운영 프로필 저장0회, 로컬에서만 실제 변경 검증. WebKit에서 요청 범위 밖 explore/messages의 Next RSC 사전 로딩 access-control 오류2건 관찰, 기능 검증과 분리해 그대로 기록했으며 원인은 미확정이다. 전체 사이트 오류0 주장 아님.
+- 증거: 프론트 .local/handle-check-20261031/ (before, 최종 테스트 로그, results 캡처, verification.json), .local/handle-check-deploy-20261031/ (source-delta/manifests, builds, source-freeze, images, deployment-command, runtime-after, production-browser 및 PC·모바일 캡처, retention JSON). 프론트553540e·서버ba8df97 위 미커밋 변경이며 다른 세션 파일 보존, 이 작업의 커밋/푸시 없음. 문서 계약과 의미 설명을 갱신한 뒤 docs:record/check:docs 결과를 verification.json에 기록한다. 기록 갱신은 제품 테스트를 대체하지 않는다.
+
+## 2026-10-31 18:36 KST 프로필 사용자명·크리에이터 활동명·핸들 구분과 소개 우선순위 툴팁 (미배포)
+- 요청/합격 조건: 일반 회원과 크리에이터 이름·소개 입력란에 공개 프로필 표시 우선순위를 안내하고 고유 @주소는 핸들로 통일한다. 기존 값 저장·표시 우선순위는 유지하며 PC·모바일에서 공통 툴팁을 사용할 수 있어야 한다.
+- 근거: server `src/platform/service.ts` publicProfile은 Creator.display_name/bio/about 우선, 없으면 Member.nickname/UserProfile.bio로 대체한다. 일반 프로필 수정은 원래 회원 값, 스튜디오는 Creator 값을 편집한다. 서버 로직·DB 변경 없음.
+- 변경: `AccountPages` 프로필 수정에 사용자명(전환 전 표시)·소개(크리에이터 우선) 툴팁, `OverviewPages` 전환·설정에 크리에이터 활동명/소개/소개 글 툴팁과 읽기 전용 핸들. 구독자 검색 placeholder도 사용자명/핸들로 구분. 공통 Field/TextAreaField의 선택 tooltip 속성으로 기존 InfoTooltip을 재사용하며 버튼은 label 밖에 둔다. 카탈로그·디자인 문서·화면 설명 및 기존 테스트의 이름 선택자만 갱신했다. 가입 화면의 닉네임은 이번 프로필 수정 범위 밖이다.
+- 검증: npm run check(레이어·TS·단위423/423) PASS. 기존 handle-studio E2E 2/2(격리 DB·PC: 스튜디오 진입, 잘못된 핸들 거부→정상 저장→공개/스튜디오 동기화) PASS. 목업 UI PC Chromium·iPhone13 WebKit 2/2 PASS: 프로필 수정/전환/설정 툴팁 6개씩, Escape가 부모 모달을 닫지 않음, 입력 접근 이름, 읽기 전용 핸들, 가로 넘침 없음·페이지 오류0. PC·모바일 캡처 4장 육안 확인. 실제 iPhone·운영은 미검증.
+- 최초 실패: 단위 테스트의 기존 닉네임 선택자1건을 사용자명으로 수정 후 전체 PASS. E2E 임시 백업 폴더 수집 오류를 제외 설정으로 수정, 이후 필수표시 별표가 포함된 getByLabel exact 선택자2건을 textbox 접근 이름으로 고쳐 UI만 재실행 PASS. 제품 코드로 실패를 숨기지 않았다.
+- 문서: check:docs에서 직전 핸들 통합 migration의 계약 목록 누락을 발견, 실제 migration과 차이가 이 한 줄뿐임을 확인해 docs:contracts 갱신. 상세 문서 검사 결과는 증거 JSON/로그에 기록한다.
+- 증거: `.local/profile-field-guidance-20261031/` before·check-final.log·e2e-final.log(기존2건 PASS)·e2e-ui-final.log(UI2건 PASS)·results 캡처·verification.json. 기존 미커밋 변경 보존, 이번 작업 커밋·푸시·운영 배포 없음.
+
+## 2026-10-31 18:25 KST 사용자 이름 단일화·스튜디오 깜빡임·대시보드 문구 — handle-sync-20261031 운영 배포, 프로필 사진 수정 시안
+- 요청: ①공식 계정(khpark@gmail.com) 전환 후 핸들이 예전 회원 핸들로 고정되고 프로필 주소는 따로 받음 → 하나로, 프로필 수정에서 변경, 전환 시 별도 설정 없음 ②'로그인이 필요해요' 깜빡임 ③대시보드 '반가워요' 아래 설명 삭제 ④프로필 페이지에서 배경·프로필 사진 수정(시안 먼저).
+- 원인: members.preferred_username(가입 시 임의, 수정 불가)과 creators.handle(전환·스튜디오에서 입력)이 별도. 깜빡임은 StudioRouter가 회원 정보 로딩 전에 signedIn(빈 기본값 false)을 먼저 검사.
+- 변경: server ba8df97(PUT /me/profile handle, 크리에이터 주소 동기화, HANDLE_TAKEN/INVALID_HANDLE, 스튜디오 저장은 사용자 이름 사용, 마이그레이션 20261031180000_unify_handles: 직접 정한 크리에이터 주소를 사용자 이름으로(중복 제외) 후 모든 크리에이터 주소 일치), front 553540e(설정 > 프로필 수정의 사용자 이름 편집, 전환·스튜디오 '프로필 주소' 읽기 전용, StudioRouter 로딩 우선, 대시보드 설명 삭제, e2e/handle-studio, qa-journey 갱신).
+- 검증: server platform-handle-unify 3/3(주소 동기화 제거 대조 FAIL), openapi 11/11, legal 11/11, 스테이징 스냅숏 tsc 0. front tsc 0, unit 423/423, e2e handle-studio 2/2(로딩 순서 되돌리면 깜빡임 검사 FAIL), 관련 E2E 38 통과.
+- 배포(`crefans_front/.local/handle-sync-deploy-20261031/`): 폴더 생성 전 운영 확인 결과 다른 세션 배포로 API/front=new-creators-20261031, admin=financial-tooltip-20261031 → 이를 기준으로 사용. new-creators가 service.ts·openapi-contract.ts를 바꿨으므로 운영본에 제 수정분만 patch(충돌 없음), 나머지 front 5파일은 운영본=수정 전 커밋 대조 후 교체. ship 직전 운영 태그=기준 확인(BASELINE OK). 마이그레이션 적용(deploy.sh가 직전 DB 백업). 18:22 KST 완료. 운영 확인: 크리에이터 목록 '관악구 실시간 @crefans' 주소로 프로필 조회 성공, newCreators 필드 유지, health·스튜디오·콘솔 200. 이미지 정리 keep 3+new-creators·financial-tooltip 보호.
+- 미검증: 공식 계정으로 로그인한 상태의 설정 화면·스튜디오(운영 계정 필요).
+- 시안(미구현·미배포): `crefans_front/.local/profile-photo-mock-20261031/` 4장. 내 프로필 배경 오른쪽 아래 '배경 사진 변경', 프로필 사진 카메라 배지, '프로필 사진 변경' 창(PC 가운데·모바일 하단 시트, 프로필 원형·배경 3:1 미리보기, 사진 선택·삭제, JPG·PNG·WEBP 5MB(서버 이미지 제한과 동일), 저장 시 크리에이터 프로필에도 같은 사진). 현재 서버·스튜디오 모두 프로필·배경 업로드 API 없음 → 구현 시 서버 저장 API·스튜디오 반영 필요.
+
+## 2026-10-31 17:39 KST 검색 신규 크리에이터 섹션·새싹 아이콘 운영 배포
+- 요청/기준: 팬 검색의 목업·실서비스에 신규 크리에이터 섹션과 이미지젠 새싹을 추가한다. 기존 주목할 섹션 아래/전체 목록 위, 같은 CreatorCard·프로필 링크·팔로우를 재사용한다. 기준은 크리에이터 등록일 최신6명(기간 제한 없음); 검색어·분야·공개 조건을 적용한다.
+- 구현: `ExplorePage` 공통 표시, `useDirectoryModel.newCreators`에 첫 검색 응답 저장 및 페이지 추가 때 유지/이전 검색 응답 무시. 목업은 fixtures의 newCreatorIds로 지우·모카·시온 주입, 실서비스에 대체 샘플을 섞지 않는다. 녹색 라운드 그라데이션 새싹을 built-in image_gen으로 제작, 제목 왼쪽22px. 원본 `public/brand/new-creators-sprout-v1.png`(1254px/alpha), 프롬프트·원본 경로는 같은 이름 `.generation.json`에 저장했다.
+- 검증: npm run check(레이어·TS·단위423) PASS. 신규 E2E PC/Pixel7 4/4 PASS: 목업/실서비스 API 대역의 아이콘·카드·필터·프로필 링크·더 보기 유지·빈 결과·가로 넘침/페이지 오류 확인. 서버 실제 HTTP·격리 DB 신규3+OpenAPI11 PASS. 최초 UI 테스트 파일의 괄호 누락은 테스트 수집 단계에서 발견·수정했고 실행되지 않은 첫 로그를 보존했다. PC·모바일 캡처 육안 확인, 실제 iPhone은 미실행.
+- 운영: `new-creators-20261031` API/worker·프론트 17:39 KST 배포. 진행 중이던 별도 policy-sync2 배포 완료를 확인하고 그 소스 manifest/image label 기준에 본 작업 server2/front7 파일만 적용했다. amd64 빌드·내부 소스·전송 SHA 일치, 콘솔/DB/proxy 컨테이너 유지, 마이그레이션 없음.
+- 실제 운영: `/creators.newCreators`가 DB의 활성·검색 공개·회원 활성 조건 최신순 조회와 일치. 해당 조건을 만족하는 운영 크리에이터는 현재0명으로 빈 목록을 표시하며, 운영에 목업을 삽입하지 않았다. 운영 서버의 목업 PC/모바일에서는 신규3명·새싹 정상 표시, 가로 넘침/페이지 오류0. 실서비스의 비어 있지 않은 목록은 로컬 API/브라우저 대역으로 검증한 범위를 구분한다.
+- 증거: `.local/new-creators-20261031/`의 baseline/check/tests·E2E results·screenshots·verification, 배포 `.local/new-creators-deploy-20261031/`의 source-delta/builds/deployment-command/after/browser-after 및 캡처. 기존 변경 보존, 본 작업 커밋·푸시 없음.
+
+## 2026-10-31 17:37 KST /pilot-work 확정 정책 동기화 + 운영 배포 policy-sync2-20261031·가이드 (사용자 결정)
+- 결정(/pilot-work 질문): ①실결제 문구는 약관 '시행 예정본+공지' 방식, ②시행일은 토스 승인 후 확정, ③원천징수 회사 부담·출금 화요일 마감은 안내·가이드에 지금 반영하고 약관 제6조는 실결제 개정본에, ④beta.crefans.com 링크는 crefans.com으로 지금 교체. 추가 지시: 초대제 안내 '베타기간(~26년 11월)'→'현재 기간(~26년 11월)'.
+- 변경·커밋(푸시 없음): server 20563e4(마케팅 메일 기본 주소·설정 예시 crefans.com, 초대 안내 문구, live-payment-launch 원천징수 조사·결정·약관 제6조 개정 초안), front c0b8c6c(payoutTaxNote: 스튜디오 정산 안내·FAQ·서비스 가이드, 명함 소개 링크 crefans.com, 테스트 기대 문구), guide 9259cf6(수익과 출금·출금 설정·서비스 소개·소개서 PDF·가입 안내·문제 해결, beta 링크 22파일→crefans.com, 링크 검사기, 원본 잠금).
+- 약관(`legal-documents.ts`)은 미변경: 개정 초안은 server docs/live-payment-launch-20261031.md 4절 표(4조·6조 세금·일정·실결제). 시행일·공지는 토스 승인 후.
+- 검증: server build, platform-beta-policy 11/11·platform-legal 11/11(처음 실행은 다른 세션의 테스트 DB 점유로 실패→재실행 통과), front tsc 0·check 422/422, guide check:guides 통과(서비스 링크 44)·빌드 28쪽·소개서 PDF 13쪽 넘침 검사 통과·10쪽 육안 확인.
+- **사고와 교정**: 첫 배포 policy-sync-20261031(17:2x KST)이 payout-cutoff/beta-closed 기준 소스로 빌드됨. 그사이 다른 세션이 category-management-20261031(분야 관리, 마이그레이션 없음)을 배포해 두었고, capture_before가 배포 직전 상태를 새 기준으로 기록해 guard가 막지 못함 → 분야 관리 변경이 약 10분간 운영에서 빠짐. 즉시 category-management 소스를 기준으로 제 6파일만 얹은 policy-sync2-20261031을 17:33 KST에 재배포(운영본=수정 전 커밋 대조, 분야 관리 콘솔 API 4개 경로 존재 확인(비로그인 400, 404 아님)). DB 변경 없음. 재발 방지: 배포 폴더 생성 직전과 ship 직전에 release-before의 이미지 태그가 기준 릴리스와 같은지 확인할 것.
+- 운영 확인(policy-sync2): API health 200, crefans.com 탐색 200, 콘솔 로그인 200, FAQ 원천징수·화요일 마감 문구, 명함→crefans.com/service/landing 이동, API·worker MARKETING_PUBLIC_ORIGIN=https://crefans.com(deploy.sh 검사). 이미지 정리 keep 3+category-management 보호. 가이드(`crefans_guide/.local/deploy-policy-sync-20261031/`): 운영 44파일 해시 일치, 컨테이너·Caddy 불변, 가입 안내에 전체 동의·로그인하러 가기.
+- 남은 것: 프론트 docs:record는 다른 세션의 분야 아이콘 API 설명 누락으로 실패(그 세션 몫), guide check:guides는 다른 세션의 미배포 '새 크리에이터' 변경(CreatorPages·service.ts)으로 잠금 불일치(그 세션 몫). 원천징수 gross-up·지급명세서 운영·주민번호 수집은 세무사 확인 후.
+
+## 2026-10-31 17:23 KST 운영 활동 분야 순서·아이콘 연결 및 3개 앱 배포
+- 요청/합격 기준: 콘솔에서 활동 분야를 목업 순서 또는 임의 순서로 저장하고 아이콘을 업로드·교체한다. 실제 홈·탐색·프로필의 같은 CategoryChip에 반영하며 목업 기본 이미지를 유지한다.
+- `ServiceData.categoryIcons`를 선택 속성으로 추가하고 `CategoryChip`·`ProfileHeader`·`CreatorPages`·`SocialPages`에 전달했다. 업로드 API 이미지는 unoptimized로 표시, 응답이 없는 목업은 기존 round-flat 이미지를 사용한다. 정렬은 서버가 저장한 순서대로 전달하며 스튜디오의 활동 분야 선택에도 적용된다. 기존 등록 분야 자체를 이번 배포에서 추가/재정렬하지 않았다.
+- 검증: `npm run check` TypeScript·레이어·단위422 PASS, `e2e/category-icons.spec.ts` PC/Pixel7 2/2 PASS(API 대역으로 홈·탐색·프로필 사용자 아이콘과 목업 기본값 확인). 콘솔 PC/모바일8·서버 실제 HTTP/격리 DB29 PASS. S3 업로드·읽기·삭제는 대역이며 운영 버킷 신규 업로드와 실제 iPhone 검증은 미실행. 캡처·최초 실패/조치·최종 결과는 각 저장소 `.local/category-management-20261031/`에 보존했다.
+- 배포: `category-management-20261031` API/worker·콘솔·프론트 17:23 KST 완료. 직전 검증된 API payout-cutoff, 콘솔 modal-layer, 프론트 beta-closed 소스에서 본 작업 server9/admin14/front5 파일만 적용. 플랫폼amd64·이미지 내부 소스/런타임 파일·전송 SHA 일치. 서비스 탐색/목업/콘솔/health200, bootstrap.categoryIcons 계약 및 6개 기존 기본 아이콘200, 새 관리자 API 비로그인401. DB/proxy 컨테이너 보존, 전체 running/restart0/OOM없음. 스키마 변경 없음. 직전 이미지·설정 롤백 보존.
+- 증거: `.local/category-management-20261031/verification.json`; `.local/category-management-deploy-20261031/{source-delta,source-freeze,builds,deployment-command,after,verification}.json` 및 로그. 기준 HEAD 3f5e3e5, 기존 타 작업 변경 보존, 본 작업 커밋·푸시 없음. 문서 검사는 snapshot-only이며 기능 테스트 결과와 구분한다.
+
+## 2026-10-31 16:53 KST beta-closed-20261031 운영 배포 (사용자 지시 '배포')
+- 커밋 3f5e3e5(베타 종료 안내 모달 6파일, 다른 세션 변경 없음 확인). 푸시 없음.
+- 배포(`.local/beta-closed-deploy-20261031/`): 기준 프론트 payout-cutoff-20261031에 5파일 덮어씀(각 운영본=HEAD 확인), 699파일 이미지 내부 해시 대조, 프론트만 교체(API·worker·콘솔·DB·proxy 유지). 배포 조건 E2E qa/results.json PC 2·Pixel 7 2 통과.
+- 운영 확인(PC·Pixel 7): beta.crefans.com/service/feed 모달 표시, 체험하기→beta.crefans.com/preview/explore(모달 없음), 본 서비스로 이동하기→https://crefans.com/service/explore(모달 없음), 페이지 오류 0, beta.crefans.com/api/v1/health 200. 캡처 qa/prod-pc.png·prod-mobile.png. 이미지 정리 keep 3+직전 보호.
+- 위 '베타 호스트 종료 안내 모달 (미커밋·미배포)' 항목은 이 배포로 완료.
+
+## 2026-10-31 16:47 KST 베타 호스트 종료 안내 모달 (사용자 지시, 미커밋·미배포)
+- 요구: beta.crefans.com 접속 시 "비공개 베타 서비스가 종료되었습니다" 모달, 버튼 '본 서비스로 이동하기'·'체험하기'(목업 탐색 /preview/explore).
+- 구현: 표시 `components/crefans/BetaClosedDialog.tsx`(공용 Dialog·Action, designVariables 자체 적용 — 서비스 셸 밖에 마운트되어 색상 변수가 없던 결함을 캡처로 발견·수정), 컨테이너 `components/service/BetaClosedNotice.tsx`(location.hostname==='beta.crefans.com'일 때만 열림, 본 서비스=https://crefans.com+현재 경로·쿼리, 체험하기=/preview/explore, 닫기(X)도 본 서비스 이동), `app/service/layout.tsx`에 마운트(/service만, /preview 제외라 체험 화면에서 다시 뜨지 않음), `lib/content/business.ts` mainServiceOrigin·closedBetaHost, 디자인 카탈로그 '베타 종료 안내 보기'.
+- 검증: tsc 0, unit 422/422, `e2e/beta-closed.spec.ts` Chromium(PC) 2/2·Pixel 7 2/2(Chromium host-resolver로 beta.crefans.com→로컬, crefans.com 응답은 route 대역), preview.spec 21/21. 대조: 호스트 조건 제거 시 2건 FAIL→복원 PASS. 캡처 `.local/beta-closed-pc.png`·`-mobile.png`. WebKit은 호스트 매핑 불가로 미실행. 모바일에서는 긴 제목이 공용 Dialog의 흐르는 제목(marquee)으로 표시됨.
+- 주의: API·관리자 연결도 beta.crefans.com을 쓰므로 이 변경은 /service 화면에만 적용(API 경로 영향 없음). 베타 호스트의 로그인 세션은 crefans.com으로 넘어가지 않아 다시 로그인 필요.
+
+## 2026-10-31 16:40 KST payout-cutoff-20261031 운영 배포 (사용자 지시 '커밋과 배포')
+- 커밋: server 569ea97(출금 화요일 23:59 KST 마감), front 4769848(출금 안내 문구), admin 6e34949(수동 지급 패널 안내). 다른 세션 미커밋 변경 제외(서버는 수정 전 사본 대비 패치·API 문서는 해당 문단만), 서버 스테이징 스냅숏 tsc 0. 푸시 없음.
+- 배포(`crefans_front/.local/payout-cutoff-deploy-20261031/`): 기준 API payout-switch, 프론트 signup-page, 콘솔 mobile-table-sticky(다른 세션 배포본) 소스에 server 4·front 3·admin 1 파일만 덮어씀(나머지 manifest 일치, 각 파일의 운영본=수정 전 커밋본 확인). 마이그레이션 없음. deploy.sh 자체 검사 통과(신규 콘솔 API 비로그인 401/403, 결제 스위치 꺼짐, DB·proxy 유지). 배포 후 .env/runtime 세 이미지·APP_RELEASE=payout-cutoff-20261031. 운영 확인: 고객센터 FAQ·크리에이터 가이드에 '화요일 23:59' 문구. 이미지 정리 keep 3+직전 3개 보호, signup-success·qa-categories 삭제, 오류 0.
+- 미검증: 실제 수요일 처리(다음 수요일 11-04), 로그인한 스튜디오 출금 안내 화면.
+- 세무(원천징수) 조사 결과는 server `docs/live-payment-launch-20261031.md` 5절에 출처·확인일과 함께 기록. 결론 미확정(세무사·서면질의 필요).
+
+## 2026-10-31 16:31 KST 출금 신청 마감·공휴일 지급일 확정 및 반영 (사용자 결정)
+- 결정(사용자, 16:31 KST): 출금 신청 마감 화요일 23:59(KST), 매주 수요일 지급, 수요일 공휴일이면 다음 영업일(추천안). 참고 사례: 포스타입 매월 1일 마감·10일 지급·휴일이면 이전 영업일(help.postype.com '수익 입금 날짜', 2026-10-31 확인) — 수동 이체 운영이라 다음 영업일 선택.
+- server: `beta-policy.ts` payoutCutoff/inPayoutBatch/payoutQueue/PAYOUT_SCHEDULE_MESSAGE, `finance.service.ts`·`beans.service.ts` payout 검사와 작업자 큐, `jobs.service.ts` 큐가 수요일 0시 이전 접수분만 처리. 테스트 `tests/payout-cutoff.test.cjs`(경계 2건), `platform-manual-payouts` +1(수요일 접수분 거부). 검증: cutoff 2/2, manual-payouts 5/5, beans 32/32, provider-lifecycle 17/17. 대조: 마감 조건 제거 시 cutoff 1건·manual 1건 FAIL, 복원 후 PASS. 문서: platform-api.md 출금 마감 절, live-payment-launch 약관 제6조 행.
+- front: `lib/crefans/creator-payout-policy.ts` payoutScheduleNote(스튜디오 멤버십·콩 출금 안내), `support.ts` FAQ, `ServiceGuidePage.tsx` 가이드 문장. 같은 문장 속 '베타에서는 실제 송금하지 않습니다'는 실결제 문구 개정 때 별도. 검증 tsc 0, unit 422/422.
+- admin: `ManualPayouts.tsx` 안내문에 마감·공휴일. tsc 0.
+- 계약서 v2.34 별지 A 확정 문구, PDF sha256 40f63f95ceda80e5ba5021c40b636f7666dfa549812ebedbd5000da1ec55794d, 6쪽 확대 확인.
+- 미완: 커밋·배포 안 함. 약관 본문(제6조)은 개정 시행 때. 공휴일 판정은 코드에 없음(운영자 처리).
+
+## 2026-10-31 15:26 KST 가입 전체 동의·완료 전용 페이지·로그인 후 복귀·지갑 세부내역 접힘 (signup-page-20261031 운영 배포)
+- 사용자 요청: 가입 체크박스 로직, 가입 완료 모달→전용 페이지, 로그인 후 로그인 화면에 머무는 현상, (작업 중 추가) 지갑 콩 세부내역 기본 접힘. /ask-me 답: 전체 동의 추가, 모달 내용 그대로 페이지화(가입 즉시 로그인 아님), 로그인 후 원래 화면·없으면 홈.
+- 원인: 로그인 성공 시 비밀번호만 비우고 이동 없음. 체크박스 자체 동작은 정상(운영 PC·Pixel 7 확인), 전체 동의 없음.
+- 변경(커밋 011a24a, 푸시 없음): 전체 동의(보이는 필수·선택 항목 일괄, 하나 해제 시 해제). `/service/signup/complete`·`/preview/signup/complete` 전용 페이지(`SignupCompletePage`, 같은 탭 sessionStorage `crefans-signup-complete`가 있을 때만, 직접 진입은 가입 화면으로, 로그인 이메일 미리 채움, 제목 포커스). 로그인 후 `next`(같은 서비스 경로만, 백슬래시·공백·외부·인증 화면 거부) 또는 피드, 실서비스에서 이미 로그인한 회원은 로그인 화면에서 이동. 로그인 안내·헤더 로그인 링크가 현재 화면을 next로 전달(`useCurrentLoginHref`, 마운트 후 주소에서 읽음). 규약(표시 컴포넌트는 직접 이동 안 함, tests/crefans-account)에 따라 이동·next는 라우터가 주입. 지갑만 콩 세부 내역 기본 접힘(스튜디오 콩 화면은 기존 펼침). 다른 세션의 완료 모달(SignupCompleteDialog, 운영 배포됐던 것)은 페이지로 대체하며 삭제(원본은 ~/.codex/worktrees/crefans-signup-success 브랜치에 남음). Dialog의 illustration 옵션·CSS(다른 세션 미커밋)는 이제 사용처가 없지만 손대지 않음.
+- 검증(로컬 14:55~15:23 KST): tsc 0, npm run check 422/422, signup E2E(playwright.signup.config: PC·Pixel 7·iPhone 13 WebKit) 15/15, 실서비스 가입 테스트 4회 반복 12/12(WebKit 이동 중 요청 중단 오류를 테스트 대기로 안정화), 지갑·셸·미리보기 E2E 57 통과/1 skip. 대조 검사: next 무시·전체 동의 선택 항목 누락 시 해당 테스트 FAIL, 지갑 접힘 지정 제거 시 beans 2건 FAIL, 복원 후 PASS. 첫 구현의 제목 포커스 미동작(화면 표시 전 포커스)·테스트 대상 화면 착오를 테스트로 발견해 수정.
+- 운영 배포(`.local/signup-page-deploy-20261031/`): 기준 프론트 payout-switch-20261031에 15파일 덮어쓰기·완료 모달 1파일 삭제, 이미지 내부 697파일 해시 대조, 프론트만 교체(API·worker·콘솔·DB·proxy 유지), 15:26 KST 완료. 운영 확인(PC·Pixel 7, 비로그인): 전체 동의 5개 일괄 체크·선택 해제 시 전체 동의 해제, 완료 주소 직접 진입→가입 화면, 내 프로필 로그인 안내 링크 next=/service/me, 미리보기 지갑 세부 내역 접힘, 미리보기 완료 페이지 표시, 페이지 오류 0. 이미지 정리 keep 3+직전 보호.
+- 미검증: 운영에서 실제 가입→완료 페이지→로그인→원래 화면 복귀(운영 계정 필요), 로그인한 실서비스 지갑 화면(미리보기와 같은 컴포넌트·같은 지정).
+- 참고 질문: /ux-spinner는 ~/.claude/skills에 스킬로 등록돼 있지 않음(2026-10-27 대화에서 규칙과 함께 요청된 기록만 있음).
+
+## 2026-10-31 14:45 KST 커밋 정리·탈퇴 회원 재초대 수정·payout-switch-20261031 운영 배포
+- /ask-me 결정(14:05 KST): 이 세션 변경만 기능별 커밋(푸시 없음), 스위치 끈 채 운영 배포, 이메일 실제 SMTP QA는 나중에, QA 보고서 v1.2는 이메일 QA 후 한 번에.
+- 사용자 요청(작업 중): 운영콘솔 초대→가입→본인/콘솔 탈퇴 후 같은 이메일 재초대 불가 → 수정. 원인: 본인 탈퇴는 30일 파기 전까지 회원 행이 이메일·본인확인값(둘 다 unique)을 보유해 MEMBER_EXISTS, 콘솔 삭제는 사용 완료 초대가 남아 INVITE_USED. 수정: 탈퇴 회원 이메일 재초대 시 사용 완료 초대 재발급(admin.signup_invite_reissued), 30일 전이면 탈퇴 회원의 이메일·identity_hash만 즉시 해제(member.email_released), 나머지 개인정보는 기존 30일 파기 유지. 약관·처리방침에 재가입 제한 약속 없음 확인.
+- 커밋: server 8f686f2(실결제·수동 지급 스위치·대기 사유)·71ae325(재초대), admin 50833e5(수동 지급 패널), front 7d27533(settledShot·QA-F01·이메일 QA 규약)·6fd7109(대기 사유 표시·통신판매업 번호 자리). 다른 세션의 미커밋 변경(분야 관리 categories, 콩 sourceType 필터, 코호트·통합 테스트, 갤러리·공유 스펙, 가입 완료 화면 등)은 hunk 단위로 제외, 스테이징 스냅숏 tsc 0(server·admin·front). 계약서 폴더(docs/contracts, 미추적)와 PROGRESS·manifest(혼합)는 커밋 안 함.
+- 결함 수정: OpenAPI 테스트와 콘솔 manual-payouts 스펙에서 주석이 같은 줄 코드(경로 목록 비교, 마지막 스크린샷)를 삼키던 것.
+- 검증(로컬 13:55~14:30 KST): signup-invites 8/8(신규 테스트는 수정 전 MEMBER_EXISTS로 FAIL→수정 후 PASS), openapi 11/11, manual-payouts 4/4, hold-reasons 1/1, beans 32/32(CREFANS_E2E=true), provider-lifecycle 17/17, admin-console 14/14, pilot-followups 4/4, server tsc 0, 콘솔 manual-payouts E2E 1/1, admin tsc 0.
+- 운영 배포 payout-switch-20261031(14:41 KST 완료, 프론트 `.local/payout-switch-deploy-20261031/`): 기준 API invite-fix, 콘솔 qa-categories, 프론트 signup-success(다른 세션 14:17 배포본)에 이 세션 파일만 얹음(server 12·admin 3·front 4 파일, 나머지 manifest 일치). 마이그레이션 없음. deploy.sh 자체 검사 통과: 신규 콘솔 API 비로그인 401/403, API·worker의 LIVE_PAYMENTS_ENABLED·MANUAL_PAYOUTS_ENABLED 꺼짐, DB·proxy 미재생성. 배포 후 .env/runtime: 세 이미지·APP_RELEASE=payout-switch-20261031. 공개 화면 12개(PC·Pixel 7) 배포 전후 픽셀 비교 11개 동일, 모바일 소개 1개는 같은 배포본 두 번 촬영에서도 같은 영역이 달라 움직이는 요소로 판단. 이미지 정리 keep 3 + 직전 릴리스 보호, 로컬·원격 guide-sync·signup-open 3개 삭제, 오류 0.
+- 미검증: 운영에서 실제 탈퇴→재초대→재가입(운영 계정 필요), 로그인 화면의 대기 사유 표시(운영 크리에이터 정산 필요). 스위치는 꺼져 있어 실결제·수동 지급은 동작하지 않음.
+
+## 2026-10-31 가입 완료 로그인 링크 점검만 수행
+- 사용자 요청: 가입 완료 CTA가 목업으로 연결되는지 점검만. 제품 코드 수정·운영 배포·신규 가입·로그인 제출 없음.
+- 운영 `crefans-front:signup-success-20261031` 컨테이너의 실제 소스 확인: live 모델 `basePath:'/service'` → SignupPage의 `${basePath}/login` → 공용 모달 Link `href={loginHref}`. 실제 가입은 `/service/login`, 목업은 `/preview/login`으로 분기한다. AccountPages SHA-256 `eddb8becd6754684f37db4aa670002b8abfba3e3d680484c8d98a528851c47e4`, SignupCompleteDialog `fee4d92104c2097dbc759c8cc8e3a5e1c3aa70733800baf720871d020b549012`.
+- 새 Chromium 세션에서 운영 두 URL을 조회(exit 0): 모두 HTTP 200·원래 URL 유지·로그인 입력창 노출. `/service/login`에는 목업 안내 없음, `/preview/login`에만 안내 있음. 이전 실제 로컬 가입→로그인 3환경 통과 증거도 확인. 이번에는 운영 가입을 재실행하지 않았다.
+- 결론: 현재 배포 코드에서 실제 가입 CTA가 목업 로그인으로 연결되는 문제는 발견되지 않음. 근거 `.local/signup-link-check-20261031/result.json`. 후속 수정 없음.
+
+
+## 2026-10-31 회원가입 완료 모달 개선·운영 배포
+- 선택한 4안 v3를 공용 `SignupCompleteDialog`로 구현. 흰 모달, 88px 파란 원형 체크(내부 SVG 50px), 가운데 제목·환영 안내·48px 로그인 CTA. 스파클·하늘색 박스 없음. 실제 `/service/signup`, 목업 `/preview/signup`, 디자인 시스템에서 재사용한다.
+- 공통 Dialog의 선택적 illustration만 추가해 기존 일반 모달을 보존. 초기 포커스는 제목, Tab·Escape·닫기 및 키보드 복귀 검증. 가입 성공 후 입력 초기화로 비밀번호 오류가 다시 나타나는 기존 미커밋 보완도 포함.
+- 검증: `npm run check` 421/421, 최종 typecheck, 로컬 PC·모바일 Chromium·모바일 WebKit E2E 9/9, 운영 동일 3환경 UI 검사 6/6 통과. 320px 화면 넘침·잘못된 인증 코드·CTA 이동 포함. 첫 검사 실패는 중복 alert 선택, 전환 애니메이션·hover·키보드 시뮬레이션 대기 문제였으며 테스트를 수정한 최종 실행을 기록했다.
+- 배포: `signup-success-20261031`, 기존 운영 프론트 스냅샷에 대상 6파일만 적용. 이미지 소스 695개 SHA-256 일치 확인. 프론트만 교체하고 API·worker·admin·DB·proxy 동일 ID 유지. 운영 회원가입·목업·피드·API health·관리자 로그인 HTTP 200. 이전 프론트 롤백 이미지 보존.
+- 증거: `docs/audit/signup-complete-deployment-20261031.json`, `.local/signup-success-20261031/`의 로그·결과·PC/Mobile 화면. 구현 커밋 `5b354a5`, 브랜치 `feat/signup-success-dialog`; 원래 작업 트리의 무관한 변경 보존.
+- 검증 경계: 실제 iPhone 기기·운영 신규가입·SMTP 재전송은 이번 디자인 작업에서 미실행. `check:docs`는 기존 서버 미분류 문서 4개 때문에 실패했으며 전체 문서 검증 통과로 표시하지 않는다.
+
+
+## 2026-10-31 가입 완료 모달 4안 스파클 제거 시안
+- 사용자 요청대로 4안 v2의 반짝임 아이콘 제거, 기존 파란 원형 체크만 가로 가운데 정렬. 하늘색 배경 박스 없이 흰 모달 유지. 문구·로그인 CTA·닫기·모달 구성 보존.
+- 내장 image_gen 편집 결과 `output/imagegen/signup-complete-20261031/04-soft-color-v3.png`; 입력/출력·전체 프롬프트·SHA-256은 `04-soft-color-v3.generation.json`. 앞선 시안 모두 보존.
+- 검증: 생성 결과 육안 대조로 스파클 제거·체크 가운데·텍스트 유지 확인, PNG 형식/크기·원본/복사본 해시 일치 검사(exit 0). 제품 코드·배포 미적용, 기존 미커밋 변경 보존. 다음: 사용자 확정 후 공용 Dialog에 구현.
+
+## 2026-10-31 가입 완료 모달 4안 배경 박스 제거 시안
+- 사용자 선택·수정: 04 소프트 컬러형에서 아이콘 뒤 반투명 하늘색 헤더 배경만 제거. 모달 전체를 흰색으로 연결하고 파란 반짝임·체크 아이콘, 제목·설명·로그인 CTA·닫기 배치 유지.
+- 내장 image_gen 편집, 원본 보존. 산출물 `output/imagegen/signup-complete-20261031/04-soft-color-v2.png`, 전체 편집 프롬프트·입력/출력·SHA-256은 같은 폴더 `04-soft-color-v2.generation.json`.
+- 검증: 원본/수정 이미지 육안 대조로 하늘색 패널 제거와 문구·배치 유지 확인. PNG 형식·크기·생성본/복사본 해시 일치·원본 보존 확인(exit 0). 제품 코드·배포 미적용, 기능 테스트는 이번 시안 범위에서 미실행. 기존 미커밋 변경 보존. 다음: 시안 확정 후 공용 모달 구현.
+
+## 2026-10-31 회원가입 완료 모달 5종 이미지 시안 (선택 전, 제품 코드·운영 미적용)
+- 사용자 요청: 부실한 가입 완료 모달을 심플한 아이콘으로 꾸민 디자인 5종을 먼저 사진으로 비교. 현재 공용 `components/crefans/AccountPages.tsx:91`은 Dialog+Feedback+로그인 링크이며, `lib/design/tokens.ts`의 파란색 #2563EB·흰 배경·중립 텍스트·둥근 모서리를 참고.
+- 내장 image_gen으로 각각 독립 생성: 01 기본 체크형, 02 브랜드 하트형, 03 미니멀 라인형, 04 소프트 컬러형, 05 웰컴 티켓형. 가입 완료·환영 안내·‘로그인하러 가기’와 테두리 없는 닫기 아이콘을 공통으로 유지. 추천은 기존 UI와 가까운 01, 브랜드 강조 대안은 02.
+- 산출물: `output/imagegen/signup-complete-20261031/`의 PNG 5개·`prompts.json`(전체 생성 프롬프트)·`manifest.json`(생성 원본 경로·크기·SHA-256·검토 범위). 채팅에서 5종 모두 이미지로 표시. 원본 생성 이미지는 보존하고 프로젝트 폴더에 복사.
+- 검증: 5종 육안으로 문구·CTA·아이콘·잘림 확인; Python PNG 헤더·파일 개수·원본/복사본 SHA-256 일치 확인(exit 0). 실제 웹 모달·폰트 파일·반응형 동작 검증은 선택 후 구현 범위. 제품 코드·배포·가입 데이터 변경 및 제품 테스트 실행 없음.
+- 기준선: front HEAD `5dcf63c7eb6197d00ed4ea15595e36b4f8613ceb`, 작업 전 다수 미커밋 변경 존재·보존. AccountPages SHA-256 `41c3b75b978bab9db91802d78e933dc5162aa040fdd0303b7dad36973fb65fd2`, tokens SHA-256 `66eea7bc6d97eacd0d4b9f2c66c3b7e32c7c9547de2c1a2c882ff1463221fc9d`. 다음: 사용자 시안 선택 후 공용 Dialog 기반으로 실제/목업 동일 적용하고 모바일·PC 검증.
+
+## 2026-10-31 베타 실결제·수동 지급 준비 구현 (로컬, 미커밋·미배포)
+- 결정(/ask-me): 토스 일반결제·자동결제·지급대행 신청(심사 중), 송금은 운영자 수동 이체+콘솔 기록, 통신판매업은 토스 등록 시 신고, 문구 개정·공지 후 개시(토스 승인·신고번호 확인 후), BETA_MODE 유지+스위치, 원천징수 없이 지급(세무 확인 필요 위험 기록).
+- server: `beta-policy.ts` livePayments/manualPayouts — LIVE_PAYMENTS_ENABLED면 베타에서 live_ck/live_sk만(섞인 키 LIVE_KEYS_REQUIRED), 아니면 기존 test 키만. `bank-provider.ts` 수동 모드: 계좌 확인 MANUAL_ACCOUNT_REVIEW 안내, 이체는 pending 반환(동기 오류 동작 유지). `finance.service.ts` manualResult/manualVerifyAccount, payout 베타 차단은 수동 모드면 허용. `beans.service.ts` manualResult(기존 payout 클레임+finishPayout 원장 경로 재사용). `jobs.service.ts`·콩 작업자 수동 모드에서 수요일 처리 중 전환. admin API 4개(withdrawals/:id/manual-result, settlement-accounts 목록·verify, beans withdrawals/:id/manual-result), /admin/me livePayments·manualPayouts, /admin/withdrawals?status=open(+note·account_label). 권한 revenue.create·beans.update. openapi(171 operations)·platform-api.md 갱신.
+- admin: `ManualPayouts.tsx`(매출·정산 아래 수동 지급 패널: 확인 대기 계좌, 이체할 멤버십 출금, 이체 완료 기록·반려 양식, table-wrap), Beans "이체 완료 기록", Console Admin 타입·연결. `e2e/manual-payouts.spec.ts`(ADMIN_E2E_MANUAL_PAYOUTS=1일 때만, tests/admin-console-server.cjs가 그때만 시드).
+- front: `lib/content/business.ts` mailOrderNumber(null) — 값이 있으면 BusinessInfo 하단에 통신판매업 신고번호 표시.
+- 문서: `crefans_server/docs/live-payment-launch-20261031.md`(결정·스위치·운영 절차·문구 개정 초안·남은 위험), manifest 등록.
+- 검증: tests/platform-manual-payouts 4/4(대조: 수동 허용 제거 시 FAIL→복원 PASS), platform-beans 32/32(수동 콩 지급 추가), provider-lifecycle 17/17(transfer async 회귀 발견·수정), openapi 11/11, 서버 전체 416 PASS·0 FAIL(레거시 DB·실 AWS 2파일 제외), 콘솔 manual-payouts PC·Mobile PASS(최초 권한 이름·모바일 표 넘침 결함 발견·수정), front check 422/422, admin tsc, check:docs PASS. 콘솔 전체 E2E(PC) 38 PASS·1 FAIL(기존 QA-P03 대시보드 축소 넘침)·1 skip(수동 지급 스펙은 전용 환경에서만).
+- 미적용: 약관·가이드·화면·계약서 문구 개정(초안만), 운영 배포, 운영 키 교체(사용자 직접), 통신판매업 번호 입력.
+
+## 2026-10-31 /ask-me 베타 실결제·송금 개시 결정 (구현 전)
+- 사용자 결정: ① 토스페이먼츠 일반결제(콩 충전)·자동결제(빌링·구독)·지급대행 모두 신청, 아직 심사 중 ② 크리에이터 송금은 운영자 수동 이체 + 콘솔 지급 기록(토스 지급대행 미연동: bank-provider.ts는 자체 규격만) ③ 통신판매업은 토스 등록 과정에서 신고(번호 미보유) ④ 약관·안내·계약서 문구 개정·공지 후 개시, 시행은 토스 승인·통신판매 번호 확인 후 ⑤ BETA_MODE 유지 + 실결제·수동 지급 스위치 별도 추가 ⑥ 출금 시 원천징수 없이 지급.
+- 확인된 사실: assertBetaPayment가 BETA_MODE에서 test_ck/test_sk만 허용, 출금은 BETA_PAYOUT_DISABLED·BANK_PAYOUTS_ENABLED로 차단. 약관 4조·계약서 별지 B·화면 안내는 '베타 실제 청구·송금 없음'.
+- 위험(미확정): 소득세법 127조·129조상 원천징수 대상 사업소득(인적용역) 지급자는 3%(+지방 0.3%) 원천징수·지급명세서 의무(2차 자료, 확인 2026-10-31: taxly.kr/post/326, watax.kr/employment/business-income-withholding). 크레팬스는 멤버십 판매자=크리에이터(회사=중개)라 멤버십 정산금·콩 후원 수익 지급의 원천징수 대상 여부는 세무사 확인 필요. '원천징수 없이 지급'은 사업자 결정으로 기록하며 확정 법적 판단 아님. 2026-08 인적용역 원천세율 2.2% 인하 입법예고 보도 있음(미확정).
+- 운영 키 입력: 실 운영 시크릿 키(live_sk)는 사용자가 서버 env에 직접 입력(수행자는 운영 키를 입력하지 않음).
+- 다음 작업 후보: 서버 LIVE_PAYMENTS·MANUAL_PAYOUTS 스위치와 수동 지급 기록(처리자·이체 참조·시각·감사), 약관 4조·계약서 별지 B·화면 안내 개정안(시행일 미정), 통신판매업 번호 표시 자리.
+
+## 2026-10-31 /pilot-work 계약서 v2.1 재검사·보류 사유 표시 (계약서 수정, 코드 로컬·미커밋·미배포)
+- 재검사: 약관·정산 정책 원본(legal-documents·bean-policy·beta-policy·creator-payout-policy)은 v2 이후 변경 없음, 계약 핵심 값 11개 일치. v2 이후 변경(초대 재등록 수정·분야 관리·미수금 알림 배포·운영 정책 20%/7일 사용자 확인)은 계약과 충돌 없음(8③ 소급·자동 우대 없음과 같은 방향, 9③ 알림 약속 이행).
+- 결정(클릭): ① 7⑥ 보류 사유 → 코드로 이행 ② 2①·12④ 사본 제공 → "요청 시 고객센터를 통해 전자문서로" 명시.
+- 계약서 v2.1: 2①·12④ 문구, 표제 v2.1, README 변경 기록. PDF 재생성·verify PASS(7쪽·13조·별지2), 전 쪽 육안 확인. PDF sha256 cdc075cf…55d6, TXT d607a252…a875.
+- 코드: server `settlement-receipts.ts` settlementHoldReasons(period/receipt, settlementPending과 같은 규칙), `finance.service.ts` settlements[].holdReasons, openapi-contract·platform-api.md 갱신. front 타입·`studio/FinancePages.tsx` 건별 "대기 사유" 표시(사유 없는 응답은 기존 종료일 문구).
+- 검증: tests/settlement-hold-reasons.test.cjs 1/1, platform-finance 9/9, openapi 11/11, pilot-followups 4/4, front check 422/422, qa-journey J10 PC·Mobile PASS(사유 표시 단언 추가). 대조: 서버 holdReasons 제거 시 J10 FAIL → 복원 PASS. docs:record·check:docs PASS. 운영 배포는 2026-10-31 사용자 결정으로 "다음 배포에 포함"(서버 settlement-receipts·finance.service·openapi-contract + 프론트 FinancePages·타입).
+
+## 2026-10-31 실제 SMTP·Gmail 수신 QA 및 기존 보고서 v1.2 보강 (Codex 현재 세션)
+- 범위: 기존 Astra 회원가입 / Opus 후속 E2E 이력은 보존하고 이메일 증거만 보강. 로컬 실제 DB·API·도메인·큐 + Google SMTP, 수신 주소는 승인된 Gmail 1개로 고정. PG 대역이며 운영 결제·기존 회원 암호·수신 설정 변경 없음.
+- 11개 시나리오(인증 3, 업무 알림 4, 광고/수신 설정 4), fixture 교정 재발송 1통 포함 12통 모두 외부 Gmail INBOX. Message-ID·SPF/DKIM/DMARC·From·CID 로고·앰대시 미포함 대조. 실제 받은편지함 화면 첨부, OTP·토큰 비공개.
+- 실제 베타 PC/Mobile 비밀번호 재설정 요청은 코드 입력 단계까지 확인. test-fan-1/2 별칭의 발송 사본은 있으나 받은편지함 검색 0건: 독립 수신 BLOCKED. 기존 계정 비밀번호 변경 제출 안 함.
+- 수신 MIME HTML 390px Chromium/WebKit 22건 가로 넘침·깨진 이미지 0. 실기기 메일 앱은 BLOCKED로 구분. 관련 회귀 67/67 PASS. 임시 회원 정리 후 잔여 0.
+- 최초 MAIL-05 시간 fixture가 베타 복구 기한보다 짧아 실패 → 5일 경과로 교정하여 재검증 PASS. 최초 로컬 operations outbox Telegram RATE_LIMITED 2건 확인 후 재실행은 봇 설정·작업 시작 hook 격리. 성공 전송은 확인되지 않음.
+- 미구현 발견: account-changed/payment-completed/renewal-upcoming/subscription-cancelled/subscription-ended/refund-completed/withdrawal-received/withdrawal-completed/withdrawal-failed 9종은 템플릿만 있고 실제 이벤트 발송 연결 없음. 이번에 제품 코드/운영 배포는 하지 않음.
+- 산출물: front `output/pdf/crefans-qa-pcmo-20261031-mail-v1.2/`의 PC·Mobile·통합 HTML/PDF. 기존 PDF 원본을 뒤에 보존하며 신규 증거는 `mail/`. 실행 증거·비공개 원본: server `.local/mail-qa-20261031/`. 기존 코드 미커밋 변경 보존.
+- 최종 PDF PC 282쪽·Mobile 362쪽·통합 24쪽(전체 668쪽 렌더). 새 45쪽 검토, 기존 623쪽 원본과 픽셀 일치. check:docs는 동시 작업 포함 기존 문서/소스와 이번 문서 추가의 증거 해시 만료로 exit 1; 무조건 스냅샷 갱신하지 않고 mail/docs-check.log에 기록.
+
+## 2026-10-31 QA-F01 원인 확인·테스트 수정 (미커밋)
+- 진단(6회): /preview/post/morning 로드 직후(domcontentloaded)에는 숨은 PC용 textarea만 있고 휴대폰 하단 입력(INPUT aria-label 댓글 남기기)은 하이드레이션 후 생성. 테스트가 그 전에 입력해 숨은 textarea를 잡으면 15초 대기 후 실패하는 테스트 대기 조건 문제. 제품 결함 아님.
+- 수정: e2e/mobile-comments.spec.ts에서 `[data-comment-dock] input` 표시를 기다린 뒤 입력. 검증: Mobile Chromium·WebKit 각 10회 반복 20/20 PASS(front-f01-fix).
+- 이메일 범위 확인: 이번 실행은 로컬 대역만(템플릿 18/18, SMTP 흐름 통합 12/12 — "no live SMTP", 프론트 mail.spec 2건, 광고 동의·수신거부). 실제 SMTP 발송·수신, 발신자 표시는 미실행. 메일 소스 엠대시 0건(정적 확인). 실제 수신은 Codex Astra 가입 메일 16/16만 기록.
+
+## 2026-10-31 QA 보고서 화면 증거 보정 (사용자 지적: 갤러리 오버레이 반투명 캡처)
+- 원인: trace에서 시간상 처음·중간·끝 프레임을 그대로 쓰고, 테스트 종료 시 자동 캡처가 오버레이 전환 중에 찍힘.
+- 조치: ① trace 프레임은 같은 페이지에서 다음 변화까지 150ms 이상 멈춘 안정 프레임만 사용, 로딩만 보이는 프레임 제외 ② `e2e/qa-settled.ts`(settledShot)를 base test 스펙 19개에 test.afterEach로 등록, fixtures page 훅·qa-journey 단계 캡처도 애니메이션 완료 대기(모두 QA_SETTLED_SHOT=1일 때만) ③ 프론트 전체 최종 재실행(front). 1차(front-run1)·훅 누락 중간 실행(front-run2-partial-settled)은 보존.
+- 최종: PC 177건 PASS 173·FAIL 1(QA-P03)·N/A 3 / Mobile 190건 PASS 178·FAIL 1(QA-F01)·BLOCKED 1(QA-T02)·N/A 10. 최종 화면 258건이 애니메이션 완료 후 캡처(콘솔·여정 등 나머지는 자동 캡처/단계 캡처).
+- 신규 QA-F01: 목업 /preview/post/morning 재진입 직후 휴대폰 하단 댓글 입력창 미표시로 mobile-comments 갤러리 케이스 간헐 실패(훅 없는 대조 반복에서도 재현, 약 30%). 원인 미확정·미수정.
+- 테스트 인프라 변경은 미커밋(qa-settled.ts·fixtures·19개 스펙 import 한 줄·qa-journey 대기). post-*/preview 스펙에는 다른 세션 미커밋 변경이 섞여 있어 일괄 커밋하지 않음.
+
+## 2026-10-31 /ask-me 결정 반영·운영 배포 qa-categories-20261031
+- 사용자 결정(클릭): ① QA 수정분 커밋 먼저 ② 분야 관리 서버·콘솔 배포 ③ QA-P01·P02는 다음 배포에 포함 ④ 운영 금융 정책 20%·7일 맞음(사용자 확인, QA-E01 해소 기록).
+- 커밋(푸시 없음): front 0b24a4e fix(메시지 대화방 유지·KST 시각), 5dcf63c test(qa-journey·qa-cohort·QA 설정·모바일 현행화) / server 1734563 test(e2e-server QA 동작) / admin 197a780 test(QA 설정). 다른 세션 변경(post-*/preview 스펙, AccountPages, PROGRESS·docs/audit, beans.spec 등)은 제외.
+- 배포: 기준선 guide-sync-20261031(배포 직전 운영 확인) 위에 승인 파일만 덧씌움 — server admin.controller·openapi-contract(분야 GET/POST)·finance·beans.service(미수금 알림 원거래·이의 안내), admin Categories·Console·Operators·globals.css, front useServiceModel·SocialPages·studio 3·display-time. 미배포 제외: front AccountPages.tsx(다른 세션 가입 화면 수정). 이미지 내부 소스 해시 대조·amd64 확인, 배포 스크립트 확인(새 API, 비로그인 /admin/categories 401, 설정 변경 범위, DB·프록시 유지) 통과. 배포 후 실제 베타 비로그인 11화면 PC·Mobile 200, /admin/categories 404→401. 공개 분야는 0건 → 운영자 콘솔에서 분야 추가 필요.
+- 이미지 보관: 로컬·원격 keep 3 적용(원격은 직전 콘솔 guide-sync를 --protect). 증거 `crefans_front/.local/qa-categories-deploy-20261031/`.
+- QA-P03 원인: 콘솔 대시보드 recharts 숨은 툴팁이 넓은 화면 위치(right 460)에 남아 축소 시 가로 넘침. 분야 변경과 무관, 미수정(후속).
+- QA 보고서 v1.1로 결정·배포 결과 반영, PDF 전 쪽 재검사(빈 쪽·영역 밖 글자 0, 케이스 ID 누락 0). /ask-me 스킬 신설(~/.claude/skills/ask-me).
+
+## 2026-10-31 회원가입 이후 전체 시나리오 PC·Mobile E2E QA (qa-pcmo-20261031-0743, 수행 Claude Opus 5.5 medium, 미커밋·미배포)
+- 범위: 기존 가입 검증(Codex Astra, .local/signup-qa-20261031)은 선행조건으로만 사용하고 결과 합산 안 함. 로컬 격리(A) 전체 E2E를 PC(Chromium 1440×900)·Mobile(Chromium Pixel7 390×844 에뮬레이션)·WebKit iPhone13 일부로 실행. 실제 베타(B)는 비로그인만 PC·Mobile 실행(11화면·보호 API 9건). 로그인 이후 실제 베타는 BLOCKED(운영 서비스 비밀번호·OTP 입력 불가, 저장 세션 없음). 실공급사(C) NOT_RUN.
+- 결과(최종): PC 177건 PASS 173·FAIL 1(콘솔 QA-P03)·N/A 3 / Mobile 190건 PASS 179·BLOCKED 1(WebKit 종료 단계 비정상 종료)·N/A 10. 서버 49파일 412테스트 409 PASS(2파일 NOT_RUN: 레거시 _test DB·실 AWS opt-in, 2파일은 API 3005 기동 후 19/19). 프론트 check 422/422.
+- 제품 수정(로컬): QA-P01 모바일 메시지 전송 후 대화방 닫힘 → `features/service/useServiceModel.ts` 메시지 전송만 refresh({quiet:true}). QA-P02 실서비스 시각 ISO UTC 원문 표시 → `lib/crefans/display-time.ts`(KST) + SocialPages·스튜디오 3화면. 각각 최초 실패 증거·대조 검사(되돌리면 FAIL) 보존.
+- 테스트: 신규 `e2e/qa-journey.spec.ts`(J01~J10 역할별 독립 컨텍스트·단계 캡처), `playwright.qa.config.ts`(pc/mobile/mobile-webkit), `tests/display-time.test.cjs`. 현행화: bean-refund-closing(휴대폰 스튜디오 메뉴), comment-social(PC 입력 전제 → 휴대폰 제외 사유), mobile-shell(긴 목업 이름).
+- 미해결: QA-B02 실제 베타 분야 0건·콘솔 분야 API 미배포(404)로 크리에이터 등록 불가. QA-E01 격리 DB 정책 10%/0일 ≠ 약관 20%/7일, 운영 DB 값 미확인. QA-P03 콘솔 대시보드 1440→390 축소 시 scrollWidth 460. 다음: 사용자 세션 수집(.local/qa-20261030-2351/beta/collect-sessions.cjs) 후 실제 베타 로그인 시나리오, QA-P01·P02 커밋·배포 결정.
+- 원시 증거 `crefans_front/.local/qa-pcmo-20261031-0743/`(명령·시각·종료 코드·로그 SHA-256: logs/*.json, 소스 상태 source-state.json), 보고서 `crefans_front/output/pdf/crefans-qa-pcmo-20261031-0743/`(PC·Mobile·통합 HTML/PDF, traceability CSV/JSON, README, SHA256SUMS).
+
+## 2026-10-31 QA 후속 활동 분야 콘솔 추가: 계약·증거 갱신 (미배포)
+- 서비스 프론트 제품 코드는 이번 작업에서 변경하지 않았다. 형제 admin의 운영 설정에 분야 목록·추가 UI, server에 보호된 GET /admin/categories와 생성·수정 분리 검증을 추가했다. 상세 결정/검증은 두 리포 PROGRESS 최신 항목.
+- 연결 근거: `components/crefans/studio/OverviewPages.tsx`의 ProfileFields가 model.categories를 선택지로 사용한다. 서버 격리 통합 검사에서 신규 분야가 studio/overview·bootstrap에 나타나고 studio/start로 저장되는 것을 확인했다. 실제 서비스 프론트의 가입 브라우저 시나리오나 실베타 검증 완료로 확대하지 않는다.
+- 서버 관련32/32, 콘솔 단위11/11·전체E2E39/39(실API+대역)·빌드 통과. PC/390px 콘솔 화면 육안 확인. 원시 증거 형제 admin `.local/creator-categories-20261031/`. 기존 QA PDF는 당시 실행의 기록으로 유지한다.
+- `../crefans_server/docs/platform-api.md` 의미 계약과 current-contracts.md 갱신 후 docs:record·check:docs를 수행한다. 해시 스냅샷은 제품 검사와 별개이며 범위 밖 기존 작업의 재검증을 뜻하지 않는다. 운영 배포·실베타 분야 추가/크리에이터 등록은 아직 미실행.
+
+## 2026-10-31 시나리오별 QA 재검증·외부 검토용 보고서 (qa-20261031-final, 미커밋·미배포)
+- 합격 기준: 기존97+확장23=120개 요구사항에 실행 테스트·실제 결과를 연결하고 로컬/실베타/실공급사 판정을 분리. ISO/IEC/IEEE29119-3 공개 개요, ISTQB CTFL4.0.1, OWASP 권한 교차, Playwright 세션 격리 공식 자료를 참고했으며 인증·완전 준수나 출시 승인을 주장하지 않는다.
+- 최종 로컬: front check421/421, server433/433(48파일·결제키 환경 추가로49실행), admin check11/11, front E2E161통과·3건 데스크톱 제외(동일 모바일 검사 통과), admin E2E37/37. 초기 공유DB 충돌 실행은 제외·보존하고 서버→콘솔→갤러리 순차 재검증. 구형 auth_test 스키마/runner 환경변수 문제 보정 후 인증12/12·실MySQL 보안19/19. 실AWS opt-in 미실행.
+- 제품 수정은 가입 성공 콜백의 submitted 상태 초기화 1곳. 완료 뒤 비밀번호 오류 노출을 수정 전 실패 대조 후 검증. 테스트만 현행화: 잠긴 글 후원 거부/구독 선행, 갤러리 기본 단계1, 콘솔 전용 관리자 분리, API 키 유무·필수값 계약. 권한 로직 완화 없음. 기존 다른 세션 작업 보존, commit/push/배포 없음.
+- 실제 베타: 지정16회원의 분리된 쿠키로 로그인·본인 이메일·마케팅off·지갑 조회, 팔로우 원복, 비공개 팔로워/팔로잉 타인403·본인200, QA메시지1건, 회원의 관리자401, 테스트키환경, 10콩1100원 미결제 주문 멱등성·타인404, 로그아웃 격리 확인. HTTP27통과·1실패(활동 분야0개). 최초 잘못된 개인정보 목록 경로404 검사는 경로 수정 후 다시 검증. 비로그인8공개화면·15보호API·5헤더 확인. 앞선 실제SMTP 가입16/16 증거 연결.
+- 차단/잔여: 실베타 분야0개로 크리에이터 등록과 구독자0/2/10명 구성이 중단. 테스트 분야1개 추가 승인받았으나 관리자 TOTP2회 거부로 재시도 중지. 현재 콘솔에 카테고리 추가 UI도 확인되지 않음(API 존재). 사용자 모바일 경로 admin.crefans.com/login, 로그인 후 /console/me#totp 안내. 실토스 승인·빌링·갱신·환불·은행·운영S3/CDN·복구·부하 미완료. npm audit 프로덕션 의존성 front7(critical1/high4/moderate2), server8(high2/moderate6), admin0. 악용 도달 가능성·호환 패치 평가 미완료로 종료기준 실패.
+- 잔여 베타 데이터: 테스트 회원16개, 팬1→팬2 QA메시지1개, 미결제 충전주문1개. 팔로우/공개설정 원복·HTTP 검사 세션 로그아웃. 실제 승인·충전·프로모션 지급·후원·송금·운영DB 직접 수정 없음.
+- 산출물: output/pdf/crefans-qa-20261031/ 의 PDF34쪽·HTML·요구사항 CSV/JSON·테스트 인덱스·공식 근거·증거 해시 목록. 원시 증거 .local/qa-20261031-final/ 및 signup-qa-20261031/. 120개 중 로컬 기준35PASS·80PARTIAL·4NOT_RUN·1FAIL이며 검사건수와 요구사항 완료율을 혼합하지 않는다. 전체 페이지 렌더, ID/수치/비밀 미포함/해시 대조와 문서 검증은 같은 증거폴더의 verification.json·logs/docs-*에 기록. 문서 해시 갱신은 제품 검사와 구분한다.
+
+## 2026-10-31 초대된 16개 테스트 회원 가입 검수 완료 (실제 베타·실 SMTP)
+- 범위는 회원가입과 가입 직후 로그인 확인만. test-creator-1~3/test-fan-1~13 총16주소의 코드 요청·실제 Gmail 수신·이메일 인증·회원가입 완료·로그인·본인 닉네임 프로필·로그아웃 모두16/16 확인. 첫 creator1 잘못된 인증코드 1회 거부도 확인. 초대 설정 변경 없음.
+- 사용자에게16계정 필수 동의·만19세 조건·계정별 임의 비밀번호 비공개 저장을 묶어 확인받은 뒤 가입 제출. 시행일2026-10-30 약관/개인정보 필수 체크, 마케팅 모두off. PASS는 email-only UI에 없고 실제 본인/연령 인증 완료를 뜻하지 않는다. 크리에이터용 주소도 일반 회원가입까지만 완료했으며 크리에이터 신청/심사는 수행하지 않았다.
+- 계정마다 서로 다른 테스트 비밀번호는 `.local/signup-qa-20261031/private/credentials.json`(디렉터리0700/파일0600/Git제외)에만 저장. 비밀번호·OTP는 공개 문서/증거에 미포함. 후속 QA 세션은 이 파일을 로컬에서 읽고 값을 채팅·로그로 출력하지 않는다. 기존 사람 비밀번호 재사용/변경 없음.
+- Chrome 동일 프로필에서 계정별 순차 로그인→본인 프로필(닉네임)→설정 로그아웃→로그인 보호 확인. 동시 격리 세션 검증은 아님. 최종 브라우저는 로그아웃 상태. 결제/구독/후원/크리에이터 활동·DB 직접 변경·운영 배포 미실행. Gmail 수신함/스팸 분류는 미판정.
+- 발견사항 `SIGNUP-UI-01`(경미,미수정): 가입 완료 모달 뒤 비밀번호 초기화에 따른 “비밀번호를8자 이상” 오류가 함께 보임. 가입/로그인 성공과 구분하여 추후 UI 수정 대상으로 남겼다.
+- 증거 `.local/signup-qa-20261031/verification.json`, 계정별 `*-verified.txt`/`*-created.txt`/`*-login.txt`/`*-logout.txt`, `signup-complete.png`.16개 대상·필수/마케팅 동의·각 완료/본인 프로필/로그아웃 DOM·파일 권한/Git제외/비밀 미노출 대조 검증 종료0. 최초 증거검사에서 범위 밖 지갑잔액까지 단정한 assertion은 비동기 로드전 내 지갑 문구로 실패하여 잔액 완료 주장을 제거했다. 문서 검사 결과는 같은 폴더 `docs-record.log`/`docs-check.log`. 기존 타 세션 미커밋 작업 보존, 신규 commit/push 없음.
+
+## 2026-10-31 오픈베타 역할별 QA 실행 (runId qa-20261030-2351, 테스트 코드만 수정·미커밋, 배포 없음)
+- 지시: `.local/qa-handoff-20261030/prompt.txt`. 증거·보고서 `.local/qa-20261030-2351/`(report.html·report.pdf·trace.csv/json·defects.json·environment.json·logs·local·beta, 비밀 `private/` 700).
+- 결과: 서버 49파일 410건 중 405 PASS·2 FAIL(QA-D03 결제 키 환경 결합)·2 NOT_RUN(구형 _test DB, 실 AWS)·1 skip. 프론트 단위 421/421, 콘솔 단위 11/11. 프론트 E2E 128건 → 124 PASS·1 FAIL(QA-D04)·3 skip(첫 실행 8 FAIL 중 7건은 의도된 UI 변경 뒤 낡은 기대값, QA-D06로 갱신). 콘솔 E2E 36/37(QA-D05 로그인 제한, 단독 PASS).
+- 신규 `e2e/qa-cohort.spec.ts` + 서버 `tests/e2e-server.cjs` `cohort`·`cohort-expire`: C0/C2/C10·S01~S12·N0·G0 독립 BrowserContext 권한표(본문·미디어 GET/HEAD/Range 40조합, URL 공유·캐시 후 접근, 로그아웃 격리, 해지예약·만료·미사용 환불·열람 후 환불, 타인 주문·게시물, 잠긴 글 후원, 이중 결제) PASS. 대조: 서버 미디어 권한 검사 제거 시 FAIL 확인 후 복원.
+- 실제 베타: 비로그인 G0만(공개 화면 8·보호 API 15 거부·보안 헤더 5) PASS. 지정 이메일 16개 계정 가입·로그인·콘솔 2차 인증·Gmail은 운영 서비스 계정 생성/비밀번호 입력이라 BLOCKED(사용자 직접). 실공급사(PASS·Toss 창·은행·SMTP 수신·Telegram) NOT_RUN.
+- 2026-10-31 베타 로그인 QA 준비(실행 전): 사용자가 원격이라 Mac 로그인 불가 → "로그인만 사용자, 나머지 자동" 방식. `.local/qa-20261030-2351/beta/collect-sessions.cjs`(계정별 수동 로그인 → storageState를 `private/sessions/` 700/600에 저장, `--verify`), `beta/role-qa.cjs`(setup 크리에이터 3·멤버십 9·게시물 15 / subscribe 팬 12 토스 테스트 결제창 / card / checks 권한·미디어·공유URL·해지·환불·경합·로그아웃 / console 읽기 전용), 순서는 `beta/RUNBOOK.md`. 비밀번호·OTP·카드 입력은 하지 않음(사용자가 OTP를 제시했으나 사용 안 함). 선행 조건: 콘솔에서 16개 초대 등록·가입(폰 가능) 후 Mac에서 세션 수집. 만료(S05)는 베타 NOT_RUN 고정.
+- 테스트 수정(미커밋): e2e/post-detail-gallery(닫기 24px)·post-share(Toast)·post-views(그려진 요소만 측정)·preview(긴 이름). Codex 미커밋 `e2e/beans.spec.ts` 후원 필터 테스트는 10-31 '볼 수 없는 글 후원 금지'와 충돌(QA-D04) — 손대지 않음.
+
+## 2026-10-30 다른 세션용 역할별 전체 QA 실행 지시문
+- 사용자 요청으로 `.local/qa-handoff-20261030/prompt.txt` 작성. 기존 별칭16개와 C0/C2/C10·12구독자·N0·기존 A0·격리 A1·G0 배정, 계정별 독립 BrowserContext/context.request·소유권 교차, 기존 출시 시나리오 ID 추적, 단위/DB/HTTP/E2E·실베타·공급사 대역 구분을 포함했다.
+- 최신 정책 확인점을 명시: 초대 가입·email-only의 성인인증 아님, 프로모션 후원수익 출금 허용, 직접 충전/지급 잔액과 구분, 110원 충전/100원 가치·20%·10만원, 잠긴 게시물 후원 차단, 기존 snapshot·유효 법률문서 우선. 현재 배포/설정을 새 세션이 재조회하도록 했다.
+- 승인 범위 제안은 지정 QA 계정·기능성 메일·토스 테스트 환경으로 한정. 실제 청구/송금·현금화 가능 프로모션 지급·운영 DB 직접 변경/장애주입·권한 확대·운영 배포는 자동 실행 대상에서 제외. HTML/PDF 보고·금액 대사·비밀정보 분리·잔여 QA 데이터 목록 요구.
+- 이번 턴은 코드/공식 문서 대조와 지시문 작성만 수행. 제품 테스트·회원 생성·메일 발송·금융 실행 없음. 확인 근거/파일 해시/명령 결과는 `.local/qa-handoff-20261030/verification.json` 및 docs-check.log. 다음 세션은 해당 지시문을 읽고 사전 확인 후 실제 QA를 시작한다.
+
+## 2026-10-30 QA 이메일 별칭 16개 생성 완료
+- 사용자 요청으로 기존 Workspace 사용자에 test-creator-1~3/test-fan-1~13의 @crefans.com 별칭16개 추가. crefans.com은 grade.im의 사용자 별칭 도메인이므로 grade.im에 기본 별칭을 만들고 자동 생성된 crefans.com 주소16개를 확인했다. 기존 기본 별칭은 noreply/support/no-reply 3개로, 추가 후19/30개·11개 여유. 유료 사용자 추가0건.
+- Google Admin 저장 성공 후 목록 반영 지연이 있었으며, 중복 검증에서 동일 사용자 소유로 확인된 재입력은 취소했다. 최종 새로고침한 기본19개 목록과 자동 생성된 crefans.com16개를 전체 대조, 누락0·중복0·저장 버튼 비활성(미저장 변경 없음) 확인. 실제 메일 발송/실수신·크레팬스 가입/초대는 실행하지 않았다. 공급사 안내상 이메일 반영은 최대24시간 소요 가능.
+- 증거 front `.local/workspace-test-aliases-20261030/verified-aliases.json`, `verified-alias-section.txt`, `google-admin-crefans-aliases.png`, `status.json`. 관련 역할 배정은 docs/beta-role-test-plan.md. 제품 코드·운영 배포 변경 없이 기존 미커밋 작업 보존. 문서 검사 결과는 같은 폴더 docs-record.log/docs-check.log에 기록.
+
+## 2026-10-30 QA 이메일 최소 수 산정 (조사·설계만)
+- 기존0/2/10구독자와97개 출시시나리오/콩·콘솔 추가 기능을 대조. 신규 별칭16개=크리에이터3+팬13(12구독자/1비구독), 기존 최고 관리자 이메일 포함 고유 주소17개. 제한 운영자는 N0와 같은 이메일로 독립 Admin 계정 생성 가능(회원/관리자 테이블·인증 분리), 따라서 실제 로그인18계정. 기존17계정 표와 추가 운영자를 구분. 기존 별칭2개라면 총18/30,12개 여유.
+- 조건: 초기 역할은 분리, 권한 교차 두 세션 유지, 상태·주문별 증거 기록, 정지/탈퇴는 마지막 또는 격리 fixture. 모든 상태 동시보존/상시 기준점 유지라면 별도 계정 추가. 선택 여유2개는 최소 아님. +주소 지원은 Google 공식문서와 normalizeEmail 코드로 확인, 실수신 미검증.
+- 근거·실행경계: front docs/beta-role-test-plan.md 최신 산정절과 `.local/qa-mail-account-count-20261030/verification.json`.97개ID 누락0/산식 확인, 제품테스트·계정/메일별칭 생성·초대·운영변경 없음. PASS/실PG/은행·부하/복구 완료를 계정수로 주장하지 않음. 다음은 사용자가 생성 요청하면16개 또는 여유포함18개만 별칭으로 구성하고 초대·실수신 확인.
+
 ## 2026-10-31 /pilot-work: 앱 도움말·약관 개정본 표시·잠긴 게시물 후원·최소 출금 (운영 배포 guide-sync-20261031, 커밋 완료·푸시 안 함)
 - FAQ 3문항 추가(콩 환불·유효기간, 구독·후원 정보 제공 동의 이유, 탈퇴 후 재가입 30일), 구독 FAQ에 동의, 신고 FAQ에 결과 알림. 서비스 안내에 '콩 후원' 카드·구독 동의 단계. 명칭 '오픈베타(가입은 초대 이메일)'. 이벤트에 프로모션콩 유효기간 5년·만료 알림·소멸 문장.
 - 약관 화면: `/common` legal의 `terms-next`/`policy-next`를 '2026.11.30 시행 개정본 보기' 접이식으로 표시(`CommonPages.LegalPage`).
@@ -78,6 +395,25 @@
 ## 2026-10-30 밤 night-work: 소개서·가이드 ↔ 정책·코드 동기화 조사 (문서만, 코드 변경 없음)
 - 문서: `crefans_front/.local/night-work/2026-10-30-2213.md` (22:13~22:21, 범위 소진으로 조기 종료).
 - 숫자·소개서 수익 계산은 코드와 일치. 상위: 콩 규칙이 시행 약관에 없음(개정 공지 시점 결정), 구독·후원 제공 동의·보관 기간·즉시 삭제·재가입 30일 제한이 가이드·앱 FAQ에 없음, 세금 문구 약관 불일치, 전용 게시물 비구독자 후원 가능(가이드와 다름), 회사 귀책 환불은 운영자만, 가이드 검사가 원본 변경을 감지 못함, `FinancePages.tsx:67` 최소 출금 하드코딩. 결정 필요 9건은 문서 요약 참조.
+
+## 2026-10-30 보낸 후원 구분 필터 운영 배포 (bean-tip-filter-20261030)
+- 사용자 배포 요청으로 전체 후원/게시물 후원/프로필 후원 셀렉트와 API sourceType 필터를 프론트·API/worker에 반영. 직전 bean-history-20261030 대비 제품 소스 프론트3파일·서버3파일. DB migration·금융 정책 변경 없음, admin/DB/proxy 컨테이너 보존.
+- 직전 구현 검증(front check420개, server build+beans31/openapi11=42개, E2E10개)의 제품·테스트 소스 SHA 일치를 확인하여 기존 결과를 사용. amd64 빌드2개 종료0, 이미지 내부 소스해시 서버230/프론트692파일 일치, 전송 checksum·이미지 검증·전환 종료0.
+- 격리 빌드 및 운영 Chromium390/1280에서 전체28건→게시물14건/프로필14건, 2페이지→조건 변경 시1페이지, 검색 교집합0건, 초기화 전체복원, 가로넘침·페이지오류0 확인. 운영 /service/beans/tips 로그인 보호와 sourceType post/profile 비로그인 API401 확인. 모바일 캡처 육안 검수. 운영 회원의 실제 후원 내역은 조회하지 않았으며 실API 필터·타인 격리 검증은 로컬 격리DB/E2E 결과다. PG/은행은 대역, 운영 금융 쓰기 없음.
+- 증거 front `.local/bean-tip-filter-deploy-20261030/verification.json`, 빌드·배포·운영 브라우저 로그와 스크린샷. 복구 설정 `/opt/crefans-backup-bean-tip-filter-20261030`, 직전 bean-history 이미지 보존. 이미지 keep3 정리 로컬·운영 각2개 삭제·오류0. 새 commit/push 없이 기존 미커밋 작업 보존. 앞선 미배포 항목은 당시 기록이며 이번 릴리스로 필터 배포 완료.
+
+## 2026-10-30 보낸 후원 구분 셀렉트 필터 (로컬, 운영 미배포)
+- 공용 SelectField로 기간 아래 전체 후원/게시물 후원/프로필 후원 추가. sourceType 상태·쿼리·초기화·빈 결과 연결, 선택 변경 시1페이지 복귀. 목업과 실제 API 모두 전체 내역에서 필터 후20건씩 페이지네이션·total 계산. 기존 검색/기간과 AND, 지갑 잔액/다른 내역 필터 불변.
+- 서버 `beanHistoryFilter`가 post/profile만 허용(배열·객체·잘못된 문자열400). `BeansService.tips`에 post_id 유무 조건을 추가하며 본인 sender조건 유지. 제목/게시물 삭제 상태와 무관하게 후원구분 유지. OpenAPI와 관련 문서 갱신, DB 변경 없음.
+- 검증: front check420개/타입/레이어, server build+beans31/openapi11=42개, E2E10개 모두 종료0. 27건 게시물 후원의20+7페이지/4건 프로필/타인내역/기간·검색 교집합/빈 결과/잘못된값 검사. 390/1280에서 공용 셀렉트 선택·2페이지→필터 변경 복귀·검색0건·초기화·실API query전달 확인, 가로넘침없음. 최초 단위 테스트 작성 중 잘못 중복된 기대값(profile)을 post로 수정 후 전체 재통과. 모바일 캡처는 셀렉트 애니메이션 완료 후 재촬영·육안검수.
+- 증거 front `.local/bean-tip-source-filter-20261030/verification.json`, 실행로그·select/filtered 스크린샷. 실제 DB/API+PG/은행 대역 검증이며 운영 결제 없음. 현재 운영은 bean-history-20261030으로 이 필터는 미포함. 요청 시 프론트와 API/worker 함께 배포 필요. 기존 미커밋 변경 보존, commit/push 없음.
+
+## 2026-10-30 콩 내역·후원 구분/신원 표시 운영 배포 (bean-history-20261030)
+- 사용자 배포 요청으로 누적된 충전 주문·콩 이동·보낸 후원의 모바일 전체너비/간격, 아바타·인증배지·핸들, 아바타 위 후원 구분·18px 동전·메시지 위16px를 반영. 목업/실서비스 공용 표시 컴포넌트. 서버 후원목록 creatorAvatar/creatorHandle/creatorIsVerified 추가. 이전 tip-consent 기준 프론트6파일·서버1파일만 변경.
+- 검증: front check 레이어/타입/419검사, server build+후원30검사, beans E2E7검사 모두 종료0. 추가 격리 DB에서 신원 필드 값·미등록null/false·타인내역0 확인(초기 검사 fixture의 필수 message 누락 수정 후 통과; 데이터는 롤백). PG·은행은 대역이며 운영 결제/후원은 실행하지 않음.
+- amd64 API/프론트 순차 빌드 종료0, 이미지 내부 서버230/프론트692파일 소스해시 일치. 격리 빌드 컨테이너3페이지200·390/1280 메시지 간격/동전/배지 확인 후 제거. 운영 전송 checksum·이미지 검증·전환 종료0. API/worker/frontend 교체, admin/DB/proxy 컨테이너 보존, migration/정책 변경 없음. 건강검사200·비로그인후원목록401·기존가입/개인정보버전 유지.
+- 운영 Chromium390/767/1280 ×3페이지9조합: 모바일 끝맞춤/16px 내부여백, 후원 구분 위치·동전18px·아바타·배지·핸들·메시지16px, 가로넘침/페이지오류0. /service 세페이지 로그인 보호 확인. 실제 운영 회원 후원내역을 로그인해서 열어보지는 않음. 모바일 운영 스크린샷 육안 확인.
+- 증거 front `.local/bean-history-deploy-20261030/verification.json`, 빌드/검사/운영로그·스크린샷 같은 폴더. 복구 설정 `/opt/crefans-backup-bean-history-20261030`, 직전 이미지 tip-consent-20261030 보존. 이미지 보존규칙 keep3 적용: 로컬·운영 각2개 삭제, 오류0. 집IP SSH 지속허용 유지. 이번 배포에서 새 commit/push 없음; 기존 미커밋 작업 보존. 앞선 미배포 기록은 해당 시점 상태이며 이 항목으로 배포 완료.
 
 ## 2026-10-30 후원 구분 라벨에 동전 아이콘 (미배포, 커밋 완료·푸시 안 함)
 - 사용자 요청: '게시물 후원'·'프로필 후원' 구분 라벨(`BeanAttribution.BeanTipKind`) 왼쪽에 기존 후원 동전 아이콘(`/brand/post-actions/support-coin-flat-v1.png`, 18px, 장식용 alt "")을 넣음. 보낸 후원·지갑 내역·스튜디오 받은 후원에 함께 적용.
@@ -2862,3 +3198,109 @@
 - 검증: npm run check 레이어/타입/283검사 PASS. 로컬12화면×모바일390/PC1280 전후글자 대조,320/767/768 경계36회와 보정한2화면×5폭 재검수. 본문/조작부14px, PC폰트 유지, 가로넘침/이미지깨짐 없음, 멤버십 확인창14px·동의전 비활성 유지. 운영에서도12화면×2폭24조합 확인. 초기 로딩 중 측정은 완료 증거에서 제외하고 networkidle/요소표시 후 다시 측정했다. 인증 라벨은 dev12/운영13의 기존CSS순서 차이여서 이전운영이미지3014로 대조, 구/신운영 모두13px 확인 후 컨테이너 제거. 실제/service 피드·로그인·랜딩도14px 적용 확인. 물리iPhone/Safari 검증은 아님.
 - 운영 `crefans-front:mobile-14px-20261024`, 이미지473파일 소스일치, 격리4HTTP경로/운영health·9경로 통과. frontend running/restart0, 타5컨테이너ID 유지. 임시SSH 삭제·기존권한복원. 복구 이미지 `crefans-front:membership-identity-20261024`, 설정백업 `/opt/crefans-backup-mobile-14px-20261024`. 운영 피드 탭 유지, 수집된 콘솔오류0.
 - 근거 `docs/audit/mobile-14px-20261024.json`, 로그/스크린샷 `.local/mobile-14px-20261024/`. 디자인 시스템 설명 및 현재상태/manifest 검토 후 docs:record/check:docs 갱신. 기존 AGENTS 규약 유지. 다음 단계는 사용자가 모바일 체감 후14px 버전 유지/복구를 결정하는 것. 자동복구시간은 지정되지 않아 예약하지 않았다.
+
+## 2026-10-31 프로필·배경 사진 변경 (미배포)
+- 사용자 요청: 내 프로필 페이지에서 프로필 사진·배경 사진 수정, 시안에서 색은 빼고. 카메라 배지가 아바타 원형 영역(overflow hidden)에 잘리지 않게 바깥에 둠.
+- 서버 7aa2568: `PUT me/profile/photos`(본인 업로드 이미지만, null=삭제), 원본은 members.picture·user_profiles.cover(신규 컬럼, 마이그레이션 20261031230000_profile_cover), 크리에이터면 creators.avatar/cover 동기화. 사용 중인 사진만 공개 조회. 테스트 tests/platform-profile-photos.test.cjs(대조 검사 포함).
+- 프론트 df17378: ProfilePhotoDialog + ProfileHeader onEditPhotos, viewer.cover, accountActions.updatePhotos(실서비스·목업). 캡처 crefans_front/.local/profile-photo-20261031/.
+- 남은 일: 운영 배포(사용자 승인 필요, 다른 세션의 미커밋 변경이 같은 파일에 있어 배포 기준선 확인 필수), 로그인 상태 실서비스 업로드 확인.
+- 2026-10-31 22:5x KST 운영 배포 `profile-photo-20261031`(API·worker·front, admin 유지). 기준선 API charge-expiry·front action-dialog 위에 이 변경만 얹음(배포 직전 BASELINE OK). DB 백업 후 마이그레이션 20261031230000_profile_cover 적용. 추가 반영: 배경 없을 때 연회색(#dde1e7)+흰 로고(27be9e7), 삭제 버튼 항상 표시·없으면 비활성(8665df1). 운영 /preview/me PC·모바일 동작 확인, 이미지 보존 정리(--protect charge-expiry/action-dialog). 증거 crefans_front/.local/profile-photo-deploy-20261031/. 미확인: 로그인한 실계정 업로드.
+- 2026-10-31 23:0x KST 운영 배포 `nobeta-20261031`(front만, 기준 profile-photo). 사용자 /ask-me 결정: 가이드·소개서·이벤트 안내를 계약서(오픈 서비스) 기준으로 쓰고 베타·테스트 문구 제거, 미개시 결제·출금·초대제는 '결제·출금 개시 전'·'현재 기간' 한 줄로만, 오픈베타 감사 이벤트 → '오픈 기념 원년멤버 이벤트'(대상 '참여 확정 회원', 혜택·주소 beta-first 유지). 커밋 7fdedbb(이벤트·FAQ·서비스 이용안내·배지 툴팁). 운영 이벤트·FAQ·이용안내 5개 화면 베타 문구 0건 확인. 증거 .local/nobeta-deploy-20261031/.
+- 2026-11-01 레퍼럴 프론트 1단계 커밋 659e630: ?ref= 코드 세션 보관→가입 요청에 referralCode 전달, 콩 지갑 '친구 초대' 카드(링크 복사·집계·보상 조건 고지, /me/referral 404면 숨김). 팬 출금 화면(/beans/withdraw: 콩 출금+정산 계좌+출금 PIN 재사용)은 진행 중. 미배포.
+- 2026-11-01 팬 콩 출금 화면 커밋(위 커밋): /beans/withdraw = 콩 출금+정산 계좌+출금 PIN(embedded). 지갑 친구 초대 카드의 '보상 콩 출금하기'(받은 보상>0)에서 진입. 미확인: 실제 비크리에이터 보상 계정의 /service 동작, 목업은 크리에이터 재무 목업을 재사용해 미수금·탈퇴 준비 안내가 보임. 미배포.
+- 2026-11-01 운영 배포 `referral-20261101`(API·worker·front·admin). 기준 API profile-photo·front nobeta·admin handle-sync. 1차 시도는 배포 스크립트 내 파이썬 문법 오류(빈 for)로 자동 롤백(이전 이미지 복구, 마이그레이션 3개는 추가 테이블만이라 유지), 수정·내장 파이썬 블록 컴파일 검사 후 2차 성공. DB 백업 후 마이그레이션 referrals·referral_hold·platform_settings, platform_settings 0행(스위치 꺼짐) 확인. 운영: /me/referral·/admin/referrals 비로그인 401, /service/beans/withdraw·/console/referrals 200, 목업 초대 카드·출금 화면 확인, 이미지 보존 정리. 미확인: 운영자 로그인 상태 콘솔 레퍼럴 화면, 실제 보상 계정 출금. 증거 crefans_front/.local/referral-deploy-20261101/.
+
+## 2026-11-01 레퍼럴 디자인 운영 배포 완료
+- 릴리스 `referral-polish-20261101`: 운영 기준 `referral-20261101`의 불변 소스에 프론트 3개·콘솔 2개 파일만 반영. 초대 카드/관리 표 디자인과 복사 성공 하단 스낵바 적용. API·worker·DB·proxy 컨테이너 ID 유지, 정책 활성화/마이그레이션 없음.
+- 09:40 KST 배포 명령 exit 0. 실제 운영 이미지 PC Chromium·모바일 WebKit 10건 PASS(API/clipboard 대역); 운영 `/preview/beans` 2건 PASS(clipboard 대역). 운영 프론트·콘솔 정적 파일 SHA-256과 배포 이미지 파일 일치. 실제 로그인한 콘솔/보상 지급 검증은 이번 범위 아님.
+- 빌드 2건 exit 0. 로컬/운영 최신 3개 이미지 및 직전 롤백 보존 정리 완료. 테스트 도구 중복 로드·자산 URL 인코딩 경로·검사 중 임시컨테이너 삭제에 따른 초기 검증 실패는 실행 방식 수정 후 재검증, 제품 수정 없음.
+- 증거: `/Users/ethan/repository/crefans_front/.local/referral-polish-deploy-20261101/verification.json`, `deployment-command.json`, `image-ui-checks.json`, `production-front.log`, `served-assets.json`, `runtime-after.json`, `retention-*-apply.json`. 소스 manifest와 hash는 같은 폴더.
+- 기존 미커밋 변경 보존. 앞선 문서 검사에서 확인된 referral/profile API 설명 및 문서 계약 미갱신 문제는 남아 있으며 문서 검사 통과로 보고하지 않음.
+
+## 2026-11-01 2차 인증 03안·붙여넣기 자동 제출 운영 배포
+- 릴리스 `crefans-admin:totp-polish-20261101`. 운영 기준 referral-polish-20261101의 불변 소스 위에 login/page.tsx와 해당 CSS만 반영, 이전 검증 SHA 일치 확인. admin만 교체했고 frontend/API/worker/database/proxy ID·이미지 유지. 정책·DB 변경 없음.
+- 빌드 exit0. 실제 운영용 이미지 PC Chromium·iPhone13 WebKit 6건, 운영 admin.crefans.com 화면 같은 6건 PASS. 인증 API 응답·붙여넣기는 대역이며 실제 운영 계정 로그인/물리 iOS 클립보드 검증은 아님. 빈/5자리/7자리/문자혼합 요청 차단, 연속 붙여넣기 중복 방지, 오류 후 재시도·복구 코드·429 검증. 운영 스크린샷 육안 확인, 정적 파일 SHA256 배포 이미지와 일치.
+- 서버 health 및 로그인 HTTP200, admin restart0/OOM없음. 직전 롤백 포함 최신3개 이미지 로컬·운영 보존 정리. 기존 미커밋 변경 보존.
+- 증거 `/Users/ethan/repository/crefans_front/.local/totp-polish-deploy-20261101/verification.json` 및 builds/source-delta/deployment-command/runtime-after/served-assets/retention JSON. UI 명령·시각·로그·캡처는 admin `.local/totp-polish-20261101/`의 image-ui-check.json, production-ui-check.json과 *results. 다음: 실제 운영자 사용 피드백 확인.
+
+## 2026-11-01 2차 인증 간소화 운영 배포 완료
+- `crefans-admin:totp-clean-20261101`: 방패52px, 푸터/붙여넣기 설명 제거. 자동제출 함수 유지. admin만 재생성, 다른5컨테이너 보존.
+- 최초 운영 이미지 검사에서 SVG 공통20px 규칙이 속성을 덮어쓰는 문제 검출(PC/모바일 실패). `.login-security-icon svg`에52px 명시 후 재빌드 및 같은 검사2건 PASS. 초기 실패로그 보존. 빌드 exit0, 운영 정적자산 SHA256 일치, 실제 운영 화면 PC/모바일2건 PASS 및 캡처 확인(인증응답 대역, 실계정 인증 아님).
+- 증거 front `.local/totp-clean-deploy-20261101/` source-delta/builds/deployment-command/runtime-after/served-assets/verification.json, admin `.local/totp-clean-20261101/` image-ui-first.log/image-ui.log/production.log 및 스크린샷. 로컬·운영 최신3이미지/직전롤백 보존 정리. 기존 AGENTS 유지·미커밋 변경 보존. 요청 변경 운영반영 완료.
+
+## 2026-11-01 iPhone OTP 기본 입력·6자리 자동제출 운영 배포
+- `crefans-admin:totp-native-20261101`, 운영 기준 totp-clean 위 login/page.tsx·전용 CSS만 반영. 기존 opacity0 입력+가상6칸을 제거하고 숫자가 직접 보이는 단일 native text input으로 교체. user-select:text/touch-callout:default, numeric 키보드·one-time-code 유지. 시스템 메뉴 노출을 JS로 강제하거나 클립보드를 상시 읽지 않음.
+- 타이핑/자동완성/붙여넣기 6자리 완료 시 자동1회 요청. pending ref와 마지막 자동전송값으로 중복·오류 후 자동반복 방지. 명시적 다시 붙여넣기/제출은 재시도 가능, 6자리 미만으로 수정 시 자동값 초기화. 복구코드는 수동. AGENTS 규칙 갱신.
+- 검증: check 타입·단위11 PASS, 로컬·운영용 이미지·운영 URL PC Chromium/iPhone13 WebKit 각8건 PASS(인증API·paste 대역). 5자리 무요청/6번째 입력1회, 재붙여넣기, 기본 input opacity1/선택 범위, 오류·429·복구, 가로넘침 검사. 운영 정적자산 SHA256 일치. 물리 iPhone의 OS 붙여넣기 메뉴는 미검증이며 탭1회에 메뉴가 열림을 보장하지 않음.
+- Apple one-time-code 문서 및 WebKit invisible-input 이슈302876 조사(2026-11-01), 적용 판단은 admin `.local/totp-native-20261101/evidence.json`. 로컬 테스트의 프리패치가 미실행 API 3001에 ECONNREFUSED를 남겼지만 대역 시나리오는 통과, 운영 실제인증 검증으로 확대하지 않음.
+- 배포 증거 front `.local/totp-native-deploy-20261101/verification.json`, source-delta/builds/deployment-command/runtime-after/served-assets. admin `.local/totp-native-20261101/` check-final.log/ui-final.log/image-ui.log/production.log 및 캡처. admin만 교체·나머지5컨테이너 유지, 최신3 이미지/롤백 보존 정리. 기존 변경 보존·tsconfig 개발서버 부수변경만 복원. 다음은 사용자 실기기 메뉴 확인.
+
+## 2026-11-01 광고상품 폼 운영 배포 완료
+- 릴리스 `crefans-admin:ad-form-20261101`, 운영 totp-native 기준에서 Advertising.tsx 한 파일만 반영. 광고 지면 select(주목할 크리에이터) 및 스튜디오에 광고상품으로 판매 개시 문구·설명. visible/onSale 별도 계약 유지.
+- 빌드 exit0, 운영 이미지 PC/모바일4건 및 운영 URL4건 PASS(API 대역). 지면 옵션1개·저장 featured_creator·등록/수정/삭제·조회권한 검증, 운영 캡처 점검. 실제 운영 상품 생성/수정 없음. 정적자산 SHA256 이미지 일치, admin 재시작0/OOM없음, 다른5컨테이너 유지. 최신3이미지/직전롤백 보존 정리.
+- 증거 front `.local/ad-form-deploy-20261101/verification.json`, source-delta/builds/deployment-command/runtime-after/served-assets/retention JSON. admin `.local/advertising-form-20261101/` image-ui-check.json·image-ui.log·production.log·캡처. 기존 AGENTS 규약·미커밋 변경 유지, e2e/advertising.spec.ts는 새 문구·지면검증으로 갱신. 요청 배포 완료.
+
+## 2026-11-01 지갑 친구 초대 전용 페이지 운영 배포
+- `crefans-front:referral-page-20261101`: 지갑에 보낸 후원과 같은 친구 초대 진입 타일을 배치하고 `/preview/beans/referral`, `/service/beans/referral` 전용 페이지로 기존 초대 카드 이동. 페이지 제목·지갑 뒤로가기 적용, 기존 기능 노출·로그인 조건 유지.
+- 운영 불변 기준 referral-polish 소스에 런타임6파일만 반영. 프론트만 교체, API·worker·admin·DB·proxy 유지. 빌드/배포 exit0, 타입·레이어·단위431건 PASS, 운영 이미지 및 운영 URL PC/모바일 각2건 PASS(목업·clipboard 대역). 진입·복사 성공/실패·뒤로가기 확인, 운영 정적자산 SHA256 일치. 실계정 보상 지급은 검증 범위 아님.
+- check:docs는 기존 referral API 설명/문서 인벤토리·계약 누락으로 실패, 미해결 상태 유지. 기존 미커밋 작업 보존. 최신3이미지 및 직전 롤백 보존 정리 완료.
+- 증거 `.local/referral-page-deploy-20261101/verification.json`, source-delta/front-source/builds/deployment-command/runtime-after/served-assets, production.log·캡처. UI 출력 경로가 직전 배포 폴더를 가리켜 이번 실행 결과를 현재 폴더로 복사하고 설정 경로 수정함.
+
+## 2026-11-01 친구 초대 디자인 시안 5종
+- 사용자 요청은 심플한 비교 시안. 기존 ReferralCard 구성 확인 후 built-in imagegen으로 01기본/02링크강조/03보상요약/04단계안내/05미니멀리스트 5개 생성·인라인 표시·시각 확인. 런타임 변경/배포 없음. 추천 02, 다음은 사용자 선택 후 실제 동적 보상값·전체 약관·기존 스낵바 유지하여 구현.
+- 이미지 원본: ~/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-{8ada58a5-3368-4379-8eaf-01327fe92565,a984a21e-443e-41c6-a1e0-e2b8c1b2d571,64570c45-4257-4506-8f07-150806289a61,7af335eb-07b1-4519-b9f5-3ceea8415389,24589abc-9995-4d40-8052-3b5757b9cd87}.png (01~05 순서). 시안의 요약 안내는 최종 정책문서 아님; 03의 0콩은 생성된 예시이며 실제 보상 설정으로 대체해야 함.
+
+## 2026-11-01 친구 초대 05 미니멀 디자인 운영 배포 완료
+- 사용자 선택 5번 적용. 카드 테두리·컬러 배경 제거, 보상 제목 옆 기존 콩 이미지, 복사 링크/버튼, 현황3개 세로 라벨·숫자 목록과 얇은 구분선. 실제 rewardPerInvite/monthlyCap/holdDays 유지. 기존 유의사항4개 원문을 byte-for-byte 비교 확인; 서버 referrals/bean-policy/beta-policy 값 대조. 정책 변경 없음.
+- `crefans-front:referral-minimal-20261101`: 직전 운영 referral-page 불변 소스에서 ReferralCard.tsx·referral.module.css만 반영. frontend만 교체, 나머지 컨테이너 유지. npm run check exit0, 빌드/배포 exit0; 운영 이미지 PC·모바일2건 및 운영 preview URL2건 PASS(clipboard 대역), 복사 성공·실패·스낵바·뒤로가기·가로넘침·유의사항 확인. 실제 계정 보상지급 검증 아님. 운영 파일 SHA256 일치.
+- 증거 `.local/referral-minimal-deploy-20261101/verification.json`, source-delta/front-source/builds/deployment-command/runtime-after/served-assets, check.log·production.log·PC/모바일 캡처. 기존 미커밋 변경 유지. 이미지 정리 첫 계획은 검증용 임시 컨테이너 삭제와 경합해 실패; 검증 종료 후 재계획·검토·적용 성공. 최신3개/직전롤백 보존. 기존 docs 계약 누락은 이번 변경 범위 밖으로 미해결 유지.
+
+## 2026-11-01 OG 심플 버전 준비 — 배포하지 않음
+- 사용자 요청: OG 태그 단순화·이미지 재생성, 배포 아직. 공통 제목 크레팬스 / 설명 크리에이터와 팬을 잇는 플랫폼. 기본 OG·Twitter 이미지 `/og/crefans-og-simple-v1.png` 신규 경로, 기존 이미지 보존. 생성 원본 실제1730×909를 메타데이터에도 반영. 개별 프로필/게시물 메타 정책 유지.
+- built-in image_gen 기존 OG 이미지 참조 편집: 흰 배경 중앙 기존 로고와 소개 한 줄, 콩/상자/장문/배경 그라데이션 제거. 원본 exec-06e4d9db-018b-4ea4-a8b6-1854bff86e2c.png, public/og에 복사. 생성 이미지 시각 확인 및 sips 치수 확인. SEO 기존4테스트 PASS. 증거 `.local/og-simple-20261101/verification.json`·test.log (HEAD/dirty/hash 포함). 운영 미반영·카카오 캐시/실제 공유 미검증. 다음은 사용자 확인 후 배포 요청 대기.
+
+## 2026-11-01 OG 심플 버전 운영 배포 완료
+- 사용자 배포 승인 후 최신 운영 `seo-og-20261101` 소스·이미지 레이어/manifest 라벨 대조. 이전 referral-minimal 기준은 운영 변경 감지로 중단하고 최신 기준으로 재동결. `lib/seo/site.ts`, 신규 `public/og/crefans-og-simple-v1.png` 2파일만 배포. 릴리스 `crefans-front:og-simple-20261101`.
+- 최초 디스크8GiB 사전검사 실패; 재생성 가능한 1시간 이상 미사용 Docker build cache·10/29 .next-e2e/cache 정리 후16.9GB로 통과. 운영 데이터/롤백 이미지 유지. 빌드·배포 exit0, SEO4테스트 PASS. 운영용 이미지 및 실제 crefans.com /·/service/feed HTML의 OG/Twitter 제목=크레팬스, 설명=크리에이터와 팬을 잇는 플랫폼, 이미지경로·1730×909 및 이미지 바이트 일치 검증 PASS. API·worker·admin·DB·proxy 유지.
+- 증거 `.local/og-simple-deploy-20261101/verification.json` 및 source-state/source-delta/front-source/builds/deployment-command/runtime-after/local-meta/production-meta. 이미지 보존 계획 검토 후 로컬/운영 최신3개 및 직전 seo-og 롤백 유지. 실제 카카오 공유·캐시 갱신은 미검증. 기존 미커밋 변경 보존, AGENTS 규약 변경 불필요.
+
+## 2026-11-01 공식 SNS 마케팅 계획 조사
+- 사용자 요청: X·Threads·Instagram 공식계정 운영 계획/기대효과 분석. 계정 생성·게시·DM·결제·배포는 수행하지 않음. 추천: 동일 핸들 확보(사용 가능 여부 미확인), X 크리에이터 모집/팬 연결, Instagram 작품·신뢰, Threads 운영 대화. 90일은 크리에이터3명 기반 콘텐츠·팬 유입 검증 후 확대, 주6~8시간/현금 월10~30만원은 제안 가정이며 승인 예산 아님.
+- 2026-11-01 공식자료: https://help.x.com/en/rules-and-policies/adult-content (일반 게시 경고표시·노출영역 제한), https://help.x.com/en/business-and-advertising/adult-or-sexual-products-and-services (광고/수익화 성인성적 콘텐츠 제한), https://help.x.com/en/rules-and-policies/paid-partnerships-policy (보상성 협업도 별도 정책), https://about.fb.com/news/2021/07/introducing-sensitive-content-control/ (Instagram 삭제/추천제외 구분), https://about.fb.com/news/2025/03/new-threads-features-more-personalized-experience-you-control/ (Threads 링크/Insights). Meta community standard 직접페이지2건429로 본문 확인 불가, 준수/광고승인 보장하지 않음.
+- 목표 제안: 실제활동 크리에이터3→5~8명, 채널별UTM 및 가입/첫결제/갱신 추적. 90일 유입500/1500/3000명 × 가입8/12/15% × 가입후결제10/15/20%=유료4/27/90명은 업계벤치마크나 예측 아닌 민감도 가정. 평균 월1만원×20%=인당 수수료매출2천원(비용공제전), 각각8천/5.4만/18만원; 인건비·PG·인프라·환불·프로모션 제외, 흑자 주장 금지. 결제개시 미확정시 결제 목표는 관심/재방문 측정으로 대체. 다음은 사용자 운영방향 선택 후 계정 생성 단계 요청 범위 확인.
+
+## 2026-11-01 스튜디오 광고상품 디자인 5종 시안
+- 사용자 첨부 모바일 화면을 참고해 built-in image_gen으로 5종 생성·인라인 제시·시각 확인. 가격3900원 VAT포함/1일/구매준비중 유지. 01기본 리스트/02컴팩트카드/03지면미리보기/04가격강조카드/05미리보기+정보구획. 생성결과01은 요청보다 카드형,04는02와 유사,05는미리보기 중심으로 나옴. 구현 시 선택안 기준으로 정교화 필요. 코드·운영 변경 없음. 추천02(간결) 또는03(노출위치 이해).
+- 원본 ~/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/ 에 보관: 02 exec-5f722dc4-a168-4d6b-89f3-27a3a781b7c2.png, 03 exec-7a603267-66dc-4468-91ce-16b8ce19af5e.png, 04 exec-424195b4-ff88-4877-9f36-38e91c779660.png, 05 exec-e96351fa-439e-45b6-822e-177e7fe1e8bc.png; 01 exec-63dac5fa-149a-* 파일. 다음은 선택 후 구현 요청 대기.
+
+## 2026-11-01 광고상품 시안 심플 재제작
+- 사용자가 이전5종보다 단순한 디자인 요청. 큰 이미지/파란 배경/반복 설명을 제거한 01텍스트리스트,02한줄상품,03가격타이포,04작은카드,05정렬형 시안5개 built-in image_gen 생성·인라인 표시·시각 확인. 가격3900/VAT포함/1일/구매준비중 유지. 05는 생성결과 가격이 반복되어 구현시 중복 제거 필요. 추천02(목록 확장성) 또는03(단일상품). 코드·배포 변경 없음.
+- 원본 generated_images/01a1868d-8a63-7433-8e79-7b033059a555/: exec-94976def-ba11-4833-97ac-5f87b4ab948d.png, exec-f57476a7-57de-4604-b498-6a3b12884d98.png, exec-8e6cfcd1-978b-4d77-a489-9ed5782aed29.png, exec-609658de-7f21-42d5-887c-b048d981bb72.png, exec-a9ece2f4-5f30-46e0-af6a-43d4c8979588.png (01~05 순서). 다음은 선택 대기.
+
+## 2026-11-01 광고상품 이미지 통일 시안
+- 사용자 지시: 기존 주목할 크리에이터 생성 에셋 재사용. CreatorPages.tsx에서 `/brand/featured-creators-v1.png` 사용 확인, 이미지 시각 확인. 같은 별빛 에셋을 참조해 심플 한줄상품 시안 재생성 exec-bac74d63-0472-4e3b-b2f9-1acfc5cb553f.png (generated_images 동일 세션 폴더). 실제 구현 시 상품 아이콘에 원본 PNG 직접 재사용. 생성 시안에서 studio 헤더까지 별빛으로 바뀐 것은 채택하지 않고 기존 studio-logo-v1 유지해야 함. 코드·운영 미변경. 다음: 디자인 선택/구현 요청.
+
+## 2026-11-01 스튜디오 광고상품 심플 디자인 운영 배포
+- 사용자 승인에 따라 컴팩트 상품 행으로 개선하고 기존 `/brand/featured-creators-v1.png`를 재사용. Studio 헤더 로고 유지, 상품명·기간·가격은 기존 데이터 사용, 상세 설명/구매 안내/판매 상태 로직 유지.
+- 최신 운영 legal-version-20261101 동결 소스 기준으로 TSX/CSS 2파일만 배포: `crefans-front:ad-minimal-20261101`. 다른 서비스 유지. 기존 미커밋 작업 보존.
+- typecheck/build/deploy exit0. 운영용 이미지 PC·모바일4테스트 및 실제 운영 주소4테스트 통과(서비스 API 대역 포함, 실결제 미실행). 실제 제공 JS/CSS SHA256과 검증 이미지 일치. 최초 문자열 검증은 압축 JS 이스케이프 문장부호로 실패하여 부분문구 검사로 수정 후 통과.
+- 로컬/운영 이미지 보존 계획 확인 후 최신3개 및 직전 legal-version 보호하여 정리 완료. 증거 `.local/ad-minimal-deploy-20261101/verification.json`, 스크린샷 front-ui-results/production-results. AGENTS 규약 변경 불필요.
+
+## 2026-11-01 광고상품 탭 활성 배경 제거
+- 공통 Chip의 selected:hover 배경이 광고상품 탭 스타일보다 우선하여 터치 후 파란 박스가 남음. 광고상품 범위 CSS에서 hover 우선순위를 높여 투명 처리, 활성 글씨·밑줄 유지.
+- 실제 운영 페이지에 로컬 CSS 규칙만 주입해 Chromium PC/WebKit iPhone13 두 탭 클릭·hover 배경 rgba(0,0,0,0) 총4건 확인 exit0. 증거 `.local/ad-tabs-transparent-20261101/verification.json`, results.json, PC/mobile 스크린샷. 코드 수정 완료, 이번 요청에 배포 명시 없어 운영 미배포. AGENTS 규약 변경 없음.
+
+## 2026-11-01 광고상품 탭 투명 배경 운영 배포 완료
+- 사용자 배포 승인. 최신 운영 ad-minimal-20261101 이미지/소스 대조 후 advertising.module.css 1파일만 동결하여 `crefans-front:ad-tabs-20261101` 배포.
+- 빌드/배포 exit0, 운영용 이미지 및 실제 운영에서 PC Chromium·iPhone13 WebKit 각각2테스트 통과: 양쪽 탭 클릭·hover 투명 배경/활성 밑줄 확인. 실제 제공 CSS SHA256 검증 이미지와 일치. 실물 iPhone 확인은 미실행.
+- 다른 서비스 유지, 이미지 보존 계획 확인 후 최신3개·직전 ad-minimal 보호 정리 완료. 증거 `.local/ad-tabs-deploy-20261101/verification.json`, production-results 스크린샷. 기존 미커밋 보존, AGENTS 규약 변경 없음.
+
+## 2026-11-01 스튜디오 받은 후원·콩 출금 내역 빈 상태 개선
+- 단순 좌측 문구를 기존 공통 Empty 컴포넌트로 교체: 중앙 정렬/공통 여백/보조색/설명. 받은 후원: 아직 받은 후원이 없습니다 + 팬이 보내준 후원이 이곳에 표시됩니다. 출금: 아직 출금 내역이 없습니다 + 콩 출금을 신청하면 이곳에서 내역을 확인할 수 있습니다.
+- 빈 출금 목록의 최근50건 문구, 첫 페이지 빈 후원 목록의 이전/다음 버튼 숨김. 2페이지 이상은 이전으로 돌아가는 버튼 유지. 데이터·금융로직 변경 없음.
+- npm run typecheck exit0 및 두 분기/공통 스타일 소스 확인. 증거 `.local/studio-beans-empty-20261101/verification.json`. 브라우저 시각검증·운영배포 미실행. AGENTS 변경 없음. 다음: 배포 요청 시 현재 운영 기준으로 해당 변경만 분리.
+
+## 2026-11-01 받은 후원·콩 출금 빈 상태 운영 배포 완료
+- 사용자 승인 후 최신 ad-tabs-20261101 운영 이미지/소스 확인, BeanPages.tsx만 분리해 `crefans-front:beans-empty-20261101` 배포. 다른 서비스 유지.
+- 빌드/배포 exit0. 배포 이미지 및 운영 주소에서 각각 PC Chromium·모바일 WebKit 2테스트 통과(각 테스트 두 화면): 중앙 정렬, 빈 목록 불필요 문구/버튼 숨김, 가로 넘침 없음. 빈 금융 API 대역이며 실제 금융 작업은 수행하지 않음. 모바일 캡처 시각 확인.
+- 최신3개·직전 ad-tabs 보호하여 로컬/운영 이미지 정리. 증거 `.local/beans-empty-deploy-20261101/verification.json`, production-results 및 front-ui-results. 기존 미커밋 보존, AGENTS 변경 없음.

@@ -16,13 +16,13 @@ test('changing the user name in profile settings also changes the creator profil
  const next='e2e_'+Date.now().toString(36);
  await page.goto('/service/settings');
  await page.getByRole('button',{name:'프로필 수정'}).click();
- const field=page.getByLabel('사용자 이름');
- await field.fill('Bad-Name');await page.getByRole('button',{name:'저장하기'}).click();
- await expect(page.getByText('사용자 이름은 영문 소문자, 숫자, 밑줄 3~24자입니다.')).toBeVisible();
- await field.fill(next);await page.getByRole('button',{name:'저장하기'}).click();
+ const field=page.getByLabel('핸들',{exact:true});
+ await field.fill('Bad-Name');await expect(page.getByRole('button',{name:'저장하기'})).toBeDisabled();
+ await expect(page.getByText('핸들은 영문 소문자, 숫자, 밑줄 3~24자입니다.')).toBeVisible();
+ await field.fill(next);await expect(page.getByRole('button',{name:'저장하기'})).toBeDisabled();await page.getByRole('button',{name:'중복 확인',exact:true}).click();await expect(page.getByText('사용할 수 있는 핸들입니다.',{exact:true})).toBeVisible();await page.getByRole('button',{name:'저장하기'}).click();
  await expect(page.getByText('프로필을 저장했습니다.').first()).toBeVisible();
  const profile=await (await page.request.get('/api/v1/profiles/'+next)).json();
  expect(profile.success).toBe(true);expect(profile.data.handle).toBe(next);expect(profile.data.isCreator).toBe(true);
  await page.goto('/service/studio/settings');
- await expect(page.getByLabel('프로필 주소')).toHaveValue('@'+next);
+ await expect(page.getByLabel('핸들',{exact:true})).toHaveValue('@'+next);
 });

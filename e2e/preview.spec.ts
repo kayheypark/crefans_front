@@ -59,8 +59,9 @@ test('갤러리 상세 패널 세 단계와 미디어 넘김·댓글 스크롤',
     const viewport=(await dialog.boundingBox())!;
     await expect.poll(async()=>Math.round((await stage.boundingBox())!.height)).toBe(Math.round(viewport.height*[.56,.22,0][snap]));
   }
-  await expect(dialog).toHaveAttribute('data-panel-snap','0');
-  await expandMedia();await restorePanel(0);
+  await expect(dialog).toHaveAttribute('data-panel-snap','1');
+  await expandMedia();await restorePanel(1);
+  await resizeTo(0);
   await resizeTo(1);
   await expandMedia();
   const mediaBox=(await stage.boundingBox())!;
@@ -82,7 +83,7 @@ test('갤러리 상세 패널 세 단계와 미디어 넘김·댓글 스크롤',
   await handle.press('End');await expect(dialog).toHaveAttribute('data-panel-snap','2');
   await handle.press('Home');await expect(dialog).toHaveAttribute('data-panel-snap','0');
   await dialog.getByRole('button',{name:'닫기',exact:true}).click();await expect(dialog).toBeHidden();
-  await opener.click();await expect(dialog).toHaveAttribute('data-panel-snap','0');
+  await opener.click();await expect(dialog).toHaveAttribute('data-panel-snap','1');
   await expandMedia();
   await dialog.getByRole('button',{name:'닫기',exact:true}).click();await expect(dialog).toBeHidden();
   await opener.click();await expect(dialog.getByRole('button',{name:'미디어 확대',exact:true})).toBeVisible();await expect(panel).toBeVisible();
@@ -92,7 +93,8 @@ test('갤러리 상세 패널 세 단계와 미디어 넘김·댓글 스크롤',
 test('프로필 사진·배경사진은 공용 미디어 오버레이에서 확대하고 닫으면 포커스를 복원한다',async({page})=>{
   const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto('/preview/creator/moka');
-  for(const label of ['모카 프로필 사진','모카 배경사진']){
+  const name='모카의 분홍빛 코스프레와 일상이야기';// long name since 2026-10-26 (marquee)
+  for(const label of [`${name} 프로필 사진`,`${name} 배경사진`]){
     const trigger=page.getByRole('button',{name:`${label} 크게 보기`,exact:true});
     const src=await trigger.locator('img').getAttribute('src');
     await trigger.click();

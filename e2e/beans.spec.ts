@@ -47,3 +47,28 @@ test('전용 지갑 내역의 빈 상태·결제 재시도·조회 오류·비�
  await page.unroute('**/api/v1/beans/tips?*');await page.getByRole('button',{name:'다시 불러오기',exact:true}).click();await expect(page.getByText('보낸 후원이 없습니다.',{exact:true})).toBeVisible();
  await page.context().clearCookies();for(const kind of ['charges','history','tips']){await page.goto(`/service/beans/${kind}`);await expect(page.getByText('로그인이 필요해요',{exact:true})).toBeVisible();await expect(page.locator('li').filter({hasText:'30콩'})).toHaveCount(0);}
 });
+
+for(const width of [390,1280])test(`후원 구분 셀렉트: 목업 검색·초기화·페이지 복귀 ${width}px`,async({page})=>{
+ await page.setViewportSize({width,height:844});await page.goto('/preview/beans/tips');
+ const list=page.getByRole('list',{name:'보낸 후원',exact:true}),select=page.getByRole('combobox',{name:'후원 구분',exact:true});
+ await expect(list.locator(':scope > li')).toHaveCount(20);const total=await page.locator('p[role="status"]').innerText();
+ await page.getByRole('button',{name:'다음 내역',exact:true}).click();await expect(page.getByText('2페이지',{exact:true})).toBeVisible();
+ await select.click();await page.getByRole('option',{name:'게시물 후원',exact:true}).click();
+ await expect(select).toHaveText('게시물 후원');await expect(list.locator('p[class*=historyKind]').first()).toHaveText('게시물 후원');await expect(page.getByText('2페이지',{exact:true})).toHaveCount(0);
+ for(const kind of await list.locator('p[class*=historyKind]').allTextContents())expect(kind).toBe('게시물 후원');
+ await select.click();await page.getByRole('option',{name:'프로필 후원',exact:true}).click();await expect(list.locator('p[class*=historyKind]').first()).toHaveText('프로필 후원');
+ for(const kind of await list.locator('p[class*=historyKind]').allTextContents())expect(kind).toBe('프로필 후원');
+ await page.getByRole('searchbox',{name:'후원 검색',exact:true}).fill('no-match-filter-fixture');await page.getByRole('button',{name:'검색',exact:true}).click();await expect(page.getByText('조건에 맞는 내역이 없습니다.',{exact:true})).toBeVisible();await expect(page.locator('p[role="status"]')).toHaveText('총 0건');
+ await page.getByRole('button',{name:'초기화',exact:true}).click();await expect(select).toHaveText('전체 후원');await expect(page.locator('p[role="status"]')).toHaveText(total);await expect(list.locator(':scope > li')).toHaveCount(20);
+ await select.click();await page.screenshot({path:`test-results/tip-source-select-${width}.png`});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+test('후원 구분 셀렉트: 실제 API 조건 전달·총수·잘못된 값 거부',async({page,scenario})=>{
+ await login(page,scenario);const order=await api(page.request,'/beans/charges',{quantity:10,requestId:crypto.randomUUID()});expect(order.success).toBe(true);const id=order.data.id;expect((await api(page.request,`/beans/charges/${id}/confirm`,{orderId:id,amount:1100,paymentKey:'e2e-'+id})).success).toBe(true);
+ expect((await api(page.request,`/creators/${scenario.creator}/tips`,{quantity:1,requestId:crypto.randomUUID(),creatorProvision:'2026-10-30.1',postId:scenario.postId})).errorCode).toBe('POST_ACCESS_REQUIRED');
+ expect((await api(page.request,`/checkout/${scenario.orderId}/pay`,{})).success).toBe(true);
+ for(const postId of [undefined,scenario.postId])expect((await api(page.request,`/creators/${scenario.creator}/tips`,{quantity:1,requestId:crypto.randomUUID(),creatorProvision:'2026-10-30.1',message:'Source filter e2e',...(postId?{postId}:{})})).success).toBe(true);
+ await page.goto('/service/beans/tips');await expect(page.locator('p[role="status"]')).toHaveText('총 2건');
+ const select=page.getByRole('combobox',{name:'후원 구분',exact:true});await select.click();const response=page.waitForResponse(r=>r.url().includes('/api/v1/beans/tips?')&&r.url().includes('sourceType=post'));await page.getByRole('option',{name:'게시물 후원',exact:true}).click();const data=await(await response).json();expect(data.data.total).toBe(1);expect(data.data.items[0].post_id).toBe(scenario.postId);await expect(page.locator('p[role="status"]')).toHaveText('총 1건');
+ await select.click();await page.getByRole('option',{name:'프로필 후원',exact:true}).click();await expect(page.getByRole('list',{name:'보낸 후원',exact:true}).locator('p[class*=historyKind]')).toHaveText('프로필 후원');
+ expect((await api(page.request,'/beans/tips?sourceType=invalid')).errorCode).toBe('INVALID_HISTORY_FILTER');
+});

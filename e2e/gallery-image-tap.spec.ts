@@ -13,7 +13,7 @@ test('이미지 탭 전체 보기·패널 복원, 스와이프와 동영상·PC 
  const track=dialog.locator('[class*="stageTrack"]'),panel=dialog.locator('aside');
  if(!mobile){await tapImage(page,dialog);await expect(dialog).not.toHaveAttribute('data-media-expanded','true');await expect(panel).toBeVisible();}
  else{
-  const handle=dialog.getByRole('button',{name:/상세 패널 크기:/});await handle.click();await expect(dialog).toHaveAttribute('data-panel-snap','1');
+  const handle=dialog.getByRole('button',{name:/상세 패널 크기:/});await expect(dialog).toHaveAttribute('data-panel-snap','1');await handle.press('Home');await handle.click();await expect(dialog).toHaveAttribute('data-panel-snap','1');
   await tapImage(page,dialog);await expect(dialog).toHaveAttribute('data-media-expanded','true');await expect(panel).toBeHidden();
   await expect.poll(async()=>Math.round((await track.boundingBox())!.height)).toBe(Math.round((await dialog.boundingBox())!.height));
   await page.screenshot({path:info.outputPath('expanded.png')});

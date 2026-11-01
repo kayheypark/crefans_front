@@ -17,6 +17,11 @@
 
 새 UI는 공통 컴포넌트로 구현하고, 정상·빈 값/목록·오류·disabled·readOnly·loading 중 해당하는 상태를 카탈로그에 등록한 다음 같은 컴포넌트를 목업에서 재사용한다. 지원하지 않는 상태를 샘플 처리 결과로 꾸미지 않는다. 목업·카탈로그마다 같은 UI를 별도 JSX와 CSS로 복제하지 않는다.
 
+### 친구 초대·레퍼럴 (2026-11-01)
+
+- `ReferralCard`는 실제·목업 지갑의 공통 초대 카드다. 기존 콩 이미지, 연한 초록 보상 영역, 링크 입력/복사 버튼, 세 가지 참여 지표, 보상 안내 순서로 구성한다. 금액·대기일·월 상한·집계는 주입된 응답을 사용하며 원래 보상 조건을 바꾸지 않는다.
+- 복사 성공은 `SnackbarProvider`/`Toast`로 하단에 4초간 표시한다. 본문 높이는 바뀌지 않고 모바일 GNB 위에 나타난다. 실패는 링크 옆에 남겨 직접 복사할 수 있게 한다. 서비스 UI 카탈로그의 친구 초대 예시는 참여 있음/없음을 제공한다.
+
 ### 회원가입 완료 (2026-10-31)
 
 2026-10-31 사용자 지시로 완료 모달을 전용 페이지 `/service/signup/complete`(`components/crefans/SignupCompletePage.tsx`)로 바꿨다. 88px 파란 원형 체크, 제목(초기 포커스)·환영 문구·"로그인하러 가기"를 가운데 정렬하고, 로그인 화면은 방금 가입한 이메일을 미리 채운다(같은 탭의 sessionStorage, 주소에는 넣지 않음). 실서비스에서는 이 탭에서 가입에 성공한 뒤에만 보이고 주소로 바로 열면 가입 화면으로 돌아간다. 미리보기(`/preview/signup/complete`)와 상태·피드백 카탈로그 버튼은 항상 보여 준다.
@@ -57,7 +62,10 @@
 `components/ui/Field.tsx`에서 `Field`, `TextAreaField`를 가져온다. 기존 `components/ui/Primitives.tsx` 경로도 두 컴포넌트를 다시 export한다.
 
 - `Field`: `label`, `error?`, `hint?`와 기존 `InputHTMLAttributes<HTMLInputElement>`를 받는다. `text`, `email`, `tel`, `url`, `password`, `search`, `number` 등 네이티브 입력 형식을 유지한다. `value`, `defaultValue`, `name`, `required`, `disabled`, `readOnly`, `min`, `step` 등의 속성과 `onChange(event)`를 그대로 전달한다.
+- `Field`와 `TextAreaField`의 `tooltip?`은 제목 오른쪽에 기존 `InfoTooltip`을 표시한다. 툴팁 버튼은 input label 밖에 두어 입력 이름을 바꾸지 않으며, 읽기 전용·비활성 입력에서도 설명을 확인할 수 있다. 카탈로그의 웹 주소·읽기 전용 입력·여러 줄 입력에서 확인한다.
 - `prefix?`, `suffix?`는 아이콘·프로필 주소·금액 단위처럼 입력 앞뒤 내용을 표시한다. `type="search"`에는 검색 아이콘이 기본으로 들어가며 브라우저 기본 지우기 버튼과 중복하지 않는다.
+- `Field.action?`은 입력 테두리 밖 오른쪽에 같은 높이의 버튼을 배치한다. 공통 도움말·오류·label 연결을 유지하고 비활성/대기 상태는 호출부에서 전달한다. 프로필 핸들 중복 확인에 사용한다.
+
 - 지우기는 `clearable`과 `onClear`를 함께 전달해야 사용할 수 있다. 값이 있을 때 버튼을 표시하며, 실제 값 변경은 `onClear`의 호출부가 처리한다. `disabled`나 `readOnly`이면 실행하지 않는다.
 - `showPasswordToggle`의 기본값은 `false`다. `type="password"`와 함께 켜면 보기/숨기기 버튼을 표시한다. 기존 화면에 별도 보기 버튼이 있으면 중복해서 켜지 않는다.
 - `TextAreaField`: `label`, `error?`, `hint?`와 `TextareaHTMLAttributes<HTMLTextAreaElement>`를 받는다. `showCount`로 글자 수를 표시하며, `maxLength`가 있으면 현재 글자 수와 제한을 함께 보여 준다.

@@ -1,7 +1,8 @@
+// Messages now use the shared Toast (2026-10-30): an always-present status region holding an open toast with a close button.
 import {settledShot} from './qa-settled';
 import {test,expect,type Page} from '@playwright/test';
-// Assert each visible UI and action below; offscreen lazy images must not gate document readiness in WebKit.
 test.afterEach(settledShot);
+// Assert each visible UI and action below; offscreen lazy images must not gate document readiness in WebKit.
 const title='분홍빛 첫 인사';
 const shareLayer=(page:Page)=>page.getByRole('dialog',{name:'게시물 공유',exact:true});
 async function browserAPIs(page:Page,{native='success',clipboard='success'}={}){
@@ -24,7 +25,7 @@ test('share opens three choices; copy and native sharing only run on their own c
  await browserAPIs(page);await page.goto('/preview/feed?unrelated=do-not-share#context',{waitUntil:'domcontentloaded'});await openShare(page);
  const layer=shareLayer(page);await expect(layer.getByRole('button',{name:'카카오톡',exact:true})).toBeDisabled();await expect(layer.getByText('카카오톡 공유는 준비 중이에요.')).toBeVisible();
  expect(await page.evaluate(()=>(window as any).__shareQA.copies)).toEqual([]);expect(await page.evaluate(()=>(window as any).__shareQA.shares)).toEqual([]);await expect(layer.getByText('링크를 복사했어요.')).toHaveCount(0);await assertLayout(page);
- await layer.getByRole('button',{name:'복사',exact:true}).click();await expect(layer.getByRole('status')).toHaveText('링크를 복사했어요.');
+ await layer.getByRole('button',{name:'복사',exact:true}).click();await expect(layer.locator('[role="status"] > [data-state="open"]')).toContainText('링크를 복사했어요.');
  await layer.getByRole('button',{name:'더보기',exact:true}).click();const state=await page.evaluate(()=>(window as any).__shareQA);
  expect(state.copies).toEqual([`${new URL(page.url()).origin}/preview/post/moka-first-shoot`]);expect(state.shares).toEqual([{active:true,data:{title:`${title} | 크레팬스`,url:state.copies[0]}}]);
  await page.screenshot({path:test.info().outputPath('share.png')});
@@ -50,13 +51,13 @@ test('service shares only its permalink and public title even for a locked post'
  await page.goto('/service/post/qa-paid?token=not-shared',{waitUntil:'domcontentloaded'});await openShare(page,'공개 제목');await shareLayer(page).getByRole('button',{name:'더보기',exact:true}).click();const payload=await page.evaluate(()=>(window as any).__shareQA.shares[0].data);expect(payload).toEqual({title:'공개 제목 | 크레팬스',url:`${new URL(page.url()).origin}/service/post/qa-paid`});expect(JSON.stringify(payload)).not.toMatch(/private|PAID_BODY|token/);
 });
 test('catalog uses the shared layer with ready, pending, unavailable and loading states',async({page})=>{
- await page.goto('/design-system');await page.getByRole('button',{name:'서비스 UI',exact:false}).first().click();const example=page.locator('#post-share');await example.getByRole('button',{name:'공유 레이어 열기',exact:true}).click();await shareLayer(page).getByRole('button',{name:'카카오톡',exact:true}).click();await expect(shareLayer(page).getByRole('status')).toHaveText('카카오톡 동작 예시입니다.');await shareLayer(page).getByRole('button',{name:'닫기',exact:true}).click();
+ await page.goto('/design-system');await page.getByRole('button',{name:'서비스 UI',exact:false}).first().click();const example=page.locator('#post-share');await example.getByRole('button',{name:'공유 레이어 열기',exact:true}).click();await shareLayer(page).getByRole('button',{name:'카카오톡',exact:true}).click();await expect(shareLayer(page).locator('[role="status"] > [data-state="open"]')).toContainText('카카오톡 동작 예시입니다.');await shareLayer(page).getByRole('button',{name:'닫기',exact:true}).click();
  await expect(shareLayer(page)).not.toBeVisible();
  for(const [option,state]of [['처리 중','pending'],['미연결·미지원','unavailable'],['카카오 로딩','loading'],['실패·직접 복사','error']]){
   await example.getByRole('combobox',{name:'공유 상태',exact:true}).click();await page.getByRole('option',{name:option,exact:true}).click();await example.getByRole('button',{name:'공유 레이어 열기',exact:true}).click();const layer=shareLayer(page);
   if(state==='pending')for(const name of ['복사','카카오톡','더보기'])await expect(layer.getByRole('button',{name,exact:true})).toBeDisabled();
   if(state==='unavailable'){await expect(layer.getByRole('button',{name:'카카오톡',exact:true})).toBeDisabled();await expect(layer.getByRole('button',{name:'더보기',exact:true})).toBeDisabled();}
-  if(state==='loading'){await expect(layer.getByRole('button',{name:'카카오톡',exact:true})).toBeDisabled();await expect(layer.getByRole('status')).toHaveText('카카오톡 공유를 준비하고 있어요.');}
+  if(state==='loading'){await expect(layer.getByRole('button',{name:'카카오톡',exact:true})).toBeDisabled();await expect(layer.locator('p[role="status"]')).toHaveText('카카오톡 공유를 준비하고 있어요.');/* inline hint, not a toast */}
   if(state==='error')await expect(layer.getByRole('textbox',{name:'공유 링크'})).toBeVisible();
   await layer.getByRole('button',{name:'닫기',exact:true}).click();await expect(layer).not.toBeVisible();
  }
@@ -66,5 +67,5 @@ test('catalog uses the shared layer with ready, pending, unavailable and loading
 
 test('Chromium writes and reads the real clipboard API after the explicit copy click',async({page,context,browserName})=>{
  test.skip(browserName!=='chromium','Clipboard permission automation is Chromium-specific.');
- await context.grantPermissions(['clipboard-read','clipboard-write']);await page.goto('/preview/post/moka-first-shoot',{waitUntil:'domcontentloaded'});await openShare(page);await shareLayer(page).getByRole('button',{name:'복사',exact:true}).click();await expect(shareLayer(page).getByRole('status')).toHaveText('링크를 복사했어요.');expect(await page.evaluate(()=>navigator.clipboard.readText())).toBe(`${new URL(page.url()).origin}/preview/post/moka-first-shoot`);
+ await context.grantPermissions(['clipboard-read','clipboard-write']);await page.goto('/preview/post/moka-first-shoot',{waitUntil:'domcontentloaded'});await openShare(page);await shareLayer(page).getByRole('button',{name:'복사',exact:true}).click();await expect(shareLayer(page).locator('[role="status"] > [data-state="open"]')).toContainText('링크를 복사했어요.');expect(await page.evaluate(()=>navigator.clipboard.readText())).toBe(`${new URL(page.url()).origin}/preview/post/moka-first-shoot`);
 });
