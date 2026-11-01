@@ -1,5 +1,4 @@
 'use client';
-import {displayTime} from '@/lib/crefans/display-time';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {MarqueeText} from '@/components/ui/MarqueeText';
@@ -24,13 +23,7 @@ type Props={model:StudioOverviewModel;basePath:string};
 export function MetricCard({metric,href}:{metric:StudioMetric;href?:string}){
  return <article className={s.metric}><span>{metric.label}</span><div className={s.metricValue}><strong>{metric.value}</strong></div><small>{metric.description}</small><Trend points={metric.points} label={`${metric.label} 추이`} className={s.trend}/>{href&&<ActionLink variant="secondary" href={href} className={s.moreButton} aria-label={`${metric.label} 리포트 보기`}>리포트 보기</ActionLink>}</article>;
 }
-function ActivityRow({activity,basePath}:{activity:StudioOverviewModel['activities'][number];basePath:string}){
- const content=<><i aria-hidden="true"/><div><strong>{activity.title}</strong><p>{activity.description}</p><small>{displayTime(activity.time)}</small></div></>;
- return activity.path?<Link className={s.activity} href={`${basePath}/${activity.path}`}>{content}</Link>:<article className={s.activity}>{content}</article>;
-}
-export function DashboardPage({model,basePath}:Props){
- return <div className={s.page}><PageTitle action={<ActionLink href={`${basePath}/content/new`}>새 게시물 작성 +</ActionLink>}><span className={s.dashboardGreeting}><Avatar creator={{name:model.profile.name,image:model.profile.avatar,position:model.profile.avatarPosition}} size={44}/><MarqueeText text={`${model.profile.name}님, 반가워요`}/></span></PageTitle><div className={s.metrics}>{model.metrics.map(metric=><MetricCard key={metric.id} metric={metric} href={['revenue','subscribers','followers'].includes(metric.id)?`${basePath}/reports/${metric.id}`:undefined}/>)}</div><div className={s.twoColumns}><section><div className={s.sectionTitle}><h2>다음 이야기의 시작</h2><ActionLink variant="secondary" href={`${basePath}/content`} className={s.moreButton}>콘텐츠 관리</ActionLink></div>{model.tasks.map(task=><Link className={s.task} key={task.id} href={`${basePath}/${task.path}`}><span className={s.taskIcon}>↗</span><span><strong>{task.title}</strong><small>{task.description}</small></span></Link>)}<Link className={s.creatorBanner} href={`${basePath}/settings`}><Avatar creator={{name:model.profile.name,image:model.profile.avatar,position:model.profile.avatarPosition}} size={56}/><span><strong>나를 소개하는 가장 좋은 방법</strong><small>프로필을 가꾸고 팬들에게 더 가까이</small></span><span>→</span></Link></section><section><div className={s.sectionTitle}><h2>최근 활동</h2><ActionLink variant="secondary" href={`${basePath}/comments`} className={s.moreButton}>소통 관리</ActionLink></div>{model.activities.length?model.activities.map(activity=><ActivityRow key={activity.id} activity={activity} basePath={basePath}/>):<Empty title="아직 활동이 없어요"/>}</section></div><section className={s.performance}><div className={s.sectionTitle}><h2>팬들이 주목한 콘텐츠</h2><ActionLink variant="secondary" href={`${basePath}/analytics`} className={s.moreButton}>통계 더보기</ActionLink></div>{model.contentPerformance.length?model.contentPerformance.map(post=><Link className={s.performanceRow} href={`${basePath}/content/${post.id}/edit`} key={post.id}>{post.image?<img src={post.image} alt=""/>:<span className={s.textThumbnail} aria-label="텍스트 게시물">Aa</span>}<strong>{post.title}</strong><span>조회 <b>{post.views.toLocaleString()}</b></span><span>좋아요 <b>{post.likes.toLocaleString()}</b></span><span>댓글 <b>{post.comments.toLocaleString()}</b></span></Link>):<Empty title="아직 콘텐츠가 없어요"/>}</section></div>;
-}
+export {DashboardPage} from './DashboardPage';
 export function AnalyticsPage({model,basePath}:Props){
  const [metric,setMetric]=useState<'subscribers'|'followers'|'revenue'>('subscribers');
  const labels={subscribers:'구독자',followers:'팔로워',revenue:'매출'};

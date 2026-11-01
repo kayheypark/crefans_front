@@ -1,0 +1,79 @@
+{
+  "repository": "crefans_front",
+  "recordedAt": "2026-11-01T15:32:20.258095+00:00",
+  "environment": "macOS-15.2-arm64-arm-64bit-Mach-O",
+  "baseCommit": "5dfaca3364ef9332b78ed6c6a7cc9b91be8f8b2b",
+  "branch": "feat/studio-quick-dashboard",
+  "testedWorkingTree": "source changes uncommitted at verification; exact source hashes below",
+  "scope": "Creator Studio quick-actions dashboard, shared preview/service/catalog view; no backend or financial-policy changes",
+  "acceptance": [
+    "Selected option03 quick actions appear before the summary on mobile",
+    "Write, posts, comments, withdrawal, settings, draft filter, three reports and analytics links navigate to existing destinations",
+    "Injected metrics keep their scope, zero and negative revenue; existing units are not duplicated",
+    "Empty activities and performance are not replaced by mock records",
+    "Long name and primary/report link colors remain usable in the catalog"
+  ],
+  "checks": [
+    {
+      "command": "npm run check",
+      "startedAt": "2026-11-01T15:28:52.456062+00:00",
+      "endedAt": "2026-11-01T15:29:04.974405+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": "CREFANS_E2E=true npm run build",
+      "startedAt": "2026-11-01T15:31:10.471999+00:00",
+      "endedAt": "2026-11-01T15:31:29.527468+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test --config=.local/studio-quick-dashboard-20261102/ui.config.ts",
+      "exitCode": 0,
+      "stats": {
+        "startTime": "2026-11-01T15:30:12.579Z",
+        "duration": 42609.73,
+        "expected": 9,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "projects": [
+        "desktop Chromium",
+        "mobile Chromium Pixel7",
+        "iPhone13 WebKit emulation"
+      ],
+      "coverage": "3 scenarios x 3 browser/device profiles; preview navigation plus mocked service API and design catalog"
+    }
+  ],
+  "unitResults": {
+    "passed": 490,
+    "failed": 0
+  },
+  "sources": {
+    "components/crefans/studio/DashboardPage.tsx": "1cf7e0784019aaaad6eae42a7d604c618a9a47761cc804f1a440462c4b358649",
+    "components/crefans/studio/dashboard.module.css": "0aeb8095c548c01baf300e4e3f4665eefaffa4521dbd0dde42b1b34ca1d94001",
+    "components/crefans/studio/OverviewPages.tsx": "668eb68d16e55c5b7f2306f84ad3c807e39753da7f5e04de0b295fd4228c4fc3",
+    "components/crefans/studio/overview.module.css": "dc63d05293d95daaceaf353ca763c32f084d483578738095398efc13f3d73c02",
+    "components/preview/studio/StudioProvider.tsx": "19d969caa091caa3f392d3b35b6b889fbf4e56acd736513a979423509ea6cb2a",
+    "components/design-system/ServicePatternCatalog.tsx": "82b1c5e3d605882ad0e56ce81299eff98a4cc57d912b54a25521e50878a39c72",
+    "components/design-system/StudioDashboardExample.tsx": "498a37a8742d8530db3a5f418dc4f1560e99c65c502406abc8e527a23e0b95d4",
+    "tests/dashboard-links.test.cjs": "295afb74bada420d212997723dd4bd153f73cca29668dd3e9822489210815282",
+    "e2e/studio-dashboard.spec.ts": "16790798ba8faac957a99aa5a422d83527fbea01c947c79b3823ec933728ce82"
+  },
+  "screenshots": {
+    ".local/studio-quick-dashboard-20261102/desktop.png": "88dd2adfe2d5da545f153d4e3e6ccf81f54c2048c774b2156b9f2cada7173268",
+    ".local/studio-quick-dashboard-20261102/mobile.png": "0b5c2d11feaaa7cf29cd3eefa9a794fbc50d436bb645ba8572aaa371444a4eb2"
+  },
+  "manualReview": [
+    "Desktop and iPhone dashboard screenshots",
+    "Catalog long-name screenshot; fixed inherited anchor colors/underlines and reran browser checks",
+    "Lazy thumbnails scrolled into view and loaded before final screenshots"
+  ],
+  "pendingDecision": "Asked whether to retain option03 four shortcuts or add bean withdrawals and messages. No answer yet; original four-shortcut design retained.",
+  "notRun": [
+    "Physical iPhone Chrome",
+    "Production authenticated account or actual payments/withdrawals",
+    "Production deployment"
+  ],
+  "evidenceDirectory": ".local/studio-quick-dashboard-20261102"
+}
