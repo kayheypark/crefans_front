@@ -111,3 +111,11 @@ test('dragging a tile past the threshold slides neighbours, commits on release, 
     assert.equal(moves.length,2);
   }finally{act(()=>view.unmount());}
 });
+test('design B: one add button first, then its guidance, then the thumbnails (2026-11-01)',()=>{
+  const picker=mount({items:[{id:'a',type:'image',url:'/a.png'}],hint:'이미지 5MB'});
+  try{
+    const kids=picker.view.root.findByProps({role:'group'}).children.filter(node=>typeof node!=='string').map(node=>node.type);
+    assert.ok(kids.indexOf('button')<kids.indexOf('small')&&kids.indexOf('small')<kids.indexOf('ul'),kids.join(','));
+    assert.match(JSON.stringify(picker.view.toJSON()),/사진·동영상 추가/);
+  }finally{picker.unmount();}
+});

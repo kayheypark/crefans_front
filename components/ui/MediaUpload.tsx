@@ -75,16 +75,17 @@ export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,ac
   return <div className={s.root} role="group" aria-labelledby={`${id}-label`}>
     <div className={s.heading}><span className={s.label} id={`${id}-label`}>{label}</span><span className={s.count} aria-live="polite">{`${items.length}/${max}`}</span></div>
     <input ref={input} className={s.file} id={id} type="file" multiple accept={accept} aria-label={label} disabled={blocked} onChange={event=>{const list=event.currentTarget.files;select(list);event.currentTarget.value='';}}/>
+    {/* Design B (2026-11-01): one gray add button, its guidance, then the thumbnails. */}
+    <button type="button" className={s.dropzone} data-dragging={dragging||undefined} disabled={blocked} aria-describedby={hint?`${id}-hint`:undefined} onClick={()=>input.current?.click()} onDragOver={event=>{event.preventDefault();if(!blocked)setDragging(true);}} onDragLeave={()=>setDragging(false)} onDrop={drop}>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-9 9"/></svg>
+      <span>{uploading?'미디어 확인 중…':full?`최대 ${max}개까지 추가할 수 있어요`:'사진·동영상 추가'}</span>
+    </button>
+    {hint&&<small id={`${id}-hint`} className={s.hint}>{hint}</small>}
     {items.length>0&&<ul ref={list} className={s.grid} aria-label={`${label} 목록`} data-reorderable={canReorder||undefined}>{items.map((item,index)=><li key={item.id} className={s.tile} data-media-id={item.id} data-dragging={drag?.from===index||undefined} style={tileStyle(index)} tabIndex={canReorder?0:undefined} aria-label={canReorder?`${index+1}번째 ${item.type==='video'?'동영상':'이미지'}, 끌거나 화살표 키로 순서 변경`:undefined} onPointerDown={event=>pointerDown(event,index)} onPointerMove={pointerMove} onPointerUp={()=>finishDrag(true)} onPointerCancel={()=>finishDrag(false)} onKeyDown={event=>keyReorder(event,index)}>
       {item.type==='video'?<MediaVideo className={s.media} src={item.url} firstFrame muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>:<img className={s.media} src={item.url} alt={`이미지 ${index+1}`} draggable={false}/>}
       <span className={s.badge} aria-label={item.type==='video'?'동영상':'이미지'}><MediaTypeIcon type={item.type}/></span>
       <button type="button" className={s.remove} aria-label={`${index+1}번째 ${item.type==='video'?'동영상':'이미지'} 삭제`} disabled={disabled||uploading} onClick={()=>onRemove(item.id)}>×</button>
     </li>)}</ul>}
-    <button type="button" className={s.dropzone} data-dragging={dragging||undefined} disabled={blocked} aria-describedby={hint?`${id}-hint`:undefined} onClick={()=>input.current?.click()} onDragOver={event=>{event.preventDefault();if(!blocked)setDragging(true);}} onDragLeave={()=>setDragging(false)} onDrop={drop}>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      <span>{uploading?'미디어 확인 중…':full?`최대 ${max}개까지 추가할 수 있어요`:'이미지·동영상 추가'}</span>
-    </button>
-    {hint&&<small id={`${id}-hint`} className={s.hint}>{hint}</small>}
     {error&&<p className={s.error} role="alert">{error}</p>}
     <span className={s.srOnly} role="status" aria-live="polite">{announce}</span>
   </div>;
