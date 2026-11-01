@@ -3357,3 +3357,9 @@
 - 빌드 이미지 대표 회귀21통과/기기9제외, 운영 주소의 전체 관련 브라우저99통과/기기48제외/실패0(37조회 경로×모바일2환경 및 보호·PC·GNB 등). 별도9경로에서 로딩 완료 후 당김 안내와 reload/URL 유지 확인, 운영 JS/CSS50파일이 검사한 이미지와 해시 일치. 지갑·대화 목록 화면 캡처 보존. 서비스 지갑 직접 검사는 비로그인 안내 화면이며 실제 로그인 잔액 조회는 미실행; 운영 preview 지갑은 fixture. 실물 아이폰 Chrome 미검증.
 - 운영6서비스 실행 정상, 프론트만 교체하고 API·worker·관리자·DB·proxy 컨테이너 동일. 로컬/운영 최신3개 및 사용중·직전복구 이미지 보호 후 오래된 beans-empty 이미지 각1개 정리. 임시 로컬 검사 컨테이너 중지, Docker Desktop 유지.
 - 증거 `.local/pull-refresh-pages-deploy-20261102/verification.json`, `deployment-git.json`, `deployment-command.json`, `source-delta.json`, `image-ui/results.json`, `production-ui/results.json`, `live-page-verification.json`, `served-assets.json`, retention 결과. 본 완료 기록도 최신 prod 기준 feat→dev→prod로 통합. 코드·테스트·문서 범위 완료, 물리 iPhone/실계정 금융 검증은 별도 범위로 남김.
+
+## 2026-11-02 스튜디오 대시보드 빠른 작업형 구현
+- 요청: 이전 시안03 빠른 작업형으로 구현, 작업 중 실제 결정이 필요한 사항은 질문. 최신 origin/prod(5dfaca3)에서 feat/studio-quick-dashboard 분기. 새 게시물 작성·게시물/댓글/출금 신청/크리에이터 설정2×2를 먼저 배치하고 임시저장·주요 지표·최근 활동·게시물 성과를 정리. PC는 작업/지표와 활동/성과 각각2열, 모바일은1열. 공용 DashboardPage를 서비스·목업·디자인 시스템에서 재사용, 기존 아바타/마키·메뉴 경로 보존.
+- 실제 결정 질문: 멤버십 출금과 콩 후원 출금이 별도여서 콩 후원·출금/메시지를 포함한2×3 확대 여부를 선택지로 질문했다. 답변 전에는 선택한 원래 시안2×2를 유지한다고 안내했으며 금융 경로·정책 변경 없음. 다음 사용자 답변에 따라 바로가기 구성만 조정 가능.
+- 검증: npm run check exit0(타입/계층/490검사), CREFANS_E2E=true npm run build exit0. PC Chromium·모바일 Chromium·iPhone13 WebKit에서 관련 브라우저9검사 통과: 실제 링크10개 진입,44px 이상 작업 링크,가로 넘침 없음,서비스 API 대역 데이터/빈 내역/긴 활동명/카탈로그 색상. 단위 중복·0·음수 순수익 표시 검사 추가. 디자인 시스템의 상위 링크 스타일이 덮는 색상/밑줄을 시각검수에서 발견해 수정 후 재검사. 캡처는 지연 로딩 썸네일을 스크롤해 실제 로딩 후 저장.
+- 증거: docs/audit/studio-quick-dashboard-20261102.json, .local/studio-quick-dashboard-20261102의 명령 기록·로그·results.json 및 desktop.png/mobile.png/index.html. 실물 아이폰 Chrome·운영 로그인/실금융 검증·배포 미실행. 운영은 pull-refresh-pages-20261102 유지. 기본 PR 흐름에 따라 작업 브랜치 보존 후 dev 대상 검토 준비; prod 승격/배포는 아직 하지 않음. AGENTS 규칙 추가 불필요.
