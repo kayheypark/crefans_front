@@ -26,7 +26,7 @@ const campaign={
 export const serviceEvents:readonly ServiceEvent[]=[
  {
   ...campaign,
-  "id": "beta-feedback",
+  "id": "feedback",
  "title": "네이버페이 1만원 상품권 이벤트",
  "summary": "유용한 피드백을 주신 분 중 최대 3명에게 드립니다.",
  "theme": "gift",
@@ -68,7 +68,7 @@ export const serviceEvents:readonly ServiceEvent[]=[
  },
  {
   ...campaign,
-  "id": "beta-creator-advertising",
+  "id": "creator-advertising",
  "title": "주목할 크리에이터 광고상품 30일 이벤트",
  "summary": "크리에이터 3명에게 드립니다.",
  "theme": "advertising",
@@ -102,7 +102,7 @@ export const serviceEvents:readonly ServiceEvent[]=[
  },
  {
   ...campaign,
-  "id": "beta-promotion-beans",
+  "id": "promotion-beans",
  "title": "프로모션 100콩 이벤트",
  "summary": "팬 참여자 13명에게 지급합니다.",
  "theme": "beans",
@@ -139,7 +139,7 @@ export const serviceEvents:readonly ServiceEvent[]=[
  },
  {
   ...campaign,
-  "id": "beta-founding-badge",
+  "id": "founding-badge",
  "title": "원년멤버 한정판 뱃지 이벤트",
  "summary": "참여가 확정된 회원 전원에게 드립니다.",
  "theme": "badge",

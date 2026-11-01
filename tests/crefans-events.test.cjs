@@ -115,3 +115,13 @@ test('legacy omnibus links redirect to the four-event list and invalid IDs remai
   }
  }
 });
+
+// 2026-11-01 SEO decision: event pages dropped the 'beta-' prefix; old addresses move permanently (301).
+test('old beta- event addresses redirect with 301 and the event ids carry no beta- prefix',async()=>{
+ const redirects=await require('../next.config.js').redirects(),{serviceEvents}=loadTypeScript('lib/content/events.ts');
+ assert.ok(serviceEvents.length>0&&serviceEvents.every(e=>!e.id.startsWith('beta-')));
+ for(const base of ['service','preview']){
+  for(const e of serviceEvents)assert.ok(redirects.some(r=>r.source===`/${base}/events/beta-${e.id}`&&r.destination===`/${base}/events/${e.id}`&&r.statusCode===301),e.id);
+  assert.ok(redirects.some(r=>r.source===`/${base}/events/beta-first`&&r.destination===`/${base}/events`&&r.statusCode===301));
+ }
+});
