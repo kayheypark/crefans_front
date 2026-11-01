@@ -3351,3 +3351,9 @@
 - 메시지 목록은 별도 contacts 스크롤의 최상단 경계를 명시적으로 공유. 대화방·전송 중·다른 대화의 보관 초안도 보호. 기존 댓글·모달·포커스·가로 스와이프 제외 유지. 지갑 이력/구독/결제수단/설정 변경 요청 중에는 보호 표시를 사용. 스튜디오·랜딩·레거시는 문서 스크롤이므로 같은 문제가 아니며 구조 유지. API/금융/정책 변경 없음.
 - 로컬 npm run check exit0(489검사/타입/레이어), 브라우저99통과/기기조건48제외/실패0: 모바일 조회 경로37개 각각 Chromium/WebKit, 문의·메시지 초안, 내부 목록 경계,PC·스튜디오/랜딩 문서 스크롤,실제 Chromium CDP 지갑 터치,기존 GNB/모달/댓글. `.local/mobile-refresh-pages-20261102/ui/results.json` 및 각 경로 화면 캡처. 실물 iPhone Chrome·로그인된 운영 지갑 미검증이며 운영 preview 검사를 실계정 금융 검증으로 간주하지 않는다.
 - AGENTS에 내부 스크롤 경로 정책·초안/진행 상태 보호 규칙1줄 추가. 현재 운영 pull-refresh-20261101 기준 제품7파일만 동결하여 `.local/pull-refresh-pages-deploy-20261102/`에 빌드 중. 다음: 이미지 브라우저검사→dev 통합·검사→prod 승격→프론트 운영 배포·운영 재검증.
+
+### 운영 반영 및 최종 검증
+- feat603df7e→dev87e33f0 통합 검사(489통과)→prod734fca1 승격/원격 동기화 후 2026-11-02 00:15 KST `crefans-front:pull-refresh-pages-20261102` 운영 배포. 빌드/배포 exit0, frozen source manifest SHA-256 a52852771b6459aeaed9b692cd08a6c3936c8c08d75f28e503afed48cf02baa2. 제품 변경7파일만 반영.
+- 빌드 이미지 대표 회귀21통과/기기9제외, 운영 주소의 전체 관련 브라우저99통과/기기48제외/실패0(37조회 경로×모바일2환경 및 보호·PC·GNB 등). 별도9경로에서 로딩 완료 후 당김 안내와 reload/URL 유지 확인, 운영 JS/CSS50파일이 검사한 이미지와 해시 일치. 지갑·대화 목록 화면 캡처 보존. 서비스 지갑 직접 검사는 비로그인 안내 화면이며 실제 로그인 잔액 조회는 미실행; 운영 preview 지갑은 fixture. 실물 아이폰 Chrome 미검증.
+- 운영6서비스 실행 정상, 프론트만 교체하고 API·worker·관리자·DB·proxy 컨테이너 동일. 로컬/운영 최신3개 및 사용중·직전복구 이미지 보호 후 오래된 beans-empty 이미지 각1개 정리. 임시 로컬 검사 컨테이너 중지, Docker Desktop 유지.
+- 증거 `.local/pull-refresh-pages-deploy-20261102/verification.json`, `deployment-git.json`, `deployment-command.json`, `source-delta.json`, `image-ui/results.json`, `production-ui/results.json`, `live-page-verification.json`, `served-assets.json`, retention 결과. 본 완료 기록도 최신 prod 기준 feat→dev→prod로 통합. 코드·테스트·문서 범위 완료, 물리 iPhone/실계정 금융 검증은 별도 범위로 남김.
