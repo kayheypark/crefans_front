@@ -1,5 +1,11 @@
 # PROGRESS: crefans_front
 
+## 2026-11-01 아이폰 동영상 미리보기 첫 프레임 — video-frame-20261101 운영 배포 (메인 ba125ac, 브랜치 feat/video-upload-first-frame ff30831 미푸시)
+
+- 작업 폴더 `/Users/ethan/repository/crefans_front-video-thumb`(origin/prod 기준 worktree), 커밋 ff30831. `MediaVideo` `firstFrame`(src#t=0.001)을 업로드 타일·피드·넓게 보기·스튜디오 목록에 적용.
+- .mov는 프론트 accept와 서버 허용 목록(`video/mp4`,`video/webm`)에서 거부되므로 서버 썸네일 단계는 해당 없음. 서버에 썸네일 생성 API 없음(백엔드 필요 시 별도 결정).
+- 메인 ba125ac(MediaOverlay 포함 5곳)을 직전 운영(og-simple) 소스에 얹어 배포. 운영 번들에 #t=0.001 포함 확인, 운영 피드에 비로그인 동영상 게시물이 없어 실영상 화면은 미확인. 아이폰 실기기 미확인. 증거 `.local/video-frame-deploy-20261101/`, worktree `.local/video-first-frame-20261101/README.md`.
+
 ## 2026-11-01 공개 페이지 검색 노출·공유 미리보기(OG) — seo-og-20261101 운영 배포
 
 - 사용자 결정(클릭형): 공개 페이지만 색인 / 크리에이터별 동적 미리보기 / 공개 게시물은 본문 사용 / 대표 문구 '크레팬스 crefans - 크리에이터 멤버십·후원 플랫폼'.
