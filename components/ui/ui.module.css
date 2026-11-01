@@ -12,6 +12,8 @@
 .chip { min-height:40px; padding:9px 17px; border:0; border-radius:var(--cf-radius-pill); background:var(--cf-color-surfaceSubtle); color:var(--cf-color-textSecondary); font:inherit; font-size:max(13px,var(--cf-mobile-font-min,0px)); cursor:pointer; }
 .chip[aria-pressed=true] { background:var(--cf-color-accentSoft); color:var(--cf-color-accent); }
 .chipLink{display:inline-flex;align-items:center;text-decoration:none;box-sizing:border-box}
+.chipLink[aria-current=page]{background:var(--cf-color-accentSoft);color:var(--cf-color-accent)}
+.chipLink[aria-current=page]:hover{background:var(--cf-color-accentBorder)}
 .chipWithIcon{display:inline-flex;align-items:center;gap:6px;vertical-align:middle}
 .chipIcon{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex:none}
 .chipIcon img{width:20px;height:20px;object-fit:contain}

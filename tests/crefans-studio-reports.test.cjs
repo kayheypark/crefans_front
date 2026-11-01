@@ -209,7 +209,7 @@ let chartMounts=0;
 function ChartProbe({items}){React.useEffect(()=>{chartMounts++;},[]);return h('div',{'data-chart-items':items});}
 const {ReportPage}=loadTypeScript('components/crefans/studio/ReportPage.tsx',{
   'next/link':props=>h('a',props),
-  './report.module.css':styles,'./data-table.module.css':styles,'./pagination.module.css':styles,'./date-range-picker.module.css':styles,
+  './report.module.css':styles,'./ui.module.css':styles,'./data-table.module.css':styles,'./pagination.module.css':styles,'./date-range-picker.module.css':styles,
   '@/components/ui/Charts':{BarChart:ChartProbe},
   './Primitives':{Button:({loading,tone,...props})=>h('button',{...props,disabled:props.disabled||loading})},
   '@/components/ui/TextLink':{TextLink:props=>h('a',props)},
@@ -265,5 +265,17 @@ test('report view displays missing metric values explicitly and sorts nullable c
     sort('매출: 기본 순서로 보기');assert.deepEqual(visibleDates(tree),['2026-09-03','2026-09-01','2026-09-02']);
     const missingRow=tree.root.findByType('tbody').findAllByType('tr')[0];
     assert.equal(missingRow.findAllByType('td')[1].findByType('span').children[0],'-');
+  }finally{act(()=>tree.unmount());}
+});
+
+// 2026-11-01: report tabs use the shared ChipLink (chip look, no underline); only the current report is aria-current.
+test('report tabs are shared chip links with the current report selected',()=>{
+  let tree;function Probe(){return h(ReportPage,{model:useMockReports(sources()).reports.subscribers,basePath:'/preview/studio'});}
+  act(()=>{tree=create(h(Probe));});
+  try{
+    const tabs=tree.root.findByProps({'aria-label':'리포트 항목'}).findAllByType('a');
+    assert.deepEqual(tabs.map(a=>a.props.href),['/preview/studio/reports/revenue','/preview/studio/reports/subscribers','/preview/studio/reports/followers']);
+    assert.deepEqual(tabs.map(a=>a.props['aria-current']??null),[null,'page',null]);
+    assert.ok(tabs.every(a=>/chip/.test(a.props.className||'')),'chip classes from the shared component');
   }finally{act(()=>tree.unmount());}
 });

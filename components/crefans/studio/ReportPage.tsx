@@ -9,7 +9,7 @@ import {BarChart} from '@/components/ui/Charts';
 import {DataTable,type TableColumn,type TableSort} from '@/components/ui/DataTable';
 import {Pagination} from '@/components/ui/Pagination';
 import {DateRangePicker} from '@/components/ui/DateRangePicker';
-import {TextLink} from '@/components/ui/TextLink';
+import {ChipLink} from '@/components/ui/ChipLink';
 import {ApiState} from '../ApiState';
 import {ActionLink,Empty} from '../ServiceUI';
 import s from './report.module.css';
@@ -51,7 +51,7 @@ function ReportContent({report,model,basePath}:Props&{report:StudioReport}){
       {report.asOf&&<span className={s.asOf}>{report.asOf} 기준</span>}
     </header>
     <div className={s.toolbar}>
-      <nav className={s.navigation} aria-label="리포트 항목">{navigation.map(item=><TextLink key={item.id} className={s.reportLink} href={`${basePath}/reports/${item.id}`} aria-current={report.id===item.id?'page':undefined}>{item.label}</TextLink>)}</nav>
+      <nav className={s.navigation} aria-label="리포트 항목">{navigation.map(item=><ChipLink key={item.id} href={`${basePath}/reports/${item.id}`} selected={report.id===item.id}>{item.label}</ChipLink>)}</nav>
       <div className={s.period}><DateRangePicker label="조회 기간" hideLabel value={model.dateRange} defaultValue={model.defaultRange} minDate={model.minDate} maxDate={model.maxDate} disabled={model.loading} onApply={model.applyDateRange}/></div>
     </div>
     {report.summary.length>0&&<dl className={s.summary} aria-label="주요 지표">{report.summary.map(metric=><div key={metric.id} className={s.metric}>
