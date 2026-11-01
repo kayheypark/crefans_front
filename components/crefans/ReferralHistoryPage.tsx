@@ -31,7 +31,7 @@ export function ReferralHistoryPage(){
   if(!model.signedIn)return <SignInPrompt basePath={model.basePath}/>;
   const pages=data?Math.max(1,Math.ceil(data.total/data.pageSize)):1,firstLoad=!data&&!error;
   return <section className={s.page}>
-    <PageTitle back={<BackButton href={`${model.basePath}/beans/referral`} label="친구 초대로 돌아가기"/>}>초대 내역</PageTitle>
+    <PageTitle back={<BackButton href={`${model.basePath}/beans/referral`} label="친구 초대 이벤트로 돌아가기"/>}>초대 내역</PageTitle>
     <dl className={s.summary}>
       <div><dt>초대로 가입</dt><dd>{data?data.summary.invited.toLocaleString('ko-KR'):''}</dd></div>
       <div><dt>확정 대기</dt><dd>{data?data.summary.waiting.toLocaleString('ko-KR'):''}</dd></div>
