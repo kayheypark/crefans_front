@@ -16,6 +16,8 @@ import {useService} from './ServiceProvider';
 import {PaymentResult} from './PaymentResult';
 import {CheckoutPage,BillingResult} from './CheckoutPage';
 import ServiceShell from '@/components/crefans/ServiceShell';
+import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
+import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import {SignupPage,LoginPage,MyProfilePage,SettingsPage,SupportPage,SignInPrompt} from '@/components/crefans/AccountPages';
 import {FeedPage,PostDetailPage,MessagesPage,NotificationsPage} from '@/components/crefans/SocialPages';
 import {ExplorePage,CreatorProfilePage,MembershipPage,SubscriptionsPage} from '@/components/crefans/CreatorPages';
@@ -26,7 +28,9 @@ import s from '@/components/crefans/service.module.css';
 
 export default function ServiceRouter({segments}:{segments:string[]}){
  const {model,common,loading,error,refresh,publicProfile}=useService(),query=useSearchParams(),router=useRouter(),[screen,id]=segments,basePath=model.basePath;
- function content(){if(loading)return <p role="status">불러오는 중…</p>;if(!model.signedIn&&!(['following','followers'].includes(screen)&&query.get('profile'))&&['messages','notifications','me','subscriptions','settings','following','followers','payment-methods','checkout','beans'].includes(screen))return <SignInPrompt basePath={basePath}/>;switch(screen){
+ // Loading rule: a page change shows nothing for the first second, then the shared spinner (no '불러오는 중…' text on every tab tap).
+ const slow=useDelayedLoading(loading);
+ function content(){if(loading)return slow?<LoadingSpinner/>:null;if(!model.signedIn&&!(['following','followers'].includes(screen)&&query.get('profile'))&&['messages','notifications','me','subscriptions','settings','following','followers','payment-methods','checkout','beans'].includes(screen))return <SignInPrompt basePath={basePath}/>;switch(screen){
   case 'checkout':return <CheckoutPage id={id}/>;
   case 'payment':return <PaymentResult success={id==='success'}/>;
   case 'billing':return <BillingResult success={id==='success'}/>;
