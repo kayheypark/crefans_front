@@ -1,6 +1,7 @@
 .block{display:flex;justify-content:center;align-items:center;min-height:120px}
 .overlay{position:absolute;inset:0;z-index:2;display:flex;justify-content:center;align-items:flex-start;padding-top:min(120px,30%);background:color-mix(in srgb,var(--cf-color-surface) 65%,transparent)}
 .spinner{width:28px;height:28px;border:3px solid var(--cf-color-border);border-top-color:var(--cf-color-accent);border-radius:50%;animation:spin .8s linear infinite}
+.inline{position:relative;display:inline-flex;align-items:center}.small{width:14px;height:14px;border-width:2px}
 .label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.spinner{animation-duration:2s}}
