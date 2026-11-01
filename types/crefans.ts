@@ -22,7 +22,7 @@ export type Message={id:string|number;body:string;mine:boolean;time:string;unrea
 export type Faq={question:string;answer:string};
 /** Someone following the signed-in fan; listed under 항목 모아보기 > 팔로워 목록. */
 export type Follower={id:string;name:string;handle:string;image:string;isVerified?:boolean;isFoundingMember?:boolean};
-export type ServiceData={creators:Creator[];plans:Plan[];creatorPlans?:Record<string,Plan[]>;posts:Post[];notifications:Notification[];paymentHistory:Subscription[];messages:Record<string,Message[]>;faqs:Faq[];categories:string[];followers?:Follower[]};
+export type ServiceData={creators:Creator[];newCreatorIds?:string[];plans:Plan[];creatorPlans?:Record<string,Plan[]>;posts:Post[];notifications:Notification[];paymentHistory:Subscription[];messages:Record<string,Message[]>;faqs:Faq[];categories:string[];categoryIcons?:Record<string,string|null>;followers?:Follower[]};
 /** Presentation inputs. Containers may back these with fixtures or API/model adapters. */
 export type ServiceViewModel=AccountModel&SocialModel&{
   beanSupport?:boolean;
@@ -36,7 +36,7 @@ export type ServiceViewModel=AccountModel&SocialModel&{
   read:string[];markRead:(ids:string[])=>void;
   subscriptions:Subscription[];subscribe:(creatorId:string,planId:string)=>Promise<ApiResult<{message:string;nextPath?:string}>>;cancelSubscription:(creatorId:string)=>Promise<ApiResult<{message:string}>>;
   refundOrder?:(orderId:string)=>Promise<ApiResult<{message:string}>>;
-  directory?:{creators:Creator[];search:(query:string,category:string)=>void;hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
+  directory?:{creators:Creator[];newCreators?:Creator[];search:(query:string,category:string)=>void;hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
   feedPaging?:{hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
   feedCategory?:{value:string;select:(category:string)=>void};
   canAccess:(creatorId:string,rank:number,requiredPlanId?:string)=>boolean;

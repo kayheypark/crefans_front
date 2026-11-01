@@ -1,6 +1,7 @@
 .explore,.membership,.subscriptions{width:100%;max-width:1000px;margin:0;padding:0 0 32px;color:var(--cf-color-text)}
 .srOnly{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .filters{margin-block:18px 24px}
+.newCreators{margin-top:32px}
 
 
 .creatorGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
@@ -161,6 +162,13 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 
 .previewLogin{width:100%;min-height:44px}
 
-/* Profile wallet/settings use the category chip look; these restore it over the generic cover-link sizing above. */
-.coverAction>.coverChip{min-height:40px;padding:9px 17px;border-radius:var(--cf-radius-pill);font-size:max(13px,var(--cf-mobile-font-min,0px));gap:6px;box-shadow:0 1px 3px rgba(0,0,0,.18)}
-.coverAction:has(>.coverChip){top:14px;bottom:auto}
+/* Profile actions: compact white wallet pill and a circular settings control. */
+.coverAction>.coverControl{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;height:44px;padding:10px 12px;gap:7px;border:0;border-radius:var(--cf-radius-pill);background:var(--cf-color-surface);color:var(--cf-color-text);font-size:14px;font-weight:600;line-height:1.2;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px #22222216}
+.coverAction>.coverControl:hover{background:var(--cf-color-surfaceSubtle)}
+.coverControl:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px}
+.coverAction:has(>.coverControl){top:14px;bottom:auto}
+.coverAction>.coverSettings{width:44px;min-width:44px;padding:0;flex:none}
+.coverAction>.coverSettings svg{width:18px;height:18px}
+.coverWallet{max-width:calc(100% - 56px);min-width:0}
+.coverWallet img{width:20px;height:20px;object-fit:contain;flex:none}
+.coverWallet span{min-width:0;overflow:hidden;text-overflow:ellipsis}
