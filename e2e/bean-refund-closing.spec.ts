@@ -7,7 +7,7 @@ async function studioNav(page:Page,path:string,group='수익,정산,출금 관�
 
 test('콩 환불: 7일 이내 새 충전은 전액, 지난 충전은 10% 공제 후 환불하고 내역에 표시',async({page})=>{
  await page.goto('/preview/beans/charge');await page.getByText('100콩',{exact:true}).click();await page.getByRole('button',{name:'충전 결제하기',exact:true}).click();
- await expect(page.getByRole('heading',{name:'콩 충전 완료',exact:true})).toBeVisible();await page.getByRole('link',{name:'내 콩 지갑 보기',exact:true}).click();await page.getByRole('link',{name:'충전 주문'}).click();
+ await expect(page.getByRole('heading',{name:'콩 충전 완료',exact:true})).toBeVisible();await page.getByRole('link',{name:'내 콩 지갑 보기',exact:true}).click();await page.getByRole('link',{name:'충전 내역'}).click();
  const refundable=page.locator('li').filter({has:page.getByRole('button',{name:'환불 신청',exact:true})});
  await refundable.first().getByRole('button',{name:'환불 신청',exact:true}).click();let dialog=page.getByRole('dialog');
  await expect(dialog).toContainText('환불 콩 수100콩');await expect(dialog).toContainText('공제액(7일 이후 10%)0원');await expect(dialog).toContainText('환불 예정 금액11,000원');await expect(dialog).toContainText('공제 없이 환불');await expect(dialog).toContainText('영업일 기준 3~4일');
@@ -26,7 +26,7 @@ test('콩 유효기간: 30일 안에 끝나는 콩이 있을 때만 지갑에 �
  await page.goto('/preview/beans');await expect(page.getByRole('heading',{name:'지갑',exact:true})).toBeVisible();await expect(page.getByText(/유효기간이 끝나요/)).toHaveCount(0);
  // The welcome promotion beans (granted 2026-08-27 in the mock) expire five years later.
  // The clock moves after hydration and the wallet re-renders through in-app links, so server and client HTML still match.
- await page.clock.install({time:new Date('2031-08-01T09:00:00+09:00')});await page.getByRole('link',{name:'충전 주문'}).click();await page.getByRole('link',{name:'지갑으로 돌아가기'}).click();
+ await page.clock.install({time:new Date('2031-08-01T09:00:00+09:00')});await page.getByRole('link',{name:'충전 내역'}).click();await page.getByRole('link',{name:'지갑으로 돌아가기'}).click();
  await expect(page.getByText(/유효기간이 끝나요/)).toHaveText('100콩이 2031.08.27에 유효기간이 끝나요');
  await page.getByRole('link',{name:'콩 충전',exact:true}).click();const notes=page.getByRole('region',{name:'환불·유효기간'});await expect(notes).toContainText('7일 이내');await expect(notes).toContainText('10%를 공제');await expect(notes).toContainText('프로모션콩은 환불되지 않습니다');await expect(notes).toContainText('5년');
 });

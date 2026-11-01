@@ -13,7 +13,7 @@ export function ReferralCard({referral}:{referral:ReferralSummary}){
   const [notice,setNotice]=useSnackbarMessage(),[error,setError]=useState(''),[copying,setCopying]=useState(false),[link,setLink]=useState('');
   useEffect(()=>setLink(referralLink(window.location.origin,referral.code)),[referral.code]);
   async function copy(){if(!link||copying)return;setCopying(true);setError('');try{await navigator.clipboard.writeText(link);setNotice('초대 링크를 복사했어요.');}catch{setError('복사하지 못했어요. 링크를 길게 눌러 복사해 주세요.');}finally{setCopying(false);}}
-  return <section className={s.card} aria-label="친구 초대">
+  return <section className={s.card} aria-label="친구 초대 이벤트">
     <p className={s.eyebrow}>친구와 함께하는 크레팬스</p>
     <div className={s.reward}><h2>초대 보상 {referral.rewardPerInvite.toLocaleString('ko-KR')}콩</h2><img src="/brand/beans/soft3d-v2/10.png" width={44} height={44} alt=""/></div><p className={s.limit}>후원에 쓸 수 있는 프로모션콩 · 월 최대 {referral.monthlyCap}명</p>
     <p className={s.lead}>초대 링크로 가입한 친구의 첫 결제가 {referral.holdDays}일 동안 환불되지 않으면 보상을 드려요.</p>
