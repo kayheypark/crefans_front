@@ -666,3 +666,17 @@ test('my messages show one check with 전송됨, two checks with 읽음 once rea
   assert.match(words(sent),/전송됨/);assert.equal(sent.props['data-read'],undefined);assert.equal(sent.findAllByType('path').length,1);
   close(tree);
 });
+
+// /ux-spinner 2026-11-01: a pending "더 보기" keeps its label (disabled) for 1s; only then the small spinner appears, never instant '불러오는 중…'.
+test('feed load-more: label unchanged and no loading text for 1s, then an inline spinner',t=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  const tree=mount(FeedPage,{model:model({data,feedPaging:{hasMore:true,loading:true,loadMore:async()=>{}}})});
+  const flat=n=>n==null?[]:Array.isArray(n)?n.flatMap(flat):typeof n==='string'?[]:[n,...flat(n.children)];
+  const words=n=>n==null?'':typeof n==='string'?n:Array.isArray(n)?n.map(words).join(''):(n.children||[]).map(words).join('');
+  const state=()=>{const b=flat(tree.toJSON()).find(n=>n.type==='button'&&words(n).includes('더 보기'));return{label:!!b,disabled:!!b?.props.disabled,spinner:flat(b?.children).filter(n=>n.props?.role==='status').length,instantText:words(tree.toJSON()).includes('불러오는 중…')};};
+  try{
+    const rows={'0ms':state()};act(()=>t.mock.timers.tick(500));rows['500ms']=state();act(()=>t.mock.timers.tick(499));rows['999ms']=state();act(()=>t.mock.timers.tick(1));rows['1000ms']=state();t.diagnostic('load-more '+JSON.stringify(rows));
+    for(const k of ['0ms','500ms','999ms'])assert.deepEqual(rows[k],{label:true,disabled:true,spinner:0,instantText:false},k);
+    assert.deepEqual(rows['1000ms'],{label:true,disabled:true,spinner:1,instantText:false});
+  }finally{close(tree);}
+});
