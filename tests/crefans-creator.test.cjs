@@ -33,7 +33,7 @@ function pages(){
 }
 
 function inputs(){
-  const creator={id:'artist-42',name:'다른 크리에이터',handle:'different',tags:['드로잉'],image:'/injected-portrait.png',position:'center',bio:'주입된 소개',followers:'37',promoted:true};
+  const creator={id:'artist-42',name:'다른 크리에이터',handle:'different',tags:['드로잉'],image:'/injected-portrait.png',cover:'/injected-cover.png',position:'center',bio:'주입된 소개',followers:'37',promoted:true};
   const plan={id:'independent-plan',name:'새로운 멤버십',price:27500,rank:2,benefits:['주입된 혜택']};
   return {
     basePath:'/catalogue',mode:'live',today:'2030-01-08',nextRenewAt:'2030-02-08',
@@ -54,7 +54,7 @@ test('creator exploration and profile render supplied identity and routes withou
   assert.match(text(tree),/주입된 소개/);
   assert.match(text(tree),/드로잉/);
   const portraits=tree.root.findAllByType('img').filter(image=>image.props['aria-hidden']!=='true');
-  assert.ok(portraits.length>=2,'portrait and avatar both render');assert.ok(portraits.every(image=>image.props.src===undefined||image.props.src==='/injected-portrait.png'));
+  assert.ok(portraits.length>=2,'card background and avatar both render');assert.ok(portraits.every(image=>image.props.src===undefined||['/injected-portrait.png','/injected-cover.png'].includes(image.props.src)));
   assert.ok(tree.root.findAllByType('a').every(link=>link.props.href==='/catalogue/creator/artist-42'));
   act(()=>button(tree,'팔로우').props.onClick());
   assert.deepEqual(followed,['artist-42']);
@@ -257,4 +257,13 @@ test('preview persona button delegates the injected action and never appears in 
  act(()=>tree.update(h(CreatorProfilePage,{model,id:'artist-42',previewLogin})));assert.equal(button(tree,'모카로 로그인'),undefined);
  act(()=>tree.update(h(CreatorProfilePage,{model:{...model,mode:'mock'},id:'artist-42'})));assert.equal(button(tree,'모카로 로그인'),undefined);
  act(()=>tree.unmount());
+});
+
+test('a creator card without a profile background shows the light gray cover with the white logo (2026-11-01)',()=>{
+  const {CreatorCard}=loadTypeScript('components/crefans/CreatorCard.tsx',{'next/link':({href,children,...props})=>h('a',{href,...props},children),'./creator.module.css':styles,'./profile-photo.module.css':styles,'./ServiceUI':{Avatar:({creator})=>h('img',{alt:creator?.name})},'./FollowButton':{FollowButton:()=>h('button')},'./CreatorName':{CreatorName:({person})=>h('span',null,person.name)},'@/components/ui/MarqueeText':{MarqueeText:({text})=>h('span',null,text)}});
+  const base={id:'c1',name:'배경 없음',handle:'nocover',tags:[],image:'/avatar.png',position:'center',bio:'',followers:'0'};
+  let tree;act(()=>{tree=create(h(CreatorCard,{creator:base,href:'/c',following:false,onFollow:()=>{}}));});
+  assert.deepEqual(tree.root.findAllByType('img').filter(i=>i.props.src==='/brand/crefans-logo-inverse.svg').length,1,'white logo');
+  act(()=>{tree.update(h(CreatorCard,{creator:{...base,cover:'/cover.png'},href:'/c',following:false,onFollow:()=>{}}));});
+  assert.equal(tree.root.findAllByType('img').filter(i=>i.props.src==='/brand/crefans-logo-inverse.svg').length,0);assert.ok(tree.root.findAllByType('img').some(i=>i.props.src==='/cover.png'),'background shown');
 });
