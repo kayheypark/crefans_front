@@ -11,6 +11,8 @@ import type {BeanCharge} from '@/types/crefans-beans';
 import {useBeans} from './BeanContext';
 import {Action,PageTitle} from './ServiceUI';
 import {SignInPrompt} from './SignInPrompt';
+import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
+import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import {BackButton} from './BackButton';
 import s from './beans.module.css';
 
@@ -24,6 +26,8 @@ export function BeanChargePage(){
   const [quantity,setQuantity]=useState(0),[order,setOrder]=useState<BeanCharge|null>(null);
   const [pending,setPending]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
   const key=useRef(''),busy=useRef(false);
+  // Loading rule: the balance stays (blank before the first response); a small spinner only after 1s.
+  const slow=useDelayedLoading(!!model&&(model.loading||(!model.wallet&&!model.error)));
   if(!model?.enabled)return <p>콩 후원을 준비 중입니다.</p>;
   if(!model.signedIn)return <SignInPrompt basePath={model.basePath}/>;
   const ready=quantities.some(value=>value===quantity);
@@ -50,7 +54,7 @@ export function BeanChargePage(){
   }
   return <section className={`${s.page} ${s.chargePage}`}>
     <PageTitle back={<BackButton href={`${model.basePath}/beans`} label="지갑으로 돌아가기"/>} action={<InfoTooltip label="콩 단위 안내" content={beanPriceNotice}/>}>콩 충전</PageTitle>
-    <div className={s.chargeBalance}><span>사용 가능한 콩</span><strong>{model.loading?'불러오는 중…':model.wallet?beans(available):'확인할 수 없습니다'}</strong></div>
+    <div className={s.chargeBalance}><span>사용 가능한 콩</span><strong>{model.wallet?beans(available):model.error?'확인할 수 없습니다':null}{slow&&<LoadingSpinner inline/>}</strong></div>
     <form className={s.chargeForm} onSubmit={event=>{event.preventDefault();void pay();}}>
       <fieldset className={s.chargeOptions} disabled={pending||!!order}>
         <legend>충전할 콩 선택</legend>

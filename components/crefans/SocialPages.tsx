@@ -4,6 +4,8 @@ import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {TipButton} from './BeanPages';
 import {MarqueeText} from '@/components/ui/MarqueeText';
+import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
+import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 
 import {BackButton} from './BackButton';
 import {CreatorName} from './CreatorName';
@@ -225,12 +227,13 @@ export function FeedPage({model}:{model:ServiceViewModel}){
 function CommentItem({comment,postId,loadReplies,readOnly,onEdit,onDelete,onReply}:{comment:SocialComment;postId:string;loadReplies:CommentsModel['loadReplies'];readOnly:boolean;onReply?:(body:string)=>Promise<SocialActionResult>}&CommentActions){
   const [replies,setReplies]=useState<SocialReply[]|null>(null),[open,setOpen]=useState(false),[loading,setLoading]=useState(false),[error,setError]=useState('');
   const [replying,setReplying]=useState<{name:string;toReply:boolean}|null>(null),[replyDraft,setReplyDraft]=useState(''),[replyBusy,setReplyBusy]=useState(false),[replyError,setReplyError]=useState('');
-  const count=comment.replyCount||0;
+  // Loading rule: the toggle keeps its label for 1s, then a small spinner beside it; an earlier error stays until the response.
+  const count=comment.replyCount||0,slowReplies=useDelayedLoading(loading);
   async function toggle(){
     if(readOnly||loading)return;
     if(replies){setOpen(previous=>!previous);return;}
-    setLoading(true);setError('');
-    try{const result=await loadReplies(postId,comment.id);if(result.success){setReplies(result.data);setOpen(true);}else setError(result.errorMessage);}
+    setLoading(true);
+    try{const result=await loadReplies(postId,comment.id);if(result.success){setError('');setReplies(result.data);setOpen(true);}else setError(result.errorMessage);}
     catch{setError('답글을 불러오지 못했어요. 다시 시도해 주세요.');}
     finally{setLoading(false);}
   }
@@ -254,7 +257,7 @@ function CommentItem({comment,postId,loadReplies,readOnly,onEdit,onDelete,onRepl
   const replyForm=replying&&<form className={`${s.commentEdit} ${s.replyForm}`} onSubmit={event=>void sendReply(event)}><div className={s.mentionField}><textarea ref={replyMention.ref} {...replyMention.fieldProps} aria-label="답글 쓰기" placeholder={`${replying.name}님에게 답글`} value={replyDraft} maxLength={1000} disabled={replyBusy} autoFocus onFocus={event=>{const end=event.currentTarget.value.length;event.currentTarget.setSelectionRange(end,end);}} onChange={replyMention.change}/>{replyMention.list}</div><div className={s.commentEditActions}><Action type="button" variant="secondary" disabled={replyBusy} onClick={closeReply}>취소</Action><Action type="submit" disabled={replyBusy||!replyDraft.trim()}>{replyBusy?'등록 중…':'등록'}</Action></div>{replyError&&<p className={s.error} role="alert">{replyError}</p>}</form>;
   return <div className={s.thread}><CommentRow comment={comment} size={36} readOnly={readOnly} onEdit={onEdit} onDelete={onDelete} extra={replyButton(comment.author.name,false)}/>
     {replying&&!replying.toReply&&replyForm}
-    {count>0&&<button type="button" className={s.repliesToggle} aria-expanded={open} disabled={readOnly||loading} onClick={()=>void toggle()}>{loading?'답글 불러오는 중...':open?'답글 숨기기':`답글 ${count}개 보기`}</button>}
+    {count>0&&<button type="button" className={s.repliesToggle} aria-expanded={open} disabled={readOnly||loading} onClick={()=>void toggle()}>{open?'답글 숨기기':`답글 ${count}개 보기`}</button>}{slowReplies&&<LoadingSpinner inline/>}
     {error&&<p className={s.error} role="alert">{error}</p>}
     {open&&replies&&<div className={s.replies}>{replies.map(reply=><CommentRow comment={reply} size={28} key={reply.id} readOnly={readOnly} extra={replyButton(reply.author.name,true)} {...replyActions}/>)}</div>}
     {replying?.toReply&&replyForm}
@@ -289,6 +292,8 @@ export function CommentsSection({post,model,count,locked,readOnly=false,collapse
   const [draft,setDraft]=useState(''),[error,setError]=useState(''),[submitting,setSubmitting]=useState(false),[visible,setVisible]=useState(COMMENT_PAGE);
   useEffect(()=>{setDraft('');setError('');setVisible(COMMENT_PAGE);},[id]);
   const comments=commentsByPost[id]||[],paging=model.commentPaging?.[id];
+  // Loading rule: before the first comments response (or while an empty list reloads) nothing for 1s, then a spinner; '댓글이 없습니다' only after the response.
+  const commentsPending=!!model.loadComments&&!collapsed&&!locked&&!readOnly&&(!paging||paging.loading),slowComments=useDelayedLoading(commentsPending);
   async function submit(event:FormEvent){
     event.preventDefault();if(submitting||readOnly)return;if(!draft.trim()){setError('댓글 내용을 입력해 주세요.');return;}if(locked)return;
     setSubmitting(true);setError('');
@@ -296,7 +301,7 @@ export function CommentsSection({post,model,count,locked,readOnly=false,collapse
   }
   if(post.commentsEnabled===false)return <section className={s.comments} id={`comments-${id}`}><h2>댓글</h2><div className={s.commentLocked}><Icon name="lock" width={19} height={19}/>크리에이터가 이 게시물의 댓글을 닫아두었어요.</div></section>;
   const context={basePath:model.basePath,mentionCandidates:model.mentionCandidates&&!readOnly?()=>model.mentionCandidates!(id):undefined,onReport:model.reportComment};
-  return <CommentContext.Provider value={context}><section className={s.comments} id={`comments-${id}`}><h2>댓글 <span>{count}</span></h2>{locked?<div className={s.commentLocked}><Icon name="lock" width={19} height={19}/>멤버십 가입 후 댓글을 볼 수 있어요.</div>:<>{comments.slice(0,visible).map(comment=><CommentItem comment={comment} postId={id} loadReplies={loadReplies} readOnly={readOnly} key={comment.id} {...actions} onReply={body=>addComment(id,body,comment.id)}/>)}{(comments.length>visible||paging?.hasMore)&&<button type="button" className={s.moreComments} disabled={readOnly||paging?.loading} onClick={()=>{if(paging?.hasMore&&comments.length<=visible)void paging.loadMore();setVisible(previous=>previous+COMMENT_PAGE);}}>{paging?.loading?'댓글 불러오는 중…':`댓글 ${paging?COMMENT_PAGE:Math.min(COMMENT_PAGE,comments.length-visible)}개 더 보기 `}{!paging&&<span>{`· ${comments.length-visible}개 남음`}</span>}</button>}{comments.length===0&&<p className={s.noResults}>{paging?.loading?'댓글 불러오는 중…':'댓글이 없습니다'}</p>}<CommentComposer postId={id} title={post.title} value={draft} error={error} pending={submitting} readOnly={readOnly} onChange={value=>{setDraft(value);setError('');}} onSubmit={submit} onClose={onClose}/></>}</section></CommentContext.Provider>;
+  return <CommentContext.Provider value={context}><section className={s.comments} id={`comments-${id}`}><h2>댓글 <span>{count}</span></h2>{locked?<div className={s.commentLocked}><Icon name="lock" width={19} height={19}/>멤버십 가입 후 댓글을 볼 수 있어요.</div>:<>{comments.slice(0,visible).map(comment=><CommentItem comment={comment} postId={id} loadReplies={loadReplies} readOnly={readOnly} key={comment.id} {...actions} onReply={body=>addComment(id,body,comment.id)}/>)}{(comments.length>visible||paging?.hasMore)&&<button type="button" className={s.moreComments} disabled={readOnly||paging?.loading} onClick={()=>{if(paging?.hasMore&&comments.length<=visible)void paging.loadMore();setVisible(previous=>previous+COMMENT_PAGE);}}>{paging?.loading?'댓글 불러오는 중…':`댓글 ${paging?COMMENT_PAGE:Math.min(COMMENT_PAGE,comments.length-visible)}개 더 보기 `}{!paging&&<span>{`· ${comments.length-visible}개 남음`}</span>}</button>}{comments.length===0&&(commentsPending?(slowComments&&<LoadingSpinner/>):<p className={s.noResults}>댓글이 없습니다</p>)}<CommentComposer postId={id} title={post.title} value={draft} error={error} pending={submitting} readOnly={readOnly} onChange={value=>{setDraft(value);setError('');}} onSubmit={submit} onClose={onClose}/></>}</section></CommentContext.Provider>;
 }
 
 export function PostDetailPage({id,model,forceLocked=false,readOnly=false}:{id:string;model:PostDetailModel;forceLocked?:boolean;readOnly?:boolean}){

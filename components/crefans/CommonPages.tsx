@@ -6,6 +6,7 @@ import {MarqueeText} from '@/components/ui/MarqueeText';
 import {BackButton} from './BackButton';
 import {CreatorName} from './CreatorName';
 import {LegalDocumentBody} from './LegalDocumentBody';
+import {DelayedSpinner} from '@/components/ui/DelayedSpinner';
 
 import {DialogActions} from '@/components/ui/DialogActions';
 import Link from 'next/link';
@@ -58,7 +59,7 @@ export function NoticeDetailPage({id,model,basePath}:{id:string;model:CommonMode
 }
 export function LegalPage({kind,model,basePath}:{kind:LegalKind;model:CommonModel;basePath:string}){
   const document=model.legal[kind];
-  if(!document&&model.legalStatus==='loading')return <p className={s.page} role="status">불러오는 중…</p>;
+  if(!document&&model.legalStatus==='loading')return <DelayedSpinner/>;
   if(!document)return <Empty title={model.legalStatus==='error'?'문서를 불러오지 못했어요':'문서를 찾을 수 없어요'} action={<TextLink href={`${basePath}/support`}>고객센터</TextLink>}/>;
   const next=model.legal[`${kind}-next`];
   return <article className={s.page}><PageTitle>{document.title}</PageTitle>{next&&<details className={s.legalNext}><summary>{next.effectiveAt?`${next.effectiveAt.replace(/-/g,'.')} 시행 개정본 보기`:'개정본 보기'}</summary><LegalDocumentBody document={next} idPrefix={`${kind}-next`}/></details>}<LegalDocumentBody document={document} idPrefix={kind} contents/><CommonNavigation basePath={basePath}/></article>;

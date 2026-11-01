@@ -1,4 +1,4 @@
-.scroll{max-width:100%;overflow-x:auto;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control);background:var(--cf-color-surface)}
+.scroll{position:relative;max-width:100%;overflow-x:auto;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control);background:var(--cf-color-surface)}
 .scroll:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px}
 .table{width:100%;min-width:640px;border-collapse:collapse;text-align:left;color:var(--cf-color-text);font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.6}
 .table caption{caption-side:top;text-align:left;padding:16px 18px;font-size:14px;font-weight:650}

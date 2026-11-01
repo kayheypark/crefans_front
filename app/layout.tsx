@@ -3,6 +3,7 @@ import PresentationProviders from "@/components/providers/PresentationProviders"
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
 import ApplicationProviders from "@/components/providers/ApplicationProviders";
 import { Suspense } from "react";
+import { DelayedSpinner } from "@/components/ui/DelayedSpinner";
 import "antd/dist/reset.css";
 import "./globals.css";
 import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo/site";
@@ -84,7 +85,7 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <PresentationProviders>
               <ApplicationProviders>
-                <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+                <Suspense fallback={<DelayedSpinner />}>{children}</Suspense>
               </ApplicationProviders>
             </PresentationProviders>
         </StyledComponentsRegistry>

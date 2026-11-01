@@ -18,7 +18,7 @@ test('API envelope renders success data only; failure and loading never expose c
  assert.match(error,/접근 권한이 없습니다/);
  assert.match(error,/ACCESS_DENIED/);
  assert.doesNotMatch(error,/주입된 제목/);
- assert.match(render({response:success,loading:true}),/role="status"/);
+ assert.doesNotMatch(render({response:success,loading:true}),/주입된 제목|role="status"|불러오/,'loading rule: nothing for the first second (timing in loading-rule.test.cjs)');
  assert.equal(calls,1);
 });
 test('shared service presentation cannot depend on fixtures, preview containers, or direct APIs',()=>{

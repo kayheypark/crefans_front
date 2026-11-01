@@ -11,7 +11,7 @@ export function studioFinanceModel(financial:any,today:string,action:StudioActio
 // Finance only (accounts, PIN): members with referral reward beans may use it without a creator profile.
 export function useStudioFinanceModel(signedIn:boolean){
  const [financial,setFinancial]=useState<any>(null),[error,setError]=useState(''),[loading,setLoading]=useState(true),today=seoulToday();
- const refresh=useCallback(async()=>{if(!signedIn){setFinancial(null);setLoading(false);return;}setError('');const r=await api<any>('/studio/finance');if(r.success)setFinancial(r.data);else setError(r.errorMessage);setLoading(false);},[signedIn]);
+ const refresh=useCallback(async()=>{if(!signedIn){setFinancial(null);setLoading(false);return;}const r=await api<any>('/studio/finance');setError('');if(r.success)setFinancial(r.data);else setError(r.errorMessage);setLoading(false);},[signedIn]);
  useEffect(()=>{void refresh();},[refresh]);
  const action:StudioAction=async(path,body,method)=>{const r=await api<any>(path,body,method);if(r.success)await refresh();return r;};
  return{finance:financial?studioFinanceModel(financial,today,action):null,error,loading,refresh};
