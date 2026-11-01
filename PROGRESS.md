@@ -1,10 +1,11 @@
 # PROGRESS: crefans_front
 
-## 2026-11-01 크리에이터 게시물 워터마크 처리 안내 (배포 준비)
-- 서버는 새로 업로드한 크리에이터 게시물 파일만 워터마크 파생 파일로 변환. 기존 파일·프로필/배경/멤버십 이미지는 변경하지 않는다.
-- MediaUpload·스튜디오 목록에서 사진 처리 중 깨진 미디어를 요청하지 않고 ‘워터마크 적용 중’ 표시. 업로드 도움말에 적용 범위 안내.
-- 검증: npm run check 488건 통과, 사진 대기/완료 표시 회귀 추가. 운영 배포 및 실제 FFmpeg 결과는 `.local/watermark-deploy-20261101/`에서 확인 후 갱신한다.
-- origin/prod → feat/creator-media-watermark → dev → prod 순서 준수.
+## 2026-11-01 크리에이터 게시물 워터마크 — 운영 배포 완료
+- 새로 업로드한 크리에이터 게시물 사진·영상만 오른쪽 아래 주소 워터마크 적용. 기존 파일·프로필/배경/멤버십 이미지는 제외. 사진 파생 파일은 긴 변 최대2560px, 원본 보존.
+- MediaUpload·스튜디오 목록은 사진 처리 중 파일 요청 대신 상태 표시. 업로드 도움말에 적용 범위 안내.
+- 검증: dev에서 npm run check489건(계층·타입 포함), 실제 배포 이미지 변환4건, 배포된 공용 작성 화면 PC·모바일2건 통과. 서버 회귀48건·운영 워커/S3 비공개 시험2건 통과 후 시험 데이터 정리. 실기기 전체 가입·업로드·게시 E2E는 미실시.
+- origin/prod → feat/creator-media-watermark → dev 검증 → prod push 완료(front4360c2e, serveread6288). 운영 watermark-20261101 API·worker·front 배포, additive migration 하나 적용, admin/DB/proxy 보존. 현재+직전2 이미지·롤백 유지.
+- [검증 증거](../crefans_server/docs/watermark-20261101.json), 사본·로그·캡처 `.local/watermark-deploy-20261101/`.
 
 
 ## 2026-11-01 스튜디오 모바일 메뉴 첫 화면 닫힘 + 약관 시행일 선택 시안
