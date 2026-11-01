@@ -16,7 +16,7 @@ export function useMockSocial({data,viewer,canAccess,today,liked=[],initialComme
   const repliesRef=useRef(repliesByComment);
   const setReplies=(change:(previous:Record<string,SocialReply[]>)=>Record<string,SocialReply[]>)=>{repliesRef.current=change(repliesRef.current);setRepliesState(repliesRef.current);};
   const [commentCounts,setCommentCounts]=useState<Record<string,number>>(()=>Object.fromEntries(data.posts.map(post=>[post.id,post.comments])));
-  const [messagesByCreator,setMessages]=useState<Record<string,SocialMessage[]>>(()=>Object.fromEntries(Object.entries(data.messages).map(([id,messages])=>[id,messages.map(message=>({...message,statusLabel:message.mine?'전송됨':undefined}))])));
+  const [messagesByCreator,setMessages]=useState<Record<string,SocialMessage[]>>(()=>Object.fromEntries(Object.entries(data.messages).map(([id,messages])=>[id,messages.map(message=>({...message,statusLabel:message.mine?'전송됨':undefined,...(message.mine?{read:true}:{})}))])));
   const [blockedCreatorIds,setBlocked]=useState<string[]>([]),[read,setRead]=useState<string[]>([]);
   const markRead=(ids:string[])=>{const valid=ids.filter(id=>data.notifications.some(item=>item.id===id));setRead(previous=>Array.from(new Set([...previous,...valid])));};
   const markConversationRead=async(id:string,ids:(string|number)[])=>{setMessages(previous=>({...previous,[id]:(previous[id]||[]).map(message=>!message.mine&&ids.includes(message.id)?{...message,unread:false}:message)}));return success('읽음 처리했습니다.');};

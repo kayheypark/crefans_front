@@ -653,3 +653,16 @@ test('a membership post header shows the monthly KRW price after its access labe
   assert.match(heading({post:{...post,requiredPlanId:'b'},data:{plans}}),/월 ₩19,900$/);
   assert.doesNotMatch(heading({post:{...post,requiredRank:0}}),/월 ₩/);assert.doesNotMatch(heading({post,data:{plans}}),/콩/);
 });
+
+test('my messages show one check with 전송됨, two checks with 읽음 once read; theirs show no receipt (2026-11-01)',()=>{
+  const messages={[creator.id]:[{id:1,mine:false,body:'상대 메시지',time:'2026-09-12T00:30:00Z'},{id:2,mine:true,body:'읽은 메시지',time:'2026-09-12T00:31:00Z',read:true},{id:3,mine:true,body:'보낸 메시지',time:'2026-09-12T00:32:00Z',read:false}]};
+  const tree=mount(MessagesPage,{model:model({data,messagesByCreator:messages})});
+  const bubbles=tree.root.findAllByProps({className:'message'});
+  const receipt=bubble=>bubble.findAll(n=>n.props?.className==='receipt');
+  assert.equal(receipt(bubbles[0]).length,0);
+  const read=receipt(bubbles[1])[0],sent=receipt(bubbles[2])[0];
+  const words=node=>node.children.map(c=>typeof c==='string'?c:words(c)).join('');
+  assert.match(words(read),/읽음/);assert.equal(read.props['data-read'],true);assert.equal(read.findAllByType('path').length,2);
+  assert.match(words(sent),/전송됨/);assert.equal(sent.props['data-read'],undefined);assert.equal(sent.findAllByType('path').length,1);
+  close(tree);
+});

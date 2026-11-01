@@ -92,6 +92,7 @@
 .message[data-mine=true]{align-self:flex-end}
 .message[data-mine=true] p{background:var(--cf-service-brand-soft);color:var(--cf-service-brand);border-radius:9px 0 9px 9px}
 .message[data-mine=true] small{text-align:right}
+.receipt{display:inline-flex;align-items:center;gap:3px;vertical-align:middle}.receipt[data-read=true]{color:var(--cf-service-brand)}
 
 .messageForm{display:flex;align-items:center;flex-wrap:wrap;gap:10px;border:1px solid var(--cf-color-border);border-radius:24px;padding:5px 6px 5px 14px;margin:16px 22px;min-height:44px}
 .messageForm input{min-width:0;flex:1;font:inherit;font-size:max(12px,var(--cf-mobile-font-min,0px));border:0;outline:0;background:transparent;color:var(--cf-color-textSecondary)}

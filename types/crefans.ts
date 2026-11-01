@@ -17,7 +17,8 @@ export type PostMediaItem={type:'image'|'video';url:string;processing?:boolean};
 export type Post={id:string;creatorId:string;title:string;body:string;image:string;position:string;likes:number;comments:number;/** Stored cumulative views; absent when the source does not supply a count. */views?:number;supporterCount?:number;tipsEnabled?:boolean;requiredRank:number;requiredPlanId?:string;time:string;media?:PostMediaItem[];/** Effective flag after the studio-wide switch; undefined means open. */commentsEnabled?:boolean;canAccess?:boolean};
 export type Subscription={renewalPending?:boolean;billingIssue?:'action_required'|'retrying';retryAt?:string;orderId?:string;paidAt?:string;paymentStatus?:'paid'|'refunding'|'refunded';creatorId:string;planId:string;status:'active'|'cancelled'|'expired';renewAt:string;price:number;planSnapshot?:Plan};
 export type Notification={id:string;creatorId:string|null;type:string;text:string;time:string;href:string};
-export type Message={id:string|number;body:string;mine:boolean;time:string;unread?:boolean};
+/** `read`: on my own message, the other side has opened it (2026-11-01). */
+export type Message={id:string|number;body:string;mine:boolean;time:string;unread?:boolean;read?:boolean};
 export type Faq={question:string;answer:string};
 /** Someone following the signed-in fan; listed under 항목 모아보기 > 팔로워 목록. */
 export type Follower={id:string;name:string;handle:string;image:string;isVerified?:boolean;isFoundingMember?:boolean};
