@@ -1,5 +1,14 @@
 # PROGRESS: crefans_front
 
+## 2026-11-01 변환 중 영상 표시·목록 이동·로딩 규칙 — video-optimizing-20261101 운영 배포(API·프론트)
+
+- 사용자 요청: 업로드 타일은 썸네일+작은 "영상 최적화 중", 변환 끝나면 사라짐. 변환 중에도 게시·예약 가능, 보는 화면은 "영상 최적화 중". 게시·예약·수정 저장 후 목록 이동(임시저장은 머묾). 목록 사진이 크게 보임(동영상 썸네일 미제한). 메시지 빈 화면을 알림과 같게. /ux-spinner 마이페이지 내 지갑 버튼.
+- 커밋: 프론트 8da329d(타일·폴링·보는 화면·목록 이동·목록 56x48), 6d2f5d5(메시지 빈 화면), c5f5884(LoadingSpinner inline), 99fc856(친구 초대 응답 전 undefined). 서버 5f6f92f(게시물에 processing 영상, GET media/:id/status), f4e70c9(OpenAPI 계약 추가).
+- 첫 배포 실패·자동 롤백: 새 상태 API가 OpenAPI 계약에 없어 installPlatformOpenApi가 기동 중단. 계약 추가 후 운영 서버에서 진단 컨테이너로 기동 확인한 뒤 재배포 성공. 교훈: 라우트 추가 시 tests/platform-openapi.test.cjs를 반드시 실행.
+- 미커밋(배포됨 또는 대기): 내 지갑 버튼 로딩(BeanPages, 다른 세션 미커밋 아이콘 버튼 위) 배포됨, 테스트 tests/bean-wallet-link.test.cjs 미커밋. 친구 초대 페이지 로딩 규칙(BeanReferralPage) 미배포·미커밋. 서버 tests/platform-openapi.test.cjs 개수(184/77/46) 미커밋(HEAD 개수가 이미 낡음).
+- 증거: `.local/video-optimizing-deploy-20261101/`, `.local/ux-spinner-wallet-link-20261101/`, `.local/ux-spinner-referral-20261101/`. 친구 초대 내역 시안 5종 `.local/referral-history-drafts-20261101/` 선택 대기(마스킹: 앞 3글자+별 10개).
+- 남은 결정: 친구 초대 내역 시안 선택(서버가 지금은 집계만 반환하므로 초대별 목록 API와 처리방침 고지 필요), 친구 초대 페이지 로딩 수정 배포.
+
 ## 2026-11-01 아이폰 .mov 업로드 서버 변환 — mov-transcode-20261101 운영 배포(API·워커·프론트)
 
 - 사용자 제보: 아이폰에서 동영상 선택 시 "JPG·PNG·WebP·MP4·WebM 파일만 지원" 오류(아이폰은 QuickTime .mov, 주로 HEVC). 사용자 결정: 서버에서 MP4로 변환.
