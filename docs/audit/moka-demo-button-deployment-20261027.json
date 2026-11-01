@@ -1,0 +1,190 @@
+{
+  "at": "2026-10-27T14:38:26.054548+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "scope": "Only four Moka mock button runtime files over moka-preview-ready-20261027; unrelated unpublished changes excluded",
+  "sourceDelta": [
+    "components/crefans/CreatorPages.tsx",
+    "components/crefans/creator.module.css",
+    "components/preview/service/PreviewProvider.tsx",
+    "components/preview/service/ServiceRouter.tsx"
+  ],
+  "sourceManifestSha256": "ab85d17a4d2efa3b4eb8009c862d9ad2bcd74531850cc5f97de28ea2659df374",
+  "localTests": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "passed": 372,
+    "logSha256": "7e754c1a5167cf87a29a89a0989d96d3ba7460adee5111928596c56ef2e42bd0"
+  },
+  "build": {
+    "startedAt": "2026-10-27T14:34:12.124369+00:00",
+    "finishedAt": "2026-10-27T14:36:27.499073+00:00",
+    "command": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--label",
+      "crefans.release=moka-demo-button-deploy-20261027",
+      "--label",
+      "crefans.source-sha256=ab85d17a4d2efa3b4eb8009c862d9ad2bcd74531850cc5f97de28ea2659df374",
+      "-t",
+      "crefans-front:moka-demo-button-deploy-20261027",
+      "-f",
+      "infra/platform/Dockerfile",
+      "."
+    ],
+    "exitCode": 0,
+    "sourceManifestSha256": "ab85d17a4d2efa3b4eb8009c862d9ad2bcd74531850cc5f97de28ea2659df374",
+    "logSha256": "4fd53df51f8d92660644d89a100ebafda69b57687f606887bfa97cc1b6848884"
+  },
+  "image": {
+    "tag": "crefans-front:moka-demo-button-deploy-20261027",
+    "id": "sha256:306f078c2d3ba2e577dfdda1120b4c0e8af21a11223f21d017c9f05c1a4d7d11",
+    "architecture": "amd64",
+    "sourceFiles": 654,
+    "rootFsLayers": [
+      "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+      "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+      "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+      "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+      "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+      "sha256:02a7f23b79fef8c2b06d36e51cabf9c6d1d78a1e47ed75188af2b0616b7ac2f1",
+      "sha256:29d936ccb9f713b83f57eed13e164fc9ee1a3fc3a1657f5060be571b25e5c426",
+      "sha256:f0ecf18323ae3108e7693d3aeb5256f0cc6a50f9ba183c792f380865260e79c6",
+      "sha256:0a3cefffadc9b97494b6fd97de9ee4222d33167cee27ad534d8831cdcfc6c0e0",
+      "sha256:76f16e21c69a5c3b17558c07c65dbb22fda981d83799b04ff1ef6e94d6828144"
+    ],
+    "manifestSha256": "ab85d17a4d2efa3b4eb8009c862d9ad2bcd74531850cc5f97de28ea2659df374"
+  },
+  "deployment": {
+    "startedAt": "2026-10-27T14:37:31.172346+00:00",
+    "finishedAt": "2026-10-27T14:37:56.363791+00:00",
+    "exitCode": 0,
+    "scope": "frontend and business host Caddy; API/DB unchanged",
+    "backup": "/opt/crefans-backup-moka-demo-button-deploy-20261027"
+  },
+  "production": {
+    "at": "2026-10-27T14:38:14.680698+00:00",
+    "checks": [
+      {
+        "url": "https://business.crefans.com/card?who=khpark",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://business.crefans.com/card?who=unknown",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card?who=unknown"
+      },
+      {
+        "url": "https://business.crefans.com/card",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card"
+      },
+      {
+        "url": "https://business.crefans.com/api/v1/health",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://business.crefans.com/.env",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/.env"
+      },
+      {
+        "url": "https://business.crefans.com/service/feed",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/service/feed"
+      },
+      {
+        "url": "https://business.crefans.com/brand/business-cards/khpark-front.png",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/brand/business-cards/khpark-front.png"
+      },
+      {
+        "url": "https://business.crefans.com/",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://beta.crefans.com/service/landing",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/landing"
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/feed"
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "finalUrl": "https://admin.crefans.com/login"
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "543125d6dc0b5a961fb67f2c21f1ea3d89ddc9c0a69ad721081075dc7d28a10f",
+        "image": "sha256:56260c55d812c8c372252a6eac927b1a5202634e605b6fb9e57315b652764739",
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "restarts": 0
+      }
+    },
+    "tls": "system trust and original hostname verified; no TLS bypass",
+    "dns": "business A from authoritative/1.1.1.1/8.8.8.8; explicit resolution for stale local negative cache"
+  },
+  "browser": {
+    "at": "2026-10-27T14:38:15.137Z",
+    "scope": "production preview",
+    "mokaOnly": true,
+    "buttonMinHeight": 44.390625,
+    "oneClickStudio": true,
+    "personaAfterReload": true,
+    "signedOutMokaCanSwitch": true,
+    "apiRequests": 0,
+    "pageErrors": []
+  },
+  "readiness502Count": 1,
+  "boundary": "Client-only mock persona; no real member authentication, tokens, DB updates or financial changes",
+  "limits": [
+    "Chromium at desktop/mobile viewport sizes; physical iOS Safari not tested",
+    "Studio remains desktop-only"
+  ],
+  "logsSha256": {
+    "build.log": "4fd53df51f8d92660644d89a100ebafda69b57687f606887bfa97cc1b6848884",
+    "deploy.log": "90362056d11f9682ed766743c575d565ebc891ab277d81cbfa1f116222d35b54",
+    "load.log": "193a0ba6186088656cc398defbebcb5ccbc267c7a2bf58585396dd14bfb61645",
+    "browser.json": "eba8541e519f3d2c15809cfb4f380ae3410d7b42dcf1256771e1717f3df58b32"
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "verifiedAt": "2026-10-25T03:16:21.028543+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 275,
+  "statusSha256": "91903175a92bd54017827aafbf7d55a35c4c2b0129c4cd0cc605393f1933ff4f",
+  "deployed": false,
+  "requirements": {
+    "paths": [
+      "/preview/beans/charge",
+      "/service/beans/charge"
+    ],
+    "presets": [
+      [
+        10,
+        30,
+        50
+      ],
+      [
+        100,
+        300,
+        500
+      ],
+      [
+        1000,
+        5000,
+        10000
+      ]
+    ],
+    "priceKrwPerBean": 100,
+    "layout": "3-column card choices and selected quantity/price summary, current design tokens and existing Radio/InfoTooltip",
+    "legacyReference": "components/modals/ChargeModal.tsx structure only; old 110 KRW product constants and legacy payment model not imported",
+    "guard": "No selection -> disabled submit; one pending order locks options; retry reuses order ID; in-flight duplicate submit ignored",
+    "navigation": "Wallet CTA and support dialog -> new page; result success/fail preserved; wallet pending-order payment and processing lookup preserved",
+    "shared": "Preview and service routers import same BeanChargePage; model/API contract unchanged"
+  },
+  "filesSha256": {
+    "components/crefans/BeanChargePage.tsx": "414957ab5679d49bb2c9a9e5e5229379752bf02cc4940173721f8c4cdec65f61",
+    "components/crefans/BeanPages.tsx": "1b7635c8ab9171b7d962fe718e2c714c4aff6082b7f772e574dab0df3af1fee2",
+    "components/crefans/beans.module.css": "e5bf57e2ed794112f0698185344a450f7b14ee0caaff4a82e6d97aac6fc2dfc5",
+    "components/service/ServiceRouter.tsx": "d5b6474907450967506b4686363185f4f639af5acdba4db872bb2b3659a2707d",
+    "components/preview/service/ServiceRouter.tsx": "79b73098a08482eb658f7327e7020c9401e821d4fbbc4914aec5a028fe6e6265",
+    "components/preview/service/useMockBeans.ts": "96b9f678bfd0ab0a6536468f0e707ad19895704b2c69d1753203d0c886e61555",
+    "components/preview/screen-catalog.ts": "de0143f2ed4f9c575f6224170d0759e98825e5b728355ac7a2d29f027e4d3cf0",
+    "app/preview/[...screen]/page.tsx": "f9d48f227878a723371306299b5c6754a59912c16b27dd098062037e4bbdc6c4",
+    "app/service/[...screen]/page.tsx": "e0909f8addd81d36b614c0e55e8007c2541e4419a70a39500992bcdf8fce7ef1",
+    "tests/bean-charge-page.test.cjs": "3bf805a6f8706873e4bf164a50991c1382e5815824a0b1366073ea4b15275502",
+    "e2e/beans.spec.ts": "dc84b46cd6f2cc895d3e7f7e858d27601cfeca70a6c871bf3866be83673ab46d"
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "unitTestsPassed": 325,
+      "layerFiles": 355,
+      "includes": "typecheck, layers, unit tests (including four new package/payment guards)"
+    },
+    {
+      "command": "node --test tests/bean-charge-page.test.cjs",
+      "exitCode": 0,
+      "passed": 4
+    },
+    {
+      "command": "node .local/bean-charge-page-20261025/browser.cjs",
+      "exitCode": 0,
+      "passed": 11
+    }
+  ],
+  "browser": {
+    "at": "2026-10-25T03:14:55.911Z",
+    "origin": "http://127.0.0.1:3010",
+    "checks": [
+      {
+        "screen": "dedicated page / nine prices / three-column grid / selection guard",
+        "width": 360,
+        "passed": true
+      },
+      {
+        "screen": "mock charge / wallet balance / order history",
+        "width": 360,
+        "passed": true
+      },
+      {
+        "screen": "dedicated page / nine prices / three-column grid / selection guard",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "mock charge / wallet balance / order history",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "dedicated page / nine prices / three-column grid / selection guard",
+        "width": 767,
+        "passed": true
+      },
+      {
+        "screen": "mock charge / wallet balance / order history",
+        "width": 767,
+        "passed": true
+      },
+      {
+        "screen": "dedicated page / nine prices / three-column grid / selection guard",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "mock charge / wallet balance / order history",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "tip dialog -> dedicated charge page",
+        "passed": true
+      },
+      {
+        "screen": "real charge route anonymous guard",
+        "passed": true
+      },
+      {
+        "screen": "existing success/fail paths preserved / unknown subpath rejected",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "keyboard": {
+    "at": "2026-10-25T03:15:11.052Z",
+    "nativeRadioArrowNavigation": true,
+    "visibleCardFocus": true
+  },
+  "visualReview": [
+    "charge-390.png",
+    "charge-1280.png"
+  ],
+  "firstFailuresAndRetest": [
+    "Browser locator matched profile and post tip buttons. Scoped first profile tip and reran; no product change.",
+    "Unknown Next streamed not-found response returned HTTP 200, so HTTP-only expectation was wrong. Verified visible 404 page and absence of charge radios instead; route allowlist remains unchanged except new charge path."
+  ],
+  "artifacts": {
+    "browser.log": "9f77fcf58a07b95d5b81e248a33baad9780b9cf83190cb02af3b3540e7ad03e2",
+    "browser-first-failure.log": "8bfdfaa30c9ecd853e896a441304f5adfc1da3966a71fffebc335fa2123b35dd",
+    "browser.cjs": "6c07a0f89667e6ca095ba20eaf91e74d3e51f23d002716404a3400190a163406",
+    "unknown.html": "d328f402e856c755f92d43919816d5279b65c0150c60f1cb114621f058ee2856",
+    "charge-390.png": "08e4e1dd8eb66d813abf1bf68e1ff8dd743dbdd14b52887a00622255ae649203",
+    "keyboard.json": "055342bee38af3df9d0ca257a8799fd35db4615c3ea375410e4c74ba4e94b35b",
+    "browser-second-failure.log": "788d6c8e4060dd24aa9a8b4fcc33fd8519df65642e9109db48c9600ba3dc7535",
+    "charge-767.png": "97f6083e92c4911ad14587708cb5637962c6605780212e5bd460aed616c85445",
+    "unit.log": "faea111bc88d54cc6e81a242f78019fffc94ffaaeb0d72d427da19bb631d52bb",
+    "charge-360.png": "5c80df4d8ded229989572049e8f606196da39542fa2a430a0ebf498d9a208cdd",
+    "check.log": "1f9425fe962ea48295b9b61c4e202ffd9fda827170882c93d1ea3cea47f581fe",
+    "charge-1280.png": "688915687e69dee32e32b76dafb7aeb119c8a1639548aba6186201846c9d7429",
+    "browser.json": "64a6af58964eb25bd73c1a207c380b2ca65364178e5966b64e4d50b8c62455d3"
+  },
+  "limits": [
+    "Browser charge is local mock state; unit payments are doubles. No real PG approvals, financial writes, emails, or deployment.",
+    "Existing provider/DB E2E suite not rerun for this UI separation; its mock charge entry in e2e/beans.spec.ts was updated.",
+    "Existing wallet tooltip/profile cover changes from preceding task remain undeployed as well."
+  ]
+}

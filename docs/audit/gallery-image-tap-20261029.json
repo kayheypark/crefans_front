@@ -1,0 +1,110 @@
+{
+  "at": "2026-10-28T17:10:30.972815+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "branch": "feat/iphone-input-zoom",
+  "preExistingDirtyFiles": 130,
+  "deployment": false,
+  "request": "모바일 갤러리에서 이미지 탭으로 전체 모드 전환",
+  "productFiles": [
+    "components/crefans/MediaOverlay.tsx",
+    "components/crefans/SocialPages.tsx",
+    "components/crefans/social.module.css"
+  ],
+  "filesSha256": {
+    "components/crefans/MediaOverlay.tsx": "f032d35547d9b3ae168bd7ed41efbd1a476c8f1bea9d46dbf74100b5cebeef86",
+    "components/crefans/SocialPages.tsx": "aa01d065ab9377dd2f3e91f6b9f1bbdd474809e9adec1a5544e594fbc0a9efb8",
+    "components/crefans/social.module.css": "46e6e51b2851b245778c80440dd6f02cacf2c4c8528ebc2ca9c4172d0bc1cdc5",
+    "tests/crefans-social.test.cjs": "8a1a960e1cf8233c1cc292af6df130202bb8fbdf34d7af17a512830ce2e51ba6",
+    "e2e/gallery-image-tap.spec.ts": "eaad4363bd00a46d62ba959c8700470ad6729ce8785349ca14d67dd78fce0829",
+    "playwright.config.ts": "5f667e353acb32c0785c8f8568632b0a06146b41180319028469440d2a616ab0"
+  },
+  "environment": {
+    "node": "v22.7.0",
+    "os": "macOS",
+    "frontend": "Next.js dev, CREFANS_E2E=true, isolated .next-e2e, http://127.0.0.1:3011",
+    "browserMatrix": [
+      "Chromium mobile 375x844",
+      "Chromium desktop 1280x900",
+      "WebKit mobile 375x844",
+      "WebKit desktop 1280x900"
+    ]
+  },
+  "acceptance": {
+    "mobileImageTap": "기존 전체 보기 상태 재사용, 다시 탭하면 직전 상세 패널 크기 복원",
+    "singleImage": "한 장짜리 게시물 지원",
+    "gestures": "6px 이상 이동·가로 스와이프·수직 이동·포인터 취소·다중 터치 후 클릭은 탭으로 처리하지 않음",
+    "scope": "동영상 클릭·PC·프로필 사진 전용 뷰어에 전체 모드 토글 적용 안 함",
+    "shared": "preview/service 동일 SocialPages.PostOverlay → MediaOverlay 사용"
+  },
+  "commands": [
+    {
+      "command": "node --test --test-name-pattern=\"mobile gallery image tap\" tests/crefans-social.test.cjs (before implementation)",
+      "result": "새 회귀 2건 모두 실패, 기존 코드의 미구현 재현",
+      "exitCode": null,
+      "exitCodeNote": "외부 셸의 마지막 tail 명령 때문에 Node 종료 코드는 별도 수집하지 않음. TAP 실패2 확인.",
+      "log": "/Users/ethan/repository/crefans_front/.local/gallery-image-tap-20261029/before-tests.log"
+    },
+    {
+      "command": "node --test tests/crefans-social.test.cjs tests/profile-media.test.cjs tests/overlay-motion.test.cjs tests/content-post-preview.test.cjs",
+      "exitCode": 0,
+      "result": "45 passed, 0 failed",
+      "log": "/Users/ethan/repository/crefans_front/.local/gallery-image-tap-20261029/tests.log"
+    },
+    {
+      "command": "npm run check:layers",
+      "exitCode": 0,
+      "result": "373 TypeScript files passed"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "/Users/ethan/repository/crefans_front/.local/gallery-image-tap-20261029/typecheck.log"
+    },
+    {
+      "command": "npx playwright test --config .local/gallery-image-tap-20261029/playwright.config.cjs",
+      "exitCode": 0,
+      "result": {
+        "startTime": "2026-10-28T17:07:47.429Z",
+        "duration": 30632.522,
+        "expected": 12,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "log": "/Users/ethan/repository/crefans_front/.local/gallery-image-tap-20261029/browser.log"
+    }
+  ],
+  "initialBrowserFailure": {
+    "baseURL": "http://127.0.0.1:3010",
+    "result": "8 passed, 4 failed",
+    "causeObserved": "service/layout.js·service/error.js HTTP404, ChunkLoadError로 갤러리 진입 전 실패",
+    "resolution": "기존3010을 건드리지 않고 CREFANS_E2E .next-e2e/3011에서 재검증하여12/12통과. 제품 코드 추가 변경 없음.",
+    "log": "/Users/ethan/repository/crefans_front/.local/gallery-image-tap-20261029/browser-first.log"
+  },
+  "visualReview": [
+    "mobile-webkit-expanded-stable.png",
+    "mobile-webkit-restored-stable.png"
+  ],
+  "testBoundary": [
+    "/preview 는 기존 목업",
+    "/service/post/open 은 브라우저 API 대역, 운영 API·DB·회원 세션 검증 아님",
+    "Chromium 모바일 스와이프는 CDP touch, WebKit 스와이프는 mouse pointer; 이미지 탭은 둘 다 touch",
+    "기존3010 개발 산출물 오류는 미수정",
+    "물리 iPhone·운영 배포 미검증",
+    "커밋/푸시 없음, 기존 변경 보존"
+  ],
+  "evidenceDirectory": "/Users/ethan/repository/crefans_front/.local/gallery-image-tap-20261029",
+  "documentationChecks": {
+    "commands": [
+      "npm run docs:record",
+      "npm run check:docs"
+    ],
+    "exitCode": 0,
+    "result": "PASS",
+    "documents": 60,
+    "routes": 137,
+    "localMarkdownTargets": 397,
+    "verificationLevel": "snapshot-only-not-test-proof"
+  }
+}

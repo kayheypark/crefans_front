@@ -1,0 +1,183 @@
+{
+  "checkedAt": "2026-10-28T14:24:49.089306+00:00",
+  "request": "스튜디오 내 답글의 아바타·이름 표시와 수정·삭제",
+  "repositories": {
+    "crefans_front": {
+      "root": "/Users/ethan/repository/crefans_front",
+      "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+      "branch": "feat/studio-comment-replies",
+      "dirty": true,
+      "preExistingDirtyChangesPreserved": true,
+      "baseline": ".local/studio-replies-20261028/baseline.json",
+      "files": {
+        "components/crefans/studio/StudioCommentReply.tsx": "adb1606ef0803adddaeda389d7a91c4070238d20ecba563457d79f8907e2b6c3",
+        "components/crefans/studio/CommunityPages.tsx": "0f42b6425034566b136439b1ab0ba139b77486004dbf94bdfa8903a6700f1fcd",
+        "components/crefans/studio/community.module.css": "77eceaaadb94bdb4e8930ad449fe0ddd99091bd080af6e7149d68099063c5982",
+        "types/crefans-community.ts": "f99ae9d85ec347d2febfad14940ecced4d04041f1e1446e3d5efd09bc087d875",
+        "components/preview/comment-fixtures.ts": "2ee450a870fa367c3813fa51ccb2f2d0610108afee03635bcb88fceef1746202",
+        "components/preview/studio/useMockCommunity.ts": "3260b4472fe4a0a38845ffdff080bcab52a74bbdf336c6dcce5c8f20f90ffb39",
+        "components/preview/studio/StudioProvider.tsx": "80bb00ae8ac71a81d77de3288376611a4fdf347a4b6b5f90bb4ccdf610dc3b1f",
+        "features/service/useStudioModel.ts": "06e9c3fef7818caae838cc985350137d3860c80effcd3b8e4ac1dc6d27f3a755",
+        "components/design-system/ServicePatternCatalog.tsx": "b3a18397424262158405b2a3202a69ad360a1216ca5aa526be05e0c2dac4f92b",
+        "tests/crefans-community.test.cjs": "2aaf1a6ec78d78afbd3ac7e389a8409e3dd53bde83987b5126bff4040a92ede4",
+        "tests/studio-comment-reply.test.cjs": "7dbb13f94b5f23c0ed0432312330256949111a69be7915a7da3bbab81e9d034b",
+        "tests/studio-community-binding.test.cjs": "5dd8644628deeebc3b7fa6511732fb648f4539dfc66df5a49f2331a1d0366cad",
+        "docs/service-api-binding.md": "b4f1e844e248b1970eb26c460e3d180088da3729b5cd6b78ed6f139617c45a71",
+        "docs/design-system.md": "476b658f1c241551a0bd082a025ecee80b18a28c71d88306c4925149acc9c9b7",
+        "docs/preview-pages.md": "e79c41e87ff984aeb55d9636a808337c97e67cea532e12fd1c122620659b989f",
+        "PROGRESS.md": "bea274610b7e744d24a744819fc5ec4012aa5cfda0d9a5bff8e433f7b78fafc8"
+      },
+      "verifiedSourceHashesUnchanged": true,
+      "scopedWhitespaceCheckExitCode": 0,
+      "whitespaceScope": "Excludes pre-existing PROGRESS.md and platform-api.md whitespace warnings; unrelated content preserved."
+    },
+    "crefans_server": {
+      "root": "/Users/ethan/repository/crefans_server",
+      "head": "0d6044e5b1d595688bf5f82cad08f6a623df6719",
+      "branch": "feat/studio-comment-replies",
+      "dirty": true,
+      "preExistingDirtyChangesPreserved": true,
+      "baseline": ".local/studio-replies-20261028/baseline.json",
+      "files": {
+        "src/platform/studio.controller.ts": "34165be87416d136567c5c80353bb4833285d068529d15f944edd5f3259d7e93",
+        "src/platform/studio.service.ts": "3a8c3711f714a12fa564cf708f6dc32202ed04a4c4980e2816cb99a181c0bf28",
+        "src/platform/openapi-contract.ts": "f8af69166ad9a38b36127c2144398ab6418a8fb37fbaf9a94f412cccaf71a8d8",
+        "tests/platform-studio-replies.test.cjs": "77b2e92b757bf32c5dc3520ecf7d6b45e6dfd8d82b84559d15fec342e4c67323",
+        "tests/platform-openapi.test.cjs": "6326f673912e6e009b380e0cd1a92ffecc22fcb51def3a7c2d637d87fe603a6f",
+        "docs/platform-api.md": "fc872c74059d5d0c91b466c495526f363f5aa509f8fb548789bd3139c34d58be",
+        "docs/current-contracts.md": "98a05dc4d9e7c2d643c408687f213fec4dd5d682607be0234e35fd1ef5916913",
+        "PROGRESS.md": "ebd931a3cc44d9db1d5ecea6d2483648428f75b38ac48bb6e9d7b15c97b0063b"
+      },
+      "verifiedSourceHashesUnchanged": true,
+      "scopedWhitespaceCheckExitCode": 0,
+      "whitespaceScope": "Excludes pre-existing PROGRESS.md and platform-api.md whitespace warnings; unrelated content preserved."
+    }
+  },
+  "environment": {
+    "node": "v22.23.4",
+    "browserOrigin": "http://127.0.0.1:3010",
+    "database": "isolated loopback3307/crefans_platform_e2e, seeded test rows cleaned",
+    "productionChanged": false
+  },
+  "checks": {
+    "front": {
+      "command": "npm run check",
+      "startedAt": "2026-10-28T14:22:58.572015+00:00",
+      "finishedAt": "2026-10-28T14:23:09.269258+00:00",
+      "exitCode": 0,
+      "node": "v22.23.4",
+      "result": "333\n  type: 'test'\n  ...\n# Subtest: five incorrect PINs impose a thirty-second lock and a correct PIN cannot bypass the lock\nok 376 - five incorrect PINs impose a thirty-second lock and a correct PIN cannot bypass the lock\n  ---\n  duration_ms: 1.187375\n  type: 'test'\n  ...\n# Subtest: parallel setup and PIN checks do not overwrite the verifier or bypass serialized attempt accounting\nok 377 - parallel setup and PIN checks do not overwrite the verifier or bypass serialized attempt accounting\n  ---\n  duration_ms: 0.458584\n  type: 'test'\n  ...\n# Subtest: authorization belongs to one provider session and old callbacks stop accepting requests after unmount\nok 378 - authorization belongs to one provider session and old callbacks stop accepting requests after unmount\n  ---\n  duration_ms: 1.450875\n  type: 'test'\n  ...\n# Subtest: a correct PIN cannot authorize an invalid amount, an unverified account or an insufficient balance\nok 379 - a correct PIN cannot authorize an invalid amount, an unverified account or an insufficient balance\n  ---\n  duration_ms: 0.872666\n  type: 'test'\n  ...\n1..379\n# tests 379\n# suites 0\n# pass 379\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 4669.942709\n"
+    },
+    "server": {
+      "command": "npm run build; node --test tests/platform-studio-replies.test.cjs tests/platform-openapi.test.cjs",
+      "buildExitCode": 0,
+      "testsExitCode": 0,
+      "testsPassed": 16,
+      "log": "/Users/ethan/repository/crefans_server/.local/studio-replies-20261028/server-tests.log",
+      "logSha256": "74f5788a2c8418229eeae60f2e2dba85444c83edb8a51a72598ae81c9ab312da"
+    },
+    "browser": {
+      "command": "node /tmp/verify-studio-replies.cjs",
+      "exitCode": 0,
+      "savedScript": ".local/studio-replies-20261028/verify-browser.cjs",
+      "cases": {
+        "at": "2026-10-28T14:19:19.917Z",
+        "checks": [
+          {
+            "engine": "chromium",
+            "width": 375,
+            "persona": "moka",
+            "identityAvatarLoaded": true,
+            "createdEditedDeleted": true,
+            "deleteCancelledSafely": true,
+            "fanActionsAbsent": true,
+            "horizontalOverflow": false,
+            "pageErrors": []
+          },
+          {
+            "engine": "chromium",
+            "width": 1280,
+            "persona": "moka",
+            "identityAvatarLoaded": true,
+            "createdEditedDeleted": true,
+            "deleteCancelledSafely": true,
+            "fanActionsAbsent": true,
+            "horizontalOverflow": false,
+            "pageErrors": []
+          },
+          {
+            "engine": "webkit",
+            "width": 375,
+            "persona": "haneul",
+            "identityAvatarLoaded": true,
+            "createdEditedDeleted": true,
+            "deleteCancelledSafely": true,
+            "fanActionsAbsent": true,
+            "horizontalOverflow": false,
+            "pageErrors": []
+          }
+        ],
+        "exitCode": 0
+      },
+      "screenshots": {
+        "chromium-375-reply.png": "3f58ab7d0ed87ab78917ff6d179355eba92c6a143e6eafef4fb45f89bb31a570",
+        "webkit-375-reply.png": "f4fd0969644b28281217e4b3afe4bfaa67bb3d507e02c70b75968ec8d0302401",
+        "chromium-1280-reply.png": "88bb0dd96c8804f56e103073b9170273d42cd236827f62af883b8d50b3ae611e"
+      }
+    }
+  },
+  "negativeCases": [
+    "non-owner/fan/anonymous denial",
+    "wrong parent denial",
+    "deleted parent/post/reply denial",
+    "empty/oversized body rejected",
+    "duplicate deletion yields one success and one404, count changes once",
+    "failed edit/delete keeps draft or body",
+    "delete cancellation keeps reply",
+    "fan actions absent"
+  ],
+  "initialFailures": [
+    "OpenAPI expected studio route count42 was updated to44 for two new routes; final16/16 passed",
+    "Browser selectors were corrected for edit replacing text and close animation; final3cases passed",
+    "Whole-file whitespace check flagged existing unrelated PROGRESS trailing space and platform-api.md trailing blank line (also present in before copy); preserved. Remaining changed files pass."
+  ],
+  "documentation": {
+    "reviewed": [
+      "API methods/ownership/deleted states/audit",
+      "explicit reply identity and live binding",
+      "preview/design catalog states",
+      "regenerated route contract"
+    ],
+    "snapshotCommand": "npm run docs:record; npm run check:docs",
+    "note": "Snapshot alone is not product test proof; actual checks above.",
+    "executions": [
+      {
+        "command": "npm run docs:record",
+        "startedAt": "2026-10-28T14:25:10.897163+00:00",
+        "finishedAt": "2026-10-28T14:25:11.769375+00:00",
+        "exitCode": 0,
+        "result": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 137, \"screens\": 52, \"models\": 74, \"enums\": 15, \"migrations\": 27, \"localMarkdownTargets\": 392, \"externalInlineLinksNotFetched\": 286}\n"
+      },
+      {
+        "command": "npm run check:docs",
+        "startedAt": "2026-10-28T14:25:11.769400+00:00",
+        "finishedAt": "2026-10-28T14:25:12.106647+00:00",
+        "exitCode": 0,
+        "result": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-28T14:25:11.537181+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 137, \"screens\": 52, \"models\": 74, \"enums\": 15, \"migrations\": 27, \"localMarkdownTargets\": 392, \"externalInlineLinksNotFetched\": 286}\n"
+      }
+    ]
+  },
+  "limits": [
+    "No production deployment or real user data changes",
+    "Mock UI browser checks plus API binding unit and isolated real DB HTTP tests; no logged-in production browser test",
+    "Existing unrelated E2E failures recorded in PROGRESS were not rerun or claimed fixed",
+    "No new build artifact deployment; existing uncommitted unrelated changes preserved"
+  ],
+  "sources": [
+    {
+      "url": "https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/",
+      "checkedOn": "2026-10-28",
+      "application": "Authorize each reply object against current user, parent and owned post"
+    }
+  ]
+}

@@ -1,0 +1,333 @@
+{
+  "recordedAt": "2026-10-24T02:35:34.864982+00:00",
+  "request": "홈 피드 상단에 관심 카테고리 칩과 검색 페이지 이동 링크 추가",
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "front": "http://127.0.0.1:3010",
+    "database": "isolated development MySQL 127.0.0.1:3307/crefans_platform_dev"
+  },
+  "repositories": {
+    "front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/beta-signup",
+      "dirty": true,
+      "preexistingChangesPreserved": true,
+      "targetSha256": {
+        "components/crefans/SocialPages.tsx": "7f1e46d0f7e44d44dab561137a44b97567542531838674565a689277c87ebda2",
+        "components/crefans/social.module.css": "8d88ee7fd10ca0200a51cbd85dedfdb282abca09c3183c32129d4336bbf4c6dd",
+        "features/service/useServiceModel.ts": "227d8d5799c6d78f0b8f7e13de66769d977aeb1f2af86b074af18951d1fa003a",
+        "types/crefans.ts": "3047db265bdec25bd5be9fa01399a102acefcec2e4c17f8b967caf2aafac78c5",
+        "tests/crefans-social.test.cjs": "925ef9c637fd14162385f629b2e4a6418154532ac5ba8db548797fd3b53ca202",
+        "tests/service-access-state.test.cjs": "d0bff7f5c1d96b95bc8e2d30575ff9feabfbf435665f047d2715f600dba025d2"
+      }
+    },
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/beta-signup",
+      "dirty": true,
+      "preexistingChangesPreserved": true,
+      "targetSha256": {
+        "src/platform/service.ts": "a8541504c5961f008ff13b6a3689746ed0320f154e593a4ee909cd0613377f22",
+        "src/platform/controller.ts": "a58a60f39289cd20ead686b7724f559c7a3d2bf0158ac584d04b4705b3ac2b25",
+        "src/platform/openapi-contract.ts": "9451fbc854812ddeb3445be316728e100048f6bc64e38501150b7f74db6f478d",
+        "tests/platform-feed-category.test.cjs": "8a8a92569277bfc294d906b47e058157492e57ed1c8d330e94a69dd78a9b2498"
+      }
+    }
+  },
+  "behavior": [
+    "Shared FeedPage for preview, service and catalog iframe",
+    "Existing Chip and ChipRow; single category or all, not persisted account preferences",
+    "Search-shaped link to basePath/explore, no text input or on-screen keyboard",
+    "Mobile first chip 16px inset, one line, native touch and mouse drag scrolling; existing 480px feed limit preserved",
+    "Preview filters complete fixture collection by creator tags; overlay context uses filtered posts",
+    "Live category is applied server-side before 20-item cursor pagination; no client filtering of a partial page",
+    "Filter changes reset cursor; old responses ignored; failures do not show unfiltered bootstrap posts",
+    "Empty category offers reset and retains service links; creator profile queries unaffected"
+  ],
+  "checks": [
+    {
+      "repo": "front",
+      "command": "npm run check",
+      "exitCode": 0,
+      "result": "Layer/type checks; 292 tests passed including 3 feed UI/adapter regressions",
+      "log": ".local/feed-toolbar-20261024/front-check.log",
+      "sha256": "6ee8be5c9fc489ad83eccc524becf1cba97b48ed288a224c98a6132b8d93de0d",
+      "logModifiedAt": "2026-10-24T02:31:11.353377+00:00"
+    },
+    {
+      "repo": "server",
+      "command": "npm run build",
+      "exitCode": 0,
+      "result": "Nest build passed",
+      "log": ".local/feed-toolbar-20261024/build.log",
+      "sha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2",
+      "logModifiedAt": "2026-10-24T02:31:03.523133+00:00"
+    },
+    {
+      "repo": "server",
+      "command": "CREFANS_E2E=true node --test tests/platform-feed-category.test.cjs tests/platform-openapi.test.cjs",
+      "exitCode": 0,
+      "result": "2 category integration + 11 OpenAPI tests passed",
+      "log": ".local/feed-toolbar-20261024/tests.log",
+      "sha256": "9ba6a8900c226e9d187b8f6ef025b19b8d55c55d6346fe3433ad1e4b09539c7e",
+      "logModifiedAt": "2026-10-24T02:31:09.005122+00:00"
+    },
+    {
+      "repo": "front",
+      "command": "node .local/feed-toolbar-20261024/browser.cjs",
+      "exitCode": 0,
+      "result": "5 preview browser configurations passed",
+      "log": ".local/feed-toolbar-20261024/browser.log",
+      "sha256": "4e4667fc0363791830fd249f2acfd16b77ababc0fc255907fd6030ae10b2fd01",
+      "logModifiedAt": "2026-10-24T02:32:42.227574+00:00"
+    },
+    {
+      "repo": "front",
+      "command": "node .local/feed-toolbar-20261024/service-browser.cjs",
+      "exitCode": 0,
+      "result": "2 service adapter browser configurations with intercepted API passed",
+      "log": ".local/feed-toolbar-20261024/service-browser.log",
+      "sha256": "d4c74c442b95ebcc1ce2331c4e35dc2db0fb140e96af6dc1626dfccf5818c311",
+      "logModifiedAt": "2026-10-24T02:33:20.273881+00:00"
+    }
+  ],
+  "previewBrowser": {
+    "at": "2026-10-24T02:32:42.250Z",
+    "command": "node .local/feed-toolbar-20261024/browser.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 320,
+        "measure": {
+          "x": 0,
+          "right": 320,
+          "width": 320,
+          "firstX": 16,
+          "firstY": 109.5,
+          "childYs": [
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5
+          ],
+          "scrollWidth": 783,
+          "clientWidth": 320,
+          "scrollLeft": 0
+        },
+        "searchHeight": 46,
+        "categoryFiltering": true,
+        "emptyReset": true,
+        "dragPreservesSelection": true,
+        "searchNavigation": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 390,
+        "measure": {
+          "x": 0,
+          "right": 390,
+          "width": 390,
+          "firstX": 16,
+          "firstY": 109.5,
+          "childYs": [
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5
+          ],
+          "scrollWidth": 783,
+          "clientWidth": 390,
+          "scrollLeft": 0
+        },
+        "searchHeight": 46,
+        "categoryFiltering": true,
+        "emptyReset": true,
+        "dragPreservesSelection": true,
+        "searchNavigation": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 767,
+        "measure": {
+          "x": 0,
+          "right": 512,
+          "width": 512,
+          "firstX": 16,
+          "firstY": 109.5,
+          "childYs": [
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5
+          ],
+          "scrollWidth": 783,
+          "clientWidth": 512,
+          "scrollLeft": 0
+        },
+        "searchHeight": 46,
+        "categoryFiltering": true,
+        "emptyReset": true,
+        "dragPreservesSelection": true,
+        "searchNavigation": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 1280,
+        "measure": {
+          "x": 246,
+          "right": 726,
+          "width": 480,
+          "firstX": 246,
+          "firstY": 181.5,
+          "childYs": [
+            181.5,
+            181.5,
+            181.5,
+            181.5,
+            181.5,
+            181.5,
+            181.5,
+            181.5,
+            181.5,
+            181.5
+          ],
+          "scrollWidth": 751,
+          "clientWidth": 480,
+          "scrollLeft": 0
+        },
+        "searchHeight": 46,
+        "categoryFiltering": true,
+        "emptyReset": true,
+        "dragPreservesSelection": true,
+        "searchNavigation": true,
+        "errors": []
+      },
+      {
+        "engine": "webkit",
+        "browser": "27.2",
+        "width": 390,
+        "measure": {
+          "x": 0,
+          "right": 390,
+          "width": 390,
+          "firstX": 16,
+          "firstY": 109.5,
+          "childYs": [
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5,
+            109.5
+          ],
+          "scrollWidth": 783,
+          "clientWidth": 390,
+          "scrollLeft": 0
+        },
+        "searchHeight": 46,
+        "categoryFiltering": true,
+        "emptyReset": true,
+        "dragPreservesSelection": true,
+        "searchNavigation": true,
+        "errors": []
+      }
+    ]
+  },
+  "serviceBrowser": {
+    "at": "2026-10-24T02:33:20.289Z",
+    "command": "node .local/feed-toolbar-20261024/service-browser.cjs",
+    "exitCode": 0,
+    "scope": "service model/router with intercepted API, not production",
+    "results": [
+      {
+        "width": 390,
+        "categoryQueryAndPaging": true,
+        "emptyReset": true,
+        "keyboardSearchNavigation": true,
+        "requests": [
+          "/api/v1/posts",
+          "/api/v1/posts?category=%EC%95%84%ED%8A%B8",
+          "/api/v1/posts?cursor=next&category=%EC%95%84%ED%8A%B8",
+          "/api/v1/posts?category=%EC%9D%8C%EC%95%85",
+          "/api/v1/posts"
+        ],
+        "errors": []
+      },
+      {
+        "width": 1280,
+        "categoryQueryAndPaging": true,
+        "emptyReset": true,
+        "keyboardSearchNavigation": true,
+        "requests": [
+          "/api/v1/posts",
+          "/api/v1/posts?category=%EC%95%84%ED%8A%B8",
+          "/api/v1/posts?cursor=next&category=%EC%95%84%ED%8A%B8",
+          "/api/v1/posts?category=%EC%9D%8C%EC%95%85",
+          "/api/v1/posts"
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "negativeChecks": [
+    "Empty category yields no fabricated posts",
+    "61-character category rejected with 400",
+    "Inactive/draft/hidden/future posts excluded",
+    "Anonymous paid post body/media remain inaccessible",
+    "Old pagination result cannot enter the newly selected category",
+    "Failed category request leaves no unfiltered fallback posts",
+    "Dragging chips does not change selection"
+  ],
+  "initialFailure": {
+    "command": "node .local/feed-toolbar-20261024/browser.cjs",
+    "exitCode": 1,
+    "reason": "Test assumed 767px viewport always equals feed width; existing max480 reader plus32px chip overflow gives512px",
+    "action": "Corrected expected width to retained feed/overflow boundary; no product width change",
+    "logSha256": "71eea22ce94125c8141114cdc6331044735fc8451dec3616d8c65bbd3506bd3f",
+    "retestExitCode": 0
+  },
+  "visualReview": [
+    "Chromium390 mobile screenshot",
+    "Chromium1280 desktop screenshot"
+  ],
+  "limits": [
+    "No production deployment",
+    "No physical iPhone test",
+    "Service browser intercepts API responses; actual SQL filtering separately validated in isolated DB/HTTP tests",
+    "No account preference persistence or recommendation algorithm change",
+    "No financial/provider operations or real account messages",
+    "No new migration, commit, merge or push",
+    "Previous verification artifacts remain historical when overlapping source files change"
+  ]
+}

@@ -1,0 +1,1918 @@
+{
+  "recordedAt": "2026-10-24T04:36:08.851572+00:00",
+  "request": "운영배포: 지우 자연스러운 사진 v2, 멤버십 이름/가격/혜택 레이어, 게시글 상세 뒤로가기 아바타 왼쪽 배치",
+  "repository": {
+    "at": "2026-10-24T04:29:08.393695+00:00",
+    "repository": "/Users/ethan/repository/crefans_front",
+    "branch": "feat/beta-signup",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "baselineTag": "crefans-front:jiwoo-20261024",
+    "productionBaselineFilesMatched": 486,
+    "changed": [
+      "components/crefans/CreatorPages.tsx",
+      "components/crefans/SocialPages.tsx",
+      "components/crefans/social.module.css",
+      "components/crefans/studio/ContentPostPreview.tsx",
+      "components/design-system/ServicePatternCatalog.tsx",
+      "components/preview/service/fixtures.ts",
+      "components/ui/Primitives.tsx",
+      "features/service/useServiceModel.ts",
+      "lib/content/landing.ts",
+      "lib/crefans/membership-plans.ts"
+    ],
+    "added": [
+      "components/crefans/PostMembershipNotice.tsx",
+      "public/illustrations/creators/jiwoo/avatar-trail-v2.png",
+      "public/illustrations/creators/jiwoo/camp-coffee-v2.png",
+      "public/illustrations/creators/jiwoo/camp-morning-v2.png",
+      "public/illustrations/creators/jiwoo/coastal-walk-v2.png",
+      "public/illustrations/creators/jiwoo/cover-lakeside-v2.png",
+      "public/illustrations/creators/jiwoo/generation-v2.json"
+    ],
+    "runtimeFiles": 493,
+    "testsCopied": [
+      "tests/post-membership-offer.test.cjs",
+      "tests/crefans-social.test.cjs",
+      "tests/crefans-creator.test.cjs",
+      "tests/content-post-preview.test.cjs",
+      "tests/service-access-state.test.cjs"
+    ],
+    "excluded": "Unselected working-tree changes including signup/PASS; backend/worker/database/settings unchanged"
+  },
+  "release": {
+    "url": "https://beta.crefans.com",
+    "image": {
+      "at": "2026-10-24T04:31:34.378444+00:00",
+      "image": "crefans-front:membership-ui-20261024",
+      "id": "sha256:c0fcb681d4aa27399b9479c84b85696d1e3d3fcca81e702bc28e584ed9152ca1",
+      "architecture": "amd64",
+      "runtimeFilesMatched": 493,
+      "exitCode": 0
+    },
+    "backup": "/opt/crefans-backup-membership-ui-20261024",
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-24T04:33:06.130480+00:00",
+        "finishedAt": "2026-10-24T04:33:07.313729+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T04:33:07.314335+00:00",
+        "finishedAt": "2026-10-24T04:33:16.213136+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T04:33:16.213820+00:00",
+        "finishedAt": "2026-10-24T04:33:27.388634+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T04:33:27.389104+00:00",
+        "finishedAt": "2026-10-24T04:33:34.716707+00:00",
+        "exitCode": 0
+      }
+    ],
+    "deploymentLog": " Container crefans-beta-frontend-1 Recreate \n Container crefans-beta-frontend-1 Recreated \n Container crefans-beta-frontend-1 Starting \n Container crefans-beta-frontend-1 Started \nHealth and ten preview/service routes passed\n{\"frontendImage\": \"sha256:c0fcb681d4aa27399b9479c84b85696d1e3d3fcca81e702bc28e584ed9152ca1\", \"running\": true, \"restarts\": 0, \"preservedServices\": [\"database\", \"api\", \"worker\", \"admin\", \"proxy\"]}\n",
+    "frontendOnly": true,
+    "noCommitMergePush": true
+  },
+  "selectionProof": {
+    "runtimeFiles": 493,
+    "chosen": {
+      "components/crefans/CreatorPages.tsx": "b9b5f33e13d93c26cabea53cd5170baac9a1257a719f5c49f2ad0bb3f9f8b7c7",
+      "components/crefans/SocialPages.tsx": "1366449f0d4851c8917322fe22a57869810e41562000dde927bd1a2229ae08a7",
+      "components/crefans/social.module.css": "4e36fcf880c42d98b4200bc42cf81246f998cbc0dfb0ada44680cabf9f9cde14",
+      "components/crefans/studio/ContentPostPreview.tsx": "876691506817aaa0b7637d19903205f66ef603d395a996676f8c82238da6754e",
+      "components/design-system/ServicePatternCatalog.tsx": "5998e0accc6b68ee471a141fda3e0f2debd8d58cdc778f233dffa82d427457ec",
+      "components/preview/service/fixtures.ts": "ede2741549f26f75efbfb6cf10a137e382fc2cb6cbc9da6efcf49c71cfeecd09",
+      "components/ui/Primitives.tsx": "e9afa3a9f00667813eaac225a301817b07ef73245c04fc3dc265d077f418f421",
+      "features/service/useServiceModel.ts": "ab7fb3629f64e666bca289ececf601687368587f229735f186517a0c50a812cf",
+      "lib/content/landing.ts": "c8678ba0e044a17a96ed8a669343e4a6dd9f2c9f8e9d7c44a360df76bafe77fe",
+      "lib/crefans/membership-plans.ts": "52a45c9c11252de623afe18d22d8ffcacabf55d7e9888f722565bb93e133d806",
+      "components/crefans/PostMembershipNotice.tsx": "fb34fafadf1ad68776ff3e4b3c9a0b4e09d7272fef5b6f4de8a4a8db4aa33a08",
+      "public/illustrations/creators/jiwoo/avatar-trail-v2.png": "5f5bbbfb8a8c27e95f0b1b7150900c4bcdc012aea3c25d674712d3d5d87db76d",
+      "public/illustrations/creators/jiwoo/camp-coffee-v2.png": "4f14a73f87a9c11bcb8ecac8005d7ef0a9dc0a923b739b74b3561ed63a7e2813",
+      "public/illustrations/creators/jiwoo/camp-morning-v2.png": "8a171f9bf5332e1531aa7b7136f6ccf5a7202a7a00808c7652ead5c692e66ee5",
+      "public/illustrations/creators/jiwoo/coastal-walk-v2.png": "127b8c9b0af5e31c9770ced4ad80731097c55bfe804802d58270bdcf208b6533",
+      "public/illustrations/creators/jiwoo/cover-lakeside-v2.png": "a6085d53bf31c7d6e6e232fbf46481021f51a1cf179ab478d59fb3660343832a",
+      "public/illustrations/creators/jiwoo/generation-v2.json": "195b4ae707c2fb59917550798cfbd8c6fb812c59ea76466b320288f3e8b5de81"
+    },
+    "fullInventory": "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/release-hashes.json",
+    "fullInventorySha256": "fffea55b3a71c3c307cdb7c92a50b1f25f42f13d6a2de0ea7c2cc5f771ff8859",
+    "tests": {
+      "tests/post-membership-offer.test.cjs": "6cbb34725866558c96134bbf4029238d45865604253d5987fa31760fed1faa6e",
+      "tests/crefans-social.test.cjs": "0cfcee21e32f624638ee5c3d0ac67ec9de8ba086dca631bf6b4dc4d6cc3b259f",
+      "tests/crefans-creator.test.cjs": "82d835c38e7b1dd877f7dc8bdb5066b75b2fe2ec40e2568ca2ff4876468e0bfc",
+      "tests/content-post-preview.test.cjs": "aa973469db339f9a84fc7529645d88514b717dcd9168852bb9097b7b1266fcc0",
+      "tests/service-access-state.test.cjs": "53e25621fde3e905ed8ee08fc0ca39f91d7d41e791c5441f617cc34e21e48c53"
+    }
+  },
+  "verification": {
+    "selectedSourceCheck": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/source",
+      "startedAt": "2026-10-24T04:29:31.639525+00:00",
+      "finishedAt": "2026-10-24T04:29:39.679384+00:00",
+      "exitCode": 0,
+      "logSha256": "c0092cfa7f9ea24a994cc62369b49f4bf847c1985154929d59d9a5ac910232e9"
+    },
+    "selectedSourceUnitTestsPassed": 297,
+    "build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        "infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:membership-ui-20261024",
+        "."
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/source",
+      "startedAt": "2026-10-24T04:29:31.639525+00:00",
+      "finishedAt": "2026-10-24T04:31:04.890487+00:00",
+      "exitCode": 0,
+      "logSha256": "2156a8c50b0c0e49f9ee2212cac23969e36e0e811a7bf8c5db0448d14a27da5a"
+    },
+    "browser": {
+      "image": {
+        "executions": [
+          {
+            "suite": "jiwoo",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/image/jiwoo/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:31:36.950186+00:00",
+            "finishedAt": "2026-10-24T04:32:05.284374+00:00",
+            "exitCode": 0,
+            "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+          },
+          {
+            "suite": "offers",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/image/offers/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:32:05.285101+00:00",
+            "finishedAt": "2026-10-24T04:32:21.005134+00:00",
+            "exitCode": 0,
+            "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+          },
+          {
+            "suite": "back",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/image/back/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:32:21.005716+00:00",
+            "finishedAt": "2026-10-24T04:32:31.658886+00:00",
+            "exitCode": 0,
+            "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+          },
+          {
+            "suite": "service-offers",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/image/service-offers/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:32:31.659496+00:00",
+            "finishedAt": "2026-10-24T04:32:39.684784+00:00",
+            "exitCode": 0,
+            "logSha256": "234e8261e3dd0820a64794db1ef4ea94704e77506a4e4e2638c9c9331966143d"
+          },
+          {
+            "suite": "service-back",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/image/service-back/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:32:39.685295+00:00",
+            "finishedAt": "2026-10-24T04:32:41.623024+00:00",
+            "exitCode": 0,
+            "logSha256": "1fee7fc54f112294d11ddfbe6858501f97a2956fe872a88be38b3dbd32c38360"
+          },
+          {
+            "suite": "catalog",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/image/catalog/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:32:41.623440+00:00",
+            "finishedAt": "2026-10-24T04:32:45.628819+00:00",
+            "exitCode": 0,
+            "logSha256": "80cde491359ce6db82da7f592fe865c14abd0fde0a642027cd5e3b0037bfac8f"
+          }
+        ],
+        "suites": {
+          "jiwoo": {
+            "browser.json": {
+              "at": "2026-10-24T04:32:05.277Z",
+              "origin": "http://127.0.0.1:3013",
+              "results": [
+                {
+                  "engine": "chromium",
+                  "browser": "156.0.8078.4",
+                  "width": 320,
+                  "profilePosts": 3,
+                  "travelFilterPosts": 3,
+                  "avatarAndCoverOverlays": true,
+                  "campGalleryNext": true,
+                  "mediaAndAboutTabs": true,
+                  "exploreAndBothLandings": true,
+                  "postRoutes": 3,
+                  "pageErrors": []
+                },
+                {
+                  "engine": "chromium",
+                  "browser": "156.0.8078.4",
+                  "width": 390,
+                  "profilePosts": 3,
+                  "travelFilterPosts": 3,
+                  "avatarAndCoverOverlays": true,
+                  "campGalleryNext": true,
+                  "mediaAndAboutTabs": true,
+                  "exploreAndBothLandings": true,
+                  "postRoutes": 3,
+                  "pageErrors": []
+                },
+                {
+                  "engine": "chromium",
+                  "browser": "156.0.8078.4",
+                  "width": 1280,
+                  "profilePosts": 3,
+                  "travelFilterPosts": 3,
+                  "avatarAndCoverOverlays": true,
+                  "campGalleryNext": true,
+                  "mediaAndAboutTabs": true,
+                  "exploreAndBothLandings": true,
+                  "postRoutes": 3,
+                  "pageErrors": []
+                },
+                {
+                  "engine": "webkit",
+                  "browser": "27.2",
+                  "width": 390,
+                  "profilePosts": 3,
+                  "travelFilterPosts": 3,
+                  "avatarAndCoverOverlays": true,
+                  "campGalleryNext": true,
+                  "mediaAndAboutTabs": true,
+                  "exploreAndBothLandings": true,
+                  "postRoutes": 3,
+                  "pageErrors": []
+                }
+              ]
+            }
+          },
+          "offers": {
+            "browser.json": {
+              "at": "2026-10-24T04:32:20.999Z",
+              "origin": "http://127.0.0.1:3013",
+              "results": [
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 320,
+                  "namedLock": true,
+                  "pricesAndBenefits": true,
+                  "noNavigationOnOpen": true,
+                  "dialogFocusAndTabContainment": true,
+                  "escapeBackdropCloseAndFocusReturn": true,
+                  "preselectedPlanRoute": true,
+                  "profileTiles": true,
+                  "feed": true,
+                  "errors": []
+                },
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 390,
+                  "namedLock": true,
+                  "pricesAndBenefits": true,
+                  "noNavigationOnOpen": true,
+                  "dialogFocusAndTabContainment": true,
+                  "escapeBackdropCloseAndFocusReturn": true,
+                  "preselectedPlanRoute": true,
+                  "profileTiles": true,
+                  "feed": true,
+                  "errors": []
+                },
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 1280,
+                  "namedLock": true,
+                  "pricesAndBenefits": true,
+                  "noNavigationOnOpen": true,
+                  "dialogFocusAndTabContainment": true,
+                  "escapeBackdropCloseAndFocusReturn": true,
+                  "preselectedPlanRoute": true,
+                  "profileTiles": true,
+                  "feed": true,
+                  "errors": []
+                },
+                {
+                  "engine": "webkit",
+                  "version": "27.2",
+                  "width": 390,
+                  "namedLock": true,
+                  "pricesAndBenefits": true,
+                  "noNavigationOnOpen": true,
+                  "dialogFocusAndTabContainment": true,
+                  "escapeBackdropCloseAndFocusReturn": true,
+                  "preselectedPlanRoute": true,
+                  "profileTiles": true,
+                  "feed": true,
+                  "errors": []
+                }
+              ]
+            }
+          },
+          "back": {
+            "browser.json": {
+              "at": "2026-10-24T04:32:31.653Z",
+              "origin": "http://127.0.0.1:3013",
+              "results": [
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 320,
+                  "measured": [
+                    {
+                      "id": "morning",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 164.25,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 288,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    },
+                    {
+                      "id": "moka-backstage",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 162.296875,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 288,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    }
+                  ],
+                  "feedAndOverlayWithoutExtraBack": true,
+                  "missingPostBackPreserved": true,
+                  "errors": []
+                },
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 390,
+                  "measured": [
+                    {
+                      "id": "morning",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 164.25,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 358,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    },
+                    {
+                      "id": "moka-backstage",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 162.296875,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 358,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    }
+                  ],
+                  "feedAndOverlayWithoutExtraBack": true,
+                  "missingPostBackPreserved": true,
+                  "errors": []
+                },
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 1280,
+                  "measured": [
+                    {
+                      "id": "morning",
+                      "back": {
+                        "x": 246,
+                        "y": 137.5,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 300,
+                        "y": 138.484375,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 300,
+                        "y": 137.5,
+                        "width": 141.296875,
+                        "height": 43.984375
+                      },
+                      "row": {
+                        "x": 246,
+                        "y": 137.5,
+                        "width": 480,
+                        "height": 44
+                      },
+                      "icon": {
+                        "x": 257,
+                        "y": 148.5,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    },
+                    {
+                      "id": "moka-backstage",
+                      "back": {
+                        "x": 246,
+                        "y": 137.5,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 300,
+                        "y": 138.484375,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 300,
+                        "y": 137.5,
+                        "width": 139.75,
+                        "height": 43.984375
+                      },
+                      "row": {
+                        "x": 246,
+                        "y": 137.5,
+                        "width": 480,
+                        "height": 44
+                      },
+                      "icon": {
+                        "x": 257,
+                        "y": 148.5,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    }
+                  ],
+                  "feedAndOverlayWithoutExtraBack": true,
+                  "missingPostBackPreserved": true,
+                  "errors": []
+                },
+                {
+                  "engine": "webkit",
+                  "version": "27.2",
+                  "width": 390,
+                  "measured": [
+                    {
+                      "id": "morning",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 164.234375,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 358,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    },
+                    {
+                      "id": "moka-backstage",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 162.28125,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 358,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    }
+                  ],
+                  "feedAndOverlayWithoutExtraBack": true,
+                  "missingPostBackPreserved": true,
+                  "errors": []
+                }
+              ]
+            }
+          },
+          "service-offers": {
+            "service-browser.json": {
+              "at": "2026-10-24T04:32:39.676Z",
+              "scope": "Local real service model/router with intercepted API; no real account or payment changes",
+              "results": [
+                {
+                  "width": 320,
+                  "currentNamesFromFeedAndDetail": true,
+                  "exactProductOnly": true,
+                  "retiredAndEmptyNoCheckoutLink": true,
+                  "noMutationRequests": true,
+                  "requests": [
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    }
+                  ],
+                  "errors": []
+                },
+                {
+                  "width": 1280,
+                  "currentNamesFromFeedAndDetail": true,
+                  "exactProductOnly": true,
+                  "retiredAndEmptyNoCheckoutLink": true,
+                  "noMutationRequests": true,
+                  "requests": [
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    }
+                  ],
+                  "errors": []
+                }
+              ]
+            }
+          },
+          "service-back": {
+            "service-browser.json": {
+              "at": "2026-10-24T04:32:41.617Z",
+              "scope": "Local service router/model with intercepted API; no production or real account changes",
+              "results": [
+                {
+                  "width": 390,
+                  "bounds": {
+                    "back": {
+                      "x": 16,
+                      "y": 39.390625,
+                      "width": 44,
+                      "height": 44
+                    },
+                    "avatar": {
+                      "x": 70,
+                      "y": 40.390625,
+                      "width": 42,
+                      "height": 42
+                    },
+                    "identity": {
+                      "x": 70,
+                      "y": 37,
+                      "width": 140.0625,
+                      "height": 48.78125
+                    },
+                    "row": {
+                      "x": 16,
+                      "y": 37,
+                      "width": 358,
+                      "height": 48.78125
+                    },
+                    "icon": {
+                      "x": 27,
+                      "y": 50.390625,
+                      "width": 22,
+                      "height": 22
+                    },
+                    "radius": "50%"
+                  },
+                  "requests": [
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/back-layout"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/back-layout/comments-page"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts"
+                    }
+                  ],
+                  "errors": []
+                },
+                {
+                  "width": 1280,
+                  "bounds": {
+                    "back": {
+                      "x": 246,
+                      "y": 112,
+                      "width": 44,
+                      "height": 44
+                    },
+                    "avatar": {
+                      "x": 300,
+                      "y": 112.984375,
+                      "width": 42,
+                      "height": 42
+                    },
+                    "identity": {
+                      "x": 300,
+                      "y": 112,
+                      "width": 121.90625,
+                      "height": 43.984375
+                    },
+                    "row": {
+                      "x": 246,
+                      "y": 112,
+                      "width": 480,
+                      "height": 44
+                    },
+                    "icon": {
+                      "x": 257,
+                      "y": 123,
+                      "width": 22,
+                      "height": 22
+                    },
+                    "radius": "50%"
+                  },
+                  "requests": [
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/back-layout"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/back-layout/comments-page"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts"
+                    }
+                  ],
+                  "errors": []
+                }
+              ]
+            }
+          },
+          "catalog": {
+            "catalog-browser.json": {
+              "at": "2026-10-24T04:32:45.596Z",
+              "catalogStates": [
+                "available",
+                "unavailable",
+                "empty",
+                "readOnly"
+              ],
+              "existingPaymentDialogKeyboardRegression": true,
+              "errors": []
+            }
+          }
+        }
+      },
+      "production": {
+        "executions": [
+          {
+            "suite": "jiwoo",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/production/jiwoo/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:33:59.190334+00:00",
+            "finishedAt": "2026-10-24T04:34:32.059281+00:00",
+            "exitCode": 0,
+            "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+          },
+          {
+            "suite": "offers",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/production/offers/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:34:32.059948+00:00",
+            "finishedAt": "2026-10-24T04:34:50.866166+00:00",
+            "exitCode": 0,
+            "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+          },
+          {
+            "suite": "back",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/production/back/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:34:50.866584+00:00",
+            "finishedAt": "2026-10-24T04:35:04.350117+00:00",
+            "exitCode": 0,
+            "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+          },
+          {
+            "suite": "service-offers",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/production/service-offers/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:35:04.350592+00:00",
+            "finishedAt": "2026-10-24T04:35:14.158161+00:00",
+            "exitCode": 0,
+            "logSha256": "234e8261e3dd0820a64794db1ef4ea94704e77506a4e4e2638c9c9331966143d"
+          },
+          {
+            "suite": "service-back",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/production/service-back/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:35:14.158612+00:00",
+            "finishedAt": "2026-10-24T04:35:16.458493+00:00",
+            "exitCode": 0,
+            "logSha256": "1fee7fc54f112294d11ddfbe6858501f97a2956fe872a88be38b3dbd32c38360"
+          },
+          {
+            "suite": "catalog",
+            "command": [
+              "node",
+              "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024/production/catalog/browser.cjs"
+            ],
+            "startedAt": "2026-10-24T04:35:16.458872+00:00",
+            "finishedAt": "2026-10-24T04:35:20.575421+00:00",
+            "exitCode": 0,
+            "logSha256": "80cde491359ce6db82da7f592fe865c14abd0fde0a642027cd5e3b0037bfac8f"
+          }
+        ],
+        "suites": {
+          "jiwoo": {
+            "browser.json": {
+              "at": "2026-10-24T04:34:32.052Z",
+              "origin": "https://beta.crefans.com",
+              "results": [
+                {
+                  "engine": "chromium",
+                  "browser": "156.0.8078.4",
+                  "width": 320,
+                  "profilePosts": 3,
+                  "travelFilterPosts": 3,
+                  "avatarAndCoverOverlays": true,
+                  "campGalleryNext": true,
+                  "mediaAndAboutTabs": true,
+                  "exploreAndBothLandings": true,
+                  "postRoutes": 3,
+                  "pageErrors": []
+                },
+                {
+                  "engine": "chromium",
+                  "browser": "156.0.8078.4",
+                  "width": 390,
+                  "profilePosts": 3,
+                  "travelFilterPosts": 3,
+                  "avatarAndCoverOverlays": true,
+                  "campGalleryNext": true,
+                  "mediaAndAboutTabs": true,
+                  "exploreAndBothLandings": true,
+                  "postRoutes": 3,
+                  "pageErrors": []
+                },
+                {
+                  "engine": "chromium",
+                  "browser": "156.0.8078.4",
+                  "width": 1280,
+                  "profilePosts": 3,
+                  "travelFilterPosts": 3,
+                  "avatarAndCoverOverlays": true,
+                  "campGalleryNext": true,
+                  "mediaAndAboutTabs": true,
+                  "exploreAndBothLandings": true,
+                  "postRoutes": 3,
+                  "pageErrors": []
+                },
+                {
+                  "engine": "webkit",
+                  "browser": "27.2",
+                  "width": 390,
+                  "profilePosts": 3,
+                  "travelFilterPosts": 3,
+                  "avatarAndCoverOverlays": true,
+                  "campGalleryNext": true,
+                  "mediaAndAboutTabs": true,
+                  "exploreAndBothLandings": true,
+                  "postRoutes": 3,
+                  "pageErrors": []
+                }
+              ]
+            }
+          },
+          "offers": {
+            "browser.json": {
+              "at": "2026-10-24T04:34:50.860Z",
+              "origin": "https://beta.crefans.com",
+              "results": [
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 320,
+                  "namedLock": true,
+                  "pricesAndBenefits": true,
+                  "noNavigationOnOpen": true,
+                  "dialogFocusAndTabContainment": true,
+                  "escapeBackdropCloseAndFocusReturn": true,
+                  "preselectedPlanRoute": true,
+                  "profileTiles": true,
+                  "feed": true,
+                  "errors": []
+                },
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 390,
+                  "namedLock": true,
+                  "pricesAndBenefits": true,
+                  "noNavigationOnOpen": true,
+                  "dialogFocusAndTabContainment": true,
+                  "escapeBackdropCloseAndFocusReturn": true,
+                  "preselectedPlanRoute": true,
+                  "profileTiles": true,
+                  "feed": true,
+                  "errors": []
+                },
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 1280,
+                  "namedLock": true,
+                  "pricesAndBenefits": true,
+                  "noNavigationOnOpen": true,
+                  "dialogFocusAndTabContainment": true,
+                  "escapeBackdropCloseAndFocusReturn": true,
+                  "preselectedPlanRoute": true,
+                  "profileTiles": true,
+                  "feed": true,
+                  "errors": []
+                },
+                {
+                  "engine": "webkit",
+                  "version": "27.2",
+                  "width": 390,
+                  "namedLock": true,
+                  "pricesAndBenefits": true,
+                  "noNavigationOnOpen": true,
+                  "dialogFocusAndTabContainment": true,
+                  "escapeBackdropCloseAndFocusReturn": true,
+                  "preselectedPlanRoute": true,
+                  "profileTiles": true,
+                  "feed": true,
+                  "errors": []
+                }
+              ]
+            }
+          },
+          "back": {
+            "browser.json": {
+              "at": "2026-10-24T04:35:04.343Z",
+              "origin": "https://beta.crefans.com",
+              "results": [
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 320,
+                  "measured": [
+                    {
+                      "id": "morning",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 164.25,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 288,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    },
+                    {
+                      "id": "moka-backstage",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 162.296875,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 288,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    }
+                  ],
+                  "feedAndOverlayWithoutExtraBack": true,
+                  "missingPostBackPreserved": true,
+                  "errors": []
+                },
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 390,
+                  "measured": [
+                    {
+                      "id": "morning",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 164.25,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 358,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    },
+                    {
+                      "id": "moka-backstage",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 162.296875,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 358,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    }
+                  ],
+                  "feedAndOverlayWithoutExtraBack": true,
+                  "missingPostBackPreserved": true,
+                  "errors": []
+                },
+                {
+                  "engine": "chromium",
+                  "version": "156.0.8078.4",
+                  "width": 1280,
+                  "measured": [
+                    {
+                      "id": "morning",
+                      "back": {
+                        "x": 246,
+                        "y": 137.5,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 300,
+                        "y": 138.484375,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 300,
+                        "y": 137.5,
+                        "width": 141.296875,
+                        "height": 43.984375
+                      },
+                      "row": {
+                        "x": 246,
+                        "y": 137.5,
+                        "width": 480,
+                        "height": 44
+                      },
+                      "icon": {
+                        "x": 257,
+                        "y": 148.5,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    },
+                    {
+                      "id": "moka-backstage",
+                      "back": {
+                        "x": 246,
+                        "y": 137.5,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 300,
+                        "y": 138.484375,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 300,
+                        "y": 137.5,
+                        "width": 139.75,
+                        "height": 43.984375
+                      },
+                      "row": {
+                        "x": 246,
+                        "y": 137.5,
+                        "width": 480,
+                        "height": 44
+                      },
+                      "icon": {
+                        "x": 257,
+                        "y": 148.5,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    }
+                  ],
+                  "feedAndOverlayWithoutExtraBack": true,
+                  "missingPostBackPreserved": true,
+                  "errors": []
+                },
+                {
+                  "engine": "webkit",
+                  "version": "27.2",
+                  "width": 390,
+                  "measured": [
+                    {
+                      "id": "morning",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 164.234375,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 358,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    },
+                    {
+                      "id": "moka-backstage",
+                      "back": {
+                        "x": 16,
+                        "y": 64.890625,
+                        "width": 44,
+                        "height": 44
+                      },
+                      "avatar": {
+                        "x": 70,
+                        "y": 65.890625,
+                        "width": 42,
+                        "height": 42
+                      },
+                      "identity": {
+                        "x": 70,
+                        "y": 62.5,
+                        "width": 162.28125,
+                        "height": 48.78125
+                      },
+                      "row": {
+                        "x": 16,
+                        "y": 62.5,
+                        "width": 358,
+                        "height": 48.78125
+                      },
+                      "icon": {
+                        "x": 27,
+                        "y": 75.890625,
+                        "width": 22,
+                        "height": 22
+                      },
+                      "radius": "50%"
+                    }
+                  ],
+                  "feedAndOverlayWithoutExtraBack": true,
+                  "missingPostBackPreserved": true,
+                  "errors": []
+                }
+              ]
+            }
+          },
+          "service-offers": {
+            "service-browser.json": {
+              "at": "2026-10-24T04:35:14.153Z",
+              "scope": "Local real service model/router with intercepted API; no real account or payment changes",
+              "results": [
+                {
+                  "width": 320,
+                  "currentNamesFromFeedAndDetail": true,
+                  "exactProductOnly": true,
+                  "retiredAndEmptyNoCheckoutLink": true,
+                  "noMutationRequests": true,
+                  "requests": [
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    }
+                  ],
+                  "errors": []
+                },
+                {
+                  "width": 1280,
+                  "currentNamesFromFeedAndDetail": true,
+                  "exactProductOnly": true,
+                  "retiredAndEmptyNoCheckoutLink": true,
+                  "noMutationRequests": true,
+                  "requests": [
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/offer"
+                    }
+                  ],
+                  "errors": []
+                }
+              ]
+            }
+          },
+          "service-back": {
+            "service-browser.json": {
+              "at": "2026-10-24T04:35:16.453Z",
+              "scope": "Local service router/model with intercepted API; no production or real account changes",
+              "results": [
+                {
+                  "width": 390,
+                  "bounds": {
+                    "back": {
+                      "x": 16,
+                      "y": 39.390625,
+                      "width": 44,
+                      "height": 44
+                    },
+                    "avatar": {
+                      "x": 70,
+                      "y": 40.390625,
+                      "width": 42,
+                      "height": 42
+                    },
+                    "identity": {
+                      "x": 70,
+                      "y": 37,
+                      "width": 140.0625,
+                      "height": 48.78125
+                    },
+                    "row": {
+                      "x": 16,
+                      "y": 37,
+                      "width": 358,
+                      "height": 48.78125
+                    },
+                    "icon": {
+                      "x": 27,
+                      "y": 50.390625,
+                      "width": 22,
+                      "height": 22
+                    },
+                    "radius": "50%"
+                  },
+                  "requests": [
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/back-layout"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/back-layout/comments-page"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts"
+                    }
+                  ],
+                  "errors": []
+                },
+                {
+                  "width": 1280,
+                  "bounds": {
+                    "back": {
+                      "x": 246,
+                      "y": 112,
+                      "width": 44,
+                      "height": 44
+                    },
+                    "avatar": {
+                      "x": 300,
+                      "y": 112.984375,
+                      "width": 42,
+                      "height": 42
+                    },
+                    "identity": {
+                      "x": 300,
+                      "y": 112,
+                      "width": 121.90625,
+                      "height": 43.984375
+                    },
+                    "row": {
+                      "x": 246,
+                      "y": 112,
+                      "width": 480,
+                      "height": 44
+                    },
+                    "icon": {
+                      "x": 257,
+                      "y": 123,
+                      "width": 22,
+                      "height": 22
+                    },
+                    "radius": "50%"
+                  },
+                  "requests": [
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/back-layout"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts/back-layout/comments-page"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/bootstrap"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/common"
+                    },
+                    {
+                      "method": "GET",
+                      "path": "/api/v1/posts"
+                    }
+                  ],
+                  "errors": []
+                }
+              ]
+            }
+          },
+          "catalog": {
+            "catalog-browser.json": {
+              "at": "2026-10-24T04:35:20.551Z",
+              "catalogStates": [
+                "available",
+                "unavailable",
+                "empty",
+                "readOnly"
+              ],
+              "existingPaymentDialogKeyboardRegression": true,
+              "errors": []
+            }
+          }
+        }
+      }
+    },
+    "productionSourceAndAssets": {
+      "at": "2026-10-24T04:34:02.998003+00:00",
+      "imageId": "sha256:c0fcb681d4aa27399b9479c84b85696d1e3d3fcca81e702bc28e584ed9152ca1",
+      "runtimeFilesMatched": 493,
+      "assets": [
+        {
+          "path": "/illustrations/creators/jiwoo/avatar-trail-v1.png",
+          "status": 200,
+          "bytes": 2657430,
+          "sha256": "79c518fec2d0e16ba6c8838330ece7f1940aceb229591d77a5c314b546506c88"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/avatar-trail-v2.png",
+          "status": 200,
+          "bytes": 2661057,
+          "sha256": "5f5bbbfb8a8c27e95f0b1b7150900c4bcdc012aea3c25d674712d3d5d87db76d"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/camp-coffee-v1.png",
+          "status": 200,
+          "bytes": 2736544,
+          "sha256": "6c7baf973d820685a68c2d6331b2af29050525f1d2111568a65a453d06194740"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/camp-coffee-v2.png",
+          "status": 200,
+          "bytes": 2690679,
+          "sha256": "4f14a73f87a9c11bcb8ecac8005d7ef0a9dc0a923b739b74b3561ed63a7e2813"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/camp-morning-v1.png",
+          "status": 200,
+          "bytes": 2591954,
+          "sha256": "d50422c219120838adbdfe7bc57804d866e94a3a68f0ac804ab016fe3afa1cd7"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/camp-morning-v2.png",
+          "status": 200,
+          "bytes": 2704429,
+          "sha256": "8a171f9bf5332e1531aa7b7136f6ccf5a7202a7a00808c7652ead5c692e66ee5"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/coastal-walk-v1.png",
+          "status": 200,
+          "bytes": 2450840,
+          "sha256": "30c7a96b0537e88e0bba4383e11a28904c9ae39ef89ba933b33bfa49a8a196a9"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/coastal-walk-v2.png",
+          "status": 200,
+          "bytes": 2504618,
+          "sha256": "127b8c9b0af5e31c9770ced4ad80731097c55bfe804802d58270bdcf208b6533"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/cover-lakeside-v1.png",
+          "status": 200,
+          "bytes": 2998997,
+          "sha256": "41aa88e1aa6cc8522de43b696b623abc5c4c4176e7fe5346885baed456422a69"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/cover-lakeside-v2.png",
+          "status": 200,
+          "bytes": 3469983,
+          "sha256": "a6085d53bf31c7d6e6e232fbf46481021f51a1cf179ab478d59fb3660343832a"
+        }
+      ],
+      "exitCode": 0
+    },
+    "realService": {
+      "at": "2026-10-24T04:34:04.808Z",
+      "origin": "https://beta.crefans.com",
+      "scope": "Real production API, fresh signed-out browser; no account/login/payment mutations",
+      "results": [
+        {
+          "engine": "chromium",
+          "width": 390,
+          "actualUnauthenticatedFeed": true,
+          "loginRendered": true,
+          "errors": []
+        },
+        {
+          "engine": "chromium",
+          "width": 1280,
+          "actualUnauthenticatedFeed": true,
+          "loginRendered": true,
+          "errors": []
+        },
+        {
+          "engine": "webkit",
+          "width": 390,
+          "actualUnauthenticatedFeed": true,
+          "loginRendered": true,
+          "errors": []
+        }
+      ]
+    },
+    "realServiceExecution": {
+      "command": [
+        "node",
+        ".local/membership-ui-deploy-20261024/production/real-service.cjs"
+      ],
+      "startedAt": "2026-10-24T04:33:59.190284+00:00",
+      "finishedAt": "2026-10-24T04:34:04.815084+00:00",
+      "exitCode": 0,
+      "logSha256": "00729c0459e101ea1a59dfe68f111f3ea08a0d53d8d9bdecf9ad99a623e6a436"
+    },
+    "finalHealth": {
+      "at": "2026-10-24T04:36:08.834234+00:00",
+      "frontend": "\"sha256:c0fcb681d4aa27399b9479c84b85696d1e3d3fcca81e702bc28e584ed9152ca1\" \"running\" 0 false",
+      "apiHealthStatus": 200,
+      "success": true,
+      "exitCode": 0
+    }
+  },
+  "visualReview": [
+    "image/offers/chromium-390-offers.png",
+    "image/back/chromium-1280.png",
+    "production/jiwoo/chromium-390-profile.png",
+    "production/offers/chromium-1280-offers.png"
+  ],
+  "boundaries": [
+    "Actual production mock pages, design catalog and asset-mode service landing verified; creator/posts not inserted in production DB.",
+    "Production service named/exact/retired/empty offers and back layout verified with intercepted API fixtures; recorded separately from actual unauthenticated production feed/login checks.",
+    "Native iPhone hardware, real membership purchase or card transaction not exercised.",
+    "API/worker/database/admin/proxy container IDs and home SSH rule preserved; no migration or backend deployment.",
+    "Current selected release source passes 297 tests; working-tree unrelated signup/PASS changes excluded.",
+    "No commit, merge or push."
+  ],
+  "rawArtifactsDirectory": "/Users/ethan/repository/crefans_front/.local/membership-ui-deploy-20261024"
+}

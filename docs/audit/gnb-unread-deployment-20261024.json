@@ -1,0 +1,2550 @@
+{
+  "at": "2026-10-24T12:33:46.946123+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "workspace": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": [
+      " M AGENTS.md",
+      " M PROGRESS.md",
+      " M app/preview/layout.tsx",
+      " M app/preview/preview.module.css",
+      " M components/crefans/AccountPages.tsx",
+      " M components/crefans/CommonPages.tsx",
+      " M components/crefans/CreatorCard.tsx",
+      " M components/crefans/CreatorPages.tsx",
+      " M components/crefans/FollowButton.tsx",
+      " M components/crefans/Icon.tsx",
+      " M components/crefans/LandingPage.tsx",
+      " M components/crefans/ProfileHeader.tsx",
+      " M components/crefans/ServiceShell.tsx",
+      " M components/crefans/ServiceUI.tsx",
+      " M components/crefans/SocialPages.tsx",
+      " M components/crefans/account.module.css",
+      " M components/crefans/common.module.css",
+      " M components/crefans/creator.module.css",
+      " M components/crefans/service.module.css",
+      " M components/crefans/social.module.css",
+      " M components/crefans/studio/ContentPostPreview.tsx",
+      " M components/crefans/studio/FinancePages.tsx",
+      " M components/crefans/studio/ManagementPages.tsx",
+      " M components/crefans/studio/ReportPage.tsx",
+      " M components/crefans/studio/WithdrawalSecurityPage.tsx",
+      " M components/crefans/studio/report.module.css",
+      " M components/crefans/studio/withdrawal-security.module.css",
+      " M components/design-system/ServicePatternCatalog.tsx",
+      " M components/preview/comment-fixtures.ts",
+      " M components/preview/service/ServiceRouter.tsx",
+      " M components/preview/service/fixtures.ts",
+      " M components/preview/service/useMockAccount.ts",
+      " M components/preview/service/useMockSocial.ts",
+      " M components/preview/studio/useMockCommunity.ts",
+      " M components/service/ServiceRouter.tsx",
+      " M components/ui/Primitives.tsx",
+      " M components/ui/chip-row.module.css",
+      " M components/ui/ui.module.css",
+      " M docs/audit/evidence.json",
+      " M docs/audit/manifest.json",
+      " M docs/creator-image-variety.md",
+      " M docs/design-system.md",
+      " M docs/preview-pages.md",
+      " M docs/release-test-scenarios.md",
+      " M docs/service-api-binding.md",
+      " M e2e/preview.spec.ts",
+      " M features/service/useServiceModel.ts",
+      " M features/service/useStudioModel.ts",
+      " M lib/content/landing.ts",
+      " M lib/crefans/membership-plans.ts",
+      " M playwright.config.ts",
+      " M tests/content-post-preview.test.cjs",
+      " M tests/crefans-account.test.cjs",
+      " M tests/crefans-common.test.cjs",
+      " M tests/crefans-creator.test.cjs",
+      " M tests/crefans-social.test.cjs",
+      " M tests/crefans-studio-reports.test.cjs",
+      " M tests/follow-button.test.cjs",
+      " M tests/load-typescript.cjs",
+      " M tests/service-access-state.test.cjs",
+      " M tsconfig.tsbuildinfo",
+      " M types/crefans-account.ts",
+      " M types/crefans-social.ts",
+      " M types/crefans.ts",
+      "?? components/crefans/BackButton.tsx",
+      "?? components/crefans/CommentComposer.tsx",
+      "?? components/crefans/CommentIcon.tsx",
+      "?? components/crefans/CreatorName.tsx",
+      "?? components/crefans/CreatorSearch.tsx",
+      "?? components/crefans/MediaOverlay.tsx",
+      "?? components/crefans/PostMembershipNotice.tsx",
+      "?? components/crefans/back-button.module.css",
+      "?? components/crefans/creator-name.module.css",
+      "?? components/crefans/creator-search.module.css",
+      "?? components/ui/InfoTooltip.tsx",
+      "?? components/ui/UnreadBadge.tsx",
+      "?? components/ui/info-tooltip.module.css",
+      "?? components/ui/unread-badge.module.css",
+      "?? docs/audit/back-buttons-deployment-20261024.json",
+      "?? docs/audit/back-navigation-20261024.json",
+      "?? docs/audit/back-navigation-inventory-20261024.json",
+      "?? docs/audit/beta-cohort-plan-20261024.json",
+      "?? docs/audit/beta-signup-20261024.json",
+      "?? docs/audit/chip-row-inset-20261024.json",
+      "?? docs/audit/close-spacing-20261024.json",
+      "?? docs/audit/collection-back-deployment-20261024.json",
+      "?? docs/audit/comment-close-20261024.json",
+      "?? docs/audit/creator-badge-fixtures-20261024.json",
+      "?? docs/audit/creator-search-20261024.json",
+      "?? docs/audit/creator-search-deployment-20261024.json",
+      "?? docs/audit/creator-search-live-desktop-20261024.png",
+      "?? docs/audit/creator-search-live-mobile-20261024.png",
+      "?? docs/audit/creator-verification-20261024.json",
+      "?? docs/audit/creator-verification-deployment-20261024.json",
+      "?? docs/audit/creator-verification-live-desktop-20261024.png",
+      "?? docs/audit/creator-verification-live-mobile-20261024.png",
+      "?? docs/audit/dialog-close-deployment-20261024.json",
+      "?? docs/audit/empty-comments-deployment-20261024.json",
+      "?? docs/audit/empty-comments-live-desktop-20261024.png",
+      "?? docs/audit/empty-comments-live-webkit390-20261024.png",
+      "?? docs/audit/featured-creator-icon-20261024.json",
+      "?? docs/audit/featured-icon-deployment-20261024.json",
+      "?? docs/audit/featured-tooltip-20261024.json",
+      "?? docs/audit/featured-tooltip-copy-20261024.json",
+      "?? docs/audit/featured-tooltip-deployment-20261024.json",
+      "?? docs/audit/feed-inbox-deployment-20261024.json",
+      "?? docs/audit/feed-toolbar-20261024.json",
+      "?? docs/audit/follow-icon-20261024.json",
+      "?? docs/audit/follow-toggle-20261024.json",
+      "?? docs/audit/follow-toggle-deployment-20261024.json",
+      "?? docs/audit/gallery-comment-dock-20261024.json",
+      "?? docs/audit/gallery-comments-deployment-20261024.json",
+      "?? docs/audit/gallery-comments-live-desktop-20261024.png",
+      "?? docs/audit/gallery-comments-live-mobile-20261024.png",
+      "?? docs/audit/gnb-comment-deployment-20261024.json",
+      "?? docs/audit/gnb-icon-size-20261024.json",
+      "?? docs/audit/gnb-icon-size-deployment-20261024.json",
+      "?? docs/audit/gnb-size-live-preview-20261024.png",
+      "?? docs/audit/gnb-size-live-service-20261024.png",
+      "?? docs/audit/inbox-unread-20261024.json",
+      "?? docs/audit/jiwoo-content-20261024.json",
+      "?? docs/audit/jiwoo-deployment-20261024.json",
+      "?? docs/audit/jiwoo-natural-20261024.json",
+      "?? docs/audit/membership-offer-20261024.json",
+      "?? docs/audit/membership-ui-deployment-20261024.json",
+      "?? docs/audit/message-buttons-20261024.json",
+      "?? docs/audit/message-time-color-20261024.json",
+      "?? docs/audit/message-time-deployment-20261024.json",
+      "?? docs/audit/message-time-live-1280-20261024.png",
+      "?? docs/audit/message-time-live-390-20261024.png",
+      "?? docs/audit/mobile-comment-composer-20261024.json",
+      "?? docs/audit/mobile-gallery-corner-20261024.json",
+      "?? docs/audit/mobile-gallery-deployment-20261024.json",
+      "?? docs/audit/mobile-gallery-expand-20261024.json",
+      "?? docs/audit/mobile-gallery-sheet-20261024.json",
+      "?? docs/audit/mobile-gnb-icons-20261024.json",
+      "?? docs/audit/mobile-inbox-deployment-20261024.json",
+      "?? docs/audit/mobile-inbox-spacing-20261024.json",
+      "?? docs/audit/mobile-settings-deployment-20261024.json",
+      "?? docs/audit/mobile-settings-links-20261024.json",
+      "?? docs/audit/mobile-shell-20261024.json",
+      "?? docs/audit/mobile-ui-deployment-20261024.json",
+      "?? docs/audit/post-detail-back-20261024.json",
+      "?? docs/audit/profile-media-20261024.json",
+      "?? docs/audit/profile-media-deployment-20261024.json",
+      "?? docs/audit/profile-settings-icon-20261024.json",
+      "?? docs/audit/qa-report-20261024.json",
+      "?? docs/audit/settings-categories-20261024.json",
+      "?? docs/audit/settings-categories-deployment-20261024.json",
+      "?? docs/audit/settings-divider-20261024.json",
+      "?? docs/audit/settings-divider-color-20261024.json",
+      "?? docs/audit/settings-divider-color-deployment-20261024.json",
+      "?? docs/audit/settings-edge-dividers-20261024.json",
+      "?? docs/audit/support-spacing-deployment-20261024.json",
+      "?? docs/audit/verified-creator-icon-20261024.json",
+      "?? docs/beta-role-test-plan.md",
+      "?? e2e/creator-verification.spec.ts",
+      "?? e2e/mobile-comments.spec.ts",
+      "?? e2e/mobile-shell.spec.ts",
+      "?? e2e/signup-deferred.spec.ts",
+      "?? output/pdf/",
+      "?? public/brand/featured-creators-v1.generation.json",
+      "?? public/brand/featured-creators-v1.png",
+      "?? public/brand/tooltip-info-v1.generation.json",
+      "?? public/brand/tooltip-info-v1.png",
+      "?? public/brand/verified-creator-v1.png",
+      "?? public/illustrations/creators/jiwoo/",
+      "?? tests/creator-verification.test.cjs",
+      "?? tests/gnb-unread.test.cjs",
+      "?? tests/post-membership-offer.test.cjs",
+      "?? tests/profile-media.test.cjs"
+    ]
+  },
+  "requirement": "GNB 미확인 메시지/알림을 빨간 숫자배지로 표시, 최대99+, 운영배포. 직전 프로필설정22px 포함.",
+  "acceptance": [
+    "0숨김·1–99그대로·100이상99+",
+    "내가보낸메시지/읽은메시지 제외, 대화별 수신미확인메시지 합산",
+    "알림읽음/대화읽음성공시 감소, 실패시 유지",
+    "비로그인배지숨김·접근성이름은 실제전체개수",
+    "목업/실서비스·모바일/PC/카탈로그 같은공용배지",
+    "프로필설정22px·프론트만교체/나머지서버보존"
+  ],
+  "scope": {
+    "at": "2026-10-24T12:26:53.325841+00:00",
+    "baselineFilesMatched": 505,
+    "changed": [
+      "components/crefans/ServiceShell.tsx",
+      "components/crefans/service.module.css",
+      "components/design-system/ServicePatternCatalog.tsx",
+      "components/crefans/AccountPages.tsx",
+      "components/crefans/creator.module.css"
+    ],
+    "added": [
+      "components/ui/UnreadBadge.tsx",
+      "components/ui/unread-badge.module.css"
+    ],
+    "change": "Shared unread message/notification counts: zero hidden,1–99 exact,100+ shown99+; profile settings icon22px",
+    "excluded": [
+      "Other unshipped signup/back-navigation/comment-close changes"
+    ],
+    "preserved": "Backend/worker/admin/database/proxy and SSH rules"
+  },
+  "sourceHashes": {
+    "components/crefans/ServiceShell.tsx": "bb2c8fffae0ec665d7608755fc0d2d75d3b53e66f90671a916b5a316c1deea44",
+    "components/crefans/service.module.css": "2746396984293c49f6fac275c41d4a904c99e5846988aa2ad575dae50651ab21",
+    "components/design-system/ServicePatternCatalog.tsx": "a71f4018e60cabf81b538d58eacf81515d981ea384ebf9cbb4702083ba5b09a3",
+    "components/crefans/AccountPages.tsx": "16352ab3d1b44c5c1943fafe1afd51d43ae290e32f9bd0d962797a2a0a386198",
+    "components/crefans/creator.module.css": "eb9a3588d3627fd280accfaab4c2bf698e6a2e6a1e47f80b976e9a4d18bc5abe",
+    "components/ui/UnreadBadge.tsx": "8634517704d1d0f8e3cd4e4c1ae59515e768a2b4c3f5fdc1aec3ac47373ee1af",
+    "components/ui/unread-badge.module.css": "0d710392ec38bba70f89f8b3126d02c62f617a89f58a7dad0c66c301f12cb8f0"
+  },
+  "testSha256": "d13f5083858774e8c01d9615c3c461f8c28f9a26423d40123fa843831fd27047",
+  "runtimeManifestSha256": "659bfb784f17c9e8eaa6bf715e43a48ab7ca7a8e3d7e5b0dc0789c3727c98d85",
+  "image": {
+    "at": "2026-10-24T12:29:38.458169+00:00",
+    "tag": "crefans-front:gnb-unread-20261024",
+    "id": "sha256:1f9f64da323c287fc98ba75a31b3ddc00b1433af9b93e92d9b3b9d025af7cad8",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 507,
+    "archiveSha256": "85d78df6e6f866d2e0780fff0113dfb3d83f45b90a4dfacff3adbbed5da15a57",
+    "archiveBytes": 515318589
+  },
+  "commands": [
+    {
+      "command": [
+        "python3",
+        ".local/gnb-unread-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:26:50.825362+00:00",
+      "finishedAt": "2026-10-24T12:26:53.649923+00:00",
+      "exitCode": 0,
+      "logSha256": "2f6e2fa8ae5affbf2797c72afdbcb1a6a1a719616d0432892dae64294ad74b7c"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/gnb-unread.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:26:14.357999+00:00",
+      "finishedAt": "2026-10-24T12:26:14.631366+00:00",
+      "exitCode": 0,
+      "logSha256": "829b6cd800f7822bf843c831f3b0d6c0b4ba2d69c6c8b5c7dfe9bd8e3d7e9c2d"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:27:21.179117+00:00",
+      "finishedAt": "2026-10-24T12:27:21.719861+00:00",
+      "exitCode": 0,
+      "logSha256": "5c2bd8f70c32a0966b60e07f792c981339a4a7f93b63d0d9a743e572a25b3ece"
+    },
+    {
+      "command": [
+        "node",
+        ".local/gnb-unread-deploy-20261024/check.cjs",
+        "http://127.0.0.1:3010",
+        "local"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:28:32.182510+00:00",
+      "finishedAt": "2026-10-24T12:28:46.527643+00:00",
+      "exitCode": 0,
+      "logSha256": "e90a07e5705d18e83a2cd4d2f248d811372311dc032a92688d4d76ce8cceab49"
+    },
+    {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/gnb-unread-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:gnb-unread-20261024",
+        ".local/gnb-unread-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:27:21.179116+00:00",
+      "finishedAt": "2026-10-24T12:28:57.370701+00:00",
+      "exitCode": 0,
+      "logSha256": "72e988f918a6d1530c8d00917862bd409065f0cb287cc50adde9e2e5cb42eaf5"
+    },
+    {
+      "command": [
+        "node",
+        ".local/gnb-unread-deploy-20261024/check.cjs",
+        "http://127.0.0.1:3125",
+        "image"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:30:34.110196+00:00",
+      "finishedAt": "2026-10-24T12:30:58.731306+00:00",
+      "exitCode": 0,
+      "logSha256": "e90a07e5705d18e83a2cd4d2f248d811372311dc032a92688d4d76ce8cceab49"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/gnb-unread-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:29:25.080565+00:00",
+      "finishedAt": "2026-10-24T12:29:38.463804+00:00",
+      "exitCode": 0,
+      "logSha256": "854f49ab8ea26cb3c768b89a0f01d427de146579229078611dfe58d843ac4b50"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/gnb-unread-deploy-20261024/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:31:55.264461+00:00",
+      "finishedAt": "2026-10-24T12:32:24.782612+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    {
+      "command": [
+        "node",
+        ".local/gnb-unread-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:32:40.302422+00:00",
+      "finishedAt": "2026-10-24T12:33:12.789906+00:00",
+      "exitCode": 0,
+      "logSha256": "e90a07e5705d18e83a2cd4d2f248d811372311dc032a92688d4d76ce8cceab49"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/gnb-unread-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:32:40.302422+00:00",
+      "finishedAt": "2026-10-24T12:32:42.457269+00:00",
+      "exitCode": 0,
+      "logSha256": "04744963c981ed5461fd771d7dbd59ca1f359ac6bc1e65ee0dedc69c8fe3bdc8"
+    },
+    {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "crefans-gnb-unread-qa"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:32:52.393892+00:00",
+      "finishedAt": "2026-10-24T12:32:52.599543+00:00",
+      "exitCode": 0,
+      "logSha256": "395eb97a580d926f486987592b9dbedd2a6334d055a3da354afce8a0b40eaa5c"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:33:46.978109+00:00",
+      "finishedAt": "2026-10-24T12:33:47.991993+00:00",
+      "exitCode": 0,
+      "logSha256": "b6fb212378aa2574f79986422f051f5991b47d7c191e431037208f4bc74a7668"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:33:54.986615+00:00",
+      "finishedAt": "2026-10-24T12:33:55.382070+00:00",
+      "exitCode": 0,
+      "logSha256": "53450b19fe5a1a3b9c7e48570cc618c1203a68eb43e09cc910ee19f0f23af2df"
+    }
+  ],
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "install -d -m 0700 /home/ubuntu/crefans-gnb-unread-20261024"
+      ],
+      "startedAt": "2026-10-24T12:31:55.287565+00:00",
+      "finishedAt": "2026-10-24T12:31:56.333634+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "command": [
+        "scp",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "/Users/ethan/repository/crefans_front/.local/gnb-unread-deploy-20261024/image.tar.gz",
+        "/Users/ethan/repository/crefans_front/.local/gnb-unread-deploy-20261024/image.sha256",
+        "/Users/ethan/repository/crefans_front/.local/gnb-unread-deploy-20261024/deploy.sh",
+        "/Users/ethan/repository/crefans_front/.local/gnb-unread-deploy-20261024/before.json",
+        "ubuntu@15.164.140.26:/home/ubuntu/crefans-gnb-unread-20261024/"
+      ],
+      "startedAt": "2026-10-24T12:31:56.334563+00:00",
+      "finishedAt": "2026-10-24T12:32:05.286055+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "cd /home/ubuntu/crefans-gnb-unread-20261024 && sha256sum -c image.sha256 && sudo -n docker load -i image.tar.gz && rm image.tar.gz"
+      ],
+      "startedAt": "2026-10-24T12:32:05.286820+00:00",
+      "finishedAt": "2026-10-24T12:32:17.540281+00:00",
+      "exitCode": 0,
+      "logSha256": "de1e2023488fdb7eaf787393b851ef903eb5b6aea90a73d6222726db452e0273"
+    },
+    {
+      "step": "deploy",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "bash /home/ubuntu/crefans-gnb-unread-20261024/deploy.sh"
+      ],
+      "startedAt": "2026-10-24T12:32:17.541080+00:00",
+      "finishedAt": "2026-10-24T12:32:24.774625+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "checks": {
+    "unitCases": 2,
+    "browsers": {
+      "local": {
+        "startedAt": "2026-10-24T12:28:32.371Z",
+        "finishedAt": "2026-10-24T12:28:46.519Z",
+        "exitCode": 0,
+        "results": [
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 0
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 1,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 224.796875,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 9,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 224.796875,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 99,
+            "metrics": {
+              "width": 24.90625,
+              "height": 20,
+              "x": 219.890625,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 100,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 212.4375,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 125,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 212.4375,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "notification read failure retains count, success clears count"
+          },
+          {
+            "name": "mobile320",
+            "case": "conversation read3→1→0; notifications unchanged"
+          },
+          {
+            "name": "mobile320",
+            "case": "signed out hides badges"
+          },
+          {
+            "name": "mobile320",
+            "case": "preview shared badge and read-all clears"
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 0
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 1,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 47,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 9,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 47,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 99,
+            "metrics": {
+              "width": 24.90625,
+              "height": 20,
+              "x": 42.09375,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 100,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 34.640625,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 125,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 34.640625,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "notification read failure retains count, success clears count"
+          },
+          {
+            "name": "desktop",
+            "case": "conversation read3→1→0; notifications unchanged"
+          },
+          {
+            "name": "desktop",
+            "case": "signed out hides badges"
+          },
+          {
+            "name": "desktop",
+            "case": "preview shared badge and read-all clears"
+          },
+          {
+            "name": "desktop",
+            "case": "catalog uses shared badge0/1/9/99/100"
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 0
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 1,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 273.78125,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 9,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 273.78125,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 99,
+            "metrics": {
+              "width": 24.90625,
+              "height": 20,
+              "x": 268.875,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 100,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 261.421875,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 125,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 261.421875,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "notification read failure retains count, success clears count"
+          },
+          {
+            "name": "webkit390",
+            "case": "conversation read3→1→0; notifications unchanged"
+          },
+          {
+            "name": "webkit390",
+            "case": "signed out hides badges"
+          },
+          {
+            "name": "webkit390",
+            "case": "preview shared badge and read-all clears"
+          }
+        ],
+        "errors": [],
+        "writes": [
+          {
+            "name": "mobile320",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "mobile320",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "mobile320",
+            "ep": "/members/moka/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "mobile320",
+            "ep": "/members/jiwoo/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/members/moka/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/members/jiwoo/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/members/moka/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/members/jiwoo/messages/read",
+            "method": "PUT",
+            "mocked": true
+          }
+        ],
+        "scope": "Service GET/PUT are intercepted fixtures; preview local state only; no real member writes."
+      },
+      "image": {
+        "startedAt": "2026-10-24T12:30:34.306Z",
+        "finishedAt": "2026-10-24T12:30:58.724Z",
+        "exitCode": 0,
+        "results": [
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 0
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 1,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 224.796875,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 9,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 224.796875,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 99,
+            "metrics": {
+              "width": 24.90625,
+              "height": 20,
+              "x": 219.890625,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 100,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 212.4375,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 125,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 212.4375,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "notification read failure retains count, success clears count"
+          },
+          {
+            "name": "mobile320",
+            "case": "conversation read3→1→0; notifications unchanged"
+          },
+          {
+            "name": "mobile320",
+            "case": "signed out hides badges"
+          },
+          {
+            "name": "mobile320",
+            "case": "preview shared badge and read-all clears"
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 0
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 1,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 47,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 9,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 47,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 99,
+            "metrics": {
+              "width": 24.90625,
+              "height": 20,
+              "x": 42.09375,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 100,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 34.640625,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 125,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 34.640625,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "notification read failure retains count, success clears count"
+          },
+          {
+            "name": "desktop",
+            "case": "conversation read3→1→0; notifications unchanged"
+          },
+          {
+            "name": "desktop",
+            "case": "signed out hides badges"
+          },
+          {
+            "name": "desktop",
+            "case": "preview shared badge and read-all clears"
+          },
+          {
+            "name": "desktop",
+            "case": "catalog uses shared badge0/1/9/99/100"
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 0
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 1,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 273.78125,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 9,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 273.78125,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 99,
+            "metrics": {
+              "width": 24.90625,
+              "height": 20,
+              "x": 268.875,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 100,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 261.421875,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 125,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 261.421875,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "notification read failure retains count, success clears count"
+          },
+          {
+            "name": "webkit390",
+            "case": "conversation read3→1→0; notifications unchanged"
+          },
+          {
+            "name": "webkit390",
+            "case": "signed out hides badges"
+          },
+          {
+            "name": "webkit390",
+            "case": "preview shared badge and read-all clears"
+          }
+        ],
+        "errors": [],
+        "writes": [
+          {
+            "name": "mobile320",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "mobile320",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "mobile320",
+            "ep": "/members/moka/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "mobile320",
+            "ep": "/members/jiwoo/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/members/moka/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/members/jiwoo/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/members/moka/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/members/jiwoo/messages/read",
+            "method": "PUT",
+            "mocked": true
+          }
+        ],
+        "scope": "Service GET/PUT are intercepted fixtures; preview local state only; no real member writes."
+      },
+      "production": {
+        "startedAt": "2026-10-24T12:32:40.493Z",
+        "finishedAt": "2026-10-24T12:33:12.782Z",
+        "exitCode": 0,
+        "results": [
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 0
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 1,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 224.796875,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 9,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 224.796875,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 99,
+            "metrics": {
+              "width": 24.90625,
+              "height": 20,
+              "x": 219.890625,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 100,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 212.4375,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "counts",
+            "count": 125,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 212.4375,
+              "right": 244.796875,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 320,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "mobile320",
+            "case": "notification read failure retains count, success clears count"
+          },
+          {
+            "name": "mobile320",
+            "case": "conversation read3→1→0; notifications unchanged"
+          },
+          {
+            "name": "mobile320",
+            "case": "signed out hides badges"
+          },
+          {
+            "name": "mobile320",
+            "case": "preview shared badge and read-all clears"
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 0
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 1,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 47,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 9,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 47,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 99,
+            "metrics": {
+              "width": 24.90625,
+              "height": 20,
+              "x": 42.09375,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 100,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 34.640625,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "counts",
+            "count": 125,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 34.640625,
+              "right": 67,
+              "y": 260,
+              "bottom": 280,
+              "viewport": 1280,
+              "viewportHeight": 844,
+              "linkWidth": 169,
+              "linkHeight": 45,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "desktop",
+            "case": "notification read failure retains count, success clears count"
+          },
+          {
+            "name": "desktop",
+            "case": "conversation read3→1→0; notifications unchanged"
+          },
+          {
+            "name": "desktop",
+            "case": "signed out hides badges"
+          },
+          {
+            "name": "desktop",
+            "case": "preview shared badge and read-all clears"
+          },
+          {
+            "name": "desktop",
+            "case": "catalog uses shared badge0/1/9/99/100"
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 0
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 1,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 273.78125,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 9,
+            "metrics": {
+              "width": 20,
+              "height": 20,
+              "x": 273.78125,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 99,
+            "metrics": {
+              "width": 24.90625,
+              "height": 20,
+              "x": 268.875,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 100,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 261.421875,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "counts",
+            "count": 125,
+            "metrics": {
+              "width": 32.359375,
+              "height": 20,
+              "x": 261.421875,
+              "right": 293.78125,
+              "y": 791,
+              "bottom": 811,
+              "viewport": 390,
+              "viewportHeight": 844,
+              "linkWidth": 56,
+              "linkHeight": 48,
+              "bg": "rgb(220, 38, 38)",
+              "color": "rgb(255, 255, 255)",
+              "font": "11px",
+              "overflow": false,
+              "bodyOverflow": false
+            }
+          },
+          {
+            "name": "webkit390",
+            "case": "notification read failure retains count, success clears count"
+          },
+          {
+            "name": "webkit390",
+            "case": "conversation read3→1→0; notifications unchanged"
+          },
+          {
+            "name": "webkit390",
+            "case": "signed out hides badges"
+          },
+          {
+            "name": "webkit390",
+            "case": "preview shared badge and read-all clears"
+          }
+        ],
+        "errors": [],
+        "writes": [
+          {
+            "name": "mobile320",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "mobile320",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "mobile320",
+            "ep": "/members/moka/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "mobile320",
+            "ep": "/members/jiwoo/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/members/moka/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "desktop",
+            "ep": "/members/jiwoo/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/notifications/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/members/moka/messages/read",
+            "method": "PUT",
+            "mocked": true
+          },
+          {
+            "name": "webkit390",
+            "ep": "/members/jiwoo/messages/read",
+            "method": "PUT",
+            "mocked": true
+          }
+        ],
+        "scope": "Service GET/PUT are intercepted fixtures; preview local state only; no real member writes."
+      }
+    },
+    "runtime": {
+      "at": "2026-10-24T12:32:40.346618+00:00",
+      "runtimeFilesMatched": 507,
+      "runtime": {
+        "crefans-beta-api-1": {
+          "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-frontend-1": {
+          "id": "1a92e6a503ada8d8c027d513cccdd9f58215493f01a6426157d282b31f3c799e",
+          "image": "sha256:1f9f64da323c287fc98ba75a31b3ddc00b1433af9b93e92d9b3b9d025af7cad8",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+          "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        }
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/preview/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200
+        }
+      ],
+      "freeDiskBytes": 3523543040
+    },
+    "visualReview": [
+      "local/mobile320-99plus.png",
+      "local/desktop-99plus.png",
+      "local/webkit390-99plus.png",
+      "image/mobile320-99plus.png",
+      "image/desktop-99plus.png",
+      "image/webkit390-99plus.png",
+      "production/mobile320-99plus.png",
+      "production/desktop-99plus.png",
+      "production/webkit390-99plus.png"
+    ]
+  },
+  "firstImageAttempt": {
+    "command": {
+      "command": [
+        "python3",
+        ".local/gnb-unread-deploy-20261024/verify-image.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T12:29:25.080576+00:00",
+      "finishedAt": "2026-10-24T12:29:37.343755+00:00",
+      "exitCode": 1,
+      "logSha256": "68ff5e6479584eb8ffdbfc52eedbc9373c96875fd2b6521eb02ff186f9491f1d"
+    },
+    "results": {
+      "startedAt": "2026-10-24T12:29:30.188Z",
+      "finishedAt": "2026-10-24T12:29:37.311Z",
+      "exitCode": 1,
+      "results": [
+        {
+          "name": "mobile320",
+          "case": "counts",
+          "count": 0
+        },
+        {
+          "name": "mobile320",
+          "case": "counts",
+          "count": 1,
+          "metrics": {
+            "width": 20,
+            "height": 20,
+            "x": 224.796875,
+            "right": 244.796875,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 320,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "mobile320",
+          "case": "counts",
+          "count": 9,
+          "metrics": {
+            "width": 20,
+            "height": 20,
+            "x": 224.796875,
+            "right": 244.796875,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 320,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "mobile320",
+          "case": "counts",
+          "count": 99,
+          "metrics": {
+            "width": 24.90625,
+            "height": 20,
+            "x": 219.890625,
+            "right": 244.796875,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 320,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "mobile320",
+          "case": "counts",
+          "count": 100,
+          "metrics": {
+            "width": 32.359375,
+            "height": 20,
+            "x": 212.4375,
+            "right": 244.796875,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 320,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "mobile320",
+          "case": "counts",
+          "count": 125,
+          "metrics": {
+            "width": 32.359375,
+            "height": 20,
+            "x": 212.4375,
+            "right": 244.796875,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 320,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "mobile320",
+          "case": "notification read failure retains count, success clears count"
+        },
+        {
+          "name": "mobile320",
+          "case": "conversation read3→1→0; notifications unchanged"
+        },
+        {
+          "name": "mobile320",
+          "case": "signed out hides badges"
+        },
+        {
+          "name": "mobile320",
+          "case": "preview shared badge and read-all clears"
+        },
+        {
+          "name": "desktop",
+          "case": "counts",
+          "count": 0
+        },
+        {
+          "name": "desktop",
+          "case": "counts",
+          "count": 1,
+          "metrics": {
+            "width": 20,
+            "height": 20,
+            "x": 47,
+            "right": 67,
+            "y": 260,
+            "bottom": 280,
+            "viewport": 1280,
+            "viewportHeight": 844,
+            "linkWidth": 169,
+            "linkHeight": 45,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "desktop",
+          "case": "counts",
+          "count": 9,
+          "metrics": {
+            "width": 20,
+            "height": 20,
+            "x": 47,
+            "right": 67,
+            "y": 260,
+            "bottom": 280,
+            "viewport": 1280,
+            "viewportHeight": 844,
+            "linkWidth": 169,
+            "linkHeight": 45,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "desktop",
+          "case": "counts",
+          "count": 99,
+          "metrics": {
+            "width": 24.90625,
+            "height": 20,
+            "x": 42.09375,
+            "right": 67,
+            "y": 260,
+            "bottom": 280,
+            "viewport": 1280,
+            "viewportHeight": 844,
+            "linkWidth": 169,
+            "linkHeight": 45,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "desktop",
+          "case": "counts",
+          "count": 100,
+          "metrics": {
+            "width": 32.359375,
+            "height": 20,
+            "x": 34.640625,
+            "right": 67,
+            "y": 260,
+            "bottom": 280,
+            "viewport": 1280,
+            "viewportHeight": 844,
+            "linkWidth": 169,
+            "linkHeight": 45,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "desktop",
+          "case": "counts",
+          "count": 125,
+          "metrics": {
+            "width": 32.359375,
+            "height": 20,
+            "x": 34.640625,
+            "right": 67,
+            "y": 260,
+            "bottom": 280,
+            "viewport": 1280,
+            "viewportHeight": 844,
+            "linkWidth": 169,
+            "linkHeight": 45,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "desktop",
+          "case": "notification read failure retains count, success clears count"
+        },
+        {
+          "name": "desktop",
+          "case": "conversation read3→1→0; notifications unchanged"
+        },
+        {
+          "name": "desktop",
+          "case": "signed out hides badges"
+        },
+        {
+          "name": "desktop",
+          "case": "preview shared badge and read-all clears"
+        },
+        {
+          "name": "desktop",
+          "case": "catalog uses shared badge0/1/9/99/100"
+        },
+        {
+          "name": "webkit390",
+          "case": "counts",
+          "count": 0
+        },
+        {
+          "name": "webkit390",
+          "case": "counts",
+          "count": 1,
+          "metrics": {
+            "width": 20,
+            "height": 20,
+            "x": 273.78125,
+            "right": 293.78125,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 390,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "webkit390",
+          "case": "counts",
+          "count": 9,
+          "metrics": {
+            "width": 20,
+            "height": 20,
+            "x": 273.78125,
+            "right": 293.78125,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 390,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "webkit390",
+          "case": "counts",
+          "count": 99,
+          "metrics": {
+            "width": 24.90625,
+            "height": 20,
+            "x": 268.875,
+            "right": 293.78125,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 390,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "webkit390",
+          "case": "counts",
+          "count": 100,
+          "metrics": {
+            "width": 32.359375,
+            "height": 20,
+            "x": 261.421875,
+            "right": 293.78125,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 390,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "webkit390",
+          "case": "counts",
+          "count": 125,
+          "metrics": {
+            "width": 32.359375,
+            "height": 20,
+            "x": 261.421875,
+            "right": 293.78125,
+            "y": 791,
+            "bottom": 811,
+            "viewport": 390,
+            "viewportHeight": 844,
+            "linkWidth": 56,
+            "linkHeight": 48,
+            "bg": "rgb(220, 38, 38)",
+            "color": "rgb(255, 255, 255)",
+            "font": "11px",
+            "overflow": false,
+            "bodyOverflow": false
+          }
+        },
+        {
+          "name": "webkit390",
+          "case": "notification read failure retains count, success clears count"
+        },
+        {
+          "name": "webkit390",
+          "case": "conversation read3→1→0; notifications unchanged"
+        },
+        {
+          "name": "webkit390",
+          "case": "signed out hides badges"
+        },
+        {
+          "name": "webkit390",
+          "case": "preview shared badge and read-all clears"
+        },
+        {
+          "failure": "Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 6\n\n- Array []\n+ Array [\n+   Object {\n+     \"error\": \"/127.0.0.1:3125/service/signup?_rsc=iovh9 due to access control checks.\",\n+     \"name\": \"webkit390\",\n+   },\n+ ]\n    at captureRawStack (/Users/ethan/repository/crefans_front/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ethan/repository/crefans_front/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toEqual (/Users/ethan/repository/crefans_front/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at /Users/ethan/repository/crefans_front/.local/gnb-unread-deploy-20261024/check.cjs:22:121"
+        }
+      ],
+      "errors": [
+        {
+          "name": "webkit390",
+          "error": "/127.0.0.1:3125/service/signup?_rsc=iovh9 due to access control checks."
+        }
+      ],
+      "writes": [
+        {
+          "name": "mobile320",
+          "ep": "/notifications/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "mobile320",
+          "ep": "/notifications/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "mobile320",
+          "ep": "/members/moka/messages/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "mobile320",
+          "ep": "/members/jiwoo/messages/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "desktop",
+          "ep": "/notifications/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "desktop",
+          "ep": "/notifications/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "desktop",
+          "ep": "/members/moka/messages/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "desktop",
+          "ep": "/members/jiwoo/messages/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "webkit390",
+          "ep": "/notifications/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "webkit390",
+          "ep": "/notifications/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "webkit390",
+          "ep": "/members/moka/messages/read",
+          "method": "PUT",
+          "mocked": true
+        },
+        {
+          "name": "webkit390",
+          "ep": "/members/jiwoo/messages/read",
+          "method": "PUT",
+          "mocked": true
+        }
+      ],
+      "scope": "Service GET/PUT are intercepted fixtures; preview local state only; no real member writes."
+    },
+    "resolution": "All31 functional cases passed; WebKit recorded an access-control error on signup RSC prefetch during rapid page navigation. Verifier now waits for network idle before/after navigation and before closing. Product code unchanged; full image and production checks rerun without page errors."
+  },
+  "disk": {
+    "before": {
+      "availableBytes": 4252934144,
+      "cleanupRequired": false
+    },
+    "afterBytes": 3523543040,
+    "cleanup": false
+  },
+  "rollback": "/opt/crefans-backup-gnb-unread-20261024",
+  "artifacts": "/Users/ethan/repository/crefans_front/.local/gnb-unread-deploy-20261024",
+  "limits": [
+    "Service GET/PUT intercepted fixtures, preview local state; no real account message/notification changes.",
+    "Browser Chromium320/1280·WebKit390; physical device/screen reader not tested.",
+    "Uses existing model unread counts; no new polling/push delivery or backend count API.",
+    "No unrelated dirty changes committed/pushed/deployed; AGENTS and homeSSH rule preserved."
+  ],
+  "countSourceInspection": {
+    "source": "/Users/ethan/repository/crefans_server/src/platform/service.ts",
+    "sha256": "64c252cb7a92e4fa93342e584257fdbe87ac20cbb55f72a6420173b83a178ea2",
+    "inspection": "bootstrap memberNotification query and inbox directMessage query have no take/skip truncation; frontend receives the records used for existing unread computation",
+    "lines": [
+      54,
+      56,
+      68,
+      83
+    ],
+    "changes": false
+  }
+}

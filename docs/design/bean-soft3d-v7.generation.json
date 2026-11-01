@@ -1,0 +1,97 @@
+{
+  "at": "2026-10-25T13:24:03.835Z",
+  "mode": "built-in image_gen",
+  "scope": "preview-only",
+  "requests": [
+    {
+      "quantity": 100,
+      "prompt": "Use case: stylized-concept. Make one square transparent icon for the CREFANS 100-bean package. Reference image is style and bean identity only. Match the existing friendly soft3D emerald-green rounded kidney-bean tokens with creamy curved inlaid marks, soft satin shading and simple chunky forms. Replace the basket concept with ONE small rounded cream ceramic CUP/MUG with a clearly visible rounded handle, thin mint-green rim and subtle mint-green foot. The open cup contains just FOUR large green beans, visible peeking above the rim; do not use many tiny beans. Show the inside from a slightly elevated three-quarter view. A small green bean-shaped embossed emblem on the front of the cup is allowed; no lettering. Keep the cup clearly recognizable, modest and cute rather than ornate. Center the whole cup with handle in a square canvas, approximately80% canvas occupancy, consistent scale and lighting with the reference. Truly transparent background, gentle contact shadow only, no floor or panel. No text, numbers, multiplication symbols, sticks, skewers, saucer, spoon, beverage, steam, faces, watermark or other props.",
+      "referenced_image_paths": [
+        "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/300.png"
+      ],
+      "transparent_background": true,
+      "output": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-01734935-400d-4bf9-99df-6c6cb4d6af79.png"
+    },
+    {
+      "quantity": 10000,
+      "prompt": "Use case: stylized-concept. Make one square transparent package icon for the CREFANS 10000-bean virtual currency tier: ONE adorable compact DELIVERY BOX TRUCK. The reference is only for soft3D rendering style and the emerald/cream bean identity. Match smooth rounded toy-like forms and soft satin lighting of the existing green-bean package icons. Truck design: mint/emerald-green cab facing left, warm ivory/cream enclosed cargo box, a small mint lower trim, charcoal rubber wheels with cream wheel hubs, pale cool windshield. Use a clear simple elevated front-left three-quarter perspective so both cab and large cargo side are recognizable at80px. Put ONE large emerald-green bean-shaped badge with cream curved bean mark on the cargo box side, visually matching the green beans in the reference. Keep details minimal: no tiny typography, no clutter, no busy grille or complex mechanics. It must read immediately as a small friendly parcel delivery truck, not a school bus or dump truck. The truck is the sole subject; no human, parcels outside, road, building, clouds or loose beans. Center fully inside a square transparent canvas with10% clear margins, gentle close contact shadow, no floor/panel/background. No written words, letters, numbers, multiplication marks, watermark, other logos or silver/gold treasure chest.",
+      "referenced_image_paths": [
+        "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/1000.png"
+      ],
+      "transparent_background": true,
+      "output": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-330d8e4b-8287-4870-8c21-ce70ec37a387.png"
+    }
+  ],
+  "assets": [
+    {
+      "quantity": 100,
+      "file": "public/brand/beans/soft3d-v7/100.png",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-01734935-400d-4bf9-99df-6c6cb4d6af79.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "8edaa470a4fd3d8e4c16c541f581137ad6e9157179731002c5d64e849f367e54",
+      "manualReview": "Cup with4 visible beans"
+    },
+    {
+      "quantity": 500,
+      "file": "public/brand/beans/soft3d-v7/500.png",
+      "source": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/1000.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+      "manualReview": "Former1000 open paper box"
+    },
+    {
+      "quantity": 1000,
+      "file": "public/brand/beans/soft3d-v7/1000.png",
+      "source": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/500.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+      "manualReview": "Former500 open silk bundle"
+    },
+    {
+      "quantity": 10000,
+      "file": "public/brand/beans/soft3d-v7/10000.png",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-330d8e4b-8287-4870-8c21-ce70ec37a387.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "3fdb1bdec8d9480fd658dd8ea1ae6f332caea0feedc582e23608eb2559240700",
+      "manualReview": "Cream/mint parcel truck with bean emblem"
+    }
+  ],
+  "multipliers": [
+    50
+  ],
+  "runtimeStatus": "At generation time preview only; now deployed by explicit approval. See deployment field.",
+  "deployment": {
+    "at": "2026-10-25T13:34:01.912898+00:00",
+    "release": "bean-icons-v7-20261025",
+    "status": "Shared UI and production deployed after preview approval",
+    "evidence": "docs/audit/bean-icons-v7-deployment-20261025.json"
+  }
+}

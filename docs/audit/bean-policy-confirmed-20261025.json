@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-25T01:00:04.086934+00:00",
+  "status": "policy-and-internal-quote-implemented",
+  "policy": {
+    "promotionFirst": true,
+    "promotionWithdrawable": false,
+    "purchasedWithdrawable": false,
+    "withdrawableBucket": "earned-paid",
+    "minimumGrossKrw": 100000,
+    "minimumBeans": 1000,
+    "feeBps": 2000,
+    "minimumFeeKrw": 20000,
+    "minimumNetKrw": 80000
+  },
+  "interpretation": "Requested minimum is gross requested amount before fee; scope is bean support withdrawals, existing membership KRW policy unchanged.",
+  "repositories": {
+    "crefans_server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/bean-support",
+      "dirty": true
+    },
+    "crefans_front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/bean-support",
+      "dirty": true
+    },
+    "crefans_admin": {
+      "head": "7928cb6fc70c27bbcb8f5ec4a760023a5ffda01c",
+      "branch": "feat/bean-support",
+      "dirty": true
+    }
+  },
+  "checks": [
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "logSha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2",
+      "finishedAtFromLogMtime": "2026-10-25T00:59:02.879660+00:00"
+    },
+    {
+      "command": "CREFANS_E2E=true node --test tests/platform-bean-ledger.test.cjs",
+      "exitCode": 0,
+      "logSha256": "df609555b7c6f9bb48463011d7137bc8134acde157f96b4fbb6db75acb2a3c31",
+      "finishedAtFromLogMtime": "2026-10-25T01:00:04.032053+00:00"
+    }
+  ],
+  "tests": {
+    "passed": 5,
+    "failed": 0,
+    "coverage": [
+      "999 beans rejected",
+      "1000 beans quote100000/20000/80000",
+      "1001 beans net80080",
+      "purchased/promotion/earned-promotion/reserved/company buckets rejected",
+      "existing balanced ledger/concurrency/rollback checks"
+    ]
+  },
+  "sourceHashes": {
+    "src/platform/bean-policy.ts": "a5349909088d600a8b5d61fee189091e4d0e0d02cd08095afe9974970d503b50",
+    "src/platform/bean-ledger.ts": "94ac1d16fdc9ab930d99e0c79529c01bc885bc03723f150b64a99305d1efe9bb",
+    "tests/platform-bean-ledger.test.cjs": "b94695a8b027063e7ff41db6d38a99719bee54f185262e0ba094f71ea9c8c087",
+    "docs/platform-implementation.md": "238245f3cb92d8bde12c40bbc771e9814c20c32a2b5f6661160d9d6b1ce26a5d"
+  },
+  "boundaries": [
+    "No public bean payout API/UI yet",
+    "No production deployment, environment change, migration or external financial execution",
+    "Promo-first is recorded policy; actual tip consumer is pending implementation",
+    "No legal mandatory refund waiver"
+  ]
+}

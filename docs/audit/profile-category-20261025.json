@@ -1,0 +1,1565 @@
+{
+  "recordedAt": "2026-10-24T15:50:33.860885+00:00",
+  "startedAt": "2026-10-24T15:43:51.847388+00:00",
+  "requirements": [
+    "Profile category chips omit #",
+    "Profile uses the same generated category icons as Explore",
+    "Keep compact non-interactive labels; unknown tags text only, empty omitted",
+    "Verify mobile and desktop then deploy to beta production"
+  ],
+  "repository": {
+    "path": "/Users/ethan/repository/crefans_front",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": true,
+    "statusSha256": "0e78ed8dbe5c628491f67c9a3a8313b86560226714bb351e18a44e40bbd0ad9f",
+    "beforeFiles": {
+      "components/crefans/CategoryChip.tsx": "fdfc4f3ba62260c7f072c125125bc8ae97648013f59f27e2a7d34aa1907cf9e7",
+      "components/crefans/ProfileHeader.tsx": "44a9adf8642ec34eb859ccdad795409b17f2b52d9f4086f47dc6d71c5e9c8598",
+      "components/crefans/creator.module.css": "31da61097e3fe4a2ae4ec6d22d6e98a36213eee64d83017ac8f7df5403c9880f",
+      "components/design-system/ServicePatternCatalog.tsx": "5d2ac6556af413193bc79104348ab119856e811d30db3c9004276423ec5be349",
+      "docs/design-system.md": "9ea8f214606b8d47019a6d84ce6a1f0bbc9ede3784229f8452dbd966ea5ca4d3",
+      "PROGRESS.md": "8b7735989793fbec151774c46982709a2d76d0018999b547f4b1c769ac30cc17",
+      "docs/audit/manifest.json": "3735d888bf0b6f5b2d879bf806d4c561021cff183aff0a8a9e97b7d718ef3e60"
+    },
+    "files": {
+      "components/crefans/CategoryChip.tsx": "9badf6766cc946b10099dd22c3b8726c83b7218411a6d10d211713a3f4db9cec",
+      "components/crefans/ProfileHeader.tsx": "185d89854aa945da058ab19ccb6819bee4d906e19f6e8314f6fd67a2a9f6190a",
+      "components/crefans/creator.module.css": "fcb09095dd851d8c50b030c33ecf1659672b6732cde54cb8b1d80218b2559c39",
+      "components/design-system/ServicePatternCatalog.tsx": "b1db821c603d782bef07e3d516cf5fa00f91db96c4e3f5f3ad24d5e632c3e5c5",
+      "docs/design-system.md": "da19d1bf10564ea6698555cc74f420cf1c5f6aafad3c125c861eac3b14a88de6",
+      "PROGRESS.md": "ca8c69f00b19b2a4c935c59e6e22c92c8e3b05e70842d689d8016a9cc62a991f",
+      "docs/audit/manifest.json": "f1718bc2f48d195f9f34e6eb0e27ba84483ad4329e0fe9265c2ce2db80f1505f"
+    }
+  },
+  "scope": {
+    "at": "2026-10-24T15:45:47.912249+00:00",
+    "baselineFilesMatched": 527,
+    "changed": [
+      "components/crefans/CategoryChip.tsx",
+      "components/crefans/ProfileHeader.tsx",
+      "components/crefans/creator.module.css",
+      "components/design-system/ServicePatternCatalog.tsx"
+    ],
+    "added": [],
+    "change": "Profile category chips share the existing generated category icon mapping, omit #, preserve non-interactive labels and compact layout; catalog shows known/unknown/empty states",
+    "preserved": "Other dirty changes including local post views/share; backend/worker/admin/database/proxy; SSH rules"
+  },
+  "checks": {
+    "prepare-initial": {
+      "command": [
+        "python3",
+        ".local/profile-category-20261025/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:44:36.185792+00:00",
+      "finishedAt": "2026-10-24T15:44:38.604389+00:00",
+      "exitCode": 1,
+      "logSha256": "f697dcd5388212074835e91527d0bdf9a995feb8b0ff20ea339bfd3b03d9228d"
+    },
+    "prepare": {
+      "command": [
+        "python3",
+        ".local/profile-category-20261025/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:45:45.608443+00:00",
+      "finishedAt": "2026-10-24T15:45:48.219215+00:00",
+      "exitCode": 0,
+      "logSha256": "8c6d65e075caed8ffff85aec9b3dcea0409320d63207dc864c4971eca9f21ae4"
+    },
+    "local-check": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:43:52.342970+00:00",
+      "finishedAt": "2026-10-24T15:44:01.209315+00:00",
+      "exitCode": 0,
+      "logSha256": "8984077d3124c6a7df4ff97dd3392d0391f74742c02790a2cde847e42f20e8d1"
+    },
+    "local-browser-initial": {
+      "command": [
+        "node",
+        ".local/profile-category-20261025/check.cjs",
+        "http://127.0.0.1:3010",
+        "local"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:45:46.681929+00:00",
+      "finishedAt": "2026-10-24T15:45:47.742889+00:00",
+      "exitCode": 1,
+      "logSha256": "c78b6e3459f8f739593706287d8882015a7c78797c9a888f9a3b223302bf839c"
+    },
+    "local-browser-fixture": {
+      "command": [
+        "node",
+        ".local/profile-category-20261025/check.cjs",
+        "http://127.0.0.1:3010",
+        "local"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:46:12.305939+00:00",
+      "finishedAt": "2026-10-24T15:46:19.097162+00:00",
+      "exitCode": 1,
+      "logSha256": "2ece91152e85c62e16eabc2fb71de5413ceae7a493d2b7e039baece61e436d34"
+    },
+    "local-browser": {
+      "command": [
+        "node",
+        ".local/profile-category-20261025/check.cjs",
+        "http://127.0.0.1:3010",
+        "local"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:46:47.581763+00:00",
+      "finishedAt": "2026-10-24T15:47:06.468830+00:00",
+      "exitCode": 0,
+      "logSha256": "038f37b5e1bbf3b5b01c2f47a2ee823c5b37eda6a7f7a50668d7d0cb1480b5b7"
+    },
+    "image-build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/profile-category-20261025/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:profile-category-20261025",
+        ".local/profile-category-20261025/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:46:13.468230+00:00",
+      "finishedAt": "2026-10-24T15:47:52.563934+00:00",
+      "exitCode": 0,
+      "logSha256": "19750279b38410f0a5b7c8981325c635d41ca6f109c2bb078b996e8b29dff02d"
+    },
+    "image-check": {
+      "command": [
+        "python3",
+        ".local/profile-category-20261025/verify-image.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:47:56.302675+00:00",
+      "finishedAt": "2026-10-24T15:48:18.021321+00:00",
+      "exitCode": 0,
+      "logSha256": "2eb3db48477995cfece6b17bc28ff7aa7e6d3dd7ea8c0eeed6a8c152abae7170"
+    },
+    "archive": {
+      "command": [
+        "python3",
+        ".local/profile-category-20261025/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:48:08.426567+00:00",
+      "finishedAt": "2026-10-24T15:48:19.483213+00:00",
+      "exitCode": 0,
+      "logSha256": "6bd1a28777c9d031cc8f56543ada50669559db952540decbe9b5a8bc7f98bed9"
+    },
+    "release-run": {
+      "command": [
+        "python3",
+        ".local/profile-category-20261025/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:48:30.933116+00:00",
+      "finishedAt": "2026-10-24T15:49:04.541800+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    "production-runtime": {
+      "command": [
+        "python3",
+        ".local/profile-category-20261025/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:49:18.965292+00:00",
+      "finishedAt": "2026-10-24T15:49:22.008884+00:00",
+      "exitCode": 0,
+      "logSha256": "bb3d811f685bcd1a7e933bbe1212dd1cfc376a8f5e82da9e303e9963d9d2e84b"
+    },
+    "production-check": {
+      "command": [
+        "node",
+        ".local/profile-category-20261025/check.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:49:18.965291+00:00",
+      "finishedAt": "2026-10-24T15:49:46.649417+00:00",
+      "exitCode": 0,
+      "logSha256": "038f37b5e1bbf3b5b01c2f47a2ee823c5b37eda6a7f7a50668d7d0cb1480b5b7"
+    },
+    "qa-cleanup": {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "crefans-profile-category-qa"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:49:46.369790+00:00",
+      "finishedAt": "2026-10-24T15:49:46.632076+00:00",
+      "exitCode": 0,
+      "logSha256": "741986aecd52662e10456ff5a6c51d8abc57ff37ad76b61c4abb25c5f6775ea8"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:50:22.483973+00:00",
+      "finishedAt": "2026-10-24T15:50:23.572297+00:00",
+      "exitCode": 0,
+      "logSha256": "bfa4cdf9be74920d11e2bad0b1809abfa8da5177fafe8be55094b1b2f76aadef"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:50:23.599233+00:00",
+      "finishedAt": "2026-10-24T15:50:24.004064+00:00",
+      "exitCode": 0,
+      "logSha256": "b05b0e17c1145075ee8aca4339e585f1326cc9d4321c665318bddcb4fbe75e2c"
+    }
+  },
+  "image": {
+    "at": "2026-10-24T15:48:19.477085+00:00",
+    "tag": "crefans-front:profile-category-20261025",
+    "id": "sha256:beadcdd1ffa07fbf8fa1cad8f529d9ac7fe2a0e2b93af40a0e8061217806fe19",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 527,
+    "archiveSha256": "e047694049235956b73947cfd5408b37242452ea856e08800b51a3d54da6cfd0",
+    "archiveBytes": 521442973
+  },
+  "production": {
+    "at": "2026-10-24T15:49:19.013889+00:00",
+    "runtimeFilesMatched": 527,
+    "runtime": {
+      "crefans-beta-api-1": {
+        "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-worker-1": {
+        "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-frontend-1": {
+        "id": "5e593de121ac8fd3d2c5b03d81b728cfd72b370ae2d5856258295582b336ce05",
+        "image": "sha256:beadcdd1ffa07fbf8fa1cad8f529d9ac7fe2a0e2b93af40a0e8061217806fe19",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-admin-1": {
+        "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+        "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      }
+    },
+    "http": [
+      {
+        "url": "https://beta.crefans.com/preview/explore",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/explore",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/login",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200
+      }
+    ],
+    "freeDiskBytes": 1988833280
+  },
+  "browser": {
+    "local": {
+      "startedAt": "2026-10-24T15:46:47.781Z",
+      "finishedAt": "2026-10-24T15:47:06.461Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "mobile320",
+          "path": "/preview/creator/moka",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mobile320",
+          "path": "/preview/creator/jiwoo",
+          "metrics": {
+            "sources": [
+              "/brand/categories/travel-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 64.234375,
+                "left": 16,
+                "right": 80.234375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 38.234375,
+                "left": 87.234375,
+                "right": 125.46875,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 62.453125,
+                "left": 132.46875,
+                "right": 194.921875,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mobile320",
+          "path": "/preview/explore",
+          "sharedIcon": true,
+          "filterWorks": true
+        },
+        {
+          "name": "mobile320",
+          "path": "/service/creator/category-qa",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/travel-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 182.6875,
+                "right": 246.921875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 78.34375,
+                "left": 16,
+                "right": 94.34375,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          },
+          "unknownTextOnly": true
+        },
+        {
+          "name": "mobile320",
+          "path": "/preview/me",
+          "emptyOmitted": true
+        },
+        {
+          "name": "mobile320",
+          "path": "/design-system",
+          "sharedProfile": true,
+          "knownUnknownEmpty": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/creator/moka",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 78.0625,
+                "left": 236,
+                "right": 314.0625,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 59.03125,
+                "left": 321.0625,
+                "right": 380.09375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/creator/jiwoo",
+          "metrics": {
+            "sources": [
+              "/brand/categories/travel-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 59.03125,
+                "left": 236,
+                "right": 295.03125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 33.03125,
+                "left": 302.03125,
+                "right": 335.0625,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 52.0625,
+                "left": 342.0625,
+                "right": 394.125,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/explore",
+          "sharedIcon": true,
+          "filterWorks": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/service/creator/category-qa",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/travel-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 78.0625,
+                "left": 236,
+                "right": 314.0625,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 59.03125,
+                "left": 321.0625,
+                "right": 380.09375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 59.03125,
+                "left": 387.09375,
+                "right": 446.125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.734375,
+                "left": 453.125,
+                "right": 517.859375,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          },
+          "unknownTextOnly": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/me",
+          "emptyOmitted": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/design-system",
+          "sharedProfile": true,
+          "knownUnknownEmpty": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/creator/moka",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/creator/jiwoo",
+          "metrics": {
+            "sources": [
+              "/brand/categories/travel-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 64.234375,
+                "left": 16,
+                "right": 80.234375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 38.234375,
+                "left": 87.234375,
+                "right": 125.46875,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 62.453125,
+                "left": 132.46875,
+                "right": 194.921875,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/explore",
+          "sharedIcon": true,
+          "filterWorks": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/service/creator/category-qa",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/travel-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 182.6875,
+                "right": 246.921875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 78.34375,
+                "left": 253.921875,
+                "right": 332.265625,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          },
+          "unknownTextOnly": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/me",
+          "emptyOmitted": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/design-system",
+          "sharedProfile": true,
+          "knownUnknownEmpty": true
+        }
+      ],
+      "errors": [],
+      "scope": "Preview and service GET stubs; no account mutation or physical-device test."
+    },
+    "image": {
+      "startedAt": "2026-10-24T15:48:00.752Z",
+      "finishedAt": "2026-10-24T15:48:18.002Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "mobile320",
+          "path": "/preview/creator/moka",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mobile320",
+          "path": "/preview/creator/jiwoo",
+          "metrics": {
+            "sources": [
+              "/brand/categories/travel-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 64.234375,
+                "left": 16,
+                "right": 80.234375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 38.234375,
+                "left": 87.234375,
+                "right": 125.46875,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 62.453125,
+                "left": 132.46875,
+                "right": 194.921875,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mobile320",
+          "path": "/preview/explore",
+          "sharedIcon": true,
+          "filterWorks": true
+        },
+        {
+          "name": "mobile320",
+          "path": "/service/creator/category-qa",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/travel-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 182.6875,
+                "right": 246.921875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 78.34375,
+                "left": 16,
+                "right": 94.34375,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          },
+          "unknownTextOnly": true
+        },
+        {
+          "name": "mobile320",
+          "path": "/preview/me",
+          "emptyOmitted": true
+        },
+        {
+          "name": "mobile320",
+          "path": "/design-system",
+          "sharedProfile": true,
+          "knownUnknownEmpty": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/creator/moka",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 78.0625,
+                "left": 236,
+                "right": 314.0625,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 59.03125,
+                "left": 321.0625,
+                "right": 380.09375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/creator/jiwoo",
+          "metrics": {
+            "sources": [
+              "/brand/categories/travel-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 59.03125,
+                "left": 236,
+                "right": 295.03125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 33.03125,
+                "left": 302.03125,
+                "right": 335.0625,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 52.0625,
+                "left": 342.0625,
+                "right": 394.125,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/explore",
+          "sharedIcon": true,
+          "filterWorks": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/service/creator/category-qa",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/travel-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 78.0625,
+                "left": 236,
+                "right": 314.0625,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 59.03125,
+                "left": 321.0625,
+                "right": 380.09375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 59.03125,
+                "left": 387.09375,
+                "right": 446.125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.734375,
+                "left": 453.125,
+                "right": 517.859375,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          },
+          "unknownTextOnly": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/me",
+          "emptyOmitted": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/design-system",
+          "sharedProfile": true,
+          "knownUnknownEmpty": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/creator/moka",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/creator/jiwoo",
+          "metrics": {
+            "sources": [
+              "/brand/categories/travel-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 64.234375,
+                "left": 16,
+                "right": 80.234375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 38.234375,
+                "left": 87.234375,
+                "right": 125.46875,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 62.453125,
+                "left": 132.46875,
+                "right": 194.921875,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/explore",
+          "sharedIcon": true,
+          "filterWorks": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/service/creator/category-qa",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/travel-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 182.6875,
+                "right": 246.921875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 78.34375,
+                "left": 253.921875,
+                "right": 332.265625,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          },
+          "unknownTextOnly": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/me",
+          "emptyOmitted": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/design-system",
+          "sharedProfile": true,
+          "knownUnknownEmpty": true
+        }
+      ],
+      "errors": [],
+      "scope": "Preview and service GET stubs; no account mutation or physical-device test."
+    },
+    "production": {
+      "startedAt": "2026-10-24T15:49:19.160Z",
+      "finishedAt": "2026-10-24T15:49:46.641Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "mobile320",
+          "path": "/preview/creator/moka",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mobile320",
+          "path": "/preview/creator/jiwoo",
+          "metrics": {
+            "sources": [
+              "/brand/categories/travel-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 64.234375,
+                "left": 16,
+                "right": 80.234375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 38.234375,
+                "left": 87.234375,
+                "right": 125.46875,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 62.453125,
+                "left": 132.46875,
+                "right": 194.921875,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mobile320",
+          "path": "/preview/explore",
+          "sharedIcon": true,
+          "filterWorks": true
+        },
+        {
+          "name": "mobile320",
+          "path": "/service/creator/category-qa",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/travel-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 182.6875,
+                "right": 246.921875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 78.34375,
+                "left": 16,
+                "right": 94.34375,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          },
+          "unknownTextOnly": true
+        },
+        {
+          "name": "mobile320",
+          "path": "/preview/me",
+          "emptyOmitted": true
+        },
+        {
+          "name": "mobile320",
+          "path": "/design-system",
+          "sharedProfile": true,
+          "knownUnknownEmpty": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/creator/moka",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 78.0625,
+                "left": 236,
+                "right": 314.0625,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 59.03125,
+                "left": 321.0625,
+                "right": 380.09375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/creator/jiwoo",
+          "metrics": {
+            "sources": [
+              "/brand/categories/travel-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 59.03125,
+                "left": 236,
+                "right": 295.03125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 33.03125,
+                "left": 302.03125,
+                "right": 335.0625,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 52.0625,
+                "left": 342.0625,
+                "right": 394.125,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/explore",
+          "sharedIcon": true,
+          "filterWorks": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/service/creator/category-qa",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/travel-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 78.0625,
+                "left": 236,
+                "right": 314.0625,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 59.03125,
+                "left": 321.0625,
+                "right": 380.09375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 59.03125,
+                "left": 387.09375,
+                "right": 446.125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.734375,
+                "left": 453.125,
+                "right": 517.859375,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          },
+          "unknownTextOnly": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/preview/me",
+          "emptyOmitted": true
+        },
+        {
+          "name": "desktop1280",
+          "path": "/design-system",
+          "sharedProfile": true,
+          "knownUnknownEmpty": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/creator/moka",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/creator/jiwoo",
+          "metrics": {
+            "sources": [
+              "/brand/categories/travel-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 64.234375,
+                "left": 16,
+                "right": 80.234375,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 38.234375,
+                "left": 87.234375,
+                "right": 125.46875,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 62.453125,
+                "left": 132.46875,
+                "right": 194.921875,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          }
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/explore",
+          "sharedIcon": true,
+          "filterWorks": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/service/creator/category-qa",
+          "metrics": {
+            "sources": [
+              "/brand/categories/cosplay-round-flat-v1.png",
+              "/brand/categories/travel-round-flat-v1.png",
+              "/brand/categories/art-round-flat-v1.png"
+            ],
+            "boxes": [
+              {
+                "width": 88.453125,
+                "left": 16,
+                "right": 104.453125,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 111.453125,
+                "right": 175.6875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 64.234375,
+                "left": 182.6875,
+                "right": 246.921875,
+                "iconWidth": 20,
+                "iconHeight": 20,
+                "gap": "6px",
+                "display": "flex"
+              },
+              {
+                "width": 78.34375,
+                "left": 253.921875,
+                "right": 332.265625,
+                "gap": "6px",
+                "display": "flex"
+              }
+            ]
+          },
+          "unknownTextOnly": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/preview/me",
+          "emptyOmitted": true
+        },
+        {
+          "name": "webkit390",
+          "path": "/design-system",
+          "sharedProfile": true,
+          "knownUnknownEmpty": true
+        }
+      ],
+      "errors": [],
+      "scope": "Preview and service GET stubs; no account mutation or physical-device test."
+    }
+  },
+  "screenshots": {
+    ".local/profile-category-20261025/local/webkit390-moka.png": "cffd3842beb06a21cdc59ec49bf587202db9085590ca8ba411b85ee40780b88b",
+    ".local/profile-category-20261025/local/webkit390-service.png": "006f15044dc51b31c2625298454d4842af780465607cd28b855bd2a0c2343a37",
+    ".local/profile-category-20261025/local/desktop1280-moka.png": "c1daf5420abece07b9c0f95b69287ed7b332fb73d04c66c74a5d5d9014ca5fc6",
+    ".local/profile-category-20261025/local/mobile320-jiwoo.png": "b50e9ab62e0c9186ebe593807350728afadb2e188f517f5a400d15db6f332210",
+    ".local/profile-category-20261025/local/mobile320-service.png": "549851e5482e96bdd1355aedf1db41b4b05c1ab2b356f0ec20799b91bedd7766",
+    ".local/profile-category-20261025/local/mobile320-moka.png": "4787cce6c43055230ddeb4d7edd951a5cbcf940be3cf0da67c9a14ca8cdf5b65",
+    ".local/profile-category-20261025/local/desktop1280-service.png": "e84eb32f6f6ef2640aa02b62923281563e027b66eb9b5394ff439f93aa2248ad",
+    ".local/profile-category-20261025/local/desktop1280-jiwoo.png": "a6eeeea215088fa63c7b86c26ac2e009af457962a0c6ea4e1dbfb152a5267883",
+    ".local/profile-category-20261025/local/webkit390-jiwoo.png": "be2efb60a0abd5a12ef9d3181024c9ce5b46f2c5906fc193786d6a82c2a77ebc",
+    ".local/profile-category-20261025/image/webkit390-moka.png": "cffd3842beb06a21cdc59ec49bf587202db9085590ca8ba411b85ee40780b88b",
+    ".local/profile-category-20261025/image/webkit390-service.png": "c7bc39edcc72a816768e525e5855af20707cf009a60b4491a89f3ec0b65eced8",
+    ".local/profile-category-20261025/image/desktop1280-moka.png": "c1daf5420abece07b9c0f95b69287ed7b332fb73d04c66c74a5d5d9014ca5fc6",
+    ".local/profile-category-20261025/image/mobile320-jiwoo.png": "51d7c32f5937e851634bd9894f4d1eee30a0ff939b56b6756b61e3ffe5ee405b",
+    ".local/profile-category-20261025/image/mobile320-service.png": "1589dea0fcd1c599bdc533a4d012e5cfad2cc4fd6e36183467daaf16e718fb5b",
+    ".local/profile-category-20261025/image/mobile320-moka.png": "1d4cf484fb2d83646e8271b0c812f068869d3339635c06c9d8e57b072c4b17b3",
+    ".local/profile-category-20261025/image/desktop1280-service.png": "6bd45305cde36dae25c6d713935a4b038fd6d2fcffa19bb144e7928154d07177",
+    ".local/profile-category-20261025/image/desktop1280-jiwoo.png": "c9bacfcc10570fab1c09053fe3b5c0dbb58756eb50f0737acf8d6ac22c6e4086",
+    ".local/profile-category-20261025/image/webkit390-jiwoo.png": "be2efb60a0abd5a12ef9d3181024c9ce5b46f2c5906fc193786d6a82c2a77ebc",
+    ".local/profile-category-20261025/production/webkit390-moka.png": "cffd3842beb06a21cdc59ec49bf587202db9085590ca8ba411b85ee40780b88b",
+    ".local/profile-category-20261025/production/webkit390-service.png": "c7bc39edcc72a816768e525e5855af20707cf009a60b4491a89f3ec0b65eced8",
+    ".local/profile-category-20261025/production/desktop1280-moka.png": "3341878d723eef9afbdfe893011589f8fbd0a9104aee579a31a56b2adfd105f3",
+    ".local/profile-category-20261025/production/mobile320-jiwoo.png": "2c75aec5ba77ec0a37a957987f556f6e80f0117f65a5236f91b4b8aa40a36dee",
+    ".local/profile-category-20261025/production/mobile320-service.png": "8db6112f3da1dfaa1b4151767fe16881e05b8927ae1abdca092986221e46bc94",
+    ".local/profile-category-20261025/production/mobile320-moka.png": "7f9f4cbe0f8cd6ff5e370d07ac760ffe4f2335e45c481eb47521c07db8f39a5c",
+    ".local/profile-category-20261025/production/desktop1280-service.png": "18f8802ee7069fed127c566b2cf17eec8a16ce51a01a99e7e9abbd7f19d6de17",
+    ".local/profile-category-20261025/production/desktop1280-jiwoo.png": "8acd0f2a1ded634a07733c9e35770de0226bed66adc9260484c4a75f16cdc7eb",
+    ".local/profile-category-20261025/production/webkit390-jiwoo.png": "be2efb60a0abd5a12ef9d3181024c9ce5b46f2c5906fc193786d6a82c2a77ebc"
+  },
+  "visualReview": [
+    "Local Chromium320 Moka profile",
+    "Release image WebKit390 Jiwoo profile",
+    "Production Chromium320/1280 Moka profiles"
+  ],
+  "releaseManifestSha256": "03181cc6d133e62369ecaf36f53f9b92ba197431c8e0688e298a309f22fc3430",
+  "selectedDiffSha256": "0942d330fffec22b17591c104a7f5879f3f833234e0296b77e090ae771bca69b",
+  "initialIssues": [
+    "Release catalog patch context included earlier local-only catalog changes and failed before deployment; used two exact replacements on verified production baseline, with selected four-file diff",
+    "Initial browser expectation inline-flex corrected for CSS flex-item blockification to computed flex; no product change",
+    "Jiwoo fixture expectation corrected to actual travel/camping/vlog tags; only travel has a registered icon"
+  ],
+  "scopeNotes": [
+    "316 existing unit tests plus layers and type checks passed; no new tests mirroring simple icon markup",
+    "18 browser scenarios per local/release/production: Chromium320/1280 and WebKit390; production service API responses are GET stubs, no account changes",
+    "Reuses existing generated files without editing/rerendering image assets",
+    "Previous local post-share and post-views features remain undeployed; this release selects profile category four files only",
+    "No backend/DB/worker/admin/proxy change; preserve current home SSH rule",
+    "No physical iPhone test, commit or push"
+  ],
+  "rollback": {
+    "previousImage": "crefans-front:marquee-names-20261024",
+    "configurationBackup": "/opt/crefans-backup-profile-category-20261025"
+  },
+  "sourceSnapshotNotTestProof": false
+}

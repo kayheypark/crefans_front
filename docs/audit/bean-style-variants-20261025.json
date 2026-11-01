@@ -1,0 +1,83 @@
+{
+  "checkedAt": "2026-10-25T05:51:17.681923+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirty": true,
+  "request": "Four additional contrasting styles of a single 1-bean currency icon, not quantity tiers",
+  "tool": "built-in image_gen",
+  "originalVariant": "docs/design/bean-one-v1.png",
+  "visualReview": "Exactly one green bean with cream crease in each image. Flat simplified / matte clay / heavy outline sticker / pixel-art visually distinct. No faces or text. PNG alpha and four distinct file digests checked.",
+  "deployed": false,
+  "appliedToUi": false,
+  "limits": [
+    "Only visual samples, not production assets or the full quantity-tier series.",
+    "No app/runtime changes, financial calls or deployment in this task. Prior wallet notice removal is still undeployed."
+  ],
+  "assets": [
+    {
+      "id": "flat",
+      "label": "① 플랫",
+      "savedPath": "/Users/ethan/repository/crefans_front/docs/design/bean-one-flat-v1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "fca30777d0ed97baf2c1cd1a49ee8d641807f3415431b22565abc9cc8d84ab30",
+      "bytes": 684718
+    },
+    {
+      "id": "clay",
+      "label": "② 클레이",
+      "savedPath": "/Users/ethan/repository/crefans_front/docs/design/bean-one-clay-v1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "ed55c8a0c35b8b1dc6c0248055e6de376d33ffa8e528203b7a80cb32d66c9d9a",
+      "bytes": 858324
+    },
+    {
+      "id": "sticker",
+      "label": "③ 라인 스티커",
+      "savedPath": "/Users/ethan/repository/crefans_front/docs/design/bean-one-sticker-v1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "b72b77d39880ad365bb0bb4f0239ffcdbbd08dfa89bae33bcaf1c648c111c91a",
+      "bytes": 637585
+    },
+    {
+      "id": "pixel",
+      "label": "④ 픽셀",
+      "savedPath": "/Users/ethan/repository/crefans_front/docs/design/bean-one-pixel-v1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "1562e59877f78ab999fc1688c1d03bcb69f9f61561cf121d54671855b79f0171",
+      "bytes": 564360
+    }
+  ]
+}

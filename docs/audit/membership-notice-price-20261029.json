@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-29T02:07:25.683550+00:00",
+  "request": "원화 구독료 + 1콩100원 기준 참고 환산액 표시",
+  "branch": "feat/iphone-input-zoom",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "scope": "shared locked notice and membership offer layer; no billing changes",
+  "commands": [
+    {
+      "command": "node --test tests/post-membership-offer.test.cjs",
+      "exitCode": 0,
+      "passed": 8,
+      "log": "/Users/ethan/repository/crefans_front/.local/membership-notice-price-20261029/test-2.log"
+    },
+    {
+      "command": "npm run check:layers",
+      "exitCode": 0,
+      "log": "/Users/ethan/repository/crefans_front/.local/membership-notice-price-20261029/layers.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "/Users/ethan/repository/crefans_front/.local/membership-notice-price-20261029/types.log"
+    },
+    {
+      "command": "node /tmp/crefans-membership-browser.cjs",
+      "exitCode": 0,
+      "passed": 24,
+      "scope": "Chromium/WebKit,375/1280,preview and service API doubles",
+      "log": "/Users/ethan/repository/crefans_front/.local/membership-notice-price-20261029/browser.json"
+    }
+  ],
+  "firstFailure": "Test regex 9,900 also matched 19,900; corrected exact JSON string match. Product implementation unchanged. First log retained.",
+  "files": {
+    "components/crefans/PostMembershipNotice.tsx": "54b427532141a44362ec6d5213d3b47475396704a6805fbc4b09008f332bb3b4",
+    "components/crefans/social.module.css": "fa2246fdbd4f5f0b4a0084a4c2ec1fd28a289b03edad5c639172a4d311b73271",
+    "lib/crefans/membership-plans.ts": "93d339c1e10e5d182391c2ef3dceb43716deabd9018b77fb6fb2598e392ba8ca",
+    "lib/crefans/bean-pricing.ts": "d1f777c3a821a43fac351b9a777dbccfbeda37527a68a4ebc9514dee710e9c70",
+    "tests/post-membership-offer.test.cjs": "824bb329ed7bea5494dba159f9f0ec757ce469df95bb763d5ed05fc54dcd37d3"
+  },
+  "productionDeployed": false,
+  "limits": [
+    "실기기 미검증",
+    "운영 미배포",
+    "PG·DB 쓰기 없음"
+  ],
+  "visualReview": [
+    "notice-375.png",
+    "notice-1280.png"
+  ]
+}

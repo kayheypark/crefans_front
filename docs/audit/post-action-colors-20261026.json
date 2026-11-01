@@ -1,0 +1,245 @@
+{
+  "recordedAt": "2026-10-26T09:01:25.544896+00:00",
+  "scope": "Shared post-action CSS color precedence; deployed frontend only",
+  "repository": {
+    "path": "/Users/ethan/repository/crefans_front",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/bean-support",
+    "dirty": true
+  },
+  "files": {
+    "components/crefans/social.module.css": "5fbd466b9490b16570a31616dba154995e2bee62d3af5a6d0949b0bb96ff78b6",
+    "e2e/preview.spec.ts": "02d772c16cf35284015803fe4bf5cf2874899177cd72ed5ce9c020271a480321",
+    "PROGRESS.md": "85d21b78808cdbaf686b5d606d6b64fafed1f71b2727df64934a0196f8de588c"
+  },
+  "reproduction": {
+    "environment": "production preview before deployment, Chrome390",
+    "steps": [
+      "like",
+      "save"
+    ],
+    "ariaPressed": "true",
+    "actualColor": "rgb(84, 91, 112)",
+    "actualFill": "rgb(84, 91, 112)",
+    "expectedColor": "rgb(220, 38, 38)",
+    "failedColorExpectation": true
+  },
+  "localVerification": {
+    "method": "Chrome cua_repl",
+    "viewports": [
+      390,
+      1280
+    ],
+    "surfaces": [
+      "post detail",
+      "gallery overlay"
+    ],
+    "assertions": [
+      "liked remains rgb(220,38,38) after save and tip dialog close",
+      "saved remains rgb(37,99,235)",
+      "unlike returns aria-pressed=false, fill=none"
+    ],
+    "automatedChecks": {
+      "command": "npm run check",
+      "exitCode": 0,
+      "testsPassed": 350,
+      "logSha256": "4943108ffdcd7dbef7e32f561ed66a9198e67ba5926a8843e82596f79324fe82"
+    },
+    "playwrightRegression": {
+      "path": "e2e/preview.spec.ts",
+      "command": "npx playwright test e2e/preview.spec.ts --grep 좋아요·저장은 --list",
+      "registeredProjects": [
+        "chromium",
+        "mobile-chromium"
+      ],
+      "runnerExecuted": false,
+      "scenarioExecutedThrough": "cua_repl"
+    }
+  },
+  "productionBrowser": {
+    "at": "2026-10-26T09:01:25.510220+00:00",
+    "method": "Chrome cua_repl, real production preview UI and computed CSS",
+    "url": "https://beta.crefans.com/preview/post/sion-first-shoot",
+    "checks": [
+      {
+        "width": 390,
+        "surface": "detail",
+        "likedAfterSaveAndTipClose": "rgb(220, 38, 38)",
+        "heartFill": "rgb(220, 38, 38)",
+        "savedColor": "rgb(37, 99, 235)",
+        "unliked": {
+          "fill": "none",
+          "pressed": "false"
+        },
+        "passed": true
+      },
+      {
+        "width": 390,
+        "surface": "gallery",
+        "likedAfterSaveAndTipClose": "rgb(220, 38, 38)",
+        "heartFill": "rgb(220, 38, 38)",
+        "savedColor": "rgb(37, 99, 235)",
+        "unliked": {
+          "fill": "none",
+          "pressed": "false"
+        },
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "surface": "detail",
+        "likedAfterSaveAndTipClose": "rgb(220, 38, 38)",
+        "heartFill": "rgb(220, 38, 38)",
+        "savedColor": "rgb(37, 99, 235)",
+        "unliked": {
+          "fill": "none",
+          "pressed": "false"
+        },
+        "passed": true
+      },
+      {
+        "width": 1280,
+        "surface": "gallery",
+        "likedAfterSaveAndTipClose": "rgb(220, 38, 38)",
+        "heartFill": "rgb(220, 38, 38)",
+        "savedColor": "rgb(37, 99, 235)",
+        "unliked": {
+          "fill": "none",
+          "pressed": "false"
+        },
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "viewportReset": true,
+    "screenshotVisuallyReviewed": true,
+    "firstAttempt": "After an immediate reload/action sequence, expected liked selector was absent; observed unliked state, then clicked again with fresh UI observation and reran all scenarios successfully. Cause of first click not established; not claimed as a color test pass.",
+    "realFinancialActions": false
+  },
+  "build": {
+    "command": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--label",
+      "crefans.release=post-action-colors-20261026",
+      "--label",
+      "crefans.source-sha256=e936232abf2a60e1d0779aad7b47f2b303fdd9f9b69aef0c4e00c02855be49d2",
+      "-t",
+      "crefans-front:post-action-colors-20261026",
+      "-f",
+      "infra/platform/Dockerfile",
+      "."
+    ],
+    "startedAt": "2026-10-26T08:55:54.412810+00:00",
+    "finishedAt": "2026-10-26T08:58:04.124544+00:00",
+    "exitCode": 0,
+    "sourceManifestSha256": "e936232abf2a60e1d0779aad7b47f2b303fdd9f9b69aef0c4e00c02855be49d2"
+  },
+  "deployment": {
+    "startedAt": "2026-10-26T08:58:50.808892+00:00",
+    "finishedAt": "2026-10-26T08:58:57.984278+00:00",
+    "exitCode": 0,
+    "release": "post-action-colors-20261026",
+    "image": "crefans-front:post-action-colors-20261026",
+    "runtimeImageId": "sha256:7d0e4e805b0120b78b9cc4bf6c916f8dc04782e799a1bae152baf631d0127c1d",
+    "sourceManifestSha256": "e936232abf2a60e1d0779aad7b47f2b303fdd9f9b69aef0c4e00c02855be49d2",
+    "sourceFilesMatched": 620,
+    "changedSourceFiles": [
+      "components/crefans/social.module.css"
+    ],
+    "otherContainersPreserved": true,
+    "states": {
+      "crefans-beta-frontend-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": false
+      },
+      "crefans-beta-admin-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-api-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-worker-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-proxy-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-database-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      }
+    },
+    "http": [
+      {
+        "path": "/preview/post/sion-first-shoot",
+        "status": 200
+      },
+      {
+        "path": "/preview/feed",
+        "status": 200
+      },
+      {
+        "path": "/service/feed",
+        "status": 200
+      },
+      {
+        "path": "/api/v1/health",
+        "status": 200
+      }
+    ],
+    "backup": "/opt/crefans-backup-post-action-colors-20261026",
+    "archiveBytes": 577122862,
+    "archiveSha256": "c250d802e4a0621705bcd13880323a2a7598a7881651b8dcbe51a5aa717a240c",
+    "rootFsLayersMatched": true,
+    "noDatabaseOrBackendChanges": true
+  },
+  "privateEvidenceHashes": {
+    "front-source.json": "e936232abf2a60e1d0779aad7b47f2b303fdd9f9b69aef0c4e00c02855be49d2",
+    "before.json": "a4ff5a58cfdc3e186bb24591f728251bbfcd311469f55aeeff64db73c4f560e1",
+    "build.log": "6008bc9e93e8d5c86055457347374f4b91bfe628f53fbdba329e8d39730c3375",
+    "load.log": "e1159f5911212d54033131105fb65e9980b9f45cc9f04b6362affc8c75acfd64",
+    "deploy.sh": "de80e7f1e451abf352e061b8b092079ea8d0c8684fbb0e9f93ec643f215ea099",
+    "deploy.log": "cf05fb2e0dabae5f1c2dcf308044d93b3361bbae732efb6ffb7b9bd1d7c25626",
+    "result.json": "0bbf5146f6d482218f98184a2059e8e63c3071c277ad288f4156dae5a9190f32",
+    "production-browser.json": "e07795761101ae53090593802c3c42c925aa4d956d4a1f8a727d57e2fccaa7db"
+  },
+  "limitations": [
+    "No actual user like/save mutation, tip submission, payment or database changes; browser data was preview mock.",
+    "Chrome viewport emulation, not physical iPhone or WebKit browser verification."
+  ],
+  "documentationChecks": [
+    {
+      "command": "npm run docs:record",
+      "startedAt": "2026-10-26T09:01:25.565170+00:00",
+      "finishedAt": "2026-10-26T09:01:26.682955+00:00",
+      "exitCode": 0,
+      "output": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 50, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 274}\n"
+    },
+    {
+      "command": "npm run check:docs",
+      "startedAt": "2026-10-26T09:01:26.682973+00:00",
+      "finishedAt": "2026-10-26T09:01:27.097713+00:00",
+      "exitCode": 0,
+      "output": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-26T09:01:26.420180+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 50, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 274}\n"
+    }
+  ]
+}

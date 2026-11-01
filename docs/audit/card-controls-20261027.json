@@ -1,0 +1,249 @@
+{
+  "at": "2026-10-27T01:06:24.347169+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "release": "card-controls-20261027",
+  "baseRelease": "profile-card-sync-20261027",
+  "sourceDelta": [
+    "components/business-card/BusinessCard.tsx",
+    "components/business-card/business-card.module.css"
+  ],
+  "sourceManifestSha256": "73c0f31a0fc4793c80b7fdac4bef4b47aaff6518c30fe7094f4289336dc4a1c1",
+  "runtimeFilesVerified": 651,
+  "tests": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "passed": 364,
+    "negativeControl": "removing paused guard fails flip-freeze regression; original bytes restored"
+  },
+  "browser": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "반가워요",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7673,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "반가워요",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7674,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "반가워요",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7650,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "motion": "reduce",
+      "footerRemoved": true,
+      "title": "반가워요",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7701,
+      "overflow": false,
+      "errors": []
+    }
+  ],
+  "production": {
+    "at": "2026-10-27T01:04:27.503786+00:00",
+    "checks": [
+      {
+        "url": "https://business.crefans.com/card?who=khpark",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://business.crefans.com/card?who=unknown",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card?who=unknown"
+      },
+      {
+        "url": "https://business.crefans.com/card",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card"
+      },
+      {
+        "url": "https://business.crefans.com/api/v1/health",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://business.crefans.com/.env",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/.env"
+      },
+      {
+        "url": "https://business.crefans.com/service/feed",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/service/feed"
+      },
+      {
+        "url": "https://business.crefans.com/brand/business-cards/khpark-front.png",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/brand/business-cards/khpark-front.png"
+      },
+      {
+        "url": "https://business.crefans.com/",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://beta.crefans.com/service/landing",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/landing"
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/feed"
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "finalUrl": "https://admin.crefans.com/login"
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "bb0d8239b08851578d3e5c15ef10597fee8057bd4ad8728b0660b0e8ec5f3635",
+        "image": "sha256:9bdca8db56d19c875106578ccee3da66986f37a2782e8475bc2375f9c9743d4b",
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "restarts": 0
+      }
+    },
+    "tls": "system trust and original hostname verified; no TLS bypass",
+    "dns": "business A from authoritative/1.1.1.1/8.8.8.8; explicit resolution for stale local negative cache"
+  },
+  "deployment": {
+    "startedAt": "2026-10-27T01:03:58.252924+00:00",
+    "finishedAt": "2026-10-27T01:04:04.266406+00:00",
+    "exitCode": 0,
+    "scope": "frontend and business host Caddy; API/DB unchanged",
+    "backup": "/opt/crefans-backup-card-controls-20261027"
+  },
+  "spaceCleanup": {
+    "at": "2026-10-27T01:03:28.553134+00:00",
+    "initialFreeBytes": 673918976,
+    "finalFreeBytes": 5046800384,
+    "removed": [
+      {
+        "tag": "crefans-front:business-card-fix-20261027",
+        "remoteId": "sha256:477e3cb8e93ec7a10fd81499560e9747ab85084b7c2fddfca9f0ba2f28eb0c3f",
+        "localRecoveryRootFsIdentical": true,
+        "freeBytesAfter": 1549029376
+      },
+      {
+        "tag": "crefans-front:business-card-20261027",
+        "remoteId": "sha256:0a868a25ce52b31f1a492b3f1437226eda2b48e02be6e56a6d39e922feb6056c",
+        "localRecoveryRootFsIdentical": true,
+        "freeBytesAfter": 2424057856
+      },
+      {
+        "tag": "crefans-front:notice-category-20261026",
+        "remoteId": "sha256:ea9f0926a5ff6847270c0309e47b24d1ca4625cae2cf7144f95c29fd8f70fa32",
+        "localRecoveryRootFsIdentical": true,
+        "freeBytesAfter": 3298390016
+      },
+      {
+        "tag": "crefans-front:event-terms-20261026",
+        "remoteId": "sha256:4c0e89290b9c3b566fe07df245de76071e1c55b4611f52b6f982262f2956d351",
+        "localRecoveryRootFsIdentical": true,
+        "freeBytesAfter": 4172746752
+      },
+      {
+        "tag": "crefans-front:event-banner-clean-20261026",
+        "remoteId": "sha256:d298d16969c05dc7716493fd8f7b1c757d6ff033c7eac1c52681fcaba03eec27",
+        "localRecoveryRootFsIdentical": true,
+        "freeBytesAfter": 5046800384
+      }
+    ],
+    "preserved": [
+      "all container images",
+      "current frontend",
+      "previous frontend business-card-animation-20261027",
+      "API/admin images",
+      "DB and all volumes"
+    ]
+  },
+  "limits": [
+    "Chromium/WebKit automation, no physical iPhone run",
+    "Public DNS explicitly resolved through loopback CONNECT for prior negative cache; normal TLS validation retained",
+    "Initial deployment stopped before transfer because disk space was insufficient; only unused old frontend images with identical local recovery layers removed, current and previous frontend and all container images/volumes preserved",
+    "Financial/DB/API policies unchanged; unrelated dirty files excluded",
+    "AOS-style native CSS fade-up; AOS package not installed",
+    "One transient readiness502 after replacing frontend recovered before production verification"
+  ],
+  "logSha256": {
+    "check.log": "788727d0f64067c7dc9572fe1d2cce8e192d7315e5202472c06c5726104a4e21",
+    "negative-control.log": "a94ef050f05e454d54ad97172440ba3a0db1d0f2b6253546ed35fdae01321b83",
+    "build.log": "7969468d6d5c5466eef6f29432a41864b77d8c9cd9d224434e3cf6b9900ca23b"
+  }
+}

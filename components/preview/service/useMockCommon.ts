@@ -1,7 +1,7 @@
 'use client';
 
-import {previewLegal} from './legal-fixtures';
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
+import {requestPublishedLegal} from '@/features/preview/legal';
 import type {CommonActionResult,CommonModel} from '@/types/crefans-common';
 
 const validEmail=(email:string)=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
@@ -12,9 +12,10 @@ export function useMockCommon({email:initialEmail=''}:{email?:string}={}):Common
   const [email]=useState(initialEmail);
   const [resetRequest,setResetRequest]=useState('');
   const [paymentMethods,setMethods]=useState<CommonModel['paymentMethods']>([]);
+  const legal=usePublishedLegal();
   return {
     notices:[{id:'welcome',title:'크레팬스 서비스 이용 안내',category:'안내',date:'2026.09.12',pinned:true,paragraphs:['크리에이터와 팬이 함께하는 화면을 둘러보세요.','관심 있는 크리에이터를 팔로우하고 새로운 소식을 만나보세요.']},{id:'account-check',title:'계정과 멤버십 정보 확인하기',category:'서비스',date:'2026.09.10',pinned:false,paragraphs:['내 프로필에서 팔로잉 목록과 멤버십 상태를 확인할 수 있습니다.','계정 정보와 알림은 설정에서 변경할 수 있습니다.']}],
-    legal:previewLegal,auth:{email,guidance:'',codeHint:'인증 코드: 123456'},
+    legal:legal.documents,legalStatus:legal.status,auth:{email,guidance:'',codeHint:'인증 코드: 123456'},
     paymentMethods,registrationPreview:{cards:[{value:'shinhan',label:'신한카드',number:'•••• •••• •••• 1234'},{value:'samsung',label:'삼성카드',number:'•••• •••• •••• 5678'},{value:'kb',label:'KB국민카드',number:'•••• •••• •••• 9012'}],expiry:'12 / 29',code:'000000'},paymentGuidance:'정기 결제에 사용할 결제수단을 등록하고 관리하세요.',
     actions:{
       requestPasswordReset:async value=>{if(!validEmail(value))return fail('올바른 이메일 주소를 입력해 주세요.');setResetRequest(value.trim());return ok('인증 코드를 입력하고 새 비밀번호를 설정해주세요.');},
@@ -24,4 +25,15 @@ export function useMockCommon({email:initialEmail=''}:{email?:string}={}):Common
       setDefaultPaymentMethod:async id=>{if(!paymentMethods.some(method=>method.id===id))return fail('결제수단을 찾을 수 없습니다.','NOT_FOUND');setMethods(previous=>previous.map(method=>({...method,isDefault:method.id===id})));return ok('기본 결제수단을 변경했습니다.');},
     },
   };
+}
+
+/** The preview shows the same published terms/privacy/policy as the live service, read from the public common API without the session cookie. */
+function usePublishedLegal(){
+  const [state,setState]=useState<{documents:CommonModel['legal'];status?:'loading'|'error'}>({documents:{},status:'loading'});
+  useEffect(()=>{
+    let active=true;
+    void requestPublishedLegal().then(result=>{if(active)setState(result.success&&result.data?{documents:result.data}:{documents:{},status:'error'});});
+    return()=>{active=false;};
+  },[]);
+  return state;
 }

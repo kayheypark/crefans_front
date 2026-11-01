@@ -1,0 +1,163 @@
+{
+  "at": "2026-10-25T00:46:35.594475+00:00",
+  "status": "design-and-ledger-foundation-only",
+  "implemented": [
+    "BeanWallet/BeanAccount/BeanMovement/BeanEntry and genesis1e8",
+    "Internal balanced integer ledger, stable wallet locks with ReadCommitted",
+    "request idempotency and payload conflict, insufficient rollback, frozen/issuance guards",
+    "20percent cash quote using BigInt",
+    "signup wallet/5accounts in same transaction behind default-off BEAN_LEDGER_ENABLED"
+  ],
+  "notImplemented": [
+    "public charge/tip/payout APIs and UI",
+    "PG charged inventory reservations, funding lots and chargeback recovery",
+    "tip allocation and earned-funds maturity",
+    "bank payout reservations/reconciliation",
+    "studio/admin financial aggregation and new screens",
+    "existing-member backfill and legacy migration"
+  ],
+  "decisionsPending": [
+    "promotion cash redemption/company budget",
+    "self-purchased balance cash redemption scope",
+    "consumption priority",
+    "minimum payout gross vs net, limits and expiry",
+    "PG contract and prepaid/legal-refund classification"
+  ],
+  "proposedCashExample": {
+    "beans": 100,
+    "grossKrw": 10000,
+    "feeKrw": 2000,
+    "netKrw": 8000,
+    "companyReturnBeans": 100,
+    "feeTiming": "bank-success only, no prior charge at tip"
+  },
+  "schema": {
+    "newModels": 4,
+    "newMigration": "20261025120000_bean_ledger",
+    "appliedTo": "isolated loopback crefans_platform_e2e only",
+    "developmentAndProductionApplied": false
+  },
+  "scope": {
+    "deployed": false,
+    "realChargesTransfersOrMessages": false,
+    "publicApiCountChanged": false,
+    "frontAndAdminProductUiChanged": false
+  },
+  "repositories": {
+    "crefans_front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "startingTree": "cumulative approved working tree preserved, not reset to dev"
+    },
+    "crefans_server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "startingTree": "cumulative approved working tree preserved, not reset to dev"
+    },
+    "crefans_admin": {
+      "head": "7928cb6fc70c27bbcb8f5ec4a760023a5ffda01c",
+      "branch": "feat/bean-support",
+      "dirty": true,
+      "startingTree": "cumulative approved working tree preserved, not reset to dev"
+    }
+  },
+  "sources": [
+    {
+      "url": "https://docs.moderntreasury.com/ledgers/docs/ledgers-guarantees",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-reads.html",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks-handling.html",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://docs.tosspayments.com/guides/v2/payment-window/integration",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1026223205",
+      "checkedAt": "2026-10-25"
+    },
+    {
+      "url": "https://www.fsc.go.kr/po010106/83004",
+      "checkedAt": "2026-10-25"
+    }
+  ],
+  "verification": {
+    "commands": [
+      {
+        "command": "npm run build",
+        "repository": "crefans_server",
+        "exitCode": 0,
+        "passedTests": null,
+        "logPath": "/Users/ethan/repository/crefans_server/.local/bean-support-20261025/build-final.log",
+        "logSha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2",
+        "completedAtFromLogMtime": "2026-10-25T00:42:08.228956+00:00"
+      },
+      {
+        "command": "CREFANS_E2E=true node --test --test-concurrency=1 tests/platform-bean-ledger.test.cjs tests/platform-openapi.test.cjs",
+        "repository": "crefans_server",
+        "exitCode": 0,
+        "passedTests": 15,
+        "logPath": "/Users/ethan/repository/crefans_server/.local/bean-support-20261025/core-regression.log",
+        "logSha256": "6f846c325e7f3d2f3031b75bec676542957a2054ce2c111d50ebc42e8c71a4d1",
+        "completedAtFromLogMtime": "2026-10-25T00:45:31.369361+00:00"
+      },
+      {
+        "command": "npx prisma validate",
+        "repository": "crefans_server",
+        "exitCode": 0,
+        "passedTests": null,
+        "logPath": "/Users/ethan/repository/crefans_server/.local/bean-support-20261025/prisma-validate.log",
+        "logSha256": "919c26cbd154c540c8a110d57d3f91dc02c8c73f4e8edb56cddc7bb0b4beea22",
+        "completedAtFromLogMtime": "2026-10-25T00:46:00.021218+00:00"
+      },
+      {
+        "command": "npx playwright test e2e/signup-deferred.spec.ts --project=chromium",
+        "repository": "crefans_front",
+        "exitCode": 0,
+        "passedTests": 1,
+        "logPath": "/Users/ethan/repository/crefans_front/.local/bean-support-20261025/signup-e2e.log",
+        "logSha256": "8e7c9e036818b5ad01876f3a1f588723b30ea30d4c389083d670dcdbb9b9e1a6",
+        "completedAtFromLogMtime": "2026-10-25T00:43:30.266067+00:00"
+      }
+    ],
+    "coverage": [
+      "genesis balance/supply",
+      "ledger sum against account caches",
+      "20percent integer boundary",
+      "concurrent duplicate posted once",
+      "different payload conflict",
+      "unbalanced/fractional/invalid quantities",
+      "issuance guard",
+      "concurrent overspend",
+      "rollback leaves no movement",
+      "wallet freeze",
+      "actual signup one wallet five accounts"
+    ],
+    "notProved": [
+      "full support product",
+      "production provider acceptance",
+      "real bank transfer",
+      "DB privileged-user immutability",
+      "all existing subscription/finance regression"
+    ]
+  },
+  "sourceHashes": {
+    "server/prisma/schema.prisma": "7f493ef903d27dd85d914dcae16cd3626ff82f2fb8d7a14b44942e01564b7695",
+    "server/prisma/migrations/20261025120000_bean_ledger/migration.sql": "887ae3eb12b4543c8ee08341931f2b0869e81ea4d209ed19cf2c3c3b1b08ce7f",
+    "server/src/platform/bean-ledger.ts": "338b906236738fa25a182428d2b83500b01ee8f84267c4f0d9419afc62c2bce6",
+    "server/src/platform/auth.service.ts": "f8367f796cc91678770a2215ac2627765b39723c6434427cfefe7efbe4434390",
+    "server/infra/platform/runtime.env.example": "0f871c8a9cad6962166931de56522db3304869590dfd923a9be7b310a007fa29",
+    "server/tests/platform-bean-ledger.test.cjs": "a0f8cd7e7220de30d48c0b29429ad3c4a8e123f3e378cab40eaca7d3987f2f89",
+    "server/tests/e2e-server.cjs": "44758d130fc2dcec9e729d7ed018ac2dcf4a5979ef6efb25dbe92cb898c0572c",
+    "server/docs/platform-implementation.md": "b7760b6b97bbc15bb46de554791f3126066f550a86872f61f6d977bfc98965a5",
+    "front/e2e/signup-deferred.spec.ts": "e0b454ba11000e46b541fc5ed209292bf60eea997eb1920bd2436ba33b6a1f85"
+  }
+}

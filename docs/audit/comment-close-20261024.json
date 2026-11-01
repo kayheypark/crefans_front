@@ -1,0 +1,146 @@
+{
+  "at": "2026-10-24T08:45:37.071183+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "Existing dirty changes preserved; uncommitted",
+  "deployment": "not deployed",
+  "environment": {
+    "baseURL": "http://127.0.0.1:3010",
+    "platform": "Darwin arm64",
+    "node": "v22.7.0",
+    "browserProjects": [
+      "Chromium desktop",
+      "Chromium Pixel 7",
+      "WebKit iPhone 13"
+    ]
+  },
+  "scope": [
+    "components/crefans/CommentComposer.tsx",
+    "components/crefans/SocialPages.tsx",
+    "components/crefans/Icon.tsx",
+    "components/crefans/social.module.css",
+    "e2e/mobile-comments.spec.ts"
+  ],
+  "sourceSha256": {
+    "components/crefans/CommentComposer.tsx": "ac019937d35de1ce4a6cb82ccf6f6a731a6a5fc0e66d47e2596b06e6ce2ba7ec",
+    "components/crefans/SocialPages.tsx": "1b03171419d6f088c71a30acd5ee4032f972fa7814605c96119347ffa93c8a60",
+    "components/crefans/Icon.tsx": "12611ce2b12bbbfe060e88eac3734bd5f04a248eca0601522a73961c90480139",
+    "components/crefans/social.module.css": "1d2011001468c052deb58a2ffdcbe70012e20ee5fa8467b98a21d2671b818ad1",
+    "e2e/mobile-comments.spec.ts": "6c296c1051edd9a6420d147facb0591ee02e8002df36f760bb60b691e2b8f198"
+  },
+  "acceptance": [
+    "Left X closes the active feed card comments from the mobile dock when the original card is offscreen",
+    "44px touch target, input remains wider than 160px at viewport widths 320/390/767 with no horizontal overflow",
+    "Closing clears simulated keyboard layout and does not scroll to the original card; reopening works",
+    "Multiple open cards retain the existing dock arbitration, other card draft survives",
+    "PC textarea and gallery/detail composers remain unchanged; preview/service share components"
+  ],
+  "checks": {
+    "layers": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:42:32.920336+00:00",
+      "finishedAt": "2026-10-24T08:42:33.555084+00:00",
+      "exitCode": 0,
+      "logSha256": "d0c73f9d2a0f8ef4706d94c9d5dc2e99902a1d49bf1ccb5ffab2a1faf57df910"
+    },
+    "types": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:42:33.581532+00:00",
+      "finishedAt": "2026-10-24T08:42:38.687326+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "unit": {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-social.test.cjs",
+        "tests/content-post-preview.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:42:38.716533+00:00",
+      "finishedAt": "2026-10-24T08:42:39.502094+00:00",
+      "exitCode": 0,
+      "logSha256": "a2794f42a14b10239e82fb19988a7e44a757e570f4bdd7acef24b1a2a6a361d4"
+    },
+    "browser-check": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/comment-close-20261024/playwright.config.ts"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:42:31.801836+00:00",
+      "finishedAt": "2026-10-24T08:43:00.582059+00:00",
+      "exitCode": 0,
+      "logSha256": "b908fc5f0867ac28c87375dcded2750680c76eee1827ef18ec63499a508ddb35"
+    },
+    "narrow-check": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/comment-close-20261024/playwright.config.ts",
+        "--grep",
+        "피드를 스크롤한"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:44:43.541108+00:00",
+      "finishedAt": "2026-10-24T08:44:50.813376+00:00",
+      "exitCode": 0,
+      "logSha256": "dbb03fed148c8e166477ede0043a823b7233c6699bfac1bb121f9e514d674a8e"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:45:37.400859+00:00",
+      "finishedAt": "2026-10-24T08:45:38.853972+00:00",
+      "exitCode": 0,
+      "logSha256": "4e15e09afcda7885e2729ae8c8d2e59667864c95e7024380fc9396cc254832c5"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:45:38.882081+00:00",
+      "finishedAt": "2026-10-24T08:45:39.298713+00:00",
+      "exitCode": 0,
+      "logSha256": "a83128b4d0a8612614db30ac9f21f51db097c0899b046e8890a6aa45bbf8e281"
+    }
+  },
+  "results": {
+    "unitPassed": 27,
+    "browserPassed": 16,
+    "browserSkipped": 2,
+    "browserSkippedReason": "Desktop excludes two mobile-only scenarios",
+    "additionalNarrowChecksPassed": 3,
+    "screenshotReview": "WebKit mobile: neutral borderless X to left of the input, GNB below dock, no overlap"
+  },
+  "limitations": [
+    "Local browser emulation, not physical iPhone keyboard verification",
+    "Existing service UI regression cases use API doubles; no real comments posted",
+    "Not deployed; production unchanged",
+    "Closing a card discards that card draft, same as the existing inline collapse; remaining open cards retain their drafts"
+  ],
+  "rawArtifacts": "/Users/ethan/repository/crefans_front/.local/comment-close-20261024"
+}

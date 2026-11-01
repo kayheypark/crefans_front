@@ -1,0 +1,10 @@
+{
+  "source": "design/beta-event-concepts/20261026/08-event-list-openbeta-v2.png",
+  "sourceSha256": "287f903eaf5a450103bb3ef62dc47109f53d36ac1839b8e0b8b5a312ae08d98a",
+  "generationMetadata": "design/beta-event-concepts/20261026/08-event-list-openbeta-v2.generation.json",
+  "output": "public/brand/events/beta-first/list-banner-openbeta-v2.webp",
+  "width": 2172,
+  "height": 724,
+  "sha256": "9c04edd2a1781c19915c4fc0a1107a64ec77927249759f2f016db887575f4696",
+  "conversion": "Sharp: 2171x724 generated output normalized to 2172x724, WebP quality92 effort6"
+}

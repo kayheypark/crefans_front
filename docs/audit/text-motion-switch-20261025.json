@@ -1,0 +1,164 @@
+{
+  "task": "Settings text motion switch",
+  "verifiedAt": "2026-10-24T17:25:07.391409+00:00",
+  "baseline": {
+    "at": "2026-10-24T17:23:00.199054+00:00",
+    "repository": "/Users/ethan/repository/crefans_front",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "beforeSha256": {
+      "components/ui/MarqueeText.tsx": "45c6391dd183595e4986ab7f536150c00e14a06418a8a2c63755595a8fe110bd",
+      "components/crefans/AccountPages.tsx": "2f72cf5d39e4c8ac5a937893952645aefae459098ce108f76974613f09f8f2c4",
+      "components/design-system/ServicePatternCatalog.tsx": "7bc553b77fe1b23e1bc97d65ff70d6017a4ce1b093b02fed97b042e9f756b390",
+      "e2e/marquee-text.spec.ts": "3350ef1db3f568611690b199a4e0154cb552239758213ddc60ca48f4cfbba52c",
+      "docs/design-system.md": "6b1729ff4a8ba9c6f0fe113216d450f6d5dda3aa605d632bb7245f9034a34ed8",
+      "PROGRESS.md": "7e7331d03bbddb527ec4d7ad7b4454e7d6afb0df5d0eef56dde65f5f3aeb266d",
+      "docs/audit/manifest.json": "76a0bc0ebb1d71fe48b248738b4a4cfdcabf05256f5d1466ef8473e8b81b69ee"
+    }
+  },
+  "requirements": [
+    "Right-aligned existing Toggle beside text-motion label in shared SettingsPage",
+    "On enables motion; off stops and wraps complete text",
+    "Preference persists across navigation/reload and synchronizes with existing controls"
+  ],
+  "changes": [
+    "MarqueeMotionControl switch variant reuses Toggle and existing local preference store",
+    "Shared SettingsPage passes switch variant",
+    "Design catalog reuses switch alongside existing button"
+  ],
+  "checks": {
+    "unit": {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-account.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:23:23.063763+00:00",
+      "finishedAt": "2026-10-24T17:23:23.608561+00:00",
+      "exitCode": 0,
+      "logSha256": "e7c0e489f10f5108dd928dd44b5da9731641384f27e03ec52cfc8c716aa2f63b"
+    },
+    "layers": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:23:23.633830+00:00",
+      "finishedAt": "2026-10-24T17:23:24.133053+00:00",
+      "exitCode": 0,
+      "logSha256": "066769b0847ce7b821fb23504fe26b3a3b4d2dd5ba440e20cdb53e6c7f8a3807"
+    },
+    "types": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:23:24.158245+00:00",
+      "finishedAt": "2026-10-24T17:23:30.648324+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "browser": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/text-motion-switch-20261025/playwright.config.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:23:23.063762+00:00",
+      "finishedAt": "2026-10-24T17:23:47.124733+00:00",
+      "exitCode": 0,
+      "logSha256": "05d6f509394df03a32200ef09fd1846e697e10dd05a12f69a954fd607fcf0d16"
+    },
+    "browser-visual": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/text-motion-switch-20261025/playwright.config.cjs",
+        "--grep",
+        "global pause"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:24:04.638069+00:00",
+      "finishedAt": "2026-10-24T17:24:18.250878+00:00",
+      "exitCode": 0,
+      "logSha256": "c1e3b37609055a8dfb988b01e3f31239a8ea043aeb12101332e75804eb5d4477"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:25:07.419462+00:00",
+      "finishedAt": "2026-10-24T17:25:08.436776+00:00",
+      "exitCode": 0,
+      "logSha256": "4ac68f154ab55ecd74cebde72395e950c44f7f7ce479de507bb9991d308644dc"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:25:08.463052+00:00",
+      "finishedAt": "2026-10-24T17:25:08.863106+00:00",
+      "exitCode": 0,
+      "logSha256": "28c13f63dd0f36d923ac0c5aa5c00eb10771cac4f075b2fc80f623ab0a2f4d84"
+    }
+  },
+  "results": {
+    "unitPassed": 12,
+    "browserPassed": 12,
+    "visualRecapturePassed": 4,
+    "environments": [
+      "Chromium320",
+      "Chromium390",
+      "Chromium1280",
+      "WebKit390"
+    ],
+    "assertions": [
+      "Right-aligned switch, no horizontal overflow",
+      "Off localStorage value and wrapped labels",
+      "Reload/navigation preservation",
+      "Space reenables motion and persists on",
+      "Catalog button/switch bidirectional synchronization",
+      "Reduced motion and profile membership label wrapping preserved"
+    ]
+  },
+  "files": {
+    "components/ui/MarqueeText.tsx": "d444b1aea8dd2ab378d94a20b1875a5a9ed78bab793c620504610ac912f0dd1b",
+    "components/crefans/AccountPages.tsx": "930f905177ba0ea89dec93c9dcf15fdef0d4d19b310478a816e51bb60dfc4003",
+    "components/design-system/ServicePatternCatalog.tsx": "9f2c3bcbca2e80e7aada9489748828f57b19677074e8013087d228d5b424a906",
+    "e2e/marquee-text.spec.ts": "edd492aa2429655411e24afe01438d7b59b1ef94f19ccb5151959769b934efb5",
+    "docs/design-system.md": "3b6a7ca07621832997d86b9dd5b8b0251c2090ee929e3df50ad8c58cae4bb280",
+    "PROGRESS.md": "6307793fe83c3cdc4ca0ee0004e06d336f9db290e2ef0facb6c371c9405fe379",
+    "docs/audit/manifest.json": "39502dae336f6abdabc89caf9fa9b2fb655e30cb2271849436bd42e942955bdf"
+  },
+  "screenshots": {
+    ".local/text-motion-switch-20261025/results-visual/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-mobile390/settings-switch.png": "44b81abd44a6985dc9fae3efde84cbd715e8902dfb0473f6e4b8bae8fc3e0586",
+    ".local/text-motion-switch-20261025/results-visual/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-narrow320/settings-switch.png": "45a748bdc25e1bfda066d74d1a38a2a85f7a7a54b8dcf0d1349565acbba0f68e",
+    ".local/text-motion-switch-20261025/results-visual/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-webkit390/settings-switch.png": "e2de23e1cded98398dcd22665132a8e58131f4b7e9c864c3477140ee8637d919",
+    ".local/text-motion-switch-20261025/results-visual/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-desktop/settings-switch.png": "71cda98fa8442bd63799f23bf0a1738e0a5886b292027d6fbe9dc469b811ebe2"
+  },
+  "visualReview": "Chromium1280 and WebKit390 inspected after scrolling switch into view. Label left, shared switch right. Initial mobile full-page screenshot did not expose inner scroller; final captures supersede it.",
+  "deployment": "Not performed; local only",
+  "limitations": [
+    "Browser tests use preview/catalog, not live accounts or production",
+    "No physical iOS device verification",
+    "Device-local preference; not an account DB setting"
+  ],
+  "rawEvidence": ".local/text-motion-switch-20261025",
+  "documentationSnapshot": "PASS; snapshot-only-not-test-proof; test logs are separate evidence"
+}

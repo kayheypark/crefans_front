@@ -1,10 +1,11 @@
 import type {InboxContact,SocialComment,SocialReply} from '@/types/crefans-social';
+import {foundingCommentAuthors} from './founding-members';
 import type {CommunityComment} from '@/types/crefans-community';
 
 /** Deliberately messy, deterministic comment threads for mockups: long bodies, empty posts, 2-depth replies, mass mentions. */
 export type MessyReply={id:string;author:InboxContact|null;body:string;time:string;mentions:InboxContact[]};
 export type MessyThread={id:string;author:InboxContact;fromCreator:boolean;body:string;time:string;mentions:InboxContact[];replies:MessyReply[];hidden:boolean};
-const creatorContact:InboxContact={id:'creator',name:'하늘',image:'/illustrations/redesign/hero-woman.png'};
+const creatorContact:InboxContact={id:'creator',name:'하늘',isVerified:true,isFoundingMember:true,image:'/illustrations/redesign/hero-woman.png'};
 const creatorComments=['오늘 사진 다들 좋게 봐주셔서 고마워요. 다음 편도 곧 올릴게요!','댓글 하나하나 다 읽고 있어요 😊','질문 주신 장소는 다음 게시물에서 정리해서 알려드릴게요.'];
 
 const surnames=['김','이','박','최','정','강','조','윤','장','임','한','오','서','신','권','황','안','송','전','홍'];
@@ -33,7 +34,8 @@ export function messyCommentThreads(postId:string,count:number,seed=7):MessyThre
   const random=seeded(seed+postId.length*31);
   return Array.from({length:count},(_,index)=>{
     const fromCreator=index===2||index%13===10;
-    const author=fromCreator?creatorContact:messyFanPool[Math.floor(random()*messyFanPool.length)];
+    const sampledAuthor=fromCreator?creatorContact:messyFanPool[Math.floor(random()*messyFanPool.length)];
+    const author=fromCreator?creatorContact:foundingCommentAuthors[index]||sampledAuthor;
     const roll=random();
     const body=fromCreator?creatorComments[index%creatorComments.length]:roll<0.35?shortBodies[Math.floor(random()*shortBodies.length)]:roll<0.75?sentences[Math.floor(random()*sentences.length)]:longBody(random,1+Math.floor(random()*4));
     const mentionRoll=random();
@@ -47,7 +49,9 @@ export function messyCommentThreads(postId:string,count:number,seed=7):MessyThre
     return {id:`${postId}-c${index+1}`,author,fromCreator,body,time:times[Math.floor(random()*times.length)],mentions:fromCreator?[]:pickFans(random,mentionCount,author.id),replies,hidden:!fromCreator&&random()<0.06};
   });
 }
-export const toSocialComments=(threads:MessyThread[]):SocialComment[]=>threads.map(thread=>({id:thread.id,author:{name:thread.author.name,image:thread.author.image},body:thread.body,time:thread.time,mentions:thread.mentions.map(fan=>({id:fan.id,name:fan.name})),fromCreator:thread.fromCreator||undefined,replyCount:thread.replies.length}));
+/** The fan app shows tags inline, so the mock body starts with them (at most 10, like the API). */
+const tagged=(body:string,mentions:InboxContact[])=>{const shown=mentions.slice(0,10);return{body:shown.length?`${shown.map(fan=>'@'+fan.name).join(' ')} ${body}`:body,mentions:shown.map(fan=>({id:fan.id,name:fan.name}))};};
+export const toSocialComments=(threads:MessyThread[]):SocialComment[]=>threads.map(thread=>({id:thread.id,author:{name:thread.author.name,image:thread.author.image,isVerified:thread.author.isVerified,isFoundingMember:thread.author.isFoundingMember},...tagged(thread.body,thread.mentions),time:thread.time,fromCreator:thread.fromCreator||undefined,replyCount:thread.replies.length,...(thread.author.id==='fan-jimin'?{own:true}:{})}));
 /** Replies keyed by comment id; the mock serves them only when a fan opens "답글 보기". */
-export const toSocialReplies=(threads:MessyThread[]):Record<string,SocialReply[]>=>Object.fromEntries(threads.filter(thread=>thread.replies.length).map(thread=>[thread.id,thread.replies.map(reply=>({id:reply.id,author:reply.author?{name:reply.author.name,image:reply.author.image}:{name:'하늘',image:'/illustrations/redesign/hero-woman.png'},body:reply.body,time:reply.time,mentions:reply.mentions.map(fan=>({id:fan.id,name:fan.name})),fromCreator:!reply.author||undefined}))]));
-export const toCommunityComments=(postId:string,threads:MessyThread[]):CommunityComment[]=>threads.map(thread=>({id:thread.id,postId,author:thread.author,body:thread.body,time:thread.time,hidden:thread.hidden,mentions:thread.mentions,replies:thread.replies.map(reply=>({id:reply.id,author:reply.author||undefined,body:reply.body,time:reply.time,mentions:reply.mentions}))}));
+export const toSocialReplies=(threads:MessyThread[]):Record<string,SocialReply[]>=>Object.fromEntries(threads.filter(thread=>thread.replies.length).map(thread=>[thread.id,thread.replies.map(reply=>({id:reply.id,author:reply.author?{name:reply.author.name,image:reply.author.image,isVerified:reply.author.isVerified,isFoundingMember:reply.author.isFoundingMember}:{name:'하늘',isVerified:true,isFoundingMember:true,image:'/illustrations/redesign/hero-woman.png'},...tagged(reply.body,reply.mentions),time:reply.time,fromCreator:!reply.author||undefined,...(reply.author?.id==='fan-jimin'?{own:true}:{})}))]));
+export const toCommunityComments=(postId:string,threads:MessyThread[],creator:InboxContact=creatorContact):CommunityComment[]=>threads.map(thread=>({id:thread.id,postId,author:thread.author,body:thread.body,time:thread.time,hidden:thread.hidden,mentions:thread.mentions,replies:thread.replies.map(reply=>({id:reply.id,author:reply.author||creator,fromCreator:!reply.author,body:reply.body,time:reply.time,mentions:reply.mentions}))}));

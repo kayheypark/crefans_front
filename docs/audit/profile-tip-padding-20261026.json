@@ -1,0 +1,74 @@
+{
+  "at": "2026-10-26T14:03:41.060634+09:00",
+  "image": "crefans-front:profile-tip-padding-20261026",
+  "imageSourceFiles": 616,
+  "allRunning": true,
+  "otherContainersPreserved": true,
+  "backup": "/opt/crefans-backup-profile-tip-padding-20261026",
+  "browserCommand": "TARGET=https://beta.crefans.com node /tmp/check-tip-padding.cjs",
+  "browserExitCode": 0,
+  "productionChecks": [
+    {
+      "width": 390,
+      "buttonWidth": 358,
+      "inset": 0,
+      "height": 44,
+      "passed": true
+    },
+    {
+      "width": 700,
+      "buttonWidth": 480,
+      "inset": 0,
+      "height": 44,
+      "passed": true
+    },
+    {
+      "width": 701,
+      "buttonWidth": 428,
+      "inset": 26,
+      "height": 44,
+      "passed": true
+    },
+    {
+      "width": 1280,
+      "buttonWidth": 428,
+      "inset": 26,
+      "height": 44,
+      "passed": true
+    }
+  ],
+  "localChecks": [
+    {
+      "width": 390,
+      "buttonWidth": 358,
+      "inset": 0,
+      "height": 44,
+      "passed": true
+    },
+    {
+      "width": 700,
+      "buttonWidth": 480,
+      "inset": 0,
+      "height": 44,
+      "passed": true
+    },
+    {
+      "width": 701,
+      "buttonWidth": 428,
+      "inset": 26,
+      "height": 44,
+      "passed": true
+    },
+    {
+      "width": 1280,
+      "buttonWidth": 428,
+      "inset": 26,
+      "height": 44,
+      "passed": true
+    }
+  ],
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirty": true,
+  "sourceSha256": "b4c83878ae8588e6a79cfed8ae8f2ab020cd51d1deba7fb7c57872ca01c4bf24",
+  "scope": "Previously deployed frontend source plus desktop padding CSS only; pending features excluded; API/DB unchanged"
+}

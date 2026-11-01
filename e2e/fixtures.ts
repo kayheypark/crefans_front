@@ -1,7 +1,10 @@
 import {test as base,expect,APIRequestContext,Page} from '@playwright/test';
 type Scenario={id:string;creator:string;planId:string;postId:string;privateBody:string;orderId:string;signupEmail:string;password:string;users:{id:string;email:string;role:string}[]};
 export const test=base.extend<{scenario:Scenario;control:(action:string,body?:object)=>Promise<any>}>({
- page:async({page},use)=>{const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));await use(page);expect(errors,'browser runtime errors').toEqual([]);},
+ page:async({page},use,info)=>{const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));await use(page);
+  // QA runs (QA_SETTLED_SHOT=1): after the test body, wait for running animations and keep a settled end-of-test screen.
+  if(process.env.QA_SETTLED_SHOT&&!page.isClosed()&&page.url()!=='about:blank'){try{await page.evaluate(()=>Promise.race([Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>null))),new Promise(r=>setTimeout(r,2000))]));await page.waitForTimeout(150);const file=info.outputPath('settled-final.png');await page.screenshot({path:file});await info.attach('settled-final',{path:file,contentType:'image/png'});}catch{}}
+  expect(errors,'browser runtime errors').toEqual([]);},
  scenario:async({request},use)=>{const r=await request.post('http://127.0.0.1:3012/__test/seed',{headers:{'x-e2e-token':process.env.CREFANS_E2E_TOKEN!}});expect(r.ok()).toBeTruthy();const f=await r.json();try{await use(f);}finally{const cleanup=await request.post('http://127.0.0.1:3012/__test/dispose',{headers:{'x-e2e-token':process.env.CREFANS_E2E_TOKEN!},data:{fixtureId:f.id}});expect(cleanup.ok(),'test fixture cleanup').toBeTruthy();}},
  control:async({request,scenario},use)=>{await use(async(action,body={})=>{const r=await request.post(`http://127.0.0.1:3012/__test/${action}`,{headers:{'x-e2e-token':process.env.CREFANS_E2E_TOKEN!},data:{fixtureId:scenario.id,...body}});expect(r.ok(),action).toBeTruthy();return r.json();});},
 });

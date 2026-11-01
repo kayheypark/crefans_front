@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-10-26T11:31:45.531773+09:00",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "existing uncommitted changes preserved; current changes uncommitted",
+  "files": {
+    "components/crefans/BeanPages.tsx": "7056866829aa5c8c31cc34f02e6222400e0ef4ce7d853a1dd949c9c067b0edad",
+    "components/crefans/beans.module.css": "685f3044282c107b5d7be9099e60557e7a2b75d226a3c7fbe193b1320aeb8a9d",
+    "components/crefans/social.module.css": "bcf8eb93f6266fe2c32ceab433034efacd3a6a623a45e38dcda6ead58b713155"
+  },
+  "check": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "testsPassed": 348
+  },
+  "browser": {
+    "environment": "local 3010 Chromium",
+    "command": "node /tmp/verify-tip.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "width": 50.234375,
+        "route": "feed",
+        "text": "후원",
+        "border": "1px",
+        "parentWidth": 358,
+        "height": 44,
+        "icons": 0,
+        "dialogOpened": true,
+        "viewportWidth": 390
+      },
+      {
+        "width": 50.234375,
+        "route": "post/moka-first-shoot",
+        "text": "후원",
+        "border": "1px",
+        "parentWidth": 358,
+        "height": 44,
+        "icons": 0,
+        "dialogOpened": true,
+        "viewportWidth": 390
+      },
+      {
+        "width": 326,
+        "route": "creator/moka",
+        "text": "콩 후원",
+        "border": "1px",
+        "parentWidth": 358,
+        "height": 44.390625,
+        "icons": 0,
+        "dialogOpened": true,
+        "viewportWidth": 390
+      },
+      {
+        "width": 50.234375,
+        "route": "feed",
+        "text": "후원",
+        "border": "1px",
+        "parentWidth": 480,
+        "height": 44,
+        "icons": 0,
+        "dialogOpened": true,
+        "viewportWidth": 1280
+      },
+      {
+        "width": 50.234375,
+        "route": "post/moka-first-shoot",
+        "text": "후원",
+        "border": "1px",
+        "parentWidth": 480,
+        "height": 44,
+        "icons": 0,
+        "dialogOpened": true,
+        "viewportWidth": 1280
+      },
+      {
+        "width": 448,
+        "route": "creator/moka",
+        "text": "콩 후원",
+        "border": "1px",
+        "parentWidth": 480,
+        "height": 44.390625,
+        "icons": 0,
+        "dialogOpened": true,
+        "viewportWidth": 1280
+      }
+    ],
+    "note": "initial own-creator fixture timeout; rerun with non-owned moka passed. No tips sent."
+  },
+  "deployment": "not performed"
+}

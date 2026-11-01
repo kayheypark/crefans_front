@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-26T10:31:42.255418+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "uncommitted": true,
+  "asset": "design/beta-event-concepts/20261026/03-typography-v2.png",
+  "sha256": "5cbda2f840bca963d06773d53be0e9e3b47adb354f129a79c64d6a54b5599f1e",
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "sourceCopyIdentical": true,
+  "metadata": "design/beta-event-concepts/20261026/03-typography-v2.generation.json",
+  "manualImageReview": {
+    "typographyLed": true,
+    "noIllustrationsOrCards": true,
+    "headlineSingleLine": true,
+    "allSecondaryTextAsteriskSentences": true,
+    "fan13BottomRightSecondary": true,
+    "benefitsAndCopyPreserved": true
+  },
+  "productionImageUnchanged": true,
+  "applicationTestsRun": false,
+  "deployed": false
+}

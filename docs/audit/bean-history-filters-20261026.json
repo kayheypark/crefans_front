@@ -1,0 +1,170 @@
+{
+  "checkedAt": "2026-10-26T01:15:12.895817+00:00",
+  "scope": "Order display references and three bean history filters. Local source, no deployment.",
+  "repositories": [
+    {
+      "path": "/Users/ethan/repository/crefans_front",
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/bean-support",
+      "dirtyEntries": 322,
+      "sourceHashes": {
+        "lib/crefans/bean-history.ts": "8ebafb0ed8c5e545c7829f75e0ef45b89d7c6d7c16cbaf3822959959aec51eba",
+        "types/crefans-beans.ts": "5fea7e4938c080656b8ed800bee5b13f938463f22b878bc479c79bf340a1ae45",
+        "features/service/useBeansModel.ts": "73f6856971b55ff5dca1d178525c36966e08542b0e2c27e62d7e54801ed42840",
+        "components/crefans/BeanWalletPages.tsx": "d0fa649a23bf0f41c471159daad65326d44aa62b9d5b8abaafceea3f60b62a4c",
+        "components/crefans/BeanPaymentResultPage.tsx": "8b04fcc397e495bb88305140bacd60f30647a172d928a94987246673bb6c27eb",
+        "components/crefans/CreatorSearch.tsx": "ffb382dcf6e0953755ab5a8a2369de1cef67f2f51df59b9021bc4c2812be873e",
+        "components/crefans/beans.module.css": "72a91fa288487b11873c1aa6a9a53a85646c4bf108f30da312d16c5fc1bdfa17",
+        "components/preview/service/bean-fixtures.ts": "5891a1852cb85f36f68bc985ccb14f3a3b6e66af3f614a4d4c291e47a25f85f0",
+        "components/preview/service/useMockBeans.ts": "25014fe998c860169dbbb1e9dbf0a57d797716fc8938040d7719e1d4e833206b",
+        "components/preview/service/PreviewBeanPaymentResult.tsx": "484d68c66c134e6325cd0a4e901c661ea3e56ca43ab0fb3f1081559c55bc86f9",
+        "components/design-system/ServicePatternCatalog.tsx": "c0822e99e4b1d954aa0b5f93bf8d58098ab66a0f23268f9447096ae6fb74e229",
+        "tests/bean-history.test.cjs": "c6ba1f05fe37e3e71d9bb443239fdc3f2bde17663c6d9be110508a57197ee66a",
+        "tests/bean-wallet-pages.test.cjs": "21f8526e3862bbb8116f7a86badf716648d167a2d14cb5f60bef6e865d2927d7"
+      }
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_server",
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/bean-support",
+      "dirtyEntries": 139,
+      "sourceHashes": {
+        "src/platform/bean-history.ts": "93cc25028b45a4672131c5e2d75b81b5665ddbabca47dde2b4d920300ad879a8",
+        "src/platform/beans.service.ts": "b5b590c44db65bd1fc8c1a3d1f14a7ef50b7815125728908ac31d1ca4e6bcb09",
+        "src/platform/beans.controller.ts": "6a6dd9bdf9b9079f5abd153ca9d7f2f4d4158e4ebd85396a1a674bd929c15757",
+        "src/platform/openapi-contract.ts": "48c0b18021e8faa6b6251c2b2d7a9c0d468096d14294ae4f727a24dab8267e72",
+        "tests/platform-beans.test.cjs": "ead7b0e58fd72dc05b7bdb606e0c5ed12ea5845377c2eb104e40bc6aabcae211"
+      }
+    }
+  ],
+  "acceptance": [
+    "Order list and completed receipt display CF-YYYYMMDDHHmmss from createdAt in Asia/Seoul. No visible UUID. Internal UUID routes/payments unchanged.",
+    "All periods and status/direction/search work before pagination on mock and real server; filter changes reset page.",
+    "Same views for preview/service/catalog; totals, empty matches, reset, API errors and prior response generation guard.",
+    "KST inclusive calendar days, invalid dates/range/enums/types/length400; ownership fixed and SQL LIKE metacharacters literal."
+  ],
+  "checks": [
+    {
+      "repository": "/Users/ethan/repository/crefans_front",
+      "command": "npm run check",
+      "exitCode": 0,
+      "finishedAt": "2026-10-26T01:11:22.757455+00:00",
+      "log": "/Users/ethan/repository/crefans_front/.local/bean-history-filters-20261026/check.log",
+      "logSha256": "e2e67e108ce7ea09d3854b273e759f56ca71940658efbb09f0e66b5bebdce67b",
+      "result": "348 passed; layers and TypeScript passed"
+    },
+    {
+      "repository": "/Users/ethan/repository/crefans_server",
+      "command": "npm run build",
+      "exitCode": 0,
+      "finishedAt": "2026-10-26T01:05:45.789749+00:00",
+      "log": "/Users/ethan/repository/crefans_server/.local/bean-history-filters-20261026/build.log",
+      "logSha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2",
+      "result": "Nest / Prisma Client6.9.0 build passed"
+    },
+    {
+      "repository": "/Users/ethan/repository/crefans_server",
+      "command": "CREFANS_E2E=true node --test --test-concurrency=1 tests/platform-beans.test.cjs tests/platform-bean-ledger.test.cjs tests/platform-openapi.test.cjs",
+      "exitCode": 0,
+      "finishedAt": "2026-10-26T01:11:22.583036+00:00",
+      "log": "/Users/ethan/repository/crefans_server/.local/bean-history-filters-20261026/beans.log",
+      "logSha256": "92e804a0634c38c945a580d1b85d16f8643e2f4736f5502643c933addb019dc1",
+      "result": "31 passed; isolated MySQL DB, synthetic PG/bank only"
+    },
+    {
+      "repository": "/Users/ethan/repository/crefans_front",
+      "command": "node .local/bean-history-filters-20261026/browser.cjs",
+      "exitCode": 0,
+      "finishedAt": "2026-10-26T01:11:37.078238+00:00",
+      "log": "/Users/ethan/repository/crefans_front/.local/bean-history-filters-20261026/browser.log",
+      "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b",
+      "result": "Chromium320/390/1280 + WebKit390 passed"
+    }
+  ],
+  "browser": {
+    "at": "2026-10-26T01:11:37.105Z",
+    "rows": [
+      {
+        "name": "chromium",
+        "width": 320,
+        "displayOrderNumber": "CF-20260917085900",
+        "periodStatusIntersection": true,
+        "directionAcrossPages": true,
+        "searchAcrossPages": true,
+        "pageReset": true,
+        "emptyAndReset": true,
+        "overflow": false,
+        "errors": [],
+        "actualBeanRequests": []
+      },
+      {
+        "name": "chromium",
+        "width": 390,
+        "displayOrderNumber": "CF-20260917085900",
+        "periodStatusIntersection": true,
+        "directionAcrossPages": true,
+        "searchAcrossPages": true,
+        "pageReset": true,
+        "emptyAndReset": true,
+        "overflow": false,
+        "errors": [],
+        "actualBeanRequests": []
+      },
+      {
+        "name": "chromium",
+        "width": 1280,
+        "displayOrderNumber": "CF-20260917085900",
+        "periodStatusIntersection": true,
+        "directionAcrossPages": true,
+        "searchAcrossPages": true,
+        "pageReset": true,
+        "emptyAndReset": true,
+        "overflow": false,
+        "errors": [],
+        "actualBeanRequests": []
+      },
+      {
+        "name": "webkit",
+        "width": 390,
+        "displayOrderNumber": "CF-20260917085900",
+        "periodStatusIntersection": true,
+        "directionAcrossPages": true,
+        "searchAcrossPages": true,
+        "pageReset": true,
+        "emptyAndReset": true,
+        "overflow": false,
+        "errors": [],
+        "actualBeanRequests": []
+      }
+    ]
+  },
+  "firstFailures": [
+    "Existing component test assumed every button was pagination and disabled; scoped assertion to pagination since filters are interactive.",
+    "Server direct service test compared raw Date to HTTP string; normalized Date in test.",
+    "New ownership test reused stranger disabled by earlier withdrawal scenario; switched to independent active adminId test member."
+  ],
+  "visualCheck": [
+    "Selected screenshots reviewed; initial captures caught closing SelectField animation; second full run waits for popup removal.",
+    "Separate final-mobile screenshots capture each top heading and controls in mobile shell."
+  ],
+  "research": [
+    {
+      "url": "https://news.coupang.com/archives/63616/",
+      "kind": "official",
+      "checkedOn": "2026-10-26",
+      "finding": "My Coupang order list to selected order detail/action flow."
+    },
+    {
+      "url": "https://miamiduri.tistory.com/261",
+      "kind": "user screenshot, published2025-06-21",
+      "checkedOn": "2026-10-26",
+      "finding": "Mobile order list search and per-order grouping; not a verified current logged-in screen."
+    }
+  ],
+  "limits": [
+    "No production deployment, real PG/card/bank execution or physical iPhone test.",
+    "Display reference can repeat for orders created in the same second; internal UUID remains authoritative.",
+    "Latest external Prisma docs redirected to a different API generation and were not used as version-specific evidence.",
+    "Next deployment must include API and front; current production front bean-wallet-ui-20261026/API bean-vat-20261025 unchanged."
+  ]
+}

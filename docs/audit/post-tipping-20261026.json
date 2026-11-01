@@ -1,0 +1,65 @@
+{
+  "at": "2026-10-26T13:53:30.761869+09:00",
+  "heads": {
+    ".": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "../crefans_server": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1"
+  },
+  "state": "uncommitted, existing changes preserved; not deployed",
+  "frontCheck": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 348
+  },
+  "serverCheck": {
+    "commands": [
+      "npm run build",
+      "CREFANS_E2E=true node --test tests/platform-beans.test.cjs"
+    ],
+    "exitCodes": [
+      0,
+      0
+    ],
+    "tests": 16,
+    "database": "isolated crefans_platform_e2e; provider doubles"
+  },
+  "browser": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "icon": true,
+      "postTitle": true,
+      "confirmation": true,
+      "twoTipsUniqueSupporterCount": 1
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "icon": true,
+      "postTitle": true,
+      "confirmation": true,
+      "twoTipsUniqueSupporterCount": 1
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "icon": true,
+      "postTitle": true,
+      "confirmation": true,
+      "twoTipsUniqueSupporterCount": 1
+    }
+  ],
+  "returnFlow": [
+    {
+      "width": 390,
+      "tipChargeResume": true,
+      "normalChargeNoReturn": true
+    },
+    {
+      "width": 1280,
+      "tipChargeResume": true,
+      "normalChargeNoReturn": true
+    }
+  ],
+  "migration": "20261026090000_post_supporters",
+  "limits": "No production deployment or real payment; OpenAPI description-only change after server build"
+}

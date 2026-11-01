@@ -5,7 +5,7 @@ const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const el=React.createElement;
 const styles={__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})};
-const ui={Action:({children,variant,...props})=>el('button',props,children),Avatar:({creator})=>el('img',{src:creator?.image,alt:creator?.name}),Empty:({title})=>el('p',{'data-empty':true},title),Notice:({children})=>el('p',null,children),PageTitle:({children,action})=>el('header',null,el('h1',null,children),action)};
+const ui={Action:({children,variant,...props})=>el('button',props,children),Avatar:({creator})=>el('img',{src:creator?.image,alt:creator?.name}),Empty:({title})=>el('p',{'data-empty':true},title),Notice:({children})=>el('p',null,children),PageTitle:({children,action,back})=>el('header',null,back,el('h1',null,children),action)};
 const primitives={Dialog:({open,children})=>open?el('dialog',null,children):null,Field:({label,hint,error,...props})=>el('label',null,label,el('input',{'data-label':label,...props}),error&&el('p',{role:'alert'},error))};
 const pages=loadTypeScript('components/crefans/CommonPages.tsx',{'./common.module.css':styles,'./choice.module.css':styles,'./select.module.css':styles,'./field.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./ServiceUI':ui,'./Icon':()=>el('svg'),'@/components/ui/Primitives':primitives,'next/link':({children,...props})=>el('a',props,children)});
 const {useMockCommon}=loadTypeScript('components/preview/service/useMockCommon.ts');
@@ -92,3 +92,20 @@ test('followers page lists the injected followers read-only with search and an e
 
 test('mock registration requires consent and correct identity code before injected card registration',async()=>{let selected='';const input=model({registrationPreview:{cards:[{value:'shinhan',label:'주입 카드',number:'•••• 1111'}],expiry:'12 / 30',code:'654321'}});input.actions.addPaymentMethod=async value=>{selected=value.previewCard;return ok;};const tree=mount(pages.PaymentMethodsPage,{model:input,basePath:'/preview'});const button=text=>tree.root.findAllByType('button').find(node=>node.children.join('')===text);act(()=>button('결제수단 등록').props.onClick());assert.equal(button('다음').props.disabled,true);act(()=>tree.root.findByProps({type:'checkbox'}).props.onChange({target:{checked:true}}));act(()=>button('다음').props.onClick());assert.equal(button('인증하고 등록').props.disabled,true);const code=()=>tree.root.findByProps({'data-label':'인증번호'});act(()=>code().props.onChange({target:{value:'000000'}}));assert.equal(button('인증하고 등록').props.disabled,true);act(()=>code().props.onChange({target:{value:'654321'}}));assert.equal(button('인증하고 등록').props.disabled,false);await act(async()=>button('인증하고 등록').props.onClick());assert.equal(selected,'shinhan');assert.equal(tree.root.findAllByType('dialog').length,0);close(tree);});
 test('live registration calls injected PG action directly and result preserves checkout return link',async()=>{let called=0;const input=model();input.actions.addPaymentMethod=async()=>{called++;return ok;};const tree=mount(pages.PaymentMethodsPage,{model:input,basePath:'/service'});await act(async()=>tree.root.findAllByType('button').find(node=>node.children.join('')==='결제수단 등록').props.onClick());assert.equal(called,1);assert.equal(tree.root.findAllByType('dialog').length,0);close(tree);const result=mount(pages.BillingRegistrationResultPage,{status:'cancelled',message:'취소',returnPath:'/service/checkout/test',onRetry:()=>{}});assert.ok(result.root.findAllByType('a').some(node=>node.props.href==='/service/checkout/test'));close(result);});
+
+// 2026-11-01: the latest effective date shows first (an announced revision included); earlier ones are picked from the
+// select at the top right; upcoming/current are plain text in the option label; a single version has no "(현재)".
+test('legal pages show the latest effective version first and switch versions from the select',()=>{
+ const doc=(title,effectiveAt,heading)=>({title,updatedAt:'2026-10-30',effectiveAt,sections:[{title:heading,body:heading+' 본문'}]});
+ const input=model();input.legal={...input.legal,terms:doc('이용약관','2026-10-30','현재 조항'),'terms-next':doc('이용약관','2026-11-30','개정 조항'),privacy:doc('개인정보처리방침','2026-10-30','처리 항목')};
+ const terms=mount(pages.LegalPage,{kind:'terms',model:input,basePath:'/service'});
+ try{
+  const select=()=>terms.root.find(n=>Array.isArray(n.props?.options)&&typeof n.props.onChange==='function');
+  assert.deepEqual(select().props.options.map(o=>o.label),['2026.11.30 시행 (예정)','2026.10.30 시행 (현재)']);
+  assert.equal(select().props.value,'next');assert.match(JSON.stringify(terms.toJSON()),/개정 조항/);assert.doesNotMatch(JSON.stringify(terms.toJSON()),/현재 조항 본문/);
+  act(()=>select().props.onChange('current'));
+  assert.equal(select().props.value,'current');assert.match(JSON.stringify(terms.toJSON()),/현재 조항/);assert.doesNotMatch(JSON.stringify(terms.toJSON()),/개정 조항 본문|개정본 보기/);
+ }finally{close(terms);}
+ const privacy=mount(pages.LegalPage,{kind:'privacy',model:input,basePath:'/service'});
+ try{assert.deepEqual(privacy.root.find(n=>Array.isArray(n.props?.options)&&typeof n.props.onChange==='function').props.options.map(o=>o.label),['2026.10.30 시행']);}finally{close(privacy);}
+});

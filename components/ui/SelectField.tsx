@@ -1,4 +1,6 @@
 'use client';
+import {MarqueeText} from '@/components/ui/MarqueeText';
+
 
 import {useEffect, useId, useRef, useState} from 'react';
 import type {CSSProperties, KeyboardEvent} from 'react';
@@ -7,7 +9,7 @@ import s from './select.module.css';
 
 export type SelectOption = {value:string;label:string;disabled?:boolean};
 type CommonProps = {
-  options:SelectOption[];label:string;searchable?:boolean;selectAll?:boolean;
+  options:SelectOption[];label:string;marquee?:boolean;searchable?:boolean;selectAll?:boolean;
   placeholder?:string;disabled?:boolean;readOnly?:boolean;error?:string;hint?:string;
   required?:boolean;id?:string;name?:string;hideLabel?:boolean;className?:string;
 };
@@ -139,7 +141,7 @@ export function SelectField(props:SelectFieldProps){
       aria-expanded={open} aria-controls={listId} aria-haspopup="listbox" aria-activedescendant={!searchable?activeId:undefined}
       aria-invalid={!!error} aria-describedby={error||hint?`${fieldId}-help`:undefined}
       onClick={()=>open?close():show()} onKeyDown={keyDown}>
-      <span className={`${s.value} ${!selectedOptions.length?s.placeholder:''}`}>{selectedOptions.length?selectedOptions.map(option=>option.label).join(', '):placeholder}</span>
+      <span className={`${s.value} ${!selectedOptions.length?s.placeholder:''}`}>{props.marquee?<MarqueeText text={selectedOptions.length?selectedOptions.map(option=>option.label).join(', '):placeholder}/>:selectedOptions.length?selectedOptions.map(option=>option.label).join(', '):placeholder}</span>
       {props.multiple&&selectedOptions.length>1&&<span className={s.count} aria-hidden="true">{selectedOptions.length}</span>}
       <svg className={s.chevron} data-open={open} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
     </button>
@@ -152,7 +154,7 @@ export function SelectField(props:SelectFieldProps){
       <div className={s.list} id={listId} role="listbox" aria-label={label} aria-multiselectable={props.multiple||undefined}>
         {visible.map((option,index)=><div key={option.value} id={`${listId}-${index}`} className={s.option} role="option" aria-selected={selected.includes(option.value)} aria-disabled={option.disabled||undefined} data-active={active===option.value&&!option.disabled} onPointerMove={()=>{if(!option.disabled)setActive(option.value);}} onPointerDown={event=>event.preventDefault()} onClick={()=>choose(option)}>
           {props.multiple&&<span className={s.check} aria-hidden="true" data-checked={selected.includes(option.value)}>{selected.includes(option.value)&&<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m5 12 4 4L19 6"/></svg>}</span>}
-          <span>{option.label}</span>
+          <span>{props.marquee?<MarqueeText text={option.label}/>:option.label}</span>
           {!props.multiple&&selected.includes(option.value)&&<svg className={s.selectedIcon} width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>}
         </div>)}
         {!visible.length&&<div className={s.empty} role="status">{query.trim()?'검색 결과가 없습니다.':'선택할 항목이 없습니다.'}</div>}

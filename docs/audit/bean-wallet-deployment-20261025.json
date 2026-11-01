@@ -1,0 +1,577 @@
+{
+  "verifiedAt": "2026-10-25T05:43:46.505367+00:00",
+  "release": "bean-wallet-20261025",
+  "deployed": true,
+  "repositories": {
+    "front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "branch": "feat/bean-support",
+      "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirtyEntries": 279,
+      "statusSha256": "0b236374cc5fb88acc9e97c44306b7681381793df57e9894b59be346d4ba8f4c"
+    },
+    "server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "branch": "feat/bean-support",
+      "commit": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirtyEntries": 138,
+      "statusSha256": "75751ae8acbbc6cf44ee4f7f646009e4df093016abbdb3907b833bfd09be2790"
+    }
+  },
+  "scope": [
+    "Shared wallet tooltip and mobile profile cover wallet link",
+    "Dedicated charge page /beans/charge with nine package choices, current 100 KRW/bean and unchanged PG/order/result flow",
+    "Wallet and studio two primary totals, collapsed hierarchical details and server spendableBreakdown/withdrawableBeans"
+  ],
+  "builds": [
+    {
+      "label": "server",
+      "tag": "crefans-api:bean-wallet-20261025",
+      "startedAt": "2026-10-25T05:37:03.268556+00:00",
+      "finishedAt": "2026-10-25T05:38:16.702760+00:00",
+      "exitCode": 0
+    },
+    {
+      "label": "front",
+      "tag": "crefans-front:bean-wallet-20261025",
+      "startedAt": "2026-10-25T05:37:03.269974+00:00",
+      "finishedAt": "2026-10-25T05:38:42.869009+00:00",
+      "exitCode": 0
+    }
+  ],
+  "images": {
+    "at": "2026-10-25T05:39:18.222140+00:00",
+    "images": {
+      "server": {
+        "tag": "crefans-api:bean-wallet-20261025",
+        "imageId": "sha256:e4bdd9b9b294b2ff852391a0d3164fceac19cd71a8b680920b80b3ee601e2d7e",
+        "runtimeImage": "sha256:e4bdd9b9b294b2ff852391a0d3164fceac19cd71a8b680920b80b3ee601e2d7e",
+        "architecture": "amd64",
+        "sourceFiles": 196,
+        "rootFsLayers": [
+          "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+          "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+          "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+          "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+          "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+          "sha256:401f2dc7734176ec96e2ccecbe7bef70868b72ce8d8d6786f4b503fc20625a36",
+          "sha256:d1012026d5adfa9755837746b085f8dd78d36f45056695adb14274cfc3eba7e3",
+          "sha256:7c22f9b64c4a686d25798d1e32071a476ffd0048bba4551cb939635f77f87a63",
+          "sha256:3d668fef1b916a9b5b282abe334489782a18867176f9b58bf64b573d8709cfe8",
+          "sha256:76a296c44c94f391b62b85d5dd3692b1111940d51e5e5b17e63688985ea0af27",
+          "sha256:c25f8630ed29e9aab11cd088f8afbba8d96d98048c427206b70c51e6cdaff66f",
+          "sha256:dba5d79ea5e5baac9302f8dcce24dba82e46123bbc405b2aaf85cec3f3ba7b75",
+          "sha256:350ccd98c6f79ee7e22eae4fe6f36dcba9dc4a2113b8cd55cc47c7430da3ccab",
+          "sha256:9225cbc798a30b64ab688397c05681d4dac81c46736ca78c46affe637d37f538",
+          "sha256:53b0743922061f06dc0ec92fa274ea09ed219fb641f6baa0c5e30e11907c8aeb"
+        ]
+      },
+      "front": {
+        "tag": "crefans-front:bean-wallet-20261025",
+        "imageId": "sha256:68a1bc74e20a369bc478da96a7e4c33623d3585d59562ec24b71461726d6c0bd",
+        "runtimeImage": "sha256:68a1bc74e20a369bc478da96a7e4c33623d3585d59562ec24b71461726d6c0bd",
+        "architecture": "amd64",
+        "sourceFiles": 553,
+        "rootFsLayers": [
+          "sha256:9b35de7893378218e365c34c2c735fb0032a859112fb7345ca8ea73f9aa1db70",
+          "sha256:73455f008d2c29b7bd012ed6034808c2eb31011ad5585202f9162c661bcfee9f",
+          "sha256:304cbc337ac002298f36802ea165638e0751e9d71f3065025df466bfac483932",
+          "sha256:0d441fd7f082d3ceb0aa923bbaf1c53fa09b6c5b3e4eeeb60a0980faa13b1a1a",
+          "sha256:a6a14a60a059ce70d9917ac911eb5ee06263ece91632613de6e562cfec9027d1",
+          "sha256:401f2dc7734176ec96e2ccecbe7bef70868b72ce8d8d6786f4b503fc20625a36",
+          "sha256:8ddcc7b02157c904be4aaf8d064ad43b24061668491ec2e8b83dd25bc972d31b",
+          "sha256:18568fd25fb5c8f29643af3e1b925e84ef4074f9dac96abef26ae6e950f18d0e",
+          "sha256:d644229958f8c5bb8cc996c1cf109ae5ff6ee7452469526051ae361e21da03c6",
+          "sha256:c422c6d13c56972422114c691de1caebfaf5605d4efd993c3dbac056df827ad4"
+        ]
+      }
+    },
+    "archiveSha256": "ec1acb729d7296ed97eab59a082d8fd9bb4b2c2e004b5557f028d3ac68006f6d",
+    "archiveBytes": 712538906,
+    "directPrivateSshStream": true
+  },
+  "sourceFreeze": {
+    "server": {
+      "files": 199,
+      "changedSinceBuild": []
+    },
+    "front": {
+      "files": 554,
+      "changedSinceBuild": []
+    }
+  },
+  "delta": {
+    "server": {
+      "changed": [
+        "src/platform/beans.service.ts",
+        ".dockerignore"
+      ],
+      "added": [],
+      "removed": []
+    },
+    "front": {
+      "changed": [
+        "components/crefans/BeanPages.tsx",
+        "components/crefans/beans.module.css",
+        "components/preview/service/useMockBeans.ts",
+        "types/crefans-beans.ts",
+        ".dockerignore",
+        "app/preview/[...screen]/page.tsx",
+        "app/service/[...screen]/page.tsx",
+        "components/crefans/AccountPages.tsx",
+        "components/crefans/creator.module.css",
+        "components/preview/screen-catalog.ts",
+        "components/preview/service/ServiceRouter.tsx",
+        "components/service/ServiceRouter.tsx"
+      ],
+      "added": [
+        "components/crefans/BeanBalanceSummary.tsx",
+        "components/crefans/BeanChargePage.tsx"
+      ],
+      "removed": []
+    }
+  },
+  "production": {
+    "at": "2026-10-25T05:42:02.973195+00:00",
+    "http": [
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/bootstrap",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/me",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/studio/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/creator/moka",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans/charge",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/signup",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/beans/wallet",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://admin.crefans.com/api/v1/admin/beans/overview",
+        "status": 401,
+        "expected": 401
+      }
+    ],
+    "containers": {
+      "crefans-beta-api-1": {
+        "id": "e6b7242c07b1ccd2a10df3a80a4d7014c0fc7a4f3fc92145de876d0c24f872bb",
+        "image": "sha256:d27e9b839f2abaade41d660115b39dc2e2fc0c3e982cf3f9eb3f2693b1946845",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "c59fc641248fba70c80024062353ff1530f4725cb7028e59289c3c25bc67cfca",
+        "image": "sha256:d27e9b839f2abaade41d660115b39dc2e2fc0c3e982cf3f9eb3f2693b1946845",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-frontend-1": {
+        "id": "ce11847254ba57125ed0487a8f0be2239687c05271c5f61e8cfd59d36ae0504c",
+        "image": "sha256:18e625b7a026da28c6793932752678b6dad81980b2140eb82dc0e00f250ba76d",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "78b88fd041adf7851e55e8c122f5314a0ba52f66a30318dd7a6cc341ec626b70",
+        "image": "sha256:7b191b4298d3b6548dff2a96163f2ac1fd72a187f81d425e0b90d67e4a391649",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      }
+    },
+    "runningSourceHashes": {
+      "server": 196,
+      "front": 553
+    },
+    "runtime": {
+      "at": "2026-10-25T05:42:07.128Z",
+      "flags": {
+        "APP_RELEASE": "bean-wallet-20261025",
+        "BETA_MODE": "true",
+        "BEAN_LEDGER_ENABLED": "true",
+        "BEAN_LIVE_PAYMENTS_APPROVED": "false",
+        "BANK_PAYOUTS_ENABLED": "false",
+        "MARKETING_MAIL_ENABLED": "false",
+        "SIGNUP_IDENTITY_MODE": "email-only",
+        "CREFANS_E2E": "false",
+        "MEDIA_STORAGE": "s3"
+      },
+      "counts": {
+        "members": 1,
+        "creators": 0,
+        "orders": 0,
+        "charges": 0,
+        "tips": 0,
+        "payouts": 0
+      },
+      "migrations": [
+        {
+          "migration_name": "0_init",
+          "checksum": "3833bea35684a61c3d59c5f04b590d6f34ca459b9220fd0425cb0a0356904219"
+        },
+        {
+          "migration_name": "20260910000000_local_members",
+          "checksum": "3076434a542b6badcf5549fd713cf7a3a9ffcbc7dd5606d92d617873d3ee471a"
+        },
+        {
+          "migration_name": "20261007000000_platform_v1",
+          "checksum": "4076884920bbaa5c0bab99d08a9fa4db1e39f48779f66d84dfa7b9ddb238ba01"
+        },
+        {
+          "migration_name": "20261007010000_platform_hardening",
+          "checksum": "14b6ef2d8e6eb443a6afc08b7d6a0e4e0c5c58a5946680848f905fe4129abdcc"
+        },
+        {
+          "migration_name": "20261007020000_platform_jobs",
+          "checksum": "e0b23da51ac54a4143af2496c6d6da39912efb3f37a2c26345f341475e0a6008"
+        },
+        {
+          "migration_name": "20261007030000_platform_completion",
+          "checksum": "2b7f8288195ee6b81160d9047bac6435abc87019eda946953106694cc14ac6f4"
+        },
+        {
+          "migration_name": "20261007040000_platform_audit",
+          "checksum": "f46af57baf903d9c9164518917a08e9bd799666f51f1cc7ff7316c5619b6f82b"
+        },
+        {
+          "migration_name": "20261007050000_platform_age_gate",
+          "checksum": "1445731150a5fa2045bbaa7c3bfeb83a8f4dad46d6159396d1261708269d24dc"
+        },
+        {
+          "migration_name": "20261007060000_billing_registration",
+          "checksum": "8565a40c6393a36834870fd41f362d699ebd507346a7f87fad53eb4d9f419ef2"
+        },
+        {
+          "migration_name": "20261008000000_payment_lifecycle",
+          "checksum": "360fe0032ff09a9e7c48e0da34cd893b72d6fda87a26ccf58e4ad74b015357cc"
+        },
+        {
+          "migration_name": "20261021070000_unused_content_refund",
+          "checksum": "5d1e2290f77bcc448a8eccd4e2270600f339f38422fd7b4a56714d666887ad98"
+        },
+        {
+          "migration_name": "20261021080000_db_financial_policy",
+          "checksum": "80ba545b2b74906641d70418e33119d00ae3d80116ff68865b8c6d90580d7c95"
+        },
+        {
+          "migration_name": "20261021160000_platform_security_ip",
+          "checksum": "1dfd3a3c4b1fc8147ea840c23772fef342810e6f683c65b66da21d663c4670e6"
+        },
+        {
+          "migration_name": "20261021161000_operational_events",
+          "checksum": "0ce6cf718f5ee4497dc90300d3c97e61a070e379cf58eb3b3df6b34bc9aa8701"
+        },
+        {
+          "migration_name": "20261022020000_audit_logs",
+          "checksum": "c3312aca7d23bfd77a2c71c497dc1e26a2b2570d575f5e6cf1fc446f91e06eef"
+        },
+        {
+          "migration_name": "20261022030000_billing_recovery",
+          "checksum": "67e4f2729a36db3717d8ecc234c6a5dd2c3936b76e27a1cc43c2c0e4b6e66b47"
+        },
+        {
+          "migration_name": "20261024120000_creator_verification",
+          "checksum": "8cbf4a870e12e5199ee2b6823edeb9e00d88a7ffd18f58cf4c3c74cf5d0155dc"
+        },
+        {
+          "migration_name": "20261025100000_beta_policy",
+          "checksum": "1fd23a64220156108978d59061d2fcdb62022c6c44e10145d069c2258f069f90"
+        },
+        {
+          "migration_name": "20261025110000_marketing_delivery_claim",
+          "checksum": "be6b7ae38fe19d5dea989193316c5d60a58cb9565c913040d64603110b183573"
+        },
+        {
+          "migration_name": "20261025120000_bean_ledger",
+          "checksum": "887ae3eb12b4543c8ee08341931f2b0869e81ea4d209ed19cf2c3c3b1b08ce7f"
+        },
+        {
+          "migration_name": "20261025130000_bean_product",
+          "checksum": "ca637f1ac797c4bb43ff839a5f9bb82aba2392578e29eeb5d73c520988aa281f"
+        }
+      ],
+      "policy": {
+        "version": 2,
+        "feeBps": 2000,
+        "holdDays": 7
+      },
+      "worker": {
+        "id": "worker-health",
+        "locked_until": "2026-10-21T08:22:45.481Z",
+        "completed_at": "2026-10-25T05:41:35.039Z",
+        "note": "{\"failures\":{}}"
+      }
+    },
+    "unchangedMigrationsCountsAndFinancialPolicy": true,
+    "signup": {
+      "identityRequired": false,
+      "inviteOnly": true,
+      "signupReady": false
+    }
+  },
+  "browser": {
+    "at": "2026-10-25T05:42:13.146Z",
+    "origin": "https://beta.crefans.com",
+    "checks": [
+      {
+        "screen": "two primary totals / nested disclosure / responsive",
+        "width": 360,
+        "passed": true
+      },
+      {
+        "screen": "mock charge updates only spendable total",
+        "width": 360,
+        "passed": true
+      },
+      {
+        "screen": "two primary totals / nested disclosure / responsive",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "mock charge updates only spendable total",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "two primary totals / nested disclosure / responsive",
+        "width": 767,
+        "passed": true
+      },
+      {
+        "screen": "mock charge updates only spendable total",
+        "width": 767,
+        "passed": true
+      },
+      {
+        "screen": "two primary totals / nested disclosure / responsive",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "mock charge updates only spendable total",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "shared studio summary / mock reservation / 20% quote",
+        "passed": true
+      },
+      {
+        "screen": "profile cover wallet / shared tooltip",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "dedicated charge / nine prices / selection guard",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "profile cover wallet / shared tooltip",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "dedicated charge / nine prices / selection guard",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "real charge anonymous guard",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "freshWorker": {
+    "workerStartedAt": "2026-10-25T05:41:32.864241547Z",
+    "heartbeat": {
+      "id": "worker-health",
+      "locked_until": "2026-10-21T08:22:45.481Z",
+      "completed_at": "2026-10-25T05:41:35.039Z",
+      "note": "{\"failures\":{}}"
+    }
+  },
+  "configuration": {
+    "changedKeys": {
+      ".env": [
+        "API_IMAGE",
+        "FRONTEND_IMAGE"
+      ],
+      "runtime.env": [
+        "APP_RELEASE"
+      ]
+    },
+    "otherValuesPreserved": true,
+    "backup": "/opt/crefans-backup-bean-wallet-20261025",
+    "rollbackImages": [
+      "crefans-api:beans-20261025",
+      "crefans-front:beans-20261025"
+    ],
+    "noDbMigration": true,
+    "noFinancialPolicyChange": true,
+    "noAdminOrDbOrProxyRecreation": true,
+    "homeSshRulePreserved": true
+  },
+  "commands": [
+    {
+      "command": "python3 prepare.py; python3 build.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 archive.py (private SSH stream; no local archive)",
+      "exitCode": 0
+    },
+    {
+      "command": "sha256sum -c images.sha256; gzip -dc images.tar.gz | docker load",
+      "exitCode": 0
+    },
+    {
+      "command": "sudo -n bash deploy.sh",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 verify.py",
+      "exitCode": 0,
+      "httpsChecks": 14
+    },
+    {
+      "command": "node browser.cjs",
+      "exitCode": 0,
+      "browserChecks": 14
+    }
+  ],
+  "visualReview": [
+    "wallet-390.png",
+    "charge-390.png",
+    "profile-390.png"
+  ],
+  "priorTests": [
+    "bean-wallet-ui-20261025.json",
+    "bean-charge-page-20261025.json",
+    "bean-balance-hierarchy-20261025.json"
+  ],
+  "artifactSha256": {
+    "before.json": "5daebe564552350aadd5b08614f3aeb0ff73fd6ea9c2cc066152042706efc02b",
+    "images.sha256": "7579d430694783e233537ef2565d7949de89a0ba649b056bff18cc58eacbd6d3",
+    "server-delta.json": "c660dd36e180fbefeed3b2841d6823ecd8808b04ee039f6d20da810a890a3111",
+    "build.py": "edfafb171aeb92f1a17813b4698fdcf101b46b781bc9f70fd57a805b04d4a895",
+    "server-source.json": "013ea8dd03b183bba53ed2a326b8f02786eff92f9f9fb0d5d0de1ec474682882",
+    "sources.json": "1d4b5b88f8c266d955ff9ad954cbd88e822e3792de8e0c0dc56718d615519622",
+    "front-source.json": "7a4d410a7eaf033ed2ff0c19dc8bca760f376d9ddc7bc99edbd950a64a1cce4f",
+    "browser.log": "0787f26fe02d7a4016d70898a3ed238668379a4f944de9687dc1a00e229587cb",
+    "details-390.png": "3e3779f3d2a67c5c0495976c57ce87491c15515e15fa0ae3d8412d2e16d61e3d",
+    "verify.log": "0d805162dedefe99eac2e7911bba37aaa363912e04a90e2daea471b01d12cfb1",
+    "production-verification.json": "4cf5b4c39a2b800baee54656896cfad7c25b35bb3e335590fd360c5caaee949c",
+    "runtime-before.json": "936ec69bb91f67234e256617745b932c7bd63f08b0962eb5a4be451d81499023",
+    "front-delta.json": "3e5903bb92fb93219308c9f84e35e9853c8e1a897b8c54ea45ca1f21c9bba823",
+    "details-1280.png": "61fa66c3b0cdcc0e9b5483686ad00d74b2332c75d8e96abb0839156d0c68c2dc",
+    "browser.cjs": "28d9deacd4106d8358f860f21006fff3f765003ac9255b279f93c828a389feac",
+    "wallet-390.png": "11e0db14e92c5fe2c0e3097f8a3504ff8d2e1a5238e05e71f5101c3d64ae7f98",
+    "charge-390.png": "21e2d882b5752b4dabe9cc43ef72057afc79190ee9439d7752f27a826e0b71a2",
+    "images.json": "c929ad3353ca2a6b776abf1817eb909064c7bb7d286a8f8a14a5c046a69cfdde",
+    "wallet-1280.png": "fa883bfc08eee293dcd9e1a55599d5e0d1cf63d44a2c0c221bcebdb3cff290e2",
+    "deploy.log": "7dc7539b6edf076fa804a6fbf1705f2cf380d06826e2d5347473d99941caaa84",
+    "server-build.log": "b7ae88b0b9aad3830aa43c97623b7fb384b44093ed4a00c084d1984619fd66c9",
+    "front-build.log": "77e3ff5fef7fd928f688efa26a0daedf2a7ec091288959f7757b5f9d54908b28",
+    "wallet-767.png": "9df79995454b198b8e407badf13113fd519ec8e3694cd4829fccbc9a135aede3",
+    "transfer-error.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe.py": "7cc7cd3c10a0bf3be18250b5c095c0b5aaa3e238f053e393f9dd4de6642ca348",
+    "source-freeze.json": "2035200fb5736b92c51a3edd6d1b960551df989674f6323f9ecc957d594f5b4f",
+    "archive.py": "3fc22325c215e9010442ab30b2f6e3230b1396e16f84bbe1b946b00591944e6d",
+    "wallet-360.png": "e57cbd88a6911ba1b48a784de5d5066b669b6c60e5ca8a6222d03567b58452f2",
+    "image-preflight.json": "cce8553d94eed820cf90bf6a12774e222947dda2f9293fc189b2a48a82a15258",
+    "runtime-after.json": "81f8aacbd95f490a02ec8962e2cffa99dd46bbb882a569bebfa4e36aa7ff549a",
+    "deploy.sh": "2bc169a4c7c129c0aed92d27d6575d4e08c50344e9c15da9b02f97a065b81cc7",
+    "builds.json": "a2cf6eb1af4eaa8bb6fe53fd2793852b74bf53d8b784294f76fada7b7db01fc7",
+    "profile-390.png": "15f2dd07231c8b70d8dbb81c4277279540cffd0fb6aa91b2723f4d46a648d219",
+    "studio-reserved-1280.png": "9cb3ea19b385a1f6e525817be418ce85495c5427a533edc9e0bca0c612dea83f",
+    "verify.py": "49ffd067b22efec86df232e23deb9bfc79dae39b3033c24202e77b5f3b4becec",
+    "load.log": "a5a48fd72d9c3a102d3e851217ba53a0ae42c6c7c70a2d35e6b425a1d392ea63",
+    "charge-1280.png": "688915687e69dee32e32b76dafb7aeb119c8a1639548aba6186201846c9d7429",
+    "details-767.png": "90f7ca618b7d63f27cb6c233b2c4cce976fb93ab5b978fb077be69d6d57d40c0",
+    "browser.json": "731e05619f3d3f2c1c003d078f607ca92f7be391b94694d0ccb54585a1fe521c",
+    "archive.log": "ab217afdb095c8dc0d895f017285ef26b6c00e8e8293a9cf9d1058c5fc1468e0",
+    "prepare.py": "3d89b4ba6c3fe0bb0feeadcebd314b75cee01be5ac0b07f4b1ac44533faf2f94",
+    "details-360.png": "bb67f14694d07d7812e43d22d2e594cef60b3e1a4404535ee88ae4de3a24a91a",
+    "worker-fresh.json": "52a3cd88526ef04a335493fac1c4cab691da767f8cb5144cfad666016ddcccf6"
+  },
+  "limits": [
+    "Production UI interactions were on /preview mock state; no live charge, promotion, tip or payout was executed.",
+    "Real wallet/charge route anonymous guards and exact running source/image hashes were verified. Authenticated production wallet field checks were not executed.",
+    "Source-preserved prior local328 frontend/29 isolated DB/provider-double tests remain separate from production UI checks; not rerun or represented as live PG/bank tests.",
+    "Signup remains closed (invite-only and legal signupReady=false). Email-only/beta, live sales off, real payouts off, marketing off preserved.",
+    "Prior source evidence is dated before deployment; current operational status is this release record."
+  ]
+}

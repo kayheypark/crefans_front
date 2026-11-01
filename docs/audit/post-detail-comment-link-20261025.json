@@ -1,0 +1,109 @@
+{
+  "recordedAt": "2026-10-24T16:55:00.251478+00:00",
+  "baseline": {
+    "at": "2026-10-24T16:53:28.402076+00:00",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "files": {
+      "components/crefans/SocialPages.tsx": "00821ef21fcdd56d849a2d09943fe22af61e2106e20cd6d8550821088ba31889",
+      "components/crefans/social.module.css": "15ea2049c26e8d8e8ed716f233ca9495116b9fb52068f42991ca6c67a054301a",
+      "e2e/mobile-comments.spec.ts": "6c296c1051edd9a6420d147facb0591ee02e8002df36f760bb60b691e2b8f198",
+      "docs/design-system.md": "352223f161ba16cf772b09128b2828bdc0559a2d0ad7ed5290439d814d28d603",
+      "docs/audit/manifest.json": "5bfe3584f1f3dcafdc1985036ba4f0792e7728f47a73ae16fb53c77c900edfe9",
+      "PROGRESS.md": "0330dbfc3da4cd05fa41528a5ef59a930537e9b44821add6a75059fcb59a50d4"
+    }
+  },
+  "requirements": [
+    "Hide comment-write shortcut in standalone post detail in preview and service",
+    "Keep desktop/mobile composer and comment posting",
+    "Preserve feed draft selection shortcut"
+  ],
+  "changes": {
+    "SocialPages.tsx": "data-post-detail on loaded standalone detail root",
+    "social.module.css": ".feed[data-post-detail] .commentWrite display:none"
+  },
+  "checks": {
+    "typecheck": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T16:53:29.663812+00:00",
+      "finishedAt": "2026-10-24T16:53:36.482868+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "browser": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/post-detail-comment-link-20261025/playwright.config.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T16:53:28.440793+00:00",
+      "finishedAt": "2026-10-24T16:53:44.518496+00:00",
+      "exitCode": 0,
+      "logSha256": "b01208cee1b5a62763dce00d5f32f798c2aa3a36cb97c1170ccba661e24a30dc"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T16:55:00.279390+00:00",
+      "finishedAt": "2026-10-24T16:55:01.333109+00:00",
+      "exitCode": 0,
+      "logSha256": "e73158dd09e533b1c9882162cde34cd792b4bd9d63d99a06d5b45e67f9fe21fb"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T16:55:01.358110+00:00",
+      "finishedAt": "2026-10-24T16:55:01.739837+00:00",
+      "exitCode": 0,
+      "logSha256": "2a53169c7cc2f8920d3d24aadc0229214d26abcc3e830c111bf069ce1a1d2a07"
+    }
+  },
+  "browserResults": {
+    "passed": 11,
+    "skipped": 1,
+    "skipReason": "Desktop has no multiple-mobile-dock arbitration",
+    "environments": [
+      "Chromium320",
+      "Chromium390",
+      "Chromium1280",
+      "WebKit390"
+    ]
+  },
+  "files": {
+    "components/crefans/SocialPages.tsx": "cc6bd27c30c74e9ca33b407627486551e7599e45326e626538ca7800b2a37f3c",
+    "components/crefans/social.module.css": "57d19e67ad73b8270b4229e36d891313a132ea465967c52048236c6dc9c08d42",
+    "e2e/mobile-comments.spec.ts": "f16adff52d6463d85b4aa45756528b1b739a875559a9555ef85ac75b6388143a",
+    "docs/design-system.md": "c8e78e59a6784bc38c66f485982492effd78e7456e931c98be4eb25c494cb78f",
+    "PROGRESS.md": "17ee54f9bb0b71203d39bbb00929c6338c79384d33311136838b93c94b1db2d8",
+    "docs/audit/manifest.json": "252cfc5259698bf20c3e99f0d3e98bd3ab7fd787314ea6d0989b09015ad39829"
+  },
+  "screenshots": {
+    ".local/post-detail-comment-link-20261025/results-local/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-mobile390/mobile-comments.png": "0f0858607df90b892d20db2967601aaaa3e38e4c8ad4364320f4a5df7be14d73",
+    ".local/post-detail-comment-link-20261025/results-local/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-webkit390/mobile-comments.png": "0faccb9bf3b6623b18809266203b3fcf0bbbee27676968090cde66c737c2f5c1",
+    ".local/post-detail-comment-link-20261025/results-local/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-narrow320/mobile-comments.png": "0f0858607df90b892d20db2967601aaaa3e38e4c8ad4364320f4a5df7be14d73"
+  },
+  "visualReview": "WebKit390 standalone detail bottom, no write shortcut, floating input retained",
+  "deployment": "Not performed; last verified production post-views-icon-20261025",
+  "limitations": [
+    "Service GET/POST API mocked, no real user comment writes",
+    "No physical device or production verification for this change"
+  ],
+  "documentationSnapshot": "PASS; snapshot-only-not-test-proof; browser/type checks recorded separately",
+  "localEvidenceDirectory": "/Users/ethan/repository/crefans_front/.local/post-detail-comment-link-20261025"
+}

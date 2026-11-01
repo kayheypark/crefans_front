@@ -18,6 +18,7 @@ const mocks={
  '@/components/ui/DialogActions':{DialogActions:({children})=>React.createElement('footer',null,children)},
  '@/components/ui/Primitives':{Field,Dialog:({open,onClose,title,children})=>open?React.createElement('section',{'data-dialog':true,'aria-label':title},React.createElement('button',{type:'button',onClick:onClose,'aria-label':'모달 닫기'},'×'),children):null},
  '../ServiceUI':{
+  ActionLink:({variant,...props})=>link(props),
   Action:({variant,...props})=>React.createElement('button',props),
   PageTitle:({children,action})=>React.createElement('header',null,React.createElement('h1',null,children),action),
   Notice:({children})=>React.createElement('aside',null,children),
@@ -124,4 +125,14 @@ test('withdrawal balance shows the remainder and does not invent a balance for i
   change(view.root.findByProps({type:'number'}),'100001');assert.equal(remainder(),'금액을 확인해 주세요');
   change(view.root.findByProps({type:'number'}),'');assert.equal(remainder(),'₩100,000');
  }finally{close(view);}
+});
+
+test('the membership payout minimum follows the creator’s individual terms, falling back to the default 100,000원',()=>{
+ for(const [terms,expected] of [[null,100000],[{platformFeeBps:null,settlementHoldDays:null,beanWithdrawalFeeBps:null,minimumWithdrawalKrw:50000},50000]]){
+  const base=model(),view=mount(WithdrawalPage,{basePath:'/preview/studio',model:{...base,data:{...base.data,creatorTerms:terms}}});
+  try{
+   const input=view.root.findByProps({type:'number'});assert.equal(input.props.min,expected);
+   change(input,'60000');assert.equal(button(view,'신청 내용 확인').props.disabled,expected>60000,`minimum ${expected}`);
+  }finally{close(view);}
+ }
 });

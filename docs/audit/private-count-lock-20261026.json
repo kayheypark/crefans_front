@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-26T16:07:38.764225+09:00",
+  "image": "crefans-front:private-count-lock-20261026",
+  "imageSourceFiles": 619,
+  "allRunning": true,
+  "otherContainersPreserved": true,
+  "backup": "/opt/crefans-backup-private-count-lock-20261026",
+  "browser": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "privateLock": true,
+      "noPrivateLinks": true,
+      "publicLinks": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "privateLock": true,
+      "noPrivateLinks": true,
+      "publicLinks": true
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "privateLock": true,
+      "noPrivateLinks": true,
+      "publicLinks": true
+    }
+  ],
+  "frontCheckPassed": 348,
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirty": true,
+  "sourceHashes": {
+    "components/crefans/ProfileHeader.tsx": "292e3f5d96016e17e755e1a2521fe6d6c6ddb590e055fccc90dcff7d579877db",
+    "components/crefans/CreatorPages.tsx": "64788efdd000bf4e69c668e39cd4f7bdc89685e5b44499551ead8d5f4d4281f8",
+    "components/crefans/PublicMemberPage.tsx": "db58ab2278d3bf1a0f27eb4f7dea4539eaabd2184ce7e79fa291d83b4355f057"
+  },
+  "scope": "Frontend only. No API/DB changes."
+}

@@ -13,6 +13,21 @@ function mount(Component,props){let tree;act(()=>{tree=create(React.createElemen
 function update(tree,props){act(()=>tree.update(React.createElement(Avatar,props)));}
 function close(tree){act(()=>tree.unmount());}
 
+test('custom navigation fallback handles missing and broken photos and recovers on a new source',()=>{
+  const fallback=React.createElement('span',{'data-custom-fallback':true},'navigation');
+  const tree=mount(Avatar,{name:'팬',fallback});
+  assert.equal(tree.root.findAllByProps({'data-custom-fallback':true}).length,1);
+  assert.equal(tree.root.findAllByType('svg').length,0);
+  update(tree,{src:'/portrait-a.png',name:'팬',fallback});
+  assert.equal(tree.root.findAllByProps({'data-custom-fallback':true}).length,0);
+  act(()=>tree.root.findByType('img').props.onError());
+  assert.equal(tree.root.findAllByProps({'data-custom-fallback':true}).length,1);
+  update(tree,{src:'/portrait-b.png',name:'팬',fallback});
+  assert.equal(tree.root.findByType('img').props.src,'/portrait-b.png');
+  assert.equal(tree.root.findAllByProps({'data-custom-fallback':true}).length,0);
+  close(tree);
+});
+
 test('missing, null, empty and whitespace photo sources use the shared symbol instead of initials',()=>{
   for(const src of [undefined,null,'',' \t\n ']){
     const tree=mount(Avatar,{src,name:'최예림'});

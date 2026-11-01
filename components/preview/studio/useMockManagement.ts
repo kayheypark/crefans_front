@@ -13,13 +13,13 @@ const ok=<T,>(data:T):ApiResult<T>=>({success:true,data,errorMessage:null,errorC
 const fail=<T,>(errorMessage:string):ApiResult<T>=>({success:false,data:null,errorMessage,errorCode:'VALIDATION_ERROR'});
 const validMedia=(url:string)=>!url||/^\/(?!\/)/.test(url)||/^https?:\/\//i.test(url);
 
-export function useMockManagement({getProtectedPlanIds=()=>[]}:{getProtectedPlanIds?:()=>string[]}={}):StudioManagementModel{
+export function useMockManagement({getProtectedPlanIds=()=>[],initialContents=managementContents,initialMemberships=managementMemberships,initialSubscribers=managementSubscribers}:{getProtectedPlanIds?:()=>string[];initialContents?:StudioContent[];initialMemberships?:StudioMembership[];initialSubscribers?:StudioSubscriber[]}={}):StudioManagementModel{
   const query=useSearchParams();
-  const [contents,setContents]=useState<StudioContent[]>(()=>managementContents.map(item=>({...item})));
-  const [memberships,setMemberships]=useState<StudioMembership[]>(()=>managementMemberships.map(item=>({...item,benefits:[...item.benefits]})));
+  const [contents,setContents]=useState<StudioContent[]>(()=>initialContents.map(item=>({...item})));
+  const [memberships,setMemberships]=useState<StudioMembership[]>(()=>initialMemberships.map(item=>({...item,benefits:[...item.benefits]})));
   const [deletedIds,setDeletedIds]=useState<string[]>([]);
   const images=useLocalImages();
-  const [subscribers]=useState<StudioSubscriber[]>(()=>managementSubscribers.map(item=>({...item,planSnapshot:{...item.planSnapshot,benefits:[...item.planSnapshot.benefits]}})));
+  const [subscribers]=useState<StudioSubscriber[]>(()=>initialSubscribers.map(item=>({...item,planSnapshot:{...item.planSnapshot,benefits:[...item.planSnapshot.benefits]}})));
   const requestedStatus=query.get('status');
   const selectedContentStatus=requestedStatus&&['draft','published','scheduled'].includes(requestedStatus)?requestedStatus as StudioContentStatus:undefined;
   const canDelete=(id:string)=>canDeleteMembership(id,subscribers,managementNow)&&!getProtectedPlanIds().includes(id);

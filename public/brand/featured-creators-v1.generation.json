@@ -1,0 +1,10 @@
+{
+  "method": "built-in image_gen",
+  "asset": "featured-creators-v1.png",
+  "prompt": "Use case: logo-brand. Asset type: a tiny decorative icon immediately to the left of the Korean heading '주목할 크리에이터' in the CREFANS creator discovery web page. Generate the ICON ONLY, no lettering, no words. Subject: a single bold softly rounded four-point sparkle, plus one much smaller four-point sparkle tucked at its upper right, as one compact cohesive symbol. Modern polished minimal app pictogram, clean near-flat silhouette, a restrained smooth pink-to-violet-to-periwinkle blue gradient consistent with a creator platform brand. Designed to remain clearly readable at only 22x22 CSS pixels on a white background. No circular badge, no enclosing shape, no check mark, no crown, no face, no extra ornamental particles, no thin strokes, no drop shadow, no glow, no three-dimensional perspective. Square composition, the complete icon centered and occupying about 85 percent of the canvas with balanced small safe margins. Actual fully transparent background outside the symbol, clean antialiased alpha edges, no painted checkerboard. Deliver a single production-ready transparent PNG icon.",
+  "transparent_background": true,
+  "intendedDisplay": "22×22 CSS px, 6px gap before 주목할 크리에이터",
+  "scope": "Shared ExplorePage featured heading decoration; deployed to beta.crefans.com preview/service on2026-10-24; Next Image optimized display, original PNG preserved.",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-6e184116-03d0-4adb-b366-bd5e8584271a.png",
+  "deploymentEvidence": "docs/audit/featured-icon-deployment-20261024.json"
+}

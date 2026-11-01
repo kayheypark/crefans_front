@@ -1,0 +1,382 @@
+{
+  "recordedAt": "2026-10-24T06:49:41.467472+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/beta-signup",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "Existing dirty work preserved. No commits, merges or pushes. Scoped deployment copied verified production baseline and selected only comment-dock dependencies.",
+  "environment": {
+    "localOs": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "production": "https://beta.crefans.com",
+    "build": "linux/amd64 Next.js production container",
+    "browsers": "Playwright desktop Chromium, mobile Chromium, mobile WebKit (iPhone emulation)"
+  },
+  "scope": {
+    "at": "2026-10-24T06:43:58.663316+00:00",
+    "baselineFilesMatched": 498,
+    "changed": [
+      "components/crefans/MediaOverlay.tsx",
+      "components/crefans/ServiceShell.tsx",
+      "components/crefans/SocialPages.tsx",
+      "components/crefans/service.module.css",
+      "components/crefans/social.module.css",
+      "components/design-system/ServicePatternCatalog.tsx"
+    ],
+    "added": [
+      "components/crefans/CommentComposer.tsx"
+    ],
+    "excluded": [
+      "PASS signup deferred work and account actions/types"
+    ],
+    "preserved": "Backend/worker/admin/database/proxy and SSH rules"
+  },
+  "image": {
+    "at": "2026-10-24T06:46:39.285588+00:00",
+    "tag": "crefans-front:gallery-comments-20261024",
+    "id": "sha256:d137f9ad0f9a902a478219ec53de76f8c04c11093cceeabc3ea46057e2d97012",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 499,
+    "archiveSha256": "62430a62a2d5af85e3aafde1cc3ec2446e3aa02677809b109a3fc8aedacf3968",
+    "archiveBytes": 514586641
+  },
+  "production": {
+    "at": "2026-10-24T06:48:11.355041+00:00",
+    "runtimeFilesMatched": 499,
+    "runtime": {
+      "crefans-beta-api-1": {
+        "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-worker-1": {
+        "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-frontend-1": {
+        "id": "d18ca389c7e4f94d9e9834f159c59b33deb61e3d0024b55512f5890c0335dd0a",
+        "image": "sha256:d137f9ad0f9a902a478219ec53de76f8c04c11093cceeabc3ea46057e2d97012",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-admin-1": {
+        "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+        "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      }
+    },
+    "http": [
+      {
+        "url": "https://beta.crefans.com/preview/creator/haneul",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/post/morning",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/login",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200
+      }
+    ]
+  },
+  "baseline": {
+    "tag": "crefans-front:message-time-20261024",
+    "verifiedSourceFiles": 498,
+    "releaseManifest": ".local/message-time-deploy-20261024/release.json"
+  },
+  "releaseManifest": {
+    "path": ".local/gallery-comments-deploy-20261024/release.json",
+    "sha256": "bb8f5729e72e2e126f0bc35e16871dba2ae09037c65bb2ed2688cedf889b2f6a",
+    "files": 499
+  },
+  "selectedSourceSha256": {
+    "components/crefans/MediaOverlay.tsx": "c3245bbdac06facb91982fd503857eae7d7189013ba27107e5ea3eeb49ecc90d",
+    "components/crefans/ServiceShell.tsx": "345829b57fea0d12b63a971a9b80ec632a2716044a776ee982c8739537ba6fdc",
+    "components/crefans/SocialPages.tsx": "abf6694b59917b3812bfacc9f2a8ec081fa7d35ba373961dfa8331ff869a7d16",
+    "components/crefans/service.module.css": "0f79a0f376a02d91cf54eaaf644582b6887830b08c1f26a1e8a450147e40b7e8",
+    "components/crefans/social.module.css": "4ee396cd90738b159ff75b7c0f1fab78c4fcfcff853d800cbf87d4ebdcf6791b",
+    "components/design-system/ServicePatternCatalog.tsx": "24ee2ffdff316230024a744e57cbecdde48cfc3bf4e769e697333b67b761435f",
+    "components/crefans/CommentComposer.tsx": "b089978627f4ad5ffd3ef4376521ca303d92ce43f5fc4d41e995d18e352ef1e4"
+  },
+  "acceptance": [
+    "Mobile gallery input visible immediately without autofocus; comments fetch only on expand",
+    "Single-line44px input/submit, independent scrolling and draft across list toggle/panel states/media expand",
+    "Service-model API double: failure preserves draft, duplicate submission prevented, retry succeeds, next-post fresh draft, closed and locked restrictions",
+    "Desktop textarea on expansion only; shared catalog normal/error/pending/readOnly states",
+    "GNB/messages/profile media regressions; real production public feed GET and health success plus login screen",
+    "Image and deployed runtime499 hashes match; only frontend replaced, other5 container IDs/images preserved"
+  ],
+  "checks": [
+    {
+      "name": "selected-check",
+      "command": [
+        "sh",
+        "-c",
+        "cd .local/gallery-comments-deploy-20261024/source && npm run check:layers && npm run typecheck && node --test tests/crefans-social.test.cjs tests/profile-media.test.cjs tests/service-access-state.test.cjs tests/content-post-preview.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:44:18.523428+00:00",
+      "finishedAt": "2026-10-24T06:44:24.179155+00:00",
+      "exitCode": 0,
+      "logSha256": "2173a19a2dbebc2f7c273e5735284527dd61d00d22415458f2fe63a5cbd9b69e"
+    },
+    {
+      "name": "image-build",
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/gallery-comments-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:gallery-comments-20261024",
+        ".local/gallery-comments-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:44:39.055932+00:00",
+      "finishedAt": "2026-10-24T06:46:12.877758+00:00",
+      "exitCode": 0,
+      "logSha256": "ba501550a6feaae9f4bfba69c3a3d426a62cecb9777d96d4c2061b87fa40b0a3"
+    },
+    {
+      "name": "image-check",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/gallery-comments-deploy-20261024/playwright.config.ts"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:46:30.006311+00:00",
+      "finishedAt": "2026-10-24T06:47:08.543623+00:00",
+      "exitCode": 0,
+      "logSha256": "4ebf42229e88b18470849d090ed52900c849daa74248c956af05b02831fed2b8"
+    },
+    {
+      "name": "image-catalog-check",
+      "command": [
+        "node",
+        ".local/gallery-comments-deploy-20261024/catalog.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:47:07.513808+00:00",
+      "finishedAt": "2026-10-24T06:47:10.724598+00:00",
+      "exitCode": 0,
+      "logSha256": "9397b0511862e9f88eff47050a3074c72e2859074c2819d11b7c1c870fb669e0"
+    },
+    {
+      "name": "image-visual-check",
+      "command": [
+        "node",
+        ".local/gallery-comments-deploy-20261024/visual.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:46:47.760446+00:00",
+      "finishedAt": "2026-10-24T06:46:49.961242+00:00",
+      "exitCode": 0,
+      "logSha256": "f4396d62eb10390d0f3595cdd637ef1f63a16eccc8da482a562cde932159dba3"
+    },
+    {
+      "name": "archive",
+      "command": [
+        "python3",
+        ".local/gallery-comments-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:46:26.574440+00:00",
+      "finishedAt": "2026-10-24T06:46:39.295196+00:00",
+      "exitCode": 0,
+      "logSha256": "bd4ce9560ad31dbe9d42bf276d2c6fa06d79632e7ad38bc98715c59cafa35700"
+    },
+    {
+      "name": "production-verify-run",
+      "command": [
+        "python3",
+        ".local/gallery-comments-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:48:11.303052+00:00",
+      "finishedAt": "2026-10-24T06:48:14.229037+00:00",
+      "exitCode": 0,
+      "logSha256": "aa3b73ef4d0f4fec72ac0f15599c2df7dfbf23979f2fb38dca817f8c3ad5e27d"
+    },
+    {
+      "name": "production-check",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/gallery-comments-deploy-20261024/playwright.config.ts"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:48:11.303064+00:00",
+      "finishedAt": "2026-10-24T06:48:58.481064+00:00",
+      "exitCode": 0,
+      "logSha256": "ccdbd131364bcbe17ddac52cf21ecc2b2b733ef081fe00c04871b5dcbc08179f"
+    },
+    {
+      "name": "production-catalog-check",
+      "command": [
+        "node",
+        ".local/gallery-comments-deploy-20261024/catalog.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:48:11.303060+00:00",
+      "finishedAt": "2026-10-24T06:48:16.238078+00:00",
+      "exitCode": 0,
+      "logSha256": "9397b0511862e9f88eff47050a3074c72e2859074c2819d11b7c1c870fb669e0"
+    },
+    {
+      "name": "production-visual-check",
+      "command": [
+        "node",
+        ".local/gallery-comments-deploy-20261024/visual.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:50:07.769268+00:00",
+      "finishedAt": "2026-10-24T06:50:11.941794+00:00",
+      "exitCode": 0,
+      "logSha256": "ef2557c291ed32bdc1a284f28a97cc2920ec870ba83008d385c3fc5a9a6e4d78"
+    }
+  ],
+  "browserStats": {
+    "image": {
+      "startTime": "2026-10-24T06:46:30.711Z",
+      "duration": 37818.08,
+      "expected": 24,
+      "skipped": 3,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "production": {
+      "startTime": "2026-10-24T06:48:11.911Z",
+      "duration": 46557.123999999996,
+      "expected": 24,
+      "skipped": 3,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "startedAt": "2026-10-24T06:47:30.918012+00:00",
+      "finishedAt": "2026-10-24T06:47:31.880667+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "startedAt": "2026-10-24T06:47:31.881039+00:00",
+      "finishedAt": "2026-10-24T06:47:40.870321+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "startedAt": "2026-10-24T06:47:40.870928+00:00",
+      "finishedAt": "2026-10-24T06:47:53.154634+00:00",
+      "exitCode": 0,
+      "logSha256": "c4bdab9a52b1d2837671de3abf617a8204770a16270ac30222072b81685b7614"
+    },
+    {
+      "step": "deploy",
+      "startedAt": "2026-10-24T06:47:53.155820+00:00",
+      "finishedAt": "2026-10-24T06:47:59.925927+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "visualReview": "Built image and deployed mobile/desktop gallery screenshots visually inspected. Mobile bottom input, desktop unchanged. Catalog390/1280 four states passed on image and production. Initial WebKit screenshot captured incomplete image decoding; final screenshot waits for image.decode and two animation frames. Rechecked final mobile image with full media rendered. Initial capture preserved locally.",
+  "screenshots": {
+    "docs/audit/gallery-comments-live-mobile-20261024.png": "6a214e1d3599b01d05d83eda34f3f06ceccd4bf63b95e727cc2e7524d34824b9",
+    "docs/audit/gallery-comments-live-desktop-20261024.png": "100fb3b494967a06ae840532077cae1ad90b9a90b6a81d5d375221a8f914bf1f"
+  },
+  "retry": {
+    "scope": "Verification helper only; no product/build change",
+    "reason": "Catalog helper filename substitution produced a JavaScript syntax error before launching a browser. Fixed path expression, preserved first failure and passed on image/production.",
+    "firstRun": {
+      "command": [
+        "node",
+        ".local/gallery-comments-deploy-20261024/catalog.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:46:47.760446+00:00",
+      "finishedAt": "2026-10-24T06:46:47.803937+00:00",
+      "exitCode": 1,
+      "logSha256": "b08d79309e0011c65b8a97ae0abe1a9bdd4f3bedcb9943a8cbe666e7210d7a6f"
+    }
+  },
+  "rollback": "/opt/crefans-backup-gallery-comments-20261024 holds previous env/image configuration; frontend-only restore. Backup private0600; permanent home SSH rule unchanged.",
+  "boundaries": [
+    "Production browser tests use preview fixture data or intercept API for service mutation scenarios. No real comments/messages created.",
+    "Real production API checks are read-only, signed out. No authenticated member posting test.",
+    "Software keyboard checked through simulated VisualViewport resize; no physical iPhone keyboard test.",
+    "Backend, worker, admin, DB, proxy and SSH unchanged; unselected PASS/signup work remains local."
+  ],
+  "documentationChecks": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:49:41.551575+00:00",
+      "finishedAt": "2026-10-24T06:49:42.550039+00:00",
+      "exitCode": 0,
+      "logSha256": "f17c4c346c5448ccc70f4bf8a5e69fdcfb720162f424d3227e0a13902d468570"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T06:49:42.573097+00:00",
+      "finishedAt": "2026-10-24T06:49:42.948632+00:00",
+      "exitCode": 0,
+      "logSha256": "4f2fb90ca62b0e0d54fe66fde8f28dddd919bc0a80963c9398d30a34a76bbb86"
+    }
+  ]
+}

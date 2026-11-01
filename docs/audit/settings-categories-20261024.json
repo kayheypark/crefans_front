@@ -1,0 +1,702 @@
+{
+  "task": "설정 상단에 공용 Chip/ChipRow 카테고리 필터 추가",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "기존 미커밋 변경 보존, 이번 제품 변경은 AccountPages.tsx와 account.module.css",
+  "baselineStatusSha256": "b6f32f45b49c653ef22c0ca979760daafa51baab7a518e3e7f297b6454bcc2aa",
+  "beforeSha256": {
+    "components/crefans/AccountPages.tsx": "f6487d08424d8fb8e7b96b685f7603275d97f69c5f672f40dd46886f6bb3ff1f",
+    "components/crefans/account.module.css": "59a1f00ac5c085b9b5057a0c7d860bf6dc23f051a401525baef0a507f5820db6",
+    "tests/crefans-account.test.cjs": "7b3f1625cc60babf3e9845e048cd8569217a00c94eec9a489198bbad1248754a"
+  },
+  "afterSha256": {
+    "components/crefans/AccountPages.tsx": "3ea10249470a5815652cacc3d04143624bd9ec769209ce93962db3c98bdaafe5",
+    "components/crefans/account.module.css": "e34f1b45bba4f81cbd0f00637e3762fe1f644fd6096b42dcf368f9bbb9086246",
+    "tests/crefans-account.test.cjs": "e854a27e0f6c1a6eb07de39d9920e5bf86b58230c99a553fbeae54aae707d379"
+  },
+  "at": "2026-10-24T09:15:00.163729+00:00",
+  "acceptance": [
+    "기존 탐색과 같은 Chip/ChipRow 사용 및 스타일 일치",
+    "전체 기본값, 각카테고리는 소속항목만 표시, 전체로복귀",
+    "로그아웃/회원탈퇴는 전체 또는 계정관리에서만 표시",
+    "모바일 칩 첫시작16px·화면끝까지 가로스크롤·한줄유지·가로넘침없음",
+    "서비스안내 모바일전용유지, PC전환시 전체복귀",
+    "설정모달/기존section딥링크 유지"
+  ],
+  "commands": [
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-account.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:11:19.261384+00:00",
+      "finishedAt": "2026-10-24T09:11:19.736989+00:00",
+      "exitCode": 0,
+      "logSha256": "84f287966365b3ffdfb7cfebc7d558f403fed3ab8740ff0a38f01326ac3ce9a3"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/chip-row.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:14:07.982696+00:00",
+      "finishedAt": "2026-10-24T09:14:08.244269+00:00",
+      "exitCode": 0,
+      "logSha256": "f98dbfd396a9bfb666221b31167bea81e46109049cbbd7740980b575ff951972"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:11:44.978585+00:00",
+      "finishedAt": "2026-10-24T09:11:45.549553+00:00",
+      "exitCode": 0,
+      "logSha256": "eb0b463c8972a0da028297168754c83e3785ef94a20a26a12199805dda949569"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:11:44.978585+00:00",
+      "finishedAt": "2026-10-24T09:11:49.875341+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    {
+      "command": [
+        "node",
+        ".local/settings-categories-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:12:24.574528+00:00",
+      "finishedAt": "2026-10-24T09:12:31.955605+00:00",
+      "exitCode": 1,
+      "logSha256": "829b0f5652237473fb6c14bec8c97c4f0eb58063dee0e65af95231918b383374"
+    },
+    {
+      "command": [
+        "node",
+        ".local/settings-categories-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:13:25.781064+00:00",
+      "finishedAt": "2026-10-24T09:13:58.522270+00:00",
+      "exitCode": 0,
+      "logSha256": "4d9addeb10e52411a15049032e58f406f9bf44fd93a245e2f187a763d54b4188"
+    }
+  ],
+  "results": {
+    "accountUnit": 12,
+    "chipRowUnit": 2,
+    "browserEnvironments": 12,
+    "browser": {
+      "startedAt": "2026-10-24T09:13:26.098Z",
+      "endedAt": "2026-10-24T09:13:58.514Z",
+      "exitCode": 0,
+      "records": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "width": 320,
+          "categoryCount": 6,
+          "initial": {
+            "left": 0,
+            "right": 320,
+            "firstLeft": 16,
+            "clientWidth": 320,
+            "scrollWidth": 704,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "width": 320,
+          "categoryCount": 6,
+          "initial": {
+            "left": 0,
+            "right": 320,
+            "firstLeft": 16,
+            "clientWidth": 320,
+            "scrollWidth": 704,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "width": 390,
+          "categoryCount": 6,
+          "initial": {
+            "left": 0,
+            "right": 390,
+            "firstLeft": 16,
+            "clientWidth": 390,
+            "scrollWidth": 704,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "prefix": "service",
+          "width": 390,
+          "categoryCount": 6,
+          "initial": {
+            "left": 0,
+            "right": 390,
+            "firstLeft": 16,
+            "clientWidth": 390,
+            "scrollWidth": 704,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "chromium767",
+          "prefix": "preview",
+          "width": 767,
+          "categoryCount": 6,
+          "initial": {
+            "left": 0,
+            "right": 767,
+            "firstLeft": 16,
+            "clientWidth": 767,
+            "scrollWidth": 767,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "chromium767",
+          "prefix": "service",
+          "width": 767,
+          "categoryCount": 6,
+          "initial": {
+            "left": 0,
+            "right": 767,
+            "firstLeft": 16,
+            "clientWidth": 767,
+            "scrollWidth": 767,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "chromium768",
+          "prefix": "preview",
+          "width": 768,
+          "categoryCount": 5,
+          "initial": {
+            "left": 190,
+            "right": 744,
+            "firstLeft": 190,
+            "clientWidth": 554,
+            "scrollWidth": 566,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "chromium768",
+          "prefix": "service",
+          "width": 768,
+          "categoryCount": 5,
+          "initial": {
+            "left": 190,
+            "right": 744,
+            "firstLeft": 190,
+            "clientWidth": 554,
+            "scrollWidth": 566,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "width": 1280,
+          "categoryCount": 5,
+          "initial": {
+            "left": 246,
+            "right": 906,
+            "firstLeft": 246,
+            "clientWidth": 660,
+            "scrollWidth": 660,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "width": 1280,
+          "categoryCount": 5,
+          "initial": {
+            "left": 246,
+            "right": 906,
+            "firstLeft": 246,
+            "clientWidth": 660,
+            "scrollWidth": 660,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "width": 390,
+          "categoryCount": 6,
+          "initial": {
+            "left": 0,
+            "right": 390,
+            "firstLeft": 16,
+            "clientWidth": 390,
+            "scrollWidth": 704,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "width": 390,
+          "categoryCount": 6,
+          "initial": {
+            "left": 0,
+            "right": 390,
+            "firstLeft": 16,
+            "clientWidth": 390,
+            "scrollWidth": 704,
+            "scrollLeft": 0,
+            "wrap": "nowrap"
+          },
+          "selected": {
+            "background": "rgb(239, 246, 255)",
+            "color": "rgb(37, 99, 235)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(37, 99, 235)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+            "minHeight": "40px"
+          },
+          "unselected": {
+            "background": "rgb(242, 244, 248)",
+            "color": "rgb(84, 91, 112)",
+            "padding": "9px 17px",
+            "border": "0px none rgb(84, 91, 112)",
+            "borderRadius": "999px",
+            "font": "14px / 22.4px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+            "minHeight": "40px"
+          },
+          "checks": [
+            "category filters",
+            "account actions",
+            "links",
+            "resize fallback",
+            "mouse drag without selection",
+            "keyboard activation",
+            "profile modal",
+            "deep link",
+            "explore style equality",
+            "no horizontal overflow"
+          ],
+          "errors": []
+        }
+      ]
+    },
+    "firstBrowserFailure": "드래그 직후 클릭억제 타이머가 해제되기 전에 키보드 입력을 합성해 선택이 억제됐다. 기존 ChipRow의 한 이벤트루프 억제 종료를 기다린 뒤 재검증해 통과. PC에서 항목이 모두 들어가면 가로스크롤이 불필요한 경우도 검증기가 허용하도록 조정. 공용컴포넌트 변경 없음.",
+    "visualReview": [
+      "mobile-all.png: 첫칩16px, 한줄카테고리 및 기존 전체폭 구분띠",
+      "webkit390-preview-account.png: 선택된 계정설정과 해당3항목",
+      "desktop-preview-account.png: PC선택카테고리/기존내용폭 유지"
+    ]
+  },
+  "artifacts": "/Users/ethan/repository/crefans_front/.local/settings-categories-20261024",
+  "scopeLimits": [
+    "로컬3010 검증",
+    "service는 GET API대역; 실회원 변경/외부발송 없음",
+    "모바일 브라우저 에뮬레이션·마우스드래그/키보드, 물리터치 기기검증 아님",
+    "운영 미배포·커밋/푸시 없음"
+  ],
+  "documentationChecks": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:15:00.195621+00:00",
+      "finishedAt": "2026-10-24T09:15:01.141366+00:00",
+      "exitCode": 0,
+      "logSha256": "0027fef555951ef493025549c942a65910d367b9debfa915b3aa0e32c98c1d08"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:15:01.166808+00:00",
+      "finishedAt": "2026-10-24T09:15:01.536862+00:00",
+      "exitCode": 0,
+      "logSha256": "e1649041d82b2b1993cc7f2ced27af345a3d018da19771a2a314c0d6f195eed5"
+    }
+  ]
+}

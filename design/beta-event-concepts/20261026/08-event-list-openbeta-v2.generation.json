@@ -1,0 +1,20 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: text-localization. Asset type: existing CREFANS event-list banner, exact minimal text edit. Edit target: the supplied wide 3:1 banner. Replace ONLY the first headline line '크레팬스 베타 1기' with the exact Korean text '크레팬스 오픈베타'. The first line must read 크레팬스 오픈베타, with a space between 크레팬스 and 오픈베타, and no 1기 anywhere. Preserve the second line '참여 감사 이벤트' exactly. Preserve the small bottom-right sentence '* 한정판 배지와 참여 혜택을 확인해 보세요.' exactly. Preserve the original deep-navy heavy Korean sans-serif typography, text sizing and line alignment as closely as possible; fit the renamed first line within the existing text area, without wrapping. Keep the lavender star badge, ribbon gift card, exactly two green beans, sparkles, small right chevron, pastel lavender-to-mint gradient, lighting, rounded corners, white outer margin, composition and aspect ratio unchanged. Do not redesign or add any words or objects. Output a clean finished banner at 2172x724 (3:1) if possible.",
+  "source": "design/beta-event-concepts/20261026/07-event-list-banner-v1.png",
+  "original": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-4afbbbaa-57a1-46f4-964c-245c90ad4838.png",
+  "createdAt": "2026-10-26T12:10:29.271Z",
+  "output": "design/beta-event-concepts/20261026/08-event-list-openbeta-v2.png",
+  "sha256": "287f903eaf5a450103bb3ef62dc47109f53d36ac1839b8e0b8b5a312ae08d98a",
+  "review": [
+    "First line reads 크레팬스 오픈베타",
+    "Second line, footnote, illustrations and 3:1 composition preserved"
+  ],
+  "web": {
+    "output": "public/brand/events/beta-first/list-banner-openbeta-v2.webp",
+    "width": 2172,
+    "height": 724,
+    "sha256": "9c04edd2a1781c19915c4fc0a1107a64ec77927249759f2f016db887575f4696",
+    "conversion": "Sharp: 2171x724 generated output normalized to 2172x724, WebP quality92 effort6"
+  }
+}

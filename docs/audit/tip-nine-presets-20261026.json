@@ -1,0 +1,53 @@
+{
+  "at": "2026-10-26T12:29:23.238751+09:00",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "state": "uncommitted; not deployed",
+  "sha256": "daf544ebc0fac1e28181d58ce4a7e387116c7e6c0c2566c811709013124327e7",
+  "checks": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 348
+  },
+  "browser": {
+    "command": "node /tmp/tip-nine.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "width": 320,
+        "presets": 9,
+        "thirdRow": [
+          1000,
+          5000,
+          10000
+        ],
+        "imagesLoaded": true,
+        "selection": true,
+        "insufficientBalanceDisabled": true
+      },
+      {
+        "width": 390,
+        "presets": 9,
+        "thirdRow": [
+          1000,
+          5000,
+          10000
+        ],
+        "imagesLoaded": true,
+        "selection": true,
+        "insufficientBalanceDisabled": true
+      },
+      {
+        "width": 1280,
+        "presets": 9,
+        "thirdRow": [
+          1000,
+          5000,
+          10000
+        ],
+        "imagesLoaded": true,
+        "selection": true,
+        "insufficientBalanceDisabled": true
+      }
+    ]
+  }
+}

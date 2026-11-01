@@ -1,0 +1,187 @@
+{
+  "at": "2026-10-26T14:06:21.856050+00:00",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirty": true,
+  "release": "notice-category-20261026",
+  "file": "components/crefans/CommonPages.tsx",
+  "sha256": "e768f84180d328fc7c2461cce285763b9513b1516b518c3587efaab77d672987",
+  "unitTests": {
+    "passed": 8,
+    "command": "node --test tests/crefans-common.test.cjs"
+  },
+  "build": {
+    "startedAt": "2026-10-26T14:03:11.704050+00:00",
+    "finishedAt": "2026-10-26T14:04:58.244968+00:00",
+    "command": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--label",
+      "crefans.release=notice-category-20261026",
+      "--label",
+      "crefans.source-sha256=97648b5e38ccadc19dae902b4023b9a2e4937166e8af0a6c2a59515e907f347a",
+      "-t",
+      "crefans-front:notice-category-20261026",
+      "-f",
+      "infra/platform/Dockerfile",
+      "."
+    ],
+    "exitCode": 0,
+    "sourceManifestSha256": "97648b5e38ccadc19dae902b4023b9a2e4937166e8af0a6c2a59515e907f347a",
+    "logSha256": "3f07db80c5c4d9310fc04950792b15b409c56a9e9f132aa558a408df7304bb85"
+  },
+  "deployment": {
+    "startedAt": "2026-10-26T14:05:49.608765+00:00",
+    "finishedAt": "2026-10-26T14:05:55.157861+00:00",
+    "exitCode": 0,
+    "scope": "frontend only",
+    "backup": "/opt/crefans-backup-notice-category-20261026"
+  },
+  "production": {
+    "at": "2026-10-26T14:05:55.235811+00:00",
+    "http": [
+      {
+        "url": "https://beta.crefans.com/service/events",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/events/beta-first",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/events",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/events/beta-first",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/signup",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/bootstrap",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/beans/wallet",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "expected": 200
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "e6c5c50667ec5ac539e1f2abcf9e800193c582415742d319e11a0d6b32c96e70",
+        "image": "sha256:ea9f0926a5ff6847270c0309e47b24d1ca4625cae2cf7144f95c29fd8f70fa32",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      }
+    },
+    "runningSourceHashes": {
+      "matched": true,
+      "files": 646
+    },
+    "unchangedRuntimeFlags": {
+      "APP_RELEASE": "promotion-payout-20261026",
+      "BETA_MODE": "true",
+      "BANK_PAYOUTS_ENABLED": "false",
+      "BEAN_LIVE_PAYMENTS_APPROVED": "false"
+    }
+  },
+  "browser": [
+    {
+      "width": 390,
+      "base": "preview",
+      "notices": 2,
+      "passed": true
+    },
+    {
+      "width": 390,
+      "base": "service",
+      "notices": 1,
+      "passed": true
+    },
+    {
+      "width": 1280,
+      "base": "preview",
+      "notices": 2,
+      "passed": true
+    },
+    {
+      "width": 1280,
+      "base": "service",
+      "notices": 1,
+      "passed": true
+    }
+  ],
+  "scope": "Frontend category display/search only; pinned importance preserved; no DB/API changes"
+}

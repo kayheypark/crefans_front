@@ -1,0 +1,9 @@
+.viewport{display:block;min-width:0;max-width:100%;overflow:hidden;vertical-align:middle}
+.track{display:inline-block;width:max-content;max-width:none;white-space:nowrap;vertical-align:top}
+.viewport[data-overflow=true]{text-align:left}
+.viewport[data-overflow=true]>.track{animation:marqueeText var(--marquee-duration) linear infinite alternate}
+.viewport:hover>.track,a:focus-visible .track,button:focus-visible .track{animation-play-state:paused}
+.viewport[data-paused=true]{overflow:visible;text-align:inherit}
+.viewport[data-paused=true]>.track{width:auto;max-width:100%;white-space:normal;overflow-wrap:anywhere;animation:none;transform:none}
+@keyframes marqueeText{0%,12%{transform:translateX(0)}88%,100%{transform:translateX(var(--marquee-end))}}
+@media(prefers-reduced-motion:reduce){.viewport{overflow:visible;text-align:inherit}.viewport>.track{width:auto;max-width:100%;white-space:normal;overflow-wrap:anywhere;animation:none!important;transform:none}}

@@ -1,0 +1,411 @@
+{
+  "verifiedAt": "2026-10-26T12:22:26.034861+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/bean-support",
+  "workingTree": "Existing dirty files preserved, no new commit",
+  "scope": "Remove only right chevron from current event banner; keep text, artwork and detail navigation",
+  "sourceSha256": {
+    "lib/content/events.ts": "38dcb8f2624f7308b86d2ec9350b36a35fafab43d75595d2089d16ec4aa95da4",
+    "public/brand/events/beta-first/list-banner-openbeta-v3.webp": "32c479d51578f469622bf1b33748df54dea1ed46b030e751f60dbb1c1d63f084",
+    "public/brand/events/beta-first/list-banner-openbeta-v3.source.json": "b2ae94f0b6909814001625a576938111321f141f0004ff03c34567d0ee456328",
+    "docs/design-system.md": "3c917bd9fdabf5be4db2bc8a2644f472cf42a162b3b2051a9c6bc20670303c4b",
+    "PROGRESS.md": "b995250b41174b0c31be987a41d772d4206629d3a9b7fca1cf3062cbd9dbe463"
+  },
+  "checks": {
+    "command": "npm run check",
+    "startedAt": "2026-10-26T12:16:27.414500+00:00",
+    "finishedAt": "2026-10-26T12:16:40.341833+00:00",
+    "exitCode": 0,
+    "passedTests": 353,
+    "logSha256": "7bccc1e785f00b7da6f07f593fd8dcb81f01293f1e972a88f6a0e8a3896fbf15"
+  },
+  "build": {
+    "command": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--label",
+      "crefans.release=event-banner-clean-20261026",
+      "--label",
+      "crefans.source-sha256=3f1dea1c96963709c607bde363c845dc05865b9b6d8f2ab3c42cdd9ee324b4de",
+      "-t",
+      "crefans-front:event-banner-clean-20261026",
+      "-f",
+      "infra/platform/Dockerfile",
+      "."
+    ],
+    "startedAt": "2026-10-26T12:17:04.868305+00:00",
+    "finishedAt": "2026-10-26T12:18:48.800623+00:00",
+    "exitCode": 0,
+    "sourceManifestSha256": "3f1dea1c96963709c607bde363c845dc05865b9b6d8f2ab3c42cdd9ee324b4de"
+  },
+  "image": {
+    "tool": "built-in image_gen",
+    "savedSource": "design/beta-event-concepts/20261026/09-event-list-no-chevron-v3.png",
+    "prompt": "design/beta-event-concepts/20261026/09-event-list-no-chevron-v3.generation.json",
+    "manualReview": [
+      "Chevron absent",
+      "Headline, second line, footnote and artwork visually retained"
+    ],
+    "runtimeSha256": "32c479d51578f469622bf1b33748df54dea1ed46b030e751f60dbb1c1d63f084",
+    "httpHashMatched": true
+  },
+  "browser": {
+    "method": "Chrome CUA direct checks, not Playwright test-runner execution",
+    "observations": [
+      {
+        "phase": "local",
+        "banner": {
+          "alt": "크레팬스 오픈베타 감사 이벤트",
+          "height": 724,
+          "href": "/preview/events/beta-first",
+          "loaded": true,
+          "src": "/brand/events/beta-first/list-banner-openbeta-v3.webp",
+          "width": 2172
+        },
+        "h1": "이벤트 안내",
+        "oldNamePresent": false,
+        "rewards": [],
+        "scrollWidth": 390,
+        "title": "이벤트 안내 · crefans",
+        "url": "http://127.0.0.1:3010/preview/events",
+        "width": 390
+      },
+      {
+        "phase": "local",
+        "banner": {
+          "alt": "크레팬스 오픈베타 감사 이벤트",
+          "height": 724,
+          "href": "/preview/events/beta-first",
+          "loaded": true,
+          "src": "/brand/events/beta-first/list-banner-openbeta-v3.webp",
+          "width": 2172
+        },
+        "h1": "이벤트 안내",
+        "oldNamePresent": false,
+        "rewards": [],
+        "scrollWidth": 390,
+        "title": "이벤트 안내 · crefans",
+        "url": "http://127.0.0.1:3010/preview/events",
+        "width": 390
+      },
+      {
+        "phase": "local",
+        "banner": {
+          "alt": "크레팬스 오픈베타 감사 이벤트",
+          "height": 724,
+          "href": "/preview/events/beta-first",
+          "loaded": true,
+          "src": "/brand/events/beta-first/list-banner-openbeta-v3.webp",
+          "width": 2172
+        },
+        "h1": "이벤트 안내",
+        "oldNamePresent": false,
+        "rewards": [],
+        "scrollWidth": 1280,
+        "title": "이벤트 안내 · crefans",
+        "url": "http://127.0.0.1:3010/preview/events",
+        "width": 1280
+      },
+      {
+        "phase": "production",
+        "banner": {
+          "alt": "크레팬스 오픈베타 감사 이벤트",
+          "height": 724,
+          "href": "/preview/events/beta-first",
+          "loaded": true,
+          "src": "/brand/events/beta-first/list-banner-openbeta-v3.webp",
+          "width": 2172
+        },
+        "h1": "이벤트 안내",
+        "oldNamePresent": false,
+        "rewards": [],
+        "scrollWidth": 390,
+        "title": "이벤트 안내 · crefans",
+        "url": "https://beta.crefans.com/preview/events",
+        "width": 390
+      },
+      {
+        "phase": "production",
+        "banner": null,
+        "campaignTitle": "크레팬스 오픈베타",
+        "h1": "크레팬스 오픈베타 감사 이벤트",
+        "oldNamePresent": false,
+        "rewards": [
+          {
+            "color": "rgb(8, 13, 59)",
+            "overflow": false,
+            "size": "20.764px",
+            "text": "원년멤버 한정판 뱃지"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "overflow": false,
+            "size": "20.764px",
+            "text": "주목할 크리에이터\n광고상품 30일"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "overflow": false,
+            "size": "20.764px",
+            "text": "프로모션 100콩"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "overflow": false,
+            "size": "20.764px",
+            "text": "배민 1만원 상품권"
+          }
+        ],
+        "scrollWidth": 390,
+        "title": "크레팬스 오픈베타 감사 이벤트 · crefans",
+        "url": "https://beta.crefans.com/preview/events/beta-first",
+        "width": 390
+      },
+      {
+        "phase": "production",
+        "banner": {
+          "alt": "크레팬스 오픈베타 감사 이벤트",
+          "height": 724,
+          "href": "/preview/events/beta-first",
+          "loaded": true,
+          "src": "/brand/events/beta-first/list-banner-openbeta-v3.webp",
+          "width": 2172
+        },
+        "h1": "이벤트 안내",
+        "oldNamePresent": false,
+        "rewards": [],
+        "scrollWidth": 1280,
+        "title": "이벤트 안내 · crefans",
+        "url": "https://beta.crefans.com/preview/events",
+        "width": 1280
+      },
+      {
+        "phase": "production",
+        "banner": {
+          "alt": "크레팬스 오픈베타 감사 이벤트",
+          "height": 724,
+          "href": "/service/events/beta-first",
+          "loaded": false,
+          "src": "/brand/events/beta-first/list-banner-openbeta-v3.webp",
+          "width": 2172
+        },
+        "h1": "이벤트 안내",
+        "oldNamePresent": false,
+        "rewards": [],
+        "scrollWidth": 1280,
+        "title": "이벤트 안내 · crefans",
+        "url": "https://beta.crefans.com/service/events",
+        "width": 1280
+      },
+      {
+        "phase": "production",
+        "banner": {
+          "alt": "크레팬스 오픈베타 감사 이벤트",
+          "height": 724,
+          "href": "/service/events/beta-first",
+          "loaded": true,
+          "src": "/brand/events/beta-first/list-banner-openbeta-v3.webp",
+          "width": 2172
+        },
+        "h1": "이벤트 안내",
+        "oldNamePresent": false,
+        "rewards": [],
+        "scrollWidth": 390,
+        "title": "이벤트 안내 · crefans",
+        "url": "https://beta.crefans.com/service/events",
+        "width": 390
+      },
+      {
+        "phase": "production",
+        "banner": null,
+        "campaignTitle": "크레팬스 오픈베타",
+        "h1": "크레팬스 오픈베타 감사 이벤트",
+        "oldNamePresent": false,
+        "rewards": [
+          {
+            "color": "rgb(8, 13, 59)",
+            "overflow": false,
+            "size": "20.764px",
+            "text": "원년멤버 한정판 뱃지"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "overflow": false,
+            "size": "20.764px",
+            "text": "주목할 크리에이터\n광고상품 30일"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "overflow": false,
+            "size": "20.764px",
+            "text": "프로모션 100콩"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "overflow": false,
+            "size": "20.764px",
+            "text": "배민 1만원 상품권"
+          }
+        ],
+        "scrollWidth": 390,
+        "title": "크레팬스 오픈베타 감사 이벤트 · crefans",
+        "url": "https://beta.crefans.com/service/events/beta-first",
+        "width": 390
+      },
+      {
+        "phase": "production",
+        "banner": {
+          "alt": "크레팬스 오픈베타 감사 이벤트",
+          "height": 724,
+          "href": "/service/events/beta-first",
+          "loaded": true,
+          "src": "/brand/events/beta-first/list-banner-openbeta-v3.webp",
+          "width": 2172
+        },
+        "h1": "이벤트 안내",
+        "oldNamePresent": false,
+        "rewards": [],
+        "scrollWidth": 1280,
+        "title": "이벤트 안내 · crefans",
+        "url": "https://beta.crefans.com/service/events",
+        "width": 1280
+      }
+    ],
+    "screenshots": [
+      {
+        "path": ".local/event-banner-clean-20261026/banner-clean-local390.jpg",
+        "sha256": "609260d36c35b3e4c70d77ec2c77c2674036598e800d06b6c46170b809eeae50"
+      },
+      {
+        "path": ".local/event-banner-clean-20261026/banner-clean-local1280.jpg",
+        "sha256": "332163744aaea0965137ca565f833059935651b6cd6e8a727ebdde422180d811"
+      },
+      {
+        "path": ".local/event-banner-clean-20261026/banner-clean-production390.jpg",
+        "sha256": "83862b2f9422773c188774b28f808b2993c104f55d9f88019c3e9dde0c90ba6c"
+      },
+      {
+        "path": ".local/event-banner-clean-20261026/banner-clean-production1280.jpg",
+        "sha256": "40b4db7bb7ac8b8c05b2311c5c6edaf4770c4c9f2ca3e496de7ac0d068520889"
+      }
+    ],
+    "productionConsoleErrors": []
+  },
+  "deployment": {
+    "startedAt": "2026-10-26T12:19:19.828701+00:00",
+    "finishedAt": "2026-10-26T12:19:28.239399+00:00",
+    "exitCode": 0,
+    "release": "event-banner-clean-20261026",
+    "image": "crefans-front:event-banner-clean-20261026",
+    "runtimeImageId": "sha256:d298d16969c05dc7716493fd8f7b1c757d6ff033c7eac1c52681fcaba03eec27",
+    "sourceManifestSha256": "3f1dea1c96963709c607bde363c845dc05865b9b6d8f2ab3c42cdd9ee324b4de",
+    "sourceFilesMatched": 646,
+    "changedSourceFiles": [
+      "lib/content/events.ts",
+      "public/brand/events/beta-first/list-banner-openbeta-v3.webp",
+      "public/brand/events/beta-first/list-banner-openbeta-v3.source.json"
+    ],
+    "otherContainersPreserved": true,
+    "states": {
+      "crefans-beta-frontend-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": false
+      },
+      "crefans-beta-admin-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-api-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-worker-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-proxy-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-database-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      }
+    },
+    "http": [
+      {
+        "path": "/preview/events",
+        "status": 200
+      },
+      {
+        "path": "/preview/events/beta-first",
+        "status": 200
+      },
+      {
+        "path": "/service/events",
+        "status": 200
+      },
+      {
+        "path": "/service/events/beta-first",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/color-cards-v1/badge.webp",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/color-cards-v1/crown.webp",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/color-cards-v1/beans.webp",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/color-cards-v1/gift-card.webp",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first/list-banner-openbeta-v3.webp",
+        "status": 200
+      },
+      {
+        "path": "/fonts/pretendard/Pretendard-Black.subset.woff2",
+        "status": 200
+      },
+      {
+        "path": "/fonts/pretendard/Pretendard-Regular.subset.woff2",
+        "status": 200
+      },
+      {
+        "path": "/api/v1/health",
+        "status": 200
+      }
+    ],
+    "backup": "/opt/crefans-backup-event-banner-clean-20261026",
+    "archiveBytes": 579725295,
+    "archiveSha256": "485ebc2cf1188ae5d040e3f072fec6421a32dfd824e325477b6ae5fae30fb9bb",
+    "rootFsLayersMatched": true,
+    "noDatabaseOrBackendChanges": true
+  },
+  "agentsUnchanged": true,
+  "boundaries": [
+    "No pixel-identical artwork claim; manual visual review",
+    "No changes to event benefits or backend/database"
+  ]
+}

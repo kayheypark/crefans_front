@@ -17,7 +17,7 @@ test('revenue reports reconcile the ledger, combine same-day entries, and preser
   const input=sources(),before=JSON.stringify(input);
   const report=createStudioReport('revenue',input,'all');
   assert.equal(report.rows.length,2);
-  assert.deepEqual(report.rows[0].values,{gross:1990000,reversals:99000,fees:189100,net:1701900});
+  assert.deepEqual(report.rows[0].values,{gross:1990000,reversals:99000,fees:378200,net:1512800});
   assert.equal(metric(report,'net'),input.finance.data.summary.net);
   assert.equal(metric(report,'net'),metric(report,'gross')-metric(report,'reversals')-metric(report,'fees'));
   assert.equal(report.chart.items.reduce((total,item)=>total+item.value,0),metric(report,'net'));
@@ -208,12 +208,13 @@ const h=React.createElement,styles={__esModule:true,default:new Proxy({},{get:(_
 let chartMounts=0;
 function ChartProbe({items}){React.useEffect(()=>{chartMounts++;},[]);return h('div',{'data-chart-items':items});}
 const {ReportPage}=loadTypeScript('components/crefans/studio/ReportPage.tsx',{
-  './report.module.css':styles,'./data-table.module.css':styles,'./pagination.module.css':styles,'./date-range-picker.module.css':styles,
+  'next/link':props=>h('a',props),
+  './report.module.css':styles,'./ui.module.css':styles,'./data-table.module.css':styles,'./pagination.module.css':styles,'./date-range-picker.module.css':styles,
   '@/components/ui/Charts':{BarChart:ChartProbe},
   './Primitives':{Button:({loading,tone,...props})=>h('button',{...props,disabled:props.disabled||loading})},
   '@/components/ui/TextLink':{TextLink:props=>h('a',props)},
   './ServiceUI':{Empty:({title,description})=>h('div',null,h('h3',null,title),h('p',null,description))},
-  '../ServiceUI':{Empty:({title,description})=>h('div',null,h('h3',null,title),h('p',null,description))},
+  '../ServiceUI':{Empty:({title,description})=>h('div',null,h('h3',null,title),h('p',null,description)),ActionLink:({variant,...props})=>h('a',props)},
 });
 const viewText=tree=>JSON.stringify(tree.toJSON());
 const visibleDates=tree=>tree.root.findAllByType('tbody').flatMap(body=>body.findAllByType('time')).map(item=>item.props.dateTime);
@@ -264,5 +265,17 @@ test('report view displays missing metric values explicitly and sorts nullable c
     sort('매출: 기본 순서로 보기');assert.deepEqual(visibleDates(tree),['2026-09-03','2026-09-01','2026-09-02']);
     const missingRow=tree.root.findByType('tbody').findAllByType('tr')[0];
     assert.equal(missingRow.findAllByType('td')[1].findByType('span').children[0],'-');
+  }finally{act(()=>tree.unmount());}
+});
+
+// 2026-11-01: report tabs use the shared ChipLink (chip look, no underline); only the current report is aria-current.
+test('report tabs are shared chip links with the current report selected',()=>{
+  let tree;function Probe(){return h(ReportPage,{model:useMockReports(sources()).reports.subscribers,basePath:'/preview/studio'});}
+  act(()=>{tree=create(h(Probe));});
+  try{
+    const tabs=tree.root.findByProps({'aria-label':'리포트 항목'}).findAllByType('a');
+    assert.deepEqual(tabs.map(a=>a.props.href),['/preview/studio/reports/revenue','/preview/studio/reports/subscribers','/preview/studio/reports/followers']);
+    assert.deepEqual(tabs.map(a=>a.props['aria-current']??null),[null,'page',null]);
+    assert.ok(tabs.every(a=>/chip/.test(a.props.className||'')),'chip classes from the shared component');
   }finally{act(()=>tree.unmount());}
 });

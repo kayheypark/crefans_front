@@ -1,0 +1,8 @@
+{
+  "createdAt": "2026-10-24",
+  "method": "image_gen__imagegen",
+  "transparent_background": true,
+  "asset": "public/brand/verified-creator-v1.png",
+  "prompt": "Use case: logo-brand. Asset type: production UI icon for the Korean creator membership platform crefans, displayed immediately to the right of a creator nickname at 16 to 22 CSS pixels. Create ONE standalone verified-creator badge, a clean flat saturated royal blue (#2861EF) eight-lobed rounded seal with a bold centered white check mark. The check must be crisp, optically balanced and highly legible at tiny size; wide strokes with subtly rounded ends. Front view, perfectly centered, square canvas, badge occupies about 92% of the canvas. Genuine transparent alpha background outside the seal. Flat solid fills, smooth anti-aliased contour, polished simple app icon. No text, no letters, no additional symbols, no outline rings, no metallic effects, no bevel, no 3D, no gradients, no shadow, no mockup, no other objects. Export the single icon with transparent background.",
+  "postProcessing": "None; original generated PNG copied without editing."
+}

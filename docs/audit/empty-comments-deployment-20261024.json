@@ -1,0 +1,613 @@
+{
+  "recordedAt": "2026-10-24T07:40:18.622680+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/beta-signup",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "Uncommitted changes retained. Only two selected runtime files deployed; no commit, merge or push.",
+  "scope": {
+    "at": "2026-10-24T07:36:19.120885+00:00",
+    "baselineFilesMatched": 499,
+    "changed": [
+      "components/crefans/SocialPages.tsx",
+      "components/crefans/social.module.css"
+    ],
+    "change": "Empty comment copy to 댓글이 없습니다 and mobile-only center alignment scoped to comment section",
+    "excluded": [
+      "PASS signup deferred work and unrelated dirty files"
+    ],
+    "preserved": "Backend/worker/admin/database/proxy and SSH rules"
+  },
+  "image": {
+    "at": "2026-10-24T07:38:58.819046+00:00",
+    "tag": "crefans-front:empty-comments-20261024",
+    "id": "sha256:8854fb3e6dff6098030368060670371fa2792dae2fed7d869bddd103cd1a96b1",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 499,
+    "archiveSha256": "7d6c67fce0a9871c0111c9f6ecb25c49dd81eb015cdc0f7a1cb918e7b2dcca8d",
+    "archiveBytes": 514601925
+  },
+  "production": {
+    "at": "2026-10-24T07:39:50.298559+00:00",
+    "runtimeFilesMatched": 499,
+    "runtime": {
+      "crefans-beta-api-1": {
+        "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-worker-1": {
+        "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+        "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-frontend-1": {
+        "id": "7a5b2e8b7fb2c42142fc29e4131e4131925dfdbff682ecb1bd9fc14582fd2a43",
+        "image": "sha256:8854fb3e6dff6098030368060670371fa2792dae2fed7d869bddd103cd1a96b1",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-admin-1": {
+        "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+        "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      }
+    },
+    "http": [
+      {
+        "url": "https://beta.crefans.com/preview/creator/haneul",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/post/moka-first-shoot",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/login",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200
+      }
+    ]
+  },
+  "baseline": "crefans-front:gallery-comments-20261024; all499 runtime files matched before deployment",
+  "releaseManifest": {
+    "path": ".local/empty-comments-deploy-20261024/release.json",
+    "sha256": "88edc8a6e777c382a610c00e1c3ac7bd043d7e7d55dc19f0443261acbf697e24",
+    "files": 499
+  },
+  "sourceSha256": {
+    "components/crefans/SocialPages.tsx": "cf07c60aa65c594e05af41ed87c68b2fc6a1e15617530f46f2e9c4f86ea5d55b",
+    "components/crefans/social.module.css": "a548a85375c1ef2c842aafd716c1783dd7088facc458b201ce8ddec37f117b25"
+  },
+  "checks": [
+    {
+      "name": "before-check",
+      "command": [
+        "node",
+        ".local/empty-comments-deploy-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T07:35:30.482520+00:00",
+      "finishedAt": "2026-10-24T07:35:37.638222+00:00",
+      "exitCode": 0,
+      "logSha256": "8f89752d3854c20a5f4ec4b46c4b8567309c9f2abf288de728390657ba4f2d5a"
+    },
+    {
+      "name": "local-check",
+      "command": [
+        "node",
+        ".local/empty-comments-deploy-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T07:36:15.453936+00:00",
+      "finishedAt": "2026-10-24T07:36:22.381445+00:00",
+      "exitCode": 0,
+      "logSha256": "cf1eda8c79c04a570b0e56ebd63f1c685386cb07ab6424675873b3a2e45ce9b6"
+    },
+    {
+      "name": "prepare",
+      "command": [
+        "python3",
+        ".local/empty-comments-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T07:36:16.670831+00:00",
+      "finishedAt": "2026-10-24T07:36:19.127435+00:00",
+      "exitCode": 0,
+      "logSha256": "448aa7cb4f2dd22cd4717c92ddfa3d8a059bc159cfef077142ecc145eee1f912"
+    },
+    {
+      "name": "image-build",
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/empty-comments-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:empty-comments-20261024",
+        ".local/empty-comments-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T07:36:50.748723+00:00",
+      "finishedAt": "2026-10-24T07:38:25.202361+00:00",
+      "exitCode": 0,
+      "logSha256": "9fa176950fb85f5a1df23b2cc3e431fc9515d129578adb8f2745bfd9bf49e567"
+    },
+    {
+      "name": "image-check",
+      "command": [
+        "node",
+        ".local/empty-comments-deploy-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T07:38:50.710121+00:00",
+      "finishedAt": "2026-10-24T07:38:57.967535+00:00",
+      "exitCode": 0,
+      "logSha256": "54e5c6052ed22d59a6b307348adc5a770a923a2690f3a25215b8ec1e66098e0d"
+    },
+    {
+      "name": "archive",
+      "command": [
+        "python3",
+        ".local/empty-comments-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T07:38:47.461358+00:00",
+      "finishedAt": "2026-10-24T07:38:58.824566+00:00",
+      "exitCode": 0,
+      "logSha256": "bd4ce9560ad31dbe9d42bf276d2c6fa06d79632e7ad38bc98715c59cafa35700"
+    },
+    {
+      "name": "production-verify-run",
+      "command": [
+        "python3",
+        ".local/empty-comments-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T07:39:50.254784+00:00",
+      "finishedAt": "2026-10-24T07:39:52.883137+00:00",
+      "exitCode": 0,
+      "logSha256": "aa3b73ef4d0f4fec72ac0f15599c2df7dfbf23979f2fb38dca817f8c3ad5e27d"
+    },
+    {
+      "name": "production-check",
+      "command": [
+        "node",
+        ".local/empty-comments-deploy-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T07:39:50.254786+00:00",
+      "finishedAt": "2026-10-24T07:39:59.612725+00:00",
+      "exitCode": 0,
+      "logSha256": "b1eacbbe502e82817073214c7bc420532f0eb3589468bb06d962dab568d40deb"
+    }
+  ],
+  "browserResults": {
+    "before": {
+      "at": "2026-10-24T07:35:37.630Z",
+      "origin": "http://127.0.0.1:3010",
+      "results": [
+        {
+          "name": "chromium320",
+          "detail": {
+            "align": "start",
+            "centerDelta": 43.65625,
+            "width": 288
+          },
+          "inline": {
+            "align": "start",
+            "centerDelta": 39.65625,
+            "width": 280
+          },
+          "gallery": {
+            "align": "start",
+            "centerDelta": 39.65625,
+            "width": 280
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "detail": {
+            "align": "start",
+            "centerDelta": 78.65625,
+            "width": 358
+          },
+          "inline": {
+            "align": "start",
+            "centerDelta": 74.65625,
+            "width": 350
+          },
+          "gallery": {
+            "align": "start",
+            "centerDelta": 74.65625,
+            "width": 350
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "detail": {
+            "align": "start",
+            "centerDelta": 78.65641021728516,
+            "width": 358
+          },
+          "inline": {
+            "align": "start",
+            "centerDelta": 74.65641021728516,
+            "width": 350
+          },
+          "gallery": {
+            "align": "start",
+            "centerDelta": 74.65641021728516,
+            "width": 350
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "detail": {
+            "align": "start",
+            "centerDelta": 145.265625,
+            "width": 480
+          },
+          "inline": {
+            "align": "start",
+            "centerDelta": 141.265625,
+            "width": 472
+          },
+          "gallery": {
+            "align": "start",
+            "centerDelta": 81.265625,
+            "width": 352
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        }
+      ]
+    },
+    "local": {
+      "at": "2026-10-24T07:36:22.374Z",
+      "origin": "http://127.0.0.1:3010",
+      "results": [
+        {
+          "name": "chromium320",
+          "detail": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 288
+          },
+          "inline": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 280
+          },
+          "gallery": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 280
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "detail": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 358
+          },
+          "inline": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 350
+          },
+          "gallery": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 350
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "detail": {
+            "align": "center",
+            "centerDelta": 7.62939453125e-06,
+            "width": 358
+          },
+          "inline": {
+            "align": "center",
+            "centerDelta": 7.62939453125e-06,
+            "width": 350
+          },
+          "gallery": {
+            "align": "center",
+            "centerDelta": 7.62939453125e-06,
+            "width": 350
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "detail": {
+            "align": "start",
+            "centerDelta": 178.8515625,
+            "width": 480
+          },
+          "inline": {
+            "align": "start",
+            "centerDelta": 174.8515625,
+            "width": 472
+          },
+          "gallery": {
+            "align": "start",
+            "centerDelta": 114.8515625,
+            "width": 352
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        }
+      ]
+    },
+    "image": {
+      "at": "2026-10-24T07:38:57.959Z",
+      "origin": "http://127.0.0.1:3023",
+      "results": [
+        {
+          "name": "chromium320",
+          "detail": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 288
+          },
+          "inline": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 280
+          },
+          "gallery": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 280
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "detail": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 358
+          },
+          "inline": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 350
+          },
+          "gallery": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 350
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "detail": {
+            "align": "center",
+            "centerDelta": 7.62939453125e-06,
+            "width": 358
+          },
+          "inline": {
+            "align": "center",
+            "centerDelta": 7.62939453125e-06,
+            "width": 350
+          },
+          "gallery": {
+            "align": "center",
+            "centerDelta": 7.62939453125e-06,
+            "width": 350
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "detail": {
+            "align": "start",
+            "centerDelta": 178.8515625,
+            "width": 480
+          },
+          "inline": {
+            "align": "start",
+            "centerDelta": 174.8515625,
+            "width": 472
+          },
+          "gallery": {
+            "align": "start",
+            "centerDelta": 114.8515625,
+            "width": 352
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        }
+      ]
+    },
+    "production": {
+      "at": "2026-10-24T07:39:59.605Z",
+      "origin": "https://beta.crefans.com",
+      "results": [
+        {
+          "name": "chromium320",
+          "detail": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 288
+          },
+          "inline": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 280
+          },
+          "gallery": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 280
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "chromium390",
+          "detail": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 358
+          },
+          "inline": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 350
+          },
+          "gallery": {
+            "align": "center",
+            "centerDelta": 0,
+            "width": 350
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "webkit390",
+          "detail": {
+            "align": "center",
+            "centerDelta": 7.62939453125e-06,
+            "width": 358
+          },
+          "inline": {
+            "align": "center",
+            "centerDelta": 7.62939453125e-06,
+            "width": 350
+          },
+          "gallery": {
+            "align": "center",
+            "centerDelta": 7.62939453125e-06,
+            "width": 350
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        },
+        {
+          "name": "desktop",
+          "detail": {
+            "align": "start",
+            "centerDelta": 178.8515625,
+            "width": 480
+          },
+          "inline": {
+            "align": "start",
+            "centerDelta": 174.8515625,
+            "width": 472
+          },
+          "gallery": {
+            "align": "start",
+            "centerDelta": 114.8515625,
+            "width": 352
+          },
+          "emptyRemovedAfterMockSubmit": true,
+          "errors": []
+        }
+      ]
+    }
+  },
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "startedAt": "2026-10-24T07:39:08.052947+00:00",
+      "finishedAt": "2026-10-24T07:39:09.065674+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "startedAt": "2026-10-24T07:39:09.066249+00:00",
+      "finishedAt": "2026-10-24T07:39:18.015034+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "startedAt": "2026-10-24T07:39:18.015913+00:00",
+      "finishedAt": "2026-10-24T07:39:29.883422+00:00",
+      "exitCode": 0,
+      "logSha256": "49f7de9a7b28acc210e7238cd2332f8963928a60b0657252925151c3d4c95ca6"
+    },
+    {
+      "step": "deploy",
+      "startedAt": "2026-10-24T07:39:29.884128+00:00",
+      "finishedAt": "2026-10-24T07:39:36.697140+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "visualReview": "Local and production mobile/desktop screenshots reviewed. Mobile empty comment notice centered; desktop alignment retained; floating composer visible. Image tests use the same assertions before deployment.",
+  "screenshots": {
+    "docs/audit/empty-comments-live-desktop-20261024.png": "6a663a0cb5bc91a8dfca8dba03b3b8b9a1284c2efbabb67c00d459080bb584ee",
+    "docs/audit/empty-comments-live-webkit390-20261024.png": "0c8d44e0e5adfed8aaee583f1a2bd8a64493305ce440cd0d09c8544ac23b1e45"
+  },
+  "verificationScope": [
+    "Before and after: Chromium320/390/1280 and WebKit390, each checks detail/inline feed/gallery copy and alignment; mock submission removes empty notice",
+    "Mobile text range center equals paragraph center within1 CSS pixel; floating dock remains at viewport bottom",
+    "Production499 file hashes/image match, public6 HTTPS paths200, frontend running/restart0/OOMfalse; other5 container IDs/images unchanged"
+  ],
+  "rollback": "/opt/crefans-backup-empty-comments-20261024; frontend-only restore. Permanent home SSH rule preserved.",
+  "boundaries": [
+    "Copy/CSS-only change; no new permanent unit test or full-suite repetition. Production build includes type validation.",
+    "Browser tests use preview fixtures; no real member comments were created. Preview/service share CommentsSection and CSS.",
+    "Physical iPhone not tested; mobile browser emulation used.",
+    "Backend/worker/admin/DB/proxy unchanged; PASS/signup and other dirty changes excluded."
+  ]
+}

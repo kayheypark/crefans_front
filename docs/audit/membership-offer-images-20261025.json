@@ -1,0 +1,185 @@
+{
+  "recordedAt": "2026-10-24T17:19:58.185767+00:00",
+  "baseline": {
+    "at": "2026-10-24T17:15:18.263338+00:00",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "files": {
+      "components/crefans/PostMembershipNotice.tsx": "9032369ee484520fdbe43fc4ddb93fca50185ee796a0a35eb8f05d1614da2fc2",
+      "components/crefans/social.module.css": "295ade2cc670f126a4b89ffe5e5945887d7ea55524b1c8d970a7679268382736",
+      "tests/post-membership-offer.test.cjs": "6cbb34725866558c96134bbf4029238d45865604253d5987fa31760fed1faa6e",
+      "docs/design-system.md": "eb9f98538c2ada9864182f93464c399b4d7a42cc951292873bbb0ab6b4f77b5f",
+      "docs/audit/manifest.json": "df07fb5dfb1d7205c97a36c02d44a1dab283d8466c1beeeced83d04c8584e17d",
+      "PROGRESS.md": "16058c90b1661c3b663ea51eb5dfb2b9cccc57a08c50f1dbe047e11da8f6ae3d",
+      "components/design-system/ServicePatternCatalog.tsx": "b1db821c603d782bef07e3d516cf5fa00f91db96c4e3f5f3ad24d5e632c3e5c5"
+    }
+  },
+  "requirements": [
+    "Show membership-specific images in offer modal",
+    "Show a membership image in unsubscribed post blocker when available",
+    "Retain existing no-image behavior and avoid private post media"
+  ],
+  "changes": [
+    "PostMembershipNotice uses OptionalImage for first available eligible plan in blocker and each modal offer",
+    "Blocker background image brightness .4 with original CTA above",
+    "Service catalog uses creator-specific plans and includes image absent/error states"
+  ],
+  "bindingEvidence": {
+    "server": "crefans_server/src/platform/service.ts:26 plan DTO image:p.image",
+    "frontend": "features/service/useServiceModel.ts post creator plans -> creatorPlans; types/crefans.ts Plan.image"
+  },
+  "checks": {
+    "unit": {
+      "command": [
+        "node",
+        "--test",
+        "tests/post-membership-offer.test.cjs",
+        "tests/membership-images.test.cjs",
+        "tests/crefans-social.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:16:02.306853+00:00",
+      "finishedAt": "2026-10-24T17:16:03.504953+00:00",
+      "exitCode": 0,
+      "logSha256": "036a1cecf551e83e7a54d78aac7645dc4c13af0abb0953ae318be1c3e9510158"
+    },
+    "typecheck": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:16:02.306853+00:00",
+      "finishedAt": "2026-10-24T17:16:07.230277+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "layers": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:16:07.256611+00:00",
+      "finishedAt": "2026-10-24T17:16:07.688790+00:00",
+      "exitCode": 0,
+      "logSha256": "066769b0847ce7b821fb23504fe26b3a3b4d2dd5ba440e20cdb53e6c7f8a3807"
+    },
+    "browser": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/membership-offer-images-20261025/playwright.config.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:17:05.969787+00:00",
+      "finishedAt": "2026-10-24T17:17:24.009692+00:00",
+      "exitCode": 0,
+      "logSha256": "3a88fb51377ded025ae67ccd20c829ec5587aee5565c30b598118bf55e3991cb"
+    },
+    "typecheck-final": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:18:46.310657+00:00",
+      "finishedAt": "2026-10-24T17:18:52.291593+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "layers-final": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:18:52.322063+00:00",
+      "finishedAt": "2026-10-24T17:18:52.805431+00:00",
+      "exitCode": 0,
+      "logSha256": "066769b0847ce7b821fb23504fe26b3a3b4d2dd5ba440e20cdb53e6c7f8a3807"
+    },
+    "browser-final": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/membership-offer-images-20261025/playwright.config.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:18:45.036978+00:00",
+      "finishedAt": "2026-10-24T17:19:06.840749+00:00",
+      "exitCode": 0,
+      "logSha256": "61f849becbe8a1fc9679f3f901a02143e6b04d2dbe827da3e9ce67e00acbd267"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:19:58.218471+00:00",
+      "finishedAt": "2026-10-24T17:19:59.307533+00:00",
+      "exitCode": 0,
+      "logSha256": "dd063d123a0b17540af52c47b54325a8c523b88fe9699e2aa8a44e9ea7eb03af"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:19:59.333964+00:00",
+      "finishedAt": "2026-10-24T17:19:59.705833+00:00",
+      "exitCode": 0,
+      "logSha256": "36667609d444f638923f93fc3e87559d31a166e77803502d80f0ea334ca7f2b0"
+    }
+  },
+  "results": {
+    "unitPassed": 40,
+    "browserPassed": 12,
+    "environments": [
+      "Chromium320",
+      "Chromium390",
+      "Chromium1280",
+      "WebKit390"
+    ],
+    "service": "GET API mocked; private post image requests0; no production mutation"
+  },
+  "files": {
+    "components/crefans/PostMembershipNotice.tsx": "6ad4b29f59ae58fa2970fa2cf4609002fb0055936a20422969ba574bdc51d654",
+    "components/crefans/social.module.css": "b37776914858bf7166e06fa40b770cdaf168146900d5f42a7c0132c3e78c4971",
+    "tests/post-membership-offer.test.cjs": "e6fc1e9524c85f8457d0958771be4c3e8a79a185ce5ade4fc3f06c679aebc8d9",
+    "docs/design-system.md": "6b1729ff4a8ba9c6f0fe113216d450f6d5dda3aa605d632bb7245f9034a34ed8",
+    "docs/audit/manifest.json": "76a0bc0ebb1d71fe48b248738b4a4cfdcabf05256f5d1466ef8473e8b81b69ee",
+    "PROGRESS.md": "7e7331d03bbddb527ec4d7ad7b4454e7d6afb0df5d0eef56dde65f5f3aeb266d",
+    "components/design-system/ServicePatternCatalog.tsx": "7bc553b77fe1b23e1bc97d65ff70d6017a4ce1b093b02fed97b042e9f756b390",
+    "e2e/membership-offer-images.spec.ts": "bf167ed246fd0588873e9379b57b358e6dc15704f087a4cfb4690ca9b0c946a3"
+  },
+  "screenshots": {
+    ".local/membership-offer-images-20261025/results-final/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-desktop/notice.png": "5f981d181296dca921d44f15b09bdb33c7e9569926fa21cd14c31667288c81cf",
+    ".local/membership-offer-images-20261025/results-final/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-desktop/offers.png": "8cd44ab88da40ac76c0853ad77dc16f66110a140a72ab4e8a917efa4a157bab1",
+    ".local/membership-offer-images-20261025/results-final/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-webkit390/notice.png": "b1063bb8912996e171256cf428fa6809e295793e932004caecaea43e80b17720",
+    ".local/membership-offer-images-20261025/results-final/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-webkit390/offers.png": "9e2f9e977d7fb8a689416b907214408aa75dae0ea42da16d46c0c939c3b26640",
+    ".local/membership-offer-images-20261025/results-final/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-narrow320/notice.png": "42e5d29801caf391bc8771a7a2cfe9988270047bae484cdb39e08b3f4baf4fd5",
+    ".local/membership-offer-images-20261025/results-final/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-narrow320/offers.png": "aa51c9649b9308e5dbbca45cda01d9bad35db4e9b6e2210b13ad568399fb51a3",
+    ".local/membership-offer-images-20261025/results-final/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-mobile390/notice.png": "99aa4b81c89a6a1c6e8f2700f241cc6ee70f0d6c2d4fd63c4e23d377e3f043d4",
+    ".local/membership-offer-images-20261025/results-final/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-mobile390/offers.png": "b93bb8de370d76ecbab4a7723a218d0cba6ee32658ff823c36e03792e07a5f08"
+  },
+  "visualReview": "WebKit390 locked notice and modal; Chromium1280 modal inspected. Membership imagery visible, text/CTA legible, cards scroll within dialog.",
+  "deployment": "Not performed; local only",
+  "limitations": [
+    "No real supplier/physical device/production verification",
+    "Existing eligibility and backend entitlement enforcement unchanged"
+  ],
+  "documentationSnapshot": "PASS; snapshot-only-not-test-proof; unit/browser evidence recorded separately"
+}

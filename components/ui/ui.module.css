@@ -11,11 +11,18 @@
 .button:focus-visible,.chip:focus-visible,.iconButton:focus-visible { outline:2px solid var(--cf-color-focus); outline-offset:3px; }
 .chip { min-height:40px; padding:9px 17px; border:0; border-radius:var(--cf-radius-pill); background:var(--cf-color-surfaceSubtle); color:var(--cf-color-textSecondary); font:inherit; font-size:max(13px,var(--cf-mobile-font-min,0px)); cursor:pointer; }
 .chip[aria-pressed=true] { background:var(--cf-color-accentSoft); color:var(--cf-color-accent); }
+.chipLink{display:inline-flex;align-items:center;text-decoration:none;box-sizing:border-box}
+.chipLink[aria-current=page]{background:var(--cf-color-accentSoft);color:var(--cf-color-accent)}
+.chipLink[aria-current=page]:hover{background:var(--cf-color-accentBorder)}
+.chipWithIcon{display:inline-flex;align-items:center;gap:6px;vertical-align:middle}
+.chipIcon{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex:none}
+.chipIcon img{width:20px;height:20px;object-fit:contain}
 .chip:not(:disabled):not([aria-disabled=true]):hover { background:var(--cf-color-accentSoft); color:var(--cf-color-accent); }
 .chip[aria-pressed=true]:not(:disabled):not([aria-disabled=true]):hover { background:var(--cf-color-accentBorder); }
 .badge { display:inline-flex; align-items:center; border-radius:var(--cf-radius-pill); padding:5px 10px; font-size:max(11px,var(--cf-mobile-font-min,0px)); color:var(--cf-color-accent); background:var(--cf-color-accentSoft); white-space:nowrap; }
 .badge[data-tone=success] { color:var(--cf-color-success); background:var(--cf-color-successSoft); }
 .badge[data-tone=danger] { color:var(--cf-color-danger); background:var(--cf-color-dangerSoft); }
+.badge[data-tone=outline] { padding:1px 5px; border:1px solid var(--cf-color-borderStrong); border-radius:4px; color:var(--cf-color-textSecondary); background:transparent; font-size:max(10px,var(--cf-mobile-font-min,0px)); font-weight:600; line-height:1.4; letter-spacing:.02em; }
 .iconButton { background:transparent; border:0; border-radius:50%; color:inherit; font:inherit; font-size:24px; width:44px; height:44px; cursor:pointer; flex-shrink:0; }
 .iconButton:not(:disabled):not([aria-disabled=true]):hover { background:color-mix(in srgb,currentColor 12%,transparent); }
 .iconButton:disabled,.chip:disabled { color:var(--cf-color-disabledText); cursor:not-allowed; }
@@ -27,8 +34,14 @@
 .dialog[open][data-state=closing]::backdrop { animation:backdropOut var(--cf-motion-fast) ease-in both; }
 .dialog header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px; }
 .dialog h2 { font-size:24px; margin:0; }
+.dialog>header>h2:focus { outline:none; }
+.dialogClose { display:inline-flex; align-items:center; justify-content:center; padding:0; }
 .dialog p { line-height:1.7; color:var(--cf-color-textSecondary); }
-.toast { position:fixed; z-index:100; left:50%; bottom:92px; transform:translateX(-50%); width:max-content; max-width:calc(100vw - 32px); box-sizing:border-box; display:flex; align-items:center; gap:16px; padding:8px 8px 8px 20px; background:var(--cf-color-text); color:var(--cf-color-surface); border-radius:var(--cf-radius-card); box-shadow:var(--cf-shadow-popover); font-size:14px; overflow:hidden; }
+.toastRegion { position:fixed; inset:0; z-index:1500; pointer-events:none; }
+.toast { position:fixed; z-index:1500; inset:auto; left:50%; bottom:calc(16px + env(safe-area-inset-bottom)); margin:0; border:0; pointer-events:auto; transform:translateX(-50%); width:max-content; max-width:calc(100vw - 32px); box-sizing:border-box; display:flex; align-items:center; gap:16px; padding:8px 8px 8px 20px; background:var(--cf-color-text); color:var(--cf-color-surface); border-radius:var(--cf-radius-card); box-shadow:var(--cf-shadow-popover); font-family:var(--cf-typography-fontFamily); font-size:14px; line-height:1.5; overflow:hidden; }
+.toast>span { min-width:0; overflow-wrap:anywhere; }
+.toast::backdrop { background:transparent; pointer-events:none; }
+@media(max-width:767px){body:has([data-mobile-shell]) .toast{bottom:calc(80px + env(safe-area-inset-bottom))}}
 .toastProgress { position:absolute; inset:auto 0 0; height:3px; background:var(--cf-color-accent); transform-origin:left; animation:toastCountdown linear forwards; }
 @keyframes toastCountdown { from{transform:scaleX(1)}to{transform:scaleX(0)} }
 .toast[data-state=open] { animation:toastIn var(--cf-motion-normal) var(--cf-motion-easing) both; }
@@ -66,3 +79,13 @@
 .transaction>div:last-child {display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 @media(max-width:767px) { .sheet {width:100%;max-width:100%;margin:auto 0 0;border-radius:24px 24px 0 0;padding-bottom:max(24px,env(safe-area-inset-bottom));} }
 @media(prefers-reduced-motion:reduce) { .button {transition:none}.spinner,.dialog[open],.dialog[open]::backdrop,.toast {animation:none!important}.toastProgress {animation-timing-function:steps(4,end)} }
+
+.dialog>header>h2{min-width:0;flex:1}
+
+/* Illustrated completion dialogs keep the shared focus, dismissal and scroll behavior. */
+.illustratedDialog{width:min(420px,calc(100vw - 32px));padding:44px 28px 28px}
+.illustratedDialog>header{flex-direction:column;gap:24px;margin-bottom:12px;text-align:center}
+.illustratedDialog>header>h2{flex:none;width:100%;line-height:1.4;letter-spacing:-.5px}
+.illustratedDialog .dialogClose{position:absolute;top:10px;right:10px}
+.dialogIllustration{display:flex;align-items:center;justify-content:center}
+@media(max-width:767px){.illustratedDialog{padding:44px 24px 24px}.illustratedDialog>header>h2{font-size:22px}}

@@ -1,0 +1,48 @@
+{
+  "at": "2026-10-26T10:46:15.214025+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "uncommitted": true,
+  "asset": "design/beta-event-concepts/20261026/03-editorial-ad-v7.png",
+  "sha256": "f538ed96d1fab9c2c6cb940f3f6e856e09d150a476334463c29edd3edf96765b",
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "sourceCopyIdentical": true,
+  "reference": "design/beta-event-concepts/20261026/03-editorial-feedback-v6.png",
+  "metadata": "design/beta-event-concepts/20261026/03-editorial-ad-v7.generation.json",
+  "manualImageReview": {
+    "secondRewardFeaturedCreatorAdProduct": true,
+    "creator3And30DaysStated": true,
+    "fourHeadlinesVisuallyConsistentSize": true,
+    "promotion100Reduced": true,
+    "bottomFeedbackBaemin10000": true,
+    "fourIllustrationsPreservedVisually": true,
+    "smallFaintLowerRightFootnotesPreserved": true,
+    "heroTitleAndSubtitlePreserved": true
+  },
+  "pixelIdenticalPreservationClaimed": false,
+  "productionImageUnchanged": true,
+  "applicationTestsRun": false,
+  "deployed": false,
+  "environment": "macOS-15.2-arm64-arm-64bit-Mach-O",
+  "headlineRasterMeasurement": {
+    "available": false,
+    "verification": "manual visual comparison only"
+  },
+  "documentationChecks": [
+    {
+      "command": "npm run docs:record",
+      "at": "2026-10-26T10:46:15.262775+00:00",
+      "exitCode": 0,
+      "output": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 52, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 275}\n"
+    },
+    {
+      "command": "npm run check:docs",
+      "at": "2026-10-26T10:46:16.300815+00:00",
+      "exitCode": 0,
+      "output": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-26T10:46:16.055391+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 52, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 275}\n"
+    }
+  ]
+}

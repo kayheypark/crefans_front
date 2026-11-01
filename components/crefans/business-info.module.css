@@ -1,0 +1,5 @@
+.info{display:flex;flex-direction:column;gap:2px;font-style:normal;font-size:max(11px,var(--cf-mobile-font-min,0px));line-height:1.6;color:var(--cf-color-textMuted);overflow-wrap:break-word;word-break:keep-all}
+.info strong{font-weight:600;color:var(--cf-color-textSecondary)}
+.info span>a{display:inline;padding:0;color:inherit;font-size:inherit;text-decoration:underline;text-underline-offset:2px}
+.info small{margin-top:6px;font-size:inherit}
+.keep{white-space:nowrap}

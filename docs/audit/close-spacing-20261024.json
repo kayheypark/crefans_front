@@ -1,0 +1,387 @@
+{
+  "at": "2026-10-24T09:03:39.844235+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "Existing uncommitted changes preserved",
+  "deployment": "not deployed",
+  "scope": [
+    "components/crefans/CommentComposer.tsx",
+    "components/crefans/MediaOverlay.tsx",
+    "components/crefans/social.module.css"
+  ],
+  "sourceSha256": {
+    "components/crefans/CommentComposer.tsx": "a2ca07e20d406133d5d2162e01b99e722be8ad0d454d4702bfa28802acf888cc",
+    "components/crefans/MediaOverlay.tsx": "f4420ad3c89d3be3290ab540710dc1bf504e0e171ea6ab77d42453c833d15a93",
+    "components/crefans/social.module.css": "ced07282cea45fbf55ec41f678f01c07265b3a091fe0a33f201ec61dfa5216ae"
+  },
+  "before": {
+    "at": "2026-10-24T08:59:47.606Z",
+    "exitCode": 0,
+    "results": [
+      {
+        "name": "chromium390",
+        "kind": "comment",
+        "width": 44,
+        "height": 44,
+        "icon": 22,
+        "text": "",
+        "font": "14px",
+        "ownPadding": [
+          "0px",
+          "0px"
+        ],
+        "left": 16,
+        "inputStart": 68,
+        "inputWidth": 254,
+        "gapToInput": 8,
+        "formPadding": [
+          "16px",
+          "16px"
+        ]
+      },
+      {
+        "name": "chromium390",
+        "kind": "gallery",
+        "width": 40,
+        "height": 40,
+        "icon": null,
+        "text": "×",
+        "font": "14px",
+        "ownPadding": [
+          "6px",
+          "6px"
+        ],
+        "left": 340,
+        "gapToInput": null,
+        "formPadding": null
+      },
+      {
+        "name": "chromium390",
+        "kind": "dialog",
+        "width": 44,
+        "height": 44,
+        "icon": 28,
+        "text": "",
+        "font": "24px",
+        "ownPadding": [
+          "0px",
+          "0px"
+        ],
+        "left": 303,
+        "gapToInput": null,
+        "formPadding": null
+      },
+      {
+        "name": "chromium390",
+        "kind": "toast",
+        "width": 44,
+        "height": 44,
+        "icon": null,
+        "text": "×",
+        "font": "24px",
+        "ownPadding": [
+          "6px",
+          "6px"
+        ],
+        "left": 259.3984375,
+        "gapToInput": null,
+        "formPadding": null
+      },
+      {
+        "name": "chromium390",
+        "kind": "select",
+        "width": 28,
+        "height": 28,
+        "icon": 16,
+        "text": "",
+        "font": "14px",
+        "ownPadding": [
+          "0px",
+          "0px"
+        ],
+        "left": 331,
+        "gapToInput": null,
+        "formPadding": null
+      }
+    ]
+  },
+  "after": {
+    "at": "2026-10-24T09:00:46.809Z",
+    "exitCode": 0,
+    "results": [
+      {
+        "name": "chromium320",
+        "kind": "comment",
+        "width": 44,
+        "height": 44,
+        "icon": 28,
+        "text": "",
+        "font": "14px",
+        "ownPadding": [
+          "0px",
+          "0px"
+        ],
+        "left": 4,
+        "inputStart": 52,
+        "inputWidth": 204,
+        "gapToInput": 4,
+        "formPadding": [
+          "4px",
+          "16px"
+        ]
+      },
+      {
+        "name": "chromium390",
+        "kind": "comment",
+        "width": 44,
+        "height": 44,
+        "icon": 28,
+        "text": "",
+        "font": "14px",
+        "ownPadding": [
+          "0px",
+          "0px"
+        ],
+        "left": 4,
+        "inputStart": 52,
+        "inputWidth": 274,
+        "gapToInput": 4,
+        "formPadding": [
+          "4px",
+          "16px"
+        ]
+      },
+      {
+        "name": "chromium390",
+        "kind": "gallery",
+        "width": 40,
+        "height": 40,
+        "icon": 28,
+        "text": "",
+        "font": "14px",
+        "ownPadding": [
+          "0px",
+          "0px"
+        ],
+        "left": 340,
+        "gapToInput": null,
+        "formPadding": null
+      },
+      {
+        "name": "chromium390",
+        "kind": "dialog",
+        "width": 44,
+        "height": 44,
+        "icon": 28,
+        "text": "",
+        "font": "24px",
+        "ownPadding": [
+          "0px",
+          "0px"
+        ],
+        "left": 303,
+        "gapToInput": null,
+        "formPadding": null
+      },
+      {
+        "name": "chromium390",
+        "kind": "toast",
+        "width": 44,
+        "height": 44,
+        "icon": null,
+        "text": "×",
+        "font": "24px",
+        "ownPadding": [
+          "6px",
+          "6px"
+        ],
+        "left": 259.3984375,
+        "gapToInput": null,
+        "formPadding": null
+      },
+      {
+        "name": "chromium390",
+        "kind": "select",
+        "width": 28,
+        "height": 28,
+        "icon": 16,
+        "text": "",
+        "font": "14px",
+        "ownPadding": [
+          "0px",
+          "0px"
+        ],
+        "left": 331,
+        "gapToInput": null,
+        "formPadding": null
+      },
+      {
+        "name": "webkit390",
+        "kind": "comment",
+        "width": 44,
+        "height": 44,
+        "icon": 28,
+        "text": "",
+        "font": "14px",
+        "ownPadding": [
+          "0px",
+          "0px"
+        ],
+        "left": 4,
+        "inputStart": 52,
+        "inputWidth": 274,
+        "gapToInput": 4,
+        "formPadding": [
+          "4px",
+          "16px"
+        ]
+      }
+    ]
+  },
+  "requirements": [
+    "Compare feed composer, gallery, common dialog, toast and selection popup close controls",
+    "Tighten feed X spacing without shrinking its 44px touch target or overlapping input",
+    "Use fixed-size SVG for gallery close to avoid inherited 14px glyph sizing",
+    "Retain close/reopen, keyboard-layout reset, GNB and desktop behavior"
+  ],
+  "checks": {
+    "before": {
+      "command": [
+        "node",
+        ".local/close-spacing-20261024/compare.cjs",
+        "before"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:59:43.615990+00:00",
+      "finishedAt": "2026-10-24T08:59:47.613197+00:00",
+      "exitCode": 0,
+      "logSha256": "12a4d204db107b611a56ebc4752aef4ff2a4b66281ab65274f9314050198f81f"
+    },
+    "after": {
+      "command": [
+        "node",
+        ".local/close-spacing-20261024/compare.cjs",
+        "after"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:00:40.030362+00:00",
+      "finishedAt": "2026-10-24T09:00:46.816864+00:00",
+      "exitCode": 0,
+      "logSha256": "7551e589d85acd4dc1735ef2d2529fd88f4ae27540904b23a7d2e1e0987bfc81"
+    },
+    "types": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:00:41.193533+00:00",
+      "finishedAt": "2026-10-24T09:00:46.529308+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "unit": {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-social.test.cjs",
+        "tests/content-post-preview.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:00:46.563993+00:00",
+      "finishedAt": "2026-10-24T09:00:47.379648+00:00",
+      "exitCode": 0,
+      "logSha256": "80125c95c92717bd6f7621e67f3a538bbbfce88bb2eb741332f6e22cf5992c68"
+    },
+    "comments-browser": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/comment-close-20261024/playwright.config.ts"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:00:47.407108+00:00",
+      "finishedAt": "2026-10-24T09:01:16.135123+00:00",
+      "exitCode": 0,
+      "logSha256": "59a2633eb1adac5e45b38ecd33d49db1d764ed77792cd31c903d485e668eb9ac"
+    },
+    "layers-final": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:03:39.940301+00:00",
+      "finishedAt": "2026-10-24T09:03:40.447577+00:00",
+      "exitCode": 0,
+      "logSha256": "eb0b463c8972a0da028297168754c83e3785ef94a20a26a12199805dda949569"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:03:40.471551+00:00",
+      "finishedAt": "2026-10-24T09:03:41.380420+00:00",
+      "exitCode": 0,
+      "logSha256": "659d5ff4a1d562ebb06e472eaf73566a6669f8ff77958b0df00bae1311d2a7e4"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:03:41.404314+00:00",
+      "finishedAt": "2026-10-24T09:03:41.765671+00:00",
+      "exitCode": 0,
+      "logSha256": "7342803762821ef7a1f7bf120e2b3cf5e92ffedf3e5d34807a8884a16aab19ed"
+    }
+  },
+  "results": {
+    "commentOuterLeft": [
+      16,
+      4
+    ],
+    "closeToInputGap": [
+      8,
+      4
+    ],
+    "inputStart": [
+      68,
+      52
+    ],
+    "inputWidthAt390": [
+      254,
+      274
+    ],
+    "closeTarget": [
+      44,
+      44
+    ],
+    "commentIcon": [
+      22,
+      28
+    ],
+    "galleryIcon": "inherited 14px text glyph replaced with 28px SVG; padding 6px to 0; existing 40px target retained",
+    "unitPassed": 27,
+    "commentBrowserPassed": 16,
+    "commentBrowserSkipped": 2,
+    "skips": "Desktop excludes two mobile-only scenarios",
+    "visualReview": "320px compact composer screenshot reviewed; no overlap"
+  },
+  "limitations": [
+    "Browser emulation; keyboard uses VisualViewport double, not physical iPhone",
+    "Service regression tests use API doubles and do not post real comments",
+    "Dialog/toast/select measured for comparison and not redesigned",
+    "Initial comparison captured scale animations; final before/after measurements wait for short entrance animations"
+  ],
+  "rawArtifacts": "/Users/ethan/repository/crefans_front/.local/close-spacing-20261024"
+}

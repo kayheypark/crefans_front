@@ -1,0 +1,1048 @@
+{
+  "at": "2026-10-26T11:20:10.101431+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "uncommitted": true,
+  "preexistingChangesPreserved": true,
+  "acceptance": [
+    "Reference pastel rounded cards implemented in HTML/CSS, no full-poster embedding",
+    "Four title styles equal at every tested width",
+    "Small muted right-aligned conditions",
+    "Same preview/service/catalog components",
+    "No horizontal overflow and four independent illustrations loaded",
+    "Local fonts and illustrations served with identical hashes"
+  ],
+  "changesSha256": {
+    "components/crefans/events.module.css": "f8d07e504b2b4195bb9706701114ba406bad866d8fd277804305200a9786c75a",
+    "lib/content/events.ts": "8dc499355ed247ccb3c0efe940075b9897320b97f4fe557ff8201d8e2c5426a6",
+    "tests/crefans-events.test.cjs": "3010a9ed429f264461db8d33753459067f5299a6530f1d81c5367ff8e40dade7",
+    "components/design-system/ServicePatternCatalog.tsx": "25c14c9657ab42e3bb7198fe5789ee95a3fc8e24a9897f2a9a8803c73f9e8970",
+    "docs/design-system.md": "e7339bd159df9460101d4ebcd38362074aac223ffe7c7b4f5836e7afd233845d",
+    "docs/preview-pages.md": "135068711574991c8b20ae3090c0643e2e18223744059b57ca5819db66978aac",
+    "PROGRESS.md": "88c9da3b2b5df3de876d8ae028c283c1e61c545f28ea26f73aa751fbe3d1c9fd",
+    "public/brand/events/beta-first/color-cards-v1/badge.webp": "02d0923d4416e22f8ce876a10a7bb33b6cf8b648e7a0a4b463738768bc1270a9",
+    "public/brand/events/beta-first/color-cards-v1/beans.webp": "5e456691afb8dce75e9649b67f796e7b46382d57c1028287d9f3c0546f9285fb",
+    "public/brand/events/beta-first/color-cards-v1/gift-card.webp": "beb3c502f650b7f147cc094663b61fcd7a96a28ef7f4ea0e14e6785aa038bcbf",
+    "public/brand/events/beta-first/color-cards-v1/crown.webp": "9bdb6289857e9b4316d3ba615f3ad61730628485bd73918a53a1402750866730",
+    "public/brand/events/beta-first/color-cards-v1/generation.json": "28198f0bec0183d8fe22e52377f846b5f036d867d216899c35842bf64ecaee99",
+    "public/fonts/pretendard/Pretendard-Regular.subset.woff2": "01dd73155fdfab7ce9b25224523e85a96927e21aef97f21957d41f1bfa7e3878",
+    "public/fonts/pretendard/LICENSE": "d31ddd9f2bed32fd7e302a205cf2380ba0de6529152d239ef99cfb6f261bfc04",
+    "public/fonts/pretendard/source.json": "db5ca5c0a24c105a082463c4db6b098f7f4c41912cdd5b0c28db4d44b771fa23",
+    "public/fonts/pretendard/Pretendard-Black.subset.woff2": "439823f6076b12390af89a9d8883d79530f60539319e4b244633057d5a0cff6f"
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "at": "2026-10-26T11:19:59.995928+00:00",
+      "completedAt": "2026-10-26T11:20:10.097960+00:00",
+      "exitCode": 0,
+      "logSha256": "3f0697d86b1f2046047eb8d22f33c8d21a3fc04187d064078e5e9409eacc474f"
+    }
+  ],
+  "unitTests": {
+    "passed": 353,
+    "failed": 0
+  },
+  "browser": {
+    "at": "2026-10-26T11:19:08.270Z",
+    "checks": [
+      {
+        "artwork": [
+          {
+            "complete": false,
+            "naturalHeight": 0,
+            "naturalWidth": 0,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/badge.webp"
+          },
+          {
+            "complete": false,
+            "naturalHeight": 0,
+            "naturalWidth": 0,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/crown.webp"
+          },
+          {
+            "complete": false,
+            "naturalHeight": 0,
+            "naturalWidth": 0,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/beans.webp"
+          },
+          {
+            "complete": false,
+            "naturalHeight": 0,
+            "naturalWidth": 0,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/gift-card.webp"
+          }
+        ],
+        "cards": [
+          {
+            "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0%, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 226.1953125,
+              "width": 780
+            }
+          },
+          {
+            "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 228.5,
+              "width": 780
+            }
+          },
+          {
+            "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 226.1953125,
+              "width": 780
+            }
+          },
+          {
+            "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(253, 227, 255), rgb(255, 224, 250))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 226.1953125,
+              "width": 780
+            }
+          }
+        ],
+        "details": [
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 이용권을 제공합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 팬 참여자 13명에게 지급합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+          }
+        ],
+        "posterAbsent": true,
+        "scrollWidth": 1280,
+        "titles": [
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 51.9140625,
+            "overflow": false,
+            "size": "44px",
+            "text": "원년멤버 한정판 뱃지",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 103.828125,
+            "overflow": false,
+            "size": "44px",
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 51.9140625,
+            "overflow": false,
+            "size": "44px",
+            "text": "프로모션 100콩",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 51.9140625,
+            "overflow": false,
+            "size": "44px",
+            "text": "배민 1만원 상품권",
+            "weight": "900"
+          }
+        ],
+        "url": "http://127.0.0.1:3010/preview/events/beta-first",
+        "width": 1280
+      },
+      {
+        "artwork": [
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 108.15625,
+            "src": "/brand/events/beta-first/color-cards-v1/badge.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 108.15625,
+            "src": "/brand/events/beta-first/color-cards-v1/crown.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 108.15625,
+            "src": "/brand/events/beta-first/color-cards-v1/beans.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 108.15625,
+            "src": "/brand/events/beta-first/color-cards-v1/gift-card.webp"
+          }
+        ],
+        "cards": [
+          {
+            "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0%, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 122,
+              "width": 358
+            }
+          },
+          {
+            "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 127,
+              "width": 358
+            }
+          },
+          {
+            "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 112,
+              "width": 358
+            }
+          },
+          {
+            "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(253, 227, 255), rgb(255, 224, 250))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 112,
+              "width": 358
+            }
+          }
+        ],
+        "details": [
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 이용권을 제공합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 팬 참여자 13명에게 지급합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+          }
+        ],
+        "posterAbsent": true,
+        "scrollWidth": 390,
+        "titles": [
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 24.5,
+            "overflow": false,
+            "size": "20.764px",
+            "text": "원년멤버 한정판 뱃지",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 49,
+            "overflow": false,
+            "size": "20.764px",
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 24.5,
+            "overflow": false,
+            "size": "20.764px",
+            "text": "프로모션 100콩",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 24.5,
+            "overflow": false,
+            "size": "20.764px",
+            "text": "배민 1만원 상품권",
+            "weight": "900"
+          }
+        ],
+        "url": "http://127.0.0.1:3010/preview/events/beta-first",
+        "width": 390
+      },
+      {
+        "artwork": [
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 85.7578125,
+            "src": "/brand/events/beta-first/color-cards-v1/badge.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 85.7578125,
+            "src": "/brand/events/beta-first/color-cards-v1/crown.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 85.7578125,
+            "src": "/brand/events/beta-first/color-cards-v1/beans.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 85.7578125,
+            "src": "/brand/events/beta-first/color-cards-v1/gift-card.webp"
+          }
+        ],
+        "cards": [
+          {
+            "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0%, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 117.5546875,
+              "width": 288
+            }
+          },
+          {
+            "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 134.609375,
+              "width": 288
+            }
+          },
+          {
+            "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 112,
+              "width": 288
+            }
+          },
+          {
+            "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(253, 227, 255), rgb(255, 224, 250))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 112,
+              "width": 288
+            }
+          }
+        ],
+        "details": [
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 이용권을 제공합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 팬 참여자 13명에게 지급합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+          }
+        ],
+        "posterAbsent": true,
+        "scrollWidth": 320,
+        "titles": [
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 20.0546875,
+            "overflow": false,
+            "size": "17px",
+            "text": "원년멤버 한정판 뱃지",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 40.109375,
+            "overflow": false,
+            "size": "17px",
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 20.0546875,
+            "overflow": false,
+            "size": "17px",
+            "text": "프로모션 100콩",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 20.0546875,
+            "overflow": false,
+            "size": "17px",
+            "text": "배민 1만원 상품권",
+            "weight": "900"
+          }
+        ],
+        "url": "http://127.0.0.1:3010/preview/events/beta-first",
+        "width": 320
+      },
+      {
+        "check": "preview-detail-back",
+        "passed": true
+      },
+      {
+        "check": "preview-list-to-detail",
+        "passed": true
+      },
+      {
+        "artwork": [
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 108.15625,
+            "src": "/brand/events/beta-first/color-cards-v1/badge.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 108.15625,
+            "src": "/brand/events/beta-first/color-cards-v1/crown.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 108.15625,
+            "src": "/brand/events/beta-first/color-cards-v1/beans.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 84,
+            "renderedWidth": 108.15625,
+            "src": "/brand/events/beta-first/color-cards-v1/gift-card.webp"
+          }
+        ],
+        "cards": [
+          {
+            "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0%, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 122,
+              "width": 358
+            }
+          },
+          {
+            "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 127,
+              "width": 358
+            }
+          },
+          {
+            "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 112,
+              "width": 358
+            }
+          },
+          {
+            "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(253, 227, 255), rgb(255, 224, 250))",
+            "minHeight": "112px",
+            "radius": "14px",
+            "rect": {
+              "height": 112,
+              "width": 358
+            }
+          }
+        ],
+        "details": [
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 이용권을 제공합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 팬 참여자 13명에게 지급합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "11px",
+            "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+          }
+        ],
+        "posterAbsent": true,
+        "scrollWidth": 390,
+        "titles": [
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 24.5,
+            "overflow": false,
+            "size": "20.764px",
+            "text": "원년멤버 한정판 뱃지",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 49,
+            "overflow": false,
+            "size": "20.764px",
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 24.5,
+            "overflow": false,
+            "size": "20.764px",
+            "text": "프로모션 100콩",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 24.5,
+            "overflow": false,
+            "size": "20.764px",
+            "text": "배민 1만원 상품권",
+            "weight": "900"
+          }
+        ],
+        "url": "http://127.0.0.1:3010/service/events/beta-first",
+        "width": 390
+      },
+      {
+        "artwork": [
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/badge.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/crown.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/beans.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/gift-card.webp"
+          }
+        ],
+        "cards": [
+          {
+            "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0%, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 226.1953125,
+              "width": 780
+            }
+          },
+          {
+            "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 228.5,
+              "width": 780
+            }
+          },
+          {
+            "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 226.1953125,
+              "width": 780
+            }
+          },
+          {
+            "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(253, 227, 255), rgb(255, 224, 250))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 226.1953125,
+              "width": 780
+            }
+          }
+        ],
+        "details": [
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 이용권을 제공합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 팬 참여자 13명에게 지급합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+          }
+        ],
+        "posterAbsent": true,
+        "scrollWidth": 1280,
+        "titles": [
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 51.9140625,
+            "overflow": false,
+            "size": "44px",
+            "text": "원년멤버 한정판 뱃지",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 103.828125,
+            "overflow": false,
+            "size": "44px",
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 51.9140625,
+            "overflow": false,
+            "size": "44px",
+            "text": "프로모션 100콩",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 51.9140625,
+            "overflow": false,
+            "size": "44px",
+            "text": "배민 1만원 상품권",
+            "weight": "900"
+          }
+        ],
+        "url": "http://127.0.0.1:3010/service/events/beta-first",
+        "width": 1280
+      },
+      {
+        "artwork": [
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/badge.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/crown.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/beans.webp"
+          },
+          {
+            "complete": true,
+            "naturalHeight": 512,
+            "naturalWidth": 512,
+            "renderedHeight": 179.3984375,
+            "renderedWidth": 237.8671875,
+            "src": "/brand/events/beta-first/color-cards-v1/gift-card.webp"
+          }
+        ],
+        "cards": [
+          {
+            "background": "radial-gradient(at 48% 38%, rgb(251, 243, 255) 0%, rgba(0, 0, 0, 0) 72%), linear-gradient(110deg, rgb(238, 227, 255), rgb(233, 220, 255))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 226.1953125,
+              "width": 780
+            }
+          },
+          {
+            "background": "radial-gradient(at 48% 40%, rgb(233, 251, 255) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(196, 244, 252), rgb(206, 243, 255))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 228.5,
+              "width": 780
+            }
+          },
+          {
+            "background": "radial-gradient(at 50% 40%, rgb(238, 255, 243) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(208, 252, 226), rgb(216, 253, 235))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 226.1953125,
+              "width": 780
+            }
+          },
+          {
+            "background": "radial-gradient(at 47% 38%, rgb(255, 241, 253) 0%, rgba(0, 0, 0, 0) 74%), linear-gradient(110deg, rgb(253, 227, 255), rgb(255, 224, 250))",
+            "minHeight": "187.2px",
+            "radius": "21.06px",
+            "rect": {
+              "height": 226.1953125,
+              "width": 780
+            }
+          }
+        ],
+        "details": [
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 참여자 전원에게 드립니다.* 프로필 페이지에 노출됩니다.* 표시 여부는 직접 선택할 수 있습니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 크리에이터 3명에게 드립니다.* 주목할 크리에이터 광고상품 이용권을 제공합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 팬 참여자 13명에게 지급합니다."
+          },
+          {
+            "align": "right",
+            "color": "rgb(98, 107, 139)",
+            "overflow": false,
+            "size": "15.6px",
+            "text": "* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다."
+          }
+        ],
+        "posterAbsent": true,
+        "scrollWidth": 1280,
+        "titles": [
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 51.9140625,
+            "overflow": false,
+            "size": "44px",
+            "text": "원년멤버 한정판 뱃지",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 103.828125,
+            "overflow": false,
+            "size": "44px",
+            "text": "주목할 크리에이터\n광고상품 30일",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 51.9140625,
+            "overflow": false,
+            "size": "44px",
+            "text": "프로모션 100콩",
+            "weight": "900"
+          },
+          {
+            "color": "rgb(8, 13, 59)",
+            "font": "\"Pretendard Event\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+            "height": 51.9140625,
+            "overflow": false,
+            "size": "44px",
+            "text": "배민 1만원 상품권",
+            "weight": "900"
+          }
+        ],
+        "url": "http://127.0.0.1:3010/preview/events/beta-first",
+        "width": 1280
+      }
+    ],
+    "logs": [],
+    "serviceBoundary": "Local backend is offline; service route displays an API connection alert but public event renders. No API/production validation performed."
+  },
+  "screenshots": [
+    {
+      "path": ".local/beta-event-cards-20261026/mobile390.jpg",
+      "sha256": "0147bed631d7ded4ddc5ee0a330536dd08e2b65598ceeaf121dec1d05e98f3fb"
+    },
+    {
+      "path": ".local/beta-event-cards-20261026/mobile320.jpg",
+      "sha256": "7320128b91b75807a7fe25eac1d447aa2b9199c49ffe06158a7a361ce6e613e9"
+    },
+    {
+      "path": ".local/beta-event-cards-20261026/desktop.jpg",
+      "sha256": "b85968163b201dcb01c34f3d126feed0a831061d8bf9cee6b46e66693294e8bc"
+    },
+    {
+      "path": ".local/beta-event-cards-20261026/mobile-bottom.jpg",
+      "sha256": "004a82894e459b9306bcc79e7e67133456911fb9d375d97c7934e75f1a13ab23"
+    },
+    {
+      "path": ".local/beta-event-cards-20261026/service390.jpg",
+      "sha256": "d6c9e7890243415546fb6ac0421e15310113efb7df2fe174d956615d30603b3c"
+    }
+  ],
+  "assets": {
+    "bytes": 179118,
+    "generation": "public/brand/events/beta-first/color-cards-v1/generation.json"
+  },
+  "fontSource": {
+    "provider": "Pretendard",
+    "version": "1.3.9",
+    "license": "SIL Open Font License 1.1",
+    "files": [
+      {
+        "file": "Pretendard-Black.subset.woff2",
+        "source": "https://raw.githubusercontent.com/orioncactus/pretendard/v1.3.9/packages/pretendard/dist/web/static/woff2-subset/Pretendard-Black.subset.woff2",
+        "bytes": 273460,
+        "sha256": "439823f6076b12390af89a9d8883d79530f60539319e4b244633057d5a0cff6f"
+      },
+      {
+        "file": "Pretendard-Regular.subset.woff2",
+        "source": "https://raw.githubusercontent.com/orioncactus/pretendard/v1.3.9/packages/pretendard/dist/web/static/woff2-subset/Pretendard-Regular.subset.woff2",
+        "bytes": 267096,
+        "sha256": "01dd73155fdfab7ce9b25224523e85a96927e21aef97f21957d41f1bfa7e3878"
+      },
+      {
+        "file": "LICENSE",
+        "source": "https://raw.githubusercontent.com/orioncactus/pretendard/v1.3.9/LICENSE",
+        "bytes": 4418,
+        "sha256": "d31ddd9f2bed32fd7e302a205cf2380ba0de6529152d239ef99cfb6f261bfc04"
+      }
+    ]
+  },
+  "localHttp": [
+    {
+      "path": "public/brand/events/beta-first/color-cards-v1/badge.webp",
+      "status": 200,
+      "sha256": "02d0923d4416e22f8ce876a10a7bb33b6cf8b648e7a0a4b463738768bc1270a9",
+      "bytes": 51122
+    },
+    {
+      "path": "public/brand/events/beta-first/color-cards-v1/crown.webp",
+      "status": 200,
+      "sha256": "9bdb6289857e9b4316d3ba615f3ad61730628485bd73918a53a1402750866730",
+      "bytes": 44460
+    },
+    {
+      "path": "public/brand/events/beta-first/color-cards-v1/beans.webp",
+      "status": 200,
+      "sha256": "5e456691afb8dce75e9649b67f796e7b46382d57c1028287d9f3c0546f9285fb",
+      "bytes": 44508
+    },
+    {
+      "path": "public/brand/events/beta-first/color-cards-v1/gift-card.webp",
+      "status": 200,
+      "sha256": "beb3c502f650b7f147cc094663b61fcd7a96a28ef7f4ea0e14e6785aa038bcbf",
+      "bytes": 39028
+    },
+    {
+      "path": "public/fonts/pretendard/Pretendard-Black.subset.woff2",
+      "status": 200,
+      "sha256": "439823f6076b12390af89a9d8883d79530f60539319e4b244633057d5a0cff6f",
+      "bytes": 273460
+    },
+    {
+      "path": "public/fonts/pretendard/Pretendard-Regular.subset.woff2",
+      "status": 200,
+      "sha256": "01dd73155fdfab7ce9b25224523e85a96927e21aef97f21957d41f1bfa7e3878",
+      "bytes": 267096
+    }
+  ],
+  "boundaries": [
+    "No production build/deployment requested in this turn; production remains beta-event-html-20261026.",
+    "Local API offline, event UI only verified for service route; no new backend/financial tests claimed.",
+    "Browser tests used Chrome responsive emulation, not physical iPhone.",
+    "Raster proposal font is approximated with actual Pretendard Black; no pixel-identical reproduction claimed.",
+    "No grants or event schedule decisions."
+  ],
+  "documentationChecks": [
+    {
+      "command": "npm run docs:record",
+      "at": "2026-10-26T11:20:10.103964+00:00",
+      "exitCode": 0,
+      "output": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 52, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 276}\n"
+    },
+    {
+      "command": "npm run check:docs",
+      "at": "2026-10-26T11:20:11.065883+00:00",
+      "exitCode": 0,
+      "output": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-26T11:20:10.811285+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 52, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 276}\n"
+    }
+  ]
+}

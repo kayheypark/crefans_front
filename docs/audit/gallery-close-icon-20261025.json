@@ -1,0 +1,338 @@
+{
+  "recordedAt": "2026-10-24T17:04:33.375831+00:00",
+  "baseline": {
+    "at": "2026-10-24T16:59:46.859531+00:00",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "files": {
+      "components/crefans/MediaOverlay.tsx": "f4420ad3c89d3be3290ab540710dc1bf504e0e171ea6ab77d42453c833d15a93",
+      "docs/design-system.md": "10f27acdc9a85355e43bb7340d0e87da6d247fd22132ca9c776eab4a8ffaf208",
+      "docs/audit/manifest.json": "7e3b69d9c25df858e8ce105be3a3cb8542b9181630c3c363781e620a252a0631",
+      "PROGRESS.md": "fc7ba161f1a67bdbc06f74afe17e3439ab11d12521708f866fb138ab0598aa03"
+    }
+  },
+  "requirements": [
+    "Enlarge gallery close icon on desktop and mobile",
+    "Preserve button position and background size, closing and focus behavior"
+  ],
+  "change": "MediaOverlay.tsx close Icon width/height 28 -> 36; shared post/profile overlay",
+  "checks": {
+    "browser": {
+      "command": [
+        "node",
+        ".local/gallery-close-icon-20261025/verify.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:00:10.263555+00:00",
+      "finishedAt": "2026-10-24T17:00:41.793119+00:00",
+      "exitCode": 1,
+      "logSha256": "bd22325d57b5d0e57b6354609b7e329721c067b26b4aae0b5da51d8dedb54bf9"
+    },
+    "browser-final": {
+      "command": [
+        "node",
+        ".local/gallery-close-icon-20261025/verify.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:01:08.880372+00:00",
+      "finishedAt": "2026-10-24T17:01:40.133973+00:00",
+      "exitCode": 1,
+      "logSha256": "ad7ec7ae932349c51a38c18078e662d4e73dad0169bf33c4b33bd52bf74dc1bf"
+    },
+    "browser-verified": {
+      "command": [
+        "node",
+        ".local/gallery-close-icon-20261025/verify.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:01:59.009728+00:00",
+      "finishedAt": "2026-10-24T17:02:05.035614+00:00",
+      "exitCode": 1,
+      "logSha256": "ff023d09b9634d5037505284907025eb13475b0d28c2646f91a14a70c6d501a1"
+    },
+    "browser-pass": {
+      "command": [
+        "node",
+        ".local/gallery-close-icon-20261025/verify.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:02:52.441094+00:00",
+      "finishedAt": "2026-10-24T17:03:04.077322+00:00",
+      "exitCode": 1,
+      "logSha256": "f23bd0520a1287b8c9d74f87b1680ec707d91b6e176b3a7312f4419fdb6db084"
+    },
+    "browser-confirmed": {
+      "command": [
+        "node",
+        ".local/gallery-close-icon-20261025/verify.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:03:22.159928+00:00",
+      "finishedAt": "2026-10-24T17:03:33.841380+00:00",
+      "exitCode": 1,
+      "logSha256": "f23bd0520a1287b8c9d74f87b1680ec707d91b6e176b3a7312f4419fdb6db084"
+    },
+    "browser-scoped": {
+      "command": [
+        "node",
+        ".local/gallery-close-icon-20261025/verify.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:04:19.597624+00:00",
+      "finishedAt": "2026-10-24T17:04:26.764486+00:00",
+      "exitCode": 0,
+      "logSha256": "1bba88cb40db368ae1ba2ac9176f7dc34bfaa73db9fa3af91199b75c7ff098aa"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:04:33.405568+00:00",
+      "finishedAt": "2026-10-24T17:04:35.672234+00:00",
+      "exitCode": 0,
+      "logSha256": "3a89bdc321c121ee476cc343c1f3b2fa215ee9a4976a419d83ddde217a552238"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:04:35.698277+00:00",
+      "finishedAt": "2026-10-24T17:04:36.079581+00:00",
+      "exitCode": 0,
+      "logSha256": "297b888a5fa5ce762634bde7b899499f534675227442e2aee9e6fb492719d86e"
+    }
+  },
+  "initialFailures": [
+    "Incorrect test entry on standalone post detail without gallery trigger",
+    "Incorrect test click on hidden media expansion in full-panel mode; return to default panel first",
+    "DOM-ready navigation clicked before page load; restored default load wait used by existing tests",
+    "WebKit focus restoration failed on pointer click and after explicitly focusing trigger; excluded from final size/click/Escape scope and remains unverified"
+  ],
+  "measurements": [
+    {
+      "environment": "chromium390",
+      "context": "post-default",
+      "button": {
+        "x": 340,
+        "y": 10,
+        "width": 40,
+        "height": 40
+      },
+      "icon": {
+        "x": 342,
+        "y": 12,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "environment": "chromium390",
+      "context": "post-panel-full",
+      "button": {
+        "x": 340,
+        "y": 10,
+        "width": 40,
+        "height": 40
+      },
+      "icon": {
+        "x": 342,
+        "y": 12,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "environment": "chromium390",
+      "context": "post-media-full",
+      "button": {
+        "x": 340,
+        "y": 10,
+        "width": 40,
+        "height": 40
+      },
+      "icon": {
+        "x": 342,
+        "y": 12,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "environment": "chromium390",
+      "context": "profile-media",
+      "button": {
+        "x": 334,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      },
+      "icon": {
+        "x": 338,
+        "y": 16,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "environment": "chromium1280",
+      "context": "post-default",
+      "button": {
+        "x": 824,
+        "y": 14,
+        "width": 40,
+        "height": 40
+      },
+      "icon": {
+        "x": 826,
+        "y": 16,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 844
+      }
+    },
+    {
+      "environment": "chromium1280",
+      "context": "profile-media",
+      "button": {
+        "x": 1224,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      },
+      "icon": {
+        "x": 1228,
+        "y": 16,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 844
+      }
+    },
+    {
+      "environment": "webkit390",
+      "context": "post-default",
+      "button": {
+        "x": 340,
+        "y": 10,
+        "width": 40,
+        "height": 40
+      },
+      "icon": {
+        "x": 342,
+        "y": 12,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "environment": "webkit390",
+      "context": "post-panel-full",
+      "button": {
+        "x": 340,
+        "y": 10,
+        "width": 40,
+        "height": 40
+      },
+      "icon": {
+        "x": 342,
+        "y": 12,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "environment": "webkit390",
+      "context": "post-media-full",
+      "button": {
+        "x": 340,
+        "y": 10,
+        "width": 40,
+        "height": 40
+      },
+      "icon": {
+        "x": 342,
+        "y": 12,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "environment": "webkit390",
+      "context": "profile-media",
+      "button": {
+        "x": 334,
+        "y": 12,
+        "width": 44,
+        "height": 44
+      },
+      "icon": {
+        "x": 338,
+        "y": 16,
+        "width": 36,
+        "height": 36
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ],
+  "files": {
+    "components/crefans/MediaOverlay.tsx": "079caf0577f2a73eea40e3714e094619e309b6f699928e175cac77824d1957e7",
+    "docs/design-system.md": "c4d747197e2cb30f9ab08816ae686fbdb9cbe0add469f2bfd55589b983c38f2b",
+    "docs/audit/manifest.json": "3ffcfae86722814311671452edf2b7f6fe8874f92a751834a373b40a1a8e0313",
+    "PROGRESS.md": "16fce02355748d7711acd7eba507ff42296153ec32296dfb849d78d1b916ee72"
+  },
+  "screenshots": {
+    ".local/gallery-close-icon-20261025/chromium1280.png": "e4624ec1fa1d48ae8370bf66c342862884997e4869678008e23ad3bf92867129",
+    ".local/gallery-close-icon-20261025/chromium390.png": "3d782b272ab36ebbe2f20ff51c5babe9dcd9c85334bf6883b54cd2224e011a63",
+    ".local/gallery-close-icon-20261025/webkit390.png": "9540691c5ff6aab3fa06db66a60105c443559edafb7e35fd2793e9288904f5c9"
+  },
+  "deployment": "Not performed; local only",
+  "limitations": [
+    "WebKit trigger focus restoration assertions failed twice; not claimed as passed or changed in this task",
+    "No physical device or production verification",
+    "Simple size change; no new unit tests or full product suite"
+  ],
+  "documentationSnapshot": "PASS; snapshot-only-not-test-proof; browser size/closing verification recorded separately",
+  "visualReview": "Chromium1280 and WebKit390 screenshots: larger close X fits original circle, position retained"
+}

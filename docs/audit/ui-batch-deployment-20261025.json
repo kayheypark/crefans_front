@@ -1,0 +1,2556 @@
+{
+  "task": "Shared UI batch production deployment",
+  "verifiedAt": "2026-10-24T18:14:31.702583+00:00",
+  "scope": {
+    "at": "2026-10-24T17:27:26.326787+00:00",
+    "repo": "/Users/ethan/repository/crefans_front",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "baselineFilesMatched": 529,
+    "changed": [
+      "components/ui/MarqueeText.tsx",
+      "components/crefans/SocialPages.tsx",
+      "components/crefans/MediaOverlay.tsx",
+      "components/crefans/Icon.tsx",
+      "components/crefans/CommentComposer.tsx",
+      "components/crefans/account.module.css",
+      "components/crefans/common.module.css",
+      "components/crefans/AccountPages.tsx",
+      "components/crefans/PostMembershipNotice.tsx",
+      "components/crefans/social.module.css",
+      "components/crefans/CommonPages.tsx",
+      "components/design-system/ServicePatternCatalog.tsx",
+      "components/crefans/studio/withdrawal-security.module.css",
+      "components/crefans/studio/FinancePages.tsx",
+      "components/crefans/studio/report.module.css",
+      "components/crefans/studio/WithdrawalSecurityPage.tsx",
+      "components/crefans/studio/ReportPage.tsx",
+      "components/crefans/studio/ManagementPages.tsx",
+      "infra/platform/Dockerfile",
+      "components/crefans/studio/ContentPostPreview.tsx",
+      "components/crefans/ServiceShell.tsx"
+    ],
+    "added": [
+      "components/crefans/PostShareDialog.tsx",
+      "components/crefans/post-share-dialog.module.css",
+      "features/post-share/usePostShare.ts",
+      "lib/browser/post-share.ts",
+      "public/brand/kakaotalk-share-official.png",
+      "public/brand/kakaotalk-share-official.source.json"
+    ],
+    "runtimeFiles": 535,
+    "excluded": "Signup deferral / auth and mock signup changes remain outside frontend UI release; no API/DB/config policy changes",
+    "newDependencies": false,
+    "additionalFix": "Production build test found new draft timestamp hydration mismatch between UTC server and Asia/Seoul browser; format explicitly in Asia/Seoul; common service main stays inert until hydrated so early pointer/keyboard actions are not lost."
+  },
+  "image": {
+    "at": "2026-10-24T18:05:06.966346+00:00",
+    "tag": "crefans-front:ui-batch-ready-20261025",
+    "id": "sha256:f806110ef1aa92a2300611c98d72d803dd37e4a7d2f1115cf31dcc8823ecf1e0",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 535,
+    "archiveSha256": "9ef620f66c0c0d7d1bb69c97c964549e5c5ce5a00a75a15abaa000cf50243fd6",
+    "archiveBytes": 521567434
+  },
+  "production-ready": {
+    "at": "2026-10-24T18:07:48.099776+00:00",
+    "runtimeFilesMatched": 535,
+    "runtime": {
+      "crefans-beta-api-1": {
+        "id": "13431e31d272c24a18ef0845f7fce015e189d1d0467af9ad94406ed3b874cc18",
+        "image": "sha256:7de8b1853c04aafe783799f58105b45a75e2c8fbd667b8c1a0d9f1efeb66d2f0",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-worker-1": {
+        "id": "07e51cfd0a96f967278d12b5b11accf097ba3ce600d01cd98b8cd5ba48cc41d0",
+        "image": "sha256:7de8b1853c04aafe783799f58105b45a75e2c8fbd667b8c1a0d9f1efeb66d2f0",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-frontend-1": {
+        "id": "391df03706b2a29faba9dee4d2002ec107181e6ea07555f588cadda5a5c86ec2",
+        "image": "sha256:f806110ef1aa92a2300611c98d72d803dd37e4a7d2f1115cf31dcc8823ecf1e0",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-admin-1": {
+        "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+        "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "restarts": 0,
+        "OOMKilled": false
+      }
+    },
+    "http": [
+      {
+        "url": "https://beta.crefans.com/preview/explore",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/explore",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/login",
+        "status": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200
+      }
+    ],
+    "freeDiskBytes": 2642714624
+  },
+  "runtimeFileSha256": {
+    "middleware.ts": "66af5dd86759f1c82fe679c622e1835622f7244a618ec6dc1a7787ce50acfed0",
+    "next.config.js": "20ea937c60055830679f2cccdcfd407e41adb700b460f3e0740832ceb136df92",
+    "package-lock.json": "077483eb2424e3858bc50b00487856594eca90a4cdb58bb3ff5c020d5db5a5d3",
+    "package.json": "7dd1c3a11cdfd87246f6c5780b6daf543b2be53130c88f100e1e297efcc16871",
+    "tsconfig.json": "f335979a32c7515a0ace65383312f3d184fa1296e127fad3cf66e7e443cf8f44",
+    "types/wallet.ts": "f855baadab4a9f4ba86bf3e4ed6f9ca15d14614727fecc53c2274e256bfb578c",
+    "types/payment.ts": "c02b2c2be4f509dd0e22b899d32eb39affe4ef2f2e7f34a5b61c160f955bac41",
+    "types/membership.ts": "a52206a67c47f5b0b3863170b3967c14cc32426c28ee6195034b5b3fab724014",
+    "types/authSession.ts": "c772531462fb626ca08b1d8338a0c9b259cc18018a5391462a7e0d5565e6576b",
+    "types/crefans-account.ts": "8249bdcfab679f2e5d7fd69c98773409f3276b88edbce19959364968d9218082",
+    "types/crefans-social.ts": "90802fe8ce1f85276fc11775c27ceb7281eed49ebfc7a76d0d90ce024e3a8637",
+    "types/creator.ts": "cd21a58f93536f98d8ed9dfaf8fd8ff00638f8f57f2d5ad86e345704d49dd53b",
+    "types/crefans-studio.ts": "1fb246fc1226e65d82608a2243de5218d66408d4b17694c2ada8a94ea01ad4f7",
+    "types/crefans-studio-reports.ts": "0b7a87fe23f4f629af5532f349613eb7dc9401d9ae97d4b9679217a232d69527",
+    "types/common.ts": "5cca0cde6c4d88f78b514352dddf51dae3d75361318f486bada5cb8aaac08133",
+    "types/env.d.ts": "574bc36e6978cfa56d0319b424ed6e05498c83b264e90d34bd857a2f9caea7fd",
+    "types/paymentHistory.ts": "5640b357e7790c89dab4925a7eb437ff73649c91cccd6fb680b2ea803fc3f769",
+    "types/api.ts": "8d2ba4aa84a9e25b07159998d441a112a3c91b20257216547f31f4cb0e3ac883",
+    "types/presentation.ts": "7746aa64a9a9346a9609a7f50f40a5c338d2ecdf9676ffa96e0d336a37455a7e",
+    "types/crefans.ts": "717b22555e48b548ab83d775f1135d0d0d18c19552c7d81ad134834fb9a371d1",
+    "types/crefans-common.ts": "cc83a791f0aae70237e2a3b3eb2c4775c344ce478249a59452240b1c6c985a43",
+    "types/posting.ts": "979c5277e00404fe80fb3d66bcdf331628f6212a59093dbf33fea8ed845c648f",
+    "types/crefans-community.ts": "db8c39866312b3ea7d1cdf0ab8cd700d095baa07ab32ad878346e76ad0e2f9e9",
+    "types/crefans-studio-finance.ts": "265ea478be6dc00f6f8338728610a5ea0dc49d1bafaed2155093687339765bc5",
+    "types/index.ts": "15a8c60cfbdbf07e65ef50fec15c3739c3acb3f08b7d6a26454619cd79308d8e",
+    "types/subscription.ts": "9755699035bd946dccf0a5267a63bfe9ef57bce8bb566c285fc706904767e7eb",
+    "types/comment.ts": "b5f669ae9732dc1e1b15119f25fb4b3a05e74f23a8e991b847c58262d6017fcf",
+    "types/crefans-studio-management.ts": "7e51f3fe5ce60f7c1996c46de7cecf5fa4f321c4cd2d42cfd481aa69a470ce91",
+    "types/crefans-landing.ts": "6f8f64258c6d66fe318d0e3f44b913c12c6a87d508a028ee35d485e3ea67f6de",
+    "types/auth.ts": "ccd5f66a2610f43126f593d5dfd6e77902c25df0c5ee8fe553b9cf544ca7dc79",
+    "types/post.ts": "81175b688d63c3dceea740c36610e9141e5387e211dbee0712ed2583655cd832",
+    "contexts/AuthContext.tsx": "3e8529c93be4b5af1c9901b56a0886dcab83105d883e9bd1b6bdcf67a4eb7893",
+    "contexts/NotificationContext.tsx": "d14da026f5e013f1cfbf5b5bf77f592af9a385cab86504eb8f7780e4df48c1ab",
+    "app/layout.tsx": "3dc83f2add76f787be4356d2f2e1d0f8f9c3db1d3761cb9e8ab079f3713d1b7b",
+    "app/page.tsx": "405ed41768fb3bf46909a53ccbdeba20396ebf4d89054db438ad5d732128b67e",
+    "app/globals.css": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app/not-found.tsx": "5aca8adb85f46df855a812cb3e8270aa7f1564430a48e9bcc4d8fc34e5c74e81",
+    "utils/env.ts": "dfe8882b754ac3e962ba6b24c1af04f9ea9be16553d82ff1c4a5c1f3a338c793",
+    "utils/auth.ts": "931290dd983c185ff43188cd147cf3d90001263c1ab622a8f007141ef2aba3a7",
+    "public/profile-90.png": "3bebb5d55f99af2374eaab99da82e8911b9a94c025bfc8e712a5fb2cf376ba6e",
+    "public/dummy1.png": "c3e7a26f8b5c1ded3c216ed70de7eccfd2f2884030b8f71e49e33ba88accd742",
+    "public/profile-30.png": "c420ea05cbb353426784e10dbd17abbcdf28f4dc5920249d51557390c59603d1",
+    "public/image_6_640x480.png": "5841820ae55064dc2ead3a270463113b34618e4dcf3fb1254ca339b6a4786f1e",
+    "public/image_1_160x120.png": "e318b3f874bc31c54cea5fe5d50d2a2d2fbb5248323069dc85ea3585a56f8dee",
+    "public/logo_icon.psd": "25d808463bcb591a188e0250d383c51e98ac14082622006dfa2263b33de4dc49",
+    "public/logo.png": "cb51f0a97464fc13154cb34e1e975c2b1ad390e5997b93a4886ffaf45f7b8263",
+    "public/logo_icon.png": "942a1237a79587b2fc1a152e44c9f5bae5c3d2d76b86738bc7be5a7c8ccbd82a",
+    "public/image_4_400x240.png": "36735aa77fef63076bd4ad9cc2b03c56cd8337467f55d7f69234c6259bca636f",
+    "public/noimage-50.png": "7845af27ca4276744fefe628fcccfa62a72f5443cc83c9717ab590342635b71f",
+    "public/image_5_480x320.png": "fa4965fb042baa2c4f4ddb0000cd2719b4bac61fc079a5fab99cb0d89a97defc",
+    "public/image_3_320x240.png": "154a2377006278bf1fa74720ee4e6393f268e4b2a925c9a5ebb38cc9bd9f5a11",
+    "public/image_2_240x160.png": "449a87da528f778ea995c3ed30111908b26af0f5a21d9fa73c26ae8f9be48585",
+    "public/video_1.mp4": "71944d7430c461f0cd6e7fd10cee7eb72786352a3678fc7bc0ae3d410f72aece",
+    "hooks/useAuthGuard.ts": "5796c829c86576c4244fa005dbf1f2e18a9f270c4177e1379764e9eacff0aa64",
+    "hooks/useCreatorGuard.ts": "b8d31fd9abb450398592243e8b68515e27f1a989f596cb05dc1d23a350d12d78",
+    "hooks/useWallet.ts": "7e0dcd822fe58bd2c6a3e7aa75a7d05ed2d06346954b84db7cc45c03ea189e61",
+    "hooks/useResponsive.ts": "383fbfa125fecaac8eae8ab8da69b2506fb9ce7f53396533e6d69d4f6be906be",
+    "lib/AntdRegistry.tsx": "a9b5999d36b6854fccc17176c7bd009736f6a6b5ac8f129c0d5a0879884cddfe",
+    "lib/theme.ts": "2f5c7b82d95f1e49fdfd297ed566436e491f759d051e192e60988b628598dde6",
+    "lib/tossPayments.ts": "9bdb4d808a7cc9ec5d1c5fd7a0c954f896d33466b3eb4099302ccc2473a4111a",
+    "lib/design/amount-presets.ts": "0e7a2ad4b13b954419742403f323e6cb6e8f776908aaefd0eaf0f2285edbc911",
+    "lib/design/tokens.ts": "66eea7bc6d97eacd0d4b9f2c66c3b7e32c7c9547de2c1a2c882ff1463221fc9d",
+    "lib/design/theme.ts": "11b7448072f1a8a734cdec153f04f94cafd008dbd107de235d579fd6c4b05436",
+    "lib/design/image-upload.ts": "f3933e1e55362b0474946f08af4a8e72f73de35040bbe8d01d38b911357bb1e9",
+    "lib/constants/colors.ts": "747574b16758a5198107d0b5a79209d6b6ceb30b58be67cb6c431aeb17d6430c",
+    "lib/constants/modalStyles.ts": "4a80ae8bb24de98c42e2e168754a9db32beb297fbd177597726ff336cfd103cd",
+    "lib/constants/breakpoints.ts": "928a7e7860130c86e2e87809b6b4d06c547f7b9724965ebf49d1679b8f2f46ac",
+    "lib/constants/chargeProducts.ts": "9cfab9b9047e364e1ed3a63d91eefbf00267b82f6fe54f9434d6c57886eb74d7",
+    "lib/constants/loadingTexts.ts": "0068c9e2fe0fb4b64cecd837f1eeaa1db881083dad9bcfba19bfe230840f92b3",
+    "lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
+    "lib/crefans/comments.ts": "4819453f4696c174416deba97e0644cd79ccf014087e66004b05dc2cf31e52a4",
+    "lib/crefans/membership-plans.ts": "52a45c9c11252de623afe18d22d8ffcacabf55d7e9888f722565bb93e133d806",
+    "lib/content/landing.ts": "3f91d932134313f5720d8ffc0930ea07e316ba536cd4561b62c2fb838c52042a",
+    "lib/utils/validation.ts": "fa4cd58e6d97edf09f0eef5d03b3cf333cf0b773c0dacf6b3ae74a7e617708a5",
+    "lib/utils/validationUtils.ts": "05324d7c15888649a9477677d3b97bf9934c2ddc87db9126df78b558b75ec878",
+    "lib/utils/dateUtils.ts": "59fdd7677430f4561c5d54a60698d0e0dd7db11f0d8cbb98ac3db1497645e04a",
+    "lib/utils/phoneUtils.ts": "1a4a223f820e0fd8443e3929bf26ac0068a34017eb9ad07d7f85150a84791cea",
+    "lib/utils/koreanUtils.ts": "c5833d5a3069db469a85245d7129848dcfff5d740c4e7ef53d64423b9676c969",
+    "lib/api/wallet.ts": "fbc850009c7048f49d185eae9f370933632b00d7a317933aa7c9d100bb4d031e",
+    "lib/api/payment.ts": "691a9908dd908844f3ef09a0e7ab3ac6b6ab85f5214a3f51d300abf25cb16fc5",
+    "lib/api/identity.ts": "a9dab45ef5b638a04011ab7f0badcae70c8af3d7133da4e866ef99b6327b4a12",
+    "lib/api/membership.ts": "d97954701c58f62c9a9706d1159821902d627cfec478c6e6a6d6a73c268a5ad3",
+    "lib/api/demo.ts": "c4f3df835a5f1c8474fcb4613cdbb4124ceb911ee7212df435653e066911abdf",
+    "lib/api/platformProxy.ts": "0eb51e2739efbfb585742a54b2361b46ebf83df686a2fbaabc13223db9b81bb6",
+    "lib/api/explore.ts": "400bede78be0583878b08d6802ba6c2dcbfcbec76de6345294c8cd1bd9aa7894",
+    "lib/api/subscriptionBilling.ts": "4c113b11a26f4544edaec90da28ce8e179e37359c6c19a8189a24d45675f61b0",
+    "lib/api/browser-errors.ts": "20174786d519cdb0e7e246936ad17e9b892145cb79bb05438e10a7f4bb04e5d7",
+    "lib/api/platform.ts": "a5ddbc96fd1039e54ddbb8ffa81cffc910b338d15b750defebe2ae7b3cdc4b64",
+    "lib/api/feed.ts": "c9db9dc556065fa6df680e3d956320f44e9236e73bf51c2595b5e272b15a0e5c",
+    "lib/api/client.ts": "05b5b464a5bc060b0dfd95adbc7c98efa77701af2ce9b0892d177332989ef496",
+    "lib/api/posting.ts": "03d136fece62b0484ee1ae0a7886f7c86989dd3b089310708f8a43af5f6c040c",
+    "lib/api/index.ts": "1233b7b4359785eef408ffea35b850ede887610bd95ad45171d6c0d3e1249ed4",
+    "lib/api/subscription.ts": "4a2331d78fa6c072a01b1feca5ace6749cc0b4553861e51fd20172730603acb2",
+    "lib/api/follow.ts": "70be85a57c8aa79a19364501666488294eacfd2c697ca9be23e967eb23e92d31",
+    "lib/api/config.ts": "86e6baa6de852a61c8a27acf168332fe987f7d83c830be6b8799658ad71c7144",
+    "lib/api/billing.ts": "bd888539e42009d1d56adcb135a5b88a3e901dfb76136b21c248a7380c1910d9",
+    "lib/api/comment.ts": "efbc51232f1e18221f9ab2e16d424a5f83fc34ba441dba429e31371e232b2a4c",
+    "lib/api/one-time-payment.ts": "19c65ef16730557185a913c90fb757a121e8648996f2b11599d66128cd0706b5",
+    "lib/api/media.ts": "78df6e7b63555d8217429d26a9ae4fcda4bab49f5a7a02ffea59cd4377331202",
+    "lib/api/board.ts": "1324a8f0487a766ea32428f398fe6c9d44c6527331f2e1d282f2b28b824ad7fd",
+    "lib/api/user.ts": "9807d75390baee17ea9327006b3e132aad1beba052f9b40c8698d6b847c868f3",
+    "lib/api/auth.ts": "4a2a5991f9da503b87edac10fdbfba9a629caadfa2373c2d7f73a5cb335e9753",
+    "public/mock/explore.json": "3de8c135ff6d6dd933324d680bb75e3fc2c1cea59ddb22f08bf53ea183019d50",
+    "public/mock/boardView.json": "c36ff2fc5dc447da110e83c0258fd99fec879d008ee8405031492a5648b1b2f8",
+    "public/mock/paymentHistory.json": "309a8dc2116f33ab4537b8e0c32fc1838c05e964b11802136482a576e3c46b84",
+    "public/mock/membershipCreators.json": "525402bc31927dc1a5418f21d95e16203447616e72d1680d8fe8680483b3f897",
+    "public/mock/memberships.json": "8aa7c46bab7991ef66ce5342beaaa931e5d66becba02b0fec6de3ee39e731fcc",
+    "public/mock/searchResult.json": "3ba107122c2c01b230a76eb6709a53343975bd78128e49adfec46dbe627d837c",
+    "public/mock/paymentMethods.json": "dd938341f2d7899c650c584e5005af27ee70444721f3db104ba080f7789af189",
+    "public/mock/media.json": "370dcadc66717c85de0d475fdb151762a149fcc5278a31f8151d2fe3b5a923a2",
+    "public/mock/notifications.json": "923a1241c32f6397a51c15dca5dec2f5813d284c39df0bdac2523e632da8be0f",
+    "public/mock/paymentHistoryFull.json": "837ec241e386df5bd58182ef41709cf81414cbb36e0d2565ae13c621086637dc",
+    "public/mock/followCreators.json": "0833872045d660f46c249750b73441b6e52a39f890962b328c9e3deefca5fcdf",
+    "public/mock/boardList.json": "1eef8bf96816f7cd89ff0fa026fec295196badf1d98d731d2eb3d51bab5a38e5",
+    "public/mock/explore_more.json": "a908ab2b1ec69c963c48de4f52388beeaa42da0645072c9283f77a79d17e0e3e",
+    "public/mock/feed.json": "9accb022d848bfe68156fcb1fa56f62417ac1010a146ba5b3d7b06c97304d6f2",
+    "public/brand/crefans-mark.svg": "1503cfc8da52f7fd7bf619b299b0c89af80a115369a37c6167f2e126146400d5",
+    "public/brand/crefans-logo-inverse.svg": "c0063b0f7468a9ae00a7ff7d6d73f5f2999dab98ed436c33c7f700e5d601f851",
+    "public/brand/featured-creators-v1.png": "20b16371cdbd99421f386aef60262bbef3ac2e1bed9761d3efc0d5fe7007663d",
+    "public/brand/verified-creator-v1.png": "11ecdb1d9881a7cb42feb100fc995ac4995131121fbba9a761aa5df3b921f791",
+    "public/brand/crefans-logo.svg": "85a3a166adb3b66c00984d2ece3192228a1a3967adea3dce65ee55e33b601330",
+    "public/brand/tooltip-info-v1.png": "cd27ad4f6e43010ff3421ace98eca6e59dbb0768eb7e60e6ffb15dada4484b75",
+    "public/brand/navigation/explore-round-flat-v1.png": "2e120ed94afe1a0528f43f5d5fa3f2ddee263eb8035dd80505fb01fa7b89c529",
+    "public/brand/navigation/message-round-flat-v1.png": "2a5cedd3fbef4b23c31ec3d3ab74bfbbd61390093adab347f11f1aad262286e8",
+    "public/brand/navigation/bell-round-flat-v1.png": "a4f7115e0d74425b24c85c07628415ceb7cb24b97c535d7ab0feece7a3c0f344",
+    "public/brand/navigation/user-round-flat-v1.png": "f6520264ac256669a8b4dd5fe38a1cd7ffe31665bad18efa648c5957bd869688",
+    "public/brand/navigation/home-round-flat-v1.png": "3fbbffa3aab0cff61d125443105318379f5c48220d159bf180bcc636b3911109",
+    "public/brand/categories/music-round-flat-v1.png": "9904b4e20865b4a96b10b6dadaee648d0fff7962434124255e9933ace2141385",
+    "public/brand/categories/travel-round-flat-v1.png": "7b03cee7aab8524021173919816c465240b53428e832715303d15a3c2bb77405",
+    "public/brand/categories/fitness-round-flat-v1.png": "cbde48343907d00912fe2b40da775e65b6770cfb3098a6221cac0033468489b6",
+    "public/brand/categories/all-round-flat-v1.png": "3c8b92550b4d21cc10fd0fd2507c899acf92e6f2a6295a6d79369bbad6a7dfdc",
+    "public/brand/categories/beauty-round-flat-v1.png": "c37470b95d537fe3bc4b560eeff58d0e8fb887dc6b0b4c4584f397f676da8aed",
+    "public/brand/categories/daily-round-flat-v1.png": "2ce3939e2c7db87f95abe7be531b618ae937ac93cf1711854f573cb4aa32744c",
+    "public/brand/categories/art-round-flat-v1.png": "08d15934bee1866e78ad7ca2afc8805ead7f62e7db371ee1a7dd9492909e04a5",
+    "public/brand/categories/cosplay-round-flat-v1.png": "3613038326dd7c95e62f0d92da7cf2d48c21655fd51de23699877abd01a32144",
+    "public/brand/categories/gaming-round-flat-v1.png": "d66c5cda4e968ccfa559b295ddf5c9dbccdfed255820e0c0da9588405877c1bc",
+    "public/brand/categories/lifestyle-round-flat-v1.png": "3fe713aaf2cf96f6629db9c4a640eee4d875554e9d13d9f4e0fba916a8a7106f",
+    "public/illustrations/tactile/connection.png": "02eed5a3fe3ee420eef5deda065a6a178b561c70ac9397879154e928cfb18d84",
+    "public/illustrations/tactile/tickets.png": "6f55dd78e071547120330cc89d1b962d52b5c6783af5ba809a0f05a3c2329385",
+    "public/illustrations/tactile/creation.png": "cee00b2c3dccd2e2591873d18213d700e31162115a468bfec8dce39d2ba49579",
+    "public/illustrations/tactile/creation-v2.png": "d8494fae3a01245ef551c80bed61c84cc2bb58f916569c84b981d0def0255b33",
+    "public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
+    "public/illustrations/glass/connection.png": "a5741e56a7801ca15af9252a9ab23d07b645090b3f1d1568a4e6bf04925f2dfa",
+    "public/illustrations/glass/tickets.png": "5b25f17c02b88fc0ecd2c14b23ab6da239caf4f0e50b06e63f8465afa47df304",
+    "public/illustrations/glass/creation.png": "b780b3c6f9370a906ae0fe9dd3188b3263d4c3ae8f854355fc95e102fe4dcab8",
+    "public/illustrations/redesign/minji.png": "55fc306e573d4614e60885acdde31744fa3f21c364e224096e4130d2d44e4e26",
+    "public/illustrations/redesign/jiwoo.png": "017da348fd5707415c4a7a7d1ae6de0a253759ddf14ba3db09f2622e67bbed02",
+    "public/illustrations/redesign/beach-day.png": "5b8591991e3fd3cde33ee1c8375d2813cd5649eddc9a78d664cc2d24ef5e8503",
+    "public/illustrations/redesign/yerin.png": "69db7e09a070c1b8de354f83d42ac079b1e0f8153eb3d00bc242f5b53aafe576",
+    "public/illustrations/redesign/daily-cat.png": "9a820ffddf53d5a3f1086b686372a725450cd58af5b3822c22118617235a251d",
+    "public/illustrations/redesign/hero-woman.png": "eeddd2108955e4863524a9d520470bc0877ff3d449d349998e46093bc0a37e6d",
+    "public/illustrations/redesign/seoyeon.png": "a1524772a2068ebaedff02f1081d2dabaf7e32738a8f6e7445d8abd65b263d3f",
+    "public/illustrations/creators/dance.png": "c737c489839f35fd51e26f5849a16aa86b8fde30cdda531b842dac8cda4cabb4",
+    "public/illustrations/creators/cosplay-anime-v3-prompt.md": "4ba9ef898e44a04091d442a40ff078f84df33fc0f54fab34b314a9a1dab0c068",
+    "public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
+    "public/illustrations/creators/cosplay-v2-prompt.md": "c662f2ecf1b6196787fd4edee45ac1894f168660fec27cf9418d010c512121f0",
+    "public/illustrations/creators/cosplay-v2.png": "34566c97243afc7d85d8268d0bbcda6f179d078461f8f72a0402fa3968432264",
+    "public/illustrations/creators/gaming.png": "23d5f71b797ffb70a82bd3f6add65828397b2d963175a7179138713555dba345",
+    "public/illustrations/creators/cosplay-anime-v3.png": "552c171fa68a22a48ce7a8b5f16882913b2c85ba94b7d79909c47db988dde72f",
+    "public/illustrations/creators/gaming-broadcast-v2.png": "1cb47c15b87ef44bb8febc88521712604b1abf4b4c8e1efc35ee89873faf4339",
+    "public/illustrations/creators/README.md": "6384b8477faa69a6d1a578497794ed446d7511e713ef7e014e3f43a4378b9572",
+    "public/illustrations/creators/cosplay.png": "187e049fbaea6a611fd017b90dcad519e6c85440d59fdfa09307c37a270abe82",
+    "public/illustrations/creators/voice.png": "6ee98f3ba69b10557a37937fa424113a44e66bbe4049d79a39ae9b6eb2cf6891",
+    "public/illustrations/fitness/seoyun.png": "87e7bea5c4445d524777c6f94689dd3b2dd88c8b8d9243a167714be9c6cc142b",
+    "public/illustrations/fitness/seoyun-gym-row.png": "c91a8ee14bd185689a912bda878ced98118e9c30f58112cadb73dd032ef43d3a",
+    "public/illustrations/fitness/seoyun-selfie.png": "bc4453f95204610ab1858da71afb95ed36ac82484df24ae4f9be411b8a936181",
+    "public/illustrations/community/README.md": "9d69ffad897ec8d210fe0f9103ed97b2a2d62b6779a26b86ad034210588722d0",
+    "public/illustrations/community/creator-fans-v1.png": "1f0a26aa178388ffde8b5b2182e347e52490dc5829a6ca778110168588129c24",
+    "public/illustrations/creators/sion/portrait-v1.png": "e3f804a5cbe8f946c06d6698fc1c7ef10034435fa2c76361111709d1283469d4",
+    "public/illustrations/creators/sion/avatar-v1.png": "fd5c9218442fdcf175e05ef8b9f6d309710e10c026f4e3631011dbf6a6cbbc31",
+    "public/illustrations/creators/sion/generation.json": "059ca64901124ae80d923e571defbe342eeb2628ebb38dd7242e8ba8d850721f",
+    "public/illustrations/creators/jiwoo/camp-coffee-v2.png": "4f14a73f87a9c11bcb8ecac8005d7ef0a9dc0a923b739b74b3561ed63a7e2813",
+    "public/illustrations/creators/jiwoo/camp-coffee-v1.png": "6c7baf973d820685a68c2d6331b2af29050525f1d2111568a65a453d06194740",
+    "public/illustrations/creators/jiwoo/camp-morning-v1.png": "d50422c219120838adbdfe7bc57804d866e94a3a68f0ac804ab016fe3afa1cd7",
+    "public/illustrations/creators/jiwoo/generation-v2.json": "195b4ae707c2fb59917550798cfbd8c6fb812c59ea76466b320288f3e8b5de81",
+    "public/illustrations/creators/jiwoo/camp-morning-v2.png": "8a171f9bf5332e1531aa7b7136f6ccf5a7202a7a00808c7652ead5c692e66ee5",
+    "public/illustrations/creators/jiwoo/avatar-trail-v1.png": "79c518fec2d0e16ba6c8838330ece7f1940aceb229591d77a5c314b546506c88",
+    "public/illustrations/creators/jiwoo/avatar-trail-v2.png": "5f5bbbfb8a8c27e95f0b1b7150900c4bcdc012aea3c25d674712d3d5d87db76d",
+    "public/illustrations/creators/jiwoo/generation.json": "fbbea6c7a17c61719724679477c315145c0e6c336d7132a0a43ca36ce60d5bb4",
+    "public/illustrations/creators/jiwoo/coastal-walk-v2.png": "127b8c9b0af5e31c9770ced4ad80731097c55bfe804802d58270bdcf208b6533",
+    "public/illustrations/creators/jiwoo/cover-lakeside-v1.png": "41aa88e1aa6cc8522de43b696b623abc5c4c4176e7fe5346885baed456422a69",
+    "public/illustrations/creators/jiwoo/coastal-walk-v1.png": "30c7a96b0537e88e0bba4383e11a28904c9ae39ef89ba933b33bfa49a8a196a9",
+    "public/illustrations/creators/jiwoo/cover-lakeside-v2.png": "a6085d53bf31c7d6e6e232fbf46481021f51a1cf179ab478d59fb3660343832a",
+    "public/illustrations/creators/moka/backstage-v1.png": "75a06ba96ada7671a0623db126e8cc10ce9a51488e0ba4f99a2ddd700959348c",
+    "public/illustrations/creators/moka/cover-v1.png": "405fd73639ef37d3c7809c76dba796d6b3b41b67865f1995f72efdbc96b1ee54",
+    "public/illustrations/creators/moka/editorial-v1.png": "e80542f829fd267956aebe3c697c0e78f378453a56993552d85345938a55fc44",
+    "public/illustrations/creators/moka/avatar-v1.png": "2a5c20871f976bd7d19caad6b051bccf480c22f9d68869c953df57411d0a324b",
+    "public/illustrations/creators/moka/generation.json": "ed73d39db3a541d8f78145037f5c9b0dbd1d88d8d78d1293c6d8e86330bdf8f2",
+    "public/illustrations/redesign/variety/haneul-courtyard-v3.png": "08098ce6290ddd539f186ff2b73f3bb56be2215ad2e79c02a96e549f7acc025c",
+    "public/illustrations/redesign/variety/seoyeon-music-v3.png": "5b8fdaf885d8aa23504c5ca246e9b82c9d2d19c049493a8d31bcfccd584e2e1e",
+    "public/illustrations/redesign/variety/minji-gallery-v3.png": "3292476c5d5b4e10562c19e2f1bbcaac6aaaf7fa76943f0cc9ef39fb66478d38",
+    "public/illustrations/redesign/variety/jiwoo-terrace-v3.png": "8bf44adcde84f4813baf0f47c6b68d57168b18c1c7fb9cfec603b8f9b7afe2e3",
+    "public/illustrations/redesign/variety/yerin-wellness-v3.png": "d6f237466413148e4ae376c2ebdc841f275346ec294784024afb58d2846c1c02",
+    "public/illustrations/redesign/variety/haneul-bookshop-v3.png": "cdea1e24e1c7b590ce7910a9262c8796b809b8ad6cbcded28b10e76c2709bd9a",
+    "components/ui/UnreadBadge.tsx": "8634517704d1d0f8e3cd4e4c1ae59515e768a2b4c3f5fdc1aec3ac47373ee1af",
+    "components/ui/toggle.module.css": "5b605268351373b3043c14c4ef54ddc6145548305aeb3141495a387a36b6036e",
+    "components/ui/MediaTypeIcon.tsx": "9ab0de97e949487436fa8c10c9e33a31fdf278a82fd34b42d49c6a177723fb35",
+    "components/ui/ChipRow.tsx": "c5eae8b3be1a4aa60078c2de80655bf5095ce599afc21f279a1d105f7d678c0b",
+    "components/ui/field.module.css": "4acd80670e6c028c3b649e32280cffce01e1213d89545c30f30b8b2498ff80eb",
+    "components/ui/marquee-text.module.css": "29f90b586473ed421ebebeefa70cefe0802b9c6692700d296ae9139f4f231939",
+    "components/ui/shell.module.css": "f91592db25b97385e6e94d827a2a208b3d7521f5ab8d51d35996c3e6bf85050b",
+    "components/ui/text-link.module.css": "9e1db8bd6b8d4b8a5d415a44a7c89fa4e9408126ae71ff18e581da52925961ea",
+    "components/ui/avatar.module.css": "8177c0b7e1830accba95fd5263ccb823bb9f985231f1ba5e73ea16b3af4ed54e",
+    "components/ui/Pagination.tsx": "3f3c081782cb7e4ee2be39c214f658d5cd06de3e330b0281d3604115b59cb907",
+    "components/ui/data-table.module.css": "89dbd7b51372e342e6f3c3b63eaa5c61b4122de1f18f303e5b1dccb10a13a362",
+    "components/ui/usePresence.ts": "92f08086fbe9f1597611e7ba678526185040737680de188d8069e6a6b1d6e4ef",
+    "components/ui/unread-badge.module.css": "0d710392ec38bba70f89f8b3126d02c62f617a89f58a7dad0c66c301f12cb8f0",
+    "components/ui/image-upload.module.css": "c0f00619e82bae7baa5f7a86fe8e1f1bcb15bf2adaffc8a69b73ebe22795a6f9",
+    "components/ui/pin-field.module.css": "7a4066fc3fc1ff3fba812376b1d723677421c36a23fa78841fe8e9ba7b061f39",
+    "components/ui/optional-image.module.css": "0c0f3dabf4cd9a10f5118d62f5b4624e4188e81c9eb91ca0a864545618e10535",
+    "components/ui/PinField.tsx": "fb82250c7367f362a9e420f0630f418d32b99940a879870acda5da7a2501209f",
+    "components/ui/MediaVideo.tsx": "6eb692fe6958ebe5a09e100a451a6879fc163d921955e2691e1c8155e4924f9c",
+    "components/ui/select.module.css": "2471d783be43071dac1d6ca311e6335eaf4796e17959d37f987c49f5489dd9f4",
+    "components/ui/amount-presets.module.css": "5e11ab033aec3f18077d8db32204b8a51e72e4a1fecba3a1d8dcc7bd013504c5",
+    "components/ui/Charts.tsx": "5ed303baa8fe558f6298e567b6af6d65d895deaa82bc190f578bb6a7adfac76e",
+    "components/ui/Content.tsx": "aeb692acbdd8d5a21b7db54b02aa1d01a72f79b497530e8aa163114a84822b73",
+    "components/ui/Field.tsx": "5967248eec45ded92ecc51df0de7f6b38089c1e18a899754d64ca431721b3142",
+    "components/ui/DateRangePicker.tsx": "7aa41a94fcb762395c5252584137aa61d5c12229bc7bc0ca46595925383f87d8",
+    "components/ui/useAnimatedChartValues.ts": "5226c4d945797a96ac0f5d62c962a9b2be84fabf7a248c1e04ed87e804022137",
+    "components/ui/Primitives.tsx": "a5b3fed8ec452270c244ee77cc8f99dccb2a57aa5eee38972d8aea9effd4117f",
+    "components/ui/AppShell.tsx": "1877e2ab3fd34f6bad22bfe788919f7cfa09367071f9cb57288107fad12548d0",
+    "components/ui/DialogActions.tsx": "87e8064ac7f72c89f2587806cea7c1feb5f9ab67c2f136044f34c1b9622c503f",
+    "components/ui/Accordion.tsx": "6df9c21b2a9d5b1925af52b5052f0fcf8fdfb8fccc090ad1ac7b2affb5d0386c",
+    "components/ui/dialog-actions.module.css": "b2e062c782277e5f97617c05c4b9b9f84dc760ba279891df1e0209d758e4e569",
+    "components/ui/ImageUpload.tsx": "a52c81488d8c15595adc75ac0aa645d96449bcf24489567cd511d1bef1059d6d",
+    "components/ui/accordion.module.css": "b89a1a050069422e6d9a1f11c0a4a446ba3ee6c269f0229ca29ee6712b5bb194",
+    "components/ui/MediaUpload.tsx": "2fece78c27d8553b97bdcfc0e6d99abc81b0822189cbc3f3c3f0b061a1e3c603",
+    "components/ui/chip-row.module.css": "5fb709753b37b965ca1123cbe5a5200ffafea861153a793680740e2c85ff6f2f",
+    "components/ui/pagination.module.css": "3e57dc4238356582a1e981164646634ee841f78e5c842232e67be328af87ef40",
+    "components/ui/choice.module.css": "a9880390cfde523179a99572fdaf6ef663b27638e94ab8d3c092d6faedcd6b31",
+    "components/ui/Avatar.tsx": "4735a5e5c8b52f06879460a7d980d90f1cad9dcf3d8a4636e84995f16b2b50e2",
+    "components/ui/date-range-picker.module.css": "8560f73551993e71164a6cda9c1e313dc667a460c8282b5ec32aa9c725e6d902",
+    "components/ui/DataTable.tsx": "c3c8ff56027dcdde8909fdecd8a1d38cd6b1051e781de16ad3b68cc7e352e266",
+    "components/ui/info-tooltip.module.css": "9b6c9a56365a80ead4f832ed6c5ef9c1c3a95853b89aa592be08e013c46158bf",
+    "components/ui/AmountPresets.tsx": "93ba6e96505cda34508e01e0e79d112580f7eb74ee26dcfa2a8f637f1797106f",
+    "components/ui/charts.module.css": "28b031f41fef22badb5a9cee82df54c4c0d81c57765a1d46a08b6c61d81453b6",
+    "components/ui/benefits-field.module.css": "8b65792de610df399f701d0a898a58135461a265eb932cf156d9011d9d7ec0d1",
+    "components/ui/Choice.tsx": "01e56fb929f57c976113b69b44502c68f5e21bbc2406ef2a0ccae7a6a2ed6bfa",
+    "components/ui/SelectField.tsx": "24d70857fbecc35f977afc15ca93ea37fdc164a3a4519c521dec4bb5e003e4ac",
+    "components/ui/Toggle.tsx": "4ce3e039f681de39b2d521ceda89355baa7f857a8866edfb0da314c4bb47931d",
+    "components/ui/BenefitsField.tsx": "e7968edf61f1fcfba131a4dfe4bcd8a593d8e4cfc8fc29d9c22cbe33138bc81f",
+    "components/ui/media-upload.module.css": "9b2b84689504e4787b6db17cfc6d3a9c0fff0d762cd0b24fd962acca20bcb35d",
+    "components/ui/MarqueeText.tsx": "d444b1aea8dd2ab378d94a20b1875a5a9ed78bab793c620504610ac912f0dd1b",
+    "components/ui/OptionalImage.tsx": "e91eb5ae72dc5f6bd656d0328c000521f3e2d924268cf250a1caa83e2cf3b86b",
+    "components/ui/ui.module.css": "680c4401a3cc5da17ad4d16bf828d74b86938b833297241d31ac56f010e8ca3a",
+    "components/ui/TextLink.tsx": "810b4e1a731bd1db69eac26666d04741e3d7f02269b223a5aebe3c5d10f3fd34",
+    "components/ui/media-order.ts": "4d15735fd5a2d19704d27211ec5f6ed8815a91247fc56990414dfa9ef7e3922c",
+    "components/ui/date-range.ts": "619b518545fc88e57a955eba0e5fd68fceb2bc4076f1be23fef72cd9d56d44f4",
+    "components/ui/InfoTooltip.tsx": "7f8dbebd17b274b68fa9166d9a91159228b7d51a1732ecaaa07728c3278628e5",
+    "components/settings/Settings.tsx": "f505dbbc972b7a0e4ee4d919e3ae450e90ef5c2481571ed174b377637f2dab8e",
+    "components/landing/landing.module.css": "a3a8407de29c86a493944c5edd839607750cc453ba2f7a2ddfd7067ba415ed5d",
+    "components/landing/LandingPage.tsx": "1b6942a79e9ef6af6a12825eefd2abbef441cb0d6fa3141d7be7f5d7133ae40c",
+    "components/landing/ServiceShowcase.tsx": "38a3005af5d4f1952f54065cad09450f870bf9f096fd2f3684842f5431d3f43a",
+    "components/landing/showcase.module.css": "745a1378c529d5a2a77f31d7359f41df718f3c27bcdb9803be03d12239647fae",
+    "components/landing/ServiceIntroduction.tsx": "f22f1842edcddd0764282e1d7bcfb50bb22c13fa0a21d635d220fde891da4bec",
+    "components/landing/HeroSlider.tsx": "c32a6e56a94b2b54ab10176d68fa23d8a25601e9813ca25204207d709ec832c2",
+    "components/post/Post.tsx": "9b8006ca4e34c800278928b1b7d331b5fdda769c74868e2ec0b0d4851749d6e5",
+    "components/auth/ProtectedRoute.tsx": "1d4cfd204e66a99c4da0d0c0d8320ec7790569abdc711d56d751cfc305a6f66b",
+    "components/auth/LogoutModal.tsx": "4cb3c015104a946b9383d6383cf91f94024ad69f1795bde8f6e808e3ff5295bf",
+    "components/auth/AuthGuard.tsx": "5e52669ea05c8e39d8e3113689150e0e08fbb68cba65d57ade64883852afecdb",
+    "components/comment/CommentList.tsx": "b395488844c59b4e476805c05d2bdb9d2918988f11d5bc216567859678e9684a",
+    "components/layout/MainLayout.tsx": "c87f19eefef553d665c804a030f5f6d63dbb324adde076815380d7666a9ad314",
+    "components/layout/CreatorCenterLayout.tsx": "c57cdc1bdd2ddd439512be44deca21a5395ab19d9e9dcf50b440ccf21e7e7cb0",
+    "components/providers/PresentationProviders.tsx": "6c71d6be149623ddfdf8773efebde6b320eae949cb3f45cc0e10f34cc69df48a",
+    "components/providers/ApplicationProviders.tsx": "75168ef6b5ff371865c769d49a450a1269f5a3cb88e97875412037e3259761b7",
+    "components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
+    "components/crefans/ServiceLinks.tsx": "933725b79940ce465686fbb7e34aa3998145021579fdd26a0b9ccfb1104b1527",
+    "components/crefans/SocialPages.tsx": "723f399b2a4e3eec69d2e0b450a94005e6337f54ee7828bb50d12819c8d5324e",
+    "components/crefans/landing.module.css": "dca60967dd33de362250207a08e091e0ead9ea470e3ff5ba885c1a52d162b449",
+    "components/crefans/MediaOverlay.tsx": "079caf0577f2a73eea40e3714e094619e309b6f699928e175cac77824d1957e7",
+    "components/crefans/brand.module.css": "65d9cc3926d095f6d120bce555e570fff4bbd1bf8068f77da0923501fc1c0da1",
+    "components/crefans/Icon.tsx": "fc44ab0731283ca297ea9416fc76661493ab8e672452a2555d849870e83b4fb7",
+    "components/crefans/CategoryChip.tsx": "9badf6766cc946b10099dd22c3b8726c83b7218411a6d10d211713a3f4db9cec",
+    "components/crefans/FollowButton.tsx": "351e0114e0288d38fa46d0af4fbee47891ccd4e7b294d736d470f50da9b9fc95",
+    "components/crefans/CreatorPages.tsx": "152a39d65139f0d9ad5169b7c556f89855eddcc1827ef144a405ee51d3561062",
+    "components/crefans/PublicMemberPage.tsx": "ec44f369da9e8de210b4386876bfe05b91b9325df5325957329c26bdca03b8e7",
+    "components/crefans/CommentComposer.tsx": "a2ca07e20d406133d5d2162e01b99e722be8ad0d454d4702bfa28802acf888cc",
+    "components/crefans/post-views.module.css": "b4d76e716a5addb479c0ff4e1f750757feadcf078c4bcc750ca08bb0a546a0de",
+    "components/crefans/LegalDocumentBody.tsx": "c37b3d457e411386a1c1694bbd946e767b7694ef5062d5ff1c6ba95c2ac586aa",
+    "components/crefans/PostViews.tsx": "b5620fc4eaf8a3444d3a845a8dd4c1f435aae41b080f473ed2e340f509c135be",
+    "components/crefans/account.module.css": "8f8175ea9b575c928215c91679c3c794c2dcdc6896595f9ba96e2d0607236b17",
+    "components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
+    "components/crefans/LandingPage.tsx": "3276c55682dccfbca79dc3d61f95c2c053e808f0005c1b54b852520fec2418ca",
+    "components/crefans/common.module.css": "e83bc03176ae7ca296de6f5ace03f9b9a1e34e9bd1f7408a5b014f806030778a",
+    "components/crefans/CreatorCard.tsx": "c5717eabbc6a00d7afdcf236e550036a7f53683308402629a6e26ed80543ecda",
+    "components/crefans/AccountPages.tsx": "de135eef765e24e3d6ed85126caf81d021cb1da3a6fe6f589290712be731dc60",
+    "components/crefans/creator.module.css": "fcb09095dd851d8c50b030c33ecf1659672b6732cde54cb8b1d80218b2559c39",
+    "components/crefans/creator-name.module.css": "e17863c06c47e6806951e05f13fd2c119a884a702c854e14f0849d5ee705577a",
+    "components/crefans/ProfileHeader.tsx": "185d89854aa945da058ab19ccb6819bee4d906e19f6e8314f6fd67a2a9f6190a",
+    "components/crefans/CommentIcon.tsx": "9d86c449cdc4732d4d17e1d97c2f1e79aacc5055b3266f1812fcec448724a7a6",
+    "components/crefans/NavigationIcon.tsx": "6ba2bdeb668202bd7ab98fce9db6b711f5e04e73ce530ddabb3b1c893bd2a9f7",
+    "components/crefans/PostMembershipNotice.tsx": "6ad4b29f59ae58fa2970fa2cf4609002fb0055936a20422969ba574bdc51d654",
+    "components/crefans/creator-search.module.css": "58cf7fe4f52d60b97e73045a70ade3f2b8ddfb4ce98b9591f41cfd6d0ebde08d",
+    "components/crefans/social.module.css": "b37776914858bf7166e06fa40b770cdaf168146900d5f42a7c0132c3e78c4971",
+    "components/crefans/service.module.css": "a2bc16cbc5a60756bf4d1f1274c57c440f4eb63dbcbbd527850eb7185fa7ef5c",
+    "components/crefans/ServiceUI.tsx": "f77655ea8486d672b93cc18af9d25ac6b76f6570a597ed551d2e2d214afc22d8",
+    "components/crefans/CreatorName.tsx": "17726c468feffee75c1e5a83933b2da41fd0c36963267552eddbd66b35960de5",
+    "components/crefans/ApiState.tsx": "038bd2df27bb5772e1adf66c332b426374a4288db6381e0821de93331169f9f6",
+    "components/crefans/MembershipPlanCard.tsx": "22a0ad0dcc55ec617f8eea7a72ad0c7d6f874879723876213480736fd2702804",
+    "components/crefans/CommentMentions.tsx": "7b88d6d313a00a531ca9d824822dd26f5b8502cbdc9a8387666c7751828de4fb",
+    "components/crefans/Brand.tsx": "119ea0f8bcb412e1d6122cb945a2af49639b988b1176a90b870d545495f143b6",
+    "components/crefans/CreatorSearch.tsx": "fd1cef2a8250b7c4d324982370a8da66209ea5e34a10bd8d110627de6898e98b",
+    "components/crefans/CommonPages.tsx": "5364af6aeca2e153cb4348e54d4cde7da7a9a91ed8fecaf0fe1880cde112ac02",
+    "components/crefans/navigation-icon.module.css": "f7d03cc17dfb95e9ad57ca08744fa9041f89b5fe6341c2a45d68ae35769e5091",
+    "components/crefans/ServiceShell.tsx": "ffe3393e3f93311147c096c7eb664847b7148a4c1d93970ae95f49fb4c46d1b6",
+    "components/modals/ReportModal.tsx": "239fa13604f2130bd34e6a6ee950f15cce7347383bf38b9c2df27e7d8f436d44",
+    "components/modals/LoginModal.tsx": "f9acf05b878d26d0db3bfa3a8750956891d8dd2aa56c6d759c88444d9feb1cd0",
+    "components/modals/NicknameModal.tsx": "449828a486e97830570f7847a019b0005c648a26645b71eefbe0ec994e16edae",
+    "components/modals/DeleteAccountModal.tsx": "caf016a94a5acaf025aaced193fc20dafbd1e89abebfa94f65abd9e30da015b0",
+    "components/modals/MembershipManagementModal.tsx": "b100368a7603e6ee73897adc08f323249d6d63f1a59322efd245947106bed349",
+    "components/modals/DonationModal.tsx": "8a1d8e47c15e2cd693078ddfe71211ce336d07163290c8e5c4fbf7990cad55c1",
+    "components/modals/AddMembershipModal.tsx": "6f611fee68c8b225948b51fc37e6f065e5ea617bcbbc2e2008a78f9a95d2e026",
+    "components/modals/ChargeModal.tsx": "c94fff1f3c570dd481752841ccd70e6518a21db3076bed16579c20433f73671d",
+    "components/modals/MembershipJoinModal.tsx": "5fdc617b13181fedb84902df4f37998955a84c458297edc259be23600488aafe",
+    "components/modals/EditMembershipModal.tsx": "5c0dd26a0be53d0088c87a3295f33b77e1e0ff740fa31343b5270402432ccd06",
+    "components/modals/HandleModal.tsx": "2cccc77123fbbd2670d3115672f3bebcbb990e8de5e6ad29d54a8a501142a8f9",
+    "components/explore/Explore.tsx": "7db6b75a075baf8dea7ba13c05ac8205e41b875aa65ecf6cbf7e1eeb29fe8368",
+    "components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
+    "components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
+    "components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
+    "components/common/FeedFilter.tsx": "5c526fdc2db9be17ba291805763839a3ec16e413d9fdc7b06f3f4220ce554f4b",
+    "components/common/EmailAutoComplete.tsx": "3b9383ca24a557de8a1aa9a673b0a73e13e8af4ea75ce67040be470a45650141",
+    "components/common/CategoryTag.tsx": "12da80de465514d4d0fcbb5c50b589d1b2f85a0bb85bc173b0fd6602c127bec3",
+    "components/profile/Profile.tsx": "91583baf187e8097f2bfb10baacbfccb38020cd205d9d3140a46b210ff1bde8d",
+    "components/feed/Feed.tsx": "f2b8a22d731882c46eb80cd3da6816c4efbb342c2062edbccb1eff8add213570",
+    "components/preview/landing-data.ts": "e812681669acd7ff59c0ab731cedd94d884c1445bf2794b1af3de46ef25ca5b9",
+    "components/preview/comment-fixtures.ts": "c8e13950be6c33e56e63a464dba6c5c1542bdfe966689c707f2c18537ddf0b50",
+    "components/preview/LandingPreview.tsx": "9532cc04eb2efcbe4278edb05e177e92433c3ee62607d1fc406fb993f72a14f7",
+    "components/preview/screen-catalog.ts": "4069e3afb462f29536db24d3c58b7b87271a4707cd10c23ea2a9d2d216f6040f",
+    "components/preview/LandingIcon.tsx": "77ca4ae2a7ae3474fd7f511c45262a37db257bc96e4da56f55c944bf16d0a1ef",
+    "components/service/CheckoutPage.tsx": "c00add66cd09ea9cdb8fd7e7b1bffa25fd41300bc37a7a7ce03176ab74cd0a49",
+    "components/service/PaymentResult.tsx": "ffef2218e71a4f51eae5e4c7985fff57aea2319f1e739c7f708f2dac0f50c14a",
+    "components/service/BrowserErrors.tsx": "441cd43641c97272b1c07679f5224b54b104706d348ce0739eb97b16c7aac79b",
+    "components/service/Landing.tsx": "48336d737088dfc4d78aa1f02af83dd750832619e687e28da6b765f63525f5f9",
+    "components/service/ServiceRouter.tsx": "a8bbef8118f4fe3d942242d66f673192fd3eb752e3aaaff8853424ec84ee958b",
+    "components/service/StudioRouter.tsx": "d69f021243b09fea958328843e659965bbc08644027a06f73866510673f10af1",
+    "components/service/ServiceProvider.tsx": "726c6d045d530dee64f66752edf94261a6187fbd5abf41aee0aef992008b7647",
+    "components/design-system/RedesignTokens.tsx": "633705124b05db79caaeadf237e15055b7d73d08778b125b2d3b3db7a863889c",
+    "components/design-system/PinFieldCatalog.tsx": "c3462b275b28dda5c5d370127b7ac5ec3b7233165a1a700b9bbcb8e3c252ab73",
+    "components/design-system/AmountPresetsCatalog.tsx": "60950a938150232ced90e99f801371c8bbffe0bdb06ce122331d1d859b58d32c",
+    "components/design-system/FormControlsCatalog.tsx": "a88d46f14cdceb287e163eda8b8fdcc0647346529e1c593f916d24395b03835c",
+    "components/design-system/Primitives.tsx": "2d9b33d5e1006e167d038b44d8d95dad72c22940a8d2eb9450f1f9c726f4422a",
+    "components/design-system/ServicePatternCatalog.tsx": "9f2c3bcbca2e80e7aada9489748828f57b19677074e8013087d228d5b424a906",
+    "components/design-system/PostPreview.tsx": "3404104a9282109a2e7b3abde67f04658c638917b3f08183e8fbb64d082e4e3a",
+    "components/design-system/Patterns.tsx": "b4d128f6253d966db98b6cf6419e18e2474dcae227443a2acb723a3c1a7ad55a",
+    "components/design-system/DesignSystem.tsx": "ea84054c383a69a3ad4b9532e7512a09ee3b1d8b08d8afdbeee4ec7c0c73250e",
+    "components/design-system/BenefitsFieldCatalog.tsx": "66ed5c24481dcd06753fe34aa0db714525affaa176364fa9b9147f32866157aa",
+    "components/design-system/ServiceComponents.tsx": "0f2b2fc75e7e04aa1392bf7a782f37bf68276ba71049d02496fe92843ee23e2c",
+    "components/design-system/ImageUploadCatalog.tsx": "762cf80b673dc58125b70006d743b6459a263fa065d4219626a94dbbaa170243",
+    "components/design-system/CustomDesignSystem.tsx": "f5ce51f6176a57bf62e5d71059d77317d0c17a85e890ecaa9a35fe96f72ac874",
+    "components/design-system/ChartMotionCatalog.tsx": "eca287ae6dcc2aeb8c3a705536bc064290dfe59695ccce675e5ccc0b37a1564a",
+    "components/design-system/Foundations.tsx": "d66026025d6a9281e36535da0621340ccd1bcb5d259bb81aeffc0f4c295c1524",
+    "components/design-system/DataDisplayCatalog.tsx": "fa1a495660d0a828f0f3fa980296780107e5caccae3b389ffb49d249c5d7a0e3",
+    "components/design-system/Controls.tsx": "cf1e3d0e71f16aca59a98e93903219bd5f2cc42d21d2e46c6f00a53abfbc7e36",
+    "components/design-system/design-system.module.css": "e817d1d7d1cec3e855ac81d6953302d75facd51339907cd13e939b016825853e",
+    "components/design-system/custom.module.css": "af939a77194df0556a9d65662248813195dfa292aeee235f1a7b7bbeb0c3cdb8",
+    "components/media/MediaGallery.tsx": "6efb6002834835d8c0b1db31471188c7b502f36274497bb40f7cd7616e9e2592",
+    "components/preview/studio/StudioProvider.tsx": "5d4b3edf0cb94007b95cd3ae1df570aa006ce5d1a08c8c52bc562530896e5ce6",
+    "components/preview/studio/management-fixtures.ts": "8e0443bf7082cb5137817593c248990c001892fcf652d207b13e12368b4cd9ce",
+    "components/preview/studio/useMockManagement.ts": "227126d13158b3b2d81f8c82064734283461c9931159d1243410651fcea20d8e",
+    "components/preview/studio/finance-fixtures.ts": "e2b7a24fc07e819aeb82049c91d8fbe54fd35c866e6b866a17a29907e7b7efb4",
+    "components/preview/studio/useMockReports.ts": "9b7809fb7633634e34ecb2efcc8ed34347a3be0bc8c460a8a31ae4a56da6916f",
+    "components/preview/studio/useMockCommunity.ts": "c52bf66ab3daec86096b59c2c85d5b25573648ea0cd13b16358c97d18328c4c7",
+    "components/preview/studio/useMockFinance.ts": "9a8fb8b8a15f468efaa8a075da881bd12e8c9bd204d6f3e6c7ee6c93ba4ca47c",
+    "components/preview/studio/useMockOverview.ts": "c2f3a494fb3f98efae74fb5daf2e03a16d3553e46dd760f60f5e267c8e924c46",
+    "components/preview/studio/useLocalImages.ts": "2f123b590b8685a672b22dcf405ce7299d8b09cf57506b0a3e4290dd2a8abb27",
+    "components/preview/studio/StudioRouter.tsx": "9c5793504b208924dc670c0cf6505dd6ef96dce6b3ffd025ccfcd726f1155fd7",
+    "components/preview/service/fixtures.ts": "3bf88dd60f785038d0ceee5c0e553758e2cf0faaed1105afd462d35bf06e1f6a",
+    "components/preview/service/useMockAccount.ts": "e22334bca07faab8b0c5dcaf472540f87acee6d9b6eafbf5641c7b2c0f2ccb29",
+    "components/preview/service/useMockSocial.ts": "6e91cde593b1d0ecfd8efdc630939b1db6fa30d2b741fcf6630b8cf411dfc6bc",
+    "components/preview/service/PreviewProvider.tsx": "38fcf1d2f66cac2c7eecb27aeb0edd06c607aff42999602cec70d55c5282d326",
+    "components/preview/service/useMockCommon.ts": "435b25890c1f97eb86fe5b704bc938656d6cec67227605f9078a23d07543232d",
+    "components/preview/service/access.ts": "d216955d0f12c9418ee313f57eb0deaa32f9fe1a050bce096ae7554f969a74d8",
+    "components/preview/service/legal-fixtures.ts": "d6ae3fb59f85ac7be16e74c0ce382b2dd0d40d7a569536177fec8ef78d1209c5",
+    "components/preview/service/ServiceRouter.tsx": "f746dd9df9e9fb3dc4ee685afc38fd43cb78a28509b1f344642b4ef5a1acdc6e",
+    "components/crefans/studio/management.module.css": "e4642d58a681d2d94facab145faa8d55e19feb7d93b974003fa9ce5a6d3e7efc",
+    "components/crefans/studio/phone-frame.module.css": "ba6ee4a4ee534d630ddb4debd8d6d45b5bc5e9bca580880acfb3e7d44af58058",
+    "components/crefans/studio/withdrawal-security.module.css": "a84a4634933becda94f201d334f1fb8dbf07b298de6e75db28d861d26ca92f5f",
+    "components/crefans/studio/OverviewPages.tsx": "58c4d6d17586b36f16236d875fbab80b693a4523a967894343a2cefefc3e5a6f",
+    "components/crefans/studio/StudioShell.tsx": "944268f94811d13fb8e953a6d019887d203ea535991b517e09629845f5df243b",
+    "components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
+    "components/crefans/studio/FinancePages.tsx": "9dd2edc15ee9592c2333b0df81fe9aaa23a246d14d726e96196ce526750a78cd",
+    "components/crefans/studio/studio.module.css": "503c2a1d1d63cd8c70cdd3c5f4c2a88e82a41c271fa25778ec8342403547c203",
+    "components/crefans/studio/finance.module.css": "315dcf598aeddfad1ccd7b35452bd215571df3a1d452f8297d2a6de596c39777",
+    "components/crefans/studio/overview.module.css": "d4776ac84a44219096a67b200639848d42daba67c25051915db6414a3dc233c8",
+    "components/crefans/studio/community.module.css": "1a629e1c23d2250d7f168acf45d42718dc4c4328f2885c4a0f945fdc57256961",
+    "components/crefans/studio/report.module.css": "22105b666f4fd8581c047e39fa4337b78a2ef1461543a0d0b40d40ff918ac63a",
+    "components/crefans/studio/WithdrawalSecurityPage.tsx": "24fe550b3051c4f84a423668b47ae87fcbbefdc0ecff85c314277e8d57d0f7eb",
+    "components/crefans/studio/CommunityPages.tsx": "b9f1d1e9ac68ee40acf58ec761a5ce15ad98355dbabbc380a8fd41b1e1c5228d",
+    "components/crefans/studio/ReportPage.tsx": "4a4fc524f4c3995880f3a538a81879bd647b0a6b970cb26d862f9552e20c9cf3",
+    "components/crefans/studio/ContentPostPreview.tsx": "f40c3d35dee43f23e35e0d158ed60ffe44ee5e4e3bec9057442b50fb8e7e6e0c",
+    "components/crefans/studio/ManagementPages.tsx": "8c6ff9b260267cdbc23e43923ef58901140e45fe523b21954495cfc39261a8d7",
+    "components/crefans/studio/content-post-preview.module.css": "396d45d2e8950c26fe19cc7a8a529d03729c9e01f1e0165184f71ad840267e06",
+    "features/write/useWritePageModel.ts": "7dd634578fb515b9951719bb1cbe5907774bc83947c0e55a9908b458a42de498",
+    "features/payment-fail/usePaymentFailPageModel.ts": "448b8f9a726478051f90e90fc4c3217d5237ad455e0aab1c88e8950a19cd3f89",
+    "features/creator-center-donations/useDonationsPageModel.ts": "d5a5b3e117fbbadeb997e66c142319c6a9a0ac5233f5511157bb4b1a601d44b4",
+    "features/settings/useSettingsModel.ts": "111e9b81d6c13a10eaef3df1e11cae1978b069be1d64f292bcabd30d3c20df3a",
+    "features/modals-handle-modal/types.ts": "b456e26583952baf91a337d8943da5bea33c5cdb5c19019162020784c2a2ed3c",
+    "features/modals-handle-modal/useHandleModalModel.ts": "b525e90af25c9cf7934a80dab3fdcfdc1859f8fca473349971d9ddff77d076e0",
+    "features/comments/types.ts": "1c54ea4669ed529b6f315b58bfa6660b2e9dbe7435ecb5c26fbcd69c4b7f1d89",
+    "features/comments/useCommentListModel.ts": "d6f0b9967ce81caf1553b00430a825723afd9ebfe1f0260213a0de52efdb35d8",
+    "features/email-verification/useEmailLinkAuthPageModel.ts": "16bec12d0a0b60c865807e4f0e1f0e8d5618d87a35727a73798abc7acb20bee5",
+    "features/landing/useLandingModel.ts": "657aac7d5c9556b91a1239710e7272ee7daf5a0d50d87c6d06b434a14906c9bb",
+    "features/landing/service-demo.ts": "54a6e8b285f074b0d8af0f651b5470eb1b5fc8fa18380f4d4b327681572b0e7b",
+    "features/landing/content.ts": "612b7fd251960fb92192be9203975f86ae947aafba0bdf83a9de0bb6ecdea0f2",
+    "features/creator-center-memberships/useMembershipsPageModel.ts": "52c5d78f4d38ae428d3519d5405e874c23d4f35649a892847fe4eab9aece092a",
+    "features/modals-charge-modal/types.ts": "369826dcc232f37689bb1cdd60cd31bd7cc5d937f9358ce9da983069c926d91d",
+    "features/modals-charge-modal/useChargeModalModel.ts": "a98c9f5339d4a4d8f807e859d0c3ccfd70600ec9dff0fd99bd60b10caf71d4d5",
+    "features/subscription-billing-success/useSubscriptionBillingSuccessPageModel.ts": "3c352c8963e6da47da56f7b3e4849722594bb3bbb1e3af6768f5d3826f998c75",
+    "features/creator-center-become-creator/useBecomeCreatorPageModel.ts": "a34cd53d658fb49cd3451426d733b97478656ebd3d06d8a064e6e8c3fc140c6a",
+    "features/creator-center-become-creator/types.ts": "a5ac04f69ee1e67966cfcf68388e75f88f1c11466e011a1c16c080ca074bd55c",
+    "features/payment-history/usePaymentHistoryPageModel.ts": "a0118833efd1eefb5a3abdb78288e5627e0e1489d139ae7e7fc52e1f7bc95b39",
+    "features/payment-history/types.ts": "cc0b835bc9fe1cfe0d762404f3e06b0d6bc40f1d38b00b3e44ca1fcacc47c958",
+    "features/board/useBoardPageModel.ts": "e69d4cf54468e9a77965b491c1d445ffcb4f8f34caa2d15517068040f96a4b7b",
+    "features/creator-center-settings/useCreatorCenterSettingsPageModel.ts": "a856b87f70ab3fc9651e40c62082051415217df065e8c77c8a5b9ad86e5be756",
+    "features/modals-nickname-modal/useNicknameModalModel.ts": "7a204bb028181067d312b1251216bde16ada2729572bfbf37d136ad7cabb73ec",
+    "features/modals-nickname-modal/types.ts": "3e3f560baab2fc529ac22d4bfa41dc4328e609cd27611a28e0ecb6c5ac87cd2f",
+    "features/follow-button/types.ts": "2ab2393a9f1321eae915ec2c0e7ac0a05e395ec52bdf8b9a55edc8a726e0e9a5",
+    "features/follow-button/useFollowButtonModel.ts": "2fc76571bbc1b3de6908b7fc01728955412e74e0d47ef2f350e2ec6d69ee578f",
+    "features/creator-profile/useProfileModel.ts": "f3d472dacbf441209dc871fb3f7b523759284c8b379019312a454641617b00d4",
+    "features/creator-profile/types.ts": "ce869e57a128666dd4ef6aae2a4f4dd4c2870ab19250aee467413bfcc669a088",
+    "features/creator-center-layout/useCreatorCenterLayoutModel.ts": "23e16c104eda703fb532c249f2cddaee30b130ea6abbd44ffd1a9f899d014f4b",
+    "features/creator-center-layout/types.ts": "014d0cc9b129c476b3a035dcb65eac7eee3e232c308647dfcdef5034f585a3c3",
+    "features/subscription-creator-id/types.ts": "67e3e178bc3320df09b201ce804ea690a1ce03f2a4d0608fa91cb9ee2cb85cca",
+    "features/subscription-creator-id/useMembershipSubscriptionPageModel.ts": "32b0d2468c761966f9c0473ec1dcbd274762daf6b0f9a12b27782d84b7481fb3",
+    "features/post-card/types.ts": "caeef848132e88d7446d414868462dcf2ada24cadd29d9e37827acb1513da492",
+    "features/post-card/usePostModel.ts": "9c36101ba6e2f5a4c9d57b37574cca33f1b32a37f8c6c32218c2a619d2cf5be8",
+    "features/modals-login-modal/useLoginModalModel.ts": "e48c27071a3dc5b8698818b9a6183e7bf65bbf20774845401e58507748a7d79c",
+    "features/modals-login-modal/types.ts": "49646468f6244c141a2acc8dd48d6e2ad3950c374487490e533df71759772262",
+    "features/modals-donation-modal/useDonationModalModel.ts": "3644c6511fdd11b43201626d99f961fa1f21082f954e5a1b3fabd2bb0f76ba79",
+    "features/modals-donation-modal/types.ts": "3b4545b6bcde54d63c77a86415a9e601cca3271b1978faa5662b832bb7d63463",
+    "features/modals-add-membership-modal/useAddMembershipModalModel.ts": "8d47cb9813f6cf5be56fa0011b53f02e7e81edb2b57fbb06c07a6243a3e6fda1",
+    "features/modals-add-membership-modal/types.ts": "f06d14fde1c15e6e7e966581b60e43877275f463c1683264106929bcf46e6ded",
+    "features/subscription-manage/useMySubscriptionsPageModel.ts": "29f07f2b1c4e26198e3c7b9bd768ae790b0af9f9f50eb8b7af4697479d76cf9c",
+    "features/explore/useExploreModel.ts": "93bc56fed4310332378858265136fe29d2c1e37c6b4d73dcf15a6c900aede75f",
+    "features/explore/types.ts": "7b52fe7c4eb338123b3b182f601f75b357d946274c8831e89c5a9682c974e5da",
+    "features/subscription-billing-fail/useSubscriptionBillingFailPageModel.ts": "12072ba774de5cb7c36d6a5b6b825c2eb5d58e1611004cab64255f5e83dae050",
+    "features/modals-edit-membership-modal/types.ts": "a0d5697ee6f87ebb11a03968c6ae369162c714891bc12b38b4952d79717886f3",
+    "features/modals-edit-membership-modal/useEditMembershipModalModel.ts": "98ac4564c9b83028600f26cdc1ab613da5c050f9544ef1a3a89b7023c7e5a97e",
+    "features/modals-membership-join-modal/types.ts": "8c93bd8370fef13270c3d275125f02d3616be20ca305462f6e43429c92a4fdaf",
+    "features/modals-membership-join-modal/useMembershipJoinModalModel.ts": "e9c182a6319bb8dc920e8022cb9636e88f008d344fc001c834f308a8ec8233ed",
+    "features/board-id/useBoardViewPageModel.ts": "a333683ab22f197db72ecf6629ad261783086f8d660592cf73b3a8b5695ed3eb",
+    "features/creator-center/useCreatorCenterPageModel.ts": "854693fdb4e0ff162e59d29e53c381e3076ab2a5c443d8776a984ac2173009ef",
+    "features/profile/useProfilePageModel.ts": "5a129c24a5548af682e2995485e35dc76976bdb65b134612469c647a251a08f1",
+    "features/post-id/usePostPageModel.ts": "61bd75e5b069db17b343d458e27fe605667511901d75351a97959a4a951f3e2d",
+    "features/creator-center-write/useWritePageModel.ts": "3570bf0f7c8e2cdfabe38567765bd6d8af750a5e72be8706c4be32a3379a7d9e",
+    "features/feed/useFeedData.ts": "f128aee8d1cefa828dfeb712d339735d8167cfa1918b3880e00c17ab80f1bce8",
+    "features/feed/useFeedModel.ts": "4702bc256503fae1382093725d585e33bf863b28fee08b01dc877b1926d60085",
+    "features/auth-protected-route/types.ts": "63eb9df88564c42ce4f0dd088bb0d1340e112f7aaa97b7dcfa06a92319884538",
+    "features/auth-protected-route/useProtectedRouteModel.ts": "1da23d2b4bac16126801cd68f04e6b049190ac88fe73bb0fee3d08c9e549c664",
+    "features/main-layout/types.ts": "ae76ce0a87ebb595942fd4b896d0a379939ada3ea6168f9796b0088f1edaf56f",
+    "features/main-layout/useMainLayoutModel.ts": "39b6ccab66d104959c061c1c8d421c570954d32f8fc8a2a2dd904b5639e6e313",
+    "features/payment-success/usePaymentSuccessPageModel.ts": "5ced47141066cbe9b47194655ed096f638034ae80d1c5515f1e85cb923d12757",
+    "features/auth-auth-guard/useAuthGuardModel.ts": "bde798d435e9fe21de19a49055e0608a90012dec18c13162940f86d813a2d439",
+    "features/auth-auth-guard/types.ts": "7542dcbf86b1fc6dca2483073983fdc207c0e236d189893a879852861c80fd61",
+    "features/service/useBrowserErrors.ts": "a2ae28321acafd6cd15fd22b13e2ad897a8289506bdf7c913e245dbefa751cee",
+    "features/service/useStudioModel.ts": "e581cab8d620e4c9a711f2d5db7a871ce5371169046ee3a13f2c3b05cc151acf",
+    "features/service/useServiceModel.ts": "ab7fb3629f64e666bca289ececf601687368587f229735f186517a0c50a812cf",
+    "features/service/useDirectoryModel.ts": "eab8a70fd5bf58905db2f5f2e9f841e971644f85ca10b66242c056e45b278377",
+    "features/service/useOneTimePayment.ts": "6a37f32adbc5a6097bffc2ab6631ecccf9316b59ea7c73b75c2509ce9e2c0627",
+    "features/service/useCheckoutModel.ts": "eaccb117fba1e7fb260a24504c43d00fe917246774b06039ab47d44ae4254fc6",
+    "features/design-system/useDesignSystemModel.ts": "930a3a04b9e32dd416728d6beb658e27948ceff0370ac25e0f7ceff4e5605d7e",
+    "features/design-system/catalog.ts": "69b059b7a39b6b76e89119b5a9f47fb875ffb67fd2dca70eb96172561fc38bbc",
+    "features/home-sign-up-modal/types.ts": "d9fd7f9543451d10bdb67a4755f59c35bff8e9739efa16db57826e135f333b64",
+    "features/home-sign-up-modal/useSignUpModalModel.ts": "49681783b4525a0302f010c566ebc03f1a931625a59a72dcb75da524f592f323",
+    "features/modals-membership-management-modal/useMembershipManagementModalModel.ts": "067f405559c35bc1e9bdedc02a4dc06a3ab8167459435f309ae58caf59534ba8",
+    "features/modals-membership-management-modal/types.ts": "3f1f8284925e72c21ae84955ecf3342e6a56f86c00ba84d180350c7cb3e360ce",
+    "features/creator-center-earnings/useEarningsPageModel.ts": "bbed58688b5910227701a1479c5d3c611bcc821324fca97c32a5d7d98f861538",
+    "features/login/useLoginPageModel.ts": "7df9a89d42d68d638ef1bfcd1a0c843205b33570a10b79d3e0376f5ebad19251",
+    "features/auth-session/useAuthSession.ts": "8d7f0586d755cdf07da5e197d93f2b87e0360f94913d04d34f87a19e8a7cddeb",
+    "features/modals-report-modal/useReportModalModel.ts": "45e59e020808e35234c222c52cf7b745f3ee0bbc35c5b4e82f8b6c7794209eb6",
+    "features/modals-report-modal/types.ts": "35c0c886e46a9e4154af9fd51f799729ac9b9b3503a01c55bda097a1e4563c30",
+    "features/modals-delete-account-modal/types.ts": "2301458231ce8f4395fa4b619ecad5fb4d4bd0f1d7a142e1010c70df7a2830b5",
+    "features/modals-delete-account-modal/useDeleteAccountModalModel.ts": "18db5bd678a7f6df3cac2473814e9268c6830503f601fc7a7406351c7e2e5f9e",
+    "features/profile-edit/useProfileEditModel.ts": "df245d9a0967f7e7ed6fb7dbde710f15d98be84d657432e864fd1cde71dfd68a",
+    "app/email-verification/page.tsx": "67781f4f44d1fd3bf39d1c5c439267a1073070710dc503900844c18610b4ed4e",
+    "app/creator-center/page.tsx": "8945a79ff882ad4ca7f9233b1250381be5fb1292458f88aeaebc2dc6fc5d0b8d",
+    "app/preview/layout.tsx": "76c978d5d492f2e1e1c24092cba684687d2e14c2c0123b381debb51eb1005c98",
+    "app/preview/preview.module.css": "5e33e8d0c79f01dba0f7f8b0762e1473c5902d5adc2e3ec90f2e3fa53da97f35",
+    "app/(main)/layout.tsx": "e84c2e352460de565c7c45daeffec6a09504a20b8e6f02d57f338d6e028fe699",
+    "app/service/layout.tsx": "1a8947e65adfbc109d5522daf9deef93760a50b048de0bc49ed77cacfb9840ca",
+    "app/service/error.tsx": "47d8aeafda52d6cac3db1772fa4305b8d35eac21fda9c68fb6e2f04b0d4f3e0e",
+    "app/service/page.tsx": "365a0e01a5f23be08c3e39bccf978354a93656f6e82329f938cc6a0c9555e553",
+    "app/design-system/page.tsx": "b637a1056ea57737960c2897d5d2413b4f5aaff03f861e5d23b13d599e65dcf3",
+    "app/(auth)/login/page.tsx": "1382ea462d90147f3e65519799df6ed8bce0e744ac6330291a4e4685c0672a7b",
+    "app/service/landing/page.tsx": "943e6b08007f1a41b0f83ae0c15e38517c3a6accb8e52f2103f4519c4831f606",
+    "app/service/[...screen]/page.tsx": "da913f4c20941c88f3360ee57da090e403e73157fa08b536dff85e47a4401794",
+    "app/service/studio/[[...screen]]/page.tsx": "1ac10069b12d1db81b8290173d0c5f069f0d1ae7403b3c444176357d3583e281",
+    "app/(main)/write/page.tsx": "c5ee000dcc5115b03ba8b45db91325d77a36dcc3c2680dc08dc3073ab9cc0b27",
+    "app/(main)/[handle]/page.tsx": "9e402adcd79955f343fe18856e0c0d1a2fcd28dd3c77e920a698653f40d8ed55",
+    "app/(main)/settings/page.tsx": "51ecb661fe7b89fec4e70d8b52b4b9b382a7c661fc9cff93b914b361292c6cf2",
+    "app/(main)/home/SignUpModal.tsx": "f00020909d48f465c550916e356fefca51a42d5cb0081c78da91930a41ec114f",
+    "app/(main)/home/page.tsx": "1b5d3b9dcc45e828a953eeb2a188660dc9b6eaed95bdcbc2c06de2e83fcae8f5",
+    "app/(main)/payment-history/page.tsx": "09c37fe18caf8e11800fed065a04ab98fc1c0d4ae5d9a38a4cc41005826945df",
+    "app/(main)/board/page.tsx": "e12e61ecb5caae902a71fb59e8d4adfef7daa06d115cf1f68907018add87ee6e",
+    "app/(main)/explore/page.tsx": "4bebd0c02efcd11c79c8647919edd782c3716834feb1edcb65144c3d513aa881",
+    "app/(main)/search/page.tsx": "6759ccb7ad1d17583c36bf8166262755ff172cd72d28d3e91ad6153d08e460c7",
+    "app/(main)/profile/page.tsx": "f6cf3606024157a736c4797fd7ab7308b28cc78547eae4b4765fee094a1da13e",
+    "app/(main)/support/page.tsx": "868ed6da27853c77e9af4f1295584ec2da408dacf89c63de89f12b6fc8f1b25f",
+    "app/(main)/feed/page.tsx": "3918cd81a64b83d3edcf630d7e32216075d8795443cdc459c61e4b9e62b7c9cd",
+    "app/(main)/profile/edit/page.tsx": "9a5b1e5b2b95a7752f4f6f5fa7081064f5e325c78162d734199472f5e628ee73",
+    "app/(main)/board/[id]/page.tsx": "776dfcc14ae195edb9c076489e8294945fe9d52748d09347a1474509761466c8",
+    "app/preview/landing/page.tsx": "8ab209de16841c172ac3cac78a12e2443b809427336181561abafacc0f34ce7d",
+    "app/preview/[...screen]/page.tsx": "3f1ad147f4bd734e396f4c9e2fa109a50ff4815257ecdd1471ba8d8e80ccea1e",
+    "app/preview/studio/[[...screen]]/page.tsx": "6519ab19b379ddb0b7d813c8daa782520deb94cea6ae28a83ac67844a6c8f2aa",
+    "app/api/v1/[...path]/route.ts": "e33f3539857d8d93a91ae247724166eeb6a82e85f054e8895e6fe001c8b98610",
+    "app/creator-center/write/page.tsx": "09c7967fe5398050cb5a218dc31cc7a71f944d28adae9bf948ceff6aacaa25c5",
+    "app/creator-center/settings/page.tsx": "eac794b7f4fdaf3489750a1789cf47f94171ca4b9ae2c8efacef01607850b4fd",
+    "app/creator-center/donations/page.tsx": "e11663dabc311e6b50bc0d1573a911dafabbe40daca81603efd37ca55b7d0d72",
+    "app/creator-center/become-creator/page.tsx": "b88f9febea382a8620899901c31315a1cb4b09c26ea9f5195be5a632c4c937b3",
+    "app/creator-center/earnings/page.tsx": "000f1aa7a5eab4438c019dd7c41f9d17a3a2fc71d5a70129dd07f5235369c88a",
+    "app/creator-center/memberships/page.tsx": "07710025c18ee194f80aa053ce9a75711c8063ce6644a2dba01a08c7e64b1359",
+    "app/subscription/[creatorId]/page.tsx": "15edb1776295cd168d8a0e2b69dbfa4fe1e6987ffe3868fd5b1fa06059250fad",
+    "app/subscription/manage/page.tsx": "86a4d991aafccc9f3efcd8b2a38fee7cb1231cef778d3e69ae8d874d61578efc",
+    "app/subscription/billing/success/page.tsx": "30d8357648287570da7544b8733b8e9de7e9c4865594994512214474609046ad",
+    "app/subscription/billing/fail/page.tsx": "8fb2db9af3240d345ad2d929cf0c96c52e5e19bf6e29732bb68f6446d9bf5e54",
+    "app/payment/success/page.tsx": "d0879eb5d985b25a58923d4e690b4446cb1c7fc7ca384881fb855c9b6caf8573",
+    "app/payment/fail/page.tsx": "638ca23a2143d96e889c27ab3ef0a409a502a7d4987daa540425be85ef3e5fbb",
+    "app/post/[id]/page.tsx": "79e5a79b2d1f4542886f3a07ad63f486a669b00041661cc61ff4090e760625e2",
+    "types/api/payment.ts": "957eaedf5fc7a02d3da4a53795a4e0fe643dcef93ab166e8bc5c1b4f11f6a350",
+    "types/api/membership.ts": "19a916605423554f488184bd34af3dd94490d79c6c9307a5d342c56cc0d1ff5b",
+    "types/api/explore.ts": "a97ed5d2c26e820aa380abb54f0d68f34656f8295cd6126b7b0b3a0f06442e7e",
+    "types/api/subscriptionBilling.ts": "66e40ecb9a456250de8a3eb54a88ed8e1fe6688d15ad6dbfe1f5be7fa091ad1c",
+    "types/api/feed.ts": "40136670ec01ef6a23e25a0d4a8503fa833970b2620cfa775ddfa70c8fa2582d",
+    "types/api/subscription.ts": "b81155e11dff6bc3495fb1aff0420594b15438df80c708c4bc72eda46b75b2f1",
+    "types/api/follow.ts": "da6b3b2f494bea05e615afe5b8a76aea91abc8324a52e0c57dfae05fdc71dd97",
+    "types/api/media.ts": "ea1d3b63d9fba2fd62d34f7e90004c619495d5465f6ce5e1f74e91b0b57a3e01",
+    "types/api/board.ts": "d1688cfaad5af61e3f534c6a54f95f41d23691bacbf86f64ccd81e05a3e7f85e",
+    "infra/platform/Dockerfile": "1a659121a5a7a207e854cd943ce59ac1a5cd1c0633ae6169854142e47ecfa9e0",
+    "components/crefans/PostShareDialog.tsx": "167354b0d1b2246d8cff309ef334063d1d5e3680dbf6f1ebce7f225a55b75682",
+    "components/crefans/post-share-dialog.module.css": "a13badc625bda1b61325a927250993d609dfbb9933cbe42c81298df8a8aa77d4",
+    "features/post-share/usePostShare.ts": "eb3bc287c9d67b5d41013a996f401a4a5d5084b0763e38f104572b687763896b",
+    "lib/browser/post-share.ts": "bafdc5358cc55560add52658914c8e2e5677f8cae8f0049d80fad0fe35800c84",
+    "public/brand/kakaotalk-share-official.png": "16f79531bbf7fe6e0e18fcc84177e37736b4af2caecfefa275f78ac6e927294f",
+    "public/brand/kakaotalk-share-official.source.json": "80a5e8525576f9ccaae102a8144f474bdb694f1142c77efdd5c75c8b15ac9f40"
+  },
+  "commands": {
+    "visual-production-final": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/visual-production.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:10:39.888052+00:00",
+      "finishedAt": "2026-10-24T18:10:41.654922+00:00",
+      "exitCode": 0,
+      "logSha256": "86681382386247c2a884f4caea336dc09436cf4d48fadcbcfa10f367fcf58f9d"
+    },
+    "hydration-after": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/hydration.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:02.890673+00:00",
+      "finishedAt": "2026-10-24T18:05:17.524999+00:00",
+      "exitCode": 0,
+      "logSha256": "529f65de54c58619558d5805f2eb2bd5e7760f2308b1c1e6be6671ce9f43e9af"
+    },
+    "hydration-production": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/hydration.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:49.280792+00:00",
+      "finishedAt": "2026-10-24T18:08:03.237945+00:00",
+      "exitCode": 0,
+      "logSha256": "f8afd92f553bd1758fb5dfcb22326416aeee557eb861008c2a5c4123a7c45505"
+    },
+    "workspace-check-ready-fixed": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:02:46.093468+00:00",
+      "finishedAt": "2026-10-24T18:02:54.994342+00:00",
+      "exitCode": 0,
+      "logSha256": "bfcbff585572625c3ddbd717e15b0a121da77023da364c7364db6fca8c58f16e"
+    },
+    "test-source-types-final": {
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:21.363359+00:00",
+      "finishedAt": "2026-10-24T18:05:23.925861+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "selected-tests-ready": {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--mount",
+        "type=bind,source=/Users/ethan/repository/crefans_front/tests,target=/app/tests,readonly",
+        "--entrypoint",
+        "node",
+        "crefans-front:ui-batch-ready-20261025",
+        "--test",
+        "--test-skip-pattern=^deferred identity signup ",
+        "tests/content-post-preview.test.cjs",
+        "tests/post-membership-offer.test.cjs",
+        "tests/membership-images.test.cjs",
+        "tests/crefans-social.test.cjs",
+        "tests/crefans-account.test.cjs",
+        "tests/crefans-common.test.cjs",
+        "tests/post-share.test.cjs",
+        "tests/overlay-motion.test.cjs",
+        "tests/studio-navigation.test.cjs",
+        "tests/crefans-studio-reports.test.cjs",
+        "tests/crefans-studio-management.test.cjs",
+        "tests/withdrawal-pin.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:04:50.197469+00:00",
+      "finishedAt": "2026-10-24T18:05:00.202570+00:00",
+      "exitCode": 0,
+      "logSha256": "5b281d39ac7d1029ec0c9b64ad334307e8e3ae1fcc3ac9c1f8c2d15100600bc0"
+    },
+    "image-build-ready-fixed": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/ui-batch-deploy-20261025/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:ui-batch-ready-20261025",
+        ".local/ui-batch-deploy-20261025/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:02:54.788590+00:00",
+      "finishedAt": "2026-10-24T18:04:29.354823+00:00",
+      "exitCode": 0,
+      "logSha256": "d5352d3c7dea821cc21b90208cb2c30800d340949a1ad7d387201d93fe37d513"
+    },
+    "archive-ready": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/archive-ready.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:04:50.177475+00:00",
+      "finishedAt": "2026-10-24T18:05:06.973552+00:00",
+      "exitCode": 0,
+      "logSha256": "4bc4269fe51cf9e2976790f20ebc95fb2e1875a697f751b0d6b465227b0bcbc7"
+    },
+    "image-hydrated": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:21.363358+00:00",
+      "finishedAt": "2026-10-24T18:07:08.045087+00:00",
+      "exitCode": 0,
+      "logSha256": "e5e82812a79df50378c7321cea09d3e977bd6680e84b35695dfd28b078b2b9c0"
+    },
+    "navigation-image-hydrated": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:21.363357+00:00",
+      "finishedAt": "2026-10-24T18:06:26.302105+00:00",
+      "exitCode": 0,
+      "logSha256": "6bd610094497f131f24154089f6f9a920f2a1085269ecc807a16de29b2cf68b0"
+    },
+    "notifications-image-hydrated": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/notifications.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:21.363358+00:00",
+      "finishedAt": "2026-10-24T18:05:23.407650+00:00",
+      "exitCode": 0,
+      "logSha256": "94812bfca255f070e3412da78bd86c208819abd714688812a047f56f0121dea1"
+    },
+    "rollout-ready": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/release-ready.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:13.478707+00:00",
+      "finishedAt": "2026-10-24T18:07:40.130828+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    "production-verify-ready": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/verify-production-ready.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:48.036940+00:00",
+      "finishedAt": "2026-10-24T18:07:50.041757+00:00",
+      "exitCode": 0,
+      "logSha256": "ba988d192dd102270344c707963b73b7f4ebdc75e3e84d071f9a82370ff67780"
+    },
+    "production-isolated": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1",
+        "--project=mobile390",
+        "--project=desktop",
+        "--grep",
+        "settings switch and sidebar|댓글 입력은 모바일 하단"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:12:30.466640+00:00",
+      "finishedAt": "2026-10-24T18:12:35.600992+00:00",
+      "exitCode": 0,
+      "logSha256": "70e1f55d6a06c388cfb2768075ca335c178bd74af6a6248f29c4bd4b71a131ad"
+    },
+    "production-repeat": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1",
+        "--project=mobile390",
+        "--project=desktop",
+        "--grep",
+        "settings switch and sidebar|댓글 입력은 모바일 하단",
+        "--repeat-each=3"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:13:23.652645+00:00",
+      "finishedAt": "2026-10-24T18:13:35.644415+00:00",
+      "exitCode": 0,
+      "logSha256": "87a4fb3d7e4d22ee76e3848a336c2ce42ebd409ae5e72c5f23c56152f71a71ae"
+    },
+    "production-navigation-ready": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:49.283383+00:00",
+      "finishedAt": "2026-10-24T18:09:22.881320+00:00",
+      "exitCode": 0,
+      "logSha256": "6bd610094497f131f24154089f6f9a920f2a1085269ecc807a16de29b2cf68b0"
+    },
+    "production-notifications-ready": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/notifications.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:49.284395+00:00",
+      "finishedAt": "2026-10-24T18:07:59.508997+00:00",
+      "exitCode": 0,
+      "logSha256": "94812bfca255f070e3412da78bd86c208819abd714688812a047f56f0121dea1"
+    }
+  },
+  "allAttempts": {
+    "selected-tests-final": {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--mount",
+        "type=bind,source=/Users/ethan/repository/crefans_front/tests,target=/app/tests,readonly",
+        "--entrypoint",
+        "node",
+        "crefans-front:ui-batch-20261025",
+        "--test",
+        "--test-skip-pattern=^deferred identity signup ",
+        "tests/content-post-preview.test.cjs",
+        "tests/post-membership-offer.test.cjs",
+        "tests/membership-images.test.cjs",
+        "tests/crefans-social.test.cjs",
+        "tests/crefans-account.test.cjs",
+        "tests/crefans-common.test.cjs",
+        "tests/post-share.test.cjs",
+        "tests/overlay-motion.test.cjs",
+        "tests/studio-navigation.test.cjs",
+        "tests/crefans-studio-reports.test.cjs",
+        "tests/crefans-studio-management.test.cjs",
+        "tests/withdrawal-pin.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:30:48.307253+00:00",
+      "finishedAt": "2026-10-24T17:30:55.270591+00:00",
+      "exitCode": 0,
+      "logSha256": "a7c04367949fce2ea076021e8711c77ae06ed961c80643969734fe1fd0150d71"
+    },
+    "archive": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:30:10.039479+00:00",
+      "finishedAt": "2026-10-24T17:30:28.928210+00:00",
+      "exitCode": 0,
+      "logSha256": "4bc4269fe51cf9e2976790f20ebc95fb2e1875a697f751b0d6b465227b0bcbc7"
+    },
+    "production-verify-ready": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/verify-production-ready.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:48.036940+00:00",
+      "finishedAt": "2026-10-24T18:07:50.041757+00:00",
+      "exitCode": 0,
+      "logSha256": "ba988d192dd102270344c707963b73b7f4ebdc75e3e84d071f9a82370ff67780"
+    },
+    "selected-tests-ready": {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--mount",
+        "type=bind,source=/Users/ethan/repository/crefans_front/tests,target=/app/tests,readonly",
+        "--entrypoint",
+        "node",
+        "crefans-front:ui-batch-ready-20261025",
+        "--test",
+        "--test-skip-pattern=^deferred identity signup ",
+        "tests/content-post-preview.test.cjs",
+        "tests/post-membership-offer.test.cjs",
+        "tests/membership-images.test.cjs",
+        "tests/crefans-social.test.cjs",
+        "tests/crefans-account.test.cjs",
+        "tests/crefans-common.test.cjs",
+        "tests/post-share.test.cjs",
+        "tests/overlay-motion.test.cjs",
+        "tests/studio-navigation.test.cjs",
+        "tests/crefans-studio-reports.test.cjs",
+        "tests/crefans-studio-management.test.cjs",
+        "tests/withdrawal-pin.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:04:50.197469+00:00",
+      "finishedAt": "2026-10-24T18:05:00.202570+00:00",
+      "exitCode": 0,
+      "logSha256": "5b281d39ac7d1029ec0c9b64ad334307e8e3ae1fcc3ac9c1f8c2d15100600bc0"
+    },
+    "navigation-diagnostic": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:32:27.040416+00:00",
+      "finishedAt": "2026-10-24T17:32:55.906558+00:00",
+      "exitCode": 1,
+      "logSha256": "163d72fc2626b616f6f1d720264870deb3631408adfa4b699c82ae5a969e22dc"
+    },
+    "space": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/space.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:28:27.956475+00:00",
+      "finishedAt": "2026-10-24T17:28:31.122164+00:00",
+      "exitCode": 0,
+      "logSha256": "49c6239bfcbba4bb5a26e030b18cb3970cc142e04ae356e018418aa893ad7a7f"
+    },
+    "eager-icons": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/eager-icons.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:50:01.808280+00:00",
+      "finishedAt": "2026-10-24T17:50:12.598251+00:00",
+      "exitCode": 1,
+      "logSha256": "af5c298013676c843b17dc4ebc16e6a2cef8ccff0f880ed9e899e0d425d36d39"
+    },
+    "notifications-image": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/notifications.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:30:31.504512+00:00",
+      "finishedAt": "2026-10-24T17:30:37.552718+00:00",
+      "exitCode": 0,
+      "logSha256": "94812bfca255f070e3412da78bd86c208819abd714688812a047f56f0121dea1"
+    },
+    "visual-production": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/visual-production.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:09:50.042365+00:00",
+      "finishedAt": "2026-10-24T18:09:52.052058+00:00",
+      "exitCode": 0,
+      "logSha256": "86681382386247c2a884f4caea336dc09436cf4d48fadcbcfa10f367fcf58f9d"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:10:58.436345+00:00",
+      "finishedAt": "2026-10-24T18:10:59.552374+00:00",
+      "exitCode": 0,
+      "logSha256": "4ac68f154ab55ecd74cebde72395e950c44f7f7ce479de507bb9991d308644dc"
+    },
+    "selected-tests-date": {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--mount",
+        "type=bind,source=/Users/ethan/repository/crefans_front/tests,target=/app/tests,readonly",
+        "--entrypoint",
+        "node",
+        "crefans-front:ui-batch-20261025",
+        "--test",
+        "--test-skip-pattern=^deferred identity signup ",
+        "tests/content-post-preview.test.cjs",
+        "tests/post-membership-offer.test.cjs",
+        "tests/membership-images.test.cjs",
+        "tests/crefans-social.test.cjs",
+        "tests/crefans-account.test.cjs",
+        "tests/crefans-common.test.cjs",
+        "tests/post-share.test.cjs",
+        "tests/overlay-motion.test.cjs",
+        "tests/studio-navigation.test.cjs",
+        "tests/crefans-studio-reports.test.cjs",
+        "tests/crefans-studio-management.test.cjs",
+        "tests/withdrawal-pin.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:37:12.785784+00:00",
+      "finishedAt": "2026-10-24T17:37:22.703971+00:00",
+      "exitCode": 0,
+      "logSha256": "b3c40811a8b2f8fe0b5d9f04f32282c186af8bc0effeaff5266611c526edff77"
+    },
+    "test-source-types-final": {
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:21.363359+00:00",
+      "finishedAt": "2026-10-24T18:05:23.925861+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "date-diagnostic": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/date-diagnostic.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:33:56.597595+00:00",
+      "finishedAt": "2026-10-24T17:33:59.847483+00:00",
+      "exitCode": 0,
+      "logSha256": "da88fc63697a2bd4bacc3645f85d3ba144eabd313522ba805c18e7449cc24b87"
+    },
+    "image-check": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:30:31.504578+00:00",
+      "finishedAt": "2026-10-24T17:31:40.922364+00:00",
+      "exitCode": 0,
+      "logSha256": "49c9ce39ab96b8c30802d5d4e78ea9fb9af854a8d5da3735d102b23b7a8d8e6a"
+    },
+    "image-webkit-ready": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1",
+        "--project=webkit390"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:47:52.237159+00:00",
+      "finishedAt": "2026-10-24T17:51:38.929371+00:00",
+      "exitCode": 1,
+      "logSha256": "f2f715630ff97ebd39ba344d2270761e390f927c939f48838cc4131b38b1ae44"
+    },
+    "production-navigation": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:56:58.324056+00:00",
+      "finishedAt": "2026-10-24T17:58:24.092803+00:00",
+      "exitCode": 0,
+      "logSha256": "6bd610094497f131f24154089f6f9a920f2a1085269ecc807a16de29b2cf68b0"
+    },
+    "navigation-image-verified": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:39:28.250493+00:00",
+      "finishedAt": "2026-10-24T17:40:29.101768+00:00",
+      "exitCode": 0,
+      "logSha256": "6bd610094497f131f24154089f6f9a920f2a1085269ecc807a16de29b2cf68b0"
+    },
+    "image-build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/ui-batch-deploy-20261025/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:ui-batch-20261025",
+        ".local/ui-batch-deploy-20261025/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:28:08.554158+00:00",
+      "finishedAt": "2026-10-24T17:29:48.953401+00:00",
+      "exitCode": 0,
+      "logSha256": "4b464eb87f4ad8c91159c28e2bbe46d35861e263b61080260954130b1987f5d4"
+    },
+    "navigation-requests": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs",
+        "--quick"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:35:26.661598+00:00",
+      "finishedAt": "2026-10-24T17:35:26.870463+00:00",
+      "exitCode": 0,
+      "logSha256": "d375a67d5abacbaa43b05f15c258f79617308399ae3ff5f4f331bac328096098"
+    },
+    "image-build-ready-fixed": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/ui-batch-deploy-20261025/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:ui-batch-ready-20261025",
+        ".local/ui-batch-deploy-20261025/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:02:54.788590+00:00",
+      "finishedAt": "2026-10-24T18:04:29.354823+00:00",
+      "exitCode": 0,
+      "logSha256": "d5352d3c7dea821cc21b90208cb2c30800d340949a1ad7d387201d93fe37d513"
+    },
+    "hydration-before": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/hydration.config.cjs",
+        "--project=mobile390",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:01:44.997528+00:00",
+      "finishedAt": "2026-10-24T18:01:49.494777+00:00",
+      "exitCode": 1,
+      "logSha256": "dad7b0b60313246552d0acd1674f0f70e7c789989e99640851ce7640323cc083"
+    },
+    "hydration-after": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/hydration.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:02.890673+00:00",
+      "finishedAt": "2026-10-24T18:05:17.524999+00:00",
+      "exitCode": 0,
+      "logSha256": "529f65de54c58619558d5805f2eb2bd5e7760f2308b1c1e6be6671ce9f43e9af"
+    },
+    "navigation-requests-full": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:35:35.788864+00:00",
+      "finishedAt": "2026-10-24T17:35:54.168323+00:00",
+      "exitCode": 1,
+      "logSha256": "87245571a42f0724ff4304390163a798607a364f6a59223d0478e192ddbcf535"
+    },
+    "workspace-check-after-date": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:34:46.222718+00:00",
+      "finishedAt": "2026-10-24T17:34:56.178097+00:00",
+      "exitCode": 0,
+      "logSha256": "e8dd0a6c0a25ac35b34f4846ebd96ea67999dd52b2175a73be725c5251b0c395"
+    },
+    "test-source-types": {
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:54:23.632981+00:00",
+      "finishedAt": "2026-10-24T17:54:30.790851+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "image-check-serial": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:41:32.421228+00:00",
+      "finishedAt": "2026-10-24T17:46:53.148612+00:00",
+      "exitCode": 1,
+      "logSha256": "d6a45579813ee14c5d3236465765b38dda397ba0b1cc830cebfff29c9c28cbec"
+    },
+    "navigation-webkit": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:32:39.626944+00:00",
+      "finishedAt": "2026-10-24T17:32:58.068278+00:00",
+      "exitCode": 1,
+      "logSha256": "87245571a42f0724ff4304390163a798607a364f6a59223d0478e192ddbcf535"
+    },
+    "rollout": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:55:46.275691+00:00",
+      "finishedAt": "2026-10-24T17:56:18.845603+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    "production-repeat": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1",
+        "--project=mobile390",
+        "--project=desktop",
+        "--grep",
+        "settings switch and sidebar|댓글 입력은 모바일 하단",
+        "--repeat-each=3"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:13:23.652645+00:00",
+      "finishedAt": "2026-10-24T18:13:35.644415+00:00",
+      "exitCode": 0,
+      "logSha256": "87a4fb3d7e4d22ee76e3848a336c2ce42ebd409ae5e72c5f23c56152f71a71ae"
+    },
+    "notifications-image-final": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/notifications.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:37:12.785783+00:00",
+      "finishedAt": "2026-10-24T17:37:22.567352+00:00",
+      "exitCode": 0,
+      "logSha256": "94812bfca255f070e3412da78bd86c208819abd714688812a047f56f0121dea1"
+    },
+    "archive-ready": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/archive-ready.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:04:50.177475+00:00",
+      "finishedAt": "2026-10-24T18:05:06.973552+00:00",
+      "exitCode": 0,
+      "logSha256": "4bc4269fe51cf9e2976790f20ebc95fb2e1875a697f751b0d6b465227b0bcbc7"
+    },
+    "image-build-final": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/ui-batch-deploy-20261025/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:ui-batch-20261025",
+        ".local/ui-batch-deploy-20261025/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:34:47.324929+00:00",
+      "finishedAt": "2026-10-24T17:36:28.637153+00:00",
+      "exitCode": 0,
+      "logSha256": "fed79446988f2ca80bcf83cc02353f35f116563239d2dfb362594c1397d2c5b6"
+    },
+    "image-build-ready": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/ui-batch-deploy-20261025/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:ui-batch-ready-20261025",
+        ".local/ui-batch-deploy-20261025/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:01:09.025621+00:00",
+      "finishedAt": "2026-10-24T18:02:30.564140+00:00",
+      "exitCode": 1,
+      "logSha256": "bf8f0104a4e0954a3c9d036239d2342d0d9d53b9de1ebaa0361b1ec7e29de424"
+    },
+    "archive-final": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:37:12.785843+00:00",
+      "finishedAt": "2026-10-24T17:37:30.506094+00:00",
+      "exitCode": 0,
+      "logSha256": "4bc4269fe51cf9e2976790f20ebc95fb2e1875a697f751b0d6b465227b0bcbc7"
+    },
+    "workspace-check-ready": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:01:10.166615+00:00",
+      "finishedAt": "2026-10-24T18:01:16.113272+00:00",
+      "exitCode": 2,
+      "logSha256": "b2f6703785be406ac67fbd3e6611617a1a373ccc8e74024778d00c5663707527"
+    },
+    "navigation-image-hydrated": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:21.363357+00:00",
+      "finishedAt": "2026-10-24T18:06:26.302105+00:00",
+      "exitCode": 0,
+      "logSha256": "6bd610094497f131f24154089f6f9a920f2a1085269ecc807a16de29b2cf68b0"
+    },
+    "production-ui-ready": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:49.280878+00:00",
+      "finishedAt": "2026-10-24T18:10:46.162409+00:00",
+      "exitCode": 1,
+      "logSha256": "9a8260edff5ee89aac098e5fb4e3b7d9d055421c2f7a960a14fb43fd70e8cd63"
+    },
+    "lazy-icons": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/lazy-icons.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:46:51.092744+00:00",
+      "finishedAt": "2026-10-24T17:46:59.769615+00:00",
+      "exitCode": 0,
+      "logSha256": "d30490d93d354a016d50a43f5e1b49c34148fffcbb90075df7345d72990fbca8"
+    },
+    "workspace-check-final": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:29:22.302821+00:00",
+      "finishedAt": "2026-10-24T17:29:31.400964+00:00",
+      "exitCode": 0,
+      "logSha256": "7b70a912e0256e66f8629b211d6082e24267325b444db1192b02df14f247a781"
+    },
+    "production-notifications-ready": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/notifications.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:49.284395+00:00",
+      "finishedAt": "2026-10-24T18:07:59.508997+00:00",
+      "exitCode": 0,
+      "logSha256": "94812bfca255f070e3412da78bd86c208819abd714688812a047f56f0121dea1"
+    },
+    "rollout-ready": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/release-ready.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:13.478707+00:00",
+      "finishedAt": "2026-10-24T18:07:40.130828+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    "font-diagnostic": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/font-diagnostic.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:53:03.918499+00:00",
+      "finishedAt": "2026-10-24T17:53:17.681024+00:00",
+      "exitCode": 1,
+      "logSha256": "430509f1567dcc54c630ca794dfd21d66142ad818dfd0fc0b9fd0b5770cf25c9"
+    },
+    "production-navigation-ready": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:49.283383+00:00",
+      "finishedAt": "2026-10-24T18:09:22.881320+00:00",
+      "exitCode": 0,
+      "logSha256": "6bd610094497f131f24154089f6f9a920f2a1085269ecc807a16de29b2cf68b0"
+    },
+    "image-check-final": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:37:12.785782+00:00",
+      "finishedAt": "2026-10-24T17:40:08.021443+00:00",
+      "exitCode": 1,
+      "logSha256": "eca2fbd2f8e02388dcd3f625d9b5b621cfa162aa976e6bf3f870ca2669f8fcbe"
+    },
+    "font-diagnostic-no-wait": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/font-diagnostic.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:53:38.354147+00:00",
+      "finishedAt": "2026-10-24T17:53:45.071036+00:00",
+      "exitCode": 0,
+      "logSha256": "bdbf38211062555ae21d3b62e765f7cb9538aa155cecb8e6c5b555805c79fa0b"
+    },
+    "final-types": {
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:14:29.712882+00:00",
+      "finishedAt": "2026-10-24T18:14:31.617536+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "production-notifications": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/notifications.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:56:58.324050+00:00",
+      "finishedAt": "2026-10-24T17:57:04.136561+00:00",
+      "exitCode": 0,
+      "logSha256": "94812bfca255f070e3412da78bd86c208819abd714688812a047f56f0121dea1"
+    },
+    "workspace-check": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:28:07.420040+00:00",
+      "finishedAt": "2026-10-24T17:28:16.641906+00:00",
+      "exitCode": 1,
+      "logSha256": "ee9eb33e10d8d986f4ec54f86768428ad9688913a9a8dc653bf33f9bd01f68e4"
+    },
+    "image-hydrated": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:21.363358+00:00",
+      "finishedAt": "2026-10-24T18:07:08.045087+00:00",
+      "exitCode": 0,
+      "logSha256": "e5e82812a79df50378c7321cea09d3e977bd6680e84b35695dfd28b078b2b9c0"
+    },
+    "production-ui": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:56:58.324047+00:00",
+      "finishedAt": "2026-10-24T18:00:42.860411+00:00",
+      "exitCode": 130,
+      "logSha256": "6e1b3cd547988b32d71ccd4848a428c459056a59beee3dcb50fedaeaecf1aec2"
+    },
+    "navigation-image": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:30:31.504519+00:00",
+      "finishedAt": "2026-10-24T17:31:45.077652+00:00",
+      "exitCode": 1,
+      "logSha256": "c043a354705b42ef1e2be234981ea8c4939c018b77288bee7ffabb4dc0e2a0b8"
+    },
+    "hydration-production": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/hydration.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:07:49.280792+00:00",
+      "finishedAt": "2026-10-24T18:08:03.237945+00:00",
+      "exitCode": 0,
+      "logSha256": "f8afd92f553bd1758fb5dfcb22326416aeee557eb861008c2a5c4123a7c45505"
+    },
+    "notifications-image-hydrated": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/notifications.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:05:21.363358+00:00",
+      "finishedAt": "2026-10-24T18:05:23.407650+00:00",
+      "exitCode": 0,
+      "logSha256": "94812bfca255f070e3412da78bd86c208819abd714688812a047f56f0121dea1"
+    },
+    "date-fixed": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/date-diagnostic.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:37:22.616646+00:00",
+      "finishedAt": "2026-10-24T17:37:27.147447+00:00",
+      "exitCode": 0,
+      "logSha256": "532fff0dea5bd80521564449849c3d21f6a2dfb5ae0df42d8636a8dd8295df33"
+    },
+    "production-isolated": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1",
+        "--project=mobile390",
+        "--project=desktop",
+        "--grep",
+        "settings switch and sidebar|댓글 입력은 모바일 하단"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:12:30.466640+00:00",
+      "finishedAt": "2026-10-24T18:12:35.600992+00:00",
+      "exitCode": 0,
+      "logSha256": "70e1f55d6a06c388cfb2768075ca335c178bd74af6a6248f29c4bd4b71a131ad"
+    },
+    "navigation-prefetch": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:34:48.566350+00:00",
+      "finishedAt": "2026-10-24T17:35:07.297866+00:00",
+      "exitCode": 1,
+      "logSha256": "87245571a42f0724ff4304390163a798607a364f6a59223d0478e192ddbcf535"
+    },
+    "image-ready-final": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "--config",
+        ".local/ui-batch-deploy-20261025/playwright.config.cjs",
+        "--workers=1"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:53:50.479740+00:00",
+      "finishedAt": "2026-10-24T17:55:38.381299+00:00",
+      "exitCode": 0,
+      "logSha256": "4a802e1c398f6e09077184bd163a6c979dc763fa0b4bc5d65f885a57c6442a77"
+    },
+    "navigation-image-final": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/navigation.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:37:12.786115+00:00",
+      "finishedAt": "2026-10-24T17:38:26.157899+00:00",
+      "exitCode": 1,
+      "logSha256": "c043a354705b42ef1e2be234981ea8c4939c018b77288bee7ffabb4dc0e2a0b8"
+    },
+    "selected-tests": {
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--mount",
+        "type=bind,source=/Users/ethan/repository/crefans_front/tests,target=/app/tests,readonly",
+        "--entrypoint",
+        "node",
+        "crefans-front:ui-batch-20261025",
+        "--test",
+        "tests/content-post-preview.test.cjs",
+        "tests/post-membership-offer.test.cjs",
+        "tests/membership-images.test.cjs",
+        "tests/crefans-social.test.cjs",
+        "tests/crefans-account.test.cjs",
+        "tests/crefans-common.test.cjs",
+        "tests/post-share.test.cjs",
+        "tests/overlay-motion.test.cjs",
+        "tests/studio-navigation.test.cjs",
+        "tests/crefans-studio-reports.test.cjs",
+        "tests/crefans-studio-management.test.cjs",
+        "tests/withdrawal-pin.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:30:10.039479+00:00",
+      "finishedAt": "2026-10-24T17:30:21.748275+00:00",
+      "exitCode": 1,
+      "logSha256": "200d419c76a3e0ad4d42535e73acc0e653c096340801fa892d1598cc6aea6c0e"
+    },
+    "visual-production-final": {
+      "command": [
+        "node",
+        ".local/ui-batch-deploy-20261025/visual-production.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:10:39.888052+00:00",
+      "finishedAt": "2026-10-24T18:10:41.654922+00:00",
+      "exitCode": 0,
+      "logSha256": "86681382386247c2a884f4caea336dc09436cf4d48fadcbcfa10f367fcf58f9d"
+    },
+    "workspace-check-ready-fixed": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:02:46.093468+00:00",
+      "finishedAt": "2026-10-24T18:02:54.994342+00:00",
+      "exitCode": 0,
+      "logSha256": "bfcbff585572625c3ddbd717e15b0a121da77023da364c7364db6fca8c58f16e"
+    },
+    "production-verify": {
+      "command": [
+        "python3",
+        ".local/ui-batch-deploy-20261025/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:56:46.651877+00:00",
+      "finishedAt": "2026-10-24T17:56:49.537421+00:00",
+      "exitCode": 0,
+      "logSha256": "ba988d192dd102270344c707963b73b7f4ebdc75e3e84d071f9a82370ff67780"
+    }
+  },
+  "deploymentSteps": [
+    {
+      "step": "upload-directory",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "install -d -m 0700 /home/ubuntu/crefans-ui-batch-ready-20261025"
+      ],
+      "startedAt": "2026-10-24T18:07:13.501401+00:00",
+      "finishedAt": "2026-10-24T18:07:14.489905+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "command": [
+        "scp",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "/Users/ethan/repository/crefans_front/.local/ui-batch-deploy-20261025/image.tar.gz",
+        "/Users/ethan/repository/crefans_front/.local/ui-batch-deploy-20261025/image.sha256",
+        "/Users/ethan/repository/crefans_front/.local/ui-batch-deploy-20261025/deploy-ready.sh",
+        "/Users/ethan/repository/crefans_front/.local/ui-batch-deploy-20261025/before-ready.json",
+        "ubuntu@15.164.140.26:/home/ubuntu/crefans-ui-batch-ready-20261025/"
+      ],
+      "startedAt": "2026-10-24T18:07:14.490575+00:00",
+      "finishedAt": "2026-10-24T18:07:21.957712+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "cd /home/ubuntu/crefans-ui-batch-ready-20261025 && sha256sum -c image.sha256 && sudo -n docker load -i image.tar.gz && rm image.tar.gz"
+      ],
+      "startedAt": "2026-10-24T18:07:21.958316+00:00",
+      "finishedAt": "2026-10-24T18:07:33.266036+00:00",
+      "exitCode": 0,
+      "logSha256": "bac29a11bb4ad8f21c7321c693cff50b462aecba5d27bea3b7edb6b855b1e301"
+    },
+    {
+      "step": "deploy",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "bash /home/ubuntu/crefans-ui-batch-ready-20261025/deploy-ready.sh"
+      ],
+      "startedAt": "2026-10-24T18:07:33.267458+00:00",
+      "finishedAt": "2026-10-24T18:07:40.124479+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "initialDeployment": {
+    "steps": [
+      {
+        "step": "upload-directory",
+        "command": [
+          "ssh",
+          "-i",
+          "/Users/ethan/Downloads/crefans.pem",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "StrictHostKeyChecking=yes",
+          "-o",
+          "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+          "-o",
+          "ConnectTimeout=10",
+          "ubuntu@15.164.140.26",
+          "install -d -m 0700 /home/ubuntu/crefans-ui-batch-deploy-20261025"
+        ],
+        "startedAt": "2026-10-24T17:55:46.298478+00:00",
+        "finishedAt": "2026-10-24T17:55:47.336053+00:00",
+        "exitCode": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "upload",
+        "command": [
+          "scp",
+          "-i",
+          "/Users/ethan/Downloads/crefans.pem",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "StrictHostKeyChecking=yes",
+          "-o",
+          "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+          "-o",
+          "ConnectTimeout=10",
+          "/Users/ethan/repository/crefans_front/.local/ui-batch-deploy-20261025/image.tar.gz",
+          "/Users/ethan/repository/crefans_front/.local/ui-batch-deploy-20261025/image.sha256",
+          "/Users/ethan/repository/crefans_front/.local/ui-batch-deploy-20261025/deploy.sh",
+          "/Users/ethan/repository/crefans_front/.local/ui-batch-deploy-20261025/before.json",
+          "ubuntu@15.164.140.26:/home/ubuntu/crefans-ui-batch-deploy-20261025/"
+        ],
+        "startedAt": "2026-10-24T17:55:47.336556+00:00",
+        "finishedAt": "2026-10-24T17:55:55.567250+00:00",
+        "exitCode": 0,
+        "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "load",
+        "command": [
+          "ssh",
+          "-i",
+          "/Users/ethan/Downloads/crefans.pem",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "StrictHostKeyChecking=yes",
+          "-o",
+          "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+          "-o",
+          "ConnectTimeout=10",
+          "ubuntu@15.164.140.26",
+          "cd /home/ubuntu/crefans-ui-batch-deploy-20261025 && sha256sum -c image.sha256 && sudo -n docker load -i image.tar.gz && rm image.tar.gz"
+        ],
+        "startedAt": "2026-10-24T17:55:55.567814+00:00",
+        "finishedAt": "2026-10-24T17:56:11.245179+00:00",
+        "exitCode": 0,
+        "logSha256": "2fbe073de1bc9e6e3c07419c36ac6a74adbf9fb5f3fdc8c200a260475ce84f35"
+      },
+      {
+        "step": "deploy",
+        "command": [
+          "ssh",
+          "-i",
+          "/Users/ethan/Downloads/crefans.pem",
+          "-o",
+          "BatchMode=yes",
+          "-o",
+          "StrictHostKeyChecking=yes",
+          "-o",
+          "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+          "-o",
+          "ConnectTimeout=10",
+          "ubuntu@15.164.140.26",
+          "bash /home/ubuntu/crefans-ui-batch-deploy-20261025/deploy.sh"
+        ],
+        "startedAt": "2026-10-24T17:56:11.246177+00:00",
+        "finishedAt": "2026-10-24T17:56:18.836774+00:00",
+        "exitCode": 0,
+        "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+      }
+    ],
+    "image": {
+      "at": "2026-10-24T17:37:30.498668+00:00",
+      "tag": "crefans-front:ui-batch-20261025",
+      "id": "sha256:ce2bc71aefd7b1fa4806d26e41d94431cfa7d708ef347330b1ce59206ed8d23f",
+      "architecture": "amd64",
+      "runtimeFilesMatched": 535,
+      "archiveSha256": "972104004f361fcaa9bea3b55b1cdeb29ca95bb3a7d8a1e7ae893528588c3536",
+      "archiveBytes": 521629140
+    },
+    "verification": {
+      "at": "2026-10-24T17:56:46.710649+00:00",
+      "runtimeFilesMatched": 535,
+      "runtime": {
+        "crefans-beta-api-1": {
+          "id": "13431e31d272c24a18ef0845f7fce015e189d1d0467af9ad94406ed3b874cc18",
+          "image": "sha256:7de8b1853c04aafe783799f58105b45a75e2c8fbd667b8c1a0d9f1efeb66d2f0",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "07e51cfd0a96f967278d12b5b11accf097ba3ce600d01cd98b8cd5ba48cc41d0",
+          "image": "sha256:7de8b1853c04aafe783799f58105b45a75e2c8fbd667b8c1a0d9f1efeb66d2f0",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-frontend-1": {
+          "id": "f0368f5125b13c4f130b62e29a729b88f211b96422f314d668ca7b49c82deb01",
+          "image": "sha256:ce2bc71aefd7b1fa4806d26e41d94431cfa7d708ef347330b1ce59206ed8d23f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+          "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        }
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/preview/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200
+        }
+      ],
+      "freeDiskBytes": 3391479808
+    }
+  },
+  "testFileSha256": {
+    "e2e/ui-hydration.spec.ts": "bce2b4630fa6f9fda05e1a19d4a478641857bedaea372855d4bd77a99317564c",
+    "e2e/marquee-text.spec.ts": "aa04362e4c453f1dfbc44b75f084ac3e60a6d98ba109d04e2e69cb5924d66b4f",
+    "e2e/mobile-comments.spec.ts": "d9402fec173c52e2df79151b0f09e624598d9097c64f1a975c290b55fa0f1f53",
+    "e2e/post-share.spec.ts": "f22a6a9d236d6ec0107f3f130d7c9498430a736efeb902f5d6c28c8e27a03da0",
+    "e2e/post-detail-gallery.spec.ts": "15a0ab64644d063c5149fc845d8dd2da91d282e3712a358d5f84c11062889f26",
+    "e2e/membership-offer-images.spec.ts": "bf167ed246fd0588873e9379b57b358e6dc15704f087a4cfb4690ca9b0c946a3",
+    "tests/content-post-preview.test.cjs": "a976476b7cba8f98c3b7ad8e0058bca753785f5179a74db05e735e9c0b258b87"
+  },
+  "unit": {
+    "workspace": {
+      "passed": 321,
+      "failed": 0
+    },
+    "selectedRuntime": {
+      "passed": 126,
+      "failed": 0,
+      "scopeExclusion": "One deferred identity signup test excluded because that local feature is not in this release."
+    }
+  },
+  "browser": {
+    "image-hydrated": {
+      "startTime": "2026-10-24T18:05:22.093Z",
+      "duration": 105935.32699999999,
+      "expected": 77,
+      "skipped": 3,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "production-ready": {
+      "initialRun": {
+        "startTime": "2026-10-24T18:07:49.956Z",
+        "duration": 176189.40899999999,
+        "expected": 75,
+        "skipped": 3,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "isolatedRecheck": {
+        "startTime": "2026-10-24T18:12:31.076Z",
+        "duration": 4508.752,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "repeatedRecheck": {
+        "startTime": "2026-10-24T18:13:24.160Z",
+        "duration": 11472.158,
+        "expected": 12,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "initialFailedCases": [
+        [
+          "marquee-text.spec.ts",
+          "settings switch and sidebar-style button share the same preference in the catalog",
+          "mobile390"
+        ],
+        [
+          "mobile-comments.spec.ts",
+          "댓글 입력은 모바일 하단 한 줄·PC 본문 textarea이며 초안과 등록 동작을 공유한다",
+          "desktop"
+        ]
+      ],
+      "effectiveUniquePassed": 77,
+      "skipped": 3,
+      "meaning": "75 initial passes plus2 failed cases passing isolated rechecks. Do not present as77 uninterrupted first-run passes."
+    }
+  },
+  "hydrationRegression": {
+    "hydration-after": {
+      "startTime": "2026-10-24T18:05:03.639Z",
+      "duration": 13872.010999999999,
+      "expected": 8,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "hydration-production": {
+      "startTime": "2026-10-24T18:07:49.957Z",
+      "duration": 13266.855,
+      "expected": 8,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "navigation": {
+    "image-hydrated": {
+      "functionalChecks": 79,
+      "classifiedHarnessNavigationAborts": [
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "url": "http://127.0.0.1:3128/preview/notices",
+          "at": 1792865140697,
+          "drivingGoto": true,
+          "message": "/127.0.0.1:3128/preview/legal/policy?_rsc=qil46 due to access control checks."
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "url": "http://127.0.0.1:3128/service/me",
+          "at": 1792865149152,
+          "drivingGoto": true,
+          "message": "/127.0.0.1:3128/service/settings?_rsc=1oklh due to access control checks."
+        }
+      ],
+      "unexpectedApiRequests": []
+    },
+    "production-ready": {
+      "functionalChecks": 79,
+      "classifiedHarnessNavigationAborts": [
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "url": "https://beta.crefans.com/preview/notices",
+          "at": 1792865302137,
+          "drivingGoto": true,
+          "message": "/beta.crefans.com/preview/legal/policy?_rsc=qil46 due to access control checks."
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "url": "https://beta.crefans.com/service/notices",
+          "at": 1792865312206,
+          "drivingGoto": true,
+          "message": "/beta.crefans.com/service/legal/policy?_rsc=19xpp due to access control checks."
+        }
+      ],
+      "unexpectedApiRequests": []
+    }
+  },
+  "notifications": {
+    "image-hydrated": [
+      {
+        "width": 390,
+        "route": "preview",
+        "liveChip": 0,
+        "otherFilters": true,
+        "existingLiveNoticePreserved": true
+      },
+      {
+        "width": 390,
+        "route": "service",
+        "liveChip": 0,
+        "commentFilter": true,
+        "existingLiveNoticePreserved": true,
+        "pageErrors": []
+      },
+      {
+        "width": 1280,
+        "route": "preview",
+        "liveChip": 0,
+        "otherFilters": true,
+        "existingLiveNoticePreserved": true
+      },
+      {
+        "width": 1280,
+        "route": "service",
+        "liveChip": 0,
+        "commentFilter": true,
+        "existingLiveNoticePreserved": true,
+        "pageErrors": []
+      }
+    ],
+    "production-ready": [
+      {
+        "width": 390,
+        "route": "preview",
+        "liveChip": 0,
+        "otherFilters": true,
+        "existingLiveNoticePreserved": true
+      },
+      {
+        "width": 390,
+        "route": "service",
+        "liveChip": 0,
+        "commentFilter": true,
+        "existingLiveNoticePreserved": true,
+        "pageErrors": []
+      },
+      {
+        "width": 1280,
+        "route": "preview",
+        "liveChip": 0,
+        "otherFilters": true,
+        "existingLiveNoticePreserved": true
+      },
+      {
+        "width": 1280,
+        "route": "service",
+        "liveChip": 0,
+        "commentFilter": true,
+        "existingLiveNoticePreserved": true,
+        "pageErrors": []
+      }
+    ]
+  },
+  "screenshotSha256": {
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-webkit390/gallery-comments.png": "774b57602adee46912137190acb1dafba406ea782ee9952b35bf014785f13242",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-webkit390/detail-gallery.png": "9d019db82f8b837ca0fe5d60b7565d6de5f33a5fc9f337c7920d6c69f8eb8031",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-desktop/notice.png": "5f981d181296dca921d44f15b09bdb33c7e9569926fa21cd14c31667288c81cf",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-desktop/offers.png": "8cd44ab88da40ac76c0853ad77dc16f66110a140a72ab4e8a917efa4a157bab1",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-mobile390/settings-switch.png": "39faf876636846c07c570314c7c331bea5cff2cfceeedfff6ee3661af7bbe21a",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-webkit390/share.png": "8bcdee44728ebd2d04d63cb4de970b0b19446ca1978916e3984ba236f296fa3d",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-webkit390/notice.png": "b1063bb8912996e171256cf428fa6809e295793e932004caecaea43e80b17720",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-webkit390/offers.png": "a3991936ecc8c136ff60089f56a19a6cead94397ca44b9b3ff7f187e8193a99a",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/mobile-comments-피드를-스크롤한-뒤-플로팅-X로-댓글을-닫고-키보드-영역을-복원한다-mobile390/scrolled-close.png": "ac93ab1ec338dac90d16aeee498d40cd4d5592e826f15424a6901e55f32d28ef",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-narrow320/gallery-comments.png": "c53571a5e8025abc063ed352951c1c63d5c4fb20103b14f3280b742407e2053b",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-narrow320/detail-gallery.png": "4698e1de253f4ccd009958ba67b8f712805971c976c5e9357f7b1ad1e6bdaa54",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-mobile390/mobile-comments.png": "4a0ff24fe9b1b8de377d6e3db0f361ab1b45f4890228ec9a6df25c876b445f3e",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-narrow320/share.png": "91548c9d5f940c6520e7bc029041ac53240dc9b63e1ad2cdb243ce58319e0ef2",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-narrow320/notice.png": "8805ca26cf4e45d8f507a33f9a22afd21f31cb1970d7132d01936204dd9260e0",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-narrow320/offers.png": "aa51c9649b9308e5dbbca45cda01d9bad35db4e9b6e2210b13ad568399fb51a3",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-share-catalog-uses-th-868e8-vailable-and-loading-states-desktop/catalog.png": "c795a24bba836107e5bc96315c8f319c2cbf2f3c9e3856c2d035c91afb731872",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-share-catalog-uses-th-868e8-vailable-and-loading-states-mobile390/catalog.png": "b1cec3e4ee5a307a9184a0f16c784e81c9a424baa172740ce668517aa2fe3800",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-desktop/share.png": "e0bd0c1ab9c1d83fe550a22435ba7014e40d569ccd5b1a15fe33cf6afed6f1b4",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-mobile390/detail-gallery.png": "894b35abe1562f5fb5f5ca5da13549b5112ef746ea10a440a9301e9dae9dbd11",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/mobile-comments-피드를-스크롤한-뒤-플로팅-X로-댓글을-닫고-키보드-영역을-복원한다-narrow320/scrolled-close.png": "ac93ab1ec338dac90d16aeee498d40cd4d5592e826f15424a6901e55f32d28ef",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-narrow320/settings-switch.png": "45a748bdc25e1bfda066d74d1a38a2a85f7a7a54b8dcf0d1349565acbba0f68e",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-webkit390/mobile-comments.png": "8ec5f828ed0b9ad70be1e075c983a91eb15d4b68330bc4c3b006af004eabc8eb",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-webkit390/settings-switch.png": "e2de23e1cded98398dcd22665132a8e58131f4b7e9c864c3477140ee8637d919",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-mobile390/share.png": "c4e741a7a457cb8d67e4618856473088563551a14714d86dee6f071bc9dff56c",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-desktop/detail-gallery.png": "01221d223555d20e968141ebc288438673d76b6694ed98976d89fd19bb095f5c",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/mobile-comments-피드를-스크롤한-뒤-플로팅-X로-댓글을-닫고-키보드-영역을-복원한다-webkit390/scrolled-close.png": "6bf4e80ea42031cf8296784f5c7d01d89014b4aac6fd50fe0990008ee0000529",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-mobile390/notice.png": "fe036457935b62ee41939bf7c99f8b6ce3f64fbd463167a888df777499da0732",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-mobile390/offers.png": "b93bb8de370d76ecbab4a7723a218d0cba6ee32658ff823c36e03792e07a5f08",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-narrow320/mobile-comments.png": "0f0858607df90b892d20db2967601aaaa3e38e4c8ad4364320f4a5df7be14d73",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-mobile390/gallery-comments.png": "602655c007addfb022fa5c5dfbfdf788031b5ab3caa178b36e7bbfceaa604f9c",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-mobile390/detail-gallery.png": "b0d48d14a6208fa74f99e153ebc49b4d396ab3472881dd702115ff840d48ded2",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-desktop/detail-gallery.png": "7d86da24bd2bff89b40090bc81e8746b010d6737351c966170adb754655f3d45",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-desktop/settings-switch.png": "71cda98fa8442bd63799f23bf0a1738e0a5886b292027d6fbe9dc469b811ebe2",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-webkit390/detail-gallery.png": "0a13e617ef6b76b3b9db01542e73b1bb0e90dfa840ee0856d0de5476c5d219b7",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-share-catalog-uses-th-868e8-vailable-and-loading-states-narrow320/catalog.png": "71546d78211ae36e310f19b20231e42628dbf63a36de72c5a6c8872cbe5a38b9",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-narrow320/detail-gallery.png": "fe65259b864a71bcf703322190ec6c9e7556599596903cc6b9dd64b6906cc911",
+    ".local/ui-batch-deploy-20261025/results-image-hydrated/post-share-catalog-uses-th-868e8-vailable-and-loading-states-webkit390/catalog.png": "ea5ce9648988399ac7d1278fe0b5a11ca6d174d64d4adb80585ca24b11272339",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-webkit390/gallery-comments.png": "08e720f40641f1cc7614baf61a066a918cae00694e93cf3422f14642c32b5880",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-webkit390/detail-gallery.png": "c08150f4895031fb0e45b48ff5deb49163aed925b51aad7ee59239ed4e3e92cf",
+    ".local/ui-batch-deploy-20261025/results-production-ready/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-desktop/notice.png": "5f981d181296dca921d44f15b09bdb33c7e9569926fa21cd14c31667288c81cf",
+    ".local/ui-batch-deploy-20261025/results-production-ready/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-desktop/offers.png": "8cd44ab88da40ac76c0853ad77dc16f66110a140a72ab4e8a917efa4a157bab1",
+    ".local/ui-batch-deploy-20261025/results-production-ready/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-mobile390/settings-switch.png": "6ff02b908fddeec5c206aefd75cb792bd97c0bf2c6d3d1e9a043c2f8492b599f",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-webkit390/share.png": "d145b259f945e65e3507c43426dd55a500cb2fda8efda5b27429d71f4aba366d",
+    ".local/ui-batch-deploy-20261025/results-production-ready/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-webkit390/notice.png": "b1063bb8912996e171256cf428fa6809e295793e932004caecaea43e80b17720",
+    ".local/ui-batch-deploy-20261025/results-production-ready/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-webkit390/offers.png": "9e2f9e977d7fb8a689416b907214408aa75dae0ea42da16d46c0c939c3b26640",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-피드를-스크롤한-뒤-플로팅-X로-댓글을-닫고-키보드-영역을-복원한다-mobile390/scrolled-close.png": "ac93ab1ec338dac90d16aeee498d40cd4d5592e826f15424a6901e55f32d28ef",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-narrow320/gallery-comments.png": "817bd29a49b403232a0c75f190546fdd7ccc2955af84d01b62eea83192250f12",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-narrow320/detail-gallery.png": "4698e1de253f4ccd009958ba67b8f712805971c976c5e9357f7b1ad1e6bdaa54",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-mobile390/mobile-comments.png": "682f20f5a2ffd0744ec47497f90bfbec58f7ae9fb22d321f63910cacfbef68ab",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-narrow320/share.png": "bc067bb8decaf24740d3029cdad610642d7733f6bdca6fb8e39aa4a198f0dda0",
+    ".local/ui-batch-deploy-20261025/results-production-ready/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-narrow320/notice.png": "42e5d29801caf391bc8771a7a2cfe9988270047bae484cdb39e08b3f4baf4fd5",
+    ".local/ui-batch-deploy-20261025/results-production-ready/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-narrow320/offers.png": "aa51c9649b9308e5dbbca45cda01d9bad35db4e9b6e2210b13ad568399fb51a3",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-share-catalog-uses-th-868e8-vailable-and-loading-states-desktop/catalog.png": "c795a24bba836107e5bc96315c8f319c2cbf2f3c9e3856c2d035c91afb731872",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-share-catalog-uses-th-868e8-vailable-and-loading-states-mobile390/catalog.png": "b1cec3e4ee5a307a9184a0f16c784e81c9a424baa172740ce668517aa2fe3800",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-desktop/share.png": "ba6f108b292b6ee604899447c659e43ac9bf8c96e5cd0dee5a2c3fda6471147d",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-mobile390/detail-gallery.png": "894b35abe1562f5fb5f5ca5da13549b5112ef746ea10a440a9301e9dae9dbd11",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-피드를-스크롤한-뒤-플로팅-X로-댓글을-닫고-키보드-영역을-복원한다-narrow320/scrolled-close.png": "ac93ab1ec338dac90d16aeee498d40cd4d5592e826f15424a6901e55f32d28ef",
+    ".local/ui-batch-deploy-20261025/results-production-ready/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-narrow320/settings-switch.png": "44e45d8834ef6772975eabd6bb5eb52ce15c7dd6e29d2398de7bacbb9987eeef",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-webkit390/mobile-comments.png": "ac1ad4d9cd8ac81090ff5a64724afa3a31a2ff614f675415cbf4c4267bb1b777",
+    ".local/ui-batch-deploy-20261025/results-production-ready/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-webkit390/settings-switch.png": "e2de23e1cded98398dcd22665132a8e58131f4b7e9c864c3477140ee8637d919",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-desktop/test-failed-1.png": "92b9365c0eb0f8ef33f3ec694b9d79f667353644ed7905ca07784a67b04861d4",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-mobile390/share.png": "a1da4878bc544e23d263ff78c0415a23d0dbfdd97c7047a911cbc5b54b3c1888",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-desktop/detail-gallery.png": "01221d223555d20e968141ebc288438673d76b6694ed98976d89fd19bb095f5c",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-피드를-스크롤한-뒤-플로팅-X로-댓글을-닫고-키보드-영역을-복원한다-webkit390/scrolled-close.png": "5b9d2c5a972064db150244ca10986cd9eafb317374161d5caf526ae4deafeb1a",
+    ".local/ui-batch-deploy-20261025/results-production-ready/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-mobile390/notice.png": "3b58f684b6fea8f72595b37d2e57b041cc2d63392c679fe431aa7b4f2e4864f5",
+    ".local/ui-batch-deploy-20261025/results-production-ready/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-mobile390/offers.png": "b93bb8de370d76ecbab4a7723a218d0cba6ee32658ff823c36e03792e07a5f08",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-댓글-입력은-모바일-9fc17--textarea이며-초안과-등록-동작을-공유한다-narrow320/mobile-comments.png": "5f2e41c50752669605bf947c170338306ca0263a6cab9f88b0cb3266aca6fc63",
+    ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-mobile390/gallery-comments.png": "602655c007addfb022fa5c5dfbfdf788031b5ab3caa178b36e7bbfceaa604f9c",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-mobile390/detail-gallery.png": "b0d48d14a6208fa74f99e153ebc49b4d396ab3472881dd702115ff840d48ded2",
+    ".local/ui-batch-deploy-20261025/results-production-ready/marquee-text-settings-swit-11fa0-e-preference-in-the-catalog-mobile390/test-failed-1.png": "21db7b2d4bda8e4a88d4542a4f4c70bd745baa5b2415b92ebd5a2bdaf170c791",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-desktop/detail-gallery.png": "7d86da24bd2bff89b40090bc81e8746b010d6737351c966170adb754655f3d45",
+    ".local/ui-batch-deploy-20261025/results-production-ready/marquee-text-global-pause--bbf68-motion-reveals-wrapped-text-desktop/settings-switch.png": "ffc70ed5fd117b92e96f9c040d1efdbdef8dec0d535faf14fd766d1dc9f141cd",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-webkit390/detail-gallery.png": "142b57c69c73efb54e625e86e742ce08342d6321e6640909ab437822cb0278fb",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-share-catalog-uses-th-868e8-vailable-and-loading-states-narrow320/catalog.png": "71546d78211ae36e310f19b20231e42628dbf63a36de72c5a6c8872cbe5a38b9",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-narrow320/detail-gallery.png": "fe65259b864a71bcf703322190ec6c9e7556599596903cc6b9dd64b6906cc911",
+    ".local/ui-batch-deploy-20261025/results-production-ready/post-share-catalog-uses-th-868e8-vailable-and-loading-states-webkit390/catalog.png": "ea5ce9648988399ac7d1278fe0b5a11ca6d174d64d4adb80585ca24b11272339",
+    ".local/ui-batch-deploy-20261025/navigation-production-ready/desktop-notices-welcome.png": "263505ef182f743dd365e10fa3e2cce986c230533164484ad4e43f1afda7f48c",
+    ".local/ui-batch-deploy-20261025/navigation-production-ready/chromium320-following.png": "2a4718fa58559f11e52567bfb7815e8655ad48aae3e7e155c6d1743609c0c5fa",
+    ".local/ui-batch-deploy-20261025/navigation-production-ready/webkit390-notices-welcome.png": "f3a3492e0e75832e9f7c3878d91ac0398411cd968427986b3002d0ee57a131e2",
+    ".local/ui-batch-deploy-20261025/notifications-production-ready/preview-1280.png": "c3b9f114b8271c5ef06745905c692f071d62b751444b049ed19b4c2fad8dd2f2",
+    ".local/ui-batch-deploy-20261025/notifications-production-ready/preview-390.png": "f4da474806a27da74264e32bcb6ae9f05a9aecc4db3e6186a34f361590b63216",
+    ".local/ui-batch-deploy-20261025/visual-production/desktop-settings.png": "159c5631ccf02c35a060255ed3d64e19a382b087e495309f8fbaf1a9f6068766",
+    ".local/ui-batch-deploy-20261025/visual-production/webkit390-settings.png": "e2de23e1cded98398dcd22665132a8e58131f4b7e9c864c3477140ee8637d919"
+  },
+  "manualReview": {
+    "at": "2026-10-24T18:10:58.332105+00:00",
+    "method": "Agent visual inspection of listed rendered PNGs; other screenshot hashes are archival, not a claim every screenshot was manually reviewed.",
+    "checks": [
+      "Right aligned settings switch; Korean text readable; nav icons loaded after visible-image readiness; desktop layout unchanged",
+      "Membership offer product images visible with prices/actions",
+      "Gallery photo, large close X and bottom comment composer visible",
+      "Desktop share layer shows copy/Kakao pending/more"
+    ],
+    "files": [
+      {
+        "path": ".local/ui-batch-deploy-20261025/visual-production/webkit390-settings.png",
+        "sha256": "e2de23e1cded98398dcd22665132a8e58131f4b7e9c864c3477140ee8637d919"
+      },
+      {
+        "path": ".local/ui-batch-deploy-20261025/visual-production/desktop-settings.png",
+        "sha256": "159c5631ccf02c35a060255ed3d64e19a382b087e495309f8fbaf1a9f6068766"
+      },
+      {
+        "path": ".local/ui-batch-deploy-20261025/results-production-ready/membership-offer-images-목업-멤버십-안내와-차단-영역에-멤버십-사진을-표시한다-mobile390/offers.png",
+        "sha256": "b93bb8de370d76ecbab4a7723a218d0cba6ee32658ff823c36e03792e07a5f08"
+      },
+      {
+        "path": ".local/ui-batch-deploy-20261025/results-production-ready/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-mobile390/gallery-comments.png",
+        "sha256": "602655c007addfb022fa5c5dfbfdf788031b5ab3caa178b36e7bbfceaa604f9c"
+      },
+      {
+        "path": ".local/ui-batch-deploy-20261025/results-production-ready/post-share-share-opens-thr-c6077-nly-run-on-their-own-clicks-desktop/share.png",
+        "sha256": "ba6f108b292b6ee604899447c659e43ac9bf8c96e5cd0dee5a2c3fda6471147d"
+      }
+    ],
+    "initialCaptureLimit": "First mobile settings capture preceded navigation image loading. Replaced manual-review basis with visible-image-complete Chromium/WebKit captures; no asset load failure remained. WebKit initial capture reset to top during initialization; final capture scrolls again after image readiness and asserts toggle is in viewport."
+  },
+  "browserEnvironment": {
+    "playwright": "1.64.0",
+    "host": "macOS",
+    "projects": [
+      "Chromium320",
+      "Chromium390",
+      "Chromium1280",
+      "WebKit390"
+    ],
+    "readiness": "DOMContentLoaded plus explicit UI/action/image assertions",
+    "PW_TEST_SCREENSHOT_NO_FONTS_READY": "1 in release QA process only; no downloaded fonts on these pages, status loaded, empty font set; visible typography reviewed",
+    "api": "Service fixtures intercepted in browser, no real account/post/payment mutations"
+  },
+  "research": {
+    "date": "2026-10-25 Asia/Seoul",
+    "observed": "React 18 error425/422 on direct preview studio content/new, UTC server and Asia/Seoul client differed by9h",
+    "evidence": {
+      "before": "date-diagnostic.log",
+      "after": "date-fixed.log"
+    },
+    "applied": "Explicit Asia/Seoul timeZone in ContentPostPreview fallback timestamp; no suppression or disabled SSR",
+    "sources": [
+      {
+        "url": "https://react.dev/errors/425",
+        "finding": "425 is text content differing from server-rendered HTML"
+      },
+      {
+        "url": "https://nextjs.org/docs/messages/react-hydration-error",
+        "finding": "Initial server and browser renders must agree; time-dependent formatting is a common mismatch cause"
+      }
+    ],
+    "version": "Next14.2.28,React18; official generic guidance crosschecked with local reproduction",
+    "screenshotReadiness": {
+      "checkedAt": "2026-10-24T17:54:23.599280+00:00",
+      "sources": [
+        "https://github.com/microsoft/playwright/issues/35972",
+        "https://github.com/microsoft/playwright/issues/42986"
+      ],
+      "environment": {
+        "playwright": "1.64.0",
+        "host": "macOS",
+        "engine": "WebKit"
+      },
+      "observation": "document.fonts.status=loaded, zero registered faces and zero font resources, but document.fonts.ready did not resolve within3seconds. requestAnimationFrame resolved; capture succeeded with PW_TEST_SCREENSHOT_NO_FONTS_READY=1. Visible text and images manually reviewed.",
+      "interpretation": "Similar upstream reported symptom, not proven identical to Linux1.63 defect. Offscreen image requests remained pending; exact upstream root cause not established.",
+      "application": "Only release verification process uses PW_TEST_SCREENSHOT_NO_FONTS_READY=1; runtime code unchanged. Use DOMContentLoaded plus explicit UI/functional checks. Font loading not claimed verified on physical iOS."
+    },
+    "hydration": {
+      "checkedAt": "2026-10-24T18:08:23.719481+00:00",
+      "source": "https://playwright.dev/docs/navigations#hydration",
+      "finding": "Visible SSR controls can be clicked before listeners attach. Official guidance recommends withholding interaction until hydration.",
+      "application": "ServiceShell main uses inert until its mount effect completes. React18 string attribute follows the existing StudioShell pattern. Delayed application scripts reproduce old keyboard-focus failure on settings/feed; final image8 cases pass."
+    }
+  },
+  "initialFailuresAndResolution": [
+    "First production UI run exposed early clicks before hydration. Reproduced with delayed scripts on old image: settings and feed failures. ServiceShell now keeps main inert until mounted; final image and production8 delayed-script cases verify keyboard/pointer gating and subsequent action. React18 inert string typing was aligned with existing StudioShell after first type/build failure.",
+    "Workspace old OptionalImage test mock caused two failures; use existing real helper and assert membership-only image. Final workspace321 passed.",
+    "Selected runtime excludes unrelated deferred-signup test, which expects an undeployed local contract. Exclusion is explicit and does not change production signup.",
+    "Production-build draft preview used different server/browser time zones. Reproduced React425/422; explicit Asia/Seoul fixes UTC/Seoul/LA unit and4JS-off/on browser conditions.",
+    "WebKit forced full-document navigation aborted prefetch requests. Service detail entries now use separate documents; navigation inventory separately records same-origin access-control messages only during harness goto. No React/app errors discarded.",
+    "WebKit load/font-ready waits stalled despite interactive UI and zero font faces. Official similar issues reviewed. Explicit UI readiness and process-only screenshot font wait bypass used; original failures preserved. Exact upstream root cause and physical iOS behavior not claimed."
+  ],
+  "rollback": {
+    "image": "crefans-front:ui-batch-20261025",
+    "environmentBackup": "/opt/crefans-backup-ui-batch-ready-20261025"
+  },
+  "spaceReclaimed": {
+    "at": "2026-10-24T17:28:31.114213+00:00",
+    "removed": [
+      {
+        "tag": "crefans-front:creator-search-20261024",
+        "id": "sha256:633986dcd029180c5a4149774dece68b8aa178fbe9dbac4a9f45f5c8d0a3fb08",
+        "archive": "/Users/ethan/repository/crefans_front/.local/creator-search-deploy-20261024/image.tar.gz",
+        "archiveSha256": "f8192dbbeca192f09cae25b8f73d61d2a967927f94e39d527ef1384ade28e68f"
+      },
+      {
+        "tag": "crefans-front:message-time-20261024",
+        "id": "sha256:d7f69414f70e8442a9b43f6beebe2192b5d35a7664eb7738cdd91a349341b2dd",
+        "archive": "/Users/ethan/repository/crefans_front/.local/message-time-deploy-20261024/image.tar.gz",
+        "archiveSha256": "0249c51b9aa2df78a75968af68da5bc311eb8fbb40f201d237d942f3dd203785"
+      },
+      {
+        "tag": "crefans-front:gallery-comments-20261024",
+        "id": "sha256:d137f9ad0f9a902a478219ec53de76f8c04c11093cceeabc3ea46057e2d97012",
+        "archive": "/Users/ethan/repository/crefans_front/.local/gallery-comments-deploy-20261024/image.tar.gz",
+        "archiveSha256": "62430a62a2d5af85e3aafde1cc3ec2446e3aa02677809b109a3fc8aedacf3968"
+      }
+    ],
+    "result": "     Avail\n4137213952\n\n",
+    "currentAndPreviousPreserved": true
+  },
+  "limits": [
+    "Kakao app key absent: option remains disabled with 준비 중. Real Kakao sending not tested.",
+    "Native share uses browser API stubs; physical OS share sheets not exercised. Chromium real clipboard read/write tested.",
+    "Three browser cases excluded by their existing PC/mobile or clipboard engine scopes.",
+    "Final production initial run had2 failures: catalog tab before initialization, corrected catalog load readiness; desktop preview comment draft empty/submit disabled once, no conclusive root cause. The4 associated project/case combinations passed isolated and3repeat runs; transient failure remains in evidence, not dismissed as proof of no defect.",
+    "No claim of real-provider/payment/PASS or all-product QA completion.",
+    "New draft timestamp uses Korean time explicitly. No API/DB/schema change.",
+    "Unrelated local signup/invitation/legal policy changes remain undeployed.",
+    "Existing post view auto-increment and earlier WebKit gallery trigger focus-return limitation remain outside this UI release.",
+    "User-approved persistent home SSH rule unchanged; no firewall mutation."
+  ],
+  "repository": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "commitOrPushPerformed": false
+  },
+  "documentation": {
+    "docs-record-final": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:14:31.801039+00:00",
+      "finishedAt": "2026-10-24T18:14:32.799296+00:00",
+      "exitCode": 0,
+      "logSha256": "393af16469b180aba6db25a532002b7a5335fde1a90ff6f5bb54662fa9ae318a"
+    },
+    "docs-check-final": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:14:32.825867+00:00",
+      "finishedAt": "2026-10-24T18:14:33.217817+00:00",
+      "exitCode": 0,
+      "logSha256": "bc028c6dee311e853bb1cd5316131ca10e04a01fc950231e66800399923089a9"
+    },
+    "final-types": {
+      "command": [
+        "npx",
+        "tsc",
+        "--noEmit"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:14:29.712882+00:00",
+      "finishedAt": "2026-10-24T18:14:31.617536+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "local-qa-cleanup": {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "crefans-ui-batch-qa-20261025"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T18:15:15.775331+00:00",
+      "finishedAt": "2026-10-24T18:15:16.058768+00:00",
+      "exitCode": 0,
+      "logSha256": "47df6288fd2d55d2c731d6217362cc06e74d68112453a84b4670a603b3907d57"
+    },
+    "scope": "Documentation inventory/contracts/links/hash snapshot consistency; product test evidence remains separate. No claim snapshot alone proves product behavior."
+  }
+}

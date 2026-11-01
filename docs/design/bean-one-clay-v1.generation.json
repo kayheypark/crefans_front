@@ -1,0 +1,23 @@
+{
+  "id": "clay",
+  "label": "② 클레이",
+  "style": "Style: tactile matte 3D clay miniature, softly inflated plump shape, pastel mint green, soft rounded cream groove, subtle handmade clay softness, gentle diffuse lighting, smooth matte surface, no glossy reflections, no hard outline, no surface noise. Isolated clay object with no floor or cast shadow.",
+  "prompt": "Use case: stylized-concept. Asset type: virtual currency icon for CREFANS, one of four contrasting style proposals. Exactly ONE green kidney bean with a small curved cream crease, consistent clear bean silhouette, diagonally oriented, no face. Centered isolated subject in square canvas, around 65 percent image coverage with generous transparent padding, legible as a small mobile app icon. Genuine transparent alpha background. No text, numerals, logos, watermark, other beans, leaves, containers, coins, background panel, decorative badge, or scene. A single asset, not a comparison sheet. Style: tactile matte 3D clay miniature, softly inflated plump shape, pastel mint green, soft rounded cream groove, subtle handmade clay softness, gentle diffuse lighting, smooth matte surface, no glossy reflections, no hard outline, no surface noise. Isolated clay object with no floor or cast shadow.",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-dc3a3094-5cd7-4f4c-89c9-0dbfe5cdb923.png",
+  "tool": "built-in image_gen",
+  "savedPath": "/Users/ethan/repository/crefans_front/docs/design/bean-one-clay-v1.png",
+  "createdAt": "2026-10-25T05:51:17.654213+00:00",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alphaRange": [
+    0,
+    255
+  ],
+  "sha256": "ed55c8a0c35b8b1dc6c0248055e6de376d33ffa8e528203b7a80cb32d66c9d9a",
+  "bytes": 858324,
+  "appliedToUi": false,
+  "deployed": false
+}

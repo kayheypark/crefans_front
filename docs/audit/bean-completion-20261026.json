@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-26",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "pre-existing dirty tree preserved; feature uncommitted; no commit/push",
+  "environment": {
+    "node": "v22.7.0",
+    "localPreview": "http://127.0.0.1:3010",
+    "e2eFrontend": 3011,
+    "e2eApi": 3012,
+    "e2eDatabase": "crefans_platform_e2e",
+    "paymentAndBank": "provider doubles only"
+  },
+  "acceptance": [
+    "shared result UI displays charge quantity, stored VAT-inclusive total, order ID and wallet/explore links",
+    "only paid owner order is shown as completed, never successful URL alone",
+    "saved paid order can be reloaded without confirming or minting again",
+    "pending/cancelled/failed/missing/other-owner states do not show receipt",
+    "mock recharge goes to the shared result view",
+    "no horizontal overflow at 320/390/1280; actions at least44px"
+  ],
+  "runs": [
+    {
+      "command": "npm run check",
+      "log": ".local/bean-completion-20261026/check.log",
+      "startedAt": "2026-10-26T00:04:32.831262+00:00",
+      "finishedAt": "2026-10-26T00:04:42.681763+00:00",
+      "timeSource": "captured log creation and modification timestamps",
+      "exitCode": 1,
+      "result": "336 pass / 3 fail; React split text assertion and 2 missing useRouter test mocks corrected",
+      "sha256": "510b1b3e243ab776feff283de6cab3d5c70feb16da4116ddc6e55ffce110f19a"
+    },
+    {
+      "command": "npm run check",
+      "log": ".local/bean-completion-20261026/check-final.log",
+      "startedAt": "2026-10-26T00:05:19.909368+00:00",
+      "finishedAt": "2026-10-26T00:05:29.275750+00:00",
+      "timeSource": "captured log creation and modification timestamps",
+      "exitCode": 0,
+      "result": "layers, TypeScript,339 tests pass",
+      "sha256": "38d04486a1f5c4af49122f16b516cd54629addd856300d5bb6b0ac2465646b0d"
+    },
+    {
+      "command": "npx playwright test e2e/beans.spec.ts --project=chromium",
+      "log": ".local/bean-completion-20261026/e2e.log",
+      "startedAt": "2026-10-26T00:05:29.895715+00:00",
+      "finishedAt": "2026-10-26T00:06:03.719148+00:00",
+      "timeSource": "captured log creation and modification timestamps",
+      "exitCode": 0,
+      "result": "6 pass; mock recharge/wallet/tip, real isolated API confirmation/reload/negative cases and payout regression",
+      "sha256": "0ab6e54424d67fe5c81b964ff4b19a9b9d8dee03702c5e5e5e526e8da7576b67"
+    },
+    {
+      "command": "node .local/bean-completion-20261026/visual.cjs",
+      "log": ".local/bean-completion-20261026/visual.log",
+      "startedAt": "2026-10-26T00:06:09.039866+00:00",
+      "finishedAt": "2026-10-26T00:06:15.221785+00:00",
+      "timeSource": "captured log creation and modification timestamps",
+      "exitCode": 0,
+      "result": "4 browser/viewport combinations pass",
+      "sha256": "0b4baef20658201178d0efb7374279397fe321cca0cc917fd47a1d5256f48f87"
+    },
+    {
+      "command": "npm run docs:contracts",
+      "log": ".local/bean-completion-20261026/contracts.log",
+      "startedAt": "2026-10-26T00:07:21.748152+00:00",
+      "finishedAt": "2026-10-26T00:07:22.152373+00:00",
+      "timeSource": "captured log creation and modification timestamps",
+      "exitCode": 0,
+      "result": "contract regeneration only; not a product test",
+      "sha256": "5b2c947fb7bb141d6711c4aa95383cb6cb7e61b6aa33bcc9713e02404e432d43"
+    }
+  ],
+  "visual": {
+    "checkedAt": "2026-10-26T00:06:15.221Z",
+    "rows": [
+      {
+        "name": "chromium",
+        "width": 320,
+        "overflow": false,
+        "broken": 0,
+        "values": [
+          "100콩",
+          "11,000원",
+          "00000000-0000-4000-8000-000000000100"
+        ],
+        "buttons": [
+          {
+            "text": "내 콩 지갑 보기",
+            "height": 48,
+            "width": 288
+          },
+          {
+            "text": "크리에이터 둘러보기",
+            "height": 48,
+            "width": 288
+          }
+        ],
+        "errors": [],
+        "screenshot": ".local/bean-completion-20261026/chromium-320.png"
+      },
+      {
+        "name": "chromium",
+        "width": 390,
+        "overflow": false,
+        "broken": 0,
+        "values": [
+          "100콩",
+          "11,000원",
+          "00000000-0000-4000-8000-000000000100"
+        ],
+        "buttons": [
+          {
+            "text": "내 콩 지갑 보기",
+            "height": 48,
+            "width": 358
+          },
+          {
+            "text": "크리에이터 둘러보기",
+            "height": 48,
+            "width": 358
+          }
+        ],
+        "errors": [],
+        "screenshot": ".local/bean-completion-20261026/chromium-390.png"
+      },
+      {
+        "name": "chromium",
+        "width": 1280,
+        "overflow": false,
+        "broken": 0,
+        "values": [
+          "100콩",
+          "11,000원",
+          "00000000-0000-4000-8000-000000000100"
+        ],
+        "buttons": [
+          {
+            "text": "내 콩 지갑 보기",
+            "height": 48,
+            "width": 480
+          },
+          {
+            "text": "크리에이터 둘러보기",
+            "height": 48,
+            "width": 480
+          }
+        ],
+        "errors": [],
+        "screenshot": ".local/bean-completion-20261026/chromium-1280.png"
+      },
+      {
+        "name": "webkit",
+        "width": 390,
+        "overflow": false,
+        "broken": 0,
+        "values": [
+          "100콩",
+          "11,000원",
+          "00000000-0000-4000-8000-000000000100"
+        ],
+        "buttons": [
+          {
+            "text": "내 콩 지갑 보기",
+            "height": 48,
+            "width": 358
+          },
+          {
+            "text": "크리에이터 둘러보기",
+            "height": 48,
+            "width": 358
+          }
+        ],
+        "errors": [],
+        "screenshot": ".local/bean-completion-20261026/webkit-390.png"
+      }
+    ]
+  },
+  "manualReview": [
+    "chromium-390.png",
+    "chromium-1280.png"
+  ],
+  "sources": {
+    "components/crefans/BeanPaymentResultPage.tsx": "79c260de29019ca788f719be5ef1c202d9be33c5d3cc95d59eb4cc547e7d9ae1",
+    "components/crefans/beans.module.css": "23968abe82498bbdb8e65fde73d78d05866ecd09dd24ac9c6c69f06b22d4d39a",
+    "components/crefans/BeanPages.tsx": "10bfb32be4ba73d4fa5dd3d877dd322d59abf7530a65d7d9c01b434e610f1d69",
+    "components/crefans/BeanChargePage.tsx": "2eb5f6cbbc7ad3907b5309b798be652b2ecd4d55790b75b3175b49f5b6a44d12",
+    "components/service/BeanPaymentResult.tsx": "4ea92ddf2aab3e05708b31c982f9ae291b0c29bae682e8e46720139b9453a717",
+    "features/service/useBeanPaymentResult.ts": "3762ba24f9c5311af434fb8e56366c5aadb254f6861cd1e925fc607811e5a1b4",
+    "types/crefans-beans.ts": "d539aa4e40afe8d6bea6c02a778dc0f3b0375fa64fde241b5524a5bc38684d3e",
+    "components/preview/service/PreviewBeanPaymentResult.tsx": "45d3895dfbc6455bd82dd2f11c71e0a34174f891e375aa2a247a5a0da3f7cd62",
+    "components/preview/service/useMockBeans.ts": "d4325a0ba2d471826debb7d4413756365c43ef86fe3566d29a3858a57742ef89",
+    "components/preview/service/ServiceRouter.tsx": "380176c5c544ef48601e2a91a905a8582fa8a9d846d60ee3bbdde70e7fb85b76",
+    "components/preview/screen-catalog.ts": "2502989e5cfafc6eab7ec4c28df729515204b4530bb6fe5326deca6955d5ae22",
+    "components/design-system/ServicePatternCatalog.tsx": "0f3a10f9f57243cecc6cad1aea76e8a077c75a0131e287c31a5930d47f560723",
+    "app/preview/[...screen]/page.tsx": "30dd1fe1bf2508b5cdfa6c3ce738a8e9d792a2aedf47c96d2743a09871809f1f",
+    "app/service/[...screen]/page.tsx": "4b64bea2aa8ac7c06dcda391caab0844610cb5373ddbcb50adfaaae54cf349fe",
+    "tests/bean-payment-result.test.cjs": "47e6f3ffde60a8815053883dc7629148edf12a5fb83e70823148105228ca4b20",
+    "tests/membership-images.test.cjs": "b647ff08c889b8226292c4838e6ade12fcaf32123ec04d8e94de857ccb81590f",
+    "e2e/beans.spec.ts": "d1ffae6a9701fa86dd4c027f42e7a2b25b84bd0e9420b5b214b40ec2762a103f"
+  },
+  "research": {
+    "checkedAt": "2026-10-26",
+    "source": "https://docs.tosspayments.com/guides/v2/payment-window/integration",
+    "application": "Authentication callback differs from payment approval. Confirm saved order/amount on server; success display only for saved paid order."
+  },
+  "limitations": [
+    "not deployed; production remains bean-vat-20261025",
+    "no real supplier payment, real payout or physical iPhone verification",
+    "mock orders are in memory and reset on full page reload; actual stored-order reload was tested"
+  ],
+  "screenshots": {
+    ".local/bean-completion-20261026/beans-completion-390.png": "d577d9b0b715b514d7c563b7cb1bd5fb5e0d44e24f9767c2436a259c26627f6b",
+    ".local/bean-completion-20261026/webkit-390.png": "f4a76d907daf90596b2be1a622b30a8f72fd961e5db3b5b244496eb039877847",
+    ".local/bean-completion-20261026/chromium-390.png": "c45ea33ca9d8dcb11fbf9f7e8809fb482cc81ee9b404e2ea1b76e0b3feb394c6",
+    ".local/bean-completion-20261026/chromium-320.png": "b71c4dfbbdc21242e73440cf2955b8e6aa1e86fe4ce042e21ede0ea53f4cf4fe",
+    ".local/bean-completion-20261026/chromium-1280.png": "0bbfd0b8a6015adb78b3714cf8879b3bbda12473df1629f3a8b6157a837fe272",
+    ".local/bean-completion-20261026/beans-service-completion.png": "ec1672847427690b2499813e3c7ff2b98ff66a26a47c28f56e243f23955f7ffe",
+    ".local/bean-completion-20261026/beans-completion-1280.png": "15af7e35946677dd12bd373c0d2339582b3c1c88221e51bad8906410a94742d2"
+  }
+}
