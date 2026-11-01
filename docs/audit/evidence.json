@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-01T14:06:42.098774+00:00",
+  "checkedAt": "2026-11-01T14:08:10.129158+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "7de62c9119f171222cb45ae36aa26f4ce29aae66",
+      "head": "f2b59c1065044cd142bfd0f86ced8d54102707ce",
       "branch": "feat/prod-dev-workflow",
       "dirty": true
     },
     "server": {
-      "head": "9681b5646b885ad1d7a579a0a0d97ee410382c7e",
+      "head": "4951bf156ed12305ef0376c5ee66a3c6542a53f2",
       "branch": "feat/prod-dev-workflow",
       "dirty": true
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f923895598528c0d35878f707b91602fa44128e3b86db3bf973278c39a2dfbd9",
-      "front/PROGRESS.md": "733fdd39286eb606e4da3706ca7360e4a858f0e5b3cfd220fb3d8cbf59c465f2",
+      "front/PROGRESS.md": "43caf0c816af5cf2f77521a45254fbf7c75e22d4dd035425808119da3f8f9f46",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -83,7 +83,7 @@
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "server/AGENTS.md": "929839e8a6e8d089ef320f75a707aa6ccff204dcbc25b21bd1f36d9bbacae776",
-      "server/PROGRESS.md": "b3ec869366170bad579aab2a4018fe40ef5bf45fbc2c1bc24fad7dede99ea8b2",
+      "server/PROGRESS.md": "4306adb6a91187e07e9ab57c694478e6574428aed519ce7cf2fde76b1093a5b8",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
