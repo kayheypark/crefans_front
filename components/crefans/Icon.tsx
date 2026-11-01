@@ -1,5 +1,5 @@
 import type {SVGProps} from 'react';
-export type LandingIconName='bell'|'heart'|'search'|'card'|'users'|'user'|'lock'|'shield'|'ban'|'mail'|'bookmark'|'settings'|'arrow'|'arrowUp'|'arrowLeft'|'chevron'|'plus'|'check'|'youtube'|'instagram'|'facebook'|'expand'|'shrink'|'close'|'copy'|'share';
+export type LandingIconName='bell'|'heart'|'search'|'card'|'users'|'user'|'lock'|'shield'|'ban'|'mail'|'bookmark'|'settings'|'arrow'|'arrowUp'|'arrowLeft'|'refresh'|'chevron'|'plus'|'check'|'youtube'|'instagram'|'facebook'|'expand'|'shrink'|'close'|'copy'|'share';
 export default function LandingIcon({name,...props}:SVGProps<SVGSVGElement>&{name:LandingIconName}){
   const paths = {
     copy:<><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></>,
@@ -14,6 +14,7 @@ export default function LandingIcon({name,...props}:SVGProps<SVGSVGElement>&{nam
     lock:<><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></>,
     arrowUp:<path d="M12 20V4m-6 6 6-6 6 6"/>,
     arrowLeft:<path d="M20 12H4m6-6-6 6 6 6"/>,
+    refresh:<path d="M20 7v5h-5M20 12a8 8 0 1 0-2.34 5.66"/>,
     arrow:<path d="M4 12h16m-6-6 6 6-6 6"/>,chevron:<path d="m9 4 7 8-7 8"/>,plus:<path d="M12 5v14M5 12h14"/>,check:<path d="m5 12 4 4L19 6"/>,
     user:<><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></>,
     shield:<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/>,

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-01T15:54:44.967099+00:00",
+  "checkedAt": "2026-11-01T19:37:53.775560+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "5dfaca3364ef9332b78ed6c6a7cc9b91be8f8b2b",
-      "branch": "feat/wallet-navigation-labels",
+      "head": "724373e0f862d7afc0512d199c118f17418112aa",
+      "branch": "dev",
       "dirty": true
     },
     "server": {
-      "head": "d9d878cc69028de8b48153c8abc9ec196f9d51c0",
-      "branch": "feat/wallet-navigation-labels",
-      "dirty": true
+      "head": "7f961b7a6caa4066af774a7dc7bdd1db6db73748",
+      "branch": "dev",
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "5f3e09e6bdff861aa4f78a7da570ab5f071a70654b0eb460352160ad07e020cd",
-      "front/PROGRESS.md": "618628213524715e103964ea86eec0346c9f53b81e2afaa9c380959421096034",
+      "front/PROGRESS.md": "ab28bede1616816441a6fd67f1ec55698a8e05c16a3c8ae2bf535de8f5219704",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -215,7 +215,7 @@
       "front/components/crefans/CreatorSearch.tsx": "ffb382dcf6e0953755ab5a8a2369de1cef67f2f51df59b9021bc4c2812be873e",
       "front/components/crefans/EventPages.tsx": "567707d8f96592d6cdaf891b9d99be3e6c1ee7cb0ab12d1d78196ecce9047a5d",
       "front/components/crefans/FollowButton.tsx": "351e0114e0288d38fa46d0af4fbee47891ccd4e7b294d736d470f50da9b9fc95",
-      "front/components/crefans/Icon.tsx": "fc44ab0731283ca297ea9416fc76661493ab8e672452a2555d849870e83b4fb7",
+      "front/components/crefans/Icon.tsx": "475507cac27493bc389c5f37dc4c3a30d59e62e96791269c2a72c5581c1970db",
       "front/components/crefans/LandingPage.tsx": "3276c55682dccfbca79dc3d61f95c2c053e808f0005c1b54b852520fec2418ca",
       "front/components/crefans/LegalDocumentBody.tsx": "894deea6a153b5c478598a48859517faf369e24668ab5c0d17d03d6a328becc2",
       "front/components/crefans/MediaOverlay.tsx": "d420df364611b7468fc85620a4a878719b65b838bc9a5446696df2d9aa28fbf6",
@@ -229,7 +229,7 @@
       "front/components/crefans/ProfileHeader.tsx": "fbef463f04a22eaaafce24f153ccab430d42b6a881f0d47d61cd5ae3e5cfe496",
       "front/components/crefans/ProfilePhotoDialog.tsx": "4c09c6eb5c71ab0ef87e9dfd24de8d8e6e053ee411b2905b910aa2399d854d05",
       "front/components/crefans/PublicMemberPage.tsx": "db58ab2278d3bf1a0f27eb4f7dea4539eaabd2184ce7e79fa291d83b4355f057",
-      "front/components/crefans/PullToRefresh.tsx": "b471448c30623ea46d65e455d8e72370f1cba3b9b7b42f39bdfea4fa38df1a6d",
+      "front/components/crefans/PullToRefresh.tsx": "707c112947ced1e8c34efadc5fd1d96e9051c21d5692cb0d248931373afa5831",
       "front/components/crefans/ReferralCard.tsx": "1631a86b21f7144010d4e7e3dc96e0336c9fc74a9e235b1ec46a3a4c3f1c1180",
       "front/components/crefans/ReferralHistoryPage.tsx": "582afd0a45264cda90237e8640220d9a4f05b56a7ff290be399394a3d26df5b9",
       "front/components/crefans/ServiceFooter.tsx": "e2cbe414e3deeaf2315e77f856717a92a584d0f93e730b01d6652f6297dc4436",
