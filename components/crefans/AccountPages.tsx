@@ -8,6 +8,7 @@ export {SignInPrompt} from './SignInPrompt';
 import {MarqueeText,MarqueeMotionControl} from '@/components/ui/MarqueeText';
 
 import {BackButton} from './BackButton';
+import navigationButton from './back-button.module.css';
 import {CreatorName} from './CreatorName';
 
 import {LegalDocumentBody} from './LegalDocumentBody';
@@ -194,7 +195,7 @@ export function SettingsPage({model}:{model:ServiceViewModel}){
   }
   const title=panel==='withdraw'?'회원 탈퇴':settingsItems.find(item=>item.key===panel)?.label||'설정';
   const panelReady=panel==='account'?!!name.trim()&&(!handleChanged||handleValid)&&handleConfirmed&&!handleBusy:panel==='email'?emailIsValid(email):panel==='password'?!!currentPassword&&newPassword.length>=8&&newPassword===confirmPassword:true;
-  return <section className={s.settings}><PageTitle>설정</PageTitle>
+  return <section className={s.settings}><PageTitle action={<Link href={`${basePath}/me`} className={navigationButton.button} aria-label="설정 닫기, 내 프로필로 이동" title="내 프로필로 이동"><Icon name="close" width={24} height={24} aria-hidden="true"/></Link>}>설정</PageTitle>
     <ChipRow label="설정 카테고리" className={s.settingsCategories}>
       <Chip selected={category==='전체'} onClick={()=>setCategory('전체')}>전체</Chip>
       {settingsGroups.map(group=><span key={group.title}><Chip selected={category===group.title} onClick={()=>setCategory(group.title)}>{group.title}</Chip></span>)}

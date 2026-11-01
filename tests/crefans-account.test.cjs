@@ -218,7 +218,7 @@ test('settings categories filter their own items and keep account actions in acc
     choose(category);assert.deepEqual(headings(),[category]);
     assert.deepEqual(categories.findAllByType('button').filter(node=>node.props['aria-pressed']).map(flat),[category]);
     assert.deepEqual(tree.root.findAllByType('button').filter(node=>node.props['aria-pressed']===undefined).map(node=>flat(node).trim()),buttons);
-    assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href).filter(href=>!/^(mailto|tel):/.test(href)),[...links,'/service/studio']);
+    assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href).filter(href=>!/^(mailto|tel):/.test(href)),['/service/me',...links,'/service/studio']);
     assert.equal(tree.root.findAllByProps({'aria-label':'사업자 정보'}).length,1);
   }
   choose('계정 설정');act(()=>button(tree,'프로필 수정').props.onClick());
