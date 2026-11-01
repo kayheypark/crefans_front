@@ -85,7 +85,7 @@ export function ContentEditorPage({model,basePath,id,previewModel,previewCreator
   return <ContentEditor key={id||'new'} model={model} basePath={basePath} content={content} previewModel={previewModel} previewCreatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/>;
 }
 function ContentEditor({model,basePath,content,previewModel,previewCreatorId,commentsGloballyEnabled=true}:EditorProps&{content?:StudioContent}){
-  const [savedId,setSavedId]=useState(content?.id),[title,setTitle]=useState(content?.title||''),[body,setBody]=useState(content?.body||''),[media,setMedia]=useState<StudioMedia[]>(content?.media||[]),[tipsEnabled,setTipsEnabled]=useState(content?.tipsEnabled??true),[commentsEnabled,setCommentsEnabled]=useState(content?.commentsEnabled??true),[access,setAccess]=useState(content?.accessLevel?`level:${content.accessLevel}`:content?.accessPlanId||''),[scheduledAt,setScheduledAt]=useState(localDateInput(content?.scheduledAt||null)),[scheduleEnabled,setScheduleEnabled]=useState(content?.status==='scheduled'),[error,setError]=useState('');
+  const [previewOpen,setPreviewOpen]=useState(false),[savedId,setSavedId]=useState(content?.id),[title,setTitle]=useState(content?.title||''),[body,setBody]=useState(content?.body||''),[media,setMedia]=useState<StudioMedia[]>(content?.media||[]),[tipsEnabled,setTipsEnabled]=useState(content?.tipsEnabled??true),[commentsEnabled,setCommentsEnabled]=useState(content?.commentsEnabled??true),[access,setAccess]=useState(content?.accessLevel?`level:${content.accessLevel}`:content?.accessPlanId||''),[scheduledAt,setScheduledAt]=useState(localDateInput(content?.scheduledAt||null)),[scheduleEnabled,setScheduleEnabled]=useState(content?.status==='scheduled'),[error,setError]=useState('');
   const [mediaError,setMediaError]=useState(''),[uploading,setUploading]=useState(false);
   const accessLevel=access.startsWith('level:')?Number(access.slice(6)):null,accessPlanId=accessLevel===null?access:'';
   const levels=Array.from(new Set([...model.memberships.map(plan=>plan.rank??1),...(accessLevel?[accessLevel]:[])])).sort((a,b)=>a-b);
@@ -147,10 +147,13 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       <div className={s.commentOption}><Checkbox label="이 게시물에서 후원 받기" description="전체공개 게시물에서도 후원을 받을 수 있습니다." checked={tipsEnabled} disabled={task.busy} onChange={setTipsEnabled}/></div>
       <div className={s.commentOption}><Toggle label="댓글 허용" description={commentsGloballyEnabled?'끄면 이 게시물에서만 댓글을 닫습니다.':'스튜디오 설정에서 댓글 기능이 꺼져 있어 모든 게시물의 댓글이 닫힙니다. 크리에이터 설정에서 먼저 켜 주세요.'} checked={commentsEnabled} disabled={task.busy||!commentsGloballyEnabled} onChange={setCommentsEnabled}/></div>
       {(error||task.error)&&<p className={s.error} role="alert">{error||task.error}</p>}<Toast message={task.message} onClose={task.clearMessage}/>
+      {/* Narrow screens (one column): the fan preview opens in its own dialog instead of sitting below the form (2026-11-01). */}
+      <Action variant="secondary" type="button" className={s.mobilePreview} onClick={()=>setPreviewOpen(true)}>미리보기</Action>
       <div className={s.editorActions}>{status==='published'?<Action type="submit" disabled={task.busy||uploading||!title.trim()||!body.trim()}>수정 저장</Action>:<><Action variant="secondary" type="submit" disabled={task.busy||uploading||!title.trim()}>{status==='scheduled'?'예약 취소 후 임시저장':'임시저장'}</Action><Action variant="brand" type="button" disabled={task.busy||uploading||!title.trim()||!body.trim()||scheduleEnabled&&!scheduledAt} onClick={()=>save(scheduling?'scheduled':'published')}>{scheduling?'예약하기':'지금 게시하기'}</Action></>}</div>
     </form>{model.notice&&<Notice>{model.notice}</Notice>}
     </div>
     <aside className={s.previewPane} aria-label="팬 화면 미리보기"><h2 className={s.previewTitle}>팬 화면 미리보기</h2><ContentPostPreview content={draft} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/></aside>
+     <Dialog open={previewOpen} onClose={()=>setPreviewOpen(false)} title="팬 화면 미리보기">{previewOpen&&<ContentPostPreview content={draft} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/>}</Dialog>
     </div>
   </section>;
 }

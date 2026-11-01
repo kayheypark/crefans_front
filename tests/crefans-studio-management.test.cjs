@@ -305,3 +305,17 @@ test('a failed conversion blocks saving with a clear instruction instead of a se
   assert.equal(calls.length,0);assert.match(json(tree),/변환에 실패한 동영상을 지우고 다시 올려 주세요/);
   act(()=>tree.unmount());probe.close();
 });
+
+// 2026-11-01: on narrow screens the editor's fan preview opens in its own dialog from an outlined button placed right
+// above the save/schedule buttons (the side preview is hidden by CSS below 1000px).
+test('editor preview button sits above the save buttons and opens the fan preview dialog',()=>{
+  const probe=fixtureHook(),tree=mount(ContentEditorPage,probe.model,'draft1');
+  try{
+    const preview=button(tree,'미리보기');assert.ok(preview,'preview button');assert.equal(preview.props.type,'button');
+    const order=tree.root.findAllByType('button').map(node=>node.children.join(''));
+    assert.ok(order.indexOf('미리보기')<order.findIndex(label=>/임시저장/.test(label)),'preview button comes before the save buttons');
+    assert.equal(tree.root.findAll(node=>node.props?.['data-dialog']==='팬 화면 미리보기').length,0,'closed at first');
+    act(()=>preview.props.onClick());
+    assert.equal(tree.root.findAll(node=>node.props?.['data-dialog']==='팬 화면 미리보기').length,1,'dialog opens');
+  }finally{act(()=>tree.unmount());}
+});

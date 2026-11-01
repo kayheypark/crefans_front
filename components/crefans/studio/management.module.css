@@ -14,7 +14,8 @@ button.textButton:not(:disabled):hover,.tabs button:not(:disabled):hover{backgro
 .planTop h2,.detailHead>div,.subscriberList button>div{min-width:0}.planTop h2{flex:1}.planTop>span{flex:none}.subscriberList button>div{flex:1}.details dd{min-width:0}
 
 /* Narrow screens: restate after the base editor grid so the single-column layout wins. */
-@media(max-width:1000px){.editorLayout{grid-template-columns:minmax(0,1fr)}.previewPane{position:static}}
+.mobilePreview{display:none}
+@media(max-width:1000px){.editorLayout{grid-template-columns:minmax(0,1fr)}.previewPane.previewPane{display:none}.mobilePreview.mobilePreview{display:flex;width:100%;margin:8px 0 12px}.previewPane{position:static}}
 
 /* Content list row actions: compact shared secondary buttons; edit stays a link for navigation. */
 .rowButtons{display:flex;gap:6px;align-items:center;flex-shrink:0}
