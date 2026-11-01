@@ -97,3 +97,20 @@ test('shared charts render only supplied labels, keep zero bars empty, and omit 
   line.update({points:[],label:'주입된 추이'});assert.equal(line.tree.toJSON(),null);
  }finally{line.dispose();}
 });
+
+// 2026-11-01 스튜디오 통계 요약(30일 일별): 막대가 많으면 막대 위 숫자를 빼고(툴팁·접근성 라벨 유지) 날짜는 7일 간격+마지막만 표시.
+test('dense bar chart: 30 points drop per-bar values, print weekly ticks plus the last, keep every value accessible',()=>{
+ const items=Array.from({length:30},(_,i)=>({id:String(i),label:`09.${String(i+1).padStart(2,'0')}`,value:i,valueLabel:`${i}명`}));
+ const {BarChart:Dense}=loadTypeScript('components/ui/Charts.tsx',{'./charts.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})}});
+ const view=mount(Dense,{label:'구독자의 변화',items},{reduced:true});
+ try{
+  const root=view.tree.root.findByProps({role:'img'});
+  assert.match(root.props.className,/dense/);
+  assert.equal(root.findAllByType('strong').length,0,'no value above each bar');
+  assert.deepEqual(root.findAllByType('small').map(s=>s.props.children).filter(Boolean),['09.01','09.08','09.15','09.22','09.30']);
+  assert.equal(root.findAll(n=>typeof n.props?.title==='string').length,30);
+  assert.match(root.props['aria-label'],/09\.30: 29명$/);
+  view.update({label:'짧은 기간',items:items.slice(0,6)});
+  const short=view.tree.root.findByProps({role:'img'});assert.doesNotMatch(short.props.className,/dense/);assert.equal(short.findAllByType('strong').length,6);
+ }finally{view.dispose();}
+});
