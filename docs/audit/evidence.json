@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-01T14:32:51.350436+00:00",
+  "checkedAt": "2026-11-01T14:43:30.127283+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "4360c2e56abcd0887c0bb99ff474f7ebbd107ef3",
-      "branch": "feat/creator-media-watermark",
+      "head": "d38d8c4fb5ee0731d81a60800c928586d855425e",
+      "branch": "feat/settings-close-profile",
       "dirty": true
     },
     "server": {
-      "head": "ead628810c671e578ab82e5f27de732bcc814d48",
-      "branch": "feat/creator-media-watermark",
-      "dirty": true
+      "head": "d9d878cc69028de8b48153c8abc9ec196f9d51c0",
+      "branch": "prod",
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "f923895598528c0d35878f707b91602fa44128e3b86db3bf973278c39a2dfbd9",
-      "front/PROGRESS.md": "2c712212a3249b5a746f609beb08cf610d3cb316118b07dbe42b48b798ea1e5d",
+      "front/PROGRESS.md": "64c26a97d7cfa6d53b7949b82c88a0cf5022580ee7e4f3cab3a1c3ea1ea7295a",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -188,7 +188,7 @@
       "front/components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
       "front/components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
       "front/components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
-      "front/components/crefans/AccountPages.tsx": "9f79128ed181993f1b0644b283f6555b18f6cbc9625170bf57339dbca53162d8",
+      "front/components/crefans/AccountPages.tsx": "e4365567c27ce055f3db5132e182ecf582915d9d37bfac80b76ae3e0bcf6b0b6",
       "front/components/crefans/ApiState.tsx": "4df6f64b1ba3a6803c3f4798fb442487a0c7745698748018a084acbeb0cd14ae",
       "front/components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
       "front/components/crefans/BeanAttribution.tsx": "a3b1b773c5c27322dd0a96e02ac50c400dcb1e9009e94212296cc392b6496953",

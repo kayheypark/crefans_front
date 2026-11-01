@@ -3325,3 +3325,9 @@
 ### 원격 통합 완료 확인
 - dev→prod 승격 및 dev fast-forward 동기화 완료. 최초 검증 SHA `f2b59c1065044cd142bfd0f86ced8d54102707ce`: 로컬 dev/prod와 origin/dev/origin/prod 동일, 미커밋 없음 확인. 본 완료 기록도 같은 작업 브랜치→dev→prod 순서로 통합한다.
 - 최종 검사: 프론트488/관리자11 단위와 타입·백엔드빌드 통과, 문서75개 계약/링크 검사 및 검사기 대조검사 통과. 문서 증거는 snapshot-only로 전체 제품 QA 증명이 아님. 다음 새 작업은 최신 origin/prod에서 새 feat 브랜치를 만든다. 이전 작업트리는 보존했으며 그 위치에서 후속 작업할 때도 이 지침을 적용한다.
+
+## 2026-11-01 설정 닫기·내 프로필 이동
+- 요청: 설정 페이지 우측 상단 X를 기존 톤앤매너로 추가하고 내 프로필로 이동. 최신 origin/prod(d38d8c4)에서 feat/settings-close-profile 분기. 이전 대시보드 시안 기록은 feat/studio-dashboard-designs(09c0fcf)에 별도 보존.
+- 공용 AccountPages.SettingsPage의 PageTitle.action에 링크 추가. 기존 back-button.module.css 원형44px·회색 배경·hover·키보드 포커스 스타일과 Icon(close)24px 재사용. basePath에 따라 /preview/me 또는 /service/me로 이동. 설정 수정 모달의 닫기 동작은 유지.
+- 합격 조건/검증: 로컬 PC Chromium·iPhone13 WebKit 에뮬레이션에서 제목 우측 정렬,44×44 클릭 영역,24px 아이콘,가로 넘침 없음,PC Enter/모바일 tap 후 /preview/me 이동,프로필 수정 모달만 닫으면 설정 유지 모두 통과. npm run typecheck exit0. 증거 `.local/settings-close-20261101/verification.json`, verify.cjs, PC/mobile 화면 캡처. 모바일 캡처 시각 확인. 실제 운영·실물 iPhone 검증 및 배포는 미실행.
+- AGENTS 규약 변경 없음. 다음: 운영 배포 요청 시 dev 통합·검증→prod 승격 후 배포 절차 진행.
