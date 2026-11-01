@@ -5,17 +5,19 @@ const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const styles={__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})};
 const {Dialog,Toast}=loadTypeScript('components/ui/Primitives.tsx',{
+ 'react-dom':{createPortal:children=>children},
  './ui.module.css':styles,'./field.module.css':styles,'./select.module.css':styles,'./choice.module.css':styles,
 });
 
 function mount(Component,props,{reduced=false}={}){
- const previous={window:global.window,document:global.document};
- global.window={matchMedia:()=>({matches:reduced})};
- global.document={body:{style:{overflow:'auto'}}};
+ const previous={window:global.window,document:global.document,MutationObserver:global.MutationObserver};
+ global.window={addEventListener(){},removeEventListener(){},matchMedia:()=>({matches:reduced})};
+ global.document={body:{style:{overflow:'auto'}},querySelectorAll:()=>[]};
+ global.MutationObserver=class{observe(){}disconnect(){}};
  const native={open:false,showCalls:0,closeCalls:0,showModal(){this.open=true;this.showCalls++;},close(){this.open=false;this.closeCalls++;},getBoundingClientRect:()=>({left:100,right:400,top:100,bottom:400})};
  let tree;
  act(()=>{tree=create(React.createElement(Component,props),{createNodeMock:element=>element.type==='dialog'?native:null});});
- return {tree,native,update(next){act(()=>tree.update(React.createElement(Component,next)));},dispose(){act(()=>tree.unmount());global.window=previous.window;global.document=previous.document;}};
+ return {tree,native,update(next){act(()=>tree.update(React.createElement(Component,next)));},dispose(){act(()=>tree.unmount());global.window=previous.window;global.document=previous.document;global.MutationObserver=previous.MutationObserver;}};
 }
 async function wait(ms){await act(async()=>{await new Promise(resolve=>setTimeout(resolve,ms));});}
 
@@ -27,7 +29,7 @@ test('dialog keeps content and native modal open through exit, then restores scr
   assert.equal(document.body.style.overflow,'hidden');
   view.update({...props,open:false,title:'',children:null});
   assert.equal(view.tree.root.findByType('dialog').props['data-state'],'closing');
-  assert.equal(view.tree.root.findByType('h2').children[0],'구독 확인');
+  assert.equal(view.tree.root.findByType('h2').findByProps({'data-marquee':true}).props.title,'구독 확인');
   assert.equal(view.tree.root.findByType('p').children[0],'선택한 멤버십');
   assert.equal(view.native.closeCalls,0);
   assert.equal(document.body.style.overflow,'hidden');
@@ -47,7 +49,7 @@ test('reopening a dialog cancels the old exit timer and shows the latest childre
   await wait(100);
   assert.equal(view.native.open,true);assert.equal(view.native.closeCalls,0);
   assert.equal(view.native.showCalls,1);
-  assert.equal(view.tree.root.findByType('h2').children[0],'다시 연 화면');
+  assert.equal(view.tree.root.findByType('h2').findByProps({'data-marquee':true}).props.title,'다시 연 화면');
   assert.equal(view.tree.root.findByType('p').children[0],'새 내용');
   assert.equal(document.body.style.overflow,'hidden');
  }finally{view.dispose();}

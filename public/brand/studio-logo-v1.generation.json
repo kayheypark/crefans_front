@@ -1,0 +1,8 @@
+{
+  "tool": "image_gen",
+  "date": "2026-10-31",
+  "reference": "crefans_admin/public/brand/console-logo.png",
+  "prompt": "Edit the provided CREFANS console transparent logo into its sibling creator studio logo. Keep the same existing two-petal CREFANS symbol on the left: pink/lilac gradient left petal and blue/violet gradient right petal. Keep the same bold rounded geometric lowercase sans-serif lettering tone, very dark navy nearly black. Replace ONLY the exact word \"console\" with the exact word \"studio\" (s t u d i o), six lowercase letters. Match the optical weight, baseline, spacing and relative symbol height of the reference. Production header logo asset, horizontal lockup, tightly framed with only a small clear margin, flat crisp clean edges, no shadow, no decoration, no Korean, no slogan, no background rectangle. Genuine transparent background. Deliver one logo only.",
+  "postprocess": "Trim transparent margins, resize to 840px width using sharp; alpha preserved. Original remains in generated_images.",
+  "asset": "studio-logo-v1.png"
+}

@@ -1,0 +1,12 @@
+{
+  "createdAt": "2026-10-26T11:32:26.614Z",
+  "source": "design/beta-event-concepts/20261026/07-event-list-banner-v1.png",
+  "sourceSha256": "07f281b35f3b2081787c30978b0eefc89042697730fa16a0a297923999899d1d",
+  "generationMetadata": "design/beta-event-concepts/20261026/07-event-list-banner-v1.generation.json",
+  "output": "public/brand/events/beta-first/list-banner-v1.webp",
+  "outputSha256": "c980ef03ac04a3ed4bbda1d6f94e466aaa1cff236d351bf154f1e898c31cd2d4",
+  "width": 2172,
+  "height": 724,
+  "format": "webp",
+  "conversion": "Sharp WebP quality92 effort6, original dimensions and composition preserved"
+}

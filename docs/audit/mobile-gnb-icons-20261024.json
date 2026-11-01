@@ -1,0 +1,371 @@
+{
+  "recordedAt": "2026-10-24T00:12:39.491646+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/mobile-gallery-sheet",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "Uncommitted changes; earlier gallery/chip changes preserved.",
+  "scope": "Mobile GNB icon-only labels and equal touch targets, shared preview/service shell.",
+  "execution": {
+    "command": [
+      "npm",
+      "run",
+      "typecheck"
+    ],
+    "startedAt": "2026-10-24T00:11:00.633128+00:00",
+    "finishedAt": "2026-10-24T00:11:05.093683+00:00",
+    "exitCode": 0,
+    "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+  },
+  "browser": {
+    "checkedAt": "2026-10-24T00:11:18.646Z",
+    "environment": "Local development, Codex in-app Chromium browser, viewport emulation",
+    "measurements": [
+      {
+        "bottomVisible": true,
+        "documentWidth": 320,
+        "links": [
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "홈",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": "page",
+            "height": 48,
+            "icon": true,
+            "label": "탐색하기",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "메시지",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "알림 5개",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "내 프로필",
+            "text": "",
+            "width": 56
+          }
+        ],
+        "sidebarLabels": [
+          "홈",
+          "탐색하기",
+          "메시지",
+          "알림",
+          "내 프로필"
+        ],
+        "sidebarVisible": false,
+        "viewport": 320
+      },
+      {
+        "bottomVisible": true,
+        "documentWidth": 390,
+        "links": [
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "홈",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": "page",
+            "height": 48,
+            "icon": true,
+            "label": "탐색하기",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "메시지",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "알림 5개",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "내 프로필",
+            "text": "",
+            "width": 56
+          }
+        ],
+        "sidebarLabels": [
+          "홈",
+          "탐색하기",
+          "메시지",
+          "알림",
+          "내 프로필"
+        ],
+        "sidebarVisible": false,
+        "viewport": 390
+      },
+      {
+        "bottomVisible": true,
+        "documentWidth": 767,
+        "links": [
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "홈",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": "page",
+            "height": 48,
+            "icon": true,
+            "label": "탐색하기",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "메시지",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "알림 5개",
+            "text": "",
+            "width": 56
+          },
+          {
+            "current": null,
+            "height": 48,
+            "icon": true,
+            "label": "내 프로필",
+            "text": "",
+            "width": 56
+          }
+        ],
+        "sidebarLabels": [
+          "홈",
+          "탐색하기",
+          "메시지",
+          "알림",
+          "내 프로필"
+        ],
+        "sidebarVisible": false,
+        "viewport": 767
+      },
+      {
+        "bottomVisible": false,
+        "documentWidth": 768,
+        "links": [
+          {
+            "current": null,
+            "height": 0,
+            "icon": true,
+            "label": "홈",
+            "text": "",
+            "width": 0
+          },
+          {
+            "current": "page",
+            "height": 0,
+            "icon": true,
+            "label": "탐색하기",
+            "text": "",
+            "width": 0
+          },
+          {
+            "current": null,
+            "height": 0,
+            "icon": true,
+            "label": "메시지",
+            "text": "",
+            "width": 0
+          },
+          {
+            "current": null,
+            "height": 0,
+            "icon": true,
+            "label": "알림 5개",
+            "text": "",
+            "width": 0
+          },
+          {
+            "current": null,
+            "height": 0,
+            "icon": true,
+            "label": "내 프로필",
+            "text": "",
+            "width": 0
+          }
+        ],
+        "sidebarLabels": [
+          "홈",
+          "탐색하기",
+          "메시지",
+          "알림",
+          "내 프로필"
+        ],
+        "sidebarVisible": true,
+        "viewport": 768
+      },
+      {
+        "bottomVisible": false,
+        "documentWidth": 1280,
+        "links": [
+          {
+            "current": null,
+            "height": 0,
+            "icon": true,
+            "label": "홈",
+            "text": "",
+            "width": 0
+          },
+          {
+            "current": "page",
+            "height": 0,
+            "icon": true,
+            "label": "탐색하기",
+            "text": "",
+            "width": 0
+          },
+          {
+            "current": null,
+            "height": 0,
+            "icon": true,
+            "label": "메시지",
+            "text": "",
+            "width": 0
+          },
+          {
+            "current": null,
+            "height": 0,
+            "icon": true,
+            "label": "알림 5개",
+            "text": "",
+            "width": 0
+          },
+          {
+            "current": null,
+            "height": 0,
+            "icon": true,
+            "label": "내 프로필",
+            "text": "",
+            "width": 0
+          }
+        ],
+        "sidebarLabels": [
+          "홈",
+          "탐색하기",
+          "메시지",
+          "알림",
+          "내 프로필"
+        ],
+        "sidebarVisible": true,
+        "viewport": 1280
+      }
+    ],
+    "navigation": [
+      {
+        "url": "http://127.0.0.1:3010/preview/feed",
+        "current": "page"
+      },
+      {
+        "url": "http://127.0.0.1:3010/preview/me",
+        "current": "page"
+      },
+      {
+        "url": "http://127.0.0.1:3010/preview/explore",
+        "current": "page"
+      }
+    ],
+    "service": {
+      "alerts": [
+        "API 서버에 연결할 수 없습니다.다시 불러오기"
+      ],
+      "links": [
+        {
+          "height": 48,
+          "label": "홈",
+          "text": "",
+          "width": 56
+        },
+        {
+          "height": 48,
+          "label": "탐색하기",
+          "text": "",
+          "width": 56
+        },
+        {
+          "height": 48,
+          "label": "메시지",
+          "text": "",
+          "width": 56
+        },
+        {
+          "height": 48,
+          "label": "알림",
+          "text": "",
+          "width": 56
+        },
+        {
+          "avatar": "fallback",
+          "height": 48,
+          "label": "내 프로필",
+          "text": "",
+          "width": 56
+        }
+      ],
+      "url": "http://127.0.0.1:3010/service/feed",
+      "viewport": 390
+    },
+    "previewErrors": []
+  },
+  "sourceHashes": {
+    "components/crefans/ServiceShell.tsx": "caaadf2e678ee64fb6e53d695852a6acbb6cc18c96b42cccf6adc8fae304a685",
+    "components/crefans/service.module.css": "16332c1c7728cbca79850f84b5b651ca0fdaa0057328f57cb7ffa40bc9172548"
+  },
+  "artifacts": {
+    "mobile.png": "a220268e474ab95ba1d39b1517fe101eb9c4b9b485ccab41c9b0178bee92f113",
+    "browser.json": "7d0e725a629bd658f9119c4ac03c49c8a75f519c3dbf4537f85eb6e4c3fab587",
+    "typecheck.log": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+  },
+  "localArtifacts": "/Users/ethan/repository/crefans_front/.local/mobile-gnb-icons-20261024",
+  "limits": [
+    "Local only; no production deployment or commit.",
+    "Chromium viewport emulation, no physical mobile device or WebKit run.",
+    "Typecheck and focused browser checks only; full application tests not run.",
+    "Local service API unavailable; service shell appearance verified, data flows excluded."
+  ]
+}

@@ -1,0 +1,903 @@
+{
+  "at": "2026-10-24T10:00:29.331369+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "workspace": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": [
+      " M AGENTS.md",
+      " M PROGRESS.md",
+      " M app/preview/layout.tsx",
+      " M app/preview/preview.module.css",
+      " M components/crefans/AccountPages.tsx",
+      " M components/crefans/CommonPages.tsx",
+      " M components/crefans/CreatorCard.tsx",
+      " M components/crefans/CreatorPages.tsx",
+      " M components/crefans/FollowButton.tsx",
+      " M components/crefans/Icon.tsx",
+      " M components/crefans/LandingPage.tsx",
+      " M components/crefans/ProfileHeader.tsx",
+      " M components/crefans/ServiceShell.tsx",
+      " M components/crefans/ServiceUI.tsx",
+      " M components/crefans/SocialPages.tsx",
+      " M components/crefans/account.module.css",
+      " M components/crefans/common.module.css",
+      " M components/crefans/creator.module.css",
+      " M components/crefans/service.module.css",
+      " M components/crefans/social.module.css",
+      " M components/crefans/studio/ContentPostPreview.tsx",
+      " M components/crefans/studio/FinancePages.tsx",
+      " M components/crefans/studio/ManagementPages.tsx",
+      " M components/crefans/studio/ReportPage.tsx",
+      " M components/crefans/studio/WithdrawalSecurityPage.tsx",
+      " M components/crefans/studio/report.module.css",
+      " M components/crefans/studio/withdrawal-security.module.css",
+      " M components/design-system/ServicePatternCatalog.tsx",
+      " M components/preview/comment-fixtures.ts",
+      " M components/preview/service/ServiceRouter.tsx",
+      " M components/preview/service/fixtures.ts",
+      " M components/preview/service/useMockAccount.ts",
+      " M components/preview/service/useMockSocial.ts",
+      " M components/preview/studio/useMockCommunity.ts",
+      " M components/service/ServiceRouter.tsx",
+      " M components/ui/Primitives.tsx",
+      " M components/ui/chip-row.module.css",
+      " M components/ui/ui.module.css",
+      " M docs/audit/evidence.json",
+      " M docs/audit/manifest.json",
+      " M docs/creator-image-variety.md",
+      " M docs/design-system.md",
+      " M docs/preview-pages.md",
+      " M docs/release-test-scenarios.md",
+      " M docs/service-api-binding.md",
+      " M e2e/preview.spec.ts",
+      " M features/service/useServiceModel.ts",
+      " M features/service/useStudioModel.ts",
+      " M lib/content/landing.ts",
+      " M lib/crefans/membership-plans.ts",
+      " M playwright.config.ts",
+      " M tests/content-post-preview.test.cjs",
+      " M tests/crefans-account.test.cjs",
+      " M tests/crefans-common.test.cjs",
+      " M tests/crefans-creator.test.cjs",
+      " M tests/crefans-social.test.cjs",
+      " M tests/crefans-studio-reports.test.cjs",
+      " M tests/load-typescript.cjs",
+      " M tests/service-access-state.test.cjs",
+      " M tsconfig.tsbuildinfo",
+      " M types/crefans-account.ts",
+      " M types/crefans-social.ts",
+      " M types/crefans.ts",
+      "?? components/crefans/BackButton.tsx",
+      "?? components/crefans/CommentComposer.tsx",
+      "?? components/crefans/CommentIcon.tsx",
+      "?? components/crefans/CreatorName.tsx",
+      "?? components/crefans/CreatorSearch.tsx",
+      "?? components/crefans/MediaOverlay.tsx",
+      "?? components/crefans/PostMembershipNotice.tsx",
+      "?? components/crefans/back-button.module.css",
+      "?? components/crefans/creator-name.module.css",
+      "?? components/crefans/creator-search.module.css",
+      "?? docs/audit/back-buttons-deployment-20261024.json",
+      "?? docs/audit/back-navigation-20261024.json",
+      "?? docs/audit/back-navigation-inventory-20261024.json",
+      "?? docs/audit/beta-cohort-plan-20261024.json",
+      "?? docs/audit/beta-signup-20261024.json",
+      "?? docs/audit/chip-row-inset-20261024.json",
+      "?? docs/audit/close-spacing-20261024.json",
+      "?? docs/audit/collection-back-deployment-20261024.json",
+      "?? docs/audit/comment-close-20261024.json",
+      "?? docs/audit/creator-badge-fixtures-20261024.json",
+      "?? docs/audit/creator-search-20261024.json",
+      "?? docs/audit/creator-search-deployment-20261024.json",
+      "?? docs/audit/creator-search-live-desktop-20261024.png",
+      "?? docs/audit/creator-search-live-mobile-20261024.png",
+      "?? docs/audit/creator-verification-20261024.json",
+      "?? docs/audit/creator-verification-deployment-20261024.json",
+      "?? docs/audit/creator-verification-live-desktop-20261024.png",
+      "?? docs/audit/creator-verification-live-mobile-20261024.png",
+      "?? docs/audit/dialog-close-deployment-20261024.json",
+      "?? docs/audit/empty-comments-deployment-20261024.json",
+      "?? docs/audit/empty-comments-live-desktop-20261024.png",
+      "?? docs/audit/empty-comments-live-webkit390-20261024.png",
+      "?? docs/audit/featured-creator-icon-20261024.json",
+      "?? docs/audit/feed-inbox-deployment-20261024.json",
+      "?? docs/audit/feed-toolbar-20261024.json",
+      "?? docs/audit/follow-icon-20261024.json",
+      "?? docs/audit/gallery-comment-dock-20261024.json",
+      "?? docs/audit/gallery-comments-deployment-20261024.json",
+      "?? docs/audit/gallery-comments-live-desktop-20261024.png",
+      "?? docs/audit/gallery-comments-live-mobile-20261024.png",
+      "?? docs/audit/gnb-comment-deployment-20261024.json",
+      "?? docs/audit/gnb-icon-size-20261024.json",
+      "?? docs/audit/gnb-icon-size-deployment-20261024.json",
+      "?? docs/audit/gnb-size-live-preview-20261024.png",
+      "?? docs/audit/gnb-size-live-service-20261024.png",
+      "?? docs/audit/inbox-unread-20261024.json",
+      "?? docs/audit/jiwoo-content-20261024.json",
+      "?? docs/audit/jiwoo-deployment-20261024.json",
+      "?? docs/audit/jiwoo-natural-20261024.json",
+      "?? docs/audit/membership-offer-20261024.json",
+      "?? docs/audit/membership-ui-deployment-20261024.json",
+      "?? docs/audit/message-buttons-20261024.json",
+      "?? docs/audit/message-time-color-20261024.json",
+      "?? docs/audit/message-time-deployment-20261024.json",
+      "?? docs/audit/message-time-live-1280-20261024.png",
+      "?? docs/audit/message-time-live-390-20261024.png",
+      "?? docs/audit/mobile-comment-composer-20261024.json",
+      "?? docs/audit/mobile-gallery-corner-20261024.json",
+      "?? docs/audit/mobile-gallery-deployment-20261024.json",
+      "?? docs/audit/mobile-gallery-expand-20261024.json",
+      "?? docs/audit/mobile-gallery-sheet-20261024.json",
+      "?? docs/audit/mobile-gnb-icons-20261024.json",
+      "?? docs/audit/mobile-inbox-deployment-20261024.json",
+      "?? docs/audit/mobile-inbox-spacing-20261024.json",
+      "?? docs/audit/mobile-settings-deployment-20261024.json",
+      "?? docs/audit/mobile-settings-links-20261024.json",
+      "?? docs/audit/mobile-shell-20261024.json",
+      "?? docs/audit/mobile-ui-deployment-20261024.json",
+      "?? docs/audit/post-detail-back-20261024.json",
+      "?? docs/audit/profile-media-20261024.json",
+      "?? docs/audit/profile-media-deployment-20261024.json",
+      "?? docs/audit/qa-report-20261024.json",
+      "?? docs/audit/settings-categories-20261024.json",
+      "?? docs/audit/settings-categories-deployment-20261024.json",
+      "?? docs/audit/settings-divider-20261024.json",
+      "?? docs/audit/settings-divider-color-20261024.json",
+      "?? docs/audit/settings-divider-color-deployment-20261024.json",
+      "?? docs/audit/settings-edge-dividers-20261024.json",
+      "?? docs/audit/support-spacing-deployment-20261024.json",
+      "?? docs/audit/verified-creator-icon-20261024.json",
+      "?? docs/beta-role-test-plan.md",
+      "?? e2e/creator-verification.spec.ts",
+      "?? e2e/mobile-comments.spec.ts",
+      "?? e2e/mobile-shell.spec.ts",
+      "?? e2e/signup-deferred.spec.ts",
+      "?? output/pdf/",
+      "?? public/brand/featured-creators-v1.generation.json",
+      "?? public/brand/featured-creators-v1.png",
+      "?? public/brand/verified-creator-v1.png",
+      "?? public/illustrations/creators/jiwoo/",
+      "?? tests/creator-verification.test.cjs",
+      "?? tests/post-membership-offer.test.cjs",
+      "?? tests/profile-media.test.cjs"
+    ]
+  },
+  "requirement": "승인된 이미지젠 별빛 아이콘을 주목할 크리에이터 왼쪽에 삽입하고 운영 배포",
+  "acceptance": [
+    "공용 ExplorePage의 주목할 크리에이터 제목 왼쪽22px 아이콘과6px 간격",
+    "장식 이미지를 접근성 중복읽기에서 제외, 원본투명도 보존",
+    "Next Image 최적화로 최대64px·10KB 미만 전송",
+    "주목카드가 없거나 검색결과가 없으면 아이콘/제목 함께 숨김, 검색초기화시 복원",
+    "모바일320/390·PC1280에서 넘침과JS오류없음"
+  ],
+  "scope": {
+    "at": "2026-10-24T09:52:02.706810+00:00",
+    "baselineFilesMatched": 501,
+    "changed": [
+      "components/crefans/CreatorPages.tsx",
+      "components/crefans/creator.module.css"
+    ],
+    "added": [
+      "public/brand/featured-creators-v1.png"
+    ],
+    "change": "Explore featured heading: approved transparent sparkle at22px with6px gap, shared preview/service and Next Image optimization",
+    "excluded": [
+      "Unshipped PASS/signup, other back-navigation audit screens, follow-icon and comment-close changes"
+    ],
+    "preserved": "Backend/worker/admin/database/proxy and SSH rules"
+  },
+  "sourceHashes": {
+    "components/crefans/CreatorPages.tsx": "0676300f44bdc439aa03f55618fe26bf6b499af4c973a5037afd8910c7b7eed8",
+    "components/crefans/creator.module.css": "2cfbe230892f21dae101154e49a35b333e9addfb95fb9b10075e0509e3e93892",
+    "public/brand/featured-creators-v1.png": "20b16371cdbd99421f386aef60262bbef3ac2e1bed9761d3efc0d5fe7007663d"
+  },
+  "manifestSha256": "ba89c04b72aa7c4ff312e13ecbb17cb9ba3069ed70f8b575fe4a5ffb5ee5888b",
+  "image": {
+    "at": "2026-10-24T09:56:39.577530+00:00",
+    "tag": "crefans-front:featured-icon-20261024",
+    "id": "sha256:e3fcdba8776d266b1ddb6d5e9e86effbabb42d0fef69db3a89e54b61294b8331",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 502,
+    "archiveSha256": "85116c9a0de10a80c632d53a6bcf61611b0384b4c0176aefc0b9967892a84f0a",
+    "archiveBytes": 514944425
+  },
+  "commands": [
+    {
+      "command": [
+        "python3",
+        ".local/featured-icon-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:52:00.316424+00:00",
+      "finishedAt": "2026-10-24T09:52:02.749839+00:00",
+      "exitCode": 0,
+      "logSha256": "8926ac00208437850a1aecd09b050ea91e3b893b01781b45515a391b8e2edd8e"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:53:41.076954+00:00",
+      "finishedAt": "2026-10-24T09:53:41.592427+00:00",
+      "exitCode": 0,
+      "logSha256": "eb0b463c8972a0da028297168754c83e3785ef94a20a26a12199805dda949569"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=creator exploration and profile|explore shows paid placements",
+        ".local/featured-icon-deploy-20261024/tests/crefans-creator.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:52:33.519685+00:00",
+      "finishedAt": "2026-10-24T09:52:34.066899+00:00",
+      "exitCode": 0,
+      "logSha256": "78766f423c3e87ff99bc9325933af3aee4fc51fcef05abe5a4654f9761e59bbf"
+    },
+    {
+      "command": [
+        "node",
+        ".local/featured-icon-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "before"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:53:16.731170+00:00",
+      "finishedAt": "2026-10-24T09:53:20.396848+00:00",
+      "exitCode": 0,
+      "logSha256": "6d95ba62c45b2a6537c2448cd9ea2b1053a10ba96e25658bfcfbfb9a6c227c47"
+    },
+    {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/featured-icon-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:featured-icon-20261024",
+        ".local/featured-icon-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:52:34.386119+00:00",
+      "finishedAt": "2026-10-24T09:54:09.923296+00:00",
+      "exitCode": 0,
+      "logSha256": "b185750f7d9de661a1eef203b3a2b31f45eb02405e760ead3f56f8a54aba92cf"
+    },
+    {
+      "command": [
+        "node",
+        ".local/featured-icon-deploy-20261024/check.cjs",
+        "http://127.0.0.1:3124",
+        "image"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:57:43.471637+00:00",
+      "finishedAt": "2026-10-24T09:57:54.764754+00:00",
+      "exitCode": 0,
+      "logSha256": "8795efc7bd5044e1032f753a3ad50431d31f4c0e7d06fb60d211bdbead54e0dc"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/featured-icon-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:56:26.103831+00:00",
+      "finishedAt": "2026-10-24T09:56:39.587353+00:00",
+      "exitCode": 0,
+      "logSha256": "d1bc865c8c55f3504c02401fbbad6a2e51d7041e23763a31ee092c735015fb90"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/featured-icon-deploy-20261024/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:58:44.232166+00:00",
+      "finishedAt": "2026-10-24T09:59:13.583525+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    {
+      "command": [
+        "node",
+        ".local/featured-icon-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:59:27.057183+00:00",
+      "finishedAt": "2026-10-24T09:59:40.581581+00:00",
+      "exitCode": 0,
+      "logSha256": "c0f068106fb5a25e63422772816eb5531590e89c76b6fa4b6e9f3a3155a6273c"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/featured-icon-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:59:27.057183+00:00",
+      "finishedAt": "2026-10-24T09:59:29.373310+00:00",
+      "exitCode": 0,
+      "logSha256": "827e4dddd97709b79d9ec50b14c4732bbabc1bb803c7d8164ed9b90373be914e"
+    },
+    {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "crefans-featured-icon-qa"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:00:29.059387+00:00",
+      "finishedAt": "2026-10-24T10:00:29.298357+00:00",
+      "exitCode": 0,
+      "logSha256": "1c9c8b66a181e2e09c5134a864fac52aa75d601e1cbbac056677a81de0ec4c0e"
+    }
+  ],
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "install -d -m 0700 /home/ubuntu/crefans-featured-icon-20261024"
+      ],
+      "startedAt": "2026-10-24T09:58:44.252596+00:00",
+      "finishedAt": "2026-10-24T09:58:45.258447+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "command": [
+        "scp",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "/Users/ethan/repository/crefans_front/.local/featured-icon-deploy-20261024/image.tar.gz",
+        "/Users/ethan/repository/crefans_front/.local/featured-icon-deploy-20261024/image.sha256",
+        "/Users/ethan/repository/crefans_front/.local/featured-icon-deploy-20261024/deploy.sh",
+        "/Users/ethan/repository/crefans_front/.local/featured-icon-deploy-20261024/before.json",
+        "ubuntu@15.164.140.26:/home/ubuntu/crefans-featured-icon-20261024/"
+      ],
+      "startedAt": "2026-10-24T09:58:45.258979+00:00",
+      "finishedAt": "2026-10-24T09:58:54.228168+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "cd /home/ubuntu/crefans-featured-icon-20261024 && sha256sum -c image.sha256 && sudo -n docker load -i image.tar.gz && rm image.tar.gz"
+      ],
+      "startedAt": "2026-10-24T09:58:54.228822+00:00",
+      "finishedAt": "2026-10-24T09:59:06.284085+00:00",
+      "exitCode": 0,
+      "logSha256": "493d46a3ff1c7dfa2d60a882d894ce5fe878c387d13229e095cf3d2704befb41"
+    },
+    {
+      "step": "deploy",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "bash /home/ubuntu/crefans-featured-icon-20261024/deploy.sh"
+      ],
+      "startedAt": "2026-10-24T09:59:06.285535+00:00",
+      "finishedAt": "2026-10-24T09:59:13.575420+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "checks": {
+    "unit": {
+      "passed": 2,
+      "names": [
+        "creator exploration and profile render supplied identity and routes without inserting sample records",
+        "explore shows paid placements as cards and everyone else as one-line rows without follow buttons"
+      ]
+    },
+    "before": {
+      "startedAt": "2026-10-24T09:53:16.927Z",
+      "finishedAt": "2026-10-24T09:53:20.391Z",
+      "base": "https://beta.crefans.com",
+      "environments": 2,
+      "results": [
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "noIcon": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "noIcon": true
+        }
+      ],
+      "asset": null,
+      "errors": [],
+      "unexpected": [],
+      "limits": "Service GET API data is isolated fixture data; no account or production data changes. Browser emulation, not physical devices."
+    },
+    "image": {
+      "startedAt": "2026-10-24T09:57:43.667Z",
+      "finishedAt": "2026-10-24T09:57:54.759Z",
+      "base": "http://127.0.0.1:3124",
+      "environments": 6,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "http://127.0.0.1:3124/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "http://127.0.0.1:3124/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "http://127.0.0.1:3124/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "http://127.0.0.1:3124/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "http://127.0.0.1:3124/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "http://127.0.0.1:3124/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        }
+      ],
+      "asset": {
+        "status": 200,
+        "bytes": 432011,
+        "sha256": "20b16371cdbd99421f386aef60262bbef3ac2e1bed9761d3efc0d5fe7007663d"
+      },
+      "errors": [],
+      "unexpected": [],
+      "limits": "Service GET API data is isolated fixture data; no account or production data changes. Browser emulation, not physical devices."
+    },
+    "production": {
+      "startedAt": "2026-10-24T09:59:27.246Z",
+      "finishedAt": "2026-10-24T09:59:40.575Z",
+      "base": "https://beta.crefans.com",
+      "environments": 6,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "https://beta.crefans.com/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "https://beta.crefans.com/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "https://beta.crefans.com/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "https://beta.crefans.com/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "https://beta.crefans.com/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "actual": {
+            "width": 22,
+            "height": 22,
+            "gap": 6,
+            "centerOffset": 0.0078125,
+            "alt": "",
+            "ariaHidden": "true",
+            "currentSrc": "https://beta.crefans.com/_next/image?url=%2Fbrand%2Ffeatured-creators-v1.png&w=48&q=75",
+            "naturalWidth": 24,
+            "alphaMin": 0,
+            "alphaMax": 253,
+            "overflow": false
+          },
+          "optimizedBytes": 902,
+          "optimizedContentType": "image/webp",
+          "plainListHidesHeading": true,
+          "emptyHidesHeading": true,
+          "restored": true
+        }
+      ],
+      "asset": {
+        "status": 200,
+        "bytes": 432011,
+        "sha256": "20b16371cdbd99421f386aef60262bbef3ac2e1bed9761d3efc0d5fe7007663d"
+      },
+      "errors": [],
+      "unexpected": [],
+      "limits": "Service GET API data is isolated fixture data; no account or production data changes. Browser emulation, not physical devices."
+    },
+    "runtime": {
+      "at": "2026-10-24T09:59:27.102226+00:00",
+      "runtimeFilesMatched": 502,
+      "runtime": {
+        "crefans-beta-api-1": {
+          "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-frontend-1": {
+          "id": "16f2e2126de20e9ee5eb0f04aa5a21043ed2315086591a66fc58f799563b1786",
+          "image": "sha256:e3fcdba8776d266b1ddb6d5e9e86effbabb42d0fef69db3a89e54b61294b8331",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+          "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        }
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/preview/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200
+        }
+      ]
+    },
+    "visualReview": [
+      "image-webkit390.png",
+      "image-desktop.png",
+      "production-webkit390.png",
+      "production-desktop.png"
+    ]
+  },
+  "initialVerification": {
+    "execution": {
+      "command": [
+        "python3",
+        ".local/featured-icon-deploy-20261024/verify-image.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:56:26.103828+00:00",
+      "finishedAt": "2026-10-24T09:56:34.293245+00:00",
+      "exitCode": 1,
+      "logSha256": "7a1f57f349c84b95d83b47cd93396a826740af34198b43d264514d4b2da30c03"
+    },
+    "failure": {
+      "startedAt": "2026-10-24T09:56:31.365Z",
+      "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 255\nReceived: 253",
+      "results": [],
+      "errors": [],
+      "unexpected": []
+    },
+    "resolution": "축소·최적화 이미지의 alpha 최댓값은253으로 측정됐다. 원본 PNG 해시 보존과 배경 alpha0을 유지하며 축소 본체 alpha>=240 범위를 검사하도록 수정 후 전체 재검증. 제품코드 수정없음."
+  },
+  "rollback": "/opt/crefans-backup-featured-icon-20261024",
+  "artifacts": "/Users/ethan/repository/crefans_front/.local/featured-icon-deploy-20261024",
+  "limits": [
+    "서비스 데이터는 GET API 대역으로 화면검증, 실제회원/운영데이터변경 없음",
+    "물리기기 검증아님",
+    "프론트만교체; 다른5컨테이너ID/이미지·집SSH규칙 유지",
+    "기존무관한미커밋 보존; 전체유닛 반복/커밋/푸시 없음"
+  ],
+  "documentationChecks": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:00:29.372142+00:00",
+      "finishedAt": "2026-10-24T10:00:30.457569+00:00",
+      "exitCode": 0,
+      "logSha256": "a67eb672c16f6bee80c1a74d3d6f8f94945be99e2ad6e3894c44b0f19b4eea3d"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:00:30.483919+00:00",
+      "finishedAt": "2026-10-24T10:00:30.887348+00:00",
+      "exitCode": 0,
+      "logSha256": "e14aa50763f0b7ef84d93dcfac9ee52410506b1db80316b24dafaa18f9454556"
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "at": "2026-10-25T09:05:35.177881+00:00",
+  "scope": "Research-led front-only business card revision; existing reverse and prior two-sided files preserved.",
+  "repository": {
+    "branch": "feat/bean-support",
+    "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true
+  },
+  "acceptanceCriteria": [
+    "Primary printing-vendor articles read and relevant actual card photographs visually inspected in browser.",
+    "Original CREFANS SVG/brand palette retained with independently adapted two-column layout.",
+    "Only front created; exact supplied contact fields verified in DOM and normalized PDF extraction.",
+    "Single PDF page is90x50mm with self-contained vector glyphs; final preview and rendered PDF visually inspected."
+  ],
+  "research": {
+    "checkedAt": "2026-10-25T09:04:08.906279+00:00",
+    "sources": [
+      {
+        "url": "https://www.moo.com/blog/uk/inspiration/minimal-business-cards-with-powerful-minimalist-design",
+        "publisher": "MOO",
+        "published": "2022-07-01",
+        "type": "Printing vendor; direct client/design studio interviews and example photographs",
+        "visualReviewed": "Fos&Co. contact side: compact grouped information and field labels; colored identity side and restrained stock. Browser inspected article hero photo directly.",
+        "applied": "Contact label/value rows and keeping brand identity distinct from practical details; original layout adapted, no photo/artwork copied."
+      },
+      {
+        "url": "https://www.jukeboxprint.com/blog/54-inspiring-typographic-business-cards",
+        "publisher": "Jukebox Print",
+        "updated": "2026-01-23",
+        "type": "Printing vendor curated case gallery; not the original studio for all examples",
+        "visualReviewed": [
+          "Hugh McCarthy/Both Studio: large typographic identity with compact contact information on a generous unprinted field.",
+          "Animis/Steve Wolf: distinct compact text blocks and a dominant identity element. Both gallery photos opened directly in browser."
+        ],
+        "applied": "Three distinct information groups, consistent alignment, size hierarchy and negative space; kept CREFANS original wordmark."
+      }
+    ],
+    "decision": {
+      "scope": "Front face only; previous two-sided version preserved",
+      "layout": "Two-column corporate grid: original logo/company/site left; person/title and M/E contact rows right.",
+      "type": "Single sans family; name16pt, role7.6pt, contact8.4pt; project design choices, not a claimed industry standard.",
+      "color": "White background, original gradient logo, brand-ink typography; contact labels use existing logo blue-violet.",
+      "trimMm": [
+        90,
+        50
+      ],
+      "safeMarginMm": 7,
+      "artwork": "Existing vector SVG reused exactly; no remote visual copied or new logo generated.",
+      "print": "RGB design proof; CMYK / printing vendor proof not performed."
+    },
+    "logo": {
+      "source": "public/brand/crefans-logo.svg",
+      "sha256": "85a3a166adb3b66c00984d2ece3192228a1a3967adea3dce65ee55e33b601330"
+    },
+    "repo": {
+      "branch": "feat/bean-support",
+      "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirty": true
+    }
+  },
+  "browser": {
+    "at": "2026-10-25T09:04:09.686Z",
+    "providedFieldsExact": true,
+    "oneFace": true,
+    "logoLoaded": true,
+    "geometry": [
+      {
+        "class": "logo",
+        "inside": true
+      },
+      {
+        "class": "company",
+        "inside": true
+      },
+      {
+        "class": "name",
+        "inside": true
+      },
+      {
+        "class": "role",
+        "inside": true
+      },
+      {
+        "class": "contacts",
+        "inside": true
+      },
+      {
+        "class": "site",
+        "inside": true
+      }
+    ],
+    "errors": []
+  },
+  "pdf": {
+    "at": "2026-10-25T09:04:37.651769+00:00",
+    "checks": [
+      {
+        "file": "output/design/crefans-business-card/crefans-business-card-front-v2.pdf",
+        "sha256": "25cc74b84f395d2b89e91872f10808b3492132d09e564795dce7871dabe785c3",
+        "pages": [
+          {
+            "page": 1,
+            "mediaMm": [
+              90.0,
+              50.0
+            ],
+            "trimBoxPoints": [
+              0.0,
+              0.0,
+              255.11811023622047,
+              141.73228346456693
+            ],
+            "fontCount": 9,
+            "glyphsSelfContained": true,
+            "fontStorage": "Type3 embedded vector glyph procedures",
+            "textVerified": true
+          }
+        ],
+        "bleedMm": 0,
+        "renderer": "pdftoppm 180dpi"
+      }
+    ]
+  },
+  "artifacts": {
+    "output/design/crefans-business-card/crefans-business-card-front-v2.png": {
+      "sha256": "677975ad5c17687b87e1c14038fcc4a118b28172d0ddfe9c86a0f8041aa1823a",
+      "bytes": 50593
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v2.pdf": {
+      "sha256": "25cc74b84f395d2b89e91872f10808b3492132d09e564795dce7871dabe785c3",
+      "bytes": 31854
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v2.html": {
+      "sha256": "36d8fa3887bff6c12900777e8269d1d57d7d960bc257dd5b68c6ab811d6a9c6d",
+      "bytes": 7253
+    },
+    "output/design/crefans-business-card/front-v2-research.json": {
+      "sha256": "1a3d56cc0462652bcb82a2608a7f6e3a84c5750948f383cfd3d80120dcaea5ab",
+      "bytes": 2383
+    }
+  },
+  "visualReview": [
+    "Jukebox Hugh McCarthy photo opened in in-app browser",
+    "Jukebox Animis photo opened in in-app browser",
+    "MOO Fos&Co. article hero photograph opened in in-app browser",
+    "Final front-v2 PNG inspected",
+    "Final single-page PDF Poppler180dpi render inspected"
+  ],
+  "commands": [
+    {
+      "command": "python3 .local/business-card-front-v2-20261025/create.py",
+      "exitCode": 0
+    },
+    {
+      "command": "node .local/business-card-front-v2-20261025/render.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "bundled python3 .local/business-card-front-v2-20261025/verify_pdf.py",
+      "exitCode": 0
+    }
+  ],
+  "limits": [
+    "Curated design examples are references, not a binding or universal industry design standard.",
+    "No third-party image/photo/design copied into output. Original logo and newly authored typography/grid only.",
+    "RGB front-only design proof, no CMYK conversion or print-shop physical proof.",
+    "No app/source/API/deployment/financial operations. Product tests not rerun for design-only output.",
+    "Private contact values omitted from evidence text; present only in requested business-card artifacts."
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "at": "2026-10-25T07:54:39.748294+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 290,
+  "statusSha256": "d3e5f283e0e315d8f3f689a2ec8200240a8feef24ef98ea7eaaf1873a736d509",
+  "tool": "built-in image_gen: initial edit plus one targeted count correction",
+  "promptMetadata": "docs/design/bean-soft3d-open-eight-v1.generation.json",
+  "outputs": [
+    {
+      "path": "docs/design/bean-soft3d-open-eight-v1-initial.png",
+      "sha256": "3c84ee4d27c1590160b58776c3e8a09c517b57bdf55eaa2b0c207a98f25f092b",
+      "width": 1608,
+      "height": 978,
+      "mode": "RGB",
+      "bytes": 1695835,
+      "sourceCopyMatches": true
+    },
+    {
+      "path": "docs/design/bean-soft3d-open-eight-v1.png",
+      "sha256": "f92a450594be043278de96f641a499391d45fdf967e13054e0179096ef4fadbe",
+      "width": 1608,
+      "height": 978,
+      "mode": "RGB",
+      "bytes": 1733562,
+      "sourceCopyMatches": true
+    }
+  ],
+  "manualReview": {
+    "visibleBeanCounts": {
+      "1개": 1,
+      "2개": 2,
+      "3개": 3,
+      "꼬치": 3,
+      "소쿠리": 4,
+      "보따리": 3,
+      "종이상자": 4,
+      "나무 보물상자": 4
+    },
+    "all8CaptionsCorrect": true,
+    "containersOpen": true,
+    "style": "Rounded soft3D, mint/cream/warm wood, sparse large contents, no spilling",
+    "correction": "Initial bundle2 visible beans corrected to3; final chest4 (prompt target5), within user requested3–5 range. Counts are manual observations, not automated object detection."
+  },
+  "scope": [
+    "One comparison board, not individual transparent assets",
+    "No charge-package quantity/price mapping assigned",
+    "No UI/deployment/financial or external messaging changes",
+    "No product tests; image validation and manual visual review only"
+  ]
+}

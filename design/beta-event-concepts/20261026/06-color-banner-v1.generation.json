@@ -1,0 +1,34 @@
+{
+  "createdAt": "2026-10-26T11:06:12.617629+00:00",
+  "mode": "built-in image_gen",
+  "scope": "visual-proposal-only-not-deployed",
+  "output": "design/beta-event-concepts/20261026/06-color-banner-v1.png",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-2d91b57f-e3da-4e1d-92c4-21b6fbf40697.png",
+  "width": 1024,
+  "height": 1536,
+  "sha256": "97e6d9c7a1de02b0a65f2fcbd4ad012ac46fc7d0245de38dd05e8d80ca1bd7b3",
+  "prompt": "Use case: ads-marketing / ui-mockup.\nCreate a polished original Korean mobile events-page concept for CREFANS. Portrait 1024 x 1536 or taller as needed. This is a visual proposal, not a screenshot to reproduce verbatim.\nREFERENCE ROLES: Image 1 is only the layout/style reference: Korean delivery-app events list with wide rounded colorful cards, substantial friendly illustrations on the left, bold clean Korean headlines on the right. Image 2 is the content and CREFANS visual identity reference: preserve its FOUR approved rewards, the lavender star rosette, purple origami crown, TWO fresh green beans, lavender ribbon gift voucher, and purple/green brand personality. Do not carry over any fried chicken, discount amounts, percentage coupons, Baemin Club branding, October promotions or exclusive-offer claims from image 1.\nDESIGN: A white page, small clean navy 'crefans' wordmark upper-left, a simple back arrow and '이벤트' page title. A compact campaign introduction '크레팬스 베타 1기' and '함께 만들어 주셔서 감사합니다'. Below it stack FOUR broad rounded rectangular benefit cards, equal width and consistent generous gaps, about 3:1 aspect ratio. Each card has its own soft vibrant background, approximately left 28% illustration and right 68% content. Use premium friendly soft-3D simplified illustrated objects similar to image2. Restrained gleam and soft shadows, no excessive small objects. Clean Korean sans-serif similar to Pretendard ExtraBold, no handwriting. All FOUR main benefit headlines must have THE SAME font size and weight; '프로모션 100콩' must NOT be oversized. Long second headline may use two lines. Keep first benefit headline one line where it fits, ample space and no clipping. The card backgrounds: 1 light violet with deeper violet accents, 2 pale periwinkle/cyan, 3 fresh mint/green, 4 pale warm rose/lavender. Text dark navy or deep purple with excellent contrast. No device frame, no iOS status/navigation bars, no app-bottom menu, no browser chrome.\nEXACT TEXT, preserve all Korean content:\nHeader: '이벤트'\nIntro title: '크레팬스 베타 1기'\nIntro subtitle: '함께 만들어 주셔서 감사합니다'\nCARD 1, lavender star badge on left:\nMain title: '원년멤버 한정판 뱃지'\nSmall secondary notes at BOTTOM RIGHT of this card, right-aligned, muted, much smaller than headline:\n'* 참여자 전원에게 드립니다.'\n'* 프로필 페이지에 노출됩니다.'\n'* 표시 여부는 직접 선택할 수 있습니다.'\nCARD 2, purple crown plus a subtle promotion-ticket shape on left:\nMain title in two lines: '주목할 크리에이터' then '광고상품 30일'\nSecondary BOTTOM RIGHT:\n'* 크리에이터 3명에게 드립니다.'\n'* 주목할 크리에이터 광고상품 이용권을 제공합니다.'\nCARD 3, exactly TWO rounded friendly green beans on left:\nMain title: '프로모션 100콩'\nSecondary BOTTOM RIGHT:\n'* 팬 참여자 13명에게 지급합니다.'\nCARD 4, lavender gift voucher with purple ribbon on left, no Baemin official logo needed:\nMain title: '배민 1만원 상품권'\nSecondary BOTTOM RIGHT:\n'* 유용한 피드백을 주신 분 중'\n'* 최대 3명에게 드립니다.'\nBelow cards, small muted RIGHT-ALIGNED footer:\n'* 참여 기간과 혜택 지급 일정은 별도 안내합니다.'\nImportant: Every secondary explanatory line begins with literal '*'. No tiny ribbons containing eligibility counts at top-left; all target/count information is quiet in lower right. No extra rewards or invented policies, no fake buttons. All cards fully visible, no cut-off fifth card. Make it look like a real premium mobile event-list campaign, lively like the reference but distinctly CREFANS.",
+  "references": [
+    {
+      "role": "layout-style",
+      "path": "/tmp/codex-remote-attachments/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/D3404430-4461-4F39-AF1C-B58D3B3C01A6/1-사진-1.jpg"
+    },
+    {
+      "role": "approved-content-and-brand",
+      "path": "design/beta-event-concepts/20261026/03-editorial-ad-v7.png"
+    }
+  ],
+  "manualVisualReview": {
+    "fourCompleteCards": true,
+    "leftIllustrationsRightHeadlines": true,
+    "benefitsAndCountsMatchApprovedContent": true,
+    "secondaryNotesAsteriskSmallMutedBottomRight": true,
+    "headlineSizeVisuallyConsistent": "visual judgement only, no exact raster font metric claim",
+    "noNewRewardPolicy": true
+  },
+  "boundaries": [
+    "Review image only; no frontend code or production deployment changed.",
+    "No reward grants, dates or selection rules established.",
+    "No product tests needed for image-only work."
+  ]
+}

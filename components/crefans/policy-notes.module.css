@@ -1,0 +1,7 @@
+.policy{margin:24px 0 0;padding:14px 16px;border-radius:8px;background:var(--cf-landing-soft);color:var(--cf-landing-muted);font-size:max(14px,var(--cf-mobile-font-min,0px));line-height:1.7;word-break:keep-all}
+/* Class selector so page-level `h2` rules (e.g. beans .page h2) cannot resize this title. */
+.policy .title{margin:0 0 8px;font-size:15px;font-weight:700;color:var(--cf-color-textSecondary)}
+.policy ul{margin:0;padding-left:16px}
+.policy li+li{margin-top:2px}
+.policy p{margin:6px 0 0}
+@media(max-width:520px){.policy{padding:12px 14px}}

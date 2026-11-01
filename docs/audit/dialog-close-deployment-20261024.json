@@ -1,0 +1,483 @@
+{
+  "recordedAt": "2026-10-24T02:03:55.816797+00:00",
+  "repository": "crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "dirty; previous changes preserved",
+  "scope": {
+    "at": "2026-10-24T01:59:07.536616+00:00",
+    "baseImage": "crefans-front:back-buttons-20261024",
+    "baseId": "sha256:757f7a1cc5e84c6371a649e12d0e540d5bd87d3f62578b863752ab2b3868fecc",
+    "runtimeFiles": 474,
+    "changed": [
+      "components/ui/Primitives.tsx",
+      "components/ui/ui.module.css"
+    ],
+    "pendingSignupFilesExcluded": true,
+    "localChangedSourceSha256": {
+      "components/ui/Primitives.tsx": "7c1260d5d2acba566b4e31427f3b18b02e0a9ac0a0cb554aa168a0313c7820f0",
+      "components/ui/ui.module.css": "bd3ce290dcb0d8738c1540f5748eec50ca377dcc105e447ac94a0018fcf770c0"
+    }
+  },
+  "image": {
+    "at": "2026-10-24T02:01:37.795070+00:00",
+    "imageId": "sha256:9764f4b57fdfc3c99aee69052b158e8fc1049d2e4c661a26f33472de8ff4ee8c",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 474
+  },
+  "checks": {
+    "baseline": {
+      "at": "2026-10-24T01:56:44.109Z",
+      "evidence": {
+        "activeTag": "BUTTON",
+        "activeLabel": "닫기",
+        "outline": "3px",
+        "outlineStyle": "none",
+        "iconText": "×",
+        "expectedInitialTitleFocus": false
+      }
+    },
+    "check": {
+      "command": "npm run check",
+      "startedAt": "2026-10-24T01:58:24.547375+00:00",
+      "finishedAt": "2026-10-24T01:58:32.126205+00:00",
+      "exitCode": 0,
+      "logSha256": "29f46f916b8611c1319cc115acf2c71736074a4d69b91ad308a5a5f08bdadf72"
+    },
+    "unitTests": {
+      "passed": 289,
+      "failed": 0
+    },
+    "build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        "infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:dialog-close-20261024",
+        "."
+      ],
+      "startedAt": "2026-10-24T01:59:50.702762+00:00",
+      "finishedAt": "2026-10-24T02:01:23.675701+00:00",
+      "exitCode": 0,
+      "logSha256": "faed0347b1267c53dcea92ca1e0597a9dddc848e4943ee3a54d0e41715988418"
+    },
+    "browser": {
+      "local": {
+        "at": "2026-10-24T02:01:13.621Z",
+        "origin": "http://127.0.0.1:3010",
+        "results": [
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 320,
+            "keyboardNavigation": "Tab",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 390,
+            "keyboardNavigation": "Tab",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 1280,
+            "keyboardNavigation": "Tab",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          },
+          {
+            "engine": "webkit",
+            "browser": "27.2",
+            "width": 390,
+            "keyboardNavigation": "Option+Tab (macOS WebKit default)",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          }
+        ]
+      },
+      "image": {
+        "at": "2026-10-24T02:01:52.801Z",
+        "origin": "http://127.0.0.1:3013",
+        "results": [
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 320,
+            "keyboardNavigation": "Tab",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 390,
+            "keyboardNavigation": "Tab",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 1280,
+            "keyboardNavigation": "Tab",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          },
+          {
+            "engine": "webkit",
+            "browser": "27.2",
+            "width": 390,
+            "keyboardNavigation": "Option+Tab (macOS WebKit default)",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          }
+        ]
+      },
+      "production": {
+        "at": "2026-10-24T02:03:44.361Z",
+        "origin": "https://beta.crefans.com",
+        "results": [
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 320,
+            "keyboardNavigation": "Tab",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 390,
+            "keyboardNavigation": "Tab",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          },
+          {
+            "engine": "chromium",
+            "browser": "156.0.8078.4",
+            "width": 1280,
+            "keyboardNavigation": "Tab",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          },
+          {
+            "engine": "webkit",
+            "browser": "27.2",
+            "width": 390,
+            "keyboardNavigation": "Option+Tab (macOS WebKit default)",
+            "initialTitleFocus": true,
+            "close": {
+              "width": 44,
+              "height": 44,
+              "border": "0px",
+              "outlineStyle": "none",
+              "iconWidth": "28",
+              "iconHeight": "28"
+            },
+            "keyboardFocusRing": true,
+            "nativeTabAndShiftTabNoBackgroundControlFocus": true,
+            "escapeAndFocusReturn": true,
+            "reopenAndBothCloseButtons": true,
+            "backdropClose": true,
+            "confirmationAndSheetTitleFocus": true,
+            "errors": []
+          }
+        ]
+      }
+    },
+    "imageHttpSmoke": {
+      "at": "2026-10-24T02:01:40.423630+00:00",
+      "routes": [
+        {
+          "route": "preview/messages",
+          "status": 200
+        },
+        {
+          "route": "preview/notifications",
+          "status": 200
+        },
+        {
+          "route": "service/messages",
+          "status": 200
+        },
+        {
+          "route": "service/notifications",
+          "status": 200
+        }
+      ],
+      "scope": "HTTP shells only; browser check required separately."
+    }
+  },
+  "requirements": {
+    "initialFocus": "static h2 title, not close button",
+    "closeControl": "28px SVG in borderless 44x44 target",
+    "keyboard": "native modal behavior; keyboard focus-visible retained; Escape and invoker restoration verified",
+    "reuse": "preview, service, studio and design catalogue use the same Dialog"
+  },
+  "deployment": {
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-24T02:02:20.175148+00:00",
+        "finishedAt": "2026-10-24T02:02:21.527851+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T02:02:21.529016+00:00",
+        "finishedAt": "2026-10-24T02:02:29.445919+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T02:02:29.446413+00:00",
+        "finishedAt": "2026-10-24T02:02:42.517104+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T02:02:42.517720+00:00",
+        "finishedAt": "2026-10-24T02:02:49.533234+00:00",
+        "exitCode": 0
+      }
+    ],
+    "result": " Container crefans-beta-frontend-1 Recreate \n Container crefans-beta-frontend-1 Recreated \n Container crefans-beta-frontend-1 Starting \n Container crefans-beta-frontend-1 Started \nHealth and ten preview/service routes passed\n{\"frontendImage\": \"sha256:9764f4b57fdfc3c99aee69052b158e8fc1049d2e4c661a26f33472de8ff4ee8c\", \"running\": true, \"restarts\": 0, \"preservedServices\": [\"database\", \"api\", \"worker\", \"admin\", \"proxy\"]}\n",
+    "rollback": "/opt/crefans-backup-dialog-close-20261024; previous image retained",
+    "homeSshRule": "unchanged; permanent home /32 retained",
+    "otherServices": "database/api/worker/admin/proxy container IDs preserved"
+  },
+  "references": [
+    {
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+      "checkedOn": "2026-10-24",
+      "application": "Static title initial focus for structured content; Escape and focus restoration."
+    },
+    {
+      "url": "https://support.apple.com/en-gb/guide/safari/cpsh003/27.0/mac/27",
+      "checkedOn": "2026-10-24",
+      "application": "macOS WebKit Option+Tab navigation used for clickable controls."
+    }
+  ],
+  "initialTestCorrections": [
+    {
+      "log": "local-browser-initial.log",
+      "reason": "Size measured during entry scale animation; wait for animation finish before measuring exact44px."
+    },
+    {
+      "log": "local-browser-native-tab.log",
+      "reason": "Native browser may move focus to browser chrome between cycles; check no background page control receives focus instead of imposing custom trapping."
+    },
+    {
+      "log": "local-browser-webkit-tab.log",
+      "reason": "macOS WebKit uses Option+Tab for button navigation; rerun with official platform shortcut."
+    }
+  ],
+  "evidenceDirectory": "/Users/ethan/repository/crefans_front/.local/dialog-close-deploy-20261024",
+  "artifactSha256": {
+    "final-load.log": "0e39a707f3f6ecdc783a650dd560fb88c0fd8e189f63f12680746aecd3f13a1e",
+    "before.png": "43b8c920e019f01f9de92c3615dfa94d6a8778abd9f53ace1e93958e065f9405",
+    "production-chromium-390.png": "9ddf708ea612f8b7a48f43b76b54082bf6b829734fec8f5a65122a900faf5e88",
+    "release.py": "b689708e39dc7669170ad4dfe617e51011c5b4b5fb5e47dacb0e4a8a50409c31",
+    "production-webkit-390.png": "77859cc5691d3bd4728c1ea19cca5b6d71fc4ed625a7a9586579d842af3f020b",
+    "browser.cjs": "73aadf8ec4f45323bd29fc58e25b12c4880d72e9e2df0a29b2d0d12c733a16ea",
+    "image-webkit-390.png": "efcb67a6d9b12857aad9ac18a71c5ffc8e763c36f893b3887fe1d05c724e2e35",
+    "production-chromium-320.png": "2ab64965967e01d352ed47bd3ff82d08098993234168d21c1f8bd631d67dc7dc",
+    "finalize.py": "1f5a0f8a364e913a25ccba2164066d75976e6ab993af8616b3b6097ba1d1fe77",
+    "local-browser-native-tab.log": "aa60a908122d6e876be91c959c3f6643c438b93a02216cf69b1e0f8ffb5a575f",
+    "final-deploy.log": "96b2867b212961543eb14efc5e812c7fca2980b135c44ed23fd67602143831ab",
+    "image-chromium-1280.png": "bb7889406bc31c835541391993feb2d2bbbd6ded2d43bd02096223790f85f4e6",
+    "production-chromium-1280.png": "bb7889406bc31c835541391993feb2d2bbbd6ded2d43bd02096223790f85f4e6",
+    "local-chromium-1280.png": "bb7889406bc31c835541391993feb2d2bbbd6ded2d43bd02096223790f85f4e6",
+    "local-browser-webkit-tab.log": "ee04d4d69fca2185eda233c814a9ffc1e7d3333d911a01d71d83b4e855096f59",
+    "local-chromium-320.png": "2ab64965967e01d352ed47bd3ff82d08098993234168d21c1f8bd631d67dc7dc",
+    "local-browser-initial.log": "a4ace8fd64ade35448ca0ad2c4f8d8e5c90a15779318057022a86b0d98553edf",
+    "local-webkit-390.png": "efcb67a6d9b12857aad9ac18a71c5ffc8e763c36f893b3887fe1d05c724e2e35",
+    "image-chromium-320.png": "2ab64965967e01d352ed47bd3ff82d08098993234168d21c1f8bd631d67dc7dc",
+    "final-upload.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "smoke-image.py": "bf2c13a59a01015af7cdbd9af2881fb65e2f776298efecaf2255b58168842c09",
+    "image-browser.log": "20dcd08b087024b67c80389627ea36d06559e29705681b933ec3f9e205099ac5",
+    "archive.py": "2983682713d4893fb1fce6c4bcdee9eff4863bf522e17170a12892dd13bcdff8",
+    "deploy.sh": "6884ae13e9e6222ed994e01d597f4ae6fd5fd79ef5798b1c9517cf1e2300605d",
+    "check.log": "29f46f916b8611c1319cc115acf2c71736074a4d69b91ad308a5a5f08bdadf72",
+    "local-browser.log": "20dcd08b087024b67c80389627ea36d06559e29705681b933ec3f9e205099ac5",
+    "image-chromium-390.png": "9ddf708ea612f8b7a48f43b76b54082bf6b829734fec8f5a65122a900faf5e88",
+    "production-browser.log": "20dcd08b087024b67c80389627ea36d06559e29705681b933ec3f9e205099ac5",
+    "verify-image.py": "051cdc17e5d914e9b7c4802d284a91aef081362df4425b52217b401202abd3cf",
+    "final-prepare.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "local-chromium-390.png": "9ddf708ea612f8b7a48f43b76b54082bf6b829734fec8f5a65122a900faf5e88",
+    "build.log": "faed0347b1267c53dcea92ca1e0597a9dddc848e4943ee3a54d0e41715988418"
+  },
+  "limitations": [
+    "Browser engines at mobile viewport sizes; no physical iPhone Safari test.",
+    "UI tests use preview fixtures and design catalogue; no real card/payment/subscription mutation.",
+    "Separate media overlay unchanged.",
+    "No commit, merge or push.",
+    "Earlier QA report remains historical and is not updated by this UI verification."
+  ]
+}

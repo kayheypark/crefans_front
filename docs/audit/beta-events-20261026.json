@@ -1,0 +1,290 @@
+{
+  "at": "2026-10-26T10:04:11.231392+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/bean-support",
+  "uncommitted": true,
+  "preExistingChangesPreserved": true,
+  "acceptance": [
+    "approved four reward groups and exact benefits",
+    "event list and detail separate from notices",
+    "shared preview/service display components",
+    "desktop sidebar and mobile settings entries",
+    "responsive image and accessible HTML benefits",
+    "publish verified frontend only"
+  ],
+  "sourceSha256": {
+    "app/preview/[...screen]/page.tsx": "7703dc6d9f6a5e3538139327abcad165312a69555d5bab5574c89e09a7ba0dcc",
+    "app/service/[...screen]/page.tsx": "72e8a3d4ef84617fc4dfc106d7985e936adeeecb1f677142cae37a829d8f0c50",
+    "components/crefans/AccountPages.tsx": "04800692cf1bd11280ffbc433bfbbc563f9c9d3731be7190059b0e66e6ba7891",
+    "components/crefans/CommonPages.tsx": "2c194da06286da1b486027671145bcdaf3b5478350575fba7aa17db288708b9b",
+    "components/crefans/ServiceLinks.tsx": "d05aa468b170d74b20ea6d56f707bf1e2957fd82397ab1d15a4bd15f5c944d3f",
+    "components/preview/screen-catalog.ts": "d3c72f5c53c6f6fe900ab85522976ecf5aed20a4885191174a41f0f82fa554da",
+    "components/preview/service/ServiceRouter.tsx": "bde8fd02ab8d90368b43bee9366756d3cecc5042439df4f8d8d529b0395a900f",
+    "components/service/ServiceRouter.tsx": "bc5f10ad8781d692877b4be3c6843d07fa7d2c34ef43465a27d8c69df411e2ef",
+    "types/crefans-events.ts": "d2e5e33e6d61c974d123d9405ecec4f953e70236de593a78e7320dad2c1d0cfd",
+    "lib/content/events.ts": "1024f0d90f5dfe1898877e1287c40da04b2b4c33b67ee9ea3824e8f3a1c3326c",
+    "components/crefans/EventPages.tsx": "7eb7c71e553181141fb0720e7baebb189979fed8193a1448f003cb9de11dfda7",
+    "components/crefans/events.module.css": "3230dc2475d0758f0d93fb48c20de7aba97a2b9e85bc244af2dbd4484d7265e1",
+    "public/brand/events/beta-first.png": "e5f67d49f06a4f8ab6fc28c96a040994dbfab56fccc837e5e12c160c8dedb95c",
+    "public/brand/events/beta-first.generation.json": "bdb5ebd8daebb866496c0f2bb1accc19c46908be4186f2333e3b35d691d93ce4",
+    "tests/crefans-events.test.cjs": "b5978221c5a838182729c1760ad3f5c89f1a078cd9f8015671717b79561885ad",
+    "tests/crefans-account.test.cjs": "e7df128c9ee619f7787a6fb30e9248ad72c2920b9babb36ad306513902ffd38a",
+    "docs/preview-pages.md": "4fb017c84de11e8f2542356e6a53c42454c3e0d3d22d9f99342f793b7db10b94",
+    "PROGRESS.md": "183dc28f2b7c855ab590fc776fc3a3b48d0f7708566134b731bb0970c081a869"
+  },
+  "checks": {
+    "command": "npm run check",
+    "startedAt": "2026-10-26T09:59:35.354020+00:00",
+    "finishedAt": "2026-10-26T09:59:46.210155+00:00",
+    "exitCode": 0,
+    "logSha256": "b499b939ce7b7a034f34c07e1da8f40f7c45f84811ddc570c923623b028d8e4a"
+  },
+  "testSummary": {
+    "passed": 353,
+    "failed": 0
+  },
+  "build": {
+    "command": [
+      "docker",
+      "build",
+      "--platform",
+      "linux/amd64",
+      "--label",
+      "crefans.release=beta-events-20261026",
+      "--label",
+      "crefans.source-sha256=18515a3bc082796d7b14ae3a036754b878da1a8e3af1798162e94301bcc8f3aa",
+      "-t",
+      "crefans-front:beta-events-20261026",
+      "-f",
+      "infra/platform/Dockerfile",
+      "."
+    ],
+    "startedAt": "2026-10-26T10:00:06.225885+00:00",
+    "finishedAt": "2026-10-26T10:01:52.078988+00:00",
+    "exitCode": 0,
+    "sourceManifestSha256": "18515a3bc082796d7b14ae3a036754b878da1a8e3af1798162e94301bcc8f3aa"
+  },
+  "localHttp": {
+    "at": "2026-10-26T10:02:45.632288+00:00",
+    "results": [
+      {
+        "path": "/preview/events",
+        "status": 200,
+        "notFound": false,
+        "validEventRoute": true
+      },
+      {
+        "path": "/preview/events/beta-first",
+        "status": 200,
+        "notFound": false,
+        "validEventRoute": true
+      },
+      {
+        "path": "/service/events",
+        "status": 200,
+        "notFound": false,
+        "validEventRoute": true
+      },
+      {
+        "path": "/service/events/beta-first",
+        "status": 200,
+        "notFound": false,
+        "validEventRoute": true
+      },
+      {
+        "path": "/preview/events/missing-event",
+        "status": 200,
+        "notFound": true,
+        "validEventRoute": false
+      },
+      {
+        "path": "/service/events/missing-event",
+        "status": 200,
+        "notFound": true,
+        "validEventRoute": false
+      },
+      {
+        "path": "/preview/events/beta-first/extra",
+        "status": 200,
+        "notFound": true,
+        "validEventRoute": false
+      }
+    ],
+    "streamingNote": "Next.js 14 streamed notFound can retain HTTP 200. UI and NEXT_NOT_FOUND verified; not an HTTP 404 guarantee.",
+    "source": "https://nextjs.org/docs/14/app/api-reference/file-conventions/not-found"
+  },
+  "browser": {
+    "method": "cua_repl Chrome on local and production; DOM and screenshots inspected",
+    "local": {
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "horizontalOverflow": false,
+      "imageNaturalSize": [
+        1024,
+        1536
+      ],
+      "rewardGroups": 4,
+      "listDetailBack": true,
+      "mobileSettingsEntry": true,
+      "unknownEventNotFoundScreen": true,
+      "serviceRouteRendered": true,
+      "serviceApiOfflineBannerObserved": true
+    },
+    "production": {
+      "widths": [
+        390,
+        1280
+      ],
+      "horizontalOverflow": false,
+      "imageNaturalSize": [
+        1024,
+        1536
+      ],
+      "rewardGroups": 4,
+      "listDetailBack": true,
+      "mobileSettingsEntry": true,
+      "desktopSidebarEntry": true,
+      "publicServiceDetailRendered": true,
+      "publicServiceAlerts": [],
+      "consoleErrors": []
+    },
+    "capturedAt": "2026-10-26T10:04:11.225039+00:00"
+  },
+  "deployment": {
+    "startedAt": "2026-10-26T10:02:25.809287+00:00",
+    "finishedAt": "2026-10-26T10:02:33.750418+00:00",
+    "exitCode": 0,
+    "release": "beta-events-20261026",
+    "image": "crefans-front:beta-events-20261026",
+    "runtimeImageId": "sha256:7914b980f2c622bb956f1c131b33acfe815812ff593eeacc97a9b3039e5fd55d",
+    "sourceManifestSha256": "18515a3bc082796d7b14ae3a036754b878da1a8e3af1798162e94301bcc8f3aa",
+    "sourceFilesMatched": 626,
+    "changedSourceFiles": [
+      "app/preview/[...screen]/page.tsx",
+      "app/service/[...screen]/page.tsx",
+      "components/crefans/AccountPages.tsx",
+      "components/crefans/CommonPages.tsx",
+      "components/crefans/ServiceLinks.tsx",
+      "components/preview/screen-catalog.ts",
+      "components/preview/service/ServiceRouter.tsx",
+      "components/service/ServiceRouter.tsx",
+      "types/crefans-events.ts",
+      "lib/content/events.ts",
+      "components/crefans/EventPages.tsx",
+      "components/crefans/events.module.css",
+      "public/brand/events/beta-first.png",
+      "public/brand/events/beta-first.generation.json"
+    ],
+    "otherContainersPreserved": true,
+    "states": {
+      "crefans-beta-frontend-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": false
+      },
+      "crefans-beta-admin-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-api-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-worker-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-proxy-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      },
+      "crefans-beta-database-1": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "unchanged": true
+      }
+    },
+    "http": [
+      {
+        "path": "/preview/events",
+        "status": 200
+      },
+      {
+        "path": "/preview/events/beta-first",
+        "status": 200
+      },
+      {
+        "path": "/service/events",
+        "status": 200
+      },
+      {
+        "path": "/service/events/beta-first",
+        "status": 200
+      },
+      {
+        "path": "/brand/events/beta-first.png",
+        "status": 200
+      },
+      {
+        "path": "/api/v1/health",
+        "status": 200
+      }
+    ],
+    "backup": "/opt/crefans-backup-beta-events-20261026",
+    "archiveBytes": 578498195,
+    "archiveSha256": "7e3792cd3a53708a33e415082b82d12192dfa98b446b8f1ffc7474da8f9a3c3a",
+    "rootFsLayersMatched": true,
+    "noDatabaseOrBackendChanges": true
+  },
+  "productionInvalidRoutes": [
+    {
+      "path": "/preview/events/missing-event",
+      "status": 200,
+      "notFoundHandled": true
+    },
+    {
+      "path": "/service/events/missing-event",
+      "status": 200,
+      "notFoundHandled": true
+    }
+  ],
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "createdAt": "2026-10-26",
+    "prompt": "Create a polished Korean promotional EVENT DETAIL POSTER for the creator membership platform \"crefans\", portrait 2:3, high resolution. It will be embedded full width on mobile websites. Refined friendly modern Korean product branding: milky white and very pale lavender background, dark navy large legible typography, restrained pink-purple-periwinkle gradients, small soft 3D green bean currency and gift objects. Clean, spacious professional layout, NOT a busy game banner. Modern Korean sans serif like Pretendard, consistent aligned grid, generous margins, no handwritten lettering. At top small lowercase \"crefans\" wordmark, then the exact main heading \"크레팬스 베타 1기\" and subtitle \"함께 만들어 주셔서 감사합니다\". A single tasteful dimensional gift box and glossy violet badge medallion with a simple star decorates the hero, not too much. Below, FOUR distinct readable reward sections with clear hierarchy and only the exact following Korean text:\nSection 1 label \"참여자 전원\", main \"'크레팬스 베타 1기' 한정 배지\", supporting \"표시·숨김을 직접 선택\"\nSection 2 label \"크리에이터 3명\", main \"1만원 상당 선물\", second line \"+ 주목할 크리에이터 30일 노출권\"\nSection 3 label \"팬 참여자 13명\", main \"프로모션 100콩\", illustration of just THREE cute smooth emerald green beans with cream center not a pile.\nSection 4 label \"유용한 피드백 제공자 최대 3명\", main \"5천원 상품권\", small elegant gift voucher icon.\nBottom small text \"참여 기간과 혜택 지급 일정은 별도 안내합니다.\"\nAll words must be correct, large enough for mobile reading. No extra invented terms or dates, no CTA button, no QR code, no sponsor logos, no currency conversion, no cash out claim. This is a finished flat graphic poster, no phone mockup, no perspective, no surrounding desk. Give each section ample height. Make it feel premium but welcoming, like a Korean creator economy beta appreciation campaign.",
+    "asset": "/brand/events/beta-first.png",
+    "source": "exec-3319d764-aa08-46ae-9052-c85f097f1081.png",
+    "review": {
+      "allFourBenefits": true,
+      "koreanTextReviewed": true,
+      "scheduleNotInvented": true
+    }
+  },
+  "boundaries": [
+    "Announcement only; no actual badge grants or visibility toggle, gifts, promotions or exposure scheduling executed",
+    "Participation dates, payout schedule and feedback selection criteria not decided",
+    "Local API was offline; production public service route verified without error banner",
+    "Next.js 14 streamed notFound may retain HTTP 200, browser shows page-not-found",
+    "No database, payment, account policy or backend modifications",
+    "No Git commit or push; existing dirty branch retained"
+  ],
+  "officialReference": {
+    "url": "https://nextjs.org/docs/14/app/api-reference/file-conventions/not-found",
+    "checkedAt": "2026-10-26",
+    "applied": "Separate HTTP status from notFound view for streamed response verification"
+  }
+}

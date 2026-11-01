@@ -1,0 +1,257 @@
+{
+  "recordedAt": "2026-10-24T17:10:49.704296+00:00",
+  "baseline": {
+    "at": "2026-10-24T17:06:39.426616+00:00",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "files": {
+      "components/crefans/SocialPages.tsx": "cc6bd27c30c74e9ca33b407627486551e7599e45326e626538ca7800b2a37f3c",
+      "tests/crefans-social.test.cjs": "5dc38ca1efae4cb56b0c82dfaacc0bee3506536e7aec57984a783de3064048ca",
+      "docs/design-system.md": "c4d747197e2cb30f9ab08816ae686fbdb9cbe0add469f2bfd55589b983c38f2b",
+      "docs/audit/manifest.json": "3ffcfae86722814311671452edf2b7f6fe8874f92a751834a373b40a1a8e0313",
+      "PROGRESS.md": "16fce02355748d7711acd7eba507ff42296153ec32296dfb849d78d1b916ee72"
+    }
+  },
+  "requirements": [
+    "Open shared post gallery from detail photo at selected media index",
+    "Preserve video controls and gallery video navigation",
+    "Exclude locked/read-only/text-only media and close/reset on post/access change",
+    "Preserve comments and previous local style edits"
+  ],
+  "sourceChange": "PostDetailPage: onOpen callback, viewer state/presence, shared PostOverlay, reset selected post when id/permission/readOnly changes",
+  "checks": {
+    "regression-before": {
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=clicking a detail image",
+        "tests/crefans-social.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:06:56.891983+00:00",
+      "finishedAt": "2026-10-24T17:06:57.272514+00:00",
+      "exitCode": 1,
+      "logSha256": "dbfdc288f218e722b209f1713110ecf8ec401e1f1f65068eb0377b82b97e6893"
+    },
+    "social-tests": {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-social.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:07:27.942894+00:00",
+      "finishedAt": "2026-10-24T17:07:29.144513+00:00",
+      "exitCode": 0,
+      "logSha256": "ccbf7fa008385e5ff550a2fbe39213d4e72523a72f61731e33a34fbb48c7b313"
+    },
+    "social-tests-final": {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-social.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:08:40.528856+00:00",
+      "finishedAt": "2026-10-24T17:08:41.787580+00:00",
+      "exitCode": 1,
+      "logSha256": "89ead0a224fa4bfe73f45938c3d209e3f3da45b549469790d7c34903c7a9bc6d"
+    },
+    "social-tests-verified": {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-social.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:09:42.989043+00:00",
+      "finishedAt": "2026-10-24T17:09:44.146925+00:00",
+      "exitCode": 0,
+      "logSha256": "d41c2de62ac6ce733143b002aae9a51b03c9a96d503f76e260ace375b2588be8"
+    },
+    "typecheck": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:08:40.528942+00:00",
+      "finishedAt": "2026-10-24T17:08:46.983853+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "typecheck-final": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:09:42.989022+00:00",
+      "finishedAt": "2026-10-24T17:09:49.196955+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "layers": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:08:47.013633+00:00",
+      "finishedAt": "2026-10-24T17:08:47.501841+00:00",
+      "exitCode": 0,
+      "logSha256": "066769b0847ce7b821fb23504fe26b3a3b4d2dd5ba440e20cdb53e6c7f8a3807"
+    },
+    "layers-final": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:09:49.234856+00:00",
+      "finishedAt": "2026-10-24T17:09:49.720917+00:00",
+      "exitCode": 0,
+      "logSha256": "066769b0847ce7b821fb23504fe26b3a3b4d2dd5ba440e20cdb53e6c7f8a3807"
+    },
+    "browser": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/post-detail-gallery-20261025/playwright.config.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:08:28.714420+00:00",
+      "finishedAt": "2026-10-24T17:08:51.103376+00:00",
+      "exitCode": 0,
+      "logSha256": "f4b6a86d637fdac1ef155201dc445f9ca1d8f93cb3bd65bba03e208244453503"
+    },
+    "browser-final": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/post-detail-gallery-20261025/playwright.config.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:09:42.989229+00:00",
+      "finishedAt": "2026-10-24T17:10:04.961973+00:00",
+      "exitCode": 0,
+      "logSha256": "e739df36e0847a63927a8d3d005cc196192c11e1c6f33f894d8dc59d0a9d2dba"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:10:49.741348+00:00",
+      "finishedAt": "2026-10-24T17:10:50.828581+00:00",
+      "exitCode": 0,
+      "logSha256": "54f5c6df902ea36efac5efc07613457abade28811b81a03c9fd878570ffecf18"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:10:50.855636+00:00",
+      "finishedAt": "2026-10-24T17:10:51.246475+00:00",
+      "exitCode": 0,
+      "logSha256": "b5bd9763ec8788e2b06fe0e1a7786c4ceb2765f1594e949953d9f0f3e1b35a63"
+    },
+    "browser-visual": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/post-detail-gallery-20261025/playwright.config.cjs",
+        "--grep",
+        "목업 상세는|실서비스 상세도"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:11:24.328577+00:00",
+      "finishedAt": "2026-10-24T17:11:37.838854+00:00",
+      "exitCode": 0,
+      "logSha256": "2def0d268092eab8c0905b4a0a0c13c4dc2df8f60fa469f8bd65ae05b141e10f"
+    },
+    "docs-record-final": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:11:52.746116+00:00",
+      "finishedAt": "2026-10-24T17:11:53.809870+00:00",
+      "exitCode": 0,
+      "logSha256": "54f5c6df902ea36efac5efc07613457abade28811b81a03c9fd878570ffecf18"
+    },
+    "docs-check-final": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T17:11:53.844724+00:00",
+      "finishedAt": "2026-10-24T17:11:54.242810+00:00",
+      "exitCode": 0,
+      "logSha256": "680b3947fc3c96d16a2265126a4de93b738502504bf1fc0a72824e5e98a18f77"
+    }
+  },
+  "failuresAndResolution": [
+    "Before implementation: detail zoom button count0 instead of2; reproduced bug",
+    "Access-restoration regression: closing animation briefly mounted stale viewer; clear selected postId as well as open flag; final24 pass"
+  ],
+  "results": {
+    "unitPassed": 24,
+    "browserPassed": 15,
+    "browserSkipped": 1,
+    "skipReason": "Desktop does not use mobile gallery dock",
+    "environments": [
+      "Chromium320",
+      "Chromium390",
+      "Chromium1280",
+      "WebKit390"
+    ],
+    "serviceValidation": "GET API mocked; no production writes; locked private media request count0",
+    "screenshotRetestPassed": 8
+  },
+  "files": {
+    "components/crefans/SocialPages.tsx": "f611b01709731e6dc70531e4227156f33122ecebf8a9c3dba4c6169a17aac0fc",
+    "tests/crefans-social.test.cjs": "caf2f06272504f3b06996f49386418e358fd993b13fe5fc0fb6d67e1fa499c7e",
+    "docs/design-system.md": "132612d621025b11a12c50f1a4e8ec974a930eaa81a0fed97c36638dd6ef6991",
+    "docs/audit/manifest.json": "5a6378a688d0a2e9bb3d69ad69e40e7f19968fb694fbcfec51ff04cdee24cca6",
+    "PROGRESS.md": "707fe848fc2f248f87ca69772c3b92181198f96ebff474f6720b452eec4c2073",
+    "e2e/post-detail-gallery.spec.ts": "ccceb33a96dbd7ab7046cd86463a1058bd8eb04d52a7870ae855c6414c9a8844"
+  },
+  "screenshots": {
+    ".local/post-detail-gallery-20261025/results-visual/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-webkit390/detail-gallery.png": "9d019db82f8b837ca0fe5d60b7565d6de5f33a5fc9f337c7920d6c69f8eb8031",
+    ".local/post-detail-gallery-20261025/results-visual/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-narrow320/detail-gallery.png": "4698e1de253f4ccd009958ba67b8f712805971c976c5e9357f7b1ad1e6bdaa54",
+    ".local/post-detail-gallery-20261025/results-visual/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-mobile390/detail-gallery.png": "894b35abe1562f5fb5f5ca5da13549b5112ef746ea10a440a9301e9dae9dbd11",
+    ".local/post-detail-gallery-20261025/results-visual/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-desktop/detail-gallery.png": "01221d223555d20e968141ebc288438673d76b6694ed98976d89fd19bb095f5c",
+    ".local/post-detail-gallery-20261025/results-visual/post-detail-gallery-실서비스-상-64414-잠긴-미디어와-텍스트-전용-글은-열기-버튼이-없다-mobile390/detail-gallery.png": "b0d48d14a6208fa74f99e153ebc49b4d396ab3472881dd702115ff840d48ded2",
+    ".local/post-detail-gallery-20261025/results-visual/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-desktop/detail-gallery.png": "7d86da24bd2bff89b40090bc81e8746b010d6737351c966170adb754655f3d45",
+    ".local/post-detail-gallery-20261025/results-visual/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-webkit390/detail-gallery.png": "142b57c69c73efb54e625e86e742ce08342d6321e6640909ab437822cb0278fb",
+    ".local/post-detail-gallery-20261025/results-visual/post-detail-gallery-목업-상세는-선택한-사진부터-공용-갤러리를-열고-이미지와-동영상을-넘긴다-narrow320/detail-gallery.png": "fe65259b864a71bcf703322190ec6c9e7556599596903cc6b9dd64b6906cc911"
+  },
+  "deployment": "Not performed; all changes in this task local only",
+  "limitations": [
+    "No physical device/production verification",
+    "Inline video keeps native controls as before; photo opens gallery, which can display videos",
+    "Previous WebKit focus-restoration assertion remains unverified; no claim of resolution here"
+  ],
+  "documentationSnapshot": "PASS; snapshot-only-not-test-proof; unit/browser validation recorded separately",
+  "visualReview": "Initial captures caught the stage mid-transition; wait for stage animations, retake all8 detail tests. WebKit390 inspected: media centered after slide settles, panel/input/close fit."
+}

@@ -22,6 +22,8 @@ export type StudioReport={
 export type StudioReportModel={
   response:ApiResult<StudioReport>|null;
   loading?:boolean;
+  /** A date-range request is in flight; the shown report stays until its response (loading rule). */
+  pending?:boolean;
   /** Applied range shown in the report. */
   dateRange:StudioReportDateRange;
   /** Range restored by the picker's 초기화 action. */

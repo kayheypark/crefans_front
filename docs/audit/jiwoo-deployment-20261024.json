@@ -1,0 +1,457 @@
+{
+  "recordedAt": "2026-10-24T03:20:09.739787+00:00",
+  "request": "지우만 운영 배포",
+  "repository": {
+    "at": "2026-10-24T03:13:13.734062+00:00",
+    "repository": "/Users/ethan/repository/crefans_front",
+    "branch": "feat/beta-signup",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "baselineTag": "crefans-front:feed-inbox-20261024",
+    "productionBaselineFilesMatched": 480,
+    "changed": [
+      "components/preview/service/fixtures.ts",
+      "lib/content/landing.ts"
+    ],
+    "added": [
+      "public/illustrations/creators/jiwoo/avatar-trail-v1.png",
+      "public/illustrations/creators/jiwoo/camp-coffee-v1.png",
+      "public/illustrations/creators/jiwoo/camp-morning-v1.png",
+      "public/illustrations/creators/jiwoo/coastal-walk-v1.png",
+      "public/illustrations/creators/jiwoo/cover-lakeside-v1.png",
+      "public/illustrations/creators/jiwoo/generation.json"
+    ],
+    "runtimeFiles": 486,
+    "excluded": "all other working-tree changes; backend/worker/database/settings untouched"
+  },
+  "release": {
+    "url": "https://beta.crefans.com",
+    "image": {
+      "at": "2026-10-24T03:15:18.028212+00:00",
+      "image": "crefans-front:jiwoo-20261024",
+      "id": "sha256:3c1bb688c72213fa47a25e5b452600301d71b4d54c65a765a5cd7c446dbb3419",
+      "architecture": "amd64",
+      "runtimeFilesMatched": 486,
+      "exitCode": 0
+    },
+    "backup": "/opt/crefans-backup-jiwoo-20261024",
+    "steps": [
+      {
+        "step": "prepare",
+        "startedAt": "2026-10-24T03:17:43.872501+00:00",
+        "finishedAt": "2026-10-24T03:17:44.886888+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "upload",
+        "startedAt": "2026-10-24T03:17:44.887594+00:00",
+        "finishedAt": "2026-10-24T03:17:52.945494+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "load",
+        "startedAt": "2026-10-24T03:17:52.946309+00:00",
+        "finishedAt": "2026-10-24T03:18:04.503619+00:00",
+        "exitCode": 0
+      },
+      {
+        "step": "deploy",
+        "startedAt": "2026-10-24T03:18:04.504063+00:00",
+        "finishedAt": "2026-10-24T03:18:12.308023+00:00",
+        "exitCode": 0
+      }
+    ],
+    "deploymentLog": " Container crefans-beta-frontend-1 Recreate \n Container crefans-beta-frontend-1 Recreated \n Container crefans-beta-frontend-1 Starting \n Container crefans-beta-frontend-1 Started \nHealth and ten preview/service routes passed\n{\"frontendImage\": \"sha256:3c1bb688c72213fa47a25e5b452600301d71b4d54c65a765a5cd7c446dbb3419\", \"running\": true, \"restarts\": 0, \"preservedServices\": [\"database\", \"api\", \"worker\", \"admin\", \"proxy\"]}\n",
+    "frontendOnly": true,
+    "noCommitMergePush": true
+  },
+  "selectionProof": {
+    "baselineRuntimeFilesMatched": 480,
+    "releaseRuntimeFilesMatched": 486,
+    "changed": [
+      "components/preview/service/fixtures.ts",
+      "lib/content/landing.ts"
+    ],
+    "added": [
+      "public/illustrations/creators/jiwoo/avatar-trail-v1.png",
+      "public/illustrations/creators/jiwoo/camp-coffee-v1.png",
+      "public/illustrations/creators/jiwoo/camp-morning-v1.png",
+      "public/illustrations/creators/jiwoo/coastal-walk-v1.png",
+      "public/illustrations/creators/jiwoo/cover-lakeside-v1.png",
+      "public/illustrations/creators/jiwoo/generation.json"
+    ],
+    "fileSha256": {
+      "components/preview/service/fixtures.ts": "dc673b8cc5f0893c285d32f182625fe3b463856115f265492e9b7934eca2cfe0",
+      "lib/content/landing.ts": "55f20f8f68e63d289104b0837792cae7fd52b18d6cc7bfee3b3c52ce1bc674dc",
+      "public/illustrations/creators/jiwoo/avatar-trail-v1.png": "79c518fec2d0e16ba6c8838330ece7f1940aceb229591d77a5c314b546506c88",
+      "public/illustrations/creators/jiwoo/camp-coffee-v1.png": "6c7baf973d820685a68c2d6331b2af29050525f1d2111568a65a453d06194740",
+      "public/illustrations/creators/jiwoo/camp-morning-v1.png": "d50422c219120838adbdfe7bc57804d866e94a3a68f0ac804ab016fe3afa1cd7",
+      "public/illustrations/creators/jiwoo/coastal-walk-v1.png": "30c7a96b0537e88e0bba4383e11a28904c9ae39ef89ba933b33bfa49a8a196a9",
+      "public/illustrations/creators/jiwoo/cover-lakeside-v1.png": "41aa88e1aa6cc8522de43b696b623abc5c4c4176e7fe5346885baed456422a69",
+      "public/illustrations/creators/jiwoo/generation.json": "fbbea6c7a17c61719724679477c315145c0e6c336d7132a0a43ca36ce60d5bb4"
+    },
+    "fullInventory": "/Users/ethan/repository/crefans_front/.local/jiwoo-deploy-20261024/release-hashes.json",
+    "fullInventorySha256": "e1a9e57a4bd397532606b5d9b7d28b8d8b79f64996e80ad117794712ef888787"
+  },
+  "content": {
+    "creator": "jiwoo",
+    "totalCreators": 8,
+    "totalPosts": 15,
+    "jiwooPosts": 3,
+    "publicPosts": 2,
+    "rank1Posts": 1,
+    "generatedImages": 5,
+    "existingTravelUrlPreserved": true,
+    "otherCreatorsUnchanged": true
+  },
+  "verification": {
+    "build": {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        "infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:jiwoo-20261024",
+        "."
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front/.local/jiwoo-deploy-20261024/source",
+      "startedAt": "2026-10-24T03:13:27.958104+00:00",
+      "finishedAt": "2026-10-24T03:15:03.410509+00:00",
+      "exitCode": 0,
+      "logSha256": "9d1132c9ba71faace58df62d7fca44204d029abed57352c4d810945a106ae12f"
+    },
+    "localImplementationCheck": {
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "startedAt": "2026-10-24T03:01:36.126206+00:00",
+      "finishedAt": "2026-10-24T03:01:43.858371+00:00",
+      "exitCode": 0
+    },
+    "localCheckScope": "292 tests on working tree before selective release; release proof is separate image/browser/hash verification",
+    "imageBrowser": {
+      "at": "2026-10-24T03:17:25.989Z",
+      "origin": "http://127.0.0.1:3013",
+      "results": [
+        {
+          "engine": "chromium",
+          "browser": "156.0.8078.4",
+          "width": 320,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        },
+        {
+          "engine": "chromium",
+          "browser": "156.0.8078.4",
+          "width": 390,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        },
+        {
+          "engine": "chromium",
+          "browser": "156.0.8078.4",
+          "width": 1280,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        },
+        {
+          "engine": "webkit",
+          "browser": "27.2",
+          "width": 390,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        }
+      ]
+    },
+    "imageBrowserExecution": {
+      "command": [
+        "node",
+        "/Users/ethan/repository/crefans_front/.local/jiwoo-deploy-20261024/image/browser.cjs"
+      ],
+      "startedAt": "2026-10-24T03:16:58.236315+00:00",
+      "finishedAt": "2026-10-24T03:17:25.998064+00:00",
+      "exitCode": 0,
+      "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+    },
+    "productionBrowser": {
+      "at": "2026-10-24T03:19:48.819Z",
+      "origin": "https://beta.crefans.com",
+      "results": [
+        {
+          "engine": "chromium",
+          "browser": "156.0.8078.4",
+          "width": 320,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        },
+        {
+          "engine": "chromium",
+          "browser": "156.0.8078.4",
+          "width": 390,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        },
+        {
+          "engine": "chromium",
+          "browser": "156.0.8078.4",
+          "width": 1280,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        },
+        {
+          "engine": "webkit",
+          "browser": "27.2",
+          "width": 390,
+          "profilePosts": 3,
+          "travelFilterPosts": 3,
+          "avatarAndCoverOverlays": true,
+          "campGalleryNext": true,
+          "mediaAndAboutTabs": true,
+          "exploreAndBothLandings": true,
+          "postRoutes": 3,
+          "pageErrors": []
+        }
+      ]
+    },
+    "productionBrowserExecution": {
+      "command": [
+        "node",
+        "/Users/ethan/repository/crefans_front/.local/jiwoo-deploy-20261024/production/browser.cjs"
+      ],
+      "startedAt": "2026-10-24T03:19:16.414211+00:00",
+      "finishedAt": "2026-10-24T03:19:48.825769+00:00",
+      "exitCode": 0,
+      "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+    },
+    "productionHashesAndAssets": {
+      "at": "2026-10-24T03:19:19.745748+00:00",
+      "imageId": "sha256:3c1bb688c72213fa47a25e5b452600301d71b4d54c65a765a5cd7c446dbb3419",
+      "runtimeFilesMatched": 486,
+      "assets": [
+        {
+          "path": "/illustrations/creators/jiwoo/avatar-trail-v1.png",
+          "status": 200,
+          "bytes": 2657430,
+          "sha256": "79c518fec2d0e16ba6c8838330ece7f1940aceb229591d77a5c314b546506c88"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/camp-coffee-v1.png",
+          "status": 200,
+          "bytes": 2736544,
+          "sha256": "6c7baf973d820685a68c2d6331b2af29050525f1d2111568a65a453d06194740"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/camp-morning-v1.png",
+          "status": 200,
+          "bytes": 2591954,
+          "sha256": "d50422c219120838adbdfe7bc57804d866e94a3a68f0ac804ab016fe3afa1cd7"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/coastal-walk-v1.png",
+          "status": 200,
+          "bytes": 2450840,
+          "sha256": "30c7a96b0537e88e0bba4383e11a28904c9ae39ef89ba933b33bfa49a8a196a9"
+        },
+        {
+          "path": "/illustrations/creators/jiwoo/cover-lakeside-v1.png",
+          "status": 200,
+          "bytes": 2998997,
+          "sha256": "41aa88e1aa6cc8522de43b696b623abc5c4c4176e7fe5346885baed456422a69"
+        }
+      ],
+      "exitCode": 0
+    },
+    "visualReview": [
+      "image/chromium-320-profile.png",
+      "image/chromium-390-travel-feed.png",
+      "production/chromium-390-profile.png",
+      "production/chromium-1280-profile.png"
+    ]
+  },
+  "initialFailures": {
+    "preparation": {
+      "exitCode": 1,
+      "reason": "New inventory omitted infra/platform/Dockerfile, which was present in prior inventory; corrected inventory before remote comparison or overlay. No production changes."
+    },
+    "imageBrowserExecution": {
+      "command": [
+        "node",
+        "/Users/ethan/repository/crefans_front/.local/jiwoo-deploy-20261024/image/browser.cjs"
+      ],
+      "startedAt": "2026-10-24T03:15:20.553455+00:00",
+      "finishedAt": "2026-10-24T03:15:31.907802+00:00",
+      "exitCode": 1,
+      "logSha256": "80e41162bce11bd062a690d9e64d17f96a9bccda451ebdbda5515f2b12e44766"
+    },
+    "imageBrowserLog": "chromium 320 PASS\nchromium 390 PASS\nchromium 1280 PASS\nAssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   '/127.0.0.1:3013/preview/me?_rsc=10y7x due to access control checks.',\n+   '/127.0.0.1:3013/preview/me?_rsc=s0lkc due to access control checks.'\n+ ]\n- []\n    at /Users/ethan/repository/crefans_front/.local/jiwoo-deploy-20261024/image/browser.cjs:7:8 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: [Array],\n  expected: [],\n  operator: 'deepStrictEqual'\n}\n",
+    "prefetchComparison": {
+      "at": "2026-10-24T03:16:50.159Z",
+      "results": [
+        {
+          "origin": "https://beta.crefans.com",
+          "errors": [
+            {
+              "url": "https://beta.crefans.com/preview/explore?q=%EC%A7%80%EC%9A%B0",
+              "message": "/beta.crefans.com/preview/me?_rsc=10y7x due to access control checks."
+            }
+          ],
+          "failed": [
+            {
+              "url": "https://beta.crefans.com/video_1.mp4",
+              "error": "cancelled"
+            },
+            {
+              "url": "https://beta.crefans.com/preview/feed?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "https://beta.crefans.com/preview/messages?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "https://beta.crefans.com/preview/explore?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "https://beta.crefans.com/preview/creator/jiwoo?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "https://beta.crefans.com/preview/notifications?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "https://beta.crefans.com/preview/feed?_rsc=radvo",
+              "error": "cancelled"
+            },
+            {
+              "url": "https://beta.crefans.com/api/v1/bootstrap",
+              "error": "cancelled"
+            }
+          ]
+        },
+        {
+          "origin": "http://127.0.0.1:3013",
+          "errors": [
+            {
+              "url": "http://127.0.0.1:3013/preview/explore?q=%EC%A7%80%EC%9A%B0",
+              "message": "/127.0.0.1:3013/preview/me?_rsc=10y7x due to access control checks."
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/post/travel",
+              "message": "/127.0.0.1:3013/preview/me?_rsc=s0lkc due to access control checks."
+            }
+          ],
+          "failed": [
+            {
+              "url": "http://127.0.0.1:3013/preview/explore?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/notifications?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/creator/jiwoo?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/feed?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/messages?_rsc=10y7x",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/feed?_rsc=radvo",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/service/feed?_rsc=qj9fk",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/creator/jiwoo?_rsc=s0lkc",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/explore?_rsc=s0lkc",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/messages?_rsc=s0lkc",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/notifications?_rsc=s0lkc",
+              "error": "cancelled"
+            },
+            {
+              "url": "http://127.0.0.1:3013/preview/feed?_rsc=s0lkc",
+              "error": "cancelled"
+            }
+          ]
+        }
+      ]
+    },
+    "resolution": "Inventory corrected before deployment; fast full document navigation aborts pending Next prefetches in WebKit on both previous production and new image. Harness now waits for current network requests before full navigation, then asserts actual UI and zero page errors. No product prefetch code changed; original failure remains recorded."
+  },
+  "boundaries": [
+    "Mock fixtures and shared asset-mode landing only; no real creator or posts inserted in production DB.",
+    "Frontend replaced; database, API, worker, admin, proxy container IDs preserved. No runtime auth/payment/media settings or SSH rules changed.",
+    "Chromium/WebKit desktop automation with mobile viewports; no physical iPhone/Safari verification.",
+    "Existing WebKit rapid full-document-navigation prefetch cancellation remains outside the Jiwoo content change.",
+    "Previously prepared PASS/email-only signup and other unselected working-tree changes excluded."
+  ],
+  "rawArtifactsDirectory": "/Users/ethan/repository/crefans_front/.local/jiwoo-deploy-20261024"
+}

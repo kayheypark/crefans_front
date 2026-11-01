@@ -1,0 +1,754 @@
+{
+  "date": "2026-10-24",
+  "accountCount": 17,
+  "guestContexts": [
+    {
+      "role": "G0",
+      "requiresAdditionalPerson": false
+    }
+  ],
+  "recruitsIfOwnerIsAdmin": 16,
+  "accounts": [
+    {
+      "role": "C0",
+      "type": "creator",
+      "baselineSubscribers": 0
+    },
+    {
+      "role": "C2",
+      "type": "creator",
+      "baselineSubscribers": 2
+    },
+    {
+      "role": "C10",
+      "type": "creator",
+      "baselineSubscribers": 10
+    },
+    {
+      "role": "A0",
+      "type": "admin"
+    },
+    {
+      "role": "N0",
+      "type": "non-subscriber"
+    },
+    {
+      "role": "S01",
+      "type": "subscriber"
+    },
+    {
+      "role": "S02",
+      "type": "subscriber"
+    },
+    {
+      "role": "S03",
+      "type": "subscriber"
+    },
+    {
+      "role": "S04",
+      "type": "subscriber"
+    },
+    {
+      "role": "S05",
+      "type": "subscriber"
+    },
+    {
+      "role": "S06",
+      "type": "subscriber"
+    },
+    {
+      "role": "S07",
+      "type": "subscriber"
+    },
+    {
+      "role": "S08",
+      "type": "subscriber"
+    },
+    {
+      "role": "S09",
+      "type": "subscriber"
+    },
+    {
+      "role": "S10",
+      "type": "subscriber"
+    },
+    {
+      "role": "S11",
+      "type": "subscriber"
+    },
+    {
+      "role": "S12",
+      "type": "subscriber"
+    }
+  ],
+  "initialSubscriptions": [
+    {
+      "subscriber": "S01",
+      "creator": "C2",
+      "rank": 1,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S02",
+      "creator": "C2",
+      "rank": 2,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S03",
+      "creator": "C10",
+      "rank": 1,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S04",
+      "creator": "C10",
+      "rank": 1,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S05",
+      "creator": "C10",
+      "rank": 1,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S06",
+      "creator": "C10",
+      "rank": 1,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S07",
+      "creator": "C10",
+      "rank": 2,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S08",
+      "creator": "C10",
+      "rank": 2,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S09",
+      "creator": "C10",
+      "rank": 2,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S10",
+      "creator": "C10",
+      "rank": 2,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S11",
+      "creator": "C10",
+      "rank": 3,
+      "testAmount": 10000
+    },
+    {
+      "subscriber": "S12",
+      "creator": "C10",
+      "rank": 3,
+      "testAmount": 10000
+    }
+  ],
+  "testPolicy": {
+    "feeBps": 2000,
+    "gross": 120000,
+    "fees": 24000,
+    "net": 96000,
+    "settlementHoldDays": "business decision pending; 0 used ONLY in isolated test"
+  },
+  "scenarios": [
+    {
+      "id": "A01",
+      "verificationType": "화면·공급사",
+      "acceptance": "U1(생일 기준 만19세 이상)이 이메일 인증→PASS→약관 동의→가입→로그인한다. 각 서버 증명이 확인되기 전에는 가입되지 않고 가입 후 새 세션이 발급된다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "A02",
+      "verificationType": "화면·API",
+      "acceptance": "인증번호 오입력·10분 만료·재사용·다른 이메일의 증명을 시도한다. 가입/이메일 변경 권한이 생기지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "A03",
+      "verificationType": "화면·API",
+      "acceptance": "인증 요청 후 이탈→새 브라우저에서 같은 이메일 재요청한다. 서버 기준 3분 쿨다운, 제한 후 정상 재요청, 제한 우회/코드 유출 없음.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "A04",
+      "verificationType": "API·공급사",
+      "acceptance": "PASS 취소·시간 초과·서명 위조·다른 attempt/state/목적·다른 사용자·중복 콜백을 시도한다. 가짜 인증과 중복 가입/출금 인증을 거부한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "A05",
+      "verificationType": "화면·API",
+      "acceptance": "필수값 누락·비밀번호 불일치·중복 이메일·약관 미동의와 verified=true 변조를 시도한다. UI와 서버 모두 거부한다. 연령 미확인/미달 proof와 adultVerified/birthDate 자가신고 우회도 거부한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "A06",
+      "verificationType": "화면·API",
+      "acceptance": "이메일/비밀번호 조합과 반복 로그인·코드 추측을 시험한다. 유효한 인증만 허용하고 정한 속도 제한을 적용한다. 타인의 계정 존재·비밀값을 불필요하게 노출하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "A07",
+      "verificationType": "화면·API",
+      "acceptance": "access 만료→refresh→여러 탭 동시 갱신→이전 refresh 재사용을 시험한다. 권한 상승/회전 토큰 재사용이 없고 정상 다중 탭이 불필요하게 로그아웃되지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "A08",
+      "verificationType": "화면·API",
+      "acceptance": "로그아웃·비밀번호 변경/재설정·탈퇴 후 이전 access/refresh 쿠키로 요청한다. 정책상 철회할 세션은 무효, 이전 본문·댓글이 다른 계정 화면에 남지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "A09",
+      "verificationType": "API·운영",
+      "acceptance": "HTTPS에서 쿠키 HttpOnly/Secure/SameSite 설정과 외부 Origin·Origin 없는 인증 쓰기 요청을 시험한다. CSRF로 결제·설정·출금이 실행되지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "A10",
+      "verificationType": "화면·API",
+      "acceptance": "탈퇴 시 갱신 구독/출금 처리 중 상태, 탈퇴 재가입, 기존 거래 열람·보존을 시험한다. 결제가 몰래 계속되지 않고 보존/삭제 정책과 맞는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S01",
+      "verificationType": "화면·API",
+      "acceptance": "준비된 모든 계정으로 PAID1/PAID2/OTHER를 홈·프로필·상세·오버레이·저장/좋아요 목록에서 조회한다. 역할별 권한표와 일치한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S02",
+      "verificationType": "API",
+      "acceptance": "bootstrap/posts/detail의 응답을 직접 읽는다. 미권한 계정에 유료 본문·미디어·썸네일·원본/변환본 URL이 들어있지 않는다. 단순 CSS 숨김은 실패다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S03",
+      "verificationType": "API",
+      "acceptance": "이미지·영상·썸네일·변환본 주소를 G/F0/F2/F3/F5에 전달한다. 직접 GET/HEAD/Range, 다운로드, 경로/쿼리 변조로 바이트를 얻지 못한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S04",
+      "verificationType": "API·운영",
+      "acceptance": "서버 미디어 볼륨의 정적 경로, 기존 S3/CloudFront 원본 주소, 대체 도메인을 시험한다. API 권한 검사 우회 없음. 서명 URL을 쓰면 만료/전달 위험까지 검증한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S05",
+      "verificationType": "API",
+      "acceptance": "같은 미디어를 PAID1과 공개 글 또는 멤버십 표지에 연결한다. 공개 참조가 제한을 낮추지 않는다. P1/P2 두 상품 공유 파일은 현재 모든 연결 상품 권한이 필요한 정책과 맞는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S06",
+      "verificationType": "화면·API",
+      "acceptance": "미권한 계정으로 댓글·답글·댓글 페이징 조회/등록·좋아요·저장을 요청한다. 유료 내용 노출과 무단 상호작용을 차단한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S07",
+      "verificationType": "API",
+      "acceptance": "본문/쿼리의 viewer/owner/memberId/creatorId를 C1/F1로 바꾸거나 타인 쿠키 없는 요청을 보낸다. 서버가 검증한 세션 외의 사용자 ID를 신뢰하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S08",
+      "verificationType": "화면·API",
+      "acceptance": "C2/F0가 C1 글·미디어·댓글을 수정/삭제/숨김·스튜디오 조회한다. 자신의 자료만 처리하며 타인 스튜디오/파일 정보를 노출하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S09",
+      "verificationType": "API",
+      "acceptance": "미래 시작/종료시각 직전·정각·직후, EXPIRED/CANCELLED/환불 완료를 시험한다. 시작 <= 현재 < 종료; 해지 후 남은 기간만 허용한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S10",
+      "verificationType": "화면·API",
+      "acceptance": "draft/예약 전/삭제/숨김/공개 기간 밖 게시물을 직접 조회한다. 타인에게 본문·댓글·파일이 열리지 않는다. 작성자의 편집·미리보기는 별도 유지된다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S11",
+      "verificationType": "화면·API",
+      "acceptance": "구독이 있지만 비성인/미인증인 계정으로 ADULT를 조회한다. 서버가 성인 증명을 추가 검증하고 공개 글에 파일을 재사용해도 우회되지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "S12",
+      "verificationType": "화면·API·운영",
+      "acceptance": "F1 조회→로그아웃→F0 로그인, 뒤로가기·새로고침·다른 탭·프록시/CDN을 시험한다. 개인 응답 no-store와 권한 재검증, 이전 계정의 지연 응답 반영 차단. 이미 내려받은 파일의 복제 방지는 접근제어 보장 범위 밖이다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C01",
+      "verificationType": "화면·API",
+      "acceptance": "C1/C2 각각 등록·수정·임시저장·예약·삭제한다. 소유권, 실제 재조회, 예약 자동 발행/취소가 일치한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C02",
+      "verificationType": "화면·API",
+      "acceptance": "JPG/PNG/WebP 5MB, MP4/WebM 300MB 경계와 10개/11개·MOV·위장 MIME·손상 파일을 시험한다. 서버가 허용 형식/용량을 검증하고 거부 후 고아 파일을 정리한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C03",
+      "verificationType": "화면·API",
+      "acceptance": "이미지·동영상 혼합 10개 순서 변경→저장→재로그인한다. 순서·미디어 개수/아이콘·영상 탐색/재생이 PC/모바일에서 맞는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C04",
+      "verificationType": "화면·장애",
+      "acceptance": "업로드 취소·연결 단절·저장 직전 서버 오류·동시 수정한다. 반쯤 저장한 글·유실한 연결·중복 게시가 생기지 않고 오류/재시도 상태를 표시한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C05",
+      "verificationType": "화면·API",
+      "acceptance": "크리에이터 전체 댓글 OFF/ON과 개별 글 OFF/ON 조합을 시험한다. 전체 OFF 우선, 답글은 요청할 때 조회, 작성자 강조/태그/10개 페이징이 일치한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C06",
+      "verificationType": "화면·API",
+      "acceptance": "공개 글·댓글·프로필·SNS에 스크립트/위험 URL을 넣는다. 저장형 XSS/위험 링크가 실행되지 않으며 파일이 실행 콘텐츠로 제공되지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C07",
+      "verificationType": "화면·API",
+      "acceptance": "전체 최신순 피드에 40개 이상 글을 만들고 읽는 중 새 발행/삭제한다. 커서 추가 조회에서 중복/건너뜀을 검수하고 정확한 종료 안내를 표시한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C08",
+      "verificationType": "화면·API",
+      "acceptance": "팔로우/해제 confirm·저장·좋아요·알림 읽음·검색·팔로잉 비공개를 다계정으로 시험한다. 재로그인 후 상태 유지, 타인 비공개 자료 노출 없음.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C09",
+      "verificationType": "화면·API",
+      "acceptance": "메시지·차단·신고·문의·운영자 답변을 시험한다. 타인의 대화/문의는 조회되지 않고 차단 정책이 화면과 서버에 동일하게 적용된다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "C10",
+      "verificationType": "화면",
+      "acceptance": "지원하는 PC/모바일 브라우저에서 로그인 유도·오버레이·미디어 드래그·빈 상태·필수값 disabled를 확인한다. 핵심 동선이 막히지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B01",
+      "verificationType": "화면·공급사",
+      "acceptance": "F0 카드 등록을 공식 Toss 창에서 완료한다. 등록만으로 구독/청구가 생기지 않고 마스킹된 카드만 표시된다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B02",
+      "verificationType": "API·공급사",
+      "acceptance": "카드번호/CVC·시크릿키·billingKey가 프론트/URL/로그/네트워크 응답에 노출되지 않는다. 브라우저 복귀 authKey는 즉시 주소에서 지워지고 서버 보존은 암호화/만료 정책과 맞는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B03",
+      "verificationType": "화면·API",
+      "acceptance": "등록 취소·이탈·만료 후 복귀, 다른 계정으로 복귀, registration/state/customerKey 위조를 시험한다. 무단/중복 카드 등록을 차단한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B04",
+      "verificationType": "장애·공급사",
+      "acceptance": "등록 콜백 중복·PG 발급 성공 뒤 응답 단절·서버 재시작·동시 worker를 시험한다. 같은 등록 시도에 중복 레코드/고아 빌링키가 남지 않고 불확실 상태를 대사한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B05",
+      "verificationType": "화면·API",
+      "acceptance": "카드 A/B 등록→기본 변경→갱신 카드 변경→삭제한다. 기본 카드 정확히 하나, 타인 카드 변경/삭제 금지, 사용 중 카드 삭제 정책 준수.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B06",
+      "verificationType": "장애·공급사",
+      "acceptance": "카드 삭제 후 PG 폐기 실패/시간 초과·계정 비활성 중 발급 완료를 시험한다. 서비스 승인에 재사용되지 않고 폐기 재시도/운영 경보를 확인한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B07",
+      "verificationType": "화면·공급사",
+      "acceptance": "F0 P1 첫 결제를 한다. 화면 가격=서버 주문=PG 승인, 승인 확인 후 구독 1개와 원장 1개, 권한 활성화·내역/영수증 표시가 맞는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B08",
+      "verificationType": "API",
+      "acceptance": "금액/수수료/상품/구매자/카드 ID를 변조한다. 서버 가격·소유권을 사용하고 타인 카드로 청구되지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B09",
+      "verificationType": "화면·API",
+      "acceptance": "주문 만료·비활성/삭제 상품·비활성 크리에이터·본인 상품·이미 같은 크리에이터 구독을 시험한다. 현재 정책상 구매 불가이며 돈이 청구되지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B10",
+      "verificationType": "API·장애",
+      "acceptance": "더블클릭·새로고침·콜백 재전송·같은 requestId·서로 다른 requestId/주문을 여러 탭에서 동시에 결제한다. 한 가입 의도에 성공 청구·구독·원장이 각각 1개다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B11",
+      "verificationType": "API",
+      "acceptance": "다른 계정의 주문 조회/승인/환불, 같은 멱등키로 다른 상품·계정·금액을 요청한다. 정보 노출·거래 변경을 거부한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B12",
+      "verificationType": "공급사·장애",
+      "acceptance": "한도/잔액 부족·카드 거절·잘못된 키·공급사 오류를 시험한다. 명확한 실패와 불확실 결과를 구분하고 승인 없는 유료 권한/수익을 만들지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B13",
+      "verificationType": "장애·공급사",
+      "acceptance": "PG 승인 직후 응답 단절→조회/동일 주문 재시도한다. 실제 결제를 조회해 복구하며 새 주문 청구로 대체하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B14",
+      "verificationType": "장애·공급사",
+      "acceptance": "PG 승인→DB 반영 전 프로세스 강제 종료→재시작한다. 대사로 권한/원장을 한 번만 반영하고 영구 누락이 없다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B15",
+      "verificationType": "API·공급사",
+      "acceptance": "가짜 successUrl·DONE·paymentKey와 잘못된 PG orderId/amount를 전달한다. 서버의 공급사 조회/응답 확인 없이 결제가 성공하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "B16",
+      "verificationType": "화면·공급사·운영",
+      "acceptance": "테스트 상점에서 등록/청구/취소 후 라이브 계약·키·카드사 심사 차이를 점검한다. 승인된 범위의 소액 실거래/취소 대사를 별도 수행한다. 이 목록은 실청구 실행 승인이 아니다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R01",
+      "verificationType": "장애·공급사",
+      "acceptance": "F1 첫 갱신 시각을 검수 환경에서 도래시킨다. 한 주기당 한 번 청구, 금액/카드/기간/원장/알림이 맞고 승인 전 기간이 연장되지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R02",
+      "verificationType": "장애",
+      "acceptance": "worker 2개·재실행·재시작이 같은 주기를 처리한다. 동일 주기 주문/PG 거래/원장이 중복되지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R03",
+      "verificationType": "장애·공급사",
+      "acceptance": "갱신 승인 후 응답 단절·DB 오류를 주입한다. processing을 유지하고 같은 주기의 실제 거래를 조회해 복구한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R04",
+      "verificationType": "공급사·장애",
+      "acceptance": "카드 거절·카드 만료·폐기 후 갱신한다. 확정된 재시도 횟수/간격·사용자 알림·권한 유예/차단·최종 만료가 모두 일치한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R05",
+      "verificationType": "화면·공급사",
+      "acceptance": "실패 후 카드 변경→재시도 성공한다. 정한 기간만 한 번 연장, 실패 내역이 사라지지 않고 성공 주문과 구별된다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R06",
+      "verificationType": "화면·API",
+      "acceptance": "F4가 기간 중 해지→재로그인→종료 전/후 조회한다. 다음 청구가 중단되고 결제 기간 끝까지 권한을 유지한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R07",
+      "verificationType": "API·장애·공급사",
+      "acceptance": "갱신 주문 생성 직전/직후·PG 요청 중에 해지/탈퇴/카드 삭제한다. 정한 경계 규칙에 따라 청구 취소/환불/구독 반영이 일관되고 해지 이후 반복 청구가 없다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R08",
+      "verificationType": "화면·API",
+      "acceptance": "C1 상품 가격·혜택을 변경한 뒤 기존 F1/F4와 신규 가입을 비교한다. 가입 당시 snapshot과 정한 가격 변경 동의를 준수한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R09",
+      "verificationType": "장애",
+      "acceptance": "1월31일→2월, 윤년2월29일→다음해, 월말 반복을 시험한다. 결제 기준일·기간·KST 표시가 확정 정책과 맞고 날짜가 누적 이동하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R10",
+      "verificationType": "장애·공급사",
+      "acceptance": "서버가 갱신일을 넘겨 1일/여러 주기 중단된 뒤 복구된다. 미제공 기간을 무조건 여러 번 청구하지 않으며 누락/몰아 청구 정책과 사용자 안내를 준수한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R11",
+      "verificationType": "화면·API",
+      "acceptance": "해지 후 만료 전 재가입·만료 후 재가입·상품 전환을 시험한다. 지원하지 않는 중복 구독/업다운그레이드를 숨기지 않고 서버에서도 거부한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R12",
+      "verificationType": "장애·공급사",
+      "acceptance": "상품 비활성/삭제·크리에이터 활동 중단·서비스 종료·계정 탈퇴가 갱신과 겹친다. 기존 이용·갱신 중단·환불 정책과 실제 청구가 맞는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R13",
+      "verificationType": "장애·운영",
+      "acceptance": "SMTP/알림 실패가 발생해도 거래 상태는 유지되고 재통지/운영 경보가 가능하다. 통지 실패를 청구 재시도로 오인하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R14",
+      "verificationType": "API·운영",
+      "acceptance": "과거 snapshot 없는 구독·기존 customerKey/카드·이관 데이터로 갱신한다. 확인되지 않은 가격/권한으로 청구하지 않고 별도 이관 절차를 요구한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "R15",
+      "verificationType": "운영·공급사",
+      "acceptance": "청구 예정/처리 중/성공/실패/재시도/해지/만료 내역을 PG 거래와 일별 대사한다. 장기 미확인 주문과 worker 오류가 경보·담당자에게 연결된다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F01",
+      "verificationType": "화면·공급사",
+      "acceptance": "첫 결제 전액 환불한다. PG 취소 확인, 주문 refunded, 환불액·수익 반전·권한·다음 청구·내역이 정한 정책대로 일치한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F02",
+      "verificationType": "API·장애",
+      "acceptance": "환불 버튼 반복·여러 탭·관리자/worker 중복 요청을 시험한다. 실제 취소·원장 반영은 1회, 이미 환불된 거래는 동일 결과를 반환한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F03",
+      "verificationType": "장애·공급사",
+      "acceptance": "PG 취소 직후 응답 단절→재조회/재시작한다. 미확인 상태에서 환불 완료를 표시하지 않고 실제 결과로 한 번만 복구한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F04",
+      "verificationType": "화면·API",
+      "acceptance": "기간 내/경계/기간 밖·콘텐츠 제공 전/후·서비스 미제공·상품 설명 불일치를 시험한다. 단일 날짜 제한으로 법적 청약철회/분쟁 경로를 막지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F05",
+      "verificationType": "API·공급사",
+      "acceptance": "여러 주기 갱신 후 과거 한 주기만 환불한다. 정한 범위 밖 현재 유효 구독까지 무조건 만료시키지 않고 관련 원장만 반전한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F06",
+      "verificationType": "API·장애·공급사",
+      "acceptance": "갱신 승인/결제 대사와 환불을 동시에 실행한다. 종료된 거래의 권한 부활·환불 뒤 추가 청구·중복 수익이 없다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F07",
+      "verificationType": "API·운영",
+      "acceptance": "부분/일할 환불을 정한 경우 금액·잔여 이용 기간·다중 부분 취소를 검증한다. 출시에서 제외한다면 API/안내/고객센터 처리 범위도 명확하다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F08",
+      "verificationType": "API·운영",
+      "acceptance": "환불 가능액 초과·음수/소수/문자·다른 계정 주문을 시험한다. 초과 환불/타인 환불이 발생하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F09",
+      "verificationType": "운영·공급사",
+      "acceptance": "정산 보류/출금 신청/송금 중/지급 완료 후 환불을 각각 수행한다. 보류·가용 잔액·지급 채무가 중복 계산되지 않고 지급 후 손실 회수 정책을 적용한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F10",
+      "verificationType": "운영·공급사",
+      "acceptance": "카드사 분쟁·차지백·부정거래를 공급사 허용 방식으로 재현/운영 훈련한다. 결제·환불·정산 보류·증거 제출·고객 대응의 책임과 상태가 맞는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F11",
+      "verificationType": "API·운영",
+      "acceptance": "금액·플랫폼 수수료·PG 수수료·VAT·원단위 반올림·취소 비용을 검산한다. 청구·환불·창작자 순수익·지급이 확정된 공식과 일치한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "F12",
+      "verificationType": "운영·공급사",
+      "acceptance": "모든 주문을 PG 승인/취소와 대사하고 원장→정산→출금→은행 결과를 추적한다. 사유 없는 차액 0원, 외부 수수료/시차 차이는 금액·근거·해소 책임을 기록한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W01",
+      "verificationType": "화면·API",
+      "acceptance": "C1/C2의 수익·정산·출금·계좌를 상호 교차 조회/변경한다. 본인만 접근하며 팬/비관리자는 운영 처리에 접근하지 못한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W02",
+      "verificationType": "화면·API",
+      "acceptance": "수익 보류→지급 가능 시각 경계를 검증한다. 보류 금액을 출금하지 못하고 가용액=확정 순수익-보류-접수/처리 중-지급 완료로 정한 공식과 일치한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W03",
+      "verificationType": "화면·공급사",
+      "acceptance": "본인 계좌 등록·실명 확인·기본 변경, 타인 계좌/별칭 위조를 시험한다. 실제 공급사 검증 결과로만 verified가 되고 미확인 계좌는 출금 불가다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W04",
+      "verificationType": "화면·API",
+      "acceptance": "PASS 없이 PIN 설정/재설정, 타인·다른 목적/소비·만료 proof를 시험한다. 본인 증명만 일회용으로 소비하고 기존 출금 승인을 무효화한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W05",
+      "verificationType": "API",
+      "acceptance": "PIN 오입력·동시 추측·잠금 기간·정상 PIN을 시험한다. 정한 제한/잠금이 직렬화되고 인증 전 송금 권한이 생기지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W06",
+      "verificationType": "화면·API",
+      "acceptance": "0/음수/소수/최대값/가용액 초과 출금과 정상 출금을 시험한다. 서버가 금액·본인 계좌·실잔액을 검증하고 승인 결과를 보여준다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W07",
+      "verificationType": "API",
+      "acceptance": "PIN 인증 후 금액/계좌 변경·계좌 버전 변경·2분 만료·다른 계정/동일 승인 재사용을 시험한다. 인증한 내용과 같은 출금만 한 번 접수된다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W08",
+      "verificationType": "API·장애",
+      "acceptance": "잔액보다 큰 총액을 여러 탭/서로 다른 requestId로 동시 신청한다. 총 예약액이 가용액을 넘지 않으며 같은 키는 동일 신청 결과다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W09",
+      "verificationType": "API·장애",
+      "acceptance": "신청/처리 중 계좌 수정·삭제·기본 변경·계정 탈퇴·환불을 시험한다. 송금 계좌 바뀜과 잔액 이중 사용을 차단한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W10",
+      "verificationType": "장애·공급사",
+      "acceptance": "송금 pending/거절/성공·타임아웃·은행 성공 후 서버 중단·worker 중복을 시험한다. 신청과 지급을 구분하며 같은 지급 ID로 중복 이체되지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W11",
+      "verificationType": "운영·공급사",
+      "acceptance": "지급 거절·재시도·잔액 복구·운영자 처리, 공급사 조회 결과 위조를 시험한다. 가용액 복구는 1회, 불확실 이체를 실패로 단정해 재송금하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "W12",
+      "verificationType": "운영·공급사",
+      "acceptance": "실제 PG 정산 주기·은행 지급 결과·필요한 세금/증빙·계약상의 판매자 역할을 확인한다. 내부 원장 보류 해제가 은행 현금 입금 완료를 의미하지 않으며 지급 재원이 확보된다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O01",
+      "verificationType": "API·운영",
+      "acceptance": "G/F0/C1/A2가 관리자 API와 역할별 기능을 요청한다. 최소 권한, 비활성 즉시 철회, 민감 처리는 감사 기록을 남긴다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O02",
+      "verificationType": "운영",
+      "acceptance": "보고된 critical/high 의존성 취약점을 실제 경로·패치로 검토하고 검사한다. 미평가 중대 취약점/비밀값 노출/권한 누출이 남지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O03",
+      "verificationType": "운영",
+      "acceptance": "신규 `/service`와 platform 런타임 배포·TLS·도메인·쿠키·미디어 권한·설정 누락을 검증한다. 예전 런타임으로 배포되거나 목업으로 결제하지 않는다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O04",
+      "verificationType": "장애·운영",
+      "acceptance": "DB/API/worker/SMTP/PG/은행 중단·디스크 부족을 순차 주입한다. 가짜 성공·데이터 손상 없이 실패/확인 중 표시, 경보와 복구 절차가 동작한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O05",
+      "verificationType": "운영",
+      "acceptance": "DB·미디어·암호화 키를 백업에서 격리 서버로 복구한다. 게시물·구독·거래 연결/암호화 값이 정상이며 정한 RPO/RTO를 충족한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O06",
+      "verificationType": "장애·운영",
+      "acceptance": "결제 처리 중 배포·재시작·롤백한다. DB 호환성, 진행 거래 재확인, 중복 청구/송금 방지가 유지된다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O07",
+      "verificationType": "운영",
+      "acceptance": "예상 피크 이상의 합의된 동시 조회/영상/업로드/결제를 부하 검수한다. p95·오류율·DB 풀·디스크/네트워크·worker 지연이 정한 기준을 충족한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O08",
+      "verificationType": "운영",
+      "acceptance": "기존 회원/구독 snapshot/결제키/파일 이관 후 권한·금액을 대사한다. 누락/깨진 참조/공개 S3·이전 계정 권한 오연결이 없다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O09",
+      "verificationType": "운영",
+      "acceptance": "약관/개인정보/정기결제 동의·판매자/사업자 정보·청약철회·지원·불법 콘텐츠 신고/삭제 절차를 실제 도메인에서 검수한다. 고객센터와 처리 책임자가 존재한다.",
+      "status": "not-run-in-real-beta-cohort"
+    },
+    {
+      "id": "O10",
+      "verificationType": "운영·공급사",
+      "acceptance": "PG/빌링·PASS·은행·콘텐츠 허용 계약이 출시 범위와 맞고, 승인된 소액 실거래→갱신→해지→환불→대사 및 출금 확인을 완료한다. 새 카드·법적 정책·운영 한도와 제한적 초기 출시/중단 조건을 확정한다.",
+      "status": "not-run-in-real-beta-cohort"
+    }
+  ],
+  "automatedSubset": {
+    "source": "server/tests/platform-beta-cohort.test.cjs",
+    "roleResourceChecks": 432,
+    "scope": "real isolated DB/service calls; synthetic provider; not real SMTP/PASS/Toss/bank/CDN or 17 human browser sessions"
+  }
+}

@@ -1,0 +1,12 @@
+/* iPhone focus zoom starts below 16px. Keep pinch zoom available and desktop typography unchanged. */
+@media (hover: none) and (pointer: coarse) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="hidden"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="image"]),
+  textarea,
+  select,
+  [contenteditable="true"],
+  [contenteditable=""],
+  [contenteditable="plaintext-only"] {
+    /* Component font shorthands must not override the touch-input minimum. */
+    font-size: max(16px, 1em) !important;
+  }
+}

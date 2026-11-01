@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-25T06:21:40.382980+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 287,
+  "statusSha256": "0f28c45031844a5fe2488756a4490c8e40f363a06a1b657f4b443b0ba7056a2e",
+  "tool": "built-in image_gen; initial generation plus rendering-style edit",
+  "outputs": [
+    {
+      "path": "docs/design/bean-flat-sheet-v1-initial.png",
+      "width": 1312,
+      "height": 1199,
+      "mode": "RGB",
+      "sha256": "1a920e087bd53ba50f80ed9a4ca2266ef2588c43e8209b734d1ce6bcea76ec8e",
+      "sourceCopyMatches": true
+    },
+    {
+      "path": "docs/design/bean-flat-sheet-v1.png",
+      "width": 1312,
+      "height": 1199,
+      "mode": "RGB",
+      "sha256": "53cd1d32d3a37a31e771a08038bf5691662462048df08fb5e75ca2d598816e12",
+      "sourceCopyMatches": true
+    }
+  ],
+  "promptMetadata": "docs/design/bean-flat-sheet-v1.generation.json",
+  "visualReview": {
+    "status": "Manually reviewed generated images inline",
+    "quantityCaptions": [
+      "10콩",
+      "30콩",
+      "50콩",
+      "100콩",
+      "300콩",
+      "500콩",
+      "1,000콩",
+      "5,000콩",
+      "10,000콩"
+    ],
+    "separateBeans": [
+      1,
+      2,
+      3
+    ],
+    "containers": "Single closed pouch/box per large package; no bean piles or overflowing contents",
+    "style": "Rounded mint/cream flat-style raster concept; second pass reduces dimensional detail. Not a mathematically uniform vector asset."
+  },
+  "limits": [
+    "Single presentation sheet with white background, not nine exported transparent icons.",
+    "No UI change or deployment; production remains clay release.",
+    "Actual80px/112px card integration/recognizability not tested this turn.",
+    "No financial operation or product test; image file validation only."
+  ]
+}

@@ -1,0 +1,281 @@
+{
+  "at": "2026-10-25T11:22:54.001661+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "sourceCommit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "uncommittedChangesPresent": true,
+  "scope": "Two front-only card revisions with explicit SUIT/MaruBuri fonts; no app or deployment changes.",
+  "acceptanceCriteria": [
+    "Original CREFANS SVG logo preserved.",
+    "All supplied name/company/role/contact fields match DOM and normalized PDF extraction.",
+    "Two intentionally distinct name typefaces actually loaded without system fallback.",
+    "Each PDF has one90x50mm page and embedded fonts.",
+    "All text/image bounds within card; comparison and both final PDF renders visually reviewed."
+  ],
+  "browser": {
+    "at": "2026-10-25T11:21:45.662Z",
+    "results": [
+      {
+        "variant": "a",
+        "providedFieldsExact": true,
+        "checks": {
+          "fonts": [
+            {
+              "family": "SUIT",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "SUIT",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "SUIT",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "MaruBuri",
+              "weight": "400",
+              "status": "unloaded"
+            }
+          ],
+          "nameFont": "SUIT, sans-serif",
+          "geometry": [
+            {
+              "class": "logo",
+              "inside": true
+            },
+            {
+              "class": "name",
+              "inside": true
+            },
+            {
+              "class": "role",
+              "inside": true
+            },
+            {
+              "class": "company",
+              "inside": true
+            },
+            {
+              "class": "contacts",
+              "inside": true
+            },
+            {
+              "class": "site",
+              "inside": true
+            }
+          ],
+          "logo": true
+        },
+        "actualNameFonts": [
+          {
+            "familyName": "SUIT Medium",
+            "postScriptName": "SUIT-Medium",
+            "isCustomFont": true,
+            "glyphCount": 3
+          }
+        ]
+      },
+      {
+        "variant": "b",
+        "providedFieldsExact": true,
+        "checks": {
+          "fonts": [
+            {
+              "family": "SUIT",
+              "weight": "400",
+              "status": "loaded"
+            },
+            {
+              "family": "SUIT",
+              "weight": "500",
+              "status": "loaded"
+            },
+            {
+              "family": "SUIT",
+              "weight": "600",
+              "status": "unloaded"
+            },
+            {
+              "family": "MaruBuri",
+              "weight": "400",
+              "status": "loaded"
+            }
+          ],
+          "nameFont": "MaruBuri, serif",
+          "geometry": [
+            {
+              "class": "logo",
+              "inside": true
+            },
+            {
+              "class": "name",
+              "inside": true
+            },
+            {
+              "class": "role",
+              "inside": true
+            },
+            {
+              "class": "company",
+              "inside": true
+            },
+            {
+              "class": "contacts",
+              "inside": true
+            },
+            {
+              "class": "site",
+              "inside": true
+            }
+          ],
+          "logo": true
+        },
+        "actualNameFonts": [
+          {
+            "familyName": "MaruBuri",
+            "postScriptName": "MaruBuri-Regular",
+            "isCustomFont": true,
+            "glyphCount": 3
+          }
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "pdf": {
+    "at": "2026-10-25T11:22:00.766696+00:00",
+    "checks": [
+      {
+        "file": "output/design/crefans-business-card/crefans-business-card-front-v3-a.pdf",
+        "sha256": "03797554a3d632a81cd4e79e3a4dc47d44d94797c6095b5c6f615e25fb60c120",
+        "pages": [
+          {
+            "page": 1,
+            "mediaMm": [
+              90.0,
+              50.0
+            ],
+            "trimBoxPoints": [
+              0.0,
+              0.0,
+              255.11811023622047,
+              141.73228346456693
+            ],
+            "fontCount": 2,
+            "glyphsSelfContained": true,
+            "fontStorage": "embedded outline fonts or Type3 vector glyph procedures",
+            "textVerified": true
+          }
+        ],
+        "bleedMm": 0,
+        "renderer": "pdftoppm 180dpi"
+      },
+      {
+        "file": "output/design/crefans-business-card/crefans-business-card-front-v3-b.pdf",
+        "sha256": "c1f50e30b37bcb3d03ee1fffdf5fe37c57e7b7bf075edffbe2afe7f51aadb87c",
+        "pages": [
+          {
+            "page": 1,
+            "mediaMm": [
+              90.0,
+              50.0
+            ],
+            "trimBoxPoints": [
+              0.0,
+              0.0,
+              255.11811023622047,
+              141.73228346456693
+            ],
+            "fontCount": 3,
+            "glyphsSelfContained": true,
+            "fontStorage": "embedded outline fonts or Type3 vector glyph procedures",
+            "textVerified": true
+          }
+        ],
+        "bleedMm": 0,
+        "renderer": "pdftoppm 180dpi"
+      }
+    ]
+  },
+  "artifacts": {
+    "output/design/crefans-business-card/crefans-business-card-front-v3-b.html": {
+      "sha256": "b9a2fb1c205ee5813ca28d612b41f6de778af7d224089fdfd48c402101484365",
+      "bytes": 5055563
+    },
+    "output/design/crefans-business-card/front-v3-specification.json": {
+      "sha256": "2cf79da342346b0bd5b4865ae1b3f845b0b3af78df3b906c355c6354078557e9",
+      "bytes": 10641
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v3-comparison.png": {
+      "sha256": "168d89df4a0fa2e8ec993462a5e4a8dcc902a49d94f4dd96f4510d07a7ec3bf4",
+      "bytes": 174482
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v3-comparison.html": {
+      "sha256": "239a56a2ca004bae227deeaa0a0f6e9d88e1a01065ea720498625ff2a90f5c2c",
+      "bytes": 5061530
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v3-a.pdf": {
+      "sha256": "03797554a3d632a81cd4e79e3a4dc47d44d94797c6095b5c6f615e25fb60c120",
+      "bytes": 12669
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v3-b.png": {
+      "sha256": "db4d383c262fd9fd237b5526e04160ee82dd401895e6e38cdfadaf46a3097285",
+      "bytes": 55481
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v3-a.html": {
+      "sha256": "b1dcff90ef85715ef4ff85f05dad1bc1d94cde1579f90029f28d351e30455617",
+      "bytes": 5055563
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v3-b.pdf": {
+      "sha256": "c1f50e30b37bcb3d03ee1fffdf5fe37c57e7b7bf075edffbe2afe7f51aadb87c",
+      "bytes": 15683
+    },
+    "output/design/crefans-business-card/crefans-business-card-front-v3-a.png": {
+      "sha256": "5897785cba211307a9db3b91478d92546139e952226412dd8d6af7fd033d5125",
+      "bytes": 52963
+    }
+  },
+  "researchSources": [
+    {
+      "url": "https://www.moo.com/blog/uk/inspiration/minimal-business-cards-with-powerful-minimalist-design",
+      "purpose": "Official printing vendor: brand-led typography, whitespace and grouped contacts. Adapted principles, not copied artwork."
+    },
+    {
+      "url": "https://sun.fo/suit/",
+      "purpose": "Typeface design rationale and commercial use under SIL OFL."
+    },
+    {
+      "url": "https://hangeul.naver.com/font",
+      "purpose": "Official MaruBuri download and license."
+    }
+  ],
+  "visualReview": {
+    "comparison": "Passed: both front designs legible and no overlap",
+    "finalPdfPages": "Both Poppler180dpi renders inspected; no clipping or missing glyphs"
+  },
+  "environment": "macOS-15.2-arm64-arm-64bit-Mach-O",
+  "commands": [
+    {
+      "command": "python3 .local/business-card-front-v3-20261025/create.py",
+      "exitCode": 0
+    },
+    {
+      "command": "node .local/business-card-front-v3-20261025/render.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "bundled python3 .local/business-card-front-v3-20261025/verify_pdf.py",
+      "exitCode": 0
+    }
+  ],
+  "limits": [
+    "RGB design proofs. No physical proof or print-shop CMYK preparation.",
+    "No product tests required or rerun for isolated card design artifacts.",
+    "User preference remains to be selected; recommendation is A.",
+    "Private contact values omitted from audit text; included in requested design artifacts."
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "recordedAt": "2026-10-26T08:34:53.138988+00:00",
+  "kind": "research-and-unapproved-recommendation",
+  "implementationOrDeployment": false,
+  "repository": {
+    "path": "/Users/ethan/repository/crefans_front",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true
+  },
+  "officialSources": [
+    {
+      "url": "https://support.discord.com/hc/en-us/articles/44369363856663-Discord-Profile-Badges-What-Each-Badge-Means",
+      "finding": "Early Supporter badge granted as a thank-you to early supporters",
+      "application": "Optional commemorative beta badge, separate from creator verification"
+    },
+    {
+      "url": "https://support.patreon.com/hc/en-us/articles/9943809610253-What-is-the-Founders-plan",
+      "finding": "Eligible early creators keep founders pricing",
+      "application": "Precedent only; no change to crefans20% policy"
+    }
+  ],
+  "codeEvidence": {
+    "path": "/Users/ethan/repository/crefans_server/src/platform/bean-policy.ts",
+    "sha256": "1396634572232efcde7307c009bf3ea03cc5353ecc2f851fe34d17812a540510",
+    "promotionCashWithdrawal": false
+  },
+  "budgetAssumptions": {
+    "creators": 3,
+    "fansIncludingNonSubscriber": 13,
+    "internalAdminExcluded": true,
+    "creatorGiftKrw": 30000,
+    "fanGiftKrw": 5000,
+    "baseKrw": 155000,
+    "bonusCapKrw": 30000,
+    "giftBudgetCapKrw": 185000,
+    "additionalPromotionBeans": 1300,
+    "realSupplierPricesVerified": false
+  },
+  "limitations": [
+    "All benefits proposed only; no payouts, bean grants, code or production changes.",
+    "These gift amounts are not claimed as industry standard.",
+    "Promotion beans are not cash-withdrawable and do not replace creator cash compensation."
+  ],
+  "documentationChecks": [
+    {
+      "command": "npm run docs:record",
+      "at": "2026-10-26T08:34:54.239576+00:00",
+      "exitCode": 0,
+      "output": "> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 50, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 274}"
+    },
+    {
+      "command": "npm run check:docs",
+      "at": "2026-10-26T08:34:54.643216+00:00",
+      "exitCode": 0,
+      "output": "> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-26T08:34:53.994494+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 60, \"documentsByRepo\": {\"front\": 36, \"server\": 24}, \"routes\": 124, \"screens\": 50, \"models\": 73, \"enums\": 15, \"migrations\": 25, \"localMarkdownTargets\": 390, \"externalInlineLinksNotFetched\": 274}"
+    }
+  ]
+}

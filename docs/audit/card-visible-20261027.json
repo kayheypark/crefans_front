@@ -1,0 +1,444 @@
+{
+  "at": "2026-10-27T04:00:09.494638+00:00",
+  "repository": "crefans_front",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "dirty": true,
+  "release": "card-visible-20261027",
+  "baseRelease": "card-greeting-20261027",
+  "sourceDelta": [
+    "components/business-card/BusinessCard.tsx",
+    "components/business-card/business-card.module.css"
+  ],
+  "workingSourceSha256": {
+    "components/business-card/BusinessCard.tsx": "a543faea053c2988608ed7e4ca5b3ca7d81172577480f0e19d2ad89f6a7ce9fd",
+    "components/business-card/business-card.module.css": "3da63f02bf469f56fc06dfac96fa458f2a672afca508d4ace77f9a471eeb921d",
+    "tests/business-card.test.cjs": "f41fd6f0b1f039c7e0867d29c60044875dfd86ca987b121394a101ecf8e14b1f"
+  },
+  "sourceManifestSha256": "b1ee7e217e366b814615acd84207447c0137c405cd171343c5f1a114c8cdad18",
+  "runtimeFilesVerified": 651,
+  "reportedSymptom": "Greeting visible but business card invisible; actual visitor browser cause unconfirmed",
+  "beforeReproduction": [
+    {
+      "scenario": "back image deliberately delayed",
+      "urlStillCard": true,
+      "phase": "loading",
+      "opacity": "0",
+      "frontComplete": true,
+      "frontWidth": 1364
+    },
+    {
+      "scenario": "JavaScript disabled",
+      "phase": "loading",
+      "opacity": "0",
+      "frontComplete": true
+    },
+    {
+      "scenario": "synthetic eight-second frame stall simulates background/initial main-thread delay",
+      "before": {
+        "phase": "entering",
+        "opacity": "0"
+      },
+      "redirectAfterWaitMilliseconds": 6710,
+      "finalUrl": "https://beta.crefans.com/service/landing"
+    }
+  ],
+  "tests": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "passed": 367,
+    "cardTests": 11,
+    "negativeControl": {
+      "at": "2026-10-27T03:57:31.046265+00:00",
+      "mutation": "remove frame gap cap",
+      "command": "node --test --test-name-pattern=long initial frame stall tests/business-card.test.cjs",
+      "exitCode": 1,
+      "restoredSha256": "a543faea053c2988608ed7e4ca5b3ca7d81172577480f0e19d2ad89f6a7ce9fd"
+    }
+  },
+  "localFaultBrowser": [
+    {
+      "engine": "chromium",
+      "scenario": "JavaScript disabled",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "chromium",
+      "scenario": "scripts aborted",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "chromium",
+      "scenario": "delayed back image",
+      "phase": "loading",
+      "opacity": "1",
+      "rotation": "none",
+      "frontComplete": true,
+      "frontWidth": 1364
+    },
+    {
+      "engine": "chromium",
+      "scenario": "synthetic eight-second frame stall",
+      "phase": "entering",
+      "opacity": "1",
+      "urlStillCard": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "JavaScript disabled",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "scripts aborted",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "delayed back image",
+      "phase": "loading",
+      "opacity": "1",
+      "rotation": "none",
+      "frontComplete": true,
+      "frontWidth": 1364
+    },
+    {
+      "engine": "webkit",
+      "scenario": "synthetic eight-second frame stall",
+      "phase": "entering",
+      "opacity": "1",
+      "urlStillCard": true
+    }
+  ],
+  "productionFaultBrowser": [
+    {
+      "engine": "chromium",
+      "scenario": "JavaScript disabled",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "chromium",
+      "scenario": "scripts aborted",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "chromium",
+      "scenario": "delayed back image",
+      "phase": "loading",
+      "opacity": "1",
+      "rotation": "none",
+      "frontComplete": true,
+      "frontWidth": 1364
+    },
+    {
+      "engine": "chromium",
+      "scenario": "synthetic eight-second frame stall",
+      "phase": "entering",
+      "opacity": "1",
+      "urlStillCard": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "JavaScript disabled",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "scripts aborted",
+      "opacity": "1",
+      "frontWidth": 1364,
+      "backVisible": "hidden",
+      "urlStillCard": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "delayed back image",
+      "phase": "loading",
+      "opacity": "1",
+      "rotation": "none",
+      "frontComplete": true,
+      "frontWidth": 1364
+    },
+    {
+      "engine": "webkit",
+      "scenario": "synthetic eight-second frame stall",
+      "phase": "entering",
+      "opacity": "1",
+      "urlStillCard": true
+    }
+  ],
+  "localControlsBrowser": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7751,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7700,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7926,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "motion": "reduce",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7762,
+      "overflow": false,
+      "errors": []
+    }
+  ],
+  "productionControlsBrowser": [
+    {
+      "engine": "chromium",
+      "width": 390,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7662,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1280,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7691,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "motion": "no-preference",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7727,
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "motion": "reduce",
+      "footerRemoved": true,
+      "title": "안녕하세요, 만나서 반갑습니다.",
+      "threeIconControls": true,
+      "minHitArea": 44,
+      "controlsOnRight": true,
+      "flipPause": true,
+      "progressPause": true,
+      "resume": true,
+      "replayEntryMilliseconds": 7713,
+      "overflow": false,
+      "errors": []
+    }
+  ],
+  "production": {
+    "at": "2026-10-27T03:58:58.809123+00:00",
+    "checks": [
+      {
+        "url": "https://business.crefans.com/card?who=khpark",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://business.crefans.com/card?who=unknown",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card?who=unknown"
+      },
+      {
+        "url": "https://business.crefans.com/card",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/card"
+      },
+      {
+        "url": "https://business.crefans.com/api/v1/health",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://business.crefans.com/.env",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/.env"
+      },
+      {
+        "url": "https://business.crefans.com/service/feed",
+        "status": 404,
+        "finalUrl": "https://business.crefans.com/service/feed"
+      },
+      {
+        "url": "https://business.crefans.com/brand/business-cards/khpark-front.png",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/brand/business-cards/khpark-front.png"
+      },
+      {
+        "url": "https://business.crefans.com/",
+        "status": 200,
+        "finalUrl": "https://business.crefans.com/card?who=khpark"
+      },
+      {
+        "url": "https://beta.crefans.com/service/landing",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/landing"
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/service/feed"
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "finalUrl": "https://beta.crefans.com/api/v1/health"
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "finalUrl": "https://admin.crefans.com/login"
+      }
+    ],
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "cd4e035d79bbaf6e0aad79a85460acc448f950d7e590ef4f29b5f09c53ce445e",
+        "image": "sha256:f313d73a119935f630c52f3228324855adb3e753695fe3e54a638a37ce4bd025",
+        "restarts": 0
+      },
+      "crefans-beta-api-1": {
+        "id": "33e772337cf8afe5e6042dff64f7b5309c186889838775b508f36a69ed4c3688",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "8d7c31deefc9fe01dbcf6d1e4664a41472003b1ae56526b4be0299041ab13734",
+        "image": "sha256:19a35a612fae6b6682bf27038485d4804fccf86de021ebabf643960e359f8ff8",
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "3b633c637dbd07c6c8f4f0dfd69f4f52958daacb56a14fb415c20f63791c5aa5",
+        "image": "sha256:ac1ea1b26c93ed5b9beabc1498f3f51d9c101a8f9d993a04b62ca669643a4cbf",
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "restarts": 0
+      }
+    },
+    "tls": "system trust and original hostname verified; no TLS bypass",
+    "dns": "business A from authoritative/1.1.1.1/8.8.8.8; explicit resolution for stale local negative cache"
+  },
+  "deployment": {
+    "startedAt": "2026-10-27T03:58:30.500819+00:00",
+    "finishedAt": "2026-10-27T03:58:36.807051+00:00",
+    "exitCode": 0,
+    "scope": "frontend and business host Caddy; API/DB unchanged",
+    "backup": "/opt/crefans-backup-card-visible-20261027"
+  },
+  "transient502DuringReady": 2,
+  "limits": [
+    "Injected delayed back image, disabled/blocked JavaScript and 8.1s RAF stall are reproduced conditions, not proof of actual visitor cause",
+    "Automated Chromium/WebKit; no physical visitor device or iPhone verification",
+    "WebKit delayed-image visibility checked through computed state; its screenshot was taken after image release because screenshot font readiness stalled",
+    "CSS fallback cannot display front image bytes that never arrive; SSR has no permanent inline hiding if CSS/scripts fail, but no-styles appearance is not visually certified",
+    "Hidden time excluded and frame gaps capped at100ms; wall-clock animation can run longer on slow devices",
+    "Explicit business public A resolution through local CONNECT proxy due to prior macOS DNS cache; original host and TLS chain validated",
+    "Only two runtime card files deployed; unpublished finance/legal and other working-tree changes excluded; API/DB unchanged"
+  ],
+  "logSha256": {
+    "check.log": "7ce3f3a627dde2bbb7e8f93a6be8b151febbd4fef64ec25247002fd4269aa51b",
+    "build.log": "0d8ba7fe231efd4f4aaf397399eea3dfc1424626d7c3d5657b1cced40b038658",
+    "negative-control.log": "06c7ac72e106d55a4aa9c6ae785e774dfb31d59625b23f62af5d78952479bf49",
+    "deploy.log": "d47fd400c310b348f6f1156ddc697596fa0b0dceb86404a3faf37b55e077fef2"
+  }
+}

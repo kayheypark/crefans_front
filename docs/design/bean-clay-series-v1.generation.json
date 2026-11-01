@@ -1,0 +1,301 @@
+{
+  "createdAt": "2026-10-25T05:58:14.241149+00:00",
+  "series": "CREFANS bean clay-v1",
+  "method": "nine independent built-in image_gen edits of approved reference, existing1 copied unchanged",
+  "quantities": [
+    1,
+    10,
+    30,
+    50,
+    100,
+    300,
+    500,
+    1000,
+    5000,
+    10000
+  ],
+  "records": [
+    {
+      "quantity": 1,
+      "tool": "built-in image_gen",
+      "mode": "existing approved single-bean reference reused byte-for-byte",
+      "prompt": "Use case: stylized-concept. Asset type: virtual currency icon for CREFANS, one of four contrasting style proposals. Exactly ONE green kidney bean with a small curved cream crease, consistent clear bean silhouette, diagonally oriented, no face. Centered isolated subject in square canvas, around 65 percent image coverage with generous transparent padding, legible as a small mobile app icon. Genuine transparent alpha background. No text, numerals, logos, watermark, other beans, leaves, containers, coins, background panel, decorative badge, or scene. A single asset, not a comparison sheet. Style: tactile matte 3D clay miniature, softly inflated plump shape, pastel mint green, soft rounded cream groove, subtle handmade clay softness, gentle diffuse lighting, smooth matte surface, no glossy reflections, no hard outline, no surface noise. Isolated clay object with no floor or cast shadow.",
+      "source": "/Users/ethan/repository/crefans_front/docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/1.png",
+      "url": "/brand/beans/clay-v1/1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        8,
+        1182,
+        1254
+      ],
+      "sha256": "ed55c8a0c35b8b1dc6c0248055e6de376d33ffa8e528203b7a80cb32d66c9d9a",
+      "bytes": 858324
+    },
+    {
+      "quantity": 10,
+      "composition": "A small loose cluster of approximately ten of the reference beans, casually nested together in one compact low pile. Beans only, no container. Smallest tier of the series.",
+      "prompt": "Use case: precise-object-edit. Edit target: the provided single mint-green bean icon. Transform this base into one quantity-tier illustration for the same CREFANS virtual bean currency icon family. Preserve the exact bean design: pale pastel mint green, plump kidney shape, softly rounded cream-colored curved groove, matte clay 3D material, gentle soft studio lighting, no glossy highlights, no faces. The input is the design and material reference; reproduce it faithfully on every bean. Use the same soft matte clay material for any added containers. Consistent slightly elevated three-quarter view. Isolated centered complete composition, square canvas, generous transparent margins, content about 70 percent of image, readable at 96px. Preserve genuine alpha transparency. No environment, floor, ground plane or rectangular background. No lettering, numerals, labels, logo, watermark, badge, coins, jewels, leaves or extra decorations. Do not render a comparison sheet. Deliver only the one specified tier as one standalone image. Amount is represented symbolically by growing volume; no printed quantities. Composition for this tier: A small loose cluster of approximately ten of the reference beans, casually nested together in one compact low pile. Beans only, no container. Smallest tier of the series.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-a8fecf02-fcd9-4ebc-8a49-d0443e534ba4.png",
+      "tool": "built-in image_gen",
+      "mode": "edit of provided clay reference, new output file",
+      "reference": "docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/10.png",
+      "url": "/brand/beans/clay-v1/10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        103,
+        1226,
+        1212
+      ],
+      "sha256": "878ee0c7fc02ec2dc05961d17b46b5b80d5ec5e03af628d89a89a517c7f71656",
+      "bytes": 877835
+    },
+    {
+      "quantity": 30,
+      "composition": "A medium compact mound of approximately twenty reference beans, visibly fuller and taller than a small loose cluster. Beans only, no container. Show distinct overlapping plump beans in a tidy rounded mound.",
+      "prompt": "Use case: precise-object-edit. Edit target: the provided single mint-green bean icon. Transform this base into one quantity-tier illustration for the same CREFANS virtual bean currency icon family. Preserve the exact bean design: pale pastel mint green, plump kidney shape, softly rounded cream-colored curved groove, matte clay 3D material, gentle soft studio lighting, no glossy highlights, no faces. The input is the design and material reference; reproduce it faithfully on every bean. Use the same soft matte clay material for any added containers. Consistent slightly elevated three-quarter view. Isolated centered complete composition, square canvas, generous transparent margins, content about 70 percent of image, readable at 96px. Preserve genuine alpha transparency. No environment, floor, ground plane or rectangular background. No lettering, numerals, labels, logo, watermark, badge, coins, jewels, leaves or extra decorations. Do not render a comparison sheet. Deliver only the one specified tier as one standalone image. Amount is represented symbolically by growing volume; no printed quantities. Composition for this tier: A medium compact mound of approximately twenty reference beans, visibly fuller and taller than a small loose cluster. Beans only, no container. Show distinct overlapping plump beans in a tidy rounded mound.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-84028d37-a002-4ab1-93b4-b73b35ba3b73.png",
+      "tool": "built-in image_gen",
+      "mode": "edit of provided clay reference, new output file",
+      "reference": "docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/30.png",
+      "url": "/brand/beans/clay-v1/30.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        17,
+        1216,
+        1254
+      ],
+      "sha256": "4d726a832667541196b7affa87f4c9156e2505a208e0870c74b44d11cb846756",
+      "bytes": 1076649
+    },
+    {
+      "quantity": 50,
+      "composition": "A generous rounded pyramid-like heap of many reference beans, about thirty visible beans, noticeably abundant, several beans scattered closely at the base. Beans only, no container. Compact clear silhouette.",
+      "prompt": "Use case: precise-object-edit. Edit target: the provided single mint-green bean icon. Transform this base into one quantity-tier illustration for the same CREFANS virtual bean currency icon family. Preserve the exact bean design: pale pastel mint green, plump kidney shape, softly rounded cream-colored curved groove, matte clay 3D material, gentle soft studio lighting, no glossy highlights, no faces. The input is the design and material reference; reproduce it faithfully on every bean. Use the same soft matte clay material for any added containers. Consistent slightly elevated three-quarter view. Isolated centered complete composition, square canvas, generous transparent margins, content about 70 percent of image, readable at 96px. Preserve genuine alpha transparency. No environment, floor, ground plane or rectangular background. No lettering, numerals, labels, logo, watermark, badge, coins, jewels, leaves or extra decorations. Do not render a comparison sheet. Deliver only the one specified tier as one standalone image. Amount is represented symbolically by growing volume; no printed quantities. Composition for this tier: A generous rounded pyramid-like heap of many reference beans, about thirty visible beans, noticeably abundant, several beans scattered closely at the base. Beans only, no container. Compact clear silhouette.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-528d0a55-2669-4502-9dd5-95b0dd262a24.png",
+      "tool": "built-in image_gen",
+      "mode": "edit of provided clay reference, new output file",
+      "reference": "docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/50.png",
+      "url": "/brand/beans/clay-v1/50.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        103,
+        1236,
+        1254
+      ],
+      "sha256": "cb00bee243e192d30449b32aa8ab873db2ca96401eb6000de6114c59bbfd8e2a",
+      "bytes": 1132820
+    },
+    {
+      "quantity": 100,
+      "composition": "One small open cream-colored soft drawstring pouch filled to the brim with reference mint beans, four beans resting close to the pouch base. Simple smooth off-white clay pouch, rounded rim and restrained drawstring. No woven fabric texture.",
+      "prompt": "Use case: precise-object-edit. Edit target: the provided single mint-green bean icon. Transform this base into one quantity-tier illustration for the same CREFANS virtual bean currency icon family. Preserve the exact bean design: pale pastel mint green, plump kidney shape, softly rounded cream-colored curved groove, matte clay 3D material, gentle soft studio lighting, no glossy highlights, no faces. The input is the design and material reference; reproduce it faithfully on every bean. Use the same soft matte clay material for any added containers. Consistent slightly elevated three-quarter view. Isolated centered complete composition, square canvas, generous transparent margins, content about 70 percent of image, readable at 96px. Preserve genuine alpha transparency. No environment, floor, ground plane or rectangular background. No lettering, numerals, labels, logo, watermark, badge, coins, jewels, leaves or extra decorations. Do not render a comparison sheet. Deliver only the one specified tier as one standalone image. Amount is represented symbolically by growing volume; no printed quantities. Composition for this tier: One small open cream-colored soft drawstring pouch filled to the brim with reference mint beans, four beans resting close to the pouch base. Simple smooth off-white clay pouch, rounded rim and restrained drawstring. No woven fabric texture.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-37ac03cb-f1d2-4953-b43e-d7240aaa4e25.png",
+      "tool": "built-in image_gen",
+      "mode": "edit of provided clay reference, new output file",
+      "reference": "docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/100.png",
+      "url": "/brand/beans/clay-v1/100.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        49,
+        23,
+        1224,
+        1232
+      ],
+      "sha256": "a4a3fc99f1093d8fb3e659efddf80a4f3277932ad109731e9b5ee527431f5ede",
+      "bytes": 1210542
+    },
+    {
+      "quantity": 300,
+      "composition": "Two rounded cream-colored drawstring pouches filled with reference mint beans, one slightly behind the other, six loose beans close to the bases. Off-white matte clay pouches with simple soft seams. A coherent compact group, not separated objects.",
+      "prompt": "Use case: precise-object-edit. Edit target: the provided single mint-green bean icon. Transform this base into one quantity-tier illustration for the same CREFANS virtual bean currency icon family. Preserve the exact bean design: pale pastel mint green, plump kidney shape, softly rounded cream-colored curved groove, matte clay 3D material, gentle soft studio lighting, no glossy highlights, no faces. The input is the design and material reference; reproduce it faithfully on every bean. Use the same soft matte clay material for any added containers. Consistent slightly elevated three-quarter view. Isolated centered complete composition, square canvas, generous transparent margins, content about 70 percent of image, readable at 96px. Preserve genuine alpha transparency. No environment, floor, ground plane or rectangular background. No lettering, numerals, labels, logo, watermark, badge, coins, jewels, leaves or extra decorations. Do not render a comparison sheet. Deliver only the one specified tier as one standalone image. Amount is represented symbolically by growing volume; no printed quantities. Composition for this tier: Two rounded cream-colored drawstring pouches filled with reference mint beans, one slightly behind the other, six loose beans close to the bases. Off-white matte clay pouches with simple soft seams. A coherent compact group, not separated objects.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-7fd18451-4882-4390-8889-e96be8d6f38b.png",
+      "tool": "built-in image_gen",
+      "mode": "edit of provided clay reference, new output file",
+      "reference": "docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/300.png",
+      "url": "/brand/beans/clay-v1/300.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        9,
+        1220,
+        1254
+      ],
+      "sha256": "5038ec64e0cdf9cf02f9e0ea0c37693b2945e0cf5d2b88745fb7d85018d90548",
+      "bytes": 1223584
+    },
+    {
+      "quantity": 500,
+      "composition": "Three full cream-colored drawstring pouches arranged in a compact triangular group, many reference mint beans visible at their open brims and a modest spill at the front. Smooth off-white clay material and soft rounded seams.",
+      "prompt": "Use case: precise-object-edit. Edit target: the provided single mint-green bean icon. Transform this base into one quantity-tier illustration for the same CREFANS virtual bean currency icon family. Preserve the exact bean design: pale pastel mint green, plump kidney shape, softly rounded cream-colored curved groove, matte clay 3D material, gentle soft studio lighting, no glossy highlights, no faces. The input is the design and material reference; reproduce it faithfully on every bean. Use the same soft matte clay material for any added containers. Consistent slightly elevated three-quarter view. Isolated centered complete composition, square canvas, generous transparent margins, content about 70 percent of image, readable at 96px. Preserve genuine alpha transparency. No environment, floor, ground plane or rectangular background. No lettering, numerals, labels, logo, watermark, badge, coins, jewels, leaves or extra decorations. Do not render a comparison sheet. Deliver only the one specified tier as one standalone image. Amount is represented symbolically by growing volume; no printed quantities. Composition for this tier: Three full cream-colored drawstring pouches arranged in a compact triangular group, many reference mint beans visible at their open brims and a modest spill at the front. Smooth off-white clay material and soft rounded seams.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-12207e81-5ce4-46c6-8c89-d98836634c72.png",
+      "tool": "built-in image_gen",
+      "mode": "edit of provided clay reference, new output file",
+      "reference": "docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/500.png",
+      "url": "/brand/beans/clay-v1/500.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        24,
+        1242,
+        1237
+      ],
+      "sha256": "32e89663f4562eca324f20336233ebdf3a4d7ab26a74e991d59d063159a2ccb0",
+      "bytes": 1264805
+    },
+    {
+      "quantity": 1000,
+      "composition": "One small open warm-cream storage crate with thick softly rounded walls, filled with a generous mound of reference mint beans rising above the rim, a few beans near the base. Toy-like matte clay crate, no lettering, no wood-grain texture, no metal.",
+      "prompt": "Use case: precise-object-edit. Edit target: the provided single mint-green bean icon. Transform this base into one quantity-tier illustration for the same CREFANS virtual bean currency icon family. Preserve the exact bean design: pale pastel mint green, plump kidney shape, softly rounded cream-colored curved groove, matte clay 3D material, gentle soft studio lighting, no glossy highlights, no faces. The input is the design and material reference; reproduce it faithfully on every bean. Use the same soft matte clay material for any added containers. Consistent slightly elevated three-quarter view. Isolated centered complete composition, square canvas, generous transparent margins, content about 70 percent of image, readable at 96px. Preserve genuine alpha transparency. No environment, floor, ground plane or rectangular background. No lettering, numerals, labels, logo, watermark, badge, coins, jewels, leaves or extra decorations. Do not render a comparison sheet. Deliver only the one specified tier as one standalone image. Amount is represented symbolically by growing volume; no printed quantities. Composition for this tier: One small open warm-cream storage crate with thick softly rounded walls, filled with a generous mound of reference mint beans rising above the rim, a few beans near the base. Toy-like matte clay crate, no lettering, no wood-grain texture, no metal.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-c185a4d3-b470-4f93-9308-7b7e8c3fea62.png",
+      "tool": "built-in image_gen",
+      "mode": "edit of provided clay reference, new output file",
+      "reference": "docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/1000.png",
+      "url": "/brand/beans/clay-v1/1000.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        12,
+        1238,
+        1254
+      ],
+      "sha256": "698901a388b85e9621d9ad52425141c14129d29c632f4c20d04cae3a577cb982",
+      "bytes": 1197599
+    },
+    {
+      "quantity": 5000,
+      "composition": "One wide warm-cream toy treasure chest with rounded corners, its simple lid open behind an abundant overflowing heap of reference mint beans. Rounded matte clay chest with a tiny pale tan clasp and hinge, no metallic shine, several beans clustered tightly in front.",
+      "prompt": "Use case: precise-object-edit. Edit target: the provided single mint-green bean icon. Transform this base into one quantity-tier illustration for the same CREFANS virtual bean currency icon family. Preserve the exact bean design: pale pastel mint green, plump kidney shape, softly rounded cream-colored curved groove, matte clay 3D material, gentle soft studio lighting, no glossy highlights, no faces. The input is the design and material reference; reproduce it faithfully on every bean. Use the same soft matte clay material for any added containers. Consistent slightly elevated three-quarter view. Isolated centered complete composition, square canvas, generous transparent margins, content about 70 percent of image, readable at 96px. Preserve genuine alpha transparency. No environment, floor, ground plane or rectangular background. No lettering, numerals, labels, logo, watermark, badge, coins, jewels, leaves or extra decorations. Do not render a comparison sheet. Deliver only the one specified tier as one standalone image. Amount is represented symbolically by growing volume; no printed quantities. Composition for this tier: One wide warm-cream toy treasure chest with rounded corners, its simple lid open behind an abundant overflowing heap of reference mint beans. Rounded matte clay chest with a tiny pale tan clasp and hinge, no metallic shine, several beans clustered tightly in front.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-dfaca7e5-070c-4cc2-af9a-b283c06ad57d.png",
+      "tool": "built-in image_gen",
+      "mode": "edit of provided clay reference, new output file",
+      "reference": "docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/5000.png",
+      "url": "/brand/beans/clay-v1/5000.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "sha256": "e9ee0219cf500b09af5a48b91369a9fc79f20b9eafc4a6b1190255d9fe83ea42",
+      "bytes": 1364867
+    },
+    {
+      "quantity": 10000,
+      "composition": "The most abundant tier: one large open warm-cream rounded toy treasure chest overflowing with reference mint beans, two full cream drawstring pouches tucked at the sides, an ample compact spill of beans across the front. Clear coherent silhouette, premium but soft and friendly, matte clay throughout, no coins or gold.",
+      "prompt": "Use case: precise-object-edit. Edit target: the provided single mint-green bean icon. Transform this base into one quantity-tier illustration for the same CREFANS virtual bean currency icon family. Preserve the exact bean design: pale pastel mint green, plump kidney shape, softly rounded cream-colored curved groove, matte clay 3D material, gentle soft studio lighting, no glossy highlights, no faces. The input is the design and material reference; reproduce it faithfully on every bean. Use the same soft matte clay material for any added containers. Consistent slightly elevated three-quarter view. Isolated centered complete composition, square canvas, generous transparent margins, content about 70 percent of image, readable at 96px. Preserve genuine alpha transparency. No environment, floor, ground plane or rectangular background. No lettering, numerals, labels, logo, watermark, badge, coins, jewels, leaves or extra decorations. Do not render a comparison sheet. Deliver only the one specified tier as one standalone image. Amount is represented symbolically by growing volume; no printed quantities. Composition for this tier: The most abundant tier: one large open warm-cream rounded toy treasure chest overflowing with reference mint beans, two full cream drawstring pouches tucked at the sides, an ample compact spill of beans across the front. Clear coherent silhouette, premium but soft and friendly, matte clay throughout, no coins or gold.",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-f4fbb019-6cc9-44c7-af56-9faf706c5cb2.png",
+      "tool": "built-in image_gen",
+      "mode": "edit of provided clay reference, new output file",
+      "reference": "docs/design/bean-one-clay-v1.png",
+      "savedPath": "/Users/ethan/repository/crefans_front/public/brand/beans/clay-v1/10000.png",
+      "url": "/brand/beans/clay-v1/10000.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "modePng": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        2,
+        1240,
+        1254
+      ],
+      "sha256": "a08893a94aacdacf8d58af3d23d614bc2a0c5ae58d4cdcd956cd69b2031aefbb",
+      "bytes": 1642422
+    }
+  ],
+  "symbolicAmounts": true,
+  "appliedToUi": false,
+  "deployed": false,
+  "visualReview": "Soft pastel mint beans and cream grooves match clay reference across all9 outputs. 10/30/50 grow as loose piles,100/300/500 use1/2/3 cream pouches,1000 a crate,5000 open chest,10000 chest plus two pouches. No quantity text, faces or coins. Figures are symbolic, not a literal physical bean count."
+}

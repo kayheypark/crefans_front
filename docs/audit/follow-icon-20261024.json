@@ -1,0 +1,671 @@
+{
+  "at": "2026-10-24T08:38:31.096485+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "Existing dirty changes preserved; uncommitted",
+  "deployment": "not deployed",
+  "scope": [
+    "components/crefans/FollowButton.tsx",
+    "components/crefans/creator.module.css"
+  ],
+  "sourceSha256": {
+    "components/crefans/FollowButton.tsx": "51c99271dc6d925b125d6a740a3380f2f9dd16582b05fa51cb61070ecae4b2fb",
+    "components/crefans/creator.module.css": "9eff70fd9613af64600be0a7974151c28bfe9454fa30b16291c76e517c189547"
+  },
+  "unit": {
+    "command": "node --test tests/follow-button.test.cjs",
+    "exitCode": 0,
+    "passed": 2,
+    "log": "unit.log",
+    "finishedAt": "2026-10-24T08:35:45.862241+00:00"
+  },
+  "before": [
+    {
+      "width": 320,
+      "buttons": [
+        {
+          "text": "팔로우",
+          "width": 120,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우",
+          "width": 120,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우 하는중",
+          "width": 120,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우 하는중",
+          "width": 120,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우",
+          "width": 120,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "buttons": [
+        {
+          "text": "팔로우",
+          "width": 155,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우",
+          "width": 155,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우 하는중",
+          "width": 155,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우 하는중",
+          "width": 155,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우",
+          "width": 155,
+          "height": 44.390625,
+          "icon": 12,
+          "gap": "8px",
+          "font": "14px"
+        }
+      ]
+    },
+    {
+      "width": 1280,
+      "buttons": [
+        {
+          "text": "팔로우",
+          "width": 286.65625,
+          "height": 44.390625,
+          "icon": 16,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우",
+          "width": 286.671875,
+          "height": 44.390625,
+          "icon": 16,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우 하는중",
+          "width": 286.65625,
+          "height": 44.390625,
+          "icon": 16,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우 하는중",
+          "width": 286.65625,
+          "height": 44.390625,
+          "icon": 16,
+          "gap": "8px",
+          "font": "14px"
+        },
+        {
+          "text": "팔로우",
+          "width": 286.671875,
+          "height": 44.390625,
+          "icon": 16,
+          "gap": "8px",
+          "font": "14px"
+        }
+      ]
+    }
+  ],
+  "browser": {
+    "start": "2026-10-24T08:37:15.363Z",
+    "end": "2026-10-24T08:37:28.449Z",
+    "exitCode": 0,
+    "results": [
+      {
+        "name": "chromium320",
+        "prefix": "preview",
+        "measurements": [
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          }
+        ],
+        "confirmCancelPreserved": true,
+        "overflow": false
+      },
+      {
+        "name": "chromium320",
+        "prefix": "service",
+        "measurements": [
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 120,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          }
+        ],
+        "overflow": false
+      },
+      {
+        "name": "chromium390",
+        "prefix": "preview",
+        "measurements": [
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          }
+        ],
+        "confirmCancelPreserved": true,
+        "overflow": false
+      },
+      {
+        "name": "chromium390",
+        "prefix": "service",
+        "measurements": [
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          }
+        ],
+        "overflow": false
+      },
+      {
+        "name": "chromium390",
+        "catalogIcons": [
+          20,
+          20
+        ]
+      },
+      {
+        "name": "chromium390",
+        "profileCompactIcon": 12,
+        "followingIcons": [
+          20,
+          20
+        ]
+      },
+      {
+        "name": "desktop",
+        "prefix": "preview",
+        "measurements": [
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.65625,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.671875,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.65625,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.65625,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.671875,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          }
+        ],
+        "confirmCancelPreserved": true,
+        "overflow": false
+      },
+      {
+        "name": "desktop",
+        "prefix": "service",
+        "measurements": [
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.65625,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.671875,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.65625,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.65625,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 286.671875,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          }
+        ],
+        "overflow": false
+      },
+      {
+        "name": "desktop",
+        "catalogIcons": [
+          20,
+          20
+        ]
+      },
+      {
+        "name": "desktop",
+        "profileCompactIcon": 12,
+        "followingIcons": [
+          20,
+          20
+        ]
+      },
+      {
+        "name": "webkit390",
+        "prefix": "preview",
+        "measurements": [
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          }
+        ],
+        "confirmCancelPreserved": true,
+        "overflow": false
+      },
+      {
+        "name": "webkit390",
+        "prefix": "service",
+        "measurements": [
+          {
+            "text": "팔로우 하는중",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          },
+          {
+            "text": "팔로우",
+            "icon": 20,
+            "height": 44.390625,
+            "width": 155,
+            "textLines": 1,
+            "textOverflow": false,
+            "scrollOverflow": false
+          }
+        ],
+        "overflow": false
+      }
+    ]
+  },
+  "initialFailures": [
+    "Scratch verifier fixture import initialization error; narrowed import to landingCreators",
+    "Scratch verifier selected a different card after follow state changed; changed to stable card locator"
+  ],
+  "visualReview": "mobile-explore.png, fresh WebKit390 capture after loading; earlier closing-dialog capture retained separately",
+  "limitations": [
+    "Actual service browser UI uses API doubles; no real follow actions",
+    "No physical device or production verification"
+  ],
+  "artifacts": {
+    "before.json": "3b6dba7f9876f96f11c532b4db4038198a3c7ce666c1dfe2ff5804b27e167b73",
+    "docs-check.json": "9a267e52ef6397386ec9b0abad0e1fc4552177bc53254692bc50f45eb91142ae",
+    "browser.log": "ad8252d8b5a449603261a79e055063e63a47120da3301c3bbe71857d3798b5c6",
+    "docs-check.log": "03b0a76f9239fa583a952630c40028e939fee9f3c42e070946659759d5108b42",
+    "run.py": "eb3ccb9a7e08a49794a3ffe07da11c32991f08852ef3c63fe404d2be95709637",
+    "docs-record.json": "0d043d3eac914dc28f41f39ac0032be1facc193107c22ff6ff513bbd01810bd0",
+    "change.diff": "70014f3c82f58473a382f16cc232252dd6461c9a6bb58639122b4ee9d0f3ac09",
+    "docs-record.log": "f17c4c346c5448ccc70f4bf8a5e69fdcfb720162f424d3227e0a13902d468570",
+    "browser-locator-failure.json": "1b1b98b44c96f195f522786c69744f08cec90a090e396715636352108ad2602f",
+    "browser-first.log": "671184f685ccc5d0f8239ad6a3948a54f94326e0a90b1fca3c48d5f8b6c88d95",
+    "FollowButton.before.tsx": "5e3a5c74f1df41b59d1fbf0cf2b36a70b323e7704c0de4784fd792c5ecc936e5",
+    "check.cjs": "8a3c95c5a5f3893b57a24be494b70451656592abdd483d5263da7c93ea04e65c",
+    "browser-results.json": "0e2b92778d3e394b161aa4b826abc8684ed95e62db2de67bed4bbf3b0b6dc4b2",
+    "unit.log": "6a36ab27afd3bcd5f1a90fbedb2eb619357b87efd24b9467dd84ea055ecd07a5",
+    "mobile-explore.png": "c2cb9bf3031338c76ce4001b4bb82498ed83cd17182f425529e94f76ac9d823c",
+    "mobile-explore-closing-dialog.png": "5bbaeaf03daf385cbbd79c746b0e6ff4d31e59a422db085c1d2039abc130f9cc",
+    "creator.before.css": "0b088156fcb0c9b1d6f48809e2c6df6462c70d55724a8b908ed015fad2fbeffd",
+    "browser-locator-failure.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "docsChecks": {
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:38:31.134601+00:00",
+      "finishedAt": "2026-10-24T08:38:32.129763+00:00",
+      "exitCode": 0,
+      "logSha256": "f17c4c346c5448ccc70f4bf8a5e69fdcfb720162f424d3227e0a13902d468570"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:38:32.155375+00:00",
+      "finishedAt": "2026-10-24T08:38:32.536630+00:00",
+      "exitCode": 0,
+      "logSha256": "03b0a76f9239fa583a952630c40028e939fee9f3c42e070946659759d5108b42"
+    }
+  }
+}

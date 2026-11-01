@@ -1,0 +1,562 @@
+{
+  "at": "2026-10-24T03:41:39.926945+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "workingTree": "pre-existing changes preserved; uncommitted; no deployment",
+  "criteria": [
+    "detail back button directly left of avatar in same row",
+    "44px hit area, 22px arrow, 10px gap",
+    "preview/service feed href retained",
+    "no extra back button in feed/overlay/read-only studio preview"
+  ],
+  "sourceSha256": {
+    "components/crefans/SocialPages.tsx": "1366449f0d4851c8917322fe22a57869810e41562000dde927bd1a2229ae08a7",
+    "components/crefans/social.module.css": "4e36fcf880c42d98b4200bc42cf81246f998cbc0dfb0ada44680cabf9f9cde14"
+  },
+  "beforeSha256": {
+    "components/crefans/SocialPages.tsx": "5fe184920dc011e2873cbed4ca3b717e7499596d92d9d14348d75b37360dcacc",
+    "components/crefans/social.module.css": "af57fb7906e137171b38304d744fea23f3638dc93b8efb85bea3472e9c9d7935"
+  },
+  "checks": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "startedAt": "2026-10-24T03:39:39.038112+00:00",
+      "endedAt": "2026-10-24T03:39:39.531879+00:00",
+      "exitCode": 0,
+      "log": ".local/post-detail-back-20261024/checks.log"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "startedAt": "2026-10-24T03:39:39.532014+00:00",
+      "endedAt": "2026-10-24T03:39:44.081902+00:00",
+      "exitCode": 0,
+      "log": ".local/post-detail-back-20261024/types.log"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-social.test.cjs",
+        "tests/content-post-preview.test.cjs"
+      ],
+      "startedAt": "2026-10-24T03:39:44.082029+00:00",
+      "endedAt": "2026-10-24T03:39:44.817890+00:00",
+      "exitCode": 0,
+      "log": ".local/post-detail-back-20261024/tests.log"
+    }
+  ],
+  "browserRun": {
+    "command": [
+      "node",
+      ".local/post-detail-back-20261024/browser.cjs"
+    ],
+    "startedAt": "2026-10-24T03:40:17.038867+00:00",
+    "endedAt": "2026-10-24T03:40:22.942188+00:00",
+    "exitCode": 0
+  },
+  "serviceBrowserRun": {
+    "command": [
+      "node",
+      ".local/post-detail-back-20261024/service-browser.cjs"
+    ],
+    "startedAt": "2026-10-24T03:40:59.618463+00:00",
+    "endedAt": "2026-10-24T03:41:00.974669+00:00",
+    "exitCode": 0
+  },
+  "browserResults": {
+    "at": "2026-10-24T03:40:22.935Z",
+    "origin": "http://127.0.0.1:3010",
+    "results": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "width": 320,
+        "measured": [
+          {
+            "id": "morning",
+            "back": {
+              "x": 16,
+              "y": 64.890625,
+              "width": 44,
+              "height": 44
+            },
+            "avatar": {
+              "x": 70,
+              "y": 65.890625,
+              "width": 42,
+              "height": 42
+            },
+            "identity": {
+              "x": 70,
+              "y": 62.5,
+              "width": 164.25,
+              "height": 48.78125
+            },
+            "row": {
+              "x": 16,
+              "y": 62.5,
+              "width": 288,
+              "height": 48.78125
+            },
+            "icon": {
+              "x": 27,
+              "y": 75.890625,
+              "width": 22,
+              "height": 22
+            },
+            "radius": "50%"
+          },
+          {
+            "id": "moka-backstage",
+            "back": {
+              "x": 16,
+              "y": 64.890625,
+              "width": 44,
+              "height": 44
+            },
+            "avatar": {
+              "x": 70,
+              "y": 65.890625,
+              "width": 42,
+              "height": 42
+            },
+            "identity": {
+              "x": 70,
+              "y": 62.5,
+              "width": 162.296875,
+              "height": 48.78125
+            },
+            "row": {
+              "x": 16,
+              "y": 62.5,
+              "width": 288,
+              "height": 48.78125
+            },
+            "icon": {
+              "x": 27,
+              "y": 75.890625,
+              "width": 22,
+              "height": 22
+            },
+            "radius": "50%"
+          }
+        ],
+        "feedAndOverlayWithoutExtraBack": true,
+        "missingPostBackPreserved": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "width": 390,
+        "measured": [
+          {
+            "id": "morning",
+            "back": {
+              "x": 16,
+              "y": 64.890625,
+              "width": 44,
+              "height": 44
+            },
+            "avatar": {
+              "x": 70,
+              "y": 65.890625,
+              "width": 42,
+              "height": 42
+            },
+            "identity": {
+              "x": 70,
+              "y": 62.5,
+              "width": 164.25,
+              "height": 48.78125
+            },
+            "row": {
+              "x": 16,
+              "y": 62.5,
+              "width": 358,
+              "height": 48.78125
+            },
+            "icon": {
+              "x": 27,
+              "y": 75.890625,
+              "width": 22,
+              "height": 22
+            },
+            "radius": "50%"
+          },
+          {
+            "id": "moka-backstage",
+            "back": {
+              "x": 16,
+              "y": 64.890625,
+              "width": 44,
+              "height": 44
+            },
+            "avatar": {
+              "x": 70,
+              "y": 65.890625,
+              "width": 42,
+              "height": 42
+            },
+            "identity": {
+              "x": 70,
+              "y": 62.5,
+              "width": 162.296875,
+              "height": 48.78125
+            },
+            "row": {
+              "x": 16,
+              "y": 62.5,
+              "width": 358,
+              "height": 48.78125
+            },
+            "icon": {
+              "x": 27,
+              "y": 75.890625,
+              "width": 22,
+              "height": 22
+            },
+            "radius": "50%"
+          }
+        ],
+        "feedAndOverlayWithoutExtraBack": true,
+        "missingPostBackPreserved": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "width": 1280,
+        "measured": [
+          {
+            "id": "morning",
+            "back": {
+              "x": 246,
+              "y": 137.5,
+              "width": 44,
+              "height": 44
+            },
+            "avatar": {
+              "x": 300,
+              "y": 138.484375,
+              "width": 42,
+              "height": 42
+            },
+            "identity": {
+              "x": 300,
+              "y": 137.5,
+              "width": 141.296875,
+              "height": 43.984375
+            },
+            "row": {
+              "x": 246,
+              "y": 137.5,
+              "width": 480,
+              "height": 44
+            },
+            "icon": {
+              "x": 257,
+              "y": 148.5,
+              "width": 22,
+              "height": 22
+            },
+            "radius": "50%"
+          },
+          {
+            "id": "moka-backstage",
+            "back": {
+              "x": 246,
+              "y": 137.5,
+              "width": 44,
+              "height": 44
+            },
+            "avatar": {
+              "x": 300,
+              "y": 138.484375,
+              "width": 42,
+              "height": 42
+            },
+            "identity": {
+              "x": 300,
+              "y": 137.5,
+              "width": 139.75,
+              "height": 43.984375
+            },
+            "row": {
+              "x": 246,
+              "y": 137.5,
+              "width": 480,
+              "height": 44
+            },
+            "icon": {
+              "x": 257,
+              "y": 148.5,
+              "width": 22,
+              "height": 22
+            },
+            "radius": "50%"
+          }
+        ],
+        "feedAndOverlayWithoutExtraBack": true,
+        "missingPostBackPreserved": true,
+        "errors": []
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "width": 390,
+        "measured": [
+          {
+            "id": "morning",
+            "back": {
+              "x": 16,
+              "y": 64.890625,
+              "width": 44,
+              "height": 44
+            },
+            "avatar": {
+              "x": 70,
+              "y": 65.890625,
+              "width": 42,
+              "height": 42
+            },
+            "identity": {
+              "x": 70,
+              "y": 62.5,
+              "width": 164.234375,
+              "height": 48.78125
+            },
+            "row": {
+              "x": 16,
+              "y": 62.5,
+              "width": 358,
+              "height": 48.78125
+            },
+            "icon": {
+              "x": 27,
+              "y": 75.890625,
+              "width": 22,
+              "height": 22
+            },
+            "radius": "50%"
+          },
+          {
+            "id": "moka-backstage",
+            "back": {
+              "x": 16,
+              "y": 64.890625,
+              "width": 44,
+              "height": 44
+            },
+            "avatar": {
+              "x": 70,
+              "y": 65.890625,
+              "width": 42,
+              "height": 42
+            },
+            "identity": {
+              "x": 70,
+              "y": 62.5,
+              "width": 162.28125,
+              "height": 48.78125
+            },
+            "row": {
+              "x": 16,
+              "y": 62.5,
+              "width": 358,
+              "height": 48.78125
+            },
+            "icon": {
+              "x": 27,
+              "y": 75.890625,
+              "width": 22,
+              "height": 22
+            },
+            "radius": "50%"
+          }
+        ],
+        "feedAndOverlayWithoutExtraBack": true,
+        "missingPostBackPreserved": true,
+        "errors": []
+      }
+    ]
+  },
+  "serviceBrowserResults": {
+    "at": "2026-10-24T03:41:00.968Z",
+    "scope": "Local service router/model with intercepted API; no production or real account changes",
+    "results": [
+      {
+        "width": 390,
+        "bounds": {
+          "back": {
+            "x": 16,
+            "y": 39.390625,
+            "width": 44,
+            "height": 44
+          },
+          "avatar": {
+            "x": 70,
+            "y": 40.390625,
+            "width": 42,
+            "height": 42
+          },
+          "identity": {
+            "x": 70,
+            "y": 37,
+            "width": 140.0625,
+            "height": 48.78125
+          },
+          "row": {
+            "x": 16,
+            "y": 37,
+            "width": 358,
+            "height": 48.78125
+          },
+          "icon": {
+            "x": 27,
+            "y": 50.390625,
+            "width": 22,
+            "height": 22
+          },
+          "radius": "50%"
+        },
+        "requests": [
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/back-layout"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/back-layout/comments-page"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts"
+          }
+        ],
+        "errors": []
+      },
+      {
+        "width": 1280,
+        "bounds": {
+          "back": {
+            "x": 246,
+            "y": 112,
+            "width": 44,
+            "height": 44
+          },
+          "avatar": {
+            "x": 300,
+            "y": 112.984375,
+            "width": 42,
+            "height": 42
+          },
+          "identity": {
+            "x": 300,
+            "y": 112,
+            "width": 121.90625,
+            "height": 43.984375
+          },
+          "row": {
+            "x": 246,
+            "y": 112,
+            "width": 480,
+            "height": 44
+          },
+          "icon": {
+            "x": 257,
+            "y": 123,
+            "width": 22,
+            "height": 22
+          },
+          "radius": "50%"
+        },
+        "requests": [
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/back-layout"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/back-layout/comments-page"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts"
+          }
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "manualReview": [
+    "Chromium390 screenshot: back/avatar same row; media below",
+    "Chromium1280 screenshot: back/avatar same row; menu right"
+  ],
+  "boundaries": [
+    "service API intercepted: no production or real account verification",
+    "browser WebKit is not a physical iPhone",
+    "no new product tests for reversible layout change; existing27 related tests run",
+    "no production deployment/commit/merge/push"
+  ],
+  "artifactSha256": {
+    ".local/post-detail-back-20261024/before.json": "b709c9c2645a9b0c465b1f86e7bc081af3b298f5c46be3e5ff596cc77a70fbb6",
+    ".local/post-detail-back-20261024/types.log": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+    ".local/post-detail-back-20261024/browser.log": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b",
+    ".local/post-detail-back-20261024/webkit-390.png": "1488e307dbd5358e24a5ee161f22d5ff7cb9bc40a9457ae71f47ee741fc546eb",
+    ".local/post-detail-back-20261024/chromium-390.png": "205f68fe9f3f14b3cba5b5533330c9f1cd675d054c05a09da07df2c387934c51",
+    ".local/post-detail-back-20261024/chromium-320.png": "2e80f6898123343830fc1eca7d0f91f611bcb16fd911357b1b6cd5a1601a65fd",
+    ".local/post-detail-back-20261024/browser.cjs": "a42b342b45b1ae4750fe39c3ad6fc12e99729d91753180d66320290b6c69d781",
+    ".local/post-detail-back-20261024/checks.log": "905aeae523a45b994bd4b7f233ea4b82915c2b7af43833e6d6ef3f1b2a90fb9b",
+    ".local/post-detail-back-20261024/service-browser-run.json": "9df111a2d1948a15268d7c80486ecc0272073bdca83838e16699b4f0ccfb869e",
+    ".local/post-detail-back-20261024/checks.json": "1de5e9294fd9a096d13bb28c1e9e47f77e77766a766b2466bb35f75613978cb9",
+    ".local/post-detail-back-20261024/chromium-1280.png": "b0d8ddb2f7779e90a9efb5985494264b327172f39edf3429f7583159e98ced07",
+    ".local/post-detail-back-20261024/service-browser.cjs": "5a0cc733ed15e5b10c8d33af33f09c225f07b4e84d04298bf91c6ded505fff5d",
+    ".local/post-detail-back-20261024/tests.log": "f7663ed3976275732529ad790952246471ffec98ae04eb4c7943ff14381c8dd6",
+    ".local/post-detail-back-20261024/browser-run.json": "75b2fdb1239c542953afeae2841bcf8ac36743fdf16a2f7296af44b347b44292",
+    ".local/post-detail-back-20261024/service-browser.log": "1fee7fc54f112294d11ddfbe6858501f97a2956fe872a88be38b3dbd32c38360",
+    ".local/post-detail-back-20261024/browser.json": "3ab3f246ee3fa55671b903f300c94c8a7edce1a04a19b353ad86ff6733aedd5e",
+    ".local/post-detail-back-20261024/service-browser.json": "193377cc297a3c4f58c769054b7e609fd21c06d4721b94e7e48624de6b483546"
+  }
+}

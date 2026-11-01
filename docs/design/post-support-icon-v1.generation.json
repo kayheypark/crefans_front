@@ -1,0 +1,11 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-29",
+  "reference": "사용자가 첨부한 카카오 쇼핑 화면의 노란 동전. 앱 화면을 복사하지 않고 독립 아이콘 생성.",
+  "initialPrompt": "Use case: logo-brand. Asset type: one production-ready flat raster icon for a CREFANS post-support/tipping action, displayed at 24 to 28 pixels beside an outline heart icon. Primary request: a very simple cheerful yellow Korean-won coin, inspired by the small yellow coin in a Korean shopping app, but an original generic icon. Single perfectly front-facing circular coin, solid warm golden yellow disk #FFCF32, a slightly deeper flat amber rim #F4B52C, and one bold clearly readable Korean won symbol ₩ centered in orange #EA8A16. Thick rounded strokes for the won symbol, friendly and balanced. Truly flat 2D vector-like appearance, solid colors, crisp antialiased edges. No gradients, no highlights, no shine, no bevels, no 3D, no shadow, no text other than the won symbol, no tiny details, no surrounding badge, no background tile, no watermark. One coin only on a truly transparent square background. The coin should fill about 90% of the square with equal minimal transparent margins. Design for legibility at 24px. Output a clean isolated icon, not a mockup or comparison sheet.",
+  "refinementPrompt": "Edit this coin icon for a tiny 24px CREFANS UI action. Keep the same centered front-facing circular coin, same rounded bold ₩ silhouette and same composition. Change ONLY surface rendering: make it absolutely flat 2D solid colors, like a flat app pictogram, not a rendered coin. Outer disk uniform solid #F5B82B, inner disk uniform solid #FFD43B, symbol uniform solid #D97808. Each region must have one uniform fill, absolutely no gradients, no lighting, no shading, no texture, no grain, no blur, no highlights, no shadows. Crisp smooth antialiased boundaries and no stray pixels outside the coin. True transparent background, centered with equal transparent margin, no background tile. A clean three-color flat icon.",
+  "selectedOriginal": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-fef00859-d743-453f-8a63-ed2c99b97bd3.png",
+  "asset": "public/brand/post-actions/support-coin-flat-v1.png",
+  "postprocessing": "없음. 생성된 투명 PNG 원본 그대로 복사. 실제 표시 시 Next Image 최적화.",
+  "sha256": "cca396068a55dbc93836eacbce54ae4e4e8ecba3703fc6218f6007c0d0712d5f"
+}

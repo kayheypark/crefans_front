@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-26T12:23:03.683829+09:00",
+  "image": "crefans-front:profile-tip-icon-20261026",
+  "imageSourceFiles": 615,
+  "allRunning": true,
+  "otherContainersPreserved": true,
+  "backup": "/opt/crefans-backup-profile-tip-icon-20261026",
+  "browser": {
+    "command": "node /tmp/profile-tip-icon-check.cjs https://beta.crefans.com",
+    "exitCode": 0,
+    "checks": "image loaded; text 후원하기; width; gradient; white text; dialog opens",
+    "results": [
+      {
+        "viewport": 320,
+        "width": 288,
+        "parent": 288,
+        "left": 0,
+        "background": "linear-gradient(110deg, rgb(72, 128, 12), rgb(22, 129, 60) 36%, rgb(7, 129, 100) 70%, rgb(11, 117, 123))",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "viewport": 390,
+        "width": 358,
+        "parent": 358,
+        "left": 0,
+        "background": "linear-gradient(110deg, rgb(72, 128, 12), rgb(22, 129, 60) 36%, rgb(7, 129, 100) 70%, rgb(11, 117, 123))",
+        "color": "rgb(255, 255, 255)"
+      },
+      {
+        "viewport": 1280,
+        "width": 480,
+        "parent": 480,
+        "left": 0,
+        "background": "linear-gradient(110deg, rgb(72, 128, 12), rgb(22, 129, 60) 36%, rgb(7, 129, 100) 70%, rgb(11, 117, 123))",
+        "color": "rgb(255, 255, 255)"
+      }
+    ]
+  },
+  "checks": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 348
+  },
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "uncommitted",
+  "sourceSha256": "aa7b21ac86a4046788e5ec54d941fbb80173a8b125c10a30d760d219fcef9f5b"
+}

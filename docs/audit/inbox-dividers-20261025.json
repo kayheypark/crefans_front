@@ -1,0 +1,2069 @@
+{
+  "recordedAt": "2026-10-24T15:53:43.696663+00:00",
+  "startedAt": "2026-10-24T15:52:03.240252+00:00",
+  "requirements": [
+    "Remove message and notification list row dividers on mobile and desktop",
+    "Preserve background, padding, spacing, unread colors and full-width mobile rows",
+    "Use shared preview and service styles"
+  ],
+  "repository": {
+    "path": "/Users/ethan/repository/crefans_front",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": true,
+    "statusSha256": "ce0e5255fc0511a324ade5c6047d295dfbbdc48f591b3ffe5a87561f92b560e3",
+    "beforeFiles": {
+      "components/crefans/social.module.css": "a2196c0a420bcacd61c818eb2ff55fde8668d2efbb125d3e72de7ac653fd84db",
+      "docs/design-system.md": "da19d1bf10564ea6698555cc74f420cf1c5f6aafad3c125c861eac3b14a88de6",
+      "PROGRESS.md": "ca8c69f00b19b2a4c935c59e6e22c92c8e3b05e70842d689d8016a9cc62a991f",
+      "docs/audit/manifest.json": "f1718bc2f48d195f9f34e6eb0e27ba84483ad4329e0fe9265c2ce2db80f1505f"
+    },
+    "files": {
+      "components/crefans/social.module.css": "15ea2049c26e8d8e8ed716f233ca9495116b9fb52068f42991ca6c67a054301a",
+      "docs/design-system.md": "a0ea34cd023b1affc9fc00be45b0e1f33480c247f2bc8f3a6554dffd5856e2bc",
+      "PROGRESS.md": "9f51f63168fdbc22f1f55ea3531f1b399c7f6649c924094f9024bb5494a2ccdb",
+      "docs/audit/manifest.json": "13fc831937a3dd3e0301f84d28103873e3d9da53ae7fd16a20e008c1c70f8743"
+    }
+  },
+  "checks": {
+    "before-check": {
+      "command": [
+        "node",
+        ".local/inbox-dividers-20261025/check.cjs",
+        "before"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:52:03.298989+00:00",
+      "finishedAt": "2026-10-24T15:52:15.849583+00:00",
+      "exitCode": 0,
+      "logSha256": "038f37b5e1bbf3b5b01c2f47a2ee823c5b37eda6a7f7a50668d7d0cb1480b5b7"
+    },
+    "after-check": {
+      "command": [
+        "node",
+        ".local/inbox-dividers-20261025/check.cjs",
+        "after"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:52:32.826248+00:00",
+      "finishedAt": "2026-10-24T15:52:44.244832+00:00",
+      "exitCode": 0,
+      "logSha256": "038f37b5e1bbf3b5b01c2f47a2ee823c5b37eda6a7f7a50668d7d0cb1480b5b7"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:53:33.817924+00:00",
+      "finishedAt": "2026-10-24T15:53:34.892356+00:00",
+      "exitCode": 0,
+      "logSha256": "17dc6e3c9a02082c2c9c44719501294d05eb4c095f5eaead1ceef41123708a1d"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T15:53:34.917951+00:00",
+      "finishedAt": "2026-10-24T15:53:35.313690+00:00",
+      "exitCode": 0,
+      "logSha256": "4edb51cce4e0898a200fc01e167fec214ac55da46e14c9863bc3d1fe1714b7b9"
+    }
+  },
+  "browser": {
+    "before": {
+      "startedAt": "2026-10-24T15:52:03.485Z",
+      "endedAt": "2026-10-24T15:52:15.842Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "mobile320",
+          "url": "/preview/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 0,
+              "right": 320
+            }
+          ]
+        },
+        {
+          "name": "mobile320",
+          "url": "/preview/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            }
+          ]
+        },
+        {
+          "name": "mobile320",
+          "url": "/service/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(242, 244, 248)",
+              "unread": null,
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            }
+          ]
+        },
+        {
+          "name": "mobile320",
+          "url": "/service/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgba(0, 0, 0, 0)",
+              "unread": "false",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            }
+          ]
+        },
+        {
+          "name": "desktop1280",
+          "url": "/preview/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 247,
+              "right": 546
+            }
+          ]
+        },
+        {
+          "name": "desktop1280",
+          "url": "/preview/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            }
+          ]
+        },
+        {
+          "name": "desktop1280",
+          "url": "/service/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(242, 244, 248)",
+              "unread": null,
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 247,
+              "right": 546
+            }
+          ]
+        },
+        {
+          "name": "desktop1280",
+          "url": "/service/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgba(0, 0, 0, 0)",
+              "unread": "false",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            }
+          ]
+        },
+        {
+          "name": "webkit390",
+          "url": "/preview/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 0,
+              "right": 390
+            }
+          ]
+        },
+        {
+          "name": "webkit390",
+          "url": "/preview/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            }
+          ]
+        },
+        {
+          "name": "webkit390",
+          "url": "/service/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(242, 244, 248)",
+              "unread": null,
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            }
+          ]
+        },
+        {
+          "name": "webkit390",
+          "url": "/service/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgba(0, 0, 0, 0)",
+              "unread": "false",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "1px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "scope": "Local mock pages and real service view with GET stubs; no real account/production mutation or physical-device validation"
+    },
+    "after": {
+      "startedAt": "2026-10-24T15:52:33.015Z",
+      "endedAt": "2026-10-24T15:52:44.238Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "mobile320",
+          "url": "/preview/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 0,
+              "right": 320
+            }
+          ]
+        },
+        {
+          "name": "mobile320",
+          "url": "/preview/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            }
+          ]
+        },
+        {
+          "name": "mobile320",
+          "url": "/service/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(242, 244, 248)",
+              "unread": null,
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            }
+          ]
+        },
+        {
+          "name": "mobile320",
+          "url": "/service/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgba(0, 0, 0, 0)",
+              "unread": "false",
+              "left": 0,
+              "right": 320
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 320
+            }
+          ]
+        },
+        {
+          "name": "desktop1280",
+          "url": "/preview/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 247,
+              "right": 546
+            }
+          ]
+        },
+        {
+          "name": "desktop1280",
+          "url": "/preview/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            }
+          ]
+        },
+        {
+          "name": "desktop1280",
+          "url": "/service/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(242, 244, 248)",
+              "unread": null,
+              "left": 247,
+              "right": 546
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "17px",
+                "16px",
+                "17px"
+              ],
+              "gap": "10px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 247,
+              "right": 546
+            }
+          ]
+        },
+        {
+          "name": "desktop1280",
+          "url": "/service/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgba(0, 0, 0, 0)",
+              "unread": "false",
+              "left": 246,
+              "right": 966
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "20px",
+                "13px",
+                "20px",
+                "13px"
+              ],
+              "gap": "15px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 246,
+              "right": 966
+            }
+          ]
+        },
+        {
+          "name": "webkit390",
+          "url": "/preview/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 255, 255)",
+              "unread": null,
+              "left": 0,
+              "right": 390
+            }
+          ]
+        },
+        {
+          "name": "webkit390",
+          "url": "/preview/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            }
+          ]
+        },
+        {
+          "name": "webkit390",
+          "url": "/service/messages",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(242, 244, 248)",
+              "unread": null,
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            }
+          ]
+        },
+        {
+          "name": "webkit390",
+          "url": "/service/notifications",
+          "metrics": [
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgba(0, 0, 0, 0)",
+              "unread": "false",
+              "left": 0,
+              "right": 390
+            },
+            {
+              "border": [
+                "0px",
+                "0px",
+                "0px",
+                "0px"
+              ],
+              "shadow": "none",
+              "padding": [
+                "16px",
+                "16px",
+                "16px",
+                "16px"
+              ],
+              "gap": "12px",
+              "background": "rgb(255, 251, 235)",
+              "unread": "true",
+              "left": 0,
+              "right": 390
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "scope": "Local mock pages and real service view with GET stubs; no real account/production mutation or physical-device validation"
+    }
+  },
+  "screenshots": {
+    ".local/inbox-dividers-20261025/before/desktop1280-notifications.png": "35a3a1ed4dead036b4c5db770402cbe9e1879768077985028ed68b5166ad507e",
+    ".local/inbox-dividers-20261025/before/mobile320-messages.png": "999230021b218155e251726f0934961b9329627e42379c0cfda14b496aa4f28b",
+    ".local/inbox-dividers-20261025/before/webkit390-messages.png": "91f316c7f76ce96e34e156e8c0f4e97d9d8b3a7acb8082f3e200a2f3fa1837f7",
+    ".local/inbox-dividers-20261025/before/webkit390-notifications.png": "b394bf5414760566a7f76afb67433b3190817c835d719ffb5c3dde7a0e11e4d7",
+    ".local/inbox-dividers-20261025/before/desktop1280-messages.png": "f1b9152254ec260d730dade21018bc5de0bc8b5933c0b5e90072f3ff90aff470",
+    ".local/inbox-dividers-20261025/before/mobile320-notifications.png": "701e770a4e921d8654a6b184b1adc46649ae4dcbf68606b8316342d6ce4da079",
+    ".local/inbox-dividers-20261025/after/desktop1280-notifications.png": "46e18c0c7f71af04bb8303d8bb876f64da8813d53409699c9bb9bab2f9f80de9",
+    ".local/inbox-dividers-20261025/after/mobile320-messages.png": "4ccb62db96ca8dda013918b7c65959239189e614caabf1c4b342aa91efbbaeaa",
+    ".local/inbox-dividers-20261025/after/webkit390-messages.png": "262e2d744ee6d37a12a1063753bae171ee38ad27df225ab3257098aee958c569",
+    ".local/inbox-dividers-20261025/after/webkit390-notifications.png": "4d818beb6690e44dd2157b2da57ad1cf7787cc6a64b3ba58885c66dd22b9d8f9",
+    ".local/inbox-dividers-20261025/after/desktop1280-messages.png": "f1b9152254ec260d730dade21018bc5de0bc8b5933c0b5e90072f3ff90aff470",
+    ".local/inbox-dividers-20261025/after/mobile320-notifications.png": "7fc6b5b352bd7b5a090a2aecc0ce5ac7b002ec0ed59a8081846c60f48895823c"
+  },
+  "visualReview": [
+    "After WebKit390 notifications",
+    "After Chromium320 messages"
+  ],
+  "diffSha256": "0c9f0251d6c741845d49cfd96c22db2f5970316b5001eeea974b9f6bf00b0352",
+  "scopeNotes": [
+    "Only two border-bottom declarations removed; desktop message rows were already borderless",
+    "12 before and12 after browser cases; no new product unit tests/full check for two CSS declarations",
+    "Service GET responses are stubs; no real account mutations or physical-device validation",
+    "No deployment, commit or push; current production remains profile-category-20261025",
+    "Container outline, room header and GNB separators remain unchanged; these are not row dividers"
+  ],
+  "sourceSnapshotNotTestProof": false
+}

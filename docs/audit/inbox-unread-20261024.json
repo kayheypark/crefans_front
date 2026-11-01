@@ -1,0 +1,282 @@
+{
+  "recordedAt": "2026-10-24T02:26:48.575447+00:00",
+  "request": "모바일 메시지·알림 제목 통일, 미확인 점 빨간색 및 미확인 행 노란색",
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "frontOrigin": "http://127.0.0.1:3010",
+    "database": "isolated local MySQL at 127.0.0.1:3307 / crefans_platform_dev",
+    "runtime": "v22.7.0"
+  },
+  "repositories": {
+    "front": {
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/beta-signup",
+      "dirty": true,
+      "preexistingChangesPreserved": true,
+      "targetSha256": {
+        "components/crefans/ServiceShell.tsx": "d66aef51d4502c1fefda22149423613899bd563f589072abbafb29fb73932009",
+        "components/crefans/SocialPages.tsx": "a201207fd28014ab29e5a11063064545aaa024aabb6ee9b4da36775e4415d406",
+        "components/crefans/service.module.css": "8d2efe75e62923bcc969218e9d1971dce1e97ddd44af7398c3f78e407050c754",
+        "components/crefans/social.module.css": "91921da6aa434b21354f7c4258d8f013ab349b26592a4b4236dc219fa0ce8404",
+        "components/preview/service/fixtures.ts": "7e35378996ed9b17596a80873846900bf85c37f74b6339b9b16f6c00256cda49",
+        "components/preview/service/useMockSocial.ts": "6e91cde593b1d0ecfd8efdc630939b1db6fa30d2b741fcf6630b8cf411dfc6bc",
+        "components/preview/studio/useMockCommunity.ts": "c52bf66ab3daec86096b59c2c85d5b25573648ea0cd13b16358c97d18328c4c7",
+        "features/service/useServiceModel.ts": "2f0391d467657781e7692134ecbd96da2e7608b611eaaf6b275e2f26abf6aea0",
+        "features/service/useStudioModel.ts": "e581cab8d620e4c9a711f2d5db7a871ce5371169046ee3a13f2c3b05cc151acf",
+        "types/crefans.ts": "a4810b07f1f99f405444d1e098299816c38748ae105ca519e16276f70aff9ebf",
+        "types/crefans-social.ts": "c1373d6f8a06ae90f4dc082f07f40a7ecc076d454f3d742b1e6c119bfc7ee79a"
+      }
+    },
+    "server": {
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/beta-signup",
+      "dirty": true,
+      "preexistingChangesPreserved": true,
+      "targetSha256": {
+        "src/platform/service.ts": "b9b7f40be8ceff586cf4d6381ced9c3a0c86b26424b1c9ada9a22fdf5f55f5ab",
+        "src/platform/controller.ts": "008ba1de707e4ada0e6fdb63feb911004e855db3ba9e29de4a282e3620959bc4",
+        "src/platform/openapi.ts": "2001a3e8df82341d111379606fe99671d995e3d0d58eb4ee99a3b7df590fb274",
+        "src/platform/openapi-contract.ts": "78636e1cf74a10fc4153cbd909880edf078819f3494fbc9f985e99275895ecdd",
+        "tests/platform-openapi.test.cjs": "b9329cd9699be1912d60ea374f263b19668533df2ba61a3f508f29cf257e3f7e",
+        "tests/platform-message-read.test.cjs": "393278225d67cd5cd258dfa4a2b49e55001e599a983733f90f3be5eaee5305cf"
+      }
+    }
+  },
+  "acceptance": {
+    "mobileTitles": "24px / 1.3 line-height / 700 for messages and notifications; desktop sizes unchanged",
+    "unreadRow": "warningSoft #FFFBEB including hover; mobile edge-to-edge background/separators preserved",
+    "unreadDots": "danger #DC2626 in lists and GNB/header/sidebar",
+    "readSemantics": "Incoming unread message flag; visible conversation snapshot IDs only. Hidden mobile conversation/list and background tab do not request read. Only successful returned IDs cleared."
+  },
+  "checks": [
+    {
+      "repository": "front",
+      "command": "npm run check",
+      "exitCode": 0,
+      "log": ".local/inbox-unread-20261024/front-check.log",
+      "logSha256": "0554d503d81c35a574cf0f3a49f2cb2e5201bb55a2a90a5137207a3729de663c",
+      "logModifiedAt": "2026-10-24T02:19:11.638220+00:00",
+      "result": "Layer/type checks and 289 tests passed; later hover-only CSS change covered by browser checks"
+    },
+    {
+      "repository": "server",
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": ".local/inbox-unread-20261024/build.log",
+      "logSha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2",
+      "logModifiedAt": "2026-10-24T02:19:41.193997+00:00",
+      "result": "Nest TypeScript build passed"
+    },
+    {
+      "repository": "server",
+      "command": "CREFANS_E2E=true node --test tests/platform-openapi.test.cjs",
+      "exitCode": 0,
+      "log": ".local/inbox-unread-20261024/openapi.log",
+      "logSha256": "27531c7c41a18a98813e19e598d9f36965ed8dd33ac30125dc623432f4a06a5d",
+      "logModifiedAt": "2026-10-24T02:19:46.430963+00:00",
+      "result": "11 OpenAPI tests passed; union 99 / user 56 / studio 37 / console 25"
+    },
+    {
+      "repository": "server",
+      "command": "CREFANS_E2E=true node --test tests/platform-message-read.test.cjs",
+      "exitCode": 0,
+      "log": ".local/inbox-unread-20261024/message-read.log",
+      "logSha256": "f8e56bc3e9cf50ceab1de101fae58f1f9ba9402e5239bea4b1f8767b11be2c63",
+      "logModifiedAt": "2026-10-24T02:20:22.748606+00:00",
+      "result": "4 tests passed; actual isolated MySQL/HTTP and stub token validator"
+    },
+    {
+      "repository": "front",
+      "command": "node .local/inbox-unread-20261024/browser.cjs",
+      "exitCode": 0,
+      "log": ".local/inbox-unread-20261024/browser.log",
+      "logSha256": "4e4667fc0363791830fd249f2acfd16b77ababc0fc255907fd6030ae10b2fd01",
+      "logModifiedAt": "2026-10-24T02:21:40.607084+00:00",
+      "result": "5 browser configurations passed"
+    },
+    {
+      "repository": "front",
+      "command": "node .local/inbox-unread-20261024/service-browser.cjs",
+      "exitCode": 0,
+      "log": ".local/inbox-unread-20261024/service-browser.log",
+      "logSha256": "2003fcf76ecbf95c20e1f425973254c34048bcfb65de32bcbd15e3f4dc83394b",
+      "logModifiedAt": "2026-10-24T02:24:50.581130+00:00",
+      "result": "Actual service adapter, intercepted API: failure/retry/success/reload passed"
+    }
+  ],
+  "browser": {
+    "at": "2026-10-24T02:21:40.625Z",
+    "command": "node .local/inbox-unread-20261024/browser.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 320,
+        "messageTitle": {
+          "size": "24px",
+          "lineHeight": "31.2px",
+          "weight": "700"
+        },
+        "notificationTitle": {
+          "size": "24px",
+          "lineHeight": "31.2px",
+          "weight": "700"
+        },
+        "unreadBackground": "rgb(255, 251, 235)",
+        "unreadDots": "rgb(220, 38, 38)",
+        "readOnOpen": true,
+        "markAllClearsUnread": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 390,
+        "messageTitle": {
+          "size": "24px",
+          "lineHeight": "31.2px",
+          "weight": "700"
+        },
+        "notificationTitle": {
+          "size": "24px",
+          "lineHeight": "31.2px",
+          "weight": "700"
+        },
+        "unreadBackground": "rgb(255, 251, 235)",
+        "unreadDots": "rgb(220, 38, 38)",
+        "readOnOpen": true,
+        "markAllClearsUnread": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 767,
+        "messageTitle": {
+          "size": "24px",
+          "lineHeight": "31.2px",
+          "weight": "700"
+        },
+        "notificationTitle": {
+          "size": "24px",
+          "lineHeight": "31.2px",
+          "weight": "700"
+        },
+        "unreadBackground": "rgb(255, 251, 235)",
+        "unreadDots": "rgb(220, 38, 38)",
+        "readOnOpen": true,
+        "markAllClearsUnread": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "browser": "156.0.8078.4",
+        "width": 1280,
+        "messageTitle": {
+          "size": "21px",
+          "lineHeight": "33.6px",
+          "weight": "700"
+        },
+        "notificationTitle": {
+          "size": "26px",
+          "lineHeight": "33.8px",
+          "weight": "700"
+        },
+        "unreadBackground": "rgb(255, 251, 235)",
+        "unreadDots": "rgb(220, 38, 38)",
+        "readOnOpen": true,
+        "markAllClearsUnread": true,
+        "errors": []
+      },
+      {
+        "engine": "webkit",
+        "browser": "27.2",
+        "width": 390,
+        "messageTitle": {
+          "size": "24px",
+          "lineHeight": "31.199999px",
+          "weight": "700"
+        },
+        "notificationTitle": {
+          "size": "24px",
+          "lineHeight": "31.199999px",
+          "weight": "700"
+        },
+        "unreadBackground": "rgb(255, 251, 235)",
+        "unreadDots": "rgb(220, 38, 38)",
+        "readOnOpen": true,
+        "markAllClearsUnread": true,
+        "errors": []
+      }
+    ]
+  },
+  "serviceAdapter": {
+    "at": "2026-10-24T02:24:50.580Z",
+    "command": "node .local/inbox-unread-20261024/service-browser.cjs",
+    "exitCode": 0,
+    "scope": "Real service adapter with intercepted API responses, not production sessions",
+    "noReadOnMobileList": true,
+    "failedReadPreservesUnread": true,
+    "reopenRetries": true,
+    "successClearsGnbAndRow": true,
+    "reloadRestoresServerReadState": true,
+    "requests": [
+      {
+        "method": "PUT",
+        "path": "/api/v1/members/test-creator/messages/read",
+        "body": {
+          "ids": [
+            "10000000-0000-4000-8000-000000000001"
+          ]
+        }
+      },
+      {
+        "method": "PUT",
+        "path": "/api/v1/members/test-creator/messages/read",
+        "body": {
+          "ids": [
+            "10000000-0000-4000-8000-000000000001"
+          ]
+        }
+      }
+    ],
+    "errors": []
+  },
+  "authorizationAssertions": [
+    "missing or invalid session 401",
+    "invalid ID batch 400; no database mutation",
+    "authenticated recipient and requested sender constraints",
+    "forged recipient body ignored",
+    "other recipient/outgoing/other conversation IDs unchanged",
+    "unseen message outside snapshot unchanged",
+    "repeated read preserves first timestamp"
+  ],
+  "firstFailure": {
+    "scope": "service browser harness",
+    "exitCode": 1,
+    "reason": "getByRole(alert) matched Next route announcer and application alert",
+    "fix": "Limit assertion to message-error element; no product change required",
+    "logSha256": "8dc53983024eb2ca41118bc73107bb9e86228106e3c708b4804e62fafdbd9d57",
+    "retestExitCode": 0
+  },
+  "research": [
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+      "checkedAt": "2026-10-24",
+      "application": "Validate authenticated subject and object ownership for each read mutation; negative authorization checks"
+    }
+  ],
+  "manualVisualReview": [
+    "WebKit390 message list screenshot inspected for yellow rows, red row/GNB dots and heading layout"
+  ],
+  "limits": [
+    "Not deployed this turn",
+    "No physical iPhone testing",
+    "Service browser uses intercepted responses, not real production sessions",
+    "Database integration uses isolated MySQL and stub session token validation",
+    "No live account message sent; no financial or third-party actions",
+    "No new database migration; existing read_at used",
+    "No commit/merge/push; previous audit artifacts remain historical"
+  ]
+}

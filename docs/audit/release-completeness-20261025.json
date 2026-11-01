@@ -1,0 +1,369 @@
+{
+  "checkedAt": "2026-10-25T02:54:30.668645+00:00",
+  "scope": "Existing release completeness audit and missing PASS-deferral configuration deployment; no application source or image changed",
+  "release": "beans-20261025",
+  "repositories": {
+    "crefans_server": {
+      "branch": "feat/bean-support",
+      "commit": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirtyEntriesBeforeDocumentationUpdate": 138,
+      "statusSha256BeforeDocumentationUpdate": "75751ae8acbbc6cf44ee4f7f646009e4df093016abbdb3907b833bfd09be2790"
+    },
+    "crefans_front": {
+      "branch": "feat/bean-support",
+      "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirtyEntriesBeforeDocumentationUpdate": 271,
+      "statusSha256BeforeDocumentationUpdate": "f11ce80c9e8f872c36859988b89702c4e7aa939e7399b91ee1e796fff0048764"
+    },
+    "crefans_admin": {
+      "branch": "feat/bean-support",
+      "commit": "7928cb6fc70c27bbcb8f5ec4a760023a5ffda01c",
+      "dirtyEntriesBeforeDocumentationUpdate": 45,
+      "statusSha256BeforeDocumentationUpdate": "93aace31da8bdf69b3fb2efc99ba92b7ab4e16ba029c27e4df433f56a91bc908"
+    }
+  },
+  "runtimeInputs": {
+    "server": {
+      "count": 197,
+      "omitted": {},
+      "different": {},
+      "excludedNonruntime": [
+        "src/.DS_Store"
+      ]
+    },
+    "front": {
+      "count": 547,
+      "omitted": {},
+      "different": {},
+      "excludedNonruntime": [
+        "app/.DS_Store",
+        "components/.DS_Store",
+        "lib/.DS_Store",
+        "public/.DS_Store",
+        "public/logo_icon.psd"
+      ]
+    },
+    "admin": {
+      "count": 57,
+      "omitted": {},
+      "different": {},
+      "excludedNonruntime": []
+    }
+  },
+  "runtimeInputTotal": 801,
+  "migrationCount": 21,
+  "migrationChecksumsMatched": true,
+  "activeInfrastructureSha256": {
+    "Caddyfile": {
+      "localSha256": "57f0392113a69c06b1db7c05f16988c3de82667a8f37d08748bfb44fefad423d",
+      "deployedSha256": "57f0392113a69c06b1db7c05f16988c3de82667a8f37d08748bfb44fefad423d"
+    },
+    "compose.yml": {
+      "localSha256": "56d9e3344285055c016fccdb4c76b69ccf45d38f80f41a000ded9633a5fec13b",
+      "deployedSha256": "56d9e3344285055c016fccdb4c76b69ccf45d38f80f41a000ded9633a5fec13b"
+    },
+    "compose.beta.yml": {
+      "localSha256": "05303c0929458924dddddcec0ae99dc782cbe4d8143c9e8befdd87fa4303fc3f",
+      "deployedSha256": "05303c0929458924dddddcec0ae99dc782cbe4d8143c9e8befdd87fa4303fc3f"
+    },
+    "compose.admin.yml": {
+      "localSha256": "def7c2a421a915d8f745de716149bf95963bc4bd02528b40fab6af2dc26dbe70",
+      "deployedSha256": "def7c2a421a915d8f745de716149bf95963bc4bd02528b40fab6af2dc26dbe70"
+    }
+  },
+  "configurationChange": {
+    "SIGNUP_IDENTITY_MODE": {
+      "before": "unset (PASS required)",
+      "after": "email-only"
+    },
+    "otherRuntimeValuesUnchanged": true,
+    "imageConfigurationUnchanged": true,
+    "backup": "/opt/crefans-backup-release-completeness-20261025"
+  },
+  "runtimeFlags": {
+    "BETA_MODE": "true",
+    "BEAN_LEDGER_ENABLED": "true",
+    "BEAN_LIVE_PAYMENTS_APPROVED": "false",
+    "BANK_PAYOUTS_ENABLED": "false",
+    "MARKETING_MAIL_ENABLED": "false",
+    "SIGNUP_IDENTITY_MODE": "email-only",
+    "MEDIA_STORAGE": "s3",
+    "CREFANS_E2E": "false"
+  },
+  "signup": {
+    "identityRequired": false,
+    "inviteOnly": true,
+    "allowlistCount": 0,
+    "signupReady": false,
+    "open": false
+  },
+  "policy": {
+    "feeBps": 2000,
+    "holdDays": 7,
+    "version": 2
+  },
+  "productionVerification": {
+    "at": "2026-10-25T02:53:12.857133+00:00",
+    "http": [
+      {
+        "url": "https://beta.crefans.com/api/v1/health",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/bootstrap",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/studio/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/creator/moka",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/preview/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/feed",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/login",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/service/studio/beans",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://admin.crefans.com/login",
+        "status": 200,
+        "expected": 200
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/beans/wallet",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://admin.crefans.com/api/v1/admin/beans/overview",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/admin/docs/user",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/admin/docs/studio",
+        "status": 401,
+        "expected": 401
+      },
+      {
+        "url": "https://beta.crefans.com/api/v1/admin/docs/console",
+        "status": 401,
+        "expected": 401
+      }
+    ],
+    "runtime": {
+      "release": "beans-20261025",
+      "flags": {
+        "beta": true,
+        "beans": true,
+        "liveSales": false,
+        "bankPayouts": false,
+        "marketing": false,
+        "testRuntime": false
+      },
+      "paymentEnvironment": "test",
+      "appliedMigrations": 21,
+      "genesisCount": 1,
+      "companyStock": "100000000",
+      "balancedLedger": true,
+      "policy": {
+        "version": 2,
+        "feeBps": 2000,
+        "holdDays": 7
+      },
+      "counts": {
+        "members": 1,
+        "creators": 0,
+        "orders": 0,
+        "charges": 0,
+        "tips": 0,
+        "payouts": 0,
+        "liveCharges": 0
+      }
+    },
+    "containers": {
+      "crefans-beta-api-1": {
+        "id": "51b199e8b5813585f1b3eb6c0b2ff8406d1352cfa340f086d2303b57d34a97b6",
+        "image": "sha256:965e14df545071b251feeaa4945e7ec302c94a724735830c66f3de27af665c93",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-worker-1": {
+        "id": "68307fb383a51d138b8be3cc3a643b1bdf458a31265f96eb7d26c9b9fe897d31",
+        "image": "sha256:965e14df545071b251feeaa4945e7ec302c94a724735830c66f3de27af665c93",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-frontend-1": {
+        "id": "9b873c70fe1b62d3b74708e0355898905124120312d85e653e62723402b5b5b4",
+        "image": "sha256:cac5febe5739e572a1932c99a88c7fb3a7f9983c88b80427d4d28316b0f97625",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-admin-1": {
+        "id": "78b88fd041adf7851e55e8c122f5314a0ba52f66a30318dd7a6cc341ec626b70",
+        "image": "sha256:7b191b4298d3b6548dff2a96163f2ac1fd72a187f81d425e0b90d67e4a391649",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "oom": false,
+        "restarts": 0
+      }
+    },
+    "sourceFilesMatched": {
+      "server": 196,
+      "front": 551
+    }
+  },
+  "browser": {
+    "at": "2026-10-25T02:53:28.106Z",
+    "results": [
+      {
+        "screen": "preview wallet/mock charge",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "preview wallet/mock charge",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "preview profile shared support dialog",
+        "passed": true
+      },
+      {
+        "screen": "preview studio min1000 and 20% quote",
+        "passed": true
+      },
+      {
+        "screen": "real wallet anonymous login guard",
+        "passed": true
+      },
+      {
+        "screen": "independent console anonymous guard",
+        "passed": true
+      },
+      {
+        "screen": "real signup email-only / age acknowledgement / legal gate",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "real signup email-only / age acknowledgement / legal gate",
+        "width": 1280,
+        "passed": true
+      }
+    ]
+  },
+  "worker": {
+    "id": "worker-health",
+    "locked_until": "2026-10-21T08:22:45.481Z",
+    "completed_at": "2026-10-25T02:52:46.002Z",
+    "note": "{\"failures\":{}}"
+  },
+  "commands": [
+    {
+      "command": "python3 .local/release-completeness-20261025/audit.py",
+      "repository": "crefans_server",
+      "exitCode": 0
+    },
+    {
+      "command": "sudo -n bash deploy-email-mode.sh (remote /opt/crefans)",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/release-completeness-20261025/verify-production.py",
+      "repository": "crefans_server",
+      "exitCode": 0
+    },
+    {
+      "command": "node .local/release-completeness-20261025/browser.cjs after",
+      "repository": "crefans_server",
+      "exitCode": 0
+    }
+  ],
+  "firstFailuresAndResolution": [
+    "Backup creation lacked sudo: stopped before configuration change; rerun entire deployment script with sudo.",
+    "Precondition expected unquoted false but runtime used quoted false; stopped before mutation. Parsed surrounding quotes and reran. Prior failures retained in private deployment log."
+  ],
+  "priorProductAndDeploymentEvidence": [
+    "bean-product-20261025.json",
+    "bean-deployment-20261025.json"
+  ],
+  "boundaries": [
+    "No real PG charge, tip, promotion, bank transfer, email or separate bot test was executed. Preview mutations stay in browser mock state.",
+    "Existing local provider-double suites and prior builds remain separate evidence; not rerun for configuration-only change.",
+    "Signup remains closed: empty invitation allowlist and legal signupReady=false. Email age acknowledgement is not verified identity/adult proof.",
+    "Live bean sales, bank payouts and marketing remain disabled. PASS/bank bridges, legal effective processing facts, live PG approval, load and restore acceptance remain external work.",
+    "Optional CloudWatch overlay needs provisioning and is not an undeployed application change."
+  ],
+  "privateArtifacts": "/Users/ethan/repository/crefans_server/.local/release-completeness-20261025",
+  "artifactSha256": {
+    "audit.py": "e3e0ca5586a1f97eb20ec454cbecf7f83b60abd5937bc3343e420a4ae3b2c1fa",
+    "audit.log": "82e32ef60add9bebeeda1c8f293471cf46558dc11c9e11d73f303c388d356e84",
+    "runtime-input-inventory.json": "7a152f24113f714738a5dcd6cf446f8fcbe8aae3ed02f159957151277e4a9d12",
+    "runtime.json": "dc577f029942d5da9d847ea12af0894ece4fd585754cccaddb8a90faf0996a27",
+    "infra-comparison.json": "059667cae6fd50f2b4c843217ce71fcfbad1c13c074bfc32d8d041ec521c9b6a",
+    "deploy-email-mode.sh": "931643611ea023fd4f992da12c24458bffc05308df8ef8051a5870a0b86f1470",
+    "deploy-email-mode.log": "56cc2af772618181126a11a791a031cfcc715270090a651ac4f76e861d98505f",
+    "verify-production.py": "2256629eff975d6a25a9464d171f42c7cc1d41667e1fed692747cd566af8ea07",
+    "verify-production.log": "eedf008f47d45c3969262a3caee177b622c4228eae0892f9631234d81bbaf597",
+    "production-verification.json": "33f28da83ed9b27c0d9266ca3bb38895b214642de04fd0ce4b0fab273ac59ab3",
+    "browser.cjs": "abb6c12ef75937c2ce30a2c0c5376f27673051d695c4429d4a2930d2b68ada34",
+    "browser.log": "465549518a644ddd5f9a19d6622dac964b6b538a18b91382f29d023f160c4ed3",
+    "browser-after.json": "fdc57c47b007a437e03c6e1a27bce75039d525a8edade0bc3f3bcaa86ef6348a",
+    "production-signup-email-only-390.png": "b15fde483e4f1f01b6953d114522836a4cdd224fb9dfa461c7586600f69182a5",
+    "production-signup-email-only-1280.png": "7161a5277a61ff6f4deab300c33b6fa9278070a0bb93e0daf6ffd492ba08c92a"
+  }
+}

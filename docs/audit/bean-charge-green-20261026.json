@@ -1,0 +1,88 @@
+{
+  "checkedAt": "2026-10-26T00:29:03.335056+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "dirty; prior user work preserved",
+  "scope": "Green wallet charge CTA and remove plus icon; shared preview/service component",
+  "sources": {
+    "components/crefans/BeanWalletPages.tsx": "8de914ac1d36f18fbe925c9ec093a2d2817164290e33230e45948f2e33d3d0ca",
+    "components/crefans/beans.module.css": "cf2401e50d933dbb11e9dd4cfb6c62810f2899821f3a5783f015a5d77c3637c1"
+  },
+  "checks": [
+    {
+      "command": "node .local/bean-charge-green-20261026/verify.cjs",
+      "exitCode": 0,
+      "environment": "Existing local Next dev 3010; Chromium390/1280 and WebKit390",
+      "result": {
+        "checkedAt": "2026-10-26T00:28:34.717Z",
+        "rows": [
+          {
+            "name": "chromium",
+            "width": 390,
+            "background": "linear-gradient(110deg, rgb(8, 116, 67) 0%, rgb(10, 128, 84) 55%, rgb(11, 107, 81) 100%)",
+            "color": "rgb(255, 255, 255)",
+            "height": 60,
+            "svgs": 0,
+            "images": [
+              {
+                "src": "/brand/beans/soft3d-v2/10.png",
+                "width": 1254
+              }
+            ],
+            "overflow": false,
+            "errors": [],
+            "screenshot": ".local/bean-charge-green-20261026/chromium-390.png"
+          },
+          {
+            "name": "chromium",
+            "width": 1280,
+            "background": "linear-gradient(110deg, rgb(8, 116, 67) 0%, rgb(10, 128, 84) 55%, rgb(11, 107, 81) 100%)",
+            "color": "rgb(255, 255, 255)",
+            "height": 60,
+            "svgs": 0,
+            "images": [
+              {
+                "src": "/brand/beans/soft3d-v2/10.png",
+                "width": 1254
+              }
+            ],
+            "overflow": false,
+            "errors": [],
+            "screenshot": ".local/bean-charge-green-20261026/chromium-1280.png"
+          },
+          {
+            "name": "webkit",
+            "width": 390,
+            "background": "linear-gradient(110deg, rgb(8, 116, 67) 0%, rgb(10, 128, 84) 55%, rgb(11, 107, 81) 100%)",
+            "color": "rgb(255, 255, 255)",
+            "height": 60,
+            "svgs": 0,
+            "images": [
+              {
+                "src": "/brand/beans/soft3d-v2/10.png",
+                "width": 1254
+              }
+            ],
+            "overflow": false,
+            "errors": [],
+            "screenshot": ".local/bean-charge-green-20261026/webkit-390.png"
+          }
+        ]
+      },
+      "logSha256": "6610e53629be50c593bc08ec986bcd94c013ae1f1d60db0351a9f2d5d8088699"
+    },
+    {
+      "command": "node --test tests/bean-wallet-pages.test.cjs",
+      "exitCode": 0,
+      "passed": 4,
+      "logSha256": "c2bfc234255e1e78ccf7db573d0003ebaca3eb2726fa8b057ca6cb923f74bb0b"
+    }
+  ],
+  "manual": "Chromium mobile/desktop screenshots inspected; green CTA with bean image and no plus",
+  "notPerformed": [
+    "Deployment",
+    "Full financial E2E rerun",
+    "Actual provider payment"
+  ]
+}

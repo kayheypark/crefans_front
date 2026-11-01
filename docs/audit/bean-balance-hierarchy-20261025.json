@@ -1,0 +1,161 @@
+{
+  "verifiedAt": "2026-10-25T03:25:15.869738+00:00",
+  "repositories": {
+    "front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "branch": "feat/bean-support",
+      "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "dirtyEntries": 278,
+      "statusSha256": "5270d2b748791bc596a7a120da605d359ce537c803f5cbf830e069a01fcead9e",
+      "fileSha256": {
+        "components/crefans/BeanBalanceSummary.tsx": "de4f64358505608929d361382cf79cee9570145b0cf9e150cb4acbc38c55199a",
+        "components/crefans/BeanPages.tsx": "56f3f3801754761cb23061fcc56f10ab48e138ac6486a682e72a9f7c6b3fbb69",
+        "components/crefans/beans.module.css": "52c0d84ed16616b3d2b96fdc97fb14fa3941fb6e08349585a9f8f266d6c85f40",
+        "components/preview/service/useMockBeans.ts": "def50bec9d2c985e22932500edad48d2a114d759abb962b5af202285f89f788c",
+        "types/crefans-beans.ts": "f149d9582ce7f380eefee98ab067c2c6654d0d89a68caa8f17e2758d48bb56ee",
+        "tests/bean-balance-summary.test.cjs": "77bac39995a6ff76c2ec44895856e44088c922ad09aaa3a329846d9ea97cd9eb"
+      }
+    },
+    "server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "branch": "feat/bean-support",
+      "commit": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "dirtyEntries": 138,
+      "statusSha256": "75751ae8acbbc6cf44ee4f7f646009e4df093016abbdb3907b833bfd09be2790",
+      "fileSha256": {
+        "src/platform/beans.service.ts": "48b5366a29e9496332162ff987712583fcd09f6a7faffb712328ac7fc07d4750",
+        "tests/platform-beans.test.cjs": "f7fee64b172e407f25845a2a1fea607126fe839f9dec93e71effbd86564df797"
+      }
+    }
+  },
+  "deployed": false,
+  "requirements": {
+    "primary": [
+      "사용 가능한 콩",
+      "출금 가능한 콩"
+    ],
+    "details": "Existing AccordionItem, collapsed by default; semantic nested lists show purchased/promotion, eligible paid tips, held/excluded/reserved balances",
+    "spendable": "Server nonfrozen purchased/promotion lot sum, matching breakdown",
+    "withdrawable": "Reuse existing payout eligible(): paid live source, receipt confirmed, matured, not frozen; reserved/promotion/test/purchased excluded",
+    "unknown": "Missing server totals do not fall back to ledger balances or display fabricated zero",
+    "sharing": "BeanBalanceSummary reused in wallet and creator studio; live and mock routers unchanged"
+  },
+  "commands": [
+    {
+      "repository": "server",
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    {
+      "repository": "server",
+      "command": "CREFANS_E2E=true node --test --test-concurrency=1 tests/platform-beans.test.cjs tests/platform-bean-ledger.test.cjs tests/platform-openapi.test.cjs",
+      "exitCode": 0,
+      "passed": 29,
+      "environment": "isolated local MySQL3307 crefans_platform_e2e; PG/bank doubles"
+    },
+    {
+      "repository": "front",
+      "command": "npm run check",
+      "exitCode": 0,
+      "passed": 328,
+      "layerFiles": 356
+    },
+    {
+      "repository": "front",
+      "command": "node .local/bean-balance-hierarchy-20261025/browser.cjs",
+      "exitCode": 0,
+      "passed": 9,
+      "environment": "local3010 /preview, mock charge/payout"
+    }
+  ],
+  "browser": {
+    "at": "2026-10-25T03:24:09.798Z",
+    "origin": "http://127.0.0.1:3010",
+    "checks": [
+      {
+        "screen": "two primary totals / nested disclosure / responsive",
+        "width": 360,
+        "passed": true
+      },
+      {
+        "screen": "mock charge updates only spendable total",
+        "width": 360,
+        "passed": true
+      },
+      {
+        "screen": "two primary totals / nested disclosure / responsive",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "mock charge updates only spendable total",
+        "width": 390,
+        "passed": true
+      },
+      {
+        "screen": "two primary totals / nested disclosure / responsive",
+        "width": 767,
+        "passed": true
+      },
+      {
+        "screen": "mock charge updates only spendable total",
+        "width": 767,
+        "passed": true
+      },
+      {
+        "screen": "two primary totals / nested disclosure / responsive",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "mock charge updates only spendable total",
+        "width": 1280,
+        "passed": true
+      },
+      {
+        "screen": "shared studio summary / mock reservation / 20% quote",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "negativeCases": [
+    "Frozen purchased lot leaves only100 promotional spendable, breakdown purchased0/promotion100.",
+    "Paid source before receipt has withdrawable0; after receipt1100, future release0, frozen0.",
+    "Reserve1000 leaves withdrawable100 and reserved1000.",
+    "Missing summary fields stay unknown; explicit withdrawable0 remains0 despite raw earned300/promotion50/reserved60."
+  ],
+  "visualReview": [
+    "details-390.png (wait for full accordion height)",
+    "wallet-390.png",
+    "studio-reserved-1280.png"
+  ],
+  "firstFailureAndResolution": "Browser role(region) also selected named summary section; scoped explicit accordion panel and reran. Early screenshot captured mid-animation; added height-settled assertion and regenerated captures. No product defect change for these verification corrections.",
+  "artifactSha256": {
+    "front/browser.log": "c6fec605e5d98c57935e7cc999fdbeea2c9b333838fe0dd2bf1ca76a9c6249db",
+    "front/details-390.png": "3e3779f3d2a67c5c0495976c57ce87491c15515e15fa0ae3d8412d2e16d61e3d",
+    "front/browser-first-failure.log": "a0aebcd8ae44073616234d905fe006909cb4e41c93fb1ce646c6f1d71eb794a8",
+    "front/details-1280.png": "61fa66c3b0cdcc0e9b5483686ad00d74b2332c75d8e96abb0839156d0c68c2dc",
+    "front/browser.cjs": "4a1763f4042fd78a5f1ee3db5afbb447ca33c0ed6116c0aa4339779913b2bc6f",
+    "front/wallet-390.png": "11e0db14e92c5fe2c0e3097f8a3504ff8d2e1a5238e05e71f5101c3d64ae7f98",
+    "front/typecheck.log": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+    "front/wallet-1280.png": "fa883bfc08eee293dcd9e1a55599d5e0d1cf63d44a2c0c221bcebdb3cff290e2",
+    "front/wallet-767.png": "9df79995454b198b8e407badf13113fd519ec8e3694cd4829fccbc9a135aede3",
+    "front/wallet-360.png": "26f78364f907841d9b9d6341561dc4cc64eb43272eb2322e1e73759b633770e3",
+    "front/studio-reserved-1280.png": "9cb3ea19b385a1f6e525817be418ce85495c5427a533edc9e0bca0c612dea83f",
+    "front/check.log": "d9cf87a38644442385a4d77603de133d242d1e558fc78b78e79a627fc3907937",
+    "front/details-767.png": "90f7ca618b7d63f27cb6c233b2c4cce976fb93ab5b978fb077be69d6d57d40c0",
+    "front/browser.json": "2ca2400ec81f55d819829ce803cf1c187a7389ef96bef062615199f536048478",
+    "front/details-360.png": "e5d8bd44af5410aa4375248786266e8f87ba0dfa3944fc005eaf86aa665691ee"
+  },
+  "serverArtifactSha256": {
+    "tests.log": "904bb7c58c11498dc68b87bfec3bdb33f0dfb02820280c47e843284507d24339",
+    "build.log": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2"
+  },
+  "limits": [
+    "No new DB migration or financial policy, source/payment/payout rules unchanged.",
+    "Actual live PG, bank transfer, production rollout and runtime data check not performed.",
+    "Browser mocks and isolated DB/provider-double server checks are separate; no claim of end-to-end real provider validation.",
+    "Prior wallet tooltip/profile cover and dedicated charge page also remain undeployed."
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "at": "2026-10-25T08:41:42.992390+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 294,
+  "statusSha256": "13c10ef78874b21a93a3046a6856122ffa8d3df130d945acb8f165042c5be700",
+  "humanDecision": "User answered yes to50=5beans×10; pending clarification resolved",
+  "newGeneration": "docs/design/bean-skewer-v4-fifty.generation.json",
+  "selection": "docs/design/bean-soft3d-series-v4.selection.json",
+  "generationCallsThisTurn": 1,
+  "assets": [
+    {
+      "key": "10",
+      "quantity": 10,
+      "motif": "5개짜리 꼬치 2개",
+      "destination": "public/brand/beans/soft3d-v4/10.png",
+      "selectedFrom": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-2251c7a4-c47a-48ec-90a0-465c5a300143.png",
+      "generationProvenance": "docs/design/bean-skewer-v4.generation.json",
+      "sha256": "24afb640b0e7edcc6ae2f0a01635aaa259fe47b3666f405d1ee8df932f725d8d",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 10,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 772659
+    },
+    {
+      "key": "30",
+      "quantity": 30,
+      "motif": "3개짜리 꼬치 ×10",
+      "destination": "public/brand/beans/soft3d-v4/30.png",
+      "selectedFrom": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-c94b00ea-c6e4-4059-bae0-f38ca57513fb.png",
+      "generationProvenance": "docs/design/bean-skewer-v4.generation.json",
+      "sha256": "77f0dfc5d570ea438197b7d3d4fdb1c6bdc967b4581f2554c41e37ee5007acd9",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 3,
+      "countMethod": "manual visual review",
+      "multiplier": 10,
+      "bytes": 730305
+    },
+    {
+      "key": "50",
+      "quantity": 50,
+      "motif": "5개짜리 꼬치 ×10",
+      "destination": "public/brand/beans/soft3d-v4/50.png",
+      "selectedFrom": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-4ba0e552-3720-4fbb-8bf3-028c9f662a05.png",
+      "generationProvenance": "docs/design/bean-skewer-v4-fifty.generation.json",
+      "sha256": "982704b83c00262e1e52422e1e8a707ce58e015597b3b43af1cb1ecfde49e677",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": 10,
+      "bytes": 696900
+    },
+    {
+      "key": "100",
+      "quantity": 100,
+      "motif": "10개짜리 꼬치 ×10",
+      "destination": "public/brand/beans/soft3d-v4/100.png",
+      "selectedFrom": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-64259989-2acb-4237-be35-296d7583422a.png",
+      "generationProvenance": "docs/design/bean-skewer-v4.generation.json",
+      "sha256": "67a57c4b6023102868da5ee3b5cfffcbf4505e6e480461380175aca96c1a5ea2",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 10,
+      "countMethod": "manual visual review",
+      "multiplier": 10,
+      "bytes": 533408
+    },
+    {
+      "key": "300",
+      "quantity": 300,
+      "motif": "나무 소쿠리",
+      "destination": "public/brand/beans/soft3d-v4/300.png",
+      "selectedFrom": "public/brand/beans/soft3d-v3/300.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v3.selection.json",
+      "sha256": "df527e94fb467461f95d6fc2ffdf5e99eb9fddfb8b43e9c5e2ca14509814fd28",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1159805
+    },
+    {
+      "key": "500",
+      "quantity": 500,
+      "motif": "비단 보따리",
+      "destination": "public/brand/beans/soft3d-v4/500.png",
+      "selectedFrom": "public/brand/beans/soft3d-v3/500.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v3.selection.json",
+      "sha256": "9a9805283150681b16e53e97f60b1cce291eb4e5d3a17ce4695ea5c3822c3b3d",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1444472
+    },
+    {
+      "key": "1000",
+      "quantity": 1000,
+      "motif": "종이박스",
+      "destination": "public/brand/beans/soft3d-v4/1000.png",
+      "selectedFrom": "public/brand/beans/soft3d-v3/1000.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v3.selection.json",
+      "sha256": "b0ef7049170cad41513c88c705fb971f1618897875ded6f17b67c68842bf652c",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1177311
+    },
+    {
+      "key": "5000",
+      "quantity": 5000,
+      "motif": "나무 보물상자",
+      "destination": "public/brand/beans/soft3d-v4/5000.png",
+      "selectedFrom": "public/brand/beans/soft3d-v3/5000.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v3.selection.json",
+      "sha256": "394b9ce96ba517c2ba1d2bc80a0dadd7e4b3c312d685a1d79e86ed427f284b8e",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 4,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1359765
+    },
+    {
+      "key": "10000",
+      "quantity": 10000,
+      "motif": "금색 보물상자",
+      "destination": "public/brand/beans/soft3d-v4/10000.png",
+      "selectedFrom": "public/brand/beans/soft3d-v3/10000.png",
+      "generationProvenance": "docs/design/bean-soft3d-series-v3.selection.json",
+      "sha256": "b55985106da99db5d20e8b54dcfed67a8aeb5a82ed9b29ffdc17e6092937f534",
+      "width": 1254,
+      "height": 1254,
+      "observedBeans": 5,
+      "countMethod": "manual visual review",
+      "multiplier": null,
+      "bytes": 1462310
+    }
+  ],
+  "manualVisualReview": [
+    "50icon contains5beans on1stick and×10",
+    "10icon2sticks×5=10;30icon3×10=30;50icon5×10=50;100icon10×10=100",
+    "1000paper,5000wood,10000gold retained; no silver",
+    "Final9card and80px comparison inspected"
+  ],
+  "arithmeticValidation": "First4amounts equal manually observed physical count times image multiplier (or1). No automated object-detection claim.",
+  "gallery": {
+    "at": "2026-10-25T08:40:35.004Z",
+    "browser": "Chromium",
+    "primaryCards": 9,
+    "alternatives": 0,
+    "loadedImages": 36,
+    "dimensions": [
+      {
+        "size": 80,
+        "images": 9
+      },
+      {
+        "size": 112,
+        "images": 9
+      }
+    ],
+    "desktopNoOverflow": true,
+    "mobile390NoOverflow": true,
+    "errors": [],
+    "scope": "Static review gallery only; no application/payment integration"
+  },
+  "commands": [
+    {
+      "command": "bundled Python prepare.py",
+      "exitCode": 0,
+      "scope": "new50PNG verify/alpha/hash,5source copies,9unique files and first4arithmetic"
+    },
+    {
+      "command": "python3 gallery.py",
+      "exitCode": 0
+    },
+    {
+      "command": "node gallery.cjs",
+      "exitCode": 0,
+      "scope": "9static cards,36loaded images,80/112px and mobile390, labels/no silver"
+    }
+  ],
+  "reviewArtifacts": {
+    "docs/design/bean-soft3d-series-v4.preview.html": {
+      "sha256": "58bb2a56dba6a8f2637cabe3650ec00de79949cd9cbb2e5639ee73179a4d58a7",
+      "bytes": 8117
+    },
+    "docs/design/bean-soft3d-series-v4.preview.png": {
+      "sha256": "24012cf3b6acf5903f04a05cbe7424b4968606437c29bd86b795aa75ce3ca6be",
+      "bytes": 487609
+    },
+    ".local/bean-series-v4-complete-20261025/size-80.png": {
+      "sha256": "2aa9f4d8972d8ddd4507e3561582d6b2b56f3fcfb9794f6426bd72b6221c2b9e",
+      "bytes": 88582
+    },
+    ".local/bean-series-v4-complete-20261025/size-112.png": {
+      "sha256": "193911847d4644f1b3823983a42987e22a8a2aa4a0cc702de64e54eb189cd494",
+      "bytes": 139307
+    },
+    ".local/bean-series-v4-complete-20261025/mobile390.png": {
+      "sha256": "b449ca31b68a36e681c8fd2205acb8e3d10db11346d34c4f82aba660041d1f7c",
+      "bytes": 115379
+    }
+  },
+  "limits": [
+    "Complete9quantity art selection only; app UI/production still clay-v1",
+    "Multiplier artwork uses dark lettering intended for light background; dark-theme text readability not certified",
+    "No provider/payment/financial-policy changes, no product/unit/E2E rerun",
+    "No physical device or user recognition study",
+    "Old partial pending records preserved as historical; new complete record takes precedence"
+  ]
+}

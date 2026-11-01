@@ -1,0 +1,326 @@
+{
+  "recordedAt": "2026-10-24T03:36:02.155845+00:00",
+  "request": "멤버십 구독 안내를 크리에이터가 정한 이름으로 표시하고 가격/혜택을 floating 레이어로 제공",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/beta-signup",
+  "dirty": true,
+  "sourceSha256": {
+    "lib/crefans/membership-plans.ts": "52a45c9c11252de623afe18d22d8ffcacabf55d7e9888f722565bb93e133d806",
+    "components/crefans/PostMembershipNotice.tsx": "fb34fafadf1ad68776ff3e4b3c9a0b4e09d7272fef5b6f4de8a4a8db4aa33a08",
+    "components/crefans/SocialPages.tsx": "5fe184920dc011e2873cbed4ca3b717e7499596d92d9d14348d75b37360dcacc",
+    "components/crefans/CreatorPages.tsx": "b9b5f33e13d93c26cabea53cd5170baac9a1257a719f5c49f2ad0bb3f9f8b7c7",
+    "components/crefans/studio/ContentPostPreview.tsx": "876691506817aaa0b7637d19903205f66ef603d395a996676f8c82238da6754e",
+    "components/crefans/social.module.css": "af57fb7906e137171b38304d744fea23f3638dc93b8efb85bea3472e9c9d7935",
+    "features/service/useServiceModel.ts": "ab7fb3629f64e666bca289ececf601687368587f229735f186517a0c50a812cf",
+    "components/ui/Primitives.tsx": "e9afa3a9f00667813eaac225a301817b07ef73245c04fc3dc265d077f418f421",
+    "components/design-system/ServicePatternCatalog.tsx": "5998e0accc6b68ee471a141fda3e0f2debd8d58cdc778f233dffa82d427457ec",
+    "tests/post-membership-offer.test.cjs": "6cbb34725866558c96134bbf4029238d45865604253d5987fa31760fed1faa6e",
+    "tests/crefans-social.test.cjs": "0cfcee21e32f624638ee5c3d0ac67ec9de8ba086dca631bf6b4dc4d6cc3b259f",
+    "tests/crefans-creator.test.cjs": "82d835c38e7b1dd877f7dc8bdb5066b75b2fe2ec40e2568ca2ff4876468e0bfc",
+    "tests/content-post-preview.test.cjs": "aa973469db339f9a84fc7529645d88514b717dcd9168852bb9097b7b1266fcc0",
+    "tests/service-access-state.test.cjs": "53e25621fde3e905ed8ee08fc0ca39f91d7d41e791c5441f617cc34e21e48c53"
+  },
+  "decisions": [
+    "Shared PostMembershipNotice and existing Dialog: desktop floating modal, mobile bottom sheet; no page navigation when opening.",
+    "Minimum-rank labels use the lowest qualifying current creator membership name; exact product labels never imply higher-tier access. Missing names use generic text, never a fabricated name.",
+    "Only qualifying available offers are listed; inactive/empty cases have no subscription link. Choosing a plan navigates to the existing membership page with plan preselected; does not subscribe or pay.",
+    "Live feed first page, subsequent pages and post detail merge current plans already returned in creator profiles. No new API or server change.",
+    "Studio draft preview carries current memberships even for minimum-level posts. Read-only previews disable opening.",
+    "Native Dialog focus moved outside in automated Chromium/WebKit. Explicit Tab/Shift+Tab cycle skips disabled/hidden/nested-dialog elements. Notice trigger is focused before opening for WebKit focus restoration."
+  ],
+  "verification": [
+    {
+      "name": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "startedAt": "2026-10-24T03:33:46.993452+00:00",
+      "finishedAt": "2026-10-24T03:33:56.193296+00:00",
+      "exitCode": 0,
+      "logSha256": "9dc4dcd9aef9bbb9a52ae6cac979c205009f4219e84fe202b02a3e2de9e3d46e"
+    },
+    {
+      "name": "browser",
+      "command": [
+        "node",
+        "/Users/ethan/repository/crefans_front/.local/membership-offer-20261024/browser.cjs"
+      ],
+      "startedAt": "2026-10-24T03:33:46.993635+00:00",
+      "finishedAt": "2026-10-24T03:34:03.086110+00:00",
+      "exitCode": 0,
+      "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+    },
+    {
+      "name": "service-browser",
+      "command": [
+        "node",
+        "/Users/ethan/repository/crefans_front/.local/membership-offer-20261024/service-browser.cjs"
+      ],
+      "startedAt": "2026-10-24T03:33:46.993685+00:00",
+      "finishedAt": "2026-10-24T03:33:57.056802+00:00",
+      "exitCode": 0,
+      "logSha256": "234e8261e3dd0820a64794db1ef4ea94704e77506a4e4e2638c9c9331966143d"
+    },
+    {
+      "name": "catalog-browser",
+      "command": [
+        "node",
+        "/Users/ethan/repository/crefans_front/.local/membership-offer-20261024/catalog-browser.cjs"
+      ],
+      "startedAt": "2026-10-24T03:33:46.993843+00:00",
+      "finishedAt": "2026-10-24T03:33:51.670991+00:00",
+      "exitCode": 0,
+      "logSha256": "80cde491359ce6db82da7f592fe865c14abd0fde0a642027cd5e3b0037bfac8f"
+    }
+  ],
+  "unitTests": 298,
+  "mockBrowsers": {
+    "at": "2026-10-24T03:34:03.080Z",
+    "origin": "http://127.0.0.1:3010",
+    "results": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "width": 320,
+        "namedLock": true,
+        "pricesAndBenefits": true,
+        "noNavigationOnOpen": true,
+        "dialogFocusAndTabContainment": true,
+        "escapeBackdropCloseAndFocusReturn": true,
+        "preselectedPlanRoute": true,
+        "profileTiles": true,
+        "feed": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "width": 390,
+        "namedLock": true,
+        "pricesAndBenefits": true,
+        "noNavigationOnOpen": true,
+        "dialogFocusAndTabContainment": true,
+        "escapeBackdropCloseAndFocusReturn": true,
+        "preselectedPlanRoute": true,
+        "profileTiles": true,
+        "feed": true,
+        "errors": []
+      },
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "width": 1280,
+        "namedLock": true,
+        "pricesAndBenefits": true,
+        "noNavigationOnOpen": true,
+        "dialogFocusAndTabContainment": true,
+        "escapeBackdropCloseAndFocusReturn": true,
+        "preselectedPlanRoute": true,
+        "profileTiles": true,
+        "feed": true,
+        "errors": []
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "width": 390,
+        "namedLock": true,
+        "pricesAndBenefits": true,
+        "noNavigationOnOpen": true,
+        "dialogFocusAndTabContainment": true,
+        "escapeBackdropCloseAndFocusReturn": true,
+        "preselectedPlanRoute": true,
+        "profileTiles": true,
+        "feed": true,
+        "errors": []
+      }
+    ]
+  },
+  "serviceAdapterBrowsers": {
+    "at": "2026-10-24T03:33:57.049Z",
+    "scope": "Local real service model/router with intercepted API; no real account or payment changes",
+    "results": [
+      {
+        "width": 320,
+        "currentNamesFromFeedAndDetail": true,
+        "exactProductOnly": true,
+        "retiredAndEmptyNoCheckoutLink": true,
+        "noMutationRequests": true,
+        "requests": [
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/offer"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/offer"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/offer"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/offer"
+          }
+        ],
+        "errors": []
+      },
+      {
+        "width": 1280,
+        "currentNamesFromFeedAndDetail": true,
+        "exactProductOnly": true,
+        "retiredAndEmptyNoCheckoutLink": true,
+        "noMutationRequests": true,
+        "requests": [
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/offer"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/offer"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/offer"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/bootstrap"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/common"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/posts/offer"
+          }
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "catalogAndDialogRegression": {
+    "at": "2026-10-24T03:33:51.616Z",
+    "catalogStates": [
+      "available",
+      "unavailable",
+      "empty",
+      "readOnly"
+    ],
+    "existingPaymentDialogKeyboardRegression": true,
+    "errors": []
+  },
+  "initialFailures": {
+    "nativeTabLoop": "AssertionError [ERR_ASSERTION]: false == true\n    at /Users/ethan/repository/crefans_front/.local/membership-offer-20261024/browser.cjs:7:60 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n",
+    "webkitEdgeOnlyLoop": "chromium 320 PASS\nchromium 390 PASS\nchromium 1280 PASS\nAssertionError [ERR_ASSERTION]: false == true\n    at /Users/ethan/repository/crefans_front/.local/membership-offer-20261024/browser.cjs:7:264\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at process.processImmediate (node:internal/timers:459:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17) {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n",
+    "webkitReturnFocus": "chromium 320 PASS\nchromium 390 PASS\nchromium 1280 PASS\nExpectError: expect(locator).toBeFocused() failed\n\nLocator:  getByRole('button', { name: '멤버십 안내', exact: true })\nExpected: focused\nReceived: inactive\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toBeFocused\" getByRole('button', { name: '멤버십 안내', exact: true }) with timeout 5000ms\n  - waiting for getByRole('button', { name: '멤버십 안내', exact: true })\n    14 × locator resolved to <button type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" class=\"social_subscribe__osTcw\">멤버십 안내</button>\n       - unexpected value \"inactive\"\n\n    at captureRawStack (/Users/ethan/repository/crefans_front/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ethan/repository/crefans_front/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toBeFocused (/Users/ethan/repository/crefans_front/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at /Users/ethan/repository/crefans_front/.local/membership-offer-20261024/browser.cjs:9:96 {\n  matcherResult: {\n    message: 'expect(locator).toBeFocused() failed\\n' +\n      '\\n' +\n      \"Locator:  getByRole('button', { name: '멤버십 안내', exact: true })\\n\" +\n      'Expected: focused\\n' +\n      'Received: inactive\\n' +\n      'Timeout:  5000ms\\n' +\n      '\\n' +\n      'Call log:\\n' +\n      `  - Expect \"toBeFocused\" getByRole('button', { name: '멤버십 안내', exact: true }) with timeout 5000ms\\n` +\n      \"  - waiting for getByRole('button', { name: '멤버십 안내', exact: true })\\n\" +\n      '    14 × locator resolved to <button type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" class=\"social_subscribe__osTcw\">멤버십 안내</button>\\n' +\n      '       - unexpected value \"inactive\"\\n',\n    pass: false,\n    actual: 'inactive',\n    name: 'toBeFocused',\n    expected: 'focused',\n    log: [\n      `  - Expect \"toBeFocused\" getByRole('button', { name: '멤버십 안내', exact: true }) with timeout 5000ms`,\n      \"  - waiting for getByRole('button', { name: '멤버십 안내', exact: true })\",\n      '    14 × locator resolved to <button type=\"button\" aria-expanded=\"false\" aria-haspopup=\"dialog\" class=\"social_subscribe__osTcw\">멤버십 안내</button>',\n      '       - unexpected value \"inactive\"'\n    ],\n    timeout: 5000,\n    ariaSnapshot: '- button \"멤버십 안내\"'\n  }\n}\n",
+    "chromiumDiagnostic": "0 { tag: 'H2', label: null, text: '모카의 멤버십', dialog: true }\n1 { tag: 'BUTTON', label: '닫기', text: '', dialog: true }\n2 { tag: 'A', label: '백스테이지 선택하고 계속', text: '선택하고 계속', dialog: true }\n3 { tag: 'A', label: '포토 클럽 선택하고 계속', text: '선택하고 계속', dialog: true }\n4 {\n  tag: 'BODY',\n  label: null,\n  text: '목업 페이지입니다본문으로 이동홈탐색하기메시지알림내 프로필서비스 소개고객센터공지사항크리에이터',\n  dialog: false\n}\n5 { tag: 'BUTTON', label: '닫기', text: '', dialog: true }\n",
+    "webkitDiagnostic": "0 { tag: 'H2', label: null, text: '모카의 멤버십', dialog: true }\n1 {\n  tag: 'BODY',\n  label: null,\n  text: '목업 페이지입니다본문으로 이동홈탐색하기메시지알림내 프로필서비스 소개고객센터공지사항크리에이터',\n  dialog: false\n}\n2 {\n  tag: 'DIALOG',\n  label: null,\n  text: '모카의 멤버십백스테이지₩9,900/월촬영 준비와 작업 일상을 함께해요.촬영 비하인드 게시물',\n  dialog: true\n}\n3 {\n  tag: 'BODY',\n  label: null,\n  text: '목업 페이지입니다본문으로 이동홈탐색하기메시지알림내 프로필서비스 소개고객센터공지사항크리에이터',\n  dialog: false\n}\n4 {\n  tag: 'DIALOG',\n  label: null,\n  text: '모카의 멤버십백스테이지₩9,900/월촬영 준비와 작업 일상을 함께해요.촬영 비하인드 게시물',\n  dialog: true\n}\n5 {\n  tag: 'BODY',\n  label: null,\n  text: '목업 페이지입니다본문으로 이동홈탐색하기메시지알림내 프로필서비스 소개고객센터공지사항크리에이터',\n  dialog: false\n}\n",
+    "resolution": "Explicit tab cycle and trigger focus implemented, all final checks passed. Screenshots wait for opacity 1 so opening animation is not mistaken for steady layout."
+  },
+  "references": [
+    {
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+      "checkedAt": "2026-10-24",
+      "application": "Reuse labelled native modal, focus static title, contain Tab/Shift+Tab, Escape/close and return focus."
+    }
+  ],
+  "visualReview": [
+    "chromium-390-offers.png",
+    "chromium-1280-offers.png",
+    "webkit-390-offers.png"
+  ],
+  "boundaries": [
+    "Local source only; no production deployment, DB mutation, payment/provider execution, commits, merge or push.",
+    "Real service UI/model tested with intercepted API responses; not live customer data or a real payment.",
+    "Browser engines with mobile viewports, not physical phone testing.",
+    "Existing server authorization, subscription snapshots and media access are unchanged."
+  ],
+  "artifacts": "/Users/ethan/repository/crefans_front/.local/membership-offer-20261024"
+}

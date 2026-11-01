@@ -1,0 +1,94 @@
+{
+  "recordedAt": "2026-10-24T16:58:38.758070+00:00",
+  "baseline": {
+    "at": "2026-10-24T16:57:45.230177+00:00",
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true,
+    "files": {
+      "components/crefans/social.module.css": "57d19e67ad73b8270b4229e36d891313a132ea465967c52048236c6dc9c08d42",
+      "e2e/mobile-comments.spec.ts": "f16adff52d6463d85b4aa45756528b1b739a875559a9555ef85ac75b6388143a",
+      "docs/design-system.md": "c8e78e59a6784bc38c66f485982492effd78e7456e931c98be4eb25c494cb78f",
+      "docs/audit/manifest.json": "252cfc5259698bf20c3e99f0d3e98bd3ab7fd787314ea6d0989b09015ad39829",
+      "PROGRESS.md": "17ee54f9bb0b71203d39bbb00929c6338c79384d33311136838b93c94b1db2d8"
+    }
+  },
+  "requirements": [
+    "Hide comment-write shortcut in preview/service gallery",
+    "Keep comment list and desktop/mobile inputs",
+    "Preserve feed shortcut and standalone detail hiding"
+  ],
+  "changes": {
+    "components/crefans/social.module.css": "Add .overlay .commentWrite to standalone detail hiding rule"
+  },
+  "checks": {
+    "browser": {
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "-c",
+        ".local/gallery-comment-link-20261025/playwright.config.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T16:57:45.619141+00:00",
+      "finishedAt": "2026-10-24T16:58:03.737758+00:00",
+      "exitCode": 0,
+      "logSha256": "ec7394cf45a0af3c00549f7ab0a8f556d2e96c946321b6bb431b6d33c1053b42"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T16:58:39.065935+00:00",
+      "finishedAt": "2026-10-24T16:58:40.125685+00:00",
+      "exitCode": 0,
+      "logSha256": "cd009ebff91f1d333dd1364bc72a334528e5a4a048af26b637f50d919b91d8ac"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T16:58:40.149882+00:00",
+      "finishedAt": "2026-10-24T16:58:40.519767+00:00",
+      "exitCode": 0,
+      "logSha256": "44b71ad80d7bd757fd801d3a41f0292117bcba15315ebb0f4269ddf28a349899"
+    }
+  },
+  "browserResults": {
+    "passed": 14,
+    "skipped": 2,
+    "skipReason": "Desktop excludes mobile dock positioning and multiple-mobile-dock arbitration",
+    "environments": [
+      "Chromium320",
+      "Chromium390",
+      "Chromium1280",
+      "WebKit390"
+    ]
+  },
+  "files": {
+    "components/crefans/social.module.css": "295ade2cc670f126a4b89ffe5e5945887d7ea55524b1c8d970a7679268382736",
+    "e2e/mobile-comments.spec.ts": "ce945991b92da5bd60a4c5f9f9edea1413a5e71e3333cdd9579e7bed57f00587",
+    "docs/design-system.md": "10f27acdc9a85355e43bb7340d0e87da6d247fd22132ca9c776eab4a8ffaf208",
+    "docs/audit/manifest.json": "7e3b69d9c25df858e8ce105be3a3cb8542b9181630c3c363781e620a252a0631",
+    "PROGRESS.md": "fc7ba161f1a67bdbc06f74afe17e3439ab11d12521708f866fb138ab0598aa03"
+  },
+  "screenshots": {
+    ".local/gallery-comment-link-20261025/results-local/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-webkit390/gallery-comments.png": "d405e5736344fc0cc27816cf1e62c1c08a93bf90517b80f7bc34d0db19af8cf0",
+    ".local/gallery-comment-link-20261025/results-local/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-narrow320/gallery-comments.png": "93a74b735f861a9820ad6dffffe935808470baccb6eb10252f45b986528bf07a",
+    ".local/gallery-comment-link-20261025/results-local/mobile-comments-갤러리-댓글-입력은-패널-하단에-남고-확대·축소-및-키보드-영역-변경에-대응한다-mobile390/gallery-comments.png": "f99d60fd60e3faccb6ec84603cc28d0a55f852250dd33c0b5f48df522fc2224b"
+  },
+  "deployment": "Not performed; detail and gallery hiding pending deployment",
+  "limitations": [
+    "Service API mocked; no real account writes",
+    "No physical device or production verification"
+  ],
+  "documentationSnapshot": "PASS; snapshot-only-not-test-proof; browser checks recorded separately",
+  "localEvidenceDirectory": "/Users/ethan/repository/crefans_front/.local/gallery-comment-link-20261025",
+  "visualReview": "WebKit390 gallery screenshot: no comment-write shortcut below list, floating draft/input remains at panel bottom"
+}

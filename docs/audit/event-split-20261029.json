@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-29T01:28:40.468158+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/iphone-input-zoom",
+  "head": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+  "state": "local uncommitted; preexisting and concurrent edits preserved",
+  "request": "이벤트 목록과 상세를4개로 분리하고 각 상세에 공통+해당 혜택 유의사항만 표시",
+  "changedFiles": {
+    "lib/content/events.ts": "a3a016c8d315ea5b37708d1720ca56c9d771706e7eb52f6b6856a1b725699e91",
+    "types/crefans-events.ts": "0c1ea4d5fbe7c682ef0f88cbcdfd044c02f29efc39388e95a2a94867e34c7752",
+    "components/crefans/EventPages.tsx": "567707d8f96592d6cdaf891b9d99be3e6c1ee7cb0ab12d1d78196ecce9047a5d",
+    "components/crefans/events.module.css": "8da0539a829a215e1c5e833cd000f15b816767f249268ab7a8b254c1a4eb2f75",
+    "components/preview/screen-catalog.ts": "5b5e6601c013dfa92b8aa1e246eca67952f5579f74ddc2d0edf287ac4be4a120",
+    "components/design-system/ServicePatternCatalog.tsx": "9dabe0db8849934b8c7d83668961739cc5664c479240112c6d78d1b13fbd2610",
+    "app/preview/[...screen]/page.tsx": "1d9c6be44ca9c8bfb47d6850bf6479b6398db1cdda8a78a51ce0b2f40e0a1fc6",
+    "app/service/[...screen]/page.tsx": "ca5aefc369039f0458d4ac532ca6207fe10521523edf9ef8398750f3dde1e52d",
+    "tests/crefans-events.test.cjs": "61bc1487cacec14194c6961d4237e0d710f77f8ac607469df3cc8fde4acf9fb4",
+    "e2e/promotion-payout.spec.ts": "6860ec0d2bea53a0607c7127b456911c65b3649dd77f9324a9c11946d23b49ec",
+    "docs/design-system.md": "78bf2c81d84ebeb6f3fa5de6b85ff88093e2286c2a5e2895c5133638a1a685b1",
+    "docs/preview-pages.md": "7c4a68ef780fbcd9c990cbbc845af7f45f2cce387bbbb5f7487e3435e09438a8"
+  },
+  "acceptance": {
+    "fourDistinctEvents": true,
+    "order": [
+      "네이버페이1만원 상품권",
+      "광고상품30일",
+      "프로모션100콩",
+      "원년멤버 한정판 배지"
+    ],
+    "commonNoteGroupsOnEach": 2,
+    "specificNoteGroupCounts": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "approvedRewardAmountsAndEligibilityPreserved": true,
+    "legacyBetaFirst": "redirect to events list for preview and service"
+  },
+  "checks": [
+    {
+      "command": "node --test tests/crefans-events.test.cjs (before product changes)",
+      "exitCode": 1,
+      "pass": 1,
+      "fail": 5,
+      "log": "/Users/ethan/repository/crefans_front/.local/event-split-20261029/before-test.log"
+    },
+    {
+      "command": "node --test tests/crefans-events.test.cjs",
+      "exitCode": 0,
+      "pass": 6,
+      "fail": 0,
+      "log": "/Users/ethan/repository/crefans_front/.local/event-split-20261029/after-test.log"
+    },
+    {
+      "command": "npm run check:layers",
+      "exitCode": 0,
+      "files": 381,
+      "log": "/Users/ethan/repository/crefans_front/.local/event-split-20261029/layers.log"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "log": "/Users/ethan/repository/crefans_front/.local/event-split-20261029/types.log"
+    },
+    {
+      "command": "node .local/event-split-20261029/browser.cjs",
+      "exitCode": 0,
+      "pass": 56,
+      "pageErrors": 0,
+      "evidence": "/Users/ethan/repository/crefans_front/.local/event-split-20261029/browser-result.json"
+    }
+  ],
+  "environment": {
+    "node": "22.23.4",
+    "next": "15.5.28",
+    "react": "19.1.10",
+    "browsers": [
+      "Chromium",
+      "WebKit"
+    ],
+    "viewports": [
+      375,
+      1280
+    ],
+    "base": "http://127.0.0.1:3013",
+    "isolation": "APFS source copy + separate Next cache; existing3010 preserved"
+  },
+  "sourceSnapshotMatches": {
+    "files": [
+      "lib/content/events.ts",
+      "types/crefans-events.ts",
+      "components/crefans/EventPages.tsx",
+      "components/crefans/events.module.css",
+      "components/preview/screen-catalog.ts",
+      "components/design-system/ServicePatternCatalog.tsx",
+      "app/preview/[...screen]/page.tsx",
+      "app/service/[...screen]/page.tsx",
+      "tests/crefans-events.test.cjs"
+    ],
+    "mismatches": []
+  },
+  "visualReview": [
+    "list-375.png",
+    "list-1280.png",
+    "beta-feedback-375.png",
+    "beta-promotion-beans-375.png"
+  ],
+  "limitations": [
+    "운영 미배포",
+    "실제 iPhone 미검증",
+    "서비스 비로그인 bootstrap 브라우저 응답 대역 사용; 실제 API/DB/금융/혜택지급 미실행",
+    "전체 금융 E2E·전체 단위검사 재실행 없음"
+  ],
+  "evidenceDirectory": "/Users/ethan/repository/crefans_front/.local/event-split-20261029",
+  "documentation": {
+    "at": "2026-10-29T01:29:32.553870+00:00",
+    "commands": [
+      {
+        "command": "npm run docs:contracts",
+        "exitCode": 0
+      },
+      {
+        "command": "npm run docs:record",
+        "exitCode": 0
+      },
+      {
+        "command": "npm run check:docs",
+        "exitCode": 0
+      }
+    ],
+    "scope": "documentation inventory/contracts/hash snapshot, not product tests"
+  },
+  "cleanup": {
+    "at": "2026-10-29T01:29:30.909304+00:00",
+    "testPort": 3013,
+    "listenerCount": 0,
+    "userDevelopmentServer": "3010 unchanged",
+    "docker": "not started for this task"
+  },
+  "generatedContract": "../crefans_server/docs/current-contracts.md (56 screen entries)",
+  "progressSha256": "82439783a30c9d778193064813264fdc1dc0600eb17cd5881ef512dc3759c18b"
+}

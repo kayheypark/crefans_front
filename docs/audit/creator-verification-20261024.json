@@ -1,0 +1,223 @@
+{
+  "recordedAt": "2026-10-24T05:31:38.113002+00:00",
+  "scope": "Administrator-issued creator badge, independent of PASS; generated icon/shared UI + persisted API/DB + separate admin console",
+  "acceptance": [
+    "only isVerified===true displays nickname-right badge",
+    "default false; active ADMIN/SUPER_ADMIN only; self-assignment denied",
+    "row lock + mutation/audit transaction; duplicate state idempotent",
+    "same generated icon/component in mock/service/catalog",
+    "confirmation/failure/revoke and responsive layout checked"
+  ],
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "front": "existing127.0.0.1:3010",
+    "admin": "isolated3003/API3013",
+    "database": "loopback3307; isolated crefans_platform_e2e"
+  },
+  "repositories": {
+    "front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+      "branch": "feat/beta-signup",
+      "dirty": true
+    },
+    "server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "head": "c100a3af5a5508adb0e6ba521d2e5238fb5f1ff1",
+      "branch": "feat/beta-signup",
+      "dirty": true
+    },
+    "admin": {
+      "path": "/Users/ethan/repository/crefans_admin",
+      "head": "7928cb6fc70c27bbcb8f5ec4a760023a5ffda01c",
+      "branch": "feat/operator-console",
+      "dirty": true
+    }
+  },
+  "checks": [
+    {
+      "repo": "front",
+      "command": "npm run check",
+      "completedAt": "2026-10-24T05:28:12.046361+00:00",
+      "exitCode": 0,
+      "summary": "layers + types +300 tests PASS",
+      "log": "/Users/ethan/repository/crefans_front/.local/creator-verification-20261024/front-check-final.log",
+      "logSha256": "0a155696073f01cbd08648b71dcf0c51059e0a4e1f28c95d24930bdec8497b08"
+    },
+    {
+      "repo": "server",
+      "command": "npm run build",
+      "completedAt": "2026-10-24T05:31:17.926733+00:00",
+      "exitCode": 0,
+      "summary": "Nest build PASS",
+      "log": "/Users/ethan/repository/crefans_server/.local/creator-verification-build.log",
+      "logSha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2"
+    },
+    {
+      "repo": "server",
+      "command": "CREFANS_E2E=true node --test tests/platform-admin-console.test.cjs tests/platform-openapi.test.cjs",
+      "completedAt": "2026-10-24T05:31:23.285414+00:00",
+      "exitCode": 0,
+      "summary": "23 tests PASS; isolated MySQL + real HTTP; authorization/type/self-assignment/duplicate revoke/audit and Swagger100 operations",
+      "log": "/Users/ethan/repository/crefans_server/.local/creator-verification-tests.log",
+      "logSha256": "f5fbbf0033765c97dfc484dc2e37888e7ba8abf17493f60a9428710128699e67"
+    },
+    {
+      "repo": "admin",
+      "command": "npm run check",
+      "completedAt": "2026-10-24T05:21:42.800089+00:00",
+      "exitCode": 0,
+      "summary": "types +5 tests PASS",
+      "log": "/tmp/crefans-admin-verification-check.log",
+      "logSha256": "1c553a6ef474de87799cc8872848fd58a76b22bb1a8c13fd9189e13f4f6c97a2"
+    },
+    {
+      "repo": "admin",
+      "command": "npm run build:verify",
+      "completedAt": "2026-10-24T05:28:19.326349+00:00",
+      "exitCode": 0,
+      "summary": "isolated .next-build production build PASS",
+      "log": "/Users/ethan/repository/crefans_admin/.local/creator-verification-20261024/build.log",
+      "logSha256": "912654abd0f8ed225c47474a1c60f49172052f7ee1ad565f5a51ea64598849b6"
+    },
+    {
+      "repo": "admin",
+      "command": "npm run test:e2e -- --grep 'creator badge'",
+      "completedAt": "2026-10-24T05:24:33.142628+00:00",
+      "exitCode": 0,
+      "summary": "1 Playwright test PASS; real isolated API/DB; confirm cancel, failure, grant, reload, public profile true, revoke/public false, audit pair",
+      "log": "/tmp/crefans-admin-verification-e2e.log",
+      "logSha256": "441bc1052d29d20fc5fb43cd2df62fc97f59fba67e60349849baf3e0e575d6d2"
+    },
+    {
+      "repo": "front",
+      "command": "npx playwright test --config .local/creator-verification-20261024/playwright.config.ts",
+      "completedAt": "2026-10-24T05:25:19.087940+00:00",
+      "exitCode": 0,
+      "summary": "6 browser tests PASS; desktop/Pixel7/iPhone13 emulation; mock surfaces plus service adapter using intercepted API",
+      "log": "/Users/ethan/repository/crefans_front/.local/creator-verification-20261024/browser.log",
+      "logSha256": "2fd272290235d411cffa07c95fb1c944f123895ce7e4cbd449bd5c6c67fdf695"
+    },
+    {
+      "repo": "front",
+      "command": "node .local/creator-verification-20261024/catalog.cjs",
+      "completedAt": "2026-10-24T05:30:15.550858+00:00",
+      "exitCode": 0,
+      "summary": {
+        "at": "2026-10-24T05:30:15.550Z",
+        "results": [
+          {
+            "width": 390,
+            "badges": 2,
+            "optimizedImageBytes": 2400,
+            "errors": []
+          },
+          {
+            "width": 1280,
+            "badges": 2,
+            "optimizedImageBytes": 2400,
+            "errors": []
+          }
+        ]
+      },
+      "log": "/Users/ethan/repository/crefans_front/.local/creator-verification-20261024/catalog.log",
+      "logSha256": "efc191084734930b543172af1805354f999adf1090a5e934892a02b181e4e9f8"
+    }
+  ],
+  "timedRuns": [
+    {
+      "command": "npm run check",
+      "start": "2026-10-24T05:28:03.896203+00:00",
+      "end": "2026-10-24T05:28:12.058065+00:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build:verify",
+      "start": "2026-10-24T05:28:03.894181+00:00",
+      "end": "2026-10-24T05:28:19.347634+00:00",
+      "exitCode": 0
+    }
+  ],
+  "sourceSha256": {
+    "front/components/crefans/CreatorName.tsx": "81866b7b136d8920f029f14ba73baddc257edd1e17788678b3cf7f2b25c648dc",
+    "front/components/crefans/creator-name.module.css": "56387d93b02d303601d778e9591ee90692c0b0fffeccc2ad15bc361c17ca532e",
+    "front/components/crefans/ProfileHeader.tsx": "b20816caf47a7f1f83f96538b44bd8653c4c8f97195685f76ecd159ae5222062",
+    "front/components/crefans/CreatorCard.tsx": "27b89c52b37d7ccbc1a29b8241cabd3776c568dfecf8a41ef530372d55269bb6",
+    "front/components/crefans/CreatorPages.tsx": "0d2e2dc2ce9bb94c555d7bc217d6da1bbc783ff8c30a42b5c3e1206114096dd4",
+    "front/components/crefans/SocialPages.tsx": "379971b1c811dcbd515bb321adedbab09606d5cf9f1016ed0652b8f7be6b8837",
+    "front/components/crefans/CommonPages.tsx": "c6b42a76489ced74219615f3b83d4a4c01c29e39ce26e31ebc1654169df8dbb0",
+    "front/components/crefans/AccountPages.tsx": "97f90ccc03808c857bf3d2240fb2a912e55323b9326c73a6b1a623b63bc04091",
+    "front/components/crefans/LandingPage.tsx": "8e660bda826e6c6098ca378d6602b444793b31ee6b72a2e6e1670a659659bf19",
+    "front/components/design-system/ServicePatternCatalog.tsx": "1d1f54b1412e3c8669e882b400e4d988b24d158c9d96f1f0b48ed69653c3d177",
+    "front/components/preview/comment-fixtures.ts": "c8e13950be6c33e56e63a464dba6c5c1542bdfe966689c707f2c18537ddf0b50",
+    "front/lib/content/landing.ts": "cf8c99538f2cd93423f2278c7a2d828dd84747875e4b61e558afc084f1133969",
+    "front/types/crefans.ts": "9025f42b93d572f97d2a4eb28a35ab363b09c4a968743ed913f20d41e5282cb1",
+    "front/types/crefans-social.ts": "90802fe8ce1f85276fc11775c27ceb7281eed49ebfc7a76d0d90ce024e3a8637",
+    "front/public/brand/verified-creator-v1.png": "11ecdb1d9881a7cb42feb100fc995ac4995131121fbba9a761aa5df3b921f791",
+    "front/tests/creator-verification.test.cjs": "c78717a2b3ded65b05504407b281637a89ca83ee845fd6815c7506dff8596a56",
+    "front/tests/load-typescript.cjs": "b6cf0d17c7798a7e5b9950b2e79155f856bfcb8155836d425296a0d0bf070f96",
+    "front/e2e/creator-verification.spec.ts": "e32126559e952aefcacea0b0b79fbde9d7c0576bfe5c67a892cc1c1222a78de1",
+    "server/prisma/schema.prisma": "66d4cfc67b785220887bb428236d1e2df1db1bef53356deae10aab6c2cf7b727",
+    "server/prisma/migrations/20261024120000_creator_verification/migration.sql": "8cbf4a870e12e5199ee2b6823edeb9e00d88a7ffd18f58cf4c3c74cf5d0155dc",
+    "server/src/platform/service.ts": "64c252cb7a92e4fa93342e584257fdbe87ac20cbb55f72a6420173b83a178ea2",
+    "server/src/platform/admin.controller.ts": "b42480fd26d1f9d2b729c0f64756c1b9535ce42037f1a928721f4b5076b6e4e3",
+    "server/src/platform/admin-console.ts": "538b81e634139a7b30a7a27adfebcbe7047ac1f0702896ca1e8d561b7d426dc7",
+    "server/src/platform/audit.ts": "2f00a361947a3aa0614b35fe3611ac679c30a4c4fc031092731564c2fb4d1935",
+    "server/src/platform/openapi-contract.ts": "7193529fb56c17feddbd6d602c06e1b4a2015f5d342b38f51706d504348faaf2",
+    "server/tests/platform-admin-console.test.cjs": "0d221985156ae3be783245b29a9fcc5975ed5931608a41cf3ba74844d5de8017",
+    "server/tests/platform-openapi.test.cjs": "aace56c5dc3975246988d130f0a8159e06309d76c0cbfc0a0b1c58f358b0d175",
+    "admin/src/components/console/Console.tsx": "60027bc9b9dd56673555de4b8bcc7860a622d914e89327ffa82c1b43ae53aa61",
+    "admin/e2e/console.spec.ts": "ff4e8686ecd5d0a76adf63878c86f29376b751912590840e8808d0059088ab56"
+  },
+  "localMigration": {
+    "start": "2026-10-24T05:27:31.437Z",
+    "end": "2026-10-24T05:27:31.770Z",
+    "database": "loopback local development only",
+    "command": "prisma migrate deploy",
+    "exitCode": 0,
+    "applied": [
+      "20261024120000_creator_verification"
+    ],
+    "column": {
+      "COLUMN_DEFAULT": "0",
+      "IS_NULLABLE": "NO"
+    }
+  },
+  "generatedAsset": {
+    "file": "public/brand/verified-creator-v1.png",
+    "provenance": "docs/audit/verified-creator-icon-20261024.json",
+    "method": "image_gen__imagegen; original transparent PNG unchanged; Next Image transmission optimization"
+  },
+  "research": [
+    {
+      "checkedAt": "2026-10-24",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+      "application": "per-request/default-deny role checks"
+    },
+    {
+      "checkedAt": "2026-10-24",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Mass_Assignment_Cheat_Sheet.html",
+      "application": "explicit allowed fields; no self assignment"
+    }
+  ],
+  "correctedFailures": [
+    "new CSS module required test loader fallback",
+    "OpenAPI signature/count expectations corrected for new endpoint",
+    "shared E2E DB correctly refused parallel run; reran serially",
+    "catalog asset check converted relative src to absolute request URL"
+  ],
+  "visualReview": [
+    "WebKit profile, Chromium long name and admin persisted grant screenshots reviewed",
+    "catalog390/1280 two verified and one unverified; optimized bitmap2400bytes"
+  ],
+  "limits": [
+    "not deployed; no production member grants/revokes",
+    "local dev and isolated DB migration applied only",
+    "device emulation, no physical phone",
+    "frontend service adapter uses intercepted API; admin E2E uses real isolated API/DB",
+    "existing pages update badge at next fetch, not realtime push",
+    "prior uncommitted work preserved; no commit/push",
+    "previous task source hashes are historical after changes"
+  ]
+}

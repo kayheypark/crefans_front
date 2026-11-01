@@ -1,0 +1,161 @@
+{
+  "at": "2026-10-24T08:26:06.561115+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "Existing dirty tree preserved; no commit or push",
+  "deployment": "not deployed",
+  "changedRuntimeFiles": [
+    "components/crefans/account.module.css"
+  ],
+  "sourceSha256": "2088db61cc49cfc5e9c6727e8c0636031e90cb18b0434e7ab51811f5fc9a6402",
+  "diff": "--- before/account.module.css\n+++ after/account.module.css\n@@ -48,6 +48,6 @@\n \n .menuGroup{margin-top:22px}.menuGroup h3{margin:0 0 2px;padding:0 5px;font-size:max(12px,var(--cf-mobile-font-min,0px));font-weight:600;color:var(--cf-color-textMuted)}.menuGroup .menuList{margin-top:0;padding-top:0;border:0}\n .mobileMenuGroup{display:none}\n-@media(max-width:767px){.mobileMenuGroup{display:block}}\n+@media(max-width:767px){.mobileMenuGroup{display:block;border-top:1px solid var(--cf-landing-line);padding-top:22px}}\n \n .legalLink{border:0;padding:0;background:none;color:var(--cf-service-brand);font:inherit;text-decoration:underline;cursor:pointer}\n",
+  "browser": {
+    "command": "node .local/settings-divider-20261024/check.cjs",
+    "start": "2026-10-24T08:25:25.846Z",
+    "end": "2026-10-24T08:25:29.876Z",
+    "exitCode": 0,
+    "records": [
+      {
+        "name": "chromium320",
+        "width": 320,
+        "actual": {
+          "border": "1px",
+          "style": "solid",
+          "color": "rgb(229, 232, 239)",
+          "padding": "22px",
+          "display": "block",
+          "top": 966.640625,
+          "previousBottom": 944.640625,
+          "headingTop": 989.640625,
+          "width": 288,
+          "left": 16,
+          "overflow": false
+        }
+      },
+      {
+        "name": "chromium390",
+        "width": 390,
+        "actual": {
+          "border": "1px",
+          "style": "solid",
+          "color": "rgb(229, 232, 239)",
+          "padding": "22px",
+          "display": "block",
+          "top": 966.640625,
+          "previousBottom": 944.640625,
+          "headingTop": 989.640625,
+          "width": 358,
+          "left": 16,
+          "overflow": false
+        }
+      },
+      {
+        "name": "chromium767",
+        "width": 767,
+        "actual": {
+          "border": "1px",
+          "style": "solid",
+          "color": "rgb(229, 232, 239)",
+          "padding": "22px",
+          "display": "block",
+          "top": 978.640625,
+          "previousBottom": 956.640625,
+          "headingTop": 1001.640625,
+          "width": 660,
+          "left": 16,
+          "overflow": false
+        }
+      },
+      {
+        "name": "chromium768",
+        "width": 768,
+        "actual": {
+          "border": "0px",
+          "style": "none",
+          "color": "rgb(32, 35, 51)",
+          "padding": "0px",
+          "display": "none",
+          "top": 0,
+          "previousBottom": 1019.234375,
+          "headingTop": 0,
+          "width": 0,
+          "left": 0,
+          "overflow": false
+        }
+      },
+      {
+        "name": "desktop",
+        "width": 1280,
+        "actual": {
+          "border": "0px",
+          "style": "none",
+          "color": "rgb(32, 35, 51)",
+          "padding": "0px",
+          "display": "none",
+          "top": 0,
+          "previousBottom": 1019.234375,
+          "headingTop": 0,
+          "width": 0,
+          "left": 0,
+          "overflow": false
+        }
+      },
+      {
+        "name": "webkit390",
+        "width": 390,
+        "actual": {
+          "border": "1px",
+          "style": "solid",
+          "color": "rgb(229, 232, 239)",
+          "padding": "22px",
+          "display": "block",
+          "top": 966.640625,
+          "previousBottom": 944.640625,
+          "headingTop": 989.640625,
+          "width": 358,
+          "left": 16,
+          "overflow": false
+        }
+      }
+    ]
+  },
+  "visualReview": "/Users/ethan/repository/crefans_front/.local/settings-divider-20261024/mobile.png",
+  "evidenceHashes": {
+    "browser.log": "41947dd7e5d0a16269876b4867285c8f0bae7b866353b6c00d7470bf9b78a353",
+    "change.diff": "e7bd569e743f88b909ddb6ee6322d939a10b85a66c1f2898b0fc3f847e0acc62",
+    "check.cjs": "5a1cc212c65b9dfa9437895c5804853aa2da3ca2efec11fef5645457c393b03e",
+    "browser-results.json": "c5d54113a7f2a9d04f3ff342537bea5fef73484818796c5568efe54052da5f00",
+    "mobile.png": "f446c4c39a0181c7e3393b9491f4977accc3070250f20815f66b20f23a308eb9",
+    "account.before.css": "5a7328cdaff849359ce4cd27b819310db46f418210bc6c269eb0330769cd092d"
+  },
+  "limitations": [
+    "Local preview layout check of shared CSS; no production or physical-device validation",
+    "Single CSS rule; no new permanent tests or full unit suite"
+  ],
+  "docsChecks": {
+    "divider-docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:26:06.596084+00:00",
+      "finishedAt": "2026-10-24T08:26:07.549640+00:00",
+      "exitCode": 0,
+      "logSha256": "f17c4c346c5448ccc70f4bf8a5e69fdcfb720162f424d3227e0a13902d468570"
+    },
+    "divider-docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:26:07.574148+00:00",
+      "finishedAt": "2026-10-24T08:26:07.951658+00:00",
+      "exitCode": 0,
+      "logSha256": "8c6d958d015605b8774b654de602a3bc82e586bd4aa540e6689c84e1e2077bc5"
+    }
+  }
+}

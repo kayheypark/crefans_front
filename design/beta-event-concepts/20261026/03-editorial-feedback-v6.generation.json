@@ -1,0 +1,10 @@
+{
+  "tool": "image_gen.imagegen",
+  "prompt": "Use case: text-localization. Make ONE localized text replacement in the attached 1024x1536 Korean event poster.\n\nIn the FOURTH / BOTTOM reward section, beside the purple ribbon gift-card illustration, replace the large purple headline \"5천원 상품권\" with EXACTLY \"배민 1만원 상품권\". Keep it on ONE line, in the same bold purple font style, matching the \"배민 1만원 상품권\" headline already present in the second section. Fit within the existing right text column. Do not modify or remove the second section's headline: after this edit both the creator reward and feedback reward have the same headline \"배민 1만원 상품권\".\n\nPreserve EVERYTHING ELSE with highest fidelity: top crefans logo, navy title, gray thanks subtitle, all four illustrations, background, colors, dividers, dimensions, layout, reward content, and all small faint right-aligned footnotes. All footnotes remain small and light, at the bottom-right of their own section; never promote them or move them above a headline. Especially preserve the fourth section's small note \"* 유용한 피드백을 주신 분 중 최대 3명에게 드립니다.\" and final footer \"* 참여 기간과 혜택 지급 일정은 별도 안내합니다.\" exactly in their current positions. Do not add a Baemin logo or extra elements. This is only the bottom reward's headline replacement, not a redesign.",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-4095b70e-0b7c-4acf-9b4e-32927c103fc2.png",
+  "reference": "design/beta-event-concepts/20261026/03-editorial-footnotes-v5.png",
+  "output": "design/beta-event-concepts/20261026/03-editorial-feedback-v6.png",
+  "status": "draft-not-deployed",
+  "edit": "하단 피드백 혜택 5천원 상품권 → 배민 1만원 상품권",
+  "createdAt": "2026-10-26T10:41:18.216358+00:00"
+}

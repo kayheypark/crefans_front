@@ -1,0 +1,1273 @@
+{
+  "at": "2026-10-24T11:00:19.860395+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "workspace": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": [
+      " M AGENTS.md",
+      " M PROGRESS.md",
+      " M app/preview/layout.tsx",
+      " M app/preview/preview.module.css",
+      " M components/crefans/AccountPages.tsx",
+      " M components/crefans/CommonPages.tsx",
+      " M components/crefans/CreatorCard.tsx",
+      " M components/crefans/CreatorPages.tsx",
+      " M components/crefans/FollowButton.tsx",
+      " M components/crefans/Icon.tsx",
+      " M components/crefans/LandingPage.tsx",
+      " M components/crefans/ProfileHeader.tsx",
+      " M components/crefans/ServiceShell.tsx",
+      " M components/crefans/ServiceUI.tsx",
+      " M components/crefans/SocialPages.tsx",
+      " M components/crefans/account.module.css",
+      " M components/crefans/common.module.css",
+      " M components/crefans/creator.module.css",
+      " M components/crefans/service.module.css",
+      " M components/crefans/social.module.css",
+      " M components/crefans/studio/ContentPostPreview.tsx",
+      " M components/crefans/studio/FinancePages.tsx",
+      " M components/crefans/studio/ManagementPages.tsx",
+      " M components/crefans/studio/ReportPage.tsx",
+      " M components/crefans/studio/WithdrawalSecurityPage.tsx",
+      " M components/crefans/studio/report.module.css",
+      " M components/crefans/studio/withdrawal-security.module.css",
+      " M components/design-system/ServicePatternCatalog.tsx",
+      " M components/preview/comment-fixtures.ts",
+      " M components/preview/service/ServiceRouter.tsx",
+      " M components/preview/service/fixtures.ts",
+      " M components/preview/service/useMockAccount.ts",
+      " M components/preview/service/useMockSocial.ts",
+      " M components/preview/studio/useMockCommunity.ts",
+      " M components/service/ServiceRouter.tsx",
+      " M components/ui/Primitives.tsx",
+      " M components/ui/chip-row.module.css",
+      " M components/ui/ui.module.css",
+      " M docs/audit/evidence.json",
+      " M docs/audit/manifest.json",
+      " M docs/creator-image-variety.md",
+      " M docs/design-system.md",
+      " M docs/preview-pages.md",
+      " M docs/release-test-scenarios.md",
+      " M docs/service-api-binding.md",
+      " M e2e/preview.spec.ts",
+      " M features/service/useServiceModel.ts",
+      " M features/service/useStudioModel.ts",
+      " M lib/content/landing.ts",
+      " M lib/crefans/membership-plans.ts",
+      " M playwright.config.ts",
+      " M tests/content-post-preview.test.cjs",
+      " M tests/crefans-account.test.cjs",
+      " M tests/crefans-common.test.cjs",
+      " M tests/crefans-creator.test.cjs",
+      " M tests/crefans-social.test.cjs",
+      " M tests/crefans-studio-reports.test.cjs",
+      " M tests/follow-button.test.cjs",
+      " M tests/load-typescript.cjs",
+      " M tests/service-access-state.test.cjs",
+      " M tsconfig.tsbuildinfo",
+      " M types/crefans-account.ts",
+      " M types/crefans-social.ts",
+      " M types/crefans.ts",
+      "?? components/crefans/BackButton.tsx",
+      "?? components/crefans/CommentComposer.tsx",
+      "?? components/crefans/CommentIcon.tsx",
+      "?? components/crefans/CreatorName.tsx",
+      "?? components/crefans/CreatorSearch.tsx",
+      "?? components/crefans/MediaOverlay.tsx",
+      "?? components/crefans/PostMembershipNotice.tsx",
+      "?? components/crefans/back-button.module.css",
+      "?? components/crefans/creator-name.module.css",
+      "?? components/crefans/creator-search.module.css",
+      "?? components/ui/InfoTooltip.tsx",
+      "?? components/ui/info-tooltip.module.css",
+      "?? docs/audit/back-buttons-deployment-20261024.json",
+      "?? docs/audit/back-navigation-20261024.json",
+      "?? docs/audit/back-navigation-inventory-20261024.json",
+      "?? docs/audit/beta-cohort-plan-20261024.json",
+      "?? docs/audit/beta-signup-20261024.json",
+      "?? docs/audit/chip-row-inset-20261024.json",
+      "?? docs/audit/close-spacing-20261024.json",
+      "?? docs/audit/collection-back-deployment-20261024.json",
+      "?? docs/audit/comment-close-20261024.json",
+      "?? docs/audit/creator-badge-fixtures-20261024.json",
+      "?? docs/audit/creator-search-20261024.json",
+      "?? docs/audit/creator-search-deployment-20261024.json",
+      "?? docs/audit/creator-search-live-desktop-20261024.png",
+      "?? docs/audit/creator-search-live-mobile-20261024.png",
+      "?? docs/audit/creator-verification-20261024.json",
+      "?? docs/audit/creator-verification-deployment-20261024.json",
+      "?? docs/audit/creator-verification-live-desktop-20261024.png",
+      "?? docs/audit/creator-verification-live-mobile-20261024.png",
+      "?? docs/audit/dialog-close-deployment-20261024.json",
+      "?? docs/audit/empty-comments-deployment-20261024.json",
+      "?? docs/audit/empty-comments-live-desktop-20261024.png",
+      "?? docs/audit/empty-comments-live-webkit390-20261024.png",
+      "?? docs/audit/featured-creator-icon-20261024.json",
+      "?? docs/audit/featured-icon-deployment-20261024.json",
+      "?? docs/audit/featured-tooltip-20261024.json",
+      "?? docs/audit/featured-tooltip-copy-20261024.json",
+      "?? docs/audit/feed-inbox-deployment-20261024.json",
+      "?? docs/audit/feed-toolbar-20261024.json",
+      "?? docs/audit/follow-icon-20261024.json",
+      "?? docs/audit/follow-toggle-20261024.json",
+      "?? docs/audit/follow-toggle-deployment-20261024.json",
+      "?? docs/audit/gallery-comment-dock-20261024.json",
+      "?? docs/audit/gallery-comments-deployment-20261024.json",
+      "?? docs/audit/gallery-comments-live-desktop-20261024.png",
+      "?? docs/audit/gallery-comments-live-mobile-20261024.png",
+      "?? docs/audit/gnb-comment-deployment-20261024.json",
+      "?? docs/audit/gnb-icon-size-20261024.json",
+      "?? docs/audit/gnb-icon-size-deployment-20261024.json",
+      "?? docs/audit/gnb-size-live-preview-20261024.png",
+      "?? docs/audit/gnb-size-live-service-20261024.png",
+      "?? docs/audit/inbox-unread-20261024.json",
+      "?? docs/audit/jiwoo-content-20261024.json",
+      "?? docs/audit/jiwoo-deployment-20261024.json",
+      "?? docs/audit/jiwoo-natural-20261024.json",
+      "?? docs/audit/membership-offer-20261024.json",
+      "?? docs/audit/membership-ui-deployment-20261024.json",
+      "?? docs/audit/message-buttons-20261024.json",
+      "?? docs/audit/message-time-color-20261024.json",
+      "?? docs/audit/message-time-deployment-20261024.json",
+      "?? docs/audit/message-time-live-1280-20261024.png",
+      "?? docs/audit/message-time-live-390-20261024.png",
+      "?? docs/audit/mobile-comment-composer-20261024.json",
+      "?? docs/audit/mobile-gallery-corner-20261024.json",
+      "?? docs/audit/mobile-gallery-deployment-20261024.json",
+      "?? docs/audit/mobile-gallery-expand-20261024.json",
+      "?? docs/audit/mobile-gallery-sheet-20261024.json",
+      "?? docs/audit/mobile-gnb-icons-20261024.json",
+      "?? docs/audit/mobile-inbox-deployment-20261024.json",
+      "?? docs/audit/mobile-inbox-spacing-20261024.json",
+      "?? docs/audit/mobile-settings-deployment-20261024.json",
+      "?? docs/audit/mobile-settings-links-20261024.json",
+      "?? docs/audit/mobile-shell-20261024.json",
+      "?? docs/audit/mobile-ui-deployment-20261024.json",
+      "?? docs/audit/post-detail-back-20261024.json",
+      "?? docs/audit/profile-media-20261024.json",
+      "?? docs/audit/profile-media-deployment-20261024.json",
+      "?? docs/audit/qa-report-20261024.json",
+      "?? docs/audit/settings-categories-20261024.json",
+      "?? docs/audit/settings-categories-deployment-20261024.json",
+      "?? docs/audit/settings-divider-20261024.json",
+      "?? docs/audit/settings-divider-color-20261024.json",
+      "?? docs/audit/settings-divider-color-deployment-20261024.json",
+      "?? docs/audit/settings-edge-dividers-20261024.json",
+      "?? docs/audit/support-spacing-deployment-20261024.json",
+      "?? docs/audit/verified-creator-icon-20261024.json",
+      "?? docs/beta-role-test-plan.md",
+      "?? e2e/creator-verification.spec.ts",
+      "?? e2e/mobile-comments.spec.ts",
+      "?? e2e/mobile-shell.spec.ts",
+      "?? e2e/signup-deferred.spec.ts",
+      "?? output/pdf/",
+      "?? public/brand/featured-creators-v1.generation.json",
+      "?? public/brand/featured-creators-v1.png",
+      "?? public/brand/tooltip-info-v1.generation.json",
+      "?? public/brand/tooltip-info-v1.png",
+      "?? public/brand/verified-creator-v1.png",
+      "?? public/illustrations/creators/jiwoo/",
+      "?? tests/creator-verification.test.cjs",
+      "?? tests/post-membership-offer.test.cjs",
+      "?? tests/profile-media.test.cjs"
+    ]
+  },
+  "requirement": "주목할 크리에이터 안내 아이콘·공용툴팁 및 정정문구 운영배포",
+  "copy": "홍보성 프로모션이 적용된 크리에이터나 해당 광고 상품을 이용중인 크리에이터가 노출될 수 있습니다.",
+  "acceptance": [
+    "목업/실서비스·디자인카탈로그 같은 InfoTooltip",
+    "요청 정정문구 그대로, 아이콘20px/클릭영역44px/본문14px",
+    "키보드포커스/Enter/Escape·터치토글/바깥닫기·hover유지",
+    "검색결과에 따라 제목/아이콘 같이 숨김·복원, 모바일/PC 넘침없음",
+    "프론트만교체·실행중 다른컨테이너/DB/SSH 유지"
+  ],
+  "scope": {
+    "at": "2026-10-24T10:51:32.010659+00:00",
+    "baselineFilesMatched": 502,
+    "changed": [
+      "components/crefans/CreatorPages.tsx",
+      "components/crefans/creator.module.css",
+      "components/design-system/ServicePatternCatalog.tsx"
+    ],
+    "added": [
+      "components/ui/InfoTooltip.tsx",
+      "components/ui/info-tooltip.module.css",
+      "public/brand/tooltip-info-v1.png"
+    ],
+    "change": "Shared featured creator tooltip with corrected promotional/advertising disclosure and generated transparent information icon",
+    "copy": "홍보성 프로모션이 적용된 크리에이터나 해당 광고 상품을 이용중인 크리에이터가 노출될 수 있습니다.",
+    "excluded": [
+      "Other unshipped signup/back-navigation/comment-close changes"
+    ],
+    "preserved": "Backend/worker/admin/database/proxy and SSH rules"
+  },
+  "sourceHashes": {
+    "components/crefans/CreatorPages.tsx": "07af564e29d263c6f08ad3f70eaf0eb50b8745cf2475ca001cb0027cb9df7edf",
+    "components/crefans/creator.module.css": "f0090eaa9075b8ef0b2aeb84bce8b153b519242693b1c7151a8dcb4df16e2117",
+    "components/design-system/ServicePatternCatalog.tsx": "682ef86bea1d66ca59b6b6d02339c80520b43d022d7df3e2f056aae6b2dfcaf3",
+    "components/ui/InfoTooltip.tsx": "7f8dbebd17b274b68fa9166d9a91159228b7d51a1732ecaaa07728c3278628e5",
+    "components/ui/info-tooltip.module.css": "9b6c9a56365a80ead4f832ed6c5ef9c1c3a95853b89aa592be08e013c46158bf",
+    "public/brand/tooltip-info-v1.png": "cd27ad4f6e43010ff3421ace98eca6e59dbb0768eb7e60e6ffb15dada4484b75"
+  },
+  "manifestSha256": "9cdd75db3193ab662ca01d47757e3cc488c3b7c4e5ef595a49a2d5e8d271c1c6",
+  "image": {
+    "at": "2026-10-24T10:54:28.210685+00:00",
+    "tag": "crefans-front:featured-tooltip-20261024",
+    "id": "sha256:1473bd23c3de6febacf68f7a10b32a3770cc6e570d14abb5929bd76193686113",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 505,
+    "archiveSha256": "6b085e22c55544c0d315a78886e5712e2c4e200a67a05e58b7175dacc3d62c7d",
+    "archiveBytes": 515277547
+  },
+  "commands": [
+    {
+      "command": [
+        "python3",
+        ".local/featured-tooltip-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:51:29.415979+00:00",
+      "finishedAt": "2026-10-24T10:51:32.086835+00:00",
+      "exitCode": 0,
+      "logSha256": "fdd97bf38296bbf073b2f94bd7a1caf22343aed5fab9bc0c90fd8277e7280e1f"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=creator exploration and profile|explore shows paid placements",
+        ".local/featured-tooltip-deploy-20261024/tests/crefans-creator.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:52:22.872643+00:00",
+      "finishedAt": "2026-10-24T10:52:23.446947+00:00",
+      "exitCode": 0,
+      "logSha256": "7f842e3741b6864b494ffa23b5f4b2357f26cff582483a6a63a433a024e3d679"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:52:23.471781+00:00",
+      "finishedAt": "2026-10-24T10:52:23.937996+00:00",
+      "exitCode": 0,
+      "logSha256": "cf0ef5d61a8fe3f0f6770368d95d28b2799e6ce4813f3079ea05e58d4eea964c"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/featured-tooltip-deploy-20261024/cleanup-old-images.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:53:28.498082+00:00",
+      "finishedAt": "2026-10-24T10:53:31.792474+00:00",
+      "exitCode": 0,
+      "logSha256": "6cd8d8352db055c8da9738c5a0dfbf157c3f1e1df49a68c0dedae70778bc4547"
+    },
+    {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/featured-tooltip-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:featured-tooltip-20261024",
+        ".local/featured-tooltip-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:52:22.872632+00:00",
+      "finishedAt": "2026-10-24T10:53:56.327482+00:00",
+      "exitCode": 0,
+      "logSha256": "5e1e6a8af5a90979b28e8de074ae6413f09abb4b587193322c4e28eb3f3ed892"
+    },
+    {
+      "command": [
+        "node",
+        ".local/featured-tooltip-deploy-20261024/check.cjs",
+        "http://127.0.0.1:3124",
+        "image"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:58:31.246763+00:00",
+      "finishedAt": "2026-10-24T10:58:45.215288+00:00",
+      "exitCode": 0,
+      "logSha256": "d9f507f954babf07618d1ddfa0ce304e874f227038189c29526f27bd2f7f0212"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/featured-tooltip-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:54:14.808170+00:00",
+      "finishedAt": "2026-10-24T10:54:28.220492+00:00",
+      "exitCode": 0,
+      "logSha256": "7f8563e165455b905d81af30c16361c5d7e82eee830090b8898b90dd79d33d25"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/featured-tooltip-deploy-20261024/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:59:01.089680+00:00",
+      "finishedAt": "2026-10-24T10:59:30.181215+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    {
+      "command": [
+        "node",
+        ".local/featured-tooltip-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:59:44.986958+00:00",
+      "finishedAt": "2026-10-24T11:00:04.039225+00:00",
+      "exitCode": 0,
+      "logSha256": "d9f507f954babf07618d1ddfa0ce304e874f227038189c29526f27bd2f7f0212"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/featured-tooltip-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:59:44.986958+00:00",
+      "finishedAt": "2026-10-24T10:59:47.643025+00:00",
+      "exitCode": 0,
+      "logSha256": "372a88663831d9d0610f163a23e4d18ec65a2a45179699b2bb549ec52e1f792b"
+    },
+    {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "crefans-featured-tooltip-qa"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:59:52.946374+00:00",
+      "finishedAt": "2026-10-24T10:59:53.163249+00:00",
+      "exitCode": 0,
+      "logSha256": "72d36ac5bb6c43907cb6783e99d98d98cbc9ca8b4ef6530049c15511de276f0b"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T11:00:19.888644+00:00",
+      "finishedAt": "2026-10-24T11:00:20.876740+00:00",
+      "exitCode": 0,
+      "logSha256": "e366beaf349268761581cb24f4ab121e23519dee8ff767cab71d86a9a2a1cf3a"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T11:00:35.609949+00:00",
+      "finishedAt": "2026-10-24T11:00:35.981933+00:00",
+      "exitCode": 0,
+      "logSha256": "f1a0db648a45f8bed62c0e4d4aca1ee14e0277d75fa84364fd8b4fdd23b64ba5"
+    }
+  ],
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "install -d -m 0700 /home/ubuntu/crefans-featured-tooltip-20261024"
+      ],
+      "startedAt": "2026-10-24T10:59:01.112584+00:00",
+      "finishedAt": "2026-10-24T10:59:02.251773+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "command": [
+        "scp",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "/Users/ethan/repository/crefans_front/.local/featured-tooltip-deploy-20261024/image.tar.gz",
+        "/Users/ethan/repository/crefans_front/.local/featured-tooltip-deploy-20261024/image.sha256",
+        "/Users/ethan/repository/crefans_front/.local/featured-tooltip-deploy-20261024/deploy.sh",
+        "/Users/ethan/repository/crefans_front/.local/featured-tooltip-deploy-20261024/before.json",
+        "ubuntu@15.164.140.26:/home/ubuntu/crefans-featured-tooltip-20261024/"
+      ],
+      "startedAt": "2026-10-24T10:59:02.252504+00:00",
+      "finishedAt": "2026-10-24T10:59:11.168374+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "cd /home/ubuntu/crefans-featured-tooltip-20261024 && sha256sum -c image.sha256 && sudo -n docker load -i image.tar.gz && rm image.tar.gz"
+      ],
+      "startedAt": "2026-10-24T10:59:11.169069+00:00",
+      "finishedAt": "2026-10-24T10:59:23.145721+00:00",
+      "exitCode": 0,
+      "logSha256": "759bb72a24af6521dba648eb3dd456b17058c63db9295b39523c52da322aea14"
+    },
+    {
+      "step": "deploy",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "bash /home/ubuntu/crefans-featured-tooltip-20261024/deploy.sh"
+      ],
+      "startedAt": "2026-10-24T10:59:23.146412+00:00",
+      "finishedAt": "2026-10-24T10:59:30.173752+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "checks": {
+    "unitPassed": 2,
+    "browser": {
+      "image": {
+        "start": "2026-10-24T10:58:31.429Z",
+        "end": "2026-10-24T10:58:45.206Z",
+        "exitCode": 0,
+        "results": [
+          {
+            "name": "chromium320",
+            "mode": "preview",
+            "trigger": {
+              "x": 144.453125,
+              "y": 163.890625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 52,
+              "right": 312,
+              "top": 207.890625,
+              "bottom": 301.0625,
+              "font": "14px",
+              "width": 320,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "chromium320",
+            "mode": "service",
+            "trigger": {
+              "x": 144.453125,
+              "y": 138.390625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 52,
+              "right": 312,
+              "top": 182.390625,
+              "bottom": 275.5625,
+              "font": "14px",
+              "width": 320,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "chromium390",
+            "mode": "preview",
+            "trigger": {
+              "x": 144.453125,
+              "y": 163.890625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 207.890625,
+              "bottom": 301.0625,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "chromium390",
+            "mode": "service",
+            "trigger": {
+              "x": 144.453125,
+              "y": 138.390625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 182.390625,
+              "bottom": 275.5625,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "chromium390",
+            "mode": "catalog",
+            "trigger": {
+              "x": 141.671875,
+              "y": 400.265625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 444.265625,
+              "bottom": 537.4375,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "not applicable"
+          },
+          {
+            "name": "desktop",
+            "mode": "preview",
+            "trigger": {
+              "x": 374.453125,
+              "y": 235.890625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 374.453125,
+              "right": 634.453125,
+              "top": 279.890625,
+              "bottom": 373.0625,
+              "font": "14px",
+              "width": 1280,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "trigger and bubble persistence/mouseout/Escape passed",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "desktop",
+            "mode": "service",
+            "trigger": {
+              "x": 374.453125,
+              "y": 210.390625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 374.453125,
+              "right": 634.453125,
+              "top": 254.390625,
+              "bottom": 347.5625,
+              "font": "14px",
+              "width": 1280,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "trigger and bubble persistence/mouseout/Escape passed",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "desktop",
+            "mode": "catalog",
+            "trigger": {
+              "x": 385.671875,
+              "y": 400.453125,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 385.671875,
+              "right": 645.671875,
+              "top": 444.453125,
+              "bottom": 537.625,
+              "font": "14px",
+              "width": 1280,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "trigger and bubble persistence/mouseout/Escape passed",
+            "filter": "not applicable"
+          },
+          {
+            "name": "webkit390",
+            "mode": "preview",
+            "trigger": {
+              "x": 144.453125,
+              "y": 163.890625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 207.890625,
+              "bottom": 301.0625,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "webkit390",
+            "mode": "service",
+            "trigger": {
+              "x": 144.453125,
+              "y": 138.390625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 182.390625,
+              "bottom": 275.5625,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          }
+        ],
+        "errors": []
+      },
+      "production": {
+        "start": "2026-10-24T10:59:45.176Z",
+        "end": "2026-10-24T11:00:04.033Z",
+        "exitCode": 0,
+        "results": [
+          {
+            "name": "chromium320",
+            "mode": "preview",
+            "trigger": {
+              "x": 144.453125,
+              "y": 163.890625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 52,
+              "right": 312,
+              "top": 207.890625,
+              "bottom": 301.0625,
+              "font": "14px",
+              "width": 320,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "chromium320",
+            "mode": "service",
+            "trigger": {
+              "x": 144.453125,
+              "y": 138.390625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 52,
+              "right": 312,
+              "top": 182.390625,
+              "bottom": 275.5625,
+              "font": "14px",
+              "width": 320,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "chromium390",
+            "mode": "preview",
+            "trigger": {
+              "x": 144.453125,
+              "y": 163.890625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 207.890625,
+              "bottom": 301.0625,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "chromium390",
+            "mode": "service",
+            "trigger": {
+              "x": 144.453125,
+              "y": 138.390625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 182.390625,
+              "bottom": 275.5625,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "chromium390",
+            "mode": "catalog",
+            "trigger": {
+              "x": 141.671875,
+              "y": 400.265625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 444.265625,
+              "bottom": 537.4375,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "not applicable"
+          },
+          {
+            "name": "desktop",
+            "mode": "preview",
+            "trigger": {
+              "x": 374.453125,
+              "y": 235.890625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 374.453125,
+              "right": 634.453125,
+              "top": 279.890625,
+              "bottom": 373.0625,
+              "font": "14px",
+              "width": 1280,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "trigger and bubble persistence/mouseout/Escape passed",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "desktop",
+            "mode": "service",
+            "trigger": {
+              "x": 374.453125,
+              "y": 210.390625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 374.453125,
+              "right": 634.453125,
+              "top": 254.390625,
+              "bottom": 347.5625,
+              "font": "14px",
+              "width": 1280,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "trigger and bubble persistence/mouseout/Escape passed",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "desktop",
+            "mode": "catalog",
+            "trigger": {
+              "x": 385.671875,
+              "y": 400.453125,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 385.671875,
+              "right": 645.671875,
+              "top": 444.453125,
+              "bottom": 537.625,
+              "font": "14px",
+              "width": 1280,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "trigger and bubble persistence/mouseout/Escape passed",
+            "filter": "not applicable"
+          },
+          {
+            "name": "webkit390",
+            "mode": "preview",
+            "trigger": {
+              "x": 144.453125,
+              "y": 163.890625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 207.890625,
+              "bottom": 301.0625,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          },
+          {
+            "name": "webkit390",
+            "mode": "service",
+            "trigger": {
+              "x": 144.453125,
+              "y": 138.390625,
+              "width": 44,
+              "height": 44
+            },
+            "metrics": {
+              "x": 122,
+              "right": 382,
+              "top": 182.390625,
+              "bottom": 275.5625,
+              "font": "14px",
+              "width": 390,
+              "height": 844,
+              "scrollOverflow": false,
+              "bodyOverflow": false
+            },
+            "asset": {
+              "bytes": 1173,
+              "status": 200,
+              "width": 32
+            },
+            "keyboard": "focus/description/Escape focus-preserved/Enter toggle passed",
+            "touch": "first/second tap and outside close passed",
+            "hover": "not applicable",
+            "filter": "hidden with heading and restored closed"
+          }
+        ],
+        "errors": []
+      }
+    },
+    "runtime": {
+      "at": "2026-10-24T10:59:45.032953+00:00",
+      "runtimeFilesMatched": 505,
+      "runtime": {
+        "crefans-beta-api-1": {
+          "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-frontend-1": {
+          "id": "43eb2f0830b428488ad39dddfe25f6de519935f310559ce814b0345269dbe3f8",
+          "image": "sha256:1473bd23c3de6febacf68f7a10b32a3770cc6e570d14abb5929bd76193686113",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+          "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        }
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/preview/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/explore",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200
+        }
+      ],
+      "publicIconSha256": "cd27ad4f6e43010ff3421ace98eca6e59dbb0768eb7e60e6ffb15dada4484b75",
+      "freeDiskBytes": 4253605888
+    },
+    "visualReview": [
+      "image/chromium320-tooltip.png",
+      "image/webkit390-tooltip.png",
+      "image/desktop-tooltip.png",
+      "production/chromium320-tooltip.png",
+      "production/webkit390-tooltip.png",
+      "production/desktop-tooltip.png"
+    ]
+  },
+  "diskCleanup": {
+    "result": {
+      "at": "2026-10-24T10:53:31.778420+00:00",
+      "removed": [
+        {
+          "tag": "crefans-front:collection-back-20261024",
+          "id": "sha256:64bf0e8b9d79b613f1cfc2e1acf150492bd037c224037b67213b9181c5301f9d"
+        },
+        {
+          "tag": "crefans-front:settings-divider-color-20261024",
+          "id": "sha256:35d5a5a5a8ca65c21741852c24257be25211173f66b73bcec3bb88b87279b3df"
+        },
+        {
+          "tag": "crefans-front:settings-categories-20261024",
+          "id": "sha256:4f967b8c3cc81ac7dfe4b8d0da39e23616559c2046d79194bb87095d620c2250"
+        }
+      ],
+      "kept": [
+        "crefans-front:follow-toggle-20261024",
+        "crefans-front:featured-icon-20261024"
+      ],
+      "freeBeforeBytes": 2802438144,
+      "freeAfterBytes": 4983676928,
+      "allContainerIdsAndImagesUnchanged": true,
+      "volumesUntouched": true
+    },
+    "verifiedLocalRecoveryArchives": [
+      {
+        "tag": "crefans-front:collection-back-20261024",
+        "id": "sha256:64bf0e8b9d79b613f1cfc2e1acf150492bd037c224037b67213b9181c5301f9d",
+        "archive": "/Users/ethan/repository/crefans_front/.local/collection-back-deploy-20261024/image.tar.gz",
+        "archiveSha256": "77874fd97d7a30808bace450a5e84048e74e2fdcd6c1e2582e3c17990c8d9a8c",
+        "archiveBytes": 514607522
+      },
+      {
+        "tag": "crefans-front:settings-divider-color-20261024",
+        "id": "sha256:35d5a5a5a8ca65c21741852c24257be25211173f66b73bcec3bb88b87279b3df",
+        "archive": "/Users/ethan/repository/crefans_front/.local/settings-divider-color-deploy-20261024/image.tar.gz",
+        "archiveSha256": "fa9e175ea7253a7da648dfd740bfdd95b99ef03eaaebdce1de63088d027275f7",
+        "archiveBytes": 514663851
+      },
+      {
+        "tag": "crefans-front:settings-categories-20261024",
+        "id": "sha256:4f967b8c3cc81ac7dfe4b8d0da39e23616559c2046d79194bb87095d620c2250",
+        "archive": "/Users/ethan/repository/crefans_front/.local/settings-categories-deploy-20261024/image.tar.gz",
+        "archiveSha256": "806e2a4c0a3f73b7bafe238adf61830cb1d055f47d84914cb4f72819ce6b1969",
+        "archiveBytes": 514650208
+      }
+    ],
+    "scope": "Only three older unused frontend image tags removed after verifying full local archive checksums. Current/previous images and all containers/volumes preserved."
+  },
+  "rollback": "/opt/crefans-backup-featured-tooltip-20261024",
+  "artifacts": "/Users/ethan/repository/crefans_front/.local/featured-tooltip-deploy-20261024",
+  "limits": [
+    "서비스로그인상태는 GET API대역으로 UI검증, 실제회원변경 없음.",
+    "Chromium320/390/1280·WebKit390 및카탈로그, 물리기기/스크린리더 검증아님.",
+    "기존 무관한 미커밋 보존, 커밋/푸시없음."
+  ],
+  "priorAttempt": {
+    "command": {
+      "command": [
+        "python3",
+        ".local/featured-tooltip-deploy-20261024/verify-image.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T10:54:14.808171+00:00",
+      "finishedAt": "2026-10-24T10:58:14.868235+00:00",
+      "exitCode": 1,
+      "logSha256": "40ee52631aa15e8122eca3764518d9352f92cd92c619c4ee76d1dcb1a7b0107d"
+    },
+    "diagnosis": {
+      "before": {
+        "loading": "lazy",
+        "complete": false,
+        "width": 0,
+        "top": 6726.265625
+      },
+      "after": {
+        "loading": "lazy",
+        "complete": true,
+        "width": 32,
+        "top": 412.265625
+      },
+      "reason": "Catalog icon was below viewport; scrollIntoView starts native lazy image loading"
+    },
+    "resolution": "Verifier now scrolls the catalog tooltip into view before checking native lazy image decoding, with a bounded load check. Product source unchanged; complete10-case image verification rerun passed."
+  }
+}

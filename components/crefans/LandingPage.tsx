@@ -1,4 +1,6 @@
 'use client';
+import {MarqueeMotionControl} from '@/components/ui/MarqueeText';
+import {CreatorName} from './CreatorName';
 
 import {TextLink} from '@/components/ui/TextLink';
 import {useState,type CSSProperties,type FormEvent} from 'react';
@@ -49,7 +51,7 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
         <div className={s.sectionHeading}><h2 id="creators-heading">지금 주목할 크리에이터</h2><button onClick={()=>router.push(`${creatorBasePath}/explore`)}>더보기 <Icon name="arrow"/></button></div>
         <div className={s.creatorGrid}>{results.map(c=><article key={c.name} className={s.creatorCard}>
           <button className={s.creatorPhoto} aria-label={`${c.name} 프로필 보기`} onClick={()=>router.push(`${creatorBasePath}/creator/${c.id}`)}>{c.image&&<img src={c.image} style={{objectPosition:c.position}} alt={`${c.name} 크리에이터`} loading="lazy"/>}<span className={s.tags}>{c.tags.map(tag=><span key={tag}>{tag}</span>)}</span></button>
-          <div className={s.creatorInfo}><button onClick={()=>router.push(`${creatorBasePath}/creator/${c.id}`)} className={s.creatorName}>{c.name}</button>{c.bio&&<p>{c.bio}</p>}<button className={s.follow} aria-label={`${c.name} ${following.includes(c.id)?'팔로우 취소':'팔로우'}`} aria-pressed={following.includes(c.id)} onClick={()=>follow(c.id)}><Icon name={following.includes(c.id)?'check':'plus'}/>{following.includes(c.id)?'팔로잉':'팔로우'}</button></div>
+          <div className={s.creatorInfo}><button onClick={()=>router.push(`${creatorBasePath}/creator/${c.id}`)} className={s.creatorName}><CreatorName person={c}/></button>{c.bio&&<p>{c.bio}</p>}<button className={s.follow} aria-label={`${c.name} ${following.includes(c.id)?'팔로우 취소':'팔로우'}`} aria-pressed={following.includes(c.id)} onClick={()=>follow(c.id)}><Icon name={following.includes(c.id)?'check':'plus'}/>{following.includes(c.id)?'팔로잉':'팔로우'}</button></div>
         </article>)}</div>
 
       </div></section>}
@@ -59,6 +61,7 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
         <span className={s.closingSignature} aria-hidden="true">For<br/>a Bigger<br/><i>Connection ♡</i></span>
       </div></section>
     </main>
+    <footer className={s.motionPreference}><MarqueeMotionControl/></footer>
     <Dialog open={notice} onClose={()=>setNotice(false)} title="공지사항" sheet><p className={s.dialogNote}>{content.notice} <TextLink href={`${basePath}/support`}>고객센터 및 Q&A로 이동</TextLink></p></Dialog>
   </div>;
 }

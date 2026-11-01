@@ -21,13 +21,13 @@ export function FormControlsCatalog(){
     <Field {...state} label="비밀번호" type="password" showPasswordToggle value={password} onChange={e=>setPassword(e.target.value)} hint="보기 버튼으로 입력 내용을 확인할 수 있어요." autoComplete="new-password"/>
     <Field {...state} label="검색" type="search" value={search} onChange={e=>setSearch(e.target.value)} clearable onClear={()=>setSearch('')} placeholder="크리에이터 검색"/>
     <Field {...state} label="연락처" type="tel" inputMode="tel" placeholder="010-0000-0000"/>
-    <Field {...state} label="웹 주소" type="url" placeholder="https://example.com"/>
+    <Field {...state} label="웹 주소" tooltip="라벨 오른쪽의 안내는 마우스, 키보드, 터치로 확인할 수 있습니다." type="url" placeholder="https://example.com"/>
     <Field {...state} label="금액" type="number" min={0} step={100} suffix="원" placeholder="0"/>
-    <Field {...state} label="프로필 경로" prefix="crefans.com/" placeholder="my-name"/>
+    <Field {...state} label="핸들 확인" placeholder="my_handle" action={<Button type="button" tone="secondary" disabled={disabled||readOnly}>중복 확인</Button>} hint="버튼은 입력 테두리 바깥에서 같은 높이로 표시됩니다."/>
     <Field label="오류 상태" error="사용할 수 없는 이름입니다." value="crefans" readOnly/>
     <Field label="비활성 입력" disabled value="현재 변경할 수 없어요"/>
-    <Field label="읽기 전용 입력" readOnly value="변경할 수 없지만 복사할 수 있어요"/>
-    <TextAreaField {...state} label="여러 줄 입력" value={bio} onChange={e=>setBio(e.target.value)} rows={4} maxLength={200} showCount placeholder="나를 소개하는 이야기를 적어 주세요"/>
+    <Field label="읽기 전용 입력" tooltip="입력값을 수정할 수 없어도 안내는 확인할 수 있습니다." readOnly value="변경할 수 없지만 복사할 수 있어요"/>
+    <TextAreaField {...state} label="여러 줄 입력" tooltip="여러 줄 입력에도 같은 안내 툴팁을 사용할 수 있습니다." value={bio} onChange={e=>setBio(e.target.value)} rows={4} maxLength={200} showCount placeholder="나를 소개하는 이야기를 적어 주세요"/>
     <div className={s.row}><Button type="submit" disabled={disabled||readOnly}>입력 검증</Button><Button tone="secondary" type="button" onClick={()=>setSubmitted(false)}>오류 초기화</Button></div>
    </form>
   </section>

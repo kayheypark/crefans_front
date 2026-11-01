@@ -19,8 +19,8 @@ test('local media store accepts images and videos with separate limits and rejec
   assert.notEqual(image.data.id,video.data.id);assert.ok(store.owns(video.data.url));
   assert.equal((await store.uploadMedia(file('image/gif'))).errorCode,'INVALID_MEDIA_TYPE');
   assert.equal((await store.uploadMedia(file('video/webm'))).success,true);
-  const mov=await store.uploadMedia(file('video/quicktime'));
-  assert.equal(mov.errorCode,'INVALID_MEDIA_TYPE');assert.doesNotMatch(mov.errorMessage,/MOV/);
+  // iPhone .mov is accepted since 2026-11-01 (the server converts it to MP4).
+  assert.equal((await store.uploadMedia(file('video/quicktime'))).success,true);
   assert.equal((await store.uploadMedia(file('image/png',6*1024*1024))).errorCode,'INVALID_MEDIA_SIZE');
   assert.equal((await store.uploadMedia(file('video/mp4',301*1024*1024))).errorCode,'INVALID_MEDIA_SIZE');
   assert.equal((await store.upload(file('video/mp4'))).errorCode,'INVALID_IMAGE_TYPE');
@@ -28,7 +28,7 @@ test('local media store accepts images and videos with separate limits and rejec
 
 test('post media file picker advertises only server-supported formats',()=>{
   const {mediaUploadAccept}=loadTypeScript('lib/design/image-upload.ts');
-  assert.deepEqual(mediaUploadAccept.split(','),['image/jpeg','image/png','image/webp','video/mp4','video/webm']);
+  assert.deepEqual(mediaUploadAccept.split(','),['image/jpeg','image/png','image/webp','video/mp4','video/webm','video/quicktime','.mov']);
 });
 
 function mount(props){
@@ -110,4 +110,22 @@ test('dragging a tile past the threshold slides neighbours, commits on release, 
     act(()=>tile(0).props.onKeyDown({key:'ArrowLeft',preventDefault(){}}));
     assert.equal(moves.length,2);
   }finally{act(()=>view.unmount());}
+});
+test('design B: one add button first, then its guidance, then the thumbnails (2026-11-01)',()=>{
+  const picker=mount({items:[{id:'a',type:'image',url:'/a.png'}],hint:'이미지 5MB'});
+  try{
+    const kids=picker.view.root.findByProps({role:'group'}).children.filter(node=>typeof node!=='string').map(node=>node.type);
+    assert.ok(kids.indexOf('button')<kids.indexOf('small')&&kids.indexOf('small')<kids.indexOf('ul'),kids.join(','));
+    assert.match(JSON.stringify(picker.view.toJSON()),/사진·동영상 추가/);
+  }finally{picker.unmount();}
+});
+test('a converting iPhone video keeps its own thumbnail with a small optimizing label; without a local copy it shows the notice (2026-11-01)',()=>{
+  const picker=mount({items:[{id:'m',type:'video',url:'/api/v1/media/m/file',processing:true,preview:'blob:local-m'},{id:'n',type:'video',url:'/api/v1/media/n/file',processing:true},{id:'f',type:'video',url:'/api/v1/media/f/file',failed:true}]});
+  try{
+    const videos=picker.view.root.findAllByType('video');assert.equal(videos.length,1);assert.equal(videos[0].props.src,'blob:local-m#t=0.001');
+    const text=JSON.stringify(picker.view.toJSON());assert.equal((text.match(/영상 최적화 중/g)||[]).length,3,'label on the thumbnail, notice text and its aria-label');assert.match(text,/변환 실패/);assert.match(text,/삭제 후 다시 올려 주세요/);assert.doesNotMatch(text,/동영상 변환 중/);
+    assert.equal(picker.buttons().filter(item=>/삭제$/.test(item.props['aria-label']||'')).length,3,'all can still be removed');
+    picker.update({items:[{id:'m',type:'video',url:'/api/v1/media/m/file'}]});
+    assert.doesNotMatch(JSON.stringify(picker.view.toJSON()),/영상 최적화 중/);assert.equal(picker.view.root.findByType('video').props.src,'/api/v1/media/m/file#t=0.001');
+  }finally{picker.unmount();}
 });

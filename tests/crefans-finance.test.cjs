@@ -29,11 +29,11 @@ test('finance ledger partitions net income without counting reserved or paid mon
   const summary=invariant(state);
   assert.equal(summary.gross,2480000);
   assert.equal(summary.reversals,99000);
-  assert.equal(summary.fees,238100);
-  assert.equal(summary.pending,441000);
+  assert.equal(summary.fees,476200);
+  assert.equal(summary.pending,392000);
   assert.equal(summary.requested,200000);
   assert.equal(summary.paid,350000);
-  assert.equal(summary.available,1151900);
+  assert.equal(summary.available,962800);
   const withoutRejected={...state,withdrawals:state.withdrawals.filter(item=>item.status!=='rejected')};
   assert.deepEqual(calculateFinanceSummary(withoutRejected),summary);
 });
@@ -41,17 +41,17 @@ test('finance ledger partitions net income without counting reserved or paid mon
 test('withdrawal review rejects invalid KRW, insufficient balances, and unverified or missing accounts without mutation',()=>{
   const state=createInitialFinanceState();
   const before=JSON.stringify(state);
-  for(const amount of [0,-1,1.5,NaN,Infinity,Number.MAX_SAFE_INTEGER+1]){
+  for(const amount of [0,-1,1.5,9999,99999,NaN,Infinity,Number.MAX_SAFE_INTEGER+1]){
     const result=reviewMockWithdrawal(state,{amount,accountId:'account-verified'});
     assert.equal(result.success,false);
     assert.equal(result.errorCode,'INVALID_AMOUNT');
   }
-  assert.equal(reviewMockWithdrawal(state,{amount:1,accountId:'account-unverified'}).errorCode,'ACCOUNT_NOT_VERIFIED');
-  assert.equal(reviewMockWithdrawal(state,{amount:1,accountId:'missing'}).errorCode,'ACCOUNT_NOT_FOUND');
-  assert.equal(reviewMockWithdrawal(state,{amount:1151901,accountId:'account-verified'}).errorCode,'INSUFFICIENT_BALANCE');
+  assert.equal(reviewMockWithdrawal(state,{amount:100000,accountId:'account-unverified'}).errorCode,'ACCOUNT_NOT_VERIFIED');
+  assert.equal(reviewMockWithdrawal(state,{amount:100000,accountId:'missing'}).errorCode,'ACCOUNT_NOT_FOUND');
+  assert.equal(reviewMockWithdrawal(state,{amount:962801,accountId:'account-verified'}).errorCode,'INSUFFICIENT_BALANCE');
   const quote=reviewMockWithdrawal(state,{amount:100000,accountId:'account-verified'});
   assert.equal(quote.success,true);
-  assert.equal(quote.data.availableAfterRequest,1051900);
+  assert.equal(quote.data.availableAfterRequest,862800);
   assert.equal(JSON.stringify(state),before);
 });
 
@@ -65,7 +65,7 @@ test('acceptance reserves the exact amount once; repeat request keys are idempot
     assert.equal(first.success,true);assert.equal(first.data.withdrawal.status,'requested');
     assert.equal(first.data.withdrawal.requestedAt,view.model.today);
     const next=invariant(view.model.data);
-    assert.equal(next.available,1051900);assert.equal(next.requested,300000);assert.equal(next.paid,350000);
+    assert.equal(next.available,862800);assert.equal(next.requested,300000);assert.equal(next.paid,350000);
     const after=view.model.data.withdrawals,repeated=await request(view,input);
     assert.equal(repeated.success,true);assert.equal(view.model.data.withdrawals,after);
     assert.equal(repeated.data.withdrawal.id,first.data.withdrawal.id);
@@ -78,7 +78,7 @@ test('requesting the full balance reaches zero without touching pending or compl
   const view=financeView();
   try{
     await setupPin(view);
-    const all={amount:view.model.data.summary.available,accountId:'account-verified'},extra={amount:1,accountId:'account-verified'};
+    const all={amount:view.model.data.summary.available,accountId:'account-verified'},extra={amount:100000,accountId:'account-verified'};
     const authorizationId=await authorize(view,all),extraAuthorizationId=await authorize(view,extra);
     const transaction=await request(view,{...all,requestId:'all-available',authorizationId});
     assert.equal(transaction.success,true);const summary=invariant(view.model.data);assert.equal(summary.available,0);
@@ -91,14 +91,14 @@ test('mock finance callbacks use the latest balance when two requests arrive bef
   const view=financeView();
   try{
     await setupPin(view);
-    const intent={amount:1000000,accountId:'account-verified'},firstGrant=await authorize(view,intent),secondGrant=await authorize(view,intent);
+    const intent={amount:900000,accountId:'account-verified'},firstGrant=await authorize(view,intent),secondGrant=await authorize(view,intent);
     const submit=view.model.requestWithdrawal;let results;
     await act(async()=>{results=await Promise.all([
       submit({...intent,requestId:'first',authorizationId:firstGrant}),
       submit({...intent,requestId:'second',authorizationId:secondGrant}),
     ]);});
     assert.equal(results[0].success,true);assert.equal(results[1].success,false);assert.equal(results[1].errorCode,'INSUFFICIENT_BALANCE');
-    assert.equal(view.model.data.summary.available,151900);assert.equal(view.model.data.summary.requested,1200000);
+    assert.equal(view.model.data.summary.available,62800);assert.equal(view.model.data.summary.requested,1100000);
     assert.equal(view.model.data.withdrawals.filter(item=>item.status==='requested').length,1);invariant(view.model.data);
   }finally{view.close();}
 });
@@ -109,14 +109,14 @@ test('account updates require renewed verification and preserve withdrawal accou
   act(()=>{tree=create(React.createElement(Probe));});
   const originalSnapshot=model.data.withdrawals[0].accountLabel;
   const view={get model(){return model;}};await setupPin(view);
-  const authorizationId=await authorize(view,{amount:10000,accountId:'account-verified'});
+  const authorizationId=await authorize(view,{amount:100000,accountId:'account-verified'});
   await act(async()=>{result=await model.saveAccount({bank:'다른 가상은행',holderAlias:'검수 별칭',lastFour:'9922'},'account-verified');});
   assert.equal(result.success,true);
   const updated=model.data.accounts.find(item=>item.id==='account-verified');
   assert.equal(updated.verified,false);
   assert.equal(updated.isDefault,false);
   assert.equal(model.data.withdrawals[0].accountLabel,originalSnapshot);
-  await act(async()=>{result=await model.requestWithdrawal({amount:10000,accountId:updated.id,requestId:'unverified',authorizationId});});
+  await act(async()=>{result=await model.requestWithdrawal({amount:100000,accountId:updated.id,requestId:'unverified',authorizationId});});
   assert.equal(result.errorCode,'ACCOUNT_NOT_VERIFIED');
   await act(async()=>{result=await model.verifyAccount(updated.id);});
   assert.equal(result.success,true);

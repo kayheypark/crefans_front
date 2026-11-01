@@ -2,7 +2,7 @@
 
 import {useEffect,useRef,useState} from 'react';
 import type {ApiResult} from '@/types/crefans';
-import type {FinanceSummary,SettlementAccount,SettlementAccountInput,StudioFinanceModel,WithdrawalInput,WithdrawalQuote,WithdrawalRequest,StudioWithdrawal} from '@/types/crefans-studio-finance';
+import type {ClosingBlocker,CreatorReceivable,FinanceSummary,SettlementAccount,SettlementAccountInput,StudioFinanceModel,WithdrawalInput,WithdrawalQuote,WithdrawalRequest,StudioWithdrawal} from '@/types/crefans-studio-finance';
 import {createInitialFinanceState,FINANCE_SAMPLE_DATE,type MockFinanceState} from './finance-fixtures';
 
 const success=<T,>(data:T):ApiResult<T>=>({success:true,data,errorMessage:null,errorCode:null});
@@ -33,8 +33,18 @@ export function calculateFinanceSummary(state:MockFinanceState):FinanceSummary{
   return summary;
 }
 
-export function reviewMockWithdrawal(state:MockFinanceState,input:WithdrawalInput):ApiResult<WithdrawalQuote>{
-  if(!Number.isFinite(input.amount)||!Number.isSafeInteger(input.amount)||input.amount<=0)return failure('출금 금액은 1원 이상의 정수로 입력해 주세요.','INVALID_AMOUNT');
+// Same order as the server (D8): sales stopped, every paid period over, no open receivable.
+export function mockClosingBlockers({memberships=[],subscribers=[],today='',receivables=[]}:{memberships?:{active:boolean}[];subscribers?:{status:string;renewAt:string}[];today?:string;receivables?:CreatorReceivable[]}):ClosingBlocker[]{
+  const blockers:ClosingBlocker[]=[],last=subscribers.filter(item=>item.status!=='expired'&&item.renewAt>today).map(item=>item.renewAt).sort().at(-1);
+  if(memberships.some(item=>item.active))blockers.push({code:'MEMBERSHIP_ON_SALE',message:'판매 중인 멤버십이 있습니다. 먼저 판매를 중단해주세요.'});
+  if(last)blockers.push({code:'PAID_PERIOD_REMAINS',message:`이미 결제된 구독 기간이 ${last}에 끝난 뒤 탈퇴할 수 있습니다.`});
+  if(receivables.length)blockers.push({code:'RECEIVABLE_OPEN',message:'미수금 정산이 끝난 뒤 탈퇴할 수 있습니다.'});
+  return blockers;
+}
+export function reviewMockWithdrawal(state:MockFinanceState,input:WithdrawalInput,blockers:ClosingBlocker[]=[]):ApiResult<WithdrawalQuote>{
+  // A leaving creator withdraws the whole remainder, below the minimum too, once nothing is on hold or in progress.
+  if(input.closing){const summary=calculateFinanceSummary(state);if(blockers[0])return failure(blockers[0].message,blockers[0].code);if(summary.pending>0||summary.requested>0)return failure('보류 중이거나 처리 중인 수익이 있어 아직 전액 출금할 수 없습니다.','EARNINGS_PENDING');if(input.amount!==summary.available)return failure('탈퇴 전 출금은 남은 수익 전체로 신청해주세요.','CLOSING_WITHDRAWAL_ALL');}
+  if(!Number.isFinite(input.amount)||!Number.isSafeInteger(input.amount)||input.amount<(input.closing?1:100000))return failure('최소 출금 금액은 100,000원입니다.','INVALID_AMOUNT');
   const account=state.accounts.find(item=>item.id===input.accountId);
   if(!account)return failure('수령 계좌를 선택해 주세요.','ACCOUNT_NOT_FOUND');
   if(!account.verified)return failure('확인이 완료된 계좌로만 출금을 요청할 수 있습니다.','ACCOUNT_NOT_VERIFIED');
@@ -43,7 +53,7 @@ export function reviewMockWithdrawal(state:MockFinanceState,input:WithdrawalInpu
   return success({amount:input.amount,account:{...account},availableAfterRequest:available-input.amount});
 }
 
-export function applyMockWithdrawal(state:MockFinanceState,input:WithdrawalRequest,today:string,authorization?:WithdrawalAuthorization):{state:MockFinanceState;result:ApiResult<{withdrawal:StudioWithdrawal;message:string}>}{
+export function applyMockWithdrawal(state:MockFinanceState,input:WithdrawalRequest,today:string,authorization?:WithdrawalAuthorization,blockers:ClosingBlocker[]=[]):{state:MockFinanceState;result:ApiResult<{withdrawal:StudioWithdrawal;message:string}>}{
   if(typeof input.requestId!=='string'||!input.requestId.trim())return {state,result:failure('요청 식별자가 필요합니다. 다시 시도해 주세요.','MISSING_REQUEST_ID')};
   const existing=state.withdrawals.find(item=>item.requestId===input.requestId);
   if(existing){
@@ -53,15 +63,16 @@ export function applyMockWithdrawal(state:MockFinanceState,input:WithdrawalReque
   if(!input.authorizationId||!authorization||authorization.id!==input.authorizationId)return {state,result:failure('출금 비밀번호를 확인한 뒤 다시 요청해 주세요.','WITHDRAWAL_AUTH_REQUIRED')};
   if(authorization.expiresAt<=Date.now())return {state,result:failure('비밀번호 확인 시간이 만료되었습니다. 다시 확인해 주세요.','WITHDRAWAL_AUTH_EXPIRED')};
   if(authorization.amount!==input.amount||authorization.accountId!==input.accountId)return {state,result:failure('출금 금액이나 계좌가 변경되었습니다. 비밀번호를 다시 확인해 주세요.','WITHDRAWAL_AUTH_MISMATCH')};
-  const quote=reviewMockWithdrawal(state,input);
+  const quote=reviewMockWithdrawal(state,input,blockers);
   if(!quote.success)return {state,result:failure(quote.errorMessage,quote.errorCode)};
   if(authorization.accountSnapshot!==accountSnapshot(quote.data.account))return {state,result:failure('수령 계좌 정보가 변경되었습니다. 비밀번호를 다시 확인해 주세요.','WITHDRAWAL_AUTH_MISMATCH')};
   const withdrawal:StudioWithdrawal={id:`withdrawal-${state.sequence+1}`,requestId:input.requestId,accountId:quote.data.account.id,accountLabel:`${quote.data.account.bank} · •••• ${quote.data.account.lastFour}`,amount:input.amount,requestedAt:today,status:'requested',statusNote:'출금 요청이 접수되어 처리 대기 중입니다.'};
   return {state:{...state,sequence:state.sequence+1,withdrawals:[withdrawal,...state.withdrawals]},result:success({withdrawal,message:'출금 요청이 접수되었습니다.'})};
 }
 
-export function useMockFinance():StudioFinanceModel{
-  const [state,setState]=useState(createInitialFinanceState);
+export function useMockFinance(closing:{memberships?:{active:boolean}[];subscribers?:{status:string;renewAt:string}[];today?:string;receivables?:CreatorReceivable[]}={}):StudioFinanceModel{
+  const [state,setState]=useState(createInitialFinanceState),[receivables]=useState(()=>closing.receivables||[]);
+  const closingBlockers=mockClosingBlockers({...closing,receivables}),blockers=useRef(closingBlockers);blockers.current=closingBlockers;
   const [pinConfigured,setPinConfigured]=useState(false);
   const current=useRef(state);
   const verifier=useRef<{salt:Uint8Array;hash:Uint8Array}|null>(null),authorizations=useRef(new Map<string,WithdrawalAuthorization>());
@@ -99,7 +110,7 @@ export function useMockFinance():StudioFinanceModel{
         return failure('출금 비밀번호가 일치하지 않습니다.','INCORRECT_PIN');
       }
       pinAttempts.current={failed:0,lockedUntil:0};
-      const quote=reviewMockWithdrawal(current.current,input);
+      const quote=reviewMockWithdrawal(current.current,input,blockers.current);
       if(!quote.success)return failure(quote.errorMessage,quote.errorCode);
       const id=crypto.randomUUID(),issuedAt=Date.now();
       for(const [key,grant] of Array.from(authorizations.current.entries()))if(grant.expiresAt<=issuedAt)authorizations.current.delete(key);
@@ -133,11 +144,11 @@ export function useMockFinance():StudioFinanceModel{
   };
   return {
     mode:'mock',today:FINANCE_SAMPLE_DATE,pinConfigured,setupWithdrawalPin,verifyWithdrawalPin,
-    data:{earnings:state.earnings,settlements:state.settlements,withdrawals:state.withdrawals,accounts:state.accounts,summary:calculateFinanceSummary(state),policyNotice:''},
-    reviewWithdrawal:async input=>reviewMockWithdrawal(current.current,input),
+    data:{earnings:state.earnings,settlements:state.settlements,withdrawals:state.withdrawals,accounts:state.accounts,summary:calculateFinanceSummary(state),policyNotice:'',receivables,closingBlockers},
+    reviewWithdrawal:async input=>reviewMockWithdrawal(current.current,input,blockers.current),
     requestWithdrawal:async input=>{
       if(!active.current)return failure('사용 중인 화면을 다시 열어주세요.','SESSION_CLOSED');
-      const transaction=applyMockWithdrawal(current.current,input,FINANCE_SAMPLE_DATE,authorizations.current.get(input.authorizationId));
+      const transaction=applyMockWithdrawal(current.current,input,FINANCE_SAMPLE_DATE,authorizations.current.get(input.authorizationId),blockers.current);
       if(transaction.result.success&&transaction.state!==current.current){authorizations.current.delete(input.authorizationId);commit(transaction.state);}
       return transaction.result;
     },

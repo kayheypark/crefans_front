@@ -1,0 +1,2 @@
+.views{display:inline-flex;align-items:center;gap:6px;flex:none;white-space:nowrap;color:var(--cf-color-textSecondary);font-size:max(12px,var(--cf-mobile-font-min,0px));font-variant-numeric:tabular-nums}
+.views svg{display:block;flex:none;width:21px;height:21px}

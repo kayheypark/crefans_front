@@ -1,0 +1,131 @@
+{
+  "checkedAt": "2026-10-26T00:52:06.755009+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "branch": "feat/bean-support",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "dirtyEntries": 319,
+  "sourceHashes": {
+    "components/preview/service/bean-fixtures.ts": "0fb3ad56852473512828a077a395b5b38ffe85c73af35b53e4002e3446bb4ce5",
+    "components/preview/service/useMockBeans.ts": "0c8317ef1a6a3ffed6ce2ff9a3fda5e05e0f16f7da77630569c00893cea40d05",
+    "e2e/beans.spec.ts": "5254802fb2796e9d732c7262bf61786f5a6d8cbfa1b4af7353ddf7e299fc6780"
+  },
+  "changes": "Preview-only seeded20charges/41entries/28sent tips; shared service UI unchanged",
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "startedAt": "2026-10-26T00:50:47.592241+00:00",
+      "finishedAt": "2026-10-26T00:50:58.271903+00:00",
+      "logSha256": "9d7a1cbb7931685e00ee2a9dc46aa2ce21ba943d362db871bec9094703a40204"
+    },
+    {
+      "command": "node .local/bean-history-fixtures-20261026/browser.cjs",
+      "exitCode": 0,
+      "startedAt": "2026-10-26T00:50:03.866240+00:00",
+      "finishedAt": "2026-10-26T00:51:23.201707+00:00",
+      "logSha256": "3ebf4c43f669fa84388d3f87e83b6fba09c970c4696f7ff03cdcb63913a8bc8b"
+    }
+  ],
+  "unitTestsPassed": 343,
+  "browser": {
+    "at": "2026-10-26T00:51:23.225Z",
+    "rows": [
+      {
+        "name": "chromium",
+        "width": 320,
+        "charges": 20,
+        "historyPages": [
+          20,
+          20,
+          1
+        ],
+        "tipsPages": [
+          20,
+          8
+        ],
+        "receipt": true,
+        "pendingOrderResume": true,
+        "repeatReceiptDoesNotCredit": true,
+        "errors": [],
+        "beanRequests": []
+      },
+      {
+        "name": "chromium",
+        "width": 390,
+        "charges": 20,
+        "historyPages": [
+          20,
+          20,
+          1
+        ],
+        "tipsPages": [
+          20,
+          8
+        ],
+        "receipt": true,
+        "pendingOrderResume": true,
+        "repeatReceiptDoesNotCredit": true,
+        "errors": [],
+        "beanRequests": []
+      },
+      {
+        "name": "chromium",
+        "width": 1280,
+        "charges": 20,
+        "historyPages": [
+          20,
+          20,
+          1
+        ],
+        "tipsPages": [
+          20,
+          8
+        ],
+        "receipt": true,
+        "pendingOrderResume": true,
+        "repeatReceiptDoesNotCredit": true,
+        "errors": [],
+        "beanRequests": []
+      },
+      {
+        "name": "webkit",
+        "width": 390,
+        "charges": 20,
+        "historyPages": [
+          20,
+          20,
+          1
+        ],
+        "tipsPages": [
+          20,
+          8
+        ],
+        "receipt": true,
+        "pendingOrderResume": true,
+        "repeatReceiptDoesNotCredit": true,
+        "errors": [],
+        "beanRequests": []
+      }
+    ]
+  },
+  "balanceChecks": {
+    "at": "2026-10-26T00:51:06.988Z",
+    "chargeCount": 20,
+    "tipCount": 28,
+    "paidChargeTotal": 4000,
+    "paidTips": 1500,
+    "promotionTips": 100,
+    "purchased": 2500,
+    "promotion": 100,
+    "allChargeAmountsIncludeVAT": true,
+    "uniqueIds": true
+  },
+  "manual": "Mobile charge and tip lists, desktop history screenshot inspected",
+  "initialFailure": "TS2802 ES5 target does not iterate ArrayIterator; forEach replaced entries loop, final check passed",
+  "notPerformed": [
+    "Production deployment",
+    "Real payment or payout",
+    "Full financial E2E rerun"
+  ],
+  "currentProduction": "bean-wallet-ui-20261026; new history fixtures not deployed"
+}

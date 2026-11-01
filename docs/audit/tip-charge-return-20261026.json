@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-26T12:41:08.613817+09:00",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "state": "uncommitted; not deployed",
+  "sha256": {
+    "lib/crefans/bean-tip-return.ts": "55e7ec8d439953b64a933961044b0f404c972b379b51311031b69a5c20e79aed",
+    "components/crefans/BeanPages.tsx": "4e9bb2f5b6864e4a296ea449cf7c55b02f595a6018aad7c2e5a3986e1502fbd6",
+    "components/crefans/BeanChargePage.tsx": "fe1da3f014a2155ebd765ca017cb12653bbd31b7c0f969af497290dd42a3e4ee",
+    "components/crefans/BeanPaymentResultPage.tsx": "965acdfc14e4590f5d489a1bfd161bbc2e966c5fe1c253617be5465e3dd75d36",
+    "components/crefans/beans.module.css": "d3eaad8d8db70e84b05f653f8b46c6e7c794aa3bd1136500529ff73243d8b02b"
+  },
+  "check": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "tests": 348
+  },
+  "browser": {
+    "command": "node /tmp/tip-return.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "width": 390,
+        "tipChargeResume": true,
+        "normalChargeNoReturn": true
+      },
+      {
+        "width": 1280,
+        "tipChargeResume": true,
+        "normalChargeNoReturn": true
+      }
+    ]
+  },
+  "limits": "Mock charge only; no live PG payment. Per-tab sessionStorage display context keyed by order; missing/unavailable storage omits continue button. No financial authorization uses this context.",
+  "repairs": "SSR/test browser guards added; test selectors updated to await closing modal then click actual radio card label."
+}

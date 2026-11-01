@@ -1,0 +1,1092 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-28T18:36:54.120747+00:00",
+  "reviewDateKST": "2026-10-29",
+  "release": "advertising-20261029",
+  "report": "docs/security-review-20261029.md",
+  "reviewers": "Three independent AI specialist reviews plus parent verification; not external certified auditors",
+  "boundaries": [
+    "Production configuration/aggregate reads only after authorized deployment",
+    "No production passwords, attacks, business DB writes, external messages, actual payment/payout during audit",
+    "Memory probes do not establish live exploitation or real DB scheduling",
+    "No product/security configuration changes made by audit"
+  ],
+  "findings": [
+    {
+      "id": "DEP-01",
+      "severity": "P1",
+      "title": "지원 종료 프론트 및 의존성 패치 지연",
+      "evidenceLevel": "runtime+registry+official-policy",
+      "status": "open"
+    },
+    {
+      "id": "AUTH-01",
+      "severity": "P1",
+      "title": "이메일 변경 재인증 누락",
+      "evidenceLevel": "source+memory-reproduction",
+      "status": "open"
+    },
+    {
+      "id": "AUTH-02",
+      "severity": "P1",
+      "title": "비밀번호 회수와 로그인 경쟁",
+      "evidenceLevel": "source+memory-reproduction; SQL-scheduling-not-tested",
+      "status": "open"
+    },
+    {
+      "id": "FIN-01",
+      "severity": "P1",
+      "title": "조회 제한을 승인 실패로 오분류",
+      "evidenceLevel": "source+provider-double; no-external-charge",
+      "status": "open"
+    },
+    {
+      "id": "FIN-04",
+      "severity": "P1",
+      "title": "paid 멤버십 외부 취소 대사 경로 누락",
+      "evidenceLevel": "source; live-money-disabled",
+      "status": "open"
+    },
+    {
+      "id": "OPS-01",
+      "severity": "P1",
+      "title": "외부 백업 및 복원 증명 부재",
+      "evidenceLevel": "production-readonly; restore-not-run",
+      "status": "open"
+    },
+    {
+      "id": "OPS-02",
+      "severity": "P1",
+      "title": "worker watchdog off 및 외부 감시 부재",
+      "evidenceLevel": "production-readonly+source",
+      "status": "open"
+    },
+    {
+      "id": "AUTH-03",
+      "severity": "P2",
+      "title": "관리자 Origin 필수 검사 누락",
+      "evidenceLevel": "source+middleware-double+runtime-origins; browser-exploit-not-run",
+      "status": "open"
+    },
+    {
+      "id": "AUTH-04",
+      "severity": "P2",
+      "title": "비밀번호 입력 계약 불일치",
+      "evidenceLevel": "source+real-password-function-probe",
+      "status": "open"
+    },
+    {
+      "id": "AUTH-05",
+      "severity": "P2",
+      "title": "관리자 절대 세션 만료 없음",
+      "evidenceLevel": "source+memory-probe",
+      "status": "open"
+    },
+    {
+      "id": "FIN-02",
+      "severity": "P2",
+      "title": "복구 큐 항목 실패 전파·재선택 불충분",
+      "evidenceLevel": "source+bean-memory-reproduction",
+      "status": "open"
+    },
+    {
+      "id": "FIN-03",
+      "severity": "P2",
+      "title": "PIN 변경 시 콩 승인표 회수 누락",
+      "evidenceLevel": "source+memory-probe; DB-payout-not-run",
+      "status": "open"
+    },
+    {
+      "id": "OPS-03",
+      "severity": "P2",
+      "title": "광고 동의 안내 큐 조건부 정체",
+      "evidenceLevel": "source-only; marketing-off",
+      "status": "open"
+    },
+    {
+      "id": "OPS-04",
+      "severity": "P2",
+      "title": "로그 정리 처리량·외부 보존 공백",
+      "evidenceLevel": "source+runtime-config; load-not-tested",
+      "status": "open"
+    },
+    {
+      "id": "INF-01",
+      "severity": "P2",
+      "title": "S3 객체 삭제 복원 수단 부족",
+      "evidenceLevel": "AWS-readonly",
+      "status": "open"
+    },
+    {
+      "id": "WEB-01",
+      "severity": "P2",
+      "title": "브라우저 보안 헤더 보완",
+      "evidenceLevel": "HTTPS-GET; exploit-not-run",
+      "status": "open"
+    },
+    {
+      "id": "INF-02",
+      "severity": "P2",
+      "title": "WAF 규칙 없음·앱 탐지 한정",
+      "evidenceLevel": "AWS-readonly+source",
+      "status": "open"
+    }
+  ],
+  "production": {
+    "migrationCount": 28,
+    "migrationChecksumsMatch": true,
+    "flags": {
+      "BETA_MODE": "true",
+      "BEAN_LEDGER_ENABLED": "true",
+      "BEAN_LIVE_PAYMENTS_APPROVED": "false",
+      "BANK_PAYOUTS_ENABLED": "false",
+      "MARKETING_MAIL_ENABLED": "false",
+      "SIGNUP_IDENTITY_MODE": "email-only",
+      "MEDIA_STORAGE": "s3",
+      "CREFANS_E2E": "false",
+      "OPERATIONS_WATCHDOG_ENABLED": "unset",
+      "AUDIT_LOG_RETENTION_DAYS": "unset",
+      "ACCESS_LOG_RETENTION_DAYS": "unset",
+      "MEDIA_DELETE_ENABLED": "false"
+    },
+    "configuration": {
+      "origins": [
+        "https://beta.crefans.com",
+        "https://admin.crefans.com"
+      ],
+      "tossKeyMode": "test",
+      "watchdogFlag": "unset",
+      "exportBucketConfigured": false,
+      "bankAdapterConfigured": false,
+      "passAdapterConfigured": false
+    },
+    "retentionCorrected": {
+      "AUDIT_RETENTION_DAYS": "unset",
+      "ACCESS_LOG_RETENTION_DAYS": "unset"
+    },
+    "runtimeVersions": {
+      "frontend": {
+        "node": "v22.23.4",
+        "packages": {
+          "next": "14.2.28",
+          "react": "18.3.1",
+          "sharp": "not resolvable",
+          "axios": "1.9.0",
+          "form-data": "4.0.2"
+        }
+      },
+      "api": {
+        "node": "v22.23.4",
+        "packages": {
+          "express": "4.21.2",
+          "@nestjs/core": "10.4.18",
+          "multer": "2.4.0",
+          "nodemailer": "7.0.13",
+          "sharp": "not resolvable",
+          "axios": "1.12.2"
+        },
+        "sharpLibraries": {
+          "aom": "3.15.1",
+          "archive": "3.8.9",
+          "cairo": "1.18.6",
+          "cgif": "0.5.4",
+          "exif": "0.6.26",
+          "expat": "2.8.5",
+          "ffi": "3.8.0",
+          "fontconfig": "2.18.3",
+          "freetype": "2.14.3",
+          "fribidi": "1.0.17",
+          "glib": "2.90.0",
+          "harfbuzz": "14.5.0",
+          "heif": "1.23.5",
+          "highway": "1.4.0",
+          "imagequant": "2.4.1",
+          "lcms": "2.19.1",
+          "mozjpeg": "0826579",
+          "pango": "1.58.2",
+          "pixman": "0.46.4",
+          "png": "1.6.58",
+          "proxy-libintl": "0.5",
+          "rsvg": "2.63.2",
+          "tiff": "4.7.2",
+          "uhdr": "2.0.2",
+          "vips": "8.18.7",
+          "webp": "1.6.0",
+          "xml2": "2.15.4",
+          "zlib-ng": "2.3.3",
+          "sharp": "0.35.5"
+        }
+      },
+      "admin": {
+        "node": "v22.23.4",
+        "packages": {
+          "next": "15.5.28",
+          "react": "18.3.1",
+          "sharp": "not resolvable"
+        },
+        "sharpLibraries": {
+          "vips": "8.18.7",
+          "sharp": "0.35.5"
+        }
+      }
+    },
+    "containerState": {
+      "api": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "healthcheck": false,
+        "healthStatus": null
+      },
+      "worker": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "healthcheck": false,
+        "healthStatus": null
+      },
+      "frontend": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "healthcheck": false,
+        "healthStatus": null
+      },
+      "admin": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "healthcheck": false,
+        "healthStatus": null
+      },
+      "database": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "healthcheck": true,
+        "healthStatus": "healthy"
+      },
+      "proxy": {
+        "running": true,
+        "oom": false,
+        "restarts": 0,
+        "healthcheck": false,
+        "healthStatus": null
+      }
+    },
+    "backupDumpCountSameHost": 10,
+    "externalBackupScope": "AWS queried account/Seoul region volume snapshots, Backup plans and DLM; inspected host schedulers; does not exclude unknown outside accounts/manual copies",
+    "ebsSnapshotCount": 0,
+    "awsBackupPlanCount": 0,
+    "dlmPolicyCount": 0,
+    "cloudwatchCrefansAlarmCount": 0,
+    "crefansLogGroupCount": 0,
+    "cloudtrailTrailCount": 0,
+    "guardDutyDetectorCount": 0,
+    "s3VersioningEnabled": false,
+    "wafRuleCount": 0,
+    "worker": {
+      "completedAt": "2026-10-28T18:17:15.959Z",
+      "failures": {}
+    },
+    "operations": {
+      "pending": 0,
+      "olderThan24h": 0,
+      "lastDelivered": {
+        "delivered_at": "2026-10-28T18:04:03.976Z"
+      }
+    },
+    "publicHttp": {
+      "at": "2026-10-28T18:21:09.372238+00:00",
+      "method": "GET only, no attack payload, no authentication",
+      "checks": [
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200,
+          "expected": 200,
+          "passed": true,
+          "headers": {
+            "x-powered-by": "Next.js",
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff"
+          },
+          "bytes": 54091
+        },
+        {
+          "url": "https://beta.crefans.com/.env",
+          "status": 404,
+          "expected": 404,
+          "passed": true,
+          "headers": {
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff"
+          },
+          "bytes": 0
+        },
+        {
+          "url": "https://beta.crefans.com/runtime.env",
+          "status": 404,
+          "expected": 404,
+          "passed": true,
+          "headers": {
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff"
+          },
+          "bytes": 0
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/admin/docs/user",
+          "status": 401,
+          "expected": 401,
+          "passed": true,
+          "headers": {
+            "cache-control": "private, no-store",
+            "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "Express",
+            "x-request-id": "f68c9c08-8a48-4ff5-be1a-32ea19f5b59b"
+          },
+          "bytes": 113
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200,
+          "expected": 200,
+          "passed": true,
+          "headers": {
+            "cache-control": "private, no-store",
+            "referrer-policy": "same-origin",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "Next.js"
+          },
+          "bytes": 6256
+        },
+        {
+          "url": "https://admin.crefans.com/api/v1/admin/me",
+          "status": 401,
+          "expected": 401,
+          "passed": true,
+          "headers": {
+            "cache-control": "private, no-store",
+            "referrer-policy": "same-origin",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "Express",
+            "x-request-id": "42ba4aea-a441-45c7-b011-a14229c2fc6c"
+          },
+          "bytes": 113
+        },
+        {
+          "url": "https://admin.crefans.com/api/v1/bootstrap",
+          "status": 404,
+          "expected": 404,
+          "passed": true,
+          "headers": {
+            "referrer-policy": "same-origin",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "bytes": 0
+        },
+        {
+          "url": "https://guide.crefans.com/",
+          "status": 200,
+          "expected": 200,
+          "passed": true,
+          "headers": {
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "bytes": 16566
+        },
+        {
+          "url": "https://business.crefans.com/card?who=khpark",
+          "status": 200,
+          "expected": 200,
+          "passed": true,
+          "headers": {
+            "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+            "referrer-policy": "no-referrer",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-powered-by": "Next.js"
+          },
+          "bytes": 14101
+        }
+      ]
+    }
+  },
+  "dependencyAudits": {
+    "front": {
+      "at": "2026-10-28T18:16:01.429069+00:00",
+      "command": "npm audit --omit=dev --json --ignore-scripts",
+      "exitCode": 1,
+      "registryError": "",
+      "packageEntries": {
+        "info": 0,
+        "low": 0,
+        "moderate": 1,
+        "high": 4,
+        "critical": 2,
+        "total": 7
+      }
+    },
+    "server": {
+      "at": "2026-10-28T18:16:02.667498+00:00",
+      "command": "npm audit --omit=dev --json --ignore-scripts",
+      "exitCode": 1,
+      "registryError": "",
+      "packageEntries": {
+        "info": 0,
+        "low": 2,
+        "moderate": 8,
+        "high": 15,
+        "critical": 0,
+        "total": 25
+      }
+    },
+    "admin": {
+      "at": "2026-10-28T18:16:03.060848+00:00",
+      "command": "npm audit --omit=dev --json --ignore-scripts",
+      "exitCode": 0,
+      "registryError": "",
+      "packageEntries": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    },
+    "guide": {
+      "at": "2026-10-28T18:16:03.449798+00:00",
+      "command": "npm audit --omit=dev --json --ignore-scripts",
+      "exitCode": 0,
+      "registryError": "",
+      "packageEntries": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    }
+  },
+  "localRegression": {
+    "passed": 100,
+    "skipped": 1,
+    "failed": 0,
+    "scope": "dedicated Homebrew MySQL 3307 E2E database + memory/provider doubles",
+    "skipReason": "Optional security real-DB lock probe needs SECURITY_TEST_DATABASE_URL; not set",
+    "executions": [
+      {
+        "command": "CREFANS_E2E=true npm run build",
+        "cwd": "/Users/ethan/repository/crefans_server",
+        "startedAt": "2026-10-28T18:19:38.038317+00:00",
+        "finishedAt": "2026-10-28T18:19:42.815219+00:00",
+        "exitCode": 0,
+        "log": "local-security-0.log"
+      },
+      {
+        "command": "CREFANS_E2E=true node --test --test-concurrency=1 tests/platform-security.test.cjs tests/platform-admin-operators.test.cjs tests/platform-advertising.test.cjs tests/platform-finance.test.cjs tests/platform-bean-ledger.test.cjs tests/platform-beans.test.cjs tests/platform-operations-events.test.cjs tests/platform-media-storage.test.cjs tests/platform-media-edge.test.cjs tests/platform-audit-export.test.cjs tests/platform-external-monitor.test.cjs tests/platform-log-config.test.cjs",
+        "cwd": "/Users/ethan/repository/crefans_server",
+        "startedAt": "2026-10-28T18:19:42.815501+00:00",
+        "finishedAt": "2026-10-28T18:19:59.080190+00:00",
+        "exitCode": 0,
+        "log": "local-security-1.log"
+      }
+    ]
+  },
+  "newRiskProbes": {
+    "meaning": "Exit 0 reproduces/characterizes findings, not a security pass",
+    "executions": [
+      {
+        "command": "node /tmp/crefans-security-auth-probe.cjs",
+        "startedAt": "2026-10-28T18:28:43.121245+00:00",
+        "finishedAt": "2026-10-28T18:28:45.200250+00:00",
+        "exitCode": 0,
+        "scriptSha256": "c10690a8c59372e95390b25fce2ad022087f4faed5806f9b2d49179968957f4b",
+        "log": "crefans-security-auth-probe.cjs.log"
+      },
+      {
+        "command": "node /tmp/crefans-security-auth-route-inventory.cjs",
+        "startedAt": "2026-10-28T18:28:45.200347+00:00",
+        "finishedAt": "2026-10-28T18:28:45.350044+00:00",
+        "exitCode": 0,
+        "scriptSha256": "3660abb345ef5a9a246e42e560e240d44b600689e6c6e81faabd660e345f25b9",
+        "log": "crefans-security-auth-route-inventory.cjs.log"
+      },
+      {
+        "command": "node /tmp/crefans-money-media-probe.cjs",
+        "startedAt": "2026-10-28T18:28:45.350093+00:00",
+        "finishedAt": "2026-10-28T18:28:45.621608+00:00",
+        "exitCode": 0,
+        "scriptSha256": "11132a891b45d0ce138399ff1a79a515eb2e4cb66a5063c9ebd2e185228dde4a",
+        "log": "crefans-money-media-probe.cjs.log"
+      }
+    ],
+    "auth": [
+      {
+        "name": "email change has no bound-authenticator requirement",
+        "status": "CONFIRMED",
+        "details": {
+          "emailChangedWithoutPasswordOrOldEmail": true,
+          "wrongCodeRejected": true,
+          "sessionsDeleted": true,
+          "mail": "memory double only"
+        }
+      },
+      {
+        "name": "in-flight member signIn can create a session after credential reset/revoke",
+        "status": "CONFIRMED",
+        "details": {
+          "sessionCountAfterRevoke": 1,
+          "newSessionValid": true,
+          "sequentialOldPasswordRejected": true,
+          "scope": "real password code + member service; simulated reset transaction and scheduler barrier"
+        }
+      },
+      {
+        "name": "reset password contract differs from login",
+        "status": "CONFIRMED",
+        "details": {
+          "resetHashAccepts129Chars": true,
+          "loginValidatorRejects129Chars": true,
+          "resetPreservesWhitespaceButLoginTrims": true,
+          "normalPasswordControlPass": true
+        }
+      },
+      {
+        "name": "exact Origin middleware: member denial and admin-cookie omission",
+        "status": "CONFIRMED",
+        "details": {
+          "memberNoOrigin": 403,
+          "adminNoOrigin": "next()",
+          "foreignOrigin": 403,
+          "fanOriginOnAdminPath": "next()",
+          "scope": "middleware only; no browser, CORS or cookie engine"
+        }
+      },
+      {
+        "name": "admin refresh creates a new seven-day expiry with no original-session anchor",
+        "status": "CONFIRMED",
+        "details": {
+          "oneMinuteRemainingExtendedToDays": 7,
+          "expiredSessionRejected": true,
+          "originalAnchorCopied": false,
+          "scope": "admin refresh method with memory session store"
+        }
+      },
+      {
+        "name": "permission defaults and legacy exception",
+        "status": "CONFIRMED",
+        "details": {
+          "emptyPermissionsDenied": true,
+          "unknownRoleDenied": true,
+          "updateWithoutViewRejected": true,
+          "legacyNullRetainsMemberUpdate": true
+        }
+      }
+    ],
+    "moneyMedia": [
+      {
+        "id": "R1",
+        "observed": "403 lookup throttle changes processing to failed; retry increments attempt and sends a new billing order/key",
+        "calls": [
+          {
+            "method": "GET",
+            "path": "/v1/payments/orders/synthetic-order",
+            "key": "synthetic-order"
+          },
+          {
+            "method": "POST",
+            "path": "/v1/billing/synthetic-billing",
+            "key": "synthetic-order-1",
+            "orderId": "synthetic-order_1"
+          }
+        ],
+        "externalCharge": "not performed; finalize/DB/provider are memory doubles"
+      },
+      {
+        "id": "R1-controls",
+        "busy409": "PAYMENT_UNCERTAIN",
+        "alreadyCanceled400": "PAYMENT_FAILED"
+      },
+      {
+        "id": "R2",
+        "observed": "first reconciliation error aborts entire bean tick",
+        "reconciled": [
+          "bad"
+        ],
+        "touched": [
+          "bad"
+        ],
+        "payoutCalls": 0
+      },
+      {
+        "id": "R2-control",
+        "observed": "without failing item same tick reaches payout",
+        "payoutCalls": 1
+      },
+      {
+        "id": "R3",
+        "observed": "PIN replacement invalidates ordinary withdrawal approvals but does not invalidate bean approvals",
+        "standardRemoved": true,
+        "beanRemoved": false,
+        "limit": "requestPayout acceptance after reset inferred from source, not a DB execution"
+      },
+      {
+        "id": "C-media",
+        "observed": "GET/HEAD/Range call live authorizer; subsequent denied call is 403; authorizer outage is 503; cookie stripped before object route",
+        "authCalls": 4,
+        "limit": "handler only; not an AWS cache or HTTP runtime test"
+      }
+    ]
+  },
+  "corrections": [
+    "Initial audit query used unused AUDIT_LOG_RETENTION_DAYS; actual AUDIT_RETENTION_DAYS checked and unset",
+    "Agent prototype fixtures and initial admin Playwright module resolution corrected; reruns recorded",
+    "docker desktop status returned 1 after successful stop; independent backend process check found none"
+  ],
+  "privateEvidenceDirectory": "/Users/ethan/repository/crefans_front/.local/security-review-20261029",
+  "evidenceFiles": [
+    {
+      "name": "admin-npm-audit-meta.json",
+      "bytes": 147,
+      "sha256": "a6cab522866d5eab947bee391778e1c64e1ec46b6a82c39fb8957df93534b710"
+    },
+    {
+      "name": "admin-npm-audit.json",
+      "bytes": 365,
+      "sha256": "38f82a0e71e10b7b9c2b92911b69fa837cfb3ccce1b55f755207ca9aa42ee5c2"
+    },
+    {
+      "name": "auth-provider-configuration.json",
+      "bytes": 440,
+      "sha256": "a4d0bb17dea5813e5b8af908204334807bdc32ec5e017d94efffb3c25438bb0b"
+    },
+    {
+      "name": "aws-controls.json",
+      "bytes": 11469,
+      "sha256": "817632ad4193db0df6ebf5e735339a9eda2d9177a7cef7ef2dc97ad0064267c2"
+    },
+    {
+      "name": "aws-readonly.json",
+      "bytes": 15643,
+      "sha256": "16a7a692723d65a5dd64acf5e32dcb8f2baa53f4e70db239fd009e0bd783b9e6"
+    },
+    {
+      "name": "crefans-aws-controls-audit.py",
+      "bytes": 2589,
+      "sha256": "e776f64ea3d822931878333155bf7a07457e248ebfac4cc428b8e61b35277d1b"
+    },
+    {
+      "name": "crefans-aws-readonly-audit.py",
+      "bytes": 3911,
+      "sha256": "956d2fe4a57458dd6c281c5159d66829832b9fc187799f1d0ec27dd3068898d7"
+    },
+    {
+      "name": "crefans-money-media-probe-results.json",
+      "bytes": 3353,
+      "sha256": "316c850d01b15ce30e8de368c10df73c87139d3a02591378fbc29e654f1fa547"
+    },
+    {
+      "name": "crefans-money-media-probe.cjs",
+      "bytes": 10115,
+      "sha256": "11132a891b45d0ce138399ff1a79a515eb2e4cb66a5063c9ebd2e185228dde4a"
+    },
+    {
+      "name": "crefans-money-media-probe.cjs.log",
+      "bytes": 1531,
+      "sha256": "786e1a2435090a4cd142c2b35ad9dfaa7bf9938daf809d75699df2c1dba137be"
+    },
+    {
+      "name": "crefans-money-media-review-closure.json",
+      "bytes": 1141,
+      "sha256": "377b71e97e879424197831cc7006155ee6120befc07fdb3ab37160396f44e185"
+    },
+    {
+      "name": "crefans-money-media-source-evidence.json",
+      "bytes": 267603,
+      "sha256": "5b412e5e68cc1c792fd1a11b4a71ab4ffd7e8e345642bfd6168e5521c8f6bdd5"
+    },
+    {
+      "name": "crefans-production-readonly-audit.py",
+      "bytes": 7102,
+      "sha256": "2990d5d517bfccb014f64911be28f8bd1b57b642c4358710d464b8513c14e3a7"
+    },
+    {
+      "name": "crefans-public-readonly-audit.py",
+      "bytes": 1429,
+      "sha256": "88dc15f71481523aef8809f6a4edaee73e8a19d056f9cf3895d0ed9f4724c33a"
+    },
+    {
+      "name": "crefans-security-auth-admin-routes.json",
+      "bytes": 10948,
+      "sha256": "d3ab00ba2f54b0ea28b0ceaa33a7d004225e7307ccf462db799bf9670b9de998"
+    },
+    {
+      "name": "crefans-security-auth-evidence.json",
+      "bytes": 266040,
+      "sha256": "ca5d4d5f6f5ef02cc3151ef41ca5fe6dc7e3d092fdaa8fafa19516b4b1df9211"
+    },
+    {
+      "name": "crefans-security-auth-final-check.json",
+      "bytes": 1678,
+      "sha256": "bef7b7b1f201ff9ffdd1f39e108fc9eeaa4f3b1a0cb85283f807a76cf592d184"
+    },
+    {
+      "name": "crefans-security-auth-probe-run.log",
+      "bytes": 2393,
+      "sha256": "b0978c2c2fca95d099a247fd8634d484d035bc9c62c63463ff0d77102bbb2c15"
+    },
+    {
+      "name": "crefans-security-auth-probe.cjs",
+      "bytes": 9166,
+      "sha256": "c10690a8c59372e95390b25fce2ad022087f4faed5806f9b2d49179968957f4b"
+    },
+    {
+      "name": "crefans-security-auth-probe.cjs.log",
+      "bytes": 2393,
+      "sha256": "d52658a58cd08dc89f86c02bb9d03f50d9c6e33433c33f04c5a3ecbae3704fb6"
+    },
+    {
+      "name": "crefans-security-auth-probes.json",
+      "bytes": 2392,
+      "sha256": "a87e26c29f478e6f5fd37e5b9b589b1007eac66b6b2e8fe9e3f3851de10d04da"
+    },
+    {
+      "name": "crefans-security-auth-progress-entry.md",
+      "bytes": 1453,
+      "sha256": "456be79cecd7aff6d4723846e2f7572729e197907eba564bb2d8b5257a80e529"
+    },
+    {
+      "name": "crefans-security-auth-route-inventory.cjs",
+      "bytes": 2270,
+      "sha256": "3660abb345ef5a9a246e42e560e240d44b600689e6c6e81faabd660e345f25b9"
+    },
+    {
+      "name": "crefans-security-auth-route-inventory.cjs.log",
+      "bytes": 50,
+      "sha256": "604e24f143f0cc95fe137c15ffa58730fc87196308fda3087d1e8c84e357daf1"
+    },
+    {
+      "name": "crefans-security-auth.md",
+      "bytes": 27636,
+      "sha256": "0bdd1f2b722d1a7ee6beabc28940838c9a4748a34759a39f4ff470d89aaca7ea"
+    },
+    {
+      "name": "crefans-security-money-media.md",
+      "bytes": 23824,
+      "sha256": "2d23c0233eb2a70446cb14069a5f040c696e6b9da94a0b2dc4609195d80082dc"
+    },
+    {
+      "name": "crefans-security-recovery-baseline.json",
+      "bytes": 10505,
+      "sha256": "03d9f0883d0ccbbcec2ee16d687eb7a44a8dc5fd821084d1f2ba01d808ac23be"
+    },
+    {
+      "name": "crefans-security-recovery-evidence.json",
+      "bytes": 11237,
+      "sha256": "ce30bd8fda9c9ac3e033d90f884808e25b883acde731d74ff3aa9dc993b5901d"
+    },
+    {
+      "name": "crefans-security-recovery-hashes.json",
+      "bytes": 400496,
+      "sha256": "398cf50161effff6b65672bd02f20a83418969bded503262280206e96b81599a"
+    },
+    {
+      "name": "crefans-security-recovery.md",
+      "bytes": 33093,
+      "sha256": "dee6c3a8885eeefb022883569c97a8ec247990f59785d9179583d02e5f6b9501"
+    },
+    {
+      "name": "docker-shutdown-confirmation.json",
+      "bytes": 142,
+      "sha256": "1d425ed0237dcca9e93dbd6c611140e03ac213e7f2258c30bd3bdaf51ada166b"
+    },
+    {
+      "name": "front-npm-audit-meta.json",
+      "bytes": 147,
+      "sha256": "871fc2ac48ed27378002e6d18efbb751363022eb1c60d0b82647a92ccc6e44ba"
+    },
+    {
+      "name": "front-npm-audit.json",
+      "bytes": 41918,
+      "sha256": "d5df2b978a1c041eeb356ee02046d4fc87a3083b69314690f3cbda6db0676204"
+    },
+    {
+      "name": "guide-npm-audit-meta.json",
+      "bytes": 147,
+      "sha256": "4f6e55c9781941ea3837f41fc31d0f2395a53116b9c7f0a33e59a5f4d4d38996"
+    },
+    {
+      "name": "guide-npm-audit.json",
+      "bytes": 363,
+      "sha256": "f73d78eaed85ddd20b94397b3b728f598f7473683b5939629b1d547799a45d21"
+    },
+    {
+      "name": "independent-probe-rerun.json",
+      "bytes": 1014,
+      "sha256": "b616c13741a96a2a9829d8fa1d34e10042290734a84e4fd8d053e7a0885168d2"
+    },
+    {
+      "name": "local-checks.json",
+      "bytes": 998,
+      "sha256": "273a0e4a31b8508adfd60ed7c7436ee6af9fc4c34861ba7344914406838c2706"
+    },
+    {
+      "name": "local-security-0.log",
+      "bytes": 44,
+      "sha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2"
+    },
+    {
+      "name": "local-security-1.log",
+      "bytes": 26634,
+      "sha256": "2521f3d9f17bffde9099b2838371e7099ff327076e82d03d62508aca4e4a02ef"
+    },
+    {
+      "name": "plan.json",
+      "bytes": 1398,
+      "sha256": "fc00d5730e8f85c985dd06383c9f4ccfbc0790b46357d9b58760fd3d3c13cc18"
+    },
+    {
+      "name": "production-readonly.json",
+      "bytes": 22705,
+      "sha256": "b3e43b7a7b3064f3573ac400f8c44ebfdde57a1c43750752c31ed5f18664e409"
+    },
+    {
+      "name": "public-http.json",
+      "bytes": 3669,
+      "sha256": "a25774ea0fe8644eabeda6df7fba731baf419a8ab240332f4e1cd722bf4968e0"
+    },
+    {
+      "name": "retention-config-correction.json",
+      "bytes": 390,
+      "sha256": "b860b55b8005d6efe263c8180edc320dd36d7c0c43e908f73c5a713f9fa4cead"
+    },
+    {
+      "name": "server-npm-audit-meta.json",
+      "bytes": 147,
+      "sha256": "c12f77fd5f62cf262d0b6f83815af45ef85e9caa0a856e3ae6f3c1e2ee9e9301"
+    },
+    {
+      "name": "server-npm-audit.json",
+      "bytes": 65551,
+      "sha256": "f2b7ce2b7996463e13aa702cfa4f053e6eb4db2f27f5f98449ef1ddbeb14a6f3"
+    },
+    {
+      "name": "tracked-secret-filenames.json",
+      "bytes": 765,
+      "sha256": "cd8ea784ddd89f2188b3641d8330c85a6a86b6303ea9f37392f6a1e955826589"
+    },
+    {
+      "name": "documentation-checks.json",
+      "bytes": 1333,
+      "sha256": "d3f173328122f4c51d5ecca02e1272158798c8e8b4d2fe25fdb60594a3684f81"
+    },
+    {
+      "name": "docs-record.log",
+      "bytes": 343,
+      "sha256": "77968b5ea61ef23b2d6fc4b73dbb8e5730a94ef74c19fe8809622c924f57ef76"
+    },
+    {
+      "name": "check-docs.log",
+      "bytes": 376,
+      "sha256": "70dd9bab5346e8c728cf7a25d1e836043222c189a96f2f422a6e88defc7a68a3"
+    },
+    {
+      "name": "final-verification.json",
+      "bytes": 1003,
+      "sha256": "a16b6a70d8583327b8678857bc33257abd94db8733e94ce24e19342d072bfe64"
+    }
+  ],
+  "sourceFiles": {
+    "server/src/platform/payment-provider.ts": "78d3edce602244a816e14f1ee5e7880a33d640c7a712d64c641f47ae2b2d7844",
+    "server/src/platform/finance.service.ts": "a0a113a6af325627b1390323e673356f2323edba464f816e2a7fe3ac344d1e33",
+    "server/src/platform/beans.service.ts": "0408ad444d113b4aee718fc13c343847eeb5bcb351eaffba3b923841269fec20",
+    "server/src/platform/email-change.service.ts": "a277646aaa7bb311803be4bd580c5750bed45d8ae30445e4a088cb899582933c",
+    "server/src/auth/local/local-member.service.ts": "2825b84fc03d363dd2dfd29f5d46cfd87501b7532949bfd390fc9d11a6186a40",
+    "server/src/platform/main.ts": "1697a9544bfae9f423cbafd2002be95db6c0f4cc7f525b8274316f2604a41c64",
+    "server/src/platform/admin-auth.ts": "af3fd8256b0e6f4e647bc957850550dac92f17b426fec9c1180346132cd35f21",
+    "server/src/platform/admin-permissions.ts": "34d4cf8209ca19e03b921e5cde8b0afdfc843a37a7c9b8007c545e20c37d2e54",
+    "server/src/platform/operations.service.ts": "76670715cf871420aa6cbc82d6b359da6d5bb5337d7c30e31803172e544d3b4b",
+    "server/src/platform/operations-events.ts": "fd9f0a020e0aa2f2fe0de7f20f1b9bc76c32f9a406e8e58f215926525a53d9e1",
+    "server/src/platform/jobs.service.ts": "7cca0671e9cdc619fcebfb01976ce47fa1a37fba1520e897470825813da4b281",
+    "server/src/platform/worker.ts": "dbccbeebd3eca3c9736ba4f2dc11eed87d378288d558657da38ab528c3f4c62b",
+    "server/src/platform/security.service.ts": "01ce7b56af876e3250e6181f573222683addf0c2930769fdf4e49411069fa3ef",
+    "server/src/platform/marketing.service.ts": "321f4c75de45505449428995fbb4a9e63c86336382688e9acd6556b0a5f70eed",
+    "server/src/platform/audit-retention.ts": "487d5d5f655208a810d43a7807da934430b516be7418419107894d4073b77618",
+    "server/src/platform/media-edge-handler.ts": "0419837cf1d7ecfda67ab542ff3ccbfee9411f6c87e00cf718805ec93327f035",
+    "server/src/platform/media-edge-protocol.ts": "e86ae42a430e372788255a5ada7b12036d6bebb1578a42be8494c722df17ecef",
+    "server/src/platform/media.controller.ts": "6e6fc2f8ff5ac4c27306e711da349ff6bf8161fda47e04ff962013e2eb410356",
+    "server/src/platform/advertising-catalog.ts": "a535b49fb8cc0c827ab1fdc3c652bc876e4965c00995b90145cf0f7ad7aa5b5a",
+    "server/infra/platform/compose.yml": "150494c6ab30c90a04f607eb37e55de64b450bd938525f3695f474704cb825e8",
+    "server/infra/platform/Caddyfile": "e98e82a78cc218cabf5d285b3c2391e7ddb462b8b4a468e1110e2092078277a6",
+    "server/package-lock.json": "8ce1e65281a4136187fe642a0ded9073e6a10b356e680f89b6af082dbd666216",
+    "front/package-lock.json": "077483eb2424e3858bc50b00487856594eca90a4cdb58bb3ff5c020d5db5a5d3",
+    "front/next.config.js": "20ea937c60055830679f2cccdcfd407e41adb700b460f3e0740832ceb136df92",
+    "front/features/service/useAdvertisingModel.ts": "af4e89c034094a55a64e575ce2d692b7d7640efa0171a63c28fdfce6befa3d58",
+    "front/docs/security-review-20261029.md": "0f99d48ba7b2efc2dd823e7f79b05ef3a191f92121add20f6ae533e0b4df8d39",
+    "admin/package-lock.json": "115dcfe85b19a5d55eb31a4155ee43a07bdf5f3cc1a3632c88f26ca160cbf2e6",
+    "guide/package-lock.json": "5eb12b4befe27a6f733b24a89e451fd122cff16cff4124cfc1529cda3eab10ce"
+  },
+  "repositories": {
+    "front": {
+      "path": "/Users/ethan/repository/crefans_front",
+      "commands": [
+        {
+          "command": "git rev-parse HEAD",
+          "exitCode": 0,
+          "stdout": "94f8ff0f92dd8fee4a53f2627c581b6e3f212b96",
+          "at": "2026-10-28T18:36:54.127864+00:00"
+        },
+        {
+          "command": "git branch --show-current",
+          "exitCode": 0,
+          "stdout": "feat/iphone-input-zoom",
+          "at": "2026-10-28T18:36:54.131427+00:00"
+        },
+        {
+          "command": "git status --short",
+          "exitCode": 0,
+          "stdout": "M .env.example\n M AGENTS.md\n M PROGRESS.md\n M app/globals.css\n M app/layout.tsx\n M app/preview/studio/[[...screen]]/page.tsx\n M app/service/landing/page.tsx\n M app/service/studio/[[...screen]]/page.tsx\n M components/crefans/AccountPages.tsx\n M components/crefans/BeanPages.tsx\n M components/crefans/BeanWalletPages.tsx\n M components/crefans/CommonPages.tsx\n M components/crefans/CreatorPages.tsx\n M components/crefans/MediaOverlay.tsx\n M components/crefans/PostShareDialog.tsx\n M components/crefans/ServiceGuidePage.tsx\n M components/crefans/ServiceUI.tsx\n M components/crefans/SocialPages.tsx\n M components/crefans/account.module.css\n M components/crefans/beans.module.css\n M components/crefans/common.module.css\n M components/crefans/creator.module.css\n M components/crefans/landing.module.css\n M components/crefans/post-share-dialog.module.css\n M components/crefans/service.module.css\n M components/crefans/social.module.css\n M components/crefans/studio/CommunityPages.tsx\n M components/crefans/studio/FinancePages.tsx\n M components/crefans/studio/ManagementPages.tsx\n M components/crefans/studio/OverviewPages.tsx\n M components/crefans/studio/ReportPage.tsx\n M components/crefans/studio/StudioShell.tsx\n M components/crefans/studio/WithdrawalSecurityPage.tsx\n M components/crefans/studio/community.module.css\n M components/crefans/studio/content-post-preview.module.css\n M components/crefans/studio/finance.module.css\n M components/crefans/studio/management.module.css\n M components/crefans/studio/overview.module.css\n M components/crefans/studio/report.module.css\n M components/crefans/studio/studio.module.css\n M components/crefans/studio/withdrawal-security.module.css\n M components/design-system/CustomDesignSystem.tsx\n M components/design-system/ServicePatternCatalog.tsx\n M components/preview/comment-fixtures.ts\n M components/preview/screen-catalog.ts\n M components/preview/service/PreviewProvider.tsx\n M components/preview/service/ServiceRouter.tsx\n M components/preview/service/useMockAccount.ts\n M components/preview/service/useMockBeans.ts\n M components/preview/studio/StudioProvider.tsx\n M components/preview/studio/StudioRouter.tsx\n M components/preview/studio/finance-fixtures.ts\n M components/preview/studio/useMockCommunity.ts\n M components/preview/studio/useMockFinance.ts\n M components/preview/studio/useMockManagement.ts\n M components/preview/studio/useMockOverview.ts\n M components/providers/ApplicationProviders.tsx\n M components/providers/PresentationProviders.tsx\n M components/service/StudioRouter.tsx\n M components/ui/DataTable.tsx\n M components/ui/DateRangePicker.tsx\n M components/ui/MarqueeText.tsx\n M components/ui/Primitives.tsx\n M components/ui/data-table.module.css\n M components/ui/date-range-picker.module.css\n M components/ui/marquee-text.module.css\n M components/ui/select.module.css\n M components/ui/ui.module.css\n M docs/audit/evidence.json\n M docs/audit/manifest.json\n M docs/beta-role-test-plan.md\n M docs/design-system.md\n M docs/preview-pages.md\n M docs/release-test-scenarios.md\n M docs/service-api-binding.md\n M e2e/beans.spec.ts\n M e2e/marquee-text.spec.ts\n M e2e/preview.spec.ts\n M e2e/service.spec.ts\n M features/post-share/usePostShare.ts\n M features/service/useStudioModel.ts\n M lib/content/events.ts\n M lib/crefans/support.ts\n M middleware.ts\n M playwright.config.ts\n M tests/content-post-preview.test.cjs\n M tests/crefans-account.test.cjs\n M tests/crefans-community.test.cjs\n M tests/crefans-creator.test.cjs\n M tests/crefans-events.test.cjs\n M tests/crefans-finance.test.cjs\n M tests/crefans-social.test.cjs\n M tests/crefans-studio-management.test.cjs\n M tests/crefans-studio-reports.test.cjs\n M tests/dashboard-links.test.cjs\n M tests/overlay-motion.test.cjs\n M tests/studio-metric.test.cjs\n M tests/studio-navigation.test.cjs\n M tests/withdrawal-pin-ui.test.cjs\n M tests/withdrawal-pin.test.cjs\n M types/crefans-community.ts\n?? after-375-active.png\n?? app/api/preview/\n?? app/card/\n?? components/business-card/\n?? components/crefans/PolicyNotes.tsx\n?? components/crefans/policy-notes.module.css\n?? components/crefans/studio/AdvertisingPage.tsx\n?? components/crefans/studio/StudioCommentReply.tsx\n?? components/crefans/studio/advertising.module.css\n?? components/preview/studio/AdvertisingPreview.tsx\n?? components/service/AdvertisingContainer.tsx\n?? components/ui/SnackbarProvider.tsx\n?? components/ui/Toast.tsx\n?? docs/audit/advertising-20261029.json\n?? docs/audit/advertising-deployment-20261029.json\n?? docs/audit/business-card-20261027.json\n?? docs/audit/business-card-animation-20261027.json\n?? docs/audit/card-controls-20261027.json\n?? docs/audit/card-greeting-20261027.json\n?? docs/audit/card-visible-20261027.json\n?? docs/audit/gallery-image-tap-20261029.json\n?? docs/audit/iphone-input-zoom-20261028.json\n?? docs/audit/landing-ready-20261027.json\n?? docs/audit/moka-demo-button-20261027.json\n?? docs/audit/moka-demo-button-deployment-20261027.json\n?? docs/audit/moka-preview-deployment-20261027.json\n?? docs/audit/moka-preview-login-20261027.json\n?? docs/audit/moka-preview-secure-login-20261027.json\n?? docs/audit/npay-event-deployment-20261029.json\n?? docs/audit/post-support-icon-20261029.json\n?? docs/audit/profile-card-sync-20261027.json\n?? docs/audit/snackbar-20261029.json\n?? docs/audit/studio-comment-replies-20261028.json\n?? docs/audit/studio-input-console-deployment-20261029.json\n?? docs/design/post-support-icon-v1.generation.json\n?? docs/security-review-20261029.md\n?? e2e/advertising.spec.ts\n?? e2e/gallery-image-tap.spec.ts\n?? e2e/snackbar.spec.ts\n?? features/preview/\n?? features/service/useAdvertisingModel.ts\n?? infra/platform/image-retention.py\n?? lib/api/preview.ts\n?? lib/crefans/creator-payout-policy.ts\n?? notes-beans-1280.png\n?? notes-beans-375.png\n?? notes-earnings-1280.png\n?? notes-earnings-375.png\n?? output/pdf/crefans-api-spec-20261027.pdf\n?? output/pdf/crefans-qa-evidence-20261027.zip\n?? output/pdf/crefans-qa-report-20261027.html\n?? output/pdf/crefans-qa-report-20261027.pdf\n?? prod-1280.png\n?? prod-375.png\n?? prod-768.png\n?? prod.json\n?? public/brand/business-cards/\n?? public/brand/events/beta-first/naverpay-10000-v1.jpg\n?? public/brand/post-actions/\n?? tests/business-card.test.cjs\n?? tests/preview-login-route.test.cjs\n?? tests/studio-comment-reply.test.cjs\n?? tests/studio-community-binding.test.cjs\n?? tests/support-faq-policy.test.cjs\n?? types/crefans-advertising.ts",
+          "at": "2026-10-28T18:36:54.141536+00:00"
+        }
+      ],
+      "gitInitialized": true
+    },
+    "server": {
+      "path": "/Users/ethan/repository/crefans_server",
+      "commands": [
+        {
+          "command": "git rev-parse HEAD",
+          "exitCode": 0,
+          "stdout": "0d6044e5b1d595688bf5f82cad08f6a623df6719",
+          "at": "2026-10-28T18:36:54.145443+00:00"
+        },
+        {
+          "command": "git branch --show-current",
+          "exitCode": 0,
+          "stdout": "feat/studio-comment-replies",
+          "at": "2026-10-28T18:36:54.148905+00:00"
+        },
+        {
+          "command": "git status --short",
+          "exitCode": 0,
+          "stdout": "M PROGRESS.md\n M docs/current-contracts.md\n M docs/platform-api.md\n M docs/platform-implementation.md\n M docs/provider-contracts.md\n M infra/platform/Caddyfile\n M infra/platform/README.md\n M infra/platform/compose.yml\n M infra/platform/runtime.env.example\n M prisma/schema.prisma\n M scripts/platform-admin.cjs\n M src/platform/admin-console.ts\n M src/platform/admin-logs.ts\n M src/platform/admin.controller.ts\n M src/platform/audit.ts\n M src/platform/beans.controller.ts\n M src/platform/beans.service.ts\n M src/platform/beta-policy.ts\n M src/platform/finance.service.ts\n M src/platform/financial-policy.ts\n M src/platform/jobs.service.ts\n M src/platform/legal-documents.ts\n M src/platform/module.ts\n M src/platform/openapi-contract.ts\n M src/platform/openapi.ts\n M src/platform/settlement-receipts.ts\n M src/platform/studio.controller.ts\n M src/platform/studio.service.ts\n M tests/admin-console-server.cjs\n M tests/e2e-server.cjs\n M tests/platform-admin-console.test.cjs\n M tests/platform-beans.test.cjs\n M tests/platform-beta-policy.test.cjs\n M tests/platform-finance.test.cjs\n M tests/platform-financial-policy.test.cjs\n M tests/platform-openapi.test.cjs\n M tests/platform-provider-http.test.cjs\n?? prisma/migrations/20261028120000_admin_permissions/\n?? prisma/migrations/20261028150000_admin_accounts/\n?? prisma/migrations/20261029020000_ad_products/\n?? src/platform/admin-auth.ts\n?? src/platform/admin-operators.ts\n?? src/platform/admin-permissions.ts\n?? src/platform/advertising-catalog.ts\n?? src/platform/advertising.controller.ts\n?? tests/admin-session.cjs\n?? tests/platform-admin-operators.test.cjs\n?? tests/platform-advertising.test.cjs\n?? tests/platform-studio-replies.test.cjs",
+          "at": "2026-10-28T18:36:54.157059+00:00"
+        }
+      ],
+      "gitInitialized": true
+    },
+    "admin": {
+      "path": "/Users/ethan/repository/crefans_admin",
+      "commands": [
+        {
+          "command": "git rev-parse HEAD",
+          "exitCode": 0,
+          "stdout": "8cf5025fa746afd09d06d10b4182787713f86bbd",
+          "at": "2026-10-28T18:36:54.161148+00:00"
+        },
+        {
+          "command": "git branch --show-current",
+          "exitCode": 0,
+          "stdout": "feat/console-mypage-logout",
+          "at": "2026-10-28T18:36:54.164726+00:00"
+        },
+        {
+          "command": "git status --short",
+          "exitCode": 0,
+          "stdout": "M AGENTS.md\n M PROGRESS.md\n M e2e/console.spec.ts\n M next.config.mjs\n M src/app/console/[[...section]]/page.tsx\n M src/app/globals.css\n M src/app/login/page.tsx\n M src/components/console/Beans.tsx\n M src/components/console/Console.tsx\n M src/components/console/ConsoleIcon.tsx\n M src/lib/console-api.ts\n?? e2e/advertising.spec.ts\n?? src/components/console/Advertising.tsx\n?? src/components/console/Operators.tsx\n?? src/components/console/Snackbar.tsx\n?? src/components/console/TypedConfirm.tsx\n?? src/lib/korean.ts\n?? tests/korean.test.cjs",
+          "at": "2026-10-28T18:36:54.169815+00:00"
+        }
+      ],
+      "gitInitialized": true
+    },
+    "guide": {
+      "path": "/Users/ethan/repository/crefans_guide",
+      "commands": [
+        {
+          "command": "git rev-parse HEAD",
+          "exitCode": 128,
+          "stdout": "",
+          "at": "2026-10-28T18:36:54.173188+00:00"
+        },
+        {
+          "command": "git branch --show-current",
+          "exitCode": 128,
+          "stdout": "",
+          "at": "2026-10-28T18:36:54.176858+00:00"
+        },
+        {
+          "command": "git status --short",
+          "exitCode": 128,
+          "stdout": "",
+          "at": "2026-10-28T18:36:54.180402+00:00"
+        }
+      ],
+      "gitInitialized": false
+    }
+  },
+  "documentationValidation": {
+    "state": "passed",
+    "executions": [
+      {
+        "command": "npm run docs:record",
+        "cwd": "/Users/ethan/repository/crefans_front",
+        "startedAt": "2026-10-28T18:37:14.557826+00:00",
+        "finishedAt": "2026-10-28T18:37:15.494998+00:00",
+        "exitCode": 0,
+        "log": "docs-record.log",
+        "output": "\n> docs:record\n> python3 scripts/check-docs.py --record\n\n{\"recorded\": \"/Users/ethan/repository/crefans_front/docs/audit/evidence.json\", \"documents\": 61, \"documentsByRepo\": {\"front\": 37, \"server\": 24}, \"routes\": 142, \"screens\": 53, \"models\": 75, \"enums\": 15, \"migrations\": 28, \"localMarkdownTargets\": 419, \"externalInlineLinksNotFetched\": 317}\n"
+      },
+      {
+        "command": "npm run check:docs",
+        "cwd": "/Users/ethan/repository/crefans_front",
+        "startedAt": "2026-10-28T18:37:15.495031+00:00",
+        "finishedAt": "2026-10-28T18:37:15.918788+00:00",
+        "exitCode": 0,
+        "log": "check-docs.log",
+        "output": "\n> check:docs\n> python3 scripts/check-docs.py\n\n{\"result\": \"PASS\", \"evidenceAt\": \"2026-10-28T18:37:15.267536+00:00\", \"verificationLevel\": \"snapshot-only-not-test-proof\", \"documents\": 61, \"documentsByRepo\": {\"front\": 37, \"server\": 24}, \"routes\": 142, \"screens\": 53, \"models\": 75, \"enums\": 15, \"migrations\": 28, \"localMarkdownTargets\": 419, \"externalInlineLinksNotFetched\": 317}\n"
+      }
+    ],
+    "note": "Documentation inventory/contracts/snapshot validation; does not prove product security"
+  },
+  "finalVerification": {
+    "at": "2026-10-28T18:38:33.127516+00:00",
+    "scope": "report local-link existence and line bounds, finding count, expected successful probes; not exploit testing",
+    "localLinksChecked": 16,
+    "findingCount": 17,
+    "reportSha256": "0f99d48ba7b2efc2dd823e7f79b05ef3a191f92121add20f6ae533e0b4df8d39",
+    "documentationValidation": "passed",
+    "exitCode": 0,
+    "repositoriesAfter": {
+      "front": {
+        "command": "git status --porcelain=v1",
+        "exitCode": 0,
+        "dirtyEntries": 167,
+        "statusSha256": "f84ee8c4c189ed317103ff938198698961ae2a373193d849966d3e5bfc4a95eb"
+      },
+      "server": {
+        "command": "git status --porcelain=v1",
+        "exitCode": 0,
+        "dirtyEntries": 49,
+        "statusSha256": "fdc178d251716170eb4cbff13dc72c62cee167733b1ab1ba837f861f813bf506"
+      },
+      "admin": {
+        "command": "git status --porcelain=v1",
+        "exitCode": 0,
+        "dirtyEntries": 18,
+        "statusSha256": "49ac450b9bdabefff5d891a484f6b94e5365f5074bcdc7955a15cfc9f91fc897"
+      }
+    }
+  }
+}

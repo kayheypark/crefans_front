@@ -24,6 +24,17 @@ const publicRoutes = [
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Reject missing, unknown or repeated card identities before streaming begins.
+  if (pathname === "/card") {
+    const identities = request.nextUrl.searchParams.getAll("who");
+    if (identities.length !== 1 || identities[0] !== "khpark") {
+      return new NextResponse("명함을 찾을 수 없습니다.", {
+        status: 404,
+        headers: { "Content-Type": "text/plain; charset=utf-8", "X-Robots-Tag": "noindex, nofollow" },
+      });
+    }
+  }
+
   // 정적 파일이나 API 경로는 건너뛰기
   if (
     pathname.startsWith("/_next") ||

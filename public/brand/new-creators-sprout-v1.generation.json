@@ -1,0 +1,8 @@
+{
+  "method": "built-in image_gen",
+  "asset": "new-creators-sprout-v1.png",
+  "prompt": "Use case: logo-brand. Asset type: tiny decorative icon immediately left of the Korean '신규 크리에이터' heading in the CREFANS creator discovery page. Create one sprout emoji reinterpreted as a polished minimal rounded-flat brand pictogram: two plump smooth leaves opening left and right from a short gently curved stem. Fresh mint green and emerald green with a restrained smooth color gradient, simple large silhouette that remains very clear at 22 x 22 CSS pixels on white. Harmonize with CREFANS rounded gradient sparkle and rounded-flat category artwork. ICON ONLY. No words, no numbers, no face, no flowerpot, no soil, no badge container, no sparkles, no extra ornaments, no thin details, no hard outlines, no drop shadow or glow. Center the complete sprout with balanced small padding on a square canvas; occupy about 85% of canvas. Genuinely transparent background, clean antialiased alpha edges, no painted checkerboard. Deliver one transparent PNG.",
+  "transparent_background": true,
+  "intendedDisplay": "22×22 CSS px; 신규 크리에이터 heading",
+  "source": "/Users/ethan/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-b5483930-22ee-4d29-aae1-9ea1b09f100d.png"
+}

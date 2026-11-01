@@ -1,0 +1,23 @@
+{
+  "id": "flat",
+  "label": "① 플랫",
+  "style": "Style: STRICTLY FLAT 2D vector-like pictogram. Two solid green color areas, cream crease, smooth simple rounded silhouette, minimal geometric construction, no gradients, no specular shine, no 3D volume, no drop shadow, no outlines. Crisp friendly contemporary mobile app design.",
+  "prompt": "Use case: stylized-concept. Asset type: virtual currency icon for CREFANS, one of four contrasting style proposals. Exactly ONE green kidney bean with a small curved cream crease, consistent clear bean silhouette, diagonally oriented, no face. Centered isolated subject in square canvas, around 65 percent image coverage with generous transparent padding, legible as a small mobile app icon. Genuine transparent alpha background. No text, numerals, logos, watermark, other beans, leaves, containers, coins, background panel, decorative badge, or scene. A single asset, not a comparison sheet. Style: STRICTLY FLAT 2D vector-like pictogram. Two solid green color areas, cream crease, smooth simple rounded silhouette, minimal geometric construction, no gradients, no specular shine, no 3D volume, no drop shadow, no outlines. Crisp friendly contemporary mobile app design.",
+  "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-58359d40-9fda-4b33-8867-4981e856de1c.png",
+  "tool": "built-in image_gen",
+  "savedPath": "/Users/ethan/repository/crefans_front/docs/design/bean-one-flat-v1.png",
+  "createdAt": "2026-10-25T05:51:17.641948+00:00",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alphaRange": [
+    0,
+    255
+  ],
+  "sha256": "fca30777d0ed97baf2c1cd1a49ee8d641807f3415431b22565abc9cc8d84ab30",
+  "bytes": 684718,
+  "appliedToUi": false,
+  "deployed": false
+}

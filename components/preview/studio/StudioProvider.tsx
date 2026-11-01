@@ -3,16 +3,17 @@ import {createContext,useContext,type ReactNode} from 'react';
 import {usePreview,usePreviewCreatorUpdate,usePreviewManagement} from '../service/PreviewProvider';
 import {useMockOverview} from './useMockOverview';
 import {useMockFinance} from './useMockFinance';
+import {FINANCE_SAMPLE_RECEIVABLES} from './finance-fixtures';
 import {useMockCommunity} from './useMockCommunity';
 import {useMockReports,currentActiveSubscribers} from './useMockReports';
 import type {StudioOverviewModel} from '@/types/crefans-studio';
 function useStudioState(){
  const fan=usePreview(),updateCreator=usePreviewCreatorUpdate();
- const management=usePreviewManagement(),finance=useMockFinance();
- const rawOverview=useMockOverview(fan.data.creators.find(creator=>creator.id==='haneul'),updateCreator);
- const community=useMockCommunity({today:fan.today,creatorName:rawOverview.profile.name,posts:management.contents.filter(item=>item.status==='published').map(item=>({id:item.id,title:item.title})),fans:management.subscribers.map(item=>({id:item.id,name:item.name,image:item.image||''}))});
+ const management=usePreviewManagement(),finance=useMockFinance({memberships:management.memberships,subscribers:management.subscribers,today:fan.today,receivables:(fan.ownCreatorIds?.[0]||'haneul')==='haneul'?FINANCE_SAMPLE_RECEIVABLES:[]});
+ const rawOverview=useMockOverview(fan.data.creators.find(creator=>creator.id===(fan.ownCreatorIds?.[0]||'haneul')),updateCreator);
+ const community=useMockCommunity({today:fan.today,creatorName:rawOverview.profile.name,creatorImage:rawOverview.profile.avatar,creatorId:fan.ownCreatorIds?.[0]||'haneul',creatorFoundingMember:fan.data.creators.find(creator=>creator.id===(fan.ownCreatorIds?.[0]||'haneul'))?.isFoundingMember,creatorVerified:fan.data.creators.find(creator=>creator.id===(fan.ownCreatorIds?.[0]||'haneul'))?.isVerified,posts:management.contents.filter(item=>item.status==='published').map(item=>({id:item.id,title:item.title})),fans:management.subscribers.map(item=>({id:item.id,name:item.name,image:item.image||''}))});
  const activeSubscribers=currentActiveSubscribers(management.subscribers,fan.today);
- const followers=fan.data.creators.find(creator=>creator.id==='haneul')?.followerCount??0;
+ const followers=fan.data.creators.find(creator=>creator.id===(fan.ownCreatorIds?.[0]||'haneul'))?.followerCount??0;
  const {reports}=useMockReports({finance,management,followers,today:fan.today});
  const overview:StudioOverviewModel={...rawOverview,
   series:rawOverview.series.map((point,index,points)=>{

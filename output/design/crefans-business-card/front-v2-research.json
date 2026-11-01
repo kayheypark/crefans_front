@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-25T09:04:08.906279+00:00",
+  "sources": [
+    {
+      "url": "https://www.moo.com/blog/uk/inspiration/minimal-business-cards-with-powerful-minimalist-design",
+      "publisher": "MOO",
+      "published": "2022-07-01",
+      "type": "Printing vendor; direct client/design studio interviews and example photographs",
+      "visualReviewed": "Fos&Co. contact side: compact grouped information and field labels; colored identity side and restrained stock. Browser inspected article hero photo directly.",
+      "applied": "Contact label/value rows and keeping brand identity distinct from practical details; original layout adapted, no photo/artwork copied."
+    },
+    {
+      "url": "https://www.jukeboxprint.com/blog/54-inspiring-typographic-business-cards",
+      "publisher": "Jukebox Print",
+      "updated": "2026-01-23",
+      "type": "Printing vendor curated case gallery; not the original studio for all examples",
+      "visualReviewed": [
+        "Hugh McCarthy/Both Studio: large typographic identity with compact contact information on a generous unprinted field.",
+        "Animis/Steve Wolf: distinct compact text blocks and a dominant identity element. Both gallery photos opened directly in browser."
+      ],
+      "applied": "Three distinct information groups, consistent alignment, size hierarchy and negative space; kept CREFANS original wordmark."
+    }
+  ],
+  "decision": {
+    "scope": "Front face only; previous two-sided version preserved",
+    "layout": "Two-column corporate grid: original logo/company/site left; person/title and M/E contact rows right.",
+    "type": "Single sans family; name16pt, role7.6pt, contact8.4pt; project design choices, not a claimed industry standard.",
+    "color": "White background, original gradient logo, brand-ink typography; contact labels use existing logo blue-violet.",
+    "trimMm": [
+      90,
+      50
+    ],
+    "safeMarginMm": 7,
+    "artwork": "Existing vector SVG reused exactly; no remote visual copied or new logo generated.",
+    "print": "RGB design proof; CMYK / printing vendor proof not performed."
+  },
+  "logo": {
+    "source": "public/brand/crefans-logo.svg",
+    "sha256": "85a3a166adb3b66c00984d2ece3192228a1a3967adea3dce65ee55e33b601330"
+  },
+  "repo": {
+    "branch": "feat/bean-support",
+    "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "dirty": true
+  }
+}

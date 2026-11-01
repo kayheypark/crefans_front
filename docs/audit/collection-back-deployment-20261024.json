@@ -1,0 +1,1489 @@
+{
+  "checkedAt": "2026-10-24T09:41:16.596723+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "workspace": {
+    "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+    "branch": "feat/beta-signup",
+    "dirty": [
+      " M AGENTS.md",
+      " M PROGRESS.md",
+      " M app/preview/layout.tsx",
+      " M app/preview/preview.module.css",
+      " M components/crefans/AccountPages.tsx",
+      " M components/crefans/CommonPages.tsx",
+      " M components/crefans/CreatorCard.tsx",
+      " M components/crefans/CreatorPages.tsx",
+      " M components/crefans/FollowButton.tsx",
+      " M components/crefans/Icon.tsx",
+      " M components/crefans/LandingPage.tsx",
+      " M components/crefans/ProfileHeader.tsx",
+      " M components/crefans/ServiceShell.tsx",
+      " M components/crefans/ServiceUI.tsx",
+      " M components/crefans/SocialPages.tsx",
+      " M components/crefans/account.module.css",
+      " M components/crefans/common.module.css",
+      " M components/crefans/creator.module.css",
+      " M components/crefans/service.module.css",
+      " M components/crefans/social.module.css",
+      " M components/crefans/studio/ContentPostPreview.tsx",
+      " M components/crefans/studio/FinancePages.tsx",
+      " M components/crefans/studio/ManagementPages.tsx",
+      " M components/crefans/studio/ReportPage.tsx",
+      " M components/crefans/studio/WithdrawalSecurityPage.tsx",
+      " M components/crefans/studio/report.module.css",
+      " M components/crefans/studio/withdrawal-security.module.css",
+      " M components/design-system/ServicePatternCatalog.tsx",
+      " M components/preview/comment-fixtures.ts",
+      " M components/preview/service/ServiceRouter.tsx",
+      " M components/preview/service/fixtures.ts",
+      " M components/preview/service/useMockAccount.ts",
+      " M components/preview/service/useMockSocial.ts",
+      " M components/preview/studio/useMockCommunity.ts",
+      " M components/service/ServiceRouter.tsx",
+      " M components/ui/Primitives.tsx",
+      " M components/ui/chip-row.module.css",
+      " M components/ui/ui.module.css",
+      " M docs/audit/evidence.json",
+      " M docs/audit/manifest.json",
+      " M docs/creator-image-variety.md",
+      " M docs/design-system.md",
+      " M docs/preview-pages.md",
+      " M docs/release-test-scenarios.md",
+      " M docs/service-api-binding.md",
+      " M e2e/preview.spec.ts",
+      " M features/service/useServiceModel.ts",
+      " M features/service/useStudioModel.ts",
+      " M lib/content/landing.ts",
+      " M lib/crefans/membership-plans.ts",
+      " M playwright.config.ts",
+      " M tests/content-post-preview.test.cjs",
+      " M tests/crefans-account.test.cjs",
+      " M tests/crefans-common.test.cjs",
+      " M tests/crefans-creator.test.cjs",
+      " M tests/crefans-social.test.cjs",
+      " M tests/crefans-studio-reports.test.cjs",
+      " M tests/load-typescript.cjs",
+      " M tests/service-access-state.test.cjs",
+      " M tsconfig.tsbuildinfo",
+      " M types/crefans-account.ts",
+      " M types/crefans-social.ts",
+      " M types/crefans.ts",
+      "?? components/crefans/BackButton.tsx",
+      "?? components/crefans/CommentComposer.tsx",
+      "?? components/crefans/CommentIcon.tsx",
+      "?? components/crefans/CreatorName.tsx",
+      "?? components/crefans/CreatorSearch.tsx",
+      "?? components/crefans/MediaOverlay.tsx",
+      "?? components/crefans/PostMembershipNotice.tsx",
+      "?? components/crefans/back-button.module.css",
+      "?? components/crefans/creator-name.module.css",
+      "?? components/crefans/creator-search.module.css",
+      "?? docs/audit/back-buttons-deployment-20261024.json",
+      "?? docs/audit/back-navigation-20261024.json",
+      "?? docs/audit/back-navigation-inventory-20261024.json",
+      "?? docs/audit/beta-cohort-plan-20261024.json",
+      "?? docs/audit/beta-signup-20261024.json",
+      "?? docs/audit/chip-row-inset-20261024.json",
+      "?? docs/audit/close-spacing-20261024.json",
+      "?? docs/audit/comment-close-20261024.json",
+      "?? docs/audit/creator-badge-fixtures-20261024.json",
+      "?? docs/audit/creator-search-20261024.json",
+      "?? docs/audit/creator-search-deployment-20261024.json",
+      "?? docs/audit/creator-search-live-desktop-20261024.png",
+      "?? docs/audit/creator-search-live-mobile-20261024.png",
+      "?? docs/audit/creator-verification-20261024.json",
+      "?? docs/audit/creator-verification-deployment-20261024.json",
+      "?? docs/audit/creator-verification-live-desktop-20261024.png",
+      "?? docs/audit/creator-verification-live-mobile-20261024.png",
+      "?? docs/audit/dialog-close-deployment-20261024.json",
+      "?? docs/audit/empty-comments-deployment-20261024.json",
+      "?? docs/audit/empty-comments-live-desktop-20261024.png",
+      "?? docs/audit/empty-comments-live-webkit390-20261024.png",
+      "?? docs/audit/feed-inbox-deployment-20261024.json",
+      "?? docs/audit/feed-toolbar-20261024.json",
+      "?? docs/audit/follow-icon-20261024.json",
+      "?? docs/audit/gallery-comment-dock-20261024.json",
+      "?? docs/audit/gallery-comments-deployment-20261024.json",
+      "?? docs/audit/gallery-comments-live-desktop-20261024.png",
+      "?? docs/audit/gallery-comments-live-mobile-20261024.png",
+      "?? docs/audit/gnb-comment-deployment-20261024.json",
+      "?? docs/audit/gnb-icon-size-20261024.json",
+      "?? docs/audit/gnb-icon-size-deployment-20261024.json",
+      "?? docs/audit/gnb-size-live-preview-20261024.png",
+      "?? docs/audit/gnb-size-live-service-20261024.png",
+      "?? docs/audit/inbox-unread-20261024.json",
+      "?? docs/audit/jiwoo-content-20261024.json",
+      "?? docs/audit/jiwoo-deployment-20261024.json",
+      "?? docs/audit/jiwoo-natural-20261024.json",
+      "?? docs/audit/membership-offer-20261024.json",
+      "?? docs/audit/membership-ui-deployment-20261024.json",
+      "?? docs/audit/message-buttons-20261024.json",
+      "?? docs/audit/message-time-color-20261024.json",
+      "?? docs/audit/message-time-deployment-20261024.json",
+      "?? docs/audit/message-time-live-1280-20261024.png",
+      "?? docs/audit/message-time-live-390-20261024.png",
+      "?? docs/audit/mobile-comment-composer-20261024.json",
+      "?? docs/audit/mobile-gallery-corner-20261024.json",
+      "?? docs/audit/mobile-gallery-deployment-20261024.json",
+      "?? docs/audit/mobile-gallery-expand-20261024.json",
+      "?? docs/audit/mobile-gallery-sheet-20261024.json",
+      "?? docs/audit/mobile-gnb-icons-20261024.json",
+      "?? docs/audit/mobile-inbox-deployment-20261024.json",
+      "?? docs/audit/mobile-inbox-spacing-20261024.json",
+      "?? docs/audit/mobile-settings-deployment-20261024.json",
+      "?? docs/audit/mobile-settings-links-20261024.json",
+      "?? docs/audit/mobile-shell-20261024.json",
+      "?? docs/audit/mobile-ui-deployment-20261024.json",
+      "?? docs/audit/post-detail-back-20261024.json",
+      "?? docs/audit/profile-media-20261024.json",
+      "?? docs/audit/profile-media-deployment-20261024.json",
+      "?? docs/audit/qa-report-20261024.json",
+      "?? docs/audit/settings-categories-20261024.json",
+      "?? docs/audit/settings-categories-deployment-20261024.json",
+      "?? docs/audit/settings-divider-20261024.json",
+      "?? docs/audit/settings-divider-color-20261024.json",
+      "?? docs/audit/settings-divider-color-deployment-20261024.json",
+      "?? docs/audit/settings-edge-dividers-20261024.json",
+      "?? docs/audit/support-spacing-deployment-20261024.json",
+      "?? docs/audit/verified-creator-icon-20261024.json",
+      "?? docs/beta-role-test-plan.md",
+      "?? e2e/creator-verification.spec.ts",
+      "?? e2e/mobile-comments.spec.ts",
+      "?? e2e/mobile-shell.spec.ts",
+      "?? e2e/signup-deferred.spec.ts",
+      "?? output/pdf/",
+      "?? public/brand/verified-creator-v1.png",
+      "?? public/illustrations/creators/jiwoo/",
+      "?? tests/creator-verification.test.cjs",
+      "?? tests/post-membership-offer.test.cjs",
+      "?? tests/profile-media.test.cjs"
+    ]
+  },
+  "requirement": "저장한 게시물·좋아요한 게시물 등 항목 모아보기 하위 목록에 공용 뒤로가기 버튼 표시",
+  "acceptance": [
+    "저장·좋아요·팔로잉·팔로워 목록 제목 왼쪽 공용 BackButton",
+    "44px 원형 클릭 영역,22px 왼쪽 화살표,12px 제목 간격,접근성 이름",
+    "목업·서비스 경로를 보존하며 내 프로필로 키보드/클릭 복귀",
+    "모바일320/390·PC1280 가로 넘침 및 JS 오류 없음"
+  ],
+  "scope": {
+    "at": "2026-10-24T09:36:16.708191+00:00",
+    "baselineFilesMatched": 499,
+    "changed": [
+      "components/crefans/AccountPages.tsx",
+      "components/crefans/CommonPages.tsx",
+      "components/crefans/ServiceUI.tsx",
+      "components/crefans/service.module.css"
+    ],
+    "added": [
+      "components/crefans/BackButton.tsx",
+      "components/crefans/back-button.module.css"
+    ],
+    "change": "Saved, liked, following and followers title-left shared BackButton; preserve existing me destinations",
+    "excluded": [
+      "Unshipped PASS/signup, other back-navigation audit screens, follow-icon and comment-close changes"
+    ],
+    "preserved": "Backend/worker/admin/database/proxy and SSH rules"
+  },
+  "sourceHashes": {
+    "components/crefans/AccountPages.tsx": "3a26d87e7282959463cc521b0b74139645224e740d51fcd4d796d9a9d3a6dfd4",
+    "components/crefans/CommonPages.tsx": "f9fa140323ac82cd86eceaf6a5e22199d42b01439f2e63672d30485f7c74cdc7",
+    "components/crefans/ServiceUI.tsx": "f77655ea8486d672b93cc18af9d25ac6b76f6570a597ed551d2e2d214afc22d8",
+    "components/crefans/service.module.css": "94e015ea0a4b08ec532dfe77633f85d51a1a756f8e1e8181948d793b73f53c8f",
+    "components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
+    "components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c"
+  },
+  "releaseManifestSha256": "bfee21bfe298502bd925f00de3af3e4d3a36cfbc081f2d5b70871016f85adaf5",
+  "image": {
+    "at": "2026-10-24T09:39:00.616424+00:00",
+    "tag": "crefans-front:collection-back-20261024",
+    "id": "sha256:64bf0e8b9d79b613f1cfc2e1acf150492bd037c224037b67213b9181c5301f9d",
+    "architecture": "amd64",
+    "runtimeFilesMatched": 501,
+    "archiveSha256": "77874fd97d7a30808bace450a5e84048e74e2fdcd6c1e2582e3c17990c8d9a8c",
+    "archiveBytes": 514607522
+  },
+  "commands": [
+    {
+      "command": [
+        "python3",
+        ".local/collection-back-deploy-20261024/prepare.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:36:14.166796+00:00",
+      "finishedAt": "2026-10-24T09:36:16.737726+00:00",
+      "exitCode": 0,
+      "logSha256": "00399532a8564597b60fc271b06e45ea5c75993a416e14ca34df10c2f79c277d"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "--test-name-pattern=saved and liked collections|following list keeps|followers page lists",
+        ".local/collection-back-deploy-20261024/tests/crefans-account.test.cjs",
+        ".local/collection-back-deploy-20261024/tests/crefans-common.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:37:04.212096+00:00",
+      "finishedAt": "2026-10-24T09:37:04.653308+00:00",
+      "exitCode": 0,
+      "logSha256": "cab6fd9a8162e513ff4dd139998736be2649efc290feead3faa894c71ef698c6"
+    },
+    {
+      "command": [
+        "node",
+        ".local/collection-back-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "before"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:36:41.927838+00:00",
+      "finishedAt": "2026-10-24T09:36:46.871039+00:00",
+      "exitCode": 0,
+      "logSha256": "4207e70a0219eb87d39811199ef6e6aeebbde0dde7469e1044d5d6dd725d8d62"
+    },
+    {
+      "command": [
+        "docker",
+        "--config",
+        "/Users/ethan/repository/crefans_server/.local/beta-build-config",
+        "build",
+        "--platform",
+        "linux/amd64",
+        "-f",
+        ".local/collection-back-deploy-20261024/source/infra/platform/Dockerfile",
+        "-t",
+        "crefans-front:collection-back-20261024",
+        ".local/collection-back-deploy-20261024/source"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:37:04.958153+00:00",
+      "finishedAt": "2026-10-24T09:38:38.839972+00:00",
+      "exitCode": 0,
+      "logSha256": "389e3c43f3397297f2f20771101c88a8f18bb7677d0df6827284532879bd5a4a"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/collection-back-deploy-20261024/verify-image.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:38:48.206614+00:00",
+      "finishedAt": "2026-10-24T09:39:15.533816+00:00",
+      "exitCode": 0,
+      "logSha256": "05cfe38787bf60277b75ec48c2ec587e29f4ed54a4163e1f2aa97ffd276ac052"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/collection-back-deploy-20261024/archive.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:38:48.206615+00:00",
+      "finishedAt": "2026-10-24T09:39:00.624397+00:00",
+      "exitCode": 0,
+      "logSha256": "1e3c8b7faeb501ea9c10aa6022315aab0b94167b91e96d176b717a3dc135c761"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/collection-back-deploy-20261024/release.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:39:31.127124+00:00",
+      "finishedAt": "2026-10-24T09:39:59.972112+00:00",
+      "exitCode": 0,
+      "logSha256": "7d9d9a0143fb9ff324623330f6630776fd643a21329721d2ee11bcef0975e649"
+    },
+    {
+      "command": [
+        "node",
+        ".local/collection-back-deploy-20261024/check.cjs",
+        "https://beta.crefans.com",
+        "production"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:40:16.162188+00:00",
+      "finishedAt": "2026-10-24T09:40:44.050609+00:00",
+      "exitCode": 0,
+      "logSha256": "6c3cb9424720b309096a0f00238fef881eca17e52741d070b5d5885cda579016"
+    },
+    {
+      "command": [
+        "python3",
+        ".local/collection-back-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:40:51.177548+00:00",
+      "finishedAt": "2026-10-24T09:40:53.545807+00:00",
+      "exitCode": 0,
+      "logSha256": "23f9cbb7886e89abcbf1240862b6e2b193815d9c2e39751ac84a46b1ca99056d"
+    }
+  ],
+  "releaseSteps": [
+    {
+      "step": "upload-directory",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "install -d -m 0700 /home/ubuntu/crefans-collection-back-20261024"
+      ],
+      "startedAt": "2026-10-24T09:39:31.149201+00:00",
+      "finishedAt": "2026-10-24T09:39:32.178340+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "upload",
+      "command": [
+        "scp",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "/Users/ethan/repository/crefans_front/.local/collection-back-deploy-20261024/image.tar.gz",
+        "/Users/ethan/repository/crefans_front/.local/collection-back-deploy-20261024/image.sha256",
+        "/Users/ethan/repository/crefans_front/.local/collection-back-deploy-20261024/deploy.sh",
+        "/Users/ethan/repository/crefans_front/.local/collection-back-deploy-20261024/before.json",
+        "ubuntu@15.164.140.26:/home/ubuntu/crefans-collection-back-20261024/"
+      ],
+      "startedAt": "2026-10-24T09:39:32.179107+00:00",
+      "finishedAt": "2026-10-24T09:39:41.033549+00:00",
+      "exitCode": 0,
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "step": "load",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "cd /home/ubuntu/crefans-collection-back-20261024 && sha256sum -c image.sha256 && sudo -n docker load -i image.tar.gz && rm image.tar.gz"
+      ],
+      "startedAt": "2026-10-24T09:39:41.034553+00:00",
+      "finishedAt": "2026-10-24T09:39:52.983792+00:00",
+      "exitCode": 0,
+      "logSha256": "9ac9f4e6b15ea24f7858964e29cecb46df1d4926f7afdd32538b66be676af711"
+    },
+    {
+      "step": "deploy",
+      "command": [
+        "ssh",
+        "-i",
+        "/Users/ethan/Downloads/crefans.pem",
+        "-o",
+        "BatchMode=yes",
+        "-o",
+        "StrictHostKeyChecking=yes",
+        "-o",
+        "UserKnownHostsFile=/Users/ethan/repository/crefans_server/.local/aws-beta/known_hosts",
+        "-o",
+        "ConnectTimeout=10",
+        "ubuntu@15.164.140.26",
+        "bash /home/ubuntu/crefans-collection-back-20261024/deploy.sh"
+      ],
+      "startedAt": "2026-10-24T09:39:52.985952+00:00",
+      "finishedAt": "2026-10-24T09:39:59.964243+00:00",
+      "exitCode": 0,
+      "logSha256": "3a5642e35aa7971ef324404f3891ac285395e64cd8a0687bdb932dc625cd1db5"
+    }
+  ],
+  "checks": {
+    "before": {
+      "startedAt": "2026-10-24T09:36:42.126Z",
+      "finishedAt": "2026-10-24T09:36:46.863Z",
+      "base": "https://beta.crefans.com",
+      "cases": 4,
+      "results": [
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "oldTextLink": true
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "oldTextLink": true
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "route": "following",
+          "oldTextLink": true
+        },
+        {
+          "name": "chromium390",
+          "prefix": "preview",
+          "route": "followers",
+          "oldTextLink": true
+        }
+      ],
+      "errors": [],
+      "unexpected": [],
+      "limits": "Service GET responses are isolated fixtures. No live account or physical device changes."
+    },
+    "unit": {
+      "passed": 3,
+      "tests": [
+        "saved and liked collections omit private image sources until access is injected",
+        "following list keeps an unfollowed creator on screen so the fan can follow again",
+        "followers page lists the injected followers read-only with search and an empty state"
+      ]
+    },
+    "image": {
+      "startedAt": "2026-10-24T09:38:53.065Z",
+      "finishedAt": "2026-10-24T09:39:15.517Z",
+      "base": "http://127.0.0.1:3124",
+      "cases": 24,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        }
+      ],
+      "errors": [],
+      "unexpected": [],
+      "limits": "Service GET responses are isolated fixtures. No live account or physical device changes."
+    },
+    "production": {
+      "startedAt": "2026-10-24T09:40:16.348Z",
+      "finishedAt": "2026-10-24T09:40:44.043Z",
+      "base": "https://beta.crefans.com",
+      "cases": 24,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me",
+            "gap": 12,
+            "centerOffset": 0.0078125
+          },
+          "keyboardReturn": true
+        }
+      ],
+      "errors": [],
+      "unexpected": [],
+      "limits": "Service GET responses are isolated fixtures. No live account or physical device changes."
+    },
+    "runtime": {
+      "at": "2026-10-24T09:40:51.216604+00:00",
+      "runtimeFilesMatched": 501,
+      "runtime": {
+        "crefans-beta-api-1": {
+          "id": "586fab7cb3133716c35c65852a357e90eb661917df7b0e8d553e15ac71afec97",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-worker-1": {
+          "id": "835f2dcdd27689bdd30bd57ddb35d7baabb24050b1c0dac2e03620cdd4fce38d",
+          "image": "sha256:3948975eae18b8b560367bf7d3aacf22db1d4c504870e364a4171748065b243b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-frontend-1": {
+          "id": "81e0be29fb5172bc4824469db41d14d13b4dc00d3455ab121c49e7e6aef685bb",
+          "image": "sha256:64bf0e8b9d79b613f1cfc2e1acf150492bd037c224037b67213b9181c5301f9d",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-admin-1": {
+          "id": "093a3aa2416fa115820eec7702ed77097cf32483e669e2c2bb5ab9a743014c59",
+          "image": "sha256:86e609c20d911559f579ebd8e2b582064380d7bf1a11922a2a477a5db59496a6",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-database-1": {
+          "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+          "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        },
+        "crefans-beta-proxy-1": {
+          "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+          "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+          "running": true,
+          "restarts": 0,
+          "OOMKilled": false
+        }
+      },
+      "http": [
+        {
+          "url": "https://beta.crefans.com/preview/settings",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/settings",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/feed",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/service/login",
+          "status": 200
+        },
+        {
+          "url": "https://beta.crefans.com/api/v1/health",
+          "status": 200
+        },
+        {
+          "url": "https://admin.crefans.com/login",
+          "status": 200
+        }
+      ]
+    },
+    "visualReview": [
+      "image-webkit390.png",
+      "image-desktop.png",
+      "production-webkit390.png",
+      "production-desktop.png"
+    ]
+  },
+  "rollback": "/opt/crefans-backup-collection-back-20261024",
+  "verificationCorrection": {
+    "initial": {
+      "command": [
+        "python3",
+        ".local/collection-back-deploy-20261024/verify-production.py"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:40:16.162178+00:00",
+      "finishedAt": "2026-10-24T09:40:16.981151+00:00",
+      "exitCode": 1,
+      "logSha256": "5569069573f5e12a36aed6acd8fcfadb987769b46d3e430d65eb8535019987fd"
+    },
+    "cause": "검증 실행 로그의 release.json 파일명이 소스 manifest와 겹쳐 실행 메타데이터로 덮어썼다. 운영 제품 오류가 아니다.",
+    "resolution": "실행 기록을 release-run.json으로 분리 보존하고 변경하지 않은 배포 소스로501파일 manifest를 재구성한 후 운영파일을 다시 대조했다."
+  },
+  "limitations": [
+    "서비스 회원 상태는 GET API 대역을 주입해 화면 검증, 실제 회원 데이터 변경 없음",
+    "물리 iPhone 검증 아님",
+    "기존 로컬 전체 뒤로가기 통일 중 이번4개 목록과 공용 기반만 운영 반영",
+    "다른5컨테이너와 집SSH규칙 유지; 전체유닛 반복 없음; 커밋·푸시 없음"
+  ],
+  "artifacts": "/Users/ethan/repository/crefans_front/.local/collection-back-deploy-20261024",
+  "documentationAndCleanupChecks": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:41:16.627216+00:00",
+      "finishedAt": "2026-10-24T09:41:17.623919+00:00",
+      "exitCode": 0,
+      "logSha256": "aa0ba0f1a24dbc9086e313eab939ac25be7365bc4d1919bedc5053a40eb7a7b6"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:41:17.651370+00:00",
+      "finishedAt": "2026-10-24T09:41:18.066096+00:00",
+      "exitCode": 0,
+      "logSha256": "00881300cdf064c0b057b2e9e15caa00e1e86f4ceb7065b8a88669f8d00e6701"
+    },
+    {
+      "command": [
+        "docker",
+        "rm",
+        "-f",
+        "crefans-collection-back-qa"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:41:16.339349+00:00",
+      "finishedAt": "2026-10-24T09:41:16.561666+00:00",
+      "exitCode": 0,
+      "logSha256": "aa50302cbef6cbe5bdd77da7e3cf8b147ca8ea314b8bfb871984e652ae66c7ed"
+    }
+  ]
+}

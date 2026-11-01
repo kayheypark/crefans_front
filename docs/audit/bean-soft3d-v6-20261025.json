@@ -1,0 +1,189 @@
+{
+  "at": "2026-10-25T13:10:59.653640+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "commit": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "branch": "feat/bean-support",
+  "uncommitted": true,
+  "acceptanceCriteria": [
+    "10 icon is loose green beans with no skewer/container.",
+    "30 icon is a clear zipper bag and has no multiplier.",
+    "100 reuses the exact former10 image(two5-bean skewers) with shared×10 typography.",
+    "Other package images/quantities/prices preserved.",
+    "Shared preview/service component binds new assets; local mobile and PC checks pass."
+  ],
+  "generationRecord": "docs/design/bean-soft3d-v6.generation.json",
+  "assets": [
+    {
+      "quantity": 10,
+      "file": "public/brand/beans/soft3d-v6/10.png",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-19bd4d99-992b-428a-965c-2cef58109f26.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "0fe3947fb4da0ca2d386cce829574a2058f02a8aa995d57e630fc61fd64bd5e5",
+      "observedBeans": 5,
+      "manualVisualReview": true,
+      "multiplier": null
+    },
+    {
+      "quantity": 30,
+      "file": "public/brand/beans/soft3d-v6/30.png",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0402421d-44e4-4454-a53f-5b7fd983f02c.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "53275dcb2a6ffad2af818e169505cd99c431c0c8226d00cf68928de4d4a34f65",
+      "observedBeans": 5,
+      "manualVisualReview": true,
+      "multiplier": null
+    },
+    {
+      "quantity": 100,
+      "file": "public/brand/beans/soft3d-v6/100.png",
+      "source": "/Users/ethan/repository/crefans_front/public/brand/beans/soft3d-v5/10.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sha256": "24afb640b0e7edcc6ae2f0a01635aaa259fe47b3666f405d1ee8df932f725d8d",
+      "observedBeans": 10,
+      "manualVisualReview": true,
+      "multiplier": 10
+    }
+  ],
+  "changedCode": {
+    "file": "components/crefans/BeanChargePage.tsx",
+    "sha256": "312ee5aae7c8fa0807685a3f2196a49a331e6638913ab69729831b895b807eb1"
+  },
+  "commands": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "result": "layer/type checks and328 tests pass",
+      "logSha256": "d44afd4dd90d95de681c6b03079c6307b7848a3991557fb276891f2c35a4944b"
+    },
+    {
+      "command": "node .local/bean-soft3d-v6-20261025/browser.cjs",
+      "exitCode": 0,
+      "result": "Chromium390/1280 andWebKit390 pass",
+      "logSha256": "974f7aa249d72aa41d72048aae1929de8a27241594aa16f71a2053bacfef78f8"
+    }
+  ],
+  "browser": {
+    "at": "2026-10-25T13:09:51.290Z",
+    "results": [
+      {
+        "engine": "chromium",
+        "width": 390,
+        "loadedImages": 9,
+        "correctAssets": true,
+        "priceLabels": 9,
+        "selection": true,
+        "noOverflow": true,
+        "typography": [
+          {
+            "text": "×10",
+            "size": "14px",
+            "weight": "700",
+            "lineHeight": "14px",
+            "right": "0px",
+            "bottom": "0px"
+          },
+          {
+            "text": "×10",
+            "size": "14px",
+            "weight": "700",
+            "lineHeight": "14px",
+            "right": "0px",
+            "bottom": "0px"
+          }
+        ]
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "loadedImages": 9,
+        "correctAssets": true,
+        "priceLabels": 9,
+        "selection": true,
+        "noOverflow": true,
+        "typography": [
+          {
+            "text": "×10",
+            "size": "16px",
+            "weight": "700",
+            "lineHeight": "16px",
+            "right": "0px",
+            "bottom": "0px"
+          },
+          {
+            "text": "×10",
+            "size": "16px",
+            "weight": "700",
+            "lineHeight": "16px",
+            "right": "0px",
+            "bottom": "0px"
+          }
+        ]
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "loadedImages": 9,
+        "correctAssets": true,
+        "priceLabels": 9,
+        "selection": true,
+        "noOverflow": true,
+        "typography": [
+          {
+            "text": "×10",
+            "size": "14px",
+            "weight": "700",
+            "lineHeight": "14px",
+            "right": "0px",
+            "bottom": "0px"
+          },
+          {
+            "text": "×10",
+            "size": "14px",
+            "weight": "700",
+            "lineHeight": "14px",
+            "right": "0px",
+            "bottom": "0px"
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "scope": "Local shared charge UI preview; no payment submitted and no deployment"
+  },
+  "visualReview": [
+    "Generated loose-bean and zipper-bag icons inspected; five beans each.",
+    "Existing two-skewer source and copied100 asset byte identical.",
+    "All3 local grid screenshots visually inspected; no overlap/clipping;×10 placed consistently."
+  ],
+  "preview": {
+    "file": "docs/design/bean-soft3d-v6.preview.png",
+    "sha256": "a5b19d8fb5c6f929c0c747295209f86d2e8cfca1e0f4b42cc00ff29567fb8792"
+  },
+  "limits": [
+    "No production deployment. Current production remains bean-soft3d-20261025.",
+    "No real payment or provider request submitted.",
+    "Bean count is manual artwork review; package icons are illustrative, amounts come from labels.",
+    "No new product tests added for reversible asset/reference change; existing328 checks and scoped browser validation used."
+  ]
+}

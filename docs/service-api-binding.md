@@ -1,5 +1,9 @@
 # 목업 유지와 실제 서비스 바인딩
 
+## 게시물 멤버십 안내 데이터 (2026-10-24)
+
+`useServiceModel`은 피드 첫/다음 페이지와 게시물 상세가 이미 반환하는 작성자 프로필의 `plans`를 `data.creatorPlans`에 합친다. bootstrap에 있던 오래된 이름·가격·혜택은 최신 응답으로 교체하며 빈 목록도 그대로 반영한다. 표시 컴포넌트는 네트워크 호출 없이 전달된 상품으로 안내한다. 멤버십 안내 레이어 열기는 조회 화면의 지역 상태 변경이고, 선택 링크만 기존 `/service/membership/:creatorId?plan=:planId` 흐름으로 이동한다. 서버 접근권한 및 가입 snapshot 계약은 유지한다. 최초 로컬 어댑터 검증은 [검증 기록](./audit/membership-offer-20261024.json)에 있다. 이후 `membership-ui-20261024` 프론트로 운영 배포했으며, 운영 서비스의 API대역 상품 안내 검사와 실제 API 비로그인 피드/로그인 검사를 분리한 [배포 증거](./audit/membership-ui-deployment-20261024.json)를 따른다.
+
 역할별 출시 검수와 합격 조건은 [정식 출시 검수 시나리오](./release-test-scenarios.md)를 기준으로 한다. 목업/공급자 대역 통과와 실제 공급사/운영 검증을 구분한다.
 
 2026-10-07부터 실제 서비스를 목업과 별도 경로로 운영한다. 표시 컴포넌트는 둘 다 `components/crefans`를 사용하며, 실제 화면은 샘플 데이터/샘플 액션을 import하지 않는다.
@@ -32,9 +36,13 @@
 
 ## 구현 경계
 
-`useServiceModel`은 bootstrap/common과 경로별 직접 조회를 결합한다. `useDirectoryModel`은 서버 검색·카테고리·커서·늦은 응답 무시를 처리한다. 댓글 최초 10개/추가 10개, 답글은 클릭 시 별도 조회한다. 피드 페이지 추가 조회 후 좋아요·저장·읽음 처리로 목록이 초기화되지 않도록 확인된 상태만 갱신한다. 개인정보·계정 변경 등에는 실제 모델을 다시 조회한다.
+`Post.views`는 `/bootstrap`, `/posts`, `/posts/:id`가 전달하는 `Posting.total_view_count` 누적값이다. 공용 표시부가 그대로 사용하며 이전 API처럼 값이 없으면 생략한다. 신규 v1은 조회 증가를 아직 기록하지 않으므로 이 표시 연결을 자동 집계 완료로 해석하지 않는다. 현재0인 DB 값은0으로 유지한다.
+
+`useServiceModel`은 bootstrap/common과 경로별 직접 조회를 결합한다. 홈 카테고리 선택은 `feedCategory`로 주입하고 `/posts?category=분야` 및 cursor 추가 조회에 동일하게 전송한다. 필터 변경 시 이전 커서를 초기화하고 과거 응답을 무시한다. 조회 실패 시 bootstrap의 다른 분야 게시물로 대체하지 않는다. 크리에이터 프로필의 creatorId 조회는 카테고리 선택의 영향을 받지 않는다. `useDirectoryModel`은 서버 검색·카테고리·커서·늦은 응답 무시를 처리한다. 댓글 최초 10개/추가 10개, 답글은 클릭 시 별도 조회한다. 피드 페이지 추가 조회 후 좋아요·저장·읽음 처리로 목록이 초기화되지 않도록 확인된 상태만 갱신한다. 개인정보·계정 변경 등에는 실제 모델을 다시 조회한다.
 
 `useStudioModel`은 overview/finance/community와 날짜별 reports를 표시 모델 계약에 맞춘다. 미등록 계정은 크리에이터 시작하기 화면으로 유도한다. 업로드는 FormData API에 연결하고 표시용 object URL을 실제 저장 주소로 오인하지 않는다. 전역 댓글 설정·가입 당시 멤버십 버전·계좌 확인·금액/계좌에 묶인 출금 인증을 서버에 맡긴다.
+
+스튜디오 댓글 답글은 `StudioCommentReply`를 목업·서비스·디자인 시스템에서 공유한다. `CommunityReply.author`와 `fromCreator`로 작성자 사진·이름·본인 여부를 표시한다. `useStudioModel.updateReply/deleteReply`는 `/studio/comments/:id/replies/:replyId`의 PUT/DELETE에 연결하고 성공 시 목록을 다시 조회한다. 실패 시 변경 내용을 성공으로 표시하지 않으며 편집 초안을 유지한다. `/preview`는 선택한 목업 크리에이터의 활동명·사진과 메모리 상태를 사용한다. 2026-10-28 추가, 운영 미배포.
 
 `useCheckoutModel`은 서버 주문·등록된 기본 카드·승인 결과를 표시한다. Toss 공개 키는 서버 설정 조회로 받으며 브라우저에서 server secret이나 billing key를 읽지 않는다. PASS는 팝업 시작→서버 결과 확인→서버 proof 흐름이다.
 
@@ -137,6 +145,128 @@ npm run test:e2e:report                 # 최근 HTML 결과 확인
 
 실제 `/service/legal/{terms,privacy,policy}`와 가입 모달은 서버 코드 원본 `legal-documents.ts`를 같은 `LegalDocumentBody`로 표시한다. 가입 화면의 필수 개인정보 항목은 처리방침 확인이며 마케팅 동의와 분리한다. 주입된 버전/본문 해시를 signup.policyVersions로 전송하고, 최신 시행본과 불일치하면 서버409로 거부한다. 안내를 열었다고 체크박스를 자동 체크하지 않는다. `/preview`는 같은 컴포넌트에 별도 예시 문서를 주입하고 기존 링크를 유지한다.
 
-현재 문서는 운영 공개본2026-10-22.1이며, 공개일과 신규가입 적용 시행일을 구분한다. documentsPublished=true라도 signupReady=false이면 가입·가입인증메일을 차단한다. 사업자 정보는 확인했으나 보유·파기, 국외이전 및 콘텐츠 허용 범위가 미해결이다. 가입연령은 만19세 이상으로 확정하고 서버 검사를 적용했다. 발행본 대역으로 통과한 E2E를 실제 가입 개방/법률검토/공급자 검증으로 해석하지 않는다. 상세 근거와 완료 조건은 [백엔드 구현](../../crefans_server/docs/platform-implementation.md)의 코드 관리 약관 절을 따른다.
+현재 문서는 2026-10-30.2(공개일2026-10-22, 시행일2026-10-30)이며 공개일과 신규가입 적용 시행일을 구분한다. documentsPublished=true라도 signupReady=false이면 가입·가입인증메일을 차단한다. 2026-10-30 사용자 확인(국외이전 내용·일반 콘텐츠 베타 검수)과 처리방침 7·8·9조 보완(파기·보관기간, AWS Korea·Google Asia Pacific·Telegram 국외 이전, 구독 시 크리에이터 제공 동의)으로 blockers를 비우고 signupReady=true가 되었다. 베타 초대 명단 검사는 그대로다. 가입연령은 만19세 이상으로 확정하고 서버 검사를 적용했다. 발행본 대역으로 통과한 E2E를 실제 가입 개방/법률검토/공급자 검증으로 해석하지 않는다. 상세 근거와 완료 조건은 [백엔드 구현](../../crefans_server/docs/platform-implementation.md)의 코드 관리 약관 절을 따른다.
 
 - 가입 UI와 약관은 만19세 이상 기준을 함께 안내한다. 실제 권한은 서버의 서명된 공급사 결과/DB proof로 검사하며 프론트 체크박스·자가신고로 연령을 증명하지 않는다. 목업은 공유 UI/샘플 본문을 사용하고 PASS 성공 대역임을 표시한다.
+
+## 2026-10-24 홈·메시지 운영 반영
+
+`feed-inbox-20261024`에서 홈 category/cursor 조회와 수신 메시지 읽음 API를 함께 배포했다. 현재 운영 카테고리·게시물 데이터는 비어 있어 전체 칩과 빈 피드가 표시된다. 데이터가 있는 경우의 필터/페이징 및 읽음 상태 전환은 배포 이미지·운영 목업/응답 대역과 실제 격리 DB에서 검증했다. 실운영 회원 메시지는 변경하지 않았다. 선택된 소스·이미지·운영 검사 범위는 [배포 증거](./audit/feed-inbox-deployment-20261024.json)를 따른다. 준비중 가입 변경은 이 배포에 포함하지 않았다.
+
+
+## 게시물 공유 (2026-10-25)
+
+공용 PostShareDialog → `features/post-share/usePostShare` → `lib/browser/post-share` 경계로 브라우저 기능을 연결한다. 서버 API나 실제/목업 데이터를 복제하지 않으며 공유 시 별도 게시물 조회를 요청하지 않는다. 세 방식 모두 현재 보고 있는 게시물의 ID로 페이지 주소를 구성한다. 카카오와 기기 공유에는 공개 제목과 페이지 URL만 전달하고 본문·첨부·직접 파일 링크는 제외한다.
+
+카카오 SDK2.8.4는 [공식 다운로드](https://developers.kakao.com/docs/ko/javascript/download)의 SRI를 고정해 레이어 진입 후 한 번 준비한다. SDK 불러오기를 기다린 뒤 자동 공유하지 않고 사용자의 다음 버튼 클릭에서 실행한다. `NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY`는 공개 JavaScript 키이며 빌드 시 주입된다. `.env.example`의 빈 칸 및 `infra/platform/Dockerfile`의 동명 build arg를 제공했다. 연결 절차·한계는 [외부 서비스 안내](./third-party-setup.md)를 따른다. 키가 없으면 외부 SDK를 요청하지 않는다. 복사/더보기는 카카오 연결과 독립적이다.
+
+### 2026-10-25 확정 베타 정책 연결
+
+공통 ServiceGuidePage를 `/preview/guide/{fan,creator}`와 `/service/guide/{fan,creator}`에 연결하고 고객센터 FAQ/안내 링크를 공유한다. 설정에서 광고 수신 선택을 저장할 때 marketingVersion을 전달하며, 실제 데이터는 서버의 버전 동의/철회 이력을 따른다. 프록시는 수신거부 HTML과 Accept/CSP/Referrer-Policy를 전달한다. 가입·법률 게이트는 유지한다. 출금 공통 UI·목업도 최소10만원이며 정산 날짜는 확정 입금일로 오인하지 않도록 보류기간 종료일로 표시한다. 신규 주문의 테스트 결제/미사용7일 정책은 checkout snapshot을 표시한다. 별도 환불 버튼은 없다.
+
+검증: `e2e/beta-policy.spec.ts`, `e2e/service.spec.ts`, `e2e/billing-recovery.spec.ts`, `e2e/signup-deferred.spec.ts`. 실제 SMTP/PG/PASS/은행이 아닌 격리 DB·공급사 대역이다. 적용/남은 개방 조건은 [베타 계획](./beta-role-test-plan.md)을 따른다.
+
+
+## 콩 충전·후원 연결 (2026-10-25)
+
+`features/service/useBeansModel.ts`는 bootstrap.beanSupport와 세션으로 활성화하며 `BeanContext`/`BeanPages`를 목업과 공유한다. `/service/beans` 지갑·잔액/내역, `/service/beans/charge` 전용 수량 선택·충전, `/service/beans/success`/`fail` PG 결과, `/service/studio/beans` 수익·출금을 연결했다. 목업은 동일 경로의 `/preview` prefix와 useMockBeans 모델이며 실제 PG/은행 요청을 보내지 않는다. 기존 목업 카탈로그/링크는 유지한다.
+
+결제는 서버 주문을 만든 뒤 SDK 개별 결제창을 호출하고, 결과 URL의 결제키는 읽은 즉시 제거한다. 성공 URL 방문만으로 충전하지 않고 서버의 소유자·원화 금액·PG 상태 확인 결과로만 반영한다. pending 주문은 다시 결제, processing은 같은 주문 재조회다. 후원/출금 요청키는 결과 불명 때 유지하며 입력 변경 때만 새로 만든다. 화면 뒤로가기/새로고침에도 확정 잔액은 DB에서 조회한다.
+
+서버 기능은 기본 off, live 판매는 별도 gate다. 테스트 키 충전으로 실제 출금할 수 없으며 실입금·보류·PIN/계좌 버전과 베타 송금 차단은 서버에서 검사한다. 크리에이터/팬 공용 UI는 서버 오류를 표시하고 가짜 성공으로 대체하지 않는다. PG/은행 대역 E2E는 실제 금융 검증이 아니다. 출처/검증 근거: 서버 docs/platform-api.md 콩 절, 프론트 e2e/beans.spec.ts, 독립 콘솔 e2e/beans.spec.ts.
+
+2026-10-25 운영 배포: 위 콩 공용 UI/실API를 beans-20261025로 반영했다. 기능은 on, beta/test 결제·live 승인 false·실송금 false이며 로그인 보호는 유지한다. [운영 검증](./audit/bean-deployment-20261025.json)에서 실제 소스/DB/화면/배치 검수와 미실행 실금융 범위를 확인한다.
+
+2026-10-25 충전 전용 화면(운영 반영: bean-wallet-20261025): 공용 `BeanChargePage`와 기존 `Radio`를 사용해 10/30/50,100/300/500,1000/5000/10000콩을3열로 선택한다. 옛 ChargeModal의 수량/가격·선택 요약 구도만 참고하고 구형110원 상품표/PG 모델은 호출하지 않는다. 현행1콩100원·서버 가격산출·기존 주문/결제창/결과 경로는 그대로 유지한다. 지갑과 후원 레이어에서 진입하며 지갑의 미완료 주문 재시도도 유지한다. [검증 기록](./audit/bean-charge-page-20261025.json).
+
+2026-10-25 지갑 잔액 계층(운영 반영: bean-wallet-20261025): `BeanBalanceSummary`는 지갑/스튜디오에서 사용 가능한 콩·출금 가능한 콩만 주요 지표로 표시한다. 일반/프로모션과 보류·출금제외·처리중 잔액은 기존 AccordionItem의 기본 펼쳐진 계층 목록으로 제공한다. 서버 `/beans/wallet`의 `spendableBeans`·`spendableBreakdown`은 미동결 purchased/promotion lot, `withdrawableBeans`는 출금 심사 `eligible`의 일반 후원콩(live/실입금/보류완료/미동결)과 2026-10-26 승인된 회사 지급·후원 출처 검증 프로모션 후원콩의 합이다. `withdrawableBreakdown:{paid,promotion}`을 별도 표시한다. 누락값을 보유 잔액으로 추정하거나0으로 위장하지 않으며 출금 최소수량/PIN/은행 조건을 면제하지 않는다. [검증 기록](./audit/bean-balance-hierarchy-20261025.json).
+
+지갑 툴팁·모바일 내 지갑·전용 충전/잔액 계층은 `bean-wallet-20261025`로 운영 반영했다. API/worker·프론트2이미지/실행소스749파일·운영HTTP14/브라우저14·새 worker heartbeat를 확인했고 DB/관리자콘솔·미디어 및 가입/실금융 차단은 보존했다. 실제 PG/송금은 실행하지 않았다. [운영 증거](./audit/bean-wallet-deployment-20261025.json).
+
+
+2026-10-25 `bean-clay-20261025`: 충전9카드에 승인된 수량별 클레이 이미지를 적용하고 지갑의 개별 목업 안내를 제거했다. 공용 표시 컴포넌트 변경이므로 목업/실서비스 동시 적용되며 수량·가격·주문·결제 API는 불변이다. 프론트만 교체하고 API/worker는 `bean-wallet-20261025` 유지. 운영14HTTP/이미지10해시·실행563파일 및 PC/모바일7검사 통과, 실금융 실행은 제외. [배포 증거](./audit/bean-clay-deployment-20261025.json).
+
+2026-10-25 최신 프론트/API/worker `bean-vat-20261025`: 30/50이미지교환·배수제거·VAT포함110원/콩 신규충전. 프론트는 요청수량만 전송하고 서버가 금액을 계산·저장,PG창/승인은 저장금액 사용. 기존 주문 snapshot/후원·출금100원 기준·20% 유지.329프론트/30서버·4격리DB대역E2E·운영14HTTPS/806실행파일/9이미지SHA 확인. 실제PG 승인 미실행. [증거](./audit/bean-vat-deployment-20261025.json).
+
+
+### 콩 충전 완료 화면 (2026-10-26, 운영 반영)
+
+`BeanPaymentResultPage`는 충전 수량·저장된 결제 금액(VAT 포함)·주문번호·지갑/탐색 이동을 제공한다. 실제 `useBeanPaymentResult`는 소유자 전용 GET 주문 API를 먼저 확인한다. 이미 paid이면 승인 API를 재호출하지 않고, pending/processing이며 성공 콜백에 결제키가 있을 때만 기존 승인 API를 호출한다. 완료는 응답의 paid 상태에만 해당한다. 조회 실패/취소/미확정에서는 영수증을 숨긴다. 주소에서 결제키·금액을 제거하고 주문 ID만 유지하며 새로고침 시 저장 주문을 조회한다. 지갑 갱신 실패를 승인 실패로 표시하지 않는다. 기존 주문 금액을 현재 단가로 재계산하지 않는다.
+
+목업 결제와 지갑의 결제 계속은 `/preview/beans/success?id=...`로 이동해 같은 결과 화면을 사용한다. `/preview/beans/success` 직접 진입의 100콩 예시는 목업 컨테이너에서만 주입하고 실제 서비스에는 적용하지 않는다. 목업 주문 상태는 기존처럼 메모리에 있으므로 전체 새로고침 시 사라진다. 실제 주문은 DB에서 복원한다.
+
+근거 확인일2026-10-26: [토스페이먼츠 결제창 연동 공식 문서](https://docs.tosspayments.com/guides/v2/payment-window/integration)의 인증 후 서버 금액검증·결제 승인·응답 확인 단계에 따라 성공 URL 자체를 결제 완료로 간주하지 않는다. 검증은 `tests/bean-payment-result.test.cjs`, `e2e/beans.spec.ts`, [실행 증거](./audit/bean-completion-20261026.json). 개발 검증은 격리 DB·PG/은행 대역이다. 후속 `bean-wallet-ui-20261026` 프론트 배포에서 운영 목업 흐름·실서비스 비로그인 가드·소스613개 해시를 확인했다. 실공급자 결제는 실행하지 않았다. [운영 검증](./audit/bean-wallet-ui-deployment-20261026.json).
+
+
+### 지갑 내역 전용 페이지 (2026-10-26, 운영 반영)
+
+`/service/beans` 제목은 **지갑**이며 내역 본문은 `/service/beans/charges`(충전 주문), `/service/beans/history`(콩 이동 내역), `/service/beans/tips`(보낸 후원)로 분리했다. `/preview`에도 동일 경로/공용 컴포넌트를 사용한다. 새 페이지는 로그인·기능 활성화 조건을 보존하고, 페이지 진입 시 첫 페이지로 조회한다. 당시 운영의 충전 주문은 최근20건만 제공했으며 이동 내역/보낸 후원은20개씩 넘겼다. 현재 로컬의 전체 기간 필터·주문 페이지네이션은 아래 후속 절을 따른다. 미결제 주문 재시도/확인 중 주문 재조회/완료 주문 상세 진입을 유지한다. API·DB·가격·출금 정책 변경 없음.
+
+보낸 후원 조회 오류 때 이전 응답을 남기지 않고 오류로 표시하도록 실제 모델을 보정했다. 재시도로 복구할 수 있으며 실패를 빈 내역으로 오인시키지 않는다. 목업은 충전 완료 기록과 후원 기록·크리에이터 이름을 해당 목록에 제공하고 같은 페이지 크기를 사용한다. 목업 전체 새로고침 시 메모리 초기화는 유지한다. [검증 기록](./audit/bean-wallet-pages-20261026.json).
+
+2026-10-26 프론트 `bean-wallet-ui-20261026` 운영 반영: 지갑 제목·기본 펼침·초록 다색 충전 CTA·3개 전용 내역·충전 완료를 공유 컴포넌트에 적용했다. API/worker는 `bean-vat-20261025`, DB·금융 정책·가입/실금융 차단 조건 유지. [배포 증거](./audit/bean-wallet-ui-deployment-20261026.json).
+
+### 주문번호·이력 필터 (2026-10-26, 운영 미배포)
+
+`BeanHistoryPage`가 기간·상태·방향·검색 상태를 관리하고 `BeanHistoryView`에 주입한다. `useBeansModel.refresh(false,page,query)`는 wallet에 from/to/status/direction, sent tips에 from/to/q를 전달한다. 늦게 도착한 이전 조건의 응답은 generation으로 버린다. 목업/카탈로그는 `filterBeanHistory`로 전체 예시에 같은 조건을 적용한 뒤20개씩 자른다. 결과 총수와 초기화·빈 검색 결과를 제공한다. API 오류는 별도 오류 상태다.
+
+- 공통 기간: 전체/최근1·3·6개월/1년. 최근 기간은 오늘의 KST 날짜부터 달 수를 빼고 해당 월의 말일로 보정한다. 양끝 날짜를 포함하며 전체 기간은 날짜 매개변수를 보내지 않는다.
+- `/beans/wallet`: `from`,`to`(YYYY-MM-DD), `status`(pending/processing/paid/failed/cancelled/disputed), `direction`(in/out). 기간을 주문 생성일/이동일에 적용하고 상태는 주문에, 방향은 이동 증감 부호에 적용한다. `chargesTotal`/`entriesTotal`은 해당 조건의 총수. 지갑 잔액과 금융 정책은 필터와 무관하다.
+- `/beans/tips`: 같은 기간과 `q`(100자 이하, 현재 표시 크리에이터명 또는 메시지 부분 검색). 본인 sender 조건을 유지하고 필터 후 정렬·페이지 처리. `%`·`_`·역슬래시는 LIKE 검색에서 리터럴로 이스케이프한다.
+- 주문 응답 `createdAt`을 화면에서 `CF-YYYYMMDDHHmmss`(KST)로 표현한다. 생성일이 없는 응답은 `확인 불가`이며 결제일/현재시각으로 대체하지 않는다. 표시번호는 같은 초 중복 가능성이 있는 표시값이다. 결제·권한·멱등성·고객지원 실제 대조는 UUID를 유지한다. DB migration 없음.
+- 다음 배포 시 API/worker와 프론트가 모두 필요하다. 현재 운영 API `bean-vat-20261025`와 프론트 `bean-wallet-ui-20261026`는 이번 필터를 포함하지 않는다.
+
+UI 조사(2026-10-26): [쿠팡 공식 주문목록 진입 안내](https://news.coupang.com/archives/63616/)와 [2025-06-21 모바일 주문목록 캡처가 있는 사용기](https://miamiduri.tistory.com/261)를 참고했다. 상단 검색·주문별 날짜/상태/상세 진입 구성을 참고한 것이며 쿠팡의 현재 로그인 화면이나 필터 옵션을 전부 실조작 검증한 것은 아니다. 기간 칩·상태 선택·초기화는 크레팬스 기존 ChipRow/SelectField에 맞춘 적용 판단이다. [검증 기록](./audit/bean-history-filters-20261026.json).
+
+2026-10-26 후속 운영 반영: 위 주문번호·세 이력 필터와 예시 데이터를 frontend/API/worker `bean-history-20261026`로 배포했다. 이전 미배포 표기는 당시 기록이다. 소스해시·주요HTTP·worker·운영 목업4브라우저 조건 통과, DB/금융정책 유지. [배포 검증](./audit/bean-history-deployment-20261026.json).
+
+
+### 게시물 후원자 수 (2026-10-26)
+
+게시물 응답 `supporterCount`는 `bean_tips`의 게시물별 고유 `sender_id` 수다. 프로필 후원(post_id 없음)은 제외하고 동일 회원의 반복 후원·멱등 재시도는 한 명으로 집계한다. 후원자 ID/개인정보는 공개 게시물 응답에 포함하지 않는다. 게시물 후원 성공 응답도 이 수치를 반환하며 공통 BeanModel에서 카드/상세/갤러리에 공유한다. 기존 권한·게시물 소유자 검사·콩 원장은 유지한다.
+
+프론트는 동전 아이콘+인원수, 게시물 제목이 있는 전용 입력/확인/완료 화면을 사용한다. 후원 유입 충전 완료는 해당 게시물 후원으로 복귀한다. 배포 시 API/프론트와 `20261026090000_post_supporters` 복합 인덱스 마이그레이션을 함께 적용해야 한다. 현재 로컬 검증 상태이며 운영 미배포.
+
+### 프로필 관계 목록 (2026-10-26)
+
+프로필 숫자는 `/service/followers?profile={id}` 또는 `/service/following?profile={id}`로 이동하며 공개 API `/profiles/:id/connections`를 조회한다. 본인 숫자는 기존 내 목록으로 이동한다. `/preview`는 동일 목록 UI와 목업 공급자를 사용한다. 시온만 두 목록 비공개이며 서버 데이터의 시온 계정을 변경하지 않는다. API는 공개설정·소유자 확인 후 20명 단위로 제공한다. 2026-10-26 social-tips-20261026 릴리스로 운영 배포했다.
+
+설정→개인정보 관리의 팔로워 공개·팔로잉 공개는 독립 스위치다. showFollowers/showFollowing 저장 후 실제 모델을 갱신하며 목업도 같은 화면·저장 동작을 사용한다. 비공개 표시는 숫자·링크 대신 자물쇠다.
+
+## 공개 명함 QR 진입 (2026-10-27)
+
+- 2026-10-29 차콜09(Apple SD Gothic Neo) 앞·뒷면으로 변경. 공개 연락처는 khpark@crefans.com. 명함 이미지 URL에 버전 쿼리를 붙여 이전 분홍색 이미지 캐시와 구분하며 화면 배경·재생 제어도 차콜로 통일한다. 기존 타이머/중지/재생/다시보기/공개 who 검증은 유지한다. 별도 인쇄 QR 뒷면은 동일 `https://business.crefans.com/card?who=khpark`를 담는다. 배포 증거는 `docs/audit/card-charcoal-20261029.json`.
+
+- `https://business.crefans.com/card?who=khpark`: 로그인 없이 명함을 보여주는 독립 페이지. 소스는 `app/card/page.tsx`, `components/business-card/`이며 서비스/목업 회원 모델과 구형 인증 Provider를 사용하지 않는다.
+- 상단 ‘안녕하세요, 만나서 반갑습니다.’는 AOS 형식의 fade-up CSS 연출이다. 시간대 인사와 하단 연락처·안내·입장 링크·계속 보기 UI는 제거했다. 별도 애니메이션 패키지는 추가하지 않는다.
+- 양면 이미지 로드 후 3D 등장0.8초, 뒷면1초, 앞면 전환0.7초를 거친다. 앞면의 진행 막대5초 완료 후 고정 주소 `https://crefans.com/service/landing`으로 replace한다. 양면 캐시 완료를 감지하고 이미지 실패 시 자동 이동을 중지한다.
+- 진행 막대 오른쪽에44px 아이콘 버튼 중지/재생/다시보기를 표시한다. requestAnimationFrame과 단일 누적 시간축으로 회전·진행·자동 입장을 관리한다. 중지는 현재 위치를 보존, 재생은 이어서, 다시보기는 인사/명함/진행을 처음부터 재시작한다. 중복 프레임은 정리하며 동작 줄이기는 이동 연출을 생략한다.
+- 잘못되거나 누락·중복된 who는 middleware404다. 사업 도메인은 server `infra/platform/Caddyfile`에서 명함·관련 이미지·Next 정적 파일만 제공하고 나머지 경로는404다. 기존 beta 금융/가입 정책은 바꾸지 않는다.
+- 최초 배포 증거 `.local/business-card-20261027/`, 3D 배포 `.local/business-card-animation-20261027/`, 프로필 동기화 `.local/profile-card-sync-20261027/`, 현재 재생 제어 `.local/card-controls-20261027/`와 PROGRESS를 따른다. 타이머/중지/재생/다시보기/404 단위 검사 및 모바일·PC 브라우저와 HTTPS를 검증한다. 실제 인쇄물의 휴대폰 QR 스캔은 별도다.
+- PC·모바일 내 프로필은 공용 커버의 내 지갑 버튼 하나를 사용하며 설정 서비스 안내도 동일하게 표시한다. 반응형 여백/하단 메뉴/댓글 입력 같은 의도된 배치 차이는 유지한다.
+
+- 2026-10-27 미노출 복구: 로딩/첫 프레임 대기가1.2초 넘으면 CSS만으로 받은 앞면을 정적으로 표시한다. JS 비활성·스크립트 차단 시에도 앞면 표시가 가능하며 정상 연출 준비 후에는 기존 순서를 따른다. 이미지 자체가 아직 내려오지 않았거나 실패했다면 표시 가능하다고 보장하지 않는다.
+- 가시성 변경 때 기준시각을 재설정하고 hidden 구간은 진행시키지 않는다. 프레임 간격은100ms까지만 반영해 긴 정지 이후 곧바로7500ms 완료로 처리하지 않는다. 저성능 기기에서는 실제 연출이 더 길어질 수 있다.
+- 근거 확인2026-10-27: [MDN requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame), [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API), [이미지 complete](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/complete). 정상 이미지 여부는 기존 naturalWidth 확인을 유지한다. 당사자 기기의 실제 원인 확정과 재현 가능한 코드 결함을 구분한다. 증거 `.local/card-visible-20261027/`, PROGRESS의 ‘명함 미노출 조사·복구’ 참조.
+
+- 초기 서버 HTML에는 영구적인 inline 숨김을 넣지 않는다. 정상 스타일/스크립트에서는 기존 등장 연출을 유지하고, 스타일이 차단된 경우에도 앞면 HTML 자체를 숨기지 않는다. 무스타일 전체 외관을 인증한 것은 아니다. 최종 검증은 `docs/audit/card-visible-20261027.json`에 기록한다.
+
+- 2026-10-27 서비스 소개 초기 HTML: `app/service/landing/page.tsx`의 `dynamic=force-dynamic`으로 공통 query Provider가 브라우저 스크립트를 기다리며 소개 전체를 준비 문구로 대체하지 않도록 한다. 현재 에셋 모드의 소개 본문은 JS 비활성·차단에서도 제공하며 상호작용은 JS가 필요하다. 실제 신고된 명함 주소의 정확한 원인은 미확정이며 별개로 재현된 이동 대상 문제를 보완했다. 근거 [Next14 useSearchParams](https://nextjs.org/docs/14/app/api-reference/functions/use-search-params), 검증 `docs/audit/landing-ready-20261027.json`.
+
+### 2026-10-30 보낸 후원 구분 필터 (운영 반영: bean-tip-filter-20261030)
+
+보낸 후원의 기간 칩 아래 공용 `SelectField`에 전체 후원·게시물 후원·프로필 후원을 제공한다. `BeanHistoryFilters.sourceType`과 `BeanHistoryQuery.sourceType`으로 연결하며 전체는 쿼리 생략, 게시물은 `post`, 프로필은 `profile`을 `/beans/tips`에만 전송한다. 기존 검색·기간과 AND 조건이고 조건 변경/초기화 시1페이지로 복귀한다. 목업도 전체 자료에서 필터한 다음 페이지를 나누며 총수·빈 결과에 반영한다. 서버는 본인 범위에서 `post_id IS NOT NULL`/`IS NULL`을 기준으로 조회/건수 조건을 함께 적용한다. 게시물이 삭제·비공개여도 후원 구분은 바뀌지 않는다. 가격·잔액·후원/출금 실행과 DB schema 변경 없음.
+
+운영 배포 및 검증 증거는 프론트 `.local/bean-tip-filter-deploy-20261030/verification.json`과 양쪽 `PROGRESS.md`의 같은 릴리스 항목에 기록한다. 운영 브라우저 확인은 목업 자료와 비로그인 접근 제한이며, 본인 범위의 실제 API 필터는 격리 DB/E2E로 검증했다.
+
+### 운영 활동 분야 아이콘·순서 (2026-10-31)
+
+bootstrap.data.categories의 서버 정렬 순서를 홈·탐색에 그대로 사용한다(‘전체’는 맨 앞). optional categoryIcons 사전을 CategoryChip/ProfileHeader에 props로 전달하여 업로드 이미지도 같은 표시 컴포넌트로 노출한다. 목업은 기존 기본 이미지 매핑을 유지한다. 업로드 URL은 /api/v1/categories/:id/icon/:version으로 직접 조회하며 URL 버전이 변경되면 새 이미지를 받는다. 상세 관리·권한·파일 검증 계약은 서버 platform-api.md의 활동 분야 절을 따른다.
+
+### 탐색 신규 크리에이터 (2026-10-31)
+
+`GET /creators` 첫 응답의 `newCreators`를 주목할 크리에이터 아래, 전체 목록 위에 표시한다. 서버가 크리에이터 등록일 내림차순으로 최신 6명을 선정하며 광고 여부와 무관하다. 특정 기간 내 등록자라는 별도 기간 정책은 없다. 동일 검색어·카테고리와 검색 공개/활성 조건을 적용하며 후속 페이지의 빈 newCreators 배열로 첫 페이지 신규 목록을 지우지 않는다. `useDirectoryModel`의 요청 세대 검사로 이전 검색 응답이 새 검색을 덮지 않는다. 목업은 `ServiceData.newCreatorIds`로 지우·모카·시온을 예시 주입한다. 실제 서비스는 이를 대체 데이터로 사용하지 않는다. 공통 `CreatorCard`의 프로필·팔로우 동작과 `/brand/new-creators-sprout-v1.png` 이미지젠 아이콘(22px)을 사용한다.
+
+### 프로필 핸들 중복 확인 (2026-10-31)
+
+설정의 프로필 수정에서 `GET /me/handle-availability?handle=...`를 호출한다. 회원 인증이 필요하고 반환값은 핸들·사용 가능 여부뿐이며 본인 소유는 제외한다. 변경된 핸들만 중복 확인 성공 후 저장하며, 재입력·닫기·다시 열기는 이전 확인을 무효화한다. 늦은 응답은 요청 세대로 무시한다. 기존 형식의 핸들을 그대로 둔 이름·소개 수정은 핸들 값을 보내지 않아 막히지 않는다. 목업은 fixture의 크리에이터 핸들로 같은 UI를 검증하고 실서비스에 샘플을 섞지 않는다. 스튜디오 링크는 목업/서비스 각각의 `/studio`로 이동한다. 확인은 예약이 아니며 서버 저장·DB 고유 제약이 최종 중복을 거부한다.

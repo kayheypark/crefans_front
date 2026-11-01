@@ -1,0 +1,52 @@
+{
+  "createdAt": "2026-10-26T11:12:41.498Z",
+  "tool": "built-in image_gen",
+  "reference": "design/beta-event-concepts/20261026/06-color-banner-v1.png",
+  "processing": "Transparent-margin trim, 480px contain,16px padding,WebP quality90",
+  "assets": [
+    {
+      "name": "badge",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-45e824b7-0b19-4b41-8b99-2454d447720f.png",
+      "output": "public/brand/events/beta-first/color-cards-v1/badge.webp",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 51122,
+      "sha256": "02d0923d4416e22f8ce876a10a7bb33b6cf8b648e7a0a4b463738768bc1270a9",
+      "prompt": "Use case: background-extraction. Separate an existing illustration for use as a transparent web asset. Only isolate the FIRST card's translucent lavender scalloped rosette with saturated purple star, the two diagonal rays and its small lavender sparkle accents. Match the reference EXACTLY in shapes, color, lighting, relative proportions and orientation. No redesign. Remove all text, all card background and other card content. The result is just this object group on TRUE TRANSPARENT background with a subtle object shadow, centered, with only minimal 5% transparent padding so it can fill a left-hand web card illustration. No checkerboard, no white background, no letters, no numbers, no new objects. Preserve the glossy soft-3D style. Square 1024x1024."
+    },
+    {
+      "name": "crown",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-7dc6a89d-6a17-499b-b700-65528da18ad5.png",
+      "output": "public/brand/events/beta-first/color-cards-v1/crown.webp",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 44460,
+      "sha256": "9bdb6289857e9b4316d3ba615f3ad61730628485bd73918a53a1402750866730",
+      "prompt": "Use case: background-extraction. Separate an existing illustration for use as a transparent web asset. Only isolate the SECOND card's faceted purple origami crown IN FRONT OF the light lavender ticket with a purple star, including its small sparkle accents. Match the reference EXACTLY in shapes, color, lighting, relative proportions and orientation. No redesign. Remove all text, all card background and other card content. The result is just this object group on TRUE TRANSPARENT background with a subtle object shadow, centered, with only minimal 5% transparent padding so it can fill a left-hand web card illustration. No checkerboard, no white background, no letters, no numbers, no new objects. Preserve the glossy soft-3D style. Square 1024x1024."
+    },
+    {
+      "name": "beans",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-55654a4e-e841-43f9-a617-ee8798ee4375.png",
+      "output": "public/brand/events/beta-first/color-cards-v1/beans.webp",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 44508,
+      "sha256": "5e456691afb8dce75e9649b67f796e7b46382d57c1028287d9f3c0546f9285fb",
+      "prompt": "Use case: background-extraction. Separate an existing illustration for use as a transparent web asset. Only isolate the THIRD card's TWO glossy lime-green bean shapes with small gleams, two green rays, and mint sparkle accents. Exactly two beans. Match the reference EXACTLY in shapes, color, lighting, relative proportions and orientation. No redesign. Remove all text, all card background and other card content. The result is just this object group on TRUE TRANSPARENT background with a subtle object shadow, centered, with only minimal 5% transparent padding so it can fill a left-hand web card illustration. No checkerboard, no white background, no letters, no numbers, no new objects. Preserve the glossy soft-3D style. Square 1024x1024."
+    },
+    {
+      "name": "gift-card",
+      "source": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-0438f8d0-108a-4017-9cb8-6f46a625e1bf.png",
+      "output": "public/brand/events/beta-first/color-cards-v1/gift-card.webp",
+      "width": 512,
+      "height": 512,
+      "transparent": true,
+      "bytes": 39028,
+      "sha256": "beb3c502f650b7f147cc094663b61fcd7a96a28ef7f4ea0e14e6785aa038bcbf",
+      "prompt": "Use case: background-extraction. Separate an existing illustration for use as a transparent web asset. Only isolate the FOURTH card's tilted lavender rectangular gift voucher wrapped in a saturated purple ribbon and bow, with its purple rays and sparkle accents. Match the reference EXACTLY in shapes, color, lighting, relative proportions and orientation. No redesign. Remove all text, all card background and other card content. The result is just this object group on TRUE TRANSPARENT background with a subtle object shadow, centered, with only minimal 5% transparent padding so it can fill a left-hand web card illustration. No checkerboard, no white background, no letters, no numbers, no new objects. Preserve the glossy soft-3D style. Square 1024x1024."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: precise-object-edit. Edit target: the supplied CREFANS open-beta event banner. Remove ONLY the small gray-purple right-pointing chevron (>) near the far right edge beside the second headline line. Fill that small area seamlessly with the same pale mint background gradient. Preserve absolutely everything else: the exact Korean headline '크레팬스 오픈베타', second line '참여 감사 이벤트', small sentence '* 한정판 배지와 참여 혜택을 확인해 보세요.', typography, text position and size, star badge, ribbon gift card, exactly two green beans, sparkles, colors, lighting, rounded corners, outer margins, and 3:1 composition. Do not add any icon, arrow, character, button or new element. No redesign, no rearrangement, no cropping. Keep original 2172x724 dimensions as closely as possible. The only visible change must be the absence of the right chevron.",
+  "reference": "design/beta-event-concepts/20261026/08-event-list-openbeta-v2.png",
+  "original": "/Users/ethan/.codex/generated_images/01a09da4-33f8-7420-9cc4-0fdd1e10eb69/exec-8449efe5-7a6d-46ef-8b39-af2bb1c31f0b.png",
+  "createdAt": "2026-10-26T12:16:27.373Z",
+  "output": "design/beta-event-concepts/20261026/09-event-list-no-chevron-v3.png",
+  "sha256": "1fcf3573999dce393c2ad3f7cd497d7ddf3c15e861ad1bb971718cba82082145",
+  "review": [
+    "Right chevron removed",
+    "Korean headline, subtitle, footnote and illustrations visually preserved"
+  ],
+  "web": {
+    "output": "public/brand/events/beta-first/list-banner-openbeta-v3.webp",
+    "width": 2172,
+    "height": 724,
+    "sha256": "32c479d51578f469622bf1b33748df54dea1ed46b030e751f60dbb1c1d63f084",
+    "conversion": "Sharp resize2172x724, WebP quality92 effort6"
+  }
+}

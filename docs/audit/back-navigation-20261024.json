@@ -1,0 +1,1788 @@
+{
+  "at": "2026-10-24T09:03:39.844235+00:00",
+  "repository": "/Users/ethan/repository/crefans_front",
+  "head": "337f1ca4b47d5e36033a2a9df85a0daaaae65355",
+  "workingTree": "Existing uncommitted changes preserved; no commit/push",
+  "deployment": "not deployed",
+  "scope": [
+    "components/crefans/ServiceUI.tsx",
+    "components/crefans/service.module.css",
+    "components/crefans/CommonPages.tsx",
+    "components/crefans/common.module.css",
+    "components/crefans/AccountPages.tsx",
+    "components/crefans/account.module.css",
+    "components/crefans/SocialPages.tsx",
+    "components/crefans/social.module.css",
+    "components/crefans/studio/ManagementPages.tsx",
+    "components/crefans/studio/FinancePages.tsx",
+    "components/crefans/studio/ReportPage.tsx",
+    "components/crefans/studio/report.module.css",
+    "components/crefans/studio/WithdrawalSecurityPage.tsx",
+    "components/crefans/studio/withdrawal-security.module.css",
+    "components/design-system/ServicePatternCatalog.tsx",
+    "components/crefans/BackButton.tsx",
+    "components/crefans/back-button.module.css",
+    "tests/crefans-common.test.cjs",
+    "tests/crefans-studio-reports.test.cjs"
+  ],
+  "sourceSha256": {
+    "components/crefans/ServiceUI.tsx": "f77655ea8486d672b93cc18af9d25ac6b76f6570a597ed551d2e2d214afc22d8",
+    "components/crefans/service.module.css": "94e015ea0a4b08ec532dfe77633f85d51a1a756f8e1e8181948d793b73f53c8f",
+    "components/crefans/CommonPages.tsx": "1ba6e39fb5a15b0affd06c2f7a31406f2eac1cd21ba96012d57d2a9d41561f71",
+    "components/crefans/common.module.css": "efcab5ab9dc090cd3ed778b9abeabf518b10c4d9a342807e98f84e2e1ba857b2",
+    "components/crefans/AccountPages.tsx": "f6487d08424d8fb8e7b96b685f7603275d97f69c5f672f40dd46886f6bb3ff1f",
+    "components/crefans/account.module.css": "9c7fa377e4baa73d9015064f414e391407902e5339fbc8293b75195c1fd39c7b",
+    "components/crefans/SocialPages.tsx": "eb6dff31050a90e3aa1f5dcff799216c2d7f277c71ecf2d472482ebcd177a0a2",
+    "components/crefans/social.module.css": "ced07282cea45fbf55ec41f678f01c07265b3a091fe0a33f201ec61dfa5216ae",
+    "components/crefans/studio/ManagementPages.tsx": "b5837b0809ef1e00574f21cd5ce866ebabed47e2a2f70a3a95a72467f9b99b6f",
+    "components/crefans/studio/FinancePages.tsx": "9dd2edc15ee9592c2333b0df81fe9aaa23a246d14d726e96196ce526750a78cd",
+    "components/crefans/studio/ReportPage.tsx": "4a4fc524f4c3995880f3a538a81879bd647b0a6b970cb26d862f9552e20c9cf3",
+    "components/crefans/studio/report.module.css": "22105b666f4fd8581c047e39fa4337b78a2ef1461543a0d0b40d40ff918ac63a",
+    "components/crefans/studio/WithdrawalSecurityPage.tsx": "24fe550b3051c4f84a423668b47ae87fcbbefdc0ecff85c314277e8d57d0f7eb",
+    "components/crefans/studio/withdrawal-security.module.css": "a84a4634933becda94f201d334f1fb8dbf07b298de6e75db28d861d26ca92f5f",
+    "components/design-system/ServicePatternCatalog.tsx": "c38b374fbd9b9b05449e222d0d83cf66ad46e81141ed5d202b60d3c19111d47d",
+    "components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
+    "components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
+    "tests/crefans-common.test.cjs": "41184cddb1df2022b2ea40629862d2a5ac60e7d9e70d5f6fb56bd3063fef2022",
+    "tests/crefans-studio-reports.test.cjs": "8b896011dfecb7ede786bce9273e3a6ab2a2e5a62051d7c09e26e3dc7855edb7"
+  },
+  "fullMatrixSourceSha256": {
+    "components/crefans/ServiceUI.tsx": "f77655ea8486d672b93cc18af9d25ac6b76f6570a597ed551d2e2d214afc22d8",
+    "components/crefans/service.module.css": "94e015ea0a4b08ec532dfe77633f85d51a1a756f8e1e8181948d793b73f53c8f",
+    "components/crefans/CommonPages.tsx": "1ba6e39fb5a15b0affd06c2f7a31406f2eac1cd21ba96012d57d2a9d41561f71",
+    "components/crefans/common.module.css": "efcab5ab9dc090cd3ed778b9abeabf518b10c4d9a342807e98f84e2e1ba857b2",
+    "components/crefans/AccountPages.tsx": "f6487d08424d8fb8e7b96b685f7603275d97f69c5f672f40dd46886f6bb3ff1f",
+    "components/crefans/account.module.css": "9c7fa377e4baa73d9015064f414e391407902e5339fbc8293b75195c1fd39c7b",
+    "components/crefans/SocialPages.tsx": "eb6dff31050a90e3aa1f5dcff799216c2d7f277c71ecf2d472482ebcd177a0a2",
+    "components/crefans/social.module.css": "b6e68f7b1fc283e40e98ec72b7f0b1e465f03b08ab9260adcf2abc8780d91d63",
+    "components/crefans/studio/ManagementPages.tsx": "b5837b0809ef1e00574f21cd5ce866ebabed47e2a2f70a3a95a72467f9b99b6f",
+    "components/crefans/studio/FinancePages.tsx": "9dd2edc15ee9592c2333b0df81fe9aaa23a246d14d726e96196ce526750a78cd",
+    "components/crefans/studio/ReportPage.tsx": "4a4fc524f4c3995880f3a538a81879bd647b0a6b970cb26d862f9552e20c9cf3",
+    "components/crefans/studio/report.module.css": "22105b666f4fd8581c047e39fa4337b78a2ef1461543a0d0b40d40ff918ac63a",
+    "components/crefans/studio/WithdrawalSecurityPage.tsx": "24fe550b3051c4f84a423668b47ae87fcbbefdc0ecff85c314277e8d57d0f7eb",
+    "components/crefans/studio/withdrawal-security.module.css": "a84a4634933becda94f201d334f1fb8dbf07b298de6e75db28d861d26ca92f5f",
+    "components/design-system/ServicePatternCatalog.tsx": "c38b374fbd9b9b05449e222d0d83cf66ad46e81141ed5d202b60d3c19111d47d",
+    "components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
+    "components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
+    "tests/crefans-common.test.cjs": "41184cddb1df2022b2ea40629862d2a5ac60e7d9e70d5f6fb56bd3063fef2022",
+    "tests/crefans-studio-reports.test.cjs": "8b896011dfecb7ede786bce9273e3a6ab2a2e5a62051d7c09e26e3dc7855edb7"
+  },
+  "inventory": "docs/audit/back-navigation-inventory-20261024.json",
+  "requirements": [
+    "Replace every current page/list return text link with shared circular left-arrow control",
+    "Preserve original destinations, native link semantics and accessible labels",
+    "Keep local conversation return as a button; no history-based redirect",
+    "Normal/missing records and preview/service use the same control; catalog includes link and local callback cases"
+  ],
+  "checks": {
+    "layers": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:50:04.410787+00:00",
+      "finishedAt": "2026-10-24T08:50:04.931560+00:00",
+      "exitCode": 0,
+      "logSha256": "eb0b463c8972a0da028297168754c83e3785ef94a20a26a12199805dda949569"
+    },
+    "types": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:50:04.957885+00:00",
+      "finishedAt": "2026-10-24T08:50:09.614166+00:00",
+      "exitCode": 0,
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    "unit-recheck": {
+      "command": [
+        "node",
+        "--test",
+        "tests/crefans-common.test.cjs",
+        "tests/crefans-account.test.cjs",
+        "tests/crefans-studio-reports.test.cjs",
+        "tests/crefans-studio-management.test.cjs",
+        "tests/crefans-finance.test.cjs",
+        "tests/crefans-social.test.cjs",
+        "tests/content-post-preview.test.cjs",
+        "tests/dashboard-links.test.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:51:28.993075+00:00",
+      "finishedAt": "2026-10-24T08:51:29.938304+00:00",
+      "exitCode": 0,
+      "logSha256": "68968ea24fe3cbeeeb9787463c4363a6c51204c52d80e20f01d9fae204c719e5"
+    },
+    "browser": {
+      "command": [
+        "node",
+        ".local/back-navigation-20261024/check.cjs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T08:55:07.703552+00:00",
+      "finishedAt": "2026-10-24T08:56:22.994332+00:00",
+      "exitCode": 0,
+      "logSha256": "66a0706532d2ce274c805d325391ecdc6ddf1537efc97aa405ddff54cc5fa28c"
+    },
+    "browser-final": {
+      "command": [
+        "node",
+        ".local/back-navigation-20261024/check.cjs",
+        "--quick"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:01:38.505006+00:00",
+      "finishedAt": "2026-10-24T09:02:02.207214+00:00",
+      "exitCode": 0,
+      "logSha256": "d7fb1df8fbaea950395461c7fbb3f1af3e036dcdc1987965216ee8fabd39eb06"
+    },
+    "layers-final": {
+      "command": [
+        "npm",
+        "run",
+        "check:layers"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:03:39.940301+00:00",
+      "finishedAt": "2026-10-24T09:03:40.447577+00:00",
+      "exitCode": 0,
+      "logSha256": "eb0b463c8972a0da028297168754c83e3785ef94a20a26a12199805dda949569"
+    },
+    "docs-record": {
+      "command": [
+        "npm",
+        "run",
+        "docs:record"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:03:40.471551+00:00",
+      "finishedAt": "2026-10-24T09:03:41.380420+00:00",
+      "exitCode": 0,
+      "logSha256": "659d5ff4a1d562ebb06e472eaf73566a6669f8ff77958b0df00bae1311d2a7e4"
+    },
+    "docs-check": {
+      "command": [
+        "npm",
+        "run",
+        "check:docs"
+      ],
+      "cwd": "/Users/ethan/repository/crefans_front",
+      "startedAt": "2026-10-24T09:03:41.404314+00:00",
+      "finishedAt": "2026-10-24T09:03:41.765671+00:00",
+      "exitCode": 0,
+      "logSha256": "7342803762821ef7a1f7bf120e2b3cf5e92ffedf3e5d34807a8884a16aab19ed"
+    }
+  },
+  "results": {
+    "unitPassed": 84,
+    "fullBrowserCases": 79,
+    "finalFocusedBrowserCases": 19,
+    "fullBrowser": {
+      "start": "2026-10-24T08:55:07.892Z",
+      "end": "2026-10-24T08:56:22.986Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/preview/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "notices/missing",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/preview/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "reset-password",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "로그인 화면으로 돌아가기",
+            "href": "/preview/login"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/preview/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "post/moka-first-shoot",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/preview/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "messages",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대화 목록으로",
+            "href": null
+          },
+          "localReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/service/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "notices/missing",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/service/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "reset-password",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "로그인 화면으로 돌아가기",
+            "href": "/service/login"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/service/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "post/qa-post",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/service/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "messages",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대화 목록으로",
+            "href": null
+          },
+          "localReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "billing/fail",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "멤버십 결제로 돌아가기",
+            "href": "/service/checkout/11111111-1111-4111-8111-111111111111"
+          }
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/preview/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "notices/missing",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/preview/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "reset-password",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "로그인 화면으로 돌아가기",
+            "href": "/preview/login"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/preview/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "post/moka-first-shoot",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/preview/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "preview",
+          "route": "messages",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대화 목록으로",
+            "href": null
+          },
+          "localReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/service/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "notices/missing",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/service/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "reset-password",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "로그인 화면으로 돌아가기",
+            "href": "/service/login"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/service/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "post/qa-post",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/service/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "messages",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대화 목록으로",
+            "href": null
+          },
+          "localReturn": true
+        },
+        {
+          "name": "webkit390",
+          "prefix": "service",
+          "route": "billing/fail",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "멤버십 결제로 돌아가기",
+            "href": "/service/checkout/11111111-1111-4111-8111-111111111111"
+          }
+        },
+        {
+          "name": "webkit390",
+          "catalog": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/preview/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "notices/missing",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/preview/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/preview/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "reset-password",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "로그인 화면으로 돌아가기",
+            "href": "/preview/login"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/preview/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "post/moka-first-shoot",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/preview/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "studio/content/new",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "콘텐츠 목록으로",
+            "href": "/preview/studio/content"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "studio/content/morning/edit",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "콘텐츠 목록으로",
+            "href": "/preview/studio/content"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "studio/content/missing/edit",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "콘텐츠 목록으로",
+            "href": "/preview/studio/content"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "studio/settlements",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "수익 현황으로 돌아가기",
+            "href": "/preview/studio/earnings"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "studio/security",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "수익 현황으로 돌아가기",
+            "href": "/preview/studio/earnings"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "studio/reports/revenue",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대시보드로 돌아가기",
+            "href": "/preview/studio"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "studio/reports/subscribers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대시보드로 돌아가기",
+            "href": "/preview/studio"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "studio/reports/followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대시보드로 돌아가기",
+            "href": "/preview/studio"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/service/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "notices/missing",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/service/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "following",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "me?tab=saved",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "me?tab=liked",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "내 프로필로 돌아가기",
+            "href": "/service/me"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "reset-password",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "로그인 화면으로 돌아가기",
+            "href": "/service/login"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/service/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "post/qa-post",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/service/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "studio/content/new",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "콘텐츠 목록으로",
+            "href": "/service/studio/content"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "studio/content/morning/edit",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "콘텐츠 목록으로",
+            "href": "/service/studio/content"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "studio/content/missing/edit",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "콘텐츠 목록으로",
+            "href": "/service/studio/content"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "studio/settlements",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "수익 현황으로 돌아가기",
+            "href": "/service/studio/earnings"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "studio/security",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "수익 현황으로 돌아가기",
+            "href": "/service/studio/earnings"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "studio/reports/revenue",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대시보드로 돌아가기",
+            "href": "/service/studio"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "studio/reports/subscribers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대시보드로 돌아가기",
+            "href": "/service/studio"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "studio/reports/followers",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대시보드로 돌아가기",
+            "href": "/service/studio"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "billing/fail",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "멤버십 결제로 돌아가기",
+            "href": "/service/checkout/11111111-1111-4111-8111-111111111111"
+          }
+        },
+        {
+          "name": "desktop",
+          "catalog": true
+        }
+      ],
+      "errors": [],
+      "unexpected": []
+    },
+    "finalBrowser": {
+      "start": "2026-10-24T09:01:38.681Z",
+      "end": "2026-10-24T09:02:02.200Z",
+      "exitCode": 0,
+      "results": [
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/preview/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/preview/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "post/moka-first-shoot",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/preview/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "preview",
+          "route": "messages",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대화 목록으로",
+            "href": null
+          },
+          "localReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/service/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/service/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "post/qa-post",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/service/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "messages",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "대화 목록으로",
+            "href": null
+          },
+          "localReturn": true
+        },
+        {
+          "name": "chromium320",
+          "prefix": "service",
+          "route": "billing/fail",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "멤버십 결제로 돌아가기",
+            "href": "/service/checkout/11111111-1111-4111-8111-111111111111"
+          }
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/preview/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/preview/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "post/moka-first-shoot",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/preview/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "preview",
+          "route": "studio/security",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "수익 현황으로 돌아가기",
+            "href": "/preview/studio/earnings"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "notices/welcome",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "공지사항 목록으로",
+            "href": "/service/notices"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "login",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "메인으로 돌아가기",
+            "href": "/service/landing"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "post/qa-post",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "피드로 돌아가기",
+            "href": "/service/feed"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "studio/security",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "수익 현황으로 돌아가기",
+            "href": "/service/studio/earnings"
+          },
+          "navigated": true
+        },
+        {
+          "name": "desktop",
+          "prefix": "service",
+          "route": "billing/fail",
+          "measurement": {
+            "width": 44,
+            "height": 44,
+            "icon": 22,
+            "radius": "50%",
+            "text": "",
+            "decoration": "none",
+            "label": "멤버십 결제로 돌아가기",
+            "href": "/service/checkout/11111111-1111-4111-8111-111111111111"
+          }
+        },
+        {
+          "name": "desktop",
+          "catalog": true
+        }
+      ],
+      "errors": [],
+      "unexpected": []
+    },
+    "visualReview": [
+      "Mobile notice detail",
+      "Desktop notice detail",
+      "320px follower title layout"
+    ]
+  },
+  "initialFailures": [
+    {
+      "type": "Test harness",
+      "details": "Three unit failures: PageTitle mock omitted new back slot; report mock did not isolate Next Link. Updated those test doubles; all 84 passed.",
+      "metadata": {
+        "command": [
+          "node",
+          "--test",
+          "tests/crefans-common.test.cjs",
+          "tests/crefans-account.test.cjs",
+          "tests/crefans-studio-reports.test.cjs",
+          "tests/crefans-studio-management.test.cjs",
+          "tests/crefans-finance.test.cjs",
+          "tests/crefans-social.test.cjs",
+          "tests/content-post-preview.test.cjs",
+          "tests/dashboard-links.test.cjs"
+        ],
+        "cwd": "/Users/ethan/repository/crefans_front",
+        "startedAt": "2026-10-24T08:50:20.878489+00:00",
+        "finishedAt": "2026-10-24T08:50:21.847893+00:00",
+        "exitCode": 1,
+        "logSha256": "592cbca8b0d963bb835f2151ce9cdae25bf46461ad4ac740fe6ba649c8fc0469"
+      }
+    },
+    {
+      "type": "Product regression found and fixed",
+      "details": "First browser matrix exposed desktop message back button due CSS module order. Scoped .roomHeading .mobileBack to preserve desktop hiding and mobile display. Also scoped login footer centering. Full 79 and final 19 checks passed.",
+      "metadata": {
+        "command": [
+          "node",
+          ".local/back-navigation-20261024/check.cjs"
+        ],
+        "cwd": "/Users/ethan/repository/crefans_front",
+        "startedAt": "2026-10-24T08:52:57.228194+00:00",
+        "finishedAt": "2026-10-24T08:54:00.426920+00:00",
+        "exitCode": 1,
+        "logSha256": "b1369273ba8ca8673098dc5f102eb36e5699a53550641f1414709f0d85b5ef3f"
+      }
+    },
+    {
+      "type": "Fixture setup",
+      "details": "Initial fixture capture outside Next lacked useSearchParams; supplied URLSearchParams test double before browser runs."
+    }
+  ],
+  "boundaries": [
+    "Local existing Next server 3010; no new dev server",
+    "Chromium320/desktop1280 and WebKit390 emulation; not physical-device verification",
+    "Service routes use API doubles with no writes; not live backend or payment validation",
+    "101 pre-change current TS/TSX files reviewed; legacy routes and separate admin repo excluded",
+    "After full 79-case run, comment close spacing and gallery icon changed; 19 focused navigation cases were repeated on final sources"
+  ],
+  "rawArtifacts": "/Users/ethan/repository/crefans_front/.local/back-navigation-20261024"
+}
