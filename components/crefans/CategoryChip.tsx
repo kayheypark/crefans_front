@@ -8,11 +8,12 @@ const icons:Record<string,string>={
 };
 
 /** Unknown categories retain their label without borrowing a misleading icon. */
-export function CategoryIcon({label}:{label:string}){
+export function CategoryIcon({label,iconUrl}:{label:string;iconUrl?:string|null}){
   const icon=Object.hasOwn(icons,label)?icons[label]:undefined;
-  return icon?<Image src={`/brand/categories/${icon}-round-flat-v1.png`} alt="" width={20} height={20} sizes="20px" draggable={false}/>:null;
+  const src=iconUrl===undefined?(icon?`/brand/categories/${icon}-round-flat-v1.png`:null):iconUrl;
+  return src?<Image src={src} unoptimized={src.startsWith('/api/')} alt="" width={20} height={20} sizes="20px" draggable={false}/>:null;
 }
 
-export function CategoryChip({label,selected,onClick}:{label:string;selected?:boolean;onClick?:()=>void}){
-  return <Chip selected={selected} onClick={onClick} icon={Object.hasOwn(icons,label)?<CategoryIcon label={label}/>:undefined}>{label}</Chip>;
+export function CategoryChip({label,iconUrl,selected,onClick}:{label:string;iconUrl?:string|null;selected?:boolean;onClick?:()=>void}){
+  return <Chip selected={selected} onClick={onClick} icon={iconUrl||iconUrl===undefined&&Object.hasOwn(icons,label)?<CategoryIcon label={label} iconUrl={iconUrl}/>:undefined}>{label}</Chip>;
 }
