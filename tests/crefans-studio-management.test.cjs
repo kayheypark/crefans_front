@@ -264,3 +264,11 @@ test('an uploaded iPhone video shows its own thumbnail while converting, is poll
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.deepEqual(Object.keys(saved[0].media.at(-1)).sort(),['id','type','url'],'local preview never sent');
   act(()=>tree.unmount());probe.close();
 });
+test('a failed conversion blocks saving with a clear instruction instead of a server error (2026-11-01)',async()=>{
+  const probe=fixtureHook(),calls=[];
+  const model={...probe.model,actions:{...probe.model.actions,saveContent:async input=>{calls.push(input);return {success:true,data:{message:'Saved',id:'draft1'}};}},contents:[{...initialContent,media:[{id:'v9',type:'video',url:'/api/v1/media/v9/file',failed:true}]}]};
+  const tree=mount(ContentEditorPage,model,'draft1');
+  await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+  assert.equal(calls.length,0);assert.match(json(tree),/변환에 실패한 동영상을 지우고 다시 올려 주세요/);
+  act(()=>tree.unmount());probe.close();
+});

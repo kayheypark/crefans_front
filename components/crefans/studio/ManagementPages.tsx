@@ -121,7 +121,9 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     }catch{if(request===mediaRequest.current)setMediaError('미디어를 불러오지 못했어요. 다시 선택해주세요.');}
     finally{if(request===mediaRequest.current)setUploading(false);}
   }
-  function save(nextStatus:StudioContentStatus){setError('');if(!title.trim()){setError('제목을 입력해주세요.');return;}if(nextStatus!=='draft'&&!body.trim()){setError('게시할 내용을 입력해주세요.');return;}
+  function save(nextStatus:StudioContentStatus){setError('');if(!title.trim()){setError('제목을 입력해주세요.');return;}
+    // A failed conversion would be refused by the server; say what to do instead (2026-11-01).
+    if(media.some(item=>item.failed)){setError('변환에 실패한 동영상을 지우고 다시 올려 주세요.');return;}if(nextStatus!=='draft'&&!body.trim()){setError('게시할 내용을 입력해주세요.');return;}
     const scheduled=scheduledAt?new Date(scheduledAt):null;
     if(nextStatus==='scheduled'&&(!scheduled||!Number.isFinite(scheduled.getTime())||scheduled.getTime()<=Date.parse(model.now))){setError('예약 시각을 현재보다 미래로 선택해주세요.');return;}
     void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:media.map(({id,type,url})=>({id,type,url})),commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);

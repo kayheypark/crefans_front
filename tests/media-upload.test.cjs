@@ -123,7 +123,7 @@ test('a converting iPhone video keeps its own thumbnail with a small optimizing 
   const picker=mount({items:[{id:'m',type:'video',url:'/api/v1/media/m/file',processing:true,preview:'blob:local-m'},{id:'n',type:'video',url:'/api/v1/media/n/file',processing:true},{id:'f',type:'video',url:'/api/v1/media/f/file',failed:true}]});
   try{
     const videos=picker.view.root.findAllByType('video');assert.equal(videos.length,1);assert.equal(videos[0].props.src,'blob:local-m#t=0.001');
-    const text=JSON.stringify(picker.view.toJSON());assert.equal((text.match(/영상 최적화 중/g)||[]).length,3,'label on the thumbnail, notice text and its aria-label');assert.match(text,/변환 실패/);assert.doesNotMatch(text,/동영상 변환 중/);
+    const text=JSON.stringify(picker.view.toJSON());assert.equal((text.match(/영상 최적화 중/g)||[]).length,3,'label on the thumbnail, notice text and its aria-label');assert.match(text,/변환 실패/);assert.match(text,/삭제 후 다시 올려 주세요/);assert.doesNotMatch(text,/동영상 변환 중/);
     assert.equal(picker.buttons().filter(item=>/삭제$/.test(item.props['aria-label']||'')).length,3,'all can still be removed');
     picker.update({items:[{id:'m',type:'video',url:'/api/v1/media/m/file'}]});
     assert.doesNotMatch(JSON.stringify(picker.view.toJSON()),/영상 최적화 중/);assert.equal(picker.view.root.findByType('video').props.src,'/api/v1/media/m/file#t=0.001');
