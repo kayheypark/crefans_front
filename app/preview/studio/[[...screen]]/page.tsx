@@ -7,6 +7,6 @@ export async function generateMetadata(props:{params:Promise<{screen?:string[]}>
 export default async function Page(props:{params:Promise<{screen?:string[]}>}){
  const params=await props.params;
  const parts=params.screen||[],[screen='dashboard',id,action]=parts;
- const valid=titles[screen]&&(parts.length<=1||screen==='reports'&&parts.length===2&&!!reportTitles[id]||screen==='content'&&(parts.length===2&&id==='new'||parts.length===3&&action==='edit'));
+ const valid=titles[screen]&&(parts.length<=1||screen==='beans'&&parts.length===2&&['withdraw','tips','payouts'].includes(id)||screen==='reports'&&parts.length===2&&!!reportTitles[id]||screen==='content'&&(parts.length===2&&id==='new'||parts.length===3&&action==='edit'));
  if(!valid)notFound();return <StudioRouter segments={parts}/>;
 }

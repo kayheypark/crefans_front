@@ -84,3 +84,4 @@
 
 /* Tip kind label (게시물·프로필 후원) with the support coin on its left. */
 .tipKind{display:inline-flex;align-items:center;gap:6px;justify-self:start}.tipKind>img{flex:none}
+.studioWithdraw{display:flex;width:100%;margin:20px 0 8px}.studioNotes{margin-top:40px}.withdrawable{display:flex;justify-content:space-between;align-items:baseline;margin:4px 0 20px;padding:16px 18px;border-radius:var(--cf-radius-control);background:var(--cf-color-surface-muted,#f5f6f8);font-size:15px}.withdrawable strong{font-size:20px}
