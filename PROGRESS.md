@@ -3331,3 +3331,9 @@
 - 공용 AccountPages.SettingsPage의 PageTitle.action에 링크 추가. 기존 back-button.module.css 원형44px·회색 배경·hover·키보드 포커스 스타일과 Icon(close)24px 재사용. basePath에 따라 /preview/me 또는 /service/me로 이동. 설정 수정 모달의 닫기 동작은 유지.
 - 합격 조건/검증: 로컬 PC Chromium·iPhone13 WebKit 에뮬레이션에서 제목 우측 정렬,44×44 클릭 영역,24px 아이콘,가로 넘침 없음,PC Enter/모바일 tap 후 /preview/me 이동,프로필 수정 모달만 닫으면 설정 유지 모두 통과. npm run typecheck exit0. 증거 `.local/settings-close-20261101/verification.json`, verify.cjs, PC/mobile 화면 캡처. 모바일 캡처 시각 확인. 실제 운영·실물 iPhone 검증 및 배포는 미실행.
 - AGENTS 규약 변경 없음. 다음: 운영 배포 요청 시 dev 통합·검증→prod 승격 후 배포 절차 진행.
+
+## 2026-11-01 모바일 당겨서 새로고침 개선·배포 준비
+- 요청: 아이폰 Chrome에서 홈·탐색·내 프로필을 위에서 아래로 당겨 새로고침 가능하도록 수정·운영 배포. 최신 prod에서 feat/mobile-pull-refresh 분기 후 이전 미배포 설정 X 버튼(462d302)을 포함. 대시보드 시안 구현은 포함하지 않음.
+- 원인: ServiceShell의100dvh 내부 스크롤·overscroll-behavior-y:none으로 브라우저 새로고침에 도달하지 못함. GNB/댓글 키보드 기존 동작을 보존하기 위해 공용 PullToRefresh 추가. 홈·탐색·내/공개 프로필,모바일 coarse pointer,최상단,단일 아래 당김96px 이상을 놓을 때 현재 URL reload. 짧은/가로/위쪽/취소/다중 터치·중첩 스크롤·입력·댓글 초안·모달은 제외. WebKit/Chrome·W3C 근거 및 적용 판단은 docs/design-system.md와 `.local/pull-refresh-20261101/research.json`에 기록.
+- 검증: 로컬 관련 E2E13통과/기기조건5제외, 댓글·갤러리7통과/PC2제외. Chromium CDP 터치와 WebKit 합성 TouchEvent 구분. 최초 CDP 검사에서는 관성 스크롤 종료 전 다음 제스처를 시작하여 실패→관성 종료 대기 후 통과. 후속 병렬 테스트 출력 폴더 경합 ENOENT는 출력 경로 분리·순차 재실행으로 해결. 전체 검사489중 설정 링크 기대값1건 실패는 새 X 링크를 포함하도록 수정하고 해당 계정 검사 재통과. 운영용 빌드 exit0, 이미지 검증 진행 중.
+- 배포 기준: 현재 운영 watermark-20261101의 이미지 레이어·원본 소스 해시 대조 후 AccountPages/ServiceShell/PullToRefresh 및 전용CSS 총4제품파일만 동결. `.local/pull-refresh-deploy-20261101/`에 빌드/배포/검증 증거. API·worker·관리자·DB·정책 변경 없음. 실물 아이폰 Chrome 동작은 미검증이며 자동화 결과로 대체 주장하지 않음. 다음: dev 통합검사→prod 승격→운영 배포·운영 URL 재검증. AGENTS 규칙 변경 없음.
