@@ -95,7 +95,7 @@ test('editor shows a live phone-frame preview beside the form that follows unsav
   act(()=>audience[0].props.onChange(''));
   assert.equal(detail()[0].props.model.data.posts[0].title,'저장하지 않은 제목');assert.equal(detail()[0].props.model.data.posts[0].body,'저장하지 않은 본문');assert.equal(detail()[0].props.model.data.posts[0].requiredRank,0);
   assert.equal(view.root.findByProps({maxLength:120}).props.value,'저장하지 않은 제목');
-  assert.equal(view.root.findByProps({'data-media-upload':'미디어 · 선택'}).props['data-count'],2);assert.equal(view.root.findByProps({'data-media-upload':'미디어 · 선택'}).props['data-max'],10);
+  assert.equal(view.root.findByProps({'data-media-upload':'파일 업로드'}).props['data-count'],2);assert.equal(view.root.findByProps({'data-media-upload':'파일 업로드'}).props['data-max'],10);
  }finally{close(view);}
 });
 
