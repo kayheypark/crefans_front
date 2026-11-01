@@ -1,5 +1,12 @@
 # PROGRESS: crefans_front
 
+## 2026-11-01 글쓰기 화면 다듬기·후원 정렬 — editor-polish-20261101 운영 배포
+
+- 커밋: 657bdef(저장 전 새 글 임시저장 뱃지 숨김, 입력 안내 '제목을 입력하세요'/'내용을 입력하세요'), 1539f44(미디어 입력 제목 '파일 업로드'), 8cecf9b(후원 `.postTip` align-items:center; 미리보기에서 비활성 span일 때 숫자가 약 4px 위).
+- 미커밋(배포됨): 예약 박스 배경 제거, 박스 하단 안내 문구 삭제, 예약 시각이 있으면 주 버튼이 '예약하기'로 바뀌고 예약 저장(별도 예약하기 버튼 제거, 예약 사용만 켜고 시각이 없으면 주 버튼 비활성). 예약 토글 코드 자체가 다른 세션의 미커밋 작업이라 함께 커밋하지 않음. 관련 테스트(`tests/crefans-studio-management.test.cjs`)도 미커밋.
+- 검증: npm test 440, tsc, 대조(버튼 저장 상태·라벨 되돌리면 실패), 운영 /preview 모바일 WebKit에서 뱃지 0·안내 문구·'파일 업로드'·배경 투명·시각 입력 시 '예약하기' 확인. 증거 `.local/editor-polish-deploy-20261101/`.
+- 업로드 영역 심플 시안 5개(`.local/upload-drafts-20261101/upload-drafts.png`) 중 사용자가 B(회색 버튼 한 줄) 선택. 6db00ab: 버튼 맨 위·안내 '이미지 5MB · 동영상 300MB · 최대 10개'·작은 썸네일(72~88px), '끌어서 순서 변경' 문구 제거(드래그 정렬 기능은 유지). 운영 `upload-b-20261101` 배포, 운영 /preview 모바일 확인.
+
 ## 2026-11-01 아이폰 동영상 미리보기 첫 프레임 — video-frame-20261101 운영 배포 (메인 ba125ac, 브랜치 feat/video-upload-first-frame ff30831 미푸시)
 
 - 작업 폴더 `/Users/ethan/repository/crefans_front-video-thumb`(origin/prod 기준 worktree), 커밋 ff30831. `MediaVideo` `firstFrame`(src#t=0.001)을 업로드 타일·피드·넓게 보기·스튜디오 목록에 적용.
