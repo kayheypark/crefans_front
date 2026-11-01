@@ -40,7 +40,7 @@ export function BeanWalletOverview({basePath,wallet,loading,error}:{basePath:str
  return <section className={`${s.page} ${s.walletPage}`}>
   <PageTitle back={<BackButton href={`${basePath}/me`} label="내 프로필로 돌아가기"/>} action={<InfoTooltip label="콩 단위 안내" content={beanPriceNotice}/>}>지갑</PageTitle>
   {error&&<p role="alert">{error}</p>}
-  <BeanBalanceSummary wallet={wallet} loading={loading} action={<BeanChargeLink basePath={basePath}/>} detailsOpen={false}/>{/* 2026-10-31: the wallet keeps the breakdown folded */}
+  <BeanBalanceSummary wallet={wallet} loading={loading||!wallet&&!error} action={<BeanChargeLink basePath={basePath}/>} detailsOpen={false}/>{/* 2026-10-31: the wallet keeps the breakdown folded */}
   {wallet?.expiringSoon&&<p className={s.walletExpiry} role="status">{beans(wallet.expiringSoon.quantity)}이 {beanExpiryDate(wallet.expiringSoon.expiresAt)}에 유효기간이 끝나요</p>}
   <nav className={s.walletLinks} aria-label="지갑 내역">
    {(['charges','history','tips'] as const).map(kind=><Link key={kind} href={`${basePath}/beans/${kind}`}><Icon name={kind==='charges'?'card':kind==='history'?'arrow':'heart'} width={26} height={26}/><span>{titles[kind]}</span><Icon name="chevron" width={16} height={16}/></Link>)}

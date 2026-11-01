@@ -1,11 +1,14 @@
 'use client';
 
 import {AccordionItem} from '@/components/ui/Accordion';
+import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
+import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import type {ReactNode} from 'react';
 import type {BeanWallet} from '@/types/crefans-beans';
 import s from './beans.module.css';
 
-const beans=(value:number|undefined,loading:boolean)=>value===undefined?(loading?'불러오는 중…':'확인할 수 없습니다'):value.toLocaleString('ko-KR')+'콩';
+// Loading rule: an unknown amount stays blank while the request is pending (spinner after 1s); only a finished response may say it is unknown.
+const beans=(value:number|undefined,loading:boolean)=>value===undefined?(loading?'':'확인할 수 없습니다'):value.toLocaleString('ko-KR')+'콩';
 
 export function BeanBalanceSummary({wallet,loading=false,withdrawableBeans,action,detailsOpen=true}:{wallet:BeanWallet|null|undefined;loading?:boolean;withdrawableBeans?:number;action?:ReactNode;detailsOpen?:boolean}){
   const available=wallet?.spendableBeans,withdrawable=withdrawableBeans??wallet?.withdrawableBeans;
@@ -13,12 +16,12 @@ export function BeanBalanceSummary({wallet,loading=false,withdrawableBeans,actio
   const balance=(bucket:string)=>wallet?Number(wallet.accounts.find(account=>account.bucket===bucket)?.balance||0):undefined;
   const heldSpendable=!wallet||available===undefined?undefined:Math.max(0,(balance('purchased')||0)+(balance('promotion')||0)-available);
   const heldEarned=!wallet||withdrawable===undefined?undefined:Math.max(0,(balance('earned-paid')||0)+(balance('earned-promotion')||0)-withdrawable);
-  const amount=(value:number|undefined)=>beans(value,loading);
+  const amount=(value:number|undefined)=>beans(value,loading),slow=useDelayedLoading(loading);
   return <section aria-label="콩 잔액">
-    <dl className={s.walletSummary}>
+    <div className={s.walletSummaryBody} aria-busy={loading}><dl className={s.walletSummary}>
       <div><dt>사용 가능한 콩</dt><dd>{amount(available)}</dd></div>
       <div><dt>출금 가능한 콩</dt><dd>{amount(withdrawable)}</dd></div>
-    </dl>
+    </dl>{slow&&<LoadingSpinner overlay/>}</div>
     {action}
     <div className={s.balanceDetails}><AccordionItem title="콩 세부 내역" defaultOpen={detailsOpen}>
       <ul className={s.balanceTree}>

@@ -8,6 +8,9 @@ function mount(Component,props){let tree;act(()=>tree=create(React.createElement
 test('wallet overview offers three dedicated routes, single-bean charge action and details folded by default (2026-10-31)',()=>{
  const tree=mount(BeanWalletOverview,base);try{assert.equal(text(tree.root.findByType('h1')),'지갑');const nav=tree.root.findByProps({'aria-label':'지갑 내역'});assert.deepEqual(nav.findAllByType('a').map(a=>a.props.href),['/service/beans/charges','/service/beans/history','/service/beans/tips']);assert.equal(tree.root.findByProps({'aria-controls':tree.root.findByProps({role:'region'}).props.id}).props['aria-expanded'],false);assert.equal(tree.root.findAllByType('img').filter(img=>img.props.src==='/brand/beans/soft3d-v2/10.png').length,1);assert.equal(tree.root.findAllByType('li').some(n=>text(n).includes('paid-order')),false);}finally{act(()=>tree.unmount());}
 });
+test('wallet totals before the first response stay blank, never \'확인할 수 없습니다\' (loading rule 2026-11-01)',()=>{
+ for(const [props,expected] of [[{...base,wallet:null},['','']],[{...base,wallet:null,error:'조회 실패'},['확인할 수 없습니다','확인할 수 없습니다']]]){const tree=mount(BeanWalletOverview,props);try{assert.deepEqual(tree.root.findByProps({'aria-label':'콩 잔액'}).findAllByType('dd').map(text),expected);}finally{act(()=>tree.unmount());}}
+});
 test('charge page preserves old order amount and resumes only its pending order',()=>{
  const calls=[],tree=mount(BeanHistoryView,{kind:'charges',model:base,onPay:o=>calls.push(o.id),onPage(){}});try{assert.match(text(tree.toJSON()),/3,000원/);const button=tree.root.findAllByType('button').find(n=>text(n)==='결제 계속');act(()=>button.props.onClick());assert.deepEqual(calls,['pending-order']);assert.ok(tree.root.findAllByType('a').some(n=>n.props.href==='/service/beans/success?id=paid-order'));assert.equal(tree.root.findAllByType('li').length,2);}finally{act(()=>tree.unmount());}
 });
