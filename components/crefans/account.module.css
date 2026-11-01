@@ -40,7 +40,7 @@
 
 .signInPrompt{width:100%;min-height:calc(100svh - 180px);display:grid;place-items:center;margin:0;padding:48px 16px}
 /* Phones: the page body already has the 16px side gutter (same as the feed), so the prompt adds none. */
-@media(max-width:767px){.signInPrompt{padding-inline:0}}
+@media(max-width:767px){.signInPrompt{padding-inline:0}.signInPrompt>footer{width:100%;max-width:none}}
 .signInPrompt>div{width:100%;max-width:400px;padding:0;gap:12px}
 .signInPrompt>div>p:first-child{font-size:24px;line-height:1.4;letter-spacing:-.6px;color:var(--cf-color-text)}
 .signInPrompt>div>p:not(:first-child){font-size:14px;line-height:1.8}
