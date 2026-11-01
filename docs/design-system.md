@@ -24,10 +24,10 @@
 - PC·GNB/댓글 입력바 배치는 유지한다. 스튜디오·랜딩은 원래 문서 스크롤이므로 중복 제스처를 추가하지 않는다. [전체 경로 조사](./audit/mobile-refresh-route-audit-20261102.json), [조회 화면/보호 조건 검사](../e2e/pull-refresh-pages.spec.ts), [기존 회귀 검사](../e2e/pull-to-refresh.spec.ts)는 합성 TouchEvent, Chromium CDP 터치, WebKit 에뮬레이션을 구분하며 실물 아이폰 Chrome 검증을 대신하지 않는다.
 - 근거 확인2026-11-01: [Chrome overscroll 안내](https://developer.chrome.com/blog/overscroll-behavior), [W3C Touch Events Level2](https://www.w3.org/community/reports/touchevents/CG-FINAL-touch-events-20240704/). 내부 스크롤·overscroll 차단을 유지해 GNB 회귀를 피하고, 대상 스크롤러에 한정한 non-passive touchmove를 유효한 아래 당김에서만 취소하는 적용 판단이다. 브라우저 자체 새로고침 UI를 복원하는 방식은 아니다.
 
-### 친구 초대·레퍼럴 (2026-11-01)
+### 친구 초대 이벤트·레퍼럴 (2026-11-01)
 
 - `ReferralCard`는 실제·목업 지갑의 공통 초대 카드다. 기존 콩 이미지, 연한 초록 보상 영역, 링크 입력/복사 버튼, 세 가지 참여 지표, 보상 안내 순서로 구성한다. 금액·대기일·월 상한·집계는 주입된 응답을 사용하며 원래 보상 조건을 바꾸지 않는다.
-- 복사 성공은 `SnackbarProvider`/`Toast`로 하단에 4초간 표시한다. 본문 높이는 바뀌지 않고 모바일 GNB 위에 나타난다. 실패는 링크 옆에 남겨 직접 복사할 수 있게 한다. 서비스 UI 카탈로그의 친구 초대 예시는 참여 있음/없음을 제공한다.
+- 복사 성공은 `SnackbarProvider`/`Toast`로 하단에 4초간 표시한다. 본문 높이는 바뀌지 않고 모바일 GNB 위에 나타난다. 실패는 링크 옆에 남겨 직접 복사할 수 있게 한다. 서비스 UI 카탈로그의 친구 초대 이벤트 예시는 참여 있음/없음을 제공한다.
 
 ### 회원가입 완료 (2026-10-31)
 
@@ -47,7 +47,7 @@
 
 ### 지갑·내역 탐색 (2026-10-26)
 
-- `BeanWalletPages.tsx`의 `BeanWalletOverview`/`BeanHistoryView`를 실제 서비스·목업·카탈로그에서 공유한다. 지갑에는2개 주요 잔액, 한 알 콩 PNG(`soft3d-v2/10.png`)와60px 풀빛 초록·그린·에메랄드·청록 그라데이션 충전 버튼(플러스 아이콘 없음), 한 행 최대2개인 충전 주문/콩 이동 내역/보낸 후원 박스 링크를 둔다.
+- `BeanWalletPages.tsx`의 `BeanWalletOverview`/`BeanHistoryView`를 실제 서비스·목업·카탈로그에서 공유한다. 지갑에는2개 주요 잔액, 한 알 콩 PNG(`soft3d-v2/10.png`)와60px 풀빛 초록·그린·에메랄드·청록 그라데이션 충전 버튼(플러스 아이콘 없음), 한 행 최대2개의 박스 링크를 친구 초대 이벤트 → 충전 내역 → 콩 내역 → 후원 내역 순서로 둔다. 친구 초대 이벤트는 기능을 이용할 수 있을 때만 표시한다.
 - `BeanBalanceSummary`의 콩 세부 내역은 기본 펼침이며 접고 펼칠 수 있다. 같은 요약을 쓰는 스튜디오에도 적용된다. action 슬롯으로 잔액 아래에 충전 버튼을 배치했다. 이전 문서의 기본 접힘은 당시 상태 기록이다.
 - 내역은 상태 배지·금액/증감·사유/메시지·일시를 정렬된 목록으로 제공한다. 조회 실패/로딩/빈 상태/결제 버튼 비활성을 카탈로그에서 확인한다. 데이터 오류를 빈 목록으로 표시하지 않는다. 버튼은44px 이상, reduced-motion에서 전환 효과를 끈다. 그라데이션은 정적 배경이며 반복 빛줄기 애니메이션은 추가하지 않았다.
 - `bean-wallet-ui-20261026` 운영 반영. [운영 검증](./audit/bean-wallet-ui-deployment-20261026.json), [개발 검증](./audit/bean-wallet-pages-20261026.json), [초록 다색 버튼 검증](./audit/bean-charge-green-blend-20261026.json).

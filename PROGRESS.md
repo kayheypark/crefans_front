@@ -3357,3 +3357,15 @@
 - 빌드 이미지 대표 회귀21통과/기기9제외, 운영 주소의 전체 관련 브라우저99통과/기기48제외/실패0(37조회 경로×모바일2환경 및 보호·PC·GNB 등). 별도9경로에서 로딩 완료 후 당김 안내와 reload/URL 유지 확인, 운영 JS/CSS50파일이 검사한 이미지와 해시 일치. 지갑·대화 목록 화면 캡처 보존. 서비스 지갑 직접 검사는 비로그인 안내 화면이며 실제 로그인 잔액 조회는 미실행; 운영 preview 지갑은 fixture. 실물 아이폰 Chrome 미검증.
 - 운영6서비스 실행 정상, 프론트만 교체하고 API·worker·관리자·DB·proxy 컨테이너 동일. 로컬/운영 최신3개 및 사용중·직전복구 이미지 보호 후 오래된 beans-empty 이미지 각1개 정리. 임시 로컬 검사 컨테이너 중지, Docker Desktop 유지.
 - 증거 `.local/pull-refresh-pages-deploy-20261102/verification.json`, `deployment-git.json`, `deployment-command.json`, `source-delta.json`, `image-ui/results.json`, `production-ui/results.json`, `live-page-verification.json`, `served-assets.json`, retention 결과. 본 완료 기록도 최신 prod 기준 feat→dev→prod로 통합. 코드·테스트·문서 범위 완료, 물리 iPhone/실계정 금융 검증은 별도 범위로 남김.
+
+## 2026-11-02 놓으면 새로고침 안내 아이콘 교체
+- 사용자 요청: 놓으면 새로고침 안내를 새로고침 아이콘으로 표시. 최신 origin/prod(5dfaca3)에서 feat/pull-refresh-ready-icon 분기. 공용 Icon에 기존 선 굵기·색상을 따르는 원형 화살표 refresh 추가, PullToRefresh의 준비 완료 상태에22px로 사용. 당기는 중 아래 화살표·임계값·reload 로직은 유지. 공용 셸 대상 화면에 동일 적용.
+- npm run typecheck exit0. 로컬 격리 dev3011/.next-e2e에서 홈·지갑 각각 mobile Chromium/ iPhone13 WebKit 합성 TouchEvent 검사4건 통과: 짧은 당김 초기화, 준비 상태 원형 화살표·22px·회전 없음, 놓은 뒤 현재 URL reload. Chromium 홈·WebKit 지갑 캡처 시각 확인. `.local/pull-refresh-ready-icon-20261102/`의 verify.cjs/results.json/PNG 및 verification.json에 증거 보존.
+- 최초 검증은 reload 중 잠깐 나타나는 기존 LoadingSpinner를 기다리다 실패(탐색 대기·DOM 미관측). 이번 변경 대상인 준비 상태 아이콘과 실제 reload를 분리하여 재검증 통과했으며 로딩 표시의 실제 노출은 확인하지 못함. 제품 코드에서 기존 로딩 분기는 변경하지 않음. 실물 iPhone·운영 검증/배포는 미실행. 임시 서버 종료·next-env 자동 변경 원복. AGENTS 불변 규약 변경 없음. 다음: 운영 반영 요청 시 dev 통합→prod 승격·배포.
+
+## 2026-11-02 지갑 메뉴 명칭·순서 및 가이드 동기화
+- 최신 origin/prod(5dfaca3)에서 feat/wallet-navigation-labels 분기. 지갑 메뉴를 친구 초대 이벤트 → 충전 내역 → 콩 내역 → 후원 내역 순서로 변경. 친구 초대 기능 이용 가능 여부 조건 유지. 같은 공용 화면을 사용하는 서비스·목업의 제목/접근성 이름/브라우저 제목, 후원 완료 이동 링크, 카탈로그, 팬 이용안내와 현재 설명 문서를 동기화. 320px에서 이벤트가 글자 단위로 나뉘지 않도록 메뉴에 word-break:keep-all 적용.
+- URL·API·주문번호·금융 로직 유지. 후원 내역은 여전히 내가 보낸 후원만 조회. 실제 충전 주문을 설명하는 오류/재결제 문구, 관리자 용어, 타사 친구 초대 기능명, 과거 검증 기록은 메뉴 이름과 구분해 유지.
+- 타입검사·기존 지갑 단위6건 통과. PC Chromium1440/모바일 WebKit390/모바일 Chromium320에서 네 메뉴 순서·링크·제목·브라우저 제목·2열·넘침 및 가이드4페이지를 검증(경로 확인24건 통과). 실제 운영/실물 기기/금융 실행 미검증. 첫 WebKit 검사는 이전 화면 복귀 완료 전 외부 가이드로 이동해 경합했으며 복귀 완료 대기 후 통과. 증거 `.local/wallet-navigation-labels-20261102/`의 ui-results.json, 화면 PNG, typecheck.log, unit.log, verification.json.
+- crefans_guide의 지갑/콩/문제해결/소개서 자료, 소개서 HTML·PDF13쪽 갱신. PDF7쪽만 본문·픽셀 변경, 나머지12쪽 동일·전체 렌더/변경쪽 시각 확인. 가이드 빌드28페이지·링크/앵커1350개·정책 숫자15개·서비스 링크45개 검사 통과. 전체 check:guides는 작업 전부터 있던 소스 잠금 불일치31건 때문에 실패 상태 유지; 이번에 새로 달라진 ServiceGuidePage 잠금1개만 검토·갱신. 이를 가이드 전체 현행화 통과로 간주하지 않음.
+- 백엔드는 생성 문서 current-contracts.md의 화면명4개·순서만 동기화. 이전 새로고침 아이콘(2c2a784), 대시보드 작업 및 디자인 시안은 각 브랜치에 보존. 이번 작업 운영 배포 없음. 다음: 요청 시 필요한 미배포 작업을 dev 통합·검증→prod 승격 후 배포. AGENTS 불변 규약 변경 없음.

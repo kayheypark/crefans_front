@@ -62,7 +62,7 @@ export function TipButton({creatorId,name,postId,post,creator,disabled=false,pro
    <p className={s.tipCompleteTitle} role="status">{beans(result.quantity)} 후원을 보냈어요</p>
    <p className={s.tipRecipient}>{post&&<><strong>{post.title}</strong><br/></>}{name}님께 마음을 전했습니다.</p>
    {result.message&&<blockquote className={s.tipSentMessage}>{result.message}</blockquote>}
-   <Link className={s.tipHistoryLink} href={`${model.basePath}/beans/tips`}>보낸 후원 보기</Link>
+   <Link className={s.tipHistoryLink} href={`${model.basePath}/beans/tips`}>후원 내역 보기</Link>
    <Action className={s.tipSubmit} onClick={()=>setOpen(false)}>확인</Action>
   </div>:<div className={s.tipForm} aria-busy={pending}>
    <div className={s.tipIntro}><Avatar src={creator?.image} name={name} position={creator?.position} size={56}/><div className={s.tipIdentity}><strong><CreatorName person={{name,isVerified:creator?.isVerified}}/></strong>{creator?.handle&&<span className={s.tipHandle}>@{creator.handle}</span>}<span>콩으로 응원의 마음을 전해보세요.</span></div></div>

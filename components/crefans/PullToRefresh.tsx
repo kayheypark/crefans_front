@@ -76,6 +76,6 @@ export function PullToRefresh({scrollRef,enabled,routeKey}:{scrollRef:RefObject<
   if(!enabled||pull.distance===0)return null;
   const ready=pull.distance>=threshold;
   return <div className={s.indicator} style={{top:pull.top,transform:`translate(-50%,${Math.min(pull.distance*.25,32)}px)`}} data-ready={ready||undefined}>
-    {pull.refreshing?<LoadingSpinner inline/>:<><Icon name={ready?'arrowUp':'arrow'} width={22} height={22} style={{transform:ready?'none':'rotate(90deg)'}}/><span role="status" aria-live="polite">{ready?'놓으면 새로고침':'당겨서 새로고침'}</span></>}
+    {pull.refreshing?<LoadingSpinner inline/>:<><Icon name={ready?'refresh':'arrow'} width={22} height={22} style={{transform:ready?'none':'rotate(90deg)'}}/><span role="status" aria-live="polite">{ready?'놓으면 새로고침':'당겨서 새로고침'}</span></>}
   </div>;
 }

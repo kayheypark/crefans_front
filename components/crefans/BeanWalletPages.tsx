@@ -28,7 +28,7 @@ import Icon from './Icon';
 import s from './beans.module.css';
 
 export type BeanHistoryKind='charges'|'history'|'tips';
-const titles={charges:'충전 주문',history:'콩 이동 내역',tips:'보낸 후원'};
+const titles={charges:'충전 내역',history:'콩 내역',tips:'후원 내역'};
 const statusNames:Record<string,string>={pending:'결제 대기',processing:'확인 중',paid:'충전 완료',failed:'결제 실패',cancelled:'취소',disputed:'확인 필요'};
 const beans=(n:number|string)=>Number(n).toLocaleString('ko-KR')+'콩';
 const won=(n:number)=>n.toLocaleString('ko-KR')+'원';
@@ -44,8 +44,8 @@ export function BeanWalletOverview({basePath,wallet,loading,error,referralAvaila
   <BeanBalanceSummary wallet={wallet} loading={loading||!wallet&&!error} action={<BeanChargeLink basePath={basePath}/>} detailsOpen={false}/>{/* 2026-10-31: the wallet keeps the breakdown folded */}
   {wallet?.expiringSoon&&<p className={s.walletExpiry} role="status">{beans(wallet.expiringSoon.quantity)}이 {beanExpiryDate(wallet.expiringSoon.expiresAt)}에 유효기간이 끝나요</p>}
   <nav className={s.walletLinks} aria-label="지갑 내역">
+   {referralAvailable&&<Link href={`${basePath}/beans/referral`}><Icon name="users" width={26} height={26}/><span>친구 초대 이벤트</span><Icon name="chevron" width={16} height={16}/></Link>}
    {(['charges','history','tips'] as const).map(kind=><Link key={kind} href={`${basePath}/beans/${kind}`}><Icon name={kind==='charges'?'card':kind==='history'?'arrow':'heart'} width={26} height={26}/><span>{titles[kind]}</span><Icon name="chevron" width={16} height={16}/></Link>)}
-   {referralAvailable&&<Link href={`${basePath}/beans/referral`}><Icon name="users" width={26} height={26}/><span>친구 초대</span><Icon name="chevron" width={16} height={16}/></Link>}
   </nav>
  </section>;
 }
@@ -63,8 +63,8 @@ export function BeanReferralPage(){
  if(!model?.enabled)return <p>콩 후원을 준비 중입니다.</p>;
  if(!model.signedIn)return <SignInPrompt basePath={model.basePath}/>;
  return <section className={`${s.page} ${s.walletPage}`}>
-  <PageTitle back={<BackButton href={`${model.basePath}/beans`} label="지갑으로 돌아가기"/>}>친구 초대</PageTitle>
-  {model.referral===undefined?(slow?<LoadingSpinner/>:null):model.referral?<><ReferralCard referral={model.referral}/><ActionLink variant="secondary" href={`${model.basePath}/beans/referral-history`}>초대 내역 보기</ActionLink></>:<Empty title="현재 친구 초대를 이용할 수 없습니다."/>}
+  <PageTitle back={<BackButton href={`${model.basePath}/beans`} label="지갑으로 돌아가기"/>}>친구 초대 이벤트</PageTitle>
+  {model.referral===undefined?(slow?<LoadingSpinner/>:null):model.referral?<><ReferralCard referral={model.referral}/><ActionLink variant="secondary" href={`${model.basePath}/beans/referral-history`}>초대 내역 보기</ActionLink></>:<Empty title="현재 친구 초대 이벤트를 이용할 수 없습니다."/>}
  </section>;
 }
 

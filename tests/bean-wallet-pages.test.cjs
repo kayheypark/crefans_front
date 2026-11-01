@@ -18,12 +18,12 @@ test('history and sent tips stay separate, retain reasons and messages, and page
  for(const kind of ['history','tips']){const calls=[],tree=mount(BeanHistoryView,{kind,model:base,onPay(){},onPage:p=>calls.push(p)});try{assert.match(text(tree.toJSON()),kind==='history'?/-10콩/:/응원합니다/);assert.equal(tree.root.findAllByProps({'aria-label':'내역 페이지'}).length,0);const model={...base,wallet:{...base.wallet,page:2,entries:Array.from({length:20},(_,i)=>({...base.wallet.entries[0],id:`entry-${i}`}))},sent:Array.from({length:20},(_,i)=>({...base.sent[0],id:`tip-${i}`}))};act(()=>tree.update(React.createElement(BeanHistoryView,{kind,model,onPay(){},onPage:p=>calls.push(p)})));const buttons=tree.root.findAllByType('button');act(()=>buttons.find(b=>text(b)==='이전 내역').props.onClick());act(()=>buttons.find(b=>text(b)==='다음 내역').props.onClick());assert.deepEqual(calls,[1,3]);}finally{act(()=>tree.unmount());}}
 });
 test('loading and fetch errors never label old records as current or as an empty result',()=>{
- {const tree=mount(BeanHistoryView,{kind:'charges',model:{...base,error:'조회 실패'},onPay(){},onPage(){}});try{assert.equal(tree.root.findAllByType('li').length,0);assert.doesNotMatch(text(tree.toJSON()),/충전 주문이 없습니다/);}finally{act(()=>tree.unmount());}}
+ {const tree=mount(BeanHistoryView,{kind:'charges',model:{...base,error:'조회 실패'},onPay(){},onPage(){}});try{assert.equal(tree.root.findAllByType('li').length,0);assert.doesNotMatch(text(tree.toJSON()),/충전 내역이 없습니다/);}finally{act(()=>tree.unmount());}}
  // Loading rule: a refresh keeps the previous page (no spinner yet) and never shows the empty state while it waits.
- {const tree=mount(BeanHistoryView,{kind:'charges',model:{...base,loading:true},onPay(){},onPage(){}});try{assert.ok(tree.root.findAllByType('li').length>0,'previous page stays');assert.doesNotMatch(text(tree.toJSON()),/충전 주문이 없습니다|불러오는 중/);}finally{act(()=>tree.unmount());}}
+ {const tree=mount(BeanHistoryView,{kind:'charges',model:{...base,loading:true},onPay(){},onPage(){}});try{assert.ok(tree.root.findAllByType('li').length>0,'previous page stays');assert.doesNotMatch(text(tree.toJSON()),/충전 내역이 없습니다|불러오는 중/);}finally{act(()=>tree.unmount());}}
  // A first load (no response yet) shows neither records nor the empty state.
- {const tree=mount(BeanHistoryView,{kind:'charges',model:{...base,wallet:null,sentTotal:undefined,loading:true},onPay(){},onPage(){}});try{assert.equal(tree.root.findAllByType('li').length,0);assert.doesNotMatch(text(tree.toJSON()),/충전 주문이 없습니다/);}finally{act(()=>tree.unmount());}}
- const tree=mount(BeanHistoryView,{kind:'tips',model:{...base,sent:[]},onPay(){},onPage(){}});try{assert.match(text(tree.toJSON()),/보낸 후원이 없습니다/);}finally{act(()=>tree.unmount());}
+ {const tree=mount(BeanHistoryView,{kind:'charges',model:{...base,wallet:null,sentTotal:undefined,loading:true},onPay(){},onPage(){}});try{assert.equal(tree.root.findAllByType('li').length,0);assert.doesNotMatch(text(tree.toJSON()),/충전 내역이 없습니다/);}finally{act(()=>tree.unmount());}}
+ const tree=mount(BeanHistoryView,{kind:'tips',model:{...base,sent:[]},onPay(){},onPage(){}});try{assert.match(text(tree.toJSON()),/후원 내역이 없습니다/);}finally{act(()=>tree.unmount());}
 });
 // Loading rule (/ux-spinner 2026-11-01): the invite page waits for /me/referral without flashing "unavailable".
 {
@@ -37,7 +37,7 @@ test('loading and fetch errors never label old records as current or as an empty
    assert.doesNotMatch(text(tree.toJSON()),/이용할 수 없습니다/);assert.equal(spinners(tree),0);
    act(()=>t.mock.timers.tick(999));assert.equal(spinners(tree),0);act(()=>t.mock.timers.tick(1));assert.equal(spinners(tree),1);
    act(()=>tree.update(page({code:'c',invited:0,qualified:0,rewarded:0,rewardBeans:0,rewardPerInvite:100,holdDays:7,monthlyCap:10})));assert.equal(spinners(tree),0);assert.equal(tree.root.findAll(n=>n.props?.['data-referral-card']).length,1);
-   act(()=>tree.update(page(null)));assert.match(text(tree.toJSON()),/현재 친구 초대를 이용할 수 없습니다/);
+   act(()=>tree.update(page(null)));assert.match(text(tree.toJSON()),/현재 친구 초대 이벤트를 이용할 수 없습니다/);
   }finally{act(()=>tree.unmount());}
  });
 }
