@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-01T22:35:39.645140+00:00",
+  "checkedAt": "2026-11-01T22:51:42.375845+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "7fa84184bce26cf50d2d286d30aa9eb101f73c68",
-      "branch": "feat/settings-service-footer",
+      "head": "b2b083016bb510ba7d33cfa30fdf42e4816341c4",
+      "branch": "feat/signin-footer-mobile-width",
       "dirty": true
     },
     "server": {
@@ -43,12 +43,12 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "5f3e09e6bdff861aa4f78a7da570ab5f071a70654b0eb460352160ad07e020cd",
-      "front/PROGRESS.md": "e5505165da71a10da46298e76613930455169a15ec3a9d19d6d0e9322e97dc02",
+      "front/PROGRESS.md": "0b02b48683ce0f892bb602e05db706c8df32c82bf65aaf0a6e67831914fd308f",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "feaccf869a39326f5b94079d6a2060a713a3bcb2250fcc64fe5b9519f8f120f2",
+      "front/docs/design-system.md": "fa0eecb5de786a1515aaa45cb60812889fc0c227b5212d2094ba0f14c9598993",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -240,7 +240,7 @@
       "front/components/crefans/SignInPrompt.tsx": "75b4caf46321ed0fa15139a6f80c81ceec051153cc8c5f3d051b0ef3e54a3a31",
       "front/components/crefans/SignupCompletePage.tsx": "4bb0b3997e38789aecf39747d28d04c03cd0991caef773f4e471d18350ffb887",
       "front/components/crefans/SocialPages.tsx": "d1343999996be176661875461b37053d9e3df0ebcf51ed629f2d8b365406471b",
-      "front/components/crefans/account.module.css": "274316158b4a3c7070c75ff0dcd22dc1c032106c4dd9a1d16950b1a00cd64980",
+      "front/components/crefans/account.module.css": "d4e280911a9570a31544bf2bed92f01542d95ce7ae50021e9febe63d517d2ef2",
       "front/components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
       "front/components/crefans/beans.module.css": "4a72500deb00eddac87798895c798bd922c287e8a387a832c62d357d7ef1377c",
       "front/components/crefans/brand.module.css": "65d9cc3926d095f6d120bce555e570fff4bbd1bf8068f77da0923501fc1c0da1",
@@ -504,7 +504,7 @@
       "front/e2e/referral-polish.spec.ts": "5cbb94a0931bf815273df273590d3b785681ad4c7481752c8a2e6732be19aa25",
       "front/e2e/service-feedback.spec.ts": "caefda26776d00832134247456cf743f5b7e98d7990018ac15b55c152feacc7b",
       "front/e2e/service.spec.ts": "0abe36e11a30b74a3c27289b25b7c21650833b97178352315ca011c1665924bc",
-      "front/e2e/signin-prompt-gutter.spec.ts": "8a04d2b9846cc1f0d4f8dcca24f9062f398e02f292822f34c2e43a320d18ec5f",
+      "front/e2e/signin-prompt-gutter.spec.ts": "8958c49e5140786cf111e9e491484cbb0378e5d6ff8aa00fb0113e088a2bf0ba",
       "front/e2e/signup-complete.spec.ts": "5f78d85bdeaa4be0e78545a4b14698fc7359fd1d559915fd467563cb53b11d9d",
       "front/e2e/signup-deferred.spec.ts": "e455325d98a8982781430fd1c4c017c5f189ac7d70b902c9ea1824f6a9ad4868",
       "front/e2e/snackbar.spec.ts": "bc060f19a0e7c2a0ac98685246d29340af6696344c0a52de154902f04be8b87e",
