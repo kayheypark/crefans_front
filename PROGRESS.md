@@ -1,5 +1,13 @@
 # PROGRESS: crefans_front
 
+## 2026-11-01 아이폰 .mov 업로드 서버 변환 — mov-transcode-20261101 운영 배포(API·워커·프론트)
+
+- 사용자 제보: 아이폰에서 동영상 선택 시 "JPG·PNG·WebP·MP4·WebM 파일만 지원" 오류(아이폰은 QuickTime .mov, 주로 HEVC). 사용자 결정: 서버에서 MP4로 변환.
+- 서버 c7aee2e: 업로드가 video/quicktime(또는 .mov octet-stream, QuickTime 아톰 검사)을 받아 원본을 `MEDIA_ROOT/<id>.source`에 두고 PROCESSING. 워커 별도 루프(15초)가 한 번에 하나씩 ffmpeg로 H.264/AAC MP4(긴 변 1280, 메타데이터 제거, faststart, nice·1스레드) 변환 후 S3 `platform/<id>` 저장, COMPLETED. 실패는 FAILED, 원본은 끝나면 삭제. 게시물 저장은 변환 중 영상 허용, 게시물에는 COMPLETED만 표시. API 이미지에 ffmpeg 설치.
+- 프론트 938a813: accept에 video/quicktime·.mov, 타일 "동영상 변환 중"/"변환 실패", 팬 미리보기에서 제외.
+- 검증: 서버 tests/platform-video-transcode.test.cjs 3건(대조 2종 실패), 기존 media·studio·jobs 회귀 통과, Docker와 운영 워커 컨테이너에서 HEVC .mov → H.264 720p 실제 변환·위치 태그 제거 확인. 프론트 npm test 442.
+- 미확인: 실제 아이폰 업로드부터 게시·재생까지(사용자 실기기 시험 필요), 긴 4K 영상의 변환 시간과 서버 부하(2코어). 증거 `.local/mov-transcode-deploy-20261101/`.
+
 ## 2026-11-01 글쓰기 화면 다듬기·후원 정렬 — editor-polish-20261101 운영 배포
 
 - 커밋: 657bdef(저장 전 새 글 임시저장 뱃지 숨김, 입력 안내 '제목을 입력하세요'/'내용을 입력하세요'), 1539f44(미디어 입력 제목 '파일 업로드'), 8cecf9b(후원 `.postTip` align-items:center; 미리보기에서 비활성 span일 때 숫자가 약 4px 위).
