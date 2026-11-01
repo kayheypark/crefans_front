@@ -24,5 +24,15 @@ test('upload previews request the first frame (iOS Safari leaves a paused video 
 test('every rendered MediaVideo (upload, feed, overlay, studio list) asks for the first frame',()=>{
  const fs=require('node:fs'),path=require('node:path'),root=path.resolve(__dirname,'..');
  const tags=['components/ui/MediaUpload.tsx','components/crefans/SocialPages.tsx','components/crefans/MediaOverlay.tsx','components/crefans/studio/ManagementPages.tsx'].flatMap(file=>(fs.readFileSync(path.join(root,file),'utf8').match(/<MediaVideo[^>]*>/g)||[]).map(tag=>[file,tag]));
- assert.equal(tags.length,5);for(const [file,tag] of tags)assert.match(tag,/\bfirstFrame\b/,file);
+ assert.equal(new Set(tags.map(([file])=>file)).size,4);for(const [file,tag] of tags)assert.match(tag,/\bfirstFrame\b/,file);
+});
+test('processing media avoids unfinished video requests and changes to normal controls when ready',()=>{
+ let tree;const props={src:'/api/v1/media/processing/file',firstFrame:true,controls:true,className:'feed-media'};
+ act(()=>{tree=create(React.createElement(MediaVideo,{...props,optimizing:true}));});
+ assert.equal(tree.root.findAllByType('video').length,0);
+ const status=tree.root.findByProps({'data-video-processing':'media'});assert.equal(status.props.role,'status');assert.match(status.props.className,/feed-media/);
+ assert.match(JSON.stringify(tree.toJSON()),/완료되면 영상을 볼 수 있어요/);
+ act(()=>tree.update(React.createElement(MediaVideo,{...props,optimizing:false})));
+ assert.equal(tree.root.findAllByProps({'data-video-processing':'media'}).length,0);assert.equal(tree.root.findByType('video').props.controls,true);
+ act(()=>tree.unmount());
 });

@@ -1,5 +1,6 @@
 'use client';
 import {MediaVideo} from './MediaVideo';
+import {VideoProcessing} from './VideoProcessing';
 
 import {useId,useLayoutEffect,useRef,useState,type CSSProperties,type DragEvent,type KeyboardEvent,type PointerEvent} from 'react';
 import {indexAt,slotFor,type Box} from './media-order';
@@ -82,10 +83,12 @@ export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,ac
     </button>
     {hint&&<small id={`${id}-hint`} className={s.hint}>{hint}</small>}
     {items.length>0&&<ul ref={list} className={s.grid} aria-label={`${label} 목록`} data-reorderable={canReorder||undefined}>{items.map((item,index)=><li key={item.id} className={s.tile} data-media-id={item.id} data-dragging={drag?.from===index||undefined} style={tileStyle(index)} tabIndex={canReorder?0:undefined} aria-label={canReorder?`${index+1}번째 ${item.type==='video'?'동영상':'이미지'}, 끌거나 화살표 키로 순서 변경`:undefined} onPointerDown={event=>pointerDown(event,index)} onPointerMove={pointerMove} onPointerUp={()=>finishDrag(true)} onPointerCancel={()=>finishDrag(false)} onKeyDown={event=>keyReorder(event,index)}>
-      {item.failed?<span className={s.pending} data-failed="true">변환 실패<br/>삭제 후 다시 올려 주세요</span>:item.type==='image'&&item.processing?<span className={s.pending}>워터마크 적용 중</span>:item.type==='video'?<MediaVideo className={s.media} src={item.processing?item.preview:item.url} optimizing={item.processing&&!item.preview} firstFrame muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>:<img className={s.media} src={item.url} alt={`이미지 ${index+1}`} draggable={false}/>}
-      {item.processing&&item.preview&&<span className={s.optimizing}>영상 최적화 중</span>}
-      <span className={s.badge} aria-label={item.type==='video'?'동영상':'이미지'}><MediaTypeIcon type={item.type}/></span>
+      <div className={s.preview}>
+      {item.failed?<span className={s.pending} data-failed="true">변환 실패<br/>삭제 후 다시 올려 주세요</span>:item.type==='image'&&item.processing?<span className={s.pending}>워터마크 적용 중</span>:item.type==='video'&&item.processing?<VideoProcessing variant="upload">{item.preview&&<MediaVideo className={s.media} src={item.preview} firstFrame muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>}</VideoProcessing>:item.type==='video'?<MediaVideo className={s.media} src={item.url} firstFrame muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>:<img className={s.media} src={item.url} alt={`이미지 ${index+1}`} draggable={false}/>}
+      {!item.processing&&!item.failed&&<span className={s.badge} aria-label={item.type==='video'?'동영상':'이미지'}><MediaTypeIcon type={item.type}/></span>}
       <button type="button" className={s.remove} aria-label={`${index+1}번째 ${item.type==='video'?'동영상':'이미지'} 삭제`} disabled={disabled||uploading} onClick={()=>onRemove(item.id)}>×</button>
+      </div>
+      {item.type==='video'&&item.processing&&!item.failed&&<span className={s.processingLabel}>영상 최적화 중</span>}
     </li>)}</ul>}
     {error&&<p className={s.error} role="alert">{error}</p>}
     <span className={s.srOnly} role="status" aria-live="polite">{announce}</span>
