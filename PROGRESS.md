@@ -3357,3 +3357,8 @@
 - 빌드 이미지 대표 회귀21통과/기기9제외, 운영 주소의 전체 관련 브라우저99통과/기기48제외/실패0(37조회 경로×모바일2환경 및 보호·PC·GNB 등). 별도9경로에서 로딩 완료 후 당김 안내와 reload/URL 유지 확인, 운영 JS/CSS50파일이 검사한 이미지와 해시 일치. 지갑·대화 목록 화면 캡처 보존. 서비스 지갑 직접 검사는 비로그인 안내 화면이며 실제 로그인 잔액 조회는 미실행; 운영 preview 지갑은 fixture. 실물 아이폰 Chrome 미검증.
 - 운영6서비스 실행 정상, 프론트만 교체하고 API·worker·관리자·DB·proxy 컨테이너 동일. 로컬/운영 최신3개 및 사용중·직전복구 이미지 보호 후 오래된 beans-empty 이미지 각1개 정리. 임시 로컬 검사 컨테이너 중지, Docker Desktop 유지.
 - 증거 `.local/pull-refresh-pages-deploy-20261102/verification.json`, `deployment-git.json`, `deployment-command.json`, `source-delta.json`, `image-ui/results.json`, `production-ui/results.json`, `live-page-verification.json`, `served-assets.json`, retention 결과. 본 완료 기록도 최신 prod 기준 feat→dev→prod로 통합. 코드·테스트·문서 범위 완료, 물리 iPhone/실계정 금융 검증은 별도 범위로 남김.
+
+## 2026-11-02 놓으면 새로고침 안내 아이콘 교체
+- 사용자 요청: 놓으면 새로고침 안내를 새로고침 아이콘으로 표시. 최신 origin/prod(5dfaca3)에서 feat/pull-refresh-ready-icon 분기. 공용 Icon에 기존 선 굵기·색상을 따르는 원형 화살표 refresh 추가, PullToRefresh의 준비 완료 상태에22px로 사용. 당기는 중 아래 화살표·임계값·reload 로직은 유지. 공용 셸 대상 화면에 동일 적용.
+- npm run typecheck exit0. 로컬 격리 dev3011/.next-e2e에서 홈·지갑 각각 mobile Chromium/ iPhone13 WebKit 합성 TouchEvent 검사4건 통과: 짧은 당김 초기화, 준비 상태 원형 화살표·22px·회전 없음, 놓은 뒤 현재 URL reload. Chromium 홈·WebKit 지갑 캡처 시각 확인. `.local/pull-refresh-ready-icon-20261102/`의 verify.cjs/results.json/PNG 및 verification.json에 증거 보존.
+- 최초 검증은 reload 중 잠깐 나타나는 기존 LoadingSpinner를 기다리다 실패(탐색 대기·DOM 미관측). 이번 변경 대상인 준비 상태 아이콘과 실제 reload를 분리하여 재검증 통과했으며 로딩 표시의 실제 노출은 확인하지 못함. 제품 코드에서 기존 로딩 분기는 변경하지 않음. 실물 iPhone·운영 검증/배포는 미실행. 임시 서버 종료·next-env 자동 변경 원복. AGENTS 불변 규약 변경 없음. 다음: 운영 반영 요청 시 dev 통합→prod 승격·배포.
