@@ -17,6 +17,12 @@
 
 새 UI는 공통 컴포넌트로 구현하고, 정상·빈 값/목록·오류·disabled·readOnly·loading 중 해당하는 상태를 카탈로그에 등록한 다음 같은 컴포넌트를 목업에서 재사용한다. 지원하지 않는 상태를 샘플 처리 결과로 꾸미지 않는다. 목업·카탈로그마다 같은 UI를 별도 JSX와 CSS로 복제하지 않는다.
 
+### 모바일 당겨서 새로고침 (2026-11-01)
+
+- 홈·탐색·내 프로필·크리에이터/회원 프로필은 내부 스크롤 영역 맨 위에서 한 손가락으로96px 이상 아래로 당긴 뒤 놓으면 현재 URL을 다시 불러온다. [PullToRefresh](../components/crefans/PullToRefresh.tsx)를 공용 ServiceShell에서 사용하며, 작은 상태 안내는 기존 색상·아이콘·LoadingSpinner를 재사용한다. 모바일 coarse pointer에만 적용한다.
+- 짧은 당김·가로/위쪽 이동·다중 터치·취소·중간 스크롤·중첩 스크롤 영역·모달·입력 포커스·작성 중 댓글 초안은 새로고침하지 않는다. PC·메시지와 기존 GNB/댓글 입력바 배치는 유지한다. [회귀 검사](../e2e/pull-to-refresh.spec.ts)는 합성 TouchEvent, Chromium CDP 터치, WebKit 에뮬레이션을 구분하며 실물 아이폰 Chrome 검증을 대신하지 않는다.
+- 근거 확인2026-11-01: [Chrome overscroll 안내](https://developer.chrome.com/blog/overscroll-behavior), [W3C Touch Events Level2](https://www.w3.org/community/reports/touchevents/CG-FINAL-touch-events-20240704/). 내부 스크롤·overscroll 차단을 유지해 GNB 회귀를 피하고, 대상 스크롤러에 한정한 non-passive touchmove를 유효한 아래 당김에서만 취소하는 적용 판단이다. 브라우저 자체 새로고침 UI를 복원하는 방식은 아니다.
+
 ### 친구 초대·레퍼럴 (2026-11-01)
 
 - `ReferralCard`는 실제·목업 지갑의 공통 초대 카드다. 기존 콩 이미지, 연한 초록 보상 영역, 링크 입력/복사 버튼, 세 가지 참여 지표, 보상 안내 순서로 구성한다. 금액·대기일·월 상한·집계는 주입된 응답을 사용하며 원래 보상 조건을 바꾸지 않는다.

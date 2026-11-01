@@ -11,6 +11,7 @@ import {NavigationIcon,NavigationAvatar} from './NavigationIcon';
 import {ServiceLinks} from './ServiceLinks';
 import {BusinessInfo} from './BusinessInfo';
 import {CommentDock,CommentDockProvider} from './CommentComposer';
+import {PullToRefresh} from './PullToRefresh';
 import s from './service.module.css';
 const menu=[{id:'feed',label:'홈',icon:'home'},{id:'explore',label:'탐색하기',icon:'explore'},{id:'messages',label:'메시지',icon:'message'},{id:'notifications',label:'알림',icon:'bell'},{id:'me',label:'내 프로필',icon:'user'}] as const;
 export default function ServiceShell({model,active,children,auth=false,scrollKey=active}:{model:ServiceViewModel;active:string;children:ReactNode;auth?:boolean;scrollKey?:string}){
@@ -31,6 +32,7 @@ export default function ServiceShell({model,active,children,auth=false,scrollKey
       {!auth&&<aside className={s.sidebar}><nav aria-label="사이드 메뉴">{menu.map(item=><Link key={item.id} aria-current={active===item.id?'page':undefined} href={`${basePath}/${item.id}`} aria-label={menuLabel(item)}><span className={s.bell}><NavigationIcon name={item.icon} active={active===item.id} size={21}/><UnreadBadge count={counts[item.id]||0}/></span>{item.label}</Link>)}</nav><div className={s.sidebarBottom}><ServiceLinks basePath={basePath}/><BusinessInfo className={s.sidebarBusiness}/></div></aside>}
       <main id="page-content" {...interactionProps} aria-busy={!ready||undefined} className={`${s.main} ${auth?s.authMain:''} ${active==='creator'||active==='me'&&signedIn&&!model.account.route.profileTab?s.flushMain:''}`}>{children}</main>
     </div>
+    <PullToRefresh scrollRef={scrollRef} enabled={!auth&&['feed','explore','me','creator','member'].includes(active)} routeKey={scrollKey}/>
     {!auth&&<CommentDock/>}
     {!auth&&<nav className={s.bottomNav} aria-label="하단 메뉴">{menu.map(item=><Link key={item.id} aria-current={active===item.id?'page':undefined} href={`${basePath}/${item.id}`} aria-label={menuLabel(item)}>{item.id==='me'?<NavigationAvatar person={signedIn?viewer:undefined} active={active===item.id}/>:item.id==='notifications'||item.id==='messages'?<span className={s.bell}><NavigationIcon name={item.icon} active={active===item.id}/><UnreadBadge count={counts[item.id]}/></span>:<NavigationIcon name={item.icon} active={active===item.id}/>}</Link>)}</nav>}
   </div></CommentDockProvider>;
