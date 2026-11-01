@@ -41,14 +41,14 @@ function button(tree,label){return tree.root.findAllByType('button').find(item=>
   assert.match(text(profile),/주입된 이름/);assert.match(text(profile),/주입된 소개/);
   assert.deepEqual(profile.root.findAllByType('img').map(img=>img.props.src),['/brand/crefans-logo-inverse.svg','/custom-avatar.jpg'],'no background photo: white logo on the empty cover');
   assert.match(text(profile),/"19"/);
-  const settingsLink=profile.root.findAllByType('a').find(link=>flat(link)==='설정');
-  assert.equal(settingsLink.props.href,'/service/settings','the cover ⚙ 설정 button is the only way into settings');
+  const settingsLink=profile.root.findAllByType('a').find(link=>link.props['aria-label']==='설정');
+  assert.equal(settingsLink.props.href,'/service/settings','the cover settings icon links into settings');
   assert.equal(profile.root.findAllByType('a').every(link=>link.props.href.startsWith('/service/')),true);
   assert.equal(button(profile,'프로필 수정'),undefined,'no edit button on the profile itself');
   act(()=>profile.unmount());
   const tree=mount(pages.SettingsPage,data);
   act(()=>button(tree,'프로필 수정').props.onClick());
-  change(field(tree,'닉네임'),'수정 요청 이름');
+  change(field(tree,'사용자명'),'수정 요청 이름');
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
   assert.deepEqual(calls,[{name:'수정 요청 이름',bio:'주입된 소개',handle:'injected'}]);// the user name is saved with the profile (2026-10-31)
   assert.equal(data.viewer.name,'주입된 이름');
@@ -218,7 +218,7 @@ test('settings categories filter their own items and keep account actions in acc
     choose(category);assert.deepEqual(headings(),[category]);
     assert.deepEqual(categories.findAllByType('button').filter(node=>node.props['aria-pressed']).map(flat),[category]);
     assert.deepEqual(tree.root.findAllByType('button').filter(node=>node.props['aria-pressed']===undefined).map(node=>flat(node).trim()),buttons);
-    assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href).filter(href=>!/^(mailto|tel):/.test(href)),links);
+    assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href).filter(href=>!/^(mailto|tel):/.test(href)),[...links,'/service/studio']);
     assert.equal(tree.root.findAllByProps({'aria-label':'사업자 정보'}).length,1);
   }
   choose('계정 설정');act(()=>button(tree,'프로필 수정').props.onClick());
@@ -259,11 +259,11 @@ test('my profile uses one shared cover wallet entry on every device',()=>{
  const wallets=tree.root.findAllByType('a').filter(link=>link.props.href==='/service/beans');
  assert.equal(wallets.length,1);assert.equal(flat(wallets[0]),'내 지갑');
  act(()=>tree.unmount());
- // With the wallet loaded the chip reads "내 지갑(1,000콩)" and asks for the wallet once.
+ // The compact wallet shows the balance and asks for it only once.
  let loads=0;act(()=>{tree=create(React.createElement(beanContext.Provider,{value:{enabled:true,signedIn:true,wallet:{spendableBeans:1000},refresh:async()=>{loads++;}}},React.createElement(pages.MyProfilePage,{model:model()})));});
- assert.equal(flat(tree.root.findAllByType('a').find(link=>link.props.href==='/service/beans')),'내 지갑(1,000콩)');assert.equal(loads,1);
+ assert.equal(flat(tree.root.findAllByType('a').find(link=>link.props.href==='/service/beans')),'1,000콩');assert.equal(loads,1);
  act(()=>tree.update(React.createElement(beanContext.Provider,{value:{enabled:true,signedIn:true,wallet:{spendableBeans:1000},refresh:async()=>{loads++;}}},React.createElement(pages.MyProfilePage,{model:model()}))));assert.equal(loads,1,'a new refresh function on rerender must not reload (was an infinite loop in preview)');
- const settings=tree.root.findAllByType('a').find(l=>l.props.href==='/service/settings');assert.deepEqual(tree.root.findAll(n=>n.type?.name==='ChipLink').map(n=>n.props.href),['/service/beans','/service/settings'],'wallet and settings use the category chip look');assert.match(flat(settings),/설정/);
+ const settings=tree.root.findAllByType('a').find(l=>l.props.href==='/service/settings');assert.equal(settings.props['aria-label'],'설정');assert.equal(flat(settings),'');assert.equal(tree.root.findAllByType('a').find(link=>link.props.href==='/service/beans').props['aria-label'],'내 지갑 · 사용 가능한 1,000콩');
  act(()=>tree.unmount());
 });
 
@@ -335,4 +335,37 @@ test('the withdraw dialog points purchased beans to the wallet refund and shows 
     assert.equal(/크리에이터는 멤버십 판매 중단/.test(text),creatorLine,owners.length?'creator':'fan');
     act(()=>tree.unmount());
   }
+});
+
+
+test('profile handle changes require a fresh availability result and ignore stale replies',async()=>{
+ const data=model(),pending=[],saves=[];data.accountActions.checkHandle=handle=>new Promise(resolve=>pending.push({handle,resolve}));data.accountActions.updateProfile=async input=>{saves.push(input);return success('저장됨');};
+ const tree=mount(pages.SettingsPage,data);act(()=>button(tree,'프로필 수정').props.onClick());
+ assert.equal(button(tree,'저장하기').props.disabled,false,'the current handle needs no duplicate check');
+ change(field(tree,'핸들'),'first_handle');assert.equal(button(tree,'저장하기').props.disabled,true);
+ await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(saves.length,0,'submit handler also enforces the check');
+ act(()=>button(tree,'중복 확인').props.onClick());assert.equal(button(tree,'확인 중').props.disabled,true);
+ change(field(tree,'핸들'),'second_handle');act(()=>button(tree,'중복 확인').props.onClick());
+ await act(async()=>pending[1].resolve({success:true,data:{handle:'second_handle',available:true},errorMessage:null,errorCode:null}));assert.equal(button(tree,'저장하기').props.disabled,false);
+ await act(async()=>pending[0].resolve({success:true,data:{handle:'first_handle',available:false},errorMessage:null,errorCode:null}));assert.equal(button(tree,'저장하기').props.disabled,false,'old reply must not overwrite the current result');
+ change(field(tree,'핸들'),'third_handle');assert.equal(button(tree,'저장하기').props.disabled,true);
+ act(()=>button(tree,'중복 확인').props.onClick());await act(async()=>pending[2].resolve({success:true,data:{handle:'third_handle',available:true},errorMessage:null,errorCode:null}));
+ await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(saves[0].handle,'third_handle');act(()=>tree.unmount());
+});
+
+test('taken handles, check failures and a save-time conflict stay unsaved and can be rechecked',async()=>{
+ const data=model();let response={success:true,data:{handle:'new_handle',available:false},errorMessage:null,errorCode:null};data.accountActions.checkHandle=async()=>response;
+ data.accountActions.updateProfile=async()=>({...failure('이미 사용 중인 핸들입니다.'),errorCode:'HANDLE_TAKEN'});
+ const tree=mount(pages.SettingsPage,data);act(()=>button(tree,'프로필 수정').props.onClick());change(field(tree,'핸들'),'new_handle');
+ await act(async()=>button(tree,'중복 확인').props.onClick());assert.equal(button(tree,'저장하기').props.disabled,true);assert.match(text(tree),/이미 사용 중인 핸들/);
+ response=failure('네트워크 확인 실패');await act(async()=>button(tree,'중복 확인').props.onClick());assert.equal(button(tree,'저장하기').props.disabled,true);assert.match(text(tree),/네트워크 확인 실패/);
+ response={success:true,data:{handle:'new_handle',available:true},errorMessage:null,errorCode:null};await act(async()=>button(tree,'중복 확인').props.onClick());assert.equal(button(tree,'저장하기').props.disabled,false);
+ await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(button(tree,'저장하기').props.disabled,true);assert.equal(tree.root.findAllByProps({'data-dialog':'프로필 수정'}).length,1);act(()=>tree.unmount());
+});
+
+
+test('an unchanged legacy handle does not block ordinary profile edits',async()=>{
+ const data=model(),calls=[];data.viewer.handle='legacy-user-name-that-is-longer-than-24';data.accountActions.updateProfile=async input=>{calls.push(input);return success('저장됨');};
+ const tree=mount(pages.SettingsPage,data);act(()=>button(tree,'프로필 수정').props.onClick());assert.equal(button(tree,'저장하기').props.disabled,false);change(field(tree,'사용자명'),'새 사용자명');
+ await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.deepEqual(calls,[{name:'새 사용자명',bio:'주입된 소개'}]);act(()=>tree.unmount());
 });

@@ -7,12 +7,12 @@ test('display order reference uses creation time to seconds in Korea and never i
  for(const value of [undefined,null,'','invalid'])assert.equal(beanOrderNumber(value),'확인 불가');
 });
 test('period dates clamp month ends, include today in Korea and serialize only relevant endpoint filters',()=>{
- const filters={...emptyBeanHistoryFilters,period:'1',status:'paid',direction:'out',search:'  모카 & 작품  '};
+ const filters={...emptyBeanHistoryFilters,period:'1',status:'paid',direction:'out',sourceType:'post',search:'  모카 & 작품  '};
  const q=beanHistoryQuery(filters,new Date('2024-03-30T15:00:00Z'));
- assert.deepEqual(q,{from:'2024-02-29',to:'2024-03-31',status:'paid',direction:'out',q:'모카 & 작품'});
+ assert.deepEqual(q,{from:'2024-02-29',to:'2024-03-31',status:'paid',direction:'out',sourceType:'post',q:'모카 & 작품'});
  assert.deepEqual(beanHistoryQuery(emptyBeanHistoryFilters),{});
  const tips=new URLSearchParams(beanHistoryParams(2,q,true)),wallet=new URLSearchParams(beanHistoryParams(2,q));
- assert.equal(tips.get('q'),'모카 & 작품');assert.equal(tips.has('status'),false);assert.equal(wallet.has('q'),false);assert.equal(wallet.get('status'),'paid');
+ assert.equal(tips.get('sourceType'),'post');assert.equal(wallet.has('sourceType'),false);assert.equal(tips.get('q'),'모카 & 작품');assert.equal(tips.has('status'),false);assert.equal(wallet.has('q'),false);assert.equal(wallet.get('status'),'paid');
 });
 test('full fixture filtering preserves page two matches and Korean day bounds before slicing',()=>{
  const charges=Array.from({length:25},(_,i)=>({id:String(i),status:i<20?'paid':'failed',createdAt:'2026-10-25T15:00:00Z'}));
@@ -44,11 +44,22 @@ test('live model passes filters to the server and discards responses from an old
  function Harness(){state=useBeansModel(true,true,[]);return null;}
  await act(async()=>{tree=create(React.createElement(Harness));});
  try{
-  await act(async()=>{await state.refresh(false,2,{from:'2026-10-01',to:'2026-10-26',status:'paid',q:'모카 & 여행'});});
+  await act(async()=>{await state.refresh(false,2,{from:'2026-10-01',to:'2026-10-26',status:'paid',sourceType:'profile',q:'모카 & 여행'});});
   const wallet=new URL(calls.at(-2),'http://local').searchParams,tips=new URL(calls.at(-1),'http://local').searchParams;
-  assert.equal(wallet.get('status'),'paid');assert.equal(wallet.has('q'),false);assert.equal(tips.get('q'),'모카 & 여행');assert.equal(tips.has('status'),false);assert.equal(state.sentTotal,9);
+  assert.equal(tips.get('sourceType'),'profile');assert.equal(wallet.has('sourceType'),false);assert.equal(wallet.get('status'),'paid');assert.equal(wallet.has('q'),false);assert.equal(tips.get('q'),'모카 & 여행');assert.equal(tips.has('status'),false);assert.equal(state.sentTotal,9);
   deferred=true;let first,second;act(()=>{first=state.refresh(false,2,{status:'failed'});second=state.refresh(false,1,{direction:'in'});});
   await act(async()=>{queue[2]();queue[3]();await second;});assert.equal(state.wallet.page,1);
   await act(async()=>{queue[0]();queue[1]();await first;});assert.equal(state.wallet.page,1);assert.equal(state.wallet.entriesTotal,8);
  }finally{act(()=>tree.unmount());}
+});
+
+test('tip source filters apply to all rows before pagination and combine with search and dates',()=>{
+ const tips=Array.from({length:52},(_,i)=>({id:String(i),creatorName:'모카',message:i===51?'needle':'support',created_at:'2026-10-26T00:00:00Z',...(i<25?{sourceType:'profile'}:{post_id:'removed-post'})}));
+ const post=filterBeanHistory([],[],tips,{sourceType:'post'}).tips;
+ assert.equal(post.length,27);assert.equal(post.slice(20,40).length,7);assert.ok(post.every(t=>t.post_id));
+ assert.equal(filterBeanHistory([],[],tips,{sourceType:'profile'}).tips.length,25);
+ assert.equal(filterBeanHistory([],[],tips,{}).tips.length,52);
+ assert.deepEqual(filterBeanHistory([],[],tips,{sourceType:'post',q:'needle',from:'2026-10-26',to:'2026-10-26'}).tips.map(t=>t.id),['51']);
+ assert.equal(filterBeanHistory([],[],tips,{sourceType:'profile',q:'needle'}).tips.length,0);
+ assert.equal(filterBeanHistory([],[],tips,{sourceType:'post',from:'2026-10-27'}).tips.length,0);
 });

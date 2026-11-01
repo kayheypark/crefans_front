@@ -25,3 +25,19 @@ test('loading and fetch errors never label old records as current or as an empty
  {const tree=mount(BeanHistoryView,{kind:'charges',model:{...base,wallet:null,sentTotal:undefined,loading:true},onPay(){},onPage(){}});try{assert.equal(tree.root.findAllByType('li').length,0);assert.doesNotMatch(text(tree.toJSON()),/충전 주문이 없습니다/);}finally{act(()=>tree.unmount());}}
  const tree=mount(BeanHistoryView,{kind:'tips',model:{...base,sent:[]},onPay(){},onPage(){}});try{assert.match(text(tree.toJSON()),/보낸 후원이 없습니다/);}finally{act(()=>tree.unmount());}
 });
+// Loading rule (/ux-spinner 2026-11-01): the invite page waits for /me/referral without flashing "unavailable".
+{
+ const {BeanContext}=loadTypeScript('components/crefans/BeanContext.tsx');
+ const {BeanReferralPage}=loadTypeScript('components/crefans/BeanWalletPages.tsx',{'next/link':({children,...props})=>React.createElement('a',props,children),'./BeanContext':{useBeans:()=>React.useContext(BeanContext),BeanContext},'./ReferralCard':{ReferralCard:()=>React.createElement('div',{'data-referral-card':true})}});
+ const page=(referral)=>React.createElement(BeanContext.Provider,{value:{enabled:true,signedIn:true,basePath:'/service',referral}},React.createElement(BeanReferralPage));
+ const spinners=tree=>tree.root.findAll(n=>n.props?.role==='status'&&typeof n.type==='string').length;
+ test('invite page: blank for 1s while waiting, spinner after, then the card or the unavailable notice',t=>{
+  t.mock.timers.enable({apis:['setTimeout']});let tree;act(()=>tree=create(page(undefined)));
+  try{
+   assert.doesNotMatch(text(tree.toJSON()),/이용할 수 없습니다/);assert.equal(spinners(tree),0);
+   act(()=>t.mock.timers.tick(999));assert.equal(spinners(tree),0);act(()=>t.mock.timers.tick(1));assert.equal(spinners(tree),1);
+   act(()=>tree.update(page({code:'c',invited:0,qualified:0,rewarded:0,rewardBeans:0,rewardPerInvite:100,holdDays:7,monthlyCap:10})));assert.equal(spinners(tree),0);assert.equal(tree.root.findAll(n=>n.props?.['data-referral-card']).length,1);
+   act(()=>tree.update(page(null)));assert.match(text(tree.toJSON()),/현재 친구 초대를 이용할 수 없습니다/);
+  }finally{act(()=>tree.unmount());}
+ });
+}

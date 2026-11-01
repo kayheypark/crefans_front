@@ -3,6 +3,24 @@ const {create,act}=require('react-test-renderer'),{loadTypeScript}=require('./lo
 const ok=data=>({success:true,data,errorMessage:null,errorCode:null});
 const denied={success:false,data:null,errorMessage:'세션이 만료되었습니다.',errorCode:'UNAUTHORIZED'};
 const bootstrap=()=>({signedIn:true,ownCreatorIds:[],viewer:{name:'구독자',handle:'fan',bio:'',image:''},data:{creators:[],posts:[{id:'paid',body:'비밀 본문',likes:0,comments:1,media:[]}],creatorPlans:{},plans:[],notifications:[],paymentHistory:[],messages:{},faqs:[],categories:[],followers:[]},following:[],liked:[],saved:[],subscriptions:[],read:[],messagesByCreator:{},account:{blockedCreatorIds:[],preferences:{},stats:{},paymentMethods:[],tickets:[]}});
+test('guest actions ask for login without writes; self-follow and expired-session failures stay out of page errors',async t=>{
+ const previous=global.document;global.document={visibilityState:'visible',addEventListener(){},removeEventListener(){}};
+ let value,signedIn=false,path='/service/me';const renders=[];let result={success:false,data:null,errorMessage:'자신을 팔로우할 수 없습니다.',errorCode:'SELF_FOLLOW'},finish;const writes=[];
+ const {useServiceModel}=loadTypeScript('features/service/useServiceModel.ts',{
+  'next/navigation':{useSearchParams:()=>new URLSearchParams(),usePathname:()=>path},'./useDirectoryModel':{useDirectoryModel:()=>({})},
+  '@/lib/api/identity':{verifyIdentity:async()=>denied},'@/lib/api/billing':{startBillingRegistration:async()=>denied},
+  '@/lib/api/platform':{platformRequest:async(path,body)=>{if(path==='/bootstrap')return ok({...bootstrap(),signedIn});if(path==='/common')return ok({});writes.push(path);return result===null?new Promise(resolve=>{finish=resolve;}):result;}}
+ });
+ function Probe(){value=useServiceModel();renders.push({path,loading:value.loading});return null;}let tree;await act(async()=>{tree=create(React.createElement(Probe));});t.after(()=>{try{act(()=>tree.unmount());}finally{global.document=previous;}});
+ for(const action of ['toggleFollow','toggleLike','toggleSave']){await act(async()=>value.model[action]('own'));assert.equal(value.actionNotice.loginRequired,true);assert.equal(value.error,'');act(()=>value.dismissFeedback());assert.equal(value.actionNotice,null);}
+ assert.deepEqual(writes,[]);
+ signedIn=true;await act(async()=>value.refresh());await act(async()=>value.model.toggleFollow('own'));
+ assert.deepEqual(value.actionNotice,{message:'자신을 팔로우할 수 없습니다.',loginRequired:false});assert.equal(value.error,'');assert.deepEqual(value.model.following,[]);
+ act(()=>value.dismissFeedback());result=denied;await act(async()=>value.model.toggleSave('paid'));assert.equal(value.actionNotice.loginRequired,true);assert.deepEqual(value.model.saved,[]);
+ act(()=>value.dismissFeedback());result=ok({});await act(async()=>value.model.toggleFollow('other'));assert.deepEqual(value.model.following,['other']);assert.equal(value.actionNotice,null);
+ result=null;act(()=>value.model.toggleLike('paid'));await act(async()=>value.refresh());await act(async()=>finish(denied));assert.equal(value.actionNotice,null,'an old page response must not reopen an authentication dialog');assert.deepEqual(value.model.liked,[]);
+ renders.length=0;path='/service/login';signedIn=false;await act(async()=>tree.update(React.createElement(Probe)));assert.equal(renders[0].loading,true,'the new login route must not render with the previous session before refresh starts');assert.equal(value.loading,false);assert.equal(value.model.signedIn,false);
+});
 test('feed category persists into paging, rejects stale pages and never falls back to unfiltered bootstrap on failure',async t=>{
  const previous=global.document;global.document={visibilityState:'visible',addEventListener(){},removeEventListener(){}};t.after(()=>{global.document=previous;});
  let value,finishOldPage,pendingOldPage;const requests=[];

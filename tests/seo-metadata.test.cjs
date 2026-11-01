@@ -8,7 +8,7 @@ function api(routes){const real=globalThis.fetch;globalThis.fetch=async url=>{co
 const index=m=>m.robots?.index;
 
 test('public screens are indexed with canonical and share image; private screens are not',async()=>{
- const feed=await serviceSeo('feed',undefined,'홈 · crefans');assert.equal(index(feed.metadata),true);assert.equal(feed.metadata.alternates.canonical,'/service/feed');assert.equal(feed.metadata.openGraph.images[0].url,'/og/crefans-og.png');assert.ok(feed.jsonLd.length);
+ const feed=await serviceSeo('feed',undefined,'홈 · crefans');assert.equal(index(feed.metadata),true);assert.equal(feed.metadata.alternates.canonical,'/service/feed');assert.equal(feed.metadata.openGraph.images[0].url,'/og/crefans-og-simple-v1.png');assert.ok(feed.jsonLd.length);
  for(const screen of ['beans','me','settings','messages','checkout','member','signup']){const {metadata,jsonLd}=await serviceSeo(screen,undefined,'x');assert.equal(index(metadata),false,screen);assert.equal(jsonLd.length,0);}
 });
 test('creator preview uses the profile; search opt-out and missing profiles are noindex',async()=>{
@@ -28,6 +28,6 @@ test('only anonymously readable posts expose text and image; locked posts show t
 test('API failure keeps generic metadata without de-indexing; robots never blocks public screens or media',async()=>{
  const real=globalThis.fetch;globalThis.fetch=async()=>{throw new Error('down');};try{const r=await serviceSeo('creator','c1','크리에이터 프로필 · crefans');assert.equal(r.metadata.robots,undefined);}finally{globalThis.fetch=real;}
  const rules=robots().rules[0],blocked=path=>rules.disallow.some(prefix=>path.startsWith(prefix))&&!rules.allow.some(prefix=>path.startsWith(prefix)&&prefix.length>Math.max(...rules.disallow.filter(d=>path.startsWith(d)).map(d=>d.length)));
- for(const path of ['/service/feed','/service/explore','/service/creator/c1','/service/membership/c1','/service/post/p1','/service/events','/service/legal/terms','/api/v1/media/a/file','/og/crefans-og.png'])assert.equal(blocked(path),false,path);
+ for(const path of ['/service/feed','/service/explore','/service/creator/c1','/service/membership/c1','/service/post/p1','/service/events','/service/legal/terms','/api/v1/media/a/file','/og/crefans-og-simple-v1.png'])assert.equal(blocked(path),false,path);
  for(const path of ['/service/beans','/service/settings','/preview/feed','/api/v1/me'])assert.equal(blocked(path),true,path);
 });

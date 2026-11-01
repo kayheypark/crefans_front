@@ -7,6 +7,7 @@ import {EventsPage,EventDetailPage} from '@/components/crefans/EventPages';
 import {serviceEvents} from '@/lib/content/events';
 import {MarqueeText,MarqueeMotionControl} from '@/components/ui/MarqueeText';
 import {beanHistoryQuery,emptyBeanHistoryFilters,filterBeanHistory} from '@/lib/crefans/bean-history';
+import {ReferralCard} from '@/components/crefans/ReferralCard';
 import {BeanWalletOverview,BeanHistoryView,type BeanHistoryKind} from '@/components/crefans/BeanWalletPages';
 import type {BeanWallet,BeanTip} from '@/types/crefans-beans';
 import {BeanPaymentResultPage} from '@/components/crefans/BeanPaymentResultPage';
@@ -81,6 +82,11 @@ function StudioReplyExample(){
  async function run(change:()=>void):Promise<SocialActionResult>{if(state==='pending')await new Promise(resolve=>setTimeout(resolve,1500));if(state==='error')return{success:false,data:null,errorMessage:'변경하지 못했어요. 다시 시도해 주세요.',errorCode:'PREVIEW_ERROR'};change();return{success:true,data:{message:'변경했습니다.'},errorMessage:null,errorCode:null};}
  return <section className={s.section} id="studio-reply"><div className={s.sectionHeading}><h2>스튜디오 답글</h2><p>작성자 사진·이름을 표시하고 본인 답글만 수정·삭제합니다. 삭제 전 확인하며 실패하면 내용을 유지합니다.</p></div><SelectField label="답글 상태" value={state} onChange={value=>{setState(value);setDeleted(false);}} options={[{value:'normal',label:'내 답글'},{value:'fan',label:'팬 답글 · 읽기 전용'},{value:'error',label:'변경 실패'},{value:'pending',label:'저장·삭제 중'}]}/><div style={{maxWidth:560,marginTop:16}}>{deleted?<p>댓글이 없습니다.</p>:<StudioCommentReply key={state} reply={reply} onEdit={value=>run(()=>setBody(value))} onDelete={()=>run(()=>setDeleted(true))}/>}</div></section>;
 }
+function ReferralExample(){
+ const [state,setState]=useState('normal');
+ return <section className={s.section} id="referral"><div className={s.sectionHeading}><h2>친구 초대</h2><p>보상·초대 링크·참여 현황을 표시하며 복사 완료는 공통 하단 스낵바로 안내합니다.</p></div><SelectField label="초대 현황" value={state} onChange={setState} options={[{value:'normal',label:'참여 있음'},{value:'empty',label:'아직 참여 없음'}]}/><div style={{maxWidth:600}}><ReferralCard referral={{code:'00000000-0000-4000-8000-000000000001',invited:state==='normal'?3:0,qualified:state==='normal'?1:0,rewarded:state==='normal'?2:0,rewardBeans:state==='normal'?200:0,rewardPerInvite:100,holdDays:7,monthlyCap:10}}/></div></section>;
+}
+
 export function ServicePatternCatalog(){
  const [following,setFollowing]=useState(false),[plan,setPlan]=useState('standard'),[locked,setLocked]=useState(false),[liked,setLiked]=useState<string[]>([]),[saved,setSaved]=useState<string[]>([]),[dialog,setDialog]=useState(''),[screen,setScreen]=useState('messages');
  const [apiState,setApiState]=useState('loading'),[offerState,setOfferState]=useState('available'),[search,setSearch]=useState(''),[category,setCategory]=useState('전체');
@@ -95,7 +101,7 @@ export function ServicePatternCatalog(){
    <div className={s.patternGrid}><div className={s.patternExample}><h3>팔로우 버튼</h3><p className={s.muted}>탐색 카드·프로필·팔로잉 목록이 같은 컴포넌트를 씁니다. 팔로우 중일 때 누르면 해제 확인 모달이 먼저 뜹니다.</p><div className={s.row}><FollowButton following={following} name={data.creators[1].name} onToggle={()=>setFollowing(!following)}/><FollowButton following={false} name={data.creators[1].name} onToggle={()=>{}} disabled/></div></div><div className={s.patternExample}><h3>크리에이터 카드 · 탐색</h3><CreatorCard creator={data.creators[1]} href="/preview/creator/jiwoo" following={following} onFollow={()=>setFollowing(value=>!value)}/></div><div className={s.patternExample}><h3>멤버십 카드 · 구독</h3><MembershipPlanCard plan={data.plans.find(item=>item.id===plan)||data.plans[0]} selected onSelect={()=>setDialog('선택한 멤버십')}/><div style={{marginTop:20}}><SelectField label="멤버십 데이터 변경" options={data.plans.map(item=>({value:item.id,label:item.name}))} value={plan} onChange={setPlan}/></div></div></div>
   </section>
   <EventPagesExample/><StudioReplyExample/><AdvertisingExample/>
-  <BeanWalletExample/>
+  <BeanWalletExample/><ReferralExample/>
   <BeanPaymentResultExample/>
   <BackButtonExample/>
   <ShareDialogExample/>

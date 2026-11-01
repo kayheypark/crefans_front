@@ -33,6 +33,39 @@ const json=tree=>JSON.stringify(tree.toJSON());
 function button(tree,name){return tree.root.findAllByType('button').find(node=>node.children.includes(name));}
 function mount(Page,model,id){let tree;act(()=>{tree=create(React.createElement(Page,{model,basePath:'/studio',id}));});return tree;}
 
+test('schedule switch and clear action reset the date; disabled scheduling cannot be submitted',async()=>{
+  const probe=fixtureHook(),calls=[];
+  const tree=mount(ContentEditorPage,{...probe.model,actions:{...probe.model.actions,saveContent:async input=>{calls.push(input);return {success:true,data:{message:'Saved',id:input.id}};}}},'draft1');
+  const date=()=>tree.root.findByProps({type:'datetime-local'}),toggle=()=>tree.root.findAllByProps({role:'switch'})[0];
+  assert.equal(toggle().props.checked,false);assert.equal(date().props.disabled,true);
+  act(()=>toggle().props.onChange({target:{checked:true}}));
+  act(()=>date().props.onChange({target:{value:'2026-09-13T19:30'}}));
+  // A set time turns the main button into 예약하기 (no separate publish-now button) (2026-11-01).
+  assert.equal(button(tree,'예약하기').props.disabled,false);assert.equal(button(tree,'지금 게시하기'),undefined);
+  act(()=>tree.root.findByProps({'aria-label':'예약 게시 시각 지우기'}).props.onClick());
+  assert.equal(date().props.value,'');assert.equal(button(tree,'예약하기'),undefined);assert.equal(button(tree,'지금 게시하기').props.disabled,true);
+  act(()=>date().props.onChange({target:{value:'2026-09-13T19:30'}}));
+  act(()=>toggle().props.onChange({target:{checked:false}}));
+  assert.equal(date().props.value,'');assert.equal(date().props.disabled,true);
+  assert.equal(button(tree,'예약하기'),undefined);assert.equal(button(tree,'지금 게시하기').props.disabled,false);assert.equal(calls.length,0);
+  act(()=>toggle().props.onChange({target:{checked:true}}));assert.equal(date().props.value,'');
+  act(()=>date().props.onChange({target:{value:'2026-09-13T19:30'}}));
+  await act(async()=>button(tree,'예약하기').props.onClick());
+  assert.equal(calls.length,1);assert.equal(calls[0].status,'scheduled');assert.equal(calls[0].scheduledAt,new Date('2026-09-13T19:30').toISOString());
+  act(()=>tree.unmount());probe.close();
+});
+
+test('turning off a saved schedule keeps it on the server until an explicit draft save',async()=>{
+  const probe=fixtureHook(),calls=[],scheduled={...initialContent,status:'scheduled',scheduledAt:'2026-09-13T09:00:00.000Z'};
+  const tree=mount(ContentEditorPage,{...probe.model,contents:[scheduled],actions:{...probe.model.actions,saveContent:async input=>{calls.push(input);return {success:true,data:{message:'Saved',id:input.id}};}}},'draft1');
+  const toggle=tree.root.findAllByProps({role:'switch'})[0];assert.equal(toggle.props.checked,true);
+  act(()=>toggle.props.onChange({target:{checked:false}}));
+  assert.equal(calls.length,0);assert.ok(button(tree,'예약 취소 후 임시저장'));
+  await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+  assert.equal(calls.length,1);assert.equal(calls[0].id,'draft1');assert.equal(calls[0].status,'draft');assert.equal(calls[0].scheduledAt,null);
+  act(()=>tree.unmount());probe.close();
+});
+
 test('draft publication preserves its identifier and schedules only after injected now',async()=>{
   const probe=fixtureHook();let response;
   await act(async()=>{response=await probe.model.actions.saveContent({...initialContent,status:'scheduled',scheduledAt:'2026-09-12T08:59:00.000Z'});});
@@ -189,7 +222,7 @@ test('editor comment toggle follows the studio-wide switch and saves the per-pos
   const model={...probe.model,actions:{...probe.model.actions,saveContent:async input=>{saved.push(input);return {success:true,data:{id:'draft1',message:'저장'},errorMessage:null,errorCode:null};}}};
   const tree=mount(ContentEditorPage,model,'draft1');
   try{
-    const toggle=()=>tree.root.findAllByType('input').find(input=>input.props.role==='switch');
+    const toggle=()=>tree.root.findAllByType('input').find(input=>input.props.role==='switch'&&input.parent.findByType('strong').children.includes('댓글 허용'));
     assert.equal(toggle().props.checked,true);assert.equal(toggle().props.disabled,false);
     act(()=>toggle().props.onChange({target:{checked:false}}));
     await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
@@ -197,7 +230,7 @@ test('editor comment toggle follows the studio-wide switch and saves the per-pos
   }finally{act(()=>tree.unmount());}
   let locked;act(()=>{locked=create(React.createElement(ContentEditorPage,{model,basePath:'/studio',id:'draft1',commentsGloballyEnabled:false}));});
   try{
-    const toggle=locked.root.findAllByType('input').find(input=>input.props.role==='switch');
+    const toggle=locked.root.findAllByType('input').find(input=>input.props.role==='switch'&&input.parent.findByType('strong').children.includes('댓글 허용'));
     assert.equal(toggle.props.disabled,true);assert.match(json(locked),/크리에이터 설정에서 먼저 켜 주세요/);
   }finally{act(()=>locked.unmount());}
   probe.close();

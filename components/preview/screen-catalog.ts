@@ -2,6 +2,7 @@ export const screenLinks=[
  ['beans','지갑','잔액 · 충전 · 내역 바로가기'],
  ['beans/charges','충전 주문','충전 상태 · 결제 재시도 · 상세'],
  ['beans/history','콩 이동 내역','콩 증감 · 사유 · 일시'],
+ ['beans/referral','친구 초대','초대 링크 · 보상 현황 · 안내'],
  ['beans/tips','보낸 후원','크리에이터 · 후원 수량 · 메시지'],
  ['beans/charge','콩 충전','수량 선택 · 결제 금액 확인'],
  ['beans/success','콩 충전 완료','충전 수량 · 결제 금액 · 지갑 이동'],

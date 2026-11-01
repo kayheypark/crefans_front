@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
-import {BeanTipSource} from './BeanAttribution';
+import {BeanTipKind,BeanTipSource} from './BeanAttribution';
 import {beanOrderNumber,beanHistoryQuery,emptyBeanHistoryFilters,type BeanHistoryFilters} from '@/lib/crefans/bean-history';
 import {SelectField} from '@/components/ui/SelectField';
 import {ChipRow} from '@/components/ui/ChipRow';
@@ -18,9 +18,10 @@ import {beanExpiryDate,beanRefundOutcome} from '@/lib/crefans/bean-refund';
 import type {BeanCharge,BeanModel,BeanRefundQuote,BeanWallet} from '@/types/crefans-beans';
 import {useBeans} from './BeanContext';
 import {BeanBalanceSummary} from './BeanBalanceSummary';
+import {MarqueeText} from '@/components/ui/MarqueeText';
 import {CreatorName} from './CreatorName';
 import {BackButton} from './BackButton';
-import {Action,Empty,PageTitle} from './ServiceUI';
+import {Action,ActionLink,Avatar,Empty,PageTitle} from './ServiceUI';
 import {SignInPrompt} from './SignInPrompt';
 import {ReferralCard} from './ReferralCard';
 import Icon from './Icon';
@@ -36,7 +37,7 @@ const date=(value:string)=>new Date(value).toLocaleString('ko-KR',{year:'numeric
 export function BeanChargeLink({basePath}:{basePath:string}){
  return <Link className={s.walletCharge} href={`${basePath}/beans/charge`}><img src="/brand/beans/soft3d-v2/10.png" alt="" width={36} height={36}/><span>콩 충전</span></Link>;
 }
-export function BeanWalletOverview({basePath,wallet,loading,error}:{basePath:string;wallet:BeanWallet|null;loading:boolean;error:string}){
+export function BeanWalletOverview({basePath,wallet,loading,error,referralAvailable=false}:{basePath:string;wallet:BeanWallet|null;loading:boolean;error:string;referralAvailable?:boolean}){
  return <section className={`${s.page} ${s.walletPage}`}>
   <PageTitle back={<BackButton href={`${basePath}/me`} label="내 프로필로 돌아가기"/>} action={<InfoTooltip label="콩 단위 안내" content={beanPriceNotice}/>}>지갑</PageTitle>
   {error&&<p role="alert">{error}</p>}
@@ -44,6 +45,7 @@ export function BeanWalletOverview({basePath,wallet,loading,error}:{basePath:str
   {wallet?.expiringSoon&&<p className={s.walletExpiry} role="status">{beans(wallet.expiringSoon.quantity)}이 {beanExpiryDate(wallet.expiringSoon.expiresAt)}에 유효기간이 끝나요</p>}
   <nav className={s.walletLinks} aria-label="지갑 내역">
    {(['charges','history','tips'] as const).map(kind=><Link key={kind} href={`${basePath}/beans/${kind}`}><Icon name={kind==='charges'?'card':kind==='history'?'arrow':'heart'} width={26} height={26}/><span>{titles[kind]}</span><Icon name="chevron" width={16} height={16}/></Link>)}
+   {referralAvailable&&<Link href={`${basePath}/beans/referral`}><Icon name="users" width={26} height={26}/><span>친구 초대</span><Icon name="chevron" width={16} height={16}/></Link>}
   </nav>
  </section>;
 }
@@ -51,20 +53,33 @@ export function BeanWalletPage(){
  const model=useBeans();
  if(!model?.enabled)return <p>콩 후원을 준비 중입니다.</p>;
  if(!model.signedIn)return <SignInPrompt basePath={model.basePath}/>;
- return <><BeanWalletOverview basePath={model.basePath} wallet={model.wallet} loading={model.loading} error={model.error}/>{model.referral&&<ReferralCard referral={model.referral}/>}</>;
+ return <BeanWalletOverview basePath={model.basePath} wallet={model.wallet} loading={model.loading} error={model.error} referralAvailable={!!model.referral}/>;
+}
+
+export function BeanReferralPage(){
+ // Loading rule (/ux-spinner 2026-11-01): `undefined` means the referral answer has not arrived yet: blank for 1s, then a spinner;
+ // only a finished answer shows the card or the unavailable notice.
+ const model=useBeans(),slow=useDelayedLoading(model?.referral===undefined);
+ if(!model?.enabled)return <p>콩 후원을 준비 중입니다.</p>;
+ if(!model.signedIn)return <SignInPrompt basePath={model.basePath}/>;
+ return <section className={`${s.page} ${s.walletPage}`}>
+  <PageTitle back={<BackButton href={`${model.basePath}/beans`} label="지갑으로 돌아가기"/>}>친구 초대</PageTitle>
+  {model.referral===undefined?(slow?<LoadingSpinner/>:null):model.referral?<><ReferralCard referral={model.referral}/><ActionLink variant="secondary" href={`${model.basePath}/beans/referral-history`}>초대 내역 보기</ActionLink></>:<Empty title="현재 친구 초대를 이용할 수 없습니다."/>}
+ </section>;
 }
 
 const periods=[['all','전체 기간'],['1','최근 1개월'],['3','최근 3개월'],['6','최근 6개월'],['12','최근 1년']];
 function HistoryFilters({kind,value,onChange,disabled}:{kind:BeanHistoryKind;value:BeanHistoryFilters;onChange:(value:BeanHistoryFilters)=>void;disabled:boolean}){
  const [search,setSearch]=useState(value.search);
  useEffect(()=>setSearch(value.search),[value.search,kind]);
- const active=value.period!=='all'||value.status!=='all'||value.direction!=='all'||!!value.search;
+ const active=value.period!=='all'||value.status!=='all'||value.direction!=='all'||value.sourceType!=='all'||!!value.search;
  return <div className={s.historyFilters}>
   {kind==='tips'&&<form className={s.historySearch} onSubmit={event=>{event.preventDefault();if(!disabled&&search.trim().length<=100)onChange({...value,search:search.trim()});}}><CreatorSearch label="후원 검색" maxLength={100} placeholder="크리에이터, 게시물, 메시지 검색" value={search} onChange={setSearch} disabled={disabled}/><Action type="submit" variant="secondary" disabled={disabled||search.trim().length>100}>검색</Action></form>}
   <fieldset className={s.historyFilterGroup} disabled={disabled}><legend className={s.srOnly}>조회 기간</legend><ChipRow label="조회 기간" className={s.historyPeriods}>{periods.map(([key,label])=><Chip key={key} selected={value.period===key} onClick={()=>onChange({...value,period:key})}>{label}</Chip>)}</ChipRow></fieldset>
   <div className={s.historyFilterBottom}>
    {kind==='charges'&&<SelectField label="결제 상태" hideLabel value={value.status} onChange={status=>onChange({...value,status})} disabled={disabled} options={[{value:'all',label:'모든 상태'},...Object.entries(statusNames).map(([value,label])=>({value,label}))]}/>}
    {kind==='history'&&<SelectField label="이동 유형" hideLabel value={value.direction} onChange={direction=>onChange({...value,direction})} disabled={disabled} options={[{value:'all',label:'모든 내역'},{value:'in',label:'적립'},{value:'out',label:'사용'}]}/>}
+   {kind==='tips'&&<SelectField label="후원 구분" hideLabel value={value.sourceType} onChange={sourceType=>onChange({...value,sourceType})} disabled={disabled} options={[{value:'all',label:'전체 후원'},{value:'post',label:'게시물 후원'},{value:'profile',label:'프로필 후원'}]}/>}
    {active&&<button type="button" className={s.historyReset} disabled={disabled} onClick={()=>onChange({...emptyBeanHistoryFilters})}>초기화</button>}
   </div>
  </div>;
@@ -73,10 +88,10 @@ type HistoryModel=Pick<BeanModel,'basePath'|'wallet'|'sent'|'sentTotal'|'loading
 export function BeanHistoryView({kind,model,error='',notice='',onNoticeClose=()=>{},pending=false,filters=emptyBeanHistoryFilters,onFiltersChange=()=>{},onPay,onPage,onRefund,refund=null,onRefundConfirm=()=>{},onRefundClose=()=>{}}:{kind:BeanHistoryKind;model:HistoryModel;error?:string;notice?:string;onNoticeClose?:()=>void;pending?:boolean;filters?:BeanHistoryFilters;onFiltersChange?:(filters:BeanHistoryFilters)=>void;onPay:(charge:BeanCharge)=>void;onPage:(page:number)=>void;onRefund?:(charge:BeanCharge)=>void;refund?:{quote:BeanRefundQuote;error:string}|null;onRefundConfirm?:()=>void;onRefundClose?:()=>void}){
  const wallet=model.wallet,page=wallet?.page||1,items=kind==='charges'?wallet?.charges:kind==='history'?wallet?.entries:model.sent;
  const issue=error||model.error,total=kind==='charges'?wallet?.chargesTotal:kind==='history'?wallet?.entriesTotal:model.sentTotal;
- const filtered=filters.period!=='all'||filters.status!=='all'||filters.direction!=='all'||!!filters.search;
+ const filtered=filters.period!=='all'||filters.status!=='all'||filters.direction!=='all'||filters.sourceType!=='all'||!!filters.search;
  // Loading rule: keep the previous list (nothing on a first load) for 1s, then a spinner; results replace the screen only when the response arrives.
  const received=!!model.error||!!wallet||model.sentTotal!==undefined,slow=useDelayedLoading(model.loading);
- return <section className={`${s.page} ${s.walletPage}`}>
+ return <section className={`${s.page} ${s.walletPage} ${s.historyPage}`}>
   <PageTitle back={<BackButton href={`${model.basePath}/beans`} label="지갑으로 돌아가기"/>}>{titles[kind]}</PageTitle>
   <HistoryFilters kind={kind} value={filters} onChange={onFiltersChange} disabled={pending}/>
   {received&&!model.error&&total!==undefined&&<p className={s.historyCount} role="status">총 {total.toLocaleString('ko-KR')}건</p>}
@@ -102,8 +117,9 @@ export function BeanHistoryView({kind,model,error='',notice='',onNoticeClose=()=
     <time className={s.historyMeta} dateTime={entry.created_at}>{date(entry.created_at)}</time>
    </li>)}
    {kind==='tips'&&model.sent.map(tip=><li key={tip.id} className={s.historyItem}>
-    <div className={s.historyTop}><Link className={s.historyCreator} href={`${model.basePath}/creator/${encodeURIComponent(tip.creator_id)}`}><CreatorName person={{name:tip.creatorName||'크리에이터'}}/></Link><strong className={s.historyDelta}>{beans(tip.quantity)}</strong></div>
-    <BeanTipSource tip={tip} basePath={model.basePath}/>
+    <p className={s.historyKind}><BeanTipKind tip={tip}/></p>
+    <div className={s.historyTop}><Link className={s.historyCreator} href={`${model.basePath}/creator/${encodeURIComponent(tip.creator_id)}`}><Avatar creator={{name:tip.creatorName||'크리에이터',image:tip.creatorAvatar||undefined}} size={36}/><span className={s.historyIdentity}><CreatorName person={{name:tip.creatorName||'크리에이터',isVerified:tip.creatorIsVerified}}/>{tip.creatorHandle&&<span className={s.historyHandle}><MarqueeText text={`@${tip.creatorHandle}`}/></span>}</span></Link><strong className={s.historyDelta}>{beans(tip.quantity)}</strong></div>
+    <BeanTipSource tip={tip} basePath={model.basePath} showKind={false}/>
     {tip.message&&<p className={s.tipMessage}>{tip.message}</p>}
     <time className={s.historyMeta} dateTime={tip.created_at}>{date(tip.created_at)}</time>
    </li>)}
