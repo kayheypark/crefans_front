@@ -3433,3 +3433,8 @@
 - 사용자 선택:03 은은한 입체 아이콘으로 화면 시안 요청. 최신 origin/prod95168c5에서 feat/signin-soft-lock-preview 분기. 기존 독립 HTML 시안의 PNG만03-soft.png로 교체하고 표시 영역을104px에서88px로 줄였다. 원본 투명 여백을 포함하므로 눈에 보이는 자물쇠 높이는 약54px다. 좌우16px·로그인/회원가입·2열 푸터는 유지했다.
 - `.local/signin-soft-lock-preview-20261102/`에 HTML·render.cjs·390/320px PNG·verification.json을 저장했다. WebKit390/Chromium320에서 이미지 로딩, 가로 넘침 없음, 안내 링크9개, 푸터/GNB 비겹침 확인. 390px 시안을 직접 시각 검수했다. 원본 에셋/HTML/PNG 해시·측정값·명령/시각을 보존한다.
 - 디자인 시안만 완료, 실제 공용 컴포넌트 적용·인증 동작·운영 배포는 미실행. 다음은 시안 확정 후 구현 요청 시 적용이며 현재 운영 service-footer-20261102 유지. AGENTS 불변 규약 변경 없음. 작업 기록만 dev→prod 순서로 통합한다.
+
+## 2026-11-02 3D 자물쇠 흰색·투명 열쇠구멍 변형4종
+- 요청: 이전3D 자물쇠의 열쇠구멍을 흰색 또는 투명으로 바꾼 변형 시안. 최신 origin/prod9c5cf0e에서 feat/signin-lock-keyhole-variants 분기. 기존 선명한3D와 은은한 입체 원본을 내장 image_gen 편집에 전달해 각각 흰색/투명4종 생성. 원본은 보존하고 `.local/signin-lock-keyholes-20261102/`에 PNG4개·최종 prompts.json·comparison.html/PNG·compare.cjs·verification.json 저장했다.
+- RGBA1254×1254·모서리 투명·해시 확인. 흰색01/03의 구멍 중앙 샘플은 약RGB253·알파254, 투명02/04의 중앙은알파0이다. 중앙 사각영역 완전 투명 비율은92.1%/85.2%로, 생성 결과의 가장자리 잔흔까지 완전히 제거됐다고 보장하지 않는다. 이미지젠 외 픽셀 후처리는 수행하지 않았다. 체크 배경 비교판으로 구멍을 통한 배경 투과와 흰색의 차이를 직접 확인했다. 실제 운영 적용 전 선택 에셋의 작은 크기/경계 재검수가 필요하다.
+- 디자인 비교만 완료, 사용자 선택/제품 적용·배포는 미정. 제품 코드 변경 없음·현재 운영 service-footer-20261102 유지. AGENTS 불변 규약 변경 없음. 기록만 dev→prod 순서로 통합한다.
