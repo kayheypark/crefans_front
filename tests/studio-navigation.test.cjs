@@ -79,7 +79,7 @@ test('mobile viewports keep the studio open behind a menu button and restore the
   assert.doesNotMatch(JSON.stringify(view.toJSON()),/모바일에서는 지원하지 않습니다/);
   assert.match(JSON.stringify(view.toJSON()),/페이지 본문/);
   assert.equal(menu().length,1);assert.equal(menu()[0].props['aria-expanded'],false);
-  assert.equal(aside().props['aria-hidden'],true);assert.equal(aside().props.inert,true);assert.equal(aside().props['data-open'],false);
+  assert.equal(aside().props['aria-hidden'],true);assert.equal(aside().props.inert,true);assert.equal(aside().props['data-open'],false);assert.equal(aside().props['data-mobile'],true);
   act(()=>menu()[0].props.onClick());
   assert.equal(menu()[0].props['aria-expanded'],true);assert.equal(menu()[0].props['aria-label'],'스튜디오 메뉴 닫기');
   assert.equal(aside().props['aria-hidden'],undefined);assert.equal(aside().props.inert,undefined);assert.equal(aside().props['data-open'],true);
@@ -89,8 +89,16 @@ test('mobile viewports keep the studio open behind a menu button and restore the
   act(()=>menu()[0].props.onClick());assert.equal(aside().props['data-open'],true);
   act(()=>menu()[0].props.onClick());assert.equal(aside().props['data-open'],false);
   screen.resize(false);
-  assert.equal(menu().length,0);assert.equal(aside().props['data-open'],true);assert.equal(aside().props.inert,undefined);
+  assert.equal(menu().length,0);assert.equal(aside().props['data-open'],true);assert.equal(aside().props.inert,undefined);assert.equal(aside().props['data-mobile'],undefined);
   assert.equal(group(view,'수익,정산,출금 관리').props['aria-expanded'],false);
   screen.resize(true);assert.equal(menu().length,1);assert.equal(aside().props['data-open'],false);
  }finally{close();assert.equal(screen.listeners.size,0);screen.restore();}
+});
+
+// 2026-11-01: before the screen size is known (server render / first frame) the mobile drawer must not show. The mobile
+// drawer rule needs data-mobile, which only appears once the media query says mobile; desktop ignores data-open.
+test('mobile drawer CSS requires data-mobile, so the first frame never shows an open drawer',()=>{
+  const css=require('fs').readFileSync(require('path').join(__dirname,'../components/crefans/studio/studio.module.css'),'utf8');
+  assert.match(css,/\.sidebar\[data-open=true\]\[data-mobile\]\{display:flex;position:fixed/);
+  assert.doesNotMatch(css,/\.sidebar\[data-open=true\]\{display:flex;position:fixed/);
 });
