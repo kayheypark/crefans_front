@@ -3384,3 +3384,9 @@
 - 레이어·타입·단위490건 통과. 최초 타입검사에서 카탈로그 accept 누락을 보완했다. 브라우저 최초 실패는 기존 오류 문구를 별도 DOM/마침표로 잘못 기대한 테스트 선택자였으며 실제 span 내용을 기준으로 정정하고 재검증한다. PC1440/WebKit390/Chromium320 공용 컴포넌트 및 정상 목업 경로·운영 이미지 검증 증거는 .local/video-processing-ui-20261102/. 실물 아이폰·실제 운영 업로드/변환은 검증 범위 밖이다.
 - 현재 운영 wallet-release-20261102 레이어와 동결 소스를 대조하고 제품9파일만 반영할 예정. 다음: 브라우저·빌드검사→dev 통합검증→prod 승격·프론트 배포 후 운영 재검증. AGENTS 변경 없음.
 - 후속 검증: PC1440·iPhone13 WebKit·Chromium320에서 선택 UI/상태 전환 및 기존 편집기·목록·게시물 경로6건 통과. 모든 미완성 미디어 요청0건, reduced-motion 회전 중지, 본문 가로 넘침 없음 확인. 카탈로그 캡처에서는 검수 도구의 고정 내비게이션만 숨겼으며 제품 컴포넌트는 수정하지 않았다. dev 통합 코드 검사490건 통과. docs:record 당시 개발 서버가 자동 변경한 next-env.d.ts를 원복한 뒤 문서 해시 증거를 재기록했다.
+
+### 운영 배포 및 검증 완료
+- dev2ce2e96 검증 후 prod235461b 승격·원격 동기화. 2026-11-02 07:14 KST 프론트 `crefans-front:video-processing-ui-20261102` 배포 완료. 기존 wallet-release 운영 소스·레이어 일치 확인 후 제품9파일만 변경, source manifest SHA-256 f60e6d64e047dcbc704383b41916ff0e3aebcf29c864247d22c696b7c07da16c.
+- 로컬·실제 빌드 이미지·운영 주소에서 각각 브라우저6건 통과: PC Chromium1440, iPhone13 WebKit390, Chromium320. 작성 문구 위치/목록 칩과 게시 상태 분리/피드 중앙 정렬/미완성 파일 요청0건/완료·실패·삭제/감소된 모션 및 기존 목업 정상 미디어 경로 확인. 코드490건·문서75개·운영 빌드 통과. 실제 운영 업로드·worker 변환 및 실물 iPhone Chrome 검증은 수행하지 않았다.
+- 운영 공개 페이지5경로 HTTP200, JS/CSS57파일이 검증 이미지와 SHA-256 일치. 운영6서비스 정상, API·worker·admin·DB·proxy5개 ID 불변·마이그레이션 없음. 현재·직전 wallet-release 복구 이미지 보호 후 오래된 pull-refresh-20261101 로컬/원격 각1개만 정리. 임시 검사 컨테이너/3011 서버 종료, Docker Desktop과 기존 guide4321 유지.
+- 증거 `.local/video-processing-ui-20261102/verification.json`, deployment-git.json, source-delta.json, deployment-command.json, served-assets.json, runtime-after.json, local-ui-final/, image-ui/, production-ui/, production-settled/ 및 retention JSON. 초기 캡처에서 아바타가 로딩 중이어서 이미지·폰트 로딩 후 PC/모바일6장 재촬영했다. 이 완료 기록은 prod 기준 새 feat→dev→prod 통합하며 제품 소스는 동일하다. AGENTS 변경 없음.
