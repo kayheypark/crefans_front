@@ -4,7 +4,8 @@ import {serviceEvents} from '@/lib/content/events';
 import {PreviewConnections} from './PreviewConnections';
 import {SignupCompletePage} from '@/components/crefans/SignupCompletePage';
 import {BeanChargePage} from '@/components/crefans/BeanChargePage';
-import {BeanWalletPage,BeanHistoryPage} from '@/components/crefans/BeanWalletPages';
+import {BeanWalletPage,BeanHistoryPage,BeanReferralPage} from '@/components/crefans/BeanWalletPages';
+import {ReferralHistoryPage} from '@/components/crefans/ReferralHistoryPage';
 import {PreviewBeanPaymentResult} from './PreviewBeanPaymentResult';
 import {ServiceGuidePage} from '@/components/crefans/ServiceGuidePage';
 import {Suspense} from 'react';
@@ -32,7 +33,7 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'membership':return <MembershipPage model={model} id={id} initialPlanId={query.get('plan')||undefined}/>;
   case 'signup':return id==='complete'?<SignupCompletePage basePath={basePath} live={false}/>:<SignupPage model={model} onComplete={()=>router.push(`${basePath}/signup/complete`)}/>;
   case 'login':return <LoginPage model={model} next={query.get('next')} navigate={path=>router.replace(path)}/>;
-  case 'beans':return id==='withdraw'?<BeanWithdrawPage finance={finance} basePath={basePath}/>:id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<PreviewBeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
+  case 'beans':return id==='referral'?<BeanReferralPage/>:id==='referral-history'?<ReferralHistoryPage/>:id==='withdraw'?<BeanWithdrawPage finance={finance} basePath={basePath}/>:id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<PreviewBeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
   case 'feed':return <FeedPage model={model}/>;
   case 'post':return <PostDetailPage model={model} id={id} forceLocked={query.get('locked')==='1'}/>;
   case 'messages':return <MessagesPage model={model}/>;
