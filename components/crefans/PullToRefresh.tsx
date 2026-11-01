@@ -7,6 +7,13 @@ import s from './pull-to-refresh.module.css';
 const threshold=96;
 const editable='input,textarea,select,[contenteditable]:not([contenteditable="false"])';
 
+/** Refresh read/list routes; payment, withdrawal and authentication flows retain their state. */
+export function isPullRefreshPage(routeKey:string){
+  const [screen,detail]=routeKey.split('/');
+  if(screen==='beans')return !detail||['charges','history','tips','referral','referral-history'].includes(detail);
+  return ['feed','explore','me','creator','member','post','messages','notifications','subscriptions','settings','support','following','followers','payment-methods','notices','events','legal','guide','screens'].includes(screen);
+}
+
 /** The mobile shell scrolls internally, so browser-level pull-to-refresh cannot reach it. */
 export function PullToRefresh({scrollRef,enabled,routeKey}:{scrollRef:RefObject<HTMLDivElement|null>;enabled:boolean;routeKey:string}){
   const [pull,setPull]=useState({distance:0,top:0,refreshing:false});
@@ -17,15 +24,17 @@ export function PullToRefresh({scrollRef,enabled,routeKey}:{scrollRef:RefObject<
     const reset=()=>{start=null;distance=0;if(!refreshing)setPull({distance:0,top:0,refreshing:false});};
     const blocked=()=>!window.matchMedia('(max-width:767px) and (pointer:coarse)').matches||scroll.scrollTop>0||
       (window.visualViewport?.scale??1)!==1||!!document.querySelector('dialog[open],[aria-modal="true"]')||
+      !!scroll.querySelector('[data-pull-refresh-block="true"]')||
+      Array.from(scroll.querySelectorAll('[data-pull-refresh-scroll]')).some(node=>node.scrollTop>0)||
       !!document.activeElement?.matches(editable)||
       Array.from(document.querySelectorAll<HTMLInputElement>('[data-comment-dock] input')).some(input=>input.value.trim());
     function begin(event:TouchEvent){
       reset();
       if(refreshing||event.touches.length!==1||blocked()||!(event.target instanceof Element)||event.target.closest(editable))return;
-      // A nested carousel/list owns its gestures, even when it is at its boundary.
+      // Only an explicitly opted-in vertical list (inbox) shares its top boundary.
       for(let node=event.target;node&&node!==scroll;node=node.parentElement!){
         const style=getComputedStyle(node);
-        if((/(auto|scroll)/.test(style.overflowY)&&node.scrollHeight>node.clientHeight)||
+        if((/(auto|scroll)/.test(style.overflowY)&&node.scrollHeight>node.clientHeight&&!node.hasAttribute('data-pull-refresh-scroll'))||
           (/(auto|scroll)/.test(style.overflowX)&&node.scrollWidth>node.clientWidth))return;
       }
       const touch=event.touches[0];start={x:touch.clientX,y:touch.clientY,id:touch.identifier};
