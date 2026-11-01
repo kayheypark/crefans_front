@@ -1,5 +1,7 @@
 'use client';
 import {TIP_PROVISION} from '@/lib/crefans/creator-provision';
+import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
+import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanTipSource,BeanPayoutSource} from './BeanAttribution';
@@ -20,7 +22,6 @@ import {Action,ActionLink,PageTitle} from './ServiceUI';
 import {SignInPrompt} from './SignInPrompt';
 import {BackButton} from './BackButton';
 import {Dialog,Field} from '@/components/ui/Primitives';
-import {ChipLink} from '@/components/ui/ChipLink';
 import {DialogActions} from '@/components/ui/DialogActions';
 import {PinField} from '@/components/ui/PinField';
 import {Checkbox,Radio} from '@/components/ui/Choice';
@@ -29,13 +30,16 @@ import type {BeanTip,BeanQuote} from '@/types/crefans-beans';
 import s from './beans.module.css';
 const beans=(n:number|string)=>Number(n).toLocaleString('ko-KR')+'콩',won=(n:number|string)=>Number(n).toLocaleString('ko-KR')+'원';
 const statusNames:Record<string,string>={requested:'접수',processing:'처리 중',paid:'완료',rejected:'반려',blocked:'보류',pending:'결제 대기',failed:'실패',cancelled:'취소',disputed:'확인 필요'};
-// Profile chip shows the spendable balance, e.g. "내 지갑(1,000콩)"; it loads the wallet once when signed in.
+// Profile wallet shows a bean icon and spendable balance; it loads once when signed in.
 export function BeanWalletLink({basePath,className}:{basePath:string;className?:string}){const model=useBeans(),refresh=useRef(model?.refresh),loaded=useRef(false),load=!!className&&!!model?.enabled&&!!model.signedIn;
  refresh.current=model?.refresh;
  // Once per mount: some models recreate refresh on every render, so it must not be an effect dependency.
  useEffect(()=>{if(load&&!loaded.current){loaded.current=true;void refresh.current?.();}},[load]);
+ // Loading rule (/ux-spinner 2026-11-01): before the first response the label stays empty for 1s, then a small spinner;
+ // only the response shows the balance (or '내 지갑' when it failed). A refresh keeps the previous balance.
+ const pending=load&&!model?.wallet&&!model?.error,slow=useDelayedLoading(pending);
  if(!model?.enabled)return null;const balance=model.wallet?model.wallet.spendableBeans??(model.wallet.accounts||[]).filter(a=>['purchased','promotion'].includes(a.bucket)).reduce((n,a)=>n+Number(a.balance),0):null;
- return className?<ChipLink href={`${basePath}/beans`} className={className}>{balance===null?'내 지갑':`내 지갑(${balance.toLocaleString('ko-KR')}콩)`}</ChipLink>:<div style={{padding:'12px 16px'}}><Link href={`${basePath}/beans`}>내 콩 지갑</Link></div>;}
+ return className?<Link href={`${basePath}/beans`} className={className} aria-label={balance===null?'내 지갑':`내 지갑 · 사용 가능한 ${beans(balance)}`}><Image src="/brand/beans/soft3d-v2/10.png" width={20} height={20} sizes="20px" alt="" draggable={false}/><span>{balance!==null?beans(balance):pending?(slow?<LoadingSpinner inline/>:null):'내 지갑'}</span></Link>:<div style={{padding:'12px 16px'}}><Link href={`${basePath}/beans`}>내 콩 지갑</Link></div>;}
 export function BeanIncomeLink({basePath}:{basePath:string}){const model=useBeans();return model?.enabled?<p className={s.incomeLink}>이 화면은 멤버십 원화 수익 기준입니다. <Link href={`${basePath}/beans`}>콩 후원 수익·출금 보기</Link></p>:null;}
 export function TipButton({creatorId,name,postId,post,creator,disabled=false,profile=false}:{creatorId:string;name:string;postId?:string;post?:Post;creator?:Creator;disabled?:boolean;profile?:boolean}){
  const model=useBeans(),[open,setOpen]=useState(false),[confirming,setConfirming]=useState(false),[quantity,setQuantity]=useState('10'),[message,setMessage]=useState(''),[error,setError]=useState(''),[result,setResult]=useState<BeanTip|null>(null),[pending,setPending]=useState(false),[shared,setShared]=useState(false),request=useRef(''),busy=useRef(false);

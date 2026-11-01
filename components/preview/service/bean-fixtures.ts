@@ -5,7 +5,7 @@ import type {BeanCharge,BeanTip,BeanWallet} from '@/types/crefans-beans';
 const date=(daysAgo:number)=>new Date(Date.UTC(2026,9,26)-daysAgo*86400000).toISOString();
 const id=(n:number)=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
 
-export function createMockBeanHistory(creators:{id:string;name:string}[],posts:Post[]=[]){
+export function createMockBeanHistory(creators:{id:string;name:string;image?:string;handle?:string;isVerified?:boolean}[],posts:Post[]=[]){
  const paidQuantities=[1000,1000,1000,500,300,100,50,30,10,10];
  const charges:BeanCharge[]=paidQuantities.map((quantity,index)=>({id:id(index+1),quantity,amount:quantity*beanChargeKrwPerBean,status:'paid',environment:'test',createdAt:date(48-index+1/1440),paidAt:date(48-index)}));
  ['failed','cancelled','disputed','processing','pending','failed','cancelled','disputed','processing','pending'].forEach((status,index)=>{
@@ -24,7 +24,7 @@ export function createMockBeanHistory(creators:{id:string;name:string}[],posts:P
  const tips:BeanTip[]=recipients.length?quantities.map((quantity,index)=>{
   const creator=recipients[index%recipients.length],promotion=index===27?100:0;
   const post=index%2===0?posts.find(p=>p.creatorId===creator.id):undefined;
-  return {post_id:post?.id,sourceType:post?'post':'profile',postTitle:post?.title,postTitleSource:post?'snapshot':null,postAvailable:!!post,id:id(index+101),sender_id:'mock-fan',creator_id:creator.id,creatorName:creator.name,quantity,paid_quantity:quantity-promotion,promotion_quantity:promotion,message:messages[index%messages.length],created_at:date(index+1)};
+  return {post_id:post?.id,sourceType:post?'post':'profile',postTitle:post?.title,postTitleSource:post?'snapshot':null,postAvailable:!!post,id:id(index+101),sender_id:'mock-fan',creator_id:creator.id,creatorName:creator.name,creatorAvatar:creator.image,creatorHandle:creator.handle,creatorIsVerified:creator.isVerified,quantity,paid_quantity:quantity-promotion,promotion_quantity:promotion,message:messages[index%messages.length],created_at:date(index+1)};
  }):[];
  // Opening balances already include this history: 4,000 charged - 1,500 paid tips;
  // 200 promotional - 100 promotional tips; 3,000 paid and 50 promotional earnings.
