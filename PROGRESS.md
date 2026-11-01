@@ -1,5 +1,10 @@
 # PROGRESS: crefans_front
 
+## 2026-11-01 친구 초대 카드 '보상 콩 출금하기'를 받은 보상 행 오른쪽 끝으로 — referral-withdraw-20261101 운영 배포
+
+- ReferralCard의 받은 보상 행(금액 옆, 행 오른쪽 끝)에 버튼을 넣고 카드 아래 별도 버튼은 제거. 모바일·PC에서 행 오른쪽 끝·같은 줄·가로 넘침 없음 확인, 운영 /preview에서 확인.
+- 미커밋: ReferralCard·referral.module.css는 다른 세션의 미커밋(배포된) 코드라 이 변경도 커밋하지 않음. 증거 `.local/referral-withdraw-20261101/`, `.local/referral-withdraw-deploy-20261101/`.
+
 ## 2026-11-01 친구 초대 내역(A안)·초대 페이지 로딩 규칙 — referral-history-20261101 운영 배포(API·프론트)
 
 - 사용자 결정: 초대 내역 화면은 시안 A(요약 3칸+상태 칩+초대별 행). 가입자 이름은 앞 세 글자+별 10개로 가림.
