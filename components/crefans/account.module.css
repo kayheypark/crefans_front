@@ -38,14 +38,16 @@
 .identityRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control)}.identityRow strong{display:block;font-size:max(13px,var(--cf-mobile-font-min,0px))}.identityRow span{font-size:max(12px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted)}.identityRow .verified{min-height:36px}
 .login .homeLink{display:grid;margin:8px auto 0}
 
-.signInPrompt{width:100%;min-height:calc(100svh - 180px);display:grid;place-items:center;margin:0;padding:48px 16px}
+.signInPrompt{width:100%;min-height:calc(100svh - 180px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;margin:0;padding:40px 16px}
 /* Phones: the page body already has the 16px side gutter (same as the feed), so the prompt adds none. */
-@media(max-width:767px){.signInPrompt{padding-inline:0}.signInPrompt>footer{width:100%;max-width:none}}
-.signInPrompt>div{width:100%;max-width:400px;padding:0;gap:12px}
-.signInPrompt>div>p:first-child{font-size:24px;line-height:1.4;letter-spacing:-.6px;color:var(--cf-color-text)}
-.signInPrompt>div>p:not(:first-child){font-size:14px;line-height:1.8}
-.signInActions{display:flex;justify-content:center;gap:12px;margin-top:12px}
-.signInPrompt .signInActions a{min-width:120px;min-height:44px;margin-top:0;padding:10px 20px;border-radius:var(--cf-radius-control);font-size:14px}
+@media(max-width:767px){.signInPrompt{padding-inline:0;justify-content:flex-start}.signInPrompt>footer{width:100%;max-width:none;margin-top:0}}
+.signInContent{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;max-width:400px;gap:12px}
+.signInIcon{display:block;flex:none;width:88px;height:88px;object-fit:contain;margin-bottom:4px}
+.signInContent h1{margin:0;font-size:24px;line-height:1.4;letter-spacing:-.6px;color:var(--cf-color-text)}
+.signInContent>p{margin:0;max-width:330px;font-size:14px;line-height:1.8;color:var(--cf-color-textMuted);word-break:keep-all}
+.signInActions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:12px;margin-top:12px}
+.signInPrompt .signInActions a{min-width:0;min-height:48px;margin-top:0;padding:10px 16px;border-radius:var(--cf-radius-control);font-size:15px;font-weight:600}
+.signInPrompt .signInActions a:not(.signInPrimary){color:var(--cf-color-accent);border-color:var(--cf-color-accentBorder)}
 .signInPrompt .signInPrimary{background:var(--cf-service-brand);color:var(--cf-color-onAccent);border-color:var(--cf-service-brand)}
 
 .menuGroup{margin-top:22px}.menuGroup h3{margin:0 0 2px;padding:0 5px;font-size:max(12px,var(--cf-mobile-font-min,0px));font-weight:600;color:var(--cf-color-textMuted)}.menuGroup .menuList{margin-top:0;padding-top:0;border:0}
