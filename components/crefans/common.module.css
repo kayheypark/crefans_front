@@ -16,6 +16,7 @@
 
 .following>a>span:not([data-avatar]){flex:1}.followerName{flex:1}
 /* A published terms/policy revision shown above the current text until it takes effect. */
-.legalNext{margin:0 0 24px;padding:14px 16px;border:1px solid var(--cf-landing-line);border-radius:12px;background:var(--cf-landing-soft)}
-.legalNext>summary{cursor:pointer;font-weight:600;color:var(--cf-color-accent)}
-.legalNext[open]>summary{margin-bottom:12px}
+
+
+
+.legalVersion{min-width:170px;max-width:220px}
