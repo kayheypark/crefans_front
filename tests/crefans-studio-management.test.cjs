@@ -225,3 +225,13 @@ test('content timestamps agree between UTC servers and Korean browser timezones'
  const prior=process.env.TZ,probe=fixtureHook(),values=[];
  try{for(const timezone of ['UTC','Asia/Seoul']){process.env.TZ=timezone;const tree=mount(ContentManagementPage,probe.model);const label=tree.root.findAllByType('span').find(node=>typeof node.props.children==='string'&&node.props.children.endsWith(' 수정'));assert.ok(label);values.push(label.props.children);act(()=>tree.unmount());}assert.equal(values[0],values[1]);assert.match(values[0],/오후 06:00/);}finally{if(prior===undefined)delete process.env.TZ;else process.env.TZ=prior;probe.close();}
 });
+test('a new post shows no status badge until saved and uses plain placeholders (2026-11-01)',()=>{
+ const probe=fixtureHook();
+ const fresh=mount(ContentEditorPage,probe.model,undefined),saved=mount(ContentEditorPage,probe.model,'draft1');
+ try{
+  const badges=tree=>tree.root.findAll(node=>node.props?.['data-status']!==undefined&&typeof node.type==='string');
+  assert.equal(badges(fresh).length,0);assert.equal(badges(saved).length,1);
+  const placeholders=fresh.root.findAll(node=>typeof node.type==='string'&&node.props.placeholder).map(node=>node.props.placeholder);
+  assert.ok(placeholders.includes('제목을 입력하세요'));assert.ok(placeholders.includes('내용을 입력하세요'));
+ }finally{act(()=>fresh.unmount());act(()=>saved.unmount());}
+});

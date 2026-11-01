@@ -119,10 +119,11 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   const draft:StudioContent={id:savedId||'',title,body,media,commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status,scheduledAt:null,updatedAt:model.now};
   return <section className={s.page}><PageTitle back={<BackButton href={`${basePath}/content`} label="콘텐츠 목록으로"/>}>{savedId?'게시물 수정':'게시물 작성'}</PageTitle>
     <div className={s.editorLayout}><div className={s.editorColumn}>
-    <div className={s.editorHead}><Status value={status}/></div>
+    {/* A new post has no state until it is saved: show the badge only for saved posts (2026-11-01). */}
+    {current&&<div className={s.editorHead}><Status value={status}/></div>}
     <form className={s.editor} onSubmit={e=>{e.preventDefault();save(status==='published'?'published':'draft');}}>
-      <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder="팬들에게 전할 이야기의 제목"/>
-      <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder="나누고 싶은 이야기를 적어주세요."/>
+      <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
+      <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
       <MediaUpload label="미디어 · 선택" items={media} max={mediaUploadMaxItems} onFilesSelect={upload} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint={`JPG·PNG·WebP 5MB, MP4·WebM 300MB · 최대 ${mediaUploadMaxItems}개 · 끌어서 순서 변경`}/>
       <div className={s.editorOptions}><SelectField marquee label="공개 범위" value={access} onChange={setAccess} options={[{value:'',label:'전체 공개'},...levels.map(rank=>({value:`level:${rank}`,label:`레벨 ${rank} 이상`})),...model.memberships.map(plan=>({value:plan.id,label:`${plan.name} 전용${!plan.active?' · 신규 가입 중단':''}`}))]} searchable/>{status!=='published'&&<label className={s.field}>예약 게시 시각<input type="datetime-local" value={scheduledAt} min={localDateInput(model.now)} onChange={e=>setScheduledAt(e.target.value)}/></label>}</div>
       <div className={s.commentOption}><Checkbox label="이 게시물에서 후원 받기" description="전체공개 게시물에서도 후원을 받을 수 있습니다." checked={tipsEnabled} disabled={task.busy} onChange={setTipsEnabled}/></div>
