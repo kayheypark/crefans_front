@@ -19,8 +19,8 @@ test('local media store accepts images and videos with separate limits and rejec
   assert.notEqual(image.data.id,video.data.id);assert.ok(store.owns(video.data.url));
   assert.equal((await store.uploadMedia(file('image/gif'))).errorCode,'INVALID_MEDIA_TYPE');
   assert.equal((await store.uploadMedia(file('video/webm'))).success,true);
-  const mov=await store.uploadMedia(file('video/quicktime'));
-  assert.equal(mov.errorCode,'INVALID_MEDIA_TYPE');assert.doesNotMatch(mov.errorMessage,/MOV/);
+  // iPhone .mov is accepted since 2026-11-01 (the server converts it to MP4).
+  assert.equal((await store.uploadMedia(file('video/quicktime'))).success,true);
   assert.equal((await store.uploadMedia(file('image/png',6*1024*1024))).errorCode,'INVALID_MEDIA_SIZE');
   assert.equal((await store.uploadMedia(file('video/mp4',301*1024*1024))).errorCode,'INVALID_MEDIA_SIZE');
   assert.equal((await store.upload(file('video/mp4'))).errorCode,'INVALID_IMAGE_TYPE');
@@ -28,7 +28,7 @@ test('local media store accepts images and videos with separate limits and rejec
 
 test('post media file picker advertises only server-supported formats',()=>{
   const {mediaUploadAccept}=loadTypeScript('lib/design/image-upload.ts');
-  assert.deepEqual(mediaUploadAccept.split(','),['image/jpeg','image/png','image/webp','video/mp4','video/webm']);
+  assert.deepEqual(mediaUploadAccept.split(','),['image/jpeg','image/png','image/webp','video/mp4','video/webm','video/quicktime','.mov']);
 });
 
 function mount(props){
@@ -117,5 +117,13 @@ test('design B: one add button first, then its guidance, then the thumbnails (20
     const kids=picker.view.root.findByProps({role:'group'}).children.filter(node=>typeof node!=='string').map(node=>node.type);
     assert.ok(kids.indexOf('button')<kids.indexOf('small')&&kids.indexOf('small')<kids.indexOf('ul'),kids.join(','));
     assert.match(JSON.stringify(picker.view.toJSON()),/사진·동영상 추가/);
+  }finally{picker.unmount();}
+});
+test('an iPhone .mov being converted shows a placeholder tile instead of an unplayable video (2026-11-01)',()=>{
+  const picker=mount({items:[{id:'m',type:'video',url:'/api/v1/media/m/file',processing:true},{id:'f',type:'video',url:'/api/v1/media/f/file',failed:true}]});
+  try{
+    assert.equal(picker.view.root.findAllByType('video').length,0);
+    const text=JSON.stringify(picker.view.toJSON());assert.match(text,/동영상 변환 중/);assert.match(text,/변환 실패/);
+    assert.equal(picker.buttons().filter(item=>/삭제$/.test(item.props['aria-label']||'')).length,2,'both can still be removed');
   }finally{picker.unmount();}
 });

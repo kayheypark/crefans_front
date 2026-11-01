@@ -116,7 +116,8 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     if(nextStatus==='scheduled'&&(!scheduled||!Number.isFinite(scheduled.getTime())||scheduled.getTime()<=Date.parse(model.now))){setError('예약 시각을 현재보다 미래로 선택해주세요.');return;}
     void task.run(()=>model.actions.saveContent({id:savedId,title,body,media,commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);});
   }
-  const draft:StudioContent={id:savedId||'',title,body,media,commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status,scheduledAt:null,updatedAt:model.now};
+  // Videos still converting (or failed) are not playable yet, so the fan preview leaves them out.
+  const draft:StudioContent={id:savedId||'',title,body,media:media.filter(item=>!item.processing&&!item.failed),commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status,scheduledAt:null,updatedAt:model.now};
   return <section className={s.page}><PageTitle back={<BackButton href={`${basePath}/content`} label="콘텐츠 목록으로"/>}>{savedId?'게시물 수정':'게시물 작성'}</PageTitle>
     <div className={s.editorLayout}><div className={s.editorColumn}>
     {/* A new post has no state until it is saved: show the badge only for saved posts (2026-11-01). */}

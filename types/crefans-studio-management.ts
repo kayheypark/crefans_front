@@ -2,7 +2,8 @@ import type {ApiResult} from './crefans';
 import type {CreatorTerms} from '@/lib/crefans/creator-payout-policy';
 
 export type StudioContentStatus='draft'|'published'|'scheduled';
-export type StudioMedia={id:string;type:'image'|'video';url:string};
+/** `processing`: an iPhone .mov being converted to MP4 on the server; `failed`: conversion failed (not shown in the post). */
+export type StudioMedia={id:string;type:'image'|'video';url:string;processing?:boolean;failed?:boolean};
 /** `media` holds images and videos in display order, at most `mediaUploadMaxItems` (10). */
 export type StudioContent={id:string;title:string;body:string;/** Set when an operator hid the post (terms §8); only the author can still see it. */hiddenByOperator?:boolean;media:StudioMedia[];/** Per-post switch; the studio-wide setting still takes precedence. */commentsEnabled:boolean;tipsEnabled?:boolean;accessPlanId:string|null;/** Minimum purchased rank; mutually exclusive with accessPlanId. */accessLevel?:number|null;status:StudioContentStatus;scheduledAt:string|null;updatedAt:string};
 export type StudioMembership={id:string;name:string;rank?:number;price:number;benefits:string[];active:boolean;version:number;image?:string;canDelete?:boolean};
