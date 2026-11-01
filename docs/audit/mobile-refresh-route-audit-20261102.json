@@ -1,0 +1,414 @@
+{
+  "checkedAt": "2026-11-01T15:09:35.589928+00:00",
+  "scope": "Frontend route registration and mobile scroll-host audit. Not a full functional/security/financial QA. Admin console is a separate product and is excluded.",
+  "baseline": "6809708a7e6b5c86771acf3077ff7c7d72e636b4",
+  "routeFileCount": 39,
+  "fanScreenCount": 27,
+  "fanScreens": [
+    {
+      "screen": "events",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "beans",
+      "handling": "conditional",
+      "reason": "지갑·charges·history·tips·referral·referral-history 적용, charge·success·fail·withdraw 제외"
+    },
+    {
+      "screen": "guide",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "payment",
+      "handling": "excluded",
+      "reason": "공급사 결제 결과 확인"
+    },
+    {
+      "screen": "member",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "checkout",
+      "handling": "excluded",
+      "reason": "멤버십 결제 진행"
+    },
+    {
+      "screen": "billing",
+      "handling": "excluded",
+      "reason": "결제수단 등록 결과 처리"
+    },
+    {
+      "screen": "screens",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "explore",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "creator",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "membership",
+      "handling": "excluded",
+      "reason": "멤버십 선택 및 구매 진행"
+    },
+    {
+      "screen": "signup",
+      "handling": "excluded",
+      "reason": "회원가입 및 완료"
+    },
+    {
+      "screen": "login",
+      "handling": "excluded",
+      "reason": "로그인 입력"
+    },
+    {
+      "screen": "feed",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "post",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "messages",
+      "handling": "conditional",
+      "reason": "목록만 적용. 대화방·전송 중·다른 대화에 보관된 초안도 제외. contacts 내부 스크롤의 최상단 경계만 공유"
+    },
+    {
+      "screen": "notifications",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "me",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "subscriptions",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "settings",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "support",
+      "handling": "conditional",
+      "reason": "FAQ 조회 적용. tab=qna 문의 작성 전체 제외"
+    },
+    {
+      "screen": "following",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "followers",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "payment-methods",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "notices",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "legal",
+      "handling": "enabled",
+      "reason": "내부 스크롤을 쓰는 조회 화면; 모달·입력·처리중 보호 적용"
+    },
+    {
+      "screen": "reset-password",
+      "handling": "excluded",
+      "reason": "인증·비밀번호 입력"
+    }
+  ],
+  "beanSubroutes": {
+    "enabled": [
+      "",
+      "charges",
+      "history",
+      "tips",
+      "referral",
+      "referral-history"
+    ],
+    "excluded": [
+      "charge",
+      "success",
+      "fail",
+      "withdraw"
+    ]
+  },
+  "studioScreens": [
+    "advertising",
+    "beans",
+    "dashboard",
+    "start",
+    "content",
+    "memberships",
+    "subscribers",
+    "messages",
+    "comments",
+    "analytics",
+    "reports",
+    "earnings",
+    "settlements",
+    "withdraw",
+    "withdrawals",
+    "accounts",
+    "security",
+    "settings"
+  ],
+  "studioDecision": "Document scrolling, not the fixed-height ServiceShell. Preserve browser-native behavior. Drawer and chat nested scrolling are intentional; no native refresh guarantee on a physical iPhone.",
+  "otherDecision": "Landing, card, design system, legacy routes retain document scroll; no shared 100dvh/overscroll:none fan shell. Existing auth/checkout flows unchanged.",
+  "allRouteFiles": [
+    {
+      "file": "app/(auth)/login/page.tsx",
+      "sha256": "1382ea462d90147f3e65519799df6ed8bce0e744ac6330291a4e4685c0672a7b",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/[handle]/page.tsx",
+      "sha256": "54f54cda21f3fe932b8f1339d31ef57e1dc8f0837dd8415d6796c64a2a73486a",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/board/[id]/page.tsx",
+      "sha256": "776dfcc14ae195edb9c076489e8294945fe9d52748d09347a1474509761466c8",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/board/page.tsx",
+      "sha256": "e12e61ecb5caae902a71fb59e8d4adfef7daa06d115cf1f68907018add87ee6e",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/explore/page.tsx",
+      "sha256": "4bebd0c02efcd11c79c8647919edd782c3716834feb1edcb65144c3d513aa881",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/feed/page.tsx",
+      "sha256": "3918cd81a64b83d3edcf630d7e32216075d8795443cdc459c61e4b9e62b7c9cd",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/home/page.tsx",
+      "sha256": "1b5d3b9dcc45e828a953eeb2a188660dc9b6eaed95bdcbc2c06de2e83fcae8f5",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/payment-history/page.tsx",
+      "sha256": "09c37fe18caf8e11800fed065a04ab98fc1c0d4ae5d9a38a4cc41005826945df",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/profile/edit/page.tsx",
+      "sha256": "9a5b1e5b2b95a7752f4f6f5fa7081064f5e325c78162d734199472f5e628ee73",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/profile/page.tsx",
+      "sha256": "f6cf3606024157a736c4797fd7ab7308b28cc78547eae4b4765fee094a1da13e",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/search/page.tsx",
+      "sha256": "6759ccb7ad1d17583c36bf8166262755ff172cd72d28d3e91ad6153d08e460c7",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/settings/page.tsx",
+      "sha256": "51ecb661fe7b89fec4e70d8b52b4b9b382a7c661fc9cff93b914b361292c6cf2",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/support/page.tsx",
+      "sha256": "868ed6da27853c77e9af4f1295584ec2da408dacf89c63de89f12b6fc8f1b25f",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/(main)/write/page.tsx",
+      "sha256": "c5ee000dcc5115b03ba8b45db91325d77a36dcc3c2680dc08dc3073ab9cc0b27",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/card/page.tsx",
+      "sha256": "8a22ea8bd985e3cc49df48f697a4e3f3f0924771068f27eef2668c9eaa23cfa4",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/creator-center/become-creator/page.tsx",
+      "sha256": "b88f9febea382a8620899901c31315a1cb4b09c26ea9f5195be5a632c4c937b3",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/creator-center/donations/page.tsx",
+      "sha256": "e11663dabc311e6b50bc0d1573a911dafabbe40daca81603efd37ca55b7d0d72",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/creator-center/earnings/page.tsx",
+      "sha256": "000f1aa7a5eab4438c019dd7c41f9d17a3a2fc71d5a70129dd07f5235369c88a",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/creator-center/memberships/page.tsx",
+      "sha256": "07710025c18ee194f80aa053ce9a75711c8063ce6644a2dba01a08c7e64b1359",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/creator-center/page.tsx",
+      "sha256": "8945a79ff882ad4ca7f9233b1250381be5fb1292458f88aeaebc2dc6fc5d0b8d",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/creator-center/settings/page.tsx",
+      "sha256": "eac794b7f4fdaf3489750a1789cf47f94171ca4b9ae2c8efacef01607850b4fd",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/creator-center/write/page.tsx",
+      "sha256": "09c7967fe5398050cb5a218dc31cc7a71f944d28adae9bf948ceff6aacaa25c5",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/design-system/page.tsx",
+      "sha256": "b637a1056ea57737960c2897d5d2413b4f5aaff03f861e5d23b13d599e65dcf3",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/email-verification/page.tsx",
+      "sha256": "67781f4f44d1fd3bf39d1c5c439267a1073070710dc503900844c18610b4ed4e",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/page.tsx",
+      "sha256": "405ed41768fb3bf46909a53ccbdeba20396ebf4d89054db438ad5d732128b67e",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/payment/fail/page.tsx",
+      "sha256": "638ca23a2143d96e889c27ab3ef0a409a502a7d4987daa540425be85ef3e5fbb",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/payment/success/page.tsx",
+      "sha256": "d0879eb5d985b25a58923d4e690b4446cb1c7fc7ca384881fb855c9b6caf8573",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/post/[id]/page.tsx",
+      "sha256": "79e5a79b2d1f4542886f3a07ad63f486a669b00041661cc61ff4090e760625e2",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/preview/[...screen]/page.tsx",
+      "sha256": "0079edec0bf9c8aac699874d4ceb7970256ad6bc4cd6db00681b081347584a9a",
+      "scrollReview": "fan-router"
+    },
+    {
+      "file": "app/preview/landing/page.tsx",
+      "sha256": "8ab209de16841c172ac3cac78a12e2443b809427336181561abafacc0f34ce7d",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/preview/studio/[[...screen]]/page.tsx",
+      "sha256": "38010fa687e155531f9fec30d0310c678e84f3381acbbe7653b5c4d780960786",
+      "scrollReview": "studio-native-document"
+    },
+    {
+      "file": "app/service/[...screen]/page.tsx",
+      "sha256": "8e07947002180df503de42d6aee9b84d8ab30996cce8372aca0a581832738d2e",
+      "scrollReview": "fan-router"
+    },
+    {
+      "file": "app/service/landing/page.tsx",
+      "sha256": "4f39eb37f3bcaf8bd66eb577f2986cb085e7e2a00721ad00878693a1462b0abd",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/service/page.tsx",
+      "sha256": "365a0e01a5f23be08c3e39bccf978354a93656f6e82329f938cc6a0c9555e553",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/service/studio/[[...screen]]/page.tsx",
+      "sha256": "9b3028f7ff228616fc8c89e822bdd94bcbdb7c6878a6c4d4e03b3bd2ae755204",
+      "scrollReview": "studio-native-document"
+    },
+    {
+      "file": "app/subscription/[creatorId]/page.tsx",
+      "sha256": "15edb1776295cd168d8a0e2b69dbfa4fe1e6987ffe3868fd5b1fa06059250fad",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/subscription/billing/fail/page.tsx",
+      "sha256": "8fb2db9af3240d345ad2d929cf0c96c52e5e19bf6e29732bb68f6446d9bf5e54",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/subscription/billing/success/page.tsx",
+      "sha256": "30d8357648287570da7544b8733b8e9de7e9c4865594994512214474609046ad",
+      "scrollReview": "other-document-or-legacy"
+    },
+    {
+      "file": "app/subscription/manage/page.tsx",
+      "sha256": "86a4d991aafccc9f3efcd8b2a38fee7cb1231cef778d3e69ae8d874d61578efc",
+      "scrollReview": "other-document-or-legacy"
+    }
+  ],
+  "reviewedScrollAndRoutingSources": {
+    "components/crefans/ServiceShell.tsx": "547c0533bea47a6682c46e865699507197a5178c6686dc78e2a9248a369f3f97",
+    "components/crefans/service.module.css": "d7e63112cd8787b00097185c6668afe3b4d412c2d8246971fa980f6020fab604",
+    "components/crefans/PullToRefresh.tsx": "b471448c30623ea46d65e455d8e72370f1cba3b9b7b42f39bdfea4fa38df1a6d",
+    "components/crefans/SocialPages.tsx": "d1343999996be176661875461b37053d9e3df0ebcf51ed629f2d8b365406471b",
+    "components/crefans/social.module.css": "503b9b3728ceae59e2e2c161c75a4ac4852206d05090f96b1823289172f49432",
+    "components/crefans/AccountPages.tsx": "208d9a74d2be096e3d4079ebbe2310e6afdf4344f32073a8cd3169c7711f87dd",
+    "components/crefans/CommonPages.tsx": "ce08014212b0b6973f19d7815702a0e764c65c6bdb4c5ca2a46ff021af4f6f2e",
+    "components/crefans/BeanWalletPages.tsx": "41e93f05f8ea63254ef516cb2786781cdd3e9dfb8a7559b5617fb0028d282e49",
+    "components/crefans/CreatorPages.tsx": "770e4dcc4433462c3c43a18ec063ad84400e0dd1e76312892ffdf9d4c5b6bbc0",
+    "components/crefans/studio/StudioShell.tsx": "83c9c174ea32a8c681b94574bd1515f28a5ec44ce9f5e371ee4c45026366f5ac",
+    "components/crefans/studio/studio.module.css": "a0d0a3d54cbf481a11d0d4800d2620725a0d41fd27d64b25e0b4b746dbedf08d",
+    "components/layout/MainLayout.tsx": "c87f19eefef553d665c804a030f5f6d63dbb324adde076815380d7666a9ad314",
+    "app/globals.css": "c7f30b0a864e151d626118cc1b909d0481904f19dd253b7b81816810aedc39e3",
+    "components/service/ServiceRouter.tsx": "221096c5bc671871da74960deafd415780a7a2dca83948e6cca8069b365eb4f2",
+    "components/preview/service/ServiceRouter.tsx": "3ec6f0927b9943fe1d650af8c6789e37e2794becec8d3ffd196141d4e5ec5515",
+    "components/service/StudioRouter.tsx": "9c14f2bea4836ef61126acac530e3855fb2f504d88df34d574459ef7663903a9",
+    "components/preview/studio/StudioRouter.tsx": "cef53bb958c917145ecfcc9d25cc8daf889aedffa8ba734e3526295a02c00677"
+  },
+  "coverage": {
+    "missingFanScreens": [],
+    "extraFanScreens": [],
+    "negativeControl": "PASS: omission of beans detected"
+  },
+  "references": [
+    {
+      "url": "https://developer.chrome.com/blog/overscroll-behavior",
+      "decision": "Internal scroll plus overscroll suppression prevents native pull; extend the shared explicit gesture without changing viewport layout."
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overscroll-behavior",
+      "decision": "Do not remove intentional nested scroll containment on dialogs/carousels/chat."
+    }
+  ],
+  "physicalDeviceVerified": false
+}

@@ -179,7 +179,7 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
       setMessage(result.data.message);setCancelling(null);
     }finally{setPending(false);}
   };
-  return <div className={s.subscriptions}>
+  return <div className={s.subscriptions} data-pull-refresh-block={pending||undefined}>
     <PageTitle>{tab}</PageTitle>
     <div className={s.tabs} aria-label="구독과 결제">{['내 구독','결제 내역'].map(item=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>{setTab(item);router.push(`${basePath}/subscriptions${item==='결제 내역'?'?tab=payments':''}`,{scroll:false});}}>{item}</button>)}</div>
     <Toast message={message} onClose={()=>setMessage('')}/>

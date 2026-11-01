@@ -17,10 +17,11 @@
 
 새 UI는 공통 컴포넌트로 구현하고, 정상·빈 값/목록·오류·disabled·readOnly·loading 중 해당하는 상태를 카탈로그에 등록한 다음 같은 컴포넌트를 목업에서 재사용한다. 지원하지 않는 상태를 샘플 처리 결과로 꾸미지 않는다. 목업·카탈로그마다 같은 UI를 별도 JSX와 CSS로 복제하지 않는다.
 
-### 모바일 당겨서 새로고침 (2026-11-01)
+### 모바일 당겨서 새로고침 (2026-11-02)
 
-- 홈·탐색·내 프로필·크리에이터/회원 프로필은 내부 스크롤 영역 맨 위에서 한 손가락으로96px 이상 아래로 당긴 뒤 놓으면 현재 URL을 다시 불러온다. [PullToRefresh](../components/crefans/PullToRefresh.tsx)를 공용 ServiceShell에서 사용하며, 작은 상태 안내는 기존 색상·아이콘·LoadingSpinner를 재사용한다. 모바일 coarse pointer에만 적용한다.
-- 짧은 당김·가로/위쪽 이동·다중 터치·취소·중간 스크롤·중첩 스크롤 영역·모달·입력 포커스·작성 중 댓글 초안은 새로고침하지 않는다. PC·메시지와 기존 GNB/댓글 입력바 배치는 유지한다. [회귀 검사](../e2e/pull-to-refresh.spec.ts)는 합성 TouchEvent, Chromium CDP 터치, WebKit 에뮬레이션을 구분하며 실물 아이폰 Chrome 검증을 대신하지 않는다.
+- 내부 스크롤 영역 맨 위에서 한 손가락으로96px 이상 아래로 당긴 뒤 놓으면 현재 URL을 다시 불러온다. [PullToRefresh](../components/crefans/PullToRefresh.tsx)를 공용 ServiceShell에서 사용하며, 작은 상태 안내는 기존 색상·아이콘·LoadingSpinner를 재사용한다. 모바일 coarse pointer에만 적용한다. 홈·탐색·프로필 외 지갑/이력/친구 초대, 메시지 목록, 알림, 구독/결제 내역, 팔로우 목록, 게시물, 설정 목록, 결제수단 목록, FAQ·공지·이벤트·정책·안내 조회에 적용한다. 경로 정책은 isPullRefreshPage에서 관리한다.
+- 짧은 당김·가로/위쪽 이동·다중 터치·취소·중간 스크롤·중첩 스크롤 영역·모달·입력 포커스·작성 중 댓글 초안은 새로고침하지 않는다. 메시지 목록만 data-pull-refresh-scroll로 내부 최상단 경계를 공유한다. 대화방·다른 대화의 보관 초안·전송 중에는 data-pull-refresh-block으로 중단한다. 문의 작성, 인증·멤버십 구매·충전·출금·공급사 결과 처리는 제외한다. 지갑 이력·결제수단·구독·설정의 변경 요청 중에도 중단한다.
+- PC·GNB/댓글 입력바 배치는 유지한다. 스튜디오·랜딩은 원래 문서 스크롤이므로 중복 제스처를 추가하지 않는다. [전체 경로 조사](./audit/mobile-refresh-route-audit-20261102.json), [조회 화면/보호 조건 검사](../e2e/pull-refresh-pages.spec.ts), [기존 회귀 검사](../e2e/pull-to-refresh.spec.ts)는 합성 TouchEvent, Chromium CDP 터치, WebKit 에뮬레이션을 구분하며 실물 아이폰 Chrome 검증을 대신하지 않는다.
 - 근거 확인2026-11-01: [Chrome overscroll 안내](https://developer.chrome.com/blog/overscroll-behavior), [W3C Touch Events Level2](https://www.w3.org/community/reports/touchevents/CG-FINAL-touch-events-20240704/). 내부 스크롤·overscroll 차단을 유지해 GNB 회귀를 피하고, 대상 스크롤러에 한정한 non-passive touchmove를 유효한 아래 당김에서만 취소하는 적용 판단이다. 브라우저 자체 새로고침 UI를 복원하는 방식은 아니다.
 
 ### 친구 초대·레퍼럴 (2026-11-01)
