@@ -3646,3 +3646,8 @@
 - 수정 후 동일PC clientHeight/scrollHeight375/375. Chromium/WebKit 각1440×900,1280×720,390×844에서 게시물·프로필 후원 모달 확인.844×320에서는 필요한 스크롤과 로그인 버튼 접근/이동 유지. 기존 로그인 페이지 모바일320/390/767·PC·service API대역 회귀10건 + 모달8건=18건 통과. 계정 단위23건·타입·계층 검사 통과, PC 캡처 육안 확인.
 - 최초 브라우저 실행의3건은 Safari 마우스 클릭이 버튼을 포커스한다고 가정한 검사에서 실패. MDN button Clicking and focus(https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#clicking_and_focus, 확인2026-11-03)의 브라우저별 차이를 확인하고 키보드 포커스 복귀는 실제 Enter 입력으로 검증해8건 재통과. 제품 포커스 동작 변경 없음. 최초 실패 결과도 보존.
 - 증거 .local/tip-login-scroll-20261103/{before.json,after.json,before.png,after.png,browser-initial.log,browser.log,results-initial.json,results.json,unit.log,typecheck.log,layers.log}, 공개 요약 docs/audit/tip-login-scroll-20261103.json. 로컬 UI·API대역 검사이며 실제계정·후원결제·물리iPhone·운영배포는 실행하지 않음. 다음: 사용자 배포 요청 시 dev 통합 검증→prod 승격→프론트 배포. AGENTS 프로젝트·스택·PROGRESS 선확인·공용UI·브랜치 불변 규약 유지.
+
+## 2026-11-03 개인정보처리방침 링크 색상 강조 — 미배포
+- 최신 origin/prod88237ff에서 feat/privacy-link-emphasis 분기. 공용 ServiceFooter와 PC ServiceShell 사이드바의 개인정보처리방침 링크만 기존 본문 색상 토큰으로 변경. 다른 안내 링크의 보조색·경로·배치는 유지한다. 법률 본문·인증/금융 로직 변경 없음. AGENTS 불변 규약 유지.
+- 합격 조건: PC·모바일에서 개인정보 링크 RGB32,35,51, 이용약관 링크 RGB108,114,131 유지 및 가로넘침 없음. 로컬3011 /preview/settings의 서비스 안내에서 Chromium1440×1000·WebKit390×664로 모두 확인하고 캡처를 직접 검수했다. 기존 common 테스트9건 통과. 브라우저 API 요청 차단, 실제 계정/아이폰/운영 검증은 아님. CSS2개 변경으로 신규 테스트·전체 제품 빌드 불필요.
+- 증거 docs/audit/privacy-link-20261103.json, .local/privacy-link-20261103/{common-tests.log,browser-observations.json,pc.png,mobile.png}. 운영 배포 전이며 기존 로그아웃/탈퇴 행 개선 feat/settings-account-actions33c30e7도 별도 미배포 상태다. 배포 요청 시 dev 통합 검증→prod 순서로 진행한다.

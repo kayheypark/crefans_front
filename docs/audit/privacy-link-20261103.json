@@ -1,0 +1,119 @@
+{
+  "recordedAt": "2026-11-02T15:33:01.155233+00:00",
+  "repository": "crefans_front",
+  "branch": "feat/privacy-link-emphasis",
+  "baseCommit": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
+  "status": "implemented locally; not deployed",
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0"
+  },
+  "scope": "Shared footer and desktop sidebar privacy policy link color only",
+  "sourceSha256": {
+    "components/crefans/service-footer.module.css": "617913167a1d719fcfa8c02dd4440f861bea47e3f84b36b93cccb00abb8ea573",
+    "components/crefans/service.module.css": "b531ccc0c562d44edca3c9678cad1a7ea061f52edde28b61d6cea6fa2263045c"
+  },
+  "checks": [
+    {
+      "command": "node --test tests/crefans-common.test.cjs",
+      "exitCode": 0,
+      "passed": 9,
+      "log": "common-tests.log",
+      "recordedAt": "2026-11-02T15:28:48.095205+00:00"
+    },
+    {
+      "command": "node inline Playwright: open /preview/settings; select 서비스 안내; inspect computed colors, href and overflow; capture PC/mobile",
+      "exitCode": 0,
+      "observation": {
+        "time": "2026-11-02T15:32:03.074Z",
+        "environment": "localhost preview; API calls blocked; mobile device emulation, not physical iPhone",
+        "results": [
+          {
+            "label": "pc",
+            "engine": "chromium",
+            "viewport": {
+              "width": 1440,
+              "height": 1000
+            },
+            "links": [
+              {
+                "text": "개인정보처리방침",
+                "href": "/preview/legal/privacy",
+                "color": "rgb(32, 35, 51)",
+                "footer": false
+              },
+              {
+                "text": "개인정보처리방침",
+                "href": "/preview/legal/privacy",
+                "color": "rgb(32, 35, 51)",
+                "footer": true
+              }
+            ],
+            "sibling": {
+              "color": "rgb(108, 114, 131)",
+              "href": "/preview/legal/terms"
+            },
+            "horizontalOverflow": false
+          },
+          {
+            "label": "mobile",
+            "engine": "webkit",
+            "viewport": {
+              "width": 390,
+              "height": 664
+            },
+            "links": [
+              {
+                "text": "개인정보처리방침",
+                "href": "/preview/legal/privacy",
+                "color": "rgb(32, 35, 51)",
+                "footer": true
+              }
+            ],
+            "sibling": {
+              "color": "rgb(108, 114, 131)",
+              "href": "/preview/legal/terms"
+            },
+            "horizontalOverflow": false
+          }
+        ]
+      }
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-membership-release npm run check:docs",
+      "exitCode": 0,
+      "result": "PASS",
+      "level": "snapshot-only-not-test-proof",
+      "log": ".local/privacy-link-20261103/docs-check.log"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "artifacts": {
+    "common-tests.log": {
+      "path": "/Users/ethan/repository/crefans_front-privacy-link/.local/privacy-link-20261103/common-tests.log",
+      "sha256": "9bf0e019d950a0a4c2f6e33947202b4435f66d169e944549b7d5aa16f68a0193"
+    },
+    "browser-observations.json": {
+      "path": "/Users/ethan/repository/crefans_front-privacy-link/.local/privacy-link-20261103/browser-observations.json",
+      "sha256": "91c40985ec67dae7278b8335180b36e1a81cc2f5e6eb1104f0d5b2bc006ce569"
+    },
+    "pc.png": {
+      "path": "/Users/ethan/repository/crefans_front-privacy-link/.local/privacy-link-20261103/pc.png",
+      "sha256": "6ac23b84bee8d46d2e23bf45ac76288fbfb9124d0f0947c2b64a915b0fab38b3"
+    },
+    "mobile.png": {
+      "path": "/Users/ethan/repository/crefans_front-privacy-link/.local/privacy-link-20261103/mobile.png",
+      "sha256": "ccb3293c7a21edf4747374266c808271340e9adbbeb7031a9af0288b57362b09"
+    }
+  },
+  "visualInspection": "PC and mobile screenshots reviewed; privacy link appears darker than adjacent service links",
+  "limits": [
+    "Local preview with API calls blocked",
+    "WebKit mobile emulation, not physical iPhone",
+    "No live deployment or full app build",
+    "No new tests for display-only CSS adjustment"
+  ]
+}
