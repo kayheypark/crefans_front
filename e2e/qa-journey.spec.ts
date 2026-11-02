@@ -66,7 +66,7 @@ test.describe('QA 회원 여정',()=>{
   const before=await (await creator.ctx.request.get('/api/v1/studio/overview')).json();expect(Number(before.data.metrics.find((m:any)=>m.id==='subscribers').value)).toBe(0);
   const order=await (await fan.ctx.request.post('/api/v1/checkout',{headers:ORIGIN,data:{planId:c.creators.C0.plans['1'],requestId:crypto.randomUUID(),creatorProvision:'2026-10-30.1'}})).json();expect(order.success,order.errorCode).toBe(true);
   await fan.page.goto('/service/checkout/'+order.data.id);await expect(fan.page.getByRole('button',{name:'결제하고 가입',exact:true})).toBeVisible();await snap(fan.page,info,'S03 결제 화면(등록 카드·금액)');
-  await fan.page.getByRole('button',{name:'결제하고 가입',exact:true}).click();await expect(fan.page.getByText('멤버십 가입 완료',{exact:true})).toBeVisible();await snap(fan.page,info,'가입 완료');
+  await fan.page.getByRole('checkbox',{name:/결제에 동의합니다/}).check();await fan.page.getByRole('button',{name:'결제하고 가입',exact:true}).click();await expect(fan.page.getByText('멤버십 가입 완료',{exact:true})).toBeVisible();await snap(fan.page,info,'가입 완료');
   await creator.page.goto('/service/studio');await expect.poll(async()=>Number((await (await creator.ctx.request.get('/api/v1/studio/overview')).json()).data.metrics.find((m:any)=>m.id==='subscribers').value)).toBe(1);
   await creator.page.reload();await snap(creator.page,info,'C0 스튜디오: 구독자 1');
   // paying the same order again is idempotent: no second subscription
