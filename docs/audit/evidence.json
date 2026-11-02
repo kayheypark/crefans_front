@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T15:14:46.677830+00:00",
+  "checkedAt": "2026-11-02T15:33:02.022844+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,7 +18,7 @@
     "models": 87,
     "enums": 15,
     "migrations": 47,
-    "localMarkdownTargets": 444,
+    "localMarkdownTargets": 445,
     "externalInlineLinksNotFetched": 369
   },
   "negativeControls": [
@@ -30,25 +30,25 @@
   ],
   "repositories": {
     "front": {
-      "head": "73fbc854596d967310555101a0a96eb482406144",
-      "branch": "feat/membership-deployment-evidence",
+      "head": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
+      "branch": "feat/privacy-link-emphasis",
       "dirty": true
     },
     "server": {
-      "head": "6a08f511226453e241eadbeb2eb9c753a79dd279",
-      "branch": "feat/membership-deployment-evidence",
+      "head": "d4238d922641277f6e5364f27d2484a8641afdb1",
+      "branch": "",
       "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "5f3e09e6bdff861aa4f78a7da570ab5f071a70654b0eb460352160ad07e020cd",
-      "front/PROGRESS.md": "e63b44e3a8d9a7c2e026de80bd8c7fdeb6bc29471c488faa4fcb19aeb143e090",
+      "front/PROGRESS.md": "8b023c5f9537b060834d54a51bd9dcd66e7f5d922ea51944df60500a7951afd8",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "577fb71fa84f4e5090969839f0f003aa31b058d74895d3437f85406a0bfe9b6a",
+      "front/docs/design-system.md": "be5a4417fed37e9517d41caef73c31f36dc26906e775ef8624ae98a4d62bd0e3",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -264,8 +264,8 @@
       "front/components/crefans/pull-to-refresh.module.css": "b299540b08d7e271dd0892d9a8ba6e2e9ff917dcad5d5d858c4bcc1010284f02",
       "front/components/crefans/referral-history.module.css": "dd41250c76b9630f57751069af17c7d7d24def521cceda5756d4cae4c6d25b2d",
       "front/components/crefans/referral.module.css": "797752fa30dcc4a256851ca30d9c14a69bbc5edc3bb03c432b235783e36ab451",
-      "front/components/crefans/service-footer.module.css": "21a54d2d54c8ba4c74ec32b4390718370488921f09271b6d2e4bff0e3fa09584",
-      "front/components/crefans/service.module.css": "37861408280bc735cf89f5b650c6e30e01cd6d81528aa85a4789508cbc38c9eb",
+      "front/components/crefans/service-footer.module.css": "617913167a1d719fcfa8c02dd4440f861bea47e3f84b36b93cccb00abb8ea573",
+      "front/components/crefans/service.module.css": "b531ccc0c562d44edca3c9678cad1a7ea061f52edde28b61d6cea6fa2263045c",
       "front/components/crefans/signup-complete.module.css": "403afb7dd5fcb6ae4d619620e3c9f4b9f0ea236b5fc4b090f7ca13529e3f10e0",
       "front/components/crefans/social.module.css": "503b9b3728ceae59e2e2c161c75a4ac4852206d05090f96b1823289172f49432",
       "front/components/crefans/studio/AdvertisingPage.tsx": "42fcbbbf49e72368f7f01294a314fab7e37071f6e65403172edab190628d109f",

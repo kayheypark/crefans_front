@@ -3509,3 +3509,9 @@
 - 검증: 후보 컨테이너와 운영 서버 및 맥북 외부 HTTPS에서 GET/HEAD200·text/plain UTF-8, GET3261바이트 원본 SHA4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905 일치. 피드·탐색·API상태·관리자로그인·가이드5경로200. 콩/결제·계정 데이터 변경 없음. 이전19공식 링크 검증 유효; 이번 작업은 검색 순위나 AI 수집 결과를 증명하지 않음.
 - 실패/한계: 로컬 Docker의 이전 태그 이름 조회 실패로 실제 운영 이미지의 정확한 ID/레이어를 검증한 서버에서 네트워크 없는 단일COPY 빌드 수행. 후보 통과 후 배포. 기존 결제 묶음의 전체 check:docs 증거 만료는 별도 미해결이며 새 파일 목록·계약·링크 검사 오류0과 구분. 전체 앱 회귀/실금융 시험은 정적 파일 변경 범위 밖.
 - 증거 `/Users/ethan/repository/crefans_front-llms/.local/llms-deploy-20261102/`: baseline.json, dev-verification.json, image-verification.json, production-verification.json, external-verification.json, deployment-command.json 및 실제 실행 스크립트/로그. 운영 https://crefans.com/llms.txt 정상 제공. 다음은 통상 서비스/가이드 변경 때 파일 안내를 함께 검토; Search Console 추가 제출은 불필요. AGENTS 불변 규약 유지.
+
+
+## 2026-11-03 개인정보처리방침 링크 색상 강조 — 미배포
+- 최신 origin/prod88237ff에서 feat/privacy-link-emphasis 분기. 공용 ServiceFooter와 PC ServiceShell 사이드바의 개인정보처리방침 링크만 기존 본문 색상 토큰으로 변경. 다른 안내 링크의 보조색·경로·배치는 유지한다. 법률 본문·인증/금융 로직 변경 없음. AGENTS 불변 규약 유지.
+- 합격 조건: PC·모바일에서 개인정보 링크 RGB32,35,51, 이용약관 링크 RGB108,114,131 유지 및 가로넘침 없음. 로컬3011 /preview/settings의 서비스 안내에서 Chromium1440×1000·WebKit390×664로 모두 확인하고 캡처를 직접 검수했다. 기존 common 테스트9건 통과. 브라우저 API 요청 차단, 실제 계정/아이폰/운영 검증은 아님. CSS2개 변경으로 신규 테스트·전체 제품 빌드 불필요.
+- 증거 docs/audit/privacy-link-20261103.json, .local/privacy-link-20261103/{common-tests.log,browser-observations.json,pc.png,mobile.png}. 운영 배포 전이며 기존 로그아웃/탈퇴 행 개선 feat/settings-account-actions33c30e7도 별도 미배포 상태다. 배포 요청 시 dev 통합 검증→prod 순서로 진행한다.
