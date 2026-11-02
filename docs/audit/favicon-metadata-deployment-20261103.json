@@ -1,0 +1,615 @@
+{
+  "checkedAt": "2026-11-02T23:17:28.371043+00:00",
+  "release": "brand-metadata-20261103",
+  "deploymentTime": "2026-11-02T23:16:32Z",
+  "repository": "crefans_front",
+  "integration": {
+    "feature": "76069d423e867959344f58c45ed9bcae1bff0d06",
+    "dev": "c87891209b380d24b9f1718e97474c90baa74637",
+    "prod": "5e5ff7bdecbc032345640fd04b097605c4d9bbe7",
+    "verifiedAt": "2026-11-02T23:09:35.677448+00:00",
+    "check": "SEO4 and TypeScript on dev; dev/prod identical"
+  },
+  "build": {
+    "front": {
+      "commit": "5e5ff7bdecbc032345640fd04b097605c4d9bbe7",
+      "tag": "crefans-front:brand-metadata-20261103",
+      "sourceManifestSha256": "117aa7ae36dde0c3f69eefbb9c6e04d21c3b3af0270db4c873b22c886b0736cc",
+      "startedAt": "2026-11-02T23:09:50.662278+00:00",
+      "finishedAt": "2026-11-02T23:15:46.016341+00:00",
+      "exitCode": 0,
+      "buildHost": "production host; isolated build containers; CPU1,memory1536MiB,swap2GiB",
+      "remoteSource": "/home/ubuntu/crefans-brand-metadata-20261103/front-source",
+      "imageId": "sha256:cefc2940773da8981848daf90940b3688b90754aaefd30d3127cdf38b98f363f",
+      "rootFsLayers": [
+        "sha256:44a87794b739d471ec360bec56cc0ceac640d06bbf579ee7d9061a0b88d09818",
+        "sha256:09282d8f6dc3f140ce030eb4e3846b30c465220b50fd0962514f40dfc5122fd4",
+        "sha256:985fa6649f64124b2ab93baeb7a549ac3877147f438dd5931a2c5179aa83eef3",
+        "sha256:d8d64e272e1628c506685a6d413e953de1128072f8d9f58e9f781e0ad6fdee9f",
+        "sha256:6b6d01cb4b38660434f1ec5ef231fd25b6585c18893e02231eb10d38f36b29c3",
+        "sha256:65b18d4990547e6a8b2b6ff76bf5b45b35497d1510a2183687a533599f3372f5",
+        "sha256:ae31eae8386439fa9ac09c9e11c57e7ed7411b2fc3e2703f26797d8dfb466d35",
+        "sha256:fbc5080325eacee1adc038ac89e8cbfee4d2f6b1adc8cf5d7c024160095da5ef",
+        "sha256:01d694cdb78ac21a51e33f9f3d7144416c0cfd46a729526723f2a7a96fdf45fb",
+        "sha256:60ad9a376207f86b414d4eadbc2967f4dcd6803d9e14cbe5ada848f9986c433d"
+      ]
+    }
+  },
+  "sourceIntegrity": {
+    "front": {
+      "tag": "crefans-front:brand-metadata-20261103",
+      "commit": "5e5ff7bdecbc032345640fd04b097605c4d9bbe7",
+      "checkedFiles": 733,
+      "result": "PASS"
+    }
+  },
+  "production": {
+    "rows": [
+      {
+        "route": "/",
+        "http": 200,
+        "title": "크레팬스(Crefans)",
+        "icons": true,
+        "meta": {
+          "null": null,
+          "viewport": "width=device-width, initial-scale=1",
+          "description": "크리에이터와 팬을 잇는 플랫폼",
+          "application-name": "크레팬스(Crefans)",
+          "keywords": "크레팬스,crefans,크리에이터,멤버십,구독,후원,팬덤,창작자,크리에이터 후원,팬 커뮤니티,유료 구독,코스프레,일러스트,아트",
+          "creator": "크레팬스(Crefans)",
+          "publisher": "크레팬스(Crefans)",
+          "robots": "index, follow",
+          "googlebot": "index, follow, max-image-preview:large, max-snippet:-1",
+          "format-detection": "telephone=no, address=no, email=no",
+          "og:title": "크레팬스(Crefans)",
+          "og:description": "크리에이터와 팬을 잇는 플랫폼",
+          "og:url": "https://crefans.com/service/feed",
+          "og:site_name": "크레팬스(Crefans)",
+          "og:locale": "ko_KR",
+          "og:image": "https://crefans.com/og/crefans-og-simple-v1.png",
+          "og:image:width": "1730",
+          "og:image:height": "909",
+          "og:image:alt": "크레팬스 — 크리에이터와 팬을 잇는 플랫폼",
+          "og:type": "website",
+          "twitter:card": "summary_large_image",
+          "twitter:title": "크레팬스(Crefans)",
+          "twitter:description": "크리에이터와 팬을 잇는 플랫폼",
+          "twitter:image": "https://crefans.com/og/crefans-og-simple-v1.png"
+        }
+      },
+      {
+        "route": "/service/feed",
+        "http": 200,
+        "title": "크레팬스(Crefans)",
+        "icons": true,
+        "meta": {
+          "null": null,
+          "viewport": "width=device-width, initial-scale=1",
+          "description": "크리에이터와 팬을 잇는 플랫폼",
+          "application-name": "크레팬스(Crefans)",
+          "keywords": "크레팬스,crefans,크리에이터,멤버십,구독,후원,팬덤,창작자,크리에이터 후원,팬 커뮤니티,유료 구독,코스프레,일러스트,아트",
+          "creator": "크레팬스(Crefans)",
+          "publisher": "크레팬스(Crefans)",
+          "robots": "index, follow",
+          "googlebot": "index, follow, max-image-preview:large, max-snippet:-1",
+          "format-detection": "telephone=no, address=no, email=no",
+          "og:title": "크레팬스(Crefans)",
+          "og:description": "크리에이터와 팬을 잇는 플랫폼",
+          "og:url": "https://crefans.com/service/feed",
+          "og:site_name": "크레팬스(Crefans)",
+          "og:locale": "ko_KR",
+          "og:image": "https://crefans.com/og/crefans-og-simple-v1.png",
+          "og:image:width": "1730",
+          "og:image:height": "909",
+          "og:image:alt": "크레팬스 — 크리에이터와 팬을 잇는 플랫폼",
+          "og:type": "website",
+          "twitter:card": "summary_large_image",
+          "twitter:title": "크레팬스(Crefans)",
+          "twitter:description": "크리에이터와 팬을 잇는 플랫폼",
+          "twitter:image": "https://crefans.com/og/crefans-og-simple-v1.png"
+        }
+      },
+      {
+        "route": "/service/notices",
+        "http": 200,
+        "title": "공지사항 | 크레팬스(Crefans)",
+        "icons": true,
+        "meta": {
+          "null": null,
+          "viewport": "width=device-width, initial-scale=1",
+          "description": "크레팬스 서비스 공지사항입니다.",
+          "application-name": "크레팬스(Crefans)",
+          "keywords": "크레팬스,crefans,크리에이터,멤버십,구독,후원,팬덤,창작자,크리에이터 후원,팬 커뮤니티,유료 구독,코스프레,일러스트,아트",
+          "creator": "크레팬스(Crefans)",
+          "publisher": "크레팬스(Crefans)",
+          "robots": "index, follow",
+          "googlebot": "index, follow, max-image-preview:large, max-snippet:-1",
+          "format-detection": "telephone=no, address=no, email=no",
+          "og:title": "공지사항 | 크레팬스(Crefans)",
+          "og:description": "크레팬스 서비스 공지사항입니다.",
+          "og:url": "https://crefans.com/service/notices",
+          "og:site_name": "크레팬스(Crefans)",
+          "og:locale": "ko_KR",
+          "og:image": "https://crefans.com/og/crefans-og-simple-v1.png",
+          "og:image:width": "1730",
+          "og:image:height": "909",
+          "og:image:alt": "크레팬스 — 크리에이터와 팬을 잇는 플랫폼",
+          "og:type": "website",
+          "twitter:card": "summary_large_image",
+          "twitter:title": "공지사항 | 크레팬스(Crefans)",
+          "twitter:description": "크레팬스 서비스 공지사항입니다.",
+          "twitter:image": "https://crefans.com/og/crefans-og-simple-v1.png"
+        }
+      },
+      {
+        "route": "/service/landing",
+        "http": 200,
+        "title": "크레팬스(Crefans)",
+        "icons": true,
+        "meta": {
+          "null": null,
+          "viewport": "width=device-width, initial-scale=1",
+          "description": "크리에이터와 팬을 잇는 플랫폼",
+          "application-name": "크레팬스(Crefans)",
+          "keywords": "크레팬스,crefans,크리에이터,멤버십,구독,후원,팬덤,창작자,크리에이터 후원,팬 커뮤니티,유료 구독,코스프레,일러스트,아트",
+          "creator": "크레팬스(Crefans)",
+          "publisher": "크레팬스(Crefans)",
+          "format-detection": "telephone=no, address=no, email=no",
+          "og:title": "크레팬스(Crefans)",
+          "og:description": "크리에이터와 팬을 잇는 플랫폼",
+          "og:url": "https://crefans.com",
+          "og:site_name": "크레팬스(Crefans)",
+          "og:locale": "ko_KR",
+          "og:image": "https://crefans.com/og/crefans-og-simple-v1.png",
+          "og:image:width": "1730",
+          "og:image:height": "909",
+          "og:image:alt": "크레팬스 — 크리에이터와 팬을 잇는 플랫폼",
+          "og:type": "website",
+          "twitter:card": "summary_large_image",
+          "twitter:title": "크레팬스(Crefans)",
+          "twitter:description": "크리에이터와 팬을 잇는 플랫폼",
+          "twitter:image": "https://crefans.com/og/crefans-og-simple-v1.png"
+        }
+      },
+      {
+        "route": "/service/studio/dashboard",
+        "http": 200,
+        "title": "대시보드 | 크레팬스(Crefans) 스튜디오",
+        "icons": true,
+        "meta": {
+          "null": null,
+          "viewport": "width=device-width, initial-scale=1",
+          "description": "크리에이터와 팬을 잇는 플랫폼",
+          "application-name": "크레팬스(Crefans)",
+          "keywords": "크레팬스,crefans,크리에이터,멤버십,구독,후원,팬덤,창작자,크리에이터 후원,팬 커뮤니티,유료 구독,코스프레,일러스트,아트",
+          "creator": "크레팬스(Crefans)",
+          "publisher": "크레팬스(Crefans)",
+          "robots": "noindex, nofollow",
+          "format-detection": "telephone=no, address=no, email=no",
+          "og:title": "크레팬스(Crefans)",
+          "og:description": "크리에이터와 팬을 잇는 플랫폼",
+          "og:url": "https://crefans.com",
+          "og:site_name": "크레팬스(Crefans)",
+          "og:locale": "ko_KR",
+          "og:image": "https://crefans.com/og/crefans-og-simple-v1.png",
+          "og:image:width": "1730",
+          "og:image:height": "909",
+          "og:image:alt": "크레팬스 — 크리에이터와 팬을 잇는 플랫폼",
+          "og:type": "website",
+          "twitter:card": "summary_large_image",
+          "twitter:title": "크레팬스(Crefans)",
+          "twitter:description": "크리에이터와 팬을 잇는 플랫폼",
+          "twitter:image": "https://crefans.com/og/crefans-og-simple-v1.png"
+        }
+      },
+      {
+        "route": "/preview/feed",
+        "http": 200,
+        "title": "홈 | 크레팬스(Crefans)",
+        "icons": true,
+        "meta": {
+          "null": null,
+          "viewport": "width=device-width, initial-scale=1",
+          "description": "크리에이터와 팬을 잇는 플랫폼",
+          "application-name": "크레팬스(Crefans)",
+          "keywords": "크레팬스,crefans,크리에이터,멤버십,구독,후원,팬덤,창작자,크리에이터 후원,팬 커뮤니티,유료 구독,코스프레,일러스트,아트",
+          "creator": "크레팬스(Crefans)",
+          "publisher": "크레팬스(Crefans)",
+          "robots": "noindex, nofollow",
+          "format-detection": "telephone=no, address=no, email=no",
+          "og:title": "크레팬스(Crefans)",
+          "og:description": "크리에이터와 팬을 잇는 플랫폼",
+          "og:url": "https://crefans.com",
+          "og:site_name": "크레팬스(Crefans)",
+          "og:locale": "ko_KR",
+          "og:image": "https://crefans.com/og/crefans-og-simple-v1.png",
+          "og:image:width": "1730",
+          "og:image:height": "909",
+          "og:image:alt": "크레팬스 — 크리에이터와 팬을 잇는 플랫폼",
+          "og:type": "website",
+          "twitter:card": "summary_large_image",
+          "twitter:title": "크레팬스(Crefans)",
+          "twitter:description": "크리에이터와 팬을 잇는 플랫폼",
+          "twitter:image": "https://crefans.com/og/crefans-og-simple-v1.png"
+        }
+      },
+      {
+        "route": "/preview/studio/dashboard",
+        "http": 200,
+        "title": "대시보드 | 크레팬스(Crefans) 스튜디오",
+        "icons": true,
+        "meta": {
+          "null": null,
+          "viewport": "width=device-width, initial-scale=1",
+          "description": "크리에이터와 팬을 잇는 플랫폼",
+          "application-name": "크레팬스(Crefans)",
+          "keywords": "크레팬스,crefans,크리에이터,멤버십,구독,후원,팬덤,창작자,크리에이터 후원,팬 커뮤니티,유료 구독,코스프레,일러스트,아트",
+          "creator": "크레팬스(Crefans)",
+          "publisher": "크레팬스(Crefans)",
+          "robots": "noindex, nofollow",
+          "format-detection": "telephone=no, address=no, email=no",
+          "og:title": "크레팬스(Crefans)",
+          "og:description": "크리에이터와 팬을 잇는 플랫폼",
+          "og:url": "https://crefans.com",
+          "og:site_name": "크레팬스(Crefans)",
+          "og:locale": "ko_KR",
+          "og:image": "https://crefans.com/og/crefans-og-simple-v1.png",
+          "og:image:width": "1730",
+          "og:image:height": "909",
+          "og:image:alt": "크레팬스 — 크리에이터와 팬을 잇는 플랫폼",
+          "og:type": "website",
+          "twitter:card": "summary_large_image",
+          "twitter:title": "크레팬스(Crefans)",
+          "twitter:description": "크리에이터와 팬을 잇는 플랫폼",
+          "twitter:image": "https://crefans.com/og/crefans-og-simple-v1.png"
+        }
+      }
+    ],
+    "assets": {
+      "favicon.ico": "63275165ae8b3008e928ee73db15799d9383d8b641c8bf0469f05196d098c5eb",
+      "icon.svg": "8755e6d3851096a8a2e77b993d100f5cd520cdd99673a28c0078b5b17ed870c9",
+      "apple-icon.png": "68574748115518fb73ae8be7eb409a095dae05d078e60df5660a82e2fdf5d563"
+    },
+    "containers": {
+      "crefans-beta-api-1": {
+        "id": "9d28738885a3d2f71d0300bf09967d2c68935d56e8463ec30c8dcfa17226d5fc",
+        "image": "sha256:5196a733f336b479c4030cb6361ab352abe3df9a86624584c044515b9c0b1cf3",
+        "tag": "crefans-api:open-events-20261103",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-worker-1": {
+        "id": "80ea218544d4395ea5a626397ad529337360169dabd1ba0e3a6090d593a2985c",
+        "image": "sha256:5196a733f336b479c4030cb6361ab352abe3df9a86624584c044515b9c0b1cf3",
+        "tag": "crefans-api:open-events-20261103",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-frontend-1": {
+        "id": "9df55498cb8c27a00c8d9b765772ad344b3a63e409a22740db58bca913d3deb0",
+        "image": "sha256:cefc2940773da8981848daf90940b3688b90754aaefd30d3127cdf38b98f363f",
+        "tag": "crefans-front:brand-metadata-20261103",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-admin-1": {
+        "id": "ae095a5e4e065b39f3efb03b617f28906e937e2d53d2300dfc06ce1e8ed2a39f",
+        "image": "sha256:85c30c8526508d29e3a790b185ac69948060f9d6ec838eec8ec4b7d875bc8fab",
+        "tag": "crefans-admin:referral-20261102",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "tag": "mysql:8.0",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "tag": "caddy:2-alpine",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      }
+    },
+    "nonFrontendUnchanged": true,
+    "runtimeEnvUnchanged": true
+  },
+  "browser": {
+    "verifiedAt": "2026-11-02T23:16:58.832Z",
+    "result": [
+      {
+        "browser": "pc",
+        "engine": "Chromium",
+        "route": "/service/feed",
+        "title": "크레팬스(Crefans)",
+        "icons": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b"
+          }
+        ],
+        "response": 200
+      },
+      {
+        "browser": "pc",
+        "engine": "Chromium",
+        "route": "/service/notices",
+        "title": "공지사항 | 크레팬스(Crefans)",
+        "icons": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b"
+          }
+        ],
+        "response": 200
+      },
+      {
+        "browser": "pc",
+        "engine": "Chromium",
+        "route": "/service/landing",
+        "title": "크레팬스(Crefans)",
+        "icons": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b"
+          }
+        ],
+        "response": 200
+      },
+      {
+        "browser": "pc",
+        "engine": "Chromium",
+        "route": "/service/studio/dashboard",
+        "title": "대시보드 | 크레팬스(Crefans) 스튜디오",
+        "icons": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b"
+          }
+        ],
+        "response": 200
+      },
+      {
+        "browser": "pc",
+        "pageErrors": [],
+        "mode": "real anonymous production responses; no mutations"
+      },
+      {
+        "browser": "mobile",
+        "engine": "WebKit iPhone13 emulation",
+        "route": "/service/feed",
+        "title": "크레팬스(Crefans)",
+        "icons": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b"
+          }
+        ],
+        "response": 200
+      },
+      {
+        "browser": "mobile",
+        "engine": "WebKit iPhone13 emulation",
+        "route": "/service/notices",
+        "title": "공지사항 | 크레팬스(Crefans)",
+        "icons": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b"
+          }
+        ],
+        "response": 200
+      },
+      {
+        "browser": "mobile",
+        "engine": "WebKit iPhone13 emulation",
+        "route": "/service/landing",
+        "title": "크레팬스(Crefans)",
+        "icons": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b"
+          }
+        ],
+        "response": 200
+      },
+      {
+        "browser": "mobile",
+        "engine": "WebKit iPhone13 emulation",
+        "route": "/service/studio/dashboard",
+        "title": "대시보드 | 크레팬스(Crefans) 스튜디오",
+        "icons": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b"
+          }
+        ],
+        "response": 200
+      },
+      {
+        "browser": "mobile",
+        "pageErrors": [],
+        "mode": "real anonymous production responses; no mutations"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "command": "npx tsc --noEmit",
+      "environment": "local and dev integration",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/seo-metadata.test.cjs",
+      "environment": "local and dev integration",
+      "exitCode": 0,
+      "tests": 4
+    },
+    {
+      "command": "npm run docs:record && npm run check:docs",
+      "environment": "local; matching server checkout",
+      "exitCode": 0,
+      "meaning": "documentation source snapshot only, not runtime evidence"
+    },
+    {
+      "command": "python3 .local/favicon-20261103/remote-build.py",
+      "environment": "isolated CPU1/memory1536MiB production-host build",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/favicon-20261103/verify-images.py",
+      "environment": "read-only network-none image verification",
+      "exitCode": 0,
+      "checkedFiles": 733
+    },
+    {
+      "command": "sudo -n bash /home/ubuntu/crefans-brand-metadata-20261103/deploy.sh",
+      "environment": "production frontend-only; backup and automatic rollback",
+      "exitCode": 0
+    },
+    {
+      "command": "node .local/favicon-20261103/production-browser.cjs",
+      "environment": "production anonymous Chromium + iPhone13 WebKit emulation",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 infra/platform/deploy-preflight.py",
+      "environment": "local capacity verification; remote guarded build used instead",
+      "exitCode": 1,
+      "result": {
+        "ready": false,
+        "reason": "insufficient_disk",
+        "freeBytes": 269324288,
+        "requiredBytes": 8589934592
+      }
+    }
+  ],
+  "backup": "/opt/crefans-backup-brand-metadata-20261103",
+  "limitations": [
+    "No Google search reindex/ranking/favicon-display verification or guarantee.",
+    "Physical iPhone home-screen installation not performed.",
+    "No authenticated mutations; API, worker, admin, database, proxy container IDs and runtime.env unchanged.",
+    "Pending settings/account actions and other audited branches were not part of this release.",
+    "Local first listen attempt sandbox EPERM and preview icon override failed initial HTTP assertion; fixed and 7-route checks passed. No live rollout failure."
+  ],
+  "logs": {
+    "local-http-final.json": {
+      "path": ".local/favicon-20261103/local-http-final.json",
+      "sha256": "180a73816d9d5cfb86671ca3c938c3416ca96aecf90f739d1c91877a587b96ba"
+    },
+    "typecheck.log": {
+      "path": ".local/favicon-20261103/typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "seo-tests.log": {
+      "path": ".local/favicon-20261103/seo-tests.log",
+      "sha256": "4294dc0c5d756897a636d277854e723ca6f586a72b4206b35389df462f5f426e"
+    },
+    "docs-check.log": {
+      "path": ".local/favicon-20261103/docs-check.log",
+      "sha256": "fb0e3801ea689b492fa3d0630d40704207981b8826f8c93c8d3c560d14f0f650"
+    },
+    "dev-check.log": {
+      "path": ".local/favicon-20261103/dev-check.log",
+      "sha256": "b6f73862844dcba436177a521c6db4ae8e0c9fe1457e9187cf6ba464a3861cf9"
+    },
+    "front-remote-build.log": {
+      "path": ".local/favicon-20261103/front-remote-build.log",
+      "sha256": "15f1697ca95cc5859e3103298aa643655da9a65cd9435f9481911020885d157e"
+    },
+    "deploy.log": {
+      "path": ".local/favicon-20261103/deploy.log",
+      "sha256": "2389cc6a109897facc1e93e0870469a58d1216d0c3750526b302e7b6b5563a95"
+    },
+    "production-browser.log": {
+      "path": ".local/favicon-20261103/production-browser.log",
+      "sha256": "0fcd847ed70c9dd316c798be74891c392fa7d8482e205c73ef1ca0c90d555102"
+    },
+    "production-verification.json": {
+      "path": ".local/favicon-20261103/production-verification.json",
+      "sha256": "1dcf466c1f3ebfc9d05ca171d59bf8f8364bb348ae5c6fb7e4b6e0a37e2a8dae"
+    },
+    "production-browser.json": {
+      "path": ".local/favicon-20261103/production-browser.json",
+      "sha256": "a5431f1e9ac4d7b307db74dac2961e4faa318993c8b439ba7df844374ca9adfc"
+    },
+    "local-capacity.json": {
+      "path": ".local/favicon-20261103/local-capacity.json",
+      "sha256": "2e6062b10d40998a8dd0effc0221711da3392d5771f0b3cf0c201efbd1015655"
+    }
+  },
+  "evidenceCommitNote": "This evidence will be committed after deployed source; documentation-only commits do not change the deployed application."
+}

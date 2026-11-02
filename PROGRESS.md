@@ -1,3 +1,14 @@
+## 2026-11-03 랜딩 리디자인 5종 — 이미지 시안 제공·선택 대기
+- 사용자 요청 /service/langding은 실제 /service/landing으로 확인. 현재 목업 크리에이터5명과 /preview/creator/{moka,sion,haneul,jiwoo,seoyeon} 진입을 유지하는 방향. 요청은 시안이므로 랜딩 코드/운영 디자인은 아직 변경하지 않았다.
+- built-in image_gen으로 01타이포 중심·02사진 중심·03크리에이터 우선·04서비스 이해 중심·05차콜 포인트, 각각 PC+모바일 이미지5개. 기존 로고/인물과 화면 캡처를 참고, 긴 설명보다 목록을 위에 배치. 01단정함/03목록 접근성 추천. 생성된 텍스트/인증배지는 최종 구현 데이터가 아니며 실제 구현 시 원본 프로필 이름·배지 상태·사진 사용.
+- 검증: 실제 로컬 페이지에서 목업카드5개 확인/PC·모바일 캡처, 생성5개 육안으로 로고·목록·프로필 진입 표현·구성 차이 확인. 이미지이므로 클릭 동작/실폰트 검증 아님. 프롬프트·파일SHA·경로 docs/design/landing-concepts-20261103.json; PNG .local/landing-concepts-20261103/landing-option-01~05.png. 원본 generated_images 보존. 다음: 사용자 선택 후 공용 LandingPage 구현·반응형/목업 링크 검증, 별도 배포.
+
+## 2026-11-03 팬·스튜디오 파비콘/브랜드 메타 제목 — 운영 배포 완료
+- feat/fan-studio-favicon76069d4→dev c878912(SEO4/TypeScript 통과)→prod5e5ff7b. brand-metadata-20261103 프론트만 배포, API/worker/admin/DB/proxy 컨테이너와 runtime.env 그대로. 소스733개 SHA 일치. 백업 /opt/crefans-backup-brand-metadata-20261103, 복구 이미지 삭제 없음.
+- 실제 운영7경로 title/OG/siteName/robots/icon태그, ICO/SVG/Apple아이콘3개200·원본SHA 확인. PC Chromium/iPhone13 WebKit 에뮬레이션 각4경로(총8) 제목/아이콘/OG·JS오류0. 기본 크레팬스(Crefans), 공지사항 | 크레팬스(Crefans), 대시보드 | 크레팬스(Crefans) 스튜디오. 비공개noindex 유지. 실제 Google 재색인·검색순위·검색파비콘 표시/실물 홈화면 설치 미확인.
+- 운영 빌드 완료6분, 로컬 여유공간부족 preflight exit1은 원격 별도 빌드(CPU1/1536MiB/8GiB가드)로 처리. 배포 2026-11-03 08:16:32 KST. 배포 후 API health/admin 로그인200 및 타컨테이너 미변경. 증거 docs/audit/favicon-metadata-deployment-20261103.json, .local/favicon-20261103/. 이후 문서만 기록·dev/prod 동기화.
+- 앞선 상태 질문: 설정 로그아웃/탈퇴 꺾쇠행 등 docs/audit/pending-release-20261103.json의7개 완료작업과 미완성 소개글통합은 이번 배포에 넣지 않았다. 운영반영 여부와 로컬 구현완료를 구분해 보고했다.
+
 ## 2026-11-03 팬·스튜디오 파비콘/메타 제목 — 구현·검증 완료, 배포 준비
 - 최신 origin/prod9ec706d에서 feat/fan-studio-favicon. 기존 로고의 두 꽃잎 path/gradient를 그대로 정사각 아이콘으로 내보냈다: app/icon.svg, favicon.ico16/32/48/64, apple-icon.png180흰배경. 생성AI로 브랜드를 재해석하지 않았다. 모든 루트 하위 경로 상속, 목업/카탈로그의 개별 덮어쓰기 제거.
 - 후속 요청: 문서 브랜드명을 크레팬스(Crefans)로 통일. root title/OG/Twitter와 Organization/WebSite, 팬·스튜디오·목업·카드·카탈로그 제목에 공용 SITE_NAME 사용. 공지사항 등 고유 제목·canonical·비공개 noindex 유지. Google 제목/파비콘 재수집·노출은 외부 처리이며 순위/즉시반영 보장 없음.

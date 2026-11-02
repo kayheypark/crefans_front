@@ -1,0 +1,71 @@
+{
+  "createdAt": "2026-11-02T23:15:38.675358+00:00",
+  "tool": "built-in image_gen",
+  "type": "visual proposal only; not implemented or deployed",
+  "repository": "crefans_front",
+  "sourceCommit": "5e5ff7bdecbc032345640fd04b097605c4d9bbe7",
+  "referenceFiles": [
+    "components/crefans/LandingPage.tsx",
+    "lib/content/landing.ts",
+    "components/service/Landing.tsx"
+  ],
+  "routesPreserved": [
+    "/preview/creator/moka",
+    "/preview/creator/sion",
+    "/preview/creator/haneul",
+    "/preview/creator/jiwoo",
+    "/preview/creator/seoyeon"
+  ],
+  "concepts": [
+    "타이포 중심",
+    "사진 중심",
+    "크리에이터 우선",
+    "서비스 이해 중심",
+    "차콜 포인트"
+  ],
+  "review": "All five boards visually reviewed: desktop and mobile, existing brand/creator identity, mock-profile navigation affordance. Raster illustrations are concepts; no functional link test or exact font guarantee. Final implementation must use original image assets and source profile names/badges, not generated pixels.",
+  "images": [
+    {
+      "option": 1,
+      "path": "/Users/ethan/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-fdb0e196-cd4d-40f4-81b4-2b0ab0fdf108.png",
+      "savedPath": "/Users/ethan/repository/crefans_front-events-release/.local/landing-concepts-20261103/landing-option-01.png",
+      "sha256": "9c1293a783b50f1a13471b30416c6af69126e1ad11b0f8dbe878da95bf317dc0",
+      "bytes": 1446022
+    },
+    {
+      "option": 2,
+      "path": "/Users/ethan/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-a5402284-2c1d-432f-b3db-4db71f151486.png",
+      "savedPath": "/Users/ethan/repository/crefans_front-events-release/.local/landing-concepts-20261103/landing-option-02.png",
+      "sha256": "eb77cf12f14bafb320ff2255d40bbac41964aa5bc0cf7e68c84d46fd3126d078",
+      "bytes": 1687737
+    },
+    {
+      "option": 3,
+      "path": "/Users/ethan/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-91af3a43-8621-49dd-8420-c0dab29a1140.png",
+      "savedPath": "/Users/ethan/repository/crefans_front-events-release/.local/landing-concepts-20261103/landing-option-03.png",
+      "sha256": "fac4a89f3953c2ab65d4c1771f9f1d35c2a32647b01d92cb2d13987e6c84df1b",
+      "bytes": 1441146
+    },
+    {
+      "option": 4,
+      "path": "/Users/ethan/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-6c3ee31b-eadf-4bd3-b31a-497209684dd2.png",
+      "savedPath": "/Users/ethan/repository/crefans_front-events-release/.local/landing-concepts-20261103/landing-option-04.png",
+      "sha256": "d27e8feca7a6570aca34cfb50d6a1a38bc14e278b3b97f35d60afe0047acca1a",
+      "bytes": 1523076
+    },
+    {
+      "option": 5,
+      "path": "/Users/ethan/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-1a73321a-ee52-4ddb-b3ad-6abd408b0033.png",
+      "savedPath": "/Users/ethan/repository/crefans_front-events-release/.local/landing-concepts-20261103/landing-option-05.png",
+      "sha256": "4f41275f99159d5379a0b130e9dd4ebf564be760118c8ea78d0e8863fdc9f7f3",
+      "bytes": 1456874
+    }
+  ],
+  "prompts": [
+    "Use case: ui-mockup. Produce ONE polished design presentation board, landscape, very high resolution. This is option 01, titled “01 · 타이포 중심”. Show a large straight-on desktop website screenshot on the left and its matching narrow mobile responsive screenshot on the right. Both screens must be complete enough to show the hero AND creator list. Reference images are the current Korean Crefans website: use its exact pink/purple two-petal logo, dark crefans wordmark, the same fictional adult creator portraits (pink-haired Moka, black-haired Sion, Haneul, outdoor Jiwoo, musician Seoyeon), blue action color #2563eb and restrained Korean sans-serif similar Pretendard. Redesign layout, do not retain the old layout or handwritten English decorations. White page, excellent whitespace, precise baseline alignment, light borders, almost no shadows. Concept 01: strongly typographic, compact centered hero, confident large charcoal headline in two lines “좋아하는 창작자와,” / “더 가까운 사이.” Centered small subtitle “멤버십과 후원으로 함께하는 크리에이터·팬 플랫폼”. One blue primary “지금 시작하기” and one quiet link “크리에이터 둘러보기”. A restrained tiny brand-petal accent only, no full bleed hero photo. The creator list immediately follows the short hero, before any long explanations. Heading “크리에이터 둘러보기”, small helper “프로필을 눌러 미리 만나보세요”. Five tidy borderless image cards on desktop: 모카, 시온, 하늘, 지우, 서연. Each includes portrait, name, short category, and clear subtle “프로필 보기 →” link representing navigation into existing mock creator profiles. Mobile stacks hero then shows 2-column portrait cards with at least four visible; short head avoids fold. Beneath list, single small inline features “멤버십 구독 · 게시물 후원 · 창작자 후원”. Header logo left, small nav, login and signup right; mobile minimal logo and login. Clear tiny board labels “PC” and “Mobile” outside screens. All Korean labels rendered accurately. No invented usage statistics, testimonials, prices, fake notifications, extra gradients, 3D scenes, device hardware, photographic perspective, watermarks. A realistic production-quality Korean product UI, simple and premium.",
+    "Use case: ui-mockup. Create ONE high-resolution landscape design presentation board for Crefans, option 02, title “02 · 사진 중심”. Left a large straight-on desktop landing screen, right its matching mobile landing screen, showing hero and existing mock-creator list. References supply exact brand logo (pink/purple petal and charcoal crefans wordmark) and fictional adult creator portraits: Moka with pink hair, Sion black hair, Haneul, Jiwoo outdoors, Seoyeon musician. Retain these identities. Clean white, subtle warm off-white and Crefans blue #2563eb buttons, charcoal typography, Pretendard-like Korean. Concept 02: balanced editorial split hero. On desktop left concise large headline “당신의 취향을,” / “응원하는 즐거움.” with subtitle “좋아하는 크리에이터의 이야기와 일상을 만나보세요.” and primary “지금 시작하기”; right three carefully aligned portrait tiles in a tidy gallery, no tilted collage, no full-background oversized face. Small border below hero. Creator list immediately below: heading “크리에이터 둘러보기”, helper “프로필을 눌러 미리 만나보세요”, five clean portrait cards named 모카, 시온, 하늘, 지우, 서연 with category and “프로필 보기 →”. Mobile header compact, headline+button then one shallow horizontal strip of the 3 hero portraits, then creator list 2-column compact cards visible on the board, all reachable mock profiles conceptually. Bottom restrained feature names “멤버십 구독”, “게시물 후원”, “창작자 후원”. Minimal header nav and login/signup. Use subtle rounding 12px, fine gray dividers, no excessive boxes. Presentation board uses pale neutral backing and small PC/Mobile captions outside UI; no fake device bezel. Excellent Korean text, clear contrast, substantial margins but concise vertical rhythm. No performance metrics, price claims, star ratings, giant decoration, cursive English, stock SaaS gradients or dark panels.",
+    "Use case: ui-mockup. ONE premium high-resolution landscape presentation board for Crefans website option 03 titled “03 · 크리에이터 우선”. Show desktop screen left and matching mobile responsive screen right in flat straight-on style, both legible and showing the full main composition. Reference current screenshots provide exact logo and fictional adult creator photographs: pink-haired Moka, black-haired Sion, Haneul, outdoor Jiwoo, Seoyeon with headphones. Keep recognizable photos and branding. Main concept is creator discovery first, small welcome hero and large useful creator list near the top, dramatically more compact than current. White background, charcoal text, blue #2563eb controls, minimal thin gray separators, Pretendard-style Korean. Header logo, “둘러보기”, “이용안내”, login, blue signup. Concise left-aligned headline “취향이 맞는 크리에이터를 만나보세요.”, one-line helper “멤버십과 후원으로 더 가까워지는 사이”, compact blue “지금 시작하기” to right on desktop. Immediately a small understated search field “크리에이터 검색” and text-only category navigation “전체  코스프레  사진  여행  음악”, active blue underline without colored block. Heading “크리에이터 둘러보기”, tiny “프로필을 눌러 미리 만나보세요”. Five aligned generous photo tiles in desktop grid, names 모카, 시온, 하늘, 지우, 서연, one category line, “프로필 보기 →”. Avoid fake counts and follow states. On mobile use concise intro then a readable vertical list: small square portrait left, name/category middle, chevron right; show all five names and portraits with generous tap targets and thin edge-to-edge dividers. A final small quiet strip “좋아하는 마음을, 멤버십과 후원으로.” and signup action. Each profile is visibly navigable into the existing mock profile. Pure clean UI, no shadow-heavy cards, huge hero photo, speech bubbles, feature bloat or decorative doodles. Board labels PC/Mobile outside screens. High-quality accurately rendered Korean, not wireframe.",
+    "Use case: ui-mockup. ONE very high-resolution landscape concept board for Crefans, option 04 titled “04 · 서비스 이해 중심”. Two clean straight-on product website screenshots: generous desktop left and narrow responsive mobile right, both show intro and creator list. Reference screenshots only supply brand/logo/fictional adult creator identity; redesign layout. Exact small pink-purple petal logo with crefans dark wordmark. White background, subtle soft-blue section tint only, #2563eb primary button, near-black and calm gray Korean Pretendard-like text. This option uses a compact left-aligned introduction “좋아하는 마음이,” / “창작의 힘이 되도록.” plus subtitle “크리에이터와 팬을 잇는 플랫폼, 크레팬스” and “지금 시작하기”. To its right on desktop, THREE simple small thin-outline service modules with minimal line icons and exact titles “멤버십 구독”, “게시물 후원”, “창작자 후원”, descriptions respectively “새로운 이야기를 꾸준히”, “좋아하는 작품에 응원을”, “창작자의 다음을 함께”. These are compact informational rows, no pricing or dashboard fake charts. Below hero immediately full-width “크리에이터 둘러보기” with helper “프로필을 눌러 미리 만나보세요”; five photo cards 모카, 시온, 하늘, 지우, 서연, with short category and visible “프로필 보기 →” navigation to mock creator pages. Use photos from reference. Mobile intro followed by ultra-compact 3 service labels in one row, then creator 2-column grid, no long repetitive explanation. Header logo, restrained navigation and login/signup. Soft dividers, 12px corners, excellent spacing and text hierarchy. A simple small closing signup strip. Presentation board labels PC/Mobile outside viewport. No heavy shadows, colorful 3D icons, inflated statistics, testimonials, arbitrary product claims, pricing, serif/cursive decoration.",
+    "Use case: ui-mockup. ONE polished high-resolution landscape design presentation board for Crefans, option 05 titled “05 · 차콜 포인트”. Show desktop landing screenshot on left and faithful narrow mobile screenshot on right, straight-on, clear Korean UI. Use references for exact Crefans pink-purple petal logo and the same fictional adult creator portraits. Concept: restrained editorial CHARCOAL accent, clean premium identity. Header remains white with small crefans logo, concise navigation, login and small signup. Hero is a compact wide charcoal #303137 band with generous margins, white large headline “창작의 순간에,” / “팬의 마음을 더하다.”; lighter subtitle “멤버십과 후원으로 연결되는 크리에이터와 팬”; white primary “지금 시작하기”, subtle secondary text “크리에이터 둘러보기”. One small pink-purple petal accent only, no gradient background, no giant face, no decorative objects. The rest of page WHITE. Creator section directly under compact hero: heading “크리에이터 둘러보기”, helper “프로필을 눌러 미리 만나보세요”. Five tidy image-first cards 모카, 시온, 하늘, 지우, 서연, matching reference portraits, category and subtle “프로필 보기 →” with blue accent. Thin dividers, no shadow boxes. Mobile has short charcoal text hero then compact creator rows with portraits and chevrons, all five visible, retaining mock-profile navigation. At bottom simple three-item inline feature explanation “멤버십 구독 · 게시물 후원 · 창작자 후원”. Pretendard-like Korean font with readable small supporting text. Equal gutters, precise typographic rhythm. Board backing neutral pale gray with tiny PC/Mobile labels outside UI. No black-all-page theme, gold, 3D gimmicks, handwritten lettering, fake statistics, fake testimonials, device hardware or perspective. High-end simple product landing, visually distinct from options 01–04."
+  ]
+}
