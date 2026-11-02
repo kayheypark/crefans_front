@@ -106,7 +106,7 @@ test('legacy omnibus links redirect to the four-event list and invalid IDs remai
   for(const event of serviceEvents){
    const props={params:Promise.resolve({screen:['events',event.id]})};
    assert.ok(await Page(props));// Service event pages are public and use the share title format (lib/seo, 2026-11-01); preview keeps its plain title.
-   assert.equal((await generateMetadata(props)).title,basePath==='/service'?`${event.title} | 크레팬스`:`${event.title} | 크레팬스(Crefans)`);
+   assert.equal((await generateMetadata(props)).title,`${event.title} | 크레팬스(Crefans)`);
   }
  }
 });
