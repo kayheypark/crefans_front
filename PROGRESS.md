@@ -3469,3 +3469,11 @@
 - 실제 Chrome 로그인 계정으로 /service/studio 확인: 새 게시물 작성, 게시물·댓글·메시지·출금 신청·콩 후원·출금·크리에이터 설정과 각 실제 경로. PC/390px에서 빠른 작업2열3행, 모바일 가로넘침없음. 임시 viewport 복원. 실제 로그인 데이터로 표시했으며 게시물·금융 변경은 수행하지 않음. 로그인 요구 화면은 직전 PC/WebKit 운영12사례와 현재 서빙 파일 동일성으로 재확인; 실물 iPhone 시험은 아님.
 - 제외: 런타임 미참조 원본 디자인3개(inicis/reference PNG2개, logo_icon.psd), 대체 구현이 이미 반영된 과거 signup-success/video-thumb 보존 작업트리, 가이드 기존 PROGRESS 미커밋30줄. 금융 개방 스위치·미확정 약관/가격 정책을 배포 요청만으로 변경하지 않음. 프론트·서버·콘솔 dev/prod 원격 일치, 가이드 로컬 dev/prod 일치(원격 없음).
 - 증거 .local/deployment-audit-20261102/{audit.py,audit.log,audit.json,dashboard-live.json,dashboard-production-pc.jpg,dashboard-production-mobile.jpg}. audit.py exit0, 총1120개 배포 관련 소스 대조. 기존 제품 검증492개/이미지 브라우저27사례는 동일 제품 소스이므로 유효, 새로 재실행했다고 주장하지 않는다. 이번 완료 상태는 승인·구현된 변경 모두 운영 반영이며 추가 배포할 제품 파일 없음. AGENTS 불변 규약 유지, 이 기록도 dev→prod로 통합한다.
+
+## 2026-11-02 llms.txt 공개 AI 안내 파일 — feat/llms-txt, 미배포
+- 사용자 요청 `Llm.txt`를 사이트 AI 안내 파일로 해석. 최신 origin/prod ff91bff에서 별도 작업트리 `/Users/ethan/repository/crefans_front-llms`·feat/llms-txt 분기. 기존 dev의 결제 작업·Search Console 기록 보존. AGENTS의 프로젝트/스택/PROGRESS 우선 읽기 규약 유지.
+- public/llms.txt: H1·요약·서비스 개요·H2별 공식 링크19개. 팬/크리에이터 이용법·정책/지원·공지/이벤트를 연결하고 목업·비공개 콘텐츠 구분. 변동하는 금융 수치를 복제하지 않음. middleware가 확장자 파일을 통과시키므로 로직/robots/사이트맵 변경 없이 정적 파일만 추가. manifest에 신규 공개 문서를 등록.
+- 근거(2026-11-02): https://llmstxt.org/ 의 제안 형식(v2, 2026-08-10 수정). https://developers.google.com/search/docs/fundamentals/ai-optimization-guide 는 Google Search가 llms.txt를 사용하지 않으며 순위에 영향이 없다고 명시. Search Console 제출 대상이나 robots 접근 제어로 취급하지 않음. 공식 가이드 start/about·fans/beans·fans/membership·creators/start 내용과 설명 대조.
+- 합격 조건/실제 검증: 형식·중복 없는 HTTPS 공식 링크19개 확인, 공개 링크19/19 HTTP200. 격리 Next15.5.28 dev 서버3126의 비로그인 GET/HEAD 모두200·text/plain UTF-8·리디렉션 없음·GET 원본3261바이트 SHA 일치. 운영 /llms.txt는 아직200 HTML, guide는404(운영 미적용). 포트 바인딩 첫 시도 EPERM 후 권한 승인 실행으로 검증 완료. 새 제품 테스트/빌드는 정적 문서 변경에 불필요해 미실행.
+- npm run check:docs exit1: 기존 결제 묶음의 문서 증거34항목 만료가 기준선에 존재하고 신규 llms/manifest도 스냅샷 갱신 필요. 문서 inventory/계약/로컬 링크 부분 검사는 오류0(전체76문서), 공개 링크 실제 확인은 위 별도 검사. unrelated 전체 증거를 무조건 재생성하지 않으며 전체 문서 검사 통과라고 보고하지 않음.
+- 증거 작업트리 .local/llms-20261102/{public-links.json,http-response.json,docs-structure.json,docs-baseline.log,docs-check.log,verification.json}. 다음: dev PR 통합·검증→prod 승격→운영배포 시 /llms.txt 실제 응답 재검증. 현재 브랜치 구현만 완료, 다른 결제 변경을 함께 배포하지 않음.
