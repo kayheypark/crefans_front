@@ -28,7 +28,11 @@ import type {ServiceViewModel} from '@/types/crefans';
 import type {AccountActionResult,AccountSettingsUpdate,AccountPreferences} from '@/types/crefans-account';
 import Icon,{type LandingIconName as IconName} from './Icon';
 import {ProfileHeader} from './ProfileHeader';
+import {PostMediaTile} from './PostMediaTile';
+import {getPostMedia} from '@/lib/crefans/post-media';
 import {ProfilePhotoDialog} from './ProfilePhotoDialog';
+import {FeedEnd,PostCard} from './SocialPages';
+import {DelayedInlineSpinner} from '@/components/ui/DelayedSpinner';
 import c from './creator.module.css';
 import {Brand} from './Brand';
 import {Action, Avatar, Empty, Notice, PageTitle} from './ServiceUI';
@@ -136,16 +140,20 @@ function MyProfileContent({model}:{model:ServiceViewModel}){
   const mode=account.route.profileTab,collection=mode==='saved'?saved:mode==='liked'?liked:null;
   const collectionPosts=collection?data.posts.filter(post=>collection.includes(post.id)):[];
   const [tab,setTab]=useState('피드');
-  if(collection!==null)return <section className={s.profile}><PageTitle back={<BackButton href={`${basePath}/me`} label="내 프로필로 돌아가기"/>}>{mode==='saved'?'저장한 게시물':'좋아요한 게시물'}</PageTitle>{collectionPosts.length?<div className={s.savedGrid}>{collectionPosts.map(post=><Link href={`${basePath}/post/${post.id}`} key={post.id}>{model.canAccess(post.creatorId,post.requiredRank,post.requiredPlanId)?(post.image?<img src={post.image} alt={post.title} style={{objectPosition:post.position}}/>:<div className={s.collectionLocked}><Icon name="card"/><small>텍스트 게시물</small></div>):<div className={s.collectionLocked}><Icon name="lock"/><small>멤버십 전용</small></div>}<span>{post.title}</span></Link>)}</div>:<Empty title={mode==='saved'?'저장한 게시물이 없어요':'좋아요한 게시물이 없어요'} description="피드에서 마음에 드는 게시물을 담아보세요."/>}</section>;
-  /** Same shell as a creator profile; the only differences are the ⚙ 설정 entry on the cover, no membership block, and empty feeds until the fan posts. */
-  const privateFollowing=account.preferences.showFollowing===false;
-  const tabs:[string,number|null][]=[['피드',0],['미디어',0],['소개',null]];
   const [photos,setPhotos]=useState(false),updatePhotos=model.accountActions.updatePhotos;
+  if(collection!==null)return <section className={s.profile}><PageTitle back={<BackButton href={`${basePath}/me`} label="내 프로필로 돌아가기"/>}>{mode==='saved'?'저장한 게시물':'좋아요한 게시물'}</PageTitle>{collectionPosts.length?<div className={s.savedGrid}>{collectionPosts.map(post=><Link href={`${basePath}/post/${post.id}`} key={post.id}>{model.canAccess(post.creatorId,post.requiredRank,post.requiredPlanId)?(post.image?<img src={post.image} alt={post.title} style={{objectPosition:post.position}}/>:<div className={s.collectionLocked}><Icon name="card"/><small>텍스트 게시물</small></div>):<div className={s.collectionLocked}><Icon name="lock"/><small>멤버십 전용</small></div>}<span>{post.title}</span></Link>)}</div>:<Empty title={mode==='saved'?'저장한 게시물이 없어요':'좋아요한 게시물이 없어요'} description="피드에서 마음에 드는 게시물을 담아보세요."/>}</section>;
+  const ownPosts=data.posts.filter(post=>model.ownCreatorIds?.includes(post.creatorId));
+  const mediaPosts=ownPosts.filter(post=>getPostMedia(post).length>0);
+  const privateFollowing=account.preferences.showFollowing===false;
+  const tabs:[string,number|null][]=[['피드',ownPosts.length],['미디어',mediaPosts.length],['소개',null]];
   return <div className={c.profile}>
     {updatePhotos&&<ProfilePhotoDialog open={photos} onClose={()=>setPhotos(false)} image={viewer.image} cover={viewer.cover} onSave={updatePhotos}/>}
     <ProfileHeader cover={viewer.cover} onEditPhotos={updatePhotos?()=>setPhotos(true):undefined} person={viewer} handle={viewer.handle} bio={viewer.bio} counts={[{label:'게시물',value:account.stats.posts},{label:'팔로워',private:account.preferences.showFollowers===false,value:account.stats.followers,href:`${basePath}/followers`},{label:'팔로잉',private:privateFollowing,href:`${basePath}/following`,value:<>{following.length}{privateFollowing&&<Icon name="lock" width="12" height="12" aria-label="비공개"/>}</>}]} action={<><BeanWalletLink basePath={basePath} className={`${c.coverControl} ${c.coverWallet}`}/><Link href={`${basePath}/settings`} className={`${c.coverControl} ${c.coverSettings}`} aria-label="설정"><Icon name="settings" width="18" height="18" aria-hidden="true"/></Link></>}/>
     <div className={c.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={c.tabCount}>{count}</span>}</button>)}</div>
-    {tab==='소개'?<section className={c.about}><p>{viewer.bio||'아직 등록된 소개가 없습니다.'}</p></section>:<Empty title={tab==='피드'?'아직 게시물이 없어요':'아직 미디어가 없어요'} description="첫 게시물을 올리면 이곳에 모여요."/>}
+    {tab==='소개'?<section className={c.about}><p>{viewer.bio||'아직 등록된 소개가 없습니다.'}</p></section>:<>
+      {tab==='피드'?(ownPosts.length?<div className={c.profileFeed}>{ownPosts.map(post=><PostCard key={post.id} post={post} model={model} context={ownPosts}/>)}{!model.feedPaging?.hasMore&&<FeedEnd/>}</div>:<Empty title="아직 게시물이 없어요" description="첫 게시물을 올리면 이곳에 모여요."/>):mediaPosts.length?<div className={c.postGrid}>{mediaPosts.map(post=><PostMediaTile key={post.id} post={post} model={model}/>)}</div>:<Empty title={model.feedPaging?.hasMore?'불러온 게시물에 미디어가 없어요':'아직 미디어가 없어요'} description={model.feedPaging?.hasMore?'더 보기를 눌러 이전 게시물을 확인하세요.':'사진이나 동영상이 담긴 게시물이 올라오면 여기에 모여요.'}/>}
+      {model.feedPaging?.hasMore&&<div className={c.profileFeed}><Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={model.feedPaging.loading}/></Action></div>}
+    </>}
   </div>;
 }
 

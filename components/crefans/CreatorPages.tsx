@@ -17,7 +17,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {TextLink} from '@/components/ui/TextLink';
 import {Checkbox} from '@/components/ui/Choice';
-import {getCreatorPlans,getSubscriptionPlan,getPostMembershipOffer} from '@/lib/crefans/membership-plans';
+import {getCreatorPlans,getSubscriptionPlan} from '@/lib/crefans/membership-plans';
 import {useRouter,useSearchParams} from 'next/navigation';
 import {Badge,Dialog} from '@/components/ui/Primitives';
 import {ChipRow} from '@/components/ui/ChipRow';
@@ -28,6 +28,8 @@ import {CreatorCard} from './CreatorCard';
 import {MembershipPlanCard} from './MembershipPlanCard';
 import {FollowButton} from './FollowButton';
 import {ProfileHeader} from './ProfileHeader';
+import {PostMediaTile} from './PostMediaTile';
+import {getPostMedia} from '@/lib/crefans/post-media';
 import {FeedEnd,PostCard} from './SocialPages';
 import {Action,Avatar,Empty,PageTitle} from './ServiceUI';
 import type {ServiceViewModel,Subscription} from '@/types/crefans';
@@ -71,13 +73,13 @@ export function ExplorePage({model}:{model:ServiceViewModel}){
 
 export function CreatorProfilePage({model,id,previewLogin}:{model:ServiceViewModel;id:string;previewLogin?:{label:string;onClick:()=>void}}){
   const router=useRouter();
-  const {following,toggleFollow,canAccess,basePath,subscriptions,data:{creators,posts}}=model;
+  const {following,toggleFollow,basePath,subscriptions,data:{creators,posts}}=model;
   const plans=getCreatorPlans(model.data,id),onSale=plans.filter(plan=>plan.available!==false);
   const activePlanId=subscriptions.find(item=>item.creatorId===id&&item.status==='active')?.planId;
   const [tab,setTab]=useState('피드');
   const creator=creators.find(item=>item.id===id);
   if(!creator)return <Empty title="크리에이터를 찾을 수 없어요" description="다른 크리에이터를 둘러보세요." action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>;
-  const ownPosts=posts.filter(post=>post.creatorId===id),mediaPosts=ownPosts.filter(post=>post.image||post.media?.length);
+  const ownPosts=posts.filter(post=>post.creatorId===id),mediaPosts=ownPosts.filter(post=>getPostMedia(post).length>0);
   const tabs:[string,number|null][]=[['피드',ownPosts.length],['미디어',mediaPosts.length],['소개',null]];
   const social=socialKeys.filter(key=>creator.links?.[key]).map(key=>[key,creator.links![key]!] as const);
   return <div className={s.profile}>
@@ -86,15 +88,7 @@ export function CreatorProfilePage({model,id,previewLogin}:{model:ServiceViewMod
     <TipButton creatorId={creator.id} name={creator.name} creator={creator} profile/>
     <section className={s.profilePlans} aria-labelledby="profile-plans"><h2 id="profile-plans">멤버십</h2>{onSale.length?<div className={s.planList}>{onSale.map(plan=><MembershipPlanCard key={plan.id} plan={plan} compact selected={plan.id===activePlanId} disabled={plan.id===activePlanId} actionLabel={plan.id===activePlanId?'가입 중':'가입하기'} onSelect={()=>router.push(`${basePath}/membership/${id}?plan=${plan.id}`)}/>)}</div>:<p className={s.noPlans}>판매 중인 멤버십이 없어요.</p>}</section>
     <div className={s.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={s.tabCount}>{count}</span>}</button>)}</div>
-    {tab==='소개'?<section className={s.about}>{(creator.about||creator.bio)?<p>{creator.about||creator.bio}</p>:<p>아직 등록된 소개가 없습니다.</p>}{social.length>0&&<ul className={s.socialLinks} aria-label="SNS 링크">{social.map(([key,url])=><li key={key}><a href={url} target="_blank" rel="noopener noreferrer"><Icon name={key} width="16" height="16"/>{socialLabels[key]}</a></li>)}</ul>}</section>:tab==='피드'?(ownPosts.length?<div className={s.profileFeed}>{ownPosts.map(post=><PostCard key={post.id} post={post} model={model} context={ownPosts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}</div>:<Empty title="아직 게시물이 없어요" description="팔로우하고 새로운 소식을 기다려 주세요."/>):!mediaPosts.length?<Empty title="아직 미디어가 없어요" description="사진이나 동영상이 담긴 게시물이 올라오면 여기에 모여요."/>:<div className={s.postGrid}>{mediaPosts.map(post=>{
-      const accessible=post.canAccess??canAccess(id,post.requiredRank,post.requiredPlanId);
-      const planLabel=getPostMembershipOffer(model.data,post).label;
-      const accessLabel=planLabel?`${planLabel} 멤버에게 공개`:'멤버십 전용 콘텐츠';
-      return <Link className={s.postTile} key={post.id} href={`${basePath}/post/${post.id}`} aria-label={`${post.title}${accessible?'':` · ${accessLabel}`}`}>
-        {accessible?(post.image?<img src={post.image} style={{objectPosition:post.position}} alt={post.title}/>:<div className={s.lockedTile}><Icon name="card"/><span>텍스트 게시물</span></div>):<div className={s.lockedTile}><Icon name="lock"/><MarqueeText text={planLabel||'멤버 전용'}/></div>}
-        {post.requiredRank>0&&accessible&&<span className={s.memberLabel}>멤버 전용</span>}
-      </Link>;
-    })}</div>}
+    {tab==='소개'?<section className={s.about}>{(creator.about||creator.bio)?<p>{creator.about||creator.bio}</p>:<p>아직 등록된 소개가 없습니다.</p>}{social.length>0&&<ul className={s.socialLinks} aria-label="SNS 링크">{social.map(([key,url])=><li key={key}><a href={url} target="_blank" rel="noopener noreferrer"><Icon name={key} width="16" height="16"/>{socialLabels[key]}</a></li>)}</ul>}</section>:tab==='피드'?(ownPosts.length?<div className={s.profileFeed}>{ownPosts.map(post=><PostCard key={post.id} post={post} model={model} context={ownPosts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}</div>:<Empty title="아직 게시물이 없어요" description="팔로우하고 새로운 소식을 기다려 주세요."/>):<>{!mediaPosts.length?<Empty title={model.feedPaging?.hasMore?'불러온 게시물에 미디어가 없어요':'아직 미디어가 없어요'} description={model.feedPaging?.hasMore?'더 보기를 눌러 이전 게시물을 확인하세요.':'사진이나 동영상이 담긴 게시물이 올라오면 여기에 모여요.'}/>:<div className={s.postGrid}>{mediaPosts.map(post=><PostMediaTile key={post.id} post={post} model={model}/>)}</div>}{model.feedPaging?.hasMore&&<div className={s.profileFeed}><Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={model.feedPaging.loading}/></Action></div>}</>}
   </div>;
 }
 

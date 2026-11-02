@@ -1,0 +1,222 @@
+{
+  "checkedAt": "2026-11-02T16:24:13.635422+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-profile-posts",
+  "branch": "feat/my-profile-feed-current",
+  "baseCommit": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
+  "originalFixCommits": [
+    "31a3c923da0382996d36804d10efea038c9e41e4",
+    "77555b494160b6db0292ef667e239a6935a1d283"
+  ],
+  "workingTreeAtVerification": [
+    "M AGENTS.md",
+    " M PROGRESS.md",
+    "M  components/crefans/AccountPages.tsx",
+    "M  components/crefans/CreatorPages.tsx",
+    "A  components/crefans/MediaSummary.tsx",
+    "A  components/crefans/PostMediaTile.tsx",
+    "M  components/crefans/SocialPages.tsx",
+    "M  components/crefans/creator.module.css",
+    "A  components/design-system/ProfileMediaCatalog.tsx",
+    "M  components/design-system/ServicePatternCatalog.tsx",
+    "A  docs/audit/my-profile-posts-20261102.json",
+    "A  docs/audit/profile-media-tab-20261102.json",
+    "M  docs/design-system.md",
+    "M  docs/preview-pages.md",
+    "MM docs/service-api-binding.md",
+    "A  e2e/my-profile-posts.spec.ts",
+    "M  features/service/useServiceModel.ts",
+    "A  lib/crefans/post-media.ts",
+    "M  tests/crefans-creator.test.cjs",
+    "A  tests/my-profile-posts.test.cjs",
+    "A  tests/profile-media-tab.test.cjs",
+    "?? e2e/my-profile-live.spec.ts",
+    "?? playwright.my-profile.config.ts"
+  ],
+  "backend": {
+    "repository": "/Users/ethan/repository/crefans_server-membership-release",
+    "commit": "d4238d922641277f6e5364f27d2484a8641afdb1",
+    "sourceStatus": ""
+  },
+  "rootCause": "Current prod does not contain the prior local fixes: own profile tabs/counts/empty state were fixed to zero, and /service/me did not request posts for ownCreatorIds.",
+  "scope": [
+    "Own creator feed and media load from /posts with the same owner filter on every page",
+    "Only owned posts; saved/liked collections remain separate",
+    "Photo/video thumbnails and separate type counts; text-only excluded",
+    "Existing access checks, processing placeholders and explicit request errors retained",
+    "Fresh prod baseline; original feature branch preserved; existing membership changes retained"
+  ],
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "browser": "PC Chromium1440x1000; iPhone13 WebKit390x664 emulation",
+    "api": "loopback3012; Next3011; dedicated crefans_platform_e2e on3307; providers mocked"
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "result": "layers/typecheck and516 unit tests pass",
+      "log": ".local/my-profile-current-20261103/check.log",
+      "logSha256": "f02f243c7c04f486099ed733ceb3bedc84c45e7781c805c556f8c512092fbb45",
+      "startedAt": "2026-11-02T16:12:18.203877+00:00",
+      "logUpdatedAt": "2026-11-02T16:12:33.147149+00:00"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-membership-release npx playwright test --config=playwright.my-profile.config.ts",
+      "exitCode": 0,
+      "result": "14pass: PC7 andmobile7; actual API/DB2; stubbed API12. Runtime error assertions retained.",
+      "log": ".local/my-profile-current-20261103/browser-retest.log",
+      "logSha256": "7df3e59ca5ec02d29f6fbe8b6beda7a1ec800077abc1def7224f79f56034e9a4",
+      "startedAt": "2026-11-02T16:18:11.679808+00:00",
+      "logUpdatedAt": "2026-11-02T16:18:56.102171+00:00"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "result": "Next production build,35 static pages",
+      "log": ".local/my-profile-current-20261103/build.log",
+      "logSha256": "751eef83172795b7db8fd5cceac3d959111f4003d397b70b01e645b272bf49d8",
+      "startedAt": "2026-11-02T16:19:26.298047+00:00",
+      "logUpdatedAt": "2026-11-02T16:19:49.630060+00:00"
+    },
+    {
+      "command": "node --test tests/my-profile-posts.test.cjs (two source files temporarily restored from prod)",
+      "exitCode": 1,
+      "result": "Expected3fail/0pass; both files restored byte-for-byte in finally",
+      "log": ".local/my-profile-current-20261103/negative.log",
+      "logSha256": "bb3dcad1d368da99cb4bc6e92b2ac9346e0e27bd87b7024bfeff5ed56dde66ea",
+      "startedAt": "2026-11-02T16:19:21.764470+00:00",
+      "logUpdatedAt": "2026-11-02T16:19:22.268175+00:00"
+    },
+    {
+      "command": "node --test tests/my-profile-posts.test.cjs (fixed sources restored)",
+      "exitCode": 0,
+      "result": "3pass/0fail",
+      "log": ".local/my-profile-current-20261103/positive.log",
+      "logSha256": "b019cf6d4a88f5f9c24b0f3fdd7db5d69f8f562e32c98edf84b6bffdbf037879",
+      "startedAt": "2026-11-02T16:19:22.271465+00:00",
+      "logUpdatedAt": "2026-11-02T16:19:22.750349+00:00"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-membership-release npm run test:docs",
+      "exitCode": 0,
+      "result": "Documentation checker negative controls pass",
+      "log": ".local/my-profile-current-20261103/docs-control.log",
+      "logSha256": "61c8c3c4d5c5c0f1af1b85c42a59015ae5a8454c65d33a8cd12d4e0f1b4751f4",
+      "startedAt": "2026-11-02T16:21:54.343773+00:00",
+      "logUpdatedAt": "2026-11-02T16:21:54.709447+00:00"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-membership-release npm run docs:record",
+      "exitCode": 0,
+      "result": "Reviewed documentation/source hash snapshot refreshed; not a runtime test",
+      "log": ".local/my-profile-current-20261103/docs-record.log",
+      "logSha256": "8be2ca511922716491c4a33c68ed01fa41ad8b8a6e26c1ebaba312b3127059e9",
+      "logUpdatedAt": "2026-11-02T16:23:19.265960+00:00"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-membership-release npm run check:docs",
+      "exitCode": 0,
+      "result": "PASS:76 documents,186 routes,57 screens; snapshot-only-not-test-proof",
+      "log": ".local/my-profile-current-20261103/docs-final.log",
+      "logSha256": "6b40e6bdc57620639a8bad735aad617a25955be0d63f52a29f1c581284d81137",
+      "logUpdatedAt": "2026-11-02T16:23:19.694856+00:00"
+    }
+  ],
+  "initialFailure": {
+    "browser": "First run13pass/1fail: WebKit reported aborted wallet/tips/referral requests during immediate document navigation/reload. Test now waits for pending API requests to complete; product code/error collection unchanged. Final14pass.",
+    "documentation": "Initial check:docs exit1 detected expected expired source/document hashes before reviewed snapshot update."
+  },
+  "visualReview": [
+    "PC actual API feed: counts1/1, owner-only member post content and image rendered",
+    "Mobile actual API: counts1/1 and photo thumbnail; only viewport captured because application uses its own scroll container",
+    "Mobile stubbed media grid: photo/video frames and distinct counts; no text-only cards or horizontal overflow"
+  ],
+  "screenshots": [
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-live-actual-cre-5a598--profile-and-public-profile-mobile-webkit/actual-owner-media.png",
+      "sha256": "e47246cde2b6e028dedd5a59e2e29871639d0a2dcad98b2f877c7ec2a9b87190"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-live-actual-cre-5a598--profile-and-public-profile-mobile-webkit/actual-owner-feed.png",
+      "sha256": "dbc9f4a25fb4137998f1a819663d5bad4cab3197cfcbde805db8dfbde9669c86"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-media-thu-0ed8d-ts-service-creator-qa-owner-pc/media-tab.png",
+      "sha256": "256ae952ab3c0e09a8dad3ec8d51e8198c0e091e7a9841534376e22764f99262"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-failed-pr-26921-f-unrelated-bootstrap-posts-pc/my-profile-error.png",
+      "sha256": "e8031817eac98a8027a4882502726d2783fc85bfac4e8bb35c020ec8d590dcf1"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-failed-pr-26921-f-unrelated-bootstrap-posts-mobile-webkit/my-profile-error.png",
+      "sha256": "51a504b6fc1844685186e6e9b6737e0792870a1b07f1f77b2ba192566baa42b5"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-media-thumbnails-and-counts-service-me-pc/media-tab.png",
+      "sha256": "75419d0f0ce6c5104a6c1ddbecceb3b63bd0d59aee27748a1aa573967b6ff0d6"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-media-thumbnails-and-counts-service-me-mobile-webkit/media-tab.png",
+      "sha256": "f9a36dc67bd73825f52443e45c2629bb298b3f993a9fe6415aaa7c96a4627aa3"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-owner-fee-eae51--profile-and-public-profile-pc/my-profile-feed.png",
+      "sha256": "16f086de4dd6cafc8395fd6707d597b1a04993216393b97ee069bb019dcf3435"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-owner-fee-eae51--profile-and-public-profile-pc/my-profile-media.png",
+      "sha256": "0dcb17cdf20d167248a0978c0466d1e80d1237806b3737bcfbdb1e9a7ecf2b9b"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-media-thu-0ed8d-ts-service-creator-qa-owner-mobile-webkit/media-tab.png",
+      "sha256": "af0d9a39196e2180e5cec96dced74d88240df08b665150553c4165d3952f4bfc"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-live-actual-cre-5a598--profile-and-public-profile-pc/actual-owner-media.png",
+      "sha256": "9d61bc611d3946a41e8ebbddad3add2913e502ab7c1614ddabad878f1004f32e"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-live-actual-cre-5a598--profile-and-public-profile-pc/actual-owner-feed.png",
+      "sha256": "ecea84fd5feace76c9c6e43f9b3782f54941541a52203ac96fa6cc70b8226a46"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-owner-fee-eae51--profile-and-public-profile-mobile-webkit/my-profile-feed.png",
+      "sha256": "6b935a75efc1610242869e43596d0e63b2c12ebe6dba46745d5805e820caf901"
+    },
+    {
+      "path": ".local/my-profile-current-20261103/screenshots/my-profile-posts-owner-fee-eae51--profile-and-public-profile-mobile-webkit/my-profile-media.png",
+      "sha256": "a4e96b317227ba82e7023f67653a550cf0d9ccf149e78f2cabe87b8ae7ada088"
+    }
+  ],
+  "sourceSha256": {
+    "AGENTS.md": "3ee6171ce3701ea6b5b9f19f68cdee3421f92f775aa45a2cbd07334cc7d15d55",
+    "PROGRESS.md": "241d6e1a11ccc0d00f1f6706641dbb4fe294baf5fc61a4dcedc23cbe7781100a",
+    "components/crefans/AccountPages.tsx": "70719a980013517dba9b0e4925ba29910d5f517d74a127067be7217008f375cd",
+    "components/crefans/CreatorPages.tsx": "08b04dc70f12b3506a950af799771f09cf24a73cea2094124c01a86eae689661",
+    "components/crefans/MediaSummary.tsx": "1761d1b6cfca5b7c144c24b7a86b99a6c4a66c3b357c925a332689a5cd4d5600",
+    "components/crefans/PostMediaTile.tsx": "7d17320f3be579de68a3f898cbcf01cf45223df9810ddad053f42cf4f981d44a",
+    "components/crefans/SocialPages.tsx": "530c3d8b3e60fb8a82704cd48dd5092befa72d2ee17580848a166080d04ab4cd",
+    "components/crefans/creator.module.css": "8e744a91f414841ef63321c2e208e3c081ec783e2b765245408790ec2c388e9f",
+    "components/design-system/ProfileMediaCatalog.tsx": "4c86888f213d44bd9a393dc12270a99aedd25ccff9d3901342de6949b126da20",
+    "components/design-system/ServicePatternCatalog.tsx": "a3c9b289e75b9d8823b71c118c8e4c4518ea80d23e4729f434763beafd003b5a",
+    "docs/design-system.md": "8330696b2062e640acc538b60304baaa0c70256422f618207c099de156c01dac",
+    "docs/preview-pages.md": "61b5d22d97b184bff8ddf610b5ea8e52031e88b0b92e90bd702c063f1d2069c5",
+    "docs/service-api-binding.md": "4e5d8b61748e22eddd706c6ad2d1e04e582330bc8530b981ecdd73996c608d3f",
+    "e2e/my-profile-live.spec.ts": "abe556ac8b83500733655e611fc893ca28b13e9d895c13f3c0a5ae553da01089",
+    "e2e/my-profile-posts.spec.ts": "ff0c6947091d684704404ae8ae6b1aac19d1ce6be9e6fa723d8b01606ea4156d",
+    "features/service/useServiceModel.ts": "4f2d74ba3bf7d70c77a0ab4c1f2ab04803a2805770fdca78b7f65a11f9059521",
+    "lib/crefans/post-media.ts": "4cda6a04c6fd00c1f28c253018b0bb423bbeff7edf91ce38a1b7912745914e40",
+    "playwright.my-profile.config.ts": "39069160e91b6e7217c045314e18d6a91bc4beb64b750bc6da0421edf6a2538e",
+    "tests/crefans-creator.test.cjs": "85911ce11fbb53beef9e1eb84f60202167ff35fdca1eb0e80c14f8def36733bb",
+    "tests/my-profile-posts.test.cjs": "f607ed20ce88c21ad5d830e5d96d7525062d06d331bedbd750d274b18ecece17",
+    "tests/profile-media-tab.test.cjs": "ddca73aad1b9d7015ab6f26e631dfcc43d2d82d6d57a28980b2e109091fe0200"
+  },
+  "limits": [
+    "No production deployment, merge to dev/prod, real-user or physical iPhone validation",
+    "Backend source/schema unchanged; local API/DB verification is not live provider/payment/SMTP verification",
+    "Tab counts are loaded post counts, consistent with existing public profile pagination; more loads older posts"
+  ],
+  "deploymentStatus": "not-deployed; feature branch only"
+}

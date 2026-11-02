@@ -32,7 +32,7 @@ import {PostViews} from './PostViews';
 import {PostShareDialog} from './PostShareDialog';
 import {Action,Avatar,Empty,PageTitle} from './ServiceUI';
 import {CommentBody,CommentContext,useMentionInput} from './CommentMention';
-import {MediaTypeIcon} from '@/components/ui/MediaTypeIcon';
+import {MediaSummary} from './MediaSummary';
 import {usePresence} from '@/components/ui/usePresence';
 import {designTokens} from '@/lib/design/tokens';
 import {MediaOverlay} from './MediaOverlay';
@@ -100,12 +100,6 @@ function PostMedia({post,locked,model,readOnly=false,onOpen}:{post:Post;locked:b
 /** My message receipt: one check when sent, two checks with '읽음' once the other side has opened it (2026-11-01). */
 function MessageReceipt({read,label}:{read:boolean;label:string}){
   return <span className={s.receipt} data-read={read||undefined}><svg width={read?17:12} height="12" viewBox={read?'0 0 17 12':'0 0 12 12'} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{read?<><path d="M1 6.5 4 9.5 10 2.5"/><path d="M7 9.5 13 2.5"/></>:<path d="M1.5 6.5 4.5 9.5 10.5 2.5"/>}</svg>{label}</span>;
-}
-
-/** Bottom-right glyph counts so fans know how many photos and videos a post holds before opening it. */
-function MediaSummary({media}:{media:{type:'image'|'video'}[]}){
-  const images=media.filter(item=>item.type==='image').length,videos=media.filter(item=>item.type==='video').length;
-  return <span className={s.mediaSummary} aria-label={`사진 ${images}장, 동영상 ${videos}개`}>{images>0&&<span><MediaTypeIcon type="image" size={13}/>{images}</span>}{videos>0&&<span><MediaTypeIcon type="video" size={13}/>{videos}</span>}</span>;
 }
 
 /** Images in the feed open the post overlay; videos keep their native controls. */
