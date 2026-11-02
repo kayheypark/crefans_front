@@ -4,7 +4,7 @@ import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanWalletLink} from './BeanPages';
 import {SignInPrompt} from './SignInPrompt';
 import {SIGNUP_COMPLETE_KEY,loginTarget} from '@/lib/crefans/login-return';
-import {REFERRAL_DISCLOSURE_LABEL,storedReferral} from '@/lib/crefans/referral';
+import {REFERRAL_DISCLOSURE_LABEL,REFERRAL_DISCLOSURE_NOTICE,storedReferral} from '@/lib/crefans/referral';
 export {SignInPrompt} from './SignInPrompt';
 import {MarqueeText,MarqueeMotionControl} from '@/components/ui/MarqueeText';
 
@@ -90,7 +90,7 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
           {!identityRequired&&<div><Checkbox label="만 19세 이상입니다 (필수)" checked={ageAcknowledged} onChange={setAgeAcknowledged}/></div>}
           <div><Checkbox label="이용약관 동의 (필수)" checked={terms} onChange={setTerms}/><button type="button" aria-label="이용약관 보기" onClick={()=>setPolicy('terms')}><Chevron/></button></div>
           <div><Checkbox label="개인정보 처리방침 확인 (필수)" checked={privacy} onChange={setPrivacy}/><button type="button" aria-label="개인정보 수집 및 이용 안내 보기" onClick={()=>setPolicy('privacy')}><Chevron/></button></div>
-          {referred&&<div><Checkbox label={REFERRAL_DISCLOSURE_LABEL} checked={referralDisclosure} onChange={setReferralDisclosure}/></div>}
+          {referred&&<div><Checkbox label={REFERRAL_DISCLOSURE_LABEL} description={REFERRAL_DISCLOSURE_NOTICE} checked={referralDisclosure} onChange={setReferralDisclosure}/></div>}
           <div><Checkbox label="마케팅 정보 수신 동의 (선택)" checked={marketing} onChange={setMarketing}/>{account.agreements&&<button type="button" aria-label="마케팅 정보 수신 안내 보기" onClick={()=>setPolicy('marketing')}><Chevron/></button>}</div>
           {submitted&&(!terms||!privacy)&&<p className={s.error} role="alert">이용약관에 동의하고 개인정보 처리방침을 확인해주세요.</p>}
           {submitted&&referred&&!referralDisclosure&&<p className={s.error} role="alert">초대 링크로 가입하려면 초대한 회원에게 표시되는 정보에 동의해주세요.</p>}
