@@ -1,3 +1,10 @@
+## 2026-11-02 스튜디오 파일 업로드 안내 간소화 — 로컬 완료·미배포
+- 요청: 크리에이터 파일 업로드 설명에는 허용 파일 유형과 크기만 간략히 표시한다.
+- 게시물 작성·수정 공통 `ManagementPages.tsx`와 디자인 시스템의 동일 예시를 `JPG·PNG·WebP 5MB 이하 · MP4·WebM·MOV 300MB 이하`로 변경했다. 기존 accept·용량 상수와 대조했으며 워터마크·알림·개수·길이·해상도 설명은 도움말에서 제거했다. 업로드 최대 개수 카운터, 검증·변환·알림 동작은 유지한다. 실제/목업이 같은 공통 컴포넌트를 사용한다.
+- 검증: 기존 `media-upload`·`content-post-preview` 17/17 통과, TypeScript 통과. 문구 변경이므로 신규 테스트·실파일 업로드·전체 E2E·배포는 하지 않았다. 초기 check:docs는 변경한 두 소스와 기존 server/PROGRESS 이력의 증거 만료만 검출했다. 문서/계약 구조 오류 없음. 해당 변경 범위를 검토한 뒤 문서 해시 기록을 갱신했고 최종 check:docs PASS(제품 시험 증명과 구분).
+- 기준: origin/prod feef422에서 `feat/upload-hint-compact`, `/Users/ethan/repository/crefans_front-upload-hint`. 기존 체크아웃의 미커밋 변경은 보존했다. 명령·실행 시각·소스 해시·커밋 증거는 `.local/upload-hint-20261102/verification.json`.
+- 남은 작업: 운영 반영 요청 시 dev 통합 검증 → prod 승격 → 배포. 추가 정책 결정 없음.
+
 # PROGRESS: crefans_front
 
 ## 2026-11-01 크리에이터 게시물 워터마크 — 운영 배포 완료

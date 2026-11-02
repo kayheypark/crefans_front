@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T08:43:57.505383+00:00",
+  "checkedAt": "2026-11-02T14:24:07.565287+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "c5a3b5acce0d8129b40c483bad86bbd573522af5",
-      "branch": "feat/legal-revision",
+      "head": "feef4226d1b92441e762d11d85a6caeb4d4f377a",
+      "branch": "feat/upload-hint-compact",
       "dirty": true
     },
     "server": {
-      "head": "7ca181bca3dd631dee63d33b7b22612be68762ce",
-      "branch": "feat/legal-revision",
+      "head": "60175a2baee2a572e7f7f276ca33adf73ab6ce54",
+      "branch": "dev",
       "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "5f3e09e6bdff861aa4f78a7da570ab5f071a70654b0eb460352160ad07e020cd",
-      "front/PROGRESS.md": "7b4845bc4273f0d7b80b4bb7990b3550afe77e1c6a69bfa57219ad628ed3595a",
+      "front/PROGRESS.md": "f5c22b9bcf14867678c7bb38c310bf3537212ca6faeb5c79ffa7c774e7776016",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "1baddcefc7a1a911ccc4ab90beb120a4ad502db57bc684491b834f4176915535",
-      "server/PROGRESS.md": "ab4f8a0f7576fbb4ba0f15f3c6b5cff44272efc5699cd5accecee8c2741b502b",
+      "server/PROGRESS.md": "d528cae01aaf652b0dfcf7f2a4ca41dd1e3f67ef805e9a6eae4ed138bd7fbc98",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -273,7 +273,7 @@
       "front/components/crefans/studio/ContentPostPreview.tsx": "0901b7179a5b908fc7f0fe392fd9d67b785d4bf7207c18a34eba7e496c829e6a",
       "front/components/crefans/studio/DashboardPage.tsx": "93e5bec66a079e6636999d0595e57c7c2d589d79ffe923477d5db99c1c9fda89",
       "front/components/crefans/studio/FinancePages.tsx": "fd46acd447939bee81d1c4cda9721ee369c1fda193dc99e5f65a21b846e55124",
-      "front/components/crefans/studio/ManagementPages.tsx": "3c67437e0e999c2e392a33bc572c5f4347ca91d87e023d106ba4848808fbbd55",
+      "front/components/crefans/studio/ManagementPages.tsx": "54e385023e56245ea7354af52d52243525d2f16885e2c5559152784e95686b09",
       "front/components/crefans/studio/OverviewPages.tsx": "668eb68d16e55c5b7f2306f84ad3c807e39753da7f5e04de0b295fd4228c4fc3",
       "front/components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
       "front/components/crefans/studio/ReportPage.tsx": "8faa564cedf335b708efc3d15ff8d2e34c5b4127b72447e327602e59e1faf2d1",
@@ -310,7 +310,7 @@
       "front/components/design-system/ServiceComponents.tsx": "0f2b2fc75e7e04aa1392bf7a782f37bf68276ba71049d02496fe92843ee23e2c",
       "front/components/design-system/ServicePatternCatalog.tsx": "ea1903c26518c63ee4b765a3bd6d85601521c7e07dfe3609ba672e7ab732771b",
       "front/components/design-system/StudioDashboardExample.tsx": "498a37a8742d8530db3a5f418dc4f1560e99c65c502406abc8e527a23e0b95d4",
-      "front/components/design-system/VideoProcessingCatalog.tsx": "78b069784e09029271057e98ecdb9f6e6641aac7746cd280bec97c1a48c9940a",
+      "front/components/design-system/VideoProcessingCatalog.tsx": "d166f60d6bc74bf785b91998f093e3eed749cd5ada05c2f57b93db830ce71fb4",
       "front/components/design-system/custom.module.css": "af939a77194df0556a9d65662248813195dfa292aeee235f1a7b7bbeb0c3cdb8",
       "front/components/design-system/design-system.module.css": "e817d1d7d1cec3e855ac81d6953302d75facd51339907cd13e939b016825853e",
       "front/components/explore/Explore.tsx": "7db6b75a075baf8dea7ba13c05ac8205e41b875aa65ecf6cbf7e1eeb29fe8368",
