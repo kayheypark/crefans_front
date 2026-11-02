@@ -30,6 +30,21 @@
 .rewardDetails li+li{margin-top:3px}
 .rewardNotice{grid-column:1/-1;margin:8px 0 0;padding-left:4px;color:#344b42;font-size:14px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
 .campaignSchedule{margin:clamp(14px,2.4cqw,22px) 8px 0;text-align:right;color:#6c7390;font-size:clamp(11px,1.8cqw,14px);font-weight:400;line-height:1.6;word-break:keep-all}
+.submission{margin-top:32px;padding:24px 0;border-top:1px solid var(--cf-color-border);border-bottom:1px solid var(--cf-color-border);word-break:keep-all;overflow-wrap:anywhere}
+.submission h2{margin:0 0 12px;font-size:20px;line-height:1.45;letter-spacing:-.03em}
+.submission>p{margin:0;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.8}
+.submission ol{margin:20px 0;padding-left:22px;font-size:14px;line-height:1.8}
+.submission li+li{margin-top:10px}
+.submissionContact{display:grid;gap:4px;margin:24px 0 16px}
+.submissionContact span{font-size:13px;color:var(--cf-color-textSecondary)}
+.submissionContact strong{font-size:18px;font-weight:600}
+.submissionAction{width:100%;min-height:44px;justify-content:center}
+.submission>.submissionHint{margin-top:12px;font-size:13px}
+.claim{margin-top:24px;padding:24px 0;border-top:1px solid var(--cf-color-border);word-break:keep-all;overflow-wrap:anywhere}
+.claim h2{margin:0;font-size:20px;line-height:1.45;letter-spacing:-.03em}
+.claim p{margin:10px 0 20px;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.7}
+.claimAction{width:100%;min-height:48px;justify-content:center}
+.claim .claimError{margin:12px 0 0;color:var(--cf-color-danger)}
 .notes{margin-top:28px;padding:22px;border-radius:12px;background:var(--cf-landing-soft)}
 .notes h2{font-size:18px;margin:0 0 16px}
 .noteGroup+.noteGroup{margin-top:24px}
@@ -37,3 +52,21 @@
 .notes ul{margin:0;padding-left:18px;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.8}
 .notes li+li{margin-top:8px}
 @media(max-width:600px){.notes{padding:18px}.page h1{font-size:23px;word-break:keep-all;overflow-wrap:anywhere}}
+
+.badgePreference{margin-top:20px;padding-top:20px;border-top:1px solid var(--cf-color-border)}
+
+/* Non-gift banners: readable HTML first, one quiet illustration, audience at bottom right. */
+.banner:is([data-theme="advertising"],[data-theme="beans"],[data-theme="badge"]){position:relative;isolation:isolate;overflow:hidden;grid-template-columns:minmax(0,1fr) 32%;gap:12px;aspect-ratio:2.65;min-height:180px;padding:24px clamp(20px,4.8cqw,38px) 44px;color:#222438}
+.banner:is([data-theme="advertising"],[data-theme="beans"],[data-theme="badge"])::before{content:"";position:absolute;z-index:-1;width:62%;aspect-ratio:1;border-radius:50%;right:-16%;top:-34%;background:#ffffff58;pointer-events:none}
+.banner:is([data-theme="advertising"],[data-theme="beans"],[data-theme="badge"]) img{order:2;width:138%;max-width:none;max-height:clamp(120px,33cqw,238px);margin-left:-19%;object-fit:contain}
+.banner:is([data-theme="advertising"],[data-theme="beans"],[data-theme="badge"]) .bannerCopy{order:1;text-align:left}
+.banner:is([data-theme="advertising"],[data-theme="beans"],[data-theme="badge"]) .bannerCopy>span{font-size:clamp(12px,2.5cqw,17px);line-height:1.45;letter-spacing:-.02em;color:#66627f}
+.banner:is([data-theme="advertising"],[data-theme="beans"],[data-theme="badge"]) .bannerCopy h2{margin-top:10px;font-size:clamp(23px,6.6cqw,46px);line-height:1.18;letter-spacing:-.045em;color:inherit}
+.banner:is([data-theme="advertising"],[data-theme="beans"],[data-theme="badge"]) .bannerCopy p{position:absolute;bottom:16px;right:clamp(20px,4.8cqw,38px);left:20px;margin:0;text-align:right;font-size:clamp(11px,2.2cqw,15px);line-height:1.45;color:#716b85}
+.banner[data-theme="advertising"]{background:linear-gradient(115deg,#eeeaff,#e6edff)}
+.banner[data-theme="beans"]{background:linear-gradient(115deg,#e3f5eb,#d8f4e8);color:#174c3d}
+.banner[data-theme="beans"] .bannerCopy>span,.banner[data-theme="beans"] .bannerCopy p{color:#52796a}
+.banner[data-theme="badge"]{background:linear-gradient(115deg,#f2eaf9,#eee3fa);color:#3c2757}
+.reward[data-theme="advertising"]{background:linear-gradient(115deg,#eeeaff,#e6edff)}
+.reward[data-theme="beans"]{background:linear-gradient(115deg,#e3f5eb,#d8f4e8)}
+.reward[data-theme="badge"]{background:linear-gradient(115deg,#f2eaf9,#eee3fa)}

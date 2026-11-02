@@ -1,4 +1,6 @@
 'use client';
+import {FoundingBadgeEventDetail} from '@/components/service/FoundingBadgeEventDetail';
+import {PromotionEventDetail} from '@/components/service/PromotionEventDetail';
 import {EventsPage,EventDetailPage} from '@/components/crefans/EventPages';
 import {serviceEvents} from '@/lib/content/events';
 import {ProfileConnectionsPage} from '@/components/crefans/ProfileConnectionsPage';
@@ -59,7 +61,7 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'following':return query.get('profile')?<ProfileConnectionsPage key={query.get('profile')+'following'} id={query.get('profile')!} kind="following" basePath={basePath} load={loadProfileConnections}/>:<FollowingPage model={model}/>;
   case 'followers':return query.get('profile')?<ProfileConnectionsPage key={query.get('profile')+'followers'} id={query.get('profile')!} kind="followers" basePath={basePath} load={loadProfileConnections}/>:<FollowersPage model={model}/>;
   case 'payment-methods':return common?<PaymentMethodsPage model={common} basePath={basePath}/>:null;
-  case 'events':return id?<EventDetailPage event={serviceEvents.find(event=>event.id===id)} basePath={basePath}/>:<EventsPage events={serviceEvents} basePath={basePath}/>;
+  case 'events':return id==='founding-badge'?<FoundingBadgeEventDetail key={model.account.email} event={serviceEvents.find(event=>event.id===id)} basePath={basePath} signedIn={model.signedIn} actions={model.foundingBadge}/>:id==='promotion-beans'?<PromotionEventDetail key={model.account.email} event={serviceEvents.find(event=>event.id===id)} basePath={basePath}/>:id?<EventDetailPage event={serviceEvents.find(event=>event.id===id)} basePath={basePath}/>:<EventsPage events={serviceEvents} basePath={basePath}/>;
   case 'notices':return !common?null:id?<NoticeDetailPage id={id} model={common} basePath={basePath}/>:<NoticesPage model={common} basePath={basePath}/>;
   case 'legal':return common&&<LegalPage kind={id as LegalKind} model={common} basePath={basePath}/>;
   case 'reset-password':return common&&<PasswordResetPage model={common} basePath={basePath}/>;

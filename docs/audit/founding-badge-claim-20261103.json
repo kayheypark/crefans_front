@@ -1,0 +1,204 @@
+{
+  "recordedAt": "2026-11-02T17:48:49.357566+00:00",
+  "repo": "crefans_front",
+  "branch": "feat/founding-badge-claim",
+  "startingHead": "2cf02280e6286ee424b3e87990c8e658b7bf818a",
+  "prodBase": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
+  "pairedServerCommit": "64a08fedcdbbaca2af445f647423cf6a58c4a50b",
+  "workingTreeAtVerification": "uncommitted feature; exact product file hashes below",
+  "environment": {
+    "host": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "preview": "Next15 local3043",
+    "browserApi": "explicit synthetic service API; preview localmodel; actual MySQL tests in paired server evidence"
+  },
+  "acceptance": [
+    "click to receive",
+    "completion and profile link",
+    "profile hide/show persists",
+    "retry no optimistic completion",
+    "PC/mobile fit",
+    "no service calls from preview"
+  ],
+  "commands": [
+    {
+      "command": "npm run check",
+      "log": ".local/badge-claim-20261103/check.log",
+      "logModifiedAt": "2026-11-02T17:39:50.903106+00:00",
+      "exitCode": 1,
+      "result": "515/517;old badge text/timing assertions mismatched new request",
+      "sha256": "41913d4d236896a120ec70548b0d22611acd3bc1ea3f0a2d38ce40c0ea6bcd16"
+    },
+    {
+      "command": "npm run check",
+      "log": ".local/badge-claim-20261103/check-final.log",
+      "logModifiedAt": "2026-11-02T17:41:33.640272+00:00",
+      "exitCode": 1,
+      "result": "522/523;remaining old schedule assertion",
+      "sha256": "1632e5eb3517b508297a63b474d35493747bbb2883542a7e1b8887e6ee848379"
+    },
+    {
+      "command": "npm run check",
+      "log": ".local/badge-claim-20261103/check-pass.log",
+      "logModifiedAt": "2026-11-02T17:43:19.251507+00:00",
+      "exitCode": 0,
+      "result": "523/523 plus layers/TypeScript",
+      "sha256": "be967b3e8eaccf9cb37d3cdee792b01b28554f33f6f7f97f611c61939ab3bf2f"
+    },
+    {
+      "command": "node .local/badge-claim-20261103/browser.cjs",
+      "log": ".local/badge-claim-20261103/browser.log",
+      "logModifiedAt": "2026-11-02T17:42:55.282792+00:00",
+      "exitCode": 1,
+      "result": "ambiguous switch selector matched text-motion setting; selector narrowed",
+      "sha256": "4f48c96852959c7cc5b27583a1138c5b67dfe0f9b0e1c5d5d7d68d8e2a77f472"
+    },
+    {
+      "command": "node .local/badge-claim-20261103/browser.cjs",
+      "log": ".local/badge-claim-20261103/browser-final.log",
+      "logModifiedAt": "2026-11-02T17:43:36.564198+00:00",
+      "exitCode": 0,
+      "result": "PC Chromium + iPhone13 WebKit(service API doubles) +320px preview;3/3",
+      "sha256": "fad41b2d6cc97c429e6dabd34f847a0bc9a33e3ffa173e9b647f9e5292c4dbb9"
+    },
+    {
+      "command": "node --test --test-name-pattern=badge double click tests/founding-badge.test.cjs (mutation)",
+      "log": ".local/badge-claim-20261103/negative.log",
+      "logModifiedAt": "2026-11-02T17:44:44.123671+00:00",
+      "exitCode": 1,
+      "result": "expected failure: duplicate requests detected without single-flight guard",
+      "sha256": "aa0be64edec8328d9adfa1d057545703be9152a04d226cd1fff59eef5d911ca3"
+    },
+    {
+      "command": "npm run check (restored source plus catalog)",
+      "log": ".local/badge-claim-20261103/check-verified.log",
+      "logModifiedAt": "2026-11-02T17:44:57.602285+00:00",
+      "exitCode": 0,
+      "result": "523/523 plus layers/TypeScript",
+      "sha256": "396b1201d7a78c7f7690f0d45ee9215810da0dce808665277c9160b2208b22a8"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-badge-claim npm run docs:contracts",
+      "log": ".local/badge-claim-20261103/contracts.log",
+      "logModifiedAt": "2026-11-02T17:47:10.283292+00:00",
+      "exitCode": 0,
+      "result": "contract generation only; not product proof",
+      "sha256": "edeb16a9fc56994a69408b1d0248f863f3bf03f6d645ff3521b9bf48ff5ed855"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-badge-claim npm run docs:record",
+      "log": ".local/badge-claim-20261103/docs-record.log",
+      "logModifiedAt": "2026-11-02T17:48:50.580045+00:00",
+      "exitCode": 0,
+      "result": "reviewed-doc hashes only, not product proof",
+      "sha256": "fe3ae54424cdef806cb416b65ae791ad125161cba0a83b586e95ffbd6129bef7"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-badge-claim npm run check:docs",
+      "log": ".local/badge-claim-20261103/docs-check.log",
+      "logModifiedAt": "2026-11-02T17:48:51.011054+00:00",
+      "exitCode": 0,
+      "result": "PASS:76docs,191routes,57screens,48migrations,448local links",
+      "sha256": "34273a68f5eefd83eafbb37f6e01faf2b618c1d54052f45896cb0b61dc5098bc"
+    }
+  ],
+  "browserResults": [
+    {
+      "name": "desktop",
+      "route": "service",
+      "result": "PASS",
+      "apiScope": "synthetic bootstrap/claim/visibility API incl lost response",
+      "checks": [
+        "receive",
+        "profile navigation",
+        "hide persists across navigation",
+        "show profile badge",
+        "no overflow",
+        "lost response retry",
+        "failed visibility preserves state",
+        "reload",
+        "ineligible",
+        "unavailable",
+        "guest login return"
+      ],
+      "pageErrors": []
+    },
+    {
+      "name": "mobile",
+      "route": "service",
+      "result": "PASS",
+      "apiScope": "synthetic bootstrap/claim/visibility API incl lost response",
+      "checks": [
+        "receive",
+        "profile navigation",
+        "hide persists across navigation",
+        "show profile badge",
+        "no overflow",
+        "lost response retry",
+        "failed visibility preserves state",
+        "reload",
+        "ineligible",
+        "unavailable",
+        "guest login return"
+      ],
+      "pageErrors": []
+    },
+    {
+      "name": "preview-small",
+      "route": "preview",
+      "result": "PASS",
+      "apiScope": "preview local model, no service API",
+      "checks": [
+        "receive",
+        "profile navigation",
+        "hide persists across navigation",
+        "show profile badge",
+        "no overflow"
+      ],
+      "pageErrors": []
+    }
+  ],
+  "visualReview": [
+    "mobile-ready-page.png",
+    "mobile-claimed.png"
+  ],
+  "screenshots": {
+    ".local/badge-claim-20261103/desktop-claimed.png": "8233c308f59a521a78f33e3ca971f9b6ac4809ce93a0a4819b026ea746a6a1a4",
+    ".local/badge-claim-20261103/desktop-profile.png": "27c88185f3c216b846329e3e3d0d049f4900f49dd4967ba5cf9f7a3b58f381cc",
+    ".local/badge-claim-20261103/desktop-ready-page.png": "29c4bb49202588d50a563247ba0dd0c9ecb15fad25f030ae099c7aa5e6c66890",
+    ".local/badge-claim-20261103/desktop-ready.png": "aa8749d2eb5b55383cec293b8822e150f6fd5799f5a34f5e75c39c724e2e37e3",
+    ".local/badge-claim-20261103/mobile-claimed.png": "d66a732e4d6b355dbc6ebdb8029058e0938edeb3ced7daa13756d6e64d21b077",
+    ".local/badge-claim-20261103/mobile-profile.png": "6d823d119bba662eed99071c548bd4c7c32121dd960dbbfba11e5719f3c9261e",
+    ".local/badge-claim-20261103/mobile-ready-page.png": "b18451fc8ba47fe253fe316ba5e76c183d836e2a24c32128cf58aa87044630f1",
+    ".local/badge-claim-20261103/mobile-ready.png": "741d945a12e42a58e676dfcecb01dd6c5f60842c88f322c3926a9d906a6d9d3c",
+    ".local/badge-claim-20261103/preview-small-claimed.png": "b38a8bd8872871cf087c20c8d732111902a42aa71a947a9d82401143f708a3d0",
+    ".local/badge-claim-20261103/preview-small-profile.png": "a533a40467e1e4c8baa1839799125d193afa8706825c0ad023cc82be8b635423",
+    ".local/badge-claim-20261103/preview-small-ready-page.png": "e91e1639c53343ef1dc43215a5d99ca091cba556c924d7545dda400d4a53bca2",
+    ".local/badge-claim-20261103/preview-small-ready.png": "d490fe78d09116bb1e45733a3d237f5c6823a118dc4c8f7bf539afeba4949c9d"
+  },
+  "files": {
+    "components/crefans/EventPages.tsx": "75a747729ed7d22e12b6751f974cff493481c53319729111d9e8192b7e59e8ff",
+    "components/crefans/FoundingBadgeClaim.tsx": "479734a97f53953b00973cce1f21dd8b366617e45910664cf904a8a0a414d7c3",
+    "components/crefans/events.module.css": "d39c42eed13cb88552bfed640aa6df439cbb73b38538892327a317b3cb5564b3",
+    "components/design-system/ServicePatternCatalog.tsx": "63f09dc8d5ebb9654daef15738b7019801c78fcaed1d14a401e7c88fd0714c2c",
+    "components/preview/service/PreviewProvider.tsx": "a89cece03b73e7c8ed88f6e4f357b5a06f53fd8b51e72c3fddb81aec509c395c",
+    "components/preview/service/ServiceRouter.tsx": "0ce8ba8f33b9e9e5da906da202b694d6ba6e7d2cceab95cd3f4828e811d36d4a",
+    "components/preview/service/useMockFoundingBadge.ts": "b9c43e0ff4156ad3d638feba8bfc427fe06f828b53c476d420963a3ca33aef96",
+    "components/service/FoundingBadgeEventDetail.tsx": "d44b241c60a08594d5f80d3686a062d95cf5f33ed418fc38094f4732b7de089e",
+    "components/service/ServiceRouter.tsx": "407d98402208302dbcc960ba6ec2d7c02cb77d6ede11467dbe35ae1e29624064",
+    "features/events/useFoundingBadge.ts": "bf6f08e1c4eaf4a837fd830dd1c7bcd9cabb9196ff09991731ce16eea0acd805",
+    "features/service/useServiceModel.ts": "8683b7a4ccedaa7727f3f9db5f162ff1bdc96833babf582e6e41724cdb009116",
+    "lib/content/events.ts": "02d40cffee78be6a37d6a386278211a096bc25fbd4535e80653d36fdbbfbdd73",
+    "tests/crefans-events.test.cjs": "ef8dec4a3fff3caa5f2b732fb33bf50fb0d84766da23194e9423f98812c94c10",
+    "tests/founding-badge.test.cjs": "7ee88fe222fafae96fe0209f4531e142465627e82ca9375e245b1a57f07e7acd",
+    "types/crefans-events.ts": "5164f1f70c9f9908b43597e5eeabf951604ee16c366d239610bf7768b5d794dd",
+    "types/crefans.ts": "f3f5135b90c3b3488618894ecbafb7d86629c30dc491a0432fc5360842543554"
+  },
+  "limitations": [
+    "eligible member list not configured",
+    "not deployed or integrated to dev/prod",
+    "browser service API is a double; local MySQL verification separate",
+    "no physical iPhone, real production claim or external-provider calls",
+    "mock state resets on hard reload"
+  ]
+}

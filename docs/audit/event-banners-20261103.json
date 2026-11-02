@@ -1,0 +1,266 @@
+{
+  "recordedAt": "2026-11-02T18:04:12.878320+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-event-banners",
+  "branch": "feat/event-banners-refresh",
+  "baseCommit": "bb30c2d034243f20d23ba11c7813821c3e619879",
+  "prodBranchPoint": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
+  "workingTreeAtVerification": "uncommitted changes captured by sha256 below",
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "browser": "Playwright Chromium desktop1440/mobile320; WebKit iPhone13 390px; local Next dev"
+  },
+  "acceptance": [
+    "Redesign only advertising, promotion-beans, founding-badge",
+    "Readable HTML titles at identical scale and small asterisk audience bottom right",
+    "NaverPay list/detail pixels unchanged",
+    "service/preview same content; correct routes; images loaded; no viewport overflow or JS errors"
+  ],
+  "mode": "built-in image_gen",
+  "prompts": "docs/audit/event-banners-prompts-20261103.json",
+  "assets": [
+    {
+      "name": "advertising",
+      "src": "/Users/ethan/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-52ef9d2a-8465-4d2d-89f7-43ebbceb925f.png",
+      "dest": "public/brand/events/open-beta-v2/advertising.webp",
+      "width": 640,
+      "height": 640,
+      "hasAlpha": true,
+      "bytes": 29342,
+      "sha256": "e17b2720fec4453038430d3e04c8d18987a9dd57cf23d40ce91587e938bce20b"
+    },
+    {
+      "name": "beans",
+      "src": "/Users/ethan/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-5c1abf0f-dd44-4ad1-b14f-15831da67748.png",
+      "dest": "public/brand/events/open-beta-v2/beans.webp",
+      "width": 640,
+      "height": 640,
+      "hasAlpha": true,
+      "bytes": 36274,
+      "sha256": "138494927cd884a21f584a70bb8144fa8a3f7ce9c716ed0a20ba5c1adaa63e01"
+    },
+    {
+      "name": "badge",
+      "src": "/Users/ethan/.codex/generated_images/01a1868d-8a63-7433-8e79-7b033059a555/exec-2d8a8e72-32ab-43ac-878c-bf663143316f.png",
+      "dest": "public/brand/events/open-beta-v2/badge.webp",
+      "width": 640,
+      "height": 640,
+      "hasAlpha": true,
+      "bytes": 32034,
+      "sha256": "c2a666e363b14ceeaf6eb2540aeaec0368b77dc83157c0b91df12e88b0c79964"
+    }
+  ],
+  "sourceSha256": {
+    "components/crefans/EventPages.tsx": "0b4a893b0a22471b16231abe5a739902b8b8559329a3b3d58d20fe0da4b8ab3d",
+    "components/crefans/events.module.css": "ecf4598af43ed6ded5dade3d1d56a5755a38db36826cf9c54c7d1f5a02594e52",
+    "lib/content/events.ts": "dbf43ae91c6871c840b72e2149d17d92750e3b94434156f4cac15ff484aa77b9",
+    "types/crefans-events.ts": "d72a5d8e44d2307d8f7e273e58d642de60ea24383f20f19bc8ed6e984b7f8756",
+    "public/brand/events/open-beta-v2/advertising.webp": "e17b2720fec4453038430d3e04c8d18987a9dd57cf23d40ce91587e938bce20b",
+    "public/brand/events/open-beta-v2/beans.webp": "138494927cd884a21f584a70bb8144fa8a3f7ce9c716ed0a20ba5c1adaa63e01",
+    "public/brand/events/open-beta-v2/badge.webp": "c2a666e363b14ceeaf6eb2540aeaec0368b77dc83157c0b91df12e88b0c79964"
+  },
+  "commands": [
+    {
+      "command": "npm run check:layers",
+      "cwd": "/Users/ethan/repository/crefans_front-event-banners",
+      "exitCode": 0,
+      "result": "419 TypeScript files passed",
+      "log": ".local/event-banners-20261103/layers.log",
+      "logSha256": "b47c410f3b68c901af388dd3ce953bcbb7c9b8211b9fa26ff4c0890c633d7f13",
+      "logModifiedAt": "2026-11-02T17:56:48.331346+00:00"
+    },
+    {
+      "command": "npm run typecheck",
+      "cwd": "/Users/ethan/repository/crefans_front-event-banners",
+      "exitCode": 0,
+      "result": "PASS",
+      "log": ".local/event-banners-20261103/types.log",
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+      "logModifiedAt": "2026-11-02T17:56:48.428195+00:00"
+    },
+    {
+      "command": "node --test tests/crefans-events.test.cjs",
+      "cwd": "/Users/ethan/repository/crefans_front-event-banners",
+      "exitCode": 0,
+      "result": "8/8 PASS",
+      "log": ".local/event-banners-20261103/events-tests.log",
+      "logSha256": "95c217f683fe8f9b7a9bd96f91d1c39537580d2bdfe1cdd64bbf73fa197a0fd6",
+      "logModifiedAt": "2026-11-02T17:56:54.632934+00:00"
+    },
+    {
+      "command": "node .local/event-banners-20261103/browser.cjs",
+      "cwd": "/Users/ethan/repository/crefans_front-event-banners",
+      "exitCode": 0,
+      "result": "3 viewport runs PASS; API doubles",
+      "log": ".local/event-banners-20261103/browser.log",
+      "logSha256": "6a8c3fb2054ac84cc9ee2a369bb0028b568b65fb7217300ffabcbea11b90ba4c",
+      "logModifiedAt": "2026-11-02T17:59:06.527565+00:00"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-badge-claim npm run docs:record",
+      "cwd": "/Users/ethan/repository/crefans_front-event-banners",
+      "exitCode": 0,
+      "result": "PASS; snapshot-only-not-test-proof; 76 documents,191 routes,57 screens,48 migrations,450 local links",
+      "log": ".local/event-banners-20261103/docs-record.log",
+      "logSha256": "aaae761b4615cce2be1e6feb57e55ca4e6bfbbce9ee7009b4bcecf755dc914e0",
+      "logModifiedAt": "2026-11-02T18:04:14.100824+00:00"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-badge-claim npm run check:docs",
+      "cwd": "/Users/ethan/repository/crefans_front-event-banners",
+      "exitCode": 0,
+      "result": "PASS; snapshot-only-not-test-proof; 76 documents,191 routes,57 screens,48 migrations,450 local links",
+      "log": ".local/event-banners-20261103/docs-check.log",
+      "logSha256": "0a66ee3abfc301f989c64e62d6bcc9aefdb9d887aaaf39cd391d4310a5af5f94",
+      "logModifiedAt": "2026-11-02T18:04:14.502909+00:00"
+    }
+  ],
+  "browserResults": [
+    {
+      "name": "desktop",
+      "result": "PASS",
+      "naverPayPixelExact": [
+        "list",
+        "detail"
+      ],
+      "newBanners": 3,
+      "detailCards": 3,
+      "preview": "checked",
+      "overflow": false,
+      "pageErrors": []
+    },
+    {
+      "name": "mobile",
+      "result": "PASS",
+      "naverPayPixelExact": [
+        "list",
+        "detail"
+      ],
+      "newBanners": 3,
+      "detailCards": 3,
+      "preview": "checked",
+      "overflow": false,
+      "pageErrors": []
+    },
+    {
+      "name": "small",
+      "result": "PASS",
+      "naverPayPixelExact": [
+        "list",
+        "detail"
+      ],
+      "newBanners": 3,
+      "detailCards": 3,
+      "preview": "checked",
+      "overflow": false,
+      "pageErrors": []
+    }
+  ],
+  "browserScript": {
+    "path": ".local/event-banners-20261103/browser.cjs",
+    "sha256": "fdcf12cb7f29c87733fc6eb6858c3c4b6fd30c5d4dafbc9ac6f4a8e268e2f546"
+  },
+  "screenshots": [
+    {
+      "path": ".local/event-banners-20261103/desktop-creator-advertising-detail.png",
+      "sha256": "18f388cfdb41d3794fd370d1bb7e263dd95e188874fcb864b5ef5f0873ca7b9d"
+    },
+    {
+      "path": ".local/event-banners-20261103/desktop-creator-advertising.png",
+      "sha256": "408c403483adbebf34f5519741a0e3bf28f2b1915436842863848764e807d36e"
+    },
+    {
+      "path": ".local/event-banners-20261103/desktop-feedback.png",
+      "sha256": "484d134ee55d30398b7564fc73d92ada41ded01a74e86e655541dadfec6a6de2"
+    },
+    {
+      "path": ".local/event-banners-20261103/desktop-founding-badge-detail.png",
+      "sha256": "4ca6a44ff3d9382da15ecd7b87a9c7c09d6e4c30fbaf21cf481fe05d704b7c41"
+    },
+    {
+      "path": ".local/event-banners-20261103/desktop-founding-badge.png",
+      "sha256": "d7c7596b06e8275826e4611e696ef38a11fd36ea93ebe9f27b81427e12f52350"
+    },
+    {
+      "path": ".local/event-banners-20261103/desktop-promotion-beans-detail.png",
+      "sha256": "82edc4c1e40d63a8fc4a3fb8e79921d90cb469e9422347c6ab90f01bfcd796eb"
+    },
+    {
+      "path": ".local/event-banners-20261103/desktop-promotion-beans.png",
+      "sha256": "f48df24abab5b52d66513f22a264eb67341df35c1efd9ffb107fb1065a83df3e"
+    },
+    {
+      "path": ".local/event-banners-20261103/mobile-creator-advertising-detail.png",
+      "sha256": "60e282254bc37b07fcdd9d17afc1bdf03cda2a7351951895bea9934b6766b48a"
+    },
+    {
+      "path": ".local/event-banners-20261103/mobile-creator-advertising.png",
+      "sha256": "332cd7a3d9967062db0d96386f1e5899f24f3cea8eb5bce7af564098b200cbd3"
+    },
+    {
+      "path": ".local/event-banners-20261103/mobile-feedback.png",
+      "sha256": "ab9238118576a186e1c1df8c64ce3d38efc9f2d6c080d1db217d090ca868b5df"
+    },
+    {
+      "path": ".local/event-banners-20261103/mobile-founding-badge-detail.png",
+      "sha256": "ab6e3a60311ac2b9d10e5ce5d7bca123845808decfdc54cc19c5036747acd94c"
+    },
+    {
+      "path": ".local/event-banners-20261103/mobile-founding-badge.png",
+      "sha256": "883958f0d1062db9c2005aa8ed4691138d2d5afadb1531e561ac46556cf66fff"
+    },
+    {
+      "path": ".local/event-banners-20261103/mobile-promotion-beans-detail.png",
+      "sha256": "70a707da4652fa076dc11ca3f36e0bdebf3ac3766d36f393743dc395037c869c"
+    },
+    {
+      "path": ".local/event-banners-20261103/mobile-promotion-beans.png",
+      "sha256": "6246aae775c8a83c3adb14ec9ef2440e7496624708db4989931d09d261f23ee1"
+    },
+    {
+      "path": ".local/event-banners-20261103/small-creator-advertising-detail.png",
+      "sha256": "60d8a406d196aea6e64af9292caa6e43fb646e3cd3179d605d5e4298e744bcbe"
+    },
+    {
+      "path": ".local/event-banners-20261103/small-creator-advertising.png",
+      "sha256": "41473a79223cc33ce046ed373ff60842599a5f62fd63fe0b087306bc48823363"
+    },
+    {
+      "path": ".local/event-banners-20261103/small-feedback.png",
+      "sha256": "15185c3a1e8f319833b8f9f3b9d943c718eb20e87953567c1ecf4c9f41017416"
+    },
+    {
+      "path": ".local/event-banners-20261103/small-founding-badge-detail.png",
+      "sha256": "3ff2b0fb40e64b74af714af5634ba9b1971d356a47ed482fbf5a6a432d6226d5"
+    },
+    {
+      "path": ".local/event-banners-20261103/small-founding-badge.png",
+      "sha256": "6bf337c3bb2ae07d5367f1d6867ed288ca3dd46cd818235b05c8eb096729f491"
+    },
+    {
+      "path": ".local/event-banners-20261103/small-promotion-beans-detail.png",
+      "sha256": "d605df85ced24096426740022977205b23b6583a1632ab8463a9135900b154ef"
+    },
+    {
+      "path": ".local/event-banners-20261103/small-promotion-beans.png",
+      "sha256": "95ce3a909b2ea4e8fa1281b8a61c1b6e66b13413f36f4fd653b5a7c9084d3537"
+    },
+    {
+      "path": ".local/event-banners-20261103/three-banners-mobile.png",
+      "sha256": "c9a5b846bf6d045f0488deeb2603bbc00b5bc8e377df6bba1ba2674bd1cbbeeb"
+    }
+  ],
+  "manualReview": [
+    "three-banners-mobile.png",
+    "small-founding-badge.png",
+    "desktop-creator-advertising-detail.png"
+  ],
+  "scopeLimits": [
+    "Local API bootstrap/common doubles; no actual customer account or award claim",
+    "No full production build or physical-device/production validation this turn",
+    "No backend or eligibility/payout policy changes",
+    "Not deployed"
+  ],
+  "documents": "Reviewed design-system, preview-pages, AGENTS and PROGRESS; docs:record is snapshot-only, check:docs reported separately",
+  "incident": "Temporary here-document failed from low disk space during read. Owned dev servers stopped; only this worktree generated .next cache removed. Source/assets/evidence preserved."
+}

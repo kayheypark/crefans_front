@@ -28,7 +28,7 @@ export const serviceEvents:readonly ServiceEvent[]=[
   ...campaign,
   "id": "feedback",
  "title": "네이버페이 1만원 상품권 이벤트",
- "summary": "유용한 피드백을 주신 분 중 최대 3명에게 드립니다.",
+ "summary": "불편했던 점과 개선 아이디어를 이메일로 보내주세요. 유용한 피드백을 주신 최대 3명에게 네이버페이 1만원 상품권을 드립니다.",
  "theme": "gift",
  "banner": {
   "title": "네이버페이\n1만원 상품권",
@@ -37,6 +37,19 @@ export const serviceEvents:readonly ServiceEvent[]=[
  "image": "/brand/events/beta-first/naverpay-10000-cropped-v2.png",
  "imageWidth": 211,
  "imageHeight": 123,
+ "submission": {
+  "title": "작은 불편도, 새로운 아이디어도 좋아요",
+  "description": "크레팬스를 사용하며 아쉬웠던 순간을 알려주세요. 오류 제보, 헷갈리는 화면, 더 편리해질 기능 아이디어를 구체적으로 보내주시면 서비스 개선에 참고하겠습니다.",
+  "steps": [
+   "프로필 핸들(@아이디)과 크리에이터·팬 중 참여 유형을 적어주세요.",
+   "어느 화면에서 무엇이 불편했는지 알려주세요. 오류라면 사용 기기·브라우저, 재현 순서, 기대한 결과와 실제 결과를 함께 적어주시면 확인에 도움이 됩니다.",
+   "화면 캡처나 짧은 영상은 필요한 경우 첨부해주세요. 기능 제안은 필요한 이유와 사용하고 싶은 상황을 적어주세요."
+  ],
+  "email": "khpark@crefans.com",
+  "subject": "[크레팬스 피드백 이벤트] @핸들 · 피드백 제목",
+  "body": "프로필 핸들(@아이디): \r\n참여 유형(크리에이터 / 팬): \r\n\r\n피드백 내용: \r\n\r\n아래 항목은 해당하는 경우에 적어주세요.\r\n해당 페이지 주소 또는 화면: \r\n사용 기기·운영체제·브라우저: \r\n상황 또는 재현 순서: \r\n기대했던 결과: \r\n실제 결과 또는 불편했던 점: \r\n개선 아이디어와 필요한 이유: \r\n첨부 자료(선택): ",
+  "hint": "버튼을 누르면 메일 앱에 받는 주소와 작성 양식이 채워집니다. 메일 앱이 열리지 않으면 위 주소로 직접 보내주세요. 비밀번호·인증번호는 보내지 마시고, 첨부 화면의 다른 사람 개인정보는 가려주세요."
+ },
  "rewards": [
   {
    "audience": "유용한 피드백 제공자 최대 3명",
@@ -47,13 +60,14 @@ export const serviceEvents:readonly ServiceEvent[]=[
    ]
   }
  ],
-  notes:[participationNotes,
+  notes:[{...participationNotes,items:[...participationNotes.items.slice(0,2),"피드백은 khpark@crefans.com으로 받습니다. 이벤트 참여 기간, 완료 기준과 혜택 지급일은 아직 미정이며, 확정 후 이 페이지에 안내합니다. 안내되지 않은 활동 조건을 나중에 소급해 적용하지 않습니다."]},
 {
  "title": "유용한 피드백 선정",
  "items": [
   "참여 확정 회원 중 운영자가 피드백의 구체성, 문제의 재현 가능성, 서비스 개선 기여도를 종합해 최대 3명을 선정합니다. 칭찬 여부나 결제 금액은 평가 기준이 아니며, 불편 사항과 비판적인 의견도 같은 기준으로 검토합니다.",
   "크리에이터와 팬 모두 선정 대상이며, 피드백 상품권은 기본 참여 혜택과 별도로 1인 1회 받을 수 있습니다. 선정 결과와 지급 방법은 대상자에게 개별 안내합니다.",
-  "피드백 접수·선정 일정은 아직 미정이며, 확정 후 이 페이지에서 안내합니다."
+  "피드백 접수·선정 일정은 아직 미정이며, 확정 후 이 페이지에서 안내합니다. 이메일 발송만으로 이벤트 참여 확정이나 상품권 지급이 보장되지는 않습니다.",
+  "피드백 건수 자체보다 내용을 기준으로 검토합니다. 보충할 내용이나 수정 사항은 처음 보낸 이메일에 이어서 회신해 주세요. 접수·선정·지급 관련 문의도 khpark@crefans.com으로 보내주세요."
  ]
 },
 {
@@ -73,17 +87,18 @@ export const serviceEvents:readonly ServiceEvent[]=[
  "summary": "크리에이터 3명에게 드립니다.",
  "theme": "advertising",
  "banner": {
-  "title": "주목할 크리에이터\n광고상품 30일",
-  "description": "크리에이터 3명"
+  "label": "주목할 크리에이터",
+  "title": "광고상품\n30일 이용권",
+  "description": "* 크리에이터 3명에게 드려요."
  },
- "image": "/brand/events/beta-first/color-cards-v1/crown.webp",
- "imageWidth": 512,
- "imageHeight": 512,
+ "image": "/brand/events/open-beta-v2/advertising.webp",
+ "imageWidth": 640,
+ "imageHeight": 640,
  "rewards": [
   {
    "audience": "크리에이터 3명",
    "title": "주목할 크리에이터\n광고상품 30일",
-   "image": "/brand/events/beta-first/color-cards-v1/crown.webp",
+   "image": "/brand/events/open-beta-v2/advertising.webp",
    "details": [
     "크리에이터 3명에게 드립니다.",
     "주목할 크리에이터 광고상품 이용권을 제공합니다."
@@ -104,28 +119,30 @@ export const serviceEvents:readonly ServiceEvent[]=[
   ...campaign,
   "id": "promotion-beans",
  "title": "프로모션 100콩 이벤트",
- "summary": "팬 참여자 13명에게 지급합니다.",
+ "summary": "참여가 확정된 팬 13명에게, 받기 버튼으로 100콩을 바로 지급합니다.",
+ "schedule": "참여가 확정된 대상자는 받기 버튼을 눌러 100콩을 즉시 받을 수 있습니다. 별도 지급일을 기다리지 않아도 됩니다.",
  "theme": "beans",
  "banner": {
-  "title": "프로모션 100콩",
-  "description": "팬 참여자 13명"
+  "label": "후원으로 전하는 응원",
+  "title": "프로모션\n100콩 받기",
+  "description": "* 참여 확정 팬 13명에게 드려요."
  },
- "image": "/brand/events/beta-first/color-cards-v1/beans.webp",
- "imageWidth": 512,
- "imageHeight": 512,
+ "image": "/brand/events/open-beta-v2/beans.webp",
+ "imageWidth": 640,
+ "imageHeight": 640,
  "rewards": [
   {
    "audience": "팬 참여자 13명",
    "title": "프로모션 100콩",
-   "image": "/brand/events/beta-first/color-cards-v1/beans.webp",
+   "image": "/brand/events/open-beta-v2/beans.webp",
    "details": [
-    "팬 참여자 13명에게 지급합니다.",
+    "참여 확정 팬 13명, 받기 버튼으로 즉시 지급합니다.",
     "프로모션 콩은 후원받은 사람이 출금할 수 있습니다."
    ],
    "notice": "이벤트로 지급받은 프로모션콩은 직접 출금할 수 없습니다. 후원 수익은 최소 1,000콩·수수료 20% 조건이 적용되며, 출금은 개시 전이라 아직 실제 은행 출금을 제공하지 않습니다."
   }
  ],
-  notes:[participationNotes,
+  notes:[{...participationNotes,items:[...participationNotes.items.slice(0,2),"운영자가 참여를 확정하고 수령 대상자로 지정한 계정으로 로그인한 뒤 ‘100콩 받기’를 눌러주세요. 지급이 완료되면 지갑과 콩 내역에서 바로 확인할 수 있습니다. 다시 누르거나 페이지를 새로고침해도 중복 지급되지 않습니다. 참여 기간은 확정 후 안내하며, 대상 지정 전에는 받을 수 없습니다."]},
 {
  "title": "프로모션 100콩과 출금",
  "items": [
@@ -141,33 +158,35 @@ export const serviceEvents:readonly ServiceEvent[]=[
   ...campaign,
   "id": "founding-badge",
  "title": "원년멤버 한정판 뱃지 이벤트",
- "summary": "참여가 확정된 회원 전원에게 드립니다.",
+ "summary": "참여가 확정된 회원 전원, 받기 버튼으로 배지를 받아보세요.",
  "theme": "badge",
+ "schedule": "참여가 확정된 계정으로 로그인한 뒤 받기 버튼을 누르면 배지가 즉시 지급됩니다.",
  "banner": {
-  "title": "원년멤버 한정판 뱃지",
-  "description": "참여 확정 회원 전원"
+  "label": "우리의 시작을 기념해요",
+  "title": "원년멤버\n한정판 뱃지",
+  "description": "* 참여 확정 회원 모두 받을 수 있어요."
  },
- "image": "/brand/events/beta-first/color-cards-v1/badge.webp",
- "imageWidth": 512,
- "imageHeight": 512,
+ "image": "/brand/events/open-beta-v2/badge.webp",
+ "imageWidth": 640,
+ "imageHeight": 640,
  "rewards": [
   {
    "audience": "참여 확정 회원 전원",
    "title": "원년멤버 한정판 뱃지",
-   "image": "/brand/events/beta-first/color-cards-v1/badge.webp",
+   "image": "/brand/events/open-beta-v2/badge.webp",
    "details": [
-    "참여가 확정된 회원 전원에게 드립니다.",
-    "배지 지급 후 프로필 페이지에 표시됩니다.",
+    "참여가 확정된 회원 전원, 받기 버튼으로 배지를 받아보세요.",
+    "받기 버튼을 누르면 프로필에 바로 표시됩니다.",
     "표시 여부는 직접 선택할 수 있습니다."
    ]
   }
  ],
-  notes:[participationNotes,
+  notes:[{...participationNotes,items:[...participationNotes.items.slice(0,2),"참여 확정 후 수령 대상자로 지정된 계정에서 ‘원년멤버 배지 받기’를 눌러주세요. 수령 완료 즉시 프로필에 표시되며, 다시 누르거나 새로고침해도 중복 지급되지 않습니다. 참여 기간은 확정 후 안내하며, 대상 지정 전에는 받을 수 없습니다."]},
 {
  "title": "원년멤버 한정판 배지",
  "items": [
   "참여 확정 회원 전원에게 제공하는 기념 배지입니다. 크리에이터 인증이나 서비스의 품질·신뢰를 보증하는 표시는 아닙니다.",
-  "배지는 지급 시 프로필에서 표시하거나 숨길 수 있도록 제공할 예정이며, 제공 일정은 별도 안내합니다."
+  "수령 후 이 페이지의 ‘프로필에 배지 표시’ 스위치로 표시하거나 숨길 수 있습니다. 숨겨도 수령 기록은 유지되며 다시 표시할 수 있습니다."
  ]
 },
   contactNotes],
