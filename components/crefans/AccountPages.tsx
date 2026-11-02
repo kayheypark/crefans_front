@@ -4,6 +4,7 @@ import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanWalletLink} from './BeanPages';
 import {SignInPrompt} from './SignInPrompt';
 import {SIGNUP_COMPLETE_KEY,loginTarget} from '@/lib/crefans/login-return';
+import {REFERRAL_DISCLOSURE_LABEL,storedReferral} from '@/lib/crefans/referral';
 export {SignInPrompt} from './SignInPrompt';
 import {MarqueeText,MarqueeMotionControl} from '@/components/ui/MarqueeText';
 
@@ -59,19 +60,22 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
   const [codeSent,setCodeSent]=useState(false),[code,setCode]=useState(''),[emailVerified,setEmailVerified]=useState(false),[emailNotice,setEmailNotice]=useState(''),[emailError,setEmailError]=useState(''),[verifying,setVerifying]=useState(false);
   const identityRequired=account.signupRequirements?.identityRequired!==false;
   const [ageAcknowledged,setAgeAcknowledged]=useState(false);
+  // A referral link stored for this browser session asks for the disclosure agreement (2026-11-02); read after mount (sessionStorage).
+  const [referred,setReferred]=useState(false),[referralDisclosure,setReferralDisclosure]=useState(false);
+  useEffect(()=>{setReferred(!!storedReferral());},[]);
   const [passOpen,setPassOpen]=useState(false),[identityVerified,setIdentityVerified]=useState(false),[passPending,setPassPending]=useState(false),[passError,setPassError]=useState('');
   const errors={email:!emailIsValid(email)?'올바른 이메일 주소를 입력해주세요.':'',password:password.length<8?'비밀번호를 8자 이상 입력해주세요.':'',confirm:confirm!==password?'비밀번호가 서로 일치하지 않습니다.':'',nickname:!nickname.trim()?'닉네임을 입력해주세요.':''};
   const policiesReady=model.mode!=='live'||(account.agreements?.signupReady??account.agreements?.published)===true;
   const [inviteNotice,setInviteNotice]=useState('');
-  const ready=policiesReady&&!Object.values(errors).some(Boolean)&&terms&&privacy&&emailVerified&&(identityRequired?identityVerified:ageAcknowledged);
+  const ready=policiesReady&&!Object.values(errors).some(Boolean)&&terms&&privacy&&emailVerified&&(identityRequired?identityVerified:ageAcknowledged)&&(!referred||referralDisclosure);
   function changeEmail(value:string){setEmail(value);setCodeSent(false);setCode('');setEmailVerified(false);setEmailNotice('');setEmailError('');}
   async function requestCode(){if(verifying||!emailIsValid(email))return;setVerifying(true);setEmailError('');setEmailNotice('');try{const result=await accountActions.requestSignupCode(email);if(result.success){setCodeSent(true);setEmailNotice(result.data.message);}else if(result.errorCode==='SIGNUP_INVITE_REQUIRED')setInviteNotice(result.errorMessage||'');else{setEmailError(result.errorMessage);if(result.errorCode==='RESEND_COOLDOWN')setCodeSent(true);}}catch{setEmailError('인증 코드를 보내지 못했어요. 다시 시도해주세요.');}finally{setVerifying(false);}}
   async function verifyCode(){if(verifying||!code.trim())return;setVerifying(true);setEmailError('');try{const result=await accountActions.verifySignupCode({email,code:code.trim()});if(result.success){setEmailVerified(true);setEmailNotice(result.data.message);}else setEmailError(result.errorMessage);}catch{setEmailError('인증 코드를 확인하지 못했어요. 다시 시도해주세요.');}finally{setVerifying(false);}}
   async function verifyPass(){if(passPending)return;setPassPending(true);setPassError('');try{const result=await accountActions.verifyIdentity();if(result.success){setIdentityVerified(true);setPassOpen(false);}else setPassError(result.errorMessage);}catch{setPassError('본인인증을 완료하지 못했어요. 다시 시도해주세요.');}finally{setPassPending(false);}}
-  function submit(event:FormEvent){event.preventDefault();setSubmitted(true);if(ready)void task.run(()=>accountActions.signup({email,password,nickname,terms,privacy,marketing,emailVerified,identityVerified,ageAcknowledged,...(account.agreements?{policyVersions:account.agreements.versions}:{})}),()=>{try{sessionStorage.setItem(SIGNUP_COMPLETE_KEY,email);}catch{}setSubmitted(false);setPassword('');setConfirm('');onComplete?.();});}
+  function submit(event:FormEvent){event.preventDefault();setSubmitted(true);if(ready)void task.run(()=>accountActions.signup({email,password,nickname,terms,privacy,marketing,emailVerified,identityVerified,ageAcknowledged,...(referred?{referralDisclosure}:{}),...(account.agreements?{policyVersions:account.agreements.versions}:{})}),()=>{try{sessionStorage.setItem(SIGNUP_COMPLETE_KEY,email);}catch{}setSubmitted(false);setPassword('');setConfirm('');onComplete?.();});}
   // 전체 동의 (2026-10-31): checks or clears every item shown, required and optional; clearing any one item clears it too.
-  const allAgreed=terms&&privacy&&marketing&&(identityRequired||ageAcknowledged);
-  function agreeAll(checked:boolean){setTerms(checked);setPrivacy(checked);setMarketing(checked);if(!identityRequired)setAgeAcknowledged(checked);}
+  const allAgreed=terms&&privacy&&marketing&&(identityRequired||ageAcknowledged)&&(!referred||referralDisclosure);
+  function agreeAll(checked:boolean){setTerms(checked);setPrivacy(checked);setMarketing(checked);if(!identityRequired)setAgeAcknowledged(checked);if(referred)setReferralDisclosure(checked);}
   return <section className={s.signup}><h1>회원가입</h1>
       <form onSubmit={submit} noValidate className={s.form}>
         <div className={s.verifyRow}><Field label="이메일" type="email" autoComplete="email" value={email} readOnly={emailVerified} onChange={e=>changeEmail(e.target.value)} placeholder="이메일을 입력하세요" error={submitted?errors.email:undefined}/>{emailVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={verifying||!emailIsValid(email)} onClick={()=>void requestCode()}>{codeSent?'다시 받기':'인증 코드 받기'}</Action>}</div>
@@ -86,8 +90,10 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
           {!identityRequired&&<div><Checkbox label="만 19세 이상입니다 (필수)" checked={ageAcknowledged} onChange={setAgeAcknowledged}/></div>}
           <div><Checkbox label="이용약관 동의 (필수)" checked={terms} onChange={setTerms}/><button type="button" aria-label="이용약관 보기" onClick={()=>setPolicy('terms')}><Chevron/></button></div>
           <div><Checkbox label="개인정보 처리방침 확인 (필수)" checked={privacy} onChange={setPrivacy}/><button type="button" aria-label="개인정보 수집 및 이용 안내 보기" onClick={()=>setPolicy('privacy')}><Chevron/></button></div>
+          {referred&&<div><Checkbox label={REFERRAL_DISCLOSURE_LABEL} checked={referralDisclosure} onChange={setReferralDisclosure}/></div>}
           <div><Checkbox label="마케팅 정보 수신 동의 (선택)" checked={marketing} onChange={setMarketing}/>{account.agreements&&<button type="button" aria-label="마케팅 정보 수신 안내 보기" onClick={()=>setPolicy('marketing')}><Chevron/></button>}</div>
           {submitted&&(!terms||!privacy)&&<p className={s.error} role="alert">이용약관에 동의하고 개인정보 처리방침을 확인해주세요.</p>}
+          {submitted&&referred&&!referralDisclosure&&<p className={s.error} role="alert">초대 링크로 가입하려면 초대한 회원에게 표시되는 정보에 동의해주세요.</p>}
         </div>
         {task.error&&<p className={s.error} role="alert">{task.error}</p>}
         <Action type="submit" disabled={task.busy||!ready}>{task.busy?'확인 중…':'동의하고 가입하기'}</Action>

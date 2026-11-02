@@ -371,3 +371,24 @@ test('an unchanged legacy handle does not block ordinary profile edits',async()=
  const tree=mount(pages.SettingsPage,data);act(()=>button(tree,'프로필 수정').props.onClick());assert.equal(button(tree,'저장하기').props.disabled,false);change(field(tree,'사용자명'),'새 사용자명');
  await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.deepEqual(calls,[{name:'새 사용자명',bio:'주입된 소개'}]);act(()=>tree.unmount());
 });
+
+test('a referral signup asks for the masked-email disclosure and sends it; a plain signup does not show it (2026-11-02)',async()=>{
+ const code='00000000-0000-4000-8000-000000000001';
+ const setup=()=>{const data=model(),calls=[];data.account.signupRequirements={identityRequired:false,inviteOnly:false};data.account.agreements=loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements;
+  data.accountActions.requestSignupCode=async()=>success('코드 전송');data.accountActions.verifySignupCode=async()=>success('인증 완료');data.accountActions.signup=async value=>{calls.push(value);return success('가입 완료');};return{data,calls};};
+ const disclosure=tree=>tree.root.findAll(node=>typeof node.props.label==='string'&&node.props.label.includes('이메일 일부')&&typeof node.type!=='string');
+ const fill=async tree=>{const button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name));change(field(tree,'이메일'),'ref@example.invalid');change(field(tree,'비밀번호'),'Beta-test-123!');change(field(tree,'비밀번호 확인'),'Beta-test-123!');change(field(tree,'닉네임'),'초대');
+  await act(async()=>button('인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button('확인').props.onClick());
+  for(const label of['만 19세 이상입니다 (필수)','이용약관 동의 (필수)','개인정보 처리방침 확인 (필수)'])act(()=>tree.root.findAll(node=>node.props.label===label&&typeof node.type!=='string')[0].props.onChange(true));};
+ const submit=tree=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
+ const plain=setup(),plainTree=mount(pages.SignupPage,plain.data);assert.equal(disclosure(plainTree).length,0);await fill(plainTree);assert.equal(submit(plainTree).props.disabled,false);
+ await act(async()=>plainTree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal('referralDisclosure' in plain.calls[0],false);act(()=>plainTree.unmount());
+ global.sessionStorage={getItem:key=>key==='crefans-referral-code'?code:null,setItem(){},removeItem(){}};
+ try{
+  const referred=setup(),tree=mount(pages.SignupPage,referred.data);await act(async()=>{});
+  assert.ok(disclosure(tree).length>0,'referral signup shows the disclosure agreement');await fill(tree);
+  assert.equal(submit(tree).props.disabled,true,'cannot sign up through a referral link without agreeing');
+  act(()=>disclosure(tree)[0].props.onChange(true));assert.equal(submit(tree).props.disabled,false);
+  await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(referred.calls[0].referralDisclosure,true);act(()=>tree.unmount());
+ }finally{delete global.sessionStorage;}
+});

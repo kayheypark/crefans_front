@@ -30,7 +30,7 @@ export type AccountModel={
     route:{profileTab:'saved'|'liked'|null;supportTab:'faq'|'qna';settingsSection:'account'|'password'|'email'|'notifications'|'payment'|'privacy'|'blocked'|null};
   };
   accountActions:{
-    signup:(input:{email:string;password:string;nickname:string;terms:boolean;privacy:boolean;marketing:boolean;emailVerified:boolean;identityVerified:boolean;ageAcknowledged?:boolean;policyVersions?:Record<string,string>})=>Promise<AccountActionResult>;
+    signup:(input:{email:string;password:string;nickname:string;terms:boolean;privacy:boolean;marketing:boolean;emailVerified:boolean;identityVerified:boolean;ageAcknowledged?:boolean;referralDisclosure?:boolean;policyVersions?:Record<string,string>})=>Promise<AccountActionResult>;
     /** Email verification happens inside the signup step. */
     requestSignupCode:(email:string)=>Promise<AccountActionResult>;
     verifySignupCode:(input:{email:string;code:string})=>Promise<AccountActionResult>;
