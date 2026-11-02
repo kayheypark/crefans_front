@@ -3594,3 +3594,10 @@
 - 검증: 후보 컨테이너와 운영 서버 및 맥북 외부 HTTPS에서 GET/HEAD200·text/plain UTF-8, GET3261바이트 원본 SHA4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905 일치. 피드·탐색·API상태·관리자로그인·가이드5경로200. 콩/결제·계정 데이터 변경 없음. 이전19공식 링크 검증 유효; 이번 작업은 검색 순위나 AI 수집 결과를 증명하지 않음.
 - 실패/한계: 로컬 Docker의 이전 태그 이름 조회 실패로 실제 운영 이미지의 정확한 ID/레이어를 검증한 서버에서 네트워크 없는 단일COPY 빌드 수행. 후보 통과 후 배포. 기존 결제 묶음의 전체 check:docs 증거 만료는 별도 미해결이며 새 파일 목록·계약·링크 검사 오류0과 구분. 전체 앱 회귀/실금융 시험은 정적 파일 변경 범위 밖.
 - 증거 `/Users/ethan/repository/crefans_front-llms/.local/llms-deploy-20261102/`: baseline.json, dev-verification.json, image-verification.json, production-verification.json, external-verification.json, deployment-command.json 및 실제 실행 스크립트/로그. 운영 https://crefans.com/llms.txt 정상 제공. 다음은 통상 서비스/가이드 변경 때 파일 안내를 함께 검토; Search Console 추가 제출은 불필요. AGENTS 불변 규약 유지.
+
+
+## 2026-11-03 랜딩 타이포 시안 적용 및 가상 인물 안내
+- 사용자가01 타이포 중심을 선택. 최신 origin/prod15d611d에서 feat/landing-typography 분기. 중앙 두 줄 제목→크리에이터 목록→간단한 서비스 안내 구성, PC5열/모바일2열. 기존5명 이미지·이름·인증 배지·/preview/creator 경로 유지, 이미지 콜라주와 임시 팔로우 버튼 대신 명시적 프로필 보기 링크를 제공한다.
+- ‘크리에이터 둘러보기’ 제목 옆 공용 InfoTooltip에 정확한 요청 문구를 콘텐츠로 주입했다. 실제 데이터 모드에서는 가상 인물 안내를 숨긴다. 로그인/가입/공지/목업 검색·둘러보기 경로 유지. API·인증·금융 동작 변경 없음.
+- 합격 조건: 가로 넘침 없음,5명 링크 유지,정확한 안내·마우스/키보드/터치·Escape·팝업 화면 경계·프로필 이동. Chromium1440/768/320 및 iPhone13 WebKit390에서4환경 통과·페이지 오류0. 단위3건·타입·계층 검사 통과. PC·모바일 캡처 직접 확인. 로컬 목업 공용화면 검증이며 API common503은 로컬 API 미실행으로 기존 안내 로더에서 발생; 실제 운영 API/실물 iPhone 검증 아님.
+- 증거 .local/landing-typography-20261103/의 unit.log,typecheck.log,layers.log,verification.json,PC·모바일PNG. 운영 미배포. 별도 답변으로 확정된 짧은 소개글 통합도 이어서 진행하며 긴 상세 소개는 유지한다. AGENTS 공용 컴포넌트·브랜치 규칙 유지.
