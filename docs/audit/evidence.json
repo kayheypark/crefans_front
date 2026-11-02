@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T23:06:36.505315+00:00",
+  "checkedAt": "2026-11-02T23:17:29.299973+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "9ec706dd7d0c838ba78e02cc8a4eda46bb23aae0",
-      "branch": "feat/fan-studio-favicon",
+      "head": "5e5ff7bdecbc032345640fd04b097605c4d9bbe7",
+      "branch": "feat/brand-metadata-delivery",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "c6ebddbc449a4623d76793af8c15d081a7ef1a806deb0348bcff93990eb5bf3c",
-      "front/PROGRESS.md": "78a9b5ca0fd91c436294a9b627d0fcf2887e2222b45ec061149c66e01a5a626a",
+      "front/PROGRESS.md": "6e21ddc0cde58f844fd7bf028202aca8f2a4b09abf9bc2ea3681ad9570ef4ac2",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -485,6 +485,7 @@
       "front/docs/design/bean-soft3d-v6.generation.json": "c95275c6660793f8acac44a1a15634b6bb8d19f887fa0e9d780287a2062a21d3",
       "front/docs/design/bean-soft3d-v7.generation.json": "33f03d473bd4bc8ef733b2338ddb5c6b24230f904107d1b86362830c0c46fdb9",
       "front/docs/design/bean-style-variants-v1.generation.json": "457f43fdf9bae3057d16a6fbe9d9f58f650f7da015124c3fc9731d7493ac5bd8",
+      "front/docs/design/landing-concepts-20261103.json": "c5e296c1f87ad34bccbe0242bb52b82a80cdda11dc30501c092e62a35d2f4c14",
       "front/docs/design/post-support-icon-v1.generation.json": "18a6f9a3532c4254a637a25231522910e7342d12b550200f4ae9814bafa78743",
       "front/e2e/advertising.spec.ts": "799074326bb86857e14bfaefda052204e4fb5930296beb0e6ac6b87e97cbd544",
       "front/e2e/bean-refund-closing.spec.ts": "18d465af89285edc024f20a332422051ef376b6b6e8513f69c5f20be5a7231b4",
