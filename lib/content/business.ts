@@ -7,7 +7,7 @@ export const businessInfo={
  email:'khpark@crefans.com',
  phone:'010-3211-3164',
  // 통신판매업 신고번호: filed with the Toss Payments live registration (2026-10-31 decision). Shown in the footer once set;
- // the terms (2026-11-30 revision, article 1) promise it before paid service starts.
+ // the terms (2026-12-02 revision re-announced 2026-11-02, article 1) promise it before paid service starts.
  mailOrderNumber:null as string|null,
 };
 
