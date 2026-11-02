@@ -21,3 +21,12 @@ test('live membership picker enforces the same image-only limits as preview befo
   fail=true;const result=await model.management.actions.uploadMembershipImage(new File(['test'],'cover.png',{type:'image/png'}));assert.equal(result.success,false);assert.equal(result.errorMessage,'업로드 실패');
  }finally{act(()=>tree.unmount());}
 });
+
+
+test('live studio forwards the exact confirmation and effective fee from finance without replacing zero',async()=>{
+ const calls=[],ok=data=>({success:true,data,errorMessage:null,errorCode:null});let model,tree;
+ const {useStudioModel}=loadTypeScript('features/service/useStudioModel.ts',{'next/navigation':{useSearchParams:()=>new URLSearchParams()},'@/lib/api/platform':{platformRequest:async(path,body,method)=>{calls.push({path,body,method});return ok(path==='/studio/finance'?{creatorTerms:{platformFeeBps:0}}:{management:{},message:'완료'});}}});
+ function Probe(){model=useStudioModel(true);return null;}
+ await act(async()=>{tree=create(React.createElement(Probe));});
+ try{assert.equal(model.management.creatorTerms.platformFeeBps,0);await act(async()=>{await model.management.actions.deleteMembership('plan-id','별빛 멤버십');});assert.deepEqual(calls.find(c=>c.path==='/studio/memberships/plan-id'),{path:'/studio/memberships/plan-id',body:{deleted:true,confirmation:'별빛 멤버십'},method:'PUT'});}finally{act(()=>tree.unmount());}
+});

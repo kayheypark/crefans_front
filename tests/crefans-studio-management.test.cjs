@@ -209,14 +209,19 @@ test('new membership rejects empty benefits and preserves entered rows when the 
 
 test('membership deletion appears only when eligible and delegates only after confirmation',async()=>{
  const probe=fixtureHook(),calls=[];
- const model={...probe.model,memberships:[{...plan,canDelete:false}],actions:{...probe.model.actions,deleteMembership:async id=>{calls.push(id);return {success:true,data:{message:'삭제 완료'},errorMessage:null,errorCode:null};}}};
+ const model={...probe.model,memberships:[{...plan,canDelete:false}],actions:{...probe.model.actions,deleteMembership:async(id,confirmation)=>{calls.push([id,confirmation]);return {success:true,data:{message:'삭제 완료'},errorMessage:null,errorCode:null};}}};
  const tree=mount(MembershipManagementPage,model);
  try{
   assert.equal(button(tree,'삭제'),undefined);
   act(()=>tree.update(React.createElement(MembershipManagementPage,{model:{...model,memberships:[{...plan,canDelete:true}]},basePath:'/studio'})));
   act(()=>button(tree,'삭제').props.onClick());assert.deepEqual(calls,[]);
   act(()=>button(tree,'취소').props.onClick());assert.deepEqual(calls,[]);assert.equal(tree.root.findAll(node=>node.props['data-dialog']==='멤버십을 삭제할까요?').length,0);
-  act(()=>button(tree,'삭제').props.onClick());await act(async()=>button(tree,'삭제하기').props.onClick());assert.deepEqual(calls,[plan.id]);
+  act(()=>button(tree,'삭제').props.onClick());
+  assert.equal(button(tree,'삭제하기').props.disabled,true);
+  await act(async()=>button(tree,'삭제하기').props.onClick());assert.equal(calls.length,0);
+  changeMembershipField(tree,'확인 문구',plan.name+' ');assert.equal(button(tree,'삭제하기').props.disabled,true);
+  changeMembershipField(tree,'확인 문구',plan.name);assert.equal(button(tree,'삭제하기').props.disabled,false);
+  await act(async()=>button(tree,'삭제하기').props.onClick());assert.deepEqual(calls,[[plan.id,plan.name]]);
  }finally{act(()=>tree.unmount());probe.close();}
 });
 
@@ -342,4 +347,9 @@ test('editor preview button sits above the save buttons and opens the fan previe
     act(()=>preview.props.onClick());
     assert.equal(tree.root.findAll(node=>node.props?.['data-dialog']==='팬 화면 미리보기').length,1,'dialog opens');
   }finally{act(()=>tree.unmount());}
+});
+
+test('membership pricing displays the applied creator rate and concise per-payment revenue',()=>{
+ const probe=fixtureHook(),tree=mount(MembershipManagementPage,{...probe.model,creatorTerms:{platformFeeBps:1550}});
+ try{act(()=>button(tree,'멤버십 만들기').props.onClick());changeMembershipField(tree,'월 구독료 (원)','10000');assert.match(json(tree),/나의 공제율: 15.5% · 예상 수익: 8,450원/);assert.doesNotMatch(json(tree),/원천징수/);changeMembershipField(tree,'월 구독료 (원)','20000');assert.match(json(tree),/예상 수익: 16,900원/);}finally{act(()=>tree.unmount());probe.close();}
 });
