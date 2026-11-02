@@ -46,7 +46,7 @@ export function useMockAccount({viewer,setViewer,setSignedIn,basePath,creators,o
       },
       checkHandle:async handle=>({success:true,data:{handle,available:handle===viewer.handle||!creators.some(creator=>creator.handle===handle)},errorMessage:null,errorCode:null}),
       updatePhotos:async input=>{setViewer({...viewer,...(input.avatar!==undefined?{image:input.avatar?URL.createObjectURL(input.avatar):''}:{}),...(input.cover!==undefined?{cover:input.cover?URL.createObjectURL(input.cover):''}:{})});return success('사진을 저장했습니다.');},
-      updateProfile:async input=>{if(!input.name.trim())return failure('사용자명을 입력해주세요.');if(input.handle&&input.handle!==viewer.handle&&creators.some(creator=>creator.handle===input.handle))return failure('이미 사용 중인 핸들입니다.');setViewer({...viewer,name:input.name.trim(),bio:input.bio.trim(),...(input.handle?{handle:input.handle}:{})});return success('프로필을 저장했습니다.');},
+      updateProfile:async input=>{if(input.bio.trim().length>120)return failure('소개는 120자 이내로 입력해주세요.');if(!input.name.trim())return failure('사용자명을 입력해주세요.');if(input.handle&&input.handle!==viewer.handle&&creators.some(creator=>creator.handle===input.handle))return failure('이미 사용 중인 핸들입니다.');setViewer({...viewer,name:input.name.trim(),bio:input.bio.trim(),...(input.handle?{handle:input.handle}:{})});return success('프로필을 저장했습니다.');},
       updateSettings:async input=>{
         if(input.section==='account'){if(!input.name.trim())return failure('닉네임을 입력해주세요.');setViewer({...viewer,name:input.name.trim()});}
         if(input.section==='email'){if(!validEmail(input.email))return failure('올바른 이메일 주소를 입력해주세요.');setEmail(input.email.trim());return success('이메일 변경을 요청했습니다.');}

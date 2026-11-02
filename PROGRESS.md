@@ -3603,3 +3603,15 @@
 - 다음: 단위·타입·브라우저 확인, 이전 승인 미배포 건과 dev 통합→prod 승격→운영 배포 및 실서빙 검증. AGENTS 프로젝트·스택·PROGRESS 우선 읽기 규약 유지.
 
 - 검증 기록 정정: de4ef06 커밋 본문의 19건 통과 표시는 집계 확인 실수다. 당시 실제 결과는18통과/1실패(이전 서비스 메타타이틀 기대값이 추가로 남음)였으며 로그 보존. 두 경로 기대값을 현행 공통 브랜드명으로 맞춘 뒤 재실행한다.
+
+## 2026-11-03 랜딩 타이포 시안 적용 및 가상 인물 안내
+- 사용자가01 타이포 중심을 선택. 최신 origin/prod15d611d에서 feat/landing-typography 분기. 중앙 두 줄 제목→크리에이터 목록→간단한 서비스 안내 구성, PC5열/모바일2열. 기존5명 이미지·이름·인증 배지·/preview/creator 경로 유지, 이미지 콜라주와 임시 팔로우 버튼 대신 명시적 프로필 보기 링크를 제공한다.
+- ‘크리에이터 둘러보기’ 제목 옆 공용 InfoTooltip에 정확한 요청 문구를 콘텐츠로 주입했다. 실제 데이터 모드에서는 가상 인물 안내를 숨긴다. 로그인/가입/공지/목업 검색·둘러보기 경로 유지. API·인증·금융 동작 변경 없음.
+- 합격 조건: 가로 넘침 없음,5명 링크 유지,정확한 안내·마우스/키보드/터치·Escape·팝업 화면 경계·프로필 이동. Chromium1440/768/320 및 iPhone13 WebKit390에서4환경 통과·페이지 오류0. 단위3건·타입·계층 검사 통과. PC·모바일 캡처 직접 확인. 로컬 목업 공용화면 검증이며 API common503은 로컬 API 미실행으로 기존 안내 로더에서 발생; 실제 운영 API/실물 iPhone 검증 아님.
+- 증거 .local/landing-typography-20261103/의 unit.log,typecheck.log,layers.log,verification.json,PC·모바일PNG. 운영 미배포. 별도 답변으로 확정된 짧은 소개글 통합도 이어서 진행하며 긴 상세 소개는 유지한다. AGENTS 공용 컴포넌트·브랜치 규칙 유지.
+## 2026-11-03 짧은 프로필 소개 공유 — feat/shared-short-bio, 미배포
+- 최신 origin/prod15d611d에서 분기. 사용자 확정대로 회원·크리에이터 상단 소개를 공유하고, 상세 소개는 별도 유지. 실제 API는 user_profiles.bio 하나를 사용하며 프론트는 기존 저장 후 재조회/경로 변경 재조회를 유지한다.
+- 목업 PreviewProvider/useMockOverview도 같은 소개를 사용. 회원/스튜디오 입력 120자 통일, 긴 소개 1,000자 유지. 양쪽 툴팁을 공유 안내로 교체. 활동명 우선 노출·핸들 규칙 등은 유지한다.
+- node --test tests/shared-short-bio.test.cjs tests/crefans-account.test.cjs 25건, npm run typecheck/check:layers 통과. 하늘·모카 양방향 수정·삭제와 상세 소개 보존, 121자 거절 검사 포함. 실제 backend 관련18건 및 OpenAPI13건 별도 통과.
+- Chromium PC1440 및 WebKit iPhone13에서 회원·스튜디오4화면의 동일 소개·120/1,000자 제한·툴팁·가로 넘침 없음 확인, 캡처 육안 검토. .local/shared-short-bio-20261103/{tests.log,typecheck.log,layers.log,browser-verification.json,pc-member.png,mobile-member.png,pc-studio.png,mobile-studio.png}. 목업/격리DB 검사이며 운영·실물iPhone 검증은 아님.
+- 운영 배포하지 않음. 서버 컬럼 이전이 필요하므로 backend docs/platform-api.md의 백업·구형API/worker중지·새버전 동시 반영 절차와 함께 배포해야 한다. 기존 중단 작업트리 및 다른 미배포 변경은 보존. AGENTS 기존 불변 규약 유지.

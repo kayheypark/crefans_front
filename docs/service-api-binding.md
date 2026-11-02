@@ -19,6 +19,10 @@
 
 원래 랜딩/팬/스튜디오 목업 URL은 유지한다. 새 API 실패 시 목업 데이터로 대체하지 않는다. 실 서비스가 비어 있으면 빈 상태를 표시한다. 외부 이메일·PASS·결제·은행 미설정 상태는 해당 행동의 오류로 표시하고 다른 페이지 조회를 막지 않는다.
 
+## 짧은 소개 공유 (2026-11-03, 미배포)
+
+회원 설정과 크리에이터 설정의 짧은 소개는 120자이며 실제 API는 `user_profiles.bio` 하나를 읽고 쓴다. 목업도 `PreviewProvider`의 현재 크리에이터 소개를 공유하여 어느 화면에서 수정해도 함께 반영한다. 상세 소개(`creators.about`, 최대 1,000자)는 별개다. 각 입력란의 공용 툴팁으로 이 차이를 안내한다. 회원 저장 후 bootstrap을 다시 읽고, 스튜디오에서 팬 화면으로 이동할 때도 경로 변경 시 bootstrap을 새로 읽는다. 검증: 프론트 `tests/shared-short-bio.test.cjs`, 서버 `tests/platform-shared-bio.test.cjs`. DB 이전·구형 API 중지 등 배포 절차는 서버 `docs/platform-api.md`를 따른다.
+
 ## 로컬 링크
 
 - 실제 홈: http://127.0.0.1:3010/service/feed
