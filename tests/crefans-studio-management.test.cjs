@@ -33,6 +33,30 @@ const json=tree=>JSON.stringify(tree.toJSON());
 function button(tree,name){return tree.root.findAllByType('button').find(node=>node.children.includes(name));}
 function mount(Page,model,id){let tree;act(()=>{tree=create(React.createElement(Page,{model,basePath:'/studio',id}));});return tree;}
 
+test('membership uses the post picker but uploads only one image through the membership action',async()=>{
+ const probe=fixtureHook(),uploaded=[],discarded=[],saved=[];
+ const model={...probe.model,memberships:[],actions:{...probe.model.actions,
+  uploadMembershipImage:async file=>{uploaded.push(file);return {success:true,data:{image:'/cover.png'}};},
+  discardMembershipImage:image=>discarded.push(image),
+  saveMembership:async input=>{saved.push(input);return {success:true,data:{message:'저장 완료'}};},
+ }};
+ const tree=mount(MembershipManagementPage,model);
+ try{
+  act(()=>button(tree,'멤버십 만들기').props.onClick());
+  const picker=()=>tree.root.findByProps({'aria-label':'멤버십 이미지 · 선택'});
+  assert.equal(picker().props.multiple,false);assert.equal(picker().props.accept,'image/jpeg,image/png,image/webp');
+  const file={name:'first.png',type:'image/png'},other={name:'second.png',type:'image/png'};
+  await act(async()=>picker().props.onChange({currentTarget:{files:[file,other],value:'fakepath'}}));
+  assert.deepEqual(uploaded,[file]);assert.equal(picker().props.disabled,true);assert.match(json(tree),/1\/1/);
+  act(()=>tree.root.findByProps({'aria-label':'1번째 이미지 삭제'}).props.onClick());
+  assert.equal(picker().props.disabled,false);assert.ok(discarded.includes('/cover.png'));
+  await act(async()=>picker().props.onChange({currentTarget:{files:[file],value:'fakepath'}}));
+  changeMembershipField(tree,'멤버십 이름','이미지 멤버십');changeMembershipField(tree,'월 구독료 (원)','9900');changeMembershipField(tree,'혜택 1','멤버십 혜택');
+  await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+  assert.equal(saved.length,1);assert.equal(saved[0].image,'/cover.png');
+ }finally{act(()=>tree.unmount());probe.close();}
+});
+
 test('schedule switch and clear action reset the date; disabled scheduling cannot be submitted',async()=>{
   const probe=fixtureHook(),calls=[];
   const tree=mount(ContentEditorPage,{...probe.model,actions:{...probe.model.actions,saveContent:async input=>{calls.push(input);return {success:true,data:{message:'Saved',id:input.id}};}}},'draft1');

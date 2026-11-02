@@ -1,0 +1,111 @@
+{
+  "verifiedAt": "2026-11-02T14:36:52.942169+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-membership-upload",
+  "baselineCommit": "feef4226d1b92441e762d11d85a6caeb4d4f377a",
+  "branch": "feat/membership-image-upload",
+  "statusAtVerification": [
+    " M PROGRESS.md",
+    " M components/crefans/studio/ManagementPages.tsx",
+    " M components/design-system/ImageUploadCatalog.tsx",
+    " M components/ui/MediaUpload.tsx",
+    " M docs/design-system.md",
+    " M features/service/useStudioModel.ts",
+    " M tests/crefans-studio-management.test.cjs",
+    " M tests/media-upload.test.cjs",
+    "?? e2e/membership-upload.config.ts",
+    "?? e2e/membership-upload.spec.ts",
+    "?? tests/studio-membership-upload.test.cjs"
+  ],
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0"
+  },
+  "requirements": [
+    "Reuse the post editor MediaUpload in membership create/edit and catalog; same gray button and square thumbnail/delete treatment.",
+    "Membership picker is single-file, image-only, max 1, with concise supported formats and size hint.",
+    "Keep optional image saving, delete then reselect, cancelled draft cleanup, error recovery and existing post multi-upload behavior."
+  ],
+  "implementation": [
+    "components/crefans/studio/ManagementPages.tsx: shared membership create/edit form, existing image lifecycle retained",
+    "components/ui/MediaUpload.tsx: optional addLabel and multiple only when max > 1",
+    "components/design-system/ImageUploadCatalog.tsx: same one-image configuration with injected local model",
+    "features/service/useStudioModel.ts: reject non-image, empty and over-5MB files before uploadMembershipImage calls /media, matching existing preview policy"
+  ],
+  "sharedRoutes": [
+    "components/service/StudioRouter.tsx",
+    "components/preview/studio/StudioRouter.tsx"
+  ],
+  "policySource": "lib/design/image-upload.ts; JPG/PNG/WebP, 5*1024*1024 bytes. Existing server membership save also requires an owned completed IMAGE. No server policy changes.",
+  "sourceSha256": {
+    "components/crefans/studio/ManagementPages.tsx": "55eb7894eb89072a9351612ebb282208eff35f8f6d8b8540ed655098e23c20a5",
+    "components/design-system/ImageUploadCatalog.tsx": "982351a9c99e613d32e9593edee2034b4b905f9e761d517abd2a5f30c1451a32",
+    "components/ui/MediaUpload.tsx": "1945597843dd3c01f5f6e8a4c1b73e4873f0fc9ac17ba2c55166092b680724dd",
+    "features/service/useStudioModel.ts": "94bcc8f570b09d017aba63707c6ffbcfcc317a25450c5b26fb0e0f9a95389cc5",
+    "tests/crefans-studio-management.test.cjs": "2748eecf26239162231a3f6d079e40a831616d562cab3119efb7cf53370cf3a6",
+    "tests/media-upload.test.cjs": "b9ed3b72d6cb925e8ee14ed1b41ae0e89bba312013802e1192c10f8907d9dfe4",
+    "tests/studio-membership-upload.test.cjs": "1961ec8e17f39a882ddc7b5d1791ff2853c9b6ae686c56dd144a662f499b60ca",
+    "e2e/membership-upload.config.ts": "487e4ceed9ae71badc31999681c2d5f9aa490f06784654b3767b0512a97cf7d3",
+    "e2e/membership-upload.spec.ts": "684899286bbef1c78f87fe7573e84e0b13bf5b6d24362cf1ccdfcce3656701e5"
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "log": ".local/membership-upload-20261102/check-final.log",
+      "logCreatedAt": "2026-11-02T14:33:56.177438+00:00",
+      "logUpdatedAt": "2026-11-02T14:34:09.620484+00:00",
+      "result": "Layer check, TypeScript and all 506 unit tests PASS"
+    },
+    {
+      "command": "npx playwright test --config=e2e/membership-upload.config.ts",
+      "exitCode": 0,
+      "log": ".local/membership-upload-20261102/browser.log",
+      "logCreatedAt": "2026-11-02T14:31:51.057143+00:00",
+      "logUpdatedAt": "2026-11-02T14:32:11.454545+00:00",
+      "result": "PC Chromium 3/3; iPhone 13 viewport WebKit 3/3 PASS; preview models only"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": ".local/membership-upload-20261102/build.log",
+      "logCreatedAt": "2026-11-02T14:34:09.631227+00:00",
+      "logUpdatedAt": "2026-11-02T14:34:35.098614+00:00",
+      "result": "PASS; 35/35 static pages; existing multiple-lockfile workspace warning"
+    }
+  ],
+  "negativeControls": [
+    {
+      "command": "node --test tests/media-upload.test.cjs (original MediaUpload.tsx)",
+      "exitCode": 1,
+      "expected": "New single-file assertion rejects baseline multiple=true; restored current source",
+      "log": ".local/membership-upload-20261102/negative.log"
+    },
+    {
+      "command": "node --test tests/studio-membership-upload.test.cjs (original useStudioModel.ts)",
+      "exitCode": 1,
+      "expected": "New invalid image assertion detects original model forwarding a video upload; restored current source",
+      "log": ".local/membership-upload-20261102/negative-model.log"
+    }
+  ],
+  "screenshots": {
+    "pc-empty": ".local/membership-upload-20261102/pc-empty.png",
+    "pc-selected": ".local/membership-upload-20261102/pc-selected.png",
+    "mobile-empty": ".local/membership-upload-20261102/mobile-empty.png",
+    "mobile-selected": ".local/membership-upload-20261102/mobile-selected.png"
+  },
+  "visualReview": "PC empty and mobile empty/selected dialog screenshots inspected; compact button, hint, count, image preview and delete affordance visible, no horizontal clipping. Existing scrollable dialog retained.",
+  "documentation": {
+    "updated": "docs/design-system.md",
+    "check": "npm run check:docs after reviewed snapshot refresh",
+    "log": ".local/membership-upload-20261102/docs-final.log",
+    "level": "snapshot-only-not-test-proof"
+  },
+  "limitations": [
+    "Browser tests use local preview models; no authenticated production API, real device or live uploads.",
+    "Live service image validation tested via injected API unit tests, not production.",
+    "The later live-model guard does not change the tested UI components; checked by final unit/type/build run.",
+    "Not pushed, merged to dev/prod, or deployed.",
+    "Prior upload hint compaction remains separately committed at feat/upload-hint-compact 49c507d; integrate both through dev when requested."
+  ],
+  "postCommitEvidence": ".local/membership-upload-20261102/final-state.json"
+}

@@ -8,11 +8,11 @@ import {MediaTypeIcon} from './MediaTypeIcon';
 import s from './media-upload.module.css';
 
 export type MediaUploadItem={id:string;type:'image'|'video';url:string;processing?:boolean;failed?:boolean;preview?:string};
-type Props={label:string;items:MediaUploadItem[];max:number;onFilesSelect:(files:File[])=>void|Promise<void>;onRemove:(id:string)=>void;onReorder?:(from:number,to:number)=>void;accept:string;disabled?:boolean;uploading?:boolean;error?:string;hint?:string};
+type Props={label:string;items:MediaUploadItem[];max:number;onFilesSelect:(files:File[])=>void|Promise<void>;onRemove:(id:string)=>void;onReorder?:(from:number,to:number)=>void;accept:string;disabled?:boolean;uploading?:boolean;error?:string;hint?:string;addLabel?:string};
 type Drag={from:number;to:number;dx:number;dy:number;boxes:Box[]};
 const DRAG_THRESHOLD=6;
 
-export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,accept,disabled=false,uploading=false,error,hint}:Props){
+export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,accept,disabled=false,uploading=false,error,hint,addLabel='사진·동영상 추가'}:Props){
   const id=useId(),input=useRef<HTMLInputElement>(null),list=useRef<HTMLUListElement>(null),[dragging,setDragging]=useState(false);
   const full=items.length>=max,blocked=disabled||uploading||full,canReorder=!!onReorder&&!disabled&&!uploading&&items.length>1;
   const [drag,setDrag]=useState<Drag|null>(null),[announce,setAnnounce]=useState('');
@@ -75,11 +75,11 @@ export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,ac
   function drop(event:DragEvent<HTMLElement>){event.preventDefault();setDragging(false);if(!blocked)select(event.dataTransfer.files);}
   return <div className={s.root} role="group" aria-labelledby={`${id}-label`}>
     <div className={s.heading}><span className={s.label} id={`${id}-label`}>{label}</span><span className={s.count} aria-live="polite">{`${items.length}/${max}`}</span></div>
-    <input ref={input} className={s.file} id={id} type="file" multiple accept={accept} aria-label={label} disabled={blocked} onChange={event=>{const list=event.currentTarget.files;select(list);event.currentTarget.value='';}}/>
+    <input ref={input} className={s.file} id={id} type="file" multiple={max>1} accept={accept} aria-label={label} disabled={blocked} onChange={event=>{const list=event.currentTarget.files;select(list);event.currentTarget.value='';}}/>
     {/* Design B (2026-11-01): one gray add button, its guidance, then the thumbnails. */}
     <button type="button" className={s.dropzone} data-dragging={dragging||undefined} disabled={blocked} aria-describedby={hint?`${id}-hint`:undefined} onClick={()=>input.current?.click()} onDragOver={event=>{event.preventDefault();if(!blocked)setDragging(true);}} onDragLeave={()=>setDragging(false)} onDrop={drop}>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-9 9"/></svg>
-      <span>{uploading?'미디어 확인 중…':full?`최대 ${max}개까지 추가할 수 있어요`:'사진·동영상 추가'}</span>
+      <span>{uploading?'미디어 확인 중…':full?`최대 ${max}개까지 추가할 수 있어요`:addLabel}</span>
     </button>
     {hint&&<small id={`${id}-hint`} className={s.hint}>{hint}</small>}
     {items.length>0&&<ul ref={list} className={s.grid} aria-label={`${label} 목록`} data-reorderable={canReorder||undefined}>{items.map((item,index)=><li key={item.id} className={s.tile} data-media-id={item.id} data-dragging={drag?.from===index||undefined} style={tileStyle(index)} tabIndex={canReorder?0:undefined} aria-label={canReorder?`${index+1}번째 ${item.type==='video'?'동영상':'이미지'}, 끌거나 화살표 키로 순서 변경`:undefined} onPointerDown={event=>pointerDown(event,index)} onPointerMove={pointerMove} onPointerUp={()=>finishDrag(true)} onPointerCancel={()=>finishDrag(false)} onKeyDown={event=>keyReorder(event,index)}>
