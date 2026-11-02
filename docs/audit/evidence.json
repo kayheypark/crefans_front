@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T22:37:20.904890+00:00",
+  "checkedAt": "2026-11-02T22:57:40.438864+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "08d893252e5a247f109c34f2f9054e4db6ac3a6e",
-      "branch": "feat/open-promotion-event",
+      "head": "3ae8385fd62b3552248b75a24ee55914a2d6f48b",
+      "branch": "feat/open-events-deployment-evidence",
       "dirty": true
     },
     "server": {
-      "head": "37ed6c6fd2775a476673ea15910973352134f044",
-      "branch": "feat/open-promotion-event",
+      "head": "2f7b9179e9120fd0c9a0021ec6122accdfcc20b1",
+      "branch": "feat/open-events-deployment-evidence",
       "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "c6ebddbc449a4623d76793af8c15d081a7ef1a806deb0348bcff93990eb5bf3c",
-      "front/PROGRESS.md": "2efdef90de316b1e0c7d230b9fbec1fb4917e1844205b08ee1dcd4a25e073202",
+      "front/PROGRESS.md": "7539ec4423c72222b53823245c4b2097d205af98e724bb0c23842a5dd48fa1d5",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "55f775cdef768f61a5ee5cf9b68dea050ec1fda05476945b96dcbcedcca3ed06",
-      "server/PROGRESS.md": "bc4ca88e3084c4d2f635b7081dc695182194c4ddcbcaa24e72d864227595ce5f",
+      "server/PROGRESS.md": "cf016bedd1a7b50bdf2e7aa6dbed57c1ee5ee760a51949f3b5bb80a97d9d64c3",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -861,6 +861,7 @@
       "server/docs/membership-deployment-20261103.json": "728f845fbca1f46a7632c16fd7891aa4631b0a27a731cde1c10a2c4d0585e8c1",
       "server/docs/membership-level-20261022.json": "5b93e701f6b61afb070debccd1288f30fd5253df791752f0607d8ddbf889ec47",
       "server/docs/open-events-20261103.json": "09c755752d65475d749937e7a33c691175943543c6e5e560199d9a912948e5b7",
+      "server/docs/open-events-deployment-20261103.json": "a51c00351e6049c584bc7a62721b1ded4e636c0bfc4d986373950d5ed0031cb2",
       "server/docs/post-tip-finance-audit-20261026.json": "39e46d884186d1a5458dec5dee45c0a653f7b8d67b8c182f8cc4f1f1fadc0365",
       "server/docs/promotion-event-claim-20261103.json": "d6ddbcab609c16a3bcae775a2a105d4fd6ce1e2460ae64e991db2391fd0269ea",
       "server/docs/swagger-20261023.json": "f9546d21a4c93e6b06ceb1593c1a7ce70cc3b9b33e639892dfaf397b642beaa3",
