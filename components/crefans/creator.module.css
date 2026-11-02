@@ -173,6 +173,8 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 .coverAction:has(>.coverControl){top:14px;bottom:auto}
 .coverAction>.coverSettings{width:44px;min-width:44px;padding:0;flex:none}
 .coverAction>.coverSettings svg{width:18px;height:18px}
+.coverAction>.coverStudio{display:none}
+@media(max-width:767px){.coverAction:has(>.coverStudio){left:16px;right:16px;display:flex;align-items:center;gap:8px}.coverAction>.coverStudio{display:inline-flex;margin-left:auto;flex:none}}
 .coverWallet{max-width:calc(100% - 56px);min-width:0}
 .coverWallet img{width:20px;height:20px;object-fit:contain;flex:none}
 .coverWallet span{min-width:0;overflow:hidden;text-overflow:ellipsis}

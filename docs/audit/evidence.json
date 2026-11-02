@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T16:23:19.000556+00:00",
+  "checkedAt": "2026-11-02T16:32:55.270065+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,7 +18,7 @@
     "models": 87,
     "enums": 15,
     "migrations": 47,
-    "localMarkdownTargets": 449,
+    "localMarkdownTargets": 450,
     "externalInlineLinksNotFetched": 369
   },
   "negativeControls": [
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
-      "branch": "feat/my-profile-feed-current",
+      "head": "00207ee722e4cccbd7e3bd4896ab5e83ec36feba",
+      "branch": "feat/my-profile-studio",
       "dirty": true
     },
     "server": {
@@ -42,8 +42,8 @@
   },
   "state": {
     "documents": {
-      "front/AGENTS.md": "3ee6171ce3701ea6b5b9f19f68cdee3421f92f775aa45a2cbd07334cc7d15d55",
-      "front/PROGRESS.md": "241d6e1a11ccc0d00f1f6706641dbb4fe294baf5fc61a4dcedc23cbe7781100a",
+      "front/AGENTS.md": "d4a8a639e0d7af7bbbe0e7a5105700e97931fdd7cd0b393aa624e4f1d517df1b",
+      "front/PROGRESS.md": "a0e8c981cdd629f0b435689f7dee102bdef4d686eed1230e06962046071d9885",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -61,7 +61,7 @@
       "front/docs/memo.md": "4ddfd1bd5f83416b01f89c33f47a781ee2b38e4c97aea11ea7ed5246a75ead4a",
       "front/docs/nice-identity-inquiry.md": "0cf228858af8de1bab85488fc191423eedde6e74ef19b522e297eb8f28f93c12",
       "front/docs/prd.md": "b58ae1340d22a893c8796ffa956fd3d9c9623c02fcd2d4a247a633d8c7ece667",
-      "front/docs/preview-pages.md": "61b5d22d97b184bff8ddf610b5ea8e52031e88b0b92e90bd702c063f1d2069c5",
+      "front/docs/preview-pages.md": "b7fe4720a19b34d49674b2646990e7187d67e70ce5b5146f2c23810a04f3fd9d",
       "front/docs/release-test-scenarios.md": "6540e50c5c5d0bbd5f56dee65ad14b83b7612de3b3dc6080e78d352203136699",
       "front/docs/security-review-20261029.md": "326acc26a21472448126486b2ae3e477b7580b45b3105688bbe871f743c39caa",
       "front/docs/service-api-binding.md": "4e5d8b61748e22eddd706c6ad2d1e04e582330bc8530b981ecdd73996c608d3f",
@@ -120,7 +120,7 @@
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "383fed44bb4add64b59b15fe57b0502b5b971428378972f6d92c384b4c1849e8"
+      "audit/manifest": "2b53f572c3ffd0a428eb4ce9edd845a117a82a1f4c211ad2f6771d65e028f121"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
@@ -189,7 +189,7 @@
       "front/components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
       "front/components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
       "front/components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
-      "front/components/crefans/AccountPages.tsx": "70719a980013517dba9b0e4925ba29910d5f517d74a127067be7217008f375cd",
+      "front/components/crefans/AccountPages.tsx": "3e88b809cf1e870a0b1c98b9715466c08541cc7940e34d2ddd07aba995a27a0d",
       "front/components/crefans/ApiState.tsx": "4df6f64b1ba3a6803c3f4798fb442487a0c7745698748018a084acbeb0cd14ae",
       "front/components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
       "front/components/crefans/BeanAttribution.tsx": "a3b1b773c5c27322dd0a96e02ac50c400dcb1e9009e94212296cc392b6496953",
@@ -253,7 +253,7 @@
       "front/components/crefans/common.module.css": "1801b0a9043c213dce3cc463efea7ef02db71fd8a42dd46fa0e1d8cf457453b5",
       "front/components/crefans/creator-name.module.css": "0c0e91c88caf0b99a3b0d0dd35f0f4cb406803f219cebd1c9e41628b23232a9b",
       "front/components/crefans/creator-search.module.css": "58cf7fe4f52d60b97e73045a70ade3f2b8ddfb4ce98b9591f41cfd6d0ebde08d",
-      "front/components/crefans/creator.module.css": "8e744a91f414841ef63321c2e208e3c081ec783e2b765245408790ec2c388e9f",
+      "front/components/crefans/creator.module.css": "cd05fee799558771fbb2e3f79dad3cf6f57806b6b9ad74561e19f1d5741f1e96",
       "front/components/crefans/events.module.css": "8da0539a829a215e1c5e833cd000f15b816767f249268ab7a8b254c1a4eb2f75",
       "front/components/crefans/header-account-menu.module.css": "543b7e12e910b016e4d02192bab5e74ff1abcf59824ac5a49fbe206aa8e10d92",
       "front/components/crefans/landing.module.css": "ff969690af2dc1aab7d304d766218bda39e09b4e37abf01b311dcc440af67cbe",
