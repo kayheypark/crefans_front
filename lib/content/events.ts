@@ -87,17 +87,18 @@ export const serviceEvents:readonly ServiceEvent[]=[
  "summary": "크리에이터 3명에게 드립니다.",
  "theme": "advertising",
  "banner": {
-  "title": "주목할 크리에이터\n광고상품 30일",
-  "description": "크리에이터 3명"
+  "label": "주목할 크리에이터",
+  "title": "광고상품\n30일 이용권",
+  "description": "* 크리에이터 3명에게 드려요."
  },
- "image": "/brand/events/beta-first/color-cards-v1/crown.webp",
- "imageWidth": 512,
- "imageHeight": 512,
+ "image": "/brand/events/open-beta-v2/advertising.webp",
+ "imageWidth": 640,
+ "imageHeight": 640,
  "rewards": [
   {
    "audience": "크리에이터 3명",
    "title": "주목할 크리에이터\n광고상품 30일",
-   "image": "/brand/events/beta-first/color-cards-v1/crown.webp",
+   "image": "/brand/events/open-beta-v2/advertising.webp",
    "details": [
     "크리에이터 3명에게 드립니다.",
     "주목할 크리에이터 광고상품 이용권을 제공합니다."
@@ -122,17 +123,18 @@ export const serviceEvents:readonly ServiceEvent[]=[
  "schedule": "참여가 확정된 대상자는 받기 버튼을 눌러 100콩을 즉시 받을 수 있습니다. 별도 지급일을 기다리지 않아도 됩니다.",
  "theme": "beans",
  "banner": {
-  "title": "프로모션 100콩",
-  "description": "팬 참여자 13명"
+  "label": "후원으로 전하는 응원",
+  "title": "프로모션\n100콩 받기",
+  "description": "* 참여 확정 팬 13명에게 드려요."
  },
- "image": "/brand/events/beta-first/color-cards-v1/beans.webp",
- "imageWidth": 512,
- "imageHeight": 512,
+ "image": "/brand/events/open-beta-v2/beans.webp",
+ "imageWidth": 640,
+ "imageHeight": 640,
  "rewards": [
   {
    "audience": "팬 참여자 13명",
    "title": "프로모션 100콩",
-   "image": "/brand/events/beta-first/color-cards-v1/beans.webp",
+   "image": "/brand/events/open-beta-v2/beans.webp",
    "details": [
     "참여 확정 팬 13명, 받기 버튼으로 즉시 지급합니다.",
     "프로모션 콩은 후원받은 사람이 출금할 수 있습니다."
@@ -160,17 +162,18 @@ export const serviceEvents:readonly ServiceEvent[]=[
  "theme": "badge",
  "schedule": "참여가 확정된 계정으로 로그인한 뒤 받기 버튼을 누르면 배지가 즉시 지급됩니다.",
  "banner": {
-  "title": "원년멤버 한정판 뱃지",
-  "description": "참여 확정 회원 전원"
+  "label": "우리의 시작을 기념해요",
+  "title": "원년멤버\n한정판 뱃지",
+  "description": "* 참여 확정 회원 모두 받을 수 있어요."
  },
- "image": "/brand/events/beta-first/color-cards-v1/badge.webp",
- "imageWidth": 512,
- "imageHeight": 512,
+ "image": "/brand/events/open-beta-v2/badge.webp",
+ "imageWidth": 640,
+ "imageHeight": 640,
  "rewards": [
   {
    "audience": "참여 확정 회원 전원",
    "title": "원년멤버 한정판 뱃지",
-   "image": "/brand/events/beta-first/color-cards-v1/badge.webp",
+   "image": "/brand/events/open-beta-v2/badge.webp",
    "details": [
     "참여가 확정된 회원 전원, 받기 버튼으로 배지를 받아보세요.",
     "받기 버튼을 누르면 프로필에 바로 표시됩니다.",

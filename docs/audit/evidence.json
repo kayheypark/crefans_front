@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T17:48:50.327241+00:00",
+  "checkedAt": "2026-11-02T18:04:13.829949+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,7 +18,7 @@
     "models": 87,
     "enums": 15,
     "migrations": 48,
-    "localMarkdownTargets": 448,
+    "localMarkdownTargets": 450,
     "externalInlineLinksNotFetched": 373
   },
   "negativeControls": [
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "2cf02280e6286ee424b3e87990c8e658b7bf818a",
-      "branch": "feat/founding-badge-claim",
+      "head": "bb30c2d034243f20d23ba11c7813821c3e619879",
+      "branch": "feat/event-banners-refresh",
       "dirty": true
     },
     "server": {
@@ -42,13 +42,13 @@
   },
   "state": {
     "documents": {
-      "front/AGENTS.md": "f1c78e7e25112b5a89d66ede74c2dbf40858a38fa77d3fcb575ad2b5f3153368",
-      "front/PROGRESS.md": "cb621f44b38008f231a2d54a1214b3e91efde68e65a529bf3bfeefb45831db35",
+      "front/AGENTS.md": "c6d68ccbba55128de85229a70134a0ced507d70284b5825682f8aeb597b25446",
+      "front/PROGRESS.md": "07d1f9940521fcfe577c1a14fbf98c96511d6d2ddffb29b1e0b5d1479f8eebb8",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "25bda1e5b800362d0062c6c8e678cb19c3209754a1030a1b1695ea84a30fd83f",
+      "front/docs/design-system.md": "57ea7a061c743c2335ff1db4c6df0f1528d2a1b6c4292cbbf2600028ad696a08",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -61,7 +61,7 @@
       "front/docs/memo.md": "4ddfd1bd5f83416b01f89c33f47a781ee2b38e4c97aea11ea7ed5246a75ead4a",
       "front/docs/nice-identity-inquiry.md": "0cf228858af8de1bab85488fc191423eedde6e74ef19b522e297eb8f28f93c12",
       "front/docs/prd.md": "b58ae1340d22a893c8796ffa956fd3d9c9623c02fcd2d4a247a633d8c7ece667",
-      "front/docs/preview-pages.md": "cfb9917540357215c88a30aaadd82393ca7733bf0b3a5cce8be02fc6540772d6",
+      "front/docs/preview-pages.md": "2ef8e05f254721aab3113538fe8a7fab4d98a5775a0c46c755299d5bedfe1bde",
       "front/docs/release-test-scenarios.md": "6540e50c5c5d0bbd5f56dee65ad14b83b7612de3b3dc6080e78d352203136699",
       "front/docs/security-review-20261029.md": "326acc26a21472448126486b2ae3e477b7580b45b3105688bbe871f743c39caa",
       "front/docs/service-api-binding.md": "d503338bd9c972d135d6c1c89e3510157e6c69a5ff372213ae30de56fbb84ac4",
@@ -120,7 +120,7 @@
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "5ad8eb0f52fe1807ecff9e2f211405f6ae13230b2dccf5915419b06c888387a7"
+      "audit/manifest": "2e8a1af6f55d73c95ea036902e7e1c0c943fa321b4deed5b561e8f5f75818690"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
@@ -214,7 +214,7 @@
       "front/components/crefans/CreatorName.tsx": "9714df9c8d08e9f7059c259fbf83f01df4d4e583493afb23d29e05961fbbbbc7",
       "front/components/crefans/CreatorPages.tsx": "770e4dcc4433462c3c43a18ec063ad84400e0dd1e76312892ffdf9d4c5b6bbc0",
       "front/components/crefans/CreatorSearch.tsx": "ffb382dcf6e0953755ab5a8a2369de1cef67f2f51df59b9021bc4c2812be873e",
-      "front/components/crefans/EventPages.tsx": "75a747729ed7d22e12b6751f974cff493481c53319729111d9e8192b7e59e8ff",
+      "front/components/crefans/EventPages.tsx": "0b4a893b0a22471b16231abe5a739902b8b8559329a3b3d58d20fe0da4b8ab3d",
       "front/components/crefans/FollowButton.tsx": "351e0114e0288d38fa46d0af4fbee47891ccd4e7b294d736d470f50da9b9fc95",
       "front/components/crefans/FoundingBadgeClaim.tsx": "479734a97f53953b00973cce1f21dd8b366617e45910664cf904a8a0a414d7c3",
       "front/components/crefans/HeaderAccountMenu.tsx": "210819d850d9ba5f29b1d69c045c3aee7bb653518d7b62d60054efeac60fd0f3",
@@ -254,7 +254,7 @@
       "front/components/crefans/creator-name.module.css": "0c0e91c88caf0b99a3b0d0dd35f0f4cb406803f219cebd1c9e41628b23232a9b",
       "front/components/crefans/creator-search.module.css": "58cf7fe4f52d60b97e73045a70ade3f2b8ddfb4ce98b9591f41cfd6d0ebde08d",
       "front/components/crefans/creator.module.css": "e95598aeb68de790aa1900e884798bc43e89010031ff768f8d817484a3af2f86",
-      "front/components/crefans/events.module.css": "d39c42eed13cb88552bfed640aa6df439cbb73b38538892327a317b3cb5564b3",
+      "front/components/crefans/events.module.css": "ecf4598af43ed6ded5dade3d1d56a5755a38db36826cf9c54c7d1f5a02594e52",
       "front/components/crefans/header-account-menu.module.css": "543b7e12e910b016e4d02192bab5e74ff1abcf59824ac5a49fbe206aa8e10d92",
       "front/components/crefans/landing.module.css": "ff969690af2dc1aab7d304d766218bda39e09b4e37abf01b311dcc440af67cbe",
       "front/components/crefans/navigation-icon.module.css": "f7d03cc17dfb95e9ad57ca08744fa9041f89b5fe6341c2a45d68ae35769e5091",
@@ -669,7 +669,7 @@
       "front/lib/constants/modalStyles.ts": "4a80ae8bb24de98c42e2e168754a9db32beb297fbd177597726ff336cfd103cd",
       "front/lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
       "front/lib/content/business.ts": "2db80e0a5596628448dc29a5eb1a8a425d79ce19cc72f8b01d6340af281248f2",
-      "front/lib/content/events.ts": "02d40cffee78be6a37d6a386278211a096bc25fbd4535e80653d36fdbbfbdd73",
+      "front/lib/content/events.ts": "dbf43ae91c6871c840b72e2149d17d92750e3b94434156f4cac15ff484aa77b9",
       "front/lib/content/landing.ts": "2ca9059e2d7af81053b89c9bc1feacecd7219e8ea58d520555bef77f3d6351fc",
       "front/lib/crefans/bean-history.ts": "37ff0f25c988145d715055a680c7996e68982d625ea9ee24e3cc7475c18a0868",
       "front/lib/crefans/bean-pricing.ts": "7c46cc21957c0a00adf8743a9ef4864b5201d04e19f971849c7f7a65cf890fa0",
@@ -819,7 +819,7 @@
       "front/types/crefans-beans.ts": "9be890df83572f1689bf9669cef038271b9eb5f8d49712e30c41f5a61021ecf4",
       "front/types/crefans-common.ts": "edc9a65365bb7059c34f7db028041c8681b1f82fb76bccc1de0e722201633b85",
       "front/types/crefans-community.ts": "f99ae9d85ec347d2febfad14940ecced4d04041f1e1446e3d5efd09bc087d875",
-      "front/types/crefans-events.ts": "5164f1f70c9f9908b43597e5eeabf951604ee16c366d239610bf7768b5d794dd",
+      "front/types/crefans-events.ts": "d72a5d8e44d2307d8f7e273e58d642de60ea24383f20f19bc8ed6e984b7f8756",
       "front/types/crefans-landing.ts": "6f8f64258c6d66fe318d0e3f44b913c12c6a87d508a028ee35d485e3ea67f6de",
       "front/types/crefans-social.ts": "ba1f6b3ddca3c5d1be44427d6f8af3287e8f18e98dc10805b4601af58da95a53",
       "front/types/crefans-studio-finance.ts": "3a7448cf2ed7281e395c58bf32592daeff412282d5b0a57e9e5ce1cbd1001e4b",

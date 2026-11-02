@@ -1,0 +1,18 @@
+{
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "prompts": [
+    {
+      "key": "advertising",
+      "prompt": "Use case: ads-marketing. Asset type: isolated decorative 3D illustration for a Korean creator-and-fan platform named crefans, mobile event banner. Polished but understated, very simple friendly rounded geometry, soft satin ceramic with a little translucent resin, restrained lavender and mint brand palette, soft studio light from upper left, gentle ambient occlusion only. Centered single grouped composition, square canvas, 12% clear padding all sides, readable at 100px wide. Truly transparent background; no floor plane, no backdrop, no border, no text, letters, numbers, logos, watermarks, confetti, rays or floating sparkles. Not a full banner: artwork only, typography added in HTML. Subject: one luminous chunky four-point lavender star slightly floating in front of a tilted pale lilac rounded rectangular creator profile tile. The tile has one simple embossed circular avatar and two tiny embossed bars, no readable writing, its lower edge supported by a very low rounded pedestal. A subtle cool blue accent on star edge. One focal star, confident upward-facing 3/4 view. Purpose: featured creator advertising, gentle spotlight and discovery. Avoid crown, megaphone, cash, charts, literal beams of light."
+    },
+    {
+      "key": "beans",
+      "prompt": "Use case: ads-marketing. Asset type: isolated decorative 3D illustration for a Korean creator-and-fan platform named crefans, mobile event banner. Polished but understated, very simple friendly rounded geometry, soft satin ceramic with a little translucent resin, restrained lavender and mint brand palette, soft studio light from upper left, gentle ambient occlusion only. Centered single grouped composition, square canvas, 12% clear padding all sides, readable at 100px wide. Truly transparent background; no floor plane, no backdrop, no border, no text, letters, numbers, logos, watermarks, confetti, rays or floating sparkles. Not a full banner: artwork only, typography added in HTML. Subject: three plump kidney-shaped glossy jade green beans, one elevated slightly, two resting together, arranged in a compact sculptural triangle. Preserve recognizable curved bean silhouette with a small soft indentation, soft fresh mint highlights and deeper jade edges, no face, no symbols. No bowl or coin or gifts. Use richer jade green rather than yellow lime. Friendly and substantial but minimal."
+    },
+    {
+      "key": "badge",
+      "prompt": "Use case: ads-marketing. Asset type: isolated decorative 3D illustration for a Korean creator-and-fan platform named crefans, mobile event banner. Polished but understated, very simple friendly rounded geometry, soft satin ceramic with a little translucent resin, restrained lavender and mint brand palette, soft studio light from upper left, gentle ambient occlusion only. Centered single grouped composition, square canvas, 12% clear padding all sides, readable at 100px wide. Truly transparent background; no floor plane, no backdrop, no border, no text, letters, numbers, logos, watermarks, confetti, rays or floating sparkles. Not a full banner: artwork only, typography added in HTML. Subject: one commemorative scalloped round medallion, eight softly rounded lobes, pale lavender satin face with a simple raised five-point violet star at its center and a thin translucent lilac rim. Slight three-quarter tilt and gentle floating feel. Thin body, softly dimensional not puffy or gem-like, clean single object. Purpose: founding member limited edition profile badge, elegant keepsake. No hanging ribbon, pin, numerals, crown, additional stars, metal gold or sparkles."
+    }
+  ]
+}

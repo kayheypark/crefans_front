@@ -12,7 +12,7 @@ export function EventsPage({events,basePath}:{events:readonly ServiceEvent[];bas
  return <section className={s.page}>
   <PageTitle>이벤트 안내</PageTitle>
   {events.length?<div className={s.list}>{events.map(event=><Link className={s.card} href={`${basePath}/events/${event.id}`} key={event.id} aria-label={event.title}>
-   {event.banner?<div className={s.banner} data-theme={event.theme}><img src={event.image} alt="" width={event.imageWidth} height={event.imageHeight}/><div className={s.bannerCopy}><span>{event.campaignTitle}</span><h2>{event.banner.title}</h2><p>{event.banner.description}</p></div></div>:<img src={event.image} alt={event.title} width={event.imageWidth} height={event.imageHeight}/> }
+   {event.banner?<div className={s.banner} data-theme={event.theme}><img src={event.image} alt="" width={event.imageWidth} height={event.imageHeight}/><div className={s.bannerCopy}><span>{event.banner.label??event.campaignTitle}</span><h2>{event.banner.title}</h2><p>{event.banner.description}</p></div></div>:<img src={event.image} alt={event.title} width={event.imageWidth} height={event.imageHeight}/> }
   </Link>)}</div>:<Empty title="등록된 이벤트가 없습니다"/>}
   <CommonNavigation basePath={basePath}/>
  </section>;

@@ -9,7 +9,7 @@ export type ServiceEvent={
  campaignSubtitle:string;
  schedule:string;
  theme?:'gift'|'advertising'|'beans'|'badge';
- banner?:{title:string;description:string};
+ banner?:{title:string;description:string;label?:string};
  image:string;
  imageWidth:number;
  imageHeight:number;
