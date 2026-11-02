@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T23:17:29.299973+00:00",
+  "checkedAt": "2026-11-02T23:45:25.134811+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,7 +18,7 @@
     "models": 87,
     "enums": 15,
     "migrations": 48,
-    "localMarkdownTargets": 449,
+    "localMarkdownTargets": 450,
     "externalInlineLinksNotFetched": 371
   },
   "negativeControls": [
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "5e5ff7bdecbc032345640fd04b097605c4d9bbe7",
-      "branch": "feat/brand-metadata-delivery",
+      "head": "15d611de33a49dcc963d9918bdd63450ab1d598d",
+      "branch": "feat/tip-login-modal-scroll",
       "dirty": true
     },
     "server": {
@@ -43,12 +43,12 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "c6ebddbc449a4623d76793af8c15d081a7ef1a806deb0348bcff93990eb5bf3c",
-      "front/PROGRESS.md": "6e21ddc0cde58f844fd7bf028202aca8f2a4b09abf9bc2ea3681ad9570ef4ac2",
+      "front/PROGRESS.md": "ec47aebfedad4ad359f1300917722876ea6030de6ee74e3c700e3cf514b32c74",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "fb411c6b02f83c8c84661ed67b95a1b914dc61be92110e69f58ad4148ffead8c",
+      "front/docs/design-system.md": "90fe891a2a4c7dfdf350840af6988fcc2f856147a387be27067bfccbd5c829e2",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -196,7 +196,7 @@
       "front/components/crefans/BeanBalanceSummary.tsx": "50e45df342c0980ddf9b0eb5353762a843c4a4df3b94adbd0ee6bac181b848bb",
       "front/components/crefans/BeanChargePage.tsx": "4daf9cfd6f90e093627405c17085ca84df621664bd11d129a3408ebe2c143b03",
       "front/components/crefans/BeanContext.tsx": "55502dc6bd10ff84c1d31e4e9e4e63ff967d8f1e85e7e0a175d98188fa4246ed",
-      "front/components/crefans/BeanPages.tsx": "52ce397c0473a5a1e7171d5be0db859be4673354176f57fdf49b10c9fba883cf",
+      "front/components/crefans/BeanPages.tsx": "329832a90d66f3aeac49e042071b6e5726c6169d9f92c77392cf804d18ab8eb9",
       "front/components/crefans/BeanPaymentResultPage.tsx": "b7ccf2c2c6b762d27868c16c2f7743cc9fb6fe5665882a839009762ac5fd09ef",
       "front/components/crefans/BeanWalletPages.tsx": "19f00cfd03be3a44d745c81c08dc46e1c7002a32d53b10bbfccecb20e7bf8a9c",
       "front/components/crefans/BeanWithdrawPage.tsx": "4bd60d0eb92c54b8894fa0dbdde8ffb20acdf390619105f8a9345ca0f01e4884",
@@ -242,10 +242,10 @@
       "front/components/crefans/ServiceLinks.tsx": "489edb4a429f5a6dd06a31f28d6a4084b66ca74ecf41c401154999871bd872b3",
       "front/components/crefans/ServiceShell.tsx": "9324aa2abb666401743d019b713a9faa7d2a793bf64203cb17ad4b6fe6debf92",
       "front/components/crefans/ServiceUI.tsx": "79aca4c0f037b4e4b4e13956642af3b51141b563dd357e92607dbdbdfcd3cd4a",
-      "front/components/crefans/SignInPrompt.tsx": "26beb444986fde6ef6cfae43012d319f914359654efad16bd180fbcebacff72b",
+      "front/components/crefans/SignInPrompt.tsx": "48c0302b3ae9dadd80ed7dc703f6f2ab80e54a0a8cfe175010981a16409eb0b2",
       "front/components/crefans/SignupCompletePage.tsx": "4bb0b3997e38789aecf39747d28d04c03cd0991caef773f4e471d18350ffb887",
       "front/components/crefans/SocialPages.tsx": "d1343999996be176661875461b37053d9e3df0ebcf51ed629f2d8b365406471b",
-      "front/components/crefans/account.module.css": "2e8a1f669069cdb44892caf34038b1294d353111d8a9fc9115f6166a563f1fe3",
+      "front/components/crefans/account.module.css": "5d7f0a9898e96aa496c1e493bb2f591127065625f635d57f9656b229483c896d",
       "front/components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
       "front/components/crefans/beans.module.css": "4a72500deb00eddac87798895c798bd922c287e8a387a832c62d357d7ef1377c",
       "front/components/crefans/brand.module.css": "65d9cc3926d095f6d120bce555e570fff4bbd1bf8068f77da0923501fc1c0da1",
@@ -532,6 +532,7 @@
       "front/e2e/snackbar.spec.ts": "bc060f19a0e7c2a0ac98685246d29340af6696344c0a52de154902f04be8b87e",
       "front/e2e/studio-dashboard.spec.ts": "c37583725b88e7b889fbc9e84a08bbdb0952dc920d58f7899713d60f48807d51",
       "front/e2e/studio-publishing-controls.spec.ts": "e84710550dcec817992acbae678781ad8ebae4e3489825f3dc573f0e639858a5",
+      "front/e2e/tip-login-dialog.spec.ts": "77f8871c0ff8f6f39e88e807726d5b55b5040dc15930e83b3fa3128917ea45c9",
       "front/e2e/ui-hydration.spec.ts": "a0052f8ac2d4a9722b617056f41a43ed42c836eae9bcbb47e1a771c2d991fef7",
       "front/e2e/video-processing-preview.spec.ts": "b85b93e1630bfd1a9e877a48db3a946e4e75d25b4953bb9e3103cd7f658b72e6",
       "front/e2e/withdrawal-guidance.spec.ts": "992ad984c1d5e7b06f4b1613493f9d9fbe575fb1b442e1cc715246c3bf22ddc2",

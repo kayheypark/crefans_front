@@ -3594,3 +3594,11 @@
 - 검증: 후보 컨테이너와 운영 서버 및 맥북 외부 HTTPS에서 GET/HEAD200·text/plain UTF-8, GET3261바이트 원본 SHA4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905 일치. 피드·탐색·API상태·관리자로그인·가이드5경로200. 콩/결제·계정 데이터 변경 없음. 이전19공식 링크 검증 유효; 이번 작업은 검색 순위나 AI 수집 결과를 증명하지 않음.
 - 실패/한계: 로컬 Docker의 이전 태그 이름 조회 실패로 실제 운영 이미지의 정확한 ID/레이어를 검증한 서버에서 네트워크 없는 단일COPY 빌드 수행. 후보 통과 후 배포. 기존 결제 묶음의 전체 check:docs 증거 만료는 별도 미해결이며 새 파일 목록·계약·링크 검사 오류0과 구분. 전체 앱 회귀/실금융 시험은 정적 파일 변경 범위 밖.
 - 증거 `/Users/ethan/repository/crefans_front-llms/.local/llms-deploy-20261102/`: baseline.json, dev-verification.json, image-verification.json, production-verification.json, external-verification.json, deployment-command.json 및 실제 실행 스크립트/로그. 운영 https://crefans.com/llms.txt 정상 제공. 다음은 통상 서비스/가이드 변경 때 파일 안내를 함께 검토; Search Console 추가 제출은 불필요. AGENTS 불변 규약 유지.
+
+
+## 2026-11-03 후원 로그인 모달 불필요한 세로 스크롤 수정 — 미배포
+- 최신 origin/prod15d611d에서 feat/tip-login-modal-scroll 분기. 기존 랜딩·짧은 소개 통합 브랜치는 보존. 합격 조건: PC/모바일 일반 높이에서 불필요한 내부 스크롤 없음, 낮은 화면에서 버튼 접근 가능, 페이지용 로그인 안내·2열 푸터·로그인 복귀 경로 유지.
+- 원인: TipButton의 Dialog 안에 페이지용 SignInPrompt가 포함되어 min-height:calc(100svh - 180px)와 모바일 푸터까지 적용. PC1440×900에서 dialog clientHeight765/scrollHeight832로 재현. SignInPrompt의 명시적 dialog 변형은 최소 높이·페이지 푸터를 제외하고 기존88px 자물쇠·로그인/가입 버튼을 재사용. 후원 안내 문구와 내부 제목(h3) 적용. 공통 Dialog의 overflow:auto는 유지.
+- 수정 후 동일PC clientHeight/scrollHeight375/375. Chromium/WebKit 각1440×900,1280×720,390×844에서 게시물·프로필 후원 모달 확인.844×320에서는 필요한 스크롤과 로그인 버튼 접근/이동 유지. 기존 로그인 페이지 모바일320/390/767·PC·service API대역 회귀10건 + 모달8건=18건 통과. 계정 단위23건·타입·계층 검사 통과, PC 캡처 육안 확인.
+- 최초 브라우저 실행의3건은 Safari 마우스 클릭이 버튼을 포커스한다고 가정한 검사에서 실패. MDN button Clicking and focus(https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#clicking_and_focus, 확인2026-11-03)의 브라우저별 차이를 확인하고 키보드 포커스 복귀는 실제 Enter 입력으로 검증해8건 재통과. 제품 포커스 동작 변경 없음. 최초 실패 결과도 보존.
+- 증거 .local/tip-login-scroll-20261103/{before.json,after.json,before.png,after.png,browser-initial.log,browser.log,results-initial.json,results.json,unit.log,typecheck.log,layers.log}, 공개 요약 docs/audit/tip-login-scroll-20261103.json. 로컬 UI·API대역 검사이며 실제계정·후원결제·물리iPhone·운영배포는 실행하지 않음. 다음: 사용자 배포 요청 시 dev 통합 검증→prod 승격→프론트 배포. AGENTS 프로젝트·스택·PROGRESS 선확인·공용UI·브랜치 불변 규약 유지.
