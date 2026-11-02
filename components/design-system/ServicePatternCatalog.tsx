@@ -1,4 +1,5 @@
 'use client';
+import {TypedConfirmCatalog} from './TypedConfirmCatalog';
 import {StudioDashboardExample} from './StudioDashboardExample';
 import {SignInPrompt} from '@/components/crefans/SignInPrompt';
 import {HeaderAccountMenu} from '@/components/crefans/HeaderAccountMenu';
@@ -105,7 +106,7 @@ export function ServicePatternCatalog(){
  const offerData={...data,creatorPlans:{...data.creatorPlans,[post.creatorId]:offerState==='empty'?[]:offerPlans.map(item=>({...item,image:offerState==='noImage'?undefined:offerState==='imageError'?'/missing-membership-image.png':item.image,available:offerState!=='unavailable'}))}};
  const postModel:PostCardModel={data:offerData,basePath:'/preview',canAccess:()=>!locked,liked,saved,toggleLike:id=>setLiked(value=>value.includes(id)?value.filter(item=>item!==id):[...value,id]),toggleSave:id=>setSaved(value=>value.includes(id)?value.filter(item=>item!==id):[...value,id]),likeCounts:{[post.id]:post.likes+(liked.includes(post.id)?1:0)},commentCounts:{}};
  return <>
-  <VideoProcessingCatalog/>
+  <VideoProcessingCatalog/><TypedConfirmCatalog/>
   <section className={s.section}><div className={s.sectionHeading}><h2>서비스에서 사용하는 컴포넌트</h2><p>목업과 같은 컴포넌트에 예시 데이터를 주입했습니다. 여기서 확인한 디자인이 실제 목업 화면에도 적용됩니다.</p></div>
    <div className={s.patternGrid}><div className={s.patternExample}><h3>팔로우 버튼</h3><p className={s.muted}>탐색 카드·프로필·팔로잉 목록이 같은 컴포넌트를 씁니다. 팔로우 중일 때 누르면 해제 확인 모달이 먼저 뜹니다.</p><div className={s.row}><FollowButton following={following} name={data.creators[1].name} onToggle={()=>setFollowing(!following)}/><FollowButton following={false} name={data.creators[1].name} onToggle={()=>{}} disabled/></div></div><div className={s.patternExample}><h3>크리에이터 카드 · 탐색</h3><CreatorCard creator={data.creators[1]} href="/preview/creator/jiwoo" following={following} onFollow={()=>setFollowing(value=>!value)}/></div><div className={s.patternExample}><h3>멤버십 카드 · 구독</h3><MembershipPlanCard plan={data.plans.find(item=>item.id===plan)||data.plans[0]} selected onSelect={()=>setDialog('선택한 멤버십')}/><div style={{marginTop:20}}><SelectField label="멤버십 데이터 변경" options={data.plans.map(item=>({value:item.id,label:item.name}))} value={plan} onChange={setPlan}/></div></div></div>
   </section>

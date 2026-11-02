@@ -10,7 +10,12 @@ test('studio payout notes follow a creator\'s own terms and fall back per field'
 });
 test('membership price hint uses the creator\'s own fee with the server rounding',()=>{
  const none={platformFeeBps:0,settlementHoldDays:null,beanWithdrawalFeeBps:null,minimumWithdrawalKrw:null};
- assert.equal(membershipPriceHint(9900,none),'결제 시 총 공제율 0%가 차감되어 수익으로 기록됩니다. 원천징수가 필요하면 크레팬스가 부담합니다. 예상 수익 9,900원 (수수료 0원)');
+ assert.equal(membershipPriceHint(9900,none),'나의 공제율: 0% · 예상 수익: 9,900원 / 결제 1건');
  assert.deepEqual(membershipRevenuePreview(9999,{...none,platformFeeBps:1550}),{fee:1549,net:8450});
- assert.deepEqual(membershipRevenuePreview(9900),{fee:1980,net:7920});assert.match(membershipPriceHint(9900,null),/총 공제율 20%.*예상 수익 7,920원/);
+ assert.equal(membershipRevenuePreview(9900),null);assert.equal(membershipPriceHint(9900,null),'나의 공제율: 확인 필요');
+ assert.equal(membershipPriceHint(10000,{...none,platformFeeBps:1550}),'나의 공제율: 15.5% · 예상 수익: 8,450원 / 결제 1건');
+ for(const bps of [null,undefined,-1,10001,15.5,NaN])assert.equal(membershipRevenuePreview(10000,{...none,platformFeeBps:bps}),null);
+ for(const price of [0,-1,NaN,1.5])assert.equal(membershipRevenuePreview(price,none),null);
+ assert.equal(membershipPriceHint(0,none),'나의 공제율: 0%');
+ assert.deepEqual(membershipRevenuePreview(9900,{...none,platformFeeBps:10000}),{fee:9900,net:0});
 });
