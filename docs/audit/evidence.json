@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T21:32:43.939798+00:00",
+  "checkedAt": "2026-11-02T22:15:16.843678+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,7 +18,7 @@
     "models": 87,
     "enums": 15,
     "migrations": 48,
-    "localMarkdownTargets": 450,
+    "localMarkdownTargets": 451,
     "externalInlineLinksNotFetched": 373
   },
   "negativeControls": [
@@ -30,25 +30,25 @@
   ],
   "repositories": {
     "front": {
-      "head": "4bae3f8fd744b6df42f827db44daa6971d7f0f64",
-      "branch": "feat/event-banners-refresh",
+      "head": "5458eb873377d8e36ac27e8fa83ed901e2303ef2",
+      "branch": "feat/events-deployment-evidence",
       "dirty": true
     },
     "server": {
-      "head": "64a08fedcdbbaca2af445f647423cf6a58c4a50b",
-      "branch": "feat/founding-badge-claim",
+      "head": "fa0c04568bf06d32cc8d931b4e8c37c3c93beaf0",
+      "branch": "feat/events-deployment-evidence",
       "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "c6d68ccbba55128de85229a70134a0ced507d70284b5825682f8aeb597b25446",
-      "front/PROGRESS.md": "14e42da471ff5ae03142cdec0fc04fd6fa5046d4383d681cf5cef0c0b2b2809d",
+      "front/PROGRESS.md": "56146ebf29f5393ed9698fab4a3af6d3fbe40c3e913f151964dd5bbc996bc8d2",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "57ea7a061c743c2335ff1db4c6df0f1528d2a1b6c4292cbbf2600028ad696a08",
+      "front/docs/design-system.md": "2ce73d76dc5c85d4f34725abe66ee2d0f79560b5d4362e2a6b20ed6726f11809",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -61,7 +61,7 @@
       "front/docs/memo.md": "4ddfd1bd5f83416b01f89c33f47a781ee2b38e4c97aea11ea7ed5246a75ead4a",
       "front/docs/nice-identity-inquiry.md": "0cf228858af8de1bab85488fc191423eedde6e74ef19b522e297eb8f28f93c12",
       "front/docs/prd.md": "b58ae1340d22a893c8796ffa956fd3d9c9623c02fcd2d4a247a633d8c7ece667",
-      "front/docs/preview-pages.md": "2ef8e05f254721aab3113538fe8a7fab4d98a5775a0c46c755299d5bedfe1bde",
+      "front/docs/preview-pages.md": "00784b6adaed22b2c0568f01accd5d52090947724476a0d6a4d89ad49736512b",
       "front/docs/release-test-scenarios.md": "6540e50c5c5d0bbd5f56dee65ad14b83b7612de3b3dc6080e78d352203136699",
       "front/docs/security-review-20261029.md": "326acc26a21472448126486b2ae3e477b7580b45b3105688bbe871f743c39caa",
       "front/docs/service-api-binding.md": "d503338bd9c972d135d6c1c89e3510157e6c69a5ff372213ae30de56fbb84ac4",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "3307717d6481eac7417744f2333c31bdad7cd0163b6f11913d664b3a37be244c",
-      "server/PROGRESS.md": "84fd8b7fc5084d562e0bd0e0476489dac1942f3187f709b4dd70ce6fc520e91e",
+      "server/PROGRESS.md": "6b6d46c8761a1d28ebe6055df4a01bdf31c49349b03b8eae81d1110dc891fd9b",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -120,7 +120,7 @@
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "2e8a1af6f55d73c95ea036902e7e1c0c943fa321b4deed5b561e8f5f75818690"
+      "audit/manifest": "62f8f7b8ff14e1bcd29eee5cf410314d33710ed8512f73235b92b2becb8d717e"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
@@ -849,6 +849,7 @@
       "server/docs/contracts/creator-agreement-verification-20261030.json": "23cc5cda21913b6ec3262317197825637a70046a486578aec9cc25e8e35d140e",
       "server/docs/contracts/layout/contract.css": "176e40c6058886142552e6cd111b6219afe904e3d7bfe9cf4cdb4a903b4397da",
       "server/docs/contracts/verify-contract-pdf.py": "ba1df728e8e8f02eec12342ce89aa3a85b7e791e53facc1ecfac55b31fa09747",
+      "server/docs/events-deployment-20261103.json": "0d7e2d45323360ad9994e81efcb27096c581f98cc4403d6c7e750b08f8caa1fd",
       "server/docs/founding-badge-claim-20261103.json": "562ad48724b61fa86be54177cdb55990b06265c5554a2425b4e21a7d6e30d053",
       "server/docs/home-ssh-access-20261024.json": "e617e93a468d3a77e5baf40777014f251793148901866230b96ff47c5054e4bb",
       "server/docs/logging-implementation-20261022.json": "6435e6dff32feddc6537c0bdba18af2cad3f855f3d21bb87e4695ebf9b3be1d5",
