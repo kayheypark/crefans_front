@@ -100,6 +100,11 @@
 - 이전 API 대역 회귀에 더해 실제 격리 API/DB 세션으로 로그인→사진 업로드/게시물 연결→내 프로필 피드/미디어→상세→공개 프로필→재진입/새로고침 시험을 추가했다. 서버는 현재prod d4238d9와 동일한 crefans_server-membership-release 사용. 운영 데이터/실결제/실SMTP/배포는 수행하지 않았다.
 - 검증: npm run check(계층·타입·516단위), 운영 빌드(35페이지), 브라우저14건(PC7·iPhone13 WebKit7) 통과. 브라우저 중 실제 API/격리DB2건·API대역12건이며 원래prod코드 대조검사3실패→수정복원3통과. 사진·영상 썸네일/유형별 개수, 저장·좋아요 분리, 오류 안내, 더보기 작성자 필터 확인. 최초 모바일 시험은 전체 문서 전환 중 지갑/후원 요청 취소로 런타임 오류를 탐지했으며 요청 완료 후 이동하도록 시험만 보완, 오류 감지는 유지하고 최종14통과. 물리 iPhone·운영 로그인 검증은 미실행.
 - 증거: [이번 검증 기록](docs/audit/my-profile-current-20261103.json), 상세 `.local/my-profile-current-20261103/`. 최신 멤버십 수정 보존, 서버 소스·DB 구조 변경 없음. 다음: 배포 요청 시 이 feature를 dev→prod에 통합하고 운영 소스/화면을 대조한다. 원래 31a3c92/77555b4를 다시 중복 적용하지 않는다.
+## 2026-11-03 예약 핸들 관리 문서 계약 — 로컬 완료·미배포
+- origin/prod88237ff → feat/reserved-handles-docs. 서버 feat/reserved-handles(d4238d9 기준)·운영 콘솔 feat/reserved-handles(602cecf 기준)의 짝 문서 작업. 팬 프론트 실행 코드 변경 없음.
+- 승인된103개 초기 예약·후보/예약/삭제 상태·기존 보유자 유지·retired_handles 독립 보호·공유 잠금·5개 API·권한/감사를 서버 문서 및 코드와 대조. 최초 문서 검사에서 API표 형식으로 신규5경로가 누락 검출되어 Method/경로/계약 형식으로 정정, 이후 예상된 소스/문서 hash 만료만 남음을 확인했다.
+- docs:contracts는 새5라우트·2모델·1migration을 포함하도록 서버 current-contracts.md를 재생성. manifest 검토 근거와 문서 snapshot을 갱신한다. docs:record는 snapshot-only이며 제품 검증 증거와 구분한다. 검증 결과는 docs/audit/reserved-handles-20261103.json 및 .local/reserved-handles-20261103/에 보존한다.
+- 실제 제품 검증: 서버24, 콘솔 단위11/PC·모바일4/배포용 빌드 통과. 차단 오류 주입6실패 및 복원24통과. 운영·실기기 미실행. 서버/콘솔 배포 요청 시 이 문서 계약도 dev→prod 순서로 통합한다. 다른 미배포 프론트 기능은 포함하지 않는다.
 
 ## 2026-11-03 멤버십 이미지·삭제 확인·공제율 예상 수익 — 운영 배포 완료
 - 사용자 “다되면 배포” 승인. feature→dev 통합(358be1c)→prod(73fbc85), 서버 dev fefc3ee→prod d99e010. 실제 배포 소스는 이 두 prod 커밋이며 이후 배포 증거 커밋은 문서만 변경한다. 별도 미배포 feature는 포함하지 않았다.
