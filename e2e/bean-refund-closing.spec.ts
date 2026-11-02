@@ -6,7 +6,7 @@ async function studioNav(page:Page,path:string,group='수익,정산,출금 관�
  await expect(async()=>{await page.locator(`a[href="/preview/studio/${path}"]:visible`).first().click({timeout:3000});await expect(page).toHaveURL(new RegExp(`/preview/studio/${path}$`),{timeout:3000});}).toPass();}
 
 test('콩 환불: 7일 이내 새 충전은 전액, 지난 충전은 10% 공제 후 환불하고 내역에 표시',async({page})=>{
- await page.goto('/preview/beans/charge');await page.getByText('100콩',{exact:true}).click();await page.getByRole('button',{name:'충전 결제하기',exact:true}).click();
+ await page.goto('/preview/beans/charge');await page.getByText('100콩',{exact:true}).click();await page.getByRole('checkbox',{name:/결제에 동의합니다/}).check();await page.getByRole('button',{name:'충전 결제하기',exact:true}).click();
  await expect(page.getByRole('heading',{name:'콩 충전 완료',exact:true})).toBeVisible();await page.getByRole('link',{name:'내 콩 지갑 보기',exact:true}).click();await page.getByRole('link',{name:'충전 내역'}).click();
  const refundable=page.locator('li').filter({has:page.getByRole('button',{name:'환불 신청',exact:true})});
  await refundable.first().getByRole('button',{name:'환불 신청',exact:true}).click();let dialog=page.getByRole('dialog');

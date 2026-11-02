@@ -14,6 +14,8 @@ import {SignInPrompt} from './SignInPrompt';
 import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
 import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import {BackButton} from './BackButton';
+import {PaymentTerms} from './PaymentTerms';
+import {PAYMENT_TERMS} from '@/lib/crefans/payment-terms';
 import s from './beans.module.css';
 
 const quantities=[10,30,50,100,300,500,1000,5000,10000] as const;
@@ -24,7 +26,7 @@ const won=(n:number)=>n.toLocaleString('ko-KR')+'원';
 export function BeanChargePage(){
   const model=useBeans(),group=useId();
   const [quantity,setQuantity]=useState(0),[order,setOrder]=useState<BeanCharge|null>(null);
-  const [pending,setPending]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
+  const [pending,setPending]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState(''),[agreed,setAgreed]=useState(false);
   const key=useRef(''),busy=useRef(false);
   // Loading rule: the balance stays (blank before the first response); a small spinner only after 1s.
   const slow=useDelayedLoading(!!model&&(model.loading||(!model.wallet&&!model.error)));
@@ -33,7 +35,7 @@ export function BeanChargePage(){
   const ready=quantities.some(value=>value===quantity);
   const available=model.wallet?.spendableBeans??(model.wallet?.accounts||[]).filter(a=>['purchased','promotion'].includes(a.bucket)).reduce((sum,a)=>sum+Number(a.balance),0);
   async function pay(){
-    if(busy.current||!model||!ready)return;
+    if(busy.current||!model||!ready||!agreed)return;
     busy.current=true;setPending(true);setError('');setNotice('');
     try{
       let current=order;
@@ -44,7 +46,7 @@ export function BeanChargePage(){
         current=result.data;setOrder(current);
       }
       bindTipCharge(model.basePath,current.id);
-      const result=await model.payCharge(current.id);
+      const result=await model.payCharge(current.id,PAYMENT_TERMS.version);
       if(!result.success)setError(result.errorMessage);
       else{
         setNotice(result.data.message);await model.refresh();
@@ -63,7 +65,8 @@ export function BeanChargePage(){
       <dl className={s.chargeSummary}><div><dt>충전 수량</dt><dd>{ready?beans(quantity):'선택해주세요'}</dd></div><div><dt>결제 금액 (VAT 포함)</dt><dd>{won(order?.amount??quantity*beanChargeKrwPerBean)}</dd></div></dl>
       {(error||model.error)&&<p role="alert">{error||model.error}</p>}
       {notice&&<p role="status">{notice} <Link href={`${model.basePath}/beans`}>내 콩 지갑 보기</Link></p>}
-      <Action className={s.chargeSubmit} type="submit" disabled={pending||!ready}>{pending?'결제 준비 중…':order?'같은 충전 주문 다시 결제':'충전 결제하기'}</Action>
+      {ready&&<PaymentTerms basePath={model.basePath} agreed={agreed} onAgree={setAgreed} disabled={pending} items={[{label:'상품',value:`${beans(order?.quantity??quantity)} 충전`},{label:'결제 금액',value:`${won(order?.amount??quantity*beanChargeKrwPerBean)} (VAT 포함)`},{label:'사용처',value:'크리에이터 후원에만 쓸 수 있으며 멤버십·콘텐츠 이용권이 아닙니다.'},{label:'환불',value:`${beanRefundNotes[0]} ${beanRefundNotes[1]} ${beanRefundNotes[2]}`},{label:'유효기간',value:beanRefundNotes[3]}]}/>}
+      <Action className={s.chargeSubmit} type="submit" disabled={pending||!ready||!agreed}>{pending?'결제 준비 중…':order?'같은 충전 주문 다시 결제':'충전 결제하기'}</Action>
     </form>
     <PolicyNotes title="환불·유효기간" notes={beanRefundNotes}/>
   </section>;
