@@ -3462,3 +3462,10 @@
 - 운영 Chromium PC·모바일 WebKit 비로그인5경로/목업대시보드 각6개=12사례 및 잠금원본SHA 일치. 실제 사용자 Chrome의 로그인된 상단메뉴에서 내프로필·설정·로그아웃 직접 확인·캡처, 사용중 계정을 실제로 로그아웃하지 않음. 실제 제공JS/CSS57개가 테스트이미지와 SHA일치. 모바일실물·실결제/출금은 범위 밖.
 - 가이드 별도복구 완료: prod087e4ff 기준Pagefind메타1파일만 변경, 101파일유지·운영102파일SHA일치. PC/모바일 검색4종·결과이동·빈결과12사례, 실제Chrome 결제22결과 확인. guide PROGRESS와 .local/search-20261102/ 참조.
 - 증거 .local/pc-account-20261102/{verification.json,builds.json,source-delta.json,images.json,deployment-command.json,runtime-after.json,production-smoke.json,served-assets.json,production-account-menu.jpg} 및 -image/-ready 테스트로그·캡처. 기존 미배포 후보 이미지1개와 완료한전용서버 정리, 로컬/운영 최신3이미지·명시보호태그 유지(retention-*-apply.json). 이전 운영 service-footer 복구이미지/설정 보존. AGENTS 불변규약 유지.
+
+## 2026-11-02 미배포 사항 재점검 — 대시보드·로그인 요구 화면 반영 확인
+- 사용자 요청: 미배포 변경 전부 확인·배포, 특히 대시보드와 로그인 요구 디자인. 최신 origin/prod12cc441에서 feat/deployment-audit-20261102 분기. 합격 기준은 최신 승인 제품 소스와 운영 이미지 일치, 선택한 로그인 자물쇠의 실제 제공 파일 일치, 실제 로그인 대시보드의 빠른 작업6개와 PC/모바일 배치 확인이다.
+- 프론트733·서버247·콘솔83개 동결 소스와 현재 저장소 SHA-256 전부 일치. 각 운영 이미지의 RootFS 레이어도 배포 증거와 일치, 6서비스 실행/OOM없음 확인. 가이드 본문·정적 원본/빌드 설정57개 일치, 실제 배포102파일 동일. 운영 프론트 JS/CSS57개 및 선택한 로그인02 자물쇠 PNG도 기존 검증 산출물과 동일하다. 누락된 승인 제품 변경이 없어 새 빌드·서비스 재시작은 수행하지 않았다.
+- 실제 Chrome 로그인 계정으로 /service/studio 확인: 새 게시물 작성, 게시물·댓글·메시지·출금 신청·콩 후원·출금·크리에이터 설정과 각 실제 경로. PC/390px에서 빠른 작업2열3행, 모바일 가로넘침없음. 임시 viewport 복원. 실제 로그인 데이터로 표시했으며 게시물·금융 변경은 수행하지 않음. 로그인 요구 화면은 직전 PC/WebKit 운영12사례와 현재 서빙 파일 동일성으로 재확인; 실물 iPhone 시험은 아님.
+- 제외: 런타임 미참조 원본 디자인3개(inicis/reference PNG2개, logo_icon.psd), 대체 구현이 이미 반영된 과거 signup-success/video-thumb 보존 작업트리, 가이드 기존 PROGRESS 미커밋30줄. 금융 개방 스위치·미확정 약관/가격 정책을 배포 요청만으로 변경하지 않음. 프론트·서버·콘솔 dev/prod 원격 일치, 가이드 로컬 dev/prod 일치(원격 없음).
+- 증거 .local/deployment-audit-20261102/{audit.py,audit.log,audit.json,dashboard-live.json,dashboard-production-pc.jpg,dashboard-production-mobile.jpg}. audit.py exit0, 총1120개 배포 관련 소스 대조. 기존 제품 검증492개/이미지 브라우저27사례는 동일 제품 소스이므로 유효, 새로 재실행했다고 주장하지 않는다. 이번 완료 상태는 승인·구현된 변경 모두 운영 반영이며 추가 배포할 제품 파일 없음. AGENTS 불변 규약 유지, 이 기록도 dev→prod로 통합한다.
