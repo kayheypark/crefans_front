@@ -26,7 +26,7 @@ export const membershipPayoutNotes=membershipPayoutNotesFor();
 export function beanPayoutNotesFor(terms?:CreatorTerms|null){const {beanFee,minimum}=pick(terms);return [
   '후원받은 일반콩과 프로모션콩을 출금할 수 있습니다.',
   `후원받은 콩은 후원 후 ${beanTipHoldDays}일 보류가 끝나야 출금할 수 있습니다. 일반콩은 실제 입금 확인도 필요하고, 프로모션콩은 지급 출처를 확인합니다.`,
-  '직접 충전한 콩과 운영자가 지급한 프로모션콩은 출금할 수 없습니다.',
+  '직접 충전한 콩과 운영자·이벤트·친구 초대 보상 등으로 무상 지급받은 프로모션콩은 출금할 수 없습니다.',
   `${Math.ceil(minimum/100).toLocaleString('ko-KR')}콩(총액 ${won(minimum)})부터 신청하며 수수료는 출금 시 ${beanFee}%입니다.`,
   payoutScheduleNote,
   payoutTaxNote,
