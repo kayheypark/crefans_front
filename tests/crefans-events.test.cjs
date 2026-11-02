@@ -18,13 +18,15 @@ function mount(Component,props){let tree;act(()=>{tree=create(el(Component,props
 const close=tree=>act(()=>tree.unmount());
 test('beta appreciation content preserves the approved four rewards without invented dates',()=>{
  assert.equal(serviceEvents.length,4);
+ assert.ok(serviceEvents.every(event=>event.campaignTitle==='크레팬스 오픈 기념 이벤트'));
+ assert.doesNotMatch(JSON.stringify(serviceEvents),/원년멤버/);
  assert.equal(new Set(serviceEvents.map(event=>event.id)).size,4);
  assert.ok(serviceEvents.every(event=>event.rewards.length===1));
  assert.deepEqual(serviceEvents.flatMap(event=>event.rewards).map(({audience,title,details})=>({audience,title,details})),[
   {audience:'유용한 피드백 제공자 최대 3명',title:'네이버페이\n1만원 상품권',details:['유용한 피드백을 주신 분 중 최대 3명에게 드립니다.']},
   {audience:'크리에이터 3명',title:'주목할 크리에이터\n광고상품 30일',details:['크리에이터 3명에게 드립니다.','주목할 크리에이터 광고상품 이용권을 제공합니다.']},
   {audience:'전체 회원 · 계정당 1회',title:'프로모션 100콩',details:['전체 회원에게 계정당 한 번, 받기 버튼으로 즉시 지급합니다.','프로모션 콩은 후원받은 사람이 출금할 수 있습니다.']},
-  {audience:'전체 회원 · 계정당 1회',title:'원년멤버 한정판 뱃지',details:['크레팬스 전체 회원, 받기 버튼으로 원년멤버 배지를 받아보세요.','받기 버튼을 누르면 프로필에 바로 표시됩니다.','표시 여부는 직접 선택할 수 있습니다.']},
+  {audience:'전체 회원 · 계정당 1회',title:'오픈 기념 한정판 배지',details:['크레팬스 전체 회원, 받기 버튼으로 오픈 기념 배지를 받아보세요.','받기 버튼을 누르면 프로필에 바로 표시됩니다.','표시 여부는 직접 선택할 수 있습니다.']},
  ]);
  assert.ok(serviceEvents.filter(event=>!['promotion-beans','founding-badge'].includes(event.id)).every(event=>event.schedule.includes('미정')));
  assert.match(serviceEvents[3].schedule,/받기 버튼.*즉시 지급/);
@@ -104,7 +106,7 @@ test('legacy omnibus links redirect to the four-event list and invalid IDs remai
   for(const event of serviceEvents){
    const props={params:Promise.resolve({screen:['events',event.id]})};
    assert.ok(await Page(props));// Service event pages are public and use the share title format (lib/seo, 2026-11-01); preview keeps its plain title.
-   assert.equal((await generateMetadata(props)).title,basePath==='/service'?`${event.title} | 크레팬스`:`${event.title} · crefans`);
+   assert.equal((await generateMetadata(props)).title,`${event.title} | 크레팬스(Crefans)`);
   }
  }
 });

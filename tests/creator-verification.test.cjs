@@ -27,7 +27,7 @@ test('founding membership is explicit and independent of creator verification',(
  for(const isVerified of [false,true]){
   const view=renderName({name:'참여자',isFoundingMember:true,isVerified});
   const icons=view.root.findAllByType('img');
-  assert.deepEqual(icons.map(icon=>icon.props.alt),isVerified?['인증 크리에이터','원년멤버 한정판 배지']:['원년멤버 한정판 배지']);
+  assert.deepEqual(icons.map(icon=>icon.props.alt),isVerified?['인증 크리에이터','오픈 기념 한정판 배지']:['오픈 기념 한정판 배지']);
   assert.ok(icons.at(-1).props.src.includes('badge.webp'));view.unmount();
  }
 });
@@ -52,9 +52,9 @@ test('preview badge recipients match their comment and profile identities withou
 
 test('on the profile each badge is a button that shows its short meaning when clicked; elsewhere badges stay plain images',()=>{
  let view;act(()=>{view=create(React.createElement(CreatorName,{person:{name:'원년 작가',isVerified:true,isFoundingMember:true},explain:true}));});
- const buttons=view.root.findAllByType('button');assert.deepEqual(buttons.map(b=>b.props['aria-label']),['인증 크리에이터 배지 설명','원년멤버 배지 설명']);
+ const buttons=view.root.findAllByType('button');assert.deepEqual(buttons.map(b=>b.props['aria-label']),['인증 크리에이터 배지 설명','오픈 기념 배지 설명']);
  assert.equal(view.root.findAllByProps({role:'tooltip'}).length,0);
- act(()=>buttons[1].props.onClick());const tip=view.root.findByProps({role:'tooltip'});assert.equal(tip.children.join(''),'원년멤버: 크레팬스 원년멤버 기념 배지예요.');
+ act(()=>buttons[1].props.onClick());const tip=view.root.findByProps({role:'tooltip'});assert.equal(tip.children.join(''),'크레팬스 오픈을 기념하는 배지예요.');
  act(()=>buttons[1].props.onClick());assert.equal(view.root.findAllByProps({role:'tooltip'}).length,0,'a second click closes it');
  act(()=>buttons[0].props.onClick());assert.match(view.root.findByProps({role:'tooltip'}).children.join(''),/운영자가 확인한 크리에이터/);
  view.unmount();
