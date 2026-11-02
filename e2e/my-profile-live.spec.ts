@@ -1,0 +1,48 @@
+import {test,expect} from './fixtures';
+import {readFile} from 'node:fs/promises';
+import type {Request} from '@playwright/test';
+
+test('actual creator session shows the same owned post and media on my profile and public profile',async({page,scenario,control},info)=>{
+ const pending=new Set<Request>();
+ page.on('request',request=>{if(new URL(request.url()).pathname.startsWith('/api/v1/'))pending.add(request);});
+ page.on('requestfinished',request=>pending.delete(request));
+ page.on('requestfailed',request=>pending.delete(request));
+ // Full document navigations must not abort the previous page's wallet/bootstrap requests.
+ const finishRequests=()=>expect.poll(()=>pending.size,{message:'API requests finish before document navigation'}).toBe(0);
+ await page.goto('/service/login');
+ await page.getByLabel('이메일',{exact:true}).fill(scenario.users.find(u=>u.role==='creator')!.email);
+ await page.getByLabel('비밀번호',{exact:true}).fill(scenario.password);
+ await page.getByRole('button',{name:'로그인',exact:true}).click();
+ await expect(page).toHaveURL('/service/feed');
+ const upload=await page.request.post('/api/v1/media',{headers:{Origin:'http://127.0.0.1:3011'},multipart:{file:{name:'profile-qa.png',mimeType:'image/png',buffer:await readFile('public/brand/featured-creators-v1.png')}}});
+ expect(upload.ok()).toBeTruthy();const media=(await upload.json()).data;
+ await control('attach-media',{mediaId:media.id});
+ await finishRequests();
+ const ownPage=page.waitForResponse(r=>{const url=new URL(r.url());return url.pathname==='/api/v1/posts'&&url.searchParams.get('creatorId')===scenario.creator;});
+ await page.goto('/service/me');
+ const result=await (await ownPage).json();expect(result.success).toBe(true);expect(result.data.posts.map((p:{id:string})=>p.id)).toEqual([scenario.postId]);
+ await expect(page.getByRole('button',{name:'피드1',exact:true})).toBeVisible();
+ await expect(page.getByRole('button',{name:'미디어1',exact:true})).toBeVisible();
+ await expect(page.getByRole('heading',{name:'E2E 전용 게시물',exact:true})).toBeVisible();
+ await expect(page.getByText(scenario.privateBody,{exact:true})).toBeVisible();
+ await expect(page.getByText('아직 게시물이 없어요',{exact:true})).toHaveCount(0);
+ await page.screenshot({path:info.outputPath('actual-owner-feed.png'),fullPage:true});
+ await page.getByRole('button',{name:'미디어1',exact:true}).click();
+ const tile=page.getByRole('link',{name:'E2E 전용 게시물 · 사진 1장, 동영상 0개',exact:true});
+ await expect(tile).toBeVisible();await expect.poll(()=>tile.locator('img').evaluate((el:HTMLImageElement)=>el.naturalWidth)).toBeGreaterThan(0);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await page.screenshot({path:info.outputPath('actual-owner-media.png'),fullPage:true});
+ await tile.click();await expect(page).toHaveURL('/service/post/'+scenario.postId);
+ await expect(page.getByText(scenario.privateBody,{exact:true})).toBeVisible();
+ await finishRequests();
+ await page.goto('/service/creator/'+scenario.creator);
+ await expect(page.getByRole('button',{name:'피드1',exact:true})).toBeVisible();
+ await expect(page.getByRole('button',{name:'미디어1',exact:true})).toBeVisible();
+ await finishRequests();
+ await page.goto('/service/me');
+ await expect(page.getByRole('button',{name:'피드1',exact:true})).toBeVisible();
+ await finishRequests();await page.reload();
+ await expect(page.getByRole('button',{name:'피드1',exact:true})).toBeVisible();
+ await expect(page.getByRole('heading',{name:'E2E 전용 게시물',exact:true})).toBeVisible();
+ await finishRequests();
+});

@@ -1,0 +1,68 @@
+{
+  "checkedAt": "2026-11-02T14:01:06.342879+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-profile-posts",
+  "branch": "feat/my-profile-posts",
+  "baseCommit": "31a3c923da0382996d36804d10efea038c9e41e4",
+  "remoteProd": "feef4226d1b92441e762d11d85a6caeb4d4f377a",
+  "scope": [
+    "Own and creator profiles; shared preview/service UI",
+    "Exclude text-only posts including explicit empty media arrays",
+    "First photo or paused video frame; separate icon counts; detail navigation",
+    "Keep access/processing placeholders and pagination; legacy image fallback"
+  ],
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "result": "layers + TypeScript + 509 tests pass",
+      "log": ".local/profile-media-tab-20261102/check-retest.log"
+    },
+    {
+      "command": "npx playwright test --config .local/profile-media-tab-20261102/playwright.config.ts",
+      "exitCode": 0,
+      "result": "14 pass: PC Chromium (6), mobile Chromium (6), mobile WebKit (2); API responses stubbed, local photo/video files decoded",
+      "log": ".local/profile-media-tab-20261102/browser-retest.log"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "result": "35 static pages generated; Next production build pass",
+      "log": ".local/profile-media-tab-20261102/build.log"
+    },
+    {
+      "command": "node --test tests/profile-media-tab.test.cjs (HEAD profile components temporarily restored)",
+      "exitCode": 1,
+      "result": "2 profile tests fail, standalone tile test passes; current files restored in finally",
+      "log": ".local/profile-media-tab-20261102/negative.log"
+    }
+  ],
+  "visualReview": [
+    "PC1440 creator grid; mobile WebKit390 own grid: photo and decoded video frame, mixed-media counts, no badge clipping",
+    "No locked/processing file requests; runtime errors absent in final browser tests"
+  ],
+  "initialFailures": [
+    "One existing unit assertion required the new count-inclusive accessibility label; final 509 pass",
+    "First browser run: two outdated link selectors and six missing detail API stubs; final 14 pass"
+  ],
+  "sourceSha256": {
+    "components/crefans/AccountPages.tsx": "70719a980013517dba9b0e4925ba29910d5f517d74a127067be7217008f375cd",
+    "components/crefans/CreatorPages.tsx": "08b04dc70f12b3506a950af799771f09cf24a73cea2094124c01a86eae689661",
+    "components/crefans/SocialPages.tsx": "530c3d8b3e60fb8a82704cd48dd5092befa72d2ee17580848a166080d04ab4cd",
+    "components/crefans/PostMediaTile.tsx": "7d17320f3be579de68a3f898cbcf01cf45223df9810ddad053f42cf4f981d44a",
+    "components/crefans/MediaSummary.tsx": "1761d1b6cfca5b7c144c24b7a86b99a6c4a66c3b357c925a332689a5cd4d5600",
+    "components/crefans/creator.module.css": "8e744a91f414841ef63321c2e208e3c081ec783e2b765245408790ec2c388e9f",
+    "components/design-system/ProfileMediaCatalog.tsx": "4c86888f213d44bd9a393dc12270a99aedd25ccff9d3901342de6949b126da20",
+    "components/design-system/ServicePatternCatalog.tsx": "0e49a9620a61f6ec495b754a3da6da07395ce7fe4830bac1c1d13c539a9d69cc",
+    "lib/crefans/post-media.ts": "4cda6a04c6fd00c1f28c253018b0bb423bbeff7edf91ce38a1b7912745914e40",
+    "tests/profile-media-tab.test.cjs": "ddca73aad1b9d7015ab6f26e631dfcc43d2d82d6d57a28980b2e109091fe0200",
+    "tests/my-profile-posts.test.cjs": "f607ed20ce88c21ad5d830e5d96d7525062d06d331bedbd750d274b18ecece17",
+    "tests/crefans-creator.test.cjs": "85911ce11fbb53beef9e1eb84f60202167ff35fdca1eb0e80c14f8def36733bb",
+    "e2e/my-profile-posts.spec.ts": "ff0c6947091d684704404ae8ae6b1aac19d1ce6be9e6fa723d8b01606ea4156d"
+  },
+  "limitations": [
+    "No actual iPhone hardware or authenticated production media tested",
+    "Server hides inaccessible media metadata; omitted media not counted or requested",
+    "No server/API/DB change; not merged to dev/prod or deployed"
+  ],
+  "evidenceDirectory": ".local/profile-media-tab-20261102/"
+}

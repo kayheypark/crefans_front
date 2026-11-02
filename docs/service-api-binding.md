@@ -1,5 +1,11 @@
 # 목업 유지와 실제 서비스 바인딩
 
+## 내 프로필 게시글 (2026-11-02)
+
+`/service/me`의 피드·미디어는 로그인한 크리에이터의 `ownCreatorIds[0]`로 `/posts?creatorId=…`를 조회한다. 다음 페이지에도 같은 작성자 필터를 유지하고, 응답 작성자·멤버십 정보를 기존 모델에 합친다. 전역 bootstrap의 최근 게시물 범위에 의존하지 않는다. 서버의 공개·게시 상태·접근권한은 그대로 따른다. 일반 팬·비로그인·`?tab=saved|liked`에서는 이 조회를 실행하지 않는다. 두 탭의 숫자는 현재 불러온 게시물 수이며, 이전 게시물은 더 보기로 불러온다.
+
+피드는 홈과 동일한 `PostCard`(댓글·좋아요·저장·갤러리)를 사용하고, 미디어 타일은 게시글 상세로 연결한다. API 조회 실패는 공용 오류 안내로 표시하며 다른 작성자의 bootstrap 게시물로 대체하지 않는다. 검증: [모델·화면 회귀](../tests/my-profile-posts.test.cjs), [PC·모바일 API 대역 브라우저 검사](../e2e/my-profile-posts.spec.ts), [격리 API·DB 로그인/업로드/새로고침 검사](../e2e/my-profile-live.spec.ts), [최신 실행 증거](./audit/my-profile-current-20261103.json). `npx playwright test --config=playwright.my-profile.config.ts`로 PC Chromium·모바일 WebKit 14개를 실행한다. 실제 외부 공급사·물리 iPhone·운영 계정 검증은 포함하지 않으며, 운영 적용 여부는 PROGRESS.md를 따른다.
+
 ## 게시물 멤버십 안내 데이터 (2026-10-24)
 
 `useServiceModel`은 피드 첫/다음 페이지와 게시물 상세가 이미 반환하는 작성자 프로필의 `plans`를 `data.creatorPlans`에 합친다. bootstrap에 있던 오래된 이름·가격·혜택은 최신 응답으로 교체하며 빈 목록도 그대로 반영한다. 표시 컴포넌트는 네트워크 호출 없이 전달된 상품으로 안내한다. 멤버십 안내 레이어 열기는 조회 화면의 지역 상태 변경이고, 선택 링크만 기존 `/service/membership/:creatorId?plan=:planId` 흐름으로 이동한다. 서버 접근권한 및 가입 snapshot 계약은 유지한다. 최초 로컬 어댑터 검증은 [검증 기록](./audit/membership-offer-20261024.json)에 있다. 이후 `membership-ui-20261024` 프론트로 운영 배포했으며, 운영 서비스의 API대역 상품 안내 검사와 실제 API 비로그인 피드/로그인 검사를 분리한 [배포 증거](./audit/membership-ui-deployment-20261024.json)를 따른다.
