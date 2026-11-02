@@ -9,8 +9,8 @@ test('unread badge hides zero and caps only its visible count above99',()=>{
 });
 test('navigation counts incoming unread messages across conversations and unread notifications; updates after read and logout',()=>{
  const previous=global.window;global.window={matchMedia:()=>({matches:false})};
- const Shell=loadTypeScript('components/crefans/ServiceShell.tsx',{'next/link':({children,...props})=>React.createElement('a',props,children),'./Brand':{Brand:()=>null},'./ServiceLinks':{ServiceLinks:()=>null},'./ServiceUI':{Avatar:()=>null},'./NavigationIcon':{NavigationIcon:()=>null,NavigationAvatar:()=>null},'./CommentComposer':{CommentDock:()=>null,CommentDockProvider:({children})=>children}}).default;
- let tree;const model={signedIn:true,read:['read'],viewer:{name:'팬'},basePath:'/preview',data:{notifications:[{id:'read'},{id:'new'}]},account:{route:{}},messagesByCreator:{a:[{mine:false,unread:true},{mine:true,unread:true},{mine:false,unread:false}],b:[{mine:false,unread:true}]}};
+ const Shell=loadTypeScript('components/crefans/ServiceShell.tsx',{'next/link':({children,...props})=>React.createElement('a',props,children),'./Brand':{Brand:()=>null},'./ServiceLinks':{ServiceLinks:()=>null},'./HeaderAccountMenu':{HeaderAccountMenu:()=>null},'./NavigationIcon':{NavigationIcon:()=>null,NavigationAvatar:()=>null},'./CommentComposer':{CommentDock:()=>null,CommentDockProvider:({children})=>children}}).default;
+ let tree;const model={signedIn:true,read:['read'],viewer:{name:'팬'},basePath:'/preview',data:{notifications:[{id:'read'},{id:'new'}]},account:{route:{}},accountActions:{logout:async()=>({success:true,data:{message:''}})},messagesByCreator:{a:[{mine:false,unread:true},{mine:true,unread:true},{mine:false,unread:false}],b:[{mine:false,unread:true}]}};
  const render=()=>React.createElement(Shell,{model,active:'feed'},null);
  const links=path=>tree.root.findAllByType('a').filter(x=>x.props.href===`/preview/${path}`);
  try{

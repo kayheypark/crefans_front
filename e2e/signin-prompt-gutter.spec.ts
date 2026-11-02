@@ -6,7 +6,7 @@ test.beforeEach(async({page})=>{await page.addInitScript(()=>sessionStorage.setI
 for(const width of [320,390,767])test(`sign-in footer keeps 16px mobile gutters at ${width}px`,async({page})=>{
  await page.setViewportSize({width,height:844});
  for(const path of ['/preview/me','/preview/beans','/preview/beans/charges']){
-  await page.goto(path);await page.getByText('로그인이 필요해요',{exact:true}).waitFor();
+  await page.goto(path,{waitUntil:'domcontentloaded'});await page.getByText('로그인이 필요해요',{exact:true}).waitFor();
   const footer=page.locator('main footer'),nav=footer.getByRole('navigation',{name:'서비스 안내'});
   await expect(nav).toBeVisible();await page.evaluate(()=>document.fonts.ready);
   const layout=await nav.evaluate(el=>{const r=el.getBoundingClientRect();return {edges:[Math.round(r.left),Math.round(innerWidth-r.right)],columns:getComputedStyle(el).gridTemplateColumns.split(' ').length,overflow:document.documentElement.scrollWidth>innerWidth};});
@@ -19,6 +19,7 @@ for(const width of [320,390,767])test(`sign-in footer keeps 16px mobile gutters 
   await expect(footer.locator('address')).toBeVisible();
   await expect(page.getByRole('link',{name:'로그인',exact:true})).toHaveAttribute('href',`/preview/login?next=${encodeURIComponent(path)}`);
   await expect(page.getByRole('link',{name:'회원가입',exact:true})).toHaveAttribute('href','/preview/signup');
+  await page.waitForLoadState('networkidle');
  }
 });
 test('desktop sign-in layout keeps service links in the sidebar',async({page})=>{
@@ -35,12 +36,13 @@ test('service protected pages share the signed-out prompt',async({page},info)=>{
  await page.route('**/api/v1/**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({success:true,data:new URL(route.request().url()).pathname.endsWith('/bootstrap')?bootstrap:null,errorMessage:null,errorCode:null})}));
  const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
  for(const path of ['/service/me','/service/beans','/service/settings','/service/messages','/service/notifications']){
-  await page.goto(path);const main=page.locator('main');
+  await page.goto(path,{waitUntil:'domcontentloaded'});const main=page.locator('main');
   await expect(main.getByRole('heading',{name:'로그인이 필요해요',exact:true})).toBeVisible();
   const icon=main.locator('img[src*="signin-lock-3d-transparent-v1"]');await expect(icon).toBeVisible();
   await expect.poll(()=>icon.evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);
   await expect(main.getByRole('link',{name:'로그인',exact:true})).toHaveAttribute('href',`/service/login?next=${encodeURIComponent(path)}`);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.waitForLoadState('networkidle');
  }
  await page.screenshot({path:info.outputPath('service-signin.png'),fullPage:true});expect(errors).toEqual([]);
 });

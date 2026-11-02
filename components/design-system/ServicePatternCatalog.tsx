@@ -1,6 +1,7 @@
 'use client';
 import {StudioDashboardExample} from './StudioDashboardExample';
 import {SignInPrompt} from '@/components/crefans/SignInPrompt';
+import {HeaderAccountMenu} from '@/components/crefans/HeaderAccountMenu';
 import {AdvertisingPreview,type AdvertisingPreviewState} from '@/components/preview/studio/AdvertisingPreview';
 import {StudioCommentReply} from '@/components/crefans/studio/StudioCommentReply';
 import type {CommunityReply} from '@/types/crefans-community';
@@ -46,6 +47,10 @@ import {VideoProcessingCatalog} from './VideoProcessingCatalog';
 import s from './custom.module.css';
 
 const screens=[...screenLinks,...studioLinks,...commonLinks];
+function AccountMenuExample(){
+ const [mode,setMode]=useState('normal'),[done,setDone]=useState(false);
+ return <section className={s.section} id="header-account-menu"><div className={s.sectionHeading}><h2>PC 계정 메뉴</h2><p>오른쪽 위 아바타에서 내 프로필·설정·로그아웃에 접근합니다. Escape·바깥 클릭·포커스 이탈 시 닫습니다.</p></div><SelectField label="계정 메뉴 동작" value={mode} onChange={value=>{setMode(value);setDone(false);}} options={[{value:'normal',label:'정상'},{value:'error',label:'로그아웃 실패'},{value:'pending',label:'처리 중'},{value:'empty',label:'프로필 사진 없음'}]}/><div style={{display:'flex',justifyContent:'flex-end',minHeight:230,marginTop:16}}>{done?<p role="status">로그아웃 완료 예시</p>:<HeaderAccountMenu key={mode} viewer={{name:'예시 회원',image:mode==='empty'?'':(mockServiceResponse.success?mockServiceResponse.data.creators[0]?.image:undefined)}} basePath="/preview" routeKey={mode} onLogout={async()=>{if(mode==='pending')return new Promise(()=>{});if(mode==='error')return{success:false,data:null,errorMessage:'연결을 확인하고 다시 시도해 주세요.',errorCode:'NETWORK_ERROR'};setDone(true);return{success:true,data:{message:'로그아웃되었습니다.'},errorMessage:null,errorCode:null};}}/>}</div></section>;
+}
 function CommentComposerExample(){
  const root=useRef<HTMLDivElement>(null),[value,setValue]=useState(''),[state,setState]=useState('normal');
  return <section className={s.section}><div className={s.sectionHeading}><h2>모바일 댓글 입력바</h2><p>모바일은 스크롤 영역 아래의 한 줄 입력바, PC는 본문 안 여러 줄 입력입니다. 빈 댓글은 등록할 수 없고, 실패하면 작성 내용을 유지합니다.</p></div><SelectField label="댓글 입력 상태" value={state} onChange={setState} options={[{value:'normal',label:'일반·빈 값'},{value:'error',label:'등록 실패'},{value:'pending',label:'등록 중'},{value:'readOnly',label:'읽기 전용'}]}/><CommentDockProvider viewportRef={root}><div ref={root} style={{maxWidth:480,marginTop:16}}><CommentComposer postId="catalog-comment" title="예시 게시물" value={value} error={state==='error'?'댓글을 등록하지 못했어요. 다시 시도해 주세요.':''} pending={state==='pending'} readOnly={state==='readOnly'} onChange={setValue} onSubmit={event=>{event.preventDefault();if(state==='normal'&&value.trim())setValue('');}}/><CommentDock/></div></CommentDockProvider></section>;
@@ -104,7 +109,7 @@ export function ServicePatternCatalog(){
   <section className={s.section}><div className={s.sectionHeading}><h2>서비스에서 사용하는 컴포넌트</h2><p>목업과 같은 컴포넌트에 예시 데이터를 주입했습니다. 여기서 확인한 디자인이 실제 목업 화면에도 적용됩니다.</p></div>
    <div className={s.patternGrid}><div className={s.patternExample}><h3>팔로우 버튼</h3><p className={s.muted}>탐색 카드·프로필·팔로잉 목록이 같은 컴포넌트를 씁니다. 팔로우 중일 때 누르면 해제 확인 모달이 먼저 뜹니다.</p><div className={s.row}><FollowButton following={following} name={data.creators[1].name} onToggle={()=>setFollowing(!following)}/><FollowButton following={false} name={data.creators[1].name} onToggle={()=>{}} disabled/></div></div><div className={s.patternExample}><h3>크리에이터 카드 · 탐색</h3><CreatorCard creator={data.creators[1]} href="/preview/creator/jiwoo" following={following} onFollow={()=>setFollowing(value=>!value)}/></div><div className={s.patternExample}><h3>멤버십 카드 · 구독</h3><MembershipPlanCard plan={data.plans.find(item=>item.id===plan)||data.plans[0]} selected onSelect={()=>setDialog('선택한 멤버십')}/><div style={{marginTop:20}}><SelectField label="멤버십 데이터 변경" options={data.plans.map(item=>({value:item.id,label:item.name}))} value={plan} onChange={setPlan}/></div></div></div>
   </section>
-  <EventPagesExample/><StudioReplyExample/><AdvertisingExample/><StudioDashboardExample/>
+  <EventPagesExample/><StudioReplyExample/><AdvertisingExample/><StudioDashboardExample/><AccountMenuExample/>
   <section className={s.section} id="signin-prompt"><div className={s.sectionHeading}><h2>로그인 필요 안내</h2><p>공용 로그인 안내·선택한 3D 자물쇠·로그인 복귀 경로를 유지합니다. 모바일은 서비스 안내를 2열로 표시합니다.</p></div><SignInPrompt basePath="/preview"/></section>
   <BeanWalletExample/><ReferralExample/>
   <BeanPaymentResultExample/>
