@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T05:19:47.603028+00:00",
+  "checkedAt": "2026-11-02T05:49:47.397740+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,13 +30,13 @@
   ],
   "repositories": {
     "front": {
-      "head": "3e6ec9f09acd0ae88d85531a56b451ee4fdb06ef",
-      "branch": "feat/watermark-handle-link",
-      "dirty": true
+      "head": "486f08a67209b711e5838a3c05248180367c7d29",
+      "branch": "feat/promotion-controls",
+      "dirty": false
     },
     "server": {
-      "head": "86469e3fd5219da27aace43bdd14a3abf2437279",
-      "branch": "feat/watermark-hardening",
+      "head": "9810d920c940b8b268202c641bbbb94628b7f0e8",
+      "branch": "feat/promotion-controls",
       "dirty": true
     }
   },
@@ -104,7 +104,7 @@
       "server/docs/live-payment-launch-20261031.md": "f4a717fada47e7a2bc04d1141fe1524767b9da30230a6bb749e3fa176ce87cd2",
       "server/docs/local-member-migration.md": "12c7dd11c9009870f95bfb4a8961bf72107367c2c5ae38c01fec7012fd53172c",
       "server/docs/operational-logging.md": "6fd3d621ec0e41e8987876522c299e6ca677dab45a7d0ecaeda44344dcada771",
-      "server/docs/platform-api.md": "d077b0dc86d16a2e9fac734b9820d0a3d9bd7a64b512aa0be91762218242a5b7",
+      "server/docs/platform-api.md": "194adfd58c2a06d25766ea3253e267b0781389dff788eb332fa92b6fb445d4ed",
       "server/docs/platform-implementation.md": "35f1abae75cb4e32e8356f5475f9a99ad64a757ed398654c538d2099e02170b1",
       "server/docs/prd.md": "4acd7a59320dd75f569cac956225942022f960ade6ca2f2518a2dd71e1669299",
       "server/docs/private-media.md": "a398d6de0e8abb0eae017396e3cfb96d3aaae1880cf16fb70b68eba13c6d5820",
@@ -1040,7 +1040,7 @@
       "server/src/platform/bean-ledger.ts": "306616ca82454a17f6d561434f0f3035382156d0369983b9002ab567de26c90d",
       "server/src/platform/bean-policy.ts": "81a472e371b78cf9e1fc9a119fbd9bb2f99d7c56908d5c5a8f02d4358b470698",
       "server/src/platform/beans.controller.ts": "98c43c94a403fa417999190d184227ec420a591603e054bf2027802ff5ad5eb2",
-      "server/src/platform/beans.service.ts": "bbfed7363af2155caaabc319b94d4f6b980efdba3e642318ea7b68f0161c658e",
+      "server/src/platform/beans.service.ts": "7a8068b3c0ab524d5e8d76aa67fe7de6b936a7882e9dc7173862303a0a96e535",
       "server/src/platform/beta-policy.ts": "692ed1fe7e6d500fcd07a2d0f9550d4d46b6acbd1fb0bf17846c9930d3aa5997",
       "server/src/platform/billing-card.ts": "0578f2ca288c165ab6c669d8e33e2f7be69fe3f6bc7a243929a2be1f8b5823cd",
       "server/src/platform/billing-failures.ts": "904a353da61a38c5a7e06627a390f55ee792c3aec3fd3665f337d666301c9872",
@@ -1073,7 +1073,7 @@
       "server/src/platform/middleware.ts": "cf37cb13be4147327a8fd4909068f546194a7c71b86618e3d295dcbbc50beedd",
       "server/src/platform/moderation.ts": "5c6404b4148041a0bfcb19a8b9a964d0a1bcb3ef3c39da23df5db7490eea15e9",
       "server/src/platform/module.ts": "59f2f0ce1c3bed59c07a621f92164cc9b453a1a860d872f915e2c59e8e25d16f",
-      "server/src/platform/openapi-contract.ts": "dfe417e828199c77696abcb791dc42aba1e70b9158ac84de67e7ccc8e6ec1489",
+      "server/src/platform/openapi-contract.ts": "56998a475631b810fc224c6c416bded05665d1ffa8aa6dd6d07253e16176cb4c",
       "server/src/platform/openapi.ts": "bbab5be469d325c0dfeaf67c62313b00de2a0057d141ae0164e671c6c4ed93b9",
       "server/src/platform/operations-events.ts": "fd9f0a020e0aa2f2fe0de7f20f1b9bc76c32f9a406e8e58f215926525a53d9e1",
       "server/src/platform/operations.service.ts": "f29611faa95e582c1df0bf87804e976ed3c97af635c9f18db9eab2da1c77ecc0",
@@ -1162,7 +1162,7 @@
       "server/tests/platform-auth-hardening.test.cjs": "2c2857cfe66d58fbfe4f4f1e31ff45581d1c424838e6f0ac8b85324a0f858ac0",
       "server/tests/platform-auth.test.cjs": "518c912824945ef7d709a0a6abf8db0ab8c62d95e4170901c098d6ad0b4d4188",
       "server/tests/platform-bean-ledger.test.cjs": "8d0ba2b05318b87ecd008c1fe7908330215959a6707245374f6bb08013c3f989",
-      "server/tests/platform-beans.test.cjs": "6d6f4b50b3e7db201573b48c87ff218215c67365af06092043030e8cfdae55c9",
+      "server/tests/platform-beans.test.cjs": "6b8ca77778d8b14b4865522e3a4cf6386df0bc8ff476ceef55d19120f7a2ef33",
       "server/tests/platform-beta-cohort.test.cjs": "6972db54786d3e160f11d3bfc47bbca3c37c88a1c5f1c9ecfb999c08e2632b48",
       "server/tests/platform-beta-policy.test.cjs": "c6ad51571956aef57b987ab6161a10167d3acad8ef0b0cf44d9e117cbba96989",
       "server/tests/platform-billing-activity.test.cjs": "86afc2f449cbd4ef860f68e79f87418dc02726d093ed5c17670771d8db4360f3",
