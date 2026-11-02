@@ -92,15 +92,15 @@ test('deleting an unused membership hides it from sale while preserving history 
  const historical={...subscriber,status:'expired'},probe=fixture({subscribers:[historical]});let result;
  try{
   assert.equal(probe.model.memberships[0].canDelete,true);
-  await act(async()=>{result=await probe.model.actions.deleteMembership(plan.id);});assert.equal(result.success,true);
+  await act(async()=>{result=await probe.model.actions.deleteMembership(plan.id,plan.name);});assert.equal(result.success,true);
   assert.equal(probe.model.memberships.length,0);assert.deepEqual(probe.model.subscribers,[historical]);
-  await act(async()=>{result=await probe.model.actions.deleteMembership(plan.id);});assert.equal(result.success,false);
+  await act(async()=>{result=await probe.model.actions.deleteMembership(plan.id,plan.name);});assert.equal(result.success,false);
   await act(async()=>{result=await probe.model.actions.saveMembership(plan);});assert.equal(result.success,false);
   await act(async()=>{result=await probe.model.actions.setMembershipActive(plan.id,true);});assert.equal(result.success,false);
  }finally{probe.close();}
  for(const options of [{},{subscribers:[{...subscriber,status:'cancelled'}]},{subscribers:[],protectedPlans:[plan.id]}]){
   const guarded=fixture(options);
-  try{await act(async()=>{result=await guarded.model.actions.deleteMembership(plan.id);});assert.equal(result.success,false);assert.equal(guarded.model.memberships.length,1);}finally{guarded.close();}
+  try{await act(async()=>{result=await guarded.model.actions.deleteMembership(plan.id,plan.name);});assert.equal(result.success,false);assert.equal(guarded.model.memberships.length,1);}finally{guarded.close();}
  }
 });
 
@@ -139,7 +139,7 @@ test('creator edits reach the same fan plan but preserve other creators, old sub
   await act(async()=>{result=await probe.management.actions.setMembershipActive(plan.id,false);});assert.equal(result.success,true);
   assert.equal(getCreatorPlans(probe.service.data,'haneul')[0].available,false);assert.equal(probe.service.canAccess('haneul',2),true);
   await act(async()=>{result=await probe.service.subscribe('haneul',plan.id);});assert.equal(result.success,false);
-  await act(async()=>{result=await probe.management.actions.deleteMembership(plan.id);});assert.equal(result.success,false);
+  await act(async()=>{result=await probe.management.actions.deleteMembership(plan.id,'New name');});assert.equal(result.success,false);
  }finally{probe.close();}
 });
 
@@ -151,9 +151,9 @@ test('a new fan subscription immediately protects its creator membership from de
   await act(async()=>{result=await probe.service.subscribe('haneul',id);});assert.equal(result.success,true);
   assert.equal(probe.management.memberships.find(item=>item.id===id).canDelete,false);
   assert.equal(probe.service.canAccess('haneul',1,id),true);assert.equal(probe.service.canAccess('haneul',1),true);
-  await act(async()=>{result=await probe.management.actions.deleteMembership(id);});assert.equal(result.success,false);
+  await act(async()=>{result=await probe.management.actions.deleteMembership(id,probe.management.memberships.find(item=>item.id===id)?.name);});assert.equal(result.success,false);
   await act(async()=>{result=await probe.service.cancelSubscription('haneul');});assert.equal(result.success,true);
   assert.equal(probe.service.canAccess('haneul',1,id),true);
-  await act(async()=>{result=await probe.management.actions.deleteMembership(id);});assert.equal(result.success,false);
+  await act(async()=>{result=await probe.management.actions.deleteMembership(id,probe.management.memberships.find(item=>item.id===id)?.name);});assert.equal(result.success,false);
  }finally{probe.close();}
 });

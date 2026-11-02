@@ -68,6 +68,21 @@ test('an empty media list shows only the full dropzone and no counter tiles',()=
   }finally{picker.unmount();}
 });
 
+test('single-image use keeps the post uploader layout with an image-only label and single file picker',()=>{
+  const picker=mount({max:1,accept:'image/jpeg,image/png,image/webp',addLabel:'사진 추가',hint:'JPG·PNG·WebP 5MB 이하'});
+  try{
+    assert.equal(picker.view.root.findByType('input').props.multiple,false);
+    assert.match(JSON.stringify(picker.view.toJSON()),/사진 추가/);
+    assert.doesNotMatch(JSON.stringify(picker.view.toJSON()),/사진·동영상 추가/);
+    picker.update({items:[{id:'cover',type:'image',url:'/cover.png'}]});
+    assert.equal(picker.view.root.findByType('input').props.disabled,true);
+    assert.match(JSON.stringify(picker.view.toJSON()),/1\/1/);
+    act(()=>picker.buttons().find(item=>item.props['aria-label']==='1번째 이미지 삭제').props.onClick());
+    assert.deepEqual(picker.calls.removed,['cover']);
+    picker.update({items:[]});assert.equal(picker.view.root.findByType('input').props.disabled,false);
+  }finally{picker.unmount();}
+});
+
 const {moveItem,slotFor,indexAt}=loadTypeScript('components/ui/media-order.ts');
 test('reorder helpers move items, slide the in-between slots, and resolve the tile under the pointer',()=>{
   assert.deepEqual(moveItem(['a','b','c','d'],0,2),['b','c','a','d']);

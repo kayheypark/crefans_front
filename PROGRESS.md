@@ -1,3 +1,21 @@
+## 2026-11-02 멤버십 삭제 직접 입력·개별 공제율 예상 수익 — 로컬 완료·미배포
+- 최신 origin/prod feef422에서 feat/membership-confirmation 생성. 직전 이미지 폼 커밋 0f2e6ff를 5944793으로 가져와 이번 멤버십 변경과 함께 보존했다. 기본 체크아웃/다른 feature 미커밋은 건드리지 않았다.
+- 공통 TypedConfirmDialog: 운영 콘솔의 exact phrase 규칙을 기존 Dialog/Field/Button/DialogActions로 구현, 확인 문구·콜백·busy/error를 주입한다. 멤버십 이름 정확히 입력(공백 포함), 자동 제출 없음, 취소/재진입·대상 변경 초기화, 요청 중 닫기·중복 클릭 차단, 실패 입력 유지. 디자인 시스템 예시 추가. API와 목업에 confirmation 전달/검사, 유효 구독 보호 유지.
+- 월 구독료 도움말은 `나의 공제율: N% · 예상 수익: N원 / 결제 1건`. 원천징수 문구 제거. 실제 creatorTerms.platformFeeBps에 기반해 서버와 같은 공제액 원 미만 버림 후 차감. 0% 보존, 누락/잘못된 공제율이면 확인 필요·예상액 미노출. 목업은 명시적 예시 조건 주입. 예상 수익 문자열/함수 검색 결과 이 공통 함수만 사용한다.
+- 서버 짝 작업: /Users/ethan/repository/crefans_server-membership-confirmation, 같은 feature명. 개별 조건 없는 회원에도 DB 현재 기본값을 반환하도록 studioTerms 수정(기존 null→클라이언트 고정20% 불일치 해결). 삭제는 잠금 후 이름/소유권/삭제 상태/유효 구독 재확인. 기존 결제·구독 원장은 재계산하지 않는다. DB 변경 없음.
+- 검증: check 계층·타입·510 단위 통과, PC Chromium/모바일 WebKit 8건(이번 삭제/가격2 + 이전 이미지폼6) 통과, build35페이지 통과. 서버 build·직접 입력/공제율6 및 OpenAPI11 통과. 잘못된 확인 허용·고정20% 회귀를 주입한 대조 검사에서 프론트2/서버3 실패 확인 후 복원. PC/모바일 캡처 육안 확인. 실기기/운영API/실결제/실DB 동시성 검증은 미실행.
+- 증거: docs/audit/membership-confirmation-20261102.json 및 .local/membership-confirmation-20261102/. 문서 검사에서 source hash 만료 검토 후 스냅샷을 갱신한다(제품 테스트 증거와 별도).
+- 다음: 요청 시 이 프론트·서버를 dev 통합 검증→prod 승격→함께 배포. 구형 클라이언트의 confirmation 없는 삭제는 새 서버에서 거절됨. 현재 미푸시·미통합·미배포. 기존 업로드 설명 간소화49c507d/프로필/운영 no-data 등 별도 미배포 작업은 이 feature에 미포함.
+
+## 2026-11-02 멤버십 이미지 등록 폼 통일 — 로컬 완료·미배포
+- 요청: 멤버십 생성 모달의 이미지 폼을 게시물 작성 화면과 같은 디자인으로 교체한다. 생성·수정과 실제/목업이 공통 화면을 사용하므로 함께 적용했다.
+- 공통 MediaUpload의 회색 사진 추가 버튼·0/1 카운터·정사각 썸네일·X 삭제 버튼을 재사용한다. 멤버십은 max=1·이미지 전용 accept·사진 추가 라벨, 파일 선택 multiple=false. 이미지 삭제 후 다시 선택한다. 도움말은 JPG·PNG·WebP 5MB 이하. 기존 게시물 다중 미디어·순서 변경 동작 유지. 디자인 시스템 예시도 같은 컴포넌트로 교체했다.
+- 확인 중 발견: 실서비스 uploadMembershipImage는 공통 미디어 API를 사용하여 accept를 우회한 동영상이 업로드 단계에서 거절되지 않았다(서버 멤버십 저장에서는 IMAGE만 허용). 실서비스 모델에도 기존 목업과 같은 유형·0바이트·5MB 상한 검사를 추가해 업로드 전에 안내한다. 서버 정책·API·결제·멤버십 가격/레벨은 변경하지 않는다.
+- 검증: npm run check 계층·타입·506 단위 PASS, PC Chromium/모바일 WebKit(iPhone 13 화면) 목업 E2E 6/6 PASS. 생성/수정·선택·삭제·저장, 잘못된 형식/크기 오류 후 재선택, 취소 초안 초기화, 게시물 다중 선택 보존. 실서비스 모델은 API 대역 단위로 유효 경계/잘못된 파일의 요청 0건 확인. 원본 picker·실서비스 모델 각각 대조 검사 실패 확인. npm run build 35페이지 PASS. 실제 기기·운영 업로드는 미실행.
+- PC·모바일 empty/selected 화면 육안 확인. 상세 로그·명령/시각·소스 해시·검증 화면은 `.local/membership-upload-20261102/`, 공개 검증 요약은 `docs/audit/membership-image-upload-20261102.json`. 문서 검사 결과는 해당 증거에 기록한다.
+- 기준 origin/prod feef422에서 feat/membership-image-upload, 작업 폴더 /Users/ethan/repository/crefans_front-membership-upload. 선행 업로드 안내 간소화는 별도 feat/upload-hint-compact 49c507d에 있으며 이 작업은 그 게시물 문구를 덮어쓰지 않는다.
+- 다음: 요청 시 미배포 작업과 함께 dev 통합 검증 → prod 승격 → 배포. 현재 커밋만 준비하며 운영 배포 없음. 기존 체크아웃의 미커밋 파일 보존.
+
 # PROGRESS: crefans_front
 
 ## 2026-11-01 크리에이터 게시물 워터마크 — 운영 배포 완료

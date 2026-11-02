@@ -1,5 +1,5 @@
 // Mirrors creator terms section 6 (server src/platform/legal-documents.ts) and server payout constants.
-// Change together with the terms version. The studio finance API returns only a creator's own overrides (creatorTerms).
+// The studio finance API resolves individual overrides against the current DB defaults (creatorTerms).
 // Server beanPolicy.tipHoldDays: received beans wait this many days from the tip itself.
 export const beanTipHoldDays=7;
 export const creatorPayoutPolicy={feeRatePercent:20,settlementHoldDays:7,minimumWithdrawalKrw:100000,payoutWeekday:'수요일'} as const;
@@ -11,7 +11,7 @@ const won=(value:number)=>`${value.toLocaleString('ko-KR')}원`;
 export const payoutTaxNote='법령상 원천징수가 필요한 경우 그 세액은 크레팬스가 부담해 신고·납부하며 정산금에서 떼지 않습니다. 본인의 소득세 신고와 사업자인 경우의 세무 증빙은 크리에이터가 합니다.';
 export const payoutScheduleNote=`화요일 23:59(한국 시간)까지 신청한 출금은 그 주 ${payoutWeekday}에 지급하며, ${payoutWeekday}이 공휴일이면 다음 영업일에 지급합니다.`;
 
-/** A creator's own terms from the studio finance API (server signup-invites studioTerms); null fields use the defaults above. */
+/** Effective terms from studio finance (signup-invites studioTerms); static defaults are only for general policy notes. */
 export type CreatorTerms={platformFeeBps:number|null;settlementHoldDays:number|null;beanWithdrawalFeeBps:number|null;minimumWithdrawalKrw:number|null};
 const pick=(t:CreatorTerms|null|undefined)=>({fee:t?.platformFeeBps!=null?t.platformFeeBps/100:feeRatePercent,hold:t?.settlementHoldDays??settlementHoldDays,beanFee:t?.beanWithdrawalFeeBps!=null?t.beanWithdrawalFeeBps/100:feeRatePercent,minimum:t?.minimumWithdrawalKrw??minimumWithdrawalKrw});
 
@@ -39,13 +39,15 @@ export const minimumWithdrawalHint=minimumWithdrawalHintFor();
 // Same rounding as the server ledger: fee is the floor of price × rate, the rest is creator revenue.
 // A creator's own platform fee (terms) replaces the default rate, as the server does for new orders.
 export function membershipRevenuePreview(price:number,terms?:CreatorTerms|null){
-  if(!Number.isSafeInteger(price)||price<=0)return null;
-  const fee=Math.floor(price*(terms?.platformFeeBps??feeRatePercent*100)/10000);
+  const bps=terms?.platformFeeBps;
+  if(!Number.isSafeInteger(price)||price<=0||bps==null||!Number.isInteger(bps)||bps<0||bps>10000)return null;
+  const fee=Math.floor(price*bps/10000);
   return {fee,net:price-fee};
 }
 
 export function membershipPriceHint(price:number,terms?:CreatorTerms|null){
-  const preview=membershipRevenuePreview(price,terms);
-  const base=`결제 시 총 공제율 ${pick(terms).fee}%가 차감되어 수익으로 기록됩니다. 원천징수가 필요하면 크레팬스가 부담합니다.`;
-  return preview?`${base} 예상 수익 ${won(preview.net)} (수수료 ${won(preview.fee)})`:base;
+  const bps=terms?.platformFeeBps;
+  if(bps==null||!Number.isInteger(bps)||bps<0||bps>10000)return '나의 공제율: 확인 필요';
+  const base=`나의 공제율: ${bps/100}%`,preview=membershipRevenuePreview(price,terms);
+  return preview?`${base} · 예상 수익: ${won(preview.net)} / 결제 1건`:base;
 }

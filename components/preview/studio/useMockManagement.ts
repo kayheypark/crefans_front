@@ -5,6 +5,7 @@ import {useSearchParams} from 'next/navigation';
 import type {ApiResult} from '@/types/crefans';
 import type {StudioManagementModel,StudioContent,StudioContentStatus,StudioMembership,StudioSubscriber} from '@/types/crefans-studio-management';
 import {managementContents,managementMemberships,managementSubscribers,managementNow} from './management-fixtures';
+import {creatorPayoutPolicy,type CreatorTerms} from '@/lib/crefans/creator-payout-policy';
 import {canDeleteMembership} from '@/lib/crefans/membership-plans';
 import {mediaUploadMaxItems} from '@/lib/design/image-upload';
 import {useLocalImages} from './useLocalImages';
@@ -23,7 +24,7 @@ export function useMockManagement({getProtectedPlanIds=()=>[],initialContents=ma
   const requestedStatus=query.get('status');
   const selectedContentStatus=requestedStatus&&['draft','published','scheduled'].includes(requestedStatus)?requestedStatus as StudioContentStatus:undefined;
   const canDelete=(id:string)=>canDeleteMembership(id,subscribers,managementNow)&&!getProtectedPlanIds().includes(id);
-  return {now:managementNow,contents,memberships:memberships.filter(item=>!deletedIds.includes(item.id)).map(item=>({...item,canDelete:canDelete(item.id)})),subscribers,selectedContentStatus,selectedSubscriberPlanId:query.get('plan')||undefined,selectedSubscriberId:query.get('member')||undefined,notice:'',actions:{
+  return {now:managementNow,creatorTerms:{platformFeeBps:creatorPayoutPolicy.feeRatePercent*100,settlementHoldDays:creatorPayoutPolicy.settlementHoldDays,beanWithdrawalFeeBps:creatorPayoutPolicy.feeRatePercent*100,minimumWithdrawalKrw:creatorPayoutPolicy.minimumWithdrawalKrw} satisfies CreatorTerms,contents,memberships:memberships.filter(item=>!deletedIds.includes(item.id)).map(item=>({...item,canDelete:canDelete(item.id)})),subscribers,selectedContentStatus,selectedSubscriberPlanId:query.get('plan')||undefined,selectedSubscriberId:query.get('member')||undefined,notice:'',actions:{
     saveContent:async input=>{
       if(input.id&&!contents.some(item=>item.id===input.id))return fail('게시물을 찾을 수 없습니다.');
       if(!input.title.trim())return fail('제목을 입력해주세요.');
@@ -59,8 +60,9 @@ export function useMockManagement({getProtectedPlanIds=()=>[],initialContents=ma
     discardMembershipImage:images.discard,
     uploadContentMedia:images.uploadMedia,
     discardContentMedia:images.discard,
-    deleteMembership:async id=>{
+    deleteMembership:async(id,confirmation)=>{
       if(!memberships.some(item=>item.id===id)||deletedIds.includes(id))return fail('멤버십을 찾을 수 없습니다.');
+      if(confirmation!==memberships.find(item=>item.id===id)?.name)return fail('멤버십 이름을 정확히 입력해주세요.');
       if(!canDelete(id))return fail('이용 중인 구독자가 있어 삭제할 수 없습니다. 멤버십 비활성화를 이용해 주세요.');
       setDeletedIds(previous=>[...previous,id]);
       return ok({message:'멤버십을 판매 목록에서 삭제했습니다. 기존 구독 기록과 가입 당시 조건은 유지됩니다.'});
