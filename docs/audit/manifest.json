@@ -1887,6 +1887,17 @@
       ],
       "reviewedAt": "2026-10-08",
       "reviewExtent": "scope-and-reference-review"
+    },
+    "front/public/llms.txt": {
+      "kind": "current",
+      "review": "2026-11-02: llmstxt.org 제안 형식(H1·요약·H2 링크 목록)의 공개 AI 안내 파일. 기존 공개 가이드와 서비스 경로를 연결하며 가격/금융 정책 수치를 복제하지 않는다. 목업과 비공개 콘텐츠를 구분하고 검색 순위·AI 채택을 보장하지 않는다.",
+      "evidence": [
+        "front/app/sitemap.ts",
+        "front/app/robots.ts",
+        "front/public/llms.txt"
+      ],
+      "reviewedAt": "2026-11-02",
+      "reviewExtent": "신규 공개 파일 전체와 연결 URL, 서비스 개요 및 접근 범위 검토"
     }
   }
 }

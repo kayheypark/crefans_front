@@ -1,0 +1,43 @@
+# 크레팬스 (crefans)
+
+> 크레팬스는 크리에이터와 팬을 잇는 창작물 공유 플랫폼입니다. 사진·영상 게시물, 멤버십 구독, 게시물 후원과 크리에이터 후원을 제공합니다.
+
+공식 서비스는 https://crefans.com/, 공식 이용 가이드는 https://guide.crefans.com/입니다. 주요 언어는 한국어입니다.
+
+팬은 공개 게시물을 살펴보고 크리에이터를 팔로우하며, 멤버십을 구독하거나 사이트 내 재화인 콩으로 후원할 수 있습니다. 크리에이터는 스튜디오에서 게시물·멤버십·팬 소통·수익을 관리합니다. 멤버십 결제와 콩 후원은 별개이며, 후원만으로 멤버십 콘텐츠 열람 권한이 생기지 않습니다.
+
+가격·수수료·환불·출금·이벤트 조건은 아래 공식 문서와 실제 상품 안내를 확인해야 합니다. 약관은 해당 거래에 적용되는 시행일과 버전을 기준으로 확인합니다. 로그인 또는 멤버십이 필요한 콘텐츠는 공개 자료가 아닙니다. `/preview/` 경로의 인물·거래·수치는 목업 예시입니다.
+
+## 서비스 소개와 탐색
+
+- [크레팬스 소개](https://guide.crefans.com/start/about/): 서비스 개요와 이용 대상.
+- [공식 이용 가이드](https://guide.crefans.com/): 팬과 크리에이터의 이용 방법.
+- [피드](https://crefans.com/service/feed): 크리에이터의 공개 게시물.
+- [크리에이터 탐색](https://crefans.com/service/explore): 크리에이터 검색과 활동 분야별 탐색.
+
+## 팬 이용 안내
+
+- [가입과 계정](https://guide.crefans.com/start/account/): 회원가입과 계정 이용 안내.
+- [멤버십 구독·해지·환불](https://guide.crefans.com/fans/membership/): 멤버십 이용과 결제 관련 안내.
+- [콩 충전과 후원](https://guide.crefans.com/fans/beans/): 콩 충전, 게시물 후원, 프로필 후원 안내.
+- [지갑과 이용 내역](https://guide.crefans.com/fans/wallet-history/): 충전 내역·콩 내역·후원 내역 확인 방법.
+
+## 크리에이터 이용 안내
+
+- [크리에이터 시작하기](https://guide.crefans.com/creators/start/): 공개 프로필과 스튜디오 시작 안내.
+- [게시물 관리](https://guide.crefans.com/creators/content/): 사진·영상 게시물 작성과 공개 범위.
+- [멤버십 운영](https://guide.crefans.com/creators/memberships/): 멤버십 상품과 혜택 관리.
+- [수익과 출금](https://guide.crefans.com/creators/payouts/): 멤버십 수익 및 후원 수익의 정산·출금 안내.
+
+## 정책과 지원
+
+- [이용약관](https://crefans.com/service/legal/terms): 서비스 이용 조건과 시행일별 약관.
+- [개인정보처리방침](https://crefans.com/service/legal/privacy): 개인정보 처리 안내.
+- [운영정책](https://crefans.com/service/legal/policy): 콘텐츠와 서비스 운영 기준.
+- [고객센터](https://crefans.com/service/support): 이용 문의와 지원 경로.
+
+## Optional
+
+- [공지사항](https://crefans.com/service/notices): 서비스 운영 공지.
+- [이벤트 안내](https://crefans.com/service/events): 진행 중인 이벤트와 참여 조건.
+- [사이트맵](https://crefans.com/sitemap.xml): 공개 페이지 목록.
