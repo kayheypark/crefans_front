@@ -9,8 +9,8 @@ export type ServiceSeo={metadata:Metadata;jsonLd:object[]};
 const guides:Record<string,string>={fan:'팬 이용안내',creator:'크리에이터 이용안내'};
 const legal:Record<string,string>={terms:'이용약관',privacy:'개인정보처리방침',policy:'운영정책'};
 const suffix=(text:string)=>`${text} | ${SITE_NAME}`;
-const org={'@type':'Organization','@id':`${SITE_URL}/#organization`,name:SITE_NAME,alternateName:'crefans',url:SITE_URL,logo:absoluteUrl('/brand/crefans-mark.svg')};
-const site={'@context':'https://schema.org','@graph':[org,{'@type':'WebSite','@id':`${SITE_URL}/#website`,name:SITE_NAME,alternateName:'crefans',url:SITE_URL,inLanguage:'ko-KR',publisher:{'@id':`${SITE_URL}/#organization`},potentialAction:{'@type':'SearchAction',target:`${SITE_URL}/service/explore?q={search_term_string}`,'query-input':'required name=search_term_string'}}]};
+const org={'@type':'Organization','@id':`${SITE_URL}/#organization`,name:SITE_NAME,alternateName:'Crefans',url:SITE_URL,logo:absoluteUrl('/brand/crefans-mark.svg')};
+const site={'@context':'https://schema.org','@graph':[org,{'@type':'WebSite','@id':`${SITE_URL}/#website`,name:SITE_NAME,alternateName:'Crefans',url:SITE_URL,inLanguage:'ko-KR',publisher:{'@id':`${SITE_URL}/#organization`},potentialAction:{'@type':'SearchAction',target:`${SITE_URL}/service/explore?q={search_term_string}`,'query-input':'required name=search_term_string'}}]};
 const name=(p:Profile)=>p.handle?`${p.name}(@${p.handle})`:p.name;
 const about=(p:Profile)=>clip(p.bio||p.about||`${p.name}님의 크레팬스 프로필입니다. 멤버십 구독과 후원으로 응원해 보세요.`);
 /** Creators who opted out of search, fan profiles and missing profiles are never indexed. */
