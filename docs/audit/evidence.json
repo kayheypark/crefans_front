@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T14:53:50.675237+00:00",
+  "checkedAt": "2026-11-02T15:14:46.677830+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,7 +18,7 @@
     "models": 87,
     "enums": 15,
     "migrations": 47,
-    "localMarkdownTargets": 442,
+    "localMarkdownTargets": 444,
     "externalInlineLinksNotFetched": 369
   },
   "negativeControls": [
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "59447937ec9e54bbba4eb509d3cb765197405d42",
-      "branch": "feat/membership-confirmation",
+      "head": "73fbc854596d967310555101a0a96eb482406144",
+      "branch": "feat/membership-deployment-evidence",
       "dirty": true
     },
     "server": {
-      "head": "60175a2baee2a572e7f7f276ca33adf73ab6ce54",
-      "branch": "feat/membership-confirmation",
-      "dirty": true
+      "head": "6a08f511226453e241eadbeb2eb9c753a79dd279",
+      "branch": "feat/membership-deployment-evidence",
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "5f3e09e6bdff861aa4f78a7da570ab5f071a70654b0eb460352160ad07e020cd",
-      "front/PROGRESS.md": "2869db321d1328a9e7a7fe5ce8c074abf146e7e37bc695c0b1e34900dff7b6ec",
+      "front/PROGRESS.md": "e63b44e3a8d9a7c2e026de80bd8c7fdeb6bc29471c488faa4fcb19aeb143e090",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "1baddcefc7a1a911ccc4ab90beb120a4ad502db57bc684491b834f4176915535",
-      "server/PROGRESS.md": "fc97d6e087eb0ff0bc01cb29f23c839dea7bbe85e6fd5dc9a5d203b48a2a7694",
+      "server/PROGRESS.md": "f333887fa94ceb24ce527f369b5262746ceb91156eb1d0c6da2dac00594e2a40",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -847,6 +847,7 @@
       "server/docs/media-migration-20261022.json": "eae31e3a87a4f798f754d047b7c4778cf0bf95afdda3cdc897643c8166adcf2d",
       "server/docs/media-session-20261022.json": "f50cee821025e3d42a3924c43f29fd956e26fedd52fb4eed675f45393cd12409",
       "server/docs/membership-confirmation-20261102.json": "76df0e65dcbc65ed6b80dabe04be7e753b502fa78fff5c5a6a98b158d638f3a0",
+      "server/docs/membership-deployment-20261103.json": "728f845fbca1f46a7632c16fd7891aa4631b0a27a731cde1c10a2c4d0585e8c1",
       "server/docs/membership-level-20261022.json": "5b93e701f6b61afb070debccd1288f30fd5253df791752f0607d8ddbf889ec47",
       "server/docs/post-tip-finance-audit-20261026.json": "39e46d884186d1a5458dec5dee45c0a653f7b8d67b8c182f8cc4f1f1fadc0365",
       "server/docs/swagger-20261023.json": "f9546d21a4c93e6b06ceb1593c1a7ce70cc3b9b33e639892dfaf397b642beaa3",

@@ -1,3 +1,10 @@
+## 2026-11-03 멤버십 이미지·삭제 확인·공제율 예상 수익 — 운영 배포 완료
+- 사용자 “다되면 배포” 승인. feature→dev 통합(358be1c)→prod(73fbc85), 서버 dev fefc3ee→prod d99e010. 실제 배포 소스는 이 두 prod 커밋이며 이후 배포 증거 커밋은 문서만 변경한다. 별도 미배포 feature는 포함하지 않았다.
+- 운영 release `membership-20261103`: API·worker·front 교체. 멤버십 사진 폼 공통 MediaUpload, 이름 직접 입력 삭제 확인, 실제 개인 공제율 기반 월 구독료 예상 수익 적용. 원천징수 도움말 제거. DB 구조·기존 구독/수익 원장 변경 없음.
+- 검증: dev 프론트 typecheck·관련30건/서버 build·관련6건 통과. Linux amd64 API·프론트 빌드 통과, 이미지 소스/컴파일 해시와 운영 컨테이너 일치. 운영 목업의 공용 UI PC Chromium4·iPhone13 WebKit4 총8건 통과·화면 검토, 운영6경로200, 재시작0/OOM없음. 실제 계정의 생성·삭제/실결제·물리 iPhone 검증은 미실행.
+- 설정·DB 백업 확보, 실패 롤백 준비. admin/DB/proxy 미교체, 결제·출금 스위치 유지. Docker 이미지 정리 계획은 최신3/직전운영 보호이나 자동 승인 검토가 이전 로컬10개 삭제를 별도 파괴적 변경으로 거절하여 미실행. 원격10개 계획도 실행하지 않고 이미지 보존. 배포 정상 완료와 별개인 승인 대기 정리다.
+- 증거: [배포·검증 기록](docs/audit/membership-deployment-20261103.json), 상세 로그·캡처 `.local/membership-deploy-20261102/`. 이전 로컬 검증 기록은 아래에 보존.
+
 ## 2026-11-02 멤버십 삭제 직접 입력·개별 공제율 예상 수익 — 로컬 완료·미배포
 - 최신 origin/prod feef422에서 feat/membership-confirmation 생성. 직전 이미지 폼 커밋 0f2e6ff를 5944793으로 가져와 이번 멤버십 변경과 함께 보존했다. 기본 체크아웃/다른 feature 미커밋은 건드리지 않았다.
 - 공통 TypedConfirmDialog: 운영 콘솔의 exact phrase 규칙을 기존 Dialog/Field/Button/DialogActions로 구현, 확인 문구·콜백·busy/error를 주입한다. 멤버십 이름 정확히 입력(공백 포함), 자동 제출 없음, 취소/재진입·대상 변경 초기화, 요청 중 닫기·중복 클릭 차단, 실패 입력 유지. 디자인 시스템 예시 추가. API와 목업에 confirmation 전달/검사, 유효 구독 보호 유지.
