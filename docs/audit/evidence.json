@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T05:49:47.397740+00:00",
+  "checkedAt": "2026-11-02T06:06:41.478242+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,13 +30,13 @@
   ],
   "repositories": {
     "front": {
-      "head": "486f08a67209b711e5838a3c05248180367c7d29",
-      "branch": "feat/promotion-controls",
+      "head": "6547b243088b8b3e3924a33e65639b00bcd41a27",
+      "branch": "feat/privacy-retention",
       "dirty": false
     },
     "server": {
-      "head": "9810d920c940b8b268202c641bbbb94628b7f0e8",
-      "branch": "feat/promotion-controls",
+      "head": "d5182576ee98305393856e2f82e70342d6a285cb",
+      "branch": "feat/privacy-retention",
       "dirty": true
     }
   },
@@ -103,7 +103,7 @@
       "server/docs/inicis-identity-research-20261029.md": "d606311615d05eb7a27c5e5271c93b596f468bcfdebec6c7c6f68935399db498",
       "server/docs/live-payment-launch-20261031.md": "f4a717fada47e7a2bc04d1141fe1524767b9da30230a6bb749e3fa176ce87cd2",
       "server/docs/local-member-migration.md": "12c7dd11c9009870f95bfb4a8961bf72107367c2c5ae38c01fec7012fd53172c",
-      "server/docs/operational-logging.md": "6fd3d621ec0e41e8987876522c299e6ca677dab45a7d0ecaeda44344dcada771",
+      "server/docs/operational-logging.md": "b01223c4e1fe1a4798369fdc59c2a8313c057e6e508cd2976127def118abe8dc",
       "server/docs/platform-api.md": "194adfd58c2a06d25766ea3253e267b0781389dff788eb332fa92b6fb445d4ed",
       "server/docs/platform-implementation.md": "35f1abae75cb4e32e8356f5475f9a99ad64a757ed398654c538d2099e02170b1",
       "server/docs/prd.md": "4acd7a59320dd75f569cac956225942022f960ade6ca2f2518a2dd71e1669299",
@@ -1057,7 +1057,7 @@
       "server/src/platform/http.ts": "fa6719725948b8119c078cea4dd2a2264e77ba0d773a37cf5bef4d7988434f09",
       "server/src/platform/identity-provider.ts": "d3460eb36d68cc48503a7cc433c8d7ec19b4ac9b61051f93478bbd1056be1af3",
       "server/src/platform/identity.controller.ts": "75c26a2fc5fdf824d29ebe46d5b334c531ab4584790023dc0ccbf76642011330",
-      "server/src/platform/jobs.service.ts": "85dd9288e55d153594003f5763c21d3ab23b7f41855c8c28873fd5e078eb1d8a",
+      "server/src/platform/jobs.service.ts": "353db73ba1d5ee2f4493c24f4615e6f3b6636d36e5ac79e01a46fffda6b3b844",
       "server/src/platform/legal-documents.ts": "7562345d4b6e0c1d1ba8b73432451639e5a6c50550bb29623163f51dd1c2ee67",
       "server/src/platform/main.ts": "fcc906c8699b3c55e6969df007336fdcf48480475ff30a9a6627b5c2fefc9fec",
       "server/src/platform/marketing.controller.ts": "a09e8057aa2e19e0faa8f330b1bf2887fde14541496d703f4caa9626172b598b",
@@ -1071,12 +1071,13 @@
       "server/src/platform/member-notices.ts": "33de92ab27ef503f84f11e638c5d8f7d9fac5fb5deb625686af1c8edec687d0c",
       "server/src/platform/member-purge.ts": "30ea9be8ff0f9a9ecb96fb270e7a805435ad47d19c56967bfc37d1f506707c4a",
       "server/src/platform/middleware.ts": "cf37cb13be4147327a8fd4909068f546194a7c71b86618e3d295dcbbc50beedd",
+      "server/src/platform/moderation-retention.ts": "18a3f23d26ff374d4e6b31b200b2dee4f19940337ac4216bdee7749e96f9dde6",
       "server/src/platform/moderation.ts": "5c6404b4148041a0bfcb19a8b9a964d0a1bcb3ef3c39da23df5db7490eea15e9",
       "server/src/platform/module.ts": "59f2f0ce1c3bed59c07a621f92164cc9b453a1a860d872f915e2c59e8e25d16f",
       "server/src/platform/openapi-contract.ts": "56998a475631b810fc224c6c416bded05665d1ffa8aa6dd6d07253e16176cb4c",
       "server/src/platform/openapi.ts": "bbab5be469d325c0dfeaf67c62313b00de2a0057d141ae0164e671c6c4ed93b9",
       "server/src/platform/operations-events.ts": "fd9f0a020e0aa2f2fe0de7f20f1b9bc76c32f9a406e8e58f215926525a53d9e1",
-      "server/src/platform/operations.service.ts": "f29611faa95e582c1df0bf87804e976ed3c97af635c9f18db9eab2da1c77ecc0",
+      "server/src/platform/operations.service.ts": "5b0bc35ef72b38210c2116c9f7dd8d5c8c6c64183da6f3b8b665df3e96a11709",
       "server/src/platform/payment-provider.ts": "989ff90a64db3f9ce15542c917434116dc61d2c2aef59a33453734586eb643a2",
       "server/src/platform/payment-terms.ts": "4f773b0b2c9cfbef99c850588847f95f9e3e08a5777b41f069eea1b1663df878",
       "server/src/platform/platform-auth.guard.ts": "c472cc4d981cc0351111ac7d68161d464619d1cb48493c26c958bc2451945a9b",
@@ -1187,12 +1188,13 @@
       "server/tests/platform-media-storage.test.cjs": "a8d9d22c4ae180720f101149598fa1af599a6442839e7a687fb7ffce47c3d6dd",
       "server/tests/platform-member-erase.test.cjs": "730502997b7ca3a1bb3bff7addab28867347bce68e5b48203deae37b6a614262",
       "server/tests/platform-message-read.test.cjs": "393278225d67cd5cd258dfa4a2b49e55001e599a983733f90f3be5eaee5305cf",
+      "server/tests/platform-moderation-retention.test.cjs": "efc38d6163c3ed1b7e8fe70accf06519439f436b97ae079e00bfa0eb6fc07870",
       "server/tests/platform-moderation.test.cjs": "6fa9b6fc295a9e08b4005fa292fb825b2b00b10e4bd4093204a733b12083caa3",
       "server/tests/platform-new-creators.test.cjs": "6bce976f650bbfb63d18786f4942ead7aa10bbf96c1206ab7ec64666d8571fce",
       "server/tests/platform-openapi.test.cjs": "d3204a019a68e6fabaec9b7888fec9f0d37bf09b9f3aa4cc0bc67b0ad8c3e354",
       "server/tests/platform-operations-events.test.cjs": "30eb9e03d79e010011844dc2dc5234c9c0dc442caf5323a206f36b37e6189173",
       "server/tests/platform-operations-http.test.cjs": "9dad998737d75e3d0c150fe8d64448d3d3df6bb38046f94ef233015f68ba75f9",
-      "server/tests/platform-operations.test.cjs": "1705c685fa2033e90b28762507aaae1a1fe5be1bc50827d0f12a126a2c49c855",
+      "server/tests/platform-operations.test.cjs": "22cf22799afb2879ebc43012bf2d2e0de9c8c62b14aeb8d5fe7fac23c7b224bc",
       "server/tests/platform-payment-http.test.cjs": "d913ac08cd9cfef2f956cfda22706e031afcb62d11d65c32188941ca707165ce",
       "server/tests/platform-payment-lifecycle.test.cjs": "c3bf61942d6a71a7fda5d0915cf5b4294c99eef08225ca55cf2a01f201d4baaf",
       "server/tests/platform-pilot-followups.test.cjs": "cce002e19fe9b8a288c73e1ecd9890d90c9fd57d194cd5ac6f74b67230a8d4c1",
