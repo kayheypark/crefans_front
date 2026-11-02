@@ -3594,3 +3594,11 @@
 - 검증: 후보 컨테이너와 운영 서버 및 맥북 외부 HTTPS에서 GET/HEAD200·text/plain UTF-8, GET3261바이트 원본 SHA4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905 일치. 피드·탐색·API상태·관리자로그인·가이드5경로200. 콩/결제·계정 데이터 변경 없음. 이전19공식 링크 검증 유효; 이번 작업은 검색 순위나 AI 수집 결과를 증명하지 않음.
 - 실패/한계: 로컬 Docker의 이전 태그 이름 조회 실패로 실제 운영 이미지의 정확한 ID/레이어를 검증한 서버에서 네트워크 없는 단일COPY 빌드 수행. 후보 통과 후 배포. 기존 결제 묶음의 전체 check:docs 증거 만료는 별도 미해결이며 새 파일 목록·계약·링크 검사 오류0과 구분. 전체 앱 회귀/실금융 시험은 정적 파일 변경 범위 밖.
 - 증거 `/Users/ethan/repository/crefans_front-llms/.local/llms-deploy-20261102/`: baseline.json, dev-verification.json, image-verification.json, production-verification.json, external-verification.json, deployment-command.json 및 실제 실행 스크립트/로그. 운영 https://crefans.com/llms.txt 정상 제공. 다음은 통상 서비스/가이드 변경 때 파일 안내를 함께 검토; Search Console 추가 제출은 불필요. AGENTS 불변 규약 유지.
+
+
+## 2026-11-03 짧은 프로필 소개 공유 — feat/shared-short-bio, 미배포
+- 최신 origin/prod15d611d에서 분기. 사용자 확정대로 회원·크리에이터 상단 소개를 공유하고, 상세 소개는 별도 유지. 실제 API는 user_profiles.bio 하나를 사용하며 프론트는 기존 저장 후 재조회/경로 변경 재조회를 유지한다.
+- 목업 PreviewProvider/useMockOverview도 같은 소개를 사용. 회원/스튜디오 입력 120자 통일, 긴 소개 1,000자 유지. 양쪽 툴팁을 공유 안내로 교체. 활동명 우선 노출·핸들 규칙 등은 유지한다.
+- node --test tests/shared-short-bio.test.cjs tests/crefans-account.test.cjs 25건, npm run typecheck/check:layers 통과. 하늘·모카 양방향 수정·삭제와 상세 소개 보존, 121자 거절 검사 포함. 실제 backend 관련18건 및 OpenAPI13건 별도 통과.
+- Chromium PC1440 및 WebKit iPhone13에서 회원·스튜디오4화면의 동일 소개·120/1,000자 제한·툴팁·가로 넘침 없음 확인, 캡처 육안 검토. .local/shared-short-bio-20261103/{tests.log,typecheck.log,layers.log,browser-verification.json,pc-member.png,mobile-member.png,pc-studio.png,mobile-studio.png}. 목업/격리DB 검사이며 운영·실물iPhone 검증은 아님.
+- 운영 배포하지 않음. 서버 컬럼 이전이 필요하므로 backend docs/platform-api.md의 백업·구형API/worker중지·새버전 동시 반영 절차와 함께 배포해야 한다. 기존 중단 작업트리 및 다른 미배포 변경은 보존. AGENTS 기존 불변 규약 유지.

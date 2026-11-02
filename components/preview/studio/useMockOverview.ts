@@ -10,6 +10,7 @@ export function useMockOverview(creator:Creator|undefined,onProfileChange:(id:st
  const categories=['라이프스타일','사진','음악','피트니스','게임','코스프레','성우','아트'];
  const update=async(input:Pick<StudioProfile,'name'|'handle'|'bio'|'category'|'about'|'links'>)=>{
   if(!input.name.trim()||!/^[a-z0-9_]{3,24}$/.test(input.handle)||!categories.includes(input.category))return error('활동명, 영문 소문자·숫자·밑줄 3~24자의 주소, 분야를 확인해주세요.');
+  if(input.bio.trim().length>120)return error('소개는 120자 이내로 입력해주세요.');
   const links:CreatorLinks={};
   for(const key of ['youtube','instagram','facebook'] as const){const url=(input.links?.[key]||'').trim();if(url)links[key]=url;}
   if(Object.values(links).some(url=>!/^https?:\/\//.test(url)))return error('SNS 링크는 http:// 또는 https://로 시작하는 주소만 저장할 수 있어요.');
@@ -18,7 +19,7 @@ export function useMockOverview(creator:Creator|undefined,onProfileChange:(id:st
   if(creator)onProfileChange(creator.id,{name:input.name.trim(),handle:input.handle,bio:input.bio.trim(),about,links,tags:[input.category]});
   return ok('공개 프로필을 저장했습니다.');
  };
- return{profile,started,categories,period:'2026년 9월 1일 — 9월 12일',
+ return{profile:{...profile,bio:creator?.bio??profile.bio},started,categories,period:'2026년 9월 1일 — 9월 12일',
   metrics:[
    {id:'revenue',label:'이번 달 순수익',value:'1,284,600',description:'환불과 수수료를 반영한 금액',points:[18,26,21,38,32,49,55]},
    {id:'subscribers',label:'함께하는 구독자',value:'128',description:'현재 유효한 멤버십',points:[12,21,24,33,30,38,44]},
