@@ -1,3 +1,10 @@
+## 2026-11-03 팬·스튜디오 파비콘/메타 제목 — 구현·검증 완료, 배포 준비
+- 최신 origin/prod9ec706d에서 feat/fan-studio-favicon. 기존 로고의 두 꽃잎 path/gradient를 그대로 정사각 아이콘으로 내보냈다: app/icon.svg, favicon.ico16/32/48/64, apple-icon.png180흰배경. 생성AI로 브랜드를 재해석하지 않았다. 모든 루트 하위 경로 상속, 목업/카탈로그의 개별 덮어쓰기 제거.
+- 후속 요청: 문서 브랜드명을 크레팬스(Crefans)로 통일. root title/OG/Twitter와 Organization/WebSite, 팬·스튜디오·목업·카드·카탈로그 제목에 공용 SITE_NAME 사용. 공지사항 등 고유 제목·canonical·비공개 noindex 유지. Google 제목/파비콘 재수집·노출은 외부 처리이며 순위/즉시반영 보장 없음.
+- 검증: 실제 로컬Next15.5.28 HTTP7경로 title/OG/robots/icon태그·3에셋200/SHA 일치. TypeScript·기존SEO4건 통과. SVG미리보기 육안,ICO4프레임/Apple크기·불투명 확인. 최초 sandbox listen거부 후 허용재실행, 목업개별아이콘 덮어쓰기 검출 후 수정·7경로 재통과. 실제 브라우저 운영 확인은 배포 후, 물리 홈화면 설치/Google색인 반영은 미확인.
+- 미배포 조사: 설정 로그아웃·회원탈퇴 꺾쇠행33c30e7은 로컬완료·운영미반영. 이외 프로필피드/미디어00207ee, 모바일스튜디오1a53eb4, 업로드간소화49c507d, 개인정보링크진한색a4a30ef, 관리자표빈상태2448f72, 예약핸들관리서버1f87215/관리자91bc8cb가 남아있다. 소개글 통합은 범위답변 대기·미완료/미커밋. 이번은 상태조사만이며 다른브랜치 코드를 합치지 않았다. 대시보드/첫프레임/멤버십이미지/가입완료는 후속구현 또는cherry-pick으로 이미 반영되어 단순미병합목록과 구분한다.
+- 증거 docs/audit/favicon-metadata-20261103.json, docs/audit/pending-release-20261103.json, .local/favicon-20261103/. 다음: docs검사→dev검증→prod승격→프론트만 배포→실제title/favicon 확인. 이벤트 API/worker open-events-20261103은 이미운영, 이 추가작업은 backend변경 없음.
+
 ## 2026-11-03 전체 회원 이벤트 공개 수령 — 운영 배포 완료
 - 확정 정책: 전체 정상·이메일 인증 회원이 별도 명단/인원 상한 없이 계정당1회100콩·배지를 직접 받는다. 이벤트콩은 수령부터30일(720시간), 미사용 잔액만 소멸. 기존 지급분·다른 콩의 사용기한·이미 후원한 수익 보존, 배지에는 만료 없음·표시/숨김 가능.
 - feat/open-promotion-event→dev 통합검증→prod 승격. 배포 소스 front3ae8385/server2f7b917, release open-events-20261103(API·worker·front). 운영 DB/설정 백업·48개 migration 해시 일치 확인; 신규 migration 없음. 새30일 안내를 먼저 게시하고 API 수령 개방, 구형 명단키 제거 외 스위치 유지. admin/DB/proxy 유지·복구 이미지 삭제 없음.

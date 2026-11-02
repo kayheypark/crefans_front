@@ -1,0 +1,295 @@
+{
+  "checkedAt": "2026-11-02T23:06:34.042384+00:00",
+  "status": "local-verified-not-deployed",
+  "source": "9ec706dd7d0c838ba78e02cc8a4eda46bb23aae0",
+  "branch": "feat/fan-studio-favicon",
+  "requirements": [
+    "팬·스튜디오 공통 기존 브랜드 심볼 파비콘",
+    "크레팬스(Crefans) 문서·OG·사이트명 일치",
+    "페이지별 이름 보존, 비공개 noindex 유지"
+  ],
+  "assets": {
+    "result": "PASS",
+    "icoSizes": [
+      16,
+      32,
+      48,
+      64
+    ],
+    "apple": "180x180 opaque",
+    "svg": "existing logo petal paths and gradients; square viewBox",
+    "bytes": {
+      "icon.svg": 849,
+      "favicon.ico": 6491,
+      "apple-icon.png": 5882
+    }
+  },
+  "http": {
+    "checkedAt": "2026-11-02T23:05:33.445894+00:00",
+    "scope": "local Next15.5.28 HTTP HTML and actual metadata-file routes; not authenticated E2E",
+    "rows": [
+      {
+        "route": "/",
+        "http": 200,
+        "title": "크레팬스(Crefans)",
+        "meta": {
+          "og:title": "크레팬스(Crefans)",
+          "og:site_name": "크레팬스(Crefans)",
+          "twitter:title": "크레팬스(Crefans)"
+        },
+        "links": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico",
+            "type": "image/x-icon",
+            "sizes": "16x16"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707",
+            "type": "image/svg+xml",
+            "sizes": "any"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b",
+            "type": "image/png",
+            "sizes": "180x180"
+          }
+        ],
+        "assetHashesMatch": true
+      },
+      {
+        "route": "/service/feed",
+        "http": 200,
+        "title": "크레팬스(Crefans)",
+        "meta": {
+          "robots": "index, follow",
+          "og:title": "크레팬스(Crefans)",
+          "og:site_name": "크레팬스(Crefans)",
+          "twitter:title": "크레팬스(Crefans)"
+        },
+        "links": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico",
+            "type": "image/x-icon",
+            "sizes": "16x16"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707",
+            "type": "image/svg+xml",
+            "sizes": "any"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b",
+            "type": "image/png",
+            "sizes": "180x180"
+          }
+        ],
+        "assetHashesMatch": true
+      },
+      {
+        "route": "/service/notices",
+        "http": 200,
+        "title": "공지사항 | 크레팬스(Crefans)",
+        "meta": {
+          "robots": "index, follow",
+          "og:title": "공지사항 | 크레팬스(Crefans)",
+          "og:site_name": "크레팬스(Crefans)",
+          "twitter:title": "공지사항 | 크레팬스(Crefans)"
+        },
+        "links": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico",
+            "type": "image/x-icon",
+            "sizes": "16x16"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707",
+            "type": "image/svg+xml",
+            "sizes": "any"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b",
+            "type": "image/png",
+            "sizes": "180x180"
+          }
+        ],
+        "assetHashesMatch": true
+      },
+      {
+        "route": "/service/landing",
+        "http": 200,
+        "title": "크레팬스(Crefans)",
+        "meta": {
+          "og:title": "크레팬스(Crefans)",
+          "og:site_name": "크레팬스(Crefans)",
+          "twitter:title": "크레팬스(Crefans)"
+        },
+        "links": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico",
+            "type": "image/x-icon",
+            "sizes": "16x16"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707",
+            "type": "image/svg+xml",
+            "sizes": "any"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b",
+            "type": "image/png",
+            "sizes": "180x180"
+          }
+        ],
+        "assetHashesMatch": true
+      },
+      {
+        "route": "/service/studio/dashboard",
+        "http": 200,
+        "title": "대시보드 | 크레팬스(Crefans) 스튜디오",
+        "meta": {
+          "robots": "noindex, nofollow",
+          "og:title": "크레팬스(Crefans)",
+          "og:site_name": "크레팬스(Crefans)",
+          "twitter:title": "크레팬스(Crefans)"
+        },
+        "links": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico",
+            "type": "image/x-icon",
+            "sizes": "16x16"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707",
+            "type": "image/svg+xml",
+            "sizes": "any"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b",
+            "type": "image/png",
+            "sizes": "180x180"
+          }
+        ],
+        "assetHashesMatch": true
+      },
+      {
+        "route": "/preview/feed",
+        "http": 200,
+        "title": "홈 | 크레팬스(Crefans)",
+        "meta": {
+          "robots": "noindex, nofollow",
+          "og:title": "크레팬스(Crefans)",
+          "og:site_name": "크레팬스(Crefans)",
+          "twitter:title": "크레팬스(Crefans)"
+        },
+        "links": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico",
+            "type": "image/x-icon",
+            "sizes": "16x16"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707",
+            "type": "image/svg+xml",
+            "sizes": "any"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b",
+            "type": "image/png",
+            "sizes": "180x180"
+          }
+        ],
+        "assetHashesMatch": true
+      },
+      {
+        "route": "/preview/studio/dashboard",
+        "http": 200,
+        "title": "대시보드 | 크레팬스(Crefans) 스튜디오",
+        "meta": {
+          "robots": "noindex, nofollow",
+          "og:title": "크레팬스(Crefans)",
+          "og:site_name": "크레팬스(Crefans)",
+          "twitter:title": "크레팬스(Crefans)"
+        },
+        "links": [
+          {
+            "rel": "icon",
+            "href": "/favicon.ico",
+            "type": "image/x-icon",
+            "sizes": "16x16"
+          },
+          {
+            "rel": "icon",
+            "href": "/icon.svg?91d6b11681de8707",
+            "type": "image/svg+xml",
+            "sizes": "any"
+          },
+          {
+            "rel": "apple-touch-icon",
+            "href": "/apple-icon.png?bc15223993d1397b",
+            "type": "image/png",
+            "sizes": "180x180"
+          }
+        ],
+        "assetHashesMatch": true
+      }
+    ]
+  },
+  "checks": {
+    "typeScript": 0,
+    "existingSeoTests": {
+      "exit": 0,
+      "passed": 4
+    }
+  },
+  "failuresResolved": [
+    "First dev start denied listen by sandbox; restarted with permission",
+    "Preview icon override omitted shared icons; removed redundant override and rechecked all7 routes"
+  ],
+  "limitations": [
+    "Physical mobile home-screen install not run",
+    "Google reindex/title/favicon display is external and not guaranteed",
+    "No search ranking claim"
+  ],
+  "references": [
+    {
+      "url": "https://nextjs.org/docs/app/api-reference/file-conventions/metadata/app-icons",
+      "checkedAt": "2026-11-03",
+      "application": "Next15.5.28 installed metadata behavior verified through actual local HTTP; app static icon convention"
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/title-link?hl=ko",
+      "checkedAt": "2026-11-03",
+      "application": "concise brand name and unique page titles; Google controls rendered title links"
+    },
+    {
+      "url": "https://developers.google.com/search/docs/appearance/favicon-in-search?hl=ko",
+      "checkedAt": "2026-11-03",
+      "application": "square crawlable icon and stable URL; Google requires recrawl"
+    }
+  ],
+  "files": {
+    "app/icon.svg": "8755e6d3851096a8a2e77b993d100f5cd520cdd99673a28c0078b5b17ed870c9",
+    "app/favicon.ico": "63275165ae8b3008e928ee73db15799d9383d8b641c8bf0469f05196d098c5eb",
+    "app/apple-icon.png": "68574748115518fb73ae8be7eb409a095dae05d078e60df5660a82e2fdf5d563",
+    "lib/seo/site.ts": "f3ba98138fc5ff270197123f9626178abfdbffbfa420616c115922284631da2a",
+    "lib/seo/service-metadata.ts": "ed56ed3b0ad70304d98fe4d0bb17bbee2ed585ef2bf8a080076295214b662438"
+  }
+}

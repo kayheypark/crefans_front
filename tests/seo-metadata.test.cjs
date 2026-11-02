@@ -13,7 +13,7 @@ test('public screens are indexed with canonical and share image; private screens
 });
 test('creator preview uses the profile; search opt-out and missing profiles are noindex',async()=>{
  const restore=api({'/profiles/c1':creator,'/profiles/c2':{...creator,id:'c2',searchable:false}});try{
-  const open=await serviceSeo('creator','c1','x');assert.equal(open.metadata.title,'하늘(@haneul) | 크레팬스');assert.equal(open.metadata.openGraph.images[0].url,creator.cover);assert.equal(index(open.metadata),true);assert.equal(open.jsonLd[0]['@type'],'ProfilePage');
+  const open=await serviceSeo('creator','c1','x');assert.equal(open.metadata.title,'하늘(@haneul) | 크레팬스(Crefans)');assert.equal(open.metadata.openGraph.images[0].url,creator.cover);assert.equal(index(open.metadata),true);assert.equal(open.jsonLd[0]['@type'],'ProfilePage');
   const hidden=await serviceSeo('creator','c2','x');assert.equal(index(hidden.metadata),false);assert.equal(hidden.jsonLd.length,0);
   const missing=await serviceSeo('creator','nope','크리에이터 프로필 · crefans');assert.equal(index(missing.metadata),false);assert.equal(missing.metadata.title,'크리에이터 프로필 · crefans');
  }finally{restore();}

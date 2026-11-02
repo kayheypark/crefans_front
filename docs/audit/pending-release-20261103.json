@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-11-02T23:06:34.042384+00:00",
+  "scope": "local worktrees and refreshed origin/prod of front/server/admin compared to deployed open-events/front+API and referral/admin baseline",
+  "notDeployed": [
+    {
+      "item": "설정 로그아웃·회원 탈퇴 꺾쇠 메뉴 행",
+      "commit": "front33c30e7",
+      "evidence": "current AccountPages.tsx uses previous accountActions buttons; branch uses menuList rows"
+    },
+    {
+      "item": "내 프로필 피드·미디어 조회 및 썸네일/개수",
+      "commit": "front00207ee",
+      "evidence": "current AccountPages.tsx renders tab0 and Empty regardless of owned posts"
+    },
+    {
+      "item": "모바일 내 프로필 스튜디오 바로가기",
+      "commit": "front1a53eb4",
+      "evidence": "current ProfileHeader.action has wallet+settings only"
+    },
+    {
+      "item": "업로드 설명 간소화",
+      "commit": "front49c507d",
+      "evidence": "current ManagementPages.tsx still has watermark and follower notice in hint"
+    },
+    {
+      "item": "개인정보처리방침 링크 진한색",
+      "commit": "fronta4a30ef",
+      "evidence": "current service-footer lacks privacy link color override"
+    },
+    {
+      "item": "운영콘솔 콩 후원·출금 표 빈 상태 통일",
+      "commit": "admin2448f72",
+      "evidence": "origin/prod lacks TableContent.tsx and standardized state branches"
+    },
+    {
+      "item": "예약 핸들 관리·초기103개 예약",
+      "commit": "server1f87215/admin91bc8cb",
+      "evidence": "prod migration48 lacks reserved_handles migration; admin lacks ReservedHandles.tsx"
+    }
+  ],
+  "unfinished": [
+    {
+      "item": "개인/크리에이터 소개글 저장 통합",
+      "evidence": "profile-bio worktrees dirty; migration and integration tests not done; short bio vs detailed about scope awaiting answer in recorded PROGRESS"
+    }
+  ],
+  "excludedAlreadyApplied": [
+    "membership image upload equivalent cherry-pick5944793",
+    "studio quick dashboard current2x3 version2abdac0",
+    "iPhone first-frame fixba125ac",
+    "signup complete uses later dedicated completion page011a24a"
+  ],
+  "excludedNonDeployable": [
+    "standalone contract PDF/doc updates",
+    "design proposal-only branches",
+    "local logs/cache/private symlinks"
+  ],
+  "auditOnly": true
+}
