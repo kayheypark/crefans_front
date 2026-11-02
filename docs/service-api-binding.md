@@ -274,3 +274,7 @@ bootstrap.data.categories의 서버 정렬 순서를 홈·탐색에 그대로 �
 ### 프로모션 100콩 이벤트 즉시 수령 (2026-11-03, 미배포)
 `useBeansModel`의 getPromotionClaim/claimPromotion을 `usePromotionClaim`에 주입한다. GET `/events/promotion-beans`와 POST `/events/promotion-beans/claim`는 세션 본인만 대상으로 하며 body는 `{}`다. 응답은 `{status,quantity:100,claimedAt}`로 available/claimed/ineligible/unavailable을 구분한다. status 조회만으로 지급되지 않는다. 성공한 claimed 이후 지갑·내역을 다시 조회하고, 통신 오류는 재시도 가능하게 둔다. 서버 고정 키로 응답 유실 후 재요청도1회만 지급한다. 401은 로그인 복귀 링크, 로딩/오류 중에는 받기 불가. 프리뷰는 API를 호출하지 않는다.
 서버의 PROMOTION_EVENT_MEMBER_IDS에 운영자가 확정한 팬 계정 ID를 최대13개 지정해야 한다. 빈 값·잘못된 값·BEAN_LEDGER_ENABLED=false는 신규 지급을 막는다. 회원가입만으로 대상이 되지 않으며 브라우저에서 대상/수량을 전달할 수 없다. 현재 작업에서는 운영 명단/설정/지급을 변경하지 않았다.
+
+### 원년멤버 배지 수령·표시 (2026-11-03, 미배포)
+`useServiceModel.foundingBadge`가 GET `/events/founding-badge`, POST `/events/founding-badge/claim`(빈body), PUT `/me/founding-badge`({visible})를 연결한다. `useFoundingBadge`는 회원 세션별 수명/동시요청/늦은 응답을 방어하고 반환 상태로만 완료·표시 여부를 갱신한다. 성공하면 본인 viewer·creator flag를 갱신하고 페이지 진입 시 bootstrap/publicProfile로 서버 저장값을 재조회한다. `FoundingBadgeEventDetail`은 /service와 /preview 공용이며 목업은 useMockFoundingBadge만 사용한다.
+기존 참여 확정 크리에이터3명·팬13명 정책,1인1회. 서버의 FOUNDING_BADGE_MEMBER_IDS 미설정 시 신규 수령은 중지다. 회원가입만으로 지급하지 않고 운영 실제 대상 명단·배포는 아직 남아 있다. 실제 MySQL8건, 프론트523건/레이어/TS, PC·모바일WebKit·320px목업3흐름 증거는 [검증 기록](./audit/founding-badge-claim-20261103.json). 브라우저 실서비스API는 명시한 대역이며 실제 운영 지급/실물iPhone 검증과 구분한다.

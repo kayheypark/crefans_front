@@ -52,3 +52,5 @@
 .notes ul{margin:0;padding-left:18px;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.8}
 .notes li+li{margin-top:8px}
 @media(max-width:600px){.notes{padding:18px}.page h1{font-size:23px;word-break:keep-all;overflow-wrap:anywhere}}
+
+.badgePreference{margin-top:20px;padding-top:20px;border-top:1px solid var(--cf-color-border)}

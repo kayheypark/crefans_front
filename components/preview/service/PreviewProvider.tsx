@@ -1,4 +1,5 @@
 'use client';
+import {useMockFoundingBadge} from './useMockFoundingBadge';
 import {previewViewer} from '../founding-members';
 import {BeanContext} from '@/components/crefans/BeanContext';
 import {useMockBeans} from './useMockBeans';
@@ -21,7 +22,7 @@ function usePreviewState(data:ServiceData,creatorId:string,onCreatorLogin:(id:st
   const [signedIn,setSignedIn]=useState(true),restored=useRef(false);
   useEffect(()=>{try{if(sessionStorage.getItem(signedInKey)==='false')setSignedIn(false);}catch{}restored.current=true;},[]);
   useEffect(()=>{if(!restored.current)return;try{sessionStorage.setItem(signedInKey,String(signedIn));}catch{}},[signedIn]);
-  const [viewer,setViewer]=useState<Viewer>(creator?{name:creator.name,handle:creator.handle,bio:creator.bio,image:creator.image}:previewViewer);
+  const [viewer,setViewer]=useState<Viewer>(creator?{name:creator.name,handle:creator.handle,bio:creator.bio,image:creator.image}:{...previewViewer,isFoundingMember:false});
   const [following,setFollowing]=useState<string[]>(['haneul','jiwoo']);
   const [liked,setLiked]=useState<string[]>([]),[saved,setSaved]=useState<string[]>([]);
   const [subscriptions,setSubscriptions]=useState<Subscription[]>(()=>initialSubscriptions.map(item=>{const plan=item.planSnapshot??getCreatorPlans(data,item.creatorId).find(plan=>plan.id===item.planId);return {...item,planSnapshot:plan?{...plan,benefits:[...plan.benefits]}:undefined};}));
@@ -41,8 +42,9 @@ function usePreviewState(data:ServiceData,creatorId:string,onCreatorLogin:(id:st
   };
   const canAccess:ServiceViewModel['canAccess']=(creatorId,rank,requiredPlanId)=>creatorId===creator?.id||hasPreviewAccess(subscriptions,creatorId,rank,today,getCreatorPlans(data,creatorId),requiredPlanId);
   const account=useMockAccount({viewer,setViewer,setSignedIn,basePath,creators:data.creators,onCreatorLogin,initialEmail:creator?'moka@gmail.com':undefined});
+  const foundingBadge=useMockFoundingBadge(setViewer);
   const social=useMockSocial({data,viewer,canAccess,today,initialComments,initialReplies,liked});
-  return{data,mode:'mock',basePath,ownCreatorIds:[creatorId],today,nextRenewAt,signedIn,setSignedIn,viewer,setViewer,following,toggleFollow,liked,toggleLike,saved,toggleSave,subscriptions,subscribe,cancelSubscription,canAccess,...account,...social};
+  return{data,foundingBadge,mode:'mock',basePath,ownCreatorIds:[creatorId],today,nextRenewAt,signedIn,setSignedIn,viewer,setViewer,following,toggleFollow,liked,toggleLike,saved,toggleSave,subscriptions,subscribe,cancelSubscription,canAccess,...account,...social};
 }
 const Context=createContext<ServiceViewModel|null>(null);
 const CommonContext=createContext<CommonModel|null>(null);

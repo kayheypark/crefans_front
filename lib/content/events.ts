@@ -156,8 +156,9 @@ export const serviceEvents:readonly ServiceEvent[]=[
   ...campaign,
   "id": "founding-badge",
  "title": "원년멤버 한정판 뱃지 이벤트",
- "summary": "참여가 확정된 회원 전원에게 드립니다.",
+ "summary": "참여가 확정된 회원 전원, 받기 버튼으로 배지를 받아보세요.",
  "theme": "badge",
+ "schedule": "참여가 확정된 계정으로 로그인한 뒤 받기 버튼을 누르면 배지가 즉시 지급됩니다.",
  "banner": {
   "title": "원년멤버 한정판 뱃지",
   "description": "참여 확정 회원 전원"
@@ -171,18 +172,18 @@ export const serviceEvents:readonly ServiceEvent[]=[
    "title": "원년멤버 한정판 뱃지",
    "image": "/brand/events/beta-first/color-cards-v1/badge.webp",
    "details": [
-    "참여가 확정된 회원 전원에게 드립니다.",
-    "배지 지급 후 프로필 페이지에 표시됩니다.",
+    "참여가 확정된 회원 전원, 받기 버튼으로 배지를 받아보세요.",
+    "받기 버튼을 누르면 프로필에 바로 표시됩니다.",
     "표시 여부는 직접 선택할 수 있습니다."
    ]
   }
  ],
-  notes:[participationNotes,
+  notes:[{...participationNotes,items:[...participationNotes.items.slice(0,2),"참여 확정 후 수령 대상자로 지정된 계정에서 ‘원년멤버 배지 받기’를 눌러주세요. 수령 완료 즉시 프로필에 표시되며, 다시 누르거나 새로고침해도 중복 지급되지 않습니다. 참여 기간은 확정 후 안내하며, 대상 지정 전에는 받을 수 없습니다."]},
 {
  "title": "원년멤버 한정판 배지",
  "items": [
   "참여 확정 회원 전원에게 제공하는 기념 배지입니다. 크리에이터 인증이나 서비스의 품질·신뢰를 보증하는 표시는 아닙니다.",
-  "배지는 지급 시 프로필에서 표시하거나 숨길 수 있도록 제공할 예정이며, 제공 일정은 별도 안내합니다."
+  "수령 후 이 페이지의 ‘프로필에 배지 표시’ 스위치로 표시하거나 숨길 수 있습니다. 숨겨도 수령 기록은 유지되며 다시 표시할 수 있습니다."
  ]
 },
   contactNotes],
