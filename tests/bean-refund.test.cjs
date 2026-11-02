@@ -112,3 +112,19 @@ test('a refund reply counts as done only when the server says done; a refusal ge
  assert.deepEqual(beanRefundOutcome({success:false,errorCode:'BEAN_REFUND_FAILED'},'req',fresh),{kind:'error',requestId:'new-id'});
  assert.deepEqual(beanRefundOutcome({success:false,errorCode:'PAYMENT_UNCERTAIN'},'req',fresh),{kind:'error',requestId:'req'});
 });
+
+test('event mock claims once, uses event beans first and expires only the unused event balance',async()=>{
+ const view=mockBeans(),originalNow=Date.now;try{
+  let receipt;await act(async()=>{receipt=await view.model.claimPromotion();});
+  assert.equal(Date.parse(receipt.data.expiresAt)-Date.parse(receipt.data.claimedAt),30*day);
+  assert.equal(view.model.wallet.spendableBreakdown.promotion,200);
+  assert.equal(view.model.wallet.expiringSoon.quantity,100);
+  await act(async()=>{const result=await view.model.tip('other-creator',{quantity:40,message:'',requestId:'event-tip'});assert.equal(result.success,true);});
+  assert.equal(view.model.wallet.expiringSoon.quantity,60);
+  Date.now=()=>Date.parse(receipt.data.expiresAt);
+  await act(async()=>{await view.model.refresh(false,2);});
+  assert.equal(view.model.wallet.spendableBreakdown.promotion,100);
+  let retry;await act(async()=>{retry=await view.model.claimPromotion();});
+  assert.deepEqual(retry,receipt);assert.equal(view.model.wallet.spendableBreakdown.promotion,100);
+ }finally{Date.now=originalNow;view.close();}
+});

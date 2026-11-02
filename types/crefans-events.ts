@@ -1,6 +1,6 @@
 import type {ApiResult} from './crefans';
-export type PromotionClaimStatus={status:'available'|'claimed'|'ineligible'|'unavailable';quantity:100;claimedAt:string|null};
-export type PromotionClaimModel={status:PromotionClaimStatus['status']|'signed-out'|'loading'|'error';busy:boolean;error:string;onClaim:()=>void;onReload:()=>void};
+export type PromotionClaimStatus={status:'available'|'claimed'|'ineligible'|'unavailable';quantity:100;claimedAt:string|null;expiresAt?:string|null};
+export type PromotionClaimModel={status:PromotionClaimStatus['status']|'signed-out'|'loading'|'error';expiresAt?:string|null;busy:boolean;error:string;onClaim:()=>void;onReload:()=>void};
 export type ServiceEvent={
  id:string;
  title:string;

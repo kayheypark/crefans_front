@@ -1,5 +1,5 @@
 // Mirrors server beanPolicy (2026-10-30, D6): unused purchased beans refund in full within 7 days of payment, 10% is kept after;
-// purchased and promotion beans expire 5 years after payment/grant with a notice 30 days ahead. Promotion beans are never refunded.
+// purchased and ordinary promotion beans expire 5 years after payment/grant; event lots use their explicit expiry with a notice 30 days ahead. Promotion beans are never refunded.
 export const beanRefundPolicy=Object.freeze({fullDays:7,deductionBps:1000,validityYears:5,expiryNoticeDays:30});
 const day=86400000;
 export const beanValidUntil=(from:string|Date)=>{const d=new Date(from);d.setFullYear(d.getFullYear()+beanRefundPolicy.validityYears);return d;};
@@ -13,8 +13,8 @@ export function unusedPurchasedBeans(charges:{id:string;quantity:number;status:s
  for(const c of charges.filter(c=>c.status==='paid'&&c.paidAt).sort((a,b)=>b.paidAt!.localeCompare(a.paidAt!))){const n=Math.min(rest,c.quantity-(c.refundedQuantity||0));left.set(c.id,n);rest-=n;}
  return left;
 }
-export function expiringSoonBeans(lots:{quantity:number;from:string}[],now=new Date()){
- const until=now.getTime()+beanRefundPolicy.expiryNoticeDays*day,soon=lots.map(l=>({quantity:l.quantity,expiresAt:beanValidUntil(l.from)})).filter(l=>l.quantity>0&&l.expiresAt>now&&l.expiresAt.getTime()<=until).sort((a,b)=>a.expiresAt.getTime()-b.expiresAt.getTime());
+export function expiringSoonBeans(lots:{quantity:number;from:string;expiresAt?:string}[],now=new Date()){
+ const until=now.getTime()+beanRefundPolicy.expiryNoticeDays*day,soon=lots.map(l=>({quantity:l.quantity,expiresAt:l.expiresAt?new Date(l.expiresAt):beanValidUntil(l.from)})).filter(l=>l.quantity>0&&l.expiresAt>now&&l.expiresAt.getTime()<=until).sort((a,b)=>a.expiresAt.getTime()-b.expiresAt.getTime());
  return soon.length?{quantity:soon.reduce((n,l)=>n+l.quantity,0),expiresAt:soon[0].expiresAt.toISOString()}:null;
 }
 export const beanExpiryDate=(value:string)=>new Date(value).toLocaleDateString('sv-SE',{timeZone:'Asia/Seoul'}).replaceAll('-','.');
