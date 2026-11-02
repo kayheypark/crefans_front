@@ -3,7 +3,7 @@ import type {ServiceEvent} from '@/types/crefans-events';
 import {BackButton} from './BackButton';
 import {Brand} from './Brand';
 import {CommonNavigation} from './CommonPages';
-import {Empty,PageTitle} from './ServiceUI';
+import {ActionLink,Empty,PageTitle} from './ServiceUI';
 import s from './events.module.css';
 
 export function EventsPage({events,basePath}:{events:readonly ServiceEvent[];basePath:string}){
@@ -35,6 +35,14 @@ export function EventDetailPage({event,basePath}:{event:ServiceEvent|undefined;b
     <p className={s.campaignSchedule}><span aria-hidden="true">* </span>{event.schedule}</p>
    </div>
   </section>
+  {event.submission&&<section className={s.submission} aria-labelledby="event-submission">
+   <h2 id="event-submission">{event.submission.title}</h2>
+   <p>{event.submission.description}</p>
+   <ol>{event.submission.steps.map(step=><li key={step}>{step}</li>)}</ol>
+   <div className={s.submissionContact}><span>피드백 접수 이메일</span><strong>{event.submission.email}</strong></div>
+   <ActionLink className={s.submissionAction} href={`mailto:${event.submission.email}?subject=${encodeURIComponent(event.submission.subject)}&body=${encodeURIComponent(event.submission.body)}`}>이메일로 피드백 보내기</ActionLink>
+   <p className={s.submissionHint}>{event.submission.hint}</p>
+  </section>}
   <section className={s.notes} aria-labelledby="event-notes"><h2 id="event-notes">꼭 확인해 주세요</h2>{event.notes.map(note=><section className={s.noteGroup} key={note.title}><h3>{note.title}</h3><ul>{note.items.map(item=><li key={item}>{item}</li>)}</ul></section>)}</section>
   <CommonNavigation basePath={basePath}/>
  </article>;

@@ -12,7 +12,7 @@ const {EventsPage,EventDetailPage}=loadTypeScript('components/crefans/EventPages
  './Brand':{Brand:({href})=>el('a',{href,'aria-label':'crefans 홈'})},
  './BackButton':{BackButton:({href,label})=>el('a',{href,'aria-label':label})},
  './CommonPages':{CommonNavigation:()=>null},
- './ServiceUI':{PageTitle:({children,back})=>el('header',null,back,el('h1',null,children)),Empty:({title})=>el('p',null,title)},
+ './ServiceUI':{ActionLink:({children,...props})=>el('a',props,children),PageTitle:({children,back})=>el('header',null,back,el('h1',null,children)),Empty:({title})=>el('p',null,title)},
 });
 function mount(Component,props){let tree;act(()=>{tree=create(el(Component,props));});return tree;}
 const close=tree=>act(()=>tree.unmount());
@@ -84,7 +84,12 @@ test('every detail repeats common terms and only its own benefit conditions',()=
  const commonNotes=serviceEvents[0].notes.filter(note=>common.includes(note.title));
  assert.equal(commonNotes.length,2);
  for(const [index,event] of serviceEvents.entries()){
-  assert.deepEqual(event.notes.filter(note=>common.includes(note.title)),commonNotes);
+  const shared=event.notes.filter(note=>common.includes(note.title));
+  assert.deepEqual(shared.map(note=>note.title),common);
+  assert.deepEqual(shared[0].items.slice(0,2),commonNotes[0].items.slice(0,2));
+  assert.deepEqual(shared[1],commonNotes[1]);
+  if(index===0)assert.match(shared[0].items[2],/khpark@crefans.com/);
+  else assert.match(shared[0].items[2],/참여 방법과 완료 기준.*미정/);
   assert.deepEqual(event.notes.filter(note=>!common.includes(note.title)).map(note=>note.title),specific[index]);
   const text=event.notes.flatMap(note=>note.items).join(' ');
   for(const requirement of ['만 19세','회원가입만으로','1인 1회','미정','소급','중복 수령','고객센터','광고성 정보 수신'])assert.ok(text.includes(requirement),requirement);
@@ -123,5 +128,32 @@ test('old beta- event addresses redirect with 301 and the event ids carry no bet
  for(const base of ['service','preview']){
   for(const e of serviceEvents)assert.ok(redirects.some(r=>r.source===`/${base}/events/beta-${e.id}`&&r.destination===`/${base}/events/${e.id}`&&r.statusCode===301),e.id);
   assert.ok(redirects.some(r=>r.source===`/${base}/events/beta-first`&&r.destination===`/${base}/events`&&r.statusCode===301));
+ }
+});
+
+
+test('feedback email opens a Korean draft for the specified inbox on both routes without claiming receipt',()=>{
+ const event=serviceEvents.find(e=>e.id==='feedback');
+ for(const basePath of ['/preview','/service']){
+  const tree=mount(EventDetailPage,{event,basePath});
+  const draftLinks=tree.root.findAllByType('a').filter(a=>a.props.href.startsWith('mailto:'));
+  assert.equal(draftLinks.length,1);
+  const href=new URL(draftLinks[0].props.href);
+  assert.equal(href.pathname,'khpark@crefans.com');
+  assert.equal(href.searchParams.get('subject'),'[크레팬스 피드백 이벤트] @핸들 · 피드백 제목');
+  const body=href.searchParams.get('body');
+  for(const item of ['프로필 핸들(@아이디)','참여 유형(크리에이터 / 팬)','피드백 내용','해당하는 경우','재현 순서','기대했던 결과','실제 결과','개선 아이디어','첨부 자료(선택)'])assert.ok(body.includes(item),item);
+  assert.ok(body.includes('\r\n'));
+  assert.equal(href.searchParams.get('cc'),null);assert.equal(href.searchParams.get('bcc'),null);
+  assert.equal(draftLinks[0].props.children,'이메일로 피드백 보내기');
+  assert.match(JSON.stringify(tree.toJSON()),/이메일 발송만으로.*보장되지는 않습니다/);
+  assert.match(JSON.stringify(tree.toJSON()),/메일 앱이 열리지 않으면/);
+  assert.equal(tree.root.findAllByType('form').length,0);
+  close(tree);
+ }
+ for(const event of serviceEvents.filter(e=>e.id!=='feedback')){
+  assert.equal(event.submission,undefined);
+  const tree=mount(EventDetailPage,{event,basePath:'/service'});
+  assert.equal(tree.root.findAllByType('a').filter(a=>a.props.href.startsWith('mailto:')).length,0);close(tree);
  }
 });

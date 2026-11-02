@@ -10,6 +10,7 @@ export type ServiceEvent={
  image:string;
  imageWidth:number;
  imageHeight:number;
+ submission?:{title:string;description:string;steps:readonly string[];email:string;subject:string;body:string;hint:string};
  rewards:ReadonlyArray<{audience:string;title:string;image:string;details:readonly string[];notice?:string}>;
  notes:ReadonlyArray<{title:string;items:readonly string[]}>;
 };

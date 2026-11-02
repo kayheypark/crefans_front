@@ -30,6 +30,16 @@
 .rewardDetails li+li{margin-top:3px}
 .rewardNotice{grid-column:1/-1;margin:8px 0 0;padding-left:4px;color:#344b42;font-size:14px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
 .campaignSchedule{margin:clamp(14px,2.4cqw,22px) 8px 0;text-align:right;color:#6c7390;font-size:clamp(11px,1.8cqw,14px);font-weight:400;line-height:1.6;word-break:keep-all}
+.submission{margin-top:32px;padding:24px 0;border-top:1px solid var(--cf-color-border);border-bottom:1px solid var(--cf-color-border);word-break:keep-all;overflow-wrap:anywhere}
+.submission h2{margin:0 0 12px;font-size:20px;line-height:1.45;letter-spacing:-.03em}
+.submission>p{margin:0;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.8}
+.submission ol{margin:20px 0;padding-left:22px;font-size:14px;line-height:1.8}
+.submission li+li{margin-top:10px}
+.submissionContact{display:grid;gap:4px;margin:24px 0 16px}
+.submissionContact span{font-size:13px;color:var(--cf-color-textSecondary)}
+.submissionContact strong{font-size:18px;font-weight:600}
+.submissionAction{width:100%;min-height:44px;justify-content:center}
+.submission>.submissionHint{margin-top:12px;font-size:13px}
 .notes{margin-top:28px;padding:22px;border-radius:12px;background:var(--cf-landing-soft)}
 .notes h2{font-size:18px;margin:0 0 16px}
 .noteGroup+.noteGroup{margin-top:24px}
