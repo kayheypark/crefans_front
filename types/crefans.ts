@@ -1,3 +1,4 @@
+import type {FoundingBadgeActions} from './crefans-events';
 import type {Dispatch,SetStateAction} from 'react';
 import type {AccountModel} from './crefans-account';
 import type {SocialModel} from './crefans-social';
@@ -26,6 +27,7 @@ export type ServiceData={creators:Creator[];newCreatorIds?:string[];plans:Plan[]
 /** Presentation inputs. Containers may back these with fixtures or API/model adapters. */
 export type ServiceViewModel=AccountModel&SocialModel&{
   beanSupport?:boolean;
+  foundingBadge?:FoundingBadgeActions;
   data:ServiceData;mode:'mock'|'live';today:string;basePath:string;nextRenewAt?:string;
   /** Creators this account manages; their posts get the 수정 menu item. */
   ownCreatorIds?:string[];

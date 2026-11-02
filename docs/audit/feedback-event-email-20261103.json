@@ -1,0 +1,125 @@
+{
+  "checkedAt": "2026-11-02T16:59:08.531693+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-feedback-event",
+  "baseCommit": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
+  "branch": "feat/feedback-event-email",
+  "workingState": "uncommitted verification; feature commit follows",
+  "environment": "macOS-15.2-arm64-arm-64bit-Mach-O",
+  "scope": "Feedback event copy and email draft link only. Other three event contents unchanged.",
+  "sourceSha256": {
+    "components/crefans/EventPages.tsx": "9c8350e18ff6168b749e84e6f981a011fa264fd5580e7eae7564a79e870b3ec4",
+    "components/crefans/events.module.css": "25ca61acc010f1184c110af458ee2f07ec4d2872c5edbd9f2a8ca5b1c7d45c8c",
+    "lib/content/events.ts": "4a000a34a292792807ae2eb2570685461872ba88adbf3dfa7a5f670283e1cb43",
+    "types/crefans-events.ts": "6574362748fa3054594aa4b65060974a26f6b9fb9aa85ec9533f64dea949676b",
+    "tests/crefans-events.test.cjs": "dea077fdbdbf05f59a5260863686962e9cb7023c7b7e6ad6047ba1d0ccf0911b"
+  },
+  "executions": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "result": "layers/typecheck and 511 tests passed"
+    },
+    {
+      "command": "node --test --test-name-pattern=feedback email opens tests/crefans-events.test.cjs (wrong receiver)",
+      "exitCode": 1,
+      "expectedFailure": true
+    },
+    {
+      "command": "node --test tests/crefans-events.test.cjs (restored)",
+      "exitCode": 0,
+      "testsPassed": 8
+    },
+    {
+      "command": "node .local/feedback-event-20261103/browser.cjs",
+      "exitCode": 0,
+      "cases": [
+        {
+          "name": "desktop-service",
+          "route": "service",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "horizontalOverflow": false,
+          "actionHeight": 44.390625,
+          "mailTo": "khpark@crefans.com",
+          "pageErrors": [],
+          "apiScope": "bootstrap/common synthetic success responses",
+          "result": "PASS"
+        },
+        {
+          "name": "desktop-preview",
+          "route": "preview",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "horizontalOverflow": false,
+          "actionHeight": 44.390625,
+          "mailTo": "khpark@crefans.com",
+          "pageErrors": [],
+          "apiScope": "preview model",
+          "result": "PASS"
+        },
+        {
+          "name": "mobile-service",
+          "route": "service",
+          "viewport": {
+            "width": 390,
+            "height": 664
+          },
+          "horizontalOverflow": false,
+          "actionHeight": 44.390625,
+          "mailTo": "khpark@crefans.com",
+          "pageErrors": [],
+          "apiScope": "bootstrap/common synthetic success responses",
+          "result": "PASS"
+        },
+        {
+          "name": "small-preview",
+          "route": "preview",
+          "viewport": {
+            "width": 320,
+            "height": 800
+          },
+          "horizontalOverflow": false,
+          "actionHeight": 44.390625,
+          "mailTo": "khpark@crefans.com",
+          "pageErrors": [],
+          "apiScope": "preview model",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "initialFailure": "First service screenshots were obscured by local API unavailable dialog; initial checks missed that. Retained under first-browser-without-api. Final checks explicitly reject dialogs and use bootstrap/common synthetic success responses.",
+  "visualReview": "PC/390px/320px captures inspected; content and controls fit.",
+  "logs": {
+    "check.log": {
+      "sha256": "7f31b602dd33dd6047fcd91f5e42e3441ab5faca95f943d225f94a448f7ad28d",
+      "modifiedAt": "2026-11-02T16:55:42.656370+00:00"
+    },
+    "negative.log": {
+      "sha256": "a81165b276ca2b0cc10db85056680e4a16afd4015969b002d9056785d6a146bb",
+      "modifiedAt": "2026-11-02T16:56:53.649174+00:00"
+    },
+    "events-final.log": {
+      "sha256": "5822e970c616dce9eb9777bc8392729b900b8e4814485c7060e264ea39aaa4c3",
+      "modifiedAt": "2026-11-02T16:56:53.944425+00:00"
+    },
+    "browser.log": {
+      "sha256": "8069ff2778aef085bf7e5968220ab59740d846c9d110507d9ed6bba6b5227449",
+      "modifiedAt": "2026-11-02T16:58:08.282757+00:00"
+    }
+  },
+  "limits": [
+    "No email sent or received; link construction and rendering verified only.",
+    "Service bootstrap/common use test doubles; no production integration claim.",
+    "No production deployment.",
+    "Reward amount, selection limit and unspecified schedule remain unchanged."
+  ]
+}
