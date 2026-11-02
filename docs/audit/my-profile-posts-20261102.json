@@ -1,0 +1,109 @@
+{
+  "checkedAt": "2026-11-02T13:34:40.317353+00:00",
+  "repository": "crefans_front",
+  "baseCommit": "feef4226d1b92441e762d11d85a6caeb4d4f377a",
+  "branch": "feat/my-profile-posts",
+  "status": "implemented and verified locally; not deployed; dev/prod not merged",
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "next": "15.5.28",
+    "api": "intercepted fixture responses; no production writes"
+  },
+  "acceptance": [
+    "Own published feed and photo/video media visible instead of fixed empty state",
+    "Only ownCreatorIds included; author filter persists in pagination",
+    "Collections, fans, guests and stale results stay separate",
+    "Lookup failure shows error and no unrelated bootstrap feed",
+    "Existing shared PostCard and public creator profile continue to work"
+  ],
+  "observedCause": {
+    "route": "/service/me",
+    "production": "Header posts 1; feed and media tabs 0 with empty placeholder",
+    "source": "MyProfileContent fixed zero tabs and unconditional empty state; useServiceModel skipped creator-filtered postPage for me"
+  },
+  "sourceSha256": {
+    "components/crefans/AccountPages.tsx": "7396794b45baa3e9232538ad5f6cffbed2f11b52d2cebe16da587faf370dc342",
+    "features/service/useServiceModel.ts": "4f2d74ba3bf7d70c77a0ab4c1f2ab04803a2805770fdca78b7f65a11f9059521",
+    "tests/my-profile-posts.test.cjs": "7948b8e5e4b4672d9ed52c46ad79266c6533de12b288afd7e63be350230e39e5",
+    "e2e/my-profile-posts.spec.ts": "44d14402e8ba4f72cdc5df216d31aa8789a39ee635cb98b10ab386438a0c7d94",
+    "docs/service-api-binding.md": "7e83b83a72ab3e369c4dc95ab9fd6e646abbd16d8f63949dddc796b654681209",
+    "docs/preview-pages.md": "fb11c90e8deae161aeedc30664175a1945789679009108eb0f1924101d75605f"
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "summary": "Layer/type checks and 506 tests passed",
+      "log": ".local/my-profile-posts-20261102/check.log",
+      "logSha256": "ee629187024782037402d09de98cf449a0e2cb73ca25b8d443a207394fb39d47",
+      "logUpdatedAt": "2026-11-02T13:29:22.499581+00:00"
+    },
+    {
+      "command": "node --test tests/my-profile-posts.test.cjs",
+      "exitCode": 0,
+      "summary": "3 regressions passed",
+      "log": ".local/my-profile-posts-20261102/unit.log",
+      "logSha256": "230079833e28c384ec41f8ab2f9f7bc1ccb5956d2df27f3154c34b1508e94107",
+      "logUpdatedAt": "2026-11-02T13:27:44.555416+00:00"
+    },
+    {
+      "command": "same regressions with both production source files reverted to HEAD",
+      "exitCode": 1,
+      "summary": "All 3 regressions failed on original code; edited files restored afterward",
+      "log": ".local/my-profile-posts-20261102/negative.log",
+      "logSha256": "68539a52e38c5924bf8c51c763694dee68f696c9702c8566bef4e497069071a8",
+      "logUpdatedAt": "2026-11-02T13:29:09.070046+00:00"
+    },
+    {
+      "command": "npx playwright test --config .local/my-profile-posts-20261102/playwright.config.ts",
+      "exitCode": 0,
+      "summary": "8 API-stub browser tests passed on PC Chromium 1440x1000 and mobile Chromium 390x844",
+      "log": ".local/my-profile-posts-20261102/browser-retest.log",
+      "logSha256": "6611aad030e5694d442a6f562c8bdd326b48a2f26dcdd8096c99955c3dbdccc8",
+      "logUpdatedAt": "2026-11-02T13:31:04.122051+00:00"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "summary": "Production compilation/type validation and 35 static pages succeeded",
+      "log": ".local/my-profile-posts-20261102/build.log",
+      "logSha256": "309b158dcfa3fdd53c347871e5390fab8c12585e7b0db1dd74d919a2077b3857",
+      "logUpdatedAt": "2026-11-02T13:33:40.928072+00:00"
+    }
+  ],
+  "firstBrowserRun": {
+    "passed": 4,
+    "failed": 4,
+    "cause": "Test fixture omitted comments-page response; empty state title selector expected heading instead of text. Fixed test fixture/selectors; no production code workaround."
+  },
+  "screenshots": [
+    {
+      "path": ".local/my-profile-posts-20261102/browser/my-profile-posts-owner-fee-eae51--profile-and-public-profile-mobile/my-profile-feed.png",
+      "sha256": "1684230f109571fd1aa7a9297f90dfb967edd9366a34e0e79220684b88414d48",
+      "reviewed": true
+    },
+    {
+      "path": ".local/my-profile-posts-20261102/browser/my-profile-posts-owner-fee-eae51--profile-and-public-profile-mobile/my-profile-media.png",
+      "sha256": "98fdccfcb28f9e0afd274c3f64fc6b8047d8cd1ae54da9773dde42c04841614f",
+      "reviewed": true
+    },
+    {
+      "path": ".local/my-profile-posts-20261102/browser/my-profile-posts-owner-fee-eae51--profile-and-public-profile-pc/my-profile-feed.png",
+      "sha256": "940f4724371c7d29494a5e104af8eece85c8aac0f1ba5c2870c0998784d69da6",
+      "reviewed": true
+    },
+    {
+      "path": ".local/my-profile-posts-20261102/browser/my-profile-posts-owner-fee-eae51--profile-and-public-profile-pc/my-profile-media.png",
+      "sha256": "8b4a1899cca3b5230bccc66d7603efe3db793b23957df52f8c8c9d372b8c423c",
+      "reviewed": true
+    }
+  ],
+  "limits": [
+    "Browser tests use API fixtures, not production account login",
+    "No physical iPhone test",
+    "No backend/DB changes; existing server published/public/access checks preserved",
+    "Tab counts represent loaded posts; full header count contract unchanged",
+    "No dev/prod promotion or deployment"
+  ]
+}

@@ -11,13 +11,13 @@
 .bannerCopy{min-width:0;text-align:right}
 .bannerCopy>span{font-size:clamp(11px,2cqw,16px);color:#34614c}
 .bannerCopy h2{margin:8px 0 0;font-size:clamp(22px,6cqw,46px);line-height:1.15;font-weight:900;letter-spacing:-.05em;white-space:pre-line;word-break:keep-all}
-.bannerCopy p{margin:12px 0 0;font-size:clamp(11px,2cqw,16px);line-height:1.5;color:#466154;word-break:keep-all}
+.page .bannerCopy p{margin:12px 0 0;font-size:clamp(11px,2cqw,16px);line-height:1.5;color:#466154;word-break:keep-all}
 .campaign{container-type:inline-size;background:#fff;color:#080d3b;font-family:"Pretendard Event",var(--cf-typography-fontFamily);font-synthesis:none}
 .campaignBody{padding:0}
-.campaignHeader{padding:8px 2.4cqw clamp(24px,4.3cqw,36px)}
-.campaignBrand{--cf-brand-height:clamp(20px,3.6cqw,28px);margin-bottom:clamp(24px,5cqw,40px)}
-.campaignHeader h2{margin:0;color:#080d3b;font-size:clamp(28px,9cqw,70px);font-weight:900;line-height:1.15;letter-spacing:-.055em;word-break:keep-all}
-.campaignHeader p{margin:10px 0 0;font-size:clamp(15px,4.6cqw,36px);font-weight:400;line-height:1.4;letter-spacing:-.04em;color:#686c8e;word-break:keep-all}
+.campaignHeader{display:grid;gap:16px;padding:8px 2.4cqw clamp(28px,4.3cqw,36px)}
+.campaignBrand{--cf-brand-height:clamp(20px,3.6cqw,28px);justify-self:start;margin-bottom:8px}
+.campaignHeader h2{margin:0;color:#080d3b;font-size:clamp(28px,6.4cqw,50px);font-weight:900;line-height:1.15;letter-spacing:-.055em;word-break:keep-all}
+.campaignHeader p{margin:0;font-size:clamp(15px,3.2cqw,24px);font-weight:400;line-height:1.4;letter-spacing:-.04em;color:#686c8e;word-break:keep-all}
 .rewardList{display:grid;gap:clamp(12px,2cqw,20px);list-style:none;margin:0;padding:0}
 .reward{display:grid;grid-template-columns:29% minmax(0,1fr);gap:clamp(18px,4cqw,32px);align-items:center;min-height:clamp(112px,24cqw,200px);padding:clamp(18px,3.6cqw,30px) clamp(18px,4cqw,32px);border:0;border-radius:clamp(14px,2.7cqw,26px);background:radial-gradient(ellipse at 48% 38%,#fbf3ff 0%,transparent 72%),linear-gradient(110deg,#eee3ff,#e9dcff)}
 .banner[data-theme="advertising"],.reward[data-theme="advertising"]{background:radial-gradient(ellipse at 48% 40%,#e9fbff 0%,transparent 74%),linear-gradient(110deg,#c4f4fc,#cef3ff)}
@@ -28,8 +28,8 @@
 .rewardTitle{margin:0;text-align:right;color:#080d3b;font-size:clamp(17px,5.8cqw,44px);font-weight:900;line-height:1.18;letter-spacing:-.055em;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere}
 .rewardDetails{list-style:none;margin:0;padding:0;text-align:right;color:#626b8b;font-size:clamp(11px,2cqw,16px);font-weight:400;line-height:1.5;letter-spacing:-.025em;word-break:keep-all;overflow-wrap:anywhere}
 .rewardDetails li+li{margin-top:3px}
-.rewardNotice{grid-column:1/-1;margin:8px 0 0;padding-left:4px;color:#344b42;font-size:14px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
-.campaignSchedule{margin:clamp(14px,2.4cqw,22px) 8px 0;text-align:right;color:#6c7390;font-size:clamp(11px,1.8cqw,14px);font-weight:400;line-height:1.6;word-break:keep-all}
+.reward .rewardNotice{grid-column:1/-1;margin:8px 0 0;padding-left:4px;color:#344b42;font-size:14px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+.campaignBody>.campaignSchedule{margin:clamp(14px,2.4cqw,22px) 8px 0;text-align:right;color:#6c7390;font-size:clamp(11px,1.8cqw,14px);font-weight:400;line-height:1.6;word-break:keep-all}
 .submission{margin-top:32px;padding:24px 0;border-top:1px solid var(--cf-color-border);border-bottom:1px solid var(--cf-color-border);word-break:keep-all;overflow-wrap:anywhere}
 .submission h2{margin:0 0 12px;font-size:20px;line-height:1.45;letter-spacing:-.03em}
 .submission>p{margin:0;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.8}
@@ -42,13 +42,13 @@
 .submission>.submissionHint{margin-top:12px;font-size:13px}
 .claim{margin-top:24px;padding:24px 0;border-top:1px solid var(--cf-color-border);word-break:keep-all;overflow-wrap:anywhere}
 .claim h2{margin:0;font-size:20px;line-height:1.45;letter-spacing:-.03em}
-.claim p{margin:10px 0 20px;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.7}
+.page .claim>p{margin:12px 0 20px;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.7}
 .claimAction{width:100%;min-height:48px;justify-content:center}
-.claim .claimError{margin:12px 0 0;color:var(--cf-color-danger)}
-.notes{margin-top:28px;padding:22px;border-radius:12px;background:var(--cf-landing-soft)}
+.page .claim>.claimError{margin:12px 0 0;color:var(--cf-color-danger)}
+.notes{margin-top:32px;padding:22px;border-radius:12px;background:var(--cf-landing-soft)}
 .notes h2{font-size:18px;margin:0 0 16px}
 .noteGroup+.noteGroup{margin-top:24px}
-.noteGroup h3{margin:0 0 8px;font-size:15px;color:var(--cf-color-text)}
+.noteGroup h3{margin:0 0 12px;font-size:15px;color:var(--cf-color-text)}
 .notes ul{margin:0;padding-left:18px;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.8}
 .notes li+li{margin-top:8px}
 @media(max-width:600px){.notes{padding:18px}.page h1{font-size:23px;word-break:keep-all;overflow-wrap:anywhere}}

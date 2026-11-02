@@ -13,13 +13,14 @@ export const landingCreators:Creator[] = [
 ];
 
 export const landingAssetContent:LandingContent={
-  hero:{title:['좋아하는 크리에이터를','더 가까이, 더 특별하게'],description:['크리에이터의 진짜 이야기를 가장 가까운 곳에서.','지금, 특별한 멤버십으로 함께해보세요.'],image:'/illustrations/creators/moka/cover-v1.png',imageAlt:'분홍 머리와 리본으로 코스프레 촬영을 하는 가상 크리에이터 모카',position:'center top'},
+  hero:{title:['좋아하는 창작자와,','더 가까운 사이.'],description:['멤버십과 후원으로 함께하는 크리에이터·팬 플랫폼'],image:'/illustrations/creators/moka/cover-v1.png',imageAlt:'분홍 머리와 리본으로 코스프레 촬영을 하는 가상 크리에이터 모카',position:'center top'},
   creators:landingCreators.slice(0,5),
+  creatorDisclosure:'이 서비스 소개에 표시된 크리에이터는 가상의 인물입니다.',
   collage:[landingCreators[0],landingCreators[2],landingCreators[6],landingCreators[5]],
   steps:[
-    {icon:'search',title:'1. 크리에이터 찾기',description:['관심 있는 크리에이터를','검색하고 팔로우하세요.']},
-    {icon:'card',title:'2. 멤버십 가입하기',description:['원하는 멤버십을 선택하고','지금 바로 함께하세요.']},
-    {icon:'heart',title:'3. 특별한 콘텐츠 즐기기',description:['멤버십 전용 콘텐츠와','크리에이터의 일상을 만나보세요.']},
+    {icon:'card',title:'멤버십 구독',description:['새로운 이야기와 일상을','꾸준히 만나보세요.']},
+    {icon:'heart',title:'게시물 후원',description:['마음에 드는 작품에','응원을 전해 보세요.']},
+    {icon:'heart',title:'창작자 후원',description:['크리에이터의 다음 순간을','함께 만들어 가세요.']},
   ],
   notice:'공지사항 화면은 준비 중입니다.',
 };

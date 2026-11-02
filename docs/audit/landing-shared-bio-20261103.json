@@ -1,0 +1,155 @@
+{
+  "verifiedAt": "2026-11-02T23:37:53.164904+00:00",
+  "repository": "crefans_front",
+  "commit": "c90252314d6ef56934a3d5817ce860bc49868cae",
+  "featureCommits": {
+    "landing": "89200db",
+    "sharedShortBio": "67a782a"
+  },
+  "workingTree": "product source clean at verification",
+  "sourceSha256": {
+    "components/crefans/LandingPage.tsx": "60a57c3d903d33109a1aafdab5ba6efa3a223b633ba33b35ca9111bb33a6b95d",
+    "components/crefans/landing.module.css": "d6fe69488f4ba6e749ba05169bc4a93128802688756dba22609a88771dc697d6",
+    "components/service/Landing.tsx": "38df82cba82d5c76e3b84674a020836e2936c6f11291cd42e40340e2a350a9c0",
+    "lib/content/landing.ts": "90216202afc6ae5863f9620b1a07bc4666d367453c909e95f9b7415fb2e61383",
+    "components/crefans/AccountPages.tsx": "c65ce34e54de43121c4d0947008d7b4b1db9bd0c551439ca4623eb27239569b0",
+    "components/crefans/studio/OverviewPages.tsx": "10fb9e2bb95d0bf48a68214257122d2d505986511047546bd2e73b0c5dfa9b07",
+    "components/preview/service/PreviewProvider.tsx": "9b6caa6e18ab73f5cbed864b4e08f3b589678086a846481166d3404a8a76b4a4",
+    "components/preview/service/useMockAccount.ts": "f70f929d2a748ebbeaf42f5c46dab2d774246d9448e12d2beeaeb046c2103a06",
+    "components/preview/studio/useMockOverview.ts": "8c117a721f83b2c2442cc61460fb805c5a35d21bb5d52fb47f8b457f4c6d1620",
+    "tests/shared-short-bio.test.cjs": "b1156a7cf844d076e380c148d8fda838c44dd28bb99aa65f9f0fbaa93794d39e",
+    "tests/service-landing.test.cjs": "f3b8b0bd6f677637d9bcb32909984fb24ed532d9644b7c1eca96c438c31d676d"
+  },
+  "checks": [
+    {
+      "command": "node --test tests/shared-short-bio.test.cjs tests/crefans-account.test.cjs tests/service-landing.test.cjs",
+      "finishedAt": "2026-11-02T23:37:08.796891+00:00",
+      "exitCode": 0,
+      "result": "28 passed",
+      "logSha256": "a3fc8ef7a8f8825d7319573ec1a5d6def674b7b8ac71f1a1ebdef0207aa828b0"
+    },
+    {
+      "command": "npm run typecheck",
+      "finishedAt": "2026-11-02T23:37:08.899546+00:00",
+      "exitCode": 0,
+      "result": "passed",
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    {
+      "command": "npm run check:layers",
+      "finishedAt": "2026-11-02T23:36:23.789725+00:00",
+      "exitCode": 0,
+      "result": "passed",
+      "logSha256": "b47c410f3b68c901af388dd3ce953bcbb7c9b8211b9fa26ff4c0890c633d7f13"
+    },
+    {
+      "command": "node .local/landing-typography-20261103/verify.cjs",
+      "finishedAt": "2026-11-02T23:30:56.600097+00:00",
+      "exitCode": 0,
+      "result": "4 viewport scenarios passed",
+      "logSha256": "3f7dde48f1d62f9007cdf58e728f11a309e6b0c88afb396112e68cb07fb55513"
+    },
+    {
+      "command": "node .local/shared-short-bio-20261103/verify-ui.cjs",
+      "finishedAt": "2026-11-02T23:36:30.695905+00:00",
+      "exitCode": 0,
+      "result": "4 form scenarios passed",
+      "logSha256": "23eedbd9c700d7cfc10a76374a6d2808b39c2c4b578007e1a4250e1b7908f808"
+    }
+  ],
+  "landingBrowser": {
+    "startedAt": "2026-11-02T23:30:44.234Z",
+    "finishedAt": "2026-11-02T23:30:56.599Z",
+    "command": "node .local/landing-typography-20261103/verify.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "name": "pc",
+        "width": 1440,
+        "creatorLinks": 5,
+        "tooltip": "exact text; hover/focus or touch; Escape; viewport contained",
+        "profileNavigation": "moka",
+        "overflow": false,
+        "pageErrors": 0
+      },
+      {
+        "name": "tablet",
+        "width": 768,
+        "creatorLinks": 5,
+        "tooltip": "exact text; hover/focus or touch; Escape; viewport contained",
+        "profileNavigation": "moka",
+        "overflow": false,
+        "pageErrors": 0
+      },
+      {
+        "name": "mobile",
+        "width": 390,
+        "creatorLinks": 5,
+        "tooltip": "exact text; hover/focus or touch; Escape; viewport contained",
+        "profileNavigation": "moka",
+        "overflow": false,
+        "pageErrors": 0
+      },
+      {
+        "name": "small",
+        "width": 320,
+        "creatorLinks": 5,
+        "tooltip": "exact text; hover/focus or touch; Escape; viewport contained",
+        "profileNavigation": "moka",
+        "overflow": false,
+        "pageErrors": 0
+      }
+    ],
+    "scope": "Local shared landing view with existing mock provider. No production deployment or physical iPhone testing."
+  },
+  "bioBrowser": {
+    "at": "2026-11-02T23:36:30.695Z",
+    "command": "node .local/shared-short-bio-20261103/verify-ui.cjs",
+    "exitCode": 0,
+    "results": [
+      {
+        "device": "pc",
+        "screen": "member",
+        "shortBioLimit": 120,
+        "initialValue": "same fixture",
+        "tooltip": "shared biography exact text",
+        "horizontalOverflow": false
+      },
+      {
+        "device": "pc",
+        "screen": "studio",
+        "shortBioLimit": 120,
+        "initialValue": "same fixture",
+        "tooltip": "shared biography exact text",
+        "horizontalOverflow": false
+      },
+      {
+        "device": "mobile",
+        "screen": "member",
+        "shortBioLimit": 120,
+        "initialValue": "same fixture",
+        "tooltip": "shared biography exact text",
+        "horizontalOverflow": false
+      },
+      {
+        "device": "mobile",
+        "screen": "studio",
+        "shortBioLimit": 120,
+        "initialValue": "same fixture",
+        "tooltip": "shared biography exact text",
+        "horizontalOverflow": false
+      }
+    ],
+    "scope": "Local mock UI; Chromium PC and WebKit iPhone emulation, not a physical iPhone or production"
+  },
+  "manualReview": [
+    "PC landing layout",
+    "mobile landing tooltip",
+    "mobile shared biography tooltip"
+  ],
+  "limits": [
+    "Local API /common unavailable (503); browser results cover mock UI only. Real API writes validated separately in isolated backend DB tests.",
+    "No production deployment or physical iPhone testing."
+  ],
+  "productionDeployed": false
+}

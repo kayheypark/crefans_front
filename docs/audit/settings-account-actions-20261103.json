@@ -1,0 +1,158 @@
+{
+  "recordedAt": "2026-11-02T15:26:04.825021+00:00",
+  "repository": "crefans_front",
+  "branch": "feat/settings-account-actions",
+  "baseCommit": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
+  "status": "implemented, local verification complete, not deployed",
+  "acceptance": [
+    "Settings logout and withdrawal reuse full-width menu row styling",
+    "Each label is left-aligned with a 16px chevron aligned at the right",
+    "Existing logout action, pending disabled state and withdrawal dialog are preserved",
+    "PC/mobile layout does not overflow"
+  ],
+  "scope": "Shared SettingsPage used by live and preview; desktop header dropdown and backend unchanged",
+  "sourceSha256": {
+    "components/crefans/AccountPages.tsx": "0d4b348d0113159e2e08fe86dc3a3c6d6d19defe66cb3f22702e5a03e14bd9d3",
+    "components/crefans/account.module.css": "e6147be6a61336a4aee0472df2901bda087afc822ccb4fc60093b31483cfe822"
+  },
+  "commands": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/crefans-account.test.cjs",
+      "exitCode": 0,
+      "passed": 23
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=<paired-server-worktree> npm run check:docs",
+      "exitCode": 0,
+      "verificationLevel": "snapshot-only-not-test-proof"
+    }
+  ],
+  "browser": {
+    "mode": "local preview with all API requests blocked",
+    "viewports": [
+      "PC Chromium 1440x1000",
+      "mobile WebKit iPhone13 390x664"
+    ],
+    "layoutObservations": [
+      {
+        "viewport": "pc",
+        "geometry": [
+          {
+            "label": "로그아웃",
+            "rowWidth": 660,
+            "parentWidth": 660,
+            "height": 54,
+            "chevronRightInset": 5,
+            "chevronSize": 16,
+            "color": "rgb(84, 91, 112)"
+          },
+          {
+            "label": "회원 탈퇴",
+            "rowWidth": 660,
+            "parentWidth": 660,
+            "height": 54,
+            "chevronRightInset": 5,
+            "chevronSize": 16,
+            "color": "rgb(220, 38, 38)"
+          }
+        ],
+        "focusOutline": "none",
+        "withdrawalDialogVisible": true,
+        "horizontalOverflow": false,
+        "afterLogoutURL": "http://127.0.0.1:3011/preview/settings",
+        "logoutFeedback": true
+      },
+      {
+        "viewport": "mobile",
+        "geometry": [
+          {
+            "label": "로그아웃",
+            "rowWidth": 358,
+            "parentWidth": 358,
+            "height": 53,
+            "chevronRightInset": 5,
+            "chevronSize": 16,
+            "color": "rgb(84, 91, 112)"
+          },
+          {
+            "label": "회원 탈퇴",
+            "rowWidth": 358,
+            "parentWidth": 358,
+            "height": 53,
+            "chevronRightInset": 5,
+            "chevronSize": 16,
+            "color": "rgb(220, 38, 38)"
+          }
+        ],
+        "focusOutline": "none",
+        "withdrawalDialogVisible": true,
+        "horizontalOverflow": false,
+        "afterLogoutURL": "http://127.0.0.1:3011/preview/landing",
+        "logoutFeedback": false
+      }
+    ],
+    "interactionObservations": [
+      {
+        "viewport": "pc",
+        "keyboardFocus": {
+          "isActive": true,
+          "focusVisible": true,
+          "outline": "solid"
+        },
+        "logoutURL": "http://127.0.0.1:3011/preview/landing"
+      },
+      {
+        "viewport": "mobile",
+        "keyboardFocus": {
+          "isActive": false,
+          "focusVisible": false,
+          "outline": "none"
+        },
+        "logoutURL": "http://127.0.0.1:3011/preview/landing"
+      }
+    ],
+    "interpretation": "Both rows fill container; PC54/mobile53px high; chevrons16px, right inset5px; withdrawal dialog opens and logout completes at preview/landing on both. PC keyboard focus-visible solid outline confirmed. Programmatic focus after pointer input did not show outline as expected; mobile hardware keyboard navigation was not established.",
+    "screenshotsVisuallyReviewed": [
+      "pc-settings.png",
+      "mobile-settings.png"
+    ]
+  },
+  "limits": [
+    "No production deployment or authenticated production actions",
+    "No physical iPhone/hardware-keyboard verification",
+    "No new regression tests were added for this small presentation-only change"
+  ],
+  "artifacts": {
+    "browser-observations.json": "8721f4756ab76e9511358eb86667f5cdfe733f73a9b1b1881ab3799a0c49256a",
+    "interaction-observations.json": "9cd5270cea9b2f01df753389db9a77a29a57980e44a7dbde4810cc857fc90c32",
+    "typecheck.log": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+    "dev.log": "bdd392022dca78ee5e726eb1ebc29b8c28c58190e1bd501ba431ddbfe4bd16a0",
+    "mobile-settings.png": "342a57c5bcd459ffe8cbabf31780eb4a96011bf7db70786b98f00eeedd839f99",
+    "mobile-keyboard.png": "342a57c5bcd459ffe8cbabf31780eb4a96011bf7db70786b98f00eeedd839f99",
+    "pc-keyboard.png": "a1c8f8e3423d1f36f5c968799208a8403e3c19d95fdc0196d0fd2fa83d7e7ac9",
+    "pc-settings.png": "52c1884768566e3c13010900efb956e0095f0300625f0efbdd54e2e2df43023d",
+    "account-tests.log": "645d70b6a037a468ce8c907deb24fb23a316b1fc50f83456e0fe9b130d4c2bea"
+  },
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "playwright": "1.64.0"
+  },
+  "workingTreeBeforeCommit": [
+    " M PROGRESS.md",
+    " M components/crefans/AccountPages.tsx",
+    " M components/crefans/account.module.css",
+    " M docs/audit/evidence.json",
+    " M docs/design-system.md",
+    "?? docs/audit/settings-account-actions-20261103.json"
+  ],
+  "logTimes": {
+    "typecheck.log": "2026-11-02T15:21:09.792031+00:00",
+    "account-tests.log": "2026-11-02T15:21:16.435806+00:00",
+    "docs-check.log": "2026-11-02T15:26:06.358430+00:00"
+  }
+}

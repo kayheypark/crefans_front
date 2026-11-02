@@ -82,6 +82,29 @@
 - 최초 UI 검사: 로컬 API 미기동으로 실제 서비스 경로의 오류 모달이 캡처를 가렸으나 초기 검사가 이를 탐지하지 못함. first-browser-without-api에 원본 보존. bootstrap/common 정상 응답 대역을 명시하고 dialog/alertdialog 부재 검사를 추가해 재검사. 실제 메일 발송·SMTP 수신·운영 반영 검증은 수행하지 않았다.
 - 문서 내용·근거 목록 검토 후 별도 작업트리의 docs:record/check:docs로 증거 갱신. 원본 서버/다른 작업트리 변경 없음. 증거 docs/audit/feedback-event-email-20261103.json, 로컬 로그/캡처 .local/feedback-event-20261103/. 다음 운영 반영 요청 시 feature→dev→prod 순서로 통합·배포.
 
+## 2026-11-03 설정 로그아웃·회원 탈퇴 메뉴 행 통일 — 로컬 완료·미배포
+- 최신 origin/prod 88237ff에서 feat/settings-account-actions, 작업 폴더 `/Users/ethan/repository/crefans_front-account-actions`. 기존 작업 트리의 미커밋 파일 보존.
+- SettingsPage의 두 항목에 기존 menuList 스타일 재사용: 전체 너비 행, 이름 왼쪽·16px 꺾쇠 오른쪽, PC54px/모바일53px 높이, 기존 색상·모바일 구분 배경띠 유지. 기존 작은 버튼 전용 중복 CSS 제거. 회원 탈퇴는 위험 색상 유지. 실제/목업 공통 화면, 헤더 드롭다운·서버 변경 없음.
+- 검증: typecheck 및 기존 crefans-account23건 통과. 로컬 목업 PC Chromium/모바일 WebKit에서 폭·오른쪽 정렬·가로넘침 없음·탈퇴 안내창·로그아웃 후 landing 이동 확인, PC 키보드 포커스 표시 확인. 화면 캡처 육안 검토. 실기기/운영 계정 요청·배포는 하지 않았다.
+- 증거: [설정 계정 메뉴 검증](docs/audit/settings-account-actions-20261103.json), 로그·화면 `.local/settings-account-actions-20261103/`. 문서 설명 검토 후 스냅샷 갱신·check:docs 실행. 다음 배포 요청 시 dev 통합 검증→prod 승격. 미해결 제품 결정 없음.
+## 2026-11-03 모바일 내 프로필 스튜디오 바로가기 — 수정·검증 완료, 운영 미배포
+- 요청: 크리에이터인 경우 상단 오른쪽 설정 왼쪽에 제목 ‘스튜디오’ 버튼. ownCreatorIds로 표시 조건을 정하고 basePath/studio로 이동한다. 모바일767px 이하에만 표시, 기존 흰색 커버 버튼/44px 높이·포커스 규칙을 재사용한다. 지갑이 비활성이어도 오른쪽 설정 옆에 배치한다.
+- 최신origin/prod88237ff에서 feat/my-profile-studio 생성 후 직전 프로필 수정00207ee를 fast-forward로 보존. 원래 두 브랜치와 다른 작업 체크아웃은 유지한다. 운영 미배포.
+- 검증: npm run check(계층·타입·516단위)·운영 빌드35페이지 통과. 모바일WebKit320/390·지갑 없는 크리에이터·일반팬·비로그인·PC Chromium1440의6상태에서 표시 조건,44px높이·8px간격·겹침/가로넘침 없음 확인. 목업 스튜디오 버튼 클릭→대시보드 표시, 서비스 href=/service/studio 확인. 브라우저 런타임 오류0,320/390 및 도착 화면 육안 확인. 실제 운영 로그인/물리 iPhone 검증·배포는 미실행. API 대역과 목업을 사용했고 새 영구 테스트는 추가하지 않았다.
+- 증거: [바로가기 검증](docs/audit/my-profile-studio-20261103.json), 캡처/실행 자료 `.local/my-profile-studio-20261103/`. 다음: 배포 요청 시 이 feature(직전 프로필 수정 포함)를 dev→prod 순으로 통합하고 운영 화면 대조. 기타 별도 feature는 포함하지 않는다.
+
+## 2026-11-03 내 프로필 피드·미디어 0 재제보 — 최신 prod 기준 수정·검증 완료, 운영 미배포
+- 첨부 화면: 공개 프로필 게시물1/피드1/미디어1, 내 프로필 게시물1/피드0/미디어0 및 빈 상태. 원격 최신prod88237ff 확인: 기존 수정31a3c92와 미디어 타일77555b4가 미통합·미배포여서 운영 AccountPages는 탭0·빈 화면 고정, me 경로는 본인 게시물 조회가 없었다.
+- 기존 작업 폴더를 재사용해 최신origin/prod88237ff에서 feat/my-profile-feed-current 생성. 원래 feat/my-profile-posts(77555b4) 보존. 두 수정의 소스·테스트·관련문서를 이식했고 최신 멤버십 TypedConfirmCatalog/문서와 프로필 미디어 카탈로그 충돌은 양쪽을 유지해 해소. 다른 미배포 기능·기본 체크아웃 미커밋은 포함하지 않는다.
+- 합격 조건: 본인 작성자 ID로 최초/더보기 조회, 본인 피드·미디어 개수/내용/썸네일 일치, 텍스트 전용 미디어 제외, 공개 프로필/상세 이동·재진입 유지, 저장/좋아요 컬렉션·팬·비로그인 분리, 조회 실패에 가짜 빈 상태/다른 글 미표시. PC Chromium과 iPhone13 WebKit 확인.
+- 이전 API 대역 회귀에 더해 실제 격리 API/DB 세션으로 로그인→사진 업로드/게시물 연결→내 프로필 피드/미디어→상세→공개 프로필→재진입/새로고침 시험을 추가했다. 서버는 현재prod d4238d9와 동일한 crefans_server-membership-release 사용. 운영 데이터/실결제/실SMTP/배포는 수행하지 않았다.
+- 검증: npm run check(계층·타입·516단위), 운영 빌드(35페이지), 브라우저14건(PC7·iPhone13 WebKit7) 통과. 브라우저 중 실제 API/격리DB2건·API대역12건이며 원래prod코드 대조검사3실패→수정복원3통과. 사진·영상 썸네일/유형별 개수, 저장·좋아요 분리, 오류 안내, 더보기 작성자 필터 확인. 최초 모바일 시험은 전체 문서 전환 중 지갑/후원 요청 취소로 런타임 오류를 탐지했으며 요청 완료 후 이동하도록 시험만 보완, 오류 감지는 유지하고 최종14통과. 물리 iPhone·운영 로그인 검증은 미실행.
+- 증거: [이번 검증 기록](docs/audit/my-profile-current-20261103.json), 상세 `.local/my-profile-current-20261103/`. 최신 멤버십 수정 보존, 서버 소스·DB 구조 변경 없음. 다음: 배포 요청 시 이 feature를 dev→prod에 통합하고 운영 소스/화면을 대조한다. 원래 31a3c92/77555b4를 다시 중복 적용하지 않는다.
+## 2026-11-03 예약 핸들 관리 문서 계약 — 로컬 완료·미배포
+- origin/prod88237ff → feat/reserved-handles-docs. 서버 feat/reserved-handles(d4238d9 기준)·운영 콘솔 feat/reserved-handles(602cecf 기준)의 짝 문서 작업. 팬 프론트 실행 코드 변경 없음.
+- 승인된103개 초기 예약·후보/예약/삭제 상태·기존 보유자 유지·retired_handles 독립 보호·공유 잠금·5개 API·권한/감사를 서버 문서 및 코드와 대조. 최초 문서 검사에서 API표 형식으로 신규5경로가 누락 검출되어 Method/경로/계약 형식으로 정정, 이후 예상된 소스/문서 hash 만료만 남음을 확인했다.
+- docs:contracts는 새5라우트·2모델·1migration을 포함하도록 서버 current-contracts.md를 재생성. manifest 검토 근거와 문서 snapshot을 갱신한다. docs:record는 snapshot-only이며 제품 검증 증거와 구분한다. 검증 결과는 docs/audit/reserved-handles-20261103.json 및 .local/reserved-handles-20261103/에 보존한다.
+- 실제 제품 검증: 서버24, 콘솔 단위11/PC·모바일4/배포용 빌드 통과. 차단 오류 주입6실패 및 복원24통과. 운영·실기기 미실행. 서버/콘솔 배포 요청 시 이 문서 계약도 dev→prod 순서로 통합한다. 다른 미배포 프론트 기능은 포함하지 않는다.
 
 ## 2026-11-03 멤버십 이미지·삭제 확인·공제율 예상 수익 — 운영 배포 완료
 - 사용자 “다되면 배포” 승인. feature→dev 통합(358be1c)→prod(73fbc85), 서버 dev fefc3ee→prod d99e010. 실제 배포 소스는 이 두 prod 커밋이며 이후 배포 증거 커밋은 문서만 변경한다. 별도 미배포 feature는 포함하지 않았다.
@@ -107,6 +130,12 @@
 - PC·모바일 empty/selected 화면 육안 확인. 상세 로그·명령/시각·소스 해시·검증 화면은 `.local/membership-upload-20261102/`, 공개 검증 요약은 `docs/audit/membership-image-upload-20261102.json`. 문서 검사 결과는 해당 증거에 기록한다.
 - 기준 origin/prod feef422에서 feat/membership-image-upload, 작업 폴더 /Users/ethan/repository/crefans_front-membership-upload. 선행 업로드 안내 간소화는 별도 feat/upload-hint-compact 49c507d에 있으며 이 작업은 그 게시물 문구를 덮어쓰지 않는다.
 - 다음: 요청 시 미배포 작업과 함께 dev 통합 검증 → prod 승격 → 배포. 현재 커밋만 준비하며 운영 배포 없음. 기존 체크아웃의 미커밋 파일 보존.
+## 2026-11-02 스튜디오 파일 업로드 안내 간소화 — 로컬 완료·미배포
+- 요청: 크리에이터 파일 업로드 설명에는 허용 파일 유형과 크기만 간략히 표시한다.
+- 게시물 작성·수정 공통 `ManagementPages.tsx`와 디자인 시스템의 동일 예시를 `JPG·PNG·WebP 5MB 이하 · MP4·WebM·MOV 300MB 이하`로 변경했다. 기존 accept·용량 상수와 대조했으며 워터마크·알림·개수·길이·해상도 설명은 도움말에서 제거했다. 업로드 최대 개수 카운터, 검증·변환·알림 동작은 유지한다. 실제/목업이 같은 공통 컴포넌트를 사용한다.
+- 검증: 기존 `media-upload`·`content-post-preview` 17/17 통과, TypeScript 통과. 문구 변경이므로 신규 테스트·실파일 업로드·전체 E2E·배포는 하지 않았다. 초기 check:docs는 변경한 두 소스와 기존 server/PROGRESS 이력의 증거 만료만 검출했다. 문서/계약 구조 오류 없음. 해당 변경 범위를 검토한 뒤 문서 해시 기록을 갱신했고 최종 check:docs PASS(제품 시험 증명과 구분).
+- 기준: origin/prod feef422에서 `feat/upload-hint-compact`, `/Users/ethan/repository/crefans_front-upload-hint`. 기존 체크아웃의 미커밋 변경은 보존했다. 명령·실행 시각·소스 해시·커밋 증거는 `.local/upload-hint-20261102/verification.json`.
+- 남은 작업: 운영 반영 요청 시 dev 통합 검증 → prod 승격 → 배포. 추가 정책 결정 없음.
 
 # PROGRESS: crefans_front
 
@@ -3594,3 +3623,41 @@
 - 검증: 후보 컨테이너와 운영 서버 및 맥북 외부 HTTPS에서 GET/HEAD200·text/plain UTF-8, GET3261바이트 원본 SHA4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905 일치. 피드·탐색·API상태·관리자로그인·가이드5경로200. 콩/결제·계정 데이터 변경 없음. 이전19공식 링크 검증 유효; 이번 작업은 검색 순위나 AI 수집 결과를 증명하지 않음.
 - 실패/한계: 로컬 Docker의 이전 태그 이름 조회 실패로 실제 운영 이미지의 정확한 ID/레이어를 검증한 서버에서 네트워크 없는 단일COPY 빌드 수행. 후보 통과 후 배포. 기존 결제 묶음의 전체 check:docs 증거 만료는 별도 미해결이며 새 파일 목록·계약·링크 검사 오류0과 구분. 전체 앱 회귀/실금융 시험은 정적 파일 변경 범위 밖.
 - 증거 `/Users/ethan/repository/crefans_front-llms/.local/llms-deploy-20261102/`: baseline.json, dev-verification.json, image-verification.json, production-verification.json, external-verification.json, deployment-command.json 및 실제 실행 스크립트/로그. 운영 https://crefans.com/llms.txt 정상 제공. 다음은 통상 서비스/가이드 변경 때 파일 안내를 함께 검토; Search Console 추가 제출은 불필요. AGENTS 불변 규약 유지.
+
+## 2026-11-03 오픈 기념 이벤트 문구·PC 여백·계좌번호 안내 — 검증 중
+- 최신 origin/prod15d611d에서 feat/open-event-copy-spacing 분기. 저장 공간 부족으로 앞선 작업·배포가 막혔으나, 일부 여유 확보 후 기존 자체 생성 .next/.next-e2e 캐시만 정리해 재개. 기존 작업 브랜치 보존.
+- 이벤트4종 공통 “크레팬스 오픈 기념 이벤트”, 배지 “오픈 기념 한정판 배지”로 변경. 목록/상세/수령/프로필 배지 설명/카탈로그/현행 문서 동기화. founding-badge URL·데이터 키·지급 조건 유지. 정산 계좌 추가/변경의 실제 계좌번호 라벨에 “(하이픈 '-'을 빼고 입력해주세요)” 추가, 숫자 정규화 유지.
+- 운영 PC1440px 실제4상세에서 제목70px, 제목-설명0px·카드-일정0px 확인. 공통 .root p의 margin-top:0이 이벤트 스타일을 덮어쓰는 원인. 이벤트 범위 선택자와 헤더 grid16px, 제목 최대50px/보조24px로 개선, 수령 설명 위12px·아래20px, 유의사항 위32px/소제목 아래12px.
+- 합격 조건: PC1440/1280·모바일390/320에서4상세/목록 새 문구·상하 여백·가로넘침 없음, 수령/로그인 링크 보존. API·결제·출금 데이터 변경 없음. 기존 이벤트 단위검사에 이전 메타타이틀 기대값1건이 남아 최신 브랜드 규칙으로 정정.
+- 다음: 단위·타입·브라우저 확인, 이전 승인 미배포 건과 dev 통합→prod 승격→운영 배포 및 실서빙 검증. AGENTS 프로젝트·스택·PROGRESS 우선 읽기 규약 유지.
+
+- 검증 기록 정정: de4ef06 커밋 본문의 19건 통과 표시는 집계 확인 실수다. 당시 실제 결과는18통과/1실패(이전 서비스 메타타이틀 기대값이 추가로 남음)였으며 로그 보존. 두 경로 기대값을 현행 공통 브랜드명으로 맞춘 뒤 재실행한다.
+
+## 2026-11-03 랜딩 타이포 시안 적용 및 가상 인물 안내
+- 사용자가01 타이포 중심을 선택. 최신 origin/prod15d611d에서 feat/landing-typography 분기. 중앙 두 줄 제목→크리에이터 목록→간단한 서비스 안내 구성, PC5열/모바일2열. 기존5명 이미지·이름·인증 배지·/preview/creator 경로 유지, 이미지 콜라주와 임시 팔로우 버튼 대신 명시적 프로필 보기 링크를 제공한다.
+- ‘크리에이터 둘러보기’ 제목 옆 공용 InfoTooltip에 정확한 요청 문구를 콘텐츠로 주입했다. 실제 데이터 모드에서는 가상 인물 안내를 숨긴다. 로그인/가입/공지/목업 검색·둘러보기 경로 유지. API·인증·금융 동작 변경 없음.
+- 합격 조건: 가로 넘침 없음,5명 링크 유지,정확한 안내·마우스/키보드/터치·Escape·팝업 화면 경계·프로필 이동. Chromium1440/768/320 및 iPhone13 WebKit390에서4환경 통과·페이지 오류0. 단위3건·타입·계층 검사 통과. PC·모바일 캡처 직접 확인. 로컬 목업 공용화면 검증이며 API common503은 로컬 API 미실행으로 기존 안내 로더에서 발생; 실제 운영 API/실물 iPhone 검증 아님.
+- 증거 .local/landing-typography-20261103/의 unit.log,typecheck.log,layers.log,verification.json,PC·모바일PNG. 운영 미배포. 별도 답변으로 확정된 짧은 소개글 통합도 이어서 진행하며 긴 상세 소개는 유지한다. AGENTS 공용 컴포넌트·브랜치 규칙 유지.
+## 2026-11-03 짧은 프로필 소개 공유 — feat/shared-short-bio, 미배포
+- 최신 origin/prod15d611d에서 분기. 사용자 확정대로 회원·크리에이터 상단 소개를 공유하고, 상세 소개는 별도 유지. 실제 API는 user_profiles.bio 하나를 사용하며 프론트는 기존 저장 후 재조회/경로 변경 재조회를 유지한다.
+- 목업 PreviewProvider/useMockOverview도 같은 소개를 사용. 회원/스튜디오 입력 120자 통일, 긴 소개 1,000자 유지. 양쪽 툴팁을 공유 안내로 교체. 활동명 우선 노출·핸들 규칙 등은 유지한다.
+- node --test tests/shared-short-bio.test.cjs tests/crefans-account.test.cjs 25건, npm run typecheck/check:layers 통과. 하늘·모카 양방향 수정·삭제와 상세 소개 보존, 121자 거절 검사 포함. 실제 backend 관련18건 및 OpenAPI13건 별도 통과.
+- Chromium PC1440 및 WebKit iPhone13에서 회원·스튜디오4화면의 동일 소개·120/1,000자 제한·툴팁·가로 넘침 없음 확인, 캡처 육안 검토. .local/shared-short-bio-20261103/{tests.log,typecheck.log,layers.log,browser-verification.json,pc-member.png,mobile-member.png,pc-studio.png,mobile-studio.png}. 목업/격리DB 검사이며 운영·실물iPhone 검증은 아님.
+- 운영 배포하지 않음. 서버 컬럼 이전이 필요하므로 backend docs/platform-api.md의 백업·구형API/worker중지·새버전 동시 반영 절차와 함께 배포해야 한다. 기존 중단 작업트리 및 다른 미배포 변경은 보존. AGENTS 기존 불변 규약 유지.
+
+## 2026-11-03 후원 로그인 모달 불필요한 세로 스크롤 수정 — 미배포
+- 최신 origin/prod15d611d에서 feat/tip-login-modal-scroll 분기. 기존 랜딩·짧은 소개 통합 브랜치는 보존. 합격 조건: PC/모바일 일반 높이에서 불필요한 내부 스크롤 없음, 낮은 화면에서 버튼 접근 가능, 페이지용 로그인 안내·2열 푸터·로그인 복귀 경로 유지.
+- 원인: TipButton의 Dialog 안에 페이지용 SignInPrompt가 포함되어 min-height:calc(100svh - 180px)와 모바일 푸터까지 적용. PC1440×900에서 dialog clientHeight765/scrollHeight832로 재현. SignInPrompt의 명시적 dialog 변형은 최소 높이·페이지 푸터를 제외하고 기존88px 자물쇠·로그인/가입 버튼을 재사용. 후원 안내 문구와 내부 제목(h3) 적용. 공통 Dialog의 overflow:auto는 유지.
+- 수정 후 동일PC clientHeight/scrollHeight375/375. Chromium/WebKit 각1440×900,1280×720,390×844에서 게시물·프로필 후원 모달 확인.844×320에서는 필요한 스크롤과 로그인 버튼 접근/이동 유지. 기존 로그인 페이지 모바일320/390/767·PC·service API대역 회귀10건 + 모달8건=18건 통과. 계정 단위23건·타입·계층 검사 통과, PC 캡처 육안 확인.
+- 최초 브라우저 실행의3건은 Safari 마우스 클릭이 버튼을 포커스한다고 가정한 검사에서 실패. MDN button Clicking and focus(https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#clicking_and_focus, 확인2026-11-03)의 브라우저별 차이를 확인하고 키보드 포커스 복귀는 실제 Enter 입력으로 검증해8건 재통과. 제품 포커스 동작 변경 없음. 최초 실패 결과도 보존.
+- 증거 .local/tip-login-scroll-20261103/{before.json,after.json,before.png,after.png,browser-initial.log,browser.log,results-initial.json,results.json,unit.log,typecheck.log,layers.log}, 공개 요약 docs/audit/tip-login-scroll-20261103.json. 로컬 UI·API대역 검사이며 실제계정·후원결제·물리iPhone·운영배포는 실행하지 않음. 다음: 사용자 배포 요청 시 dev 통합 검증→prod 승격→프론트 배포. AGENTS 프로젝트·스택·PROGRESS 선확인·공용UI·브랜치 불변 규약 유지.
+
+## 2026-11-03 개인정보처리방침 링크 색상 강조 — 미배포
+- 최신 origin/prod88237ff에서 feat/privacy-link-emphasis 분기. 공용 ServiceFooter와 PC ServiceShell 사이드바의 개인정보처리방침 링크만 기존 본문 색상 토큰으로 변경. 다른 안내 링크의 보조색·경로·배치는 유지한다. 법률 본문·인증/금융 로직 변경 없음. AGENTS 불변 규약 유지.
+- 합격 조건: PC·모바일에서 개인정보 링크 RGB32,35,51, 이용약관 링크 RGB108,114,131 유지 및 가로넘침 없음. 로컬3011 /preview/settings의 서비스 안내에서 Chromium1440×1000·WebKit390×664로 모두 확인하고 캡처를 직접 검수했다. 기존 common 테스트9건 통과. 브라우저 API 요청 차단, 실제 계정/아이폰/운영 검증은 아님. CSS2개 변경으로 신규 테스트·전체 제품 빌드 불필요.
+- 증거 docs/audit/privacy-link-20261103.json, .local/privacy-link-20261103/{common-tests.log,browser-observations.json,pc.png,mobile.png}. 운영 배포 전이며 기존 로그아웃/탈퇴 행 개선 feat/settings-account-actions33c30e7도 별도 미배포 상태다. 배포 요청 시 dev 통합 검증→prod 순서로 진행한다.
+
+## 2026-11-03 전체 미배포 통합 검증·배포 준비
+- 승인된 기능 브랜치만 통합: 이벤트 문구/PC 간격, 계좌번호 안내, 랜딩, 소개글 공유, 후원 로그인 모달, 설정 메뉴, 내 프로필 게시물/미디어/스튜디오 링크, 업로드 안내, 개인정보 링크, 예약핸들 문서. 기존 다른 작업 보존.
+- 프론트 check533건, 콘솔13건, 서버31개 고유 회귀 통과. PC1440/1280 Chromium·모바일390/320 WebKit 이벤트 상세16/목록4 통과. 제목 아래16px·카드 아래 최소14px, 가로넘침0. 프로필6·후원모달4 브라우저10건 통과(API대역). PC/모바일 캡처 육안 확인. 이벤트 단위 최종19건 통과, 이전 실패 로그 보존.
+- 증거 .local/open-event-spacing-20261103/의 check.log, unit-corrected.log, local-ui.json, local-*.png, critical.log. 원격 all-pending-20261103 빌드 중이며 아직 운영 교체 전. 다음 dev→prod, DB백업·구형API/worker 중지·2migration 적용·새 서비스 반영과 운영 검증. 저장 공간 때문에 완료한 로컬 개발 서버와 자체 빌드 캐시를 다시 정리했다. AGENTS 규약 유지.

@@ -1,5 +1,11 @@
 # 목업 유지와 실제 서비스 바인딩
 
+## 내 프로필 게시글 (2026-11-02)
+
+`/service/me`의 피드·미디어는 로그인한 크리에이터의 `ownCreatorIds[0]`로 `/posts?creatorId=…`를 조회한다. 다음 페이지에도 같은 작성자 필터를 유지하고, 응답 작성자·멤버십 정보를 기존 모델에 합친다. 전역 bootstrap의 최근 게시물 범위에 의존하지 않는다. 서버의 공개·게시 상태·접근권한은 그대로 따른다. 일반 팬·비로그인·`?tab=saved|liked`에서는 이 조회를 실행하지 않는다. 두 탭의 숫자는 현재 불러온 게시물 수이며, 이전 게시물은 더 보기로 불러온다.
+
+피드는 홈과 동일한 `PostCard`(댓글·좋아요·저장·갤러리)를 사용하고, 미디어 타일은 게시글 상세로 연결한다. API 조회 실패는 공용 오류 안내로 표시하며 다른 작성자의 bootstrap 게시물로 대체하지 않는다. 검증: [모델·화면 회귀](../tests/my-profile-posts.test.cjs), [PC·모바일 API 대역 브라우저 검사](../e2e/my-profile-posts.spec.ts), [격리 API·DB 로그인/업로드/새로고침 검사](../e2e/my-profile-live.spec.ts), [최신 실행 증거](./audit/my-profile-current-20261103.json). `npx playwright test --config=playwright.my-profile.config.ts`로 PC Chromium·모바일 WebKit 14개를 실행한다. 실제 외부 공급사·물리 iPhone·운영 계정 검증은 포함하지 않으며, 운영 적용 여부는 PROGRESS.md를 따른다.
+
 ## 게시물 멤버십 안내 데이터 (2026-10-24)
 
 `useServiceModel`은 피드 첫/다음 페이지와 게시물 상세가 이미 반환하는 작성자 프로필의 `plans`를 `data.creatorPlans`에 합친다. bootstrap에 있던 오래된 이름·가격·혜택은 최신 응답으로 교체하며 빈 목록도 그대로 반영한다. 표시 컴포넌트는 네트워크 호출 없이 전달된 상품으로 안내한다. 멤버십 안내 레이어 열기는 조회 화면의 지역 상태 변경이고, 선택 링크만 기존 `/service/membership/:creatorId?plan=:planId` 흐름으로 이동한다. 서버 접근권한 및 가입 snapshot 계약은 유지한다. 최초 로컬 어댑터 검증은 [검증 기록](./audit/membership-offer-20261024.json)에 있다. 이후 `membership-ui-20261024` 프론트로 운영 배포했으며, 운영 서비스의 API대역 상품 안내 검사와 실제 API 비로그인 피드/로그인 검사를 분리한 [배포 증거](./audit/membership-ui-deployment-20261024.json)를 따른다.
@@ -18,6 +24,10 @@
 | 계정/권한/가격 | 테스트용 상태 | 백엔드가 검증한 실제 DB 값 |
 
 원래 랜딩/팬/스튜디오 목업 URL은 유지한다. 새 API 실패 시 목업 데이터로 대체하지 않는다. 실 서비스가 비어 있으면 빈 상태를 표시한다. 외부 이메일·PASS·결제·은행 미설정 상태는 해당 행동의 오류로 표시하고 다른 페이지 조회를 막지 않는다.
+
+## 짧은 소개 공유 (2026-11-03, 미배포)
+
+회원 설정과 크리에이터 설정의 짧은 소개는 120자이며 실제 API는 `user_profiles.bio` 하나를 읽고 쓴다. 목업도 `PreviewProvider`의 현재 크리에이터 소개를 공유하여 어느 화면에서 수정해도 함께 반영한다. 상세 소개(`creators.about`, 최대 1,000자)는 별개다. 각 입력란의 공용 툴팁으로 이 차이를 안내한다. 회원 저장 후 bootstrap을 다시 읽고, 스튜디오에서 팬 화면으로 이동할 때도 경로 변경 시 bootstrap을 새로 읽는다. 검증: 프론트 `tests/shared-short-bio.test.cjs`, 서버 `tests/platform-shared-bio.test.cjs`. DB 이전·구형 API 중지 등 배포 절차는 서버 `docs/platform-api.md`를 따른다.
 
 ## 로컬 링크
 
@@ -275,6 +285,6 @@ bootstrap.data.categories의 서버 정렬 순서를 홈·탐색에 그대로 �
 `useBeansModel`의 getPromotionClaim/claimPromotion을 `usePromotionClaim`에 주입한다. GET `/events/promotion-beans`와 POST `/events/promotion-beans/claim`는 세션 본인만 대상으로 하며 body는 `{}`다. 응답은 `{status,quantity:100,claimedAt}`로 available/claimed/ineligible/unavailable을 구분한다. status 조회만으로 지급되지 않는다. 성공한 claimed 이후 지갑·내역을 다시 조회하고, 통신 오류는 재시도 가능하게 둔다. 서버 고정 키로 응답 유실 후 재요청도1회만 지급한다. 401은 로그인 복귀 링크, 로딩/오류 중에는 받기 불가. 프리뷰는 API를 호출하지 않는다.
 2026-11-03 정책 개정: 명단 없이 전체 활성·이메일 확인 회원이 계정당1회100콩을 받는다. BEAN_LEDGER_ENABLED=false는 신규 지급을 막는다. 신규 이벤트 콩은 수령 시각부터30일이며 응답 expiresAt을 완료화면에 한국시간으로 표시한다. 만료/사용 후 재수령·기한 연장은 없다. 브라우저가 수량·대상·기간을 정하지 않는다.
 
-### 원년멤버 배지 수령·표시 (2026-11-03, 미배포)
+### 오픈 기념 배지 수령·표시 (2026-11-03, 미배포)
 `useServiceModel.foundingBadge`가 GET `/events/founding-badge`, POST `/events/founding-badge/claim`(빈body), PUT `/me/founding-badge`({visible})를 연결한다. `useFoundingBadge`는 회원 세션별 수명/동시요청/늦은 응답을 방어하고 반환 상태로만 완료·표시 여부를 갱신한다. 성공하면 본인 viewer·creator flag를 갱신하고 페이지 진입 시 bootstrap/publicProfile로 서버 저장값을 재조회한다. `FoundingBadgeEventDetail`은 /service와 /preview 공용이며 목업은 useMockFoundingBadge만 사용한다.
 2026-11-03 정책 개정: 전체 활성·이메일 확인 회원이 계정당1회 수령한다. 명단·16명 제한은 제거했다. 조회/가입만으로 지급하지 않으며 배지에는30일 만료를 적용하지 않는다. 현재 배포 상태는 PROGRESS.md를 따른다. 아래 수치는 최초 구현 당시 검증이다. 실제 MySQL8건, 프론트523건/레이어/TS, PC·모바일WebKit·320px목업3흐름 증거는 [검증 기록](./audit/founding-badge-claim-20261103.json). 브라우저 실서비스API는 명시한 대역이며 실제 운영 지급/실물iPhone 검증과 구분한다.

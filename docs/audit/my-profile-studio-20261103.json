@@ -1,0 +1,176 @@
+{
+  "checkedAt": "2026-11-02T16:32:54.481639+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-profile-posts",
+  "branch": "feat/my-profile-studio",
+  "originProd": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
+  "baseCommit": "00207ee722e4cccbd7e3bd4896ab5e83ec36feba",
+  "workingTree": [
+    "M AGENTS.md",
+    " M PROGRESS.md",
+    " M components/crefans/AccountPages.tsx",
+    " M components/crefans/creator.module.css",
+    " M docs/preview-pages.md"
+  ],
+  "scope": [
+    "Mobile own-profile only; ownCreatorIds required; signed-out page remains login prompt",
+    "Studio link immediately left of settings; shared white pill44px high;8px gap; basePath/studio",
+    "Wallet-disabled layout also right aligned; PC and fan hidden; previous own-feed/media fix retained"
+  ],
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "result": "Layers,TypeScript,516unit tests PASS",
+      "startedAt": "2026-11-02T16:27:51.042622+00:00",
+      "logUpdatedAt": "2026-11-02T16:28:04.647908+00:00",
+      "log": ".local/my-profile-studio-20261103/check.log",
+      "sha256": "6459b2eb2e500014c19321f56339c018dd2a7e19df81abdfe0dd4b499f73841a"
+    },
+    {
+      "command": "node .local/my-profile-studio-20261103/inspect.cjs",
+      "exitCode": 0,
+      "result": "6browser scenarios pass; preview destination dashboard confirmed; runtime errors0",
+      "startedAt": "2026-11-02T16:29:29.844279+00:00",
+      "logUpdatedAt": "2026-11-02T16:29:43.068135+00:00",
+      "log": ".local/my-profile-studio-20261103/browser.log",
+      "sha256": "2af700677601a5f328870e6e12f53f9e16d02df655faab33246f45f4da4839df"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "result": "Next production build35static pages PASS",
+      "startedAt": "2026-11-02T16:31:15.236877+00:00",
+      "logUpdatedAt": "2026-11-02T16:31:36.941737+00:00",
+      "log": ".local/my-profile-studio-20261103/build.log",
+      "sha256": "933ac84339d8260b9098e6de4c5bbb00c4c82a564ef261807831742e00051079"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-membership-release npm run docs:record && npm run check:docs",
+      "exitCode": 0,
+      "result": "PASS; reviewed76documents,186routes,57screens; snapshot-only-not-test-proof",
+      "log": ".local/my-profile-studio-20261103/docs-final.log",
+      "sha256": "1e07157089fe6e37021b3ed1cc396cdf435f48c608bc57c02054b375ef301570",
+      "logUpdatedAt": "2026-11-02T16:32:55.909814+00:00"
+    }
+  ],
+  "browserEvidence": {
+    "checkedAt": "2026-11-02T16:29:43.089Z",
+    "results": [
+      {
+        "label": "mobile-320",
+        "width": 320,
+        "preview": true,
+        "shown": true,
+        "box": {
+          "x": 179.546875,
+          "y": 59.5,
+          "width": 72.453125,
+          "height": 44
+        },
+        "errors": []
+      },
+      {
+        "label": "mobile-390",
+        "width": 390,
+        "preview": true,
+        "shown": true,
+        "box": {
+          "x": 249.546875,
+          "y": 59.5,
+          "width": 72.453125,
+          "height": 44
+        },
+        "errors": []
+      },
+      {
+        "label": "creator-no-wallet",
+        "width": 390,
+        "shown": true,
+        "box": {
+          "x": 249.546875,
+          "y": 34,
+          "width": 72.453125,
+          "height": 44
+        },
+        "errors": []
+      },
+      {
+        "label": "fan",
+        "width": 390,
+        "fan": true,
+        "shown": false,
+        "errors": []
+      },
+      {
+        "label": "guest",
+        "width": 390,
+        "guest": true,
+        "shown": false,
+        "errors": []
+      },
+      {
+        "label": "pc",
+        "width": 1440,
+        "preview": true,
+        "shown": false,
+        "errors": []
+      }
+    ]
+  },
+  "inspectionScript": {
+    "path": ".local/my-profile-studio-20261103/inspect.cjs",
+    "sha256": "45a84a4abbe7d98a469cd6e332dc733eca494da8f8193f5c76213f78a0ae07cd"
+  },
+  "screenshots": [
+    {
+      "path": ".local/my-profile-studio-20261103/creator-no-wallet.png",
+      "sha256": "99d65bcf8b2403093d697df3380d87860d38ddf59142a751145546a486bdb1e6"
+    },
+    {
+      "path": ".local/my-profile-studio-20261103/fan.png",
+      "sha256": "6194353349e83cc7e2402202f5657fb48d4bcf01d300f3df93848e8aea76e221"
+    },
+    {
+      "path": ".local/my-profile-studio-20261103/guest.png",
+      "sha256": "f0b86ffb6c993baf1f6a2ca24585bd62b5f841c219df0197ba083217aa0d596f"
+    },
+    {
+      "path": ".local/my-profile-studio-20261103/mobile-320.png",
+      "sha256": "da8658d57799711ce586addb27fa5057a36eddb154c616c808508cf3b81958af"
+    },
+    {
+      "path": ".local/my-profile-studio-20261103/mobile-390.png",
+      "sha256": "ecfbe692879a743f0ea1445c92b9d7019fd3f07516d178a2b213401169c0b199"
+    },
+    {
+      "path": ".local/my-profile-studio-20261103/pc.png",
+      "sha256": "fb342e2eb745f6600a95393aeb4717d3894e7fb12cdf00408f2c433411042311"
+    },
+    {
+      "path": ".local/my-profile-studio-20261103/studio-destination.png",
+      "sha256": "2a2b9eaf204e99cfa0e0b62f97dfbf83c27cdd9829574d802dd3f43aea2d1daf"
+    }
+  ],
+  "visualReview": [
+    "WebKit320/390: wallet left,studio pill andsettings right; matching44px height andno overlap",
+    "Preview studio navigation rendered theexisting dashboard"
+  ],
+  "sourceSha256": {
+    "AGENTS.md": "d4a8a639e0d7af7bbbe0e7a5105700e97931fdd7cd0b393aa624e4f1d517df1b",
+    "PROGRESS.md": "a0e8c981cdd629f0b435689f7dee102bdef4d686eed1230e06962046071d9885",
+    "components/crefans/AccountPages.tsx": "3e88b809cf1e870a0b1c98b9715466c08541cc7940e34d2ddd07aba995a27a0d",
+    "components/crefans/creator.module.css": "cd05fee799558771fbb2e3f79dad3cf6f57806b6b9ad74561e19f1d5741f1e96",
+    "docs/preview-pages.md": "b7fe4720a19b34d49674b2646990e7187d67e70ce5b5146f2c23810a04f3fd9d"
+  },
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "server": "LocalNext3011; preview andstubbed service API; no database mutations"
+  },
+  "limits": [
+    "No production deployment or real authenticated account/physical iPhone test",
+    "No new permanent tests for this low-impact UI change; existing suite andlocal browser inspection used",
+    "Studio href verified forservice; completed navigation verified usingpreview"
+  ],
+  "deploymentStatus": "not-deployed"
+}
