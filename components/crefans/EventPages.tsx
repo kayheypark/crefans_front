@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import type {ServiceEvent} from '@/types/crefans-events';
+import type {ServiceEvent,PromotionClaimModel} from '@/types/crefans-events';
+import {PromotionClaim} from './PromotionClaim';
 import {BackButton} from './BackButton';
 import {Brand} from './Brand';
 import {CommonNavigation} from './CommonPages';
@@ -16,7 +17,7 @@ export function EventsPage({events,basePath}:{events:readonly ServiceEvent[];bas
  </section>;
 }
 
-export function EventDetailPage({event,basePath}:{event:ServiceEvent|undefined;basePath:string}){
+export function EventDetailPage({event,basePath,claim}:{event:ServiceEvent|undefined;basePath:string;claim?:PromotionClaimModel}){
  const back=<BackButton href={`${basePath}/events`} label="이벤트 목록으로"/>;
  if(!event)return <section className={s.page}>{back}<Empty title="이벤트를 찾을 수 없습니다"/></section>;
  return <article className={s.page}>
@@ -35,6 +36,7 @@ export function EventDetailPage({event,basePath}:{event:ServiceEvent|undefined;b
     <p className={s.campaignSchedule}><span aria-hidden="true">* </span>{event.schedule}</p>
    </div>
   </section>
+  {event.id==='promotion-beans'&&claim&&<PromotionClaim model={claim} basePath={basePath}/>}
   {event.submission&&<section className={s.submission} aria-labelledby="event-submission">
    <h2 id="event-submission">{event.submission.title}</h2>
    <p>{event.submission.description}</p>

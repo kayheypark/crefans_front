@@ -118,7 +118,8 @@ export const serviceEvents:readonly ServiceEvent[]=[
   ...campaign,
   "id": "promotion-beans",
  "title": "프로모션 100콩 이벤트",
- "summary": "팬 참여자 13명에게 지급합니다.",
+ "summary": "참여가 확정된 팬 13명에게, 받기 버튼으로 100콩을 바로 지급합니다.",
+ "schedule": "참여가 확정된 대상자는 받기 버튼을 눌러 100콩을 즉시 받을 수 있습니다. 별도 지급일을 기다리지 않아도 됩니다.",
  "theme": "beans",
  "banner": {
   "title": "프로모션 100콩",
@@ -133,13 +134,13 @@ export const serviceEvents:readonly ServiceEvent[]=[
    "title": "프로모션 100콩",
    "image": "/brand/events/beta-first/color-cards-v1/beans.webp",
    "details": [
-    "팬 참여자 13명에게 지급합니다.",
+    "참여 확정 팬 13명, 받기 버튼으로 즉시 지급합니다.",
     "프로모션 콩은 후원받은 사람이 출금할 수 있습니다."
    ],
    "notice": "이벤트로 지급받은 프로모션콩은 직접 출금할 수 없습니다. 후원 수익은 최소 1,000콩·수수료 20% 조건이 적용되며, 출금은 개시 전이라 아직 실제 은행 출금을 제공하지 않습니다."
   }
  ],
-  notes:[participationNotes,
+  notes:[{...participationNotes,items:[...participationNotes.items.slice(0,2),"운영자가 참여를 확정하고 수령 대상자로 지정한 계정으로 로그인한 뒤 ‘100콩 받기’를 눌러주세요. 지급이 완료되면 지갑과 콩 내역에서 바로 확인할 수 있습니다. 다시 누르거나 페이지를 새로고침해도 중복 지급되지 않습니다. 참여 기간은 확정 후 안내하며, 대상 지정 전에는 받을 수 없습니다."]},
 {
  "title": "프로모션 100콩과 출금",
  "items": [

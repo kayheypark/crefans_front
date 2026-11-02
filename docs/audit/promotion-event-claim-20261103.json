@@ -1,0 +1,170 @@
+{
+  "recordedAt": "2026-11-02T17:29:38.407824+00:00",
+  "repository": "crefans_front",
+  "branch": "feat/promotion-beans-claim",
+  "baseCommit": "7b61af658332f8e8ca4e3e57168fe15ba203c11f",
+  "serverCommit": "32109c338bb794e4da38a1cd9dbf63958a7bb0dd",
+  "state": "front uncommitted at verification; server committed",
+  "requirements": [
+    "100 beans receive button",
+    "server success only",
+    "single-flight UI, durable server dedupe",
+    "existing confirmed13fan policy retained",
+    "wallet/history refresh",
+    "PC/mobile/preview shared display"
+  ],
+  "deployment": "NOT_RUN",
+  "operatingEligibilityList": "UNSET; confirmation of recipient accounts required",
+  "sourceSha256": {
+    "components/crefans/EventPages.tsx": "4c985426a899e6aa33ffac5f61decb02dc5cd652b89dc7aae5de796090d77c06",
+    "components/crefans/events.module.css": "b4396eb041191001ac5786c3283e2627d1a615099ed4f54ccb77753d7fefb8b2",
+    "components/design-system/ServicePatternCatalog.tsx": "9b1989bd57feb2a1a04d5abe7a21e239f751f6d7d24fa23f93e8696a230d2463",
+    "components/preview/service/ServiceRouter.tsx": "11b26379ac2c30c6efdee74141adfe0677ccf89e48dbb0a4bb94ea3f12188d4c",
+    "components/preview/service/useMockBeans.ts": "92022db862015c267493d20cc41077490a783367195a7b23c6326c252b0c02ae",
+    "components/service/ServiceRouter.tsx": "4d3f1297745dbd8442fa3951453ccb7b25aaa4722496f4c19232567742b66c61",
+    "features/service/useBeansModel.ts": "0700a996d39a4bba43411a209a00cc2ede07c9e5813b319a35a6322453890423",
+    "lib/content/events.ts": "161440e56c9f5720aa4acdd4130556e2866168f18af73e70b0bbc7e49a344be3",
+    "tests/crefans-events.test.cjs": "8e6e758f97817844221507c094ae366a020eda709123d4e5175a1bbaf2528b84",
+    "types/crefans-beans.ts": "9be890df83572f1689bf9669cef038271b9eb5f8d49712e30c41f5a61021ecf4",
+    "types/crefans-events.ts": "74e16e5b46c48103dde3ae83baf7e00cce69b53a27dd2a8e666bab18a21dfca4",
+    "components/crefans/PromotionClaim.tsx": "edfd4c02c53091d1d9323535bd6ef1348951f915b26975574eb7ff9ec054ab88",
+    "components/service/PromotionEventDetail.tsx": "73e35bbef310add02cca82bb47cc8c6fb9c61e4d3f689f5fbb160bf9f54126b7",
+    "features/events/usePromotionClaim.ts": "680c36f10a244b9415b3873b49f7f6526abb474b09e3a4aa37816adcefe53807",
+    "tests/promotion-claim.test.cjs": "79d6181d2e1a7f98fed8154bd374caf4834d41b6dcf5cf083c158fd2001d6152"
+  },
+  "commands": [
+    {
+      "command": "npm run check",
+      "exitCode": 0,
+      "log": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/front-check-final.log",
+      "logModifiedAt": "2026-11-02T17:25:17.809125+00:00",
+      "logSha256": "f5faca2096b614a4ece0055bae4f308026fd0c4ceb8069764d3badf9a48029aa",
+      "pass": 517,
+      "fail": 0,
+      "typecheck": "PASS",
+      "layers": "PASS"
+    },
+    {
+      "command": "node --test --test-name-pattern=double click tests/promotion-claim.test.cjs (in-flight guard removed)",
+      "exitCode": 1,
+      "log": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/negative-double-click.log",
+      "logModifiedAt": "2026-11-02T17:24:54.870935+00:00",
+      "logSha256": "7b8a68789d6c1f4912c646abd072c8428b23d2d0c5d6ecec6759c2337129c1d7",
+      "expectedFailure": true,
+      "restored": true
+    },
+    {
+      "command": "node .local/event-claim-20261103/browser.cjs",
+      "exitCode": 0,
+      "log": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/browser.log",
+      "logModifiedAt": "2026-11-02T17:21:19.729644+00:00",
+      "logSha256": "c1e4c0fa29a0f6a0e5b59ba4e6919e831147bee1c0d31e16597fa36a1159ba18",
+      "pass": 3,
+      "fail": 0,
+      "scope": "Chromium desktop, WebKit iPhone13, 320px preview. API doubles/local preview; not production."
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-event-claim npm run check:docs",
+      "exitCode": 0,
+      "result": "PASS",
+      "scope": "76 documents,188 routes,57 screens,47 migrations,445 local targets; snapshot only, independent from product tests",
+      "log": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/docs-final.log",
+      "logSha256": "26737c784a1a17fefee21983a92132d834252781a10987f04e9bac67ca5fceac",
+      "logModifiedAt": "2026-11-02T17:29:39.967800+00:00"
+    }
+  ],
+  "browser": [
+    {
+      "name": "desktop",
+      "route": "service",
+      "result": "PASS",
+      "apiScope": "synthetic bootstrap/wallet/claim API including lost response",
+      "checks": [
+        "ready",
+        "lost response retry",
+        "claimed",
+        "durable GET",
+        "ineligible",
+        "unavailable",
+        "login return URL",
+        "no overflow"
+      ],
+      "pageErrors": []
+    },
+    {
+      "name": "mobile",
+      "route": "service",
+      "result": "PASS",
+      "apiScope": "synthetic bootstrap/wallet/claim API including lost response",
+      "checks": [
+        "ready",
+        "lost response retry",
+        "claimed",
+        "durable GET",
+        "ineligible",
+        "unavailable",
+        "login return URL",
+        "no overflow"
+      ],
+      "pageErrors": []
+    },
+    {
+      "name": "preview-small",
+      "route": "preview",
+      "result": "PASS",
+      "apiScope": "preview local model; no service API",
+      "checks": [
+        "ready",
+        "claimed",
+        "wallet navigation",
+        "route return retains claim",
+        "320px no overflow"
+      ],
+      "pageErrors": []
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/desktop-claimed.png",
+      "sha256": "a1eb13d4c04877b88ae1164414bd5d115d2db702ad810ac0a8500f442b2c1371"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/desktop-ready.png",
+      "sha256": "fcf3b572b102d2e9a56e7658cdea482faf695db54106ae3a0a75c6ad1f2710f2"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/mobile-claimed.png",
+      "sha256": "950cff940654edf89231f01b7033b5246e836c2a01080028bbbf15c8822c5526"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/mobile-ready.png",
+      "sha256": "c292eeab3f9a4bec0e2c15f08eb9c1724397ed0fe5971025d80d35450eb33702"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/preview-small-claimed.png",
+      "sha256": "d3d706bed2fb37999f9d593724d58ccddd32e59b0f57fb565df662e4bc020b81"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_front-event-claim/.local/event-claim-20261103/preview-small-ready.png",
+      "sha256": "4cad965a3f5f7f46ee85dd326b8b99a26b78b5ed407dd39c444b3bad02699c2e"
+    }
+  ],
+  "firstFailures": [
+    "event terms test expected obsolete unspecified redemption method: fixed to assert instant claim",
+    "server first build rejected invalid audit enum: finance used",
+    "OpenAPI fixed counts updated for2new routes"
+  ],
+  "limits": [
+    "No production recipients configured, no live grants/deployment",
+    "Browser service API double and backend real DB tested separately",
+    "Preview data resets on full reload; production receipt remains server-side",
+    "Eligibility remains operator-confirmed13; pending question has no answer"
+  ],
+  "environment": {
+    "node": "v22.7.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "next": "15.5.28",
+    "react": "19.1.10"
+  }
+}

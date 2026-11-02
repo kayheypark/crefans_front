@@ -40,6 +40,11 @@
 .submissionContact strong{font-size:18px;font-weight:600}
 .submissionAction{width:100%;min-height:44px;justify-content:center}
 .submission>.submissionHint{margin-top:12px;font-size:13px}
+.claim{margin-top:24px;padding:24px 0;border-top:1px solid var(--cf-color-border);word-break:keep-all;overflow-wrap:anywhere}
+.claim h2{margin:0;font-size:20px;line-height:1.45;letter-spacing:-.03em}
+.claim p{margin:10px 0 20px;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.7}
+.claimAction{width:100%;min-height:48px;justify-content:center}
+.claim .claimError{margin:12px 0 0;color:var(--cf-color-danger)}
 .notes{margin-top:28px;padding:22px;border-radius:12px;background:var(--cf-landing-soft)}
 .notes h2{font-size:18px;margin:0 0 16px}
 .noteGroup+.noteGroup{margin-top:24px}

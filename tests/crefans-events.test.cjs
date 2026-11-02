@@ -23,10 +23,10 @@ test('beta appreciation content preserves the approved four rewards without inve
  assert.deepEqual(serviceEvents.flatMap(event=>event.rewards).map(({audience,title,details})=>({audience,title,details})),[
   {audience:'유용한 피드백 제공자 최대 3명',title:'네이버페이\n1만원 상품권',details:['유용한 피드백을 주신 분 중 최대 3명에게 드립니다.']},
   {audience:'크리에이터 3명',title:'주목할 크리에이터\n광고상품 30일',details:['크리에이터 3명에게 드립니다.','주목할 크리에이터 광고상품 이용권을 제공합니다.']},
-  {audience:'팬 참여자 13명',title:'프로모션 100콩',details:['팬 참여자 13명에게 지급합니다.','프로모션 콩은 후원받은 사람이 출금할 수 있습니다.']},
+  {audience:'팬 참여자 13명',title:'프로모션 100콩',details:['참여 확정 팬 13명, 받기 버튼으로 즉시 지급합니다.','프로모션 콩은 후원받은 사람이 출금할 수 있습니다.']},
   {audience:'참여 확정 회원 전원',title:'원년멤버 한정판 뱃지',details:['참여가 확정된 회원 전원에게 드립니다.','배지 지급 후 프로필 페이지에 표시됩니다.','표시 여부는 직접 선택할 수 있습니다.']},
  ]);
- assert.ok(serviceEvents.every(event=>event.schedule.includes('미정')));
+ assert.ok(serviceEvents.filter(event=>event.id!=='promotion-beans').every(event=>event.schedule.includes('미정')));
  assert.ok(serviceEvents[2].notes.flatMap(note=>note.items).some(note=>note.includes('직접 출금할 수 없으며 후원에 사용할 수 있습니다')));
 });
 test('event list and detail share injected content and preserve preview/service destinations',()=>{
@@ -89,10 +89,11 @@ test('every detail repeats common terms and only its own benefit conditions',()=
   assert.deepEqual(shared[0].items.slice(0,2),commonNotes[0].items.slice(0,2));
   assert.deepEqual(shared[1],commonNotes[1]);
   if(index===0)assert.match(shared[0].items[2],/khpark@crefans.com/);
+  else if(index===2)assert.match(shared[0].items[2],/100콩 받기.*중복 지급되지 않습니다/);
   else assert.match(shared[0].items[2],/참여 방법과 완료 기준.*미정/);
   assert.deepEqual(event.notes.filter(note=>!common.includes(note.title)).map(note=>note.title),specific[index]);
   const text=event.notes.flatMap(note=>note.items).join(' ');
-  for(const requirement of ['만 19세','회원가입만으로','1인 1회','미정','소급','중복 수령','고객센터','광고성 정보 수신'])assert.ok(text.includes(requirement),requirement);
+  for(const requirement of ['만 19세','회원가입만으로','1인 1회',...(index===2?['참여 기간은 확정 후']:['미정']),'소급','중복 수령','고객센터','광고성 정보 수신'])assert.ok(text.includes(requirement),requirement);
   if(index!==0)assert.doesNotMatch(text,/상품권|피드백의 구체성|등록 기한/);
   if(index!==1)assert.doesNotMatch(text,/광고상품|고정 노출|매출을 보장/);
   if(index!==2)assert.doesNotMatch(text,/출금|수수료|100콩|본인 계좌/);

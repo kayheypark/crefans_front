@@ -270,3 +270,7 @@ bootstrap.data.categories의 서버 정렬 순서를 홈·탐색에 그대로 �
 ### 프로필 핸들 중복 확인 (2026-10-31)
 
 설정의 프로필 수정에서 `GET /me/handle-availability?handle=...`를 호출한다. 회원 인증이 필요하고 반환값은 핸들·사용 가능 여부뿐이며 본인 소유는 제외한다. 변경된 핸들만 중복 확인 성공 후 저장하며, 재입력·닫기·다시 열기는 이전 확인을 무효화한다. 늦은 응답은 요청 세대로 무시한다. 기존 형식의 핸들을 그대로 둔 이름·소개 수정은 핸들 값을 보내지 않아 막히지 않는다. 목업은 fixture의 크리에이터 핸들로 같은 UI를 검증하고 실서비스에 샘플을 섞지 않는다. 스튜디오 링크는 목업/서비스 각각의 `/studio`로 이동한다. 확인은 예약이 아니며 서버 저장·DB 고유 제약이 최종 중복을 거부한다.
+
+### 프로모션 100콩 이벤트 즉시 수령 (2026-11-03, 미배포)
+`useBeansModel`의 getPromotionClaim/claimPromotion을 `usePromotionClaim`에 주입한다. GET `/events/promotion-beans`와 POST `/events/promotion-beans/claim`는 세션 본인만 대상으로 하며 body는 `{}`다. 응답은 `{status,quantity:100,claimedAt}`로 available/claimed/ineligible/unavailable을 구분한다. status 조회만으로 지급되지 않는다. 성공한 claimed 이후 지갑·내역을 다시 조회하고, 통신 오류는 재시도 가능하게 둔다. 서버 고정 키로 응답 유실 후 재요청도1회만 지급한다. 401은 로그인 복귀 링크, 로딩/오류 중에는 받기 불가. 프리뷰는 API를 호출하지 않는다.
+서버의 PROMOTION_EVENT_MEMBER_IDS에 운영자가 확정한 팬 계정 ID를 최대13개 지정해야 한다. 빈 값·잘못된 값·BEAN_LEDGER_ENABLED=false는 신규 지급을 막는다. 회원가입만으로 대상이 되지 않으며 브라우저에서 대상/수량을 전달할 수 없다. 현재 작업에서는 운영 명단/설정/지급을 변경하지 않았다.

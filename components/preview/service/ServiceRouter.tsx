@@ -1,4 +1,5 @@
 'use client';
+import {PromotionEventDetail} from '@/components/service/PromotionEventDetail';
 import {EventsPage,EventDetailPage} from '@/components/crefans/EventPages';
 import {serviceEvents} from '@/lib/content/events';
 import {PreviewConnections} from './PreviewConnections';
@@ -45,7 +46,7 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'following':return query.get('profile')?<PreviewConnections key={query.get('profile')+'following'} id={query.get('profile')!} kind="following"/>:<FollowingPage model={model}/>;
   case 'followers':return query.get('profile')?<PreviewConnections key={query.get('profile')+'followers'} id={query.get('profile')!} kind="followers"/>:<FollowersPage model={model}/>;
   case 'payment-methods':return <PaymentMethodsPage model={common} basePath={basePath}/>;
-  case 'events':return id?<EventDetailPage event={serviceEvents.find(event=>event.id===id)} basePath={basePath}/>:<EventsPage events={serviceEvents} basePath={basePath}/>;
+  case 'events':return id==='promotion-beans'?<PromotionEventDetail key={model.viewer.handle} event={serviceEvents.find(event=>event.id===id)} basePath={basePath}/>:id?<EventDetailPage event={serviceEvents.find(event=>event.id===id)} basePath={basePath}/>:<EventsPage events={serviceEvents} basePath={basePath}/>;
   case 'notices':return id?<NoticeDetailPage id={id} model={common} basePath={basePath}/>:<NoticesPage model={common} basePath={basePath}/>;
   case 'legal':return <LegalPage kind={id as LegalKind} model={common} basePath={basePath}/>;
   case 'reset-password':return <PasswordResetPage model={common} basePath={basePath}/>;

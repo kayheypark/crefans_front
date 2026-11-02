@@ -260,3 +260,5 @@ BeanContext와 BeanPages를 `/preview`/`/service`에서 그대로 공유하며 �
 스튜디오 상단은 운영 콘솔 심볼을 참고한 이미지젠 studio 로고(`/brand/studio-logo-v1.png`)를 공용 Brand로 표시하며 대시보드에 연결된다. 대시보드 인사 왼쪽은 공용 Avatar로 실제 프로필 사진 또는 기본 아바타를 표시한다. 팬 서비스 로고는 유지한다. 생성 프롬프트·도구는 public/brand/studio-logo-v1.generation.json에 보존한다.
 
 2026-11-01: `/preview/beans/referral`은 친구 초대 이벤트 전용 페이지이며 지갑의 첫 번째 진입 버튼에서 이동한다. 실제 서비스는 `/service/beans/referral`을 사용한다. 기존 초대 카드·복사 스낵바를 재사용하고 지갑으로 돌아가기 버튼을 제공한다.
+
+2026-11-03 프로모션 100콩 이벤트: 서비스/목업 상세의 동일 공용 받기 UI를 사용한다. 서비스는 GET `/events/promotion-beans`로 본인 상태 확인 후 POST `/events/promotion-beans/claim` 빈 객체로 즉시 요청하며 성공 시 지갑/내역을 갱신한다. 목업은 로컬 모델의 잔액에100콩을 추가하고 페이지 이동 중 중복 지급을 막는다(브라우저 새로고침 시 목업 데이터는 초기화). 다른3개 이벤트의 지급 방식은 바꾸지 않는다. 기존 확정 팬13명·1회 정책 유지, 실제 대상 명단 지정·운영 배포는 별도다.
