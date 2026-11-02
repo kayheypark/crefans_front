@@ -3446,3 +3446,11 @@
 - 검증: npm run check491건 통과(계층408파일·타입 포함). 로컬3011 Playwright 대시보드9건(Chromium PC·모바일/WebKit), 로그인10건(Chromium/WebKit) 통과. PC·모바일 캡처 육안 확인. 최초 실패: 테스트 HTMLCollection 순회 타입 오류→Array.from 수정; 목업 settings를 보호 경로로 오인한 테스트→목업3경로와 실제 ServiceRouter5경로 API대역 검증으로 분리. 실패 로그 보존.
 - 증거: .local/signin-dashboard-20261102/의 check-final.log, dashboard-e2e.log, signin-e2e-final.log, results/, signin-ui-final/. 로컬 대역/브라우저 검증이며 실계정 로그인·실아이폰·실금융 시험은 아님. 다음: dev 통합 검사→prod 승격→사용자 승인 운영 배포/서빙 검증. AGENTS 불변 규약 변경 없음.
 - 추가 요청 PC UX: 현재 상단 아바타는 프로필 링크뿐, 로그아웃은 설정의 계정 관리에만 있음 확인. 사용자에게 상단 아바타 메뉴/사이드바/둘 다 중 첫 위치 결정을 질문, 답변 대기. 아직 관련 코드 변경 없음.
+
+## 2026-11-02 PC 계정 메뉴·로그인 깜빡임 수정, 광고상품 등록
+- 최신 origin/prod1b78290→feat/desktop-account-menu. 사용자 선택대로 PC 상단 아바타에 내 프로필·설정·로그아웃 disclosure 메뉴. 44px 동작 영역·기존 디자인 토큰·공통 오류 모달/스낵바·모바일 프로필 링크 유지. 회원 인증/세션 API 자체 변경 없음. ServiceRouter loading을 헤더에 전달해 인증 확인 중 로그인/가입 노출 차단, 기존1초 지연 훅 스피너 재사용.
+- 합격 기준: 조회 전·999ms 비로그인 링크/스피너 없음→1000ms 스피너→인증결과 메뉴, 빠른 비로그인 결과 지연 스피너 없음. PC 메뉴 키보드(Chrome Tab, macOS WebKit Option+Tab)·Escape/포커스·바깥닫기·2개 경로·로그아웃 성공/실패·pending 중복 방지·모바일기존진입.
+- check492건/타입·계층 통과, API대역 Chromium/WebKit8개 브라우저 시나리오 통과. 최초 실패는 카탈로그 ApiResult 접근 타입·기존 unit의 신규 메뉴 의존 목·브라우저 헤더 선택자/빈Toast status 선택자·WebKit 기본 Tab 설정을 각각 고쳐 재검사. .local/desktop-account-20261102/{check.log,e2e-final.log,local-final/}에 실패와 최종검증 보존. 메모리에서만 authLoading gate를 제거한 음성대조로 unit 실패 확인(negative.log), 소스/배포파일 변조 없음. 실로그인/실아이폰 검증은 아님.
+- 이전 로그인 자물쇠02/빠른작업6개는 prod1b78290까지 통합되었으나 아직 운영 service-footer-20261102이다. 이번 계정메뉴와 함께 동결소스 빌드/운영배포 예정. 로그인 WebKit 테스트의 연속 hard navigation 중 load/prefetch abort 실패는 DOM 준비조건과 각 경로 networkidle 완료 후 이동으로 조정. Chromium/WebKit10개 전체 재통과(signin-local.log), 최종 check492건 재통과(check-final.log).
+- 운영콘솔 광고상품: 사용자 최신 명시 승인가격 VAT포함1일3900(기존유지),3일11700,7일27300,30일117000. 정상 UI에서3·7·30일만 신규등록, 정렬0/1/2/3·주목할 크리에이터 지면·노출/판매중4건 확인. .local/advertising-products-20261102/{registered.jpg,verification.json}. 별도 앱배포 불필요한 운영 데이터 변경이며 실제구매/결제 실행 없음.
+- 장기할인 조사(2026-11-02): 와디즈 공식2026.1H 소개서는 반복집행 별도할인·제안시점별 변동, 크몽2024광고안은 주단위CPT와 당시 한정50%프로모션. 공통 업계표준 할인율을 확인하지 못함. 사업제안3일10%10530원·7일20%21840원·30일30%81900원(VAT포함), 확정 정책으로 적용하지 않고 최근승인가격 유지. 출처/구분은 위verification.json.

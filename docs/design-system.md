@@ -17,6 +17,13 @@
 
 새 UI는 공통 컴포넌트로 구현하고, 정상·빈 값/목록·오류·disabled·readOnly·loading 중 해당하는 상태를 카탈로그에 등록한 다음 같은 컴포넌트를 목업에서 재사용한다. 지원하지 않는 상태를 샘플 처리 결과로 꾸미지 않는다. 목업·카탈로그마다 같은 UI를 별도 JSX와 CSS로 복제하지 않는다.
 
+### PC 팬 계정 메뉴·인증 확인 (2026-11-02)
+
+- PC 헤더 아바타의 공용 [HeaderAccountMenu](../components/crefans/HeaderAccountMenu.tsx)에 내 프로필·설정·로그아웃을 배치한다. 링크/버튼을 사용하는 disclosure로 구현하며 펼침 표시·aria-expanded·Escape 복귀·외부 클릭·포커스 이탈 닫기를 지원한다. 모바일은 기존 내 프로필 진입을 유지한다.
+- 로그인 상태 조회 중에는 비로그인 버튼을 렌더링하지 않는다. [ServiceRouter](../components/service/ServiceRouter.tsx)의 loading을 전달하고 기존 useDelayedLoading 기반 DelayedInlineSpinner를 사용해 1초가 넘을 때만 스피너가 나타난다. 조회 전 상태를 비로그인으로 단정하지 않는다.
+- 로그아웃은 주입된 accountActions.logout 성공 후 갱신하며 실패는 공통 모달로 안내한다. pending 재입력을 막고 실패를 성공으로 바꾸지 않는다. 카탈로그는 정상·사진 없음·처리 중·실패 상태를 제공한다. 검증: [헤더 상태 단위 검사](../tests/header-auth-loading.test.cjs), [브라우저 시나리오](../e2e/header-account-menu.spec.ts).
+- 공식 참고(2026-11-02): https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/ — 네이티브 링크/버튼을 유지하는 펼침 패턴을 채택했으며 ARIA menu 역할은 사용하지 않는다.
+
 ### 스튜디오 빠른 작업 대시보드 (2026-11-02)
 
 - 공용 [DashboardPage](../components/crefans/studio/DashboardPage.tsx)는 대시보드 제목·아바타 인사, 게시물 작성, 빠른 작업, 임시저장, 주요 지표, 최근 활동·게시물 성과 순서로 표시한다. PC는 작업/지표와 활동/성과를 각각 두 열로 배치하고 모바일은 한 열로 배치한다.
