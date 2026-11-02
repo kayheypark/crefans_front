@@ -1,0 +1,69 @@
+{
+  "at": "2026-11-02T23:45:24.413752+00:00",
+  "repository": "crefans_front",
+  "baseCommit": "15d611de33a49dcc963d9918bdd63450ab1d598d",
+  "branch": "feat/tip-login-modal-scroll",
+  "workingTree": "source changes listed below, to be committed after verification",
+  "sourceSha256": {
+    "components/crefans/BeanPages.tsx": "329832a90d66f3aeac49e042071b6e5726c6169d9f92c77392cf804d18ab8eb9",
+    "components/crefans/SignInPrompt.tsx": "48c0302b3ae9dadd80ed7dc703f6f2ab80e54a0a8cfe175010981a16409eb0b2",
+    "components/crefans/account.module.css": "5d7f0a9898e96aa496c1e493bb2f591127065625f635d57f9656b229483c896d",
+    "e2e/tip-login-dialog.spec.ts": "77f8871c0ff8f6f39e88e807726d5b55b5040dc15930e83b3fa3128917ea45c9"
+  },
+  "before": {
+    "viewport": 900,
+    "height": 765,
+    "scrollHeight": 832,
+    "overflow": "auto",
+    "promptMinHeight": "720px"
+  },
+  "after": {
+    "viewport": 900,
+    "height": 375,
+    "scrollHeight": 375,
+    "overflow": "auto",
+    "promptMinHeight": "0px"
+  },
+  "checks": [
+    {
+      "command": "node node_modules/@playwright/test/cli.js test tip-login-dialog --config .local/tip-login-scroll-20261103/playwright.config.ts",
+      "exitCode": 0,
+      "result": "8 passed; 10 unchanged page regressions passed in initial run",
+      "finishedAt": "2026-11-02T23:44:46.956348+00:00",
+      "logSha256": "040c1e5fa5f7a9d32f22465858de057f74404594490938265f27ee139f63ed4f"
+    },
+    {
+      "command": "node --test tests/crefans-account.test.cjs",
+      "exitCode": 0,
+      "result": "23 passed",
+      "finishedAt": "2026-11-02T23:42:44.199103+00:00",
+      "logSha256": "ab3117c08747ff15d2feac26249936b3ebe85c4599747d9753832a3f4ee32ef8"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "passed",
+      "finishedAt": "2026-11-02T23:42:36.695926+00:00",
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04"
+    },
+    {
+      "command": "npm run check:layers",
+      "exitCode": 0,
+      "result": "passed",
+      "finishedAt": "2026-11-02T23:42:44.687070+00:00",
+      "logSha256": "b47c410f3b68c901af388dd3ce953bcbb7c9b8211b9fa26ff4c0890c633d7f13"
+    }
+  ],
+  "initialBrowserRun": {
+    "passed": 15,
+    "failed": 3,
+    "reason": "incorrect test assumption: WebKit mouse click focuses button; keyboard restoration now tested with Enter",
+    "logSha256": "b7b0fcb7efcec31480dd729f7350b0d06b15fabfdcf17a27be76a7d3c7bd4f05"
+  },
+  "reference": {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#clicking_and_focus",
+    "checked": "2026-11-03",
+    "applied": "separate keyboard focus restoration from browser-specific mouse-click focus"
+  },
+  "scope": "Local Next.js shared UI, Chromium/WebKit. Mock tips; service signed-out page API doubles. No financial operations, production deployment, or physical iPhone test."
+}

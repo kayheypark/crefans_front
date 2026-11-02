@@ -57,7 +57,7 @@ export function TipButton({creatorId,name,postId,post,creator,disabled=false,pro
  async function send(){if(!confirming||busy.current||!ready||!shared||!model)return;busy.current=true;setPending(true);setError('');request.current ||=crypto.randomUUID();try{const r=await model.tip(creatorId,{quantity:amount,message,postId,requestId:request.current,creatorProvision:TIP_PROVISION.version});if(r.success)setResult(r.data);else setError(r.errorMessage);}catch{setError('후원 결과를 확인하지 못했습니다. 같은 요청으로 다시 확인해주세요.');}finally{busy.current=false;setPending(false);setConfirming(false);}}
  return <><Action variant="secondary" data-tip-button="true" aria-label={postId?`게시물 후원 · ${supporterCount}명`:undefined} className={profile?`${s.walletCharge} ${s.profileTip}`:s.postTip} onClick={()=>{setOpen(true);setResult(null);setError('');request.current='';}}>{profile?<><img src="/brand/beans/soft3d-v2/10.png" width={28} height={28} alt=""/><span>후원하기</span></>:postIcon}</Action>
  <Dialog open={open} onClose={()=>{if(!pending)setOpen(false);}} title={result?(postId?'게시물 후원 완료':'후원 완료'):postId?'이 게시물 후원하기':'콩 후원'}>
-  {!model.signedIn?<SignInPrompt basePath={model.basePath}/>:result?<div className={s.tipComplete}>
+  {!model.signedIn?<SignInPrompt basePath={model.basePath} variant="dialog" description="크리에이터에게 후원하려면 로그인해주세요."/>:result?<div className={s.tipComplete}>
    <img src="/brand/beans/soft3d-v2/10.png" width={104} height={104} alt=""/>
    <p className={s.tipCompleteTitle} role="status">{beans(result.quantity)} 후원을 보냈어요</p>
    <p className={s.tipRecipient}>{post&&<><strong>{post.title}</strong><br/></>}{name}님께 마음을 전했습니다.</p>

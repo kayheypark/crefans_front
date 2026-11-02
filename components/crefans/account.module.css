@@ -43,7 +43,8 @@
 @media(max-width:767px){.signInPrompt{padding-inline:0;justify-content:flex-start}.signInPrompt>footer{width:100%;max-width:none;margin-top:0}}
 .signInContent{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;max-width:400px;gap:12px}
 .signInIcon{display:block;flex:none;width:88px;height:88px;object-fit:contain;margin-bottom:4px}
-.signInContent h1{margin:0;font-size:24px;line-height:1.4;letter-spacing:-.6px;color:var(--cf-color-text)}
+.signInTitle{margin:0;font-size:24px;line-height:1.4;letter-spacing:-.6px;color:var(--cf-color-text)}
+.signInPrompt.signInDialog{min-height:0;gap:0;padding:12px 0 4px}
 .signInContent>p{margin:0;max-width:330px;font-size:14px;line-height:1.8;color:var(--cf-color-textMuted);word-break:keep-all}
 .signInActions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:12px;margin-top:12px}
 .signInPrompt .signInActions a{min-width:0;min-height:48px;margin-top:0;padding:10px 16px;border-radius:var(--cf-radius-control);font-size:15px;font-weight:600}

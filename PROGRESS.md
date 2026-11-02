@@ -3615,3 +3615,10 @@
 - node --test tests/shared-short-bio.test.cjs tests/crefans-account.test.cjs 25건, npm run typecheck/check:layers 통과. 하늘·모카 양방향 수정·삭제와 상세 소개 보존, 121자 거절 검사 포함. 실제 backend 관련18건 및 OpenAPI13건 별도 통과.
 - Chromium PC1440 및 WebKit iPhone13에서 회원·스튜디오4화면의 동일 소개·120/1,000자 제한·툴팁·가로 넘침 없음 확인, 캡처 육안 검토. .local/shared-short-bio-20261103/{tests.log,typecheck.log,layers.log,browser-verification.json,pc-member.png,mobile-member.png,pc-studio.png,mobile-studio.png}. 목업/격리DB 검사이며 운영·실물iPhone 검증은 아님.
 - 운영 배포하지 않음. 서버 컬럼 이전이 필요하므로 backend docs/platform-api.md의 백업·구형API/worker중지·새버전 동시 반영 절차와 함께 배포해야 한다. 기존 중단 작업트리 및 다른 미배포 변경은 보존. AGENTS 기존 불변 규약 유지.
+
+## 2026-11-03 후원 로그인 모달 불필요한 세로 스크롤 수정 — 미배포
+- 최신 origin/prod15d611d에서 feat/tip-login-modal-scroll 분기. 기존 랜딩·짧은 소개 통합 브랜치는 보존. 합격 조건: PC/모바일 일반 높이에서 불필요한 내부 스크롤 없음, 낮은 화면에서 버튼 접근 가능, 페이지용 로그인 안내·2열 푸터·로그인 복귀 경로 유지.
+- 원인: TipButton의 Dialog 안에 페이지용 SignInPrompt가 포함되어 min-height:calc(100svh - 180px)와 모바일 푸터까지 적용. PC1440×900에서 dialog clientHeight765/scrollHeight832로 재현. SignInPrompt의 명시적 dialog 변형은 최소 높이·페이지 푸터를 제외하고 기존88px 자물쇠·로그인/가입 버튼을 재사용. 후원 안내 문구와 내부 제목(h3) 적용. 공통 Dialog의 overflow:auto는 유지.
+- 수정 후 동일PC clientHeight/scrollHeight375/375. Chromium/WebKit 각1440×900,1280×720,390×844에서 게시물·프로필 후원 모달 확인.844×320에서는 필요한 스크롤과 로그인 버튼 접근/이동 유지. 기존 로그인 페이지 모바일320/390/767·PC·service API대역 회귀10건 + 모달8건=18건 통과. 계정 단위23건·타입·계층 검사 통과, PC 캡처 육안 확인.
+- 최초 브라우저 실행의3건은 Safari 마우스 클릭이 버튼을 포커스한다고 가정한 검사에서 실패. MDN button Clicking and focus(https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#clicking_and_focus, 확인2026-11-03)의 브라우저별 차이를 확인하고 키보드 포커스 복귀는 실제 Enter 입력으로 검증해8건 재통과. 제품 포커스 동작 변경 없음. 최초 실패 결과도 보존.
+- 증거 .local/tip-login-scroll-20261103/{before.json,after.json,before.png,after.png,browser-initial.log,browser.log,results-initial.json,results.json,unit.log,typecheck.log,layers.log}, 공개 요약 docs/audit/tip-login-scroll-20261103.json. 로컬 UI·API대역 검사이며 실제계정·후원결제·물리iPhone·운영배포는 실행하지 않음. 다음: 사용자 배포 요청 시 dev 통합 검증→prod 승격→프론트 배포. AGENTS 프로젝트·스택·PROGRESS 선확인·공용UI·브랜치 불변 규약 유지.
