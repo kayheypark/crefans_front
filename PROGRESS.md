@@ -3454,3 +3454,11 @@
 - 이전 로그인 자물쇠02/빠른작업6개는 prod1b78290까지 통합되었으나 아직 운영 service-footer-20261102이다. 이번 계정메뉴와 함께 동결소스 빌드/운영배포 예정. 로그인 WebKit 테스트의 연속 hard navigation 중 load/prefetch abort 실패는 DOM 준비조건과 각 경로 networkidle 완료 후 이동으로 조정. Chromium/WebKit10개 전체 재통과(signin-local.log), 최종 check492건 재통과(check-final.log).
 - 운영콘솔 광고상품: 사용자 최신 명시 승인가격 VAT포함1일3900(기존유지),3일11700,7일27300,30일117000. 정상 UI에서3·7·30일만 신규등록, 정렬0/1/2/3·주목할 크리에이터 지면·노출/판매중4건 확인. .local/advertising-products-20261102/{registered.jpg,verification.json}. 별도 앱배포 불필요한 운영 데이터 변경이며 실제구매/결제 실행 없음.
 - 장기할인 조사(2026-11-02): 와디즈 공식2026.1H 소개서는 반복집행 별도할인·제안시점별 변동, 크몽2024광고안은 주단위CPT와 당시 한정50%프로모션. 공통 업계표준 할인율을 확인하지 못함. 사업제안3일10%10530원·7일20%21840원·30일30%81900원(VAT포함), 확정 정책으로 적용하지 않고 최근승인가격 유지. 출처/구분은 위verification.json.
+
+## 2026-11-02 로그인 자물쇠·빠른 작업·PC 계정 메뉴 운영 배포 완료
+- PC 기능 feat4d1d3e8/75cc4e4→devab27411→prod5be13c5, 각 브랜치 일반push 완료. dev check492건/문서75개 검사 통과. 앞서 미배포였던 로그인02 자물쇠·2×3빠른작업과 이번 PC헤더5파일을 합쳐 운영 service-footer 소스에서 승인된16파일만 동결. 실제 제품 소스 커밋5be13c5.
+- crefans-front:pc-account-20261102 amd64 빌드 통과, manifest55f973142a20d40c889b8ff8071c7b36ecf11f3417ff2628a8cf2382ee4302a2. 이미지 내부 소스 대조 및 전송 체크섬 확인. 09:19 KST 프론트만 운영 교체, API/worker/admin/DB/proxy5개 ID·이미지 유지, 마이그레이션 없음.
+- 최종 이미지 브라우저 헤더8·로그인10·대시보드9사례 확인. 최초 헤더1건은 서버준비 전 ERR_EMPTY_RESPONSE(7통과/1실패), HTTP 준비확인 뒤 해당1건 통과. 로그인 이전후보의WebKit load/prefetch abort는 테스트 경로 이동 전 networkidle 대기 후 최종이미지10건 통과. 실패 로그 보존, 숨김/필터링 없음.
+- 운영 Chromium PC·모바일 WebKit 비로그인5경로/목업대시보드 각6개=12사례 및 잠금원본SHA 일치. 실제 사용자 Chrome의 로그인된 상단메뉴에서 내프로필·설정·로그아웃 직접 확인·캡처, 사용중 계정을 실제로 로그아웃하지 않음. 실제 제공JS/CSS57개가 테스트이미지와 SHA일치. 모바일실물·실결제/출금은 범위 밖.
+- 가이드 별도복구 완료: prod087e4ff 기준Pagefind메타1파일만 변경, 101파일유지·운영102파일SHA일치. PC/모바일 검색4종·결과이동·빈결과12사례, 실제Chrome 결제22결과 확인. guide PROGRESS와 .local/search-20261102/ 참조.
+- 증거 .local/pc-account-20261102/{verification.json,builds.json,source-delta.json,images.json,deployment-command.json,runtime-after.json,production-smoke.json,served-assets.json,production-account-menu.jpg} 및 -image/-ready 테스트로그·캡처. 기존 미배포 후보 이미지1개와 완료한전용서버 정리, 로컬/운영 최신3이미지·명시보호태그 유지(retention-*-apply.json). 이전 운영 service-footer 복구이미지/설정 보존. AGENTS 불변규약 유지.
