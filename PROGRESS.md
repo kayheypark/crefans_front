@@ -3594,3 +3594,10 @@
 - 검증: 후보 컨테이너와 운영 서버 및 맥북 외부 HTTPS에서 GET/HEAD200·text/plain UTF-8, GET3261바이트 원본 SHA4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905 일치. 피드·탐색·API상태·관리자로그인·가이드5경로200. 콩/결제·계정 데이터 변경 없음. 이전19공식 링크 검증 유효; 이번 작업은 검색 순위나 AI 수집 결과를 증명하지 않음.
 - 실패/한계: 로컬 Docker의 이전 태그 이름 조회 실패로 실제 운영 이미지의 정확한 ID/레이어를 검증한 서버에서 네트워크 없는 단일COPY 빌드 수행. 후보 통과 후 배포. 기존 결제 묶음의 전체 check:docs 증거 만료는 별도 미해결이며 새 파일 목록·계약·링크 검사 오류0과 구분. 전체 앱 회귀/실금융 시험은 정적 파일 변경 범위 밖.
 - 증거 `/Users/ethan/repository/crefans_front-llms/.local/llms-deploy-20261102/`: baseline.json, dev-verification.json, image-verification.json, production-verification.json, external-verification.json, deployment-command.json 및 실제 실행 스크립트/로그. 운영 https://crefans.com/llms.txt 정상 제공. 다음은 통상 서비스/가이드 변경 때 파일 안내를 함께 검토; Search Console 추가 제출은 불필요. AGENTS 불변 규약 유지.
+
+## 2026-11-03 오픈 기념 이벤트 문구·PC 여백·계좌번호 안내 — 검증 중
+- 최신 origin/prod15d611d에서 feat/open-event-copy-spacing 분기. 저장 공간 부족으로 앞선 작업·배포가 막혔으나, 일부 여유 확보 후 기존 자체 생성 .next/.next-e2e 캐시만 정리해 재개. 기존 작업 브랜치 보존.
+- 이벤트4종 공통 “크레팬스 오픈 기념 이벤트”, 배지 “오픈 기념 한정판 배지”로 변경. 목록/상세/수령/프로필 배지 설명/카탈로그/현행 문서 동기화. founding-badge URL·데이터 키·지급 조건 유지. 정산 계좌 추가/변경의 실제 계좌번호 라벨에 “(하이픈 '-'을 빼고 입력해주세요)” 추가, 숫자 정규화 유지.
+- 운영 PC1440px 실제4상세에서 제목70px, 제목-설명0px·카드-일정0px 확인. 공통 .root p의 margin-top:0이 이벤트 스타일을 덮어쓰는 원인. 이벤트 범위 선택자와 헤더 grid16px, 제목 최대50px/보조24px로 개선, 수령 설명 위12px·아래20px, 유의사항 위32px/소제목 아래12px.
+- 합격 조건: PC1440/1280·모바일390/320에서4상세/목록 새 문구·상하 여백·가로넘침 없음, 수령/로그인 링크 보존. API·결제·출금 데이터 변경 없음. 기존 이벤트 단위검사에 이전 메타타이틀 기대값1건이 남아 최신 브랜드 규칙으로 정정.
+- 다음: 단위·타입·브라우저 확인, 이전 승인 미배포 건과 dev 통합→prod 승격→운영 배포 및 실서빙 검증. AGENTS 프로젝트·스택·PROGRESS 우선 읽기 규약 유지.
