@@ -1,3 +1,9 @@
+## 2026-11-03 설정 로그아웃·회원 탈퇴 메뉴 행 통일 — 로컬 완료·미배포
+- 최신 origin/prod 88237ff에서 feat/settings-account-actions, 작업 폴더 `/Users/ethan/repository/crefans_front-account-actions`. 기존 작업 트리의 미커밋 파일 보존.
+- SettingsPage의 두 항목에 기존 menuList 스타일 재사용: 전체 너비 행, 이름 왼쪽·16px 꺾쇠 오른쪽, PC54px/모바일53px 높이, 기존 색상·모바일 구분 배경띠 유지. 기존 작은 버튼 전용 중복 CSS 제거. 회원 탈퇴는 위험 색상 유지. 실제/목업 공통 화면, 헤더 드롭다운·서버 변경 없음.
+- 검증: typecheck 및 기존 crefans-account23건 통과. 로컬 목업 PC Chromium/모바일 WebKit에서 폭·오른쪽 정렬·가로넘침 없음·탈퇴 안내창·로그아웃 후 landing 이동 확인, PC 키보드 포커스 표시 확인. 화면 캡처 육안 검토. 실기기/운영 계정 요청·배포는 하지 않았다.
+- 증거: [설정 계정 메뉴 검증](docs/audit/settings-account-actions-20261103.json), 로그·화면 `.local/settings-account-actions-20261103/`. 문서 설명 검토 후 스냅샷 갱신·check:docs 실행. 다음 배포 요청 시 dev 통합 검증→prod 승격. 미해결 제품 결정 없음.
+
 ## 2026-11-03 멤버십 이미지·삭제 확인·공제율 예상 수익 — 운영 배포 완료
 - 사용자 “다되면 배포” 승인. feature→dev 통합(358be1c)→prod(73fbc85), 서버 dev fefc3ee→prod d99e010. 실제 배포 소스는 이 두 prod 커밋이며 이후 배포 증거 커밋은 문서만 변경한다. 별도 미배포 feature는 포함하지 않았다.
 - 운영 release `membership-20261103`: API·worker·front 교체. 멤버십 사진 폼 공통 MediaUpload, 이름 직접 입력 삭제 확인, 실제 개인 공제율 기반 월 구독료 예상 수익 적용. 원천징수 도움말 제거. DB 구조·기존 구독/수익 원장 변경 없음.

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-02T15:14:46.677830+00:00",
+  "checkedAt": "2026-11-02T15:26:05.700243+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,7 +18,7 @@
     "models": 87,
     "enums": 15,
     "migrations": 47,
-    "localMarkdownTargets": 444,
+    "localMarkdownTargets": 445,
     "externalInlineLinksNotFetched": 369
   },
   "negativeControls": [
@@ -30,25 +30,25 @@
   ],
   "repositories": {
     "front": {
-      "head": "73fbc854596d967310555101a0a96eb482406144",
-      "branch": "feat/membership-deployment-evidence",
+      "head": "88237ffc6c6089c6ec711f0abe63d13953dd0afe",
+      "branch": "feat/settings-account-actions",
       "dirty": true
     },
     "server": {
-      "head": "6a08f511226453e241eadbeb2eb9c753a79dd279",
-      "branch": "feat/membership-deployment-evidence",
+      "head": "d4238d922641277f6e5364f27d2484a8641afdb1",
+      "branch": "",
       "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "5f3e09e6bdff861aa4f78a7da570ab5f071a70654b0eb460352160ad07e020cd",
-      "front/PROGRESS.md": "e63b44e3a8d9a7c2e026de80bd8c7fdeb6bc29471c488faa4fcb19aeb143e090",
+      "front/PROGRESS.md": "7e5fdcff591a1bc12580b35b447b3bb5ca41c867d4ab677ab439f3a94a569553",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "577fb71fa84f4e5090969839f0f003aa31b058d74895d3437f85406a0bfe9b6a",
+      "front/docs/design-system.md": "0b58164abee28817d5116e63b99f1d13aa1b5a950cec86b011ab6bae9798f87b",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -189,7 +189,7 @@
       "front/components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
       "front/components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
       "front/components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
-      "front/components/crefans/AccountPages.tsx": "fea9757934ce4c6efb4d4f4a5054b1a2e57b9c6f65a446cd30a638b9c95e9099",
+      "front/components/crefans/AccountPages.tsx": "0d4b348d0113159e2e08fe86dc3a3c6d6d19defe66cb3f22702e5a03e14bd9d3",
       "front/components/crefans/ApiState.tsx": "4df6f64b1ba3a6803c3f4798fb442487a0c7745698748018a084acbeb0cd14ae",
       "front/components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
       "front/components/crefans/BeanAttribution.tsx": "a3b1b773c5c27322dd0a96e02ac50c400dcb1e9009e94212296cc392b6496953",
@@ -243,7 +243,7 @@
       "front/components/crefans/SignInPrompt.tsx": "26beb444986fde6ef6cfae43012d319f914359654efad16bd180fbcebacff72b",
       "front/components/crefans/SignupCompletePage.tsx": "4bb0b3997e38789aecf39747d28d04c03cd0991caef773f4e471d18350ffb887",
       "front/components/crefans/SocialPages.tsx": "d1343999996be176661875461b37053d9e3df0ebcf51ed629f2d8b365406471b",
-      "front/components/crefans/account.module.css": "2e8a1f669069cdb44892caf34038b1294d353111d8a9fc9115f6166a563f1fe3",
+      "front/components/crefans/account.module.css": "e6147be6a61336a4aee0472df2901bda087afc822ccb4fc60093b31483cfe822",
       "front/components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
       "front/components/crefans/beans.module.css": "4a72500deb00eddac87798895c798bd922c287e8a387a832c62d357d7ef1377c",
       "front/components/crefans/brand.module.css": "65d9cc3926d095f6d120bce555e570fff4bbd1bf8068f77da0923501fc1c0da1",
