@@ -1,6 +1,6 @@
 import {platformRequest as api} from './platform';
-export async function startOneTimePayment(id:string){
- const result=await api<{clientKey:string;customerKey:string;orderId:string;amount:number;orderName:string}>(`/checkout/${encodeURIComponent(id)}/payment-window`,{});
+export async function startOneTimePayment(id:string,paymentTerms:string){
+ const result=await api<{clientKey:string;customerKey:string;orderId:string;amount:number;orderName:string}>(`/checkout/${encodeURIComponent(id)}/payment-window`,{paymentTerms});
  if(!result.success)return result;
  try{const {loadTossPayments}=await import('@tosspayments/tosspayments-sdk'),{clientKey,customerKey,...order}=result.data;
   const sdk=await loadTossPayments(clientKey),query=new URLSearchParams({id});

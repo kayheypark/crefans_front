@@ -1,0 +1,7 @@
+.terms{display:grid;gap:12px;margin:16px 0;padding:16px;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control)}
+.terms h2{margin:0;font-size:16px}
+.terms dl{display:grid;gap:8px;margin:0}
+.terms dl>div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px}
+.terms dt{color:var(--cf-color-textSecondary)}
+.terms dd{margin:0;overflow-wrap:anywhere}
+.links{margin:0}
