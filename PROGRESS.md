@@ -3656,3 +3656,8 @@
 - 최신 origin/prod88237ff에서 feat/privacy-link-emphasis 분기. 공용 ServiceFooter와 PC ServiceShell 사이드바의 개인정보처리방침 링크만 기존 본문 색상 토큰으로 변경. 다른 안내 링크의 보조색·경로·배치는 유지한다. 법률 본문·인증/금융 로직 변경 없음. AGENTS 불변 규약 유지.
 - 합격 조건: PC·모바일에서 개인정보 링크 RGB32,35,51, 이용약관 링크 RGB108,114,131 유지 및 가로넘침 없음. 로컬3011 /preview/settings의 서비스 안내에서 Chromium1440×1000·WebKit390×664로 모두 확인하고 캡처를 직접 검수했다. 기존 common 테스트9건 통과. 브라우저 API 요청 차단, 실제 계정/아이폰/운영 검증은 아님. CSS2개 변경으로 신규 테스트·전체 제품 빌드 불필요.
 - 증거 docs/audit/privacy-link-20261103.json, .local/privacy-link-20261103/{common-tests.log,browser-observations.json,pc.png,mobile.png}. 운영 배포 전이며 기존 로그아웃/탈퇴 행 개선 feat/settings-account-actions33c30e7도 별도 미배포 상태다. 배포 요청 시 dev 통합 검증→prod 순서로 진행한다.
+
+## 2026-11-03 전체 미배포 통합 검증·배포 준비
+- 승인된 기능 브랜치만 통합: 이벤트 문구/PC 간격, 계좌번호 안내, 랜딩, 소개글 공유, 후원 로그인 모달, 설정 메뉴, 내 프로필 게시물/미디어/스튜디오 링크, 업로드 안내, 개인정보 링크, 예약핸들 문서. 기존 다른 작업 보존.
+- 프론트 check533건, 콘솔13건, 서버31개 고유 회귀 통과. PC1440/1280 Chromium·모바일390/320 WebKit 이벤트 상세16/목록4 통과. 제목 아래16px·카드 아래 최소14px, 가로넘침0. 프로필6·후원모달4 브라우저10건 통과(API대역). PC/모바일 캡처 육안 확인. 이벤트 단위 최종19건 통과, 이전 실패 로그 보존.
+- 증거 .local/open-event-spacing-20261103/의 check.log, unit-corrected.log, local-ui.json, local-*.png, critical.log. 원격 all-pending-20261103 빌드 중이며 아직 운영 교체 전. 다음 dev→prod, DB백업·구형API/worker 중지·2migration 적용·새 서비스 반영과 운영 검증. 저장 공간 때문에 완료한 로컬 개발 서버와 자체 빌드 캐시를 다시 정리했다. AGENTS 규약 유지.
