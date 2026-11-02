@@ -1,0 +1,183 @@
+{
+  "timestamp": "2026-11-02T22:36:07.881932+00:00",
+  "status": "verified-local-not-deployed",
+  "head": "08d893252e5a247f109c34f2f9054e4db6ac3a6e",
+  "branch": "feat/open-promotion-event",
+  "decision": {
+    "promotionQuantity": 100,
+    "expiryDays": 30,
+    "members": "all active verified accounts; once per account",
+    "badge": "all active verified accounts; once; no expiry",
+    "capsRemoved": [
+      13,
+      16
+    ]
+  },
+  "sourceHashes": {
+    "AGENTS.md": "c6ebddbc449a4623d76793af8c15d081a7ef1a806deb0348bcff93990eb5bf3c",
+    "components/crefans/FoundingBadgeClaim.tsx": "e9eed9e647219516a0e029e1cf7bc85f3147ec7dc3efc4659edefc0e9e9a3de3",
+    "components/crefans/PromotionClaim.tsx": "d1416bfea28e2b27d87200c66170fe463ff35bf208d30475ceccf3eb520ece26",
+    "components/design-system/ServicePatternCatalog.tsx": "e8e7d127bc9b1c88f1366629b3d04628ac4c25b6d92c3c3970b8dab0712dda72",
+    "components/preview/service/useMockBeans.ts": "0d03352b074b910ab763aa8ab7c60e83cf62fd910f99a7d4623d4c6b21abd12b",
+    "docs/design-system.md": "94f63f934c6b05415d67ec71c4f6f7c75d9d1b04e9b34376b8639561eabc9c06",
+    "docs/preview-pages.md": "b8c8a698516c9107dc446514581033af7e4ee635029b5dad33a6b55304655050",
+    "docs/service-api-binding.md": "9da37cb90964d423dbcd5e74cf8a04fa616206a8cfda927b044a1c3b7c0497d0",
+    "features/events/usePromotionClaim.ts": "d3c3e5b8f55580833e73726b1bdf38d54ab1c7f776161dccc4c0418bebf88cfa",
+    "lib/content/events.ts": "b2a49d94033b746660f9d8195d46d9639c71f352385c8b99daff203eb6d3dfaa",
+    "lib/crefans/bean-refund.ts": "1cdc411a03f4f5a56593447a5b1a2f9be45dbe80e9be75809206cfa80ad24ff2",
+    "tests/bean-refund.test.cjs": "253c435569074708c86902d12873413e2d1ec8e7715b78f1e1615ee55d1df6ff",
+    "tests/crefans-events.test.cjs": "c9a99aa47e18301d52e3b55ccdeee7df82fa6b7175e9f4df1c7ce79ce1ab0827",
+    "tests/promotion-claim.test.cjs": "c45d1acd54bdd52cc12ff6db9a6d064902f487293c3c47101e1f7e1902131ab4",
+    "types/crefans-events.ts": "bd4eb7a59fa9b1af7f250acfdb7c48e1dc623ad884c24d12e63d0047de7c9226"
+  },
+  "checks": {
+    "front": {
+      "command": "npm run check",
+      "exit": 0,
+      "tests": 525
+    },
+    "serverBuild": {
+      "command": "npm run build",
+      "exit": 0
+    },
+    "serverSuites": {
+      "platform-event-claim": 11,
+      "platform-founding-badge": 8,
+      "platform-openapi": 13,
+      "platform-legal": 12,
+      "platform-beans": 38
+    },
+    "counterexample": {
+      "change": "compiled event duration30→31 days",
+      "expectedExit": 1,
+      "actualExit": 1,
+      "restoredExit": 0
+    },
+    "browser": "PC Chromium/iPhone13 WebKit/320px Chromium; synthetic service API and preview; 3 beans +3 badge flows"
+  },
+  "notRun": [
+    "physical iPhone",
+    "real recipient grant",
+    "external SMTP delivery",
+    "real PG/bank",
+    "production deployment"
+  ],
+  "sources": [
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Business_Logic_Security_Cheat_Sheet.html",
+      "checked": "2026-11-03",
+      "applied": "server-fixed reward, transactions, locks, idempotency; duration and audience are user policy"
+    }
+  ],
+  "browserResults": [
+    [
+      {
+        "name": "desktop",
+        "route": "service",
+        "result": "PASS",
+        "apiScope": "synthetic bootstrap/wallet/claim API including lost response",
+        "checks": [
+          "ready",
+          "lost response retry",
+          "claimed",
+          "durable GET",
+          "ineligible",
+          "unavailable",
+          "login return URL",
+          "no overflow"
+        ],
+        "pageErrors": []
+      },
+      {
+        "name": "mobile",
+        "route": "service",
+        "result": "PASS",
+        "apiScope": "synthetic bootstrap/wallet/claim API including lost response",
+        "checks": [
+          "ready",
+          "lost response retry",
+          "claimed",
+          "durable GET",
+          "ineligible",
+          "unavailable",
+          "login return URL",
+          "no overflow"
+        ],
+        "pageErrors": []
+      },
+      {
+        "name": "preview-small",
+        "route": "preview",
+        "result": "PASS",
+        "apiScope": "preview local model; no service API",
+        "checks": [
+          "ready",
+          "claimed",
+          "wallet navigation",
+          "route return retains claim",
+          "320px no overflow"
+        ],
+        "pageErrors": []
+      }
+    ],
+    [
+      {
+        "name": "desktop",
+        "route": "service",
+        "result": "PASS",
+        "apiScope": "synthetic bootstrap/claim/visibility API incl lost response",
+        "checks": [
+          "receive",
+          "profile navigation",
+          "hide persists across navigation",
+          "show profile badge",
+          "no overflow",
+          "lost response retry",
+          "failed visibility preserves state",
+          "reload",
+          "ineligible",
+          "unavailable",
+          "guest login return"
+        ],
+        "pageErrors": []
+      },
+      {
+        "name": "mobile",
+        "route": "service",
+        "result": "PASS",
+        "apiScope": "synthetic bootstrap/claim/visibility API incl lost response",
+        "checks": [
+          "receive",
+          "profile navigation",
+          "hide persists across navigation",
+          "show profile badge",
+          "no overflow",
+          "lost response retry",
+          "failed visibility preserves state",
+          "reload",
+          "ineligible",
+          "unavailable",
+          "guest login return"
+        ],
+        "pageErrors": []
+      },
+      {
+        "name": "preview-small",
+        "route": "preview",
+        "result": "PASS",
+        "apiScope": "preview local model, no service API",
+        "checks": [
+          "receive",
+          "profile navigation",
+          "hide persists across navigation",
+          "show profile badge",
+          "no overflow"
+        ],
+        "pageErrors": []
+      }
+    ]
+  ],
+  "initialFailures": [
+    "Documentation contract was stale after removing the two allowlist environment keys; regenerate then review."
+  ]
+}
