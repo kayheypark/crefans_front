@@ -3477,3 +3477,10 @@
 - 합격 조건/실제 검증: 형식·중복 없는 HTTPS 공식 링크19개 확인, 공개 링크19/19 HTTP200. 격리 Next15.5.28 dev 서버3126의 비로그인 GET/HEAD 모두200·text/plain UTF-8·리디렉션 없음·GET 원본3261바이트 SHA 일치. 운영 /llms.txt는 아직200 HTML, guide는404(운영 미적용). 포트 바인딩 첫 시도 EPERM 후 권한 승인 실행으로 검증 완료. 새 제품 테스트/빌드는 정적 문서 변경에 불필요해 미실행.
 - npm run check:docs exit1: 기존 결제 묶음의 문서 증거34항목 만료가 기준선에 존재하고 신규 llms/manifest도 스냅샷 갱신 필요. 문서 inventory/계약/로컬 링크 부분 검사는 오류0(전체76문서), 공개 링크 실제 확인은 위 별도 검사. unrelated 전체 증거를 무조건 재생성하지 않으며 전체 문서 검사 통과라고 보고하지 않음.
 - 증거 작업트리 .local/llms-20261102/{public-links.json,http-response.json,docs-structure.json,docs-baseline.log,docs-check.log,verification.json}. 다음: dev PR 통합·검증→prod 승격→운영배포 시 /llms.txt 실제 응답 재검증. 현재 브랜치 구현만 완료, 다른 결제 변경을 함께 배포하지 않음.
+
+## 2026-11-02 llms.txt 운영 배포 완료
+- 사용자 배포 승인 후 PR4로 feat/llms-txt0c1096e→dev3e5367d 통합, 동일 트리/파일 SHA 검증 후 PR5로 prode7c2f3e 승격. 결제 묶음은 이미 prod에 있지만 미배포 상태이므로 운영 전체 재빌드 대신 현재 pc-account-20261102 이미지의10개 레이어를 그대로 보존하고 llms.txt 한 파일 레이어만 추가.
+- 운영 crefans-front:llms-20261102, 이미지57ae20e8978688500f8a5cb891bc6a3ac0aeef23f71f6fb72c5f9b2a42a0d3b0. 13:58 KST 프론트만 교체. API·worker·admin·DB·proxy5개 컨테이너 ID/이미지/재시작 상태 불변, migration 없음. .env는 FRONTEND_IMAGE 한 줄만 변경, 직전 설정/이미지 복구본 보존.
+- 검증: 후보 컨테이너와 운영 서버 및 맥북 외부 HTTPS에서 GET/HEAD200·text/plain UTF-8, GET3261바이트 원본 SHA4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905 일치. 피드·탐색·API상태·관리자로그인·가이드5경로200. 콩/결제·계정 데이터 변경 없음. 이전19공식 링크 검증 유효; 이번 작업은 검색 순위나 AI 수집 결과를 증명하지 않음.
+- 실패/한계: 로컬 Docker의 이전 태그 이름 조회 실패로 실제 운영 이미지의 정확한 ID/레이어를 검증한 서버에서 네트워크 없는 단일COPY 빌드 수행. 후보 통과 후 배포. 기존 결제 묶음의 전체 check:docs 증거 만료는 별도 미해결이며 새 파일 목록·계약·링크 검사 오류0과 구분. 전체 앱 회귀/실금융 시험은 정적 파일 변경 범위 밖.
+- 증거 `/Users/ethan/repository/crefans_front-llms/.local/llms-deploy-20261102/`: baseline.json, dev-verification.json, image-verification.json, production-verification.json, external-verification.json, deployment-command.json 및 실제 실행 스크립트/로그. 운영 https://crefans.com/llms.txt 정상 제공. 다음은 통상 서비스/가이드 변경 때 파일 안내를 함께 검토; Search Console 추가 제출은 불필요. AGENTS 불변 규약 유지.
