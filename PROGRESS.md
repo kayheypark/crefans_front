@@ -1,3 +1,8 @@
+## 2026-11-03 상품 구매 위 구분선 운영 배포 완료
+- dev→prod4b1d97a, frontend ad-divider-20261103 적용. productRow 하단선만 제거, 상품간 상단선 유지.
+- 운영빌드/typecheck 통과·이미지 소스SHA/운영키/HTTP200 확인·다른컨테이너 불변. 운영 공용 preview 광고상품에서 PC Chromium/iPhone13WebKit 계산스타일 bottom0px/top1px·가로넘침없음 확인. 실제 결제/실물기기는 검증하지 않음.
+- 증거 docs/audit/advertising-purchase-divider-20261103.json 및 .local/ad-divider-release/. 이전이미지 보존.
+
 ## 2026-11-03 상품 구매 위 구분선 제거
 - 사용자 제거·배포 요청. 광고상품 productRow의 border-bottom만 제거. 상품간 상단 구분선·버튼간격·가격/특가 표시 유지. CSS1선언 변경, 운영 빌드 후 PC/모바일 계산스타일 검증 예정.
 
