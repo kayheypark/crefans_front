@@ -76,7 +76,7 @@ function PostMenu({post,model,readOnly=false}:{post:Post;model:PostCardModel;rea
       {own&&<Link role="menuitem" href={`${model.basePath}/studio/content/${post.id}/edit`} onClick={()=>setOpen(false)}>수정</Link>}
     </div>}
     <Toast message={feedback} onClose={()=>setFeedback('')}/>
-    <PostShareDialog open={sharing} onClose={()=>setSharing(false)} basePath={model.basePath} postId={post.id} title={post.title}/>
+    <PostShareDialog open={sharing} onClose={()=>setSharing(false)} basePath={model.basePath} postId={post.id} title={post.title} previewImage={post.media?.length?(post.media[0].type==='image'?post.media[0].url:undefined):post.image}/>
     <Dialog open={report} onClose={()=>{if(!pending)setReport(false);}} title="게시물을 신고할까요?"><p className={s.dialogCopy}>부적절한 게시물을 신고하면 운영팀이 검토합니다. 신고 내용은 크리에이터에게 공개되지 않습니다.</p><fieldset className={s.reportReasons}><legend>신고 사유</legend>{reportReasons.map(option=><Radio key={option.value} name={`report-${post.id}`} label={option.label} checked={reason===option.value} disabled={pending} onChange={()=>setReason(option.value)}/>)}</fieldset><DialogActions style={{marginTop:16}}><Action variant="secondary" disabled={pending} onClick={()=>setReport(false)}>취소</Action><Action variant="danger" disabled={pending||!reason} onClick={()=>void submitReport()}>{pending?'접수 중...':'신고하기'}</Action></DialogActions></Dialog>
   </div>;
 }
