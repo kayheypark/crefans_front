@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T13:20:14.528127+00:00",
+  "checkedAt": "2026-11-03T13:20:45.230313+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "bbcb6eace519f49d55374cd982bc54dc454e66c1",
-      "branch": "integration/ad-special-prod",
+      "head": "1c1926089a2321e3fb9c4167751e8df00732092f",
+      "branch": "feat/ad-purchase-divider",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "56c3bae933fa5ba221059236fb166f570b607f20bd3caccd8ad3c58531c7b3af",
+      "front/PROGRESS.md": "abe5c264d7dc0d35d3309ab4163ab5469b4cf8f577a9d967904d28854be337c4",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -284,7 +284,7 @@
       "front/components/crefans/studio/StudioCommentReply.tsx": "c9a18ec81fdd19c797fb8a69224ff65d0fd29526de5a172bad67e82689a0b536",
       "front/components/crefans/studio/StudioShell.tsx": "83c9c174ea32a8c681b94574bd1515f28a5ec44ce9f5e371ee4c45026366f5ac",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "a855269a3dd557a7d095336ec24c731d454aa06b643464c2234239a2dd0b99fe",
-      "front/components/crefans/studio/advertising.module.css": "3be5ae236c43ac5286cbd0199fa17764b025391cf8f6f9a6f624b572962b4901",
+      "front/components/crefans/studio/advertising.module.css": "50d84d9c8f955f44543e40533bc3e807327f23ca23bb98885f82cb042401c747",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-post-preview.module.css": "85ae1ecd65d443d3bc88c40fafb1b02d979a61b3015a2d42b208c6646ccb8aa0",
       "front/components/crefans/studio/dashboard.module.css": "0aeb8095c548c01baf300e4e3f4665eefaffa4521dbd0dde42b1b34ca1d94001",
