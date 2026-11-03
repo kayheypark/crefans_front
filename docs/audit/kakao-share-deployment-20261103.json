@@ -1,0 +1,55 @@
+{
+  "time": "2026-11-03T06:50:16.781362+00:00",
+  "deployedCommit": "7dc201aa8db7baf06d38de81d32d59489aadb6e2",
+  "release": "kakao-share-init-20261103",
+  "sourceFilesVerified": 1315,
+  "productionKeyPresentDevelopmentKeyAbsent": true,
+  "otherContainersUnchanged": true,
+  "build": {
+    "commit": "7dc201aa8db7baf06d38de81d32d59489aadb6e2",
+    "release": "kakao-share-init-20261103",
+    "started": "2026-11-03T06:42:39.382614+00:00",
+    "finished": "2026-11-03T06:49:00.187673+00:00",
+    "exitCode": 0,
+    "keyEnvironment": "production",
+    "sourceCount": 1357
+  },
+  "liveBrowser": [
+    {
+      "device": "pc",
+      "realSdkInitialized": true,
+      "buttonEnabled": true,
+      "popupStatus": {
+        "host": "accounts.kakao.com",
+        "loginOrRecipientPage": true
+      },
+      "actualMessageSent": false
+    },
+    {
+      "device": "mobile",
+      "realSdkInitialized": true,
+      "buttonEnabled": true,
+      "popupStatus": "not attempted: mobile app handoff requires physical device",
+      "actualMessageSent": false
+    }
+  ],
+  "checks": {
+    "npm run check": "PASS: layers, TypeScript, 534 tests",
+    "node --test tests/post-share.test.cjs": "PASS: 9 tests",
+    "oldInitOrderCounterexample": "FAIL expected: new regression test detects initialization before Share availability",
+    "localRealSDK": "PASS SDK2.8.4 initialized",
+    "docs": "PASS snapshot-only; final evidence refreshed after record"
+  },
+  "notTested": [
+    "actual message delivery",
+    "physical iPhone KakaoTalk app handoff"
+  ],
+  "firstDeploymentFailure": "SDK Share checked before init; fixed order, regression test added, rebuilt and redeployed",
+  "evidenceHashes": {
+    ".local/kakao-release/fix-check.log": "18eddd5724afaef971d54a5326990850f8cac6ee30008b206dbd17b2764f7396",
+    ".local/kakao-release/sdk-negative.log": "6d4e752204737efe32198fd5a832a5e2eeef0dab71b31ea1e0bfb61166cd177d",
+    ".local/kakao-release/sdk-fix-tests.log": "9fd4d458bf1a9e76aaa29dbddb85e4d728caa23f78769aa7ceb49b162b6fbbcf",
+    ".local/kakao-release/live.json": "8981aa50280a383ebd8eb7b01d419f82d08b094e2a93f1d7fb6e11caf017099c",
+    ".local/kakao-release2/deploy.log": "95e90413ba6db45ff11fc417145adf877b9f2b59012e919352a3ef4cb4b22cd8"
+  }
+}

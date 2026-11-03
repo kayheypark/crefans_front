@@ -1,3 +1,10 @@
+## 2026-11-03 카카오 공유 — 운영 배포·실 SDK 확인 완료
+- 사용자 승인한 운영/로컬·dev JavaScript 키 분리 완료. 개발 키는 작업트리와 기본 프론트 `.env.local`, 운영 키는 비공개 `.local/kakao-production.env` 및 운영 `/opt/crefans/frontend-build.env`(0600). 이후 운영 재빌드도 해당 파일의 NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY를 Docker build arg로 전달해야 한다. 키 원문은 Git·보고서 제외.
+- 첫 배포의 실제 SDK 검사에서 초기화 전 Share 확인 오류를 발견했다. init→Share 확인으로 수정(91f414f), 신규 회귀·이전 코드 대조 실패 확인. dev3475e60→prod7dc201a 검증·승격 후 kakao-share-init-20261103 재배포 완료. 아래 첫 배포/대기 기록은 당시 이력이며 현재 상태는 이 절이 우선한다.
+- 검증: npm run check 계층·TS·534/534, 공유9/9, 로컬 실제 SDK2.8.4 준비 성공. 운영 이미지1315개 소스 SHA일치·운영키 포함/개발키 미포함 확인. API·worker·관리자·DB·proxy 컨테이너 불변, API health/팬·목업·관리자200. PC Chromium 실제 공유 클릭→accounts.kakao.com 로그인 팝업 확인, iPhone13 WebKit 실제 SDK 준비/버튼 활성화. 캡처 저장·육안 확인. 실제 메시지 발송/수신 및 실물iPhone 앱전환은 미실행.
+- 근거: docs/audit/kakao-share-deployment-20261103.json, `.local/kakao-release/`와 `.local/kakao-release2/`. 백업 `/opt/crefans-backup-kakao-share-init-20261103`, 이전 이미지 보존. 이번 후속 커밋은 기록만 갱신하며 실행 소스는 위 prod7dc201a다.
+- 다음: 사용자가 실물 휴대전화에서 원하는 상대에게 공유·수신 동작을 확인할 수 있다. 카카오 직접 본인인증은 계속 보류, KG이니시스 업무와 별개다.
+
 ## 2026-11-03 카카오 실 SDK 초기화 오류 수정·후속 배포 진행
 - 첫 운영 키 배포 후 실제 SDK2.8.4 검증에서 공유 모듈이 초기화 전에는 없음을 확인. 기존 코드는 Share 존재를 init보다 먼저 검사해 실패했다. 초기화→공유 모듈 확인 순서로 최소 수정했다. 공식 초기화 안내 https://developers.kakao.com/docs/ko/javascript/getting-started 확인2026-11-03 및 실제 SDK 객체로 확인.
 - 회귀 테스트 추가: init 이후 Share가 생성되는 실제 생명주기 대역. 수정본9/9, 이전 순서를 복원하면 새 검사 실패(exit1), 수정본 복원. 첫 배포는 key/이미지/health만 정상이며 공유 기능 완료로 보지 않는다.
