@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T06:50:17.639677+00:00",
+  "checkedAt": "2026-11-03T06:57:05.910683+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "7dc201aa8db7baf06d38de81d32d59489aadb6e2",
-      "branch": "docs/kakao-share-deployment",
+      "head": "5b6b98b73cd2d1a2f387aa79713e302869eb7cf5",
+      "branch": "design/kakao-share-fallback",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "99397248ff85bb431c62c44365762b73970f276633edd513cf6f9dce32a0fdf0",
-      "front/PROGRESS.md": "9003c7293c485205d8809ef8f3497c97cd0e1562b2fbba7274d5c76d7885cacc",
+      "front/PROGRESS.md": "049e0b2cc8f2247dda798f4f575f4e0f03d8e1fddbaee455b925be7c035cad2d",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
