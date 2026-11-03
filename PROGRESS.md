@@ -1,3 +1,17 @@
+## 2026-11-03 광고상품 수동 사용 구현·검증
+- 사용자 확정: 실제 결제는 준비중 유지; 구매내역/사용 기능 먼저, 같은 광고 사용중 다른 주문 사용불가. 신규 AdPurchase 구매snapshot/시작·종료 저장, Creator.ad_promoted_until은 기존 수동 promoted와 분리. 추가형 migration20261103230000_ad_manual_use. 결제완료 주문을 만드는 공개 API는 없으며 무료 주문 발급 우회 없음.
+- GET studio/advertising/orders, POST orders/:id/use: 본인/paid/활성creator 검사, creator행잠금으로 서로다른 주문 동시사용 차단, 동일주문 재시도 기존기간 반환. 사용시점부터 duration_days*24시간 계산, 요청시각에 만료 판정(배치 지연 없음). 운영자 수동홍보 유지. 디렉터리는 수동홍보→유료만료일내림차순, 프로필/부트스트랩은 유효기간으로 promoted 계산.
+- 공용 구매내역: 사용전/사용중/사용완료, 이용기간·시작/종료, 사용확인Dialog, 성공스낵바. 현재광고 종료까지 다른 사용버튼 비활성, 실제 모델은 서버조회/사용응답 사용. 만료시 재조회. 목업만 메모리 주문 생성. 가격/결제/환불정책 변경 없음.
+- 검증: backend build 종료0·격리 MySQL 광고8+OpenAPI13=21통과; 공개프로필 시작/만료 HTTP 포함 광고8 재통과. 최초OpenAPI198→200/스튜디오46→48 개수갱신 후 통과. 프론트 타입통과·PC/iPhoneWebKit/320px6통과, 최초 테스트3개는 닫힘 애니메이션 중 중복텍스트 선택으로 실패해 모달닫힘 대기로 수정. 캡처에서 안내우측정렬 간섭 보정 후 재검증중. 증거 각 .local/ad-use/. 아직 운영 미배포.
+
+## 2026-11-03 광고상품 구매 후 수동 사용 요청: 범위 결정 대기
+- 확정 요구: 구매만으로 노출하지 않음. 구매 내역의 사용 버튼으로 시작, 기존 톤 유지, 검증 후 운영배포 요청.
+- 현재 소스 확인: front types/crefans-advertising.ts는 결제상태만 존재, useAdvertisingModel은 orders:[]/purchaseReady:false, preview만 메모리 주문 생성. server advertising.controller.ts는 상품 조회/관리만, Prisma AdProduct만 존재. 실제 주문/결제/시작/만료 모델과 API는 미구현. Creator.promoted 수동 플래그를 유료광고 만료로 끄면 안 됨.
+- 사용자 질문(답변 대기): 이번에 결제까지 구현할지(권장: 사용기능 우선, 결제 준비중 유지), 같은 광고 사용중 추가 사용은 차단할지/기간연장할지. 정책 답변 전 유료 주문·기간 동작을 임의 결정하지 않음. 운영변경/제품코드 변경 없음.
+- UI 준비 방향: 구매내역 상품명·결제금액·구매일·상태 배지, 사용 전 항목 우측 파란 사용 버튼, 사용확인 Dialog에 이용기간과 시작시점 안내. 사용중은 시작/종료일, 종료 후 사용완료. 결제상태와 사용상태 분리. 성공응답 후 화면 전환·스낵바, 요청중 중복방지/오류시 재시도, 구매조건 snapshot 보존.
+- 검증 계획: 구매직후 노출없음, 소유자/결제완료검사, 다른회원 사용거절, 동시요청/재시도 1회만 시작, 서버시각으로 기간 계산·만료 제외, 기존 수동홍보 유지, PC/모바일 구매내역/확인모달. 실제결제 미연동이면 대역통과를 실구매완료로 주장하지 않음.
+- 공식근거 확인 2026-11-03: https://cheatsheetseries.owasp.org/Authorization_Cheat_Sheet.html (매 요청 소유권/권한 검증), https://www.prisma.io/docs/orm/v6/prisma-client/queries/transactions (트랜잭션과 멱등 처리). 적용 버전은 구현 시작시 package-lock 확인. 사업 정책은 검색으로 확정하지 않음.
+
 ## 2026-11-03 스튜디오 헤더·광고상품 섹션 운영 배포 완료
 - dev→prod078326e, frontend studio-header-20261103 적용. 일반 서비스 이동 버튼→피드, 아바타→마이페이지, 광고상품 특가/전체보기 섹션 포함.
 - 타입/빌드·문서 검사 통과, 로컬PC/모바일6건 통과. 운영 이미지 소스SHA·운영키·HTTP200·기타컨테이너 불변 확인. 배포 공용preview에서 PC Chromium/iPhone13WebKit/320px 실제 버튼클릭→feed, 아바타클릭→me 및 특가4/전체8·가로넘침없음 확인. 실로그인서비스/실물기기/결제 미검증. 증거 docs/audit/studio-header-20261103.json 및 .local/studio-header-release/. 이전 복구이미지 보존.
