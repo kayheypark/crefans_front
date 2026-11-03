@@ -6,3 +6,7 @@
 
 /* Keep underline tabs transparent, including touch-retained hover. */
 .page .tabs button[aria-pressed]:not(:disabled):not([aria-disabled=true]):hover{background:transparent}
+
+/* Reference price is accompanied by its basis; it is not a past selling price. */
+.price s{display:block;color:var(--cf-color-textMuted);font-size:13px;line-height:1.6;margin:3px 0 5px}.salePrice{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:flex-end;gap:6px 10px}.discount{color:var(--cf-color-accent);font-size:14px;font-weight:650;white-space:nowrap}.comparisonBasis{margin:12px 0 0;font-size:12px;line-height:1.65;color:var(--cf-color-textSecondary);overflow-wrap:anywhere}.detail .comparisonBasis{font-size:13px}.productRow .price{max-width:190px}
+@media(max-width:600px){.productRow{display:grid;grid-template-columns:32px minmax(0,1fr)}.productRow>.price{grid-column:2;text-align:left;max-width:none}.productRow .salePrice{justify-content:flex-start}.productRow .price small{margin-top:3px}.comparisonBasis{font-size:12px}.productIcon{align-self:start;margin-top:3px}}
