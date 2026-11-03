@@ -198,18 +198,19 @@ DB 수수료율/정산 보류 정책과 `RENEWAL_MAX_RETRIES`, `RENEWAL_RETRY_HO
 2026-10-21 추가: 수수료율/정산 보류는 환경 키가 아닌 DB financial_policies에서 관리한다. 활성 SUPER_ADMIN용 GET/PUT /api/v1/admin/financial-policy와 이력 API가 준비되어 있으며, 신규 구독 결제에 재시작 없이 적용하고 기존 구독 갱신은 snapshot을 유지한다. 운영 초기값은 미정이며 테스트10%/0일은 로컬 최초 초기화에만 사용한다.
 
 
-## 카카오톡 게시물 공유 (추가 확인일 2026-10-25)
+## 카카오톡 게시물 공유 (추가 확인일 2026-11-03)
 
-**현재:** 공유 레이어와 JavaScript 연결 코드는 구현했다. 확인한 프로젝트 설정에는 카카오 키가 없으며 실제 앱/허용 도메인 연결·카카오톡 전송은 아직 검증하지 않았다. 버튼을 누르기 전에 자동으로 메시지를 보내지 않는다. 기존 다른 서비스의 카카오 앱이나 키를 임의로 재사용하지 않는다.
+**현재:** 공유 레이어와 JavaScript 연결 코드는 구현했다. 연결 대상은 사용자 소유 앱 `1346654`이며 사용자가 체크리스트대로 콘솔을 직접 설정하기로 결정했다(2026-11-03). 운영 공개 주소는 `https://crefans.com`이다(공개 GET의 최종 URL `https://crefans.com/service/feed`, HTTP 200 확인). 앱의 현재 등록값·운영 빌드의 키는 이번 조사에서 열람하지 않았으며 실제 카카오톡 공유·전송은 미검증이다. 버튼을 누르기 전에 자동으로 메시지를 보내지 않는다.
 
-1. 사용할 카카오 Developers 앱을 정한다. [앱 설정 공식 문서](https://developers.kakao.com/docs/en/app-setting/app)를 참고한다.
-2. `[앱] > [플랫폼 키] > [JavaScript 키]`에서 공개 JavaScript 키를 확인하고, JavaScript SDK 도메인에 사용할 사이트 origin을 등록한다. 베타는 `https://beta.crefans.com`, 로컬 검증이 필요하면 정확한 개발 origin/포트도 등록한다.
-3. `[앱] > [제품 링크] > [웹 도메인]`에도 공유된 게시물 링크가 열릴 도메인을 등록한다. SDK 도메인만 등록하면 링크 검증까지 끝난 것이 아니다. [공식 튜토리얼](https://developers.kakao.com/docs/en/tutorial/js-share).
-4. 프론트 `.env.local`에 `NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY`를 설정한 뒤 개발 서버를 다시 시작한다. REST API/어드민 키를 넣지 않는다. 배포는 `infra/platform/Dockerfile`의 같은 이름 build arg를 전달해 **재빌드**한다. 런타임 환경변수만 바꿔도 이미 빌드된 브라우저 번들이 갱신되는 것은 아니다.
-5. 허용 도메인에서 공유 레이어 → 카카오톡을 눌러 PC 웹/모바일 카카오톡의 대상 선택, 취소, 실제 승인한 수신 대상의 링크 열기를 검증한다. 유료 글 링크 수신자의 구독 권한 검사도 별도로 확인한다.
+1. 사용자가 [앱 1346654 설정](https://developers.kakao.com/console/app/1346654/config)을 연다. 로그인된 콘솔의 AI 열람·조작은 하지 않는다. [앱 설정 공식 문서](https://developers.kakao.com/docs/ko/app-setting/app)를 참고한다.
+2. `[앱] > [플랫폼 키] > [JavaScript 키]`에서 키를 확인한다. 해당 키의 **JavaScript SDK 도메인**에 `https://crefans.com`을 등록한다. 로컬은 저장소 README의 개발 주소 `http://127.0.0.1:3010`을 사용하며, `localhost`로 접속할 때만 `http://localhost:3010`도 등록한다. 다른 포트로 실행하면 실제 접속 origin으로 맞춘다. 경로(`/service/feed` 등)는 넣지 않는다.
+3. `[앱] > [제품 링크 관리] > [웹 도메인]`에도 `https://crefans.com`을 등록한다. 로컬에서 생성한 공유 링크를 검증할 때는 그 로컬 origin도 등록한다. 공유 코드는 현재 브라우저 origin으로 게시물 URL을 만들므로 SDK 도메인 등록만으로 끝나지 않는다. 기존 등록값·기본 도메인은 영향 확인 없이 삭제하거나 재정렬하지 않는다. [공식 튜토리얼](https://developers.kakao.com/docs/ko/tutorial/js-share).
+4. **기본 카카오톡 공유는 별도 사용 신청이나 카카오 로그인 활성화가 필요 없다.** 이 구현은 기본 텍스트 템플릿으로, OAuth Redirect URI·동의항목·커스텀 템플릿 ID를 추가하는 작업도 없다. 인증서 상품 계약은 아래 공유 설정과 별개다. 근거: 위 공식 튜토리얼의 시작 전 안내.
+5. 사용자가 프론트 `.env.local`에 `NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY`를 직접 설정하고 개발 서버를 재시작한다. 키를 채팅·문서·Git에 남기지 않고 REST API/어드민 키를 프론트에 넣지 않는다. 운영은 별도 배포 승인 후 `infra/platform/Dockerfile`의 같은 이름 build arg를 전달해 **재빌드**한다. 런타임 환경변수만 바꿔도 이미 빌드된 브라우저 번들은 갱신되지 않는다.
+6. 등록 완료를 확인한 뒤 허용 도메인에서 공유 레이어 → 카카오톡의 SDK 준비·대상 선택·취소를 PC와 모바일에서 각각 확인한다. 실제 발송은 사용자가 지정한 본인 대상에 1회만 별도 승인 후 수행한다. 받은 운영 링크가 게시물로 열리고, 비구독자에게 유료 본문·미디어가 노출되지 않는지 확인한다. 휴대전화에서 PC의 loopback 로컬 링크는 열리지 않으므로 실기기 수신 검증에는 운영 링크를 사용한다.
 
 **공식 근거와 적용 판단:** [카카오 공유 JavaScript](https://developers.kakao.com/docs/ko/kakaotalk-share/js-link)의 커스텀 버튼용 `Kakao.Share.sendDefault`와 텍스트 템플릿을 적용한다. [기본 템플릿](https://developers.kakao.com/docs/ko/message-template/default)의 텍스트200자 한도를 유니코드 단위로 제한하고, 공개 제목·페이지 링크만 넣는다. 공급사에 유료 미디어를 업로드/스크랩하지 않는다. [공식 SDK2.8.4](https://developers.kakao.com/docs/ko/javascript/download), 2026-10-19 배포본을 고정하고 공개 SRI와 실제 다운로드 SHA-384 일치를 확인했다. [공식 버튼 예제](https://developers.kakao.com/tool/demo/message/kakaolink?default_template=text)의 PNG를 변형 없이 보관한다(`public/brand/kakaotalk-share-official.source.json`).
 
 **기기 공유:** [MDN navigator.share](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share)와 [W3C Web Share](https://www.w3.org/TR/web-share/)를 근거로 기능 탐지/지원 데이터 확인 후 클릭의 사용자 활성화 안에서 직접 호출한다. HTTPS가 필요하며 기기·브라우저별 지원과 공유 대상이 다르다. 취소(AbortError)는 실패 경고를 띄우지 않고, 미지원은 복사 대안을 제공한다. Promise 완료를 실제 수신/전송 성공의 증명으로 간주하지 않는다.
 
-코드/대역/브라우저 검증과 실공급자 검증은 분리한다. [이번 실행 증거](./audit/post-share-20261025.json). 사용자에게 기존 카카오 앱 유무를 질문했고, 답변/연결 전까지 미연결 상태로 유지한다.
+코드/대역/브라우저 검증과 실공급자 검증은 분리한다. [2026-10-25 실행 증거](./audit/post-share-20261025.json)는 당시 결과다. 2026-11-03 `node --test tests/post-share.test.cjs` 8건 통과는 SDK·브라우저 API 대역 검사이며 실제 카카오 전송이 아니다. 이번 체크리스트·정책/계약 조사·명령 증거는 서버 작업트리 `.local/kakao-identity-20261103/`에 보존한다. 사용자 등록값 확인·키 입력·실제 PC/모바일 검증·배포는 대기 상태다.

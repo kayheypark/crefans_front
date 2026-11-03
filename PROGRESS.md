@@ -1,3 +1,10 @@
+## 2026-11-03 카카오 공유 연결 준비 — 사용자 직접 설정 대기
+- 최신 origin/prod19df303에서 feat/kakao-identity 독립 작업트리. 기본 프론트 미커밋/다른 작업트리 보존. 제품 코드는 변경하지 않고 AGENTS·서드파티 안내·진행 기록을 갱신했다.
+- 사용자 결정: 앱1346654 콘솔은 사용자가 직접 설정. docs/third-party-setup.md를 운영 https://crefans.com(공개 GET 최종 /service/feed 200) 기준으로 수정. JavaScript SDK 도메인과 제품 링크 웹 도메인 각각 등록, 로컬 README의127.0.0.1:3010와 실제 origin 일치, JavaScript 키만 .env.local에 직접 입력, 운영 build arg 재빌드를 안내. 기본 공유에는 카카오 로그인/추가 신청이 필요 없음을 공식 문서로 확인.
+- 검증: node --test tests/post-share.test.cjs 8/8 통과(SDK·브라우저 대역, react-test-renderer/act 경고 있음). 최초 check:docs는 변경된5문서 해시 만료로 실패, 수동 검토·manifest 검토내용 갱신 후 docs:record→check:docs exit0(76문서·196라우트·57화면·89모델·50migration). 2026-11-03 12:47 KST snapshot-only이며 전체 제품 시험으로 주장하지 않는다. 명령/상태/해시는 서버 .local/kakao-identity-20261103/verification.json에 기록.
+- 인계 자료: ../crefans_server-kakao-identity/.local/kakao-identity-20261103/{automation-policy,share-checklist,identity-research,contract-inquiry-draft}.md. 서버의 인증 구현은 사용자 범위 결정/계약 확인 전 보류, 여기서는 공유 연결 준비만 수행. 콘솔 열람·키 입력·실제 API/전송·배포·약관 변경 없음.
+- 다음: 사용자가 등록/키 입력 완료 사실을 알려주면 SDK 준비·PC 대상선택·취소 확인. 실폰 수신 및 유료글 비구독자 차단은 별도 검증. 운영 재빌드/배포와 본인 대상1회 실제 발송은 별도 승인 후 진행. 원격 dev/prod 통합은 아직 하지 않음.
+
 ## 2026-11-03 이메일 심플 딥블루 운영 배포 — 문서 증거 갱신
 - 사용자 승인한 흰 배경·외곽/코드박스 없는 좌측정렬·#1746C7를 서버 공통 이메일에 적용. 서버 feat/email-simple-blue→dev검증→prod55786da 배포, release email-simple-blue-20261103 API/worker만 교체. 프론트/관리자/DB/proxy 컨테이너와 프론트 제품 소스는 변경하지 않음.
 - 서버 build·단위22건, 합성20종 Chromium/WebKit4환경80렌더·시안19종픽셀일치, loopback SMTP20종·수신거부4종·451거절 대조 확인. 운영 두서버 각각452파일·20종 렌더해시, health와4공개경로 확인. 외부 테스트 메일/실수신함 검증 없음. 상세 서버 docs/email-simple-blue-20261103.json.

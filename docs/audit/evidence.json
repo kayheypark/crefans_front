@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T03:01:29.986447+00:00",
+  "checkedAt": "2026-11-03T03:47:53.063976+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -19,7 +19,7 @@
     "enums": 15,
     "migrations": 50,
     "localMarkdownTargets": 459,
-    "externalInlineLinksNotFetched": 374
+    "externalInlineLinksNotFetched": 375
   },
   "negativeControls": [
     "missing-link rejected; valid-link accepted",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "8261fc0f1fbcfb8490c573b42f779b28792b7426",
-      "branch": "feat/email-design-evidence",
+      "head": "19df303118f056020e467be515dcfd8dd59438d5",
+      "branch": "feat/kakao-identity",
       "dirty": true
     },
     "server": {
       "head": "26d1c1d3c43e649f1c6615a24b0607ce791eb339",
-      "branch": "integration/email-evidence-prod",
-      "dirty": false
+      "branch": "feat/kakao-identity",
+      "dirty": true
     }
   },
   "state": {
     "documents": {
-      "front/AGENTS.md": "c5100c20e7dc51cde309d9c7f5d0e48cdf6b28b83fa89616fceabb3fb2fff6ec",
-      "front/PROGRESS.md": "5bbd47ec29fda7f668d529e6c82fdd669aa9317210355c21a60e990edc01587a",
+      "front/AGENTS.md": "00e9ee33456dfb892ac7c1fd6d6e90953321f854c5c18ecee95c34db1eb28d1f",
+      "front/PROGRESS.md": "47127baf24882207e3b0c2f486900d3dfd10faf78b2c7e1ccf9920ff193806f2",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -67,7 +67,7 @@
       "front/docs/service-api-binding.md": "04b9ab6a9f8d2a956d2e8c2a02557cce117d86408df39df3c1b707737aea86a6",
       "front/docs/service-hierarchy.md": "dd4a37755a264b41827e5882b604235cd1b0b3f937737ae3c05f798c0578baf3",
       "front/docs/setting.md": "734855c98418279c8bd51684e1337f4122a17f774b2a8b3dd0f1a0b5c1490a51",
-      "front/docs/third-party-setup.md": "5445a612f372d3922dfda4610e0e4c8e35a9ef6a81953dc3f860076c192cc070",
+      "front/docs/third-party-setup.md": "b96469a85ab94b102dedecf2ec11949b9125fb01b930492f88ad10091c5aab14",
       "front/docs/ui-migration-plan.md": "e243d526880f884bf698c6cd5c7b3ea32906f3c1dbaea05e98437561900ef4d8",
       "front/docs/withdrawal-security-pass.md": "7e17b17eb95d875175d6185d8fc18691b9397c4fb2c3f1b027191ed918382174",
       "front/output/crefans-design-review-v1/ART-DIRECTION.md": "a83011273e52675121a2c3a1158b987fe085488af94a5e332e44c26551a8685a",
@@ -83,8 +83,8 @@
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
-      "server/AGENTS.md": "3f91a59ae20c1c2418985fcc6dcbed7164d84768d65c657834cae8f3438e2d60",
-      "server/PROGRESS.md": "8034549783f838b43d0055495ef596c9bab52ca088544f4385e36803e487e00f",
+      "server/AGENTS.md": "73ae8e213c6ea17022af4a42f849bc79a11de2c9ee68d6afef338facd3a14d47",
+      "server/PROGRESS.md": "8276d107dbf79ec6a2192f15447a8be95f3906a5f4660291001424831ca8851f",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -120,7 +120,7 @@
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "434dce5cdd6f5909dab0d787ae20044f33eebcb72db670287e9a635d60be3b84"
+      "audit/manifest": "6e1570983ac78cc2c542a23d4216a85692aee3f1261126b700c72d4dcc269f9a"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
