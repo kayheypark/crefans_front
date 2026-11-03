@@ -1,3 +1,7 @@
+## 2026-11-03 대시보드 빠른 작업 광고 상품 교체
+- 사용자 첨부 화면의 메시지 빠른 작업만 광고 상품으로 교체. basePath/advertising 연결, 기존 홍보 메뉴 chart 아이콘 재사용. 2열3행/나머지항목 유지. 메시지 기능·사이드바는 삭제하지 않음.
+- 최신prod 기반 feat/dashboard-advertising-shortcut. 공용 DashboardPage이므로 목업/실서비스 동시 반영. npm run typecheck 종료0·기존 dashboard-links 3/3 통과. diff에서 광고 상품→basePath/advertising/chart 연결 확인. 증거 .local/dashboard-ad-shortcut-type.log 및 -test.log. 브라우저 시각검사 미실행, 운영 미배포.
+
 ## 2026-11-03 설정 버튼 색상 운영 배포 완료
 - 사용자 배포 승인 후 dev→prod63633a8, frontend settings-colors-20261103 적용. 회원 탈퇴 기본색 rgb(84,91,112), 로그아웃 빨강 rgb(220,38,38). 공용 설정 컴포넌트만 변경.
 - 운영 이미지 소스 SHA/운영키 번들 검증·서비스200, 다른 컨테이너 불변. 운영 호스트 preview/settings에서 PC Chromium·iPhone13WebKit 실제 계산색상/꺾쇠/가로넘침없음 확인. 버튼 클릭/탈퇴 실행 없음. 타입·빌드 통과. 증거 docs/audit/settings-action-colors-20261103.json 및 .local/settings-colors-release/. 이전이미지 보존. 아래 미배포 기록은 당시 상태.
