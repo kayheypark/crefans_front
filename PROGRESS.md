@@ -1,3 +1,8 @@
+## 2026-11-03 광고상품 특가·전체보기 섹션 구현
+- 최신prod 7de194a에서 feat/advertising-sections. 검색의 아이콘22px/제목14px·600/간격 구조 참고. 특가=기존 유효 할인 판단 상품(없으면 숨김), 전체보기=전체 목록이며 특가 중복 포함. 제품가격/구매/정렬/운영 데이터 불변. 사용자에게 이 분류 기준을 먼저 안내. 공용 목업·서비스 적용, 운영 미배포.
+- npm run typecheck 종료0. npx playwright test --config playwright.advertising.config.ts --grep 광고상품 목업|서비스 광고상품은: PC/iPhone13WebKit/320px 6건 통과, 섹션별4/8개·가로넘침·목업구매·API실패 검증. 실제결제/운영/실물기기 검증 아님. .local/advertising-sections/{typecheck,e2e}.log 및 .local/advertising-event/browser/ 캡처. 모바일 전체 캡처 육안으로 섹션/상품/가격 정렬 확인.
+- 다음: 사용자 요청 시 dev→prod 및 운영배포.
+
 ## 2026-11-03 개인정보처리방침 굵음 운영 배포 완료
 - dev→prod 8b17a3a, frontend privacy-bold-20261103 운영 적용. 푸터·사이드바·서비스 안내 링크 700 굵기, 진한 기본색 유지.
 - 타입/운영빌드 종료0, 올바른 서버 경로 지정 후 문서검사 PASS. 최초 문서검사는 구형 형제 저장소 참조로 실패했으며 경로 수정 후 통과. 이미지 소스 SHA·운영키·HTTP200 확인, 기타 컨테이너 불변. 운영 공지 페이지 PC Chromium 2개/아이폰13 WebKit 1개 가시 링크 굵기700 및 가로넘침없음 통과. 실물폰 미검증. 증거 docs/audit/privacy-links-bold-20261103.json 및 .local/privacy-bold-release/. 복구 이미지 보존.

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T13:47:53.642835+00:00",
+  "checkedAt": "2026-11-03T13:49:46.490465+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "8b17a3ab01f682f98616e984f189cf53aac87d45",
-      "branch": "integration/privacy-bold-prod",
+      "head": "7de194a66d850bddff1bfe381daaa09b24ccd18c",
+      "branch": "feat/advertising-sections",
       "dirty": true
     },
     "server": {
@@ -43,12 +43,12 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "8e16e63266d7d1477149409026418289589e06bbeddcd227e5ea8d4dfe93bde2",
+      "front/PROGRESS.md": "ec25bf3d873b851f2f057ca8061690a42f7c6ea03832a05ce9a84fce98b97ace",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "d945cb779c5b1c1e1487077f39a9d92863d5b585e048ff2369ea71703bb9aef6",
+      "front/docs/design-system.md": "e926fd3ad01a987d36c16dc04c949b854c6a44e85188a4a6fb3ac99fc218bdd9",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -272,7 +272,7 @@
       "front/components/crefans/service.module.css": "bab94c0f7b60a36df78b9e08b431ab4f9a7abe33dbbc22c2aa71d0fd61934e56",
       "front/components/crefans/signup-complete.module.css": "403afb7dd5fcb6ae4d619620e3c9f4b9f0ea236b5fc4b090f7ca13529e3f10e0",
       "front/components/crefans/social.module.css": "503b9b3728ceae59e2e2c161c75a4ac4852206d05090f96b1823289172f49432",
-      "front/components/crefans/studio/AdvertisingPage.tsx": "1110f2c4c1ada108cb8dcb1c41cceccbd4e2451365547187e91f86f6fa1bb9b9",
+      "front/components/crefans/studio/AdvertisingPage.tsx": "e00de0814ca3a6064a57488dd6cfbe6843340ab66da7c9be306e7b2981881333",
       "front/components/crefans/studio/CommunityPages.tsx": "084083090210b964e84d566dccfcd81551563a85eb0d753f27596416ee9bb32c",
       "front/components/crefans/studio/ContentPostPreview.tsx": "0901b7179a5b908fc7f0fe392fd9d67b785d4bf7207c18a34eba7e496c829e6a",
       "front/components/crefans/studio/DashboardPage.tsx": "7e329cf230c6d4a574fdd7079670daa8bacbe49be6877cb111c9d07fa8a23b36",
@@ -284,7 +284,7 @@
       "front/components/crefans/studio/StudioCommentReply.tsx": "c9a18ec81fdd19c797fb8a69224ff65d0fd29526de5a172bad67e82689a0b536",
       "front/components/crefans/studio/StudioShell.tsx": "83c9c174ea32a8c681b94574bd1515f28a5ec44ce9f5e371ee4c45026366f5ac",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "a855269a3dd557a7d095336ec24c731d454aa06b643464c2234239a2dd0b99fe",
-      "front/components/crefans/studio/advertising.module.css": "50d84d9c8f955f44543e40533bc3e807327f23ca23bb98885f82cb042401c747",
+      "front/components/crefans/studio/advertising.module.css": "52b03b8c0922d728f27a88d04c8f57110c729d7589df60868f8c9ee33af1ed4c",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-post-preview.module.css": "85ae1ecd65d443d3bc88c40fafb1b02d979a61b3015a2d42b208c6646ccb8aa0",
       "front/components/crefans/studio/dashboard.module.css": "0aeb8095c548c01baf300e4e3f4665eefaffa4521dbd0dde42b1b34ca1d94001",
@@ -490,7 +490,7 @@
       "front/docs/design/bean-style-variants-v1.generation.json": "457f43fdf9bae3057d16a6fbe9d9f58f650f7da015124c3fc9731d7493ac5bd8",
       "front/docs/design/landing-concepts-20261103.json": "c5e296c1f87ad34bccbe0242bb52b82a80cdda11dc30501c092e62a35d2f4c14",
       "front/docs/design/post-support-icon-v1.generation.json": "18a6f9a3532c4254a637a25231522910e7342d12b550200f4ae9814bafa78743",
-      "front/e2e/advertising.spec.ts": "c7a2b9f9ad9e82b8d6b7f5728e17bdcfa2e61ea1bba354d0c13f9415d7067175",
+      "front/e2e/advertising.spec.ts": "d248fc3f0c8ea17c2cafd2889e7c2bbaee4a94accf536597c75e214c5a13b017",
       "front/e2e/bean-refund-closing.spec.ts": "18d465af89285edc024f20a332422051ef376b6b6e8513f69c5f20be5a7231b4",
       "front/e2e/beans.spec.ts": "8569fda5bae0d71e5022f990f0cf723801b41d49d79ac32e73a519ed7a494a34",
       "front/e2e/beta-closed.spec.ts": "7446ab3031a1af0290d2434184f0f061a5b78fa7fdd12d1fb9d49a169ac0da33",
