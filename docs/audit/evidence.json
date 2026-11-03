@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T14:20:09.410003+00:00",
+  "checkedAt": "2026-11-03T14:25:00.624044+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "bb8bdffcc13a8915a1fcd377744fc54a84233710",
-      "branch": "integration/ad-manual-use-prod",
+      "head": "9b68a6ca03416a83167e37870912f9632f9dba6e",
+      "branch": "feat/my-profile-memberships",
       "dirty": true
     },
     "server": {
-      "head": "7dd4bc5459bc89e81c242a00574cbea51fc634cb",
+      "head": "07266426a50fd5d97f7b0f42c2bd7e04a44b356e",
       "branch": "integration/ad-manual-use-prod",
-      "dirty": true
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "a499fa142be6092700501881177433dd7086bd734311181926918eeb8faac406",
+      "front/PROGRESS.md": "f2ca899f3bbfeea54327b51dafa832ed1a645a22c79ef2454d1dd5b2a790a492",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -189,7 +189,7 @@
       "front/components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
       "front/components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
       "front/components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
-      "front/components/crefans/AccountPages.tsx": "d972e5e7c99c96ec9121f596328306b10ac8664e659a7c9187e475bd808ea758",
+      "front/components/crefans/AccountPages.tsx": "a89c42feca6c8aaeb9545b806ba3dcc25a514a7e48590a844f4d6233761967ce",
       "front/components/crefans/ApiState.tsx": "4df6f64b1ba3a6803c3f4798fb442487a0c7745698748018a084acbeb0cd14ae",
       "front/components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
       "front/components/crefans/BeanAttribution.tsx": "a3b1b773c5c27322dd0a96e02ac50c400dcb1e9009e94212296cc392b6496953",
@@ -515,7 +515,7 @@
       "front/e2e/mobile-comments.spec.ts": "aa7300eda989a4a4289589548126308c0969d487315a25bd441db41973919e61",
       "front/e2e/mobile-shell.spec.ts": "1d293508f73e1a85a35e1ed40d482706acb6b803e1f2038fdafd79a235b59809",
       "front/e2e/my-profile-live.spec.ts": "abe556ac8b83500733655e611fc893ca28b13e9d895c13f3c0a5ae553da01089",
-      "front/e2e/my-profile-posts.spec.ts": "ff0c6947091d684704404ae8ae6b1aac19d1ce6be9e6fa723d8b01606ea4156d",
+      "front/e2e/my-profile-posts.spec.ts": "1bc854a500c8660060bbdbe1e92e3d8c5a5ed0597fe37243a7cb929d6a98cb8d",
       "front/e2e/new-creators.spec.ts": "57f93d33dbdeed446acaa272e950ac0d0271e49fa68bf55ef3cec10f1963bb38",
       "front/e2e/post-detail-gallery.spec.ts": "9cc535c6aa51ed44e7b05f2d82489ce35162e00a33f91f398194170334332dc1",
       "front/e2e/post-like-hover.spec.ts": "186a7784fc53f2af9523fec079928baa2b6a7b972688f3fca1ef303885fe5c11",
@@ -624,7 +624,7 @@
       "front/features/service/useCheckoutModel.ts": "8e769ffd48a80029e1dc2f4f47243c878846da21ab75653b1abb5be86e57442a",
       "front/features/service/useDirectoryModel.ts": "eef5ae8690fa65bcaba63d46454c4f5a8ee60e27aeecfec125c59c10dae2d5a5",
       "front/features/service/useOneTimePayment.ts": "bbe0528172d19d168bdeb1260d51b632a8321c2ab2e03793a0ca1982ad742792",
-      "front/features/service/useServiceModel.ts": "72792c3368495e6d4dfe555321db9d1976f9fae090533486e4f518fbb5898d8f",
+      "front/features/service/useServiceModel.ts": "67ef57cd82c61baad80e71c540a6da45213407e5180bcb66cecd4560c0eb6556",
       "front/features/service/useStudioFinanceModel.ts": "f31ba3f87ae5f1ab725b8df60935956f213a7e5101f0251cc15894a6bcd1770e",
       "front/features/service/useStudioModel.ts": "5f98fe0f32d0cf848225559ae9f67b7f373a4edb3e5f72f0c92ac20fa3ae5755",
       "front/features/settings/useSettingsModel.ts": "111e9b81d6c13a10eaef3df1e11cae1978b069be1d64f292bcabd30d3c20df3a",

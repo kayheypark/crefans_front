@@ -1,3 +1,9 @@
+## 2026-11-03 마이페이지 멤버십 섹션
+- 내 크리에이터 프로필 헤더 아래·피드 탭 위에 공개 프로필과 동일한 MembershipPlanCard compact 표시. 판매 중 상품만 표시, 본인 버튼은 멤버십 관리(studio/memberships). 일반 팬·저장/좋아요 컬렉션 제외, 상품 없으면 빈 안내.
+- useServiceModel에서 본인 profiles API를 조회해 게시물이 없어도 plans 확보. 응답 세대 검사 유지. 서버/API 변경 없음.
+- 검증: npx tsc --noEmit 종료0; playwright.my-profile.config.ts my-profile-posts --grep 'own memberships|saved, liked|owner feed|failed profile' PC/모바일WebKit 8통과. 최초 sandbox 실행은 격리DB 연결 실패, 네트워크 권한으로 재실행 통과. API대역 검증이며 실계정·실물기기 아님. PC/모바일 캡처 육안 확인, 관리 이동/판매중지 제외/팬 제외/기존피드·오류 회귀/가로넘침 없음 확인.
+- 증거 test-results/my-profile/ 및 .local/my-profile-memberships-release/. 운영 사전 점검 freeBytes10488655872, Docker29.9.2 ready. dev→prod·운영배포 진행 중.
+
 ## 2026-11-03 광고상품 수동 사용 운영 배포 완료
 - dev→prod front bb8bdff / server7dd4bc5. API·worker·front ad-manual-use-20261103 적용, 비공개DB백업 후 추가형 migration20261103230000_ad_manual_use 완료. 관리자·DB·프록시 컨테이너 불변, 이전 복구이미지 보존.
 - 타입·운영빌드·문서검사 통과. 격리DB 광고8/OpenAPI13=21통과, 공개프로필 시작·만료 HTTP 포함 광고8 재통과. 초기명세개수2건/퇴장애니메이션선택3건 실패는 갱신·수정후 재통과. PC/iPhoneWebKit/320px 로컬6 및 배포공용preview3환경에서 구매후ready/취소/시작/두번째상품사용차단/가로넘침없음 통과. 모바일 좌측안내/우측버튼 정렬 캡처 확인.
