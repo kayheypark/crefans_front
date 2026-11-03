@@ -1,3 +1,7 @@
+## 2026-11-03 광고상품 특가·할인율 표시
+- 사용자 요청: 취소선 비교금액 오른쪽 할인율, 상품명 왼쪽 빨간 특가. 유효 비교금액>판매가 및 비교근거 있는 상품에만 표시, 기존 서버 방식과 같은 정수 내림 할인율. 일반상품 표시 제외. 가격/기간/결제 변경 없음.
+- 최신prod 기반 feat/advertising-special-price. 공용목업/실서비스 적용. 타입검사 종료0, PC/iPhoneWebKit 광고상품6건 통과. 최초2건은 특가 추가로 기존 exact 상품명 선택자가 맞지 않아 실패, 제목 요소 검증으로 수정 후6건 재통과. 증거 .local/ad-special-type.log, .local/ad-special-e2e-final.log 및 .local/ad-layout/results/. 운영 미배포.
+
 ## 2026-11-03 대시보드 광고 상품 바로가기 운영 배포 완료
 - 승인 후 dev→prod0b0a953, frontend dashboard-ad-20261103 운영 적용. 빠른 작업 메시지→광고 상품 및 advertising 경로/chart 아이콘 반영, 6개 배치 유지.
 - 이미지 소스SHA/운영키 검증·서비스200·기타 컨테이너 불변. 운영 호스트 공용 대시보드 preview에서 PC Chromium/iPhone13WebKit 광고 상품 링크·메시지 빠른 메뉴 제거·6개 유지·실제 광고상품 화면 이동 성공. 타입검사/기존링크3건 통과. 실물기기/실로그인 세션은 미검증.
