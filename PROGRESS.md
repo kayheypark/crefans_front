@@ -1,3 +1,26 @@
+## 2026-11-03 카카오 공유 환경 분리·운영 배포 진행
+- 사용자 승인: 앞서 제공한 JavaScript 키는 운영 전용, 새 키는 로컬·dev 전용. 키 원문은 Git·문서·증거에 남기지 않는다. 별도 카카오 인증은 계속 보류, KG이니시스 연동과 독립이다.
+- 기존 공유 UI/SDK 구현을 재사용하고 최신 origin/prod 광고상품 변경을 병합해 보존. `.env.local`은 개발용, `.local/kakao-production.env`는 운영 빌드 입력(둘 다 Git 제외·0600). 운영 빌드는 build arg로 전달해야 하며 runtime 변경만으로 완료하지 않는다.
+- 합격 조건: 운영/개발 번들 키 분리, PC·모바일 공유 레이어·오류·취소, 공개 제목/고유 링크만 공유, dev 검증 후 prod 승격, 프론트만 교체하고 운영 health 확인. 실제 메시지 발송·수신 검증은 제외.
+- npm run check 계층/타입/533개 통과, 공유 단위8개 통과(대역). 도메인 등록은 사용자 확인 질문 중. 로컬 Docker 연결 불가로 운영의 격리 빌드 활용 예정(27GiB 여유). 현재 배포 전.
+- 다음: 브라우저 검증, 문서 검사, dev→prod, 운영 빌드·배포·키 분리/공유창 검증. 증거 `.local/kakao-release/`.
+
+## 2026-11-03 본인인증 공급사 정정 — KG이니시스
+- 사용자가 실제 본인인증 공급사는 PASS가 아니라 KG이니시스임을 정정했다. 기존 docs/inicis-identity-inquiry.md·2026-10-29 신청 준비·서버 개인정보 안내도 KG이니시스 통합인증 기준임을 확인. 아래 “PASS 대기”는 잘못된 이전 설명이며 KG이니시스 연동 대기로 정정한다.
+- 현재 서드파티 안내의 NICE/PASS 신규 상담 권고를 KG이니시스 준비 기준으로 바로잡고 과거 비교와 구분했다. 내부 PASS_* 코드 명칭을 공급사 선택으로 해석하지 않는다. 카카오 직접 인증 보류·공유 설정 대기는 유지하고 KG이니시스 내 개별 인증수단을 임의로 끄지 않는다.
+- 이번에는 문서만 정정, 제품 코드/환경/계약/배포 변경 없음. 양쪽 PROGRESS·안내·로컬 조사 기록 일치와 check:docs를 검증한다. 결과는 서버 .local/kakao-identity-20261103/provider-correction.json.
+
+## 2026-11-03 카카오 인증 보류 확정 — 공유 설정 대기 유지 (공급사 명칭은 위 정정 우선)
+- 사용자가 카카오 인증은 유료이므로 나중에 검토하고 PASS 연결을 기다리기로 결정했다. 카카오 인증 문의/신청·UI/서버 구현·약관 변경은 진행하지 않는다. 향후 재개 시 가입 본인·나이 확인부터 검토하며 PASS 이후 유지 여부를 지금 다시 묻지 않는다.
+- 카카오톡 공유는 별개다. 앱1346654 도메인 등록·JavaScript 키 직접 입력 완료를 기다린다. 완료 확인 전 실제 카카오 공유 검증·발송·운영 재빌드는 미실행으로 유지한다. 이번에는 진행 기록과 문서 증거만 갱신한다.
+- 합격 조건: 사용자 결정과 양쪽 PROGRESS/로컬 검토서 일치, check:docs 통과. 제품 코드 변화가 없어 이전 공유 대역8건의 검증 범위는 유지하되 재실행하지 않는다. 결과는 서버 .local/kakao-identity-20261103/decision-update.json에 기록한다.
+
+## 2026-11-03 카카오 공유 연결 준비 — 사용자 직접 설정 대기
+- 최신 origin/prod19df303에서 feat/kakao-identity 독립 작업트리. 기본 프론트 미커밋/다른 작업트리 보존. 제품 코드는 변경하지 않고 AGENTS·서드파티 안내·진행 기록을 갱신했다.
+- 사용자 결정: 앱1346654 콘솔은 사용자가 직접 설정. docs/third-party-setup.md를 운영 https://crefans.com(공개 GET 최종 /service/feed 200) 기준으로 수정. JavaScript SDK 도메인과 제품 링크 웹 도메인 각각 등록, 로컬 README의127.0.0.1:3010와 실제 origin 일치, JavaScript 키만 .env.local에 직접 입력, 운영 build arg 재빌드를 안내. 기본 공유에는 카카오 로그인/추가 신청이 필요 없음을 공식 문서로 확인.
+- 검증: node --test tests/post-share.test.cjs 8/8 통과(SDK·브라우저 대역, react-test-renderer/act 경고 있음). 최초 check:docs는 변경된5문서 해시 만료로 실패, 수동 검토·manifest 검토내용 갱신 후 docs:record→check:docs exit0(76문서·196라우트·57화면·89모델·50migration). 2026-11-03 12:47 KST snapshot-only이며 전체 제품 시험으로 주장하지 않는다. 명령/상태/해시는 서버 .local/kakao-identity-20261103/verification.json에 기록.
+- 인계 자료: ../crefans_server-kakao-identity/.local/kakao-identity-20261103/{automation-policy,share-checklist,identity-research,contract-inquiry-draft}.md. 서버의 인증 구현은 사용자 범위 결정/계약 확인 전 보류, 여기서는 공유 연결 준비만 수행. 콘솔 열람·키 입력·실제 API/전송·배포·약관 변경 없음.
+- 다음: 사용자가 등록/키 입력 완료 사실을 알려주면 SDK 준비·PC 대상선택·취소 확인. 실폰 수신 및 유료글 비구독자 차단은 별도 검증. 운영 재빌드/배포와 본인 대상1회 실제 발송은 별도 승인 후 진행. 원격 dev/prod 통합은 아직 하지 않음.
 ## 2026-11-03 기간 2배 광고 이벤트 상품 — 운영 배포·4종 등록 완료
 - 사용자 확정: 일반1/3/7/30일 유지, 이벤트2/6/14/60일=3,900/11,700/27,300/117,000원(VAT 포함). 같은 기간 기준가7,800/23,400/54,600/234,000원 대비50%. 기간은 이미 혜택을 포함한 총기간이며 재차2배/기존 구매 소급 적용하지 않는다.
 - feat/advertising-event-products→dev 통합·검증→prod. 기능 승격 server01bec50/front532796c/admin803d8fc. 운영은 API·worker·front·admin advertising-event-20261103. DB 백업 후 추가형 migration20261103180000_ad_product_comparison_price 적용(운영 총51개). 프론트 파일해시·API/worker 소스/Prisma·공개4경로200·기존상품 불변·설정 보존·DB/proxy 컨테이너 불변 검증.
