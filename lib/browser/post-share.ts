@@ -1,7 +1,8 @@
 export type PostShareData={title:string;url:string};
 
-export function postShareData(origin:string,basePath:string,id:string,title:string):PostShareData{
-  return {title:`${title} | 크레팬스`,url:new URL(`${basePath}/post/${encodeURIComponent(id)}`,origin).href};
+export function postShareData(origin:string,basePath:string,id:string,title:string,source?:'copy'|'kakao'|'native'):PostShareData{
+  const url=new URL(`${basePath}/post/${encodeURIComponent(id)}`,origin);if(source)url.searchParams.set('share',source);
+  return {title:`${title} | 크레팬스`,url:url.href};
 }
 
 /** Public endpoint rechecks access without the sender's cookies; never share an authenticated media URL. */

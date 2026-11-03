@@ -2,7 +2,7 @@
 
 .page{max-width:1100px;margin:0;padding:0 0 32px}
 @media(max-width:1050px){.metric{padding:18px 16px 8px}.metric strong{font-size:27px}.performanceRow{grid-template-columns:42px minmax(0,1fr) repeat(3,65px);gap:10px}}
-@media(max-width:767px){.metric{position:relative;padding:18px 20px}.metric strong{font-size:29px}.metric small{font-size:max(10px,var(--cf-mobile-font-min,0px))}.metric .trend{position:absolute;right:18px;top:32px;width:100px}.performanceRow{grid-template-columns:40px minmax(0,1fr) 62px}.performanceRow span:nth-last-child(-n+2){display:none}.chart{padding:20px 14px}.tabs button{padding:9px 16px}.start h1{font-size:32px}.start{margin:0}.stepper{font-size:max(10px,var(--cf-mobile-font-min,0px));gap:6px}.activitySettings{align-items:flex-start;flex-direction:column}.primaryLink{font-size:max(11px,var(--cf-mobile-font-min,0px));padding:10px 12px}.lead{font-size:max(12px,var(--cf-mobile-font-min,0px));line-height:1.8}}
+@media(max-width:767px){.metric{position:relative;padding:18px 20px}.metric strong{font-size:29px}.metric small{font-size:max(10px,var(--cf-mobile-font-min,0px))}.metric .trend{position:absolute;right:18px;top:32px;width:100px}.performanceRow{grid-template-columns:40px minmax(0,1fr) 62px}.performanceRow>span:nth-child(4),.performanceRow>span:nth-child(5){display:none}.chart{padding:20px 14px}.tabs button{padding:9px 16px}.start h1{font-size:32px}.start{margin:0}.stepper{font-size:max(10px,var(--cf-mobile-font-min,0px));gap:6px}.activitySettings{align-items:flex-start;flex-direction:column}.primaryLink{font-size:max(11px,var(--cf-mobile-font-min,0px));padding:10px 12px}.lead{font-size:max(12px,var(--cf-mobile-font-min,0px));line-height:1.8}}
 
 .textThumbnail{width:46px;height:50px;display:grid;place-items:center;background:var(--cf-service-brand-soft);color:var(--cf-service-brand);border-radius:7px}
 
@@ -31,3 +31,5 @@ a.performanceRow:focus-visible{outline:2px solid var(--cf-color-focus);outline-o
 /* Shared secondary navigation for metrics and analytics. */
 .moreButton{display:flex;width:fit-content;margin-top:14px;align-self:flex-start}
 .sectionTitle .moreButton{display:inline-flex;margin-top:0}
+
+.exposureMetrics{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px}
