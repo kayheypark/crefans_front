@@ -1,0 +1,121 @@
+{
+  "release": "settings-colors-20261103",
+  "deployment": {
+    "commit": "63633a8a18f6aaa40fa99521af0f242a2cb91874",
+    "sourceFilesVerified": 1323,
+    "productionKeyInBundle": true,
+    "otherContainersUnchanged": true,
+    "before": {
+      "crefans-beta-frontend-1": {
+        "id": "e49ceedde8c905a6c11802150d4667547d77b884d38e951d814f92fd9eafed23",
+        "image": "sha256:98f0c65cea566f55a4a8cc7bc3ef72e613333e6dded4c6d3014fcf694ac2cca0",
+        "tag": "crefans-front:ad-compact-20261103"
+      },
+      "crefans-beta-api-1": {
+        "id": "5c99c5edf8a0df342fd2e9ffb0dc5b0c54cc4ec75503b256eed406699c3c099d",
+        "image": "sha256:32bac1bbbd35a03a481c1ca3b9182b6331841bc1f4cafcdff6a84630fc4e3655",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-worker-1": {
+        "id": "17d0d8435872cb928751fe703ecfae39823051f05140ec5e7586e2726e6b8fc4",
+        "image": "sha256:32bac1bbbd35a03a481c1ca3b9182b6331841bc1f4cafcdff6a84630fc4e3655",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-admin-1": {
+        "id": "6751f35e58129323a9726c3b12be3506650313d8bfdd97cf673758c7ceb8fa41",
+        "image": "sha256:5d26a609de916e135c5f8f8bc6c111d1ce20c99b9838e0ab3d70d2672929a07a",
+        "tag": "crefans-admin:advertising-event-lines-20261103"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "tag": "caddy:2-alpine"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "tag": "mysql:8.0"
+      }
+    },
+    "after": {
+      "crefans-beta-frontend-1": {
+        "id": "62b6579d236505335d84407aff79f9c0a3b14775f224b8820f9883b6e9fd1ad7",
+        "image": "sha256:e60525928f4fff0b512a7dc5aa6ce961803706d7ad283c903bab2f5cb82497d8",
+        "tag": "crefans-front:settings-colors-20261103"
+      },
+      "crefans-beta-api-1": {
+        "id": "5c99c5edf8a0df342fd2e9ffb0dc5b0c54cc4ec75503b256eed406699c3c099d",
+        "image": "sha256:32bac1bbbd35a03a481c1ca3b9182b6331841bc1f4cafcdff6a84630fc4e3655",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-worker-1": {
+        "id": "17d0d8435872cb928751fe703ecfae39823051f05140ec5e7586e2726e6b8fc4",
+        "image": "sha256:32bac1bbbd35a03a481c1ca3b9182b6331841bc1f4cafcdff6a84630fc4e3655",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-admin-1": {
+        "id": "6751f35e58129323a9726c3b12be3506650313d8bfdd97cf673758c7ceb8fa41",
+        "image": "sha256:5d26a609de916e135c5f8f8bc6c111d1ce20c99b9838e0ab3d70d2672929a07a",
+        "tag": "crefans-admin:advertising-event-lines-20261103"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "tag": "caddy:2-alpine"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "tag": "mysql:8.0"
+      }
+    },
+    "verifiedAt": "2026-11-03T11:58:15Z"
+  },
+  "build": {
+    "commit": "63633a8a18f6aaa40fa99521af0f242a2cb91874",
+    "release": "settings-colors-20261103",
+    "started": "2026-11-03T11:50:59.448204+00:00",
+    "finished": "2026-11-03T11:57:39.053319+00:00",
+    "exitCode": 0,
+    "keyEnvironment": "production",
+    "sourceCount": 1365
+  },
+  "browser": [
+    {
+      "device": "pc",
+      "logout": {
+        "color": "rgb(220, 38, 38)",
+        "danger": "rgb(220, 38, 38)",
+        "normal": "rgb(84, 91, 112)",
+        "chevron": true
+      },
+      "withdraw": {
+        "color": "rgb(84, 91, 112)",
+        "danger": "rgb(220, 38, 38)",
+        "normal": "rgb(84, 91, 112)",
+        "chevron": true
+      },
+      "noHorizontalOverflow": true,
+      "actionsClicked": false
+    },
+    {
+      "device": "iphone",
+      "logout": {
+        "color": "rgb(220, 38, 38)",
+        "danger": "rgb(220, 38, 38)",
+        "normal": "rgb(84, 91, 112)",
+        "chevron": true
+      },
+      "withdraw": {
+        "color": "rgb(84, 91, 112)",
+        "danger": "rgb(220, 38, 38)",
+        "normal": "rgb(84, 91, 112)",
+        "chevron": true
+      },
+      "noHorizontalOverflow": true,
+      "actionsClicked": false
+    }
+  ],
+  "verificationScope": "Production-hosted preview/settings shared SettingsPage, desktop Chromium and iPhone13 WebKit; no logout/withdraw action executed.",
+  "typecheckExitCode": 0
+}
