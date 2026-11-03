@@ -1,3 +1,8 @@
+## 2026-11-03 특가·할인율 운영 배포 완료
+- 승인 후 dev→prodbbcb6ea, frontend ad-special-20261103 적용. 할인상품에만 상품명 앞 빨간 특가, 취소선금액 오른쪽 할인율. 금액/이용기간 변경 없음.
+- 이미지 소스SHA/운영키 확인·서비스200·기타컨테이너 불변. 운영호스트 PC Chromium/iPhone13WebKit 광고상품6건 통과(목업/API대역, 실결제 없음). 타입/로컬6건도 통과. 실물폰/실결제 미검증.
+- 증거 docs/audit/advertising-special-price-20261103.json 및 .local/ad-special-release/. 이전 이미지 보존. 아래 미배포 기록은 당시 상태.
+
 ## 2026-11-03 광고상품 특가·할인율 표시
 - 사용자 요청: 취소선 비교금액 오른쪽 할인율, 상품명 왼쪽 빨간 특가. 유효 비교금액>판매가 및 비교근거 있는 상품에만 표시, 기존 서버 방식과 같은 정수 내림 할인율. 일반상품 표시 제외. 가격/기간/결제 변경 없음.
 - 최신prod 기반 feat/advertising-special-price. 공용목업/실서비스 적용. 타입검사 종료0, PC/iPhoneWebKit 광고상품6건 통과. 최초2건은 특가 추가로 기존 exact 상품명 선택자가 맞지 않아 실패, 제목 요소 검증으로 수정 후6건 재통과. 증거 .local/ad-special-type.log, .local/ad-special-e2e-final.log 및 .local/ad-layout/results/. 운영 미배포.

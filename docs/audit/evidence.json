@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T13:12:14.736957+00:00",
+  "checkedAt": "2026-11-03T13:20:14.528127+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "2ffb6775df1615698927e322b2ff90c2d214433d",
-      "branch": "feat/advertising-special-price",
+      "head": "bbcb6eace519f49d55374cd982bc54dc454e66c1",
+      "branch": "integration/ad-special-prod",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "843b8df53c10dda2e73b4816d12c04c7215128b84a4806bd1f8f025e875a1c43",
+      "front/PROGRESS.md": "56c3bae933fa5ba221059236fb166f570b607f20bd3caccd8ad3c58531c7b3af",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
