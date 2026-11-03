@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T21:11:49.231495+00:00",
+  "checkedAt": "2026-11-03T21:20:40.236247+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "b116de0a3155618b23e13940045671facf106e47",
-      "branch": "chore/offhost-recovery",
+      "head": "d82ff707382040f6ad8f5fd8cf498a3f0deaac51",
+      "branch": "integration/offhost-recovery-prod",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "27b03fc5e1eae89d0734088c2981cdb4fdf97b6224b5eb26393ebc5e0841f366",
-      "front/PROGRESS.md": "61d391d00e4bfa6455607345d16a641b0827199c7ff33808a5c1194f2f591a72",
+      "front/PROGRESS.md": "b46c83481127a9e3ae677a9897dac5395a9cea3a85a1e86ee755d847d08aa476",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",

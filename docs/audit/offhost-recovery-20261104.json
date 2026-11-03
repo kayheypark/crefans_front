@@ -1,0 +1,18 @@
+{
+  "backups": {
+    "sha256": "72043884db7faaaa2e57ea813d4c0f81b880531517c4da472e3cad9d3af926d0",
+    "bytes": 1053287311,
+    "exitCode": 0,
+    "verifiedAt": "2026-11-03T21:11:24.869498+00:00"
+  },
+  "images": {
+    "sha256": "62f2bd21b6c7fe796d5b8aa63b72261a179df37ed12aa6791d395b624eebfe71",
+    "bytes": 6891066415,
+    "exitCode": 0,
+    "verifiedTags": 29,
+    "verifiedAt": "2026-11-03T21:19:14.610783+00:00"
+  },
+  "scope": "offhost archives verified; remote cleanup rejected pending explicit scope approval",
+  "remoteDeleted": false,
+  "runtimeDeployed": false
+}

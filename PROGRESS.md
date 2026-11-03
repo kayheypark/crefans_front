@@ -1,3 +1,9 @@
+## 2026-11-04 외부 복구 아카이브 검증 완료·서버 삭제 범위 승인 대기
+- 로컬 /Users/ethan/crefans-recovery/20261104/backups.tar.gz 1,053,287,311bytes 및 images.tar.gz 6,891,066,415bytes 전송·SHA-256 양끝대조·tar 내용/이미지태그 검사 완료. inventory.json과 *.verified.json 보존, 디렉터리700/파일600. 이미지29개(활성3 포함), 폴더262개.
+- .local/offhost-recovery/cleanup.py 실행은 자동승인검토가 미사용이미지26+폴더262의 명시적 전체삭제승인 부재로 거절. 실제 정리 없음. 사용자에게 이 범위 서버원본삭제 후 팬화면 배포 여부 질문 제출. 추가검증(이미지config ID·서버파일별해시)은 cleanup 실행 시 선행된다.
+- 다음 승인시 cleanup.py 실행(아카이브 재해시·파일별대조·사용중제외·컨테이너불변·health). 이어 .local/fan-label-release/build.py/deploy.py/browser.cjs 실행. deploy.py는 현재설정 로컬tar 저장, 실패복구는 메모리보존, 운영backup폴더 안 만듦. 빌드 전 clean git 및 preflight 필요. 완료 후 임시소스/직전이미지도 외부검증후 정리.
+- 현재 운영 gallery-nav-20261103, 팬화면 문구 b116de0와 정책d82ff70은 dev/prod 반영됐으나 운영 미배포. 금번 요청은 규칙반영·외부복사까지 완료, 서버삭제/운영배포 대기임.
+
 ## 2026-11-04 복구자료 운영 외부 보관 전환 진행
 - 사용자 명시지시: 복구용 자료를 운영에 넣지 말 것. 기존 보존 규칙을 외부 검증 보관 후 서버 정리로 변경. 루트/프론트 AGENTS 반영. 현재 서버에 이미지34개(서비스태그29개), 이미지 총29.88GB/회수가능21.53GB.
 - 비공개 목적지 /Users/ethan/crefans-recovery/20261104 (700, 파일600). .local/offhost-recovery/archive.py가 서비스 이미지29개 및 /opt/crefans-backup-*와 최근4source 총262폴더를 압축 스트리밍, SHA-256·tar 무결성·태그 검증 중. 운영활성 이미지/DB/설정/업로드 보존. 기존 삭제거절 이후 사용자 새 지시로 외부이전 진행, 삭제는 검증 후만.
