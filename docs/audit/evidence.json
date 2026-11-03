@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T04:46:39.118043+00:00",
+  "checkedAt": "2026-11-03T05:22:34.622662+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "19df303118f056020e467be515dcfd8dd59438d5",
-      "branch": "feat/advertising-event-products",
+      "head": "532796ce4dbe3ae781f4fd59432ae0d976e75998",
+      "branch": "feat/advertising-event-evidence",
       "dirty": true
     },
     "server": {
-      "head": "50a0bafe6df44a41c77bcc0cacce145cf20242a9",
-      "branch": "feat/advertising-event-products",
+      "head": "01bec504f3ae04a3711329ab8e386dc1361c95a7",
+      "branch": "feat/advertising-event-evidence",
       "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "991ede5aed6af586d3377bc57171cd71ee5eaa830fc3227c4ba39fa3b9c0d431",
-      "front/PROGRESS.md": "2b881c47a51bf3ed408f4408e8ffbf39234b200c556014b4e3e8531ef6460340",
+      "front/PROGRESS.md": "19fbeb428df626b9053faf6c3e158e79a92db4ae0f286da4cfb7b99ae67d58c8",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "a47cf4bfca89a54997632c3ceaf8eb33ae06d418e7ea2ea55758829c91045442",
-      "server/PROGRESS.md": "6114ac7507d569aedaed04507476b3a1007520179516393d0cd23a8be167bf67",
+      "server/PROGRESS.md": "b6c8311499ef915b5c6ffb9489fbc124b325856a281ff1d0863b268a26f64f4f",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -854,7 +854,7 @@
       "front/utils/env.ts": "dfe8882b754ac3e962ba6b24c1af04f9ea9be16553d82ff1c4a5c1f3a338c793",
       "server/.env.example": "3466e8dfa35823ca88f7fe26b90a2ab8cbdae8e9b9fff2e4f84da3acde75c44c",
       "server/.github/workflows/deploy.yml": "d607939ff3d16e26f896f9949c60c179a0686da2ca60be5a9c02e180717ce51d",
-      "server/docs/advertising-event-products-20261103.json": "0b2ab5dd881649edbad50be6d2052df26513e7d7291e17bff791b2c49fcec0ea",
+      "server/docs/advertising-event-products-20261103.json": "329b3b035482eec78e464d5e3db796d0b20be61824c67458262900e8071eb021",
       "server/docs/bean-charge-expiry-20261031.json": "b55503724d834373fb83478115b5a29ff0ba34a272d17aba4991718d8d150503",
       "server/docs/billing-recovery-20261022.json": "1c85a11744574e357e856525c3a22a44521b543f5872d9f170e2a35d917740c5",
       "server/docs/contracts/build-contract-html.py": "f0951918e0e2b7a89c21b338d1bece99c0a7e50c6cec02d3ff4b183272e762fa",
