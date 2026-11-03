@@ -1,3 +1,8 @@
+## 2026-11-03 모바일 갤러리 탐색·닫기 운영 배포 완료
+- dev→prod 3b169f2, crefans-front:gallery-nav-20261103 운영 적용. 소스해시/운영키 검사·페이지/health200·다른 컨테이너 불변, 이전이미지 보존.
+- 로컬WebKit320/390/1440 3통과, 배포공용preview 모바일WebKit320/390·PCChromium1440 꺾쇠/왕복탐색/닫기/배치 3통과. 실물기기 미검증. 증거 docs/audit/gallery-nav-20261103.json, .local/gallery-nav-release/.
+- 워터마크 시안은 선택 대기이며 구현/운영 변경하지 않음. 아래 진행중 기록은 당시 이력.
+
 ## 2026-11-03 모바일 갤러리 게시물 탐색·닫기
 - 이전/다음 게시물에 ‹/› 꺾쇠, 모바일 탐색행 오른쪽에 텍스트 닫기(접근성 이름 갤러리 닫기) 추가. 상단 기존 닫기 유지, 컨텍스트 없는 상세 갤러리는 기존 동작 유지. 작은 화면44px 터치높이·한줄 배치.
 - 검증: npx tsc --noEmit 종료0; CREFANS_SERVER_DIR 지정 npx playwright test -c .local/gallery-nav.config.ts 3통과(WebKit390/320/1440). 이전/다음 실제 왕복·첫글이전비활성·모바일닫기·PC추가닫기숨김·가로위치 확인, 320캡처 육안 확인. 실물기기 미검증.
