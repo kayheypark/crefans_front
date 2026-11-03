@@ -194,7 +194,7 @@ function PostOverlay({post:initialPost,model,inline,initialIndex,context,open,on
       <div className={s.panelBody}><h2>{post.title}</h2><p>{post.body}</p></div>
       <PostActions post={post} model={model} comments={count} onComments={inline&&post.commentsEnabled!==false?()=>setCommentsOpen(open=>!open):undefined} commentsOpen={commentsOpen}/>
       {inline&&<div className={s.inlineComments} hidden={!commentsOpen}><CommentsSection key={post.id} post={post} model={inline} count={count} locked={false} collapsed={!commentsOpen}/></div>}
-      {context&&<div className={s.panelNav}><Action variant="secondary" disabled={!previousPost} onClick={()=>jump(previousPost)}>이전 게시물</Action><Action variant="secondary" disabled={!nextPost} onClick={()=>jump(nextPost)}>다음 게시물</Action></div>}
+      {context&&<div className={s.panelNav}><Action variant="secondary" disabled={!previousPost} onClick={()=>jump(previousPost)}><span aria-hidden="true">‹</span>이전 게시물</Action><Action variant="secondary" disabled={!nextPost} onClick={()=>jump(nextPost)}>다음 게시물<span aria-hidden="true">›</span></Action><Action variant="secondary" className={s.panelNavClose} aria-label="갤러리 닫기" onClick={onClose}>닫기</Action></div>}
       </div>
       <CommentDock gallery/>
     </aside></CommentDockProvider>

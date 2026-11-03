@@ -202,7 +202,8 @@ button.contact:not(:disabled):not([data-unread=true]):hover{background:color-mix
 @media(hover:none){.galleryNav{display:none}}
 
 .stageDots{position:absolute;left:0;right:0;bottom:14px;margin:0;justify-content:center}.stageDots i{background:rgba(255,255,255,.4)}.stageDots i[data-active=true]{background:#fff}
-.panelNav{display:flex;gap:8px;margin-top:auto;padding-top:18px}.panelNav button{flex:1}
+.panelNav{display:flex;gap:8px;margin-top:auto;padding-top:18px}.panelNav button{flex:1}.panelNav .panelNavClose{display:none}.panelNav button>span{font-size:20px;line-height:1}
+@media(max-width:767px){.panelNav{gap:6px}.panelNav button{min-width:0;min-height:44px;padding-inline:8px;gap:5px;white-space:nowrap}.panelNav .panelNavClose{display:inline-flex;flex:0 0 auto;min-width:52px}}
 
 @keyframes overlayIn{from{opacity:0}to{opacity:1}}
 @keyframes overlayOut{from{opacity:1}to{opacity:0}}
