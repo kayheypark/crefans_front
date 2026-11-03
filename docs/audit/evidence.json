@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T13:01:39.576121+00:00",
+  "checkedAt": "2026-11-03T13:09:47.447198+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "5f45831ee3e3c4f46c954566dbb45d099ecd6d64",
-      "branch": "feat/dashboard-advertising-shortcut",
+      "head": "0b0a95349f0fec160ac3a26405e975a2d5b77121",
+      "branch": "integration/dashboard-ad-prod",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "bffa50e3c11ba4df91a04f4b033b451901a36086a6dae82ce22c5a951b5b596e",
+      "front/PROGRESS.md": "036f0cfc50c065065033c146e2008ce6ba7a1cf297d2968f8233c807580c24b2",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
