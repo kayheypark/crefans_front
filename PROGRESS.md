@@ -1,3 +1,8 @@
+## 2026-11-04 광고상품 행 구매 진입 개선
+- 사용자: 별도 상품구매 버튼 제거, 상품 내용 우측 꺾쇠, 운영배포. 전체 행을 네이티브 button으로 덮어 안내 진입, 상품 h3/가격 의미 유지. 포커스 표시, 판매중지 비활성 유지. 결제는 기존 준비중 유지. 디자인 문서/기존 회귀 기대문구 동기화.
+- 타입검사 종료0, playwright.advertising.config.ts PC/iPhoneWebKit/320px 9통과(목업구매·수동사용/중복사용차단, API대역·오류·재시도, 디자인시스템 빈/오류/로딩/구매비활성). 320px캡처 육안 확인. 증거 .local/advertising-event/browser/.
+- 사용자 서버26이미지/262폴더 삭제 명시승인 수신. cleanup 최초 아카이브 이미지config digest와 Docker29 이미지ID 불일치로 삭제 전 중단. OCI index 형식 확인 중이며 원본 아직 보존. 정리 후 팬화면 문구와 함께 배포 예정.
+
 ## 2026-11-04 외부 복구 아카이브 검증 완료·서버 삭제 범위 승인 대기
 - 로컬 /Users/ethan/crefans-recovery/20261104/backups.tar.gz 1,053,287,311bytes 및 images.tar.gz 6,891,066,415bytes 전송·SHA-256 양끝대조·tar 내용/이미지태그 검사 완료. inventory.json과 *.verified.json 보존, 디렉터리700/파일600. 이미지29개(활성3 포함), 폴더262개.
 - .local/offhost-recovery/cleanup.py 실행은 자동승인검토가 미사용이미지26+폴더262의 명시적 전체삭제승인 부재로 거절. 실제 정리 없음. 사용자에게 이 범위 서버원본삭제 후 팬화면 배포 여부 질문 제출. 추가검증(이미지config ID·서버파일별해시)은 cleanup 실행 시 선행된다.
