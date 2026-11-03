@@ -1,5 +1,7 @@
 # AGENTS.md
 
+- 조회수는 `usePostExposure`의50%·1초 노출과 서버30분 중복 제거로 집계한다. GET/프리패치로 증가시키지 않는다. 익명 쿠키30분·IP/지문 미사용, 공유는 상세 유입 차원이다.
+
 - 크레팬스 팬 서비스·크리에이터 스튜디오 프론트. Next.js 15.5.28 App Router + React 19.1.10 + TypeScript + CSS Modules. 현재 작업 상태는 `PROGRESS.md`를 먼저 읽는다.
 
 ## 작업 시작 시 먼저 확인

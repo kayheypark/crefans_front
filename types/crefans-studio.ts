@@ -10,7 +10,7 @@ export type StudioOverviewModel={
   activities:{id:string;title:string;description:string;time:string;path?:string}[];
   tasks:{id:string;title:string;description:string;path:string}[];
   series:{label:string;subscribers:number;followers:number;revenue:number}[];
-  contentPerformance:{id:string;title:string;image:string;views:number;likes:number;comments:number}[];
+  contentPerformance:{id:string;title:string;image:string;views:number;analytics?:{feed:number;detail:number;shared:number;kakao:number;copy:number;native:number;external:number;video:number;visits:number}|null;likes:number;comments:number}[];
   guidance?:string;
   completeOnboarding:(profile:Pick<StudioProfile,'name'|'handle'|'bio'|'category'>)=>Promise<ApiResult<{message:string}>>;
   updateProfile:(profile:Pick<StudioProfile,'name'|'handle'|'bio'|'category'|'about'|'links'>)=>Promise<ApiResult<{message:string}>>;

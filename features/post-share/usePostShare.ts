@@ -8,7 +8,7 @@ export function usePostShare({open,basePath,postId,title,previewImage}:{open:boo
  useEffect(()=>{
   const token=++generation.current;busy.current=false;setPending(false);setMessage('');setError('');setManualCopy(false);
   if(!open)return;
-  const data=postShareData(window.location.origin,basePath,postId,title);setUrl(data.url);
+  const data=postShareData(window.location.origin,basePath,postId,title,'copy');setUrl(data.url);
   setNativeSupported(typeof navigator.share==='function'&&(!navigator.canShare||navigator.canShare(data)));
   if(!kakaoJavaScriptKey){setKakao('unavailable');return;}
   setKakao('loading');prepareKakaoShare().then(()=>{if(token===generation.current)setKakao('ready');},()=>{if(token===generation.current)setKakao('error');});
@@ -17,7 +17,7 @@ export function usePostShare({open,basePath,postId,title,previewImage}:{open:boo
  async function perform(kind:'copy'|'kakao'|'more'){
   if(!open||busy.current||!url||kind==='kakao'&&kakao!=='ready'||kind==='more'&&!nativeSupported)return;
   const token=generation.current;busy.current=true;setPending(true);setMessage('');setError('');setManualCopy(false);
-  const data=postShareData(window.location.origin,basePath,postId,title);
+  const data=postShareData(window.location.origin,basePath,postId,title,kind==='more'?'native':kind);
   try{
    // No asynchronous work before these calls: clipboard, native share and Kakao need the click's activation.
    if(kind==='copy')await navigator.clipboard.writeText(data.url);

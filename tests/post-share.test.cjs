@@ -30,11 +30,11 @@ function hook({nav={},key='',prepare=async()=>{},send=()=>{}}={}){
 }
 test('opening never copies; copy success, rejection and absent clipboard are distinct',async()=>{
  const calls=[];const h=hook({nav:{clipboard:{writeText:async value=>{calls.push(value);}}}});
- try{h.update({open:true});assert.equal(calls.length,0);await act(async()=>h.state.copy());assert.deepEqual(calls,['https://beta.crefans.com/preview/post/sample']);assert.equal(h.state.message,'링크를 복사했어요.');navigator.clipboard.writeText=async()=>{throw Error('denied');};await act(async()=>h.state.copy());assert.equal(h.state.manualCopy,true);assert.equal(h.state.message,'');delete navigator.clipboard;await act(async()=>h.state.copy());assert.equal(h.state.manualCopy,true);}finally{h.close();}
+ try{h.update({open:true});assert.equal(calls.length,0);await act(async()=>h.state.copy());assert.deepEqual(calls,['https://beta.crefans.com/preview/post/sample?share=copy']);assert.equal(h.state.message,'링크를 복사했어요.');navigator.clipboard.writeText=async()=>{throw Error('denied');};await act(async()=>h.state.copy());assert.equal(h.state.manualCopy,true);assert.equal(h.state.message,'');delete navigator.clipboard;await act(async()=>h.state.copy());assert.equal(h.state.manualCopy,true);}finally{h.close();}
 });
 test('native share runs synchronously on the action, prevents duplicates and treats cancellation quietly',async()=>{
  let settle,seen=0,payload;const h=hook({nav:{canShare:()=>true,share:data=>{seen++;payload=data;return new Promise(resolve=>{settle=resolve;});}}});
- try{h.update({open:true});assert.equal(seen,0);let pending;act(()=>{pending=h.state.shareMore();void h.state.shareMore();});assert.equal(seen,1);assert.equal(payload.url,h.state.url);assert.equal(h.state.pending,true);await act(async()=>{settle();await pending;});assert.equal(h.state.pending,false);assert.equal(h.state.message,'');
+ try{h.update({open:true});assert.equal(seen,0);let pending;act(()=>{pending=h.state.shareMore();void h.state.shareMore();});assert.equal(seen,1);assert.equal(new URL(payload.url).searchParams.get('share'),'native');assert.equal(new URL(h.state.url).searchParams.get('share'),'copy');assert.equal(h.state.pending,true);await act(async()=>{settle();await pending;});assert.equal(h.state.pending,false);assert.equal(h.state.message,'');
   navigator.share=async()=>{throw Object.assign(Error(),{name:'AbortError'});};await act(async()=>h.state.shareMore());assert.equal(h.state.error,'');
   navigator.share=async()=>{throw Object.assign(Error(),{name:'NotAllowedError'});};await act(async()=>h.state.shareMore());assert.match(h.state.error,/기기 공유창/);
  }finally{h.close();}
@@ -49,7 +49,7 @@ test('configured Kakao preloads, does not send on opening and keeps delivery cla
 });
 test('late work from a closed layer does not contaminate the next post',async()=>{
  let finish;const h=hook({nav:{clipboard:{writeText:()=>new Promise(resolve=>{finish=resolve;})}}});
- try{h.update({open:true});let pending;act(()=>{pending=h.state.copy();});h.update({open:false});h.update({open:true,postId:'next'});await act(async()=>{finish();await pending;});assert.equal(h.state.message,'');assert.equal(h.state.url,'https://beta.crefans.com/preview/post/next');assert.equal(h.state.pending,false);}finally{h.close();}
+ try{h.update({open:true});let pending;act(()=>{pending=h.state.copy();});h.update({open:false});h.update({open:true,postId:'next'});await act(async()=>{finish();await pending;});assert.equal(h.state.message,'');assert.equal(h.state.url,'https://beta.crefans.com/preview/post/next?share=copy');assert.equal(h.state.pending,false);}finally{h.close();}
 });
 
 test('real SDK exposes Share only after init, so initialize before checking the module',async()=>{

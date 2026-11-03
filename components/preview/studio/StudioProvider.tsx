@@ -25,7 +25,7 @@ function useStudioState(){
     const response=reports[metric.id as keyof typeof reports]?.response;
     return response?.success?{...metric,points:response.data.chart.items.map(item=>item.value)}:metric;
   }),
-  contentPerformance:management.contents.filter(item=>item.status==='published').map(content=>{const original=rawOverview.contentPerformance.find(item=>item.id===content.id);return{id:content.id,title:content.title,image:content.media.find(item=>item.type==='image')?.url||'',views:original?.views||0,likes:original?.likes||0,comments:original?.comments||0};}),
+  contentPerformance:management.contents.filter(item=>item.status==='published').map(content=>{const original=rawOverview.contentPerformance.find(item=>item.id===content.id);return{id:content.id,title:content.title,image:content.media.find(item=>item.type==='image')?.url||'',views:original?.views||0,analytics:original?.analytics,likes:original?.likes||0,comments:original?.comments||0};}),
   tasks:[{id:'draft',title:`임시저장 ${management.contents.filter(item=>item.status==='draft').length}개`,description:'준비된 이야기를 팬들에게 전해보세요.',path:'content?status=draft'},{id:'account',title:finance.data.accounts.some(account=>account.isDefault&&account.verified)?'출금 가능 금액을 확인해 보세요':'정산 계좌 확인이 필요해요',description:'정산부터 출금 신청까지 한곳에서 관리하세요.',path:finance.data.accounts.some(account=>account.isDefault&&account.verified)?'withdraw':'accounts'}],
  };
  return{overview,management,finance,community,reports};
