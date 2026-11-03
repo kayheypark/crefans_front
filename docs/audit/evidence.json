@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T06:28:38.618989+00:00",
+  "checkedAt": "2026-11-03T06:29:25.593739+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "6897f1b503680beda5f553ceaa7d3d81bad459f3",
+      "head": "23732ef4a9036c39eb16ce2b5379d91888f57fad",
       "branch": "feat/kakao-identity",
       "dirty": true
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "99397248ff85bb431c62c44365762b73970f276633edd513cf6f9dce32a0fdf0",
-      "front/PROGRESS.md": "af7fa17efdc9b1e8b18d621f509d1d47fc0c8e069d9dee8016e97d127c9f3586",
+      "front/PROGRESS.md": "110c6f32cecac752e7a0b5fda62f24ff21cea8c6bd634d35f08586e589741eff",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -120,7 +120,7 @@
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "fe0ad2f8bf3c1b926c08fa21357fcb4d9e597b2d550802822e7e24cfdc6a3c0c"
+      "audit/manifest": "ed2365e32d3b8606769e49a8a8479af5419bacaa79e0679da30257b274ee341c"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
