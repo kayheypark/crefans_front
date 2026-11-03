@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T11:00:32.682831+00:00",
+  "checkedAt": "2026-11-03T11:08:42.443014+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "86ca6d9a0028b4e85a9718b8ae0b20f65d36be83",
-      "branch": "feat/advertising-compact-purchase",
+      "head": "7712d3bbf780c9941f7688bf0e0174951c90e835",
+      "branch": "integration/ad-compact-prod",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "8fc9170573ffa59d84b37def7f1552a76c5b4621de709fb5a2404b165e4d1250",
+      "front/PROGRESS.md": "30a3dca4163a7e97c00ffa1500a1a39932187e74e323ed41631b09cdb11b14ac",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
