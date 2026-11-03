@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T14:10:01.097452+00:00",
+  "checkedAt": "2026-11-03T14:20:09.410003+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "7b98bc4a70dd3c615ae947176c4641b7e9884eb1",
-      "branch": "feat/advertising-manual-use",
+      "head": "bb8bdffcc13a8915a1fcd377744fc54a84233710",
+      "branch": "integration/ad-manual-use-prod",
       "dirty": true
     },
     "server": {
-      "head": "23ae1f7334c6d4eb3348ccf9ff2b2424e20f2244",
-      "branch": "feat/advertising-manual-use",
+      "head": "7dd4bc5459bc89e81c242a00574cbea51fc634cb",
+      "branch": "integration/ad-manual-use-prod",
       "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "c6858bf44e26bd1764c5aaeb8e7dea3852b7a6966517c9f0db22f457a8b5bb05",
+      "front/PROGRESS.md": "a499fa142be6092700501881177433dd7086bd734311181926918eeb8faac406",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "31cffdd7c2b910546d50978551c1f89511704f2e8d6f5e0372a174a312d49c5d",
-      "server/PROGRESS.md": "3d060b92f0f8dde71b26988b6dcc7e468a29b0252913da2d2164ab612aeb3b21",
+      "server/PROGRESS.md": "348b584b4d05b01fe1a8a8d50189d9118ba2f2122552813f06808a52e916e576",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",

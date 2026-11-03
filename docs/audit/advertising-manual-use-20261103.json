@@ -1,0 +1,155 @@
+{
+  "release": "ad-manual-use-20261103",
+  "commits": {
+    "front": "bb8bdff",
+    "server": "7dd4bc5"
+  },
+  "deployment": {
+    "before": {
+      "crefans-beta-frontend-1": {
+        "id": "407d0836e9c7e05d6b7ce8b3b35f96e5b9b791afda29543a898526109f52d995",
+        "tag": "crefans-front:studio-header-20261103"
+      },
+      "crefans-beta-api-1": {
+        "id": "5c99c5edf8a0df342fd2e9ffb0dc5b0c54cc4ec75503b256eed406699c3c099d",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-worker-1": {
+        "id": "17d0d8435872cb928751fe703ecfae39823051f05140ec5e7586e2726e6b8fc4",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-admin-1": {
+        "id": "6751f35e58129323a9726c3b12be3506650313d8bfdd97cf673758c7ceb8fa41",
+        "tag": "crefans-admin:advertising-event-lines-20261103"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "tag": "caddy:2-alpine"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "tag": "mysql:8.0"
+      }
+    },
+    "after": {
+      "crefans-beta-worker-1": {
+        "id": "928fc663c904cbfd938010e2d9eba1197ce26c9182eed8d203220a555061a958",
+        "tag": "crefans-api:ad-manual-use-20261103"
+      },
+      "crefans-beta-api-1": {
+        "id": "5a8b9bce2a41354b65bbcc2f684a4d53a6a1e1f23b63f54261d69ffbc4b726fd",
+        "tag": "crefans-api:ad-manual-use-20261103"
+      },
+      "crefans-beta-frontend-1": {
+        "id": "0a3de633ea04b2db9125e6c2e4f254deb670d01fe764417f2c830e5ba5f5fab9",
+        "tag": "crefans-front:ad-manual-use-20261103"
+      },
+      "crefans-beta-admin-1": {
+        "id": "6751f35e58129323a9726c3b12be3506650313d8bfdd97cf673758c7ceb8fa41",
+        "tag": "crefans-admin:advertising-event-lines-20261103"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "tag": "caddy:2-alpine"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "tag": "mysql:8.0"
+      }
+    },
+    "verifiedAt": "2026-11-03T14:18:57Z",
+    "frontendSourceCount": 1329,
+    "apiSourceCount": 10,
+    "databaseMigration": "20261103230000_ad_manual_use"
+  },
+  "build": {
+    "commit": "bb8bdffcc13a8915a1fcd377744fc54a84233710",
+    "release": "ad-manual-use-20261103",
+    "started": "2026-11-03T14:11:52.112799+00:00",
+    "finished": "2026-11-03T14:18:01.843407+00:00",
+    "exitCode": 0,
+    "keyEnvironment": "production",
+    "sourceCount": 1371
+  },
+  "verification": {
+    "database": {
+      "purchases": 0,
+      "paidPromotionDates": 0
+    },
+    "/api/v1/studio/advertising/orders": 401,
+    "/api/v1/studio/advertising/products": 401,
+    "containers": [
+      {
+        "name": "/crefans-beta-api-1",
+        "running": true,
+        "restartCount": 0,
+        "oomKilled": false
+      },
+      {
+        "name": "/crefans-beta-worker-1",
+        "running": true,
+        "restartCount": 0,
+        "oomKilled": false
+      },
+      {
+        "name": "/crefans-beta-frontend-1",
+        "running": true,
+        "restartCount": 0,
+        "oomKilled": false
+      }
+    ]
+  },
+  "browser": [
+    {
+      "device": "pc",
+      "purchaseRemainsUnused": true,
+      "cancelPreservesReady": true,
+      "activation": true,
+      "secondPurchaseDisabled": true,
+      "noOverflow": true,
+      "scope": "deployed preview; no payment or real promotion"
+    },
+    {
+      "device": "iphone",
+      "purchaseRemainsUnused": true,
+      "cancelPreservesReady": true,
+      "activation": true,
+      "secondPurchaseDisabled": true,
+      "noOverflow": true,
+      "scope": "deployed preview; no payment or real promotion"
+    },
+    {
+      "device": "narrow",
+      "purchaseRemainsUnused": true,
+      "cancelPreservesReady": true,
+      "activation": true,
+      "secondPurchaseDisabled": true,
+      "noOverflow": true,
+      "scope": "deployed preview; no payment or real promotion"
+    }
+  ],
+  "local": {
+    "backend": {
+      "pass": 21,
+      "fail": 0,
+      "scope": "isolated MySQL8 advertising tests and 13 OpenAPI tests"
+    },
+    "publicPromotionHttp": {
+      "pass": 8,
+      "fail": 0,
+      "scope": "repeated advertising suite with profile start/expiry assertions"
+    },
+    "browser": {
+      "pass": 6,
+      "fail": 0,
+      "scope": "PC/iPhoneWebKit/320px, mock purchase and API substitutes"
+    },
+    "typecheck": 0,
+    "documentation": "PASS; snapshot only"
+  },
+  "limitations": [
+    "Real advertising payment remains unavailable by user decision",
+    "No production paid orders or real promotion activated",
+    "No physical iPhone test"
+  ]
+}
