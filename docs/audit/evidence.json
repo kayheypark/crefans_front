@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T13:20:45.230313+00:00",
+  "checkedAt": "2026-11-03T13:27:56.814651+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "1c1926089a2321e3fb9c4167751e8df00732092f",
-      "branch": "feat/ad-purchase-divider",
+      "head": "4b1d97ac4b7401cfa74439d5ccd992ddfe4d97c4",
+      "branch": "integration/ad-divider-prod",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "abe5c264d7dc0d35d3309ab4163ab5469b4cf8f577a9d967904d28854be337c4",
+      "front/PROGRESS.md": "2e0bcf87ef65df32ec416db616486a63c6f8b580d514044c0dfb0f4880742d12",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
