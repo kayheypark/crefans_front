@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T11:08:42.443014+00:00",
+  "checkedAt": "2026-11-03T11:50:19.433392+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "7712d3bbf780c9941f7688bf0e0174951c90e835",
-      "branch": "integration/ad-compact-prod",
+      "head": "90e726d91dbf426e819e12a18cf52f89f1aa2c52",
+      "branch": "feat/settings-action-colors",
       "dirty": true
     },
     "server": {
@@ -43,12 +43,12 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "30a3dca4163a7e97c00ffa1500a1a39932187e74e323ed41631b09cdb11b14ac",
+      "front/PROGRESS.md": "358824c7ad5d656d357642cbe1f769c6de30d5937609d91815c7d1b0f98f9197",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "7a06be028472edd52f407d23273c61c06af27d0677f3583bdc1baa647e1d2793",
+      "front/docs/design-system.md": "5f4a7df95c27cbc3091960f1f9b3d35021640b7e99bd906386dd909a067f5460",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -189,7 +189,7 @@
       "front/components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
       "front/components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
       "front/components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
-      "front/components/crefans/AccountPages.tsx": "8f6009f8f4f3f8d2c7b3e4f3a6a747feae3bc07a74ce1adecd04b08ad2d4e269",
+      "front/components/crefans/AccountPages.tsx": "d972e5e7c99c96ec9121f596328306b10ac8664e659a7c9187e475bd808ea758",
       "front/components/crefans/ApiState.tsx": "4df6f64b1ba3a6803c3f4798fb442487a0c7745698748018a084acbeb0cd14ae",
       "front/components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
       "front/components/crefans/BeanAttribution.tsx": "a3b1b773c5c27322dd0a96e02ac50c400dcb1e9009e94212296cc392b6496953",
