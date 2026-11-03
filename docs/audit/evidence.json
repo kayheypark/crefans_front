@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T00:24:45.972777+00:00",
+  "checkedAt": "2026-11-03T03:01:29.986447+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "fd1e2d94f38bd150e7ce2d12ce458aaefbdb6037",
-      "branch": "feat/all-pending-deployment-evidence",
+      "head": "8261fc0f1fbcfb8490c573b42f779b28792b7426",
+      "branch": "feat/email-design-evidence",
       "dirty": true
     },
     "server": {
-      "head": "38adaacae679a2a77ffb3457391ae34374407709",
-      "branch": "feat/all-pending-deployment-evidence",
+      "head": "26d1c1d3c43e649f1c6615a24b0607ce791eb339",
+      "branch": "integration/email-evidence-prod",
       "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "c5100c20e7dc51cde309d9c7f5d0e48cdf6b28b83fa89616fceabb3fb2fff6ec",
-      "front/PROGRESS.md": "d2de1ab1d1a67eccfb2634be36e111d406c15884d856a63fbd1b68e8bc2a983c",
+      "front/PROGRESS.md": "5bbd47ec29fda7f668d529e6c82fdd669aa9317210355c21a60e990edc01587a",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -83,8 +83,8 @@
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
-      "server/AGENTS.md": "b93d1119003fabcb0dc201912d0dcc86e7e23822f55f51b389ee0a20029a4736",
-      "server/PROGRESS.md": "2efbb39f0f4422d9e30c33ee17c86e9a9f943f0a2e20251b556abe50ee0112d2",
+      "server/AGENTS.md": "3f91a59ae20c1c2418985fcc6dcbed7164d84768d65c657834cae8f3438e2d60",
+      "server/PROGRESS.md": "8034549783f838b43d0055495ef596c9bab52ca088544f4385e36803e487e00f",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -861,6 +861,7 @@
       "server/docs/contracts/creator-agreement-verification-20261030.json": "23cc5cda21913b6ec3262317197825637a70046a486578aec9cc25e8e35d140e",
       "server/docs/contracts/layout/contract.css": "176e40c6058886142552e6cd111b6219afe904e3d7bfe9cf4cdb4a903b4397da",
       "server/docs/contracts/verify-contract-pdf.py": "ba1df728e8e8f02eec12342ce89aa3a85b7e791e53facc1ecfac55b31fa09747",
+      "server/docs/email-simple-blue-20261103.json": "bc1fd46e4a8aaf40d2e39d22b6431bf1bb0ea40512b4170362e665515778a7a1",
       "server/docs/events-deployment-20261103.json": "0d7e2d45323360ad9994e81efcb27096c581f98cc4403d6c7e750b08f8caa1fd",
       "server/docs/founding-badge-claim-20261103.json": "562ad48724b61fa86be54177cdb55990b06265c5554a2425b4e21a7d6e30d053",
       "server/docs/home-ssh-access-20261024.json": "e617e93a468d3a77e5baf40777014f251793148901866230b96ff47c5054e4bb",
@@ -999,7 +1000,7 @@
       "server/src/auth/local/local-member.module.ts": "66fd4695d04bdc411a27fab03886c74a85d7ed485cb64e0aeb6c201163fc84e6",
       "server/src/auth/local/local-member.service.ts": "b76963855db848febe6e400a33f6b37e8dbf42bb2cc53a5d4e27b00f39bcf168",
       "server/src/auth/local/mail/logo.ts": "cf9a5d0f2f326d14bcc7155e4fe047ac35d56113f5c60913e6ace091e1330393",
-      "server/src/auth/local/mail/templates.ts": "3cd0dafa82673c6f122214bbba9693364fb35f996f5b5373f9c254cbb32acb77",
+      "server/src/auth/local/mail/templates.ts": "ffc76759897f9eeb87ca21ef7706494464b8849689ccd30b0cb5956b64243c1c",
       "server/src/auth/local/member-mail.service.ts": "d26e672cc8b5a08d8ebd8c427c79f6a63e458d1f72c2d7f51578a5deb6c57caa",
       "server/src/auth/utils/cookie.util.ts": "9362343d6cd1b5bee3f8e5f15cf8b3a08a4a59a56984a2eccb80b924ebe9b181",
       "server/src/board/admin-board-category.controller.ts": "9d918c61da5272b61e0b551e14d7ab7740789674d790d4c0c3e91da362828591",
@@ -1198,7 +1199,7 @@
       "server/tests/e2e-server.cjs": "26e24ef07c3f544ed6cb6f31981a69d76baec1c7b5a1a16517451db7520db0bd",
       "server/tests/legal-fixture.cjs": "539a4bba726602c3d6d2ee960dd33226e357c823eebfbc3cb58e6179c867dab8",
       "server/tests/local-members.test.cjs": "8bffd8c188c00fd9db385823feb9747e209c0868d421a444bdbaa39cf9b81b46",
-      "server/tests/mail-templates.test.cjs": "c247a7ee0401c027b4a4c68fee39fc46640b58ad3360d9179424c2cb10e421d1",
+      "server/tests/mail-templates.test.cjs": "bdc9a275eb0db2a62e87ec0dcb98534007e38c80f90f66e901a1cbb629b7c2c3",
       "server/tests/payout-cutoff.test.cjs": "d75805ec42aa63bffac63138e865bba0a69ebfc611131d6d77bb7f3fe360fe10",
       "server/tests/platform-access.integration.test.cjs": "33fc5140dd32fc4d5077e0829e2fa43e62d7d4fd2800eadf8b8d78bed79e338b",
       "server/tests/platform-admin-console.test.cjs": "d76379752ccf7c8dff9c35da70ba41a2d72a79ec4cb45b7cd194fc09edd7a1c0",

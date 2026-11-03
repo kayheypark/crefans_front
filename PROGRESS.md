@@ -1,3 +1,8 @@
+## 2026-11-03 이메일 심플 딥블루 운영 배포 — 문서 증거 갱신
+- 사용자 승인한 흰 배경·외곽/코드박스 없는 좌측정렬·#1746C7를 서버 공통 이메일에 적용. 서버 feat/email-simple-blue→dev검증→prod55786da 배포, release email-simple-blue-20261103 API/worker만 교체. 프론트/관리자/DB/proxy 컨테이너와 프론트 제품 소스는 변경하지 않음.
+- 서버 build·단위22건, 합성20종 Chromium/WebKit4환경80렌더·시안19종픽셀일치, loopback SMTP20종·수신거부4종·451거절 대조 확인. 운영 두서버 각각452파일·20종 렌더해시, health와4공개경로 확인. 외부 테스트 메일/실수신함 검증 없음. 상세 서버 docs/email-simple-blue-20261103.json.
+- 이번 프론트 feat/email-design-evidence는 최신 origin/prod8261fc0에서 분기, 변경된 서버 AGENTS/PROGRESS/템플릿/메일검사/배포증거를 검토해 docs/audit/evidence.json 해시를 갱신하는 문서 전용 작업이다. API·화면·스키마 계약은 변동 없음. CREFANS_SERVER_DIR을 실제 이메일 릴리스 작업트리로 지정한다. snapshot-only 증거를 전체 제품 테스트로 해석하지 않는다.
+
 ## 2026-11-03 랜딩 리디자인 5종 — 이미지 시안 제공·선택 대기
 - 사용자 요청 /service/langding은 실제 /service/landing으로 확인. 현재 목업 크리에이터5명과 /preview/creator/{moka,sion,haneul,jiwoo,seoyeon} 진입을 유지하는 방향. 요청은 시안이므로 랜딩 코드/운영 디자인은 아직 변경하지 않았다.
 - built-in image_gen으로 01타이포 중심·02사진 중심·03크리에이터 우선·04서비스 이해 중심·05차콜 포인트, 각각 PC+모바일 이미지5개. 기존 로고/인물과 화면 캡처를 참고, 긴 설명보다 목록을 위에 배치. 01단정함/03목록 접근성 추천. 생성된 텍스트/인증배지는 최종 구현 데이터가 아니며 실제 구현 시 원본 프로필 이름·배지 상태·사진 사용.
