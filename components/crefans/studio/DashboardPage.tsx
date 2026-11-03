@@ -22,7 +22,7 @@ function ActivityRow({activity,basePath}:{activity:StudioOverviewModel['activiti
 
 export function DashboardPage({model,basePath}:{model:StudioOverviewModel;basePath:string}){
  const draft=model.tasks.find(task=>task.id==='draft'),tasks=model.tasks.filter(task=>task.id!=='draft'&&task.path!=='withdraw');
- const shortcuts=[{label:'게시물',path:'content',icon:'grid' as const},{label:'댓글',path:'comments',icon:'message' as const},{label:'메시지',path:'messages',icon:'message' as const},{label:'출금 신청',path:'withdraw',icon:'membership' as const},{label:'콩 후원·출금',path:'beans',icon:'coin' as const},{label:'크리에이터 설정',path:'settings',icon:'settings' as const}];
+ const shortcuts=[{label:'게시물',path:'content',icon:'grid' as const},{label:'댓글',path:'comments',icon:'message' as const},{label:'광고 상품',path:'advertising',icon:'chart' as const},{label:'출금 신청',path:'withdraw',icon:'membership' as const},{label:'콩 후원·출금',path:'beans',icon:'coin' as const},{label:'크리에이터 설정',path:'settings',icon:'settings' as const}];
  return <div className={s.dashboard}>
   <PageTitle>대시보드</PageTitle>
   <h2 className={s.greeting}><Avatar creator={{name:model.profile.name,image:model.profile.avatar,position:model.profile.avatarPosition}} size={48}/><MarqueeText text={`${model.profile.name}님, 반가워요`}/></h2>
