@@ -191,3 +191,5 @@ style: 공통 컴포넌트 코드 포맷 정리
 - 원년멤버 배지 받기는 FoundingBadgeEventDetail/useFoundingBadge와 순수 표시 FoundingBadgeClaim을 공유한다. 성공 응답 전에 지급·표시를 바꾸지 않으며, 미수령은 isFoundingMember=false. 목업 상태/실제 API는 분리하고 인증 배지와 혼동하지 않는다.
 
 - 이벤트 배너는 공용 EventPages의 HTML 문구와 장식 이미지를 분리한다. 디자인 변경으로 참여 대상·혜택·수령 상태를 바꾸지 않으며 네이버페이처럼 제외한 theme에는 스타일을 적용하지 않는다.
+
+- 광고상품 비교가격은 VAT 포함 동일 기간 기준가와 산정 근거를 함께 표시한다. 할인율은 (기준가−결제금액)/기준가를 내림한 값이며, 기간2배 상품의 durationDays는 혜택이 포함된 최종기간이다. 일반 상품 기간이나 기존 이력을 자동 변경하지 않는다.
