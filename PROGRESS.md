@@ -1,3 +1,7 @@
+## 2026-11-03 스튜디오 헤더·광고상품 섹션 운영 배포 완료
+- dev→prod078326e, frontend studio-header-20261103 적용. 일반 서비스 이동 버튼→피드, 아바타→마이페이지, 광고상품 특가/전체보기 섹션 포함.
+- 타입/빌드·문서 검사 통과, 로컬PC/모바일6건 통과. 운영 이미지 소스SHA·운영키·HTTP200·기타컨테이너 불변 확인. 배포 공용preview에서 PC Chromium/iPhone13WebKit/320px 실제 버튼클릭→feed, 아바타클릭→me 및 특가4/전체8·가로넘침없음 확인. 실로그인서비스/실물기기/결제 미검증. 증거 docs/audit/studio-header-20261103.json 및 .local/studio-header-release/. 이전 복구이미지 보존.
+
 ## 2026-11-03 스튜디오 헤더 서비스 이동 개선
 - 최신prod 기반 feat/studio-header-service에 광고상품 섹션 작업 병합. 팬 화면으로→일반 서비스 이동 테두리 버튼형 링크(/feed), 아바타→마이페이지(/me) 접근이름과44px터치영역. 좁은320px 헤더 간격조정. 목업·실서비스 공용 적용.
 - 타입 종료0, PC/iPhoneWebKit/320px E2E6건 통과(헤더href/테두리/가로넘침·광고상품). .local/studio-header-release/ 증거. 사용자 배포 승인에 따라 광고상품 섹션과 함께 dev→prod/프론트 운영배포 진행.

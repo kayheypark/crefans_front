@@ -1,0 +1,112 @@
+{
+  "release": "studio-header-20261103",
+  "deployment": {
+    "commit": "078326e9807cd1d8e4e2848532360b771e941317",
+    "sourceFilesVerified": 1328,
+    "productionKeyInBundle": true,
+    "otherContainersUnchanged": true,
+    "before": {
+      "crefans-beta-frontend-1": {
+        "id": "a857e05995e5200024659a224010320184a85089f20e8f8cec597e00d93ab216",
+        "image": "sha256:f92cb6e693c6da03fb7abb61b0133ffb850fd6cba26f4de31107db66da0782c1",
+        "tag": "crefans-front:privacy-bold-20261103"
+      },
+      "crefans-beta-api-1": {
+        "id": "5c99c5edf8a0df342fd2e9ffb0dc5b0c54cc4ec75503b256eed406699c3c099d",
+        "image": "sha256:32bac1bbbd35a03a481c1ca3b9182b6331841bc1f4cafcdff6a84630fc4e3655",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-worker-1": {
+        "id": "17d0d8435872cb928751fe703ecfae39823051f05140ec5e7586e2726e6b8fc4",
+        "image": "sha256:32bac1bbbd35a03a481c1ca3b9182b6331841bc1f4cafcdff6a84630fc4e3655",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-admin-1": {
+        "id": "6751f35e58129323a9726c3b12be3506650313d8bfdd97cf673758c7ceb8fa41",
+        "image": "sha256:5d26a609de916e135c5f8f8bc6c111d1ce20c99b9838e0ab3d70d2672929a07a",
+        "tag": "crefans-admin:advertising-event-lines-20261103"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "tag": "caddy:2-alpine"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "tag": "mysql:8.0"
+      }
+    },
+    "after": {
+      "crefans-beta-frontend-1": {
+        "id": "407d0836e9c7e05d6b7ce8b3b35f96e5b9b791afda29543a898526109f52d995",
+        "image": "sha256:7986d737195500979671088b750d4c4a84d62bf200e8b7cbfc59db6af0866389",
+        "tag": "crefans-front:studio-header-20261103"
+      },
+      "crefans-beta-api-1": {
+        "id": "5c99c5edf8a0df342fd2e9ffb0dc5b0c54cc4ec75503b256eed406699c3c099d",
+        "image": "sha256:32bac1bbbd35a03a481c1ca3b9182b6331841bc1f4cafcdff6a84630fc4e3655",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-worker-1": {
+        "id": "17d0d8435872cb928751fe703ecfae39823051f05140ec5e7586e2726e6b8fc4",
+        "image": "sha256:32bac1bbbd35a03a481c1ca3b9182b6331841bc1f4cafcdff6a84630fc4e3655",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-admin-1": {
+        "id": "6751f35e58129323a9726c3b12be3506650313d8bfdd97cf673758c7ceb8fa41",
+        "image": "sha256:5d26a609de916e135c5f8f8bc6c111d1ce20c99b9838e0ab3d70d2672929a07a",
+        "tag": "crefans-admin:advertising-event-lines-20261103"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "tag": "caddy:2-alpine"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "tag": "mysql:8.0"
+      }
+    },
+    "verifiedAt": "2026-11-03T13:58:13Z"
+  },
+  "build": {
+    "commit": "078326e9807cd1d8e4e2848532360b771e941317",
+    "release": "studio-header-20261103",
+    "started": "2026-11-03T13:51:42.731249+00:00",
+    "finished": "2026-11-03T13:57:49.068260+00:00",
+    "exitCode": 0,
+    "keyEnvironment": "production",
+    "sourceCount": 1370
+  },
+  "browser": [
+    {
+      "device": "pc",
+      "profileNavigation": true,
+      "feedNavigation": true,
+      "special": 4,
+      "all": 8,
+      "noHorizontalOverflow": true,
+      "scope": "deployed shared preview; no real payment"
+    },
+    {
+      "device": "iphone",
+      "profileNavigation": true,
+      "feedNavigation": true,
+      "special": 4,
+      "all": 8,
+      "noHorizontalOverflow": true,
+      "scope": "deployed shared preview; no real payment"
+    },
+    {
+      "device": "narrow",
+      "profileNavigation": true,
+      "feedNavigation": true,
+      "special": 4,
+      "all": 8,
+      "noHorizontalOverflow": true,
+      "scope": "deployed shared preview; no real payment"
+    }
+  ]
+}
