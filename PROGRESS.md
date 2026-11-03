@@ -1,3 +1,7 @@
+## 2026-11-03 설정 버튼 색상 운영 배포 완료
+- 사용자 배포 승인 후 dev→prod63633a8, frontend settings-colors-20261103 적용. 회원 탈퇴 기본색 rgb(84,91,112), 로그아웃 빨강 rgb(220,38,38). 공용 설정 컴포넌트만 변경.
+- 운영 이미지 소스 SHA/운영키 번들 검증·서비스200, 다른 컨테이너 불변. 운영 호스트 preview/settings에서 PC Chromium·iPhone13WebKit 실제 계산색상/꺾쇠/가로넘침없음 확인. 버튼 클릭/탈퇴 실행 없음. 타입·빌드 통과. 증거 docs/audit/settings-action-colors-20261103.json 및 .local/settings-colors-release/. 이전이미지 보존. 아래 미배포 기록은 당시 상태.
+
 ## 2026-11-03 설정 로그아웃·탈퇴 색상 변경
 - 사용자 요청: 회원 탈퇴는 기본 메뉴색, 로그아웃은 빨강. 공용 SettingsPage의 danger 클래스만 탈퇴→로그아웃으로 이동. PC/모바일·목업/실서비스 공통 적용. 꺾쇠·버튼동작·탈퇴 모달 내부 경고는 그대로 유지.
 - 최신prod90e726d에서 feat/settings-action-colors 분기. 디자인 시스템 설명 동기화. 정적 diff에서 클래스 이동만 확인했고 npm run typecheck 종료0 통과. 증거 .local/settings-action-colors-typecheck.log. 브라우저 육안 검증 미실행; 색상 토큰/동작 유지 확인. 운영 미배포.
