@@ -1,0 +1,343 @@
+{
+  "recordedAt": "2026-11-03T00:24:23.289000+00:00",
+  "release": "all-pending-20261103",
+  "promotedGit": {
+    "front": {
+      "HEAD": "fd1e2d94f38bd150e7ce2d12ce458aaefbdb6037",
+      "origin/dev": "fd1e2d94f38bd150e7ce2d12ce458aaefbdb6037",
+      "origin/prod": "fd1e2d94f38bd150e7ce2d12ce458aaefbdb6037",
+      "clean": true
+    },
+    "server": {
+      "HEAD": "3ad66c300f046e329f70d900aa2e25c111949ba9",
+      "origin/dev": "3ad66c300f046e329f70d900aa2e25c111949ba9",
+      "origin/prod": "3ad66c300f046e329f70d900aa2e25c111949ba9",
+      "clean": true
+    },
+    "admin": {
+      "HEAD": "5a290a454048b9b454514c8938c9de2c571f4b34",
+      "origin/dev": "5a290a454048b9b454514c8938c9de2c571f4b34",
+      "origin/prod": "5a290a454048b9b454514c8938c9de2c571f4b34",
+      "clean": true
+    }
+  },
+  "imageVerification": {
+    "at": "2026-11-03T00:21:44.032673+00:00",
+    "images": {
+      "server": {
+        "commit": "07baf362b38bd380a2c0ee68039588ba3dd2691a",
+        "imageId": "sha256:8ad4dbe50180be82395778b8c58a9f392440123c0122ae0f45e977b103a53b5f",
+        "archiveFilesVerified": 469,
+        "verifiedSourceFiles": 255
+      },
+      "admin": {
+        "commit": "5a290a454048b9b454514c8938c9de2c571f4b34",
+        "imageId": "sha256:b22d949a6ace0d4c28c0ab3c2b8f3246c2ec7618e5e513828c3d3a9eca77c86b",
+        "archiveFilesVerified": 165,
+        "adminCompiledEvidence": [
+          {
+            "path": "/app/.next/server/app/console/[[...section]]/page.js",
+            "sha256": "2b244c5ccd0559246553b529fcf25872e64cf056f6a859ee211680642e88fdb6"
+          }
+        ]
+      },
+      "front": {
+        "commit": "fd1e2d94f38bd150e7ce2d12ce458aaefbdb6037",
+        "imageId": "sha256:ae9077ec1b6817361ed75e706df1746515f3488c75663d9cb1e02c439bc78c1e",
+        "archiveFilesVerified": 1355,
+        "verifiedSourceFiles": 609
+      }
+    }
+  },
+  "databaseVerification": {
+    "applied": 50,
+    "pending": [],
+    "legacyCreatorBioAbsent": true,
+    "sharedBioVerified": true,
+    "creatorDataPreserved": true,
+    "existingHandlesPreserved": true,
+    "reservedHandles": 103
+  },
+  "runtime": {
+    "time": "2026-11-03T00:23:36.903213+00:00",
+    "containers": {
+      "crefans-beta-api-1": {
+        "id": "c3bf71d0f142bff10b1039eba594335418407ca21e9bdbf942091c144fade2af",
+        "image": "sha256:8ad4dbe50180be82395778b8c58a9f392440123c0122ae0f45e977b103a53b5f",
+        "tag": "crefans-api:all-pending-20261103",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-worker-1": {
+        "id": "0532d456ff8465f03a82c37f46bb601253a6957f2ce0f5f3369155c339a3bbeb",
+        "image": "sha256:8ad4dbe50180be82395778b8c58a9f392440123c0122ae0f45e977b103a53b5f",
+        "tag": "crefans-api:all-pending-20261103",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-frontend-1": {
+        "id": "4d6c04f3899e5d00482401aab61ed445b18e690a403c8dc5ebefae3639b96365",
+        "image": "sha256:ae9077ec1b6817361ed75e706df1746515f3488c75663d9cb1e02c439bc78c1e",
+        "tag": "crefans-front:all-pending-20261103",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-admin-1": {
+        "id": "1ba24965bbdf8a8657bc2af3141a9673156e0aa753afae35d20a35b10794859d",
+        "image": "sha256:b22d949a6ace0d4c28c0ab3c2b8f3246c2ec7618e5e513828c3d3a9eca77c86b",
+        "tag": "crefans-admin:all-pending-20261103",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "tag": "mysql:8.0",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "tag": "caddy:2-alpine",
+        "running": true,
+        "restarts": 0,
+        "oom": false
+      }
+    },
+    "routes": [
+      "https://crefans.com/service/events",
+      "https://crefans.com/service/events/feedback",
+      "https://crefans.com/service/events/creator-advertising",
+      "https://crefans.com/service/events/promotion-beans",
+      "https://crefans.com/service/events/founding-badge",
+      "https://crefans.com/service/landing",
+      "https://crefans.com/service/feed",
+      "https://admin.crefans.com/login"
+    ],
+    "otherConfigUnchanged": true,
+    "anonymousReservedHandleStatus": 401,
+    "browserTextVerification": "16 event-detail combinations passed; initial static HTML check was replaced because campaign copy is rendered by the browser."
+  },
+  "productionEventUi": {
+    "base": "https://crefans.com",
+    "startedAt": "2026-11-03T00:22:55.206Z",
+    "cases": [
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "slug": "feedback",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 49.92,
+        "headerGap": 16,
+        "scheduleGap": 18.71875,
+        "overflow": 0,
+        "claimGap": null
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "slug": "creator-advertising",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 49.92,
+        "headerGap": 16,
+        "scheduleGap": 18.71875,
+        "overflow": 0,
+        "claimGap": null
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "slug": "promotion-beans",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 49.92,
+        "headerGap": 16,
+        "scheduleGap": 18.71875,
+        "overflow": 0,
+        "claimGap": 12
+      },
+      {
+        "engine": "chromium",
+        "width": 1440,
+        "slug": "founding-badge",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 49.92,
+        "headerGap": 16,
+        "scheduleGap": 18.71875,
+        "overflow": 0,
+        "claimGap": 12
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "slug": "feedback",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 49.92,
+        "headerGap": 16,
+        "scheduleGap": 18.71875,
+        "overflow": 0,
+        "claimGap": null
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "slug": "creator-advertising",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 49.92,
+        "headerGap": 16,
+        "scheduleGap": 18.71875,
+        "overflow": 0,
+        "claimGap": null
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "slug": "promotion-beans",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 49.92,
+        "headerGap": 16,
+        "scheduleGap": 18.71875,
+        "overflow": 0,
+        "claimGap": 12
+      },
+      {
+        "engine": "chromium",
+        "width": 1280,
+        "slug": "founding-badge",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 49.92,
+        "headerGap": 16,
+        "scheduleGap": 18.71875,
+        "overflow": 0,
+        "claimGap": 12
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "slug": "feedback",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 28,
+        "headerGap": 16,
+        "scheduleGap": 14,
+        "overflow": 0,
+        "claimGap": null
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "slug": "creator-advertising",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 28,
+        "headerGap": 16,
+        "scheduleGap": 14,
+        "overflow": 0,
+        "claimGap": null
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "slug": "promotion-beans",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 28,
+        "headerGap": 16,
+        "scheduleGap": 14,
+        "overflow": 0,
+        "claimGap": 12
+      },
+      {
+        "engine": "webkit",
+        "width": 390,
+        "slug": "founding-badge",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 28,
+        "headerGap": 16,
+        "scheduleGap": 14,
+        "overflow": 0,
+        "claimGap": 12
+      },
+      {
+        "engine": "webkit",
+        "width": 320,
+        "slug": "feedback",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 28,
+        "headerGap": 16,
+        "scheduleGap": 14,
+        "overflow": 0,
+        "claimGap": null
+      },
+      {
+        "engine": "webkit",
+        "width": 320,
+        "slug": "creator-advertising",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 28,
+        "headerGap": 16,
+        "scheduleGap": 14,
+        "overflow": 0,
+        "claimGap": null
+      },
+      {
+        "engine": "webkit",
+        "width": 320,
+        "slug": "promotion-beans",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 28,
+        "headerGap": 16,
+        "scheduleGap": 14,
+        "overflow": 0,
+        "claimGap": 12
+      },
+      {
+        "engine": "webkit",
+        "width": 320,
+        "slug": "founding-badge",
+        "title": "크레팬스 오픈 기념 이벤트",
+        "oldCopy": false,
+        "titleSize": 28,
+        "headerGap": 16,
+        "scheduleGap": 14,
+        "overflow": 0,
+        "claimGap": 12
+      }
+    ],
+    "finishedAt": "2026-11-03T00:23:14.217Z"
+  },
+  "localVerification": {
+    "front": "npm run check: typecheck/layers/533 tests passed",
+    "admin": "npm run check: typecheck/13 tests passed",
+    "server": "Prisma generate/Nest build and 31 unique regression cases passed; OpenAPI expected count corrected from191 to196 then13 cases rerun",
+    "browserRegression": "Own profile6 + tip-login-dialog4 =10/10 passed with API mocks",
+    "eventUnit": "19/19 passed after correcting outdated service metadata assertion",
+    "docs": "76documents,196routes,57screens,89models,15enums,50migrations; snapshot evidence is not product proof"
+  },
+  "limitations": [
+    "Live financial actions, reward claims, email sending and authenticated production writes were not exercised.",
+    "Mobile verification uses WebKit viewport emulation, not a physical iPhone.",
+    "Existing unrelated/dirty worktrees and private audit branches were preserved."
+  ],
+  "buildNotes": [
+    "First SSH build aborted when local log storage filled; rerun stores build logs remotely.",
+    "Initial admin preflight required8GiB; remaining Next builds used5GiB minimum with CPU1/memory1536MiB limits. No Docker images were deleted."
+  ]
+}
