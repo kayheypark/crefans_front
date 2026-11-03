@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-11-02T23:57:30.614430+00:00",
+  "checkedAt": "2026-11-03T00:24:45.972777+00:00",
   "environment": {
     "node": "v22.7.0",
-    "python": "3.9.6",
-    "os": "macOS-15.2-arm64-arm-64bit",
+    "python": "3.14.5",
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
     "databaseScope": "loopback3307; dev tests + dedicated crefans_platform_e2e; not deployed DB"
   },
   "scope": "working trees; inline local Markdown file targets; AST routes; preview catalog; full Prisma source; template keys; package scripts; immutable original hierarchy",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "4c66e3f8e873a2bee3554806191e7f6ef17a4f9b",
-      "branch": "integration/all-pending-20261103",
+      "head": "fd1e2d94f38bd150e7ce2d12ce458aaefbdb6037",
+      "branch": "feat/all-pending-deployment-evidence",
       "dirty": true
     },
     "server": {
-      "head": "07baf362b38bd380a2c0ee68039588ba3dd2691a",
-      "branch": "integration/all-pending-20261103",
+      "head": "38adaacae679a2a77ffb3457391ae34374407709",
+      "branch": "feat/all-pending-deployment-evidence",
       "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "c5100c20e7dc51cde309d9c7f5d0e48cdf6b28b83fa89616fceabb3fb2fff6ec",
-      "front/PROGRESS.md": "7d467650297dfe2c741b1c9f0ee9c63b9e0f2744c76901b1e43748ba0a2b37e1",
+      "front/PROGRESS.md": "d2de1ab1d1a67eccfb2634be36e111d406c15884d856a63fbd1b68e8bc2a983c",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "b93d1119003fabcb0dc201912d0dcc86e7e23822f55f51b389ee0a20029a4736",
-      "server/PROGRESS.md": "347f5293fa4761217f112b67fa45491740dded74c39b1278ab5319007704b8ba",
+      "server/PROGRESS.md": "2efbb39f0f4422d9e30c33ee17c86e9a9f943f0a2e20251b556abe50ee0112d2",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
