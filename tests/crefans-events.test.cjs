@@ -24,7 +24,7 @@ test('beta appreciation content preserves the approved four rewards without inve
  assert.ok(serviceEvents.every(event=>event.rewards.length===1));
  assert.deepEqual(serviceEvents.flatMap(event=>event.rewards).map(({audience,title,details})=>({audience,title,details})),[
   {audience:'유용한 피드백 제공자 최대 3명',title:'네이버페이\n1만원 상품권',details:['유용한 피드백을 주신 분 중 최대 3명에게 드립니다.']},
-  {audience:'크리에이터 3명',title:'주목할 크리에이터\n광고상품 30일',details:['크리에이터 3명에게 드립니다.','주목할 크리에이터 광고상품 이용권을 제공합니다.']},
+  {audience:'기간 2배 이벤트 상품',title:'주목할 크리에이터\n노출기간 2배',details:['일반 상품 가격으로 두 배의 기간을 이용하는 별도 이벤트 상품입니다.','2일 3,900원 · 6일 11,700원 · 14일 27,300원 · 60일 117,000원 (VAT 포함)']},
   {audience:'전체 회원 · 계정당 1회',title:'프로모션 100콩',details:['전체 회원에게 계정당 한 번, 받기 버튼으로 즉시 지급합니다.','프로모션 콩은 후원받은 사람이 출금할 수 있습니다.']},
   {audience:'전체 회원 · 계정당 1회',title:'오픈 기념 한정판 배지',details:['크레팬스 전체 회원, 받기 버튼으로 오픈 기념 배지를 받아보세요.','받기 버튼을 누르면 프로필에 바로 표시됩니다.','표시 여부는 직접 선택할 수 있습니다.']},
  ]);
@@ -84,9 +84,9 @@ test('all four destinations are listed once in the approved order',()=>{
 test('open claims have their own eligibility and expiry; other reward terms remain separate',()=>{
  for(const [index,event] of serviceEvents.entries()){
   const text=JSON.stringify(event);
-  for(const item of ['소급','중복 수령','고객센터','광고성 정보 수신'])assert.ok(text.includes(item),item);
+  for(const item of (index===1?['소급','중복 적용','고객센터','광고성 정보 수신']:['소급','중복 수령','고객센터','광고성 정보 수신']))assert.ok(text.includes(item),item);
   if(index>=2){assert.match(text,/전체 회원/);assert.match(text,/계정당 1회/);assert.doesNotMatch(text,/참여 확정|참여가 확정|팬 13명|대상자로 지정|지급일은.*미정/);}
-  else assert.match(text,/크리에이터 3명과 팬 13명/);
+  else if(index===0)assert.match(text,/크리에이터 3명과 팬 13명/);else{assert.match(text,/50%/);assert.match(text,/총 노출기간/);assert.doesNotMatch(text,/30일 이용권|크리에이터 3명에게/);}
  }
  const beans=JSON.stringify(serviceEvents[2]);
  for(const text of ['30일(720시간)','사용하지 않은 이벤트 콩 잔액만','연장되지 않습니다','1,000콩','20%','8만원','실제 은행 출금을 제공하지'])assert.ok(beans.includes(text),text);
