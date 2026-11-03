@@ -1,0 +1,121 @@
+{
+  "release": "minimal-bundle-20261104",
+  "verifiedAt": "2026-11-04T07:20:43.000523+09:00",
+  "deployment": {
+    "before": {
+      "crefans-beta-frontend-1": {
+        "id": "73000db8c428c6a7b7260d03c300ff213dc017e0794d944277960a9410848204",
+        "tag": "crefans-front:ad-product-row-20261104",
+        "image": "sha256:61fe814ec4aede0c3c3985817edb912106e7ef5685e5ddf532aa45b245e5470f"
+      },
+      "crefans-beta-worker-1": {
+        "id": "928fc663c904cbfd938010e2d9eba1197ce26c9182eed8d203220a555061a958",
+        "tag": "crefans-api:ad-manual-use-20261103",
+        "image": "sha256:6a2d77b54a50a690c8e7394a831fb1a58374f77bb5da35bf02d2886a16f48b49"
+      },
+      "crefans-beta-api-1": {
+        "id": "5a8b9bce2a41354b65bbcc2f684a4d53a6a1e1f23b63f54261d69ffbc4b726fd",
+        "tag": "crefans-api:ad-manual-use-20261103",
+        "image": "sha256:6a2d77b54a50a690c8e7394a831fb1a58374f77bb5da35bf02d2886a16f48b49"
+      },
+      "crefans-beta-admin-1": {
+        "id": "6751f35e58129323a9726c3b12be3506650313d8bfdd97cf673758c7ceb8fa41",
+        "tag": "crefans-admin:advertising-event-lines-20261103",
+        "image": "sha256:5d26a609de916e135c5f8f8bc6c111d1ce20c99b9838e0ab3d70d2672929a07a"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "tag": "caddy:2-alpine",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "tag": "mysql:8.0",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b"
+      }
+    },
+    "after": {
+      "crefans-beta-worker-1": {
+        "id": "dab46a4d1ff25c00fcb3cd81bdc714f5ec0b081b042535bc311c3a4960720976",
+        "tag": "crefans-api:minimal-bundle-20261104",
+        "image": "sha256:e5cf9f59021991c464e1d8b81110a5c7bfc0c652a61164ef09a8caf9defa9bcc"
+      },
+      "crefans-beta-api-1": {
+        "id": "8cbe16f0f73af9cf72dee2b65503a54378eb24616d322ea7f9aac975a8bc57f9",
+        "tag": "crefans-api:minimal-bundle-20261104",
+        "image": "sha256:e5cf9f59021991c464e1d8b81110a5c7bfc0c652a61164ef09a8caf9defa9bcc"
+      },
+      "crefans-beta-frontend-1": {
+        "id": "2a8c9b54999a41e40d6521f13726cbf6d60fb9b3edc8c009158af8f46f9f2197",
+        "tag": "crefans-front:minimal-bundle-20261104",
+        "image": "sha256:a512e8e96755bef2b350aff11273d7d95b3b31ced59e2119b40e93b06c17fec2"
+      },
+      "crefans-beta-admin-1": {
+        "id": "93f886a27afeb9fa241c64a53b239828bc9498e23cf7859954d6ec593bcd139f",
+        "tag": "crefans-admin:minimal-bundle-20261104",
+        "image": "sha256:0d10c2119f27fa7c40d6b1b9e96adb2f423921f8c97a3b8d7d35904d7e3e6f0f"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "tag": "caddy:2-alpine",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "tag": "mysql:8.0",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b"
+      }
+    },
+    "time": "2026-11-03T22:18:59Z",
+    "commits": {
+      "front": "615ee06dff1dcfe419935294cdca6bb34e51e578",
+      "api": "af99bc31145cc460135c2324c5293fcf239bd4f5",
+      "admin": "0011ccadaca91d5d378647598b22e31c38d29d2f"
+    },
+    "migrations": "none",
+    "databaseAndProxyUnchanged": true,
+    "frontendFilesVerified": 1337,
+    "apiFilesVerified": 2
+  },
+  "browser": [
+    {
+      "device": "pc",
+      "label": true,
+      "feedNavigation": true,
+      "scope": "deployed preview"
+    },
+    {
+      "device": "iphone",
+      "label": true,
+      "feedNavigation": true,
+      "scope": "deployed preview"
+    }
+  ],
+  "browserAssertions": [
+    "special4/basic4, no duplicate discount in basic",
+    "section title18px",
+    "canonical product name with space",
+    "row guide opens/closes, fan navigation"
+  ],
+  "runtimeChecks": "{\"imageRendered\":true,\"count\":565,\"min\":119,\"max\":183,\"videoMinimalArgs\":true}\n\n[{\"name\": \"/crefans-beta-worker-1\", \"status\": \"running\", \"restarts\": 0, \"oom\": false}, {\"name\": \"/crefans-beta-api-1\", \"status\": \"running\", \"restarts\": 0, \"oom\": false}, {\"name\": \"/crefans-beta-frontend-1\", \"status\": \"running\", \"restarts\": 0, \"oom\": false}, {\"name\": \"/crefans-beta-admin-1\", \"status\": \"running\", \"restarts\": 0, \"oom\": false}, {\"name\": \"/crefans-beta-proxy-1\", \"status\": \"running\", \"restarts\": 0, \"oom\": false}, {\"name\": \"/crefans-beta-database-1\", \"status\": \"running\", \"restarts\": 0, \"oom\": false}]\n",
+  "cleanup": {
+    "oldTagsRemovedAfterOffhostVerification": [
+      "crefans-front:ad-product-row-20261104",
+      "crefans-api:ad-manual-use-20261103",
+      "crefans-admin:advertising-event-lines-20261103"
+    ],
+    "temporaryBuildFoldersRemoved": 3,
+    "freeBytes": 12816658432
+  },
+  "localValidation": {
+    "front": "typecheck, 9 browser regression tests",
+    "admin": "typecheck, 14 unit tests, production build",
+    "api": "build, 4 real ffmpeg/sharp cases"
+  },
+  "limitations": [
+    "deployed browser uses shared preview, not logged-in creator or console account",
+    "no actual payment/upload/backfill",
+    "first deployment script failed local syntax validation before SSH; fixed and reran successfully"
+  ],
+  "offhostRecovery": "/Users/ethan/crefans-recovery/20261104/minimal-bundle (private)"
+}

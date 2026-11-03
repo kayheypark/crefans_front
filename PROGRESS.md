@@ -1,3 +1,9 @@
+## 2026-11-04 미배포 광고상품·미니멀 워터마크 운영 배포 완료
+- dev→prod front615ee06/serveraf99bc3/admin0011cca. 운영 front/api/worker/admin minimal-bundle-20261104. 기본상품 특가제외·제목18px, 콘솔/프론트 상품명 동일 형식, 미니멀 워터마크40%/2%/3%/외곽선없음 반영. DB migration 없음·DB/proxy 유지·기존미디어 재변환 없음.
+- front운영빌드·admin운영빌드 통과, 소스해시/운영키·배포6서비스 running/restarts0/OOMfalse. 배포공용preview PC Chromium/iPhone WebKit 기본4+특가4·중복없음·제목18px·상품명·안내열기닫기·팬이동 통과. API운영이미지 격리컨테이너 실사진 렌더링565변경픽셀(119~183), 영상미니멀인자 확인. 이전로컬 영상/사진4·프론트9·콘솔14 통과. 실계정콘솔/실업로드/실PG 미검증.
+- 최초배포스크립트 로컬문법검사 줄바꿈오류로 SSH전중단, 수정후 배포성공. 복구이미지3개1.14GB·설정6파일 로컬전용보관 및 OCI/tag/blob·파일SHA검증. 완료후 이전3이미지·이번임시3폴더만 제거. 운영 여유12816658432bytes. 복구 /Users/ethan/crefans-recovery/20261104/minimal-bundle.
+- 증거 front docs/audit/minimal-bundle-20261104.json 및 .local/minimal-bundle-release/. 운영 runtime은 위 소스커밋이며 이후 문서커밋은 런타임 변경 아님. 아래 미배포 기록은 해결된 이력.
+
 ## 2026-11-04 워터마크 공식 가이드 조사·시안 5종
 - Adobe Lightroom/Capture One/Shutterstock 공식자료 조사. 공통 수치 표준 확인되지 않음. 우측하단 URL 유지한 미니멀/얇은그림자/미세외곽선/반투명라벨/톤적응형 5개 생성, 사진+영상썸네일+확대 영역 육안 확인. 02추천, 사용자 선택 대기. 수치 목표는 자체 제안이고 생성이미지의 픽셀 보장은 아님.
 - built-in image_gen 사용, 프롬프트·근거 docs/audit/watermark-concepts-20261104.json. 미리보기 파일은 ~/.codex/generated_images/01a19f9c-49fa-7323-bd30-4a5bc1b45efd/exec-{6ae9c515-f21b-4d71-8713-f53714227b45,a0681ea8-79a5-4942-a8cb-84d996132996,633f51ff-a3ab-40bd-a57f-9e933da8343c,4dc08f03-ad8a-4972-bffb-c69d096ec50a,8ba4f544-cce5-4f86-bd38-411de4b3cb3a}.png 순서01~05. 변환 코드/운영 변경 없음.
