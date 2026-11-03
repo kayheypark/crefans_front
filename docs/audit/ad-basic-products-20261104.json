@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-11-04T06:42:16.653479+09:00",
+  "repository": "/Users/ethan/repository/crefans_front-kakao-identity",
+  "baseCommit": "04f15b614aa10b7121b5fbbbbd2b16aa3c92954b",
+  "state": "uncommitted changes on feat/ad-basic-products; not deployed",
+  "checks": [
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test -c playwright.advertising.config.ts",
+      "exitCode": 0,
+      "result": "9 passed (32.3s), product-name spacing updated; PC Chromium/iPhone WebKit/320px; API mocks"
+    }
+  ],
+  "visual": "320px catalog.png inspected",
+  "sha256": {
+    "components/crefans/studio/AdvertisingPage.tsx": "3d2c2d455ea9bee3469031c00f0434e24da7b54ef7cc416bd4e2ddacf62c9652",
+    "components/crefans/studio/advertising.module.css": "29d28ceea60e68351c4cf95665d91fe102bc5a1382a4d869b17104442bcb0afc",
+    "e2e/advertising.spec.ts": "cfba3deb1f70288144ed628493d7fd65cda7ffb3570e5b24ee1d811303d2ba3e"
+  }
+}
