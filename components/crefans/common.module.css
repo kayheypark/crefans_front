@@ -20,3 +20,5 @@
 
 
 .legalVersion{min-width:170px;max-width:220px}
+
+.supportNav a[href$="/legal/privacy"]{color:var(--cf-color-text);font-weight:700}
