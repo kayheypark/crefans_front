@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T11:50:19.433392+00:00",
+  "checkedAt": "2026-11-03T11:58:50.977888+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "90e726d91dbf426e819e12a18cf52f89f1aa2c52",
-      "branch": "feat/settings-action-colors",
+      "head": "63633a8a18f6aaa40fa99521af0f242a2cb91874",
+      "branch": "integration/settings-colors-prod",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "358824c7ad5d656d357642cbe1f769c6de30d5937609d91815c7d1b0f98f9197",
+      "front/PROGRESS.md": "cc86f4489473c9f51aa33cc4839daf759a8d6d882df5aea362321f0c2cac588f",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
