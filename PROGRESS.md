@@ -1,3 +1,8 @@
+## 2026-11-03 대시보드 광고 상품 바로가기 운영 배포 완료
+- 승인 후 dev→prod0b0a953, frontend dashboard-ad-20261103 운영 적용. 빠른 작업 메시지→광고 상품 및 advertising 경로/chart 아이콘 반영, 6개 배치 유지.
+- 이미지 소스SHA/운영키 검증·서비스200·기타 컨테이너 불변. 운영 호스트 공용 대시보드 preview에서 PC Chromium/iPhone13WebKit 광고 상품 링크·메시지 빠른 메뉴 제거·6개 유지·실제 광고상품 화면 이동 성공. 타입검사/기존링크3건 통과. 실물기기/실로그인 세션은 미검증.
+- 증거 docs/audit/dashboard-ad-shortcut-20261103.json 및 .local/dashboard-ad-release/. 이전이미지 보존. 아래 미배포 기록은 당시 이력.
+
 ## 2026-11-03 대시보드 빠른 작업 광고 상품 교체
 - 사용자 첨부 화면의 메시지 빠른 작업만 광고 상품으로 교체. basePath/advertising 연결, 기존 홍보 메뉴 chart 아이콘 재사용. 2열3행/나머지항목 유지. 메시지 기능·사이드바는 삭제하지 않음.
 - 최신prod 기반 feat/dashboard-advertising-shortcut. 공용 DashboardPage이므로 목업/실서비스 동시 반영. npm run typecheck 종료0·기존 dashboard-links 3/3 통과. diff에서 광고 상품→basePath/advertising/chart 연결 확인. 증거 .local/dashboard-ad-shortcut-type.log 및 -test.log. 브라우저 시각검사 미실행, 운영 미배포.
