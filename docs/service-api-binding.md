@@ -288,3 +288,6 @@ bootstrap.data.categories의 서버 정렬 순서를 홈·탐색에 그대로 �
 ### 오픈 기념 배지 수령·표시 (2026-11-03, 미배포)
 `useServiceModel.foundingBadge`가 GET `/events/founding-badge`, POST `/events/founding-badge/claim`(빈body), PUT `/me/founding-badge`({visible})를 연결한다. `useFoundingBadge`는 회원 세션별 수명/동시요청/늦은 응답을 방어하고 반환 상태로만 완료·표시 여부를 갱신한다. 성공하면 본인 viewer·creator flag를 갱신하고 페이지 진입 시 bootstrap/publicProfile로 서버 저장값을 재조회한다. `FoundingBadgeEventDetail`은 /service와 /preview 공용이며 목업은 useMockFoundingBadge만 사용한다.
 2026-11-03 정책 개정: 전체 활성·이메일 확인 회원이 계정당1회 수령한다. 명단·16명 제한은 제거했다. 조회/가입만으로 지급하지 않으며 배지에는30일 만료를 적용하지 않는다. 현재 배포 상태는 PROGRESS.md를 따른다. 아래 수치는 최초 구현 당시 검증이다. 실제 MySQL8건, 프론트523건/레이어/TS, PC·모바일WebKit·320px목업3흐름 증거는 [검증 기록](./audit/founding-badge-claim-20261103.json). 브라우저 실서비스API는 명시한 대역이며 실제 운영 지급/실물iPhone 검증과 구분한다.
+
+### 게시물 조회수 (2026-11-03)
+팬 피드·프로필 피드·상세·미디어 오버레이의 실제50% 이상/1초 이상 표시 후 POST /posts/:id/views를 호출한다. 긴 게시물은 화면 크기만큼의 읽기 영역을 기준으로 한다. 백그라운드·모달에 가려진 화면·목업·스튜디오 미리보기·본인 열람은 제외한다. 동영상은 화면에서1초 이상 재생할 때별도 video 이벤트. 서버는30분 고정창 내 공개 조회수1회, feed/detail/video 각1회로 처리하며 잠긴 미리보기는노출만 센다. 30분 무작위 자사 쿠키·게시물별 단기 해시만 사용하고 창 만료 후 워커가삭제한다. 쿠키 차단 시집계가누락될 수 있다. 공유 copy/kakao/native 파라미터와 외부 referrer 분류는상세 유입 경로이며 별도로 조회수를 더하지 않는다. 크리에이터통계 방문수는30분 기준 추정 방문수이며 장기 순방문자나실제 사람 수가아니다. 브라우저이벤트는 위조가능하므로 결제·보상·환불의 증거로쓰지 않는다.
