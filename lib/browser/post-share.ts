@@ -17,7 +17,7 @@ export const kakaoSdkIntegrity='sha384-BGX7Wb16GmRFagri4bLJV2DgipVZaU2AI812GZtHt
 let loading:Promise<void>|null=null;
 export function prepareKakaoShare(key=kakaoJavaScriptKey):Promise<void>{
   if(!key)return Promise.reject(new Error('KAKAO_NOT_CONFIGURED'));
-  const initialize=()=>{if(!window.Kakao?.Share)throw new Error('KAKAO_UNAVAILABLE');if(!window.Kakao.isInitialized())window.Kakao.init(key);};
+  const initialize=()=>{if(!window.Kakao)throw new Error('KAKAO_UNAVAILABLE');if(!window.Kakao.isInitialized())window.Kakao.init(key);if(!window.Kakao.Share)throw new Error('KAKAO_UNAVAILABLE');};
   if(window.Kakao){try{initialize();return Promise.resolve();}catch(error){return Promise.reject(error);}}
   if(!loading){
     loading=new Promise<void>((resolve,reject)=>{
