@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T06:29:25.593739+00:00",
+  "checkedAt": "2026-11-03T06:42:03.726546+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "23732ef4a9036c39eb16ce2b5379d91888f57fad",
-      "branch": "feat/kakao-identity",
+      "head": "60b7ad85cba3c85f1ed19d1b2ffc498ad6811746",
+      "branch": "fix/kakao-sdk-initialization",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "99397248ff85bb431c62c44365762b73970f276633edd513cf6f9dce32a0fdf0",
-      "front/PROGRESS.md": "110c6f32cecac752e7a0b5fda62f24ff21cea8c6bd634d35f08586e589741eff",
+      "front/PROGRESS.md": "8e8cd122665ef86b21294eaf066fd146076eb16eeb79c5a1fd4165678fa3602a",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -668,7 +668,7 @@
       "front/lib/api/subscriptionBilling.ts": "4c113b11a26f4544edaec90da28ce8e179e37359c6c19a8189a24d45675f61b0",
       "front/lib/api/user.ts": "9807d75390baee17ea9327006b3e132aad1beba052f9b40c8698d6b847c868f3",
       "front/lib/api/wallet.ts": "fbc850009c7048f49d185eae9f370933632b00d7a317933aa7c9d100bb4d031e",
-      "front/lib/browser/post-share.ts": "bafdc5358cc55560add52658914c8e2e5677f8cae8f0049d80fad0fe35800c84",
+      "front/lib/browser/post-share.ts": "7804827f16caeea6470c0902c3a4ea9a914ba2e55f07b4aa82d7e6cbfb561109",
       "front/lib/constants/breakpoints.ts": "928a7e7860130c86e2e87809b6b4d06c547f7b9724965ebf49d1679b8f2f46ac",
       "front/lib/constants/chargeProducts.ts": "9cfab9b9047e364e1ed3a63d91eefbf00267b82f6fe54f9434d6c57886eb74d7",
       "front/lib/constants/colors.ts": "747574b16758a5198107d0b5a79209d6b6ceb30b58be67cb6c431aeb17d6430c",
@@ -784,7 +784,7 @@
       "front/tests/payment-models.test.cjs": "dc026aeb56f23f9068cfb0176c265601a0eb0314dbb76500f3b1f5fe28f36a31",
       "front/tests/platform-client.test.cjs": "707fc0680dc491cab64ff8e01dd260d9dfbe4eaaf0110b2967b058180d1591ab",
       "front/tests/post-membership-offer.test.cjs": "e6fc1e9524c85f8457d0958771be4c3e8a79a185ce5ade4fc3f06c679aebc8d9",
-      "front/tests/post-share.test.cjs": "2166dcadfcba77f5f50ba3370e62a8f75739527ab470d798c2c42428696cb39c",
+      "front/tests/post-share.test.cjs": "f86e915051b58112d0ff45488fb6b6ed60109a0944646d412130f12350441da1",
       "front/tests/post-support-visibility.test.cjs": "cb1ea78e6bb22355bd2949deae6b9052e86d9fe8defdf7b1ae0a5ecee4a43fb9",
       "front/tests/post-views.test.cjs": "810520d757b92df136fb0c5d2ff720045a7212418a4a8f400bc6eae764235178",
       "front/tests/preview-access.test.cjs": "34973f67c12f462afa1f04a7ae4a9bdfb55054fd094e81de37c6fd7326525f60",
