@@ -51,3 +51,9 @@ test('late work from a closed layer does not contaminate the next post',async()=
  let finish;const h=hook({nav:{clipboard:{writeText:()=>new Promise(resolve=>{finish=resolve;})}}});
  try{h.update({open:true});let pending;act(()=>{pending=h.state.copy();});h.update({open:false});h.update({open:true,postId:'next'});await act(async()=>{finish();await pending;});assert.equal(h.state.message,'');assert.equal(h.state.url,'https://beta.crefans.com/preview/post/next');assert.equal(h.state.pending,false);}finally{h.close();}
 });
+
+test('real SDK exposes Share only after init, so initialize before checking the module',async()=>{
+ const scripts=[];let initialized=false;const sdkObject={isInitialized:()=>initialized,init(){initialized=true;this.Share={sendDefault(){}};}};
+ const restore=globals({window:{},document:{createElement:()=>({remove(){}}),head:{appendChild:s=>scripts.push(s)}}});
+ try{const sdk=loadTypeScript('lib/browser/post-share.ts'),ready=sdk.prepareKakaoShare('public-test-key');window.Kakao=sdkObject;scripts[0].onload();await ready;assert.equal(initialized,true);assert.equal(typeof window.Kakao.Share.sendDefault,'function');}finally{restore();}
+});
