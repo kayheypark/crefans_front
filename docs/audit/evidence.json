@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T13:39:36.458251+00:00",
+  "checkedAt": "2026-11-03T13:47:53.642835+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,9 +30,9 @@
   ],
   "repositories": {
     "front": {
-      "head": "300f65f2864e116c635b3e5a6ebd102f80493535",
+      "head": "8b17a3ab01f682f98616e984f189cf53aac87d45",
       "branch": "integration/privacy-bold-prod",
-      "dirty": false
+      "dirty": true
     },
     "server": {
       "head": "23ae1f7334c6d4eb3348ccf9ff2b2424e20f2244",
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "1bd4ca3d1f7bb3e1bdd68bb137c3aab5c0d32cdafc5fc70e9f950e424fb37119",
+      "front/PROGRESS.md": "8e16e63266d7d1477149409026418289589e06bbeddcd227e5ea8d4dfe93bde2",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
