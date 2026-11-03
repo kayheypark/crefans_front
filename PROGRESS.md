@@ -1,3 +1,7 @@
+## 2026-11-03 스튜디오 헤더 서비스 이동 개선
+- 최신prod 기반 feat/studio-header-service에 광고상품 섹션 작업 병합. 팬 화면으로→일반 서비스 이동 테두리 버튼형 링크(/feed), 아바타→마이페이지(/me) 접근이름과44px터치영역. 좁은320px 헤더 간격조정. 목업·실서비스 공용 적용.
+- 타입 종료0, PC/iPhoneWebKit/320px E2E6건 통과(헤더href/테두리/가로넘침·광고상품). .local/studio-header-release/ 증거. 사용자 배포 승인에 따라 광고상품 섹션과 함께 dev→prod/프론트 운영배포 진행.
+
 ## 2026-11-03 광고상품 특가·전체보기 섹션 구현
 - 최신prod 7de194a에서 feat/advertising-sections. 검색의 아이콘22px/제목14px·600/간격 구조 참고. 특가=기존 유효 할인 판단 상품(없으면 숨김), 전체보기=전체 목록이며 특가 중복 포함. 제품가격/구매/정렬/운영 데이터 불변. 사용자에게 이 분류 기준을 먼저 안내. 공용 목업·서비스 적용, 운영 미배포.
 - npm run typecheck 종료0. npx playwright test --config playwright.advertising.config.ts --grep 광고상품 목업|서비스 광고상품은: PC/iPhone13WebKit/320px 6건 통과, 섹션별4/8개·가로넘침·목업구매·API실패 검증. 실제결제/운영/실물기기 검증 아님. .local/advertising-sections/{typecheck,e2e}.log 및 .local/advertising-event/browser/ 캡처. 모바일 전체 캡처 육안으로 섹션/상품/가격 정렬 확인.
