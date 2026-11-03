@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T03:47:53.063976+00:00",
+  "checkedAt": "2026-11-03T03:50:18.635831+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "19df303118f056020e467be515dcfd8dd59438d5",
+      "head": "15a48c121e588c845c3969e413893e75f1e23825",
       "branch": "feat/kakao-identity",
       "dirty": true
     },
     "server": {
-      "head": "26d1c1d3c43e649f1c6615a24b0607ce791eb339",
+      "head": "755ebc62ae45a1d1986c694fdd0e881f9abe8743",
       "branch": "feat/kakao-identity",
       "dirty": true
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "00e9ee33456dfb892ac7c1fd6d6e90953321f854c5c18ecee95c34db1eb28d1f",
-      "front/PROGRESS.md": "47127baf24882207e3b0c2f486900d3dfd10faf78b2c7e1ccf9920ff193806f2",
+      "front/PROGRESS.md": "3cef8592b6840dfc58d63212d4eb780085eaa7d472f1f14862b3ea2938355b08",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "73ae8e213c6ea17022af4a42f849bc79a11de2c9ee68d6afef338facd3a14d47",
-      "server/PROGRESS.md": "8276d107dbf79ec6a2192f15447a8be95f3906a5f4660291001424831ca8851f",
+      "server/PROGRESS.md": "b7b67aa21a6c6254cc8ac67f15defb5a3aa4473628a6338c53b662fb93ac2e63",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -120,7 +120,7 @@
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "6e1570983ac78cc2c542a23d4216a85692aee3f1261126b700c72d4dcc269f9a"
+      "audit/manifest": "b4ad158413edf0f89291a2a43e104ff1102d9314e349eee91afac91bf6bf9ad6"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
