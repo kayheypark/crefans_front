@@ -12,7 +12,43 @@
     "verifiedTags": 29,
     "verifiedAt": "2026-11-03T21:19:14.610783+00:00"
   },
-  "scope": "offhost archives verified; remote cleanup rejected pending explicit scope approval",
-  "remoteDeleted": false,
-  "runtimeDeployed": false
+  "scope": "explicit scope approval received; OCI index IDs and server file hashes checked; original scope cleanup completed; newly retired image cleaned after successful deploy",
+  "remoteDeleted": true,
+  "runtimeDeployed": true,
+  "cleanup": {
+    "removedImages": [
+      "crefans-front:advertising-event-20261103",
+      "crefans-api:advertising-event-20261103",
+      "crefans-front:ad-manual-use-20261103",
+      "crefans-api:kakao-share-images-20261103",
+      "crefans-front:dashboard-ad-20261103",
+      "crefans-api:email-simple-blue-20261103",
+      "crefans-admin:advertising-event-20261103",
+      "crefans-api:post-views-20261103",
+      "crefans-api:open-events-20261103",
+      "crefans-front:ad-special-20261103",
+      "crefans-front:kakao-share-init-20261103",
+      "crefans-front:my-profile-memberships-20261103",
+      "crefans-front:studio-header-20261103",
+      "crefans-api:event-expiry-20261103",
+      "crefans-admin:referral-20261102",
+      "crefans-api:all-pending-20261103",
+      "crefans-front:ad-compact-20261103",
+      "crefans-front:kakao-share-images-20261103",
+      "crefans-front:all-pending-20261103",
+      "crefans-admin:all-pending-20261103",
+      "crefans-front:kakao-share-20261103",
+      "crefans-front:ad-divider-20261103",
+      "crefans-front:post-views-20261103",
+      "crefans-front:brand-metadata-20261103",
+      "crefans-front:settings-colors-20261103",
+      "crefans-front:privacy-bold-20261103"
+    ],
+    "removedDirectories": 262,
+    "verifiedFiles": 6549,
+    "activeImagesPreserved": 5,
+    "freeBytes": 17164824576
+  },
+  "newlyRetiredImage": "crefans-front:gallery-nav-20261103",
+  "archiveFormatCorrection": "Initial Docker config hash comparison refused before deletion; OCI index digest matched image IDs and archive blobs on rerun"
 }

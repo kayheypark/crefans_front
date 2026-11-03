@@ -1,3 +1,10 @@
+## 2026-11-04 광고상품 우측 꺾쇠·팬 화면 운영배포 완료
+- dev→prod b091e20, crefans-front:ad-product-row-20261104 운영 적용. 별도 상품구매 버튼 제거, 상품행 전체 안내진입·우측꺾쇠. 스튜디오 팬 화면 문구 포함. 실제결제는 준비중 유지.
+- 타입·문서·운영빌드 통과, 로컬 PC/iPhoneWebKit/320px 9통과. 운영공용preview PC/모바일 상품행 안내열기·닫기·버튼없음 및 팬화면 피드이동 통과. 초기 배포검증은 모달 닫기2개 선택자 중복으로 실패해 액션버튼으로 좁힌 후 재통과. 실물/실계정/실PG 미검증.
+- 승인받은 이미지26개·폴더262개 외부 검증 후 서버삭제 완료(파일6549개 해시). 초기 config hash!=Docker29 OCI ID로 삭제전중단, OCI index 및 blob hash 대조로 재검증 성공. 활성컨테이너/health 유지.
+- 이번 배포 설정은 로컬 ad-product-row-runtime.tar.gz에 파일해시 검증 보관. 배포성공 후 직전gallery-nav 이미지도 기존외부아카이브 검증·미사용 확인 후 제거, 신규임시빌드폴더도 소스SHA와 로컬설정 대조 후 제거. 운영 서비스이미지는 현재 front/api/admin3개만 존재. 현재여유14800379904bytes(약13.8GiB).
+- 외부자료 /Users/ethan/crefans-recovery/20261104 (private), 실행스크립트 .local/offhost-recovery/ 및 .local/ad-product-row-release/. 공개증거 docs/audit/offhost-recovery-20261104.json, docs/audit/ad-product-row-20261104.json. 복구는 외부tar docker load/설정재전송 필요. 아래 승인대기/미배포 기록은 해결된 이력.
+
 ## 2026-11-04 광고상품 행 구매 진입 개선
 - 사용자: 별도 상품구매 버튼 제거, 상품 내용 우측 꺾쇠, 운영배포. 전체 행을 네이티브 button으로 덮어 안내 진입, 상품 h3/가격 의미 유지. 포커스 표시, 판매중지 비활성 유지. 결제는 기존 준비중 유지. 디자인 문서/기존 회귀 기대문구 동기화.
 - 타입검사 종료0, playwright.advertising.config.ts PC/iPhoneWebKit/320px 9통과(목업구매·수동사용/중복사용차단, API대역·오류·재시도, 디자인시스템 빈/오류/로딩/구매비활성). 320px캡처 육안 확인. 증거 .local/advertising-event/browser/.

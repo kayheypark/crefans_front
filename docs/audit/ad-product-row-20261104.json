@@ -1,0 +1,53 @@
+{
+  "sourceCommit": "b091e207ad370246327fc86e1064b7e2de936ff6",
+  "build": {
+    "commit": "b091e207ad370246327fc86e1064b7e2de936ff6",
+    "release": "ad-product-row-20261104",
+    "started": "2026-11-03T21:25:46.807009+00:00",
+    "finished": "2026-11-03T21:34:15.241225+00:00",
+    "exitCode": 0,
+    "keyEnvironment": "production",
+    "sourceCount": 1376
+  },
+  "localVerification": {
+    "typecheckExit": 0,
+    "command": "npx playwright test -c playwright.advertising.config.ts",
+    "passed": 9,
+    "scope": "PC Chromium, iPhone/320px WebKit; preview/API mocks/design system",
+    "physicalDevice": false
+  },
+  "deployedBrowser": [
+    {
+      "device": "pc",
+      "label": true,
+      "feedNavigation": true,
+      "scope": "deployed preview"
+    },
+    {
+      "device": "iphone",
+      "label": true,
+      "feedNavigation": true,
+      "scope": "deployed preview"
+    }
+  ],
+  "deployment": {
+    "image": "crefans-front:ad-product-row-20261104",
+    "sourceFilesVerified": 1334,
+    "verifiedAt": "2026-11-03T21:34:47Z",
+    "otherContainersUnchanged": true
+  },
+  "postDeployCleanup": {
+    "previousImageRemovedAfterExternalVerification": true,
+    "currentBuildTemporaryFilesRemoved": true,
+    "freeBytes": 14800379904,
+    "remainingServiceTags": [
+      "crefans-front:ad-product-row-20261104",
+      "crefans-api:ad-manual-use-20261103",
+      "crefans-admin:advertising-event-lines-20261103",
+      "node:22-bookworm-slim",
+      "caddy:2-alpine",
+      "mysql:8.0"
+    ]
+  },
+  "initialBrowserCheckFailure": "Ambiguous close selector; narrowed to dialog action, rerun passed; no product change"
+}
