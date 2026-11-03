@@ -1,8 +1,8 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
-import {kakaoJavaScriptKey,postShareData,prepareKakaoShare,shareToKakao} from '@/lib/browser/post-share';
+import {kakaoJavaScriptKey,postShareImage,postShareData,prepareKakaoShare,shareToKakao} from '@/lib/browser/post-share';
 
-export function usePostShare({open,basePath,postId,title}:{open:boolean;basePath:string;postId:string;title:string}){
+export function usePostShare({open,basePath,postId,title,previewImage}:{open:boolean;basePath:string;postId:string;title:string;previewImage?:string}){
  const [url,setUrl]=useState(''),[nativeSupported,setNativeSupported]=useState(false),[kakao,setKakao]=useState<'unavailable'|'loading'|'ready'|'error'>('unavailable');
  const [pending,setPending]=useState(false),[message,setMessage]=useState(''),[error,setError]=useState(''),[manualCopy,setManualCopy]=useState(false),busy=useRef(false),generation=useRef(0);
  useEffect(()=>{
@@ -22,7 +22,7 @@ export function usePostShare({open,basePath,postId,title}:{open:boolean;basePath
    // No asynchronous work before these calls: clipboard, native share and Kakao need the click's activation.
    if(kind==='copy')await navigator.clipboard.writeText(data.url);
    else if(kind==='more')await navigator.share(data);
-   else await shareToKakao(data);
+   else await shareToKakao(data,postShareImage(window.location.origin,basePath,postId,previewImage));
    if(token===generation.current)setMessage(kind==='copy'?'링크를 복사했어요.':kind==='kakao'?'카카오톡에서 공유 대상을 선택해 주세요.':'');
   }catch(cause){
    if(token!==generation.current)return;

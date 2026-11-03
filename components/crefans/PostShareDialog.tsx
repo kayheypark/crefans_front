@@ -31,7 +31,7 @@ export function ShareDialog({open,onClose,title,state}:{open:boolean;onClose:()=
  </Dialog>;
 }
 
-export function PostShareDialog({open,onClose,basePath,postId,title}:{open:boolean;onClose:()=>void;basePath:string;postId:string;title:string}){
- const state=usePostShare({open,basePath,postId,title});
+export function PostShareDialog({open,onClose,basePath,postId,title,previewImage}:{open:boolean;onClose:()=>void;basePath:string;postId:string;title:string;previewImage?:string}){
+ const state=usePostShare({open,basePath,postId,title,previewImage});
  return <ShareDialog open={open} onClose={onClose} title={title} state={state}/>;
 }

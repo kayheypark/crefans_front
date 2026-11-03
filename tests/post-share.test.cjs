@@ -6,7 +6,7 @@ test('sharing uses only the post page URL and title, preserving preview/service 
  for(const base of ['/preview','/service']){
   const data=browser.postShareData('https://beta.crefans.com',base,'a/b?token=secret#x','공개 제목');assert.equal(data.url,`https://beta.crefans.com${base}/post/a%2Fb%3Ftoken%3Dsecret%23x`);assert.deepEqual(Object.keys(data).sort(),['title','url']);assert.equal(new URL(data.url).search,'');assert.equal(new URL(data.url).hash,'');
  }
- const template=browser.kakaoShareTemplate({title:'😀'.repeat(250),url:'https://example.com/service/post/id'});assert.equal(Array.from(template.text).length,200);assert.equal(template.objectType,'text');assert.equal(template.link.webUrl,template.link.mobileWebUrl);assert.equal('imageUrl'in template,false);
+ const template=browser.kakaoShareTemplate({title:'😀'.repeat(250),url:'https://example.com/service/post/id'});assert.equal(Array.from(template.content.title).length,200);assert.equal(template.objectType,'feed');assert.equal(template.content.link.webUrl,template.content.link.mobileWebUrl);assert.equal(template.content.imageUrl,'https://example.com/brand/share/default-post-v1.jpg');
 });
 test('Kakao loads once with official SRI, initializes once and sends only on explicit action',async()=>{
  const scripts=[],sent=[],inits=[];let initialized=false;
@@ -56,4 +56,10 @@ test('real SDK exposes Share only after init, so initialize before checking the 
  const scripts=[];let initialized=false;const sdkObject={isInitialized:()=>initialized,init(){initialized=true;this.Share={sendDefault(){}};}};
  const restore=globals({window:{},document:{createElement:()=>({remove(){}}),head:{appendChild:s=>scripts.push(s)}}});
  try{const sdk=loadTypeScript('lib/browser/post-share.ts'),ready=sdk.prepareKakaoShare('public-test-key');window.Kakao=sdkObject;scripts[0].onload();await ready;assert.equal(initialized,true);assert.equal(typeof window.Kakao.Share.sendDefault,'function');}finally{restore();}
+});
+
+test('image sharing exposes only the public post resolver, never sender-authenticated media URLs',()=>{
+ assert.equal(browser.postShareImage('https://crefans.com','/service','a/b','/api/v1/media/private/file'),'https://crefans.com/api/v1/media/posts/a%2Fb/share-image');
+ assert.equal(browser.postShareImage('https://crefans.com','/preview','x','/illustrations/a.png'),'https://crefans.com/illustrations/a.png');
+ for(const unsafe of ['https://evil.example/image','/api/v1/media/private/file',undefined])assert.equal(browser.postShareImage('https://crefans.com','/preview','x',unsafe),'https://crefans.com/brand/share/default-post-v1.jpg');
 });

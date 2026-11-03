@@ -166,7 +166,7 @@ npm run test:e2e:report                 # 최근 HTML 결과 확인
 
 ## 게시물 공유 (2026-10-25)
 
-공용 PostShareDialog → `features/post-share/usePostShare` → `lib/browser/post-share` 경계로 브라우저 기능을 연결한다. 서버 API나 실제/목업 데이터를 복제하지 않으며 공유 시 별도 게시물 조회를 요청하지 않는다. 세 방식 모두 현재 보고 있는 게시물의 ID로 페이지 주소를 구성한다. 카카오와 기기 공유에는 공개 제목과 페이지 URL만 전달하고 본문·첨부·직접 파일 링크는 제외한다.
+공용 PostShareDialog → `features/post-share/usePostShare` → `lib/browser/post-share` 경계로 브라우저 기능을 연결한다. 서버 API나 실제/목업 데이터를 복제하지 않으며 공유 시 별도 게시물 조회를 요청하지 않는다. 세 방식 모두 현재 보고 있는 게시물의 ID로 페이지 주소를 구성한다. 기기 공유에는 공개 제목과 페이지 URL을 전달한다. 카카오는 이미지형 피드 템플릿이며 익명 공개 권한을 재검사하는 서버 공유 이미지 경로를 추가한다. 사진은 첫 이미지, 영상은 썸네일 JPEG로 제공하고 제한 게시물·미디어 없음은 기본 이미지로 전환한다. 본문·보호 원본 URL은 전달하지 않는다.
 
 카카오 SDK2.8.4는 [공식 다운로드](https://developers.kakao.com/docs/ko/javascript/download)의 SRI를 고정해 레이어 진입 후 한 번 준비한다. SDK 불러오기를 기다린 뒤 자동 공유하지 않고 사용자의 다음 버튼 클릭에서 실행한다. `NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY`는 공개 JavaScript 키이며 빌드 시 주입된다. `.env.example`의 빈 칸 및 `infra/platform/Dockerfile`의 동명 build arg를 제공했다. 연결 절차·한계는 [외부 서비스 안내](./third-party-setup.md)를 따른다. 키가 없으면 외부 SDK를 요청하지 않는다. 복사/더보기는 카카오 연결과 독립적이다.
 
