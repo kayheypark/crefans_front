@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T13:27:56.814651+00:00",
+  "checkedAt": "2026-11-03T13:39:36.458251+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,9 +30,9 @@
   ],
   "repositories": {
     "front": {
-      "head": "4b1d97ac4b7401cfa74439d5ccd992ddfe4d97c4",
-      "branch": "integration/ad-divider-prod",
-      "dirty": true
+      "head": "300f65f2864e116c635b3e5a6ebd102f80493535",
+      "branch": "integration/privacy-bold-prod",
+      "dirty": false
     },
     "server": {
       "head": "23ae1f7334c6d4eb3348ccf9ff2b2424e20f2244",
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "2e0bcf87ef65df32ec416db616486a63c6f8b580d514044c0dfb0f4880742d12",
+      "front/PROGRESS.md": "1bd4ca3d1f7bb3e1bdd68bb137c3aab5c0d32cdafc5fc70e9f950e424fb37119",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -252,7 +252,7 @@
       "front/components/crefans/beans.module.css": "4a72500deb00eddac87798895c798bd922c287e8a387a832c62d357d7ef1377c",
       "front/components/crefans/brand.module.css": "65d9cc3926d095f6d120bce555e570fff4bbd1bf8068f77da0923501fc1c0da1",
       "front/components/crefans/business-info.module.css": "a03c1ad7f0814f47c916bc4a8c056f0d3fdd75a8bf4d2fb2ce2e7c3cefc113b5",
-      "front/components/crefans/common.module.css": "1801b0a9043c213dce3cc463efea7ef02db71fd8a42dd46fa0e1d8cf457453b5",
+      "front/components/crefans/common.module.css": "03fb9818a805496ac43d86272864bcc970d09da22b59169f6666f9d7fe5e6f53",
       "front/components/crefans/creator-name.module.css": "0c0e91c88caf0b99a3b0d0dd35f0f4cb406803f219cebd1c9e41628b23232a9b",
       "front/components/crefans/creator-search.module.css": "58cf7fe4f52d60b97e73045a70ade3f2b8ddfb4ce98b9591f41cfd6d0ebde08d",
       "front/components/crefans/creator.module.css": "cd05fee799558771fbb2e3f79dad3cf6f57806b6b9ad74561e19f1d5741f1e96",
@@ -268,8 +268,8 @@
       "front/components/crefans/pull-to-refresh.module.css": "b299540b08d7e271dd0892d9a8ba6e2e9ff917dcad5d5d858c4bcc1010284f02",
       "front/components/crefans/referral-history.module.css": "dd41250c76b9630f57751069af17c7d7d24def521cceda5756d4cae4c6d25b2d",
       "front/components/crefans/referral.module.css": "797752fa30dcc4a256851ca30d9c14a69bbc5edc3bb03c432b235783e36ab451",
-      "front/components/crefans/service-footer.module.css": "617913167a1d719fcfa8c02dd4440f861bea47e3f84b36b93cccb00abb8ea573",
-      "front/components/crefans/service.module.css": "b531ccc0c562d44edca3c9678cad1a7ea061f52edde28b61d6cea6fa2263045c",
+      "front/components/crefans/service-footer.module.css": "aaddb945b5ddfc58efd3a3192b864b4216976bb4fca9ee9ead16fc8d498b4274",
+      "front/components/crefans/service.module.css": "bab94c0f7b60a36df78b9e08b431ab4f9a7abe33dbbc22c2aa71d0fd61934e56",
       "front/components/crefans/signup-complete.module.css": "403afb7dd5fcb6ae4d619620e3c9f4b9f0ea236b5fc4b090f7ca13529e3f10e0",
       "front/components/crefans/social.module.css": "503b9b3728ceae59e2e2c161c75a4ac4852206d05090f96b1823289172f49432",
       "front/components/crefans/studio/AdvertisingPage.tsx": "1110f2c4c1ada108cb8dcb1c41cceccbd4e2451365547187e91f86f6fa1bb9b9",
