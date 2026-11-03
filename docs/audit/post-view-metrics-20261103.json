@@ -1,0 +1,213 @@
+{
+  "release": "post-views-20261103",
+  "verifiedAt": "2026-11-03T10:07:11.990801+00:00",
+  "source": {
+    "front": "baa3a05fc0bbd99c6131977bc9f00b1057b1de0e",
+    "backend": "a9ba05ca0c8288b887fbae791cb3d67c850f9587",
+    "workingTreesCleanAtBuild": true
+  },
+  "build": {
+    "commit": "baa3a05fc0bbd99c6131977bc9f00b1057b1de0e",
+    "release": "post-views-20261103",
+    "started": "2026-11-03T09:58:40.590177+00:00",
+    "finished": "2026-11-03T10:05:28.593012+00:00",
+    "exitCode": 0,
+    "keyEnvironment": "production",
+    "sourceCount": 1363
+  },
+  "deployment": {
+    "before": {
+      "crefans-beta-worker-1": {
+        "id": "e0a0228dd071cac8d7ecc709f6a515ab2a5e70e2a9d84d3f897d02f9cad443fb",
+        "tag": "crefans-api:kakao-share-images-20261103"
+      },
+      "crefans-beta-api-1": {
+        "id": "072815f1f0386be33de0c64631d88bf0faa55ee8030fb9b6d46a28f970697737",
+        "tag": "crefans-api:kakao-share-images-20261103"
+      },
+      "crefans-beta-frontend-1": {
+        "id": "b906af256d4dfe22af421ace5d1dd789492c85f84f80bd6b277031d2f27c2d1d",
+        "tag": "crefans-front:kakao-share-images-20261103"
+      },
+      "crefans-beta-admin-1": {
+        "id": "6751f35e58129323a9726c3b12be3506650313d8bfdd97cf673758c7ceb8fa41",
+        "tag": "crefans-admin:advertising-event-lines-20261103"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "tag": "caddy:2-alpine"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "tag": "mysql:8.0"
+      }
+    },
+    "after": {
+      "crefans-beta-api-1": {
+        "id": "5c99c5edf8a0df342fd2e9ffb0dc5b0c54cc4ec75503b256eed406699c3c099d",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-worker-1": {
+        "id": "17d0d8435872cb928751fe703ecfae39823051f05140ec5e7586e2726e6b8fc4",
+        "tag": "crefans-api:post-views-20261103"
+      },
+      "crefans-beta-frontend-1": {
+        "id": "0d59660b655654978bc5b0bc6ca71db6857949aa89dabb3c729ab9b5b4c52837",
+        "tag": "crefans-front:post-views-20261103"
+      },
+      "crefans-beta-admin-1": {
+        "id": "6751f35e58129323a9726c3b12be3506650313d8bfdd97cf673758c7ceb8fa41",
+        "tag": "crefans-admin:advertising-event-lines-20261103"
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "tag": "caddy:2-alpine"
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "tag": "mysql:8.0"
+      }
+    },
+    "verifiedAt": "2026-11-03T10:05:55Z",
+    "frontendSourceCount": 1321,
+    "apiSourceCount": 14,
+    "databaseMigration": "20261103190000_post_view_metrics"
+  },
+  "productionVerification": {
+    "before": {
+      "migrations": 53,
+      "incomplete": 0,
+      "newMigration": true,
+      "metricRows": 0,
+      "windowRows": 0,
+      "views": 0
+    },
+    "after": {
+      "migrations": 53,
+      "incomplete": 0,
+      "newMigration": true,
+      "metricRows": 0,
+      "windowRows": 0,
+      "views": 0
+    },
+    "botRequest": {
+      "status": 201,
+      "recorded": false
+    },
+    "states": [
+      {
+        "name": "/crefans-beta-api-1",
+        "tag": "crefans-api:post-views-20261103",
+        "status": "running",
+        "health": "healthy",
+        "restarts": 0,
+        "oom": false
+      },
+      {
+        "name": "/crefans-beta-worker-1",
+        "tag": "crefans-api:post-views-20261103",
+        "status": "running",
+        "health": null,
+        "restarts": 0,
+        "oom": false
+      },
+      {
+        "name": "/crefans-beta-frontend-1",
+        "tag": "crefans-front:post-views-20261103",
+        "status": "running",
+        "health": null,
+        "restarts": 0,
+        "oom": false
+      },
+      {
+        "name": "/crefans-beta-admin-1",
+        "tag": "crefans-admin:advertising-event-lines-20261103",
+        "status": "running",
+        "health": null,
+        "restarts": 0,
+        "oom": false
+      },
+      {
+        "name": "/crefans-beta-proxy-1",
+        "tag": "caddy:2-alpine",
+        "status": "running",
+        "health": null,
+        "restarts": 0,
+        "oom": false
+      },
+      {
+        "name": "/crefans-beta-database-1",
+        "tag": "mysql:8.0",
+        "status": "running",
+        "health": "healthy",
+        "restarts": 0,
+        "oom": false
+      }
+    ],
+    "verifiedAt": "2026-11-03T10:06:23Z"
+  },
+  "browser": [
+    {
+      "device": "pc",
+      "hiddenExcluded": true,
+      "oneSecondRequired": true,
+      "feed": true,
+      "sharedDetail": true,
+      "cookieExpiresWithin30Minutes": true,
+      "backend": "recording substitute; no production writes"
+    },
+    {
+      "device": "mobile",
+      "hiddenExcluded": true,
+      "oneSecondRequired": true,
+      "feed": true,
+      "sharedDetail": true,
+      "cookieExpiresWithin30Minutes": true,
+      "backend": "recording substitute; no production writes"
+    }
+  ],
+  "tests": {
+    "frontCheck": {
+      "command": "npm run check",
+      "exitCode": 0,
+      "passed": 538
+    },
+    "backend": {
+      "build": 0,
+      "realIsolatedDatabase": {
+        "pass": 7,
+        "fail": 0,
+        "command": "node --test tests/post-view-metrics.test.cjs"
+      },
+      "legal": {
+        "pass": 12,
+        "fail": 0
+      },
+      "openapi": {
+        "pass": 13,
+        "fail": 0
+      }
+    },
+    "docs": {
+      "command": "CREFANS_SERVER_DIR=../crefans_server-kakao-identity npm run check:docs",
+      "exitCode": 0
+    }
+  },
+  "limits": [
+    "Browser analytics POST was intercepted: no artificial production positive views.",
+    "Database concurrency/access/video cases used isolated MySQL, not production members.",
+    "iPhone 13 WebKit emulation, not physical iPhone.",
+    "30-minute visits are browser/member identities, not unique real people.",
+    "No historical metrics backfilled; new counts accumulate after deployment."
+  ],
+  "evidenceSha256": {
+    "crefans_front-kakao-identity/.local/view-metrics/final-check.log": "0c57605d9df035180b3c9f45d5c31428dc5e56a23d72275b80907de0cec81996",
+    "crefans_front-kakao-identity/.local/view-metrics/docs-final.log": "a5bf62b63d6288eb20a8c70a8ced52c05b3cda0042c5608f651533835e7b25fb",
+    "crefans_front-kakao-identity/.local/view-release/build.log": "068e43f3729a463384750669edafd8e91797093b21f90213f58f7fe87dc1b2dd",
+    "crefans_front-kakao-identity/.local/view-release/deploy.log": "9b0e5a3a7d82a4b993787334aa0e04deb671fd26187cb2e3c8f77b0be3b3a627",
+    "crefans_front-kakao-identity/.local/view-release/browser.log": "d4d6f00d2f88f0102ed2bd1e0b99247ac462c773cf80b01e086664de24d85c51",
+    "crefans_server-kakao-identity/.local/view-metrics/tests.log": "98603e058d325d2ef8e099cb302d1c5e400f441f20f7dac0bc670176817aede7",
+    "crefans_server-kakao-identity/.local/view-metrics/legal.log": "d76aba70c5173eb07440e1ac80073b8d4a2f025030f79117ad7d9ae2717b7ae0",
+    "crefans_server-kakao-identity/.local/view-metrics/openapi.log": "22c9bcf5154e7b2f142cc2d85a307261313dddbade742fcacf165669c357cc23"
+  }
+}
