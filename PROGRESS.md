@@ -1,3 +1,8 @@
+## 2026-11-03 마이페이지 멤버십 운영 배포 완료
+- dev→prod b072e32, crefans-front:my-profile-memberships-20261103 운영 적용. 추적소스1330개 일치·운영키 번들·HTTP200·다른컨테이너 불변 확인. 이전 이미지와 설정 보존.
+- PC/iPhoneWebKit 대역 회귀8통과, 운영 호스트의 공용preview PC/모바일에서 멤버십·관리이동·자기가입버튼없음·가로넘침없음 통과. 실계정 로그인/실물기기 검증은 아님.
+- 증거 docs/audit/my-profile-memberships-20261103.json 및 .local/my-profile-memberships-release/. 아래 진행중 기록은 당시 이력.
+
 ## 2026-11-03 마이페이지 멤버십 섹션
 - 내 크리에이터 프로필 헤더 아래·피드 탭 위에 공개 프로필과 동일한 MembershipPlanCard compact 표시. 판매 중 상품만 표시, 본인 버튼은 멤버십 관리(studio/memberships). 일반 팬·저장/좋아요 컬렉션 제외, 상품 없으면 빈 안내.
 - useServiceModel에서 본인 profiles API를 조회해 게시물이 없어도 plans 확보. 응답 세대 검사 유지. 서버/API 변경 없음.

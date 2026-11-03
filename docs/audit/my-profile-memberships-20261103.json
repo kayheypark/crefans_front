@@ -1,0 +1,64 @@
+{
+  "sourceCommit": "b072e32b78d770fad5fbe412f37628911aaf7d4c",
+  "recordedAt": "2026-11-03T14:29:23.583757+00:00",
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "e2e": {
+    "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-kakao-identity npx playwright test -c playwright.my-profile.config.ts my-profile-posts --grep 'own memberships|saved, liked|owner feed|failed profile'",
+    "exitCode": 0,
+    "passed": 8,
+    "scope": "API mocks; PC Chromium and iPhone13 WebKit",
+    "initialFailure": "sandbox DB connection; rerun with network permission succeeded"
+  },
+  "limitations": [
+    "No physical device test",
+    "No real authenticated production account test"
+  ],
+  "screenshots": [
+    "test-results/my-profile/my-profile-posts-own-membe-7f023-ement-not-self-subscription-pc/my-profile-memberships.png",
+    "test-results/my-profile/my-profile-posts-own-membe-7f023-ement-not-self-subscription-mobile-webkit/my-profile-memberships.png"
+  ],
+  "build": {
+    "commit": "b072e32b78d770fad5fbe412f37628911aaf7d4c",
+    "release": "my-profile-memberships-20261103",
+    "started": "2026-11-03T14:25:38.296750+00:00",
+    "finished": "2026-11-03T14:31:33.408675+00:00",
+    "exitCode": 0,
+    "keyEnvironment": "production",
+    "sourceCount": 1372
+  },
+  "deployment": {
+    "commit": "b072e32b78d770fad5fbe412f37628911aaf7d4c",
+    "sourceFilesVerified": 1330,
+    "productionKeyInBundle": true,
+    "otherContainersUnchanged": true,
+    "verifiedAt": "2026-11-03T14:32:01Z",
+    "image": "crefans-front:my-profile-memberships-20261103",
+    "http200": [
+      "/service/feed",
+      "/preview/post/moka-first-shoot",
+      "/api/v1/health",
+      "admin /login"
+    ]
+  },
+  "deployedBrowser": [
+    {
+      "device": "pc",
+      "section": true,
+      "managementNavigation": true,
+      "noSelfSubscribe": true,
+      "noOverflow": true,
+      "scope": "deployed shared preview; no real login or write"
+    },
+    {
+      "device": "iphone",
+      "section": true,
+      "managementNavigation": true,
+      "noSelfSubscribe": true,
+      "noOverflow": true,
+      "scope": "deployed shared preview; no real login or write"
+    }
+  ]
+}
