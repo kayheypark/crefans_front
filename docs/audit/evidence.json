@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T06:42:03.726546+00:00",
+  "checkedAt": "2026-11-03T06:50:17.639677+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "60b7ad85cba3c85f1ed19d1b2ffc498ad6811746",
-      "branch": "fix/kakao-sdk-initialization",
+      "head": "7dc201aa8db7baf06d38de81d32d59489aadb6e2",
+      "branch": "docs/kakao-share-deployment",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "99397248ff85bb431c62c44365762b73970f276633edd513cf6f9dce32a0fdf0",
-      "front/PROGRESS.md": "8e8cd122665ef86b21294eaf066fd146076eb16eeb79c5a1fd4165678fa3602a",
+      "front/PROGRESS.md": "9003c7293c485205d8809ef8f3497c97cd0e1562b2fbba7274d5c76d7885cacc",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -67,7 +67,7 @@
       "front/docs/service-api-binding.md": "04b9ab6a9f8d2a956d2e8c2a02557cce117d86408df39df3c1b707737aea86a6",
       "front/docs/service-hierarchy.md": "dd4a37755a264b41827e5882b604235cd1b0b3f937737ae3c05f798c0578baf3",
       "front/docs/setting.md": "734855c98418279c8bd51684e1337f4122a17f774b2a8b3dd0f1a0b5c1490a51",
-      "front/docs/third-party-setup.md": "8cd3b9f94446bd9938dee5bc8466cd06235dcda405c072ab3d251d92506ec0e3",
+      "front/docs/third-party-setup.md": "58fa0eda39a3abcca0a5fdb03a35f463f2209db5c02cbeed3f26fed158bd96ad",
       "front/docs/ui-migration-plan.md": "e243d526880f884bf698c6cd5c7b3ea32906f3c1dbaea05e98437561900ef4d8",
       "front/docs/withdrawal-security-pass.md": "7e17b17eb95d875175d6185d8fc18691b9397c4fb2c3f1b027191ed918382174",
       "front/output/crefans-design-review-v1/ART-DIRECTION.md": "a83011273e52675121a2c3a1158b987fe085488af94a5e332e44c26551a8685a",
@@ -120,7 +120,7 @@
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "ed2365e32d3b8606769e49a8a8479af5419bacaa79e0679da30257b274ee341c"
+      "audit/manifest": "c2a2aaa6cd1160211a95e0c2f8bc70330743f92a201d66a953b9a8d7730ef803"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
