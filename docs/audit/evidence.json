@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T14:45:16.869540+00:00",
+  "checkedAt": "2026-11-03T21:11:49.231495+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "5289782453d65eb77754b22c65d4fe6fb3fc344f",
-      "branch": "fix/studio-fan-label",
+      "head": "b116de0a3155618b23e13940045671facf106e47",
+      "branch": "chore/offhost-recovery",
       "dirty": true
     },
     "server": {
@@ -42,8 +42,8 @@
   },
   "state": {
     "documents": {
-      "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "302c3a69af7fa9364afd778d911add8f65b08559cfb24c2f68b9f7b06ed8d95b",
+      "front/AGENTS.md": "27b03fc5e1eae89d0734088c2981cdb4fdf97b6224b5eb26393ebc5e0841f366",
+      "front/PROGRESS.md": "61d391d00e4bfa6455607345d16a641b0827199c7ff33808a5c1194f2f591a72",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -118,7 +118,7 @@
       "server/lambda/custom-message/README.md": "a28d7e8506634078412940aaace8c6cedec92a21ffc16a638d73d561963e0024",
       "server/lambda/subscription-billing/README.md": "6535068f9ccfa805f58bc3a89f34af0e4db2abcd6e303c85e01f530603481d98",
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
-      "guidance/home": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
+      "guidance/home": "35e340d422d8bf91a3da174dcae8da3e12b673ca878fe3dbc54212446471d0eb",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
       "audit/manifest": "c2a2aaa6cd1160211a95e0c2f8bc70330743f92a201d66a953b9a8d7730ef803"
     },

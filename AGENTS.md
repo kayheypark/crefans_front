@@ -177,9 +177,9 @@ style: 공통 컴포넌트 코드 포맷 정리
 
 - 콩 후원은 server `docs/platform-implementation.md`의 콩 확장 설계를 따른다. 구형 Wallet/Transfer와 신규 Bean 원장을 자동 혼합하지 않고, 충전·후원·출금은 중복 집계하지 않는다. 공유 지갑/후원/출금과 독립 콘솔은 연결되어 있다. 기능/live 판매 기본 off 및 실공급자 미확인 경계·배포 상태는 PROGRESS.md에서 확인한다.
 
-- 운영 이미지 빌드 전 `python3 infra/platform/deploy-preflight.py`로 여유공간(기본8GiB)·Docker 연결을 확인한다. 프론트/API는 순차 빌드하고 이미지 내부 소스 해시를 대조한다. 배포 압축은 가능하면 스트리밍하고 과거 생성 아카이브·오래된 미사용 빌드 캐시만 정리한다. DB 볼륨/운영 복구 이미지는 자동 삭제하지 않는다.
+- 운영 이미지 빌드 전 `python3 infra/platform/deploy-preflight.py`로 여유공간(기본8GiB)·Docker 연결을 확인한다. 프론트/API는 순차 빌드하고 이미지 내부 소스 해시를 대조한다. 배포 압축은 가능하면 스트리밍하고 과거 생성 아카이브·오래된 미사용 빌드 캐시만 정리한다. DB 볼륨은 삭제하지 않는다. 복구 자료는 아래 운영 외부 보관 규칙을 따른다.
 - 2026-10-29: 배포 후 `osascript -e 'quit app "Docker"'`로 Docker Desktop을 끄지 않는다. 두 번 연속 반쯤 멈춘 상태로 남아 다음 `docker info`/빌드가 걸렸다. 걸리면 Docker 프로세스를 강제 종료 후 `open -a Docker`로 재시작하고, `docker` 호출은 시간 제한(예: `perl -e 'alarm 8; exec @ARGV' docker info`)을 둔다.
-- 배포·운영 검증 성공 후 `python3 infra/platform/image-retention.py --keep 3`로 계획을 확인하고 `--apply`로 로컬과 운영(`ssh HOST 'sudo -n python3 - --keep 3 --apply' < infra/platform/image-retention.py`)에서 crefans-front/api/admin 저장소별 최신 3개(현재+직전2)와 사용 중·`--protect` 태그만 남긴다. 다른 이미지·볼륨·DB는 대상이 아니며 강제 삭제하지 않는다. 결과 JSON은 해당 배포 폴더에 보존한다. 태그 조회가 No such image로 실패해도 목록에 있는 경우, 정확한 계획 ID·해당 단일 태그·동일 저장소 digest·미사용을 재확인할 때만 ID로 일반 삭제할 수 있다. 다른 태그나 사용 중 이미지는 거부한다.
+- 2026-11-04 사용자 지시: 복구용 이미지·DB/설정 배포백업을 운영 서버에 장기 보관하지 않는다. 운영 밖 비공개 저장소(현재 `/Users/ethan/crefans-recovery`, 디렉터리700/파일600)에 먼저 전송하고 SHA-256·아카이브 무결성·이미지 태그/ID를 검증한 뒤 서버 사본을 정리한다. 운영에는 컨테이너가 사용하는 이미지와 진행 중 배포에 필요한 일시 자료만 둔다. 사용 중 이미지·볼륨·실제 설정·업로드는 삭제 금지. 복구는 외부 아카이브 재전송/docker load로 수행한다. 전송 또는 검증 실패 시 원본 보존. 예전 keep3 운영 보관 지침은 폐기한다.
 
 - 터치 기기(`hover:none`·`pointer:coarse`)의 텍스트 입력·textarea·select는 전역 CSS에서 최소 16px로 유지하여 iPhone 입력 자동 확대를 방지한다. PC 글자 크기는 유지하고 `user-scalable=no`·`maximum-scale=1`로 수동 확대를 차단하지 않는다. 체크박스·라디오·파일·색상·범위·버튼 입력은 이 글자 규칙에서 제외한다.
 - 2026-10-30 사용자 지시: 멤버십 가격은 원화로만 표시한다. 멤버십을 콩 개수나 "N콩 상당"으로 환산해 보여 주는 화면·모달·문구를 만들지 않는다(멤버십은 원화 카드 정기결제, 콩 구독 불가). 게시물 머리 둘째 줄에 `월 ₩가격`(여러 등급이면 최저가 "부터")을 표시한다.
