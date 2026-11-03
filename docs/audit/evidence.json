@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T11:58:50.977888+00:00",
+  "checkedAt": "2026-11-03T13:01:39.576121+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "63633a8a18f6aaa40fa99521af0f242a2cb91874",
-      "branch": "integration/settings-colors-prod",
+      "head": "5f45831ee3e3c4f46c954566dbb45d099ecd6d64",
+      "branch": "feat/dashboard-advertising-shortcut",
       "dirty": true
     },
     "server": {
@@ -43,12 +43,12 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "cc86f4489473c9f51aa33cc4839daf759a8d6d882df5aea362321f0c2cac588f",
+      "front/PROGRESS.md": "bffa50e3c11ba4df91a04f4b033b451901a36086a6dae82ce22c5a951b5b596e",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "5f4a7df95c27cbc3091960f1f9b3d35021640b7e99bd906386dd909a067f5460",
+      "front/docs/design-system.md": "90ca5a901f04d06a10c49b0a8f3b4e6dcb0ded72dc3ba81324461b58bf661155",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -275,7 +275,7 @@
       "front/components/crefans/studio/AdvertisingPage.tsx": "57223ac707ad59bc706a8aeeed613131bd7f3ae9650850d984d8642097075a91",
       "front/components/crefans/studio/CommunityPages.tsx": "084083090210b964e84d566dccfcd81551563a85eb0d753f27596416ee9bb32c",
       "front/components/crefans/studio/ContentPostPreview.tsx": "0901b7179a5b908fc7f0fe392fd9d67b785d4bf7207c18a34eba7e496c829e6a",
-      "front/components/crefans/studio/DashboardPage.tsx": "93e5bec66a079e6636999d0595e57c7c2d589d79ffe923477d5db99c1c9fda89",
+      "front/components/crefans/studio/DashboardPage.tsx": "7e329cf230c6d4a574fdd7079670daa8bacbe49be6877cb111c9d07fa8a23b36",
       "front/components/crefans/studio/FinancePages.tsx": "6c0764f86ffd7aeedf65b8db9e965261783b76a5216859ed7f7cae2d0d7d9f06",
       "front/components/crefans/studio/ManagementPages.tsx": "78a065e0c8fb76f2eb1ce8869e0c2429e9ca87af99134d612e2100e3d3feb1ef",
       "front/components/crefans/studio/OverviewPages.tsx": "62772b4f2c64a02cec4fbc6814d816824bb69c032947d0a1771b8f453aa09a4a",
