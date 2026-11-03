@@ -1,0 +1,98 @@
+{
+  "verifiedAt": "2026-11-03T07:17:24.321319+00:00",
+  "release": "kakao-share-images-20261103",
+  "frontendCommit": "76d7da57da44cc6e8270becbdb304b6d93d17a45",
+  "backendCommit": "3ed112e18cc3df1abdf01bb4ad4141413119755c",
+  "frontCheck": {
+    "command": "npm run check",
+    "passed": 535,
+    "exitCode": 0
+  },
+  "backend": {
+    "command": "npm run build; node --test tests/share-image.test.cjs",
+    "buildExit": 0,
+    "localPassed": 11,
+    "localSkippedVideo": 1,
+    "isolatedProductionImagePassed": 12,
+    "isolatedExitCode": 0
+  },
+  "browser": [
+    {
+      "device": "pc",
+      "passed": true,
+      "developmentKeyVerified": true,
+      "provider": "SDK substitute",
+      "actualMessageSent": false
+    },
+    {
+      "device": "mobile",
+      "passed": true,
+      "developmentKeyVerified": true,
+      "provider": "SDK substitute",
+      "actualMessageSent": false
+    }
+  ],
+  "productionImages": [
+    {
+      "post": "51a902d3-dddc-4fb9-ba37-2aafcac5e0e0",
+      "media": [
+        "image",
+        "image"
+      ],
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "bytes": 50184,
+      "fallback": false
+    },
+    {
+      "post": "a93d14e2-e918-4721-b2d0-b7c91e9d2edc",
+      "media": [
+        "image"
+      ],
+      "status": 200,
+      "width": 1200,
+      "height": 630,
+      "bytes": 78670,
+      "fallback": false
+    },
+    {
+      "case": "missing post fallback",
+      "status": 200
+    }
+  ],
+  "realSdk": [
+    {
+      "device": "pc",
+      "realSdkInitialized": true,
+      "buttonEnabled": true,
+      "popupStatus": {
+        "host": "accounts.kakao.com",
+        "loginOrRecipientPage": true
+      },
+      "actualMessageSent": false
+    },
+    {
+      "device": "mobile",
+      "realSdkInitialized": true,
+      "buttonEnabled": true,
+      "popupStatus": "not attempted: mobile app handoff requires physical device",
+      "actualMessageSent": false
+    }
+  ],
+  "deploymentExitCode": 0,
+  "migration": false,
+  "scope": "API/worker changed files only; frontend full prod build; admin/database/proxy unchanged",
+  "limits": [
+    "Actual Kakao message not sent",
+    "Physical mobile receive not tested",
+    "Production public feed currently has only photo posts; video verified in isolated image"
+  ],
+  "logs": {
+    "crefans_front-kakao-identity/.local/kakao-images-front-check.log": "0af4d593ed0fa4fac9fdab4335d7058aa12db137e515ef30a405427fb56b374a",
+    "crefans_front-kakao-identity/.local/share-release/deploy.log": "811cd27990c113afe28fd9cd633b6d6067307ba99b2dfcaf9be4cdc2217b3215",
+    "crefans_front-kakao-identity/.local/share-release/build.log": "3f78f53711e91e422df7a9dedeefff12fb6d60f1cc0b9178b840e45db3b7f3c3",
+    "crefans_server-kakao-identity/.local/share-images-build.log": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2",
+    "crefans_server-kakao-identity/.local/share-release/build.log": "a044b20d01e70ae35076cced25de0f6784eeef8be3fcbe15ceb8c57558da1d34"
+  }
+}
