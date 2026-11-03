@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T14:44:36.456606+00:00",
+  "checkedAt": "2026-11-03T14:45:16.869540+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "3b169f2d3e34299cd4515a9d63808efe9848b3e4",
-      "branch": "integration/gallery-nav-prod",
+      "head": "5289782453d65eb77754b22c65d4fe6fb3fc344f",
+      "branch": "fix/studio-fan-label",
       "dirty": true
     },
     "server": {
@@ -43,12 +43,12 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "f3e15f86f90c4db3cd26bc139754d9c02c962389ba753635745d4c14b851fdcd",
-      "front/PROGRESS.md": "a546944adef78ae2da53cd1c38a410492594c54197fa18944218fae9dd78e512",
+      "front/PROGRESS.md": "302c3a69af7fa9364afd778d911add8f65b08559cfb24c2f68b9f7b06ed8d95b",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "c73263f40ab2391d7f6d30a83416d13ea886f4e882d962883f3422367c4b0f6a",
+      "front/docs/design-system.md": "6109ea832a648d9d9ff3c5845f185356eb66f90b7ad2542a29f1fccc5d774646",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -282,7 +282,7 @@
       "front/components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
       "front/components/crefans/studio/ReportPage.tsx": "8faa564cedf335b708efc3d15ff8d2e34c5b4127b72447e327602e59e1faf2d1",
       "front/components/crefans/studio/StudioCommentReply.tsx": "c9a18ec81fdd19c797fb8a69224ff65d0fd29526de5a172bad67e82689a0b536",
-      "front/components/crefans/studio/StudioShell.tsx": "9285374695a3863cd5e1f3efc87578d7cfd2da67c7a02cc4c84e1e33109435e5",
+      "front/components/crefans/studio/StudioShell.tsx": "510bb2a31685183fc13cd0eb9131f6cb591ba9defe90e803ad424bc7985c95db",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "a855269a3dd557a7d095336ec24c731d454aa06b643464c2234239a2dd0b99fe",
       "front/components/crefans/studio/advertising.module.css": "49a30e2d04279d3c8689feba979f46de2e7e93ce82ea7ca73527379a42b851aa",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
@@ -490,7 +490,7 @@
       "front/docs/design/bean-style-variants-v1.generation.json": "457f43fdf9bae3057d16a6fbe9d9f58f650f7da015124c3fc9731d7493ac5bd8",
       "front/docs/design/landing-concepts-20261103.json": "c5e296c1f87ad34bccbe0242bb52b82a80cdda11dc30501c092e62a35d2f4c14",
       "front/docs/design/post-support-icon-v1.generation.json": "18a6f9a3532c4254a637a25231522910e7342d12b550200f4ae9814bafa78743",
-      "front/e2e/advertising.spec.ts": "03fae6f7f0a013c685f6e6c99cfcd90963a081827135956d070024e572f87673",
+      "front/e2e/advertising.spec.ts": "ff83c2a23c717dfd1418812c50190233b0612ce76c355c429289d75ce74c8bbf",
       "front/e2e/bean-refund-closing.spec.ts": "18d465af89285edc024f20a332422051ef376b6b6e8513f69c5f20be5a7231b4",
       "front/e2e/beans.spec.ts": "8569fda5bae0d71e5022f990f0cf723801b41d49d79ac32e73a519ed7a494a34",
       "front/e2e/beta-closed.spec.ts": "7446ab3031a1af0290d2434184f0f061a5b78fa7fdd12d1fb9d49a169ac0da33",
