@@ -4,8 +4,15 @@ export function postShareData(origin:string,basePath:string,id:string,title:stri
   return {title:`${title} | 크레팬스`,url:new URL(`${basePath}/post/${encodeURIComponent(id)}`,origin).href};
 }
 
-export function kakaoShareTemplate(data:PostShareData){
-  return {objectType:'text' as const,text:Array.from(data.title).slice(0,200).join(''),link:{webUrl:data.url,mobileWebUrl:data.url},buttonTitle:'게시물 보기'};
+/** Public endpoint rechecks access without the sender's cookies; never share an authenticated media URL. */
+export function postShareImage(origin:string,basePath:string,id:string,previewImage?:string){
+ const path=basePath==='/service'?`/api/v1/media/posts/${encodeURIComponent(id)}/share-image`:
+  previewImage&&/^\/(?:brand|illustrations)\//.test(previewImage)?previewImage:'/brand/share/default-post-v1.jpg';
+ return new URL(path,origin).href;
+}
+export function kakaoShareTemplate(data:PostShareData,imageUrl=new URL('/brand/share/default-post-v1.jpg',data.url).href){
+ const link={webUrl:data.url,mobileWebUrl:data.url};
+ return {objectType:'feed' as const,content:{title:Array.from(data.title).slice(0,200).join(''),imageUrl,imageWidth:1200,imageHeight:630,link},buttons:[{title:'게시물 보기',link}]};
 }
 
 type KakaoSDK={init:(key:string)=>void;isInitialized:()=>boolean;Share:{sendDefault:(data:ReturnType<typeof kakaoShareTemplate>)=>void|Promise<unknown>}};
@@ -32,7 +39,7 @@ export function prepareKakaoShare(key=kakaoJavaScriptKey):Promise<void>{
 }
 
 /** Called synchronously from the button click after preloading, retaining user activation. */
-export function shareToKakao(data:PostShareData){
+export function shareToKakao(data:PostShareData,imageUrl?:string){
   if(!window.Kakao?.isInitialized())throw new Error('KAKAO_UNAVAILABLE');
-  return window.Kakao.Share.sendDefault(kakaoShareTemplate(data));
+  return window.Kakao.Share.sendDefault(kakaoShareTemplate(data,imageUrl));
 }
