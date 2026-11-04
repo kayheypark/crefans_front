@@ -1,0 +1,41 @@
+{
+  "repository": "crefans_front",
+  "commit": "412bee7709949789853898b2a358cf765d782d5c",
+  "workingTreeAtBuild": "clean",
+  "deployedAt": "2026-11-04T11:15:46Z",
+  "release": "public-verified-20261104",
+  "build": "38 pages; exit 0",
+  "http": 200,
+  "otherContainersUnchanged": true,
+  "localChecks": {
+    "typecheck": 0,
+    "layers": 0,
+    "browserCases": 6,
+    "scope": "PC Chromium / iPhone13 WebKit; granted and revoked API mock, static badge under optimizer failure, preview pages",
+    "initialFailures": "Mobile dev navigation interruption twice, resolved by clearing prior document before each navigation; initial occupied port changed"
+  },
+  "productionBrowser": {
+    "command": "npx playwright test -c .local/public-verified-release/playwright.config.ts",
+    "exitCode": 0,
+    "passed": 2,
+    "scope": "anonymous real public profile /crefans, feed and gallery; PC and iPhone WebKit; actual image decoding checked; non-GET API requests intercepted to avoid analytics writes"
+  },
+  "cleanup": "Previous image and settings archived offhost with hash/OCI validation; old server image tag and temporary source removed",
+  "screenshots": {
+    ".local/public-verified-release/results/live-anonymous-verified-cr-207bc-llery-load-the-actual-badge-iphone/feed.png": "cd1ad1460d746ee998c1c089b6c677679a81c1a9cbb8ff358c1a6240076d4b30",
+    ".local/public-verified-release/results/live-anonymous-verified-cr-207bc-llery-load-the-actual-badge-iphone/gallery.png": "964d155e49bec47aeda0553119490119e80b68c5bd25ca0e738fa8d8a416283d",
+    ".local/public-verified-release/results/live-anonymous-verified-cr-207bc-llery-load-the-actual-badge-iphone/profile.png": "1208d96750892dbad22104dda2b1c533ead1792ee2307719dee339713e6e9e28",
+    ".local/public-verified-release/results/live-anonymous-verified-cr-207bc-llery-load-the-actual-badge-pc/feed.png": "8e1d6ccafeb3446a740b60609d02c0e6ca455bbcdb3bca7e0e91cb24435fb796",
+    ".local/public-verified-release/results/live-anonymous-verified-cr-207bc-llery-load-the-actual-badge-pc/gallery.png": "c39fb94e16b26f8ab3057428452e9a0ac3061de2bff6e294c10b3a3ccce2332d",
+    ".local/public-verified-release/results/live-anonymous-verified-cr-207bc-llery-load-the-actual-badge-pc/profile.png": "b7f07d19ebc4ae83a448b00b02beb801d6c5b0ecea6cd4715cfc9bc5f9f05b5f"
+  },
+  "limitations": [
+    "No physical iPhone test",
+    "No real signed-in account mutation"
+  ],
+  "paths": [
+    "components/crefans/CreatorName.tsx",
+    "public/brand/verified-creator-small-v1.png",
+    "e2e/creator-verification.spec.ts"
+  ]
+}

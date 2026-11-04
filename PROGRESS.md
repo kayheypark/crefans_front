@@ -3975,3 +3975,5 @@
 - 최신 prod10fa082 기준 분기. 공개 profiles/crefans 응답 isVerified=true와 DOM 배지 존재를 확인했지만 운영 Chromium에서10초 후에도 이미지 naturalWidth0. 직접 정적 경로로 변경한 대조에서는 정상 로드. 권한/판정 누락이 아닌 이미지 최적화 경로 의존 문제로 범위를 한정.
 - CreatorName 공통 인증 배지를 기존 원본 디자인의72px/4,689byte PNG로 사전 축소하고 unoptimized/eager 적용. isVerified===true 조건·기존 오픈 기념 배지·툴팁 유지. 서버/DB 변경 없음.
 - typecheck와 layers424 종료0. PC3건·iPhone3건 최종 통과: 공개 API 인증true/false, 프로필/피드/갤러리 이미지 로드, 이미지 최적화 요청 차단 상황, 기존9화면 순회. 모바일 개발모드 화면 전환 경합2회 실패는 화면 사이 about:blank 정리 후 통과. 처음 개발포트3055 사용중으로3087 변경. 운영 배포 전. 증거 .local/public-verified-badge/, e2e/creator-verification.spec.ts.
+
+- dev→prod412bee7 반영 후 public-verified-20261104 운영 배포 완료.38페이지 빌드·HTTP200·다른 컨테이너 불변. 실제 비로그인 /crefans·피드·갤러리 PC/iPhone2건 통과(이미지 decode 확인, 비GET API차단으로 조회수쓰기 방지). 배지 캡처 육안 확인. 기존 이미지·설정 외부 보관 검증 후 서버 이전 태그·임시소스 정리. 증거 docs/audit/public-verified-20261104.json. 실물아이폰·실로그인 계정 변경 미검증.
