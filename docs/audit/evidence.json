@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-04T06:12:35.642309+00:00",
+  "checkedAt": "2026-11-04T06:15:01.646752+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "309181ac154666439486b840b6fb6c5fbee7d837",
+      "head": "833d21e8c5acc922772800fbcb625f0c83f7f895",
       "branch": "feat/settings-event-badge",
       "dirty": true
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "27b03fc5e1eae89d0734088c2981cdb4fdf97b6224b5eb26393ebc5e0841f366",
-      "front/PROGRESS.md": "e4d61aaeb51ddaddeb5bf04792ea3a303cf7516a4c5fdb77dd58038603c46f7b",
+      "front/PROGRESS.md": "98aba2102119981f6bd882071ac9ccfeb7d33b93c55ef648b93682ebda18d3e3",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -190,7 +190,7 @@
       "front/components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
       "front/components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
       "front/components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
-      "front/components/crefans/AccountPages.tsx": "3f3cbd1a5a406f9edc7fc81d873a630e82a1843dcc80f09d8c91526112ecd169",
+      "front/components/crefans/AccountPages.tsx": "23a7158f8c456827f68b6563669cfc2d2519712cad59b730f1c8ac03642ba91b",
       "front/components/crefans/ApiState.tsx": "4df6f64b1ba3a6803c3f4798fb442487a0c7745698748018a084acbeb0cd14ae",
       "front/components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
       "front/components/crefans/BeanAttribution.tsx": "a3b1b773c5c27322dd0a96e02ac50c400dcb1e9009e94212296cc392b6496953",
@@ -681,7 +681,7 @@
       "front/lib/constants/modalStyles.ts": "4a80ae8bb24de98c42e2e168754a9db32beb297fbd177597726ff336cfd103cd",
       "front/lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
       "front/lib/content/business.ts": "2db80e0a5596628448dc29a5eb1a8a425d79ce19cc72f8b01d6340af281248f2",
-      "front/lib/content/events.ts": "fe729a464677804b244e5daf20166a4b3f6b407a5de7135ca7a94482cdb86bdb",
+      "front/lib/content/events.ts": "550938aee1c0b178b471e2db58b064e725df7a67cfb95ad92634c792113808e9",
       "front/lib/content/landing.ts": "e72c68777ed985c78f6c32577661fa47e90fa56fe8b5d556de3d2014193229ad",
       "front/lib/crefans/bean-history.ts": "37ff0f25c988145d715055a680c7996e68982d625ea9ee24e3cc7475c18a0868",
       "front/lib/crefans/bean-pricing.ts": "7c46cc21957c0a00adf8743a9ef4864b5201d04e19f971849c7f7a65cf890fa0",
