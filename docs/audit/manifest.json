@@ -1990,6 +1990,16 @@
       ],
       "reviewedAt": "2026-11-02",
       "reviewExtent": "신규 공개 파일 전체와 연결 URL, 서비스 개요 및 접근 범위 검토"
+    },
+    "server/infra/platform/backup-alerts/README.md": {
+      "kind": "current",
+      "review": "2026-11-04 사용자 승인 설치된 백업 실패 Telegram 알림. 전용채널/범위 필터/최소권한/테스트 발송과 실제 장애·읽음 미검증 경계를 구현 및 운영 증거와 대조.",
+      "evidence": [
+        "server/infra/platform/backup-alerts/handler.py",
+        "server/infra/platform/backup-alerts/notify.py",
+        "server/infra/platform/backup-alerts/server_notify.py",
+        "server/docs/backup-telegram-alerts-20261104.json"
+      ]
     }
   }
 }

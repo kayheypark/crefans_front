@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T22:20:43.913545+00:00",
+  "checkedAt": "2026-11-04T00:51:31.387608+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -8,10 +8,10 @@
   },
   "scope": "working trees; inline local Markdown file targets; AST routes; preview catalog; full Prisma source; template keys; package scripts; immutable original hierarchy",
   "summary": {
-    "documents": 76,
+    "documents": 77,
     "documentsByRepo": {
       "front": 41,
-      "server": 35
+      "server": 36
     },
     "routes": 200,
     "screens": 57,
@@ -19,7 +19,7 @@
     "enums": 15,
     "migrations": 54,
     "localMarkdownTargets": 460,
-    "externalInlineLinksNotFetched": 375
+    "externalInlineLinksNotFetched": 380
   },
   "negativeControls": [
     "missing-link rejected; valid-link accepted",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "615ee06dff1dcfe419935294cdca6bb34e51e578",
-      "branch": "integration/minimal-bundle-prod",
+      "head": "a6dec2e779231481ceec89b6104e5f81e141850f",
+      "branch": "docs/backup-alert-inventory",
       "dirty": true
     },
     "server": {
-      "head": "af99bc31145cc460135c2324c5293fcf239bd4f5",
-      "branch": "integration/minimal-bundle-prod",
-      "dirty": true
+      "head": "8a4d7adcf52c9c0e6bce6b4dac4208e6f934c4ea",
+      "branch": "integration/backup-alerts-prod",
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "27b03fc5e1eae89d0734088c2981cdb4fdf97b6224b5eb26393ebc5e0841f366",
-      "front/PROGRESS.md": "5ae1e0a8f0d8aac0144b011ef6441c6f8ed55e555b5f62cc6a76c54f2147eebb",
+      "front/PROGRESS.md": "1ad7e36e533445db18b1d0dafd715c32fc01d00f62f99f6cfea7ff9fed645ee6",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "31cffdd7c2b910546d50978551c1f89511704f2e8d6f5e0372a174a312d49c5d",
-      "server/PROGRESS.md": "6ee4ce9a459d15dba68bc9ef5a63186c95a76961dc9b54a5b2fc3b5025243aec",
+      "server/PROGRESS.md": "8364ac348f27a4a6a4fefaacd48b4c93a823da66e25c32065c1459ce8a9c59a9",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -114,13 +114,14 @@
       "server/docs/terms-draft-20261030.md": "1cca2dab6954932d9771d2d518b35510981b668becdbae6207085b5483265942",
       "server/docs/video-processing-cost-analysis.md": "fc3498863d51afdb158c670b708290b60b5077d280b9ce0f1c83442ca493fdd6",
       "server/infra/platform/README.md": "60a919fb2277806f09cb9d28c11b9716706d1ae593044a9203988f54da43786f",
+      "server/infra/platform/backup-alerts/README.md": "a88e21ed3aacd29edf20efb81ac7141c5e5b967cdab66cd7b375f138cac6e17a",
       "server/infra/platform/resilience-runbook.md": "6638bc17a1a9d45be828e8baaf0df7e2516d65f26271d5c6da6c69dcaa9082a2",
       "server/lambda/custom-message/README.md": "a28d7e8506634078412940aaace8c6cedec92a21ffc16a638d73d561963e0024",
       "server/lambda/subscription-billing/README.md": "6535068f9ccfa805f58bc3a89f34af0e4db2abcd6e303c85e01f530603481d98",
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "35e340d422d8bf91a3da174dcae8da3e12b673ca878fe3dbc54212446471d0eb",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "c2a2aaa6cd1160211a95e0c2f8bc70330743f92a201d66a953b9a8d7730ef803"
+      "audit/manifest": "f2f8aee9f371b9ccdcfeb80ba4e7ff8bc4636ef98fe8564fe96885a5fbcd67a4"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
@@ -272,7 +273,7 @@
       "front/components/crefans/service.module.css": "bab94c0f7b60a36df78b9e08b431ab4f9a7abe33dbbc22c2aa71d0fd61934e56",
       "front/components/crefans/signup-complete.module.css": "403afb7dd5fcb6ae4d619620e3c9f4b9f0ea236b5fc4b090f7ca13529e3f10e0",
       "front/components/crefans/social.module.css": "83b1d4eb4124ac3e8528991536c975586f4615aa2f6b2999bc66b401e9e2bb31",
-      "front/components/crefans/studio/AdvertisingPage.tsx": "3d2c2d455ea9bee3469031c00f0434e24da7b54ef7cc416bd4e2ddacf62c9652",
+      "front/components/crefans/studio/AdvertisingPage.tsx": "d032809027defff59693167f86936f985c85c7b309fd8db7b8e510e1b2aeb0ed",
       "front/components/crefans/studio/CommunityPages.tsx": "084083090210b964e84d566dccfcd81551563a85eb0d753f27596416ee9bb32c",
       "front/components/crefans/studio/ContentPostPreview.tsx": "0901b7179a5b908fc7f0fe392fd9d67b785d4bf7207c18a34eba7e496c829e6a",
       "front/components/crefans/studio/DashboardPage.tsx": "7e329cf230c6d4a574fdd7079670daa8bacbe49be6877cb111c9d07fa8a23b36",
@@ -284,7 +285,7 @@
       "front/components/crefans/studio/StudioCommentReply.tsx": "c9a18ec81fdd19c797fb8a69224ff65d0fd29526de5a172bad67e82689a0b536",
       "front/components/crefans/studio/StudioShell.tsx": "510bb2a31685183fc13cd0eb9131f6cb591ba9defe90e803ad424bc7985c95db",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "a855269a3dd557a7d095336ec24c731d454aa06b643464c2234239a2dd0b99fe",
-      "front/components/crefans/studio/advertising.module.css": "29d28ceea60e68351c4cf95665d91fe102bc5a1382a4d869b17104442bcb0afc",
+      "front/components/crefans/studio/advertising.module.css": "ebbd2482c80f4f70199c6145711558f823589aed597a6d8342a52d2a22f591bc",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-post-preview.module.css": "85ae1ecd65d443d3bc88c40fafb1b02d979a61b3015a2d42b208c6646ccb8aa0",
       "front/components/crefans/studio/dashboard.module.css": "0aeb8095c548c01baf300e4e3f4665eefaffa4521dbd0dde42b1b34ca1d94001",
@@ -490,7 +491,7 @@
       "front/docs/design/bean-style-variants-v1.generation.json": "457f43fdf9bae3057d16a6fbe9d9f58f650f7da015124c3fc9731d7493ac5bd8",
       "front/docs/design/landing-concepts-20261103.json": "c5e296c1f87ad34bccbe0242bb52b82a80cdda11dc30501c092e62a35d2f4c14",
       "front/docs/design/post-support-icon-v1.generation.json": "18a6f9a3532c4254a637a25231522910e7342d12b550200f4ae9814bafa78743",
-      "front/e2e/advertising.spec.ts": "cfba3deb1f70288144ed628493d7fd65cda7ffb3570e5b24ee1d811303d2ba3e",
+      "front/e2e/advertising.spec.ts": "95cbb7a47b1b9c1254d87042d2725d454f0102b406a50cec7f636a040d82e9bb",
       "front/e2e/bean-refund-closing.spec.ts": "18d465af89285edc024f20a332422051ef376b6b6e8513f69c5f20be5a7231b4",
       "front/e2e/beans.spec.ts": "8569fda5bae0d71e5022f990f0cf723801b41d49d79ac32e73a519ed7a494a34",
       "front/e2e/beta-closed.spec.ts": "7446ab3031a1af0290d2434184f0f061a5b78fa7fdd12d1fb9d49a169ac0da33",
@@ -680,7 +681,7 @@
       "front/lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
       "front/lib/content/business.ts": "2db80e0a5596628448dc29a5eb1a8a425d79ce19cc72f8b01d6340af281248f2",
       "front/lib/content/events.ts": "3fd3db4266b9669d6e310f9d52601f338de523978dd0578f883e6de59cde15ef",
-      "front/lib/content/landing.ts": "90216202afc6ae5863f9620b1a07bc4666d367453c909e95f9b7415fb2e61383",
+      "front/lib/content/landing.ts": "e72c68777ed985c78f6c32577661fa47e90fa56fe8b5d556de3d2014193229ad",
       "front/lib/crefans/bean-history.ts": "37ff0f25c988145d715055a680c7996e68982d625ea9ee24e3cc7475c18a0868",
       "front/lib/crefans/bean-pricing.ts": "7c46cc21957c0a00adf8743a9ef4864b5201d04e19f971849c7f7a65cf890fa0",
       "front/lib/crefans/bean-refund.ts": "1cdc411a03f4f5a56593447a5b1a2f9be45dbe80e9be75809206cfa80ad24ff2",
@@ -859,6 +860,7 @@
       "server/.env.example": "3466e8dfa35823ca88f7fe26b90a2ab8cbdae8e9b9fff2e4f84da3acde75c44c",
       "server/.github/workflows/deploy.yml": "d607939ff3d16e26f896f9949c60c179a0686da2ca60be5a9c02e180717ce51d",
       "server/docs/advertising-event-products-20261103.json": "329b3b035482eec78e464d5e3db796d0b20be61824c67458262900e8071eb021",
+      "server/docs/backup-telegram-alerts-20261104.json": "75af6c404af54e1f096f6a22425bed5d78d5aecbbb4bdaf5735a50d88bc5c6f3",
       "server/docs/bean-charge-expiry-20261031.json": "b55503724d834373fb83478115b5a29ff0ba34a272d17aba4991718d8d150503",
       "server/docs/billing-recovery-20261022.json": "1c85a11744574e357e856525c3a22a44521b543f5872d9f170e2a35d917740c5",
       "server/docs/contracts/build-contract-html.py": "f0951918e0e2b7a89c21b338d1bece99c0a7e50c6cec02d3ff4b183272e762fa",
@@ -892,6 +894,11 @@
       "server/docs/watermark-20261101.json": "10fadd12fc2e95ef51bf543e15f69b1d15d0eecfbb212d70a63835847c287b18",
       "server/infra/platform/Caddyfile": "de85b711d8f4eb6d61ec61636fe9b18362d240667bb41004cf681625e58b6125",
       "server/infra/platform/Dockerfile": "387de6623a7c7bec5de68d6fb2f1d4e46adee5ac017d91f35b210b12d2a443b0",
+      "server/infra/platform/backup-alerts/10-alert.conf": "91526945c07a01747e3b28da95758a01d05075b095d4ab77c6d39ca3c6755c76",
+      "server/infra/platform/backup-alerts/handler.py": "10ae2ccd4459e5bceea8270b8ce762a7d8f203850ab4a962ea6fea8729b61715",
+      "server/infra/platform/backup-alerts/notify.py": "ed31f21719b7298fd4ed7d211978eef336f80cff9bd04b45b8c82519a066ac90",
+      "server/infra/platform/backup-alerts/server_notify.py": "1109b8179c0a02e36897eb0df061ae387f769091645be340379a93f26dc8ae99",
+      "server/infra/platform/backup-alerts/test_alerts.py": "f4202e68e7ee6c6748da4d919db821234c60e63c484204fad2fa8c2272bb8a19",
       "server/infra/platform/compose.admin.yml": "def7c2a421a915d8f745de716149bf95963bc4bd02528b40fab6af2dc26dbe70",
       "server/infra/platform/compose.beta.yml": "05303c0929458924dddddcec0ae99dc782cbe4d8143c9e8befdd87fa4303fc3f",
       "server/infra/platform/compose.cloudwatch.yml": "baeef45d27e312bdee10b233e00f1a72df87cabeb4041197d7ca8f2663e9c29b",
