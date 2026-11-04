@@ -3981,3 +3981,4 @@
 ## 2026-11-04 프로필 후원 버튼 스타일 복구
 - prod412bee7 기준 분기, 이전 미푸시 배포 증거41bd9f9 포함. 공통 Action secondary 배경/글자색이 walletCharge 단일클래스보다 우선하여 흰색으로 보이는 문제. 기존 profileTip 이중클래스에 원래 초록 그라데이션·흰 글씨·700굵기 명시, 기존44px 높이와 후원 로직 유지.
 - typecheck 종료0. PC Chromium/iPhone13 WebKit2건 통과: 기본/포커스 및 PChover 배경·색상·44px높이, 후원 모달 진입. 최초 목업 본인haneul은 후원 버튼이 없어 실패, 타크리에이터jiwoo로 고쳐 통과. .local/profile-tip-style/. 운영 배포 전, 실제 후원 실행 없음.
+- profile-tip-20261104 운영1차 배포에서 모바일 기본/클릭 정상, PC hover는 공통 secondary 선택자와 동일 specificity여서 운영 CSS 순서에 따라 실패. 운영 검증에서 발견해 추가 수정: hover 선택자에 기존 aria-disabled 조건을 포함하여 우선순위 확보. 개발 검사만으로 운영 CSS 순서 문제를 확인할 수 없었으므로 재배포 후 운영 PC hover를 다시 검사한다.
