@@ -3977,3 +3977,7 @@
 - typecheck와 layers424 종료0. PC3건·iPhone3건 최종 통과: 공개 API 인증true/false, 프로필/피드/갤러리 이미지 로드, 이미지 최적화 요청 차단 상황, 기존9화면 순회. 모바일 개발모드 화면 전환 경합2회 실패는 화면 사이 about:blank 정리 후 통과. 처음 개발포트3055 사용중으로3087 변경. 운영 배포 전. 증거 .local/public-verified-badge/, e2e/creator-verification.spec.ts.
 
 - dev→prod412bee7 반영 후 public-verified-20261104 운영 배포 완료.38페이지 빌드·HTTP200·다른 컨테이너 불변. 실제 비로그인 /crefans·피드·갤러리 PC/iPhone2건 통과(이미지 decode 확인, 비GET API차단으로 조회수쓰기 방지). 배지 캡처 육안 확인. 기존 이미지·설정 외부 보관 검증 후 서버 이전 태그·임시소스 정리. 증거 docs/audit/public-verified-20261104.json. 실물아이폰·실로그인 계정 변경 미검증.
+
+## 2026-11-04 프로필 후원 버튼 스타일 복구
+- prod412bee7 기준 분기, 이전 미푸시 배포 증거41bd9f9 포함. 공통 Action secondary 배경/글자색이 walletCharge 단일클래스보다 우선하여 흰색으로 보이는 문제. 기존 profileTip 이중클래스에 원래 초록 그라데이션·흰 글씨·700굵기 명시, 기존44px 높이와 후원 로직 유지.
+- typecheck 종료0. PC Chromium/iPhone13 WebKit2건 통과: 기본/포커스 및 PChover 배경·색상·44px높이, 후원 모달 진입. 최초 목업 본인haneul은 후원 버튼이 없어 실패, 타크리에이터jiwoo로 고쳐 통과. .local/profile-tip-style/. 운영 배포 전, 실제 후원 실행 없음.

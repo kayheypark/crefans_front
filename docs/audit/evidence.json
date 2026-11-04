@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-04T11:16:31.690313+00:00",
+  "checkedAt": "2026-11-04T13:09:38.179936+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "412bee7709949789853898b2a358cf765d782d5c",
-      "branch": "docs/public-verified-evidence",
+      "head": "41bd9f9eef439f3a4a5be6e0a47f1524cabb6c29",
+      "branch": "feat/profile-tip-style",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "27b03fc5e1eae89d0734088c2981cdb4fdf97b6224b5eb26393ebc5e0841f366",
-      "front/PROGRESS.md": "dbaf84947fafe62baba500b6b4a2cda02f4c6ed00ba2ec6dd57cc049e89260ff",
+      "front/PROGRESS.md": "b75cf615ea74ca0cc7e09c59fe11cea9bea8968f3f63c4ada6f0c9a35f4625f8",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -250,7 +250,7 @@
       "front/components/crefans/SocialPages.tsx": "2876bad3367e363900e2c7801215ef9538e8f85fa5cdf666b517b170c6b7d071",
       "front/components/crefans/account.module.css": "a14071a6cfbdd048cda7bb5ade53b292a8f58c2c487d5680c4b5534b2635cccd",
       "front/components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
-      "front/components/crefans/beans.module.css": "4a72500deb00eddac87798895c798bd922c287e8a387a832c62d357d7ef1377c",
+      "front/components/crefans/beans.module.css": "76873c1f1170ec05db95bf0d1cc3fe8b9fd15af3d4b8273fa662935383578a2c",
       "front/components/crefans/brand.module.css": "65d9cc3926d095f6d120bce555e570fff4bbd1bf8068f77da0923501fc1c0da1",
       "front/components/crefans/business-info.module.css": "a03c1ad7f0814f47c916bc4a8c056f0d3fdd75a8bf4d2fb2ce2e7c3cefc113b5",
       "front/components/crefans/common.module.css": "03fb9818a805496ac43d86272864bcc970d09da22b59169f6666f9d7fe5e6f53",
