@@ -1,0 +1,50 @@
+{
+  "at": "2026-11-04T00:24:38Z",
+  "commit": "c95392bd5211cac2a5d4968a40e9428e2b870ff3",
+  "image": "crefans-front:ad-detail-20261104",
+  "landingStatus": 200,
+  "otherContainersUnchanged": true,
+  "restartCount": 0,
+  "localChecks": {
+    "typecheck": true,
+    "browserTests": 9
+  },
+  "buildPages": 38,
+  "deployedPreviewChecks": [
+    {
+      "name": "pc",
+      "specialBadge": true,
+      "sharedLayout": true,
+      "disclosure": true,
+      "landing": true
+    },
+    {
+      "name": "iphone",
+      "specialBadge": true,
+      "sharedLayout": true,
+      "disclosure": true,
+      "landing": true
+    },
+    {
+      "name": "narrow",
+      "specialBadge": true,
+      "sharedLayout": true,
+      "disclosure": true,
+      "landing": true
+    }
+  ],
+  "docsCheck": {
+    "exitCode": 1,
+    "reason": "unreviewed unrelated server backup-alerts README"
+  },
+  "cleanup": {
+    "offhostArchiveVerified": true,
+    "previousImageTagRemoved": true,
+    "temporarySourceRemoved": true,
+    "freeBytes": 9634168832
+  },
+  "limits": [
+    "No real payment or signed-in purchase test",
+    "Backup Telegram installation remains pending separate approval"
+  ]
+}

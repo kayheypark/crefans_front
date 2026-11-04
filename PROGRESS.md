@@ -1,3 +1,11 @@
+## 2026-11-04 광고 상세 모달·랜딩 문구 운영 배포 완료
+- 사용자 전체 배포 요청. dev b0932ae→prod c95392b, 운영 프론트 ad-detail-20261104로 교체. 랜딩 “2026년 12월, 새로운 팬 플랫폼이 등장합니다” 및 공통 간결 모달/빨간 특가 반영. API/worker/admin/DB/proxy ID 불변, migration 없음.
+- 타입검사·PC/iPhoneWebKit/320px E2E9통과. 운영 Next빌드38페이지 성공. 배포된 공용preview PC/아이폰/320px3환경에서 특가빨강/일반상품 같은정보3행/안내접힘펼침·랜딩문구/가로넘침없음 확인, 캡처 육안확인. 서비스 landing HTTP200·프론트running/restarts0/OOMfalse. 실제계정 구매/실PG 미검증.
+- 최초 빌드 준비 원격Python 줄바꿈 문법오류로 운영변경전 실패, raw string 수정후 빌드성공. 현재 운영 이미지의 동일 lock SHA를 검사해 기존 의존성/운영 카카오 키를 상속, prod 소스 전체복사후 재빌드.
+- 이전 프론트 이미지 및 설정 외부 /Users/ethan/crefans-recovery/20261104/ad-detail 보관·OCI blob/ID/SHA검증. 완료후 직전이미지 태그와 이번임시소스 제거, 활성이미지 필요한 레이어 유지. 여유9634168832bytes.
+- 문서 통합검사는 별도 미배포 server/infra/platform/backup-alerts/README.md 미등록으로 실패(종료1); 통과 주장하지 않음. 텔레그램 알림 설치는 별도 승인 검토 차단 상태로 이번 배포 제외. 이 외 이번 대화에서 완료한 화면 변경 반영.
+- 증거 docs/audit/ad-detail-20261104.json 및 .local/ad-detail-release/{build.log,build-first.log,deployment.json,browser.json,cleanup.log,*png}. 아래 미배포 기록은 과거 상태.
+
 ## 2026-11-04 광고 특가 상세 모달 간소화 (배포 준비)
 - 일반/특가 동일 구조: 상품명·위치·기간·가격·사용안내, 상세 설명/비교가격 근거/구매취소 조건은 공통 details로 접어 제공. 특가 제목 왼쪽 기존 danger 빨간색 “특가” 유지. 금액/할인 계산/조건/구매 가능 여부 변경 없음.
 - 랜딩 출시 문구 변경 포함. 타입검사 종료0, PC/iPhoneWebKit/320px E2E9통과: 빨간 특가/접힘펼침·목업구매·실API대역오류·기본4/특가4 및 공용디자인시스템. 최초 sandbox bind실패 후 허용된 로컬 실행 성공. 실제 PG 미검증.
