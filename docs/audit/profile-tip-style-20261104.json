@@ -1,0 +1,23 @@
+{
+  "repository": "crefans_front",
+  "commit": "a1d639d5a6c52b4f386b4dec1eab52570c942979",
+  "workingTreeAtBuild": "clean",
+  "deployedAt": "2026-11-04T13:30:42Z",
+  "release": "profile-tip-hover-20261104",
+  "build": "38 pages, exit 0",
+  "http": 200,
+  "otherContainersUnchanged": true,
+  "verification": {
+    "command": "LIVE_QA=1 npx playwright test -c .local/profile-tip-style/playwright.config.ts",
+    "exitCode": 0,
+    "passed": 2,
+    "scope": "production anonymous /crefans; PC Chromium and iPhone13 WebKit; green gradient, white text, 44px, focus, PC hover, modal opens; non-GET API blocked"
+  },
+  "initialFailures": "Own creator preview has no tip button, changed to other creator. First deployment mobile passed but PC hover failed due equal CSS specificity; fixed selector and redeployed; final live check passed without overrides.",
+  "cleanup": "Both superseded images and configs verified offhost; server tags and temporary source removed",
+  "limits": [
+    "No actual donation",
+    "No physical iPhone test"
+  ],
+  "source": "components/crefans/beans.module.css"
+}
