@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-04T00:51:31.387608+00:00",
+  "checkedAt": "2026-11-04T04:35:05.292895+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "a6dec2e779231481ceec89b6104e5f81e141850f",
-      "branch": "docs/backup-alert-inventory",
+      "head": "73c74e4037b80d22367bfe78dfc4865ee8483961",
+      "branch": "feat/gallery-half-height",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "27b03fc5e1eae89d0734088c2981cdb4fdf97b6224b5eb26393ebc5e0841f366",
-      "front/PROGRESS.md": "1ad7e36e533445db18b1d0dafd715c32fc01d00f62f99f6cfea7ff9fed645ee6",
+      "front/PROGRESS.md": "4d9b9d79df06787989110ddd310789176945394dcf4771eff66dac2b8795ff3e",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -247,7 +247,7 @@
       "front/components/crefans/ServiceUI.tsx": "79aca4c0f037b4e4b4e13956642af3b51141b563dd357e92607dbdbdfcd3cd4a",
       "front/components/crefans/SignInPrompt.tsx": "48c0302b3ae9dadd80ed7dc703f6f2ab80e54a0a8cfe175010981a16409eb0b2",
       "front/components/crefans/SignupCompletePage.tsx": "4bb0b3997e38789aecf39747d28d04c03cd0991caef773f4e471d18350ffb887",
-      "front/components/crefans/SocialPages.tsx": "15d50872452b0f014075f5e8f14b5d8d9041b106262c6dd5bdd8b1bf7a662b33",
+      "front/components/crefans/SocialPages.tsx": "2876bad3367e363900e2c7801215ef9538e8f85fa5cdf666b517b170c6b7d071",
       "front/components/crefans/account.module.css": "a14071a6cfbdd048cda7bb5ade53b292a8f58c2c487d5680c4b5534b2635cccd",
       "front/components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
       "front/components/crefans/beans.module.css": "4a72500deb00eddac87798895c798bd922c287e8a387a832c62d357d7ef1377c",
@@ -503,7 +503,7 @@
       "front/e2e/comment-social.spec.ts": "3db65b924d526df718e276ddcdf0aec79a898c75ecff553b137fd4325d9f17b8",
       "front/e2e/creator-verification.spec.ts": "435f156fcb70847cf553259943c0560db0fab1aaa0edc6d3f409d226ad7895f6",
       "front/e2e/fixtures.ts": "2282388ac8c433a4167bcc1c5b84c86870fcbcc72bf82486adc58642e312f332",
-      "front/e2e/gallery-image-tap.spec.ts": "64df050e947faba2ba07caf45e992d6f8e6361156d8baa1f2b8880b77e9a5fc3",
+      "front/e2e/gallery-image-tap.spec.ts": "de5cfd54a81810c580f0dc2fb5e164fc2a1b78997db1d5555860c2d6cf38b5bb",
       "front/e2e/gallery-navigation.spec.ts": "39aabec65b719f8ac70c4e040266bc1ee2bb65bb0a9103a4c07952284a510600",
       "front/e2e/handle-studio.spec.ts": "eca7ba9b9b08bb336e94914f27db3de3e0c665f42d10a75c9e13efc45a6e641b",
       "front/e2e/header-account-menu.spec.ts": "750eb05f94e1c64ee4cff8f1903ae3064ae4a85efcbc03e1eadb4acfcdfcd132",
@@ -680,7 +680,7 @@
       "front/lib/constants/modalStyles.ts": "4a80ae8bb24de98c42e2e168754a9db32beb297fbd177597726ff336cfd103cd",
       "front/lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
       "front/lib/content/business.ts": "2db80e0a5596628448dc29a5eb1a8a425d79ce19cc72f8b01d6340af281248f2",
-      "front/lib/content/events.ts": "3fd3db4266b9669d6e310f9d52601f338de523978dd0578f883e6de59cde15ef",
+      "front/lib/content/events.ts": "5dbdc2a81f585a96ffbb3daf887ae64c7eaac33e3ae965d653587f36f15f688f",
       "front/lib/content/landing.ts": "e72c68777ed985c78f6c32577661fa47e90fa56fe8b5d556de3d2014193229ad",
       "front/lib/crefans/bean-history.ts": "37ff0f25c988145d715055a680c7996e68982d625ea9ee24e3cc7475c18a0868",
       "front/lib/crefans/bean-pricing.ts": "7c46cc21957c0a00adf8743a9ef4864b5201d04e19f971849c7f7a65cf890fa0",
@@ -754,7 +754,7 @@
       "front/tests/crefans-community.test.cjs": "2aaf1a6ec78d78afbd3ac7e389a8409e3dd53bde83987b5126bff4040a92ede4",
       "front/tests/crefans-contract.test.cjs": "3a37df6c540365dba1927abeee5442578a0a030af2a79bc1528abdece3da24f5",
       "front/tests/crefans-creator.test.cjs": "85911ce11fbb53beef9e1eb84f60202167ff35fdca1eb0e80c14f8def36733bb",
-      "front/tests/crefans-events.test.cjs": "179e044791460e89cce2c8f68a3631b9fd047f83c37ceeec1d75b3a79ad94568",
+      "front/tests/crefans-events.test.cjs": "1a3cb954ee8291c081d05a5613cb04ae063cc07b9b0698a6c179f014710356af",
       "front/tests/crefans-finance.test.cjs": "c50084fe8150f0f74bfd71c23fe03417d9dd6cf8a8820ba2ca775df8ebd8e74c",
       "front/tests/crefans-social.test.cjs": "3134ec4325ccbe7266db166576d65398ea380d204bdc263432bb6f47c6464bfc",
       "front/tests/crefans-studio-management.test.cjs": "721e986fc890f3321159cd0dfb3182ed2a36212836d3f0a0607547f3693a756f",

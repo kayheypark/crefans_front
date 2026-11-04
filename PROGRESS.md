@@ -3956,3 +3956,7 @@
 
 ## 2026-11-04 백업 Telegram 문서 인벤토리
 - 서버 backup-alerts README를 운영 설치/실제 Telegram API 테스트 증거와 대조해 문서 목록에 추가. 최초 check:docs는 기본 서버 경로의 구버전 누락으로 실패, 실제 작업트리 지정 후 신규 README 미등록만 확인하여 보완. 제품 코드·프론트 런타임 변경 없음. 문서 증거는 snapshot-only이며 전체 제품 테스트를 뜻하지 않음.
+
+## 2026-11-04 모바일 갤러리 초기 비율 개선 (미배포)
+- 최신 prod07f9cfe에서 feat/gallery-half-height 분기. 모바일 최초/재오픈 기본 스냅을 미디어22%에서50%로 변경. 기본/축소22%/상세전체 스냅과 기존 드래그 로직 유지, PC 좌우 배치 변경 없음.
+- npm run typecheck 종료0. .local/gallery-half/playwright.config.ts PC Chromium/iPhone13 WebKit2건 종료0: 실제 stage/dialog 높이50%, 패널 단계 전환 및 재오픈 초기화, PC 좌우 배치 확인. 모바일 캡처 확인(전환 중 최초 캡처는 animations disabled로 재촬영). 테스트 첫 실행 cwd 오류는 repo cwd 지정 후 해결. 실제 기기·운영 미검증, 이번 요청은 운영 배포하지 않음. 기존 gallery-image-tap 검사 초기 기대값을 새 기본스냅0으로 갱신.

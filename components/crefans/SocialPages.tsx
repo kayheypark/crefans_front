@@ -146,7 +146,7 @@ export function PostCard({post,model,context}:{post:Post;model:PostCardModel&Par
 
 /** Full-screen post viewer opened from a feed image: large media on the left (dark), author · text · actions · comments on the right (white). */
 const overlayDragThreshold=6;
-const panelStops=[.56,.22,0],panelModes=['기본 보기','미디어 작게 보기','상세 전체 보기'];
+const panelStops=[.5,.22,0],panelModes=['기본 보기','미디어 작게 보기','상세 전체 보기'];
 const mediaOf=(post:Post)=>post.media&&post.media.length>0?post.media:post.image?[{type:'image' as const,url:post.image}]:[];
 function PostOverlay({post:initialPost,model,inline,initialIndex,context,open,onClose}:{post:Post;model:PostCardModel;inline:CommentsModel|null;initialIndex:number;context?:Post[];open:boolean;onClose:()=>void}){
   const [post,setPost]=useState(initialPost),media=mediaOf(post),count=model.commentCounts[post.id]??post.comments;
@@ -154,9 +154,9 @@ function PostOverlay({post:initialPost,model,inline,initialIndex,context,open,on
   const creator=model.data.creators.find(item=>item.id===post.creatorId);
   const overlay=useRef<HTMLDivElement>(null),panelContentId=useId();
   const exposure=usePostExposure(post.id,open&&model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId),'detail',true);
-  // Mobile opens at 'media peek' (one step below the full detail cover), per user request 2026-10-30.
-  const [panelSnap,setPanelSnap]=useState(1),[panelDrag,setPanelDrag]=useState<number|null>(null);
-  useEffect(()=>{if(open)setPanelSnap(1);},[open]);
+  // Start with equal media/detail space on mobile; reopening restores this split.
+  const [panelSnap,setPanelSnap]=useState(0),[panelDrag,setPanelDrag]=useState<number|null>(null);
+  useEffect(()=>{if(open)setPanelSnap(0);},[open]);
   const [mediaExpanded,setMediaExpanded]=useState(false);
   const panelGesture=useRef<{id:number;x:number;y:number;height:number;start:number;axis:'x'|'y'|null}|null>(null),suppressPanelClick=useRef(false);
   const panelFraction=(y:number,start:NonNullable<typeof panelGesture.current>)=>Math.max(0,Math.min(panelStops[0],start.start+(y-start.y)/start.height));
