@@ -3960,3 +3960,5 @@
 ## 2026-11-04 모바일 갤러리 초기 비율 개선 (미배포)
 - 최신 prod07f9cfe에서 feat/gallery-half-height 분기. 모바일 최초/재오픈 기본 스냅을 미디어22%에서50%로 변경. 기본/축소22%/상세전체 스냅과 기존 드래그 로직 유지, PC 좌우 배치 변경 없음.
 - npm run typecheck 종료0. .local/gallery-half/playwright.config.ts PC Chromium/iPhone13 WebKit2건 종료0: 실제 stage/dialog 높이50%, 패널 단계 전환 및 재오픈 초기화, PC 좌우 배치 확인. 모바일 캡처 확인(전환 중 최초 캡처는 animations disabled로 재촬영). 테스트 첫 실행 cwd 오류는 repo cwd 지정 후 해결. 실제 기기·운영 미검증, 이번 요청은 운영 배포하지 않음. 기존 gallery-image-tap 검사 초기 기대값을 새 기본스냅0으로 갱신.
+- 사용자 후속 배포 승인으로 dev→prod55e437b 반영 후 gallery-half-20261104 운영 배포 완료. 최초 예상 운영 태그 불일치로 쓰기 전 중단했고 실제 feedback-wording-20261104/73c74e4를 확인, 해당 변경이 현재 소스 조상임을 확인한 뒤 진행.
+- 빌드38페이지 성공, HTTP200·프론트 외 컨테이너 불변. 운영 /preview 공용 갤러리 PC/iPhone WebKit2건 통과(50% 높이·재오픈·스냅·PC 좌우), 실계정 게시물/물리기기는 미검증. 이전 이미지·구성은 운영 밖 비공개 복구 저장소로 전송·SHA/OCI 검증 후 서버 태그와 임시 소스 정리. 증거 docs/audit/gallery-half-20261104.json 및 .local/gallery-half-release/.

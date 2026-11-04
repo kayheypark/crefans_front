@@ -1,0 +1,26 @@
+{
+  "repository": "crefans_front",
+  "commit": "55e437bea620d49a14079ce491bc91761c4bc071",
+  "deployedAt": "2026-11-04T04:44:37Z",
+  "release": "gallery-half-20261104",
+  "build": "success, 38 pages",
+  "productionBrowser": {
+    "passed": 2,
+    "exitCode": 0,
+    "scope": "production /preview shared gallery; iPhone13 WebKit and PC Chromium",
+    "checks": [
+      "media height 50%",
+      "reopen resets to default",
+      "panel snap controls",
+      "desktop side-by-side retained"
+    ]
+  },
+  "http": 200,
+  "otherContainersUnchanged": true,
+  "cleanup": "previous image archived offhost and verified; server tag and temporary source removed",
+  "limits": [
+    "Physical iPhone not tested",
+    "Signed-in real post not separately tested"
+  ],
+  "screenshotSha256": "684546ae618878315e36aa7ff0ef0c171a443a1d9ea579c9fb9c46336bdf736c"
+}
