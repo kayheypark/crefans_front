@@ -16,9 +16,9 @@ const snapshot=()=>paused,serverSnapshot=()=>false;
 function useTextMotionPaused(){return useSyncExternalStore(subscribe,snapshot,serverSnapshot);}
 
 /** Full text exists once for assistive technology; only overflowing labels move. */
-export function MarqueeText({text,className=''}:{text:string;className?:string}){
+export function MarqueeText({text,className='',alwaysEnabled=false}:{text:string;className?:string;alwaysEnabled?:boolean}){
   const viewport=useRef<HTMLSpanElement>(null),track=useRef<HTMLSpanElement>(null);
-  const [distance,setDistance]=useState(0),stopped=useTextMotionPaused();
+  const [distance,setDistance]=useState(0),preferencePaused=useTextMotionPaused(),stopped=!alwaysEnabled&&preferencePaused;
   useEffect(()=>{
     const box=viewport.current,line=track.current;if(!box||!line)return;
     let frame=0,live=true;

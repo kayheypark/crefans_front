@@ -7,7 +7,7 @@
 .page section[id]{scroll-margin-top:24px}
 .skip{position:absolute;top:-100px;z-index:20;background:var(--cf-color-surface);padding:12px}
 .skip:focus{top:0}
-.container,.headerInner,.motionPreference{width:calc(100% - 64px);max-width:1200px;margin:0 auto}
+.container,.headerInner{width:calc(100% - 64px);max-width:1200px;margin:0 auto}
 .header{border-bottom:1px solid var(--cf-color-border)}
 .headerInner{display:flex;align-items:center;gap:36px;min-height:80px}
 .brand{--cf-brand-height:26px}
@@ -57,18 +57,15 @@
 .services p{max-width:220px;margin-top:6px;color:var(--cf-color-textMuted);font-size:13px;word-break:keep-all}
 .closing{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:36px 0}
 .closing h2{font-size:20px;line-height:1.5;font-weight:650;letter-spacing:-.035em;word-break:keep-all}
-.motionPreference{padding:12px 0 24px;color:var(--cf-color-textMuted)}
-.motionPreference>label{display:inline-flex;gap:16px}
-.motionPreference>label strong{font-weight:400;color:inherit}
 @media(max-width:1100px){.headerInner{gap:24px}.header nav{gap:20px}.search{display:none}.creatorGrid{gap:16px}.services article{padding:0 16px;gap:12px}}
 @media(max-width:767px){
- .container,.headerInner,.motionPreference{width:calc(100% - 32px)}
+ .container,.headerInner{width:calc(100% - 32px)}
  .headerInner{min-height:68px;gap:16px}.header nav{display:none}.brand{--cf-brand-height:22px}.account{gap:16px;font-size:13px}.account .primary{min-height:44px;padding:0 14px}
  .hero{padding:36px 0 32px}.heroMark{width:34px;height:34px;margin-bottom:16px}.hero h1{font-size:clamp(29px,8.6vw,40px);line-height:1.27;letter-spacing:-.055em}.hero>p{max-width:340px;margin-top:18px;font-size:14px}
  .actions{flex-direction:column;gap:6px;margin-top:24px}.actions .primary{width:100%;max-width:280px;min-height:48px}.textAction{font-size:14px}
  .creators{padding:24px 0}.sectionHeading{margin-bottom:20px}.sectionHeading h2{font-size:22px}.sectionHeading>p{font-size:13px}
  .creatorGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px}.creatorPhoto{aspect-ratio:1.25}.creatorInfo{padding-top:10px}.creatorName{font-size:15px}.tags{font-size:12px;min-height:38px}.page .profileLink{font-size:13px}.page .browseLink{margin-top:16px}
  .services{grid-template-columns:1fr;padding:24px 0;gap:20px}.services article{justify-content:flex-start;padding:0 8px;gap:16px}.services article+article{border:0}.services h2{font-size:15px}.services p{max-width:none;font-size:13px;margin-top:4px}
- .closing{flex-direction:column;align-items:flex-start;gap:8px;padding:28px 0 12px}.closing h2{font-size:18px}.motionPreference{font-size:12px}
+ .closing{flex-direction:column;align-items:flex-start;gap:8px;padding:28px 0 12px}.closing h2{font-size:18px}
 }
 @media(prefers-reduced-motion:reduce){.page *{transition:none!important;scroll-behavior:auto!important}}

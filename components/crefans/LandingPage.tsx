@@ -6,7 +6,6 @@ import type {ServiceViewModel} from '@/types/crefans';
 import type {LandingContent} from '@/types/crefans-landing';
 import {designVariables} from '@/lib/design/tokens';
 import {InfoTooltip} from '@/components/ui/InfoTooltip';
-import {MarqueeMotionControl} from '@/components/ui/MarqueeText';
 import {Brand} from './Brand';
 import {CreatorName} from './CreatorName';
 import Icon from './Icon';
@@ -35,7 +34,7 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
         <div className={s.sectionHeading}><div className={s.titleLine}><h2 id="creators-heading">크리에이터 둘러보기</h2>{content.creatorDisclosure&&<InfoTooltip label="크리에이터 안내" content={content.creatorDisclosure}/>}</div><p>프로필을 눌러 미리 만나보세요.</p></div>
         <div className={s.creatorGrid}>{creators.map(creator=><article key={creator.id} className={s.creatorCard}>
           <Link className={s.creatorPhoto} href={`${creatorBasePath}/creator/${creator.id}`} aria-label={`${creator.name} 프로필 보기`}>{creator.image&&<img src={creator.image} style={{objectPosition:creator.position}} alt="" loading="lazy"/>}</Link>
-          <div className={s.creatorInfo}><Link href={`${creatorBasePath}/creator/${creator.id}`} className={s.creatorName}><CreatorName person={creator}/></Link><p className={s.tags}>{creator.tags.join(' · ')}</p><Link className={s.profileLink} href={`${creatorBasePath}/creator/${creator.id}`}>프로필 보기 <Icon name="arrow"/></Link></div>
+          <div className={s.creatorInfo}><Link href={`${creatorBasePath}/creator/${creator.id}`} className={s.creatorName}><CreatorName person={creator} alwaysAnimate/></Link><p className={s.tags}>{creator.tags.join(' · ')}</p><Link className={s.profileLink} href={`${creatorBasePath}/creator/${creator.id}`}>프로필 보기 <Icon name="arrow"/></Link></div>
         </article>)}</div>
         <Link className={s.browseLink} href={`${creatorBasePath}/explore`}>더 많은 크리에이터 둘러보기 <Icon name="arrow"/></Link>
       </section>}
@@ -44,6 +43,5 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
       </section>}
       <section className={s.closing} aria-labelledby="closing-heading"><h2 id="closing-heading">좋아하는 마음으로, 함께 시작해요.</h2><Link className={s.textAction} href={`${basePath}/signup`}>크레팬스 시작하기 <Icon name="arrow"/></Link></section>
     </main>
-    <footer className={s.motionPreference}><MarqueeMotionControl/></footer>
   </div>;
 }
