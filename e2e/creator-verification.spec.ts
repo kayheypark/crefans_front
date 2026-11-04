@@ -5,6 +5,7 @@ test.afterEach(settledShot);
 test('verified creator names share the badge across profile, feed, membership and explore',async({page},info)=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  for(const route of ['creator/moka','creator/jiwoo','creator/sion','creator/haneul','post/morning','membership/haneul','explore','following','landing']){
+  await page.goto('about:blank');
   await page.goto('/preview/'+route);
   const badge=page.getByRole('img',{name:'인증 크리에이터',exact:true}).first();await expect(badge).toBeVisible();
   await expect.poll(()=>badge.evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);
@@ -31,4 +32,13 @@ test('service pages render current API verification and remove the badge when re
  await page.goto('/service/creator/qa-artist');const heading=page.getByRole('heading',{level:1});await expect(heading.getByRole('img',{name:'인증 크리에이터'})).toBeVisible();
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:info.outputPath('service-verified-long-name.png')});
  verified=false;await page.reload();await expect(heading).toContainText(creator.name);await expect(heading.getByRole('img',{name:'인증 크리에이터'})).toHaveCount(0);
+});
+
+test('verification badge loads without the image optimizer in profile, feed and gallery',async({page},info)=>{
+ await page.route('**/_next/image?**',route=>new URL(route.request().url()).searchParams.get('url')?.includes('verified-creator')?route.abort():route.continue());
+ const loaded=async(badge:ReturnType<typeof page.getByRole>)=>{await expect(badge).toBeVisible();await expect.poll(()=>badge.evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);};
+ await page.goto('/preview/creator/haneul');await loaded(page.getByRole('heading',{level:1}).getByRole('img',{name:'인증 크리에이터'}));
+ await page.goto('/preview/post/morning');await loaded(page.locator('article').getByRole('img',{name:'인증 크리에이터'}).first());
+ await page.locator('article').getByRole('button',{name:/크게 보기/}).first().click();await loaded(page.getByRole('dialog').getByRole('img',{name:'인증 크리에이터'}).first());
+ await page.screenshot({path:info.outputPath('verified-gallery.png')});
 });

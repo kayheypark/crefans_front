@@ -3970,3 +3970,8 @@
 - 후속 랜딩 요청: 하단 텍스트 움직임 제어 제거, 랜딩 CreatorName→MarqueeText의 alwaysEnabled 옵션으로 개인 off 설정과 무관하게 활성화. 다른 화면에 저장된 기기 설정 및 OS 동작 줄이기 CSS는 유지. 불필요해진 footer CSS 삭제. typecheck/layers424·PC/iPhone2건 통과(저장 off에서도 랜딩 paused=false, 스위치 없음, 저장 off 불변). 증거 .local/landing-motion/. 운영 미배포.
 
 - 사용자 배포 승인 후 dev→prod3b1454f 승격, display-settings-20261104 프론트 운영 배포 완료. 빌드38페이지·HTTP200·다른 컨테이너 불변 확인. 운영 프론트 API대역 표시 설정 PC/iPhone2건과 랜딩 PC/iPhone2건 모두 종료0. 실계정 설정 변경·물리기기 검증은 하지 않음. 이전 이미지/구성은 운영 밖 보관·SHA/OCI 검증 후 서버 이미지 태그·임시 소스 제거. 증거 docs/audit/display-settings-20261104.json, .local/display-settings-release/.
+
+## 2026-11-04 비로그인 인증 배지 이미지 누락 수정
+- 최신 prod10fa082 기준 분기. 공개 profiles/crefans 응답 isVerified=true와 DOM 배지 존재를 확인했지만 운영 Chromium에서10초 후에도 이미지 naturalWidth0. 직접 정적 경로로 변경한 대조에서는 정상 로드. 권한/판정 누락이 아닌 이미지 최적화 경로 의존 문제로 범위를 한정.
+- CreatorName 공통 인증 배지를 기존 원본 디자인의72px/4,689byte PNG로 사전 축소하고 unoptimized/eager 적용. isVerified===true 조건·기존 오픈 기념 배지·툴팁 유지. 서버/DB 변경 없음.
+- typecheck와 layers424 종료0. PC3건·iPhone3건 최종 통과: 공개 API 인증true/false, 프로필/피드/갤러리 이미지 로드, 이미지 최적화 요청 차단 상황, 기존9화면 순회. 모바일 개발모드 화면 전환 경합2회 실패는 화면 사이 about:blank 정리 후 통과. 처음 개발포트3055 사용중으로3087 변경. 운영 배포 전. 증거 .local/public-verified-badge/, e2e/creator-verification.spec.ts.

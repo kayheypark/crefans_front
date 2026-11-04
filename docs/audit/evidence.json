@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-04T06:27:35.089708+00:00",
+  "checkedAt": "2026-11-04T11:05:05.562060+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "3b1454fb6b70d1c0b7638b214b682020cd75dc2b",
-      "branch": "docs/display-settings-release-evidence",
+      "head": "10fa0823de4a44dabef2518101b50b1b65924c16",
+      "branch": "feat/public-verified-badge",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "27b03fc5e1eae89d0734088c2981cdb4fdf97b6224b5eb26393ebc5e0841f366",
-      "front/PROGRESS.md": "55864dc2a465a27fc5ee116c7f3bf789e6b1e7911d5779b262febeb6491547ea",
+      "front/PROGRESS.md": "77c9b6c6c93df6811d73aae9778bfd6ee31cd85755cb1d218dbe08d4bb740010",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -212,7 +212,7 @@
       "front/components/crefans/CommonPages.tsx": "4872dd6223092d91ffccf08780e51d1bd8055357134feccc47750b252b0444ec",
       "front/components/crefans/CreatorCard.tsx": "35912857354ceb01ed50d99d1a1b7e94a6c3694fdc2696937e4203deff406c8c",
       "front/components/crefans/CreatorClosingNotes.tsx": "3896773614dac11325e690c9c8b58b526107c3d86bdbc55def1412be42be62d9",
-      "front/components/crefans/CreatorName.tsx": "a121286302cfb02dd10a9271bd4cb080e34cd4896c80eafe77071e2d1e12825e",
+      "front/components/crefans/CreatorName.tsx": "daa3a29161eb8d263397d1979e7329d02dba34870555e3a049b1dcc10e8287cc",
       "front/components/crefans/CreatorPages.tsx": "08b04dc70f12b3506a950af799771f09cf24a73cea2094124c01a86eae689661",
       "front/components/crefans/CreatorSearch.tsx": "ffb382dcf6e0953755ab5a8a2369de1cef67f2f51df59b9021bc4c2812be873e",
       "front/components/crefans/EventPages.tsx": "0b4a893b0a22471b16231abe5a739902b8b8559329a3b3d58d20fe0da4b8ab3d",
@@ -502,7 +502,7 @@
       "front/e2e/chip-row-bleed.spec.ts": "94a309bb471226394be1600f67741c44091b3b4735dea687bb808cc359a99bac",
       "front/e2e/comment-edit-delete.spec.ts": "f4a1dd12deb0f1411dea603cc44046e3cef39d9994fa9feab4271d34939349f1",
       "front/e2e/comment-social.spec.ts": "3db65b924d526df718e276ddcdf0aec79a898c75ecff553b137fd4325d9f17b8",
-      "front/e2e/creator-verification.spec.ts": "435f156fcb70847cf553259943c0560db0fab1aaa0edc6d3f409d226ad7895f6",
+      "front/e2e/creator-verification.spec.ts": "4d85af531b3f24ed970da7d86c9a346190ab7212c6592d0934449255bb4ed8d2",
       "front/e2e/fixtures.ts": "2282388ac8c433a4167bcc1c5b84c86870fcbcc72bf82486adc58642e312f332",
       "front/e2e/gallery-image-tap.spec.ts": "de5cfd54a81810c580f0dc2fb5e164fc2a1b78997db1d5555860c2d6cf38b5bb",
       "front/e2e/gallery-navigation.spec.ts": "39aabec65b719f8ac70c4e040266bc1ee2bb65bb0a9103a4c07952284a510600",
