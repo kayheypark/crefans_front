@@ -1,4 +1,5 @@
 'use client';
+import {FoundingBadgeSettings} from '@/components/service/FoundingBadgeSettings';
 import {FoundingBadgeEventDetail} from '@/components/service/FoundingBadgeEventDetail';
 import {PromotionEventDetail} from '@/components/service/PromotionEventDetail';
 import {EventsPage,EventDetailPage} from '@/components/crefans/EventPages';
@@ -42,7 +43,7 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'notifications':return <NotificationsPage model={model}/>;
   case 'me':return <MyProfilePage model={model}/>;
   case 'subscriptions':return <SubscriptionsPage model={model}/>;
-  case 'settings':return <SettingsPage model={model}/>;
+  case 'settings':return <SettingsPage model={model} badgeSettings={<FoundingBadgeSettings key={model.viewer.handle} signedIn={model.signedIn} actions={model.foundingBadge} basePath={basePath}/>}/>;
   case 'support':return <><SupportPage model={model}/><CommonNavigation basePath={basePath}/></>;
   case 'following':return query.get('profile')?<PreviewConnections key={query.get('profile')+'following'} id={query.get('profile')!} kind="following"/>:<FollowingPage model={model}/>;
   case 'followers':return query.get('profile')?<PreviewConnections key={query.get('profile')+'followers'} id={query.get('profile')!} kind="followers"/>:<FollowersPage model={model}/>;

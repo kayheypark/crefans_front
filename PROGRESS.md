@@ -3962,3 +3962,7 @@
 - npm run typecheck 종료0. .local/gallery-half/playwright.config.ts PC Chromium/iPhone13 WebKit2건 종료0: 실제 stage/dialog 높이50%, 패널 단계 전환 및 재오픈 초기화, PC 좌우 배치 확인. 모바일 캡처 확인(전환 중 최초 캡처는 animations disabled로 재촬영). 테스트 첫 실행 cwd 오류는 repo cwd 지정 후 해결. 실제 기기·운영 미검증, 이번 요청은 운영 배포하지 않음. 기존 gallery-image-tap 검사 초기 기대값을 새 기본스냅0으로 갱신.
 - 사용자 후속 배포 승인으로 dev→prod55e437b 반영 후 gallery-half-20261104 운영 배포 완료. 최초 예상 운영 태그 불일치로 쓰기 전 중단했고 실제 feedback-wording-20261104/73c74e4를 확인, 해당 변경이 현재 소스 조상임을 확인한 뒤 진행.
 - 빌드38페이지 성공, HTTP200·프론트 외 컨테이너 불변. 운영 /preview 공용 갤러리 PC/iPhone WebKit2건 통과(50% 높이·재오픈·스냅·PC 좌우), 실계정 게시물/물리기기는 미검증. 이전 이미지·구성은 운영 밖 비공개 복구 저장소로 전송·SHA/OCI 검증 후 서버 태그와 임시 소스 정리. 증거 docs/audit/gallery-half-20261104.json 및 .local/gallery-half-release/.
+
+## 2026-11-04 설정의 오픈 기념 한정판 배지 표시 (미배포)
+- 최신 prod 기준 feat/settings-event-badge. 설정 전체/계정 관리에 배지 표시 영역 추가. 수령자는 표시 스위치, 미수령자는 이벤트 링크, 조회 실패는 재시도 제공. 기존 useFoundingBadge 및 PUT /me/founding-badge 재사용하여 수령기록·공개 프로필 동기화 유지. UI slot으로 live/preview 모델 연결, 이벤트 설명에도 설정 경로 반영. 백엔드/DB 변경 없음.
+- typecheck·check:layers(424파일) 종료0. PC Chromium/iPhone13 WebKit API대역2건 통과: 표시off/on 저장·새로고침 지속·500 실패시 기존값 유지·미수령 링크. 초기 테스트는 비동기 스위치에 즉시 상태 변경을 강제하는 check 호출 및 공통500오류 문구 기대가 틀려 click+응답상태 검증으로 수정 후 통과. .local/badge-settings/ 설정/테스트와 test-results 캡처. 실제 운영계정 변경·실기기·운영 배포 미실행.

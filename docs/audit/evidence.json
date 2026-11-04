@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-04T04:45:16.091436+00:00",
+  "checkedAt": "2026-11-04T06:12:35.642309+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "55e437bea620d49a14079ce491bc91761c4bc071",
-      "branch": "integration/gallery-half-prod",
+      "head": "309181ac154666439486b840b6fb6c5fbee7d837",
+      "branch": "feat/settings-event-badge",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "27b03fc5e1eae89d0734088c2981cdb4fdf97b6224b5eb26393ebc5e0841f366",
-      "front/PROGRESS.md": "67826b672fe54b804e5b85b98ff688c36bd406c539d7718765157f3c6297228d",
+      "front/PROGRESS.md": "e4d61aaeb51ddaddeb5bf04792ea3a303cf7516a4c5fdb77dd58038603c46f7b",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -190,7 +190,7 @@
       "front/components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
       "front/components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
       "front/components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
-      "front/components/crefans/AccountPages.tsx": "a89c42feca6c8aaeb9545b806ba3dcc25a514a7e48590a844f4d6233761967ce",
+      "front/components/crefans/AccountPages.tsx": "3f3cbd1a5a406f9edc7fc81d873a630e82a1843dcc80f09d8c91526112ecd169",
       "front/components/crefans/ApiState.tsx": "4df6f64b1ba3a6803c3f4798fb442487a0c7745698748018a084acbeb0cd14ae",
       "front/components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
       "front/components/crefans/BeanAttribution.tsx": "a3b1b773c5c27322dd0a96e02ac50c400dcb1e9009e94212296cc392b6496953",
@@ -352,7 +352,7 @@
       "front/components/preview/service/PreviewBeanPaymentResult.tsx": "484d68c66c134e6325cd0a4e901c661ea3e56ca43ab0fb3f1081559c55bc86f9",
       "front/components/preview/service/PreviewConnections.tsx": "a1ba1a24850662ba8cd2953108fe716ac2ad8f6a71f7a68e114bae2ece6fed57",
       "front/components/preview/service/PreviewProvider.tsx": "9b6caa6e18ab73f5cbed864b4e08f3b589678086a846481166d3404a8a76b4a4",
-      "front/components/preview/service/ServiceRouter.tsx": "0ce8ba8f33b9e9e5da906da202b694d6ba6e7d2cceab95cd3f4828e811d36d4a",
+      "front/components/preview/service/ServiceRouter.tsx": "fedb3fc21feb06792802f4d9f8359a3863666922dfdd9d66a6c765d2576b139c",
       "front/components/preview/service/access.ts": "d216955d0f12c9418ee313f57eb0deaa32f9fe1a050bce096ae7554f969a74d8",
       "front/components/preview/service/bean-fixtures.ts": "0ab4ba90cc52a08e9d96db4d054d52c61f3e8bbcdded54607b658c17cc208af1",
       "front/components/preview/service/fixtures.ts": "04b7704b29384a3649cda414eaa806b08bb78aabe458f3f8125ed586b7e5aaf7",
@@ -383,11 +383,12 @@
       "front/components/service/BrowserErrors.tsx": "441cd43641c97272b1c07679f5224b54b104706d348ce0739eb97b16c7aac79b",
       "front/components/service/CheckoutPage.tsx": "ba1006944d6653ac2104ded64efb44db51ca48ebc9ed16b65773f4dac4905945",
       "front/components/service/FoundingBadgeEventDetail.tsx": "d44b241c60a08594d5f80d3686a062d95cf5f33ed418fc38094f4732b7de089e",
+      "front/components/service/FoundingBadgeSettings.tsx": "6e36cca9a06a27d2996fb0505d719d6d08d32de0257749e72282c3c24efa913c",
       "front/components/service/Landing.tsx": "38df82cba82d5c76e3b84674a020836e2936c6f11291cd42e40340e2a350a9c0",
       "front/components/service/PaymentResult.tsx": "ffef2218e71a4f51eae5e4c7985fff57aea2319f1e739c7f708f2dac0f50c14a",
       "front/components/service/PromotionEventDetail.tsx": "73e35bbef310add02cca82bb47cc8c6fb9c61e4d3f689f5fbb160bf9f54126b7",
       "front/components/service/ServiceProvider.tsx": "d53c05ff9cc2f51401dc20bb8e3a6ab66ed65a94c4aab9ab5fefc571cf6a82bc",
-      "front/components/service/ServiceRouter.tsx": "407d98402208302dbcc960ba6ec2d7c02cb77d6ede11467dbe35ae1e29624064",
+      "front/components/service/ServiceRouter.tsx": "17cfc550a6839357b012371196792b3163e7b433ec73f096c0bf80fa876e80ea",
       "front/components/service/StudioRouter.tsx": "9c14f2bea4836ef61126acac530e3855fb2f504d88df34d574459ef7663903a9",
       "front/components/settings/Settings.tsx": "f505dbbc972b7a0e4ee4d919e3ae450e90ef5c2481571ed174b377637f2dab8e",
       "front/components/ui/Accordion.tsx": "6df9c21b2a9d5b1925af52b5052f0fcf8fdfb8fccc090ad1ac7b2affb5d0386c",
@@ -680,7 +681,7 @@
       "front/lib/constants/modalStyles.ts": "4a80ae8bb24de98c42e2e168754a9db32beb297fbd177597726ff336cfd103cd",
       "front/lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
       "front/lib/content/business.ts": "2db80e0a5596628448dc29a5eb1a8a425d79ce19cc72f8b01d6340af281248f2",
-      "front/lib/content/events.ts": "5dbdc2a81f585a96ffbb3daf887ae64c7eaac33e3ae965d653587f36f15f688f",
+      "front/lib/content/events.ts": "fe729a464677804b244e5daf20166a4b3f6b407a5de7135ca7a94482cdb86bdb",
       "front/lib/content/landing.ts": "e72c68777ed985c78f6c32577661fa47e90fa56fe8b5d556de3d2014193229ad",
       "front/lib/crefans/bean-history.ts": "37ff0f25c988145d715055a680c7996e68982d625ea9ee24e3cc7475c18a0868",
       "front/lib/crefans/bean-pricing.ts": "7c46cc21957c0a00adf8743a9ef4864b5201d04e19f971849c7f7a65cf890fa0",
