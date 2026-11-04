@@ -1,0 +1,36 @@
+{
+  "repository": "crefans_front",
+  "commit": "3b1454fb6b70d1c0b7638b214b682020cd75dc2b",
+  "workingTreeAtBuild": "clean",
+  "deployedAt": "2026-11-04T06:26:37Z",
+  "release": "display-settings-20261104",
+  "build": "success, 38 pages",
+  "http": 200,
+  "otherContainersUnchanged": true,
+  "checks": [
+    {
+      "command": "npx playwright test -c .local/display-settings-release/badge.config.ts",
+      "exitCode": 0,
+      "passed": 2,
+      "scope": "production frontend with API mocks; PC Chromium and iPhone13 WebKit; modal, badge off/on, reload persistence, failure preservation, unclaimed event link"
+    },
+    {
+      "command": "npx playwright test -c .local/display-settings-release/landing.config.ts",
+      "exitCode": 0,
+      "passed": 2,
+      "scope": "production preview landing; PC Chromium and iPhone13 WebKit; toggle removed, motion enabled with saved off preference, preference unchanged"
+    }
+  ],
+  "cleanup": "Previous image/config archived offhost and SHA/OCI verified; old server image tag and deployment source removed",
+  "limits": [
+    "No physical iPhone test",
+    "No real member preference writes",
+    "OS reduced motion remains respected"
+  ],
+  "sourcePaths": [
+    "components/service/FoundingBadgeSettings.tsx",
+    "components/crefans/AccountPages.tsx",
+    "components/crefans/LandingPage.tsx",
+    "components/ui/MarqueeText.tsx"
+  ]
+}

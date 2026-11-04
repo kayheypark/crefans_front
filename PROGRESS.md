@@ -3968,3 +3968,5 @@
 - typecheck·check:layers(424파일) 종료0. PC Chromium/iPhone13 WebKit API대역2건 통과: 표시off/on 저장·새로고침 지속·500 실패시 기존값 유지·미수령 링크. 초기 테스트는 비동기 스위치에 즉시 상태 변경을 강제하는 check 호출 및 공통500오류 문구 기대가 틀려 click+응답상태 검증으로 수정 후 통과. .local/badge-settings/ 설정/테스트와 test-results 캡처. 실제 운영계정 변경·실기기·운영 배포 미실행.
 - 후속 요청: 표시 설정 메뉴로 래핑. 계정 설정 그룹에 오른쪽 꺾쇠가 있는 표시 설정 행을 추가하고 공통 모달 안에 배지 표시·텍스트 움직임을 배치. 저장은 기존처럼 즉시 반영, 닫기 제공. 이벤트 안내 경로 동기화. 타입 검사·모달 진입 포함 PC/iPhone API대역2건 통과. 최초 미지원 eye 아이콘 타입 오류는 기존 settings 아이콘 재사용으로 해결. 운영 미배포.
 - 후속 랜딩 요청: 하단 텍스트 움직임 제어 제거, 랜딩 CreatorName→MarqueeText의 alwaysEnabled 옵션으로 개인 off 설정과 무관하게 활성화. 다른 화면에 저장된 기기 설정 및 OS 동작 줄이기 CSS는 유지. 불필요해진 footer CSS 삭제. typecheck/layers424·PC/iPhone2건 통과(저장 off에서도 랜딩 paused=false, 스위치 없음, 저장 off 불변). 증거 .local/landing-motion/. 운영 미배포.
+
+- 사용자 배포 승인 후 dev→prod3b1454f 승격, display-settings-20261104 프론트 운영 배포 완료. 빌드38페이지·HTTP200·다른 컨테이너 불변 확인. 운영 프론트 API대역 표시 설정 PC/iPhone2건과 랜딩 PC/iPhone2건 모두 종료0. 실계정 설정 변경·물리기기 검증은 하지 않음. 이전 이미지/구성은 운영 밖 보관·SHA/OCI 검증 후 서버 이미지 태그·임시 소스 제거. 증거 docs/audit/display-settings-20261104.json, .local/display-settings-release/.
