@@ -86,7 +86,7 @@ test('open claims have their own eligibility and expiry; other reward terms rema
   const text=JSON.stringify(event);
   for(const item of (index===1?['소급','중복 적용','고객센터','광고성 정보 수신']:['소급','중복 수령','고객센터','광고성 정보 수신']))assert.ok(text.includes(item),item);
   if(index>=2){assert.match(text,/전체 회원/);assert.match(text,/계정당 1회/);assert.doesNotMatch(text,/참여 확정|참여가 확정|팬 13명|대상자로 지정|지급일은.*미정/);}
-  else if(index===0)assert.match(text,/크리에이터 3명과 팬 13명/);else{assert.match(text,/50%/);assert.match(text,/총 노출기간/);assert.doesNotMatch(text,/30일 이용권|크리에이터 3명에게/);}
+  else if(index===0){assert.match(text,/누구나 참여/);assert.doesNotMatch(text,/참여 확정|참여가 확정|팬 13명|크리에이터 3명/);}else{assert.match(text,/50%/);assert.match(text,/총 노출기간/);assert.doesNotMatch(text,/30일 이용권|크리에이터 3명에게/);}
  }
  const beans=JSON.stringify(serviceEvents[2]);
  for(const text of ['30일(720시간)','사용하지 않은 이벤트 콩 잔액만','연장되지 않습니다','1,000콩','20%','8만원','실제 은행 출금을 제공하지'])assert.ok(beans.includes(text),text);
