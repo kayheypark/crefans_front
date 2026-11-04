@@ -1,3 +1,7 @@
+## 2026-11-04 랜딩 상단 문구 변경 (미배포)
+- 요청 문구를 공용 lib/content/landing.ts hero.title에 반영: “2026년 12월, 새로운 팬 플랫폼이 등장합니다”. 기존 두 줄 구조 유지(날짜 / 본문). 서비스·목업 공용 렌더러 components/crefans/LandingPage.tsx 사용. 디자인 시안 과거 기록·다른 섹션 문구는 유지.
+- origin/prod 기준 feat/landing-december-copy. 단일 대상 치환 및 이전문구 제거 assert 통과, git diff --check 통과. 단순 문구 변경으로 전체 제품/E2E 검사는 미실행. 증거 .local/landing-december-copy/verification.json. 운영배포·dev/prod 통합 미실행.
+
 ## 2026-11-04 미배포 광고상품·미니멀 워터마크 운영 배포 완료
 - dev→prod front615ee06/serveraf99bc3/admin0011cca. 운영 front/api/worker/admin minimal-bundle-20261104. 기본상품 특가제외·제목18px, 콘솔/프론트 상품명 동일 형식, 미니멀 워터마크40%/2%/3%/외곽선없음 반영. DB migration 없음·DB/proxy 유지·기존미디어 재변환 없음.
 - front운영빌드·admin운영빌드 통과, 소스해시/운영키·배포6서비스 running/restarts0/OOMfalse. 배포공용preview PC Chromium/iPhone WebKit 기본4+특가4·중복없음·제목18px·상품명·안내열기닫기·팬이동 통과. API운영이미지 격리컨테이너 실사진 렌더링565변경픽셀(119~183), 영상미니멀인자 확인. 이전로컬 영상/사진4·프론트9·콘솔14 통과. 실계정콘솔/실업로드/실PG 미검증.

@@ -13,7 +13,7 @@ export const landingCreators:Creator[] = [
 ];
 
 export const landingAssetContent:LandingContent={
-  hero:{title:['좋아하는 창작자와,','더 가까운 사이.'],description:['멤버십과 후원으로 함께하는 크리에이터·팬 플랫폼'],image:'/illustrations/creators/moka/cover-v1.png',imageAlt:'분홍 머리와 리본으로 코스프레 촬영을 하는 가상 크리에이터 모카',position:'center top'},
+  hero:{title:['2026년 12월,','새로운 팬 플랫폼이 등장합니다'],description:['멤버십과 후원으로 함께하는 크리에이터·팬 플랫폼'],image:'/illustrations/creators/moka/cover-v1.png',imageAlt:'분홍 머리와 리본으로 코스프레 촬영을 하는 가상 크리에이터 모카',position:'center top'},
   creators:landingCreators.slice(0,5),
   creatorDisclosure:'이 서비스 소개에 표시된 크리에이터는 가상의 인물입니다.',
   collage:[landingCreators[0],landingCreators[2],landingCreators[6],landingCreators[5]],
