@@ -1,3 +1,12 @@
+## 2026-11-04 광고 특가 상세 모달 간소화 (배포 준비)
+- 일반/특가 동일 구조: 상품명·위치·기간·가격·사용안내, 상세 설명/비교가격 근거/구매취소 조건은 공통 details로 접어 제공. 특가 제목 왼쪽 기존 danger 빨간색 “특가” 유지. 금액/할인 계산/조건/구매 가능 여부 변경 없음.
+- 랜딩 출시 문구 변경 포함. 타입검사 종료0, PC/iPhoneWebKit/320px E2E9통과: 빨간 특가/접힘펼침·목업구매·실API대역오류·기본4/특가4 및 공용디자인시스템. 최초 sandbox bind실패 후 허용된 로컬 실행 성공. 실제 PG 미검증.
+- feat/advertising-detail-simple 최신prod 기준. 다음 dev→prod→프론트 단독 운영배포, 운영 preview/landing 확인. 서버 텔레그램 알림 설치는 별도 승인 검토 차단 상태로 제외.
+
+## 2026-11-04 랜딩 상단 문구 변경 (미배포)
+- 요청 문구를 공용 lib/content/landing.ts hero.title에 반영: “2026년 12월, 새로운 팬 플랫폼이 등장합니다”. 기존 두 줄 구조 유지(날짜 / 본문). 서비스·목업 공용 렌더러 components/crefans/LandingPage.tsx 사용. 디자인 시안 과거 기록·다른 섹션 문구는 유지.
+- origin/prod 기준 feat/landing-december-copy. 단일 대상 치환 및 이전문구 제거 assert 통과, git diff --check 통과. 단순 문구 변경으로 전체 제품/E2E 검사는 미실행. 증거 .local/landing-december-copy/verification.json. 운영배포·dev/prod 통합 미실행.
+
 ## 2026-11-04 미배포 광고상품·미니멀 워터마크 운영 배포 완료
 - dev→prod front615ee06/serveraf99bc3/admin0011cca. 운영 front/api/worker/admin minimal-bundle-20261104. 기본상품 특가제외·제목18px, 콘솔/프론트 상품명 동일 형식, 미니멀 워터마크40%/2%/3%/외곽선없음 반영. DB migration 없음·DB/proxy 유지·기존미디어 재변환 없음.
 - front운영빌드·admin운영빌드 통과, 소스해시/운영키·배포6서비스 running/restarts0/OOMfalse. 배포공용preview PC Chromium/iPhone WebKit 기본4+특가4·중복없음·제목18px·상품명·안내열기닫기·팬이동 통과. API운영이미지 격리컨테이너 실사진 렌더링565변경픽셀(119~183), 영상미니멀인자 확인. 이전로컬 영상/사진4·프론트9·콘솔14 통과. 실계정콘솔/실업로드/실PG 미검증.
