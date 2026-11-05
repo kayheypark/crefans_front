@@ -534,3 +534,7 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 ### 카드 등록 완료 1안 (2026-11-05)
 
 `BillingRegistrationResultPage`의 billing/success만 회원가입 완료와 같은 88px 파란 체크·중앙 정렬·큰 복귀 CTA로 표시한다. `signup-complete.module.css`의 체크 스타일을 재사용하고 제목 간격 28px, 복귀 버튼 최소 높이52px를 적용한다. 이전 화면 복귀는 props의 returnPath로 이동하고 결제에서 진입한 경우 결제수단 관리 보조 링크도 표시한다. 관리 화면으로 복귀할 때는 동일 목적지 링크를 중복 표시하지 않는다. `BillingResultCatalog`에서 완료(결제/카드 관리)·확인 중·오류·취소 상태를 공통 컴포넌트로 확인한다. `/preview/billing/success`도 같은 표시 UI를 사용한다.
+
+### 프로필 이름과 배경 간격 (2026-11-06)
+
+공용 `ProfileHeader`는 마이페이지·다른 사람의 프로필·목업·디자인 시스템에서 같은 배치를 사용한다. 아바타는 배경 하단에30px 겹치고, 이름·핸들 전용 `identityDetails`는46px 상단 패딩으로 이름 시작점을 배경 아래16px에 둔다. 제목 margin 초기화에 간격이 사라지지 않도록 여백은 텍스트 컨테이너가 맡으며, 아바타와 이름은 상단 정렬한다.

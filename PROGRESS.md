@@ -1,3 +1,10 @@
+## 2026-11-06 프로필 활동명·배경 간격 개선 (운영 미배포)
+- 사용자 스크린샷: 마이페이지와 타인 프로필 이름이 배경 하단에 붙음. 공용 ProfileHeader의 아바타/이름 중앙 정렬과 h1 margin-top이 공통 제목 초기화의 영향을 받는 구조를 확인했다.
+- 이름·핸들 컨테이너 identityDetails에 패딩46px 적용, 아바타·텍스트 상단 정렬, 제목 margin0. 기존 아바타 배경 겹침30px를 유지하고 이름을 배경 아래16px에 고정한다. 서비스·목업·디자인 시스템이 같은 컴포넌트를 사용하며 API/데이터 변경 없음.
+- 최신 origin/prod f2687e2에서 feat/profile-heading-spacing 분기. 합격 조건: 마이/타인 프로필 제목 간격16px, 아바타 겹침30px 유지, 핸들이 제목 아래, 320px 가로 넘침 없음.
+- 검증: Next production build(타입 검사 포함) 성공, PC Chromium/iPhone13 WebKit/320px Chromium ×2화면6/6 통과. 실제 bounding rect 수치와 캡처는 .local/profile-heading-spacing/results.json·screens/. 모바일 타인 프로필·PC 마이페이지 캡처 육안 확인. 로컬 목업 검증이며 실물 iPhone·운영 화면 적용 검증은 하지 않았다.
+- AGENTS.md 기존 규약 유지. 다음: 사용자 배포 요청 시 dev 통합 → prod 승격 → 프론트 운영 배포. 이번 변경은 운영 미배포. 명령·시각·종료 코드·소스 SHA는 .local/profile-heading-spacing/verification.json.
+
 ## 2026-11-05 카드 등록 완료 1안·구독 재개 운영 배포 완료
 - 사용자 “다되면 운영배포”, “다시시도” 승인에 따라 카드 등록 완료 1안과 앞선 ‘다시 이용할래요’를 함께 배포. front ef297e8, server e448686를 dev 통합 검증 → prod 승격 후 billing-results-20261105 이미지로 API·worker·frontend에 적용했다. DB migration/결제 활성화 설정 변경 없음; database/admin/proxy 컨테이너 유지.
 - 완료 화면은 큰 파란 체크와 명시적 원래 화면 복귀 버튼. 서버 등록 성공 확인 후에만 표시. 구독 재개는 새 자동결제 동의를 받고 기존 다음 결제일/금액을 유지하며 즉시 결제하지 않는다.
