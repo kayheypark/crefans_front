@@ -17,6 +17,12 @@
 
 새 UI는 공통 컴포넌트로 구현하고, 정상·빈 값/목록·오류·disabled·readOnly·loading 중 해당하는 상태를 카탈로그에 등록한 다음 같은 컴포넌트를 목업에서 재사용한다. 지원하지 않는 상태를 샘플 처리 결과로 꾸미지 않는다. 목업·카탈로그마다 같은 UI를 별도 JSX와 CSS로 복제하지 않는다.
 
+### 멤버십 결제 (2026-11-05)
+
+- 공용 [MembershipCheckout](../components/crefans/MembershipCheckout.tsx)는 주문 스냅샷·카드 상태·동의·콜백을 주입받는다. 상품과 결제수단을 연한 구분선으로 나누며 모바일 CTA는 전체 너비로 두 줄, PC는 두 열이다. 긴 상품명·금액은 320px에서도 넘치지 않도록 배치한다.
+- [PaymentTerms](../components/crefans/PaymentTerms.tsx)의 선택적 `list` 표시를 이용해 결제 주기·해지·환불의 요약 아래에 기존 상세 원문을 펼친다. 콩 충전 등 기존 호출부는 기본 카드 표시를 유지한다. 동의는 기본 미선택이며 카드가 없거나 갱신이 필요하면 정기결제를 활성화하지 않는다.
+- [카탈로그](../components/design-system/MembershipCheckoutCatalog.tsx)는 일반·카드 없음/갱신 필요·처리 중·결과 조회·오류·주문 조회·긴 상품명을 제공한다. `/preview/checkout`은 같은 뷰의 로컬 목업이다. [브라우저 검사](../e2e/membership-checkout-layout.spec.ts)는 로컬 API 대역으로 수행하며 실결제를 검증하지 않는다.
+
 ### PC 팬 계정 메뉴·인증 확인 (2026-11-02)
 
 - PC 헤더 아바타의 공용 [HeaderAccountMenu](../components/crefans/HeaderAccountMenu.tsx)에 내 프로필·설정·로그아웃을 배치한다. 링크/버튼을 사용하는 disclosure로 구현하며 펼침 표시·aria-expanded·Escape 복귀·외부 클릭·포커스 이탈 닫기를 지원한다. 모바일은 기존 내 프로필 진입을 유지한다.

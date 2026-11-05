@@ -2,7 +2,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),React=requi
 // 2026-11-02 user decision: closing the one-time payment window must not lock the order out of the monthly card payment.
 function render(order,paid=[]){
  const Action=({children,...p})=>React.createElement('button',p,children),Plain=({children})=>React.createElement('div',null,children);
- const {CheckoutPage}=loadTypeScript('components/service/CheckoutPage.tsx',{'@/features/service/useCheckoutModel':{useCheckoutModel:()=>({order,error:'',busy:false,pay:async terms=>{paid.push(terms);},setError:()=>{}}),useBillingResult:()=>({})},'next/link':Plain,'@/features/service/useOneTimePayment':{startOneTimePayment:async()=>({success:true})},'@/components/crefans/AccountPages':{SignInPrompt:Plain},'@/components/crefans/CommonPages':{BillingRegistrationResultPage:Plain},'@/components/crefans/ServiceUI':{Action,PageTitle:Plain},'./ServiceProvider':{useService:()=>({refresh:async()=>{},common:{paymentMethods:[{id:'card',label:'테스트카드',isDefault:true,requiresUpdate:false}],actions:{}}})}});
+ const {CheckoutPage}=loadTypeScript('components/service/CheckoutPage.tsx',{'@/features/service/useCheckoutModel':{useCheckoutModel:()=>({order,error:'',busy:false,pay:async terms=>{paid.push(terms);},setError:()=>{}}),useBillingResult:()=>({})},'next/link':Plain,'@/features/service/useOneTimePayment':{startOneTimePayment:async()=>({success:true})},'@/components/crefans/AccountPages':{SignInPrompt:Plain},'@/components/crefans/CommonPages':{BillingRegistrationResultPage:Plain},'@/components/crefans/ServiceUI':{Action,PageTitle:Plain},'@/components/crefans/BackButton':{BackButton:Plain},'./ServiceProvider':{useService:()=>({refresh:async()=>{},common:{paymentMethods:[{id:'card',label:'테스트카드',isDefault:true,requiresUpdate:false}],actions:{}}})}});
  let tree;act(()=>{tree=create(React.createElement(CheckoutPage,{id:order.id}));});return tree;
 }
 const base={id:'12345678-1234-1234-1234-123456789012',amount:9900,snapshot:{name:'월 구독',benefits:['혜택'],paymentEnvironment:'test',refundWindowDays:7}};
@@ -11,7 +11,7 @@ const button=(tree,label)=>tree.root.findAll(n=>n.type==='button'&&n.children.in
 const agree=tree=>act(()=>{tree.root.findByProps({type:'checkbox'}).props.onChange({target:{checked:true}});});
 test('an order whose one-time window was closed still offers the monthly card payment and shows the monthly price',()=>{
  const tree=render({...base,status:'pending',snapshot:{...base.snapshot,paymentMode:'one-time'}});
- try{agree(tree);assert.equal(button(tree,'결제하고 가입').props.disabled,false);assert.match(text(tree),/"월","9,900","원"/);}finally{act(()=>tree.unmount());}
+ try{agree(tree);assert.equal(button(tree,'결제하고 가입').props.disabled,false);assert.match(text(tree),/월간 멤버십/);assert.match(text(tree),/9,900/);}finally{act(()=>tree.unmount());}
 });
 // 2026-11-02 user decision: conditions right above the payment buttons, paying only after the required agreement, version sent to the server.
 test('payment conditions sit above the buttons and both payments stay disabled until the fan agrees; the agreement version is sent',async()=>{
