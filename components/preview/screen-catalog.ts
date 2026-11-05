@@ -14,6 +14,7 @@ export const studioLinks=[
  ['studio','대시보드','핵심 수치 · 할 일 · 최근 활동'],['studio/start','크리에이터 시작하기','기본 정보 · 프로필 확인 · 완료'],['studio/content','게시물','발행 · 임시저장 · 예약'],['studio/content/new','게시물 작성','공개 범위 · 저장 · 발행'],['studio/memberships','멤버십','가격 · 혜택 · 이미지 · 활성화 · 삭제'],['studio/subscribers','구독자','등급 · 상태 · 상세'],['studio/messages','메시지','대화 목록 · 메시지 · 차단'],['studio/comments','댓글','게시물 필터 · 답글 · 숨김'],['studio/analytics','통계 요약','구독 · 팔로워 · 매출 · 콘텐츠'],['studio/reports/revenue','순수익 리포트','기간별 매출 · 환불 · 수수료 · 순수익'],['studio/reports/subscribers','구독자 리포트','신규 가입 · 이용 종료 · 유효 구독자'],['studio/reports/followers','팔로워 리포트','팔로우 · 해제 · 기간별 증감'],['studio/earnings','수익 현황','매출 · 환불 · 수수료 · 순수익'],['studio/settlements','정산 내역','정산 대기 · 확정 · 상세'],['studio/withdraw','출금 신청','금액 · 계좌 · 확인 · 접수'],['studio/withdrawals','출금 내역','접수 · 처리 · 완료 · 반려'],['studio/accounts','정산 계좌','가상 계좌 · 확인 · 기본 설정'],['studio/security','출금 PIN 설정','6자리 설정 · 확인 · 출금 보안'],['studio/settings','크리에이터 설정','공개 프로필 · 활동 상태'],
 ];
 export const commonLinks=[
+ ['billing/success','카드 등록 완료','등록 완료 안내 · 이전 화면으로 돌아가기'],
  ['events','이벤트 안내','네 가지 혜택 · 이벤트 목록'],
  ['events/feedback','네이버페이 1만원 상품권 이벤트','공통 안내 · 혜택별 유의사항'],
  ['events/creator-advertising','주목할 크리에이터 광고상품 30일 이벤트','공통 안내 · 혜택별 유의사항'],

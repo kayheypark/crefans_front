@@ -17,10 +17,12 @@ import {SelectField} from '@/components/ui/SelectField';
 import {Dialog,Field} from '@/components/ui/Primitives';
 import type {ServiceViewModel} from '@/types/crefans';
 import type {CommonActionResult,CommonModel,LegalKind} from '@/types/crefans-common';
-import {Action,Avatar,Empty,Notice,PageTitle} from './ServiceUI';
+import {Action,ActionLink,Avatar,Empty,Notice,PageTitle} from './ServiceUI';
 import {FollowButton} from './FollowButton';
 import Icon from './Icon';
 import s from './common.module.css';
+import complete from './signup-complete.module.css';
+import billing from './billing-result.module.css';
 
 function useTask(){
   const [busy,setBusy]=useState(false),[error,setError]=useState(''),[message,setMessage]=useSnackbarMessage();
@@ -90,7 +92,15 @@ function PaymentRegistrationPreview({config,open,onClose,busy,error,onRegister}:
  return <Dialog open={open} onClose={busy?()=>{}:onClose} title="카드 등록"><div className={s.registration}><p className={s.description}>{step===1?'카드 정보 확인':'본인 확인'}</p>{step===1?<><SelectField label="카드" value={card} onChange={value=>{if(value==='shinhan'||value==='samsung'||value==='kb')setCard(value);}} options={config.cards}/><Field label="카드번호" value={number} readOnly/><Field label="유효기간" value={config.expiry} readOnly/><Checkbox label="정기결제를 위한 카드 등록에 동의합니다." checked={consent} onChange={setConsent}/></>:<><p>등록할 카드: {number}</p><Field label="인증번호" value={code} onChange={event=>setCode(event.target.value.replace(/\D/g,''))} maxLength={6} inputMode="numeric" autoComplete="one-time-code"/><small className={s.muted}>인증번호: {config.code}</small></>}{error&&<p className={s.error} role="alert">{error}</p>}<DialogActions><Action variant="secondary" disabled={busy} onClick={()=>{if(step===2)setStep(1);else onClose();}}>{step===2?'이전':'취소'}</Action><Action disabled={busy||(step===1?!consent:code!==config.code)} onClick={()=>{if(step===1)setStep(2);else onRegister(card);}}>{busy?'등록 중…':step===1?'다음':'인증하고 등록'}</Action></DialogActions></div></Dialog>;
 }
 
-export function BillingRegistrationResultPage({status,message,returnPath,onRetry,retryLabel,kind='billing'}:{kind?:'billing'|'payment';retryLabel?:string;status:'loading'|'success'|'error'|'cancelled';message:string;returnPath:string;onRetry:()=>void}){
- const checkout=returnPath.startsWith('/service/checkout/');
+export function BillingRegistrationResultPage({status,message,returnPath,onRetry,retryLabel,kind='billing',basePath='/service'}:{basePath?:string;kind?:'billing'|'payment';retryLabel?:string;status:'loading'|'success'|'error'|'cancelled';message:string;returnPath:string;onRetry:()=>void}){
+ const checkout=returnPath.startsWith(`${basePath}/checkout`),managementPath=`${basePath}/payment-methods`;
+ if(kind==='billing'&&status==='success')return <section className={s.page}>
+  <PageTitle back={<BackButton href={returnPath} label={checkout?'멤버십 결제로 돌아가기':'결제수단 관리로 돌아가기'}/>}>카드 등록 완료</PageTitle>
+  <div className={billing.complete}>
+   <span className={complete.check} aria-hidden="true"><Icon name="check" width={50} height={50} strokeWidth={2.6}/></span>
+   <div className={billing.message} role="status"><h2>카드 등록이 완료됐어요</h2><p>등록한 카드로 결제를 진행할 수 있어요.<br/>{checkout?'이전 화면에서 결제를 이어가세요.':'결제수단 관리에서 등록한 카드를 확인하세요.'}</p></div>
+   <div className={billing.actions}><ActionLink href={returnPath} className={billing.return}>이전 화면으로 돌아가기</ActionLink>{returnPath!==managementPath&&<TextLink href={managementPath} className={billing.management}>결제수단 관리</TextLink>}</div>
+  </div>
+ </section>;
  return <section className={s.page}><PageTitle back={checkout?<BackButton href={returnPath} label="멤버십 결제로 돌아가기"/>:undefined}>{kind==='payment'?(status==='success'?'결제 완료':status==='cancelled'?'결제 취소':'결제 결과'):(status==='success'?'카드 등록 완료':status==='cancelled'?'카드 등록 취소':'카드 등록 결과')}</PageTitle><p role={status==='error'?'alert':'status'}>{message}</p><div className={s.paymentResultActions}>{status==='error'||status==='cancelled'&&(kind!=='payment'||retryLabel)?<Action onClick={onRetry}>{retryLabel||(status==='cancelled'?'다시 등록하기':'다시 확인하기')}</Action>:null}{!checkout&&<TextLink href={returnPath}>{kind==='payment'?'내 구독으로 이동':'결제수단 관리로 이동'}</TextLink>}</div></section>;
 }

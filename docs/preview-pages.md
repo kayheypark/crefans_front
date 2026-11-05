@@ -33,6 +33,7 @@
 | `/preview/following` | 팔로잉 목록·해제 |
 | `/preview/followers` | 나를 팔로우하는 사람 목록(`data.followers`, 목업 56명)·이름 검색·빈 상태. 팔로우 버튼 없음(읽기 전용) |
 | `/preview/subscriptions` | 구독 목록·상세·갱신 해지, `?tab=payments` 결제 내역·상세 |
+| `/preview/billing/success` | 카드 등록 완료 1안: 회원가입과 동일한 체크 아이콘·중앙 안내·이전 화면 복귀. 기본은 `/preview/checkout`, `?from=management`는 카드 관리로 복귀. 실제 등록 API 호출 없음 |
 | `/preview/payment-methods` | 가상 결제수단 추가·기본 설정·삭제 |
 | `/preview/events` | 네이버페이 상품권 → 광고상품 기간2배 → 프로모션100콩 → 오픈 기념 배지 순으로 4개 배너. 네이버페이는 기존 디자인 유지, 나머지3개는 좌측 제목·우측3D 이미지·우측하단 대상 안내. 배너 전체 클릭 시 해당 상세로 이동. 공용 EventsPage·공개 편집 콘텐츠를 `/service/events` 및 디자인 시스템과 공유 |
 | `/preview/events/feedback` | 네이버페이1만원 상품권 상세. khpark@crefans.com 이메일 접수·작성 순서·오류/개선 제안 안내, 받는 주소/제목/본문 양식을 채우는 메일 링크. 참여 확정 회원·최대3명 선정·1만원·미정 일정과 상품권 조건 유지 |
