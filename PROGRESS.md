@@ -5,6 +5,7 @@
 - 합격 기준: 320/390/1440px 가로 넘침 없음, 모바일 설명이 라벨 아래, 버튼 간격12px 및 조건과24px 간격, 기존 동의 전 비활성/동의 버전 전달·처리 중 결과 조회 동작 유지.
 - 검증(로컬 macOS, 2026-11-05 21:57~22:01 KST): node --test tests/checkout-page.test.cjs 3/3; npm run typecheck; npm run check:layers(424파일); npm run build(38페이지) 모두 exit0. Chromium/WebKit 각320/390/1440, 총6개 격리 렌더링 검사 exit0 및 WebKit390 캡처 시각 확인. 실제 CheckoutPage SSR+실제 CSS/토큰에 주문 대역 주입, 운영 API/실결제/실물 iPhone 검증 아님.
 - 증거: `.local/checkout-layout/verify.cjs`, `results.json`, `preview.html`, `{chromium,webkit}-{320,390,1440}.png`. 최초 샌드박스 브라우저 실행 제한 후 허용 실행, 검증 harness CSS 모듈 mock 연결 오류 수정 후 최종6건 통과.
+- 문서 검사: npm run check:docs exit1. 연결된 서버 체크아웃의 founding-badge/backup-alerts 등 기존 참조 파일 누락 및 generated contracts stale 보고. 이번 UI 변경과 별개이며 통과로 표시하지 않음. 구현 커밋 1c287ee.
 - 다음: 사용자 배포 요청 시 dev 통합/검증 → prod 승격 → 운영배포 및 화면 확인. 아직 dev/prod 통합·운영 배포 없음.
 
 ## 2026-11-04 광고 상세 모달·랜딩 문구 운영 배포 완료
