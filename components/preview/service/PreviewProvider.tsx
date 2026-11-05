@@ -1,4 +1,5 @@
 'use client';
+import {PAYMENT_TERMS} from '@/lib/crefans/payment-terms';
 import {useMockFoundingBadge} from './useMockFoundingBadge';
 import {previewViewer} from '../founding-members';
 import {BeanContext} from '@/components/crefans/BeanContext';
@@ -28,14 +29,14 @@ function usePreviewState(data:ServiceData,creatorId:string,onCreatorLogin:(id:st
   const setViewer:ServiceViewModel['setViewer']=value=>{const next=typeof value==='function'?value(viewer):value;setLocalViewer(next);if(profileCreator&&next.bio!==viewer.bio)onProfileChange(profileCreator.id,{bio:next.bio});};
   const [following,setFollowing]=useState<string[]>(['haneul','jiwoo']);
   const [liked,setLiked]=useState<string[]>([]),[saved,setSaved]=useState<string[]>([]);
-  const [subscriptions,setSubscriptions]=useState<Subscription[]>(()=>initialSubscriptions.map(item=>{const plan=item.planSnapshot??getCreatorPlans(data,item.creatorId).find(plan=>plan.id===item.planId);return {...item,planSnapshot:plan?{...plan,benefits:[...plan.benefits]}:undefined};}));
+  const [subscriptions,setSubscriptions]=useState<Subscription[]>(()=>initialSubscriptions.map(item=>{const plan=item.planSnapshot??getCreatorPlans(data,item.creatorId).find(plan=>plan.id===item.planId);return {...item,id:`preview-sub-${item.creatorId}-${item.planId}`,planSnapshot:plan?{...plan,benefits:[...plan.benefits]}:undefined};}));
   const toggleFollow=(id:string)=>setFollowing(p=>p.includes(id)?p.filter(i=>i!==id):[...p,id]);
   const toggleLike=(id:string)=>setLiked(p=>p.includes(id)?p.filter(i=>i!==id):[...p,id]);
   const toggleSave=(id:string)=>setSaved(p=>p.includes(id)?p.filter(i=>i!==id):[...p,id]);
   const subscribe:ServiceViewModel['subscribe']=async(creatorId,planId)=>{
     const plan=getCreatorPlans(data,creatorId).find(p=>p.id===planId);
     if(!plan||plan.available===false||!data.creators.some(c=>c.id===creatorId))return{success:false,data:null,errorMessage:'선택한 멤버십을 확인해주세요.',errorCode:'MEMBERSHIP_NOT_FOUND'};
-    setSubscriptions(p=>[{creatorId,planId,status:'active',renewAt:nextRenewAt,price:plan.price,planSnapshot:{...plan,benefits:[...plan.benefits]}},...p.filter(s=>s.creatorId!==creatorId)]);
+    setSubscriptions(p=>[{id:`preview-sub-${creatorId}-${planId}`,creatorId,planId,status:'active',renewAt:nextRenewAt,price:plan.price,planSnapshot:{...plan,benefits:[...plan.benefits]}},...p.filter(s=>s.creatorId!==creatorId)]);
     return{success:true,data:{message:'멤버십 가입이 완료되었습니다.'},errorMessage:null,errorCode:null};
   };
   const cancelSubscription:ServiceViewModel['cancelSubscription']=async(creatorId)=>{
@@ -43,11 +44,18 @@ function usePreviewState(data:ServiceData,creatorId:string,onCreatorLogin:(id:st
     setSubscriptions(p=>p.map(s=>s.creatorId===creatorId?{...s,status:'cancelled'}:s));
     return{success:true,data:{message:'자동 갱신을 해지했습니다. 안내된 이용 기간까지 멤버십을 이용할 수 있습니다.'},errorMessage:null,errorCode:null};
   };
+  const resumeSubscription:ServiceViewModel['resumeSubscription']=async(subscription,paymentTerms)=>{
+    if(paymentTerms!==PAYMENT_TERMS.version)return{success:false,data:null,errorMessage:'자동 갱신 조건에 동의해주세요.',errorCode:'PAYMENT_TERMS_REQUIRED'};
+    const current=subscriptions.find(s=>s.id===subscription.id);
+    if(!current||current.status==='expired'||current.renewAt<today)return{success:false,data:null,errorMessage:'이용 기간이 끝났습니다. 멤버십을 다시 선택해주세요.',errorCode:'SUBSCRIPTION_ENDED'};
+    setSubscriptions(items=>items.map(item=>item.id===current.id?{...item,status:'active'}:item));
+    return{success:true,data:{message:'자동 갱신을 다시 시작했습니다. 다음 결제일부터 결제됩니다.'},errorMessage:null,errorCode:null};
+  };
   const canAccess:ServiceViewModel['canAccess']=(creatorId,rank,requiredPlanId)=>creatorId===creator?.id||hasPreviewAccess(subscriptions,creatorId,rank,today,getCreatorPlans(data,creatorId),requiredPlanId);
   const account=useMockAccount({viewer,setViewer,setSignedIn,basePath,creators:data.creators,onCreatorLogin,initialEmail:creator?'moka@gmail.com':undefined});
   const foundingBadge=useMockFoundingBadge(setViewer);
   const social=useMockSocial({data,viewer,canAccess,today,initialComments,initialReplies,liked});
-  return{data,foundingBadge,mode:'mock',basePath,ownCreatorIds:[creatorId],today,nextRenewAt,signedIn,setSignedIn,viewer,setViewer,following,toggleFollow,liked,toggleLike,saved,toggleSave,subscriptions,subscribe,cancelSubscription,canAccess,...account,...social};
+  return{data,foundingBadge,mode:'mock',basePath,ownCreatorIds:[creatorId],today,nextRenewAt,signedIn,setSignedIn,viewer,setViewer,following,toggleFollow,liked,toggleLike,saved,toggleSave,subscriptions,subscribe,cancelSubscription,resumeSubscription,canAccess,...account,...social};
 }
 const Context=createContext<ServiceViewModel|null>(null);
 const CommonContext=createContext<CommonModel|null>(null);
@@ -56,7 +64,7 @@ const ManagementContext=createContext<StudioManagementModel|null>(null);
 // UI-only preview persona switch; never authenticates a service member.
 const MokaLoginContext=createContext<(()=>void)|null>(null);
 function StateProvider({data,children,creatorId,onCreatorLogin}:{data:ServiceData;children:ReactNode;creatorId:string;onCreatorLogin:(id:string)=>void}){
-  const [currentData,setData]=useState(()=>({...data,paymentHistory:data.paymentHistory.map(item=>{const plan=item.planSnapshot??getCreatorPlans(data,item.creatorId).find(plan=>plan.id===item.planId);return {...item,planSnapshot:plan?{...plan,benefits:[...plan.benefits]}:undefined};})}));
+  const [currentData,setData]=useState(()=>({...data,paymentHistory:data.paymentHistory.map(item=>{const plan=item.planSnapshot??getCreatorPlans(data,item.creatorId).find(plan=>plan.id===item.planId);return {...item,id:`preview-sub-${item.creatorId}-${item.planId}`,planSnapshot:plan?{...plan,benefits:[...plan.benefits]}:undefined};})}));
   const protectedPlans=useRef<string[]>([]);
   const management=useMockManagement({getProtectedPlanIds:()=>protectedPlans.current,...(creatorId==='moka'?{
     initialContents:data.posts.filter(post=>post.creatorId===creatorId).map(post=>({id:post.id,title:post.title,body:post.body,media:(post.media||[{type:'image' as const,url:post.image}]).map((media,index)=>({...media,id:`${post.id}-${index}`})),commentsEnabled:post.commentsEnabled!==false,tipsEnabled:post.tipsEnabled!==false,accessPlanId:post.requiredPlanId||null,accessLevel:post.requiredPlanId?null:post.requiredRank||null,status:'published' as const,scheduledAt:null,updatedAt:'2026-09-12T09:00:00.000Z'})),

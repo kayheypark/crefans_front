@@ -1,3 +1,11 @@
+## 2026-11-05 구독 ‘다시 이용할래요’ 구현·검증 (운영 미배포)
+- 사용자 확정: 해지 취소 후 기존 다음 결제일부터 자동 갱신 재개, 즉시 결제 없음. 기존 기간·금액·가입 조건 유지. 이용기간이 남은 단건 구독도 새 자동결제 동의와 기본카드가 필요함.
+- 공용 SubscriptionResumeDialog·SubscriptionsPage, 실제 API 모델·목업·디자인 시스템 정상/오류/처리 중/긴 상품명 상태 연결. 필수 동의 기본 미선택·재진입 초기화·중복 클릭/처리 중 닫기 차단.
+- 합격 조건: 해지 구독에 정확한 버튼 문구, 다음 날짜/금액 확인과 새 동의, 재개 시 청구 0건·예정일 1회 청구, 중복·권한·만료·처리 중 결제/환불·카드 오류 차단. 로컬 E2E DB와 PG/API 대역만 사용, 운영 회원/실결제/실물 iPhone 검증 제외.
+- 검증: 서버 build exit0, payment-lifecycle 62/62, openapi 14/14, 기존 billing-recovery 전용 E2E DB 어댑터 26/26. 프론트 단위 24/24·typecheck·Next E2E 빌드·레이어429파일 통과, PC Chromium/iPhone WebKit/320px Chromium 9/9 통과. 최종 PC/모바일 캡처 육안 확인.
+- 최초 실패: 공통 타입 검사 중 오래된 공유 Prisma client는 전용 의존성/생성으로 해결; OpenAPI 개수 기대값, React 텍스트 추출, 모달 종료 애니메이션 대기 누락은 테스트를 보정하고 재검증 통과. 제품 동작 실패를 숨기지 않음. 공식 근거와 적용 판단은 서버 docs/platform-api.md의 재개 절.
+- 브랜치 양쪽 feat/subscription-resume. 기준 front origin/prod 1acfdfe, server cd4ccab. dev/prod 통합·운영배포 미실행. 프론트 .local/subscription-resume/verification.json에 명령·로그 SHA·소스 해시, 각 저장소 .local/subscription-resume에 실행 로그 보존. 문서 해시 갱신은 테스트 증명과 구분하며 기존 전체 출시 인수 검증을 주장하지 않음.
+
 ## 2026-11-05 멤버십 결제 5안 운영 배포 완료
 - 사용자 “배포까지” 승인. dev a8a60a8 통합 → prod 26d9f60 승격·원격 동기화. 검증한 feat 938df3d와 Git tree 일치 확인. 운영 프론트 이미지 crefans-front:checkout-five-20261105에 적용. 서버/API/배치/관리자/DB 컨테이너 변경 없음.
 - 운영 빌드·타입검사·38페이지 생성 성공, 이미지 내부 대상 소스6개 SHA 일치. 운영 landing/preview checkout HTTP200, frontend running/restarts0/OOMfalse. PC Chromium·iPhone WebKit·320px Chromium에서 운영 번들 E2E12/12 통과(요약/상세 펼침·키보드·동의/카드 상태별 제한·동의버전·처리결과·넘침). PC/모바일 캡처 육안 확인. API 대역 주문을 사용했고 실결제/실회원 변경·실물 iPhone 검증은 하지 않음.

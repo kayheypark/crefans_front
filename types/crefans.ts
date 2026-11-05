@@ -16,7 +16,7 @@ export type Plan={id:string;name:string;price:number;rank:number;benefits:string
 export type PostMediaItem={type:'image'|'video';url:string;processing?:boolean};
 /** `image` stays the cover for cards; `media` carries the full gallery (images and videos, up to 10) when present. */
 export type Post={id:string;creatorId:string;title:string;body:string;image:string;position:string;likes:number;comments:number;/** Stored cumulative views; absent when the source does not supply a count. */views?:number;supporterCount?:number;tipsEnabled?:boolean;requiredRank:number;requiredPlanId?:string;time:string;media?:PostMediaItem[];/** Effective flag after the studio-wide switch; undefined means open. */commentsEnabled?:boolean;canAccess?:boolean};
-export type Subscription={renewalPending?:boolean;billingIssue?:'action_required'|'retrying';retryAt?:string;orderId?:string;paidAt?:string;paymentStatus?:'paid'|'refunding'|'refunded';creatorId:string;planId:string;status:'active'|'cancelled'|'expired';renewAt:string;price:number;planSnapshot?:Plan};
+export type Subscription={id?:string;renewalPending?:boolean;billingIssue?:'action_required'|'retrying';retryAt?:string;orderId?:string;paidAt?:string;paymentStatus?:'paid'|'refunding'|'refunded';creatorId:string;planId:string;status:'active'|'cancelled'|'expired';renewAt:string;price:number;planSnapshot?:Plan};
 export type Notification={id:string;creatorId:string|null;type:string;text:string;time:string;href:string};
 /** `read`: on my own message, the other side has opened it (2026-11-01). */
 export type Message={id:string|number;body:string;mine:boolean;time:string;unread?:boolean;read?:boolean};
@@ -37,6 +37,7 @@ export type ServiceViewModel=AccountModel&SocialModel&{
   liked:string[];toggleLike:(id:string)=>void;saved:string[];toggleSave:(id:string)=>void;
   read:string[];markRead:(ids:string[])=>void;
   subscriptions:Subscription[];subscribe:(creatorId:string,planId:string)=>Promise<ApiResult<{message:string;nextPath?:string}>>;cancelSubscription:(creatorId:string)=>Promise<ApiResult<{message:string}>>;
+  resumeSubscription:(subscription:Subscription,paymentTerms:string)=>Promise<ApiResult<{message:string}>>;
   refundOrder?:(orderId:string)=>Promise<ApiResult<{message:string}>>;
   directory?:{creators:Creator[];newCreators?:Creator[];search:(query:string,category:string)=>void;hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
   feedPaging?:{hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
