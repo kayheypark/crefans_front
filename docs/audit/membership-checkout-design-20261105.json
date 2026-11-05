@@ -1,0 +1,76 @@
+{
+  "at": "2026-11-05T13:40:51.894004+00:00",
+  "commit": "26d9f608c22e8095b6a8275ed1272ddac1032c91",
+  "image": "crefans-front:checkout-five-20261105",
+  "integration": {
+    "dev": "a8a60a842ab84190b1b3517a437fcd5ddae01e7f",
+    "prod": "26d9f608c22e8095b6a8275ed1272ddac1032c91",
+    "sameTestedTree": true
+  },
+  "pageStatuses": {
+    "/service/landing": 200,
+    "/preview/checkout": 200
+  },
+  "otherContainersUnchanged": true,
+  "restartCount": 0,
+  "imageSourceSha256": {
+    "components/crefans/MembershipCheckout.tsx": "368e0294eaf0d43a214fab0b3f78844529b164858851cddf25bddae131ef5756",
+    "components/crefans/membership-checkout.module.css": "e30ae1136997b4eafd960f0b3091de791e949f36f234d0ad9f9c2a9505661bf0",
+    "components/crefans/PaymentTerms.tsx": "5a673a91b83b104cb4301d6194dfab1e50ac0daa2877b2e10d8365b1c3d9f288",
+    "components/crefans/payment-terms.module.css": "04e220d25f6f0e8f96c404d36192243ecea33c29706b1683dfca0b24c0aabc35",
+    "components/service/CheckoutPage.tsx": "a89021d865ebb04f92a1bfe5a429bcbd185ef54194690e92f27d50db28241b17",
+    "components/preview/service/PreviewMembershipCheckout.tsx": "f72979e6bf3c10e347527ce80ca636442c2fa71f46ce6debbdd848bd3a561f93"
+  },
+  "browser": {
+    "command": "npx playwright test --config .local/checkout-five-release/playwright.config.ts",
+    "exitCode": 0,
+    "stats": {
+      "startTime": "2026-11-05T13:39:40.026Z",
+      "duration": 12240.493,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "projects": [
+      "desktop Chromium",
+      "iPhone WebKit",
+      "320px Chromium"
+    ],
+    "scope": "Deployed production UI with preview data and API-intercepted test orders. No actual payment or production account mutation."
+  },
+  "cleanup": {
+    "previousImageRemoved": true,
+    "temporarySourceRemoved": true,
+    "freeBytes": 20095553536,
+    "offhostArchiveVerified": true
+  },
+  "docsCheck": {
+    "exitCode": 1,
+    "reason": "Existing linked server source references missing and generated contracts stale"
+  },
+  "evidenceDirectory": ".local/checkout-five-release",
+  "recoveryDirectory": "/Users/ethan/crefans-recovery/20261105/checkout-five",
+  "limitations": [
+    "No real PG payment",
+    "No physical iPhone test"
+  ],
+  "logSha256": {
+    "build.log": "d4c795d97e3289be0af11abbee0dce9ebfe14d27586fd8ef08b7c1e56e2985b7",
+    "deploy.log": "af473ae7c6b6bc06842f9d19d47adc0f5c272c135ff2632617d5f442bebef17d",
+    "browser-results.json": "f4a97200f2eba64df73e025bf25a27906e6906bed41397835646cadd66412cf2",
+    "cleanup.log": "bdfd8f58e21f1a616b8a09320444208818d5d1dc57fdb9d4bd7e68f3405f7b70",
+    "docs-check.log": "5b948647166f2a1414159748be5a575e74725b494d42e289482056d109c4e42a"
+  },
+  "finalHealth": {
+    "image": "crefans-front:checkout-five-20261105",
+    "running": true,
+    "oomKilled": false,
+    "restartCount": 0,
+    "httpStatus": 200
+  },
+  "preDeploymentRetries": {
+    "count": 3,
+    "reason": "Literal middle dot was encoded as hex escape in minified bundle. Inspection corrected to decode Unicode/hex escapes; all failures occurred before production mutation."
+  }
+}
