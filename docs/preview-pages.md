@@ -32,7 +32,8 @@
 | `/preview/me` | 비로그인(`signedIn:false`)이면 프로필 대신 "로그인이 필요해요" 안내 + 로그인/회원가입 링크(`SignInPrompt`). 로그인 시 크리에이터 프로필과 같은 `ProfileHeader`(커버·아바타·이름·@핸들·한 줄 소개·게시물/팔로워/팔로잉 통계, 팔로잉 비공개면 자물쇠) + 피드/미디어/소개 탭. 차이: PC·모바일 공통 커버 왼쪽 위 콩 아이콘+사용 가능 잔액의 흰색 지갑 버튼(→ `/beans`, 조회 전에는 "내 지갑"), 오른쪽 위 원형 설정 아이콘 버튼(→ `/settings`, 접근성 이름 "설정"). 지갑·설정 버튼 높이44px. 모바일767px 이하에서는 `ownCreatorIds`가 있는 크리에이터에게 설정 왼쪽 ‘스튜디오’ 버튼(같은44px 높이·8px 간격, → `/preview/studio`; 실제 서비스 `/service/studio`)을 표시한다. 팬·비로그인·PC에는 이 바로가기를 표시하지 않는다. 멤버십 섹션 없음. 피드는 주입된 `ownCreatorIds`의 게시물만 공용 `PostCard`로 표시하고, 미디어는 사진·동영상 게시물의 첫 미디어 썸네일과 사진/동영상별 아이콘·개수를 공용 `PostMediaTile`로 표시한다. 텍스트 전용 게시물은 제외한다. 실제 목록이 없을 때만 빈 상태를 표시한다. `?tab=saved|liked`는 저장/좋아요 목록 |
 | `/preview/following` | 팔로잉 목록·해제 |
 | `/preview/followers` | 나를 팔로우하는 사람 목록(`data.followers`, 목업 56명)·이름 검색·빈 상태. 팔로우 버튼 없음(읽기 전용) |
-| `/preview/subscriptions` | 구독 목록·상세·갱신 해지, `?tab=payments` 결제 내역·상세 |
+| `/preview/subscriptions` | 구독 목록·상세·갱신 해지·다시 이용할래요(다음 결제일/금액·필수 자동결제 동의 확인 후 재개), `?tab=payments` 결제 내역·상세 |
+| `/preview/billing/success` | 카드 등록 완료 1안: 회원가입과 동일한 체크 아이콘·중앙 안내·이전 화면 복귀. 기본은 `/preview/checkout`, `?from=management`는 카드 관리로 복귀. 실제 등록 API 호출 없음 |
 | `/preview/payment-methods` | 가상 결제수단 추가·기본 설정·삭제 |
 | `/preview/events` | 네이버페이 상품권 → 광고상품 기간2배 → 프로모션100콩 → 오픈 기념 배지 순으로 4개 배너. 네이버페이는 기존 디자인 유지, 나머지3개는 좌측 제목·우측3D 이미지·우측하단 대상 안내. 배너 전체 클릭 시 해당 상세로 이동. 공용 EventsPage·공개 편집 콘텐츠를 `/service/events` 및 디자인 시스템과 공유 |
 | `/preview/events/feedback` | 네이버페이1만원 상품권 상세. khpark@crefans.com 이메일 접수·작성 순서·오류/개선 제안 안내, 받는 주소/제목/본문 양식을 채우는 메일 링크. 참여 확정 회원·최대3명 선정·1만원·미정 일정과 상품권 조건 유지 |

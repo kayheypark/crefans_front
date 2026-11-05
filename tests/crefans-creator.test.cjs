@@ -267,3 +267,29 @@ test('a creator card without a profile background shows the light gray cover wit
   act(()=>{tree.update(h(CreatorCard,{creator:{...base,cover:'/cover.png'},href:'/c',following:false,onFollow:()=>{}}));});
   assert.equal(tree.root.findAllByType('img').filter(i=>i.props.src==='/brand/crefans-logo-inverse.svg').length,0);assert.ok(tree.root.findAllByType('img').some(i=>i.props.src==='/cover.png'),'background shown');
 });
+
+test('resume confirms the original date and price, requires fresh consent, and preserves cancellation on failure',async()=>{
+ const {SubscriptionsPage}=pages(),model=inputs(),calls=[];
+ const sub={id:'sub-one',creatorId:'artist-42',planId:'independent-plan',status:'cancelled',renewAt:'2030-02-08',price:27500};model.subscriptions=[sub];
+ model.resumeSubscription=async(...args)=>{calls.push(args);return failure('기본 카드를 등록해주세요.');};
+ let tree;act(()=>{tree=create(h(SubscriptionsPage,{model}));});
+ assert.equal(button(tree,'갱신 해지'),undefined);assert.match(text(tree),/종료일까지 이용 가능/);
+ act(()=>button(tree,'다시 이용할래요').props.onClick());
+ const dialog=()=>tree.root.findByProps({role:'dialog','aria-label':'다시 이용할까요?'});
+ const confirm=()=>dialog().findAllByType('button').find(b=>flatten(b.props.children)==='다시 이용할래요');
+ assert.equal(confirm().props.disabled,true);assert.match(text(tree),/지금은 결제하지 않아요/);assert.match(text(tree),/2030.02.08/);assert.match(text(tree),/27,500원/);
+ await act(async()=>{await confirm().props.onClick();});assert.equal(calls.length,0);
+ act(()=>dialog().findByType('input').props.onChange({target:{checked:true}}));
+ await act(async()=>{await confirm().props.onClick();});assert.equal(calls.length,1);assert.equal(calls[0][0].id,'sub-one');assert.equal(calls[0][1],'2026-11-02.1');assert.equal(sub.status,'cancelled');assert.equal(flatten(dialog().findByProps({role:'alert'}).props.children),'기본 카드를 등록해주세요.');
+ act(()=>button(tree,'취소').props.onClick());act(()=>button(tree,'다시 이용할래요').props.onClick());assert.equal(confirm().props.disabled,true);act(()=>tree.unmount());
+});
+test('resume blocks double submission and closing while pending, success closes the dialog',async()=>{
+ const {SubscriptionsPage}=pages(),model=inputs();model.subscriptions=[{id:'sub-one',creatorId:'artist-42',planId:'independent-plan',status:'cancelled',renewAt:'2030-02-08',price:27500}];
+ let resolve,calls=0,tree,request;model.resumeSubscription=()=>{calls++;return new Promise(r=>{resolve=r;});};
+ act(()=>{tree=create(h(SubscriptionsPage,{model}));});act(()=>button(tree,'다시 이용할래요').props.onClick());
+ act(()=>tree.root.findByType('input').props.onChange({target:{checked:true}}));
+ const dialog=()=>tree.root.findByProps({role:'dialog','aria-label':'다시 이용할까요?'});
+ const confirm=dialog().findAllByType('button').find(b=>flatten(b.props.children)==='다시 이용할래요');
+ act(()=>{request=confirm.props.onClick();confirm.props.onClick();});assert.equal(calls,1);assert.equal(button(tree,'처리 중…').props.disabled,true);assert.equal(button(tree,'취소').props.disabled,true);
+ await act(async()=>{resolve(ok('다음 결제일부터 다시 이용합니다.'));await request;});assert.equal(tree.root.findAllByProps({role:'dialog'}).length,0);assert.match(text(tree),/다음 결제일부터 다시 이용합니다/);act(()=>tree.unmount());
+});
