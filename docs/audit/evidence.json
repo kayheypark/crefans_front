@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-05T14:31:19.971316+00:00",
+  "checkedAt": "2026-11-05T14:50:55.659103+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "3ed069f93a4f74dd588f27befa3dab286cc42693",
-      "branch": "integration/billing-results-dev",
+      "head": "ef297e854d13413f410f1d08217b0007dab8d789",
+      "branch": "feat/billing-results-deployment-evidence",
       "dirty": true
     },
     "server": {
-      "head": "d7aa2937fc4e8cddfd02aed8a79dc664db59a838",
-      "branch": "integration/billing-results-dev",
+      "head": "e4486862d8b6a9d26fad8b74e0ccea26eb262ebe",
+      "branch": "feat/billing-results-deployment-evidence",
       "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "586fbd9a12686b96563b1993d00f822482be04050100da00a198f097f018d2fc",
+      "front/PROGRESS.md": "107793ad0eb09e807fc7c73aad4c1ec863c904afbf67b2c782dde0c894bb64e8",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "a59e03e6353c302826b7bb7c12c0ae8cfb09b15a297cd8ea57416cb6bac7b001",
-      "server/PROGRESS.md": "44cb1e31a9737ca39462a914bf95c2e9660df9039fb0519f8185b3f43aacd80c",
+      "server/PROGRESS.md": "6d294b78c2f305812599b6f78c6c2d03f73dd3ef41df679062e9bb4f659c8b96",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -875,6 +875,7 @@
       "server/docs/backup-telegram-alerts-20261104.json": "75af6c404af54e1f096f6a22425bed5d78d5aecbbb4bdaf5735a50d88bc5c6f3",
       "server/docs/bean-charge-expiry-20261031.json": "b55503724d834373fb83478115b5a29ff0ba34a272d17aba4991718d8d150503",
       "server/docs/billing-recovery-20261022.json": "1c85a11744574e357e856525c3a22a44521b543f5872d9f170e2a35d917740c5",
+      "server/docs/billing-results-deployment-20261105.json": "1751f2972fcd3e96ed80c8122823fb7395bf38509410d40159e5da503f0601dc",
       "server/docs/contracts/build-contract-html.py": "f0951918e0e2b7a89c21b338d1bece99c0a7e50c6cec02d3ff4b183272e762fa",
       "server/docs/contracts/build-contract-pdf.cjs": "4f113ff7ae6e7f081e2f327d490147e5e2d6fcbf22b8aaf84bbdabaab8890574",
       "server/docs/contracts/contract-pdf-layout-20261031.json": "0cce058c6e10b627f6a6dd2cf2e34647d06b8931ec1c1792ad52812d23545a3b",
