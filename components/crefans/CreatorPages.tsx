@@ -1,4 +1,6 @@
 'use client';
+import {PAYMENT_TERMS} from '@/lib/crefans/payment-terms';
+import {SubscriptionResumeDialog} from './SubscriptionResumeDialog';
 import {CREATOR_PROVISION} from '@/lib/crefans/creator-provision';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
@@ -9,7 +11,7 @@ import {CreatorName} from './CreatorName';
 import {CreatorSearch} from './CreatorSearch';
 
 import {DialogActions} from '@/components/ui/DialogActions';
-import {useEffect,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
 import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import {DelayedInlineSpinner} from '@/components/ui/DelayedSpinner';
@@ -141,12 +143,15 @@ export function MembershipPage({model,id,initialPlanId}:{model:ServiceViewModel;
 }
 
 export function SubscriptionsPage({model}:{model:ServiceViewModel}){
-  const {subscriptions,cancelSubscription,basePath,data:{creators,paymentHistory}}=model;
+  const {subscriptions,cancelSubscription,resumeSubscription,basePath,data:{creators,paymentHistory}}=model;
   const searchParams=useSearchParams(),router=useRouter();
   const requestedTab=searchParams.get('tab')==='payments'?'결제 내역':'내 구독';
   const [tab,setTab]=useState(requestedTab);
   useEffect(()=>{setTab(requestedTab);},[requestedTab]);
   const [cancelling,setCancelling]=useState<Subscription|null>(null);
+  const [resuming,setResuming]=useState<Subscription|null>(null);
+  const [resumeAgreed,setResumeAgreed]=useState(false);
+  const resumeLock=useRef(false);
   const [receipt,setReceipt]=useState<Subscription|null>(null);
   const [message,setMessage]=useSnackbarMessage();
   const [pending,setPending]=useState(false);
@@ -160,7 +165,7 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
     if(!creator||!plan)return <Empty key={`${subscription.creatorId}-${subscription.planId}-${subscription.renewAt}-${index}`} title="멤버십 정보를 확인할 수 없어요" description="크리에이터 또는 멤버십 정보가 제공되지 않았습니다."/>;
     return <article key={`${subscription.creatorId}-${subscription.planId}-${subscription.renewAt}-${index}`} className={s.subscriptionCard}>
       <Link href={`${basePath}/creator/${creator.id}`} className={s.subscriptionIdentity}><Avatar creator={creator} size={54}/><div><h3><CreatorName person={creator}/></h3><MarqueeText text={plan.name}/><p>{money(subscription.price)} /월</p><span>{subscription.status==='active'?'다음 갱신':subscription.status==='cancelled'?'이용 종료':'기간 종료'} {date(subscription.renewAt)}</span></div></Link>
-      <div className={s.subscriptionEnd}><span className={s.status} data-status={subscription.status}>{subscription.renewalPending?'갱신 결제 대기':statusLabels[subscription.status]}</span>{subscription.status==='active'||subscription.renewalPending?<Action variant="secondary" disabled={pending} onClick={()=>{setError('');setCancelling(subscription);}}>갱신 해지</Action>:subscription.status==='cancelled'?<small>종료일까지 이용 가능</small>:<TextLink href={`${basePath}/membership/${creator.id}`}>멤버십 보기</TextLink>}</div>
+      <div className={s.subscriptionEnd}>{subscription.status!=='cancelled'&&<span className={s.status} data-status={subscription.status}>{subscription.renewalPending?'갱신 결제 대기':statusLabels[subscription.status]}</span>}{subscription.status==='active'||subscription.renewalPending?<Action variant="secondary" disabled={pending} onClick={()=>{setError('');setCancelling(subscription);}}>갱신 해지</Action>:subscription.status==='cancelled'?<><Action variant="secondary" disabled={pending} onClick={()=>{setError('');setResumeAgreed(false);setResuming(subscription);}}>다시 이용할래요</Action><small>종료일까지 이용 가능</small></>:<TextLink href={`${basePath}/membership/${creator.id}`}>멤버십 보기</TextLink>}</div>
       {subscription.renewalPending&&<div className={s.billingIssue} role="status"><p>{subscription.billingIssue==='action_required'?'결제수단 변경이 필요합니다.':subscription.billingIssue==='retrying'?'정기결제에 실패해 다시 결제할 예정입니다.':'정기결제 결과를 확인하고 있습니다.'} 결제한 이용기간 이후에는 멤버십 콘텐츠를 볼 수 없습니다.</p>{subscription.retryAt&&<p>다음 시도: {new Date(subscription.retryAt).toLocaleString('ko-KR')}</p>}{subscription.billingIssue&&<><p>복구 기간 안에 새 카드를 기본으로 설정하면 갱신을 다시 시도합니다.</p><TextLink href={`${basePath}/payment-methods`}>결제수단 변경</TextLink></>}</div>}
     </article>;
   };
@@ -172,6 +177,15 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
       if(!result.success){setError(result.errorMessage);return;}
       setMessage(result.data.message);setCancelling(null);
     }finally{setPending(false);}
+  };
+  const confirmResumption=async()=>{
+    if(!resuming||!resumeAgreed||pending||resumeLock.current)return;
+    resumeLock.current=true;setPending(true);setError('');setMessage('');
+    try{
+      const result=await resumeSubscription(resuming,PAYMENT_TERMS.version);
+      if(!result.success){setError(result.errorMessage);return;}
+      setMessage(result.data.message);setResuming(null);setResumeAgreed(false);
+    }finally{resumeLock.current=false;setPending(false);}
   };
   return <div className={s.subscriptions} data-pull-refresh-block={pending||undefined}>
     <PageTitle>{tab}</PageTitle>
@@ -186,6 +200,7 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
       const plan=getSubscriptionPlan(model.data,item);
       return <button type="button" key={`${item.creatorId}-${item.planId}-${item.renewAt}-${index}`} className={s.receiptRow} onClick={()=>{setReceipt(item);setError('');}}><span><strong><MarqueeText text={`${creator?.name||'크리에이터 정보 없음'} · ${plan?.name||'멤버십 정보 없음'}`}/></strong><small>{item.paidAt?`${date(item.paidAt)}${item.paymentStatus==='refunded'?' · 환불 완료':item.paymentStatus==='refunding'?' · 환불 확인 중':''}`:`결제 내역 ${index+1}`}</small></span><span><strong>{money(item.price)}</strong><small>상세 보기 <Icon name="chevron" width="12" height="12"/></small></span></button>;
     })}</div>:<Empty title="아직 결제 내역이 없어요"/>}</section>}
+    <SubscriptionResumeDialog subscription={resuming} planName={resuming?getSubscriptionPlan(model.data,resuming)?.name||'멤버십':''} basePath={basePath} agreed={resumeAgreed} pending={pending} error={error} onAgree={setResumeAgreed} onClose={()=>setResuming(null)} onConfirm={confirmResumption}/>
     <Dialog open={!!cancelling} onClose={()=>setCancelling(null)} title="다음 갱신을 해지할까요?">
       {cancelling&&<div className={s.dialogContent}><p>{cancelling.renewalPending?'결제 대기 중인 갱신을 중단합니다. ' : ''}<MarqueeText text={`${creators.find(item=>item.id===cancelling.creatorId)?.name||'크리에이터'}님의 멤버십`}/> <strong>{date(cancelling.renewAt)}</strong>까지 이용할 수 있습니다.</p><p className={s.helper}>해지 후 다음 자동 갱신이 중단됩니다. 남은 이용 기간 동안 멤버십 콘텐츠 이용 권한은 유지됩니다.</p>{error&&<p className={s.error} role="alert">{error}</p>}<DialogActions style={{marginTop:5}}><Action variant="secondary" disabled={pending} onClick={()=>setCancelling(null)}>구독 유지</Action><Action variant="danger" disabled={pending} aria-busy={pending} onClick={confirmCancellation}>{pending?'해지 중…':'갱신 해지하기'}</Action></DialogActions></div>}
     </Dialog>
