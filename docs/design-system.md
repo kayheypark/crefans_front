@@ -530,3 +530,7 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 ### 구독 다시 이용하기 (2026-11-05)
 
 `SubscriptionResumeDialog`는 공용 Dialog·Checkbox·DialogActions·Action과 기존 요약 행을 사용한다. 금액/날짜/상품명은 props로 주입하고 기본 미동의, 처리 중 비활성, 서버 오류를 표현한다. `SubscriptionResumeCatalog`에서 일반·카드 없음·처리 중·긴 상품명 상태를 확인하며 서비스/목업은 `SubscriptionsPage`에서 같은 컴포넌트를 사용한다. 즉시 결제하지 않으며 남은 유료 기간이 끝나는 다음 결제일부터 자동 갱신한다.
+
+### 카드 등록 완료 1안 (2026-11-05)
+
+`BillingRegistrationResultPage`의 billing/success만 회원가입 완료와 같은 88px 파란 체크·중앙 정렬·큰 복귀 CTA로 표시한다. `signup-complete.module.css`의 체크 스타일을 재사용하고 제목 간격 28px, 복귀 버튼 최소 높이52px를 적용한다. 이전 화면 복귀는 props의 returnPath로 이동하고 결제에서 진입한 경우 결제수단 관리 보조 링크도 표시한다. 관리 화면으로 복귀할 때는 동일 목적지 링크를 중복 표시하지 않는다. `BillingResultCatalog`에서 완료(결제/카드 관리)·확인 중·오류·취소 상태를 공통 컴포넌트로 확인한다. `/preview/billing/success`도 같은 표시 UI를 사용한다.

@@ -295,3 +295,7 @@ bootstrap.data.categories의 서버 정렬 순서를 홈·탐색에 그대로 �
 ### 구독 다시 이용하기 (2026-11-05)
 
 이용기간이 남은 해지 구독은 `다시 이용할래요`를 표시한다. 공용 `SubscriptionResumeDialog`에서 다음 결제일·기존 월 금액·즉시 결제 없음과 자동결제 동의(기본 미선택)를 확인한다. 모델 `resumeSubscription`은 구독 UUID의 `/subscriptions/:id/resume`에 `renewAt/price/paymentTerms`를 보내고 성공 후 bootstrap을 다시 읽는다. 실패는 모달에 표시하고 카드 관리 링크를 유지한다. 중복 클릭·처리 중 닫기를 막고 재진입하면 동의를 초기화한다. 목업은 동일 컴포넌트에서 메모리 상태만 변경한다. 실결제·실회원 변경 없이 `e2e/subscription-resume.spec.ts`의 PC/iPhone WebKit/320px 및 서버 PG 대역 검사로 검증한다.
+
+### 카드 등록 완료 1안과 복귀 (2026-11-05)
+
+`useBillingResult`의 서버 등록 성공 결과를 받은 뒤에만 공통 결과 화면에서 큰 체크와 “카드 등록이 완료됐어요”를 표시한다. 상단 뒤로가기와 본문 “이전 화면으로 돌아가기”는 서버의 검증된 returnPath(원래 checkout UUID 또는 결제수단 관리)로 연결한다. history.back·자동 과금·자동 재등록을 추가하지 않는다. 확인 중·실패·취소와 결제(kind=payment) 결과는 기존 처리/재시도 동작을 유지한다. `e2e/billing-complete.spec.ts`는 API 대역으로 성공 전 완료 표시 차단·서버 결과 후 복귀·재등록 없는 이동을 PC/iPhone WebKit/320px에서 검증한다. 실제 Toss 카드 등록은 이 UI 검사 범위에서 제외한다.

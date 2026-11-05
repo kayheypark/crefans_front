@@ -6,6 +6,20 @@
 - 최초 실패: 공통 타입 검사 중 오래된 공유 Prisma client는 전용 의존성/생성으로 해결; OpenAPI 개수 기대값, React 텍스트 추출, 모달 종료 애니메이션 대기 누락은 테스트를 보정하고 재검증 통과. 제품 동작 실패를 숨기지 않음. 공식 근거와 적용 판단은 서버 docs/platform-api.md의 재개 절.
 - 브랜치 양쪽 feat/subscription-resume. 기준 front origin/prod 1acfdfe, server cd4ccab. dev/prod 통합·운영배포 미실행. 프론트 .local/subscription-resume/verification.json에 명령·로그 SHA·소스 해시, 각 저장소 .local/subscription-resume에 실행 로그 보존. 문서 해시 갱신은 테스트 증명과 구분하며 기존 전체 출시 인수 검증을 주장하지 않음.
 
+## 2026-11-05 카드 등록 완료 1안 적용 (운영 미배포)
+- 사용자 “카드등록완료 1안 채택”: 회원가입 통일형, 88px 블루 체크·중앙 완료 안내·52px 파란 “이전 화면으로 돌아가기”·결제수단 관리 보조 링크. 카드 관리에서 시작했으면 관리 화면으로, 결제에서 시작했으면 해당 주문 화면으로 이동하며 동일 관리 링크 중복은 생략한다.
+- 공용 CommonPages의 BillingRegistrationResultPage billing/success에만 적용. 기존 서버 성공 판정/쿼리 비밀값 제거/재시도/결제 결과(kind=payment) 유지. history.back·자동 과금 없음. 실제 서비스·목업 /preview/billing/success·상태별 디자인 시스템에서 같은 UI 사용.
+- 합격 조건: 성공 확인 전에 완료 표시 안 함, 실패·취소 재시도 유지, 원래 주문/관리로 명시 복귀, PC/390px WebKit/320px에서 넘침 없음. Node 회귀 15/15, 타입 검사·Next 빌드 성공, API 대역 브라우저 12/12. 캡처에서 발견한 공통 h2 margin/텍스트 링크 스타일 간섭을 국소 CSS로 수정했고, 제목 간격 assertion 포함 최종 12/12 재검증 통과. PC/모바일 최종 캡처 육안 확인. 실제 PG/운영 계정/실물 iPhone 검증 제외.
+- 시안 브랜치 feat/billing-complete-concepts 계속 사용(최신 origin/prod 1acfdfe 기준 확인). 코드 검증과 화면 캡처: .local/billing-complete-one/. 화면 계약 문서는 server feat/billing-complete-docs(origin/prod cd4ccab)에서 동기화. dev/prod 통합·운영배포 미실행.
+- 앞선 ‘다시 이용할래요’ 구현은 front feat/subscription-resume c330955/server feat/subscription-resume 7f9cfdd에 별도로 완료·미배포 상태. 다음 배포 시 두 작업 모두 누락 없이 dev에서 통합 후 prod 승격해야 한다. 이번 브랜치에 구독 재개 코드를 중복 반영하지 않았다.
+
+## 2026-11-05 카드 등록 완료 디자인 시안 3종 (미적용)
+- 사용자 요청: 회원가입 완료 화면의 톤앤매너로 카드 등록 완료를 개선하고 직전 화면 복귀 버튼을 명시. 01 회원가입 통일형 / 02 카드 아이콘형 / 03 하단 버튼형. 공통 파란색 CTA “이전 화면으로 돌아가기”, 보조 “결제수단 관리”. 결제에서 진입한 상황의 문구 예시이며 카드 결제 완료로 표현하지 않음.
+- 기준: origin/prod 1acfdfecd69dd66747ae35e3d261531347d21337에서 feat/billing-complete-concepts 분기. SignupCompletePage.tsx와 signup-complete.module.css의 88px 블루 체크·중앙 정렬 참고. 현행 CommonPages.tsx BillingRegistrationResultPage는 checkout 복귀일 때 본문 복귀 링크를 생략함을 확인.
+- 산출물: `.local/billing-complete-concepts/{comparison.png,option-1.png,option-2.png,option-3.png,designs.html,render.cjs,verification.json}`. git 제외 정적 시안이며 제품 코드·API·운영 데이터 변경 및 배포 없음.
+- 검증: `node .local/billing-complete-concepts/render.cjs` 로컬 Chromium 3안 렌더링 exit0. 각 390px 화면의 명시적 복귀 CTA 노출·가로 넘침·제목/버튼 잘림 검사 및 비교 PNG 육안 확인. 최초 샌드박스 브라우저 실행 제한(exit1) 후 허용 실행 성공. 실행 시각·환경·기준 커밋·스크립트/HTML SHA-256은 verification.json. 실제 결제/복귀 동작 검증은 시안 범위에서 제외.
+- 다음: 사용자 선택 후 공통 결과 화면 적용 및 기존 returnPath 복귀 동선 검증. 앞선 멤버십 결제 5안 운영 배포는 완료 상태 유지.
+
 ## 2026-11-05 멤버십 결제 5안 운영 배포 완료
 - 사용자 “배포까지” 승인. dev a8a60a8 통합 → prod 26d9f60 승격·원격 동기화. 검증한 feat 938df3d와 Git tree 일치 확인. 운영 프론트 이미지 crefans-front:checkout-five-20261105에 적용. 서버/API/배치/관리자/DB 컨테이너 변경 없음.
 - 운영 빌드·타입검사·38페이지 생성 성공, 이미지 내부 대상 소스6개 SHA 일치. 운영 landing/preview checkout HTTP200, frontend running/restarts0/OOMfalse. PC Chromium·iPhone WebKit·320px Chromium에서 운영 번들 E2E12/12 통과(요약/상세 펼침·키보드·동의/카드 상태별 제한·동의버전·처리결과·넘침). PC/모바일 캡처 육안 확인. API 대역 주문을 사용했고 실결제/실회원 변경·실물 iPhone 검증은 하지 않음.
