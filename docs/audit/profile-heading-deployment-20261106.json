@@ -1,0 +1,35 @@
+{
+  "recordedAt": "2026-11-05T16:15:48.491482+00:00",
+  "release": "profile-heading-spacing-20261106",
+  "sourceCommit": "221ce5c500bea7895d6d7fba93537a874ca00453",
+  "sourceSha256": {
+    "components/crefans/ProfileHeader.tsx": "7903bce07ab0875d3470d3babfb24907859f6691c79f7bb0a050d64aef345984",
+    "components/crefans/creator.module.css": "1239067319090d337b691e0270cec92f30dff48b595b73a3692514ea8eb0e551"
+  },
+  "productionBrowserStats": {
+    "startTime": "2026-11-05T16:13:05.519Z",
+    "duration": 12273.535,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "limitations": [
+    "iPhone WebKit emulation, not a physical device",
+    "My profile tested through deployed shared preview component, without signing into a production member account",
+    "Public creator checked on actual service page",
+    "No backend, database, account, payment, or email changes"
+  ],
+  "nameGapPx": 16,
+  "avatarOverlapPx": 30,
+  "localBrowserCasesPassed": 6,
+  "productionBrowserCasesPassed": 9,
+  "apiHealth": 200,
+  "otherFiveContainersUnchanged": true,
+  "offhostRecoveryVerified": true,
+  "cleanup": {
+    "previousImageRemoved": true,
+    "temporarySourceRemoved": true,
+    "freeBytes": 17429057536
+  }
+}

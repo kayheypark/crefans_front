@@ -1,3 +1,10 @@
+## 2026-11-06 프로필 활동명·배경 간격 운영 배포 완료
+- 사용자 “운영배포” 요청. feat/profile-heading-spacing → dev → prod 221ce5c 순서로 동일 tree 확인 후 프론트 profile-heading-spacing-20261106 이미지 배포. 마이페이지·타인 프로필 공용 이름/핸들 영역을 배경 아래16px로 조정, 아바타30px 겹침 유지. API·데이터 변경 없음.
+- 검증: 로컬 Next production build·타입 검사 및 PC/iPhone WebKit/320px ×2페이지6/6 통과. 운영 이미지 소스2개 SHA 일치, 운영 번들에서 동일 목업2페이지+실제 공개 크리에이터 프로필 ×3환경9/9 통과. 모든 이름 간격16px·아바타30px·가로 넘침 없음. 운영 iPhone 에뮬레이션·PC 캡처 육안 확인. 실물 iPhone 및 실회원 마이페이지 로그인은 검증하지 않음.
+- 운영4페이지·API health200, 6컨테이너 running/restart0/OOM없음·worker 실패0, 프론트 외5컨테이너 동일. 직전 이미지·설정은 맥북 /Users/ethan/crefans-recovery/20261106/profile-heading-spacing에만 저장하고 OCI digest/blob 및 설정 SHA 검증 후 직전 미사용 태그·이번 임시 소스만 정리. 활성 이미지·DB·설정·업로드 보존.
+- 배포 전 동시 운영콘솔 갱신을 감지해 변경 없이 중단하고, 최신 설정을 다시 외부 보관·검증한 뒤 콘솔 변경을 보존해 프론트만 적용했다. 추가 캡처의 networkidle 대기 초과는 화면 이미지 로딩 완료 기준으로 보정했다. 기존 간격9건 검사는 모두 통과했으며 아바타·로고·배지 로딩 후 캡처도 확인했다.
+- 증거 docs/audit/profile-heading-deployment-20261106.json, .local/profile-heading-release/verification.json·로그·캡처. AGENTS.md 기존 규약 유지. 아래 미배포 기록은 당시 이력이며 이번 간격 변경의 운영 반영은 완료.
+
 ## 2026-11-06 프로필 활동명·배경 간격 개선 (운영 미배포)
 - 사용자 스크린샷: 마이페이지와 타인 프로필 이름이 배경 하단에 붙음. 공용 ProfileHeader의 아바타/이름 중앙 정렬과 h1 margin-top이 공통 제목 초기화의 영향을 받는 구조를 확인했다.
 - 이름·핸들 컨테이너 identityDetails에 패딩46px 적용, 아바타·텍스트 상단 정렬, 제목 margin0. 기존 아바타 배경 겹침30px를 유지하고 이름을 배경 아래16px에 고정한다. 서비스·목업·디자인 시스템이 같은 컴포넌트를 사용하며 API/데이터 변경 없음.
