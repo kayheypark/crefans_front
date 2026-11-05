@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-05T14:50:55.659103+00:00",
+  "checkedAt": "2026-11-05T15:54:01.504205+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,25 +30,25 @@
   ],
   "repositories": {
     "front": {
-      "head": "ef297e854d13413f410f1d08217b0007dab8d789",
-      "branch": "feat/billing-results-deployment-evidence",
+      "head": "f2687e2c18f96c0a2f01d88ec97e671b00740c5a",
+      "branch": "feat/profile-heading-spacing",
       "dirty": true
     },
     "server": {
-      "head": "e4486862d8b6a9d26fad8b74e0ccea26eb262ebe",
-      "branch": "feat/billing-results-deployment-evidence",
-      "dirty": true
+      "head": "b477997f9d82065a5df7476f545232344a45bc40",
+      "branch": "integration/billing-results-prod",
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "107793ad0eb09e807fc7c73aad4c1ec863c904afbf67b2c782dde0c894bb64e8",
+      "front/PROGRESS.md": "d4e5c20d71258f2f23473b5c687d3b6bc78e8f68b533837a89f401daff8b7958",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "cf34633a4d8710a30c25846de3143d44d72c3f20731b36f0c10beb62c3f8c016",
+      "front/docs/design-system.md": "39574e8ef788ed23fc79eb57744f46f6dc003b38f5926c436fc0167dbd9f2183",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -234,7 +234,7 @@
       "front/components/crefans/PostShareDialog.tsx": "bb7284a47e9a30e2a7b48e80b5a79d1dacc6284e1cefe1462b1515aeb114d2a7",
       "front/components/crefans/PostViews.tsx": "6ef0b4a6d854fe62e6f19a4134484bb6c78ac9f0d055479827670e32fe967fa5",
       "front/components/crefans/ProfileConnectionsPage.tsx": "c52161393f6016ffcddcd4d4ec39d97e82afd443698b53cb133d9372c5021640",
-      "front/components/crefans/ProfileHeader.tsx": "fbef463f04a22eaaafce24f153ccab430d42b6a881f0d47d61cd5ae3e5cfe496",
+      "front/components/crefans/ProfileHeader.tsx": "7903bce07ab0875d3470d3babfb24907859f6691c79f7bb0a050d64aef345984",
       "front/components/crefans/ProfilePhotoDialog.tsx": "4c09c6eb5c71ab0ef87e9dfd24de8d8e6e053ee411b2905b910aa2399d854d05",
       "front/components/crefans/PromotionClaim.tsx": "d1416bfea28e2b27d87200c66170fe463ff35bf208d30475ceccf3eb520ece26",
       "front/components/crefans/PublicMemberPage.tsx": "db58ab2278d3bf1a0f27eb4f7dea4539eaabd2184ce7e79fa291d83b4355f057",
@@ -259,7 +259,7 @@
       "front/components/crefans/common.module.css": "03fb9818a805496ac43d86272864bcc970d09da22b59169f6666f9d7fe5e6f53",
       "front/components/crefans/creator-name.module.css": "0c0e91c88caf0b99a3b0d0dd35f0f4cb406803f219cebd1c9e41628b23232a9b",
       "front/components/crefans/creator-search.module.css": "58cf7fe4f52d60b97e73045a70ade3f2b8ddfb4ce98b9591f41cfd6d0ebde08d",
-      "front/components/crefans/creator.module.css": "cd05fee799558771fbb2e3f79dad3cf6f57806b6b9ad74561e19f1d5741f1e96",
+      "front/components/crefans/creator.module.css": "1239067319090d337b691e0270cec92f30dff48b595b73a3692514ea8eb0e551",
       "front/components/crefans/events.module.css": "c8cdf8840fe4ad2cec4afefdef081595906d577aa23c54cb1ceefc2b7f94d9b6",
       "front/components/crefans/header-account-menu.module.css": "543b7e12e910b016e4d02192bab5e74ff1abcf59824ac5a49fbe206aa8e10d92",
       "front/components/crefans/landing.module.css": "80d669763dd0130a70a3223e156e3ba35fa65199ec57b4d414c239c5fabad563",
