@@ -1,3 +1,11 @@
+## 2026-11-05 멤버십 결제 5안 운영 배포 완료
+- 사용자 “배포까지” 승인. dev a8a60a8 통합 → prod 26d9f60 승격·원격 동기화. 검증한 feat 938df3d와 Git tree 일치 확인. 운영 프론트 이미지 crefans-front:checkout-five-20261105에 적용. 서버/API/배치/관리자/DB 컨테이너 변경 없음.
+- 운영 빌드·타입검사·38페이지 생성 성공, 이미지 내부 대상 소스6개 SHA 일치. 운영 landing/preview checkout HTTP200, frontend running/restarts0/OOMfalse. PC Chromium·iPhone WebKit·320px Chromium에서 운영 번들 E2E12/12 통과(요약/상세 펼침·키보드·동의/카드 상태별 제한·동의버전·처리결과·넘침). PC/모바일 캡처 육안 확인. API 대역 주문을 사용했고 실결제/실회원 변경·실물 iPhone 검증은 하지 않음.
+- 배포 전 번들 문구 검사에서 가운데점이 minify 결과의 \xb7로 저장되어 3회 중단(운영 변경 전). 한글 Unicode 및 hex escape를 해석하도록 검사 스크립트 보정 후 통과·배포. 제품 코드 추가 변경 없음.
+- 직전 운영 이미지/설정은 /Users/ethan/crefans-recovery/20261105/checkout-five에만 보관. OCI digest·전체 blob SHA·설정 SHA 검증 후 미사용 직전 이미지 태그/이번 임시 소스만 운영에서 정리. 활성 이미지·설정·DB/업로드 보존, 정리 후 여유20,095,553,536bytes. 복구는 로컬 아카이브 재전송 필요.
+- 증거: docs/audit/membership-checkout-design-20261105.json, .local/checkout-five-release/{integration.json,source.json,build.log,image-source.json,deployment.json,browser-results.json,browser/,cleanup.json,final-health.json}. 실행 시각·명령·종료 코드·로그 SHA 포함.
+- 기존 문서 통합 검사 실패(연결 서버의 founding-badge/backup-alerts 참조 누락·generated contracts stale)는 미해결이며 전체 문서 검증 통과 주장 없음. AGENTS.md 기존 불변 규칙 유지. 아래 ‘미배포’는 과거 이력이며 이 결제 화면 배포는 완료.
+
 ## 2026-11-05 멤버십 결제 5안 섹션 구분형 적용 (운영 미배포)
 - 사용자 선택 “5로 진행”: 화이트·블루 유지, 상품/결제수단의 넓고 연한 구분선, 금액 우측 정렬, 카드 등록/관리 정리, 결제 주기·해지·환불 요약+원문 펼침. 모바일 결제 버튼 전체 너비 1열/12px 간격, PC 2열. 필수 동의 기본 미선택·기존 결제 핸들러/금액/정책 원문 유지.
 - 구현: components/crefans/MembershipCheckout.tsx와 membership-checkout.module.css를 서비스 CheckoutPage·/preview/checkout·디자인시스템에서 공유. PaymentTerms에 선택적 list 레이아웃 추가(콩 충전 기본 카드 유지). 기존 전용 checkout.module.css는 대체·제거. 상태별 카탈로그/화면 문서 갱신.
