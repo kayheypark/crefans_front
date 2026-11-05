@@ -1,4 +1,5 @@
 'use client';
+import {PreviewMembershipCheckout} from './PreviewMembershipCheckout';
 import {FoundingBadgeSettings} from '@/components/service/FoundingBadgeSettings';
 import {FoundingBadgeEventDetail} from '@/components/service/FoundingBadgeEventDetail';
 import {PromotionEventDetail} from '@/components/service/PromotionEventDetail';
@@ -30,6 +31,7 @@ function Screens(){return <section className={s.catalogue}><h1>전체 화면</h1
 export default function ServiceRouter({segments}:{segments:string[]}){
  const selectMoka=usePreviewMokaLogin(),router=useRouter(),model=usePreview(),common=usePreviewCommon(),query=useSearchParams(),{finance}=useStudio(),[screen,id]=segments,basePath=model.basePath;
  function content(){switch(screen){
+  case 'checkout':return <PreviewMembershipCheckout/>;
   case 'guide':return <ServiceGuidePage audience={id==='creator'?'creator':'fan'} basePath={basePath}/>;
   case 'explore':return <ExplorePage model={model}/>;
   case 'creator':return <CreatorProfilePage model={model} id={id} previewLogin={id==='moka'?{label:'모카로 로그인',onClick:()=>{selectMoka();router.push(`${basePath}/studio`);}}:undefined}/>;

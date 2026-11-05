@@ -1,3 +1,24 @@
+## 2026-11-05 멤버십 결제 5안 섹션 구분형 적용 (운영 미배포)
+- 사용자 선택 “5로 진행”: 화이트·블루 유지, 상품/결제수단의 넓고 연한 구분선, 금액 우측 정렬, 카드 등록/관리 정리, 결제 주기·해지·환불 요약+원문 펼침. 모바일 결제 버튼 전체 너비 1열/12px 간격, PC 2열. 필수 동의 기본 미선택·기존 결제 핸들러/금액/정책 원문 유지.
+- 구현: components/crefans/MembershipCheckout.tsx와 membership-checkout.module.css를 서비스 CheckoutPage·/preview/checkout·디자인시스템에서 공유. PaymentTerms에 선택적 list 레이아웃 추가(콩 충전 기본 카드 유지). 기존 전용 checkout.module.css는 대체·제거. 상태별 카탈로그/화면 문서 갱신.
+- 합격 조건: 320px/390px 모바일·1280px PC 넘침 없음; 3개 조건 키보드·터치 펼침; 동의 전 결제 차단·카드 없음/갱신 필요 시 정기결제 차단·단건결제 허용; 동의 버전 전달·처리 중 결과 조회 유지. 실제 PG/운영 계정/실물 iPhone 검증은 제외.
+- 검증: node --test tests/checkout-page.test.cjs tests/bean-charge-page.test.cjs tests/bean-continue-payment.test.cjs 9/9, npm run typecheck exit0, npm run check:layers 427파일 exit0. 최종 CREFANS_E2E=true Next 빌드 성공 및 npx playwright test --config .local/checkout-five/playwright.config.ts 12/12 exit0(PC Chromium/iPhone WebKit/320px Chromium). 로컬 API 대역이며 실결제 없음. PC·모바일 캡처 육안 확인. 초기 6건 실패는 common API 대역 누락으로 확인·수정, 최종 재검증 통과.
+- 증거: .local/checkout-five/{results-final.json,browser-final.log,docs-check.log,verification.json}, results-final/의 화면 캡처. 실행 시각·환경·종료 코드·소스 SHA는 verification.json 참조. Next 생성 next-env.d.ts 변경은 복원.
+- 문서 검사 npm run check:docs exit1: 연결된 기존 서버 체크아웃의 founding-badge/backup-alerts 참조 누락, generated contracts stale. 전체 문서 검사 통과로 표시하지 않음.
+- 브랜치 feat/membership-checkout-layout(분기 origin/prod e7d4e8d, 이전 작업 c1c93d8). dev/prod 통합·운영배포 미실행. 사용자 배포 요청 시 dev → prod 순서로 반영.
+
+## 2026-11-05 멤버십 결제 미니멀 1안 변형 5종 (미적용)
+- 사용자 요청: 앞서 제시한 1안과 비슷한 5종. 01 기본 균형형 / 02 간결한 목록형 / 03 타이포 중심형 / 04 결제수단 강조형 / 05 섹션 구분형. 블루·화이트, 원화 가격/필수 안내/동의·두 결제 경로 유지. 카드·체크 상태는 시안용 예시.
+- 산출물: `.local/checkout-minimal-five/option-1.png`~`option-5.png`, `options-1-3.png`, `options-4-5.png`, `comparison.png`, `designs.html`. 재생성 `python3 .local/checkout-minimal-five/create.py` → `node .local/checkout-minimal-five/render.cjs`.
+- 검증: 로컬 Chromium 렌더링 exit0, 5안×3개 정책 상세 열림 확인(15건), 두 비교 PNG 육안 확인. 실행 시각/화면 크기는 `verification.json`. 소스 기준 c1c93d8. 실제 서비스/API/결제 접근 없음. 제품 코드 변경 없이 git 제외 산출물과 PROGRESS만 갱신.
+- 다음: 사용자 선택 후 적용. 기존 구현과 이번 시안 모두 운영 미배포.
+
+## 2026-11-05 멤버십 결제 시안 3종 (사용자 선택 전, 미적용)
+- 요청: 이전 수정 대신 다시 시안 3종을 이미지로 비교. 01 미니멀 목록형 / 02 카드 정리형 / 03 금액 강조형. 기존 블루·화이트, 월 10,000원·VAT 포함, 자동결제/단건결제·해지·환불 조건은 동일. 긴 조건은 요약+펼침 구조로 제안.
+- 산출물: `.local/checkout-designs/comparison.png`, `option-1.png`~`option-3.png`, `designs.html`, `render.cjs`. HTML/CSS 시안 렌더링이며 운영 계정·실제 결제 접근 없음. 기본 카드/동의 체크는 시안 예시 상태.
+- 검증: `node .local/checkout-designs/render.cjs` Chromium 로컬 렌더링 exit0, 3종×3개 상세 조건 열림 확인. 비교 이미지 전체 육안 확인(문구·버튼 잘림 없음). 제품 코드 추가 수정/배포 없음. 기준 커밋 c1c93d8, 이번 변경은 PROGRESS와 git 제외 시안 파일뿐.
+- 다음: 선택된 시안으로 CheckoutPage를 갱신하고 모바일·PC 실제 컴포넌트 검증. 현재 앞선 레이아웃 수정도 미배포.
+
 ## 2026-11-05 멤버십 결제 모바일 레이아웃 개선 (미배포)
 - 작업트리 `/Users/ethan/repository/crefans_front-checkout-layout`, 브랜치 `feat/membership-checkout-layout`, 최신 origin/prod e7d4e8d 기준 분기(fetch 확인). 기존 체크아웃의 미커밋 문서는 보존.
 - 원인: CheckoutPage가 전용 레이아웃 없이 링크/Action을 연속 렌더링하고 공통 PaymentTerms의 96px 라벨 2열이 모바일에서도 유지됨.

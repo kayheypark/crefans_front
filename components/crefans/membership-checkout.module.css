@@ -1,0 +1,38 @@
+.page{width:100%;max-width:640px;margin-inline:auto;color:var(--cf-color-text);overflow-wrap:anywhere}
+.product,.paymentMethod{padding-bottom:24px;margin-bottom:24px;border-bottom:6px solid var(--cf-color-surfaceSubtle)}
+.productHeading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.productHeading>div:first-child{min-width:0}
+.eyebrow{margin:0 0 6px;color:var(--cf-color-accent);font-size:13px;font-weight:600}
+.product h2{margin:0;font-size:20px;line-height:1.5;letter-spacing:-.4px}
+.price{flex:none;text-align:right}
+.price strong{font-size:26px;line-height:1.4;letter-spacing:-.6px}
+.price strong span{font-size:16px;margin-left:2px}
+.price small{display:block;margin-top:3px;font-size:12px;color:var(--cf-color-textMuted)}
+.benefits{display:grid;gap:8px;list-style:none;padding:0;margin:18px 0 0;color:var(--cf-color-textSecondary);font-size:13px}
+.benefits li{display:flex;align-items:flex-start;gap:8px;line-height:1.7}
+.benefits svg{flex:none;margin-top:3px;color:var(--cf-color-accent)}
+.sectionHeading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+.sectionHeading h2{margin:0;font-size:16px}
+.sectionHeading a{display:inline-flex;align-items:center;min-height:44px;gap:2px;color:var(--cf-color-accent);font-size:13px}
+.cardRow{display:flex;align-items:center;gap:12px}
+.cardRow>svg{flex:none;color:var(--cf-color-accent)}
+.cardInfo{flex:1;min-width:0}
+.cardInfo strong{font-size:14px;font-weight:600}
+.cardInfo small{display:block;margin-top:3px;font-size:12px;line-height:1.6;color:var(--cf-color-textMuted)}
+.register{flex:none;min-height:44px;padding:8px 12px;font-size:13px}
+.paymentActions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}
+.paymentActions button{width:100%;min-width:0;min-height:48px;font-size:15px;line-height:1.5;border-radius:10px}
+.page .notice{margin:16px 0 0;text-align:center;color:var(--cf-color-textMuted);font-size:12px;line-height:1.7}
+.error{margin:16px 0 0;color:var(--cf-color-danger);line-height:1.7}
+.complete{display:grid;gap:16px}.complete a{color:var(--cf-color-accent)}
+@media(max-width:767px){
+ .product,.paymentMethod{margin-inline:-16px;padding-inline:16px}
+ .paymentActions{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:359px){
+ .productHeading{align-items:flex-start;flex-direction:column;gap:10px}
+ .price{text-align:left}
+ .cardRow{flex-wrap:wrap;gap:10px}
+ .cardInfo{min-width:150px}
+ .register{margin-left:32px}
+}
