@@ -5,3 +5,17 @@
 .terms dt{color:var(--cf-color-textSecondary)}
 .terms dd{margin:0;overflow-wrap:anywhere}
 .links{margin:0}
+.list{gap:20px;border:0;border-radius:0;padding:0;margin:0}
+.disclosures{display:grid;gap:4px;padding-bottom:16px;border-bottom:1px solid var(--cf-color-border)}
+.disclosures summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;min-height:44px;list-style:none;cursor:pointer}
+.disclosures summary::-webkit-details-marker{display:none}
+.disclosures summary>span{min-width:0}
+.disclosures strong{display:block;font-size:14px;font-weight:600}
+.disclosures small{display:block;margin-top:3px;font-size:12px;line-height:1.7;color:var(--cf-color-textMuted);overflow-wrap:anywhere}
+.disclosures svg{flex:none;color:var(--cf-color-textMuted);transition:transform .15s}
+.disclosures details[open] svg{transform:rotate(90deg)}
+.disclosures summary:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px;border-radius:4px}
+.detail{font-size:13px;line-height:1.8;color:var(--cf-color-textSecondary);padding:0 0 14px;overflow-wrap:anywhere}
+.list .links{font-size:13px;color:var(--cf-color-textMuted)}
+.list label{line-height:1.7}
+@media(prefers-reduced-motion:reduce){.disclosures svg{transition:none}}
