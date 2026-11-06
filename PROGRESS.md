@@ -1,3 +1,12 @@
+## 2026-11-06 23:27 KST 하단 호스팅 제공자·통신판매중개자 고지 운영 배포 (refund-notices-20261106)
+- 사용자 결정(/pilot-work): 첫 화면(사이버몰 초기 화면) 법정 표시를 하단+멤버십 결제 확인창에 넣고 배포. 근거 전자상거래법 제10조①·시행령 제11조의4·시행규칙 제7조·제11조의2, 제20조①·제20조의2①(미고지 시 연대배상)·제45조④(과태료 1천만 원 이하), law.go.kr 2026-11-06 확인. 호스팅 상호는 AWS 청구서 법인명(사용자 확인).
+- prod aa49285(feat/intermediary-notice 680a237·7bc9b17): lib/content/business.ts hostingProvider·intermediaryNotice(약관 제1조 문장), BusinessInfo, 멤버십 결제 확인 PaymentTerms 에 '판매자: 크리에이터명'+고지 같은 글씨 크기. 콩 충전에는 넣지 않음.
+- 검증(위임 작업 보고): typecheck·layers 0, legal-notices 4건(되돌리면 3 실패), npm test 실패 12건은 origin/prod 기준선과 동일 목록, build, Playwright PC·모바일 5건. 운영: 이미지에 문자열 포함, /service/landing·/service/feed HTML 에 호스팅·고지 각 1회(curl). 실제 기기 화면·운영 프로필 응답의 판매자 이름은 미확인. 결제 완료 메일·영수증 고지는 범위 밖.
+- 서버 문서 변경(콘솔 환불·멤버십 알림)에 맞춰 docs/audit/evidence.json 재기록, check:docs PASS(서버 prod 8e86611 형제 배치).
+- 함께 배포: 콘솔 구독 '환불 후 종료', 멤버십 해지·종료·환불 알림(서버). 가이드는 별도 배포 완료(약관 정합). 기록 server .local/refund-notices-deploy-20261106/deployment.md.
+- 통계 요약(콘텐츠 성과) 시안 5종: .local/studio-stats-designs-20261106/ (추천 E안 합계+순위), 사용자 선택 대기·미구현.
+- 미결: 보안 2건 현행 유지(사용자 결정), 시안 선택.
+
 ## 2026-11-06 프로필 활동명·배경 간격 운영 배포 완료
 - 사용자 “운영배포” 요청. feat/profile-heading-spacing → dev → prod 221ce5c 순서로 동일 tree 확인 후 프론트 profile-heading-spacing-20261106 이미지 배포. 마이페이지·타인 프로필 공용 이름/핸들 영역을 배경 아래16px로 조정, 아바타30px 겹침 유지. API·데이터 변경 없음.
 - 검증: 로컬 Next production build·타입 검사 및 PC/iPhone WebKit/320px ×2페이지6/6 통과. 운영 이미지 소스2개 SHA 일치, 운영 번들에서 동일 목업2페이지+실제 공개 크리에이터 프로필 ×3환경9/9 통과. 모든 이름 간격16px·아바타30px·가로 넘침 없음. 운영 iPhone 에뮬레이션·PC 캡처 육안 확인. 실물 iPhone 및 실회원 마이페이지 로그인은 검증하지 않음.
