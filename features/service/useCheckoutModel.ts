@@ -4,10 +4,13 @@ import {useSearchParams,useRouter} from 'next/navigation';
 import {billingAttemptKey,readBillingCallback,type BillingAttempt} from '@/lib/api/billing';
 import {platformRequest as api} from '@/lib/api/platform';
 export function useCheckoutModel(id:string,refresh:()=>Promise<void>){
- const [order,setOrder]=useState<any>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false),paying=useRef(false);
+ const [order,setOrder]=useState<any>(null),[sellerName,setSellerName]=useState(''),[error,setError]=useState(''),[busy,setBusy]=useState(false),paying=useRef(false);
  useEffect(()=>{let alive=true;setOrder(null);setError('');void api<any>(`/checkout/${encodeURIComponent(id)}`).then(r=>{if(alive){if(r.success)setOrder(r.data);else setError(r.errorMessage);}});return()=>{alive=false;};},[id]);
+ // The seller is named in the checkout (전자상거래법 시행규칙 제11조의2); the order snapshot carries only the creator id.
+ const creatorId=order?.snapshot?.creatorId;
+ useEffect(()=>{let alive=true;setSellerName('');if(creatorId)void api<any>(`/profiles/${encodeURIComponent(creatorId)}`).then(r=>{if(alive&&r.success&&typeof r.data?.name==='string')setSellerName(r.data.name);});return()=>{alive=false;};},[creatorId]);
  async function pay(paymentTerms?:string){if(paying.current)return;paying.current=true;setBusy(true);setError('');try{if(order?.status==='failed'){const retry=await api<any>(`/checkout/${encodeURIComponent(id)}/retry`,{});if(!retry.success){setError(retry.errorMessage);return;}setOrder(retry.data);}const result=await api<any>(`/checkout/${encodeURIComponent(id)}/pay`,paymentTerms?{paymentTerms}:{});if(result.success){setOrder(result.data.order);await refresh();}else{setError(result.errorMessage);const current=await api<any>(`/checkout/${encodeURIComponent(id)}`);if(current.success)setOrder(current.data);}}finally{paying.current=false;setBusy(false);}}
- return{order,error,busy,pay,setError};
+ return{order,error,busy,pay,setError,sellerName};
 }
 export function useBillingResult(success:boolean,refresh:()=>Promise<void>,signedIn=true){
  const query=useSearchParams(),router=useRouter(),started=useRef(false),captured=useRef<ReturnType<typeof readBillingCallback>|null>(null),confirming=useRef(false),completed=useRef(false);
