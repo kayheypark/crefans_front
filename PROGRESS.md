@@ -505,6 +505,13 @@
 
 # PROGRESS: crefans_front
 
+## 2026-11-06 23:05 KST 호스팅 제공자·통신판매중개자 고지 — feat/intermediary-notice (prod 승격, 운영 미배포)
+- 사용자 결정(/pilot-work): 하단 사업자 정보 + 멤버십 결제 확인창에 넣고 배포. 호스팅 제공자 상호는 사용자가 AWS 청구서로 확인한 `Amazon Web Services Korea LLC`.
+- 근거(국가법령정보센터 2026-11-06 확인): 전자상거래법 제10조①·시행령 제11조의4(호스팅서비스 제공자 상호)·시행규칙 제7조(초기 화면 표시), 제20조①·시행규칙 제11조의2(중개자 고지, 청약 절차에서는 당사자 표시와 같거나 큰 글씨), 제20조의2①(미고지 시 연대배상), 제45조④2호·5의3(각 1천만 원 이하 과태료).
+- 변경: `lib/content/business.ts` hostingProvider·intermediaryNotice(약관 제1조 문장과 동일), `BusinessInfo.tsx`(PC 사이드바·모바일 하단·랜딩·설정 공통), `PaymentTerms.tsx` seller(판매자: 이름 + 고지, 같은 13px), `MembershipCheckout.tsx`, `useCheckoutModel.ts`(주문 snapshot.creatorId로 `/profiles/{id}` 이름 조회, 실패 시 '이 멤버십을 운영하는 크리에이터'), `CheckoutPage.tsx`. 콩 충전 확인에는 넣지 않음(크레팬스 직접 판매).
+- 검증: typecheck·check:layers 0, 신규 `tests/legal-notices.test.cjs` 4건 통과(소스 되돌리면 3건 실패), npm test 544건 중 실패 12건 = origin/prod 기준선과 동일 목록, build 0, `e2e/legal-notices.spec.ts` PC·모바일(iPhone 13) 5 통과·1 생략(PC 랜딩은 하단 숨김), 두 줄 computed font-size 동일·가로 넘침 없음. 증거 `.local/intermediary-notice-20261106/`(로컬).
+- 미확인/남은 일: 운영 배포 전. 결제 완료 메일·영수증의 중개자 고지(시행규칙 제11조의2 계약내용 서면)는 이번 범위 밖. 구형 `components/layout/MainLayout.tsx`(app/(main))의 주석 처리된 옛 사업자 정보는 손대지 않음.
+
 ## 2026-11-01 크리에이터 게시물 워터마크 — 운영 배포 완료
 - 새로 업로드한 크리에이터 게시물 사진·영상만 오른쪽 아래 주소 워터마크 적용. 기존 파일·프로필/배경/멤버십 이미지는 제외. 사진 파생 파일은 긴 변 최대2560px, 원본 보존.
 - MediaUpload·스튜디오 목록은 사진 처리 중 파일 요청 대신 상태 표시. 업로드 도움말에 적용 범위 안내.

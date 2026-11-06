@@ -5,6 +5,7 @@ import {BackButton} from './BackButton';
 import Icon from './Icon';
 import {PaymentTerms} from './PaymentTerms';
 import {MembershipCompletePage} from './MembershipCompletePage';
+import {intermediaryNotice} from '@/lib/content/business';
 import s from './membership-checkout.module.css';
 
 export type MembershipCheckoutOrder={
@@ -15,11 +16,13 @@ type Props={
  order:MembershipCheckoutOrder|null;error:string;basePath:string;
  defaultMethod?:{label:string;requiresUpdate?:boolean};canRegister:boolean;
  busy:boolean;registering:boolean;agreed:boolean;onAgree:(value:boolean)=>void;
+ /** The creator selling this membership; the checkout names a generic seller until it is known. */
+ sellerName?:string;
  onRegister:()=>void;onPay:()=>void;onOneTime:()=>void;
 };
 
 /** Shared checkout presentation; orders, card state and payment actions are supplied by its container. */
-export function MembershipCheckout({order,error,basePath,defaultMethod,canRegister,busy,registering,agreed,onAgree,onRegister,onPay,onOneTime}:Props){
+export function MembershipCheckout({order,error,basePath,defaultMethod,canRegister,busy,registering,agreed,onAgree,onRegister,onPay,onOneTime,sellerName}:Props){
  const singleMonth=order?.snapshot.paymentMode==='one-time'&&order.status!=='pending';
  const backHref=order?.snapshot.creatorId?`${basePath}/membership/${encodeURIComponent(order.snapshot.creatorId)}${order.planId?`?plan=${encodeURIComponent(order.planId)}`:''}`:`${basePath}/subscriptions`;
  if(order?.status==='paid')return <MembershipCompletePage basePath={basePath} backHref={backHref} order={order}/>;
@@ -37,7 +40,7 @@ export function MembershipCheckout({order,error,basePath,defaultMethod,canRegist
      <div className={s.cardRow}><Icon name="card" width={22} height={22}/><div className={s.cardInfo}><strong>{defaultMethod?.label||'등록된 결제수단 없음'}</strong><small>{defaultMethod?'등록된 카드로 결제':'매월 결제하려면 카드를 등록해주세요.'}</small></div><Action className={s.register} variant="secondary" disabled={busy||registering||!canRegister} onClick={onRegister}>{registering?'처리 중…':'카드 등록'}</Action></div>
      {defaultMethod?.requiresUpdate&&<p className={s.error} role="alert">기본 카드를 사용할 수 없습니다. 결제수단 관리에서 다른 카드를 기본으로 설정해주세요.</p>}
     </section>
-    {order.status!=='processing'&&<PaymentTerms layout="list" basePath={basePath} agreed={agreed} onAgree={onAgree} disabled={busy||registering} items={[
+    {order.status!=='processing'&&<PaymentTerms layout="list" basePath={basePath} seller={{name:sellerName||'이 멤버십을 운영하는 크리에이터',notice:intermediaryNotice}} agreed={agreed} onAgree={onAgree} disabled={busy||registering} items={[
      {label:'결제 주기',summary:'매월 자동 결제 · 한 달 결제도 가능',value:'등록 카드 결제는 오늘 결제한 뒤 매월 같은 날(그 날이 없는 달은 말일) 자동으로 결제됩니다. 한 달만 결제하면 자동 갱신되지 않습니다.'},
      {label:'해지',summary:'다음 결제 해지 · 남은 기간 이용',value:'내 구독에서 언제든 다음 결제를 해지할 수 있고, 이미 결제한 기간까지 이용할 수 있습니다.'},
      {label:'환불',summary:order.snapshot.refundWindowDays?`결제 후 ${order.snapshot.refundWindowDays}일 이내 · 전용 게시물 미열람 시`:'이용약관의 환불 기준 확인',value:order.snapshot.refundWindowDays?`결제 후 ${order.snapshot.refundWindowDays}일 이내이고 멤버십 게시물을 열람하지 않았다면 전액 환불을 요청할 수 있습니다. 게시물을 열람해 이용을 시작한 뒤에는 환불이 제한됩니다.`:'환불 기준은 이용약관을 따릅니다.'}

@@ -5,6 +5,10 @@
 .terms dt{color:var(--cf-color-textSecondary)}
 .terms dd{margin:0;overflow-wrap:anywhere}
 .links{margin:0}
+/* Seller and intermediary notice share one size (시행규칙 제11조의2②: 고지는 당사자 표시와 같거나 더 크게). */
+.seller{display:grid;gap:4px;font-size:13px;line-height:1.7;color:var(--cf-color-textSecondary);overflow-wrap:anywhere;word-break:keep-all}
+.seller p{margin:0;font-size:inherit}
+.seller strong{font-size:inherit;font-weight:600;color:var(--cf-color-text)}
 .list{gap:20px;border:0;border-radius:0;padding:0;margin:0}
 .disclosures{display:grid;gap:4px;padding-bottom:16px;border-bottom:1px solid var(--cf-color-border)}
 .disclosures summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;min-height:44px;list-style:none;cursor:pointer}
