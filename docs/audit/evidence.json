@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T06:51:23.269719+00:00",
+  "checkedAt": "2026-11-06T08:00:43.758327+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "fef0a507d61ac24626d76d7b36caf39dfcaf9c91",
-      "branch": "feat/toss-review-limits",
+      "head": "7e37825fc77149eac25a7488e7a07d5fd1b57005",
+      "branch": "feat/mail-order-number",
       "dirty": false
     },
     "server": {
-      "head": "404b0d2414cbda6a2147f4c1e8dcee9c69063b90",
-      "branch": "feat/toss-review-limits",
+      "head": "e7315c0fa419c8eba637634792ba8427d7e7c6cb",
+      "branch": "feat/mail-order-terms",
       "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "f7e841422a807df108083663b6018234dc5cb8be5bb99c2ba829ec96f1780acc",
+      "front/PROGRESS.md": "28f292b8600b052c10308cb463844156cb4a7afbe3a417e8c477c93882bd998b",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "a59e03e6353c302826b7bb7c12c0ae8cfb09b15a297cd8ea57416cb6bac7b001",
-      "server/PROGRESS.md": "789a397c8f3541bfe3344f4fb7f42db24d575fd1f9dd369fbe5917e9de67867d",
+      "server/PROGRESS.md": "f516e303ed2564c0a122a8f7aa3e282970a0cb5a2019508cf7e4635ed3352a1f",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -694,7 +694,7 @@
       "front/lib/constants/loadingTexts.ts": "0068c9e2fe0fb4b64cecd837f1eeaa1db881083dad9bcfba19bfe230840f92b3",
       "front/lib/constants/modalStyles.ts": "4a80ae8bb24de98c42e2e168754a9db32beb297fbd177597726ff336cfd103cd",
       "front/lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
-      "front/lib/content/business.ts": "2db80e0a5596628448dc29a5eb1a8a425d79ce19cc72f8b01d6340af281248f2",
+      "front/lib/content/business.ts": "e4180474f1756dba73badaf71d56324b8e19f31eee863922858983ae0a11cff6",
       "front/lib/content/events.ts": "550938aee1c0b178b471e2db58b064e725df7a67cfb95ad92634c792113808e9",
       "front/lib/content/landing.ts": "e72c68777ed985c78f6c32577661fa47e90fa56fe8b5d556de3d2014193229ad",
       "front/lib/crefans/bean-history.ts": "37ff0f25c988145d715055a680c7996e68982d625ea9ee24e3cc7475c18a0868",
@@ -1142,7 +1142,7 @@
       "server/src/platform/identity-provider.ts": "d3460eb36d68cc48503a7cc433c8d7ec19b4ac9b61051f93478bbd1056be1af3",
       "server/src/platform/identity.controller.ts": "75c26a2fc5fdf824d29ebe46d5b334c531ab4584790023dc0ccbf76642011330",
       "server/src/platform/jobs.service.ts": "e453e50ec183c3f3f998097fbb235310c89a4694a4e7bf1cbb9a85ffdf708af3",
-      "server/src/platform/legal-documents.ts": "b86091e47c23b3333da042d5239c06bc6965e910b2509a61a40ee01630801055",
+      "server/src/platform/legal-documents.ts": "b4a78ce60e6b8ea72fd47c63100023bc395d36b4eea9a924b487e4eb0e8e1768",
       "server/src/platform/main.ts": "fcc906c8699b3c55e6969df007336fdcf48480475ff30a9a6627b5c2fefc9fec",
       "server/src/platform/marketing.controller.ts": "a09e8057aa2e19e0faa8f330b1bf2887fde14541496d703f4caa9626172b598b",
       "server/src/platform/marketing.service.ts": "5827b5846a8796978d905490beb4e112a1918705756f7d9f3732d0e5ecd43cf7",
@@ -1269,7 +1269,7 @@
       "server/tests/platform-founding-badge.test.cjs": "84b2680a364274b486adc058b771ef02836666fe3424773b29c7367ce7b25cca",
       "server/tests/platform-handle-unify.test.cjs": "197d118455a196c09663d7ac7163c8af3b41bc960269a8681e4e65fe90e70252",
       "server/tests/platform-jobs.test.cjs": "830e4c9ab485dfbec44c6bb2e1801d8b090fb814cbb21aa4bba427a3a0e097fe",
-      "server/tests/platform-legal.test.cjs": "c45ee8ffe33107d4d18e805932b8a6bd501d4124271ab0fca43dd97aef8796c8",
+      "server/tests/platform-legal.test.cjs": "80ae8f2d04daf18ff260cb519f1f26185003a3afdac021d9349f1e2779a34a59",
       "server/tests/platform-log-config.test.cjs": "3f51cbb8743cce0b5a93d2e03ea458f2f102039a6e5b7db0613ba934af8e72d1",
       "server/tests/platform-mail.integration.test.cjs": "a637580ef18796ed8cd0af92e3d89470813035800ab13d90061a251210ccc8ca",
       "server/tests/platform-manual-payouts.test.cjs": "3567c70fabede5109593a73f982b4284dc9ece7b393ba91e41247e95694ce24e",
