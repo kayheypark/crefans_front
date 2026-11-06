@@ -1,16 +1,8 @@
 {
-  "recordedAt": "2026-11-06T14:55:31.556421+00:00",
+  "recordedAt": "2026-11-06T15:06:12.534314+00:00",
   "repository": "crefans_front",
   "baseline": "53e6a0449cbd614a8719b442c35a4188c71a6f3e",
-  "status": "local_verified_deployment_pending",
-  "uncommittedFiles": [
-    "components/crefans/studio/ContentPerformance.tsx",
-    "components/crefans/studio/content-performance.module.css",
-    "components/crefans/studio/OverviewPages.tsx",
-    "components/design-system/ContentPerformanceCatalog.tsx",
-    "components/design-system/ServicePatternCatalog.tsx",
-    "e2e/content-performance.spec.ts"
-  ],
+  "status": "production_deployed_and_verified",
   "filesSha256": {
     "components/crefans/studio/ContentPerformance.tsx": "c2a778398879538325c371dd9c4a6ac930ddfa8ba81d31726252e7d6c9ca3ee8",
     "components/crefans/studio/content-performance.module.css": "24f9bbe7884a97538fba692160ca7fa0e9c0fe4d0ba0a72278e74a0e62302846",
@@ -54,13 +46,152 @@
     "evidenceDirectory": ".local/content-performance-release"
   },
   "limitations": [
-    "Service API responses mocked; no production member data changed",
-    "No physical iPhone testing",
-    "Production browser verification pending"
+    "Physical iPhone not tested; iPhone13 WebKit emulation used",
+    "Authenticated service API responses mocked; no production member data changed",
+    "No analytics collection or backend policy changes"
   ],
   "reference": {
     "url": "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/",
     "checkedAt": "2026-11-06",
     "application": "native button, Enter/Space, aria-expanded and aria-controls"
+  },
+  "deployedCommit": "c90c70bf3a23bc44384095889e6bf0fb866fe824",
+  "production": {
+    "deployedAt": "2026-11-06T15:04:17Z",
+    "frontend": {
+      "id": "8e5bb9edce40c707e0546d0cf5fca9b392e09932101c3959f265ebab3d2172ee",
+      "tag": "crefans-front:content-performance-20261106",
+      "image": "sha256:411801650b2bc97820ca2ca66905197cdeb2877e4f5341f0fb589fa40370662a"
+    },
+    "otherContainersUnchanged": true,
+    "pageStatuses": {
+      "/service/landing": 200,
+      "/preview/studio/analytics": 200,
+      "/service/studio/analytics": 200,
+      "/service/creator/crefans": 200
+    },
+    "browser": {
+      "command": "PERFORMANCE_PRODUCTION=true npx playwright test --config=.local/content-performance-release/playwright.config.ts",
+      "exitCode": 0,
+      "stats": {
+        "startTime": "2026-11-06T15:04:32.932Z",
+        "duration": 13614.663999999999,
+        "expected": 12,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "scope": "Live frontend bundle; preview fixtures and intercepted service API; no member changes"
+    },
+    "health": {
+      "at": "2026-11-06T15:04:33Z",
+      "containers": {
+        "crefans-beta-frontend-1": {
+          "tag": "crefans-front:content-performance-20261106",
+          "commit": "c90c70bf3a23bc44384095889e6bf0fb866fe824",
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": null
+        },
+        "crefans-beta-worker-1": {
+          "tag": "crefans-api:refund-notices-20261106",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": null
+        },
+        "crefans-beta-api-1": {
+          "tag": "crefans-api:refund-notices-20261106",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": "healthy"
+        },
+        "crefans-beta-admin-1": {
+          "tag": "crefans-admin:refund-notices-20261106",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": null
+        },
+        "crefans-beta-proxy-1": {
+          "tag": "caddy:2-alpine",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": null
+        },
+        "crefans-beta-database-1": {
+          "tag": "mysql:8.0",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": "healthy"
+        }
+      },
+      "worker": {
+        "completedAt": "2026-11-06T15:03:48.314Z",
+        "failures": {}
+      },
+      "apiStatus": 200
+    },
+    "cleanup": {
+      "previousImageRemoved": true,
+      "temporarySourceRemoved": true,
+      "freeBytes": 8831152128
+    },
+    "recoveryLocation": "/Users/ethan/crefans-recovery/20261106/content-performance",
+    "capture": {
+      "command": "node .local/content-performance-release/capture-production.mjs",
+      "exitCode": 0,
+      "result": "Desktop thumbnails decoded before final screenshot",
+      "log": "[{\"complete\":true,\"naturalWidth\":32,\"height\":20},{\"complete\":true,\"naturalWidth\":1535,\"height\":58},{\"complete\":true,\"naturalWidth\":1536,\"height\":58}]"
+    }
+  },
+  "deploymentCommands": [
+    {
+      "command": "python3 .local/content-performance-release/source-check.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/content-performance-release/archive.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/content-performance-release/build.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/content-performance-release/deploy.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/content-performance-release/health.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/content-performance-release/cleanup.py",
+      "exitCode": 0
+    }
+  ],
+  "logSha256": {
+    "build-final.log": "a0e1c7bfdcba2f5b00b0b8908f67331c1ddcfb4782802133313977feaf17013f",
+    "local-browser.log": "6ad8ac491f414479493cc2a9b7714529acce263c025330443fecc180d7407d87",
+    "local-results.json": "b31a75b9e0ca9ce57822531795c2b2317b48f506dca23bffcbbb511a2a0d9969",
+    "runtime-source-check.json": "3925923bb921de9b620ae9309d5e45926a898d74438f6fe451a53ce6a3a18e32",
+    "archive.log": "bafa853752942982a40ece368d801c81352410ba083a158619183c3c3eac8052",
+    "build.log": "72fa8131e0d0bbe49d5e05cb8abb7c0a90132c61af71e4e7dab030680fa752c5",
+    "deploy.log": "bfdb473ef5541d9df2ada94e8da9f9d425ed11363d5f9e47699fbd6dc357e8db",
+    "production-browser.log": "8edd24c38d1d39a17864ccfbec30f21c40ce9d0c8eaaf461eaf73ec2e710be57",
+    "production-results.json": "4b78eba471c664ea56d0feaa6b5868073fc1f69fa95ffd5ab7556de50ecefde5",
+    "final-health.json": "d497729c4584221e3132ee65ead1efb441a900cc75f626cf3e7bcdf6678edfc6",
+    "cleanup.log": "1e5b214c6fc3c55491596ee5c32f0206bd7796736f127e2d62f14aa5ebab2118",
+    "capture-production.log": "723927c2f53fd94e9c52ea6e14546a2a6a54f35301b15d14c8eced95f7c04bcc"
   }
 }
