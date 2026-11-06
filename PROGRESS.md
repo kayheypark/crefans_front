@@ -1,3 +1,9 @@
+## 2026-11-07 콘텐츠 성과 하단 접기 버튼 삭제 (검증 완료·운영 미배포)
+- 사용자 요청: 항목 하단 접기 버튼만 제거. 제목 영역 클릭·Enter/Space의 펼침/접기, 첫 항목 초기 펼침, 통계 데이터/연결 격자 유지.
+- 최신 origin/prod 6421103에서 fix/content-performance-remove-collapse 분기. 공용 ContentPerformance의 하단 버튼과 불필요해진 ref·전용 CSS 제거, 기존 브라우저 검사의 접기 동선을 제목으로 변경. 서비스·목업·카탈로그에 공통 적용.
+- 검증: Next production build(타입 검사 포함) 종료0, 로컬 PC/iPhone WebKit/320px 기존 브라우저 검사 3/3 통과. 하단 버튼 없음·제목 클릭/Enter/Space·도움말·연결선·수치·가로 넘침 확인. 모바일 캡처 육안 검수. 최초 WebKit 클릭 직후 포커스 기대값 1건 실패는 클릭과 키보드 포커스 검사를 분리해 재검증 통과. 제품 코드 추가 변경 없음.
+- 증거 .local/content-performance-collapse/verification.json·로그·캡처. 문서 검사 통과. 실제 기기 및 운영 검증 제외, dev/prod 통합·운영 배포 미실행. 다음 배포 시 이 브랜치를 dev → prod 순서로 반영. AGENTS.md 기존 규약 유지.
+
 ## 2026-11-07 콘텐츠 성과 상세 펼침형 운영 배포 완료
 - 사용자 승인 시안대로 첫 게시물은 펼치고 나머지는 접는다. 피드 노출·상세 조회·30분 방문수·공유/외부 유입·영상 재생은 가로·세로선이 이어진 3열×2행 격자로 표시. 유입 경로·좋아요·댓글 보존, 긴 집계 안내는 ⓘ 도움말로 이동. 큰 수치는 만·억 단위, 정확한 수치는 접근성 이름·title 유지. 집계 정책·API·DB 변경 없음.
 - 기준 origin/prod 53e6a04 → feat/content-performance-disclosure 050e14b → dev a28d6ea → prod c90c70b 순서로 통합·동일 tree 확인. 운영 프론트 content-performance-20261106 배포, 변경 소스5개 SHA 일치. 기준 운영 소스550개와 prod 일치 확인 후 진행.

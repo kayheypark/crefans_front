@@ -16,8 +16,8 @@ test('공용 목업: 첫 항목 펼침, 연결된 격자, 도움말 및 키보�
  await expect(rows).toHaveCount(2);await expect(first).toHaveAttribute('aria-expanded','true');await expect(rows.nth(1).getByRole('button').first()).toHaveAttribute('aria-expanded','false');
  await expect(rows.first()).toContainText('2,840');await expect(rows.first().locator('dl[aria-label="열람 통계"]')).toContainText('2,800');await expect(rows.first()).toContainText('방문수 (30분)');await connectedGrid(page);await noOverflow(page);
  await root.getByRole('button',{name:'콘텐츠 성과 집계 기준'}).click();await expect(page.getByRole('tooltip')).toContainText('50% 이상·1초 이상');await expect(page.getByRole('tooltip')).toContainText('실제 사람 수와 다릅니다');await page.keyboard.press('Escape');await expect(page.getByRole('tooltip')).toHaveCount(0);
- await rows.first().getByRole('button',{name:/통계 접기/}).click();await expect(first).toBeFocused();await expect(first).toHaveAttribute('aria-expanded','false');await expect(rows.first().locator('dl[aria-label="열람 통계"]')).toBeHidden();
- await first.press('Enter');await expect(first).toHaveAttribute('aria-expanded','true');await first.press('Space');await expect(first).toHaveAttribute('aria-expanded','false');await first.press('Enter');
+ await expect(root.getByRole('button',{name:/통계 접기/})).toHaveCount(0);await first.click();await expect(first).toHaveAttribute('aria-expanded','false');await expect(rows.first().locator('dl[aria-label="열람 통계"]')).toBeHidden();
+ await first.focus();await expect(first).toBeFocused();await first.press('Enter');await expect(first).toHaveAttribute('aria-expanded','true');await first.press('Space');await expect(first).toHaveAttribute('aria-expanded','false');await first.press('Enter');
  await root.getByRole('heading',{name:'콘텐츠 성과',exact:true}).click();await root.screenshot({path:info.outputPath('content-performance.png')});
 });
 

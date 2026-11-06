@@ -10,7 +10,7 @@
 
 - 공용 [ContentPerformance](../components/crefans/studio/ContentPerformance.tsx)를 실제 스튜디오·목업 통계 요약에서 사용한다. 첫 게시물은 펼치고 나머지는 접으며, 제목·썸네일·조회는 항상 표시한다. 조회는 주입된 값 그대로 표시하고 피드·상세를 합산하지 않는다.
 - 펼친 통계는 피드 노출·상세 조회·30분 방문수 / 공유·외부 유입·영상 재생의 3열×2행으로 표시한다. [스타일](../components/crefans/studio/content-performance.module.css)의 1px grid gap이 가로·세로 연결선을 만들고 마지막 빈 칸도 같은 배경을 사용한다. 유입 경로·좋아요·댓글은 상세에서 보존하며, 통계 미제공은 0으로 바꾸지 않는다. 1만 이상은 기존 조회수 표시처럼 만·억 단위로 줄이고 title·접근성 이름에 정확한 숫자를 유지한다.
-- 집계 기준은 기존 InfoTooltip으로 표시한다. 네이티브 버튼의 Enter/Space, aria-expanded/aria-controls로 펼치며 접기 후 제목 버튼으로 포커스를 돌려준다. 근거: [WAI-ARIA Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/), 확인일 2026-11-06. [카탈로그](../components/design-system/ContentPerformanceCatalog.tsx)는 일반·빈 목록·미집계·0·긴 제목/큰 수치를 제공한다. [브라우저 검사](../e2e/content-performance.spec.ts)는 PC·iPhone WebKit·320px 목업/API 대역이며 실물 기기·실회원 검증과 구분한다.
+- 집계 기준은 기존 InfoTooltip으로 표시한다. 항목 제목의 네이티브 버튼을 클릭하거나 Enter/Space로 펼치고 접으며 aria-expanded/aria-controls를 유지한다. 항목 하단의 별도 접기 버튼은 표시하지 않는다(2026-11-07). 근거: [WAI-ARIA Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/), 확인일 2026-11-06. [카탈로그](../components/design-system/ContentPerformanceCatalog.tsx)는 일반·빈 목록·미집계·0·긴 제목/큰 수치를 제공한다. [브라우저 검사](../e2e/content-performance.spec.ts)는 PC·iPhone WebKit·320px 목업/API 대역이며 실물 기기·실회원 검증과 구분한다.
 
 | 카탈로그 메뉴 | 확인할 내용 | 등록 위치 |
 | --- | --- | --- |
