@@ -1,0 +1,66 @@
+{
+  "recordedAt": "2026-11-06T14:55:31.556421+00:00",
+  "repository": "crefans_front",
+  "baseline": "53e6a0449cbd614a8719b442c35a4188c71a6f3e",
+  "status": "local_verified_deployment_pending",
+  "uncommittedFiles": [
+    "components/crefans/studio/ContentPerformance.tsx",
+    "components/crefans/studio/content-performance.module.css",
+    "components/crefans/studio/OverviewPages.tsx",
+    "components/design-system/ContentPerformanceCatalog.tsx",
+    "components/design-system/ServicePatternCatalog.tsx",
+    "e2e/content-performance.spec.ts"
+  ],
+  "filesSha256": {
+    "components/crefans/studio/ContentPerformance.tsx": "c2a778398879538325c371dd9c4a6ac930ddfa8ba81d31726252e7d6c9ca3ee8",
+    "components/crefans/studio/content-performance.module.css": "24f9bbe7884a97538fba692160ca7fa0e9c0fe4d0ba0a72278e74a0e62302846",
+    "components/crefans/studio/OverviewPages.tsx": "d5ed5a8a5177afc85ece8edfd639e63b4f6be54662aee312d731aa4a9b965e75",
+    "components/design-system/ContentPerformanceCatalog.tsx": "1e343654de78d271324b048c4cfed748d8434abca4b3d57f7bc8bad09bf13e4a",
+    "components/design-system/ServicePatternCatalog.tsx": "46bba6f59578cc52302b66db7addfdd5ee19c63b865c08cb104941219b380e4f",
+    "e2e/content-performance.spec.ts": "635b62d493f79e081f1d9506adcf18f3f91864b7594f28a4ed764c526d7542e8"
+  },
+  "local": {
+    "commands": [
+      {
+        "command": "npm run check:layers",
+        "exitCode": 0,
+        "result": "433 files"
+      },
+      {
+        "command": "npm run typecheck",
+        "exitCode": 0
+      },
+      {
+        "command": "CREFANS_E2E=true npm run build",
+        "exitCode": 0
+      },
+      {
+        "command": "npx playwright test --config=.local/content-performance-release/playwright.config.ts",
+        "exitCode": 0,
+        "result": {
+          "startTime": "2026-11-06T14:50:57.286Z",
+          "duration": 12540.335,
+          "expected": 12,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        }
+      }
+    ],
+    "sourceComparison": {
+      "checked": 550,
+      "differences": []
+    },
+    "evidenceDirectory": ".local/content-performance-release"
+  },
+  "limitations": [
+    "Service API responses mocked; no production member data changed",
+    "No physical iPhone testing",
+    "Production browser verification pending"
+  ],
+  "reference": {
+    "url": "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/",
+    "checkedAt": "2026-11-06",
+    "application": "native button, Enter/Space, aria-expanded and aria-controls"
+  }
+}

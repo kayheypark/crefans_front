@@ -1,3 +1,11 @@
+## 2026-11-06 콘텐츠 성과 상세 펼침형 구현·검증 (배포 진행)
+- 사용자 승인 시안: 첫 게시물 펼침, 나머지 접힘. 핵심 지표 3열×2행 연결 격자, 유입 경로, 집계 도움말. 기존 좋아요·댓글도 상세에서 보존. 집계 정책·API 변경 없음.
+- 기준 origin/prod 53e6a04, feat/content-performance-disclosure. 서비스·목업·카탈로그 공용 ContentPerformance 사용. 큰 수치는 기존 방식대로 만·억 단위이며 정확한 수치를 접근성 이름·title에 유지.
+- 검증: layers 433파일·typecheck·Next production build 종료0, PC Chromium·iPhone13 WebKit·320px Chromium 12/12 통과. 수치 보존, 펼침/접기·키보드·도움말, 연결선/가로 넘침, 빈/미집계/0 구분 확인. 모바일·PC·긴 수치 캡처 육안 확인.
+- 최초 테스트 기대값(게시된 목업 2개)·inline span 너비 검사 보정, 320px에서 발견한 큰 수치 줄바꿈을 compact 표시로 수정 후 빌드·12개 검사 재실행 통과. 실물 iPhone·실계정 로그인은 검증 제외. 서비스 API는 대역으로 검증.
+- 운영 소스 550개 SHA가 기준 prod와 일치. 직전 이미지·설정은 맥북 /Users/ethan/crefans-recovery/20261106/content-performance에 OCI digest/blob·설정 SHA 검증 완료. 다음: dev → prod → 프론트만 배포·운영 번들 검사·임시 자료 정리.
+- 증거 docs/audit/content-performance-deployment-20261106.json 및 .local/content-performance-release 로그·캡처. AGENTS.md 기존 규약 유지.
+
 ## 2026-11-06 23:27 KST 하단 호스팅 제공자·통신판매중개자 고지 운영 배포 (refund-notices-20261106)
 - 사용자 결정(/pilot-work): 첫 화면(사이버몰 초기 화면) 법정 표시를 하단+멤버십 결제 확인창에 넣고 배포. 근거 전자상거래법 제10조①·시행령 제11조의4·시행규칙 제7조·제11조의2, 제20조①·제20조의2①(미고지 시 연대배상)·제45조④(과태료 1천만 원 이하), law.go.kr 2026-11-06 확인. 호스팅 상호는 AWS 청구서 법인명(사용자 확인).
 - prod aa49285(feat/intermediary-notice 680a237·7bc9b17): lib/content/business.ts hostingProvider·intermediaryNotice(약관 제1조 문장), BusinessInfo, 멤버십 결제 확인 PaymentTerms 에 '판매자: 크리에이터명'+고지 같은 글씨 크기. 콩 충전에는 넣지 않음.
