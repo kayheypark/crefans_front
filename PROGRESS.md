@@ -1,9 +1,9 @@
-## 2026-11-06 콘텐츠 성과 상세 펼침형 구현·검증 (배포 진행)
-- 사용자 승인 시안: 첫 게시물 펼침, 나머지 접힘. 핵심 지표 3열×2행 연결 격자, 유입 경로, 집계 도움말. 기존 좋아요·댓글도 상세에서 보존. 집계 정책·API 변경 없음.
-- 기준 origin/prod 53e6a04, feat/content-performance-disclosure. 서비스·목업·카탈로그 공용 ContentPerformance 사용. 큰 수치는 기존 방식대로 만·억 단위이며 정확한 수치를 접근성 이름·title에 유지.
-- 검증: layers 433파일·typecheck·Next production build 종료0, PC Chromium·iPhone13 WebKit·320px Chromium 12/12 통과. 수치 보존, 펼침/접기·키보드·도움말, 연결선/가로 넘침, 빈/미집계/0 구분 확인. 모바일·PC·긴 수치 캡처 육안 확인.
-- 최초 테스트 기대값(게시된 목업 2개)·inline span 너비 검사 보정, 320px에서 발견한 큰 수치 줄바꿈을 compact 표시로 수정 후 빌드·12개 검사 재실행 통과. 실물 iPhone·실계정 로그인은 검증 제외. 서비스 API는 대역으로 검증.
-- 운영 소스 550개 SHA가 기준 prod와 일치. 직전 이미지·설정은 맥북 /Users/ethan/crefans-recovery/20261106/content-performance에 OCI digest/blob·설정 SHA 검증 완료. 다음: dev → prod → 프론트만 배포·운영 번들 검사·임시 자료 정리.
+## 2026-11-07 콘텐츠 성과 상세 펼침형 운영 배포 완료
+- 사용자 승인 시안대로 첫 게시물은 펼치고 나머지는 접는다. 피드 노출·상세 조회·30분 방문수·공유/외부 유입·영상 재생은 가로·세로선이 이어진 3열×2행 격자로 표시. 유입 경로·좋아요·댓글 보존, 긴 집계 안내는 ⓘ 도움말로 이동. 큰 수치는 만·억 단위, 정확한 수치는 접근성 이름·title 유지. 집계 정책·API·DB 변경 없음.
+- 기준 origin/prod 53e6a04 → feat/content-performance-disclosure 050e14b → dev a28d6ea → prod c90c70b 순서로 통합·동일 tree 확인. 운영 프론트 content-performance-20261106 배포, 변경 소스5개 SHA 일치. 기준 운영 소스550개와 prod 일치 확인 후 진행.
+- 검증: layers 433파일·typecheck·Next production build 종료0. 로컬 및 운영 번들 각각 PC Chromium·iPhone13 WebKit·320px Chromium 12/12 통과. 접기/펼치기·키보드 포커스·도움말·격자 연속선·수치 보존·0/미집계/빈 목록·긴 제목/큰 수치 확인. 최종 PC/모바일 캡처 육안 검수. 서비스 API 대역 사용; 실물 iPhone·실계정 로그인 검증 제외.
+- 최초 테스트의 목업 게시물 수·inline span 너비 기대값 보정. 320px 큰 숫자 줄바꿈은 compact 표시로 개선 후 빌드·12개 검사 재실행 통과. 문서 검사는 최신 서버 prod 8e86611을 기준으로 수행(이전 로컬 dev 기준 문서 불일치와 구분).
+- 운영4페이지·API health200, 6컨테이너 running/restart0/OOM없음, worker 실패0, 프론트 외5컨테이너 동일. 직전 이미지·설정을 맥북 /Users/ethan/crefans-recovery/20261106/content-performance에 저장하고 OCI digest/blob·설정 SHA 검증 후 직전 미사용 태그와 이번 임시 소스만 서버에서 정리. 활성 이미지·DB·설정·업로드 보존.
 - 증거 docs/audit/content-performance-deployment-20261106.json 및 .local/content-performance-release 로그·캡처. AGENTS.md 기존 규약 유지.
 
 ## 2026-11-06 23:27 KST 하단 호스팅 제공자·통신판매중개자 고지 운영 배포 (refund-notices-20261106)
