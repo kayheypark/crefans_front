@@ -4096,3 +4096,8 @@
 - `components/crefans/BusinessInfo.tsx`: 통신판매업 신고번호 옆에 `https://www.ftc.go.kr/bizCommPop.do?wrkr_no=<사업자등록번호 숫자 10자리>` 새 탭 링크. 기존 `.info span>a` 밑줄 링크 스타일 재사용, CSS 변경 없음. PC 사이드바·모바일 하단 둘 다 적용.
 - 확인: 이 URL 은 '통신판매 사업자정보 조회' 화면으로 열리고 공정위 보안문자 입력 뒤 정보가 나온다(보안문자는 방문자가 직접 입력, 작업자가 풀지 않음). 가이드의 window.open 750×700 팝업 대신 새 탭으로 열어 클라이언트 JS 없이 모바일에서도 동작하게 했다.
 - 검증: build 통과, 로컬 `next start` 렌더 HTML에 `wrkr_no=3770202940` 링크 확인, check:docs PASS.
+
+## 2026-11-06 랜딩 모바일 하단에 서비스 푸터 (feat/landing-footer)
+- 사용자 지시: 랜딩페이지 하단에도 푸터(모바일).
+- `components/crefans/LandingPage.tsx` 의 `</main>` 아래에 기존 `ServiceFooter`(서비스 링크 + 사업자 정보: 통신판매업 신고번호·공정위 사업자정보 확인 링크 포함)를 랜딩 `container` 여백으로 감싸 붙였다. `landing.module.css` 에 `.siteFooter`(하단 여백 + safe-area) 추가, 768px 이상에서는 숨김(ServiceFooter 자체도 PC에서 사업자 정보를 숨긴다).
+- 검증: build 통과, check:docs PASS. 로컬 `next start` 에서 375px: 푸터 보임·신고번호·공정위 링크 있음·가로 넘침 없음 / 1440px: wrapper display:none.

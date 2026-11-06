@@ -8,6 +8,7 @@ import {designVariables} from '@/lib/design/tokens';
 import {InfoTooltip} from '@/components/ui/InfoTooltip';
 import {Brand} from './Brand';
 import {CreatorName} from './CreatorName';
+import {ServiceFooter} from './ServiceFooter';
 import Icon from './Icon';
 import s from './landing.module.css';
 
@@ -43,5 +44,7 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
       </section>}
       <section className={s.closing} aria-labelledby="closing-heading"><h2 id="closing-heading">좋아하는 마음으로, 함께 시작해요.</h2><Link className={s.textAction} href={`${basePath}/signup`}>크레팬스 시작하기 <Icon name="arrow"/></Link></section>
     </main>
+    {/* 2026-11-06: 모바일 랜딩 하단에도 서비스 링크·사업자 정보(통신판매업 신고번호 포함). ServiceFooter 는 768px 이상에서 숨는다. */}
+    <div className={`${s.container} ${s.siteFooter}`}><ServiceFooter basePath={basePath}/></div>
   </div>;
 }

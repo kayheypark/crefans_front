@@ -57,6 +57,8 @@
 .services p{max-width:220px;margin-top:6px;color:var(--cf-color-textMuted);font-size:13px;word-break:keep-all}
 .closing{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:36px 0}
 .closing h2{font-size:20px;line-height:1.5;font-weight:650;letter-spacing:-.035em;word-break:keep-all}
+.siteFooter{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
+@media(min-width:768px){.siteFooter{display:none}}
 @media(max-width:1100px){.headerInner{gap:24px}.header nav{gap:20px}.search{display:none}.creatorGrid{gap:16px}.services article{padding:0 16px;gap:12px}}
 @media(max-width:767px){
  .container,.headerInner{width:calc(100% - 32px)}
