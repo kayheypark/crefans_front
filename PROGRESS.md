@@ -4077,3 +4077,9 @@
 - 로컬 검증: build·layers·타입 검사 통과, 결제 관련 단위 11개 및 PC/iPhone WebKit/320px 브라우저 39개 통과. API 대역으로 paid 성공, 결제 1회 전이, 한 달 결과 재조회, pending/processing/failed 미완료, 카드 등록·동의 회귀를 확인.
 - 전체 540개 단위 중 528개 통과/12개 실패. 수정 전 46007c0에서도 같은 12개 실패를 확인하여 이번 변경과 분리했다. 문서 검사도 baseline과 동일한 백엔드 참조 누락/생성 계약 불일치로 실패하여 전체 통과로 표시하지 않는다.
 - 화면·소스·명령 증거: `docs/audit/membership-complete-20261106.json`, `.local/membership-complete-release/`. 실결제 미실행.
+
+## 2026-11-06 콩 유효기간 1년 문구 반영 (feat/toss-review-limits, 운영 미배포)
+- 서버 `feat/toss-review-limits`(crefans_server 512bd0f)와 짝. 사용자 결정으로 콩 유효기간을 5년→12개월로 줄였다(토스 심사 '서비스 최대 제공기간 12개월' 신고값에 맞춤). 약관 제11조 시행일은 2026-12-06.
+- 변경: `lib/crefans/bean-pricing.ts`(결제 전 고지 문구), `lib/crefans/support.ts`(FAQ), `components/crefans/ServiceGuidePage.tsx`(서비스 안내). 충전 화면은 고정 선택지 최대 10,000콩(=1,100,000원)이라 UI 변경 없음.
+- 검증: `npm run build` 통과, `CREFANS_SERVER_DIR=../crefans_server-toss-limits npm run check:docs` **PASS**(문서 77, 라우트 204). `docs:contracts` 재생성 후 `docs:record`로 증거 갱신. 증거는 서버 `.local/toss-limits-20261106/verification.md`.
+- 미결: 운영 배포 승인 미취득.
