@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T08:29:38.479303+00:00",
+  "checkedAt": "2026-11-06T08:46:46.660949+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "e484c375cefba6b5ef7e0fe118987d67338500a7",
-      "branch": "feat/ftc-business-link",
+      "head": "7c7c69124286ea361819bd29123a26a1cfafcf8e",
+      "branch": "feat/landing-footer",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "28f292b8600b052c10308cb463844156cb4a7afbe3a417e8c477c93882bd998b",
+      "front/PROGRESS.md": "b3f39acf3e16d603a30536ec2b29ab346f13e3bc2a8db7b4cb859fa99962f2ec",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -220,7 +220,7 @@
       "front/components/crefans/FoundingBadgeClaim.tsx": "9d5fa56f7ae886adddfd159294834be3655f8d5be10f8ec4253d379ce06476ad",
       "front/components/crefans/HeaderAccountMenu.tsx": "210819d850d9ba5f29b1d69c045c3aee7bb653518d7b62d60054efeac60fd0f3",
       "front/components/crefans/Icon.tsx": "475507cac27493bc389c5f37dc4c3a30d59e62e96791269c2a72c5581c1970db",
-      "front/components/crefans/LandingPage.tsx": "6f42714af635ac85ce497d8fa83947df994b6baba3524bcb2e100fbe868a5c01",
+      "front/components/crefans/LandingPage.tsx": "e49f1108a6dd83cbc65144af94dad3f552b3380777c26ae0c1d0830858a1d535",
       "front/components/crefans/LegalDocumentBody.tsx": "894deea6a153b5c478598a48859517faf369e24668ab5c0d17d03d6a328becc2",
       "front/components/crefans/MediaOverlay.tsx": "d420df364611b7468fc85620a4a878719b65b838bc9a5446696df2d9aa28fbf6",
       "front/components/crefans/MediaSummary.tsx": "1761d1b6cfca5b7c144c24b7a86b99a6c4a66c3b357c925a332689a5cd4d5600",
@@ -263,7 +263,7 @@
       "front/components/crefans/creator.module.css": "1239067319090d337b691e0270cec92f30dff48b595b73a3692514ea8eb0e551",
       "front/components/crefans/events.module.css": "c8cdf8840fe4ad2cec4afefdef081595906d577aa23c54cb1ceefc2b7f94d9b6",
       "front/components/crefans/header-account-menu.module.css": "543b7e12e910b016e4d02192bab5e74ff1abcf59824ac5a49fbe206aa8e10d92",
-      "front/components/crefans/landing.module.css": "80d669763dd0130a70a3223e156e3ba35fa65199ec57b4d414c239c5fabad563",
+      "front/components/crefans/landing.module.css": "33ed728a5060dc1f2b6d5382099189f801265aa2369263cca3685a374aa497ec",
       "front/components/crefans/membership-checkout.module.css": "dc106f0b908f8f225f0d7167ab143cf4892c4e2799818390c0159685b0acb854",
       "front/components/crefans/membership-complete.module.css": "916dbebe08077da5ed0ec312e70da22b97a21f6be30e871b3db67bf72193f714",
       "front/components/crefans/navigation-icon.module.css": "f7d03cc17dfb95e9ad57ca08744fa9041f89b5fe6341c2a45d68ae35769e5091",
