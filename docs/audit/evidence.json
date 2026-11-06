@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T06:31:07.343770+00:00",
+  "checkedAt": "2026-11-06T06:51:23.269719+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "4d9d32dc143bd4138b714c9fbedad8ff4e57fd18",
+      "head": "fef0a507d61ac24626d76d7b36caf39dfcaf9c91",
       "branch": "feat/toss-review-limits",
-      "dirty": true
+      "dirty": false
     },
     "server": {
-      "head": "a124c653851601eb4425390f235bdf1261253c15",
+      "head": "404b0d2414cbda6a2147f4c1e8dcee9c69063b90",
       "branch": "feat/toss-review-limits",
-      "dirty": true
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "b723418aacf7d112a5e72f27502ec90d454bbf3a646f903e30ea9dc6d5b1271a",
+      "front/PROGRESS.md": "f7e841422a807df108083663b6018234dc5cb8be5bb99c2ba829ec96f1780acc",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "a59e03e6353c302826b7bb7c12c0ae8cfb09b15a297cd8ea57416cb6bac7b001",
-      "server/PROGRESS.md": "5369e586a159813c56479051f272496acabb7ec0e2f4c889a774fc53dc3be18c",
+      "server/PROGRESS.md": "789a397c8f3541bfe3344f4fb7f42db24d575fd1f9dd369fbe5917e9de67867d",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -1142,7 +1142,7 @@
       "server/src/platform/identity-provider.ts": "d3460eb36d68cc48503a7cc433c8d7ec19b4ac9b61051f93478bbd1056be1af3",
       "server/src/platform/identity.controller.ts": "75c26a2fc5fdf824d29ebe46d5b334c531ab4584790023dc0ccbf76642011330",
       "server/src/platform/jobs.service.ts": "e453e50ec183c3f3f998097fbb235310c89a4694a4e7bf1cbb9a85ffdf708af3",
-      "server/src/platform/legal-documents.ts": "67965e099bc47ed7517273767999ef3f6c2cc70fb427c13b465fe61388c46307",
+      "server/src/platform/legal-documents.ts": "b86091e47c23b3333da042d5239c06bc6965e910b2509a61a40ee01630801055",
       "server/src/platform/main.ts": "fcc906c8699b3c55e6969df007336fdcf48480475ff30a9a6627b5c2fefc9fec",
       "server/src/platform/marketing.controller.ts": "a09e8057aa2e19e0faa8f330b1bf2887fde14541496d703f4caa9626172b598b",
       "server/src/platform/marketing.service.ts": "5827b5846a8796978d905490beb4e112a1918705756f7d9f3732d0e5ecd43cf7",
@@ -1158,7 +1158,7 @@
       "server/src/platform/moderation-retention.ts": "18a3f23d26ff374d4e6b31b200b2dee4f19940337ac4216bdee7749e96f9dde6",
       "server/src/platform/moderation.ts": "5c6404b4148041a0bfcb19a8b9a964d0a1bcb3ef3c39da23df5db7490eea15e9",
       "server/src/platform/module.ts": "59f2f0ce1c3bed59c07a621f92164cc9b453a1a860d872f915e2c59e8e25d16f",
-      "server/src/platform/openapi-contract.ts": "94c0d37875aaf90014b440a58e44c70b8254ff92e9482c4e0dc2201f0a4e8af9",
+      "server/src/platform/openapi-contract.ts": "4834d62a18121ddd9df181aff0ad54bf3e451205fe31b94c4cfc5bbabca3d641",
       "server/src/platform/openapi.ts": "5d316d5b041099870b973b69b338d5c59fd853d49d7f7fe344f640386fd4166a",
       "server/src/platform/operations-events.ts": "fd9f0a020e0aa2f2fe0de7f20f1b9bc76c32f9a406e8e58f215926525a53d9e1",
       "server/src/platform/operations.service.ts": "4e4e1e7e6ae5f371966364012ea1a358463987021b9e525211904c58d72dfabb",
@@ -1269,7 +1269,7 @@
       "server/tests/platform-founding-badge.test.cjs": "84b2680a364274b486adc058b771ef02836666fe3424773b29c7367ce7b25cca",
       "server/tests/platform-handle-unify.test.cjs": "197d118455a196c09663d7ac7163c8af3b41bc960269a8681e4e65fe90e70252",
       "server/tests/platform-jobs.test.cjs": "830e4c9ab485dfbec44c6bb2e1801d8b090fb814cbb21aa4bba427a3a0e097fe",
-      "server/tests/platform-legal.test.cjs": "60a52c3bc662b1412540d568f3d133f697de40df21d56ce86e7de9f6db2e2a65",
+      "server/tests/platform-legal.test.cjs": "c45ee8ffe33107d4d18e805932b8a6bd501d4124271ab0fca43dd97aef8796c8",
       "server/tests/platform-log-config.test.cjs": "3f51cbb8743cce0b5a93d2e03ea458f2f102039a6e5b7db0613ba934af8e72d1",
       "server/tests/platform-mail.integration.test.cjs": "a637580ef18796ed8cd0af92e3d89470813035800ab13d90061a251210ccc8ca",
       "server/tests/platform-manual-payouts.test.cjs": "3567c70fabede5109593a73f982b4284dc9ece7b393ba91e41247e95694ce24e",
