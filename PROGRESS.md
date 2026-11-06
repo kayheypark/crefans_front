@@ -4083,3 +4083,10 @@
 - 변경: `lib/crefans/bean-pricing.ts`(결제 전 고지 문구), `lib/crefans/support.ts`(FAQ), `components/crefans/ServiceGuidePage.tsx`(서비스 안내). 충전 화면은 고정 선택지 최대 10,000콩(=1,100,000원)이라 UI 변경 없음.
 - 검증: `npm run build` 통과, `CREFANS_SERVER_DIR=../crefans_server-toss-limits npm run check:docs` **PASS**(문서 77, 라우트 204). `docs:contracts` 재생성 후 `docs:record`로 증거 갱신. 증거는 서버 `.local/toss-limits-20261106/verification.md`.
 - 미결: 운영 배포 승인 미취득.
+
+## 2026-11-06 통신판매업 신고번호 표시 (feat/mail-order-number)
+- 신고 완료: **2026-서울관악-2144**, 신고일 2026-11-04, 신고기관 서울특별시 관악구. 사용자가 공정위 통신판매사업자 조회 화면으로 확인(상호 좋아하는일해야지, 사업자번호 377-02-02940, 인터넷도메인 https://www.crefans.com).
+- `lib/content/business.ts` 의 `mailOrderNumber` 를 채웠다. 표시는 기존 `components/crefans/BusinessInfo.tsx` 가 이미 조건부로 하고 있어 PC 사이드바(`ServiceShell`)와 모바일 설정 하단(`ServiceFooter`) 양쪽에 함께 나온다.
+- `components/layout/MainLayout.tsx` 의 `2025-서울시-00000` 은 주석 처리된 옛 자리표시로 렌더되지 않는다(변경 안 함).
+- 검증: `npm run build` 통과, `check:docs` PASS(증거 갱신). 운영 미배포.
+- 미결: 이용약관 제1조는 아직 "유료 서비스 개시 전에 통신판매업을 신고하고 신고번호를 이 조와 서비스 하단 사업자 정보에 표시합니다"라고 미래형으로 약속한다. 하단 표시는 이번에 충족되지만 **제1조 본문에 번호를 넣는 것은 서버 약관 변경이라 사용자 확인 대기**.
