@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T14:31:00.966546+00:00",
+  "checkedAt": "2026-11-06T14:55:32.389177+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,8 +18,8 @@
     "models": 92,
     "enums": 15,
     "migrations": 55,
-    "localMarkdownTargets": 465,
-    "externalInlineLinksNotFetched": 382
+    "localMarkdownTargets": 469,
+    "externalInlineLinksNotFetched": 383
   },
   "negativeControls": [
     "missing-link rejected; valid-link accepted",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "aa4928580466f66cea4c845f20bb9c855cf8cea6",
-      "branch": "docs/refund-notices-evidence",
+      "head": "53e6a0449cbd614a8719b442c35a4188c71a6f3e",
+      "branch": "feat/content-performance-disclosure",
       "dirty": true
     },
     "server": {
@@ -43,12 +43,12 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "e225b0ab2d1065517a7cf01f133a3f4fe74119df9755a6e3989d8e4dc5eb1fa0",
+      "front/PROGRESS.md": "9ad3568d364a04833ebd2bd18852f977c44523ec6f263d8241e95aa66a5808fe",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "16cff553e88d2a54ef8434079b3e801f35cc03330f399c2d302401751d8df898",
+      "front/docs/design-system.md": "d32b461d9c5cc4f8b83c2fd9c0fa581c18b0d7864e5e895e663d57d9c9a5003e",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -121,7 +121,7 @@
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "35e340d422d8bf91a3da174dcae8da3e12b673ca878fe3dbc54212446471d0eb",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "f2f8aee9f371b9ccdcfeb80ba4e7ff8bc4636ef98fe8564fe96885a5fbcd67a4"
+      "audit/manifest": "302f07442c476b2b1b348ea834efad69169cc796015a0a230e99f825ac048949"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
@@ -281,11 +281,12 @@
       "front/components/crefans/social.module.css": "83b1d4eb4124ac3e8528991536c975586f4615aa2f6b2999bc66b401e9e2bb31",
       "front/components/crefans/studio/AdvertisingPage.tsx": "d032809027defff59693167f86936f985c85c7b309fd8db7b8e510e1b2aeb0ed",
       "front/components/crefans/studio/CommunityPages.tsx": "084083090210b964e84d566dccfcd81551563a85eb0d753f27596416ee9bb32c",
+      "front/components/crefans/studio/ContentPerformance.tsx": "c2a778398879538325c371dd9c4a6ac930ddfa8ba81d31726252e7d6c9ca3ee8",
       "front/components/crefans/studio/ContentPostPreview.tsx": "0901b7179a5b908fc7f0fe392fd9d67b785d4bf7207c18a34eba7e496c829e6a",
       "front/components/crefans/studio/DashboardPage.tsx": "7e329cf230c6d4a574fdd7079670daa8bacbe49be6877cb111c9d07fa8a23b36",
       "front/components/crefans/studio/FinancePages.tsx": "6c0764f86ffd7aeedf65b8db9e965261783b76a5216859ed7f7cae2d0d7d9f06",
       "front/components/crefans/studio/ManagementPages.tsx": "78a065e0c8fb76f2eb1ce8869e0c2429e9ca87af99134d612e2100e3d3feb1ef",
-      "front/components/crefans/studio/OverviewPages.tsx": "62772b4f2c64a02cec4fbc6814d816824bb69c032947d0a1771b8f453aa09a4a",
+      "front/components/crefans/studio/OverviewPages.tsx": "d5ed5a8a5177afc85ece8edfd639e63b4f6be54662aee312d731aa4a9b965e75",
       "front/components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
       "front/components/crefans/studio/ReportPage.tsx": "8faa564cedf335b708efc3d15ff8d2e34c5b4127b72447e327602e59e1faf2d1",
       "front/components/crefans/studio/StudioCommentReply.tsx": "c9a18ec81fdd19c797fb8a69224ff65d0fd29526de5a172bad67e82689a0b536",
@@ -293,6 +294,7 @@
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "a855269a3dd557a7d095336ec24c731d454aa06b643464c2234239a2dd0b99fe",
       "front/components/crefans/studio/advertising.module.css": "ebbd2482c80f4f70199c6145711558f823589aed597a6d8342a52d2a22f591bc",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
+      "front/components/crefans/studio/content-performance.module.css": "24f9bbe7884a97538fba692160ca7fa0e9c0fe4d0ba0a72278e74a0e62302846",
       "front/components/crefans/studio/content-post-preview.module.css": "85ae1ecd65d443d3bc88c40fafb1b02d979a61b3015a2d42b208c6646ccb8aa0",
       "front/components/crefans/studio/dashboard.module.css": "0aeb8095c548c01baf300e4e3f4665eefaffa4521dbd0dde42b1b34ca1d94001",
       "front/components/crefans/studio/finance.module.css": "3d7b144f5b40604948f9f5a6e6407e366c36aaadc8560cd4d9bd9ad64e4ecb36",
@@ -307,6 +309,7 @@
       "front/components/design-system/BenefitsFieldCatalog.tsx": "66ed5c24481dcd06753fe34aa0db714525affaa176364fa9b9147f32866157aa",
       "front/components/design-system/BillingResultCatalog.tsx": "8afbed788d9a5e84e2314fa0eece8c1482548e1cc4cb52d48c551c2a4f870063",
       "front/components/design-system/ChartMotionCatalog.tsx": "eca287ae6dcc2aeb8c3a705536bc064290dfe59695ccce675e5ccc0b37a1564a",
+      "front/components/design-system/ContentPerformanceCatalog.tsx": "1e343654de78d271324b048c4cfed748d8434abca4b3d57f7bc8bad09bf13e4a",
       "front/components/design-system/Controls.tsx": "cf1e3d0e71f16aca59a98e93903219bd5f2cc42d21d2e46c6f00a53abfbc7e36",
       "front/components/design-system/CustomDesignSystem.tsx": "0317751c9068dcb7ec7d7484be1138e3721da72d7bf87a99e43cffa8b57af0dd",
       "front/components/design-system/DataDisplayCatalog.tsx": "fa1a495660d0a828f0f3fa980296780107e5caccae3b389ffb49d249c5d7a0e3",
@@ -322,7 +325,7 @@
       "front/components/design-system/ProfileMediaCatalog.tsx": "4c86888f213d44bd9a393dc12270a99aedd25ccff9d3901342de6949b126da20",
       "front/components/design-system/RedesignTokens.tsx": "633705124b05db79caaeadf237e15055b7d73d08778b125b2d3b3db7a863889c",
       "front/components/design-system/ServiceComponents.tsx": "0f2b2fc75e7e04aa1392bf7a782f37bf68276ba71049d02496fe92843ee23e2c",
-      "front/components/design-system/ServicePatternCatalog.tsx": "1826f1557dbd761f0c6f667c2738a8214b36c62add75983905aa7168548ae816",
+      "front/components/design-system/ServicePatternCatalog.tsx": "46bba6f59578cc52302b66db7addfdd5ee19c63b865c08cb104941219b380e4f",
       "front/components/design-system/StudioDashboardExample.tsx": "498a37a8742d8530db3a5f418dc4f1560e99c65c502406abc8e527a23e0b95d4",
       "front/components/design-system/SubscriptionResumeCatalog.tsx": "92003b3b151660f67702a6bc80ec60aaeacd564cd1b0a931d1b10ca7c1bf5556",
       "front/components/design-system/TypedConfirmCatalog.tsx": "52534648aa958a7f710c413153ab3ad26c5d666d05568720a3c65922964a47e8",
@@ -513,6 +516,7 @@
       "front/e2e/chip-row-bleed.spec.ts": "94a309bb471226394be1600f67741c44091b3b4735dea687bb808cc359a99bac",
       "front/e2e/comment-edit-delete.spec.ts": "f4a1dd12deb0f1411dea603cc44046e3cef39d9994fa9feab4271d34939349f1",
       "front/e2e/comment-social.spec.ts": "3db65b924d526df718e276ddcdf0aec79a898c75ecff553b137fd4325d9f17b8",
+      "front/e2e/content-performance.spec.ts": "635b62d493f79e081f1d9506adcf18f3f91864b7594f28a4ed764c526d7542e8",
       "front/e2e/creator-verification.spec.ts": "4d85af531b3f24ed970da7d86c9a346190ab7212c6592d0934449255bb4ed8d2",
       "front/e2e/fixtures.ts": "2282388ac8c433a4167bcc1c5b84c86870fcbcc72bf82486adc58642e312f332",
       "front/e2e/gallery-image-tap.spec.ts": "de5cfd54a81810c580f0dc2fb5e164fc2a1b78997db1d5555860c2d6cf38b5bb",
