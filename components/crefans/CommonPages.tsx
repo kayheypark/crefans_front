@@ -4,6 +4,7 @@ import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {MarqueeText} from '@/components/ui/MarqueeText';
 
 import {BackButton} from './BackButton';
+import {MembershipCompletePage} from './MembershipCompletePage';
 import {CreatorName} from './CreatorName';
 import {LegalDocumentBody} from './LegalDocumentBody';
 import {DelayedSpinner} from '@/components/ui/DelayedSpinner';
@@ -94,6 +95,7 @@ function PaymentRegistrationPreview({config,open,onClose,busy,error,onRegister}:
 
 export function BillingRegistrationResultPage({status,message,returnPath,onRetry,retryLabel,kind='billing',basePath='/service'}:{basePath?:string;kind?:'billing'|'payment';retryLabel?:string;status:'loading'|'success'|'error'|'cancelled';message:string;returnPath:string;onRetry:()=>void}){
  const checkout=returnPath.startsWith(`${basePath}/checkout`),managementPath=`${basePath}/payment-methods`;
+ if(kind==='payment'&&status==='success')return <MembershipCompletePage basePath={basePath} backHref={returnPath}/>;
  if(kind==='billing'&&status==='success')return <section className={s.page}>
   <PageTitle back={<BackButton href={returnPath} label={checkout?'멤버십 결제로 돌아가기':'결제수단 관리로 돌아가기'}/>}>카드 등록 완료</PageTitle>
   <div className={billing.complete}>

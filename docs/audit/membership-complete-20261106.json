@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-11-06T04:59:27.961656+00:00",
+  "baseline": "46007c098d666c6f615856f4ec0a62cfdf473f8d",
+  "environment": "macOS; Next 15.5.28 production build; API response stubs; PC Chromium/iPhone 13 WebKit/320px Chromium",
+  "sourceSha256": {
+    "components/crefans/MembershipCompletePage.tsx": "393a3f11a3d6bd29d4311ff90e586a9e60a145dd2505f7c43a0ffff8ba6857f0",
+    "components/crefans/membership-complete.module.css": "916dbebe08077da5ed0ec312e70da22b97a21f6be30e871b3db67bf72193f714",
+    "components/crefans/MembershipCheckout.tsx": "b6fdf0993f423415df5d95e75a0e5ed77cc46bed8c1219cebfc7acff1a88f377",
+    "components/crefans/CommonPages.tsx": "3eabef05c21a047c223fbd8ff00807bd34fec4854109ad540812a0df658eaaaa",
+    "components/crefans/membership-checkout.module.css": "dc106f0b908f8f225f0d7167ab143cf4892c4e2799818390c0159685b0acb854",
+    "components/preview/service/PreviewMembershipCheckout.tsx": "29d1b8c22fe8420c18950342de559405331e9419d6b77ae2222dba31b697eb1a",
+    "components/preview/service/ServiceRouter.tsx": "d118626c97a6dc0bb22344a3e49e1b1af4d84502de206a04ccbca3796a2f7609",
+    "components/design-system/MembershipCheckoutCatalog.tsx": "68bd5f827ff1cc641df0773b813ebef8d15c4a08012cf407626dec2fe9606af0"
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "exitCode": 1,
+      "result": "layers/typecheck passed; 528/540 tests pass; 12 identical failures on unmodified baseline",
+      "baselineFailures": [
+        "only an explicit verified creator flag renders the named badge beside the nickname",
+        "account view renders injected profile and delegates edits without mutating its data",
+        "saved and liked collections omit private image sources until access is injected",
+        "fans control 팔로워/팔로잉 공개 in 설정 > 개인정보, the save carries it, and a private setting shows a lock on my profile",
+        "settings categories filter their own items and keep account actions in account management",
+        "my profile uses one shared cover wallet entry on every device",
+        "mobile detail panel follows the pointer and snaps to all three heights; cancellation and unrelated pointers cannot move it",
+        "panel handle supports tap and keyboard alternatives, including boundaries",
+        "mobile media expansion restores visible gallery panel heights without resetting the selected media or remounting video",
+        "mobile gallery image tap toggles full media mode and restores the panel; desktop remains unchanged",
+        "my profile loads the owner’s paginated posts, merges the author, deduplicates, and keeps the owner filter",
+        "my profile renders only owned feed/media, loads more in both tabs and switches collections without hook errors"
+      ]
+    },
+    {
+      "command": "node --test tests/checkout-page.test.cjs tests/one-time-payment.test.cjs tests/payment-models.test.cjs",
+      "exitCode": 0,
+      "passed": 11
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test --config .local/membership-complete-release/playwright.config.ts",
+      "exitCode": 0,
+      "passed": 39
+    },
+    {
+      "command": "npm run check:docs",
+      "exitCode": 1,
+      "result": "Same missing server review sources and stale generated contracts on baseline; no test-proof snapshot refresh"
+    }
+  ],
+  "initialBrowserRun": "35 pass/4 fail: 3 assertions also matched the mock product name; narrowed to the exact label. One request failed during overlapping local build; stopped the server, completed build and restarted; final isolated run 39 pass.",
+  "limits": [
+    "Real Toss payment not performed",
+    "API and database behavior not changed",
+    "Screenshots use synthetic data"
+  ],
+  "logSha256": {
+    "payment-tests.log": "cb6e636f1b348c663a507781c64d63ca130cee6bc85baeae392212543cd23ea7",
+    "browser.log": "b5ed8f6e30ed8ab8d0014f8cef25c35f0f498b968f5722327fd9e68f6fe1d38f",
+    "docs-check.log": "5b948647166f2a1414159748be5a575e74725b494d42e289482056d109c4e42a",
+    "browser-first.log": "14bde79638d784d3a03a51001153437f649ca911f9382f03f7c6d56f8b8ce1e3",
+    "baseline-docs.log": "5b948647166f2a1414159748be5a575e74725b494d42e289482056d109c4e42a",
+    "baseline-test.log": "61a6aaac5482d1738f91bef493e8d2e16486ab52e3f6ee1cadfe8dc543c0fabe",
+    "check.log": "84756749c6122588061e376e3166634b354eb8aa405931e82cbfe6598aebd2ec",
+    "build-local.log": "74eddc3306a930c458236cbae03163b4b1caf11b675f5baeb5207043ac7c3ff0"
+  }
+}

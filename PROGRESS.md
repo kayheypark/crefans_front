@@ -4066,3 +4066,14 @@
 - profile-tip-20261104 운영1차 배포에서 모바일 기본/클릭 정상, PC hover는 공통 secondary 선택자와 동일 specificity여서 운영 CSS 순서에 따라 실패. 운영 검증에서 발견해 추가 수정: hover 선택자에 기존 aria-disabled 조건을 포함하여 우선순위 확보. 개발 검사만으로 운영 CSS 순서 문제를 확인할 수 없었으므로 재배포 후 운영 PC hover를 다시 검사한다.
 
 - a1d639d dev→prod 후 profile-tip-hover-20261104 운영 재배포 완료.38페이지 빌드·HTTP200·타컨테이너 불변. LIVE_QA=1 브라우저2건 최종 종료0: 실제 /crefans PC/iPhone 기본·포커스·PChover 배경/글자/44px 및 모달 진입. CSS 임시주입 없이 최종 통과, 후원 실행 없음. 두 배포 이전 이미지·구성 외부 검증 후 서버 태그·임시소스 정리. docs/audit/profile-tip-style-20261104.json. 이전 인증배지 미푸시 문서도 prod반영 완료.
+
+
+## 2026-11-06 멤버십 가입 완료 디자인 통일 (로컬 검증 완료·운영 배포 진행)
+- 요청: 회원가입·카드 등록 완료와 같은 큰 파란 체크, 중앙 안내, 주요 이동 버튼으로 멤버십 가입 완료를 개선하고 운영 배포.
+- 범위: `MembershipCheckout`의 서버 `paid` 상태와 한 달 결제 성공 결과의 공통 완료 UI. 결제/정기갱신/확인 API는 변경하지 않는다.
+- 합격 조건: PC·iPhone WebKit·320px에서 아이콘/제목/상품 요약/내 구독 확인 버튼 노출 및 가로 넘침 없음. 미확정·처리 중·실패에는 완료 화면 미노출, 카드 등록 완료 회귀 확인.
+- 검증 예정: 프론트 check/build, API 대역을 이용한 화면 회귀, 운영 페이지/이미지 소스/컨테이너 확인. 실제 유료 결제는 실행하지 않는다.
+- 작업 기준: origin/prod 46007c098d666c6f615856f4ec0a62cfdf473f8d → feat/membership-complete-design → dev → prod.
+- 로컬 검증: build·layers·타입 검사 통과, 결제 관련 단위 11개 및 PC/iPhone WebKit/320px 브라우저 39개 통과. API 대역으로 paid 성공, 결제 1회 전이, 한 달 결과 재조회, pending/processing/failed 미완료, 카드 등록·동의 회귀를 확인.
+- 전체 540개 단위 중 528개 통과/12개 실패. 수정 전 46007c0에서도 같은 12개 실패를 확인하여 이번 변경과 분리했다. 문서 검사도 baseline과 동일한 백엔드 참조 누락/생성 계약 불일치로 실패하여 전체 통과로 표시하지 않는다.
+- 화면·소스·명령 증거: `docs/audit/membership-complete-20261106.json`, `.local/membership-complete-release/`. 실결제 미실행.
