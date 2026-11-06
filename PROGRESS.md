@@ -4090,3 +4090,9 @@
 - `components/layout/MainLayout.tsx` 의 `2025-서울시-00000` 은 주석 처리된 옛 자리표시로 렌더되지 않는다(변경 안 함).
 - 검증: `npm run build` 통과, `check:docs` PASS(증거 갱신). 운영 미배포.
 - 미결: 이용약관 제1조는 아직 "유료 서비스 개시 전에 통신판매업을 신고하고 신고번호를 이 조와 서비스 하단 사업자 정보에 표시합니다"라고 미래형으로 약속한다. 하단 표시는 이번에 충족되지만 **제1조 본문에 번호를 넣는 것은 서버 약관 변경이라 사용자 확인 대기**.
+
+## 2026-11-06 하단 사업자 정보에 공정위 "사업자정보 확인" 링크 (feat/ftc-business-link)
+- 사용자 지시: 공정위 연동 가이드(https://www.ftc.go.kr/site/www/253_1.html)를 푸터에 적용.
+- `components/crefans/BusinessInfo.tsx`: 통신판매업 신고번호 옆에 `https://www.ftc.go.kr/bizCommPop.do?wrkr_no=<사업자등록번호 숫자 10자리>` 새 탭 링크. 기존 `.info span>a` 밑줄 링크 스타일 재사용, CSS 변경 없음. PC 사이드바·모바일 하단 둘 다 적용.
+- 확인: 이 URL 은 '통신판매 사업자정보 조회' 화면으로 열리고 공정위 보안문자 입력 뒤 정보가 나온다(보안문자는 방문자가 직접 입력, 작업자가 풀지 않음). 가이드의 window.open 750×700 팝업 대신 새 탭으로 열어 클라이언트 JS 없이 모바일에서도 동작하게 했다.
+- 검증: build 통과, 로컬 `next start` 렌더 HTML에 `wrkr_no=3770202940` 링크 확인, check:docs PASS.
