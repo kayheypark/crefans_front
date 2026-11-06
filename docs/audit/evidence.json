@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T08:00:43.758327+00:00",
+  "checkedAt": "2026-11-06T08:29:38.479303+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,9 +30,9 @@
   ],
   "repositories": {
     "front": {
-      "head": "7e37825fc77149eac25a7488e7a07d5fd1b57005",
-      "branch": "feat/mail-order-number",
-      "dirty": false
+      "head": "e484c375cefba6b5ef7e0fe118987d67338500a7",
+      "branch": "feat/ftc-business-link",
+      "dirty": true
     },
     "server": {
       "head": "e7315c0fa419c8eba637634792ba8427d7e7c6cb",
@@ -203,7 +203,7 @@
       "front/components/crefans/BeanWithdrawPage.tsx": "4bd60d0eb92c54b8894fa0dbdde8ffb20acdf390619105f8a9345ca0f01e4884",
       "front/components/crefans/BetaClosedDialog.tsx": "98604aa3811aec57a826400b7ef1ab6a400fa95d03c61fe345867d1c98942a59",
       "front/components/crefans/Brand.tsx": "119ea0f8bcb412e1d6122cb945a2af49639b988b1176a90b870d545495f143b6",
-      "front/components/crefans/BusinessInfo.tsx": "02cb647e944260ef56fbea944a70bf59a807d40e5f1cb16bc092f66063e53dcf",
+      "front/components/crefans/BusinessInfo.tsx": "b1d95a47de3ff0877766f9e1d20ea6260de663afc1502c1fb085d73a2cce0111",
       "front/components/crefans/CategoryChip.tsx": "130500146c2c09202394a1336a5db2680a3d176f998147eca143cf021e704874",
       "front/components/crefans/CommentComposer.tsx": "5bcaa523949b2bbd6f791d72775694255e78ff059645c56e99b2de23a673fe2d",
       "front/components/crefans/CommentIcon.tsx": "9d86c449cdc4732d4d17e1d97c2f1e79aacc5055b3266f1812fcec448724a7a6",
