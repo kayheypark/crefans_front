@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T14:55:32.389177+00:00",
+  "checkedAt": "2026-11-06T15:06:13.429648+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "53e6a0449cbd614a8719b442c35a4188c71a6f3e",
-      "branch": "feat/content-performance-disclosure",
+      "head": "c90c70bf3a23bc44384095889e6bf0fb866fe824",
+      "branch": "docs/content-performance-deployment",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "9ad3568d364a04833ebd2bd18852f977c44523ec6f263d8241e95aa66a5808fe",
+      "front/PROGRESS.md": "c12d6ab63fd0680cecd839e60cb44ba60d656cf5d83e76dd3a61a86c61c46ec6",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
