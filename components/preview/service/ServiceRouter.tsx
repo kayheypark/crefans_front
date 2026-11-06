@@ -31,7 +31,7 @@ function Screens(){return <section className={s.catalogue}><h1>전체 화면</h1
 export default function ServiceRouter({segments}:{segments:string[]}){
  const selectMoka=usePreviewMokaLogin(),router=useRouter(),model=usePreview(),common=usePreviewCommon(),query=useSearchParams(),{finance}=useStudio(),[screen,id]=segments,basePath=model.basePath;
  function content(){switch(screen){
-  case 'checkout':return <PreviewMembershipCheckout/>;
+  case 'checkout':return <PreviewMembershipCheckout key={query.get('state')||'normal'} state={query.get('state')||'normal'}/>;
   case 'billing':return <BillingRegistrationResultPage basePath={basePath} status="success" message="카드 등록이 완료됐어요" returnPath={query.get('from')==='management'?`${basePath}/payment-methods`:`${basePath}/checkout`} onRetry={()=>{}}/>;
   case 'guide':return <ServiceGuidePage audience={id==='creator'?'creator':'fan'} basePath={basePath}/>;
   case 'explore':return <ExplorePage model={model}/>;

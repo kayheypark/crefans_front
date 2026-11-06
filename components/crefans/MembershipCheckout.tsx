@@ -4,6 +4,7 @@ import {Action,PageTitle} from './ServiceUI';
 import {BackButton} from './BackButton';
 import Icon from './Icon';
 import {PaymentTerms} from './PaymentTerms';
+import {MembershipCompletePage} from './MembershipCompletePage';
 import s from './membership-checkout.module.css';
 
 export type MembershipCheckoutOrder={
@@ -21,8 +22,9 @@ type Props={
 export function MembershipCheckout({order,error,basePath,defaultMethod,canRegister,busy,registering,agreed,onAgree,onRegister,onPay,onOneTime}:Props){
  const singleMonth=order?.snapshot.paymentMode==='one-time'&&order.status!=='pending';
  const backHref=order?.snapshot.creatorId?`${basePath}/membership/${encodeURIComponent(order.snapshot.creatorId)}${order.planId?`?plan=${encodeURIComponent(order.planId)}`:''}`:`${basePath}/subscriptions`;
+ if(order?.status==='paid')return <MembershipCompletePage basePath={basePath} backHref={backHref} order={order}/>;
  return <section className={s.page}>
-  <PageTitle back={<BackButton href={backHref} label="멤버십으로 돌아가기"/>}>{order?.status==='paid'?'멤버십 가입 완료':'멤버십 결제'}</PageTitle>
+  <PageTitle back={<BackButton href={backHref} label="멤버십으로 돌아가기"/>}>멤버십 결제</PageTitle>
   {order&&<>
    <section className={s.product} aria-label="결제 상품">
     <div className={s.productHeading}><div><p className={s.eyebrow}>{singleMonth?'한 달 이용':'월간 멤버십'}</p><h2>{order.snapshot.name}</h2></div>
@@ -30,7 +32,6 @@ export function MembershipCheckout({order,error,basePath,defaultMethod,canRegist
     </div>
     {order.snapshot.benefits.length>0&&<ul className={s.benefits}>{order.snapshot.benefits.map(benefit=><li key={benefit}><Icon name="check" width={16} height={16}/><span>{benefit}</span></li>)}</ul>}
    </section>
-   {order.status==='paid'?<div className={s.complete}><p role="status">가입이 완료되었습니다.</p><Link href={`${basePath}/subscriptions`}>내 구독 확인</Link></div>:<>
     <section className={s.paymentMethod} aria-label="결제수단">
      <div className={s.sectionHeading}><h2>결제수단</h2><Link href={`${basePath}/payment-methods`} aria-label="결제수단 관리">관리 <Icon name="chevron" width={16} height={16}/></Link></div>
      <div className={s.cardRow}><Icon name="card" width={22} height={22}/><div className={s.cardInfo}><strong>{defaultMethod?.label||'등록된 결제수단 없음'}</strong><small>{defaultMethod?'등록된 카드로 결제':'매월 결제하려면 카드를 등록해주세요.'}</small></div><Action className={s.register} variant="secondary" disabled={busy||registering||!canRegister} onClick={onRegister}>{registering?'처리 중…':'카드 등록'}</Action></div>
@@ -46,7 +47,6 @@ export function MembershipCheckout({order,error,basePath,defaultMethod,canRegist
      <Action variant="secondary" disabled={busy||registering||!agreed||order.status!=='pending'} onClick={onOneTime}>한 달만 결제하기</Action>
     </div>
     {order.snapshot.paymentEnvironment==='test'&&<p className={s.notice} role="status">테스트 결제입니다. 실제 금액은 청구되지 않습니다.</p>}
-   </>}
   </>}
   {error&&<p className={s.error} role="alert">{error}</p>}
  </section>;

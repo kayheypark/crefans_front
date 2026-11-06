@@ -1,0 +1,13 @@
+.page{width:100%;max-width:640px;margin-inline:auto;color:var(--cf-color-text);overflow-wrap:anywhere}
+.page .complete{margin-top:40px}
+.page .actions{margin-top:24px}
+.summary{width:100%;box-sizing:border-box;margin-top:24px;padding:16px 0;border-block:1px solid var(--cf-color-border);text-align:left}
+.summary .eyebrow{margin:0 0 6px;color:var(--cf-color-accent);font-size:13px;font-weight:600}
+.summary h3{margin:0;font-size:18px;line-height:1.5;font-weight:650;letter-spacing:-.3px}
+.amount{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin-top:12px}
+.amount strong{font-size:24px;line-height:1.4;letter-spacing:-.5px}
+.amount strong span{margin-left:2px;font-size:15px}
+.amount small{color:var(--cf-color-textMuted);font-size:12px}
+.summary ul{display:grid;gap:8px;list-style:none;padding:0;margin:16px 0 0;color:var(--cf-color-textSecondary);font-size:13px}
+.summary li{display:flex;align-items:flex-start;gap:8px;line-height:1.7}
+.summary li svg{flex:none;margin-top:3px;color:var(--cf-color-accent)}
