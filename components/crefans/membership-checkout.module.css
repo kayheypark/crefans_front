@@ -24,7 +24,6 @@
 .paymentActions button{width:100%;min-width:0;min-height:48px;font-size:15px;line-height:1.5;border-radius:10px}
 .page .notice{margin:16px 0 0;text-align:center;color:var(--cf-color-textMuted);font-size:12px;line-height:1.7}
 .error{margin:16px 0 0;color:var(--cf-color-danger);line-height:1.7}
-.complete{display:grid;gap:16px}.complete a{color:var(--cf-color-accent)}
 @media(max-width:767px){
  .product,.paymentMethod{margin-inline:-16px;padding-inline:16px}
  .paymentActions{grid-template-columns:minmax(0,1fr)}
