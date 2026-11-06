@@ -1,4 +1,4 @@
-import {businessInfo} from '@/lib/content/business';
+import {businessInfo,intermediaryNotice} from '@/lib/content/business';
 import s from './business-info.module.css';
 
 // 공정위 통신판매사업자 정보 조회(연동 가이드 https://www.ftc.go.kr/site/www/253_1.html): 사업자등록번호 10자리, 하이픈 없이.
@@ -7,7 +7,7 @@ const ftcBusinessUrl=(registrationNumber:string)=>`https://www.ftc.go.kr/bizComm
 
 /** Operator details for the PC sidebar and the mobile settings page footer. */
 export function BusinessInfo({className}:{className?:string}){
-  const {name,representative,registrationNumber,address,email,phone,mailOrderNumber}=businessInfo;
+  const {name,representative,registrationNumber,address,email,phone,mailOrderNumber,hostingProvider}=businessInfo;
   return <address className={`${s.info} ${className||''}`} aria-label="사업자 정보">
     <strong>{name}</strong>
     <span>대표 {representative}</span>
@@ -16,6 +16,8 @@ export function BusinessInfo({className}:{className?:string}){
     <span>{address}</span>
     <span>고객지원 <a href={`mailto:${email}`}>{email}</a></span>
     <span>전화 <a className={s.keep} href={`tel:${phone.replaceAll('-','')}`}>{phone}</a></span>
+    <span>호스팅서비스 제공자 <span className={s.keep}>{hostingProvider}</span></span>
+    <span className={s.notice}>{intermediaryNotice}</span>
     <small>© {new Date().getFullYear()} CREFANS</small>
   </address>;
 }
