@@ -124,7 +124,18 @@
 
 button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 
-.planList{display:flex;flex-direction:column;gap:8px;margin:0 0 18px}.compactPlan{flex-direction:row;align-items:center;gap:12px;padding:10px 12px 10px 16px}.compactPlan h2{display:flex;align-items:center;gap:8px;flex:1;min-width:0;margin:0;font-size:14px;text-align:left}.compactPlan .recommended{position:static;padding:2px 8px;font-size:max(10px,var(--cf-mobile-font-min,0px))}.compactPlan .price{margin:0;gap:3px}.compactPlan .price strong{font-size:15px;letter-spacing:-.3px}.compactPlan .price span{font-size:max(11px,var(--cf-mobile-font-min,0px))}.compactPlan button{width:auto;flex:none;min-height:34px;padding:6px 14px;font-size:max(12px,var(--cf-mobile-font-min,0px))}
+.planList{display:flex;flex-direction:column;gap:8px;margin:0 0 18px}
+.compactPlan{flex-direction:row;align-items:center;gap:10px;padding:10px 12px;border-radius:10px}
+.compactPlan .compactPlanImage{flex:none;width:36px;height:36px;aspect-ratio:1;object-fit:cover;border-radius:50%;margin:0}
+.compactPlanIdentity{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.compactPlan h2{display:flex;min-width:0;margin:0;font-size:15px;text-align:left;line-height:1.4}
+.compactPlanActions{display:flex;flex:none;flex-direction:column;align-items:flex-end;gap:4px}
+.compactPlanMeta{display:flex;align-items:center;gap:5px;color:var(--cf-color-textMuted);font-size:12px;line-height:1.2}
+.compactPlan .recommended{position:static;padding:2px 6px;font-size:10px}
+.compactPlan .price{justify-content:flex-start;margin:0;gap:3px;line-height:1.4}
+.compactPlan .price strong{font-size:15px;letter-spacing:-.3px}
+.compactPlan .price span{font-size:12px}
+.compactPlan button{width:auto;flex:none;min-height:44px;padding:6px 12px;font-size:13px;white-space:nowrap}
 
 .explore .listHeading{margin:32px 0 6px;font-size:14px;font-weight:600;color:var(--cf-color-textSecondary)}.explore .featuredHeading{display:flex;align-items:center;margin:4px 0 12px}.featuredHeading .listHeading{display:flex;align-items:center;gap:6px;margin:0}.featuredIcon{display:block;flex:none;width:22px;height:22px}
 .creatorList{list-style:none;margin:0;padding:0}
@@ -154,7 +165,7 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 .subscriptionIdentity{flex:1}.subscriptionIdentity>div>span{display:block;margin-bottom:4px}
 .receiptRow>span:first-child{min-width:0;flex:1}.receiptRow>span:last-child{flex:none}
 .lockedTile>[data-marquee]{max-width:calc(100% - 16px)}
-@media(max-width:767px){.compactPlan{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px}.compactPlan h2{grid-column:1/-1}.compactPlan .price{justify-content:flex-start}.subscriptionIdentity{min-width:0;width:100%}}
+@media(max-width:767px){.subscriptionIdentity{min-width:0;width:100%}}
 
 
 .postTile:has([data-paused=true]){aspect-ratio:auto;min-height:140px}.postTile:has([data-paused=true]) .lockedTile{height:auto;min-height:100%;padding-block:12px}

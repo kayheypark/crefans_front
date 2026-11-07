@@ -1,3 +1,15 @@
+## 2026-11-07 프로필 멤버십 36px 사진 적용·검증 (운영 배포 진행)
+- 사용자 축소 시안 승인 및 배포 요청. 공용 MembershipPlanCard compact에 업로드된 plan.image를 36×36px 원형으로 표시. OptionalImage 재사용으로 이미지 없음/로딩 실패 시 생략. 이름·가격은 왼쪽 두 줄, 레벨·가입/관리 버튼은 오른쪽, 44px 터치 높이. 내/타인 프로필·목업 공통 적용. 큰 멤버십 선택 카드·API·정책은 유지.
+- 입력·선택 디자인 카탈로그에 같은 사진을 공유하는 compact 카드, 사진 없음·가입 중·긴 이름·관리 버튼 예시 추가. AGENTS.md 기존 규칙 유지, docs/design-system.md 설명 갱신.
+- Next production build·typecheck·레이어434파일·기존 membership-images 단위10 통과. 로컬 API 대역 PC Chromium/iPhone13 WebKit/320px Chromium 12/12 통과: 사진36px·원형·없음·404·긴 이름/천만원·가격/버튼 겹침 없음·카드100px미만·버튼44px이상·가입/관리 이동·가입 중 비활성·카탈로그 업로드 공유. PC/모바일 캡처 육안 확인. 실물 iPhone·실회원 결제/사진 변경은 제외.
+- 근거 `.local/membership-avatar/verification.json`, `local-results.json`, `local-screens/`. 기준 prod 4120fbc, feat/membership-avatar-preview. 다음: dev 통합→prod 승격→프론트 운영 배포·공개 프로필 재확인. 문서 최초 검사는 변경 해시 만료로 실패했으며 설명 검토 후 snapshot-only 갱신한다.
+
+## 2026-11-07 프로필 멤버십 사진 축소 시안 (승인 대기·미구현)
+- 사용자 요청: 업로드된 멤버십 커스텀 사진을 프로필의 작은 멤버십 카드에도 아바타처럼 표시. 첫 시안이 너무 크다는 피드백으로 원형 사진을 36px 설계 기준, 카드 높이 약80px로 축소한 이미지 시안을 다시 제공했다. 이름·원화 가격·레벨·가입 버튼 유지. 이미지가 없는 경우의 처리 및 실제 반응형 크기는 구현 단계에서 기존 OptionalImage 정책과 함께 확인한다.
+- 산출물: `/Users/ethan/.codex/generated_images/01a19f9c-49fa-7323-bd30-4a5bc1b45efd/exec-69f5f5e1-42f5-4d2d-97db-8c68f9366bba.png` (내장 image_gen 편집, SHA-256 `7c11589ca8a54defe15f13bd52247e6cc8d67bce8a5f7d9a182a1c3bf7220a71`). 첫 시안은 같은 디렉터리의 `exec-2af00a25-9110-4c25-8164-f7f8e9d87678.png`. 사진·카드의 크기가 줄었으며 글자·가입 버튼이 남아 있는 것을 출력 이미지로 육안 확인. 36px은 구현 목표이며 생성 이미지의 정확한 CSS 픽셀 검증은 아니다.
+- 현행 MembershipPlanCard.tsx의 compact 분기는 plan.image를 표시하지 않음. 다음: 사용자 시안 승인 후 마이/타인 프로필에서 사용하는 공용 compact 카드에 연결, 이미지 유무·좁은 모바일·PC 검증. 제품 코드·API·데이터 변경/배포 없음.
+- 작업 기준 origin/prod `4120fbc9771383636afcf8a6c6b42067cfab4b0c`, `feat/membership-avatar-preview`. 기존 AGENTS.md 유지. 이번 변경은 PROGRESS.md만 미커밋이며 디자인 설명 기록이므로 제품 테스트·문서 증거 재생성은 수행하지 않았다.
+
 ## 2026-11-07 11:10 KST 배포 묶음 통합 release/bundle-20261107 (로컬 커밋만, push·배포 없음)
 - origin/prod 116e548 에서 fix/intermediary-receipt b7df02c → feat/post-unpublish 959da64 → feat/standalone-image 67a8063 --no-ff merge. 충돌: PROGRESS.md(양쪽 유지), docs/audit/evidence.json(생성물 — prod 쪽 유지 후 통합본에서 재기록).
 - 검증(11:02~11:06 KST, node_modules=메인 체크아웃 링크): layers 434 통과, typecheck 0, unit 535/548(실패 13 이름이 origin/prod 116e548 기준선 532/545 의 13건과 동일). e2e legal-notices(PC·iPhone13) 9 통과 1 skip, post-visibility(PC·Pixel7) 8/8 — 모두 API 대역.
