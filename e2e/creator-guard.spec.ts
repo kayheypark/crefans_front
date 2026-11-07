@@ -16,8 +16,9 @@ async function checkGuard(page:Page){
  await expect(heading).toBeVisible();await expect(heading).toBeFocused();
  await expect(page.getByText('스튜디오는 크리에이터만 이용할 수 있어요.')).toBeVisible();
  await expect(page.getByRole('heading',{name:'크리에이터 시작하기',exact:true})).toHaveCount(0);
- const check=page.locator('section span').filter({has:page.locator('svg')}).first();
- await expect(check).toHaveCSS('width','88px');await expect(check).toHaveCSS('height','88px');
+ const image=page.locator('section img[src="/brand/guards/creator-pencil-v1.png"]');
+ await expect(image).toHaveCSS('width','88px');await expect(image).toHaveCSS('height','88px');
+ await expect.poll(()=>image.evaluate((el:HTMLImageElement)=>el.naturalWidth)).toBeGreaterThan(0);
  const primary=page.getByRole('link',{name:'크리에이터 시작하기',exact:true}),secondary=page.getByRole('link',{name:'팬 화면으로',exact:true});
  await expect(primary).toHaveCSS('background-color','rgb(37, 99, 235)');
  for(const link of [primary,secondary])expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(48);

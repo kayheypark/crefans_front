@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-07T06:47:47.690707+00:00",
+  "checkedAt": "2026-11-07T07:55:26.737997+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,25 +30,25 @@
   ],
   "repositories": {
     "front": {
-      "head": "b3702088b9312b6aba3b46b4b8e8aeb2fbd9b33e",
-      "branch": "feat/support-cleanup",
-      "dirty": true
+      "head": "3ae69a9488b8aead2415c16f60346bc0c5a53975",
+      "branch": "release/creator-icon-20261107",
+      "dirty": false
     },
     "server": {
-      "head": "405f0b64c7c7809b9c5cf310e1e0d223c6ee4d38",
+      "head": "72d3bac94f976ca2f1b6e3ab0d1228c1b0972f80",
       "branch": "",
-      "dirty": true
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "124707561eaa856630794006be36120b2a5477e67b9cf86de87cccc19c8c8b6c",
+      "front/PROGRESS.md": "56beffd841e3da4c31655e15691529638155e6ea3933172dead9c293a826abfd",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "e144babfa44ea19b7928ee771ad636deff3235b172bae94466aa4e9794830f91",
+      "front/docs/design-system.md": "cd30198e5c6469fd0036d48d7407df9bcd18919092c045fbcc9b627955c45e44",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -218,7 +218,7 @@
       "front/components/crefans/EventPages.tsx": "6bac5d8c21268b725e70e45d9f309dcbef111bae5c5ace84d15b479344afb5a2",
       "front/components/crefans/FollowButton.tsx": "351e0114e0288d38fa46d0af4fbee47891ccd4e7b294d736d470f50da9b9fc95",
       "front/components/crefans/FoundingBadgeClaim.tsx": "9d5fa56f7ae886adddfd159294834be3655f8d5be10f8ec4253d379ce06476ad",
-      "front/components/crefans/GuardPage.tsx": "c921b2296fb4f1c86f72382d9a16d756444433072db53eba9c3e9f9d81e2074b",
+      "front/components/crefans/GuardPage.tsx": "671d78324867411e64877e7b1215c19e19ef156573a8d17115cab77c3f23f6aa",
       "front/components/crefans/HeaderAccountMenu.tsx": "210819d850d9ba5f29b1d69c045c3aee7bb653518d7b62d60054efeac60fd0f3",
       "front/components/crefans/Icon.tsx": "475507cac27493bc389c5f37dc4c3a30d59e62e96791269c2a72c5581c1970db",
       "front/components/crefans/LandingPage.tsx": "e49f1108a6dd83cbc65144af94dad3f552b3380777c26ae0c1d0830858a1d535",
@@ -508,6 +508,7 @@
       "front/docs/design/bean-soft3d-v6.generation.json": "c95275c6660793f8acac44a1a15634b6bb8d19f887fa0e9d780287a2062a21d3",
       "front/docs/design/bean-soft3d-v7.generation.json": "33f03d473bd4bc8ef733b2338ddb5c6b24230f904107d1b86362830c0c46fdb9",
       "front/docs/design/bean-style-variants-v1.generation.json": "457f43fdf9bae3057d16a6fbe9d9f58f650f7da015124c3fc9731d7493ac5bd8",
+      "front/docs/design/creator-guard-pencil-v1.generation.json": "81f17fd5e6ef82fc67df4d6885e935be33c872822053eaba5ce986c3a3c16a68",
       "front/docs/design/landing-concepts-20261103.json": "c5e296c1f87ad34bccbe0242bb52b82a80cdda11dc30501c092e62a35d2f4c14",
       "front/docs/design/post-support-icon-v1.generation.json": "18a6f9a3532c4254a637a25231522910e7342d12b550200f4ae9814bafa78743",
       "front/e2e/advertising.spec.ts": "95cbb7a47b1b9c1254d87042d2725d454f0102b406a50cec7f636a040d82e9bb",
@@ -523,7 +524,7 @@
       "front/e2e/comment-edit-delete.spec.ts": "f4a1dd12deb0f1411dea603cc44046e3cef39d9994fa9feab4271d34939349f1",
       "front/e2e/comment-social.spec.ts": "3db65b924d526df718e276ddcdf0aec79a898c75ecff553b137fd4325d9f17b8",
       "front/e2e/content-performance.spec.ts": "a4360385348eff51d80e41cb62328d60f68eddc4b8b72d627b43085affdd21db",
-      "front/e2e/creator-guard.spec.ts": "b998711924215936a6ed4fada17d833091a5f1c6f70be42dc13e1e356a7a7aea",
+      "front/e2e/creator-guard.spec.ts": "3f1d4e80922dcc8fb6f400cdf75707c19809d65f1e7833699f68d3fa2c5b400a",
       "front/e2e/creator-verification.spec.ts": "4d85af531b3f24ed970da7d86c9a346190ab7212c6592d0934449255bb4ed8d2",
       "front/e2e/fixtures.ts": "2282388ac8c433a4167bcc1c5b84c86870fcbcc72bf82486adc58642e312f332",
       "front/e2e/gallery-image-tap.spec.ts": "de5cfd54a81810c580f0dc2fb5e164fc2a1b78997db1d5555860c2d6cf38b5bb",
@@ -779,7 +780,7 @@
       "front/tests/choice.test.cjs": "6bf93f1a25d0afc9355c88019b25c4c2fceec1f7a31a791e14356825a4b424cf",
       "front/tests/comment-fixtures.test.cjs": "b6bbda4d04052ec7074c71f519d0c59ff9d8c902a7fab0db412c294b7dd48c02",
       "front/tests/content-post-preview.test.cjs": "efbc87194e13af6a9587e49198f17dd516d8f28448bb5581ddbcf9c72caed89b",
-      "front/tests/creator-guard.test.cjs": "1a0196cac534c4fee24de288fce57cb1ae7f6c773ed114f0cf6f371fca869a64",
+      "front/tests/creator-guard.test.cjs": "74d439263c8a5c74d33e8b03869b293e28816bdd9e87867cb2afa400deb115fd",
       "front/tests/creator-payout-terms.test.cjs": "6add0f1a31f6b00246b73ccc970acb8d82f3cbb06457b62ad5bdeeff8e5690fc",
       "front/tests/creator-verification.test.cjs": "7c6b29dbe7458158d59626caf8aa3078aa67c220d9c8f8573008c8bfab6219bd",
       "front/tests/crefans-account.test.cjs": "a9495882ce27507319c3bbf9ab5301d712086bd144d35c6e52bf49763220c522",
