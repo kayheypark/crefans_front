@@ -1,7 +1,9 @@
-## 2026-11-07 게시물 카드 연결선·직접 입력 삭제 (검증 진행, 운영 미배포)
-- 사용자 추가 요청: 하단 가로·세로 구분선을 카드 외곽까지 연결. 게시물 제목을 정확히 입력해야 삭제하도록 기존 TypedConfirmDialog 재사용, PC/모바일·실서비스/목업 공통 적용. 서버에도 confirmation 전달.
-- 합격 기준: 모든 모바일 폭에서 연결선 공백 없음, 빈 값·오입력·여분 공백은 요청 0회, 정확 입력 시 1회, 취소 재진입 초기화, 처리 중 닫기·중복 차단, 실패 시 목록 유지. 테스트는 API 대역이며 실제 회원 게시물 삭제는 하지 않는다.
-- 프론트 단위 27/27, typecheck·layers·Next 빌드 종료0, PC Chromium/iPhone13 WebKit/320px Chromium 12/12 통과. 캡처 육안 검수. 서버 검증·dev/prod 승격·운영 배포는 진행 중. 증거 .local/studio-post-card-confirm. AGENTS.md 기존 공유 UI/검증/브랜치 규약 유지.
+## 2026-11-07 게시물 카드 연결선·직접 입력 삭제 운영 배포 완료
+- 하단 가로선을 카드 좌우 테두리까지, 세로선을 가로선부터 하단 테두리까지 연결. 게시물 삭제는 운영콘솔과 같은 직접 입력 패턴인 공통 TypedConfirmDialog 사용. 현재 제목과 공백까지 일치해야 버튼 활성화. 취소 재진입 초기화·처리 중 닫기/중복 차단·실패 시 입력과 목록 유지. PC·모바일·실서비스·목업 공통 적용.
+- front feat 943b142 → dev 8ebf060 → prod ae908b0, server feat 4e45518 → dev dcc05a4 → prod 072368e. 운영 studio-post-confirm-20261107(front/API/worker). 프론트 먼저 적용 후 서버 확인 강제. DB migration 없음, 금융 설정·관리자/프록시/DB 컨테이너 보존.
+- 단위27·레이어434·타입/Next 빌드·서버 Nest 빌드/OpenAPI14/격리DB operations15 통과. 잘못된 입력·소유권·제목 변경·동시 삭제·이벤트 롤백 검증. 검사 제거 대조는 실패하고 원복 후 통과. 로컬/운영 번들 PC·iPhone WebKit·320px 각각12/12, 연결선 좌표·모달·검색/정렬/페이지 회귀 및 캡처 확인. 실제 회원 삭제·실물 iPhone은 제외.
+- 운영 health200·인증 없는 삭제401·6컨테이너 restart0/OOM없음·worker 실패0. 운영 소스 front555/server256 및 컴파일 JS195개 비교(변경3개), 이미지 소스 SHA 일치. 직전 이미지·설정은 맥북 /Users/ethan/crefans-recovery/20261107/studio-post-confirm에 검증 보관 후 서버 미사용 태그·임시 소스 정리.
+- 테스트 DB 잠금 충돌·독립 DB fixture guard·배포 스크립트 문자열 오류는 원인을 확인하고 성공 증거와 구분했다. 증거 docs/audit/studio-post-confirm-deployment-20261107.json 및 .local/studio-post-card-confirm. AGENTS.md 기존 규약 유지.
 
 ## 2026-11-07 모바일 게시물 통합 카드 운영 배포 완료
 - 사용자 채택 폴리싱 02 통합 카드형 반영. 767px 이하: 밑줄 탭·검색/정렬·썸네일/상태·공개 범위·최근 수정 또는 게시 예정 시각·미리보기/수정/삭제를 한 카드에 표시. 첫 카드 펼침, 제목 클릭/Enter/Space 토글. PC 표 유지. 콘텐츠 성과 하단 접기 버튼 제거도 함께 배포.
