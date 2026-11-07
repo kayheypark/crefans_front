@@ -8,12 +8,18 @@ import {Action} from './ServiceUI';
 import s from './creator.module.css';
 import {OptionalImage} from '@/components/ui/OptionalImage';
 
-/** `compact` is the one-line version for the creator profile: name/level, monthly price and the action only; details live on the membership page. */
+/** `compact` shows a small membership image and summary on profiles; details live on the membership page. */
 export function MembershipPlanCard({plan,selected=false,disabled=false,compact=false,actionLabel='선택하고 계속',onSelect}:{plan:Plan;selected?:boolean;disabled?:boolean;compact?:boolean;actionLabel?:string;onSelect:()=>void}){
   if(compact)return <article className={`${s.plan} ${s.compactPlan} ${selected?s.selectedPlan:''}`}>
-    <h2><MarqueeText text={plan.name}/><span className={s.planLevel}>Lv.{plan.rank}</span>{plan.recommended&&<span className={s.recommended}>추천</span>}</h2>
-    <p className={s.price}><strong>{`₩${plan.price.toLocaleString('ko-KR')}`}</strong><span>/월</span></p>
-    <Action variant={plan.recommended?'brand':'primary'} disabled={disabled} onClick={onSelect}>{actionLabel}</Action>
+    <OptionalImage src={plan.image} alt={`${plan.name} 멤버십`} className={s.compactPlanImage}/>
+    <div className={s.compactPlanIdentity}>
+      <h2><MarqueeText text={plan.name}/></h2>
+      <p className={s.price}><strong>{`₩${plan.price.toLocaleString('ko-KR')}`}</strong><span>/월</span></p>
+    </div>
+    <div className={s.compactPlanActions}>
+      <div className={s.compactPlanMeta}><span className={s.planLevel}>Lv.{plan.rank}</span>{plan.recommended&&<span className={s.recommended}>추천</span>}</div>
+      <Action variant={plan.recommended?'brand':'primary'} disabled={disabled} onClick={onSelect}>{actionLabel}</Action>
+    </div>
   </article>;
   return <article className={`${s.plan} ${selected?s.selectedPlan:''}`}>
     {plan.recommended&&<span className={s.recommended}>추천</span>}
