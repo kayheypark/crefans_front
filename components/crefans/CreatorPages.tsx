@@ -1,5 +1,6 @@
 'use client';
 import {PAYMENT_TERMS} from '@/lib/crefans/payment-terms';
+import {intermediaryNotice} from '@/lib/content/business';
 import {SubscriptionResumeDialog} from './SubscriptionResumeDialog';
 import {CREATOR_PROVISION} from '@/lib/crefans/creator-provision';
 import {Toast} from '@/components/ui/Toast';
@@ -205,7 +206,7 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
       {cancelling&&<div className={s.dialogContent}><p>{cancelling.renewalPending?'결제 대기 중인 갱신을 중단합니다. ' : ''}<MarqueeText text={`${creators.find(item=>item.id===cancelling.creatorId)?.name||'크리에이터'}님의 멤버십`}/> <strong>{date(cancelling.renewAt)}</strong>까지 이용할 수 있습니다.</p><p className={s.helper}>해지 후 다음 자동 갱신이 중단됩니다. 남은 이용 기간 동안 멤버십 콘텐츠 이용 권한은 유지됩니다.</p>{error&&<p className={s.error} role="alert">{error}</p>}<DialogActions style={{marginTop:5}}><Action variant="secondary" disabled={pending} onClick={()=>setCancelling(null)}>구독 유지</Action><Action variant="danger" disabled={pending} aria-busy={pending} onClick={confirmCancellation}>{pending?'해지 중…':'갱신 해지하기'}</Action></DialogActions></div>}
     </Dialog>
     <Dialog open={!!receipt} onClose={()=>{if(!pending)setReceipt(null);}} title="결제 상세">
-      {receipt&&<div className={s.dialogContent}><dl className={s.summaryRows}><div><dt>크리에이터</dt><dd><MarqueeText text={creators.find(item=>item.id===receipt.creatorId)?.name||'정보 없음'}/></dd></div><div><dt>멤버십</dt><dd><MarqueeText text={getSubscriptionPlan(model.data,receipt)?.name||'정보 없음'}/></dd></div><div><dt>금액</dt><dd>{money(receipt.price)}</dd></div><div><dt>{receipt.paidAt?'결제일':'이용 기간 종료'}</dt><dd>{date(receipt.paidAt||receipt.renewAt)}</dd></div></dl>{error&&<p className={s.error} role="alert">{error}</p>}<DialogActions><Action variant="secondary" disabled={pending} onClick={()=>setReceipt(null)}>닫기</Action>{receipt.paymentStatus==='refunding'&&<p role="status">환불 결과를 확인 중입니다.</p>}{receipt.paymentStatus==='refunded'&&<p role="status">환불 완료</p>}</DialogActions></div>}
+      {receipt&&<div className={s.dialogContent}><dl className={s.summaryRows}><div><dt>판매자</dt><dd><MarqueeText text={creators.find(item=>item.id===receipt.creatorId)?.name||'정보 없음'}/></dd></div><div><dt>멤버십</dt><dd><MarqueeText text={getSubscriptionPlan(model.data,receipt)?.name||'정보 없음'}/></dd></div><div><dt>금액</dt><dd>{money(receipt.price)}</dd></div><div><dt>{receipt.paidAt?'결제일':'이용 기간 종료'}</dt><dd>{date(receipt.paidAt||receipt.renewAt)}</dd></div></dl>{/* 2026-11-07: 결제 상세(계약내용 서면)에도 판매자와 통신판매중개자 고지를 같은 글씨 크기(.dialogContent 14px 상속)로 표시. 시행규칙 제11조의2 */}<p>{intermediaryNotice}</p>{error&&<p className={s.error} role="alert">{error}</p>}<DialogActions><Action variant="secondary" disabled={pending} onClick={()=>setReceipt(null)}>닫기</Action>{receipt.paymentStatus==='refunding'&&<p role="status">환불 결과를 확인 중입니다.</p>}{receipt.paymentStatus==='refunded'&&<p role="status">환불 완료</p>}</DialogActions></div>}
     </Dialog>
   </div>;
 }

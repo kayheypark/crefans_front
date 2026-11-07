@@ -54,7 +54,7 @@ function useManagementAction(){
 }
 function Status({value}:{value:StudioContentStatus}){return <span className={s.status} data-status={value}>{statusLabels[value]}</span>;}
 function ContentThumbnail({item}:{item:StudioContent}){return <>{item.media[0]?.type==='image'&&item.media[0].processing?<span className={s.noMedia} role="img" aria-label="워터마크 적용 중"><Icon name="card"/></span>:item.media[0]?.type==='image'?<img src={item.media[0].url} alt=""/>:item.media[0]?.type==='video'&&item.media[0].processing?<VideoProcessing variant="thumbnail"/>:item.media[0]?.type==='video'?<MediaVideo src={item.media[0].url} firstFrame muted playsInline preload="metadata" aria-label="동영상"/>:<span className={s.noMedia}><Icon name="card"/></span>}</>;}
-function ContentStatus({item,commentsGloballyEnabled}:{item:StudioContent;commentsGloballyEnabled:boolean}){return <span className={s.statusCell}><Status value={item.status}/>{item.hiddenByOperator&&<span className={s.status}>운영 정책에 따라 숨김</span>}{!postCommentsAllowed(commentsGloballyEnabled,item.commentsEnabled)&&<span className={s.status}>댓글 닫힘</span>}</span>;}
+function ContentStatus({item,commentsGloballyEnabled}:{item:StudioContent;commentsGloballyEnabled:boolean}){return <span className={s.statusCell}><Status value={item.status}/>{item.unpublished&&<span className={s.status} data-status="unpublished">미공개</span>}{item.hiddenByOperator&&<span className={s.status}>운영 정책에 따라 숨김</span>}{!postCommentsAllowed(commentsGloballyEnabled,item.commentsEnabled)&&<span className={s.status}>댓글 닫힘</span>}</span>;}
 function ContentCard({item,initiallyOpen,access,basePath,commentsGloballyEnabled,busy,onPreview,onDelete}:{item:StudioContent;initiallyOpen:boolean;access:string;basePath:string;commentsGloballyEnabled:boolean;busy:boolean;onPreview:()=>void;onDelete:()=>void}){
   const [open,setOpen]=useState(initiallyOpen),id=useId(),scheduled=item.status==='scheduled'&&!!item.scheduledAt;
   const parts=new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(scheduled?item.scheduledAt!:item.updatedAt));
@@ -76,6 +76,19 @@ function ContentCard({item,initiallyOpen,access,basePath,commentsGloballyEnabled
     </div>
   </article>;
 }
+const accessLabel=(item:StudioContent,memberships:StudioMembership[])=>item.accessLevel?`레벨 ${item.accessLevel} 이상`:item.accessPlanId?`${memberships.find(plan=>plan.id===item.accessPlanId)?.name||'멤버십'} 전용`:'전체 공개';
+// Unpublish (2026-11-07): only the author sees an unpublished post; publishing again restores it as it was. Operator hiding is
+// a separate state the creator cannot lift, so it is only explained here.
+function ContentVisibility({content,access,onChange}:{content:StudioContent;access:string;onChange:(isPublic:boolean)=>Promise<ApiResult<{message:string}>>}){
+  const [open,setOpen]=useState(false),task=useManagementAction(),unpublished=!!content.unpublished;
+  return <section className={s.visibilityBox} aria-label="공개 상태">
+    <div className={s.visibilityText}><strong>{unpublished?'미공개 · 나만 볼 수 있어요':'공개 중'}</strong><span className={s.muted}>{unpublished?'팬과 멤버십 구독자 모두에게 보이지 않아요. 다시 공개하면 그대로 돌아와요.':`팬에게 ${access} 범위로 보여요.`}</span></div>
+    <Action variant="secondary" type="button" disabled={task.busy} onClick={()=>{task.clear();setOpen(true);}}>{unpublished?'다시 공개':'미공개로 전환'}</Action>
+    {content.hiddenByOperator&&<Notice>운영 정책에 따라 숨겨진 게시물입니다. 숨김은 운영자만 해제할 수 있어서, 공개 상태와 관계없이 다른 회원에게 보이지 않아요.</Notice>}
+    <Toast message={task.message} onClose={task.clearMessage}/>
+    <Dialog open={open} onClose={()=>{if(!task.busy)setOpen(false);}} title={unpublished?'게시물을 다시 공개할까요?':'게시물을 미공개로 바꿀까요?'}><div className={s.dialogBody}><p><strong><MarqueeText text={content.title}/></strong> 게시물을 {unpublished?`미공개 전과 같은 ${access} 범위로 다시 보여 줍니다.`:'나만 볼 수 있게 바꿉니다.'}</p><Notice>{unpublished?(content.hiddenByOperator?'운영 정책에 따라 숨겨진 게시물이라 운영자가 숨김을 해제하기 전까지는 다른 회원에게 보이지 않아요.':'피드·프로필·링크와 댓글·좋아요·후원이 다시 열려요.'):'피드·프로필·검색·링크로 들어온 팬과 멤버십 구독자 모두에게 보이지 않고, 댓글·좋아요·후원도 받을 수 없어요. 게시물과 댓글·좋아요 기록은 지워지지 않으며 언제든 다시 공개할 수 있어요.'}</Notice>{task.error&&<p className={s.error} role="alert">{task.error}</p>}<DialogActions><Action variant="secondary" disabled={task.busy} onClick={()=>setOpen(false)}>취소</Action><Action variant="brand" disabled={task.busy} onClick={()=>void task.run(()=>onChange(unpublished),()=>setOpen(false))}>{task.busy?'처리 중…':unpublished?'다시 공개':'미공개로 전환'}</Action></DialogActions></div></Dialog>
+  </section>;
+}
 export function ContentManagementPage({model,basePath,previewModel,previewCreatorId,commentsGloballyEnabled=true}:Props&ContentPreviewProps){
   const [filter,setFilter]=useState<StudioContentStatus|'all'>(model.selectedContentStatus||'all'),[search,setSearch]=useState(''),[previewId,setPreviewId]=useState<string|null>(null),[deleteId,setDeleteId]=useState<string|null>(null);
   const [sort,setSort]=useState<TableSort>(null),[page,setPage]=useState(1),pageSize=10;
@@ -84,7 +97,7 @@ export function ContentManagementPage({model,basePath,previewModel,previewCreato
   useEffect(()=>setPage(1),[filter,search]);
   const filtered=model.contents.filter(item=>(filter==='all'||item.status===filter)&&`${item.title} ${item.body}`.toLowerCase().includes(search.trim().toLowerCase()));
   const preview=model.contents.find(item=>item.id===previewId),removing=model.contents.find(item=>item.id===deleteId);
-  const planName=(item:StudioContent)=>item.accessLevel?`레벨 ${item.accessLevel} 이상`:item.accessPlanId?`${model.memberships.find(plan=>plan.id===item.accessPlanId)?.name||'멤버십'} 전용`:'전체 공개';
+  const planName=(item:StudioContent)=>accessLabel(item,model.memberships);
   const when=(item:StudioContent)=>item.status==='scheduled'&&item.scheduledAt?`${date(item.scheduledAt)} 게시 예정`:`${date(item.updatedAt)} 수정`;
   const columns:TableColumn<StudioContent>[]=[
     {key:'title',label:'게시물',sortValue:item=>item.title,render:item=><div className={s.contentCell}><ContentThumbnail item={item}/><div className={s.contentLabel}><Link href={`${basePath}/content/${item.id}/edit`}>{item.title}</Link>{item.media.some(media=>media.type==='video'&&media.processing)&&<VideoProcessing variant="badge"/>}</div></div>},
@@ -170,7 +183,8 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   return <section className={s.page}><PageTitle back={<BackButton href={`${basePath}/content`} label="콘텐츠 목록으로"/>}>{savedId?'게시물 수정':'게시물 작성'}</PageTitle>
     <div className={s.editorLayout}><div className={s.editorColumn}>
     {/* A new post has no state until it is saved: show the badge only for saved posts (2026-11-01). */}
-    {current&&<div className={s.editorHead}><Status value={status}/></div>}
+    {current&&<div className={s.editorHead}><span className={s.statusCell}><Status value={status}/>{current.unpublished&&<span className={s.status} data-status="unpublished">미공개</span>}</span></div>}
+    {current&&<ContentVisibility content={current} access={accessLabel(current,model.memberships)} onChange={isPublic=>model.actions.setContentPublic(current.id,isPublic)}/>}
     <form className={s.editor} onSubmit={e=>{e.preventDefault();save(status==='published'?'published':'draft');}}>
       <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
       <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>

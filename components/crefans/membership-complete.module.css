@@ -11,3 +11,6 @@
 .summary ul{display:grid;gap:8px;list-style:none;padding:0;margin:16px 0 0;color:var(--cf-color-textSecondary);font-size:13px}
 .summary li{display:flex;align-items:flex-start;gap:8px;line-height:1.7}
 .summary li svg{flex:none;margin-top:3px;color:var(--cf-color-accent)}
+.seller{display:grid;gap:4px;margin-top:16px;padding-top:16px;border-top:1px solid var(--cf-color-border);font-size:13px;line-height:1.7;color:var(--cf-color-textSecondary);word-break:keep-all}
+.seller p{margin:0;font-size:inherit}
+.seller strong{font-size:inherit;font-weight:600;color:var(--cf-color-text)}

@@ -1,3 +1,21 @@
+## 2026-11-07 11:10 KST 배포 묶음 통합 release/bundle-20261107 (로컬 커밋만, push·배포 없음)
+- origin/prod 116e548 에서 fix/intermediary-receipt b7df02c → feat/post-unpublish 959da64 → feat/standalone-image 67a8063 --no-ff merge. 충돌: PROGRESS.md(양쪽 유지), docs/audit/evidence.json(생성물 — prod 쪽 유지 후 통합본에서 재기록).
+- 검증(11:02~11:06 KST, node_modules=메인 체크아웃 링크): layers 434 통과, typecheck 0, unit 535/548(실패 13 이름이 origin/prod 116e548 기준선 532/545 의 13건과 동일). e2e legal-notices(PC·iPhone13) 9 통과 1 skip, post-visibility(PC·Pixel7) 8/8 — 모두 API 대역.
+- standalone(맥 docker buildx linux/amd64, 키 파일 ~/.crefans/frontend-build.env 권한 600, 값 비출력): 키 파일 미지정·빈 키·권한 644 각각 ship-image.sh 가 빌드 전에 종료 1. 키 포함 빌드 59초 종료 0, 번들 키 검사 통과·임의 값 대조 실패, 빌드 로그에 키 문자열 0건, linux/amd64·revision 라벨=HEAD·server.js/static/public/sharp-linux-x64 확인, 로컬 컨테이너에서 /service/landing·terms 200, 옛 이벤트 301, /_next/image 200 image/png. 테스트 이미지·빌드 캐시 정리. 실제 amd64 서버 실행·운영 적용 미실행.
+- 문서: 서버 docs:contracts 재생성(서버 통합 커밋), 이후 docs:record 는 해시 스냅샷 저장일 뿐 테스트 증명이 아님(snapshot-only).
+- 남은 일: dev/prod 통합·push, 운영 배포(계획 `crefans_server/.local/bundle-deploy-20261107/plan.md`).
+
+## 2026-11-07 스튜디오 게시물 미공개 전환 — feat/post-unpublish (미배포)
+- 게시물 수정 화면(저장된 글)에 '공개 상태' 상자: 공개 중/미공개 표시, 확인 Dialog 후 `PUT /studio/content/:id/visibility`. 운영 숨김이면 운영자만 해제 가능 안내. 상태 배지·목록(표/카드)에 '미공개'. 이력 UI 없음(사용자 결정). 목업 useMockManagement·디자인 시스템 StudioContentCatalog '미공개·운영 숨김' 상태 추가. 서버 계약은 server docs/platform-api.md '게시물 미공개'.
+- 검증(2026-11-07, node_modules=메인 체크아웃 링크): check:layers 434, typecheck 0. 단위 534/547 — origin/prod(116e548) 기준선 532/545와 실패 13건 목록 동일(신규 2건 통과). e2e `playwright.post-visibility.config.ts`(API 대역만, 3021, 서버/DB 미기동) PC·Pixel7 8/8. 화면 .local/post-unpublish-20261107/*.png.
+
+## 2026-11-07 프론트 standalone 이미지·맥 빌드 전송 초안 (feat/standalone-image, 미푸시·미배포)
+- 사용자 결정(11-07) "standalone부터 전환". origin/prod 116e548 분기, 작업 폴더 `/Users/ethan/repository/crefans_front-standalone`. `next.config.js` output:'standalone', `infra/platform/Dockerfile` = BUILDPLATFORM 네이티브 빌드 + 대상 플랫폼 런타임(`node server.js`, HOSTNAME 0.0.0.0·PORT 3010·node 사용자), 추적된 sharp를 lockfile 버전의 대상 아키텍처(linux-x64) 바이너리로 교체.
+- 측정(맥 M4 Pro, buildx linux/amd64): 빌드 61초(콜드)·51초(dry-run), 압축 해제 rootfs 약 504MB·save 271MB(서버 기존 crefans-front 6.27GB). 에뮬레이션 실행에서 origin/prod 네이티브 next start와 31개 URL(페이지·301·미들웨어 /card 404·/settings 307·robots·sitemap·public·_next/static·_next/image webp 200/400·없는 경로 404) 상태·헤더 비교 → 차이는 /settings Location 절대/상대뿐이며 운영과 동일한 상대 경로. 이미지 캐시 쓰기 정상, 메모리 약 157MiB. 보안 헤더는 Caddy 담당이라 이미지 무관.
+- 검사: layers·typecheck 0, unit 532/545(실패 13건 origin/prod 기준선과 동일 목록), check:docs PASS(서버 origin/prod 작업트리, 변경 전 Evidence expired 실패 → setting.md 갱신·docs:record 후 PASS, snapshot-only). e2e는 next dev 대상이라 이번 변경과 무관해 사용자 지시로 기준선 비교 전 중단(변경본 1회 192 pass·59 fail·49 skip, 기준선 미실행 → 비교 불가).
+- `infra/platform/ship-image.sh` 초안: 빌드→라벨·amd64·sharp·카카오 키 번들 포함 검사(값 비출력, 없는 키로 실패 대조 확인)→save|gzip·SHA-256→서버 읽기 전용 사전 검사→(이하 미실행) /tmp 전송·해시·load·레이어 대조→frontend만 교체·URL 검증·.env 복원 롤백→이전 이미지 맥 복구본 스트리밍·검증 후 서버 태그 정리. dry-run 1회 통과(서버 쓰기 없음, 운영 studio-post-confirm-20261107, /tmp·docker 여유 34GB). 증거 `.local/standalone-image-20261107/`, `.local/ship-standalone-dryrun-20261107/`.
+- 미결정: 빌드 비밀값(카카오 키) 맥 전달 방식, 첫 운영 적용 시점(dev/prod 승격 필요), 실제 amd64 서버 실행 미검증, api/admin 미지원. Docker Desktop 자격 증명 도우미 멈춤 시 credsStore 없는 DOCKER_CONFIG로 우회.
+
 ## 2026-11-07 게시물 카드 연결선·직접 입력 삭제 운영 배포 완료
 - 하단 가로선을 카드 좌우 테두리까지, 세로선을 가로선부터 하단 테두리까지 연결. 게시물 삭제는 운영콘솔과 같은 직접 입력 패턴인 공통 TypedConfirmDialog 사용. 현재 제목과 공백까지 일치해야 버튼 활성화. 취소 재진입 초기화·처리 중 닫기/중복 차단·실패 시 입력과 목록 유지. PC·모바일·실서비스·목업 공통 적용.
 - front feat 943b142 → dev 8ebf060 → prod ae908b0, server feat 4e45518 → dev dcc05a4 → prod 072368e. 운영 studio-post-confirm-20261107(front/API/worker). 프론트 먼저 적용 후 서버 확인 강제. DB migration 없음, 금융 설정·관리자/프록시/DB 컨테이너 보존.
@@ -17,6 +35,14 @@
 - 최신 origin/prod 6421103에서 fix/content-performance-remove-collapse 분기. 공용 ContentPerformance의 하단 버튼과 불필요해진 ref·전용 CSS 제거, 기존 브라우저 검사의 접기 동선을 제목으로 변경. 서비스·목업·카탈로그에 공통 적용.
 - 검증: Next production build(타입 검사 포함) 종료0, 로컬 PC/iPhone WebKit/320px 기존 브라우저 검사 3/3 통과. 하단 버튼 없음·제목 클릭/Enter/Space·도움말·연결선·수치·가로 넘침 확인. 모바일 캡처 육안 검수. 최초 WebKit 클릭 직후 포커스 기대값 1건 실패는 클릭과 키보드 포커스 검사를 분리해 재검증 통과. 제품 코드 추가 변경 없음.
 - 증거 .local/content-performance-collapse/verification.json·로그·캡처. 문서 검사 통과. 당시 실제 기기 및 운영 검증 제외. 이후 위 통합 카드 배포에서 dev → prod 통합 및 운영 번들 브라우저 재검증 완료. AGENTS.md 기존 규약 유지.
+
+## 2026-11-07 멤버십 결제 상세·가입 완료에 판매자·통신판매중개자 고지 (fix/intermediary-receipt, 미배포)
+- 2026-11-07 사용자 결정: 프론트는 배포 보류(브랜치 그대로 유지). 이 브랜치는 origin/prod 6421103 에서 분기했고 origin/prod 가 44bc398 로 앞서 있으므로, 나중 배포 때 최신 prod 와 합친 뒤 docs/audit/evidence.json(서버 형제 기준) 재기록·검사를 다시 해야 한다. 서버 짝은 결제 완료 메일 발송 연결까지 진행(crefans_server fix/intermediary-receipt f214e10).
+- 사용자 결정(2026-11-07): 결제 완료 메일·영수증에도 중개자 고지(배포 별도 승인). 근거 전자상거래법 시행규칙 제11조의2(계약내용 서면에도 고지, 판매자 표시와 같거나 큰 글씨). 서버 짝: crefans_server fix/intermediary-receipt f1f914d(결제 메일 템플릿, 발송 연결은 원래 없음).
+- 영수증 위치 조사: 별도 PDF·결제사 영수증 링크 없음. 회원이 보는 결제 기록은 내 구독 > 결제 내역 > '결제 상세' 대화상자(CreatorPages.tsx)와 결제 직후 '멤버십 가입 완료' 요약(MembershipCompletePage.tsx) 두 곳.
+- 변경: 결제 상세 '크리에이터' 줄을 '판매자'로 바꾸고 아래에 `intermediaryNotice` 문단(대화상자 14px 상속, 판매자 줄과 같음). 가입 완료 요약에 '판매자: {크리에이터 이름}'+고지 상자(.seller 13px, p/strong inherit), MembershipCheckout 이 sellerName 전달. 이름을 모르면 '이 멤버십을 운영하는 크리에이터'. 콩 충전 결과에는 넣지 않음.
+- 검증(2026-11-07 로컬): legal-notices+crefans-creator 19/19, 대조 4건(결제 상세 고지 제거·작은 class, 완료 고지 제거·CSS 12px) 각 1 fail 후 원복(SHA 동일) 통과. npm test 545 중 533(실패 12건 이름 origin/prod 6421103 기준선과 동일), typecheck 오류 2건(e2e/content-performance.spec.ts, 기준선 동일), layers 433 통과. Playwright e2e/legal-notices.config.ts(API 대역) PC·iPhone13 9 통과 1 skip, 결제 상세 반복 6/6, computed font-size 고지≥판매자. membership-complete/checkout-layout(대역, 임시 config) 17/18 — iPhone13 의 'never show completion' 1건은 기준선에서도 같은 네비게이션 중단으로 실패(원 config 에선 모바일 대상 아님).
+- 미실행: 운영 배포, 실결제 화면 확인.
 
 ## 2026-11-07 콘텐츠 성과 상세 펼침형 운영 배포 완료
 - 사용자 승인 시안대로 첫 게시물은 펼치고 나머지는 접는다. 피드 노출·상세 조회·30분 방문수·공유/외부 유입·영상 재생은 가로·세로선이 이어진 3열×2행 격자로 표시. 유입 경로·좋아요·댓글 보존, 긴 집계 안내는 ⓘ 도움말로 이동. 큰 수치는 만·억 단위, 정확한 수치는 접근성 이름·title 유지. 집계 정책·API·DB 변경 없음.
