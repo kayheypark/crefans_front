@@ -34,7 +34,7 @@ export function draftPostModel({content,memberships,model,creatorId,commentsGlob
 export function ContentPostPreview(props:Props){
   const [audience,setAudience]=useState('eligible');
   const model=draftPostModel(props),membersOnly=!!props.content.accessPlanId||!!props.content.accessLevel;
-  if(!model)return <Empty title="미리보기 정보를 확인할 수 없어요" description="작성자와 선택한 멤버십 정보를 확인한 뒤 다시 열어 주세요."/>;
+  if(!model)return <Empty title="미리보기 정보를 확인할 수 없어요" illustration={false} description="작성자와 선택한 멤버십 정보를 확인한 뒤 다시 열어 주세요."/>;
   return <div className={s.preview}>
     <div className={s.controls}>{membersOnly?<SelectField label="보는 사람" value={audience} onChange={setAudience} options={[{value:'eligible',label:'멤버십 이용 가능 팬'},{value:'locked',label:'해당 멤버십 미가입 팬'}]}/>:<p className={s.access}>전체 공개 · 모든 팬에게 본문과 미디어가 표시됩니다.</p>}</div>
     <PhoneFrame><PostDetailPage id={model.data.posts[0].id} model={model} readOnly forceLocked={membersOnly&&audience==='locked'}/></PhoneFrame>

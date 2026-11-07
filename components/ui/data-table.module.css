@@ -1,4 +1,4 @@
-.scroll{position:relative;max-width:100%;overflow-x:auto;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control);background:var(--cf-color-surface)}
+.scroll{position:relative;container-type:inline-size;max-width:100%;overflow-x:auto;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control);background:var(--cf-color-surface)}
 .scroll:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px}
 .table{width:100%;min-width:640px;border-collapse:collapse;text-align:left;color:var(--cf-color-text);font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.6}
 .table caption{caption-side:top;text-align:left;padding:16px 18px;font-size:14px;font-weight:650}
@@ -13,7 +13,9 @@
 .table td{padding:14px 18px;border-bottom:1px solid var(--cf-color-border);vertical-align:middle;overflow-wrap:normal;word-break:keep-all}
 .table tbody tr:last-child td{border-bottom:0}
 .table tbody tr:hover{background:var(--cf-color-accentSoft)}
-.table .message{text-align:center;padding:36px 18px;color:var(--cf-color-textMuted)}
+.table .message{text-align:center;padding:36px 0;color:var(--cf-color-textMuted)}
+/* Keep the empty message centred in the visible part of a horizontally scrolling table. */
+.messageBody{position:sticky;left:0;box-sizing:border-box;width:100cqw;padding-inline:18px}
 @media(max-width:600px){.table th,.table td{padding:11px 13px}.table caption{padding:14px 13px}}
 
 .sortIcon{display:inline-flex;flex:none}

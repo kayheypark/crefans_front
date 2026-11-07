@@ -128,7 +128,7 @@ export function ContentManagementPage({model,basePath,fanPath=basePath.replace(/
 type EditorProps=Props&ContentPreviewProps;
 export function ContentEditorPage({model,basePath,id,previewModel,previewCreatorId,commentsGloballyEnabled=true}:EditorProps){
   const content=id?model.contents.find(item=>item.id===id):undefined;
-  if(id&&!content)return <section className={s.page}><PageTitle back={<BackButton href={`${basePath}/content`} label="콘텐츠 목록으로"/>}>게시물 수정</PageTitle><Empty title="게시물을 찾을 수 없어요" description="삭제되었거나 접근할 수 없는 게시물입니다."/></section>;
+  if(id&&!content)return <section className={s.page}><PageTitle back={<BackButton href={`${basePath}/content`} label="콘텐츠 목록으로"/>}>게시물 수정</PageTitle><Empty title="게시물을 찾을 수 없어요" illustration={false} description="삭제되었거나 접근할 수 없는 게시물입니다."/></section>;
   return <ContentEditor key={id||'new'} model={model} basePath={basePath} content={content} previewModel={previewModel} previewCreatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/>;
 }
 function ContentEditor({model,basePath,content,previewModel,previewCreatorId,commentsGloballyEnabled=true}:EditorProps&{content?:StudioContent}){

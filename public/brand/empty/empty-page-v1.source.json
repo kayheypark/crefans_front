@@ -1,0 +1,9 @@
+{
+  "source": "crefans_admin src/components/console/EmptyState.tsx + src/app/globals.css (.empty-page/.empty-fold)",
+  "sourceRepository": "/Users/ethan/repository/crefans_admin",
+  "sourceCommit": "06290e276b7cb0564db3f8046ab24b5089b38ea2 (origin/prod)",
+  "copiedAt": "2026-11-07 Asia/Seoul",
+  "modified": "Inline SVG paths copied unchanged; light-mode CSS fills (#d5dae2 page, #8e97a3 fold) baked into the file because the fan/studio front has no dark mode. Size 36x44.",
+  "sha256": "abae1ec2ee75b7f3c6f48068609bd14dabff388040b644f0fe5b6b22439d3966",
+  "runtimeDependency": false
+}

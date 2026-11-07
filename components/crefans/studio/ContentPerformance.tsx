@@ -23,7 +23,7 @@ function PerformanceRow({post,initiallyOpen}:{post:Post;initiallyOpen:boolean}){
    {analytics?<>
     <dl className={s.metrics} aria-label="열람 통계"><Metric label="피드 노출" value={analytics.feed}/><Metric label="상세 조회" value={analytics.detail}/><Metric label="방문수 (30분)" value={analytics.visits}/><Metric label="공유·외부 유입" value={analytics.shared}/><Metric label="영상 재생" value={analytics.video}/></dl>
     <h4 className={s.sourceTitle}>유입 경로</h4><dl className={s.sources} aria-label="유입 경로"><Metric label="카카오" value={analytics.kakao}/><Metric label="복사 링크" value={analytics.copy}/><Metric label="기기 공유" value={analytics.native}/><Metric label="외부 링크" value={analytics.external}/></dl>
-   </>:<p className={s.unavailable}>세부 통계가 아직 없어요.</p>}
+   </>:<Empty title="세부 통계가 아직 없어요."/>}
    <dl className={s.reactions} aria-label="게시물 반응"><Metric label="좋아요" value={post.likes}/><Metric label="댓글" value={post.comments}/></dl>
   </div>
  </article>;

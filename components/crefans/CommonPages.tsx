@@ -57,13 +57,13 @@ export function NoticesPage({model,basePath}:{model:CommonModel;basePath:string}
 }
 export function NoticeDetailPage({id,model,basePath}:{id:string;model:CommonModel;basePath:string}){
   const notice=model.notices.find(item=>item.id===id);
-  if(!notice)return <section className={s.page}><BackButton className={s.back} href={`${basePath}/notices`} label="공지사항 목록으로"/><Empty title="공지사항을 찾을 수 없어요"/></section>;
+  if(!notice)return <section className={s.page}><BackButton className={s.back} href={`${basePath}/notices`} label="공지사항 목록으로"/><Empty title="공지사항을 찾을 수 없어요" illustration={false}/></section>;
   return <article className={s.page}><BackButton className={s.back} href={`${basePath}/notices`} label="공지사항 목록으로"/><header className={s.documentHead}><h1>{notice.title}</h1><small>{notice.date}</small></header><div className={s.documentBody}>{notice.paragraphs.map((paragraph,index)=><p key={index}>{paragraph}</p>)}</div><CommonNavigation basePath={basePath}/></article>;
 }
 export function LegalPage({kind,model,basePath}:{kind:LegalKind;model:CommonModel;basePath:string}){
   const document=model.legal[kind],[version,setVersion]=useState('');
   if(!document&&model.legalStatus==='loading')return <DelayedSpinner/>;
-  if(!document)return <Empty title={model.legalStatus==='error'?'문서를 불러오지 못했어요':'문서를 찾을 수 없어요'} action={<TextLink href={`${basePath}/support`}>고객센터</TextLink>}/>;
+  if(!document)return <Empty title={model.legalStatus==='error'?'문서를 불러오지 못했어요':'문서를 찾을 수 없어요'} illustration={false} action={<TextLink href={`${basePath}/support`}>고객센터</TextLink>}/>;
   // 2026-11-01: the latest effective date is shown first (an announced revision included); earlier ones are chosen from the
   // select at the top right. Upcoming/current are plain text in the option label.
   const next=model.legal[`${kind}-next`],date=(value:string|null|undefined)=>value?value.replace(/-/g,'.'):'';
