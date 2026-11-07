@@ -1,3 +1,10 @@
+## 2026-11-07 멤버십 표시를 둥근 사각 사진 + 크리에이터 아바타 배지로 통일 (feat/membership-thumb, 로컬 커밋·미배포)
+- 사용자 결정: 시안 중 "둥근사각 썸네일에 멤버십 등록자 아바타가 들어간 형태로 일관성 있게". 같은 날 다른 세션이 배포한 프로필 카드 36px 원형 사진(f8bdd55)을 이 공용 컴포넌트로 대체.
+- 공용 `components/crefans/MembershipThumb.tsx`: 멤버십 사진(둥근 사각, 반경=크기×0.22) + 오른쪽 아래 크리에이터 아바타 배지. 사진이 없거나 불러오기 실패(판매 중단 멤버십 파일 등)면 크리에이터 아바타가 사각을 채우고 배지는 생략.
+- 적용: 프로필·내 프로필 멤버십 카드(48px, `MembershipPlanCard` creator prop), 내 구독(54px, 기존 크리에이터 아바타 자리), 멤버십 결제 확인(52px, snapshot.image 타입 추가, 판매자 사진은 `/profiles/:id` 응답 image 를 `sellerImage` 로 전달). 목업 결제는 landingCreators 로 판매자 이름·사진 주입.
+- 검증(2026-11-07): typecheck 0, check:layers 435. 새 tests/membership-thumb 3/3(사진+배지, 사진 없음 대체, 로드 실패 대체), 대조: 배지 조건 제거 시 2건 실패. npm test 538/551(실패 13 = 기존 수, 새 3건 통과). legal-notices e2e 9 통과·1 skip. membership-complete e2e 는 다른 세션이 3011 사용 중이라 미실행. 화면: .local/membership-thumb-20261107/{mobile,pc}-{profile,subscriptions,checkout}.png.
+- 미확인: 운영 /profiles 응답의 image 필드 실제 값, 판매 중단 멤버십 사진 403 시 대체 동작(코드상 onError 대체).
+
 ## 2026-11-07 프로필 멤버십 36px 사진 운영 배포 완료
 - 사용자 축소 시안 승인. 내 프로필·타인 프로필의 공용 compact 멤버십 카드에 업로드한 사진을 36px 원형으로 표시. 이름/가격 왼쪽, 레벨/가입·관리 버튼 오른쪽. 사진 없음/실패 시 생략, 큰 선택 카드 유지. 디자인 카탈로그 동일 사진·비활성·긴 이름·가입 중 상태 추가.
 - feat f8bdd55 → dev 066fa88 → prod ce09b02 순서로 반영, 이미지 crefans-front:membership-avatar-20261107 운영 배포. API·DB 변경 없음, 다른5컨테이너 ID 유지. 전체6컨테이너 running/restart0/OOM없음, 주요페이지/API200·이미지200·리다이렉트301.
@@ -10,6 +17,10 @@
 - 산출물: `/Users/ethan/.codex/generated_images/01a19f9c-49fa-7323-bd30-4a5bc1b45efd/exec-69f5f5e1-42f5-4d2d-97db-8c68f9366bba.png` (내장 image_gen 편집, SHA-256 `7c11589ca8a54defe15f13bd52247e6cc8d67bce8a5f7d9a182a1c3bf7220a71`). 첫 시안은 같은 디렉터리의 `exec-2af00a25-9110-4c25-8164-f7f8e9d87678.png`. 사진·카드의 크기가 줄었으며 글자·가입 버튼이 남아 있는 것을 출력 이미지로 육안 확인. 36px은 구현 목표이며 생성 이미지의 정확한 CSS 픽셀 검증은 아니다.
 - 현행 MembershipPlanCard.tsx의 compact 분기는 plan.image를 표시하지 않음. 다음: 사용자 시안 승인 후 마이/타인 프로필에서 사용하는 공용 compact 카드에 연결, 이미지 유무·좁은 모바일·PC 검증. 제품 코드·API·데이터 변경/배포 없음.
 - 작업 기준 origin/prod `4120fbc9771383636afcf8a6c6b42067cfab4b0c`, `feat/membership-avatar-preview`. 기존 AGENTS.md 유지. 이번 변경은 PROGRESS.md만 미커밋이며 디자인 설명 기록이므로 제품 테스트·문서 증거 재생성은 수행하지 않았다.
+## 2026-11-07 스튜디오 게시물 목록: 발행 글은 '팬 화면' 이동, 미발행 글만 미리보기 (feat/studio-fan-link, 로컬 커밋·미배포)
+- 사용자 요청: 게시글 리스트에서 미리보기가 아닌 팬 화면 이동 버튼. 결정(클릭): 임시저장·예약 글은 미리보기 유지 / 배포는 로컬까지만.
+- `ContentManagementPage`: status==='published'(미공개 포함 — 작성자는 상세 열람 가능) 행은 PC 표·모바일 카드 모두 `${fanPath}/post/{id}` 같은 탭 링크 '팬 화면'. fanPath 는 선택 prop, 기본은 basePath 의 `/studio` 를 뗀 값(/service, /preview). draft·scheduled 는 기존 미리보기 대화상자.
+- 검증(2026-11-07): typecheck 0, check:layers 434 통과. tests/content-post-preview 10/11 — 새 테스트 통과, 실패 1건(8 운영 숨김 표시)은 변경 전 코드에서도 동일 실패(기존). 대조: 컴포넌트를 변경 전으로 되돌리면 새 테스트 실패. crefans-studio-management 25/25. e2e studio-content-cards chromium 4/4, Pixel 7 임시 설정 4/4(발행 글 링크 href, 미리보기 버튼 없음, 예약 글 미리보기 열림).
 
 ## 2026-11-07 11:10 KST 배포 묶음 통합 release/bundle-20261107 (로컬 커밋만, push·배포 없음)
 - origin/prod 116e548 에서 fix/intermediary-receipt b7df02c → feat/post-unpublish 959da64 → feat/standalone-image 67a8063 --no-ff merge. 충돌: PROGRESS.md(양쪽 유지), docs/audit/evidence.json(생성물 — prod 쪽 유지 후 통합본에서 재기록).

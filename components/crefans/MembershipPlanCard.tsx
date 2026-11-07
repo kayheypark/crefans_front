@@ -7,11 +7,12 @@ import Icon from './Icon';
 import {Action} from './ServiceUI';
 import s from './creator.module.css';
 import {OptionalImage} from '@/components/ui/OptionalImage';
+import {MembershipThumb} from './MembershipThumb';
 
 /** `compact` shows a small membership image and summary on profiles; details live on the membership page. */
-export function MembershipPlanCard({plan,selected=false,disabled=false,compact=false,actionLabel='선택하고 계속',onSelect}:{plan:Plan;selected?:boolean;disabled?:boolean;compact?:boolean;actionLabel?:string;onSelect:()=>void}){
+export function MembershipPlanCard({plan,selected=false,disabled=false,compact=false,actionLabel='선택하고 계속',onSelect,creator}:{plan:Plan;selected?:boolean;disabled?:boolean;compact?:boolean;actionLabel?:string;onSelect:()=>void;creator?:{name?:string;image?:string|null;position?:string}}){
   if(compact)return <article className={`${s.plan} ${s.compactPlan} ${selected?s.selectedPlan:''}`}>
-    <OptionalImage src={plan.image} alt={`${plan.name} 멤버십`} className={s.compactPlanImage}/>
+    <MembershipThumb image={plan.image} name={plan.name} creator={creator} size={48}/>
     <div className={s.compactPlanIdentity}>
       <h2><MarqueeText text={plan.name}/></h2>
       <p className={s.price}><strong>{`₩${plan.price.toLocaleString('ko-KR')}`}</strong><span>/월</span></p>
