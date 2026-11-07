@@ -11,6 +11,19 @@
 - 로그아웃: 푸터 맨 아래 유지, `menuList` 줄(빨간 글씨+Chevron 17px)로 바꾸고 `.logoutSection` 에 기존 그룹과 같은 8px `--cf-landing-soft` 띠(::before, -16px 전폭). ServiceFooter `.bottom` 은 여백만(테두리·가운데 정렬 제거), 미사용 `.footerLogout` 삭제.
 - 알림 설정: settingsItems 의 notifications 에 iconSize:22, 나머지 20 유지.
 - 검증(2026-11-07): typecheck 0. crefans-account 19/23(실패 1·3·8·13 은 기존 기준선과 동일, 설정 카테고리 테스트 통과). 화면 실측(iPhone13): 알림 설정 22/17px 나머지 20/17px, 모든 항목 높이 53px, 로그아웃 53px·빨간색·푸터 마지막. 캡처 .local/settings-logout-20261107/.
+## 2026-11-07 크리에이터 전환 안내 연필 아이콘 적용 (운영 미배포)
+- 사용자 01 연필 시안 채택. public/brand/guards/creator-pencil-v1.png에 생성 원본을 복사하고 CreatorGuardPage의 creatorGuardImage에 연결. 88×88px·투명 배경·기존 간격/문구/버튼 유지. 공용 GuardPage 기본 체크와 회원가입 완료 화면 유지.
+- 합격 조건: 실제 서비스 가드·목업·카탈로그에서 연필 로딩/88px, PC·모바일·320px 가로 넘침 없음, 기존 시작하기/팬 화면 링크 및 가입 완료 동작 유지. 단위8/8·브라우저16/16·typecheck 통과; PC/모바일 캡처 육안 확인. API 대역/로컬 Chromium 검증이며 실제 기기/운영 검증 아님. 단순 이미지 교체라 별도 전체 빌드·전체 테스트는 추가하지 않음.
+- check:docs 종료1: Generated contracts stale. 연결한 읽기 전용 server-membership-docs와 현재 프론트의 생성 계약 문서 최신화가 필요하며 이번 변경에는 화면/API 계약 변경 없음. 문서 검사 통과로 보고하지 않음, 강제 스냅샷 갱신 안 함.
+- 생성 출처·원문 프롬프트·SHA: docs/design/creator-guard-pencil-v1.generation.json. 검증: .local/creator-start-icons/{verification.json,unit.log,browser.log,typecheck.log,docs-initial.log}; 캡처 .local/creator-guard-20261107/{pc-guard,mobile-preview-guard,mobile-preview-guard-320}.png.
+- 다음: 사용자 배포 요청 시 dev 검증 → prod 승격 → 프론트 운영 배포. 서버·DB 변경 없음.
+
+## 2026-11-07 크리에이터 전환 안내 아이콘 3종 시안 (선택 대기)
+- 사용자 요청: 크리에이터 전환 필요 페이지의 체크 아이콘 대체 이미지 3종. imagegen SKILL을 읽고 built-in image_gen으로 각각 생성. 파란색·흰색, 은은한 3D, 투명 배경. 01 연필, 02 사람+연필(추천), 03 재생 카드+플러스. 미리보기만 생성, 코드·배포 변경 없음.
+- 검증: 생성 이미지 3종 직접 육안 확인, PNG RGBA·크기·SHA-256 확인. 프롬프트/파일 증거는 .local/creator-start-icons/{prompts,results}.json. 현재 선택 대기이며 적용 시 creatorGuardImage에 선택한 에셋만 연결. 원본은 아래 경로에 보존.
+- 01 연필: /Users/ethan/.codex/generated_images/01a19f9c-49fa-7323-bd30-4a5bc1b45efd/exec-700375cc-9602-4aa5-8848-efe527ffd2c7.png (1254×1254)
+- 02 크리에이터 프로필: /Users/ethan/.codex/generated_images/01a19f9c-49fa-7323-bd30-4a5bc1b45efd/exec-563d7307-8329-4c71-a805-991a47c65e7f.png (1254×1254)
+- 03 콘텐츠 카드: /Users/ethan/.codex/generated_images/01a19f9c-49fa-7323-bd30-4a5bc1b45efd/exec-42d72399-1fea-4ae5-8c83-1cdad89d8b49.png (1254×1254)
 
 ## 2026-11-07 크리에이터 미전환 회원 가드 페이지 (feat/creator-guard-page, 로컬 커밋·미배포)
 - 사용자 요청: 미전환 회원이 스튜디오에 들어오면 크리에이터 시작하기 화면이 바로 뜨는 대신 가입 완료와 같은 톤의 재사용 가드 페이지를 보여 줄 것, 사진은 사용자가 교체 예정이라 체크 이미지 사용.

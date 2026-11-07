@@ -1,0 +1,12 @@
+{
+  "tool": "built-in image_gen",
+  "generatedAt": "2026-11-07",
+  "selectedVariant": "01",
+  "prompt": "Use case: stylized-concept. Asset type: a simple raster UI icon for Crefans, a Korean creator-and-fan platform. This icon replaces a large blue checkmark above the page title '크리에이터 전환이 필요해요' (Creator conversion required). The page is white, charcoal typography, vivid royal blue #2563EB buttons. We need an inviting NOT-YET-STARTED creator onboarding symbol, NOT a success or verification symbol. Style: extremely clean, softly rounded, very subtle shallow 3D depth, satin matte plastic, restrained blue gradient, broad simple silhouettes readable at 80–96 CSS pixels, gently top-left lit, almost frontal with slight isometric volume. Palette royal blue #2563EB and small white details only. Isolated centered single icon on an actually transparent background, plenty of empty margin, square canvas. No typography, numbers, frame, surrounding circle, translucent bounding box, background tile unless the subject itself is a card, sparkles, stars, confetti, lock, shield, or checkmarks. No glossy glass, no heavy shadow, no extra decorations. Output a carefully crafted production-quality icon study. Concept 01 — a single substantial blue pencil angled from lower left to upper right. Softly rounded royal blue barrel, a small white collar, blue conical tip with dark blue point. Stylized broad forms; no wood texture, no writing stroke, no notebook. One simple standalone pencil expressing creating and starting.",
+  "transparentBackground": true,
+  "source": "/Users/ethan/.codex/generated_images/01a19f9c-49fa-7323-bd30-4a5bc1b45efd/exec-700375cc-9602-4aa5-8848-efe527ffd2c7.png",
+  "asset": "public/brand/guards/creator-pencil-v1.png",
+  "sha256": "780fe4e72e168b9d244030f40d9ed5b3b993c2b08f2e248d0c581ed5502d345a",
+  "processing": "Copied without resizing or editing; original preserved.",
+  "display": "88x88 CSS pixels"
+}
