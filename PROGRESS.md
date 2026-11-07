@@ -1,3 +1,12 @@
+## 2026-11-07 크리에이터 미전환 회원 가드 페이지 (feat/creator-guard-page, 로컬 커밋·미배포)
+- 사용자 요청: 미전환 회원이 스튜디오에 들어오면 크리에이터 시작하기 화면이 바로 뜨는 대신 가입 완료와 같은 톤의 재사용 가드 페이지를 보여 줄 것, 사진은 사용자가 교체 예정이라 체크 이미지 사용.
+- 기존: `components/service/StudioRouter.tsx`가 `overview.started=false`면 모든 스튜디오 경로에서 StudioShell 안에 `CreatorStartPage`를 바로 렌더(주소 이동은 없음). 변경: start 외 경로는 팬 `ServiceShell` 안에 `CreatorGuardPage`(주 버튼 크리에이터 시작하기 → /service/studio/start, 보조 팬 화면으로 → /service). /studio/start 직접 진입·비로그인 안내·크리에이터 스튜디오는 그대로.
+- 공용 `components/crefans/GuardPage.tsx`: `GuardPage`(image 미지정 시 가입 완료와 같은 88px 파란 원형 체크, 제목 초기 포커스, 설명, 주/보조 링크) + `CreatorGuardPage`. `SignupCompletePage`도 GuardPage를 사용하도록 바꿈(표시 조건·문구·포커스 동일). 스타일은 기존 `signup-complete.module.css`에 `.image`·`.secondary`만 추가해 공유(멤버십 가입 완료도 이 파일의 .check 사용 중이라 파일명 유지).
+- 체크 이미지: 저장소에 체크 이미지 파일은 없고 가입 완료 화면도 SVG 아이콘(`Icon name=check`)+그라데이션 원을 씀 → 같은 것을 사용. **교체 방법**: `components/crefans/GuardPage.tsx`의 `creatorGuardImage` 상수에 `{src:'/brand/<파일>.png',alt:''}`를 넣으면(파일은 public/brand/) 체크 대신 88×88 이미지로 표시.
+- 목업 `/preview/studio/guard`(목업 계정은 이미 크리에이터라 별도 주소), 전체 화면 목록·상태·피드백 카탈로그 '크리에이터 전환 안내 보기' 버튼, docs/design-system.md·preview-pages.md 기록. Empty/ServiceUI 는 건드리지 않음.
+- 검증(2026-11-07 KST, node_modules=메인 체크아웃 링크): typecheck 0, check:layers 436 통과. 새 tests/creator-guard 8/8. 대조: StudioRouter 가드 줄 삭제 또는 origin/prod 원본으로 되돌리면 '미전환 회원 가드' 테스트 1건 실패. npm test 549/565, 실패 16건 = origin/prod 0518f51 기준선 541/557 의 16건과 이름 동일(새 실패 0). e2e `playwright.creator-guard.config.ts`(3023, API 대역·목업, 서버/DB 미기동) PC Chromium·Pixel 7 16/16(creator-guard 4 + 기존 signup-complete 4, 각 2기기). e2e 대조: StudioRouter 를 origin/prod 로 되돌리면 PC 미전환 2건 실패. 화면 .local/creator-guard-20261107/{pc,mobile}-{guard,start,preview-guard}.png, mobile-preview-guard-320.png 육안 확인.
+- check:docs 는 종료 1: 실패 항목 전부 ../crefans_server(현재 dev 체크아웃)의 누락 파일·contracts stale 로 이번 프론트 변경과 무관. docs:record(해시 스냅샷)는 실행하지 않음. 실서버·실회원·실물 iPhone 검증 아님.
+
 ## 2026-11-07 설정 아이콘 1px 확대·로그아웃 푸터 맨 아래·멤버십 구매 화면 두 항목 삭제 (feat/settings-icons-1px, 로컬 커밋·미배포)
 - 사용자 요청 3건: ① 설정 메뉴 왼쪽 아이콘·오른쪽 꺾쇠 1px 확대(19→20, 16→17, 항목 높이 모바일 53·PC 54 그대로) ② 설정 페이지에서만 로그아웃을 푸터 맨 아래로 — '계정 관리' 목록에서 빼고 `ServiceFooter` children 슬롯(다른 화면은 미사용)에 넣음, 푸터가 안 보이는 카테고리 선택 시에는 페이지 맨 아래에 단독 표시 ③ 멤버십 구매 화면의 선택 요약 바('결제 전 최종 확인')와 '구독 전 확인하세요' 섹션 삭제(관련 CSS 규칙도 삭제).
 - 테스트: crefans-account 설정 카테고리 테스트를 새 위치에 맞춤(기존에 '표시 설정'·공정위 링크 누락으로 실패하던 기대값도 함께 갱신 → 통과), 로그아웃이 푸터 마지막인지 단언 추가. crefans-creator 선택 요약 단언 → 선택된 카드(selected) 단언 + 안내 섹션 부재 단언.

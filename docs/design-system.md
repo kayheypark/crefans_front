@@ -6,6 +6,12 @@
 
 ## 현재 사용 안내
 
+### 크리에이터 전환 가드 (2026-11-07)
+
+- 공용 [GuardPage](../components/crefans/GuardPage.tsx)는 가입 완료 화면과 같은 가운데 정렬 안내 페이지다(88px 파란 원형 체크, 제목 초기 포커스, 설명, 48px 주 버튼, 선택 보조 버튼). 이미지·문구·링크는 props로 주입하고 `image`가 없으면 체크를 표시한다. [SignupCompletePage](../components/crefans/SignupCompletePage.tsx)도 같은 컴포넌트를 사용하며 동작(같은 탭 가입 후에만 표시)은 그대로다. 스타일은 기존 `signup-complete.module.css`를 공유한다(멤버십 가입 완료의 체크도 이 파일 사용).
+- `CreatorGuardPage`: 크리에이터 미전환(`overview.started=false`) 회원이 `/service/studio/*`(start 제외)에 들어오면 시작하기 화면으로 바로 보내지 않고 팬 셸 안에 이 가드를 보여 준다. 주 버튼 크리에이터 시작하기(`/studio/start`), 보조 버튼 팬 화면으로. 비로그인 안내·크리에이터 스튜디오는 기존대로다. 그림 교체 지점은 같은 파일의 `creatorGuardImage` 상수(현재 미설정 → 체크).
+- 확인: `/preview/studio/guard`, 상태·피드백 카탈로그의 **크리에이터 전환 안내 보기**. [단위 검사](../tests/creator-guard.test.cjs), [브라우저 검사](../e2e/creator-guard.spec.ts)(API 대역·목업, PC/Pixel 7).
+
 ### 모바일 스튜디오 게시물 통합 카드 (2026-11-07)
 
 - [ContentManagementPage](../components/crefans/studio/ManagementPages.tsx)는 767px 이하에서 통합 카드, PC에서는 기존 표를 사용한다. 같은 서비스·목업 모델과 미리보기·수정·삭제 동선을 재사용한다. [카드 스타일](../components/crefans/studio/content-list.module.css)은 흰 배경·가는 테두리, 밑줄 활성 탭, 썸네일·상태·공개 범위·일시·하단 세 관리 동작을 한 카드에 묶는다.

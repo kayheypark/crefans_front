@@ -10,3 +10,7 @@
 .page h1:focus{outline:none}
 .page .content{width:100%}
 @media(max-width:767px){.page{margin-top:48px}.page h1{font-size:22px}}
+.image{display:block;width:88px;height:88px;object-fit:contain}
+.secondary{display:flex;align-items:center;justify-content:center;min-height:48px;box-sizing:border-box;margin-top:10px;padding:12px 16px;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control);background:var(--cf-color-surface);color:var(--cf-color-textSecondary);font-size:16px;font-weight:600;line-height:1.5;text-decoration:none}
+.secondary:hover{background:var(--cf-color-accentSoft);border-color:var(--cf-color-accentBorder);color:var(--cf-color-accent)}
+.secondary:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px}
