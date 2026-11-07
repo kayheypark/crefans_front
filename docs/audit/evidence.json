@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-07T04:45:25.274751+00:00",
+  "checkedAt": "2026-11-07T04:50:22.250434+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "4120fbc9771383636afcf8a6c6b42067cfab4b0c",
-      "branch": "feat/membership-avatar-preview",
+      "head": "ce09b02f2cb545730dfe6b71a83297a9902bdfdb",
+      "branch": "feat/membership-avatar-verification",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "84c8c9f3d867a26e32741509338a4df96740edb9f081e5ca238bf897aef93817",
+      "front/PROGRESS.md": "1dafc6920a474d6b8d736bbfa16be304cfb7dd7319c805ba76239a2d6297f757",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",

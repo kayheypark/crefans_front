@@ -1,8 +1,9 @@
-## 2026-11-07 프로필 멤버십 36px 사진 적용·검증 (운영 배포 진행)
-- 사용자 축소 시안 승인 및 배포 요청. 공용 MembershipPlanCard compact에 업로드된 plan.image를 36×36px 원형으로 표시. OptionalImage 재사용으로 이미지 없음/로딩 실패 시 생략. 이름·가격은 왼쪽 두 줄, 레벨·가입/관리 버튼은 오른쪽, 44px 터치 높이. 내/타인 프로필·목업 공통 적용. 큰 멤버십 선택 카드·API·정책은 유지.
-- 입력·선택 디자인 카탈로그에 같은 사진을 공유하는 compact 카드, 사진 없음·가입 중·긴 이름·관리 버튼 예시 추가. AGENTS.md 기존 규칙 유지, docs/design-system.md 설명 갱신.
-- Next production build·typecheck·레이어434파일·기존 membership-images 단위10 통과. 로컬 API 대역 PC Chromium/iPhone13 WebKit/320px Chromium 12/12 통과: 사진36px·원형·없음·404·긴 이름/천만원·가격/버튼 겹침 없음·카드100px미만·버튼44px이상·가입/관리 이동·가입 중 비활성·카탈로그 업로드 공유. PC/모바일 캡처 육안 확인. 실물 iPhone·실회원 결제/사진 변경은 제외.
-- 근거 `.local/membership-avatar/verification.json`, `local-results.json`, `local-screens/`. 기준 prod 4120fbc, feat/membership-avatar-preview. 다음: dev 통합→prod 승격→프론트 운영 배포·공개 프로필 재확인. 문서 최초 검사는 변경 해시 만료로 실패했으며 설명 검토 후 snapshot-only 갱신한다.
+## 2026-11-07 프로필 멤버십 36px 사진 운영 배포 완료
+- 사용자 축소 시안 승인. 내 프로필·타인 프로필의 공용 compact 멤버십 카드에 업로드한 사진을 36px 원형으로 표시. 이름/가격 왼쪽, 레벨/가입·관리 버튼 오른쪽. 사진 없음/실패 시 생략, 큰 선택 카드 유지. 디자인 카탈로그 동일 사진·비활성·긴 이름·가입 중 상태 추가.
+- feat f8bdd55 → dev 066fa88 → prod ce09b02 순서로 반영, 이미지 crefans-front:membership-avatar-20261107 운영 배포. API·DB 변경 없음, 다른5컨테이너 ID 유지. 전체6컨테이너 running/restart0/OOM없음, 주요페이지/API200·이미지200·리다이렉트301.
+- Next 빌드·타입·레이어434파일·단위10·로컬 브라우저12 통과. 운영 번들 PC Chromium/iPhone13 WebKit/320px Chromium 15/15 통과(API 대역12 + 실제 공개프로필3). 실제 업로드된 게 사진36px 원형 확인, 모바일/PC 캡처 육안 확인. 사진 없음·404·긴 이름/천만원·가격 버튼 겹침·가입/관리 이동·가입 중 비활성 검증. 실물 iPhone·실회원 변경·실결제 제외.
+- 운영 직전 이미지/설정은 /Users/ethan/crefans-recovery/20261107/membership-avatar에 저장 후 OCI index ID·blob15개·설정5개 SHA 검증. 최초 config/index ID 구분 오류는 보관본을 유지한 채 검사 보정·통과. 서버의 직전 미사용 태그와 이번 임시 백업만 검증 후 정리하며 맥북 보관본은 삭제하지 않는다.
+- 증거 docs/audit/membership-profile-image-deployment-20261107.json, .local/membership-avatar/{verification.json,runtime.json,production-results.json,production-screens,live-profile.png,cleanup.json}. AGENTS.md 기존 지침 유지, docs/design-system.md 갱신. 문서 check:docs는 검토 후 해시 갱신이며 제품 검증은 위 실행 증거로 구분. 이번 요청의 구현·배포 완료; 아래 시안 기록은 이전 이력이다.
 
 ## 2026-11-07 프로필 멤버십 사진 축소 시안 (승인 대기·미구현)
 - 사용자 요청: 업로드된 멤버십 커스텀 사진을 프로필의 작은 멤버십 카드에도 아바타처럼 표시. 첫 시안이 너무 크다는 피드백으로 원형 사진을 36px 설계 기준, 카드 높이 약80px로 축소한 이미지 시안을 다시 제공했다. 이름·원화 가격·레벨·가입 버튼 유지. 이미지가 없는 경우의 처리 및 실제 반응형 크기는 구현 단계에서 기존 OptionalImage 정책과 함께 확인한다.

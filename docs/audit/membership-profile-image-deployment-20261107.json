@@ -1,0 +1,147 @@
+{
+  "time": "2026-11-07T04:45:24.396953+00:00",
+  "base": "4120fbc9771383636afcf8a6c6b42067cfab4b0c",
+  "scope": "UI only; API-mocked browser checks, no live account mutation",
+  "checks": {
+    "build": 0,
+    "typecheck": 0,
+    "layers": 434,
+    "unit": {
+      "passed": 10,
+      "exit": 0
+    },
+    "browser": {
+      "passed": 12,
+      "exit": 0,
+      "projects": [
+        "desktop Chromium",
+        "iPhone13 WebKit",
+        "320px Chromium"
+      ]
+    }
+  },
+  "files": {
+    "components/crefans/MembershipPlanCard.tsx": "d81884399cbece70ded9760783e348be4246643d1674ecc0a3ed6c3ae51f9c42",
+    "components/crefans/creator.module.css": "4669c6d003a62b063cd78ac554d1d2f97384a83165d1cae7e9c295aea28210be",
+    "components/design-system/ImageUploadCatalog.tsx": "ebe7de8faa8ca9ad2b8bcd07a4f978b96e1f4d8f5152c1d2925bdfff74347beb",
+    "docs/design-system.md": "c73d125b0c8198c8e9755d772b56848a355aa16a30a3cb8a93ca530926fd5d5d"
+  },
+  "logs": {
+    "build.log": "146996c51aade6c4468f91a400082462a733345d5d0f9d6cbcc78d5ec3f9f7fb",
+    "typecheck.log": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+    "layers.log": "f0b8f03ff1976da1dade2932589a662ed55d125d6a47bcdc4195635eb82bb586",
+    "unit.log": "576832eae84e64f19f3d43684e3d60ecab7db46acb13cd3baaeb5b12d473dea7",
+    "browser.log": "7c713dc22957b5d7daf247ada413b72351119a77db7e138266301df3a9dd2e76",
+    "browser-spacing.log": "988fb2a5f4a195780163eb760e4cdc5fae7e118b12bc869d25106b39f0574a3d",
+    "production-browser.log": "5314e21e9d98c9d2f0279efc7b9614e6fd7b889a69da4b3e3f0d39e2d9d64af2",
+    "deploy.log": "506521f421d3b8c98f38f31c2b841c66a0cf397022a4eb9237ae11e214cdc1e9",
+    "archive-verified.log": "60a51a4e7352079d432aa1da449ff3a2451e1fb0a6f9ea78d8487e50fdb943e6"
+  },
+  "deployedAt": "2026-11-07T04:50:07.091258+00:00",
+  "commits": {
+    "feature": "f8bdd55",
+    "dev": "066fa88",
+    "prod": "ce09b02f2cb545730dfe6b71a83297a9902bdfdb"
+  },
+  "runtime": {
+    "time": "2026-11-07T04:49:09.175792+00:00",
+    "containers": {
+      "crefans-beta-frontend-1": {
+        "id": "397c0997117b443b877f9dd02d376e0eab4b4334f40f5d51324115a02a060c2a",
+        "tag": "crefans-front:membership-avatar-20261107",
+        "image": "sha256:8eb36751b1cd7a51c686b84cb30217a46a639ce1bff05a880654971316361405",
+        "running": true,
+        "restarts": 0,
+        "oom": false,
+        "health": null,
+        "revision": "ce09b02f2cb545730dfe6b71a83297a9902bdfdb"
+      },
+      "crefans-beta-worker-1": {
+        "id": "0ef52ae772b7f1d15a6d1b9453d6b89e5ac9455da710d9883f0fd59debaaeaca",
+        "tag": "crefans-api:bundle-20261107",
+        "image": "sha256:153c9120e4d17830ba42421b45b22276b7a00cf1db2383c1c69259479940eaa3",
+        "running": true,
+        "restarts": 0,
+        "oom": false,
+        "health": null,
+        "revision": null
+      },
+      "crefans-beta-api-1": {
+        "id": "f0b58bc379b3ab6716b85e0cf3f2253542cdc4a7cc947db6c24378cdb15aa189",
+        "tag": "crefans-api:bundle-20261107",
+        "image": "sha256:153c9120e4d17830ba42421b45b22276b7a00cf1db2383c1c69259479940eaa3",
+        "running": true,
+        "restarts": 0,
+        "oom": false,
+        "health": "healthy",
+        "revision": null
+      },
+      "crefans-beta-admin-1": {
+        "id": "f15526098114cf39b3c10bff0a1e36106c90ed9ea9e0156e8c7a4a7a1401b12f",
+        "tag": "crefans-admin:bundle-20261107",
+        "image": "sha256:a16cfa8b1c312a235cbef064da6bcc9383e76f9185b5eeb71653bc9e6b46394d",
+        "running": true,
+        "restarts": 0,
+        "oom": false,
+        "health": null,
+        "revision": null
+      },
+      "crefans-beta-proxy-1": {
+        "id": "e0b9112541f9cfe06a577af636ed8c6ea0f93f6a994f2157e383ab236362a65c",
+        "tag": "caddy:2-alpine",
+        "image": "sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+        "running": true,
+        "restarts": 0,
+        "oom": false,
+        "health": null,
+        "revision": null
+      },
+      "crefans-beta-database-1": {
+        "id": "425b31709730cb9b93851aef50d95d8207d35e7dfbec0bf2f32bc70bdb11be82",
+        "tag": "mysql:8.0",
+        "image": "sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b",
+        "running": true,
+        "restarts": 0,
+        "oom": false,
+        "health": "healthy",
+        "revision": null
+      }
+    }
+  },
+  "production": {
+    "passed": 15,
+    "exitCode": 0,
+    "apiMockedCases": 12,
+    "livePublicProfileCases": 3,
+    "exclusions": [
+      "physical iPhone",
+      "real member login changes",
+      "live payment"
+    ]
+  },
+  "recovery": {
+    "time": "2026-11-07T04:47:47.173324+00:00",
+    "tag": "crefans-front:bundle-20261107",
+    "imageId": "sha256:d8b7b64baab5756df0a137d7c9c1f1a8a1aff84443b978d8a30068394ca29fcb",
+    "verifiedBlobs": 15,
+    "archiveSha256": "4dbc93dc59630047039f4b138cd182027ece4af54478eaa5e3e1525d7f4e4c7e",
+    "settingsSha256": "e521428ce40e239e6bde26cad61ffb933b3b106b801e1f27443736c78388a094",
+    "settingsFiles": {
+      ".env": "d29eb67a18a99e2bead97349f41c72c44c645412dbd7e8e6d154dd4087606803",
+      "runtime.env": "4a5b0c272a183609ce6f0e469d8d25aa8fbbd3ab18db5f6df8bbaee4d8799bcb",
+      "compose.yml": "e0be6d52fd2825ff2fe6fc87531e2ab103d78e32154c43350c3665bb075d9123",
+      "compose.beta.yml": "05303c0929458924dddddcec0ae99dc782cbe4d8143c9e8befdd87fa4303fc3f",
+      "compose.admin.yml": "def7c2a421a915d8f745de716149bf95963bc4bd02528b40fab6af2dc26dbe70"
+    }
+  },
+  "recoveryPath": "/Users/ethan/crefans-recovery/20261107/membership-avatar",
+  "notes": [
+    "First archive verifier assumed config digest was image ID; corrected to OCI index ID plus full blob validation; original archive retained until verified.",
+    "Document evidence was refreshed after review; it is a snapshot, not test proof."
+  ],
+  "cleanup": {
+    "removedTag": "crefans-front:bundle-20261107",
+    "removedTemporaryBackup": "/opt/crefans-backup-membership-avatar-20261107",
+    "activeImage": "crefans-front:membership-avatar-20261107"
+  }
+}
