@@ -106,7 +106,7 @@ export function ContentManagementPage({model,basePath,previewModel,previewCreato
       </div>{filtered.length>pageSize&&<Pagination page={page} pageSize={pageSize} totalItems={filtered.length} onPageChange={setPage} label="게시물 목록 페이지"/>}</>:<Empty title="게시물이 없어요" description="새 게시물을 작성하거나 검색 조건을 바꿔보세요." action={<ActionLink variant="secondary" href={`${basePath}/content/new`}>첫 게시물 작성하기</ActionLink>}/>}
     {model.notice&&<Notice>{model.notice}</Notice>}
     <Dialog open={!!preview} onClose={()=>setPreviewId(null)} title="팬 화면 미리보기">{preview&&<ContentPostPreview content={preview} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/>}</Dialog>
-    <Dialog open={!!removing} onClose={()=>setDeleteId(null)} title="게시물 삭제"><div className={s.dialogBody}><p><strong>{removing?.title}</strong> 게시물을 삭제할까요?</p><p className={s.muted}>삭제 후에는 목록에서 확인할 수 없습니다.</p>{task.error&&<p className={s.error} role="alert">{task.error}</p>}<DialogActions><Action variant="secondary" onClick={()=>setDeleteId(null)}>취소</Action><Action variant="danger" disabled={task.busy} onClick={()=>removing&&void task.run(()=>model.actions.deleteContent(removing.id),()=>setDeleteId(null))}>삭제하기</Action></DialogActions></div></Dialog>
+    {removing&&<TypedConfirmDialog key={removing.id} title="게시물 삭제" phrase={removing.title} actionLabel="삭제하기" busyLabel="삭제 중…" busy={task.busy} error={task.error} onCancel={()=>setDeleteId(null)} onConfirm={confirmation=>task.run(()=>model.actions.deleteContent(removing.id,confirmation),()=>setDeleteId(null))}><p>게시물을 삭제하면 목록에서 확인할 수 없습니다.</p><p>삭제할 게시물 제목을 정확히 입력해주세요.</p></TypedConfirmDialog>}
   </section>;
 }
 

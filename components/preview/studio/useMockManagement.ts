@@ -41,7 +41,7 @@ export function useMockManagement({getProtectedPlanIds=()=>[],initialContents=ma
       setContents(previous=>input.id?previous.map(item=>item.id===id?next:item):[next,...previous]);
       return ok({id,message:input.status==='draft'?'임시저장되었습니다.':input.status==='scheduled'?'게시 예약이 설정되었습니다.':'게시되었습니다.'});
     },
-    deleteContent:async id=>{if(!contents.some(item=>item.id===id))return fail('게시물을 찾을 수 없습니다.');setContents(previous=>previous.filter(item=>item.id!==id));return ok({message:'게시물이 삭제되었습니다.'});},
+    deleteContent:async(id,confirmation)=>{const current=contents.find(item=>item.id===id);if(!current)return fail('게시물을 찾을 수 없습니다.');if(confirmation!==current.title)return fail('게시물 제목을 정확히 입력해주세요.');setContents(previous=>previous.filter(item=>item.id!==id));return ok({message:'게시물이 삭제되었습니다.'});},
     saveMembership:async input=>{
       if(input.id&&(!memberships.some(item=>item.id===input.id)||deletedIds.includes(input.id)))return fail('멤버십을 찾을 수 없습니다.');
       if(!input.name.trim())return fail('멤버십 이름을 입력해주세요.');

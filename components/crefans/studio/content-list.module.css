@@ -27,9 +27,9 @@
   .details>div{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
   .details dt{flex:none;color:var(--cf-landing-muted)}
   .details dd{margin:0;min-width:0;text-align:right;overflow-wrap:anywhere;font-weight:500}
-  .actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0 14px;padding:8px 0;border-top:1px solid var(--cf-landing-line)}
-  .actions>a,.actions>button{display:flex;justify-content:center;align-items:center;gap:6px;position:relative;min-width:0;min-height:44px;padding:6px 0;border:0;background:none;color:var(--cf-color-text);font:inherit;font-size:13px;font-weight:550;text-decoration:none;cursor:pointer}
-  .actions>:not(:first-child)::before{content:'';position:absolute;left:0;height:18px;width:1px;background:var(--cf-landing-line)}
+  .actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;border-top:1px solid var(--cf-landing-line)}
+  .actions>a,.actions>button{display:flex;justify-content:center;align-items:center;gap:6px;position:relative;min-width:0;min-height:52px;padding:10px 0;border:0;background:none;color:var(--cf-color-text);font:inherit;font-size:13px;font-weight:550;text-decoration:none;cursor:pointer}
+  .actions>:not(:first-child)::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--cf-landing-line)}
   .actions svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
   .actions .edit{color:var(--cf-service-brand)}
   .actions .delete{color:var(--cf-color-danger)}
