@@ -1,3 +1,7 @@
+## 2026-11-07 스튜디오 게시물 삭제(직접 입력 확인) 모달 버튼을 다른 모달과 같은 Action 으로 (feat/settings-logout-row)
+- 사용자 요청: 게시물 삭제 텍스트 입력 모달도 기존 모달 액션 버튼과 톤앤매너 맞춤. `components/ui/TypedConfirmDialog` 가 ui `Button`(알약 999px·46px) → 서비스 `Action`(secondary 취소·danger 삭제, 8px·44px). 사용처: 스튜디오 게시물 삭제, 디자인 시스템 카탈로그.
+- 검증(2026-11-07): typecheck 0, check:layers 437, typed-confirm-dialog 2/2. 실측(iPhone13): 삭제 모달 취소·삭제 = 8px·44px, 미공개 전환 모달과 취소 버튼 스타일 동일, 문구 입력 전 삭제 버튼 비활성(흐린 빨강). 캡처 .local/delete-modal-20261107/after-delete.png.
+
 ## 2026-11-07 설정 로그아웃을 꺾쇠 메뉴 줄·두꺼운 띠 섹션으로, 알림 설정 아이콘만 22px (feat/settings-logout-row, 로컬 커밋·미배포)
 - 사용자 요청: 모바일 로그아웃도 오른쪽 꺾쇠 있는 버전 + 섹션 구분(두꺼운 선, 기존 톤) / 알림설정 아이콘만 2px 증가.
 - 로그아웃: 푸터 맨 아래 유지, `menuList` 줄(빨간 글씨+Chevron 17px)로 바꾸고 `.logoutSection` 에 기존 그룹과 같은 8px `--cf-landing-soft` 띠(::before, -16px 전폭). ServiceFooter `.bottom` 은 여백만(테두리·가운데 정렬 제거), 미사용 `.footerLogout` 삭제.
