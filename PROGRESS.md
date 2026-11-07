@@ -1,3 +1,10 @@
+## 2026-11-07 11:10 KST 배포 묶음 통합 release/bundle-20261107 (로컬 커밋만, push·배포 없음)
+- origin/prod 116e548 에서 fix/intermediary-receipt b7df02c → feat/post-unpublish 959da64 → feat/standalone-image 67a8063 --no-ff merge. 충돌: PROGRESS.md(양쪽 유지), docs/audit/evidence.json(생성물 — prod 쪽 유지 후 통합본에서 재기록).
+- 검증(11:02~11:06 KST, node_modules=메인 체크아웃 링크): layers 434 통과, typecheck 0, unit 535/548(실패 13 이름이 origin/prod 116e548 기준선 532/545 의 13건과 동일). e2e legal-notices(PC·iPhone13) 9 통과 1 skip, post-visibility(PC·Pixel7) 8/8 — 모두 API 대역.
+- standalone(맥 docker buildx linux/amd64, 키 파일 ~/.crefans/frontend-build.env 권한 600, 값 비출력): 키 파일 미지정·빈 키·권한 644 각각 ship-image.sh 가 빌드 전에 종료 1. 키 포함 빌드 59초 종료 0, 번들 키 검사 통과·임의 값 대조 실패, 빌드 로그에 키 문자열 0건, linux/amd64·revision 라벨=HEAD·server.js/static/public/sharp-linux-x64 확인, 로컬 컨테이너에서 /service/landing·terms 200, 옛 이벤트 301, /_next/image 200 image/png. 테스트 이미지·빌드 캐시 정리. 실제 amd64 서버 실행·운영 적용 미실행.
+- 문서: 서버 docs:contracts 재생성(서버 통합 커밋), 이후 docs:record 는 해시 스냅샷 저장일 뿐 테스트 증명이 아님(snapshot-only).
+- 남은 일: dev/prod 통합·push, 운영 배포(계획 `crefans_server/.local/bundle-deploy-20261107/plan.md`).
+
 ## 2026-11-07 스튜디오 게시물 미공개 전환 — feat/post-unpublish (미배포)
 - 게시물 수정 화면(저장된 글)에 '공개 상태' 상자: 공개 중/미공개 표시, 확인 Dialog 후 `PUT /studio/content/:id/visibility`. 운영 숨김이면 운영자만 해제 가능 안내. 상태 배지·목록(표/카드)에 '미공개'. 이력 UI 없음(사용자 결정). 목업 useMockManagement·디자인 시스템 StudioContentCatalog '미공개·운영 숨김' 상태 추가. 서버 계약은 server docs/platform-api.md '게시물 미공개'.
 - 검증(2026-11-07, node_modules=메인 체크아웃 링크): check:layers 434, typecheck 0. 단위 534/547 — origin/prod(116e548) 기준선 532/545와 실패 13건 목록 동일(신규 2건 통과). e2e `playwright.post-visibility.config.ts`(API 대역만, 3021, 서버/DB 미기동) PC·Pixel7 8/8. 화면 .local/post-unpublish-20261107/*.png.
