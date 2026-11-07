@@ -1,15 +1,15 @@
-## 2026-11-07 모바일 스튜디오 게시물 통합 카드 구현·배포 준비
-- 사용자 채택: 폴리싱 02 통합 카드형. 최신 origin/prod 6421103에서 feat/studio-posts-mobile-cards 생성, 기존 접기 제거 be07365를 32f24f0으로 적용. PC 표 유지, 모바일 밑줄 탭·검색·정렬·첫 항목 펼침·공개 범위/수정일 또는 예약일·미리보기/수정/삭제를 통합 카드로 표시.
-- 합격 기준: 390/320px 가로 넘침 없음·PC 표 유지, 실제 주입 데이터/상태/권한 안내 유지, 키보드 및 터치 토글·검색·정렬/페이지·미리보기·삭제 확인/실패/중복 요청 차단. API·DB 변경 없음. 공용 카탈로그 및 디자인 문서 갱신.
-- 검증 진행: 로컬 브라우저 PC/iPhone WebKit/320px 24/24, 표 회귀 6/6·layers 통과. 날짜를 간결하게 정리한 최종 production build·typecheck·layers 및 브라우저 24/24 재검증 통과. 초기 독립 typecheck에서 기존 콘텐츠 성과 E2E NodeList 반복 오류2건을 Array.from으로 수정, 재검사 종료0.
-- 배포 공간 사전 검사에서 6.9GiB로 중단. 24시간 이전 캐시는 0B, 이후 미사용 빌드 캐시를 최근2GB 보존 방식으로 3.981GB 정리하여 10.0GiB 확보. 활성 이미지·DB·설정·업로드 보존. 복구는 맥북 /Users/ethan/crefans-recovery/20261107/studio-posts-mobile, 운영 소스553파일 기준 prod와 일치.
-- 증거 .local/studio-posts-mobile-release. dev/prod 통합·운영 배포는 아직 미실행. AGENTS.md 기존 규약 유지.
+## 2026-11-07 모바일 게시물 통합 카드 운영 배포 완료
+- 사용자 채택 폴리싱 02 통합 카드형 반영. 767px 이하: 밑줄 탭·검색/정렬·썸네일/상태·공개 범위·최근 수정 또는 게시 예정 시각·미리보기/수정/삭제를 한 카드에 표시. 첫 카드 펼침, 제목 클릭/Enter/Space 토글. PC 표 유지. 콘텐츠 성과 하단 접기 버튼 제거도 함께 배포.
+- origin/prod 6421103 → feat/studio-posts-mobile-cards eafe217(접기 제거 32f24f0 포함) → dev f884205 → prod 44bc398. 동일 tree 확인. 운영 이미지 studio-posts-mobile-20261107, 변경 소스7개 SHA 일치. 기존 운영 소스553파일과 기준 prod 일치.
+- 검증: Next production build·typecheck·layers·표 회귀6·문서 검사 종료0. 로컬/운영 번들 각각 PC Chromium·iPhone13 WebKit·320px Chromium 24/24. 펼침·키보드·검색/정렬/페이지·미리보기·삭제 확인/실패/중복 요청 차단·긴 제목/영상 처리/숨김/댓글 닫힘·빈 목록 및 통계 하단 접기 제거 확인. 모바일/PC 캡처 육안 검수. 실물 iPhone 및 실제 회원 로그인 검증은 제외, 서비스 API 대역.
+- 공간 guard 6.9GiB에서 중단 후 미사용 빌드 캐시를 최근2GB 보존 방식으로 3.981GB 정리해 공간 확보. 운영 이미지·설정을 맥북 /Users/ethan/crefans-recovery/20261107/studio-posts-mobile로 직접 전송, OCI digest/blob·설정 SHA 검증. 배포/운영 검사 후 미사용 직전 이미지 태그와 이번 배포 임시 소스만 서버에서 정리. 활성 이미지·DB·설정·업로드 보존.
+- 운영4페이지·API health200, 6컨테이너 running/restart0/OOM없음, worker 실패0, 프론트 외5컨테이너 동일. API·DB 변경 없음. 증거 docs/audit/studio-posts-mobile-deployment-20261107.json 및 .local/studio-posts-mobile-release. AGENTS.md 기존 규약 유지.
 
-## 2026-11-07 콘텐츠 성과 하단 접기 버튼 삭제 (검증 완료·운영 미배포)
+## 2026-11-07 콘텐츠 성과 하단 접기 버튼 삭제 (통합 카드 배포에 포함 완료)
 - 사용자 요청: 항목 하단 접기 버튼만 제거. 제목 영역 클릭·Enter/Space의 펼침/접기, 첫 항목 초기 펼침, 통계 데이터/연결 격자 유지.
 - 최신 origin/prod 6421103에서 fix/content-performance-remove-collapse 분기. 공용 ContentPerformance의 하단 버튼과 불필요해진 ref·전용 CSS 제거, 기존 브라우저 검사의 접기 동선을 제목으로 변경. 서비스·목업·카탈로그에 공통 적용.
 - 검증: Next production build(타입 검사 포함) 종료0, 로컬 PC/iPhone WebKit/320px 기존 브라우저 검사 3/3 통과. 하단 버튼 없음·제목 클릭/Enter/Space·도움말·연결선·수치·가로 넘침 확인. 모바일 캡처 육안 검수. 최초 WebKit 클릭 직후 포커스 기대값 1건 실패는 클릭과 키보드 포커스 검사를 분리해 재검증 통과. 제품 코드 추가 변경 없음.
-- 증거 .local/content-performance-collapse/verification.json·로그·캡처. 문서 검사 통과. 실제 기기 및 운영 검증 제외, dev/prod 통합·운영 배포 미실행. 다음 배포 시 이 브랜치를 dev → prod 순서로 반영. AGENTS.md 기존 규약 유지.
+- 증거 .local/content-performance-collapse/verification.json·로그·캡처. 문서 검사 통과. 당시 실제 기기 및 운영 검증 제외. 이후 위 통합 카드 배포에서 dev → prod 통합 및 운영 번들 브라우저 재검증 완료. AGENTS.md 기존 규약 유지.
 
 ## 2026-11-07 콘텐츠 성과 상세 펼침형 운영 배포 완료
 - 사용자 승인 시안대로 첫 게시물은 펼치고 나머지는 접는다. 피드 노출·상세 조회·30분 방문수·공유/외부 유입·영상 재생은 가로·세로선이 이어진 3열×2행 격자로 표시. 유입 경로·좋아요·댓글 보존, 긴 집계 안내는 ⓘ 도움말로 이동. 큰 수치는 만·억 단위, 정확한 수치는 접근성 이름·title 유지. 집계 정책·API·DB 변경 없음.
