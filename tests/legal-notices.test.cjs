@@ -36,3 +36,17 @@ test('the checkout model loads the seller name from the creator profile',async()
 test('bean charges are sold by CREFANS itself, so their payment confirmation carries no intermediary notice',()=>{
  for(const file of['components/crefans/BeanChargePage.tsx','components/crefans/BeanWalletPages.tsx'])assert.ok(!/intermediaryNotice|seller=/.test(fs.readFileSync(path.join(__dirname,'..',file),'utf8')),file);
 });
+test('membership payment completion names the seller and the intermediary notice together, in one type size',()=>{
+ const Plain=({children})=>React.createElement('div',null,children);
+ const {MembershipCompletePage}=loadTypeScript('components/crefans/MembershipCompletePage.tsx',{'./ServiceUI':{ActionLink:Plain,PageTitle:Plain},'./BackButton':{BackButton:Plain}});
+ const order={id:'o',amount:9900,status:'paid',snapshot:{name:'월 구독',benefits:[],creatorId:'c1'}};
+ const render=sellerName=>{let tree;act(()=>{tree=create(React.createElement(MembershipCompletePage,{basePath:'/service',backHref:'/service',order,sellerName}));});return tree;};
+ const tree=render('하루작가');
+ try{const box=tree.root.find(n=>n.props['aria-label']==='판매자 안내');const paragraphs=box.findAllByType('p');
+  assert.ok(paragraphs.every(p=>!p.props.className&&!p.props.style),'both lines inherit the one box style (CSS .seller p{font-size:inherit})');
+  assert.deepEqual(paragraphs.map(inner),['판매자: 하루작가',NOTICE]);
+  const css=fs.readFileSync(path.join(__dirname,'..','components/crefans/membership-complete.module.css'),'utf8');
+  assert.match(css,/\.seller p\{[^}]*font-size:inherit/);assert.match(css,/\.seller strong\{[^}]*font-size:inherit/);
+ }finally{act(()=>tree.unmount());}
+ const unnamed=render(undefined);try{const page=text(unnamed);assert.ok(page.includes('이 멤버십을 운영하는 크리에이터'));assert.ok(page.includes(NOTICE));}finally{act(()=>unnamed.unmount());}
+});

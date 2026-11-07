@@ -25,7 +25,7 @@ type Props={
 export function MembershipCheckout({order,error,basePath,defaultMethod,canRegister,busy,registering,agreed,onAgree,onRegister,onPay,onOneTime,sellerName}:Props){
  const singleMonth=order?.snapshot.paymentMode==='one-time'&&order.status!=='pending';
  const backHref=order?.snapshot.creatorId?`${basePath}/membership/${encodeURIComponent(order.snapshot.creatorId)}${order.planId?`?plan=${encodeURIComponent(order.planId)}`:''}`:`${basePath}/subscriptions`;
- if(order?.status==='paid')return <MembershipCompletePage basePath={basePath} backHref={backHref} order={order}/>;
+ if(order?.status==='paid')return <MembershipCompletePage basePath={basePath} backHref={backHref} order={order} sellerName={sellerName}/>;
  return <section className={s.page}>
   <PageTitle back={<BackButton href={backHref} label="멤버십으로 돌아가기"/>}>멤버십 결제</PageTitle>
   {order&&<>
