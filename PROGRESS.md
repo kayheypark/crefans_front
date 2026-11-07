@@ -1,4 +1,5 @@
 ## 2026-11-07 멤버십 결제 상세·가입 완료에 판매자·통신판매중개자 고지 (fix/intermediary-receipt, 미배포)
+- 2026-11-07 사용자 결정: 프론트는 배포 보류(브랜치 그대로 유지). 이 브랜치는 origin/prod 6421103 에서 분기했고 origin/prod 가 44bc398 로 앞서 있으므로, 나중 배포 때 최신 prod 와 합친 뒤 docs/audit/evidence.json(서버 형제 기준) 재기록·검사를 다시 해야 한다. 서버 짝은 결제 완료 메일 발송 연결까지 진행(crefans_server fix/intermediary-receipt f214e10).
 - 사용자 결정(2026-11-07): 결제 완료 메일·영수증에도 중개자 고지(배포 별도 승인). 근거 전자상거래법 시행규칙 제11조의2(계약내용 서면에도 고지, 판매자 표시와 같거나 큰 글씨). 서버 짝: crefans_server fix/intermediary-receipt f1f914d(결제 메일 템플릿, 발송 연결은 원래 없음).
 - 영수증 위치 조사: 별도 PDF·결제사 영수증 링크 없음. 회원이 보는 결제 기록은 내 구독 > 결제 내역 > '결제 상세' 대화상자(CreatorPages.tsx)와 결제 직후 '멤버십 가입 완료' 요약(MembershipCompletePage.tsx) 두 곳.
 - 변경: 결제 상세 '크리에이터' 줄을 '판매자'로 바꾸고 아래에 `intermediaryNotice` 문단(대화상자 14px 상속, 판매자 줄과 같음). 가입 완료 요약에 '판매자: {크리에이터 이름}'+고지 상자(.seller 13px, p/strong inherit), MembershipCheckout 이 sellerName 전달. 이름을 모르면 '이 멤버십을 운영하는 크리에이터'. 콩 충전 결과에는 넣지 않음.
