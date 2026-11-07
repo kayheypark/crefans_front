@@ -213,7 +213,8 @@
 
 신규 목록 선택에는 `components/ui/SelectField.tsx`의 `SelectField`를 사용한다. `Primitives.tsx`에서도 다시 export하며, 네이티브 `<select>`의 `<option>` children이나 변경 이벤트를 받는 방식과는 계약이 다르다.
 
-- 옵션은 `options: {value:string; label:string; disabled?:boolean}[]`로 전달한다. 단일 선택은 `value:string`, `onChange(value:string)`을 사용한다. `multiple`을 켜면 `value:string[]`, `onChange(value:string[])`을 사용한다.
+- 옵션은 `options: {value:string; label:string; disabled?:boolean; image?:string|null}[]`로 전달한다. 단일 선택은 `value:string`, `onChange(value:string)`을 사용한다. `multiple`을 켜면 `value:string[]`, `onChange(value:string[])`을 사용한다.
+- `image`는 각 옵션 라벨 왼쪽과 선택된 단일 값 왼쪽에 20px 장식 이미지를 표시한다. 미지정·빈 값·로드 실패는 텍스트만 표시한다. 다중 선택의 트리거는 기존 요약 텍스트·개수를 유지한다. 스튜디오 첫 전환·설정은 탐색에 이미 로드한 bootstrap `categoryIcons`와 공용 `categoryImageSrc`를 사용하며 운영 등록 이미지·명시적 null·기존 기본 이미지 규칙을 함께 따른다.
 - `searchable`은 옵션 검색, `multiple`과 함께 쓰는 `selectAll`은 전체 선택/해제를 켠다. 검색 중에는 현재 검색 결과의 활성 옵션만 전체 선택/해제하며, 검색 밖에서 선택한 값은 유지한다.
 - `label`, `placeholder`, `hint`, `error`, `required`, `disabled`, `readOnly`, `id`, `name`, `hideLabel`, `className`을 지원한다. `name`을 주면 선택 값을 hidden input으로 전달한다. 필수 선택 여부 등 업무 검증은 호출부에서 처리한다.
 - `value: ''`인 옵션도 실제 선택 항목으로 사용할 수 있다. 예를 들어 `전체 공개`나 `모든 멤버십`을 빈 문자열 옵션으로 등록했다면 그 label을 표시하며, placeholder로 바꾸지 않는다.

@@ -5,6 +5,7 @@ export type StudioOverviewModel={
   profile:StudioProfile;
   started:boolean;
   categories:string[];
+  categoryIcons?:Record<string,string|null>;
   period:string;
   metrics:StudioMetric[];
   activities:{id:string;title:string;description:string;time:string;path?:string}[];
