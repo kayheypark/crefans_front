@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-06T15:06:13.429648+00:00",
+  "checkedAt": "2026-11-07T00:09:04.899228+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -18,7 +18,7 @@
     "models": 92,
     "enums": 15,
     "migrations": 55,
-    "localMarkdownTargets": 469,
+    "localMarkdownTargets": 474,
     "externalInlineLinksNotFetched": 383
   },
   "negativeControls": [
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "c90c70bf3a23bc44384095889e6bf0fb866fe824",
-      "branch": "docs/content-performance-deployment",
+      "head": "32f24f082d751462240d91649227e00872a1cc86",
+      "branch": "feat/studio-posts-mobile-cards",
       "dirty": true
     },
     "server": {
-      "head": "8e866117d2d69be97ef5c1107daade0c661d8430",
+      "head": "6a36c191f54d6fa90a5d112da4b16c07917edb2b",
       "branch": "",
       "dirty": false
     }
@@ -43,12 +43,12 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "c12d6ab63fd0680cecd839e60cb44ba60d656cf5d83e76dd3a61a86c61c46ec6",
+      "front/PROGRESS.md": "c0a054669f191a671261d2311f22d38ce4d973ac1a83470c902b3b60949ad49d",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
       "front/docs/creator-image-variety.md": "e2148d157d60a4e473ddde960517303e2fd11ee094dd26369488f09a7c19aff3",
-      "front/docs/design-system.md": "d32b461d9c5cc4f8b83c2fd9c0fa581c18b0d7864e5e895e663d57d9c9a5003e",
+      "front/docs/design-system.md": "f7c625d9fa723e13c5b9b514212e7630155392ef9105bdb46b667855797de5fe",
       "front/docs/documentation-verification.md": "ca7d555bda6690b6d84f1d7c40e380d9af066344e38e33065a927499f806ab9c",
       "front/docs/financial.md": "a561182286e06acca094240e257600c58552497f2033879158f1b5d8140b4ddb",
       "front/docs/frontend-architecture.md": "4ea1412deeefb741b47f3f586a9c5777e8f8fbfbbf2e003ea9407e110270e54b",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "a59e03e6353c302826b7bb7c12c0ae8cfb09b15a297cd8ea57416cb6bac7b001",
-      "server/PROGRESS.md": "be953fb6a2b968e339de1bad99ffd1a96911b930bea31e803f71e3697b1d5f45",
+      "server/PROGRESS.md": "90ec6dbc81bdcaa6e1992f4a9b32c656d23b49fad1d6c6ab60267f484eecceb0",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -119,9 +119,9 @@
       "server/lambda/custom-message/README.md": "a28d7e8506634078412940aaace8c6cedec92a21ffc16a638d73d561963e0024",
       "server/lambda/subscription-billing/README.md": "6535068f9ccfa805f58bc3a89f34af0e4db2abcd6e303c85e01f530603481d98",
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
-      "guidance/home": "35e340d422d8bf91a3da174dcae8da3e12b673ca878fe3dbc54212446471d0eb",
+      "guidance/home": "31ceb2d4296359b1bb1ec83845c8db4dbcee50aced1df0d479d90cec867aef4d",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "302f07442c476b2b1b348ea834efad69169cc796015a0a230e99f825ac048949"
+      "audit/manifest": "9f27aeaed246c9486f8a4f858ba5bafd0e29626d35ce692c5a5a5568774cd865"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
@@ -281,11 +281,11 @@
       "front/components/crefans/social.module.css": "83b1d4eb4124ac3e8528991536c975586f4615aa2f6b2999bc66b401e9e2bb31",
       "front/components/crefans/studio/AdvertisingPage.tsx": "d032809027defff59693167f86936f985c85c7b309fd8db7b8e510e1b2aeb0ed",
       "front/components/crefans/studio/CommunityPages.tsx": "084083090210b964e84d566dccfcd81551563a85eb0d753f27596416ee9bb32c",
-      "front/components/crefans/studio/ContentPerformance.tsx": "c2a778398879538325c371dd9c4a6ac930ddfa8ba81d31726252e7d6c9ca3ee8",
+      "front/components/crefans/studio/ContentPerformance.tsx": "3dbfd90798f6eb9a1141be0818e94c430946412bb4e33d414ad119d921912e8f",
       "front/components/crefans/studio/ContentPostPreview.tsx": "0901b7179a5b908fc7f0fe392fd9d67b785d4bf7207c18a34eba7e496c829e6a",
       "front/components/crefans/studio/DashboardPage.tsx": "7e329cf230c6d4a574fdd7079670daa8bacbe49be6877cb111c9d07fa8a23b36",
       "front/components/crefans/studio/FinancePages.tsx": "6c0764f86ffd7aeedf65b8db9e965261783b76a5216859ed7f7cae2d0d7d9f06",
-      "front/components/crefans/studio/ManagementPages.tsx": "78a065e0c8fb76f2eb1ce8869e0c2429e9ca87af99134d612e2100e3d3feb1ef",
+      "front/components/crefans/studio/ManagementPages.tsx": "03a1bbd41e16dabcde093f39794d59fb48010a285a83220975536a857847c89b",
       "front/components/crefans/studio/OverviewPages.tsx": "d5ed5a8a5177afc85ece8edfd639e63b4f6be54662aee312d731aa4a9b965e75",
       "front/components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
       "front/components/crefans/studio/ReportPage.tsx": "8faa564cedf335b708efc3d15ff8d2e34c5b4127b72447e327602e59e1faf2d1",
@@ -294,7 +294,8 @@
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "a855269a3dd557a7d095336ec24c731d454aa06b643464c2234239a2dd0b99fe",
       "front/components/crefans/studio/advertising.module.css": "ebbd2482c80f4f70199c6145711558f823589aed597a6d8342a52d2a22f591bc",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
-      "front/components/crefans/studio/content-performance.module.css": "24f9bbe7884a97538fba692160ca7fa0e9c0fe4d0ba0a72278e74a0e62302846",
+      "front/components/crefans/studio/content-list.module.css": "433c05c9a7df10c26743a07060b1d232198d1484b0a682568130eb70a2e6e3ed",
+      "front/components/crefans/studio/content-performance.module.css": "991308e00498cb73c0106c92f611411e4ac42f01abdd0cd503033993c8e8ab75",
       "front/components/crefans/studio/content-post-preview.module.css": "85ae1ecd65d443d3bc88c40fafb1b02d979a61b3015a2d42b208c6646ccb8aa0",
       "front/components/crefans/studio/dashboard.module.css": "0aeb8095c548c01baf300e4e3f4665eefaffa4521dbd0dde42b1b34ca1d94001",
       "front/components/crefans/studio/finance.module.css": "3d7b144f5b40604948f9f5a6e6407e366c36aaadc8560cd4d9bd9ad64e4ecb36",
@@ -325,7 +326,8 @@
       "front/components/design-system/ProfileMediaCatalog.tsx": "4c86888f213d44bd9a393dc12270a99aedd25ccff9d3901342de6949b126da20",
       "front/components/design-system/RedesignTokens.tsx": "633705124b05db79caaeadf237e15055b7d73d08778b125b2d3b3db7a863889c",
       "front/components/design-system/ServiceComponents.tsx": "0f2b2fc75e7e04aa1392bf7a782f37bf68276ba71049d02496fe92843ee23e2c",
-      "front/components/design-system/ServicePatternCatalog.tsx": "46bba6f59578cc52302b66db7addfdd5ee19c63b865c08cb104941219b380e4f",
+      "front/components/design-system/ServicePatternCatalog.tsx": "7bbbb0de675396b171092ec3d0fd909e22fa33cb4c3685622633a8cd18f3f77c",
+      "front/components/design-system/StudioContentCatalog.tsx": "b338a7d2c760a0a8bd49e098c9bc87c8ac9f8be82dcd6d161565fd7c19bbb968",
       "front/components/design-system/StudioDashboardExample.tsx": "498a37a8742d8530db3a5f418dc4f1560e99c65c502406abc8e527a23e0b95d4",
       "front/components/design-system/SubscriptionResumeCatalog.tsx": "92003b3b151660f67702a6bc80ec60aaeacd564cd1b0a931d1b10ca7c1bf5556",
       "front/components/design-system/TypedConfirmCatalog.tsx": "52534648aa958a7f710c413153ab3ad26c5d666d05568720a3c65922964a47e8",
@@ -414,7 +416,7 @@
       "front/components/ui/ChipRow.tsx": "c5eae8b3be1a4aa60078c2de80655bf5095ce599afc21f279a1d105f7d678c0b",
       "front/components/ui/Choice.tsx": "01e56fb929f57c976113b69b44502c68f5e21bbc2406ef2a0ccae7a6a2ed6bfa",
       "front/components/ui/Content.tsx": "aeb692acbdd8d5a21b7db54b02aa1d01a72f79b497530e8aa163114a84822b73",
-      "front/components/ui/DataTable.tsx": "e2bfa6807680cefeb1182a59bb70a1472c336513c986988c2b795a3bb4ec8e40",
+      "front/components/ui/DataTable.tsx": "a3385eb16231044c88605c3d7704bc5377c37f4597bccef55018fb7b2623acc6",
       "front/components/ui/DateRangePicker.tsx": "c5a5f921b91c059269868289ef2d1ed598e11b9957cba961320a1f3b9c9c76dd",
       "front/components/ui/DelayedSpinner.tsx": "b9715c4caa2eff50ddcb32dc55e1b8d35326c7713b68d97b2c4ac49cb48338c0",
       "front/components/ui/DialogActions.tsx": "87e8064ac7f72c89f2587806cea7c1feb5f9ab67c2f136044f34c1b9622c503f",
@@ -516,7 +518,7 @@
       "front/e2e/chip-row-bleed.spec.ts": "94a309bb471226394be1600f67741c44091b3b4735dea687bb808cc359a99bac",
       "front/e2e/comment-edit-delete.spec.ts": "f4a1dd12deb0f1411dea603cc44046e3cef39d9994fa9feab4271d34939349f1",
       "front/e2e/comment-social.spec.ts": "3db65b924d526df718e276ddcdf0aec79a898c75ecff553b137fd4325d9f17b8",
-      "front/e2e/content-performance.spec.ts": "635b62d493f79e081f1d9506adcf18f3f91864b7594f28a4ed764c526d7542e8",
+      "front/e2e/content-performance.spec.ts": "a4360385348eff51d80e41cb62328d60f68eddc4b8b72d627b43085affdd21db",
       "front/e2e/creator-verification.spec.ts": "4d85af531b3f24ed970da7d86c9a346190ab7212c6592d0934449255bb4ed8d2",
       "front/e2e/fixtures.ts": "2282388ac8c433a4167bcc1c5b84c86870fcbcc72bf82486adc58642e312f332",
       "front/e2e/gallery-image-tap.spec.ts": "de5cfd54a81810c580f0dc2fb5e164fc2a1b78997db1d5555860c2d6cf38b5bb",
@@ -557,6 +559,7 @@
       "front/e2e/signup-complete.spec.ts": "5f78d85bdeaa4be0e78545a4b14698fc7359fd1d559915fd467563cb53b11d9d",
       "front/e2e/signup-deferred.spec.ts": "e455325d98a8982781430fd1c4c017c5f189ac7d70b902c9ea1824f6a9ad4868",
       "front/e2e/snackbar.spec.ts": "bc060f19a0e7c2a0ac98685246d29340af6696344c0a52de154902f04be8b87e",
+      "front/e2e/studio-content-cards.spec.ts": "481e21522199532faf3a83134e1a12e3d3b46207c87c2ec93835431e5cf1527c",
       "front/e2e/studio-dashboard.spec.ts": "c37583725b88e7b889fbc9e84a08bbdb0952dc920d58f7899713d60f48807d51",
       "front/e2e/studio-publishing-controls.spec.ts": "e84710550dcec817992acbae678781ad8ebae4e3489825f3dc573f0e639858a5",
       "front/e2e/subscription-resume.spec.ts": "eb88adb734c6b2b7dbc5c720381638d930e22a46056a437e5162c6946151153e",
@@ -1149,7 +1152,7 @@
       "server/src/platform/identity-provider.ts": "d3460eb36d68cc48503a7cc433c8d7ec19b4ac9b61051f93478bbd1056be1af3",
       "server/src/platform/identity.controller.ts": "75c26a2fc5fdf824d29ebe46d5b334c531ab4584790023dc0ccbf76642011330",
       "server/src/platform/jobs.service.ts": "e453e50ec183c3f3f998097fbb235310c89a4694a4e7bf1cbb9a85ffdf708af3",
-      "server/src/platform/legal-documents.ts": "b4a78ce60e6b8ea72fd47c63100023bc395d36b4eea9a924b487e4eb0e8e1768",
+      "server/src/platform/legal-documents.ts": "832297518d0c9c260ea8afdc2f376c4ef5940369014f1c930c5a6787209b66a8",
       "server/src/platform/main.ts": "fcc906c8699b3c55e6969df007336fdcf48480475ff30a9a6627b5c2fefc9fec",
       "server/src/platform/marketing.controller.ts": "a09e8057aa2e19e0faa8f330b1bf2887fde14541496d703f4caa9626172b598b",
       "server/src/platform/marketing.service.ts": "5827b5846a8796978d905490beb4e112a1918705756f7d9f3732d0e5ecd43cf7",
@@ -1277,7 +1280,7 @@
       "server/tests/platform-founding-badge.test.cjs": "84b2680a364274b486adc058b771ef02836666fe3424773b29c7367ce7b25cca",
       "server/tests/platform-handle-unify.test.cjs": "197d118455a196c09663d7ac7163c8af3b41bc960269a8681e4e65fe90e70252",
       "server/tests/platform-jobs.test.cjs": "830e4c9ab485dfbec44c6bb2e1801d8b090fb814cbb21aa4bba427a3a0e097fe",
-      "server/tests/platform-legal.test.cjs": "80ae8f2d04daf18ff260cb519f1f26185003a3afdac021d9349f1e2779a34a59",
+      "server/tests/platform-legal.test.cjs": "6639a3ea4c36a6e5933ea7ab68ba50fc53baaa9632aa559a9ef619d1bbea7d5d",
       "server/tests/platform-log-config.test.cjs": "3f51cbb8743cce0b5a93d2e03ea458f2f102039a6e5b7db0613ba934af8e72d1",
       "server/tests/platform-mail.integration.test.cjs": "a637580ef18796ed8cd0af92e3d89470813035800ab13d90061a251210ccc8ca",
       "server/tests/platform-manual-payouts.test.cjs": "3567c70fabede5109593a73f982b4284dc9ece7b393ba91e41247e95694ce24e",

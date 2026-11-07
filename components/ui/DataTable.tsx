@@ -6,6 +6,16 @@ import {useDelayedLoading} from './useDelayedLoading';
 
 export type TableSort={key:string;direction:'asc'|'desc'}|null;
 export type TableColumn<T>={key:string;label:string;render:(row:T)=>ReactNode;sortValue?:(row:T)=>string|number|null};
+export function orderTableRows<T>(rows:T[],columns:TableColumn<T>[],sort:TableSort):T[]{
+  const ordered=rows.map((row,index)=>({row,index})),sortValue=columns.find(column=>column.key===sort?.key)?.sortValue;
+  if(sort&&sortValue)ordered.sort((a,b)=>{
+    const left=sortValue(a.row),right=sortValue(b.row);
+    if(left===null||right===null)return left===right?a.index-b.index:left===null?1:-1;
+    const comparison=typeof left==='number'&&typeof right==='number'?left-right:String(left).localeCompare(String(right),'ko',{numeric:true,sensitivity:'base'});
+    return comparison===0?a.index-b.index:comparison*(sort.direction==='asc'?1:-1);
+  });
+  return ordered.map(({row})=>row);
+}
 export type DataTableProps<T>={
   rows:T[];
   columns:TableColumn<T>[];
@@ -21,16 +31,7 @@ export type DataTableProps<T>={
 
 export function DataTable<T>({rows,columns,rowKey,sort,onSortChange,caption,loading=false,emptyMessage='표시할 데이터가 없어요.',page,pageSize}:DataTableProps<T>){
   // Loading rule: rows passed in stay; after 1s a spinner over them, or in the body when there are none yet (no empty message while loading).
-  const slow=useDelayedLoading(loading),ordered=rows.map((row,index)=>({row,index}));
-  const sortValue=columns.find(column=>column.key===sort?.key)?.sortValue;
-  if(sort&&sortValue){
-    ordered.sort((a,b)=>{
-      const left=sortValue(a.row),right=sortValue(b.row);
-      if(left===null||right===null)return left===right?a.index-b.index:left===null?1:-1;
-      const comparison=typeof left==='number'&&typeof right==='number'?left-right:String(left).localeCompare(String(right),'ko',{numeric:true,sensitivity:'base'});
-      return comparison===0?a.index-b.index:comparison*(sort.direction==='asc'?1:-1);
-    });
-  }
+  const slow=useDelayedLoading(loading),ordered=orderTableRows(rows,columns,sort);
   const currentPage=page!==undefined&&pageSize!==undefined?Math.min(Math.max(1,page),Math.max(1,Math.ceil(rows.length/pageSize))):1;
   const visible=page!==undefined&&pageSize!==undefined?ordered.slice((currentPage-1)*pageSize,currentPage*pageSize):ordered;
   function changeSort(key:string){
@@ -46,7 +47,7 @@ export function DataTable<T>({rows,columns,rowKey,sort,onSortChange,caption,load
           {column.sortValue?<button type="button" disabled={loading} onClick={()=>changeSort(column.key)} aria-label={`${column.label}: ${direction==='asc'?'내림차순 정렬':direction==='desc'?'기본 순서로 보기':'오름차순 정렬'}`}>{column.label}<span className={s.sortIcon} data-direction={direction||'none'} aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path className={s.sortUp} d="M5 6.5 8 3.5l3 3"/><path className={s.sortDown} d="M5 9.5 8 12.5l3-3"/></svg></span></button>:column.label}
         </th>;
       })}</tr></thead>
-      <tbody>{visible.length?visible.map(({row})=><tr key={rowKey(row)}>{columns.map(column=><td key={column.key}>{column.render(row)}</td>)}</tr>):loading?(slow&&<tr><td colSpan={Math.max(columns.length,1)}><LoadingSpinner/></td></tr>):<tr><td colSpan={Math.max(columns.length,1)} className={s.message}>{emptyMessage}</td></tr>}</tbody>
+      <tbody>{visible.length?visible.map(row=><tr key={rowKey(row)}>{columns.map(column=><td key={column.key}>{column.render(row)}</td>)}</tr>):loading?(slow&&<tr><td colSpan={Math.max(columns.length,1)}><LoadingSpinner/></td></tr>):<tr><td colSpan={Math.max(columns.length,1)} className={s.message}>{emptyMessage}</td></tr>}</tbody>
     </table>
   </div>;
 }

@@ -1,0 +1,42 @@
+import {test,expect,type Page} from '@playwright/test';
+const cards=(page:Page)=>page.locator('[aria-label="게시물 카드 목록"]');
+const table=(page:Page)=>page.getByRole('region',{name:'게시물 목록 표'});
+const mobile=(page:Page)=>(page.viewportSize()?.width||0)<768;
+async function overflow(page:Page){expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);const root=mobile(page)?cards(page):table(page);expect(await root.evaluate(el=>el.getBoundingClientRect().right<=innerWidth+1)).toBe(true);}
+async function capture(page:Page,path:string){await page.locator('img:visible').evaluateAll(async images=>{await Promise.all(images.map(img=>(img as HTMLImageElement).decode().catch(()=>{})));});await page.screenshot({path,fullPage:true});}
+
+test('목업: 모바일 통합 카드·PC 표와 펼침·미리보기·수정·삭제 확인',async({page},info)=>{
+ await page.goto('/preview/studio/content');const small=mobile(page),root=small?cards(page):table(page);await expect(root).toBeVisible();await expect(small?table(page):cards(page)).toBeHidden();
+ const first=small?root.locator('article').first():root.locator('tbody tr').first();await expect(first).toContainText('오늘도 좋은 하루였어요');
+ if(small){await expect(root.locator('article')).toHaveCount(4);const toggle=first.getByRole('button').first();await expect(toggle).toHaveAttribute('aria-expanded','true');await expect(root.locator('article').nth(1).getByRole('button').first()).toHaveAttribute('aria-expanded','false');await toggle.click();await expect(first.locator('dl')).toBeHidden();await toggle.focus();await toggle.press('Enter');await expect(first.locator('dl')).toBeVisible();await toggle.press('Space');await expect(toggle).toHaveAttribute('aria-expanded','false');await toggle.press('Enter');await expect(first.getByRole('button',{name:'접기',exact:true})).toHaveCount(0);}
+ await page.getByRole('heading',{name:'게시물',exact:true}).click();await overflow(page);await capture(page,info.outputPath('posts.png'));
+ await expect(first.getByRole('link',{name:'수정',exact:true})).toHaveAttribute('href','/preview/studio/content/morning/edit');
+ await first.getByRole('button',{name:'미리보기',exact:true}).click();const preview=page.getByRole('dialog',{name:'팬 화면 미리보기'});await expect(preview).toContainText('오늘도 좋은 하루였어요');await preview.getByRole('button',{name:'닫기',exact:true}).click();
+ await first.getByRole('button',{name:'삭제',exact:true}).click();let dialog=page.getByRole('dialog',{name:'게시물 삭제'});await expect(dialog).toContainText('오늘도 좋은 하루였어요');await dialog.getByRole('button',{name:'취소',exact:true}).click();await expect(first).toContainText('오늘도 좋은 하루였어요');
+ await first.getByRole('button',{name:'삭제',exact:true}).click();await page.getByRole('dialog',{name:'게시물 삭제'}).getByRole('button',{name:'삭제하기',exact:true}).click();await expect(root).not.toContainText('오늘도 좋은 하루였어요');
+ await page.getByRole('navigation',{name:'게시 상태'}).getByRole('button',{name:/예약됨/}).click();await expect(root).toContainText('주말에 만나요');await expect(root).toContainText('게시 예정');await expect(root).toContainText('댓글 닫힘');
+});
+
+async function service(page:Page,onDelete?:(route:any)=>Promise<void>){
+ const boot={data:{creators:[],posts:[],plans:[],creatorPlans:{},notifications:[],paymentHistory:[],messages:{},faqs:[],categories:[],followers:[]},viewer:{name:'검증',handle:'qa',bio:'',image:''},signedIn:true,ownCreatorIds:[],following:[],liked:[],saved:[],subscriptions:[],read:[],messagesByCreator:{},account:{email:'qa@example.test',stats:{posts:0,followers:0},preferences:{},blockedCreatorIds:[],paymentMethods:[],tickets:[],inquiryCategories:[],banner:null,policies:{},guidance:{},route:{}}};
+ const contents=Array.from({length:11},(_,index)=>({id:`post-${index}`,title:index===0?'아주긴제목'.repeat(18):`게시물 ${index}`,body:`내용 ${index}`,status:index===10?'draft':index===1?'scheduled':'published',scheduledAt:index===1?'2026-12-01T04:00:00Z':null,updatedAt:`2026-11-${String(index+1).padStart(2,'0')}T01:00:00Z`,accessLevel:index===0?2:null,accessPlanId:null,commentsEnabled:index!==0,hiddenByOperator:index===0,media:index===0?[{id:'processing',type:'video',url:'',processing:true}]:[]}));
+ const overview={started:true,profile:{name:'검증',handle:'qa',avatar:'',bio:''},management:{contents,memberships:[],subscribers:[],now:'2026-11-07T00:00:00Z'},metrics:[],activities:[],series:[],contentPerformance:[]};
+ await page.route('**/api/v1/**',async route=>{const path=new URL(route.request().url()).pathname;if(path.endsWith('/delete')&&onDelete){await onDelete(route);return;}const data=path.endsWith('/bootstrap')?boot:path.endsWith('/studio/overview')?overview:path.endsWith('/studio/community')?{posts:[],comments:[],contacts:[],messagesByCreator:{}}:{};await route.fulfill({contentType:'application/json',body:JSON.stringify({success:true,data,errorMessage:null,errorCode:null})});});
+}
+test('서비스 API 대역: 긴 제목·영상 처리·숨김·검색·정렬·페이지·빈 상태',async({page},info)=>{
+ await service(page);await page.goto('/service/studio/content');const small=mobile(page),root=small?cards(page):table(page);await expect(root).toContainText('운영 정책에 따라 숨김');await expect(root).toContainText('댓글 닫힘');await expect(root).toContainText('최적화 중');await expect(root).toContainText('레벨 2 이상');await overflow(page);await capture(page,info.outputPath('long-processing.png'));
+ await page.getByRole('button',{name:'다음 페이지',exact:true}).click();await expect(root).toContainText('게시물 10');await expect(small?root.locator('article'):root.locator('tbody tr')).toHaveCount(1);
+ if(small){await page.getByRole('combobox',{name:'게시물 정렬'}).click();await page.getByRole('option',{name:'게시물 오름차순',exact:true}).click();}else await root.getByRole('button',{name:'게시물: 오름차순 정렬',exact:true}).click();
+ await expect(page.getByRole('button',{name:'1페이지',exact:true})).toHaveAttribute('aria-current','page');await expect(small?root.locator('article').first():root.locator('tbody tr').first()).toContainText('게시물 1');
+ await page.getByRole('textbox',{name:'게시물 검색'}).fill('없는검색');await expect(page.getByText('게시물이 없어요',{exact:true})).toBeVisible();await expect(root).toHaveCount(0);
+ await page.getByRole('textbox',{name:'게시물 검색'}).fill('');await page.getByRole('navigation',{name:'게시 상태'}).getByRole('button',{name:/임시저장/}).click();await expect(small?root.locator('article'):root.locator('tbody tr')).toHaveCount(1);await expect(root).toContainText('게시물 10');
+});
+test('서비스 API 대역: 삭제 처리 중 중복 제출 차단·실패 후 카드 유지',async({page})=>{
+ let calls=0,finish:()=>void=()=>{};const gate=new Promise<void>(r=>{finish=r;});
+ await service(page,async route=>{calls++;await gate;await route.fulfill({contentType:'application/json',body:JSON.stringify({success:false,data:null,errorCode:'TEST_FAILURE',errorMessage:'삭제 요청을 처리하지 못했어요.'})});});
+ await page.goto('/service/studio/content');const root=mobile(page)?cards(page):table(page),first=mobile(page)?root.locator('article').first():root.locator('tbody tr').first();await first.getByRole('button',{name:'삭제',exact:true}).click();const dialog=page.getByRole('dialog',{name:'게시물 삭제'}),submit=dialog.getByRole('button',{name:'삭제하기',exact:true});await submit.click();await expect(submit).toBeDisabled();await expect.poll(()=>calls).toBe(1);finish();await expect(dialog.getByRole('alert')).toContainText('삭제 요청을 처리하지 못했어요.');await expect(submit).toBeEnabled();await dialog.getByRole('button',{name:'취소',exact:true}).click();await expect(first).toContainText('아주긴제목');expect(calls).toBe(1);
+});
+test('카탈로그: 일반·빈 목록·긴 제목·영상 처리 상태',async({page},info)=>{
+ await page.goto('/design-system');await page.getByRole('button',{name:/서비스 UI/}).click();const root=page.locator('#studio-content-catalog');await root.scrollIntoViewIfNeeded();const choose=async(name:string)=>{await root.getByRole('combobox',{name:'게시물 목록 상태'}).click();await page.getByRole('option',{name,exact:true}).click();};
+ await choose('빈 목록');await expect(root).toContainText('게시물이 없어요');await choose('긴 제목·숨김·댓글 닫힘');await expect(root).toContainText('운영 정책에 따라 숨김');await choose('영상 최적화 중');await expect(root).toContainText('최적화 중');await root.screenshot({path:info.outputPath('catalog.png')});
+});

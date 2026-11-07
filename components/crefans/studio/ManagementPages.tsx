@@ -12,7 +12,7 @@ import {VideoProcessing} from '@/components/ui/VideoProcessing';
 
 
 import {DialogActions} from '@/components/ui/DialogActions';
-import {useState,useEffect,useRef,type FormEvent} from 'react';
+import {useState,useEffect,useRef,useId,type FormEvent} from 'react';
 import Link from 'next/link';
 import {TextLink} from '@/components/ui/TextLink';
 import {SelectField} from '@/components/ui/SelectField';
@@ -27,13 +27,14 @@ import {imageUploadAccept,mediaUploadAccept,mediaUploadMaxItems} from '@/lib/des
 import type {ApiResult} from '@/types/crefans';
 import type {StudioManagementModel,StudioContent,StudioContentStatus,StudioMedia,StudioMembership} from '@/types/crefans-studio-management';
 import {Dialog,Field,TextAreaField} from '@/components/ui/Primitives';
-import {DataTable,type TableColumn,type TableSort} from '@/components/ui/DataTable';
+import {DataTable,orderTableRows,type TableColumn,type TableSort} from '@/components/ui/DataTable';
 import {Pagination} from '@/components/ui/Pagination';
 import {Action,ActionLink,Avatar,Empty,Notice,PageTitle} from '../ServiceUI';
 import Icon from '../Icon';
 import type {PostDetailModel} from '../SocialPages';
 import {ContentPostPreview} from './ContentPostPreview';
 import s from './management.module.css';
+import cards from './content-list.module.css';
 
 type Props={model:StudioManagementModel;basePath:string;id?:string};
 type ContentPreviewProps={previewModel?:PostDetailModel;previewCreatorId?:string;/** Studio-wide comment switch from 크리에이터 설정; overrides per-post flags. */commentsGloballyEnabled?:boolean};
@@ -52,6 +53,29 @@ function useManagementAction(){
   return {busy,error,message,run,clearMessage:()=>setMessage(''),clear:()=>{setError('');setMessage('');}};
 }
 function Status({value}:{value:StudioContentStatus}){return <span className={s.status} data-status={value}>{statusLabels[value]}</span>;}
+function ContentThumbnail({item}:{item:StudioContent}){return <>{item.media[0]?.type==='image'&&item.media[0].processing?<span className={s.noMedia} role="img" aria-label="워터마크 적용 중"><Icon name="card"/></span>:item.media[0]?.type==='image'?<img src={item.media[0].url} alt=""/>:item.media[0]?.type==='video'&&item.media[0].processing?<VideoProcessing variant="thumbnail"/>:item.media[0]?.type==='video'?<MediaVideo src={item.media[0].url} firstFrame muted playsInline preload="metadata" aria-label="동영상"/>:<span className={s.noMedia}><Icon name="card"/></span>}</>;}
+function ContentStatus({item,commentsGloballyEnabled}:{item:StudioContent;commentsGloballyEnabled:boolean}){return <span className={s.statusCell}><Status value={item.status}/>{item.hiddenByOperator&&<span className={s.status}>운영 정책에 따라 숨김</span>}{!postCommentsAllowed(commentsGloballyEnabled,item.commentsEnabled)&&<span className={s.status}>댓글 닫힘</span>}</span>;}
+function ContentCard({item,initiallyOpen,access,basePath,commentsGloballyEnabled,busy,onPreview,onDelete}:{item:StudioContent;initiallyOpen:boolean;access:string;basePath:string;commentsGloballyEnabled:boolean;busy:boolean;onPreview:()=>void;onDelete:()=>void}){
+  const [open,setOpen]=useState(initiallyOpen),id=useId(),scheduled=item.status==='scheduled'&&!!item.scheduledAt;
+  const parts=new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(scheduled?item.scheduledAt!:item.updatedAt));
+  const part=(type:string)=>parts.find(value=>value.type===type)?.value;
+  const timestamp=`${part('year')}.${part('month')}.${part('day')} ${part('hour')}:${part('minute')}`;
+  return <article className={cards.card}>
+    <h2 className={cards.heading}><button className={cards.summary} type="button" aria-expanded={open} aria-controls={id} onClick={()=>setOpen(!open)}>
+      <span className={cards.thumbnail}><ContentThumbnail item={item}/></span>
+      <span className={cards.label}><span className={cards.title}>{item.title}</span><ContentStatus item={item} commentsGloballyEnabled={commentsGloballyEnabled}/>{item.media.some(media=>media.type==='video'&&media.processing)&&<VideoProcessing variant="badge"/>}{!open&&<span className={cards.date}>{timestamp} {scheduled?'게시 예정':'수정'}</span>}</span>
+      <Icon name="chevron" width={18} height={18} className={cards.chevron}/>
+    </button></h2>
+    <div id={id} hidden={!open}>
+      <dl className={cards.details}><div><dt>공개 범위</dt><dd>{access}</dd></div><div><dt>{scheduled?'게시 예정':'최근 수정'}</dt><dd>{timestamp}</dd></div></dl>
+      <div className={cards.actions}>
+        <button type="button" onClick={onPreview}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>미리보기</button>
+        <Link className={cards.edit} href={`${basePath}/content/${item.id}/edit`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 4 5 5M4 20l5-1L21 7a2 2 0 0 0-5-5L4 14Z"/></svg>수정</Link>
+        <button className={cards.delete} type="button" disabled={busy} onClick={onDelete}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></svg>삭제</button>
+      </div>
+    </div>
+  </article>;
+}
 export function ContentManagementPage({model,basePath,previewModel,previewCreatorId,commentsGloballyEnabled=true}:Props&ContentPreviewProps){
   const [filter,setFilter]=useState<StudioContentStatus|'all'>(model.selectedContentStatus||'all'),[search,setSearch]=useState(''),[previewId,setPreviewId]=useState<string|null>(null),[deleteId,setDeleteId]=useState<string|null>(null);
   const [sort,setSort]=useState<TableSort>(null),[page,setPage]=useState(1),pageSize=10;
@@ -63,16 +87,23 @@ export function ContentManagementPage({model,basePath,previewModel,previewCreato
   const planName=(item:StudioContent)=>item.accessLevel?`레벨 ${item.accessLevel} 이상`:item.accessPlanId?`${model.memberships.find(plan=>plan.id===item.accessPlanId)?.name||'멤버십'} 전용`:'전체 공개';
   const when=(item:StudioContent)=>item.status==='scheduled'&&item.scheduledAt?`${date(item.scheduledAt)} 게시 예정`:`${date(item.updatedAt)} 수정`;
   const columns:TableColumn<StudioContent>[]=[
-    {key:'title',label:'게시물',sortValue:item=>item.title,render:item=><div className={s.contentCell}>{item.media[0]?.type==='image'&&item.media[0].processing?<span className={s.noMedia} role="img" aria-label="워터마크 적용 중"><Icon name="card"/></span>:item.media[0]?.type==='image'?<img src={item.media[0].url} alt=""/>:item.media[0]?.type==='video'&&item.media[0].processing?<VideoProcessing variant="thumbnail"/>:item.media[0]?.type==='video'?<MediaVideo src={item.media[0].url} firstFrame muted playsInline preload="metadata" aria-label="동영상"/>:<span className={s.noMedia}><Icon name="card"/></span>}<div className={s.contentLabel}><Link href={`${basePath}/content/${item.id}/edit`}>{item.title}</Link>{item.media.some(media=>media.type==='video'&&media.processing)&&<VideoProcessing variant="badge"/>}</div></div>},
-    {key:'status',label:'상태',sortValue:item=>statusLabels[item.status],render:item=><span className={s.statusCell}><Status value={item.status}/>{item.hiddenByOperator&&<span className={s.status}>운영 정책에 따라 숨김</span>}{!postCommentsAllowed(commentsGloballyEnabled,item.commentsEnabled)&&<span className={s.status}>댓글 닫힘</span>}</span>},
+    {key:'title',label:'게시물',sortValue:item=>item.title,render:item=><div className={s.contentCell}><ContentThumbnail item={item}/><div className={s.contentLabel}><Link href={`${basePath}/content/${item.id}/edit`}>{item.title}</Link>{item.media.some(media=>media.type==='video'&&media.processing)&&<VideoProcessing variant="badge"/>}</div></div>},
+    {key:'status',label:'상태',sortValue:item=>statusLabels[item.status],render:item=><ContentStatus item={item} commentsGloballyEnabled={commentsGloballyEnabled}/>},
     {key:'access',label:'공개 범위',sortValue:item=>planName(item),render:item=><MarqueeText text={planName(item)}/>},
     {key:'date',label:'일시',sortValue:item=>item.status==='scheduled'&&item.scheduledAt?item.scheduledAt:item.updatedAt,render:item=><span className={s.muted}>{when(item)}</span>},
     {key:'actions',label:'관리',render:item=><div className={s.rowButtons}><Action variant="secondary" type="button" className={s.rowButton} onClick={()=>setPreviewId(item.id)}>미리보기</Action><Link href={`${basePath}/content/${item.id}/edit`} className={`${s.rowButton} ${s.rowButtonLink}`}>수정</Link><Action variant="secondary" type="button" className={`${s.rowButton} ${s.rowButtonDanger}`} disabled={task.busy} onClick={()=>{task.clear();setDeleteId(item.id);}}>삭제</Action></div>},
   ];
-  return <section className={s.page}><PageTitle back={<BackButton href={basePath} label="대시보드로 돌아가기"/>} action={<ActionLink href={`${basePath}/content/new`}><Icon name="plus" width={17} height={17}/>게시물 작성</ActionLink>}>게시물</PageTitle><p className={s.intro}>크리에이터의 순간을 기록하고, 팬들에게 전하세요.</p>
-    <div className={s.toolbar}><nav className={s.tabs} aria-label="게시 상태">{(['all','published','draft','scheduled'] as const).map(value=><button key={value} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{value==='all'?'전체':statusLabels[value]} <span>{model.contents.filter(item=>value==='all'||item.status===value).length}</span></button>)}</nav><label className={s.search}><Icon name="search" width={18} height={18}/><input aria-label="게시물 검색" value={search} onChange={e=>setSearch(e.target.value)} placeholder="게시물 검색"/></label></div>
+  const currentPage=Math.min(page,Math.max(1,Math.ceil(filtered.length/pageSize)));
+  const mobileRows=orderTableRows(filtered,columns,sort).slice((currentPage-1)*pageSize,currentPage*pageSize);
+  const changeSort=(value:TableSort)=>{setSort(value);setPage(1);};
+  return <section className={`${s.page} ${cards.page}`}><PageTitle back={<BackButton href={basePath} label="대시보드로 돌아가기"/>} action={<ActionLink href={`${basePath}/content/new`}><Icon name="plus" width={17} height={17}/>게시물 작성</ActionLink>}>게시물</PageTitle><p className={`${s.intro} ${cards.intro}`}>크리에이터의 순간을 기록하고, 팬들에게 전하세요.</p>
+    <div className={`${s.toolbar} ${cards.toolbar}`}><nav className={`${s.tabs} ${cards.tabs}`} aria-label="게시 상태">{(['all','published','draft','scheduled'] as const).map(value=><button key={value} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{value==='all'?'전체':statusLabels[value]} <span>{model.contents.filter(item=>value==='all'||item.status===value).length}</span></button>)}</nav><label className={s.search}><Icon name="search" width={18} height={18}/><input aria-label="게시물 검색" value={search} onChange={e=>setSearch(e.target.value)} placeholder="게시물 검색"/></label></div>
     <Toast message={task.message} onClose={task.clearMessage}/>{task.error&&!removing&&<p className={s.error} role="alert">{task.error}</p>}
-    {filtered.length?<><DataTable rows={filtered} columns={columns} rowKey={item=>item.id} sort={sort} onSortChange={value=>{setSort(value);setPage(1);}} caption="게시물 목록" page={page} pageSize={pageSize}/>{filtered.length>pageSize&&<Pagination page={page} pageSize={pageSize} totalItems={filtered.length} onPageChange={setPage} label="게시물 목록 페이지"/>}</>:<Empty title="게시물이 없어요" description="새 게시물을 작성하거나 검색 조건을 바꿔보세요." action={<ActionLink variant="secondary" href={`${basePath}/content/new`}>첫 게시물 작성하기</ActionLink>}/>}
+    {filtered.length?<><div className={cards.desktop}><DataTable rows={filtered} columns={columns} rowKey={item=>item.id} sort={sort} onSortChange={changeSort} caption="게시물 목록" page={page} pageSize={pageSize}/></div>
+      <div className={cards.mobile}>
+        <div className={cards.listToolbar}><strong>총 {filtered.length.toLocaleString('ko-KR')}개</strong><SelectField className={cards.sort} hideLabel label="게시물 정렬" value={sort?`${sort.key}:${sort.direction}`:''} onChange={value=>{const [key,direction]=value.split(':');changeSort(value?{key,direction:direction as 'asc'|'desc'}:null);}} options={[{value:'',label:'기본순'},...columns.filter(column=>column.sortValue).flatMap(column=>[{value:`${column.key}:asc`,label:`${column.label} ${column.key==='date'?'오래된순':'오름차순'}`},{value:`${column.key}:desc`,label:`${column.label} ${column.key==='date'?'최신순':'내림차순'}`}])]}/></div>
+        <div className={cards.list} aria-label="게시물 카드 목록" key={`${filter}:${search}:${sort?.key}:${sort?.direction}:${currentPage}`}>{mobileRows.map((item,index)=><ContentCard key={item.id} item={item} initiallyOpen={index===0} access={planName(item)} basePath={basePath} commentsGloballyEnabled={commentsGloballyEnabled} busy={task.busy} onPreview={()=>setPreviewId(item.id)} onDelete={()=>{task.clear();setDeleteId(item.id);}}/>)}</div>
+      </div>{filtered.length>pageSize&&<Pagination page={page} pageSize={pageSize} totalItems={filtered.length} onPageChange={setPage} label="게시물 목록 페이지"/>}</>:<Empty title="게시물이 없어요" description="새 게시물을 작성하거나 검색 조건을 바꿔보세요." action={<ActionLink variant="secondary" href={`${basePath}/content/new`}>첫 게시물 작성하기</ActionLink>}/>}
     {model.notice&&<Notice>{model.notice}</Notice>}
     <Dialog open={!!preview} onClose={()=>setPreviewId(null)} title="팬 화면 미리보기">{preview&&<ContentPostPreview content={preview} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/>}</Dialog>
     <Dialog open={!!removing} onClose={()=>setDeleteId(null)} title="게시물 삭제"><div className={s.dialogBody}><p><strong>{removing?.title}</strong> 게시물을 삭제할까요?</p><p className={s.muted}>삭제 후에는 목록에서 확인할 수 없습니다.</p>{task.error&&<p className={s.error} role="alert">{task.error}</p>}<DialogActions><Action variant="secondary" onClick={()=>setDeleteId(null)}>취소</Action><Action variant="danger" disabled={task.busy} onClick={()=>removing&&void task.run(()=>model.actions.deleteContent(removing.id),()=>setDeleteId(null))}>삭제하기</Action></DialogActions></div></Dialog>

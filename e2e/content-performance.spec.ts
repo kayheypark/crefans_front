@@ -1,11 +1,11 @@
 import {test,expect,type Page} from '@playwright/test';
 
 const section=(page:Page)=>page.getByRole('region',{name:'콘텐츠 성과',exact:true});
-async function noOverflow(page:Page){expect(await section(page).evaluate(root=>[root,...root.querySelectorAll('*')].filter(el=>el instanceof HTMLElement&&el.clientWidth>0).every(el=>el.scrollWidth<=el.clientWidth+1))).toBe(true);}
+async function noOverflow(page:Page){expect(await section(page).evaluate(root=>[root,...Array.from(root.querySelectorAll('*'))].filter(el=>el instanceof HTMLElement&&el.clientWidth>0).every(el=>el.scrollWidth<=el.clientWidth+1))).toBe(true);}
 async function connectedGrid(page:Page){
  const dl=section(page).locator('dl[aria-label="열람 통계"]').first();
  const result=await dl.evaluate(el=>{
-  const cells=[...el.children].map(x=>x.getBoundingClientRect()),style=getComputedStyle(el),blank=getComputedStyle(el,'::after');
+  const cells=Array.from(el.children).map(x=>x.getBoundingClientRect()),style=getComputedStyle(el),blank=getComputedStyle(el,'::after');
   return {columns:style.gridTemplateColumns.split(' ').length,gap:style.gap,blank:blank.content,horizontal:cells[3].top-cells[0].bottom,vertical:cells[1].left-cells[0].right,aligned:cells[3].left===cells[0].left&&cells[4].left===cells[1].left,bg:style.backgroundColor,fill:getComputedStyle(el.children[0]).backgroundColor};
  });
  expect(result.columns).toBe(3);expect(result.gap).toBe('1px');expect(result.blank).toBe('""');expect(result.horizontal).toBeCloseTo(1,1);expect(result.vertical).toBeCloseTo(1,1);expect(result.aligned).toBe(true);expect(result.bg).not.toBe(result.fill);
@@ -16,8 +16,8 @@ test('공용 목업: 첫 항목 펼침, 연결된 격자, 도움말 및 키보�
  await expect(rows).toHaveCount(2);await expect(first).toHaveAttribute('aria-expanded','true');await expect(rows.nth(1).getByRole('button').first()).toHaveAttribute('aria-expanded','false');
  await expect(rows.first()).toContainText('2,840');await expect(rows.first().locator('dl[aria-label="열람 통계"]')).toContainText('2,800');await expect(rows.first()).toContainText('방문수 (30분)');await connectedGrid(page);await noOverflow(page);
  await root.getByRole('button',{name:'콘텐츠 성과 집계 기준'}).click();await expect(page.getByRole('tooltip')).toContainText('50% 이상·1초 이상');await expect(page.getByRole('tooltip')).toContainText('실제 사람 수와 다릅니다');await page.keyboard.press('Escape');await expect(page.getByRole('tooltip')).toHaveCount(0);
- await rows.first().getByRole('button',{name:/통계 접기/}).click();await expect(first).toBeFocused();await expect(first).toHaveAttribute('aria-expanded','false');await expect(rows.first().locator('dl[aria-label="열람 통계"]')).toBeHidden();
- await first.press('Enter');await expect(first).toHaveAttribute('aria-expanded','true');await first.press('Space');await expect(first).toHaveAttribute('aria-expanded','false');await first.press('Enter');
+ await expect(root.getByRole('button',{name:/통계 접기/})).toHaveCount(0);await first.click();await expect(first).toHaveAttribute('aria-expanded','false');await expect(rows.first().locator('dl[aria-label="열람 통계"]')).toBeHidden();
+ await first.focus();await expect(first).toBeFocused();await first.press('Enter');await expect(first).toHaveAttribute('aria-expanded','true');await first.press('Space');await expect(first).toHaveAttribute('aria-expanded','false');await first.press('Enter');
  await root.getByRole('heading',{name:'콘텐츠 성과',exact:true}).click();await root.screenshot({path:info.outputPath('content-performance.png')});
 });
 
