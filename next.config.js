@@ -3,6 +3,8 @@ const nextConfig = {
   // 개발 환경에서 Strict Mode 비활성화 (HTTP 중복 요청 방지)
   reactStrictMode: false,
   distDir: process.env.CREFANS_E2E === 'true' ? '.next-e2e' : '.next',
+  // Runtime images copy only traced files (.next/standalone) plus public and .next/static (infra/platform/Dockerfile).
+  output: 'standalone',
   // Share scrapers that do not run JavaScript must get metadata in <head> (Next 15.2+ streams it otherwise).
   // Next's default list plus Korean messengers/portals (KakaoTalk, Daum, Naver, LINE, Telegram, Band) (2026-11-01).
   // Event pages lost their 'beta-' prefix (2026-11-01 SEO decision); old links and indexed URLs move permanently (301).

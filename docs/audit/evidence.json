@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-07T00:39:49.506495+00:00",
+  "checkedAt": "2026-11-07T01:32:57.341475+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "ae908b000683d4d9dfeff1df820bba7b64d6841a",
-      "branch": "feat/studio-post-confirm-deployment-docs",
-      "dirty": true
+      "head": "0955a778c8a6628822837e94984f5af99d251a16",
+      "branch": "feat/standalone-image",
+      "dirty": false
     },
     "server": {
       "head": "cfdfffb1e9e38f43d0c2658877b1889972f9293d",
-      "branch": "release/studio-post-confirm-docs-prod",
+      "branch": "",
       "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "92ef00841b0bbecc40cef030fad0f5cd0183fcc46107e2a102a30110d01c6130",
+      "front/PROGRESS.md": "e86d22c4a708db5366f18e7517ff15e5bad755ae9775ee09d64753e8666e16fa",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -66,7 +66,7 @@
       "front/docs/security-review-20261029.md": "326acc26a21472448126486b2ae3e477b7580b45b3105688bbe871f743c39caa",
       "front/docs/service-api-binding.md": "38292dda18cfa250b61be8e4599993571b90c7fc7d8dc94a2a06343961164bf9",
       "front/docs/service-hierarchy.md": "dd4a37755a264b41827e5882b604235cd1b0b3f937737ae3c05f798c0578baf3",
-      "front/docs/setting.md": "734855c98418279c8bd51684e1337f4122a17f774b2a8b3dd0f1a0b5c1490a51",
+      "front/docs/setting.md": "a7cf046c4fffe5804d3c0cf510c2755dc67d5c4fe1606d4deb90389a45bfafb5",
       "front/docs/third-party-setup.md": "c9fef37f3df29a7f6b25e60d173dac3442dcdc3a54144c36cbd0b3c0cb5b0469",
       "front/docs/ui-migration-plan.md": "e243d526880f884bf698c6cd5c7b3ea32906f3c1dbaea05e98437561900ef4d8",
       "front/docs/withdrawal-security-pass.md": "7e17b17eb95d875175d6185d8fc18691b9397c4fb2c3f1b027191ed918382174",
@@ -664,7 +664,7 @@
       "front/hooks/useCreatorGuard.ts": "b8d31fd9abb450398592243e8b68515e27f1a989f596cb05dc1d23a350d12d78",
       "front/hooks/useResponsive.ts": "383fbfa125fecaac8eae8ab8da69b2506fb9ce7f53396533e6d69d4f6be906be",
       "front/hooks/useWallet.ts": "7e0dcd822fe58bd2c6a3e7aa75a7d05ed2d06346954b84db7cc45c03ea189e61",
-      "front/infra/platform/Dockerfile": "1a659121a5a7a207e854cd943ce59ac1a5cd1c0633ae6169854142e47ecfa9e0",
+      "front/infra/platform/Dockerfile": "19777ae2d12780ee59a9bb010db983140b9339c6e79a233c53e1e70b746dd5e5",
       "front/infra/platform/backup-retention.py": "e7e5ae8a604090dc8a5d966ea7eced7fde961151275edfece17910c4bd290b83",
       "front/infra/platform/deploy-preflight.py": "363ffd665856b7afe1fdffd080b6c43079a6cfe669da44a5df1a282df67801da",
       "front/infra/platform/image-retention.py": "270fee56db7bd1f50d64da199c1d873a5034b5be94c34437cf93c97696c17600",
@@ -736,7 +736,7 @@
       "front/lib/utils/validationUtils.ts": "05324d7c15888649a9477677d3b97bf9934c2ddc87db9126df78b558b75ec878",
       "front/middleware.ts": "0643087b06dc7b5c327e93607e555ccfdcc9e647439f32db75f957b20a6df343",
       "front/next-env.d.ts": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
-      "front/next.config.js": "e8f60fbebed08a4551b60e00b868096f4ce810133ac97b7c2035798facc396ba",
+      "front/next.config.js": "9fe388ae71225ee4ba6f5bba880b82be05b22530748211c05b1a2bce96a1e617",
       "front/package-lock.json": "20afd46fb5fe38cc9a9beda045149b68ce696ecdc59fc5ced2c0a107f76f84d2",
       "front/package.json": "83fd3adcdd4912491852b2cbd0873d29577975da9ad86be717b593d2aedd0c55",
       "front/playwright.advertising.config.ts": "ea4cbd58c53d591136742f04d8d6362df08073ab0fdc2a8b9ef1871498e57a0f",
