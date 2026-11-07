@@ -7,10 +7,11 @@ import {PaymentTerms} from './PaymentTerms';
 import {MembershipCompletePage} from './MembershipCompletePage';
 import {intermediaryNotice} from '@/lib/content/business';
 import s from './membership-checkout.module.css';
+import {MembershipThumb} from './MembershipThumb';
 
 export type MembershipCheckoutOrder={
  id:string;planId?:string;amount:number;status:string;
- snapshot:{name:string;benefits:string[];creatorId?:string;paymentMode?:string;paymentEnvironment?:string;refundWindowDays?:number};
+ snapshot:{name:string;image?:string;benefits:string[];creatorId?:string;paymentMode?:string;paymentEnvironment?:string;refundWindowDays?:number};
 };
 type Props={
  order:MembershipCheckoutOrder|null;error:string;basePath:string;
@@ -18,11 +19,13 @@ type Props={
  busy:boolean;registering:boolean;agreed:boolean;onAgree:(value:boolean)=>void;
  /** The creator selling this membership; the checkout names a generic seller until it is known. */
  sellerName?:string;
+ /** Seller (creator) profile photo for the membership thumbnail badge, when known. */
+ sellerImage?:string;
  onRegister:()=>void;onPay:()=>void;onOneTime:()=>void;
 };
 
 /** Shared checkout presentation; orders, card state and payment actions are supplied by its container. */
-export function MembershipCheckout({order,error,basePath,defaultMethod,canRegister,busy,registering,agreed,onAgree,onRegister,onPay,onOneTime,sellerName}:Props){
+export function MembershipCheckout({order,error,basePath,defaultMethod,canRegister,busy,registering,agreed,onAgree,onRegister,onPay,onOneTime,sellerName,sellerImage}:Props){
  const singleMonth=order?.snapshot.paymentMode==='one-time'&&order.status!=='pending';
  const backHref=order?.snapshot.creatorId?`${basePath}/membership/${encodeURIComponent(order.snapshot.creatorId)}${order.planId?`?plan=${encodeURIComponent(order.planId)}`:''}`:`${basePath}/subscriptions`;
  if(order?.status==='paid')return <MembershipCompletePage basePath={basePath} backHref={backHref} order={order} sellerName={sellerName}/>;
@@ -30,7 +33,7 @@ export function MembershipCheckout({order,error,basePath,defaultMethod,canRegist
   <PageTitle back={<BackButton href={backHref} label="멤버십으로 돌아가기"/>}>멤버십 결제</PageTitle>
   {order&&<>
    <section className={s.product} aria-label="결제 상품">
-    <div className={s.productHeading}><div><p className={s.eyebrow}>{singleMonth?'한 달 이용':'월간 멤버십'}</p><h2>{order.snapshot.name}</h2></div>
+    <div className={s.productHeading}><div className={s.productIdentity}><MembershipThumb image={order.snapshot.image} name={order.snapshot.name} creator={sellerName||sellerImage?{name:sellerName,image:sellerImage}:undefined} size={52}/><div><p className={s.eyebrow}>{singleMonth?'한 달 이용':'월간 멤버십'}</p><h2>{order.snapshot.name}</h2></div></div>
      <div className={s.price} aria-label={`${order.amount.toLocaleString('ko-KR')}원 (VAT 포함)`}><strong>{order.amount.toLocaleString('ko-KR')}<span>원</span></strong><small>{singleMonth?'한 달 이용':'월'} · VAT 포함</small></div>
     </div>
     {order.snapshot.benefits.length>0&&<ul className={s.benefits}>{order.snapshot.benefits.map(benefit=><li key={benefit}><Icon name="check" width={16} height={16}/><span>{benefit}</span></li>)}</ul>}

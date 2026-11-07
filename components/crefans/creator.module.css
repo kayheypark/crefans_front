@@ -126,7 +126,6 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 
 .planList{display:flex;flex-direction:column;gap:8px;margin:0 0 18px}
 .compactPlan{flex-direction:row;align-items:center;gap:10px;padding:10px 12px;border-radius:10px}
-.compactPlan .compactPlanImage{flex:none;width:36px;height:36px;aspect-ratio:1;object-fit:cover;border-radius:50%;margin:0}
 .compactPlanIdentity{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
 .compactPlan h2{display:flex;min-width:0;margin:0;font-size:15px;text-align:left;line-height:1.4}
 .compactPlanActions{display:flex;flex:none;flex-direction:column;align-items:flex-end;gap:4px}
