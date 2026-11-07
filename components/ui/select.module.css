@@ -18,3 +18,5 @@
 @media(prefers-reduced-motion:reduce){.popup,.popup[data-open=false],.chevron,.field .trigger{transition:none}}
 
 .value:has(>[data-marquee]){white-space:normal;text-overflow:clip;overflow:visible}
+
+.trigger .optionImage,.option .optionImage{flex:none;width:20px;height:20px;aspect-ratio:1;object-fit:contain;border-radius:4px;margin:0}

@@ -1,0 +1,114 @@
+{
+  "recordedAt": "2026-11-07T05:00:23.969171+00:00",
+  "repo": "/Users/ethan/repository/crefans_front-checkout-layout",
+  "branch": "feat/category-select-images",
+  "baseCommit": "c7ac3cd12e60409d62ea580dc3e29cf9ac457af7",
+  "state": "feature worktree changes; production not deployed",
+  "environment": {
+    "os": "macOS-15.2-arm64-arm-64bit-Mach-O",
+    "node": "v22.7.0",
+    "browsers": [
+      "Desktop Chromium",
+      "iPhone13 WebKit emulation",
+      "320px Chromium emulation"
+    ]
+  },
+  "criteria": [
+    "generic SelectOption.image, 20px decorative artwork in options and selected single value",
+    "reuse Explore bootstrap.categoryIcons and categoryImageSrc in studio start/settings",
+    "preserve category order and text when absent/null/404",
+    "existing keyboard/multiple/disabled/readOnly; long label/no horizontal overflow"
+  ],
+  "checks": [
+    {
+      "name": "unit",
+      "command": "node --test tests/select-field.test.cjs",
+      "exitCode": 0,
+      "verifiedCount": 10,
+      "log": "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/unit.log",
+      "logSha256": "26835a11c74440e275221d8d9215092941a43a7a17db0bf96071207972a40f72",
+      "logModifiedAt": "2026-11-07T04:55:00.139171+00:00"
+    },
+    {
+      "name": "types",
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "verifiedCount": null,
+      "log": "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/typecheck.log",
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+      "logModifiedAt": "2026-11-07T04:57:33.983033+00:00"
+    },
+    {
+      "name": "layers",
+      "command": "npm run check:layers",
+      "exitCode": 0,
+      "verifiedCount": 434,
+      "log": "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/layers.log",
+      "logSha256": "f0b8f03ff1976da1dade2932589a662ed55d125d6a47bcdc4195635eb82bb586",
+      "logModifiedAt": "2026-11-07T04:55:11.621651+00:00"
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "exitCode": 0,
+      "verifiedCount": null,
+      "log": "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/build.log",
+      "logSha256": "6a50768ba31b5b5f30abbf25396c8352a7f856ff757a9be1805b9d829dac35ff",
+      "logModifiedAt": "2026-11-07T04:56:49.513327+00:00"
+    },
+    {
+      "name": "browser",
+      "command": "npx playwright test --config .local/category-select-images/playwright.config.ts",
+      "exitCode": 0,
+      "verifiedCount": 12,
+      "log": "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/final-browser.log",
+      "logSha256": "8234d10a628cbe447fb31c60ad862c4c7f2732fc83566603019aa2c90e045602",
+      "logModifiedAt": "2026-11-07T04:59:56.049722+00:00"
+    }
+  ],
+  "browserStats": {
+    "startTime": "2026-11-07T04:59:34.930Z",
+    "duration": 21118.617,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "files": {
+    "PROGRESS.md": "0e2d4b3892558d64f8ee58b13ac67bc2ff760f006ff4fec2f03324df574103ce",
+    "components/crefans/CategoryChip.tsx": "1d20cbb8eb7ae61324fc6ea599888853fb833c03acb75a4d82bf4bc7bfd0d639",
+    "components/crefans/studio/OverviewPages.tsx": "bb1e189fd4bca144dffad4d3cdc8eac46197ffa258faba91bc3364903abfb8f1",
+    "components/design-system/FormControlsCatalog.tsx": "1e1c6ee692698e3a07bc92ad1ab54aa2a478f48a6e20aa5627e806318618ad11",
+    "components/service/StudioRouter.tsx": "987344b8772e3086f842b440f668de8b084974267513c2e1097abfb60c95be3f",
+    "components/ui/SelectField.tsx": "5e7dd00d593744e4b1333f8cedf720f1f7b08f5b82cb55b73d4358d837bab474",
+    "components/ui/select.module.css": "238b687606b21619be960e4b16e7e4fe5e19e2d7de8d69e0731635438ac1fcaf",
+    "docs/design-system.md": "3d458a01103141ec0f9eab19d5bebd85308f8984e9b14c0f6f81f1078a5bb8e2",
+    "features/service/useStudioModel.ts": "a0d7a2ee80674990ed79f4d121d0c76d7a502a857e312c96e6dbf8c7cf265b54",
+    "tests/select-field.test.cjs": "fd4f0f41ac2c6d655f1c074936caff7679d3128de6cb3b486462d610bdde12e3",
+    "types/crefans-studio.ts": "fafcd0711bd1e0f27035155d2e19a647269a85a5202f3808af511c0de09b072e",
+    "e2e/category-select-images.spec.ts": "f57f5ae278e45295705ee2da29fc4aa0e8f42fcf4883fb52e8f60ff37919e35d"
+  },
+  "screenshots": [
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-cat-da6c7-work-disabled-and-read-only-desktop/catalog.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-cat-da6c7-work-disabled-and-read-only-iphone-webkit/catalog.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-cat-da6c7-work-disabled-and-read-only-small-chromium/catalog.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-onb-562e8-failed-images-retain-labels-desktop/options.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-onb-562e8-failed-images-retain-labels-iphone-webkit/options.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-onb-562e8-failed-images-retain-labels-small-chromium/options.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-pre-6f55a-es-icons-and-selected-state-desktop/preview-options.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-pre-6f55a-es-icons-and-selected-state-iphone-webkit/preview-options.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-pre-6f55a-es-icons-and-selected-state-small-chromium/preview-options.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-set-24aba-failed-images-retain-labels-desktop/options.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-set-24aba-failed-images-retain-labels-iphone-webkit/options.png",
+    "/Users/ethan/repository/crefans_front-checkout-layout/.local/category-select-images/screens/category-select-images-set-24aba-failed-images-retain-labels-small-chromium/options.png"
+  ],
+  "manualReview": "PC and iPhone screenshots inspected; popup animation completed for final capture",
+  "limitations": [
+    "local API fixtures, no real member or admin mutations",
+    "no production deployment",
+    "iPhone emulation, not physical hardware"
+  ],
+  "resolvedTestIssues": [
+    "catalog initially selected an ambiguous search field; narrowed to image-select search label; final serial run 12/12"
+  ]
+}
