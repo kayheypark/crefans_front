@@ -11,7 +11,6 @@ import {SignupCompletePage} from '@/components/crefans/SignupCompletePage';
 import {BeanWalletPage,BeanHistoryPage,BeanReferralPage} from '@/components/crefans/BeanWalletPages';
 import {ReferralHistoryPage} from '@/components/crefans/ReferralHistoryPage';
 import {BeanPaymentResult} from '@/components/service/BeanPaymentResult';
-import {ServiceGuidePage} from '@/components/crefans/ServiceGuidePage';
 import {Suspense} from 'react';
 import {BeanWithdrawContainer} from './BeanWithdrawContainer';
 import {useRouter,useSearchParams} from 'next/navigation';
@@ -43,7 +42,6 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'checkout':return <CheckoutPage id={id}/>;
   case 'payment':return <PaymentResult success={id==='success'}/>;
   case 'billing':return <BillingResult success={id==='success'}/>;
-  case 'guide':return <ServiceGuidePage audience={id==='creator'?'creator':'fan'} basePath={basePath}/>;
   case 'explore':return <ExplorePage model={model}/>;
   case 'creator':return publicProfile?.isCreator===false?<PublicMemberPage profile={publicProfile} model={model}/>:<CreatorProfilePage model={model} id={publicProfile?.id||id}/>;
   case 'member':return publicProfile?<PublicMemberPage profile={publicProfile} model={model}/>:null;

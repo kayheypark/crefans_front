@@ -27,7 +27,7 @@ export function useMockAccount({viewer,setViewer,setSignedIn,basePath,creators,o
       banner:creators[0]?{src:'/illustrations/redesign/variety/haneul-courtyard-v3.png',alt:`테라스에서 커피를 즐기는 크리에이터 ${creators[0].name}`} : null,
       policies:{terms:'이용약관을 준비하고 있습니다.',privacy:'개인정보 수집 및 이용 안내를 준비하고 있습니다.'},
       agreements:previewAgreements,signupRequirements:{identityRequired:false,inviteOnly:false},guidance:{},
-      route:{profileTab:query.get('tab')==='saved'?'saved':query.get('tab')==='liked'?'liked':null,supportTab:query.get('tab')==='qna'?'qna':'faq',settingsSection:(['account','password','email','notifications','payment','privacy','blocked'] as const).find(section=>section===query.get('section'))||null},
+      route:{profileTab:query.get('tab')==='saved'?'saved':query.get('tab')==='liked'?'liked':null,supportTab:query.get('tab')==='qna'?'qna':query.get('tab')==='history'?'history':'faq',settingsSection:(['account','password','email','notifications','payment','privacy','blocked'] as const).find(section=>section===query.get('section'))||null},
     },
     accountActions:{
       signup:async input=>{if(!validEmail(input.email)||input.password.length<8||!input.nickname.trim()||!input.terms||!input.privacy)return failure('가입 정보를 다시 확인해주세요.');if(!input.emailVerified)return failure('이메일 인증을 먼저 완료해주세요.');if(!input.ageAcknowledged)return failure('만 19세 이상 가입 조건을 확인해주세요.');return success('가입이 완료되었습니다. 로그인해 주세요.');},

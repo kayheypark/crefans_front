@@ -6,7 +6,6 @@ type Profile={id:string;name:string;handle?:string;bio?:string;about?:string;ima
 type PostDetail={post:{id:string;title?:string;body?:string;image?:string;canAccess?:boolean;time?:string};creator:Profile};
 export type ServiceSeo={metadata:Metadata;jsonLd:object[]};
 
-const guides:Record<string,string>={fan:'팬 이용안내',creator:'크리에이터 이용안내'};
 const legal:Record<string,string>={terms:'이용약관',privacy:'개인정보처리방침',policy:'운영정책'};
 const suffix=(text:string)=>`${text} | ${SITE_NAME}`;
 const org={'@type':'Organization','@id':`${SITE_URL}/#organization`,name:SITE_NAME,alternateName:'Crefans',url:SITE_URL,logo:absoluteUrl('/brand/crefans-mark.svg')};
@@ -30,7 +29,6 @@ export async function serviceSeo(screen:string,id:string|undefined,fallbackTitle
   case 'explore':return page(suffix('크리에이터 탐색'),'코스프레·아트·일상 등 다양한 분야의 크리에이터를 찾아보세요. 마음에 드는 크리에이터를 팔로우하고 멤버십으로 응원할 수 있습니다.',{},[site]);
   case 'notices':return page(suffix('공지사항'),'크레팬스 서비스 공지사항입니다.');
   case 'support':return page(suffix('고객센터'),'크레팬스 이용 중 궁금한 점은 자주 묻는 질문과 1:1 문의로 해결하세요.');
-  case 'guide':return page(suffix(guides[id||'']||'이용안내'),`크레팬스 ${guides[id||'']||'이용안내'}입니다. 가입부터 멤버십·콩 후원·출금까지 단계별로 안내합니다.`);
   case 'legal':return page(suffix(legal[id||'']||'서비스 정책'),`크레팬스 ${legal[id||'']||'서비스 정책'} 전문입니다.`);
   case 'events':{const event=id?serviceEvents.find(e=>e.id===id):null;return event?page(suffix(event.title),clip(event.summary)):page(suffix('이벤트'),'크레팬스에서 진행 중인 이벤트를 확인하세요.');}
   case 'creator':case 'membership':{

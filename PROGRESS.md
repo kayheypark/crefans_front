@@ -1,3 +1,7 @@
+## 2026-11-07 고객센터 정리: 이용안내 버튼·운영시간 문구·이용안내 페이지 삭제, 뒤로가기·푸터, 내 문의 내역 전용 화면, 회원 탈퇴 이동 (feat/support-cleanup)
+- 사용자 요청: 고객센터의 팬/크리에이터 이용안내 버튼 줄과 "평일10~18시 · 2영업일" 문구 삭제(같은 내용인 FAQ '문의 답변은 언제 받을 수 있나요?' 항목도 삭제) / `/service/guide/{fan,creator}`·`/preview/guide/*` 페이지 삭제(ServiceGuidePage·라우터·허용 경로·사이트맵·SEO·당김 새로고침 목록·문서에서 제거 → notFound) / 뒤로가기·제목 톤 맞춤(PageTitle back '설정으로 돌아가기') + 하단 ServiceFooter / 내 문의 내역은 문의하기 탭에 진입 줄 하나, 전용 화면 `support?tab=history`(supportTab 'history', 뒤로가기 '문의하기로 돌아가기', 목록·상세 대화상자) / 회원 탈퇴는 설정에서 빼고 고객센터 FAQ 맨 아래 고정 항목 '회원 탈퇴는 어떻게 하나요?' → 같은 안내·확인 대화상자(검색어 없거나 '탈퇴' 검색 때 표시).
+- 검증(2026-11-07): typecheck 0, check:layers 436. crefans-account 19/23(실패 1·3·8·13 기준선 동일), 대조: 화면 코드를 변경 전으로 되돌리면 FAQ·탈퇴 테스트 2건 실패. 브라우저(iPhone13·PC): 설정에 탈퇴 없음, 고객센터 뒤로가기·푸터·FAQ 17개 중 마지막 탈퇴·대화상자 열림·운영시간/이용안내 없음, 문의하기 진입 줄 → /support?tab=history 제목 '내 문의 내역'. e2e beta-policy·withdrawal-guidance·pull-refresh-pages 갱신(미실행). 캡처 .local/support-20261107/.
+
 ## 2026-11-07 스튜디오 게시물 삭제(직접 입력 확인) 모달 버튼을 다른 모달과 같은 Action 으로 (feat/settings-logout-row)
 - 사용자 요청: 게시물 삭제 텍스트 입력 모달도 기존 모달 액션 버튼과 톤앤매너 맞춤. `components/ui/TypedConfirmDialog` 가 ui `Button`(알약 999px·46px) → 서비스 `Action`(secondary 취소·danger 삭제, 8px·44px). 사용처: 스튜디오 게시물 삭제, 디자인 시스템 카탈로그.
 - 검증(2026-11-07): typecheck 0, check:layers 437, typed-confirm-dialog 2/2. 실측(iPhone13): 삭제 모달 취소·삭제 = 8px·44px, 미공개 전환 모달과 취소 버튼 스타일 동일, 문구 입력 전 삭제 버튼 비활성(흐린 빨강). 캡처 .local/delete-modal-20261107/after-delete.png.

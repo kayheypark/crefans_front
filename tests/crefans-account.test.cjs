@@ -60,13 +60,14 @@ function button(tree,label){return tree.root.findAllByType('button').find(item=>
  test('support uses injected FAQs and displays empty results without reinserting examples',()=>{
   const data=model();data.data.faqs=[{question:'주입된 질문 하나',answer:'원하는 서버 응답 내용'}];
   const tree=mount(pages.SupportPage,data);
-  assert.equal(tree.root.findAll(node=>node.props['data-accordion-item']!==undefined).length,1);assert.match(text(tree),/원하는 서버 응답 내용/);
+  // 2026-11-07: 회원 탈퇴 is a fixed last FAQ item, so the injected FAQ plus that one.
+  assert.equal(tree.root.findAll(node=>node.props['data-accordion-item']!==undefined).length,2);assert.match(text(tree),/원하는 서버 응답 내용/);assert.match(text(tree),/회원 탈퇴는 어떻게 하나요/);
   change(tree.root.findByType('input'),'없는 검색어');
   assert.equal(tree.root.findAll(node=>node.props['data-accordion-item']!==undefined).length,0);assert.match(text(tree),/검색 결과가 없어요/);
   change(tree.root.findByType('input'),'');
   const empty={...data,data:{...data.data,faqs:[]}};
   act(()=>tree.update(React.createElement(pages.SupportPage,{model:empty})));
-  assert.equal(tree.root.findAll(node=>node.props['data-accordion-item']!==undefined).length,0);
+  assert.equal(tree.root.findAll(node=>node.props['data-accordion-item']!==undefined).length,1,'only the fixed withdrawal item');
   assert.doesNotMatch(text(tree),/멤버십 구독은 어떻게/);
   act(()=>tree.unmount());
  });
@@ -213,7 +214,7 @@ test('settings categories filter their own items and keep account actions in acc
     ['공개 설정',['개인정보 관리','로그아웃'],[]],
     ['알림과 결제',['알림 설정','결제수단 관리','로그아웃'],['/service/subscriptions']],
     // 2026-11-07: 로그아웃 moved out of 계정 관리 to the very bottom of the settings footer (standalone when the footer is filtered out).
-    ['계정 관리',['차단한 사용자','회원 탈퇴','로그아웃'],[]],
+    ['계정 관리',['차단한 사용자','로그아웃'],[]],
     ['서비스 안내',['로그아웃'],['/service/landing','/service/support','/service/notices','/service/events','/service/legal/terms','/service/legal/privacy','/service/legal/policy','/service/studio','https://guide.crefans.com/','https://www.ftc.go.kr/bizCommPop.do?wrkr_no=3770202940']],
   ];
   for(const [category,buttons,links] of cases){
@@ -332,7 +333,9 @@ test('live signup lets a visitor request a code before signup opens and shows th
 
 test('the withdraw dialog points purchased beans to the wallet refund and shows creator conditions only to creators',()=>{
   for(const [owners,creatorLine] of [[[],false],[['haneul'],true]]){
-    const tree=mount(pages.SettingsPage,{...model(),ownCreatorIds:owners});
+    // 2026-11-07: 회원 탈퇴 moved from 설정 to the last 고객센터 FAQ item.
+    const settings=mount(pages.SettingsPage,{...model(),ownCreatorIds:owners});assert.equal(settings.root.findAllByType('button').some(item=>flat(item).trim()==='회원 탈퇴'),false,'not in settings');act(()=>settings.unmount());
+    const tree=mount(pages.SupportPage,{...model(),ownCreatorIds:owners});
     act(()=>tree.root.findAllByType('button').find(item=>flat(item).trim()==='회원 탈퇴').props.onClick());
     const dialog=tree.root.findByProps({'data-dialog':'회원 탈퇴'}),text=dialog.findAllByType('p').map(flat).join(' ');
     assert.match(text,/남은 충전 콩은 지갑의 충전 내역에서 환불을 신청한 뒤 탈퇴해주세요/);
