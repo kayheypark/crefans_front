@@ -123,14 +123,16 @@ test('membership edits and archiving preserve existing subscriber contract snaps
   probe.close();
 });
 
-test('content deletion is delegated only after the confirmation action',async()=>{
+test('content deletion requires the exact title and passes it to the action',async()=>{
   const probe=fixtureHook(),calls=[];
-  const model={...probe.model,actions:{...probe.model.actions,deleteContent:async id=>{calls.push(id);return {success:true,data:{message:'Deleted by action'},errorMessage:null,errorCode:null};}}};
+  const model={...probe.model,actions:{...probe.model.actions,deleteContent:async(id,confirmation)=>{calls.push([id,confirmation]);return {success:true,data:{message:'Deleted by action'},errorMessage:null,errorCode:null};}}};
   const tree=mount(ContentManagementPage,model);
   assert.equal(calls.length,0);act(()=>button(tree,'삭제').props.onClick());assert.equal(calls.length,0);
   assert.equal(tree.root.findAll(node=>node.props['data-dialog']==='게시물 삭제').length,1);
+  for(const value of ['',initialContent.title+' ', 'Wrong title']){changeMembershipField(tree,'확인 문구',value);assert.equal(button(tree,'삭제하기').props.disabled,true);await act(async()=>button(tree,'삭제하기').props.onClick());assert.equal(calls.length,0);}
+  changeMembershipField(tree,'확인 문구',initialContent.title);assert.equal(button(tree,'삭제하기').props.disabled,false);
   await act(async()=>button(tree,'삭제하기').props.onClick());
-  assert.deepEqual(calls,['draft1']);assert.match(json(tree),/Deleted by action/);
+  assert.deepEqual(calls,[['draft1',initialContent.title]]);assert.match(json(tree),/Deleted by action/);
   act(()=>tree.unmount());probe.close();
 });
 
@@ -353,3 +355,5 @@ test('membership pricing displays the applied creator rate and concise per-payme
  const probe=fixtureHook(),tree=mount(MembershipManagementPage,{...probe.model,creatorTerms:{platformFeeBps:1550}});
  try{act(()=>button(tree,'멤버십 만들기').props.onClick());changeMembershipField(tree,'월 구독료 (원)','10000');assert.match(json(tree),/나의 공제율: 15.5% · 예상 수익: 8,450원/);assert.doesNotMatch(json(tree),/원천징수/);changeMembershipField(tree,'월 구독료 (원)','20000');assert.match(json(tree),/예상 수익: 16,900원/);}finally{act(()=>tree.unmount());probe.close();}
 });
+
+ test('preview deletion also rejects an incorrect confirmation without removing the post',async()=>{const probe=fixtureHook();try{let result;await act(async()=>{result=await probe.model.actions.deleteContent(initialContent.id,'wrong');});assert.equal(result.success,false);assert.equal(probe.model.contents.length,1);await act(async()=>{result=await probe.model.actions.deleteContent(initialContent.id,initialContent.title);});assert.equal(result.success,true);assert.equal(probe.model.contents.length,0);}finally{probe.close();}});
