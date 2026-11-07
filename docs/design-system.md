@@ -11,6 +11,11 @@
 - 공용 [GuardPage](../components/crefans/GuardPage.tsx)는 가입 완료 화면과 같은 가운데 정렬 안내 페이지다(88px 파란 원형 체크, 제목 초기 포커스, 설명, 48px 주 버튼, 선택 보조 버튼). 이미지·문구·링크는 props로 주입하고 `image`가 없으면 체크를 표시한다. [SignupCompletePage](../components/crefans/SignupCompletePage.tsx)도 같은 컴포넌트를 사용하며 동작(같은 탭 가입 후에만 표시)은 그대로다. 스타일은 기존 `signup-complete.module.css`를 공유한다(멤버십 가입 완료의 체크도 이 파일 사용).
 - `CreatorGuardPage`: 크리에이터 미전환(`overview.started=false`) 회원이 `/service/studio/*`(start 제외)에 들어오면 시작하기 화면으로 바로 보내지 않고 팬 셸 안에 이 가드를 보여 준다. 주 버튼 크리에이터 시작하기(`/studio/start`), 보조 버튼 팬 화면으로. 비로그인 안내·크리에이터 스튜디오는 기존대로다. 그림 교체 지점은 같은 파일의 `creatorGuardImage` 상수(현재 미설정 → 체크).
 - 확인: `/preview/studio/guard`, 상태·피드백 카탈로그의 **크리에이터 전환 안내 보기**. [단위 검사](../tests/creator-guard.test.cjs), [브라우저 검사](../e2e/creator-guard.spec.ts)(API 대역·목업, PC/Pixel 7).
+### 빈 상태 그림 (2026-11-07, 미배포)
+
+- 데이터가 없는 목록·표·이력·소개는 공용 [Empty](../components/crefans/ServiceUI.tsx)(카탈로그는 [EmptyState](../components/ui/Primitives.tsx), 빈 [DataTable](../components/ui/DataTable.tsx) 포함)를 사용한다. 세 컴포넌트 모두 운영 콘솔 `EmptyState`의 회색 접힌 문서 그림을 복사한 [에셋](../public/brand/empty/empty-page-v1.svg)(36×44, 출처·해시 `empty-page-v1.source.json`)을 [EmptyIllustration](../components/ui/EmptyIllustration.tsx)으로 문구 위에 표시한다. 장식 그림이라 `alt=""`·`aria-hidden`이고 콘솔 저장소를 런타임에 참조하지 않는다. 문구·설명·동작 props는 그대로다.
+- 그림은 "데이터 없음"만 뜻한다. 같은 레이아웃을 쓰는 조회 오류(`ApiState`)·찾을 수 없음·이용 불가·비공개·사전 조건 안내는 `illustration={false}`로 그림을 생략하며, 로딩 중에는 빈 상태를 표시하지 않는 기존 규칙을 유지한다. 선택창 검색 결과 없음과 입력 필드 도움말은 화면 단위 빈 상태가 아니어서 제외한다.
+- 서비스 UI 카탈로그 [ServicePatternCatalog](../components/design-system/ServicePatternCatalog.tsx)에 설명·동작 포함/제목만/그림 없는 안내 상태를 등록했다. 단위 검사: [tests/empty-state-asset.test.cjs](../tests/empty-state-asset.test.cjs).
 
 ### 모바일 스튜디오 게시물 통합 카드 (2026-11-07)
 

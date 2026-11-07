@@ -20,7 +20,7 @@ export function EventsPage({events,basePath}:{events:readonly ServiceEvent[];bas
 
 export function EventDetailPage({event,basePath,claim,badge}:{event:ServiceEvent|undefined;basePath:string;claim?:PromotionClaimModel;badge?:FoundingBadgeModel}){
  const back=<BackButton href={`${basePath}/events`} label="이벤트 목록으로"/>;
- if(!event)return <section className={s.page}>{back}<Empty title="이벤트를 찾을 수 없습니다"/></section>;
+ if(!event)return <section className={s.page}>{back}<Empty title="이벤트를 찾을 수 없습니다" illustration={false}/></section>;
  return <article className={s.page}>
   <PageTitle back={back}>{event.title}</PageTitle>
   <section className={s.campaign} aria-label="이벤트 참여 혜택">
