@@ -1,6 +1,8 @@
 'use client';
 import {useRef,useState,type ReactNode} from 'react';
-import {Button,Dialog,Field} from '@/components/ui/Primitives';
+import {Dialog,Field} from '@/components/ui/Primitives';
+// 2026-11-07: same action buttons as the other studio/service dialogs (8px radius, 44px), not the pill-shaped ui Button.
+import {Action} from '@/components/crefans/ServiceUI';
 import {DialogActions} from './DialogActions';
 import s from './typed-confirm-dialog.module.css';
 
@@ -23,6 +25,6 @@ function Confirmation({title,phrase,actionLabel,busyLabel='처리 중…',busy=f
   <p className={s.prompt}>계속하려면 아래 문구를 그대로 입력하세요.<strong>{phrase}</strong></p>
   <Field label="확인 문구" value={typed} onChange={event=>setTyped(event.target.value)} disabled={blocked} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false} hint="띄어쓰기까지 정확히 같아야 버튼이 켜집니다."/>
   {error&&<p className={s.error} role="alert">{error}</p>}
-  <DialogActions><Button type="button" tone="secondary" disabled={blocked} onClick={cancel}>취소</Button><Button type="button" tone="danger" disabled={blocked||!matched} onClick={confirm}>{blocked?busyLabel:actionLabel}</Button></DialogActions>
+  <DialogActions><Action type="button" variant="secondary" disabled={blocked} onClick={cancel}>취소</Action><Action type="button" variant="danger" disabled={blocked||!matched} onClick={confirm}>{blocked?busyLabel:actionLabel}</Action></DialogActions>
  </div></Dialog>;
 }
