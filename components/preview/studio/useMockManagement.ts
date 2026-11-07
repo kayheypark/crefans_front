@@ -36,11 +36,14 @@ export function useMockManagement({getProtectedPlanIds=()=>[],initialContents=ma
       if(input.status==='scheduled'&&(!input.scheduledAt||!Number.isFinite(Date.parse(input.scheduledAt))||Date.parse(input.scheduledAt)<=Date.parse(managementNow)))return fail('예약 시각을 현재보다 미래로 선택해주세요.');
       if(input.accessLevel!=null&&(!Number.isSafeInteger(input.accessLevel)||input.accessLevel<1||input.accessLevel>100||input.accessPlanId))return fail('공개할 최소 레벨을 확인해주세요.');
       const id=input.id||crypto.randomUUID();
-      const next:StudioContent={...input,id,title:input.title.trim(),body:input.body.trim(),media,scheduledAt:input.status==='scheduled'?input.scheduledAt:null,updatedAt:managementNow};
+      // Saving never changes visibility; that is its own switch (setContentPublic).
+      const unpublished=contents.find(item=>item.id===input.id)?.unpublished;
+      const next:StudioContent={...input,...(unpublished?{unpublished}:{}),id,title:input.title.trim(),body:input.body.trim(),media,scheduledAt:input.status==='scheduled'?input.scheduledAt:null,updatedAt:managementNow};
       media.forEach(item=>images.retain(item.url));
       setContents(previous=>input.id?previous.map(item=>item.id===id?next:item):[next,...previous]);
       return ok({id,message:input.status==='draft'?'임시저장되었습니다.':input.status==='scheduled'?'게시 예약이 설정되었습니다.':'게시되었습니다.'});
     },
+    setContentPublic:async(id,isPublic)=>{const current=contents.find(item=>item.id===id);if(!current)return fail('게시물을 찾을 수 없습니다.');if(!current.unpublished===isPublic)return ok({message:isPublic?'이미 공개된 게시물입니다.':'이미 미공개인 게시물입니다.'});setContents(previous=>previous.map(item=>item.id===id?{...item,unpublished:!isPublic||undefined}:item));return ok({message:isPublic?(current.hiddenByOperator?'공개로 바꿨지만 운영 정책에 따라 숨겨진 게시물이라 아직 다른 회원에게 보이지 않습니다.':'게시물을 다시 공개했습니다.'):'게시물을 미공개로 바꿨습니다. 작성자에게만 보입니다.'});},
     deleteContent:async(id,confirmation)=>{const current=contents.find(item=>item.id===id);if(!current)return fail('게시물을 찾을 수 없습니다.');if(confirmation!==current.title)return fail('게시물 제목을 정확히 입력해주세요.');setContents(previous=>previous.filter(item=>item.id!==id));return ok({message:'게시물이 삭제되었습니다.'});},
     saveMembership:async input=>{
       if(input.id&&(!memberships.some(item=>item.id===input.id)||deletedIds.includes(input.id)))return fail('멤버십을 찾을 수 없습니다.');

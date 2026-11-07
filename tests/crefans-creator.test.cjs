@@ -178,6 +178,10 @@ test('mock membership and receipt pages omit repeated preview notices while reta
  act(()=>receipt.props.onClick());
  assert.equal(tree.root.findByProps({role:'dialog'}).props['aria-label'],'결제 상세');
  assert.match(text(tree),/₩27,500/);assert.doesNotMatch(text(tree),/목업|미리보기|체험|샘플|실제 결제/);
+ // 2026-11-07: the receipt names the seller and carries the intermediary notice in the dialog's one type size (시행규칙 제11조의2).
+ const dialog=tree.root.findByProps({role:'dialog'}),seller=dialog.findAllByType('dt').find(n=>flatten(n.children)==='판매자');
+ assert.ok(seller,'seller row');const notice=dialog.findAllByType('p').find(n=>flatten(n.children)==='크레팬스는 크리에이터 멤버십 거래의 통신판매중개자로 거래 당사자가 아니며, 멤버십의 판매자는 각 크리에이터입니다. 콩은 크레팬스가 직접 판매합니다.');
+ assert.ok(notice,'intermediary notice');assert.ok(!notice.props.className&&!notice.props.style,'notice inherits .dialogContent font size like the seller row');
  act(()=>tree.unmount());
 });
 

@@ -7,4 +7,4 @@
 - 정적 검사/단위: `npm run check`.
 - 문서 검증: `npm run check:docs`. 형제 백엔드가 필요하며 다른 위치면 `CREFANS_SERVER_DIR` 지정.
 - 브라우저 검사: `npm run test:e2e`. 전용 로컬 MySQL과 Chromium 준비는 [서비스 바인딩](./service-api-binding.md) 참조.
-- 운영 빌드: dev와 별도 checkout에서 `npm run build`, 이후 `npm run start`. 이것만으로 백엔드·TLS·운영 공급사 검증이 완료되지 않는다.
+- 운영 빌드: dev와 별도 checkout에서 `npm run build`, 이후 `npm run start`(로컬 확인용). 운영 이미지는 `output:'standalone'` 결과(`.next/standalone`+`.next/static`+`public`)를 `node server.js`로 실행한다(`infra/platform/Dockerfile`, BUILDPLATFORM 빌드 단계·대상 플랫폼 런타임, sharp는 대상 아키텍처 바이너리로 교체). 맥 빌드→SSH 전송→교체 초안은 `infra/platform/ship-image.sh`이며 첫 운영 적용 전 사용자 승인이 필요하다. 이것만으로 백엔드·TLS·운영 공급사 검증이 완료되지 않는다.
