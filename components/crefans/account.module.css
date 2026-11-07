@@ -78,3 +78,6 @@
 .logoutSection{position:relative;margin-top:16px;padding-top:16px}.logoutSection::before{content:"";position:absolute;inset:0 -16px auto;height:8px;box-sizing:border-box;background:var(--cf-landing-soft);pointer-events:none}
 .logoutSection .danger{color:var(--cf-color-danger)}.logoutSection button.danger:not(:disabled):hover{background:var(--cf-color-dangerSoft);color:var(--cf-color-danger)}
 .settingsLogout{margin-top:16px}
+
+/* 2026-11-07: 고객센터 문의하기 탭의 내 문의 내역 진입 줄 */
+.historyEntry{margin-top:24px}

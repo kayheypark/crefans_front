@@ -11,7 +11,7 @@ const editable='input,textarea,select,[contenteditable]:not([contenteditable="fa
 export function isPullRefreshPage(routeKey:string){
   const [screen,detail]=routeKey.split('/');
   if(screen==='beans')return !detail||['charges','history','tips','referral','referral-history'].includes(detail);
-  return ['feed','explore','me','creator','member','post','messages','notifications','subscriptions','settings','support','following','followers','payment-methods','notices','events','legal','guide','screens'].includes(screen);
+  return ['feed','explore','me','creator','member','post','messages','notifications','subscriptions','settings','support','following','followers','payment-methods','notices','events','legal','screens'].includes(screen);
 }
 
 /** The mobile shell scrolls internally, so browser-level pull-to-refresh cannot reach it. */

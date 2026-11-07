@@ -115,7 +115,6 @@
 
 가입·로그인: `/preview/signup`(임시 이메일 가입 모드: 이메일 인증·만19세 이상 확인·필수 동의 후 가입, PASS 숨김; `/service`는 서버 signupRequirements에 따라 PASS 필수/이메일 모드 전환), `/preview/login`. 두 화면 모두 일반 헤더를 쓴다. 회원가입에는 이탈 유도 링크를 두지 않고, 로그인에만 하단의 원형 뒤로가기 아이콘 버튼이 있으며 메인 소개 페이지로 이동한다. 인증 코드는 10분 유효, 재전송 3분 쿨다운.
 인증: `/preview/reset-password`(별도 이메일 인증 화면은 없다. 이메일 인증은 회원가입 안에서만 진행). 코드 `123456`은 화면에 공개한 검수용 코드이며 실제 보안 기능이 아니다.
-공통 이용안내: `/preview/guide/fan`과 `/preview/guide/creator`는 팬/크리에이터 베타 안내이며 `/service/guide/fan`·`/service/guide/creator`와 같은 ServiceGuidePage를 사용한다. 고객센터에 진입 링크가 있고 정책 FAQ는 lib/crefans/support.ts를 두 데이터 어댑터가 공유한다.
 
 지원: `/preview/support`의 FAQ와 `?tab=qna`의 개인 문의 등록·목록·상세. 문의 등록 영역과 내 문의 내역 제목 사이32px 여백을 목업/실서비스 공통으로 유지한다.
 안내: `/preview/notices`와 `/preview/notices/welcome`.
