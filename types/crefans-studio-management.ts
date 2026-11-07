@@ -24,7 +24,7 @@ export type StudioManagementModel={
   creatorTerms?:CreatorTerms|null;
   actions:{
     saveContent:(input:ContentInput)=>Promise<ApiResult<{id:string;message:string}>>;
-    deleteContent:(id:string)=>Promise<ApiResult<{message:string}>>;
+    deleteContent:(id:string,confirmation:string)=>Promise<ApiResult<{message:string}>>;
     saveMembership:(input:MembershipInput)=>Promise<ApiResult<{id:string;message:string}>>;
     deleteMembership:(id:string,confirmation:string)=>Promise<ApiResult<{message:string}>>;
     uploadMembershipImage:(file:File)=>Promise<ApiResult<{image:string}>>;
