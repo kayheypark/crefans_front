@@ -6,6 +6,13 @@
 
 ## 현재 사용 안내
 
+### 모바일 스튜디오 게시물 통합 카드 (2026-11-07)
+
+- [ContentManagementPage](../components/crefans/studio/ManagementPages.tsx)는 767px 이하에서 통합 카드, PC에서는 기존 표를 사용한다. 같은 서비스·목업 모델과 미리보기·수정·삭제 동선을 재사용한다. [카드 스타일](../components/crefans/studio/content-list.module.css)은 흰 배경·가는 테두리, 밑줄 활성 탭, 썸네일·상태·공개 범위·일시·하단 세 관리 동작을 한 카드에 묶는다.
+- 현재 페이지 첫 카드를 펼쳐 표시하고 제목 클릭·Enter/Space로 접는다. 검색·상태·정렬·페이지가 바뀌면 새 목록의 첫 카드가 펼쳐진다. 삭제는 기존 확인 모달을 거치며 실패하면 목록을 유지한다. 영상 처리·운영 숨김·댓글 닫힘 상태를 생략하지 않는다. 일시는 한국 시간이며 예약 글은 게시 예정 시각을 표시한다.
+- 공통 [DataTable](../components/ui/DataTable.tsx)의 안정 정렬 함수를 카드도 사용한다. 기본순은 서버 주입 순서이며, 정렬 후 페이지를 나눈다. 모바일 선택창은 기존 SelectField를 사용한다. PC 정렬 순환·페이지 규칙은 변경하지 않는다.
+- [카탈로그](../components/design-system/StudioContentCatalog.tsx)에 일반·빈 목록·긴 제목·영상 처리·삭제 실패/처리 중 상태를 등록한다. [브라우저 검사](../e2e/studio-content-cards.spec.ts)는 PC·iPhone WebKit·320px, 목업 및 서비스 API 대역이다. 실제 회원 게시물을 변경하거나 실물 iPhone을 검사한 것으로 해석하지 않는다.
+
 ### 콘텐츠 성과 상세 펼침 (2026-11-06)
 
 - 공용 [ContentPerformance](../components/crefans/studio/ContentPerformance.tsx)를 실제 스튜디오·목업 통계 요약에서 사용한다. 첫 게시물은 펼치고 나머지는 접으며, 제목·썸네일·조회는 항상 표시한다. 조회는 주입된 값 그대로 표시하고 피드·상세를 합산하지 않는다.

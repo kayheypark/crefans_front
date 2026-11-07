@@ -1,11 +1,11 @@
 import {test,expect,type Page} from '@playwright/test';
 
 const section=(page:Page)=>page.getByRole('region',{name:'콘텐츠 성과',exact:true});
-async function noOverflow(page:Page){expect(await section(page).evaluate(root=>[root,...root.querySelectorAll('*')].filter(el=>el instanceof HTMLElement&&el.clientWidth>0).every(el=>el.scrollWidth<=el.clientWidth+1))).toBe(true);}
+async function noOverflow(page:Page){expect(await section(page).evaluate(root=>[root,...Array.from(root.querySelectorAll('*'))].filter(el=>el instanceof HTMLElement&&el.clientWidth>0).every(el=>el.scrollWidth<=el.clientWidth+1))).toBe(true);}
 async function connectedGrid(page:Page){
  const dl=section(page).locator('dl[aria-label="열람 통계"]').first();
  const result=await dl.evaluate(el=>{
-  const cells=[...el.children].map(x=>x.getBoundingClientRect()),style=getComputedStyle(el),blank=getComputedStyle(el,'::after');
+  const cells=Array.from(el.children).map(x=>x.getBoundingClientRect()),style=getComputedStyle(el),blank=getComputedStyle(el,'::after');
   return {columns:style.gridTemplateColumns.split(' ').length,gap:style.gap,blank:blank.content,horizontal:cells[3].top-cells[0].bottom,vertical:cells[1].left-cells[0].right,aligned:cells[3].left===cells[0].left&&cells[4].left===cells[1].left,bg:style.backgroundColor,fill:getComputedStyle(el.children[0]).backgroundColor};
  });
  expect(result.columns).toBe(3);expect(result.gap).toBe('1px');expect(result.blank).toBe('""');expect(result.horizontal).toBeCloseTo(1,1);expect(result.vertical).toBeCloseTo(1,1);expect(result.aligned).toBe(true);expect(result.bg).not.toBe(result.fill);

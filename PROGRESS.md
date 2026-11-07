@@ -1,3 +1,10 @@
+## 2026-11-07 모바일 스튜디오 게시물 통합 카드 구현·배포 준비
+- 사용자 채택: 폴리싱 02 통합 카드형. 최신 origin/prod 6421103에서 feat/studio-posts-mobile-cards 생성, 기존 접기 제거 be07365를 32f24f0으로 적용. PC 표 유지, 모바일 밑줄 탭·검색·정렬·첫 항목 펼침·공개 범위/수정일 또는 예약일·미리보기/수정/삭제를 통합 카드로 표시.
+- 합격 기준: 390/320px 가로 넘침 없음·PC 표 유지, 실제 주입 데이터/상태/권한 안내 유지, 키보드 및 터치 토글·검색·정렬/페이지·미리보기·삭제 확인/실패/중복 요청 차단. API·DB 변경 없음. 공용 카탈로그 및 디자인 문서 갱신.
+- 검증 진행: 로컬 브라우저 PC/iPhone WebKit/320px 24/24, 표 회귀 6/6·layers 통과. 날짜를 간결하게 정리한 최종 production build·typecheck·layers 및 브라우저 24/24 재검증 통과. 초기 독립 typecheck에서 기존 콘텐츠 성과 E2E NodeList 반복 오류2건을 Array.from으로 수정, 재검사 종료0.
+- 배포 공간 사전 검사에서 6.9GiB로 중단. 24시간 이전 캐시는 0B, 이후 미사용 빌드 캐시를 최근2GB 보존 방식으로 3.981GB 정리하여 10.0GiB 확보. 활성 이미지·DB·설정·업로드 보존. 복구는 맥북 /Users/ethan/crefans-recovery/20261107/studio-posts-mobile, 운영 소스553파일 기준 prod와 일치.
+- 증거 .local/studio-posts-mobile-release. dev/prod 통합·운영 배포는 아직 미실행. AGENTS.md 기존 규약 유지.
+
 ## 2026-11-07 콘텐츠 성과 하단 접기 버튼 삭제 (검증 완료·운영 미배포)
 - 사용자 요청: 항목 하단 접기 버튼만 제거. 제목 영역 클릭·Enter/Space의 펼침/접기, 첫 항목 초기 펼침, 통계 데이터/연결 격자 유지.
 - 최신 origin/prod 6421103에서 fix/content-performance-remove-collapse 분기. 공용 ContentPerformance의 하단 버튼과 불필요해진 ref·전용 CSS 제거, 기존 브라우저 검사의 접기 동선을 제목으로 변경. 서비스·목업·카탈로그에 공통 적용.
