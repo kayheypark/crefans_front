@@ -72,14 +72,6 @@
 .plan li svg{flex:none;margin-top:2px}
 .plan button{width:100%;padding-inline:8px}
 .recommended{position:absolute;top:-11px;right:12px;background:var(--cf-service-brand);border-radius:12px;padding:4px 10px;color:var(--cf-color-onAccent);font-size:max(11px,var(--cf-mobile-font-min,0px));font-weight:600}
-.selectionSummary{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 16px;background:var(--cf-landing-soft);border-radius:7px;font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.6}
-.selectionSummary>span{font-size:max(12px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted)}
-.beforeSubscribe{background:var(--cf-landing-soft);margin:32px -24px 22px;padding:26px 24px}
-.beforeSubscribe h2{text-align:center;font-size:18px;margin:0 0 24px}
-.benefitGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}
-.benefitGrid>div>svg{width:44px;height:44px;padding:11px;background:var(--cf-service-brand-soft);color:var(--cf-service-brand);border-radius:50%}
-.benefitGrid h3{font-size:max(13px,var(--cf-mobile-font-min,0px));margin:12px 0 6px}
-.benefitGrid p{font-size:max(12px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted);line-height:1.6;margin:0;word-break:keep-all}
 .dialogContent{display:flex;flex-direction:column;gap:17px;font-size:14px;line-height:1.7}
 .dialogContent p{margin:0}
 .dialogCreator{display:flex;align-items:center;gap:12px}
@@ -116,8 +108,8 @@
 .receiptRow>span:last-child{text-align:right}
 .receiptRow>span:last-child small{justify-content:flex-end}
 .tabs button:focus-visible,.receiptRow:focus-visible,.portraitLink:focus-visible,.postTile:focus-visible{outline:2px solid var(--cf-service-brand);outline-offset:3px}
-@media(max-width:700px){.explore,.membership,.subscriptions{padding:0 0 36px}.creatorGrid{gap:10px}.creatorInfo{padding:10px 8px}.creatorName{font-size:15px}.creatorInfo>p{font-size:max(11px,var(--cf-mobile-font-min,0px));min-height:53px;margin:12px 0 10px}.creatorInfo>button{font-size:max(11px,var(--cf-mobile-font-min,0px));padding-inline:2px;gap:2px}.cover{height:215px;margin-inline:-16px;width:auto}.coverAction{right:12px;bottom:12px}.profileIntro{padding-inline:0}.profilePlans{padding-inline:0}.profile>.tabs{margin-inline:0}.postGrid{padding-inline:0}.profileFeed{padding-inline:0}.planGrid{gap:9px}.plan{padding:23px 10px 12px}.plan h2{font-size:15px}.price strong{font-size:22px}.planDescription,.plan li{font-size:max(11px,var(--cf-mobile-font-min,0px))}.plan button{font-size:max(11px,var(--cf-mobile-font-min,0px));padding-inline:5px}.benefitGrid{gap:12px}.subscriptionCard{padding:13px}.subscriptionIdentity{gap:9px}}
-@media(max-width:430px){.creatorGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.creatorInfo>p{min-height:35px}.planGrid{grid-template-columns:1fr;gap:22px}.plan{padding:22px 20px 18px}.plan h2{font-size:18px}.planDescription{min-height:0;font-size:max(12px,var(--cf-mobile-font-min,0px))}.price{margin:15px 0}.price strong{font-size:27px}.plan ul{margin-bottom:12px}.plan li{font-size:max(12px,var(--cf-mobile-font-min,0px))}.plan button{font-size:max(13px,var(--cf-mobile-font-min,0px))}.membershipHeading h1{font-size:23px}.benefitGrid p{font-size:max(11px,var(--cf-mobile-font-min,0px))}.subscriptionCard{align-items:flex-start}.subscriptionIdentity h3{font-size:max(12px,var(--cf-mobile-font-min,0px))}.subscriptionIdentity p{font-size:max(12px,var(--cf-mobile-font-min,0px))}.subscriptionIdentity>div>span{font-size:max(10px,var(--cf-mobile-font-min,0px))}.subscriptionIdentity>[data-avatar]{--avatar-size-override:42px}.subscriptionEnd button{font-size:max(11px,var(--cf-mobile-font-min,0px));padding-inline:8px}}
+@media(max-width:700px){.explore,.membership,.subscriptions{padding:0 0 36px}.creatorGrid{gap:10px}.creatorInfo{padding:10px 8px}.creatorName{font-size:15px}.creatorInfo>p{font-size:max(11px,var(--cf-mobile-font-min,0px));min-height:53px;margin:12px 0 10px}.creatorInfo>button{font-size:max(11px,var(--cf-mobile-font-min,0px));padding-inline:2px;gap:2px}.cover{height:215px;margin-inline:-16px;width:auto}.coverAction{right:12px;bottom:12px}.profileIntro{padding-inline:0}.profilePlans{padding-inline:0}.profile>.tabs{margin-inline:0}.postGrid{padding-inline:0}.profileFeed{padding-inline:0}.planGrid{gap:9px}.plan{padding:23px 10px 12px}.plan h2{font-size:15px}.price strong{font-size:22px}.planDescription,.plan li{font-size:max(11px,var(--cf-mobile-font-min,0px))}.plan button{font-size:max(11px,var(--cf-mobile-font-min,0px));padding-inline:5px}.subscriptionCard{padding:13px}.subscriptionIdentity{gap:9px}}
+@media(max-width:430px){.creatorGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.creatorInfo>p{min-height:35px}.planGrid{grid-template-columns:1fr;gap:22px}.plan{padding:22px 20px 18px}.plan h2{font-size:18px}.planDescription{min-height:0;font-size:max(12px,var(--cf-mobile-font-min,0px))}.price{margin:15px 0}.price strong{font-size:27px}.plan ul{margin-bottom:12px}.plan li{font-size:max(12px,var(--cf-mobile-font-min,0px))}.plan button{font-size:max(13px,var(--cf-mobile-font-min,0px))}.membershipHeading h1{font-size:23px}.subscriptionCard{align-items:flex-start}.subscriptionIdentity h3{font-size:max(12px,var(--cf-mobile-font-min,0px))}.subscriptionIdentity p{font-size:max(12px,var(--cf-mobile-font-min,0px))}.subscriptionIdentity>div>span{font-size:max(10px,var(--cf-mobile-font-min,0px))}.subscriptionIdentity>[data-avatar]{--avatar-size-override:42px}.subscriptionEnd button{font-size:max(11px,var(--cf-mobile-font-min,0px));padding-inline:8px}}
 @media(prefers-reduced-motion:reduce){.portraitLink img{transition:none}}
 
 .tabs button:not([aria-pressed=true]):not(:disabled):hover{color:var(--cf-color-text)}
@@ -147,7 +139,6 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 
 .billingIssue{flex-basis:100%;font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.65;color:var(--cf-color-textMuted);padding-top:12px}.billingIssue p{margin:0 0 8px}.subscriptionCard:has(.billingIssue){flex-wrap:wrap}
 
-@media(max-width:767px){.beforeSubscribe{margin-inline:-16px;padding-inline:16px}}
 
 .coverPhoto,.avatarPhoto{display:block;padding:0;border:0;background:none;cursor:zoom-in;color:inherit;font:inherit}
 .coverPhoto{width:100%;height:100%}.avatarPhoto{border-radius:50%}
@@ -157,7 +148,6 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 /* Allow shared marquee labels to shrink without moving avatars, prices or actions. */
 .identity>div:last-child,.dialogCreator>div,.subscriptionIdentity>div{min-width:0;flex:1}
 .membershipCreator>strong{min-width:0;max-width:calc(100% - 60px)}
-.selectionSummary>strong{display:flex;align-items:center;gap:12px;min-width:0;max-width:100%;flex:1}
 .planLevel,.compactPlan .recommended,.compactPlan .price{flex:none;white-space:nowrap}
 .compactPlan h2>[data-marquee]{flex:1}
 .summaryRows dt{flex:none}.summaryRows dd{min-width:0}

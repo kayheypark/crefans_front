@@ -73,3 +73,6 @@
 .handleStatus{margin:0;font-size:max(12px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted);line-height:1.5}
 .handleStatus[data-state=available]{color:var(--cf-color-accent)}
 .handleStatus[data-state=unavailable],.handleStatus[data-state=error]{color:var(--cf-color-danger)}
+
+.footerLogout{min-height:44px;padding:0 16px;border:0;background:transparent;color:var(--cf-color-danger);font-size:max(13px,var(--cf-mobile-font-min,0px));font-weight:600;cursor:pointer}.footerLogout:disabled{opacity:.5;cursor:not-allowed}
+.settingsLogout{display:flex;justify-content:center;margin-top:24px;padding-top:12px;border-top:1px solid var(--cf-landing-line)}
