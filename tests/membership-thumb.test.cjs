@@ -28,3 +28,12 @@ test('a photo that fails to load (e.g. a retired plan file) falls back to the cr
  assert.equal(tree.root.findByProps({'data-membership-thumb':'creator'}).props['data-membership-thumb'],'creator');
  assert.deepEqual(imgs(tree),['/creator.png']);
 });
+test('cover variant (membership join page) keeps the photo + creator badge rule at full width',()=>{
+ const tree=render({image:'/plan.png',name:'맛집 탐험',creator,cover:true});
+ const root=tree.root.findByProps({'data-membership-thumb':'photo'});
+ assert.equal(root.props['data-membership-cover'],true);
+ assert.deepEqual(imgs(tree),['/plan.png','/creator.png']);
+ const none=render({image:undefined,name:'찐팬 클럽',creator,cover:true});
+ assert.equal(none.root.findByProps({'data-membership-thumb':'creator'}).props['data-membership-cover'],true);
+ assert.deepEqual(imgs(none),['/creator.png']);
+});
