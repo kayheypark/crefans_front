@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-07T00:29:42.551642+00:00",
+  "checkedAt": "2026-11-07T00:39:49.506495+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "079152d146a60a5603a9fec190a125fa18c8c408",
-      "branch": "feat/studio-post-card-confirm",
+      "head": "ae908b000683d4d9dfeff1df820bba7b64d6841a",
+      "branch": "feat/studio-post-confirm-deployment-docs",
       "dirty": true
     },
     "server": {
-      "head": "6a36c191f54d6fa90a5d112da4b16c07917edb2b",
-      "branch": "feat/studio-post-delete-confirm",
-      "dirty": true
+      "head": "cfdfffb1e9e38f43d0c2658877b1889972f9293d",
+      "branch": "release/studio-post-confirm-docs-prod",
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "9e942044fc0aadcb0340d2afbd6d9325d4c397fab06131f9e82ff3081674809e",
-      "front/PROGRESS.md": "5e31354d87ecdde4b294c844748b0ea12778cdb9416e544b5dae1b18829d74e7",
+      "front/PROGRESS.md": "92ef00841b0bbecc40cef030fad0f5cd0183fcc46107e2a102a30110d01c6130",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "a59e03e6353c302826b7bb7c12c0ae8cfb09b15a297cd8ea57416cb6bac7b001",
-      "server/PROGRESS.md": "90ec6dbc81bdcaa6e1992f4a9b32c656d23b49fad1d6c6ab60267f484eecceb0",
+      "server/PROGRESS.md": "a906020d314882842117d2d23d93458e7ea853db26ec367b991b939078635ae6",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/api-endpoints.md": "f45826fba02333a77027c090cd9781997748f627864d1366268b8900764ebb8e",
@@ -914,6 +914,7 @@
       "server/docs/promotion-event-claim-20261103.json": "d6ddbcab609c16a3bcae775a2a105d4fd6ce1e2460ae64e991db2391fd0269ea",
       "server/docs/reserved-handles-20261103.json": "9e7240882a11a5a2d4ee528899ebb1f4b3433cb0abbde0cf70816a79763a6e0f",
       "server/docs/shared-short-bio-verification-20261103.json": "5dcabb64511f406803733f76641c768ecc5a6ad7bba42fce7c259a1880587e3d",
+      "server/docs/studio-post-confirm-deployment-20261107.json": "100fbc75ceff0b2debbd74a472dac0e4042e43d27b7c0c9acd7573dfa00a24d8",
       "server/docs/swagger-20261023.json": "f9546d21a4c93e6b06ceb1593c1a7ce70cc3b9b33e639892dfaf397b642beaa3",
       "server/docs/swagger-split-20261023.json": "614edde8b37193be66c738231c2f10a2cf155a193119cfb5740a1c7f1be11735",
       "server/docs/swagger-three-20261023.json": "2a9b3f59af933fe532805eac6a63fe978bec6a22b77b65d1ccfeded77a95980e",
@@ -1293,7 +1294,7 @@
       "server/tests/platform-moderation-retention.test.cjs": "efc38d6163c3ed1b7e8fe70accf06519439f436b97ae079e00bfa0eb6fc07870",
       "server/tests/platform-moderation.test.cjs": "33e3143f3af56dd74fdc4e98f37c3c5c7c9578c7bef0e0dc9c77b667bd0faab3",
       "server/tests/platform-new-creators.test.cjs": "6d29bec06c0f1d1d8664d0cc1e6b7c0e93016080403ead0b5490c6482f2eb75c",
-      "server/tests/platform-openapi.test.cjs": "10ea52e20715903a92080a67721f678396cd0a4fb1f5e5580ff7db2f0dea8308",
+      "server/tests/platform-openapi.test.cjs": "2e29f3e1f9766835bd6fa71d914a568172b7fd18e4f1c6e7d1752f3c83cce99b",
       "server/tests/platform-operations-events.test.cjs": "b147a194390700bfb75285196a8cd30475f38fc709eaad413cbe2fe5189b707e",
       "server/tests/platform-operations-http.test.cjs": "9dad998737d75e3d0c150fe8d64448d3d3df6bb38046f94ef233015f68ba75f9",
       "server/tests/platform-operations.test.cjs": "4dbb9ead7552c7772a54afd391745b8bbd14cc6269e491c64496bdbf768c60a5",
