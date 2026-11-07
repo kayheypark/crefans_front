@@ -74,5 +74,7 @@
 .handleStatus[data-state=available]{color:var(--cf-color-accent)}
 .handleStatus[data-state=unavailable],.handleStatus[data-state=error]{color:var(--cf-color-danger)}
 
-.footerLogout{min-height:44px;padding:0 16px;border:0;background:transparent;color:var(--cf-color-danger);font-size:max(13px,var(--cf-mobile-font-min,0px));font-weight:600;cursor:pointer}.footerLogout:disabled{opacity:.5;cursor:not-allowed}
-.settingsLogout{display:flex;justify-content:center;margin-top:24px;padding-top:12px;border-top:1px solid var(--cf-landing-line)}
+/* 2026-11-07: settings 로그아웃 is a menu row with a chevron, in its own section under the same 8px band as the other groups. */
+.logoutSection{position:relative;margin-top:16px;padding-top:16px}.logoutSection::before{content:"";position:absolute;inset:0 -16px auto;height:8px;box-sizing:border-box;background:var(--cf-landing-soft);pointer-events:none}
+.logoutSection .danger{color:var(--cf-color-danger)}.logoutSection button.danger:not(:disabled):hover{background:var(--cf-color-dangerSoft);color:var(--cf-color-danger)}
+.settingsLogout{margin-top:16px}
