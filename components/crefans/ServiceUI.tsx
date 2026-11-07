@@ -2,14 +2,16 @@
 import type {ButtonHTMLAttributes,ComponentProps,ReactNode} from 'react';
 import Link from 'next/link';
 import {Avatar as ProfileAvatar} from '@/components/ui/Avatar';
+import {EmptyIllustration} from '@/components/ui/EmptyIllustration';
 import s from './service.module.css';
 import CommentIcon from './CommentIcon';
 export function Avatar({creator,size=40}:{creator?:{name:string;image?:string;position?:string};size?:number}){
   return <ProfileAvatar src={creator?.image} name={creator?.name} position={creator?.position} size={size}/>;
 }
 export function PageTitle({children,action,back}:{children:ReactNode;action?:ReactNode;back?:ReactNode}){return <header className={s.pageTitle}>{back?<div className={s.pageTitleLeading}>{back}<h1>{children}</h1></div>:<h1>{children}</h1>}{action}</header>;}
-/** Quiet empty state: no glyph, small secondary text, dashed frame. */
-export function Empty({title,description,action}:{title:string;description?:string;action?:ReactNode}){return <div className={s.empty} role="status"><p className={s.emptyTitle}>{title}</p>{description&&<p>{description}</p>}{action}</div>;}
+/** Empty state with the console page asset (decorative), title, optional description and action.
+ * Pass illustration={false} for errors, not-found, unavailable or private notices that reuse this layout: the asset means "no data". */
+export function Empty({title,description,action,illustration=true}:{title:string;description?:string;action?:ReactNode;illustration?:boolean}){return <div className={s.empty} role="status">{illustration&&<EmptyIllustration/>}<p className={s.emptyTitle}>{title}</p>{description&&<p>{description}</p>}{action}</div>;}
 export function Action({variant='primary',children,className='',...props}:ButtonHTMLAttributes<HTMLButtonElement>&{variant?:'primary'|'brand'|'secondary'|'danger'}){return <button {...props} className={`${s.action} ${s[variant]} ${className}`}>{children}</button>;}
 // Navigation that should look like Action: keeps link semantics (new tab, prefetch) with the same size and color.
 export function ActionLink({variant='primary',className='',...props}:ComponentProps<typeof Link>&{variant?:'primary'|'secondary'|'danger'}){return <Link {...props} className={`${s.action} ${s[variant]} ${s.actionLink} ${className}`}/>;}

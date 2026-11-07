@@ -69,7 +69,9 @@ test('loading and empty states expose their actual status without sample rows',(
   act(()=>button.props.onClick());
   assert.equal(calls,0);
   update(tree,DataTable,{...base,rows:[],emptyMessage:'아직 구독자가 없어요'});
-  assert.equal(tree.root.findByType('tbody').findByType('td').children.join(''),'아직 구독자가 없어요');
+  const cell=tree.root.findByType('tbody').findByType('td');
+  assert.equal(cell.findByType('div').children.filter(child=>typeof child==='string').join(''),'아직 구독자가 없어요');
+  assert.equal(cell.findByType('img').props.src,'/brand/empty/empty-page-v1.svg');
   assert.equal(tree.root.findByType('tbody').findByType('td').props.colSpan,3);
   close(tree);
 });

@@ -82,7 +82,7 @@ export function CreatorProfilePage({model,id,previewLogin}:{model:ServiceViewMod
   const activePlanId=subscriptions.find(item=>item.creatorId===id&&item.status==='active')?.planId;
   const [tab,setTab]=useState('피드');
   const creator=creators.find(item=>item.id===id);
-  if(!creator)return <Empty title="크리에이터를 찾을 수 없어요" description="다른 크리에이터를 둘러보세요." action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>;
+  if(!creator)return <Empty title="크리에이터를 찾을 수 없어요" illustration={false} description="다른 크리에이터를 둘러보세요." action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>;
   const ownPosts=posts.filter(post=>post.creatorId===id),mediaPosts=ownPosts.filter(post=>getPostMedia(post).length>0);
   const tabs:[string,number|null][]=[['피드',ownPosts.length],['미디어',mediaPosts.length],['소개',null]];
   const social=socialKeys.filter(key=>creator.links?.[key]).map(key=>[key,creator.links![key]!] as const);
@@ -90,7 +90,7 @@ export function CreatorProfilePage({model,id,previewLogin}:{model:ServiceViewMod
     <ProfileHeader cover={creator.cover??creator.image} coverPosition={creator.position} person={creator} handle={creator.handle} bio={creator.bio} tags={creator.tags} categoryIcons={model.data.categoryIcons} counts={[{label:'게시물',value:ownPosts.length},{label:'팔로워',private:creator.followersPublic===false,value:creator.followers,href:`${basePath}/followers?profile=${encodeURIComponent(creator.id)}`},{label:'팔로잉',private:creator.followingPublic===false||creator.followingCount===undefined,href:`${basePath}/following?profile=${encodeURIComponent(creator.id)}`,value:creator.followingCount!==undefined?creator.followingCount:<span className={s.lockedCount} role="img" aria-label="팔로잉 비공개" title="비공개"><Icon name="lock" width="16" height="16"/></span>}]} action={<FollowButton following={following.includes(id)} name={creator.name} onToggle={()=>toggleFollow(id)}/>}/>
     {model.mode==='mock'&&previewLogin&&<div className={s.profilePlans}><Action variant="secondary" className={s.previewLogin} onClick={previewLogin.onClick}>{previewLogin.label}</Action></div>}
     <TipButton creatorId={creator.id} name={creator.name} creator={creator} profile/>
-    <section className={s.profilePlans} aria-labelledby="profile-plans"><h2 id="profile-plans">멤버십</h2>{onSale.length?<div className={s.planList}>{onSale.map(plan=><MembershipPlanCard key={plan.id} plan={plan} creator={creator} compact selected={plan.id===activePlanId} disabled={plan.id===activePlanId} actionLabel={plan.id===activePlanId?'가입 중':'가입하기'} onSelect={()=>router.push(`${basePath}/membership/${id}?plan=${plan.id}`)}/>)}</div>:<p className={s.noPlans}>판매 중인 멤버십이 없어요.</p>}</section>
+    <section className={s.profilePlans} aria-labelledby="profile-plans"><h2 id="profile-plans">멤버십</h2>{onSale.length?<div className={s.planList}>{onSale.map(plan=><MembershipPlanCard key={plan.id} plan={plan} creator={creator} compact selected={plan.id===activePlanId} disabled={plan.id===activePlanId} actionLabel={plan.id===activePlanId?'가입 중':'가입하기'} onSelect={()=>router.push(`${basePath}/membership/${id}?plan=${plan.id}`)}/>)}</div>:<Empty title="판매 중인 멤버십이 없어요."/>}</section>
     <div className={s.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={s.tabCount}>{count}</span>}</button>)}</div>
     {tab==='소개'?<section className={s.about}>{(creator.about||creator.bio)?<p>{creator.about||creator.bio}</p>:<p>아직 등록된 소개가 없습니다.</p>}{social.length>0&&<ul className={s.socialLinks} aria-label="SNS 링크">{social.map(([key,url])=><li key={key}><a href={url} target="_blank" rel="noopener noreferrer"><Icon name={key} width="16" height="16"/>{socialLabels[key]}</a></li>)}</ul>}</section>:tab==='피드'?(ownPosts.length?<div className={s.profileFeed}>{ownPosts.map(post=><PostCard key={post.id} post={post} model={model} context={ownPosts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}</div>:<Empty title="아직 게시물이 없어요" description="팔로우하고 새로운 소식을 기다려 주세요."/>):<>{!mediaPosts.length?<Empty title={model.feedPaging?.hasMore?'불러온 게시물에 미디어가 없어요':'아직 미디어가 없어요'} description={model.feedPaging?.hasMore?'더 보기를 눌러 이전 게시물을 확인하세요.':'사진이나 동영상이 담긴 게시물이 올라오면 여기에 모여요.'}/>:<div className={s.postGrid}>{mediaPosts.map(post=><PostMediaTile key={post.id} post={post} model={model}/>)}</div>}{model.feedPaging?.hasMore&&<div className={s.profileFeed}><Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={model.feedPaging.loading}/></Action></div>}</>}
   </div>;
@@ -110,7 +110,7 @@ export function MembershipPage({model,id,initialPlanId}:{model:ServiceViewModel;
   const plan=plans.find(item=>item.id===selected)||plans.find(item=>item.recommended)||plans[0];
   const nextDate=model.nextRenewAt;
   useEffect(()=>{setAgreed(false);setShared(false);},[id,plan?.id,plan?.price,nextDate]);
-  if(!creator)return <Empty title="멤버십을 찾을 수 없어요" action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>;
+  if(!creator)return <Empty title="멤버십을 찾을 수 없어요" illustration={false} action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>;
   if(!plan)return <Empty title="아직 멤버십이 없어요" description="이용 가능한 멤버십이 등록되지 않았습니다."/>;
   const selectPlan=(planId:string)=>{setSelected(planId);setAgreed(false);setShared(false);setError('');setOpen(true);};
   const confirmMembership=async()=>{
@@ -162,7 +162,7 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
   const card=(subscription:Subscription,index:number)=>{
     const creator=creators.find(item=>item.id===subscription.creatorId);
     const plan=getSubscriptionPlan(model.data,subscription);
-    if(!creator||!plan)return <Empty key={`${subscription.creatorId}-${subscription.planId}-${subscription.renewAt}-${index}`} title="멤버십 정보를 확인할 수 없어요" description="크리에이터 또는 멤버십 정보가 제공되지 않았습니다."/>;
+    if(!creator||!plan)return <Empty key={`${subscription.creatorId}-${subscription.planId}-${subscription.renewAt}-${index}`} title="멤버십 정보를 확인할 수 없어요" illustration={false} description="크리에이터 또는 멤버십 정보가 제공되지 않았습니다."/>;
     return <article key={`${subscription.creatorId}-${subscription.planId}-${subscription.renewAt}-${index}`} className={s.subscriptionCard}>
       <Link href={`${basePath}/creator/${creator.id}`} className={s.subscriptionIdentity}><MembershipThumb image={plan.image} name={plan.name} creator={creator} size={54}/><div><h3><CreatorName person={creator}/></h3><MarqueeText text={plan.name}/><p>{money(subscription.price)} /월</p><span>{subscription.status==='active'?'다음 갱신':subscription.status==='cancelled'?'이용 종료':'기간 종료'} {date(subscription.renewAt)}</span></div></Link>
       <div className={s.subscriptionEnd}>{subscription.status!=='cancelled'&&<span className={s.status} data-status={subscription.status}>{subscription.renewalPending?'갱신 결제 대기':statusLabels[subscription.status]}</span>}{subscription.status==='active'||subscription.renewalPending?<Action variant="secondary" disabled={pending} onClick={()=>{setError('');setCancelling(subscription);}}>갱신 해지</Action>:subscription.status==='cancelled'?<><Action variant="secondary" disabled={pending} onClick={()=>{setError('');setResumeAgreed(false);setResuming(subscription);}}>다시 이용할래요</Action><small>종료일까지 이용 가능</small></>:<TextLink href={`${basePath}/membership/${creator.id}`}>멤버십 보기</TextLink>}</div>
@@ -194,7 +194,7 @@ export function SubscriptionsPage({model}:{model:ServiceViewModel}){
     {tab==='내 구독'?<>
       <section className={s.subscriptionSection}><h2>현재 이용 중인 멤버십</h2>{active.length?active.map(card):<Empty title="이용 중인 멤버십이 없어요" action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>}</section>
       {recovering.length>0&&<section className={s.subscriptionSection}><h2>갱신 결제 대기</h2>{recovering.map(card)}</section>}
-      <section className={s.subscriptionSection}><h2>구독 히스토리</h2>{expired.length?expired.map(card):<p className={s.helper}>종료된 구독이 없습니다.</p>}</section>
+      <section className={s.subscriptionSection}><h2>구독 히스토리</h2>{expired.length?expired.map(card):<Empty title="종료된 구독이 없습니다."/>}</section>
     </>:<section className={s.subscriptionSection}><h2>결제 내역</h2>{paymentHistory.length?<div className={s.receiptList}>{paymentHistory.map((item,index)=>{
       const creator=creators.find(c=>c.id===item.creatorId);
       const plan=getSubscriptionPlan(model.data,item);

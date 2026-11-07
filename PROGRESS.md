@@ -1,3 +1,9 @@
+## 2026-11-07 "데이터 없음" 빈 화면을 운영 콘솔 빈 문서 그림으로 일괄 변경 (feat/empty-state-asset, 로컬 커밋·미배포)
+- 사용자 요청: "아직 {정보}가 없어요" 같은 노 데이터 화면을 운영 콘솔의 페이지 이미지 에셋으로. 콘솔 origin/prod 06290e2 `EmptyState`의 회색 접힌 문서 SVG(36×44, #d5dae2/#8e97a3)를 `public/brand/empty/empty-page-v1.svg`로 복사(출처·SHA-256 `empty-page-v1.source.json`, 런타임 의존 없음). 프론트는 다크 모드가 없어 라이트 색을 파일에 고정.
+- 공용 `EmptyIllustration`(alt=""·aria-hidden)을 서비스 `Empty`·카탈로그 `EmptyState`·빈 `DataTable`이 문구 위에 표시. 문구·설명·동작 props 유지. 오류·찾을 수 없음·이용 불가·비공개·사전조건 안내 14곳은 `illustration={false}`로 그림 제외, 로딩 규칙 불변. 직접 그리던 빈 상태 8곳을 공용 Empty로 전환하고 남은 고아 CSS 제거. 빈 표는 가로 스크롤 시에도 보이는 영역 가운데 표시(container query + sticky).
+- 판단(사용자 확인 대상): '찾을 수 없음'·'이용 불가'는 데이터 없음이 아니라 보고 그림을 뺐다. 구형 Cognito/AntD 화면(app/(main) 등)은 현재 서비스 경로가 아니어서 제외. 전수 목록 `.local/empty-state-20261107/inventory-notes.md`·`inventory-empty-uses.json`.
+- 검증(2026-11-07): check:layers 통과, typecheck 0, npm test 562 중 546 pass·16 fail — 실패 16건은 origin/prod 기준선(557 중 541 pass·16 fail)과 이름 동일. 신규 tests/empty-state-asset.test.cjs 5건+data-table 갱신; 대조: origin/prod 소스에 같은 테스트를 돌리면 4건 실패, 그림을 접근성 트리에 노출(alt 지정·aria-hidden 제거)하면 2건 실패. check:docs는 기준선과 같은 서버 형제 저장소 관련 실패(exit 1)로 변화 없음. e2e 미실행. 화면 PNG(모바일 390·PC 1280, 카탈로그 서비스 UI·빈 표·목업 메시지 검색 없음) `.local/empty-state-20261107/`. 실제 기기·운영 확인 아님, dev/prod 통합·푸시·배포 안 함.
+
 ## 2026-11-07 설정 아이콘 1px 확대·로그아웃 푸터 맨 아래·멤버십 구매 화면 두 항목 삭제 (feat/settings-icons-1px, 로컬 커밋·미배포)
 - 사용자 요청 3건: ① 설정 메뉴 왼쪽 아이콘·오른쪽 꺾쇠 1px 확대(19→20, 16→17, 항목 높이 모바일 53·PC 54 그대로) ② 설정 페이지에서만 로그아웃을 푸터 맨 아래로 — '계정 관리' 목록에서 빼고 `ServiceFooter` children 슬롯(다른 화면은 미사용)에 넣음, 푸터가 안 보이는 카테고리 선택 시에는 페이지 맨 아래에 단독 표시 ③ 멤버십 구매 화면의 선택 요약 바('결제 전 최종 확인')와 '구독 전 확인하세요' 섹션 삭제(관련 CSS 규칙도 삭제).
 - 테스트: crefans-account 설정 카테고리 테스트를 새 위치에 맞춤(기존에 '표시 설정'·공정위 링크 누락으로 실패하던 기대값도 함께 갱신 → 통과), 로그아웃이 푸터 마지막인지 단언 추가. crefans-creator 선택 요약 단언 → 선택된 카드(selected) 단언 + 안내 섹션 부재 단언.

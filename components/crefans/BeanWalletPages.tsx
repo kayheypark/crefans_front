@@ -67,7 +67,7 @@ export function BeanReferralPage(){
  if(!model.signedIn)return <SignInPrompt basePath={model.basePath}/>;
  return <section className={`${s.page} ${s.walletPage}`}>
   <PageTitle back={<BackButton href={`${model.basePath}/beans`} label="지갑으로 돌아가기"/>}>친구 초대 이벤트</PageTitle>
-  {model.referral===undefined?(slow?<LoadingSpinner/>:null):model.referral?<><ReferralCard referral={model.referral}/><ActionLink variant="secondary" href={`${model.basePath}/beans/referral-history`}>초대 내역 보기</ActionLink></>:<Empty title="현재 친구 초대 이벤트를 이용할 수 없습니다."/>}
+  {model.referral===undefined?(slow?<LoadingSpinner/>:null):model.referral?<><ReferralCard referral={model.referral}/><ActionLink variant="secondary" href={`${model.basePath}/beans/referral-history`}>초대 내역 보기</ActionLink></>:<Empty title="현재 친구 초대 이벤트를 이용할 수 없습니다." illustration={false}/>}
  </section>;
 }
 

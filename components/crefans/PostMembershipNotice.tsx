@@ -9,6 +9,7 @@ import {OptionalImage} from '@/components/ui/OptionalImage';
 import {getPostMembershipOffer} from '@/lib/crefans/membership-plans';
 import type {Post,ServiceData} from '@/types/crefans';
 import Icon from './Icon';
+import {Empty} from './ServiceUI';
 import s from './social.module.css';
 
 /** The shared locked-post notice opens details in place; choosing an offer continues the existing subscription flow. */
@@ -25,7 +26,7 @@ export function PostMembershipNotice({post,data,basePath,readOnly=false}:{post:P
         {plan.description&&<p>{plan.description}</p>}
         {plan.benefits.length?<ul>{plan.benefits.map((benefit,index)=><li key={index}><Icon name="check" width={16} height={16}/><span>{benefit}</span></li>)}</ul>:<p>등록된 혜택 안내가 없습니다.</p>}
         <Link className={s.subscribe} href={`${basePath}/membership/${encodeURIComponent(post.creatorId)}?plan=${encodeURIComponent(plan.id)}`} aria-label={`${plan.name} 선택하고 계속`} onClick={()=>setOpen(false)}>선택하고 계속</Link>
-      </section>)}</div>:<p role="status">현재 이 게시물을 볼 수 있는 판매 중 멤버십이 없습니다.</p>}
+      </section>)}</div>:<Empty title="현재 이 게시물을 볼 수 있는 판매 중 멤버십이 없습니다."/>}
     </Dialog>
   </>;
 }

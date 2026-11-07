@@ -5,6 +5,7 @@ import type { ButtonHTMLAttributes, KeyboardEvent, ReactNode } from 'react';
 import {designTokens} from '@/lib/design/tokens';
 export {Toast} from './Toast';
 import {usePresence} from './usePresence';
+import {EmptyIllustration} from './EmptyIllustration';
 import s from './ui.module.css';
 export {Field,TextAreaField} from './Field';
 export {SelectField} from './SelectField';
@@ -19,7 +20,7 @@ export function Chip({selected=false,children,onClick,icon}: {selected?:boolean;
 }
 /** `outline` is a small bordered gray label (e.g. AD); `label` gives it a spoken name when the visible text is an abbreviation. */
 export function Badge({children,tone='brand',label}:{children:ReactNode;tone?:'brand'|'success'|'danger'|'outline';label?:string}) {return <span className={s.badge} data-tone={tone} {...(label?{role:'img','aria-label':label,title:label}:{})}>{children}</span>;}
-export function EmptyState({title,description,action}:{title:string;description:string;action?:ReactNode}) {return <div className={s.empty} role="status"><p className={s.emptyTitle}>{title}</p><p>{description}</p>{action}</div>;}
+export function EmptyState({title,description,action}:{title:string;description:string;action?:ReactNode}) {return <div className={s.empty} role="status"><EmptyIllustration/><p className={s.emptyTitle}>{title}</p><p>{description}</p>{action}</div>;}
 export function Dialog({open,onClose,title,children,sheet=false,illustration}:{open:boolean;onClose:()=>void;title:string;children:ReactNode;sheet?:boolean;illustration?:ReactNode}) {
   const ref=useRef<HTMLDialogElement>(null), titleRef=useRef<HTMLHeadingElement>(null), id=useId();
   const present=usePresence(open,designTokens.motion.fast);
