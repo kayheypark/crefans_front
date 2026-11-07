@@ -1,3 +1,9 @@
+## 2026-11-07 가입 화면·선택 확인 모달·알림에도 멤버십 사진+크리에이터 배지 (feat/membership-join-badge, 로컬 커밋·미배포)
+- 사용자 요청: 멤버십 가입 화면 디자인 변경(결정: 큰 사진 유지+배지), 알림 페이지도 "멤버십 네모와 등록자 동그라미 아바타" 버전으로·재사용 컴포넌트, 멤버십 선택 확인 모달에도 적용.
+- `MembershipThumb` 에 `cover`(16:9 전체 폭, 배지 44px) 추가 → 가입 화면 `MembershipPlanCard`(비 compact)가 사용, 쓰이지 않게 된 OptionalImage import 제거. 선택 확인 모달 `dialogCreator` 아바타 자리 → MembershipThumb 48px.
+- 알림: 서버 알림에는 크리에이터(actor)만 있고 멤버십 id 가 없어서, type '멤버십' 알림은 내 구독(model.subscriptions, active 우선) 중 같은 크리에이터의 플랜 사진을 쓰고 없으면 크리에이터 사진이 사각을 채움. 정확한 플랜 표시가 필요하면 서버 알림에 membership_item_id 추가가 다음 단계.
+- 검증(2026-11-07): typecheck 0, check:layers 435. membership-thumb 4/4(cover 추가), crefans-social 32/36(새 알림 테스트 통과, 실패 4건 25·26·27·29 는 변경 전과 동일 목록), 대조: 알림 화면 변경 전으로 되돌리면 새 테스트 실패. membership-images 10/10, legal-notices 5/5, crefans-creator 14/14. 화면 .local/membership-join-20261107/{mobile,pc}-{join,confirm-modal,notifications}.png.
+
 ## 2026-11-07 멤버십 표시를 둥근 사각 사진 + 크리에이터 아바타 배지로 통일 (feat/membership-thumb, 로컬 커밋·미배포)
 - 사용자 결정: 시안 중 "둥근사각 썸네일에 멤버십 등록자 아바타가 들어간 형태로 일관성 있게". 같은 날 다른 세션이 배포한 프로필 카드 36px 원형 사진(f8bdd55)을 이 공용 컴포넌트로 대체.
 - 공용 `components/crefans/MembershipThumb.tsx`: 멤버십 사진(둥근 사각, 반경=크기×0.22) + 오른쪽 아래 크리에이터 아바타 배지. 사진이 없거나 불러오기 실패(판매 중단 멤버십 파일 등)면 크리에이터 아바타가 사각을 채우고 배지는 생략.

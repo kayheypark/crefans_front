@@ -124,12 +124,12 @@ export function MembershipPage({model,id,initialPlanId}:{model:ServiceViewModel;
   };
   return <div className={s.membership}>
     <div className={s.membershipHeading}><div className={s.membershipCreator}><Avatar creator={creator} size={48}/><strong><CreatorName person={creator}/></strong></div><h1>멤버십에 가입하세요</h1><p>지금, 더 특별한 이야기가 기다리고 있어요.</p></div>
-    <div className={s.planGrid}>{plans.map(item=><MembershipPlanCard key={item.id} plan={item} selected={item.id===plan.id} disabled={pending} onSelect={()=>selectPlan(item.id)}/>)}</div>
+    <div className={s.planGrid}>{plans.map(item=><MembershipPlanCard key={item.id} plan={item} creator={creator} selected={item.id===plan.id} disabled={pending} onSelect={()=>selectPlan(item.id)}/>)}</div>
     <div className={s.selectionSummary}><strong><MarqueeText text={plan.name}/><span className={s.planLevel}>월 {money(plan.price)}</span></strong><span>매월 자동 갱신 · 결제 전 최종 확인</span></div>
     <section className={s.beforeSubscribe}><h2>구독 전 확인하세요</h2><div className={s.benefitGrid}><div><Icon name="card"/><h3>월간 멤버십</h3><p>선택한 혜택과 금액을 확인하세요.</p></div><div><Icon name="check"/><h3>결제 전 확인</h3><p>확인 화면에서 내용을 검토하세요.</p></div><div><Icon name="users"/><h3>함께하는 창작</h3><p>크리에이터의 이야기를 응원해요.</p></div></div></section>
     
     <Dialog open={open} onClose={()=>setOpen(false)} title="멤버십 선택 확인">
-      <div className={s.dialogContent}><div className={s.dialogCreator}><Avatar creator={creator}/><div><strong><CreatorName person={creator}/></strong><MarqueeText text={plan.name}/></div></div>
+      <div className={s.dialogContent}><div className={s.dialogCreator}><MembershipThumb image={plan.image} name={plan.name} creator={creator} size={48}/><div><strong><CreatorName person={creator}/></strong><MarqueeText text={plan.name}/></div></div>
         <dl className={s.summaryRows}><div><dt>월 이용 금액</dt><dd>{money(plan.price)}</dd></div><div><dt>다음 갱신일</dt><dd>{nextDate?date(nextDate):'결제 단계에서 확인'}</dd></div><div><dt>갱신 방식</dt><dd>매월 자동 갱신</dd></div></dl>
         <p className={s.helper}>갱신을 해지하면 다음 자동 갱신을 중단하고, 이용 기간 종료일까지 혜택을 유지합니다.</p>
         

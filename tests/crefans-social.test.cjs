@@ -680,3 +680,18 @@ test('feed load-more: label unchanged and no loading text for 1s, then an inline
     assert.deepEqual(rows['1000ms'],{label:true,disabled:true,spinner:1,instantText:false});
   }finally{close(tree);}
 });
+
+test('membership notices show the membership square with the creator badge; other notices keep the creator avatar (2026-11-07)',()=>{
+  const notifications=[{id:'n1',creatorId:creator.id,type:'멤버십',text:'멤버십 결제가 완료되었습니다',time:'2030-01-01T00:00:00Z',href:'/actual-service/subscriptions'},{id:'n2',creatorId:creator.id,type:'댓글',text:'새 댓글',time:'2030-01-01T00:00:00Z',href:'/actual-service/post/x'}];
+  const subscriptions=[{creatorId:creator.id,planId:'tier',status:'active',renewAt:'2030-02-01',price:7000,planSnapshot:{id:'tier',name:'작가 멤버',rank:2,price:7000,benefits:[],image:'/plan-photo.png'}}];
+  const tree=mount(NotificationsPage,{model:model({data:{...data,notifications},subscriptions})});
+  const thumbs=tree.root.findAll(node=>node.props?.['data-membership-thumb']&&typeof node.type==='string');
+  assert.equal(thumbs.length,1,'only the membership notice');
+  assert.equal(thumbs[0].props['data-membership-thumb'],'photo');
+  assert.ok(thumbs[0].findAll(node=>node.type==='img'&&node.props.src==='/plan-photo.png').length===1);
+  assert.ok(tree.root.findAll(node=>node.type==='img'&&node.props.src===creator.image).length>=2,'badge + comment avatar');
+  close(tree);
+  const none=mount(NotificationsPage,{model:model({data:{...data,notifications:[notifications[0]]},subscriptions:[]})});
+  assert.equal(none.root.findAll(node=>node.props?.['data-membership-thumb']==='creator'&&typeof node.type==='string').length,1,'no subscription photo: creator fills the square');
+  close(none);
+});

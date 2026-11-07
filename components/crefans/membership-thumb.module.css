@@ -4,3 +4,8 @@
 .creatorFill{display:flex;width:100%;height:100%}
 .creatorFill>*{border-radius:0!important;width:100%!important;height:100%!important}
 .badge{position:absolute;right:-4px;bottom:-4px;display:inline-flex;border-radius:50%;box-shadow:0 0 0 2px var(--cf-color-surface,#fff)}
+.cover{display:flex;width:100%;height:auto;aspect-ratio:16/9;margin-bottom:16px}
+.cover .frame{border-radius:12px}
+.cover .badge{right:10px;bottom:10px;box-shadow:0 0 0 3px var(--cf-color-surface,#fff)}
+.cover .creatorFill{align-items:center;justify-content:center;background:var(--cf-landing-soft)}
+.cover .creatorFill>*{width:100%!important;height:100%!important}
