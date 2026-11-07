@@ -6,11 +6,13 @@ import {Checkbox,Radio} from '@/components/ui/Choice';
 import s from './custom.module.css';
 
 const options=[{value:'photo',label:'사진'},{value:'music',label:'음악'},{value:'fitness',label:'피트니스'},{value:'travel',label:'여행'},{value:'game',label:'게임'},{value:'art',label:'아트'},{value:'closed',label:'준비 중인 분야',disabled:true}];
+const imageOptions=[{value:'art',label:'아트',image:'/brand/categories/art-round-flat-v1.png'},{value:'daily',label:'일상',image:'/brand/categories/daily-round-flat-v1.png'},{value:'text',label:'이미지 없는 분야'},{value:'broken',label:'이미지 로드 실패',image:'/select-example-missing.png'},{value:'disabled',label:'비활성 분야',image:'/brand/categories/travel-round-flat-v1.png',disabled:true}];
 export function FormControlsCatalog(){
  const [disabled,setDisabled]=useState(false),[readOnly,setReadOnly]=useState(false),[submitted,setSubmitted]=useState(false);
  const [name,setName]=useState(''),[email,setEmail]=useState(''),[password,setPassword]=useState(''),[search,setSearch]=useState(''),[bio,setBio]=useState('');
  const [agree,setAgree]=useState(false),[notify,setNotify]=useState(true),[scope,setScope]=useState('public');
  const [single,setSingle]=useState('photo'),[searchable,setSearchable]=useState(''),[multiple,setMultiple]=useState<string[]>(['photo']),[all,setAll]=useState<string[]>([]),[dialog,setDialog]=useState(false);
+ const [imageSelection,setImageSelection]=useState('art');
  const state={disabled,readOnly};
  return <>
   <section className={s.section}><div className={s.sectionHeading}><h2>입력란의 모든 상태</h2><p>입력 형식은 유지하고 모양과 도움말·오류·비활성 처리는 공통 컴포넌트로 통일합니다.</p></div>
@@ -48,6 +50,8 @@ export function FormControlsCatalog(){
   </section>
   <section className={s.section}><div className={s.sectionHeading}><h2>같은 모습으로 선택하기</h2><p>기기 기본 선택창을 사용하지 않습니다. 검색·다중 선택·전체 선택은 필요한 기능만 켤 수 있습니다.</p></div>
    <div className={s.controlGrid}>
+    <SelectField {...state} label="이미지가 있는 선택" options={imageOptions} value={imageSelection} onChange={setImageSelection} searchable/>
+    <SelectField label="이미지가 있는 읽기 전용" options={imageOptions} value="art" onChange={()=>{}} readOnly/>
     <SelectField {...state} label="단일 선택" options={options} value={single} onChange={setSingle}/>
     <SelectField {...state} label="검색 가능한 단일 선택" options={options} value={searchable} onChange={setSearchable} searchable placeholder="분야를 검색하고 선택"/>
     <SelectField {...state} label="다중 선택" options={options} multiple value={multiple} onChange={setMultiple}/>

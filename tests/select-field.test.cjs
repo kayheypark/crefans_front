@@ -134,3 +134,41 @@ test('popup enters the top layer, stays within viewport, and remains for its exi
   assert.equal(view.rendered.root.findAllByProps({'data-select':'popup'}).length,0);
  }finally{view.dispose();}
 });
+
+test('option images are decorative, selected image is controlled, and text-only options stay intact',()=>{
+ const items=[{value:'art',label:'새 분야',image:'/api/v1/categories/custom/icon/v2'},{value:'text',label:'이미지 없음',image:null}];
+ const props={label:'분야',options:items,value:'art',onChange(){}};
+ const view=mount(props);
+ try{
+  assert.equal(view.role('combobox').findByType('img').props.src,items[0].image);
+  assert.equal(view.role('combobox').findByType('img').props.alt,'');
+  view.open();
+  const rows=view.rendered.root.findAllByProps({role:'option'});
+  assert.equal(rows[0].findByType('img').props.src,items[0].image);
+  assert.equal(rows[1].findAllByType('img').length,0);
+  view.update({...props,value:'text'});
+  assert.equal(view.role('combobox').findAllByType('img').length,0);
+  assert.equal(view.rendered.root.findByProps({className:'value '}).children[0],'이미지 없음');
+ }finally{view.dispose();}
+});
+
+test('failed images disappear without losing the option and a changed URL can load again',()=>{
+ const props={label:'분야',options:[{value:'a',label:'아트',image:'/broken.png'}],value:'a',onChange(){}};
+ const view=mount(props);
+ try{
+  act(()=>view.role('combobox').findByType('img').props.onError());
+  assert.equal(view.role('combobox').findAllByType('img').length,0);
+  assert.equal(view.rendered.root.findByProps({className:'value '}).children[0],'아트');
+  view.update({...props,options:[{...props.options[0],image:'/updated.png'}]});
+  assert.equal(view.role('combobox').findByType('img').props.src,'/updated.png');
+ }finally{view.dispose();}
+});
+
+test('multiple select retains text summary while options can have images',()=>{
+ const view=mount({label:'분야',options:[{value:'a',label:'아트',image:'/art.png'},{value:'b',label:'게임'}],multiple:true,value:['a','b'],onChange(){}});
+ try{
+  assert.equal(view.role('combobox').findAllByType('img').length,0);
+  assert.equal(view.rendered.root.findByProps({className:'value '}).children[0],'아트, 게임');
+  view.open();assert.equal(view.role('listbox').findAllByType('img').length,1);
+ }finally{view.dispose();}
+});

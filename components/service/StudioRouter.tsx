@@ -16,7 +16,7 @@ import {WithdrawalSecurityPage} from '@/components/crefans/studio/WithdrawalSecu
 import {DelayedSpinner} from '@/components/ui/DelayedSpinner';
 const basePath='/service/studio';
 export default function StudioRouter({segments}:{segments:string[]}){
- const [screen='',id]=segments,{model:fan,loading:fanLoading}=useService(),{overview,management,finance,community,reports,error,loading,refresh}=useStudioModel(fan.signedIn);
+ const [screen='',id]=segments,{model:fan,loading:fanLoading}=useService(),{overview,management,finance,community,reports,error,loading,refresh}=useStudioModel(fan.signedIn,fan.data.categoryIcons);
  // The account loads first; until then signedIn is the empty default, so the login prompt must not flash (2026-10-31).
  // Loading rule: both waits return the same element, so one 1s timer spans the account and studio requests.
  if(fanLoading)return <DelayedSpinner/>;
