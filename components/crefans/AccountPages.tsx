@@ -42,7 +42,7 @@ import {Action, Avatar, Empty, Notice, PageTitle} from './ServiceUI';
 import s from './account.module.css';
 
 const emailIsValid=(value:string)=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
-const Chevron=()=> <Icon name="chevron" width={16} height={16}/>;
+const Chevron=()=> <Icon name="chevron" width={17} height={17}/>;
 function Feedback({children}:{children:ReactNode}){return <p className={s.feedback} role="status">{children}</p>;}
 function Guidance({text}:{text?:string}){return text?<Notice>{text}</Notice>:null;}
 function useActionFeedback(){
@@ -213,6 +213,8 @@ export function SettingsPage({model,badgeSettings}:{model:ServiceViewModel;badge
     else return;
     void task.run(()=>accountActions.updateSettings(input),message=>{setNotice(message);setCurrentPassword('');setNewPassword('');setConfirmPassword('');setPanel(null);});
   }
+  // 2026-11-07 user decision: on the settings page 로그아웃 sits at the very bottom of the footer, not in the 계정 관리 list.
+  const logoutButton=<button type="button" className={s.footerLogout} disabled={task.busy} onClick={()=>void task.run(accountActions.logout,setNotice)}>로그아웃</button>;
   const title=panel==='withdraw'?'회원 탈퇴':settingsItems.find(item=>item.key===panel)?.label||'설정';
   const panelReady=panel==='account'?!!name.trim()&&(!handleChanged||handleValid)&&handleConfirmed&&!handleBusy:panel==='email'?emailIsValid(email):panel==='password'?!!currentPassword&&newPassword.length>=8&&newPassword===confirmPassword:true;
   return <section className={s.settings} data-pull-refresh-block={task.busy||undefined}><PageTitle action={<Link href={`${basePath}/me`} className={navigationButton.button} aria-label="설정 닫기, 내 프로필로 이동" title="내 프로필로 이동"><Icon name="close" width={24} height={24} aria-hidden="true"/></Link>}>설정</PageTitle>
@@ -220,8 +222,8 @@ export function SettingsPage({model,badgeSettings}:{model:ServiceViewModel;badge
       <Chip selected={category==='전체'} onClick={()=>setCategory('전체')}>전체</Chip>
       {settingsGroups.map(group=><span key={group.title}><Chip selected={category===group.title} onClick={()=>setCategory(group.title)}>{group.title}</Chip></span>)}
     </ChipRow>
-    {settingsGroups.filter(group=>group.title!=='서비스 안내'&&(category==='전체'||category===group.title)).map(group=><section className={s.menuGroup} key={group.title}><h3>{group.title}</h3><div className={s.menuList}>{group.items?.map(key=>{const item=settingsItems.find(entry=>entry.key===key)!;return <button key={item.key} type="button" onClick={()=>open(item.key)}><Icon name={item.icon} width={19} height={19}/><span>{item.label}</span><Chevron/></button>;})}{group.links?.map(([label,href,icon])=>/^https:/.test(href)?<a href={href} key={href} target="_blank" rel="noopener noreferrer"><span>{label} ↗</span><Chevron/></a>:<Link href={`${basePath}/${href}`} key={href}>{icon&&<Icon name={icon} width={19} height={19}/>}<span>{label}</span><Chevron/></Link>)}</div></section>)}
-    {(category==='전체'||category==='계정 관리')&&<div className={`${s.menuList} ${s.accountActions}`}><button type="button" className={s.danger} disabled={task.busy} onClick={()=>void task.run(accountActions.logout,setNotice)}><span>로그아웃</span><Chevron/></button><button type="button" onClick={()=>open('withdraw')}><span>회원 탈퇴</span><Chevron/></button></div>}<Toast message={notice} onClose={()=>setNotice('')}/>{task.error&&!panel&&<p className={s.error} role="alert">{task.error}</p>}
+    {settingsGroups.filter(group=>group.title!=='서비스 안내'&&(category==='전체'||category===group.title)).map(group=><section className={s.menuGroup} key={group.title}><h3>{group.title}</h3><div className={s.menuList}>{group.items?.map(key=>{const item=settingsItems.find(entry=>entry.key===key)!;return <button key={item.key} type="button" onClick={()=>open(item.key)}><Icon name={item.icon} width={20} height={20}/><span>{item.label}</span><Chevron/></button>;})}{group.links?.map(([label,href,icon])=>/^https:/.test(href)?<a href={href} key={href} target="_blank" rel="noopener noreferrer"><span>{label} ↗</span><Chevron/></a>:<Link href={`${basePath}/${href}`} key={href}>{icon&&<Icon name={icon} width={20} height={20}/>}<span>{label}</span><Chevron/></Link>)}</div></section>)}
+    {(category==='전체'||category==='계정 관리')&&<div className={`${s.menuList} ${s.accountActions}`}><button type="button" onClick={()=>open('withdraw')}><span>회원 탈퇴</span><Chevron/></button></div>}<Toast message={notice} onClose={()=>setNotice('')}/>{task.error&&!panel&&<p className={s.error} role="alert">{task.error}</p>}
     <Dialog open={!!panel} title={title} onClose={()=>{resetHandleCheck();setPanel(null);}}><form className={s.dialogBody} noValidate onSubmit={save}>
       {panel==='display'&&<>{badgeSettings}<MarqueeMotionControl/><DialogActions><Action type="button" variant="secondary" onClick={()=>setPanel(null)}>닫기</Action></DialogActions></>}
       {panel==='account'&&<><Avatar creator={viewer} size={64}/><Field label="사용자명" tooltip="크리에이터로 전환하지 않았을 때 프로필에 표시됩니다." value={name} onChange={e=>setName(e.target.value)} maxLength={20}/><div className={s.handleField}><Field label="핸들" value={handle} maxLength={24} autoComplete="username" autoCapitalize="none" spellCheck={false} disabled={task.busy} onChange={e=>{resetHandleCheck();setHandle(e.target.value.toLowerCase());setError('');task.clearError();}} action={<button className={s.handleCheck} type="button" disabled={task.busy||handleBusy||!handleValid} onClick={()=>void checkHandle()}>{handleBusy?'확인 중':'중복 확인'}</button>} error={handleChanged&&!handleValid?'핸들은 영문 소문자, 숫자, 밑줄 3~24자입니다.':undefined} hint="나를 구분하는 고유한 @아이디로, 프로필 주소에도 쓰여요. 영문 소문자, 숫자, 밑줄 3~24자."/><p className={s.handleStatus} data-state={handleCheck?.status} role="status" aria-live="polite">{handleCheck?.message||(handleChanged?'핸들을 변경하려면 중복 확인을 해주세요.':'현재 사용 중인 핸들입니다.')}</p></div><TextAreaField label="소개" tooltip="내 프로필과 크리에이터 프로필에서 같은 소개를 사용합니다. 어느 화면에서 수정해도 함께 반영됩니다." value={bio} maxLength={120} rows={3} onChange={e=>setBio(e.target.value)}/><Guidance text={account.guidance.profile}/></>}
@@ -236,7 +238,8 @@ export function SettingsPage({model,badgeSettings}:{model:ServiceViewModel;badge
       {panel&&['account','password','email','notifications','privacy'].includes(panel)&&<DialogActions><Action type="submit" disabled={task.busy||!panelReady||(panel==='email'&&model.mode==='live'&&emailSent&&!/^\d{6}$/.test(emailCode))}>{task.busy?'저장 중…':panel==='email'?(model.mode==='live'&&emailSent?'인증하고 변경':'인증 요청 확인'):'저장하기'}</Action></DialogActions>}
       {(panel==='payment'||panel==='blocked')&&<DialogActions><Action variant="secondary" type="button" onClick={()=>setPanel(null)}>닫기</Action>{panel==='payment'&&<Link href={`${basePath}/payment-methods`} className={s.primaryLink} onClick={()=>setPanel(null)}>결제수단 관리하기</Link>}</DialogActions>}
     </form></Dialog>
-    {(category==='전체'||category==='서비스 안내')&&<section className={`${s.menuGroup} ${s.settingsService}`}><h3>서비스 안내</h3><ServiceFooter basePath={basePath} always/></section>}
+    {(category==='전체'||category==='서비스 안내')&&<section className={`${s.menuGroup} ${s.settingsService}`}><h3>서비스 안내</h3><ServiceFooter basePath={basePath} always>{logoutButton}</ServiceFooter></section>}
+    {category!=='전체'&&category!=='서비스 안내'&&<div className={s.settingsLogout}>{logoutButton}</div>}
   </section>;
 }
 

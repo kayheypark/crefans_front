@@ -125,8 +125,6 @@ export function MembershipPage({model,id,initialPlanId}:{model:ServiceViewModel;
   return <div className={s.membership}>
     <div className={s.membershipHeading}><div className={s.membershipCreator}><Avatar creator={creator} size={48}/><strong><CreatorName person={creator}/></strong></div><h1>멤버십에 가입하세요</h1><p>지금, 더 특별한 이야기가 기다리고 있어요.</p></div>
     <div className={s.planGrid}>{plans.map(item=><MembershipPlanCard key={item.id} plan={item} creator={creator} selected={item.id===plan.id} disabled={pending} onSelect={()=>selectPlan(item.id)}/>)}</div>
-    <div className={s.selectionSummary}><strong><MarqueeText text={plan.name}/><span className={s.planLevel}>월 {money(plan.price)}</span></strong><span>매월 자동 갱신 · 결제 전 최종 확인</span></div>
-    <section className={s.beforeSubscribe}><h2>구독 전 확인하세요</h2><div className={s.benefitGrid}><div><Icon name="card"/><h3>월간 멤버십</h3><p>선택한 혜택과 금액을 확인하세요.</p></div><div><Icon name="check"/><h3>결제 전 확인</h3><p>확인 화면에서 내용을 검토하세요.</p></div><div><Icon name="users"/><h3>함께하는 창작</h3><p>크리에이터의 이야기를 응원해요.</p></div></div></section>
     
     <Dialog open={open} onClose={()=>setOpen(false)} title="멤버십 선택 확인">
       <div className={s.dialogContent}><div className={s.dialogCreator}><MembershipThumb image={plan.image} name={plan.name} creator={creator} size={48}/><div><strong><CreatorName person={creator}/></strong><MarqueeText text={plan.name}/></div></div>
