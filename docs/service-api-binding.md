@@ -172,7 +172,6 @@ npm run test:e2e:report                 # 최근 HTML 결과 확인
 
 ### 2026-10-25 확정 베타 정책 연결
 
-공통 ServiceGuidePage를 `/preview/guide/{fan,creator}`와 `/service/guide/{fan,creator}`에 연결하고 고객센터 FAQ/안내 링크를 공유한다. 설정에서 광고 수신 선택을 저장할 때 marketingVersion을 전달하며, 실제 데이터는 서버의 버전 동의/철회 이력을 따른다. 프록시는 수신거부 HTML과 Accept/CSP/Referrer-Policy를 전달한다. 가입·법률 게이트는 유지한다. 출금 공통 UI·목업도 최소10만원이며 정산 날짜는 확정 입금일로 오인하지 않도록 보류기간 종료일로 표시한다. 신규 주문의 테스트 결제/미사용7일 정책은 checkout snapshot을 표시한다. 별도 환불 버튼은 없다.
 
 검증: `e2e/beta-policy.spec.ts`, `e2e/service.spec.ts`, `e2e/billing-recovery.spec.ts`, `e2e/signup-deferred.spec.ts`. 실제 SMTP/PG/PASS/은행이 아닌 격리 DB·공급사 대역이다. 적용/남은 개방 조건은 [베타 계획](./beta-role-test-plan.md)을 따른다.
 

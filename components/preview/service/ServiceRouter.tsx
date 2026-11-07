@@ -11,7 +11,6 @@ import {BeanChargePage} from '@/components/crefans/BeanChargePage';
 import {BeanWalletPage,BeanHistoryPage,BeanReferralPage} from '@/components/crefans/BeanWalletPages';
 import {ReferralHistoryPage} from '@/components/crefans/ReferralHistoryPage';
 import {PreviewBeanPaymentResult} from './PreviewBeanPaymentResult';
-import {ServiceGuidePage} from '@/components/crefans/ServiceGuidePage';
 import {Suspense} from 'react';
 import {BeanWithdrawPage} from '@/components/crefans/BeanWithdrawPage';
 import {useStudio} from '../studio/StudioProvider';
@@ -33,7 +32,6 @@ export default function ServiceRouter({segments}:{segments:string[]}){
  function content(){switch(screen){
   case 'checkout':return <PreviewMembershipCheckout key={query.get('state')||'normal'} state={query.get('state')||'normal'}/>;
   case 'billing':return <BillingRegistrationResultPage basePath={basePath} status="success" message="카드 등록이 완료됐어요" returnPath={query.get('from')==='management'?`${basePath}/payment-methods`:`${basePath}/checkout`} onRetry={()=>{}}/>;
-  case 'guide':return <ServiceGuidePage audience={id==='creator'?'creator':'fan'} basePath={basePath}/>;
   case 'explore':return <ExplorePage model={model}/>;
   case 'creator':return <CreatorProfilePage model={model} id={id} previewLogin={id==='moka'?{label:'모카로 로그인',onClick:()=>{selectMoka();router.push(`${basePath}/studio`);}}:undefined}/>;
   case 'membership':return <MembershipPage model={model} id={id} initialPlanId={query.get('plan')||undefined}/>;

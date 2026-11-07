@@ -7,7 +7,7 @@ export const refreshPages=[
   'following','followers','following?profile=haneul','followers?profile=haneul','payment-methods',
   'notices','notices/welcome','events','events/feedback','events/creator-advertising',
   'events/promotion-beans','events/founding-badge','legal/terms','legal/privacy','legal/policy',
-  'guide/fan','guide/creator','screens',
+  'screens',
 ];
 
 async function pull(page:Page,target='#page-content',release=true){
