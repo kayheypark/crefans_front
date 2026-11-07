@@ -1,3 +1,11 @@
+## 2026-11-07 활동 분야 선택 이미지 지원 (로컬 구현, 운영 미배포)
+- 사용자 요청: 스튜디오 첫 전환의 주요 활동 분야 옵션에 탐색과 같은 운영 등록 이미지를 표시. origin/prod c7ac3cd에서 feat/category-select-images 분기.
+- 공통 SelectOption.image를 추가하여 목록과 단일 선택 값 왼쪽에 20px 장식 이미지를 주입. 이미지 없음/null/로드 실패는 텍스트 유지, 다중 선택 요약/키보드/읽기 전용/비활성 동작 보존. 디자인 시스템에 이미지·없음·실패·비활성·읽기 전용 등록.
+- StudioRouter가 기존 ServiceProvider bootstrap.categoryIcons를 useStudioModel에 전달. ProfileFields를 공유하는 첫 전환·크리에이터 설정 및 목업에 적용. CategoryChip과 categoryImageSrc를 공유하여 운영 URL 우선, 명시적 null은 생략, 미지정 기본 이미지 규칙 일치. 새 API/DB/운영 데이터 변경 없음.
+- 합격 조건: 운영 이미지 경로·분야 순서 일치, 선택 후 이미지 유지, 없는/실패 이미지에서 선택 가능, 긴 이름·320px 가로 넘침 없음, 기존 검색·다중·키보드 동작 유지. 검증 결과는 docs/audit/category-select-images-20261107.json 및 .local/category-select-images 실행 로그/캡처 참조. 브라우저는 로컬 API 대역이며 운영 반영·실물 iPhone 검증과 구분.
+- 검증: 단위10, 로컬 브라우저12(PC Chromium·iPhone13 WebKit·320px Chromium), 타입·레이어434파일·Next 빌드 통과. PC/모바일 캡처 육안 확인. 카탈로그 최초 검사에서 중복 검색란 선택자 문제가 있어 대상 label로 한정 후 최종12개 순차 재실행 통과. 문서 검사 최초 소스 해시 만료는 변경 설명 검토 후 갱신.
+- 배포 요청 시 이 feature를 dev 검증 후 prod 승격·프론트 배포. 백엔드 배포 불필요.
+
 ## 2026-11-07 프로필 멤버십 36px 사진 운영 배포 완료
 - 사용자 축소 시안 승인. 내 프로필·타인 프로필의 공용 compact 멤버십 카드에 업로드한 사진을 36px 원형으로 표시. 이름/가격 왼쪽, 레벨/가입·관리 버튼 오른쪽. 사진 없음/실패 시 생략, 큰 선택 카드 유지. 디자인 카탈로그 동일 사진·비활성·긴 이름·가입 중 상태 추가.
 - feat f8bdd55 → dev 066fa88 → prod ce09b02 순서로 반영, 이미지 crefans-front:membership-avatar-20261107 운영 배포. API·DB 변경 없음, 다른5컨테이너 ID 유지. 전체6컨테이너 running/restart0/OOM없음, 주요페이지/API200·이미지200·리다이렉트301.
