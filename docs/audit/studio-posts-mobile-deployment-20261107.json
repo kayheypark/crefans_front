@@ -1,0 +1,215 @@
+{
+  "at": "2026-11-07T00:09:04.151021+00:00",
+  "repo": "/Users/ethan/repository/crefans_front-checkout-layout",
+  "base": "64211036d7fd0f3bff6f440743a834554c994907",
+  "branch": "feat/studio-posts-mobile-cards",
+  "uncommittedAtVerification": true,
+  "commands": [
+    {
+      "command": "CREFANS_E2E=true PLATFORM_API_ORIGIN=http://127.0.0.1:3012 npm run build",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check:layers",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/data-table.test.cjs",
+      "exitCode": 0,
+      "passed": 6
+    },
+    {
+      "command": "npx playwright test --config=.local/studio-posts-mobile-release/playwright.config.ts",
+      "exitCode": 0,
+      "stats": {
+        "startTime": "2026-11-07T00:07:58.341Z",
+        "duration": 27670.535,
+        "expected": 24,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=.local/studio-posts-mobile-release/server-docs npm run check:docs",
+      "exitCode": 0
+    }
+  ],
+  "scope": "public preview and browser-intercepted service API on PC Chromium, iPhone 13 WebKit, 320px Chromium; no real account changes or physical iPhone",
+  "visualReview": "mobile integrated cards, compact Seoul timestamps, PC table, long title/processing screenshot checked",
+  "sha256": {
+    "PROGRESS.md": "d65c0b119188c5957ac374d4ae8fd23e82cfcb8db27a7b7c30e9d377e62ea2e8",
+    "components/crefans/studio/ContentPerformance.tsx": "3dbfd90798f6eb9a1141be0818e94c430946412bb4e33d414ad119d921912e8f",
+    "components/crefans/studio/ManagementPages.tsx": "03a1bbd41e16dabcde093f39794d59fb48010a285a83220975536a857847c89b",
+    "components/crefans/studio/content-performance.module.css": "991308e00498cb73c0106c92f611411e4ac42f01abdd0cd503033993c8e8ab75",
+    "components/design-system/ServicePatternCatalog.tsx": "7bbbb0de675396b171092ec3d0fd909e22fa33cb4c3685622633a8cd18f3f77c",
+    "components/ui/DataTable.tsx": "a3385eb16231044c88605c3d7704bc5377c37f4597bccef55018fb7b2623acc6",
+    "docs/audit/evidence.json": "92200ad105d3c6840fe4bb889039bed2c488d06544396e9828590d2c4491918c",
+    "docs/audit/manifest.json": "9f27aeaed246c9486f8a4f858ba5bafd0e29626d35ce692c5a5a5568774cd865",
+    "docs/design-system.md": "f7c625d9fa723e13c5b9b514212e7630155392ef9105bdb46b667855797de5fe",
+    "e2e/content-performance.spec.ts": "a4360385348eff51d80e41cb62328d60f68eddc4b8b72d627b43085affdd21db",
+    "components/crefans/studio/content-list.module.css": "433c05c9a7df10c26743a07060b1d232198d1484b0a682568130eb70a2e6e3ed",
+    "components/design-system/StudioContentCatalog.tsx": "b338a7d2c760a0a8bd49e098c9bc87c8ac9f8be82dcd6d161565fd7c19bbb968",
+    "e2e/studio-content-cards.spec.ts": "481e21522199532faf3a83134e1a12e3d3b46207c87c2ec93835431e5cf1527c"
+  },
+  "logs": "/Users/ethan/repository/crefans_front-checkout-layout/.local/studio-posts-mobile-release",
+  "recordedAt": "2026-11-07T00:20:47.376353+00:00",
+  "status": "production_deployed_and_verified",
+  "deployedCommit": "44bc398eedc2277535e983f79c29ae537efc46cc",
+  "sourceHashesAtDeployment": {
+    "components/crefans/studio/ManagementPages.tsx": "03a1bbd41e16dabcde093f39794d59fb48010a285a83220975536a857847c89b",
+    "components/crefans/studio/content-list.module.css": "433c05c9a7df10c26743a07060b1d232198d1484b0a682568130eb70a2e6e3ed",
+    "components/ui/DataTable.tsx": "a3385eb16231044c88605c3d7704bc5377c37f4597bccef55018fb7b2623acc6",
+    "components/crefans/studio/ContentPerformance.tsx": "3dbfd90798f6eb9a1141be0818e94c430946412bb4e33d414ad119d921912e8f",
+    "components/crefans/studio/content-performance.module.css": "991308e00498cb73c0106c92f611411e4ac42f01abdd0cd503033993c8e8ab75",
+    "components/design-system/StudioContentCatalog.tsx": "b338a7d2c760a0a8bd49e098c9bc87c8ac9f8be82dcd6d161565fd7c19bbb968",
+    "components/design-system/ServicePatternCatalog.tsx": "7bbbb0de675396b171092ec3d0fd909e22fa33cb4c3685622633a8cd18f3f77c"
+  },
+  "production": {
+    "deployedAt": "2026-11-07T00:19:19Z",
+    "frontend": {
+      "id": "13c16c222b936b1932fc7fea2ed086c630e26aa327f6fe47d6612067c0a346d3",
+      "tag": "crefans-front:studio-posts-mobile-20261107",
+      "image": "sha256:5ffdf1be17ce9aa5d5ece427b0d5fdb61d84b02c32e11305cb4a0fe9650fa809"
+    },
+    "otherContainersUnchanged": true,
+    "pageStatuses": {
+      "/service/landing": 200,
+      "/preview/studio/content": 200,
+      "/service/studio/content": 200,
+      "/service/creator/crefans": 200
+    },
+    "browser": {
+      "command": "CARDS_PRODUCTION=true npx playwright test --config=.local/studio-posts-mobile-release/playwright.config.ts",
+      "exitCode": 0,
+      "stats": {
+        "startTime": "2026-11-07T00:19:32.139Z",
+        "duration": 33107.196,
+        "expected": 24,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "scope": "Live frontend bundle; preview fixtures and intercepted service API; no production member changes"
+    },
+    "health": {
+      "at": "2026-11-07T00:19:34Z",
+      "containers": {
+        "crefans-beta-frontend-1": {
+          "tag": "crefans-front:studio-posts-mobile-20261107",
+          "commit": "44bc398eedc2277535e983f79c29ae537efc46cc",
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": null
+        },
+        "crefans-beta-worker-1": {
+          "tag": "crefans-api:promo-terms-20261107",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": null
+        },
+        "crefans-beta-api-1": {
+          "tag": "crefans-api:promo-terms-20261107",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": "healthy"
+        },
+        "crefans-beta-admin-1": {
+          "tag": "crefans-admin:refund-notices-20261106",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": null
+        },
+        "crefans-beta-proxy-1": {
+          "tag": "caddy:2-alpine",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": null
+        },
+        "crefans-beta-database-1": {
+          "tag": "mysql:8.0",
+          "commit": null,
+          "running": true,
+          "restarts": 0,
+          "oom": false,
+          "health": "healthy"
+        }
+      },
+      "worker": {
+        "completedAt": "2026-11-07T00:18:40.883Z",
+        "failures": {}
+      },
+      "apiStatus": 200
+    },
+    "cleanup": {
+      "previousImageRemoved": true,
+      "temporarySourceRemoved": true,
+      "freeBytes": 9591799808
+    },
+    "recoveryLocation": "/Users/ethan/crefans-recovery/20261107/studio-posts-mobile"
+  },
+  "deploymentCommands": [
+    {
+      "command": "python3 .local/studio-posts-mobile-release/source-check.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/studio-posts-mobile-release/archive.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/studio-posts-mobile-release/build.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/studio-posts-mobile-release/deploy.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/studio-posts-mobile-release/health.py",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 .local/studio-posts-mobile-release/cleanup.py",
+      "exitCode": 0
+    }
+  ],
+  "initialIssues": [
+    "Capacity guard stopped at 6.9GiB free; unused Docker build cache pruned retaining 2GB; active images, containers, DB and uploads preserved",
+    "Existing analytics E2E NodeList iteration type errors fixed using Array.from before final typecheck"
+  ],
+  "limitations": [
+    "Physical iPhone not tested; iPhone13 WebKit emulation used",
+    "Authenticated service API intercepted; no production member changes",
+    "No backend or database changes"
+  ],
+  "logSha256": {
+    "local-build.log": "5a315b9c82ef712cace82cd808de1067ca60ebd5f7eb769a69db831d4ac016c3",
+    "layers.log": "f0b8f03ff1976da1dade2932589a662ed55d125d6a47bcdc4195635eb82bb586",
+    "typecheck-final.log": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+    "table-tests.log": "6e009b2d55079be9bd0c7e6a491a9b69413d9661a21dd7f2e2ed25918c6c6816",
+    "local-e2e.log": "d268a8b0b845fba6d6afee8d3f1845ffe785d1dc93109d357f77146133ff2293",
+    "local-results.json": "05e0ed5be7a65bf70212e5197fdc40c17be3ded64735ea93b0224693a382948a",
+    "runtime-source-check.json": "518c1e3ba575bc726517f01dae556071074458cf35a148864da0cecb3b5627fe",
+    "build-cache-cleanup.log": "ccaf2db640fb6def5a54126095960ce3a25a8320e51e7551f6c1cb1669491580",
+    "build.log": "a2302b9afbeb47253942713efd76f2913c41673e682d1762b43a53ca5fc01ffe",
+    "deploy.log": "719b5638011a12d15d90a0825c7c92aaa5f131756d0c8faa845fe9c2c13d5cfb",
+    "production-e2e.log": "5159dfcd4faccddf70ca2b1c59d85c1877ce7894372156d26b6062c84dc6372f",
+    "production-results.json": "843e49fd9b6dcbe3445377a45a46e3ea997e4b25754c4f415bc671360c741087",
+    "final-health.json": "5e5dd741b6e86919342a77b354d3c409384c0182f7b61cced06207077249067f",
+    "cleanup.log": "03c5d68157586990f28f0bea73377a390c0d9dfb96c96941d45b4533bbfa8fcb"
+  }
+}
