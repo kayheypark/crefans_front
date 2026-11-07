@@ -33,3 +33,4 @@ button.textButton:not(:disabled):hover,.tabs button:not(:disabled):hover{backgro
 
 .scheduleBox{display:flex;flex-direction:column;gap:16px;min-width:0;padding:18px;border:1px solid var(--cf-landing-line);border-radius:var(--cf-radius-control)}
 .scheduleBox input[type=datetime-local]{padding-inline:0;min-width:0;font-variant-numeric:tabular-nums}
+.status[data-status=unpublished]{background:var(--cf-color-warningSoft);color:var(--cf-color-warning)}.visibilityBox{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 16px;margin-bottom:22px;padding:14px 16px;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control)}.visibilityText{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 240px}.visibilityText strong{font-size:max(13px,var(--cf-mobile-font-min,0px))}.visibilityBox>p{flex-basis:100%;margin:0}

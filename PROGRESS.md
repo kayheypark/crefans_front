@@ -1,3 +1,7 @@
+## 2026-11-07 스튜디오 게시물 미공개 전환 — feat/post-unpublish (미배포)
+- 게시물 수정 화면(저장된 글)에 '공개 상태' 상자: 공개 중/미공개 표시, 확인 Dialog 후 `PUT /studio/content/:id/visibility`. 운영 숨김이면 운영자만 해제 가능 안내. 상태 배지·목록(표/카드)에 '미공개'. 이력 UI 없음(사용자 결정). 목업 useMockManagement·디자인 시스템 StudioContentCatalog '미공개·운영 숨김' 상태 추가. 서버 계약은 server docs/platform-api.md '게시물 미공개'.
+- 검증(2026-11-07, node_modules=메인 체크아웃 링크): check:layers 434, typecheck 0. 단위 534/547 — origin/prod(116e548) 기준선 532/545와 실패 13건 목록 동일(신규 2건 통과). e2e `playwright.post-visibility.config.ts`(API 대역만, 3021, 서버/DB 미기동) PC·Pixel7 8/8. 화면 .local/post-unpublish-20261107/*.png.
+
 ## 2026-11-07 게시물 카드 연결선·직접 입력 삭제 운영 배포 완료
 - 하단 가로선을 카드 좌우 테두리까지, 세로선을 가로선부터 하단 테두리까지 연결. 게시물 삭제는 운영콘솔과 같은 직접 입력 패턴인 공통 TypedConfirmDialog 사용. 현재 제목과 공백까지 일치해야 버튼 활성화. 취소 재진입 초기화·처리 중 닫기/중복 차단·실패 시 입력과 목록 유지. PC·모바일·실서비스·목업 공통 적용.
 - front feat 943b142 → dev 8ebf060 → prod ae908b0, server feat 4e45518 → dev dcc05a4 → prod 072368e. 운영 studio-post-confirm-20261107(front/API/worker). 프론트 먼저 적용 후 서버 확인 강제. DB migration 없음, 금융 설정·관리자/프록시/DB 컨테이너 보존.
