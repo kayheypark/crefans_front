@@ -129,3 +129,28 @@ test('an operator-hidden post is marked in the studio content list so its author
  const shown=mount(ContentManagementPage,{model:management,basePath:'/studio',previewModel:model,previewCreatorId:creator.id});
  try{assert.equal(shown.root.findAll(n=>n.type==='span'&&n.children?.join?.('')==='운영 정책에 따라 숨김').length,0);}finally{act(()=>shown.unmount());}
 });
+
+test('an unpublished post is marked in the studio list next to its status',()=>{
+ const text=n=>n.type==='span'&&n.props['data-status']==='unpublished';
+ const view=mount(ContentManagementPage,{model:{...management,contents:[{...content,unpublished:true}]},basePath:'/studio',previewModel:model,previewCreatorId:creator.id});
+ try{assert.ok(view.root.findAll(text).length>=1);assert.equal(view.root.findAll(text)[0].children.join(''),'미공개');}finally{act(()=>view.unmount());}
+ const shown=mount(ContentManagementPage,{model:management,basePath:'/studio',previewModel:model,previewCreatorId:creator.id});
+ try{assert.equal(shown.root.findAll(text).length,0);}finally{act(()=>shown.unmount());}
+});
+
+test('the editor switches visibility only after confirming, and explains operator hiding it cannot lift',async()=>{
+ const calls=[];const actions={...management.actions,setContentPublic:async(id,isPublic)=>{calls.push([id,isPublic]);return {success:true,data:{message:'게시물을 미공개로 바꿨습니다. 작성자에게만 보입니다.'},errorMessage:null,errorCode:null};}};
+ const view=mount(ContentEditorPage,{model:{...management,actions},basePath:'/studio',id:content.id,previewModel:model,previewCreatorId:creator.id});
+ try{
+  const box=()=>view.root.findByProps({'aria-label':'공개 상태'});
+  assert.match(JSON.stringify(box().findAllByType('strong').map(n=>n.children)),/공개 중/);
+  assert.equal(button(view,'게시물을 미공개로 바꿀까요?'),undefined);
+  await act(async()=>button(view,'미공개로 전환').props.onClick());
+  assert.equal(calls.length,0,'opening the dialog does not change anything');
+  const confirm=view.root.findAll(n=>n.type==='button'&&n.children?.join?.('')==='미공개로 전환');assert.equal(confirm.length,2,'the dialog adds its own confirm button');
+  await act(async()=>confirm[1].props.onClick());
+  assert.deepEqual(calls,[[content.id,false]]);
+ }finally{act(()=>view.unmount());}
+ const hidden=mount(ContentEditorPage,{model:{...management,contents:[{...content,unpublished:true,hiddenByOperator:true}],actions},basePath:'/studio',id:content.id,previewModel:model,previewCreatorId:creator.id});
+ try{const box=hidden.root.findByProps({'aria-label':'공개 상태'});assert.match(JSON.stringify(box.findAllByType('strong').map(n=>n.children)),/미공개/);assert.ok(box.findAll(n=>n.type==='p'&&String(n.children).includes('운영자만 해제')).length===1);assert.ok(button(hidden,'다시 공개'));}finally{act(()=>hidden.unmount());}
+});
