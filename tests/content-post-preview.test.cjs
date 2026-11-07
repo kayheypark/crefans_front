@@ -154,3 +154,17 @@ test('the editor switches visibility only after confirming, and explains operato
  const hidden=mount(ContentEditorPage,{model:{...management,contents:[{...content,unpublished:true,hiddenByOperator:true}],actions},basePath:'/studio',id:content.id,previewModel:model,previewCreatorId:creator.id});
  try{const box=hidden.root.findByProps({'aria-label':'공개 상태'});assert.match(JSON.stringify(box.findAllByType('strong').map(n=>n.children)),/미공개/);assert.ok(box.findAll(n=>n.type==='p'&&String(n.children).includes('운영자만 해제')).length===1);assert.ok(button(hidden,'다시 공개'));}finally{act(()=>hidden.unmount());}
 });
+
+test('published rows link to the fan post; drafts and scheduled rows keep the preview dialog (2026-11-07)',()=>{
+ const mixed={...management,contents:[{...content,id:'live post',title:'발행 글',status:'published'},{...content,status:'draft'},{...content,id:'later',title:'예약 글',status:'scheduled',scheduledAt:content.updatedAt}]};
+ const view=mount(ContentManagementPage,{model:mixed,basePath:'/service/studio',previewModel:model,previewCreatorId:creator.id});
+ try{
+  const links=view.root.findAll(node=>node.type==='a'&&node.props.href?.startsWith('/service/post/'));
+  const published=mixed.contents.filter(item=>item.status==='published');
+  assert.ok(published.length>0&&mixed.contents.some(item=>item.status!=='published'),'fixture has both kinds');
+  for(const item of published)assert.ok(links.some(a=>a.props.href===`/service/post/${encodeURIComponent(item.id)}`),item.id);
+  assert.ok(links.every(a=>published.some(item=>a.props.href===`/service/post/${encodeURIComponent(item.id)}`)),'no fan link for unpublished rows');
+  assert.deepEqual([...new Set(links.map(a=>a.props.href))],['/service/post/live%20post'],'only the published row links out (table and mobile card)');
+  assert.equal(button(view,'미리보기')?.props.type,'button','unpublished rows keep the preview button');
+ }finally{close(view);}
+});

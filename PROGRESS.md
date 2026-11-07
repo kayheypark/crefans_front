@@ -17,6 +17,10 @@
 - 산출물: `/Users/ethan/.codex/generated_images/01a19f9c-49fa-7323-bd30-4a5bc1b45efd/exec-69f5f5e1-42f5-4d2d-97db-8c68f9366bba.png` (내장 image_gen 편집, SHA-256 `7c11589ca8a54defe15f13bd52247e6cc8d67bce8a5f7d9a182a1c3bf7220a71`). 첫 시안은 같은 디렉터리의 `exec-2af00a25-9110-4c25-8164-f7f8e9d87678.png`. 사진·카드의 크기가 줄었으며 글자·가입 버튼이 남아 있는 것을 출력 이미지로 육안 확인. 36px은 구현 목표이며 생성 이미지의 정확한 CSS 픽셀 검증은 아니다.
 - 현행 MembershipPlanCard.tsx의 compact 분기는 plan.image를 표시하지 않음. 다음: 사용자 시안 승인 후 마이/타인 프로필에서 사용하는 공용 compact 카드에 연결, 이미지 유무·좁은 모바일·PC 검증. 제품 코드·API·데이터 변경/배포 없음.
 - 작업 기준 origin/prod `4120fbc9771383636afcf8a6c6b42067cfab4b0c`, `feat/membership-avatar-preview`. 기존 AGENTS.md 유지. 이번 변경은 PROGRESS.md만 미커밋이며 디자인 설명 기록이므로 제품 테스트·문서 증거 재생성은 수행하지 않았다.
+## 2026-11-07 스튜디오 게시물 목록: 발행 글은 '팬 화면' 이동, 미발행 글만 미리보기 (feat/studio-fan-link, 로컬 커밋·미배포)
+- 사용자 요청: 게시글 리스트에서 미리보기가 아닌 팬 화면 이동 버튼. 결정(클릭): 임시저장·예약 글은 미리보기 유지 / 배포는 로컬까지만.
+- `ContentManagementPage`: status==='published'(미공개 포함 — 작성자는 상세 열람 가능) 행은 PC 표·모바일 카드 모두 `${fanPath}/post/{id}` 같은 탭 링크 '팬 화면'. fanPath 는 선택 prop, 기본은 basePath 의 `/studio` 를 뗀 값(/service, /preview). draft·scheduled 는 기존 미리보기 대화상자.
+- 검증(2026-11-07): typecheck 0, check:layers 434 통과. tests/content-post-preview 10/11 — 새 테스트 통과, 실패 1건(8 운영 숨김 표시)은 변경 전 코드에서도 동일 실패(기존). 대조: 컴포넌트를 변경 전으로 되돌리면 새 테스트 실패. crefans-studio-management 25/25. e2e studio-content-cards chromium 4/4, Pixel 7 임시 설정 4/4(발행 글 링크 href, 미리보기 버튼 없음, 예약 글 미리보기 열림).
 
 ## 2026-11-07 11:10 KST 배포 묶음 통합 release/bundle-20261107 (로컬 커밋만, push·배포 없음)
 - origin/prod 116e548 에서 fix/intermediary-receipt b7df02c → feat/post-unpublish 959da64 → feat/standalone-image 67a8063 --no-ff merge. 충돌: PROGRESS.md(양쪽 유지), docs/audit/evidence.json(생성물 — prod 쪽 유지 후 통합본에서 재기록).
