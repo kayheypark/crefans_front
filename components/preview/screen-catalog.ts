@@ -20,4 +20,4 @@ export const commonLinks=[
  ['events/creator-advertising','주목할 크리에이터 광고상품 30일 이벤트','공통 안내 · 혜택별 유의사항'],
  ['events/promotion-beans','프로모션 100콩 이벤트','공통 안내 · 혜택별 유의사항'],
  ['events/founding-badge','오픈 기념 한정판 배지 이벤트','공통 안내 · 혜택별 유의사항'],
- ['guide/fan','팬 이용안내','가입 · 구독 · 해지 · 환불'],['guide/creator','크리에이터 이용안내','게시 · 멤버십 · 정산'],['reset-password','비밀번호 재설정','메일 확인 · 코드 · 새 비밀번호'],['notices','공지사항','목록 · 공지 상세'],['legal/terms','이용약관','문서 표시 레이아웃'],['legal/privacy','개인정보처리방침','문서 표시 레이아웃'],['legal/policy','운영정책','문서 표시 레이아웃']];
+ ['reset-password','비밀번호 재설정','메일 확인 · 코드 · 새 비밀번호'],['notices','공지사항','목록 · 공지 상세'],['legal/terms','이용약관','문서 표시 레이아웃'],['legal/privacy','개인정보처리방침','문서 표시 레이아웃'],['legal/policy','운영정책','문서 표시 레이아웃']];
