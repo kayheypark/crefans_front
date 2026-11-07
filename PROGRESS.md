@@ -18,6 +18,14 @@
 - 검증: Next production build(타입 검사 포함) 종료0, 로컬 PC/iPhone WebKit/320px 기존 브라우저 검사 3/3 통과. 하단 버튼 없음·제목 클릭/Enter/Space·도움말·연결선·수치·가로 넘침 확인. 모바일 캡처 육안 검수. 최초 WebKit 클릭 직후 포커스 기대값 1건 실패는 클릭과 키보드 포커스 검사를 분리해 재검증 통과. 제품 코드 추가 변경 없음.
 - 증거 .local/content-performance-collapse/verification.json·로그·캡처. 문서 검사 통과. 당시 실제 기기 및 운영 검증 제외. 이후 위 통합 카드 배포에서 dev → prod 통합 및 운영 번들 브라우저 재검증 완료. AGENTS.md 기존 규약 유지.
 
+## 2026-11-07 멤버십 결제 상세·가입 완료에 판매자·통신판매중개자 고지 (fix/intermediary-receipt, 미배포)
+- 2026-11-07 사용자 결정: 프론트는 배포 보류(브랜치 그대로 유지). 이 브랜치는 origin/prod 6421103 에서 분기했고 origin/prod 가 44bc398 로 앞서 있으므로, 나중 배포 때 최신 prod 와 합친 뒤 docs/audit/evidence.json(서버 형제 기준) 재기록·검사를 다시 해야 한다. 서버 짝은 결제 완료 메일 발송 연결까지 진행(crefans_server fix/intermediary-receipt f214e10).
+- 사용자 결정(2026-11-07): 결제 완료 메일·영수증에도 중개자 고지(배포 별도 승인). 근거 전자상거래법 시행규칙 제11조의2(계약내용 서면에도 고지, 판매자 표시와 같거나 큰 글씨). 서버 짝: crefans_server fix/intermediary-receipt f1f914d(결제 메일 템플릿, 발송 연결은 원래 없음).
+- 영수증 위치 조사: 별도 PDF·결제사 영수증 링크 없음. 회원이 보는 결제 기록은 내 구독 > 결제 내역 > '결제 상세' 대화상자(CreatorPages.tsx)와 결제 직후 '멤버십 가입 완료' 요약(MembershipCompletePage.tsx) 두 곳.
+- 변경: 결제 상세 '크리에이터' 줄을 '판매자'로 바꾸고 아래에 `intermediaryNotice` 문단(대화상자 14px 상속, 판매자 줄과 같음). 가입 완료 요약에 '판매자: {크리에이터 이름}'+고지 상자(.seller 13px, p/strong inherit), MembershipCheckout 이 sellerName 전달. 이름을 모르면 '이 멤버십을 운영하는 크리에이터'. 콩 충전 결과에는 넣지 않음.
+- 검증(2026-11-07 로컬): legal-notices+crefans-creator 19/19, 대조 4건(결제 상세 고지 제거·작은 class, 완료 고지 제거·CSS 12px) 각 1 fail 후 원복(SHA 동일) 통과. npm test 545 중 533(실패 12건 이름 origin/prod 6421103 기준선과 동일), typecheck 오류 2건(e2e/content-performance.spec.ts, 기준선 동일), layers 433 통과. Playwright e2e/legal-notices.config.ts(API 대역) PC·iPhone13 9 통과 1 skip, 결제 상세 반복 6/6, computed font-size 고지≥판매자. membership-complete/checkout-layout(대역, 임시 config) 17/18 — iPhone13 의 'never show completion' 1건은 기준선에서도 같은 네비게이션 중단으로 실패(원 config 에선 모바일 대상 아님).
+- 미실행: 운영 배포, 실결제 화면 확인.
+
 ## 2026-11-07 콘텐츠 성과 상세 펼침형 운영 배포 완료
 - 사용자 승인 시안대로 첫 게시물은 펼치고 나머지는 접는다. 피드 노출·상세 조회·30분 방문수·공유/외부 유입·영상 재생은 가로·세로선이 이어진 3열×2행 격자로 표시. 유입 경로·좋아요·댓글 보존, 긴 집계 안내는 ⓘ 도움말로 이동. 큰 수치는 만·억 단위, 정확한 수치는 접근성 이름·title 유지. 집계 정책·API·DB 변경 없음.
 - 기준 origin/prod 53e6a04 → feat/content-performance-disclosure 050e14b → dev a28d6ea → prod c90c70b 순서로 통합·동일 tree 확인. 운영 프론트 content-performance-20261106 배포, 변경 소스5개 SHA 일치. 기준 운영 소스550개와 prod 일치 확인 후 진행.
