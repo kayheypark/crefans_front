@@ -9,7 +9,7 @@
 ### 크리에이터 전환 가드 (2026-11-07)
 
 - 공용 [GuardPage](../components/crefans/GuardPage.tsx)는 가입 완료 화면과 같은 가운데 정렬 안내 페이지다(88px 파란 원형 체크, 제목 초기 포커스, 설명, 48px 주 버튼, 선택 보조 버튼). 이미지·문구·링크는 props로 주입하고 `image`가 없으면 체크를 표시한다. [SignupCompletePage](../components/crefans/SignupCompletePage.tsx)도 같은 컴포넌트를 사용하며 동작(같은 탭 가입 후에만 표시)은 그대로다. 스타일은 기존 `signup-complete.module.css`를 공유한다(멤버십 가입 완료의 체크도 이 파일 사용).
-- `CreatorGuardPage`: 크리에이터 미전환(`overview.started=false`) 회원이 `/service/studio/*`(start 제외)에 들어오면 시작하기 화면으로 바로 보내지 않고 팬 셸 안에 이 가드를 보여 준다. 주 버튼 크리에이터 시작하기(`/studio/start`), 보조 버튼 팬 화면으로. 비로그인 안내·크리에이터 스튜디오는 기존대로다. 그림 교체 지점은 같은 파일의 `creatorGuardImage` 상수(현재 미설정 → 체크).
+- `CreatorGuardPage`: 크리에이터 미전환(`overview.started=false`) 회원이 `/service/studio/*`(start 제외)에 들어오면 시작하기 화면으로 바로 보내지 않고 팬 셸 안에 이 가드를 보여 준다. 주 버튼 크리에이터 시작하기(`/studio/start`), 보조 버튼 팬 화면으로. 비로그인 안내·크리에이터 스튜디오는 기존대로다. 그림 교체 지점은 같은 파일의 `creatorGuardImage` 상수(사용자 채택 연필 PNG, 88×88px·투명 배경). 가입 완료 화면은 기존 체크를 유지한다.
 - 확인: `/preview/studio/guard`, 상태·피드백 카탈로그의 **크리에이터 전환 안내 보기**. [단위 검사](../tests/creator-guard.test.cjs), [브라우저 검사](../e2e/creator-guard.spec.ts)(API 대역·목업, PC/Pixel 7).
 ### 빈 상태 그림 (2026-11-07, 미배포)
 

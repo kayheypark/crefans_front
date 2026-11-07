@@ -25,8 +25,8 @@ export function GuardPage({image,title,description,primary,secondary}:{image?:Gu
   </section>;
 }
 
-/** Replacement point for the creator guard picture: set e.g. {src:'/brand/creator-guard-v1.png'} to show it instead of the check. */
-export const creatorGuardImage:GuardImage|undefined=undefined;
+/** User-selected creator onboarding artwork; signup-complete retains the default check. */
+export const creatorGuardImage:GuardImage={src:'/brand/guards/creator-pencil-v1.png',alt:''};
 
 /** Members who have not switched to creator see this on studio screens instead of being sent to the start form (2026-11-07). */
 export function CreatorGuardPage({studioPath,fanPath}:{studioPath:string;fanPath:string}){

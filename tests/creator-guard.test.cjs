@@ -36,8 +36,11 @@ test('GuardPage: an injected image replaces the check badge',()=>{
  assert.equal(tree.root.findAll(n=>n.props?.className==='check').length,0);
  assert.deepEqual(links(tree),[['주 버튼','/a']]);
 });
-test('creator guard image is a separate replacement constant, unset for now (check badge)',()=>{
- assert.equal(guard.creatorGuardImage,undefined);
+test('creator guard uses the selected pencil without changing the shared default check',()=>{
+ const tree=render(el(guard.CreatorGuardPage,{studioPath:'/service/studio',fanPath:'/service'}));
+ assert.equal(tree.root.findByType('img').props.src,'/brand/guards/creator-pencil-v1.png');
+ assert.equal(tree.root.findByType('img').props.alt,'');
+ assert.equal(tree.root.findAll(n=>n.props?.className==='check').length,0);
 });
 test('non-creator on a studio screen sees the guard, not the start form; buttons go to start and the fan home',()=>{
  setStudio(false);
