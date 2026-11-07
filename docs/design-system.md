@@ -6,11 +6,18 @@
 
 ## 현재 사용 안내
 
+### 모바일 스튜디오 게시물 통합 카드 (2026-11-07)
+
+- [ContentManagementPage](../components/crefans/studio/ManagementPages.tsx)는 767px 이하에서 통합 카드, PC에서는 기존 표를 사용한다. 같은 서비스·목업 모델과 미리보기·수정·삭제 동선을 재사용한다. [카드 스타일](../components/crefans/studio/content-list.module.css)은 흰 배경·가는 테두리, 밑줄 활성 탭, 썸네일·상태·공개 범위·일시·하단 세 관리 동작을 한 카드에 묶는다.
+- 현재 페이지 첫 카드를 펼쳐 표시하고 제목 클릭·Enter/Space로 접는다. 검색·상태·정렬·페이지가 바뀌면 새 목록의 첫 카드가 펼쳐진다. 삭제는 기존 확인 모달을 거치며 실패하면 목록을 유지한다. 영상 처리·운영 숨김·댓글 닫힘 상태를 생략하지 않는다. 일시는 한국 시간이며 예약 글은 게시 예정 시각을 표시한다.
+- 공통 [DataTable](../components/ui/DataTable.tsx)의 안정 정렬 함수를 카드도 사용한다. 기본순은 서버 주입 순서이며, 정렬 후 페이지를 나눈다. 모바일 선택창은 기존 SelectField를 사용한다. PC 정렬 순환·페이지 규칙은 변경하지 않는다.
+- [카탈로그](../components/design-system/StudioContentCatalog.tsx)에 일반·빈 목록·긴 제목·영상 처리·삭제 실패/처리 중 상태를 등록한다. [브라우저 검사](../e2e/studio-content-cards.spec.ts)는 PC·iPhone WebKit·320px, 목업 및 서비스 API 대역이다. 실제 회원 게시물을 변경하거나 실물 iPhone을 검사한 것으로 해석하지 않는다.
+
 ### 콘텐츠 성과 상세 펼침 (2026-11-06)
 
 - 공용 [ContentPerformance](../components/crefans/studio/ContentPerformance.tsx)를 실제 스튜디오·목업 통계 요약에서 사용한다. 첫 게시물은 펼치고 나머지는 접으며, 제목·썸네일·조회는 항상 표시한다. 조회는 주입된 값 그대로 표시하고 피드·상세를 합산하지 않는다.
 - 펼친 통계는 피드 노출·상세 조회·30분 방문수 / 공유·외부 유입·영상 재생의 3열×2행으로 표시한다. [스타일](../components/crefans/studio/content-performance.module.css)의 1px grid gap이 가로·세로 연결선을 만들고 마지막 빈 칸도 같은 배경을 사용한다. 유입 경로·좋아요·댓글은 상세에서 보존하며, 통계 미제공은 0으로 바꾸지 않는다. 1만 이상은 기존 조회수 표시처럼 만·억 단위로 줄이고 title·접근성 이름에 정확한 숫자를 유지한다.
-- 집계 기준은 기존 InfoTooltip으로 표시한다. 네이티브 버튼의 Enter/Space, aria-expanded/aria-controls로 펼치며 접기 후 제목 버튼으로 포커스를 돌려준다. 근거: [WAI-ARIA Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/), 확인일 2026-11-06. [카탈로그](../components/design-system/ContentPerformanceCatalog.tsx)는 일반·빈 목록·미집계·0·긴 제목/큰 수치를 제공한다. [브라우저 검사](../e2e/content-performance.spec.ts)는 PC·iPhone WebKit·320px 목업/API 대역이며 실물 기기·실회원 검증과 구분한다.
+- 집계 기준은 기존 InfoTooltip으로 표시한다. 항목 제목의 네이티브 버튼을 클릭하거나 Enter/Space로 펼치고 접으며 aria-expanded/aria-controls를 유지한다. 항목 하단의 별도 접기 버튼은 표시하지 않는다(2026-11-07). 근거: [WAI-ARIA Disclosure](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/), 확인일 2026-11-06. [카탈로그](../components/design-system/ContentPerformanceCatalog.tsx)는 일반·빈 목록·미집계·0·긴 제목/큰 수치를 제공한다. [브라우저 검사](../e2e/content-performance.spec.ts)는 PC·iPhone WebKit·320px 목업/API 대역이며 실물 기기·실회원 검증과 구분한다.
 
 | 카탈로그 메뉴 | 확인할 내용 | 등록 위치 |
 | --- | --- | --- |
