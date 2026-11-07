@@ -212,7 +212,9 @@ test('creator profile lists the memberships on sale before the posts and presele
   assert.match(JSON.stringify(tree.toJSON()),/판매 중인 멤버십이 없어요/);
   const second={id:'second-plan',name:'두 번째 멤버십',price:5000,rank:1,benefits:['혜택']};
   let membership;act(()=>membership=create(h(MembershipPage,{model:{...model,data:{...model.data,plans:[model.data.plans[0],second]}},id:'artist-42',initialPlanId:'second-plan'})));
-  const summary=membership.root.findAllByType('strong').find(node=>node.findAllByProps({title:'두 번째 멤버십'}).length);assert.ok(summary);assert.ok(summary.findAllByType('span').some(node=>node.children.includes('₩5,000')));
+  // 2026-11-07: the separate selection summary bar was removed; the preselected plan card itself carries the selected state.
+  const selected=membership.root.findAll(node=>node.props?.plan&&node.props.selected===true&&typeof node.type==='function');assert.equal(selected.length,1);assert.equal(selected[0].props.plan.id,'second-plan');
+  assert.equal(JSON.stringify(membership.toJSON()).includes('구독 전 확인하세요'),false,'pre-subscribe info block removed');
 });
 
 test('explore shows paid placements as cards and everyone else as one-line rows without follow buttons',()=>{

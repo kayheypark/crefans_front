@@ -208,12 +208,13 @@ test('settings categories filter their own items and keep account actions in acc
   const choose=label=>act(()=>categories.findAllByType('button').find(node=>flat(node)===label).props.onClick());
   const headings=()=>tree.root.findAllByType('h3').map(node=>node.props.children);
   const cases=[
-    ['계정 설정',['프로필 수정','이메일 설정','비밀번호 변경'],[]],
-    ['항목 모아보기',[],['/service/me?tab=saved','/service/me?tab=liked','/service/following','/service/followers']],
-    ['공개 설정',['개인정보 관리'],[]],
-    ['알림과 결제',['알림 설정','결제수단 관리'],['/service/subscriptions']],
-    ['계정 관리',['차단한 사용자','로그아웃','회원 탈퇴'],[]],
-    ['서비스 안내',[],['/service/landing','/service/support','/service/notices','/service/events','/service/legal/terms','/service/legal/privacy','/service/legal/policy','/service/studio','https://guide.crefans.com/']],
+    ['계정 설정',['프로필 수정','이메일 설정','비밀번호 변경','표시 설정','로그아웃'],[]],
+    ['항목 모아보기',['로그아웃'],['/service/me?tab=saved','/service/me?tab=liked','/service/following','/service/followers']],
+    ['공개 설정',['개인정보 관리','로그아웃'],[]],
+    ['알림과 결제',['알림 설정','결제수단 관리','로그아웃'],['/service/subscriptions']],
+    // 2026-11-07: 로그아웃 moved out of 계정 관리 to the very bottom of the settings footer (standalone when the footer is filtered out).
+    ['계정 관리',['차단한 사용자','회원 탈퇴','로그아웃'],[]],
+    ['서비스 안내',['로그아웃'],['/service/landing','/service/support','/service/notices','/service/events','/service/legal/terms','/service/legal/privacy','/service/legal/policy','/service/studio','https://guide.crefans.com/','https://www.ftc.go.kr/bizCommPop.do?wrkr_no=3770202940']],
   ];
   for(const [category,buttons,links] of cases){
     choose(category);assert.deepEqual(headings(),[category]);
@@ -222,6 +223,8 @@ test('settings categories filter their own items and keep account actions in acc
     assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href).filter(href=>!/^(mailto|tel):/.test(href)),['/service/me',...links]);
     assert.equal(tree.root.findAllByProps({'aria-label':'사업자 정보'}).length,category==='서비스 안내'?1:0);
     assert.equal(tree.root.findAllByType('footer').length,category==='서비스 안내'?1:0);
+    const logout=button(tree,'로그아웃');assert.ok(logout,'logout is always reachable on settings');
+    if(category==='서비스 안내'){const footer=tree.root.findByType('footer');const last=footer.children[footer.children.length-1];assert.ok(last.findAllByType('button').includes(logout),'logout is the last thing in the footer');}
   }
   choose('계정 설정');act(()=>button(tree,'프로필 수정').props.onClick());
   assert.equal(tree.root.findAllByProps({'data-dialog':'프로필 수정'}).length,1);
