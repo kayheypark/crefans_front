@@ -1,3 +1,8 @@
+## 2026-11-07 스튜디오 게시물 목록: 발행 글은 '팬 화면' 이동, 미발행 글만 미리보기 (feat/studio-fan-link, 로컬 커밋·미배포)
+- 사용자 요청: 게시글 리스트에서 미리보기가 아닌 팬 화면 이동 버튼. 결정(클릭): 임시저장·예약 글은 미리보기 유지 / 배포는 로컬까지만.
+- `ContentManagementPage`: status==='published'(미공개 포함 — 작성자는 상세 열람 가능) 행은 PC 표·모바일 카드 모두 `${fanPath}/post/{id}` 같은 탭 링크 '팬 화면'. fanPath 는 선택 prop, 기본은 basePath 의 `/studio` 를 뗀 값(/service, /preview). draft·scheduled 는 기존 미리보기 대화상자.
+- 검증(2026-11-07): typecheck 0, check:layers 434 통과. tests/content-post-preview 10/11 — 새 테스트 통과, 실패 1건(8 운영 숨김 표시)은 변경 전 코드에서도 동일 실패(기존). 대조: 컴포넌트를 변경 전으로 되돌리면 새 테스트 실패. crefans-studio-management 25/25. e2e studio-content-cards chromium 4/4, Pixel 7 임시 설정 4/4(발행 글 링크 href, 미리보기 버튼 없음, 예약 글 미리보기 열림).
+
 ## 2026-11-07 11:10 KST 배포 묶음 통합 release/bundle-20261107 (로컬 커밋만, push·배포 없음)
 - origin/prod 116e548 에서 fix/intermediary-receipt b7df02c → feat/post-unpublish 959da64 → feat/standalone-image 67a8063 --no-ff merge. 충돌: PROGRESS.md(양쪽 유지), docs/audit/evidence.json(생성물 — prod 쪽 유지 후 통합본에서 재기록).
 - 검증(11:02~11:06 KST, node_modules=메인 체크아웃 링크): layers 434 통과, typecheck 0, unit 535/548(실패 13 이름이 origin/prod 116e548 기준선 532/545 의 13건과 동일). e2e legal-notices(PC·iPhone13) 9 통과 1 skip, post-visibility(PC·Pixel7) 8/8 — 모두 API 대역.
