@@ -23,6 +23,7 @@ export function PostMediaTile({post,model}:{post:Post;model:Pick<ServiceViewMode
   return <Link className={s.postTile} href={`${model.basePath}/post/${post.id}`} aria-label={label}>
     {!accessible?<div className={s.lockedTile}><Icon name="lock"/><MarqueeText text={planLabel||'멤버 전용'}/></div>:first.processing?<VideoProcessing variant="thumbnail" className={s.tilePreview} label={post.title}/>:failedUrl===first.url?<div className={s.tileFallback}><MediaTypeIcon type={first.type} size={26}/><span>미리보기 없음</span></div>:first.type==='video'?<MediaVideo className={s.tilePreview} src={first.url} firstFrame muted playsInline preload="metadata" controls={false} tabIndex={-1} aria-hidden="true" onError={()=>setFailedUrl(first.url)}/>:<img className={s.tilePreview} src={first.url} style={{objectPosition:post.position}} alt="" loading="lazy" onError={()=>setFailedUrl(first.url)}/>}
     {post.requiredRank>0&&accessible&&<span className={s.memberLabel}>멤버 전용</span>}
+    {accessible&&media.some(item=>item.aiGenerated)&&<span className={s.aiTileMark}>AI 생성</span>}
     <MediaSummary media={media} className={s.tileCounts}/>
   </Link>;
 }

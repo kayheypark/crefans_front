@@ -254,3 +254,4 @@ button.contact:not(:disabled):not([data-unread=true]):hover{background:color-mix
 .commentForm>.mentionField{width:100%}
 /* Phones: 답글 달기·수정·삭제·신고 get a 44px touch target (WCAG 2.5.5 / Apple HIG); the row grows instead of the targets overlapping. */
 @media (pointer:coarse){.commentReplyAction,.commentOwnActions button{display:inline-flex;align-items:center;min-height:44px;min-width:44px;justify-content:center;padding:0 10px}.commentOwnActions{gap:0;margin-left:4px}.commentReplyAction{margin-left:4px}}
+.aiMark{position:absolute;left:10px;top:10px;z-index:2;padding:3px 9px;border-radius:999px;background:rgb(17 24 39 / 78%);color:#fff;font-size:12px;font-weight:700;line-height:1.5;pointer-events:none}
