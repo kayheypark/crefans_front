@@ -1,3 +1,7 @@
+## 2026-11-08 랜딩 PC 푸터 폭 (feat/landing-footer-width)
+- 사용자 지적: 랜딩 푸터가 모바일용(480px 가운데)으로 붙음. landing.module.css 에 ≥768px 전용 규칙: 푸터를 본문(.container) 전체 폭·왼쪽 정렬, 링크 한 줄, 사업자 정보 가로 나열(상호·고지·저작권은 한 줄씩), 위 경계선 중복 제거. 공용 ServiceFooter·모바일은 그대로.
+- 검증: 로컬 1440 푸터 120~1320(이용안내 섹션과 동일)·1024 32~992·390 16~374, 가로 스크롤 없음, PNG 확인. service-landing 테스트 통과.
+
 ## 2026-11-08 네이버 서치어드바이저 사이트 소유 확인 파일 (feat/naver-site-verification)
 - 사용자 요청: 네이버 HTML 확인 파일을 https://crefans.com 루트에 업로드. public/naver1d3d285a57e371d8cce7bcaabee4884e.html (사용자 제공 파일과 SHA-256 동일, 67바이트, 내용은 확인 문자열 한 줄). public 파일은 middleware 의 '.' 포함 경로 예외로 루트에서 그대로 제공(llms.txt 와 같은 방식). 네이버 쪽 '소유확인' 버튼은 사용자가 누른다.
 
