@@ -46,7 +46,7 @@ export function MembershipCheckout({order,error,basePath,defaultMethod,canRegist
     {order.status!=='processing'&&<PaymentTerms layout="list" basePath={basePath} seller={{name:sellerName||'이 멤버십을 운영하는 크리에이터',notice:intermediaryNotice}} agreed={agreed} onAgree={onAgree} disabled={busy||registering} items={[
      {label:'결제 주기',summary:'매월 자동 결제 · 한 달 결제도 가능',value:'등록 카드 결제는 오늘 결제한 뒤 매월 같은 날(그 날이 없는 달은 말일) 자동으로 결제됩니다. 한 달만 결제하면 자동 갱신되지 않습니다.'},
      {label:'해지',summary:'다음 결제 해지 · 남은 기간 이용',value:'내 구독에서 언제든 다음 결제를 해지할 수 있고, 이미 결제한 기간까지 이용할 수 있습니다.'},
-     {label:'환불',summary:order.snapshot.refundWindowDays?`결제 후 ${order.snapshot.refundWindowDays}일 이내 · 전용 게시물 미열람 시`:'이용약관의 환불 기준 확인',value:order.snapshot.refundWindowDays?`결제 후 ${order.snapshot.refundWindowDays}일 이내이고 멤버십 게시물을 열람하지 않았다면 전액 환불을 요청할 수 있습니다. 게시물을 열람해 이용을 시작한 뒤에는 환불이 제한됩니다.`:'환불 기준은 이용약관을 따릅니다.'}
+     {label:'환불',summary:order.snapshot.refundWindowDays?`결제 후 ${order.snapshot.refundWindowDays}일 이내 · 전용 게시물 미열람 시`:'이용약관의 환불 기준 확인',value:order.snapshot.refundWindowDays?`결제 후 ${order.snapshot.refundWindowDays}일 이내이고 멤버십 게시물을 열람하지 않았다면 전액 환불을 요청할 수 있습니다. 게시물을 열람해 이용을 시작한 뒤에는 다음 결제 해지가 기본이며, 추가 환불은 고객센터에서 개별 검토합니다. 이 기준은 법정 청약철회·환불 권리를 제한하지 않습니다.`:'환불 기준은 이용약관을 따르며, 법정 청약철회·환불 권리를 제한하지 않습니다.'}
     ]}/>}
     <div className={s.paymentActions}>
      <Action disabled={busy||registering||!['pending','processing','failed'].includes(order.status)||order.status!=='processing'&&(!agreed||!defaultMethod||defaultMethod.requiresUpdate)} onClick={onPay}>{busy?'결제 확인 중…':order.status==='processing'?'결제 결과 확인':order.status==='failed'?'다시 결제하기':'결제하고 가입'}</Action>

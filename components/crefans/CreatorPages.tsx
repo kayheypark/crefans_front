@@ -86,6 +86,9 @@ export function ExplorePage({model}:{model:ServiceViewModel}){
   </div>;
 }
 
+/** 비로그인 멤버십 가입 시도: 공용 로그인 필요 창(실제 서비스) 또는 로그인 화면(목업). */
+const signIn=(model:ServiceViewModel,router:{push:(href:string)=>void})=>model.requireSignIn?model.requireSignIn():router.push(`${model.basePath}/login`);
+
 export function CreatorProfilePage({model,id,previewLogin}:{model:ServiceViewModel;id:string;previewLogin?:{label:string;onClick:()=>void}}){
   const router=useRouter();
   const {following,toggleFollow,basePath,subscriptions,data:{creators,posts}}=model;
@@ -100,7 +103,7 @@ export function CreatorProfilePage({model,id,previewLogin}:{model:ServiceViewMod
     <ProfileHeader cover={creator.cover??creator.image} coverPosition={creator.position} person={creator} handle={creator.handle} bio={creator.bio} tags={creator.tags} categoryIcons={model.data.categoryIcons} counts={[{label:'게시물',value:ownPosts.length},{label:'팔로워',private:creator.followersPublic===false,value:creator.followers,href:`${basePath}/followers?profile=${encodeURIComponent(creator.id)}`},{label:'팔로잉',private:creator.followingPublic===false||creator.followingCount===undefined,href:`${basePath}/following?profile=${encodeURIComponent(creator.id)}`,value:creator.followingCount!==undefined?creator.followingCount:<span className={s.lockedCount} role="img" aria-label="팔로잉 비공개" title="비공개"><Icon name="lock" width="16" height="16"/></span>}]} action={<FollowButton following={following.includes(id)} name={creator.name} onToggle={()=>toggleFollow(id)}/>}/>
     {model.mode==='mock'&&previewLogin&&<div className={s.profilePlans}><Action variant="secondary" className={s.previewLogin} onClick={previewLogin.onClick}>{previewLogin.label}</Action></div>}
     <TipButton creatorId={creator.id} name={creator.name} creator={creator} profile/>
-    <section className={s.profilePlans} aria-labelledby="profile-plans"><h2 id="profile-plans">멤버십</h2>{onSale.length?<div className={s.planList}>{onSale.map(plan=><MembershipPlanCard key={plan.id} plan={plan} creator={creator} compact selected={plan.id===activePlanId} disabled={plan.id===activePlanId} actionLabel={plan.id===activePlanId?'가입 중':'가입하기'} onSelect={()=>router.push(`${basePath}/membership/${id}?plan=${plan.id}`)}/>)}</div>:<Empty title="판매 중인 멤버십이 없어요."/>}</section>
+    <section className={s.profilePlans} aria-labelledby="profile-plans"><h2 id="profile-plans">멤버십</h2>{onSale.length?<div className={s.planList}>{onSale.map(plan=><MembershipPlanCard key={plan.id} plan={plan} creator={creator} compact selected={plan.id===activePlanId} disabled={plan.id===activePlanId} actionLabel={plan.id===activePlanId?'가입 중':'가입하기'} onSelect={()=>{if(!model.signedIn){signIn(model,router);return;}router.push(`${basePath}/membership/${id}?plan=${plan.id}`);}}/>)}</div>:<Empty title="판매 중인 멤버십이 없어요."/>}</section>
     <div className={s.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={s.tabCount}>{count}</span>}</button>)}</div>
     {tab==='소개'?<section className={s.about}>{(creator.about||creator.bio)?<p>{creator.about||creator.bio}</p>:<p>아직 등록된 소개가 없습니다.</p>}<SocialLinks links={creator.links}/></section>:tab==='피드'?(ownPosts.length?<div className={s.profileFeed}>{ownPosts.map(post=><PostCard key={post.id} post={post} model={model} context={ownPosts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}</div>:<Empty title="아직 게시물이 없어요" description="팔로우하고 새로운 소식을 기다려 주세요."/>):<>{!mediaPosts.length?<Empty title={model.feedPaging?.hasMore?'불러온 게시물에 미디어가 없어요':'아직 미디어가 없어요'} description={model.feedPaging?.hasMore?'더 보기를 눌러 이전 게시물을 확인하세요.':'사진이나 동영상이 담긴 게시물이 올라오면 여기에 모여요.'}/>:<div className={s.postGrid}>{mediaPosts.map(post=><PostMediaTile key={post.id} post={post} model={model}/>)}</div>}{model.feedPaging?.hasMore&&<div className={s.profileFeed}><Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={model.feedPaging.loading}/></Action></div>}</>}
   </div>;
@@ -122,7 +125,7 @@ export function MembershipPage({model,id,initialPlanId}:{model:ServiceViewModel;
   useEffect(()=>{setAgreed(false);setShared(false);},[id,plan?.id,plan?.price,nextDate]);
   if(!creator)return <Empty title="멤버십을 찾을 수 없어요" illustration={false} action={<TextLink href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>}/>;
   if(!plan)return <Empty title="아직 멤버십이 없어요" description="이용 가능한 멤버십이 등록되지 않았습니다."/>;
-  const selectPlan=(planId:string)=>{setSelected(planId);setAgreed(false);setShared(false);setError('');setOpen(true);};
+  const selectPlan=(planId:string)=>{if(!model.signedIn){signIn(model,router);return;}setSelected(planId);setAgreed(false);setShared(false);setError('');setOpen(true);};
   const confirmMembership=async()=>{
     if(pending||!agreed||!shared)return;
     setPending(true);setError('');
