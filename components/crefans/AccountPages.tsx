@@ -14,6 +14,7 @@ import {CreatorName} from './CreatorName';
 
 import {LegalDocumentBody} from './LegalDocumentBody';
 import {ServiceFooter} from './ServiceFooter';
+import {AdvisorLauncher} from './AdvisorChat';
 import {DialogActions} from '@/components/ui/DialogActions';
 import {useEffect,useRef,useState, type FormEvent, type ReactNode} from 'react';
 import Link from 'next/link';
@@ -266,6 +267,7 @@ export function SupportPage({model}:{model:ServiceViewModel}){
   return <section className={s.support} data-pull-refresh-block={isQna||undefined}><PageTitle back={<BackButton href={`${basePath}/settings`} label="설정으로 돌아가기"/>}>고객센터</PageTitle><nav className={s.tabs} aria-label="고객센터 메뉴"><Link href={`${basePath}/support`} aria-current={!isQna?'page':undefined}>자주 묻는 질문</Link><Link href={`${basePath}/support?tab=qna`} aria-current={isQna?'page':undefined}>문의하기</Link></nav>
     {!isQna?<><label className={s.search}><Icon name="search" width={19} height={19}/><input aria-label="자주 묻는 질문 검색" placeholder="궁금한 내용을 검색해보세요" value={search} onChange={e=>setSearch(e.target.value)}/></label><div className={s.faqs}>{filtered.length||showWithdraw?<>{filtered.map(item=><AccordionItem key={item.question} title={item.question}>{item.answer}</AccordionItem>)}{showWithdraw&&withdrawFaq}</>:<Empty title="검색 결과가 없어요" description="다른 단어로 검색하거나 문의를 남겨주세요." action={<TextLink href={`${basePath}/support?tab=qna`} className={s.textLink}>문의하기</TextLink>}/>}</div></>:<><form className={s.form} onSubmit={submit} noValidate><SelectField label="문의 유형" value={category} onChange={setCategory} options={account.inquiryCategories.map(item=>({value:item,label:item}))} placeholder="문의 유형을 선택해주세요" error={submitted&&!category?'문의 유형을 선택해주세요.':undefined} required/><Field label="제목" value={title} maxLength={80} onChange={e=>setTitle(e.target.value)} placeholder="문의 제목을 입력해주세요" error={submitted&&!title.trim()?'문의 제목을 입력해주세요.':undefined}/><TextAreaField label="문의 내용" rows={6} maxLength={2000} value={message} onChange={e=>setMessage(e.target.value)} placeholder="문의 내용을 자세히 알려주세요" error={submitted&&!message.trim()?'문의 내용을 입력해주세요.':undefined}/><p className={s.hint}>비밀번호, 카드 번호 등 민감한 정보는 입력하지 마세요.</p>{task.error&&<p className={s.error} role="alert">{task.error}</p>}<Action type="submit" disabled={task.busy||!account.inquiryCategories.length||!category||!title.trim()||!message.trim()}>{task.busy?'등록 중…':'문의 등록하기'}</Action></form><Toast message={notice} onClose={()=>setNotice('')}/><div className={`${s.menuList} ${s.historyEntry}`}><Link href={`${basePath}/support?tab=history`}><Icon name="mail" width={20} height={20}/><span>내 문의 내역{account.tickets.length?` (${account.tickets.length})`:''}</span><Chevron/></Link></div><Guidance text={account.guidance.support}/></>}
     {ticketDialog}{withdrawDialog}
+    {/* 2026-11-08 user request: 가이드의 AI 가이드를 고객센터에 떠 있는 버튼으로 둔다. */}{accountActions.askAdvisor&&<AdvisorLauncher ask={accountActions.askAdvisor} basePath={basePath}/>}
     {/* 2026-11-07: 고객센터 아래에도 서비스 링크·사업자 정보 푸터를 둔다. */}<ServiceFooter basePath={basePath} always/>
   </section>;
 }

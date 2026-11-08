@@ -575,3 +575,8 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 
 - 공용 `MembershipPlanCard`의 compact 카드에는 등록한 `plan.image`를 36px 원형으로 표시한다. 사진이 없거나 로딩에 실패하면 공통 `OptionalImage`가 생략하며 이름·월 가격·레벨·기존 가입/관리 동작은 유지한다. 이름과 가격은 왼쪽 두 줄, 레벨과 최소44px 버튼은 오른쪽에 배치한다. 내 프로필과 타인 프로필·목업에서 같은 컴포넌트를 사용한다.
 - 입력·선택 카탈로그의 이미지 업로드 영역에서 큰 선택 카드와 작은 프로필 카드가 같은 사진을 공유한다. 사진 변경/제거·비활성·가입 중·긴 이름과 관리 버튼 상태를 확인할 수 있다.
+
+### 고객센터 AI 가이드 (2026-11-08)
+- 가이드 사이트의 AI 가이드(crefans_guide `AdvisorChat.astro`)를 서비스 공용 [AdvisorChat](../components/crefans/AdvisorChat.tsx)으로 옮겼다. 고객센터에서만 오른쪽 아래 떠 있는 버튼(`AdvisorLauncher`)으로 열고, PC는 420×680 창, 모바일(767px 이하)은 전체 화면이다. 버튼은 모바일 하단 내비 위(76px+안전영역)에 둔다.
+- 답변은 굵게(`**`)와 표만 해석해 React 요소로 그리고, 나머지는 글자 그대로 둔다(HTML 삽입 없음). 규칙은 [lib/crefans/advisor.ts](../lib/crefans/advisor.ts), 질문은 accountActions.askAdvisor 콜백으로만 보낸다(실서비스 [lib/api/advisor.ts](../lib/api/advisor.ts), 목업 [advisor-fixtures](../components/preview/service/advisor-fixtures.ts)). 가이드의 '이어서 물어보기'는 가이드 색인이 필요해 넣지 않았다.
+- 글꼴은 가이드와 같이 Apple SD Gothic Neo 우선(어드바이저만). 카탈로그 [AdvisorChatCatalog](../components/design-system/AdvisorChatCatalog.tsx): 답변·관련 없음·오류(다시 시도)·하루 한도. 단위 검사 [tests/support-advisor.test.cjs](../tests/support-advisor.test.cjs).
