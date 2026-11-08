@@ -1,9 +1,11 @@
-## 2026-11-08 AI 사진 편집 1안 컴팩트 편집형 적용 (검증 완료, 운영 배포 진행)
+## 2026-11-08 AI 사진 편집 1안 컴팩트 편집형 (21:52 KST 운영 배포 완료)
 - 사용자 선택: 두 폴리싱 시안 중 1안으로 개선·운영 배포. origin/prod72b512c에서 feat/ai-photo-compact-20261108 분기, 최신 전체화면 기능 b3ed2f0를 0e34fae로 가져왔다.
 - 공용 AiPhotoDialog: 편집 → 결과 두 단계, 208px 원본·파란 선택 탭/느낌 칩·공용 입력/동의·접힌 안내·하단 고정 CTA, 결과 두 장 나란히 비교/선택. 설정 수정 시 입력 유지, 다시 만들기 실패 시 이전 결과 보존. 원본 확대 추가, 오류를 보이는 위치로 스크롤. 모바일 전체화면·바깥 클릭 방지·마스크·경과 시간·확대/넘기기·무료10회/2장 유지. PC 최대640px, 모바일16px 여백. 공용 Dialog className 확장·inert/숨김 요소 포커스 제외.
 - 검증: typecheck·layers 종료0, 관련11/11, 전체571/587(실패16개 이름이 origin/prod72b512c의565/581과 동일). 화면 전환 제거 대조에서6개 실패 확인 후 복원, 관련11/11 재통과. 로컬 Chromium1440·WebKit390/320에서 원본선택·동의·확대/키보드포커스·설정수정·마스크·선택추가, 가로 넘침/하단 버튼 겹침 없음; PNG 확인. 실AI 공급사/물리 iPhone 검증 아님.
 - 문서 검사: 기본 server 체크아웃이 오래되어 누락, 최신 server-ai-photo 지정 시 Generated contracts stale(기존 prod도 동일). 근거 없이 계약 스냅샷 갱신하지 않음. 증거 .local/ai-photo-compact-20261108/(검증JSON·로그·스크린샷·브라우저 검사).
-- 다음: dev 통합 및 운영 빌드 → prod 승격 → 프론트 이미지 배포, 공개 화면/운영 상태 확인. 서버/DB 정책 변경 없음. 복구 자료는 맥 /Users/ethan/crefans-recovery에 검증 보관하고 운영 임시본만 정리.
+- 배포: feature a3c3459 → dev988b3ed(운영 빌드 통과) → prod e49dc60, dev/prod 동일. crefans-front:ai-photo-compact-20261108 로컬 amd64 빌드54초, 12:52:43Z 적재·12:52:55Z 교체 확인. 운영 frontend만 교체, API·worker·admin·DB·proxy 불변. 주요4경로200·정적/이미지200·이벤트리다이렉트301·재시작0·OOM없음.
+- 운영 확인: 배포된 공용 /preview/studio/content/new에서 Chromium PC·WebKit390 편집/결과2장·스크린샷 확인, 실제 AI 호출/운영 데이터 변경 차단. 최초 검사는 hydration 전 파일 선택으로 업로드 이벤트가 빠져, 로딩/업로드 완료 후 재검증해 통과. 실공급자 생성 성공으로 확대 주장하지 않음.
+- 복구: /Users/ethan/crefans-recovery/20261108/ai-photo-compact-20261108. 이전 이미지·설정 tar 및 SHA256·OCI index 태그/ID·config/layer 포함15 blobs 검증 후 서버 이전 이미지·이번 배포 임시백업 삭제. 처음 macOS 로케일 오류는 LC_ALL=C로 재개, index ID/config ID 구분 후 검증. 증거 docs/audit/ai-photo-compact-deployment-20261108.json. 현재 남은 질문 없음.
 
 ## 2026-11-08 AI 사진 편집 창 전체 화면·바깥 닫힘 방지·크게 보기·진행 시간·버튼 (feat/ai-photo-fullscreen, 미병합·미배포)
 - 사용자 요청: 모바일에서 창 바깥을 누르면 닫히는 문제(치명) → 전체 화면 창, 결과 크게 보기, 작성 화면 AI 버튼을 업로드 칸처럼 가로로 길게+주목할 크리에이터 스파클 아이콘, 만드는 동안 보통 걸리는 시간과 진행 초.
