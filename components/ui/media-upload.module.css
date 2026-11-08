@@ -17,3 +17,4 @@
 .error{color:var(--cf-color-danger);font-size:max(12px,var(--cf-mobile-font-min,0px));line-height:1.6;margin:0}
 @media(prefers-reduced-motion:reduce){.dropzone,.tile,.media{transition:none}}
 .hint{margin-top:-2px;font-size:max(12px,var(--cf-mobile-font-min,0px));line-height:1.6;color:var(--cf-color-textMuted)}
+.aiBadge{position:absolute;left:6px;top:6px;z-index:1;padding:2px 7px;border-radius:999px;background:rgb(17 24 39 / 82%);color:#fff;font-size:11px;font-weight:700;line-height:1.5;pointer-events:none}
