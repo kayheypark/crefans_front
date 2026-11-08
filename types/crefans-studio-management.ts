@@ -26,7 +26,7 @@ export type StudioManagementModel={
   selectedSubscriberId?:string;
   notice?:string;
   /** Today's AI photo edits left; absent when the editor is not offered. */
-  aiPhotoQuota?:{remaining:number;limit:number};
+  aiPhotoQuota?:{remaining:number;limit:number;/** Median seconds of recent real edits; null until one has finished. */typicalSeconds?:number|null};
   /** The creator's own fee terms from the studio finance API; absent means the default rate. */
   creatorTerms?:CreatorTerms|null;
   actions:{

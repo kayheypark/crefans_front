@@ -23,12 +23,13 @@ export function useMockManagement({getProtectedPlanIds=()=>[],initialContents=ma
   const [deletedIds,setDeletedIds]=useState<string[]>([]);
   const images=useLocalImages();
   const [aiRemaining,setAiRemaining]=useState(AI_PHOTO_DAILY_LIMIT);
-  const [aiEditPhoto]=useState(()=>mockAiPhotoEdit({onRemaining:setAiRemaining}));
+  const [aiTypical,setAiTypical]=useState<number|null>(null);
+  const [aiEditPhoto]=useState(()=>{const edit=mockAiPhotoEdit({onRemaining:setAiRemaining});return async(input:Parameters<typeof edit>[0])=>{const begun=Date.now(),result=await edit(input);if(result.success)setAiTypical(Math.max(1,Math.round((Date.now()-begun)/1000)));return result;};});
   const [subscribers]=useState<StudioSubscriber[]>(()=>initialSubscribers.map(item=>({...item,planSnapshot:{...item.planSnapshot,benefits:[...item.planSnapshot.benefits]}})));
   const requestedStatus=query.get('status');
   const selectedContentStatus=requestedStatus&&['draft','published','scheduled'].includes(requestedStatus)?requestedStatus as StudioContentStatus:undefined;
   const canDelete=(id:string)=>canDeleteMembership(id,subscribers,managementNow)&&!getProtectedPlanIds().includes(id);
-  return {now:managementNow,aiPhotoQuota:{remaining:aiRemaining,limit:AI_PHOTO_DAILY_LIMIT},creatorTerms:{platformFeeBps:creatorPayoutPolicy.feeRatePercent*100,settlementHoldDays:creatorPayoutPolicy.settlementHoldDays,beanWithdrawalFeeBps:creatorPayoutPolicy.feeRatePercent*100,minimumWithdrawalKrw:creatorPayoutPolicy.minimumWithdrawalKrw} satisfies CreatorTerms,contents,memberships:memberships.filter(item=>!deletedIds.includes(item.id)).map(item=>({...item,canDelete:canDelete(item.id)})),subscribers,selectedContentStatus,selectedSubscriberPlanId:query.get('plan')||undefined,selectedSubscriberId:query.get('member')||undefined,notice:'',actions:{
+  return {now:managementNow,aiPhotoQuota:{remaining:aiRemaining,limit:AI_PHOTO_DAILY_LIMIT,typicalSeconds:aiTypical},creatorTerms:{platformFeeBps:creatorPayoutPolicy.feeRatePercent*100,settlementHoldDays:creatorPayoutPolicy.settlementHoldDays,beanWithdrawalFeeBps:creatorPayoutPolicy.feeRatePercent*100,minimumWithdrawalKrw:creatorPayoutPolicy.minimumWithdrawalKrw} satisfies CreatorTerms,contents,memberships:memberships.filter(item=>!deletedIds.includes(item.id)).map(item=>({...item,canDelete:canDelete(item.id)})),subscribers,selectedContentStatus,selectedSubscriberPlanId:query.get('plan')||undefined,selectedSubscriberId:query.get('member')||undefined,notice:'',actions:{
     saveContent:async input=>{
       if(input.id&&!contents.some(item=>item.id===input.id))return fail('게시물을 찾을 수 없습니다.');
       if(!input.title.trim())return fail('제목을 입력해주세요.');
