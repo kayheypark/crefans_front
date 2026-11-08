@@ -581,9 +581,11 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 - 답변은 굵게(`**`)와 표만 해석해 React 요소로 그리고, 나머지는 글자 그대로 둔다(HTML 삽입 없음). 규칙은 [lib/crefans/advisor.ts](../lib/crefans/advisor.ts), 질문은 accountActions.askAdvisor 콜백으로만 보낸다(실서비스 [lib/api/advisor.ts](../lib/api/advisor.ts), 목업 [advisor-fixtures](../components/preview/service/advisor-fixtures.ts)). 가이드의 '이어서 물어보기'는 가이드 색인이 필요해 넣지 않았다.
 - 글꼴은 가이드와 같이 Apple SD Gothic Neo 우선(어드바이저만). 카탈로그 [AdvisorChatCatalog](../components/design-system/AdvisorChatCatalog.tsx): 답변·관련 없음·오류(다시 시도)·하루 한도. 단위 검사 [tests/support-advisor.test.cjs](../tests/support-advisor.test.cjs).
 
-### 스튜디오 AI 사진 편집 (2026-11-08, 화면·목업만)
+### 스튜디오 AI 사진 편집 (2026-11-08)
 - 사용자 결정: 시안 A(모달 편집기) + 의상 교체는 시안 C의 영역 칠하기, 크리에이터 무료·하루 10회·한 번에 2장. 시안 원본은 로컬 `.local/imagegen-drafts/`(저장소 밖 기록).
-- [AiPhotoDialog](../components/crefans/studio/AiPhotoDialog.tsx)는 공용 Dialog(`wide`)에 원본 고르기, 옷·포즈·배경 탭, 원하는 모습(300자), 느낌 칩, 본인·동의 확인, 남은 횟수, 결과 2장 중 고르기를 둔다. 옷은 [AiPhotoMask](../components/crefans/studio/AiPhotoMask.tsx)로 칠한 곳만 투명한 원본 크기 마스크 PNG를 만든다. 규칙은 [lib/crefans/ai-photo.ts](../lib/crefans/ai-photo.ts).
-- 작성 화면 버튼은 `model.actions.aiEditPhoto`가 있을 때만 보인다. 실제 서비스에는 아직 주입하지 않아(서버·OpenAI·처리방침 개정 전) 운영 화면에 나타나지 않는다. 목업 대역은 [ai-photo-fixtures](../components/preview/studio/ai-photo-fixtures.ts), 카탈로그는 [AiPhotoCatalog](../components/design-system/AiPhotoCatalog.tsx)(정상·사진 없음·실패·안전 차단·한도 소진). 결과 썸네일에는 'AI 생성' 표시(MediaUpload `aiGenerated`).
+- [AiPhotoDialog](../components/crefans/studio/AiPhotoDialog.tsx)는 공용 Dialog(`persistent`, `fullscreenOnMobile`)의 컴팩트 편집/결과 두 단계에 원본 고르기, 옷·포즈·배경 탭, 원하는 모습(300자), 느낌 칩, 본인·동의 확인, 남은 횟수, 결과 2장 중 고르기를 둔다. 옷은 [AiPhotoMask](../components/crefans/studio/AiPhotoMask.tsx)로 칠한 곳만 투명한 원본 크기 마스크 PNG를 만든다. 규칙은 [lib/crefans/ai-photo.ts](../lib/crefans/ai-photo.ts).
+- 작성 화면 버튼은 `model.actions.aiEditPhoto`가 있을 때만 보인다. 실제 서비스는 서버의 허용 크리에이터 조회 결과가 `allowed`일 때 생성 API를 주입한다. 목업 대역은 [ai-photo-fixtures](../components/preview/studio/ai-photo-fixtures.ts), 카탈로그는 [AiPhotoCatalog](../components/design-system/AiPhotoCatalog.tsx)(정상·사진 없음·실패·안전 차단·한도 소진). 결과 썸네일에는 'AI 생성' 표시(MediaUpload `aiGenerated`).
 - 검사: [tests/studio-ai-photo.test.cjs](../tests/studio-ai-photo.test.cjs). 팬 화면 게시물의 'AI 생성' 표시와 서버 저장은 서버 연결 때 추가한다.
 - 2026-11-08 실제 연결: 실제 서비스 스튜디오는 `/studio/ai-photo/quota`가 allowed(운영 콘솔 허용 목록)일 때만 `aiEditPhoto`·`aiPhotoQuota`를 주입하고, 생성은 `/studio/ai-photo/edit`(multipart, 마스크 PNG)로 보낸다. 게시물 미디어의 `aiGenerated`는 팬 화면 게시물(PostGallery: 해당 사진 왼쪽 위 'AI 생성'), 프로필 미디어 타일, 작성 화면 팬 미리보기에 표시한다.
+
+- 2026-11-08 선택한 1안 폴리싱: 파란색 선택 탭·느낌 칩, 208px 원본, 공용 TextAreaField/Checkbox/Action, 접힌 이용 안내. 생성 중/완료는 결과 화면으로 전환하고 두 결과를 나란히 비교하며 설정 수정 시 입력을 유지한다. 모바일 전체 화면·PC 최대640px에서 본문만 스크롤하고 하단 작업 버튼은 고정한다. 결과 확대/원본 확대·선택·경과 시간·한도·마스크를 유지한다. 바깥 클릭은 닫지 않는다. 카탈로그 정상/빈 사진/오류/안전 차단/한도 소진에도 같은 컴포넌트를 사용한다.
