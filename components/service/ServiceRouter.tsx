@@ -23,8 +23,7 @@ import {LoadingSpinner} from '@/components/ui/LoadingSpinner';
 import {useDelayedLoading} from '@/components/ui/useDelayedLoading';
 import {Dialog} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
-import {Action,ActionLink} from '@/components/crefans/ServiceUI';
-import {useCurrentLoginHref} from '@/components/crefans/useCurrentLoginHref';
+import {Action} from '@/components/crefans/ServiceUI';
 import {SignupPage,LoginPage,MyProfilePage,SettingsPage,SupportPage,SignInPrompt} from '@/components/crefans/AccountPages';
 import {FeedPage,PostDetailPage,MessagesPage,NotificationsPage} from '@/components/crefans/SocialPages';
 import {ExplorePage,CreatorProfilePage,MembershipPage,SubscriptionsPage} from '@/components/crefans/CreatorPages';
@@ -35,7 +34,7 @@ import s from '@/components/crefans/service.module.css';
 
 export default function ServiceRouter({segments}:{segments:string[]}){
  const {model,common,loading,error,refresh,publicProfile,actionNotice,dismissFeedback}=useService(),query=useSearchParams(),router=useRouter(),[screen,id]=segments,basePath=model.basePath;
- const loginHref=useCurrentLoginHref(basePath),feedback=actionNotice||(error?{message:error,loginRequired:false}:null);
+ const feedback=actionNotice||(error?{message:error,loginRequired:false}:null);
  // Loading rule: a page change shows nothing for the first second, then the shared spinner (no '불러오는 중…' text on every tab tap).
  const slow=useDelayedLoading(loading);
  function content(){if(loading)return slow?<LoadingSpinner/>:null;if(!model.signedIn&&!(['following','followers'].includes(screen)&&query.get('profile'))&&['messages','notifications','me','subscriptions','settings','following','followers','payment-methods','checkout','beans'].includes(screen))return <SignInPrompt basePath={basePath}/>;switch(screen){
@@ -66,5 +65,5 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'reset-password':return common&&<PasswordResetPage model={common} basePath={basePath}/>;
   default:return <FeedPage model={model}/>;
  }}
- return <ServiceShell model={model} authLoading={loading} active={screen} scrollKey={segments.join('/')} auth={['signup','login','reset-password'].includes(screen)}><Suspense fallback={<p className={s.loading}>화면을 준비하고 있어요.</p>}>{content()}</Suspense><Dialog open={!!feedback} onClose={dismissFeedback} title={feedback?.loginRequired?'로그인이 필요해요':actionNotice?'알림':'화면을 불러오지 못했어요'}><p>{feedback?.loginRequired?'로그인하면 팔로우, 좋아요, 저장 기능을 이용할 수 있어요.':feedback?.message}</p><DialogActions style={{marginTop:24}}>{feedback?.loginRequired?<><Action variant="secondary" onClick={dismissFeedback}>나중에</Action><ActionLink href={loginHref}>로그인하기</ActionLink></>:actionNotice?<Action onClick={dismissFeedback}>확인</Action>:<><Action variant="secondary" onClick={dismissFeedback}>닫기</Action><Action onClick={()=>{dismissFeedback();void refresh();}}>다시 불러오기</Action></>}</DialogActions></Dialog></ServiceShell>;
+ return <ServiceShell model={model} authLoading={loading} active={screen} scrollKey={segments.join('/')} auth={['signup','login','reset-password'].includes(screen)}><Suspense fallback={<p className={s.loading}>화면을 준비하고 있어요.</p>}>{content()}</Suspense><Dialog open={!!feedback} onClose={dismissFeedback} title={feedback?.loginRequired?'로그인이 필요해요':actionNotice?'알림':'화면을 불러오지 못했어요'}>{/* 2026-11-08: the login-needed notice reuses the sign-in prompt layout (lock, 로그인·회원가입). */}{feedback?.loginRequired?<SignInPrompt basePath={basePath} variant="dialog" hideTitle description="로그인하면 팔로우, 좋아요, 저장 기능을 이용할 수 있어요." onNavigate={dismissFeedback}/>:<><p>{feedback?.message}</p><DialogActions style={{marginTop:24}}>{actionNotice?<Action onClick={dismissFeedback}>확인</Action>:<><Action variant="secondary" onClick={dismissFeedback}>닫기</Action><Action onClick={()=>{dismissFeedback();void refresh();}}>다시 불러오기</Action></>}</DialogActions></>}</Dialog></ServiceShell>;
 }

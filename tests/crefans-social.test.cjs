@@ -376,7 +376,7 @@ test('feed category chips filter complete preview data, preserve order and reset
   const chips=()=>tree.root.findByProps({'aria-label':'관심 카테고리'}).findAllByType('button');
   const choose=label=>act(()=>chips().find(button=>button.children.includes(label)).props.onClick());
   assert.equal(chips().filter(button=>button.children.includes('전체')).length,1);
-  assert.equal(tree.root.findByProps({'aria-label':'크리에이터 검색'}).props.href,'/actual-service/explore');
+  assert.equal(tree.root.findByProps({'aria-label':'크리에이터·게시물 검색'}).props.href,'/actual-service/explore');
   assert.equal(tree.root.findAllByType('input').length,0);
   choose('여행');assert.deepEqual(tree.root.findAllByType(PostCard).map(node=>node.props.post.id),['trip']);
   assert.deepEqual(tree.root.findByType(PostCard).props.context.map(p=>p.id),['trip']);

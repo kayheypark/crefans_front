@@ -4,6 +4,7 @@ import {supportFaqs} from '@/lib/crefans/support';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {useSearchParams,usePathname} from 'next/navigation';
 import {useDirectoryModel} from './useDirectoryModel';
+import {usePostSearchModel} from './usePostSearchModel';
 import {verifyIdentity} from '@/lib/api/identity';
 import {startBillingRegistration} from '@/lib/api/billing';
 import {platformRequest as api} from '@/lib/api/platform';
@@ -24,6 +25,8 @@ export function useServiceModel(){
  const [feedCategory,setFeedCategory]=useState('전체');
  const activeFeedCategory=pathname==='/service/feed'?feedCategory:'전체';
  const directory=useDirectoryModel(pathname==='/service/explore',setError);
+ const mergeSearchCreators=useCallback((creators:any[])=>setState((previous:any)=>previous?({...previous,data:{...previous.data,creatorPlans:{...previous.data.creatorPlans,...profilePlans(creators)},creators:[...previous.data.creators.filter((c:any)=>!creators.some((p:any)=>p.id===c.id)),...creators]}}):previous),[]);
+ const postSearch=usePostSearchModel(pathname==='/service/explore',mergeSearchCreators,setError);
  const generation=useRef(0);
  // quiet: reload in place (no loading screen), so an open conversation stays mounted after sending.
  const refresh=useCallback(async(options?:{quiet?:boolean})=>{const token=++generation.current;if(!options?.quiet){setError('');setActionNotice(null);setPublicProfile(null);setState(empty);setCommon(null);setComments({});setCommentPages({});setCursor(null);setMoreLoading(false);setLoading(true);}const [response,shared]=await Promise.all([api<any>(`/bootstrap${pathname==='/service/me'&&['saved','liked'].includes(query.get('tab')||'')?`?collection=${query.get('tab')}`:''}`),api<any>('/common')]);if(token!==generation.current)return;
@@ -47,7 +50,7 @@ export function useServiceModel(){
  const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
  const updateBadge=useCallback(async(visible?:boolean)=>{const token=generation.current;const result=await api<FoundingBadgeStatus>(visible===undefined?'/events/founding-badge/claim':'/me/founding-badge',visible===undefined?{}:{visible},visible===undefined?'POST':'PUT');if(result.success&&token===generation.current){const shown=result.data.status==='claimed'&&result.data.visible;setState((previous:any)=>({...previous,viewer:{...previous.viewer,isFoundingMember:shown},data:{...previous.data,creators:previous.data.creators.map((c:any)=>previous.ownCreatorIds.includes(c.id)?{...c,isFoundingMember:shown}:c)}}));}return result;},[]);
  const claimBadge=useCallback(()=>updateBadge(),[updateBadge]);
- const model:ServiceViewModel={...state,foundingBadge:{load:loadFoundingBadge,claim:claimBadge,setVisible:updateBadge},directory,feedCategory:{value:feedCategory,select:setFeedCategory},feedPaging:{hasMore:!!cursor,loading:moreLoading,loadMore},mode:'live',basePath:'/service',today,commentsByPost:comments,commentPaging:Object.fromEntries(Object.entries(commentPages).map(([id,page])=>[id,{hasMore:page.offset!==null,loading:page.loading,loadMore:()=>moreComments(id)}])),likeCounts:Object.fromEntries(state.data.posts.map((p:any)=>[p.id,p.likes])),commentCounts:Object.fromEntries(state.data.posts.map((p:any)=>[p.id,p.comments])),blockedCreatorIds:state.account.blockedCreatorIds,conversationLabels:{},socialCopy:{reportDescription:'대화를 신고할까요?',blockDescription:'차단하면 메시지를 주고받을 수 없습니다.'},setSignedIn:()=>{void refresh();},setViewer:(value:any)=>{if(typeof value==='function')setState((previous:any)=>({...previous,viewer:value(previous.viewer)}));else setState((previous:any)=>({...previous,viewer:value}));},
+ const model:ServiceViewModel={...state,foundingBadge:{load:loadFoundingBadge,claim:claimBadge,setVisible:updateBadge},directory,postSearch,feedCategory:{value:feedCategory,select:setFeedCategory},feedPaging:{hasMore:!!cursor,loading:moreLoading,loadMore},mode:'live',basePath:'/service',today,commentsByPost:comments,commentPaging:Object.fromEntries(Object.entries(commentPages).map(([id,page])=>[id,{hasMore:page.offset!==null,loading:page.loading,loadMore:()=>moreComments(id)}])),likeCounts:Object.fromEntries(state.data.posts.map((p:any)=>[p.id,p.likes])),commentCounts:Object.fromEntries(state.data.posts.map((p:any)=>[p.id,p.comments])),blockedCreatorIds:state.account.blockedCreatorIds,conversationLabels:{},socialCopy:{reportDescription:'대화를 신고할까요?',blockDescription:'차단하면 메시지를 주고받을 수 없습니다.'},setSignedIn:()=>{void refresh();},setViewer:(value:any)=>{if(typeof value==='function')setState((previous:any)=>({...previous,viewer:value(previous.viewer)}));else setState((previous:any)=>({...previous,viewer:value}));},
  account:{...state.account,route:{profileTab:['saved','liked'].includes(query.get('tab')||'')?query.get('tab'):null,supportTab:query.get('tab')==='qna'?'qna':query.get('tab')==='history'?'history':'faq',settingsSection:query.get('section')}},
  accountActions:{
   signup:input=>api('/auth/signup',{...input,emailProof:proofs.current.email,identityProof:proofs.current.identity,referralCode:storedReferral()}),
