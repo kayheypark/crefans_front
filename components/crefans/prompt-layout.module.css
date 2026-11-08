@@ -1,0 +1,13 @@
+/* Centered illustration · title · description · actions (2026-11-08: shared by sign-in prompts and other gated states). */
+.prompt{width:100%;min-height:calc(100svh - 180px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;margin:0;padding:40px 16px}
+/* Phones: the page body already has the 16px side gutter (same as the feed), so the prompt adds none. */
+@media(max-width:767px){.prompt{padding-inline:0;justify-content:flex-start}.prompt>footer{width:100%;max-width:none;margin-top:0}}
+.content{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;max-width:400px;gap:12px}
+.icon{display:block;flex:none;width:88px;height:88px;object-fit:contain;margin-bottom:4px}
+.title{margin:0;font-size:24px;line-height:1.4;letter-spacing:-.6px;color:var(--cf-color-text)}
+.prompt.dialog{min-height:0;gap:0;padding:12px 0 4px}
+.content>p{margin:0;max-width:330px;font-size:14px;line-height:1.8;color:var(--cf-color-textMuted);word-break:keep-all}
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));width:100%;gap:12px;margin-top:12px}
+.prompt .actions :is(a,button){min-width:0;min-height:48px;margin-top:0;padding:10px 16px;border-radius:var(--cf-radius-control);font-size:15px;font-weight:600}
+.prompt .actions :is(a,button):not(.primary){color:var(--cf-color-accent);border-color:var(--cf-color-accentBorder)}
+.prompt .actions .primary{background:var(--cf-service-brand);color:var(--cf-color-onAccent);border-color:var(--cf-service-brand)}
