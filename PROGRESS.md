@@ -1,3 +1,9 @@
+## 2026-11-08 내 프로필 SNS 링크·SNS 아이디 입력·검색 결과 폭 (feat/me-social-links)
+- 사용자 지적: 모바일 프로필에서 SNS 링크를 등록해도 안 보임. 원인: 하단 '프로필' 탭의 내 프로필(/service/me, AccountPages MyProfileContent) 소개 탭은 회원 한줄 소개(bio)만 그리고 크리에이터 소개글·SNS 링크를 그리지 않음(공개 크리에이터 프로필 소개 탭은 정상, 운영 API links 정상 확인). 수정: 공용 components/crefans/SocialLinks.tsx 로 빼서 공개 프로필·내 프로필이 함께 사용, 내 프로필 소개 = 크리에이터 about 또는 bio + SNS 링크.
+- 사용자 요청: PC 게시물 검색 결과가 너무 넓음 → .searchPosts max-width 480px(피드 .feed 와 동일, 측정 피드 480·검색 480).
+- 사용자 요청: SNS 링크는 https://기본주소 고정 + 아이디만 입력, 서버에는 전체 주소 저장. lib/crefans/social-links.ts(SOCIAL_PREFIX youtube.com/@·instagram.com/·facebook.com/, socialHandle/socialUrl/socialLinkValid). 전체 주소 붙여넣기·@·www/m·http 변형은 정규 주소로, 다른 형식의 기존 주소(유튜브 /channel/… 등)는 전체 주소 그대로 표시·유지. 아이디는 영문·숫자·.·_·- 만. 서버 변경 없음(기존 URL 검증 그대로).
+- 검증: typecheck 0, check:layers 447, social-links 3/3(아이디 규칙 느슨화 대조 시 1 실패), npm test 576/592(실패 16 이전 prod 와 동일). 로컬 3108 목업: 아이폰·PC 내 프로필 소개 탭 유튜브·인스타그램·페이스북 표시, 스튜디오 설정 링크 칸 고정 주소+아이디, 공백 아이디 오류 문구, pageerror 0.
+
 ## 2026-11-08 PromptLayout·게시물 검색 운영 배포 (crefans-front:post-search-20261108)
 - prod dcebdec 배포(이전 ai-photo-compact-20261108). 1차는 API 배포와 같은 서버 백업 폴더명 때문에 교체 전 중단(운영 변경 없음), 정리 후 2차 성공. 운영 화면 PC·아이폰 검색 탭·잠김 카드·빈 결과·AI 빈 상태 확인, pageerror 0. 상세 server .local/post-search-20261108/deployment.md. 복구본 /Users/ethan/crefans-recovery/20261108/post-search-20261108.
 - 주의: ship-image.sh 백업 폴더(/opt/crefans-backup-<태그>)가 API 배포 폴더명과 겹치지 않게 서로 다른 태그를 쓰거나 API 백업을 먼저 정리할 것.
