@@ -1,3 +1,8 @@
+## 2026-11-08 랜딩 마무리 문구 삭제·PC 푸터 노출 (feat/landing-closing-footer)
+- 사용자 요청: 랜딩 '좋아하는 마음으로, 함께 시작해요.' 영역 삭제, 푸터 노출. 운영 확인 결과 PC(≥768px) 랜딩은 푸터 전체가 숨겨져 있었음.
+- 구현: LandingPage closing 섹션·CSS 삭제, .siteFooter PC 숨김 제거, ServiceFooter 에 business 옵션 추가(PC 에서도 사업자 정보 표시, 랜딩만 always+business). 다른 화면의 PC 푸터 동작은 그대로(피드 PC 푸터 display:none 확인).
+- 검증: typecheck 0, check:layers 447, npm test 576/592(실패 16 이전 prod 와 동일). 로컬 1440·390 랜딩: closing 없음, 푸터(서비스 링크·사업자 정보·통신판매업 번호) 표시.
+
 ## 2026-11-08 내 프로필 SNS 링크·SNS 아이디 입력·검색 결과 폭 (feat/me-social-links)
 - 사용자 지적: 모바일 프로필에서 SNS 링크를 등록해도 안 보임. 원인: 하단 '프로필' 탭의 내 프로필(/service/me, AccountPages MyProfileContent) 소개 탭은 회원 한줄 소개(bio)만 그리고 크리에이터 소개글·SNS 링크를 그리지 않음(공개 크리에이터 프로필 소개 탭은 정상, 운영 API links 정상 확인). 수정: 공용 components/crefans/SocialLinks.tsx 로 빼서 공개 프로필·내 프로필이 함께 사용, 내 프로필 소개 = 크리에이터 about 또는 bio + SNS 링크.
 - 사용자 요청: PC 게시물 검색 결과가 너무 넓음 → .searchPosts max-width 480px(피드 .feed 와 동일, 측정 피드 480·검색 480).

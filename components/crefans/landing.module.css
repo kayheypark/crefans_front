@@ -55,10 +55,7 @@
 .services article>svg{width:26px;height:26px;flex:none;margin-top:2px;color:var(--cf-color-accent)}
 .services h2{font-size:16px;font-weight:650;line-height:1.5}
 .services p{max-width:220px;margin-top:6px;color:var(--cf-color-textMuted);font-size:13px;word-break:keep-all}
-.closing{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:36px 0}
-.closing h2{font-size:20px;line-height:1.5;font-weight:650;letter-spacing:-.035em;word-break:keep-all}
 .siteFooter{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
-@media(min-width:768px){.siteFooter{display:none}}
 @media(max-width:1100px){.headerInner{gap:24px}.header nav{gap:20px}.search{display:none}.creatorGrid{gap:16px}.services article{padding:0 16px;gap:12px}}
 @media(max-width:767px){
  .container,.headerInner{width:calc(100% - 32px)}
@@ -68,6 +65,6 @@
  .creators{padding:24px 0}.sectionHeading{margin-bottom:20px}.sectionHeading h2{font-size:22px}.sectionHeading>p{font-size:13px}
  .creatorGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px}.creatorPhoto{aspect-ratio:1.25}.creatorInfo{padding-top:10px}.creatorName{font-size:15px}.tags{font-size:12px;min-height:38px}.page .profileLink{font-size:13px}.page .browseLink{margin-top:16px}
  .services{grid-template-columns:1fr;padding:24px 0;gap:20px}.services article{justify-content:flex-start;padding:0 8px;gap:16px}.services article+article{border:0}.services h2{font-size:15px}.services p{max-width:none;font-size:13px;margin-top:4px}
- .closing{flex-direction:column;align-items:flex-start;gap:8px;padding:28px 0 12px}.closing h2{font-size:18px}
+
 }
 @media(prefers-reduced-motion:reduce){.page *{transition:none!important;scroll-behavior:auto!important}}
