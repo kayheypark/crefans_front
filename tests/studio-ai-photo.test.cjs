@@ -53,7 +53,7 @@ test('dialog: consent is required, then a pose edit sends no mask and adds only 
  assert.doesNotMatch(text(r.toJSON()),/동의해 주세요/);
  await click('2장 만들기');
  assert.equal(calls.length,1);assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.equal(calls[0].consent,true);
- assert.match(text(r.toJSON()),/오늘 남은 횟수 9\/10/);
+ assert.equal(r.root.findAllByType('textarea').length,0,'the result screen replaces the editor');
  assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-pressed']===true&&String(n.props['aria-label']).startsWith('결과')).length,1);
  await click('게시물에 추가');
  assert.deepEqual(added.map(i=>[i.id,i.aiGenerated]),[['a1',true]]);
@@ -64,4 +64,70 @@ test('dialog: outfit needs painted area before calling the server',async()=>{
  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick();});
  await act(async()=>{r.root.findByProps({'aria-label':'원하는 모습'}).props.onChange({target:{value:'교복 코스튬'}});});
  await click('2장 만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/옷 부분을 사진 위에 칠해/);
+});
+
+test('result viewer: opens large, moves between results, picks from there, and closing it keeps the editor',async()=>{
+ const {r,click}=await open();
+ await act(async()=>{r.root.findByProps({'aria-label':'원하는 모습'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
+ await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
+ await click('2장 만들기');
+ await act(async()=>{r.root.findByProps({'aria-label':'결과 2 크게 보기','title':'크게 보기'}).props.onClick();});
+ const viewer=()=>r.root.findAll(n=>n.props.role==='group'&&String(n.props['aria-label']).endsWith('크게 보기'));
+ assert.equal(viewer().length,1);assert.match(text(viewer()[0]),/결과 2 \/ 2/);
+ assert.equal(r.root.findAll(n=>n.type==='img'&&n.props.alt==='결과 2 (AI 생성 사진)').length,1);
+ await act(async()=>{r.root.findByProps({'aria-label':'이전 결과'}).props.onClick();});assert.match(text(viewer()[0]),/결과 1 \/ 2/);
+ await act(async()=>{viewer()[0].props.onKeyDown({key:'ArrowRight',preventDefault(){},stopPropagation(){}});});assert.match(text(viewer()[0]),/결과 2 \/ 2/);
+ await click('이 사진 선택');assert.match(text(viewer()[0]),/선택됨/);
+ await act(async()=>{viewer()[0].props.onKeyDown({key:'Escape',preventDefault(){},stopPropagation(){}});});
+ assert.equal(viewer().length,0);assert.match(text(r.toJSON()),/게시물에 추가 \(2\)/,'both results are picked and the editor is still open');
+});
+
+test('progress: while making, the button and panel show elapsed seconds and the usual time (or that it is being measured)',async()=>{
+ for(const [typical,expect] of [[24,/보통 약 24초 걸려요/],[null,/걸리는 시간을 재는 중/]]){
+  let finish;const onEdit=()=>new Promise(resolve=>{finish=resolve;});
+  let r;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10,typicalSeconds:typical},room:9,onEdit,onAdd(){}}));});
+  await act(async()=>{r.root.findByProps({'aria-label':'원하는 모습'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
+  await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
+  await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('2장 만들기')).props.onClick();});
+  const all=text(r.toJSON());assert.match(all,expect);assert.match(all,/0초 지남/);assert.match(all,/만드는 중… 0초/);assert.match(all,/창을 닫지 말고/);
+  await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
+  assert.doesNotMatch(text(r.toJSON()),/초 지남/);
+ }
+});
+
+
+test('compact stages: edit settings preserves prompt, source, style, consent and remaining quota',async()=>{
+ const {r,click,calls}=await open();
+ await act(async()=>{r.root.findByProps({'aria-label':'원하는 모습'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+ await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
+ await click('2장 만들기');assert.equal(r.root.findAllByType('textarea').length,0);
+ await click('설정 수정');assert.equal(r.root.findByProps({'aria-label':'원하는 모습'}).props.value,'따뜻한 스튜디오 배경');
+ assert.match(text(r.toJSON()),/오늘 남은 횟수 9\/10/);
+ await click('2장 만들기');assert.equal(calls.length,2);assert.deepEqual(calls[1],calls[0]);
+});
+
+test('compact stages: provider failure restores the editable form without losing the request',async()=>{
+ const {r,click}=await open({onEdit:async()=>({success:false,errorMessage:'생성에 실패했어요',errorCode:'PROVIDER_ERROR'})});
+ await act(async()=>{r.root.findByProps({'aria-label':'원하는 모습'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+ await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
+ await click('2장 만들기');assert.match(text(r.toJSON()),/생성에 실패했어요/);
+ assert.equal(r.root.findByProps({'aria-label':'원하는 모습'}).props.value,'따뜻한 스튜디오 배경');
+ assert.match(text(r.toJSON()),/오늘 남은 횟수 10\/10/);
+});
+
+test('compact results: cannot add more photos than the remaining post capacity',async()=>{
+ const {r,click,added}=await open({room:1});
+ await act(async()=>{r.root.findByProps({'aria-label':'원하는 모습'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+ await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
+ await click('2장 만들기');await act(async()=>{r.root.findByProps({'aria-label':'결과 2','aria-pressed':false}).props.onClick();});
+ await click('게시물에 추가');assert.equal(added.length,0);assert.match(text(r.toJSON()),/사진은 1장만 더 넣을 수/);
+});
+
+
+test('regenerate failure keeps the previously selected photos available to add',async()=>{
+ let count=0;const {r,click,added}=await open({onEdit:async()=>++count===1?{success:true,data:{images:[{id:'keep',type:'image',url:'/keep.png'}],remaining:9}}:{success:false,errorMessage:'다시 만들지 못했어요',errorCode:'PROVIDER_ERROR'}});
+ await act(async()=>{r.root.findByProps({'aria-label':'원하는 모습'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+ await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
+ await click('2장 만들기');await click('다시 만들기');assert.match(text(r.toJSON()),/다시 만들지 못했어요/);
+ await click('게시물에 추가');assert.deepEqual(added.map(i=>i.id),['keep']);
 });
