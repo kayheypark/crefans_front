@@ -580,3 +580,9 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 - 가이드 사이트의 AI 가이드(crefans_guide `AdvisorChat.astro`)를 서비스 공용 [AdvisorChat](../components/crefans/AdvisorChat.tsx)으로 옮겼다. 고객센터에서만 오른쪽 아래 떠 있는 버튼(`AdvisorLauncher`)으로 열고, PC는 420×680 창, 모바일(767px 이하)은 전체 화면이다. 버튼은 모바일 하단 내비 위(76px+안전영역)에 둔다.
 - 답변은 굵게(`**`)와 표만 해석해 React 요소로 그리고, 나머지는 글자 그대로 둔다(HTML 삽입 없음). 규칙은 [lib/crefans/advisor.ts](../lib/crefans/advisor.ts), 질문은 accountActions.askAdvisor 콜백으로만 보낸다(실서비스 [lib/api/advisor.ts](../lib/api/advisor.ts), 목업 [advisor-fixtures](../components/preview/service/advisor-fixtures.ts)). 가이드의 '이어서 물어보기'는 가이드 색인이 필요해 넣지 않았다.
 - 글꼴은 가이드와 같이 Apple SD Gothic Neo 우선(어드바이저만). 카탈로그 [AdvisorChatCatalog](../components/design-system/AdvisorChatCatalog.tsx): 답변·관련 없음·오류(다시 시도)·하루 한도. 단위 검사 [tests/support-advisor.test.cjs](../tests/support-advisor.test.cjs).
+
+### 스튜디오 AI 사진 편집 (2026-11-08, 화면·목업만)
+- 사용자 결정: 시안 A(모달 편집기) + 의상 교체는 시안 C의 영역 칠하기, 크리에이터 무료·하루 10회·한 번에 2장. 시안 원본은 로컬 `.local/imagegen-drafts/`(저장소 밖 기록).
+- [AiPhotoDialog](../components/crefans/studio/AiPhotoDialog.tsx)는 공용 Dialog(`wide`)에 원본 고르기, 옷·포즈·배경 탭, 원하는 모습(300자), 느낌 칩, 본인·동의 확인, 남은 횟수, 결과 2장 중 고르기를 둔다. 옷은 [AiPhotoMask](../components/crefans/studio/AiPhotoMask.tsx)로 칠한 곳만 투명한 원본 크기 마스크 PNG를 만든다. 규칙은 [lib/crefans/ai-photo.ts](../lib/crefans/ai-photo.ts).
+- 작성 화면 버튼은 `model.actions.aiEditPhoto`가 있을 때만 보인다. 실제 서비스에는 아직 주입하지 않아(서버·OpenAI·처리방침 개정 전) 운영 화면에 나타나지 않는다. 목업 대역은 [ai-photo-fixtures](../components/preview/studio/ai-photo-fixtures.ts), 카탈로그는 [AiPhotoCatalog](../components/design-system/AiPhotoCatalog.tsx)(정상·사진 없음·실패·안전 차단·한도 소진). 결과 썸네일에는 'AI 생성' 표시(MediaUpload `aiGenerated`).
+- 검사: [tests/studio-ai-photo.test.cjs](../tests/studio-ai-photo.test.cjs). 팬 화면 게시물의 'AI 생성' 표시와 서버 저장은 서버 연결 때 추가한다.

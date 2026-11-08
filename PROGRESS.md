@@ -1,3 +1,10 @@
+## 2026-11-08 스튜디오 AI 사진 편집 화면·목업 (feat/studio-ai-photo, 미병합·미배포)
+- 사용자 요청: 게시물 작성에서 이미지 생성(옷·포즈·배경 바꾸기, 코스프레·일상은 실사 느낌). 시안 5종 보고 후 사용자 선택: A 모달 + C 영역 칠하기, 무료·하루 10회·한 번에 2장, '화면부터 만들기'(실제 생성 연결·약관 개정은 나중).
+- 구현: AiPhotoDialog·AiPhotoMask·ai-photo.module.css, lib/crefans/ai-photo.ts, 타입 aiEditPhoto?/aiPhotoQuota?/StudioMedia.aiGenerated, 공용 Dialog `wide`, MediaUpload 'AI 생성' 표시, 목업 대역, 디자인 시스템 카탈로그. 실제 서비스 모델에는 aiEditPhoto 를 넣지 않아 운영 화면에는 버튼이 없다.
+- 근거(확인일 2026-11-08): OpenAI 이미지 편집 마스크(알파 PNG·원본과 같은 크기)·n·safety_identifier, 출력 1장 GPT Image 2 medium 1024×1536 $0.041(입력 별도) https://developers.openai.com/api/docs/guides/image-generation. AI기본법(2026-01-22 시행) 생성물 표시 의무는 사업자에게, 실제와 구분 어려운 결과물은 명확히 표시(시행령 원문 재확인 필요). 성폭력처벌법 14조의2 허위영상물(2024 개정 소지·시청 처벌, 조문 원문 재확인 필요) → 본인·동의 확인과 금지 안내를 화면에 둠.
+- 검증: typecheck 0, check:layers 444, studio-ai-photo 5/5(대조: 동의 검사·의상 영역 검사 제거 시 각 2건 실패), npm test 565/581 실패 16건 origin/prod 와 이름 동일. 브라우저(로컬 3108 /preview/studio/content/new) Chromium 1440·WebKit 390: 사진 없음 안내 → 업로드 → 옷 탭 칠하기 미칠 시 안내 → 동의 미체크 안내 → 2장 생성(남은 9/10) → 결과 고르기 → 게시물에 'AI 생성' 2장, 넘침·pageerror 0. 디자인 시스템 '서비스 UI' 카탈로그 열림.
+- 다음(결정 필요): 서버 `POST /api/v1/studio/media/ai-edit`(크리에이터 세션·Origin, Moderation 입력·결과, 하루 10회·전체 예산, 비공개 미디어 저장·aiGenerated 메타, 감사 로그), 처리방침 국외 이전·위탁과 운영정책(타인 사진·성적 합성 금지) 개정, 팬 화면 'AI 생성' 표시, 월 예산 상한. 계획 초안은 로컬 `crefans_front/.local/imagegen-drafts/plan.md`.
+
 ## 2026-11-08 고객센터 AI 가이드 떠 있는 버튼 (feat/support-ai-guide)
 - 사용자 요청: 가이드의 AI 가이드를 프론트 고객센터에도. 선택: React 공용 컴포넌트로 이식, 떠 있는 버튼, 검사 후 바로 배포.
 - 구현: components/crefans/AdvisorChat.tsx(+advisor.module.css), lib/crefans/advisor.ts, lib/api/advisor.ts, accountActions.askAdvisor(실서비스·목업), 디자인 시스템 패턴 카탈로그. 서버는 feat/support-advisor-origin 으로 advisor 경로 Origin 에 서비스 출처 허용(콘솔 거부).
