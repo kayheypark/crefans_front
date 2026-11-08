@@ -13,7 +13,7 @@ export type Creator={id:string;name:string;handle:string;tags:string[];image:str
 export type Viewer={name:string;handle:string;bio:string;image:string;cover?:string;isVerified?:boolean;isFoundingMember?:boolean};
 export type Plan={id:string;name:string;price:number;rank:number;benefits:string[];description?:string;recommended?:boolean;image?:string;version?:number;available?:boolean;entitlementMode?:'tier'|'exact'};
 /** `processing`: an iPhone video still being optimized on the server; viewers see a notice instead of the player. */
-export type PostMediaItem={type:'image'|'video';url:string;processing?:boolean};
+export type PostMediaItem={type:'image'|'video';url:string;processing?:boolean;/** Made with the studio AI photo editor (AI 기본법 표시, 2026-11-08). */aiGenerated?:boolean};
 /** `image` stays the cover for cards; `media` carries the full gallery (images and videos, up to 10) when present. */
 export type Post={id:string;creatorId:string;title:string;body:string;image:string;position:string;likes:number;comments:number;/** Stored cumulative views; absent when the source does not supply a count. */views?:number;supporterCount?:number;tipsEnabled?:boolean;requiredRank:number;requiredPlanId?:string;time:string;media?:PostMediaItem[];/** Effective flag after the studio-wide switch; undefined means open. */commentsEnabled?:boolean;canAccess?:boolean};
 export type Subscription={id?:string;renewalPending?:boolean;billingIssue?:'action_required'|'retrying';retryAt?:string;orderId?:string;paidAt?:string;paymentStatus?:'paid'|'refunding'|'refunded';creatorId:string;planId:string;status:'active'|'cancelled'|'expired';renewAt:string;price:number;planSnapshot?:Plan};

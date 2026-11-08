@@ -1,3 +1,8 @@
+## 2026-11-08 스튜디오 AI 사진 편집 실제 연결 (feat/ai-photo-live, 미병합·미배포)
+- 사용자 요청: AI 사진 생성 기능 추가(실제 생성). 서버 crefans_server feat/ai-photo-edit(/studio/ai-photo/quota·edit)와 짝.
+- 구현: useStudioModel 이 quota allowed 일 때만 aiEditPhoto(multipart sourceId·kind·style·prompt·consent·mask)·aiPhotoQuota 주입, 성공 시 남은 횟수 갱신. PostMediaItem.aiGenerated, PostGallery 현재 사진 'AI 생성' 표시·alt, PostMediaTile 표시, ContentPostPreview 가 aiGenerated 유지.
+- 검증: typecheck 0, check:layers 444, npm test 565/581(실패 16 origin/prod 와 동일). 로컬 목업 팬 미리보기: 원본 칸 표시 0, AI 사진 칸 표시 1, pageerror 0(.local/ai-photo/fan-preview-mark.png). 실제 서비스 경로는 서버 배포 후 확인 필요.
+
 ## 2026-11-08 스튜디오 AI 사진 편집 화면·목업 (feat/studio-ai-photo, 미병합·미배포)
 - 사용자 요청: 게시물 작성에서 이미지 생성(옷·포즈·배경 바꾸기, 코스프레·일상은 실사 느낌). 시안 5종 보고 후 사용자 선택: A 모달 + C 영역 칠하기, 무료·하루 10회·한 번에 2장, '화면부터 만들기'(실제 생성 연결·약관 개정은 나중).
 - 구현: AiPhotoDialog·AiPhotoMask·ai-photo.module.css, lib/crefans/ai-photo.ts, 타입 aiEditPhoto?/aiPhotoQuota?/StudioMedia.aiGenerated, 공용 Dialog `wide`, MediaUpload 'AI 생성' 표시, 목업 대역, 디자인 시스템 카탈로그. 실제 서비스 모델에는 aiEditPhoto 를 넣지 않아 운영 화면에는 버튼이 없다.
