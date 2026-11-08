@@ -1,3 +1,9 @@
+## 2026-11-08 SNS·검색 정의 동기화 (feat/social-docs-sync, /pilot-work 합의)
+- 점검 표: SNS 입력은 코드(아이디만·전체 주소 저장) vs 가이드 '전체 주소 입력'(정반대)·preview-pages 'http(s) 주소만'·목업 오류 문구 불일치, 서버는 아무 http(s) 허용; 게시물 검색은 서버 API 문서·가이드·preview-pages 누락. AI 사진 한도 10회·2장은 서버·프론트·처리방침 일치.
+- 사용자 결정(클릭): 서버도 같은 SNS 규칙(서버 crefans-api:social-validate-20261108 배포), 문서 모두 수정 + 가이드 배포, AI 사진 가이드 페이지는 보류.
+- 프론트: 목업 저장 검사를 socialLinkValid 로 통일('<서비스> 주소를 확인해주세요.'), docs/preview-pages.md 설정·탐색 행 갱신.
+- 검증: typecheck 0, check:layers 447, social-links 3/3. check:docs(최신 서버 지정): 남은 실패 'Generated contracts stale' 뿐 — origin/prod 기준선도 같은 실패 + 'API explanation missing: GET /posts/search'(이번에 해소). 계약 스냅샷은 근거 없이 갱신하지 않음.
+
 ## 2026-11-08 랜딩 PC 푸터 폭 (feat/landing-footer-width)
 - 사용자 지적: 랜딩 푸터가 모바일용(480px 가운데)으로 붙음. landing.module.css 에 ≥768px 전용 규칙: 푸터를 본문(.container) 전체 폭·왼쪽 정렬, 링크 한 줄, 사업자 정보 가로 나열(상호·고지·저작권은 한 줄씩), 위 경계선 중복 제거. 공용 ServiceFooter·모바일은 그대로.
 - 검증: 로컬 1440 푸터 120~1320(이용안내 섹션과 동일)·1024 32~992·390 16~374, 가로 스크롤 없음, PNG 확인. service-landing 테스트 통과.
