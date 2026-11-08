@@ -1,3 +1,8 @@
+## 2026-11-08 AI 사진 편집 창 전체 화면·바깥 닫힘 방지·크게 보기·진행 시간·버튼 (feat/ai-photo-fullscreen, 미병합·미배포)
+- 사용자 요청: 모바일에서 창 바깥을 누르면 닫히는 문제(치명) → 전체 화면 창, 결과 크게 보기, 작성 화면 AI 버튼을 업로드 칸처럼 가로로 길게+주목할 크리에이터 스파클 아이콘, 만드는 동안 보통 걸리는 시간과 진행 초.
+- 구현: 공용 Dialog `persistent`(바깥 클릭으로 닫지 않음, 닫기·Esc만)·`fullscreenOnMobile`(767px 이하 100vw×100dvh). AiPhotoDialog 에 두 옵션, 결과마다 '크게 보기' 버튼과 AiResultViewer(이전·다음·스와이프·화살표키, 이 사진 선택, Esc/닫기는 보기만 닫음). 창 등장 애니메이션의 transform 이 보기를 창 안에 가두어 보기가 열린 동안 해제. 버튼 `.aiWide`(52px, 업로드와 같은 폭, /brand/featured-creators-v1.png). 진행: 버튼 '만드는 중… N초', 결과 영역 진행 초·'보통 약 N초'(서버 quota.typicalSeconds, 없으면 '재는 중')·진행 막대(최대 95%).
+- 검증: typecheck 0, check:layers 444, studio-ai-photo 7/7(크게 보기·진행 표시 포함), npm test 567/583(실패 16 origin/prod 와 동일). 브라우저(로컬 목업): 아이폰 390 창 390×844·바깥 탭 유지·보기 390×844, PC 창 1040×765·바깥 클릭 유지·보기 1440×900, 보기에서 선택→'게시물에 추가 (2)', 버튼 폭 업로드와 같음(664/358px)·높이 52·아이콘 로드, 진행 문구 확인. pageerror 0.
+
 ## 2026-11-08 스튜디오 AI 사진 편집 실제 연결 (feat/ai-photo-live, 미병합·미배포)
 - 사용자 요청: AI 사진 생성 기능 추가(실제 생성). 서버 crefans_server feat/ai-photo-edit(/studio/ai-photo/quota·edit)와 짝.
 - 구현: useStudioModel 이 quota allowed 일 때만 aiEditPhoto(multipart sourceId·kind·style·prompt·consent·mask)·aiPhotoQuota 주입, 성공 시 남은 횟수 갱신. PostMediaItem.aiGenerated, PostGallery 현재 사진 'AI 생성' 표시·alt, PostMediaTile 표시, ContentPostPreview 가 aiGenerated 유지.
