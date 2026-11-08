@@ -1,3 +1,6 @@
+## 2026-11-08 네이버 서치어드바이저 사이트 소유 확인 파일 (feat/naver-site-verification)
+- 사용자 요청: 네이버 HTML 확인 파일을 https://crefans.com 루트에 업로드. public/naver1d3d285a57e371d8cce7bcaabee4884e.html (사용자 제공 파일과 SHA-256 동일, 67바이트, 내용은 확인 문자열 한 줄). public 파일은 middleware 의 '.' 포함 경로 예외로 루트에서 그대로 제공(llms.txt 와 같은 방식). 네이버 쪽 '소유확인' 버튼은 사용자가 누른다.
+
 ## 2026-11-08 랜딩 마무리 문구 삭제·PC 푸터 노출 (feat/landing-closing-footer)
 - 사용자 요청: 랜딩 '좋아하는 마음으로, 함께 시작해요.' 영역 삭제, 푸터 노출. 운영 확인 결과 PC(≥768px) 랜딩은 푸터 전체가 숨겨져 있었음.
 - 구현: LandingPage closing 섹션·CSS 삭제, .siteFooter PC 숨김 제거, ServiceFooter 에 business 옵션 추가(PC 에서도 사업자 정보 표시, 랜딩만 always+business). 다른 화면의 PC 푸터 동작은 그대로(피드 PC 푸터 display:none 확인).
