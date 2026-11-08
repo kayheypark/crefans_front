@@ -1,3 +1,8 @@
+## 2026-11-08 공용 PromptLayout(로그인 필요 레이아웃 재사용) (feat/ai-photo-fullscreen, 미병합·미배포)
+- 사용자 요청: AI 사진 창의 '사진 먼저 올리기' 화면을 로그인 필요 레이아웃처럼, 재사용 구조로. 팔로우 시 로그인 필요 창도 기존 로그인 필요 레이아웃 사용.
+- 구현: components/crefans/PromptLayout.tsx(+prompt-layout.module.css: 그림·제목·설명·버튼, page/dialog, promptPrimary). SignInPrompt 를 PromptLayout 위로 옮김(겉모양 동일, hideTitle·onNavigate 추가), account.module.css 의 signIn* 12줄 이동. AiPhotoDialog 빈 상태=스파클 그림+'바꿀 사진을 먼저 올려 주세요'+'사진 올리러 가기'. ServiceRouter 로그인 필요 알림=SignInPrompt dialog(hideTitle, 링크 누르면 닫힘), 쓰지 않게 된 loginHref·ActionLink·useCurrentLoginHref import 제거.
+- 검증: typecheck 0, check:layers 445, prompt-layout 2/2, studio-ai-photo 7/7, npm test 실패 16 origin/prod 와 동일. 브라우저(로컬 3108 + 로컬 API 3001/개발 DB): 아이폰·PC AI 빈 상태(그림·제목·버튼·닫힘), 비로그인 크리에이터 프로필 팔로우→'로그인이 필요해요' 창(자물쇠·로그인/회원가입·안쪽 제목 숨김)→로그인 링크 이동 후 창 닫힘, /service/me 로그인 필요 페이지 유지(h1·아이콘·푸터). pageerror 0.
+
 ## 2026-11-08 AI 사진 편집 창 전체 화면·바깥 닫힘 방지·크게 보기·진행 시간·버튼 (feat/ai-photo-fullscreen, 미병합·미배포)
 - 사용자 요청: 모바일에서 창 바깥을 누르면 닫히는 문제(치명) → 전체 화면 창, 결과 크게 보기, 작성 화면 AI 버튼을 업로드 칸처럼 가로로 길게+주목할 크리에이터 스파클 아이콘, 만드는 동안 보통 걸리는 시간과 진행 초.
 - 구현: 공용 Dialog `persistent`(바깥 클릭으로 닫지 않음, 닫기·Esc만)·`fullscreenOnMobile`(767px 이하 100vw×100dvh). AiPhotoDialog 에 두 옵션, 결과마다 '크게 보기' 버튼과 AiResultViewer(이전·다음·스와이프·화살표키, 이 사진 선택, Esc/닫기는 보기만 닫음). 창 등장 애니메이션의 transform 이 보기를 창 안에 가두어 보기가 열린 동안 해제. 버튼 `.aiWide`(52px, 업로드와 같은 폭, /brand/featured-creators-v1.png). 진행: 버튼 '만드는 중… N초', 결과 영역 진행 초·'보통 약 N초'(서버 quota.typicalSeconds, 없으면 '재는 중')·진행 막대(최대 95%).

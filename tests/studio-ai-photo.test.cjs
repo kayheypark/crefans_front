@@ -42,7 +42,7 @@ async function open(props={}){
 }
 
 test('dialog: without an uploaded photo it asks for one first',async()=>{
- const {r}=await open({images:[]});assert.match(text(r.toJSON()),/먼저 바꿀 사진을 올려/);
+ const {r}=await open({images:[]});assert.match(text(r.toJSON()),/바꿀 사진을 먼저 올려 주세요/);assert.match(text(r.toJSON()),/사진 올리러 가기/);
 });
 
 test('dialog: consent is required, then a pose edit sends no mask and adds only the picked AI images',async()=>{

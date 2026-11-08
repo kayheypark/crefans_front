@@ -8,6 +8,7 @@ import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {Checkbox} from '@/components/ui/Choice';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoStyles} from '@/lib/crefans/ai-photo';
 import {Action} from '../ServiceUI';
+import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
 
@@ -51,7 +52,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
   onAdd(picked);setResults([]);setSelected([]);setPrompt('');setStrokes([]);setError('');onClose();
  }
  return <Dialog open={open} onClose={()=>{if(viewer!==null){setViewer(null);return;}if(!busy)onClose();}} title="AI로 사진 만들기" wide persistent fullscreenOnMobile>
-  {!images.length?<div className={s.empty}><p>먼저 바꿀 사진을 올려 주세요. 올린 사진의 옷·포즈·배경을 바꿀 수 있어요.</p><Action type="button" variant="secondary" onClick={onClose}>닫기</Action></div>:
+  {!images.length?<PromptLayout variant="dialog" icon="/brand/featured-creators-v1.png" title="바꿀 사진을 먼저 올려 주세요" description="게시물에 사진을 올리면 AI로 옷·포즈·배경을 바꿀 수 있어요." actions={<Action type="button" className={promptPrimary} onClick={onClose}>사진 올리러 가기</Action>}/>:
   <div className={s.layout}>
    <div className={s.controls}>
     <p className={s.label}>원본 사진</p>
