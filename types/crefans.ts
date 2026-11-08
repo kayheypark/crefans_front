@@ -32,6 +32,8 @@ export type ServiceViewModel=AccountModel&SocialModel&{
   /** Creators this account manages; their posts get the 수정 menu item. */
   ownCreatorIds?:string[];
   signedIn:boolean;setSignedIn:Dispatch<SetStateAction<boolean>>;
+  /** 로그인이 필요한 동작을 비로그인 상태에서 눌렀을 때 공용 로그인 필요 창을 띄운다(실제 서비스). 없으면 로그인 화면으로 이동. */
+  requireSignIn?:()=>void;
   viewer:Viewer;setViewer:Dispatch<SetStateAction<Viewer>>;
   following:string[];toggleFollow:(id:string)=>void;
   liked:string[];toggleLike:(id:string)=>void;saved:string[];toggleSave:(id:string)=>void;

@@ -1,3 +1,8 @@
+## 2026-11-09 비로그인 멤버십 가입하기 로그인 가드 (feat/membership-login-guard, 미배포)
+- 사용자 요청: 비로그인 상태에서 프로필 '가입하기'는 가드 처리. 토스 심사 전 점검에서 비로그인으로 멤버십 페이지·동의 창까지 진행되는 것이 확인됨.
+- 구현: ServiceViewModel.requireSignIn(실제 서비스 = 팔로우와 같은 공용 로그인 필요 창, actionNotice loginRequired). CreatorProfilePage 가입하기와 MembershipPage '선택하고 계속'(게시물 멤버십 안내 링크·주소 직접 진입 포함)에서 signedIn 이 아니면 창만 띄우고 이동·동의 창 없음. requireSignIn 이 없는 목업은 /login 이동.
+- 검증: typecheck 0, check:layers 447, crefans-creator 15/15(신규 1건; 가드 제거 대조 시 1 실패), npm test 577/593(실패 16 이전 prod 와 동일).
+
 ## 2026-11-08 SNS·검색 정의 동기화 (feat/social-docs-sync, /pilot-work 합의)
 - 점검 표: SNS 입력은 코드(아이디만·전체 주소 저장) vs 가이드 '전체 주소 입력'(정반대)·preview-pages 'http(s) 주소만'·목업 오류 문구 불일치, 서버는 아무 http(s) 허용; 게시물 검색은 서버 API 문서·가이드·preview-pages 누락. AI 사진 한도 10회·2장은 서버·프론트·처리방침 일치.
 - 사용자 결정(클릭): 서버도 같은 SNS 규칙(서버 crefans-api:social-validate-20261108 배포), 문서 모두 수정 + 가이드 배포, AI 사진 가이드 페이지는 보류.

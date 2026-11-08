@@ -36,7 +36,7 @@ function inputs(){
   const creator={id:'artist-42',name:'다른 크리에이터',handle:'different',tags:['드로잉'],image:'/injected-portrait.png',cover:'/injected-cover.png',position:'center',bio:'주입된 소개',followers:'37',promoted:true};
   const plan={id:'independent-plan',name:'새로운 멤버십',price:27500,rank:2,benefits:['주입된 혜택']};
   return {
-    basePath:'/catalogue',mode:'live',today:'2030-01-08',nextRenewAt:'2030-02-08',
+    basePath:'/catalogue',mode:'live',signedIn:true,today:'2030-01-08',nextRenewAt:'2030-02-08',
     data:{creators:[creator],plans:[plan],posts:[],paymentHistory:[],categories:['드로잉']},
     following:[],toggleFollow(){},canAccess:()=>false,liked:[],saved:[],toggleLike(){},toggleSave(){},likeCounts:{},commentCounts:{},
     subscriptions:[],subscribe:async()=>ok('가입이 처리됐습니다.'),cancelSubscription:async()=>ok('해지가 처리됐습니다.'),
@@ -298,4 +298,19 @@ test('resume blocks double submission and closing while pending, success closes 
  const confirm=dialog().findAllByType('button').find(b=>flatten(b.props.children)==='다시 이용할래요');
  act(()=>{request=confirm.props.onClick();confirm.props.onClick();});assert.equal(calls,1);assert.equal(button(tree,'처리 중…').props.disabled,true);assert.equal(button(tree,'취소').props.disabled,true);
  await act(async()=>{resolve(ok('다음 결제일부터 다시 이용합니다.'));await request;});assert.equal(tree.root.findAllByProps({role:'dialog'}).length,0);assert.match(text(tree),/다음 결제일부터 다시 이용합니다/);act(()=>tree.unmount());
+});
+
+test('signed-out membership join opens the shared login notice instead of the membership flow (2026-11-09)',()=>{
+  const {CreatorProfilePage,MembershipPage,navigations}=pages(),asked=[];
+  const model={...inputs(),signedIn:false,requireSignIn:()=>asked.push('login')};
+  let tree;act(()=>tree=create(h(CreatorProfilePage,{model,id:'artist-42'})));
+  act(()=>button(tree,'가입하기').props.onClick());
+  assert.deepEqual(asked,['login']);assert.deepEqual(navigations,[],'no move to the membership page');
+  let page;act(()=>page=create(h(MembershipPage,{model,id:'artist-42'})));
+  act(()=>button(page,'선택하고 계속').props.onClick());
+  assert.deepEqual(asked,['login','login']);assert.equal(page.root.findAllByProps({role:'dialog'}).length,0,'the agreement dialog stays closed');
+  const fallback={...model,requireSignIn:undefined};
+  act(()=>tree.update(h(CreatorProfilePage,{model:fallback,id:'artist-42'})));
+  act(()=>button(tree,'가입하기').props.onClick());
+  assert.deepEqual(navigations,['/catalogue/login'],'without the shared notice (mock) it moves to the login screen');
 });
