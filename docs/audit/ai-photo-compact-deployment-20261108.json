@@ -1,0 +1,107 @@
+{
+  "checkedAt": "2026-11-08T12:57:26.574935+00:00",
+  "sourceCommit": "e49dc60fa5adcc52e7754949f1c93890cbc1f7a5",
+  "image": "crefans-front:ai-photo-compact-20261108",
+  "previousImage": "crefans-front:ai-photo-live-20261108",
+  "devIntegration": "988b3ed",
+  "feature": "a3c3459",
+  "deployedAt": "2026-11-08T12:52:55Z",
+  "buildSeconds": 54,
+  "scope": "Frontend compact AI photo editor and latest fullscreen/viewer changes; no backend/schema/payment-policy changes",
+  "checks": {
+    "typecheck": 0,
+    "layers": 0,
+    "build": 0,
+    "unit": "11/11",
+    "suite": "571/587; 16 failures match origin/prod 72b512c",
+    "docs": "Existing generated contracts stale; not reported passing",
+    "localBrowser": "Chromium1440, WebKit390/320: source/consent/mask/results/viewer/focus/edit-again/add, no overflow/overlap",
+    "deployedBrowser": {
+      "at": "2026-11-08T12:56:27.409Z",
+      "scope": "Production-hosted shared preview UI; fixture generation, no real AI/API mutation",
+      "evidence": [
+        {
+          "name": "pc",
+          "status": 200,
+          "edit": {
+            "width": 640,
+            "height": 900,
+            "overflow": false,
+            "header": true,
+            "fixedActions": true
+          },
+          "results": 2,
+          "errors": []
+        },
+        {
+          "name": "mobile",
+          "status": 200,
+          "edit": {
+            "width": 390,
+            "height": 844,
+            "overflow": false,
+            "header": true,
+            "fixedActions": true
+          },
+          "results": 2,
+          "errors": []
+        }
+      ]
+    },
+    "productionState": [
+      "crefans-front:ai-photo-compact-20261108 e49dc60fa5adcc52e7754949f1c93890cbc1f7a5 true 0 false",
+      "no-deploy-backup",
+      "no-upload-temporary"
+    ],
+    "health": [
+      "/service/feed 200",
+      "/service/landing 200",
+      "/service/legal/terms 200",
+      "/api/v1/health 200",
+      "redirect 301",
+      "static 200",
+      "optimized image 200"
+    ]
+  },
+  "recovery": {
+    "tag": "crefans-front:ai-photo-live-20261108",
+    "imageId": "sha256:60b91735eaf524193639e0c5168cbab6eca26258c5b28dfdb3d02158d2602d6a",
+    "blobsVerified": 15,
+    "archiveSha256Verified": true,
+    "settingsArchiveVerified": true,
+    "beforeServerCleanup": true,
+    "path": "/Users/ethan/crefans-recovery/20261108/ai-photo-compact-20261108",
+    "serverCopiesRemoved": true
+  },
+  "notes": [
+    "Initial ship attempt stopped before upload due macOS C.UTF-8 shasum error; resumed with LC_ALL=C and the already built image.",
+    "OCI image ID refers to the index, not config: verified index tag/id plus all 15 blobs before remote cleanup.",
+    "Live preview test initially ran before hydration; rechecked after networkidle and upload completion. No product issue found."
+  ],
+  "limitations": [
+    "Actual AI provider not invoked during this design verification",
+    "No physical iPhone device test"
+  ],
+  "screenshots": [
+    {
+      "path": "/Users/ethan/repository/crefans_front-ai-photo-concepts/.local/ai-photo-compact-20261108/live-pc-results.png",
+      "sha256": "22259a026e99f12e0daf4212da35b00ebc95c4cf476fff903962115ebb55ff6e"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_front-ai-photo-concepts/.local/ai-photo-compact-20261108/live-mobile-results.png",
+      "sha256": "9913caa6c9dd58b18a4bd19bfdbeadb125911fafbf4a3b0acc0fd19c1360540c"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_front-ai-photo-concepts/.local/ai-photo-compact-20261108/live-upload.png",
+      "sha256": "d38d6ff62cc170bf1d6603de4b794906ff365e883e73e0785b01bc7803055161"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_front-ai-photo-concepts/.local/ai-photo-compact-20261108/live-pc-edit.png",
+      "sha256": "1d0434b51e87ba171d312dfa98c80100622d340c36580db4d5bd615e8ac5648c"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_front-ai-photo-concepts/.local/ai-photo-compact-20261108/live-mobile-edit.png",
+      "sha256": "f246d6b089fd3ddedd4824d991e5e32a18b5687728ab1023ebdb0eb8db17c4b5"
+    }
+  ]
+}
