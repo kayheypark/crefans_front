@@ -47,7 +47,7 @@ export function EventDetailPage({event,basePath,claim,badge}:{event:ServiceEvent
    <ActionLink className={s.submissionAction} href={`mailto:${event.submission.email}?subject=${encodeURIComponent(event.submission.subject)}&body=${encodeURIComponent(event.submission.body)}`}>이메일로 피드백 보내기</ActionLink>
    <p className={s.submissionHint}>{event.submission.hint}</p>
   </section>}
-  <section className={s.notes} aria-labelledby="event-notes"><h2 id="event-notes">꼭 확인해 주세요</h2>{event.notes.map(note=><section className={s.noteGroup} key={note.title}><h3>{note.title}</h3><ul>{note.items.map(item=><li key={item}>{item}</li>)}</ul></section>)}</section>
+  <section className={s.notes} aria-labelledby="event-notes"><h2 id="event-notes">꼭 확인해 주세요</h2>{event.notes.map(note=><section className={s.noteGroup} key={note.title}><h3>{note.title}</h3><ul role="list">{note.items.map(item=><li key={item}>{item}</li>)}</ul></section>)}</section>
   <CommonNavigation basePath={basePath}/>
  </article>;
 }

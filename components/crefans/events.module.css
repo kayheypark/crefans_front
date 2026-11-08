@@ -51,6 +51,10 @@
 .noteGroup h3{margin:0 0 12px;font-size:15px;color:var(--cf-color-text)}
 .notes ul{margin:0;padding-left:18px;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.8}
 .notes li+li{margin-top:8px}
+/* Small 3px dot drawn manually so it stays centered on the first line. */
+.notes ul{list-style:none;padding-left:14px}
+.notes li{position:relative}
+.notes li::before{content:'';position:absolute;left:-12px;top:calc(.9em - 1.5px);width:3px;height:3px;border-radius:50%;background:currentColor}
 @media(max-width:600px){.notes{padding:18px}.page h1{font-size:23px;word-break:keep-all;overflow-wrap:anywhere}}
 
 .badgePreference{margin-top:20px;padding-top:20px;border-top:1px solid var(--cf-color-border)}
