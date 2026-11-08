@@ -7,4 +7,4 @@
 .bottom{margin-top:16px}
 /* Mobile: links in a repeating two-column grid (2026-11-01). */
 @media(max-width:767px){.footer nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}.footer nav a{justify-content:flex-start;overflow-wrap:anywhere}}
-@media(min-width:768px){.footer:not([data-always]),.footer .business{display:none}}
+@media(min-width:768px){.footer:not([data-always]),.footer:not([data-business]) .business{display:none}}
