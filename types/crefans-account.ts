@@ -1,5 +1,6 @@
 import type {ApiResult} from './crefans';
 import type {LegalDocument} from './crefans-common';
+import type {AdvisorAnswer} from '@/lib/crefans/advisor';
 
 /** `showFollowing` is a fan-level privacy choice (anyone, not only creators): off hides the 팔로잉 count/list from others and shows a lock instead. */
 export type AccountPreferences={contentAlert:boolean;messageAlert:boolean;marketingAlert:boolean;showActivity:boolean;allowSearch:boolean;showFollowers?:boolean;showFollowing:boolean};
@@ -48,5 +49,7 @@ export type AccountModel={
     logout:()=>Promise<AccountActionResult>;
     withdraw:()=>Promise<AccountActionResult>;
     createInquiry:(input:{category:string;title:string;message:string})=>Promise<AccountActionResult>;
+    /** AI 가이드 질문(고객센터 떠 있는 버튼). 없으면 버튼을 표시하지 않는다. */
+    askAdvisor?:(question:string)=>Promise<ApiResult<AdvisorAnswer>>;
   };
 };

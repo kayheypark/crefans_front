@@ -298,3 +298,6 @@ bootstrap.data.categories의 서버 정렬 순서를 홈·탐색에 그대로 �
 ### 카드 등록 완료 1안과 복귀 (2026-11-05)
 
 `useBillingResult`의 서버 등록 성공 결과를 받은 뒤에만 공통 결과 화면에서 큰 체크와 “카드 등록이 완료됐어요”를 표시한다. 상단 뒤로가기와 본문 “이전 화면으로 돌아가기”는 서버의 검증된 returnPath(원래 checkout UUID 또는 결제수단 관리)로 연결한다. history.back·자동 과금·자동 재등록을 추가하지 않는다. 확인 중·실패·취소와 결제(kind=payment) 결과는 기존 처리/재시도 동작을 유지한다. `e2e/billing-complete.spec.ts`는 API 대역으로 성공 전 완료 표시 차단·서버 결과 후 복귀·재등록 없는 이동을 PC/iPhone WebKit/320px에서 검증한다. 실제 Toss 카드 등록은 이 UI 검사 범위에서 제외한다.
+
+### 고객센터 AI 가이드 (2026-11-08)
+- `POST /api/v1/guide/advisor`를 같은 출처로 호출한다. 계정과 무관한 기능이라 `credentials:'omit'`으로 쿠키를 보내지 않고, 질문과 브라우저 익명 ID(`crefans-advisor-client`, 하루 질문 한도용)만 보낸다. 서버 Origin 검사는 가이드 출처와 서비스 출처를 허용하고 콘솔 출처는 거부한다(서버 `docs/platform-api.md`). 대화는 이 브라우저 저장소에 최근 25쌍만 남는다.

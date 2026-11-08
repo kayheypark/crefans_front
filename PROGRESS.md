@@ -1,3 +1,10 @@
+## 2026-11-08 고객센터 AI 가이드 떠 있는 버튼 (feat/support-ai-guide)
+- 사용자 요청: 가이드의 AI 가이드를 프론트 고객센터에도. 선택: React 공용 컴포넌트로 이식, 떠 있는 버튼, 검사 후 바로 배포.
+- 구현: components/crefans/AdvisorChat.tsx(+advisor.module.css), lib/crefans/advisor.ts, lib/api/advisor.ts, accountActions.askAdvisor(실서비스·목업), 디자인 시스템 패턴 카탈로그. 서버는 feat/support-advisor-origin 으로 advisor 경로 Origin 에 서비스 출처 허용(콘솔 거부).
+- 처리방침: '가이드 AI 어드바이저' 문구는 화면 위치를 특정하지 않고 쿠키·계정 정보를 보내지 않는 방식도 같아 개정하지 않음.
+- 검증(2026-11-08): typecheck 0, check:layers 440, support-advisor 6/6(대조: 링크 검사·개인정보 검사 무력화 시 각 1건 실패). npm test 560/576, 실패 16건은 origin/prod 와 이름까지 동일. WebKit PC·390px·Chromium 목업 화면: 표·굵게·출처·Esc 닫기·포커스 복귀·새로고침 후 복원. 증거 .local/support-advisor/.
+- 미확인: 운영 실제 답변(배포 후 확인), 실제 아이폰 기기·VoiceOver.
+
 ## 2026-11-07 고객센터 정리: 이용안내 버튼·운영시간 문구·이용안내 페이지 삭제, 뒤로가기·푸터, 내 문의 내역 전용 화면, 회원 탈퇴 이동 (feat/support-cleanup)
 - 사용자 요청: 고객센터의 팬/크리에이터 이용안내 버튼 줄과 "평일10~18시 · 2영업일" 문구 삭제(같은 내용인 FAQ '문의 답변은 언제 받을 수 있나요?' 항목도 삭제) / `/service/guide/{fan,creator}`·`/preview/guide/*` 페이지 삭제(ServiceGuidePage·라우터·허용 경로·사이트맵·SEO·당김 새로고침 목록·문서에서 제거 → notFound) / 뒤로가기·제목 톤 맞춤(PageTitle back '설정으로 돌아가기') + 하단 ServiceFooter / 내 문의 내역은 문의하기 탭에 진입 줄 하나, 전용 화면 `support?tab=history`(supportTab 'history', 뒤로가기 '문의하기로 돌아가기', 목록·상세 대화상자) / 회원 탈퇴는 설정에서 빼고 고객센터 FAQ 맨 아래 고정 항목 '회원 탈퇴는 어떻게 하나요?' → 같은 안내·확인 대화상자(검색어 없거나 '탈퇴' 검색 때 표시).
 - 검증(2026-11-07): typecheck 0, check:layers 436. crefans-account 19/23(실패 1·3·8·13 기준선 동일), 대조: 화면 코드를 변경 전으로 되돌리면 FAQ·탈퇴 테스트 2건 실패. 브라우저(iPhone13·PC): 설정에 탈퇴 없음, 고객센터 뒤로가기·푸터·FAQ 17개 중 마지막 탈퇴·대화상자 열림·운영시간/이용안내 없음, 문의하기 진입 줄 → /support?tab=history 제목 '내 문의 내역'. e2e beta-policy·withdrawal-guidance·pull-refresh-pages 갱신(미실행). 캡처 .local/support-20261107/.
