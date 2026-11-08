@@ -2,6 +2,7 @@
 
 import {requestPreviewLogin} from '@/features/preview/login';
 import {previewAgreements} from './legal-fixtures';
+import {mockAdvisorAsk} from './advisor-fixtures';
 import {useState,type Dispatch,type SetStateAction,useRef} from 'react';
 import {useRouter,useSearchParams} from 'next/navigation';
 import type {Creator,Viewer} from '@/types/crefans';
@@ -58,6 +59,7 @@ export function useMockAccount({viewer,setViewer,setSignedIn,basePath,creators,o
       unblockCreator:async id=>{setBlockedCreatorIds(previous=>previous.filter(blockedId=>blockedId!==id));return success('차단이 해제되었습니다.');},
       logout,
       withdraw:async()=>{setSignedIn(false);router.push(`${basePath}/landing`);return success('탈퇴가 완료되었습니다.');},
+      askAdvisor:mockAdvisorAsk(),
       createInquiry:async input=>{if(!inquiryCategories.includes(input.category)||!input.title.trim()||!input.message.trim())return failure('문의 유형, 제목, 내용을 모두 입력해주세요.');setTickets(previous=>[{id:crypto.randomUUID(),category:input.category,title:input.title.trim(),message:input.message.trim(),statusLabel:'접수 완료'},...previous]);return success('문의가 등록되었습니다.');},
     },
   };
