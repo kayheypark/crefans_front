@@ -1,3 +1,8 @@
+## 2026-11-08 탐색 게시물 검색 (feat/ai-photo-fullscreen 위, 서버 feat/post-search)
+- 사용자 지적: 검색하면 크리에이터만 나오고 게시물은 안 나옴(기능 없음). 사용자 결정: 전체 공개는 제목+본문, 멤버십은 제목만 / 결과는 크리에이터·게시물 탭. '다되면 그냥 배포' 지시.
+- 구현: features/service/usePostSearchModel.ts(/posts/search, 250ms 지연, 늦은 응답 무시, 작성자 creators 공유 상태에 병합), ServiceViewModel.postSearch, ExplorePage 검색어 있을 때 프로필 탭과 같은 탭(크리에이터 N·게시물 N), 게시물 탭은 피드 PostCard·더 보기·빈 상태, 분야 칩 숨김. 목업은 같은 규칙으로 data.posts 필터. 검색창 안내 '크리에이터, 게시물, 태그로 검색해보세요'·라벨 '크리에이터·게시물 검색'(랜딩 자체 검색창은 그대로).
+- 검증: typecheck 0, check:layers 446, npm test 569/585(실패 16 origin/prod 와 동일). 브라우저(로컬 3108 + 로컬 API/개발 DB): 아이폰·PC 검색 전 탭 없음, '분류 게시물' → 크리에이터 0·게시물 20+, 카드 20→더 보기 40, 멤버십 글은 제목 일치·본문 잠김, 없는 단어 빈 상태, 목업 탭 표시, pageerror 0.
+
 ## 2026-11-08 공용 PromptLayout(로그인 필요 레이아웃 재사용) (feat/ai-photo-fullscreen, 미병합·미배포)
 - 사용자 요청: AI 사진 창의 '사진 먼저 올리기' 화면을 로그인 필요 레이아웃처럼, 재사용 구조로. 팔로우 시 로그인 필요 창도 기존 로그인 필요 레이아웃 사용.
 - 구현: components/crefans/PromptLayout.tsx(+prompt-layout.module.css: 그림·제목·설명·버튼, page/dialog, promptPrimary). SignInPrompt 를 PromptLayout 위로 옮김(겉모양 동일, hideTitle·onNavigate 추가), account.module.css 의 signIn* 12줄 이동. AiPhotoDialog 빈 상태=스파클 그림+'바꿀 사진을 먼저 올려 주세요'+'사진 올리러 가기'. ServiceRouter 로그인 필요 알림=SignInPrompt dialog(hideTitle, 링크 누르면 닫힘), 쓰지 않게 된 loginHref·ActionLink·useCurrentLoginHref import 제거.
