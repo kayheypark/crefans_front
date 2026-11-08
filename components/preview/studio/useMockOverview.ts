@@ -1,4 +1,5 @@
 'use client';
+import {socialLinkValid} from '@/lib/crefans/social-links';
 import {useState} from 'react';
 import type {ApiResult,Creator,CreatorLinks} from '@/types/crefans';
 import type {StudioOverviewModel,StudioProfile} from '@/types/crefans-studio';
@@ -13,7 +14,8 @@ export function useMockOverview(creator:Creator|undefined,onProfileChange:(id:st
   if(input.bio.trim().length>120)return error('소개는 120자 이내로 입력해주세요.');
   const links:CreatorLinks={};
   for(const key of ['youtube','instagram','facebook'] as const){const url=(input.links?.[key]||'').trim();if(url)links[key]=url;}
-  if(Object.values(links).some(url=>!/^https?:\/\//.test(url)))return error('SNS 링크는 http:// 또는 https://로 시작하는 주소만 저장할 수 있어요.');
+  const invalid=(['youtube','instagram','facebook'] as const).find(key=>!socialLinkValid(key,links[key]));
+  if(invalid)return error(`${({youtube:'유튜브',instagram:'인스타그램',facebook:'페이스북'} as const)[invalid]} 주소를 확인해주세요.`);
   const about=(input.about||'').trim();
   setProfile(previous=>({...previous,...input,name:input.name.trim(),bio:input.bio.trim(),about,links}));
   if(creator)onProfileChange(creator.id,{name:input.name.trim(),handle:input.handle,bio:input.bio.trim(),about,links,tags:[input.category]});
