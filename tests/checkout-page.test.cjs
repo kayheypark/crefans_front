@@ -18,6 +18,7 @@ test('payment conditions sit above the buttons and both payments stay disabled u
  const paid=[],tree=render({...base,status:'pending'},paid);
  try{const page=text(tree);for(const phrase of['결제 전 확인','9,900원 (VAT 포함)','매월 같은 날','자동 갱신되지 않습니다','내 구독에서 언제든 다음 결제를 해지','결제 후 7일 이내이고 멤버십 게시물을 열람하지 않았다면','이용약관','(필수)'])assert.ok(page.includes(phrase),phrase);
   assert.ok(page.indexOf('결제 전 확인')<page.indexOf('결제하고 가입'),'conditions come before the payment button');
+  assert.match(page,/법정 청약철회·환불 권리를 제한하지 않습니다/,'2026-11-09: checkout refund copy keeps the statutory right stated in the terms');
   assert.equal(button(tree,'결제하고 가입').props.disabled,true);assert.equal(button(tree,'한 달만 결제하기').props.disabled,true);
   agree(tree);assert.equal(button(tree,'결제하고 가입').props.disabled,false);assert.equal(button(tree,'한 달만 결제하기').props.disabled,false);
   await act(async()=>{button(tree,'결제하고 가입').props.onClick();});assert.deepEqual(paid,['2026-11-02.1']);

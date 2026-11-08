@@ -1,3 +1,11 @@
+## 2026-11-09 토스 심사 전 전수조사·수정 (feat/membership-login-guard)
+- 전수조사(읽기 전용, 세 갈래 병렬): 운영 사이트 110쪽×PC·모바일 220회(pageerror·깨진 이미지·가로 넘침 0, 링크 189개 200), 토스 공식 심사 기준 대조, 자동 테스트 전체(실패 106건 모두 오래된 기대값·환경, 제품 버그 0). 증거 server .local/toss-audit-20261109/{site,criteria,tests}.
+- 사용자 결정(/ask-me): 배포 = 가입하기 로그인 가드·옛 경로 정리·결제 화면 환불 문구. 현행 유지 = 소개 화면 가상 크리에이터, '베타 실제 청구 없음' 문구(담당자 설명), 모바일 사업자 정보(미선택). 보류 = 콩 충전 상한(토스 담당자 확인 후).
+- 옛 경로: next.config.js legacyRedirects 23개(/feed·/support·/board·/login·/payment/*·/subscription/*·/creator-center/* 등)를 /service 대응 화면으로 307. 새 결제 흐름은 /service/* 로만 복귀함을 확인. 옛 화면 코드 삭제는 별도.
+- 결제 화면 환불: '이용 시작 뒤 환불 제한'만 있던 문구를 약관 5조와 같게(다음 결제 해지 기본·추가 환불 개별 검토·법정 청약철회·환불 권리 비제한). 환불 조건 자체는 동일하여 결제 동의 버전 2026-11-02.1 유지(서버가 같은 값만 받음, 콩 충전 공유) — 조건이 바뀌면 서버·프론트 함께 올릴 것.
+- 검증: typecheck 0, check:layers 447, checkout-page 3/3(문장 제거 대조 실패), crefans-creator 15/15, npm test 577/593(실패 16 이전 prod 동일), 로컬 3108 이동 23개 307·/card·/design-system·/service 영향 없음.
+- 남은 일: 콩 충전 상한(5만/10만 원 기준) 토스 확인, 테스트 계정 toss@crefans.com 로그인·결제창 확인과 비밀번호 강화(사용자), E2E 로그인 확인 도우미 '계정 메뉴'로 갱신 후 결제·콩 E2E 재실행, 로컬 개발 DB 테스트 잔여 데이터 정리 여부.
+
 ## 2026-11-09 비로그인 멤버십 가입하기 로그인 가드 (feat/membership-login-guard, 미배포)
 - 사용자 요청: 비로그인 상태에서 프로필 '가입하기'는 가드 처리. 토스 심사 전 점검에서 비로그인으로 멤버십 페이지·동의 창까지 진행되는 것이 확인됨.
 - 구현: ServiceViewModel.requireSignIn(실제 서비스 = 팔로우와 같은 공용 로그인 필요 창, actionNotice loginRequired). CreatorProfilePage 가입하기와 MembershipPage '선택하고 계속'(게시물 멤버십 안내 링크·주소 직접 진입 포함)에서 signedIn 이 아니면 창만 띄우고 이동·동의 창 없음. requireSignIn 이 없는 목업은 /login 이동.
