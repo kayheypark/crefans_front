@@ -65,7 +65,6 @@
 .resultActions>button span{font-size:22px;line-height:1}
 .loading{aspect-ratio:2/3;border-radius:12px;background:linear-gradient(90deg,var(--cf-color-surfaceSubtle),var(--cf-color-border),var(--cf-color-surfaceSubtle));background-size:200% 100%;animation:ai-shimmer 1.4s ease-in-out infinite}
 @keyframes ai-shimmer{to{background-position:-200% 0}}
-.empty{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:24px}
 .editor :is(button,summary):focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
 .editor button:disabled{cursor:default;opacity:.5}
 .editor:has(.viewer)>header{visibility:hidden}

@@ -61,17 +61,28 @@ export function ExplorePage({model}:{model:ServiceViewModel}){
   const promoted=visible.filter(creator=>creator.promoted),others=visible.filter(creator=>!creator.promoted);
   // Loading rule: no '불러오는 중…' text on every visit; the shared spinner appears only after 1s.
   const slow=useDelayedLoading(!!model.directory?.loading);
+  // Post search (2026-11-08): with a search term the results split into 크리에이터·게시물 tabs. Titles of every visible post match;
+  // the body only for posts anyone may read (no membership/plan requirement), so paid text never shows up as a match.
+  const [resultTab,setResultTab]=useState<'creators'|'posts'>('creators');
+  useEffect(()=>{model.postSearch?.search(term);},[term,model.postSearch?.search]);
+  const postMatches=(post:typeof model.data.posts[number])=>post.title.toLocaleLowerCase().includes(term)||(post.requiredRank===0&&!post.requiredPlanId&&post.body.toLocaleLowerCase().includes(term));
+  const foundPosts=!term?[]:model.postSearch?(model.postSearch.query===term?model.postSearch.posts:[]):model.data.posts.filter(postMatches);
+  const postsLoading=!!model.postSearch?.loading,postsSlow=useDelayedLoading(postsLoading&&resultTab==='posts');
+  const showPosts=!!term&&resultTab==='posts';
   return <div className={s.explore}>
     <h1 className={s.srOnly}>탐색하기</h1>
     <CreatorSearch value={query} onChange={setQuery}/>
-    <ChipRow className={s.filters} label="크리에이터 카테고리">{['전체',...categories.filter(item=>item!=='전체')].map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>setCategory(item)}/>)}</ChipRow>
+    {/* Categories filter creators only; hidden on the post results tab. */}{!showPosts&&<ChipRow className={s.filters} label="크리에이터 카테고리">{['전체',...categories.filter(item=>item!=='전체')].map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>setCategory(item)}/>)}</ChipRow>}
+    {!!term&&<div className={`${s.tabs} ${s.searchTabs}`} aria-label="검색 결과">{([['creators','크리에이터',visible.length+(model.directory?.hasMore?'+':'')],['posts','게시물',postsLoading&&!foundPosts.length?null:foundPosts.length+(model.postSearch?.hasMore?'+':'')]] as const).map(([key,label,count])=><button key={key} type="button" aria-pressed={resultTab===key} onClick={()=>setResultTab(key)}>{label}{count!==null&&<span className={s.tabCount}>{count}</span>}</button>)}</div>}
+    {showPosts?<>{postsSlow&&<LoadingSpinner/>}{foundPosts.length?<div className={s.searchPosts}>{foundPosts.map(post=><PostCard key={post.id} post={post} model={model} context={foundPosts}/>)}</div>:postsLoading?null:<Empty title="검색된 게시물이 없어요" description="다른 단어로 찾아보세요. 멤버십 게시물은 제목으로만 찾을 수 있어요."/>}
+      {model.postSearch?.hasMore&&<Action variant="secondary" disabled={postsLoading} onClick={()=>void model.postSearch?.loadMore()}>게시물 더 보기</Action>}</>:<>
     {slow&&<LoadingSpinner/>}
     {visible.length||newcomers.length ? <>
       {promoted.length>0&&<><div className={s.featuredHeading}><h2 className={s.listHeading}><Image className={s.featuredIcon} src="/brand/featured-creators-v1.png" width={22} height={22} alt="" aria-hidden="true"/><span>주목할 크리에이터</span><Badge tone="outline" label="광고">AD</Badge></h2><InfoTooltip label="주목할 크리에이터 안내" content="홍보성 프로모션이 적용된 크리에이터나 해당 광고 상품을 이용중인 크리에이터가 노출될 수 있습니다."/></div><div className={s.creatorGrid}>{promoted.map(creator=><CreatorCard key={creator.id} creator={creator} href={`${basePath}/creator/${creator.id}`} following={following.includes(creator.id)} onFollow={()=>toggleFollow(creator.id)}/>)}</div></>}
       {newcomers.length>0&&<section className={s.newCreators} aria-labelledby="new-creators-title"><div className={s.featuredHeading}><h2 id="new-creators-title" className={s.listHeading}><Image className={s.featuredIcon} src="/brand/new-creators-sprout-v1.png" width={22} height={22} alt="" aria-hidden="true"/><span>신규 크리에이터</span></h2></div><div className={s.creatorGrid}>{newcomers.map(creator=><CreatorCard key={creator.id} creator={creator} href={`${basePath}/creator/${creator.id}`} following={following.includes(creator.id)} onFollow={()=>toggleFollow(creator.id)}/>)}</div></section>}
       {others.length>0&&<>{(promoted.length>0||newcomers.length>0)&&<h2 className={s.listHeading}>모든 크리에이터</h2>}<ul className={s.creatorList}>{others.map(creator=><li key={creator.id}><Link href={`${basePath}/creator/${creator.id}`} className={s.creatorRow}><Avatar creator={creator} size={36}/><span><strong><CreatorName person={creator}/></strong><small><MarqueeText text={`@${creator.handle}`}/></small></span></Link></li>)}</ul></>}
     </> : model.directory?.loading?null:creators.length||term||category!=='전체'?<Empty title="검색 결과가 없어요" description="다른 이름이나 카테고리로 찾아보세요." action={<Action variant="secondary" onClick={()=>{setQuery('');setCategory('전체');}}>전체 크리에이터 보기</Action>}/>:<Empty title="아직 크리에이터가 없어요" description="새로운 크리에이터를 기다려 주세요."/>}
-    {model.directory?.hasMore&&<Action variant="secondary" disabled={model.directory.loading} onClick={()=>void model.directory?.loadMore()}>크리에이터 더 보기</Action>}
+    {model.directory?.hasMore&&<Action variant="secondary" disabled={model.directory.loading} onClick={()=>void model.directory?.loadMore()}>크리에이터 더 보기</Action>}</>}
   </div>;
 }
 

@@ -40,6 +40,8 @@ export type ServiceViewModel=AccountModel&SocialModel&{
   resumeSubscription:(subscription:Subscription,paymentTerms:string)=>Promise<ApiResult<{message:string}>>;
   refundOrder?:(orderId:string)=>Promise<ApiResult<{message:string}>>;
   directory?:{creators:Creator[];newCreators?:Creator[];search:(query:string,category:string)=>void;hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
+  /** Explore post search (2026-11-08): `query` is the term the shown posts belong to. */
+  postSearch?:{query:string;posts:Post[];search:(query:string)=>void;hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
   feedPaging?:{hasMore:boolean;loading:boolean;loadMore:()=>Promise<void>};
   feedCategory?:{value:string;select:(category:string)=>void};
   canAccess:(creatorId:string,rank:number,requiredPlanId?:string)=>boolean;

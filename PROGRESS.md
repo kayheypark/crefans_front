@@ -1,3 +1,18 @@
+## 2026-11-08 운영 컴팩트 AI 편집 위로 재배치 (front feat/post-search)
+- 병합 중 다른 세션이 b3ed2f0(전체 화면·크게 보기·진행 시간)을 0e34fae로 가져가 컴팩트 디자인(a3c3459)으로 이미 운영 배포한 것을 확인. 운영본을 그대로 두고 PromptLayout(cbe9b0f)·게시물 검색(d2f3320)만 origin/prod ee6bca9 위로 옮김. 충돌은 운영 컴팩트 화면 유지 + 빈 상태만 PromptLayout(.body 여백 안), 쓰지 않게 된 .empty 제거.
+- 검증: typecheck 0, check:layers 446, studio-ai-photo+prompt-layout 13/13, npm test 573/589(실패 16 이름 이전 prod 와 동일). 로컬 390px 빈 상태 버튼 16~374px(여백 16), PC 640px 창 안 가운데 정렬.
+
+## 2026-11-08 탐색 게시물 검색 (front·server feat/post-search)
+- 사용자 지적: 검색하면 크리에이터만 나오고 게시물은 안 나옴(기능 없음). 사용자 결정: 전체 공개는 제목+본문, 멤버십은 제목만 / 결과는 크리에이터·게시물 탭. '다되면 그냥 배포' 지시.
+- 구현: features/service/usePostSearchModel.ts(/posts/search, 250ms 지연, 늦은 응답 무시, 작성자 creators 공유 상태에 병합), ServiceViewModel.postSearch, ExplorePage 검색어 있을 때 프로필 탭과 같은 탭(크리에이터 N·게시물 N), 게시물 탭은 피드 PostCard·더 보기·빈 상태, 분야 칩 숨김. 목업은 같은 규칙으로 data.posts 필터. 검색창 안내 '크리에이터, 게시물, 태그로 검색해보세요'·라벨 '크리에이터·게시물 검색'(랜딩 자체 검색창은 그대로).
+- 검증: typecheck 0, check:layers 446, npm test 569/585(실패 16 origin/prod 와 동일). 브라우저(로컬 3108 + 로컬 API/개발 DB): 아이폰·PC 검색 전 탭 없음, '분류 게시물' → 크리에이터 0·게시물 20+, 카드 20→더 보기 40, 멤버십 글은 제목 일치·본문 잠김, 없는 단어 빈 상태, 목업 탭 표시, pageerror 0.
+
+## 2026-11-08 공용 PromptLayout(로그인 필요 레이아웃 재사용) (feat/ai-photo-fullscreen, 미병합·미배포)
+## 2026-11-08 공용 PromptLayout(로그인 필요 레이아웃 재사용) (feat/post-search, 운영 컴팩트 디자인 위로 옮김)
+- 사용자 요청: AI 사진 창의 '사진 먼저 올리기' 화면을 로그인 필요 레이아웃처럼, 재사용 구조로. 팔로우 시 로그인 필요 창도 기존 로그인 필요 레이아웃 사용.
+- 구현: components/crefans/PromptLayout.tsx(+prompt-layout.module.css: 그림·제목·설명·버튼, page/dialog, promptPrimary). SignInPrompt 를 PromptLayout 위로 옮김(겉모양 동일, hideTitle·onNavigate 추가), account.module.css 의 signIn* 12줄 이동. AiPhotoDialog 빈 상태=스파클 그림+'바꿀 사진을 먼저 올려 주세요'+'사진 올리러 가기'. ServiceRouter 로그인 필요 알림=SignInPrompt dialog(hideTitle, 링크 누르면 닫힘), 쓰지 않게 된 loginHref·ActionLink·useCurrentLoginHref import 제거.
+- 검증: typecheck 0, check:layers 445, prompt-layout 2/2, studio-ai-photo 7/7, npm test 실패 16 origin/prod 와 동일. 브라우저(로컬 3108 + 로컬 API 3001/개발 DB): 아이폰·PC AI 빈 상태(그림·제목·버튼·닫힘), 비로그인 크리에이터 프로필 팔로우→'로그인이 필요해요' 창(자물쇠·로그인/회원가입·안쪽 제목 숨김)→로그인 링크 이동 후 창 닫힘, /service/me 로그인 필요 페이지 유지(h1·아이콘·푸터). pageerror 0.
+
 ## 2026-11-08 AI 사진 편집 1안 컴팩트 편집형 (21:52 KST 운영 배포 완료)
 - 사용자 선택: 두 폴리싱 시안 중 1안으로 개선·운영 배포. origin/prod72b512c에서 feat/ai-photo-compact-20261108 분기, 최신 전체화면 기능 b3ed2f0를 0e34fae로 가져왔다.
 - 공용 AiPhotoDialog: 편집 → 결과 두 단계, 208px 원본·파란 선택 탭/느낌 칩·공용 입력/동의·접힌 안내·하단 고정 CTA, 결과 두 장 나란히 비교/선택. 설정 수정 시 입력 유지, 다시 만들기 실패 시 이전 결과 보존. 원본 확대 추가, 오류를 보이는 위치로 스크롤. 모바일 전체화면·바깥 클릭 방지·마스크·경과 시간·확대/넘기기·무료10회/2장 유지. PC 최대640px, 모바일16px 여백. 공용 Dialog className 확장·inert/숨김 요소 포커스 제외.
