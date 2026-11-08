@@ -1,3 +1,7 @@
+## 2026-11-08 운영 컴팩트 AI 편집 위로 재배치 (front feat/post-search)
+- 병합 중 다른 세션이 b3ed2f0(전체 화면·크게 보기·진행 시간)을 0e34fae로 가져가 컴팩트 디자인(a3c3459)으로 이미 운영 배포한 것을 확인. 운영본을 그대로 두고 PromptLayout(cbe9b0f)·게시물 검색(d2f3320)만 origin/prod ee6bca9 위로 옮김. 충돌은 운영 컴팩트 화면 유지 + 빈 상태만 PromptLayout(.body 여백 안), 쓰지 않게 된 .empty 제거.
+- 검증: typecheck 0, check:layers 446, studio-ai-photo+prompt-layout 13/13, npm test 573/589(실패 16 이름 이전 prod 와 동일). 로컬 390px 빈 상태 버튼 16~374px(여백 16), PC 640px 창 안 가운데 정렬.
+
 ## 2026-11-08 탐색 게시물 검색 (front·server feat/post-search)
 - 사용자 지적: 검색하면 크리에이터만 나오고 게시물은 안 나옴(기능 없음). 사용자 결정: 전체 공개는 제목+본문, 멤버십은 제목만 / 결과는 크리에이터·게시물 탭. '다되면 그냥 배포' 지시.
 - 구현: features/service/usePostSearchModel.ts(/posts/search, 250ms 지연, 늦은 응답 무시, 작성자 creators 공유 상태에 병합), ServiceViewModel.postSearch, ExplorePage 검색어 있을 때 프로필 탭과 같은 탭(크리에이터 N·게시물 N), 게시물 탭은 피드 PostCard·더 보기·빈 상태, 분야 칩 숨김. 목업은 같은 규칙으로 data.posts 필터. 검색창 안내 '크리에이터, 게시물, 태그로 검색해보세요'·라벨 '크리에이터·게시물 검색'(랜딩 자체 검색창은 그대로).
