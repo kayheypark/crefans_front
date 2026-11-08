@@ -33,7 +33,10 @@ import {Action,ActionLink,Avatar,Empty,Notice,PageTitle} from '../ServiceUI';
 import Icon from '../Icon';
 import type {PostDetailModel} from '../SocialPages';
 import {ContentPostPreview} from './ContentPostPreview';
+import {AiPhotoDialog} from './AiPhotoDialog';
+import {AI_PHOTO_DAILY_LIMIT} from '@/lib/crefans/ai-photo';
 import s from './management.module.css';
+import ai from './ai-photo.module.css';
 import cards from './content-list.module.css';
 
 type Props={model:StudioManagementModel;basePath:string;id?:string};
@@ -133,7 +136,7 @@ export function ContentEditorPage({model,basePath,id,previewModel,previewCreator
 }
 function ContentEditor({model,basePath,content,previewModel,previewCreatorId,commentsGloballyEnabled=true}:EditorProps&{content?:StudioContent}){
   const [previewOpen,setPreviewOpen]=useState(false),[savedId,setSavedId]=useState(content?.id),[title,setTitle]=useState(content?.title||''),[body,setBody]=useState(content?.body||''),[media,setMedia]=useState<StudioMedia[]>(content?.media||[]),[tipsEnabled,setTipsEnabled]=useState(content?.tipsEnabled??true),[commentsEnabled,setCommentsEnabled]=useState(content?.commentsEnabled??true),[access,setAccess]=useState(content?.accessLevel?`level:${content.accessLevel}`:content?.accessPlanId||''),[scheduledAt,setScheduledAt]=useState(localDateInput(content?.scheduledAt||null)),[scheduleEnabled,setScheduleEnabled]=useState(content?.status==='scheduled'),[error,setError]=useState('');
-  const [mediaError,setMediaError]=useState(''),[uploading,setUploading]=useState(false);
+  const [mediaError,setMediaError]=useState(''),[uploading,setUploading]=useState(false),[aiOpen,setAiOpen]=useState(false);
   const accessLevel=access.startsWith('level:')?Number(access.slice(6)):null,accessPlanId=accessLevel===null?access:'';
   const levels=Array.from(new Set([...model.memberships.map(plan=>plan.rank??1),...(accessLevel?[accessLevel]:[])])).sort((a,b)=>a-b);
   const draftMedia=useRef<string[]>([]),mediaRequest=useRef(0),discard=useRef(model.actions.discardContentMedia);
@@ -173,7 +176,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     if(media.some(item=>item.failed)){setError('변환에 실패한 동영상을 지우고 다시 올려 주세요.');return;}if(nextStatus!=='draft'&&!body.trim()){setError('게시할 내용을 입력해주세요.');return;}
     const scheduled=scheduleEnabled&&scheduledAt?new Date(scheduledAt):null;
     if(nextStatus==='scheduled'&&(!scheduled||!Number.isFinite(scheduled.getTime())||scheduled.getTime()<=Date.parse(model.now))){setError('예약 시각을 현재보다 미래로 선택해주세요.');return;}
-    void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:media.map(({id,type,url})=>({id,type,url})),commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);
+    void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:media.map(({id,type,url,aiGenerated})=>({id,type,url,...(aiGenerated?{aiGenerated}:{})})),commentsEnabled,tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);
       // Publishing, scheduling or saving a published post returns to the list; a draft save keeps editing (2026-11-01).
       if(nextStatus!=='draft'){router.push(`${basePath}/content`);return;}
       setScheduleEnabled(false);setScheduledAt('');});
@@ -191,6 +194,9 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
       <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
       <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={upload} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 5MB 이하 · MP4·WebM·MOV 300MB 이하"/>
+      {/* 2026-11-08: AI photo editor (outfit/pose/background), shown only when the action is provided (mock until the server is connected). */}
+      {model.actions.aiEditPhoto&&(()=>{const photos=media.filter(item=>item.type==='image'&&!item.processing&&!item.failed);return <div className={ai.aiAction}><Action variant="secondary" type="button" onClick={()=>setAiOpen(true)} disabled={task.busy||uploading||media.length>=mediaUploadMaxItems}>✦ AI로 사진 만들기</Action><small>{photos.length?'올린 사진의 옷·포즈·배경을 바꿔요.':'사진을 먼저 올리면 옷·포즈·배경을 바꿀 수 있어요.'}</small>
+        <AiPhotoDialog open={aiOpen} onClose={()=>setAiOpen(false)} images={photos} quota={model.aiPhotoQuota||{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT}} room={mediaUploadMaxItems-media.length} onEdit={model.actions.aiEditPhoto!} onAdd={made=>{draftMedia.current=[...draftMedia.current,...made.map(item=>item.url)];setMedia(previous=>[...previous,...made]);setMediaError('');}}/></div>;})()}
       <div className={s.editorOptions}><SelectField marquee label="공개 범위" value={access} onChange={setAccess} options={[{value:'',label:'전체 공개'},...levels.map(rank=>({value:`level:${rank}`,label:`레벨 ${rank} 이상`})),...model.memberships.map(plan=>({value:plan.id,label:`${plan.name} 전용${!plan.active?' · 신규 가입 중단':''}`}))]} searchable/>{status!=='published'&&<section className={s.scheduleBox} aria-label="예약 게시 설정"><Toggle label="예약 사용" checked={scheduleEnabled} disabled={task.busy} onChange={enabled=>{setScheduleEnabled(enabled);if(!enabled)setScheduledAt('');setError('');}}/><Field label="예약 게시 시각" type="datetime-local" value={scheduledAt} min={localDateInput(model.now)} disabled={!scheduleEnabled||task.busy} clearable onClear={()=>{setScheduledAt('');setError('');}} onChange={e=>{setScheduledAt(e.target.value);setError('');}} hint="현재 기기의 시간대를 기준으로 선택해주세요."/></section>}</div>
       <div className={s.commentOption}><Checkbox label="이 게시물에서 후원 받기" description="전체공개 게시물에서도 후원을 받을 수 있습니다." checked={tipsEnabled} disabled={task.busy} onChange={setTipsEnabled}/></div>
       <div className={s.commentOption}><Toggle label="댓글 허용" description={commentsGloballyEnabled?'끄면 이 게시물에서만 댓글을 닫습니다.':'스튜디오 설정에서 댓글 기능이 꺼져 있어 모든 게시물의 댓글이 닫힙니다. 크리에이터 설정에서 먼저 켜 주세요.'} checked={commentsEnabled} disabled={task.busy||!commentsGloballyEnabled} onChange={setCommentsEnabled}/></div>
