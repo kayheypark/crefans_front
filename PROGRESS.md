@@ -1,3 +1,7 @@
+## 2026-11-08 PromptLayout·게시물 검색 운영 배포 (crefans-front:post-search-20261108)
+- prod dcebdec 배포(이전 ai-photo-compact-20261108). 1차는 API 배포와 같은 서버 백업 폴더명 때문에 교체 전 중단(운영 변경 없음), 정리 후 2차 성공. 운영 화면 PC·아이폰 검색 탭·잠김 카드·빈 결과·AI 빈 상태 확인, pageerror 0. 상세 server .local/post-search-20261108/deployment.md. 복구본 /Users/ethan/crefans-recovery/20261108/post-search-20261108.
+- 주의: ship-image.sh 백업 폴더(/opt/crefans-backup-<태그>)가 API 배포 폴더명과 겹치지 않게 서로 다른 태그를 쓰거나 API 백업을 먼저 정리할 것.
+
 ## 2026-11-08 운영 컴팩트 AI 편집 위로 재배치 (front feat/post-search)
 - 병합 중 다른 세션이 b3ed2f0(전체 화면·크게 보기·진행 시간)을 0e34fae로 가져가 컴팩트 디자인(a3c3459)으로 이미 운영 배포한 것을 확인. 운영본을 그대로 두고 PromptLayout(cbe9b0f)·게시물 검색(d2f3320)만 origin/prod ee6bca9 위로 옮김. 충돌은 운영 컴팩트 화면 유지 + 빈 상태만 PromptLayout(.body 여백 안), 쓰지 않게 된 .empty 제거.
 - 검증: typecheck 0, check:layers 446, studio-ai-photo+prompt-layout 13/13, npm test 573/589(실패 16 이름 이전 prod 와 동일). 로컬 390px 빈 상태 버튼 16~374px(여백 16), PC 640px 창 안 가운데 정렬.
