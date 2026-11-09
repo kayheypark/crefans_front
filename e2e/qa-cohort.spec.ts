@@ -1,4 +1,4 @@
-import {test,expect} from './fixtures';
+import {test,expect,PAY} from './fixtures';
 import type {Browser,BrowserContext} from '@playwright/test';
 // QA cohort (2026-10-31): role matrix against the real local API (isolated e2e DB, payment provider stand-in).
 // Every principal has its own BrowserContext (separate cookie jar); cross checks keep several contexts open at once.
@@ -94,7 +94,7 @@ test('QA cohort: identities, 0/2/10 baseline, content and media access matrix, s
   ctx.S12=await principal(browser,cohort,'S12');// S12 already has a registered test card (cohort fixture); C0 is a different creator
   const order=await ctx.S12.request.post('/api/v1/checkout',{headers:ORIGIN,data:{planId:cohort.creators.C0.plans['1'],requestId:crypto.randomUUID(),creatorProvision:'2026-10-30.1'}});const ob=await order.json();expect(order.ok(),ob.errorCode).toBeTruthy();
   evidence.race.order=ob.data.id;
-  const [a,b]=await Promise.all([ctx.S12.request.post(`/api/v1/checkout/${ob.data.id}/pay`,{headers:ORIGIN,data:{}}),ctx.S12.request.post(`/api/v1/checkout/${ob.data.id}/pay`,{headers:ORIGIN,data:{}})]);
+  const [a,b]=await Promise.all([ctx.S12.request.post(`/api/v1/checkout/${ob.data.id}/pay`,{headers:ORIGIN,data:PAY}),ctx.S12.request.post(`/api/v1/checkout/${ob.data.id}/pay`,{headers:ORIGIN,data:PAY})]);
   const ab=await a.json(),bb=await b.json();evidence.race.responses=[{status:a.status(),code:ab.errorCode,state:ab.data?.status},{status:b.status(),code:bb.errorCode,state:bb.data?.status}];
   const c0=await (await ctx.C0.request.get('/api/v1/studio/overview')).json();const count=Number(c0.data.metrics.find((m:any)=>m.id==='subscribers').value);evidence.race.c0Subscribers=count;
   expect(count,'exactly one subscription from a double pay').toBe(1);expect([a,b].filter(r=>r.ok()).length,'at least one pay call succeeds').toBeGreaterThanOrEqual(1);
