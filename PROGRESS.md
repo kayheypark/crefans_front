@@ -1,3 +1,9 @@
+## 2026-11-09 게시물 검색 결과 미리보기 카드 (fix/search-preview-card, 미배포)
+- 사용자 결정(/ask-me): "검색은 제외, 피드·상세는 열람". 서버 fix/search-no-consume 이 /posts/search 를 미리보기(expose=false)로 바꿔 멤버십 글을 구독자에게도 canAccess=false·본문/미디어 없이 보내고 checkout_orders.content_accessed_at(7일 전액 환불 판단)을 남기지 않는다. 상세 /posts/:id 에서만 기록.
+- 화면: 그대로면 구독자에게 '멤버십 안내'(판매 창)가 뜨므로 PostCard 에 preview 속성 추가(탐색 검색 결과에서만 true). 서버 잠김 + 화면 canAccess(구독/작성자) 참이면 '구독 중인 멤버십 게시물 · 검색 결과에서는 내용이 보이지 않아요 · 게시물 보기'(상세 링크), 인라인 댓글 대신 상세 댓글 링크. 비구독자·피드 등 다른 곳은 기존 그대로.
+- 검증: typecheck 0, check:layers 0, crefans-social 신규 테스트 통과(컴포넌트 원복 시 실패 대조), npm test 578/594 실패16 = prod 기준 577/593 실패16 동일 목록, next build 0, check:docs 실패 목록 prod 와 동일(기존 Missing review source·Generated contracts stale). 증거 server .local/search-preview-20261109/front-*.
+- 배포 필요: 서버 배포와 함께 front 배포해야 구독자 화면이 맞음(서버만 배포 시 구독자 검색 카드에 '멤버십 안내'가 뜸).
+
 ## 2026-11-09 콩 출금 수수료율 표시·세션 유지·스튜디오 출금 링크 수정 통합 배포 (integrate/fee-withdraw-20261109, 태그 fee-withdraw-20261109)
 - 사용자 승인(/ask-me "프론트 수정 브랜치 둘 다 함께 배포"): origin/prod ca551de 기준으로 fix/fee-label-session-timer(efaed8d·bf39ba2)와 feat/studio-withdraw-refresh(29633de)를 --no-ff 통합, 충돌 없음. 프론트 컨테이너만 교체, API·admin·guide·DB 미변경.
 - 검증: typecheck 0, check:layers 0, npm test 579/595(실패 16 = origin/prod 기준선과 이름 동일), 관련 단위 24/24, 각 수정 되돌린 대조에서 해당 테스트 실패. 격리 E2E 전체(3011/3012·crefans_platform_e2e) 0 failed/47 skipped/318 passed — beans.spec:15 출금 링크 테스트 통과(fixme 해제는 29633de), useBeansModel 되돌리면 실패.
