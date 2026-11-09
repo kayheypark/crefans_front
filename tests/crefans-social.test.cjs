@@ -695,3 +695,21 @@ test('membership notices show the membership square with the creator badge; othe
   assert.equal(none.root.findAll(node=>node.props?.['data-membership-thumb']==='creator'&&typeof node.type==='string').length,1,'no subscription photo: creator fills the square');
   close(none);
 });
+
+test('search preview: a subscriber gets a detail link (no sales notice, no inline comments); others keep the membership notice',()=>{
+  const locked={...post,body:'',image:'',media:[],canAccess:false};
+  const links=tree=>tree.root.findAllByType('a').map(node=>node.props.href);
+  const text=tree=>JSON.stringify(tree.toJSON());
+  const subscriber=mount(PostCard,{post:locked,model:model({data,commentsByPost:{},loadReplies:async()=>ok}),preview:true});
+  try{
+    assert.match(text(subscriber),/구독 중인 멤버십 게시물/);
+    assert.ok(links(subscriber).includes('/actual-service/post/exhibition'));
+    assert.doesNotMatch(text(subscriber),/멤버십 안내|PROTECTED_BODY_SENTINEL/);
+    assert.equal(subscriber.root.findAllByType('button').some(button=>button.props['aria-controls']===`comments-${post.id}`),false);
+    assert.ok(links(subscriber).includes('/actual-service/post/exhibition#comments-exhibition'));
+  }finally{close(subscriber);}
+  for(const props of [{post:locked,model:model({data,canAccess:()=>false}),preview:true},{post:locked,model:model({data})}]){
+    const card=mount(PostCard,props);
+    try{assert.match(text(card),/멤버십 안내/);assert.doesNotMatch(text(card),/구독 중인 멤버십 게시물/);}finally{close(card);}
+  }
+});
