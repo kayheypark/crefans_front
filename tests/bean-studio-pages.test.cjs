@@ -33,3 +33,15 @@ test('tips and payouts pages show only their own list without notices',()=>{
  assert.match(tips.page,/^받은 후원/);assert.doesNotMatch(tips.page,/출금 내용 확인|최근 50건|콩 출금 기준/);
  assert.match(payouts.page,/^콩 출금 내역/);assert.doesNotMatch(payouts.page,/최근 50건/);assert.match(payouts.page,/아직 출금 내역이 없습니다/);assert.doesNotMatch(payouts.page,/출금 내용 확인|다음 후원|콩 출금 기준/);
 });
+// 2026-11-09: the confirmation dialog shows the fee rate the server applied (creator terms), never a fixed 20%.
+test('withdraw confirmation labels the fee with the quote feeBps, and without a rate shows only 수수료',async()=>{
+ const previous=global.document;global.document={body:{style:{}}};
+ try{for(const [feeBps,label] of [[1000,'수수료 10%'],[1250,'수수료 12.5%'],[undefined,'수수료']]){
+  const quoted={...model,quote:async(quantity,accountId)=>({success:true,data:{quantity,grossKrw:'100000',feeKrw:'10000',netKrw:'90000',accountId,accountLabel:'국민은행 · •••• 1234',...(feeBps===undefined?{}:{feeBps})}})};
+  let tree;act(()=>{tree=create(React.createElement(BeanContext.Provider,{value:quoted},React.createElement(BeanStudioPage,{view:'withdraw'})));});
+  try{await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+   const terms=tree.root.findAllByType('dt').map(n=>words(n.children));
+   assert.ok(terms.includes(label),`${feeBps}: ${terms.join(',')}`);assert.ok(!terms.includes('수수료 20%'));
+  }finally{act(()=>tree.unmount());}
+ }}finally{global.document=previous;}
+});

@@ -25,11 +25,10 @@ test('콩 환불: 7일 이내 새 충전은 전액, 지난 충전은 10% 공제 
 
 test('콩 유효기간: 30일 안에 끝나는 콩이 있을 때만 지갑에 한 줄 안내',async({page})=>{
  await page.goto('/preview/beans');await expect(page.getByRole('heading',{name:'지갑',exact:true})).toBeVisible();await expect(page.getByText(/유효기간이 끝나요/)).toHaveCount(0);
- // The welcome promotion beans (granted 2026-08-27 in the mock) expire five years later: the preview mock still uses lib/crefans/bean-refund.ts validityYears:5,
- // while the live server (bean-policy.ts validityYears:1) and the notice below say 1년 since fef0a50 (2026-11-06). Mock mismatch reported separately.
+ // The welcome promotion beans (granted 2026-08-27 in the mock) expire one year later (fef0a50; lib/crefans/bean-refund.ts and server bean-policy.ts validityYears:1).
  // The clock moves after hydration and the wallet re-renders through in-app links, so server and client HTML still match.
- await page.clock.install({time:new Date('2031-08-01T09:00:00+09:00')});await page.getByRole('link',{name:'충전 내역'}).click();await page.getByRole('link',{name:'지갑으로 돌아가기'}).click();
- await expect(page.getByText(/유효기간이 끝나요/)).toHaveText('100콩이 2031.08.27에 유효기간이 끝나요');
+ await page.clock.install({time:new Date('2027-08-01T09:00:00+09:00')});await page.getByRole('link',{name:'충전 내역'}).click();await page.getByRole('link',{name:'지갑으로 돌아가기'}).click();
+ await expect(page.getByText(/유효기간이 끝나요/)).toHaveText('100콩이 2027.08.27에 유효기간이 끝나요');
  await page.getByRole('link',{name:'콩 충전',exact:true}).click();const notes=page.getByRole('region',{name:'환불·유효기간'});await expect(notes).toContainText('7일 이내');await expect(notes).toContainText('10%를 공제');await expect(notes).toContainText('프로모션콩은 환불되지 않습니다');await expect(notes).toContainText('콩 유효기간은 충전·지급일로부터 1년');await expect(notes).not.toContainText('5년');
 });
 

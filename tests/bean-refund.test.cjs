@@ -20,9 +20,10 @@ test('unused purchased beans belong to the newest paid charges and exclude refun
  assert.deepEqual(Object.fromEntries(unusedPurchasedBeans(charges,200)),{new:200,mid:0,old:0});
 });
 test('expiry notice covers lots ending within 30 days and reports the earliest date',()=>{
- const lots=[{quantity:100,from:'2021-11-20T00:00:00Z'},{quantity:30,from:'2021-11-10T00:00:00Z'},{quantity:5,from:'2021-12-30T00:00:00Z'},{quantity:9,from:'2021-10-01T00:00:00Z'},{quantity:0,from:'2021-11-01T00:00:00Z'}];
+ // Lots are valid for 1 year (fef0a50; was 5 years).
+ const lots=[{quantity:100,from:'2025-11-20T00:00:00Z'},{quantity:30,from:'2025-11-10T00:00:00Z'},{quantity:5,from:'2025-12-30T00:00:00Z'},{quantity:9,from:'2025-10-01T00:00:00Z'},{quantity:0,from:'2025-11-01T00:00:00Z'}];
  assert.deepEqual(expiringSoonBeans(lots,now),{quantity:130,expiresAt:'2026-11-10T00:00:00.000Z'});
- assert.equal(expiringSoonBeans([{quantity:5,from:'2021-12-30T00:00:00Z'}],now),null);
+ assert.equal(expiringSoonBeans([{quantity:5,from:'2025-12-30T00:00:00Z'}],now),null);
  assert.equal(beanExpiryDate('2026-11-09T16:00:00Z'),'2026.11.10');
 });
 

@@ -1,3 +1,13 @@
+## 2026-11-09 콩 출금 수수료율 표시·세션 유지·스튜디오 출금 링크 수정 통합 배포 (integrate/fee-withdraw-20261109, 태그 fee-withdraw-20261109)
+- 사용자 승인(/ask-me "프론트 수정 브랜치 둘 다 함께 배포"): origin/prod ca551de 기준으로 fix/fee-label-session-timer(efaed8d·bf39ba2)와 feat/studio-withdraw-refresh(29633de)를 --no-ff 통합, 충돌 없음. 프론트 컨테이너만 교체, API·admin·guide·DB 미변경.
+- 검증: typecheck 0, check:layers 0, npm test 579/595(실패 16 = origin/prod 기준선과 이름 동일), 관련 단위 24/24, 각 수정 되돌린 대조에서 해당 테스트 실패. 격리 E2E 전체(3011/3012·crefans_platform_e2e) 0 failed/47 skipped/318 passed — beans.spec:15 출금 링크 테스트 통과(fixme 해제는 29633de), useBeansModel 되돌리면 실패.
+- 증거·배포 결과: crefans_server/.local/fee-withdraw-deploy-20261109/deployment.md.
+
+## 2026-11-09 콩 출금 수수료 표시·세션 유지 stale refresh 수정 (fix/fee-label-session-timer, 미배포)
+- 콩 출금 확인 창 '수수료 20%' 고정 문구 → 서버 견적 feeBps(크리에이터 약정 beanWithdrawalFeeBps 반영) 표시. 1000→'수수료 10%', 1250→'수수료 12.5%', 없으면 '수수료'. BeanQuote 타입에 feeBps, 목업 견적도 feeBps 2000. lib/content/events.ts 의 20% 는 플랫폼 기본 정책 안내문(서버 견적 아님)이라 유지.
+- useServiceModel 세션 유지(5분·visibilitychange): /session 확인이 진행 중에 경로가 바뀌면 UNAUTHORIZED 후 이전 경로 refresh 가 불려 loadedPath 가 옛 경로로 남아 '불러오는 중' 고정 → refreshRef 로 최신 refresh 호출. 단순 이동은 refresh 가 상태를 비워 리스너가 재등록되므로 재현되지 않음(진행 중 요청 경합만 해당).
+- 검증: typecheck 0, check:layers 0, bean-studio-pages 5/5·service-access-state 6/6(각 수정만 되돌린 대조 시 신규 테스트 1 실패), npm test 579/595(실패 16 = origin/prod 기준선과 이름 동일). 증거 server .local/fee-timer-20261109/. 실기기·운영 확인 아님, dev 통합·배포 승인 대기.
+
 ## 2026-11-09 로그인 필요 창 설명 문구 (feat/login-prompt-copy, 미배포)
 - 사용자 결정(/ask-me 기타 입력): 공용 로그인 필요 창(ServiceRouter loginRequired) 설명을 '로그인하면 팔로우, 좋아요, 저장 기능을 이용할 수 있어요.' → '로그인 후 더 많은 기능을 이용해보세요.' (멤버십 가입 가드에도 쓰이므로). typecheck 0. 배포 승인 대기.
 - 같은 /ask-me: E2E 테스트 갱신·재실행 진행(test/e2e-refresh-20261109), 로컬 개발 DB 테스트 표식 데이터 삭제, 예전 회신 초안의 평문 비밀번호 파일은 그대로 둠(사용자 결정).
@@ -4362,3 +4372,8 @@
 - 사용자 지시: 랜딩페이지 하단에도 푸터(모바일).
 - `components/crefans/LandingPage.tsx` 의 `</main>` 아래에 기존 `ServiceFooter`(서비스 링크 + 사업자 정보: 통신판매업 신고번호·공정위 사업자정보 확인 링크 포함)를 랜딩 `container` 여백으로 감싸 붙였다. `landing.module.css` 에 `.siteFooter`(하단 여백 + safe-area) 추가, 768px 이상에서는 숨김(ServiceFooter 자체도 PC에서 사업자 정보를 숨긴다).
 - 검증: build 통과, check:docs PASS. 로컬 `next start` 에서 375px: 푸터 보임·신고번호·공정위 링크 있음·가로 넘침 없음 / 1440px: wrapper display:none.
+
+## 2026-11-09 스튜디오 출금 링크 이동 시 잔액·계좌 누락 수정 (feat/studio-withdraw-refresh, 미배포)
+- 원인(계측 확인): 화면 이동 시 재부트스트랩으로 signedIn이 false→true로 바뀌며 ServiceProvider의 refresh()가 BeanStudioPage의 refresh(true) 뒤에 실행돼 스튜디오 응답이 버려졌다. `useBeansModel`이 스튜디오 요청을 기억해 이후 refresh에도 포함한다(일반 회원으로 로그인되면 해제).
+- 목업 콩 유효기간 5년→1년(`lib/crefans/bean-refund.ts`, fef0a50 정책).
+- 검증: e2e 전체 0 failed/47 skipped/318 passed, 수정 되돌리면 beans.spec 출금 링크 테스트 실패. npm test 실패 16건은 origin/prod와 동일. 증거 crefans_server/.local/toss-audit-20261109/e2e-refresh/round2/.
