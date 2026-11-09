@@ -1,4 +1,4 @@
-import {test,expect} from './fixtures';
+import {test,expect,expectSignedIn,PAY} from './fixtures';
 import type {Browser,BrowserContext,Page,TestInfo} from '@playwright/test';
 // QA journey (2026-10-31): post-signup member journey on the local isolated stack (e2e DB, payment/bank stand-ins).
 // Every role signs in through the login screen in its own BrowserContext. Each case saves numbered screenshots
@@ -17,7 +17,7 @@ async function signIn(browser:Browser,info:TestInfo,c:Cohort,role:string,shots=f
  if(shots)await snap(page,info,`${role} 로그인 입력(비밀번호 가림 필드)`);
  const response=page.waitForResponse(r=>r.url().endsWith('/api/v1/auth/login')&&r.request().method()==='POST');
  await page.getByRole('button',{name:'로그인',exact:true}).click();expect((await response).ok(),`login ${role}`).toBeTruthy();
- await expect(page.getByRole('link',{name:new RegExp(`^QA ${role} .*내 프로필$`)}).first()).toBeVisible();return {ctx,page};
+ await expectSignedIn(page,new RegExp(`^QA ${role} .*내 프로필$`));return {ctx,page};
 }
 const nick=(role:string)=>`QA ${role} 긴 닉네임 검수용 합성 계정`;
 
@@ -46,13 +46,14 @@ test.describe('QA 회원 여정',()=>{
 
  test('J03 활동 분야가 없으면 크리에이터 등록을 진행할 수 없고, 분야를 추가하면 등록이 완료된다',async({browser,control},info)=>{
   const c:Cohort=await control('cohort');const {ctx,page}=await signIn(browser,info,c,'N0');
-  await page.goto('/service/studio');await expect(page.getByRole('heading',{name:'크리에이터 시작하기'})).toBeVisible();
+  // 42bccf7 (2026-11-07): members who are not creators see a guard page on /studio; its primary link opens the start form.
+  await page.goto('/service/studio');await expect(page.getByRole('heading',{name:'크리에이터 전환이 필요해요',exact:true})).toBeVisible();await page.getByRole('link',{name:'크리에이터 시작하기',exact:true}).click();await expect(page).toHaveURL(/\/service\/studio\/start$/);await expect(page.getByRole('heading',{name:'크리에이터 시작하기'})).toBeVisible();
   await page.getByLabel('주요 활동 분야').click().catch(()=>{});await snap(page,info,'분야 0건: 선택지 없음');
   await page.keyboard.press('Escape').catch(()=>{});
   const {name}=await control('category');
   try{
    await page.reload();await expect(page.getByRole('heading',{name:'크리에이터 시작하기'})).toBeVisible();
-   await page.getByLabel('크리에이터 활동명').fill('QA 신규 크리에이터');await expect(page.getByLabel('핸들',{exact:true})).toHaveValue(/^@/);// the address is the account user name (2026-10-31), read-only here
+   await page.getByRole('textbox',{name:'크리에이터 활동명',exact:true}).fill('QA 신규 크리에이터');await expect(page.getByLabel('핸들',{exact:true})).toHaveValue(/^@/);// the address is the account user name (2026-10-31), read-only here
    await page.getByLabel('주요 활동 분야').click();await page.getByRole('option',{name}).click();await snap(page,info,'분야 추가 후 기본 정보 입력');
    await page.getByRole('button',{name:'다음 단계 →'}).click();
    const agree=page.getByRole('checkbox');await agree.first().check();await snap(page,info,'공개 프로필 확인·동의');
@@ -70,7 +71,7 @@ test.describe('QA 회원 여정',()=>{
   await creator.page.goto('/service/studio');await expect.poll(async()=>Number((await (await creator.ctx.request.get('/api/v1/studio/overview')).json()).data.metrics.find((m:any)=>m.id==='subscribers').value)).toBe(1);
   await creator.page.reload();await snap(creator.page,info,'C0 스튜디오: 구독자 1');
   // paying the same order again is idempotent: no second subscription
-  await fan.ctx.request.post(`/api/v1/checkout/${order.data.id}/pay`,{headers:ORIGIN,data:{}});
+  await fan.ctx.request.post(`/api/v1/checkout/${order.data.id}/pay`,{headers:ORIGIN,data:PAY});
   expect(Number((await (await creator.ctx.request.get('/api/v1/studio/overview')).json()).data.metrics.find((m:any)=>m.id==='subscribers').value)).toBe(1);
   await fan.ctx.close();await creator.ctx.close();
  });

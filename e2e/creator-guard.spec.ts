@@ -34,7 +34,8 @@ test('미전환 회원: 스튜디오 진입 시 가드 페이지, 주 버튼은 
 });
 test('미전환 회원: 보조 버튼은 팬 화면으로 (API 대역)',async({page})=>{
  await service(page,false);await page.goto('/service/studio');const {secondary}=await checkGuard(page);
- await secondary.click();await expect(page).toHaveURL(/\/service$/);
+ // The link targets /service (components/service/StudioRouter.tsx fanPath), which redirects to the feed (app/service/page.tsx).
+ await expect(secondary).toHaveAttribute('href','/service');await secondary.click();await expect(page).toHaveURL(/\/service\/feed$/);
 });
 test('크리에이터는 기존대로 스튜디오 화면 (API 대역)',async({page})=>{
  await service(page,true);await page.goto('/service/studio/content');

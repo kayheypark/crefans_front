@@ -31,21 +31,22 @@ test('membership selection and locked-post layer show full names, with prices se
 });
 test('receipt, following and conversation keep their actions usable with a long identity',async({page})=>{
  await page.goto('/preview/subscriptions?tab=payments',{waitUntil:'domcontentloaded'});await page.getByRole('button').filter({hasText:nickname}).click();await expect(page.getByRole('dialog').locator('[data-marquee]',{hasText:plan})).toBeVisible();await fits(page);
- await page.goto('/preview/explore',{waitUntil:'domcontentloaded'});const card=page.locator('article').filter({hasText:nickname});await card.getByRole('button',{name:'팔로우',exact:true}).click();await page.locator('a[href="/preview/creator/moka"]').first().click();await expect(page).toHaveURL(/\/creator\/moka$/);await page.getByRole('button',{name:'팔로우 하는중',exact:true}).click();await expect(page.getByRole('dialog').locator('[data-marquee]',{hasText:nickname})).toBeVisible();await page.getByRole('button',{name:'취소',exact:true}).click();await page.locator('a[href="/preview/me"]:visible').last().click();await page.locator('a[href="/preview/settings"]').click();await page.getByRole('link',{name:'팔로잉 목록'}).click();await expect(page).toHaveURL(/\/following$/);await expect(label(page,handle)).toBeVisible();await fits(page);
+ await page.goto('/preview/explore',{waitUntil:'domcontentloaded'});const card=page.locator('article').filter({hasText:nickname});await card.getByRole('button',{name:'팔로우',exact:true}).first().click();/* moka is listed in the 주목할 크리에이터 ad slot and in the creator list */await page.locator('a[href="/preview/creator/moka"]').first().click();await expect(page).toHaveURL(/\/creator\/moka$/);await page.getByRole('button',{name:'팔로우 하는중',exact:true}).click();await expect(page.getByRole('dialog').locator('[data-marquee]',{hasText:nickname})).toBeVisible();await page.getByRole('button',{name:'취소',exact:true}).click();await page.locator('a[href="/preview/me"]:visible').last().click();await page.locator('a[href="/preview/settings"]').click();await page.getByRole('link',{name:'팔로잉 목록'}).click();await expect(page).toHaveURL(/\/following$/);await expect(label(page,handle)).toBeVisible();await fits(page);
  // Client navigation retains preview follow state.
  
  await page.goto('/preview/messages',{waitUntil:'domcontentloaded'});await page.getByRole('button').filter({hasText:nickname}).first().click();await expect(page.getByRole('region',{name:`${nickname}님과의 대화`})).toBeVisible();await fits(page);
 });
 test('global pause persists through navigation and reload; reduced motion reveals wrapped text',async({page})=>{
- await page.goto('/preview/settings',{waitUntil:'domcontentloaded'});const toggle=page.locator('main').getByRole('switch',{name:'텍스트 움직임',exact:true});await expect(toggle).toBeChecked();
+ // 3f07359 (2026-11-04): the switch lives in the settings 표시 설정 dialog.
+ await page.goto('/preview/settings',{waitUntil:'domcontentloaded'});await page.locator('main').getByRole('button',{name:'표시 설정'}).click();const toggle=page.getByRole('dialog',{name:'표시 설정'}).getByRole('switch',{name:'텍스트 움직임',exact:true});await expect(toggle).toBeChecked();
  const position=await toggle.evaluate(el=>{const row=el.closest('label')!,label=row.querySelector('strong')!.getBoundingClientRect(),input=el.getBoundingClientRect(),bounds=row.getBoundingClientRect();return {gap:input.left-label.right,rightInset:bounds.right-input.right};});
  expect(position.gap).toBeGreaterThan(0);expect(position.rightInset).toBeLessThanOrEqual(5);await fits(page);await toggle.scrollIntoViewIfNeeded();await page.screenshot({path:test.info().outputPath('settings-switch.png')});
  await toggle.uncheck();expect(await page.evaluate(()=>localStorage.getItem('crefans:text-motion'))).toBe('off');
  await page.goto('/preview/explore',{waitUntil:'domcontentloaded'});await expect(label(page).first()).toHaveAttribute('data-paused','true');
  expect(await label(page).first().evaluate(el=>{const line=el.firstElementChild!;return getComputedStyle(line).animationName==='none'&&line.scrollWidth<=el.clientWidth+1&&getComputedStyle(line).whiteSpace==='normal';})).toBeTruthy();await fits(page);
  await page.reload({waitUntil:'domcontentloaded'});await expect(label(page).first()).toHaveAttribute('data-paused','true');
- await page.goto('/preview/settings',{waitUntil:'domcontentloaded'});await expect(toggle).not.toBeChecked();await toggle.focus();await page.keyboard.press('Space');await expect(toggle).toBeChecked();
- expect(await page.evaluate(()=>localStorage.getItem('crefans:text-motion'))).toBe('on');await page.reload({waitUntil:'domcontentloaded'});await expect(toggle).toBeChecked();
+ await page.goto('/preview/settings',{waitUntil:'domcontentloaded'});await page.locator('main').getByRole('button',{name:'표시 설정'}).click();await expect(toggle).not.toBeChecked();await toggle.focus();await page.keyboard.press('Space');await expect(toggle).toBeChecked();
+ expect(await page.evaluate(()=>localStorage.getItem('crefans:text-motion'))).toBe('on');await page.reload({waitUntil:'domcontentloaded'});await page.locator('main').getByRole('button',{name:'표시 설정'}).click();await expect(toggle).toBeChecked();
  await page.goto('/preview/explore',{waitUntil:'domcontentloaded'});await expect(label(page).first()).toHaveAttribute('data-paused','false');
  await page.evaluate(()=>{localStorage.removeItem('crefans:text-motion');});await page.emulateMedia({reducedMotion:'reduce'});await page.reload({waitUntil:'domcontentloaded'});
  expect(await label(page).first().evaluate(el=>getComputedStyle(el.firstElementChild!).animationName)).toBe('none');await fits(page);
@@ -82,7 +83,7 @@ test('the API-bound service uses the same overflowing profile and membership lab
 test('profile media tile reveals all membership lines with either persistent pause or reduced motion',async({page})=>{
  for(const preference of ['pause','reduce']){
   await page.emulateMedia({reducedMotion:preference==='reduce'?'reduce':'no-preference'});
-  await page.goto('/preview/settings',{waitUntil:'domcontentloaded'});if(preference==='pause')await page.locator('main').getByRole('switch',{name:'텍스트 움직임',exact:true}).uncheck();else await page.evaluate(()=>localStorage.removeItem('crefans:text-motion'));
+  await page.goto('/preview/settings',{waitUntil:'domcontentloaded'});if(preference==='pause'){await page.locator('main').getByRole('button',{name:'표시 설정'}).click();await page.getByRole('dialog',{name:'표시 설정'}).getByRole('switch',{name:'텍스트 움직임',exact:true}).uncheck();}else await page.evaluate(()=>localStorage.removeItem('crefans:text-motion'));
   await page.goto('/preview/creator/moka',{waitUntil:'domcontentloaded'});await page.getByRole('button',{name:/^미디어/}).click();const labels=page.locator('a[class*=postTile] [data-marquee]');await expect(labels).toHaveCount(2);
   expect(await labels.evaluateAll(es=>es.every(el=>{const box=el.closest('a')!.getBoundingClientRect(),text=el.getBoundingClientRect();return text.bottom<=box.bottom+1&&text.top>=box.top-1&&getComputedStyle(el.firstElementChild!).animationName==='none';}))).toBeTruthy();await fits(page);
  }
