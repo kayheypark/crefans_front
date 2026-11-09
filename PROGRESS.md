@@ -1,9 +1,11 @@
-## 2026-11-09 AI 사진 편집 메뉴형 버튼 적용 (로컬 완료·미배포)
+## 2026-11-09 AI 사진 편집 메뉴형 버튼 적용 (09:26 KST 운영 배포 완료)
 - 사용자 선택: 3안 메뉴형. 버튼 바깥 기존 설명 삭제, 버튼 안 제목 아래 ‘메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경’ 표시. 시안의 ‘AI 사진 편집’ 제목 채택으로 적용.
 - origin/prod 6326e6c 재확인 후 같은 작업 브랜치에서 공용 ContentEditor의 진입 버튼/전용 CSS만 변경. 회색 배경·24px 기존 스파클·좌측 제목/설명·우측 공용 꺾쇠, 좁은 화면 설명 줄바꿈, aria-describedby 연결. 실제 서비스·목업 동일 컴포넌트. 생성 기능·API·편집 창 내부의 탭·제목은 이번 범위에서 변경하지 않음.
 - 검증: npm run typecheck 종료0, node --test tests/studio-ai-photo.test.cjs 11/11, git diff --check 통과. 로컬 공용 /preview/studio/content/new에서 Chromium1440·WebKit390/320: 설명/꺾쇠 버튼 내부, 가로 넘침 없음, 사진 없을 때 업로드 안내·사진 업로드 후 편집 창 진입·모바일 자동 포커스 없음, pageerror0. 세 화면 PNG 확인; 개발자 표시만 캡처에서 숨김. 실제 AI 호출·실기기·운영 검증 아님.
 - 증거: .local/ai-photo-menu-20261109/{verification.json,typecheck.log,unit.log,browser.log,*-button.png,*-page.png}. verification에는 기준 커밋·변경 소스 SHA256·검사 종료 코드·시각·PNG SHA 기록.
-- 다음: 배포 요청 시 dev 통합·검증 → prod 승격 → 운영 배포. 현재 운영 변경 없음.
+- 배포: 사용자 ‘다 되면 배포’ 승인. feature0322dbf → dev통합be81478(기존 dev/prod 트리 동일 확인) → 운영 빌드54초·447파일 계층 검사 통과 → dev/prod 동일be81478 승격. crefans-front:ai-photo-menu-front-20261109, 이전 toss-ready-20261109, 00:26:12Z 교체 검증. frontend만 교체, API·worker·admin·DB·proxy 컨테이너 ID 유지. 주요4경로200·이벤트301·CSS200·이미지200, running=true·재시작0·OOM없음.
+- 운영 확인: 배포된 공용 /preview/studio/content/new에서 Chromium1440·WebKit390/320 버튼 문구/설명 포함·꺾쇠·오버플로·빈 사진 안내·업로드 후 편집 진입 검증 통과. 변경 API 차단·대역 사진으로 검사, 실회원/실AI 공급사 검사 아님. live-mobile-button.png·live-small-button.png 육안 확인.
+- 복구: /Users/ethan/crefans-recovery/20261109/ai-photo-menu-front-20261109에 이전 이미지와 설정 보관. SHA256·태그/OCI index ID·config/layer15개·설정 tar 검증 후 서버 이전 이미지·이번 배포 임시자료 정리. 맥 보관본 삭제 없음. 최종 증거 .local/ai-photo-menu-20261109/deployment-verification.json 및 production-state.log(00:27:01Z). 남은 작업 없음.
 
 ## 2026-11-09 AI 사진 편집 진입 버튼 3종 시안 (3안 채택, 위 항목 참조)
 - 사용자 요청: 기존 ‘AI로 사진 만들기’ 버튼 디자인 3종. 제안 라벨 ‘AI 사진 편집’으로 비교했으며 라벨·디자인 모두 아직 사용자 확정 전이다.
