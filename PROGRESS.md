@@ -1,3 +1,17 @@
+## 2026-11-09 AI 사진 편집 메뉴형 버튼 적용 (로컬 완료·미배포)
+- 사용자 선택: 3안 메뉴형. 버튼 바깥 기존 설명 삭제, 버튼 안 제목 아래 ‘메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경’ 표시. 시안의 ‘AI 사진 편집’ 제목 채택으로 적용.
+- origin/prod 6326e6c 재확인 후 같은 작업 브랜치에서 공용 ContentEditor의 진입 버튼/전용 CSS만 변경. 회색 배경·24px 기존 스파클·좌측 제목/설명·우측 공용 꺾쇠, 좁은 화면 설명 줄바꿈, aria-describedby 연결. 실제 서비스·목업 동일 컴포넌트. 생성 기능·API·편집 창 내부의 탭·제목은 이번 범위에서 변경하지 않음.
+- 검증: npm run typecheck 종료0, node --test tests/studio-ai-photo.test.cjs 11/11, git diff --check 통과. 로컬 공용 /preview/studio/content/new에서 Chromium1440·WebKit390/320: 설명/꺾쇠 버튼 내부, 가로 넘침 없음, 사진 없을 때 업로드 안내·사진 업로드 후 편집 창 진입·모바일 자동 포커스 없음, pageerror0. 세 화면 PNG 확인; 개발자 표시만 캡처에서 숨김. 실제 AI 호출·실기기·운영 검증 아님.
+- 증거: .local/ai-photo-menu-20261109/{verification.json,typecheck.log,unit.log,browser.log,*-button.png,*-page.png}. verification에는 기준 커밋·변경 소스 SHA256·검사 종료 코드·시각·PNG SHA 기록.
+- 다음: 배포 요청 시 dev 통합·검증 → prod 승격 → 운영 배포. 현재 운영 변경 없음.
+
+## 2026-11-09 AI 사진 편집 진입 버튼 3종 시안 (3안 채택, 위 항목 참조)
+- 사용자 요청: 기존 ‘AI로 사진 만들기’ 버튼 디자인 3종. 제안 라벨 ‘AI 사진 편집’으로 비교했으며 라벨·디자인 모두 아직 사용자 확정 전이다.
+- 기준: 최신 origin/prod 6326e6c에서 feat/ai-photo-button-concepts-20261109 분기. 정적 HTML 시안만 작성, 실제 화면 코드·API·운영 배포 변경 없음. AGENTS.md의 기존 프로젝트/스택/진행 기록/공용 UI 규약 유지.
+- 01 소프트 블루(추천), 02 미니멀 라인, 03 메뉴형(왼쪽 정렬+오른쪽 꺾쇠). 기존 featured-creators-v1.png·studio-logo-v1.png 재사용, 버튼 358×52px·반경12px·아이콘24px. 같은 업로드 영역과 안내 문구에서 비교.
+- 합격 조건/검증: 3종 라벨·크기·이미지 로드·가로 잘림 여부 확인, Chromium 정적 렌더 종료0·pageerror0, 비교 PNG 육안 확인. 명령 node .local/ai-photo-button-20261109/render.cjs. 생성 시각·소스 커밋·파일 SHA256·실측은 .local/ai-photo-button-20261109/verification.json; comparison.png 및 button-1~3.png 보존. 제품 기능 테스트/실기기/운영 확인 범위 아님.
+- 다음: 사용자 선택 후 공용 진입 버튼에 적용, 배포는 별도 지시 범위에 따른다.
+
 ## 2026-11-09 토스 심사 전 전수조사·수정 (feat/membership-login-guard)
 - 전수조사(읽기 전용, 세 갈래 병렬): 운영 사이트 110쪽×PC·모바일 220회(pageerror·깨진 이미지·가로 넘침 0, 링크 189개 200), 토스 공식 심사 기준 대조, 자동 테스트 전체(실패 106건 모두 오래된 기대값·환경, 제품 버그 0). 증거 server .local/toss-audit-20261109/{site,criteria,tests}.
 - 사용자 결정(/ask-me): 배포 = 가입하기 로그인 가드·옛 경로 정리·결제 화면 환불 문구. 현행 유지 = 소개 화면 가상 크리에이터, '베타 실제 청구 없음' 문구(담당자 설명), 모바일 사업자 정보(미선택). 보류 = 콩 충전 상한(토스 담당자 확인 후).

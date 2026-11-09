@@ -81,14 +81,15 @@
 .maskSpacer{flex:1}
 .textButton{min-height:32px;padding:0 4px;border:0;background:transparent;color:var(--cf-color-textSecondary);font:inherit;font-size:13px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .textButton:disabled{opacity:.45;cursor:default}
-.aiAction{display:flex;flex-direction:column;align-items:stretch;gap:6px;margin-top:-6px}
-/* 2026-11-08 user request: as wide as the upload bar, with the featured-creator sparkle icon. */
-.aiWide{display:flex;width:100%;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 16px;border:1px solid var(--cf-color-accentBorder);border-radius:12px;background:var(--cf-color-accentSoft);color:var(--cf-color-accent);font:inherit;font-size:max(15px,var(--cf-mobile-font-min,0px));font-weight:600;cursor:pointer;transition:background var(--cf-motion-fast)}
-.aiWide img{flex:none}
-@media(hover:hover){.aiWide:not(:disabled):hover{background:var(--cf-color-surface)}}
+.aiAction{display:flex;flex-direction:column;align-items:stretch;margin-top:-6px}
+.aiWide{display:flex;width:100%;align-items:center;justify-content:flex-start;gap:12px;min-height:52px;padding:14px 16px;border:0;border-radius:12px;background:var(--cf-color-surfaceSubtle);color:var(--cf-color-text);font:inherit;font-size:max(15px,var(--cf-mobile-font-min,0px));font-weight:600;text-align:left;cursor:pointer;transition:background var(--cf-motion-fast)}
+.aiWide img,.aiWide>svg{flex:none}
+.aiWide>svg{color:var(--cf-color-textMuted)}
+.aiActionCopy{display:flex;flex:1;min-width:0;flex-direction:column;gap:4px;line-height:1.5}
+.aiActionCopy small{font-size:12px;font-weight:400;line-height:1.6;color:var(--cf-color-textMuted);word-break:keep-all;overflow-wrap:anywhere}
+@media(hover:hover){.aiWide:not(:disabled):hover{background:var(--cf-color-border)}}
 .aiWide:disabled{opacity:.45;cursor:not-allowed}
 .aiWide:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
-.aiAction small{font-size:12px;color:var(--cf-color-textMuted)}
 /* Result enlarge view (2026-11-08): covers the editor; the editor itself stays open underneath. */
 .resultItem{position:relative}
 .zoom{position:absolute;right:8px;bottom:8px;z-index:1;display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid var(--cf-color-border);border-radius:8px;background:rgb(255 255 255 / 94%);color:var(--cf-color-text);cursor:pointer}
