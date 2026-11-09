@@ -1,3 +1,8 @@
+## 2026-11-09 콩 출금 수수료율 표시·세션 유지·스튜디오 출금 링크 수정 통합 배포 (integrate/fee-withdraw-20261109, 태그 fee-withdraw-20261109)
+- 사용자 승인(/ask-me "프론트 수정 브랜치 둘 다 함께 배포"): origin/prod ca551de 기준으로 fix/fee-label-session-timer(efaed8d·bf39ba2)와 feat/studio-withdraw-refresh(29633de)를 --no-ff 통합, 충돌 없음. 프론트 컨테이너만 교체, API·admin·guide·DB 미변경.
+- 검증: typecheck 0, check:layers 0, npm test 579/595(실패 16 = origin/prod 기준선과 이름 동일), 관련 단위 24/24, 각 수정 되돌린 대조에서 해당 테스트 실패. 격리 E2E 전체(3011/3012·crefans_platform_e2e) 0 failed/47 skipped/318 passed — beans.spec:15 출금 링크 테스트 통과(fixme 해제는 29633de), useBeansModel 되돌리면 실패.
+- 증거·배포 결과: crefans_server/.local/fee-withdraw-deploy-20261109/deployment.md.
+
 ## 2026-11-09 콩 출금 수수료 표시·세션 유지 stale refresh 수정 (fix/fee-label-session-timer, 미배포)
 - 콩 출금 확인 창 '수수료 20%' 고정 문구 → 서버 견적 feeBps(크리에이터 약정 beanWithdrawalFeeBps 반영) 표시. 1000→'수수료 10%', 1250→'수수료 12.5%', 없으면 '수수료'. BeanQuote 타입에 feeBps, 목업 견적도 feeBps 2000. lib/content/events.ts 의 20% 는 플랫폼 기본 정책 안내문(서버 견적 아님)이라 유지.
 - useServiceModel 세션 유지(5분·visibilitychange): /session 확인이 진행 중에 경로가 바뀌면 UNAUTHORIZED 후 이전 경로 refresh 가 불려 loadedPath 가 옛 경로로 남아 '불러오는 중' 고정 → refreshRef 로 최신 refresh 호출. 단순 이동은 refresh 가 상태를 비워 리스너가 재등록되므로 재현되지 않음(진행 중 요청 경합만 해당).
