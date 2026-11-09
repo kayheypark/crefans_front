@@ -22,6 +22,8 @@ const quantities=[10,30,50,100,300,500,1000,5000,10000] as const;
 const images={10:'soft3d-v6/10',30:'soft3d-v5/50',50:'soft3d-v6/30',100:'soft3d-v7/100',300:'soft3d-v5/300',500:'soft3d-v7/500',1000:'soft3d-v7/1000',5000:'soft3d-v5/5000',10000:'soft3d-v7/10000'} as const;
 const beans=(n:number)=>n.toLocaleString('ko-KR')+'콩';
 const won=(n:number)=>n.toLocaleString('ko-KR')+'원';
+// 2026-11-09: the server answers these when an order would pass the KST daily/monthly charge total; its message carries the remaining amount.
+const chargeLimitCodes=['BEAN_DAILY_LIMIT','BEAN_MONTHLY_LIMIT'];
 
 export function BeanChargePage(){
   const model=useBeans(),group=useId();
@@ -33,6 +35,7 @@ export function BeanChargePage(){
   if(!model?.enabled)return <p>콩 후원을 준비 중입니다.</p>;
   if(!model.signedIn)return <SignInPrompt basePath={model.basePath}/>;
   const ready=quantities.some(value=>value===quantity);
+  const limits=model.wallet?.chargeLimits;
   const available=model.wallet?.spendableBeans??(model.wallet?.accounts||[]).filter(a=>['purchased','promotion'].includes(a.bucket)).reduce((sum,a)=>sum+Number(a.balance),0);
   async function pay(){
     if(busy.current||!model||!ready||!agreed)return;
@@ -42,7 +45,12 @@ export function BeanChargePage(){
       if(!current){
         key.current ||=crypto.randomUUID();
         const result=await model.createCharge(quantity,key.current);
-        if(!result.success){setError(result.errorMessage);return;}
+        if(!result.success){
+          setError(result.errorMessage);
+          // A refused order was never created: the next try is a new request, and the remaining amount is refreshed.
+          if(chargeLimitCodes.includes(result.errorCode)){key.current='';await model.refresh();}
+          return;
+        }
         current=result.data;setOrder(current);
       }
       bindTipCharge(model.basePath,current.id);
@@ -57,6 +65,8 @@ export function BeanChargePage(){
   return <section className={`${s.page} ${s.chargePage}`}>
     <PageTitle back={<BackButton href={`${model.basePath}/beans`} label="지갑으로 돌아가기"/>} action={<InfoTooltip label="콩 단위 안내" content={beanPriceNotice}/>}>콩 충전</PageTitle>
     <div className={s.chargeBalance}><span>사용 가능한 콩</span><strong>{model.wallet?beans(available):model.error?'확인할 수 없습니다':null}{slow&&<LoadingSpinner inline/>}</strong></div>
+    {limits?.dailyRemainingKrw!=null&&<div className={s.chargeBalance}><span>오늘 충전 가능 금액</span><strong>{won(limits.dailyRemainingKrw)}</strong></div>}
+    {limits?.monthlyRemainingKrw!=null&&<div className={s.chargeBalance}><span>이번 달 충전 가능 금액</span><strong>{won(limits.monthlyRemainingKrw)}</strong></div>}
     <form className={s.chargeForm} onSubmit={event=>{event.preventDefault();void pay();}}>
       <fieldset className={s.chargeOptions} disabled={pending||!!order}>
         <legend>충전할 콩 선택</legend>

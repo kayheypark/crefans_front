@@ -45,3 +45,23 @@ test('a pre-existing charge keeps its stored amount when retrying after a price 
  const {tree,calls}=setup({mode:'live',createCharge:async(q)=>ok({id:'legacy-charge',quantity:q,amount:3000,status:'pending',environment:'test'}),payCharge:async()=>fail('결제창 취소')});
  try{select(tree,30);assert.equal(amount(tree),'3,300원');agree(tree);await act(async()=>submit(tree));assert.equal(amount(tree),'3,000원');await act(async()=>submit(tree));assert.equal(amount(tree),'3,000원');}finally{act(()=>tree.unmount());}
 });
+
+// 2026-11-09 충전 누적 한도: the server sends chargeLimits only when a limit is on; its refusal message is shown as is.
+test('remaining charge amounts appear only for the limits the server has switched on',()=>{
+ const text=tree=>JSON.stringify(tree.toJSON());
+ for(const [chargeLimits,daily,monthly] of [[undefined,false,false],[null,false,false],[{dailyLimitKrw:49000,monthlyLimitKrw:null,dailyRemainingKrw:11000,monthlyRemainingKrw:null},true,false],[{dailyLimitKrw:null,monthlyLimitKrw:500000,dailyRemainingKrw:null,monthlyRemainingKrw:0},false,true]]){
+  const {tree}=setup({wallet:{accounts:[],chargeLimits}});
+  try{assert.equal(/오늘 충전 가능 금액/.test(text(tree)),daily);assert.equal(/이번 달 충전 가능 금액/.test(text(tree)),monthly);
+   if(daily)assert.match(text(tree),/11,000원/);if(monthly)assert.match(text(tree),/"0원"/);}finally{act(()=>tree.unmount());}
+ }
+});
+test('a daily or monthly limit refusal shows the server message, refreshes the remaining amount and retries as a new request',async()=>{
+ for(const errorCode of ['BEAN_DAILY_LIMIT','BEAN_MONTHLY_LIMIT']){
+  const message='하루 충전 한도는 49,000원입니다. 오늘 더 충전할 수 있는 금액은 4,000원입니다.';let refreshed=0;const keys=[];
+  const {tree,calls}=setup({refresh:async()=>{refreshed++;},createCharge:async(q,key)=>{keys.push(key);return{success:false,data:null,errorMessage:message,errorCode};}});
+  try{select(tree,50);agree(tree);await act(async()=>submit(tree));
+   assert.equal(tree.root.findByProps({role:'alert'}).children.join(''),message);assert.equal(refreshed,1);assert.equal(calls.paid.length,0);
+   assert.equal(tree.root.findByType('fieldset').props.disabled,false,'a smaller package can still be chosen');
+   await act(async()=>submit(tree));assert.equal(keys.length,2);assert.notEqual(keys[0],keys[1]);}finally{act(()=>tree.unmount());}
+ }
+});
