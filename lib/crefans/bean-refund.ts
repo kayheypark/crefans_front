@@ -1,6 +1,6 @@
 // Mirrors server beanPolicy (2026-10-30, D6): unused purchased beans refund in full within 7 days of payment, 10% is kept after;
-// purchased and ordinary promotion beans expire 5 years after payment/grant; event lots use their explicit expiry with a notice 30 days ahead. Promotion beans are never refunded.
-export const beanRefundPolicy=Object.freeze({fullDays:7,deductionBps:1000,validityYears:5,expiryNoticeDays:30});
+// purchased and ordinary promotion beans expire 1 year after payment/grant (5 years until fef0a50, 2026-11-06; server bean-policy.ts validityYears:1); event lots use their explicit expiry with a notice 30 days ahead. Promotion beans are never refunded.
+export const beanRefundPolicy=Object.freeze({fullDays:7,deductionBps:1000,validityYears:1,expiryNoticeDays:30});
 const day=86400000;
 export const beanValidUntil=(from:string|Date)=>{const d=new Date(from);d.setFullYear(d.getFullYear()+beanRefundPolicy.validityYears);return d;};
 export function beanRefundTerms(charge:{amount:number;quantity:number;paidAt?:string|null},unused:number,now=new Date()){

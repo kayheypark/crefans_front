@@ -4367,3 +4367,8 @@
 - 사용자 지시: 랜딩페이지 하단에도 푸터(모바일).
 - `components/crefans/LandingPage.tsx` 의 `</main>` 아래에 기존 `ServiceFooter`(서비스 링크 + 사업자 정보: 통신판매업 신고번호·공정위 사업자정보 확인 링크 포함)를 랜딩 `container` 여백으로 감싸 붙였다. `landing.module.css` 에 `.siteFooter`(하단 여백 + safe-area) 추가, 768px 이상에서는 숨김(ServiceFooter 자체도 PC에서 사업자 정보를 숨긴다).
 - 검증: build 통과, check:docs PASS. 로컬 `next start` 에서 375px: 푸터 보임·신고번호·공정위 링크 있음·가로 넘침 없음 / 1440px: wrapper display:none.
+
+## 2026-11-09 스튜디오 출금 링크 이동 시 잔액·계좌 누락 수정 (feat/studio-withdraw-refresh, 미배포)
+- 원인(계측 확인): 화면 이동 시 재부트스트랩으로 signedIn이 false→true로 바뀌며 ServiceProvider의 refresh()가 BeanStudioPage의 refresh(true) 뒤에 실행돼 스튜디오 응답이 버려졌다. `useBeansModel`이 스튜디오 요청을 기억해 이후 refresh에도 포함한다(일반 회원으로 로그인되면 해제).
+- 목업 콩 유효기간 5년→1년(`lib/crefans/bean-refund.ts`, fef0a50 정책).
+- 검증: e2e 전체 0 failed/47 skipped/318 passed, 수정 되돌리면 beans.spec 출금 링크 테스트 실패. npm test 실패 16건은 origin/prod와 동일. 증거 crefans_server/.local/toss-audit-20261109/e2e-refresh/round2/.
