@@ -1,3 +1,8 @@
+## 2026-11-09 콩 출금 수수료 표시·세션 유지 stale refresh 수정 (fix/fee-label-session-timer, 미배포)
+- 콩 출금 확인 창 '수수료 20%' 고정 문구 → 서버 견적 feeBps(크리에이터 약정 beanWithdrawalFeeBps 반영) 표시. 1000→'수수료 10%', 1250→'수수료 12.5%', 없으면 '수수료'. BeanQuote 타입에 feeBps, 목업 견적도 feeBps 2000. lib/content/events.ts 의 20% 는 플랫폼 기본 정책 안내문(서버 견적 아님)이라 유지.
+- useServiceModel 세션 유지(5분·visibilitychange): /session 확인이 진행 중에 경로가 바뀌면 UNAUTHORIZED 후 이전 경로 refresh 가 불려 loadedPath 가 옛 경로로 남아 '불러오는 중' 고정 → refreshRef 로 최신 refresh 호출. 단순 이동은 refresh 가 상태를 비워 리스너가 재등록되므로 재현되지 않음(진행 중 요청 경합만 해당).
+- 검증: typecheck 0, check:layers 0, bean-studio-pages 5/5·service-access-state 6/6(각 수정만 되돌린 대조 시 신규 테스트 1 실패), npm test 579/595(실패 16 = origin/prod 기준선과 이름 동일). 증거 server .local/fee-timer-20261109/. 실기기·운영 확인 아님, dev 통합·배포 승인 대기.
+
 ## 2026-11-09 로그인 필요 창 설명 문구 (feat/login-prompt-copy, 미배포)
 - 사용자 결정(/ask-me 기타 입력): 공용 로그인 필요 창(ServiceRouter loginRequired) 설명을 '로그인하면 팔로우, 좋아요, 저장 기능을 이용할 수 있어요.' → '로그인 후 더 많은 기능을 이용해보세요.' (멤버십 가입 가드에도 쓰이므로). typecheck 0. 배포 승인 대기.
 - 같은 /ask-me: E2E 테스트 갱신·재실행 진행(test/e2e-refresh-20261109), 로컬 개발 DB 테스트 표식 데이터 삭제, 예전 회신 초안의 평문 비밀번호 파일은 그대로 둠(사용자 결정).
