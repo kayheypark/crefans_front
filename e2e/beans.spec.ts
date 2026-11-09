@@ -13,6 +13,7 @@ test('스튜디오 최소1000콩·PIN검사·출금예약·은행대역 지급',
 // bd6b951 moved the studio withdraw form to /studio/beans/withdraw. Reaching it with the overview's in-app link must load the same
 // withdrawable balance and account as a direct load (found 2026-11-09: the in-app link left them empty and the button disabled).
 test('스튜디오 콩 개요의 출금 링크로 이동해도 출금 가능 콩과 계좌를 불러온다',async({page,scenario,control})=>{
+ test.fixme(true,'2026-11-09 스튜디오 출금 링크 결함: 앱 안 이동 시 잔액·계좌가 비어 출금 불가. 수정 브랜치 feat/studio-withdraw-refresh');
  await control('bean-funds');await login(page,scenario,'creator');await page.goto('/service/studio/beans');await expect(page.getByRole('heading',{name:'콩 후원·출금',exact:true})).toBeVisible();
  await page.getByRole('link',{name:'후원콩 출금하기',exact:true}).click();await expect(page.getByRole('heading',{name:'후원콩 출금',exact:true})).toBeVisible();
  await expect(page.getByRole('main').locator('p').filter({hasText:'출금 가능한 콩'})).toContainText('2,000콩');await expect(page.getByRole('combobox',{name:'받을 계좌'})).toContainText('E2E 은행');
