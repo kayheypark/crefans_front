@@ -19,13 +19,14 @@ test('빠른 작업은 지표보다 먼저 표시되고 현재 메뉴의 목적�
  const nav=actions.getByRole('navigation');await expect(nav.getByRole('link')).toHaveCount(6);
  const layout=await nav.evaluate(el=>({columns:getComputedStyle(el).gridTemplateColumns.split(' ').length,rows:new Set(Array.from(el.children).map(child=>Math.round(child.getBoundingClientRect().top))).size}));expect(layout).toEqual({columns:2,rows:3});
  const actionBox=await actions.boundingBox(),summaryBox=await summary.boundingBox();
- if(info.project.name!=='desktop')expect(summaryBox!.y).toBeGreaterThan(actionBox!.y+actionBox!.height);
+ // No project is named 'desktop'; dashboard.module.css stacks the two regions at 1100px and below and places them side by side above it.
+ if(page.viewportSize()!.width<=1100)expect(summaryBox!.y).toBeGreaterThan(actionBox!.y+actionBox!.height);else expect(summaryBox!.x).toBeGreaterThanOrEqual(actionBox!.x+actionBox!.width);
  for(const link of await actions.getByRole('link').all())expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
  await expect(summary).toContainText('1,904,800원');await expect(summary).toContainText('2명');
  await expect(main.getByText(/콘텐츠 관리|소통 관리|통계 더보기/)).toHaveCount(0);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  await loadThumbnails(page);await page.screenshot({path:info.outputPath('dashboard.png'),fullPage:true});
- const links=[['새 게시물 작성','content/new','게시물 작성'],['게시물','content','게시물'],['댓글','comments','댓글'],['메시지','messages','메시지'],['출금 신청','withdraw','출금 신청'],['콩 후원·출금','beans','콩 후원·출금'],['크리에이터 설정','settings','크리에이터 설정'],['순수익 리포트','reports/revenue','순수익 리포트'],['구독자 리포트','reports/subscribers','구독자 리포트'],['팔로워 리포트','reports/followers','팔로워 리포트'],['통계 요약','analytics','통계 요약']];
+ const links=[['새 게시물 작성','content/new','게시물 작성'],['게시물','content','게시물'],['댓글','comments','댓글'],['광고 상품','advertising','광고상품'],/* 33bc3d2: the message shortcut became advertising products */['출금 신청','withdraw','출금 신청'],['콩 후원·출금','beans','콩 후원·출금'],['크리에이터 설정','settings','크리에이터 설정'],['순수익 리포트','reports/revenue','순수익 리포트'],['구독자 리포트','reports/subscribers','구독자 리포트'],['팔로워 리포트','reports/followers','팔로워 리포트'],['통계 요약','analytics','통계 요약']];
  for(const [label,path,heading] of links){
   await main.getByRole('link',{name:label,exact:true}).click();
   await expect(page).toHaveURL(new RegExp(`/preview/studio/${path}$`));

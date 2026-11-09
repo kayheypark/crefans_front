@@ -44,7 +44,8 @@ test('서비스 이미지 계약은 등급·상품전용·이미지없음·실�
       const size=await notice.boundingBox(),picture=await notice.locator('img').boundingBox();expect(picture!.width).toBeCloseTo(size!.width,0);expect(picture!.height).toBeCloseTo(size!.height,0);
     }else await expect(notice.locator('img')).toHaveCount(0);
     await notice.getByRole('button',{name:'멤버십 안내',exact:true}).click();const dialog=page.getByRole('dialog');await expect(dialog).toBeVisible();
-    await expect(dialog.locator('img')).toHaveCount(id==='tier'?2:id==='exact'?1:0);
+    // 06ce2ee: an empty list shows the shared empty illustration; only membership photos are counted here.
+    await expect(dialog.locator('img:not([src="/brand/empty/empty-page-v1.svg"])')).toHaveCount(id==='tier'?2:id==='exact'?1:0);
     if(id==='tier'||id==='exact')await loaded(dialog.locator('img'));
     await expect(dialog.getByRole('link',{name:/선택하고 계속/})).toHaveCount(id==='retired'?0:id==='exact'||id==='broken'?1:2);
     await expect(dialog).not.toContainText('입문');await expect(dialog).not.toContainText('PRIVATE_BODY');await fits(page);

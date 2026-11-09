@@ -5,7 +5,7 @@ for(const route of['landing','feed','explore','creator/haneul','membership/haneu
  test(`목업 /preview/${route} 렌더링`,async({page})=>{const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));const r=await page.goto('/preview/'+route);expect(r?.status()).toBe(200);await expect(page.getByText('목업 페이지입니다',{exact:true})).toBeVisible();await expect(page.locator('body')).not.toContainText('Application error');expect(errors).toEqual([]);});
 }
 test('회원가입 필수 입력 전 제출 차단·비밀번호 눈 토글',async({page})=>{await page.goto('/preview/signup');await expect(page.getByRole('button',{name:'동의하고 가입하기'})).toBeDisabled();await page.getByLabel('비밀번호',{exact:true}).fill('Example-123!');await page.getByRole('button',{name:'비밀번호 보기',exact:true}).first().click();await expect(page.getByLabel('비밀번호',{exact:true})).toHaveAttribute('type','text');});
-test('모바일·PC 모두 스튜디오 표시, 모바일은 메뉴 버튼으로 이동',async({page,isMobile})=>{await page.goto('/preview/studio');await expect(page.getByRole('heading',{name:'하늘님, 반가워요',exact:true})).toBeVisible();if(isMobile){const menu=page.getByRole('button',{name:'스튜디오 메뉴 열기',exact:true});await expect(menu).toBeVisible();await menu.click();await page.getByRole('button',{name:'수익,정산,출금 관리',exact:true}).click();await page.getByRole('link',{name:'수익 현황',exact:true}).click();await expect(page).toHaveURL(/\/preview\/studio\/earnings$/);await expect(page.getByRole('heading',{name:'수익 현황',exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'스튜디오 메뉴 열기',exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}else await expect(page.getByRole('button',{name:/스튜디오 메뉴/})).toHaveCount(0);});
+test('모바일·PC 모두 스튜디오 표시, 모바일은 메뉴 버튼으로 이동',async({page,isMobile})=>{await page.goto('/preview/studio');await expect(page.getByRole('heading',{name:/(^| )하늘님, 반가워요$/})).toBeVisible();/* 2abdac0: the greeting heading also names its avatar image */if(isMobile){const menu=page.getByRole('button',{name:'스튜디오 메뉴 열기',exact:true});await expect(menu).toBeVisible();await menu.click();await page.getByRole('button',{name:'수익,정산,출금 관리',exact:true}).click();await page.getByRole('link',{name:'수익 현황',exact:true}).click();await expect(page).toHaveURL(/\/preview\/studio\/earnings$/);await expect(page.getByRole('heading',{name:'수익 현황',exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'스튜디오 메뉴 열기',exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}else await expect(page.getByRole('button',{name:/스튜디오 메뉴/})).toHaveCount(0);});
 test('크리에이터 팔로우 해제는 확인 모달을 거친다',async({page})=>{await page.goto('/preview/creator/haneul');const following=page.getByRole('button',{name:'팔로우 하는중',exact:true});if(await following.count()===0)await page.getByRole('button',{name:'팔로우',exact:true}).click();await following.click();const dialog=page.getByRole('dialog');await expect(dialog.getByRole('heading',{name:'팔로우를 해제할까요?',exact:true})).toBeVisible();await dialog.getByRole('button',{name:'취소',exact:true}).click();await expect(dialog).toBeHidden();await expect(following).toBeVisible();await following.click();await dialog.getByRole('button',{name:'팔로우 해제',exact:true}).click();await expect(page.getByRole('button',{name:'팔로우',exact:true})).toBeVisible();});
 
 test('갤러리 상세 패널 세 단계와 미디어 넘김·댓글 스크롤',async({page,isMobile,browserName})=>{
@@ -32,9 +32,9 @@ test('갤러리 상세 패널 세 단계와 미디어 넘김·댓글 스크롤',
   }
   async function resizeTo(snap:number){
     const box=(await handle.boundingBox())!,viewport=(await dialog.boundingBox())!;
-    await drag({x:box.x+box.width/2,y:box.y+box.height/2},{x:box.x+box.width/2,y:viewport.height*[.56,.22,0][snap]+box.height/2});
+    await drag({x:box.x+box.width/2,y:box.y+box.height/2},{x:box.x+box.width/2,y:viewport.height*[.5,.22,0][snap]+box.height/2});
     await expect(dialog).toHaveAttribute('data-panel-snap',String(snap));
-    await expect.poll(async()=>Math.round((await stage.boundingBox())!.height)).toBe(Math.round(viewport.height*[.56,.22,0][snap]));
+    await expect.poll(async()=>Math.round((await stage.boundingBox())!.height)).toBe(Math.round(viewport.height*[.5,.22,0][snap]));
   }
   async function expandMedia(){
     await expectGalleryCorner('미디어 확대');
@@ -57,10 +57,12 @@ test('갤러리 상세 패널 세 단계와 미디어 넘김·댓글 스크롤',
     await dialog.getByRole('button',{name:'미디어 축소',exact:true}).click();
     await expect(panel).toBeVisible();await expect(dialog).toHaveAttribute('data-panel-snap',String(snap));
     const viewport=(await dialog.boundingBox())!;
-    await expect.poll(async()=>Math.round((await stage.boundingBox())!.height)).toBe(Math.round(viewport.height*[.56,.22,0][snap]));
+    await expect.poll(async()=>Math.round((await stage.boundingBox())!.height)).toBe(Math.round(viewport.height*[.5,.22,0][snap]));
   }
-  await expect(dialog).toHaveAttribute('data-panel-snap','1');
-  await expandMedia();await restorePanel(1);
+  // 55e437b (2026-11-04): mobile opens at the equal media/detail split (snap 0, media 50%) and reopening restores it.
+  await expect(dialog).toHaveAttribute('data-panel-snap','0');
+  await expandMedia();await restorePanel(0);
+  await resizeTo(1);
   await resizeTo(0);
   await resizeTo(1);
   await expandMedia();
@@ -83,7 +85,7 @@ test('갤러리 상세 패널 세 단계와 미디어 넘김·댓글 스크롤',
   await handle.press('End');await expect(dialog).toHaveAttribute('data-panel-snap','2');
   await handle.press('Home');await expect(dialog).toHaveAttribute('data-panel-snap','0');
   await dialog.getByRole('button',{name:'닫기',exact:true}).click();await expect(dialog).toBeHidden();
-  await opener.click();await expect(dialog).toHaveAttribute('data-panel-snap','1');
+  await opener.click();await expect(dialog).toHaveAttribute('data-panel-snap','0');
   await expandMedia();
   await dialog.getByRole('button',{name:'닫기',exact:true}).click();await expect(dialog).toBeHidden();
   await opener.click();await expect(dialog.getByRole('button',{name:'미디어 확대',exact:true})).toBeVisible();await expect(panel).toBeVisible();

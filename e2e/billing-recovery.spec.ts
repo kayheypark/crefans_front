@@ -1,6 +1,6 @@
-import {test,expect,login,api} from './fixtures';
+import {test,expect,login,api,PAY} from './fixtures';
 test('분실 카드 갱신 실패 안내·권한 회수·새 기본 카드로 한 번만 복구',async({page,scenario,control})=>{
- await login(page,scenario);expect((await api(page.request,'/checkout/'+scenario.orderId+'/pay',{})).success).toBe(true);
+ await login(page,scenario);expect((await api(page.request,'/checkout/'+scenario.orderId+'/pay',PAY)).success).toBe(true);
  await page.goto('/service/post/'+scenario.postId);await expect(page.getByText(scenario.privateBody,{exact:true})).toBeVisible();
  await control('lost-card-renewal');await control('retry-renewal');expect(await control('stats')).toMatchObject({orders:1,subscriptions:1});
  await page.goto('/service/subscriptions');await expect(page.getByRole('heading',{name:'갱신 결제 대기',exact:true})).toBeVisible();await expect(page.getByText(/결제수단 변경이 필요합니다/)).toBeVisible();
@@ -14,6 +14,6 @@ test('분실 카드 갱신 실패 안내·권한 회수·새 기본 카드로 �
  await page.goto('/service/post/'+scenario.postId);await expect(page.getByText(scenario.privateBody,{exact:true})).toBeVisible();
 });
 test('갱신 실패 후 해지하면 카드 변경을 해도 재청구하지 않음',async({page,scenario,control})=>{
- await login(page,scenario);await api(page.request,'/checkout/'+scenario.orderId+'/pay',{});await control('lost-card-renewal');await page.goto('/service/subscriptions');await page.getByRole('button',{name:'갱신 해지',exact:true}).click();await page.getByRole('dialog').getByRole('button',{name:'갱신 해지하기',exact:true}).click();
+ await login(page,scenario);await api(page.request,'/checkout/'+scenario.orderId+'/pay',PAY);await control('lost-card-renewal');await page.goto('/service/subscriptions');await page.getByRole('button',{name:'갱신 해지',exact:true}).click();await page.getByRole('dialog').getByRole('button',{name:'갱신 해지하기',exact:true}).click();
  await control('replacement-card');await page.goto('/service/payment-methods');await page.getByRole('button',{name:'기본으로 설정',exact:true}).click();await expect.poll(async()=>(await api(page.request,'/common')).data.paymentMethods.find((m:any)=>m.isDefault)?.requiresUpdate).toBe(false);await control('retry-renewal');expect(await control('stats')).toMatchObject({orders:1,subscriptions:1});
 });
