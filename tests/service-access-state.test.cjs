@@ -100,3 +100,23 @@ test('live comment edit/delete call PUT/DELETE on the comment, refresh the list,
  fail=true;assert.deepEqual(await value.model.mentionCandidates('paid'),[],'a failed lookup offers nobody instead of throwing');fail=false;
  act(()=>tree.unmount());
 });
+// 2026-11-09: a non-quiet route refresh empties state (signedIn false→true), which re-registers the keep-alive listener,
+// so a plain navigation already gets a fresh listener. The stale case is a /session check still in flight across a route
+// change: its UNAUTHORIZED result must reload the current route, not the old one (that left loadedPath behind and the
+// screen stuck on '불러오는 중').
+test('keep-alive session check that resolves after navigation refreshes the current route and clears loading',async t=>{
+ const previous=global.document,listeners=new Set();global.document={visibilityState:'visible',addEventListener(name,fn){if(name==='visibilitychange')listeners.add(fn);},removeEventListener(name,fn){listeners.delete(fn);}};
+ let value,path='/service/notifications',signedIn=true,finishSession;
+ const {useServiceModel}=loadTypeScript('features/service/useServiceModel.ts',{
+  'next/navigation':{useSearchParams:()=>new URLSearchParams(),usePathname:()=>path},'./useDirectoryModel':{useDirectoryModel:()=>({})},
+  '@/lib/api/identity':{verifyIdentity:async()=>denied},'@/lib/api/billing':{startBillingRegistration:async()=>denied},
+  '@/lib/api/platform':{platformRequest:async p=>p==='/bootstrap'?ok({...bootstrap(),signedIn}):p==='/session'?new Promise(resolve=>{finishSession=resolve;}):ok({})}
+ });
+ function Probe(){value=useServiceModel();return null;}let tree;await act(async()=>{tree=create(React.createElement(Probe));});t.after(()=>{try{act(()=>tree.unmount());}finally{global.document=previous;}});
+ assert.equal(value.model.signedIn,true);assert.equal(value.loading,false);assert.equal(listeners.size,1);
+ act(()=>{for(const fn of listeners)fn();});assert.equal(typeof finishSession,'function','the session check is pending');
+ path='/service/messages';await act(async()=>tree.update(React.createElement(Probe)));assert.equal(value.loading,false);
+ signedIn=false;await act(async()=>{finishSession(denied);await new Promise(resolve=>setTimeout(resolve,0));});
+ assert.equal(value.model.signedIn,false,'the expired session reloaded the page state');
+ assert.equal(value.loading,false,'loading must clear on the current route after the keep-alive refresh');
+});
