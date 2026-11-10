@@ -1,29 +1,31 @@
-/* PIN pad (2026-11-11): header + dots, then a 3x4 keypad on the service brand colour.
-   Narrow screens: full width, keypad at the bottom of the (full-screen) dialog. Wide screens: a 360px card. */
-.pad{--pin-pad-bg:var(--cf-service-brand);display:flex;flex-direction:column;width:100%;max-width:360px;margin:0 auto;outline:none;font-family:var(--cf-typography-font,inherit)}
+/* PIN pad (2026-11-11, design C "bottom sheet" chosen by the user): header + dots + optional summary, then a light 3x4
+   keypad separated by hairlines. In a dialog the keypad runs edge to edge at the bottom (phone: bottom sheet via
+   `Dialog sheet`; PC: centred card). Inline on a page (PIN setup) it is a bordered rounded block. */
+.pad{display:flex;flex-direction:column;width:100%;max-width:400px;margin:0 auto;outline:none;font-family:var(--cf-typography-font,inherit)}
 .pad.pad:focus,.pad.pad:focus-visible{outline:none;box-shadow:none}
-.head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 8px 12px;text-align:center}
-.eyebrow{margin:0;color:var(--cf-service-brand);font-size:max(14px,var(--cf-mobile-font-min,0px));font-weight:600}
-.title{margin:0;color:var(--cf-color-text);font-size:22px;font-weight:700;letter-spacing:-.01em}
-.dots{display:flex;gap:16px;margin:14px 0 4px}
-.dots>span{width:16px;height:16px;border-radius:50%;background:var(--cf-color-border);transition:background var(--cf-motion-fast,120ms) var(--cf-motion-easing,ease),transform var(--cf-motion-fast,120ms) var(--cf-motion-easing,ease)}
+.head{display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px 8px 12px;text-align:center}
+.eyebrow{margin:0;color:var(--cf-service-brand);font-size:max(13px,var(--cf-mobile-font-min,0px));font-weight:600}
+.title{margin:0;color:var(--cf-color-text);font-size:21px;font-weight:700;letter-spacing:-.01em}
+.dots{display:flex;gap:14px;margin:16px 0 4px}
+.dots>span{width:14px;height:14px;border-radius:50%;background:var(--cf-color-border);transition:background var(--cf-motion-fast,120ms) var(--cf-motion-easing,ease),transform var(--cf-motion-fast,120ms) var(--cf-motion-easing,ease)}
 .dots>span[data-filled]{background:var(--cf-service-brand);transform:scale(1.08)}
 .status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.hint,.error{margin:8px 0 0;font-size:max(13px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted)}
+.hint,.error{margin:6px 0 0;font-size:max(13px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted)}
 .error{color:var(--cf-color-danger);font-weight:600}
-.extra{padding:0 8px 16px}
-.keypad{display:grid;grid-template-columns:repeat(3,1fr);margin-top:auto;padding-top:6px;padding:10px 6px calc(10px + env(safe-area-inset-bottom,0px));border-radius:var(--cf-radius-card);background:var(--pin-pad-bg);color:var(--cf-color-onAccent,#fff)}
-.keypad>button{min-height:54px;border:0;border-radius:var(--cf-radius-control);background:transparent;color:inherit;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none}
-.keypad>.digit{font-size:28px;font-weight:500;font-variant-numeric:tabular-nums}
-.keypad>.word{font-size:max(16px,var(--cf-mobile-font-min,0px));font-weight:600;display:flex;align-items:center;justify-content:center}
-.keypad>button:hover:not(:disabled){background:rgb(255 255 255 / .12)}
-.keypad>button:active:not(:disabled){background:rgb(255 255 255 / .22)}
-.keypad>button:focus-visible{outline:2px solid #fff;outline-offset:-4px}
-.keypad>button:disabled{cursor:default;opacity:.45}
+.extra{padding:0 4px 8px}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:8px;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-card);overflow:hidden;background:var(--cf-color-border)}
+.keypad>button{min-height:56px;border:0;border-radius:0;background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none}
+.keypad>.digit{font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.keypad>.word{display:flex;align-items:center;justify-content:center;font-size:max(15px,var(--cf-mobile-font-min,0px));font-weight:600;color:var(--cf-color-textSecondary)}
+.keypad>button:hover:not(:disabled){background:var(--cf-color-surfaceSubtle)}
+.keypad>button:active:not(:disabled){background:var(--cf-color-border)}
+.keypad>button:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:-3px}
+.keypad>button:disabled{cursor:default;color:var(--cf-color-disabledText)}
 .pad[data-busy] .keypad{opacity:.7}
-/* Phone, inside the full-screen dialog: fill below its title row (~84px incl. padding) so the keypad sits on the bottom edge.
-   Inline on a page (PIN setup) the pad keeps its natural height and a rounded keypad. */
-@media (max-width:767px){.pad{max-width:none}.keypad>button{min-height:60px}.head{padding-top:20px}
- :global(dialog) .pad{min-height:calc(100dvh - 100px - env(safe-area-inset-bottom,0px))}
- :global(dialog) .keypad{margin:auto -16px calc(-1 * max(16px,env(safe-area-inset-bottom,0px)));border-radius:0}}
+/* In a dialog: edge to edge (dialog padding 24px), flush with the bottom edge. */
+:global(dialog) .keypad{margin:8px -24px -24px;border:0;border-top:1px solid var(--cf-color-border);border-radius:0}
+@media (max-width:767px){
+ .pad{max-width:none}.keypad>button{min-height:60px}.keypad>.digit{font-size:28px}
+ :global(dialog) .keypad{margin-bottom:calc(-1 * max(24px,env(safe-area-inset-bottom,0px)));padding-bottom:env(safe-area-inset-bottom,0px);background:var(--cf-color-border)}
+}
 @media (prefers-reduced-motion:reduce){.dots>span{transition:none}}
