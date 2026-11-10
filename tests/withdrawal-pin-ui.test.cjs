@@ -4,15 +4,13 @@ const React=require('react');
 const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const styles={__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})};
-const fieldMocks={'./field.module.css':styles,'./pin-field.module.css':styles};
+const fieldMocks={'./field.module.css':styles};
 const {Field}=loadTypeScript('components/ui/Field.tsx',fieldMocks);
-const {PinField}=loadTypeScript('components/ui/PinField.tsx',fieldMocks);
 const link=props=>React.createElement('a',props);
 const mocks={
  ...fieldMocks,'./finance.module.css':styles,'./withdrawal-security.module.css':styles,
  'next/link':link,
  '@/components/ui/TextLink':{TextLink:link},
- '@/components/ui/PinField':{PinField},
  '@/components/ui/SelectField':{SelectField:()=>null},
  '@/components/ui/AmountPresets':{AmountPresets:()=>null},
  '@/components/ui/DialogActions':{DialogActions:({children})=>React.createElement('footer',null,children)},
@@ -40,76 +38,89 @@ async function submit(view){await act(async()=>{await view.root.findByType('form
 async function openConfirmation(view){change(view.root.findByProps({type:'number'}),'5000');await submit(view);act(()=>button(view,'출금 요청하기').props.onClick());}
 function close(view){act(()=>view.unmount());}
 
-test('PinField masks controlled input and emits only six numeric digits without leaking values in helper text',()=>{
- const values=[];const view=mount(PinField,{label:'출금 PIN',value:'12',onChange:value=>values.push(value),required:true,hint:'숫자 6자리'});
+const {usePinPad,shuffledDigits}=loadTypeScript('hooks/usePinPad.ts');
+const {PinPad}=loadTypeScript('components/ui/PinPad.tsx');
+const text=node=>typeof node==='string'?node:Array.isArray(node)?node.map(text).join(''):node?.children?text(node.children):'';
+const digitKeys=view=>view.root.findAll(node=>node.type==='button'&&/^\d$/.test(text(node)));
+function digitButton(view,digit){return digitKeys(view).find(node=>text(node)===digit);}
+async function typePin(view,pin){for(const digit of pin){const key=digitButton(view,digit);assert.ok(key,`key ${digit}`);await act(async()=>{key.props.onClick();});}}
+const pads=view=>view.root.findAll(node=>node.props&&node.props.role==='group'&&node.type==='div');
+const status=view=>text(view.root.find(node=>node.props&&node.props['aria-live']==='polite'&&node.type==='p'));
+let harnessPad;function Harness({onComplete}){const pad=usePinPad({onComplete});harnessPad=pad;return React.createElement(PinPad,{pad,title:'PIN',autoFocus:false});}
+
+test('usePinPad shuffles all ten digits without bias and PinPad shows dots, never the digits typed',async()=>{
+ assert.deepEqual(shuffledDigits(()=>0),['1','2','3','4','5','6','7','8','9','0']);
+ const done=[];const view=mount(Harness,{onComplete:pin=>done.push(pin)});
  try{
-  const input=view.root.findByType('input');
-  assert.equal(input.props.type,'password');assert.equal(input.props.inputMode,'numeric');assert.equal(input.props.maxLength,6);assert.equal(input.props.autoComplete,'off');
-  change(input,'12a345678');assert.deepEqual(values,['123456']);assert.equal(input.props.value,'12');
-  act(()=>view.update(React.createElement(PinField,{label:'출금 PIN',value:'',onChange:value=>values.push(value),readOnly:true})));
-  change(view.root.findByType('input'),'999999');assert.equal(values.length,1);
+  const keys=digitKeys(view).map(text);
+  assert.deepEqual([...keys].sort(),['0','1','2','3','4','5','6','7','8','9']);
+  await typePin(view,'1234567');assert.deepEqual(done,['123456'],'completes once at six digits; the seventh key is ignored');
+  assert.equal(status(view),'6자리 중 6자리 입력');assert.equal(JSON.stringify(view.toJSON()).includes('123456'),false,'digits are not rendered');
+  const back=view.root.findByProps({'aria-label':'한 자리 지우기'});act(()=>back.props.onClick());assert.equal(status(view),'6자리 중 5자리 입력');
+  act(()=>view.root.find(node=>node.type==='button'&&text(node)==='전체삭제').props.onClick());assert.equal(status(view),'6자리 중 0자리 입력');
+  for(const key of ['9','x','Backspace','8','7'])act(()=>harnessPad.onKeyDown({key,preventDefault(){},metaKey:false,ctrlKey:false,altKey:false}));
+  assert.equal(status(view),'6자리 중 2자리 입력','PC number keys and Backspace work; other keys are ignored');
  }finally{close(view);}
 });
 
-test('PIN setup requires matching six digits and never reports success on rejected setup',async()=>{
+test('PIN setup takes the PIN twice on the pad and never reports success on rejected setup',async()=>{
  const pins=[];const view=mount(WithdrawalSecurityPage,{basePath:'/preview/studio',model:model({pinConfigured:false,setupWithdrawalPin:async pin=>{pins.push(pin);return fail('설정할 수 없습니다.');}})});
  try{
-  change(view.root.findAllByType('input')[0],'123456');change(view.root.findAllByType('input')[1],'654321');await submit(view);
-  assert.equal(pins.length,0);assert.match(view.root.findByProps({role:'alert'}).children.join(''),/서로 달라/);
-  change(view.root.findAllByType('input')[1],'123456');await submit(view);
-  assert.deepEqual(pins,['123456']);assert.deepEqual(view.root.findAllByType('input').map(input=>input.props.value),['','']);
-  assert.equal(view.root.findByProps({role:'alert'}).children[0],'설정할 수 없습니다.');
+  await typePin(view,'123456');assert.match(text(view.root),/한 번 더 입력/);await typePin(view,'654321');
+  assert.equal(pins.length,0);assert.match(text(view.root.findByProps({role:'alert'})),/서로 달라/);assert.match(text(view.root),/새 출금 PIN 입력/,'a mismatch starts over');
+  await typePin(view,'123456');await typePin(view,'123456');
+  assert.deepEqual(pins,['123456']);assert.equal(status(view),'6자리 중 0자리 입력');
+  assert.equal(text(view.root.findByProps({role:'alert'})),'설정할 수 없습니다.');
  }finally{close(view);}
 });
 
-test('unconfigured withdrawal cannot advance and configured security page exposes no reset form',()=>{
+test('unconfigured withdrawal cannot advance and configured security page exposes no reset pad',()=>{
  const view=mount(WithdrawalPage,{model:model({pinConfigured:false}),basePath:'/preview/studio'});
  try{assert.equal(view.root.findAllByType('form').length,0);assert.ok(view.root.findAllByType('a').some(item=>item.props.href==='/preview/studio/security'));}finally{close(view);}
  const configured=mount(WithdrawalSecurityPage,{model:model(),basePath:'/preview/studio'});
- try{assert.equal(configured.root.findAllByType('input').length,0);assert.ok(configured.root.findAllByType('a').some(item=>item.props.href==='/preview/studio/withdraw'));}finally{close(configured);}
+ try{assert.equal(pads(configured).length,0);assert.ok(configured.root.findAllByType('a').some(item=>item.props.href==='/preview/studio/withdraw'));}finally{close(configured);}
 });
 
-test('wrong PIN blocks withdrawal, clears the secret, and closing the dialog clears entered PIN',async()=>{
+test('wrong PIN blocks withdrawal, clears the pad, and closing the dialog clears the error',async()=>{
  let requests=0;const view=mount(WithdrawalPage,{model:model({verifyWithdrawalPin:async()=>fail('PIN이 일치하지 않아요.'),requestWithdrawal:async()=>{requests++;}}),basePath:'/preview/studio'});
  try{
-  await openConfirmation(view);change(view.root.findByProps({type:'password'}),'111111');await submit(view);
-  assert.equal(requests,0);assert.equal(view.root.findByProps({type:'password'}).props.value,'');assert.equal(view.root.findByProps({role:'alert'}).children[0],'PIN이 일치하지 않아요.');
-  change(view.root.findByProps({type:'password'}),'123456');act(()=>view.root.findByProps({'aria-label':'모달 닫기'}).props.onClick());
-  act(()=>button(view,'출금 요청하기').props.onClick());assert.equal(view.root.findByProps({type:'password'}).props.value,'');assert.equal(view.root.findAllByProps({role:'alert'}).length,0);
+  await openConfirmation(view);await typePin(view,'111111');
+  assert.equal(requests,0);assert.equal(status(view),'6자리 중 0자리 입력');assert.equal(text(view.root.findByProps({role:'alert'})),'PIN이 일치하지 않아요.');
+  await typePin(view,'12');act(()=>view.root.findByProps({'aria-label':'모달 닫기'}).props.onClick());
+  act(()=>button(view,'출금 요청하기').props.onClick());assert.equal(status(view),'6자리 중 0자리 입력');assert.equal(view.root.findAllByProps({role:'alert'}).length,0);
  }finally{close(view);}
 });
 
-test('withdrawal waits for verified PIN and sends its amount-bound authorization before displaying success',async()=>{
+test('withdrawal waits for the verified PIN and sends its amount-bound authorization before displaying success',async()=>{
  const calls=[];const view=mount(WithdrawalPage,{basePath:'/preview/studio',model:model({verifyWithdrawalPin:async(pin,input)=>{calls.push({kind:'verify',pin,input});return ok({authorizationId:'exact-grant'});},requestWithdrawal:async input=>{calls.push({kind:'request',input});return model().requestWithdrawal(input);}})});
  try{
-  await openConfirmation(view);await submit(view);assert.equal(calls.length,0);
-  change(view.root.findByProps({type:'password'}),'123456');await submit(view);
-  assert.equal(calls[0].kind,'verify');assert.deepEqual(calls[0].input,{amount:5000,accountId:'account-1'});
+  await openConfirmation(view);await typePin(view,'12345');assert.equal(calls.length,0,'five digits send nothing');
+  await typePin(view,'6');
+  assert.equal(calls[0].kind,'verify');assert.equal(calls[0].pin,'123456');assert.deepEqual(calls[0].input,{amount:5000,accountId:'account-1'});
   assert.equal(calls[1].input.authorizationId,'exact-grant');assert.equal(calls[1].input.amount,5000);assert.equal(calls[1].input.accountId,'account-1');assert.ok(calls[1].input.requestId);
-  assert.equal(view.root.findAllByProps({type:'password'}).length,0);assert.ok(button(view,'새 출금 요청'));
+  assert.equal(pads(view).length,0);assert.ok(button(view,'새 출금 요청'));
  }finally{close(view);}
 });
 
 test('uncertain request retries the same grant and idempotency key without an extra PIN check or editable amount',async()=>{
  let verifies=0;const requests=[];const view=mount(WithdrawalPage,{basePath:'/preview/studio',model:model({verifyWithdrawalPin:async()=>{verifies++;return ok({authorizationId:'retry-grant'});},requestWithdrawal:async input=>{requests.push(input);if(requests.length===1)throw new Error('response lost');return model().requestWithdrawal(input);}})});
  try{
-  await openConfirmation(view);change(view.root.findByProps({type:'password'}),'123456');await submit(view);
-  assert.equal(button(view,'다시 입력').props.disabled,true);assert.equal(view.root.findAllByProps({type:'password'}).length,0);
-  await submit(view);assert.equal(verifies,1);assert.equal(requests.length,2);assert.deepEqual(requests[0],requests[1]);assert.ok(button(view,'새 출금 요청'));
+  await openConfirmation(view);await typePin(view,'123456');
+  assert.equal(button(view,'다시 입력').props.disabled,true);assert.equal(pads(view).length,0,'no PIN pad while re-checking');
+  const retry=view.root.findAllByType('button').filter(item=>text(item)==='접수 결과 다시 확인').pop();await act(async()=>{await retry.props.onClick();});
+  assert.equal(verifies,1);assert.equal(requests.length,2);assert.deepEqual(requests[0],requests[1]);assert.ok(button(view,'새 출금 요청'));
  }finally{close(view);}
 });
 
-test('pending PIN verification prevents duplicate requests and dismissal until it settles',async()=>{
+test('pending PIN verification ignores more keys and keeps the dialog until it settles',async()=>{
  let resolve,verifies=0,requests=0;
  const verification=new Promise(done=>{resolve=done;});
  const view=mount(WithdrawalPage,{basePath:'/preview/studio',model:model({verifyWithdrawalPin:()=>{verifies++;return verification;},requestWithdrawal:async input=>{requests++;return model().requestWithdrawal(input);}})});
  try{
-  await openConfirmation(view);change(view.root.findByProps({type:'password'}),'123456');
-  const form=view.root.findByType('form');let pending;
-  await act(async()=>{pending=form.props.onSubmit({preventDefault(){}});await form.props.onSubmit({preventDefault(){}});});
-  assert.equal(verifies,1);assert.equal(requests,0);assert.equal(view.root.findByProps({type:'password'}).props.disabled,true);
+  await openConfirmation(view);await typePin(view,'123456');
+  assert.equal(verifies,1);assert.equal(requests,0);assert.equal(digitButton(view,'1').props.disabled,true);
   act(()=>view.root.findByProps({'aria-label':'모달 닫기'}).props.onClick());assert.equal(view.root.findAllByProps({'data-dialog':true}).length,1);
-  await act(async()=>{resolve(ok({authorizationId:'pending-grant'}));await pending;});
+  await act(async()=>{resolve(ok({authorizationId:'pending-grant'}));await verification;});
   assert.equal(requests,1);assert.equal(view.root.findAllByProps({'data-dialog':true}).length,0);
  }finally{close(view);}
 });

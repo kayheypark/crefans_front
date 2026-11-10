@@ -20,3 +20,6 @@ export async function expectSignedIn(page:Page,profileLink:string|RegExp){const 
 // Server src/platform/finance.service.ts rejects an HTTP payment without the current payment terms version (400 PAYMENT_TERMS_REQUIRED, 6eed61a/2e2ef73).
 export const PAY={paymentTerms:PAYMENT_TERMS.version};
 export async function api(request:APIRequestContext,path:string,body?:object){const r=body?await request.post('/api/v1'+path,{data:body,headers:{Origin:'http://127.0.0.1:3011'}}):await request.get('/api/v1'+path);return{status:r.status(),...(await r.json())};}
+
+// 2026-11-11: PINs are typed on the shuffled PinPad keypad (no text field); find each digit by its label inside the pad.
+export async function enterPin(page:Page,pin:string,title:string){const pad=page.getByRole('group',{name:title,exact:true});await expect(pad).toBeVisible();for(const digit of pin)await pad.getByRole('button',{name:digit,exact:true}).click();}
