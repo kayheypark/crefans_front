@@ -1,3 +1,9 @@
+## 2026-11-11 출금 PIN 키패드 PinPad·usePinPad (feat/pin-pad, 미커밋·미배포)
+- 요청: 네이버페이 간편비밀번호 화면처럼 PIN 입력을 컴포넌트+재사용 훅으로, PC·모바일 대응, 필요한 곳 전수조사 후 적용.
+- 전수조사(origin/prod 20905f5, `PinField`·PIN API 호출 grep): 실제 사용처 3곳 — 출금 PIN 설정(`studio/WithdrawalSecurityPage`), 멤버십 출금 확인(`studio/FinancePages` WithdrawalPage), 콩 출금 확인(`BeanPages` BeanStudioPage). /preview는 같은 컴포넌트라 자동 적용. 디자인 시스템 카탈로그 1곳. 제외: 회원가입 이메일 코드·콘솔 2차 인증(OTP, 붙여넣기 필요). 서버 PIN 재설정 API 없음 → 재설정 링크 미표시.
+- 구현: `hooks/usePinPad.ts`(값·무작위 배열 crypto Fisher–Yates·press/backspace/clear/reset·PC 키 처리, 6자리 onComplete 1회), `components/ui/PinPad.tsx`+`pin-pad.module.css`(점6·3×4 키패드: 숫자10·전체삭제·한 자리 지우기, 상태 aria-live, 다이얼로그/페이지 범위 키보드 입력). 모바일 다이얼로그는 전체 화면 하단 키패드, PC 360px 카드. 설정은 2단계(입력→한 번 더), 불일치·실패 시 처음부터·재배열. 출금 확인은 6자리 즉시 확인, 접수 결과 불명은 PIN 없이 '접수 결과 다시 확인'. `PinField`·`pin-field.module.css`·`PinFieldCatalog` 삭제 → `PinPadCatalog`. docs/design-system.md 갱신, AGENTS.md 규칙.
+- 검증: typecheck 0, check:layers PASS(448), 단위 전체 580/596(실패 16 = origin/prod 기준선과 동일 목록), PIN 단위 9/9(대조: 실패 후 reset 제거·6자리 상한 제거 시 각각 FAIL). e2e pin-pad(PC 키보드·모바일 390 전체화면, 캡처 test-results/pin-pad-*), bean-refund-closing 통과. service·promotion-payout·beans는 PIN 단계 통과 후 은행 지급 단계에서 실패 — origin/prod 기준선도 같은 단계 실패(수요일 마감 의존, 서버 테스트와 같은 원인). check:docs 실패는 형제 server 체크아웃(dev, 구버전)의 파일 누락 참조뿐.
+
 ## 2026-11-10 프로필 통계 숫자 세로 정렬 (배포 진행 중)
 - 작업트리 `/Users/ethan/repository/crefans_front-count-align`, 브랜치 fix/profile-count-align (origin/prod 88ffc16 기준, dev와 트리 동일). `components/crefans/creator.module.css` 166행 `.counts dd`에 flex 중앙 정렬+min-height 44px 추가.
 - 원인: 팔로워·팔로잉은 링크(`.countLink` 최소 44px), 게시물은 일반 숫자(약 29px)여서 라벨 기준으로 쌓일 때 게시물 숫자가 7.5px 아래로 어긋남.
