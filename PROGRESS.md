@@ -1,3 +1,8 @@
+## 2026-11-11 PIN 패드 디자인 C안(바텀시트) 적용 (feat/pin-pad-sheet)
+- 사용자: 업계 표준 5종(A 브랜드색 하단 키패드·B 원형 키·C 바텀시트·D 6칸+격자 보안 키패드·E 다크) PC/모바일 시안 중 C 선택. 시안 이미지 crefans_front-pin-pad/.local/pin-pad-variants/.
+- 변경: pin-pad.module.css를 밝은 배경·1px 구분선 키패드로, 다이얼로그 안에서는 가장자리·하단까지 붙임. 출금 확인 2곳 Dialog fullscreenOnMobile→sheet. 삭제 아이콘 외곽선형. 인라인(설정) 화면은 테두리 둥근 블록.
+- 검증: typecheck 0, PIN 단위 14/14, e2e pin-pad(모바일 시트 하단=화면 하단·상단 여백, PC 키패드 하단=카드 하단) 2/2, bean-refund-closing 통과. 캡처 .local/pin-sheet-20261111/.
+
 ## 2026-11-11 출금 PIN 키패드 PinPad·usePinPad (feat/pin-pad, 미커밋·미배포)
 - 요청: 네이버페이 간편비밀번호 화면처럼 PIN 입력을 컴포넌트+재사용 훅으로, PC·모바일 대응, 필요한 곳 전수조사 후 적용.
 - 전수조사(origin/prod 20905f5, `PinField`·PIN API 호출 grep): 실제 사용처 3곳 — 출금 PIN 설정(`studio/WithdrawalSecurityPage`), 멤버십 출금 확인(`studio/FinancePages` WithdrawalPage), 콩 출금 확인(`BeanPages` BeanStudioPage). /preview는 같은 컴포넌트라 자동 적용. 디자인 시스템 카탈로그 1곳. 제외: 회원가입 이메일 코드·콘솔 2차 인증(OTP, 붙여넣기 필요). 서버 PIN 재설정 API 없음 → 재설정 링크 미표시.
