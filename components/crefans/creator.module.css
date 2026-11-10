@@ -163,7 +163,7 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 .coverAction:has(>.coverWallet){top:14px;bottom:auto;left:26px;right:26px;display:flex;align-items:center;justify-content:space-between;gap:12px}.coverAction>.coverWallet{display:inline-flex}.coverAction:has(>.coverWallet)>.coverLink{min-height:44px}
 @media(max-width:767px){.coverAction:has(>.coverWallet){top:12px;left:16px;right:16px}}
 
-.counts dd{width:100%;text-align:center}.countLink{display:flex;align-items:center;justify-content:center;min-height:44px;width:100%;color:inherit;text-decoration:none}.countLink:hover{color:var(--cf-color-accent)}.connectionList{list-style:none;margin:0;padding:0}.connectionList li a{display:flex;align-items:center;gap:12px;padding:16px 0;text-decoration:none;color:inherit;min-width:0}.connectionList li a>span:last-child{min-width:0;display:grid;gap:4px}.connectionList small{color:var(--cf-color-textSecondary)}
+.counts dd{width:100%;text-align:center;display:flex;align-items:center;justify-content:center;min-height:44px}.countLink{display:flex;align-items:center;justify-content:center;min-height:44px;width:100%;color:inherit;text-decoration:none}.countLink:hover{color:var(--cf-color-accent)}.connectionList{list-style:none;margin:0;padding:0}.connectionList li a{display:flex;align-items:center;gap:12px;padding:16px 0;text-decoration:none;color:inherit;min-width:0}.connectionList li a>span:last-child{min-width:0;display:grid;gap:4px}.connectionList small{color:var(--cf-color-textSecondary)}
 
 .previewLogin{width:100%;min-height:44px}
 

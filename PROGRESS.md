@@ -1,3 +1,8 @@
+## 2026-11-10 프로필 통계 숫자 세로 정렬 (배포 진행 중)
+- 작업트리 `/Users/ethan/repository/crefans_front-count-align`, 브랜치 fix/profile-count-align (origin/prod 88ffc16 기준, dev와 트리 동일). `components/crefans/creator.module.css` 166행 `.counts dd`에 flex 중앙 정렬+min-height 44px 추가.
+- 원인: 팔로워·팔로잉은 링크(`.countLink` 최소 44px), 게시물은 일반 숫자(약 29px)여서 라벨 기준으로 쌓일 때 게시물 숫자가 7.5px 아래로 어긋남.
+- 검증(로컬 next dev :3107, 브라우저 측정): /preview/creator/haneul PC 숫자 중심 521.4/521.5/521.5px, 대조로 규칙 끄면 529/521.5/521.5px. /preview/me 375px 400.6/400.7/400.7px. 실기기·운영 확인 없음.
+
 ## 2026-11-09 게시물 검색 결과 미리보기 카드 (fix/search-preview-card, 미배포)
 - 사용자 결정(/ask-me): "검색은 제외, 피드·상세는 열람". 서버 fix/search-no-consume 이 /posts/search 를 미리보기(expose=false)로 바꿔 멤버십 글을 구독자에게도 canAccess=false·본문/미디어 없이 보내고 checkout_orders.content_accessed_at(7일 전액 환불 판단)을 남기지 않는다. 상세 /posts/:id 에서만 기록.
 - 화면: 그대로면 구독자에게 '멤버십 안내'(판매 창)가 뜨므로 PostCard 에 preview 속성 추가(탐색 검색 결과에서만 true). 서버 잠김 + 화면 canAccess(구독/작성자) 참이면 '구독 중인 멤버십 게시물 · 검색 결과에서는 내용이 보이지 않아요 · 게시물 보기'(상세 링크), 인라인 댓글 대신 상세 댓글 링크. 비구독자·피드 등 다른 곳은 기존 그대로.
