@@ -17,7 +17,7 @@ import {Brand} from '@/components/crefans/Brand';
 import {FormControlsCatalog} from './FormControlsCatalog';
 import {BenefitsFieldCatalog} from './BenefitsFieldCatalog';
 import {AmountPresetsCatalog} from './AmountPresetsCatalog';
-import {PinFieldCatalog} from './PinFieldCatalog';
+import {PinPadCatalog} from './PinPadCatalog';
 import {ImageUploadCatalog} from './ImageUploadCatalog';
 import {DataDisplayCatalog} from './DataDisplayCatalog';
 import {ServicePatternCatalog} from './ServicePatternCatalog';
@@ -52,7 +52,7 @@ export default function CustomDesignSystem(){
  <FormControlsCatalog/>
  <BenefitsFieldCatalog/>
  <AmountPresetsCatalog/>
- <PinFieldCatalog/>
+ <PinPadCatalog/>
  <ImageUploadCatalog/>
  <Section title="탐색과 선택" subtitle="Chip은 항상 ChipRow 안에 한 줄로 둡니다. 넘치면 좌우 스크롤·마우스 드래그로 확인하고, 드래그는 클릭으로 처리되지 않습니다."><ChipRow label="분야 선택">{['전체','운동','게임','코스프레','음악','사진','여행','뷰티','피트니스','라이프스타일','아트','브이로그','라이브','커버'].map(x=><Chip key={x} selected={category===x} onClick={()=>setCategory(x)}>{x}</Chip>)}</ChipRow><p className={s.muted}>선택한 분야: {category}</p><div className={s.row}><Badge>멤버 전용</Badge><Badge tone="success">공개됨</Badge><Badge tone="danger">확인 필요</Badge></div></Section></>}
  {page==='tables' && <DataDisplayCatalog/>}

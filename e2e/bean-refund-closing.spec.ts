@@ -1,4 +1,4 @@
-import {test,expect} from './fixtures';
+import {test,expect,enterPin} from './fixtures';
 import type {Page} from '@playwright/test';
 // Studio state lives in the preview layout, so moves between studio screens use in-app links (a reload resets the mock).
 async function studioNav(page:Page,path:string,group='수익,정산,출금 관리'){const menu=page.getByRole('button',{name:'스튜디오 메뉴 열기',exact:true});if(await menu.isVisible())await menu.click();// phones open the studio menu first
@@ -33,7 +33,7 @@ test('콩 유효기간: 30일 안에 끝나는 콩이 있을 때만 지갑에 �
 });
 
 test('탈퇴 전 전액 출금: 탈퇴 준비 항목이 남으면 숨기고, 모두 끝나면 멤버십·콩 출금에 표시',async({page})=>{
- await page.goto('/preview/studio/security');await page.getByRole('textbox',{name:'새 출금 PIN',exact:true}).fill('246810');await page.getByRole('textbox',{name:'출금 PIN 확인',exact:true}).fill('246810');await page.getByRole('button',{name:'PIN 설정하기',exact:true}).click();await expect(page.getByText('출금 PIN이 설정되어 있어요')).toBeVisible();
+ await page.goto('/preview/studio/security');await enterPin(page,'246810','새 출금 PIN 입력');await enterPin(page,'246810','출금 PIN 한 번 더 입력');await expect(page.getByText('출금 PIN이 설정되어 있어요')).toBeVisible();
  await studioNav(page,'withdraw');await expect(page.getByRole('heading',{name:'출금 신청',exact:true})).toBeVisible();
  const ready=page.getByRole('region',{name:'탈퇴 준비'});await expect(ready).toContainText('판매 중인 멤버십이 있습니다');await expect(ready).toContainText('2026-10-12에 끝난 뒤');await expect(ready).toContainText('미수금 정산이 끝난 뒤');
  await expect(page.getByRole('region',{name:'미수금'})).toContainText('멤버십 미수금 15,920원 (2026.09.10) · 이후 정산에서 차감됩니다.');
@@ -52,8 +52,8 @@ test('탈퇴 전 전액 출금: 구독자가 없는 크리에이터가 판매를
  await studioNav(page,'beans');await page.getByRole('link',{name:'후원콩 출금하기',exact:true}).click();await expect(page).toHaveURL(/\/preview\/studio\/beans\/withdraw$/);await expect(page.getByRole('region',{name:'탈퇴 준비'})).toHaveCount(0);
  const all=page.getByRole('checkbox',{name:/탈퇴 전 전액 출금/});await all.check();await expect(page.getByLabel('출금할 콩',{exact:true})).toHaveValue('3050');await expect(page.getByLabel('출금할 콩',{exact:true})).toBeDisabled();
  await page.getByRole('button',{name:'출금 내용 확인',exact:true}).click();await expect(page.getByRole('dialog')).toContainText('305,000원');
- await page.getByRole('dialog').getByRole('button',{name:'취소',exact:true}).click();
- await studioNav(page,'security','설정');await page.getByRole('textbox',{name:'새 출금 PIN',exact:true}).fill('246810');await page.getByRole('textbox',{name:'출금 PIN 확인',exact:true}).fill('246810');await page.getByRole('button',{name:'PIN 설정하기',exact:true}).click();await expect(page.getByText('출금 PIN이 설정되어 있어요')).toBeVisible();
+ await page.getByRole('dialog').getByRole('button',{name:'닫기',exact:true}).click();
+ await studioNav(page,'security','설정');await enterPin(page,'246810','새 출금 PIN 입력');await enterPin(page,'246810','출금 PIN 한 번 더 입력');await expect(page.getByText('출금 PIN이 설정되어 있어요')).toBeVisible();
  await studioNav(page,'withdraw');const closing=page.getByRole('checkbox',{name:/탈퇴 전 전액 출금/});await closing.check();await expect(page.getByRole('spinbutton',{name:'출금 금액',exact:true})).toHaveValue('962800');
  // The mock keeps a pending settlement and a processing withdrawal, so the server rule EARNINGS_PENDING applies.
  await page.getByRole('button',{name:'신청 내용 확인',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'보류 중이거나 처리 중인 수익이 있어 아직 전액 출금할 수 없습니다.'})).toHaveCount(1);

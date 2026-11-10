@@ -150,7 +150,6 @@ test('settlement rows and details distinguish missing earning data from a zero-v
     'next/link':({href,children})=>h('a',{href},children),
     '../Icon':()=>h('svg'),
     './select.module.css':new Proxy({},{get:(_,key)=>String(key)}),
-    './pin-field.module.css':new Proxy({},{get:(_,key)=>String(key)}),
     './amount-presets.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./ui.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./field.module.css':new Proxy({},{get:(_,key)=>String(key)}),
     './finance.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),
     '@/components/ui/Primitives':{Dialog:({open,children})=>open?h('section',{role:'dialog'},children):null},
