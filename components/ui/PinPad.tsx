@@ -22,7 +22,8 @@ export type PinPadProps={
 /**
  * Six-dot PIN entry with a shuffled on-screen keypad (2026-11-11). The keypad is the main input on phones; on PC the
  * focused pad also accepts number keys, Backspace and Delete. Pair it with `usePinPad`, which owns the value and order.
- * Layout: header and dots on top, keypad pinned to the bottom on narrow screens and as a compact card on wide ones.
+ * Layout (design C, 2026-11-11): header, dots and summary, then a light hairline keypad; edge to edge inside a dialog
+ * (phone bottom sheet via `Dialog sheet`, PC card) and a bordered block inline on a page.
  */
 export function PinPad({pad,title,eyebrow,hint,error,busy=false,children,autoFocus=true,className=''}:PinPadProps){
   const root=useRef<HTMLDivElement>(null),titleId=useId(),statusId=useId(),locked=pad.disabled||busy;
@@ -53,7 +54,7 @@ export function PinPad({pad,title,eyebrow,hint,error,busy=false,children,autoFoc
     {children&&<div className={s.extra}>{children}</div>}
     <div className={s.keypad}>
       {keys.map((key,i)=>key==='clear'?<button key="clear" type="button" className={s.word} disabled={locked||!pad.value} onClick={pad.clear}>전체삭제</button>
-        :key==='back'?<button key="back" type="button" className={s.word} disabled={locked||!pad.value} onClick={pad.backspace} aria-label="한 자리 지우기"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M8.5 5H20a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H8.5L3 12l5.5-7Z" fill="currentColor" opacity=".9"/><path d="m11 9.5 5 5m0-5-5 5" stroke="var(--pin-pad-bg)" strokeWidth="1.8" strokeLinecap="round"/></svg></button>
+        :key==='back'?<button key="back" type="button" className={s.word} disabled={locked||!pad.value} onClick={pad.backspace} aria-label="한 자리 지우기"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round"><path d="M8.5 5H20a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H8.5L3 12l5.5-7Z"/><path d="m11 9.5 5 5m0-5-5 5"/></svg></button>
         :<button key={`d${i}`} type="button" className={s.digit} disabled={locked||pad.complete} onClick={()=>pad.press(key)}>{key}</button>)}
     </div>
   </div>;
