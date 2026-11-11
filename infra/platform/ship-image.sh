@@ -14,6 +14,7 @@
 #   CREFANS_RECOVERY_DIR   이전 이미지 보관 위치(기본 /Users/ethan/crefans-recovery). 삭제는 RETENTION.md 대로 사용자 승인 후 별도로.
 #   DOCKER_CONFIG          Docker Desktop 자격 증명 도우미가 멈출 때 credsStore 없는 설정 폴더로 지정.
 set -euo pipefail
+umask 077  # 복구 저장소에 쓰는 이미지·설정·덤프를 600/700으로 만든다(RETENTION.md, 2026-11-11 사용자 결정)
 
 FRONT=$(cd "$(dirname "$0")/../.." && pwd)
 SSH=${CREFANS_SSH:-/Users/ethan/repository/crefans_server/.local/cancel-now-20261106/ssh.sh}
