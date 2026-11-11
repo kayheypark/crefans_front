@@ -21,3 +21,24 @@ test('출금 PIN 설정·멤버십 출금 확인을 PIN 키패드로 (PC 키보�
  await expect(page.getByRole('heading',{name:'출금 요청을 확인해 주세요'})).toBeVisible();await page.screenshot({path:info.outputPath('03-done.png'),fullPage:true});
  expect(errors).toEqual([]);
 });
+
+// 2026-11-11 PIN reset page: from the configured PIN page to security/reset, two passes, then the new PIN confirms a withdrawal.
+test('출금 PIN 재설정 페이지로 새 PIN 바꾸고 출금 확인 창에서 재설정 링크 확인',async({page},info)=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/preview/studio/security');await enterPin(page,'246810','새 출금 PIN 입력');await enterPin(page,'246810','출금 PIN 한 번 더 입력');
+ await expect(page.getByText('출금 PIN이 설정되어 있어요')).toBeVisible();
+ await page.getByRole('link',{name:'출금 PIN 재설정',exact:true}).click();await expect(page).toHaveURL(/\/preview\/studio\/security\/reset$/);
+ await expect(page.getByRole('heading',{name:'출금 PIN 재설정'})).toBeVisible();await expect(page.getByRole('link',{name:'출금 PIN 설정으로 돌아가기'})).toHaveAttribute('href','/preview/studio/security');
+ await page.screenshot({path:info.outputPath('11-reset.png'),fullPage:true});
+ await enterPin(page,'135790','새 출금 PIN 입력');await expect(page.getByText('본인인증 창이 열려요')).toBeVisible();await enterPin(page,'135790','출금 PIN 한 번 더 입력');
+ await expect(page.getByText('새 출금 PIN으로 바꿨어요')).toBeVisible();await expect(page.getByRole('link',{name:'출금 PIN 재설정',exact:true})).toHaveCount(0);
+ await page.screenshot({path:info.outputPath('12-reset-done.png'),fullPage:true});
+ await page.getByRole('link',{name:'출금 요청으로 이동',exact:true}).click();
+ await page.getByRole('spinbutton',{name:'출금 금액',exact:true}).fill('100000');await page.getByRole('button',{name:'신청 내용 확인',exact:true}).click();await page.getByRole('button',{name:'출금 요청하기',exact:true}).click();
+ const pad=page.getByRole('group',{name:'출금 PIN 입력',exact:true});await expect(pad).toBeVisible();
+ await expect(pad.getByRole('link',{name:'PIN을 잊으셨나요?'})).toHaveAttribute('href','/preview/studio/security/reset');
+ await expect(page.getByRole('dialog')).toHaveCSS('opacity','1');await page.waitForTimeout(400);await page.screenshot({path:info.outputPath('13-confirm-link.png')});
+ await enterPin(page,'246810','출금 PIN 입력');await expect(page.getByRole('alert').first()).toBeVisible();
+ await enterPin(page,'135790','출금 PIN 입력');await expect(page.getByRole('heading',{name:'출금 요청을 확인해 주세요'})).toBeVisible();
+ expect(errors).toEqual([]);
+});

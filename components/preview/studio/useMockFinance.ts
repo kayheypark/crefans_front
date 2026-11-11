@@ -81,14 +81,14 @@ export function useMockFinance(closing:{memberships?:{active:boolean}[];subscrib
   const commit=(next:MockFinanceState)=>{current.current=next;setState(next);};
   const setupWithdrawalPin:StudioFinanceModel['setupWithdrawalPin']=async pin=>{
     if(!active.current)return failure('사용 중인 화면을 다시 열어주세요.','SESSION_CLOSED');
-    if(verifier.current)return failure('출금 비밀번호가 이미 설정되어 있습니다.','PIN_ALREADY_CONFIGURED');
     if(!validPin(pin))return failure('출금 비밀번호는 숫자 6자리로 입력해주세요.','INVALID_PIN_FORMAT');
     if(settingPin.current)return failure('비밀번호를 설정하고 있습니다. 잠시 기다려주세요.','PIN_SETUP_BUSY');
     settingPin.current=true;
     try{
       const salt=crypto.getRandomValues(new Uint8Array(16)),hash=await hashPin(pin,salt);
       if(!active.current)return failure('사용 중인 화면을 다시 열어주세요.','SESSION_CLOSED');
-      verifier.current={salt,hash};setPinConfigured(true);
+      // Same as the server: a new PIN replaces the old one and voids any confirmation issued with it (reset, 2026-11-11).
+      verifier.current={salt,hash};authorizations.current.clear();setPinConfigured(true);
       return success({message:'출금 비밀번호를 설정했습니다.'});
     }catch{return failure('출금 비밀번호를 설정하지 못했습니다. 다시 시도해주세요.','PIN_SETUP_FAILED');}finally{settingPin.current=false;}
   };
