@@ -111,7 +111,7 @@ export function WithdrawalPage({model,basePath}:Props){
     </>}
     <CreatorClosingNotes receivables={model.data.receivables} closingBlockers={model.data.closingBlockers}/><BeanIncomeLink basePath={basePath}/><Policy model={model}/>
     <Dialog open={pinOpen&&!!quote&&model.pinConfigured} onClose={closePin} title="출금 PIN 확인" sheet>{quote&&(retryRequest?<div className={s.form}><dl className={s.amountRows}><div><dt>요청 금액</dt><dd>{money(quote.amount)}</dd></div><div><dt>수령 계좌</dt><dd>{accountName(quote.account)}</dd></div></dl><p className={s.helper}>추가 출금 요청을 만들지 않고 이전 요청의 접수 결과를 확인합니다.</p>{pinError&&<p className={s.error} role="alert">{pinError}</p>}<DialogActions><Action type="button" variant="secondary" disabled={pending} onClick={closePin}>닫기</Action><Action type="button" variant="brand" disabled={pending} aria-busy={pending} onClick={()=>void confirm()}>{pending?'확인 중…':'접수 결과 다시 확인'}</Action></DialogActions></div>
-      :<PinPad pad={pad} title="출금 PIN 입력" eyebrow={accountName(quote.account)} hint="설정한 숫자 6자리를 입력하면 바로 출금을 요청해요." error={pinError||undefined} busy={pending}><dl className={s.amountRows}><div><dt>요청 금액</dt><dd>{money(quote.amount)}</dd></div><div><dt>출금 수수료</dt><dd>{money(0)}</dd></div></dl></PinPad>)}</Dialog>
+      :<PinPad pad={pad} title="출금 PIN 입력" eyebrow={accountName(quote.account)} hint="설정한 숫자 6자리를 입력하면 바로 출금을 요청해요." error={pinError||undefined} busy={pending} resetHref={`${basePath}/security/reset`}><dl className={s.amountRows}><div><dt>요청 금액</dt><dd>{money(quote.amount)}</dd></div><div><dt>출금 수수료</dt><dd>{money(0)}</dd></div></dl></PinPad>)}</Dialog>
   </div>;
 }
 

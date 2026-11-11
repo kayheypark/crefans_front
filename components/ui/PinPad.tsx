@@ -2,6 +2,7 @@
 
 import {useEffect,useId,useRef,type ReactNode} from 'react';
 import type {PinPad as PinPadState} from '@/hooks/usePinPad';
+import {TextLink} from './TextLink';
 import s from './pin-pad.module.css';
 
 export type PinPadProps={
@@ -15,6 +16,8 @@ export type PinPadProps={
   busy?:boolean;
   /** Content between the dots and the keypad, e.g. a summary or a link. */
   children?:ReactNode;
+  /** Where "PIN을 잊으셨나요?" leads (the PIN reset page). Shown on confirmation pads, not on the setup pad. */
+  resetHref?:string;
   autoFocus?:boolean;
   className?:string;
 };
@@ -25,7 +28,7 @@ export type PinPadProps={
  * Layout (design C, 2026-11-11): header, dots and summary, then a light hairline keypad; edge to edge inside a dialog
  * (phone bottom sheet via `Dialog sheet`, PC card) and a bordered block inline on a page.
  */
-export function PinPad({pad,title,eyebrow,hint,error,busy=false,children,autoFocus=true,className=''}:PinPadProps){
+export function PinPad({pad,title,eyebrow,hint,error,busy=false,children,resetHref,autoFocus=true,className=''}:PinPadProps){
   const root=useRef<HTMLDivElement>(null),titleId=useId(),statusId=useId(),locked=pad.disabled||busy;
   useEffect(()=>{if(autoFocus)root.current?.focus({preventScroll:true});},[autoFocus]);
   // PC keyboard: a dialog moves focus to its title after opening, so listen on the document and accept keys pressed
@@ -50,6 +53,7 @@ export function PinPad({pad,title,eyebrow,hint,error,busy=false,children,autoFoc
       <div className={s.dots} aria-hidden="true">{Array.from({length:pad.length},(_,i)=><span key={i} data-filled={i<pad.value.length||undefined}/>)}</div>
       <p id={statusId} className={s.status} aria-live="polite">{busy?'확인하고 있어요':`${pad.length}자리 중 ${pad.value.length}자리 입력`}</p>
       {error?<p className={s.error} role="alert">{error}</p>:hint&&<p className={s.hint}>{hint}</p>}
+      {resetHref&&<TextLink className={s.reset} href={resetHref}>PIN을 잊으셨나요?</TextLink>}
     </div>
     {children&&<div className={s.extra}>{children}</div>}
     <div className={s.keypad}>

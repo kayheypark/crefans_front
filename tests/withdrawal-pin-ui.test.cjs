@@ -74,11 +74,29 @@ test('PIN setup takes the PIN twice on the pad and never reports success on reje
  }finally{close(view);}
 });
 
-test('unconfigured withdrawal cannot advance and configured security page exposes no reset pad',()=>{
+test('unconfigured withdrawal cannot advance and configured security page shows no pad, only a link to reset',()=>{
  const view=mount(WithdrawalPage,{model:model({pinConfigured:false}),basePath:'/preview/studio'});
  try{assert.equal(view.root.findAllByType('form').length,0);assert.ok(view.root.findAllByType('a').some(item=>item.props.href==='/preview/studio/security'));}finally{close(view);}
  const configured=mount(WithdrawalSecurityPage,{model:model(),basePath:'/preview/studio'});
- try{assert.equal(pads(configured).length,0);assert.ok(configured.root.findAllByType('a').some(item=>item.props.href==='/preview/studio/withdraw'));}finally{close(configured);}
+ try{assert.equal(pads(configured).length,0);const hrefs=configured.root.findAllByType('a').map(item=>item.props.href);assert.ok(hrefs.includes('/preview/studio/withdraw'));assert.ok(hrefs.includes('/preview/studio/security/reset'));}finally{close(configured);}
+});
+
+test('PIN reset replaces a configured PIN with the same two passes, then confirms without offering another reset',async()=>{
+ const pins=[];let answer=fail('본인인증이 만료되었거나 일치하지 않습니다.');
+ const view=mount(WithdrawalSecurityPage,{basePath:'/preview/studio',reset:true,model:model({setupWithdrawalPin:async pin=>{pins.push(pin);return answer;}})});
+ try{
+  assert.match(text(view.root),/출금 PIN 재설정/);assert.equal(pads(view).length,1,'a configured PIN still gets the pad on the reset page');
+  await typePin(view,'246810');assert.match(text(view.root),/본인인증 창이 열려요/);await typePin(view,'246810');
+  assert.deepEqual(pins,['246810']);assert.equal(text(view.root.findByProps({role:'alert'})),'본인인증이 만료되었거나 일치하지 않습니다.');assert.match(text(view.root),/새 출금 PIN 입력/,'a failed reset starts over');
+  answer=ok({message:'간편비밀번호를 설정했습니다.'});await typePin(view,'135790');await typePin(view,'135790');
+  assert.deepEqual(pins,['246810','135790']);assert.equal(pads(view).length,0);assert.match(text(view.root),/새 출금 PIN으로 바꿨어요/);
+  assert.equal(view.root.findAllByType('a').some(item=>item.props.href==='/preview/studio/security/reset'),false);
+ }finally{close(view);}
+});
+
+test('membership PIN confirmation links to the reset page',async()=>{
+ const view=mount(WithdrawalPage,{model:model(),basePath:'/preview/studio'});
+ try{await openConfirmation(view);const link=view.root.findAllByType('a').find(item=>item.props.href==='/preview/studio/security/reset');assert.ok(link);assert.equal(text(link),'PIN을 잊으셨나요?');}finally{close(view);}
 });
 
 test('wrong PIN blocks withdrawal, clears the pad, and closing the dialog clears the error',async()=>{
