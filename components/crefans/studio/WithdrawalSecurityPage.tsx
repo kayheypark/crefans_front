@@ -8,31 +8,34 @@ import Link from 'next/link';
 import {PinPad} from '@/components/ui/PinPad';
 import {usePinPad} from '@/hooks/usePinPad';
 import type {StudioFinanceModel} from '@/types/crefans-studio-finance';
-import {Action,PageTitle} from '../ServiceUI';
+import {Action,ActionLink,PageTitle} from '../ServiceUI';
 import Icon from '../Icon';
 import s from './withdrawal-security.module.css';
 
-export function WithdrawalSecurityPage({model,basePath,embedded=false}:{model:StudioFinanceModel;basePath:string;embedded?:boolean}){
+export function WithdrawalSecurityPage({model,basePath,embedded=false,reset=false}:{model:StudioFinanceModel;basePath:string;embedded?:boolean;reset?:boolean}){
   // Two passes on the same shuffled pad: enter, then enter again. The first value is kept only in a ref until it is sent.
-  const [step,setStep]=useState<'enter'|'confirm'>('enter'),[error,setError]=useState(''),[message,setMessage]=useSnackbarMessage(),[pending,setPending]=useState(false);
+  // Reset (2026-11-11, `security/reset`): the same two passes replace a configured PIN. The server only accepts it with a fresh
+  // PASS identity proof and voids confirmations issued with the old PIN, so no current PIN is asked for.
+  const [step,setStep]=useState<'enter'|'confirm'>('enter'),[error,setError]=useState(''),[message,setMessage]=useSnackbarMessage(),[pending,setPending]=useState(false),[done,setDone]=useState(false);
+  const editing=(!model.pinConfigured||reset)&&!done;
   const busy=useRef(false),first=useRef('');
   const pad=usePinPad({disabled:pending,onComplete:pin=>void complete(pin)});
   const restart=(reason='')=>{first.current='';setStep('enter');setError(reason);pad.reset();};
   async function complete(pin:string){
-    if(busy.current||model.pinConfigured)return;setMessage('');
+    if(busy.current||!editing)return;setMessage('');
     if(step==='enter'){first.current=pin;setError('');setStep('confirm');pad.reset();return;}
     if(pin!==first.current){restart('입력한 PIN이 서로 달라요. 처음부터 다시 입력해 주세요.');return;}
     busy.current=true;setPending(true);
     try{
       const response=await model.setupWithdrawalPin(pin);
       if(!response.success){restart(response.errorMessage);return;}
-      first.current='';setMessage(response.data.message);
+      first.current='';setMessage(response.data.message);if(reset)setDone(true);
     }catch{restart('PIN을 설정하지 못했어요. 다시 시도해 주세요.');}
     finally{busy.current=false;setPending(false);}
   }
   return <section className={s.page}>
-    <PageTitle back={embedded?undefined:<BackButton href={`${basePath}/earnings`} label="수익 현황으로 돌아가기"/>}>출금 PIN 설정</PageTitle>
-    <p className={s.lead}>출금 요청을 확인할 때 사용할 숫자 6자리를 설정해 주세요.</p>
-    {model.pinConfigured?<div className={s.configured}><span className={s.icon}><Icon name="lock"/></span><h2>출금 PIN이 설정되어 있어요</h2><p>출금 금액과 수령 계좌를 확인한 뒤 PIN을 입력해 주세요.</p><Toast message={message} onClose={()=>setMessage('')}/><Link className={s.primaryLink} href={`${basePath}/withdraw`}>출금 요청으로 이동</Link></div>:<div className={s.form}><PinPad pad={pad} title={step==='enter'?'새 출금 PIN 입력':'출금 PIN 한 번 더 입력'} eyebrow={step==='enter'?'1/2단계':'2/2단계 · 확인'} hint={step==='enter'?'다른 사람에게 알려주지 않는 번호를 사용해 주세요.':'같은 번호를 한 번 더 입력하면 바로 설정돼요.'} error={error||undefined} busy={pending}/>{step==='confirm'&&<Action variant="secondary" disabled={pending} onClick={()=>restart()}>처음부터 다시 입력</Action>}</div>}
+    <PageTitle back={embedded?undefined:reset?<BackButton href={`${basePath}/security`} label="출금 PIN 설정으로 돌아가기"/>:<BackButton href={`${basePath}/earnings`} label="수익 현황으로 돌아가기"/>}>{reset?'출금 PIN 재설정':'출금 PIN 설정'}</PageTitle>
+    <p className={s.lead}>{reset?'PIN을 잊었거나 바꾸고 싶다면 새 숫자 6자리를 두 번 입력한 뒤 PASS 본인인증을 해 주세요. 바꾸기 전에 확인한 출금은 새 PIN으로 다시 확인해야 해요.':'출금 요청을 확인할 때 사용할 숫자 6자리를 설정해 주세요.'}</p>
+    {!editing?<div className={s.configured}><span className={s.icon}><Icon name="lock"/></span><h2>{done?'새 출금 PIN으로 바꿨어요':'출금 PIN이 설정되어 있어요'}</h2><p>출금 금액과 수령 계좌를 확인한 뒤 PIN을 입력해 주세요.</p><Toast message={message} onClose={()=>setMessage('')}/><Link className={s.primaryLink} href={`${basePath}/withdraw`}>출금 요청으로 이동</Link>{!done&&<ActionLink variant="secondary" href={`${basePath}/security/reset`}>출금 PIN 재설정</ActionLink>}</div>:<div className={s.form}><PinPad pad={pad} title={step==='enter'?'새 출금 PIN 입력':'출금 PIN 한 번 더 입력'} eyebrow={step==='enter'?'1/2단계':'2/2단계 · 확인'} hint={step==='enter'?'다른 사람에게 알려주지 않는 번호를 사용해 주세요.':reset?'같은 번호를 한 번 더 입력하면 본인인증 창이 열려요.':'같은 번호를 한 번 더 입력하면 바로 설정돼요.'} error={error||undefined} busy={pending}/>{step==='confirm'&&<Action variant="secondary" disabled={pending} onClick={()=>restart()}>처음부터 다시 입력</Action>}</div>}
   </section>;
 }

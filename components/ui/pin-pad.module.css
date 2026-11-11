@@ -12,6 +12,7 @@
 .status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .hint,.error{margin:6px 0 0;font-size:max(13px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted)}
 .error{color:var(--cf-color-danger);font-weight:600}
+.reset{margin-top:2px;font-size:max(13px,var(--cf-mobile-font-min,0px))}
 .extra{padding:0 4px 8px}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:8px;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-card);overflow:hidden;background:var(--cf-color-border)}
 .keypad>button{min-height:56px;border:0;border-radius:0;background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none}

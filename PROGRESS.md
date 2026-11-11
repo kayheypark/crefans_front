@@ -3,6 +3,12 @@
 - 변경: pin-pad.module.css를 밝은 배경·1px 구분선 키패드로, 다이얼로그 안에서는 가장자리·하단까지 붙임. 출금 확인 2곳 Dialog fullscreenOnMobile→sheet. 삭제 아이콘 외곽선형. 인라인(설정) 화면은 테두리 둥근 블록.
 - 검증: typecheck 0, PIN 단위 14/14, e2e pin-pad(모바일 시트 하단=화면 하단·상단 여백, PC 키패드 하단=카드 하단) 2/2, bean-refund-closing 통과. 캡처 .local/pin-sheet-20261111/.
 
+## 2026-11-11 출금 PIN 재설정 페이지 (feat/pin-reset, 커밋·미배포)
+- 요청: "PIN 재설정 페이지도 있어야하는데". 서버 `POST /studio/pin`은 이미 PASS(withdrawal-pin) 증명으로 덮어쓰기·기존 출금 승인 회수를 하므로 서버 변경 없음. 현재 PIN 확인 없이 PASS로 재설정(잊은 경우 겸용).
+- 구현: `studio/security/reset`(service·preview 라우트 허용·탭 제목), `WithdrawalSecurityPage` reset 모드(같은 2단계 입력→PASS, 완료 카드), 설정 완료 카드에 "출금 PIN 재설정" 링크, `PinPad` `resetHref`("PIN을 잊으셨나요?")를 멤버십·콩 출금 확인 창에 연결, 미리보기 목업도 덮어쓰기 허용+이전 승인 무효.
+- 검증: typecheck 0, check:layers PASS(448), 단위 582/598(실패 16 = origin/prod 기준선과 동일 목록), 대조: reset 모드·링크 제거 시 새 단위 2건 FAIL, 목업 승인 무효 제거 시 FAIL. e2e pin-pad 4/4(PC·모바일)·bean-refund-closing 통과(CREFANS_SERVER_DIR=../crefans_server-search-preview; 기본 서버 체크아웃은 Prisma 클라이언트가 낡아 빌드 실패, 환경 문제).
+- 미결: PIN 변경·재설정 시 크리에이터 알림 없음(서버), PIN 잠금 강화(night-work 결정 4번). 배포는 사용자 승인 후.
+
 ## 2026-11-11 출금 PIN 키패드 PinPad·usePinPad (feat/pin-pad, 미커밋·미배포)
 - 요청: 네이버페이 간편비밀번호 화면처럼 PIN 입력을 컴포넌트+재사용 훅으로, PC·모바일 대응, 필요한 곳 전수조사 후 적용.
 - 전수조사(origin/prod 20905f5, `PinField`·PIN API 호출 grep): 실제 사용처 3곳 — 출금 PIN 설정(`studio/WithdrawalSecurityPage`), 멤버십 출금 확인(`studio/FinancePages` WithdrawalPage), 콩 출금 확인(`BeanPages` BeanStudioPage). /preview는 같은 컴포넌트라 자동 적용. 디자인 시스템 카탈로그 1곳. 제외: 회원가입 이메일 코드·콘솔 2차 인증(OTP, 붙여넣기 필요). 서버 PIN 재설정 API 없음 → 재설정 링크 미표시.

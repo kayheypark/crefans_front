@@ -12,7 +12,7 @@ async function setup(view,value=pin){const result=await call(()=>view.model.setu
 async function grant(view,input=intent){const result=await call(()=>view.model.verifyWithdrawalPin(pin,input));assert.equal(result.success,true);return result.data.authorizationId;}
 async function submit(view,authorizationId,input=intent,requestId='intent-1'){return call(()=>view.model.requestWithdrawal({...input,requestId,authorizationId}));}
 
-test('withdrawal PIN starts unset, accepts exactly six digits and cannot be overwritten by setup',async()=>{
+test('withdrawal PIN starts unset, accepts exactly six digits, and a reset replaces it and voids earlier confirmations',async()=>{
  const view=mount();
  try{
   assert.equal(view.model.pinConfigured,false);
@@ -21,9 +21,12 @@ test('withdrawal PIN starts unset, accepts exactly six digits and cannot be over
   }
   await setup(view);assert.equal(view.model.pinConfigured,true);
   assert.doesNotMatch(JSON.stringify(view.model),new RegExp(pin));
-  const overwrite=await call(()=>view.model.setupWithdrawalPin('135790'));assert.equal(overwrite.errorCode,'PIN_ALREADY_CONFIGURED');
   assert.equal((await call(()=>view.model.verifyWithdrawalPin('135790',intent))).errorCode,'INCORRECT_PIN');
-  assert.ok(await grant(view));
+  const earlier=await grant(view);
+  await setup(view,'135790');assert.equal(view.model.pinConfigured,true);
+  assert.equal((await call(()=>view.model.verifyWithdrawalPin(pin,intent))).errorCode,'INCORRECT_PIN','the old PIN stops working');
+  assert.equal((await submit(view,earlier)).success,false,'a confirmation made with the old PIN is void');
+  assert.equal((await call(()=>view.model.verifyWithdrawalPin('135790',intent))).success,true);
  }finally{view.close();}
 });
 
