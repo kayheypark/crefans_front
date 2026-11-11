@@ -66,11 +66,19 @@ test('usePinPad shuffles all ten digits without bias and PinPad shows dots, neve
 test('PIN setup takes the PIN twice on the pad and never reports success on rejected setup',async()=>{
  const pins=[];const view=mount(WithdrawalSecurityPage,{basePath:'/preview/studio',model:model({pinConfigured:false,setupWithdrawalPin:async pin=>{pins.push(pin);return fail('설정할 수 없습니다.');}})});
  try{
-  await typePin(view,'123456');assert.match(text(view.root),/한 번 더 입력/);await typePin(view,'654321');
+  await typePin(view,'246813');assert.match(text(view.root),/한 번 더 입력/);await typePin(view,'864213');
   assert.equal(pins.length,0);assert.match(text(view.root.findByProps({role:'alert'})),/서로 달라/);assert.match(text(view.root),/새 출금 PIN 입력/,'a mismatch starts over');
-  await typePin(view,'123456');await typePin(view,'123456');
-  assert.deepEqual(pins,['123456']);assert.equal(status(view),'6자리 중 0자리 입력');
+  await typePin(view,'246813');await typePin(view,'246813');
+  assert.deepEqual(pins,['246813']);assert.equal(status(view),'6자리 중 0자리 입력');
   assert.equal(text(view.root.findByProps({role:'alert'})),'설정할 수 없습니다.');
+ }finally{close(view);}
+});
+
+test('a common PIN is refused on the first pass, before the PASS step, with the server rule',async()=>{
+ const pins=[];const view=mount(WithdrawalSecurityPage,{basePath:'/preview/studio',model:model({pinConfigured:false,setupWithdrawalPin:async pin=>{pins.push(pin);return ok({message:'설정'});}})});
+ try{
+  for(const weak of['111111','123456','987654']){await typePin(view,weak);assert.match(text(view.root.findByProps({role:'alert'})),/추측하기 쉬운 번호/);assert.match(text(view.root),/새 출금 PIN 입력/,weak);}
+  assert.deepEqual(pins,[]);await typePin(view,'246813');await typePin(view,'246813');assert.deepEqual(pins,['246813']);
  }finally{close(view);}
 });
 

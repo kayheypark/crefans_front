@@ -16,6 +16,17 @@ function randomIndex(max:number){
   if(cryptoApi?.getRandomValues){const bucket=new Uint32Array(1),limit=Math.floor(0x100000000/max)*max;let value;do{cryptoApi.getRandomValues(bucket);value=bucket[0];}while(value>=limit);return value%max;}
   return Math.floor(Math.random()*max);
 }
+// Same rule as the server's WEAK_PIN check (crefans_server src/platform/withdrawal-pin.ts, 2026-11-11): one digit repeated,
+// a straight run up or down (wrapping 9→0) or a short list of the most used numbers. Checked on the setup pad so a common
+// number is refused before the creator spends a PASS verification; the server still decides.
+const COMMON_PINS=new Set(['123123','121212','112233','102030','147258','159753','111222','123321','654321','987654','000123','696969','131313','520520','010101']);
+export function isWeakPin(pin:string){
+  if(/^(\d)\1{5}$/.test(pin)||COMMON_PINS.has(pin))return true;
+  const steps=new Set(pin.split("").slice(1).map((d,i)=>(Number(d)-Number(pin[i])+10)%10));
+  return steps.size===1&&(steps.has(1)||steps.has(9));
+}
+export const WEAK_PIN_MESSAGE='같은 숫자 반복·연속 숫자처럼 추측하기 쉬운 번호는 쓸 수 없어요. 다른 번호를 입력해 주세요.';
+
 /** Fisher–Yates with an unbiased crypto source. */
 export function shuffledDigits(next:(max:number)=>number=randomIndex){
   const digits=[...DIGITS];

@@ -89,7 +89,7 @@ test('open claims have their own eligibility and expiry; other reward terms rema
   else if(index===0){assert.match(text,/누구나 참여/);assert.doesNotMatch(text,/참여 확정|참여가 확정|팬 13명|크리에이터 3명/);}else{assert.match(text,/50%/);assert.match(text,/총 노출기간/);assert.doesNotMatch(text,/30일 이용권|크리에이터 3명에게/);}
  }
  const beans=JSON.stringify(serviceEvents[2]);
- for(const text of ['30일(720시간)','사용하지 않은 이벤트 콩 잔액만','연장되지 않습니다','1,000콩','20%','8만원','실제 은행 출금을 제공하지'])assert.ok(beans.includes(text),text);
+ for(const text of ['30일(720시간)','사용하지 않은 이벤트 콩 잔액만','연장되지 않습니다','1,000콩','20%','8만원','시작 전에는 실제로 송금하지 않'])assert.ok(beans.includes(text),text);
  assert.doesNotMatch(beans,/5년/);
  const badge=JSON.stringify(serviceEvents[3]);assert.match(badge,/배지에는 30일 사용기한이 적용되지/);assert.match(badge,/숨길/);
 });

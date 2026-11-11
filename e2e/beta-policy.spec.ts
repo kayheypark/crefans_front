@@ -9,7 +9,7 @@ for(const width of [390,1280])test(`고객센터 FAQ 목업/서비스 공용 화
   await expect(page.getByRole('link',{name:/이용안내/})).toHaveCount(0);await expect(page.getByText('2영업일 내 첫 답변을 목표로 합니다')).toHaveCount(0);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
   await page.getByRole('button',{name:'지금 결제하면 실제로 청구되나요?',exact:true}).click();
-  await expect(page.getByText(/아직 실제 청구와 송금을 하지 않습니다/)).toBeVisible();
+  await expect(page.getByText(/아직 실제 청구를 하지 않습니다/)).toBeVisible();
   for(const [id,name] of [['fan','팬 이용안내'],['creator','크리에이터 이용안내']]){await page.goto(`${base}/guide/${id}`);await expect(page.getByRole('heading',{name,exact:true})).toHaveCount(0);}
  }
 });
