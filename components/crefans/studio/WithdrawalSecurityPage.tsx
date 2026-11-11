@@ -6,7 +6,7 @@ import {BackButton} from '../BackButton';
 import {useRef,useState} from 'react';
 import Link from 'next/link';
 import {PinPad} from '@/components/ui/PinPad';
-import {usePinPad} from '@/hooks/usePinPad';
+import {isWeakPin,usePinPad,WEAK_PIN_MESSAGE} from '@/hooks/usePinPad';
 import type {StudioFinanceModel} from '@/types/crefans-studio-finance';
 import {Action,ActionLink,PageTitle} from '../ServiceUI';
 import Icon from '../Icon';
@@ -23,6 +23,7 @@ export function WithdrawalSecurityPage({model,basePath,embedded=false,reset=fals
   const restart=(reason='')=>{first.current='';setStep('enter');setError(reason);pad.reset();};
   async function complete(pin:string){
     if(busy.current||!editing)return;setMessage('');
+    if(step==='enter'&&isWeakPin(pin)){restart(WEAK_PIN_MESSAGE);return;}
     if(step==='enter'){first.current=pin;setError('');setStep('confirm');pad.reset();return;}
     if(pin!==first.current){restart('입력한 PIN이 서로 달라요. 처음부터 다시 입력해 주세요.');return;}
     busy.current=true;setPending(true);

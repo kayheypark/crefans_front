@@ -1,3 +1,12 @@
+## 2026-11-11 FAQ·이벤트 출금 문구 (feat/pin-hardening-ui, 커밋·미배포)
+- 서버 약관 6조 개정(2026-11-11.payout.1, 배포일 즉시 시행)과 같은 내용으로 FAQ 2개·프로모션 이벤트 안내 2곳 변경: 결제는 아직 청구 안 함, 출금은 회사가 공지한 시작일부터 확인된 본인 명의 계좌로 운영팀이 직접 이체·시작 전 송금 없음. e2e beta-policy 기대 문구 갱신.
+- 검증: support-faq-policy·crefans-events 9/9, typecheck 0. check:docs는 ../crefans_server 기본 체크아웃이 낡아 기준선부터 실패(환경).
+
+## 2026-11-11 출금 PIN 흔한 번호 사전 차단·e2e PIN 변경 (feat/pin-hardening-ui, 커밋·미배포)
+- 서버 feat/payout-hardening(c57fbb1·a1d1222)과 짝: 서버가 흔한 PIN을 400 WEAK_PIN으로 거부하므로, 설정 화면 1단계에서 같은 규칙(`hooks/usePinPad.ts` isWeakPin)으로 먼저 막아 PASS 본인인증을 낭비하지 않게 함. 판단 기준은 서버.
+- 서버 시드 PIN 123456 → 246813이라 실 API e2e(service·beans·promotion-payout) 입력값 변경, 오답 문구 '출금 PIN을 확인해주세요.'로 통일.
+- 검증: typecheck 0, 단위 실패 목록 origin/prod 기준선과 동일, PIN UI 12/12, e2e pin-pad·service·beans·promotion-payout·bean-refund-closing 31건 통과(CREFANS_SERVER_DIR=../crefans_server-payout-hardening). 배포 순서: 서버와 함께(서버 먼저면 흔한 PIN이 PASS 뒤에 거부될 뿐 동작은 안전).
+
 ## 2026-11-11 PIN 패드 디자인 C안(바텀시트) 적용 (feat/pin-pad-sheet)
 - 사용자: 업계 표준 5종(A 브랜드색 하단 키패드·B 원형 키·C 바텀시트·D 6칸+격자 보안 키패드·E 다크) PC/모바일 시안 중 C 선택. 시안 이미지 crefans_front-pin-pad/.local/pin-pad-variants/.
 - 변경: pin-pad.module.css를 밝은 배경·1px 구분선 키패드로, 다이얼로그 안에서는 가장자리·하단까지 붙임. 출금 확인 2곳 Dialog fullscreenOnMobile→sheet. 삭제 아이콘 외곽선형. 인라인(설정) 화면은 테두리 둥근 블록.
