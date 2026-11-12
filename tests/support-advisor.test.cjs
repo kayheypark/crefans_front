@@ -118,3 +118,14 @@ test('AdvisorChat stop aborts the request, drops a late answer and offers to ask
  const headings=renderer.root.findAll(node=>node.type==='div'&&node.props.role==='heading');
  assert.equal(headings.length,1);assert.equal(headings[0].props['aria-level'],3);
 });
+
+test('the ==core sentence== from the server becomes one highlight with bold kept inside; a stray == is dropped',async()=>{
+ const blocks=advisor.parseAnswer('==해지해도 **결제한 기간**까지 볼 수 있어요.== 다음 결제부터 멈추고 == 기호는 숨겨요.');
+ assert.deepEqual(blocks[0].lines,[{text:'해지해도 ',bold:false,mark:true},{text:'결제한 기간',bold:true,mark:true},{text:'까지 볼 수 있어요.',bold:false,mark:true},{text:' 다음 결제부터 멈추고  기호는 숨겨요.',bold:false}]);
+ assert.deepEqual(advisor.parseAnswer('**7일** 환불')[0].lines,[{text:'7일',bold:true},{text:' 환불',bold:false}],'answers without a highlight are unchanged');
+ let renderer;act(()=>{renderer=create(el(AdvisorAnswerText,{text:'==해지해도 **결제한 기간**까지 볼 수 있어요.== 다음 결제부터 멈춰요.'}));});
+ const marks=renderer.root.findAllByType('mark');assert.equal(marks.length,1);assert.equal(text(marks[0]),'해지해도 결제한 기간까지 볼 수 있어요.');
+ assert.equal(marks[0].findAllByType('strong').length,1);assert.ok(!text(renderer.toJSON()).includes('=='));
+ act(()=>{renderer.update(el(AdvisorAnswerText,{text:'==하나 둘 셋== 넷',shown:2}));});
+ assert.equal(text(renderer.toJSON()),'하나 둘');assert.equal(renderer.root.findAllByType('mark').length,1,'typing reveal keeps the highlight');
+});
