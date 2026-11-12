@@ -3,7 +3,7 @@
 export type AdvisorSource={title:string;section:string;url:string};
 export type AdvisorAnswer={answer:string;sources:AdvisorSource[];found:boolean};
 export type AdvisorTurn={q:string;a:AdvisorAnswer};
-export type AdvisorInline={text:string;bold:boolean};
+export type AdvisorInline={text:string;bold:boolean;mark?:true};// mark: the core answer sentence (==…== from the server)
 export type AdvisorBlock={type:'paragraph';lines:AdvisorInline[]}|{type:'table';head:AdvisorInline[][];rows:AdvisorInline[][][]};
 
 export const ADVISOR_QUESTION_MAX=500;
@@ -23,9 +23,11 @@ export function isAdvisorAnswer(value:any):value is AdvisorAnswer{
   value.sources.every((x:any)=>typeof x?.title==='string'&&typeof x?.section==='string'&&safeAdvisorUrl(x?.url));
 }
 
-// Answer formatting: only **bold** and pipe tables (| a | b |). Everything else stays literal text; nothing is rendered as HTML.
+// Answer formatting: only **bold**, the ==core sentence== highlight (2026-11-12) and pipe tables (| a | b |).
+// Everything else stays literal text; nothing is rendered as HTML. A stray '==' is dropped.
+const boldParts=(text:string,mark:boolean):AdvisorInline[]=>text.split(/\*\*([^*\n]+?)\*\*/).map((part,i)=>mark?{text:part,bold:i%2===1,mark:true as const}:{text:part,bold:i%2===1}).filter(part=>part.text);
 export function parseInline(text:string):AdvisorInline[]{
- return text.split(/\*\*([^*\n]+?)\*\*/).map((part,i)=>({text:part,bold:i%2===1})).filter(part=>part.text);
+ return text.split(/==(?!\s)([^=\n]+?)(?<!\s)==/).flatMap((part,i)=>i%2?boldParts(part,true):boldParts(part.replace(/==/g,''),false));
 }
 const isRow=(line:string)=>/^\s*\|.*\|\s*$/.test(line);
 const isSeparator=(line:string)=>/^\s*\|?[\s:|-]*-[\s:|-]*\|?\s*$/.test(line);
