@@ -1,11 +1,13 @@
 "use client";
-import {useEffect,useRef,useState} from 'react';
+import {useEffect,useId,useRef,useState} from 'react';
 import type {ApiResult} from '@/types/crefans';
 import type {AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoStyle,StudioMedia} from '@/types/crefans-studio-management';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {Checkbox} from '@/components/ui/Choice';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoStyles} from '@/lib/crefans/ai-photo';
 import {Action} from '../ServiceUI';
+import {aiPhotoPresetPage} from '@/lib/crefans/ai-photo-presets';
+import {AiPhotoCategoryIcon} from './AiPhotoCategoryIcon';
 import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
@@ -16,7 +18,13 @@ type Props={open:boolean;onClose:()=>void;images:StudioMedia[];quota:{remaining:
 function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
 
 export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Props){
- const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('pose'),[prompt,setPrompt]=useState(''),[style,setStyle]=useState<AiPhotoStyle>('photo');
+ const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('pose'),[prompts,setPrompts]=useState<Partial<Record<AiPhotoKind,string>>>({}),[style,setStyle]=useState<AiPhotoStyle>('photo');
+ const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
+ const [undo,setUndo]=useState<{kind:AiPhotoKind;prompt:string}|null>(null);
+ const panelId=useId(),prompt=prompts[kind]||'',preset=aiPhotoPresetPage(kind,presetPages[kind]||0);
+ function setPrompt(value:string){setPrompts(previous=>({...previous,[kind]:value}));setError('');setUndo(null);}
+ function pickPreset(value:string){setPrompts(previous=>({...previous,[kind]:value}));setUndo({kind,prompt});setError('');}
+ function changeKind(value:AiPhotoKind){setKind(value);setError('');setUndo(null);}
  const [consent,setConsent]=useState(false),[strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
  const [stage,setStage]=useState<'edit'|'results'>('edit'),[sourcePicker,setSourcePicker]=useState(false);
@@ -49,14 +57,13 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
   const picked=results.filter(item=>selected.includes(item.id));
   if(!picked.length){setError('게시물에 넣을 사진을 골라 주세요.');return;}
   if(picked.length>room){setError(`사진은 ${room}장만 더 넣을 수 있어요.`);return;}
-  onAdd(picked);setResults([]);setSelected([]);setPrompt('');setStrokes([]);setError('');setStage('edit');onClose();
+  onAdd(picked);setResults([]);setSelected([]);setPrompts({});setUndo(null);setStrokes([]);setError('');setStage('edit');onClose();
  }
  const viewing=viewer!==null||sourceViewer;
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
- return <Dialog open={open} onClose={()=>{if(viewing){closeViewer();return;}if(!busy)onClose();}} title="AI로 사진 만들기" persistent fullscreenOnMobile className={s.editor}>
+ return <Dialog open={open} onClose={()=>{if(viewing){closeViewer();return;}if(!busy)onClose();}} title="AI 사진 편집" persistent fullscreenOnMobile className={s.editor}>
   {!images.length?<div className={s.body}><PromptLayout variant="dialog" icon="/brand/featured-creators-v1.png" title="바꿀 사진을 먼저 올려 주세요" description="게시물에 사진을 올리면 AI로 옷·포즈·배경을 바꿀 수 있어요." actions={<Action type="button" className={promptPrimary} onClick={onClose}>사진 올리러 가기</Action>}/></div>:<>
-   <div ref={bodyRef} className={s.body} inert={viewing}>
-    {stage==='edit'?<div className={s.controls}>
+   {stage==='edit'&&<div className={s.pinnedSource} inert={viewing}>
      <div className={s.sourceHeading}><span>원본 사진</span>{images.length>1&&<button type="button" aria-expanded={sourcePicker} onClick={()=>setSourcePicker(!sourcePicker)}>사진 바꾸기</button>}</div>
      {sourcePicker&&<div className={s.sources} role="radiogroup" aria-label="원본 사진 고르기">{images.map((item,index)=><button key={item.id} type="button" role="radio" aria-checked={item.id===sourceId} aria-label={`${index+1}번 사진`} className={s.source} onClick={()=>changeSource(item.id)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- uploaded draft thumbnail */}
@@ -65,12 +72,20 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
       {/* eslint-disable-next-line @next/next/no-img-element -- creator's own uploaded photo */}
       <img className={s.preview} src={source.url} alt="원본 사진"/><button ref={editRef} type="button" className={s.zoom} aria-label="원본 사진 크게 보기" onClick={()=>setSourceViewer(true)}><ZoomIcon/></button>
      </div>)}
-     <div className={s.tabs} role="tablist" aria-label="바꿀 것">{aiPhotoKinds.map(item=><button key={item.value} type="button" role="tab" aria-selected={kind===item.value} onClick={()=>{setKind(item.value);setError('');}} disabled={busy}>{item.label}</button>)}</div>
-     <TextAreaField label="원하는 모습" rows={3} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={prompt} onChange={event=>{setPrompt(event.target.value);setError('');}} placeholder={kindInfo.placeholder} disabled={busy}/>
-     <div className={s.styles} role="radiogroup" aria-label="사진 느낌">{aiPhotoStyles.map(item=><button key={item.value} type="button" role="radio" aria-checked={style===item.value} className={s.chip} onClick={()=>setStyle(item.value)} disabled={busy}>{item.label}</button>)}</div>
-     <div className={s.consent}><Checkbox checked={consent} onChange={value=>{setConsent(value);setError('');}} disabled={busy} label="사진 속 인물은 나 자신이거나 사용 동의를 받았어요."/>
-      <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>노출·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
+   </div>}
+   <div ref={bodyRef} className={s.body} inert={viewing}>
+    {stage==='edit'?<div className={s.controls}>
+     <div className={s.tabs} role="tablist" aria-label="편집 카테고리">{aiPhotoKinds.map((item,index)=><button key={item.value} id={`${panelId}-${item.value}`} type="button" role="tab" aria-controls={panelId} tabIndex={kind===item.value?0:-1} aria-selected={kind===item.value} onClick={()=>changeKind(item.value)} onKeyDown={event=>{
+      const next=event.key==='ArrowRight'?(index+1)%aiPhotoKinds.length:event.key==='ArrowLeft'?(index+aiPhotoKinds.length-1)%aiPhotoKinds.length:event.key==='Home'?0:event.key==='End'?aiPhotoKinds.length-1:null;
+      if(next===null)return;event.preventDefault();changeKind(aiPhotoKinds[next].value);event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
+     }} disabled={busy}><AiPhotoCategoryIcon kind={item.value}/><span>{item.label}</span></button>)}</div>
+     <div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
+      <div className={s.presetHeading}><span>예시를 누르면 입력창에 담겨요.</span><span aria-live="polite">{preset.index+1} / {preset.pages}</span></div>
+      {preset.examples.map(example=><button type="button" key={example} className={s.preset} aria-pressed={prompt===example} onClick={()=>pickPreset(example)} disabled={busy}><span>{example}</span><span className={s.presetCheck} aria-hidden="true">{prompt===example?'✓':''}</span></button>)}
+      <button type="button" className={s.morePresets} onClick={()=>setPresetPages(previous=>({...previous,[kind]:(preset.index+1)%preset.pages}))} disabled={busy}>다른 예시 보기 <span aria-hidden="true">↻</span></button>
      </div>
+     <div className={s.styles} role="radiogroup" aria-label="사진 느낌">{aiPhotoStyles.map(item=><button key={item.value} type="button" role="radio" aria-checked={style===item.value} className={s.chip} onClick={()=>setStyle(item.value)} disabled={busy}>{item.label}</button>)}</div>
+     <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>노출·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
     </div>:<div className={s.results} aria-busy={busy}>
      <div className={s.summary}>
       {/* eslint-disable-next-line @next/next/no-img-element -- own source thumbnail */}
@@ -87,6 +102,11 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
     {error&&<p ref={errorRef} className={s.error} role="alert">{error}</p>}
    </div>
    <div className={s.footer} inert={viewing}>
+    {stage==='edit'&&<div className={s.composer}>
+     <TextAreaField label="직접 입력 · 수정" rows={2} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={prompt} onChange={event=>setPrompt(event.target.value)} placeholder={kindInfo.placeholder} disabled={busy}/>
+     {undo?.kind===kind&&<button className={s.undoPreset} type="button" onClick={()=>setPrompt(undo.prompt)}>예시 적용 취소</button>}
+     <div className={s.consent}><Checkbox checked={consent} onChange={value=>{setConsent(value);setError('');}} disabled={busy} label="사진 속 인물은 나 자신이거나 사용 동의를 받았어요."/></div>
+    </div>}
     {stage==='edit'||busy?<><div className={s.quota}><span>무료 · 한 번에 {AI_PHOTO_IMAGES_PER_REQUEST}장</span><span>오늘 남은 횟수 <b>{remaining}</b>/{quota.limit}</span></div><Action type="button" onClick={()=>void generate()} disabled={busy||remaining<=0}>{busy?`만드는 중… ${elapsed}초`:`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</Action></>:<div className={s.resultActions}><Action type="button" variant="secondary" onClick={()=>void generate()} disabled={busy||remaining<=0}><span aria-hidden="true">↻</span> 다시 만들기</Action><Action type="button" onClick={add} disabled={busy||!selected.length}>게시물에 추가 ({selected.length})</Action></div>}
    </div>
   </>}

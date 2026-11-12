@@ -1,3 +1,13 @@
+## 2026-11-13 AI 사진 편집 9안 구현 (검증 완료, 운영 미배포)
+- 사용자 선택: 정적 시안 09 미리보기 고정형. 기준 origin/prod cb65370, feat/ai-photo-preset-editor-20261113, worktree /Users/ethan/repository/crefans_front-ai-photo-editor. 기존 worktree/미커밋 변경은 보존.
+- 합격 조건: 사진·하단 직접 입력/생성 고정 + 카테고리/예시 영역 내부 스크롤, 옷/메이크업/표정/포즈/배경 플랫 아이콘5개, 고정 자연어60문구(12개/분류·3개씩4페이지), 직접 수정/적용취소/분류별 초안, 더보기만으로 생성·초안삭제 없음, 기존 동의/마스크/한도/결과/확대 보존.
+- 구현: 공용 AiPhotoDialog/CSS, AiPhotoCategoryIcon, ai-photo-presets.ts. 서버와 목업이 같은 컴포넌트를 사용한다. 전체 화면 모바일390×844·320×568, PC1280×900 확인. 입력 자동 포커스 없음; 모바일 직접입력 포커스 중 사진을 접고 PC에서는 유지. 320×568은 사진64px/목록138px, 목록 스크롤284px 뒤에도 사진Y117·생성하단552px 유지(브라우저 확인). 실제 휴대폰 키보드는 미실행.
+- 서버 feat/ai-photo-categories-20261113도 함께 변경: kind makeup/expression 허용과 전용 편집 지시, OpenAPI/문서 동기화. 기존3종에 임의 매핑하지 않음. 두 작업을 함께 릴리스해야 한다. 실제 AI 품질/공급사/운영 검증 아님.
+- 검사: 프론트 typecheck0, check:layers0(450파일), studio-ai-photo13/13, CREFANS_E2E=true npm run build0(격리 .next-e2e), diff --check0. 프리셋 입력 동작을 제거한 대조 검사에서 새 테스트 실패 확인 후 원복/13개 재통과. 서버 build0, AI사진7/7, OpenAPI14/14(격리E2E DB+AI 대역).
+- 수동 브라우저: 같은 디자인 카탈로그에서5분류·문구선택·더보기 초안 유지·직접수정·대역생성결과·설정복귀·작은화면·PC 입력시사진유지 확인. 카탈로그의 기존 정상/빈사진/오류/안전차단/한도 상태 유지. 증거 .local/ai-photo-editor-20261113/{browser.json,mobile-390-final.png,mobile-320.png,desktop-1280.png,mobile-results.png,verification.json,*log}.
+- 문서 범위: docs/design-system.md 실제UI 설명 갱신, W3C APG 모달/탭 근거(2026-11-13 확인) 기록. check:docs는 기존 Generated contracts stale 및 다수 과거 evidence expired로 미통과. 자동 계약 재생성은 기존 누락 API/스키마까지36줄 변경되어 이번 커밋에 섞지 않고 서버 .local에만 보관 후 복원. docs 증거를 갱신해 통과로 꾸미지 않음.
+- 남은 일: dev 통합/원격 반영/운영 배포는 미실행. 실제 공급사 결과·실기기 키보드 확인은 별도. 기존 전체 문서 계약/증거 만료는 별도 정리 필요. 프론트와 서버를 동시 릴리스할 것.
+
 ## 2026-11-13 01:08 KST 마이페이지 스튜디오 버튼 항상 표시·설정 아이콘 세 줄 메뉴 운영 배포
 - 사용자 요청. AccountPages 커버 버튼: 스튜디오 링크를 크리에이터 여부와 무관하게 표시(비크리에이터는 기존 스튜디오 전환 안내→크리에이터 시작하기), 설정 링크 아이콘 settings(톱니)→menu(세 줄, Icon.tsx에 추가), aria-label '설정' 유지.
 - 검증: 신규 tests/my-profile-actions.test.cjs(비크리에이터·크리에이터 모두 스튜디오 1개, 설정 아이콘 경로; 대조: 조건 되돌리면 실패). 기존 crefans-account 마이페이지 테스트는 useRouter 대역 문제로 원래 실패(기준선 16건에 포함)라 별도 파일로 작성. npm test 594/610(실패 16 동일), typecheck 0, 목업 /preview/me 모바일 캡처 확인. 운영 prod f721663 → crefans-front:front-mypage-menu-20261113, 번들 아이콘 경로 확인, 이전 이미지 /Users/ethan/crefans-recovery/20261113/front-mypage-menu-20261113.

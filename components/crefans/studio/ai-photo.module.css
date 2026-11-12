@@ -1,4 +1,4 @@
-/* 선택한 1안: 편집 → 두 결과 비교. 공용 스튜디오 토큰과 폼을 재사용한다. */
+/* 9안: 원본 고정 + 예시 탐색 + 직접 입력. 생성 뒤 두 결과를 비교한다. */
 .editor.editor{width:min(640px,calc(100vw - 40px));height:min(900px,90dvh);max-height:90dvh;padding:0;overflow:hidden}
 .editor[open]{display:flex;flex-direction:column}
 .editor>header{flex:none;margin:0;padding:20px 24px;border-bottom:1px solid var(--cf-color-border)}
@@ -115,3 +115,27 @@
 .progressBar{display:block;height:6px;border-radius:999px;background:var(--cf-color-surface);overflow:hidden}
 .progressBar i{display:block;height:100%;border-radius:inherit;background:var(--cf-color-accent);transition:width 1s linear}
 @media(prefers-reduced-motion:reduce){.progressBar i{transition:none}}
+
+/* 9안: 원본과 입력/생성 영역은 고정하고 카테고리·제안 문구만 탐색한다. */
+.pinnedSource{flex:none;padding:12px 24px 0;min-height:0;overflow:auto;max-height:34dvh;overscroll-behavior:contain}
+.pinnedSource .sourceHeading{margin-bottom:8px}
+.pinnedSource .preview{height:clamp(100px,22dvh,200px)}
+.pinnedSource .maskStage img{max-height:clamp(100px,20dvh,180px)}
+.pinnedSource .hint{margin:4px 0}
+.tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:72px;font-size:12px;box-shadow:none}
+.tabs button svg{flex:none}
+.presets{display:flex;flex-direction:column;gap:8px;min-width:0}
+.presetHeading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;line-height:1.5;color:var(--cf-color-textMuted)}
+.presetHeading>span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
+.preset{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;width:100%;padding:10px 12px;border:1px solid var(--cf-color-border);border-radius:10px;background:var(--cf-color-surface);color:var(--cf-color-text);text-align:left;font:inherit;font-size:14px;line-height:1.5;cursor:pointer;overflow-wrap:anywhere}
+.preset[aria-pressed=true]{border-color:var(--cf-color-accent);background:var(--cf-color-accentSoft)}
+.presetCheck{flex:none;width:19px;height:19px;border:1px solid var(--cf-color-border);border-radius:50%;display:grid;place-items:center;font-size:12px}
+.preset[aria-pressed=true] .presetCheck{background:var(--cf-color-accent);border-color:var(--cf-color-accent);color:var(--cf-color-surface)}
+.morePresets{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:0;border-radius:10px;background:var(--cf-color-surfaceSubtle);color:var(--cf-color-accent);font:inherit;font-size:13px;cursor:pointer}
+.composer{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.composer textarea{min-height:64px;max-height:120px;resize:vertical;font-size:16px}
+.composer .consent>label{font-size:12px;line-height:1.5}
+.footer .undoPreset{align-self:flex-start;min-height:28px;border:0;padding:0;background:transparent;color:var(--cf-color-accent);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}
+@media(max-width:767px){.editor:has(.composer textarea:focus) .pinnedSource{display:none}}
+@media(max-width:767px){.pinnedSource{padding:8px 16px 0}.body{padding:12px 16px}.controls{gap:12px}.footer{padding-top:8px}.quota{margin-bottom:8px}.tabs button{font-size:11px;min-height:64px}.tabs button svg{width:24px;height:24px}}
+@media(max-height:680px){.pinnedSource .preview{height:64px}.pinnedSource .maskStage img{max-height:96px}.pinnedSource{max-height:29dvh}.sourceHeading{font-size:12px}.composer textarea{height:56px;min-height:56px}.composer{margin-bottom:6px}}

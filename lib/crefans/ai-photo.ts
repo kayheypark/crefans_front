@@ -1,5 +1,5 @@
 // 스튜디오 AI 사진 편집 규칙(2026-11-08 사용자 결정: 시안 A + 의상 영역 칠하기, 무료·하루 10회·한 번에 2장).
-// 실제 생성(서버·OpenAI)과 처리방침 개정은 아직 연결하지 않았다: 화면은 aiEditPhoto 동작이 주입될 때만 보인다.
+// 생성 동작은 서비스 모델이 주입하며 프리셋 탐색은 서버나 AI를 호출하지 않는다.
 import {containsPersonalData} from './advisor';
 import type {AiPhotoKind,AiPhotoStyle} from '@/types/crefans-studio-management';
 
@@ -8,6 +8,8 @@ export const AI_PHOTO_IMAGES_PER_REQUEST=2;
 export const AI_PHOTO_PROMPT_MAX=300;
 export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=[
  {value:'outfit',label:'옷',placeholder:'칠한 부분의 옷을 흰색 세일러 교복 코스튬으로'},
+ {value:'makeup',label:'메이크업',placeholder:'입술을 자연스러운 코랄 톤으로 바꿔줘.'},
+ {value:'expression',label:'표정',placeholder:'치아가 살짝 보이게 밝게 웃어줘.'},
  {value:'pose',label:'포즈',placeholder:'벚꽃 아래 벤치에 앉아 카메라를 바라보는 포즈'},
  {value:'background',label:'배경',placeholder:'해 질 녘 벚꽃길, 부드러운 역광'},
 ];
