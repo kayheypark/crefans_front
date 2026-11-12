@@ -713,3 +713,16 @@ test('search preview: a subscriber gets a detail link (no sales notice, no inlin
     try{assert.match(text(card),/멤버십 안내/);assert.doesNotMatch(text(card),/구독 중인 멤버십 게시물/);}finally{close(card);}
   }
 });
+
+// 2026-11-13: a photo still being watermarked after posting shows the processing placeholder (not a broken or missing image).
+test('a processing photo shows the photo-processing placeholder and is never requested, single or in a gallery',()=>{
+  for(const media of [[{type:'image',url:'/api/v1/media/p1/file',processing:true}],[{type:'image',url:'/ready.png'},{type:'image',url:'/api/v1/media/p2/file',processing:true}]]){
+    const item={...post,media},input=model({data:{...data,posts:[item]},commentsByPost:{[post.id]:[]},loadReplies:async()=>ok});
+    let tree;act(()=>{tree=create(element(PostCard,{post:item,model:input}),{createNodeMock:el=>el.props.className==='galleryTrack'?{scrollLeft:0,clientWidth:300,style:{},scrollTo(){}}:null});});
+    try{
+      const srcs=tree.root.findAllByType('img').map(img=>img.props.src);assert.ok(!srcs.some(src=>String(src).includes('/api/v1/media/p')),'processing file is not requested');
+      const status=tree.root.findAll(n=>n.props&&n.props['data-video-processing']==='media');assert.equal(status.length,1);
+      assert.match(JSON.stringify(status[0].props['aria-label']),/사진 처리 중/);
+    }finally{act(()=>tree.unmount());}
+  }
+});

@@ -19,6 +19,7 @@ import type {MentionCandidate} from '@/types/crefans-social';
 const empty={data:{creators:[],plans:[],creatorPlans:{},posts:[],notifications:[],paymentHistory:[],messages:{},faqs:[],categories:[],followers:[]},viewer:{name:'',handle:'',bio:'',image:''},signedIn:false,ownCreatorIds:[],following:[],liked:[],saved:[],subscriptions:[],read:[],messagesByCreator:{},commentsByPost:{},account:{email:'',stats:{posts:0,followers:0},preferences:{contentAlert:true,messageAlert:true,marketingAlert:false,showActivity:true,allowSearch:true,showFollowers:true,showFollowing:true},blockedCreatorIds:[],paymentMethods:[],tickets:[],inquiryCategories:[],banner:null,policies:{terms:'/service/legal/terms',privacy:'/service/legal/privacy'},guidance:{}}};
 const loadFoundingBadge=()=>api<FoundingBadgeStatus>('/events/founding-badge');
 const profilePlans=(creators:any[])=>Object.fromEntries(creators.filter(creator=>Array.isArray(creator.plans)).map(creator=>[creator.id,creator.plans]));
+const PROCESSING_POLL_MS=5000,PROCESSING_POLL_LIMIT=24;
 export function useServiceModel(){
  const query=useSearchParams(),referral=query.get('ref');useEffect(()=>rememberReferral(referral),[referral]);const pathname=usePathname(),[cursor,setCursor]=useState<string|null>(null),[moreLoading,setMoreLoading]=useState(false),[publicProfile,setPublicProfile]=useState<any>(null),[state,setState]=useState<any>(empty),[common,setCommon]=useState<any>(null),[loading,setLoading]=useState(true),[error,setError]=useState(''),[comments,setComments]=useState<any>({}),[commentPages,setCommentPages]=useState<Record<string,{offset:number|null;loading:boolean}>>({}),proofs=useRef({email:'',identity:''});
  const [loadedPath,setLoadedPath]=useState('');
@@ -42,6 +43,14 @@ export function useServiceModel(){
  async function loadMore(){if(!cursor||moreLoading)return;const token=generation.current;setMoreLoading(true);const [screen,id]=pathname.replace('/service/','').split('/'),profileId=screen==='creator'?id:screen==='me'?state.ownCreatorIds?.[0]:undefined;const response=await api<any>(`/posts?cursor=${encodeURIComponent(cursor)}${profileId?`&creatorId=${encodeURIComponent(profileId)}`:activeFeedCategory!=='전체'?`&category=${encodeURIComponent(activeFeedCategory)}`:''}`);if(token!==generation.current)return;if(response.success){setState((previous:any)=>({...previous,data:{...previous.data,creatorPlans:{...previous.data.creatorPlans,...profilePlans(response.data.creators)},posts:[...previous.data.posts,...response.data.posts.filter((p:any)=>!previous.data.posts.some((old:any)=>old.id===p.id))],creators:[...previous.data.creators.filter((c:any)=>!response.data.creators.some((p:any)=>p.id===c.id)),...response.data.creators]}}));setCursor(response.data.nextCursor);}else setError(response.errorMessage);setMoreLoading(false);}
 
  useEffect(()=>{void refresh();return()=>{generation.current++;};},[refresh]);
+ // 2026-11-13: while a post's photo or video is still being processed, re-read only that post every 5 seconds (2 minutes at
+ // most) so it appears without a manual reload. The placeholder stays if processing takes longer.
+ const [openScreen,openId]=pathname.replace('/service/','').split('/');
+ const processingPostId=openScreen==='post'&&state.data?.posts?.find((p:any)=>p.id===openId)?.media?.some((m:any)=>m.processing)?openId:'';
+ useEffect(()=>{if(!processingPostId)return;let live=true,tries=0;
+  const timer=setInterval(async()=>{if(++tries>PROCESSING_POLL_LIMIT)return clearInterval(timer);const post=await api<any>(`/posts/${encodeURIComponent(processingPostId)}`);if(!live||!post.success)return;
+   setState((previous:any)=>previous?.data?.posts?{...previous,data:{...previous.data,posts:previous.data.posts.map((p:any)=>p.id===processingPostId?post.data.post:p)}}:previous);},PROCESSING_POLL_MS);
+  return()=>{live=false;clearInterval(timer);};},[processingPostId]);
  // The keep-alive outlives route changes, so it must call the latest refresh (current pathname), not the one from sign-in.
  const refreshRef=useRef(refresh);refreshRef.current=refresh;
  useEffect(()=>{if(!state.signedIn)return;const keepAlive=()=>{if(document.visibilityState==='visible')void api('/session').then(r=>{if(!r.success&&r.errorCode==='UNAUTHORIZED')void refreshRef.current();});};const timer=setInterval(keepAlive,300000);document.addEventListener('visibilitychange',keepAlive);return()=>{clearInterval(timer);document.removeEventListener('visibilitychange',keepAlive);};},[state.signedIn]);

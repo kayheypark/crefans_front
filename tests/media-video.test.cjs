@@ -36,3 +36,11 @@ test('processing media avoids unfinished video requests and changes to normal co
  assert.equal(tree.root.findAllByProps({'data-video-processing':'media'}).length,0);assert.equal(tree.root.findByType('video').props.controls,true);
  act(()=>tree.unmount());
 });
+
+test('the processing placeholder names photos and videos apart',()=>{
+ const {VideoProcessing}=loadTypeScript('components/ui/VideoProcessing.tsx');
+ const words=n=>n==null?'':typeof n==='string'?n:Array.isArray(n)?n.map(words).join(''):(n.children||[]).map(words).join('');
+ let tree;act(()=>{tree=create(React.createElement(VideoProcessing,{kind:'image',label:'딩푸'}));});
+ assert.match(words(tree.toJSON()),/사진 처리 중.*자동으로 나타나요/);assert.equal(tree.toJSON().props['aria-label'],'딩푸 · 사진 처리 중');act(()=>tree.unmount());
+ act(()=>{tree=create(React.createElement(VideoProcessing,{label:'영상'}));});assert.match(words(tree.toJSON()),/영상 최적화 중/);act(()=>tree.unmount());
+});

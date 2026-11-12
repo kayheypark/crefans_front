@@ -1,6 +1,7 @@
 'use client';
 import {forwardRef,useEffect,useRef,useState,type HTMLAttributes,type KeyboardEvent as ReactKeyboardEvent,type PointerEvent as ReactPointerEvent,type ReactNode} from 'react';
 import {MediaVideo} from '@/components/ui/MediaVideo';
+import {VideoProcessing} from '@/components/ui/VideoProcessing';
 import Icon from './Icon';
 import s from './social.module.css';
 
@@ -49,7 +50,7 @@ export const MediaOverlay=forwardRef<HTMLDivElement,MediaOverlayProps>(function 
   };
   return <div {...props} ref={ref} className={s.overlay} role="dialog" aria-modal="true" aria-label={title} data-state={open?'open':'closing'} data-media-only={!children||undefined} onKeyDown={keyDown} onClick={onClose}>
     <div className={s.stage} onClick={event=>{event.stopPropagation();if(open&&!suppressImageClick.current&&(event.target as HTMLElement).tagName==='IMG')onImageClick?.();}} onPointerDown={swipeStart} onPointerMove={swipeMove} onPointerUp={swipeEnd} onPointerCancel={()=>{swipe.current=null;suppressImageClick.current=true;setOffset(0);}}>
-      <div className={s.stageTrack} data-index={index} data-dragging={offset!==0||undefined} style={{transform:`translateX(calc(${-index*100}% + ${offset}px))`}}>{media.map((item,slide)=><div key={`${item.url}-${slide}`} className={s.stageSlide} aria-hidden={slide!==index||undefined}>{item.type==='video'?<MediaVideo src={item.url} firstFrame optimizing={item.processing} controls={slide===index} playsInline preload="metadata" aria-label={`${alt} 동영상 ${slide+1}`}/>:<img src={item.url} alt={media.length>1?`${alt} ${slide+1}`:alt} draggable={false}/>}</div>)}</div>
+      <div className={s.stageTrack} data-index={index} data-dragging={offset!==0||undefined} style={{transform:`translateX(calc(${-index*100}% + ${offset}px))`}}>{media.map((item,slide)=><div key={`${item.url}-${slide}`} className={s.stageSlide} aria-hidden={slide!==index||undefined}>{item.type==='video'?<MediaVideo src={item.url} firstFrame optimizing={item.processing} controls={slide===index} playsInline preload="metadata" aria-label={`${alt} 동영상 ${slide+1}`}/>:item.processing?<VideoProcessing kind="image" label={media.length>1?`${alt} ${slide+1}`:alt}/>:<img src={item.url} alt={media.length>1?`${alt} ${slide+1}`:alt} draggable={false}/>}</div>)}</div>
       {media.length>1&&<>{index>0&&<button type="button" className={`${s.stageNav} ${s.stagePrevious}`} aria-label="이전 미디어" onClick={previous}><Icon name="chevron"/></button>}{index<media.length-1&&<button type="button" className={`${s.stageNav} ${s.stageNext}`} aria-label="다음 미디어" onClick={next}><Icon name="chevron"/></button>}<div className={`${s.galleryDots} ${s.stageDots}`} aria-hidden="true">{media.map((item,dot)=><i key={`${item.url}-${dot}`} data-active={dot===index||undefined}/>)}</div></>}
       {stageAction}
     </div>
