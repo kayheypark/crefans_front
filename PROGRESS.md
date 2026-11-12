@@ -1,3 +1,9 @@
+## 2026-11-13 00:5x KST 게시물 사진 '처리 중' 표시 운영 배포 완료
+- 사용자 보고(캡처): 글 작성 직후 사진이 워터마크 처리 중이면 게시물에 사진이 아예 안 보임. 원인: 서버 service.post()가 PROCESSING 이미지를 목록에서 뺐음(영상만 processing:true로 포함).
+- 서버 prod b6809d3: 처리 중 사진도 processing:true로 포함(파일 URL은 프론트가 요청하지 않음). 프론트 prod 1221d7c: VideoProcessing에 kind='image'('사진 처리 중 · 완료되면 사진이 자동으로 나타나요', 사진 아이콘, role=status), 게시물 단일·갤러리·전체 보기·타일·공유 미리보기에서 처리 중 사진은 자리 표시만, 게시물 상세를 보는 동안 처리 중 미디어가 있으면 5초마다 그 게시물만 다시 읽음(최대 2분).
+- 검증: 서버 platform-watermark 8/8(+처리 중→완료 단언, 대조: 필터 되돌리면 실패), 관련 묶음 새 실패 0(access 통합 6건은 기준선 동일). 프론트 593/609(실패 16건 기준선 동일), 새 테스트 2(대조 확인). 운영: API media-processing-20261113(service.js SHA 46686d99… 일치), 프론트 front-media-processing-20261113, 번들 문구 확인. 실제 처리 중 게시물 화면은 운영에서 재현하지 못함(처리 시간이 짧아 다음 사진 게시 때 확인 필요).
+- 복구본 /Users/ethan/crefans-recovery/20261113/media-processing-api-20261113(photo-limit 이미지), front-media-processing-20261113.
+
 ## 2026-11-13 00:4x KST AI 가이드 답변 바로 가기 버튼 운영 배포 완료
 - 사용자 요청(캡처: '크리에이터 시작하기를 눌러…' 답변): 답변이 가리키는 서비스 화면으로 클릭 한 번에 이동. lib/crefans/advisor.ts advisorShortcuts — 고정 허용 목록(크리에이터 시작하기 /studio/start·게시물 작성·멤버십·출금 신청·정산 계좌·출금 PIN·콩 후원·출금·고객센터 문의), 답변 글(찾은 답이면 질문도)에 맞는 것 최대 3개, 모델이 준 URL은 쓰지 않음. AdvisorChat 답변 아래 파란 알약 버튼(nav '바로 가기'), 누르면 창 닫고 이동. 목업 대역에 '크리에이터' 답변 추가.
 - 검증: support-advisor 10/10(+1, 대조: 버튼 렌더 제거 시 실패), npm test 591/607(실패 16건 기준선 동일), typecheck 0. 목업 모바일 375 화면 확인·클릭 시 /preview/studio/start 이동. 운영 prod 82f7ae8 → crefans-front:front-advisor-shortcut-20261113, 이전 이미지 /Users/ethan/crefans-recovery/20261113/front-advisor-shortcut-20261113 검증. 운영 실제 질문 1건('크리에이터 전환은 어떻게 하나요?') → 버튼 '크리에이터 시작하기' href /service/studio/start 확인. guide.crefans.com의 AI 가이드(별도 코드)는 미적용.
