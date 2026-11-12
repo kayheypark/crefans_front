@@ -1,3 +1,7 @@
+## 2026-11-13 00:4x KST AI 가이드 답변 바로 가기 버튼 운영 배포 완료
+- 사용자 요청(캡처: '크리에이터 시작하기를 눌러…' 답변): 답변이 가리키는 서비스 화면으로 클릭 한 번에 이동. lib/crefans/advisor.ts advisorShortcuts — 고정 허용 목록(크리에이터 시작하기 /studio/start·게시물 작성·멤버십·출금 신청·정산 계좌·출금 PIN·콩 후원·출금·고객센터 문의), 답변 글(찾은 답이면 질문도)에 맞는 것 최대 3개, 모델이 준 URL은 쓰지 않음. AdvisorChat 답변 아래 파란 알약 버튼(nav '바로 가기'), 누르면 창 닫고 이동. 목업 대역에 '크리에이터' 답변 추가.
+- 검증: support-advisor 10/10(+1, 대조: 버튼 렌더 제거 시 실패), npm test 591/607(실패 16건 기준선 동일), typecheck 0. 목업 모바일 375 화면 확인·클릭 시 /preview/studio/start 이동. 운영 prod 82f7ae8 → crefans-front:front-advisor-shortcut-20261113, 이전 이미지 /Users/ethan/crefans-recovery/20261113/front-advisor-shortcut-20261113 검증. 운영 실제 질문 1건('크리에이터 전환은 어떻게 하나요?') → 버튼 '크리에이터 시작하기' href /service/studio/start 확인. guide.crefans.com의 AI 가이드(별도 코드)는 미적용.
+
 ## 2026-11-13 00:1x~00:35 KST 인증 배지=파트너 계약, 배지 있어야 출금 + 사진 업로드 50MB 운영 배포 완료
 - 사용자 결정(/ask-me 2026-11-12): 배지(creators.is_verified)=크레팬스 파트너 계약. 출금 신청·이체 기록 모두 서버에서 차단(403 PARTNER_CONTRACT_REQUIRED), 계좌·PIN은 계약 전 허용, 배지 해제 시 미지급 신청은 보류(자동 반려 아님, 잔액 유지), 약관 6조 배포일 시행(2026-11-13.partner.1), 배지 문구 "크레팬스와 파트너 계약을 맺은 크리에이터예요", 출금 화면 안내+계약 문의 버튼, 계약 없는 기존 배지 보유자는 사용자가 콘솔에서 직접 해제.
 - 서버 prod 4929ca4: partner-policy.ts, finance/beans verifyPin·requestWithdrawal·authorize·requestPayout 게이트, payout() quiet/strict/off(worker는 보류, 수동 paid·콘솔 approve 거부, rejected 허용), 지급 목록 holdReason partner-unverified, studio 응답 payoutPartner, 회원가입 게이트 시행일 비교 UTC→KST 버그 수정(KST 자정 시행 약관이 09시까지 가입을 막던 문제), 사진 상한 5MB→50MB(IMAGE_UPLOAD_MAX_BYTES).
