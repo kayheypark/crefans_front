@@ -25,11 +25,11 @@ function fixture({memberships=[plan],subscribers=[subscriber],protectedPlans=[]}
 
 test('local image validation rejects unsupported, empty and oversized files before allocating URLs',async t=>{
  urls(t);const store=createLocalImageStore();
- for(const invalid of [{type:'image/svg+xml',size:1},{type:'image/png',size:0},{type:'image/jpeg',size:5*1024*1024+1}]){
+ for(const invalid of [{type:'image/svg+xml',size:1},{type:'image/png',size:0},{type:'image/jpeg',size:50*1024*1024+1}]){
   assert.equal((await store.upload(invalid)).success,false);
  }
  assert.equal(URL.createObjectURL.mock.callCount(),0);
- for(const type of ['image/png','image/jpeg','image/webp'])assert.equal((await store.upload({type,size:5*1024*1024})).success,true);
+ for(const type of ['image/png','image/jpeg','image/webp'])assert.equal((await store.upload({type,size:50*1024*1024})).success,true);
  store.dispose();
 });
 

@@ -10,7 +10,7 @@ test('live membership picker enforces the same image-only limits as preview befo
  await act(async()=>{tree=create(React.createElement(Probe));});
  try{
   calls.length=0;
-  for(const [type,size,code] of [['video/mp4',10,'INVALID_IMAGE_TYPE'],['image/svg+xml',10,'INVALID_IMAGE_TYPE'],['image/png',0,'INVALID_IMAGE_SIZE'],['image/png',5*1024*1024+1,'INVALID_IMAGE_SIZE']]){
+  for(const [type,size,code] of [['video/mp4',10,'INVALID_IMAGE_TYPE'],['image/svg+xml',10,'INVALID_IMAGE_TYPE'],['image/png',0,'INVALID_IMAGE_SIZE'],['image/png',50*1024*1024+1,'INVALID_IMAGE_SIZE']]){
    const result=await model.management.actions.uploadMembershipImage(new File([new Uint8Array(size)],'file',{type}));assert.equal(result.success,false);assert.equal(result.errorCode,code);
   }
   assert.equal(calls.length,0,'rejected files never reach the upload API');

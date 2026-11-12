@@ -21,7 +21,7 @@ test('local media store accepts images and videos with separate limits and rejec
   assert.equal((await store.uploadMedia(file('video/webm'))).success,true);
   // iPhone .mov is accepted since 2026-11-01 (the server converts it to MP4).
   assert.equal((await store.uploadMedia(file('video/quicktime'))).success,true);
-  assert.equal((await store.uploadMedia(file('image/png',6*1024*1024))).errorCode,'INVALID_MEDIA_SIZE');
+  assert.equal((await store.uploadMedia(file('image/png',50*1024*1024+1))).errorCode,'INVALID_MEDIA_SIZE');assert.equal((await store.uploadMedia(file('image/png',20*1024*1024))).success,true,'2026-11-13: a 20MB photo is accepted');
   assert.equal((await store.uploadMedia(file('video/mp4',301*1024*1024))).errorCode,'INVALID_MEDIA_SIZE');
   assert.equal((await store.upload(file('video/mp4'))).errorCode,'INVALID_IMAGE_TYPE');
 });
