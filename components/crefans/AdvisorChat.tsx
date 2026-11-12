@@ -11,8 +11,14 @@ import {
 } from '@/lib/crefans/advisor';
 import s from './advisor.module.css';
 
-export type AdvisorAsk=(question:string)=>Promise<ApiResult<AdvisorAnswer>>;
-const SUGGESTIONS=[['구독 해지','구독을 해지하면 바로 못 보나요?'],['멤버십 환불','멤버십 환불은 어떻게 요청하나요?'],['콩 충전','콩은 어디에서 충전하나요?'],['출금 PIN','출금 PIN을 잊어버렸어요']] as const;
+export type AdvisorAsk=(question:string,signal?:AbortSignal)=>Promise<ApiResult<AdvisorAnswer>>;
+// 추천 질문 12개를 4개씩 보여 주고 '다른 질문'으로 넘긴다. 가이드 사이트(AdvisorChat.astro)와 같은 목록이며 가이드 쪽 check:advisor 가 검색 적중을 확인한다.
+const SUGGESTIONS=[
+ ['구독 해지','구독을 해지하면 바로 못 보나요?'],['멤버십 환불','멤버십 환불은 어떻게 요청하나요?'],['콩 충전','콩은 어디에서 충전하나요?'],['출금 PIN','출금 PIN을 잊어버렸어요'],
+ ['카드 변경','결제 카드는 어떻게 바꾸나요?'],['잠긴 게시물','구독했는데 게시물이 잠겨 있어요'],['멤버십 만들기','멤버십 상품은 어떻게 만드나요?'],['인증 메일','인증 메일을 받지 못했어요'],
+ ['팔로우·구독','팔로우와 구독의 차이가 뭔가요?'],['정산 계좌','정산 계좌는 어디서 등록하나요?'],['예약 게시','게시물 예약은 어떻게 하나요?'],['비밀번호 찾기','비밀번호를 잊어버렸어요'],
+] as const;
+const GROUP=4,GROUPS=Math.ceil(SUGGESTIONS.length/GROUP);
 
 type Budget={left:number}|null;
 function cut(text:string,budget:Budget){
@@ -42,13 +48,16 @@ function Sources({sources,found}:{sources:AdvisorSource[];found:boolean}){
  </details>;
 }
 
-type Pending={question:string;state:'loading'}|{question:string;state:'error';message:string;retry:boolean};
+type Pending={question:string;state:'loading'}|{question:string;state:'stopped'}|{question:string;state:'error';message:string;retry:boolean};
 const reduced=()=>typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export function AdvisorChat({ask,basePath,onClose,headerless}:{ask:AdvisorAsk;basePath:string;onClose?:()=>void;headerless?:boolean}){
  const [turns,setTurns]=useState<AdvisorTurn[]>([]),[pending,setPending]=useState<Pending|null>(null),[typing,setTyping]=useState<{index:number;shown:number;total:number}|null>(null);
- const [value,setValue]=useState(''),[inputError,setInputError]=useState('');
+ const [value,setValue]=useState(''),[inputError,setInputError]=useState(''),[group,setGroup]=useState(0),[farFromEnd,setFarFromEnd]=useState(false);
  const log=useRef<HTMLDivElement>(null),input=useRef<HTMLTextAreaElement>(null),alive=useRef(true);
+ // request: 지금 기다리는 질문의 취소 장치(멈추기). focusNext: 보내기/멈추기 버튼이 바뀐 뒤 키보드 초점을 옮길 곳.
+ const request=useRef<AbortController|null>(null),focusNext=useRef<'stop'|'after'|null>(null);
+ const sendButton=useRef<HTMLButtonElement>(null),stopButton=useRef<HTMLButtonElement>(null),retryButton=useRef<HTMLButtonElement>(null);
  useEffect(()=>{setTurns(loadAdvisorTurns());alive.current=true;return()=>{alive.current=false;};},[]);
  const busy=pending?.state==='loading'||!!typing,started=turns.length>0||!!pending;
  // Keep the newest message in view when a question is sent or the chat is restored.
@@ -60,15 +69,27 @@ export function AdvisorChat({ask,basePath,onClose,headerless}:{ask:AdvisorAsk;ba
   const timer=setTimeout(()=>setTyping(t=>t&&{...t,shown:t.shown+1}),step);return()=>clearTimeout(timer);
  },[typing]);
  useLayoutEffect(()=>{const node=input.current;if(!node)return;node.style.height='auto';node.style.height=Math.min(node.scrollHeight,160)+'px';},[value]);
+ // '맨 아래로'는 대화를 위로 올려 보고 있을 때만 보인다.
+ const measure=()=>{const node=log.current;setFarFromEnd(!!node&&node.scrollHeight-node.scrollTop-node.clientHeight>120);};
+ useEffect(measure,[turns,pending,typing]);
+ useEffect(()=>{
+  const target=focusNext.current;if(!target)return;
+  if(target==='stop'&&stopButton.current){focusNext.current=null;stopButton.current.focus({preventScroll:true});}
+  else if(target==='after'&&pending?.state!=='loading'){focusNext.current=null;(sendButton.current&&!sendButton.current.disabled?sendButton.current:retryButton.current||log.current)?.focus({preventScroll:true});}
+ });
 
  async function send(raw:string){
   const question=raw.trim();setInputError('');
   if(!question||busy)return;
   if(question.length>ADVISOR_QUESTION_MAX){setInputError(`질문은 ${ADVISOR_QUESTION_MAX}자 이내로 입력해 주세요.`);return;}
   if(containsPersonalData(question)){setInputError('이메일·전화번호·카드·계좌번호 같은 개인정보는 빼고 질문해 주세요.');return;}
+  if(typeof document!=='undefined'&&document.activeElement===sendButton.current)focusNext.current='stop';
+  const controller=new AbortController();request.current=controller;
   setValue('');setPending({question,state:'loading'});
-  const result=await ask(question);
-  if(!alive.current)return;
+  const result=await ask(question,controller.signal);
+  if(!alive.current||request.current!==controller)return;// 멈춘 질문의 늦은 응답은 버린다
+  request.current=null;
+  if(typeof document!=='undefined'&&document.activeElement===stopButton.current)focusNext.current='after';
   if(!result.success){
    const retry=!ADVISOR_FINAL_ERRORS.includes(result.errorCode),message=result.errorMessage||'답변을 가져오지 못했어요.';
    setPending({question,state:'error',retry,message:!retry||message.includes('고객센터')?message:message+' 계속되면 문의하기로 남겨 주세요.'});return;
@@ -79,11 +100,20 @@ export function AdvisorChat({ask,basePath,onClose,headerless}:{ask:AdvisorAsk;ba
   saveAdvisorTurns(next);setPending(null);setTurns(next);
   if(!reduced()&&total>1)setTyping({index:next.length-1,shown:0,total});
  }
+ // 멈추기: 요청을 취소하고 대화 보관에는 남기지 않는다. 서버가 이미 받은 질문은 하루 한도에 포함될 수 있다.
+ function stop(){
+  const controller=request.current;if(!controller)return;
+  request.current=null;controller.abort();
+  if(typeof document!=='undefined'&&document.activeElement===stopButton.current)focusNext.current='after';
+  setPending(current=>current&&{question:current.question,state:'stopped' as const});
+ }
  function reset(){clearAdvisorTurns();setTurns([]);setPending(null);setTyping(null);setInputError('');setValue('');input.current?.focus({preventScroll:true});}
  function submit(event:FormEvent){event.preventDefault();void send(value);}
  function keyDown(event:KeyboardEvent<HTMLTextAreaElement>){if(event.key==='Enter'&&!event.shiftKey&&!event.nativeEvent.isComposing){event.preventDefault();void send(value);}}
 
- const bubble=(question:string,key:string,answer:ReactNode)=>[<div key={key+'q'} className={`${s.msg} ${s.user}`}><span className={s.srOnly}>내 질문: </span><p>{question}</p></div>,answer];
+ // 질문은 말풍선 대신 그 답변의 제목으로 보인다(2026-11-12 KT 마이 AI 참고, 사용자 결정).
+ const bubble=(question:string,key:string,answer:ReactNode)=>[<div key={key+'q'} className={`${s.msg} ${s.user}`} role="heading" aria-level={3}><span className={s.srOnly}>내 질문: </span><p>{question}</p></div>,answer];
+ const loading=pending?.state==='loading';
  return <div className={s.advisor} data-started={started||undefined} data-headerless={headerless||undefined}>
   {!headerless&&<div className={s.toolbar}>
    <p>AI 가이드</p>
@@ -99,29 +129,36 @@ export function AdvisorChat({ask,basePath,onClose,headerless}:{ask:AdvisorAsk;ba
     <h2 id="advisor-welcome-title">크레팬스,<br/> 무엇이 궁금하세요?</h2>
     <p>이용 방법과 정책을 가이드에서 찾아드려요.</p>
    </section>}
-   {started&&<div ref={log} className={s.log} role="log" aria-label="AI 가이드 대화" aria-busy={busy} tabIndex={0}>
+   {started&&<div ref={log} className={s.log} role="log" aria-label="AI 가이드 대화" aria-busy={busy} tabIndex={0} onScroll={measure}>
     {turns.map((turn,i)=>bubble(turn.q,'t'+i,<div key={'t'+i+'a'} className={`${s.msg} ${s.assistant}`} data-typing={typing?.index===i||undefined}>
      <span className={s.srOnly}>AI 가이드</span>
      <AdvisorAnswerText text={turn.a.answer} shown={typing?.index===i?typing.shown:undefined}/>
      {typing?.index!==i&&<Sources sources={turn.a.sources} found={turn.a.found}/>}
     </div>))}
     {pending&&bubble(pending.question,'p',pending.state==='loading'?
-     <div key="pa" className={`${s.msg} ${s.pending}`}><p><span className={s.srOnly}>답변을 작성하고 있어요</span><span className={s.dot} aria-hidden="true"/><span className={s.dot} aria-hidden="true"/><span className={s.dot} aria-hidden="true"/></p></div>:
-     <div key="pa" className={`${s.msg} ${s.assistant} ${s.error}`}><p role="alert">{pending.message}</p>{pending.retry&&<button type="button" className={s.retry} onClick={()=>{const q=pending.question;setPending(null);void send(q);}}>다시 시도</button>}</div>)}
+     <div key="pa" className={`${s.msg} ${s.pending}`}><p><span className={s.dot} aria-hidden="true"/><span className={s.dot} aria-hidden="true"/><span className={s.dot} aria-hidden="true"/><span className={s.pendingText}>가이드에서 찾고 있어요</span></p></div>:
+     pending.state==='stopped'?
+     <div key="pa" className={`${s.msg} ${s.assistant} ${s.stopped}`}><p>답변을 멈췄어요.</p><button ref={retryButton} type="button" className={s.retry} onClick={()=>{const q=pending.question;setPending(null);void send(q);}}>다시 묻기</button></div>:
+     <div key="pa" className={`${s.msg} ${s.assistant} ${s.error}`}><p role="alert">{pending.message}</p>{pending.retry&&<button ref={retryButton} type="button" className={s.retry} onClick={()=>{const q=pending.question;setPending(null);void send(q);}}>다시 시도</button>}</div>)}
    </div>}
    <div className={s.composer}>
+    {started&&farFromEnd&&<button type="button" className={s.toBottom} aria-label="맨 아래로" title="맨 아래로" onClick={()=>log.current?.scrollTo({top:log.current.scrollHeight,behavior:reduced()?'auto':'smooth'})}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></button>}
     <form className={s.form} onSubmit={submit} noValidate>
      <label htmlFor="advisor-input" className={s.srOnly}>질문 입력</label>
      <textarea ref={input} id="advisor-input" rows={1} maxLength={ADVISOR_QUESTION_MAX} value={value} onChange={event=>setValue(event.target.value)} onKeyDown={keyDown} placeholder="크레팬스 이용에 대해 물어보세요" aria-describedby="advisor-privacy" autoComplete="off"/>
      <div className={s.actions}>
       {value.length?<span className={s.count}>{value.length}/{ADVISOR_QUESTION_MAX}</span>:<span className={s.hint} aria-hidden="true">이용 방법 · 정책 · 가이드</span>}
-      <button type="submit" className={s.send} aria-label="보내기" title="보내기" disabled={busy||!value.trim()}><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button>
+      {loading?<button ref={stopButton} type="button" className={`${s.send} ${s.stop}`} aria-label="답변 멈추기" title="답변 멈추기" onClick={stop}><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3" fill="currentColor"/></svg></button>:
+      <button ref={sendButton} type="submit" className={s.send} aria-label="보내기" title="보내기" disabled={busy||!value.trim()}><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button>}
      </div>
      {inputError&&<p className={s.inputError} role="alert">{inputError}</p>}
     </form>
     <p id="advisor-privacy" className={s.privacy}>질문은 답변 생성을 위해 외부 AI에 전달돼요. 대화는 이 브라우저에 남아요. 개인정보는 입력하지 마세요. <Link href={`${basePath}/legal/privacy`} onClick={onClose}>개인정보처리방침</Link></p>
    </div>
-   {!started&&<ul className={s.suggestions} aria-label="이런 질문으로 시작해 보세요">{SUGGESTIONS.map(([topic,question])=><li key={topic}><button type="button" aria-label={`${topic}: ${question}`} title={question} onClick={()=>void send(question)}>{topic}</button></li>)}</ul>}
+   {!started&&<div className={s.suggestionBox}>
+    <ul className={s.suggestions} aria-label="이런 질문으로 시작해 보세요">{SUGGESTIONS.slice(group*GROUP,group*GROUP+GROUP).map(([topic,question])=><li key={topic}><button type="button" aria-label={`${topic}: ${question}`} title={question} onClick={()=>void send(question)}>{topic}</button></li>)}</ul>
+    <button type="button" className={s.more} aria-label="다른 추천 질문 보기" onClick={()=>setGroup(g=>(g+1)%GROUPS)}>다른 질문 <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4.5h-4.5"/></svg></button>
+   </div>}
   </div>
   <p className={s.note}>답변은 틀릴 수 있어요. 정확한 기준은 <Link href={`${basePath}/legal/terms`} onClick={onClose}>약관</Link>과 자주 묻는 질문에서 확인하거나 <Link href={`${basePath}/support?tab=qna`} onClick={onClose}>문의하기</Link>로 남겨 주세요.</p>
  </div>;
