@@ -19,7 +19,8 @@
 .welcome img{display:block;width:96px;height:96px;object-fit:contain;margin:0 auto 16px}
 .welcome h2{font-size:27px;font-weight:700;line-height:1.35;letter-spacing:-.045em;color:var(--advisor-ink)}
 .welcome p{margin-top:10px;font-size:13px;line-height:1.6;color:var(--advisor-muted)}
-.composer{flex:none;width:100%;max-width:var(--advisor-width)}
+.composer{position:relative;flex:none;width:100%;max-width:var(--advisor-width)}
+.toBottom{position:absolute;bottom:calc(100% + 4px);left:50%;z-index:1;display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--advisor-border);border-radius:50%;background:var(--cf-color-surface,#fff);color:var(--advisor-ink);box-shadow:0 4px 12px rgb(0 0 0 / 10%);transform:translateX(-50%)}
 .form{position:relative;display:flex;flex-direction:column;gap:8px;padding:16px 12px 10px 16px;border:1px solid var(--advisor-border);border-radius:24px;background:var(--cf-color-surface,#fff);box-shadow:0 2px 8px rgb(0 0 0 / 4%)}
 .form:focus-within{border-color:var(--advisor-accent);box-shadow:0 0 0 3px rgb(37 99 235 / 7%)}
 .form textarea{display:block;width:100%;min-height:28px;max-height:160px;resize:none;border:0;padding:0;background:transparent;color:var(--advisor-ink);font:inherit;font-size:16px;line-height:1.75;outline:none;scrollbar-width:thin}
@@ -29,13 +30,16 @@
 .hint{margin-right:auto;font-size:11px;line-height:1.5;color:var(--advisor-muted)}
 .count{margin-right:auto;font-size:12px;color:var(--advisor-muted);font-variant-numeric:tabular-nums}
 .send{display:flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:#2563eb;color:#fff}
+.stop{background:var(--advisor-ink);color:var(--cf-color-surface,#fff)}
 .send:disabled{background:var(--advisor-border);color:var(--advisor-muted);cursor:default}
 .inputError{font-size:14px;line-height:1.6;color:var(--cf-color-danger,#a6283e)}
 .privacy{margin-top:8px!important;text-align:center;font-size:11px;line-height:1.5;color:var(--advisor-muted)}
 .privacy a,.note a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.suggestionBox{flex:none;display:flex;flex-direction:column;align-items:center;max-width:var(--advisor-width);width:100%}
+.more{display:flex;align-items:center;gap:6px;margin-top:8px;min-height:44px;padding:8px 14px;border:0;border-radius:999px;background:transparent;color:var(--advisor-muted);font-size:13px;line-height:1.5}
 .suggestions{position:relative;flex:none;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:var(--advisor-width);width:100%;padding:0;list-style:none}
 .suggestions button{min-height:44px;padding:9px 12px;border:1px solid var(--advisor-border);border-radius:999px;background:var(--cf-color-surface,#fff);color:var(--advisor-muted);font-size:12px;line-height:1.5}
-@media(hover:hover){.suggestions button:hover,.reset:not(:disabled):hover,.close:hover,.sources summary:hover{background:var(--advisor-surface);color:var(--advisor-ink)}}
+@media(hover:hover){.suggestions button:hover,.more:hover,.toBottom:hover,.reset:not(:disabled):hover,.close:hover,.sources summary:hover{background:var(--advisor-surface);color:var(--advisor-ink)}}
 .advisor[data-started] .stage{justify-content:flex-start;gap:0;overflow:hidden;padding:0}
 .advisor[data-started] .composer{width:calc(100% - 32px);padding-top:12px}
 .log{position:relative;display:flex;flex-direction:column;flex:1;min-height:0;gap:24px;width:100%;overflow-y:auto;overscroll-behavior-y:contain;padding:16px max(16px,calc((100% - var(--advisor-width)) / 2));scrollbar-width:thin;overflow-anchor:none}
@@ -44,7 +48,9 @@
 .msg>p{white-space:pre-line}
 .msg>p+p,.msg>p+.table,.msg>.table+p{margin-top:8px}
 .msg strong{font-weight:700}
-.user{align-self:flex-end;max-width:90%;padding:11px 18px;border-radius:22px;background:var(--advisor-surface)}
+/* 질문은 답변의 제목(말풍선 없음). 두 번째 질문부터 위에 구분선. */
+.user{align-self:stretch;font-size:18px;font-weight:700;line-height:1.5;letter-spacing:-.03em}
+.user:not(:first-child){padding-top:24px;border-top:1px solid var(--advisor-border)}
 .assistant{align-self:stretch}
 .table{max-width:100%;overflow-x:auto;margin-top:8px}
 .table table{border-collapse:collapse;font-size:14px;line-height:1.5;min-width:100%}
@@ -52,6 +58,8 @@
 .table th{background:var(--advisor-surface);font-weight:700}
 .pending{align-self:flex-start;padding:15px 18px;border-radius:22px;background:var(--advisor-surface)}
 .pending>p{display:flex;align-items:center;gap:6px;min-height:1em;line-height:1}
+.pendingText{margin-left:6px;font-size:14px;line-height:1.5;color:var(--advisor-muted)}
+.stopped>p{color:var(--advisor-muted)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--advisor-muted);animation:advisor-bounce 1.2s ease-in-out infinite}
 .dot:nth-of-type(2){animation-delay:.15s}.dot:nth-of-type(3){animation-delay:.3s}
 @keyframes advisor-bounce{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-4px);opacity:1}}
@@ -70,7 +78,7 @@
 .retry{margin-top:12px;min-height:44px;padding:8px 16px;border:1px solid var(--advisor-border);border-radius:999px;background:var(--cf-color-surface,#fff);color:var(--advisor-ink);font-size:14px}
 .note{flex:none;padding:10px 16px max(10px,env(safe-area-inset-bottom));text-align:center;font-size:11px;line-height:1.6;color:var(--advisor-muted)}
 @media(prefers-reduced-motion:reduce){.dot,.assistant[data-typing]>p:last-of-type::after{animation:none}}
-@container advisor (min-width:50rem){.toolbar{padding:8px 28px;min-height:64px}.stage{padding:24px 24px 64px;gap:24px}.welcome h2{font-size:32px}.welcome p{font-size:15px}.log{padding:24px max(24px,calc((100% - var(--advisor-width)) / 2));gap:28px}.advisor[data-started] .composer{width:calc(100% - 48px)}.form{padding:18px 16px 12px 20px;border-radius:26px}.hint{font-size:11px}.privacy,.note{font-size:12px}.suggestions button{padding:10px 16px;font-size:13px}.user{max-width:85%}}
+@container advisor (min-width:50rem){.toolbar{padding:8px 28px;min-height:64px}.stage{padding:24px 24px 64px;gap:24px}.welcome h2{font-size:32px}.welcome p{font-size:15px}.log{padding:24px max(24px,calc((100% - var(--advisor-width)) / 2));gap:28px}.advisor[data-started] .composer{width:calc(100% - 48px)}.form{padding:18px 16px 12px 20px;border-radius:26px}.hint{font-size:11px}.privacy,.note{font-size:12px}.suggestions button{padding:10px 16px;font-size:13px}.user{font-size:20px}.user:not(:first-child){padding-top:28px}}
 @container advisor (max-width:23rem){.welcome h2{font-size:22px}.suggestions{display:grid;grid-template-columns:1fr 1fr;max-width:232px}.suggestions button{width:100%}}
 
 /* Floating launcher (고객센터만). Mobile: above the bottom navigation; the panel covers the screen. */
