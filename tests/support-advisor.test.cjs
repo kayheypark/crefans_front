@@ -89,3 +89,32 @@ test('AdvisorLauncher opens the panel as a labelled dialog that blocks pull-to-r
  await act(async()=>{renderer.root.findByProps({'aria-label':'닫기'}).props.onClick();});
  assert.equal(renderer.root.findAllByProps({role:'dialog'}).length,0);
 });
+
+// 2026-11-12 KT 마이 AI 참고: 다른 질문, 멈추기, 질문 제목형.
+test('AdvisorChat cycles 12 suggested questions four at a time',async()=>{
+ const {renderer}=await chat(async()=>ok(mockAdvisorAnswers.plain));
+ const shown=()=>renderer.root.findAll(node=>node.type==='button'&&typeof node.props['aria-label']==='string'&&node.props['aria-label'].includes(': ')).map(node=>node.props.title);
+ const more=()=>renderer.root.findByProps({'aria-label':'다른 추천 질문 보기'});
+ const seen=[];for(let i=0;i<3;i++){const now=shown();assert.equal(now.length,4);seen.push(...now);await act(async()=>{more().props.onClick();});}
+ assert.equal(new Set(seen).size,12);assert.deepEqual(shown(),seen.slice(0,4),'back to the first group');
+});
+
+test('AdvisorChat stop aborts the request, drops a late answer and offers to ask again; questions are headings',async()=>{
+ const signals=[];let release;
+ const {renderer,send}=await chat((question,signal)=>{signals.push(signal);return signals.length===1?new Promise(r=>{release=r;}):Promise.resolve(ok(mockAdvisorAnswers.plain));});
+ await send('출금 PIN을 잊어버렸어요');
+ assert.ok(text(renderer.toJSON()).includes('가이드에서 찾고 있어요'));
+ const stopButton=renderer.root.findByProps({'aria-label':'답변 멈추기'});
+ assert.equal(renderer.root.findAllByProps({'aria-label':'보내기'}).length,0,'send is replaced while waiting');
+ await act(async()=>{stopButton.props.onClick();});
+ assert.equal(signals[0].aborted,true,'the request signal is aborted');
+ assert.ok(text(renderer.toJSON()).includes('답변을 멈췄어요.'));
+ await act(async()=>{release(ok(mockAdvisorAnswers.plain));});// a late answer is ignored
+ assert.ok(!text(renderer.toJSON()).includes(mockAdvisorAnswers.plain.answer.slice(0,10)),'late answer dropped');
+ assert.equal(renderer.root.findAllByProps({'aria-label':'보내기'}).length,1);
+ const again=renderer.root.find(node=>node.type==='button'&&text(node)==='다시 묻기');
+ await act(async()=>{again.props.onClick();});
+ assert.equal(signals.length,2);assert.equal(renderer.root.findAll(node=>node.type==='button'&&text(node)==='다시 묻기').length,0);
+ const headings=renderer.root.findAll(node=>node.type==='div'&&node.props.role==='heading');
+ assert.equal(headings.length,1);assert.equal(headings[0].props['aria-level'],3);
+});

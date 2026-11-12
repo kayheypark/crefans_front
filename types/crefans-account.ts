@@ -50,6 +50,6 @@ export type AccountModel={
     withdraw:()=>Promise<AccountActionResult>;
     createInquiry:(input:{category:string;title:string;message:string})=>Promise<AccountActionResult>;
     /** AI 가이드 질문(고객센터 떠 있는 버튼). 없으면 버튼을 표시하지 않는다. */
-    askAdvisor?:(question:string)=>Promise<ApiResult<AdvisorAnswer>>;
+    askAdvisor?:(question:string,signal?:AbortSignal)=>Promise<ApiResult<AdvisorAnswer>>;
   };
 };
