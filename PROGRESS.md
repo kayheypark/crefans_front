@@ -1,3 +1,9 @@
+## 2026-11-13 AI 사진 편집 dev→prod 머지 (운영 배포 제외)
+- 사용자 명시 지시: “다되면 prod까지 머지만”. 기존 dev worktree/미커밋 자료를 건드리지 않고 origin/dev 기반 release/ai-photo-editor-dev-20261113에서 작업.
+- 880a9a3 위에 feature b1f4c70 통합(5097981). PROGRESS.md 충돌은 양쪽 기록을 모두 보존, 기능 코드 충돌 없음. 기존 마이페이지 변경(AccountPages/Icon) 유지. 서버 대응 feature619b175도 함께 dev→prod 반영 대상.
+- 통합본 검증: npm run typecheck0, check:layers0(450파일), studio-ai-photo+my-profile-actions14/14, CREFANS_E2E=true npm run build0, diff --check0. 서버 통합본 build0 및 AI사진7+OpenAPI14=21/21. 구현 시 기존 문서 계약/증거 만료는 여전히 미해결이며 전체 문서 통과로 주장하지 않음.
+- 일반 push만 사용해 dev→prod 순서로 승격하고 최종 origin/dev·origin/prod 이력/트리 일치를 .local/ai-photo-prod-merge-20261113/merge-verification.json에 기록한다. 기능 원본 검증과 스크린샷은 ../crefans_front-ai-photo-editor/.local/ai-photo-editor-20261113/. 운영 배포·실제 AI 생성·컨테이너/DB/설정 변경은 하지 않음.
+
 ## 2026-11-13 AI 사진 편집 9안 구현 (검증 완료, 운영 미배포)
 - 사용자 선택: 정적 시안 09 미리보기 고정형. 기준 origin/prod cb65370, feat/ai-photo-preset-editor-20261113, worktree /Users/ethan/repository/crefans_front-ai-photo-editor. 기존 worktree/미커밋 변경은 보존.
 - 합격 조건: 사진·하단 직접 입력/생성 고정 + 카테고리/예시 영역 내부 스크롤, 옷/메이크업/표정/포즈/배경 플랫 아이콘5개, 고정 자연어60문구(12개/분류·3개씩4페이지), 직접 수정/적용취소/분류별 초안, 더보기만으로 생성·초안삭제 없음, 기존 동의/마스크/한도/결과/확대 보존.
