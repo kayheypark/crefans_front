@@ -48,6 +48,8 @@
 .msg>p{white-space:pre-line}
 .msg>p+p,.msg>p+.table,.msg>.table+p{margin-top:8px}
 .msg strong{font-weight:700}
+/* Core answer sentence (==…== from the server, 2026-11-12): a soft highlighter stroke. */
+.mark{padding:.05em .15em;border-radius:3px;background:linear-gradient(transparent 38%,#fff1a8 38%);color:inherit;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 /* 질문은 답변의 제목(말풍선 없음). 두 번째 질문부터 위에 구분선. */
 .user{align-self:stretch;font-size:18px;font-weight:700;line-height:1.5;letter-spacing:-.03em}
 .user:not(:first-child){padding-top:24px;border-top:1px solid var(--advisor-border)}

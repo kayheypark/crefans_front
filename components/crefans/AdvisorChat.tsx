@@ -27,7 +27,11 @@ function cut(text:string,budget:Budget){
  return out;
 }
 function Inline({parts,budget}:{parts:AdvisorInline[];budget:Budget}){
- return <>{parts.map((part,i)=>{const text=cut(part.text,budget);return text?part.bold?<strong key={i}>{text}</strong>:<span key={i}>{text}</span>:null;})}</>;
+ // Consecutive highlighted parts share one <mark> so the core sentence reads as a single highlight.
+ const groups:{mark:boolean;items:{part:AdvisorInline;i:number}[]}[]=[];
+ parts.forEach((part,i)=>{const mark=!!part.mark,last=groups[groups.length-1];if(last&&last.mark===mark)last.items.push({part,i});else groups.push({mark,items:[{part,i}]});});
+ const render=({part,i}:{part:AdvisorInline;i:number})=>{const text=cut(part.text,budget);return text?part.bold?<strong key={i}>{text}</strong>:<span key={i}>{text}</span>:null;};
+ return <>{groups.map((group,g)=>{const items=group.items.map(render);return group.mark?(items.some(Boolean)?<mark key={'m'+g} className={s.mark}>{items}</mark>:null):items;})}</>;
 }
 /** Renders the parsed answer; with `shown` only that many words appear (typing reveal). */
 export function AdvisorAnswerText({text,shown}:{text:string;shown?:number}){
