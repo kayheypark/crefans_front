@@ -1,3 +1,7 @@
+## 2026-11-13 01:08 KST 마이페이지 스튜디오 버튼 항상 표시·설정 아이콘 세 줄 메뉴 운영 배포
+- 사용자 요청. AccountPages 커버 버튼: 스튜디오 링크를 크리에이터 여부와 무관하게 표시(비크리에이터는 기존 스튜디오 전환 안내→크리에이터 시작하기), 설정 링크 아이콘 settings(톱니)→menu(세 줄, Icon.tsx에 추가), aria-label '설정' 유지.
+- 검증: 신규 tests/my-profile-actions.test.cjs(비크리에이터·크리에이터 모두 스튜디오 1개, 설정 아이콘 경로; 대조: 조건 되돌리면 실패). 기존 crefans-account 마이페이지 테스트는 useRouter 대역 문제로 원래 실패(기준선 16건에 포함)라 별도 파일로 작성. npm test 594/610(실패 16 동일), typecheck 0, 목업 /preview/me 모바일 캡처 확인. 운영 prod f721663 → crefans-front:front-mypage-menu-20261113, 번들 아이콘 경로 확인, 이전 이미지 /Users/ethan/crefans-recovery/20261113/front-mypage-menu-20261113.
+
 ## 2026-11-13 00:5x KST 게시물 사진 '처리 중' 표시 운영 배포 완료
 - 사용자 보고(캡처): 글 작성 직후 사진이 워터마크 처리 중이면 게시물에 사진이 아예 안 보임. 원인: 서버 service.post()가 PROCESSING 이미지를 목록에서 뺐음(영상만 processing:true로 포함).
 - 서버 prod b6809d3: 처리 중 사진도 processing:true로 포함(파일 URL은 프론트가 요청하지 않음). 프론트 prod 1221d7c: VideoProcessing에 kind='image'('사진 처리 중 · 완료되면 사진이 자동으로 나타나요', 사진 아이콘, role=status), 게시물 단일·갤러리·전체 보기·타일·공유 미리보기에서 처리 중 사진은 자리 표시만, 게시물 상세를 보는 동안 처리 중 미디어가 있으면 5초마다 그 게시물만 다시 읽음(최대 2분).
