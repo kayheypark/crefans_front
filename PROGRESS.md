@@ -1,3 +1,7 @@
+## 2026-11-12 12:40 KST 고객센터 AI 가이드 개선 운영 배포 완료
+- feat a82f49e → dev f504b2f → prod c211758(dev와 소스 동일). ship-image.sh --tag front-advisor-kt-20261112: dry-run 통과 후 교체, 레이어 일치, 운영 front-pin-hardening-20261111 → front-advisor-kt-20261112. 이전 이미지는 /Users/ethan/crefans-recovery/20261112/front-advisor-kt-20261112 로 옮겨 검증, 서버 태그 정리. 디스크 74%.
+- 운영 확인: crefans.com/service/support 에서 대역 답변으로 PC Chromium·모바일 WebKit 다른 질문·멈추기·다시 묻기·제목·구분선·맨 아래로 통과. 실제 AI 질문 1건(결제 카드 변경) 201·found·출처3·쿠키 미전송·제목 표시 통과(같은 검사를 공백 비교 수정 후 재실행해 실제 질문은 2건 사용). 증거 .local/advisor-kt-20261112/live-shots/. 실물 iPhone 미검증.
+
 ## 2026-11-12 고객센터 AI 가이드에 KT 마이 AI 참고 개선 이식 (feat/advisor-kt-ux)
 - 사용자 요청: 가이드 사이트(guide.crefans.com, 같은 날 운영 배포)에 넣은 4가지를 crefans.com 고객센터 AI 가이드에도 똑같이 적용하고 운영 배포. ①추천 질문 12개·'다른 질문 ↻' ②대기 중 '가이드에서 찾고 있어요'+멈추기 ■(요청 취소, 늦은 응답 버림, 보관 안 함, '다시 묻기') ③질문을 굵은 제목(role=heading level3)+구분선 ④위로 올려 볼 때만 '맨 아래로 ↓'. 👍👎 평가는 제외(사용자 결정).
 - 변경: components/crefans/AdvisorChat.tsx·advisor.module.css, lib/api/advisor.ts(취소 신호+30초 시간 제한, 취소 시 ABORTED), useServiceModel·types(askAdvisor에 signal), tests/support-advisor.test.cjs(+2).
