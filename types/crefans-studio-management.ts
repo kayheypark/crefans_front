@@ -5,7 +5,7 @@ export type StudioContentStatus='draft'|'published'|'scheduled';
 /** `processing`: an iPhone .mov being converted to MP4 on the server; `failed`: conversion failed (not shown in the post).
  * `preview`: the creator's own local copy (object URL) used as the thumbnail until conversion ends. */
 export type StudioMedia={id:string;type:'image'|'video';url:string;processing?:boolean;failed?:boolean;preview?:string;/** Made by the studio AI photo editor; shown with an 'AI 생성' mark. */aiGenerated?:boolean};
-export type AiPhotoKind='outfit'|'pose'|'background';
+export type AiPhotoKind='outfit'|'makeup'|'expression'|'pose'|'background';
 export type AiPhotoStyle='photo'|'cosplay'|'daily';
 /** `mask`: PNG the size of the source, transparent where the photo may change (outfit edits). `consent`: the creator confirmed the person is themselves or agreed. */
 export type AiPhotoEditInput={source:StudioMedia;kind:AiPhotoKind;prompt:string;style:AiPhotoStyle;mask?:Blob;consent:true};
