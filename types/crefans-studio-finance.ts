@@ -12,7 +12,9 @@ export type CreatorReceivable={id:string;kind:'membership'|'beans';amount:number
 export type ClosingBlocker={code:string;message:string};
 export type WithdrawalRequest=WithdrawalInput&{requestId:string;authorizationId:string};
 export type WithdrawalQuote={amount:number;account:SettlementAccount;availableAfterRequest:number};
-export type StudioFinanceData={summary:FinanceSummary;earnings:StudioEarning[];settlements:StudioSettlement[];withdrawals:StudioWithdrawal[];accounts:SettlementAccount[];policyNotice?:string;creatorTerms?:CreatorTerms|null;receivables?:CreatorReceivable[];closingBlockers?:ClosingBlocker[]};
+export type StudioFinanceData={summary:FinanceSummary;earnings:StudioEarning[];settlements:StudioSettlement[];withdrawals:StudioWithdrawal[];accounts:SettlementAccount[];policyNotice?:string;creatorTerms?:CreatorTerms|null;receivables?:CreatorReceivable[];closingBlockers?:ClosingBlocker[];
+  /** 2026-11-12: false when the creator has no partnership contract (verified badge); the server refuses withdrawals. */
+  payoutPartner?:boolean};
 /** All amounts are whole KRW. Request acceptance does not imply bank transfer. */
 export type StudioFinanceModel={
   mode:'mock'|'live';today:string;data:StudioFinanceData;pinConfigured:boolean;

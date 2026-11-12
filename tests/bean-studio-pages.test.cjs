@@ -45,3 +45,10 @@ test('withdraw confirmation labels the fee with the quote feeBps, and without a 
   }finally{act(()=>tree.unmount());}
  }}finally{global.document=previous;}
 });
+
+// 2026-11-12 user decision (ask-me): only partners (verified badge) withdraw beans.
+test('withdraw page without the partner contract shows the notice and inquiry link, not the form',()=>{
+ const saved=model.studio;model.studio={...studio,payoutPartner:false};
+ try{const {page,links}=render('withdraw');assert.match(page,/파트너 계약 후 출금할 수 있어요/);assert.doesNotMatch(page,/출금 내용 확인/);assert.ok(links.includes('/service/support?tab=qna'));}
+ finally{model.studio=saved;}
+});

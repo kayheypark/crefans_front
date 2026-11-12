@@ -89,6 +89,16 @@ test('unconfigured withdrawal cannot advance and configured security page shows 
  try{assert.equal(pads(configured).length,0);const hrefs=configured.root.findAllByType('a').map(item=>item.props.href);assert.ok(hrefs.includes('/preview/studio/withdraw'));assert.ok(hrefs.includes('/preview/studio/security/reset'));}finally{close(configured);}
 });
 
+// 2026-11-12 user decision (ask-me): without the partner contract (verified badge) the form is replaced by a notice and a
+// contract inquiry link; the PIN page stays reachable from the studio security menu.
+test('a creator without the partner contract sees the contract notice and inquiry link instead of the withdrawal form',()=>{
+ const m=model();const view=mount(WithdrawalPage,{model:{...m,data:{...m.data,payoutPartner:false}},basePath:'/service/studio'});
+ try{assert.equal(view.root.findAllByType('form').length,0);assert.ok(view.root.findAllByType('a').some(item=>item.props.href==='/service/support?tab=qna'));
+  assert.match(JSON.stringify(view.toJSON()),/파트너 계약을 맺은 크리에이터\(인증 배지\)만/);}finally{close(view);}
+ const partner=mount(WithdrawalPage,{model:model(),basePath:'/service/studio'});
+ try{assert.equal(partner.root.findAllByType('form').length,1,'partner (or older response without the field) keeps the form');}finally{close(partner);}
+});
+
 test('PIN reset replaces a configured PIN with the same two passes, then confirms without offering another reset',async()=>{
  const pins=[];let answer=fail('본인인증이 만료되었거나 일치하지 않습니다.');
  const view=mount(WithdrawalSecurityPage,{basePath:'/preview/studio',reset:true,model:model({setupWithdrawalPin:async pin=>{pins.push(pin);return answer;}})});

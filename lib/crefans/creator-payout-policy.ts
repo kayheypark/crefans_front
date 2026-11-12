@@ -15,11 +15,14 @@ export const payoutScheduleNote=`화요일 23:59(한국 시간)까지 신청한 
 export type CreatorTerms={platformFeeBps:number|null;settlementHoldDays:number|null;beanWithdrawalFeeBps:number|null;minimumWithdrawalKrw:number|null};
 const pick=(t:CreatorTerms|null|undefined)=>({fee:t?.platformFeeBps!=null?t.platformFeeBps/100:feeRatePercent,hold:t?.settlementHoldDays??settlementHoldDays,beanFee:t?.beanWithdrawalFeeBps!=null?t.beanWithdrawalFeeBps/100:feeRatePercent,minimum:t?.minimumWithdrawalKrw??minimumWithdrawalKrw});
 
+// 2026-11-12 user decision (ask-me): terms article 6, revision 2026-11-13.partner.1.
+export const partnerPayoutNote='출금은 크레팬스와 파트너 계약을 맺은 크리에이터(인증 배지)만 신청할 수 있습니다. 정산 계좌와 출금 PIN은 계약 전에도 미리 등록할 수 있습니다.';
 export function membershipPayoutNotesFor(terms?:CreatorTerms|null){const {fee,hold,minimum}=pick(terms);return [
   `멤버십 결제 시 총 공제율 ${fee}%(PG 비용·플랫폼 수수료 부가세 포함)를 차감한 금액이 수익으로 기록됩니다. ${payoutTaxNote}`,
   `결제 후 ${hold}일 보류가 끝나고 PG 실제 입금 대사가 완료된 수익부터 출금할 수 있습니다.`,
   `최소 ${won(minimum)}부터 신청할 수 있습니다. ${payoutScheduleNote} 출금할 때 추가 수수료는 없으며 이체 수수료는 플랫폼이 부담합니다.`,
   '출금은 확인된 본인 명의 정산 계좌로만 받을 수 있습니다.',
+  partnerPayoutNote,
 ];}
 export const membershipPayoutNotes=membershipPayoutNotesFor();
 
@@ -30,6 +33,7 @@ export function beanPayoutNotesFor(terms?:CreatorTerms|null){const {beanFee,mini
   `${Math.ceil(minimum/100).toLocaleString('ko-KR')}콩(총액 ${won(minimum)})부터 신청하며 수수료는 출금 시 ${beanFee}%입니다.`,
   payoutScheduleNote,
   payoutTaxNote,
+  partnerPayoutNote,
 ];}
 export const beanPayoutNotes=beanPayoutNotesFor();
 
