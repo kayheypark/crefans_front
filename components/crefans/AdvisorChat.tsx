@@ -6,7 +6,7 @@ import {useEffect,useLayoutEffect,useRef,useState,type FormEvent,type KeyboardEv
 import Link from 'next/link';
 import type {ApiResult} from '@/types/crefans';
 import {
- ADVISOR_FINAL_ERRORS,ADVISOR_MAX_TURNS,ADVISOR_QUESTION_MAX,blockWordCount,clearAdvisorTurns,containsPersonalData,loadAdvisorTurns,parseAnswer,safeAdvisorUrl,saveAdvisorTurns,
+ ADVISOR_FINAL_ERRORS,ADVISOR_MAX_TURNS,advisorShortcuts,ADVISOR_QUESTION_MAX,blockWordCount,clearAdvisorTurns,containsPersonalData,loadAdvisorTurns,parseAnswer,safeAdvisorUrl,saveAdvisorTurns,
  type AdvisorAnswer,type AdvisorInline,type AdvisorSource,type AdvisorTurn,
 } from '@/lib/crefans/advisor';
 import s from './advisor.module.css';
@@ -42,6 +42,11 @@ export function AdvisorAnswerText({text,shown}:{text:string;shown?:number}){
    <tbody>{block.rows.map((row,r)=><tr key={r}>{row.map((cell,c)=><td key={c}><Inline parts={cell} budget={budget}/></td>)}</tr>)}</tbody></table></div>)}</>;
 }
 
+// One-tap buttons to the screen the answer talks about (allow-list in lib/crefans/advisor.ts).
+function Shortcuts({question,answer,basePath,onClose}:{question:string;answer:AdvisorAnswer;basePath:string;onClose?:()=>void}){
+ const items=advisorShortcuts(question,answer);if(!items.length)return null;
+ return <nav className={s.shortcuts} aria-label="바로 가기">{items.map(item=><Link key={item.path} href={basePath+item.path} onClick={onClose}>{item.label}<span aria-hidden="true">›</span></Link>)}</nav>;
+}
 function Sources({sources,found}:{sources:AdvisorSource[];found:boolean}){
  const list=sources.filter(source=>safeAdvisorUrl(source.url));
  if(!list.length)return null;
@@ -137,6 +142,7 @@ export function AdvisorChat({ask,basePath,onClose,headerless}:{ask:AdvisorAsk;ba
     {turns.map((turn,i)=>bubble(turn.q,'t'+i,<div key={'t'+i+'a'} className={`${s.msg} ${s.assistant}`} data-typing={typing?.index===i||undefined}>
      <span className={s.srOnly}>AI 가이드</span>
      <AdvisorAnswerText text={turn.a.answer} shown={typing?.index===i?typing.shown:undefined}/>
+     {typing?.index!==i&&<Shortcuts question={turn.q} answer={turn.a} basePath={basePath} onClose={onClose}/>}
      {typing?.index!==i&&<Sources sources={turn.a.sources} found={turn.a.found}/>}
     </div>))}
     {pending&&bubble(pending.question,'p',pending.state==='loading'?

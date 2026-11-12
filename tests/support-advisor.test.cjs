@@ -129,3 +129,17 @@ test('the ==core sentence== from the server becomes one highlight with bold kept
  act(()=>{renderer.update(el(AdvisorAnswerText,{text:'==하나 둘 셋== 넷',shown:2}));});
  assert.equal(text(renderer.toJSON()),'하나 둘');assert.equal(renderer.root.findAllByType('mark').length,1,'typing reveal keeps the highlight');
 });
+
+// 2026-11-13 user request: an answer that points to a service screen gets a one-tap button (fixed allow-list only).
+test('answers pointing to a screen get allow-listed shortcut buttons; unrelated answers get none',async()=>{
+ const pick=(q,answer,found=true)=>advisor.advisorShortcuts(q,{answer,found,sources:[]}).map(x=>x.path);
+ assert.deepEqual(pick('크리에이터 전환','==크리에이터 전환은 로그인한 뒤 크리에이터 스튜디오에서 크리에이터 시작하기를 눌러 진행하면 돼요.=='),['/studio/start']);
+ assert.deepEqual(pick('계약 방법','크레팬스 계약 방법은 가이드에서 확인되지 않는 내용이에요. 고객센터로 문의해 주세요.',false),['/support?tab=qna']);
+ assert.deepEqual(pick('출금은 어떻게','정산 계좌와 **출금 PIN**을 준비한 뒤 출금을 신청하세요.'),['/studio/withdraw','/studio/accounts','/studio/security']);
+ assert.deepEqual(pick('콩 충전은 어디서','지갑에서 충전할 수 있어요.'),[],'no matching screen, no button');
+ assert.deepEqual(pick('크리에이터 전환','관련 내용을 찾지 못했어요.',false),[],'the question alone does not add buttons to a not-found answer');
+ const {renderer,send}=await chat(async()=>ok({answer:'크리에이터 전환은 크리에이터 스튜디오에서 크리에이터 시작하기를 눌러 진행하면 돼요.',found:true,sources:[]}));
+ await send('크리에이터 전환은 어떻게 하나요?');
+ const nav=renderer.root.findAll(n=>n.type==='nav'&&n.props['aria-label']==='바로 가기');assert.equal(nav.length,1);
+ const links=nav[0].findAllByType('a');assert.deepEqual(links.map(a=>a.props.href),['/service/studio/start']);assert.match(text(links[0]),/크리에이터 시작하기/);
+});

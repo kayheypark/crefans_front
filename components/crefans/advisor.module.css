@@ -67,6 +67,10 @@
 @keyframes advisor-bounce{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-4px);opacity:1}}
 .assistant[data-typing]>p:last-of-type::after{content:'';display:inline-block;width:.5em;height:.5em;margin-left:.2em;border-radius:50%;background:var(--advisor-ink);vertical-align:middle;animation:advisor-pulse 1.2s ease-in-out infinite}
 @keyframes advisor-pulse{50%{opacity:.3}}
+.shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.shortcuts a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:10px 16px;border-radius:999px;background:var(--advisor-accent);color:#fff;font-size:14px;font-weight:600;text-decoration:none;line-height:1.4}
+.shortcuts a span{font-size:18px;line-height:1}
+.shortcuts a:focus-visible{outline:2px solid var(--advisor-ink);outline-offset:2px}
 .sources{margin-top:16px;font-size:13px;color:var(--advisor-muted)}
 .sources summary{display:flex;align-items:center;gap:7px;list-style:none;width:fit-content;min-height:44px;padding:10px 14px;border:1px solid var(--advisor-border);border-radius:999px;cursor:pointer;line-height:1.6}
 .sources summary::-webkit-details-marker{display:none}

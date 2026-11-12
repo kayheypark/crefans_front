@@ -64,3 +64,21 @@ export function advisorClientId(){
 
 /** Errors the user cannot fix by asking again (input rules, daily limit). */
 export const ADVISOR_FINAL_ERRORS=['INVALID_INPUT','PERSONAL_DATA','OUT_OF_SCOPE','UNSAFE_INPUT','DAILY_LIMIT'];
+
+// 2026-11-13 user request: an answer that tells you to go somewhere in the service gets a one-tap button to that screen.
+// Fixed allow-list (no URL comes from the model); matched on the answer, or on the question when the answer is a guide hit.
+export type AdvisorShortcut={label:string;path:string};
+const SHORTCUTS:{label:string;path:string;pattern:RegExp}[]=[
+ {label:'크리에이터 시작하기',path:'/studio/start',pattern:/크리에이터\s*(전환|시작하기|로\s*전환|가\s*되)/},
+ {label:'게시물 작성',path:'/studio/content/new',pattern:/게시물을?\s*(작성|올리|등록|발행)/},
+ {label:'멤버십 관리',path:'/studio/memberships',pattern:/멤버십을?\s*(만들|만드|관리|수정|등록|추가|활성화)/},
+ {label:'출금 신청',path:'/studio/withdraw',pattern:/출금을?\s*신청|수익을?\s*출금/},
+ {label:'정산 계좌',path:'/studio/accounts',pattern:/정산\s*계좌|계좌를?\s*(등록|확인)/},
+ {label:'출금 PIN 설정',path:'/studio/security',pattern:/출금\s*(PIN|비밀번호)/},
+ {label:'콩 후원·출금',path:'/studio/beans',pattern:/후원(받은)?\s*콩|후원콩/},
+ {label:'고객센터 문의하기',path:'/support?tab=qna',pattern:/고객센터|문의해\s*주세요|문의하세요/},
+];
+export function advisorShortcuts(question:string,answer:AdvisorAnswer,max=3):AdvisorShortcut[]{
+ const text=answer.answer.replace(/\*\*|==/g,'')+(answer.found?'\n'+question:'');
+ return SHORTCUTS.filter(item=>item.pattern.test(text)).slice(0,max).map(({label,path})=>({label,path}));
+}
