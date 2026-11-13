@@ -1,3 +1,8 @@
+## 2026-11-13 댓글 좋아요 dev→prod 통합 (운영 배포 제외)
+- 사용자 요청 범위: 댓글·답글 좋아요 추가, 기존 지시에 따라 prod까지만 머지. release/comment-likes-dev-20261113에서 feature를 no-ff 통합(0463a9f), 충돌 없음. 기능 커밋과 통합본 전체 트리 동일 확인으로 기존 빌드/검증 증거 유효. 실제 dev worktree는 변경하지 않음.
+- 프론트 버튼2/2·피드/상세/답글 연결1/1 재통과, 서버 관련22/22·양쪽 빌드 통과. 기존 소셜 실패4개 및 Generated contracts stale은 미해결로 유지. 상세 증거 ../crefans_front-comment-likes/.local/comment-likes-20261113/verification.json.
+- 일반 push dev→prod 순서, 최종 원격 ref·기능 포함·트리/작업폴더 상태를 .local/comment-likes-20261113/merge-verification.json에 기록. 운영 배포·컨테이너·운영DB·설정 변경 없음.
+
 ## 2026-11-13 댓글·답글 좋아요 구현 (prod 머지 대상, 운영 미배포)
 - 사용자 요청: 댓글 좋아요 추가. origin/prod33f8a62에서 feat/comment-likes-20261113 분기. 앞선 prod까지 머지만/미배포 경계를 유지한다.
 - 합격 조건: 피드 인라인·상세 댓글/답글의 하트/개수, 성공 응답 뒤 갱신, 중복 클릭 차단·실패 시 상태 보존, 읽기전용 비활성·삭제 자리표시 제외, 로그인/게시물/댓글 상태 권한은 서버 검사.
