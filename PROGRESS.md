@@ -1,3 +1,10 @@
+## 2026-11-13 15:58 KST 표정 모델 성별 연동 운영 반영 완료
+- 기능 소스5e5a9ae, 프론트 `crefans-front:front-expression-gender-20261113`. 여성 선택 시 표정12종 모두 여성, 남성 선택 시12종 모두 남성 예시를 표시한다. 원본 유지는 기존 혼합 예시이며 사용자 원본의 성별을 추론하지 않는다. 표정 선택·제목·커스텀 입력·실제 생성 문구/소스는 유지된다.
+- 이미지젠으로 부족한 반대 성별12개만 추가(384px WebP, 총119840bytes). 기존 사진은 보존하고 24개 구성의 생성 명세·육안검토·디코드를 확인했다. 논리 프리셋은91개 그대로이며 공개 사진은12개 추가된다. prompts.json/results.json/assets.json/preview-manifest.json에 출처·생성문구·저장경로·SHA를 기록했다.
+- 기능 검사31/31·typecheck·계층452 통과. 성별 분기를 제거한 대조변경은 URL 불일치로 검사 실패한 후 원복했다. 로컬/운영 CUA 각각 여성4페이지+남성4페이지24사진 로드, 성별 전환 후 선택/커스텀 보존 확인. 로컬320/390/1280 가로넘침0. 실제 사용자 사진 생성·실기기 검증은 아니며 API/worker/다른 탭 모델은 변경하지 않았다.
+- dev→prod 승격·운영 빌드/키/revision/이미지/HTTP/다른 서비스 보존 검사 통과. 새12개 자산 SHA가 운영 이미지와 일치한다. 직전custom이미지·설정은 /Users/ethan/crefans-recovery/20261113/front-expression-gender-20261113 로 보관 후 SHA/OCI15blobs/태그ID/설정 검증, 서버 직전 태그·이번 임시본만 정리했다. 기존 로컬 복구본 삭제 없음.
+- 증거 .local/ai-expression-gender-20261113/{verification.json,unit.log,types.log,layers.log,negative-gender.log,prompts.json,assets.json,female-review.png,male-review.png,browser-local.json,browser-responsive.json,browser-production.json,production-mobile.png,image-content.log,dry-run.log,ship.log,docs.log}. 전체 문서 검사는 기존 Generated contracts stale 잔존. 관련 AGENTS/디자인 문서는 동기화했다. 현재 요청 완료.
+
 - 로컬 기능31/31·typecheck·계층452 통과. 성별 분기를 제거한 대조변경은 예상 URL 불일치로 실패 후원복. 새12개119840bytes·여성12/남성12 구성 이미지 육안검토 및384px디코드, CUA390 여성4페이지/남성4페이지24사진 모두로드·표정선택/커스텀보존 확인. 다음 프론트 운영 반영.
 
 ## 2026-11-13 표정 프리셋 성별 연동 진행
