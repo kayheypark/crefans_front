@@ -59,7 +59,7 @@ test('dialog: no consent checkbox; explicit create confirms rights and sends one
  assert.equal(calls.length,1);assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.equal(calls[0].consent,true);
  assert.equal(r.root.findAllByType('textarea').length,0,'the result screen replaces the editor');
  assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-pressed']===true&&String(n.props['aria-label']).startsWith('결과')).length,1);
- await click('게시물에 추가');
+ await click('사진 결정');
  assert.deepEqual(added.map(i=>[i.id,i.aiGenerated]),[['a1',true]]);
 });
 
@@ -83,7 +83,7 @@ test('legacy two-result response: viewer navigation and existing selections are 
  await act(async()=>{viewer()[0].props.onKeyDown({key:'ArrowRight',preventDefault(){},stopPropagation(){}});});assert.match(text(viewer()[0]),/결과 2 \/ 2/);
  await click('이 사진 선택');assert.match(text(viewer()[0]),/선택됨/);
  await act(async()=>{viewer()[0].props.onKeyDown({key:'Escape',preventDefault(){},stopPropagation(){}});});
- assert.equal(viewer().length,0);assert.match(text(r.toJSON()),/게시물에 추가 \(2\)/,'both results are picked and the editor is still open');
+ assert.equal(viewer().length,0);assert.match(text(r.toJSON()),/사진 결정/,'both results are picked and the editor is still open');
 });
 
 test('progress: while making, the button and panel show elapsed seconds and the usual time (or that it is being measured)',async()=>{
@@ -132,7 +132,7 @@ test('compact results: cannot add more photos than the remaining post capacity',
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
 
  await click('1장 만들기');
- await click('게시물에 추가');assert.equal(added.length,0);assert.match(text(r.toJSON()),/사진은 0장만 더 넣을 수/);
+ await click('사진 결정');assert.equal(added.length,0);assert.match(text(r.toJSON()),/사진은 0장만 더 넣을 수/);
 });
 
 
@@ -140,8 +140,8 @@ test('regenerate failure keeps the previously selected photos available to add',
  let count=0;const {r,click,added}=await open({onEdit:async()=>++count===1?{success:true,data:{images:[{id:'keep',type:'image',url:'/keep.png'}],remaining:9}}:{success:false,errorMessage:'다시 만들지 못했어요',errorCode:'PROVIDER_ERROR'}});
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
 
- await click('1장 만들기');await click('다시 만들기');assert.match(text(r.toJSON()),/다시 만들지 못했어요/);
- await click('게시물에 추가');assert.deepEqual(added.map(i=>i.id),['keep']);
+ await click('1장 만들기');await click('계속 보정');await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'부드러운 조명'}}));await click('1장 만들기');assert.match(text(r.toJSON()),/다시 만들지 못했어요/);
+ await click('사진 결정');assert.deepEqual(added.map(i=>i.id),['keep']);
 });
 
 test('preset editor: browsing and toggling preserves custom-only input and never exposes accumulated instructions',async()=>{
@@ -255,11 +255,11 @@ test('generated image editing: uses generated source, resets final request and m
  const {r,click,added}=await open({onEdit:async input=>{sent.push(input);count++;return count<3?{success:true,data:{images:[{id:'made-'+count,type:'image',url:'/made-'+count+'.png'}],remaining:10-count}}:{success:false,errorMessage:'편집 실패',errorCode:'PROVIDER_ERROR'};}});
  const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
  await act(async()=>field().props.onChange({target:{value:'앉은 포즈로 바꿔줘'}}));await click('1장 만들기');
- await act(async()=>r.root.findByProps({'aria-label':'결과 1 이미지 편집'}).props.onClick());assert.equal(field().props.value,'');assert.equal(r.root.findAllByType('textarea').length,1);assert.match(text(r.toJSON()),/편집할 이미지/);
+ await click('계속 보정');assert.equal(field().props.value,'');assert.equal(r.root.findAllByType('textarea').length,1);assert.match(text(r.toJSON()),/편집할 이미지/);
  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='배경').props.onClick());await act(async()=>field().props.onChange({target:{value:'흰 스튜디오 배경'}}));await click('1장 만들기');
  assert.equal(sent[0].source.id,'p1');assert.equal(sent[1].source.id,'made-1');assert.equal(sent[1].kind,'background');assert.equal(sent[1].mask,undefined);assert.equal(sent[1].prompt,'흰 스튜디오 배경');
- await act(async()=>r.root.findByProps({'aria-label':'결과 1 이미지 편집'}).props.onClick());await act(async()=>field().props.onChange({target:{value:'다시 웃는 포즈'}}));await click('1장 만들기');assert.equal(sent[2].source.id,'made-2');assert.match(text(r.toJSON()),/편집 실패/);
- await click('게시물에 추가');assert.equal(added[0].id,'made-2');assert.equal(photo.id,'p1');
+ await click('계속 보정');await act(async()=>field().props.onChange({target:{value:'다시 웃는 포즈'}}));await click('1장 만들기');assert.equal(sent[2].source.id,'made-2');assert.match(text(r.toJSON()),/편집 실패/);
+ await click('사진 결정');assert.equal(added[0].id,'made-2');assert.equal(photo.id,'p1');
 });
 
 test('category logos: all seven options provide local images and do not alter category labels or prompts',async()=>{
@@ -325,7 +325,7 @@ test('neutral defaults on expression entry; alternatives replace it, other categ
  const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'자연스러운 조명'}}));await click('쪼그려 앉기');
  const tab=label=>act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());await tab('표정');const buttons=()=>r.root.findByProps({className:'photoPresetGrid'}).findAllByType('button');assert.equal(buttons()[0].props['aria-label'],'무표정');assert.equal(buttons()[0].props['aria-pressed'],true);assert.equal(field().props.value,'자연스러운 조명');
  await click('환한 미소');assert.equal(buttons()[0].props['aria-pressed'],false);assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);await click('환한 미소');assert.ok(buttons().every(b=>b.props['aria-pressed']===false));await tab('포즈');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],false);await tab('표정');assert.equal(buttons()[0].props['aria-pressed'],true);await click('여성');assert.equal(buttons()[0].props['aria-pressed'],true);
- await click('1장 만들기');assert.equal(calls[0].kind,'expression');assert.match(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/치아가 살짝|쪼그려/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));await click('게시물에 추가');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],false,'new draft starts in cosplay without an automatic costume selection');
+ await click('1장 만들기');assert.equal(calls[0].kind,'expression');assert.match(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/치아가 살짝|쪼그려/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));await click('사진 결정');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],false,'new draft starts in cosplay without an automatic costume selection');
 });
 
 // 2026-11-13: storable reset tickets — shown with count and expiry, spending one refills today's count; off while nothing was used.
@@ -457,4 +457,9 @@ test('male body prompts and generated assets cover four categories and five leve
 
 test('gender picker exposes only female and male without implicitly changing the source gender',async()=>{
  const {r,calls}=await open();const buttons=r.root.findByProps({'aria-label':'생성 인물 성별'}).findAllByType('button');assert.deepEqual(buttons.map(text),['여성','남성']);assert.ok(buttons.every(n=>n.props['aria-pressed']===false));assert.equal(calls.length,0);
+});
+
+test('result actions: only continue editing and confirm appear in the action row',async()=>{
+ const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 조명'}}));await click('1장 만들기');
+ const buttons=r.root.findByProps({className:'resultActions'}).findAllByType('button');assert.deepEqual(buttons.map(text),['계속 보정','사진 결정']);assert.doesNotMatch(text(r.toJSON()),/다시 만들기|이미지 편집|게시물에 추가/);await click('계속 보정');assert.equal(calls.length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'');
 });

@@ -67,10 +67,8 @@
 .resultName{display:flex;justify-content:space-between;gap:4px;margin-top:10px;font-size:13px;color:var(--cf-color-textSecondary)}
 .resultName span+span{color:var(--cf-color-accent);font-size:12px}
 .editor .originalNote{margin:8px 0 0;text-align:center;font-size:13px;color:var(--cf-color-textMuted)}
-.resultActions{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:8px}
+.resultActions{margin-top:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .resultActions>button{padding:10px 8px;font-size:15px}
-.resultActions>button:first-child{font-size:14px}
-.resultActions>button span{font-size:22px;line-height:1}
 .loading{aspect-ratio:2/3;border-radius:12px;background:linear-gradient(90deg,var(--cf-color-surfaceSubtle),var(--cf-color-border),var(--cf-color-surfaceSubtle));background-size:200% 100%;animation:ai-shimmer 1.4s ease-in-out infinite}
 @keyframes ai-shimmer{to{background-position:-200% 0}}
 .editor :is(button,summary):focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
@@ -165,8 +163,6 @@
 .costumeCategoryBar .costumeCategoryPicker{flex:none;width:min(180px,65%);gap:0}
 .costumeCategoryBar .costumeCategoryPicker>button{min-height:36px;padding:6px 10px;font-size:13px;background:var(--cf-color-surfaceSubtle);border-color:transparent;box-shadow:none}
 .wardrobeLayout{min-width:0}
-.editResult{width:100%;min-height:44px;margin-top:8px;padding:8px 12px;border:1px solid var(--cf-color-accentBorder);border-radius:10px;background:var(--cf-color-accentSoft);color:var(--cf-color-accent);font:inherit;font-size:14px;cursor:pointer}
-.editResult:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
 
 .costumeCategoryPicker [data-select=trigger] img{width:36px;height:24px;aspect-ratio:auto;object-fit:contain;border-radius:4px;background:white}
 .costumeCategoryPicker [data-select=popup] [role=option] img{width:48px;height:28px;aspect-ratio:auto;object-fit:contain;border-radius:4px;background:white}
