@@ -340,3 +340,16 @@ test('neutral is the first default only on first expression visit; alternatives 
  await click('환한 미소');assert.equal(buttons()[0].props['aria-pressed'],false);assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);await click('환한 미소');assert.ok(buttons().every(b=>b.props['aria-pressed']===false));await tab('포즈');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],true);await tab('표정');assert.ok(buttons().every(b=>b.props['aria-pressed']===false));await click('무표정');await click('여성');assert.equal(buttons()[0].props['aria-pressed'],true);
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls[0].kind,'combined');assert.match(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/치아가 살짝/);assert.match(calls[0].prompt,/쪼그려/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));await click('게시물에 추가');assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],true,'new draft on expression tab starts neutral');
 });
+
+// 2026-11-13: storable reset tickets — shown with count and expiry, spending one refills today's count; off while nothing was used.
+test('reset ticket: button refills the count, is off when unused, hidden without tickets',async()=>{
+ const find=(r,label)=>r.root.findAll(n=>n.type==='button'&&text(n).includes(label));
+ let calls=0;const onUseTicket=async()=>{calls++;return {success:true,data:{remaining:10,limit:10,resetTickets:{count:1,nextExpiresAt:'2026-12-13T00:00:00.000Z'},message:'리셋권 1장을 사용했어요. 오늘 10회를 다시 만들 수 있어요.'},errorMessage:null,errorCode:null};};
+ const render=async quota=>{let r;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota,room:9,onEdit:async()=>({success:false}),onAdd(){},onUseTicket}));});return r;};
+ let r=await render({remaining:0,limit:10,resetTickets:{count:2,nextExpiresAt:'2026-12-13T00:00:00.000Z'}});
+ assert.match(text(r.toJSON()),/리셋권 2장/);const [button]=find(r,'1장 써서');assert.equal(button.props.disabled,false);
+ await act(async()=>{await button.props.onClick();});
+ assert.equal(calls,1);assert.match(text(r.toJSON()),/오늘 남은 횟수 10\/10/);assert.match(text(r.toJSON()),/리셋권 1장을 사용했어요/);
+ r=await render({remaining:10,limit:10,resetTickets:{count:2,nextExpiresAt:null}});assert.equal(find(r,'1장 써서')[0].props.disabled,true,'nothing used today');
+ r=await render({remaining:0,limit:10,resetTickets:{count:0,nextExpiresAt:null}});assert.equal(find(r,'1장 써서').length,0,'no tickets, no button');
+});

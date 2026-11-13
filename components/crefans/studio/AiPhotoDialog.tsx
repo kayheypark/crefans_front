@@ -4,7 +4,7 @@ import {aiPhotoCostumes,aiPhotoCostumeCategories,type AiPhotoCostumeCategory} fr
 import {SelectField} from '@/components/ui/SelectField';
 import {AiPhotoWardrobe,costumeViews,type CostumeView} from './AiPhotoWardrobe';
 import type {ApiResult} from '@/types/crefans';
-import type {AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,StudioMedia} from '@/types/crefans-studio-management';
+import type {AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,StudioMedia} from '@/types/crefans-studio-management';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {Checkbox} from '@/components/ui/Choice';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoStyles,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoBodyPrompt,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
@@ -15,12 +15,13 @@ import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
 
-type Props={open:boolean;onClose:()=>void;images:StudioMedia[];quota:{remaining:number;limit:number;typicalSeconds?:number|null};room:number;
+type Props={open:boolean;onClose:()=>void;images:StudioMedia[];quota:{remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
+ onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[])=>void};
 
 function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
 
-export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Props){
+export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUseTicket}:Props){
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('pose');
  const [selectedPresets,setSelectedPresets]=useState<AiPhotoPresetSelection[]>([]),[customPrompt,setCustomPrompt]=useState(''),[customKind,setCustomKind]=useState<AiPhotoKind>('pose');
  const [targetGender,setTargetGender]=useState<'original'|'female'|'male'>('original');
@@ -55,6 +56,9 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
  const errorRef=useRef<HTMLParagraphElement>(null);
  const bodyRef=useRef<HTMLDivElement>(null),resultTitleRef=useRef<HTMLHeadingElement>(null),editRef=useRef<HTMLButtonElement>(null);
  useEffect(()=>{setRemaining(quota.remaining);},[quota.remaining]);
+ const [ticketBusy,setTicketBusy]=useState(false),[ticketNote,setTicketNote]=useState(''),tickets=quota.resetTickets?.count??0;
+ async function useTicket(){if(!onUseTicket||ticketBusy||busy)return;setTicketBusy(true);setError('');setTicketNote('');
+  try{const r=await onUseTicket();if(r.success){setRemaining(r.data.remaining);setTicketNote(r.data.message);}else setError(r.errorMessage||'리셋권을 사용하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setTicketBusy(false);}}
  useEffect(()=>{if(error)errorRef.current?.scrollIntoView({block:'nearest'});},[error]);
  useEffect(()=>{if(!sources.some(item=>item.id===sourceId))setSourceId(sources[0]?.id||'');},[images,workingSources,sourceId]);
  useEffect(()=>{if(bodyRef.current)bodyRef.current.scrollTop=0;if(stage==='results')resultTitleRef.current?.focus({preventScroll:true});},[stage]);
@@ -149,7 +153,8 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
        <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button></div><div className={s.resultName}><span>결과 {index+1}</span>{selected.includes(item.id)&&<span>선택됨</span>}</div><button type="button" className={s.editResult} aria-label={`결과 ${index+1} 이미지 편집`} onClick={()=>editResult(item)}>이미지 편집</button></div>)}</div><p className={s.originalNote}>원본 사진은 그대로 보관돼요.</p></>}
     </div>}
     {stage==='results'&&!busy&&<div className={s.resultActions}><Action type="button" variant="secondary" onClick={()=>void generate()} disabled={busy||remaining<=0}><span aria-hidden="true">↻</span> 다시 만들기</Action><Action type="button" onClick={add} disabled={busy||!selected.length}>게시물에 추가 ({selected.length})</Action></div>}
-    {(stage==='edit'||busy)&&<div className={s.quota}><span>오늘 남은 횟수 <b>{remaining}</b>/{quota.limit}</span></div>}
+    {(stage==='edit'||busy||remaining<=0)&&<div className={s.quota}><span>오늘 남은 횟수 <b>{remaining}</b>/{quota.limit}</span>{onUseTicket&&tickets>0&&<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||remaining>=quota.limit} title={remaining>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
+    {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
     {error&&<p ref={errorRef} className={s.error} role="alert">{error}</p>}
    </div>
    {(stage==='edit'||busy)&&<div className={s.footer} inert={viewing}>

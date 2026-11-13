@@ -26,7 +26,7 @@ export type StudioManagementModel={
   selectedSubscriberId?:string;
   notice?:string;
   /** Today's AI photo edits left; absent when the editor is not offered. */
-  aiPhotoQuota?:{remaining:number;limit:number;/** Median seconds of recent real edits; null until one has finished. */typicalSeconds?:number|null};
+  aiPhotoQuota?:{remaining:number;limit:number;/** Storable reset tickets (2026-11-13): spend one to clear today's usage. */resetTickets?:{count:number;nextExpiresAt:string|null};/** Median seconds of recent real edits; null until one has finished. */typicalSeconds?:number|null};
   /** The creator's own fee terms from the studio finance API; absent means the default rate. */
   creatorTerms?:CreatorTerms|null;
   actions:{
@@ -45,5 +45,9 @@ export type StudioManagementModel={
     setMembershipActive:(id:string,active:boolean)=>Promise<ApiResult<{message:string}>>;
     /** AI photo edit (outfit, pose, background). Absent until the server feature is connected: the editor button is hidden. */
     aiEditPhoto?:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;
+    useAiPhotoTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
   };
 };
+
+/** POST /studio/ai-photo/reset-ticket (2026-11-13). */
+export type AiPhotoTicketResult={remaining:number;limit:number;resetTickets:{count:number;nextExpiresAt:string|null};message:string};

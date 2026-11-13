@@ -35,6 +35,11 @@
 .footer button{min-height:48px;font-size:16px}
 .quota{margin-top:16px;display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--cf-color-textMuted);font-variant-numeric:tabular-nums;margin-bottom:12px}
 .quota b{color:var(--cf-color-accent)}
+.ticket{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.ticket small{font-size:11px}
+.ticket button{min-height:32px;padding:0 12px;border:1px solid var(--cf-color-border);border-radius:999px;background:var(--cf-color-surface);color:var(--cf-color-text);font-size:12px;font-weight:600;cursor:pointer}
+.ticket button:disabled{opacity:.45;cursor:not-allowed}
+.ticketNote{margin:-4px 0 12px;font-size:12px;color:var(--cf-color-textMuted)}
 .results{display:flex;flex-direction:column;gap:16px;min-width:0}
 .summary{display:flex;align-items:center;gap:12px;padding-bottom:20px;margin-bottom:8px;border-bottom:1px solid var(--cf-color-border)}
 .summary img{flex:none;width:44px;height:52px;border-radius:8px;object-fit:cover}
