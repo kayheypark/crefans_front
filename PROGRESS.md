@@ -1,3 +1,7 @@
+## 2026-11-13 사진 선택 문구 운영 완료
+- 사진 바꾸기→사진 선택 단일 텍스트 변경, 클릭 동작 불변. 운영 `crefans-front:front-ai-photo-select-label-20261113`, source `d07e94073aa6a1a2b6afe81efd689a04a4d01b9a`. 문자열 단언/차이 검사 및 빌드 통과. 13:08:08 UTC 배포0, feed/landing/terms/health/static/image200·redirect301.
+- 외부 복구본 `/Users/ethan/crefans-recovery/20261113/front-ai-photo-select-label-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 증거 `.local/ai-photo-select-label-20261113/verification.json`, `ship.log`.
+
 ## 2026-11-13 사진 선택 버튼 문구 변경
 - 사용자 요청: AI 편집 원본 버튼 사진 바꾸기→사진 선택. 단일 텍스트 치환 확인, 클릭/선택 동작 불변. 코드 단언/차이 검사로 검증; 별도 제품 테스트 추가 없음. 다음 프론트 배포.
 
