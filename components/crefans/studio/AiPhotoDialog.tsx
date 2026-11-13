@@ -83,7 +83,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
   const picked=results.filter(item=>selected.includes(item.id));
   if(!picked.length){setError('게시물에 넣을 사진을 골라 주세요.');return;}
   if(picked.length>room){setError(`사진은 ${room}장만 더 넣을 수 있어요.`);return;}
-  onAdd(picked);setResults([]);setSelected([]);setCustomPrompt('');setCustomKind('pose');setSelectedPresets([]);setExpressionInitialized(false);setWorkingSources([]);setTargetGender('original');setStrokes([]);setError('');setStage('edit');setCosplayOpen(false);onClose();
+  onAdd(picked);setResults([]);setSelected([]);setCustomPrompt('');setCustomKind('pose');setSelectedPresets(kind==='expression'?[{kind:'expression',prompt:aiPhotoNeutralExpressionPreset}]:[]);setExpressionInitialized(kind==='expression');setWorkingSources([]);setTargetGender('original');setStrokes([]);setError('');setStage('edit');setCosplayOpen(false);onClose();
  }
  function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setCustomKind('pose');setSelectedPresets([]);setExpressionInitialized(false);setKind('pose');setCosplayOpen(false);setStage('edit');}
  const viewing=viewer!==null||sourceViewer;
