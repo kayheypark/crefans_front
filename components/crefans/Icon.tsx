@@ -1,7 +1,10 @@
 import type {SVGProps} from 'react';
-export type LandingIconName='bell'|'heart'|'search'|'card'|'users'|'user'|'lock'|'shield'|'ban'|'mail'|'bookmark'|'settings'|'menu'|'arrow'|'arrowUp'|'arrowLeft'|'refresh'|'chevron'|'plus'|'check'|'youtube'|'instagram'|'facebook'|'expand'|'shrink'|'close'|'copy'|'share';
+export type LandingIconName='bell'|'heart'|'search'|'card'|'users'|'user'|'lock'|'shield'|'ban'|'mail'|'bookmark'|'settings'|'menu'|'arrow'|'arrowUp'|'arrowLeft'|'refresh'|'chevron'|'plus'|'check'|'youtube'|'instagram'|'facebook'|'expand'|'shrink'|'close'|'copy'|'share'|'brush'|'undo'|'eraser';
 export default function LandingIcon({name,...props}:SVGProps<SVGSVGElement>&{name:LandingIconName}){
   const paths = {
+    brush:<><path d="m13 14 7-9a2 2 0 0 0-3-3l-7 9m0 0 3 3"/><path d="M10 12c-3-1-5 1-5 4 0 2-2 3-3 3 5 3 10 0 9-4"/></>,
+    undo:<><path d="M8 4 3 9l5 5M3 9h10a5.5 5.5 0 0 1 0 11"/></>,
+    eraser:<><path d="m14 3 7 7-10 11H6l-4-4L14 3Zm-7 9 7 7M11 21h10"/></>,
     copy:<><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></>,
     share:<><path d="M12 15V3m-4 4 4-4 4 4M6 10H4v11h16V10h-2"/></>,
     close:<path d="m5 5 14 14M5 19 19 5"/>,
