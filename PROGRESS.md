@@ -1,3 +1,9 @@
+## 2026-11-13 AI 단일 선택 운영 반영 완료
+- 운영 프론트 `crefans-front:front-ai-single-selection-20261113`, source `84266287c67f7896df40c87997e320d6f8023bcb`. 편집 항목 전환 시 이전 프리셋/마스크 해제, 프리셋 및 신체 보정 축 단일 선택. 커스텀은 현재 항목에 적용. 서버 변경 없음.
+- 기능 38/38, 타입/계층 검사 통과, 모바일 390×844 단일 활성/가로 넘침 없음 확인. 실제 AI 생성은 미실행. 전체 문서 검사는 기존 quota/ticket 6건 및 generated stale 실패 유지. 기존 모바일 연결 실패는 별도 미해결.
+- 2026-11-13 11:12:58 UTC 배포 종료 0. feed/landing/terms/API health/static/image 200, redirect 301. 복구본 `/Users/ethan/crefans-recovery/20261113/front-ai-single-selection-20261113` SHA-256·OCI 15 blobs·태그 ID·설정 검증 후 서버 이전 이미지와 이번 임시 자료 정리. 기존 로컬 복구본 삭제 없음.
+- 증거 `.local/ai-photo-single-selection-20261113/verification.json`, `mobile.png`, `ship.log`; 배포 상세 `.local/ship-front-ai-single-selection-20261113/deploy.log`.
+
 ## 2026-11-13 AI 단일 선택 로컬 검증 완료
 - UI/전송38/38·타입0·계층452. 대조:카테고리전환시프리셋초기화제거→옷마스크잔존으로실패→복원전체재통과. 첫대조는새프리셋선택후에만확인해실패를못잡았으므로전환직후검사로보강.
 - CUA390x844:메이드→사이버는사이버하나,옷→메이크업은옷미선택/투명배경·메이크업만흰배경/파랑,코랄립→볼도하나,가로넘침없음. browser.json/mobile.png. 실생성없음. 전체docs는기존quota/ticket6누락+generated stale. 다음프론트dev→prod배포;서버변경없음.
