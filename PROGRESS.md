@@ -1,3 +1,8 @@
+## 2026-11-13 코스어 첫 탭·별 효과 운영 완료
+- 프론트 `crefans-front:front-cosplay-mode-stars-20261113`, source `832352041f3581e078a55aadb168634995bfcf85`. 코스어→일반 순서, 코스어 선택 중4별 지속 이동, reduced-motion정지. 기존 기본 일반 선택·기능 유지.
+- 기능40/40·타입·WebKit390×844 순서/실제 위치 변화/infinite/비선택 제거/모션감소 확인. 13:05:11 UTC 배포0, feed/landing/terms/health/static/image200·redirect301. 실기기/실제 생성 미검증.
+- 복구본 `/Users/ethan/crefans-recovery/20261113/front-cosplay-mode-stars-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 증거 `.local/cosplay-mode-stars-20261113/verification.json`, `browser.json`, `mobile.png`, `ship.log`.
+
 ## 2026-11-13 코스어 별 효과 로컬 검증 완료
 - 기능40/40·타입0. WebKit390×844: 코스어→일반 순서, 선택시에만4별,0.5초 동안left -12→16.17px 및 infinite, reduced-motion animation none, 일반 전환시 별0 확인. 원래 기본 일반 선택 및 생성 동작 유지. 다음 운영 배포. 증거 `.local/cosplay-mode-stars-20261113/`.
 
