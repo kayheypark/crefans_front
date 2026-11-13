@@ -1,3 +1,9 @@
+## 2026-11-13 코스어 진한 배경·12별 검증 완료
+- 타입0,WebKit390×844 computed색 #172554/white 및 별12,0.5초 위치변화/infinite,모션감소 none,비선택0 검증. 화면 육안 확인. 기능 로직 변경 없음,실기기/실생성 미검증. 다음 운영 배포. 증거 `.local/cosplay-dark-stars-20261113/`.
+
+## 2026-11-13 코스어 진한 배경·별 확대 진행
+- 사용자: 진한 배경/흰 글씨, 더 많은 별. 선택 배경 #172554/글자 #fff,별4→12개로 확대,서로 다른 높이/크기/속도. 기존 선택 조건과 reduced-motion 유지. 합격:선택색/별12/움직임/모션감소 확인 후 배포.
+
 ## 2026-11-13 사진 선택 문구 운영 완료
 - 사진 바꾸기→사진 선택 단일 텍스트 변경, 클릭 동작 불변. 운영 `crefans-front:front-ai-photo-select-label-20261113`, source `d07e94073aa6a1a2b6afe81efd689a04a4d01b9a`. 문자열 단언/차이 검사 및 빌드 통과. 13:08:08 UTC 배포0, feed/landing/terms/health/static/image200·redirect301.
 - 외부 복구본 `/Users/ethan/crefans-recovery/20261113/front-ai-photo-select-label-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 증거 `.local/ai-photo-select-label-20261113/verification.json`, `ship.log`.
