@@ -597,3 +597,11 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 - `lib/crefans/ai-photo-presets.ts`의 카테고리별 12개, 총60개 자연어 문구를3개씩4페이지로 순환한다. “다른 예시 보기”는 AI/API를 호출하지 않으며 작성 중 문구를 유지한다. 예시 선택은 입력에 담기만 하고, 직접 수정·적용 취소·카테고리별 초안 보존을 지원한다. 생성은 명시적인 생성 버튼에서만 수행한다.
 - 서버 종류에도 makeup/expression을 추가하며 얼굴 구조·정체성 보존 지시를 유지한다. 기존 허용 목록·마스크·동의·한도·모더레이션·실패 시 결과 보존은 그대로다. 서버와 프론트를 함께 반영해야 새 두 분류가 동작한다.
 - 근거 확인2026-11-13: [W3C APG 모달](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/), [탭 패턴](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). 공용 Dialog의 포커스 격리/복귀와 탭의 좌우/Home/End 키 이동을 유지한다. 시안은 구현의 접근성 전체 검증을 대신하지 않는다.
+
+
+### 댓글·답글 좋아요 (2026-11-13)
+
+- 공용 `CommentRow`의 시간/답글 메타 영역에 `CommentLikeButton`(하트+숫자)을 둔다. 피드 인라인·게시물 상세·펼친 답글에 같은 액션을 주입한다. 삭제 자리표시에는 표시하지 않고 readOnly에서는 비활성이다.
+- 클릭 후 서버 성공 응답의 liked/likes로만 갱신한다. 처리 중 중복 클릭 차단, 실패 시 기존 하트/개수 보존 및 인라인 오류, aria-pressed·접근성 이름·키보드 포커스 표시를 제공한다. 게시물 전체 좋아요와 상태/개수를 섞지 않는다.
+- 실제 서비스는 PUT /posts/:id/comments/:commentId/like에 enabled:boolean을 보내며 계정 세대가 바뀐 응답을 반영하지 않는다. 비로그인 동작은 기존 로그인 필요 모달을 사용한다. 목업은 같은 카테고리의 댓글/답글에 로컬 멱등 변경을 주입한다. 새 알림 기능은 포함하지 않는다.
+- 근거 확인2026-11-13: https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html — 서버에서 매 요청마다 게시물/댓글 접근을 검사하고 반응 회원 ID는 반환하지 않는다. 관련 검사: tests/comment-likes.test.cjs, tests/crefans-social.test.cjs의 comment likes 시나리오, 서버 tests/platform-comment-social.test.cjs.

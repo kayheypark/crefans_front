@@ -7,9 +7,10 @@ export type CommentMention={id:string;name:string};
 /** `own`: written by the viewer (edit/delete shown). `edited`: shows "수정됨". `deleted`: placeholder kept for remaining replies (no author/body). */
 /** Someone who can be tagged in a comment of a post: its creator and its commenters. */
 export type MentionCandidate={name:string;image:string};
-export type SocialComment={id:string;author:Pick<Viewer,'name'|'image'|'isVerified'|'isFoundingMember'>;body:string;time:string;mentions?:CommentMention[];fromCreator?:boolean;replyCount?:number;own?:boolean;edited?:boolean;deleted?:boolean};
+export type SocialComment={id:string;author:Pick<Viewer,'name'|'image'|'isVerified'|'isFoundingMember'>;body:string;time:string;likes?:number;liked?:boolean;mentions?:CommentMention[];fromCreator?:boolean;replyCount?:number;own?:boolean;edited?:boolean;deleted?:boolean};
 export type SocialReply=Omit<SocialComment,'replyCount'>;
 export type SocialMessage=Message&{statusLabel?:string};
+export type CommentLikeResult=ApiResult<{liked:boolean;likes:number}>;
 export type SocialActionResult=ApiResult<{message:string}>;
 export type SocialModel={
   commentsByPost:Record<string,SocialComment[]>;
@@ -28,6 +29,7 @@ export type SocialModel={
   loadReplies:(postId:string,commentId:string)=>Promise<ApiResult<SocialReply[]>>;
   editComment?:(postId:string,commentId:string,body:string)=>Promise<SocialActionResult>;
   deleteComment?:(postId:string,commentId:string)=>Promise<SocialActionResult>;
+  likeComment?:(postId:string,commentId:string,enabled:boolean)=>Promise<CommentLikeResult>;
   reportPost:(postId:string,reason:ReportReason)=>Promise<SocialActionResult>;
   reportComment?:(commentId:string,reason:ReportReason)=>Promise<SocialActionResult>;
   mentionCandidates?:(postId:string)=>Promise<MentionCandidate[]>;

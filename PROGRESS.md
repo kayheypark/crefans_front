@@ -1,3 +1,12 @@
+## 2026-11-13 댓글·답글 좋아요 구현 (prod 머지 대상, 운영 미배포)
+- 사용자 요청: 댓글 좋아요 추가. origin/prod33f8a62에서 feat/comment-likes-20261113 분기. 앞선 prod까지 머지만/미배포 경계를 유지한다.
+- 합격 조건: 피드 인라인·상세 댓글/답글의 하트/개수, 성공 응답 뒤 갱신, 중복 클릭 차단·실패 시 상태 보존, 읽기전용 비활성·삭제 자리표시 제외, 로그인/게시물/댓글 상태 권한은 서버 검사.
+- 공용 CommentLikeButton/CommentRow, 댓글 모델 likes/liked·likeComment, 실제 PUT 어댑터와 목업 액션 연결. 계정 세대가 바뀐 응답은 반영하지 않음. 비로그인은 기존 로그인 필요 모달. 게시물 전체 좋아요와 분리. 답글은 지연 로드된 목록에도 동일 버튼을 사용한다.
+- 검증: 새 버튼2/2, 피드/상세/답글 연결1/1. 피드 액션 전달을 제거한 대조에서 연결 검사 실패 후 원복/재통과. 기존 소셜 전체39개35통과4실패, 기준선33f8a62의38개34통과4실패와 같은 실패명(모바일갤러리4개), 새 실패 없음. typecheck0·계층0·CREFANS_E2E=true npm run build0·diff --check0. 서버22/22.
+- 수동 Chrome/CUA 목업390: 댓글0→1→0, 답글펼침/0→1;320: 가로넘침없음/44×32하트;1280:답글취소1→0 확인. 실제 인증은 서버 HTTP검사로 확인, 실기기·운영은 미실행. 증거 .local/comment-likes-20261113/{unit.log,wiring.log,social.log,baseline-comparison.json,negative-wiring.log,build.log,browser.json,*png,verification.json}.
+- docs/design-system.md 갱신. check:docs는 기존 Generated contracts stale 때문에 미통과(새 라우트는 서버 의미문서/OpenAPI/계약목록에 반영). 문서 증거 재생성만으로 통과 처리하지 않음.
+- 다음: 서버 대응 브랜치와 함께 dev 통합·prod까지만 반영. 운영배포/운영DB/설정 변경 없음. 실기기와 운영 확인은 별도.
+
 ## 2026-11-13 AI 사진 편집 dev→prod 머지 (운영 배포 제외)
 - 사용자 명시 지시: “다되면 prod까지 머지만”. 기존 dev worktree/미커밋 자료를 건드리지 않고 origin/dev 기반 release/ai-photo-editor-dev-20261113에서 작업.
 - 880a9a3 위에 feature b1f4c70 통합(5097981). PROGRESS.md 충돌은 양쪽 기록을 모두 보존, 기능 코드 충돌 없음. 기존 마이페이지 변경(AccountPages/Icon) 유지. 서버 대응 feature619b175도 함께 dev→prod 반영 대상.

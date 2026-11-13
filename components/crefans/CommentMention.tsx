@@ -2,12 +2,12 @@
 import Link from 'next/link';
 import {createContext,useContext,useId,useRef,useState,type ChangeEvent,type KeyboardEvent,type ReactNode} from 'react';
 import type {ReportReason} from '@/lib/crefans/report-reasons';
-import type {MentionCandidate,SocialActionResult} from '@/types/crefans-social';
+import type {CommentLikeResult,MentionCandidate,SocialActionResult} from '@/types/crefans-social';
 import {Avatar} from './ServiceUI';
 import s from './social.module.css';
 
 /** What every comment row and input of one post shares: profile links, tag candidates and reporting. */
-export type CommentContextValue={basePath?:string;mentionCandidates?:()=>Promise<MentionCandidate[]>;onReport?:(commentId:string,reason:ReportReason)=>Promise<SocialActionResult>};
+export type CommentContextValue={basePath?:string;mentionCandidates?:()=>Promise<MentionCandidate[]>;onLike?:(commentId:string,enabled:boolean)=>Promise<CommentLikeResult>;onReport?:(commentId:string,reason:ReportReason)=>Promise<SocialActionResult>};
 export const CommentContext=createContext<CommentContextValue>({});
 
 /** The body with each tagged "@이름" as a blue link to that person's profile (plain text when no base path). */

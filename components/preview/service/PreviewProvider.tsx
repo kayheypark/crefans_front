@@ -54,7 +54,7 @@ function usePreviewState(data:ServiceData,creatorId:string,onCreatorLogin:(id:st
   const canAccess:ServiceViewModel['canAccess']=(creatorId,rank,requiredPlanId)=>creatorId===creator?.id||hasPreviewAccess(subscriptions,creatorId,rank,today,getCreatorPlans(data,creatorId),requiredPlanId);
   const account=useMockAccount({viewer,setViewer,setSignedIn,basePath,creators:data.creators,onCreatorLogin,initialEmail:creator?'moka@gmail.com':undefined});
   const foundingBadge=useMockFoundingBadge(setViewer);
-  const social=useMockSocial({data,viewer,canAccess,today,initialComments,initialReplies,liked});
+  const social=useMockSocial({signedIn,data,viewer,canAccess,today,initialComments,initialReplies,liked});
   return{data,foundingBadge,mode:'mock',basePath,ownCreatorIds:[creatorId],today,nextRenewAt,signedIn,setSignedIn,viewer,setViewer,following,toggleFollow,liked,toggleLike,saved,toggleSave,subscriptions,subscribe,cancelSubscription,resumeSubscription,canAccess,...account,...social};
 }
 const Context=createContext<ServiceViewModel|null>(null);
