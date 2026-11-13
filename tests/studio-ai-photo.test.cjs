@@ -173,7 +173,7 @@ test('cosplay wardrobe keeps the outfit mask gate and submits cosplay style only
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));
  await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/옷 부분을 사진 위에 칠해/);
  await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));
- maskCalls=[];await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'outfit');assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(maskCalls.length,1);assert.equal(maskCalls[0][0],photo.url);assert.match(calls[0].prompt,/크롭톱/);
+ maskCalls=[];await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'outfit');assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(maskCalls.length,1);assert.equal(maskCalls[0][0],photo.url);assert.equal(calls[0].prompt,'의상 참조 사진 1의 코디를 적용해줘.');assert.deepEqual(calls[0].costumeIds,['cyber']);
  await click('설정 수정');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());await click('환한 미소');await click('1장 만들기');assert.equal(calls[1].style,'cosplay');assert.equal(calls[1].kind,'combined');assert.deepEqual(calls[1].editKinds,['outfit','expression']);assert.equal(calls[1].mask,paintedMask);
 });
 
@@ -196,7 +196,7 @@ test('wardrobe views: all five forms keep drafts, mask and consent and submit th
   const controls=r.root.findByProps({className:'controls'}),composer=controls.findByProps({className:'composer'}),wardrobe=controls.findByProps({className:'wardrobe'});
   assert.equal(controls.children.indexOf(composer)<controls.children.indexOf(wardrobe),view.value==='composer');
   assert.equal(r.root.findByProps({className:'footer'}).findAllByType('button').length,1);
-  await click('1장 만들기');assert.equal(calls.length,i+1);assert.equal(calls[i].prompt,rules.aiPhotoPresetText(loadTypeScript('lib/crefans/ai-photo-costumes.ts').aiPhotoCostumes.find(c=>c.id==='idol').prompt)+'\n'+draft.trim());assert.equal(calls[i].mask,paintedMask);assert.equal(calls[i].style,'cosplay');
+  await click('1장 만들기');assert.equal(calls.length,i+1);assert.equal(calls[i].prompt,'의상 참조 사진 1의 코디를 적용해줘.\n'+draft.trim());assert.equal(calls[i].mask,paintedMask);assert.equal(calls[i].style,'cosplay');
   assert.equal(r.root.findAllByProps({'aria-label':'결과 1'}).length,1);assert.equal(r.root.findAllByProps({'aria-label':'결과 2'}).length,0);
   await click('설정 수정');assert.equal(r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.value,view.value);
  }
@@ -253,7 +253,7 @@ test('category filters: all seven work in five views without losing request/mask
   await act(async()=>r.root.findByProps({'aria-label':items[0].name}).props.onClick());chosen.push(rules.aiPhotoPresetText(items[0].prompt));assert.equal(field().props.value,previous);
  }
  assert.equal(calls.length,0,'filtering/browsing/picking never generates');
- await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].prompt,[...chosen,previous].join('\n'));
+ await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].prompt,[...chosen.map((_,i)=>`의상 참조 사진 ${i+1}의 코디를 적용해줘.`),previous].join('\n'));assert.deepEqual(calls[0].costumeIds,aiPhotoCostumeCategories.map(g=>aiPhotoCostumes.find(c=>c.category===g.value).id));
  await click('설정 수정');assert.equal(category().props.value,'jujutsu');
  await act(async()=>category().props.onChange('nikke'));await click('누아르 바니');await click('누아르 바니');assert.equal(field().props.value,previous);
 });
@@ -363,7 +363,7 @@ test('complete cosplay look: catalog hair and accessories reach the request afte
  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='배경').props.onClick();});
  await act(async()=>{r.root.find(n=>n.props['data-mask-editor']).props.onChange([{size:.1,points:[{x:.5,y:.5}]}]);});
  await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
- await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.match(calls[0].prompt,/검정 턱선 단발 가발/);assert.match(calls[0].prompt,/트레이/);assert.match(calls[0].prompt,/메리제인 구두/);assert.ok(calls[0].mask);
+ await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].prompt,'의상 참조 사진 1의 코디를 적용해줘.');assert.deepEqual(calls[0].costumeIds,['maid']);assert.ok(calls[0].mask);
 });
 
 
@@ -374,4 +374,15 @@ test('explicit mode switch preserves draft, selections and mask while showing th
  await act(async()=>r.root.find(n=>n.props['data-mask-editor']).props.onChange([{size:.06,points:[{x:.5,y:.4}]}]));
  await click('일반 모드');assert.equal(field().props.value,'내 추가 요청');assert.equal(r.root.findAllByProps({className:'costumeGrid'}).length,0);
  await click('코스어 모드');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],true);assert.equal(r.root.find(n=>n.props['data-mask-editor']).props.strokes.length,1);assert.equal(field().props.value,'내 추가 요청');assert.equal(calls.length,0);
+});
+
+
+test('costume references replace only catalog descriptions, preserve order and disappear on deselection',()=>{
+ const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
+ const items=aiPhotoCostumes.slice(0,2).map(c=>({kind:'outfit',prompt:rules.aiPhotoPresetText(c.prompt)}));
+ const expression={kind:'expression',prompt:'무표정'},customOutfit={kind:'outfit',prompt:'흰 면 셔츠'};
+ const result=aiPhotoCostumeRequest([items[1],expression,items[0],customOutfit]);
+ assert.deepEqual(result.costumeIds,[aiPhotoCostumes[1].id,aiPhotoCostumes[0].id]);
+ assert.deepEqual(result.presets,[{kind:'outfit',prompt:'의상 참조 사진 1의 코디를 적용해줘.'},expression,{kind:'outfit',prompt:'의상 참조 사진 2의 코디를 적용해줘.'},customOutfit]);
+ assert.deepEqual(aiPhotoCostumeRequest([expression]).costumeIds,[]);
 });

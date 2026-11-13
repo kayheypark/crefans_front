@@ -1,4 +1,5 @@
-/** Thumbnails illustrate the prompt; they are not exact garment references sent to the provider. */
+/** Catalog images are sent as costume references; rendering may vary. */
+import {aiPhotoPresetText,type AiPhotoPresetSelection} from './ai-photo';
 export const aiPhotoCostumeCategories=[{value:'general',image:'/brand/ai-photo/outfit-colorful-flat-v3.png',label:'일반',group:'기본'},{value:'nikke',image:'/brand/ai-photo/category-logos/nikke-v1.webp',label:'니케',group:'게임'},{value:'overwatch',image:'/brand/ai-photo/category-logos/overwatch-v1.webp',label:'오버워치',group:'게임'},{value:'diablo',image:'/brand/ai-photo/category-logos/diablo-v1.webp',label:'디아블로',group:'게임'},{value:'aot',image:'/brand/ai-photo/category-logos/aot-v1.webp',label:'진격의 거인',group:'애니메이션'},{value:'demon-slayer',image:'/brand/ai-photo/category-logos/demon-slayer-v1.webp',label:'귀멸의 칼날',group:'애니메이션'},{value:'jujutsu',image:'/brand/ai-photo/category-logos/jujutsu-v1.webp',label:'주술회전',group:'애니메이션'}] as const;
 export type AiPhotoCostumeCategory=typeof aiPhotoCostumeCategories[number]['value'];
 export type AiPhotoCostume={id:string;category:AiPhotoCostumeCategory;name:string;detail:string;prompt:string;image:string;wig:string;headwear:string;accessories:string;footwear:string};
@@ -36,3 +37,15 @@ export const aiPhotoCostumes=[
  {id:'jjk-geto',category:'jujutsu',name:'게토 법의',detail:'블랙 · 가사',prompt:'의상을 주술회전의 게토 법의 코스튬으로 바꿔줘. 넓은 소매의 검정 기모노, 흰 하카마 바지, 몸통에 비스듬히 두른 올리브·금색 무늬 가사로 구성해줘. 가발은 검정 반묶음 긴 가발, 머리장식은 별도 머리장식 없음, 소품은 둥근 검정 귀 장식과 허리 매듭, 신발은 흰 버선과 짙은 조리 샌들로 함께 맞춰줘. 원본 구도 안에서 보이는 범위에 적용하고 얼굴과 체형은 유지해줘.',image:'/brand/ai-photo/costumes/jjk-geto-v2.webp',wig:'검정 반묶음 긴 가발',headwear:'별도 머리장식 없음',accessories:'둥근 검정 귀 장식과 허리 매듭',footwear:'흰 버선과 짙은 조리 샌들'},
  {id:'jjk-toji',category:'jujutsu',name:'토우지 전투복',detail:'블랙 · 화이트',prompt:'의상을 주술회전의 토우지 전투복 코스튬으로 바꿔줘. 몸에 맞는 검정 반팔 티셔츠, 넉넉한 흰 무술 바지, 넓은 검정 허리띠로 구성해줘. 가발은 검정 짧은 헝클어진 가발, 머리장식은 별도 머리장식 없음, 소품은 어깨에 두른 보라색 주령 모형과 칼집에 든 소품 칼, 신발은 검정 무술화로 함께 맞춰줘. 원본 구도 안에서 보이는 범위에 적용하고 얼굴과 체형은 유지해줘.',image:'/brand/ai-photo/costumes/jjk-toji-v2.webp',wig:'검정 짧은 헝클어진 가발',headwear:'별도 머리장식 없음',accessories:'어깨에 두른 보라색 주령 모형과 칼집에 든 소품 칼',footwear:'검정 무술화'},
 ] as const satisfies readonly AiPhotoCostume[];
+
+/** Keep selection order and other edits, replacing verbose costume descriptions with image references. */
+export function aiPhotoCostumeRequest(selected:AiPhotoPresetSelection[]){
+ const costumeIds:string[]=[];
+ const presets=selected.map(item=>{
+  const costume=item.kind==='outfit'?aiPhotoCostumes.find(c=>aiPhotoPresetText(c.prompt)===item.prompt):undefined;
+  if(!costume)return item;
+  costumeIds.push(costume.id);
+  return{...item,prompt:`의상 참조 사진 ${costumeIds.length}의 코디를 적용해줘.`};
+ });
+ return{presets,costumeIds};
+}
