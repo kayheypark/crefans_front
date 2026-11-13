@@ -1,3 +1,7 @@
+## 2026-11-14 원본 보관 안내 문구 삭제 운영 완료
+- 운영 `crefans-front:front-remove-original-note-20261114`,source `19d4659af16eca9c102a915a08f852dee8e62930`. 문구/전용CSS삭제 단언·diff확인·운영빌드통과. 추가제품테스트없음.
+- 2026-11-13 22:21:49 UTC 배포0,feed/landing/terms/health/static/image200·redirect301. 복구본 `/Users/ethan/crefans-recovery/20261114/front-remove-original-note-20261114` SHA·OCI15blobs·설정검증후서버이전이미지/임시자료정리. 증거 `.local/remove-original-note-20261114/verification.json`, `check.log`, `ship.log`.
+
 ## 2026-11-14 원본 보관 안내 문구 삭제
 - 사용자 요청대로 결과 화면 문구와 전용CSS만 제거. 사진보존/두액션 동작불변. 합격:해당문구/스타일참조없음,diff확인. 단순문구삭제로 추가제품테스트없음. 다음운영배포.
 
