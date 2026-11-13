@@ -1,3 +1,10 @@
+## 2026-11-13 10:15 KST 댓글 상대시간·신고 더보기 운영 배포 완료
+- feat5bb56b7→dev/prod3619e1d → frontend front-comment-time-menu-20261113. 공용 댓글/답글 시간은 방금/n분/n시간/n일 전, 전체 KST 날짜 title 보존. 신고는 헤더 오른쪽44px 더보기에만 표시. 본인 수정삭제·삭제 자리표시·신고창은 유지.
+- 관련 단위4+연결3=7통과, 타입/계층451·diff --check0. linux/amd64 운영 빌드57초0·카카오키 포함·이미지 revision/레이어 일치·공개 페이지200·옛 경로301·static/최적화이미지200·API헬스200. check:docs는 기존 Generated contracts stale로 미통과.
+- CUA local320/390 메뉴→신고창·Escape·바깥닫기·가로넘침0. 실제 운영 사용자가 보낸 카페인중독 게시물390에서 댓글10시간 전·답글9시간 전, 시간/하트/답글 동일 줄, 더보기 안 신고 확인. 실제 신고/좋아요 제출·실기기 검증 없음(페이지 조회수 일반 노출은 발생 가능). 증거 .local/comment-time-menu-20261113/{verification.json,production-device-proof.png,production-menu.png,unit.log,social.log}; 빌드/배포 .local/ship-front-comment-time-menu-20261113/.
+- 직전 front-colorful-comments는 맥 /Users/ethan/crefans-recovery/20261113/front-comment-time-menu-20261113에 보관, SHA/OCI15blobs/index태그ID/설정 검증을 이번 복사배포 스크립트에 추가하여 서버 사본 삭제 전에 확인. 서버 임시본/이전태그 정리, API·worker·admin·DB·proxy 컨테이너 그대로. 기존 맥 복구본 삭제 없음(초과 후보는 별도 승인 필요).
+- 다음: 운영 실기기 사용 관찰. 기존 전체 소셜4실패/문서stale는 이번 범위 밖에 남김.
+
 ## 2026-11-13 댓글 표시 수정 검증
 - 날짜/기존 KST/좋아요 단위4개, 댓글 본인수정삭제·피드/상세좋아요·신고메뉴 연결3개 통과. 타입/계층451·diff --check 통과. CUA Chrome320×568: 가로넘침0, 일반댓글 시간/하트/답글 동일 줄. 390×844: 오른쪽 위 메뉴·신고창 연결·Escape/바깥 클릭닫기 확인. 실제 신고 접수는 하지 않음.
 - 증거 .local/comment-time-menu-20261113/{unit.log,social.log,types.log,layers.log,browser.json,mobile-320.png,mobile-390.png}. 다음 dev→prod·프론트 운영이미지 배포, 원래 API/worker/DB/설정 유지.
