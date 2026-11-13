@@ -1,3 +1,7 @@
+## 2026-11-13 AI 반복 서브텍스트 제거 운영 완료
+- 프론트 `crefans-front:front-ai-trim-hints-20261113`, source `6fca7d4a3e00ca68e793682b586144fff1036b73`. 칠하기/모드/코디/커스텀 설명 제거 및 프리셋 설명 제목으로 축약. 기능38/38·타입 통과.
+- 12:50:40 UTC 배포 종료0, feed/landing/terms/health/static/image200·redirect301. 복구본 `/Users/ethan/crefans-recovery/20261113/front-ai-trim-hints-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지와 임시 자료 정리. 서버 변경·실제 생성·실기기 검증 없음. 증거 `.local/ai-trim-hints-20261113/verification.json`, `ship.log`.
+
 ## 2026-11-13 AI 서브텍스트 삭제 검증 완료
 - 5종 반복 사용법 설명 삭제/축약, 기능38/38 및 타입 검사 통과. 전송/서버 변경 없음. 실제 AI 생성/실기기 검사는 미실행. 다음 운영 반영. 증거 `.local/ai-trim-hints-20261113/`.
 
