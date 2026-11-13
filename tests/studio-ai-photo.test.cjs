@@ -10,8 +10,8 @@ const {mockAiPhotoEdit}=loadTypeScript('components/preview/studio/ai-photo-fixtu
 const dialog=props=>el('section',null,props.children);
 const paintedMask=new Blob(['painted-mask'],{type:'image/png'});
 let maskCalls=[];
-const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'./AiPhotoMask':{AiPhotoMask:props=>el('div',{'data-mask-editor':true,...props}),buildAiMask:async(...args)=>{maskCalls.push(args);return paintedMask;}},'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Dialog:({open,children})=>open?el('section',{role:'dialog'},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props})}});
-const text=node=>typeof node==='string'?node:(node?.children||[]).map(text).join('');
+const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'./AiPhotoMask':{AiPhotoMask:props=>el('div',{'data-mask-editor':true,...props}),buildAiMask:async(...args)=>{maskCalls.push(args);return paintedMask;}},'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Dialog:({open,children,title,onClose})=>open?el('section',{role:'dialog','aria-label':title,onClose},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props})}});
+const text=node=>typeof node==='string'?node:(Array.isArray(node)?node:node?.children||[]).map(text).join('');
 const photo={id:'p1',type:'image',url:'/p1.png'};
 const base={prompt:'벚꽃 아래 앉은 포즈',consent:true,kind:'pose',hasMask:false,remaining:3};
 
@@ -112,7 +112,13 @@ test('compact stages: provider failure restores the editable form without losing
  const {r,click}=await open({onEdit:async()=>({success:false,errorMessage:'생성에 실패했어요',errorCode:'PROVIDER_ERROR'})});
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
  await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
- await click('1장 만들기');assert.match(text(r.toJSON()),/생성에 실패했어요/);
+ await click('1장 만들기');
+ const notice=r.root.findByProps({'aria-label':'AI 사진 편집 안내'});
+ assert.match(text(notice),/생성에 실패했어요/);
+ await click('확인');assert.equal(r.root.findAllByProps({'aria-label':'AI 사진 편집 안내'}).length,0);
+ await click('1장 만들기');assert.equal(r.root.findAllByProps({'aria-label':'AI 사진 편집 안내'}).length,1);
+ await act(async()=>r.root.findByProps({'aria-label':'AI 사진 편집 안내'}).props.onClose());
+ assert.equal(r.root.findAllByProps({'aria-label':'AI 사진 편집'}).length,1);
  assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
  assert.match(text(r.toJSON()),/오늘 남은 횟수 10\/10/);
 });

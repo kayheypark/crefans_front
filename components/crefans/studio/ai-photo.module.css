@@ -29,7 +29,8 @@
 .notice[open] summary::after{transform:rotate(90deg)}
 .editor .notice p{margin:4px 0 0;font-size:12px;color:var(--cf-color-textMuted)}
 .hint{margin:0;font-size:12px;line-height:1.6;color:var(--cf-color-textMuted)}
-.editor .error{margin:16px 0 0;font-size:13px;line-height:1.6;color:var(--cf-color-danger)}
+.errorMessage{padding:0 24px 24px;display:grid;gap:24px}
+.errorMessage p{margin:0;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
 .footer{flex:none;padding:12px 24px max(16px,env(safe-area-inset-bottom));border-top:1px solid var(--cf-color-border);background:var(--cf-color-surface)}
 .footer>button{width:100%}
 .footer button{min-height:48px;font-size:16px}
