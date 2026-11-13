@@ -1,3 +1,7 @@
+## 2026-11-13 메이크업 성별 필터 운영 완료
+- 운영 `crefans-front:front-makeup-gender-20261113`, source `a5b6d5d07bf4741b0a08d79ce95d4b687615f233`. 메이크업은 남성/여성 각각6개만 표시. 기능43/43·타입·레이어·모바일 WebKit 이미지 로딩 통과. 실생성/실기기 미검증.
+- 13:37:20 UTC 배포0; feed/landing/terms/health/static/image200,redirect301. 외부복구본 `/Users/ethan/crefans-recovery/20261113/front-makeup-gender-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전이미지/임시자료 정리. 로컬 완료 배포 임시압축본4개만 검증 후 제거,외부복구본 보존. 증거 `.local/makeup-gender-20261113/verification.json`, `browser.json`, `ship.log`, `temp-cleanup.json`.
+
 ## 2026-11-13 메이크업 성별 필터 검증 완료
 - 기능43/43, TypeScript0, 레이어453개 통과. WebKit390×844 남성짝수/여성홀수 각6개 이미지 로딩 확인, 남성 화면 육안 확인. 사진 제작 prompt 메타데이터와 대조. 실제 생성/실기기 미실행. 증거 `.local/makeup-gender-20261113/`.
 
