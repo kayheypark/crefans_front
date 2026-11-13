@@ -1,3 +1,9 @@
+## 2026-11-13 성별 버튼 제거 검증 완료
+- 관련 기능45/45·타입0·diff검사 통과. 성별그룹 여성/남성2개만 렌더링/초기임의선택없음 검증. 단순UI제거로 별도브라우저/실생성검사 없음. 증거 `.local/gender-remove-original-20261113/`. 다음 운영 배포.
+
+## 2026-11-13 성별 원본 유지 버튼 제거 진행
+- 사용자 명시 요청대로 성별 선택에서 원본 유지 버튼만 제거. 여성/남성2개 표시. 최초 미선택은 내부 original 유지(임의성별변경/추론 없음). 신체슬라이더 중앙의 원본유지는 별개로 유지. 합격:2버튼만표시,선택/생성계약회귀검사.
+
 ## 2026-11-13 남성 신체 보정4종 운영 완료
 - 운영 `crefans-front:front-male-body-presets-20261113`,source `434018d1f5e78553bd6833a5f3a2a61ab0adaf9e`. 남성 상체/하체근육·어깨너비·키비율4종5단계,내장이미지젠4장384pxWebP,프롬프트design기록. 기능44/44·타입·레이어·WebKit사진로딩/선택/성별초기화 통과. 실제사용자사진생성품질/실기기 미검증.
 - 13:54:19 UTC 배포0,feed/landing/terms/health/static/image200·redirect301. 외부복구본 `/Users/ethan/crefans-recovery/20261113/front-male-body-presets-20261113` SHA·OCI15blobs·설정 검증 후 서버이전이미지/임시자료정리. 로컬완료배포임시압축본4개만로그/SHA/이미지확인후정리,외부복구본보존. 증거 `.local/male-body-presets-20261113/verification.json`, `browser.json`, `ship.log`, `temp-cleanup.json`.

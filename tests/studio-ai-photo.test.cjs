@@ -270,7 +270,7 @@ test('category logos: all seven options provide local images and do not alter ca
 
 
 test('gender is composed internally without appearing in or changing the custom input',async()=>{
- const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'부드러운 조명'}}));await click('남성');await click('여성');assert.equal(field().props.value,'부드러운 조명');await click('원본 유지');assert.equal(field().props.value,'부드러운 조명');await click('남성');await click('1장 만들기');assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].prompt,'생성 인물을 성인 남성으로 바꿔줘.\n부드러운 조명');
+ const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'부드러운 조명'}}));await click('남성');await click('여성');assert.equal(field().props.value,'부드러운 조명');await click('남성');await click('1장 만들기');assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].prompt,'생성 인물을 성인 남성으로 바꿔줘.\n부드러운 조명');
 });
 
 
@@ -433,7 +433,7 @@ test('default cosplay wardrobe swipes six-card pages without changing selected c
  await click('코랄 립');await click('남성');assert.deepEqual(previews(),[2,4,6,8,10,12].map(id=>`/brand/ai-photo/presets/makeup-${String(id).padStart(2,'0')}-v1.webp`));
  assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='코랄 립').length,0);
  await click('여성');assert.deepEqual(previews(),[1,3,5,7,9,11].map(id=>`/brand/ai-photo/presets/makeup-${String(id).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],false);
- await click('원본 유지');await click('다음 프리셋 페이지');await click('남성');assert.equal(previews().length,6);assert.equal(calls.length,0);
+ await click('남성');assert.equal(previews().length,6);assert.equal(calls.length,0);
  });
 
 test('male body: four male photos, bidirectional controls, single selection and gender reset',async()=>{
@@ -453,4 +453,8 @@ test('male body prompts and generated assets cover four categories and five leve
  assert.ok(rules.aiPhotoBodyPrompt(key,-1).includes(negative));assert.ok(rules.aiPhotoBodyPrompt(key,2).includes(positive));assert.equal(rules.aiPhotoBodyPrompt(key,0),'');assert.notEqual(rules.aiPhotoBodyPrompt(key,-2),rules.aiPhotoBodyPrompt(key,-1));assert.notEqual(rules.aiPhotoBodyPrompt(key,1),rules.aiPhotoBodyPrompt(key,2));
  const meta=await sharp(fs.readFileSync(`public/brand/ai-photo/presets/body-male-${key}-v1.webp`)).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);
  }
+});
+
+test('gender picker exposes only female and male without implicitly changing the source gender',async()=>{
+ const {r,calls}=await open();const buttons=r.root.findByProps({'aria-label':'생성 인물 성별'}).findAllByType('button');assert.deepEqual(buttons.map(text),['여성','남성']);assert.ok(buttons.every(n=>n.props['aria-pressed']===false));assert.equal(calls.length,0);
 });
