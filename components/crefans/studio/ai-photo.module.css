@@ -16,7 +16,10 @@
 .preview{display:block;width:100%;height:208px;object-fit:contain}
 .tabs{display:flex;gap:4px;padding:4px;border-radius:12px;background:var(--cf-color-surfaceSubtle)}
 .tabs button{flex:1;min-height:40px;border:0;border-radius:9px;background:transparent;color:var(--cf-color-textSecondary);font:inherit;font-size:15px;font-weight:600;cursor:pointer}
-.tabs button[aria-selected=true]{background:var(--cf-color-surface);color:var(--cf-color-accent);box-shadow:0 1px 3px rgb(32 35 51 / 5%)}
+.tabs button[aria-selected=false]{background:var(--cf-color-surfaceSubtle);color:var(--cf-color-textSecondary);box-shadow:none}
+.tabs button[aria-selected=true]{background:var(--cf-color-accent);color:var(--cf-color-onAccent);box-shadow:none}
+.tabs button{position:relative;appearance:none;-webkit-appearance:none;-webkit-tap-highlight-color:transparent}
+.tabCheck{position:absolute;top:3px;right:5px;font-size:10px;line-height:1}
 .controls textarea{min-height:96px;font-size:16px;resize:vertical}
 .chip{min-height:36px;padding:7px 11px;border:1px solid var(--cf-color-border);border-radius:8px;background:var(--cf-color-surface);color:var(--cf-color-textSecondary);font:inherit;font-size:13px;cursor:pointer}
 .chip[aria-checked=true],.chip[aria-pressed=true]{border-color:var(--cf-color-accentBorder);background:var(--cf-color-accentSoft);color:var(--cf-color-accent)}

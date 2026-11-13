@@ -1,3 +1,12 @@
+## 2026-11-13 AI 탭 표시 검증 완료
+- WebKit iPhone13(390×844)/Chromium(1280×900)에서 메이크업→포즈→옷→표정→옷 전환마다 selected/파란 배경/체크가 각각 1개 확인, 화살표 키 선택/포커스 유지. 첨부 증상 자체는 로컬 재현 안 됨; 시각적 구분 보강으로 보고. 기능38/38·타입0. 실기기 검증 아님. 다음 프론트 배포.
+
+## 2026-11-13 모바일 AI 탭 선택 표시 보강 진행
+- 첨부: 옷 패널이 열렸는데 포즈에 흰 배경 잔존. 로컬 iPhone 13 WebKit에서는 단일 aria-selected 및 단일 흰 배경으로 정확 현상 미재현. 원인을 확정하지 않음.
+- 선택만 파란 배경/흰 글자/체크, 비선택은 불투명 회색으로 명시. 네이티브 appearance와 터치 강조를 제거하되 focus-visible 유지. 범위는 AI 카테고리 탭만.
+- Apple Safari CSS Reference(2026-11-13 확인): https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariCSSRef/Articles/StandardCSSProperties.html — tap highlight는 별도 터치 표시, 제거 가능. 원인 입증으로 사용하지 않음.
+- 합격: WebKit 모바일/Chromium 데스크톱에서 반복 전환·모드 변경 후 선택 및 파란 배경 정확히 하나, 포커스 이동 유지. 증거 `.local/ai-tab-paint-20261113/`.
+
 ## 2026-11-13 AI 동의 체크박스 제거 운영 완료
 - 운영 프론트 `crefans-front:front-ai-no-checkbox-20261113`, 소스 `9439b2432d117700a14205af798858428144c9e2`. 별도 동의 체크 제거, 만들기 동작에 연결된 짧은 권한 확인 안내. API/서버 변경 없음.
 - 38/38 기능·타입·계층 통과. 11:21:56 UTC 배포 종료 0, feed/landing/terms/API health/static/image 200·redirect 301. 실기기/실제 생성 미검증.
