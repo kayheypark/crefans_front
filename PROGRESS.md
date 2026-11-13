@@ -1,3 +1,9 @@
+## 2026-11-14 원신 프론트 검증 완료
+- 기능46/46·타입·레이어 통과,WebKit390×844 원신로고/4카드 로딩·선택 확인. 새4종프론트/서버참조SHA동일. 공식캐릭터페이지/공식번들로고확인2026-11-14,프롬프트 `design/genshin-costumes-20261114/prompts.json`. 실제사용자사진생성품질미검증. 다음서버확인후프론트배포. 증거 `.local/genshin-costumes-20261114/`.
+
+## 2026-11-14 원신 의상 카테고리 진행
+- 원신4종(라이덴쇼군/진/종려/다이루크),공식사이트로고와 이미지젠 참조사진512pxWebP. 프론트36종/8분류,서버허용ID36종/동일파일연결. 합격:선택/짧은참조요청/파일SHA동일/공급사대역첨부/기존검사유지. 실제생성품질미검증. 서버기존미커밋조사보존위해별도worktree사용.
+
 ## 2026-11-14 분홍 하트 코스어 탭 운영 완료
 - 운영 `crefans-front:front-cosplay-pink-hearts-20261114`,source `a58cc9faa759dd159fb524f35b79bd208d0973ff`. 분홍#e00078/흰글씨·SVG하트12개지속이동. 타입/WebKit색·하트수·움직임·모션감소·비선택제거 통과. 실기기미검증.
 - 최초배포 로컬공간8199806976<8589934592 중단,종료한검증서버 `.next-e2e/cache`786344041bytes제거후재시도0. 완료2026-11-13 22:26:22 UTC,feed/landing/terms/health/static/image200·redirect301. 복구본 `/Users/ethan/crefans-recovery/20261114/front-cosplay-pink-hearts-20261114` SHA·OCI15blobs·설정검증후서버이전이미지/임시자료정리. 완료로컬배포임시압축본7개검증후정리,외부복구본보존. 증거 `.local/cosplay-pink-hearts-20261114/verification.json`, `browser.json`, `ship-retry.log`, `temp-cleanup.json`, `cache-cleanup.json`.
