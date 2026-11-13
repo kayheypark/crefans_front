@@ -1,11 +1,38 @@
-/** Original wardrobe styles. Thumbnails illustrate the prompt; they are not exact garment references sent to the provider. */
+/** Thumbnails illustrate the prompt; they are not exact garment references sent to the provider. */
+export const aiPhotoCostumeCategories=[{value:'general',label:'일반',group:'기본'},{value:'nikke',label:'니케',group:'게임'},{value:'overwatch',label:'오버워치',group:'게임'},{value:'diablo',label:'디아블로',group:'게임'},{value:'aot',label:'진격의 거인',group:'애니메이션'},{value:'demon-slayer',label:'귀멸의 칼날',group:'애니메이션'},{value:'jujutsu',label:'주술회전',group:'애니메이션'}] as const;
+export type AiPhotoCostumeCategory=typeof aiPhotoCostumeCategories[number]['value'];
+export type AiPhotoCostume={id:string;category:AiPhotoCostumeCategory;name:string;detail:string;prompt:string};
 export const aiPhotoCostumes=[
- {id:'maid',name:'리본 메이드',detail:'리본 · 프릴',prompt:'칠한 옷을 검정과 아이보리 리본 메이드 코스튬으로 바꿔줘. 퍼프 소매, 흰 앞치마와 프릴 스커트로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
- {id:'sailor',name:'세일러 코스튬',detail:'세일러 칼라',prompt:'칠한 옷을 성인용 네이비와 흰색 세일러 코스튬으로 바꿔줘. 넓은 칼라, 빨간 리본과 플리츠 스커트로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
- {id:'gothic',name:'고딕 오프숄더',detail:'어깨 노출',prompt:'칠한 옷을 검정과 자주색 고딕 오프숄더 드레스로 바꿔줘. 어깨가 드러나는 디자인, 레이스 장식과 비대칭 스커트로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
- {id:'mage',name:'판타지 마법사',detail:'망토 · 튜닉',prompt:'칠한 옷을 파랑과 아이보리 판타지 마법사 코스튬으로 바꿔줘. 짧은 망토, 금색 테두리 튜닉, 벨트와 바지로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
- {id:'cyber',name:'사이버 슈트',detail:'크롭톱 · 숏팬츠',prompt:'칠한 옷을 보라색 사이버 코스튬으로 바꿔줘. 짧은 재킷, 검정 크롭톱과 은색 하이웨이스트 숏팬츠로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
- {id:'idol',name:'아이돌 무대복',detail:'오프숄더 · 크롭',prompt:'칠한 옷을 분홍과 흰색 아이돌 무대 코스튬으로 바꿔줘. 오프숄더 크롭톱과 흰색 하이웨이스트 숏팬츠에 짧은 플리츠 장식을 더하고 내 얼굴과 체형은 그대로 유지해줘.'},
- {id:'cheer',name:'치어 코스튬',detail:'크롭톱 · 짧은 치마',prompt:'칠한 옷을 성인 치어댄스 무대 코스튬으로 바꿔줘. 파랑과 흰색 민소매 크롭톱, 속바지가 있는 짧은 플리츠 스커트로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
- {id:'beach',name:'비치 투피스',detail:'투피스 수영복',prompt:'칠한 옷을 청록색 비치 투피스 수영복과 앞을 연 흰 비치 셔츠로 바꿔줘. 불투명한 일반 수영복 소재로 자연스럽게 표현하고 내 얼굴과 체형은 그대로 유지해줘.'},
-] as const;
+ {id:'maid',category:'general',name:'리본 메이드',detail:'리본 · 프릴',prompt:'칠한 옷을 검정과 아이보리 리본 메이드 코스튬으로 바꿔줘. 퍼프 소매, 흰 앞치마와 프릴 스커트로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
+ {id:'sailor',category:'general',name:'세일러 코스튬',detail:'세일러 칼라',prompt:'칠한 옷을 성인용 네이비와 흰색 세일러 코스튬으로 바꿔줘. 넓은 칼라, 빨간 리본과 플리츠 스커트로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
+ {id:'gothic',category:'general',name:'고딕 오프숄더',detail:'어깨 노출',prompt:'칠한 옷을 검정과 자주색 고딕 오프숄더 드레스로 바꿔줘. 어깨가 드러나는 디자인, 레이스 장식과 비대칭 스커트로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
+ {id:'mage',category:'general',name:'판타지 마법사',detail:'망토 · 튜닉',prompt:'칠한 옷을 파랑과 아이보리 판타지 마법사 코스튬으로 바꿔줘. 짧은 망토, 금색 테두리 튜닉, 벨트와 바지로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
+ {id:'cyber',category:'general',name:'사이버 슈트',detail:'크롭톱 · 숏팬츠',prompt:'칠한 옷을 보라색 사이버 코스튬으로 바꿔줘. 짧은 재킷, 검정 크롭톱과 은색 하이웨이스트 숏팬츠로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
+ {id:'idol',category:'general',name:'아이돌 무대복',detail:'오프숄더 · 크롭',prompt:'칠한 옷을 분홍과 흰색 아이돌 무대 코스튬으로 바꿔줘. 오프숄더 크롭톱과 흰색 하이웨이스트 숏팬츠에 짧은 플리츠 장식을 더하고 내 얼굴과 체형은 그대로 유지해줘.'},
+ {id:'cheer',category:'general',name:'치어 코스튬',detail:'크롭톱 · 짧은 치마',prompt:'칠한 옷을 성인 치어댄스 무대 코스튬으로 바꿔줘. 파랑과 흰색 민소매 크롭톱, 속바지가 있는 짧은 플리츠 스커트로 구성하고 내 얼굴과 체형은 그대로 유지해줘.'},
+ {id:'beach',category:'general',name:'비치 투피스',detail:'투피스 수영복',prompt:'칠한 옷을 청록색 비치 투피스 수영복과 앞을 연 흰 비치 셔츠로 바꿔줘. 불투명한 일반 수영복 소재로 자연스럽게 표현하고 내 얼굴과 체형은 그대로 유지해줘.'},
+ {id:'nikke-rapi',category:'nikke',name:'라피 전술복',detail:'블랙 · 레드',prompt:'칠한 옷을 니케의 라피 전술복 코스튬으로 바꿔줘. 검정과 빨강 전술 코트형 원피스, 벨트, 검정 스타킹과 전투 부츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'nikke-anis',category:'nikke',name:'아니스 재킷',detail:'옐로 · 전술',prompt:'칠한 옷을 니케의 아니스 재킷 코스튬으로 바꿔줘. 머스터드색 짧은 전술 재킷, 불투명한 차콜 상의와 숏팬츠, 유틸리티 벨트와 부츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'nikke-helm',category:'nikke',name:'헬름 해군복',detail:'네이비 · 화이트',prompt:'칠한 옷을 니케의 헬름 해군복 코스튬으로 바꿔줘. 금색 장식의 네이비 해군 재킷, 흰 라펠, 짧은 네이비 스커트와 흰 스타킹로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'nikke-noir',category:'nikke',name:'누아르 바니',detail:'블랙 · 바니',prompt:'칠한 옷을 니케의 누아르 바니 코스튬으로 바꿔줘. 성인용 불투명 검정 바니 무대 보디슈트, 흰 커프스와 보타이 칼라, 검정 타이츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'overwatch-dva',category:'overwatch',name:'D.Va 슈트',detail:'블루 · 핑크',prompt:'칠한 옷을 오버워치의 D.Va 슈트 코스튬으로 바꿔줘. 흰 패널과 분홍 파이핑이 있는 파란색 불투명 전신 파일럿 슈트와 장갑로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'overwatch-mercy',category:'overwatch',name:'메르시 전투복',detail:'화이트 · 골드',prompt:'칠한 옷을 오버워치의 메르시 전투복 코스튬으로 바꿔줘. 검정 이너 위 흰색과 금색 미래형 메딕 갑옷, 갈라진 코트 자락과 흰 부츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'overwatch-widow',category:'overwatch',name:'위도우메이커 슈트',detail:'퍼플 · 아머',prompt:'칠한 옷을 오버워치의 위도우메이커 슈트 코스튬으로 바꿔줘. 짙은 보라색 불투명 전신 슈트, 보라색 코르셋형 경갑과 긴 부츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'overwatch-ashe',category:'overwatch',name:'애쉬 베스트',detail:'웨스턴 · 레드',prompt:'칠한 옷을 오버워치의 애쉬 베스트 코스튬으로 바꿔줘. 흰 셔츠와 검정 베스트, 가는 빨강 넥타이, 검정 바지와 웨스턴 부츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'diablo-sorcerer',category:'diablo',name:'원소술사 로브',detail:'레드 · 골드',prompt:'칠한 옷을 디아블로의 원소술사 로브 코스튬으로 바꿔줘. 짙은 붉은색과 고풍스러운 금색 장식의 원소술사 로브, 겹친 천과 불투명 레깅스로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'diablo-necromancer',category:'diablo',name:'강령술사 갑옷',detail:'본 · 블랙',prompt:'칠한 옷을 디아블로의 강령술사 갑옷 코스튬으로 바꿔줘. 아이보리 뼈 모양 어깨 장식의 검정 갑옷과 긴 검정 코트, 불투명 이너로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'diablo-rogue',category:'diablo',name:'도적 가죽갑옷',detail:'가죽 · 후드',prompt:'칠한 옷을 디아블로의 도적 가죽갑옷 코스튬으로 바꿔줘. 와인색 후드와 짧은 망토, 짙은 갈색 가죽 경갑, 검정 바지와 가죽 부츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'diablo-barbarian',category:'diablo',name:'야만용사 전투복',detail:'가죽 · 철갑',prompt:'칠한 옷을 디아블로의 야만용사 전투복 코스튬으로 바꿔줘. 털 어깨 장식과 철제 흉갑, 넓은 가죽 벨트, 바지 위 겹친 가죽 전투 스커트로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'aot-scout',category:'aot',name:'조사병단 제복',detail:'재킷 · 하네스',prompt:'칠한 옷을 진격의 거인의 조사병단 제복 코스튬으로 바꿔줘. 짧은 갈색 군복 재킷과 크림 셔츠, 흰 바지, 갈색 하네스 벨트와 긴 부츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'aot-captain',category:'aot',name:'병단장 망토복',detail:'그린 · 크라바트',prompt:'칠한 옷을 진격의 거인의 병단장 망토복 코스튬으로 바꿔줘. 진녹색 어깨 망토와 흰 크라바트, 짧은 갈색 재킷, 흰 바지와 갈색 하네스로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'aot-police',category:'aot',name:'헌병단 제복',detail:'제복 · 롱부츠',prompt:'칠한 옷을 진격의 거인의 헌병단 제복 코스튬으로 바꿔줘. 연녹색 셔츠 위 단정한 갈색 군복 재킷, 크림색 바지와 갈색 벨트 하네스로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'aot-final',category:'aot',name:'검정 전투복',detail:'블랙 · 전술',prompt:'칠한 옷을 진격의 거인의 검정 전투복 코스튬으로 바꿔줘. 검정 하이넥 전술 상의와 바지, 갈색 어깨·허벅지 하네스, 은회색 장식과 검정 부츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'demon-giyu',category:'demon-slayer',name:'기유 하오리',detail:'반반 · 패턴',prompt:'칠한 옷을 귀멸의 칼날의 기유 하오리 코스튬으로 바꿔줘. 검정 귀살대 제복과 흰 벨트, 한쪽은 자주색이고 다른 쪽은 초록·노랑 기하무늬인 하오리로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'demon-shinobu',category:'demon-slayer',name:'시노부 하오리',detail:'나비 · 그라데이션',prompt:'칠한 옷을 귀멸의 칼날의 시노부 하오리 코스튬으로 바꿔줘. 검정 하이넥 제복과 흰 벨트, 민트·연보라 그라데이션과 나비 날개 무늬의 흰 하오리로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'demon-rengoku',category:'demon-slayer',name:'렌고쿠 하오리',detail:'화이트 · 불꽃',prompt:'칠한 옷을 귀멸의 칼날의 렌고쿠 하오리 코스튬으로 바꿔줘. 검정 귀살대 제복과 흰 벨트, 밑단에 노랑·주황·빨강 불꽃무늬가 있는 흰 하오리로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'demon-mitsuri',category:'demon-slayer',name:'미츠리 하오리',detail:'화이트 · 그린',prompt:'칠한 옷을 귀멸의 칼날의 미츠리 하오리 코스튬으로 바꿔줘. 불투명 흰 가슴 패널을 덧댄 짙은 자주색 제복, 속바지 있는 짧은 치마, 흰 하오리와 연두 줄무늬 스타킹로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'jjk-gojo',category:'jujutsu',name:'고죠 하이넥',detail:'블랙 · 하이넥',prompt:'칠한 옷을 주술회전의 고죠 하이넥 코스튬으로 바꿔줘. 짙은 남색이 감도는 검정 높은 칼라 재킷과 맞춘 검정 바지, 검정 부츠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'jjk-nanami',category:'jujutsu',name:'나나미 정장',detail:'베이지 · 넥타이',prompt:'칠한 옷을 주술회전의 나나미 정장 코스튬으로 바꿔줘. 밝은 베이지색 정장과 같은색 바지, 파란 셔츠, 작은 검정 점무늬가 있는 머스터드색 넥타이로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'jjk-geto',category:'jujutsu',name:'게토 법의',detail:'블랙 · 가사',prompt:'칠한 옷을 주술회전의 게토 법의 코스튬으로 바꿔줘. 넓은 소매의 검정 기모노, 흰 하카마 바지, 몸통에 비스듬히 두른 올리브·금색 무늬 가사로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+ {id:'jjk-toji',category:'jujutsu',name:'토우지 전투복',detail:'블랙 · 화이트',prompt:'칠한 옷을 주술회전의 토우지 전투복 코스튬으로 바꿔줘. 몸에 맞는 검정 반팔 티셔츠, 넉넉한 흰 무술 바지, 넓은 검정 허리띠로 구성해줘. 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.'},
+] as const satisfies readonly AiPhotoCostume[];
