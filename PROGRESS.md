@@ -1,3 +1,9 @@
+## 2026-11-13 12:08 KST AI 편집 표시 정리 운영 배포 완료
+- 사용자 “운영배포” 승인. source75fbb9b의 검증한 문구삭제·사진느낌3버튼 미노출·안내왼쪽정렬을 front-ai-options-clean-20261113으로 배포. 기존14/14·타입·브라우저 검증과 소스동일 확인, 운영빌드/amd64/revision/카카오키/레이어·아카이브SHA·서버preflight/교체0.
+- 운영 CUA390×844 /design-system 공용모달(목업): 무료문구false, 사진느낌그룹0, 남은횟수true, 안내left16px=본문16px, footer1장만들기 버튼1개. 공개페이지/static/이미지최적화200·리다이렉트301·APIhealth200. API/worker/admin/DB/proxy 컨테이너·현재설정(프론트이미지외) 불변. 실제 AI/실기기 검증은 미실행.
+- 복구 /Users/ethan/crefans-recovery/20261113/front-ai-options-clean-20261113: 직전front-ai-single-flow 이미지·설정 보관, SHA/OCI15blobs/index태그ID/설정 검증 후 서버이전태그/임시폴더만 정리. 기존 맥복구본 삭제 없음(초과후보는별도승인).
+- 증거 .local/ai-photo-hide-options-deploy-20261113/{verification.json,source-verification.json,ship.log,browser-production.json,production-device-proof.png,final-server.log}, 상세빌드 .local/ship-front-ai-options-clean-20261113/. 기존문서 Generated contracts stale 유지. 다음 실기기 사용관찰.
+
 ## 2026-11-13 AI 사진 편집 표시 정리 진행
 - 사용자 연속 요청3개: 무료·한 번에1장 문구 삭제, 실사사진느낌/코스프레촬영/일상스냅 선택버튼 미노출, AI 생성 표시 및 이용 안내 라벨 왼쪽정렬. origin/prod50e268e 기반 feat/ai-photo-hide-options-20261113.
 - 공용 AiPhotoDialog에서 설명span·사진느낌그룹 제거, 기본style photo 고정. 남은횟수/생성1장/고정버튼·입력·권한 유지. notice의 기존27px 들여쓰기 제거, 왼쪽 정렬. 서버 변경 없음.
