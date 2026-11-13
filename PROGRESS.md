@@ -1,3 +1,8 @@
+## 2026-11-13 AI 프리셋 3×2 순환 페이지 운영 완료
+- 프론트 `crefans-front:front-ai-preset-paging-20261113`, source `4f2c7b30e361d2be59d0bf42245fd6f2b4ce2eb5`. 일반 사진 프리셋6개/3열2행, 가로 드래그1페이지 및 양끝 순환, 버튼 대체 조작. 별도 의상 옷장 보기5종은 기존 유지.
+- 기능40/40·타입0·계층453·WebKit/Chromium 배치/드래그/순환/선택 보존 확인. 13:01:11 UTC 배포0, feed/landing/terms/health/static/image200·redirect301. 실기기 터치/실제 생성 미검증.
+- 복구본 `/Users/ethan/crefans-recovery/20261113/front-ai-preset-paging-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 증거 `.local/ai-preset-paging-20261113/verification.json`, `webkit.png`, `browser.json`, `ship.log`.
+
 ## 2026-11-13 AI 프리셋 순환 페이지 검증 완료
 - 일반 사진 프리셋6개/3열2행, 가로 포인터드래그 한 번에 +/-1페이지, 양끝 순환 및 이전/다음 버튼. 드래그는 카드 클릭 억제, 짧은/세로/취소 동작은 이동 없음, 생성 호출 없음. 코스어 옷장 전용 보기5종은 기존 유지.
 - 기능40/40·타입0·계층453. WebKit390×844/Chromium1280×900 실제 포인터 드래그·3열2행·양끝 순환·선택 보존 통과. 실기기 손가락 검증 아님, pointercancel은 단위 검사. 증거 `.local/ai-preset-paging-20261113/`. 다음 프론트 배포.
