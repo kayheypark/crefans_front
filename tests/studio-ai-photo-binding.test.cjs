@@ -10,9 +10,9 @@ test('live photo editor sends costume IDs with other edits and omits references 
  try{
   remaining=0;await act(async()=>model.management.actions.refreshAiPhotoQuota());assert.equal(model.management.aiPhotoQuota.remaining,0);
   remaining=10;await act(async()=>model.management.actions.refreshAiPhotoQuota());assert.equal(model.management.aiPhotoQuota.remaining,10);
-  const input={source:{id:'source'},kind:'combined',editKinds:['outfit','background'],style:'cosplay',prompt:'의상 참조 사진 1의 코디를 적용해줘. 흰 스튜디오',costumeIds:['maid','aot-scout'],targetGender:'female',mask:new Blob(['mask'],{type:'image/png'}),consent:true};
+  const input={source:{id:'source'},mode:'cosplay',kind:'combined',editKinds:['outfit','background'],style:'cosplay',prompt:'의상 참조 사진 1의 코디를 적용해줘. 흰 스튜디오',costumeIds:['maid','aot-scout'],targetGender:'female',mask:new Blob(['mask'],{type:'image/png'}),consent:true};
   await act(async()=>{await model.management.actions.aiEditPhoto(input);});const body=calls.find(c=>c.path.endsWith('/edit')).body;
-  assert.deepEqual(JSON.parse(body.get('costumeIds')),input.costumeIds);assert.equal(body.get('prompt'),input.prompt);assert.deepEqual(JSON.parse(body.get('editKinds')),input.editKinds);assert.equal(body.get('targetGender'),'female');assert.equal(body.get('mask').type,'image/png');assert.equal(body.get('sourceId'),'source');
-  calls.length=0;await act(async()=>{await model.management.actions.aiEditPhoto({source:input.source,kind:'expression',style:'photo',prompt:'무표정',consent:true});});assert.equal(calls.find(c=>c.path.endsWith('/edit')).body.has('costumeIds'),false);
+  assert.deepEqual(JSON.parse(body.get('costumeIds')),input.costumeIds);assert.equal(body.get('prompt'),input.prompt);assert.deepEqual(JSON.parse(body.get('editKinds')),input.editKinds);assert.equal(body.get('targetGender'),'female');assert.equal(body.get('mask').type,'image/png');assert.equal(body.get('sourceId'),'source');assert.equal(body.get('mode'),'cosplay');
+  calls.length=0;await act(async()=>{await model.management.actions.aiEditPhoto({source:input.source,kind:'expression',style:'photo',prompt:'무표정',consent:true});});assert.equal(calls.find(c=>c.path.endsWith('/edit')).body.has('costumeIds'),false);assert.equal(calls.find(c=>c.path.endsWith('/edit')).body.get('mode'),'general');
  }finally{act(()=>tree.unmount());}
 });

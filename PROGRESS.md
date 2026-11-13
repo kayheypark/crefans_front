@@ -1,3 +1,9 @@
+## 2026-11-14 코스어 전용 Seedream 프론트 검증 완료
+- mode=cosplay/general을현재탭에서별도전달. 일반모드에서의상style이cosplay로남아도mode=general. 단위47/47·tsc·계층453파일 종료0. 증거 .local/seedream-cosplay-mode-20261114/{unit,types,layers}.log. 서버배포후프론트배포예정.
+
+## 2026-11-14 코스어 전용 Seedream 모드 전달 진행
+- 선택한탭을 mode=cosplay/general로전달, style과분리. 일반탭으로돌아가도의상때문에style=cosplay가남는경우일반모델유지. 합격:탭별mode·multipart전달·기존47검사·타입/계층. 서버먼저배포후프론트전환.
+
 ## 2026-11-14 블루 아카이브 프론트 운영 완료
 - `crefans-front:front-bluearchive-costumes-20261114`, sourcee1a7403. 시로코/호시노/유우카/아리스4종·공식로고 추가, 원신과스와이프수정보존. 단위47/47·타입/계층·WebKit카드로딩/선택·운영신규5파일HTTP200/SHA일치. 실제AI생성품질미검증.
 - 배포완료2026-11-13 22:56:04UTC. 외부복구본 `/Users/ethan/crefans-recovery/20261114/front-bluearchive-costumes-20261114` SHA/OCI15blobs/설정검증후서버직전이미지·임시자료정리. 증거 `.local/bluearchive-costumes-20261114/verification.json`, ship.log, public-assets.json, browser.log/mobile.png. 프롬프트 `design/bluearchive-costumes-20261114/prompts.json`.
