@@ -1,3 +1,6 @@
+## 2026-11-14 원본 보관 안내 문구 삭제
+- 사용자 요청대로 결과 화면 문구와 전용CSS만 제거. 사진보존/두액션 동작불변. 합격:해당문구/스타일참조없음,diff확인. 단순문구삭제로 추가제품테스트없음. 다음운영배포.
+
 ## 2026-11-14 결과 액션2개 운영 완료
 - 운영 `crefans-front:front-result-two-actions-20261114`,source `2a843666591dea8146c248e6fd897932762ecbb5`. 계속보정/사진결정 두버튼동일너비한줄,재생성/개별이미지편집제거. 기능46/46·타입·WebKit배치/편집전환 통과. 실제생성미검증.
 - 2026-11-13 22:18:49 UTC 배포0,feed/landing/terms/health/static/image200·redirect301. 복구본 `/Users/ethan/crefans-recovery/20261114/front-result-two-actions-20261114` SHA·OCI15blobs·설정검증후서버이전이미지/임시자료정리. 로컬완료배포임시압축본8개만로그/SHA/이미지확인후정리,외부복구본보존. 증거 `.local/result-two-actions-20261114/verification.json`, `browser.json`, `ship.log`, `temp-cleanup.json`.
