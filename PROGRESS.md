@@ -1,3 +1,10 @@
+## 2026-11-13 작품별 의상32종·카테고리 운영 배포 완료
+- source0378ca6, front-cosplay-categories-20261113 운영반영. 기존8종은일반, 니케/오버워치/디아블로/진격의거인/귀멸의칼날/주술회전 각4종,총32종7분류. 새24개 image_gen 의상자산을 각각생성하고 기존보기5종에 동일하게 연결했다.
+- 최종운영빌드54초·38페이지·linux/amd64/revision/카카오키포함검사0, 이미지안32자산SHA가검증소스와일치, 아카이브SHA/서버레이어대조0. 페이지/static/이미지/API200·기존리다이렉트301, API/worker/admin/DB/proxy 컨테이너와실제설정(프론트태그외)불변.
+- 운영 CUA Chrome390 분류7×보기5=35조합,320/1280각7종 가로넘침0·100px보기메뉴같은행·고정만들기버튼1개·초안/동의/실제칠한mask보존 확인.32개이미지모두로드,각7분류목업1장·설정복귀 통과. 일반8종파일SHA불변. 실제외부AI편집결과·얼굴보존품질·실물기기는미검증, 기존 Generated contracts stale 미해결.
+- 복구 /Users/ethan/crefans-recovery/20261113/front-cosplay-categories-20261113: 직전compact이미지·설정을 외부저장후SHA/OCI태그ID/config/layers15blobs검증,서버직전태그/임시본만정리. 맥기존복구파일삭제없음.
+- 증거 .local/cosplay-categories-20261113/{verification.json,asset-prompts.json,assets-final.json,assets-preview-24-v2.jpg,unit.log,negative-category.log,types.log,layers.log,docs.log,server-input-check.log,image-content.log,dry-run.log,ship.log,browser-local.json,browser-production.json,production-device-proof.png,server-final.log}, 상세빌드 .local/ship-front-cosplay-categories-20261113/. 이번요청완료. 다른후보작품은추가승인/선정전미생성.
+
 ## 2026-11-13 작품별 의상32종·카테고리 구현/배포 진행
 - 사용자 승인: 추천한 옷을 제작·카테고리화하여 운영배포. 초기추천 구성인 일반(기존8)+니케/오버워치/디아블로/진격의거인/귀멸의칼날/주술회전 각4종=총32종, 7분류. origin/prod57a99a9 기준 feat/cosplay-categories-20261113. 스킬 imagegen 내장도구로 신규24개 별도생성, 기존스타일자산 참조. 원본외형 그대로 두고 의상/소품 설명만 적용한다.
 - 합격: 32개512px자산/고유ID·분류7개 count8/4/4/4/4/4/4·일반기존8보존·프롬프트300자이하·서버입력검사. 분류/보기5종 전환으로 초안/동의/마스크/선택뷰 보존·자동AI호출0·캐러셀분류내순환·각분류1장목업.320/390/PC에서 가로넘침0·작은뷰메뉴/아이콘/버튼만고정 보존. 단위·타입·계층·빌드·dev→prod·운영UI/이미지/HTTP/외부복구검증. 서버/DB코드 변경 없음, 실공급사품질은 별도.
