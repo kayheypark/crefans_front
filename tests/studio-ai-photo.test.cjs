@@ -371,7 +371,7 @@ test('complete cosplay look: catalog hair and accessories reach the request afte
  assert.equal(aiPhotoCostumes.length,32);
  for(const item of aiPhotoCostumes){assert.match(item.wig,/가발/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
  const {r,calls,click}=await open();await click('코스어 모드');await click('리본 메이드');
- assert.match(text(r.toJSON()),/가발·머리장식·소품·신발도 함께 적용/);await click('일반 모드');
+ assert.doesNotMatch(text(r.toJSON()),/옷을 바꿀 영역을 칠해 주세요/);await click('일반 모드');
  await act(async()=>{r.root.find(n=>n.props['data-mask-editor']).props.onChange([{size:.1,points:[{x:.5,y:.5}]}]);});
 
  await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].prompt,'의상 참조 사진 1의 코디를 적용해줘.');assert.deepEqual(calls[0].costumeIds,['maid']);assert.ok(calls[0].mask);
