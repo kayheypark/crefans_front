@@ -9,7 +9,7 @@ import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {Checkbox} from '@/components/ui/Choice';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoStyles,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoBodyPrompt,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
 import {Action} from '../ServiceUI';
-import {aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoPresetTitle} from '@/lib/crefans/ai-photo-presets';
+import {aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoPresetTitle,aiPhotoNeutralExpressionPreset} from '@/lib/crefans/ai-photo-presets';
 import {AiPhotoCategoryIcon} from './AiPhotoCategoryIcon';
 import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
@@ -35,18 +35,19 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
  const costumes=aiPhotoCostumes.filter(costume=>costume.category===costumeCategory),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
  const cosplay=kind==='outfit'&&cosplayOpen,inputFirst=cosplay&&costumeView==='composer';
  const style=requiresMask&&cosplayOpen?'cosplay':'photo';
+ const [expressionInitialized,setExpressionInitialized]=useState(false);
  const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
  const panelId=useId(),preset=aiPhotoPresetPage(kind,presetPages[kind]||0);
  function setCustom(value:string){setCustomPrompt(value);setCustomKind(kind);setError(buildAiPhotoPrompt(selectedPresets,value,targetGender).length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
  function isPresetSelected(value:string){return selectedPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
  function applyPresets(next:AiPhotoPresetSelection[]){const length=buildAiPhotoPrompt(next,customPrompt,targetGender).length;if(length>AI_PHOTO_PROMPT_MAX&&length>prompt.length){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}setSelectedPresets(next);setError(length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
  function pickPreset(value:string){const text=aiPhotoPresetText(value);if(isPresetSelected(value)){applyPresets(selectedPresets.filter(item=>!(item.kind===kind&&item.prompt===text)));return;}
-  let next=selectedPresets;
+  let next=kind==='expression'?selectedPresets.filter(item=>item.kind!=='expression'):selectedPresets;
   if(kind==='body'){const control=aiPhotoBodyControls.find(item=>[-2,-1,1,2].some(level=>aiPhotoBodyPrompt(item.key,level)===text));if(control)next=next.filter(item=>!(item.kind==='body'&&[-2,-1,1,2].some(level=>aiPhotoBodyPrompt(control.key,level)===item.prompt)));}
   applyPresets([...next,{kind,prompt:text}]);
  }
  function changeBody(key:string,level:number){const values=[-2,-1,1,2].map(value=>aiPhotoBodyPrompt(key,value)),next=selectedPresets.filter(item=>!(item.kind==='body'&&values.includes(item.prompt)));applyPresets(level?[...next,{kind:'body',prompt:aiPhotoBodyPrompt(key,level)}]:next);}
- function changeKind(value:AiPhotoKind){setKind(value);setError('');}
+ function changeKind(value:AiPhotoKind){setKind(value);setError('');if(value==='expression'&&!expressionInitialized){setExpressionInitialized(true);if(!selectedPresets.some(item=>item.kind==='expression'))applyPresets([...selectedPresets,{kind:'expression',prompt:aiPhotoNeutralExpressionPreset}]);}}
  const [consent,setConsent]=useState(false),[strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
  const [stage,setStage]=useState<'edit'|'results'>('edit'),[sourcePicker,setSourcePicker]=useState(false);
@@ -82,9 +83,9 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
   const picked=results.filter(item=>selected.includes(item.id));
   if(!picked.length){setError('게시물에 넣을 사진을 골라 주세요.');return;}
   if(picked.length>room){setError(`사진은 ${room}장만 더 넣을 수 있어요.`);return;}
-  onAdd(picked);setResults([]);setSelected([]);setCustomPrompt('');setCustomKind('pose');setSelectedPresets([]);setWorkingSources([]);setTargetGender('original');setStrokes([]);setError('');setStage('edit');setCosplayOpen(false);onClose();
+  onAdd(picked);setResults([]);setSelected([]);setCustomPrompt('');setCustomKind('pose');setSelectedPresets([]);setExpressionInitialized(false);setWorkingSources([]);setTargetGender('original');setStrokes([]);setError('');setStage('edit');setCosplayOpen(false);onClose();
  }
- function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setCustomKind('pose');setSelectedPresets([]);setKind('pose');setCosplayOpen(false);setStage('edit');}
+ function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setCustomKind('pose');setSelectedPresets([]);setExpressionInitialized(false);setKind('pose');setCosplayOpen(false);setStage('edit');}
  const viewing=viewer!==null||sourceViewer;
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
  const composer=<div className={s.composer}>

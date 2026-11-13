@@ -2,6 +2,7 @@ import type {AiPhotoKind} from '@/types/crefans-studio-management';
 
 // 편집 가능한 제안 문구. 탐색/선택만으로는 생성 요청을 보내지 않는다.
 export const aiPhotoComicWorldPreset='배경을 높은 트러스 천장과 동인 부스가 있는 서코 실내 행사장 분위기로 바꿔줘.';
+export const aiPhotoNeutralExpressionPreset='미소 없이 입을 자연스럽게 다물고 얼굴에 힘을 뺀 무표정으로 바꿔줘.';
 export const AI_PHOTO_PRESET_PAGE_SIZE=3;
 export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
 "camera": ["카메라를 눈높이에 두고 정면에서 촬영한 구도로 바꿔줘.", "카메라를 낮게 두고 살짝 올려다보는 로우 앵글로 바꿔줘.", "카메라를 높게 두고 살짝 내려다보는 하이 앵글로 바꿔줘.", "얼굴과 어깨를 담는 클로즈업 구도로 바꿔줘.", "허리 위 상반신을 담는 구도로 바꿔줘.", "머리부터 발끝까지 잘리지 않는 전신 구도로 바꿔줘."],
@@ -36,6 +37,7 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
   "피부 결을 살리면서 메이크업 톤을 정돈해줘."
  ],
  "expression": [
+  aiPhotoNeutralExpressionPreset,
   "치아가 살짝 보이게 밝게 웃어줘.",
   "입을 다문 은은한 미소로 바꿔줘.",
   "눈웃음이 자연스럽게 보이게 해줘.",
@@ -99,8 +101,10 @@ export function aiPhotoPresetPage(kind:AiPhotoKind,page:number){
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
- const id=example===aiPhotoComicWorldPreset?'background-comicworld':`${kind}-${String(aiPhotoPresets[kind].filter(value=>value!==aiPhotoComicWorldPreset).indexOf(example)+1).padStart(2,'0')}`;
- const originalGender=aiPhotoPresets.expression.indexOf(example)%2===0?'female':'male';
+ if(kind==='expression'&&example===aiPhotoNeutralExpressionPreset)return `/brand/ai-photo/presets/expression-neutral-${gender==='male'?'male':'female'}-v1.webp`;
+ const index=aiPhotoPresets[kind].filter(value=>value!==aiPhotoComicWorldPreset&&value!==aiPhotoNeutralExpressionPreset).indexOf(example);
+ const id=example===aiPhotoComicWorldPreset?'background-comicworld':`${kind}-${String(index+1).padStart(2,'0')}`;
+ const originalGender=index%2===0?'female':'male';
  const variant=kind==='expression'&&gender!=='original'&&gender!==originalGender?`-${gender}`:'';
  return `/brand/ai-photo/presets/${id}${variant}-v1.webp`;
 }
@@ -109,7 +113,7 @@ export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'origi
 export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "outfit":["하늘색 상의", "리본 포인트", "화이트 셔츠", "은은한 체크", "무광 소재", "단정한 긴소매", "핑크 리본", "네이비 톤", "주름 정돈", "장식 줄이기", "포근한 니트", "차분한 색감"],
  "makeup":["코랄 립", "생기 있는 볼", "브라운 아이", "로즈 립", "펄 줄이기", "얇은 아이라인", "자연스러운 눈썹", "피치 블러셔", "은은한 음영", "매트 립", "데일리 메이크업", "피부 톤 정돈"],
- "expression":["환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소"],
+ "expression":["무표정", "환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소"],
  "pose":["손인사", "살짝 돌아서기", "두 손 모으기", "허리에 손", "고개 기울이기", "브이", "정면 서기", "작은 손인사", "앞으로 기대기", "턱에 손", "손하트", "옆모습 시선", "의자에 앉기", "벤치에 앉기", "쪼그려 앉기", "벽에 기대 쉬기", "바닥에 앉기", "시선 밖 스냅", "걷다 돌아보기", "대화하는 스냅", "계단에 앉기", "난간에 기대기", "기지개", "산책 스냅"],
  "background":["서코 실내", "화이트 스튜디오", "햇살 드는 창가", "그레이 스튜디오", "햇살 공원", "벚꽃길", "베이지 스튜디오", "깔끔한 실내", "카페 창가", "노을 바다", "도시 야경", "블루 스튜디오", "식물 가득 실내"],
  "camera":["눈높이 정면", "로우 앵글", "하이 앵글", "얼굴 클로즈업", "상반신", "전신"],
