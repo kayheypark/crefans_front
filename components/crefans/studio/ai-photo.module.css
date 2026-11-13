@@ -160,39 +160,11 @@
 .costumeCard strong{padding:4px 4px 0;font-size:13px;line-height:1.5}
 .costumeSelected{position:absolute;right:6px;top:6px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--cf-color-accent);color:white;font-size:13px}
 .editor .wardrobe .costumeNote{font-size:11px;color:var(--cf-color-textMuted)}
-.wardrobeHeading .viewPicker{flex:none;width:100px;min-width:0;gap:0}
-.wardrobeHeading .viewPicker>button{width:100%;min-height:36px;padding:4px 6px;gap:4px;border-color:transparent;background:transparent;box-shadow:none;font-size:12px;color:var(--cf-color-textSecondary)}
-.viewPicker>button>svg{width:14px;height:14px}
 .costumeCategoryBar{display:flex;align-items:center;gap:10px;min-width:0}
 .costumeCategoryBar>span{font-size:12px;color:var(--cf-color-textMuted);white-space:nowrap}
 .costumeCategoryBar .costumeCategoryPicker{flex:none;width:min(180px,65%);gap:0}
 .costumeCategoryBar .costumeCategoryPicker>button{min-height:36px;padding:6px 10px;font-size:13px;background:var(--cf-color-surfaceSubtle);border-color:transparent;box-shadow:none}
 .wardrobeLayout{min-width:0}
-.wardrobeLayout[data-costume-view=list] .costumeGrid{grid-template-columns:1fr;gap:8px}
-.wardrobeLayout[data-costume-view=list] .costumeCard{display:grid;grid-template-columns:72px minmax(0,1fr);grid-template-rows:1fr;column-gap:12px;row-gap:0;padding:6px;align-items:center}
-.wardrobeLayout[data-costume-view=list] .costumeImage{grid-row:1;width:72px}
-.wardrobeLayout[data-costume-view=list] strong{align-self:center}
-.wardrobeLayout[data-costume-view=compact] .costumeGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.wardrobeLayout[data-costume-view=compact] .costumeCard{padding:4px 4px 8px;border-radius:10px}
-.wardrobeLayout[data-costume-view=compact] .costumeCard strong{font-size:11px;padding:3px 0 0;text-align:center;overflow-wrap:anywhere}
-.wardrobeLayout[data-costume-view=composer] .costumeCard{display:grid;grid-template-columns:minmax(44px,40%) minmax(0,1fr);align-items:center;padding:6px;gap:6px}
-.wardrobeLayout[data-costume-view=composer] .costumeCard strong{padding:0;font-size:12px;overflow-wrap:anywhere}
-.selectedCostume{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--cf-color-accentBorder);border-radius:10px;background:var(--cf-color-accentSoft);font-size:12px}
-.selectedCostume span{color:var(--cf-color-textSecondary)}
-.costumeShowcase{display:flex;flex-direction:column;gap:10px;margin-bottom:12px;border:1px solid var(--cf-color-border);border-radius:12px;overflow:hidden;padding:8px}
-.showcaseImage{position:relative;background:#fbf8f4;border-radius:8px}
-.showcaseImage>img{display:block;width:100%;height:clamp(180px,30dvh,300px);object-fit:contain}
-.showcaseImage button{position:absolute;top:calc(50% - 22px);display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--cf-color-border);border-radius:50%;background:var(--cf-color-surface);color:var(--cf-color-text);font-size:26px;cursor:pointer}
-.showcasePrevious{left:4px}.showcaseNext{right:4px}
-.showcaseCaption{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:14px}
-.showcaseCaption span{font-size:12px;color:var(--cf-color-textSecondary)}
-.applyCostume{min-height:44px;padding:8px;border:0;border-radius:8px;background:var(--cf-color-accentSoft);color:var(--cf-color-accent);font:inherit;font-size:14px;cursor:pointer}
-.wardrobeLayout[data-costume-view=carousel] .costumeGrid{display:flex;overflow-x:auto;gap:8px;padding:2px 2px 8px;scroll-snap-type:x proximity}
-.wardrobeLayout[data-costume-view=carousel] .costumeCard{flex:0 0 76px;scroll-snap-align:start;padding:4px 4px 8px}
-.wardrobeLayout[data-costume-view=carousel] .costumeCard strong{font-size:10px;padding:0;text-align:center}
-.wardrobeLayout[data-costume-view=carousel] .costumeCard[aria-current=true]{background:var(--cf-color-accentSoft)}
-.costumeCard:disabled,.applyCostume:disabled,.showcaseImage button:disabled{opacity:.5;cursor:default}
-.costumeCard:focus-visible,.applyCostume:focus-visible,.showcaseImage button:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
 .editResult{width:100%;min-height:44px;margin-top:8px;padding:8px 12px;border:1px solid var(--cf-color-accentBorder);border-radius:10px;background:var(--cf-color-accentSoft);color:var(--cf-color-accent);font:inherit;font-size:14px;cursor:pointer}
 .editResult:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
 
@@ -205,7 +177,6 @@
 
 .bodyAdjustments{display:grid;gap:14px;padding:14px;border:1px solid var(--cf-color-border);border-radius:12px}.bodyAdjustments label{display:grid;gap:9px;font-size:13px}.bodyAdjustments label>span{display:flex;justify-content:space-between;gap:8px}.bodyAdjustments output{color:var(--cf-color-textMuted)}.bodyAdjustments input{width:100%;accent-color:var(--cf-color-accent)}
 .modePicker{display:flex;flex-direction:column;gap:6px}.modePicker>div{display:flex;gap:4px;padding:4px;border-radius:10px;background:var(--cf-color-surfaceSubtle)}.modePicker button{flex:1;min-height:40px;border:0;border-radius:8px;background:transparent;color:var(--cf-color-textSecondary);font:inherit;font-size:14px;font-weight:600;cursor:pointer}.modePicker button[aria-pressed=true]{background:var(--cf-color-surface);color:var(--cf-color-accent);box-shadow:0 1px 3px rgb(32 35 51 / 5%)}.modePicker button:disabled{opacity:.5;cursor:default}.modePicker button:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
-.photoPresetGrid .preset>img,.wardrobeLayout[data-costume-view=grid] .costumeImage,.wardrobeLayout[data-costume-view=compact] .costumeImage,.wardrobeLayout[data-costume-view=composer] .costumeImage{height:var(--ai-photo-preset-height);aspect-ratio:auto}
 
 .presetViewport{overflow:hidden;touch-action:pan-y pinch-zoom;user-select:none}.presetViewport img{-webkit-user-drag:none}.presetViewport .photoPresetGrid{grid-template-rows:repeat(2,minmax(0,1fr))}.presetNavigation{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}.presetNavigation button{width:36px;height:36px;border:0;border-radius:8px;background:var(--cf-color-surfaceSubtle);color:var(--cf-color-accent);font-size:24px;cursor:pointer}.presetNavigation button:disabled{opacity:.4;cursor:default}
 
@@ -216,4 +187,8 @@
 .modeStars i:nth-child(5){top:5px;bottom:auto;width:4px;height:4px;animation-delay:-2.15s;animation-duration:4.0s}.modeStars i:nth-child(6){top:28px;bottom:auto;width:6px;height:6px;animation-delay:-2.58s;animation-duration:4.4s}.modeStars i:nth-child(7){top:12px;bottom:auto;width:5px;height:5px;animation-delay:-3.01s;animation-duration:4.8s}.modeStars i:nth-child(8){top:31px;bottom:auto;width:4px;height:4px;animation-delay:-3.44s;animation-duration:3.6s}.modeStars i:nth-child(9){top:3px;bottom:auto;width:7px;height:7px;animation-delay:-3.87s;animation-duration:4.0s}.modeStars i:nth-child(10){top:26px;bottom:auto;width:5px;height:5px;animation-delay:-4.30s;animation-duration:4.4s}.modeStars i:nth-child(11){top:7px;bottom:auto;width:4px;height:4px;animation-delay:-4.73s;animation-duration:4.8s}.modeStars i:nth-child(12){top:30px;bottom:auto;width:6px;height:6px;animation-delay:-5.16s;animation-duration:3.6s}
 @media(prefers-reduced-motion:reduce){.modeStars i:nth-child(5){left:8%}.modeStars i:nth-child(6){left:19%}.modeStars i:nth-child(7){left:30%}.modeStars i:nth-child(8){left:41%}.modeStars i:nth-child(9){left:52%}.modeStars i:nth-child(10){left:63%}.modeStars i:nth-child(11){left:74%}.modeStars i:nth-child(12){left:85%}}
 
-.wardrobeLayout[data-costume-view=grid] .costumeGrid,.wardrobeLayout[data-costume-view=composer] .costumeGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.wardrobeLayout:not([data-costume-view=list]) .presetViewport .costumeGrid{grid-template-rows:repeat(2,minmax(0,1fr))}.wardrobeLayout>.presetNavigation{justify-content:flex-end;margin-bottom:8px}.presetViewport{cursor:grab}.presetViewport:active{cursor:grabbing}
+
+.costumeCard:disabled{opacity:.5;cursor:default}
+.costumeCard:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
+.photoPresetGrid .preset>img,.wardrobeLayout .costumeImage{height:var(--ai-photo-preset-height);aspect-ratio:auto}
+.wardrobeLayout .costumeGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.wardrobeLayout .presetViewport .costumeGrid{grid-template-rows:repeat(2,minmax(0,1fr))}.wardrobeLayout>.presetNavigation{justify-content:flex-end;margin-bottom:8px}.presetViewport{cursor:grab}.presetViewport:active{cursor:grabbing}

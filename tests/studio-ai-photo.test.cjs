@@ -187,37 +187,15 @@ test('cosplay wardrobe keeps the outfit mask gate and submits cosplay style only
  await click('설정 수정');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());await click('환한 미소');await click('1장 만들기');assert.equal(calls[1].style,'photo');assert.equal(calls[1].kind,'expression');assert.equal(calls[1].editKinds,undefined);assert.equal(calls[1].mask,undefined);assert.equal(calls[1].costumeIds,undefined);
 });
 
-test('wardrobe views: all five forms keep drafts, mask and consent and submit the same one-image request',async()=>{
- const {costumeViews}=loadTypeScript('components/crefans/studio/AiPhotoWardrobe.tsx');assert.equal(costumeViews.length,5);
+test('wardrobe is card-only with no view picker and preserves the draft and painted mask',async()=>{
  const {r,click,calls}=await open();await click('코스어 모드');await click('아이돌 무대복');
- const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
- const draft=field().props.value+' 배경도 그대로 유지해줘.';
- await act(async()=>field().props.onChange({target:{value:draft}}));
- const strokes=[{size:.06,points:[{x:.5,y:.6}]}];
- await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange(strokes));
-
- for(const [i,view] of costumeViews.entries()){
-  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange(view.value));
-  assert.equal(r.root.findAllByProps({'data-costume-view':view.value}).length,1);
-  const picker=r.root.findByProps({className:'wardrobeHeading'}).find(n=>typeof n.type==='function'&&n.props.label==='보기 형식');assert.equal(picker.props.hideLabel,true);
-  assert.equal(field().props.value,draft);assert.equal(r.root.findAllByType('textarea').length,1);
-  assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
-  assert.equal(calls.length,i,'switching views never generates');
-  const controls=r.root.findByProps({className:'controls'}),composer=controls.findByProps({className:'composer'}),wardrobe=controls.findByProps({className:'wardrobe'});
-  assert.equal(controls.children.indexOf(composer)<controls.children.indexOf(wardrobe),view.value==='composer');
-  assert.equal(r.root.findByProps({className:'footer'}).findAllByType('button').length,1);
-  await click('1장 만들기');assert.equal(calls.length,i+1);assert.equal(calls[i].prompt,'의상 참조 사진 1의 코디를 적용해줘.\n'+draft.trim());assert.equal(calls[i].mask,paintedMask);assert.equal(calls[i].style,'cosplay');
-  assert.equal(r.root.findAllByProps({'aria-label':'결과 1'}).length,1);assert.equal(r.root.findAllByProps({'aria-label':'결과 2'}).length,0);
-  await click('설정 수정');assert.equal(r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.value,view.value);
- }
+ const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'배경 유지'}}));
+ const strokes=[{size:.06,points:[{x:.5,y:.6}]}];await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange(strokes));
+ assert.equal(r.root.findAll(n=>n.props.label==='보기 형식').length,0);assert.equal(r.root.findAllByProps({'aria-label':'의상 크게 보기'}).length,0);
+ assert.equal(r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button').length,6);
+ await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].style,'cosplay');assert.match(calls[0].prompt,/배경 유지/);
+ await click('설정 수정');assert.equal(field().props.value,'배경 유지');assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
 });
-
-test('wardrobe carousel: browsing preserves input and apply/thumbnail both deselect an active costume',async()=>{
- const {r,click,calls}=await open();await click('코스어 모드');await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange('carousel'));const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'내 의상 요청'}}));
- await act(async()=>r.root.findByProps({'aria-label':'이전 의상'}).props.onClick());assert.match(text(r.root.findByProps({className:'showcaseCaption'})),/비치 투피스8 \/ 8/);await act(async()=>r.root.findByProps({'aria-label':'다음 의상'}).props.onClick());
- await click('이 의상 선택');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],true);await click('선택 해제');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],false);await click('비치 투피스');await click('비치 투피스');assert.equal(field().props.value,'내 의상 요청');assert.equal(calls.length,0);
-});
-
 
 test('mask icon tools: all brush sizes paint correctly, undo removes one stroke, clear removes all, disabled remains guarded',async()=>{
  const {AiPhotoMask}=loadTypeScript('components/crefans/studio/AiPhotoMask.tsx');let current=[],r;
@@ -243,9 +221,8 @@ test('costume categories: seven populated groups, existing eight general styles,
  for(const c of aiPhotoCostumes){assert.ok(aiPhotoCostumeCategories.some(g=>g.value===c.category));assert.ok(c.prompt.length<=300);assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');}
 });
 
-test('category filters: all seven work in five views without losing request/mask/consent; carousel stays inside the group',async()=>{
+test('category filters: all seven use cards without losing request or mask',async()=>{
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- const {costumeViews}=loadTypeScript('components/crefans/studio/AiPhotoWardrobe.tsx');
  const {r,click,calls}=await open();await click('코스어 모드');
  const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}),category=()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리');
  const strokes=[{size:.03,points:[{x:.5,y:.6}]}];await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange(strokes));
@@ -254,12 +231,7 @@ test('category filters: all seven work in five views without losing request/mask
  for(const group of aiPhotoCostumeCategories){
   await act(async()=>category().props.onChange(group.value));assert.equal(field().props.value,previous);assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
   const items=aiPhotoCostumes.filter(c=>c.category===group.value);
-  for(const view of costumeViews){
-   await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange(view.value));
-   const cards=r.root.findByProps({'aria-label':'코스프레 의상'}).findAll(n=>n.type==='button');assert.deepEqual(cards.map(c=>c.props['aria-label']),(view.value==='carousel'?items:items.slice(0,6)).map(c=>c.name));assert.equal(field().props.value,previous);
-  }
-  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange('carousel'));
-  await act(async()=>r.root.findByProps({'aria-label':'이전 의상'}).props.onClick());assert.match(text(r.root.findByProps({className:'showcaseCaption'})),new RegExp(items.at(-1).name));assert.equal(field().props.value,previous);
+  const cards=r.root.findByProps({'aria-label':'코스프레 의상'}).findAll(n=>n.type==='button');assert.deepEqual(cards.map(c=>c.props['aria-label']),items.slice(0,6).map(c=>c.name));assert.equal(field().props.value,previous);
   await act(async()=>r.root.findByProps({'aria-label':items[0].name}).props.onClick());chosen.push(rules.aiPhotoPresetText(items[0].prompt));assert.equal(field().props.value,previous);
  }
  assert.equal(calls.length,0,'filtering/browsing/picking never generates');

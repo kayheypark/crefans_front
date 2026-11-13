@@ -1,3 +1,9 @@
+## 2026-11-13 의상 카드 단일화 검증 완료
+- 관련 기능42/42,타입0,레이어453개,WebKit390×844/Chromium1280×900 카드6개3열2행·한페이지 드래그·순환·선택 보존 통과. 보기 메뉴 없음. 실제 생성/실기기 미검증. 증거 `.local/wardrobe-card-only-20261113/`. 다음 운영 배포.
+
+## 2026-11-13 의상 카드 보기 단일화 진행
+- 보기 선택 메뉴와 목록/의상 크게/모아보기/입력 우선 구현 제거. 합격: 카드3열2행·6개·스와이프/순환/선택 보존,7개 카테고리와 입력/마스크 유지. 성별 추정 관련 미합의 변경은 하지 않음.
+
 ## 2026-11-13 메이크업 성별 필터 운영 완료
 - 운영 `crefans-front:front-makeup-gender-20261113`, source `a5b6d5d07bf4741b0a08d79ce95d4b687615f233`. 메이크업은 남성/여성 각각6개만 표시. 기능43/43·타입·레이어·모바일 WebKit 이미지 로딩 통과. 실생성/실기기 미검증.
 - 13:37:20 UTC 배포0; feed/landing/terms/health/static/image200,redirect301. 외부복구본 `/Users/ethan/crefans-recovery/20261113/front-makeup-gender-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전이미지/임시자료 정리. 로컬 완료 배포 임시압축본4개만 검증 후 제거,외부복구본 보존. 증거 `.local/makeup-gender-20261113/verification.json`, `browser.json`, `ship.log`, `temp-cleanup.json`.
