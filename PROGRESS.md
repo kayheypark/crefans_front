@@ -1,3 +1,7 @@
+## 2026-11-14 원신 카테고리 운영 완료
+- 프론트 `crefans-front:front-genshin-costumes-20261114` source00c1da6,API/worker `crefans-api:genshin-costumes-20261114` source8860f49. 원신4종·공식로고·512px생성참조4장. 통합프론트47/47·타입/레이어·WebKit카드로딩선택,서버30/30·빌드·운영6파일SHA/프론트공개5파일SHA동일. 실제AI보정품질미검증. 동시스와이프수정abf0289보존통합.
+- 프론트완료2026-11-13 22:44:59 UTC,HTTP주요경로200/redirect301. 외부복구본 `/Users/ethan/crefans-recovery/20261114/front-genshin-costumes-20261114` SHA·OCI15blobs검증후서버직전이미지/임시자료정리. API복구본genshin-costumes-api-20261114도57blobs검증/정리완료. 로컬Docker미사용1시간빌드캐시16.67GB정리(이미지/볼륨보존). 증거 `.local/genshin-costumes-20261114/verification.json`, `ship.log`, `browser.json`; 프롬프트 `design/genshin-costumes-20261114/prompts.json`.
+
 ## 2026-11-14 AI 사진 편집 프리셋 아이폰 스와이프 수정 (미배포)
 - 사용자 제보: 아이폰에서 프리셋·의상 목록이 버튼으로는 넘어가는데 가로 스와이프로는 안 넘어감.
 - 원인: iOS 사파리는 touch-action:pan-y 영역에서도 손가락이 조금 위아래로 흔들린 가로 드래그를 세로 스크롤로 시작하고 pointercancel을 보냄(WebKit bug 203335, W3C pointer events 논의 2019). 기존 `AiPresetPager`는 pointercancel에서 제스처를 버림.
