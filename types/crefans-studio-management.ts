@@ -8,7 +8,7 @@ export type StudioMedia={id:string;type:'image'|'video';url:string;processing?:b
 export type AiPhotoKind='outfit'|'makeup'|'expression'|'pose'|'background'|'camera'|'lens'|'body';
 export type AiPhotoStyle='photo'|'cosplay'|'daily';
 /** `mask`: PNG the size of the source, transparent where the photo may change (outfit edits). `consent`: the creator confirmed the person is themselves or agreed. */
-export type AiPhotoEditInput={source:StudioMedia;kind:AiPhotoKind|'combined';editKinds?:AiPhotoKind[];targetGender?:'female'|'male';prompt:string;style:AiPhotoStyle;mask?:Blob;consent:true};
+export type AiPhotoEditInput={source:StudioMedia;kind:AiPhotoKind|'combined';editKinds?:AiPhotoKind[];costumeIds?:string[];targetGender?:'female'|'male';prompt:string;style:AiPhotoStyle;mask?:Blob;consent:true};
 export type AiPhotoEditResult={images:StudioMedia[];remaining:number};
 /** `media` holds images and videos in display order, at most `mediaUploadMaxItems` (10). */
 export type StudioContent={id:string;title:string;body:string;/** Set when an operator hid the post (terms §8); only the author can still see it. */hiddenByOperator?:boolean;/** Set when the author or an operator unpublished the post (postings.is_public=false): only the author sees it until it is made public again. */unpublished?:boolean;media:StudioMedia[];/** Per-post switch; the studio-wide setting still takes precedence. */commentsEnabled:boolean;tipsEnabled?:boolean;accessPlanId:string|null;/** Minimum purchased rank; mutually exclusive with accessPlanId. */accessLevel?:number|null;status:StudioContentStatus;scheduledAt:string|null;updatedAt:string};

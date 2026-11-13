@@ -1,6 +1,6 @@
 "use client";
 import {useEffect,useId,useRef,useState} from 'react';
-import {aiPhotoCostumes,aiPhotoCostumeCategories,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
+import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
 import {SelectField} from '@/components/ui/SelectField';
 import {AiPhotoWardrobe,costumeViews,type CostumeView} from './AiPhotoWardrobe';
 import type {ApiResult} from '@/types/crefans';
@@ -19,15 +19,17 @@ type Props={open:boolean;onClose:()=>void;images:StudioMedia[];quota:{remaining:
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[])=>void};
 
+const buildPrompt=(presets:AiPhotoPresetSelection[],custom:string,gender:'original'|'female'|'male')=>buildAiPhotoPrompt(aiPhotoCostumeRequest(presets).presets,custom,gender);
+
 function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
 
 export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUseTicket}:Props){
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('pose');
  const [selectedPresets,setSelectedPresets]=useState<AiPhotoPresetSelection[]>([]),[customPrompt,setCustomPrompt]=useState(''),[customKind,setCustomKind]=useState<AiPhotoKind>('pose');
  const [targetGender,setTargetGender]=useState<'original'|'female'|'male'>('original');
- const prompt=buildAiPhotoPrompt(selectedPresets,customPrompt,targetGender);
+ const prompt=buildPrompt(selectedPresets,customPrompt,targetGender);
  const editKinds=Array.from(new Set([...selectedPresets.map(item=>item.kind),...(customPrompt.trim()?[customKind]:[])]));
- function changeGender(value:'original'|'female'|'male'){if(buildAiPhotoPrompt(selectedPresets,customPrompt,value).length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}setTargetGender(value);setError('');}
+ function changeGender(value:'original'|'female'|'male'){if(buildPrompt(selectedPresets,customPrompt,value).length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}setTargetGender(value);setError('');}
  const [workingSources,setWorkingSources]=useState<StudioMedia[]>([]);
  const sources=[...images,...workingSources.filter(item=>!images.some(original=>original.id===item.id))],requiresMask=editKinds.includes('outfit');
  const [cosplayOpen,setCosplayOpen]=useState(false);
@@ -40,9 +42,9 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
  const [expressionInitialized,setExpressionInitialized]=useState(false);
  const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
  const panelId=useId(),preset=aiPhotoPresetPage(kind,presetPages[kind]||0);
- function setCustom(value:string){setCustomPrompt(value);setCustomKind(kind);setError(buildAiPhotoPrompt(selectedPresets,value,targetGender).length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
+ function setCustom(value:string){setCustomPrompt(value);setCustomKind(kind);setError(buildPrompt(selectedPresets,value,targetGender).length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
  function isPresetSelected(value:string){return selectedPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
- function applyPresets(next:AiPhotoPresetSelection[]){const length=buildAiPhotoPrompt(next,customPrompt,targetGender).length;if(length>AI_PHOTO_PROMPT_MAX&&length>prompt.length){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}setSelectedPresets(next);setError(length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
+ function applyPresets(next:AiPhotoPresetSelection[]){if(aiPhotoCostumeRequest(next).costumeIds.length>14){setError('의상 참조 사진은 한 번에 14개까지 선택할 수 있어요.');return;}const length=buildPrompt(next,customPrompt,targetGender).length;if(length>AI_PHOTO_PROMPT_MAX&&length>prompt.length){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}setSelectedPresets(next);setError(length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
  function pickPreset(value:string){const text=aiPhotoPresetText(value);if(isPresetSelected(value)){applyPresets(selectedPresets.filter(item=>!(item.kind===kind&&item.prompt===text)));return;}
   let next=kind==='expression'?selectedPresets.filter(item=>item.kind!=='expression'):selectedPresets;
   if(kind==='body'){const control=aiPhotoBodyControls.find(item=>[-2,-1,1,2].some(level=>aiPhotoBodyPrompt(item.key,level)===text));if(control)next=next.filter(item=>!(item.kind==='body'&&[-2,-1,1,2].some(level=>aiPhotoBodyPrompt(control.key,level)===item.prompt)));}
@@ -76,7 +78,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
-   const result=await onEdit({source,kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
+   const result=await onEdit({source,kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
    if(!result.success){setError(result.errorMessage);setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));
    setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
@@ -126,7 +128,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
       <p>가발·소품이 포함된 코디를 고른 뒤, 원본 사진에서 바꿀 옷 부분을 칠해 주세요.</p>
       {inputFirst&&<div className={s.selectedCostume}><span>선택한 의상</span><strong>{selectedCostume?.name||'직접 입력 · 수정'}</strong></div>}
       <AiPhotoWardrobe key={costumeCategory} items={costumes} view={costumeView} selectedPrompts={selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)} disabled={busy} onPick={pickPreset}/>
-      <p className={s.costumeNote}>코디 이미지는 가발·소품·신발이 포함된 예시예요. 원본 구도에 보이는 범위에 적용하며 결과는 달라질 수 있어요.</p>
+      <p className={s.costumeNote}>선택한 코디 사진을 가발·소품·신발의 참조 이미지로 함께 보내요. 원본 구도에 보이는 범위에 적용하며 결과는 달라질 수 있어요.</p>
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
       {kind==='body'&&<div className={s.bodyAdjustments}>{aiPhotoBodyControls.map(control=>{const value=[-2,-1,1,2].find(level=>selectedPresets.some(item=>item.kind==='body'&&item.prompt===aiPhotoBodyPrompt(control.key,level)))||0;return <label key={control.key}><span>{control.label}<output>{value===0?'원본 유지':`${Math.abs(value)===1?'조금':'더'} ${control.key==='height'?(value>0?'길게':'짧게'):(value>0?'크게':'작게')}`}</output></span><input type="range" aria-label={control.label} min={-2} max={2} step={1} value={value} onChange={event=>changeBody(control.key,Number(event.target.value))} disabled={busy}/></label>;})}</div>}
       <div className={s.presetHeading}><span>선택한 프리셋을 다시 누르면 해제돼요.</span><span aria-live="polite">{preset.index+1} / {preset.pages}</span></div>
