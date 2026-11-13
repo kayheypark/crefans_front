@@ -1,3 +1,7 @@
+## 2026-11-14 블루 아카이브 프론트 운영 완료
+- `crefans-front:front-bluearchive-costumes-20261114`, sourcee1a7403. 시로코/호시노/유우카/아리스4종·공식로고 추가, 원신과스와이프수정보존. 단위47/47·타입/계층·WebKit카드로딩/선택·운영신규5파일HTTP200/SHA일치. 실제AI생성품질미검증.
+- 배포완료2026-11-13 22:56:04UTC. 외부복구본 `/Users/ethan/crefans-recovery/20261114/front-bluearchive-costumes-20261114` SHA/OCI15blobs/설정검증후서버직전이미지·임시자료정리. 증거 `.local/bluearchive-costumes-20261114/verification.json`, ship.log, public-assets.json, browser.log/mobile.png. 프롬프트 `design/bluearchive-costumes-20261114/prompts.json`.
+
 ## 2026-11-14 프리셋 아이폰 스와이프 수정 운영 배포
 - 사용자 승인 "지금 배포". 맥북 여유 5.4GB로 ship-image가 빌드 전 중단(8GB 필요) → 사용자 승인으로 저장소 .local의 지난 배포 전송 파일 31개(11-08~11-14, 약 8.2GB) 삭제, 최신 1개(cosplay-pink-hearts) 유지. 목록 `.local/preset-swipe-20261114/deleted-tarballs.txt`. 복구 저장소는 건드리지 않음.
 - 1차 배포(07:45 KST, abf0289 → `crefans-front:front-preset-swipe-20261114`)는 직전에 다른 세션이 올린 원신 의상(00c1da6)을 빠뜨린 채 나감. 스크립트 경고(HEAD≠origin/prod)를 확인하고 즉시 origin/prod 24dc49f(스와이프 수정+원신 포함)로 다시 빌드해 07:48 KST `crefans-front:front-preset-swipe-genshin-20261114` 배포. 원신 의상이 프론트에서 빠진 시간 약 2분 13초.
