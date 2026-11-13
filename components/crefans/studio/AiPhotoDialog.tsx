@@ -34,7 +34,8 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
  const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('general');
  const costumes=aiPhotoCostumes.filter(costume=>costume.category===costumeCategory),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
  const cosplay=kind==='outfit'&&cosplayOpen,inputFirst=cosplay&&costumeView==='composer';
- const style=requiresMask&&cosplayOpen?'cosplay':'photo';
+ const hasCostume=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>aiPhotoPresetText(costume.prompt)===item.prompt));
+ const style=requiresMask&&(hasCostume||cosplayOpen)?'cosplay':'photo';
  const [expressionInitialized,setExpressionInitialized]=useState(false);
  const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
  const panelId=useId(),preset=aiPhotoPresetPage(kind,presetPages[kind]||0);
@@ -102,13 +103,13 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
      {sourcePicker&&<div className={s.sources} role="radiogroup" aria-label="편집할 이미지 고르기">{sources.map((item,index)=><button key={item.id} type="button" role="radio" aria-checked={item.id===sourceId} aria-label={`${index+1}번 사진`} className={s.source} onClick={()=>changeSource(item.id)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- uploaded draft thumbnail */}
       <img src={item.preview||item.url} alt=""/>{item.aiGenerated&&<span className={s.ai}>AI</span>}</button>)}</div>}
-     {source&&(kind==='outfit'||requiresMask?<><AiPhotoMask src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'} strokes={strokes} onChange={next=>{setStrokes(next);setError('');}} disabled={busy}/><p className={s.hint}>바꿀 옷 부분만 칠해 주세요. 더 원하는 내용은 커스텀 프롬프트에 적어 주세요.</p></>:<div className={s.previewFrame}>
+     {source&&(kind==='outfit'||requiresMask?<><AiPhotoMask src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'} strokes={strokes} onChange={next=>{setStrokes(next);setError('');}} disabled={busy}/><p className={s.hint}>{style==='cosplay'?'옷을 바꿀 영역을 칠해 주세요. 선택한 코디의 가발·머리장식·소품·신발도 함께 적용해요.':'바꿀 옷 부분만 칠해 주세요. 더 원하는 내용은 커스텀 프롬프트에 적어 주세요.'}</p></>:<div className={s.previewFrame}>
       {/* eslint-disable-next-line @next/next/no-img-element -- creator's own uploaded photo */}
       <img className={s.preview} src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'}/><button ref={editRef} type="button" className={s.zoom} aria-label="원본 사진 크게 보기" onClick={()=>setSourceViewer(true)}><ZoomIcon/></button>
      </div>)}
    </div>}
     {stage==='edit'?<div className={s.controls}>
-     <button type="button" className={s.cosplayEntry} aria-pressed={kind==='outfit'&&cosplayOpen} disabled={busy} onClick={()=>{const next=kind!=='outfit'||!cosplayOpen;changeKind('outfit');setCosplayOpen(next);}}><span className={s.cosplayEntryIcon} aria-hidden="true"><AiPhotoCategoryIcon kind="outfit"/></span><span><strong>나를 코스어로 만들기</strong><small>준비된 의상을 골라 나만의 코스프레 사진으로</small></span><span aria-hidden="true">›</span></button>
+     <button type="button" className={s.cosplayEntry} aria-pressed={kind==='outfit'&&cosplayOpen} disabled={busy} onClick={()=>{const next=kind!=='outfit'||!cosplayOpen;changeKind('outfit');setCosplayOpen(next);}}><span className={s.cosplayEntryIcon} aria-hidden="true"><AiPhotoCategoryIcon kind="outfit"/></span><span><strong>나를 코스어로 만들기</strong><small>가발부터 소품·신발까지 나만의 코스프레 코디로</small></span><span aria-hidden="true">›</span></button>
      <div className={s.genderPicker}><span>생성 인물</span><div role="group" aria-label="생성 인물 성별">{(['original','female','male'] as const).map(value=><button key={value} type="button" aria-pressed={targetGender===value} disabled={busy} onClick={()=>changeGender(value)}>{value==='original'?'원본 유지':value==='female'?'여성':'남성'}</button>)}</div></div>
      {inputFirst&&composer}
      <div className={s.tabs} role="tablist" aria-label="편집 카테고리">{aiPhotoKinds.map((item,index)=><button key={item.value} id={`${panelId}-${item.value}`} type="button" role="tab" aria-controls={panelId} tabIndex={kind===item.value?0:-1} aria-selected={kind===item.value} onClick={()=>changeKind(item.value)} onKeyDown={event=>{
@@ -118,10 +119,10 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
      {kind==='outfit'&&cosplayOpen?<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.wardrobe}>
       <div className={s.wardrobeHeading}><h3>어떤 의상을 입어볼까요?</h3><SelectField className={s.viewPicker} label="보기 형식" hideLabel value={costumeView} onChange={value=>setCostumeView(value as CostumeView)} options={costumeViews.map(view=>({...view}))} disabled={busy}/></div>
       <div className={s.costumeCategoryBar}><SelectField className={s.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>setCostumeCategory(value as AiPhotoCostumeCategory)} options={aiPhotoCostumeCategories.map(category=>({value:category.value,label:category.label,image:category.image}))} disabled={busy}/><span>{costumeCategoryInfo.group} · {costumes.length}종</span></div>
-      <p>의상을 고른 뒤, 원본 사진에서 바꿀 옷 부분을 칠해 주세요.</p>
+      <p>가발·소품이 포함된 코디를 고른 뒤, 원본 사진에서 바꿀 옷 부분을 칠해 주세요.</p>
       {inputFirst&&<div className={s.selectedCostume}><span>선택한 의상</span><strong>{selectedCostume?.name||'직접 입력 · 수정'}</strong></div>}
       <AiPhotoWardrobe key={costumeCategory} items={costumes} view={costumeView} selectedPrompts={selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)} disabled={busy} onPick={pickPreset}/>
-      <p className={s.costumeNote}>의상 이미지는 스타일 예시예요. 사진 구도와 칠한 범위에 따라 결과가 달라질 수 있어요.</p>
+      <p className={s.costumeNote}>코디 이미지는 가발·소품·신발이 포함된 예시예요. 원본 구도에 보이는 범위에 적용하며 결과는 달라질 수 있어요.</p>
       <button type="button" className={s.directOutfit} onClick={()=>setCosplayOpen(false)}>옷 직접 편집</button>
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
       {kind==='body'&&<div className={s.bodyAdjustments}>{aiPhotoBodyControls.map(control=>{const value=[-2,-1,1,2].find(level=>selectedPresets.some(item=>item.kind==='body'&&item.prompt===aiPhotoBodyPrompt(control.key,level)))||0;return <label key={control.key}><span>{control.label}<output>{value===0?'원본 유지':`${Math.abs(value)===1?'조금':'더'} ${control.key==='height'?(value>0?'길게':'짧게'):(value>0?'크게':'작게')}`}</output></span><input type="range" aria-label={control.label} min={-2} max={2} step={1} value={value} onChange={event=>changeBody(control.key,Number(event.target.value))} disabled={busy}/></label>;})}</div>}

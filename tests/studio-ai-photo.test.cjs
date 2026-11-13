@@ -284,7 +284,7 @@ test('generated image editing: uses generated source, resets final request and m
 test('category logos: all seven options provide local images and do not alter category labels or prompts',async()=>{
  const fs=require('fs');const {r,click}=await open();await click('나를 코스어로 만들기');const picker=r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리');assert.equal(picker.props.options.length,7);
  for(const option of picker.props.options){assert.ok(option.image.startsWith('/brand/ai-photo/'));assert.ok(fs.existsSync(require('path').join(__dirname,'../public',option.image)));}
- const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');const sample=aiPhotoCostumes.find(c=>c.category==='nikke');assert.ok(!rules.aiPhotoPresetText(sample.prompt).includes('배경은 그대로 유지'));assert.ok(sample.prompt.includes('배경은 그대로 유지'));
+ const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');const sample=aiPhotoCostumes.find(c=>c.category==='nikke');assert.ok(!rules.aiPhotoPresetText(sample.prompt).includes('배경은 그대로 유지'));assert.ok(sample.prompt.includes(sample.wig));assert.ok(sample.prompt.includes(sample.accessories));
 });
 
 
@@ -339,4 +339,17 @@ test('neutral is the first default only on first expression visit; alternatives 
  const tab=label=>act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());await tab('표정');const buttons=()=>r.root.findByProps({className:'photoPresetGrid'}).findAllByType('button');assert.equal(buttons()[0].props['aria-label'],'무표정');assert.equal(buttons()[0].props['aria-pressed'],true);assert.equal(field().props.value,'자연스러운 조명');
  await click('환한 미소');assert.equal(buttons()[0].props['aria-pressed'],false);assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);await click('환한 미소');assert.ok(buttons().every(b=>b.props['aria-pressed']===false));await tab('포즈');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],true);await tab('표정');assert.ok(buttons().every(b=>b.props['aria-pressed']===false));await click('무표정');await click('여성');assert.equal(buttons()[0].props['aria-pressed'],true);
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls[0].kind,'combined');assert.match(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/치아가 살짝/);assert.match(calls[0].prompt,/쪼그려/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));await click('게시물에 추가');assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],true,'new draft on expression tab starts neutral');
+});
+
+
+test('complete cosplay look: catalog hair and accessories reach the request after leaving the wardrobe',async()=>{
+ const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
+ assert.equal(aiPhotoCostumes.length,32);
+ for(const item of aiPhotoCostumes){assert.match(item.wig,/가발/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
+ const {r,calls,click}=await open();await click('나를 코스어로 만들기');await click('리본 메이드');
+ assert.match(text(r.toJSON()),/가발·머리장식·소품·신발도 함께 적용/);await click('나를 코스어로 만들기');
+ await act(async()=>{r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='배경').props.onClick();});
+ await act(async()=>{r.root.find(n=>n.props['data-mask-editor']).props.onChange([{size:.1,points:[{x:.5,y:.5}]}]);});
+ await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
+ await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.match(calls[0].prompt,/검정 턱선 단발 가발/);assert.match(calls[0].prompt,/트레이/);assert.match(calls[0].prompt,/메리제인 구두/);assert.ok(calls[0].mask);
 });
