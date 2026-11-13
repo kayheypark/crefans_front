@@ -1,3 +1,7 @@
+## 2026-11-14 분홍 하트 코스어 탭 운영 완료
+- 운영 `crefans-front:front-cosplay-pink-hearts-20261114`,source `a58cc9faa759dd159fb524f35b79bd208d0973ff`. 분홍#e00078/흰글씨·SVG하트12개지속이동. 타입/WebKit색·하트수·움직임·모션감소·비선택제거 통과. 실기기미검증.
+- 최초배포 로컬공간8199806976<8589934592 중단,종료한검증서버 `.next-e2e/cache`786344041bytes제거후재시도0. 완료2026-11-13 22:26:22 UTC,feed/landing/terms/health/static/image200·redirect301. 복구본 `/Users/ethan/crefans-recovery/20261114/front-cosplay-pink-hearts-20261114` SHA·OCI15blobs·설정검증후서버이전이미지/임시자료정리. 완료로컬배포임시압축본7개검증후정리,외부복구본보존. 증거 `.local/cosplay-pink-hearts-20261114/verification.json`, `browser.json`, `ship-retry.log`, `temp-cleanup.json`, `cache-cleanup.json`.
+
 ## 2026-11-14 분홍 하트 탭 검증 완료
 - 타입0·diff통과,WebKit390×844 실제분홍rgb224,0,120/흰색·하트12개·0.5초위치변화/infinite·reduced-motion정지·일반모드하트제거 확인. 화면육안확인. 기능로직변경없음. 증거 `.local/cosplay-pink-hearts-20261114/`. 다음운영배포.
 
