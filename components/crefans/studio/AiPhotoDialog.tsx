@@ -110,7 +110,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
      </div>)}
    </div>}
     {stage==='edit'?<div className={s.controls}>
-     <div className={s.modePicker}><div role="group" aria-label="편집 모드"><button type="button" aria-pressed={!cosplayOpen} disabled={busy} onClick={()=>setCosplayOpen(false)}>일반 모드</button><button type="button" aria-pressed={cosplayOpen} disabled={busy} onClick={()=>{changeKind('outfit');setCosplayOpen(true);}}>코스어 모드</button></div></div>
+     <div className={s.modePicker}><div role="group" aria-label="편집 모드"><button type="button" className={s.cosplayMode} aria-pressed={cosplayOpen} disabled={busy} onClick={()=>{changeKind('outfit');setCosplayOpen(true);}}>{cosplayOpen&&<span className={s.modeStars} aria-hidden="true"><i/><i/><i/><i/></span>}<span className={s.modeLabel}>코스어 모드</span></button><button type="button" aria-pressed={!cosplayOpen} disabled={busy} onClick={()=>setCosplayOpen(false)}>일반 모드</button></div></div>
      <div className={s.genderPicker}><span>생성 인물</span><div role="group" aria-label="생성 인물 성별">{(['original','female','male'] as const).map(value=><button key={value} type="button" aria-pressed={targetGender===value} disabled={busy} onClick={()=>changeGender(value)}>{value==='original'?'원본 유지':value==='female'?'여성':'남성'}</button>)}</div></div>
      {inputFirst&&composer}
      <div className={s.tabs} role="tablist" aria-label="편집 카테고리">{aiPhotoKinds.map((item,index)=><button key={item.value} id={`${panelId}-${item.value}`} type="button" role="tab" aria-controls={panelId} tabIndex={kind===item.value?0:-1} aria-selected={kind===item.value} onClick={()=>changeKind(item.value)} onKeyDown={event=>{

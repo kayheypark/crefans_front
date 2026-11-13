@@ -382,7 +382,7 @@ test('complete cosplay look: catalog hair and accessories reach the request afte
 test('explicit mode switch preserves draft, selections and mask while showing the active mode',async()=>{
  const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
  assert.equal(r.root.findByProps({'aria-pressed':true,children:'일반 모드'}).type,'button');await act(async()=>field().props.onChange({target:{value:'내 추가 요청'}}));
- await click('코스어 모드');assert.equal(r.root.findByProps({'aria-pressed':true,children:'코스어 모드'}).type,'button');await click('리본 메이드');
+ await click('코스어 모드');assert.equal(r.root.find(n=>n.type==='button'&&n.props['aria-pressed']===true&&text(n)==='코스어 모드').type,'button');await click('리본 메이드');
  await act(async()=>r.root.find(n=>n.props['data-mask-editor']).props.onChange([{size:.06,points:[{x:.5,y:.4}]}]));
  await click('일반 모드');assert.equal(field().props.value,'내 추가 요청');assert.equal(r.root.findAllByProps({className:'costumeGrid'}).length,0);
  await click('코스어 모드');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],true);assert.equal(r.root.find(n=>n.props['data-mask-editor']).props.strokes.length,1);assert.equal(field().props.value,'내 추가 요청');assert.equal(calls.length,0);
