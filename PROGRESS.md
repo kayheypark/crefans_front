@@ -1,3 +1,9 @@
+## 2026-11-13 코스어 의상 선택·폴리싱 5안 완료 (운영 미배포)
+- 기능 611501e를 dev→prod1639d03에 반영. 의상8종 선택→문구 직접수정→영역칠하기→1장 생성 연결. 오프숄더·크롭·짧은 치마·비치 투피스 포함. 본문 스크롤/만들기 버튼만 고정 유지. 운영은 front-ai-options-clean-20261113 그대로이며 이번 기능은 배포하지 않음.
+- 단위16/16·typecheck·check:layers451·CREFANS_E2E=true npm run build 종료0, git diff --check 통과. 8개 프리셋의 기존 서버 입력검사 통과. 기존 Generated contracts stale는 미해결. 실제 공급사 생성물/얼굴 보존 품질·실물기기는 미검증.
+- 내장 image_gen으로 실제 화면과 동일 의상 자산 기반의 정적 디자인 시안5종 완성: 균형 카드형/간결 목록형/의상 집중형/한눈에8종/입력 우선형. 모바일 디바이스 테두리, 기존 동의 문구와 1장 버튼 확인. 모두1200×1600 PNG, 원본비율 유지. 8종 비교가 쉬운4번 추천. 시안5종은 구현된 대체 레이아웃이 아니며 사용자 선택 전 기본2열 UI 유지.
+- 증거 .local/cosplay-wardrobe-20261113/verification.json 및 browser.json, 실제 UI mobile-device-proof.png. 시안 designs/{comparison.png,01-grid.png,02-list.png,03-carousel.png,04-compact.png,05-composer.png}, 생성 프롬프트/원본경로 prompts.json, 해상도·SHA 검증 verification.json. crefans-cosplay-polish-5.zip은 PNG5개·CRC 검사 통과. 최종5안 육안 검토 완료.
+
 ## 2026-11-13 코스어 의상 선택 기능 검증·폴리싱5안 생성 진행
 - 이미지젠 의상8종 완성, public/brand/ai-photo/costumes/*-v1.webp 512×512로 최적화. 본문2열옷장과 나를코스어로만들기 진입버튼, 의상문구선택/취소/직접수정, 기존outfit 마스크+cosplay 스타일 연결. 일반편집은 photo, 다른 카테고리초안보존. 안전검사는 변경하지 않고 노출일괄금지 안내를 나체·성적합성금지로 정리.
 - 기존14+신규2=16/16·타입·계층451통과. cosplay스타일 전달을 photo로 바꾼 대조에서 새검사실패 후 원복/16통과. Chrome CUA390:8이미지로드/아이돌선택문구/실제canvas칠하기·동의→목업1장결과/설정복귀 확인.320 가로넘침0,PC확인. 실제공급사변신·실기기는 미실행. 썸네일 자체는 공급사참조이미지로 전달하지않는 스타일예시.
