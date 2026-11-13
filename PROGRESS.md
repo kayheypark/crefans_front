@@ -1,3 +1,12 @@
+## 2026-11-13 코스프레 전체 코디 운영 반영 완료
+- 운영: 프론트 crefans-front:front-cosplay-complete-look-20261113(source fa91c07), API/worker crefans-api:cosplay-complete-look-20261113(overlay source9d06442, prod2041fe5와 해당2파일 동일). 일반32코디 카탈로그에 가발·머리장식·소품·신발 명세와 내부 요청을 통일하고 전신512px 미리보기32개(489628bytes) 추가. v1사진 보존. 7분류/5보기/짧은 제목/선택취소/커스텀 분리 유지.
+- 실제 요청: cosplay+outfit 단일·복합 모두 원본+분홍 의상 가이드를 보내 명시된 헤어/장식/소품/신발이 옷영역 밖에서도 변경되도록 지시. 일반photo outfit은 hardmask유지. 원본구도 가시범위, 얼굴/정체성/나이/미요청부분 보존 지시·안전/소유권/횟수/1장 유지. 선택후옷장닫기·다른탭이동에도cosplay유지.
+- 기능33/33→병행리셋권 통합후34/34·typecheck0·계층452, 서버27/27·build0. 대조(스타일유지/가이드분기제거)예상실패→원복. 병합단계리셋권용Prisma클라이언트미갱신으로build/8검사실패 후 로컬클라이언트재생성→build0·27/27. 기존한도회원오염으로신규검사실패는독립회원으로분리해해결. 실공급사대신대역+격리E2E DB 검사.
+- CUA 로컬7분류32사진 로드·캐러셀v2·320/390/1280넘침0. 운영390 시노부 올림머리/나비핀·신발 화면확인,24작품사진+일반8지연로드후전체32확인. image-content.json의32개SHA가운영빌드와일치. 운영생성/게시물추가/실AI재현품질은검증하지않음. 썸네일은공급사참조이미지가아니며 정확복제보장없음.
+- 병행작업: dev/prod에별도리셋권변경이들어와PROGRESS/프론트검사충돌. 자동검토가정규식합성후검사무관푸시를거절하여해당묶음미실행. 명시적패치로두변경보존→검사결과확인→개별커밋/푸시로해결. 그사이별도작업이운영리셋권을배포했으므로실운영소스재조회/차이검토후최신ticket이미지에본작업TS/JS2개만overlay. 본작업에서운영DB마이그레이션없음,리셋권/콘솔변경보존.
+- 배포빌드/소스/모듈·HTTP/healthready·기존서비스설정보존통과. 복구 /Users/ethan/crefans-recovery/20261113/{cosplay-complete-look-api-20261113,front-cosplay-complete-look-20261113}:SHA·OCI각51/15blobs·태그ID·설정검증후서버직전태그/이번백업/tmp만정리. 기존로컬복구본삭제없음.
+- 증거 각repo .local/cosplay-complete-look-20261113/verification.json. 프론트 prompts/results/looks/assets.json·contact.png·browser-local/production/general/responsive.json·production-mobile.png·unit/types/layers/negative/docs-final/image-content/dry-run/ship,서버unit/build/negative-mask/runtime-source/build-api/deploy-api. 전체check:docs는기존Generated contracts stale 및병행관리라우트설명누락잔존;본작업관련문서동기화. 다음작업은없으며실AI결과품질은추후실제사진으로별도검증필요.
+
 ## 2026-11-13 AI 사진 보관형 리셋권 스튜디오 버튼 — 운영 배포 완료(2026-11-13 16:4x KST)
 - AI 사진 편집 창 횟수 줄에 '리셋권 n장 · M.D. 만료 · 1장 써서 횟수 채우기'. 리셋권이 없으면 숨김, 오늘 사용 0회면 비활성, 성공 시 남은 횟수 갱신·안내 문구. 서버 `POST /studio/ai-photo/reset-ticket`(useStudioModel), 목업·디자인 시스템 '한도 소진 + 리셋권' 상태 추가.
 - 검증: tsc 0, studio-ai-photo 33/33(신규 1, 비활성 조건 제거 대조 실패 확인), 전체 637 중 실패 16(기존 기준선 16 동일). 디자인 시스템 목업에서 데스크톱·모바일 375(가로 넘침 없음) 클릭 동작 확인.
