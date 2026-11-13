@@ -1,3 +1,11 @@
+## 2026-11-13 09:55 KST 알록달록 아이콘·사진 편집·댓글 좋아요 운영 배포 완료
+- 사용자 “배포” 승인. 아이콘 feature251e923→dev/prod71a6cc6. 공용 AiPhotoCategoryIcon은 검색 카테고리와 같은 colorful-flat-v3 PNG5종을 사용(512px 원본, PC26px/모바일24px). 사진편집9안/프리셋60문구·댓글/답글 하트도 포함.
+- 운영 frontend front-mypage-menu-20261113→front-colorful-comments-20261113. linux/amd64 build0·revision71a6cc6·카카오키 번들검사·레이어 일치·정적/최적화이미지/리다이렉트 확인. 프론트16개·typecheck·계층451 통과. Docker 인증도우미 멈춤은 별도 auth없는 CLI설정, macOS shasum locale은 LC_ALL=C로 해결 후 dry-run/실행0.
+- API/worker도 colorful-comments-20261113 반영(서버 소스5feb470, 기존 미디어처리 이미지 위 4파일). 서버29/29. 공개 댓글1·답글1 likes/liked 계약, 비로그인 좋아요401 확인. 운영 실계정 쓰기/AI실생성/실기기 검증은 하지 않음.
+- 운영 CUA Chrome390×844 /design-system의 공용 모달(목업 데이터)에서 아이콘5개 로드/24px·모습 확인. /service/studio는 비로그인 상태라 로그인 안내만 확인. 공개 PNG5개 HTTP200 및 원본 바이트 일치, 최적화200·health ready. 증거 .local/colorful-deploy-20261113/{verification.json,http-verification.json,browser-production.json,mobile-device-proof.png}; 이미지 빌드/배포 로그 .local/ship-front-colorful-comments-20261113/.
+- 복구: /Users/ethan/crefans-recovery/20261113/front-colorful-comments-20261113 (직전 front-mypage-menu, OCI15blobs·index/tag·SHA·설정 아카이브 검증). API복구도39blobs 검증. 검증 후 서버 이전태그/백업/임시폴더 정리, 현재 컨테이너/DB/설정/업로드 보존. 맥 기존 복구자료는 삭제하지 않음.
+- 미해결: 기존 소셜 모바일 검사4실패·문서 Generated contracts stale 그대로. 복구 이미지 보관수 초과 후보는 별도 목록·사용자 승인 필요. 이번 배포 검증을 실계정 AI 품질/실기기 검증으로 확대하지 않는다.
+
 ## 2026-11-13 알록달록 아이콘 적용·운영 배포 진행
 - 사용자 배포 요청. origin/prod467349c 기반 feat/ai-photo-colorful-icons-20261113에서 AI 사진편집 카테고리 공용 SVG를 채택된 colorful-flat-v3 PNG5개로 교체. PNG는 검색 카테고리 스타일, 라벨/프리셋/권한 동작 유지.
 - 합격 조건: 5개 정확한 PNG 매핑·투명도/해시, 기존 사진편집/댓글 검사 및 타입/계층·운영 이미지 빌드, dev→prod 후 API/worker와 프론트 배포. 공개 PNG 바이트·API 헬스/인증 거절·모바일 아이콘 확인. 운영 미디어 처리/기존 법률/설정 보존, 복구본 맥 외부저장·검증 후 서버 임시본 정리.
