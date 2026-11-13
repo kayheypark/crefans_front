@@ -1,3 +1,7 @@
+## 2026-11-13 남성 신체 보정4종 운영 완료
+- 운영 `crefans-front:front-male-body-presets-20261113`,source `434018d1f5e78553bd6833a5f3a2a61ab0adaf9e`. 남성 상체/하체근육·어깨너비·키비율4종5단계,내장이미지젠4장384pxWebP,프롬프트design기록. 기능44/44·타입·레이어·WebKit사진로딩/선택/성별초기화 통과. 실제사용자사진생성품질/실기기 미검증.
+- 13:54:19 UTC 배포0,feed/landing/terms/health/static/image200·redirect301. 외부복구본 `/Users/ethan/crefans-recovery/20261113/front-male-body-presets-20261113` SHA·OCI15blobs·설정 검증 후 서버이전이미지/임시자료정리. 로컬완료배포임시압축본4개만로그/SHA/이미지확인후정리,외부복구본보존. 증거 `.local/male-body-presets-20261113/verification.json`, `browser.json`, `ship.log`, `temp-cleanup.json`.
+
 ## 2026-11-13 남성 신체 보정4종 검증 완료
 - 기능44/44,타입0,레이어453개 통과. WebKit390×844 남성4컨트롤/4사진 로딩·카드선택→슬라이더1·성별전환초기화 통과,화면 육안확인. 4개 이미지384×384 WebP,이미지젠내장모드 개별생성. 실제 사용자사진 보정품질/실기기 미검증. 증거 `.local/male-body-presets-20261113/`. 다음 운영 배포.
 
