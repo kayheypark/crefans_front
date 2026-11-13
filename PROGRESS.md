@@ -1,3 +1,8 @@
+## 2026-11-13 AI 탭 단일 강조 운영 반영 완료
+- 운영 `crefans-front:front-ai-tab-indicator-20261113`, source `6070ed900428588b74d03a7e65d6325a0de29c6c`. 선택만 파란 배경/체크, 비선택 회색 및 appearance/tap highlight 명시, focus-visible 유지. 원본 증상 정확 원인은 미확정; 실기기 재현 미검증.
+- WebKit/Chromium 각5회 전환과 키보드 검사·기능38/38·타입 통과. 운영11:27:12 UTC 배포0, feed/landing/terms/health/static/image200·redirect301. 서버/생성 계약 변경 없음.
+- 복구본 `/Users/ethan/crefans-recovery/20261113/front-ai-tab-indicator-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 증거 `.local/ai-tab-paint-20261113/verification.json`, `webkit-after.png`, `after.json`, `ship.log`.
+
 ## 2026-11-13 AI 탭 표시 검증 완료
 - WebKit iPhone13(390×844)/Chromium(1280×900)에서 메이크업→포즈→옷→표정→옷 전환마다 selected/파란 배경/체크가 각각 1개 확인, 화살표 키 선택/포커스 유지. 첨부 증상 자체는 로컬 재현 안 됨; 시각적 구분 보강으로 보고. 기능38/38·타입0. 실기기 검증 아님. 다음 프론트 배포.
 
