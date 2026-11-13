@@ -1,3 +1,9 @@
+## 2026-11-14 프리셋 누적 선택 검증 완료
+- 변경전회귀2건실패재현,수정후47/47·tsc·계층453파일·diff종료0. WebKit iPhone13에서의상+메이크업선택후탭왕복유지,메이크업재클릭해제시의상유지확인. 서버복합API변경없음. 증거 .local/ai-preset-category-preserve-20261114/{before,unit,types,layers,browser}.log 및 mobile.png.
+
+## 2026-11-14 프리셋 카테고리 간 선택 유지 수정 진행
+- 원인: changeKind가전체선택·마스크삭제,applyPresets가slice(-1)로마지막1개만유지. 최신요청에따라다른카테고리누적/같은카테고리교체·토글로변경. 마스크/커스텀/코스어모드분기유지. 합격:의상+메이크업복합전송/부분해제/마스크유지/2000자상한/기존기능. 먼저변경테스트2개가구현전실패하는것확인.
+
 ## 2026-11-14 코스어 전용 Seedream 프론트 운영 완료
 - `crefans-front:front-seedream-cosplay-mode-20261114`, sourcecb78316. 현재탭mode전달,코스어만Seedream5.5/일반GPT image2. 서버81d4cf9동시반영. 47/47·타입/계층·운영번들탭분기/multipart필드검증통과. 전체사용자브라우저실생성미실행; 서버실제키/코드입출력검사+Seedream합성샘플성공21.655초.
 - 완료2026-11-13 23:38:25UTC,주요HTTP/헬스/정적자산배포검사통과. 외부복구 `/Users/ethan/crefans-recovery/20261114/front-seedream-cosplay-mode-20261114` SHA/OCI15blobs/설정검증후서버직전이미지·임시자료정리. 증거 `.local/seedream-cosplay-mode-20261114/verification.json`, ship.log,bundle.log,unit/types/layers.log.
