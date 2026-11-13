@@ -463,3 +463,17 @@ test('result actions: only continue editing and confirm appear in the action row
  const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 조명'}}));await click('1장 만들기');
  const buttons=r.root.findByProps({className:'resultActions'}).findAllByType('button');assert.deepEqual(buttons.map(text),['계속 보정','사진 결정']);assert.doesNotMatch(text(r.toJSON()),/다시 만들기|이미지 편집|게시물에 추가/);await click('계속 보정');assert.equal(calls.length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'');
 });
+
+test('preset pager claims a horizontal touch drag so iOS Safari does not turn it into a scroll, and leaves vertical scroll and pinch alone',async()=>{
+ const {AiPresetPager}=loadTypeScript('components/crefans/studio/AiPresetPager.tsx');
+ const listeners={};const node={addEventListener:(type,fn,options)=>{listeners[type]={fn,options};},removeEventListener(){}};
+ const touch=(x,y)=>({clientX:x,clientY:y});
+ const fire=(type,points)=>{let prevented=false;listeners[type].fn({touches:points,cancelable:true,preventDefault(){prevented=true;}});return prevented;};
+ let r;await act(async()=>{r=create(el(AiPresetPager,{onStep(){},disabled:false},el('div')),{createNodeMock:()=>node});});
+ assert.equal(listeners.touchmove.options.passive,false);
+ fire('touchstart',[touch(200,100)]);assert.equal(fire('touchmove',[touch(198,100)]),false,'below slop');assert.equal(fire('touchmove',[touch(170,106)]),true,'diagonal-but-horizontal drag');assert.equal(fire('touchmove',[touch(150,130)]),true,'stays claimed');
+ fire('touchstart',[touch(200,100)]);assert.equal(fire('touchmove',[touch(204,130)]),false,'vertical scroll');assert.equal(fire('touchmove',[touch(260,132)]),false,'axis stays vertical');
+ fire('touchstart',[touch(200,100),touch(260,100)]);assert.equal(fire('touchmove',[touch(150,100),touch(300,100)]),false,'pinch');
+ await act(async()=>r.update(el(AiPresetPager,{onStep(){},disabled:true},el('div'))));
+ fire('touchstart',[touch(200,100)]);assert.equal(fire('touchmove',[touch(150,100)]),false,'disabled single page');
+});

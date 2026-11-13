@@ -1,3 +1,10 @@
+## 2026-11-14 AI 사진 편집 프리셋 아이폰 스와이프 수정 (미배포)
+- 사용자 제보: 아이폰에서 프리셋·의상 목록이 버튼으로는 넘어가는데 가로 스와이프로는 안 넘어감.
+- 원인: iOS 사파리는 touch-action:pan-y 영역에서도 손가락이 조금 위아래로 흔들린 가로 드래그를 세로 스크롤로 시작하고 pointercancel을 보냄(WebKit bug 203335, W3C pointer events 논의 2019). 기존 `AiPresetPager`는 pointercancel에서 제스처를 버림.
+- 수정: `AiPresetPager`에 passive:false touchmove 리스너. 첫 움직임이 가로 우세면 그 터치의 touchmove를 preventDefault(네이티브 스크롤 시작 차단), 세로 우세·두 손가락·한 페이지(disabled)는 건드리지 않음. 포인터 기반 페이지 넘김 로직은 그대로. 프리셋과 코스프레 의상 목록이 같은 컴포넌트를 씀.
+- 검증: 단위 테스트 1건 추가(가로·대각 가로 차단, 세로·핀치·비활성 미차단), preventDefault 제거 시 실패 확인. AI 사진 테스트 46/46, 전체 635 통과/16 실패(기존 기준선과 같음), tsc 통과. 목업 화면(모바일 375px, Chromium)에서 실제 DOM 터치 이벤트로 가로만 차단되는 것과 드래그로 1/4→2/4 넘어가는 것을 확인.
+- 미검증: 실제 아이폰 사파리. 이 맥에 iOS 시뮬레이터 런타임이 없고 디스크 여유(약 6.7GB)로 설치 불가. 배포 후 실기기 확인 필요.
+
 ## 2026-11-14 분홍 하트 코스어 탭 운영 완료
 - 운영 `crefans-front:front-cosplay-pink-hearts-20261114`,source `a58cc9faa759dd159fb524f35b79bd208d0973ff`. 분홍#e00078/흰글씨·SVG하트12개지속이동. 타입/WebKit색·하트수·움직임·모션감소·비선택제거 통과. 실기기미검증.
 - 최초배포 로컬공간8199806976<8589934592 중단,종료한검증서버 `.next-e2e/cache`786344041bytes제거후재시도0. 완료2026-11-13 22:26:22 UTC,feed/landing/terms/health/static/image200·redirect301. 복구본 `/Users/ethan/crefans-recovery/20261114/front-cosplay-pink-hearts-20261114` SHA·OCI15blobs·설정검증후서버이전이미지/임시자료정리. 완료로컬배포임시압축본7개검증후정리,외부복구본보존. 증거 `.local/cosplay-pink-hearts-20261114/verification.json`, `browser.json`, `ship-retry.log`, `temp-cleanup.json`, `cache-cleanup.json`.
