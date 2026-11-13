@@ -6,7 +6,6 @@ import {AiPhotoWardrobe,costumeViews,type CostumeView} from './AiPhotoWardrobe';
 import type {ApiResult} from '@/types/crefans';
 import type {AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,StudioMedia} from '@/types/crefans-studio-management';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
-import {Checkbox} from '@/components/ui/Choice';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoStyles,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoBodyPrompt,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
 import {Action} from '../ServiceUI';
 import {aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoPresetTitle,aiPhotoNeutralExpressionPreset} from '@/lib/crefans/ai-photo-presets';
@@ -47,7 +46,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
  function pickPreset(value:string){applyPresets(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}]);}
  function changeBody(key:string,level:number){applyPresets(level?[{kind:'body',prompt:aiPhotoBodyPrompt(key,level)}]:[]);}
  function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);setSelectedPresets(value==='expression'?[{kind:'expression',prompt:aiPhotoNeutralExpressionPreset}]:[]);setStrokes([]);setError('');}
- const [consent,setConsent]=useState(false),[strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
+ const [strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
  const [stage,setStage]=useState<'edit'|'results'>('edit'),[sourcePicker,setSourcePicker]=useState(false);
  const [viewer,setViewer]=useState<number|null>(null),[sourceViewer,setSourceViewer]=useState(false),[elapsed,setElapsed]=useState(0);
@@ -66,7 +65,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
   if(!prompt.trim()){setError('프리셋을 고르거나 커스텀 프롬프트를 적어 주세요.');return;}
   if(prompt.length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.');return;}
   const requestKind=editKinds[0]||(targetGender!=='original'?'pose':kind);
-  const problem=aiPhotoProblem({prompt,consent,kind:requiresMask?'outfit':requestKind,hasMask:strokes.length>0,remaining});if(problem){setError(problem);return;}
+  const problem=aiPhotoProblem({prompt,consent:true,kind:requiresMask?'outfit':requestKind,hasMask:strokes.length>0,remaining});if(problem){setError(problem);return;}
   setBusy(true);setError('');setStage('results');
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
@@ -132,7 +131,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
       <button type="button" className={s.morePresets} onClick={()=>setPresetPages(previous=>({...previous,[kind]:(preset.index+1)%preset.pages}))} disabled={busy}>다른 예시 보기 <span aria-hidden="true">↻</span></button>
      </div>}
     {!inputFirst&&composer}
-     <div className={s.consent}><Checkbox checked={consent} onChange={value=>{setConsent(value);setError('');}} disabled={busy} label="사진 속 인물은 나 자신이거나 사용 동의를 받았어요."/></div>
+     <p className={s.hint}>만들기를 누르면 본인 또는 사용 허락을 받은 사진임을 확인합니다.</p>
      <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>나체·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
     </div>:<div className={s.results} aria-busy={busy}>
      <div className={s.summary}>
