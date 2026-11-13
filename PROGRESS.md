@@ -1,3 +1,15 @@
+## 2026-11-13 작품별 의상 카테고리 후보 조사 (선추천·구현 전)
+- 사용자 최신 지시: 기존8종은 일반 카테고리로 분류하고 니케·오버워치·디아블로 등 작품별 추가 카테고리 후보를 먼저 추천. 애니메이션·진격의거인도 포함. 이번 단계는 후보 추천 우선이며 새IP에셋 생성·카테고리 코드 변경은 아직 하지 않았다. 기존8종 일반 이동도 분류UI 구현 시 함께 적용한다.
+- 추천 판단: 공식 캐릭터/의상 자료에서 구분되는 실루엣·복장 다양성을 우선하고 인기도 순위로 주장하지 않는다. 게임 후보 니케/오버워치/디아블로/원신/붕괴스타레일/젠레스존제로/리그오브레전드/스텔라블레이드/니어오토마타. 애니 후보 진격의거인/귀멸의칼날/주술회전/블리치/나루토/원피스. 화면구성 제안: 작은 게임·애니 구분→작품→의상, 기본 일반. 최종 선택 전 빈카테고리를 운영에 임의 노출하지 않는다.
+- 근거 확인2026-11-13: https://nikke-en.com/ , https://overwatch.blizzard.com/en-us/heroes/?blzcmp=app , https://blizzard.gamespress.com/Diablo-IV , https://genshin.hoyoverse.com/en/character/mondstadt , https://hsr.hoyoverse.com/en-us/character , https://zenless.hoyoverse.com/en-us/main?catchSpider=1 , https://www.leagueoflegends.com/en-us/champions/ahri/ , https://blog.playstation.com/2024/04/25/stellar-blade-new-game-plus-mode-available-on-launch-april-26/ , https://www.square-enix-games.com/en_US/games/nier-automata . 일부JS/403페이지는 텍스트 확인 제한, 검색 인덱스/공식 프레스 자료와 구분. 상세 캐릭터·의상 목록과 상용 에셋 적용 판단은 선정 후 조사한다.
+- 애니 근거: https://shingeki.tv/final/character/ , https://jujutsukaisen.jp/character/ , https://kimetsu.com/anime/yukakuhen/character/ , https://one-piece.com/character/ . 블리치/나루토 공식 상세페이지는 접근 제한으로 상세의상 확인 전. 우선추천 일반+니케/오버워치/디아블로/진격의거인/귀멸의칼날/주술회전, 각4~6종으로 시작하는 제안(사용자 확정 수량 아님). 의상/소품 중심이며 얼굴·인물을 해당 캐릭터로 바꾸는 기능 확장이 아니다.
+
+## 2026-11-13 보기 선택 소형화·마스크 도구 아이콘화 운영 배포 완료
+- 최종 sourceffdd4af, imagefront-cosplay-compact-20261113 운영반영. 보기메뉴 제목옆100px·투명테두리·라벨숨김, 아이콘도구 텍스트0/6개SVG. CUA 새 운영탭에서 실제 innerWidth320/390/1280 각각5형식 전부 제목한줄·넘침0·문구/동의/마스크보존·고정버튼1개, 실제칠하기/붓선택/되돌리기1개/전체지우기/목업1장씩5형식/설정복귀 확인. 실제공급사 생성품질·물리기기는 미실행.
+- 단위19/19·타입·계층452통과, 최종운영빌드50초·linux/amd64/revision/카카오키포함·아카이브SHA·서버해시/레이어검증0. 페이지/static/이미지/API헬스200·기존리다이렉트301. 다른서비스 컨테이너ID·DB·프론트이미지외 설정 불변. 기존 Generated contracts stale는 미해결.
+- 복구 /Users/ethan/crefans-recovery/20261113/front-cosplay-compact-20261113: 직전picker이미지와설정 SHA/OCI태그ID·config/layers15blobs 검증 후 서버직전태그·임시소스만정리. 앞선views/picker배포도 외부복구검증완료. 맥기존복구본 삭제없음.
+- 증거 .local/cosplay-view-modes-20261113/{verification.json,compact-unit.log,compact-types.log,compact-layers.log,compact-docs.log,negative-undo.log,compact-dry-run.log,compact-ship.log,browser-production-final.json,production-device-proof.png,server-final.log}, 상세빌드 .local/ship-front-cosplay-compact-20261113/. 다음 작업은 위 작품카테고리 후보 추천·선정 후 분류와에셋추가.
+
 ## 2026-11-13 보기 선택 소형화·마스크 도구 아이콘화 진행
 - 후속 사용자 지시: 보기형식이 이상한 위치에 크고 한 행을 차지함→의상 제목 옆100px 무테 텍스트 메뉴로 이동, 보이는 라벨 숨김(접근성 이름 유지). 붓 크기·되돌리기·모두지우기→공용 선형 붓/점3크기/되돌리기/지우개 아이콘, 툴팁·라벨·선택·disabled 유지. 기존 배포 승인 범위에서 함께 운영 반영한다. origin/prodd689e16 기준 fix/cosplay-compact-tools-20261113.
 - 합격:320/390/PC에서 제목과 작은 보기메뉴 한 줄·가로넘침0·5형식 선택 가능. 붓3크기 stroke비율/되돌리기1개/전체지우기 및빈값disabled, 실제canvas·보기전환상태·1장목업 결과 확인. 관련 단위·타입·계층·운영빌드 후 dev→prod→프론트만배포. 다음 로컬/운영 검증, 기록은 .local/cosplay-view-modes-20261113/.
