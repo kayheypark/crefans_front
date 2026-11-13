@@ -1,3 +1,9 @@
+## 2026-11-13 AI 단일 생성 수정 prod 반영·운영 승인 대기
+- 기능 원본 front52a3a1e/server1b23133을 dev→prod 승격: front968eb80, server99761cf. 프론트14/14·서버21/21·타입/계층·각 빌드 통과, 공용 모달320/390/PC에서 본문426/702/648px, 고정영역72px에 버튼1개만 확인. 본문 입력·동의·횟수·원본/결과액션과 목업생성1장 확인.
+- 프론트 운영이미지 front-ai-single-flow-20261113 빌드53초·revision/카카오키/레이어·보관아카이브SHA·서버 읽기전용 preflight 통과. 서버 새이미지는 아직 만들지 않음.
+- 실제 운영 미변경: 원격 API파일 전송/이미지빌드 요청이 자동 승인 검토에서 거절됨. 사유: 이전 사용자의 prod까지만 머지 범위를 넘는 배포로 판단. 우회하지 않고 현 수정본 API+프론트 함께 배포할지 사용자 클릭형 승인 질문을 보냄. 현재 운영 front-comment-time-menu-20261113/APIcolorful-comments-20261113 유지. 사용자가 승인하면 준비된 .local/ai-photo-single-flow-20261113/의 API context·deploy-api.sh와 프론트 ship-verified.sh로 이어간다.
+- 증거 각 .local/ai-photo-single-flow-20261113/verification.json. 프론트 mobile-device-proof.png·browser.json. 실제 AI/실기기 키보드 미실행, 기존 docs Generated contracts stale 유지.
+
 ## 2026-11-13 AI 단일 생성·본문 스크롤 검증
 - 프론트14/14, 타입/계층 통과. 서버21/21(격리DB+공급사대역). Chrome CUA:320×568 본문426px/고정72px/버튼1개·입력0개, 스크롤441px 후에도버튼하단유지.390×844 본문702px, PC1280×900 본문648px/넘침없음. 예시→직접수정·동의→목업1장 생성·결과 본문액션·설정복귀 확인. 실제AI/실기기키보드는 미실행.
 - 문서 check:docs는 기존 Generated contracts stale로 미통과. 증거 .local/ai-photo-single-flow-20261113/{unit.log,types.log,layers.log,docs.log,browser.json,*png}. 다음 양쪽 dev→prod·운영이미지 빌드/교체. 복구파일은 외부비공개 저장소에서검증후 서버사본만정리.
