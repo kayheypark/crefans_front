@@ -284,7 +284,7 @@ test('generated image editing: uses generated source, resets final request and m
 test('category logos: all seven options provide local images and do not alter category labels or prompts',async()=>{
  const fs=require('fs');const {r,click}=await open();await click('나를 코스어로 만들기');const picker=r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리');assert.equal(picker.props.options.length,7);
  for(const option of picker.props.options){assert.ok(option.image.startsWith('/brand/ai-photo/'));assert.ok(fs.existsSync(require('path').join(__dirname,'../public',option.image)));}
- const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');const sample=aiPhotoCostumes.find(c=>c.category==='nikke');assert.ok(!rules.aiPhotoPresetText(sample.prompt).includes('배경은 그대로 유지'));assert.ok(sample.prompt.includes('배경은 그대로 유지'));
+ const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');const sample=aiPhotoCostumes.find(c=>c.category==='nikke');assert.ok(!rules.aiPhotoPresetText(sample.prompt).includes('배경은 그대로 유지'));assert.ok(sample.prompt.includes(sample.wig));assert.ok(sample.prompt.includes(sample.accessories));
 });
 
 
@@ -352,4 +352,16 @@ test('reset ticket: button refills the count, is off when unused, hidden without
  assert.equal(calls,1);assert.match(text(r.toJSON()),/오늘 남은 횟수 10\/10/);assert.match(text(r.toJSON()),/리셋권 1장을 사용했어요/);
  r=await render({remaining:10,limit:10,resetTickets:{count:2,nextExpiresAt:null}});assert.equal(find(r,'1장 써서')[0].props.disabled,true,'nothing used today');
  r=await render({remaining:0,limit:10,resetTickets:{count:0,nextExpiresAt:null}});assert.equal(find(r,'1장 써서').length,0,'no tickets, no button');
+});
+
+test('complete cosplay look: catalog hair and accessories reach the request after leaving the wardrobe',async()=>{
+ const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
+ assert.equal(aiPhotoCostumes.length,32);
+ for(const item of aiPhotoCostumes){assert.match(item.wig,/가발/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
+ const {r,calls,click}=await open();await click('나를 코스어로 만들기');await click('리본 메이드');
+ assert.match(text(r.toJSON()),/가발·머리장식·소품·신발도 함께 적용/);await click('나를 코스어로 만들기');
+ await act(async()=>{r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='배경').props.onClick();});
+ await act(async()=>{r.root.find(n=>n.props['data-mask-editor']).props.onChange([{size:.1,points:[{x:.5,y:.5}]}]);});
+ await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
+ await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.match(calls[0].prompt,/검정 턱선 단발 가발/);assert.match(calls[0].prompt,/트레이/);assert.match(calls[0].prompt,/메리제인 구두/);assert.ok(calls[0].mask);
 });
