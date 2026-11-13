@@ -1,3 +1,7 @@
+## 2026-11-13 성별 원본 유지 버튼 제거 운영 완료
+- 운영 `crefans-front:front-gender-remove-original-20261113`,source `6e8222ed59a590cd56ec7fd266b5515b3f4615ba`. 성별UI 여성/남성만표시. 관련45/45·타입통과. 최초미선택내부원본유지,신체중앙원본유지불변. 별도브라우저/실생성미실행.
+- 13:58:15 UTC 배포0,feed/landing/terms/health/static/image200·redirect301. 외부복구본 `/Users/ethan/crefans-recovery/20261113/front-gender-remove-original-20261113` SHA·OCI15blobs·설정검증후서버이전이미지/임시자료정리. 로컬완료배포임시압축본4개만로그/SHA/이미지확인후정리,외부복구본보존. 증거 `.local/gender-remove-original-20261113/verification.json`, `ship.log`, `temp-cleanup.json`.
+
 ## 2026-11-13 성별 버튼 제거 검증 완료
 - 관련 기능45/45·타입0·diff검사 통과. 성별그룹 여성/남성2개만 렌더링/초기임의선택없음 검증. 단순UI제거로 별도브라우저/실생성검사 없음. 증거 `.local/gender-remove-original-20261113/`. 다음 운영 배포.
 
