@@ -154,7 +154,7 @@
 .costumeCard[aria-pressed=true]{border-color:var(--cf-color-accent);box-shadow:0 0 0 1px var(--cf-color-accent)}
 .costumeImage{position:relative;display:block;overflow:hidden;border-radius:8px;background:#fbf8f4;aspect-ratio:1}
 .costumeImage img{display:block;width:100%;height:100%;object-fit:contain}
-.costumeCard strong{padding:4px 4px 0;font-size:13px;line-height:1.5}.costumeCard small{padding:0 4px;font-size:11px;color:var(--cf-color-textMuted)}
+.costumeCard strong{padding:4px 4px 0;font-size:13px;line-height:1.5}
 .costumeSelected{position:absolute;right:6px;top:6px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--cf-color-accent);color:white;font-size:13px}
 .editor .wardrobe .costumeNote{font-size:11px;color:var(--cf-color-textMuted)}
 .wardrobeHeading .viewPicker{flex:none;width:100px;min-width:0;gap:0}
@@ -166,16 +166,14 @@
 .costumeCategoryBar .costumeCategoryPicker>button{min-height:36px;padding:6px 10px;font-size:13px;background:var(--cf-color-surfaceSubtle);border-color:transparent;box-shadow:none}
 .wardrobeLayout{min-width:0}
 .wardrobeLayout[data-costume-view=list] .costumeGrid{grid-template-columns:1fr;gap:8px}
-.wardrobeLayout[data-costume-view=list] .costumeCard{display:grid;grid-template-columns:72px minmax(0,1fr);grid-template-rows:1fr 1fr;column-gap:12px;row-gap:0;padding:6px;align-items:center}
-.wardrobeLayout[data-costume-view=list] .costumeImage{grid-row:1/3;width:72px}
-.wardrobeLayout[data-costume-view=list] strong{align-self:end}.wardrobeLayout[data-costume-view=list] small{align-self:start;padding-top:4px}
+.wardrobeLayout[data-costume-view=list] .costumeCard{display:grid;grid-template-columns:72px minmax(0,1fr);grid-template-rows:1fr;column-gap:12px;row-gap:0;padding:6px;align-items:center}
+.wardrobeLayout[data-costume-view=list] .costumeImage{grid-row:1;width:72px}
+.wardrobeLayout[data-costume-view=list] strong{align-self:center}
 .wardrobeLayout[data-costume-view=compact] .costumeGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .wardrobeLayout[data-costume-view=compact] .costumeCard{padding:4px 4px 8px;border-radius:10px}
 .wardrobeLayout[data-costume-view=compact] .costumeCard strong{font-size:11px;padding:3px 0 0;text-align:center;overflow-wrap:anywhere}
-.wardrobeLayout[data-costume-view=compact] .costumeCard small{display:none}
 .wardrobeLayout[data-costume-view=composer] .costumeCard{display:grid;grid-template-columns:minmax(44px,40%) minmax(0,1fr);align-items:center;padding:6px;gap:6px}
 .wardrobeLayout[data-costume-view=composer] .costumeCard strong{padding:0;font-size:12px;overflow-wrap:anywhere}
-.wardrobeLayout[data-costume-view=composer] .costumeCard small{display:none}
 .selectedCostume{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--cf-color-accentBorder);border-radius:10px;background:var(--cf-color-accentSoft);font-size:12px}
 .selectedCostume span{color:var(--cf-color-textSecondary)}
 .costumeShowcase{display:flex;flex-direction:column;gap:10px;margin-bottom:12px;border:1px solid var(--cf-color-border);border-radius:12px;overflow:hidden;padding:8px}
@@ -189,7 +187,6 @@
 .wardrobeLayout[data-costume-view=carousel] .costumeGrid{display:flex;overflow-x:auto;gap:8px;padding:2px 2px 8px;scroll-snap-type:x proximity}
 .wardrobeLayout[data-costume-view=carousel] .costumeCard{flex:0 0 76px;scroll-snap-align:start;padding:4px 4px 8px}
 .wardrobeLayout[data-costume-view=carousel] .costumeCard strong{font-size:10px;padding:0;text-align:center}
-.wardrobeLayout[data-costume-view=carousel] .costumeCard small{display:none}
 .wardrobeLayout[data-costume-view=carousel] .costumeCard[aria-current=true]{background:var(--cf-color-accentSoft)}
 .costumeCard:disabled,.applyCostume:disabled,.showcaseImage button:disabled{opacity:.5;cursor:default}
 .costumeCard:focus-visible,.applyCostume:focus-visible,.showcaseImage button:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
@@ -201,6 +198,6 @@
 
 .genderPicker{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;color:#525866}.genderPicker>div{display:flex;gap:4px}.genderPicker button{border:1px solid #e5e7eb;background:#fff;color:inherit;border-radius:8px;padding:7px 10px;font:inherit;cursor:pointer}.genderPicker button[aria-pressed=true]{border-color:#9b7cf8;background:#f4f0ff;color:#6545ba}
 
-.tabs{overflow-x:auto;scrollbar-width:thin}.tabs button{flex:1 0 54px}.preset>span:not(.presetCheck){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+.tabs{overflow-x:auto;scrollbar-width:thin}.tabs button{flex:1 0 54px}.preset>span:not(.presetCheck){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 
 .bodyAdjustments{display:grid;gap:14px;padding:14px;border:1px solid var(--cf-color-border);border-radius:12px}.bodyAdjustments label{display:grid;gap:9px;font-size:13px}.bodyAdjustments label>span{display:flex;justify-content:space-between;gap:8px}.bodyAdjustments output{color:var(--cf-color-textMuted)}.bodyAdjustments input{width:100%;accent-color:var(--cf-color-accent)}
