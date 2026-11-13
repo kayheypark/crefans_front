@@ -1,3 +1,8 @@
+## 2026-11-13 코스어 프리셋 드래그 페이지 운영 완료
+- 프론트 `crefans-front:front-costume-swipe-pages-20261113`, source `4024f3a149af00b8d303db60682e934b67a8df53`. 기본 코스어 의상도6개/3열2행 및 한페이지 가로 드래그·양끝 순환. 기능42/42·타입·WebKit/Chromium 포인터 검사 통과. 실기기 손가락/실생성 미검증.
+- 최초 배포는 로컬 디스크8451903488<8589934592로 중단. 완료 로그/SHA/로컬Docker 이미지 확인 후 직전 배포 임시압축본3개822139150bytes만 정리(외부복구본 불변),재시도통과.13:28:56 UTC 배포0,feed/landing/terms/health/static/image200·redirect301.
+- 복구본 `/Users/ethan/crefans-recovery/20261113/front-costume-swipe-pages-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 증거 `.local/costume-swipe-pages-20261113/verification.json`, `browser.json`, `ship-retry.log`, `temp-cleanup.json`.
+
 ## 2026-11-13 코스어 의상 스와이프 검증 완료
 - 기능42/42·타입0. WebKit390×844/Chromium1280×900 기본 코스어6카드/3열2행,실제 포인터드래그1페이지,양끝 순환,선택 보존 통과. 일반/코스어 공용pager. 실기기 손가락/실제 생성 미실행. 다음 프론트 배포. 증거 `.local/costume-swipe-pages-20261113/`.
 
