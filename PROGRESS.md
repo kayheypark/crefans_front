@@ -1,3 +1,9 @@
+## 2026-11-14 분홍 하트 탭 검증 완료
+- 타입0·diff통과,WebKit390×844 실제분홍rgb224,0,120/흰색·하트12개·0.5초위치변화/infinite·reduced-motion정지·일반모드하트제거 확인. 화면육안확인. 기능로직변경없음. 증거 `.local/cosplay-pink-hearts-20261114/`. 다음운영배포.
+
+## 2026-11-14 코스어 분홍 하트 탭 진행
+- 선택배경 #e00078·흰글씨,별12개→SVG하트12개. 좌우이동/약한기울기,선택시에만표시,모션감소정지. 합격:실제색/하트수/시간별위치/모션감소/비선택제거,기능불변.
+
 ## 2026-11-14 원본 보관 안내 문구 삭제 운영 완료
 - 운영 `crefans-front:front-remove-original-note-20261114`,source `19d4659af16eca9c102a915a08f852dee8e62930`. 문구/전용CSS삭제 단언·diff확인·운영빌드통과. 추가제품테스트없음.
 - 2026-11-13 22:21:49 UTC 배포0,feed/landing/terms/health/static/image200·redirect301. 복구본 `/Users/ethan/crefans-recovery/20261114/front-remove-original-note-20261114` SHA·OCI15blobs·설정검증후서버이전이미지/임시자료정리. 증거 `.local/remove-original-note-20261114/verification.json`, `check.log`, `ship.log`.
