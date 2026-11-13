@@ -1,3 +1,8 @@
+## 2026-11-13 만들기 횟수 소진 안내 운영 완료
+- 사용자 0회 확인으로 비활성 조건 일치. 프론트 `crefans-front:front-ai-create-availability-20261113`, source `f9d964626a119bf10f8f61b60e0d510eb9a6f176`. 생성중만 비활성, 0회는 모달 설명·생성 요청 없음. 편집창 진입 서버quota갱신. 실제 한도/사용자 횟수 변경 없음.
+- 기능39/39·타입·WebKit390×844 한도 모달/닫기 후 상태 유지 통과. 12:56:30 UTC 배포0, feed/landing/terms/health/static/image200·redirect301. 실기기/실제 AI 생성 미검증.
+- 복구본 `/Users/ethan/crefans-recovery/20261113/front-ai-create-availability-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 증거 `.local/ai-create-availability-20261113/verification.json`, `browser.json`, `ship.log`.
+
 ## 2026-11-13 만들기 비활성 원인 확인·검증 완료
 - 사용자 답변: 남은 횟수 0회. remaining<=0 비활성 조건과 일치, 설정 선택 문제 아님. 실제 한도는 유지하며 0회 클릭 시 안내만 제공. 편집창 재진입 횟수 갱신.
 - 기능39/39·타입0. WebKit390×844 한도 소진 버튼 활성/안내 모달/확인 후 편집 유지 통과. 리셋권 후 생성/서버 quota갱신/생성중 비활성 단위검사 통과. 실제 생성/운영 사용자 횟수 변경 없음. 다음 프론트 배포.
