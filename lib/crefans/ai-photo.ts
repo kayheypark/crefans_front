@@ -1,10 +1,10 @@
-// 스튜디오 AI 사진 편집 규칙(2026-11-08 사용자 결정: 시안 A + 의상 영역 칠하기, 무료·하루 10회·한 번에 2장).
+// 스튜디오 AI 사진 편집 규칙(2026-11-08 사용자 결정: 시안 A + 의상 영역 칠하기, 무료·하루 10회·한 번에 1장).
 // 생성 동작은 서비스 모델이 주입하며 프리셋 탐색은 서버나 AI를 호출하지 않는다.
 import {containsPersonalData} from './advisor';
 import type {AiPhotoKind,AiPhotoStyle} from '@/types/crefans-studio-management';
 
 export const AI_PHOTO_DAILY_LIMIT=10;
-export const AI_PHOTO_IMAGES_PER_REQUEST=2;
+export const AI_PHOTO_IMAGES_PER_REQUEST=1;
 export const AI_PHOTO_PROMPT_MAX=300;
 export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=[
  {value:'outfit',label:'옷',placeholder:'칠한 부분의 옷을 흰색 세일러 교복 코스튬으로'},

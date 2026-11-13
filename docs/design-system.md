@@ -586,18 +586,18 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 - 글꼴은 가이드와 같이 Apple SD Gothic Neo 우선(어드바이저만). 카탈로그 [AdvisorChatCatalog](../components/design-system/AdvisorChatCatalog.tsx): 답변·관련 없음·오류(다시 시도)·하루 한도. 단위 검사 [tests/support-advisor.test.cjs](../tests/support-advisor.test.cjs).
 
 ### 스튜디오 AI 사진 편집 (2026-11-08)
-- 사용자 결정: 시안 A(모달 편집기) + 의상 교체는 시안 C의 영역 칠하기, 크리에이터 무료·하루 10회·한 번에 2장. 시안 원본은 로컬 `.local/imagegen-drafts/`(저장소 밖 기록).
-- [AiPhotoDialog](../components/crefans/studio/AiPhotoDialog.tsx)는 공용 Dialog(`persistent`, `fullscreenOnMobile`)의 컴팩트 편집/결과 두 단계에 원본 고르기, 옷·메이크업·표정·포즈·배경 아이콘 탭, 직접 입력·수정(300자), 느낌 칩, 본인·동의 확인, 남은 횟수, 결과 2장 중 고르기를 둔다. 옷은 [AiPhotoMask](../components/crefans/studio/AiPhotoMask.tsx)로 칠한 곳만 투명한 원본 크기 마스크 PNG를 만든다. 규칙은 [lib/crefans/ai-photo.ts](../lib/crefans/ai-photo.ts).
+- 사용자 결정: 시안 A(모달 편집기) + 의상 교체는 시안 C의 영역 칠하기, 크리에이터 무료·하루 10회·한 번에 1장. 시안 원본은 로컬 `.local/imagegen-drafts/`(저장소 밖 기록).
+- [AiPhotoDialog](../components/crefans/studio/AiPhotoDialog.tsx)는 공용 Dialog(`persistent`, `fullscreenOnMobile`)의 컴팩트 편집/결과 두 단계에 원본 고르기, 옷·메이크업·표정·포즈·배경 아이콘 탭, 직접 입력·수정(300자), 느낌 칩, 본인·동의 확인, 남은 횟수, 결과 1장 선택를 둔다. 옷은 [AiPhotoMask](../components/crefans/studio/AiPhotoMask.tsx)로 칠한 곳만 투명한 원본 크기 마스크 PNG를 만든다. 규칙은 [lib/crefans/ai-photo.ts](../lib/crefans/ai-photo.ts).
 - 작성 화면 버튼은 `model.actions.aiEditPhoto`가 있을 때만 보인다. 실제 서비스는 서버의 허용 크리에이터 조회 결과가 `allowed`일 때 생성 API를 주입한다. 목업 대역은 [ai-photo-fixtures](../components/preview/studio/ai-photo-fixtures.ts), 카탈로그는 [AiPhotoCatalog](../components/design-system/AiPhotoCatalog.tsx)(정상·사진 없음·실패·안전 차단·한도 소진). 결과 썸네일에는 'AI 생성' 표시(MediaUpload `aiGenerated`).
 - 검사: [tests/studio-ai-photo.test.cjs](../tests/studio-ai-photo.test.cjs). 팬 화면 게시물의 'AI 생성' 표시와 서버 저장은 서버 연결 때 추가한다.
 - 2026-11-08 실제 연결: 실제 서비스 스튜디오는 `/studio/ai-photo/quota`가 allowed(운영 콘솔 허용 목록)일 때만 `aiEditPhoto`·`aiPhotoQuota`를 주입하고, 생성은 `/studio/ai-photo/edit`(multipart, 마스크 PNG)로 보낸다. 게시물 미디어의 `aiGenerated`는 팬 화면 게시물(PostGallery: 해당 사진 왼쪽 위 'AI 생성'), 프로필 미디어 타일, 작성 화면 팬 미리보기에 표시한다.
 
-- 2026-11-08 선택한 1안 폴리싱: 파란색 선택 탭·느낌 칩, 208px 원본, 공용 TextAreaField/Checkbox/Action, 접힌 이용 안내. 생성 중/완료는 결과 화면으로 전환하고 두 결과를 나란히 비교하며 설정 수정 시 입력을 유지한다. 모바일 전체 화면·PC 최대640px에서 본문만 스크롤하고 하단 작업 버튼은 고정한다. 결과 확대/원본 확대·선택·경과 시간·한도·마스크를 유지한다. 바깥 클릭은 닫지 않는다. 카탈로그 정상/빈 사진/오류/안전 차단/한도 소진에도 같은 컴포넌트를 사용한다.
+- 2026-11-08 선택한 1안 폴리싱: 파란색 선택 탭·느낌 칩, 208px 원본, 공용 TextAreaField/Checkbox/Action, 접힌 이용 안내. 생성 중/완료는 결과 화면으로 전환하고 결과 1장을 확인하며 설정 수정 시 입력을 유지한다. 모바일 전체 화면·PC 최대640px에서 본문만 스크롤하고 만들기 버튼만 고정한다. 결과 확대/원본 확대·선택·경과 시간·한도·마스크를 유지한다. 바깥 클릭은 닫지 않는다. 카탈로그 정상/빈 사진/오류/안전 차단/한도 소진에도 같은 컴포넌트를 사용한다.
 
 
-### AI 사진 편집 미리보기 고정형 (2026-11-13)
+### AI 사진 편집 단일 생성·본문 스크롤 (2026-11-13 개정)
 
-- 사용자 선택 9안: 공용 `AiPhotoDialog`의 원본 미리보기와 하단 입력·생성 영역을 고정하고 가운데 예시 목록을 스크롤한다. 카테고리 탭은 목록 위에 유지한다. 작은 모바일에서 입력에 집중할 때 원본 영역을 잠시 접고, 입력 포커스를 벗어나면 복원한다. 모바일 입력을 자동으로 포커스하지 않는다.
+- 사용자 후속 수정: 공용 `AiPhotoDialog`의 만들기 버튼만 하단 고정한다. 원본·카테고리·예시·직접 입력·동의·이용 안내·남은 횟수는 하나의 본문 스크롤에 둔다. 결과의 다시 만들기/게시물 추가도 본문 흐름이다. 한 번에1장을 생성하며 서버 공급사 요청도 n=1이다. 모바일 입력을 자동으로 포커스하지 않는다.
 - `lib/crefans/ai-photo-presets.ts`의 카테고리별 12개, 총60개 자연어 문구를3개씩4페이지로 순환한다. “다른 예시 보기”는 AI/API를 호출하지 않으며 작성 중 문구를 유지한다. 예시 선택은 입력에 담기만 하고, 직접 수정·적용 취소·카테고리별 초안 보존을 지원한다. 생성은 명시적인 생성 버튼에서만 수행한다.
 - 서버 종류에도 makeup/expression을 추가하며 얼굴 구조·정체성 보존 지시를 유지한다. 기존 허용 목록·마스크·동의·한도·모더레이션·실패 시 결과 보존은 그대로다. 서버와 프론트를 함께 반영해야 새 두 분류가 동작한다.
 - 근거 확인2026-11-13: [W3C APG 모달](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/), [탭 패턴](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). 공용 Dialog의 포커스 격리/복귀와 탭의 좌우/Home/End 키 이동을 유지한다. 시안은 구현의 접근성 전체 검증을 대신하지 않는다.
