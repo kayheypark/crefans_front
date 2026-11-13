@@ -1,4 +1,4 @@
-/* 9안: 원본 고정 + 예시 탐색 + 직접 입력. 생성 뒤 두 결과를 비교한다. */
+/* 원본·편집 입력은 하나의 영역에서 스크롤하고 만들기 버튼만 고정한다. */
 .editor.editor{width:min(640px,calc(100vw - 40px));height:min(900px,90dvh);max-height:90dvh;padding:0;overflow:hidden}
 .editor[open]{display:flex;flex-direction:column}
 .editor>header{flex:none;margin:0;padding:20px 24px;border-bottom:1px solid var(--cf-color-border)}
@@ -34,7 +34,7 @@
 .footer{flex:none;padding:12px 24px max(16px,env(safe-area-inset-bottom));border-top:1px solid var(--cf-color-border);background:var(--cf-color-surface)}
 .footer>button{width:100%}
 .footer button{min-height:48px;font-size:16px}
-.quota{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--cf-color-textMuted);font-variant-numeric:tabular-nums;margin-bottom:12px}
+.quota{margin-top:16px;display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--cf-color-textMuted);font-variant-numeric:tabular-nums;margin-bottom:12px}
 .quota b{color:var(--cf-color-accent)}
 .results{display:flex;flex-direction:column;gap:16px;min-width:0}
 .summary{display:flex;align-items:center;gap:12px;padding-bottom:20px;margin-bottom:8px;border-bottom:1px solid var(--cf-color-border)}
@@ -47,7 +47,7 @@
 .resultHeading h3{font-size:18px;margin:0;outline:none;color:var(--cf-color-text)}
 .resultHeading span{font-size:13px;color:var(--cf-color-accent)}
 .editor .help{margin:-8px 0 0;font-size:14px;color:var(--cf-color-textMuted)}
-.grid,.placeholder{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid,.placeholder{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;max-width:420px;width:100%;margin-inline:auto}
 .resultFrame{position:relative}
 .result{position:relative;display:block;width:100%;padding:0;border:2px solid var(--cf-color-border);border-radius:12px;overflow:hidden;background:var(--cf-color-surfaceSubtle);cursor:pointer}
 .result[aria-pressed=true]{border-color:var(--cf-color-accent)}
@@ -59,7 +59,7 @@
 .resultName{display:flex;justify-content:space-between;gap:4px;margin-top:10px;font-size:13px;color:var(--cf-color-textSecondary)}
 .resultName span+span{color:var(--cf-color-accent);font-size:12px}
 .editor .originalNote{margin:8px 0 0;text-align:center;font-size:13px;color:var(--cf-color-textMuted)}
-.resultActions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:8px}
+.resultActions{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:8px}
 .resultActions>button{padding:10px 8px;font-size:15px}
 .resultActions>button:first-child{font-size:14px}
 .resultActions>button span{font-size:22px;line-height:1}
@@ -116,12 +116,11 @@
 .progressBar i{display:block;height:100%;border-radius:inherit;background:var(--cf-color-accent);transition:width 1s linear}
 @media(prefers-reduced-motion:reduce){.progressBar i{transition:none}}
 
-/* 9안: 원본과 입력/생성 영역은 고정하고 카테고리·제안 문구만 탐색한다. */
-.pinnedSource{flex:none;padding:12px 24px 0;min-height:0;overflow:auto;max-height:34dvh;overscroll-behavior:contain}
-.pinnedSource .sourceHeading{margin-bottom:8px}
-.pinnedSource .preview{height:clamp(100px,22dvh,200px)}
-.pinnedSource .maskStage img{max-height:clamp(100px,20dvh,180px)}
-.pinnedSource .hint{margin:4px 0}
+.sourceSection{margin-bottom:16px;min-width:0}
+.sourceSection .sourceHeading{margin-bottom:8px}
+.sourceSection .preview{height:clamp(160px,24dvh,240px)}
+.sourceSection .maskStage img{max-height:300px}
+.sourceSection .hint{margin:4px 0}
 .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:72px;font-size:12px;box-shadow:none}
 .tabs button img{flex:none;object-fit:contain}
 .presets{display:flex;flex-direction:column;gap:8px;min-width:0}
@@ -135,7 +134,6 @@
 .composer{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
 .composer textarea{min-height:64px;max-height:120px;resize:vertical;font-size:16px}
 .composer .consent>label{font-size:12px;line-height:1.5}
-.footer .undoPreset{align-self:flex-start;min-height:28px;border:0;padding:0;background:transparent;color:var(--cf-color-accent);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}
-@media(max-width:767px){.editor:has(.composer textarea:focus) .pinnedSource{display:none}}
-@media(max-width:767px){.pinnedSource{padding:8px 16px 0}.body{padding:12px 16px}.controls{gap:12px}.footer{padding-top:8px}.quota{margin-bottom:8px}.tabs button{font-size:11px;min-height:64px}.tabs button img{width:24px;height:24px}}
-@media(max-height:680px){.pinnedSource .preview{height:64px}.pinnedSource .maskStage img{max-height:96px}.pinnedSource{max-height:29dvh}.sourceHeading{font-size:12px}.composer textarea{height:56px;min-height:56px}.composer{margin-bottom:6px}}
+.composer .undoPreset{align-self:flex-start;min-height:28px;border:0;padding:0;background:transparent;color:var(--cf-color-accent);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}
+@media(max-width:767px){.body{padding:12px 16px}.controls{gap:12px}.footer{padding-top:8px}.quota{margin-bottom:8px}.tabs button{font-size:11px;min-height:64px}.tabs button img{width:24px;height:24px}}
+

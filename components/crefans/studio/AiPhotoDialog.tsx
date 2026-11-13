@@ -63,7 +63,8 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
  return <Dialog open={open} onClose={()=>{if(viewing){closeViewer();return;}if(!busy)onClose();}} title="AI 사진 편집" persistent fullscreenOnMobile className={s.editor}>
   {!images.length?<div className={s.body}><PromptLayout variant="dialog" icon="/brand/featured-creators-v1.png" title="바꿀 사진을 먼저 올려 주세요" description="게시물에 사진을 올리면 AI로 옷·포즈·배경을 바꿀 수 있어요." actions={<Action type="button" className={promptPrimary} onClick={onClose}>사진 올리러 가기</Action>}/></div>:<>
-   {stage==='edit'&&<div className={s.pinnedSource} inert={viewing}>
+   <div ref={bodyRef} className={s.body} inert={viewing}>
+   {stage==='edit'&&<div className={s.sourceSection}>
      <div className={s.sourceHeading}><span>원본 사진</span>{images.length>1&&<button type="button" aria-expanded={sourcePicker} onClick={()=>setSourcePicker(!sourcePicker)}>사진 바꾸기</button>}</div>
      {sourcePicker&&<div className={s.sources} role="radiogroup" aria-label="원본 사진 고르기">{images.map((item,index)=><button key={item.id} type="button" role="radio" aria-checked={item.id===sourceId} aria-label={`${index+1}번 사진`} className={s.source} onClick={()=>changeSource(item.id)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- uploaded draft thumbnail */}
@@ -73,7 +74,6 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
       <img className={s.preview} src={source.url} alt="원본 사진"/><button ref={editRef} type="button" className={s.zoom} aria-label="원본 사진 크게 보기" onClick={()=>setSourceViewer(true)}><ZoomIcon/></button>
      </div>)}
    </div>}
-   <div ref={bodyRef} className={s.body} inert={viewing}>
     {stage==='edit'?<div className={s.controls}>
      <div className={s.tabs} role="tablist" aria-label="편집 카테고리">{aiPhotoKinds.map((item,index)=><button key={item.value} id={`${panelId}-${item.value}`} type="button" role="tab" aria-controls={panelId} tabIndex={kind===item.value?0:-1} aria-selected={kind===item.value} onClick={()=>changeKind(item.value)} onKeyDown={event=>{
       const next=event.key==='ArrowRight'?(index+1)%aiPhotoKinds.length:event.key==='ArrowLeft'?(index+aiPhotoKinds.length-1)%aiPhotoKinds.length:event.key==='Home'?0:event.key==='End'?aiPhotoKinds.length-1:null;
@@ -84,6 +84,11 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
       {preset.examples.map(example=><button type="button" key={example} className={s.preset} aria-pressed={prompt===example} onClick={()=>pickPreset(example)} disabled={busy}><span>{example}</span><span className={s.presetCheck} aria-hidden="true">{prompt===example?'✓':''}</span></button>)}
       <button type="button" className={s.morePresets} onClick={()=>setPresetPages(previous=>({...previous,[kind]:(preset.index+1)%preset.pages}))} disabled={busy}>다른 예시 보기 <span aria-hidden="true">↻</span></button>
      </div>
+    <div className={s.composer}>
+     <TextAreaField label="직접 입력 · 수정" rows={2} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={prompt} onChange={event=>setPrompt(event.target.value)} placeholder={kindInfo.placeholder} disabled={busy}/>
+     {undo?.kind===kind&&<button className={s.undoPreset} type="button" onClick={()=>setPrompt(undo.prompt)}>예시 적용 취소</button>}
+     <div className={s.consent}><Checkbox checked={consent} onChange={value=>{setConsent(value);setError('');}} disabled={busy} label="사진 속 인물은 나 자신이거나 사용 동의를 받았어요."/></div>
+    </div>
      <div className={s.styles} role="radiogroup" aria-label="사진 느낌">{aiPhotoStyles.map(item=><button key={item.value} type="button" role="radio" aria-checked={style===item.value} className={s.chip} onClick={()=>setStyle(item.value)} disabled={busy}>{item.label}</button>)}</div>
      <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>노출·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
     </div>:<div className={s.results} aria-busy={busy}>
@@ -99,16 +104,13 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
        <img src={item.url} alt=""/><span className={s.ai}>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>
        <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button></div><div className={s.resultName}><span>결과 {index+1}</span>{selected.includes(item.id)&&<span>선택됨</span>}</div></div>)}</div><p className={s.originalNote}>원본 사진은 그대로 보관돼요.</p></>}
     </div>}
+    {stage==='results'&&!busy&&<div className={s.resultActions}><Action type="button" variant="secondary" onClick={()=>void generate()} disabled={busy||remaining<=0}><span aria-hidden="true">↻</span> 다시 만들기</Action><Action type="button" onClick={add} disabled={busy||!selected.length}>게시물에 추가 ({selected.length})</Action></div>}
+    {(stage==='edit'||busy)&&<div className={s.quota}><span>무료 · 한 번에 {AI_PHOTO_IMAGES_PER_REQUEST}장</span><span>오늘 남은 횟수 <b>{remaining}</b>/{quota.limit}</span></div>}
     {error&&<p ref={errorRef} className={s.error} role="alert">{error}</p>}
    </div>
-   <div className={s.footer} inert={viewing}>
-    {stage==='edit'&&<div className={s.composer}>
-     <TextAreaField label="직접 입력 · 수정" rows={2} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={prompt} onChange={event=>setPrompt(event.target.value)} placeholder={kindInfo.placeholder} disabled={busy}/>
-     {undo?.kind===kind&&<button className={s.undoPreset} type="button" onClick={()=>setPrompt(undo.prompt)}>예시 적용 취소</button>}
-     <div className={s.consent}><Checkbox checked={consent} onChange={value=>{setConsent(value);setError('');}} disabled={busy} label="사진 속 인물은 나 자신이거나 사용 동의를 받았어요."/></div>
-    </div>}
-    {stage==='edit'||busy?<><div className={s.quota}><span>무료 · 한 번에 {AI_PHOTO_IMAGES_PER_REQUEST}장</span><span>오늘 남은 횟수 <b>{remaining}</b>/{quota.limit}</span></div><Action type="button" onClick={()=>void generate()} disabled={busy||remaining<=0}>{busy?`만드는 중… ${elapsed}초`:`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</Action></>:<div className={s.resultActions}><Action type="button" variant="secondary" onClick={()=>void generate()} disabled={busy||remaining<=0}><span aria-hidden="true">↻</span> 다시 만들기</Action><Action type="button" onClick={add} disabled={busy||!selected.length}>게시물에 추가 ({selected.length})</Action></div>}
-   </div>
+   {(stage==='edit'||busy)&&<div className={s.footer} inert={viewing}>
+    <Action type="button" onClick={()=>void generate()} disabled={busy||remaining<=0}>{busy?`만드는 중… ${elapsed}초`:`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</Action>
+   </div>}
   </>}
   {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onToggle={toggle} onClose={closeViewer}/>}
   {sourceViewer&&source&&<AiResultViewer items={[source]} index={0} selected={[]} onIndex={()=>{}} onClose={closeViewer} original/>}
