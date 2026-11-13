@@ -1,3 +1,11 @@
+## 2026-11-13 무표정 기본 선택 운영 반영 완료
+- 기능 소스7d28d08, 프론트 `crefans-front:front-neutral-expression-v2-20261113`. 표정 탭 첫 진입 기본·첫 카드는 무표정. 다른 표정은 앞선 표정을 대체하고, 명시적 해제 후 단순 재진입으로 재선택하지 않는다. 결과를 게시물에 추가한 뒤 새 초안이 같은 표정 탭으로 열려도 무표정을 복원한다(추가 회귀 검사).
+- 여성/남성 무표정 사진2개를 이미지젠으로 생성하고384px WebP·총19726bytes로 저장, 육안/디코드 검토. 표정13종·전체92프리셋. 기존91프리셋×3성별 옵션273개 이미지 경로는 변경 전과 동일하다. 다른 선택·커스텀·성별·마스크·기존 API 동작은 보존한다.
+- 기능32/32·typecheck·계층452 통과. 기본 선택 누락 대조 실패→원복, 새 초안 기본 누락 재현 실패→수정 후통과. 로컬 CUA 기본 선택/교체/해제 후 재진입/남녀 사진/커스텀 보존 확인. 운영 CUA는 기본 선택true·다른 표정 선택시false·남녀무표정 사진 로드를 확인했다.
+- 검증 제한: 운영 생성·게시물 추가·재개방 묶음은 자동 승인 검토가 운영 데이터 변경 가능성/명시적 승인 부재로 거절하여 실행하지 않았다. 우회하지 않고 해당 흐름은 컴포넌트 검사로 확인하고 운영에서는 생성/추가 없는 화면 확인만 수행했다. 브라우저 문서 선행확인 누락 거절은 rewriteDocumentation 이행 후 정상 검증했다. 실AI 호출/실기기 검증 아님.
+- dev→prod 통합·두 차례 운영 빌드/교체/HTTP·기존서비스/설정 보존 통과. 마지막v2자산 SHA도 검토본과 일치. /Users/ethan/crefans-recovery/20261113/{front-neutral-expression-20261113,front-neutral-expression-v2-20261113} 에직전이미지·설정 보관, SHA/OCI각15blobs/태그ID/설정 검증 후 서버직전태그/이번임시본만정리. 기존로컬복구본삭제없음.
+- 증거 .local/ai-neutral-expression-20261113/{verification.json,unit.log,types.log,layers.log,negative-default.log,new-draft-before.log,assets.json,prompts.json,legacy-paths.json,browser-local.json,browser-production.json,production-mobile.png,image-content-v2.log,dry-run-v2.log,ship-v2.log,docs.log}. 전체 문서검사는 기존 Generated contracts stale 잔존, 관련 AGENTS/디자인 문서 동기화. 현재 구현·배포 요청 완료.
+
 - 후속 확인: 게시물에 결과 추가 후 표정 탭 그대로 새 초안이 열릴 때도 무표정을 복원하도록 보완한다. 재현검사 new-draft-before.log에서 기본이 false인 실패를 확인했고 기본 선택 복원으로 수정 중. 최초 배포 후 최종 v2로 반영한다.
 
 - 로컬32/32·typecheck·계층452 통과. 기본선택분기를 제거한 대조검사 실패 후원복. 무표정 여성/남성2개384px·19726bytes 육안검토, CUA390 첫기본/표정교체/해제후재진입보존/성별사진/커스텀보존 확인. 브라우저 문서 선행 확인 누락으로 열기1회 자동거절 후 rewriteDocumentation 절차를 이행하여 정상 검증했다. 다음 프론트배포, API변경없음.
