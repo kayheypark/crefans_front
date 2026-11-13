@@ -454,3 +454,12 @@ test('default cosplay wardrobe swipes six-card pages without changing selected c
  await click('다음 의상 페이지');assert.equal(cards().length,6);assert.equal(cards()[0].props['aria-pressed'],true);
  await click('이전 의상 페이지');assert.equal(cards().length,2);
 });
+
+ test('makeup shows only authored previews for the selected gender and clears a hidden selection',async()=>{
+ const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='메이크업').props.onClick());
+ const previews=()=>r.root.findAll(n=>n.type==='img'&&String(n.props.src).includes('/presets/makeup-')).map(n=>n.props.src);
+ await click('코랄 립');await click('남성');assert.deepEqual(previews(),[2,4,6,8,10,12].map(id=>`/brand/ai-photo/presets/makeup-${String(id).padStart(2,'0')}-v1.webp`));
+ assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='코랄 립').length,0);
+ await click('여성');assert.deepEqual(previews(),[1,3,5,7,9,11].map(id=>`/brand/ai-photo/presets/makeup-${String(id).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],false);
+ await click('원본 유지');await click('다음 프리셋 페이지');await click('남성');assert.equal(previews().length,6);assert.equal(calls.length,0);
+ });

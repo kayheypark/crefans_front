@@ -94,8 +94,9 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
  ]
 };
 
-export function aiPhotoPresetPage(kind:AiPhotoKind,page:number){
- const examples=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:aiPhotoPresets[kind],pages=Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE);
+export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original'){
+ const available=kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter((_,index)=>(index%2===0?'female':'male')===gender):aiPhotoPresets[kind];
+ const examples=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available,pages=Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE);
  const index=((page%pages)+pages)%pages;
  return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages};
 }
