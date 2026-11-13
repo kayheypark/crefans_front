@@ -1,0 +1,31 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "https://genshin.hoyoverse.com/en/character/mondstadt?char=9",
+  "checked": "2026-11-14",
+  "looks": [
+    {
+      "id": "genshin-raiden",
+      "name": "라이덴 쇼군",
+      "look": "Raiden Shogun from Genshin Impact: purple and white layered kimono-inspired cosplay outfit with red obi bow, purple patterned detached flowing sleeves, black thigh-high stockings and purple Japanese-style heeled sandals, very long dark-purple braided wig, purple flower hair ornament with gold fan details, ornamental waist cords and a blunt decorative purple polearm placed beside mannequin",
+      "prompt": "Use case: product-mockup. One square photorealistic cosplay costume catalog photograph, matching a clean premium ecommerce catalog. Full outfit displayed on a faceless ivory adult-proportioned mannequin, head to footwear fully visible, centered with generous padding. Warm pale beige studio background and soft even light. Costume: Raiden Shogun from Genshin Impact: purple and white layered kimono-inspired cosplay outfit with red obi bow, purple patterned detached flowing sleeves, black thigh-high stockings and purple Japanese-style heeled sandals, very long dark-purple braided wig, purple flower hair ornament with gold fan details, ornamental waist cords and a blunt decorative purple polearm placed beside mannequin. Wig, headwear, accessories and footwear must all be clearly included. Realistic sewn fabric and costume materials, not anime illustration. Fully clothed mannequin, no human face, no bare chest or nudity, no text, labels, watermark, logos, collage or panels. One mannequin and one complete look only."
+    },
+    {
+      "id": "genshin-jean",
+      "name": "진 기사단복",
+      "look": "Jean from Genshin Impact in her classic Knights of Favonius outfit: fitted white trousers with gold ornaments, navy corset-style tunic over opaque white shirt, short white and navy shoulder cape with gold trim, long navy gloves, white knee boots with navy and gold details, blonde high ponytail wig with black bow, sword in a decorative scabbard at hip",
+      "prompt": "Use case: product-mockup. One square photorealistic cosplay costume catalog photograph, matching a clean premium ecommerce catalog. Full outfit displayed on a faceless ivory adult-proportioned mannequin, head to footwear fully visible, centered with generous padding. Warm pale beige studio background and soft even light. Costume: Jean from Genshin Impact in her classic Knights of Favonius outfit: fitted white trousers with gold ornaments, navy corset-style tunic over opaque white shirt, short white and navy shoulder cape with gold trim, long navy gloves, white knee boots with navy and gold details, blonde high ponytail wig with black bow, sword in a decorative scabbard at hip. Wig, headwear, accessories and footwear must all be clearly included. Realistic sewn fabric and costume materials, not anime illustration. Fully clothed mannequin, no human face, no bare chest or nudity, no text, labels, watermark, logos, collage or panels. One mannequin and one complete look only."
+    },
+    {
+      "id": "genshin-zhongli",
+      "name": "종려 장의복",
+      "look": "Zhongli from Genshin Impact: long tailored dark brown and black coat with gold geometric diamond trim and amber lining, beige waistcoat and white high-collar shirt, black fitted trousers, dark gloves and black formal boots, dark brown short layered wig with a long slim low ponytail fading amber at tips, single geometric dangling earring, amber geometric neck ornament and waist ornaments",
+      "prompt": "Use case: product-mockup. One square photorealistic cosplay costume catalog photograph, matching a clean premium ecommerce catalog. Full outfit displayed on a faceless ivory adult-proportioned mannequin, head to footwear fully visible, centered with generous padding. Warm pale beige studio background and soft even light. Costume: Zhongli from Genshin Impact: long tailored dark brown and black coat with gold geometric diamond trim and amber lining, beige waistcoat and white high-collar shirt, black fitted trousers, dark gloves and black formal boots, dark brown short layered wig with a long slim low ponytail fading amber at tips, single geometric dangling earring, amber geometric neck ornament and waist ornaments. Wig, headwear, accessories and footwear must all be clearly included. Realistic sewn fabric and costume materials, not anime illustration. Fully clothed mannequin, no human face, no bare chest or nudity, no text, labels, watermark, logos, collage or panels. One mannequin and one complete look only."
+    },
+    {
+      "id": "genshin-diluc",
+      "name": "다이루크 코트",
+      "look": "Diluc from Genshin Impact in classic outfit: black long formal coat with dark fur collar, deep red lining and ornate silver fastenings, white high-collar shirt, black waistcoat, black fitted trousers, black gloves and tall black buckled boots, long vivid red low ponytail wig with black tie, belts and small red gemstone ornament, large blunt decorative claymore resting upright beside mannequin",
+      "prompt": "Use case: product-mockup. One square photorealistic cosplay costume catalog photograph, matching a clean premium ecommerce catalog. Full outfit displayed on a faceless ivory adult-proportioned mannequin, head to footwear fully visible, centered with generous padding. Warm pale beige studio background and soft even light. Costume: Diluc from Genshin Impact in classic outfit: black long formal coat with dark fur collar, deep red lining and ornate silver fastenings, white high-collar shirt, black waistcoat, black fitted trousers, black gloves and tall black buckled boots, long vivid red low ponytail wig with black tie, belts and small red gemstone ornament, large blunt decorative claymore resting upright beside mannequin. Wig, headwear, accessories and footwear must all be clearly included. Realistic sewn fabric and costume materials, not anime illustration. Fully clothed mannequin, no human face, no bare chest or nudity, no text, labels, watermark, logos, collage or panels. One mannequin and one complete look only."
+    }
+  ]
+}
