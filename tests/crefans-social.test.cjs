@@ -726,3 +726,16 @@ test('a processing photo shows the photo-processing placeholder and is never req
     }finally{act(()=>tree.unmount());}
   }
 });
+
+test('comment likes are wired on both feed and detail, including replies, and deleted rows have no heart',async()=>{
+ const open={...post,requiredRank:0},list=[{id:'top-like',author:creator,body:'좋아요 댓글',time:'방금',replyCount:1},{id:'deleted-like',author:creator,body:'',time:'방금',deleted:true}];
+ for(const Component of [PostCard,PostDetailPage]){
+  const calls=[],input=model({data:{...data,posts:[open]},commentsByPost:{[open.id]:list},commentCounts:{[open.id]:2},loadReplies:async()=>({...ok,data:[{id:'reply-like',author:creator,body:'좋아요 답글',time:'방금'}]}),likeComment:async(...args)=>{calls.push(args);return{success:true,data:{liked:args[2],likes:args[2]?1:0},errorMessage:null,errorCode:null};}});
+  const tree=mount(Component,Component===PostCard?{post:open,model:input}:{id:open.id,model:input});
+  if(Component===PostCard)await act(async()=>tree.root.findByProps({'aria-label':'댓글 2개 펼치기'}).props.onClick());
+  let buttons=tree.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='댓글 좋아요');assert.equal(buttons.length,1,'deleted row is excluded');assert.equal(buttons[0].props.disabled,false);
+  await act(async()=>buttons[0].props.onClick());assert.deepEqual(calls[0],[open.id,'top-like',true]);
+  const expand=tree.root.findAllByType('button').find(b=>b.children.join('')==='답글 1개 보기');await act(async()=>expand.props.onClick());
+  buttons=tree.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='댓글 좋아요');assert.equal(buttons.length,1);await act(async()=>buttons[0].props.onClick());assert.deepEqual(calls[1],[open.id,'reply-like',true]);close(tree);
+ }
+});

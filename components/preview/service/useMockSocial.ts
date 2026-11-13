@@ -4,12 +4,12 @@ import {useRef,useState} from 'react';
 import type {ApiResult,ServiceData,ServiceViewModel,Viewer} from '@/types/crefans';
 import type {MentionCandidate,SocialActionResult,SocialComment,SocialMessage,SocialModel,SocialReply} from '@/types/crefans-social';
 
-type Options={data:ServiceData;viewer:Viewer;canAccess:ServiceViewModel['canAccess'];today:string;liked?:string[];initialComments?:Record<string,SocialComment[]>;initialReplies?:Record<string,SocialReply[]>;replyDelay?:number};
+type Options={signedIn?:boolean;data:ServiceData;viewer:Viewer;canAccess:ServiceViewModel['canAccess'];today:string;liked?:string[];initialComments?:Record<string,SocialComment[]>;initialReplies?:Record<string,SocialReply[]>;replyDelay?:number};
 const success=(message:string):SocialActionResult=>({success:true,data:{message},errorMessage:null,errorCode:null});
 const failure=(errorMessage:string,errorCode:string):SocialActionResult=>({success:false,data:null,errorMessage,errorCode});
 
 /** Mock adapter only. Real adapters supply the same state/actions to the shared views. */
-export function useMockSocial({data,viewer,canAccess,today,liked=[],initialComments={},initialReplies={},replyDelay=400}:Options):SocialModel{
+export function useMockSocial({signedIn=true,data,viewer,canAccess,today,liked=[],initialComments={},initialReplies={},replyDelay=400}:Options):SocialModel{
   const [commentsByPost,setComments]=useState(initialComments);
   const [repliesByComment,setRepliesState]=useState(initialReplies);
   // loadReplies right after a reply/edit/delete must see the new list, not the render it was created in.
@@ -98,7 +98,18 @@ export function useMockSocial({data,viewer,canAccess,today,liked=[],initialComme
     return people.filter((person,index)=>person.name!==viewer.name&&people.findIndex(other=>other.name===person.name)===index).map(person=>({name:person.name,image:person.image||''}));
   };
   const reportConversation=async(creatorId:string):Promise<SocialActionResult>=>data.creators.some(item=>item.id===creatorId)?success('신고를 접수했어요.'):failure('대화 상대를 찾을 수 없어요.','CREATOR_NOT_FOUND');
-  return {commentsByPost,commentCounts,reportPost,reportComment,mentionCandidates,loadReplies,likeCounts:Object.fromEntries(data.posts.map(post=>[post.id,post.likes+(liked.includes(post.id)?1:0)])),messagesByCreator,blockedCreatorIds,read,markRead,markConversationRead,addComment,editComment,deleteComment,sendMessage,setConversationBlocked,reportConversation,
+  const likeComment:NonNullable<SocialModel['likeComment']>=async(postId,commentId,enabled)=>{
+    if(!signedIn)return{success:false,data:null,errorMessage:'로그인한 뒤 이용해주세요.',errorCode:'AUTH_REQUIRED'};
+    const post=data.posts.find(item=>item.id===postId),parent=(commentsByPost[postId]||[]).find(c=>(repliesRef.current[c.id]||[]).some(reply=>reply.id===commentId));
+    const comment=(commentsByPost[postId]||[]).find(c=>c.id===commentId)||(parent&&(repliesRef.current[parent.id]||[]).find(c=>c.id===commentId));
+    if(!post||!canAccess(post.creatorId,post.requiredRank,post.requiredPlanId)||post.commentsEnabled===false)return{success:false,data:null,errorMessage:'게시물 이용 권한이 없습니다.',errorCode:'POST_ACCESS_DENIED'};
+    if(!comment||comment.deleted)return{success:false,data:null,errorMessage:'댓글을 찾을 수 없어요.',errorCode:'COMMENT_NOT_FOUND'};
+    const result={liked:enabled,likes:Math.max(0,(comment.likes||0)+(enabled===!!comment.liked?0:enabled?1:-1))};
+    if(parent)setReplies(previous=>({...previous,[parent.id]:(previous[parent.id]||[]).map(c=>c.id===commentId?{...c,...result}:c)}));
+    else setComments(previous=>({...previous,[postId]:(previous[postId]||[]).map(c=>c.id===commentId?{...c,...result}:c)}));
+    return{success:true,data:result,errorMessage:null,errorCode:null};
+  };
+  return {likeComment,commentsByPost,commentCounts,reportPost,reportComment,mentionCandidates,loadReplies,likeCounts:Object.fromEntries(data.posts.map(post=>[post.id,post.likes+(liked.includes(post.id)?1:0)])),messagesByCreator,blockedCreatorIds,read,markRead,markConversationRead,addComment,editComment,deleteComment,sendMessage,setConversationBlocked,reportConversation,
     conversationLabels:Object.fromEntries(Object.keys(messagesByCreator).map(id=>[id,today.replaceAll('-','.')])),
     socialCopy:{reportDescription:'이 대화를 신고할까요?',blockDescription:'차단하면 이 대화에서 새 메시지를 보낼 수 없어요. 대화 옵션에서 언제든 해제할 수 있습니다.'}};
 }
