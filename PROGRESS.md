@@ -1,3 +1,7 @@
+## 2026-11-13 코스어 진한 배경·12별 운영 완료
+- 프론트 `crefans-front:front-cosplay-dark-stars-20261113`, source `6a6e6e4e73424b12d47eca70fc674c19bec043d2`. 선택 배경남색/흰글자,별4→12 지속이동. 타입·WebKit 색/별수/시간별위치/모션감소/비선택제거 확인.
+- 13:11:59 UTC 배포0, feed/landing/terms/health/static/image200·redirect301. 복구본 `/Users/ethan/crefans-recovery/20261113/front-cosplay-dark-stars-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 실기기/실생성 미검증. 증거 `.local/cosplay-dark-stars-20261113/verification.json`, `browser.json`, `mobile.png`, `ship.log`.
+
 ## 2026-11-13 코스어 진한 배경·12별 검증 완료
 - 타입0,WebKit390×844 computed색 #172554/white 및 별12,0.5초 위치변화/infinite,모션감소 none,비선택0 검증. 화면 육안 확인. 기능 로직 변경 없음,실기기/실생성 미검증. 다음 운영 배포. 증거 `.local/cosplay-dark-stars-20261113/`.
 
