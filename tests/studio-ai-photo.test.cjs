@@ -435,3 +435,22 @@ test('default cosplay wardrobe swipes six-card pages without changing selected c
  await click('여성');assert.deepEqual(previews(),[1,3,5,7,9,11].map(id=>`/brand/ai-photo/presets/makeup-${String(id).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],false);
  await click('원본 유지');await click('다음 프리셋 페이지');await click('남성');assert.equal(previews().length,6);assert.equal(calls.length,0);
  });
+
+test('male body: four male photos, bidirectional controls, single selection and gender reset',async()=>{
+ const {r,click,calls}=await open();await click('남성');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());
+ const sliders=()=>r.root.findAll(n=>n.type==='input'&&n.props.type==='range'),range=label=>sliders().find(n=>n.props['aria-label']===label);
+ const labels=['상체 근육','하체 근육','어깨 너비','키 비율'];assert.deepEqual(sliders().map(n=>n.props['aria-label']),labels);
+ assert.deepEqual(r.root.findAll(n=>n.type==='img'&&String(n.props.src).includes('/presets/body-')).map(n=>n.props.src),['upper','lower','shoulder','height'].map(key=>`/brand/ai-photo/presets/body-male-${key}-v1.webp`));
+ for(const label of labels){await click(label);assert.equal(range(label).props.value,1);await click(label);assert.equal(range(label).props.value,0);}
+ await act(async()=>range('상체 근육').props.onChange({target:{value:'-2'}}));await act(async()=>range('하체 근육').props.onChange({target:{value:'2'}}));assert.equal(range('상체 근육').props.value,0);
+ await act(async()=>range('어깨 너비').props.onChange({target:{value:'-1'}}));assert.equal(range('하체 근육').props.value,0);await act(async()=>range('어깨 너비').props.onChange({target:{value:'0'}}));
+ await click('상체 근육');await click('여성');assert.deepEqual(sliders().map(n=>n.props['aria-label']),['가슴 크기','힙 크기','키 비율']);await click('남성');assert.ok(sliders().every(n=>n.props.value===0));
+ assert.equal(calls.length,0);await act(async()=>range('하체 근육').props.onChange({target:{value:'-2'}}));await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'body');assert.match(calls[0].prompt,/허벅지·종아리의 하체 근육 볼륨을 좀 더 슬림하게/);assert.match(calls[0].prompt,/옷과 포즈는 유지/);assert.doesNotMatch(calls[0].prompt,/가슴 크기|힙 크기/);
+});
+test('male body prompts and generated assets cover four categories and five levels',async()=>{
+ const sharp=require('sharp'),fs=require('node:fs');
+ for(const [key,negative,positive] of [['upper','상체 근육 볼륨을 조금 슬림하게','상체 근육 볼륨을 좀 더 탄탄하게'],['lower','하체 근육 볼륨을 조금 슬림하게','하체 근육 볼륨을 좀 더 탄탄하게'],['shoulder','어깨 너비를 조금 좁게','어깨 너비를 좀 더 넓게'],['height','키 비율을 조금 작아','키 비율을 좀 더 커']]){
+ assert.ok(rules.aiPhotoBodyPrompt(key,-1).includes(negative));assert.ok(rules.aiPhotoBodyPrompt(key,2).includes(positive));assert.equal(rules.aiPhotoBodyPrompt(key,0),'');assert.notEqual(rules.aiPhotoBodyPrompt(key,-2),rules.aiPhotoBodyPrompt(key,-1));assert.notEqual(rules.aiPhotoBodyPrompt(key,1),rules.aiPhotoBodyPrompt(key,2));
+ const meta=await sharp(fs.readFileSync(`public/brand/ai-photo/presets/body-male-${key}-v1.webp`)).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);
+ }
+});

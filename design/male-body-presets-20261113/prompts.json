@@ -1,0 +1,21 @@
+{
+  "mode": "built-in image_gen",
+  "prompts": [
+    {
+      "key": "upper",
+      "prompt": "Use case: photorealistic-natural. Square photographic thumbnail for the upper-body muscle adjustment preset of a Korean portrait editor. One fictional adult Korean man age 28 with short black hair, wearing a fitted opaque plain white short-sleeved crewneck T-shirt and charcoal trousers. Natural moderately athletic chest, upper arms and back silhouette visible through the fit, not extreme bodybuilding. Standing relaxed, framed from head to hips, slight three-quarter turn. White studio background, soft even light, realistic skin texture, clean catalog photography. One person, one photo. No words, labels, UI, collage, logos, watermark or before-after panels."
+    },
+    {
+      "key": "lower",
+      "prompt": "Use case: photorealistic-natural. Square photographic thumbnail for the lower-body muscle adjustment preset of a Korean portrait editor. One fictional adult Korean man age 28 with short black hair, wearing an opaque plain white short-sleeved crewneck T-shirt and charcoal knee-length athletic shorts and white sneakers. Natural moderately athletic thighs and calves, ordinary healthy proportions, not extreme bodybuilding. Relaxed standing pose with feet slightly apart, full body head to shoes fully visible. White studio background, soft even light, realistic skin texture, clean catalog photography. One person, one photo. No words, labels, UI, collage, logos, watermark or before-after panels."
+    },
+    {
+      "key": "shoulder",
+      "prompt": "Use case: photorealistic-natural. Square photographic thumbnail for the shoulder width adjustment preset of a Korean portrait editor. One fictional adult Korean man age 28 with short black hair, wearing a fitted opaque plain white short-sleeved crewneck T-shirt and charcoal trousers. Naturally broad balanced shoulders, realistic ordinary athletic proportions. Straight frontal relaxed pose, arms at sides, framing head to hips with both shoulders fully visible. White studio background, soft even light, realistic skin texture, clean catalog photography. One person, one photo. No words, labels, UI, collage, logos, watermark or before-after panels."
+    },
+    {
+      "key": "height",
+      "prompt": "Use case: photorealistic-natural. Square photographic thumbnail for the height proportions adjustment preset of a Korean portrait editor. One fictional adult Korean man age 28 with short black hair, wearing an opaque plain white short-sleeved crewneck T-shirt, charcoal straight-leg trousers and white sneakers. Natural tall balanced proportions, realistic anatomy, no extreme elongated legs. Relaxed straight frontal standing pose, full body head to shoes fully visible with breathing room. White studio background, soft even light, realistic skin texture, clean catalog photography. One person, one photo. No words, labels, ruler, UI, collage, logos, watermark or before-after panels."
+    }
+  ]
+}

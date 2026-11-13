@@ -1,3 +1,4 @@
+import {aiPhotoMaleBodyControls,aiPhotoBodyPrompt} from './ai-photo';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 
 // 편집 가능한 제안 문구. 탐색/선택만으로는 생성 요청을 보내지 않는다.
@@ -95,13 +96,14 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
 };
 
 export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original'){
- const available=kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter((_,index)=>(index%2===0?'female':'male')===gender):aiPhotoPresets[kind];
+ const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter((_,index)=>(index%2===0?'female':'male')===gender):aiPhotoPresets[kind];
  const examples=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available,pages=Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE);
  const index=((page%pages)+pages)%pages;
  return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages};
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
+ if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return `/brand/ai-photo/presets/body-male-${control.key}-v1.webp`;}
  if(kind==='expression'&&example===aiPhotoNeutralExpressionPreset)return `/brand/ai-photo/presets/expression-neutral-${gender==='male'?'male':'female'}-v1.webp`;
  const index=aiPhotoPresets[kind].filter(value=>value!==aiPhotoComicWorldPreset&&value!==aiPhotoNeutralExpressionPreset).indexOf(example);
  const id=example===aiPhotoComicWorldPreset?'background-comicworld':`${kind}-${String(index+1).padStart(2,'0')}`;
@@ -121,4 +123,4 @@ export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "lens":["RF15–35mm F2.8", "RF24–70mm F2.8", "RF35mm F1.8", "RF50mm F1.8", "RF85mm F1.2", "RF70–200mm F2.8"],
  "body":["가슴 조금 작게", "가슴 조금 크게", "힙 조금 작게", "힙 조금 크게", "키 조금 작게", "키 조금 크게"]
 };
-export function aiPhotoPresetTitle(kind:AiPhotoKind,example:string){return aiPhotoPresetTitles[kind][aiPhotoPresets[kind].indexOf(example)];}
+export function aiPhotoPresetTitle(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return control.label;}return aiPhotoPresetTitles[kind][aiPhotoPresets[kind].indexOf(example)];}

@@ -1,3 +1,10 @@
+## 2026-11-13 남성 신체 보정4종 검증 완료
+- 기능44/44,타입0,레이어453개 통과. WebKit390×844 남성4컨트롤/4사진 로딩·카드선택→슬라이더1·성별전환초기화 통과,화면 육안확인. 4개 이미지384×384 WebP,이미지젠내장모드 개별생성. 실제 사용자사진 보정품질/실기기 미검증. 증거 `.local/male-body-presets-20261113/`. 다음 운영 배포.
+
+## 2026-11-13 남성 신체 보정4종 진행
+- 합의:상체 근육·하체 근육·어깨 너비·키 비율,각5단계(중앙원본). 기존 단일 선택 유지. 남성 명시선택 시 전용4개 사진/컨트롤,여성·원본 유지 기존. 성별 전환 시 숨겨진 신체선택 해제. 이미지젠4회 생성 후384px WebP로프로젝트 저장.
+- 합격:4종사진/남성컨트롤/양방향문구/중앙해제/단일선택/성별전환/기존여성흐름,자동안전검사우회없음. 실제사진보정품질은별도. 프롬프트 `design/male-body-presets-20261113/prompts.json`.
+
 ## 2026-11-13 카드 보기 단일화 운영 완료
 - 운영 `crefans-front:front-wardrobe-card-only-20261113`,source `8f8ce1212f9508aa3a74ac5afdb745fe3f6aee9c`. 카드만 유지,보기 메뉴/네 대체 형식 제거. 기능42/42·타입·레이어·WebKit/Chromium3열2행/스와이프/선택 보존 통과. 실생성/실기기 미검증.
 - 13:42:31 UTC 배포0,feed/landing/terms/health/static/image200·redirect301. 외부복구본 `/Users/ethan/crefans-recovery/20261113/front-wardrobe-card-only-20261113` SHA·OCI15blobs·설정 검증 후 서버 이전이미지/임시자료 정리. 로컬 완료 배포 임시압축본6개는SHA/로그/이미지 확인 후 제거,외부복구본 보존. 증거 `.local/wardrobe-card-only-20261113/verification.json`, `browser.json`, `ship.log`, `temp-cleanup.json`.
