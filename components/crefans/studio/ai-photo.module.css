@@ -1,5 +1,5 @@
 /* 원본·편집 입력은 하나의 영역에서 스크롤하고 만들기 버튼만 고정한다. */
-.editor.editor{width:min(640px,calc(100vw - 40px));height:min(900px,90dvh);max-height:90dvh;padding:0;overflow:hidden}
+.editor.editor{--ai-photo-source-height:clamp(160px,24dvh,240px);--ai-photo-preset-height:clamp(112px,18dvh,144px);width:min(640px,calc(100vw - 40px));height:min(900px,90dvh);max-height:90dvh;padding:0;overflow:hidden}
 .editor[open]{display:flex;flex-direction:column}
 .editor>header{flex:none;margin:0;padding:20px 24px;border-bottom:1px solid var(--cf-color-border)}
 .editor>header h2{font-size:24px}
@@ -124,8 +124,10 @@
 
 .sourceSection{margin-bottom:16px;min-width:0}
 .sourceSection .sourceHeading{margin-bottom:8px}
-.sourceSection .preview{height:clamp(160px,24dvh,240px)}
-.sourceSection .maskStage img{max-height:300px}
+.sourceSection .previewFrame,.sourceSection .maskFrame{height:var(--ai-photo-source-height)}
+.sourceSection .preview{height:100%}
+.sourceSection .maskFrame{display:grid;place-items:center;background:var(--cf-color-surfaceSubtle);border-radius:12px;overflow:hidden}
+.sourceSection .maskStage img{max-height:var(--ai-photo-source-height)}
 .sourceSection .hint{margin:4px 0}
 .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:72px;font-size:12px;box-shadow:none}
 .tabs button img{flex:none;object-fit:contain}
@@ -143,15 +145,9 @@
 @media(max-width:767px){.body{padding:12px 16px}.controls{gap:12px}.footer{padding-top:8px}.quota{margin-bottom:8px}.tabs button{font-size:11px;min-height:64px}.tabs button img{width:24px;height:24px}}
 
 
-.cosplayEntry{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border:1px solid var(--cf-color-accentBorder);border-radius:12px;background:var(--cf-color-accentSoft);color:var(--cf-color-text);text-align:left;font:inherit;cursor:pointer}
-.cosplayEntryIcon{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:10px;background:var(--cf-color-surface)}
-.cosplayEntry>span:nth-child(2){display:flex;flex:1;min-width:0;flex-direction:column;gap:4px}
-.cosplayEntry strong{font-size:15px}.cosplayEntry small{font-size:12px;line-height:1.5;color:var(--cf-color-textSecondary)}
-.cosplayEntry>span:last-child{font-size:24px;color:var(--cf-color-accent)}
 .wardrobe{display:flex;flex-direction:column;gap:10px;min-width:0}
 .wardrobeHeading{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .wardrobeHeading h3{flex:1;min-width:0;margin:0;font-size:15px;color:var(--cf-color-text)}
-.directOutfit{align-self:flex-start;min-height:36px;padding:4px 0;border:0;background:none;color:var(--cf-color-accent);font:inherit;font-size:12px;cursor:pointer}
 .editor .wardrobe p{margin:0;font-size:12px;line-height:1.6;color:var(--cf-color-textSecondary)}
 .costumeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .costumeCard{display:flex;flex-direction:column;align-items:stretch;gap:4px;min-width:0;padding:6px 6px 10px;border:1px solid var(--cf-color-border);border-radius:12px;background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;text-align:left;cursor:pointer}
@@ -205,3 +201,5 @@
 .tabs{overflow-x:auto;scrollbar-width:thin}.tabs button{flex:1 0 54px}.preset>span:not(.presetCheck){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 
 .bodyAdjustments{display:grid;gap:14px;padding:14px;border:1px solid var(--cf-color-border);border-radius:12px}.bodyAdjustments label{display:grid;gap:9px;font-size:13px}.bodyAdjustments label>span{display:flex;justify-content:space-between;gap:8px}.bodyAdjustments output{color:var(--cf-color-textMuted)}.bodyAdjustments input{width:100%;accent-color:var(--cf-color-accent)}
+.modePicker{display:flex;flex-direction:column;gap:6px}.modePicker>div{display:flex;gap:4px;padding:4px;border-radius:10px;background:var(--cf-color-surfaceSubtle)}.modePicker button{flex:1;min-height:40px;border:0;border-radius:8px;background:transparent;color:var(--cf-color-textSecondary);font:inherit;font-size:14px;font-weight:600;cursor:pointer}.modePicker button[aria-pressed=true]{background:var(--cf-color-surface);color:var(--cf-color-accent);box-shadow:0 1px 3px rgb(32 35 51 / 5%)}.modePicker button:disabled{opacity:.5;cursor:default}.modePicker button:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}.modePicker p{margin:0;color:var(--cf-color-textSecondary);font-size:12px;line-height:1.6}
+.photoPresetGrid .preset>img,.wardrobeLayout[data-costume-view=grid] .costumeImage,.wardrobeLayout[data-costume-view=compact] .costumeImage,.wardrobeLayout[data-costume-view=composer] .costumeImage{height:var(--ai-photo-preset-height);aspect-ratio:auto}
