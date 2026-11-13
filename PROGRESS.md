@@ -1,3 +1,7 @@
+## 2026-11-13 카드 보기 단일화 운영 완료
+- 운영 `crefans-front:front-wardrobe-card-only-20261113`,source `8f8ce1212f9508aa3a74ac5afdb745fe3f6aee9c`. 카드만 유지,보기 메뉴/네 대체 형식 제거. 기능42/42·타입·레이어·WebKit/Chromium3열2행/스와이프/선택 보존 통과. 실생성/실기기 미검증.
+- 13:42:31 UTC 배포0,feed/landing/terms/health/static/image200·redirect301. 외부복구본 `/Users/ethan/crefans-recovery/20261113/front-wardrobe-card-only-20261113` SHA·OCI15blobs·설정 검증 후 서버 이전이미지/임시자료 정리. 로컬 완료 배포 임시압축본6개는SHA/로그/이미지 확인 후 제거,외부복구본 보존. 증거 `.local/wardrobe-card-only-20261113/verification.json`, `browser.json`, `ship.log`, `temp-cleanup.json`.
+
 ## 2026-11-13 의상 카드 단일화 검증 완료
 - 관련 기능42/42,타입0,레이어453개,WebKit390×844/Chromium1280×900 카드6개3열2행·한페이지 드래그·순환·선택 보존 통과. 보기 메뉴 없음. 실제 생성/실기기 미검증. 증거 `.local/wardrobe-card-only-20261113/`. 다음 운영 배포.
 
