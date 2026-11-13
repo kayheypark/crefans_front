@@ -49,7 +49,7 @@ test('dialog: without an uploaded photo it asks for one first',async()=>{
 
 test('dialog: consent is required, then a pose edit sends no mask and adds only the picked AI images',async()=>{
  const {r,added,calls,click}=await open();
- await act(async()=>{r.root.findByProps({'aria-label':'최종 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
+ await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
  await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/동의해 주세요/);
  await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
  assert.doesNotMatch(text(r.toJSON()),/동의해 주세요/);
@@ -64,13 +64,13 @@ test('dialog: consent is required, then a pose edit sends no mask and adds only 
 test('dialog: outfit needs painted area before calling the server',async()=>{
  const {r,calls,click}=await open();
  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick();});
- await act(async()=>{r.root.findByProps({'aria-label':'최종 프롬프트'}).props.onChange({target:{value:'교복 코스튬'}});});
+ await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'교복 코스튬'}});});
  await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/옷 부분을 사진 위에 칠해/);
 });
 
 test('legacy two-result response: viewer navigation and existing selections are preserved',async()=>{
  const {r,click}=await open({onEdit:async()=>({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'},{id:'a2',type:'image',url:'/a2.png'}],remaining:9}})});
- await act(async()=>{r.root.findByProps({'aria-label':'최종 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
+ await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
  await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
  await click('1장 만들기');
  await act(async()=>{r.root.findByProps({'aria-label':'결과 2 크게 보기','title':'크게 보기'}).props.onClick();});
@@ -88,7 +88,7 @@ test('progress: while making, the button and panel show elapsed seconds and the 
  for(const [typical,expect] of [[24,/보통 약 24초 걸려요/],[null,/걸리는 시간을 재는 중/]]){
   let finish;const onEdit=()=>new Promise(resolve=>{finish=resolve;});
   let r;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10,typicalSeconds:typical},room:9,onEdit,onAdd(){}}));});
-  await act(async()=>{r.root.findByProps({'aria-label':'최종 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
+  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
   await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
   await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('1장 만들기')).props.onClick();});
   const all=text(r.toJSON());assert.match(all,expect);assert.match(all,/0초 지남/);assert.match(all,/만드는 중… 0초/);assert.match(all,/창을 닫지 말고/);
@@ -100,26 +100,26 @@ test('progress: while making, the button and panel show elapsed seconds and the 
 
 test('compact stages: edit settings preserves prompt, source, style, consent and remaining quota',async()=>{
  const {r,click,calls}=await open();
- await act(async()=>{r.root.findByProps({'aria-label':'최종 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+ await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
  await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
  await click('1장 만들기');assert.equal(r.root.findAllByType('textarea').length,0);
- await click('설정 수정');assert.equal(r.root.findByProps({'aria-label':'최종 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
+ await click('설정 수정');assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
  assert.match(text(r.toJSON()),/오늘 남은 횟수 9\/10/);
  await click('1장 만들기');assert.equal(calls.length,2);assert.deepEqual(calls[1],calls[0]);
 });
 
 test('compact stages: provider failure restores the editable form without losing the request',async()=>{
  const {r,click}=await open({onEdit:async()=>({success:false,errorMessage:'생성에 실패했어요',errorCode:'PROVIDER_ERROR'})});
- await act(async()=>{r.root.findByProps({'aria-label':'최종 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+ await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
  await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
  await click('1장 만들기');assert.match(text(r.toJSON()),/생성에 실패했어요/);
- assert.equal(r.root.findByProps({'aria-label':'최종 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
+ assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
  assert.match(text(r.toJSON()),/오늘 남은 횟수 10\/10/);
 });
 
 test('compact results: cannot add more photos than the remaining post capacity',async()=>{
  const {r,click,added}=await open({room:0});
- await act(async()=>{r.root.findByProps({'aria-label':'최종 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+ await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
  await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
  await click('1장 만들기');
  await click('게시물에 추가');assert.equal(added.length,0);assert.match(text(r.toJSON()),/사진은 0장만 더 넣을 수/);
@@ -128,63 +128,45 @@ test('compact results: cannot add more photos than the remaining post capacity',
 
 test('regenerate failure keeps the previously selected photos available to add',async()=>{
  let count=0;const {r,click,added}=await open({onEdit:async()=>++count===1?{success:true,data:{images:[{id:'keep',type:'image',url:'/keep.png'}],remaining:9}}:{success:false,errorMessage:'다시 만들지 못했어요',errorCode:'PROVIDER_ERROR'}});
- await act(async()=>{r.root.findByProps({'aria-label':'최종 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+ await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
  await act(async()=>{r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true);});
  await click('1장 만들기');await click('다시 만들기');assert.match(text(r.toJSON()),/다시 만들지 못했어요/);
  await click('게시물에 추가');assert.deepEqual(added.map(i=>i.id),['keep']);
 });
 
-test('preset editor: photo preset suggestions cycle without calling AI or replacing a draft',async()=>{
- const {aiPhotoPresets,aiPhotoPresetPage}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
- assert.equal(Object.keys(aiPhotoPresets).length,8);
- for(const kind of Object.keys(aiPhotoPresets)){
-  const pages=aiPhotoPresetPage(kind,0).pages;const all=Array.from({length:pages},(_,page)=>aiPhotoPresetPage(kind,page).examples).flat();assert.equal(all.length,aiPhotoPresets[kind].length);assert.equal(new Set(all).size,all.length);assert.deepEqual(aiPhotoPresetPage(kind,pages).examples,aiPhotoPresetPage(kind,0).examples);
-  for(const prompt of all)assert.equal(rules.aiPhotoProblem({...base,kind,prompt,hasMask:true}),'',prompt);
- }
- const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'});
- const tab=async label=>act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());
- assert.equal(r.root.findAll(n=>n.type==='button'&&n.props.role==='tab').length,8);
- await act(async()=>field().props.onChange({target:{value:'내가 작성한 포즈 요청'}}));
- const first=r.root.findAll(n=>n.type==='button'&&n.props['aria-pressed']!==undefined).map(text);
- await click('다른 예시 보기');assert.notDeepEqual(r.root.findAll(n=>n.type==='button'&&n.props['aria-pressed']!==undefined).map(text),first);assert.equal(field().props.value,'내가 작성한 포즈 요청');
- await tab('표정');assert.equal(field().props.value,'내가 작성한 포즈 요청');await click('환한 미소');const combined='내가 작성한 포즈 요청\n'+aiPhotoPresets.expression[0];assert.equal(field().props.value,combined);
- await tab('포즈');assert.equal(field().props.value,combined);await tab('표정');assert.equal(field().props.value,combined);assert.equal(calls.length,0);
+test('preset editor: browsing and toggling preserves custom-only input and never exposes accumulated instructions',async()=>{
+ const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
+ await act(async()=>field().props.onChange({target:{value:'내가 작성한 추가 요청'}}));await click('다른 예시 보기');
+ await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());
+ await click('환한 미소');assert.equal(field().props.value,'내가 작성한 추가 요청');assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(r.root.findAllByProps({'aria-label':'최종 프롬프트'}).length,0);assert.equal(r.root.findAllByType('textarea').length,1);
+ await click('환한 미소');assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],false);assert.equal(field().props.value,'내가 작성한 추가 요청');assert.equal(calls.length,0);
 });
 
-test('preset editor: applying an example can be undone, manual edits clear selection, and makeup submits its own kind',async()=>{
- const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'});
- await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='메이크업').props.onClick());
- await act(async()=>field().props.onChange({target:{value:'내 메이크업 문구'}}));
- await click('코랄 립');await click('예시 적용 취소');assert.equal(field().props.value,'내 메이크업 문구');
- await click('코랄 립');await act(async()=>field().props.onChange({target:{value:'입술을 은은한 로즈 톤으로'}}));
- assert.equal(r.root.findAll(n=>n.type==='button'&&n.props.className==='preset'&&n.props['aria-pressed']).length,0);
- await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));
- await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'makeup');assert.equal(calls[0].prompt,'입술을 은은한 로즈 톤으로');assert.equal(calls[0].mask,undefined);
+
+test('preset selection and custom input are independent and both reach the provider',async()=>{
+ const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='메이크업').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
+ await act(async()=>field().props.onChange({target:{value:'내 메이크업 추가 요청'}}));await click('코랄 립');await click('코랄 립');assert.equal(field().props.value,'내 메이크업 추가 요청');await click('코랄 립');
+ await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls[0].kind,'makeup');assert.equal(calls[0].prompt,'입술을 자연스러운 코랄 톤으로 바꿔줘.\n내 메이크업 추가 요청');assert.equal(calls[0].mask,undefined);
 });
+
 
 test('single-image flow: only generate stays in footer and all editor fields scroll in the body',async()=>{
  const {r,click}=await open();const footer=r.root.findByProps({className:'footer'}),body=r.root.findByProps({className:'body'});
  assert.equal(footer.findAllByType('button').length,1);assert.equal(text(footer),'1장 만들기');assert.equal(footer.findAllByType('textarea').length,0);
  assert.equal(body.findAllByProps({className:'sourceSection'}).length,1);assert.equal(body.findAllByProps({className:'composer'}).length,1);assert.equal(body.findAllByProps({className:'quota'}).length,1);
- await act(async()=>r.root.findByProps({'aria-label':'최종 프롬프트'}).props.onChange({target:{value:'밝게 웃어줘'}}));
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝게 웃어줘'}}));
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));
  await click('1장 만들기');assert.equal(r.root.findAllByProps({'aria-label':'결과 1'}).length,1);assert.equal(r.root.findAllByProps({'aria-label':'결과 2'}).length,0);
  assert.equal(r.root.findAllByProps({className:'footer'}).length,0);assert.equal(r.root.findByProps({className:'body'}).findAllByProps({className:'resultActions'}).length,1);
 });
 
-test('cosplay wardrobe: opens eight outfits without generation, applies and undoes prompts, and keeps the final prompt across tabs',async()=>{
- const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(aiPhotoCostumes.length,32);assert.equal(aiPhotoCostumes.filter(c=>c.category==='general').length,8);assert.equal(new Set(aiPhotoCostumes.map(x=>x.id)).size,32);
- for(const c of aiPhotoCostumes)assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');
- assert.ok(aiPhotoCostumes.some(c=>c.id==='beach'));assert.ok(aiPhotoCostumes.some(c=>c.detail.includes('크롭')));
- const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'});
- await act(async()=>field().props.onChange({target:{value:'내 포즈 초안'}}));await click('나를 코스어로 만들기');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,8);assert.equal(calls.length,0);
- await click('비치 투피스');assert.equal(field().props.value,'내 포즈 초안\n'+aiPhotoCostumes.find(c=>c.id==='beach').prompt);assert.equal(calls.length,0);
- await click('예시 적용 취소');assert.equal(field().props.value,'내 포즈 초안');await click('고딕 오프숄더');
- await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());assert.equal(field().props.value,'내 포즈 초안\n'+aiPhotoCostumes.find(c=>c.id==='gothic').prompt);
- await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick());assert.equal(field().props.value,'내 포즈 초안\n'+aiPhotoCostumes.find(c=>c.id==='gothic').prompt);
- await click('옷 직접 편집');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,0);assert.equal(field().props.value,'내 포즈 초안\n'+aiPhotoCostumes.find(c=>c.id==='gothic').prompt);
- assert.equal(r.root.findAllByProps({'aria-label':'사진 느낌'}).length,0);assert.equal(calls.length,0);await click('나를 코스어로 만들기');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,8);await click('나를 코스어로 만들기');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,0);
+test('cosplay wardrobe: selected outfits toggle independently and never overwrite custom text across tabs',async()=>{
+ const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
+ await act(async()=>field().props.onChange({target:{value:'내 추가 요청'}}));await click('나를 코스어로 만들기');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,8);
+ await click('비치 투피스');assert.equal(field().props.value,'내 추가 요청');assert.equal(r.root.findByProps({'aria-label':'비치 투피스'}).props['aria-pressed'],true);await click('비치 투피스');assert.equal(r.root.findByProps({'aria-label':'비치 투피스'}).props['aria-pressed'],false);
+ await click('고딕 오프숄더');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());assert.equal(field().props.value,'내 추가 요청');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick());assert.equal(r.root.findByProps({'aria-label':'고딕 오프숄더'}).props['aria-pressed'],true);await click('옷 직접 편집');assert.equal(field().props.value,'내 추가 요청');assert.equal(calls.length,0);
 });
+
 
 test('cosplay wardrobe keeps the outfit mask gate and submits cosplay style only with a painted mask',async()=>{
  const {r,click,calls}=await open();await click('나를 코스어로 만들기');await click('사이버 슈트');
@@ -198,7 +180,7 @@ test('cosplay wardrobe keeps the outfit mask gate and submits cosplay style only
 test('wardrobe views: all five forms keep drafts, mask and consent and submit the same one-image request',async()=>{
  const {costumeViews}=loadTypeScript('components/crefans/studio/AiPhotoWardrobe.tsx');assert.equal(costumeViews.length,5);
  const {r,click,calls}=await open();await click('나를 코스어로 만들기');await click('아이돌 무대복');
- const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'});
+ const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
  const draft=field().props.value+' 배경도 그대로 유지해줘.';
  await act(async()=>field().props.onChange({target:{value:draft}}));
  const strokes=[{size:.06,points:[{x:.5,y:.6}]}];
@@ -214,23 +196,18 @@ test('wardrobe views: all five forms keep drafts, mask and consent and submit th
   const controls=r.root.findByProps({className:'controls'}),composer=controls.findByProps({className:'composer'}),wardrobe=controls.findByProps({className:'wardrobe'});
   assert.equal(controls.children.indexOf(composer)<controls.children.indexOf(wardrobe),view.value==='composer');
   assert.equal(r.root.findByProps({className:'footer'}).findAllByType('button').length,1);
-  await click('1장 만들기');assert.equal(calls.length,i+1);assert.equal(calls[i].prompt,draft);assert.equal(calls[i].mask,paintedMask);assert.equal(calls[i].style,'cosplay');
+  await click('1장 만들기');assert.equal(calls.length,i+1);assert.equal(calls[i].prompt,rules.aiPhotoPresetText(loadTypeScript('lib/crefans/ai-photo-costumes.ts').aiPhotoCostumes.find(c=>c.id==='idol').prompt)+'\n'+draft.trim());assert.equal(calls[i].mask,paintedMask);assert.equal(calls[i].style,'cosplay');
   assert.equal(r.root.findAllByProps({'aria-label':'결과 1'}).length,1);assert.equal(r.root.findAllByProps({'aria-label':'결과 2'}).length,0);
   await click('설정 수정');assert.equal(r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.value,view.value);
  }
 });
 
-test('wardrobe carousel: browsing does not replace a draft, wraps around, and applies only when picked',async()=>{
- const {r,click,calls}=await open();await click('나를 코스어로 만들기');
- await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange('carousel'));
- const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'});
- await act(async()=>field().props.onChange({target:{value:'내 의상 요청'}}));
- await act(async()=>r.root.findByProps({'aria-label':'이전 의상'}).props.onClick());assert.match(text(r.root.findByProps({className:'showcaseCaption'})),/비치 투피스8 \/ 8/);assert.equal(field().props.value,'내 의상 요청');
- await act(async()=>r.root.findByProps({'aria-label':'다음 의상'}).props.onClick());assert.match(text(r.root.findByProps({className:'showcaseCaption'})),/리본 메이드1 \/ 8/);
- await click('이 의상 선택');assert.match(field().props.value,/메이드/);assert.equal(calls.length,0);
- await act(async()=>r.root.findByProps({'aria-label':'비치 투피스'}).props.onClick());assert.match(field().props.value,/수영복/);assert.equal(r.root.findByProps({'aria-label':'비치 투피스'}).props['aria-current'],'true');
- await click('예시 적용 취소');assert.match(field().props.value,/메이드/);assert.equal(calls.length,0);
+test('wardrobe carousel: browsing preserves input and apply/thumbnail both deselect an active costume',async()=>{
+ const {r,click,calls}=await open();await click('나를 코스어로 만들기');await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange('carousel'));const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'내 의상 요청'}}));
+ await act(async()=>r.root.findByProps({'aria-label':'이전 의상'}).props.onClick());assert.match(text(r.root.findByProps({className:'showcaseCaption'})),/비치 투피스8 \/ 8/);await act(async()=>r.root.findByProps({'aria-label':'다음 의상'}).props.onClick());
+ await click('이 의상 선택');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],true);await click('선택 해제');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],false);await click('비치 투피스');await click('비치 투피스');assert.equal(field().props.value,'내 의상 요청');assert.equal(calls.length,0);
 });
+
 
 test('mask icon tools: all brush sizes paint correctly, undo removes one stroke, clear removes all, disabled remains guarded',async()=>{
  const {AiPhotoMask}=loadTypeScript('components/crefans/studio/AiPhotoMask.tsx');let current=[],r;
@@ -260,10 +237,10 @@ test('category filters: all seven work in five views without losing request/mask
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
  const {costumeViews}=loadTypeScript('components/crefans/studio/AiPhotoWardrobe.tsx');
  const {r,click,calls}=await open();await click('나를 코스어로 만들기');
- const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'}),category=()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리');
+ const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}),category=()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리');
  const strokes=[{size:.03,points:[{x:.5,y:.6}]}];await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange(strokes));
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));
- let previous='내 의상 요청';await act(async()=>field().props.onChange({target:{value:previous}}));
+ const chosen=[];let previous='내 의상 요청';await act(async()=>field().props.onChange({target:{value:previous}}));
  for(const group of aiPhotoCostumeCategories){
   await act(async()=>category().props.onChange(group.value));assert.equal(field().props.value,previous);assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
   const items=aiPhotoCostumes.filter(c=>c.category===group.value);
@@ -273,34 +250,29 @@ test('category filters: all seven work in five views without losing request/mask
   }
   await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange('carousel'));
   await act(async()=>r.root.findByProps({'aria-label':'이전 의상'}).props.onClick());assert.match(text(r.root.findByProps({className:'showcaseCaption'})),new RegExp(items.at(-1).name));assert.equal(field().props.value,previous);
-  await act(async()=>r.root.findByProps({'aria-label':items[0].name}).props.onClick());assert.equal(field().props.value,rules.appendAiPhotoPrompt(previous,items[0].prompt));previous=field().props.value;
+  await act(async()=>r.root.findByProps({'aria-label':items[0].name}).props.onClick());chosen.push(rules.aiPhotoPresetText(items[0].prompt));assert.equal(field().props.value,previous);
  }
  assert.equal(calls.length,0,'filtering/browsing/picking never generates');
- await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].prompt,previous);
+ await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].prompt,[...chosen,previous].join('\n'));
  await click('설정 수정');assert.equal(category().props.value,'jujutsu');
- await act(async()=>category().props.onChange('nikke'));await click('누아르 바니');await click('예시 적용 취소');assert.equal(field().props.value,previous);
+ await act(async()=>category().props.onChange('nikke'));await click('누아르 바니');await click('누아르 바니');assert.equal(field().props.value,previous);
 });
 
-test('final prompt: five category suggestions accumulate once, undo restores text/scopes, and one combined masked request is sent',async()=>{
- const {aiPhotoPresetPage,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
- const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'});
- const snippets=[];
+test('hidden prompt: selections toggle across five categories, custom text stays independent and only active requests are submitted',async()=>{
+ const {aiPhotoPresetPage,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});const snippets=[];
  for(const [kind,label] of [['outfit','옷'],['makeup','메이크업'],['expression','표정'],['pose','포즈'],['background','배경']]){
-  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());
-  const example=aiPhotoPresetPage(kind,0).examples[0];snippets.push(example);await click(aiPhotoPresetTitle(kind,example));assert.equal(field().props.value,snippets.join('\n'));await click(aiPhotoPresetTitle(kind,example));assert.equal(field().props.value,snippets.join('\n'));
+  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());const example=aiPhotoPresetPage(kind,0).examples[0],name=aiPhotoPresetTitle(kind,example);snippets.push(example);await click(name);assert.equal(field().props.value,'');assert.equal(r.root.findByProps({'aria-label':name}).props['aria-pressed'],true);await click(name);assert.equal(r.root.findByProps({'aria-label':name}).props['aria-pressed'],false);await click(name);
  }
- await click('예시 적용 취소');assert.equal(field().props.value,snippets.slice(0,-1).join('\n'));await click(aiPhotoPresetTitle('background',snippets.at(-1)));assert.equal(calls.length,0);
- await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));
- await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/칠해/);
- await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));await click('1장 만들기');
- assert.equal(calls.length,1);assert.equal(calls[0].kind,'combined');assert.deepEqual(calls[0].editKinds,['outfit','makeup','expression','pose','background']);assert.equal(calls[0].prompt,snippets.join('\n'));assert.equal(calls[0].mask,paintedMask);
- assert.equal(rules.selectedAiPhotoPresetIndex('B\nA',['A','B']),0);
+ assert.equal(r.root.findAllByProps({'aria-label':'최종 프롬프트'}).length,0);assert.equal(r.root.findAllByType('textarea').length,1);for(const snippet of snippets)assert.ok(!JSON.stringify(r.toJSON()).includes(snippet),'accumulated preset text is not rendered');assert.equal(calls.length,0);
+ await act(async()=>field().props.onChange({target:{value:'내가 추가로 원하는 모습'}}));await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/칠해/);
+ await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));await click('1장 만들기');assert.equal(calls[0].kind,'combined');assert.deepEqual(calls[0].editKinds,['outfit','makeup','expression','pose','background']);assert.equal(calls[0].prompt,[...snippets,'내가 추가로 원하는 모습'].join('\n'));assert.equal(calls[0].mask,paintedMask);
 });
+
 
 test('generated image editing: uses generated source, resets final request and mask, preserves earlier results on failure',async()=>{
  const sent=[];let count=0;
  const {r,click,added}=await open({onEdit:async input=>{sent.push(input);count++;return count<3?{success:true,data:{images:[{id:'made-'+count,type:'image',url:'/made-'+count+'.png'}],remaining:10-count}}:{success:false,errorMessage:'편집 실패',errorCode:'PROVIDER_ERROR'};}});
- const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'});
+ const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
  await act(async()=>field().props.onChange({target:{value:'앉은 포즈로 바꿔줘'}}));await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');
  await act(async()=>r.root.findByProps({'aria-label':'결과 1 이미지 편집'}).props.onClick());assert.equal(field().props.value,'');assert.equal(r.root.findAllByType('textarea').length,1);assert.match(text(r.toJSON()),/편집할 이미지/);
  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='배경').props.onClick());await act(async()=>field().props.onChange({target:{value:'흰 스튜디오 배경'}}));await click('1장 만들기');
@@ -316,18 +288,16 @@ test('category logos: all seven options provide local images and do not alter ca
 });
 
 
-test('gender choice changes actual generation request, replaces prior gender text and can be removed',async()=>{
- const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'});
- await click('남성');assert.match(field().props.value,/성인 남성/);await click('여성');assert.match(field().props.value,/성인 여성/);assert.doesNotMatch(field().props.value,/성인 남성/);assert.equal(calls.length,0);
- await click('원본 유지');assert.equal(field().props.value,'');await click('남성');await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls[0].targetGender,'male');assert.match(calls[0].prompt,/성인 남성/);
+test('gender is composed internally without appearing in or changing the custom input',async()=>{
+ const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'부드러운 조명'}}));await click('남성');await click('여성');assert.equal(field().props.value,'부드러운 조명');await click('원본 유지');assert.equal(field().props.value,'부드러운 조명');await click('남성');await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].prompt,'생성 인물을 성인 남성으로 바꿔줘.\n부드러운 조명');
 });
 
 
-test('body size controls accumulate independent chest, hip and height requests without duplicates or calling AI',async()=>{
- const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());const field=()=>r.root.findByProps({'aria-label':'최종 프롬프트'});const range=label=>r.root.find(n=>n.type==='input'&&n.props['aria-label']===label);
- await act(async()=>range('가슴 크기').props.onChange({target:{value:'1'}}));await act(async()=>range('힙 크기').props.onChange({target:{value:'-1'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'2'}}));assert.match(field().props.value,/가슴 크기를 조금 크게/);assert.match(field().props.value,/힙 크기를 조금 작게/);assert.match(field().props.value,/키 비율을 좀 더 커/);
- await act(async()=>range('가슴 크기').props.onChange({target:{value:'-2'}}));assert.doesNotMatch(field().props.value,/가슴 크기를 조금 크게/);assert.match(field().props.value,/가슴 크기를 좀 더 작게/);assert.match(field().props.value,/힙 크기/);
- await act(async()=>range('키 비율').props.onChange({target:{value:'0'}}));assert.doesNotMatch(field().props.value,/키 비율/);assert.equal(calls.length,0);
+test('body controls and photo presets share selection state, toggle off only the chosen axis and keep custom input',async()=>{
+ const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}),range=label=>r.root.find(n=>n.type==='input'&&n.props['aria-label']===label);await act(async()=>field().props.onChange({target:{value:'자연스럽게'}}));
+ await click('가슴 조금 작게');assert.equal(range('가슴 크기').props.value,-1);await click('가슴 조금 크게');assert.equal(range('가슴 크기').props.value,1);assert.equal(r.root.findByProps({'aria-label':'가슴 조금 작게'}).props['aria-pressed'],false);await click('가슴 조금 크게');assert.equal(range('가슴 크기').props.value,0);
+ await act(async()=>range('가슴 크기').props.onChange({target:{value:'-2'}}));await act(async()=>range('힙 크기').props.onChange({target:{value:'-1'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'2'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'0'}}));assert.equal(field().props.value,'자연스럽게');
+ await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls[0].kind,'body');assert.match(calls[0].prompt,/가슴 크기를 좀 더 작게/);assert.match(calls[0].prompt,/힙 크기를 조금 작게/);assert.doesNotMatch(calls[0].prompt,/키 비율/);assert.ok(calls[0].prompt.endsWith('자연스럽게'));
 });
 
 
@@ -341,4 +311,14 @@ test('every preset has a distinct decodable photo including Comic World, 24 pose
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
  const {r,click,calls}=await open();await click('나를 코스어로 만들기');await click('남성');await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.match(text(r.toJSON()),/남성으로 변경/);
+});
+
+
+test('deselecting the last clothing preset removes only that request and its mask requirement',async()=>{
+ const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'내 추가 요청'}}));await click('쪼그려 앉기');await click('나를 코스어로 만들기');await click('사이버 슈트');await click('사이버 슈트');assert.equal(r.root.findByProps({'aria-label':'사이버 슈트'}).props['aria-pressed'],false);assert.equal(field().props.value,'내 추가 요청');await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.match(calls[0].prompt,/쪼그려/);assert.doesNotMatch(calls[0].prompt,/사이버|크롭톱/);assert.ok(calls[0].prompt.endsWith('내 추가 요청'));
+});
+
+test('combined length is bounded without truncating custom input or blocking deselection',async()=>{
+ const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'가'.repeat(2000)}}));await click('쪼그려 앉기');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],false);assert.equal(field().props.value.length,2000);assert.match(text(r.toJSON()),/너무 길어요/);
+ await act(async()=>field().props.onChange({target:{value:'내 추가 요청'}}));await click('쪼그려 앉기');await act(async()=>field().props.onChange({target:{value:'가'.repeat(2000)}}));assert.match(text(r.toJSON()),/합쳐서 2000자/);await click('쪼그려 앉기');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],false);assert.equal(field().props.value.length,2000);assert.equal(calls.length,0);
 });
