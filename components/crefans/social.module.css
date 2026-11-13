@@ -257,3 +257,11 @@ button.contact:not(:disabled):not([data-unread=true]):hover{background:color-mix
 .aiMark{position:absolute;left:10px;top:10px;z-index:2;padding:3px 9px;border-radius:999px;background:rgb(17 24 39 / 78%);color:#fff;font-size:12px;font-weight:700;line-height:1.5;pointer-events:none}
 
 .commentLikeWrap{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;margin-left:10px;vertical-align:middle}.commentLike{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:44px;min-height:32px;padding:2px 5px;border:0;border-radius:6px;background:transparent;color:var(--cf-color-textMuted);font:inherit;font-size:12px;cursor:pointer}.commentLike.liked{color:var(--cf-color-danger)}.commentLike.liked svg{fill:currentColor}.commentLike:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}.commentLike:disabled{cursor:default}.commentLikeError{color:var(--cf-color-danger);font-size:12px}
+
+.commentContent{flex:1;min-width:0}
+.commentHeader{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:24px;padding-right:44px}
+.commentHeader strong{min-width:0;flex-wrap:wrap}
+.commentMenu{position:absolute;right:0;top:-10px}
+.commentMenu>.more{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0;letter-spacing:2px}
+.commentMetadata{display:flex;align-items:center;flex-wrap:wrap;min-height:32px}
+.commentMetadata time{white-space:nowrap;flex:none}
