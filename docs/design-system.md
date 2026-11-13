@@ -6,6 +6,8 @@
 
 ## 현재 사용 안내
 
+- 2026-11-13 AI 사진 편집의 5분류 그림은 [AiPhotoCategoryIcon](../components/crefans/studio/AiPhotoCategoryIcon.tsx)에서 `public/brand/ai-photo/*-colorful-flat-v3.png`를 사용한다. 검색 카테고리와 같은 둥근 플랫 스타일의 다양한 색상이며 공용 모달의 실제/미리보기 모두 사용한다. 텍스트 라벨이 이름을 제공하고 그림 alt는 비운다.
+
 ### 크리에이터 전환 가드 (2026-11-07)
 
 - 공용 [GuardPage](../components/crefans/GuardPage.tsx)는 가입 완료 화면과 같은 가운데 정렬 안내 페이지다(88px 파란 원형 체크, 제목 초기 포커스, 설명, 48px 주 버튼, 선택 보조 버튼). 이미지·문구·링크는 props로 주입하고 `image`가 없으면 체크를 표시한다. [SignupCompletePage](../components/crefans/SignupCompletePage.tsx)도 같은 컴포넌트를 사용하며 동작(같은 탭 가입 후에만 표시)은 그대로다. 스타일은 기존 `signup-complete.module.css`를 공유한다(멤버십 가입 완료의 체크도 이 파일 사용).
