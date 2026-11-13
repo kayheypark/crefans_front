@@ -98,9 +98,11 @@ export function aiPhotoPresetPage(kind:AiPhotoKind,page:number){
  return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages};
 }
 
-export function aiPhotoPresetImage(kind:AiPhotoKind,example:string){
+export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
  const id=example===aiPhotoComicWorldPreset?'background-comicworld':`${kind}-${String(aiPhotoPresets[kind].filter(value=>value!==aiPhotoComicWorldPreset).indexOf(example)+1).padStart(2,'0')}`;
- return `/brand/ai-photo/presets/${id}-v1.webp`;
+ const originalGender=aiPhotoPresets.expression.indexOf(example)%2===0?'female':'male';
+ const variant=kind==='expression'&&gender!=='original'&&gender!==originalGender?`-${gender}`:'';
+ return `/brand/ai-photo/presets/${id}${variant}-v1.webp`;
 }
 
 // 카드의 짧은 이름과 실제 생성 요청을 분리한다. 순서는 각 프리셋과 같다.
