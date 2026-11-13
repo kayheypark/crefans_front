@@ -207,6 +207,7 @@ test('wardrobe views: all five forms keep drafts, mask and consent and submit th
  for(const [i,view] of costumeViews.entries()){
   await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange(view.value));
   assert.equal(r.root.findAllByProps({'data-costume-view':view.value}).length,1);
+  const picker=r.root.findByProps({className:'wardrobeHeading'}).find(n=>typeof n.type==='function'&&n.props.label==='보기 형식');assert.equal(picker.props.hideLabel,true);
   assert.equal(field().props.value,draft);assert.equal(r.root.findAllByType('textarea').length,1);
   assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
   assert.equal(calls.length,i,'switching views never generates');
@@ -229,4 +230,20 @@ test('wardrobe carousel: browsing does not replace a draft, wraps around, and ap
  await click('이 의상 선택');assert.match(field().props.value,/메이드/);assert.equal(calls.length,0);
  await act(async()=>r.root.findByProps({'aria-label':'비치 투피스'}).props.onClick());assert.match(field().props.value,/수영복/);assert.equal(r.root.findByProps({'aria-label':'비치 투피스'}).props['aria-current'],'true');
  await click('예시 적용 취소');assert.match(field().props.value,/메이드/);assert.equal(calls.length,0);
+});
+
+test('mask icon tools: all brush sizes paint correctly, undo removes one stroke, clear removes all, disabled remains guarded',async()=>{
+ const {AiPhotoMask}=loadTypeScript('components/crefans/studio/AiPhotoMask.tsx');let current=[],r;
+ function Harness(){const [strokes,setStrokes]=React.useState([]);current=strokes;return el(AiPhotoMask,{src:photo.url,alt:'원본',strokes,onChange:setStrokes});}
+ await act(async()=>{r=create(el(Harness));});
+ const button=label=>r.root.find(n=>n.type==='button'&&n.props['aria-label']===label);
+ const event={button:0,pointerId:1,clientX:50,clientY:60,currentTarget:{getBoundingClientRect:()=>({left:0,top:0,width:100,height:100}),setPointerCapture(){}}};
+ for(const [label,size] of [['작게',.03],['보통',.06],['크게',.1]]){
+  await act(async()=>button('붓 크기 '+label).props.onClick());assert.equal(button('붓 크기 '+label).props['aria-pressed'],true);
+  await act(async()=>{r.root.findByType('canvas').props.onPointerDown(event);r.root.findByType('canvas').props.onPointerUp();});assert.equal(current.at(-1).size,size);
+ }
+ assert.equal(current.length,3);await act(async()=>button('되돌리기').props.onClick());assert.equal(current.length,2);
+ await act(async()=>button('모두 지우기').props.onClick());assert.equal(current.length,0);assert.equal(button('되돌리기').props.disabled,true);assert.equal(button('모두 지우기').props.disabled,true);
+ for(const label of ['붓 크기 작게','붓 크기 보통','붓 크기 크게','되돌리기','모두 지우기']){assert.equal(text(button(label)),'');assert.equal(button(label).props.title,label);assert.equal(button(label).findAllByType('svg').length,1);}
+ await act(async()=>r.update(el(AiPhotoMask,{src:photo.url,alt:'원본',strokes:[],onChange(){},disabled:true})));assert.ok(r.root.findAllByType('button').every(b=>b.props.disabled));
 });

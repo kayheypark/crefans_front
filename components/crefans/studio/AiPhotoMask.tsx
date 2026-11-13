@@ -2,6 +2,7 @@
 // 의상 교체용 영역 칠하기. 칠한 곳만 바뀌도록 원본 크기의 마스크 PNG(칠한 곳 투명)를 만든다.
 // 좌표와 붓 크기는 사진 폭 대비 비율로 저장해 화면 크기와 무관하게 같은 마스크가 나온다.
 import {useEffect,useRef,useState,type PointerEvent} from 'react';
+import LandingIcon from '../Icon';
 import s from './ai-photo.module.css';
 
 export type MaskStroke={size:number;points:{x:number;y:number}[]};
@@ -49,11 +50,11 @@ export function AiPhotoMask({src,alt,strokes,onChange,disabled}:{src:string;alt:
    <canvas ref={canvas} aria-label="바꿀 옷 부분 칠하기" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} data-disabled={disabled||undefined}/>
   </div>
   <div className={s.maskTools}>
-   <span className={s.maskLabel}>붓 크기</span>
-   {BRUSHES.map(item=><button key={item.label} type="button" className={s.chip} aria-pressed={brush===item.size} onClick={()=>setBrush(item.size)} disabled={disabled}>{item.label}</button>)}
+   <div className={s.maskBrushes} role="group" aria-label="붓 크기"><span className={s.maskLabel} title="붓 크기"><LandingIcon name="brush" width={18} height={18}/></span>
+   {BRUSHES.map((item,index)=><button key={item.label} type="button" className={s.chip} aria-label={`붓 크기 ${item.label}`} title={`붓 크기 ${item.label}`} aria-pressed={brush===item.size} onClick={()=>setBrush(item.size)} disabled={disabled}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r={2+index*2} fill="currentColor"/></svg></button>)}</div>
    <span className={s.maskSpacer}/>
-   <button type="button" className={s.textButton} onClick={()=>onChange(strokes.slice(0,-1))} disabled={disabled||!strokes.length}>되돌리기</button>
-   <button type="button" className={s.textButton} onClick={()=>onChange([])} disabled={disabled||!strokes.length}>모두 지우기</button>
+   <button type="button" className={s.maskTool} aria-label="되돌리기" title="되돌리기" onClick={()=>onChange(strokes.slice(0,-1))} disabled={disabled||!strokes.length}><LandingIcon name="undo" width={20} height={20}/></button>
+   <button type="button" className={s.maskTool} aria-label="모두 지우기" title="모두 지우기" onClick={()=>onChange([])} disabled={disabled||!strokes.length}><LandingIcon name="eraser" width={20} height={20}/></button>
   </div>
  </div>;
 }

@@ -88,18 +88,18 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
    </div>}
     {stage==='edit'?<div className={s.controls}>
      <button type="button" className={s.cosplayEntry} aria-pressed={kind==='outfit'&&cosplayOpen} disabled={busy} onClick={()=>{const next=kind!=='outfit'||!cosplayOpen;changeKind('outfit');setCosplayOpen(next);}}><span className={s.cosplayEntryIcon} aria-hidden="true"><AiPhotoCategoryIcon kind="outfit"/></span><span><strong>나를 코스어로 만들기</strong><small>준비된 의상을 골라 나만의 코스프레 사진으로</small></span><span aria-hidden="true">›</span></button>
-     {cosplay&&<SelectField className={s.viewPicker} label="보기 형식" value={costumeView} onChange={value=>setCostumeView(value as CostumeView)} options={costumeViews.map(view=>({...view}))} disabled={busy}/>}
      {inputFirst&&composer}
      <div className={s.tabs} role="tablist" aria-label="편집 카테고리">{aiPhotoKinds.map((item,index)=><button key={item.value} id={`${panelId}-${item.value}`} type="button" role="tab" aria-controls={panelId} tabIndex={kind===item.value?0:-1} aria-selected={kind===item.value} onClick={()=>changeKind(item.value)} onKeyDown={event=>{
       const next=event.key==='ArrowRight'?(index+1)%aiPhotoKinds.length:event.key==='ArrowLeft'?(index+aiPhotoKinds.length-1)%aiPhotoKinds.length:event.key==='Home'?0:event.key==='End'?aiPhotoKinds.length-1:null;
       if(next===null)return;event.preventDefault();changeKind(aiPhotoKinds[next].value);event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
      }} disabled={busy}><AiPhotoCategoryIcon kind={item.value}/><span>{item.label}</span></button>)}</div>
      {kind==='outfit'&&cosplayOpen?<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.wardrobe}>
-      <div className={s.wardrobeHeading}><h3>어떤 의상을 입어볼까요?</h3><button type="button" onClick={()=>setCosplayOpen(false)}>옷 직접 편집</button></div>
+      <div className={s.wardrobeHeading}><h3>어떤 의상을 입어볼까요?</h3><SelectField className={s.viewPicker} label="보기 형식" hideLabel value={costumeView} onChange={value=>setCostumeView(value as CostumeView)} options={costumeViews.map(view=>({...view}))} disabled={busy}/></div>
       <p>의상을 고른 뒤, 원본 사진에서 바꿀 옷 부분을 칠해 주세요.</p>
       {inputFirst&&<div className={s.selectedCostume}><span>선택한 의상</span><strong>{selectedCostume?.name||'직접 입력 · 수정'}</strong></div>}
       <AiPhotoWardrobe view={costumeView} prompt={prompt} disabled={busy} onPick={pickPreset}/>
       <p className={s.costumeNote}>의상 이미지는 스타일 예시예요. 사진 구도와 칠한 범위에 따라 결과가 달라질 수 있어요.</p>
+      <button type="button" className={s.directOutfit} onClick={()=>setCosplayOpen(false)}>옷 직접 편집</button>
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
       <div className={s.presetHeading}><span>예시를 누르면 입력창에 담겨요.</span><span aria-live="polite">{preset.index+1} / {preset.pages}</span></div>
       {preset.examples.map(example=><button type="button" key={example} className={s.preset} aria-pressed={prompt===example} onClick={()=>pickPreset(example)} disabled={busy}><span>{example}</span><span className={s.presetCheck} aria-hidden="true">{prompt===example?'✓':''}</span></button>)}
