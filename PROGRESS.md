@@ -1,3 +1,10 @@
+## 2026-11-13 AI 사진 편집 표시 정리 진행
+- 사용자 연속 요청3개: 무료·한 번에1장 문구 삭제, 실사사진느낌/코스프레촬영/일상스냅 선택버튼 미노출, AI 생성 표시 및 이용 안내 라벨 왼쪽정렬. origin/prod50e268e 기반 feat/ai-photo-hide-options-20261113.
+- 공용 AiPhotoDialog에서 설명span·사진느낌그룹 제거, 기본style photo 고정. 남은횟수/생성1장/고정버튼·입력·권한 유지. notice의 기존27px 들여쓰기 제거, 왼쪽 정렬. 서버 변경 없음.
+- 합격: 편집화면에 무료/한번에 문구와 사진느낌그룹 없음, 남은횟수·1장 버튼 보존, 안내 왼쪽이 본문 시작과 일치·펼침동작 유지. 기존 관련검사·타입과 모바일 육안 확인. 단순문구/표시 변경이므로 새 제품테스트 추가하지 않음.
+- 검증: 기존 사진편집14/14·typecheck·diff --check 통과. Chrome390에서 사진느낌그룹0개·무료문구없음·남은횟수유지, 안내라벨left16px=본문시작16px, 펼침/접힘 확인. 문서 검사는 기존 Generated contracts stale로 미통과.
+- dev→prod 순서로 승격하고 최종원격ref/트리·clean·해시를 .local/ai-photo-hide-options-20261113/verification.json에 기록한다. 다음 운영배포는 별도이며 아직 미실행. screenshot mobile-device-proof.png.
+
 ## 2026-11-13 11:01 KST AI 사진 단일 생성·버튼만 고정 운영 배포 완료
 - 사용자 최신 “배포” 명시 승인으로 이전 자동 검토 거절 해소. runtime source968eb80(문서만 다른 prod7b38af5와 기능 동일), front-ai-single-flow-20261113 배포. 재빌드 없이 검증한 amd64 이미지/revision/레이어/아카이브SHA 재사용. 일반 페이지·정적200/리다이렉트301/이미지최적화200/API헬스200.
 - API/worker는 ai-photo-single-20261113(source99761cf)으로 먼저 반영하여 n=1 확인 후 프론트 교체. 기존 댓글시간/더보기·좋아요·미디어처리/기타서비스 유지, DB스키마 변경 없음.
