@@ -1,7 +1,8 @@
 "use client";
 import {useEffect,useId,useRef,useState} from 'react';
-import Image from 'next/image';
 import {aiPhotoCostumes} from '@/lib/crefans/ai-photo-costumes';
+import {SelectField} from '@/components/ui/SelectField';
+import {AiPhotoWardrobe,costumeViews,type CostumeView} from './AiPhotoWardrobe';
 import type {ApiResult} from '@/types/crefans';
 import type {AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,StudioMedia} from '@/types/crefans-studio-management';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
@@ -22,6 +23,8 @@ function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBo
 export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Props){
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('pose'),[prompts,setPrompts]=useState<Partial<Record<AiPhotoKind,string>>>({});
  const [cosplayOpen,setCosplayOpen]=useState(false);
+ const [costumeView,setCostumeView]=useState<CostumeView>('grid');
+ const cosplay=kind==='outfit'&&cosplayOpen,inputFirst=cosplay&&costumeView==='composer';
  const style=kind==='outfit'&&cosplayOpen?'cosplay':'photo';
  const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
  const [undo,setUndo]=useState<{kind:AiPhotoKind;prompt:string}|null>(null);
@@ -65,6 +68,11 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
  }
  const viewing=viewer!==null||sourceViewer;
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
+ const composer=<div className={s.composer}>
+  <TextAreaField label="직접 입력 · 수정" rows={2} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={prompt} onChange={event=>setPrompt(event.target.value)} placeholder={kindInfo.placeholder} disabled={busy}/>
+  {undo?.kind===kind&&<button className={s.undoPreset} type="button" onClick={()=>setPrompt(undo.prompt)}>예시 적용 취소</button>}
+ </div>;
+ const selectedCostume=aiPhotoCostumes.find(costume=>costume.prompt===prompt);
  return <Dialog open={open} onClose={()=>{if(viewing){closeViewer();return;}if(!busy)onClose();}} title="AI 사진 편집" persistent fullscreenOnMobile className={s.editor}>
   {!images.length?<div className={s.body}><PromptLayout variant="dialog" icon="/brand/featured-creators-v1.png" title="바꿀 사진을 먼저 올려 주세요" description="게시물에 사진을 올리면 AI로 옷·포즈·배경을 바꿀 수 있어요." actions={<Action type="button" className={promptPrimary} onClick={onClose}>사진 올리러 가기</Action>}/></div>:<>
    <div ref={bodyRef} className={s.body} inert={viewing}>
@@ -80,6 +88,8 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
    </div>}
     {stage==='edit'?<div className={s.controls}>
      <button type="button" className={s.cosplayEntry} aria-pressed={kind==='outfit'&&cosplayOpen} disabled={busy} onClick={()=>{const next=kind!=='outfit'||!cosplayOpen;changeKind('outfit');setCosplayOpen(next);}}><span className={s.cosplayEntryIcon} aria-hidden="true"><AiPhotoCategoryIcon kind="outfit"/></span><span><strong>나를 코스어로 만들기</strong><small>준비된 의상을 골라 나만의 코스프레 사진으로</small></span><span aria-hidden="true">›</span></button>
+     {cosplay&&<SelectField className={s.viewPicker} label="보기 형식" value={costumeView} onChange={value=>setCostumeView(value as CostumeView)} options={costumeViews.map(view=>({...view}))} disabled={busy}/>}
+     {inputFirst&&composer}
      <div className={s.tabs} role="tablist" aria-label="편집 카테고리">{aiPhotoKinds.map((item,index)=><button key={item.value} id={`${panelId}-${item.value}`} type="button" role="tab" aria-controls={panelId} tabIndex={kind===item.value?0:-1} aria-selected={kind===item.value} onClick={()=>changeKind(item.value)} onKeyDown={event=>{
       const next=event.key==='ArrowRight'?(index+1)%aiPhotoKinds.length:event.key==='ArrowLeft'?(index+aiPhotoKinds.length-1)%aiPhotoKinds.length:event.key==='Home'?0:event.key==='End'?aiPhotoKinds.length-1:null;
       if(next===null)return;event.preventDefault();changeKind(aiPhotoKinds[next].value);event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
@@ -87,18 +97,16 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
      {kind==='outfit'&&cosplayOpen?<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.wardrobe}>
       <div className={s.wardrobeHeading}><h3>어떤 의상을 입어볼까요?</h3><button type="button" onClick={()=>setCosplayOpen(false)}>옷 직접 편집</button></div>
       <p>의상을 고른 뒤, 원본 사진에서 바꿀 옷 부분을 칠해 주세요.</p>
-      <div className={s.costumeGrid} aria-label="코스프레 의상">{aiPhotoCostumes.map(costume=><button type="button" key={costume.id} className={s.costumeCard} aria-label={costume.name} aria-pressed={prompt===costume.prompt} disabled={busy} onClick={()=>pickPreset(costume.prompt)}><span className={s.costumeImage}><Image src={`/brand/ai-photo/costumes/${costume.id}-v1.webp`} alt="" width={240} height={240} sizes="(max-width:767px) 45vw, 280px"/>{prompt===costume.prompt&&<span className={s.costumeSelected} aria-hidden="true">✓</span>}</span><strong>{costume.name}</strong><small>{costume.detail}</small></button>)}</div>
+      {inputFirst&&<div className={s.selectedCostume}><span>선택한 의상</span><strong>{selectedCostume?.name||'직접 입력 · 수정'}</strong></div>}
+      <AiPhotoWardrobe view={costumeView} prompt={prompt} disabled={busy} onPick={pickPreset}/>
       <p className={s.costumeNote}>의상 이미지는 스타일 예시예요. 사진 구도와 칠한 범위에 따라 결과가 달라질 수 있어요.</p>
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
       <div className={s.presetHeading}><span>예시를 누르면 입력창에 담겨요.</span><span aria-live="polite">{preset.index+1} / {preset.pages}</span></div>
       {preset.examples.map(example=><button type="button" key={example} className={s.preset} aria-pressed={prompt===example} onClick={()=>pickPreset(example)} disabled={busy}><span>{example}</span><span className={s.presetCheck} aria-hidden="true">{prompt===example?'✓':''}</span></button>)}
       <button type="button" className={s.morePresets} onClick={()=>setPresetPages(previous=>({...previous,[kind]:(preset.index+1)%preset.pages}))} disabled={busy}>다른 예시 보기 <span aria-hidden="true">↻</span></button>
      </div>}
-    <div className={s.composer}>
-     <TextAreaField label="직접 입력 · 수정" rows={2} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={prompt} onChange={event=>setPrompt(event.target.value)} placeholder={kindInfo.placeholder} disabled={busy}/>
-     {undo?.kind===kind&&<button className={s.undoPreset} type="button" onClick={()=>setPrompt(undo.prompt)}>예시 적용 취소</button>}
+    {!inputFirst&&composer}
      <div className={s.consent}><Checkbox checked={consent} onChange={value=>{setConsent(value);setError('');}} disabled={busy} label="사진 속 인물은 나 자신이거나 사용 동의를 받았어요."/></div>
-    </div>
      <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>나체·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
     </div>:<div className={s.results} aria-busy={busy}>
      <div className={s.summary}>

@@ -1,3 +1,8 @@
+## 2026-11-13 의상 옷장 보기 5종 구현·운영 배포 진행
+- 사용자 지시: 시안 모든 형식을 구현하고 보기 선택을 제공하여 운영 배포. origin/prod6789f6a에서 feat/cosplay-view-modes-20261113 분기. 카드/목록/의상 크게/모아 보기/입력 우선, 기본카드. SelectField로 전환하며 문구·마스크·동의·남은횟수 보존, 새로고침 영구저장은 범위에 없음.
+- 합격 조건: 각 형식 의상8종 선택·직접수정·취소·mask/cosplay/1장 요청 동일, 캐러셀 이전/다음 순환은 초안을 바꾸지 않음. 입력 우선은 입력창이 옷장보다 앞, 나머지 옷장 뒤. 만들기만 고정. 모바일320/390와PC 넘침·선택·실제canvas/목업 결과 검증, 타입·계층·빌드·단위검사, dev→prod→프론트 운영 교체·외부복구 검증·운영 브라우저 확인. 서버/DB 변경 없음, 실공급사 생성품질은 별도.
+- 로컬 검증 완료: 단위18/18·typecheck·check:layers452·CREFANS_E2E=true npm run build 종료0. 보기변경을 카드에 고정한 대조검사에서는 신규검사 실패, 복원 후18통과. CUA Chrome320/390/1280에서5형식 모두 가로넘침0·본문426/702/648px·고정버튼1개, 문구·동의·실제칠한canvas 보존. 형식마다 목업결과1장 생성·설정복귀 확인. 기존 문서 Generated contracts stale는 미해결. 다음 dev→prod통합·운영배포·운영검증. 증거 .local/cosplay-view-modes-20261113/{unit.log,types.log,layers.log,build.log,negative-view.log,browser-local.json,local-*.png}. 캐러셀 접근성 근거와 적용 판단은 docs/design-system.md에 기록.
+
 ## 2026-11-13 코스어 의상 선택·폴리싱 5안 완료 (운영 미배포)
 - 기능 611501e를 dev→prod1639d03에 반영. 의상8종 선택→문구 직접수정→영역칠하기→1장 생성 연결. 오프숄더·크롭·짧은 치마·비치 투피스 포함. 본문 스크롤/만들기 버튼만 고정 유지. 운영은 front-ai-options-clean-20261113 그대로이며 이번 기능은 배포하지 않음.
 - 단위16/16·typecheck·check:layers451·CREFANS_E2E=true npm run build 종료0, git diff --check 통과. 8개 프리셋의 기존 서버 입력검사 통과. 기존 Generated contracts stale는 미해결. 실제 공급사 생성물/얼굴 보존 품질·실물기기는 미검증.

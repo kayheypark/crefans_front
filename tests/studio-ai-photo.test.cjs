@@ -194,3 +194,39 @@ test('cosplay wardrobe keeps the outfit mask gate and submits cosplay style only
  maskCalls=[];await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'outfit');assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(maskCalls.length,1);assert.equal(maskCalls[0][0],photo.url);assert.match(calls[0].prompt,/크롭톱/);
  await click('설정 수정');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());await act(async()=>r.root.findByProps({'aria-label':'직접 입력 · 수정'}).props.onChange({target:{value:'밝게 웃어줘'}}));await click('1장 만들기');assert.equal(calls[1].style,'photo');assert.equal(calls[1].mask,undefined);
 });
+
+test('wardrobe views: all five forms keep drafts, mask and consent and submit the same one-image request',async()=>{
+ const {costumeViews}=loadTypeScript('components/crefans/studio/AiPhotoWardrobe.tsx');assert.equal(costumeViews.length,5);
+ const {r,click,calls}=await open();await click('나를 코스어로 만들기');await click('아이돌 무대복');
+ const field=()=>r.root.findByProps({'aria-label':'직접 입력 · 수정'});
+ const draft=field().props.value+' 배경도 그대로 유지해줘.';
+ await act(async()=>field().props.onChange({target:{value:draft}}));
+ const strokes=[{size:.06,points:[{x:.5,y:.6}]}];
+ await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange(strokes));
+ await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));
+ for(const [i,view] of costumeViews.entries()){
+  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange(view.value));
+  assert.equal(r.root.findAllByProps({'data-costume-view':view.value}).length,1);
+  assert.equal(field().props.value,draft);assert.equal(r.root.findAllByType('textarea').length,1);
+  assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
+  assert.equal(calls.length,i,'switching views never generates');
+  const controls=r.root.findByProps({className:'controls'}),composer=controls.findByProps({className:'composer'}),wardrobe=controls.findByProps({className:'wardrobe'});
+  assert.equal(controls.children.indexOf(composer)<controls.children.indexOf(wardrobe),view.value==='composer');
+  assert.equal(r.root.findByProps({className:'footer'}).findAllByType('button').length,1);
+  await click('1장 만들기');assert.equal(calls.length,i+1);assert.equal(calls[i].prompt,draft);assert.equal(calls[i].mask,paintedMask);assert.equal(calls[i].style,'cosplay');
+  assert.equal(r.root.findAllByProps({'aria-label':'결과 1'}).length,1);assert.equal(r.root.findAllByProps({'aria-label':'결과 2'}).length,0);
+  await click('설정 수정');assert.equal(r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.value,view.value);
+ }
+});
+
+test('wardrobe carousel: browsing does not replace a draft, wraps around, and applies only when picked',async()=>{
+ const {r,click,calls}=await open();await click('나를 코스어로 만들기');
+ await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange('carousel'));
+ const field=()=>r.root.findByProps({'aria-label':'직접 입력 · 수정'});
+ await act(async()=>field().props.onChange({target:{value:'내 의상 요청'}}));
+ await act(async()=>r.root.findByProps({'aria-label':'이전 의상'}).props.onClick());assert.match(text(r.root.findByProps({className:'showcaseCaption'})),/비치 투피스8 \/ 8/);assert.equal(field().props.value,'내 의상 요청');
+ await act(async()=>r.root.findByProps({'aria-label':'다음 의상'}).props.onClick());assert.match(text(r.root.findByProps({className:'showcaseCaption'})),/리본 메이드1 \/ 8/);
+ await click('이 의상 선택');assert.match(field().props.value,/메이드/);assert.equal(calls.length,0);
+ await act(async()=>r.root.findByProps({'aria-label':'비치 투피스'}).props.onClick());assert.match(field().props.value,/수영복/);assert.equal(r.root.findByProps({'aria-label':'비치 투피스'}).props['aria-current'],'true');
+ await click('예시 적용 취소');assert.match(field().props.value,/메이드/);assert.equal(calls.length,0);
+});
