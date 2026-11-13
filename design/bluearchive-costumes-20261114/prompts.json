@@ -1,0 +1,31 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "https://bluearchive.jp/character",
+  "checked": "2026-11-14",
+  "looks": [
+    {
+      "id": "blue-shiroko",
+      "name": "시로코 교복",
+      "look": "Shiroko Sunaookami from Blue Archive, standard outfit: navy blazer, opaque white collared shirt, blue tie, charcoal pleated knee-length skirt, long light-blue scarf, navy socks and brown loafers. Short silver-gray bob wig with gray wolf-ear costume headband, sky-blue ring halo costume prop on a thin display support, dark shoulder satchel. No firearm.",
+      "prompt": "Use case: product-mockup. One square photorealistic cosplay costume catalog photograph. Display a complete outfit on a faceless ivory adult-size retail mannequin, not a human character. Full outfit head to shoes visible, centered with padding, warm pale beige studio backdrop, soft even light, realistic fabric. Costume: Shiroko Sunaookami from Blue Archive, standard outfit: navy blazer, opaque white collared shirt, blue tie, charcoal pleated knee-length skirt, long light-blue scarf, navy socks and brown loafers. Short silver-gray bob wig with gray wolf-ear costume headband, sky-blue ring halo costume prop on a thin display support, dark shoulder satchel. No firearm. Include wig, headwear, accessories and footwear. Neutral straight standing display. Modest opaque fully covered clothes, knee-length skirt, no cleavage, no exposed midriff, no underwear, no sexual styling. No human face, no text, watermark, logos, collage or panels. One mannequin only."
+    },
+    {
+      "id": "blue-hoshino",
+      "name": "호시노 교복",
+      "look": "Hoshino Takanashi from Blue Archive, standard outfit: opaque white short-sleeved collared shirt, blue striped tie, navy pleated knee-length skirt, dark socks and white/navy sneakers. Long pastel pink wig with side bangs and small cowlick, simple pink ring halo costume prop on a thin display support, dark tactical shoulder bag with small pouches. No firearm.",
+      "prompt": "Use case: product-mockup. One square photorealistic cosplay costume catalog photograph. Display a complete outfit on a faceless ivory adult-size retail mannequin, not a human character. Full outfit head to shoes visible, centered with padding, warm pale beige studio backdrop, soft even light, realistic fabric. Costume: Hoshino Takanashi from Blue Archive, standard outfit: opaque white short-sleeved collared shirt, blue striped tie, navy pleated knee-length skirt, dark socks and white/navy sneakers. Long pastel pink wig with side bangs and small cowlick, simple pink ring halo costume prop on a thin display support, dark tactical shoulder bag with small pouches. No firearm. Include wig, headwear, accessories and footwear. Neutral straight standing display. Modest opaque fully covered clothes, knee-length skirt, no cleavage, no exposed midriff, no underwear, no sexual styling. No human face, no text, watermark, logos, collage or panels. One mannequin only."
+    },
+    {
+      "id": "blue-yuuka",
+      "name": "유우카 교복",
+      "look": "Yuuka Hayase from Blue Archive, standard outfit: navy and white Millennium school blazer with blue trim, opaque white shirt with blue neck ribbon, navy pleated knee-length skirt, opaque black tights and brown loafers. Long deep purple twin-tail wig tied with blue ribbons, angular blue halo costume prop on a thin display support, small black shoulder bag and a handheld calculator. No firearm.",
+      "prompt": "Use case: product-mockup. One square photorealistic cosplay costume catalog photograph. Display a complete outfit on a faceless ivory adult-size retail mannequin, not a human character. Full outfit head to shoes visible, centered with padding, warm pale beige studio backdrop, soft even light, realistic fabric. Costume: Yuuka Hayase from Blue Archive, standard outfit: navy and white Millennium school blazer with blue trim, opaque white shirt with blue neck ribbon, navy pleated knee-length skirt, opaque black tights and brown loafers. Long deep purple twin-tail wig tied with blue ribbons, angular blue halo costume prop on a thin display support, small black shoulder bag and a handheld calculator. No firearm. Include wig, headwear, accessories and footwear. Neutral straight standing display. Modest opaque fully covered clothes, knee-length skirt, no cleavage, no exposed midriff, no underwear, no sexual styling. No human face, no text, watermark, logos, collage or panels. One mannequin only."
+    },
+    {
+      "id": "blue-aris",
+      "name": "아리스 교복",
+      "look": "Aris Tendou from Blue Archive, standard outfit: loose white and navy sailor blouse with blue collar and blue necktie, opaque fabric, navy pleated knee-length skirt, dark knee socks and blue-and-white sneakers. Very long dark navy straight wig with blunt bangs, small blue geometric hair clips and blue geometric halo costume prop on a thin display support, small dark backpack and handheld game console. No firearm.",
+      "prompt": "Use case: product-mockup. One square photorealistic cosplay costume catalog photograph. Display a complete outfit on a faceless ivory adult-size retail mannequin, not a human character. Full outfit head to shoes visible, centered with padding, warm pale beige studio backdrop, soft even light, realistic fabric. Costume: Aris Tendou from Blue Archive, standard outfit: loose white and navy sailor blouse with blue collar and blue necktie, opaque fabric, navy pleated knee-length skirt, dark knee socks and blue-and-white sneakers. Very long dark navy straight wig with blunt bangs, small blue geometric hair clips and blue geometric halo costume prop on a thin display support, small dark backpack and handheld game console. No firearm. Include wig, headwear, accessories and footwear. Neutral straight standing display. Modest opaque fully covered clothes, knee-length skirt, no cleavage, no exposed midriff, no underwear, no sexual styling. No human face, no text, watermark, logos, collage or panels. One mannequin only."
+    }
+  ]
+}

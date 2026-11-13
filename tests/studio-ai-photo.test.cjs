@@ -213,15 +213,15 @@ test('mask icon tools: all brush sizes paint correctly, undo removes one stroke,
  await act(async()=>r.update(el(AiPhotoMask,{src:photo.url,alt:'원본',strokes:[],onChange(){},disabled:true})));assert.ok(r.root.findAllByType('button').every(b=>b.props.disabled));
 });
 
-test('costume categories: eight populated groups, existing eight general styles, and 28 unique short prompts',()=>{
+test('costume categories: nine populated groups, existing eight general styles, and 32 unique short prompts',()=>{
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumeCategories.length,8);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,4,4,4,4,4,4,4]);
+ assert.equal(aiPhotoCostumeCategories.length,9);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,4,4,4,4,4,4,4,4]);
  assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['maid','sailor','gothic','mage','cyber','idol','cheer','beach']);
- assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,36);
+ assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,40);
  for(const c of aiPhotoCostumes){assert.ok(aiPhotoCostumeCategories.some(g=>g.value===c.category));assert.ok(c.prompt.length<=300);assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');}
 });
 
-test('category filters: all eight use cards without losing request or mask',async()=>{
+test('category filters: all nine use cards without losing request or mask',async()=>{
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
  const {r,click,calls}=await open();await click('코스어 모드');
  const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}),category=()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리');
@@ -262,8 +262,8 @@ test('generated image editing: uses generated source, resets final request and m
  await click('사진 결정');assert.equal(added[0].id,'made-2');assert.equal(photo.id,'p1');
 });
 
-test('category logos: all eight options provide local images and do not alter category labels or prompts',async()=>{
- const fs=require('fs');const {r,click}=await open();await click('코스어 모드');const picker=r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리');assert.equal(picker.props.options.length,8);
+test('category logos: all nine options provide local images and do not alter category labels or prompts',async()=>{
+ const fs=require('fs');const {r,click}=await open();await click('코스어 모드');const picker=r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리');assert.equal(picker.props.options.length,9);
  for(const option of picker.props.options){assert.ok(option.image.startsWith('/brand/ai-photo/'));assert.ok(fs.existsSync(require('path').join(__dirname,'../public',option.image)));}
  const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');const sample=aiPhotoCostumes.find(c=>c.category==='nikke');assert.ok(!rules.aiPhotoPresetText(sample.prompt).includes('배경은 그대로 유지'));assert.ok(sample.prompt.includes(sample.wig));assert.ok(sample.prompt.includes(sample.accessories));
 });
@@ -343,7 +343,7 @@ test('reset ticket: button refills the count, is off when unused, hidden without
 
 test('complete cosplay look: catalog hair and accessories reach the request after leaving the wardrobe',async()=>{
  const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumes.length,36);
+ assert.equal(aiPhotoCostumes.length,40);
  for(const item of aiPhotoCostumes){assert.match(item.wig,/가발/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
  const {r,calls,click}=await open();await click('코스어 모드');await click('리본 메이드');
  assert.doesNotMatch(text(r.toJSON()),/옷을 바꿀 영역을 칠해 주세요/);await click('일반 모드');
