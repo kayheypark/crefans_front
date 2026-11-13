@@ -1,4 +1,4 @@
-## 2026-11-13 AI 사진 보관형 리셋권 스튜디오 버튼 — feat/ai-photo-reset-tickets, 커밋·미배포
+## 2026-11-13 AI 사진 보관형 리셋권 스튜디오 버튼 — 운영 배포 완료(2026-11-13 16:4x KST)
 - AI 사진 편집 창 횟수 줄에 '리셋권 n장 · M.D. 만료 · 1장 써서 횟수 채우기'. 리셋권이 없으면 숨김, 오늘 사용 0회면 비활성, 성공 시 남은 횟수 갱신·안내 문구. 서버 `POST /studio/ai-photo/reset-ticket`(useStudioModel), 목업·디자인 시스템 '한도 소진 + 리셋권' 상태 추가.
 - 검증: tsc 0, studio-ai-photo 33/33(신규 1, 비활성 조건 제거 대조 실패 확인), 전체 637 중 실패 16(기존 기준선 16 동일). 디자인 시스템 목업에서 데스크톱·모바일 375(가로 넘침 없음) 클릭 동작 확인.
 ## 2026-11-13 무표정 기본 선택 운영 반영 완료
@@ -8,6 +8,7 @@
 - 검증 제한: 운영 생성·게시물 추가·재개방 묶음은 자동 승인 검토가 운영 데이터 변경 가능성/명시적 승인 부재로 거절하여 실행하지 않았다. 우회하지 않고 해당 흐름은 컴포넌트 검사로 확인하고 운영에서는 생성/추가 없는 화면 확인만 수행했다. 브라우저 문서 선행확인 누락 거절은 rewriteDocumentation 이행 후 정상 검증했다. 실AI 호출/실기기 검증 아님.
 - dev→prod 통합·두 차례 운영 빌드/교체/HTTP·기존서비스/설정 보존 통과. 마지막v2자산 SHA도 검토본과 일치. /Users/ethan/crefans-recovery/20261113/{front-neutral-expression-20261113,front-neutral-expression-v2-20261113} 에직전이미지·설정 보관, SHA/OCI각15blobs/태그ID/설정 검증 후 서버직전태그/이번임시본만정리. 기존로컬복구본삭제없음.
 - 증거 .local/ai-neutral-expression-20261113/{verification.json,unit.log,types.log,layers.log,negative-default.log,new-draft-before.log,assets.json,prompts.json,legacy-paths.json,browser-local.json,browser-production.json,production-mobile.png,image-content-v2.log,dry-run-v2.log,ship-v2.log,docs.log}. 전체 문서검사는 기존 Generated contracts stale 잔존, 관련 AGENTS/디자인 문서 동기화. 현재 구현·배포 요청 완료.
+- 배포: crefans_server PROGRESS 2026-11-13 리셋권 항목 참조(맥북 빌드 이미지, 운영 반영 확인). 미확인: 운영 로그인 후 실제 조작.
 
 - 후속 확인: 게시물에 결과 추가 후 표정 탭 그대로 새 초안이 열릴 때도 무표정을 복원하도록 보완한다. 재현검사 new-draft-before.log에서 기본이 false인 실패를 확인했고 기본 선택 복원으로 수정 중. 최초 배포 후 최종 v2로 반영한다.
 
