@@ -1,3 +1,12 @@
+## 2026-11-13 댓글 표시 수정 검증
+- 날짜/기존 KST/좋아요 단위4개, 댓글 본인수정삭제·피드/상세좋아요·신고메뉴 연결3개 통과. 타입/계층451·diff --check 통과. CUA Chrome320×568: 가로넘침0, 일반댓글 시간/하트/답글 동일 줄. 390×844: 오른쪽 위 메뉴·신고창 연결·Escape/바깥 클릭닫기 확인. 실제 신고 접수는 하지 않음.
+- 증거 .local/comment-time-menu-20261113/{unit.log,social.log,types.log,layers.log,browser.json,mobile-320.png,mobile-390.png}. 다음 dev→prod·프론트 운영이미지 배포, 원래 API/worker/DB/설정 유지.
+
+## 2026-11-13 댓글 상대시간·신고 더보기 수정 진행
+- 사용자 모바일 캡처: 긴 절대날짜+신고가 두 줄로 밀림. 합격 조건: 댓글/답글 ISO→방금/n분/n시간/n일 전, 전체 KST 날짜 title 보존, 신고는 작성자 헤더 오른쪽44px 더보기에만 표시, 클릭/키보드/바깥닫기·기존 신고 모달 유지. 본인 수정삭제/읽기전용/삭제 자리표시는 유지.
+- origin/prod9f07045에서 feat/comment-time-menu-20261113. 공용 CommentRow만 변경하여 피드·상세·답글 동기화. 상대시간은 다른 메시지/알림 날짜에 영향 없음. 다음: 관련 단위·모바일390/320·키보드 확인, dev→prod 후 프론트만 배포·복구 검증. 서버 변경 없음. 증거 .local/comment-time-menu-20261113/.
+- 메뉴 기준: W3C APG https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/ (2026-11-13 확인), button aria-haspopup/expanded·menu/menuitem·열림시포커스/Escape복귀 적용. 운영 실계정 신고 제출은 하지 않음.
+
 ## 2026-11-13 09:55 KST 알록달록 아이콘·사진 편집·댓글 좋아요 운영 배포 완료
 - 사용자 “배포” 승인. 아이콘 feature251e923→dev/prod71a6cc6. 공용 AiPhotoCategoryIcon은 검색 카테고리와 같은 colorful-flat-v3 PNG5종을 사용(512px 원본, PC26px/모바일24px). 사진편집9안/프리셋60문구·댓글/답글 하트도 포함.
 - 운영 frontend front-mypage-menu-20261113→front-colorful-comments-20261113. linux/amd64 build0·revision71a6cc6·카카오키 번들검사·레이어 일치·정적/최적화이미지/리다이렉트 확인. 프론트16개·typecheck·계층451 통과. Docker 인증도우미 멈춤은 별도 auth없는 CLI설정, macOS shasum locale은 LC_ALL=C로 해결 후 dry-run/실행0.

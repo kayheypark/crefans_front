@@ -6,6 +6,8 @@
 
 ## 현재 사용 안내
 
+- 2026-11-13 공용 댓글/답글은 ISO 날짜를 방금/n분/n시간/n일 전으로 표시하고 원래 KST 날짜를 `time`의 title에 보존한다. 신고는 오른쪽 위 44px 더보기 버튼 안에서 열며 기존 신고 모달·권한을 유지한다. [W3C 메뉴 버튼](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/) 기준 aria-haspopup/expanded, 열림 시 항목 포커스, Escape 복귀와 바깥 클릭/포커스 이탈 닫기를 적용했다(2026-11-13 확인).
+
 - 2026-11-13 AI 사진 편집의 5분류 그림은 [AiPhotoCategoryIcon](../components/crefans/studio/AiPhotoCategoryIcon.tsx)에서 `public/brand/ai-photo/*-colorful-flat-v3.png`를 사용한다. 검색 카테고리와 같은 둥근 플랫 스타일의 다양한 색상이며 공용 모달의 실제/미리보기 모두 사용한다. 텍스트 라벨이 이름을 제공하고 그림 alt는 비운다.
 
 ### 크리에이터 전환 가드 (2026-11-07)

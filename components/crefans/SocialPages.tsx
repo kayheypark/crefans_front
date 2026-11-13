@@ -1,6 +1,6 @@
 'use client';
 import {usePostExposure} from '@/features/post-views/usePostExposure';
-import {displayTime} from '@/lib/crefans/display-time';
+import {displayTime,displayRelativeTime} from '@/lib/crefans/display-time';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {TipButton} from './BeanPages';
@@ -271,6 +271,14 @@ function CommentItem({comment,postId,loadReplies,readOnly,onEdit,onDelete,onRepl
     {replying?.toReply&&replyForm}
   </div>;
 }
+function CommentReportMenu({name,onReport}:{name:string;onReport:()=>void}){
+ const [open,setOpen]=useState(false),root=useRef<HTMLDivElement>(null),trigger=useRef<HTMLButtonElement>(null),item=useRef<HTMLButtonElement>(null),id=useId();
+ useEffect(()=>{if(!open||typeof document==='undefined')return;item.current?.focus();const outside=(event:PointerEvent)=>{if(!root.current?.contains(event.target as Node))setOpen(false);};document.addEventListener('pointerdown',outside,true);return()=>document.removeEventListener('pointerdown',outside,true);},[open]);
+ return <div ref={root} className={`${s.menuRoot} ${s.commentMenu}`} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget as Node))setOpen(false);}} onKeyDown={event=>{if(event.key==='Escape'){event.stopPropagation();setOpen(false);trigger.current?.focus();}}}>
+  <button ref={trigger} type="button" className={s.more} aria-label={`${name}님 댓글 더보기`} aria-haspopup="menu" aria-expanded={open} aria-controls={open?id:undefined} onClick={()=>setOpen(value=>!value)}>···</button>
+  {open&&<div id={id} className={s.menu} role="menu" aria-label="댓글 메뉴"><button ref={item} type="button" role="menuitem" aria-label={`${name}님 댓글 신고`} onClick={()=>{setOpen(false);trigger.current?.focus();onReport();}}>신고</button></div>}
+ </div>;
+}
 /** One comment or reply; the post author's own rows are tinted and badged "작성자" at every depth (anyone who posts, not only creators). */
 /** The viewer's own rows offer 수정·삭제; edited rows say "수정됨"; a deleted comment kept for its replies reads "삭제된 댓글입니다." */
 function CommentRow({comment,size,readOnly=false,onEdit,onDelete,extra}:{comment:SocialReply;size:number;readOnly?:boolean;extra?:ReactNode}&CommentActions){
@@ -281,9 +289,9 @@ function CommentRow({comment,size,readOnly=false,onEdit,onDelete,extra}:{comment
   async function run(task:()=>Promise<SocialActionResult>,done:()=>void){if(busy)return;setBusy(true);setError('');try{const r=await task();if(r.success)done();else setError(r.errorMessage);}catch{setError('처리하지 못했어요. 다시 시도해 주세요.');}finally{setBusy(false);}}
   const canChange=comment.own&&!readOnly&&!!onEdit&&!!onDelete,canReport=!comment.own&&!readOnly&&!!onReport;
   async function report(){if(busy||!reason||!onReport)return;setBusy(true);try{const r=await onReport(comment.id,reason);setFeedback(r.success?r.data.message:r.errorMessage);}catch{setFeedback('신고를 접수하지 못했어요. 다시 시도해 주세요.');}finally{setBusy(false);setReporting(false);setReason('');}}
-  return <div className={s.comment} data-creator={comment.fromCreator||undefined}><Avatar creator={comment.author} size={size}/><div><strong><CreatorName person={comment.author}/>{comment.fromCreator&&<span className={s.creatorBadge}>작성자</span>}</strong>
+  return <div className={s.comment} data-creator={comment.fromCreator||undefined}><Avatar creator={comment.author} size={size}/><div className={s.commentContent}><div className={s.commentHeader}><strong><CreatorName person={comment.author}/>{comment.fromCreator&&<span className={s.creatorBadge}>작성자</span>}</strong>{canReport&&!editing&&<CommentReportMenu name={comment.author.name} onReport={()=>setReporting(true)}/>}</div>
     {editing?<form className={s.commentEdit} onSubmit={event=>{event.preventDefault();const body=draft.trim();if(!body){setError('댓글 내용을 입력해 주세요.');return;}void run(()=>onEdit!(comment.id,body),()=>setEditing(false));}}><div className={s.mentionField}><textarea ref={editMention.ref} {...editMention.fieldProps} aria-label="댓글 수정" value={draft} maxLength={1000} disabled={busy} onChange={editMention.change}/>{editMention.list}</div><div className={s.commentEditActions}><Action type="button" variant="secondary" disabled={busy} onClick={()=>{setEditing(false);setDraft(comment.body);setError('');}}>취소</Action><Action type="submit" disabled={busy||!draft.trim()}>{busy?'저장 중…':'저장'}</Action></div></form>:<CommentBody body={comment.body} mentions={comment.mentions}/>}
-    <small>{displayTime(comment.time)}{comment.edited&&<span className={s.editedMark}> · 수정됨</span>}{!editing&&<CommentLikeButton comment={comment} readOnly={readOnly} onLike={onLike}/>}{!editing&&extra}{canChange&&!editing&&<span className={s.commentOwnActions}><button type="button" onClick={()=>{setDraft(comment.body);setEditing(true);setError('');}}>수정</button><button type="button" onClick={()=>{setConfirming(true);setError('');}}>삭제</button></span>}{canReport&&!editing&&<span className={s.commentOwnActions}><button type="button" aria-label={`${comment.author.name}님 댓글 신고`} onClick={()=>setReporting(true)}>신고</button></span>}</small>
+    <small className={s.commentMetadata}><time dateTime={/^\d{4}-/.test(comment.time)?comment.time:undefined} title={displayTime(comment.time)}>{displayRelativeTime(comment.time)}</time>{comment.edited&&<span className={s.editedMark}> · 수정됨</span>}{!editing&&<CommentLikeButton comment={comment} readOnly={readOnly} onLike={onLike}/>}{!editing&&extra}{canChange&&!editing&&<span className={s.commentOwnActions}><button type="button" onClick={()=>{setDraft(comment.body);setEditing(true);setError('');}}>수정</button><button type="button" onClick={()=>{setConfirming(true);setError('');}}>삭제</button></span>}</small>
     {error&&<p className={s.error} role="alert">{error}</p>}
     <Toast message={feedback} onClose={()=>setFeedback('')}/>
     {canReport&&<Dialog open={reporting} onClose={()=>{if(!busy)setReporting(false);}} title="댓글을 신고할까요?"><p className={s.dialogCopy}>운영팀이 검토해 필요하면 댓글을 숨깁니다. 신고한 사람은 작성자에게 공개되지 않습니다.</p><fieldset className={s.reportReasons}><legend>신고 사유</legend>{reportReasons.map(option=><Radio key={option.value} name={`report-comment-${comment.id}`} label={option.label} checked={reason===option.value} disabled={busy} onChange={()=>setReason(option.value)}/>)}</fieldset><DialogActions style={{marginTop:16}}><Action variant="secondary" disabled={busy} onClick={()=>setReporting(false)}>취소</Action><Action variant="danger" disabled={busy||!reason} onClick={()=>void report()}>{busy?'접수 중...':'신고하기'}</Action></DialogActions></Dialog>}

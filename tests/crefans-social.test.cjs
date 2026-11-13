@@ -739,3 +739,20 @@ test('comment likes are wired on both feed and detail, including replies, and de
   buttons=tree.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='댓글 좋아요');assert.equal(buttons.length,1);await act(async()=>buttons[0].props.onClick());assert.deepEqual(calls[1],[open.id,'reply-like',true]);close(tree);
  }
 });
+
+test('comment report is in the top menu for comments and replies while relative times preserve the full timestamp',async()=>{
+ const open={...post,requiredRank:0},time=new Date(Date.now()-5*60000).toISOString(),reports=[];
+ const input=model({data:{...data,posts:[open]},commentsByPost:{[open.id]:[{id:'compact',author:creator,body:'긴 날짜 댓글',time,replyCount:1}]},commentCounts:{[open.id]:1},reportComment:async(...a)=>{reports.push(a);return ok;},loadReplies:async()=>({...ok,data:[{id:'compact-reply',author:creator,body:'답글',time} ]})});
+ const tree=mount(PostDetailPage,{id:open.id,model:input});
+ const times=()=>tree.root.findAllByType('time').filter(n=>n.props.dateTime===time);
+ assert.equal(times().length,1);assert.equal(times()[0].children.join(''),'5분 전');assert.ok(times()[0].props.title.includes('2026'));
+ const triggers=()=>tree.root.findAllByType('button').filter(n=>n.props['aria-label']===`${creator.name}님 댓글 더보기`);
+ assert.equal(triggers().length,1);assert.equal(tree.root.findAllByProps({role:'menuitem'}).length,0);
+ act(()=>triggers()[0].props.onClick());assert.equal(triggers()[0].props['aria-expanded'],true);
+ let menu=tree.root.findByProps({'aria-label':'댓글 메뉴'});assert.equal(menu.findByProps({role:'menuitem'}).children.join(''),'신고');
+ act(()=>menu.findByProps({role:'menuitem'}).props.onClick());assert.equal(triggers()[0].props['aria-expanded'],false);assert.match(JSON.stringify(tree.toJSON()),/신고 사유/);assert.equal(reports.length,0,'opening the dialog does not submit a report');
+ act(()=>tree.root.findAllByType('button').find(n=>n.children.join('')==='취소').props.onClick());
+ await act(async()=>tree.root.findAllByType('button').find(n=>n.children.join('')==='답글 1개 보기').props.onClick());assert.equal(triggers().length,2);assert.equal(times().length,2);
+ act(()=>triggers()[1].props.onClick());menu=tree.root.findByProps({'aria-label':'댓글 메뉴'});const root=tree.root.findAllByType('div').find(n=>typeof n.props.onKeyDown==='function'&&n.props.className==='menuRoot commentMenu'&&n.findAllByProps({role:'menu'}).length);act(()=>root.props.onKeyDown({key:'Escape',stopPropagation(){}}));assert.equal(triggers()[1].props['aria-expanded'],false);close(tree);
+ const readOnly=mount(PostDetailPage,{id:open.id,model:input,readOnly:true});assert.equal(readOnly.root.findAllByType('button').filter(n=>(n.props['aria-label']||'').endsWith('댓글 더보기')).length,0);close(readOnly);
+});
