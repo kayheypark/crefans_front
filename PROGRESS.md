@@ -1,3 +1,8 @@
+## 2026-11-13 AI 동의 체크박스 제거 운영 완료
+- 운영 프론트 `crefans-front:front-ai-no-checkbox-20261113`, 소스 `9439b2432d117700a14205af798858428144c9e2`. 별도 동의 체크 제거, 만들기 동작에 연결된 짧은 권한 확인 안내. API/서버 변경 없음.
+- 38/38 기능·타입·계층 통과. 11:21:56 UTC 배포 종료 0, feed/landing/terms/API health/static/image 200·redirect 301. 실기기/실제 생성 미검증.
+- `/Users/ethan/crefans-recovery/20261113/front-ai-no-checkbox-20261113` SHA·OCI 15 blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료만 정리. 기존 로컬 복구본 보존. 증거 `.local/ai-no-checkbox-20261113/verification.json` 및 `ship.log`.
+
 ## 2026-11-13 AI 체크박스 제거 로컬 검증 완료
 - 별도 체크박스와 상태 제거, 짧은 만들기 안내만 표시. 공용 검증/API 계약은 생성 클릭 시에만 확인을 전달. 기능 38/38·타입·계층 452 통과. 기존 테스트의 체크 동작을 제거하고 체크박스 부재/생성 전 요청 0/생성 클릭 요청 1을 검증. 실제 AI 생성 미실행. 다음 운영 프론트 배포.
 
