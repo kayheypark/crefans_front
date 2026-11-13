@@ -1,3 +1,10 @@
+## 2026-11-13 15:47 KST 커스텀 입력·선택 해제 운영 반영 완료
+- 운영 프론트 `crefans-front:front-ai-custom-prompt-20261113`, 기능 소스 afa4275. 누적 문구는 DOM에 표시하지 않고, 커스텀 프롬프트에는 사용자가 직접 입력한 내용만 표시한다. 선택 프리셋·성별·직접 입력은 생성 직전에 내부 합성한다.
+- 91개 프리셋과 의상32종/보기5종에서 재클릭 해제. 커스텀 입력과 다른 선택은 보존하며, 신체 프리셋/슬라이더의 동일 축은 동기화한다. 옷 요청이 사라지면 그 요청의 마스크 요구도 제거한다(별도 옷 직접입력이 남아 있으면 유지). 합성 총2000자·1장 생성·기존 API/안전 검사 유지. 커스텀 요청 범위는 마지막 입력 탭이며 단순 탭 탐색으로 바꾸지 않는다.
+- 기능 검사30/30·typecheck·계층452 통과. 해제를 막은 대조 변경은 true/false 불일치로 검사 실패한 뒤 원복했다. CUA 로컬: 커스텀 보존/선택 해제, 의상5보기, 신체축0 복귀, 실제 캔버스 칠하기→목업1장→설정 복원 확인.320/390/1280에서 textarea1개·누적문구 비노출·가로넘침0. 운영390에서도 의자/서코 재클릭 해제·쪼그려 선택 보존·커스텀 단독 표시 확인. 실AI 호출/실기기 검증 아님.
+- dev→prod 통합·운영 빌드/이미지/HTTP·다른 서비스ID/설정 보존 검사 통과. API/worker·사진자산 변경 없음. 직전 제목버전 이미지/설정은 /Users/ethan/crefans-recovery/20261113/front-ai-custom-prompt-20261113 로 보관, SHA/OCI15blobs/태그ID/설정 검증 후 서버 직전 태그·이번 임시본만 정리. 기존 로컬 복구본 삭제 없음.
+- 증거 .local/ai-photo-custom-prompt-20261113/{verification.json,unit.log,types.log,layers.log,negative-toggle.log,browser-local.json,browser-production.json,production-mobile.png,dry-run.log,ship.log,docs.log}. 전체 문서 검사는 기존 Generated contracts stale로 실패하며 관련 AGENTS/디자인 문서는 동기화했다. 현재 요청 완료.
+
 - 로컬 검증:30/30·typecheck·계층452 통과. 해제를 막은 대조변경은 선택해제검사 실패후원복. CUA390 프리셋/의상5보기 on→off·커스텀보존·신체축0복귀·누적문구DOM비노출, 실제캔버스칠하기→목업생성1장→설정복원 통과.320/390/1280 textarea1개·가로넘침0. docs는기존 Generated contracts stale 잔존. 다음프론트배포만, 서버/사진자산변경없음.
 
 ## 2026-11-13 커스텀 프롬프트·프리셋 선택 해제 진행
