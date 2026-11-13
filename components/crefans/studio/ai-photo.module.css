@@ -123,7 +123,7 @@
 .pinnedSource .maskStage img{max-height:clamp(100px,20dvh,180px)}
 .pinnedSource .hint{margin:4px 0}
 .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:72px;font-size:12px;box-shadow:none}
-.tabs button svg{flex:none}
+.tabs button img{flex:none;object-fit:contain}
 .presets{display:flex;flex-direction:column;gap:8px;min-width:0}
 .presetHeading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;line-height:1.5;color:var(--cf-color-textMuted)}
 .presetHeading>span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -137,5 +137,5 @@
 .composer .consent>label{font-size:12px;line-height:1.5}
 .footer .undoPreset{align-self:flex-start;min-height:28px;border:0;padding:0;background:transparent;color:var(--cf-color-accent);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}
 @media(max-width:767px){.editor:has(.composer textarea:focus) .pinnedSource{display:none}}
-@media(max-width:767px){.pinnedSource{padding:8px 16px 0}.body{padding:12px 16px}.controls{gap:12px}.footer{padding-top:8px}.quota{margin-bottom:8px}.tabs button{font-size:11px;min-height:64px}.tabs button svg{width:24px;height:24px}}
+@media(max-width:767px){.pinnedSource{padding:8px 16px 0}.body{padding:12px 16px}.controls{gap:12px}.footer{padding-top:8px}.quota{margin-bottom:8px}.tabs button{font-size:11px;min-height:64px}.tabs button img{width:24px;height:24px}}
 @media(max-height:680px){.pinnedSource .preview{height:64px}.pinnedSource .maskStage img{max-height:96px}.pinnedSource{max-height:29dvh}.sourceHeading{font-size:12px}.composer textarea{height:56px;min-height:56px}.composer{margin-bottom:6px}}

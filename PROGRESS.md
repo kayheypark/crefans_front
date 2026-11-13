@@ -1,3 +1,9 @@
+## 2026-11-13 알록달록 아이콘 적용·운영 배포 진행
+- 사용자 배포 요청. origin/prod467349c 기반 feat/ai-photo-colorful-icons-20261113에서 AI 사진편집 카테고리 공용 SVG를 채택된 colorful-flat-v3 PNG5개로 교체. PNG는 검색 카테고리 스타일, 라벨/프리셋/권한 동작 유지.
+- 합격 조건: 5개 정확한 PNG 매핑·투명도/해시, 기존 사진편집/댓글 검사 및 타입/계층·운영 이미지 빌드, dev→prod 후 API/worker와 프론트 배포. 공개 PNG 바이트·API 헬스/인증 거절·모바일 아이콘 확인. 운영 미디어 처리/기존 법률/설정 보존, 복구본 맥 외부저장·검증 후 서버 임시본 정리.
+- 현 운영 front-mypage-menu-20261113 / API media-processing-20261113. 서버는 prod5feb470의 AI종류/댓글좋아요 변경4파일만 현재 이미지에 덮어 운영 전용 변경을 보존한다. DB 스키마 변경 없음. 증거 .local/colorful-deploy-20261113/. 기존 문서 계약 stale과 소셜 실패4건은 별도.
+- 다음: 검증·브랜치 승격·API 먼저/프론트 다음 배포·운영 확인·복구검증. 이전 복구파일 삭제는 별도 승인 대상이며 이번에는 삭제하지 않는다.
+
 ## 2026-11-13 댓글 좋아요 dev→prod 통합 (운영 배포 제외)
 - 사용자 요청 범위: 댓글·답글 좋아요 추가, 기존 지시에 따라 prod까지만 머지. release/comment-likes-dev-20261113에서 feature를 no-ff 통합(0463a9f), 충돌 없음. 기능 커밋과 통합본 전체 트리 동일 확인으로 기존 빌드/검증 증거 유효. 실제 dev worktree는 변경하지 않음.
 - 프론트 버튼2/2·피드/상세/답글 연결1/1 재통과, 서버 관련22/22·양쪽 빌드 통과. 기존 소셜 실패4개 및 Generated contracts stale은 미해결로 유지. 상세 증거 ../crefans_front-comment-likes/.local/comment-likes-20261113/verification.json.
