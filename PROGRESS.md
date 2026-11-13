@@ -1,3 +1,8 @@
+## 2026-11-14 프리셋 카테고리 누적 선택 운영 완료
+- `crefans-front:front-preset-preserve-20261114`, source80531e5. 다른카테고리선택/탭전환시기존프리셋·마스크유지,같은카테고리만교체/토글해제. 옷+메이크업+표정+포즈+배경복합요청확인. 코스어만Seedream분기유지,서버변경없음.
+- 변경전회귀2실패→47/47통과·타입/계층·WebKit iPhone13왕복선택/부분해제통과. 실이미지생성미실행. check:docs 종료1(서버founding-badge/이벤트/backup-alerts등누락참조),이번기능검증통과와구분.
+- 배포완료2026-11-13 23:46:37UTC. 주요HTTP/헬스/정적자산확인,외부복구 `/Users/ethan/crefans-recovery/20261114/front-preset-preserve-20261114` SHA/OCI15blobs/설정검증후서버직전이미지·임시자료정리. 증거 `.local/ai-preset-category-preserve-20261114/verification.json`, before/unit/types/layers/browser/docs/ship.log, mobile.png.
+
 ## 2026-11-14 프리셋 누적 선택 검증 완료
 - 변경전회귀2건실패재현,수정후47/47·tsc·계층453파일·diff종료0. WebKit iPhone13에서의상+메이크업선택후탭왕복유지,메이크업재클릭해제시의상유지확인. 서버복합API변경없음. 증거 .local/ai-preset-category-preserve-20261114/{before,unit,types,layers,browser}.log 및 mobile.png.
 
