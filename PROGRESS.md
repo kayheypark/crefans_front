@@ -1,3 +1,10 @@
+## 2026-11-13 일반·코스어 모드 전환 운영 반영 완료
+- 운영프론트 crefans-front:front-ai-photo-modes-20261113,source f5e3b61. 일반/코스어두버튼과현재선택·모드별설명,중복옷직접편집버튼제거. 모드전환은선택프리셋·직접입력·동의·칠하기를유지하며 기존코디요청을임의취소하지않는다.
+- 원본미리보기/칠하기프레임공통높이clamp(160px,24dvh,240px),기본프리셋사진공통clamp(112px,18dvh,144px). 마스크사진비율·실제사진위캔버스좌표보존,목록/캐러셀별도보기크기유지.
+- 기능35/35·타입0·계층452·통합35/35. 일반전환무력화대조실패후원복. CUA320/390/1280·가로/세로원본프레임202.5547px동일·기본사진144px·가로넘침0·캔버스/사진차이<0.02px. 운영390에서도두높이일치/양방향aria-pressed true/커스텀입력보존확인. 실기기·실AI생성검증아님. 서버·공개사진자산변경없음.
+- dev→prod승격후빌드/이미지/HTTP·기존서비스와설정보존통과. 직전이미지·설정은 /Users/ethan/crefans-recovery/20261113/front-ai-photo-modes-20261113 로이전하고SHA/OCI15blobs·태그ID·설정검증후서버직전태그/이번임시본만정리. 기존로컬복구본삭제없음.
+- 증거 .local/ai-photo-mode-switch-20261113/{verification.json,unit.log,unit-integrated.log,types.log,layers.log,negative-switch.log,browser-local.json,browser-second-photo.json,browser-production.json,browser-production-toggle.json,production-mobile.png,dry-run.log,ship.log,docs.log}. 전체docs는기존quota/ticket관리라우트설명누락+Generated contracts stale실패,관련디자인문서와AGENTS갱신. 현재요청완료.
+
 ## 2026-11-13 모드 전환·사진 높이 로컬 검증 완료
 - 일반 모드/코스어 모드 두 버튼·aria-pressed·설명으로전환. 중복 옷직접편집버튼제거,선택/직접입력/동의/마스크보존. 코디를고른후일반탐색으로돌아가도기존생성요청은유지.
 - 원본프레임공통clamp160~240px,기본카드사진공통clamp112~144px. 마스크프레임중앙에실제사진비율유지,캔버스는실제사진만덮어여백의좌표오차방지. 목록/캐러셀의별도보기크기는보존.
