@@ -51,16 +51,17 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
  useEffect(()=>{if(!sources.some(item=>item.id===sourceId))setSourceId(sources[0]?.id||'');},[images,workingSources,sourceId]);
  useEffect(()=>{if(bodyRef.current)bodyRef.current.scrollTop=0;if(stage==='results')resultTitleRef.current?.focus({preventScroll:true});},[stage]);
  useEffect(()=>{if(!busy){setElapsed(0);return;}const begun=Date.now();const timer=setInterval(()=>setElapsed(Math.floor((Date.now()-begun)/1000)),1000);return()=>clearInterval(timer);},[busy]);
- const source=sources.find(item=>item.id===sourceId),kindInfo=aiPhotoKinds.find(item=>item.value===kind)!,typical=quota.typicalSeconds;
+ const source=sources.find(item=>item.id===sourceId),kindInfo=aiPhotoKinds.find(item=>item.value===(editKinds[0]||kind))!,typical=quota.typicalSeconds;
  function changeSource(id:string){setSourceId(id);setStrokes([]);setSourcePicker(false);setError('');}
  async function generate(){
   if(!source||busy)return;
-  const problem=aiPhotoProblem({prompt,consent,kind:requiresMask?'outfit':editKinds[0]||kind,hasMask:strokes.length>0,remaining});if(problem){setError(problem);return;}
+  const requestKind=editKinds[0]||(targetGender!=='original'?'pose':kind);
+  const problem=aiPhotoProblem({prompt,consent,kind:requiresMask?'outfit':requestKind,hasMask:strokes.length>0,remaining});if(problem){setError(problem);return;}
   setBusy(true);setError('');setStage('results');
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
-   const result=await onEdit({source,kind:editKinds.length>1?'combined':editKinds[0]||kind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
+   const result=await onEdit({source,kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
    if(!result.success){setError(result.errorMessage);setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));
    setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
@@ -127,7 +128,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
     </div>:<div className={s.results} aria-busy={busy}>
      <div className={s.summary}>
       {/* eslint-disable-next-line @next/next/no-img-element -- own source thumbnail */}
-      {source&&<img src={source.preview||source.url} alt=""/>}<div><strong>{editKinds.length>1?'함께 편집':`${kindInfo.label} 바꾸기`}</strong><span>{aiPhotoStyles.find(item=>item.value===style)?.label}</span></div>
+      {source&&<img src={source.preview||source.url} alt=""/>}<div><strong>{targetGender!=='original'?(editKinds.length?'함께 편집':targetGender==='female'?'여성으로 변경':'남성으로 변경'):editKinds.length>1?'함께 편집':`${kindInfo.label} 바꾸기`}</strong><span>{aiPhotoStyles.find(item=>item.value===style)?.label}</span></div>
       <button ref={editRef} type="button" onClick={()=>{setStage('edit');setError('');}} disabled={busy}>설정 수정</button>
      </div>
      <div className={s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{busy?'사진을 만들고 있어요':'만든 사진'}</h3>{!busy&&<span>{selected.length}장 선택</span>}</div>

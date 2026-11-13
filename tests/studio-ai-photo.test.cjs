@@ -337,3 +337,7 @@ test('every preset has a distinct decodable photo including Comic World, 24 pose
  for(const [kind,values] of Object.entries(aiPhotoPresets))for(const example of values){const image=aiPhotoPresetImage(kind,example);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}
  assert.equal(images.length,91);assert.equal(new Set(images).size,91);for(const value of aiPhotoPresets.lens)assert.match(value,/Canon RF.*촬영한? 느낌|Canon RF.*촬영 느낌/);
 });
+
+test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
+ const {r,click,calls}=await open();await click('나를 코스어로 만들기');await click('남성');await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.match(text(r.toJSON()),/남성으로 변경/);
+});
