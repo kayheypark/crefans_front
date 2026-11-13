@@ -136,3 +136,22 @@
 .composer .undoPreset{align-self:flex-start;min-height:28px;border:0;padding:0;background:transparent;color:var(--cf-color-accent);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}
 @media(max-width:767px){.body{padding:12px 16px}.controls{gap:12px}.footer{padding-top:8px}.quota{margin-bottom:8px}.tabs button{font-size:11px;min-height:64px}.tabs button img{width:24px;height:24px}}
 
+
+.cosplayEntry{display:flex;align-items:center;gap:12px;width:100%;padding:14px;border:1px solid var(--cf-color-accentBorder);border-radius:12px;background:var(--cf-color-accentSoft);color:var(--cf-color-text);text-align:left;font:inherit;cursor:pointer}
+.cosplayEntryIcon{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:10px;background:var(--cf-color-surface)}
+.cosplayEntry>span:nth-child(2){display:flex;flex:1;min-width:0;flex-direction:column;gap:4px}
+.cosplayEntry strong{font-size:15px}.cosplayEntry small{font-size:12px;line-height:1.5;color:var(--cf-color-textSecondary)}
+.cosplayEntry>span:last-child{font-size:24px;color:var(--cf-color-accent)}
+.wardrobe{display:flex;flex-direction:column;gap:10px;min-width:0}
+.wardrobeHeading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.wardrobeHeading h3{margin:0;font-size:16px;color:var(--cf-color-text)}
+.wardrobeHeading button{flex:none;min-height:36px;padding:4px 0;border:0;background:none;color:var(--cf-color-accent);font:inherit;font-size:12px;cursor:pointer}
+.editor .wardrobe p{margin:0;font-size:12px;line-height:1.6;color:var(--cf-color-textSecondary)}
+.costumeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.costumeCard{display:flex;flex-direction:column;align-items:stretch;gap:4px;min-width:0;padding:6px 6px 10px;border:1px solid var(--cf-color-border);border-radius:12px;background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;text-align:left;cursor:pointer}
+.costumeCard[aria-pressed=true]{border-color:var(--cf-color-accent);box-shadow:0 0 0 1px var(--cf-color-accent)}
+.costumeImage{position:relative;display:block;overflow:hidden;border-radius:8px;background:#fbf8f4;aspect-ratio:1}
+.costumeImage img{display:block;width:100%;height:100%;object-fit:contain}
+.costumeCard strong{padding:4px 4px 0;font-size:13px;line-height:1.5}.costumeCard small{padding:0 4px;font-size:11px;color:var(--cf-color-textMuted)}
+.costumeSelected{position:absolute;right:6px;top:6px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--cf-color-accent);color:white;font-size:13px}
+.editor .wardrobe .costumeNote{font-size:11px;color:var(--cf-color-textMuted)}

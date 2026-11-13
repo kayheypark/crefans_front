@@ -8,7 +8,9 @@ const el=React.createElement;
 const rules=loadTypeScript('lib/crefans/ai-photo.ts');
 const {mockAiPhotoEdit}=loadTypeScript('components/preview/studio/ai-photo-fixtures.ts');
 const dialog=props=>el('section',null,props.children);
-const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Dialog:({open,children})=>open?el('section',{role:'dialog'},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props})}});
+const paintedMask=new Blob(['painted-mask'],{type:'image/png'});
+let maskCalls=[];
+const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'./AiPhotoMask':{AiPhotoMask:props=>el('div',{'data-mask-editor':true,...props}),buildAiMask:async(...args)=>{maskCalls.push(args);return paintedMask;}},'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Dialog:({open,children})=>open?el('section',{role:'dialog'},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props})}});
 const text=node=>typeof node==='string'?node:(node?.children||[]).map(text).join('');
 const photo={id:'p1',type:'image',url:'/p1.png'};
 const base={prompt:'벚꽃 아래 앉은 포즈',consent:true,kind:'pose',hasMask:false,remaining:3};
@@ -168,4 +170,27 @@ test('single-image flow: only generate stays in footer and all editor fields scr
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));
  await click('1장 만들기');assert.equal(r.root.findAllByProps({'aria-label':'결과 1'}).length,1);assert.equal(r.root.findAllByProps({'aria-label':'결과 2'}).length,0);
  assert.equal(r.root.findAllByProps({className:'footer'}).length,0);assert.equal(r.root.findByProps({className:'body'}).findAllByProps({className:'resultActions'}).length,1);
+});
+
+test('cosplay wardrobe: opens eight outfits without generation, applies and undoes prompts, and keeps category drafts',async()=>{
+ const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(aiPhotoCostumes.length,8);assert.equal(new Set(aiPhotoCostumes.map(x=>x.id)).size,8);
+ for(const c of aiPhotoCostumes)assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');
+ assert.ok(aiPhotoCostumes.some(c=>c.id==='beach'));assert.ok(aiPhotoCostumes.some(c=>c.detail.includes('크롭')));
+ const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'직접 입력 · 수정'});
+ await act(async()=>field().props.onChange({target:{value:'내 포즈 초안'}}));await click('나를 코스어로 만들기');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,8);assert.equal(calls.length,0);
+ await click('비치 투피스');assert.equal(field().props.value,aiPhotoCostumes.find(c=>c.id==='beach').prompt);assert.equal(calls.length,0);
+ await click('예시 적용 취소');assert.equal(field().props.value,'');await click('고딕 오프숄더');
+ await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());assert.equal(field().props.value,'내 포즈 초안');
+ await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick());assert.equal(field().props.value,aiPhotoCostumes.find(c=>c.id==='gothic').prompt);
+ await click('옷 직접 편집');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,0);assert.equal(field().props.value,aiPhotoCostumes.find(c=>c.id==='gothic').prompt);
+ assert.equal(r.root.findAllByProps({'aria-label':'사진 느낌'}).length,0);assert.equal(calls.length,0);await click('나를 코스어로 만들기');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,8);await click('나를 코스어로 만들기');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,0);
+});
+
+test('cosplay wardrobe keeps the outfit mask gate and submits cosplay style only with a painted mask',async()=>{
+ const {r,click,calls}=await open();await click('나를 코스어로 만들기');await click('사이버 슈트');
+ await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));
+ await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/옷 부분을 사진 위에 칠해/);
+ await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));
+ maskCalls=[];await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'outfit');assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(maskCalls.length,1);assert.equal(maskCalls[0][0],photo.url);assert.match(calls[0].prompt,/크롭톱/);
+ await click('설정 수정');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());await act(async()=>r.root.findByProps({'aria-label':'직접 입력 · 수정'}).props.onChange({target:{value:'밝게 웃어줘'}}));await click('1장 만들기');assert.equal(calls[1].style,'photo');assert.equal(calls[1].mask,undefined);
 });
