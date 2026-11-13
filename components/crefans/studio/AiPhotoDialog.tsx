@@ -9,7 +9,7 @@ import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {Checkbox} from '@/components/ui/Choice';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoStyles,appendAiPhotoPrompt,selectedAiPhotoPresetIndex,aiPhotoBodyControls,aiPhotoBodyPrompt} from '@/lib/crefans/ai-photo';
 import {Action} from '../ServiceUI';
-import {aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoComicWorldPreset} from '@/lib/crefans/ai-photo-presets';
+import {aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoPresetTitle} from '@/lib/crefans/ai-photo-presets';
 import {AiPhotoCategoryIcon} from './AiPhotoCategoryIcon';
 import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
@@ -116,9 +116,9 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
       {kind==='body'&&<div className={s.bodyAdjustments}>{aiPhotoBodyControls.map(control=>{const value=[-2,-1,1,2].find(level=>prompt.includes(aiPhotoBodyPrompt(control.key,level)))||0;return <label key={control.key}><span>{control.label}<output>{value===0?'원본 유지':`${Math.abs(value)===1?'조금':'더'} ${control.key==='height'?(value>0?'길게':'짧게'):(value>0?'크게':'작게')}`}</output></span><input type="range" aria-label={control.label} min={-2} max={2} step={1} value={value} onChange={event=>changeBody(control.key,Number(event.target.value))} disabled={busy}/></label>;})}</div>}
       <div className={s.presetHeading}><span>예시를 누르면 최종 프롬프트에 추가돼요.</span><span aria-live="polite">{preset.index+1} / {preset.pages}</span></div>
-      <div className={s.photoPresetGrid}>{preset.examples.map(example=><button type="button" key={example} className={s.preset} title={example} aria-label={example} aria-pressed={selectedAiPhotoPresetIndex(prompt,[example])===0} onClick={()=>pickPreset(example)} disabled={busy}>
+      <div className={s.photoPresetGrid}>{preset.examples.map(example=><button type="button" key={example} className={s.preset} aria-label={aiPhotoPresetTitle(kind,example)} aria-pressed={selectedAiPhotoPresetIndex(prompt,[example])===0} onClick={()=>pickPreset(example)} disabled={busy}>
        {/* eslint-disable-next-line @next/next/no-img-element -- generated preset example photograph */}
-       <img src={aiPhotoPresetImage(kind,example)} alt="" loading="lazy"/><span>{example===aiPhotoComicWorldPreset?'서코 실내':example}</span><span className={s.presetCheck} aria-hidden="true">{selectedAiPhotoPresetIndex(prompt,[example])===0?'✓':''}</span></button>)}</div>
+       <img src={aiPhotoPresetImage(kind,example)} alt="" loading="lazy"/><span>{aiPhotoPresetTitle(kind,example)}</span><span className={s.presetCheck} aria-hidden="true">{selectedAiPhotoPresetIndex(prompt,[example])===0?'✓':''}</span></button>)}</div>
       <p className={s.hint}>{kind==='lens'?'캐논 렌즈의 촬영 느낌을 AI로 재현하는 예시예요. 실제 렌즈 촬영이나 광학 성능을 보장하지 않아요.':kind==='body'?'옷을 입은 상태에서 보이는 신체 비율을 보정해요. 실제 cm를 측정하거나 맞추는 기능은 아니에요.':'사진은 AI로 만든 예시예요. 선택한 요청을 내 사진에 적용해요.'}</p>
       <button type="button" className={s.morePresets} onClick={()=>setPresetPages(previous=>({...previous,[kind]:(preset.index+1)%preset.pages}))} disabled={busy}>다른 예시 보기 <span aria-hidden="true">↻</span></button>
      </div>}

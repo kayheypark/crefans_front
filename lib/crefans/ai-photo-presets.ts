@@ -102,3 +102,16 @@ export function aiPhotoPresetImage(kind:AiPhotoKind,example:string){
  const id=example===aiPhotoComicWorldPreset?'background-comicworld':`${kind}-${String(aiPhotoPresets[kind].filter(value=>value!==aiPhotoComicWorldPreset).indexOf(example)+1).padStart(2,'0')}`;
  return `/brand/ai-photo/presets/${id}-v1.webp`;
 }
+
+// 카드의 짧은 이름과 실제 생성 요청을 분리한다. 순서는 각 프리셋과 같다.
+export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
+ "outfit":["하늘색 상의", "리본 포인트", "화이트 셔츠", "은은한 체크", "무광 소재", "단정한 긴소매", "핑크 리본", "네이비 톤", "주름 정돈", "장식 줄이기", "포근한 니트", "차분한 색감"],
+ "makeup":["코랄 립", "생기 있는 볼", "브라운 아이", "로즈 립", "펄 줄이기", "얇은 아이라인", "자연스러운 눈썹", "피치 블러셔", "은은한 음영", "매트 립", "데일리 메이크업", "피부 톤 정돈"],
+ "expression":["환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소"],
+ "pose":["손인사", "살짝 돌아서기", "두 손 모으기", "허리에 손", "고개 기울이기", "브이", "정면 서기", "작은 손인사", "앞으로 기대기", "턱에 손", "손하트", "옆모습 시선", "의자에 앉기", "벤치에 앉기", "쪼그려 앉기", "벽에 기대 쉬기", "바닥에 앉기", "시선 밖 스냅", "걷다 돌아보기", "대화하는 스냅", "계단에 앉기", "난간에 기대기", "기지개", "산책 스냅"],
+ "background":["서코 실내", "화이트 스튜디오", "햇살 드는 창가", "그레이 스튜디오", "햇살 공원", "벚꽃길", "베이지 스튜디오", "깔끔한 실내", "카페 창가", "노을 바다", "도시 야경", "블루 스튜디오", "식물 가득 실내"],
+ "camera":["눈높이 정면", "로우 앵글", "하이 앵글", "얼굴 클로즈업", "상반신", "전신"],
+ "lens":["RF15–35mm F2.8", "RF24–70mm F2.8", "RF35mm F1.8", "RF50mm F1.8", "RF85mm F1.2", "RF70–200mm F2.8"],
+ "body":["가슴 조금 작게", "가슴 조금 크게", "힙 조금 작게", "힙 조금 크게", "키 조금 작게", "키 조금 크게"]
+};
+export function aiPhotoPresetTitle(kind:AiPhotoKind,example:string){return aiPhotoPresetTitles[kind][aiPhotoPresets[kind].indexOf(example)];}
