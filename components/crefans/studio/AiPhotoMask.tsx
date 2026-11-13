@@ -44,11 +44,11 @@ export function AiPhotoMask({src,alt,strokes,onChange,disabled}:{src:string;alt:
  function move(event:PointerEvent<HTMLCanvasElement>){const stroke=current.current;if(!stroke)return;stroke.points=[...stroke.points,point(event)];onChange([...strokes.slice(0,-1),{...stroke}]);}
  function up(){current.current=null;}
  return <div className={s.mask}>
-  <div className={s.maskStage}>
+  <div className={s.maskFrame}><div className={s.maskStage}>
    {/* eslint-disable-next-line @next/next/no-img-element -- creator's own uploaded photo at its natural ratio */}
    <img src={src} alt={alt} draggable={false}/>
    <canvas ref={canvas} aria-label="바꿀 옷 부분 칠하기" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} data-disabled={disabled||undefined}/>
-  </div>
+  </div></div>
   <div className={s.maskTools}>
    <div className={s.maskBrushes} role="group" aria-label="붓 크기"><span className={s.maskLabel} title="붓 크기"><LandingIcon name="brush" width={18} height={18}/></span>
    {BRUSHES.map((item,index)=><button key={item.label} type="button" className={s.chip} aria-label={`붓 크기 ${item.label}`} title={`붓 크기 ${item.label}`} aria-pressed={brush===item.size} onClick={()=>setBrush(item.size)} disabled={disabled}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r={2+index*2} fill="currentColor"/></svg></button>)}</div>
