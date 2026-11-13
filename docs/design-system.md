@@ -8,7 +8,7 @@
 
 - 2026-11-13 공용 댓글/답글은 ISO 날짜를 방금/n분/n시간/n일 전으로 표시하고 원래 KST 날짜를 `time`의 title에 보존한다. 신고는 오른쪽 위 44px 더보기 버튼 안에서 열며 기존 신고 모달·권한을 유지한다. [W3C 메뉴 버튼](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/) 기준 aria-haspopup/expanded, 열림 시 항목 포커스, Escape 복귀와 바깥 클릭/포커스 이탈 닫기를 적용했다(2026-11-13 확인).
 
-- 2026-11-13 AI 사진 편집의 5분류 그림은 [AiPhotoCategoryIcon](../components/crefans/studio/AiPhotoCategoryIcon.tsx)에서 `public/brand/ai-photo/*-colorful-flat-v3.png`를 사용한다. 검색 카테고리와 같은 둥근 플랫 스타일의 다양한 색상이며 공용 모달의 실제/미리보기 모두 사용한다. 텍스트 라벨이 이름을 제공하고 그림 alt는 비운다.
+- 2026-11-13 AI 사진 편집의 8분류 그림은 [AiPhotoCategoryIcon](../components/crefans/studio/AiPhotoCategoryIcon.tsx)에서 `public/brand/ai-photo/*-colorful-flat-v3.png`를 사용한다. 검색 카테고리와 같은 둥근 플랫 스타일의 다양한 색상이며 공용 모달의 실제/미리보기 모두 사용한다. 텍스트 라벨이 이름을 제공하고 그림 alt는 비운다.
 
 ### 크리에이터 전환 가드 (2026-11-07)
 
@@ -587,7 +587,7 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 
 ### 스튜디오 AI 사진 편집 (2026-11-08)
 - 사용자 결정: 시안 A(모달 편집기) + 의상 교체는 시안 C의 영역 칠하기, 크리에이터 무료·하루 10회·한 번에 1장. 시안 원본은 로컬 `.local/imagegen-drafts/`(저장소 밖 기록).
-- [AiPhotoDialog](../components/crefans/studio/AiPhotoDialog.tsx)는 공용 Dialog(`persistent`, `fullscreenOnMobile`)의 컴팩트 편집/결과 두 단계에 원본 고르기, 옷·메이크업·표정·포즈·배경 아이콘 탭, 직접 입력·수정(300자), 기본 실사 설정(선택 UI 미노출), 본인·동의 확인, 남은 횟수, 결과 1장 선택를 둔다. 옷은 [AiPhotoMask](../components/crefans/studio/AiPhotoMask.tsx)로 칠한 곳만 투명한 원본 크기 마스크 PNG를 만든다. 규칙은 [lib/crefans/ai-photo.ts](../lib/crefans/ai-photo.ts).
+- [AiPhotoDialog](../components/crefans/studio/AiPhotoDialog.tsx)는 공용 Dialog(`persistent`, `fullscreenOnMobile`)의 컴팩트 편집/결과 두 단계에 원본 고르기, 옷·메이크업·표정·포즈·배경·구도·렌즈·신체 보정 아이콘 탭, 최종 프롬프트 직접 입력·수정(2000자), 기본 실사 설정(선택 UI 미노출), 본인·동의 확인, 남은 횟수, 결과 1장 선택를 둔다. 옷은 [AiPhotoMask](../components/crefans/studio/AiPhotoMask.tsx)로 칠한 곳만 투명한 원본 크기 마스크 PNG를 만든다. 규칙은 [lib/crefans/ai-photo.ts](../lib/crefans/ai-photo.ts).
 - 작성 화면 버튼은 `model.actions.aiEditPhoto`가 있을 때만 보인다. 실제 서비스는 서버의 허용 크리에이터 조회 결과가 `allowed`일 때 생성 API를 주입한다. 목업 대역은 [ai-photo-fixtures](../components/preview/studio/ai-photo-fixtures.ts), 카탈로그는 [AiPhotoCatalog](../components/design-system/AiPhotoCatalog.tsx)(정상·사진 없음·실패·안전 차단·한도 소진). 결과 썸네일에는 'AI 생성' 표시(MediaUpload `aiGenerated`).
 - 검사: [tests/studio-ai-photo.test.cjs](../tests/studio-ai-photo.test.cjs). 팬 화면 게시물의 'AI 생성' 표시와 서버 저장은 서버 연결 때 추가한다.
 - 2026-11-08 실제 연결: 실제 서비스 스튜디오는 `/studio/ai-photo/quota`가 allowed(운영 콘솔 허용 목록)일 때만 `aiEditPhoto`·`aiPhotoQuota`를 주입하고, 생성은 `/studio/ai-photo/edit`(multipart, 마스크 PNG)로 보낸다. 게시물 미디어의 `aiGenerated`는 팬 화면 게시물(PostGallery: 해당 사진 왼쪽 위 'AI 생성'), 프로필 미디어 타일, 작성 화면 팬 미리보기에 표시한다.
@@ -600,7 +600,7 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 - 표시 정리: 무료·한 번에1장 문구와 사진느낌 선택3버튼은 미노출, 일반 편집 요청 style은 photo이며 코스어 의상 모드만 기존 cosplay 계약을 사용한다. 남은횟수는 유지하고 AI 생성 표시 및 이용 안내 라벨은 본문 왼쪽에 정렬한다.
 
 - 사용자 후속 수정: 공용 `AiPhotoDialog`의 만들기 버튼만 하단 고정한다. 원본·카테고리·예시·직접 입력·동의·이용 안내·남은 횟수는 하나의 본문 스크롤에 둔다. 결과의 다시 만들기/게시물 추가도 본문 흐름이다. 한 번에1장을 생성하며 서버 공급사 요청도 n=1이다. 모바일 입력을 자동으로 포커스하지 않는다.
-- `lib/crefans/ai-photo-presets.ts`의 카테고리별 12개, 총60개 자연어 문구를3개씩4페이지로 순환한다. “다른 예시 보기”는 AI/API를 호출하지 않으며 작성 중 문구를 유지한다. 예시 선택은 입력에 담기만 하고, 직접 수정·적용 취소·카테고리별 초안 보존을 지원한다. 생성은 명시적인 생성 버튼에서만 수행한다.
+- `lib/crefans/ai-photo-presets.ts`의 옷12·메이크업12·표정12·포즈24·배경13·구도6·렌즈6·신체6 자연어 문구를 사진 카드로3개씩 순환하며, 배경 첫 페이지에 서코 실내를 둔다(총91개). “다른 예시 보기”는 AI/API를 호출하지 않으며 작성 중 문구를 유지한다. 예시 선택은 입력에 담기만 하고, 직접 수정·적용 취소·최종 프롬프트 누적을 지원한다. 생성은 명시적인 생성 버튼에서만 수행한다.
 - 서버 종류에도 makeup/expression을 추가하며 얼굴 구조·정체성 보존 지시를 유지한다. 기존 허용 목록·마스크·동의·한도·모더레이션·실패 시 결과 보존은 그대로다. 서버와 프론트를 함께 반영해야 새 두 분류가 동작한다.
 - 근거 확인2026-11-13: [W3C APG 모달](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/), [탭 패턴](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/). 공용 Dialog의 포커스 격리/복귀와 탭의 좌우/Home/End 키 이동을 유지한다. 시안은 구현의 접근성 전체 검증을 대신하지 않는다.
 
@@ -615,7 +615,7 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 
 ### 나를 코스어로 만들기·의상 옷장 (2026-11-13)
 
-- 공용 AiPhotoDialog의 진입 버튼은 옷 탭과 의상 옷장을 연다. 공용 SelectField의 보기 형식에서 카드(기본2열)·목록·의상 크게(캐러셀)·모아 보기(3열)·입력 우선(입력창을 옷장 앞으로)을 선택한다. 같은 편집창에서 보기 전환·설정 복귀 시 형식·문구·동의·칠한 영역이 유지되며, 새로고침 후 영구 저장은 하지 않는다. 공용 [AiPhotoWardrobe](../components/crefans/studio/AiPhotoWardrobe.tsx)가7분류32종을 공유한다. 의상 선택은 문구를 채우며 예시 적용 취소·직접 수정·카테고리별 초안을 유지한다. 같은 진입 버튼 또는 옷 직접 편집으로 일반 옷 편집에 돌아간다. 원본/보기 선택/옷장/입력/동의/횟수는 본문 스크롤, 만들기 버튼만 하단 고정이다.
+- 공용 AiPhotoDialog의 진입 버튼은 옷 탭과 의상 옷장을 연다. 공용 SelectField의 보기 형식에서 카드(기본2열)·목록·의상 크게(캐러셀)·모아 보기(3열)·입력 우선(입력창을 옷장 앞으로)을 선택한다. 같은 편집창에서 보기 전환·설정 복귀 시 형식·문구·동의·칠한 영역이 유지되며, 새로고침 후 영구 저장은 하지 않는다. 공용 [AiPhotoWardrobe](../components/crefans/studio/AiPhotoWardrobe.tsx)가7분류32종을 공유한다. 의상 선택은 문구를 채우며 예시 적용 취소·직접 수정·탭 간 최종 프롬프트를 유지한다. 같은 진입 버튼 또는 옷 직접 편집으로 일반 옷 편집에 돌아간다. 원본/보기 선택/옷장/입력/동의/횟수는 본문 스크롤, 만들기 버튼만 하단 고정이다.
 - 캐러셀은 이전·다음으로 순환 탐색하며 탐색만으로 작성 문구를 바꾸지 않는다. ‘이 의상 선택’ 또는 썸네일 선택으로 적용한다. 자동 재생 없이 명명된 버튼과 현재 의상/순번의 polite 안내를 제공한다. 근거: [W3C WAI 캐러셀 제어](https://www.w3.org/WAI/tutorials/carousels/controls/)·[기능](https://www.w3.org/WAI/tutorials/carousels/functionality/), 확인2026-11-13. 적용 판단: 사용자 수동 탐색과 선택을 분리하며 스와이프만으로 조작을 강제하지 않는다.
 - 보기 형식 선택은 의상 제목 오른쪽100px 무테 메뉴다. 현재 형식과 꺾쇠만 표시하고 공용 SelectField의 hideLabel로 접근성 이름은 유지한다. 별도 행/입력창처럼 강조하지 않는다. 일반 옷 편집 복귀는 의상 목록 아래 제공한다. 마스크 도구는 붓 아이콘·크기가 다른 점3개·되돌리기·지우개를 한 줄로 표시하며 선택상태·disabled·aria-label/title을 보존한다. 기존 공용 Icon 선형 자산을 확장하며 마스크 좌표/붓 비율/생성 동작은 바꾸지 않는다.
 - 일반 분류의 [의상 목록](../lib/crefans/ai-photo-costumes.ts): 리본 메이드, 세일러 코스튬, 고딕 오프숄더, 판타지 마법사, 사이버 슈트, 아이돌 무대복, 치어 코스튬, 비치 투피스. 크롭톱·오프숄더·짧은 하의·일반 투피스 수영복 선택을 포함한다. 썸네일은 의상 스타일 예시이며 이미지 자체를 생성 공급사에 보내거나 정확 복제를 보장하지 않는다. 자산은 `public/brand/ai-photo/costumes/*-v1.webp`, 생성 프롬프트는 로컬 작업 증거의 asset-prompts.json이다.
@@ -625,3 +625,5 @@ V1의 Ant Design 테마 변형은 새 디자인 기준으로 사용하지 않는
 - 코스어 옷 모드만 기존 API `kind=outfit, style=cosplay`를 사용한다. 옷 영역 마스크·본인/동의·하루 한도·1장·기존 결과 보존과 서버 검사는 유지한다. 다른 카테고리와 일반 옷 편집은 photo다. 기존 사진느낌 선택3버튼을 다시 노출하지 않는다.
 - 사용자 정책: 성인용 노출 있는 비성적 의상을 선택할 수 있도록 준비한다. 기존 UI의 노출 일괄 금지 문구는 나체·성적인 합성 금지로 정확하게 정리했다. 공급사 입력/출력 Moderation이나 고정 안전지시는 변경하지 않았다. 공식 [Moderation 분류](https://developers.openai.com/api/docs/guides/moderation)는 sexual을 성적 흥분 목적 콘텐츠로 구분하며, 공급사 판정은 요청마다 수행된다. [시행 중 이용정책(2025-10-29)](https://openai.com/policies/usage-policies/revisions/2025-10-29/)도 확인했다(확인일2026-11-13; 현재 대표 URL의2026-11-20본은 미래 시행이라 현행으로 적용하지 않음). 노출 여부만으로 공급사 통과를 보장하지 않는다.
 - 확인 범위: 단위/브라우저 검사는 UI와 요청 연결 및 목업 결과이며 실제 공급사 의상 품질·얼굴 보존을 입증하지 않는다. [검사](../tests/studio-ai-photo.test.cjs).
+
+- 2026-11-13: 생성 인물 원본 유지/여성/남성은 실제 성별 표현 변경 요청이며 최종 프롬프트에 반영한다. 신체 보정은 가슴·힙·키 비율 각각5단계, 기존 요청을 중복하지 않고 교체한다. 렌즈는 캐논 RF6종 모델/초점거리/조리개를 명시한 AI 촬영 느낌이며 실제 광학 성능을 보장하지 않는다. 결과별 이미지 편집은 해당 결과를 다음 소스로 삼고 원본·기존 소스를 보존한다. 작품 분류 셀렉트는 공식 사이트에서 확인한 로고를 contain으로 왼쪽 표시한다.
