@@ -1,3 +1,10 @@
+## 2026-11-13 11:01 KST AI 사진 단일 생성·버튼만 고정 운영 배포 완료
+- 사용자 최신 “배포” 명시 승인으로 이전 자동 검토 거절 해소. runtime source968eb80(문서만 다른 prod7b38af5와 기능 동일), front-ai-single-flow-20261113 배포. 재빌드 없이 검증한 amd64 이미지/revision/레이어/아카이브SHA 재사용. 일반 페이지·정적200/리다이렉트301/이미지최적화200/API헬스200.
+- API/worker는 ai-photo-single-20261113(source99761cf)으로 먼저 반영하여 n=1 확인 후 프론트 교체. 기존 댓글시간/더보기·좋아요·미디어처리/기타서비스 유지, DB스키마 변경 없음.
+- 배포된 design-system 공용 모달을 Chrome390×844에서 확인(목업 데이터): 본문702px, footer72px/버튼1개/입력0개, 본문에 원본·동의·횟수, 223.5px 스크롤 후에도 버튼top771 유지. 실제 AI/실기기 키보드 미실행. 기존 프론트14+서버21=35개·타입/계층/빌드 증거의 기능 코드는 불변. 기존 Generated contracts stale는 미해결.
+- 복구 /Users/ethan/crefans-recovery/20261113/front-ai-single-flow-20261113: 직전front-comment-time-menu 이미지, 전체SHA·OCI15blobs·태그/ID·설정 검증 후 서버이전태그/임시본만 정리. API복구41blobs도 검증/정리 완료. 기존 맥 복구파일 삭제 없음(보관수 초과 후보는 별도 승인 필요).
+- 증거 .local/ai-photo-single-flow-20261113/{verification.json,ship.log,browser-production.json,production-device-proof.png}, 빌드/상세배포 .local/ship-front-ai-single-flow-20261113/. 다음 실계정 실제 생성 품질과 실물 키보드는 별도 확인.
+
 ## 2026-11-13 AI 단일 생성 수정 prod 반영·운영 승인 대기
 - 기능 원본 front52a3a1e/server1b23133을 dev→prod 승격: front968eb80, server99761cf. 프론트14/14·서버21/21·타입/계층·각 빌드 통과, 공용 모달320/390/PC에서 본문426/702/648px, 고정영역72px에 버튼1개만 확인. 본문 입력·동의·횟수·원본/결과액션과 목업생성1장 확인.
 - 프론트 운영이미지 front-ai-single-flow-20261113 빌드53초·revision/카카오키/레이어·보관아카이브SHA·서버 읽기전용 preflight 통과. 서버 새이미지는 아직 만들지 않음.
