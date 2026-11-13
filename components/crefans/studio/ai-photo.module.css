@@ -142,7 +142,6 @@
 .preset[aria-pressed=true]{border-color:var(--cf-color-accent);background:var(--cf-color-accentSoft)}
 .presetCheck{flex:none;width:19px;height:19px;border:1px solid var(--cf-color-border);border-radius:50%;display:grid;place-items:center;font-size:12px}
 .preset[aria-pressed=true] .presetCheck{background:var(--cf-color-accent);border-color:var(--cf-color-accent);color:var(--cf-color-surface)}
-.morePresets{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:0;border-radius:10px;background:var(--cf-color-surfaceSubtle);color:var(--cf-color-accent);font:inherit;font-size:13px;cursor:pointer}
 .composer{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
 .composer textarea{min-height:64px;max-height:120px;resize:vertical;font-size:16px}
 .consent>label{font-size:12px;line-height:1.5}
@@ -207,3 +206,5 @@
 .bodyAdjustments{display:grid;gap:14px;padding:14px;border:1px solid var(--cf-color-border);border-radius:12px}.bodyAdjustments label{display:grid;gap:9px;font-size:13px}.bodyAdjustments label>span{display:flex;justify-content:space-between;gap:8px}.bodyAdjustments output{color:var(--cf-color-textMuted)}.bodyAdjustments input{width:100%;accent-color:var(--cf-color-accent)}
 .modePicker{display:flex;flex-direction:column;gap:6px}.modePicker>div{display:flex;gap:4px;padding:4px;border-radius:10px;background:var(--cf-color-surfaceSubtle)}.modePicker button{flex:1;min-height:40px;border:0;border-radius:8px;background:transparent;color:var(--cf-color-textSecondary);font:inherit;font-size:14px;font-weight:600;cursor:pointer}.modePicker button[aria-pressed=true]{background:var(--cf-color-surface);color:var(--cf-color-accent);box-shadow:0 1px 3px rgb(32 35 51 / 5%)}.modePicker button:disabled{opacity:.5;cursor:default}.modePicker button:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
 .photoPresetGrid .preset>img,.wardrobeLayout[data-costume-view=grid] .costumeImage,.wardrobeLayout[data-costume-view=compact] .costumeImage,.wardrobeLayout[data-costume-view=composer] .costumeImage{height:var(--ai-photo-preset-height);aspect-ratio:auto}
+
+.presetViewport{overflow:hidden;touch-action:pan-y pinch-zoom;user-select:none}.presetViewport img{-webkit-user-drag:none}.presetViewport .photoPresetGrid{grid-template-rows:repeat(2,minmax(0,1fr))}.presetNavigation{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}.presetNavigation button{width:36px;height:36px;border:0;border-radius:8px;background:var(--cf-color-surfaceSubtle);color:var(--cf-color-accent);font-size:24px;cursor:pointer}.presetNavigation button:disabled{opacity:.4;cursor:default}

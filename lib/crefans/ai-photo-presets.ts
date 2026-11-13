@@ -3,7 +3,7 @@ import type {AiPhotoKind} from '@/types/crefans-studio-management';
 // 편집 가능한 제안 문구. 탐색/선택만으로는 생성 요청을 보내지 않는다.
 export const aiPhotoComicWorldPreset='배경을 높은 트러스 천장과 동인 부스가 있는 서코 실내 행사장 분위기로 바꿔줘.';
 export const aiPhotoNeutralExpressionPreset='미소 없이 입을 자연스럽게 다물고 얼굴에 힘을 뺀 무표정으로 바꿔줘.';
-export const AI_PHOTO_PRESET_PAGE_SIZE=3;
+export const AI_PHOTO_PRESET_PAGE_SIZE=6;
 export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
 "camera": ["카메라를 눈높이에 두고 정면에서 촬영한 구도로 바꿔줘.", "카메라를 낮게 두고 살짝 올려다보는 로우 앵글로 바꿔줘.", "카메라를 높게 두고 살짝 내려다보는 하이 앵글로 바꿔줘.", "얼굴과 어깨를 담는 클로즈업 구도로 바꿔줘.", "허리 위 상반신을 담는 구도로 바꿔줘.", "머리부터 발끝까지 잘리지 않는 전신 구도로 바꿔줘."],
 "lens": ["Canon RF15-35mm F2.8 L IS USM을 24mm f/2.8로 촬영한 느낌으로, 주변 공간이 넓게 보이는 광각 원근감을 표현해줘.", "Canon RF24-70mm F2.8 L IS USM을 50mm f/2.8로 촬영한 느낌으로, 자연스러운 원근감과 부드러운 배경 흐림을 표현해줘.", "Canon RF35mm F1.8 MACRO IS STM의 35mm f/1.8 촬영 느낌으로, 인물과 주변 분위기를 함께 담고 배경은 부드럽게 흐려줘.", "Canon RF50mm F1.8 STM의 50mm f/1.8 촬영 느낌으로, 자연스러운 인물 비율과 얕은 심도를 표현해줘.", "Canon RF85mm F1.2 L USM의 85mm f/1.2 촬영 느낌으로, 인물을 또렷하게 하고 배경은 크게 흐려줘.", "Canon RF70-200mm F2.8 L IS USM을 135mm f/2.8로 촬영한 느낌으로, 멀리서 담은 압축감과 부드러운 배경 흐림을 표현해줘."],

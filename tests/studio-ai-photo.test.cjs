@@ -144,7 +144,7 @@ test('regenerate failure keeps the previously selected photos available to add',
 
 test('preset editor: browsing and toggling preserves custom-only input and never exposes accumulated instructions',async()=>{
  const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
- await act(async()=>field().props.onChange({target:{value:'내가 작성한 추가 요청'}}));await click('다른 예시 보기');
+ await act(async()=>field().props.onChange({target:{value:'내가 작성한 추가 요청'}}));await click('다음 프리셋 페이지');
  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());
  await click('환한 미소');assert.equal(field().props.value,'내가 작성한 추가 요청');assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(r.root.findAllByProps({'aria-label':'최종 프롬프트'}).length,0);assert.equal(r.root.findAllByType('textarea').length,1);
  await click('환한 미소');assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],false);assert.equal(field().props.value,'내가 작성한 추가 요청');assert.equal(calls.length,0);
@@ -341,8 +341,8 @@ test('combined length is bounded without truncating custom input or blocking des
 test('expression previews follow selected gender while the chosen expression, custom input and source remain unchanged',async()=>{
  const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'자연스러운 조명'}}));await click('환한 미소');
  const previews=()=>r.root.findAll(n=>n.type==='img'&&String(n.props.src).startsWith('/brand/ai-photo/presets/expression-')).map(n=>n.props.src);
- await click('여성');assert.deepEqual(previews(),['expression-neutral-female','expression-01','expression-02-female'].map(id=>`/brand/ai-photo/presets/${id}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(field().props.value,'자연스러운 조명');
- await click('남성');assert.deepEqual(previews(),['expression-neutral-male','expression-01-male','expression-02'].map(id=>`/brand/ai-photo/presets/${id}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(calls.length,0);
+ await click('여성');assert.deepEqual(previews(),['expression-neutral-female','expression-01','expression-02-female','expression-03','expression-04-female','expression-05'].map(id=>`/brand/ai-photo/presets/${id}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(field().props.value,'자연스러운 조명');
+ await click('남성');assert.deepEqual(previews(),['expression-neutral-male','expression-01-male','expression-02','expression-03-male','expression-04','expression-05-male'].map(id=>`/brand/ai-photo/presets/${id}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(calls.length,0);
  await click('1장 만들기');assert.equal(calls[0].source.id,'p1');assert.equal(calls[0].kind,'expression');assert.equal(calls[0].targetGender,'male');assert.match(calls[0].prompt,/치아가 살짝 보이게/);assert.match(calls[0].prompt,/성인 남성/);assert.doesNotMatch(calls[0].prompt,/성인 여성/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));
 });
 
@@ -416,4 +416,18 @@ test('create availability: exhausted quota stays clickable and explains without 
  await click('확인');await click('1장 써서');
  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝게 웃어줘'}}));
  await click('1장 만들기');assert.equal(calls.length,1);
+});
+
+
+test('preset paging: six cards, circular single-page gestures, preserved selection and no accidental click',async()=>{
+ const {r,click,calls}=await open();await click('의자에 앉기');
+ const grid=()=>r.root.findByProps({className:'photoPresetGrid'}),labels=()=>grid().findAllByType('button').map(n=>n.props['aria-label']);
+ const initial=labels();assert.equal(initial.length,6);
+ const pager=()=>r.root.find(n=>n.type==='div'&&n.props['aria-label']==='프리셋 페이지');
+ const event=(x,y=0)=>({isPrimary:true,button:0,pointerId:1,clientX:x,clientY:y,currentTarget:{clientWidth:360,setPointerCapture(){}}});
+ async function drag(x,y=0,cancel=false){await act(async()=>pager().props.onPointerDown(event(200)));await act(async()=>pager().props.onPointerMove(event(200+x,y)));await act(async()=>cancel?pager().props.onPointerCancel():pager().props.onPointerUp(event(200+x,y)));}
+ await drag(-180);assert.notDeepEqual(labels(),initial);let suppressed=false;pager().props.onClickCapture({detail:1,preventDefault(){suppressed=true;},stopPropagation(){}});assert.equal(suppressed,true);assert.equal(calls.length,0);
+ await drag(180);assert.deepEqual(labels(),initial);assert.equal(r.root.findByProps({'aria-label':'의자에 앉기'}).props['aria-pressed'],true);
+ await drag(-20);assert.deepEqual(labels(),initial);await drag(20,120);assert.deepEqual(labels(),initial);await drag(-180,0,true);assert.deepEqual(labels(),initial);
+ await click('이전 프리셋 페이지');assert.notDeepEqual(labels(),initial);await click('다음 프리셋 페이지');assert.deepEqual(labels(),initial);
 });
