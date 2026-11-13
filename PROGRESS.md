@@ -1,3 +1,8 @@
+## 2026-11-13 AI 실패 안내 모달 운영 반영 완료
+- 프론트 `crefans-front:front-ai-error-modal-20261113`, 소스 `1592b0d70f13b4049b6a8899372b37bf299f386e`. 11:17:45 UTC 배포 종료 0, feed/landing/terms/API health/static/image 200 및 redirect 301.
+- 기능 38개·타입·계층 검사 통과. 오류는 확인 버튼이 있는 공용 모달로 표시하며 입력/결과 보존. 실기기/실제 AI 생성 미검증, 이전 연결 실패 원인은 별도 미해결.
+- 복구본 `/Users/ethan/crefans-recovery/20261113/front-ai-error-modal-20261113` SHA·OCI·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 증거 `.local/ai-error-modal-20261113/verification.json`, `ship.log`.
+
 ## 2026-11-13 AI 실패 안내 모달 검증 완료
 - 공용 Dialog를 편집 모달과 형제로 렌더링하여 기존 네이티브 모달 포커스/닫기 처리를 재사용. 확인/닫기는 오류만 초기화, 서버 오류 문구/요청 ID 그대로 표시. 리셋권 예외도 안내.
 - 기능 38/38·타입·계층 통과. 실패 모달 내용·확인/닫기·반복 실패·입력/횟수 보존 검사. 실제 AI 생성과 실기기 검사는 미실행. 다음 프론트 운영 반영. 증거 `.local/ai-error-modal-20261113/`.
