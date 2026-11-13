@@ -45,6 +45,7 @@ export type StudioManagementModel={
     setMembershipActive:(id:string,active:boolean)=>Promise<ApiResult<{message:string}>>;
     /** AI photo edit (outfit, pose, background). Absent until the server feature is connected: the editor button is hidden. */
     aiEditPhoto?:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;
+    refreshAiPhotoQuota?:()=>Promise<void>;
     useAiPhotoTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
   };
 };

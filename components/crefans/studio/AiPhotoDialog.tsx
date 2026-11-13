@@ -61,7 +61,9 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
  const source=sources.find(item=>item.id===sourceId),kindInfo=aiPhotoKinds.find(item=>item.value===(editKinds[0]||kind))!,typical=quota.typicalSeconds;
  function changeSource(id:string){setSourceId(id);setStrokes([]);setSourcePicker(false);setError('');}
  async function generate(){
-  if(!source||busy)return;
+  if(busy)return;
+  if(!source){setError('편집할 사진을 먼저 올려 주세요.');return;}
+  if(remaining<=0){setError(tickets>0?'오늘 만들 수 있는 횟수를 모두 썼어요. 리셋권을 사용하면 다시 만들 수 있어요.':'오늘 만들 수 있는 횟수를 모두 썼어요. 매일 오전 9시에 다시 이용할 수 있어요.');return;}
   if(!prompt.trim()){setError('프리셋을 고르거나 커스텀 프롬프트를 적어 주세요.');return;}
   if(prompt.length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.');return;}
   const requestKind=editKinds[0]||(targetGender!=='original'?'pose':kind);
@@ -144,12 +146,12 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
        <img src={item.url} alt=""/><span className={s.ai}>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>
        <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button></div><div className={s.resultName}><span>결과 {index+1}</span>{selected.includes(item.id)&&<span>선택됨</span>}</div><button type="button" className={s.editResult} aria-label={`결과 ${index+1} 이미지 편집`} onClick={()=>editResult(item)}>이미지 편집</button></div>)}</div><p className={s.originalNote}>원본 사진은 그대로 보관돼요.</p></>}
     </div>}
-    {stage==='results'&&!busy&&<div className={s.resultActions}><Action type="button" variant="secondary" onClick={()=>void generate()} disabled={busy||remaining<=0}><span aria-hidden="true">↻</span> 다시 만들기</Action><Action type="button" onClick={add} disabled={busy||!selected.length}>게시물에 추가 ({selected.length})</Action></div>}
+    {stage==='results'&&!busy&&<div className={s.resultActions}><Action type="button" variant="secondary" onClick={()=>void generate()} disabled={busy}><span aria-hidden="true">↻</span> 다시 만들기</Action><Action type="button" onClick={add} disabled={busy||!selected.length}>게시물에 추가 ({selected.length})</Action></div>}
     {(stage==='edit'||busy||remaining<=0)&&<div className={s.quota}><span>오늘 남은 횟수 <b>{remaining}</b>/{quota.limit}</span>{onUseTicket&&tickets>0&&<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||remaining>=quota.limit} title={remaining>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
    </div>
    {(stage==='edit'||busy)&&<div className={s.footer} inert={viewing}>
-    <Action type="button" onClick={()=>void generate()} disabled={busy||remaining<=0}>{busy?`만드는 중… ${elapsed}초`:`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</Action>
+    <Action type="button" onClick={()=>void generate()} disabled={busy}>{busy?`만드는 중… ${elapsed}초`:`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</Action>
    </div>}
   </>}
   {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onToggle={toggle} onClose={closeViewer}/>}

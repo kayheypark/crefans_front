@@ -92,6 +92,7 @@ test('progress: while making, the button and panel show elapsed seconds and the 
   await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
 
   await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('1장 만들기')).props.onClick();});
+  assert.equal(r.root.find(n=>n.type==='button'&&text(n).startsWith('만드는 중')).props.disabled,true);
   const all=text(r.toJSON());assert.match(all,expect);assert.match(all,/0초 지남/);assert.match(all,/만드는 중… 0초/);assert.match(all,/창을 닫지 말고/);
   await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
   assert.doesNotMatch(text(r.toJSON()),/초 지남/);
@@ -405,4 +406,14 @@ test('single selection: every category and preset replaces previous choice, rese
  await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));await click('1장 만들기');assert.deepEqual(calls[0].costumeIds,['cyber']);assert.equal(calls[0].kind,'outfit');
  await click('설정 수정');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='메이크업').props.onClick());await click('코랄 립');await click('생기 있는 볼');assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],false);await click('생기 있는 볼');assert.equal(r.root.findByProps({'aria-label':'생기 있는 볼'}).props['aria-pressed'],false);
  await click('코스어 모드');assert.equal(r.root.findByProps({'aria-label':'사이버 슈트'}).props['aria-pressed'],false);assert.equal(r.root.findByProps({'data-mask-editor':true}).props.strokes.length,0);
+});
+
+test('create availability: exhausted quota stays clickable and explains without sending, ticket restores generation',async()=>{
+ const {r,click,calls}=await open({quota:{remaining:0,limit:10,resetTickets:{count:1,nextExpiresAt:null}},onUseTicket:async()=>({success:true,data:{remaining:10,limit:10,resetTickets:{count:0,nextExpiresAt:null},message:'횟수 복원'}})});
+ const createButton=()=>r.root.find(n=>n.type==='button'&&text(n)==='1장 만들기');
+ assert.equal(createButton().props.disabled,false);
+ await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.root.findByProps({'aria-label':'AI 사진 편집 안내'})),/리셋권/);
+ await click('확인');await click('1장 써서');
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝게 웃어줘'}}));
+ await click('1장 만들기');assert.equal(calls.length,1);
 });
