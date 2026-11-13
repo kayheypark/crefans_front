@@ -1,3 +1,9 @@
+## 2026-11-13 15:30 KST AI 프리셋 제목 일괄 개선 운영 반영
+- source9268fdc, frontend crefans-front:front-ai-preset-titles-20261113 운영배포. 8탭91카드의 표시/접근성 이름을 짧은 타이틀 하나로통일(장문hover없음), 의상32종 보기5종도 제목만표시. 목록은단일행중앙정렬, 일반카드제목은최대2줄. 최종프롬프트에는기존상세요청을그대로누적한다.
+- 기존28/28·typecheck·계층452 통과. 91개제목 수/중복/길이 검사, 실제91원문JSON SHA-256이변경전과동일(528b2620…). 사진/순서/API코드·서버변경없음. CUA390 8탭제목/hover/선택시원문누적확인, 의상보기5종설명0·320/390/1280렌즈가로넘침0. 운영에서도8탭제목·서코실내+쪼그려앉기원문누적확인. 실제AI생성은미호출.
+- dev→prod통합후운영빌드53초·revision/키/아카이브/레이어·HTTP검사통과. API/worker/admin/DB/proxyID·설정(프론트태그외)보존. 직전v2이미지·설정은 /Users/ethan/crefans-recovery/20261113/front-ai-preset-titles-20261113 에이전후SHA/OCI15blobs/태그ID/설정검증,서버직전태그·이번임시본만정리. 기존맥복구본삭제없음.
+- 증거 .local/ai-photo-preset-titles-20261113/{verification.json,unit.log,types.log,layers.log,prompt-preservation.json,browser-local.json,browser-layout.json,browser-production.json,production-mobile.png,dry-run.log,ship.log,docs.log}. 전체docs검사는기존 Generated contracts stale 잔존, 관련디자인문서와AGENTS규칙만동기화. 현재요청완료.
+
 - 로컬 검증 완료: 기존28/28·typecheck·계층452 통과. CUA390 8탭의 카드/접근성명은짧은제목만·장문title없음, 서코실내+쪼그려앉기 선택시원문누적확인. 의상보기5종 부가설명0·목록제목중앙,320/390/1280 렌즈제목 가로넘침0. 증거 unit.log/types.log/layers.log/browser-local.json/browser-layout.json/local-mobile.png. 다음 dev→prod/프론트만배포.
 
 ## 2026-11-13 프롬프트 프리셋 제목 통일 진행
