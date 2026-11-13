@@ -1,6 +1,6 @@
 "use client";
 import {useEffect,useId,useRef,useState} from 'react';
-import {aiPhotoCostumes} from '@/lib/crefans/ai-photo-costumes';
+import {aiPhotoCostumes,aiPhotoCostumeCategories,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
 import {SelectField} from '@/components/ui/SelectField';
 import {AiPhotoWardrobe,costumeViews,type CostumeView} from './AiPhotoWardrobe';
 import type {ApiResult} from '@/types/crefans';
@@ -24,6 +24,8 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('pose'),[prompts,setPrompts]=useState<Partial<Record<AiPhotoKind,string>>>({});
  const [cosplayOpen,setCosplayOpen]=useState(false);
  const [costumeView,setCostumeView]=useState<CostumeView>('grid');
+ const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('general');
+ const costumes=aiPhotoCostumes.filter(costume=>costume.category===costumeCategory),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
  const cosplay=kind==='outfit'&&cosplayOpen,inputFirst=cosplay&&costumeView==='composer';
  const style=kind==='outfit'&&cosplayOpen?'cosplay':'photo';
  const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
@@ -95,9 +97,10 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd}:Prop
      }} disabled={busy}><AiPhotoCategoryIcon kind={item.value}/><span>{item.label}</span></button>)}</div>
      {kind==='outfit'&&cosplayOpen?<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.wardrobe}>
       <div className={s.wardrobeHeading}><h3>어떤 의상을 입어볼까요?</h3><SelectField className={s.viewPicker} label="보기 형식" hideLabel value={costumeView} onChange={value=>setCostumeView(value as CostumeView)} options={costumeViews.map(view=>({...view}))} disabled={busy}/></div>
+      <div className={s.costumeCategoryBar}><SelectField className={s.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>setCostumeCategory(value as AiPhotoCostumeCategory)} options={aiPhotoCostumeCategories.map(category=>({value:category.value,label:category.label}))} disabled={busy}/><span>{costumeCategoryInfo.group} · {costumes.length}종</span></div>
       <p>의상을 고른 뒤, 원본 사진에서 바꿀 옷 부분을 칠해 주세요.</p>
       {inputFirst&&<div className={s.selectedCostume}><span>선택한 의상</span><strong>{selectedCostume?.name||'직접 입력 · 수정'}</strong></div>}
-      <AiPhotoWardrobe view={costumeView} prompt={prompt} disabled={busy} onPick={pickPreset}/>
+      <AiPhotoWardrobe key={costumeCategory} items={costumes} view={costumeView} prompt={prompt} disabled={busy} onPick={pickPreset}/>
       <p className={s.costumeNote}>의상 이미지는 스타일 예시예요. 사진 구도와 칠한 범위에 따라 결과가 달라질 수 있어요.</p>
       <button type="button" className={s.directOutfit} onClick={()=>setCosplayOpen(false)}>옷 직접 편집</button>
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>

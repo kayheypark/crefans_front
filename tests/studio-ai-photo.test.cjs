@@ -173,7 +173,7 @@ test('single-image flow: only generate stays in footer and all editor fields scr
 });
 
 test('cosplay wardrobe: opens eight outfits without generation, applies and undoes prompts, and keeps category drafts',async()=>{
- const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(aiPhotoCostumes.length,8);assert.equal(new Set(aiPhotoCostumes.map(x=>x.id)).size,8);
+ const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(aiPhotoCostumes.length,32);assert.equal(aiPhotoCostumes.filter(c=>c.category==='general').length,8);assert.equal(new Set(aiPhotoCostumes.map(x=>x.id)).size,32);
  for(const c of aiPhotoCostumes)assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');
  assert.ok(aiPhotoCostumes.some(c=>c.id==='beach'));assert.ok(aiPhotoCostumes.some(c=>c.detail.includes('크롭')));
  const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'직접 입력 · 수정'});
@@ -246,4 +246,37 @@ test('mask icon tools: all brush sizes paint correctly, undo removes one stroke,
  await act(async()=>button('모두 지우기').props.onClick());assert.equal(current.length,0);assert.equal(button('되돌리기').props.disabled,true);assert.equal(button('모두 지우기').props.disabled,true);
  for(const label of ['붓 크기 작게','붓 크기 보통','붓 크기 크게','되돌리기','모두 지우기']){assert.equal(text(button(label)),'');assert.equal(button(label).props.title,label);assert.equal(button(label).findAllByType('svg').length,1);}
  await act(async()=>r.update(el(AiPhotoMask,{src:photo.url,alt:'원본',strokes:[],onChange(){},disabled:true})));assert.ok(r.root.findAllByType('button').every(b=>b.props.disabled));
+});
+
+test('costume categories: seven populated groups, existing eight general styles, and 24 unique short prompts',()=>{
+ const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
+ assert.equal(aiPhotoCostumeCategories.length,7);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,4,4,4,4,4,4]);
+ assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['maid','sailor','gothic','mage','cyber','idol','cheer','beach']);
+ assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,32);
+ for(const c of aiPhotoCostumes){assert.ok(aiPhotoCostumeCategories.some(g=>g.value===c.category));assert.ok(c.prompt.length<=300);assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');}
+});
+
+test('category filters: all seven work in five views without losing request/mask/consent; carousel stays inside the group',async()=>{
+ const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
+ const {costumeViews}=loadTypeScript('components/crefans/studio/AiPhotoWardrobe.tsx');
+ const {r,click,calls}=await open();await click('나를 코스어로 만들기');
+ const field=()=>r.root.findByProps({'aria-label':'직접 입력 · 수정'}),category=()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리');
+ const strokes=[{size:.03,points:[{x:.5,y:.6}]}];await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange(strokes));
+ await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label&&n.props.onChange&&n.props.checked===false).props.onChange(true));
+ let previous='내 의상 요청';await act(async()=>field().props.onChange({target:{value:previous}}));
+ for(const group of aiPhotoCostumeCategories){
+  await act(async()=>category().props.onChange(group.value));assert.equal(field().props.value,previous);assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
+  const items=aiPhotoCostumes.filter(c=>c.category===group.value);
+  for(const view of costumeViews){
+   await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange(view.value));
+   const cards=r.root.findByProps({'aria-label':'코스프레 의상'}).findAll(n=>n.type==='button');assert.deepEqual(cards.map(c=>c.props['aria-label']),items.map(c=>c.name));assert.equal(field().props.value,previous);
+  }
+  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='보기 형식').props.onChange('carousel'));
+  await act(async()=>r.root.findByProps({'aria-label':'이전 의상'}).props.onClick());assert.match(text(r.root.findByProps({className:'showcaseCaption'})),new RegExp(items.at(-1).name));assert.equal(field().props.value,previous);
+  await act(async()=>r.root.findByProps({'aria-label':items[0].name}).props.onClick());assert.equal(field().props.value,items[0].prompt);previous=items[0].prompt;
+ }
+ assert.equal(calls.length,0,'filtering/browsing/picking never generates');
+ await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].prompt,previous);
+ await click('설정 수정');assert.equal(category().props.value,'jujutsu');
+ await act(async()=>category().props.onChange('nikke'));await click('라피 전술복');await click('예시 적용 취소');assert.equal(field().props.value,previous);
 });

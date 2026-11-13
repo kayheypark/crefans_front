@@ -160,6 +160,10 @@
 .wardrobeHeading .viewPicker{flex:none;width:100px;min-width:0;gap:0}
 .wardrobeHeading .viewPicker>button{width:100%;min-height:36px;padding:4px 6px;gap:4px;border-color:transparent;background:transparent;box-shadow:none;font-size:12px;color:var(--cf-color-textSecondary)}
 .viewPicker>button>svg{width:14px;height:14px}
+.costumeCategoryBar{display:flex;align-items:center;gap:10px;min-width:0}
+.costumeCategoryBar>span{font-size:12px;color:var(--cf-color-textMuted);white-space:nowrap}
+.costumeCategoryBar .costumeCategoryPicker{flex:none;width:min(180px,65%);gap:0}
+.costumeCategoryBar .costumeCategoryPicker>button{min-height:36px;padding:6px 10px;font-size:13px;background:var(--cf-color-surfaceSubtle);border-color:transparent;box-shadow:none}
 .wardrobeLayout{min-width:0}
 .wardrobeLayout[data-costume-view=list] .costumeGrid{grid-template-columns:1fr;gap:8px}
 .wardrobeLayout[data-costume-view=list] .costumeCard{display:grid;grid-template-columns:72px minmax(0,1fr);grid-template-rows:1fr 1fr;column-gap:12px;row-gap:0;padding:6px;align-items:center}
