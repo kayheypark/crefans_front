@@ -1,3 +1,7 @@
+## 2026-11-13 코스어 기본 선택 운영 완료
+- 프론트 `crefans-front:front-cosplay-default-20261113`, source `41787a396d5e40b6cee20c82541abbd053b5e014`. 최초 진입/게시물 추가 후 새 초안은 코스어·옷 기본,의상 자동 선택/생성 없음. 기능41/41·타입 통과.
+- 13:23:30 UTC 배포0, feed/landing/terms/health/static/image200·redirect301. 외부 복구본 `/Users/ethan/crefans-recovery/20261113/front-cosplay-default-20261113` SHA·OCI15blobs·태그/설정 검증 후 서버 이전 이미지/임시 자료 정리. 실기기/실생성 미검증. 증거 `.local/cosplay-default-20261113/verification.json`, `ship.log`.
+
 ## 2026-11-13 코스어 기본값 검증 완료
 - 기능41/41·타입0. 최초 코스어/옷 선택·의상 미선택·자동 요청0 검사,새 초안 코스어 초기화와 기존 일반 편집 테스트 통과. 테스트 일반모드 조건은 명시적 일반/포즈 선택으로 설정. 실제 생성/브라우저 실기기 미실행. 다음 프론트 배포. 증거 `.local/cosplay-default-20261113/`.
 
