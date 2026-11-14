@@ -1,0 +1,187 @@
+{
+  "checkedAt": "2026-11-14T16:41:59.895849+09:00",
+  "baseCommits": {
+    "/Users/ethan/repository/crefans_front-preset-expansion": "b238e5042fff36507280a53097d7688c72c1b36f",
+    "/Users/ethan/repository/crefans_server-ai-shop": "6eb885b81ec839799b9bab6788e8f16f845f4644"
+  },
+  "assets": [
+    {
+      "id": "d9c301",
+      "title": "소프트 블루 스튜디오",
+      "source": [
+        5,
+        6
+      ],
+      "category": "indoor",
+      "desc": "Empty cool powder-blue seamless photo studio. New softly curved cyclorama wall and a short round ivory plinth on LEFT (opposite original right-side seat). Broad diffused light from LEFT, fine blue-lilac gradient, matte floor, lots of open space.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for person compositing. The screenshot is only an environment mood reference. Exclude all people, body parts, clothing, reflections of people, characters, posters, phone UI, logos, watermarks, writing. Design a NEW environment with changed geometry and furniture, not literal reconstruction. Reverse environmental left/right arrangement as specified. Natural photography, usable clear foreground. Empty cool powder-blue seamless photo studio. New softly curved cyclorama wall and a short round ivory plinth on LEFT (opposite original right-side seat). Broad diffused light from LEFT, fine blue-lilac gradient, matte floor, lots of open space.",
+      "sha256": "675bf072f1bf58b633e210538d7a8b4eaa21a2b7bab23e952c46efc23102c39b",
+      "sourceHashes": {
+        "5": "5e99ea094b02f706a9c9d6b02e3a1a7e3935cbd820ac0064ac14d77c6872fdf8",
+        "6": "380a69668339fb9be35a9c78420a6efab4235ef4fcc1ce15951c1a6ec94159cd"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "d9c302",
+      "title": "햇살 석조 테라스",
+      "source": [
+        10
+      ],
+      "category": "outdoor",
+      "desc": "Empty sunny terrace: pale textured limestone pillar on LEFT instead of right, a new rounded arch and low stone balustrade, distant green hills on RIGHT and crisp blue sky. New architecture, soft warm afternoon sun, broad clear stone floor, no figures or character props.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for person compositing. The screenshot is only an environment mood reference. Exclude all people, body parts, clothing, reflections of people, characters, posters, phone UI, logos, watermarks, writing. Design a NEW environment with changed geometry and furniture, not literal reconstruction. Reverse environmental left/right arrangement as specified. Natural photography, usable clear foreground. Empty sunny terrace: pale textured limestone pillar on LEFT instead of right, a new rounded arch and low stone balustrade, distant green hills on RIGHT and crisp blue sky. New architecture, soft warm afternoon sun, broad clear stone floor, no figures or character props.",
+      "sha256": "f57ca1697928238cf96cefc225bdf64c1d095ffdd507c0a59867b0ca1ad2bec0",
+      "sourceHashes": {
+        "10": "3363a0bd7df771198a000ffa9cfda6570797dfefef95926fc0e584571435a2d7"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "d9c303",
+      "title": "내추럴 거울방",
+      "source": [
+        11
+      ],
+      "category": "indoor",
+      "desc": "Empty modest warm-neutral dressing room: pale natural oak floor, cream lightly textured walls, full-length frameless mirror on RIGHT instead of left, simple recessed doorway on LEFT and narrow oak trim. Mirror reflects only empty wall and floor, no people, phones, stickers, art or clothing.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for person compositing. The screenshot is only an environment mood reference. Exclude all people, body parts, clothing, reflections of people, characters, posters, phone UI, logos, watermarks, writing. Design a NEW environment with changed geometry and furniture, not literal reconstruction. Reverse environmental left/right arrangement as specified. Natural photography, usable clear foreground. Empty modest warm-neutral dressing room: pale natural oak floor, cream lightly textured walls, full-length frameless mirror on RIGHT instead of left, simple recessed doorway on LEFT and narrow oak trim. Mirror reflects only empty wall and floor, no people, phones, stickers, art or clothing.",
+      "sha256": "24fd28539070abf6087a2feb055824dadd4b1e3201ffcabcecdc529d6eb4480b",
+      "sourceHashes": {
+        "11": "b2b8184345b6a5ff787045e963c28b4a05ab3b2bfeeb5f1987a37487eb7367f6"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "d9c304",
+      "title": "다크 이벤트홀",
+      "source": [
+        12
+      ],
+      "category": "indoor",
+      "desc": "Empty dark indoor convention photo zone: high charcoal truss ceiling, clusters of white overhead spotlights receding in depth, gray floor with narrow amber aisle edging. Reverse prominent lighting: large soft glow at upper LEFT, sparse distant unbranded booths RIGHT. New layout, empty foreground, no people, light stands, signs or carpet props.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for person compositing. The screenshot is only an environment mood reference. Exclude all people, body parts, clothing, reflections of people, characters, posters, phone UI, logos, watermarks, writing. Design a NEW environment with changed geometry and furniture, not literal reconstruction. Reverse environmental left/right arrangement as specified. Natural photography, usable clear foreground. Empty dark indoor convention photo zone: high charcoal truss ceiling, clusters of white overhead spotlights receding in depth, gray floor with narrow amber aisle edging. Reverse prominent lighting: large soft glow at upper LEFT, sparse distant unbranded booths RIGHT. New layout, empty foreground, no people, light stands, signs or carpet props.",
+      "sha256": "9418d2b3cd64ec6ab8d46f6147b58c39584ebcd5e7e7a76d01c564ca7257515e",
+      "sourceHashes": {
+        "12": "97bc495ed6098504433e81b240e52b9eefbc5d7d396c398fc0e02ada10feaab6"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "d9c305",
+      "title": "노을 자갈 해변",
+      "source": [
+        13
+      ],
+      "category": "outdoor",
+      "desc": "Empty serene pebble beach at sunset. Reverse original landscape: forested coast and a small unobtrusive timber hut on RIGHT, rocky outcrop on LEFT, calm seawater inlet, warm setting sun toward RIGHT, pastel blue peach sky. New shoreline curves and rock formations. Clear foreground pebbles, no people, text or watermark.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for person compositing. The screenshot is only an environment mood reference. Exclude all people, body parts, clothing, reflections of people, characters, posters, phone UI, logos, watermarks, writing. Design a NEW environment with changed geometry and furniture, not literal reconstruction. Reverse environmental left/right arrangement as specified. Natural photography, usable clear foreground. Empty serene pebble beach at sunset. Reverse original landscape: forested coast and a small unobtrusive timber hut on RIGHT, rocky outcrop on LEFT, calm seawater inlet, warm setting sun toward RIGHT, pastel blue peach sky. New shoreline curves and rock formations. Clear foreground pebbles, no people, text or watermark.",
+      "sha256": "7f79bfd94c40450b7f7c62dfbab9c93c0254ceb7ef7814fb775d01e89c69abc0",
+      "sourceHashes": {
+        "13": "d25c67b9aaf1624f23b6888c0b6f3225d4289719c9be3275a6a1fad4d2cd73e9"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "d9c306",
+      "title": "웜 베이지 호텔룸",
+      "source": [
+        14
+      ],
+      "category": "indoor",
+      "desc": "Empty upscale warm beige hotel bedroom. Reverse layout: tall taupe curtains on LEFT, bed extending from RIGHT. Redesign headboard as plain walnut and cream upholstered panels, NO floral artwork from reference. Crisp ivory bedding, small rounded bedside table, warm wall sconce, clear open foreground, no personal items or text.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for person compositing. The screenshot is only an environment mood reference. Exclude all people, body parts, clothing, reflections of people, characters, posters, phone UI, logos, watermarks, writing. Design a NEW environment with changed geometry and furniture, not literal reconstruction. Reverse environmental left/right arrangement as specified. Natural photography, usable clear foreground. Empty upscale warm beige hotel bedroom. Reverse layout: tall taupe curtains on LEFT, bed extending from RIGHT. Redesign headboard as plain walnut and cream upholstered panels, NO floral artwork from reference. Crisp ivory bedding, small rounded bedside table, warm wall sconce, clear open foreground, no personal items or text.",
+      "sha256": "91295a92e3eaaf29bea4ab262cabcbb79330f575a4afe153ce7f316c5eaf9047",
+      "sourceHashes": {
+        "14": "a2b181e80361173415078c13ea7696f6fa77f2e35c28daa4f364fbe13f91b0dc"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    }
+  ],
+  "reuse": [
+    {
+      "id": "c8b209",
+      "source": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceHashes": {
+        "1": "2f7b343df2afdd71c5f57513b762550d915770bdd06123c4ad320a1e7ce8ba7e",
+        "2": "d5059c9ce150148c87be19add3f22f03e01fd6cc9d0d42c9b762d9028e854487",
+        "3": "d1a8748ce70179b1503620a491d4d5250ee53f798a97fe2f120b8203ce22f4b3",
+        "4": "ebf334be61259fe57ce1551a3ca7244bcee29f04cbc6d2e5aa05f7bf66168bfb"
+      }
+    },
+    {
+      "id": "b7a102",
+      "source": [
+        7,
+        8,
+        9
+      ],
+      "sourceHashes": {
+        "7": "e15f16a30b9a0012c6bfddf7cc54a68ec55045134a4e20806142f3f3936e787e",
+        "8": "ed7622017d38c8545355a1c8dc37fe86997720cf9af1d2e7d9ffea7549896c51",
+        "9": "ca7397486b897f9f71eb1e38d9e49f79dc09427bfe47cf8b016492e6f81231ea"
+      }
+    }
+  ],
+  "verification": {
+    "frontTests": {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "72/72"
+    },
+    "serverTests": {
+      "command": "CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs tests/platform-openapi.test.cjs",
+      "exitCode": 0,
+      "result": "51/51 isolated DB+provider stubs; all6 actual request bytes matched"
+    },
+    "browser": {
+      "command": "node .local/public-backgrounds-batch3/browser.cjs",
+      "exitCode": 0,
+      "result": "WebKit390/320 all6 category/search/selection/deselection/decode, no JS error/overflow"
+    },
+    "visual": "6 empty new backgrounds inspected in contact sheet: no people/UI/logos. Source1-4 and7-9 reuse existing environments. All14 sources accounted for.",
+    "typecheck": "npx tsc --noEmit exit0",
+    "serverBuild": "npm run build exit0",
+    "frontBuild": "npm run build exit0"
+  },
+  "limitations": [
+    "No production deployment",
+    "No live Seedream person compositing",
+    "No legal clearance"
+  ],
+  "fileHashes": {
+    "/Users/ethan/repository/crefans_front-preset-expansion/lib/crefans/ai-photo-backgrounds.ts": "267f9b0e3e8419b6dfbfc7db23689417f918867041d3906d29b0707069e5f791",
+    "/Users/ethan/repository/crefans_front-preset-expansion/tests/studio-ai-photo.test.cjs": "ad01cf9ca9c6bd742ee49419147016493485e361884b134043a1177e2f44c755",
+    "/Users/ethan/repository/crefans_server-ai-shop/src/platform/ai-photo-background-references.ts": "0f0ec5fd408fb7211d16b5d53b27cbec9bc8459c31d0ecbde9381c52068aec2d",
+    "/Users/ethan/repository/crefans_server-ai-shop/tests/platform-ai-photo.test.cjs": "a831b6775f66731cbeb3b4a461f05b62db5477afd614211dff063fba49cca8f1"
+  }
+}

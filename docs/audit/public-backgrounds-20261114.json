@@ -1,0 +1,227 @@
+{
+  "checkedAt": "2026-11-14T16:31:25.735522+09:00",
+  "repositories": [
+    {
+      "path": "/Users/ethan/repository/crefans_front-preset-expansion",
+      "baseCommit": "6a3fe68bc0f6f848afaf460d39db82f3ad0b4715",
+      "status": " M PROGRESS.md\n M components/crefans/studio/AiPhotoDialog.tsx\n M features/service/useStudioModel.ts\n M lib/crefans/ai-photo-presets.ts\n M next-env.d.ts\n M tests/studio-ai-photo-binding.test.cjs\n M tests/studio-ai-photo.test.cjs\n M types/crefans-studio-management.ts\n?? lib/crefans/ai-photo-backgrounds.ts\n?? public/brand/ai-photo/background/b7a101.webp\n?? public/brand/ai-photo/background/b7a102.webp\n?? public/brand/ai-photo/background/b7a103.webp\n?? public/brand/ai-photo/background/b7a104.webp\n?? public/brand/ai-photo/background/b7a105.webp\n?? public/brand/ai-photo/background/b7a106.webp\n?? public/brand/ai-photo/background/b7a107.webp\n"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_server-ai-shop",
+      "baseCommit": "25449ba92c058b32ec602e2670fbc48548a1fc14",
+      "status": " M PROGRESS.md\n M nest-cli.json\n M src/platform/ai-photo-failures.ts\n M src/platform/ai-photo.ts\n M src/platform/openapi-contract.ts\n M tests/platform-ai-photo.test.cjs\n?? src/platform/ai-photo-background-references.ts\n?? src/platform/ai-photo-backgrounds/\n"
+    }
+  ],
+  "assets": [
+    {
+      "n": 1,
+      "id": "b7a101",
+      "title": "차분한 침실",
+      "source": [
+        1
+      ],
+      "desc": "Cool white cozy bedroom, light oak floor, gray-blue linen curtains. Reverse layout: bed on RIGHT and broad curtain window on LEFT (not centered bed behind subject); a low light-oak platform bed with ivory quilt, round bedside stool and warm paper lamp, one muted sage cushion, no character toys. Build a different room with an angled alcove and simpler furniture. Large open foreground floor for compositing a person.",
+      "prompt": "Use case: background-extraction / new environment design. Create ONLY an EMPTY photorealistic interior background plate for later person compositing, portrait 1024x1536. The attached screenshot is a mood reference ONLY FOR ITS ENVIRONMENT. Exclude every person completely, exclude clothing and body parts, phone app UI, status bars, icons, signatures, text, watermarks and logos. Do not reconstruct the photograph literally. Make a NEW spatial arrangement and NEW furniture/light shapes, keeping broad color/lighting atmosphere only. Incorporate ONE horizontal reversal of the reference's left/right visual organization as explicitly specified below. Keep plausible photography, realistic materials, quiet coherent framing, eye-level to slightly low camera suitable for a portrait. Empty open foreground and fully finished environment, not transparent. No inset or comparison, one complete image, no caption.\nCool white cozy bedroom, light oak floor, gray-blue linen curtains. Reverse layout: bed on RIGHT and broad curtain window on LEFT (not centered bed behind subject); a low light-oak platform bed with ivory quilt, round bedside stool and warm paper lamp, one muted sage cushion, no character toys. Build a different room with an angled alcove and simpler furniture. Large open foreground floor for compositing a person.",
+      "sha256": "4fdce8a62dfc0832c2a2edb5935b4c7a898de2623835ff059ab346e575cff47b",
+      "width": 1024,
+      "height": 1536,
+      "sources": [
+        {
+          "number": 1,
+          "sha256": "51f21153220b4436e5ae8b75a537da05ba835a7e197367f0ad5d31a03ca7b85f"
+        }
+      ],
+      "path": "public/brand/ai-photo/background/b7a101.webp",
+      "serverBytesMatch": true
+    },
+    {
+      "n": 2,
+      "id": "b7a102",
+      "title": "그레이 전시장",
+      "source": [
+        2,
+        8,
+        9
+      ],
+      "desc": "Spacious indoor fan convention hall, gray polished concrete floor, pale sand walls, silver ceiling trusses, soft overhead illumination. Reverse original tent arrangement: redesigned modular cream and pale-sage booth canopies on RIGHT, open aisle veering LEFT, distant undecorated display stands with no writing. Different hall architecture and booth placement. Empty of all people. Clear foreground floor, gentle background defocus.",
+      "prompt": "Use case: background-extraction / new environment design. Create ONLY an EMPTY photorealistic interior background plate for later person compositing, portrait 1024x1536. The attached screenshot is a mood reference ONLY FOR ITS ENVIRONMENT. Exclude every person completely, exclude clothing and body parts, phone app UI, status bars, icons, signatures, text, watermarks and logos. Do not reconstruct the photograph literally. Make a NEW spatial arrangement and NEW furniture/light shapes, keeping broad color/lighting atmosphere only. Incorporate ONE horizontal reversal of the reference's left/right visual organization as explicitly specified below. Keep plausible photography, realistic materials, quiet coherent framing, eye-level to slightly low camera suitable for a portrait. Empty open foreground and fully finished environment, not transparent. No inset or comparison, one complete image, no caption.\nSpacious indoor fan convention hall, gray polished concrete floor, pale sand walls, silver ceiling trusses, soft overhead illumination. Reverse original tent arrangement: redesigned modular cream and pale-sage booth canopies on RIGHT, open aisle veering LEFT, distant undecorated display stands with no writing. Different hall architecture and booth placement. Empty of all people. Clear foreground floor, gentle background defocus.",
+      "sha256": "c9a35a2cf288100d88cb5dc067c82a1ccd3ac51595d240b723cca6d092905eaf",
+      "width": 1024,
+      "height": 1536,
+      "sources": [
+        {
+          "number": 2,
+          "sha256": "a4f52c067aaf9fed473d69b03489c979124f0c5e0f18db785aea9a1aaba0afde"
+        },
+        {
+          "number": 8,
+          "sha256": "0b74f21782b4065b3c131d8a91a0519de9a4b0adc4bdab7ce378930f6227a9b7"
+        },
+        {
+          "number": 9,
+          "sha256": "e216cc4474e5ef4f5d055d5b80a6d64450573873b0aa0ed8bc8f09135074fd9e"
+        }
+      ],
+      "path": "public/brand/ai-photo/background/b7a102.webp",
+      "serverBytesMatch": true
+    },
+    {
+      "n": 3,
+      "id": "b7a103",
+      "title": "핑크 네온 스튜디오",
+      "source": [
+        3
+      ],
+      "desc": "Dark futuristic photo studio with cyan and magenta neon glow. Reverse lateral layout: abstract softly lit segmented curved wall panels on LEFT, three slim cyan vertical light bars on RIGHT. No playing card shapes or letters or existing geometric logo. Wide empty matte charcoal circular platform in foreground, soft magenta rim and cyan reflections. Completely redesigned light architecture, atmospheric mild haze.",
+      "prompt": "Use case: background-extraction / new environment design. Create ONLY an EMPTY photorealistic interior background plate for later person compositing, portrait 1024x1536. The attached screenshot is a mood reference ONLY FOR ITS ENVIRONMENT. Exclude every person completely, exclude clothing and body parts, phone app UI, status bars, icons, signatures, text, watermarks and logos. Do not reconstruct the photograph literally. Make a NEW spatial arrangement and NEW furniture/light shapes, keeping broad color/lighting atmosphere only. Incorporate ONE horizontal reversal of the reference's left/right visual organization as explicitly specified below. Keep plausible photography, realistic materials, quiet coherent framing, eye-level to slightly low camera suitable for a portrait. Empty open foreground and fully finished environment, not transparent. No inset or comparison, one complete image, no caption.\nDark futuristic photo studio with cyan and magenta neon glow. Reverse lateral layout: abstract softly lit segmented curved wall panels on LEFT, three slim cyan vertical light bars on RIGHT. No playing card shapes or letters or existing geometric logo. Wide empty matte charcoal circular platform in foreground, soft magenta rim and cyan reflections. Completely redesigned light architecture, atmospheric mild haze.",
+      "sha256": "0f27924c34123acdc8ebe37283cff56c9bc7bb667660b284c1c8f6e7aed1de54",
+      "width": 1024,
+      "height": 1536,
+      "sources": [
+        {
+          "number": 3,
+          "sha256": "6a8c8c5db5f57a5a5bb00e9cb20cc2d20c5c64355fed4d05e3890bbdfbc7f05b"
+        }
+      ],
+      "path": "public/brand/ai-photo/background/b7a103.webp",
+      "serverBytesMatch": true
+    },
+    {
+      "n": 4,
+      "id": "b7a104",
+      "title": "민트 테이블 스튜디오",
+      "source": [
+        4
+      ],
+      "desc": "Dark photographic set with a large matte mint teal tabletop in foreground and navy walls. Reverse original left-side feature: a cluster of new oval frosted white light panels on RIGHT, pink accent tube on LEFT. Tabletop has a few small unbranded pastel geometric disks near edges only, no playing cards, gambling markings, readable text or chips with logos. Open clean center for compositing. Different table silhouette and light layout.",
+      "prompt": "Use case: background-extraction / new environment design. Create ONLY an EMPTY photorealistic interior background plate for later person compositing, portrait 1024x1536. The attached screenshot is a mood reference ONLY FOR ITS ENVIRONMENT. Exclude every person completely, exclude clothing and body parts, phone app UI, status bars, icons, signatures, text, watermarks and logos. Do not reconstruct the photograph literally. Make a NEW spatial arrangement and NEW furniture/light shapes, keeping broad color/lighting atmosphere only. Incorporate ONE horizontal reversal of the reference's left/right visual organization as explicitly specified below. Keep plausible photography, realistic materials, quiet coherent framing, eye-level to slightly low camera suitable for a portrait. Empty open foreground and fully finished environment, not transparent. No inset or comparison, one complete image, no caption.\nDark photographic set with a large matte mint teal tabletop in foreground and navy walls. Reverse original left-side feature: a cluster of new oval frosted white light panels on RIGHT, pink accent tube on LEFT. Tabletop has a few small unbranded pastel geometric disks near edges only, no playing cards, gambling markings, readable text or chips with logos. Open clean center for compositing. Different table silhouette and light layout.",
+      "sha256": "72d806f03ac91d91c97fbeb46b5ab66bbabdb11a554fa346caf77aa81e3625a3",
+      "width": 1024,
+      "height": 1536,
+      "sources": [
+        {
+          "number": 4,
+          "sha256": "ca517015116195f63b031eee2e80705f864fb6a523d2a66cfe1f588f7c160cbd"
+        }
+      ],
+      "path": "public/brand/ai-photo/background/b7a104.webp",
+      "serverBytesMatch": true
+    },
+    {
+      "n": 5,
+      "id": "b7a105",
+      "title": "웜톤 행사장",
+      "source": [
+        5
+      ],
+      "desc": "Warm beige indoor convention foyer, sand-colored terrazzo floor, softly blurred amber overhead lamps, low modern booth dividers, faint gray carpet island foreground. Reverse room flow: broad brighter entrance on LEFT and redesigned display counters receding RIGHT. No people. Replace original structural arrangement with rounded doorways, light oak slat accents, muted cream walls. Natural event photography atmosphere, open foreground.",
+      "prompt": "Create ONLY an EMPTY photorealistic interior background plate, portrait 1024x1536. Attached screenshot is mood reference only for environment. No people, clothing, bodies, app UI, text, logos. Newly designed room geometry and furnishings, not literal reconstruction. Reverse lateral organization as specified. Clear open foreground for person compositing. Warm beige indoor convention foyer, sand-colored terrazzo floor, softly blurred amber overhead lamps, low modern booth dividers, faint gray carpet island foreground. Reverse room flow: broad brighter entrance on LEFT and redesigned display counters receding RIGHT. No people. Replace original structural arrangement with rounded doorways, light oak slat accents, muted cream walls. Natural event photography atmosphere, open foreground.",
+      "sha256": "2da79945735f00f28f40149a29ef00db071a7fdd3bc9e7bde46b4dd9a73cc5a8",
+      "width": 1024,
+      "height": 1536,
+      "sources": [
+        {
+          "number": 5,
+          "sha256": "ea467551bedf1965d85c3db698ea1058ee43d148a71f88ef7fec7da2605fe82c"
+        }
+      ],
+      "path": "public/brand/ai-photo/background/b7a105.webp",
+      "serverBytesMatch": true
+    },
+    {
+      "n": 6,
+      "id": "b7a106",
+      "title": "형광등 로비",
+      "source": [
+        6
+      ],
+      "desc": "Indoor event building lobby, cool fluorescent-style ceiling panels, subdued gray-green polished floor and dark taupe distant corridor. Reverse scene direction with recessed passage on LEFT, broad cream column on RIGHT. Different ceiling: paired offset rectangular diffused light panels instead of identical strips; subtle vertical wall grooves and silver bench at distant right edge. Empty of people, no signs, uncluttered foreground.",
+      "prompt": "Create ONLY an EMPTY photorealistic interior background plate, portrait 1024x1536. Attached screenshot is mood reference only for environment. No people, clothing, bodies, app UI, text, logos. Newly designed room geometry and furnishings, not literal reconstruction. Reverse lateral organization as specified. Clear open foreground for person compositing. Indoor event building lobby, cool fluorescent-style ceiling panels, subdued gray-green polished floor and dark taupe distant corridor. Reverse scene direction with recessed passage on LEFT, broad cream column on RIGHT. Different ceiling: paired offset rectangular diffused light panels instead of identical strips; subtle vertical wall grooves and silver bench at distant right edge. Empty of people, no signs, uncluttered foreground.",
+      "sha256": "1ed35ee8b543c8a19f3c9579f3cd04772ef16fc3cf07cc3c0e7cfbc23a6ca663",
+      "width": 1024,
+      "height": 1536,
+      "sources": [
+        {
+          "number": 6,
+          "sha256": "a4d26cc8dcbaaf4fbe06dd63bafe97619e58bc2f97aa7d5e1935d699b0cd2a92"
+        }
+      ],
+      "path": "public/brand/ai-photo/background/b7a106.webp",
+      "serverBytesMatch": true
+    },
+    {
+      "n": 7,
+      "id": "b7a107",
+      "title": "퍼플 파티션",
+      "source": [
+        7
+      ],
+      "desc": "Compact photography corner of a convention space, deep charcoal wall partitions with soft purple ambient glow. Reverse original lighting direction: purple edge light strongest on LEFT. Redesign walls as two large smooth matte panels intersecting diagonally, inset narrow lavender light strip, muted gray woven carpet, right-side shadowed recessed alcove. Empty floor foreground, soft natural indoor camera look, no people or props or text.",
+      "prompt": "Create ONLY an EMPTY photorealistic interior background plate, portrait 1024x1536. Attached screenshot is mood reference only for environment. No people, clothing, bodies, app UI, text, logos. Newly designed room geometry and furnishings, not literal reconstruction. Reverse lateral organization as specified. Clear open foreground for person compositing. Compact photography corner of a convention space, deep charcoal wall partitions with soft purple ambient glow. Reverse original lighting direction: purple edge light strongest on LEFT. Redesign walls as two large smooth matte panels intersecting diagonally, inset narrow lavender light strip, muted gray woven carpet, right-side shadowed recessed alcove. Empty floor foreground, soft natural indoor camera look, no people or props or text.",
+      "sha256": "ff78d80c6fd4a3d26a8d8d551d95bff14291e4e3d20f3c8f76f53e4c6f63ff1c",
+      "width": 1024,
+      "height": 1536,
+      "sources": [
+        {
+          "number": 7,
+          "sha256": "f3f785edb155d5dc21cd0cc4cea13314466036d195f0ef0663dba597facd0348"
+        }
+      ],
+      "path": "public/brand/ai-photo/background/b7a107.webp",
+      "serverBytesMatch": true
+    }
+  ],
+  "manualReview": "7 background-only plates inspected in preview: no people/UI/text/logos, redesigned rooms with opposite lateral feature placement. Not pixel-mirrored source copies. No copyright clearance claim.",
+  "checks": {
+    "front": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs:72/72; binding rerun after added FormData assertion",
+    "server": "npm run build; CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs tests/platform-openapi.test.cjs:49/49 isolated DB+provider stubs",
+    "browser": "WebKit390/320 7 loaded images/search/select/deselect/page/no JS error/no overflow",
+    "assets": "7 identical front/server SHA256;1024x1536 WebP; build copies checked by reference test",
+    "builds": "npm run build front/server exit0; npx tsc --noEmit exit0",
+    "docs": "docs:contracts, docs:record, check:docs exit0; 79 docs/243 routes; snapshot not product proof"
+  },
+  "limitations": [
+    "No production deployment",
+    "No live Seedream generation of a composited person",
+    "No legal clearance"
+  ],
+  "copyrightReferences": [
+    "https://www.copyright.gov/eco/help-limitation.html",
+    "https://www.gov.uk/government/publications/copyright-notice-digital-images-photographs-and-the-internet/copyright-notice-digital-images-photographs-and-the-internet"
+  ],
+  "logs": {
+    ".local/public-backgrounds/browser.log": {
+      "sha256": "924278822573b0873ddd867f7123b55beba73c8d96a134bdc0f6ec0653cb34cb"
+    },
+    ".local/public-backgrounds/docs-check.log": {
+      "sha256": "fd8e6e3acd2b5a93d5f070f6160db482c49ec122d9e0a569af4292849bbd8255"
+    },
+    ".local/public-backgrounds/binding.log": {
+      "sha256": "abe1fabd162f658b47ec29aed9d7abccabbc28c7a5226ba0c2e61e726605862c"
+    },
+    ".local/public-backgrounds/docs-record.log": {
+      "sha256": "7f234bc50b8b95864b95698525bdeef44a221a1f33206d7eea379c81975c1497"
+    },
+    ".local/public-backgrounds/typecheck.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".local/public-backgrounds/docs-contracts.log": {
+      "sha256": "6fa3a5b8a529b38e6b79dc43e43f07978afb3ec8db09730e2972d9e874edd1d1"
+    },
+    ".local/public-backgrounds/front-tests.log": {
+      "sha256": "3b8cfe07e2a9002e2063ea62307201cb106f9e5420992746e5259bd7e4620101"
+    },
+    ".local/public-backgrounds/build.log": {
+      "sha256": "61978f49e2de4793073b27da70ccbb74ed12c7966bfbb937df8df946c01a7505"
+    }
+  },
+  "changedFileHashes": {
+    "components/crefans/studio/AiPhotoDialog.tsx": "cae40f3171e51fce108eaf46dfd49f9a8bfa50abb8e76131366907f4ab87f16c",
+    "features/service/useStudioModel.ts": "cdd6970583fbe95b818d25df25f8a240cb0bde15f472c1f7263b02905b4a5827",
+    "lib/crefans/ai-photo-presets.ts": "e9299ded79ba4329b164eaeb8e327669c0ba69e2a7c9d0cf6adb26055db2f26d",
+    "lib/crefans/ai-photo-backgrounds.ts": "ab70b2fb6c5131bdad49bcd7156e8bfcf8261ceee8b5957a4f0420e040941945",
+    "types/crefans-studio-management.ts": "37b0f8c8d465e35fbeba63c4e806dc2390c6a732adefc5812e6a66b259ac59e3",
+    "tests/studio-ai-photo.test.cjs": "c3d513098180176249341801c8f33524c683bfcedaa4519fdfcf35a153079558",
+    "tests/studio-ai-photo-binding.test.cjs": "95ad06f88b45acf27d12f47ba0122b4890a22807485143e7864a9dde07e60924"
+  }
+}

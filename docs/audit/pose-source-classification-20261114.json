@@ -1,0 +1,338 @@
+{
+  "date": "2026-11-14",
+  "scope": "3 batches, 33 photos; public poses only; source photos not published",
+  "mapping": [
+    {
+      "batch": 1,
+      "photo": 1,
+      "sourceSha256": "51f21153220b4436e5ae8b75a537da05ba835a7e197367f0ad5d31a03ca7b85f",
+      "poseNumber": 32,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 1,
+      "photo": 2,
+      "sourceSha256": "a4f52c067aaf9fed473d69b03489c979124f0c5e0f18db785aea9a1aaba0afde",
+      "poseNumber": 15,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 1,
+      "photo": 3,
+      "sourceSha256": "6a8c8c5db5f57a5a5bb00e9cb20cc2d20c5c64355fed4d05e3890bbdfbc7f05b",
+      "poseNumber": 17,
+      "note": "중립대안:노출강조대신옷을갖춰입고무릎모으기/발내리기/편하게앉기"
+    },
+    {
+      "batch": 1,
+      "photo": 4,
+      "sourceSha256": "ca517015116195f63b031eee2e80705f864fb6a523d2a66cfe1f588f7c160cbd",
+      "poseNumber": 31,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 1,
+      "photo": 5,
+      "sourceSha256": "ea467551bedf1965d85c3db698ea1058ee43d148a71f88ef7fec7da2605fe82c",
+      "poseNumber": 31,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 1,
+      "photo": 6,
+      "sourceSha256": "a4d26cc8dcbaaf4fbe06dd63bafe97619e58bc2f97aa7d5e1935d699b0cd2a92",
+      "poseNumber": 27,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 1,
+      "photo": 7,
+      "sourceSha256": "f3f785edb155d5dc21cd0cc4cea13314466036d195f0ef0663dba597facd0348",
+      "poseNumber": 31,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 1,
+      "photo": 8,
+      "sourceSha256": "0b74f21782b4065b3c131d8a91a0519de9a4b0adc4bdab7ce378930f6227a9b7",
+      "poseNumber": 15,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 1,
+      "photo": 9,
+      "sourceSha256": "e216cc4474e5ef4f5d055d5b80a6d64450573873b0aa0ed8bc8f09135074fd9e",
+      "poseNumber": 25,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 2,
+      "photo": 1,
+      "sourceSha256": "50cee82bf6ef00e8d5d10f762004e0178cdd5983bdc371db2169803f379d1cd8",
+      "poseNumber": 38,
+      "note": "중립대안:노출강조대신옷을갖춰입고무릎모으기/발내리기/편하게앉기"
+    },
+    {
+      "batch": 2,
+      "photo": 2,
+      "sourceSha256": "8371d94a844f8f3636ffae1de2be7077f018e80fcf1d321cc09eb769a0bb68b2",
+      "poseNumber": 38,
+      "note": "중립대안:노출강조대신옷을갖춰입고무릎모으기/발내리기/편하게앉기"
+    },
+    {
+      "batch": 2,
+      "photo": 3,
+      "sourceSha256": "f8518d4c7a2109aa701b1984b27e9bdf3b538deac263f56914a2bb49e2afc8b7",
+      "poseNumber": 6,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 2,
+      "photo": 4,
+      "sourceSha256": "20ec51734b499b6e886ca3d7ec645f21f42b228bd5977dfa215b33c28c0939f5",
+      "poseNumber": 30,
+      "note": "중립대안:노출강조대신옷을갖춰입고무릎모으기/발내리기/편하게앉기"
+    },
+    {
+      "batch": 2,
+      "photo": 5,
+      "sourceSha256": "056c89aab4b2ba1787db3df86e1b7cefff1b34c11cf9c400ca71fc0afca83cda",
+      "poseNumber": 17,
+      "note": "중립대안:노출강조대신옷을갖춰입고무릎모으기/발내리기/편하게앉기"
+    },
+    {
+      "batch": 2,
+      "photo": 6,
+      "sourceSha256": "f07cdd7539514b7f6975ea5316d7f5a21fe843bce6d6aa4dd2c5ad7917674c68",
+      "poseNumber": 2,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 2,
+      "photo": 7,
+      "sourceSha256": "c28fecced08f9132f5b6119897018efd8e92aef918edbdef3ab3e1d4f64ae9d3",
+      "poseNumber": 10,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 2,
+      "photo": 8,
+      "sourceSha256": "7389f9f6eab2c861ed8aa7483e88672126e00648b28922c337b2c204ec42834b",
+      "poseNumber": 30,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 2,
+      "photo": 9,
+      "sourceSha256": "4a4d44f1a1a6aab4f04deb77ae519195aeaca31172588881929a33b0fd2ce9b2",
+      "poseNumber": 34,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 2,
+      "photo": 10,
+      "sourceSha256": "b8c5489fd13dce3ccd6dce7c67b51950b153913c0c4c18ef22016fbfc4c60910",
+      "poseNumber": 33,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 1,
+      "sourceSha256": "2f7b343df2afdd71c5f57513b762550d915770bdd06123c4ad320a1e7ce8ba7e",
+      "poseNumber": 33,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 2,
+      "sourceSha256": "d5059c9ce150148c87be19add3f22f03e01fd6cc9d0d42c9b762d9028e854487",
+      "poseNumber": 34,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 3,
+      "sourceSha256": "d1a8748ce70179b1503620a491d4d5250ee53f798a97fe2f120b8203ce22f4b3",
+      "poseNumber": 35,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 4,
+      "sourceSha256": "ebf334be61259fe57ce1551a3ca7244bcee29f04cbc6d2e5aa05f7bf66168bfb",
+      "poseNumber": 35,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 5,
+      "sourceSha256": "5e99ea094b02f706a9c9d6b02e3a1a7e3935cbd820ac0064ac14d77c6872fdf8",
+      "poseNumber": 36,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 6,
+      "sourceSha256": "380a69668339fb9be35a9c78420a6efab4235ef4fcc1ce15951c1a6ec94159cd",
+      "poseNumber": 29,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 7,
+      "sourceSha256": "e15f16a30b9a0012c6bfddf7cc54a68ec55045134a4e20806142f3f3936e787e",
+      "poseNumber": 37,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 8,
+      "sourceSha256": "ed7622017d38c8545355a1c8dc37fe86997720cf9af1d2e7d9ffea7549896c51",
+      "poseNumber": 37,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 9,
+      "sourceSha256": "ca7397486b897f9f71eb1e38d9e49f79dc09427bfe47cf8b016492e6f81231ea",
+      "poseNumber": 31,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 10,
+      "sourceSha256": "3363a0bd7df771198a000ffa9cfda6570797dfefef95926fc0e584571435a2d7",
+      "poseNumber": 27,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 11,
+      "sourceSha256": "b2b8184345b6a5ff787045e963c28b4a05ab3b2bfeeb5f1987a37487eb7367f6",
+      "poseNumber": 31,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 12,
+      "sourceSha256": "97bc495ed6098504433e81b240e52b9eefbc5d7d396c398fc0e02ada10feaab6",
+      "poseNumber": 31,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 13,
+      "sourceSha256": "d25c67b9aaf1624f23b6888c0b6f3225d4289719c9be3275a6a1fad4d2cd73e9",
+      "poseNumber": 27,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    },
+    {
+      "batch": 3,
+      "photo": 14,
+      "sourceSha256": "a2b181e80361173415078c13ea7696f6fa77f2e35c28daa4f364fbe13f91b0dc",
+      "poseNumber": 39,
+      "note": "주요자세로분류,소품/시선은원본복제하지않음"
+    }
+  ],
+  "checkedAt": "2026-11-14T16:47:57.069588+09:00",
+  "baseCommit": "a17c2114e0edb9d5ae1aa178001162eb3d6046fa",
+  "assets": [
+    {
+      "n": 31,
+      "title": "무릎 꿇고 앉기",
+      "posture": "sitting",
+      "prompt": "바닥에 양 무릎을 붙이고 꿇어 앉아 상체를 세우고 두 손을 허벅지 위에 편하게 올려줘.",
+      "desc": "Kneel upright on both knees together, sit on heels, hands relaxed on thighs.",
+      "generationPrompt": "Create ONE square 1024x1024 simple pose preset illustration. Match attached reference mascot exactly in style: round peach head, two small dark dot eyes, tiny smile, NO nose, bald, simple friendly gender-neutral clay-like rounded figure, loose fully covering bright lavender long-sleeve top and full-length pants, mitten-like hands, white/light gray background, soft shadow, no text, no embellishments. Full figure fits with clear margin, pose is instantly readable. Do not reproduce the reference sitting pose; use this new pose: Kneel upright on both knees together, sit on heels, hands relaxed on thighs.",
+      "sha256": "e75173d2ed34508c8676bd837d5148e87800cb06aa7c4d1dc776c735effc4233"
+    },
+    {
+      "n": 32,
+      "title": "다리 모아 옆앉기",
+      "posture": "sitting",
+      "prompt": "바닥에 두 다리를 한쪽으로 모아 접고 상체를 세워 편안하게 앉아줘.",
+      "desc": "Side-sitting on floor, knees together and both folded legs to the right, upright torso, one supporting hand beside hip.",
+      "generationPrompt": "Create ONE square 1024x1024 simple pose preset illustration. Match attached reference mascot exactly in style: round peach head, two small dark dot eyes, tiny smile, NO nose, bald, simple friendly gender-neutral clay-like rounded figure, loose fully covering bright lavender long-sleeve top and full-length pants, mitten-like hands, white/light gray background, soft shadow, no text, no embellishments. Full figure fits with clear margin, pose is instantly readable. Do not reproduce the reference sitting pose; use this new pose: Side-sitting on floor, knees together and both folded legs to the right, upright torso, one supporting hand beside hip.",
+      "sha256": "a01439b195483683dc025ba62e79a9c61e37fed1ef8975dd09d9b1d6a3691606"
+    },
+    {
+      "n": 33,
+      "title": "카메라로 손 뻗기",
+      "posture": "standing",
+      "prompt": "서서 상체를 조금 앞으로 기울이고 한 손을 카메라 방향으로 자연스럽게 뻗어줘.",
+      "desc": "Stand with balanced feet, lean slightly forward, extend one open hand toward viewer at shoulder level, other hand on hip. Friendly greeting, modest perspective.",
+      "generationPrompt": "Create ONE square 1024x1024 simple pose preset illustration. Match attached reference mascot exactly in style: round peach head, two small dark dot eyes, tiny smile, NO nose, bald, simple friendly gender-neutral clay-like rounded figure, loose fully covering bright lavender long-sleeve top and full-length pants, mitten-like hands, white/light gray background, soft shadow, no text, no embellishments. Full figure fits with clear margin, pose is instantly readable. Do not reproduce the reference sitting pose; use this new pose: Stand with balanced feet, lean slightly forward, extend one open hand toward viewer at shoulder level, other hand on hip. Friendly greeting, modest perspective.",
+      "sha256": "7a348f9ceffa0e11780bce03addb6ae437ead991af57265028513737c4aceb1a"
+    },
+    {
+      "n": 34,
+      "title": "이마에 손 대기",
+      "posture": "standing",
+      "prompt": "서서 한 손을 이마 옆에 가볍게 대고 고개를 살짝 기울여줘.",
+      "desc": "Stand relaxed, one hand lightly at side of forehead, head gently tilted, other arm down.",
+      "generationPrompt": "Create ONE square 1024x1024 simple pose preset illustration. Match attached reference mascot exactly in style: round peach head, two small dark dot eyes, tiny smile, NO nose, bald, simple friendly gender-neutral clay-like rounded figure, loose fully covering bright lavender long-sleeve top and full-length pants, mitten-like hands, white/light gray background, soft shadow, no text, no embellishments. Full figure fits with clear margin, pose is instantly readable. Do not reproduce the reference sitting pose; use this new pose: Stand relaxed, one hand lightly at side of forehead, head gently tilted, other arm down.",
+      "sha256": "2e8d4b43a426d22a28cd4d11dbad30ed27d8b4ea5d765b4351cccfb86181603f"
+    },
+    {
+      "n": 35,
+      "title": "뒤로 손 짚고 기대기",
+      "posture": "standing",
+      "prompt": "서서 몸 뒤의 낮은 난간에 두 손을 가볍게 짚고 편안하게 기대줘.",
+      "desc": "Stand with feet on floor, both hands behind resting on low simple pale-gray rail, torso upright lightly leaning back.",
+      "generationPrompt": "Create ONE square 1024x1024 simple pose preset illustration. Match attached reference mascot exactly in style: round peach head, two small dark dot eyes, tiny smile, NO nose, bald, simple friendly gender-neutral clay-like rounded figure, loose fully covering bright lavender long-sleeve top and full-length pants, mitten-like hands, white/light gray background, soft shadow, no text, no embellishments. Full figure fits with clear margin, pose is instantly readable. Do not reproduce the reference sitting pose; use this new pose: Stand with feet on floor, both hands behind resting on low simple pale-gray rail, torso upright lightly leaning back.",
+      "sha256": "17264703f9d6dfede4b966594467c7c69f728598755260f70f1c7b83b5969257"
+    },
+    {
+      "n": 36,
+      "title": "한 발 뒤로 접기",
+      "posture": "standing",
+      "prompt": "한쪽 다리로 편하게 서고 다른 쪽 무릎을 굽혀 발을 뒤로 살짝 들어줘.",
+      "desc": "Stand balanced on one leg, other knee bends and foot lifts backward slightly, one hand on hip and other gently extended for balance.",
+      "generationPrompt": "Create ONE square 1024x1024 simple pose preset illustration. Match attached reference mascot exactly in style: round peach head, two small dark dot eyes, tiny smile, NO nose, bald, simple friendly gender-neutral clay-like rounded figure, loose fully covering bright lavender long-sleeve top and full-length pants, mitten-like hands, white/light gray background, soft shadow, no text, no embellishments. Full figure fits with clear margin, pose is instantly readable. Do not reproduce the reference sitting pose; use this new pose: Stand balanced on one leg, other knee bends and foot lifts backward slightly, one hand on hip and other gently extended for balance.",
+      "sha256": "fcfdf568f66f2f244eb54906cb2528734810117ea1907f3e676c146d8937ca5c"
+    },
+    {
+      "n": 37,
+      "title": "양손으로 소품 들기",
+      "posture": "standing",
+      "prompt": "서서 가벼운 소품을 양손으로 가슴 아래 높이에 편안하게 들어줘.",
+      "desc": "Stand holding a plain small rectangular unmarked prop with both hands at waist level, elbows relaxed.",
+      "generationPrompt": "Create ONE square 1024x1024 simple pose preset illustration. Match attached reference mascot exactly in style: round peach head, two small dark dot eyes, tiny smile, NO nose, bald, simple friendly gender-neutral clay-like rounded figure, loose fully covering bright lavender long-sleeve top and full-length pants, mitten-like hands, white/light gray background, soft shadow, no text, no embellishments. Full figure fits with clear margin, pose is instantly readable. Do not reproduce the reference sitting pose; use this new pose: Stand holding a plain small rectangular unmarked prop with both hands at waist level, elbows relaxed.",
+      "sha256": "51128216e5e371431ba5f2d913bf281016acc272cf18127c9a101de6cecf7cd3"
+    },
+    {
+      "n": 38,
+      "title": "무릎 안고 앉기",
+      "posture": "sitting",
+      "prompt": "바닥에 앉아 두 발을 바닥에 붙이고 모은 무릎을 두 팔로 편안하게 감싸줘.",
+      "desc": "Sit on floor with both feet planted on floor, knees together bent toward torso, arms loosely hug knees, upright relaxed head. Feet stay down.",
+      "generationPrompt": "Create ONE square 1024x1024 simple pose preset illustration. Match attached reference mascot exactly in style: round peach head, two small dark dot eyes, tiny smile, NO nose, bald, simple friendly gender-neutral clay-like rounded figure, loose fully covering bright lavender long-sleeve top and full-length pants, mitten-like hands, white/light gray background, soft shadow, no text, no embellishments. Full figure fits with clear margin, pose is instantly readable. Do not reproduce the reference sitting pose; use this new pose: Sit on floor with both feet planted on floor, knees together bent toward torso, arms loosely hug knees, upright relaxed head. Feet stay down.",
+      "sha256": "cac021e40ea804295a11ded2d67d70a6fde3c87992896e4dfc737c4e9feb9cf6"
+    },
+    {
+      "n": 39,
+      "title": "앉아서 팔 올리기",
+      "posture": "sitting",
+      "prompt": "의자에 무릎을 모아 앉아 두 손을 머리 뒤에 가볍게 대고 팔꿈치를 편하게 벌려줘.",
+      "desc": "Sit upright on a simple gray stool, knees together feet down, both hands behind head and elbows gently outward.",
+      "generationPrompt": "Create ONE square 1024x1024 simple pose preset illustration. Match attached reference mascot exactly in style: round peach head, two small dark dot eyes, tiny smile, NO nose, bald, simple friendly gender-neutral clay-like rounded figure, loose fully covering bright lavender long-sleeve top and full-length pants, mitten-like hands, white/light gray background, soft shadow, no text, no embellishments. Full figure fits with clear margin, pose is instantly readable. Do not reproduce the reference sitting pose; use this new pose: Sit upright on a simple gray stool, knees together feet down, both hands behind head and elbows gently outward.",
+      "sha256": "3360c7676c1896d85837259827a32e3c1d4f1593b77f9cc5cbb8d1280611a5d9"
+    }
+  ],
+  "checks": {
+    "tests": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs: exit0,73/73, source33 mappings +9 new matching request prompts",
+    "types": "npx tsc --noEmit: exit0",
+    "browser": "WebKit390/320 9 images decoded/search/select/deselect, no JS errors/document overflow",
+    "visual": "9 fully clothed nose-free simple lavender mascots; sitting4/standing5; contact sheet inspected",
+    "build": "npm run build: exit0"
+  },
+  "limitations": [
+    "No deployment",
+    "No live provider generation",
+    "Pose images are picker illustrations, existing generation prompt path is preserved; original person photos not sent or published"
+  ],
+  "fileHashes": {
+    "lib/crefans/ai-photo-presets.ts": "3b88a195c5096c9c2d52ece3880bfbfcf1f20e8c939f6074f8f0c1260f60fb5b",
+    "tests/studio-ai-photo.test.cjs": "9d3b430e74a9fc5221761e2fd32db76746909d8239736cd1f4fe9f2831b85a90"
+  }
+}
