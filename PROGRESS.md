@@ -1,3 +1,7 @@
+## 2026-11-14 흐르는 하트 게임 운영 배포 완료
+- 86b00ff dev→prod, front-flowing-hearts-20261114 04:40:31UTC 적용. 운영 컨테이너 실행·새 게임/완료 문구 번들 확인, 배포 헬스 검사 통과. 이전 이미지·설정 외부 복구 검증 및 서버 임시 정리는 ship.log 참조.
+- .local/flowing-hearts/{ship.log,production.log,verification.json}. 단위56/56·타입·계층·WebKit 모바일 대역 검증 통과. 문서 검사는 기존 형제 서버 참조 파일 누락으로 실패. 실제 공급사 생성은 호출하지 않음.
+
 ## 2026-11-14 흐르는 하트 게임 검증 완료
 - 단위56/56·타입·계층455 통과. WebKit 모바일에서 왼쪽→오른쪽 이동, 키보드 수집, 차감/0하한, 터짐 후 제거, 모션 감소, 320px, 성공 점수1개/완료문구 확인. 공급사 대역 사용, 실제 생성 미호출. 증거 .local/flowing-hearts/{unit.log,types.log,layers.log,browser.log,mobile.png,completed.png}.
 
