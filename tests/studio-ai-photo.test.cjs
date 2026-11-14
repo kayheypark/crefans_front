@@ -291,7 +291,7 @@ test('every preset has a distinct decodable image including Comic World, 47 pose
  for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,/background\/(b7a10|c8b20|d9c30|ead4)/.test(image)?1024:384);assert.equal(meta.height,/background\/(b7a10|c8b20|d9c30|ead4)/.test(image)?1536:384);}
  }
  const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,16);
- assert.equal(images.length,154);assert.equal(new Set(images).size,154);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
+ assert.equal(images.length,178);assert.equal(new Set(images).size,178);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
@@ -707,4 +707,28 @@ test('every costume card shows its original character gender (female pink, male 
  await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(badge('로드호그 코스튬').props['data-gender'],'male');assert.equal(text(badge('로드호그 코스튬')),'♂');
  await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'벤처'}}));assert.equal(text(badge('벤처 코스튬')),'♀♂');
  await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'트레이서'}}));assert.equal(text(badge('트레이서 코스튬')),'♀');assert.equal(badge('트레이서 코스튬').props.title,'원작 여성');
+});
+
+test('general mode outfit tab splits 상의/하의 by the chosen gender and keeps one top plus one bottom',async()=>{
+ const {aiPhotoOutfits}=loadTypeScript('lib/crefans/ai-photo-outfits.ts');
+ for(const gender of ['female','male'])for(const part of ['top','bottom'])assert.equal(aiPhotoOutfits.filter(o=>o.gender===gender&&o.part===part).length,9,`${gender} ${part}`);
+ const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick());
+ const titles=()=>r.root.findAll(n=>n.type==='button'&&n.props.className==='preset').map(n=>n.props['aria-label']);
+ assert.equal(r.root.findByProps({'aria-label':'옷 부위'}).findAll(n=>n.type==='button').map(text).join(','),'상의,하의');
+ assert.deepEqual(titles(),aiPhotoOutfits.filter(o=>o.gender==='female'&&o.part==='top').map(o=>o.name));
+ await click('화이트 블라우스');await act(async()=>r.root.findByProps({'aria-label':'옷 부위'}).findAll(n=>n.type==='button')[1].props.onClick());
+ assert.deepEqual(titles(),aiPhotoOutfits.filter(o=>o.gender==='female'&&o.part==='bottom').map(o=>o.name));
+ await click('일자 청바지');await click('부츠컷 청바지');
+ assert.equal(r.root.findByProps({'aria-label':'부츠컷 청바지'}).props['aria-pressed'],true);assert.equal(r.root.findByProps({'aria-label':'일자 청바지'}).props['aria-pressed'],false);
+ await click('1장 만들기');const blouse=aiPhotoOutfits.find(o=>o.name==='화이트 블라우스').prompt,boot=aiPhotoOutfits.find(o=>o.name==='부츠컷 청바지').prompt;
+ assert.ok(calls[0].prompt.includes(blouse),calls[0].prompt);assert.ok(calls[0].prompt.includes(boot));assert.doesNotMatch(calls[0].prompt,/일자 청바지|하이웨이스트 일자/);assert.equal(calls[0].style,'photo');
+});
+
+test('switching the person to male drops female tops/bottoms and shows male ones',async()=>{
+ const {aiPhotoOutfits}=loadTypeScript('lib/crefans/ai-photo-outfits.ts');
+ const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick());
+ await click('화이트 블라우스');await act(async()=>r.root.find(n=>n.type==='button'&&text(n)==='남성').props.onClick());
+ const titles=r.root.findAll(n=>n.type==='button'&&n.props.className==='preset').map(n=>n.props['aria-label']);
+ assert.deepEqual(titles,aiPhotoOutfits.filter(o=>o.gender==='male'&&o.part==='top').map(o=>o.name));
+ await click('옥스퍼드 셔츠');await click('1장 만들기');assert.doesNotMatch(calls[0].prompt,/블라우스/);assert.match(calls[0].prompt,/옥스퍼드/);
 });
