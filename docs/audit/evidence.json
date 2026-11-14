@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T06:31:41.119241+00:00",
+  "checkedAt": "2026-11-14T06:33:18.922282+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "50dad29c0cf896d7e9ec73cede98129712d94c63",
-      "branch": "fix/ai-continue-mode",
+      "head": "655be04fbbde9b8414b793c980fc7d21954747a2",
+      "branch": "fix/heart-balance-display",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "65f52537d867ffc0ae49e9f4d06ec6c9ef76620bb0d53164d1c81f5d73e50b6a",
-      "front/PROGRESS.md": "c405b59d8852bbe5f1a21e33b53f2b3570f0944a549e8c6eee97c8fd2d86350f",
+      "front/PROGRESS.md": "47b938f5191303e1d28c16279c15449ea44d3c7b5bf10c004ac572ea5c4cb2fc",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -293,7 +293,7 @@
       "front/components/crefans/studio/AdvertisingPage.tsx": "d032809027defff59693167f86936f985c85c7b309fd8db7b8e510e1b2aeb0ed",
       "front/components/crefans/studio/AiBodyAdjustments.tsx": "79962e853d9118b40a52e1f3521a89173e9c3ac02935c54d252767f7ce43bc08",
       "front/components/crefans/studio/AiPhotoCategoryIcon.tsx": "903527ba6652132489715098f888ff24cb867e61803448fcb4db7e7eba60aeb8",
-      "front/components/crefans/studio/AiPhotoDialog.tsx": "774b698cfb8ea30e18e06355a7e8a5d42ba62547d637d392c8fc9e8a62cd19bd",
+      "front/components/crefans/studio/AiPhotoDialog.tsx": "cd07d144b1ccded4ed99a468261dd88e6d7546e90b7f85dfb611d2e6814ef52d",
       "front/components/crefans/studio/AiPhotoMask.tsx": "7326907d157c8460a130b27693b192d8ddfa63d2b485393ff4157d8324064be7",
       "front/components/crefans/studio/AiPhotoWaiting.tsx": "23a09a1db2878ea0ada5d674a448ada975aa2625af10ab67ac24e4982fbf4725",
       "front/components/crefans/studio/AiPhotoWardrobe.tsx": "211396599d0eeacd52a237fd3e19ab2c537d67910a41f2ac60e15f30977b3ce6",
@@ -312,7 +312,7 @@
       "front/components/crefans/studio/StudioShell.tsx": "093e748729528bfc2b5be26414190f158d2cda139d544b5106ff294da89e24de",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "2843536dd513f2a6f61ed32bf09bb6e005d1cbdf601fba75f6db5691f5da2bb6",
       "front/components/crefans/studio/advertising.module.css": "ebbd2482c80f4f70199c6145711558f823589aed597a6d8342a52d2a22f591bc",
-      "front/components/crefans/studio/ai-photo.module.css": "8d151d43885017e38ad78b0f5efea573fb0db55d5d00617ea47e9130e170b4e8",
+      "front/components/crefans/studio/ai-photo.module.css": "a41ed86f16a4ac8bc1d0d6a93187cec9f1051b57a362601ef2c3a558da94b992",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-list.module.css": "50f5927048e6507421ecc94607ed9e3016e63e198fcccfa76351af28bda11bca",
       "front/components/crefans/studio/content-performance.module.css": "6d4be5a99f503a53337abad363dfaafe3e92c7f611176dfe10fe53840f123c36",
@@ -900,7 +900,7 @@
       "front/tests/shop-routes.test.cjs": "b05cdc709a6db7c74d92d8f3bbaf492cf9f10fb8da5f59ee1a9922395b8a7b3b",
       "front/tests/social-links.test.cjs": "254957c511a965dd0ad78a8fc77f4b125171b48b2669018169dce531062995bd",
       "front/tests/studio-ai-photo-binding.test.cjs": "f7a2946f051ebc81702361e6b40ff7d93bdaa73f6d3a1e1358739b04537a7ef3",
-      "front/tests/studio-ai-photo.test.cjs": "8e84604704b7606a903990f7fbfe613cff1cd04c40f8aa79669604cc387bb6f3",
+      "front/tests/studio-ai-photo.test.cjs": "fccb397a25ae52eb0ca18e3f51bfd4238636e53645c316cf125b91cab8c8d27b",
       "front/tests/studio-comment-reply.test.cjs": "7dbb13f94b5f23c0ed0432312330256949111a69be7915a7da3bbab81e9d034b",
       "front/tests/studio-community-binding.test.cjs": "5dd8644628deeebc3b7fa6511732fb648f4539dfc66df5a49f2331a1d0366cad",
       "front/tests/studio-loading.test.cjs": "b0a6f46d370d009cf6dc282e55590cf3984e1f16d63eefe9cec5363ca20ce365",

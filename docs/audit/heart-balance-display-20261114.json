@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-14T06:33:18.066859+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-preset-expansion",
+  "baseCommit": "655be04fbbde9b8414b793c980fc7d21954747a2",
+  "state": "uncommitted verified implementation",
+  "checks": [
+    {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "65/65; verified remainder5/100 vs current-game30 and exact copy"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "pass"
+    }
+  ],
+  "sha256": "cd07d144b1ccded4ed99a468261dd88e6d7546e90b7f85dfb611d2e6814ef52d",
+  "limitations": [
+    "Not deployed"
+  ],
+  "logs": ".local/heart-balance"
+}
