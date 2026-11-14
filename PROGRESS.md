@@ -1,3 +1,13 @@
+## 2026-11-14 신체 연속 슬라이더 검증 완료
+- 공용AiBodyAdjustments,여성3/남성4라벨왼쪽플랫아이콘·step any·5기준점스냅. 몸사진카드/검색/페이징미노출. 소수강도를내부프롬프트에반영·화면은보정강도표시,신체치수%가아님. 기존신체1항목/성별초기화유지.
+- 단위56/56·타입0·계층455통과,WebKit실드래그/터치중간값유지·1.04→1스냅·방향키1.02탈출·Home·성별초기화·320px통과. 최종플랫트랙/썸모바일직접검토. docs기존형제서버참조누락실패. 실생성정밀효과미검증.
+- 근거 .local/body-slider/{verification.json,unit.log,types.log,layers.log,browser-final.log,mobile.png,male.png}. 공간확보는자체.next개발캐시와Docker이미지·SHA확인된전송압축3개만정리,운영/복구/볼륨보존. 운영배포예정.
+
+## 2026-11-14 신체 보정 연속 슬라이더 진행
+- 신체탭사진프리셋/검색/페이징제거,라벨왼쪽컬러플랫SVG. native range step=any,기존-2/-1/0/1/2에서±0.08스냅(전체트랙2%,제품판단),나머지연속값보존. 방향키1%강도미세조절은스냅없이이동해기준점탈출보장. 기존신체1항목선택/성별초기화유지.
+- 소수강도도프롬프트반영,표시는신체치수아닌보정강도. 합격:중간값/스냅/키보드/프리셋미노출/성별·선택회귀/모바일터치·키보드/운영.
+- 근거2026-11-14 MDN https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range (step any),WAI https://www.w3.org/WAI/ARIA/apg/patterns/slider/ (방향키/Home/End/valuetext). 수치효과의실AI정확도는보장하지않음.
+
 ## 2026-11-14 하트 모으기 운영 배포 완료
 - 93f22ed dev→prod, front-waiting-hearts-20261114 04:18:39UTC 운영교체. 운영게임/점수/모션감소번들·캐릭터HTTP200/SHA확인,주요페이지/헬스정상·다른컨테이너유지. 단위55/55·타입·계층454·WebKit모바일통과,docs기존형제참조누락실패. 공급사실생성은재호출하지않음.
 - 이전이미지/설정은 /Users/ethan/crefans-recovery/20261114/front-waiting-hearts-20261114 SHA/OCI/태그/15blobs검증후서버사본·임시정리. 증거 .local/waiting-hearts/{production.json,ship.log,verification.json,mobile.png}. 게임추가과금/API호출/보상/저장없음.

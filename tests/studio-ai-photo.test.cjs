@@ -277,7 +277,7 @@ test('gender is composed internally without appearing in or changing the custom 
 
 test('body controls select only one adjustment and keep custom input',async()=>{
  const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}),range=label=>r.root.find(n=>n.type==='input'&&n.props['aria-label']===label);await act(async()=>field().props.onChange({target:{value:'자연스럽게'}}));
- await click('가슴 조금 작게');assert.equal(range('가슴 크기').props.value,-1);await click('가슴 조금 크게');assert.equal(range('가슴 크기').props.value,1);assert.equal(r.root.findByProps({'aria-label':'가슴 조금 작게'}).props['aria-pressed'],false);await click('가슴 조금 크게');assert.equal(range('가슴 크기').props.value,0);
+ assert.equal(r.root.findAllByProps({'aria-label':'프리셋 검색'}).length,0);assert.equal(r.root.findAllByProps({'aria-label':'프리셋 페이지'}).length,0);assert.equal(range('가슴 크기').props.step,'any');
  await act(async()=>range('가슴 크기').props.onChange({target:{value:'-2'}}));await act(async()=>range('힙 크기').props.onChange({target:{value:'-1'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'2'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'0'}}));assert.equal(field().props.value,'자연스럽게');
  await click('1장 만들기');assert.equal(calls[0].kind,'body');assert.equal(calls[0].prompt,'자연스럽게');assert.ok(calls[0].prompt.endsWith('자연스럽게'));
 });
@@ -437,15 +437,14 @@ test('default cosplay wardrobe swipes six-card pages without changing selected c
  await click('남성');assert.equal(previews().length,6);assert.equal(calls.length,0);
  });
 
-test('male body: four male photos, bidirectional controls, single selection and gender reset',async()=>{
+test('male body: four flat icons and ranges without photos, single selection and gender reset',async()=>{
  const {r,click,calls}=await open();await click('남성');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());
  const sliders=()=>r.root.findAll(n=>n.type==='input'&&n.props.type==='range'),range=label=>sliders().find(n=>n.props['aria-label']===label);
  const labels=['상체 근육','하체 근육','어깨 너비','키 비율'];assert.deepEqual(sliders().map(n=>n.props['aria-label']),labels);
- assert.deepEqual(r.root.findAll(n=>n.type==='img'&&String(n.props.src).includes('/presets/body-')).map(n=>n.props.src),['upper','lower','shoulder','height'].map(key=>`/brand/ai-photo/presets/body-male-${key}-v1.webp`));
- for(const label of labels){await click(label);assert.equal(range(label).props.value,1);await click(label);assert.equal(range(label).props.value,0);}
+ assert.equal(r.root.findAll(n=>n.type==='img'&&String(n.props.src).includes('/presets/body-')).length,0);assert.equal(r.root.findAllByProps({'aria-label':'프리셋 검색'}).length,0);
  await act(async()=>range('상체 근육').props.onChange({target:{value:'-2'}}));await act(async()=>range('하체 근육').props.onChange({target:{value:'2'}}));assert.equal(range('상체 근육').props.value,0);
  await act(async()=>range('어깨 너비').props.onChange({target:{value:'-1'}}));assert.equal(range('하체 근육').props.value,0);await act(async()=>range('어깨 너비').props.onChange({target:{value:'0'}}));
- await click('상체 근육');await click('여성');assert.deepEqual(sliders().map(n=>n.props['aria-label']),['가슴 크기','힙 크기','키 비율']);await click('남성');assert.ok(sliders().every(n=>n.props.value===0));
+ await act(async()=>range('상체 근육').props.onChange({target:{value:'1'}}));await click('여성');assert.deepEqual(sliders().map(n=>n.props['aria-label']),['가슴 크기','힙 크기','키 비율']);await click('남성');assert.ok(sliders().every(n=>n.props.value===0));
  assert.equal(calls.length,0);await act(async()=>range('하체 근육').props.onChange({target:{value:'-2'}}));await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'body');assert.match(calls[0].prompt,/허벅지·종아리의 하체 근육 볼륨을 좀 더 슬림하게/);assert.match(calls[0].prompt,/옷과 포즈는 유지/);assert.doesNotMatch(calls[0].prompt,/가슴 크기|힙 크기/);
 });
 test('male body prompts and generated assets cover four categories and five levels',async()=>{
@@ -559,4 +558,16 @@ test('waiting hearts never change requests; failure and success remove game, ret
  await click('확인');await click('1장 만들기');assert.equal(score(),'0');assert.equal(sent.length,2);assert.equal(JSON.stringify(sent[1]),original);
  await click('하트 1 모으기');assert.equal(score(),'1');await act(async()=>finish({success:true,data:{images:[{id:'done',type:'image',url:'/done.png'}],remaining:9}}));
  assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/사진 결정/);assert.equal(sent.length,2);
+});
+
+
+test('body continuous range keeps intermediate values, snaps near anchors and keyboard escapes snaps',async()=>{
+ for(const [input,expected] of [[.37,.37],[.95,1],[1.06,1],[1.2,1.2],[-.94,-1],[.05,0],[-1.95,-2],[1.95,2]])assert.equal(rules.aiPhotoBodySnap(input),expected);
+ assert.notEqual(rules.aiPhotoBodyPrompt('height',.37),rules.aiPhotoBodyPrompt('height',.67));assert.match(rules.aiPhotoBodyPrompt('height',.37),/18.5/);
+ const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());const range=()=>r.root.find(n=>n.type==='input'&&n.props['aria-label']==='키 비율');
+ await act(async()=>range().props.onChange({target:{value:'.37'}}));assert.equal(range().props.value,.37);assert.match(range().props['aria-valuetext'],/18.5/);
+ await act(async()=>range().props.onChange({target:{value:'.95'}}));assert.equal(range().props.value,1);
+ let prevented=false;await act(async()=>range().props.onKeyDown({key:'ArrowRight',preventDefault(){prevented=true;}}));assert.ok(prevented);assert.equal(range().props.value,1.02);
+ await act(async()=>range().props.onKeyDown({key:'Home',preventDefault(){}}));assert.equal(range().props.value,-2);
+ await act(async()=>range().props.onChange({target:{value:'.37'}}));await click('1장 만들기');assert.match(calls[0].prompt,/18.5/);
 });

@@ -34,12 +34,16 @@ export function aiPhotoProblem({prompt,consent,kind,hasMask,remaining,requireMas
 
 export const aiPhotoBodyControls=[{key:'chest',label:'가슴 크기'},{key:'hip',label:'힙 크기'},{key:'height',label:'키 비율'}] as const;
 export const aiPhotoMaleBodyControls=[{key:'upper',label:'상체 근육'},{key:'lower',label:'하체 근육'},{key:'shoulder',label:'어깨 너비'},{key:'height',label:'키 비율'}] as const;
+// Native range uses step=any; pointer values within 2% of the full track snap to five anchors.
+export function aiPhotoBodySnap(value:number){const bounded=Math.max(-2,Math.min(2,value)),anchor=Math.round(bounded);return Math.abs(bounded-anchor)<=.08?anchor:bounded;}
+export function aiPhotoBodyStrength(value:number){return Number((Math.abs(value)*50).toFixed(1));}
 export function aiPhotoBodyPrompt(key:string,level:number){
  if(!level)return '';
- const amount=Math.abs(level)===1?'조금':'좀 더',direction=level>0?'크게':'작게';
- if(key==='upper'||key==='lower')return `${key==='upper'?'가슴·팔·등의 상체':'허벅지·종아리의 하체'} 근육 볼륨을 ${amount} ${level>0?'탄탄하게':'슬림하게'} 자연스럽게 보정해줘. 옷과 포즈는 유지해줘.`;
- if(key==='shoulder')return `어깨 너비를 ${amount} ${level>0?'넓게':'좁게'} 자연스럽게 보정해줘. 옷과 포즈는 유지해줘.`;
- return key==='height'?`전신의 키 비율을 ${amount} ${level>0?'커':'작아'} 보이게 자연스럽게 보정해줘.`:`${key==='chest'?'가슴':'힙'} 크기를 ${amount} ${direction} 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.`;
+ const amount=Math.abs(level)<=1?'조금':'좀 더',direction=level>0?'크게':'작게';
+ const strength=Number.isInteger(level)?'':` 보정 강도는 최대 100 중 ${aiPhotoBodyStrength(level)}로 적용해줘.`;
+ if(key==='upper'||key==='lower')return `${key==='upper'?'가슴·팔·등의 상체':'허벅지·종아리의 하체'} 근육 볼륨을 ${amount} ${level>0?'탄탄하게':'슬림하게'} 자연스럽게 보정해줘. 옷과 포즈는 유지해줘.`+strength;
+ if(key==='shoulder')return `어깨 너비를 ${amount} ${level>0?'넓게':'좁게'} 자연스럽게 보정해줘. 옷과 포즈는 유지해줘.`+strength;
+ return (key==='height'?`전신의 키 비율을 ${amount} ${level>0?'커':'작아'} 보이게 자연스럽게 보정해줘.`:`${key==='chest'?'가슴':'힙'} 크기를 ${amount} ${direction} 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.`)+strength;
 }
 
 export type AiPhotoPresetSelection={kind:AiPhotoKind;prompt:string};
