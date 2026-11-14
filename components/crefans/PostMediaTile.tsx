@@ -23,7 +23,7 @@ export function PostMediaTile({post,model}:{post:Post;model:Pick<ServiceViewMode
   return <Link className={s.postTile} href={`${model.basePath}/post/${post.id}`} aria-label={label}>
     {!accessible?<div className={s.lockedTile}><Icon name="lock"/><MarqueeText text={planLabel||'멤버 전용'}/></div>:first.processing?<VideoProcessing variant="thumbnail" kind={first.type==='image'?'image':'video'} className={s.tilePreview} label={post.title}/>:failedUrl===first.url?<div className={s.tileFallback}><MediaTypeIcon type={first.type} size={26}/><span>미리보기 없음</span></div>:first.type==='video'?<MediaVideo className={s.tilePreview} src={first.url} firstFrame muted playsInline preload="metadata" controls={false} tabIndex={-1} aria-hidden="true" onError={()=>setFailedUrl(first.url)}/>:<img className={s.tilePreview} src={first.url} style={{objectPosition:post.position}} alt="" loading="lazy" onError={()=>setFailedUrl(first.url)}/>}
     {post.requiredRank>0&&accessible&&<span className={s.memberLabel}>멤버 전용</span>}
-    {accessible&&media.some(item=>item.aiGenerated)&&<span className={s.aiTileMark}>AI 생성</span>}
+    {accessible&&media.some(item=>item.aiGenerated)&&<span className={s.aiTileMark}>{/* eslint-disable-next-line @next/next/no-img-element -- existing decorative brand icon */}<img src="/brand/featured-creators-v1.png" alt="" aria-hidden="true" width={14} height={14} style={{width:14,height:14,flexShrink:0}}/>AI 생성</span>}
     <MediaSummary media={media} className={s.tileCounts}/>
   </Link>;
 }

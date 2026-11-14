@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-14T06:36:22.250295+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-preset-expansion",
+  "baseCommit": "13a8f15a2866ecc804f367dde5e903563d5aad0a",
+  "state": "uncommitted verified change",
+  "checks": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "pass"
+    },
+    {
+      "command": "Python source inspection",
+      "exitCode": 0,
+      "result": "4 marks reuse existing14px decorative sparkle; existing image visually inspected"
+    }
+  ],
+  "files": {
+    "components/crefans/studio/AiPhotoDialog.tsx": "3d336e4350220870abe214551b7d0a16819ca7953915ed10267a38b737bd1c14",
+    "components/crefans/SocialPages.tsx": "37bc474d4b43a40a8475f59c7985e759403336aaafa061ecc85bf45a3b6e5188",
+    "components/crefans/PostMediaTile.tsx": "e1be1a7fd3287a26513759b1460fe493c354b573cca18fd8362d52b944e05023"
+  },
+  "limitations": [
+    "Not deployed"
+  ]
+}

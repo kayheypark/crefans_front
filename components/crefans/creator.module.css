@@ -179,7 +179,7 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 .coverWallet{max-width:calc(100% - 56px);min-width:0}
 .coverWallet img{width:20px;height:20px;object-fit:contain;flex:none}
 .coverWallet span{min-width:0;overflow:hidden;text-overflow:ellipsis}
-.aiTileMark{position:absolute;left:6px;top:6px;z-index:1;padding:1px 7px;border-radius:999px;background:rgb(17 24 39 / 78%);color:#fff;font-size:11px;font-weight:700;line-height:1.5;pointer-events:none}
+.aiTileMark{display:inline-flex;align-items:center;gap:4px;position:absolute;left:6px;top:6px;z-index:1;padding:1px 7px;border-radius:999px;background:rgb(17 24 39 / 78%);color:#fff;font-size:11px;font-weight:700;line-height:1.5;pointer-events:none}
 /* Explore search result tabs (2026-11-08): same look as profile tabs, flush with the search box. */
 .tabs.searchTabs{margin:4px 0 16px}
 /* 피드 페이지(social.module.css .feed)와 같은 폭 */

@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-14T06:34:49.865720+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-preset-expansion",
+  "baseCommit": "b1f89b4e87d1bf426d1e8611921611b40b926a93",
+  "state": "uncommitted verified change",
+  "checks": [
+    {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "66/66; three actions order; second uploaded photo after two edits returns to correct original, mode persists, no automatic generation"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "pass"
+    }
+  ],
+  "sha256": "5dfea9c0b1d61bb3dddec15ac620dc38ddf807c94f54fca92adc0a2c2dc4ea10",
+  "limitations": [
+    "Not deployed"
+  ],
+  "logs": ".local/original-action"
+}
