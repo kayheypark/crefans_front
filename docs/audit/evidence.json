@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T05:56:39.535898+00:00",
+  "checkedAt": "2026-11-14T05:59:40.015673+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "c6690b5cb7b589f2de267fb637c63966f9dcee68",
-      "branch": "feat/ai-photo-download-zoom",
+      "head": "3dba4e9e8eaa4ff2f2f0d4bd9a1ac2e7a95e35bc",
+      "branch": "feat/heart-game-difficulty",
       "dirty": true
     },
     "server": {
       "head": "76b57f0d84d5288fba0390962df69ce42ceb13fc",
       "branch": "feat/photo-shoot-concepts",
-      "dirty": false
+      "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "53900d5b411c08d2fc23a4a356404acef887d7668843f9a488e4787ae065f929",
-      "front/PROGRESS.md": "3eecb77122b5c3feeecda531d47146fe3b7779ed813f0c527664e4bdac41a0cb",
+      "front/PROGRESS.md": "1393a74c0dc7e73e2ff9f4769bf938a2b267d29268e014afac298263752cda4e",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "29da3d851a274cf2ed15437e37e61868fe9ff311da5e9d9f13ecaff9b21fb6a7",
-      "server/PROGRESS.md": "9c011f48d576c8e558f5d32743c381118679950eb1219e668d5468999c3e964b",
+      "server/PROGRESS.md": "785b59e0b18d3dda630d5541be3d7becdbbb40f8e2aa4c11484ba2a29de3076c",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -293,9 +293,9 @@
       "front/components/crefans/studio/AdvertisingPage.tsx": "d032809027defff59693167f86936f985c85c7b309fd8db7b8e510e1b2aeb0ed",
       "front/components/crefans/studio/AiBodyAdjustments.tsx": "79962e853d9118b40a52e1f3521a89173e9c3ac02935c54d252767f7ce43bc08",
       "front/components/crefans/studio/AiPhotoCategoryIcon.tsx": "903527ba6652132489715098f888ff24cb867e61803448fcb4db7e7eba60aeb8",
-      "front/components/crefans/studio/AiPhotoDialog.tsx": "60cf501dc3b2a8e501ca1abbe577a67c6a9979b9e500f512a065a11c3f1cd40d",
+      "front/components/crefans/studio/AiPhotoDialog.tsx": "9719cd779c1aee65f2368f1edcd94123eca1f25a94c9148f7cc04417573c24aa",
       "front/components/crefans/studio/AiPhotoMask.tsx": "7326907d157c8460a130b27693b192d8ddfa63d2b485393ff4157d8324064be7",
-      "front/components/crefans/studio/AiPhotoWaiting.tsx": "672459edd9471f69f07d63ee74a7abce97b0314da48bc935b932d025e02f10eb",
+      "front/components/crefans/studio/AiPhotoWaiting.tsx": "6a612ebbac1391de176abfe3329ab49cc95452a95b201573856a68708a197364",
       "front/components/crefans/studio/AiPhotoWardrobe.tsx": "211396599d0eeacd52a237fd3e19ab2c537d67910a41f2ac60e15f30977b3ce6",
       "front/components/crefans/studio/AiPresetPager.tsx": "e50b1ce7da01d28e29e8e6407c8d03179172bad2d75dc32db177cf96fbf67f27",
       "front/components/crefans/studio/CommunityPages.tsx": "084083090210b964e84d566dccfcd81551563a85eb0d753f27596416ee9bb32c",
@@ -312,7 +312,7 @@
       "front/components/crefans/studio/StudioShell.tsx": "093e748729528bfc2b5be26414190f158d2cda139d544b5106ff294da89e24de",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "2843536dd513f2a6f61ed32bf09bb6e005d1cbdf601fba75f6db5691f5da2bb6",
       "front/components/crefans/studio/advertising.module.css": "ebbd2482c80f4f70199c6145711558f823589aed597a6d8342a52d2a22f591bc",
-      "front/components/crefans/studio/ai-photo.module.css": "e844f233edbfca777f7e69d7c9f5224cef9c69cbcc8f3377fe93a18a51811d00",
+      "front/components/crefans/studio/ai-photo.module.css": "8d151d43885017e38ad78b0f5efea573fb0db55d5d00617ea47e9130e170b4e8",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-list.module.css": "50f5927048e6507421ecc94607ed9e3016e63e198fcccfa76351af28bda11bca",
       "front/components/crefans/studio/content-performance.module.css": "6d4be5a99f503a53337abad363dfaafe3e92c7f611176dfe10fe53840f123c36",
@@ -804,6 +804,7 @@
       "front/scripts/doc-contracts.cjs": "d2c28a186cc2048efb6f08a1f3a373db579aa2010a35519993ff404ddf9d95ca",
       "front/scripts/generate-ai-preset-illustrations.cjs": "c1ab00f58c88169ae892aed0407199e8b1c67e74112fba9d9f03266522948d72",
       "front/scripts/render-og.cjs": "e6abecd6eef8b94d012e1337774a05d1dd120b41672b8e60f16d003d395a66bc",
+      "front/tests/ai-photo-heart-game.test.cjs": "dab1d5abc7927ac4f11403fefae6bbee9acf4762505e1221070e5aa7aedeba04",
       "front/tests/amount-presets.test.cjs": "720e713320db21dd5ceddc8bbc0160a9df612e582f6658188b1264e2762f1355",
       "front/tests/api-contracts.test.cjs": "d607262ef8ab70095f31911841faa779c4bdd6979aef0108071357b64865d491",
       "front/tests/avatar.test.cjs": "a3a281f0cb6b5ccd3a7bb0124b965a41cad9de7895e5805b50361bbe09dcf018",
