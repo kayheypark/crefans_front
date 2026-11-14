@@ -64,7 +64,61 @@
     "Local isolated MySQL / fake PG and AI; no live charges",
     "Admin browser registration and order detail only, not exhaustive edit/delete UI",
     "No live product seeded; price/count/validity remain operator decisions",
-    "PG webhook not registered; periodic reconciliation retained",
-    "Deployment evidence follows separately"
-  ]
+    "PG webhook not registered; periodic reconciliation retained"
+  ],
+  "deployment": {
+    "checkedAt": "2026-11-14T05:25:38.686396+00:00",
+    "sourceCommits": {
+      "front": "26b7aa66a1705b0be2748cdeba4575e7971f6038",
+      "server": "db9f91e458d9749ed6c0f11d694cbc91436f5d56",
+      "admin": "46185859e735815b1080a4504dc166799061c6a5"
+    },
+    "images": {
+      "api": "crefans-api:ai-shop-20261114",
+      "worker": "crefans-api:ai-shop-20261114",
+      "admin": "crefans-admin:ai-shop-20261114",
+      "frontend": "crefans-front:front-ai-shop-routes-20261114"
+    },
+    "migration": "20261114140000_ai_shop",
+    "emptyProductionTables": {
+      "products": 0,
+      "orders": 0,
+      "uses": 0
+    },
+    "livePaymentsExecuted": false,
+    "routeRegression": "3 accepted + 3 rejected routes, 1 test passed",
+    "recovery": "/Users/ethan/crefans-recovery/20261114/ai-shop",
+    "checks": [
+      {
+        "path": "/Users/ethan/repository/crefans_server-ai-shop/.local/ai-shop/deploy.log",
+        "sha256": "277d4a8698815f2d0c3f5e67476aac504723caf03de3d340bb8384c85f402d91",
+        "exitCode": 0
+      },
+      {
+        "path": "/Users/ethan/repository/crefans_server-ai-shop/.local/ai-shop/cleanup.log",
+        "sha256": "87d95c37b7a16e49f28b40fbfcc7c776ac93f8408b2c9337366220a273cb6154",
+        "exitCode": 0
+      },
+      {
+        "path": "/Users/ethan/repository/crefans_server-ai-shop/.local/ai-shop/recovery.log",
+        "sha256": "45cbd8e330efcc48e1be4ee7ff2b4d0c7f88823a03ef7e6c8bc6dde820a78651",
+        "exitCode": 0
+      },
+      {
+        "path": "/Users/ethan/repository/crefans_server-ai-shop/.local/ai-shop/production-counts.log",
+        "sha256": "bf8325a3b64633b19d03e23105d7353603b7ba108c6547686b889bacc3a18b9b",
+        "exitCode": 0
+      },
+      {
+        "path": "/Users/ethan/repository/crefans_front-preset-expansion/.local/ai-shop/production-browser.log",
+        "sha256": "4d4e85eb67d97812ce342d1595fa8ce13156104402143fbd724c5c1573aad2f7",
+        "exitCode": 0
+      },
+      {
+        "path": "/Users/ethan/repository/crefans_front-preset-expansion/.local/ai-shop/routes.log",
+        "sha256": "38a8983efdbbd6ae43744fe40fc8d10722e608158e967c45d08e372b477ac424",
+        "exitCode": 0
+      }
+    ]
+  }
 }
