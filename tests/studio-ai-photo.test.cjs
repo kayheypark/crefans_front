@@ -285,13 +285,13 @@ test('body controls select only one adjustment and keep custom input',async()=>{
 });
 
 
-test('every preset has a distinct decodable image including Comic World, 30 poses and four shooting concepts',async()=>{
+test('every preset has a distinct decodable image including Comic World, 39 poses and four shooting concepts',async()=>{
  const fs=require('fs'),path=require('path'),sharp=require('sharp');const {aiPhotoPresets,aiPhotoPresetImage,aiPhotoComicWorldPreset,aiPhotoPresetTitle,aiPhotoPresetTitles}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const images=[];
- assert.equal(aiPhotoPresets.pose.length,30);assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
+ assert.equal(aiPhotoPresets.pose.length,39);assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
  for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,/background\/(b7a10|c8b20|d9c30)/.test(image)?1024:384);assert.equal(meta.height,/background\/(b7a10|c8b20|d9c30)/.test(image)?1536:384);}
  }
  const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,16);
- assert.equal(images.length,121);assert.equal(new Set(images).size,121);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
+ assert.equal(images.length,130);assert.equal(new Set(images).size,130);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
@@ -487,7 +487,7 @@ test('preset search filters before pagination, respects gender and handles no ma
  const empty=aiPhotoPresetPage('pose',9,'original','존재하지않는검색어');assert.deepEqual(empty,{examples:[],index:0,pages:1,total:0});
  assert.equal(aiPhotoPresetPage('makeup',0,'male','코랄 립').total,0);
  assert.equal(aiPhotoPresetPage('makeup',0,'female','코랄 립').total,1);
- assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,30);
+ assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,39);
 });
 
 test('search keeps selected poses, resets pages, clears on tabs and finds costumes across categories',async()=>{
@@ -530,10 +530,10 @@ test('expanded pose, expression and camera selections accumulate and toggle inde
  assert.equal(calls.length,1);assert.deepEqual(calls[0].editKinds,['pose','camera']);assert.match(calls[0].prompt,/거꾸로 앉아/);assert.match(calls[0].prompt,/뒤쪽 45도/);assert.doesNotMatch(calls[0].prompt,/도도|무표정/);
 });
 
-test('pose posture splits all thirty cards into exclusive sitting and standing pages',()=>{
+test('pose posture splits all thirty-nine cards into exclusive sitting and standing pages',()=>{
  const {aiPhotoPresets,aiPhotoPresetPage,aiPhotoPosePosture,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
- const seen=[];for(const [posture,total] of [['sitting',9],['standing',21]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=6);for(const e of result.examples){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
- assert.equal(new Set(seen).size,30);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
+ const seen=[];for(const [posture,total] of [['sitting',13],['standing',26]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=6);for(const e of result.examples){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
+ assert.equal(new Set(seen).size,39);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
  assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','sitting').total,0);assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','standing').total,1);
  assert.equal(aiPhotoPresetTitle('pose',aiPhotoPresetPage('pose',0,'original','쪼그려','sitting').examples[0]),'쪼그려 앉기');
 });
@@ -675,4 +675,9 @@ test('public background catalog is searchable indoors and selection sends image 
  const {r,click,calls}=await open();await click('배경');
  await act(async()=>r.root.find(n=>n.type==='input'&&n.props.placeholder?.includes('검색')).props.onChange({target:{value:'차분한 침실'}}));
  await click('차분한 침실');await click('차분한 침실');assert.equal(r.root.findByProps({'aria-label':'차분한 침실'}).props['aria-pressed'],false);await click('차분한 침실');await click('1장 만들기');assert.equal(calls[0].backgroundId,'b7a101');assert.equal(calls[0].kind,'background');
+});
+
+test('all 33 supplied photos map to valid public poses and nine new poses send their matching prompt',async()=>{
+ const mapping=require('../docs/audit/pose-source-classification-20261114.json').mapping;const {aiPhotoPresets,aiPhotoPresetTitle,aiPhotoPosePosture}=loadTypeScript('lib/crefans/ai-photo-presets.ts');assert.equal(mapping.length,33);assert.equal(new Set(mapping.map(x=>x.batch+':'+x.photo)).size,33);for(const m of mapping)assert.ok(aiPhotoPresetTitle('pose',aiPhotoPresets.pose[m.poseNumber-1]));
+ for(let n=31;n<=39;n++){const value=aiPhotoPresets.pose[n-1],title=aiPhotoPresetTitle('pose',value);const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'포즈 자세'}).find(n=>n.type==='button'&&text(n)===(aiPhotoPosePosture(value)==='sitting'?'앉기':'서기')).props.onClick());await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:title}}));await click(title);await click(title);assert.equal(r.root.findByProps({'aria-label':title}).props['aria-pressed'],false);await click(title);await click('1장 만들기');assert.ok(calls[0].prompt.includes(value));await act(async()=>r.unmount());}
 });
