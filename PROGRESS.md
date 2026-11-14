@@ -1,3 +1,10 @@
+## 2026-11-14 의상6자리해시ID 검증 완료
+- 라피ID313a28,40종모두고유6자리. 서버빌드0·격리DB/공급사대역39/39·프론트단위/전송50/50·타입0. 프론트/서버40매핑과에셋bytes일치. 이전ID/새ID동일이미지·혼합중복/미등록/경로/프로토타입키거절 검사. 증거 양리포 `.local/costume-hash/`, 서버catalog-check.json. 실제공급사재호출없음. 서버먼저배포예정.
+
+## 2026-11-14 의상6자리해시ID 전환 진행
+- 사용자요청: nikke-rapi 등 의미있는 의상ID를 고정6자리SHA256앞부분으로 교체. 40종충돌없음. 프론트새ID전송, 서버명시매핑으로기존에셋읽기. 이전ID는기존열린화면호환을위해정규화후중복검사. 화면명·이미지·프롬프트·공급사안전검사변경없음.
+- 합격:40고유6자리ID/프론트서버매핑일치/기존에셋bytes동일/이전ID정규화/혼합중복·미등록ID거절/기존회귀. 서버먼저배포후프론트반영예정.
+
 ## 2026-11-14 구도 캐릭터 운영 완료
 - sourceb6202c5 dev→prod, `crefans-front:front-camera-mascot-20261114`, 01:56:51UTC 배포. 승인시안5개+눈높이정면 총6구도WebP 운영HTTP200/Content-Type/SHA일치. 단위48/48·타입·WebKit 모바일로딩/검색선택통과. 기존문서참조누락으로check:docs실패.
 - 증거 `.local/camera-mascot/verification.json`, public-assets.json,ship.log,mobile.png. 복구 `/Users/ethan/crefans-recovery/20261114/front-camera-mascot-20261114` SHA/OCI/설정검증후서버직전이미지·임시자료정리. 프롬프트/생성로직/서버변경없음.
