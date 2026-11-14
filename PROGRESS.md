@@ -1,3 +1,8 @@
+## 2026-11-14 표정·포즈·구도 심플 도식 운영 완료
+- source `ba59e0d`, 이미지 `crefans-front:front-simple-presets-20261114`, 배포2026-11-14 00:59:49UTC. 표정13·포즈24·구도6종 교체, 운영43SVG HTTP200/Content-Type/SHA-256 모두 로컬과 일치. 주요경로·헬스·정적자산 정상, 다른서비스 컨테이너 유지.
+- 단위46/46·타입·계층·WebKit 모바일검사 통과. 문서검사는 기존 서버 참조 누락으로 실패. 실공급자 생성 미실행. 증거 `.local/simple-preset-illustrations/verification.json`, `public-assets.json`, `ship.log`, 모바일 스크린샷.
+- 복구본 `/Users/ethan/crefans-recovery/20261114/front-simple-presets-20261114` SHA/OCI15blobs/설정 검증 후 서버 이전 이미지·임시자료 정리 완료(01:00:11UTC).
+
 ## 2026-11-14 표정·포즈·구도 심플 도식 검증 완료
 - 실사 썸네일을 표정13·포즈24·구도6종 SVG로 교체. 공통 색상/선과 성별 중립 인물, 표정은 얼굴·포즈는 전신·구도는 카메라 높이와 촬영 프레임으로 표시한다. 생성기 `scripts/generate-ai-preset-illustrations.cjs`, 자산 `public/brand/ai-photo/pictograms/`, 매핑 `lib/crefans/ai-photo-presets.ts`. 실제 생성 프롬프트·성별·누적 선택·3×2 페이징 유지. 도식 카드 contain 적용, 실사 예시 안내 숨김.
 - 합격 조건/확인: 43개 SVG 모두384×384·정상 디코딩·다른분류 WebP 유지, WebKit iPhone13 모든 페이지 로딩·선택·카테고리간 유지 통과. 단위46/46, typecheck, check:layers(453파일), diff 통과. 직접 검토한 모바일 표정/포즈/구도 스크린샷과 명령 로그는 `.local/simple-preset-illustrations/`. AI 공급사 실제 생성은 미실행(생성 로직 변경 없음).
