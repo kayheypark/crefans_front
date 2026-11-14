@@ -1,3 +1,10 @@
+## 2026-11-15 약관·화면·가이드 동기화 운영 배포 완료 (/pilot-work)
+- 결정: 콩 한도·AI 사진 이용조건을 약관·화면·가이드에 지금 반영(배포 승인), 결제 조건 버전 유지, 계약 초안은 코드에 맞춤(종료 후 출금 불가·30일 협의·미합의 시 전액 지급), 서명 완료 계약 없음.
+- 배포: server prod 85523e9 → crefans-api:terms-sync-20261115(legal-documents.js 해시 로컬 prod 빌드와 일치), front prod 1f8606a → crefans-front:front-terms-sync-20261115, 가이드 docs/sync-20261115(3cab2db, 운영 소스 2daf72b 기반) 정적 109파일 교체.
+- 운영 확인: /api/v1/common terms 2026-11-15.sync.1(11조 900콩, 13조 AI 사진), API/worker/frontend Running·재시작0·health ready·비로그인401. 가이드 /, /fans/beans/("한 번에 900콩(99,000원)…"), /creators/ai-photo/, /help/policies/ 200, html·json 40개 바이트 SHA 일치. 업로드 tar의 macOS ._ 파일 154개는 즉시 삭제(서버 109파일=빌드와 동일).
+- 복구: crefans-recovery/20261115/{terms-sync-api, front-terms-sync-20261115, guide-prev(107파일, SHA256SUMS OK)}; 서버 guide.old·임시본 정리. 서버 sites/에 다른 날짜의 guide-before-* 백업 24개가 남아 있음(기존, 정리는 사용자 승인 필요).
+- 계약 초안 v2.38(docs/contract-payout-after-term e339433, 미병합): 12조② 30일 협의·미합의 시 확정 미정산 전액 정산 계좌 지급. 남은 일: 배지 해제 후 수동 지급이 코드에서 막힘(payout()/manualResult의 requirePartnerCreator) — 운영 절차·코드 정리 필요, 30일 후 지급 기한·미수금 상계 미정, 법률 검토 전.
+
 ## 2026-11-15 콩 한도·AI 소진 안내 화면 동기화 (운영 미배포)
 - /pilot-work 결정. 콩 충전 한도 문구를 lib/crefans/bean-pricing.ts beanChargeLimitNote 하나로 모아 충전 화면과 미결제 충전 "이어서 결제" 화면(BeanWalletPages) 결제 조건에 함께 표시. AI 횟수 소진 문구를 서버와 같은 "무료 횟수를 모두 썼어요. 매일 오전 9시에 다시 채워지고, 횟수권을 구매하면 계속 만들 수 있어요."로 통일(lib/crefans/ai-photo.ts, 미리보기 픽스처).
 - 결제 조건 버전은 유지(서버 PROGRESS 참조). 약관 2026-11-15.sync.1은 서버.
