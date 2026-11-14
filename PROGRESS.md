@@ -1,3 +1,8 @@
+## 2026-11-14 비율 프리셋·결과 자르기 구현 완료 (미배포)
+- 합격: 생성 요청에 6종 비율 반영, 결과 비율/위치 조정 후 실제 저장 이미지 교체, 다운로드/계속보정/사진결정 연결, 타인·범위밖 자르기 거절, AI 횟수 미차감. 프론트69/69·서버32/32·OpenAPI14/14, 양쪽빌드·프론트타입·WebKit390 드래그/저장/다운로드 파일치수/계속보정 확인. 운영 미배포·실공급자생성 미실행. 기존 프론트 check:layers는 기존 downloadPhoto의 직접fetch 1건으로 실패(HEAD에도 존재, 이번 범위외).
+- 증거: front docs/audit/ratio-crop-20261114.json, 양쪽 .local/ratio-crop. 새프리셋선택만으로 생성하지 않고 자르기취소/실패시 기존사진 유지. 다음: 사용자 요청 시 dev→prod·운영 배포.
+- 근거(2026-11-14): https://docs.byteplus.com/en/docs/modelark/seedream-5-5 명시적 size 범위921600~4624220픽셀; https://sharp.pixelplumbing.com/api-resize/ extract 정수영역 사용.
+
 ## 2026-11-14 AI 결과 화면 개선 운영 배포 완료
 - 기능소스3601118, dev→prod승격, 운영front-ai-result-polish-20261114. 계속보정모드유지·누적하트아이콘/개수100안내·원본으로/계속보정/사진결정3버튼·기존스파클4곳 반영. API/worker ai-hearts-v2-20261114 유지,DB변경없음.
 - 검증:관련66/66, 프로덕션빌드성공, 로컬/운영WebKit390px 세버튼동일행·아이콘14px·정확한문구·코스어유지·가로넘침/JS오류없음. 운영3컨테이너Running/재시작0/OOM없음,health ready. 실사용자유료생성은미실행(디자인예시검증).

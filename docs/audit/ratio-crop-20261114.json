@@ -1,0 +1,115 @@
+{
+  "recordedAt": "2026-11-14T06:54:48.458045+00:00",
+  "scope": "AI aspect-ratio presets and result crop; not deployed",
+  "repos": {
+    "crefans_front-preset-expansion": {
+      "base": "b45f77304d0ef8a01426536762216a7df8497378",
+      "dirty": true,
+      "files": {
+        "PROGRESS.md": "ca2bf1db89e2328d0ba2ad29e24d698291934a2e55c3a580aa42329f911adf9e",
+        "components/crefans/studio/AiPhotoDialog.tsx": "5298b236b55fa27ed40a4e5fdb7ad0e3a0af1a6c261192c5a2214fd5d8c0e573",
+        "components/crefans/studio/ManagementPages.tsx": "f6b84fec4129d580aa4548b6f7e8c7b94dfa4efbef51ad99ee1ef7060aff92fa",
+        "components/crefans/studio/ai-photo.module.css": "165893c5a016abaddca541acae50444f1dee27d25fcf1cef5185be1d64a99b60",
+        "components/design-system/AiPhotoCatalog.tsx": "13f3920bd0d50fd9678bfef9f4c24fcbcdd04fd85acf68ff109502ca84535618",
+        "components/preview/studio/ai-photo-fixtures.ts": "c0d677326a9f3f7952262a86f0675a08651c4aa2ef8967ea21ad8ffe8d71468f",
+        "components/preview/studio/useMockManagement.ts": "8dbebaa836f124545f024b559339ed4f760f19eea660544085dfafb291f145b7",
+        "docs/service-api-binding.md": "0742e8f2046db80c36f37a532262b15f51b3bc6559ed46d0ff852d4513cfe901",
+        "features/service/useStudioModel.ts": "d7d79592d9439d635e6c97ba07a76fd375d7cb224c7ad03551eaef6477b7ba84",
+        "tests/studio-ai-photo-binding.test.cjs": "a52f5472142f27655b1488e1ce65835416a62db4f1f1427994ef26d6815306ee",
+        "tests/studio-ai-photo.test.cjs": "e226f8561ff7da10ec65178496e43f2fc21866b8b4da8af935cc80987ca1d05e",
+        "types/crefans-studio-management.ts": "c00320b53462172fc8569c9ce0d6ca3a5e4729b0d2ec1edc96d56d57792f01bb",
+        "components/crefans/studio/AiPhotoCrop.tsx": "d26a8711219c0cdb4f181d319fd32df6303b753ae4ee2fe7bd776e111b9a7b90",
+        "lib/crefans/ai-photo-crop.ts": "1e31ba7721a7d262d14b7daa1fca3865ccd4175d19bfac1c8926e72d2f8b3a28"
+      }
+    },
+    "crefans_server-ai-shop": {
+      "base": "0b89642ed6b693beac6c955231fbcd376f783797",
+      "dirty": true,
+      "files": {
+        "PROGRESS.md": "b0a2c58da045f2fe228ad417559cdad9be96a22a23ae9012b225e1c2e9b1eab8",
+        "docs/current-contracts.md": "855aa354f73bdeadd2978c71f9f1f875594a68d6b8b6b3c09e76893787fdf58c",
+        "docs/platform-api.md": "3bc270c032521f998a41d3808fe2411f2b9cd4a183661a610cd4ff8074ac2a81",
+        "src/platform/ai-photo.ts": "3e5c2c8548a362cac3a81746935b92fc4899fc570ff3e443a9999ba785a5f4c2",
+        "src/platform/openapi-contract.ts": "4219a78588810352a47556485d3be5263a51fe444e444957bd0596088c42eb32",
+        "tests/platform-ai-photo.test.cjs": "3d51c2420a73567878bb4e1b5a0e6e3a055152e5df04cad7b96df531d82b5bc2",
+        "tests/platform-openapi.test.cjs": "29cb25cd26810cf54d009c791ea0cc716dde3cc30abaf1499f5a83d12b570113"
+      }
+    }
+  },
+  "checks": [
+    {
+      "repo": "front",
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "69/69"
+    },
+    {
+      "repo": "server",
+      "command": "CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs",
+      "exitCode": 0,
+      "result": "32/32; local isolated e2e DB, provider stub"
+    },
+    {
+      "repo": "server",
+      "command": "node --test tests/platform-openapi.test.cjs",
+      "exitCode": 0,
+      "result": "14/14, 241 operations"
+    },
+    {
+      "repo": "both",
+      "command": "npm run build",
+      "exitCode": 0,
+      "result": "pass"
+    },
+    {
+      "repo": "front",
+      "command": "npx tsc --noEmit",
+      "exitCode": 0,
+      "result": "pass"
+    },
+    {
+      "repo": "front",
+      "command": "node .local/ratio-crop/browser.cjs",
+      "exitCode": 0,
+      "result": "WebKit iPhone13 390x844: ratio controls, square frame, horizontal drag, saved actual crop, downloaded image dimensions, continue from crop, cosplay retained, no JS errors/overflow"
+    },
+    {
+      "repo": "front",
+      "command": "npm run check:layers",
+      "exitCode": 1,
+      "result": "existing AiPhotoDialog downloadPhoto direct fetch (also present in base HEAD); not introduced by this change"
+    },
+    {
+      "repo": "front",
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-ai-shop npm run check:docs",
+      "exitCode": 0,
+      "result": "79 documents / 241 routes; snapshot validation, not test proof"
+    }
+  ],
+  "logs": {
+    "crefans_front-preset-expansion/types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "crefans_front-preset-expansion/browser.log": "77a528eebda96ac104a668ae1e5643fbb4c97b6d257240076aafbc7f0c923f16",
+    "crefans_front-preset-expansion/contracts.log": "6fa3a5b8a529b38e6b79dc43e43f07978afb3ec8db09730e2972d9e874edd1d1",
+    "crefans_front-preset-expansion/layers.log": "b8ed3157f52e58d5b65664326abe68964d79258060e963ecdbb2aa74642b69fc",
+    "crefans_front-preset-expansion/front-tests.log": "4cd52b70b2a3f27aa4a15ff809b282d695369ada6e4890345c9bdf47d1f2c202",
+    "crefans_front-preset-expansion/build.log": "184c0e61389f56cc56ffe305226d92497784de0f030e9f4680a051212e4be4a4",
+    "crefans_server-ai-shop/openapi-tests.log": "0987e018f1382c9b08081d407479aab0fe8dac3937117c3099f0ad6fbf2f1fe6",
+    "crefans_server-ai-shop/server-tests.log": "0f00b4d4d502574798fc667c544967e250b9aa3f827f7f55e66ed5eb686e251f",
+    "crefans_server-ai-shop/build.log": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2"
+  },
+  "notRun": [
+    "real Seedream generation",
+    "production crop API",
+    "physical iPhone"
+  ],
+  "initialChecks": [
+    "server compile Object.hasOwn unavailable: replaced with hasOwnProperty.call, rerun passed",
+    "browser vertical drag against landscape source cannot move vertically: corrected test to horizontal; no product failure",
+    "WebKit canvas output PNG fallback: browser test accepts image MIME, rerun passed",
+    "docs checker required API table row: added crop row, record/check pass"
+  ],
+  "sources": [
+    "https://docs.byteplus.com/en/docs/modelark/seedream-5-5",
+    "https://sharp.pixelplumbing.com/api-resize/"
+  ]
+}

@@ -633,3 +633,25 @@ test('original action returns to the correct uploaded photo after chained edits 
  const mode=r.root.findByProps({'aria-label':'편집 모드'});assert.equal(mode.find(n=>n.type==='button'&&text(n).includes('코스어 모드')).props['aria-pressed'],true);
  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 배경'}}));await click('1장 만들기');assert.equal(calls[2].source.id,'p2');await act(async()=>r.unmount());
 });
+
+test('ratio choice travels to generation; crop replaces selected media for decision and keeps AI mark',async()=>{
+ const cropCalls=[];const {r,calls,added,click}=await open({onCrop:async input=>{cropCalls.push(input);return {success:true,data:{id:'cropped',type:'image',url:'/cropped.webp',aiGenerated:true}};}});
+ await click('4:5');await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'앉은 포즈'}}));await click('1장 만들기');assert.equal(calls[0].aspectRatio,'4:5');
+ await click('결과 1 자르기');await act(async()=>r.root.findByProps({alt:'자르기 미리보기'}).props.onLoad({currentTarget:{naturalWidth:1000,naturalHeight:1500}}));
+ await click('1:1');await click('자르기 적용');assert.deepEqual(cropCalls,[{sourceId:'a1',left:0,top:250,width:1000,height:1000}]);
+ assert.ok(r.root.findAll(n=>n.type==='img'&&n.props.src==='/cropped.webp').length);await click('사진 결정');assert.equal(added[0].id,'cropped');assert.equal(added[0].aiGenerated,true);
+});
+
+test('crop failure preserves original result and supports cancel',async()=>{
+ const {r,added,click}=await open({onCrop:async()=>({success:false,errorMessage:'저장 실패'})});
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'앉은 포즈'}}));await click('1장 만들기');await click('결과 1 자르기');
+ await act(async()=>r.root.findByProps({alt:'자르기 미리보기'}).props.onLoad({currentTarget:{naturalWidth:1000,naturalHeight:1500}}));await click('자르기 적용');assert.match(text(r.toJSON()),/저장 실패/);await click('취소');await click('사진 결정');assert.equal(added[0].id,'a1');
+});
+
+test('crop geometry stays inside image at all ratios, zooms and positions',()=>{
+ const {photoCrop,aiPhotoRatios}=loadTypeScript('lib/crefans/ai-photo-crop.ts');
+ for(const ratio of aiPhotoRatios)for(const zoom of [1,1.5,3])for(const x of [0,.5,1])for(const y of [0,.5,1]){
+  const c=photoCrop(1024,1536,ratio,x,y,zoom);assert.ok(c.left>=0&&c.top>=0&&c.width>=1&&c.height>=1);assert.ok(c.left+c.width<=1024&&c.top+c.height<=1536);if(ratio!=='original'){const [a,b]=ratio.split(':').map(Number);assert.ok(Math.abs(c.width/c.height-a/b)<.015);}
+ }
+ assert.deepEqual(photoCrop(1000,1500,'1:1',.5,1),{left:0,top:500,width:1000,height:1000});
+});

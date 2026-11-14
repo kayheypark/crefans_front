@@ -301,3 +301,8 @@ bootstrap.data.categories의 서버 정렬 순서를 홈·탐색에 그대로 �
 
 ### 고객센터 AI 가이드 (2026-11-08)
 - `POST /api/v1/guide/advisor`를 같은 출처로 호출한다. 계정과 무관한 기능이라 `credentials:'omit'`으로 쿠키를 보내지 않고, 질문과 브라우저 익명 ID(`crefans-advisor-client`, 하루 질문 한도용)만 보낸다. 서버 Origin 검사는 가이드 출처와 서비스 출처를 허용하고 콘솔 출처는 거부한다(서버 `docs/platform-api.md`). 대화는 이 브라우저 저장소에 최근 25쌍만 남는다.
+
+### AI 비율 및 결과 자르기 (2026-11-14)
+- 편집 multipart `aspectRatio`: original/1:1/4:5/3:4/9:16/16:9. 원본은 이미지 비율 기준, 나머지는 서버 허용 치수로 요청. 선택만으로 생성하지 않는다.
+- `POST /studio/ai-photo/crop` JSON `{sourceId,left,top,width,height}`: 방향 보정 후 정수 픽셀 영역. 본인 완료 AI 이미지에만 적용하고 원본을 유지하며 새 비공개 AI 미디어를 반환한다. 모델 호출·생성 횟수 차감 없음. 결과 교체 후 다운로드·계속 보정·사진 결정은 새 미디어를 사용한다.
+- UI: 공용 AiPhotoCrop, 비율 프리셋6종, 드래그/방향키 위치 조정, 확대1~3배, 취소/저장 중/오류 상태. 디자인 시스템 AI 사진 편집 예시와 목업에서는 canvas 대역, 실제 서비스에서는 서버 저장.

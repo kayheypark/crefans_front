@@ -9,7 +9,7 @@ import {creatorPayoutPolicy,type CreatorTerms} from '@/lib/crefans/creator-payou
 import {canDeleteMembership} from '@/lib/crefans/membership-plans';
 import {mediaUploadMaxItems} from '@/lib/design/image-upload';
 import {useLocalImages} from './useLocalImages';
-import {mockAiPhotoEdit} from './ai-photo-fixtures';
+import {mockAiPhotoCrop,mockAiPhotoEdit} from './ai-photo-fixtures';
 import {AI_PHOTO_DAILY_LIMIT} from '@/lib/crefans/ai-photo';
 
 const ok=<T,>(data:T):ApiResult<T>=>({success:true,data,errorMessage:null,errorCode:null});
@@ -69,7 +69,7 @@ export function useMockManagement({getProtectedPlanIds=()=>[],initialContents=ma
     uploadMembershipImage:images.upload,
     discardMembershipImage:images.discard,
     uploadContentMedia:images.uploadMedia,
-    aiEditPhoto,
+    aiEditPhoto,aiCropPhoto:mockAiPhotoCrop,
     useAiPhotoTicket:async()=>{if(aiTickets<=0)return {success:false as const,data:null,errorMessage:'사용할 수 있는 리셋권이 없어요.',errorCode:'NO_TICKET'} as const;if(aiRemaining>=AI_PHOTO_DAILY_LIMIT)return {success:false as const,data:null,errorMessage:'오늘은 아직 사용한 횟수가 없어 리셋권을 쓸 필요가 없어요.',errorCode:'NOTHING_TO_RESET'} as const;const left=aiTickets-1;setAiTickets(left);setAiRemaining(AI_PHOTO_DAILY_LIMIT);return {success:true as const,data:{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT,resetTickets:{count:left,nextExpiresAt:left?ticketExpiry:null},message:`리셋권 1장을 사용했어요. 오늘 ${AI_PHOTO_DAILY_LIMIT}회를 다시 만들 수 있어요.`},errorMessage:null,errorCode:null};},
     discardContentMedia:images.discard,
     deleteMembership:async(id,confirmation)=>{
