@@ -1,3 +1,8 @@
+## 2026-11-14 캐릭터 포즈·프리셋 검색 운영 완료
+- source025f6b5 dev→prod, `crefans-front:front-pose-mascot-search-20261114`, 배포01:40:21UTC. 24포즈WebP 운영HTTP200/Content-Type/SHA일치. 주요페이지/헬스/정적자산 정상, API·worker·admin 등 다른컨테이너 유지.
+- 단위48/48·타입·계층·WebKit 모바일검색/24이미지 확인. 문서검사는 기존참조누락으로실패. 증거 `.local/pose-mascot-search/verification.json`, public-assets.json,ship.log 및 모바일스크린샷.
+- 외부복구 `/Users/ethan/crefans-recovery/20261114/front-pose-mascot-search-20261114` SHA/OCI/설정검증 후 서버직전이미지·임시자료정리. 생성이미지는프리셋썸네일전용, 기존시드림사진보정·의상참조 로직변경없음.
+
 ## 2026-11-14 라벤더 캐릭터 포즈24종·프리셋 검색 검증 완료
 - 사용자 승인 코없는 얼굴·미소·밝은라벤더 캐릭터로 기존24포즈 교체. Seedream5.5 실생성23장 HTTP200 + 쪼그려앉기 승인본 재사용. 전체24이미지 시각검토,384WebP변환. 소스/프롬프트/해시 `design/pose-mascot-20261114/manifest.json`. UI 썸네일이며 실제 인물사진 보정요청에 캐릭터를 첨부하지 않음.
 - 카테고리 아래 검색창, 현재탭 이름/요청키워드 필터, 의상은 작품명/이름/설명으로 전체카테고리 검색. 입력시첫페이지, 탭/모드변경시검색초기화, 선택·마스크·커스텀보존. 3×2/순환페이징 유지, 빈결과안내/지우기/성별필터 반영.
