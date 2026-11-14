@@ -1,3 +1,8 @@
+## 2026-11-14 3×3 프리셋·시스템 공유 운영 배포 완료
+- 사용자 승인(추천안): 맥 로컬 crefans 이미지 정리 image-retention.py --keep 3 --apply → 83개 삭제(오류0), 여유 7.1GB→43GB. 남김 9개(종류별 최신3). 운영 직전 이미지는 crefans-recovery 보관분 유지.
+- prod 334ea9c(=feat/ai-photo-share, 3×3 포함) → frontend=crefans-front:front-share-grid9-20261114. API/worker 변경 없음(x-presets).
+- 운영 확인: 컨테이너 Running·재시작0, health ready. 운영 도메인 /design-system WebKit: 포즈 그리드 9칸 3열3행·옷장 3열·넘침 없음, "결과 1 공유" 클릭 시 PNG(89 50 4E 47) File이 navigator.share로 전달(share 캡처 대역, 실제 iOS 공유 시트 미확인). 복구 /Users/ethan/crefans-recovery/20261114/front-share-grid9-20261114 검증 OK.
+
 ## 2026-11-14 AI 사진 결과 다운로드 → 시스템 공유 (운영 미배포)
 - 사용자 요청 "다운로드 말고 공유하기, 시스템 공유". 결과 카드·크게 보기의 다운로드 버튼을 "공유"로 교체. 저장 이미지를 브라우저에서 PNG File로 만들어 navigator.share({files})로 시스템 공유 시트를 연다. 결과가 뜰 때 PNG를 미리 준비해 탭 직후 바로 공유를 호출(iOS Safari 사용자 활성화 제한 대응).
 - 파일 공유 미지원 브라우저(대부분 데스크톱)는 같은 PNG를 저장으로 대체. 사용자가 공유 시트를 닫으면(AbortError) 오류를 띄우지 않음. 실패 시 "사진을 공유하지 못했어요" 공용 오류. 서버 변경 없음.
