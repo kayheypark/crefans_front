@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-14T06:31:40.149539+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-preset-expansion",
+  "baseCommit": "50dad29c0cf896d7e9ec73cede98129712d94c63",
+  "state": "uncommitted verified change",
+  "checks": [
+    {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "65/65; cosplay/general UI and next request retain mode, generated source reused, no auto-generation"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "pass"
+    }
+  ],
+  "sha256": "774b698cfb8ea30e18e06355a7e8a5d42ba62547d637d392c8fc9e8a62cd19bd",
+  "limitations": [
+    "Not deployed"
+  ],
+  "logs": ".local/continue-mode"
+}

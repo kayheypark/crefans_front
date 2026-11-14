@@ -617,3 +617,11 @@ test('signed-in heart game submits pieces not scores and shows cumulative conver
  const actions=[];const {r,click,calls}=await open({quota:{remaining:10,limit:10,hearts:85},onHeartGame:async input=>{actions.push(input);return {success:true,data:input.action==='start'?{id:'game1',kinds:['heart','candy','heart','moon','heart']}:input.action==='finish'?{earned:30,hearts:5,credits:11,converted:11}:{score:1}};}});
  await click('1장 만들기');assert.equal(calls[0].heartGameId,'game1');assert.deepEqual(actions.map(x=>x.action),['start','finish']);assert.match(text(r.toJSON()),/하트 110개를 생성 11회로 바꿨어요/);assert.match(text(r.toJSON()),/모은 하트 30개/);assert.ok(actions.every(x=>!('score' in x)));
 });
+
+test('continue editing preserves selected cosplay or general mode in UI and next request',async()=>{
+ for(const [label,mode] of [['코스어 모드','cosplay'],['일반 모드','general']]){
+  const {r,click,calls}=await open();await click(label);await click('1장 만들기');await click('계속 보정');
+  const group=r.root.findByProps({'aria-label':'편집 모드'});assert.equal(group.find(n=>n.type==='button'&&text(n).includes(label)).props['aria-pressed'],true);assert.equal(calls.length,1);
+  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'자연스러운 미소'}}));await click('1장 만들기');assert.equal(calls[1].mode,mode);assert.equal(calls[1].source.id,'a1');await act(async()=>r.unmount());
+ }
+});

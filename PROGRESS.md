@@ -1,3 +1,7 @@
+## 2026-11-14 계속 보정 모드 유지
+- 요청: 코스어 선택 상태에서 계속 보정을 눌러도 코스어 유지. 일반 모드도 그대로 유지. editResult의 일반모드 강제전환만 제거.
+- 합격: 두 모드 각각 재편집 UI선택·후속생성mode 일치, 결과사진을 새소스로사용, 자동생성없음. 관련65/65 및 타입검사 통과·미배포. 증거 docs/audit/continue-mode-20261114.json. 다음 요청 시 운영 배포.
+
 ## 2026-11-14 AI 사진 개선·하트 보상 운영 배포 완료
 - 기능 소스 front 78c5bf0 / server 26d6359(dev→prod). 운영 frontend=front-ai-hearts-v2-20261114, API/worker=ai-hearts-v2-20261114. 오버워치54종·촬영컨셉4종·배경실내/야외·다운로드/핀치줌허용·게임난이도/30상한·계정누적100하트전환 반영. 신규3테이블 migration 적용, 관리자/DB/proxy/업로드 보존.
 - 초기 API 부팅 실패: hearts OpenAPI 계약누락으로일시502. 이전정상API로복구 후계약등록·전체초기화14/14검증하여재배포. 현재API/worker/frontend Running·재시작0·OOM없음,health ready. 기존검증 서버30/프론트65, 실운영WebKit390 예시화면다운로드파일저장·pinch-zoom스타일·JS오류/넘침없음, 프리셋62개 HTTP이미지 SHA256일치.
