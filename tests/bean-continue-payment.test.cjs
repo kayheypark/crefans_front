@@ -10,7 +10,7 @@ test('continuing an unpaid charge opens the payment conditions and pays only aft
  const button=label=>tree.root.findAllByType('button').find(b=>text(b)===label);
  try{
   act(()=>button('결제 계속').props.onClick());const dialog=tree.root.findByProps({'data-dialog':'결제 계속'});
-  for(const phrase of['결제 전 확인','30콩 충전','3,300원 (VAT 포함)','7일 이내','유효기간'])assert.ok(text(dialog).includes(phrase),phrase);
+  for(const phrase of['결제 전 확인','30콩 충전','3,300원 (VAT 포함)','7일 이내','유효기간','충전 한도','한 번에 900콩(99,000원), 하루 200,000원'])assert.ok(text(dialog).includes(phrase),phrase);
   assert.equal(button('결제창 열기').props.disabled,true);assert.deepEqual(paid,[]);
   act(()=>tree.root.findByProps({type:'checkbox'}).props.onChange({target:{checked:true}}));assert.equal(button('결제창 열기').props.disabled,false);
   await act(async()=>{button('결제창 열기').props.onClick();});assert.deepEqual(paid,[['pending-charge','2026-11-02.1']]);assert.equal(tree.root.findAllByProps({'data-dialog':'결제 계속'}).length,0);

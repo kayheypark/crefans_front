@@ -13,7 +13,7 @@ import {DialogActions} from '@/components/ui/DialogActions';
 import {CreatorSearch} from './CreatorSearch';
 import {PaymentTerms} from './PaymentTerms';
 import {PAYMENT_TERMS} from '@/lib/crefans/payment-terms';
-import {beanRefundNotes} from '@/lib/crefans/bean-pricing';
+import {beanChargeLimitNote,beanRefundNotes} from '@/lib/crefans/bean-pricing';
 import {useEffect,useRef,useState} from 'react';
 import {InfoTooltip} from '@/components/ui/InfoTooltip';
 import {beanPriceNotice} from '@/lib/crefans/bean-pricing';
@@ -167,5 +167,5 @@ export function BeanHistoryPage({kind}:{kind:BeanHistoryKind}){
   catch{setRefund({...refund,error:'환불 결과를 확인하지 못했습니다. 같은 요청으로 다시 확인해주세요.'});}
   finally{busy.current=false;setPending(false);}
  }
- return <><BeanHistoryView kind={kind} model={model} error={error} notice={notice} onNoticeClose={()=>setNotice('')} pending={pending} filters={filters} onFiltersChange={filters=>setSelection({kind,filters})} onPay={order=>{setAgreed(false);setContinuing(order);}} onPage={page=>void model.refresh(false,page,beanHistoryQuery(filters))} onRefund={order=>void quoteRefund(order)} refund={refund} onRefundConfirm={()=>void confirmRefund()} onRefundClose={()=>setRefund(null)}/><Dialog open={!!continuing} onClose={()=>setContinuing(null)} title="결제 계속">{continuing&&<><PaymentTerms basePath={model.basePath} agreed={agreed} onAgree={setAgreed} items={[{label:'상품',value:`${beans(continuing.quantity)} 충전`},{label:'결제 금액',value:`${won(continuing.amount)} (VAT 포함)`},{label:'사용처',value:'크리에이터 후원에만 쓸 수 있으며 멤버십·콘텐츠 이용권이 아닙니다.'},{label:'환불',value:`${beanRefundNotes[0]} ${beanRefundNotes[1]} ${beanRefundNotes[2]}`},{label:'유효기간',value:beanRefundNotes[3]}]}/><DialogActions><Action variant="secondary" onClick={()=>setContinuing(null)}>취소</Action><Action disabled={!agreed} onClick={()=>{const order=continuing;setContinuing(null);void pay(order);}}>결제창 열기</Action></DialogActions></>}</Dialog></>;
+ return <><BeanHistoryView kind={kind} model={model} error={error} notice={notice} onNoticeClose={()=>setNotice('')} pending={pending} filters={filters} onFiltersChange={filters=>setSelection({kind,filters})} onPay={order=>{setAgreed(false);setContinuing(order);}} onPage={page=>void model.refresh(false,page,beanHistoryQuery(filters))} onRefund={order=>void quoteRefund(order)} refund={refund} onRefundConfirm={()=>void confirmRefund()} onRefundClose={()=>setRefund(null)}/><Dialog open={!!continuing} onClose={()=>setContinuing(null)} title="결제 계속">{continuing&&<><PaymentTerms basePath={model.basePath} agreed={agreed} onAgree={setAgreed} items={[{label:'상품',value:`${beans(continuing.quantity)} 충전`},{label:'결제 금액',value:`${won(continuing.amount)} (VAT 포함)`},{label:'사용처',value:'크리에이터 후원에만 쓸 수 있으며 멤버십·콘텐츠 이용권이 아닙니다.'},{label:'충전 한도',value:beanChargeLimitNote},{label:'환불',value:`${beanRefundNotes[0]} ${beanRefundNotes[1]} ${beanRefundNotes[2]}`},{label:'유효기간',value:beanRefundNotes[3]}]}/><DialogActions><Action variant="secondary" onClick={()=>setContinuing(null)}>취소</Action><Action disabled={!agreed} onClick={()=>{const order=continuing;setContinuing(null);void pay(order);}}>결제창 열기</Action></DialogActions></>}</Dialog></>;
 }
