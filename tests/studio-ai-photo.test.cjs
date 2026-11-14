@@ -655,3 +655,16 @@ test('crop geometry stays inside image at all ratios, zooms and positions',()=>{
  }
  assert.deepEqual(photoCrop(1000,1500,'1:1',.5,1),{left:0,top:500,width:1000,height:1000});
 });
+
+test('personal references select independently across categories, toggle off and are replaced by public presets of the same category',async()=>{
+ const library={list:async()=>({success:true,data:{items:[],hasMore:false}}),upload:async()=>{},save:async()=>{},remove:async()=>{}};
+ const {r,calls,click}=await open({library});const panel=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
+ const pose={id:'private-pose',type:'image',url:'/pose.png',title:'앉기 참고',category:'pose'},bg={id:'private-bg',type:'image',url:'/bg.png',title:'공원 참고',category:'background'};
+ await act(async()=>{panel().props.onSelect(pose);});await act(async()=>{panel().props.onSelect(bg);});await click('1장 만들기');assert.deepEqual(calls[0].libraryIds,['private-pose','private-bg']);assert.deepEqual(calls[0].editKinds,['pose','background']);
+ await click('설정 수정');await act(async()=>panel().props.onSelect(pose));assert.equal(r.root.findAllByProps({'aria-label':'앉기 참고 선택 해제'}).length,0);assert.equal(r.root.findAllByProps({'aria-label':'공원 참고 선택 해제'}).length,1);
+ await act(async()=>panel().props.onSelect(pose));await click('의자에 앉기');await click('1장 만들기');assert.deepEqual(calls[1].libraryIds,['private-bg']);await click('설정 수정');await act(async()=>panel().props.onChanged('private-bg'));assert.equal(r.root.findAllByProps({'aria-label':'공원 참고 선택 해제'}).length,0);
+});
+
+test('library metadata removal clears selection and library entry exists before a source is uploaded',async()=>{
+ const library={list:async()=>({success:true,data:{items:[],hasMore:false}})};const {r}=await open({library,images:[]});assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='내 보관함').length);
+});

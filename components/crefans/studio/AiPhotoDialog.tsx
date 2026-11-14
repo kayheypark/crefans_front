@@ -1,4 +1,7 @@
 "use client";
+import {AiPhotoLibrary} from './AiPhotoLibrary';
+import type {PhotoAsset,PhotoLibraryModel} from '@/types/crefans-photo-library';
+import {photoAssetLabel} from '@/lib/crefans/photo-library';
 import {AiPhotoCrop,AiPhotoRatioPresets} from './AiPhotoCrop';
 import type {AiPhotoRatio} from '@/lib/crefans/ai-photo-crop';
 import type {AiPhotoCropInput} from '@/types/crefans-studio-management';
@@ -22,7 +25,7 @@ import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
 
-type Props={onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
+type Props={library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[])=>void};
 
@@ -30,7 +33,8 @@ const buildPrompt=(presets:AiPhotoPresetSelection[],custom:string,gender:'origin
 
 function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
 
-export function AiPhotoDialog({onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,shop,shopBasePath='/service/studio'}:Props){
+export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,shop,shopBasePath='/service/studio'}:Props){
+ const [libraryOpen,setLibraryOpen]=useState(false),[libraryAssets,setLibraryAssets]=useState<PhotoAsset[]>([]);
  const sourceOrigins=useRef(new Map<string,string>());
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('outfit');
  const [selectedPresets,setSelectedPresets]=useState<AiPhotoPresetSelection[]>([]),[customPrompt,setCustomPrompt]=useState('');
@@ -41,8 +45,9 @@ export function AiPhotoDialog({onCrop,onHeartGame,open,onClose,images,quota,room
  async function downloadPhoto(item:StudioMedia){if(downloading)return;setDownloading(true);try{const response=await fetch(item.url);if(!response.ok)throw new Error('download');const blob=await response.blob();if(!blob.type.startsWith('image/'))throw new Error('image');const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`crefans-ai-${item.id.replace(/[^a-zA-Z0-9_-]/g,'')}.${blob.type==='image/jpeg'?'jpg':blob.type==='image/webp'?'webp':'png'}`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch{setError('사진을 다운로드하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setDownloading(false);}}
  const [shopOpen,setShopOpen]=useState(false);
  const [genderChosen,setGenderChosen]=useState(false);
- const prompt=buildPrompt(selectedPresets,customPrompt,targetGender)||(aspectRatio!=='original'?'Preserve the subject and appearance; adapt the composition to the requested image dimensions.':'');
- const editKinds=Array.from(new Set([...selectedPresets.map(item=>item.kind),...(customPrompt.trim()?[kind]:[])]));
+ const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
+ const prompt=buildPrompt([...selectedPresets,...libraryPresets],customPrompt,targetGender)||(aspectRatio!=='original'?'Preserve the subject and appearance; adapt the composition to the requested image dimensions.':'');
+ const editKinds=Array.from(new Set([...selectedPresets.map(item=>item.kind),...libraryAssets.map(item=>item.category),...(customPrompt.trim()?[kind]:[])]));
  function changeGender(value:'original'|'female'|'male'){if(buildPrompt(selectedPresets,customPrompt,value).length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}if((targetGender==='male')!==(value==='male'))setBodySelection(null);setTargetGender(value);setGenderChosen(true);setPresetPages({});setSelectedPresets(previous=>previous.filter(item=>(item.kind!=='body'||(targetGender==='male')===(value==='male'))&&(item.kind!=='makeup'||aiPhotoPresetPage('makeup',0,value).examples.some(example=>aiPhotoPresetText(example)===item.prompt)||value==='original')));setError('');}
  const [workingSources,setWorkingSources]=useState<StudioMedia[]>([]);
  const sources=[...images,...workingSources.filter(item=>!images.some(original=>original.id===item.id))],hasOutfit=editKinds.includes('outfit');
@@ -64,9 +69,9 @@ export function AiPhotoDialog({onCrop,onHeartGame,open,onClose,images,quota,room
  function setCustom(value:string){setCustomPrompt(value);setError(buildPrompt(selectedPresets,value,targetGender).length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
  function isPresetSelected(value:string){return selectedPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
  function applyPresets(next:AiPhotoPresetSelection[]){const selection=next,length=buildPrompt(selection,customPrompt,targetGender).length;if(length>AI_PHOTO_PROMPT_MAX&&length>prompt.length){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return false;}setSelectedPresets(selection);setError(length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');return true;}
- function pickPreset(value:string){applyPresets([...selectedPresets.filter(item=>item.kind!==kind),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
+ function pickPreset(value:string){setLibraryAssets(items=>items.filter(item=>item.category!==kind));applyPresets([...selectedPresets.filter(item=>item.kind!==kind),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
  function changeBody(key:string,level:number){if(applyPresets([...selectedPresets.filter(item=>item.kind!=='body'),...(level?[{kind:'body' as const,prompt:aiPhotoBodyPrompt(key,level)}]:[])]))setBodySelection(level?{key,value:level}:null);}
- function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);searchPresets('');setError('');if(value==='expression'&&!selectedPresets.some(item=>item.kind==='expression'))applyPresets([...selectedPresets,{kind:'expression',prompt:aiPhotoNeutralExpressionPreset}]);}
+ function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);searchPresets('');setError('');if(value==='expression'&&!libraryAssets.some(item=>item.category==='expression')&&!selectedPresets.some(item=>item.kind==='expression'))applyPresets([...selectedPresets,{kind:'expression',prompt:aiPhotoNeutralExpressionPreset}]);}
  const [strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
  const [heartGame,setHeartGame]=useState<{id:string;kinds:('heart'|'candy'|'moon')[]}|null>(null),[heartBalance,setHeartBalance]=useState(quota.hearts||0),[rewardNote,setRewardNote]=useState('');
@@ -103,7 +108,7 @@ export function AiPhotoDialog({onCrop,onHeartGame,open,onClose,images,quota,room
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
-   const result=await onEdit({aspectRatio,...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
+   const result=await onEdit({aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
    if(!result.success){if(result.errorCode==='DAILY_LIMIT'&&shop){setRemaining(0);setShopOpen(true);void shop.refresh();}else setError(result.errorMessage);setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));for(const item of made)sourceOrigins.current.set(item.id,sourceOrigins.current.get(source.id)||source.id);
    setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
@@ -115,18 +120,20 @@ export function AiPhotoDialog({onCrop,onHeartGame,open,onClose,images,quota,room
   const picked=results.filter(item=>selected.includes(item.id));
   if(!picked.length){setError('게시물에 넣을 사진을 골라 주세요.');return;}
   if(picked.length>room){setError(`사진은 ${room}장만 더 넣을 수 있어요.`);return;}
-  onAdd(picked);sourceOrigins.current.clear();setAspectRatio('original');setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setBodySelection(null);setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
+  onAdd(picked);sourceOrigins.current.clear();setAspectRatio('original');setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
  }
- function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setSelectedPresets([]);setBodySelection(null);setKind('pose');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setStage('edit');}
+ function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('pose');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setStage('edit');}
  const viewing=viewer!==null||sourceViewer;
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
+ function selectLibrary(item:PhotoAsset){if(libraryAssets.some(value=>value.id===item.id)){setLibraryAssets(items=>items.filter(value=>value.id!==item.id));return;}const next=[...libraryAssets.filter(value=>value.category!==item.category),item];if(next.length>4){setError('내 보관함 사진은 최대 4개까지 선택해 주세요.');setLibraryOpen(false);return;}setSelectedPresets(items=>items.filter(value=>value.kind!==item.category));setLibraryAssets(next);}
  const composer=<div className={s.composer}>
+  {library&&<div className={s.libraryEntry}><button type="button" disabled={busy} onClick={()=>setLibraryOpen(true)}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 7V4h7l2 3h9v13H3Z"/><path d="m8 16 3-3 2 2 2-2 3 4"/></svg>내 보관함<span>{libraryAssets.length?`${libraryAssets.length}개 선택`:'사진 추가 · 선택'}</span></button>{libraryAssets.length>0&&<div className={s.librarySelected}>{libraryAssets.map(item=><button key={item.id} type="button" onClick={()=>setLibraryAssets(items=>items.filter(value=>value.id!==item.id))} aria-label={`${item.title} 선택 해제`}><img src={item.url} alt=""/><span>{photoAssetLabel(item.category)} · {item.title}</span><span aria-hidden="true">×</span></button>)}</div>}</div>}
   <strong>비율</strong><AiPhotoRatioPresets value={aspectRatio} onChange={setAspectRatio} disabled={busy}/>
   <TextAreaField label="커스텀 프롬프트" rows={3} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={customPrompt} onChange={event=>setCustom(event.target.value)} placeholder="선택한 프리셋에 더하고 싶은 내용을 적어 주세요." disabled={busy}/>
  </div>;
 
  return <><Dialog open={open} onClose={()=>{if(viewing){closeViewer();return;}if(!busy)onClose();}} title="AI 사진 편집" persistent fullscreenOnMobile className={s.editor}>
-  {!sources.length?<div className={s.body}><PromptLayout variant="dialog" icon="/brand/featured-creators-v1.png" title="바꿀 사진을 먼저 올려 주세요" description="게시물에 사진을 올리면 AI로 옷·포즈·배경을 바꿀 수 있어요." actions={<Action type="button" className={promptPrimary} onClick={onClose}>사진 올리러 가기</Action>}/></div>:!genderChosen?<div className={s.genderEntry}><h3>남성인가요, 여성인가요?</h3><div className={s.genderEntryChoices}>{(['male','female'] as const).map(value=><button key={value} type="button" onClick={()=>changeGender(value)}><span aria-hidden="true">{value==='male'?'♂':'♀'}</span>{value==='male'?'남성':'여성'}</button>)}</div></div>:<>
+  {!sources.length?<div className={s.body}><PromptLayout variant="dialog" icon="/brand/featured-creators-v1.png" title="바꿀 사진을 먼저 올려 주세요" description="게시물에 사진을 올리면 AI로 옷·포즈·배경을 바꿀 수 있어요." actions={<><Action type="button" className={promptPrimary} onClick={onClose}>사진 올리러 가기</Action>{library&&<Action type="button" variant="secondary" onClick={()=>setLibraryOpen(true)}>내 보관함</Action>}</>}/></div>:!genderChosen?<div className={s.genderEntry}><h3>남성인가요, 여성인가요?</h3><div className={s.genderEntryChoices}>{(['male','female'] as const).map(value=><button key={value} type="button" onClick={()=>changeGender(value)}><span aria-hidden="true">{value==='male'?'♂':'♀'}</span>{value==='male'?'남성':'여성'}</button>)}</div></div>:<>
    <div ref={bodyRef} className={s.body} inert={viewing}>
    {stage==='edit'&&<div className={s.sourceSection}>
      <div className={s.sourceHeading}><span>{source?.aiGenerated?'편집할 이미지':'원본 사진'}</span>{sources.length>1&&<button type="button" aria-expanded={sourcePicker} onClick={()=>setSourcePicker(!sourcePicker)}>사진 선택</button>}</div>
@@ -186,6 +193,7 @@ export function AiPhotoDialog({onCrop,onHeartGame,open,onClose,images,quota,room
   {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onDownload={downloadPhoto} downloading={downloading} onToggle={toggle} onClose={closeViewer}/>}
   {sourceViewer&&source&&<AiResultViewer items={[source]} index={0} selected={[]} onIndex={()=>{}} onClose={closeViewer} original/>}
  </Dialog>
+ {library&&<AiPhotoLibrary open={open&&libraryOpen} model={library} selected={libraryAssets} onSelect={selectLibrary} onChanged={id=>setLibraryAssets(items=>items.filter(item=>item.id!==id))} onClose={()=>setLibraryOpen(false)}/>}
  {open&&cropItem&&onCrop&&<AiPhotoCrop key={cropItem.id} item={cropItem} onClose={()=>setCropItem(null)} onApply={async crop=>{const r=await onCrop({sourceId:cropItem.id,...crop});if(!r.success)throw new Error(r.errorMessage||'사진을 저장하지 못했어요.');const next={...r.data,aiGenerated:true};sourceOrigins.current.set(next.id,sourceOrigins.current.get(cropItem.id)||sourceId);setResults(items=>items.map(item=>item.id===cropItem.id?next:item));setSelected(ids=>ids.map(id=>id===cropItem.id?next.id:id));setCropItem(null);}}/>}
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="횟수권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
  <Dialog open={open&&!!error} onClose={()=>setError('')} title="AI 사진 편집 안내" persistent>

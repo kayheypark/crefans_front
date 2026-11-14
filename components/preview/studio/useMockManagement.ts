@@ -1,5 +1,6 @@
 'use client';
 
+import {createMockPhotoLibrary} from '@/components/preview/studio/photo-library-fixtures';
 import {useState} from 'react';
 import {useSearchParams} from 'next/navigation';
 import type {ApiResult} from '@/types/crefans';
@@ -22,6 +23,7 @@ export function useMockManagement({getProtectedPlanIds=()=>[],initialContents=ma
   const [memberships,setMemberships]=useState<StudioMembership[]>(()=>initialMemberships.map(item=>({...item,benefits:[...item.benefits]})));
   const [deletedIds,setDeletedIds]=useState<string[]>([]);
   const images=useLocalImages();
+  const [photoLibrary]=useState(createMockPhotoLibrary);
   const [aiRemaining,setAiRemaining]=useState(AI_PHOTO_DAILY_LIMIT);
   const [aiTypical,setAiTypical]=useState<number|null>(null);
   // Mock storable reset tickets (2026-11-13): spending one refills today's count; expiry 30 days out.
@@ -31,7 +33,7 @@ export function useMockManagement({getProtectedPlanIds=()=>[],initialContents=ma
   const requestedStatus=query.get('status');
   const selectedContentStatus=requestedStatus&&['draft','published','scheduled'].includes(requestedStatus)?requestedStatus as StudioContentStatus:undefined;
   const canDelete=(id:string)=>canDeleteMembership(id,subscribers,managementNow)&&!getProtectedPlanIds().includes(id);
-  return {now:managementNow,aiPhotoQuota:{remaining:aiRemaining,limit:AI_PHOTO_DAILY_LIMIT,typicalSeconds:aiTypical,resetTickets:{count:aiTickets,nextExpiresAt:aiTickets?ticketExpiry:null}},creatorTerms:{platformFeeBps:creatorPayoutPolicy.feeRatePercent*100,settlementHoldDays:creatorPayoutPolicy.settlementHoldDays,beanWithdrawalFeeBps:creatorPayoutPolicy.feeRatePercent*100,minimumWithdrawalKrw:creatorPayoutPolicy.minimumWithdrawalKrw} satisfies CreatorTerms,contents,memberships:memberships.filter(item=>!deletedIds.includes(item.id)).map(item=>({...item,canDelete:canDelete(item.id)})),subscribers,selectedContentStatus,selectedSubscriberPlanId:query.get('plan')||undefined,selectedSubscriberId:query.get('member')||undefined,notice:'',actions:{
+  return {photoLibrary,now:managementNow,aiPhotoQuota:{remaining:aiRemaining,limit:AI_PHOTO_DAILY_LIMIT,typicalSeconds:aiTypical,resetTickets:{count:aiTickets,nextExpiresAt:aiTickets?ticketExpiry:null}},creatorTerms:{platformFeeBps:creatorPayoutPolicy.feeRatePercent*100,settlementHoldDays:creatorPayoutPolicy.settlementHoldDays,beanWithdrawalFeeBps:creatorPayoutPolicy.feeRatePercent*100,minimumWithdrawalKrw:creatorPayoutPolicy.minimumWithdrawalKrw} satisfies CreatorTerms,contents,memberships:memberships.filter(item=>!deletedIds.includes(item.id)).map(item=>({...item,canDelete:canDelete(item.id)})),subscribers,selectedContentStatus,selectedSubscriberPlanId:query.get('plan')||undefined,selectedSubscriberId:query.get('member')||undefined,notice:'',actions:{
     saveContent:async input=>{
       if(input.id&&!contents.some(item=>item.id===input.id))return fail('게시물을 찾을 수 없습니다.');
       if(!input.title.trim())return fail('제목을 입력해주세요.');
