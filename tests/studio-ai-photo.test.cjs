@@ -693,3 +693,18 @@ test('all 33 supplied photos map to valid public poses and nine new poses send t
  const mapping=require('../docs/audit/pose-source-classification-20261114.json').mapping;const {aiPhotoPresets,aiPhotoPresetTitle,aiPhotoPosePosture}=loadTypeScript('lib/crefans/ai-photo-presets.ts');assert.equal(mapping.length,33);assert.equal(new Set(mapping.map(x=>x.batch+':'+x.photo)).size,33);for(const m of mapping)assert.ok(aiPhotoPresetTitle('pose',aiPhotoPresets.pose[m.poseNumber-1]));
  for(let n=31;n<=39;n++){const value=aiPhotoPresets.pose[n-1],title=aiPhotoPresetTitle('pose',value);const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'포즈 자세'}).find(n=>n.type==='button'&&text(n)===(aiPhotoPosePosture(value)==='sitting'?'앉기':'서기')).props.onClick());await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:title}}));await click(title);await click(title);assert.equal(r.root.findByProps({'aria-label':title}).props['aria-pressed'],false);await click(title);await click('1장 만들기');assert.ok(calls[0].prompt.includes(value));await act(async()=>r.unmount());}
 });
+
+test('every costume card shows its original character gender (female pink, male blue, unspecified both)',async()=>{
+ const {aiPhotoCostumes,aiPhotoCostumeGender}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
+ const missing=aiPhotoCostumes.filter(c=>!aiPhotoCostumeGender(c));assert.deepEqual(missing.map(c=>c.name),[]);
+ const src=require('fs').readFileSync(require('path').join(__dirname,'..','lib/crefans/ai-photo-costumes.ts'),'utf8').split('const costumeGenderIds')[1].split('const costumeGenderById')[0];
+ const listed=[...src.matchAll(/'([0-9a-f]{6})'/g)].map(m=>m[1]),ids=new Set(aiPhotoCostumes.map(c=>c.id));
+ assert.equal(new Set(listed).size,listed.length,'an id is listed under two genders');assert.deepEqual(listed.filter(id=>!ids.has(id)),[]);
+ const by=name=>aiPhotoCostumeGender(aiPhotoCostumes.find(c=>c.name===name));
+ for(const [name,gender] of [['로드호그 코스튬','male'],['트레이서 코스튬','female'],['D.Mon 코스튬','female'],['벤처 코스튬','both'],['바스티온 코스튬','both'],['고죠 하이넥','male'],['호시 키라라 코스튬','both'],['시로코 교복','female'],['리본 메이드','both'],['원소술사 로브','both'],['가비 브라운 코스튬','female'],['조사병단 제복','both']])assert.equal(by(name),gender,name);
+ const {r}=await open({},true);await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('overwatch'));
+ const badge=name=>r.root.findByProps({'aria-label':name}).find(n=>n.props['data-gender']);
+ await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(badge('로드호그 코스튬').props['data-gender'],'male');assert.equal(text(badge('로드호그 코스튬')),'♂');
+ await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'벤처'}}));assert.equal(text(badge('벤처 코스튬')),'♀♂');
+ await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'트레이서'}}));assert.equal(text(badge('트레이서 코스튬')),'♀');assert.equal(badge('트레이서 코스튬').props.title,'원작 여성');
+});

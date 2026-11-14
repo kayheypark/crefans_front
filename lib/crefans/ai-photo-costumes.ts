@@ -370,3 +370,36 @@ export function aiPhotoCostumeRequest(selected:AiPhotoPresetSelection[]){
  });
  return{presets,costumeIds};
 }
+
+/** Original character gender for the card badge. Generic outfits and class/rank uniforms have no fixed wearer, so they show both.
+ * Sources checked 2026-11-15 (official hero/character pages and wikis); Kirara Hoshi, Venture and Bastion are left unspecified on purpose. */
+export type AiPhotoCostumeGender='female'|'male'|'both';
+const costumeGenderByCategory:Partial<Record<AiPhotoCostumeCategory,AiPhotoCostumeGender>>={general:'both',diablo:'both',bluearchive:'female',nikke:'female'};
+const costumeGenderIds:Record<AiPhotoCostumeGender,readonly string[]>={
+ male:[
+  // overwatch
+  'be80aa','20a449','bf777b','bd95fb','90f439','136245','c17e2b','3fce14','2d7409','21150b','fe56d9','d55c25','f74872','6c24e4','2a9d76','d4a54c','7155c7','149795','479a45','74b6ba','60b83e','4cdbb0','5841e1','d79fb8',
+  // demon-slayer
+  'c65204','8d3d3e','2d7017','c193ee','64da58','fb9c13','7736c7','49aeab','0332a1','cc92f5','c9146b','a10c91','c8b520','dc8928','f570eb',
+  // jujutsu
+  '07c722','edf3b8','6c9ecb','a77dd5','bff3bf','19fc2f','8fbf6e','c13541','98ed5b','43ad6b','532630',
+  // genshin
+  '2056e8','d69be9','24a157','80a202','17e190','841c2c','319999','60c75c','dfc752'],
+ female:[
+  // overwatch
+  '70219a','7281fe','8971c9','9a01b2','372386','d6ed5b','22a725','5dfc6f','14e3be','b456ec','9bf5e0','d216c5','a46594','0c0f47','0ed2b0','69ef61','e34f2f','94975c','7ec222','51e8e0','6b0576','6c0778','ecd733','e0298c','0c643c','105dc8','0b3d4a','6d6994',
+  // demon-slayer
+  '9e6184','6ee320','d9810c','02309d','eb0c0e','da41b3','766220','d81f9f','790be1','2eb359','0b39ff','f3a7e0','29a624','976ae8','836da6','a264af',
+  // jujutsu
+  'ecfc33','349d02','d92341','5d4202',
+  // genshin
+  'b516a6','752866','2de0d6','60e1ae','6e548b','b25a15','a1dd79',
+  // aot
+  '918a9a'],
+ // aot generic uniforms, overwatch Bastion (omnic) and Venture (they/them), jujutsu Kirara Hoshi
+ both:['1a73b4','3e20e3','556b2b','8f1113','8fbc01','842c82','ec8d47'],
+};
+const costumeGenderById=new Map(Object.entries(costumeGenderIds).flatMap(([gender,ids])=>ids.map(id=>[id,gender as AiPhotoCostumeGender])));
+export function aiPhotoCostumeGender(costume:Pick<AiPhotoCostume,'id'|'category'>):AiPhotoCostumeGender|undefined{
+ return costumeGenderByCategory[costume.category]??costumeGenderById.get(costume.id);
+}
