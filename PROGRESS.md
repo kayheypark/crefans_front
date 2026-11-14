@@ -1,3 +1,8 @@
+## 2026-11-14 포즈·표정·구도 운영 배포 완료
+- a1cb094 dev→prod, front-preset-expansion-20261114 03:52:18UTC 운영교체. 포즈30/표정16/구도9,신규12에셋HTTP200/WebP/SHA전부일치. 주요서비스/헬스/정적이미지검사통과,다른컨테이너유지.
+- 단위52/52·타입·WebKit모바일검증통과;문서검사기존참조누락실패. Seedream16회HTTP200은썸네일생성검증이며사용자사진보정실생성과구분. 증거 .local/preset-expansion/{verification.json,ship.log,public-assets.json}, design/preset-expansion-20261114/manifest.json.
+- 복구 /Users/ethan/crefans-recovery/20261114/front-preset-expansion-20261114 SHA/OCI태그·설정·15blobs검증후서버이전태그/임시정리. 로컬공간부족은미사용빌드캐시및Docker이미지·SHA확인된과거전송압축10개(2.74GB)만정리해해소,복구본/이미지/볼륨보존. 작업트리의기존미커밋시안은원래worktree에보존.
+
 ## 2026-11-14 포즈·표정·구도 확장 검증 완료
 - 포즈6(뒤돌아보기/다리넓혀서기/양팔머리위/의자거꾸로/다리꼬아앉기/한쪽무릎),표정3(도도/자신감미소/턱들기),구도3(뒤45도/측면전신/어깨중심) 추가. 기존3×2·검색·누적선택·무표정기본유지.
 - Seedream16회HTTP200(12+의미보정4),최종12개384WebP·컨택트시트눈검사. tests/studio-ai-photo{,-binding}.test.cjs 52/52,typecheck0,WebKit모바일3종검색/선택누적/이미지/페이지통과. check:docs는기존형제서버참조누락실패. 실사용자사진편집재호출없음.
