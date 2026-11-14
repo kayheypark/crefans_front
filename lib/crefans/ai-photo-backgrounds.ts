@@ -20,6 +20,22 @@ export const aiPhotoBackgrounds=[
  {id:'d9c303',category:'indoor',title:'내추럴 거울방',prompt:'배경을 내추럴 거울방 참고 사진의 공간과 조명으로 바꿔줘.'},
  {id:'d9c304',category:'indoor',title:'다크 이벤트홀',prompt:'배경을 다크 이벤트홀 참고 사진의 공간과 조명으로 바꿔줘.'},
  {id:'d9c305',category:'outdoor',title:'노을 자갈 해변',prompt:'배경을 노을 자갈 해변 참고 사진의 공간과 조명으로 바꿔줘.'},
- {id:'d9c306',category:'indoor',title:'웜 베이지 호텔룸',prompt:'배경을 웜 베이지 호텔룸 참고 사진의 공간과 조명으로 바꿔줘.'}
+ {id:'d9c306',category:'indoor',title:'웜 베이지 호텔룸',prompt:'배경을 웜 베이지 호텔룸 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead401',category:'indoor',title:'게이밍 데스크룸',prompt:'배경을 게이밍 데스크룸 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead402',category:'outdoor',title:'열대 정원',prompt:'배경을 열대 정원 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead403',category:'outdoor',title:'폭포 연못',prompt:'배경을 폭포 연못 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead404',category:'indoor',title:'우드 바',prompt:'배경을 우드 바 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead405',category:'outdoor',title:'한낮 모래 해변',prompt:'배경을 한낮 모래 해변 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead406',category:'indoor',title:'핑크 체커보드 룸',prompt:'배경을 핑크 체커보드 룸 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead407',category:'indoor',title:'벚꽃 병풍 세트',prompt:'배경을 벚꽃 병풍 세트 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead408',category:'indoor',title:'크리스마스 트리 세트',prompt:'배경을 크리스마스 트리 세트 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead409',category:'indoor',title:'화이트 궁전 세트',prompt:'배경을 화이트 궁전 세트 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead410',category:'indoor',title:'블루 네온 오락실',prompt:'배경을 블루 네온 오락실 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead411',category:'indoor',title:'타일 계단',prompt:'배경을 타일 계단 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead412',category:'indoor',title:'앤티크 목조 실내',prompt:'배경을 앤티크 목조 실내 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead413',category:'indoor',title:'레트로 카페',prompt:'배경을 레트로 카페 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead414',category:'indoor',title:'피규어 컬렉션 룸',prompt:'배경을 피규어 컬렉션 룸 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead415',category:'outdoor',title:'등나무 꽃 정원',prompt:'배경을 등나무 꽃 정원 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'ead416',category:'outdoor',title:'단풍 돌계단',prompt:'배경을 단풍 돌계단 참고 사진의 공간과 조명으로 바꿔줘.'}
 ] as const;
 export function aiPhotoBackgroundId(prompt:string|undefined){return aiPhotoBackgrounds.find(item=>item.prompt===prompt)?.id;}
