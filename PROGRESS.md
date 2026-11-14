@@ -1,3 +1,8 @@
+## 2026-11-15 콩 한도·AI 소진 안내 화면 동기화 (운영 미배포)
+- /pilot-work 결정. 콩 충전 한도 문구를 lib/crefans/bean-pricing.ts beanChargeLimitNote 하나로 모아 충전 화면과 미결제 충전 "이어서 결제" 화면(BeanWalletPages) 결제 조건에 함께 표시. AI 횟수 소진 문구를 서버와 같은 "무료 횟수를 모두 썼어요. 매일 오전 9시에 다시 채워지고, 횟수권을 구매하면 계속 만들 수 있어요."로 통일(lib/crefans/ai-photo.ts, 미리보기 픽스처).
+- 결제 조건 버전은 유지(서버 PROGRESS 참조). 약관 2026-11-15.sync.1은 서버.
+- 검증: typecheck 0, bean·AI 테스트(bean-charge-page·studio-ai-photo 80/80, legal-notices·continue·wallet 19/19), 이어서 결제 한도 항목 제거 대조 실행 실패 확인.
+
 ## 2026-11-14 3×3 프리셋·시스템 공유 운영 배포 완료
 - 사용자 승인(추천안): 맥 로컬 crefans 이미지 정리 image-retention.py --keep 3 --apply → 83개 삭제(오류0), 여유 7.1GB→43GB. 남김 9개(종류별 최신3). 운영 직전 이미지는 crefans-recovery 보관분 유지.
 - prod 334ea9c(=feat/ai-photo-share, 3×3 포함) → frontend=crefans-front:front-share-grid9-20261114. API/worker 변경 없음(x-presets).

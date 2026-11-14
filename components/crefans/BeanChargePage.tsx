@@ -5,7 +5,7 @@ import Link from 'next/link';
 import {useId,useRef,useState} from 'react';
 import {Radio} from '@/components/ui/Choice';
 import {InfoTooltip} from '@/components/ui/InfoTooltip';
-import {beanChargeKrwPerBean,beanPriceNotice,beanRefundNotes} from '@/lib/crefans/bean-pricing';
+import {beanChargeKrwPerBean,beanChargeLimitNote,beanPriceNotice,beanRefundNotes} from '@/lib/crefans/bean-pricing';
 import {PolicyNotes} from './PolicyNotes';
 import type {BeanCharge} from '@/types/crefans-beans';
 import {useBeans} from './BeanContext';
@@ -77,7 +77,7 @@ export function BeanChargePage(){
       <dl className={s.chargeSummary}><div><dt>충전 수량</dt><dd>{ready?beans(quantity):'선택해주세요'}</dd></div><div><dt>결제 금액 (VAT 포함)</dt><dd>{won(order?.amount??quantity*beanChargeKrwPerBean)}</dd></div></dl>
       {(error||model.error)&&<p role="alert">{error||model.error}</p>}
       {notice&&<p role="status">{notice} <Link href={`${model.basePath}/beans`}>내 콩 지갑 보기</Link></p>}
-      {ready&&<PaymentTerms basePath={model.basePath} agreed={agreed} onAgree={setAgreed} disabled={pending} items={[{label:'상품',value:`${beans(order?.quantity??quantity)} 충전`},{label:'결제 금액',value:`${won(order?.amount??quantity*beanChargeKrwPerBean)} (VAT 포함)`},{label:'사용처',value:'크리에이터 후원에만 쓸 수 있으며 멤버십·콘텐츠 이용권이 아닙니다.'},{label:'환불',value:`${beanRefundNotes[0]} ${beanRefundNotes[1]} ${beanRefundNotes[2]}`},{label:'충전 한도',value:'한 번에 900콩(99,000원), 하루 200,000원까지 충전할 수 있습니다(한국 시간 기준, VAT 포함).'},{label:'유효기간',value:beanRefundNotes[3]}]}/>}
+      {ready&&<PaymentTerms basePath={model.basePath} agreed={agreed} onAgree={setAgreed} disabled={pending} items={[{label:'상품',value:`${beans(order?.quantity??quantity)} 충전`},{label:'결제 금액',value:`${won(order?.amount??quantity*beanChargeKrwPerBean)} (VAT 포함)`},{label:'사용처',value:'크리에이터 후원에만 쓸 수 있으며 멤버십·콘텐츠 이용권이 아닙니다.'},{label:'환불',value:`${beanRefundNotes[0]} ${beanRefundNotes[1]} ${beanRefundNotes[2]}`},{label:'충전 한도',value:beanChargeLimitNote},{label:'유효기간',value:beanRefundNotes[3]}]}/>}
       <Action className={s.chargeSubmit} type="submit" disabled={pending||!ready||!agreed}>{pending?'결제 준비 중…':order?'같은 충전 주문 다시 결제':'충전 결제하기'}</Action>
     </form>
     <PolicyNotes title="환불·유효기간" notes={beanRefundNotes}/>

@@ -23,7 +23,7 @@ export const aiPhotoStyles:{value:AiPhotoStyle;label:string}[]=[
 /** First problem with the request, or '' when it can be sent. The server repeats every check. */
 export function aiPhotoProblem({prompt,consent,kind,hasMask,remaining,requireMask=false}:{prompt:string;consent:boolean;kind:AiPhotoKind;hasMask:boolean;remaining:number;requireMask?:boolean}){
  const text=prompt.trim();
- if(remaining<=0)return '오늘 만들 수 있는 횟수를 모두 썼어요. 내일 다시 이용해 주세요.';
+ if(remaining<=0)return '무료 횟수를 모두 썼어요. 매일 오전 9시에 다시 채워지고, 횟수권을 구매하면 계속 만들 수 있어요.';
  if(kind==='outfit'&&requireMask&&!hasMask)return '바꿀 옷 부분을 사진 위에 칠해 주세요.';
  if(!text)return '원하는 모습을 적어 주세요.';
  if(text.length>AI_PHOTO_PROMPT_MAX)return `${AI_PHOTO_PROMPT_MAX}자 이내로 적어 주세요.`;
