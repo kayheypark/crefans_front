@@ -197,3 +197,7 @@
 .presetEmpty{padding:24px 8px;margin:0;text-align:center;color:var(--cf-color-textMuted);font-size:14px}
 
 .outfitSwitch{display:flex;align-items:center;gap:10px;align-self:flex-end;border:0;background:transparent;padding:8px 0;color:var(--text-secondary,#64748b);font-size:13px;cursor:pointer}.outfitSwitch span{width:34px;height:20px;border-radius:12px;background:#cbd5e1;padding:3px;transition:background .15s}.outfitSwitch span::after{content:"";display:block;width:14px;height:14px;border-radius:50%;background:white;transition:transform .15s}.outfitSwitch[aria-checked="true"] span{background:#2563eb}.outfitSwitch[aria-checked="true"] span::after{transform:translateX(14px)}
+
+.posePosture{display:flex;align-self:flex-start;gap:4px;padding:3px;border-radius:10px;background:var(--cf-color-surfaceSubtle)}
+.posePosture button{min-width:72px;min-height:40px;padding:8px 18px;border:0;border-radius:8px;background:transparent;color:var(--cf-color-textSecondary);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.posePosture button[aria-pressed=true]{background:var(--cf-color-accent);color:#fff}

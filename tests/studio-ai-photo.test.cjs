@@ -528,3 +528,21 @@ test('expanded pose, expression and camera selections accumulate and toggle inde
  await tab('표정');await search('도도한');await click('도도한 시선');await click('1장 만들기');
  assert.equal(calls.length,1);assert.deepEqual(calls[0].editKinds,['pose','camera']);assert.match(calls[0].prompt,/거꾸로 앉아/);assert.match(calls[0].prompt,/뒤쪽 45도/);assert.doesNotMatch(calls[0].prompt,/도도|무표정/);
 });
+
+test('pose posture splits all thirty cards into exclusive sitting and standing pages',()=>{
+ const {aiPhotoPresets,aiPhotoPresetPage,aiPhotoPosePosture,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
+ const seen=[];for(const [posture,total] of [['sitting',9],['standing',21]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=6);for(const e of result.examples){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
+ assert.equal(new Set(seen).size,30);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
+ assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','sitting').total,0);assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','standing').total,1);
+ assert.equal(aiPhotoPresetTitle('pose',aiPhotoPresetPage('pose',0,'original','쪼그려','sitting').examples[0]),'쪼그려 앉기');
+});
+
+test('posture buttons reset browsing but retain selected pose and other categories until replacement',async()=>{
+ const {r,click,calls}=await open();const posture=()=>r.root.findByProps({'aria-label':'포즈 자세'});const select=async label=>act(async()=>posture().find(n=>n.type==='button'&&text(n)===label).props.onClick());
+ const search=async value=>act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value}}));
+ assert.equal(posture().find(n=>n.type==='button'&&text(n)==='앉기').props['aria-pressed'],true);
+ await click('쪼그려 앉기');await click('다음 프리셋 페이지');await search('없는 검색');await select('서기');assert.equal(r.root.findByProps({'aria-label':'프리셋 검색'}).props.value,'');assert.equal(r.root.findAllByProps({'aria-label':'쪼그려 앉기'}).length,0);
+ await select('앉기');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],true);
+ await select('서기');await search('다리 넓혀');await click('다리 넓혀 서기');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());assert.equal(r.root.findAllByProps({'aria-label':'포즈 자세'}).length,0);
+ await click('1장 만들기');assert.deepEqual(calls[0].editKinds,['pose','expression']);assert.match(calls[0].prompt,/어깨너비보다/);assert.match(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/쪼그려/);
+});

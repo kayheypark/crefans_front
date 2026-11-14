@@ -1,0 +1,11 @@
+{
+  "status": 200,
+  "model": "dola-seedream-5-5-261028",
+  "prompt": "Use the reference as exact identity and style. One square UI pose thumbnail. Peach sphere head, dot eyes, tiny smile, NO NOSE, no hair. Lavender long sleeve top, trousers and shoes. Full body clearly SITTING ON A SIMPLE BENCH, hips on bench seat, both knees bent 90 degrees, feet on ground. One hand open in a small friendly conversational gesture, other resting on thigh, head turned slightly sideways as if talking. Bench seat visibly supports hips. Not standing. Soft matte clay, near-white backdrop, generous margin, no text or other people.",
+  "elapsedMs": 12513,
+  "requestId": "02179462894789015b33ccaa151d3ed7feaaa761bc71c37d52d76",
+  "at": "2026-11-14T04:02:40.151Z",
+  "sourceSha256": "345d0937b8f141c99da7a8b2839a9a0e6c80492de1cc37fcf7f75a29574a3945",
+  "asset": "public/brand/ai-photo/pose-mascot/pose-20-v2.webp",
+  "sha256": "6511b11f1b6ac73e95880c08e309d33a8e1cd5ed881e288b59cc54556d2adeb1"
+}

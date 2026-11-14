@@ -101,16 +101,20 @@ export function aiPhotoPresetMatches(query:string,...values:string[]){
  return terms.every(term=>text.includes(term));
 }
 
-export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query=''){
+export type AiPhotoPosePosture='sitting'|'standing';
+const sittingPoseIndexes=new Set([12,13,14,16,19,20,27,28,29]);
+export function aiPhotoPosePosture(example:string):AiPhotoPosePosture{return sittingPoseIndexes.has(aiPhotoPresets.pose.indexOf(example))?'sitting':'standing';}
+
+export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture){
  const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter((_,index)=>(index%2===0?'female':'male')===gender):aiPhotoPresets[kind];
  const ordered=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available;
- const examples=ordered.filter(example=>aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
+ const examples=ordered.filter(example=>(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;
  return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages,total:examples.length};
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
- if(kind==='pose')return `/brand/ai-photo/pose-mascot/pose-${String(aiPhotoPresets.pose.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
+ if(kind==='pose'){const index=aiPhotoPresets.pose.indexOf(example);return `/brand/ai-photo/pose-mascot/pose-${String(index+1).padStart(2,'0')}-${index===19?'v2':'v1'}.webp`;}
  if(kind==='camera')return `/brand/ai-photo/camera-mascot/camera-${String(aiPhotoPresets.camera.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
  if(kind==='expression')return `/brand/ai-photo/expression-mascot/expression-${String(aiPhotoPresets.expression.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
  if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return `/brand/ai-photo/presets/body-male-${control.key}-v1.webp`;}

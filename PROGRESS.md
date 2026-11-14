@@ -1,3 +1,12 @@
+## 2026-11-14 포즈 자세 필터 검증 / 대기 시안 완료
+- 앉기9/서기21,앉기기본,포즈탭만버튼표시. 필터전환검색·페이지초기화/기존프롬프트선택보존·다른포즈선택시교체. 기존대화스냅의서있는썸네일불일치를앉은벤치그림 pose-20-v2로수정,프롬프트유지.
+- 단위54/54·타입0·WebKit모바일필터/검색/선택유지/타탭숨김통과,30프리셋누락중복없음. docs기존형제참조누락실패. .local/pose-posture/{verification.json,unit-final.log,types-final.log,browser.log,sitting.png,standing.png}, design/pose-posture-20261114/manifest.json. 운영배포예정.
+- Seedream실API2회HTTP200:대기UX시안1장1024×1536 /Users/ethan/Downloads/crefans-ai-waiting-concept.png(하트터치게임),앉은대화썸네일1장. 두이미지직접시각검토. 대기게임은시안만제작·제품미구현.
+
+## 2026-11-14 포즈 앉기·서기 필터 / 생성대기 시안 진행
+- 포즈탭에컴팩트앉기·서기버튼,앉기기본·9종/서기21종. 필터전환은검색·페이지초기화,기존선택과타카테고리프롬프트보존. 검색은선택자세안에서수행. 합격:30항목누락중복없음/필터·페이지·검색·선택누적/모바일UI.
+- 사용자시댄스이미지요청은기존이미지모델Seedream으로대기화면시안1장제작으로해석. 하트터치미니게임+진행안내콘셉트,시안만제작하고대기UI실구현은별도.
+
 ## 2026-11-14 포즈·표정·구도 운영 배포 완료
 - a1cb094 dev→prod, front-preset-expansion-20261114 03:52:18UTC 운영교체. 포즈30/표정16/구도9,신규12에셋HTTP200/WebP/SHA전부일치. 주요서비스/헬스/정적이미지검사통과,다른컨테이너유지.
 - 단위52/52·타입·WebKit모바일검증통과;문서검사기존참조누락실패. Seedream16회HTTP200은썸네일생성검증이며사용자사진보정실생성과구분. 증거 .local/preset-expansion/{verification.json,ship.log,public-assets.json}, design/preset-expansion-20261114/manifest.json.
