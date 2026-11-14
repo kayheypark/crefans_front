@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T06:08:47.501004+00:00",
+  "checkedAt": "2026-11-14T06:24:08.155550+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "e814f414ca05bc9ec9a4057265979a9c45a938dc",
-      "branch": "feat/ai-heart-rewards",
+      "head": "78c5bf01cf05a010d36de6f78e15a2ed12f3cf5b",
+      "branch": "docs/heart-release-verification-20261114",
       "dirty": true
     },
     "server": {
-      "head": "76b57f0d84d5288fba0390962df69ce42ceb13fc",
-      "branch": "feat/ai-heart-rewards",
+      "head": "26d6359183f63515c6993a63fbb607199d282767",
+      "branch": "docs/heart-release-verification-20261114",
       "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "53900d5b411c08d2fc23a4a356404acef887d7668843f9a488e4787ae065f929",
-      "front/PROGRESS.md": "d75e1f2adb6f94cdb5fd2e49aec360ac13ecd83b68ffad56ae2e0bb762fabee2",
+      "front/PROGRESS.md": "d342a511c49fa4faf85ebe5a52c8c73d82fb385fb7ff1b8c9837e24c1dacbd87",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "29da3d851a274cf2ed15437e37e61868fe9ff311da5e9d9f13ecaff9b21fb6a7",
-      "server/PROGRESS.md": "1db898675b7e8f41aa311a9c3aab000fccc3f0dd2e383ef2f1ec55f528ccb852",
+      "server/PROGRESS.md": "263a1a8274eb5d6bdd2059fea1daa07d1538baf2da5d64e8b506923575533abb",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -1263,7 +1263,7 @@
       "server/src/platform/moderation-retention.ts": "18a3f23d26ff374d4e6b31b200b2dee4f19940337ac4216bdee7749e96f9dde6",
       "server/src/platform/moderation.ts": "f18c655fc69e7540d1f42a723f4a5946fdf69e0bde3be09207f6163d6e4a7aeb",
       "server/src/platform/module.ts": "00c084dc3e59d99ac55130ef5a62ad024503dce2b8184f9f884360b8a9216381",
-      "server/src/platform/openapi-contract.ts": "793ce42022718ac214723b533584f13a14b4bc287910a3f81e468ce724edb9a9",
+      "server/src/platform/openapi-contract.ts": "1e953bff5c46383ddd1ecd76ac47e66cb02cdb06c1af2e877f616932890b5a24",
       "server/src/platform/openapi.ts": "5d316d5b041099870b973b69b338d5c59fd853d49d7f7fe344f640386fd4166a",
       "server/src/platform/operations-events.ts": "fd9f0a020e0aa2f2fe0de7f20f1b9bc76c32f9a406e8e58f215926525a53d9e1",
       "server/src/platform/operations.service.ts": "0dd4f3383802f46696d2301b6d9e3822ef8f894114a5740bf972371556cf313c",
@@ -1397,7 +1397,7 @@
       "server/tests/platform-moderation-retention.test.cjs": "efc38d6163c3ed1b7e8fe70accf06519439f436b97ae079e00bfa0eb6fc07870",
       "server/tests/platform-moderation.test.cjs": "33e3143f3af56dd74fdc4e98f37c3c5c7c9578c7bef0e0dc9c77b667bd0faab3",
       "server/tests/platform-new-creators.test.cjs": "6d29bec06c0f1d1d8664d0cc1e6b7c0e93016080403ead0b5490c6482f2eb75c",
-      "server/tests/platform-openapi.test.cjs": "17cbefd4de987a4077a20d2ef8a46887edfa9835f7df75bcf63db1721af26020",
+      "server/tests/platform-openapi.test.cjs": "c0ed0240e0831bb1d013a55c1573054f6c0ec0edf06c748706a651686d61b365",
       "server/tests/platform-operations-events.test.cjs": "b147a194390700bfb75285196a8cd30475f38fc709eaad413cbe2fe5189b707e",
       "server/tests/platform-operations-http.test.cjs": "9dad998737d75e3d0c150fe8d64448d3d3df6bb38046f94ef233015f68ba75f9",
       "server/tests/platform-operations.test.cjs": "4dbb9ead7552c7772a54afd391745b8bbd14cc6269e491c64496bdbf768c60a5",
