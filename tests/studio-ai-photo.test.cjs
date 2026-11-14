@@ -285,7 +285,7 @@ test('body controls select only one adjustment and keep custom input',async()=>{
 test('every preset has a distinct decodable image including Comic World, 24 poses and Canon lens model prompts',async()=>{
  const fs=require('fs'),path=require('path'),sharp=require('sharp');const {aiPhotoPresets,aiPhotoPresetImage,aiPhotoComicWorldPreset,aiPhotoPresetTitle,aiPhotoPresetTitles}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const images=[];
  assert.equal(aiPhotoPresets.pose.length,24);assert.equal(aiPhotoPresets.lens.length,6);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
- for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);if(['expression','pose','camera'].includes(kind))assert.match(image,/pictograms\/.*\.svg$/);else assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}
+ for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);if(['expression','camera'].includes(kind))assert.match(image,/pictograms\/.*\.svg$/);else assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}
  }
  const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,13);
  assert.equal(images.length,92);assert.equal(new Set(images).size,92);for(const value of aiPhotoPresets.lens)assert.match(value,/Canon RF.*촬영한? 느낌|Canon RF.*촬영 느낌/);
@@ -476,4 +476,27 @@ test('preset pager claims a horizontal touch drag so iOS Safari does not turn it
  fire('touchstart',[touch(200,100),touch(260,100)]);assert.equal(fire('touchmove',[touch(150,100),touch(300,100)]),false,'pinch');
  await act(async()=>r.update(el(AiPresetPager,{onStep(){},disabled:true},el('div'))));
  fire('touchstart',[touch(200,100)]);assert.equal(fire('touchmove',[touch(150,100)]),false,'disabled single page');
+});
+
+test('preset search filters before pagination, respects gender and handles no matches',()=>{
+ const {aiPhotoPresetPage,aiPhotoPresetMatches,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
+ assert.ok(aiPhotoPresetMatches('RF 85','Canon RF85mm'));
+ const squatting=aiPhotoPresetPage('pose',3,'original','쪼그려');assert.equal(squatting.total,1);assert.equal(squatting.index,0);assert.equal(aiPhotoPresetTitle('pose',squatting.examples[0]),'쪼그려 앉기');
+ const empty=aiPhotoPresetPage('pose',9,'original','존재하지않는검색어');assert.deepEqual(empty,{examples:[],index:0,pages:1,total:0});
+ assert.equal(aiPhotoPresetPage('makeup',0,'male','코랄 립').total,0);
+ assert.equal(aiPhotoPresetPage('makeup',0,'female','코랄 립').total,1);
+ assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,24);
+});
+
+test('search keeps selected poses, resets pages, clears on tabs and finds costumes across categories',async()=>{
+ const {r,click,calls}=await open();
+ const search=async value=>act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value}}));
+ await click('쪼그려 앉기');await click('다음 프리셋 페이지');await search('쪼그려');
+ assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],true);assert.equal(r.root.findByProps({'aria-label':'다음 프리셋 페이지'}).props.disabled,true);
+ await search('없는검색결과');assert.match(text(r.toJSON()),/검색 결과가 없어요/);assert.doesNotMatch(text(r.toJSON()),/NaN/);
+ await click('검색어 지우기');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],true);
+ await search('손');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());assert.equal(r.root.findByProps({'aria-label':'프리셋 검색'}).props.value,'');
+ await click('코스어 모드');await search('원신');assert.match(text(r.toJSON()),/검색/);assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='라이덴 쇼군').length,1);
+ await search('없는검색결과');assert.match(text(r.toJSON()),/검색 결과가 없어요/);assert.doesNotMatch(text(r.toJSON()),/NaN/);
+ await click('검색어 지우기');assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='리본 메이드').length,1);assert.equal(calls.length,0);
 });

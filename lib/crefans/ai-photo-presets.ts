@@ -95,15 +95,23 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
  ]
 };
 
-export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original'){
+export function aiPhotoPresetMatches(query:string,...values:string[]){
+ const normalize=(value:string)=>value.normalize('NFKC').toLocaleLowerCase().replace(/\s+/g,'');
+ const terms=query.trim().split(/\s+/).filter(Boolean).map(normalize),text=normalize(values.join(' '));
+ return terms.every(term=>text.includes(term));
+}
+
+export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query=''){
  const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter((_,index)=>(index%2===0?'female':'male')===gender):aiPhotoPresets[kind];
- const examples=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available,pages=Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE);
+ const ordered=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available;
+ const examples=ordered.filter(example=>aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;
- return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages};
+ return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages,total:examples.length};
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
- if(['expression','pose','camera'].includes(kind))return `/brand/ai-photo/pictograms/${kind}-${String(aiPhotoPresets[kind].indexOf(example)+1).padStart(2,'0')}.svg`;
+ if(kind==='pose')return `/brand/ai-photo/pose-mascot/pose-${String(aiPhotoPresets.pose.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
+ if(['expression','camera'].includes(kind))return `/brand/ai-photo/pictograms/${kind}-${String(aiPhotoPresets[kind].indexOf(example)+1).padStart(2,'0')}.svg`;
  if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return `/brand/ai-photo/presets/body-male-${control.key}-v1.webp`;}
  const index=aiPhotoPresets[kind].filter(value=>value!==aiPhotoComicWorldPreset&&value!==aiPhotoNeutralExpressionPreset).indexOf(example);
  const id=example===aiPhotoComicWorldPreset?'background-comicworld':`${kind}-${String(index+1).padStart(2,'0')}`;

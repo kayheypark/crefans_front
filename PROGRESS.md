@@ -1,3 +1,8 @@
+## 2026-11-14 라벤더 캐릭터 포즈24종·프리셋 검색 검증 완료
+- 사용자 승인 코없는 얼굴·미소·밝은라벤더 캐릭터로 기존24포즈 교체. Seedream5.5 실생성23장 HTTP200 + 쪼그려앉기 승인본 재사용. 전체24이미지 시각검토,384WebP변환. 소스/프롬프트/해시 `design/pose-mascot-20261114/manifest.json`. UI 썸네일이며 실제 인물사진 보정요청에 캐릭터를 첨부하지 않음.
+- 카테고리 아래 검색창, 현재탭 이름/요청키워드 필터, 의상은 작품명/이름/설명으로 전체카테고리 검색. 입력시첫페이지, 탭/모드변경시검색초기화, 선택·마스크·커스텀보존. 3×2/순환페이징 유지, 빈결과안내/지우기/성별필터 반영.
+- 합격/검증: 단위48/48, typecheck0, layers453파일0, WebKit iPhone13에서24이미지로딩/검색·선택유지/빈결과/의상작품명/가로넘침없음 통과. 증거 `.local/pose-mascot-search/` unit/types/layers/browser로그와 모바일스크린샷,contact.png. 서버 변경없음. check:docs 종료1(기존 서버 문서/소스 참조누락). 운영배포예정.
+
 ## 2026-11-14 표정·포즈·구도 심플 도식 운영 완료
 - source `ba59e0d`, 이미지 `crefans-front:front-simple-presets-20261114`, 배포2026-11-14 00:59:49UTC. 표정13·포즈24·구도6종 교체, 운영43SVG HTTP200/Content-Type/SHA-256 모두 로컬과 일치. 주요경로·헬스·정적자산 정상, 다른서비스 컨테이너 유지.
 - 단위46/46·타입·계층·WebKit 모바일검사 통과. 문서검사는 기존 서버 참조 누락으로 실패. 실공급자 생성 미실행. 증거 `.local/simple-preset-illustrations/verification.json`, `public-assets.json`, `ship.log`, 모바일 스크린샷.
