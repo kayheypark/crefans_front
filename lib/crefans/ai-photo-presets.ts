@@ -1,3 +1,4 @@
+import {aiPhotoBackgrounds,aiPhotoBackgroundId} from './ai-photo-backgrounds';
 import {aiPhotoMaleBodyControls,aiPhotoBodyPrompt} from './ai-photo';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 
@@ -87,7 +88,8 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
   "배경을 햇살이 부드러운 공원으로 바꿔줘.",
   "멀리 벚꽃이 흐릿하게 보이는 길로 바꿔줘.",
   "해 질 녘 바다가 보이는 배경으로 바꿔줘.",
-  "밤의 도시 불빛이 흐릿하게 보이게 해줘."
+  "밤의 도시 불빛이 흐릿하게 보이게 해줘.",
+  ...aiPhotoBackgrounds.map(item=>item.prompt)
  ]
 };
 
@@ -98,7 +100,7 @@ export function aiPhotoPresetMatches(query:string,...values:string[]){
 }
 
 export type AiPhotoBackgroundCategory='indoor'|'outdoor';
-export function aiPhotoBackgroundCategory(example:string):AiPhotoBackgroundCategory{return aiPhotoPresets.background.indexOf(example)<6?'indoor':'outdoor';}
+export function aiPhotoBackgroundCategory(example:string):AiPhotoBackgroundCategory{return aiPhotoBackgroundId(example)||aiPhotoPresets.background.indexOf(example)<6?'indoor':'outdoor';}
 
 export type AiPhotoPosePosture='sitting'|'standing';
 const sittingPoseIndexes=new Set([12,13,14,16,19,20,27,28,29]);
@@ -113,6 +115,7 @@ export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
+ if(kind==='background'&&aiPhotoBackgroundId(example))return `/brand/ai-photo/background/${aiPhotoBackgroundId(example)}.webp`;
  if(kind==='background'){const files=['presets/background-comicworld-v1','background/room-night-v1','background/room-day-v1','background/living-room-v1','presets/background-01-v1','background/studio-black-v1','presets/background-04-v1','presets/background-05-v1','presets/background-09-v1','presets/background-10-v1'];return `/brand/ai-photo/${files[aiPhotoPresets.background.indexOf(example)]}.webp`;}
  if(kind==='pose'){const index=aiPhotoPresets.pose.indexOf(example);return `/brand/ai-photo/pose-mascot/pose-${String(index+1).padStart(2,'0')}-${index===19?'v2':'v1'}.webp`;}
  if(kind==='lens')return `/brand/ai-photo/shoot-concept/shoot-${String(aiPhotoPresets.lens.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
@@ -130,7 +133,7 @@ export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "makeup":["코랄 립", "생기 있는 볼", "브라운 아이", "로즈 립", "펄 줄이기", "얇은 아이라인", "자연스러운 눈썹", "피치 블러셔", "은은한 음영", "매트 립", "데일리 메이크업", "피부 톤 정돈"],
  "expression":["무표정", "환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소", "도도한 시선", "자신감 있는 미소", "턱 살짝 들기"],
  "pose":["손인사", "살짝 돌아서기", "두 손 모으기", "허리에 손", "고개 기울이기", "브이", "정면 서기", "작은 손인사", "앞으로 기대기", "턱에 손", "손하트", "옆모습 시선", "의자에 앉기", "벤치에 앉기", "쪼그려 앉기", "벽에 기대 쉬기", "바닥에 앉기", "시선 밖 스냅", "걷다 돌아보기", "대화하는 스냅", "계단에 앉기", "난간에 기대기", "기지개", "산책 스냅", "뒤돌아보기", "다리 넓혀 서기", "양팔 머리 위로", "의자 거꾸로 앉기", "다리 꼬아 앉기", "한쪽 무릎 세우기"],
- "background":["코믹월드", "내 방(밤 형광등)", "내 방(낮 형광등 끔)", "거실", "촬영스튜디오(흰배경)", "촬영스튜디오(검정배경)", "햇살 공원", "벚꽃길", "노을 바다", "도시 야경"],
+ "background":["코믹월드", "내 방(밤 형광등)", "내 방(낮 형광등 끔)", "거실", "촬영스튜디오(흰배경)", "촬영스튜디오(검정배경)", "햇살 공원", "벚꽃길", "노을 바다", "도시 야경",...aiPhotoBackgrounds.map(item=>item.title)],
  "camera":["눈높이 정면", "로우 앵글", "하이 앵글", "얼굴 클로즈업", "상반신", "전신", "뒤쪽 45도", "측면 전신", "어깨 중심"],
  "lens":["셀카 폰카(정면)", "거울샷", "DSLR", "대포카메라"],
  "body":["가슴 조금 작게", "가슴 조금 크게", "힙 조금 작게", "힙 조금 크게", "키 조금 작게", "키 조금 크게"]

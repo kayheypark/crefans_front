@@ -19,6 +19,7 @@ import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPho
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,aiPhotoBodyPrompt,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
 import {Action} from '../ServiceUI';
+import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
 import {aiPhotoPresetMatches,aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoPresetTitle,aiPhotoNeutralExpressionPreset,type AiPhotoPosePosture,type AiPhotoBackgroundCategory} from '@/lib/crefans/ai-photo-presets';
 import {AiPhotoCategoryIcon} from './AiPhotoCategoryIcon';
 import {PromptLayout,promptPrimary} from '../PromptLayout';
@@ -108,7 +109,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
-   const result=await onEdit({aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
+   const result=await onEdit({backgroundId:aiPhotoBackgroundId(selectedPresets.find(item=>item.kind==='background')?.prompt),aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
    if(!result.success){if(result.errorCode==='DAILY_LIMIT'&&shop){setRemaining(0);setShopOpen(true);void shop.refresh();}else setError(result.errorMessage);setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));for(const item of made)sourceOrigins.current.set(item.id,sourceOrigins.current.get(source.id)||source.id);
    setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);

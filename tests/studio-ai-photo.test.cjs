@@ -288,10 +288,10 @@ test('body controls select only one adjustment and keep custom input',async()=>{
 test('every preset has a distinct decodable image including Comic World, 30 poses and four shooting concepts',async()=>{
  const fs=require('fs'),path=require('path'),sharp=require('sharp');const {aiPhotoPresets,aiPhotoPresetImage,aiPhotoComicWorldPreset,aiPhotoPresetTitle,aiPhotoPresetTitles}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const images=[];
  assert.equal(aiPhotoPresets.pose.length,30);assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
- for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}
+ for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,/background\/b7a10/.test(image)?1024:384);assert.equal(meta.height,/background\/b7a10/.test(image)?1536:384);}
  }
  const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,16);
- assert.equal(images.length,99);assert.equal(new Set(images).size,99);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
+ assert.equal(images.length,106);assert.equal(new Set(images).size,106);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
@@ -590,11 +590,11 @@ test('shooting concepts replace Canon choices and retain other selected edits',a
  const {r,click,calls}=await open();await click('쪼그려 앉기');await click('촬영컨셉');assert.doesNotMatch(text(r.toJSON()),/캐논|RF85|렌즈/);for(const name of ['셀카 폰카(정면)','거울샷','DSLR','대포카메라'])assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']===name).length,1);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],true);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],false);await click('DSLR');await click('1장 만들기');assert.ok(calls[0].editKinds.includes('pose'));assert.ok(calls[0].editKinds.includes('lens'));assert.match(calls[0].prompt,/DSLR/);assert.match(calls[0].prompt,/쪼그려/);
 });
 
-test('background subcategories show six indoor and four outdoor presets and preserve selection',async()=>{
+test('background subcategories show thirteen indoor and four outdoor presets and preserve selection',async()=>{
  const {aiPhotoPresetPage,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
  const indoor=aiPhotoPresetPage('background',9,'female','',undefined,'indoor'),outdoor=aiPhotoPresetPage('background',0,'female','',undefined,'outdoor');
- assert.equal(indoor.total,6);assert.equal(indoor.index,0);assert.equal(outdoor.total,4);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['햇살 공원','벚꽃길','노을 바다','도시 야경']);
- assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'indoor').total,2);assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'outdoor').total,0);
+ assert.equal(indoor.total,13);assert.equal(indoor.index,0);assert.equal(outdoor.total,4);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['햇살 공원','벚꽃길','노을 바다','도시 야경']);
+ assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'indoor').total,3);assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'outdoor').total,0);
  const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('1장 만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
 });
 
@@ -667,4 +667,12 @@ test('personal references select independently across categories, toggle off and
 
 test('library metadata removal clears selection and library entry exists before a source is uploaded',async()=>{
  const library={list:async()=>({success:true,data:{items:[],hasMore:false}})};const {r}=await open({library,images:[]});assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='내 보관함').length);
+});
+
+test('public background catalog is searchable indoors and selection sends image ID; deselection removes it',async()=>{
+ const {aiPhotoBackgrounds}=loadTypeScript('lib/crefans/ai-photo-backgrounds.ts');const presets=loadTypeScript('lib/crefans/ai-photo-presets.ts');const fs=require('fs');
+ for(const item of aiPhotoBackgrounds){assert.equal(presets.aiPhotoBackgroundCategory(item.prompt),'indoor');assert.ok(presets.aiPhotoPresetPage('background',0,'female',item.title,undefined,'indoor').examples.includes(item.prompt));assert.ok(fs.existsSync('public'+presets.aiPhotoPresetImage('background',item.prompt)));}
+ const {r,click,calls}=await open();await click('배경');
+ await act(async()=>r.root.find(n=>n.type==='input'&&n.props.placeholder?.includes('검색')).props.onChange({target:{value:'차분한 침실'}}));
+ await click('차분한 침실');await click('차분한 침실');assert.equal(r.root.findByProps({'aria-label':'차분한 침실'}).props['aria-pressed'],false);await click('차분한 침실');await click('1장 만들기');assert.equal(calls[0].backgroundId,'b7a101');assert.equal(calls[0].kind,'background');
 });
