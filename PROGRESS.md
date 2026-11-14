@@ -1,3 +1,7 @@
+## 2026-11-14 만들기 버튼 횟수 운영 배포 완료
+- bd973a2 dev→prod, front-create-quota-20261114 04:31:39UTC 적용. 운영컨테이너/횟수배지번들확인·주요페이지/헬스정상. 기존56테스트·타입·WebKit320px/10→9갱신통과. .local/create-quota/{production.json,ship.log,verification.json,mobile.png}.
+- 이전이미지/설정은 /Users/ethan/crefans-recovery/20261114/front-create-quota-20261114 SHA/OCI/15blobs검증후서버사본·임시정리. 로컬개발/전송캐시와30분지난미사용빌드캐시정리후공간28.6GB확인. 이미지·복구·볼륨보존.
+
 ## 2026-11-14 만들기 버튼 횟수 검증 완료
 - 버튼오른쪽남은N회배지,기존remaining재사용. 제목중앙/접근성이름유지·설명으로횟수전달. 기존본문리셋권동작보존. WebKit 10→9·320px오른쪽배치/영역내표시확인,스크린샷눈검사. 기존기대텍스트검사2개갱신후56/56·타입0통과.
 - .local/create-quota/{verification.json,unit-final.log,types.log,browser.log,mobile.png}. 공급사실호출없음. 운영배포준비중,캐시정리후공간재확인예정.
