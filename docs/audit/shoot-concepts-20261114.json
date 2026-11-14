@@ -1,0 +1,117 @@
+{
+  "at": "2026-11-14T05:51:24.527370+00:00",
+  "repositories": [
+    {
+      "path": "/Users/ethan/repository/crefans_front-preset-expansion",
+      "head": "a79faf9936f2997ad5918023584c9f3a5fa63fee",
+      "branch": "feat/photo-shoot-concepts",
+      "status": "M PROGRESS.md\n M components/crefans/studio/AiPhotoDialog.tsx\n M lib/crefans/ai-photo-presets.ts\n M lib/crefans/ai-photo.ts\n M tests/studio-ai-photo.test.cjs\n?? public/brand/ai-photo/shoot-concept/"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_server-ai-shop",
+      "head": "249e79d9e8f7ff5f885dab64ad8a78ec3c6a990f",
+      "branch": "feat/photo-shoot-concepts",
+      "status": "M PROGRESS.md\n M src/platform/ai-photo.ts\n M tests/platform-ai-photo.test.cjs"
+    }
+  ],
+  "checks": [
+    {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "result": "60/60 pass",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "pass",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build (server)",
+      "result": "pass",
+      "exitCode": 0
+    },
+    {
+      "command": "CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs",
+      "result": "28/28 pass; isolated DB/provider mocks",
+      "exitCode": 0
+    },
+    {
+      "command": "node .local/shoot-concepts/browser.cjs",
+      "result": "WebKit390; 4 images loaded, select/deselect, no overflow/errors; screenshot visually checked",
+      "exitCode": 0
+    }
+  ],
+  "generation": [
+    {
+      "status": 200,
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character and its reflection only when specified, no text, no symbols, no watermark, include only the photography equipment and mirror specified below. Keep anatomy clear and simple. Show the character holding a slim smartphone at extended arm length taking a FRONT CAMERA SELFIE, looking at its phone screen, three-quarter view so the arm, phone and face are clearly visible. No mirror.",
+      "elapsedMs": 17702,
+      "requestId": "021794635242949c2670fe791a5f29d61bdea8e0ada6c5dfc159d",
+      "at": "2026-11-14T05:47:40.342Z",
+      "kind": "shoot",
+      "index": 1,
+      "title": "셀카 폰카(정면)",
+      "editPrompt": "스마트폰 전면 카메라로 정면 셀카를 찍은 구도로 바꿔줘. 팔을 뻗어 촬영한 자연스러운 가까운 거리와 가벼운 광각 느낌을 표현하고 얼굴이 중심에 오게 해줘. 거울은 추가하지 마.",
+      "output": ".local/shoot-concepts/originals/shoot-1.png",
+      "sha256": "54ff93714fca90f81ce8c5afd3f1e0964bf21c582ad36f3dfbaaff8b5b12e14e"
+    },
+    {
+      "status": 200,
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character and its reflection only when specified, no text, no symbols, no watermark, include only the photography equipment and mirror specified below. Keep anatomy clear and simple. Show one large vertical floor mirror and the character holding a smartphone at chest height facing the mirror. The physical character seen from side/back, and its clear coherent front reflection inside the mirror. Make the mirror selfie concept immediately legible.",
+      "elapsedMs": 13929,
+      "requestId": "0217946352428887e031431b40d2024cf18919c414bfdfaddf10c",
+      "at": "2026-11-14T05:47:36.515Z",
+      "kind": "shoot",
+      "index": 2,
+      "title": "거울샷",
+      "editPrompt": "거울 앞에서 휴대폰을 들고 찍은 거울 셀카로 바꿔줘. 휴대폰과 자연스러운 거울 반사가 보이게 하되 얼굴을 과도하게 가리지 말고 인물과 손이 중복되지 않게 해줘.",
+      "output": ".local/shoot-concepts/originals/shoot-2.png",
+      "sha256": "a324a2267728391317eba910a3d3f00b4b6301ae81ee5bc88d4e3811fd0f38fe"
+    },
+    {
+      "status": 200,
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character and its reflection only when specified, no text, no symbols, no watermark, include only the photography equipment and mirror specified below. Keep anatomy clear and simple. Show the character as a photographer holding a BLACK DSLR camera with a SHORT standard lens to eye level. Clear compact prism camera body, short lens. Side three-quarter view, photographer standing. No mirror, no smartphone, no long lens.",
+      "elapsedMs": 14596,
+      "requestId": "02179463524297712014becacfaf8a37949eaec3c813975653205",
+      "at": "2026-11-14T05:47:37.255Z",
+      "kind": "shoot",
+      "index": 3,
+      "title": "DSLR",
+      "editPrompt": "다른 사람이 DSLR로 촬영한 자연스러운 인물 사진 느낌으로 바꿔줘. 눈높이의 자연스러운 원근감, 또렷한 인물과 적당한 배경 흐림을 표현해줘. 촬영 장비는 화면에 추가하지 마.",
+      "output": ".local/shoot-concepts/originals/shoot-3.png",
+      "sha256": "3d0188379204262fc837d35938a47d818c9fdcd057662f42bfa0cf3b87a073e3"
+    },
+    {
+      "status": 200,
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character and its reflection only when specified, no text, no symbols, no watermark, include only the photography equipment and mirror specified below. Keep anatomy clear and simple. Show the character as a photographer behind a camera with a VERY LONG WHITE professional TELEPHOTO LENS with dark rings, mounted on a monopod. Side profile showing the long lens unmistakably, much longer than a standard DSLR lens. This is photographic equipment, no weapons.",
+      "elapsedMs": 16488,
+      "requestId": "021794635257403cceb5af4e027c6aad3bf6ae2fce15c1a58ea27",
+      "at": "2026-11-14T05:47:53.630Z",
+      "kind": "shoot",
+      "index": 4,
+      "title": "대포카메라",
+      "editPrompt": "다른 사람이 먼 거리에서 대형 망원렌즈로 촬영한 인물 사진 느낌으로 바꿔줘. 얼굴 비율은 자연스럽게 유지하고 망원 특유의 압축된 거리감과 크게 흐려진 배경을 표현해줘. 촬영 장비는 화면에 추가하지 마.",
+      "output": ".local/shoot-concepts/originals/shoot-4.png",
+      "sha256": "d48199554a938e90b6b208907d55b4142f28b6844f51a9b3f1cad4f56abbe7e2"
+    }
+  ],
+  "files": {
+    "/Users/ethan/repository/crefans_front-preset-expansion/public/brand/ai-photo/shoot-concept/shoot-01-v1.webp": "365dcc1a65e553e664650efb96cce31a5ac388d153026100144a853b9613c144",
+    "/Users/ethan/repository/crefans_front-preset-expansion/public/brand/ai-photo/shoot-concept/shoot-03-v1.webp": "f08f9dea58b41488a77db79277e73f1170ff7006fef8e743ef572cc2d3907931",
+    "/Users/ethan/repository/crefans_front-preset-expansion/public/brand/ai-photo/shoot-concept/shoot-02-v1.webp": "c7745be3a8ddf4857b93cf36cf57c6431d45b79d9e73c36c8a90700b565f3281",
+    "/Users/ethan/repository/crefans_front-preset-expansion/public/brand/ai-photo/shoot-concept/shoot-04-v1.webp": "050c9c97f8bd2c0a3616a79ad3df73e6448c36a430b6a4921545ea2d2e790ec1",
+    "/Users/ethan/repository/crefans_front-preset-expansion/lib/crefans/ai-photo.ts": "687a64198b8b4f569f78ea6bb5c8adbec62bd9771d9759e7ef7f1ec992d3acbc",
+    "/Users/ethan/repository/crefans_front-preset-expansion/lib/crefans/ai-photo-presets.ts": "35438914944db32a59f87117c3c4961c4a969f32e075d2b881ee2322553be3a8",
+    "/Users/ethan/repository/crefans_front-preset-expansion/components/crefans/studio/AiPhotoDialog.tsx": "5fe5230a60cf8cf48476fff7515c1d8e3831705329c93c7916aa60b2a771afb7",
+    "/Users/ethan/repository/crefans_server-ai-shop/src/platform/ai-photo.ts": "fbfd7e253af5bc0987abb4307f23a164038fce5686698c8403c244bc847605e5"
+  },
+  "limitations": [
+    "Not deployed",
+    "No live user-photo editing quality test"
+  ],
+  "evidenceDirectory": ".local/shoot-concepts"
+}
