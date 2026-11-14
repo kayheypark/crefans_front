@@ -14,6 +14,12 @@ export const aiPhotoBackgrounds=[
  {id:'c8b206',category:'indoor',title:'옐로 팝업 무대',prompt:'배경을 옐로 팝업 무대 참고 사진의 공간과 조명으로 바꿔줘.'},
  {id:'c8b207',category:'indoor',title:'쿨톤 행사장 복도',prompt:'배경을 쿨톤 행사장 복도 참고 사진의 공간과 조명으로 바꿔줘.'},
  {id:'c8b208',category:'outdoor',title:'도심 광장 야경',prompt:'배경을 도심 광장 야경 참고 사진의 공간과 조명으로 바꿔줘.'},
- {id:'c8b209',category:'outdoor',title:'야경 테라스 난간',prompt:'배경을 야경 테라스 난간 참고 사진의 공간과 조명으로 바꿔줘.'}
+ {id:'c8b209',category:'outdoor',title:'야경 테라스 난간',prompt:'배경을 야경 테라스 난간 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'d9c301',category:'indoor',title:'소프트 블루 스튜디오',prompt:'배경을 소프트 블루 스튜디오 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'d9c302',category:'outdoor',title:'햇살 석조 테라스',prompt:'배경을 햇살 석조 테라스 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'d9c303',category:'indoor',title:'내추럴 거울방',prompt:'배경을 내추럴 거울방 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'d9c304',category:'indoor',title:'다크 이벤트홀',prompt:'배경을 다크 이벤트홀 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'d9c305',category:'outdoor',title:'노을 자갈 해변',prompt:'배경을 노을 자갈 해변 참고 사진의 공간과 조명으로 바꿔줘.'},
+ {id:'d9c306',category:'indoor',title:'웜 베이지 호텔룸',prompt:'배경을 웜 베이지 호텔룸 참고 사진의 공간과 조명으로 바꿔줘.'}
 ] as const;
 export function aiPhotoBackgroundId(prompt:string|undefined){return aiPhotoBackgrounds.find(item=>item.prompt===prompt)?.id;}
