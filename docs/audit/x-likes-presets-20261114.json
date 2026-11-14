@@ -1,0 +1,819 @@
+{
+ "checkedAt": "2026-11-14",
+ "skill": "/add-preset",
+ "source": "~/x-likes/likes (X API로 받은 @crefans_app 좋아요, 사진 235장·게시물 63개, 영상 3개 제외). 원본·게시물 ID는 공개하지 않고 .local에만 보관",
+ "baseCommits": {
+  "front": "c091ae87976fbaec330eff5111a54eea30b34953"
+ },
+ "classification": {
+  "photos": 235,
+  "backgroundStatus": {
+   "기존 재사용": 175,
+   "미확인": 16,
+   "신규": 44
+  },
+  "poseStatus": {
+   "기존 재사용": 175,
+   "대안 적용": 19,
+   "미확인": 9,
+   "신규": 32
+  },
+  "sourceSha256": [
+   "d8cfbdeb72a56faafc646b98d9ffe14fc3d16110304ea972c663508df1829787",
+   "643e9bc062a1a97fbe5ec364a2d204a919111c9152ff91be2eceb9d2a7a92151",
+   "9528cd8d391fa9a7bba72c7c90fbf06dcd4868aa1b2048a16187183266e7cae4",
+   "39f042f8ff1d097b2590e6795dc01abf2dc49c6c0692a79466fa353e7ee65bda",
+   "ab938442089661fdf68007b912daa1c191b6ec4bcfdab4a66a184159c4bc410e",
+   "c596ea6337b375a26736b409ccdf0fd7cce2ec95ff79330a522189934263c224",
+   "3e6ebcff1b3383dd842d95965102e6c50fe8601921c2d9fa68fc0bc8f655cc2d",
+   "7283d56269075af3035db4abb642c6059b044879ef1767953f899042c279e1b0",
+   "d8e3a3e2fb90d079c4a921af275ca6729d4ccad952fe80e45779c13e8438371a",
+   "a0b6d9e87d90a2e1a1efd4cdb67d92c068676e55caa17ce90089dfe18994c73c",
+   "c36f3d799e2c6394474a2e000ea7315b71562a04c3ff913558fbee10777459fe",
+   "cb42826cde3887b457112deb68fc6ac74f08b80e1bb4aeb53c2a6206d76371dd",
+   "2d525395e1433bf3a06fa3bbc137c6b77ab84238f72244a8edfc5c87cfb843c6",
+   "d07f7297c419ba0d3cae678ba9d2acb5776c127b632650db0e583cac5f42126f",
+   "c844be3c24c4f57a4a3a8f09719f8349907411ddbf557dbd569de91d75c24597",
+   "8bbf456a158de53cacb3c62ec13148078b710aed5ae44c3b8c6973afa85d8191",
+   "18453ce273e3e627c76bc57a7c44c3bdaf02ee8421ac0de40b4348c7a6f126ae",
+   "85cdbf8699f4d20b07c988b135ebf658903257f72579133ab8dde00c12dd8793",
+   "dc8aaf72dd33cd712ade727d80a44bf1cf2acdbe1bd1f6753296e7e5ba0c8e5c",
+   "7d842ea775e284f7f9726fe5c01d5067dd472c432896e787222cb184f78b77ad",
+   "6b43d47e396cd87078c92246468c33026d90833212e5a9044e685a4ca96ae9e4",
+   "a8ddf21ec08c663cd98754c544040462bc166549b51ba7c8e2d8e72dc0092c12",
+   "15be3351270045bb4f99d41454a945cf3fb355c505a62589e2e390ce3bab1177",
+   "c815f8eafff1f4a903be1d48c5708801c38c79aaee858ee7b581cd24eb83c98d",
+   "125dfe3a111e29200d3d83de46570d82f0a3d6a47836c063b4b6d425d6a08a73",
+   "f8bc2934382479184498ebbd1ddb5bb5d580e5ca0df28f01f26098763e606f96",
+   "7c0e2d721086f4627e15bca3f2973882747808d61122c1d48f81470fae61db22",
+   "f5fb172b1a6a57ac671e565a52ee7d2fd4d2ac809d07aaa23993e2ef076f40a4",
+   "99afa69fd3cb7afd79a1f351cd799b62ad95ecec08b50e612063f5e99f8f0dae",
+   "a54834b77eb9ee1704262d9d23d9ef459b3ada952b682251572cfba9726a27f3",
+   "ead92f2d228760b4ae6a4605e822a7042a21fc8f8a19752b056850a419e41f3c",
+   "09e3f0870c1fef51b1f9cb0b87b91df8d83303332a4dbbf0daa6d8b53df5317b",
+   "2c930e061eedfc8cb5abf8d162040d9d346b3050a5dce77f146981cdc44c06f5",
+   "0a9882259b3435b073cfbf2d9ee9c3d727b7f7c9c0ab8b92eaf3a5ac81e34058",
+   "32211d850d3a952cf26676ececbd2481968cefc23101f325f98f00e699e0f57b",
+   "686970d4c0b1ddf7c96add4ca90422e1ad7d6c150368212ef0188c0db2030721",
+   "cf0ac0f9c8a3e8c2fccdf0a8c3354acfee287242ba9c3887f42aa1f5c8f4ee31",
+   "e716784ac0ee48f5099bf5a6cd949dfb8c91d075fcfccb7d946187ef02f89f52",
+   "8b178809377aaa1a2edc531b7c3f957f414222e7d27d701999bfcce5b0c526b2",
+   "635684a6a2565cb603d8206b25d8d11c6a68626db0f86de157404666847be243",
+   "bce310562397446d33f7e88d8dc209a391d6a845ff90f7fec641e969383fe28e",
+   "57d3b327fb17bf3702faebe9280f4719f3e0ac455fce52d1c85e95a5745b1b57",
+   "15347d71dfa8ad183ac10ce418741cce58547eaf40d35bcd8cdacdcb761984f5",
+   "af2da294f3c931d2a111b659b79a1ad27dfba94c48194ae4b4c4b1110ec96c7f",
+   "4bccb52107dfc5c8833ccdea930e578e9e9891e3a2da2e22e636ba14c21083d3",
+   "798fb5912ffd5edf41ac3d54d712e59ef2b19d80c53959d7cf352610d3b2b949",
+   "420d9c034e712e0b662b43e844770dbfe244daa13347a87d5d40be31a8e041ee",
+   "4fa398f58491ac782bd25a101486f378a938635b88d37ef7b3fa503a086f785f",
+   "2a29bb4ed7ed02257a049fbfd744798bcb977d2b7638bc38a74069d6d20dcd8c",
+   "b58b1e31574fe1ed7a2b8db1b54303ed9719cb7610bb556cc81fa6848fd24636",
+   "898f47fc7408d8e155fb38e4740d2f321a9f60541f0c33ca47a7f7f2e1fd129c",
+   "918acc5c418d081cdee78e1d5953d5e90e870f84e73169e9e5e7b6e4fe78887f",
+   "fa98366427686f5aa9fbcc23f24ba3d2f5a64f7295fd157f5e6ab6308921c5a9",
+   "849d3f54be7363352601323a6cf924d41110064731688dbef7dbf21f3537fe2f",
+   "d039135ea65c73687d2d6f237d3837c52d99d7374cfe87b644e2e9cd19878fc9",
+   "e9858b8730483cd7a17def5eb3d04e2c5975cd15e2d161a435bede5c946f7861",
+   "2419f237c97a3109cfe440af87e66dd8bb93a75677351df6d085e2a18e8ce83d",
+   "f11eb70f6b186807fb89191ec7ad47126daa54d7ac26e1085d815d1f470adfd3",
+   "360befadac9ce1e79205593de81e09b6f5fb24df908773c917f7209bebf0b4d1",
+   "26172ca5ef03105f0973ac2b95f46c2b3a9935d729193dacc5ce2304e635ccc6",
+   "e56360eeb188a133ea2eec7091f3fa486f56ec6cdeff13050ed9ed7345c04aa7",
+   "9b729836ac933a8cfb6a3bcd40304b8aa8ecd75bc1edb09d1cef3ad6d47ef35f",
+   "95c06fc356d6f3b4d27e7203dd537bdc7bb8f9bff8f4715bf0936825841f9b21",
+   "19c96ca644352f8be44d4c7af383767c2c0fe4297be0d9f7f75007156e73f302",
+   "9cba2a7195dd39d816348d7d322e1e137f52d669eb0f0dd07d918064b3dcc1bc",
+   "899863924205c4439a6b89bfa2ec4bd68d8ae5835b6a94cc7e3365c7faefa096",
+   "41c5619656b6baa8c138099851a3a93b58e60d51018cd499e781c6dc5cf584a9",
+   "6add11b91908f4f4d30ab4409b6908825bf5f9abc5161a91fff244cc02f7e7bb",
+   "bed88129531f73a2ae3369819219baeaa7803a4900a95c0b0121585a09e04e80",
+   "f8fe156e6a64ba71dee8a8bc895f68553595dc1c5beef43b329bae5f1fb96248",
+   "a60374837f2aa7e0cba1d3659bb2c1be9ec65b20f278028b4b28328ff03a899d",
+   "289fd2c911e1a4c43825a82bd07edcb9e53147ee69dc2154511ae83ef00b77b2",
+   "c133854de2aaccafeb3f60e9fdc0a83b6bfd46ae276492110be0e017b5aea608",
+   "50847a8db0e5baddb796b0d122d65561db10ee557a285978fdb98be8f0777381",
+   "9939cd714e621a5a13cb6a6478cff746382534b003fcb21d7e9e919aa7e93ce0",
+   "fbb2556129f3af63fc7f394f3e8e135f0f14399ff49796d2c9fc7218a2857975",
+   "df452258577147c48ba645fbba216429fe6f2e7901f3c3bde220af424b9a5cab",
+   "be2c196d2103ba35c8cbdc91183ef9660afca1b823395f4cda167ac9e7415fb3",
+   "51a18da171321ed5cf3ea680b6cd2400e2901329319a3d727b5dde86c105c3ad",
+   "a537a03f93ca4320f29764309917129e38b447e3240a0b233ab66e822d648675",
+   "7c32879ad61aef68f6f686e15129c53d9a38274f230d321517d45e85d1a3b3fa",
+   "d593e9790bcc1c78a7650420b507ff9b372a12a58bc418d2ee5443f48369cc34",
+   "b493083115e33b7f70340be1d607e056eb14a8dbe4b8a4de9821f535b104a611",
+   "7efe4bc8aa0246e4a1c0f218e4ceafb07f379937200a87420a08d476f2a4da6c",
+   "ccfbe2092862d7877f029626e75a6043c54243994d65c19e7775c0a935834e1f",
+   "9eed8b70cf0fd19f59b86c53e83d0ec91c0bbfe9bb914901e1eb93374fdf9e41",
+   "d27a5df5636f875dc85731bd287be047b05909e2a7f7256fb52036b516ff74ee",
+   "38f8dfbd04993d6d88bac7326a968b15d6772d2ec6885a2c21b02b2f4041b08c",
+   "a4ab1133a9058062683ceff04ac1722884fe1d570919373c6f268518355bb2e0",
+   "b35eb52749d6b9a956d5076c5553503b66aca20fdc0cc1820055e34ad5d426f7",
+   "230062a8368e7f1437d5b6b41ed54c7befaadf775e81e44e09f193617bd42e9b",
+   "c49aa8c15bb461791c719d2014248feccb2e0a9f6fc902d98a03778e948a5f4b",
+   "92aa9a35055fb76a39bcc6939a0b459233e956ebbbfd49b197d541f7216e9aa4",
+   "e9c783c67c78b0156ddbc9aacf17fe738371b780ec8147758602e80b176acb43",
+   "8ba4069a79475136fd201a11a2638a1d9bcde95043ce32e96f1b66d31ac29420",
+   "c06a506030a565c575bb30194207de39266fcd0f32720815533bd3ae0bbb4325",
+   "a5fe4450b22283d865773d4c02a47418b23d9d48edbaabee3382d364cd9f6bd4",
+   "4b7f54b294a845b72ec6d35b1224ccecf760c6f2c69ba23dbbb3ee1cd57dc25b",
+   "009e900887797229036be87d0c311da9eeed5295175f9dca7a5e876f44fc26a1",
+   "7863ead847fdec027e090bd808937137d1a2f982633124efc0a0894f0a707610",
+   "40bddb03d8810f07a574f4d4a71936b29781b3a91819ad8f3bd0bf98c953abef",
+   "bd86cf4269db0e7a47b890ebd53de3198de27f4bae631d06086480598e579e4e",
+   "da5cf34b538d9edca16222ca4bdec5691c6ce6a9ff9ca9a16f7b80cd0bbecbff",
+   "abf13b11a7703b9ebe99b26165a00a135ffc8f31e01ec43e3f78372bf8bbe175",
+   "08f4f72d4d2988b02ff84c4b24ab40dd89aaa63c0055bb3f9ddbfca09964ae84",
+   "96b14a82e5c08a6756ad7e9aae2dfdf30b37967da9a6b2e56d6a37b00760c70e",
+   "46d4efebd38429a263d66761da82c9d98e88e1ef7de8ae23a916bf1528677034",
+   "40dbd1740aaa5ed234e123b41f4059da3b639bf4174a9adcca18fe4c36e9ce60",
+   "34b6e10052d7ab6c2700b9afa706892053efc3fb03268fa9a6f756b0ef8d29e6",
+   "ce3eb66c19ae1ea041085c4e17a74ca358daac379a39830cae41b2c27081cd3a",
+   "10adb4bb57c8d2576d34ba230191affcb4215ff2ab9c49ac381f92619b65a935",
+   "a00f6b5560c400b01a81939d5aa91c90e010f619d80002398eb77581c2d62a40",
+   "a756e68a71b6d0280416ac33ebe8d4ef450725b353ffb7ee4c0db6f503ef4c7a",
+   "35aa894144c15ba6a0c498eb5d1ce518d55d2cf65f14fec0c5739c77f88b82e5",
+   "98e1712ca2e76b08a71ac0d2f1862e53a526a71f79d91bc7262f9370dd218441",
+   "04fcf25ba6001d7fb8674468ebf0941e2f73484420b4b6ec9e41bf96c8dbb8ad",
+   "20047bca61984a232cf6fd2403892cf6130b871209f0792eba6c7bb1bcc4ad2c",
+   "0d4ca86e6943f1789f3509101fb303a788aa330adc77160aca011a080cae0cc0",
+   "6ae37e93b32b61a2ec6624c798e08a9f9fde62040528ac73ff951d550d9dbb53",
+   "4163cc8e7ccecc14dfb00d2f3fc7f619b59c7d9ef3268194d92fa4e10f8ef3a4",
+   "4ee901f3f741683e3b9ffc6934e90390be2fcc15cd2fba2777c02a4193159037",
+   "045a4064598d0b8ac66bbacfface6b8dd7277c60ebf2e28d41ecdc434e2f7abd",
+   "4a844f9f55bd8e2c85eda5b3ac867d4edf5b76000ae8a1023bd582e6490b5890",
+   "76d5d56d16a7131313f30e14a333045ba0467cee7dbcd8e771a4d516f404500e",
+   "f29573e47cc9ebdbf1ff8fc005eab1cccb3547d40dd1f0a2acd17005d45e1998",
+   "37ed8dba8e9ff9a3e57421626443cbecc8dd5d95f7f1c4a2f682efc8384278d6",
+   "aec247e3bfc8c611c4ac2a1e69ef0461cb63b60c5865c2d8cbe180f861a3996d",
+   "8637cc3a93af772ca1fd74304422e515a943f459e6f897c33ff5d2ff3afb4379",
+   "c3f0c0b5357b5c1819e9d7c9ca59d24759deed5011217406d5ceeafe2d19c947",
+   "853d1cf7e92d0ae4e0f331a5944b90503d032c42152ceb24699753a05242c926",
+   "f191fad08e70553ddcbcdd8977239a7b4cd3588c6bb574fc7bb28f652a5f9dad",
+   "0807a2457822be232cfb0e3c00956739c2fecc38ec33b6e09d5d6706902a0654",
+   "c63189927b0a8a67bba374dbdaaa78f9bf05e7597841bb81f58f7a79a3f33845",
+   "08cc8a0addec69604202f4ae7aa0e06f22e2cea5aab97202c01e6bc42283d589",
+   "dc08accaecd8c385e0c2cdc83eefe1131e8d2520c395b511f1079679081191a4",
+   "af0bb5553fe55d9423c98d726b860193d00a8378f794194b586881110de45e07",
+   "007e98e3964f356568124186ee9db77848fefb72e202de5c3c13963e66167a08",
+   "7f9391af4faddf82da19f5cd5021ada6842b7b04ad911b8702612ad5347711bc",
+   "22851285b72506841807fd4a235bc817248b4c0662052f4c5094a3301c1d3fe8",
+   "8297121e27e7fac6d5478c09c909e2f42cd26c10e68c190bcb6b9c0eb9b6221b",
+   "ed4d419c7c85c0aa24d6470f2ca545e26724751992cc2c5dddf07db85e49c1cf",
+   "854e355de3e8a3e75d2eaaa393bda33e2413427f28f3af2adff7e1c97b08c8a0",
+   "e339184063de2a590800cf5d6929318b9d04e7433fab969c256bdf95b78bd2eb",
+   "fca9dba7ab1050db3ce0b921305aac09797ba3762259e53b01f038ef00c1f079",
+   "a625b1dac387732a466cd668dd50ac7b7e793dc8cc14a0a2be838306a0958322",
+   "d0a78cfd4af50ec0c2c756b9432b2998e5352625b1d6501dcbf838692043df62",
+   "85186f6bd07d8af38977628a7e9ff3ac7bb51b4f12ad35fe4e434ea56cdbe097",
+   "6ccbcfa88b98047aa818f6a6bfcf105a50b29b2dbad2390f9ece2c13491dfdad",
+   "223f7b89fed6653083de24f4a933d2fe6fdc8a790066cf7de2341ab27084a740",
+   "70dcb9f4490819dd2a06c7d29141fa916f30b822ba0809c9d039e4c87192a699",
+   "9224da0593e6b71d0c8efcbc98406598a3ed99246117ba60d4b83e1975c4b41a",
+   "c546b861c912f959464c66a8231c612836233e1f3e01fa5d030110726a79be43",
+   "2d11ae58ddc4ceb4441f1503514ab69592d45c1952909ee9b5e89f0d47e550bc",
+   "9261deac832f5266337389df8367392d59db32acad28977fd318b421cd2f3dc3",
+   "708b214cfdb42f49867a8c472370ac85f6142017c5e9605271ba2bb417ea1a7d",
+   "e01b2f82de3f3a01b6cc25d2145b5fc0b1ea68bec131ac95971443f79cc29963",
+   "ca5c807ead5b62ceb4933b458914b2273b8eae08857b4a629884f57b6076f92b",
+   "ee3fbc94f2f713b847ce5223930ac76fa0580e5e664d859a571f14d5b4807e33",
+   "28f9d699408a34c29a198edabf91c606acb062f215d6b21943d216ae5eb301f5",
+   "5c820106186ff2e19e1be6462052c7b968d59f371e1241be2620f6682e493807",
+   "7853e186bcf6e053779e7cabc6b86282fba2264c83dbb6a803c657aa52d57c97",
+   "3edde5b4368357750c2af2c6aaeab99edc96bd23d4d34aab1f450ac9ff2285a9",
+   "5701b18497e105ce71814b646840659f4b7ff1d0d5a26df4680513d65a67b805",
+   "65de50d7042fae59a6b41053e8c8501bf5b110a64f75a0c30ff546f966eefafd",
+   "7ea3e124f9b3293cc18a51405274505ab3a839d0a1b877663c92cc1b4dc161c7",
+   "a9dc97d5b918da755af3b6bd989e3d707a2ddb8bad11d6af62eca87b741fbb03",
+   "d3d73cac7c2bfd09f1054a98857c9a9f368a5370edb846b63bdcba2edaa4e577",
+   "a700de5fb8b7b28c8deac79184a7583c8a853bcc536f46e1e568a564cbdb78ec",
+   "2c24ee0728fccd35864d73b4b574749dd288fc38bb8713e25e69aba6ec183fa5",
+   "71cd3df239f9dc8d9c806e2f7da20bbf6e2ee010d563eb73ddbd033348feb044",
+   "510f93fd4ec8c86c89a571f912ffeed73778994fec508c472679408fea52a2be",
+   "cc872af7a84663672933266d81b45ad180ac7b419acbe413a9778cbbe62e0862",
+   "95be443d1bb7e6f081a1a6a3ac25910ee7365719659673e525f642896759497d",
+   "3202664d84c23147e1536fd20b9c8544cd7d271b99f7d72af15a4df07a486e03",
+   "e14afdccfed2c47d630476cc606d777370e5431f6307dcb6e246689fa691fd4b",
+   "be0753575866015a5d45ff4cad5d995923c2a1e9d6e12b77e080e9e4fc224ee9",
+   "998446e4888b2d43ae5592394181f9a73676fdb9b18738cc21ad0dadb225dc2e",
+   "a345960b00e913166cd4f476b6f997b3c60d0f5756107e37bc79dc0b8f70741b",
+   "dcbe9836048371a085eec30119e4a77188977818a0bc8fe1c5fc6cb39911114e",
+   "c78e3101120000cde74787fe8b2176e1f6ca597625338538bef1b86ed8733cce",
+   "a6c8cca0db2903790e36d5d405fe68096df9b94f927fa71b4383bdab25ff9e5e",
+   "ac503ed670b4b313527d20ae89468088644848b257c5b26236d8f531af0e5fc3",
+   "4463aa5cf895c090ac3ace87918fcfe453c21fe5f88566014619efb571d88277",
+   "1796d43ac97775cc92a170bb1787bb85d4170f1ce5f41bfca78de338880bedd6",
+   "a5cfa9d7912020e11e271d7df5484db32200ac86b6b76679da1decd4265023b7",
+   "6dd094d218dceb6ba7333d2bbe918650829b942ef63ed5e58d8299b03c15ea62",
+   "e8a9c69006d9425040ea62cb024e1e450cb71b04a38b8efa964bd3d5d50b548c",
+   "13856d77ab035371421561be54386aca95e9f3bd7c648f3faa27882bee29276e",
+   "a9c44b5920799e1631155695f39201de6331b9a96d7c16f2a1578e726c840bbd",
+   "4204a4d617b23ddde62c94c7fdc1165d6497829744424a357c53a381c15d3242",
+   "b3124d7b1c1602b0805916440a1dd1639c561145543fc212d38c48499fcfb43f",
+   "abc1720aa99cfe4d6cf42298c9b414da6e635c6c08128f47868542fb2c6a3ae1",
+   "754007738b6c62b890d779ce8b1c8bdfaa6c11f719ce5510ff27ad50107905e2",
+   "44bcf2d0a01b18edaddd8e658bc3f904aede20ca9cdf703d18776e2011f92fb7",
+   "758313f3800901a5f67b4affe11747989f692f6c761b5a25346aa4e381d28daa",
+   "6744d95eab29814e59fb55e0d8a911adfe453d54024c9815637503f97e7533da",
+   "2b5a251007c0104c26bca72af63d0f0b4843505272b26fbbaadabb4d3051d386",
+   "d72e6270f3ee70c7d9dde8952028e0f44a1e15b34dca79b2cc62eaa93b48b7b8",
+   "7a243d47fc1521e8302ba8203b75e133c0548c2ab3679b38e5d41ca761e010fb",
+   "ff45cefa8dd3129886f57f9f977b88361dc653604556efd77270f461555eb113",
+   "cfbf3d7011e86eefb683b5ac780c23e65ab0c37bee425abe1ff64492b7d50416",
+   "5171d4e73f3dda8ad8d4b434bff820e218e9229825596115f207eab87d83d613",
+   "f7d5362c7dc97a394eebb65ced8ad6ea42e6b5f023a87a6d7e8a62556b233757",
+   "5aaa7e5197342ea39961af4de535e38fa7e6769446158ab6fc7ffdc297894a75",
+   "186bc83880e4fb982b20405677182427aeb045faa8598697126c31ec77917724",
+   "73971fd7dc46770b523759867f7a36c6d9aa959c3ff22335979b0bf2177f9532",
+   "483ab25d4cf3eb2e671a654869e05153fa27f2093107f4fde458c1ac6b613661",
+   "112d521d8ad792fc413dc411160bc37522b2441a9f8bef31fa3c88dd97f10f85",
+   "20a8b0719919c1aef200e708b59f6c8da397f75d0a6f64b87a9878dca69b8ffb",
+   "fa6fd2c80d29348f07d63840809ba85a7f4f0f4a0cbe31e12c8eaafa77d08b4d",
+   "e9548ed28b913c2db23a7f1d72a478c1a06bd3e468203a9fd4536f02ec58c3cb",
+   "2273ef22c6da027051409a88a14ec00af45047d2125a48ae332f9f4f7a6aae73",
+   "05978568d66ed10380d5efb21299f67106911a1545b60690ebb3e317f2ec4f48",
+   "a6ea4849bdbf61860cf3937afe10bef401fc227cb6e0b530e30fcd9b1bde543f",
+   "dea4eb72172fc925d80ad8c635629764bf7c3d91d79c28f12e8ebabd71dd9101",
+   "f95295d82ca2a4359c53f339a1ff477e51e195253197f2f3dcbd8a8d121fc102",
+   "e30666d9d3d2daccc4d18cc13ecf8b759228a04b9e602732b92ffcac7c84be69",
+   "c6312701959d91b19228258f811add5e6b550147c60e1d89de7d4de9660f5c41",
+   "55fd98a0ce11bbdca117007ac42546df9ac9f44eb16ed632294332d476ed4af7",
+   "9636f9dd6478e1040802d1095857131b94823af0c28ad437e7e76ad30c5644c9",
+   "eb52566281e4d316c59dd814e4dde94c78b68a3616a6193511293a05632c877e",
+   "cf6119473e7c7149918e80db5c1b28c93394ce643554b58b436326f3b2b3eb42",
+   "80e76942a1264a4d3a7aba08cdff60ecef3cfbfb44bb936f0ffcebd236898f03",
+   "597ffd7c1566288c7b19174e38925982e10ab92099171a09500e72ceb7506418",
+   "8748ce98d94ffc52d7133470ca2c417a247327e0140e0d1392a541bccb09e106",
+   "7f3629c433aae3766bc944df8150b3cb35ba83a808ff7af4fb4890ef5290a4ad",
+   "d08779eb0d6e279390d9c920bfaac173330761d17f6e882783dfaf5a7017f947",
+   "f728c794ee21b8c30da6f33a585175fd3a2cef7d6b3ff86be25a4f387f04b1c0",
+   "8b35116a5e46af54b459d1c5b0c826a6b8c3b4dd366a4c38f77bc486f670cf02",
+   "09754da4f357a1de64601d14e4b90a3fbf10f887466ded074d89b9282f97bdb3",
+   "cd79e26e91ca0b9e573d62e088f41562e4cbec89198bb3298b11d923d4750f33",
+   "42680ee72a9a2f0bb0d227a2aafd4c4b679de66dd16c729d77b7e78a5b561232",
+   "c4bc7debf3298ce8089968d7c2aa644b4e833b9e5984ed0307bb8019abd4d928",
+   "57c117e71a9bef49bd040161247cffbd5257f3f1396a84ed5d52a5ee1b60512c",
+   "c78e3f93efceda7ee735a49b956bbda0a220b79df038883ca9135b32c2b0bb8f"
+  ],
+  "alternatives": [
+   {
+    "n": 2,
+    "pose": "다리 모아 옆앉기",
+    "note": "원본은 바닥에 기대 다리를 벌린 자세"
+   },
+   {
+    "n": 16,
+    "pose": "다리 뻗고 앉기",
+    "note": "원본은 기대 누워 다리를 든 자세"
+   },
+   {
+    "n": 53,
+    "pose": "의자 거꾸로 앉기",
+    "note": "원본은 의자 위 뒤돌아 무릎 꿇기"
+   },
+   {
+    "n": 61,
+    "pose": "다리 모아 옆앉기",
+    "note": "원본은 바닥에 비스듬히 누운 자세"
+   },
+   {
+    "n": 68,
+    "pose": "다리 뻗고 앉기",
+    "note": "원본은 바닥에 누워 다리 강조"
+   },
+   {
+    "n": 113,
+    "pose": "다리 뻗고 앉기",
+    "note": "원본은 다리 벌려 앉은 자세"
+   },
+   {
+    "n": 116,
+    "pose": "쪼그려 앉기",
+    "note": "원본은 손 짚고 웅크린 자세"
+   },
+   {
+    "n": 123,
+    "pose": "의자에 앉기",
+    "note": "원본은 다리 벌려 앉은 자세"
+   },
+   {
+    "n": 124,
+    "pose": "의자에 앉기",
+    "note": "원본은 다리 벌려 앉은 자세"
+   },
+   {
+    "n": 136,
+    "pose": "쪼그려 앉기",
+    "note": "원본은 다리를 벌린 쪼그림"
+   },
+   {
+    "n": 138,
+    "pose": "다리 뻗고 앉기",
+    "note": "원본은 다리 클로즈업 앉기"
+   },
+   {
+    "n": 139,
+    "pose": "다리 뻗고 앉기",
+    "note": "원본은 다리 클로즈업 앉기"
+   },
+   {
+    "n": 142,
+    "pose": "다리 모아 옆앉기",
+    "note": "원본은 침대에 누운 자세"
+   },
+   {
+    "n": 175,
+    "pose": "고양이 손 포즈",
+    "note": "원본은 네발로 엎드린 자세"
+   },
+   {
+    "n": 178,
+    "pose": "다리 모아 옆앉기",
+    "note": "원본은 다리 들어 올린 앉기"
+   },
+   {
+    "n": 179,
+    "pose": "다리 모아 옆앉기",
+    "note": "원본은 엉덩이를 강조한 옆앉기"
+   },
+   {
+    "n": 187,
+    "pose": "뒤돌아보기",
+    "note": "원본은 엉덩이를 강조한 뒷모습"
+   },
+   {
+    "n": 188,
+    "pose": "뒤돌아보기",
+    "note": "원본은 엎드려 엉덩이를 강조한 자세"
+   },
+   {
+    "n": 192,
+    "pose": "뒤돌아보기",
+    "note": "원본은 치마 속 강조 뒷모습"
+   }
+  ]
+ },
+ "newBackgrounds": [
+  {
+   "id": "ead401",
+   "title": "게이밍 데스크룸",
+   "category": "indoor",
+   "sources": [
+    20,
+    55,
+    57,
+    58,
+    61,
+    181,
+    182,
+    183,
+    184,
+    185
+   ],
+   "file": "public/brand/ai-photo/background/ead401.webp",
+   "sha256": "cd6130a10df07357928411ef7b34becabad73a60f6efedb2beda9f3176f3e385",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Bright modern gaming room: a white desk on the RIGHT with two dark monitors showing soft abstract wallpapers, a white ergonomic gaming chair turned slightly, a pegboard wall with small headphones and controllers, gentle cyan and pink LED strip glow along the ceiling, pale grey floor, open floor space on the left foreground."
+  },
+  {
+   "id": "ead402",
+   "title": "열대 정원",
+   "category": "outdoor",
+   "sources": [
+    41,
+    42,
+    43,
+    152,
+    157
+   ],
+   "file": "public/brand/ai-photo/background/ead402.webp",
+   "sha256": "d46a94e33096b10f23e8f30a61f6ffd48ad65d6e964345a5141f286485dc9157",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Lush tropical botanical garden path: large banana leaves, palms and monstera on both sides, a narrow light gravel path in the foreground, soft green daylight filtering through leaves, humid and calm, no statues."
+  },
+  {
+   "id": "ead403",
+   "title": "폭포 연못",
+   "category": "outdoor",
+   "sources": [
+    44
+   ],
+   "file": "public/brand/ai-photo/background/ead403.webp",
+   "sha256": "d1df17f472dd2b07bfa2250f5829effa5d49e4f00d060f03fe60cd46596d1bbf",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Small natural waterfall falling over dark mossy rocks into a shallow clear pool, ferns and tropical plants framing the top, a flat stone ledge in the foreground beside the water, soft overcast daylight."
+  },
+  {
+   "id": "ead404",
+   "title": "우드 바",
+   "category": "indoor",
+   "sources": [
+    45
+   ],
+   "file": "public/brand/ai-photo/background/ead404.webp",
+   "sha256": "422b4c8bfca33cc29fc8b3841194d62c8f6c368da4860b85f82638005986be11",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Elegant dark walnut bar: polished wooden counter in the foreground running left to right, warm glass shelves with unlabeled bottles and glasses behind, brass lamps giving amber light, deep shadows, cozy upscale mood."
+  },
+  {
+   "id": "ead405",
+   "title": "한낮 모래 해변",
+   "category": "outdoor",
+   "sources": [
+    165,
+    166,
+    167
+   ],
+   "file": "public/brand/ai-photo/background/ead405.webp",
+   "sha256": "ddbd4561c22d1b139257ae1541eada7925c51ded3eb9f39a945ae8e6f48ddb55",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Bright midday sandy beach: fine pale sand in the foreground, a large cream-colored floor cushion and a small wooden crate on the LEFT, calm turquoise sea and clear blue sky, a few pine branches at the top right edge, strong sunlight."
+  },
+  {
+   "id": "ead406",
+   "title": "핑크 체커보드 룸",
+   "category": "indoor",
+   "sources": [
+    103,
+    104,
+    106
+   ],
+   "file": "public/brand/ai-photo/background/ead406.webp",
+   "sha256": "b155f5b421625ffe738bda7065fd6e814bba2aa85218a302e26c0308e001c1f4",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Cute pastel pink room: black-and-white checkerboard floor, pale pink walls and sheer pink curtains, a small retro TV and a pink side table on the RIGHT, a tall white bar stool on the LEFT, fairy lights and a heart-shaped mirror, soft even light."
+  },
+  {
+   "id": "ead407",
+   "title": "벚꽃 병풍 세트",
+   "category": "indoor",
+   "sources": [
+    197,
+    198,
+    199
+   ],
+   "file": "public/brand/ai-photo/background/ead407.webp",
+   "sha256": "7b5fc3cacf8f2a42c2e36561536b7085a1904d4fae712a55be5e24b1995fb364",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Japanese-style photo set: light wooden folding shoji screens across the back, artificial cherry blossom branches arching from the RIGHT, a low wooden bench on the LEFT, tatami-colored floor, warm soft studio light."
+  },
+  {
+   "id": "ead408",
+   "title": "크리스마스 트리 세트",
+   "category": "indoor",
+   "sources": [
+    146,
+    154,
+    159
+   ],
+   "file": "public/brand/ai-photo/background/ead408.webp",
+   "sha256": "63e5cbc61cce7c9f3ec2eb971312438d57b64fed091c414c4de268bf51811a77",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Cozy Christmas photo set: a tall frosted pine tree with warm white lights and silver ornaments on the LEFT, wrapped gift boxes, a white faux-snow floor rug, a plush teddy bear on a shelf, soft warm bokeh in the background."
+  },
+  {
+   "id": "ead409",
+   "title": "화이트 궁전 세트",
+   "category": "indoor",
+   "sources": [
+    151,
+    155
+   ],
+   "file": "public/brand/ai-photo/background/ead409.webp",
+   "sha256": "bebc951271780f21b17a3341e57fce8af697a4bb29198f20e259c00d6b40c270",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Elegant white palace photo set: white classical columns and a tall arched window with pale blue light, a white stone balustrade in the foreground on the RIGHT, blue and white hydrangea flowers in an urn, deep navy velvet floor drape."
+  },
+  {
+   "id": "ead410",
+   "title": "블루 네온 오락실",
+   "category": "indoor",
+   "sources": [
+    186,
+    187,
+    188
+   ],
+   "file": "public/brand/ai-photo/background/ead410.webp",
+   "sha256": "b2a8e4cbc787f683ae219fbe6278a3289e52dbc2d296ca1533c97d7e83ab99c4",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Moody arcade at night: rows of claw machines glowing blue and white on the RIGHT, cool blue neon light, reflective dark floor, a little purple accent light, empty aisle in the foreground."
+  },
+  {
+   "id": "ead411",
+   "title": "타일 계단",
+   "category": "indoor",
+   "sources": [
+    189,
+    216
+   ],
+   "file": "public/brand/ai-photo/background/ead411.webp",
+   "sha256": "6123710fb94e4be0cabfbf8bb347d06a09fbf99cbaf1b52f80abffc4d2b6c902",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Long straight interior staircase of warm brown square tiles rising away from the camera between plain off-white walls, a dark handrail on the RIGHT wall, a single fluorescent ceiling light, quiet and empty."
+  },
+  {
+   "id": "ead412",
+   "title": "앤티크 목조 실내",
+   "category": "indoor",
+   "sources": [
+    148
+   ],
+   "file": "public/brand/ai-photo/background/ead412.webp",
+   "sha256": "3b67bdc0fafbf85a7e692a4e2f692311d5434581cbf91453f4d819afee46a9af",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Antique wooden interior like an old train lounge or library: carved wooden ceiling beams, brass lamps, wooden shelves with old clocks and boxes, warm amber light, a wooden floor in the foreground."
+  },
+  {
+   "id": "ead413",
+   "title": "레트로 카페",
+   "category": "indoor",
+   "sources": [
+    176
+   ],
+   "file": "public/brand/ai-photo/background/ead413.webp",
+   "sha256": "a4cb59988a2ad5101121e0e76878af7b119cb52c171c19c0b7846a9278f99959",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Bright retro cafe corner: pale concrete wall, a wooden shelf with small plants and glass bottles without labels, a striped canvas folding chair, warm pendant bulb, sunny afternoon light, plain wall area on the left."
+  },
+  {
+   "id": "ead414",
+   "title": "피규어 컬렉션 룸",
+   "category": "indoor",
+   "sources": [
+    69,
+    178,
+    179
+   ],
+   "file": "public/brand/ai-photo/background/ead414.webp",
+   "sha256": "9d24bbe46192b6dddd285c6b23d404a3f15d946260afde6362b47297c7ed07ea",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Collector's hobby room: white glass display cabinets with small generic colorful toy figures on the shelves (no recognizable characters), a large plush cushion, a light patterned floor rug, soft daylight from a window on the LEFT."
+  },
+  {
+   "id": "ead415",
+   "title": "등나무 꽃 정원",
+   "category": "outdoor",
+   "sources": [
+    143
+   ],
+   "file": "public/brand/ai-photo/background/ead415.webp",
+   "sha256": "582bdce844bacb2c5325a316ea8fdbaf99d255130ab4739eb6371e683715e9de",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Wisteria garden: thick curtains of purple and lavender wisteria flowers hanging from the top and both sides, a low dark wooden bench in the foreground, dappled soft daylight."
+  },
+  {
+   "id": "ead416",
+   "title": "단풍 돌계단",
+   "category": "outdoor",
+   "sources": [
+    144,
+    145
+   ],
+   "file": "public/brand/ai-photo/background/ead416.webp",
+   "sha256": "f0fb0cf68d48778da0c858314d792bb5fcf57d1b2d09c65f40a4f43bcca60327",
+   "serverBytesMatch": true,
+   "dimensions": [
+    1024,
+    1536
+   ],
+   "generationPrompt": "Create one portrait photorealistic EMPTY background plate for person compositing. No people, no body parts, no clothing on display, no mirrors showing people, no characters, no posters, no screens with readable content, no phone UI, no logos, no watermarks, no writing. Natural photography, eye-level camera, believable perspective and lighting, a clear open floor area in the lower half for placing a full-body person. Autumn park stone stairs: wide grey stone steps going up through orange and red maple trees, fallen leaves on the steps, a short stone wall on the LEFT, warm golden afternoon light."
+  }
+ ],
+ "newPoses": [
+  {
+   "index": 39,
+   "title": "한쪽 무릎 들기",
+   "posture": "standing",
+   "requestPrompt": "한쪽 무릎을 앞으로 가볍게 들어 올리고 서 있는 포즈로 바꿔줘.",
+   "sources": [
+    6,
+    54,
+    91,
+    105,
+    114,
+    152
+   ],
+   "file": "public/brand/ai-photo/pose-mascot/pose-40-v1.webp",
+   "sha256": "03b512c2247492e12dbdde969c6ffd37ea712ba65eeb01b283f5e077e2f94e74",
+   "dimensions": [
+    384,
+    384
+   ],
+   "generationPrompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except those requested. Keep anatomy clear and simple, whole body including hands and feet inside the frame with margins. Full body front three-quarter view standing on one foot, the other knee lifted forward to hip height with the shin hanging down, arms slightly out for balance, cheerful.",
+   "note": null
+  },
+  {
+   "index": 40,
+   "title": "한 손 머리에 올리기",
+   "posture": "standing",
+   "requestPrompt": "한 손을 머리 뒤에 가볍게 올리고 편하게 서 있는 포즈로 바꿔줘.",
+   "sources": [
+    127,
+    194,
+    200,
+    203,
+    205
+   ],
+   "file": "public/brand/ai-photo/pose-mascot/pose-41-v1.webp",
+   "sha256": "9dda2dc132e6c289be7b10a1283657482ed27c589f92a1a9f9e780841d9eaeec",
+   "dimensions": [
+    384,
+    384
+   ],
+   "generationPrompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except those requested. Keep anatomy clear and simple, whole body including hands and feet inside the frame with margins. Full body front view standing relaxed, one hand placed lightly on the back of the head with the elbow raised outward, other arm relaxed at the side.",
+   "note": null
+  },
+  {
+   "index": 41,
+   "title": "소품 어깨에 메기",
+   "posture": "standing",
+   "requestPrompt": "긴 소품을 한쪽 어깨에 걸쳐 메고 서 있는 포즈로 바꿔줘.",
+   "sources": [
+    196,
+    197,
+    198,
+    199
+   ],
+   "file": "public/brand/ai-photo/pose-mascot/pose-42-v1.webp",
+   "sha256": "583a62b1979206639d1816163fdc140ab84e4bd1ae894e36fc4e82e6d59887aa",
+   "dimensions": [
+    384,
+    384
+   ],
+   "generationPrompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except those requested. Keep anatomy clear and simple, whole body including hands and feet inside the frame with margins. Full body front three-quarter view standing confidently, resting a long plain lavender stick prop across one shoulder held with one hand, other hand on hip.",
+   "note": null
+  },
+  {
+   "index": 42,
+   "title": "한 다리 뻗어 런지",
+   "posture": "standing",
+   "requestPrompt": "한쪽 무릎을 앞으로 굽히고 뒤쪽 다리를 길게 뻗은 런지 포즈로 바꿔줘.",
+   "sources": [
+    115
+   ],
+   "file": "public/brand/ai-photo/pose-mascot/pose-43-v1.webp",
+   "sha256": "c3b7384ed4eba571ea939d4517da91cf2a823f0127f5de9cabc68b1da4eb9794",
+   "dimensions": [
+    384,
+    384
+   ],
+   "generationPrompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except those requested. Keep anatomy clear and simple, whole body including hands and feet inside the frame with margins. Full body front view in a wide side lunge: one knee bent with weight over it, the other leg extended straight to the side, both feet flat on the floor, arms forward for balance, energetic.",
+   "note": "생성 그림이 앞뒤 런지로 나와 요청 문구를 그림에 맞춤"
+  },
+  {
+   "index": 43,
+   "title": "고양이 손 포즈",
+   "posture": "standing",
+   "requestPrompt": "두 손을 고양이 발처럼 살짝 말아 얼굴 옆에 올리고 서 있는 포즈로 바꿔줘.",
+   "sources": [
+    117,
+    118,
+    119,
+    175,
+    180,
+    221
+   ],
+   "file": "public/brand/ai-photo/pose-mascot/pose-44-v1.webp",
+   "sha256": "a44a255271e3ce6f8a223ba442a85cb401af81f716c2f7ed1535ea655024878e",
+   "dimensions": [
+    384,
+    384
+   ],
+   "generationPrompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except those requested. Keep anatomy clear and simple, whole body including hands and feet inside the frame with margins. Full body front view standing, both hands curled into cute cat paws raised beside the face, slight head tilt, playful.",
+   "note": null
+  },
+  {
+   "index": 44,
+   "title": "검지 쉿 포즈",
+   "posture": "standing",
+   "requestPrompt": "검지를 입술 앞에 가볍게 대고 쉿 하는 포즈로 바꿔줘.",
+   "sources": [
+    14
+   ],
+   "file": "public/brand/ai-photo/pose-mascot/pose-45-v1.webp",
+   "sha256": "cd33d6b61ba14ce5a7a2a1b8b3a865a2f9401a3393036a239c7e6f39481994c6",
+   "dimensions": [
+    384,
+    384
+   ],
+   "generationPrompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except those requested. Keep anatomy clear and simple, whole body including hands and feet inside the frame with margins. Full body front view standing, one index finger held vertically in front of the mouth in a shush gesture, other arm relaxed, slight smile.",
+   "note": null
+  },
+  {
+   "index": 45,
+   "title": "의자 위 무릎 세워 앉기",
+   "posture": "sitting",
+   "requestPrompt": "의자 위에 두 무릎을 세워 끌어안고 앉은 포즈로 바꿔줘.",
+   "sources": [
+    20,
+    55,
+    58,
+    162,
+    163,
+    164,
+    181,
+    182
+   ],
+   "file": "public/brand/ai-photo/pose-mascot/pose-46-v1.webp",
+   "sha256": "60b195f1851cff6aa23fd8f34a0325139c9a97297f921ba979b6cd7f612b3117",
+   "dimensions": [
+    384,
+    384
+   ],
+   "generationPrompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except those requested. Keep anatomy clear and simple, whole body including hands and feet inside the frame with margins. Full body three-quarter view sitting on a simple white chair with both feet up on the seat, knees raised and arms wrapped loosely around the knees. Include the chair.",
+   "note": null
+  },
+  {
+   "index": 46,
+   "title": "다리 뻗고 앉기",
+   "posture": "sitting",
+   "requestPrompt": "바닥에 앉아 두 다리를 앞으로 모아 뻗고 손을 뒤로 짚은 포즈로 바꿔줘.",
+   "sources": [
+    16,
+    68,
+    113,
+    138,
+    139,
+    167,
+    191
+   ],
+   "file": "public/brand/ai-photo/pose-mascot/pose-47-v1.webp",
+   "sha256": "386f7d0d56cc59899533701c2452281b8ee71bde1115a54d47bc05ee69d426ce",
+   "dimensions": [
+    384,
+    384
+   ],
+   "generationPrompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except those requested. Keep anatomy clear and simple, whole body including hands and feet inside the frame with margins. Full body side three-quarter view seated on the floor, both legs extended straight forward together, hands resting on the floor slightly behind the hips, upright relaxed torso.",
+   "note": null
+  }
+ ],
+ "generation": {
+  "model": "dola-seedream-5-5-261028",
+  "backgrounds": "텍스트만(원본 미전송) 1024x1536 → WebP q86",
+  "poses": "기존 pose-07 마스코트 참고 1장 + 텍스트 1024 → 384 WebP q88",
+  "requests": 24,
+  "success": 24,
+  "estimatedUsd": 0.544
+ },
+ "connection": "배경: aiPhotoBackgrounds 16개(id ead401~ead416) + 서버 IDS·참조 WebP(합성 참고 이미지로 전달). 포즈: aiPhotoPresets.pose/제목 8개 추가(index 39~46, pose-40~47-v1.webp), 앉기 index 45·46. 포즈 그림은 선택 UI 전용이며 생성 요청에는 자세 텍스트만 전달(전송 방식 변경 없음)."
+}
