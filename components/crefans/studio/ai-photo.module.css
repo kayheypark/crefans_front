@@ -66,8 +66,8 @@
 .source .ai{left:4px;bottom:4px;padding:0 5px;font-size:9px}
 .resultName{display:flex;justify-content:space-between;gap:4px;margin-top:10px;font-size:13px;color:var(--cf-color-textSecondary)}
 .resultName span+span{color:var(--cf-color-accent);font-size:12px}
-.resultActions{margin-top:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.resultActions>button{padding:10px 8px;font-size:15px}
+.resultActions{margin-top:16px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.resultActions>button{padding:10px 8px;font-size:15px;white-space:nowrap}
 .editor :is(button,summary):focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
 .editor button:disabled{cursor:default;opacity:.5}
 .editor:has(.viewer)>header{visibility:hidden}

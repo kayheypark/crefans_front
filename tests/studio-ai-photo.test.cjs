@@ -463,7 +463,7 @@ test('gender picker exposes only female and male reflects the explicit entry cho
 
 test('result actions: only continue editing and confirm appear in the action row',async()=>{
  const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 조명'}}));await click('1장 만들기');
- const buttons=r.root.findByProps({className:'resultActions'}).findAllByType('button');assert.deepEqual(buttons.map(text),['계속 보정','사진 결정']);assert.doesNotMatch(text(r.toJSON()),/다시 만들기|이미지 편집|게시물에 추가/);await click('계속 보정');assert.equal(calls.length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'');
+ const buttons=r.root.findByProps({className:'resultActions'}).findAllByType('button');assert.deepEqual(buttons.map(text),['원본으로','계속 보정','사진 결정']);assert.doesNotMatch(text(r.toJSON()),/다시 만들기|이미지 편집|게시물에 추가/);await click('계속 보정');assert.equal(calls.length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'');
 });
 
 test('preset pager claims a horizontal touch drag so iOS Safari does not turn it into a scroll, and leaves vertical scroll and pinch alone',async()=>{
@@ -624,4 +624,12 @@ test('continue editing preserves selected cosplay or general mode in UI and next
   const group=r.root.findByProps({'aria-label':'편집 모드'});assert.equal(group.find(n=>n.type==='button'&&text(n).includes(label)).props['aria-pressed'],true);assert.equal(calls.length,1);
   await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'자연스러운 미소'}}));await click('1장 만들기');assert.equal(calls[1].mode,mode);assert.equal(calls[1].source.id,'a1');await act(async()=>r.unmount());
  }
+});
+
+test('original action returns to the correct uploaded photo after chained edits without generating',async()=>{
+ const second={id:'p2',type:'image',url:'/p2.png'};let made=0;const {r,click,calls}=await open({images:[photo,second],onEdit:async input=>{calls.push(input);return {success:true,data:{images:[{id:'chain-'+(++made),type:'image',url:'/generated.png'}],remaining:9}};}},true);
+ await click('사진 선택');await act(async()=>r.root.findByProps({'aria-label':'2번 사진'}).props.onClick());await click('1장 만들기');await click('계속 보정');
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'미소'}}));await click('1장 만들기');assert.equal(calls[1].source.id,'chain-1');await click('원본으로');assert.equal(calls.length,2);
+ const mode=r.root.findByProps({'aria-label':'편집 모드'});assert.equal(mode.find(n=>n.type==='button'&&text(n).includes('코스어 모드')).props['aria-pressed'],true);
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 배경'}}));await click('1장 만들기');assert.equal(calls[2].source.id,'p2');await act(async()=>r.unmount());
 });
