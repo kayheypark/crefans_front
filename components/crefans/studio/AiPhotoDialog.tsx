@@ -43,7 +43,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const [targetGender,setTargetGender]=useState<'original'|'female'|'male'>('original');
  const [aspectRatio,setAspectRatio]=useState<AiPhotoRatio>('original'),[cropItem,setCropItem]=useState<StudioMedia|null>(null);
  const [downloading,setDownloading]=useState(false);
- async function downloadPhoto(item:StudioMedia){if(downloading)return;setDownloading(true);try{const response=await fetch(item.url);if(!response.ok)throw new Error('download');const blob=await response.blob();if(!blob.type.startsWith('image/'))throw new Error('image');const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`crefans-ai-${item.id.replace(/[^a-zA-Z0-9_-]/g,'')}.${blob.type==='image/jpeg'?'jpg':blob.type==='image/webp'?'webp':'png'}`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch{setError('사진을 다운로드하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setDownloading(false);}}
+ async function downloadPhoto(item:StudioMedia){if(downloading)return;setDownloading(true);try{const response=await fetch(item.url);if(!response.ok)throw new Error('download');const blob=await response.blob();if(!blob.type.startsWith('image/'))throw new Error('image');const png=await toPng(blob),url=URL.createObjectURL(png),link=document.createElement('a');link.href=url;link.download=`crefans-ai-${item.id.replace(/[^a-zA-Z0-9_-]/g,'')}.png`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch{setError('사진을 다운로드하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setDownloading(false);}}
  const [shopOpen,setShopOpen]=useState(false);
  const [genderChosen,setGenderChosen]=useState(false);
  const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
@@ -203,6 +203,14 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
 }
 
 /** Full-screen look at one result: swipe or arrows to move, pick it from here, Esc or 닫기 returns to the editor (the editor stays open). */
+// 2026-11-14 user decision: downloads are always PNG, converted in the browser from the stored image (no server change).
+async function toPng(blob:Blob){
+ if(blob.type==='image/png')return blob;
+ const bitmap=await createImageBitmap(blob),canvas=document.createElement('canvas');canvas.width=bitmap.width;canvas.height=bitmap.height;
+ const context=canvas.getContext('2d');if(!context)throw new Error('canvas');context.drawImage(bitmap,0,0);bitmap.close?.();
+ return await new Promise<Blob>((resolve,reject)=>canvas.toBlob(png=>png?resolve(png):reject(new Error('png')),'image/png'));
+}
+
 function AiResultViewer({items,index,selected,onIndex,onToggle,onClose,onDownload,downloading=false,original=false}:{onDownload?:(item:StudioMedia)=>Promise<void>;downloading?:boolean;items:StudioMedia[];index:number;selected:string[];onIndex:(index:number)=>void;onToggle?:(id:string)=>void;onClose:()=>void;original?:boolean}){
  const closeRef=useRef<HTMLButtonElement>(null),start=useRef<number|null>(null),pointers=useRef(new Set<number>()),item=items[index],picked=selected.includes(item.id);
  useEffect(()=>{closeRef.current?.focus({preventScroll:true});},[]);
