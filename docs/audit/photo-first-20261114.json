@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-14T07:02:30.841973+00:00",
+  "baseCommit": "cb87ca2993429e81402c615ecfef5090fe51ebb6",
+  "workingTree": "uncommitted design changes on ratio/crop feature branch",
+  "files": {
+    "components/crefans/studio/AiPhotoDialog.tsx": "7151f5703709a0adc9dac1cae509fea803cd5437de4d95500a92624635ceea65",
+    "components/crefans/studio/ai-photo.module.css": "adf89ab8e55e317b95dede0eb82b4130f46fef16ad2622f7c65d5e76dd8ad004",
+    "tests/studio-ai-photo.test.cjs": "2763d7c703b99c8b9e2b4456d2612f053c91f32a32ba96babf83f5eefa753c3e"
+  },
+  "checks": [
+    {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "69/69; old completion/summary assertions updated to approved copy"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    {
+      "command": "node .local/photo-first/browser.cjs",
+      "exitCode": 0,
+      "result": "WebKit iPhone13 390x844 and320x844; no overlap/overflow/errors; crop cancel, download, selection, mode retained"
+    }
+  ],
+  "screenshots": [
+    ".local/photo-first/mobile-390.png",
+    ".local/photo-first/mobile-320.png"
+  ],
+  "notRun": [
+    "production deployment",
+    "real AI provider generation"
+  ],
+  "scope": "approved design 01, photo-first; retain small settings-return action to preserve draft workflow"
+}

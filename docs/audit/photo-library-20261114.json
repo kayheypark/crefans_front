@@ -1,0 +1,123 @@
+{
+  "recordedAt": "2026-11-14T07:20:50.830009+00:00",
+  "decisions": {
+    "photosProvidedInChat": "public presets only; no photos attached this turn, pending actual ingestion",
+    "personalLibrary": "separate per-user directly uploaded images; no automatic public promotion"
+  },
+  "repos": {
+    "crefans_front-preset-expansion": {
+      "baseCommit": "64a037d5029fe36d15482c0fc40783aa45169e58",
+      "state": "uncommitted implementation",
+      "files": {
+        "AGENTS.md": "852c1aa342b0068890a92a9ee0a572c0c245c7e7a1c5164c88a961dd17aedcaf",
+        "PROGRESS.md": "25a5d8a358eb6e733bfd9ba2b97404f72a1a05c5b2d335b4a523889b69b5c0c6",
+        "components/crefans/studio/AiPhotoDialog.tsx": "8763474a3533698ec4b9db0f0283ed963d14d49afc85345153851d08fc86553e",
+        "components/crefans/studio/ManagementPages.tsx": "d98e17561aed55fb6953babc520dd36ad621e3b48b9ea9fd34c927abe9b73919",
+        "components/crefans/studio/ai-photo.module.css": "6273cc766492309ff16bbb77ec9e4cabcb44ba9a934cf905915d0360b2d37058",
+        "components/design-system/AiPhotoCatalog.tsx": "93792c886a565d2da611c39fcd8400ad388c24d17c6739b7b2c18b3ef6d56823",
+        "components/preview/studio/useMockManagement.ts": "c49dd165e0d57b11d1366695016ff480856d92afdf6868666d458401bafdb084",
+        "docs/service-api-binding.md": "5150e8ee7d7481e8b46eb604fa8d2164bbefa8db9a4e5dbe364dc131e6bf4ff7",
+        "features/service/useStudioModel.ts": "37cbb862851b49c1349d35997c76264107ff35d878e87af2972738735e33e35e",
+        "tests/studio-ai-photo-binding.test.cjs": "f5312aa800aa2f5b3bf0bc8e02f7b5f0e54535032b8bce60597b2a3c90ab0571",
+        "tests/studio-ai-photo.test.cjs": "85f36c797c1ec2a1b97f3b9930eeb475f05564ac0c0a2d675c79e4863ab44c61",
+        "types/crefans-studio-management.ts": "f6498f567bd9ff21e52da133c96992e0d40d3b809b766dc54253bdeedc606e4c",
+        "components/crefans/studio/AiPhotoLibrary.tsx": "fe349318fd8f885aab920551df4f51367da6a0d7640c99b49e640b2df849d6dd",
+        "components/crefans/studio/photo-library.module.css": "9a859e1229bef87ed39c262663b60d3eb5d80aaf5d815290c9931fb829aaa9cb",
+        "components/preview/studio/photo-library-fixtures.ts": "7f920326ebce260711e3fdbc8ba7b2ab96c7a87a55fc418a66aba6891ec17d6d",
+        "lib/crefans/photo-library.ts": "8403ef484470ba5fbf47f3d4983299349f7b30e4ac221d19ff7c102ce6f9f911",
+        "types/crefans-photo-library.ts": "ea5f122e4f4ad043d9c31e79930a597ad5282daf45b4576f92c0d5b4d01baa04"
+      }
+    },
+    "crefans_server-ai-shop": {
+      "baseCommit": "9f92985b0ac2436e066b3aebcbe3bbc3ac615c91",
+      "state": "uncommitted implementation",
+      "files": {
+        "AGENTS.md": "37d1f0a055563718c29ac42660d2c73a07b3c9881f35b4f3115c861aa6b8919b",
+        "PROGRESS.md": "57f796b62da4b711680f2725ea50add8b1c4a82d4e8fe91bbcd21a916d074d93",
+        "docs/current-contracts.md": "b4f75043e9b9a012f0b871e470a0d486a9e5b7914c6a091ebe665bfda94456c4",
+        "docs/platform-api.md": "223766a572b83e4886cb7eef2fc6acc408bae5cebbf0b718acfe1bbf1cec0441",
+        "src/platform/ai-photo-failures.ts": "b84b7fbee44d9cbbcf8c2dec4fbc8969dd2bf5b84c4a46ff1252cbe373f9a876",
+        "src/platform/ai-photo.ts": "be565622912dc8498359e4e151042580916a1a1bf85f8cd7c0bfc38e6ef23656",
+        "src/platform/openapi-contract.ts": "433773864e8a1c9277adb92a0f2d2426945b39328195e18978c1525035d7e651",
+        "tests/platform-ai-photo.test.cjs": "cf9c15e0541246d824bd74574ef6a8c7a3fa349cc19e7b69c4cd61202a2b91d6",
+        "tests/platform-openapi.test.cjs": "e4b58e16150bf525569c32355ffe010d8efcb263be974746065a094dabd8fb2a",
+        "src/platform/ai-photo-library.ts": "c4a3d8e97a1041de1cd432ec621c8e897ad0b1feee129cc51cd8346435c6336b"
+      }
+    }
+  },
+  "checks": [
+    {
+      "repo": "front",
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "71/71"
+    },
+    {
+      "repo": "server",
+      "command": "CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs",
+      "exitCode": 0,
+      "result": "34/34 isolated local DB, provider stubs; actual image-byte and reference-number checks"
+    },
+    {
+      "repo": "server",
+      "command": "node --test tests/platform-openapi.test.cjs",
+      "exitCode": 0,
+      "result": "14/14;243 operations"
+    },
+    {
+      "repo": "both",
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    {
+      "repo": "front",
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    {
+      "repo": "front",
+      "command": "node .local/photo-library/browser.cjs",
+      "exitCode": 0,
+      "result": "WebKit iPhone13 390x844 +320x844: upload/category/save/search/select/edit/remove; no overflow or JS errors. Fixture UI, not production."
+    },
+    {
+      "repo": "front",
+      "command": "CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-ai-shop npm run check:docs",
+      "exitCode": 0,
+      "result": "79 documents /243 API routes, snapshot validation only"
+    },
+    {
+      "repo": "server",
+      "command": "CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs",
+      "exitCode": 0,
+      "result": "final34/34 includes crop does not clone aiLibrary metadata"
+    }
+  ],
+  "limitations": [
+    "No real Seedream quality verification",
+    "No production deployment or live S3 verification",
+    "No actual new public assets: source photos not supplied",
+    "Existing direct fetch download layer violation from previous feature remains outside scope"
+  ],
+  "sources": [
+    "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html",
+    "https://docs.byteplus.com/en/docs/modelark/seedream-5-5",
+    "https://www.prisma.io/docs/orm/v6/prisma-client/special-fields-and-types/working-with-json-fields"
+  ],
+  "screenshots": [
+    ".local/photo-library/library-mobile.png",
+    ".local/photo-library/add-mobile.png"
+  ],
+  "logs": {
+    "crefans_front-preset-expansion/types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "crefans_front-preset-expansion/browser.log": "911d482ae2f5ad146022645d3dad9deb1fd171f5dec952e2d370c1d906936d77",
+    "crefans_front-preset-expansion/contracts.log": "6fa3a5b8a529b38e6b79dc43e43f07978afb3ec8db09730e2972d9e874edd1d1",
+    "crefans_front-preset-expansion/tests.log": "c2749ef5de8856e1c02e13a3c2faf33915e2212db31df3d54447162af7d52dcf",
+    "crefans_front-preset-expansion/build.log": "99bfa0f5e9437859fa1739354ff738fecb6505c03262007be909df8430fe1c72",
+    "crefans_server-ai-shop/openapi.log": "62ddab259fd241e2c93bd1720576a7412005f9fe7b844830d94f6fd2062a3b9a",
+    "crefans_server-ai-shop/tests.log": "a446697f7b8ce3845d2d43e69dbcab048dc07aa23bbf2dacaa8534d820099081",
+    "crefans_server-ai-shop/build.log": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2",
+    "crefans_front-preset-expansion/docs-check.log": "f8d9d694b66b8e521bdaa2cf5f25a5bc9b3368136e04f16ac159401ed5f2bca0",
+    "crefans_front-preset-expansion/docs-record.log": "7f234bc50b8b95864b95698525bdeef44a221a1f33206d7eea379c81975c1497"
+  }
+}

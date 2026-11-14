@@ -1,0 +1,7 @@
+import type {PhotoAsset,PhotoLibraryModel} from '@/types/crefans-photo-library';
+import type {StudioMedia} from '@/types/crefans-studio-management';
+export function createMockPhotoLibrary():PhotoLibraryModel{
+ let items:PhotoAsset[]=[{id:'library-demo-pose',type:'image',url:'/brand/ai-photo/pose-mascot/pose-13-v1.webp',title:'의자에 앉은 포즈',category:'pose'},{id:'library-demo-background',type:'image',url:'/brand/ai-photo/presets/background-01-v1.webp',title:'흰 스튜디오',category:'background'}];const uploads=new Map<string,StudioMedia>();
+ const ok=<T,>(data:T)=>({success:true as const,data,errorMessage:null,errorCode:null});
+ return {list:async({q,category,page})=>{const matches=items.filter(item=>(!category||item.category===category)&&item.title.includes(q));return ok({items:matches.slice(page*24,page*24+24),hasMore:matches.length>(page+1)*24});},upload:async file=>{const url=await new Promise<string>((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=reject;reader.readAsDataURL(file);});const item:StudioMedia={id:crypto.randomUUID(),type:'image',url};uploads.set(item.id,item);return ok(item);},save:async input=>{const media=uploads.get(input.id)||items.find(item=>item.id===input.id);if(!media)return {success:false as const,data:null,errorMessage:'사진을 찾을 수 없어요.',errorCode:'NOT_FOUND'};const item={...media,...input};items=[item,...items.filter(row=>row.id!==input.id)];return ok(item);},remove:async id=>{items=items.filter(item=>item.id!==id);return ok({removed:true as const});}};
+}

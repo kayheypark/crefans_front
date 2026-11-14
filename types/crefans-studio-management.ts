@@ -11,7 +11,8 @@ export type StudioMedia={id:string;type:'image'|'video';url:string;processing?:b
 export type AiPhotoKind='outfit'|'makeup'|'expression'|'pose'|'background'|'camera'|'lens'|'body';
 export type AiPhotoStyle='photo'|'cosplay'|'daily';
 /** `mask`: PNG the size of the source, transparent where the photo may change (outfit edits). `consent`: the creator confirmed the person is themselves or agreed. */
-export type AiPhotoEditInput={heartGameId?:string;source:StudioMedia;mode?:'general'|'cosplay';kind:AiPhotoKind|'combined';editKinds?:AiPhotoKind[];costumeIds?:string[];targetGender?:'female'|'male';prompt:string;style:AiPhotoStyle;mask?:Blob;consent:true};
+export type AiPhotoCropInput={sourceId:string;left:number;top:number;width:number;height:number};
+export type AiPhotoEditInput={backgroundId?:string;libraryIds?:string[];aspectRatio?:import('@/lib/crefans/ai-photo-crop').AiPhotoRatio;heartGameId?:string;source:StudioMedia;mode?:'general'|'cosplay';kind:AiPhotoKind|'combined';editKinds?:AiPhotoKind[];costumeIds?:string[];targetGender?:'female'|'male';prompt:string;style:AiPhotoStyle;mask?:Blob;consent:true};
 export type AiPhotoEditResult={images:StudioMedia[];remaining:number};
 /** `media` holds images and videos in display order, at most `mediaUploadMaxItems` (10). */
 export type StudioContent={id:string;title:string;body:string;/** Set when an operator hid the post (terms §8); only the author can still see it. */hiddenByOperator?:boolean;/** Set when the author or an operator unpublished the post (postings.is_public=false): only the author sees it until it is made public again. */unpublished?:boolean;media:StudioMedia[];/** Per-post switch; the studio-wide setting still takes precedence. */commentsEnabled:boolean;tipsEnabled?:boolean;accessPlanId:string|null;/** Minimum purchased rank; mutually exclusive with accessPlanId. */accessLevel?:number|null;status:StudioContentStatus;scheduledAt:string|null;updatedAt:string};
@@ -20,6 +21,7 @@ export type StudioSubscriber={id:string;name:string;handle:string;image?:string;
 export type ContentInput=Omit<StudioContent,'id'|'updatedAt'>&{id?:string};
 export type MembershipInput={id?:string;name:string;rank?:number;price:number;benefits:string[];image?:string};
 export type StudioManagementModel={
+  photoLibrary?:import('./crefans-photo-library').PhotoLibraryModel;
   shop?:ShopModel;
   now:string;
   contents:StudioContent[];
@@ -49,6 +51,7 @@ export type StudioManagementModel={
     setMembershipActive:(id:string,active:boolean)=>Promise<ApiResult<{message:string}>>;
     /** AI photo edit (outfit, pose, background). Absent until the server feature is connected: the editor button is hidden. */
     aiHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;
+    aiCropPhoto?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;
     aiEditPhoto?:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;
     refreshAiPhotoQuota?:()=>Promise<void>;
     useAiPhotoTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;

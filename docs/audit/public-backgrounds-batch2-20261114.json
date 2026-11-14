@@ -1,0 +1,219 @@
+{
+  "checkedAt": "2026-11-14T16:37:27.360124+09:00",
+  "baseCommits": {
+    "/Users/ethan/repository/crefans_front-preset-expansion": "46095c17b8257bca9ea41e128fddfb8cba3aecb2",
+    "/Users/ethan/repository/crefans_server-ai-shop": "e0efad1409a5f00032b899a89fae7d6dc36f3457"
+  },
+  "assets": [
+    {
+      "id": "c8b201",
+      "title": "햇살 거울룸",
+      "source": [
+        1
+      ],
+      "category": "indoor",
+      "desc": "Bright minimalist mirror room with pale oak floor, tall window on RIGHT instead of left, slim large mirror on LEFT reflecting only an empty alternate corner, new window subdivisions, warm ivory walls. No reflections of people.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for later compositing. Use the attached screenshot ONLY as a reference for broad environment mood and colors. Completely remove/exclude ALL people, bodies, clothing, faces, reflections of people, app UI, watermarks, logos, text, posters and character cutouts. Do NOT reproduce the subject or pose. Design a substantially NEW space, not a literal inpaint of the original. Reverse left/right environmental feature placement as specified. Realistic consistent perspective, natural materials, large usable empty foreground. No caption or grid. Bright minimalist mirror room with pale oak floor, tall window on RIGHT instead of left, slim large mirror on LEFT reflecting only an empty alternate corner, new window subdivisions, warm ivory walls. No reflections of people.",
+      "sha256": "d7141548a40e4736f37e0bdd2c7b15707cbd2a10f3025689e3ab121b2c952a0c",
+      "sourceHashes": {
+        "1": "50cee82bf6ef00e8d5d10f762004e0178cdd5983bdc371db2169803f379d1cd8"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "c8b202",
+      "title": "화이트 벤치룸",
+      "source": [
+        2
+      ],
+      "category": "indoor",
+      "desc": "Minimal off-white photo room, low wide white upholstered bench against wall, soft daylight from RIGHT, pale warm-gray limewash wall with new subtle recessed niche on LEFT. Different proportions and materials. Empty bench.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for later compositing. Use the attached screenshot ONLY as a reference for broad environment mood and colors. Completely remove/exclude ALL people, bodies, clothing, faces, reflections of people, app UI, watermarks, logos, text, posters and character cutouts. Do NOT reproduce the subject or pose. Design a substantially NEW space, not a literal inpaint of the original. Reverse left/right environmental feature placement as specified. Realistic consistent perspective, natural materials, large usable empty foreground. No caption or grid. Minimal off-white photo room, low wide white upholstered bench against wall, soft daylight from RIGHT, pale warm-gray limewash wall with new subtle recessed niche on LEFT. Different proportions and materials. Empty bench.",
+      "sha256": "528654ad362122e59a5077c078bcf3763aa069224cd83e413075ed41488fff86",
+      "sourceHashes": {
+        "2": "8371d94a844f8f3636ffae1de2be7077f018e80fcf1d321cc09eb769a0bb68b2"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "c8b203",
+      "title": "세이지 스파룸",
+      "source": [
+        3
+      ],
+      "category": "indoor",
+      "desc": "Serene spa bathroom. Reverse composition: freestanding oval white bathtub on LEFT, sage-green wall and tall green plant on RIGHT, pebbled walkway with larger gray stepping slabs, frosted clerestory window, two small warm pendant lights. New architecture and fixtures.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for later compositing. Use the attached screenshot ONLY as a reference for broad environment mood and colors. Completely remove/exclude ALL people, bodies, clothing, faces, reflections of people, app UI, watermarks, logos, text, posters and character cutouts. Do NOT reproduce the subject or pose. Design a substantially NEW space, not a literal inpaint of the original. Reverse left/right environmental feature placement as specified. Realistic consistent perspective, natural materials, large usable empty foreground. No caption or grid. Serene spa bathroom. Reverse composition: freestanding oval white bathtub on LEFT, sage-green wall and tall green plant on RIGHT, pebbled walkway with larger gray stepping slabs, frosted clerestory window, two small warm pendant lights. New architecture and fixtures.",
+      "sha256": "267f57f3466bcf3b042a7cce9662cf177b77087503979acb546c0297a09da1a7",
+      "sourceHashes": {
+        "3": "f8518d4c7a2109aa701b1984b27e9bdf3b538deac263f56914a2bb49e2afc8b7"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "c8b204",
+      "title": "버건디 벨벳 세트",
+      "source": [
+        4
+      ],
+      "category": "indoor",
+      "desc": "Empty burgundy velvet studio set. New asymmetric draped curtain sweeping from RIGHT toward left, low velvet platform, sparse plain brass spheres and small ruby glass ornaments near LEFT edge. No costumes, toys, character or festival props. Moody warm soft light, large clear foreground.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for later compositing. Use the attached screenshot ONLY as a reference for broad environment mood and colors. Completely remove/exclude ALL people, bodies, clothing, faces, reflections of people, app UI, watermarks, logos, text, posters and character cutouts. Do NOT reproduce the subject or pose. Design a substantially NEW space, not a literal inpaint of the original. Reverse left/right environmental feature placement as specified. Realistic consistent perspective, natural materials, large usable empty foreground. No caption or grid. Empty burgundy velvet studio set. New asymmetric draped curtain sweeping from RIGHT toward left, low velvet platform, sparse plain brass spheres and small ruby glass ornaments near LEFT edge. No costumes, toys, character or festival props. Moody warm soft light, large clear foreground.",
+      "sha256": "7fc8a9d17809e4df5fc15415c1a48bff7ce66c1a9bd08a2fc7afb1f1b8896372",
+      "sourceHashes": {
+        "4": "20ec51734b499b6e886ca3d7ec645f21f42b228bd5977dfa215b33c28c0939f5"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "c8b205",
+      "title": "핑크 오간자 세트",
+      "source": [
+        5
+      ],
+      "category": "indoor",
+      "desc": "Empty pink organza photo studio. Translucent layered blush fabric drapes from LEFT rather than right, small cluster of pale lavender balloons at RIGHT edge, ivory textured floor, diffused rosy light, redesigned arched backdrop structure, no light stands, no characters.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for later compositing. Use the attached screenshot ONLY as a reference for broad environment mood and colors. Completely remove/exclude ALL people, bodies, clothing, faces, reflections of people, app UI, watermarks, logos, text, posters and character cutouts. Do NOT reproduce the subject or pose. Design a substantially NEW space, not a literal inpaint of the original. Reverse left/right environmental feature placement as specified. Realistic consistent perspective, natural materials, large usable empty foreground. No caption or grid. Empty pink organza photo studio. Translucent layered blush fabric drapes from LEFT rather than right, small cluster of pale lavender balloons at RIGHT edge, ivory textured floor, diffused rosy light, redesigned arched backdrop structure, no light stands, no characters.",
+      "sha256": "8d4392235f74c043d08bdebe1d5efb494509b09749a4348a5d898e8e5ac03c35",
+      "sourceHashes": {
+        "5": "056c89aab4b2ba1787db3df86e1b7cefff1b34c11cf9c400ca71fc0afca83cda"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "c8b206",
+      "title": "옐로 팝업 무대",
+      "source": [
+        6
+      ],
+      "category": "indoor",
+      "desc": "Empty bright yellow and blue pop-up photo booth. Entirely NEW abstract rounded arch instead of original star, electric-blue edge lighting, yellow modular panels, pale blue floor. Reverse visual weight: larger yellow structure RIGHT, opening LEFT. No characters, cutouts, brands, text, symbols, stars or original exhibition artwork.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for later compositing. Use the attached screenshot ONLY as a reference for broad environment mood and colors. Completely remove/exclude ALL people, bodies, clothing, faces, reflections of people, app UI, watermarks, logos, text, posters and character cutouts. Do NOT reproduce the subject or pose. Design a substantially NEW space, not a literal inpaint of the original. Reverse left/right environmental feature placement as specified. Realistic consistent perspective, natural materials, large usable empty foreground. No caption or grid. Empty bright yellow and blue pop-up photo booth. Entirely NEW abstract rounded arch instead of original star, electric-blue edge lighting, yellow modular panels, pale blue floor. Reverse visual weight: larger yellow structure RIGHT, opening LEFT. No characters, cutouts, brands, text, symbols, stars or original exhibition artwork.",
+      "sha256": "1a9d2512422cf00ca7a2b5a462a8ec2ea9fccdd04312fa4be65f93d24d36d25c",
+      "sourceHashes": {
+        "6": "f07cdd7539514b7f6975ea5316d7f5a21fe843bce6d6aa4dd2c5ad7917674c68"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "c8b207",
+      "title": "쿨톤 행사장 복도",
+      "source": [
+        7
+      ],
+      "category": "indoor",
+      "desc": "Empty cool blue-gray convention corridor, soft overhead light, distant plain booth walls on LEFT, open walkway on RIGHT, shallow depth of field. New wall divisions and ceiling architecture. No people, posters, mannequins or character art. Calm cool indoor photography.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for later compositing. Use the attached screenshot ONLY as a reference for broad environment mood and colors. Completely remove/exclude ALL people, bodies, clothing, faces, reflections of people, app UI, watermarks, logos, text, posters and character cutouts. Do NOT reproduce the subject or pose. Design a substantially NEW space, not a literal inpaint of the original. Reverse left/right environmental feature placement as specified. Realistic consistent perspective, natural materials, large usable empty foreground. No caption or grid. Empty cool blue-gray convention corridor, soft overhead light, distant plain booth walls on LEFT, open walkway on RIGHT, shallow depth of field. New wall divisions and ceiling architecture. No people, posters, mannequins or character art. Calm cool indoor photography.",
+      "sha256": "d9322dafe666a1ec7d6f86da830c4a2dd24f0fb44766cb94aa2611995e3606cf",
+      "sourceHashes": {
+        "7": "c28fecced08f9132f5b6119897018efd8e92aef918edbdef3ab3e1d4f64ae9d3"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "c8b208",
+      "title": "도심 광장 야경",
+      "source": [
+        8,
+        9
+      ],
+      "category": "outdoor",
+      "desc": "Empty urban plaza at night, cool blue buildings with warm window bokeh, smooth silver column on RIGHT instead of left, redesigned staggered planter benches at LEFT, charcoal paving, gentle amber street lights. Distinct new architecture, no people, brand signs, text or vehicles in foreground.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for later compositing. Use the attached screenshot ONLY as a reference for broad environment mood and colors. Completely remove/exclude ALL people, bodies, clothing, faces, reflections of people, app UI, watermarks, logos, text, posters and character cutouts. Do NOT reproduce the subject or pose. Design a substantially NEW space, not a literal inpaint of the original. Reverse left/right environmental feature placement as specified. Realistic consistent perspective, natural materials, large usable empty foreground. No caption or grid. Empty urban plaza at night, cool blue buildings with warm window bokeh, smooth silver column on RIGHT instead of left, redesigned staggered planter benches at LEFT, charcoal paving, gentle amber street lights. Distinct new architecture, no people, brand signs, text or vehicles in foreground.",
+      "sha256": "5f527ee41175d0e9e68e7e0c90da109dde9f9bb4df80ff2c286f33f51b92b126",
+      "sourceHashes": {
+        "8": "7389f9f6eab2c861ed8aa7483e88672126e00648b28922c337b2c204ec42834b",
+        "9": "4a4d44f1a1a6aab4f04deb77ae519195aeaca31172588881929a33b0fd2ce9b2"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "id": "c8b209",
+      "title": "야경 테라스 난간",
+      "source": [
+        10
+      ],
+      "category": "outdoor",
+      "desc": "Empty outdoor city terrace at night, low white metal railing recedes to LEFT (reversed diagonal), modern dark apartment towers on RIGHT with warm windows, slate paving, small garden planters. Level realistic camera perspective, new railing design and skyline geometry, no people or text.",
+      "prompt": "Create one portrait 1024x1536 photorealistic EMPTY background plate for later compositing. Use the attached screenshot ONLY as a reference for broad environment mood and colors. Completely remove/exclude ALL people, bodies, clothing, faces, reflections of people, app UI, watermarks, logos, text, posters and character cutouts. Do NOT reproduce the subject or pose. Design a substantially NEW space, not a literal inpaint of the original. Reverse left/right environmental feature placement as specified. Realistic consistent perspective, natural materials, large usable empty foreground. No caption or grid. Empty outdoor city terrace at night, low white metal railing recedes to LEFT (reversed diagonal), modern dark apartment towers on RIGHT with warm windows, slate paving, small garden planters. Level realistic camera perspective, new railing design and skyline geometry, no people or text.",
+      "sha256": "0c2b3400882dd8183987c5137756f3f9107f9123310b3c0749e8fcd47a3c9954",
+      "sourceHashes": {
+        "10": "b8c5489fd13dce3ccd6dce7c67b51950b153913c0c4c18ef22016fbfc4c60910"
+      },
+      "serverBytesMatch": true,
+      "dimensions": [
+        1024,
+        1536
+      ]
+    }
+  ],
+  "verification": {
+    "frontTests": {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "72/72"
+    },
+    "serverTests": {
+      "command": "CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs tests/platform-openapi.test.cjs",
+      "exitCode": 0,
+      "result": "50/50 isolated DB+provider stubs; all9 actual request bytes matched"
+    },
+    "browser": {
+      "command": "node .local/public-backgrounds-batch2/browser.cjs",
+      "exitCode": 0,
+      "result": "WebKit390/320 all9 category/search/selection/deselection/decode, no JS error/overflow"
+    },
+    "visual": "9 background-only new spaces reviewed in 3x3 contact sheet; no people/brands/UI/character cutouts. Environment sides reversed by design, not literal pixel flipping.",
+    "builds": {
+      "commands": [
+        "npm run build (front/server)",
+        "npx tsc --noEmit (front)"
+      ],
+      "exitCode": 0
+    }
+  },
+  "limitations": [
+    "Production not deployed",
+    "No live Seedream person compositing",
+    "No legal clearance"
+  ],
+  "fileHashes": {
+    "/Users/ethan/repository/crefans_front-preset-expansion/lib/crefans/ai-photo-backgrounds.ts": "63350ba5ecffc911e77a53a2992f1b4b5e341c439f21c7e2cefdb05ef1388dcd",
+    "/Users/ethan/repository/crefans_front-preset-expansion/lib/crefans/ai-photo-presets.ts": "f43f654f6ca9d28112f9971719fcdb9e7412c8c201d28f34f5bfaa553cc37dd5",
+    "/Users/ethan/repository/crefans_front-preset-expansion/tests/studio-ai-photo.test.cjs": "1bfc6ed352e0798258464c6fa8bbb2b98ebe9350fbc4f35bcafc3a932f6d78d4",
+    "/Users/ethan/repository/crefans_server-ai-shop/src/platform/ai-photo-background-references.ts": "1e86cbf78198e3bcbe3295d170ad31e681d68c319943fb54203c82fe40ff0deb",
+    "/Users/ethan/repository/crefans_server-ai-shop/tests/platform-ai-photo.test.cjs": "f5bc84bcc3a2bce5a020045ab27a761ac0ed7990ede23677206314cc7e82ab7d"
+  }
+}
