@@ -32,6 +32,8 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
  const [selectedPresets,setSelectedPresets]=useState<AiPhotoPresetSelection[]>([]),[customPrompt,setCustomPrompt]=useState('');
  const [bodySelection,setBodySelection]=useState<{key:string;value:number}|null>(null);
  const [targetGender,setTargetGender]=useState<'original'|'female'|'male'>('original');
+ const [downloading,setDownloading]=useState(false);
+ async function downloadPhoto(item:StudioMedia){if(downloading)return;setDownloading(true);try{const response=await fetch(item.url);if(!response.ok)throw new Error('download');const blob=await response.blob();if(!blob.type.startsWith('image/'))throw new Error('image');const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`crefans-ai-${item.id.replace(/[^a-zA-Z0-9_-]/g,'')}.${blob.type==='image/jpeg'?'jpg':blob.type==='image/webp'?'webp':'png'}`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}catch{setError('사진을 다운로드하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setDownloading(false);}}
  const [shopOpen,setShopOpen]=useState(false);
  const [genderChosen,setGenderChosen]=useState(false);
  const prompt=buildPrompt(selectedPresets,customPrompt,targetGender);
@@ -164,7 +166,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
       <><div className={s.heartResult}><strong>모은 하트 {resultHearts}개</strong><p>모은 하트는 좋은 일이 생길지도 몰라요</p></div><p className={s.help}>사진을 선택하거나 크게 볼 수 있어요.</p><div className={s.grid}>{results.map((item,index)=><div key={item.id} className={s.resultItem}><div className={s.resultFrame}><button type="button" className={s.result} aria-pressed={selected.includes(item.id)} aria-label={`결과 ${index+1}`} onClick={()=>toggle(item.id)}>
        {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image */}
        <img src={item.url} alt=""/><span className={s.ai}>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>
-       <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button></div><div className={s.resultName}><span>결과 {index+1}</span>{selected.includes(item.id)&&<span>선택됨</span>}</div></div>)}</div></>}
+       <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button></div><div className={s.resultName}><span>결과 {index+1}</span><button type="button" disabled={downloading} onClick={()=>void downloadPhoto(item)} aria-label={`결과 ${index+1} 다운로드`}>다운로드</button>{selected.includes(item.id)&&<span>선택됨</span>}</div></div>)}</div></>}
     </div>}
     {stage==='results'&&!busy&&<div className={s.resultActions}><Action type="button" variant="secondary" onClick={()=>{const item=results.find(result=>selected.includes(result.id));if(item)editResult(item);}} disabled={selected.length!==1}>계속 보정</Action><Action type="button" onClick={add} disabled={!selected.length}>사진 결정</Action></div>}
     {(!busy&&(stage==='edit'||remaining<=0))&&<div className={s.quota}><span>남은 생성 횟수 <b>{remaining}</b>회</span>{onUseTicket&&tickets>0&&<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
@@ -174,7 +176,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
     <Action type="button" className={s.createWithQuota} aria-label={`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`} aria-describedby={`${panelId}-remaining`} onClick={()=>void generate()} disabled={busy}><span className={s.createLabel}>{`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</span><span id={`${panelId}-remaining`} className={s.createQuota}>남은 {remaining}회</span></Action>
    </div>}
   </>}
-  {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onToggle={toggle} onClose={closeViewer}/>}
+  {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onDownload={downloadPhoto} downloading={downloading} onToggle={toggle} onClose={closeViewer}/>}
   {sourceViewer&&source&&<AiResultViewer items={[source]} index={0} selected={[]} onIndex={()=>{}} onClose={closeViewer} original/>}
  </Dialog>
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="횟수권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
@@ -184,13 +186,13 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
 }
 
 /** Full-screen look at one result: swipe or arrows to move, pick it from here, Esc or 닫기 returns to the editor (the editor stays open). */
-function AiResultViewer({items,index,selected,onIndex,onToggle,onClose,original=false}:{items:StudioMedia[];index:number;selected:string[];onIndex:(index:number)=>void;onToggle?:(id:string)=>void;onClose:()=>void;original?:boolean}){
- const closeRef=useRef<HTMLButtonElement>(null),start=useRef<number|null>(null),item=items[index],picked=selected.includes(item.id);
+function AiResultViewer({items,index,selected,onIndex,onToggle,onClose,onDownload,downloading=false,original=false}:{onDownload?:(item:StudioMedia)=>Promise<void>;downloading?:boolean;items:StudioMedia[];index:number;selected:string[];onIndex:(index:number)=>void;onToggle?:(id:string)=>void;onClose:()=>void;original?:boolean}){
+ const closeRef=useRef<HTMLButtonElement>(null),start=useRef<number|null>(null),pointers=useRef(new Set<number>()),item=items[index],picked=selected.includes(item.id);
  useEffect(()=>{closeRef.current?.focus({preventScroll:true});},[]);
  const go=(next:number)=>{if(next>=0&&next<items.length)onIndex(next);};
  return <div className={s.viewer} role="group" aria-label={original?'원본 사진 크게 보기':`결과 ${index+1} 크게 보기`} onKeyDown={event=>{if(event.key==='Escape'){event.preventDefault();event.stopPropagation();onClose();}else if(event.key==='ArrowLeft')go(index-1);else if(event.key==='ArrowRight')go(index+1);}}
-  onPointerDown={event=>{start.current=event.clientX;}} onPointerUp={event=>{const from=start.current;start.current=null;if(from===null)return;const dx=event.clientX-from;if(Math.abs(dx)>50)go(index+(dx<0?1:-1));}}>
-  <div className={s.viewerBar}><span>{original?'원본 사진':`결과 ${index+1} / ${items.length}`}</span><button ref={closeRef} type="button" className={s.viewerClose} onClick={onClose}>닫기</button></div>
+  onPointerDown={event=>{pointers.current.add(event.pointerId);start.current=pointers.current.size===1&&(typeof window==='undefined'||(window.visualViewport?.scale||1)<=1)?event.clientX:null;}} onPointerCancel={event=>{pointers.current.delete(event.pointerId);start.current=null;}} onPointerUp={event=>{pointers.current.delete(event.pointerId);const from=start.current;start.current=null;if(from===null||pointers.current.size)return;const dx=event.clientX-from;if(Math.abs(dx)>50)go(index+(dx<0?1:-1));}}>
+  <div className={s.viewerBar}><span>{original?'원본 사진':`결과 ${index+1} / ${items.length}`}</span><div className={s.viewerTools}>{onDownload&&<button type="button" className={s.viewerClose} disabled={downloading} onClick={()=>void onDownload(item)}>{downloading?'저장 중…':'다운로드'}</button>}<button ref={closeRef} type="button" className={s.viewerClose} onClick={onClose}>닫기</button></div></div>
   <div className={s.viewerStage}>
    {index>0&&<button type="button" className={`${s.viewerNav} ${s.viewerPrev}`} aria-label="이전 결과" onClick={()=>go(index-1)}>‹</button>}
    {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image at full size */}

@@ -597,3 +597,18 @@ test('background subcategories show six indoor and four outdoor presets and pres
  assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'indoor').total,2);assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'outdoor').total,0);
  const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('1장 만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
 });
+
+test('download saves original bytes and reports failure without changing selected result',async()=>{
+ const previous={fetch:global.fetch,document:global.document,setTimeout:global.setTimeout,create:URL.createObjectURL,revoke:URL.revokeObjectURL};let clicked=0,removed=0,saved,revoked,link={click(){clicked++},remove(){removed++}};const bytes=new Blob(['original'],{type:'image/webp'});
+ try{global.fetch=async url=>{assert.equal(url,'/a1.png');return {ok:true,blob:async()=>bytes}};global.document={createElement:()=>link,body:{appendChild(){}}};URL.createObjectURL=blob=>{saved=blob;return 'blob:download'};URL.revokeObjectURL=url=>{revoked=url};global.setTimeout=fn=>{fn();return 0};
+ const {r,click}=await open();await click('1장 만들기');await click('결과 1 다운로드');assert.equal(clicked,1);assert.equal(removed,1);assert.equal(saved,bytes);assert.equal(link.download,'crefans-ai-a1.webp');assert.equal(revoked,'blob:download');assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);
+ global.fetch=async()=>({ok:false});await click('결과 1 다운로드');assert.match(text(r.toJSON()),/다운로드하지 못했어요/);assert.equal(clicked,1);
+ }finally{global.fetch=previous.fetch;global.document=previous.document;global.setTimeout=previous.setTimeout;URL.createObjectURL=previous.create;URL.revokeObjectURL=previous.revoke;}
+});
+
+test('viewer ignores pinch and cancelled pointer gestures while permitting browser zoom',async()=>{
+ const fs=require('node:fs');assert.match(fs.readFileSync('components/crefans/studio/ai-photo.module.css','utf8'),/\.viewer\{[^}]*touch-action:pan-x pan-y pinch-zoom/);
+ const {r,click}=await open({onEdit:async()=>({success:true,data:{images:[{id:'a1',url:'/a1.png',type:'image'},{id:'a2',url:'/a2.png',type:'image'}],remaining:9}})});await click('1장 만들기');await click('결과 1 크게 보기');const v=()=>r.root.find(n=>n.props.role==='group'&&n.props['aria-label']==='결과 1 크게 보기');
+ await act(async()=>{v().props.onPointerDown({pointerId:1,clientX:200});v().props.onPointerDown({pointerId:2,clientX:100});v().props.onPointerUp({pointerId:2,clientX:0});v().props.onPointerUp({pointerId:1,clientX:0});});assert.match(text(v()),/결과 1 \/ 2/);
+ await act(async()=>{v().props.onPointerDown({pointerId:1,clientX:200});v().props.onPointerCancel({pointerId:1});v().props.onPointerUp({pointerId:1,clientX:0});});assert.match(text(v()),/결과 1 \/ 2/);
+});
