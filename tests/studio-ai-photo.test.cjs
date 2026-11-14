@@ -175,7 +175,7 @@ test('single-image flow: only generate stays in footer and all editor fields scr
 
 test('cosplay wardrobe: selected outfits toggle independently and never overwrite custom text across tabs',async()=>{
  const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
- await act(async()=>field().props.onChange({target:{value:'내 추가 요청'}}));await click('코스어 모드');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,6);
+ await act(async()=>field().props.onChange({target:{value:'내 추가 요청'}}));await click('코스어 모드');assert.equal(r.root.findAllByProps({className:'costumeCard'}).length,8);
  await click('다음 의상 페이지');await click('비치 투피스');assert.equal(field().props.value,'내 추가 요청');assert.equal(r.root.findByProps({'aria-label':'비치 투피스'}).props['aria-pressed'],true);await click('비치 투피스');assert.equal(r.root.findByProps({'aria-label':'비치 투피스'}).props['aria-pressed'],false);
  await click('이전 의상 페이지');await click('고딕 오프숄더');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());assert.equal(field().props.value,'내 추가 요청');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick());assert.equal(r.root.findByProps({'aria-label':'고딕 오프숄더'}).props['aria-pressed'],true);await click('일반 모드');assert.equal(field().props.value,'내 추가 요청');assert.equal(calls.length,0);
 });
@@ -195,7 +195,7 @@ test('wardrobe is card-only with no view picker and preserves the draft and pain
  const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'배경 유지'}}));
  const strokes=[{size:.06,points:[{x:.5,y:.6}]}];await click('옷 세부 지정');await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange(strokes));
  assert.equal(r.root.findAll(n=>n.props.label==='보기 형식').length,0);assert.equal(r.root.findAllByProps({'aria-label':'의상 크게 보기'}).length,0);
- assert.equal(r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button').length,6);
+ assert.equal(r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button').length,8);
  await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].style,'cosplay');assert.match(calls[0].prompt,/배경 유지/);
  await click('설정 수정');assert.equal(field().props.value,'배경 유지');assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
 });
@@ -234,7 +234,7 @@ test('category filters: all nine use cards without losing request or mask',async
  for(const group of aiPhotoCostumeCategories){
   await act(async()=>category().props.onChange(group.value));assert.equal(field().props.value,previous);assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
   const items=aiPhotoCostumes.filter(c=>c.category===group.value);
-  const cards=r.root.findByProps({'aria-label':'코스프레 의상'}).findAll(n=>n.type==='button');assert.deepEqual(cards.map(c=>c.props['aria-label']),items.slice(0,6).map(c=>c.name));assert.equal(field().props.value,previous);
+  const cards=r.root.findByProps({'aria-label':'코스프레 의상'}).findAll(n=>n.type==='button');assert.deepEqual(cards.map(c=>c.props['aria-label']),items.slice(0,9).map(c=>c.name));assert.equal(field().props.value,previous);
   await act(async()=>r.root.findByProps({'aria-label':items[0].name}).props.onClick());chosen.push(rules.aiPhotoPresetText(items[0].prompt));assert.equal(field().props.value,previous);
  }
  assert.equal(calls.length,0,'filtering/browsing/picking never generates');
@@ -318,8 +318,8 @@ test('combined length is bounded without truncating custom input or blocking des
 test('expression diagrams stay gender-neutral while generation gender, selection and custom input remain intact',async()=>{
  const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'자연스러운 조명'}}));await click('환한 미소');
  const previews=()=>r.root.findAll(n=>n.type==='img'&&String(n.props.src).startsWith('/brand/ai-photo/expression-mascot/expression-')).map(n=>n.props.src);
- await click('여성');assert.deepEqual(previews(),[1,2,3,4,5,6].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(field().props.value,'자연스러운 조명');
- await click('남성');assert.deepEqual(previews(),[1,2,3,4,5,6].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(calls.length,0);
+ await click('여성');assert.deepEqual(previews(),[1,2,3,4,5,6,7,8,9].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(field().props.value,'자연스러운 조명');
+ await click('남성');assert.deepEqual(previews(),[1,2,3,4,5,6,7,8,9].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(calls.length,0);
  await click('1장 만들기');assert.equal(calls[0].source.id,'p1');assert.equal(calls[0].kind,'expression');assert.equal(calls[0].targetGender,'male');assert.match(calls[0].prompt,/치아가 살짝 보이게/);assert.match(calls[0].prompt,/성인 남성/);assert.doesNotMatch(calls[0].prompt,/성인 여성/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));
 });
 
@@ -396,10 +396,10 @@ test('create availability: exhausted quota stays clickable and explains without 
 });
 
 
-test('preset paging: six cards, circular single-page gestures, preserved selection and no accidental click',async()=>{
+test('preset paging: nine cards, circular single-page gestures, preserved selection and no accidental click',async()=>{
  const {r,click,calls}=await open();await click('의자에 앉기');
  const grid=()=>r.root.findByProps({className:'photoPresetGrid'}),labels=()=>grid().findAllByType('button').map(n=>n.props['aria-label']);
- const initial=labels();assert.equal(initial.length,6);
+ const initial=labels();assert.equal(initial.length,9);
  const pager=()=>r.root.find(n=>n.type==='div'&&n.props['aria-label']==='프리셋 페이지');
  const event=(x,y=0)=>({isPrimary:true,button:0,pointerId:1,clientX:x,clientY:y,currentTarget:{clientWidth:360,setPointerCapture(){}}});
  async function drag(x,y=0,cancel=false){await act(async()=>pager().props.onPointerDown(event(200)));await act(async()=>pager().props.onPointerMove(event(200+x,y)));await act(async()=>cancel?pager().props.onPointerCancel():pager().props.onPointerUp(event(200+x,y)));}
@@ -419,15 +419,15 @@ test('default editor opens in cosplay with outfit tab and no automatic request',
 });
 
 
-test('default cosplay wardrobe swipes six-card pages without changing selected costume',async()=>{
+test('default cosplay wardrobe keeps all eight general costumes on one nine-card page while swiping',async()=>{
  const {r,click,calls}=await open({},true);await click('리본 메이드');
- const cards=()=>r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button');assert.equal(cards().length,6);
+ const cards=()=>r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button');assert.equal(cards().length,8);
  const pager=()=>r.root.find(n=>n.type==='div'&&n.props['aria-label']==='프리셋 페이지');
  const e=x=>({isPrimary:true,button:0,pointerId:1,clientX:x,clientY:0,currentTarget:{clientWidth:360,setPointerCapture(){}}});
  await act(async()=>pager().props.onPointerDown(e(250)));await act(async()=>pager().props.onPointerMove(e(80)));await act(async()=>pager().props.onPointerUp(e(80)));
- assert.equal(cards().length,2);assert.equal(cards()[1].props['aria-label'],'비치 투피스');assert.equal(calls.length,0);
- await click('다음 의상 페이지');assert.equal(cards().length,6);assert.equal(cards()[0].props['aria-pressed'],true);
- await click('이전 의상 페이지');assert.equal(cards().length,2);
+ assert.equal(cards().length,8);assert.equal(cards()[7].props['aria-label'],'비치 투피스');assert.equal(cards()[0].props['aria-pressed'],true);assert.equal(calls.length,0);
+ await click('다음 의상 페이지');assert.equal(cards().length,8);assert.equal(cards()[0].props['aria-pressed'],true);
+ await click('이전 의상 페이지');assert.equal(cards().length,8);
 });
 
  test('makeup shows only authored previews for the selected gender and clears a hidden selection',async()=>{
@@ -532,7 +532,7 @@ test('expanded pose, expression and camera selections accumulate and toggle inde
 
 test('pose posture splits all forty-seven cards into exclusive sitting and standing pages',()=>{
  const {aiPhotoPresets,aiPhotoPresetPage,aiPhotoPosePosture,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
- const seen=[];for(const [posture,total] of [['sitting',15],['standing',32]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=6);for(const e of result.examples){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
+ const seen=[];for(const [posture,total] of [['sitting',15],['standing',32]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=9);for(const e of result.examples){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
  assert.equal(new Set(seen).size,47);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
  assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','sitting').total,0);assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','standing').total,1);
  assert.equal(aiPhotoPresetTitle('pose',aiPhotoPresetPage('pose',0,'original','쪼그려','sitting').examples[0]),'쪼그려 앉기');
@@ -582,8 +582,8 @@ test('body continuous range keeps intermediate values, snaps near anchors and ke
 
 test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('1장 만들기');assert.equal(calls.length,0);assert.equal(refresh,1);assert.equal(r.root.findAllByProps({'aria-label':'횟수권 구매'}).length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'보존할 편집 내용');});
 
-test('Overwatch has nine six-card pages; Roadhog search preserves its reference selection',async()=>{
- const {r,click,calls}=await open({},true);await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('overwatch'));assert.match(text(r.toJSON()),/54종/);assert.match(text(r.toJSON()),/1 \/ 9/);await click('로드호그 코스튬');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(r.root.findByProps({'aria-label':'로드호그 코스튬'}).props['aria-pressed'],true);await click('1장 만들기');const c=loadTypeScript('lib/crefans/ai-photo-costumes.ts').aiPhotoCostumes.find(x=>x.name==='로드호그 코스튬');assert.deepEqual(calls[0].costumeIds,[c.id]);assert.doesNotMatch(calls[0].prompt,/방독면|갈고리/);
+test('Overwatch has six nine-card pages; Roadhog search preserves its reference selection',async()=>{
+ const {r,click,calls}=await open({},true);await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('overwatch'));assert.match(text(r.toJSON()),/54종/);assert.match(text(r.toJSON()),/1 \/ 6/);await click('로드호그 코스튬');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(r.root.findByProps({'aria-label':'로드호그 코스튬'}).props['aria-pressed'],true);await click('1장 만들기');const c=loadTypeScript('lib/crefans/ai-photo-costumes.ts').aiPhotoCostumes.find(x=>x.name==='로드호그 코스튬');assert.deepEqual(calls[0].costumeIds,[c.id]);assert.doesNotMatch(calls[0].prompt,/방독면|갈고리/);
 });
 
 test('shooting concepts replace Canon choices and retain other selected edits',async()=>{
@@ -593,7 +593,7 @@ test('shooting concepts replace Canon choices and retain other selected edits',a
 test('background subcategories show thirty-five indoor and thirteen outdoor presets and preserve selection',async()=>{
  const {aiPhotoPresetPage,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
  const indoor=aiPhotoPresetPage('background',9,'female','',undefined,'indoor'),outdoor=aiPhotoPresetPage('background',0,'female','',undefined,'outdoor');
- assert.equal(indoor.total,35);assert.equal(indoor.index,3);assert.equal(outdoor.total,13);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['햇살 공원','벚꽃길','노을 바다','도시 야경','도심 광장 야경','야경 테라스 난간']);
+ assert.equal(indoor.total,35);assert.equal(indoor.index,1);assert.equal(outdoor.total,13);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['햇살 공원','벚꽃길','노을 바다','도시 야경','도심 광장 야경','야경 테라스 난간','햇살 석조 테라스','노을 자갈 해변','열대 정원']);
  assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'indoor').total,3);assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'outdoor').total,0);
  const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('1장 만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
 });
