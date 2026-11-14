@@ -1,24 +1,32 @@
 'use client';
-import {useState} from 'react';
+import {useEffect,useRef,useState,type CSSProperties} from 'react';
 import s from './ai-photo.module.css';
 
-const heartPositions=[[[10,12],[16,18]],[[48,3],[42,9]],[[27,39],[21,45]],[[46,33],[40,27]],[[5,66],[11,60]]] as const;
-function Heart(){return <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/></svg>;}
+type Kind='heart'|'candy'|'moon';
+type Piece={id:number;kind:Kind;lane:number;delay:number;expires:number;burst:boolean};
+const names:Record<Kind,string>={heart:'하트',candy:'별사탕',moon:'달'};
+function Symbol({kind}:{kind:Kind}){return <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">{kind==='heart'?<path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/>:kind==='moon'?<path d="M20.7 15.5A9 9 0 0 1 8.5 3.3 9.5 9.5 0 1 0 20.7 15.5Z"/>:<path d="m12 1 2.5 5.5 5.8-1-1 5.5 4.2 4-5.7 1.5L16 22l-4-3-4 3-1.8-5.5L.5 15l4.2-4-1-5.5 5.8 1Z"/>}</svg>;}
+function newPiece(id:number,kind:Kind,delay=0):Piece{return {id,kind,lane:(id-1)%5,delay,expires:Date.now()+8000+delay*1000,burst:false};}
 
 // Local amusement only: no generation input, network requests, rewards or saved score.
-export function AiPhotoWaiting({elapsed,typical}:{elapsed:number;typical?:number|null}){
- const [hits,setHits]=useState([0,0,0,0,0]),score=hits.reduce((sum,value)=>sum+value,0);
+export function AiPhotoWaiting({elapsed,typical,score,onCollect}:{elapsed:number;typical?:number|null;score:number;onCollect:(delta:number)=>void}){
+ const [pieces,setPieces]=useState<Piece[]>(()=>['heart','candy','heart','moon','heart'].map((kind,index)=>newPiece(index+1,kind as Kind,-index*1.1)));
+ const nextId=useRef(6),collected=useRef(new Set<number>());
+ useEffect(()=>{const timer=setInterval(()=>{const id=nextId.current++,roll=Math.random(),piece=newPiece(id,roll<.7?'heart':roll<.85?'candy':'moon');setPieces(previous=>[...previous.filter(item=>item.expires>Date.now()),piece]);},900);return()=>clearInterval(timer);},[]);
+ function collect(piece:Piece){if(piece.burst||collected.current.has(piece.id))return;collected.current.add(piece.id);onCollect(piece.kind==='heart'?1:-1);setPieces(previous=>previous.map(item=>item.id===piece.id?{...item,burst:true,expires:Date.now()+380}:item));}
  return <div className={s.waiting}>
   <p className={s.waitingSubtitle}>완성되면 바로 보여드릴게요</p>
   <div className={s.waitingDots} aria-hidden="true"><i/><i/><i/></div>
   <section className={s.heartGame} aria-label="기다리는 동안 하트 모으기">
-   <div className={s.heartGameHeading}><h4>기다리는 동안 <span>하트 모으기</span></h4><output aria-label="모은 하트" aria-live="polite"><Heart/>{score}</output></div>
+   <div className={s.heartGameHeading}><h4>기다리는 동안 <span>하트 모으기</span></h4><output aria-label="모은 하트" aria-live="polite"><Symbol kind="heart"/>{score}</output></div>
    <div className={s.heartPlayfield}>
     {/* eslint-disable-next-line @next/next/no-img-element -- existing generated mascot, decorative */}
     <img className={s.heartMascot} src="/brand/ai-photo/pose-mascot/pose-01-v1.webp" alt="" draggable={false}/>
-    {heartPositions.map((positions,index)=>{const [left,top]=positions[hits[index]%2];return <button key={index} type="button" className={s.collectHeart} aria-label={`하트 ${index+1} 모으기`} style={{left:`${left}%`,top:`${top}%`}} onClick={()=>setHits(previous=>previous.map((value,i)=>i===index?value+1:value))}><span style={{animationDelay:`${index*-.6}s`}}><Heart/></span></button>;})}
+    {pieces.map(piece=><button key={piece.id} type="button" className={s.collectHeart} data-kind={piece.kind} data-burst={piece.burst||undefined} aria-label={`${names[piece.kind]} ${piece.id}${piece.kind==='heart'?' 모으기':' 피하기 · 하트 1개 차감'}`} disabled={piece.burst} style={{top:`${6+piece.lane*18}%`,animationDelay:`${piece.delay}s`,'--rest-left':`${8+piece.id%3*27}%`} as CSSProperties} onClick={()=>collect(piece)}>
+     {piece.burst?<span className={s.heartBurst} aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3"><path d="M24 2v8m0 28v8M2 24h8m28 0h8M8 8l6 6m20 20 6 6M8 40l6-6m20-20 6-6"/></svg><b>{piece.kind==='heart'?'+1':'−1'}</b></span>:<Symbol kind={piece.kind}/>}
+    </button>)}
    </div>
-   <p className={s.heartGameHint}>하트를 톡톡 눌러보세요</p>
+   <p className={s.heartGameHint}>하트 +1 · 별사탕과 달 −1</p>
   </section>
   <p className={s.waitingNote}>게임은 사진 결과에 영향을 주지 않아요</p>
   <div className={s.waitingTime}><span aria-hidden="true">{elapsed}초 지남</span><p>{typical?`보통 약 ${typical}초 걸려요.`:'걸리는 시간을 재는 중이에요.'}</p></div>
