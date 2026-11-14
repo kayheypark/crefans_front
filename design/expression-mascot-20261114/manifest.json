@@ -1,0 +1,137 @@
+{
+  "model": "dola-seedream-5-5-261028",
+  "reference": "/Users/ethan/Downloads/crefans-camera-1-closeup.png",
+  "purpose": "UI previews only; never attached to user image edit requests",
+  "assets": [
+    {
+      "title": "무표정",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Neutral expression. Two open round dot eyes and a short perfectly horizontal straight closed mouth. Absolutely no smile.",
+      "requestId": "021794625648531c5f50319cb4d4388d7836967b82aebe52dc89e",
+      "at": "2026-11-14T03:07:44.388Z",
+      "sourceSha256": "bf5a239515a1bb183307b3e0205726756a1a5e44607fa7faace22a0f172341b3",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-01-v1.webp",
+      "sha256": "2b606ba79eda3d91c2b446ba55d1945e861835fd1a4e89378320b55f0e800092"
+    },
+    {
+      "title": "환한 미소",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Bright smile showing one small white teeth band. Both eyes MUST remain solid dark circular dots, just like the input. NO closed or crescent eyes. Face remains simple.",
+      "requestId": "021794625760582f2dfc9d17a425ad03ee233374d26366190c8c9",
+      "at": "2026-11-14T03:09:32.196Z",
+      "sourceSha256": "97a7a3d451cf8bf237544946ab96482485be345ee9331a3d042b43b5adf20515",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-02-v1.webp",
+      "sha256": "884e7fcdbb7763863a99dd66800f69ba0ebfeaccb5e4837cfc8fa9c3e3250e04"
+    },
+    {
+      "title": "잔잔한 미소",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Subtle closed-mouth smile: open dot eyes and a small shallow upward curve, no teeth.",
+      "requestId": "02179462564856134cb6184a92ddd9ae87302c189a666e5ae0743",
+      "at": "2026-11-14T03:07:41.298Z",
+      "sourceSha256": "24c1c581f00449d3a880186adcdf6ed8f35b71e4f506f50a91f25b5ffe194198",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-03-v1.webp",
+      "sha256": "bff4d2a9d6ae70c600e646bb0431fde39c6effc64c196a4b65ca257273ca3972"
+    },
+    {
+      "title": "눈웃음",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Smiling eyes: both eyes curved into upward happy closed crescents, gentle small closed-mouth smile.",
+      "requestId": "021794625661457e0570d30189b68d5608c0b11774ff85b1e041c",
+      "at": "2026-11-14T03:07:53.369Z",
+      "sourceSha256": "3f5c8d245890bff54c3ff8e368c81ab3735f0dc7938cf19b0cfda17df9071efe",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-04-v1.webp",
+      "sha256": "61db3fb7915ecf4b49220c44df0f757a60f1de9956af5aca37b24b7b30c0eac0"
+    },
+    {
+      "title": "편안한 표정",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Relaxed contented expression: softly half-lidded eyes and tiny raised mouth corners, no teeth.",
+      "requestId": "021794625662281c0a335079e7be4c79ef57584e00819bacb6ca7",
+      "at": "2026-11-14T03:07:54.587Z",
+      "sourceSha256": "934946fd4eaeb63fc856b398cefbce42a0553646f52c7d04ce83e0db75f2e006",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-05-v1.webp",
+      "sha256": "646b378e6fe65cf3c4d90aa05e495672ee33760aac82565f09990b4eaf3aa42d"
+    },
+    {
+      "title": "놀란 표정",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Surprised: enlarged round dark eyes and small open O-shaped round mouth, two thin raised eyebrow arcs.",
+      "requestId": "021794625665497023ef2751affb9822ae18449966cb6b9ac9a87",
+      "at": "2026-11-14T03:07:59.189Z",
+      "sourceSha256": "33b3f135c6c88d91a4b33ff3e3f792f056850b3ee4f68a183763a36794feae02",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-06-v1.webp",
+      "sha256": "1e1144af06cb47f021c294c77260b2f7c02d0479cb2b18b146c7ba757baac5f4"
+    },
+    {
+      "title": "윙크",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Wink: exactly one eye a closed curved arc and the other an open dark dot; cheerful small smile.",
+      "requestId": "02179462567434625f2f82b7160c183ba98a715c9386d71901834",
+      "at": "2026-11-14T03:08:07.666Z",
+      "sourceSha256": "a33782c64924a7ba83bb952407e623e13a7776f218e032d5b6fb057a36b404b0",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-07-v1.webp",
+      "sha256": "7c9a0a3153463bfe2613b3ed1b2c049df3716ef920a2785411e09ecbb21a3648"
+    },
+    {
+      "title": "활짝 웃기",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Broad open laugh with white upper teeth band. Both eyes MUST stay visibly OPEN as solid dark dots, no crescent eyes and no closed eyes. Large open smiling mouth is the only exaggerated feature.",
+      "requestId": "0217946257607357701a42f23cc3d37ac47a8e8735f343a1390ee",
+      "at": "2026-11-14T03:09:36.285Z",
+      "sourceSha256": "f54553212693100f494b99cfe2d50056e64f0d35dee69e8c168736ddc05ed7b3",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-08-v1.webp",
+      "sha256": "7681dc79599bb43f1b588cc11afdcbf71ec93a2e0628603427ddd9b4c3e25047"
+    },
+    {
+      "title": "차분한 표정",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Calm composed face. Keep the original two open dark circular dot eyes, no eyelids and no eyebrows. Mouth a tiny very shallow curve, almost straight. No angry or bored expression.",
+      "requestId": "02179462576037669d9f56ebaf8adc0cbe3483f4c0cffb8f76ee3",
+      "at": "2026-11-14T03:09:32.523Z",
+      "sourceSha256": "cee3393149884b7efc14150f2dcd71d6accd47e699b81071a9a38be06f0ec66e",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-09-v1.webp",
+      "sha256": "4a68805e95ce24480f089482db53768fa5b89d761849eec1673ca536830b9e0c"
+    },
+    {
+      "title": "반가운 표정",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Warm welcoming smile. Two small SOLID DARK DOT eyes, no white eyeballs, no pupils, no highlights, no eyebrows. Medium open curved smile and a gentle head tilt.",
+      "requestId": "021794625773512023ef2751affb9822ae18449966cb6b9c635e9",
+      "at": "2026-11-14T03:09:47.551Z",
+      "sourceSha256": "2f75fc90a447462b66a9f8e99ead2f166f9eac25543e13283aa58f0fa2e15ff4",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-10-v1.webp",
+      "sha256": "38a452d0804f8949cc539b60f06573c8c56408d3972acf3603ccc31104272133"
+    },
+    {
+      "title": "수줍은 미소",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Shy smile with gentle downward head tilt and two small downcast dark dot eyes. Absolutely no eyebrows or eyelids, not sad or worried. Subtle peach-pink cheeks and a tiny closed smile.",
+      "requestId": "021794625773741e40cd0a5f20110aac1f60c7d99b54634ef9f77",
+      "at": "2026-11-14T03:09:46.493Z",
+      "sourceSha256": "19469ed5d2e9cd4246dcaddc1319f2bd455b40b2852c2e11e4b83f8386f393f6",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-11-v1.webp",
+      "sha256": "d61362a7bd8a3049c657682437c5084f17992f25831ffbd8f7dac7c4a251741c"
+    },
+    {
+      "title": "힘 뺀 미소",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Easy effortless smile: relaxed open dot eyes, lips gently parted in a shallow smile with a tiny dark gap, no teeth, slight gentle head tilt.",
+      "requestId": "021794625693046b1e926b94f741badb049b6681cf829b89c30bd",
+      "at": "2026-11-14T03:08:25.145Z",
+      "sourceSha256": "faf959f91db658762c2bde69a36cb4b26211d0e1ba8fa838a05ee0cd0b23381c",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-12-v1.webp",
+      "sha256": "6f5536b9f0112bc9f525ddda1be99c23c208d48fdcbceb2ac4d27ed55b64a901"
+    },
+    {
+      "title": "장난스러운 미소",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Use the reference image as the exact character identity and style reference. Create ONE square UI expression preset thumbnail. Preserve the peach spherical clay head, light lavender shoulders, simple dark eyes and mouth, soft matte clay material, pale near-white background, lighting and head-and-shoulders crop. No nose whatsoever: no bump, nostrils, bridge, mark or shadow in the center of the face. No hair, no ears, no realistic skin, no anime, no text, no symbols, no accessories, no watermark. Keep the head centered and the same size as the reference with clear top margin. Change only facial expression as follows: Playful cheeky expression: asymmetric closed smirk with one corner raised, one raised thin brow, two open dark dot eyes. No tongue.",
+      "requestId": "021794625702043fef143c4098cd8cc7e0dd8c08d18f9dbd64b7a",
+      "at": "2026-11-14T03:08:35.361Z",
+      "sourceSha256": "2eeac3493f337f60978a100b31cc5f32f5a0da4de247f9282bd61c34ae92dfad",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-13-v1.webp",
+      "sha256": "1c7cc057f2830d0549788c03416adc8d96094642b60779f017e4be076ba77a94"
+    }
+  ]
+}
