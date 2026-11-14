@@ -195,3 +195,5 @@
 .presetSearch>svg{flex:none}.presetSearch input{min-width:0;width:100%;height:42px;border:0;outline:0;background:transparent;font:inherit;font-size:16px;color:var(--cf-color-text)}
 .presetSearch input::-webkit-search-cancel-button{-webkit-appearance:none}.presetSearch button{flex:none;width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:inherit;font-size:24px;cursor:pointer}
 .presetEmpty{padding:24px 8px;margin:0;text-align:center;color:var(--cf-color-textMuted);font-size:14px}
+
+.outfitSwitch{display:flex;align-items:center;gap:10px;align-self:flex-end;border:0;background:transparent;padding:8px 0;color:var(--text-secondary,#64748b);font-size:13px;cursor:pointer}.outfitSwitch span{width:34px;height:20px;border-radius:12px;background:#cbd5e1;padding:3px;transition:background .15s}.outfitSwitch span::after{content:"";display:block;width:14px;height:14px;border-radius:50%;background:white;transition:transform .15s}.outfitSwitch[aria-checked="true"] span{background:#2563eb}.outfitSwitch[aria-checked="true"] span::after{transform:translateX(14px)}

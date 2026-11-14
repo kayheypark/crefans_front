@@ -8,7 +8,7 @@ export const AI_PHOTO_IMAGES_PER_REQUEST=1;
 export const AI_PHOTO_PROMPT_MAX=2000;
 export const aiPhotoPresetText=(value:string)=>value.replace(' 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.','').trim();
 export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=[
- {value:'outfit',label:'옷',placeholder:'칠한 부분의 옷을 흰색 세일러 교복 코스튬으로'},
+ {value:'outfit',label:'옷',placeholder:'옷을 흰색 세일러 교복 코스튬으로'},
  {value:'makeup',label:'메이크업',placeholder:'입술을 자연스러운 코랄 톤으로 바꿔줘.'},
  {value:'expression',label:'표정',placeholder:'치아가 살짝 보이게 밝게 웃어줘.'},
  {value:'pose',label:'포즈',placeholder:'벚꽃 아래 벤치에 앉아 카메라를 바라보는 포즈'},
@@ -21,10 +21,10 @@ export const aiPhotoStyles:{value:AiPhotoStyle;label:string}[]=[
  {value:'photo',label:'실사 사진 느낌'},{value:'cosplay',label:'코스프레 촬영'},{value:'daily',label:'일상 스냅'},
 ];
 /** First problem with the request, or '' when it can be sent. The server repeats every check. */
-export function aiPhotoProblem({prompt,consent,kind,hasMask,remaining}:{prompt:string;consent:boolean;kind:AiPhotoKind;hasMask:boolean;remaining:number}){
+export function aiPhotoProblem({prompt,consent,kind,hasMask,remaining,requireMask=false}:{prompt:string;consent:boolean;kind:AiPhotoKind;hasMask:boolean;remaining:number;requireMask?:boolean}){
  const text=prompt.trim();
  if(remaining<=0)return '오늘 만들 수 있는 횟수를 모두 썼어요. 내일 다시 이용해 주세요.';
- if(kind==='outfit'&&!hasMask)return '바꿀 옷 부분을 사진 위에 칠해 주세요.';
+ if(kind==='outfit'&&requireMask&&!hasMask)return '바꿀 옷 부분을 사진 위에 칠해 주세요.';
  if(!text)return '원하는 모습을 적어 주세요.';
  if(text.length>AI_PHOTO_PROMPT_MAX)return `${AI_PHOTO_PROMPT_MAX}자 이내로 적어 주세요.`;
  if(containsPersonalData(text))return '이메일·전화번호 같은 개인정보는 빼고 적어 주세요.';
