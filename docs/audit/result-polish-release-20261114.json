@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-14T06:40:00.893861+00:00",
+  "source": "3601118c41464718a55429dccf9de82de5b9de1a",
+  "image": "crefans-front:front-ai-result-polish-20261114",
+  "checks": {
+    "tests": "66/66 pass",
+    "build": "production build exit0",
+    "deploy": "ship-image.sh exit0;hashes+layers+recovery verified",
+    "mobile": "PASS WebKit390: three actions one row,14px sparkle,heart copy,cosplay retained,no overflow/errors\n",
+    "production": "/crefans-beta-frontend-1 crefans-front:front-ai-result-polish-20261114 true 0 false\n/crefans-beta-api-1 crefans-api:ai-hearts-v2-20261114 true 0 false\n/crefans-beta-worker-1 crefans-api:ai-hearts-v2-20261114 true 0 false\n{\"success\":true,\"data\":{\"status\":\"ready\",\"version\":\"v1\"},\"errorMessage\":null,\"errorCode\":null}"
+  },
+  "logs": ".local/result-polish-release",
+  "recovery": "/Users/ethan/crefans-recovery/20261114/front-ai-result-polish-20261114",
+  "limitations": [
+    "Browser uses design-system fixture, no paid real-user generation performed"
+  ]
+}
