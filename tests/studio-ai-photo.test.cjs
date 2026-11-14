@@ -612,3 +612,8 @@ test('viewer ignores pinch and cancelled pointer gestures while permitting brows
  await act(async()=>{v().props.onPointerDown({pointerId:1,clientX:200});v().props.onPointerDown({pointerId:2,clientX:100});v().props.onPointerUp({pointerId:2,clientX:0});v().props.onPointerUp({pointerId:1,clientX:0});});assert.match(text(v()),/결과 1 \/ 2/);
  await act(async()=>{v().props.onPointerDown({pointerId:1,clientX:200});v().props.onPointerCancel({pointerId:1});v().props.onPointerUp({pointerId:1,clientX:0});});assert.match(text(v()),/결과 1 \/ 2/);
 });
+
+test('signed-in heart game submits pieces not scores and shows cumulative conversion',async()=>{
+ const actions=[];const {r,click,calls}=await open({quota:{remaining:10,limit:10,hearts:85},onHeartGame:async input=>{actions.push(input);return {success:true,data:input.action==='start'?{id:'game1',kinds:['heart','candy','heart','moon','heart']}:input.action==='finish'?{earned:30,hearts:5,credits:11,converted:11}:{score:1}};}});
+ await click('1장 만들기');assert.equal(calls[0].heartGameId,'game1');assert.deepEqual(actions.map(x=>x.action),['start','finish']);assert.match(text(r.toJSON()),/하트 110개를 생성 11회로 바꿨어요/);assert.match(text(r.toJSON()),/모은 하트 30개/);assert.ok(actions.every(x=>!('score' in x)));
+});
