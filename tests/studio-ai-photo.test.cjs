@@ -285,13 +285,13 @@ test('body controls select only one adjustment and keep custom input',async()=>{
 });
 
 
-test('every preset has a distinct decodable image including Comic World, 39 poses and four shooting concepts',async()=>{
+test('every preset has a distinct decodable image including Comic World, 47 poses and four shooting concepts',async()=>{
  const fs=require('fs'),path=require('path'),sharp=require('sharp');const {aiPhotoPresets,aiPhotoPresetImage,aiPhotoComicWorldPreset,aiPhotoPresetTitle,aiPhotoPresetTitles}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const images=[];
- assert.equal(aiPhotoPresets.pose.length,39);assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
- for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,/background\/(b7a10|c8b20|d9c30)/.test(image)?1024:384);assert.equal(meta.height,/background\/(b7a10|c8b20|d9c30)/.test(image)?1536:384);}
+ assert.equal(aiPhotoPresets.pose.length,47);assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
+ for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,/background\/(b7a10|c8b20|d9c30|ead4)/.test(image)?1024:384);assert.equal(meta.height,/background\/(b7a10|c8b20|d9c30|ead4)/.test(image)?1536:384);}
  }
  const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,16);
- assert.equal(images.length,130);assert.equal(new Set(images).size,130);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
+ assert.equal(images.length,154);assert.equal(new Set(images).size,154);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
@@ -487,7 +487,7 @@ test('preset search filters before pagination, respects gender and handles no ma
  const empty=aiPhotoPresetPage('pose',9,'original','존재하지않는검색어');assert.deepEqual(empty,{examples:[],index:0,pages:1,total:0});
  assert.equal(aiPhotoPresetPage('makeup',0,'male','코랄 립').total,0);
  assert.equal(aiPhotoPresetPage('makeup',0,'female','코랄 립').total,1);
- assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,39);
+ assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,47);
 });
 
 test('search keeps selected poses, resets pages, clears on tabs and finds costumes across categories',async()=>{
@@ -530,10 +530,10 @@ test('expanded pose, expression and camera selections accumulate and toggle inde
  assert.equal(calls.length,1);assert.deepEqual(calls[0].editKinds,['pose','camera']);assert.match(calls[0].prompt,/거꾸로 앉아/);assert.match(calls[0].prompt,/뒤쪽 45도/);assert.doesNotMatch(calls[0].prompt,/도도|무표정/);
 });
 
-test('pose posture splits all thirty-nine cards into exclusive sitting and standing pages',()=>{
+test('pose posture splits all forty-seven cards into exclusive sitting and standing pages',()=>{
  const {aiPhotoPresets,aiPhotoPresetPage,aiPhotoPosePosture,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
- const seen=[];for(const [posture,total] of [['sitting',13],['standing',26]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=6);for(const e of result.examples){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
- assert.equal(new Set(seen).size,39);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
+ const seen=[];for(const [posture,total] of [['sitting',15],['standing',32]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=6);for(const e of result.examples){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
+ assert.equal(new Set(seen).size,47);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
  assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','sitting').total,0);assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','standing').total,1);
  assert.equal(aiPhotoPresetTitle('pose',aiPhotoPresetPage('pose',0,'original','쪼그려','sitting').examples[0]),'쪼그려 앉기');
 });
@@ -590,10 +590,10 @@ test('shooting concepts replace Canon choices and retain other selected edits',a
  const {r,click,calls}=await open();await click('쪼그려 앉기');await click('촬영컨셉');assert.doesNotMatch(text(r.toJSON()),/캐논|RF85|렌즈/);for(const name of ['셀카 폰카(정면)','거울샷','DSLR','대포카메라'])assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']===name).length,1);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],true);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],false);await click('DSLR');await click('1장 만들기');assert.ok(calls[0].editKinds.includes('pose'));assert.ok(calls[0].editKinds.includes('lens'));assert.match(calls[0].prompt,/DSLR/);assert.match(calls[0].prompt,/쪼그려/);
 });
 
-test('background subcategories show twenty-four indoor and eight outdoor presets and preserve selection',async()=>{
+test('background subcategories show thirty-five indoor and thirteen outdoor presets and preserve selection',async()=>{
  const {aiPhotoPresetPage,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
  const indoor=aiPhotoPresetPage('background',9,'female','',undefined,'indoor'),outdoor=aiPhotoPresetPage('background',0,'female','',undefined,'outdoor');
- assert.equal(indoor.total,24);assert.equal(indoor.index,1);assert.equal(outdoor.total,8);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['햇살 공원','벚꽃길','노을 바다','도시 야경','도심 광장 야경','야경 테라스 난간']);
+ assert.equal(indoor.total,35);assert.equal(indoor.index,3);assert.equal(outdoor.total,13);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['햇살 공원','벚꽃길','노을 바다','도시 야경','도심 광장 야경','야경 테라스 난간']);
  assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'indoor').total,3);assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'outdoor').total,0);
  const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('1장 만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
 });
