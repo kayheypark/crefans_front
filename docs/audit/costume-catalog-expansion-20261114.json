@@ -1,0 +1,6372 @@
+{
+ "checkedAt": "2026-11-14",
+ "works": {
+  "genshin": {
+   "rows": 124,
+   "counts": {
+    "provider-rejected": 106,
+    "hold": 2,
+    "registered": 12,
+    "reuse": 4
+   },
+   "holdReasons": {
+    "hold-collab": 1,
+    "hold-no-fixed-design": 1
+   },
+   "items": [
+    {
+     "file": "genshin-aino",
+     "name": "아이노",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=13",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-albedo",
+     "name": "알베도",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=10",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-alhaitham",
+     "name": "알하이탐",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=3",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-aloy",
+     "name": "에일로이",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab Horizon(Guerrilla Games/Sony) 콜라보 캐릭터",
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=7",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-alyosha",
+     "name": "알료샤",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=4",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-amber",
+     "name": "엠버",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=24",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-itto",
+     "name": "아라타키 이토",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=7",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-arlecchino",
+     "name": "아를레키노",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=16",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-baizhu",
+     "name": "백출",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=4",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-barbara",
+     "name": "바바라",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=21",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-beidou",
+     "name": "북두",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=20",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-bennett",
+     "name": "베넷",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=16",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-candace",
+     "name": "캔디스",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=9",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-charlotte",
+     "name": "샤를로트",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=8",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-chasca",
+     "name": "차스카",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=7",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-chevreuse",
+     "name": "슈브르즈",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=5",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-chiori",
+     "name": "치오리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=4",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-chongyun",
+     "name": "중운",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=16",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-citlali",
+     "name": "시틀라리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=5",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-clorinde",
+     "name": "클로린드",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=3",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-collei",
+     "name": "콜레이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=12",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-columbina",
+     "name": "콜롬비나·하이포셀레니아",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=9",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-cyno",
+     "name": "사이노",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=10",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-dahlia",
+     "name": "달리아",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=5",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-dehya",
+     "name": "데히야",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=2",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-diluc",
+     "name": "다이루크",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=20",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-diona",
+     "name": "디오나",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=11",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-dori",
+     "name": "도리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=11",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-durin",
+     "name": "두린",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=4",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-emilie",
+     "name": "에밀리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=1",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-escoffier",
+     "name": "에스코피에",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=0",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-eula",
+     "name": "유라",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=8",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-faruzan",
+     "name": "파루잔",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=4",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-fischl",
+     "name": "피슬",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=14",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-flins",
+     "name": "플린스",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=12",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-freminet",
+     "name": "프레미네",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=11",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-furina",
+     "name": "푸리나",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=7",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-gaming",
+     "name": "가명",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=2",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-ganyu",
+     "name": "감우",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=11",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-gorou",
+     "name": "고로",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=6",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-hu-tao",
+     "name": "호두",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=10",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-iansan",
+     "name": "얀사",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=2",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-ifa",
+     "name": "이파",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=1",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-illuga",
+     "name": "일루가",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=8",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-ineffa",
+     "name": "이네파",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=15",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-jahoda",
+     "name": "야호다",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=10",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-jean",
+     "name": "진",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=25",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-kachina",
+     "name": "카치나",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=10",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-kazuha",
+     "name": "카에데하라 카즈하",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=14",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-kaeya",
+     "name": "케이아",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=22",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-ayaka",
+     "name": "카미사토 아야카",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=15",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-ayato",
+     "name": "카미사토 아야토",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=4",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-kaveh",
+     "name": "카베",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=1",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-keqing",
+     "name": "각청",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=14",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-kinich",
+     "name": "키니치",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=9",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-kirara",
+     "name": "키라라",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=1",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-klee",
+     "name": "클레",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=17",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-sara",
+     "name": "쿠죠 사라",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=10",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-shinobu",
+     "name": "쿠키 시노부",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=3",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-lan-yan",
+     "name": "남연",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=1",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-lauma",
+     "name": "라우마",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=14",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-layla",
+     "name": "레일라",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=6",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-linnea",
+     "name": "린네아",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=7",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-lisa",
+     "name": "리사",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=23",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-lohen",
+     "name": "로엔",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=0",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-lynette",
+     "name": "리넷",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=12",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-lyney",
+     "name": "리니",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=13",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-mavuika",
+     "name": "마비카",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=4",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-mika",
+     "name": "미카",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=6",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-mitya",
+     "name": "미탸",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=1",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-mona",
+     "name": "모나",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=12",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-mualani",
+     "name": "말라니",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=11",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-nahida",
+     "name": "나히다",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=7",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-navia",
+     "name": "나비아",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=6",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-nefer",
+     "name": "네페르",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=11",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-neuvillette",
+     "name": "느비예트",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=10",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-nicole",
+     "name": "니콜",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=2",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-nilou",
+     "name": "닐루",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=8",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-ningguang",
+     "name": "응광",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=19",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-noelle",
+     "name": "노엘",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=15",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-odette",
+     "name": "오데트",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=5",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-ororon",
+     "name": "올로룬",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=6",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-prune",
+     "name": "프루네",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=1",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-qiqi",
+     "name": "치치",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=15",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-raiden",
+     "name": "라이덴 쇼군",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=11",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-razor",
+     "name": "레이저",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=19",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-rosaria",
+     "name": "로자리아",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=9",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-sandrone",
+     "name": "산드로네",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=6",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-kokomi",
+     "name": "산고노미야 코코미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=9",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-sayu",
+     "name": "사유",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=12",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-sethos",
+     "name": "세토스",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=0",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-shenhe",
+     "name": "신학",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=8",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-heizou",
+     "name": "시카노인 헤이조",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=2",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-sigewinne",
+     "name": "시그윈",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=2",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-skirk",
+     "name": "스커크",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=0",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-sucrose",
+     "name": "설탕",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=13",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-tartaglia",
+     "name": "타르탈리아",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=17",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-thoma",
+     "name": "토마",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=8",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-tighnari",
+     "name": "타이나리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=13",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-traveler",
+     "name": "여행자",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://wiki.hoyolab.com/pc/genshin/entry/20",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-valeriy",
+     "name": "발레리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=0",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-varesa",
+     "name": "바레사",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=3",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-varka",
+     "name": "바르카",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=3",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-venti",
+     "name": "벤티",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/mondstadt?char=18",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-vesna",
+     "name": "베스나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=3",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-vodyanitsa",
+     "name": "보댜니차",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/snezhnaya?char=2",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-wanderer",
+     "name": "방랑자",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/sumeru?char=5",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-manekin",
+     "name": "별인형",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-fixed-design 천외(Miliastra) 원더랜드 커스텀 아바타, 여성·남성 2종 기본형이며 고정 캐릭터 의상 없음",
+     "source": "https://wiki.hoyolab.com/pc/genshin/entry/9021",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-wriothesley",
+     "name": "라이오슬리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/fontaine?char=9",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-xiangling",
+     "name": "향릉",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=18",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-xianyun",
+     "name": "한운",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=3",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-xiao",
+     "name": "소",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=21",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-xilonen",
+     "name": "실로닌",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/natlan?char=8",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-xingqiu",
+     "name": "행추",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=17",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-xinyan",
+     "name": "신염",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=12",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-yae-miko",
+     "name": "야에 미코",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=5",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-yanfei",
+     "name": "연비",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=9",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-yaoyao",
+     "name": "요요",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=5",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-yelan",
+     "name": "야란",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=6",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-yoimiya",
+     "name": "요이미야",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=13",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-mizuki",
+     "name": "유메미즈키 미즈키",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/inazuma?char=0",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-yun-jin",
+     "name": "운근",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=7",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-zhongli",
+     "name": "종려",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=13",
+     "sourceType": "official"
+    },
+    {
+     "file": "genshin-zibai",
+     "name": "자백",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://genshin.hoyoverse.com/ko/character/liyue?char=0",
+     "sourceType": "official"
+    }
+   ]
+  },
+  "bluearchive": {
+   "rows": 149,
+   "counts": {
+    "registered": 112,
+    "provider-rejected": 29,
+    "reuse": 4,
+    "hold": 4
+   },
+   "holdReasons": {
+    "hold-collab": 4
+   },
+   "items": [
+    {
+     "file": "blue-airi",
+     "name": "아이리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Airi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-akane",
+     "name": "아카네",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-akari",
+     "name": "아카리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Akari_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-ako",
+     "name": "아코",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Ako_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-anna",
+     "name": "안나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Anna_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-aoba",
+     "name": "아오바",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Aoba_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-aris",
+     "name": "아리스",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "blue-aru",
+     "name": "아루",
+     "state": "provider-rejected",
+     "attempts": 2,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-asuna",
+     "name": "아스나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Asuna_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-atsuko",
+     "name": "아츠코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Atsuko_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-ayane",
+     "name": "아야네",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://bluearchive.wiki/wiki/File:Ayane_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-azusa",
+     "name": "아즈사",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Azusa_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-cherino",
+     "name": "체리노",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Cherino_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-chiaki",
+     "name": "치아키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Chiaki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-chihiro",
+     "name": "치히로",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Chihiro_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-chinatsu",
+     "name": "치나츠",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Chinatsu_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-chise",
+     "name": "치세",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Chise_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-eimi",
+     "name": "에이미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Eimi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-eri",
+     "name": "에리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Eri_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-erika",
+     "name": "에리카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Erika_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-erina",
+     "name": "에리나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Erina_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-fubuki",
+     "name": "후부키",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Fubuki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-fuuka",
+     "name": "후우카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Fuuka_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-fuyu",
+     "name": "후유",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Fuyu_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-hanae",
+     "name": "하나에",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Hanae_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-hanako",
+     "name": "하나코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Hanako_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-hare",
+     "name": "하레",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Hare_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-haruka",
+     "name": "하루카",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Haruka_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-haruna",
+     "name": "하루나",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Haruna_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-hasumi",
+     "name": "하스미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-miku",
+     "name": "하츠네 미쿠",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 타사 IP 콜라보 학생(하츠네 미쿠)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "blue-hibiki",
+     "name": "히비키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Hibiki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-hifumi",
+     "name": "히후미",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-hikari",
+     "name": "히카리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Hikari_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-himari",
+     "name": "히마리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Himari_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-hina",
+     "name": "히나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-hinata",
+     "name": "히나타",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Hinata_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-hiyori",
+     "name": "히요리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Hiyori_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-hoshino",
+     "name": "호시노",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "blue-ibuki",
+     "name": "이부키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Ibuki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-ichika",
+     "name": "이치카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Ichika_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-iori",
+     "name": "이오리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-iroha",
+     "name": "이로하",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Iroha_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-izumi",
+     "name": "이즈미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Izumi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-izuna",
+     "name": "이즈나",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Izuna_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-junko",
+     "name": "준코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Junko_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-juri",
+     "name": "주리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Juri_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kaede",
+     "name": "카에데",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kaede_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kaho",
+     "name": "카호",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kaho_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kanna",
+     "name": "칸나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kanna_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kanoe",
+     "name": "카노에",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kanoe_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-karin",
+     "name": "카린",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-kasumi",
+     "name": "카스미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kasumi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kayoko",
+     "name": "카요코",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kayoko_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kazusa",
+     "name": "카즈사",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kazusa_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kei",
+     "name": "케이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kei_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kikyou",
+     "name": "키쿄",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kikyou_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kirara",
+     "name": "키라라",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kirara_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kirino",
+     "name": "키리노",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kirino_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kisaki",
+     "name": "키사키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kisaki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-koharu",
+     "name": "코하루",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Koharu_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kokona",
+     "name": "코코나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kokona_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kokoro",
+     "name": "코코로",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kokoro_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-konoka",
+     "name": "코노카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Konoka_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kotama",
+     "name": "코타마",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kotama_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kotone",
+     "name": "코토네",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kotone_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kotori",
+     "name": "코토리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kotori_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-koyuki",
+     "name": "코유키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Koyuki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-kurumi",
+     "name": "쿠루미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Kurumi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-maki",
+     "name": "마키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Maki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-makoto",
+     "name": "마코토",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Makoto_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-mari",
+     "name": "마리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Mari_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-marina",
+     "name": "마리나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Marina_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-mashiro",
+     "name": "마시로",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js) — 마시로 항목은 스크립트에서 주석 처리됨, 이미지는 같은 공식 CDN 경로",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-megu",
+     "name": "메구",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Megu_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-meru",
+     "name": "메루",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Meru_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-michiru",
+     "name": "미치루",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Michiru_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-midori",
+     "name": "미도리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Midori_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-mika",
+     "name": "미카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Mika_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-mimori",
+     "name": "미모리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Mimori_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-mina",
+     "name": "미나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Mina_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-mine",
+     "name": "미네",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Mine_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-minori",
+     "name": "미노리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Minori_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-misaka-mikoto",
+     "name": "미사카 미코토",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 타사 IP 콜라보 학생(어떤 과학의 초전자포)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "blue-misaki",
+     "name": "미사키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "명세의 검정 마스크 누락",
+     "source": "https://bluearchive.wiki/wiki/File:Misaki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-miyako",
+     "name": "미야코",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Miyako_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-miyo",
+     "name": "미요",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Miyo_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-miyu",
+     "name": "미유",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Miyu_diorama_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-moe",
+     "name": "모에",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Moe_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-momiji",
+     "name": "모미지",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Momiji_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-momoi",
+     "name": "모모이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Momoi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-mutsuki",
+     "name": "무츠키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-nagisa",
+     "name": "나기사",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Nagisa_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-nagusa",
+     "name": "나구사",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Nagusa_diorama_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-natsu",
+     "name": "나츠",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Natsu_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-neru",
+     "name": "네루",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-niko",
+     "name": "니코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Niko_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-niya",
+     "name": "니야",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Niya_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-noa",
+     "name": "노아",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Noa_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-nodoka",
+     "name": "노도카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Nodoka_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-nonomi",
+     "name": "노노미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-nozomi",
+     "name": "노조미",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Nozomi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-otogi",
+     "name": "오토기",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Otogi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-pina",
+     "name": "피나",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://bluearchive.wiki/wiki/File:Pina_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-rabu",
+     "name": "라브",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Rabu_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-rana",
+     "name": "라나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Rana_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-rei",
+     "name": "레이",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Rei_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-reijo",
+     "name": "레이죠",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Reijo_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-reisa",
+     "name": "레이사",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Reisa_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-rena",
+     "name": "레나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Rena_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-renge",
+     "name": "렌게",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Renge_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-rio",
+     "name": "리오",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Rio_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-ritsu",
+     "name": "리츠",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Ritsu_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-rumi",
+     "name": "루미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Rumi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-saki",
+     "name": "사키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Saki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-sakurako",
+     "name": "사쿠라코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Sakurako_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-saori",
+     "name": "사오리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Saori_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-saten-ruiko",
+     "name": "사텐 루이코",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 타사 IP 콜라보 학생(어떤 과학의 초전자포)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "blue-satsuki",
+     "name": "사츠키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Satsuki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-saya",
+     "name": "사야",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Saya_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-seia",
+     "name": "세이아",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Seia_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-sena",
+     "name": "세나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Sena_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-serika",
+     "name": "세리카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-serina",
+     "name": "세리나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Serina_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-shigure",
+     "name": "시구레",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Shigure_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-shimiko",
+     "name": "시미코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Shimiko_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-shiroko",
+     "name": "시로코",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "blue-shizuko",
+     "name": "시즈코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Shizuko_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-shokuhou-misaki",
+     "name": "쇼쿠호 미사키",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 타사 IP 콜라보 학생(어떤 과학의 초전자포)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "blue-shun",
+     "name": "슌",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Shun_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-subaru",
+     "name": "스바루",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Subaru_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-sumire",
+     "name": "스미레",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://bluearchive.wiki/wiki/File:Sumire_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-suzumi",
+     "name": "스즈미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Suzumi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-takane",
+     "name": "타카네",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Takane_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-toki",
+     "name": "토키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Toki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-tomoe",
+     "name": "토모에",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Tomoe_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-tsubaki",
+     "name": "츠바키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Tsubaki_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-tsukuyo",
+     "name": "츠쿠요",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Tsukuyo_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-tsumugi",
+     "name": "츠무기",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Tsumugi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-tsurugi",
+     "name": "츠루기",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.nexon.com/home (학생명부, https://ssl.nexon.com/s1/Game/m_ba/brand/char_kr.js)",
+     "sourceType": "official"
+    },
+    {
+     "file": "blue-ui",
+     "name": "우이",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Ui_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-umika",
+     "name": "우미카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Umika_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-utaha",
+     "name": "우타하",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Utaha_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-wakamo",
+     "name": "와카모",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Wakamo_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-yakumo",
+     "name": "야쿠모",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Yakumo_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-yoshimi",
+     "name": "요시미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Yoshimi_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-yukari",
+     "name": "유카리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Yukari_00.png",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "blue-yuuka",
+     "name": "유우카",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "blue-yuzu",
+     "name": "유즈",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://bluearchive.wiki/wiki/File:Yuzu_00.png",
+     "sourceType": "wiki-mirror"
+    }
+   ]
+  },
+  "nikke": {
+   "rows": 159,
+   "counts": {
+    "reuse": 4,
+    "provider-rejected": 19,
+    "registered": 99,
+    "hold": 29,
+    "review-rejected": 8
+   },
+   "holdReasons": {
+    "hold-nonhuman": 3,
+    "hold-unverified": 1,
+    "hold-collab": 25
+   },
+   "items": [
+    {
+     "file": "nikke-rapi",
+     "name": "라피",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-neon",
+     "name": "네온",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=p200Mic2m8M",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-helm",
+     "name": "헬름",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-mast",
+     "name": "마스트",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=q7hhS4VOCHc",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-anchor",
+     "name": "앵커",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=pqOBWYi-Uoo",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-privaty",
+     "name": "프리바티",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=3NGjq_64aTg",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-diesel",
+     "name": "디젤",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=9qWVXY0OTcE",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-brid",
+     "name": "브리드",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=YJui0UiZaug",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-soline",
+     "name": "솔린",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=ieTmaRGfyfA",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-delta",
+     "name": "델타",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=7puKCm-SdGE",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-signal",
+     "name": "시그널",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=Tef7IUYF8ZQ",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-guillotine",
+     "name": "길로틴",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=fe4p8mnmSD4",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-maiden",
+     "name": "메이든",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=v3jj8hCb6qE",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-vesti",
+     "name": "베스티",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=AUz6tludNqE",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-emma",
+     "name": "엠마",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=ysJeIQhxt_g",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-eunhwa",
+     "name": "은화",
+     "state": "provider-rejected",
+     "attempts": 2,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=RWp7xP6ZvBQ",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-miranda",
+     "name": "미란다",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=0kcEeMv8FuM",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-poli",
+     "name": "폴리",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=hGmzdRiKl-U",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-quiry",
+     "name": "키리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=iWXtFzR-BhI",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-d",
+     "name": "D",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=BiRKz90LjNY",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-k",
+     "name": "K",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=besQpOxwwKg",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-marciana",
+     "name": "마르차나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=XFhkbcVfiUg",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-avista",
+     "name": "아비스타",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=wloFt1bVR0c",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-arcana",
+     "name": "아르카나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=DQR2P5EYPg0",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-phantom",
+     "name": "팬텀",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=msBl52UgcDU",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-label",
+     "name": "레이블",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=6HuIjp7YM6o",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-eh",
+     "name": "E.H.",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=kWaybxMnV2Q",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-sora",
+     "name": "소라",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=dGRSO62Azyg",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-zwei",
+     "name": "츠바이",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=fnArxvLSM5M",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-shifty",
+     "name": "시프티",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=GfFDr65-Iso",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-mecha-shifty",
+     "name": "메카 시프티",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 로봇·메카 외형(공식 프로필 이미지 기준)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-soldier-eg",
+     "name": "솔저 EG",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492116",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-soldier-fa",
+     "name": "솔저 FA",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492117",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-soldier-ow",
+     "name": "솔저 OW",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492118",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-laplace",
+     "name": "라플라스",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=asf3zKKMm9k",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-maxwell",
+     "name": "맥스웰",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://www.youtube.com/watch?v=QV9IG4I1_50",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-drake",
+     "name": "드레이크",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://www.youtube.com/watch?v=QxPBbmktH1s",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-sin",
+     "name": "신",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=Nx9REff-Tow",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-guilty",
+     "name": "길티",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=BtmU02KBTyo",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-quency",
+     "name": "퀀시",
+     "state": "review-rejected",
+     "attempts": 2,
+     "verdict": "reject",
+     "note": "재생성 후에도 비키니형 상의",
+     "source": "https://www.youtube.com/watch?v=fHKT--aNRts",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-shiratsuru",
+     "name": "백학",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=LoIWXxSWWxk",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-elegg",
+     "name": "일레그",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=NkFJJ3w1euU",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-trony",
+     "name": "트로니",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=lc1guxNuHFY",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-moli",
+     "name": "모리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=ovQEGjJLLrE",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-mihara",
+     "name": "미하라",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=RyaSDSoyY28",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-yuni",
+     "name": "유니",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=_zMGIKqJzAw",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-trina",
+     "name": "트리나",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "minor",
+     "note": "재생성 후 젖소무늬 레오타드+타이츠, 노출 경계",
+     "source": "https://www.youtube.com/watch?v=2dchrc1GlOo",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-flora",
+     "name": "플로라",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=PRCpFMDsx78",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-mana",
+     "name": "마나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=F1NYYri3b5o",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-ether",
+     "name": "에테르",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=P3Qn0vzbbjo",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-ein",
+     "name": "아인",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=A2Dnzf4ex4o",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-kilo",
+     "name": "킬로",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 로봇·메카 외형(공식 프로필 이미지 기준)",
+     "source": "https://www.youtube.com/watch?v=mkUr1ZXHkj0",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-shuen",
+     "name": "슈엔",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=rVxtp69FLRI",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-tove",
+     "name": "토브",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://www.youtube.com/watch?v=aAKlg9luGgo",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-tia",
+     "name": "티아",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=_sq66zOSR_I",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-naga",
+     "name": "나가",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=4Cmhb0_GwH4",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-jackal",
+     "name": "자칼",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=PkxHXOuN8Uo",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-crow",
+     "name": "크로우",
+     "state": "review-rejected",
+     "attempts": 2,
+     "verdict": "reject",
+     "note": "재생성 후에도 비키니형 상의",
+     "source": "https://game8.jp/nikke/492108",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-n102",
+     "name": "N102",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=nFXmdj3-2lo",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-admi",
+     "name": "애드미",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=HpaLqdmJzwY",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-epinel",
+     "name": "에피넬",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=LBnSWk5Gc0Y",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-julia",
+     "name": "율리아",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://www.youtube.com/watch?v=qjeHjZO6R2o",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-centi",
+     "name": "센티",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=redVnIAWP44",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-liter",
+     "name": "리타",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=36kXUbnpzdU",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-product-08",
+     "name": "프로덕트 08",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=6vPph1pGDX8",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-product-12",
+     "name": "프로덕트 12",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=rb3t1lBppfw",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-product-23",
+     "name": "프로덕트 23",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=9fnGfoFQu_Y",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-pepper",
+     "name": "페퍼",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=LCMAHlsysFg",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-anis",
+     "name": "아니스",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-belorta",
+     "name": "벨로타",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492138",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-mica",
+     "name": "미카",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://game8.jp/nikke/492142",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-ark-ranger-black",
+     "name": "아크레인저 블랙",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=tKD7fO2iR7A",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-prika",
+     "name": "프리카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=CTOe4_IMQYg",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-mint",
+     "name": "민트",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=Tj8nG1ZSXeg",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-velvet",
+     "name": "벨벳",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=XswkE5wz53s",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-ade",
+     "name": "에이드",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=KS-hXPgYgJY",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-soda",
+     "name": "소다",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=WtiZjg8g4QI",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-cocoa",
+     "name": "코코아",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=ZTtqqbD-_6Q",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-milk",
+     "name": "밀크",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=nGY3IlwioZ4",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-sugar",
+     "name": "슈가",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=vSDjzKabVLY",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-frima",
+     "name": "프림",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=ONyb_c_zGpA",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-crust",
+     "name": "크러스트",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=mtrzMrRyfxE",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-bready",
+     "name": "브래디",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=1BUIT3rn8v8",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-rumani",
+     "name": "루마니",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=5G8CYlFZ3As",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-folkwang",
+     "name": "폴크방",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://www.youtube.com/watch?v=S5YlA2sgcWg",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-rouge",
+     "name": "루주",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=s63DGw3G9RI",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-blanc",
+     "name": "블랑",
+     "state": "review-rejected",
+     "attempts": 2,
+     "verdict": "reject",
+     "note": "재생성 후에도 바니 레오타드",
+     "source": "https://www.youtube.com/watch?v=ptL7h1jTajE",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-noir",
+     "name": "누아르",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-sakura",
+     "name": "사쿠라",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=7tI85isHDmo",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-rosanna",
+     "name": "로산나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=e8UFlIUmG5Q",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-moran",
+     "name": "목단",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=Sltvr_U642Y",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-clay",
+     "name": "클레이",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "minor",
+     "note": "재생성 후 치어 크롭탑, 일반 치어 코스튬 수준",
+     "source": "https://www.youtube.com/watch?v=a3Ruh8bM2hw",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-bay",
+     "name": "베이",
+     "state": "review-rejected",
+     "attempts": 2,
+     "verdict": "reject",
+     "note": "재생성 후에도 CHEER 글자",
+     "source": "https://www.youtube.com/watch?v=yh2YEB3YdaQ",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-alice",
+     "name": "앨리스",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=Dg4X-encvWw",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-ludmilla",
+     "name": "루드밀라",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=R_tgYIXsE9o",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-neve",
+     "name": "네베",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=Hv2UvS6tRlU",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-leona",
+     "name": "레오나",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=4ZHgyHQA72c",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-nero",
+     "name": "네로",
+     "state": "review-rejected",
+     "attempts": 2,
+     "verdict": "reject",
+     "note": "재생성 후에도 비키니형 상의",
+     "source": "https://www.youtube.com/watch?v=z7KMI_dHMqQ",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-biscuit",
+     "name": "비스킷",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=SBys0ihKTgk",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-mary",
+     "name": "메어리",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=7vLsGfjYvrQ",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-rai",
+     "name": "라이",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=Ynu5r5oak_E",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-viper",
+     "name": "바이퍼",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=4NPvgBYs38w",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-rupee",
+     "name": "루피",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492155",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-dolla",
+     "name": "돌라",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492121",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-yan",
+     "name": "얀",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492148",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-aria",
+     "name": "아리아",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492098",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-noise",
+     "name": "노이즈",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492125",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-volume",
+     "name": "볼륨",
+     "state": "review-rejected",
+     "attempts": 2,
+     "verdict": "reject",
+     "note": "재생성 후에도 시스루·속옷형 하의",
+     "source": "https://nikke-kr.com/",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-exia",
+     "name": "엑시아",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=2hm1V_Xp65w",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-novel",
+     "name": "노벨",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=sS1IPsdFAzs",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-idoll-sun",
+     "name": "아이돌 선",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492109",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-idoll-ocean",
+     "name": "아이돌 오션",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492106",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-idoll-flower",
+     "name": "아이돌 플라워",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492129",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-yulha",
+     "name": "율하",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://www.youtube.com/watch?v=Oa7mckBTcFY",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-marian",
+     "name": "마리안",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=HwSeroZzp6c",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-rapunzel",
+     "name": "라푼젤",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=DncXSG7cbfA",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-scarlet",
+     "name": "홍련",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=c92D8eJ0rf0",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-snow-white",
+     "name": "스노우 화이트",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=5jPHRqigDw0",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-nayuta",
+     "name": "나유타",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=lInvdQ5CecQ",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-pinocchio",
+     "name": "피노키오",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-unverified game8 페이지가 미실장(実装はいつ？)으로 표기, 공식 KR 프로필 영상 없음",
+     "source": "https://game8.jp/nikke/709753",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-red-hood",
+     "name": "레드 후드",
+     "state": "review-rejected",
+     "attempts": 2,
+     "verdict": "reject",
+     "note": "재생성 후에도 가슴 노출",
+     "source": "https://www.youtube.com/watch?v=_SpApT0nNU0",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-cinderella",
+     "name": "신데렐라",
+     "state": "review-rejected",
+     "attempts": 2,
+     "verdict": "reject",
+     "note": "재생성 요청 공급사 거절, 1차본 노출",
+     "source": "https://game8.jp/nikke/649639",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-grave",
+     "name": "그레이브",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=J5iKee3LfAk",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-little-mermaid",
+     "name": "리틀 머메이드",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://www.youtube.com/watch?v=G_jaCogvEbA",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-dorothy",
+     "name": "도로시",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=NPU888AAfms",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-noah",
+     "name": "노아",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492124",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-harran",
+     "name": "하란",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://game8.jp/nikke/492127",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-isabel",
+     "name": "이사벨",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://game8.jp/nikke/492100",
+     "sourceType": "wiki-mirror"
+    },
+    {
+     "file": "nikke-modernia",
+     "name": "모더니아",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=HOQHrIq2kZs",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-nihilister",
+     "name": "니힐리스타",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://www.youtube.com/watch?v=bjuTMxWDV8M",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-liberalio",
+     "name": "리버렐리오",
+     "state": "registered",
+     "attempts": 2,
+     "verdict": "ok",
+     "note": "불투명·무문자 보정 1회 재생성 후 통과",
+     "source": "https://www.youtube.com/watch?v=W3BAP-edNzI",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-crown",
+     "name": "크라운",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=FXXkii4qBPo",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-chime",
+     "name": "차임",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "ok",
+     "note": "참고 의상과 색·구성 일치",
+     "source": "https://www.youtube.com/watch?v=5KeCFTz0h4E",
+     "sourceType": "official"
+    },
+    {
+     "file": "nikke-queen-makoto",
+     "name": "퀸(니지마 마코토)",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 페르소나5 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-aigis",
+     "name": "아이기스",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 페르소나3 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-yukiko-amagi",
+     "name": "아마기 유키코",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 페르소나4 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-kurumi",
+     "name": "쿠루미",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 리코리스 리코일 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-takina",
+     "name": "이노우에 타키나",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 리코리스 리코일 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-chisato",
+     "name": "니시키기 치사토",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 리코리스 리코일 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-claire-redfield",
+     "name": "클레어 레드필드",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 바이오하자드 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-ada-wong",
+     "name": "에이다 웡",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 바이오하자드 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-jill-valentine",
+     "name": "질 발렌타인",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 바이오하자드 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-eve",
+     "name": "이브",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 스텔라 블레이드 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-raven",
+     "name": "레이븐",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 스텔라 블레이드 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-lily",
+     "name": "릴리",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 스텔라 블레이드 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-sakura-suzuhara",
+     "name": "스즈하라 사쿠라",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 에반게리온 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-rei-ayanami",
+     "name": "아야나미 레이",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 에반게리온 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-asuka",
+     "name": "시키나미 아스카 랑그레이",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 에반게리온 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-misato",
+     "name": "카츠라기 미사토",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 에반게리온 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-mari",
+     "name": "마키나미 마리 일러스트리어스",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 에반게리온 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-emilia",
+     "name": "에밀리아",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab Re:제로 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-rem",
+     "name": "렘",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab Re:제로 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-ram",
+     "name": "람",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab Re:제로 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-2b",
+     "name": "2B",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 니어 오토마타 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-a2",
+     "name": "A2",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 니어 오토마타 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-pascal",
+     "name": "파스칼",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 로봇 몸체(니어 오토마타 콜라보 캐릭터이기도 함)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-makima",
+     "name": "마키마",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 체인소 맨 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-power",
+     "name": "파워",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 체인소 맨 콜라보",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "nikke-himeno",
+     "name": "히메노",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-collab 체인소 맨 콜라보",
+     "source": null,
+     "sourceType": null
+    }
+   ]
+  },
+  "aot": {
+   "rows": 19,
+   "counts": {
+    "provider-rejected": 17,
+    "hold": 1,
+    "registered": 1
+   },
+   "holdReasons": {
+    "hold-duplicate": 1
+   },
+   "items": [
+    {
+     "file": "aot-eren",
+     "name": "엘런 예거",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/final/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-mikasa",
+     "name": "미카사 아커만",
+     "state": "provider-rejected",
+     "attempts": 2,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-armin",
+     "name": "아르민 알레르토",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-jean",
+     "name": "장 키르슈타인",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-connie",
+     "name": "코니 스프링거",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-sasha",
+     "name": "사샤 브라우스",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-historia",
+     "name": "히스토리아 레이스",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-annie",
+     "name": "애니 레온하트",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-marco",
+     "name": "마르코 보트",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-reiner",
+     "name": "라이너 브라운",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-bertolt",
+     "name": "베르톨트 후버",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-ymir",
+     "name": "유미르",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-levi",
+     "name": "리바이",
+     "state": "provider-rejected",
+     "attempts": 2,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-erwin",
+     "name": "엘빈 스미스",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-duplicate 기존 aot-captain(병단장 망토복: 금발 옆가르마 가발·갈색 재킷·흰 바지·하네스)과 공식 1기 외형(갈색 재킷·흰 셔츠·볼로타이·금발 옆가르마)이 사실상 같음. 차이는 볼로타이와 망토 유무뿐",
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-hange",
+     "name": "한지 조에",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/season1/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-zeke",
+     "name": "지크 예거",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/final/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-pieck",
+     "name": "피크 핑거",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/final/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-falco",
+     "name": "팔코 그라이스",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/final/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "aot-gabi",
+     "name": "가비 브라운",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://shingeki.tv/final/character/",
+     "sourceType": "official"
+    }
+   ]
+  },
+  "demon-slayer": {
+   "rows": 105,
+   "counts": {
+    "provider-rejected": 27,
+    "reuse": 4,
+    "review-rejected": 1,
+    "registered": 27,
+    "hold": 46
+   },
+   "holdReasons": {
+    "hold-no-reference": 16,
+    "hold-group": 22,
+    "hold-nonhuman": 8
+   },
+   "items": [
+    {
+     "file": "demon-tanjiro",
+     "name": "카마도 탄지로",
+     "state": "provider-rejected",
+     "attempts": 2,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-nezuko",
+     "name": "카마도 네즈코",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-zenitsu",
+     "name": "아가츠마 젠이츠",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-genya",
+     "name": "시나즈가와 겐야",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-inosuke",
+     "name": "하시비라 이노스케",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-giyu",
+     "name": "토미오카 기유",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-shinobu",
+     "name": "코쵸우 시노부",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-kanao",
+     "name": "츠유리 카나오",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-rengoku",
+     "name": "렌고쿠 쿄쥬로",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-tengen",
+     "name": "우즈이 텐겐",
+     "state": "provider-rejected",
+     "attempts": 2,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/yukakuhen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-mitsuri",
+     "name": "칸로지 미츠리",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-muichiro",
+     "name": "토키토 무이치로",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-gyomei",
+     "name": "히메지마 교메이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-obanai",
+     "name": "이구로 오바나이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-sanemi",
+     "name": "시나즈가와 사네미",
+     "state": "review-rejected",
+     "attempts": 2,
+     "verdict": "reject",
+     "note": "재생성 요청 공급사 거절, 1차본 殺 글자",
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-murata",
+     "name": "무라타",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-aoi",
+     "name": "칸자키 아오이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-urokodaki",
+     "name": "우로코다키 사콘지",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-sabito",
+     "name": "사비토",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 여우 가면·칼 위주라 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-makomo",
+     "name": "마코모",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-guide-white",
+     "name": "안내인·흰 머리",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 안내역(공식 표기 「案内人・白髪」)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-guide-black",
+     "name": "안내인·검은 머리",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 안내역(공식 표기 「案内人・黒髪」)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-kasugai-crow",
+     "name": "까마귀(카스가이 가라스)",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 동물(까마귀). 여러 개체 1행 합산",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-haganezuka",
+     "name": "하가네즈카 호타루",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-tamayo",
+     "name": "타마요",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/hashirageikohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-yushiro",
+     "name": "유시로",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-jigoro",
+     "name": "쿠와지마 지고로",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-kie",
+     "name": "카마도 키에",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지에서 흰 두건 외 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-shigeru",
+     "name": "카마도 시게루",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-takeo",
+     "name": "카마도 타케오",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-hanako",
+     "name": "카마도 하나코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-rokuta",
+     "name": "카마도 로쿠타",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴만 보여 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-saburo",
+     "name": "사부로",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴 위주라 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-kagaya",
+     "name": "우부야시키 카가야",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/hashirageikohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-hand-demon-brother",
+     "name": "손 혈귀의 형",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 회상 단역",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-kazumi",
+     "name": "카즈미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-tokie",
+     "name": "토키에",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴·손에 가려 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-muzan-wife",
+     "name": "무잔의 아내",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-muzan-daughter",
+     "name": "무잔의 딸",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-udon-owner",
+     "name": "우동 가게 주인",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-chuntaro",
+     "name": "춘타로",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 동물(참새)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-shoichi",
+     "name": "쇼이치",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-teruko",
+     "name": "테루코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-kiyoshi",
+     "name": "키요시",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-wisteria-grandma",
+     "name": "할머니(등꽃 가문)",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역(공식 표기 「お婆さん」)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-kaigaku",
+     "name": "카이가쿠",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-mysterious-woman",
+     "name": "수수께끼의 여성",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 공식 표기가 「謎の女性」인 이름 없는 회상 인물",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-tanjuro",
+     "name": "카마도 탄쥬로",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-kakushi",
+     "name": "은(카쿠시)",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 공식 페이지 집단 1항목(隠, 성우 3명)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-rui-mother",
+     "name": "루이의 어머니",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 회상 단역",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-rui-father",
+     "name": "루이의 아버지",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 회상 단역",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-white-hair-a",
+     "name": "흰 머리 童子 A",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역(공식 표기 「白髪」)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-white-hair-b",
+     "name": "흰 머리 童子 B",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역(공식 표기 「白髪」)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-kiyo",
+     "name": "테라우치 키요",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-sumi",
+     "name": "나카하라 스미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-naho",
+     "name": "타카다 나호",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-kanae",
+     "name": "코쵸우 카나에",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-kanamori",
+     "name": "카나모리 코조",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-muzan",
+     "name": "키부츠지 무잔",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-temple-demon",
+     "name": "사당의 혈귀",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역 혈귀",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-hand-demon",
+     "name": "손 혈귀",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 손으로 뒤덮인 비인간형",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-swamp-demon",
+     "name": "늪 혈귀",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역 혈귀",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-yahaba",
+     "name": "야하바",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-susamaru",
+     "name": "스사마루",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-kyogai",
+     "name": "쿄가이",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴 위주라 의상 판독 불가(몸에 박힌 북은 신체 결합)",
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-rui",
+     "name": "루이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-mother-spider",
+     "name": "어미 거미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-brother-spider",
+     "name": "오빠 거미",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 거미 머리 비인간형",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-sister-spider",
+     "name": "누나 거미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/risshihen/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-father-spider",
+     "name": "아비 거미",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 거미 얼굴 거구 비인간형",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-enmu",
+     "name": "엔무",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenresshahen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-lower-two",
+     "name": "하현 이",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역(공식 표기 「下弦の弐」)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-lower-three",
+     "name": "하현 삼",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역(공식 표기 「下弦の参」)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-lower-four",
+     "name": "하현 사",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역(공식 표기 「下弦の肆」)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-lower-six",
+     "name": "하현 육",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역(공식 표기 「下弦の陸」)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-tomi",
+     "name": "토미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/mugenresshahen_tv/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-fuku",
+     "name": "후쿠",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/mugenresshahen_tv/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-blue-haori-member",
+     "name": "푸른 하오리의 귀살대원",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-conductor",
+     "name": "차장",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 이름 없는 단역",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-dream-youths",
+     "name": "꿈에 잠입한 청년과 소녀들",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-group 집단 항목(미성년 포함)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-shinjuro",
+     "name": "렌고쿠 신쥬로",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/character/mugenresshahen_tv/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-senjuro",
+     "name": "렌고쿠 센쥬로",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenresshahen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-ruka",
+     "name": "렌고쿠 루카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenresshahen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-akaza",
+     "name": "아카자",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-makio",
+     "name": "마키오",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴 위주라 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/yukakuhen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-suma",
+     "name": "스마",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴 위주라 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/yukakuhen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-hinatsuru",
+     "name": "히나츠루",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴 위주라 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/yukakuhen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-koinatsu",
+     "name": "코이나츠 오이란",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/yukakuhen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-daki",
+     "name": "다키",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지에서 의상 판독 불가(어깨끈만 보임). 원작 노출 큼",
+     "source": "https://kimetsu.com/anime/yukakuhen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-gyutaro",
+     "name": "규타로",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 어두워 의상 판독 어려움. 상의 없음·신체 반점 특수분장",
+     "source": "https://kimetsu.com/anime/yukakuhen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-obi-demon",
+     "name": "다키의 오비 혈귀",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 띠 형태 비인간형",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-kotetsu",
+     "name": "코테츠",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-tetsutin",
+     "name": "테츠치카와하라 텟친",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-hantengu",
+     "name": "한텐구",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 어두워 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-gyokko",
+     "name": "굣코",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 항아리 비인간형",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-sekido",
+     "name": "세키도",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴 위주라 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-karaku",
+     "name": "카라쿠",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴 위주라 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-urogi",
+     "name": "우로기",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 날개·새 다리 비인간형",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "demon-aizetsu",
+     "name": "아이제츠",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴 위주라 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-zohakuten",
+     "name": "조하쿠텐",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 이미지가 얼굴 위주라 의상 판독 불가",
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-yuichiro",
+     "name": "토키토 유이치로",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/katanakajinosatohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-amane",
+     "name": "우부야시키 아마네",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "공식 참고가 상반신/장면 캡처라 하의·신발은 추정",
+     "source": "https://kimetsu.com/anime/hashirageikohen/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-kokushibo",
+     "name": "코쿠시보",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-doma",
+     "name": "도우마",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    },
+    {
+     "file": "demon-nakime",
+     "name": "나키메",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://kimetsu.com/anime/mugenjyohen_movie/character/",
+     "sourceType": "official"
+    }
+   ]
+  },
+  "jujutsu": {
+   "rows": 67,
+   "counts": {
+    "provider-rejected": 21,
+    "hold": 30,
+    "reuse": 4,
+    "registered": 12
+   },
+   "holdReasons": {
+    "hold-nonhuman": 9,
+    "hold-no-reference": 13,
+    "hold-duplicate": 1,
+    "hold-unverified": 7
+   },
+   "items": [
+    {
+     "file": "jjk-yuji",
+     "name": "이타도리 유지",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/109957/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-megumi",
+     "name": "후시구로 메구미",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/109957/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-nobara",
+     "name": "쿠기사키 노바라",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/109957/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-maki",
+     "name": "젠인 마키",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2021/09/27/64187.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-toge",
+     "name": "이누마키 토게",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2021/09/27/64187.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-panda",
+     "name": "판다",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 판다 형태",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-gojo",
+     "name": "고죠 사토루",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-yaga",
+     "name": "야가 마사미치",
+     "state": "provider-rejected",
+     "attempts": 2,
+     "verdict": null,
+     "note": null,
+     "source": "https://dengekionline.com/articles/51095/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-nanami",
+     "name": "나나미 켄토",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-ijichi",
+     "name": "이지치 키요타카",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://dengekionline.com/articles/51095/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-shoko",
+     "name": "이에이리 쇼코",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://dengekionline.com/articles/51095/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-meimei",
+     "name": "메이메이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2023/04/24/76965.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-naobito",
+     "name": "젠인 나오비토",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-todo",
+     "name": "토도 아오이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://dengekionline.com/articles/51095/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-noritoshi",
+     "name": "카모 노리토시",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/112557/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-momo",
+     "name": "니시미야 모모",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/112557/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-mai",
+     "name": "젠인 마이",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://dengekionline.com/articles/51095/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-miwa",
+     "name": "미와 카스미",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://dengekionline.com/articles/51095/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-mechamaru",
+     "name": "무타 코키치(메카마루)",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 로봇 조종체(공식 설정화도 로봇 외형)",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-utahime",
+     "name": "이오리 우타히메",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/112557/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-gakuganji",
+     "name": "가쿠간지 요시노부",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://dengekionline.com/articles/51095/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-geto",
+     "name": "게토 스구루",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-jogo",
+     "name": "죠고",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 화산 머리 주령",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-hanami",
+     "name": "하나미",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 나무 형태 주령",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-junpei",
+     "name": "요시노 준페이",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://dengekionline.com/articles/51095/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-mahito",
+     "name": "마히토",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://dengekionline.com/articles/51095/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-choso",
+     "name": "쵸소",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2021/03/08/59964.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-eso",
+     "name": "에소",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2021/03/08/59964.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-kechizu",
+     "name": "케치즈",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 공식 설정화도 비인간형",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-sukuna",
+     "name": "료멘 스쿠나",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2026/11/01/104383.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-haibara",
+     "name": "하이바라 유",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2023/04/24/76965.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-riko",
+     "name": "아마나이 리코",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-kuroi",
+     "name": "쿠로이 미사토",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2023/04/24/76965.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-shiu",
+     "name": "콩 시우",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2023/04/24/76965.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-toji",
+     "name": "후시구로 토우지",
+     "state": "reuse",
+     "attempts": 0,
+     "verdict": null,
+     "note": null,
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-yuki",
+     "name": "츠쿠모 유키",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2026/11/01/104383.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-yuko",
+     "name": "오자와 유코",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-uiui",
+     "name": "우이우이",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/119523/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-ko-guy",
+     "name": "메뚜기 GUY",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 메뚜기 형태 주령",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-uraume",
+     "name": "우라우메",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-ebina",
+     "name": "에비나 니지",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음. 역할도 미확인",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-awasaka",
+     "name": "아와사카 지로",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-ogami",
+     "name": "오가미 할멈",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-ogami-grandson",
+     "name": "오가미 할멈의 손자",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-dagon",
+     "name": "다곤",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 문어형 주령",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-mimiko",
+     "name": "하사바 미미코",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-nanako",
+     "name": "하사바 나나코",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-yuta",
+     "name": "옷코츠 유타",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2021/09/27/64187.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-naoya",
+     "name": "젠인 나오야",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://animeanime.jp/article/2026/11/01/104383.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-tengen",
+     "name": "텐겐",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 비인간 외형",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-kirara",
+     "name": "호시 키라라",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/125432/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-hakari",
+     "name": "하카리 킨지",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/125432/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-higuruma",
+     "name": "히구루마 히로미",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/125432/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-takaba",
+     "name": "타카바 후미히코",
+     "state": "provider-rejected",
+     "attempts": 1,
+     "verdict": null,
+     "note": null,
+     "source": "https://anime.eiga.com/news/125432/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-reggie",
+     "name": "레지 스타",
+     "state": "registered",
+     "attempts": 1,
+     "verdict": "minor",
+     "note": "깃털 망토 질감 단순화",
+     "source": "https://anime.eiga.com/news/125432/",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-kenjaku",
+     "name": "켄자쿠",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-duplicate 기존 jjk-geto(게토 법의)와 의상·가발 같음. 차이는 이마 봉합선뿐",
+     "source": "https://animeanime.jp/article/2026/11/01/104383.html",
+     "sourceType": "official"
+    },
+    {
+     "file": "jjk-kogane",
+     "name": "코가네",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-nonhuman 식신",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-kashimo",
+     "name": "카시모 하지메",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-ishigori",
+     "name": "이시고리 류",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-uro",
+     "name": "우로 타카코",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-no-reference 공식 사이트 403, 팬위키 이미지 CDN은 Cloudflare 확인 페이지(우회 안 함), 접근 가능한 공식 보도 이미지 못 찾음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-kurusu",
+     "name": "쿠루스 하나",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-unverified 초안도 보도 원문 미열람, 애니 공식 게재·외형 근거 없음",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-shigemo",
+     "name": "시게모 하루타",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-unverified 초안의 「공식 게재 미확인 후보」(총 61명 밖). 공식 캐릭터 페이지 403으로 게재 여부 확인 불가",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-kusakabe",
+     "name": "쿠사카베 아츠야",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-unverified 초안의 「공식 게재 미확인 후보」(총 61명 밖). 공식 캐릭터 페이지 403으로 게재 여부 확인 불가",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-jinichi",
+     "name": "젠인 진이치",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-unverified 초안의 「공식 게재 미확인 후보」(총 61명 밖). 공식 캐릭터 페이지 403으로 게재 여부 확인 불가",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-kumiya",
+     "name": "쿠미야 쥬조",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-unverified 초안의 「공식 게재 미확인 후보」(총 61명 밖). 공식 캐릭터 페이지 403으로 게재 여부 확인 불가",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-ino",
+     "name": "이노 타쿠마",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-unverified 초안의 「공식 게재 미확인 후보」(총 61명 밖). 공식 캐릭터 페이지 403으로 게재 여부 확인 불가",
+     "source": null,
+     "sourceType": null
+    },
+    {
+     "file": "jjk-nitta",
+     "name": "닛타 아카리",
+     "state": "hold",
+     "attempts": 0,
+     "verdict": null,
+     "note": "hold-unverified 초안의 「공식 게재 미확인 후보」(총 61명 밖). 공식 캐릭터 페이지 403으로 게재 여부 확인 불가",
+     "source": null,
+     "sourceType": null
+    }
+   ]
+  }
+ },
+ "totals": {
+  "provider-rejected": 219,
+  "hold": 112,
+  "registered": 263,
+  "reuse": 20,
+  "review-rejected": 9
+ },
+ "cost": {
+  "requests": 526,
+  "success": 296,
+  "rejected400": 230,
+  "other": 0,
+  "regenerate": 24,
+  "diagnostic": 4,
+  "estimatedUsd": 14.328,
+  "basis": "output $0.02/장 + input $0.008/장(BytePlus Billing center 단가, 2026-11-14 확인), 거절 요청은 입력 2장 과금 가정",
+  "model": "dola-seedream-5-5-261028",
+  "size": "1024x1024",
+  "inputImagesPerRequest": "2 (진단 일부 1)"
+ },
+ "scope": "오버워치·디아블로 제외 게임/애니 6분류, 캐릭터당 기본 의상 1종. 초안 617행 + 주술회전 공식 게재 미확인 후보 6행 = 623행",
+ "states": {
+  "registered": "Seedream 생성·육안 검수 통과 후 카탈로그/서버 매핑 등록",
+  "reuse": "기존 카탈로그 항목 재사용",
+  "hold": "참조 확보 단계 보류(사유 holdReason)",
+  "provider-rejected": "공급사 출력 안전검사 400, 우회·다른 모델 사용 없이 보류",
+  "review-rejected": "생성됐으나 노출·문자로 검수 탈락(1회 보정 재생성 후에도 불통과)",
+  "untried": "시도하지 않은 항목(없어야 함)"
+ },
+ "generation": {
+  "prompt": "공식 외형 참고 1장 + 기존 overwatch-ashe-v2 스타일 참고 1장, 베이지 스튜디오·얼굴 없는 성인 마네킹, 노출 항목은 불투명 이너 보정, 재생성은 무문자 지시 추가",
+  "asset": "512x512 WebP q90, 프론트 public과 서버 src/platform/ai-photo-costumes 바이트 동일",
+  "references": ".local에만 보관, 공개 경로 미포함"
+ },
+ "verification": {
+  "verifier": ".local/costume-all/verify.cjs: front 342 = server 342, 6자리 sha256(file) 규칙, 파일 존재·바이트 동일·WebP 512 디코딩, 고아 파일 0; 서버 파일 제거/바이트 변경 대조검사 실패 확인",
+  "server": "npm run build 0, CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs 37/37 (전체 ID 참조 이미지 읽기 포함)",
+  "front": "typecheck 0, 의상 관련 3개 테스트 파일 74/74(353종 기준 재실행), 전체 682중 665 통과·17 실패는 origin/prod 8c5074e 기준선과 동일 목록",
+  "notRun": "실제 사용자 사진 합성 품질, 운영 배포, check:docs(형제 저장소 경로 누락으로 기존과 같이 실패)"
+ },
+ "actualBilling": "BytePlus Billing center 2026-11-14 조회(원신 96건 시도 전): 11월 누계 $15.86, 작업 전 $5.60 → 이번 작업분 약 $10.26. 거절 요청은 과금되지 않은 것으로 보임(출력·입력 수량이 성공 건과 일치). 원신 추가 시도분은 이후 청구에 반영.",
+ "decisions": {
+  "2026-11-14 /ask-me": "운영 배포 진행, 원신 미시도 96명 1회씩 시도(11명 통과), 콜라보 계속 제외, 이름·작은 오류는 배포 후 피드백 수정"
+ }
+}

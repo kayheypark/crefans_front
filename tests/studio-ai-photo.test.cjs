@@ -218,9 +218,9 @@ test('mask icon tools: all brush sizes paint correctly, undo removes one stroke,
 
 test('costume categories: nine populated groups, existing eight general styles, and 90 unique short prompts',()=>{
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumeCategories.length,9);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,4,4,4,54,4,4,4,4]);
+ assert.equal(aiPhotoCostumeCategories.length,9);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,116,16,103,54,4,5,31,16]);
  assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['773106','80974e','ffb58f','666147','b4bf5d','e614f6','190513','ab36e8']);
- assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,90);
+ assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,353);
  for(const c of aiPhotoCostumes){assert.ok(aiPhotoCostumeCategories.some(g=>g.value===c.category));assert.ok(c.prompt.length<=300);assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');}
 });
 
@@ -346,7 +346,7 @@ test('reset ticket: button refills the count, is off when unused, hidden without
 
 test('complete cosplay look: catalog hair and accessories reach the request after leaving the wardrobe',async()=>{
  const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumes.length,90);
+ assert.equal(aiPhotoCostumes.length,353);
  for(const item of aiPhotoCostumes){assert.match(item.wig,/가발|후드|머리장식/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
  const {r,calls,click}=await open();await click('코스어 모드');await click('리본 메이드');
  assert.doesNotMatch(text(r.toJSON()),/옷을 바꿀 영역을 칠해 주세요/);await click('일반 모드');
@@ -504,7 +504,7 @@ test('search keeps selected poses, resets pages, clears on tabs and finds costum
 });
 
 
-test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,90);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
+test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,353);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
 
 test('clothing detail switch defaults off, sends no guide, and ignores retained strokes when off',async()=>{
  const {r,click,calls}=await open({},true);
@@ -598,12 +598,13 @@ test('background subcategories show twenty-four indoor and eight outdoor presets
  const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('1장 만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
 });
 
-test('download saves original bytes and reports failure without changing selected result',async()=>{
- const previous={fetch:global.fetch,document:global.document,setTimeout:global.setTimeout,create:URL.createObjectURL,revoke:URL.revokeObjectURL};let clicked=0,removed=0,saved,revoked,link={click(){clicked++},remove(){removed++}};const bytes=new Blob(['original'],{type:'image/webp'});
- try{global.fetch=async url=>{assert.equal(url,'/a1.png');return {ok:true,blob:async()=>bytes}};global.document={createElement:()=>link,body:{appendChild(){}}};URL.createObjectURL=blob=>{saved=blob;return 'blob:download'};URL.revokeObjectURL=url=>{revoked=url};global.setTimeout=fn=>{fn();return 0};
- const {r,click}=await open();await click('1장 만들기');await click('결과 1 다운로드');assert.equal(clicked,1);assert.equal(removed,1);assert.equal(saved,bytes);assert.equal(link.download,'crefans-ai-a1.webp');assert.equal(revoked,'blob:download');assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);
+test('download converts the stored image to PNG in the browser and reports failure without changing selected result',async()=>{
+ const previous={fetch:global.fetch,document:global.document,setTimeout:global.setTimeout,create:URL.createObjectURL,revoke:URL.revokeObjectURL,bitmap:global.createImageBitmap};let clicked=0,removed=0,saved,revoked,drawn,link={click(){clicked++},remove(){removed++}};const bytes=new Blob(['original'],{type:'image/webp'}),png=new Blob(['png'],{type:'image/png'});
+ const canvas={width:0,height:0,getContext:()=>({drawImage:(b,x,y)=>{drawn=[b.width,b.height,x,y]}}),toBlob:(done,type)=>{assert.equal(type,'image/png');done(png)}};global.createImageBitmap=async blob=>{assert.equal(blob,bytes);return {width:640,height:800,close(){}}};
+ try{global.fetch=async url=>{assert.equal(url,'/a1.png');return {ok:true,blob:async()=>bytes}};global.document={createElement:tag=>tag==='canvas'?canvas:link,body:{appendChild(){}}};URL.createObjectURL=blob=>{saved=blob;return 'blob:download'};URL.revokeObjectURL=url=>{revoked=url};global.setTimeout=fn=>{fn();return 0};
+ const {r,click}=await open();await click('1장 만들기');await click('결과 1 다운로드');assert.equal(clicked,1);assert.equal(removed,1);assert.equal(saved,png);assert.deepEqual(drawn,[640,800,0,0]);assert.equal([canvas.width,canvas.height].join('x'),'640x800');assert.equal(link.download,'crefans-ai-a1.png');assert.equal(revoked,'blob:download');assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);
  global.fetch=async()=>({ok:false});await click('결과 1 다운로드');assert.match(text(r.toJSON()),/다운로드하지 못했어요/);assert.equal(clicked,1);
- }finally{global.fetch=previous.fetch;global.document=previous.document;global.setTimeout=previous.setTimeout;URL.createObjectURL=previous.create;URL.revokeObjectURL=previous.revoke;}
+ }finally{global.fetch=previous.fetch;global.document=previous.document;global.setTimeout=previous.setTimeout;URL.createObjectURL=previous.create;URL.revokeObjectURL=previous.revoke;global.createImageBitmap=previous.bitmap;}
 });
 
 test('viewer ignores pinch and cancelled pointer gestures while permitting browser zoom',async()=>{
