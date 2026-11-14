@@ -14,7 +14,7 @@ const select=(tree,q)=>act(()=>tree.root.findAllByType('input').find(n=>Number(n
 const agree=tree=>act(()=>tree.root.findByProps({type:'checkbox'}).props.onChange({target:{checked:true}}));
 const amount=tree=>tree.root.findAllByType('dd')[1].children.join('');
 test('nine fixed choices charge 110 KRW per bean including VAT and require a selection',async()=>{
- for(const q of [10,30,50,100,300,500,1000,5000,10000]){
+ for(const q of [10,30,50,100,200,300,500,700,900]){
   const {tree,calls}=setup();try{
    assert.equal(tree.root.findAllByType('input').length,9);
    assert.equal(tree.root.findByProps({type:'submit'}).props.disabled,true);
