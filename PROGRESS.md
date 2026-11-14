@@ -1,3 +1,10 @@
+## 2026-11-14 AI 프리셋·사진 편집 운영 배포 완료
+- 사용자 운영배포 요청. dev→prod 동일소스통합: front d50a993 / server bb1d60c. 운영 front=front-ai-presets-20261114, API/worker=ai-presets-20261114. 신규배경22(전체32:실내24/야외8), 신규포즈9(전체39:앉기13/서기26), 기존미배포 비율/자르기·사진중심완료화면·개인보관함 포함.
+- 검증: feature대비merge소스diff없음, 기존프론트73/서버51테스트·타입/빌드통과. 운영31새이미지HTTP200·SHA256일치, API22배경바이트동일, 비로그인보관함/쿼터401. WebKit390/320 운영도메인예시화면의22배경+9포즈검색/분류/선택/해제/로딩, JS오류/가로넘침없음. 실제로그인편집/유료Seedream생성은미실행.
+- 운영 frontend/API/worker Running,재시작0,OOM없음,health ready. 관리자/DB/proxy보존. 스키마/의존성변경없어migration미실행. 로컬shasum locale오류는서버교체전발생, LC_ALL=C로재실행하여해결.
+- 복구: /Users/ethan/crefans-recovery/20261114/{ai-presets-api,front-ai-presets-20261114}에직전이미지와설정보관, SHA256·tar내용·태그/ID·레이어검증뒤서버이전태그/임시백업정리. 활성이미지/DB/업로드보존. 과거로컬복구본삭제없음.
+- 증거 front docs/audit/ai-presets-release-20261114.json, 양쪽 .local/ai-presets-release, front .local/ship-front-ai-presets-20261114. 다음: 사용자 실제생성피드백에따라확인. 아래각절의미배포표기는당시작업시점기록이며본배포에포함됨.
+
 ## 2026-11-14 첨부33장 포즈분류·9종 추가 (운영 미배포)
 - 사용자수정: 배경뿐아니라포즈도분류. 3묶음9+10+14장 전부 docs/audit/pose-source-classification-20261114.json에 원본번호·SHA256·포즈번호매핑. 기존30종재사용+누락9종추가. 노출중심사진은옷을갖춰입은중립대안(무릎모으기/발내리기)으로분류.
 - 신규31무릎꿇기/32옆앉기/33손뻗기/34이마손/35뒤로손짚기/36한발뒤로접기/37소품들기/38무릎안기/39앉아서팔올리기. 기존코없는라벤더마스코트스타일로image_gen제작,384정사각WebP. 전체39종:앉기13/서기26. 기존검색·페이징·선택취소·카테고리누적 유지.

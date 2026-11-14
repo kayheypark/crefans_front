@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T07:48:33.043335+00:00",
+  "checkedAt": "2026-11-14T07:56:04.972235+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "a17c2114e0edb9d5ae1aa178001162eb3d6046fa",
-      "branch": "feat/ai-ratio-crop-20261114",
+      "head": "d50a9933f4b8544418ee42fad1526345b332135f",
+      "branch": "release/ai-presets-prod-20261114",
       "dirty": true
     },
     "server": {
-      "head": "5a22348f604adfbee47e3a1140de07e3d62bd8ba",
-      "branch": "feat/ai-ratio-crop-20261114",
-      "dirty": false
+      "head": "bb1d60c6222bcd9976b5ac12c999002eb38b3c95",
+      "branch": "release/ai-presets-prod-20261114",
+      "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "852c1aa342b0068890a92a9ee0a572c0c245c7e7a1c5164c88a961dd17aedcaf",
-      "front/PROGRESS.md": "253c18000bf9fef6c4347c2accd626d66eeb9e316b7311ea9f9b3f5146165c8c",
+      "front/PROGRESS.md": "a21c07f2c9e4b46c4a7eb058a5ccc8b8ca38d933a2ce23ad619606d565468265",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "37d1f0a055563718c29ac42660d2c73a07b3c9881f35b4f3115c861aa6b8919b",
-      "server/PROGRESS.md": "a6c65fe060638724d3312de905a7860228e43108feaff0159311b1f991b6e31c",
+      "server/PROGRESS.md": "7fece0bc2f33ff92f3423d8bca67bc00625fcbfc3fc39182c90fde32ad731388",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
