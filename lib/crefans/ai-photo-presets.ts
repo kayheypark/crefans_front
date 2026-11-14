@@ -103,13 +103,11 @@ export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
+ if(['expression','pose','camera'].includes(kind))return `/brand/ai-photo/pictograms/${kind}-${String(aiPhotoPresets[kind].indexOf(example)+1).padStart(2,'0')}.svg`;
  if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return `/brand/ai-photo/presets/body-male-${control.key}-v1.webp`;}
- if(kind==='expression'&&example===aiPhotoNeutralExpressionPreset)return `/brand/ai-photo/presets/expression-neutral-${gender==='male'?'male':'female'}-v1.webp`;
  const index=aiPhotoPresets[kind].filter(value=>value!==aiPhotoComicWorldPreset&&value!==aiPhotoNeutralExpressionPreset).indexOf(example);
  const id=example===aiPhotoComicWorldPreset?'background-comicworld':`${kind}-${String(index+1).padStart(2,'0')}`;
- const originalGender=index%2===0?'female':'male';
- const variant=kind==='expression'&&gender!=='original'&&gender!==originalGender?`-${gender}`:'';
- return `/brand/ai-photo/presets/${id}${variant}-v1.webp`;
+ return `/brand/ai-photo/presets/${id}-v1.webp`;
 }
 
 // 카드의 짧은 이름과 실제 생성 요청을 분리한다. 순서는 각 프리셋과 같다.

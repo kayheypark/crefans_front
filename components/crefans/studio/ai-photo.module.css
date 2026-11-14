@@ -187,3 +187,5 @@
 .costumeCard:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
 .photoPresetGrid .preset>img,.wardrobeLayout .costumeImage{height:var(--ai-photo-preset-height);aspect-ratio:auto}
 .wardrobeLayout .costumeGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.wardrobeLayout .presetViewport .costumeGrid{grid-template-rows:repeat(2,minmax(0,1fr))}.wardrobeLayout>.presetNavigation{justify-content:flex-end;margin-bottom:8px}.presetViewport{cursor:grab}.presetViewport:active{cursor:grabbing}
+
+.photoPresetGrid .preset>img.presetIllustration{object-fit:contain;background:#f8faff}
