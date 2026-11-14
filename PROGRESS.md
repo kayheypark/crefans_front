@@ -1,3 +1,10 @@
+## 2026-11-14 만들기 버튼 횟수 검증 완료
+- 버튼오른쪽남은N회배지,기존remaining재사용. 제목중앙/접근성이름유지·설명으로횟수전달. 기존본문리셋권동작보존. WebKit 10→9·320px오른쪽배치/영역내표시확인,스크린샷눈검사. 기존기대텍스트검사2개갱신후56/56·타입0통과.
+- .local/create-quota/{verification.json,unit-final.log,types.log,browser.log,mobile.png}. 공급사실호출없음. 운영배포준비중,캐시정리후공간재확인예정.
+
+## 2026-11-14 만들기 버튼 남은 횟수 표시 진행
+- 기존remaining상태를버튼내부오른쪽남은N회배지로표시. 제목중앙유지,aria-describedby로횟수전달. 생성/리셋권/서버quota동기화기존상태재사용. 기존본문횟수/리셋권동작보존. 합격:모바일위치/10→9갱신/기존AI회귀·타입/운영번들.
+
 ## 2026-11-14 신체 연속 슬라이더 운영 배포 완료
 - 607417c dev→prod, front-body-slider-20261114 04:26:11UTC 적용. 운영컨테이너/보정강도표시·소수강도프롬프트·기준점스타일번들확인,주요페이지·헬스정상·다른컨테이너유지. 56/56·타입·계층455·WebKit실포인터/터치/키보드검증통과. docs기존형제참조누락실패,공급사실생성정밀효과미검증.
 - 이전이미지/설정은 /Users/ethan/crefans-recovery/20261114/front-body-slider-20261114 SHA/OCI/15blobs검증후서버사본·임시정리. .local/body-slider/{production.json,ship.log,verification.json,mobile.png,male.png}. 신체사진프리셋은UI미노출,기존이미지파일은보존.

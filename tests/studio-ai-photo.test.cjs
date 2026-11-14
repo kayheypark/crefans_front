@@ -163,7 +163,7 @@ test('preset selection and custom input are independent and both reach the provi
 
 test('single-image flow: only generate stays in footer and all editor fields scroll in the body',async()=>{
  const {r,click}=await open();const footer=r.root.findByProps({className:'footer'}),body=r.root.findByProps({className:'body'});
- assert.equal(footer.findAllByType('button').length,1);assert.equal(text(footer),'1장 만들기');assert.equal(footer.findAllByType('textarea').length,0);
+ assert.equal(footer.findAllByType('button').length,1);assert.equal(text(footer),'1장 만들기남은 10회');assert.equal(footer.findAllByType('textarea').length,0);
  assert.equal(body.findAllByProps({className:'sourceSection'}).length,1);assert.equal(body.findAllByProps({className:'composer'}).length,1);assert.equal(body.findAllByProps({className:'quota'}).length,1);
  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝게 웃어줘'}}));
 
@@ -385,7 +385,7 @@ test('same category replaces or toggles only its preset; other categories and ma
 
 test('create availability: exhausted quota stays clickable and explains without sending, ticket restores generation',async()=>{
  const {r,click,calls}=await open({quota:{remaining:0,limit:10,resetTickets:{count:1,nextExpiresAt:null}},onUseTicket:async()=>({success:true,data:{remaining:10,limit:10,resetTickets:{count:0,nextExpiresAt:null},message:'횟수 복원'}})});
- const createButton=()=>r.root.find(n=>n.type==='button'&&text(n)==='1장 만들기');
+ const createButton=()=>r.root.find(n=>n.type==='button'&&n.props['aria-label']==='1장 만들기');
  assert.equal(createButton().props.disabled,false);
  await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.root.findByProps({'aria-label':'AI 사진 편집 안내'})),/리셋권/);
  await click('확인');await click('1장 써서');

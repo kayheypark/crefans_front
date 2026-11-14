@@ -215,3 +215,5 @@
 .bodyAdjustments input[type=range]::-moz-range-thumb{width:16px;height:16px;border:2px solid var(--cf-color-surface);border-radius:50%;background:var(--cf-color-accent);box-shadow:0 1px 4px #0002}
 .bodyAdjustments input[type=range]:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px;border-radius:8px}
 .bodyAdjustments input[type=range]:disabled{opacity:.5;cursor:default}
+
+.footer .createWithQuota{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.createLabel{grid-column:2;white-space:nowrap}.createQuota{grid-column:3;justify-self:end;padding:3px 8px;border-radius:999px;background:rgb(255 255 255 / 18%);color:inherit;font-size:12px;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}

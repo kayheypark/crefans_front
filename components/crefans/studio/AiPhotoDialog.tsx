@@ -161,7 +161,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
    </div>
    {stage==='edit'&&<div className={s.footer} inert={viewing}>
-    <Action type="button" onClick={()=>void generate()} disabled={busy}>{`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</Action>
+    <Action type="button" className={s.createWithQuota} aria-label={`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`} aria-describedby={`${panelId}-remaining`} onClick={()=>void generate()} disabled={busy}><span className={s.createLabel}>{`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</span><span id={`${panelId}-remaining`} className={s.createQuota}>남은 {remaining}회</span></Action>
    </div>}
   </>}
   {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onToggle={toggle} onClose={closeViewer}/>}
