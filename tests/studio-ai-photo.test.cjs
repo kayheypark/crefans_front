@@ -463,7 +463,7 @@ test('gender picker exposes only female and male reflects the explicit entry cho
 
 test('result actions: only continue editing and confirm appear in the action row',async()=>{
  const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 조명'}}));await click('1장 만들기');
- const buttons=r.root.findByProps({className:'resultActions'}).findAllByType('button');assert.deepEqual(buttons.map(text),['계속 보정','사진 결정']);assert.doesNotMatch(text(r.toJSON()),/다시 만들기|이미지 편집|게시물에 추가/);await click('계속 보정');assert.equal(calls.length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'');
+ const buttons=r.root.findByProps({className:'resultActions'}).findAllByType('button');assert.deepEqual(buttons.map(text),['원본으로','계속 보정','사진 결정']);assert.doesNotMatch(text(r.toJSON()),/다시 만들기|이미지 편집|게시물에 추가/);await click('계속 보정');assert.equal(calls.length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'');
 });
 
 test('preset pager claims a horizontal touch drag so iOS Safari does not turn it into a scroll, and leaves vertical scroll and pinch alone',async()=>{
@@ -561,7 +561,7 @@ test('waiting hearts never change requests; failure and success remove game, ret
  assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/생성 실패/);
  await click('확인');await click('1장 만들기');assert.equal(score(),'0');assert.equal(sent.length,2);assert.equal(JSON.stringify(sent[1]),original);
  await click('하트 1 모으기');assert.equal(score(),'1');await act(async()=>finish({success:true,data:{images:[{id:'done',type:'image',url:'/done.png'}],remaining:9}}));
- assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/사진 결정/);assert.match(text(r.toJSON()),/생성되었어요/);assert.match(text(r.toJSON()),/모은 하트 1개/);assert.match(text(r.toJSON()),/모은 하트는 좋은 일이 생길지도 몰라요/);assert.equal(sent.length,2);
+ assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/사진 결정/);assert.match(text(r.toJSON()),/생성되었어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 1개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/1\/100/);assert.match(text(r.toJSON()),/100개가 모이면 10번의 기회가 생겨요/);assert.equal(sent.length,2);
 });
 
 
@@ -615,5 +615,21 @@ test('viewer ignores pinch and cancelled pointer gestures while permitting brows
 
 test('signed-in heart game submits pieces not scores and shows cumulative conversion',async()=>{
  const actions=[];const {r,click,calls}=await open({quota:{remaining:10,limit:10,hearts:85},onHeartGame:async input=>{actions.push(input);return {success:true,data:input.action==='start'?{id:'game1',kinds:['heart','candy','heart','moon','heart']}:input.action==='finish'?{earned:30,hearts:5,credits:11,converted:11}:{score:1}};}});
- await click('1장 만들기');assert.equal(calls[0].heartGameId,'game1');assert.deepEqual(actions.map(x=>x.action),['start','finish']);assert.match(text(r.toJSON()),/하트 110개를 생성 11회로 바꿨어요/);assert.match(text(r.toJSON()),/모은 하트 30개/);assert.ok(actions.every(x=>!('score' in x)));
+ await click('1장 만들기');assert.equal(calls[0].heartGameId,'game1');assert.deepEqual(actions.map(x=>x.action),['start','finish']);assert.match(text(r.toJSON()),/하트 110개를 생성 11회로 바꿨어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 5개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/5\/100/);assert.doesNotMatch(text(r.toJSON()),/30\/100/);assert.ok(actions.every(x=>!('score' in x)));
+});
+
+test('continue editing preserves selected cosplay or general mode in UI and next request',async()=>{
+ for(const [label,mode] of [['코스어 모드','cosplay'],['일반 모드','general']]){
+  const {r,click,calls}=await open();await click(label);await click('1장 만들기');await click('계속 보정');
+  const group=r.root.findByProps({'aria-label':'편집 모드'});assert.equal(group.find(n=>n.type==='button'&&text(n).includes(label)).props['aria-pressed'],true);assert.equal(calls.length,1);
+  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'자연스러운 미소'}}));await click('1장 만들기');assert.equal(calls[1].mode,mode);assert.equal(calls[1].source.id,'a1');await act(async()=>r.unmount());
+ }
+});
+
+test('original action returns to the correct uploaded photo after chained edits without generating',async()=>{
+ const second={id:'p2',type:'image',url:'/p2.png'};let made=0;const {r,click,calls}=await open({images:[photo,second],onEdit:async input=>{calls.push(input);return {success:true,data:{images:[{id:'chain-'+(++made),type:'image',url:'/generated.png'}],remaining:9}};}},true);
+ await click('사진 선택');await act(async()=>r.root.findByProps({'aria-label':'2번 사진'}).props.onClick());await click('1장 만들기');await click('계속 보정');
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'미소'}}));await click('1장 만들기');assert.equal(calls[1].source.id,'chain-1');await click('원본으로');assert.equal(calls.length,2);
+ const mode=r.root.findByProps({'aria-label':'편집 모드'});assert.equal(mode.find(n=>n.type==='button'&&text(n).includes('코스어 모드')).props['aria-pressed'],true);
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 배경'}}));await click('1장 만들기');assert.equal(calls[2].source.id,'p2');await act(async()=>r.unmount());
 });
