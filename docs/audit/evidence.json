@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T05:25:39.588861+00:00",
+  "checkedAt": "2026-11-14T05:44:56.073108+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "26b7aa66a1705b0be2748cdeba4575e7971f6038",
-      "branch": "feat/ai-shop-deploy-record",
+      "head": "fc1c2386659d9e8840d5c29bb96f79611db032a4",
+      "branch": "feat/overwatch-all-costumes",
       "dirty": true
     },
     "server": {
-      "head": "db9f91e458d9749ed6c0f11d694cbc91436f5d56",
-      "branch": "feat/ai-shop-deploy-record",
+      "head": "d141b08344e468cc0de185aab35b4606b0d3a946",
+      "branch": "feat/overwatch-all-costumes",
       "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "53900d5b411c08d2fc23a4a356404acef887d7668843f9a488e4787ae065f929",
-      "front/PROGRESS.md": "93d01dad434ca2d9cb45fd0dc741ecd4cc01195347d14ef61708d99c9cafb10e",
+      "front/PROGRESS.md": "975e6a6ce6926ccc47ef54e770923234fee2cf1f4e0a48f27fd15f6000e683e9",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "29da3d851a274cf2ed15437e37e61868fe9ff311da5e9d9f13ecaff9b21fb6a7",
-      "server/PROGRESS.md": "8d7fa0f89f648b56ec72ac7c23fca64e56fb9cc40c4b47a946e908affda6371c",
+      "server/PROGRESS.md": "4619439ce8947683a1ac25c9efc1ce684b5d9549ca36d694115fc25ed97f6986",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -754,7 +754,7 @@
       "front/lib/content/events.ts": "afd39ec80497e6a1411dd6a30ddb704ec497e23385764c19dffc49584937f924",
       "front/lib/content/landing.ts": "e72c68777ed985c78f6c32577661fa47e90fa56fe8b5d556de3d2014193229ad",
       "front/lib/crefans/advisor.ts": "a8c4cf3b3d9a4dd150d0a42b17b3a20d16505c7dcdae3c02a0f0fd9797124f33",
-      "front/lib/crefans/ai-photo-costumes.ts": "f1d68e98f8084ae3a6427eceeb2d2489f2ca13265f94cc4193c502f4b39a8bc2",
+      "front/lib/crefans/ai-photo-costumes.ts": "1bab13d64791386d7a2426e7cad12224d4baaee3cd280b236f74859c7bbc10e8",
       "front/lib/crefans/ai-photo-presets.ts": "dba769eeb8011d9242caf1db7826d317060393af0ac5190834dcb430ffc6588c",
       "front/lib/crefans/ai-photo.ts": "585da51f1188037587f04852051484300d276eddbf6583fde1067bf833f2c1c7",
       "front/lib/crefans/bean-history.ts": "37ff0f25c988145d715055a680c7996e68982d625ea9ee24e3cc7475c18a0868",
@@ -873,6 +873,7 @@
       "front/tests/my-profile-posts.test.cjs": "f607ed20ce88c21ad5d830e5d96d7525062d06d331bedbd750d274b18ecece17",
       "front/tests/one-time-payment.test.cjs": "f1ac35c5361f6231bf18e0f2c13203cfaf50a93897f57cb04c73eb47da3872ab",
       "front/tests/overlay-motion.test.cjs": "574c8c81bda1b330a3894aa6027a3a69ce3b3e9e0ff648a685828f1541190a4c",
+      "front/tests/overwatch-costumes.test.cjs": "4d4737717c7740cea0eddc9cb9b359d6206d82c077c71e7cbd36edfb258f9334",
       "front/tests/payment-models.test.cjs": "dc026aeb56f23f9068cfb0176c265601a0eb0314dbb76500f3b1f5fe28f36a31",
       "front/tests/platform-client.test.cjs": "707fc0680dc491cab64ff8e01dd260d9dfbe4eaaf0110b2967b058180d1591ab",
       "front/tests/post-exposure.test.cjs": "333b46f8fdc64adfd3421f5fb69303f3e25ec3fd20ee70abd5baef5e4a677c5c",
@@ -898,7 +899,7 @@
       "front/tests/shop-routes.test.cjs": "b05cdc709a6db7c74d92d8f3bbaf492cf9f10fb8da5f59ee1a9922395b8a7b3b",
       "front/tests/social-links.test.cjs": "254957c511a965dd0ad78a8fc77f4b125171b48b2669018169dce531062995bd",
       "front/tests/studio-ai-photo-binding.test.cjs": "f7a2946f051ebc81702361e6b40ff7d93bdaa73f6d3a1e1358739b04537a7ef3",
-      "front/tests/studio-ai-photo.test.cjs": "aaea334c7e1043561a6925c2387050467e0621febfe8a030c75f48bd7926ec60",
+      "front/tests/studio-ai-photo.test.cjs": "796500364be51568a31e75886a8c1ef5d080b2264cca5a796426b4b8b061b5a4",
       "front/tests/studio-comment-reply.test.cjs": "7dbb13f94b5f23c0ed0432312330256949111a69be7915a7da3bbab81e9d034b",
       "front/tests/studio-community-binding.test.cjs": "5dd8644628deeebc3b7fa6511732fb648f4539dfc66df5a49f2331a1d0366cad",
       "front/tests/studio-loading.test.cjs": "b0a6f46d370d009cf6dc282e55590cf3984e1f16d63eefe9cec5363ca20ce365",
@@ -1203,13 +1204,13 @@
       "server/src/platform/advertising-catalog.ts": "bf119aaea99038655ae0d170a3365d533e6ff39b788485c4fe1a35cb5435eda1",
       "server/src/platform/advertising-use.ts": "296003f5cf4c433dc8e44b917f762164251d8147ba86b03a2ba8b9c112f026a7",
       "server/src/platform/advertising.controller.ts": "9225d42d165355c991bf7be5079fa186f8bde86e86727407b2fb3e56116e97f6",
-      "server/src/platform/ai-photo-costume-references.ts": "b50248b11b85492e4f6855f3451bc84ee8f2c3331c5d42cb3eaf412af3357d96",
+      "server/src/platform/ai-photo-costume-references.ts": "b193e8101bbb49dd24e6b01a6fc1ada3dfe3e4d13aae6ee5c4532f2ea9089a7b",
       "server/src/platform/ai-photo-failures.ts": "b6bc81c19ac84b2b62351c304e49a2969b1513f44b3e72c9fd86f763be00c152",
       "server/src/platform/ai-photo-grants.ts": "569a9c58c9b1029778a77484f9c5d9faf10b1ed34aa293b9879780c1fd97d890",
       "server/src/platform/ai-photo-tickets.ts": "46a6ce5523cda9c1f8452beacad7b1b9e246cfc0f3c3f0f06f26aab5b8068be5",
       "server/src/platform/ai-photo.ts": "787351f14ed8999fac7071a2209108b4a9eb3bc5d581c85bbb8fd867caa474ed",
       "server/src/platform/ai-shop.controller.ts": "e2717fca259afee4876db34074ad8f6c1b1d98e71d297a1a5b3f49324913f704",
-      "server/src/platform/ai-shop.ts": "30871a8c89051dfdbaa97c997d33a3b289e23d79e62ecf244ff38e4211b5609a",
+      "server/src/platform/ai-shop.ts": "77f4b764086c7e6d2369933b0ac13f863abe8db2d655ef2319dee510f930f5ce",
       "server/src/platform/audit-retention.ts": "8be93126bcf33000a50bccbb6d3a99d36db00f5b6f62490599ac2344d787e93e",
       "server/src/platform/audit.ts": "d96b0f49dbe7b2d56b44346c7b8b03d70755206749fc401e2f539bf5e1a7d588",
       "server/src/platform/auth.controller.ts": "98332a74e04498d53a62529a62dc2e185d474995a68d53777304aac3bd3dbdb5",
@@ -1352,7 +1353,7 @@
       "server/tests/platform-admin-totp.test.cjs": "4ab8707b6f988ef54c299410cf517d2c916b8cf2b9cf19be7049e4e3eb4b62e8",
       "server/tests/platform-advertising.test.cjs": "ec8ccc434eef43ff32c806e43747bf633309347b3fe38bacf99bb29a2464ee09",
       "server/tests/platform-ai-photo-grants.test.cjs": "1b6a4be8a4e2ede1b24090118960b88a2a942a7b451ca2bd0f9c7b10e38b2ee4",
-      "server/tests/platform-ai-photo.test.cjs": "ec6c48c0d219fdfd1e67a2430c9104c10ff6759a4432222b4d378f148e3b301b",
+      "server/tests/platform-ai-photo.test.cjs": "c6f51dcb1dd084c68d312988e89587cbb0d2bcd4acf9ffd0aa31989d1ae73d99",
       "server/tests/platform-ai-shop.test.cjs": "f59d39654a5ded5ea9f0bce4039400ab70ee779121e29a61b7ad5146d9e5aea1",
       "server/tests/platform-audit-export.test.cjs": "39940a4c5038ae24ec871b22704a22c8537ef3ae947656b8a0dcd7b3fdf6144d",
       "server/tests/platform-audit.test.cjs": "9b101a55439e0233d47990e1d94433ecce38c6091eb8afe6c041287a669561d0",
