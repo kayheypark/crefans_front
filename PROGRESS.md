@@ -1,3 +1,7 @@
+## 2026-11-14 앉기·서기 필터 운영 배포 완료
+- 961482c dev→prod, front-pose-posture-20261114 04:05:01UTC 적용. 운영컨테이너/포즈자세번들/pose-20-v2 HTTP200·WebP·SHA확인. 주요페이지·헬스정상,API등다른컨테이너유지. 54/54·타입·WebKit통과,docs기존참조누락실패.
+- 이전이미지/설정은 /Users/ethan/crefans-recovery/20261114/front-pose-posture-20261114 SHA/OCI/15blobs검증후서버사본·임시정리. 증거 .local/pose-posture/{production.json,ship.log,verification.json}. 대기화면은Seedream시안만제작,하트게임실구현없음.
+
 ## 2026-11-14 포즈 자세 필터 검증 / 대기 시안 완료
 - 앉기9/서기21,앉기기본,포즈탭만버튼표시. 필터전환검색·페이지초기화/기존프롬프트선택보존·다른포즈선택시교체. 기존대화스냅의서있는썸네일불일치를앉은벤치그림 pose-20-v2로수정,프롬프트유지.
 - 단위54/54·타입0·WebKit모바일필터/검색/선택유지/타탭숨김통과,30프리셋누락중복없음. docs기존형제참조누락실패. .local/pose-posture/{verification.json,unit-final.log,types-final.log,browser.log,sitting.png,standing.png}, design/pose-posture-20261114/manifest.json. 운영배포예정.
