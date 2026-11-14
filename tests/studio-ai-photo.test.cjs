@@ -295,7 +295,7 @@ test('every preset has a distinct decodable image including Comic World, 30 pose
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
- const {r,click,calls}=await open();await click('코스어 모드');await click('남성');await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.match(text(r.toJSON()),/남성으로 변경/);
+ const {r,click,calls}=await open();await click('코스어 모드');await click('남성');await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.match(text(r.toJSON()),/사진이 완성됐어요/);
 });
 
 
@@ -561,7 +561,7 @@ test('waiting hearts never change requests; failure and success remove game, ret
  assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/생성 실패/);
  await click('확인');await click('1장 만들기');assert.equal(score(),'0');assert.equal(sent.length,2);assert.equal(JSON.stringify(sent[1]),original);
  await click('하트 1 모으기');assert.equal(score(),'1');await act(async()=>finish({success:true,data:{images:[{id:'done',type:'image',url:'/done.png'}],remaining:9}}));
- assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/사진 결정/);assert.match(text(r.toJSON()),/생성되었어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 1개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/1\/100/);assert.match(text(r.toJSON()),/100개가 모이면 10번의 기회가 생겨요/);assert.equal(sent.length,2);
+ assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/사진 결정/);assert.match(text(r.toJSON()),/사진이 완성됐어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 1개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/1\/100/);assert.match(text(r.toJSON()),/100개가 모이면 10번의 기회가 생겨요/);assert.equal(sent.length,2);
 });
 
 
