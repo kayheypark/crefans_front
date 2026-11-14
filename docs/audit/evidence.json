@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T05:17:50.790788+00:00",
+  "checkedAt": "2026-11-14T05:23:16.414319+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "77af869fa772406e21bfcfe61cec531ce4c8347c",
-      "branch": "feat/ai-ticket-shop",
+      "head": "7cfec7388077a92925b42b9dafd81b512d634118",
+      "branch": "feat/ai-shop-route-fix",
       "dirty": true
     },
     "server": {
-      "head": "be4af6a2cf8fd237c4f2fd87130ce5bf1d2fc8d0",
-      "branch": "feat/ai-ticket-shop",
-      "dirty": true
+      "head": "db9f91e458d9749ed6c0f11d694cbc91436f5d56",
+      "branch": "release/ai-ticket-shop",
+      "dirty": false
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "53900d5b411c08d2fc23a4a356404acef887d7668843f9a488e4787ae065f929",
-      "front/PROGRESS.md": "0e143f44770a8be31c53e3d6f4e76cf2b690e81481e407fe5aaf670a118bd445",
+      "front/PROGRESS.md": "c75f6cffa014af0a4f706885627086f7946e4d5827c116cedbd457db16608dbd",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -167,14 +167,14 @@
       "front/app/preview/landing/page.tsx": "035c29e5b981e8f6d37976cb7114ac66ec114fbd6ae206ddb044d3ab2bf77225",
       "front/app/preview/layout.tsx": "d618f55768b4e65dde14eca03258e4f6b1615b3674a76882196b9befcaa99a82",
       "front/app/preview/preview.module.css": "5e33e8d0c79f01dba0f7f8b0762e1473c5902d5adc2e3ec90f2e3fa53da97f35",
-      "front/app/preview/studio/[[...screen]]/page.tsx": "90d573fa4ee8d408f5692e2add07b2f2d02bc9504c35e0951db4109d129cc759",
+      "front/app/preview/studio/[[...screen]]/page.tsx": "0757395755473edf46dc3eb06eb97972f7491c3d9aa721e27f599eeac8612612",
       "front/app/robots.ts": "2f804eed08cac6d3db5b29752a52631cfb4c77bd828b10f50e2c188124a57b8e",
       "front/app/service/[...screen]/page.tsx": "70fee75c9ea6cc0665099428b01b955e7d8b7b049bdff554d944102eb80aa74d",
       "front/app/service/error.tsx": "47d8aeafda52d6cac3db1772fa4305b8d35eac21fda9c68fb6e2f04b0d4f3e0e",
       "front/app/service/landing/page.tsx": "4f39eb37f3bcaf8bd66eb577f2986cb085e7e2a00721ad00878693a1462b0abd",
       "front/app/service/layout.tsx": "2b5f89efaf7206d8773a5468d742d43c8590c86e4bc40d3cb7b0c5e09a372ae8",
       "front/app/service/page.tsx": "365a0e01a5f23be08c3e39bccf978354a93656f6e82329f938cc6a0c9555e553",
-      "front/app/service/studio/[[...screen]]/page.tsx": "ffccc944e88b76235f6fd6423a8077745fddadc9cc3a816e4626df781e5ec721",
+      "front/app/service/studio/[[...screen]]/page.tsx": "51578ed5f7635d28e3c4378bc97bb2b6aabcd678a1c7c86bae0a1a5232195aef",
       "front/app/sitemap.ts": "a0f533abeb4ec418f2b55beb146b6c3a1670a0f29ba2d7f66977a9ffb2c3599a",
       "front/app/subscription/[creatorId]/page.tsx": "15edb1776295cd168d8a0e2b69dbfa4fe1e6987ffe3868fd5b1fa06059250fad",
       "front/app/subscription/billing/fail/page.tsx": "8fb2db9af3240d345ad2d929cf0c96c52e5e19bf6e29732bb68f6446d9bf5e54",
@@ -895,6 +895,7 @@
       "front/tests/service-access-state.test.cjs": "10bc6a3650e38978465f9ee4016dd916d28e96e661f44fb14e88b0757c26d724",
       "front/tests/service-landing.test.cjs": "f3b8b0bd6f677637d9bcb32909984fb24ed532d9644b7c1eca96c438c31d676d",
       "front/tests/shared-short-bio.test.cjs": "b1156a7cf844d076e380c148d8fda838c44dd28bb99aa65f9f0fbaa93794d39e",
+      "front/tests/shop-routes.test.cjs": "b05cdc709a6db7c74d92d8f3bbaf492cf9f10fb8da5f59ee1a9922395b8a7b3b",
       "front/tests/social-links.test.cjs": "254957c511a965dd0ad78a8fc77f4b125171b48b2669018169dce531062995bd",
       "front/tests/studio-ai-photo-binding.test.cjs": "f7a2946f051ebc81702361e6b40ff7d93bdaa73f6d3a1e1358739b04537a7ef3",
       "front/tests/studio-ai-photo.test.cjs": "aaea334c7e1043561a6925c2387050467e0621febfe8a030c75f48bd7926ec60",

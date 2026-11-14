@@ -2,7 +2,7 @@ import {SITE_NAME} from '@/lib/seo/site';
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import StudioRouter from '@/components/preview/studio/StudioRouter';
-const titles:Record<string,string>={advertising:'광고상품',beans:'콩 후원·출금',dashboard:'대시보드',start:'크리에이터 시작하기',guard:'크리에이터 전환 안내',content:'게시물',memberships:'멤버십',subscribers:'구독자',messages:'메시지',comments:'댓글',analytics:'통계 요약',reports:'리포트',earnings:'수익 현황',settlements:'정산 내역',withdraw:'출금 신청',withdrawals:'출금 내역',accounts:'정산 계좌',security:'출금 PIN 설정',settings:'크리에이터 설정'};
+const titles:Record<string,string>={shop:'상점',advertising:'광고상품',beans:'콩 후원·출금',dashboard:'대시보드',start:'크리에이터 시작하기',guard:'크리에이터 전환 안내',content:'게시물',memberships:'멤버십',subscribers:'구독자',messages:'메시지',comments:'댓글',analytics:'통계 요약',reports:'리포트',earnings:'수익 현황',settlements:'정산 내역',withdraw:'출금 신청',withdrawals:'출금 내역',accounts:'정산 계좌',security:'출금 PIN 설정',settings:'크리에이터 설정'};
 const reportTitles:Record<string,string>={revenue:'순수익 리포트',subscribers:'구독자 리포트',followers:'팔로워 리포트'};
 export async function generateMetadata(props:{params:Promise<{screen?:string[]}>}):Promise<Metadata>{const params=await props.params;const [screen='dashboard',id='revenue']=params.screen||[];return{title:`${(screen==='reports'?reportTitles[id]:screen==='security'&&id==='reset'?'출금 PIN 재설정':titles[screen])||'스튜디오'} | ${SITE_NAME} 스튜디오`,robots:{index:false,follow:false}};}
 export default async function Page(props:{params:Promise<{screen?:string[]}>}){
