@@ -1,3 +1,8 @@
+## 2026-11-14 표정 캐릭터 운영 배포 완료
+- 프론트682dd83 dev→prod, front-expression-mascot-20261114 03:12:31UTC 운영적용. Seedream5.5 최종표정13종384WebP(총71,156bytes). 무표정기본·프리셋프롬프트/검색/3×2페이징유지.
+- 단위51/51·타입·WebKit모바일검사통과, 최종13개운영HTTP200/image-webp/SHA일치. 기존docs누락실패유지. 실제Seedream18호출성공은썸네일생성검증이며사용자사진편집재시험과구분. manifest에최종프롬프트/요청ID/SHA.
+- 직전front-optional-region이미지·설정은 `/Users/ethan/crefans-recovery/20261114/front-expression-mascot-20261114` 외부보관·SHA/OCI검증후서버사본·배포임시정리. 로컬브라우저가자동수정한next-env경로는원복후배포. 서버/API/DB변경없음. 근거 `.local/expression-mascot/{ship.log,public-assets.json,verification.json}` 및 design/expression-mascot-20261114/manifest.json.
+
 ## 2026-11-14 표정 캐릭터 13종 검증 완료
 - Seedream5.5 실생성18회 모두HTTP200:13종+눈/표정일관성보정5종. 최종무표정·미소·눈웃음·편안함·놀람·윙크·웃기·차분함·반가움·수줍음·힘뺀미소·장난표정13개,384WebP. 전체컨택트시트눈검사완료(코없음/복숭아얼굴/라벤더어깨). manifest에프롬프트·실요청ID·생성시각·SHA보존.
 - 단위51/51·타입0·WebKit iPhone13 로딩/검색선택통과. 최종에셋교체후단위·브라우저재검사. docs는기존형제소스누락실패. 기존13요청문·무표정기본·3×2/검색유지. 근거 design/expression-mascot-20261114/manifest.json 및 `.local/expression-mascot/`. 프론트만운영배포예정.
