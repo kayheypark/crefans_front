@@ -1,0 +1,239 @@
+{
+  "at": "2026-11-14T16:56:04.045900+09:00",
+  "release": "ai-presets-20261114",
+  "source": {
+    "front": "d50a9933f4b8544418ee42fad1526345b332135f",
+    "server": "bb1d60c6222bcd9976b5ac12c999002eb38b3c95"
+  },
+  "images": {
+    "front": "crefans-front:front-ai-presets-20261114",
+    "apiWorker": "crefans-api:ai-presets-20261114"
+  },
+  "scope": [
+    "22 new public backgrounds; total32 (indoor24/outdoor8)",
+    "9 new pose cards; total39 (sitting13/standing26)",
+    "aspect ratio, result crop, photo-first result design, personal photo library"
+  ],
+  "verification": {
+    "assets": {
+      "at": "2026-11-14T16:55:02.003664+09:00",
+      "files": [
+        {
+          "path": "brand/ai-photo/background/b7a101.webp",
+          "status": 200,
+          "sha256": "4fdce8a62dfc0832c2a2edb5935b4c7a898de2623835ff059ab346e575cff47b",
+          "bytes": 144648
+        },
+        {
+          "path": "brand/ai-photo/background/b7a102.webp",
+          "status": 200,
+          "sha256": "c9a35a2cf288100d88cb5dc067c82a1ccd3ac51595d240b723cca6d092905eaf",
+          "bytes": 120782
+        },
+        {
+          "path": "brand/ai-photo/background/b7a103.webp",
+          "status": 200,
+          "sha256": "0f27924c34123acdc8ebe37283cff56c9bc7bb667660b284c1c8f6e7aed1de54",
+          "bytes": 121684
+        },
+        {
+          "path": "brand/ai-photo/background/b7a104.webp",
+          "status": 200,
+          "sha256": "72d806f03ac91d91c97fbeb46b5ab66bbabdb11a554fa346caf77aa81e3625a3",
+          "bytes": 44122
+        },
+        {
+          "path": "brand/ai-photo/background/b7a105.webp",
+          "status": 200,
+          "sha256": "2da79945735f00f28f40149a29ef00db071a7fdd3bc9e7bde46b4dd9a73cc5a8",
+          "bytes": 236552
+        },
+        {
+          "path": "brand/ai-photo/background/b7a106.webp",
+          "status": 200,
+          "sha256": "1ed35ee8b543c8a19f3c9579f3cd04772ef16fc3cf07cc3c0e7cfbc23a6ca663",
+          "bytes": 111776
+        },
+        {
+          "path": "brand/ai-photo/background/b7a107.webp",
+          "status": 200,
+          "sha256": "ff78d80c6fd4a3d26a8d8d551d95bff14291e4e3d20f3c8f76f53e4c6f63ff1c",
+          "bytes": 233702
+        },
+        {
+          "path": "brand/ai-photo/background/c8b201.webp",
+          "status": 200,
+          "sha256": "d7141548a40e4736f37e0bdd2c7b15707cbd2a10f3025689e3ab121b2c952a0c",
+          "bytes": 130438
+        },
+        {
+          "path": "brand/ai-photo/background/c8b202.webp",
+          "status": 200,
+          "sha256": "528654ad362122e59a5077c078bcf3763aa069224cd83e413075ed41488fff86",
+          "bytes": 112398
+        },
+        {
+          "path": "brand/ai-photo/background/c8b203.webp",
+          "status": 200,
+          "sha256": "267f57f3466bcf3b042a7cce9662cf177b77087503979acb546c0297a09da1a7",
+          "bytes": 218712
+        },
+        {
+          "path": "brand/ai-photo/background/c8b204.webp",
+          "status": 200,
+          "sha256": "7fc8a9d17809e4df5fc15415c1a48bff7ce66c1a9bd08a2fc7afb1f1b8896372",
+          "bytes": 117390
+        },
+        {
+          "path": "brand/ai-photo/background/c8b205.webp",
+          "status": 200,
+          "sha256": "8d4392235f74c043d08bdebe1d5efb494509b09749a4348a5d898e8e5ac03c35",
+          "bytes": 109734
+        },
+        {
+          "path": "brand/ai-photo/background/c8b206.webp",
+          "status": 200,
+          "sha256": "1a9d2512422cf00ca7a2b5a462a8ec2ea9fccdd04312fa4be65f93d24d36d25c",
+          "bytes": 96562
+        },
+        {
+          "path": "brand/ai-photo/background/c8b207.webp",
+          "status": 200,
+          "sha256": "d9322dafe666a1ec7d6f86da830c4a2dd24f0fb44766cb94aa2611995e3606cf",
+          "bytes": 193416
+        },
+        {
+          "path": "brand/ai-photo/background/c8b208.webp",
+          "status": 200,
+          "sha256": "5f527ee41175d0e9e68e7e0c90da109dde9f9bb4df80ff2c286f33f51b92b126",
+          "bytes": 274936
+        },
+        {
+          "path": "brand/ai-photo/background/c8b209.webp",
+          "status": 200,
+          "sha256": "0c2b3400882dd8183987c5137756f3f9107f9123310b3c0749e8fcd47a3c9954",
+          "bytes": 227050
+        },
+        {
+          "path": "brand/ai-photo/background/d9c301.webp",
+          "status": 200,
+          "sha256": "675bf072f1bf58b633e210538d7a8b4eaa21a2b7bab23e952c46efc23102c39b",
+          "bytes": 18276
+        },
+        {
+          "path": "brand/ai-photo/background/d9c302.webp",
+          "status": 200,
+          "sha256": "f57ca1697928238cf96cefc225bdf64c1d095ffdd507c0a59867b0ca1ad2bec0",
+          "bytes": 311906
+        },
+        {
+          "path": "brand/ai-photo/background/d9c303.webp",
+          "status": 200,
+          "sha256": "24fd28539070abf6087a2feb055824dadd4b1e3201ffcabcecdc529d6eb4480b",
+          "bytes": 217756
+        },
+        {
+          "path": "brand/ai-photo/background/d9c304.webp",
+          "status": 200,
+          "sha256": "9418d2b3cd64ec6ab8d46f6147b58c39584ebcd5e7e7a76d01c564ca7257515e",
+          "bytes": 133802
+        },
+        {
+          "path": "brand/ai-photo/background/d9c305.webp",
+          "status": 200,
+          "sha256": "7f79bfd94c40450b7f7c62dfbab9c93c0254ceb7ef7814fb775d01e89c69abc0",
+          "bytes": 279548
+        },
+        {
+          "path": "brand/ai-photo/background/d9c306.webp",
+          "status": 200,
+          "sha256": "91295a92e3eaaf29bea4ab262cabcbb79330f575a4afe153ce7f316c5eaf9047",
+          "bytes": 153892
+        },
+        {
+          "path": "brand/ai-photo/pose-mascot/pose-31-v1.webp",
+          "status": 200,
+          "sha256": "e75173d2ed34508c8676bd837d5148e87800cb06aa7c4d1dc776c735effc4233",
+          "bytes": 5324
+        },
+        {
+          "path": "brand/ai-photo/pose-mascot/pose-32-v1.webp",
+          "status": 200,
+          "sha256": "a01439b195483683dc025ba62e79a9c61e37fed1ef8975dd09d9b1d6a3691606",
+          "bytes": 5390
+        },
+        {
+          "path": "brand/ai-photo/pose-mascot/pose-33-v1.webp",
+          "status": 200,
+          "sha256": "7a348f9ceffa0e11780bce03addb6ae437ead991af57265028513737c4aceb1a",
+          "bytes": 5700
+        },
+        {
+          "path": "brand/ai-photo/pose-mascot/pose-34-v1.webp",
+          "status": 200,
+          "sha256": "2e8d4b43a426d22a28cd4d11dbad30ed27d8b4ea5d765b4351cccfb86181603f",
+          "bytes": 4856
+        },
+        {
+          "path": "brand/ai-photo/pose-mascot/pose-35-v1.webp",
+          "status": 200,
+          "sha256": "17264703f9d6dfede4b966594467c7c69f728598755260f70f1c7b83b5969257",
+          "bytes": 5654
+        },
+        {
+          "path": "brand/ai-photo/pose-mascot/pose-36-v1.webp",
+          "status": 200,
+          "sha256": "fcfdf568f66f2f244eb54906cb2528734810117ea1907f3e676c146d8937ca5c",
+          "bytes": 4808
+        },
+        {
+          "path": "brand/ai-photo/pose-mascot/pose-37-v1.webp",
+          "status": 200,
+          "sha256": "51128216e5e371431ba5f2d913bf281016acc272cf18127c9a101de6cecf7cd3",
+          "bytes": 4570
+        },
+        {
+          "path": "brand/ai-photo/pose-mascot/pose-38-v1.webp",
+          "status": 200,
+          "sha256": "cac021e40ea804295a11ded2d67d70a6fde3c87992896e4dfc737c4e9feb9cf6",
+          "bytes": 5720
+        },
+        {
+          "path": "brand/ai-photo/pose-mascot/pose-39-v1.webp",
+          "status": 200,
+          "sha256": "3360c7676c1896d85837259827a32e3c1d4f1593b77f9cc5cbb8d1280611a5d9",
+          "bytes": 5834
+        }
+      ]
+    },
+    "runtime": "/crefans-beta-frontend-1 crefans-front:front-ai-presets-20261114 true 0 false\n/crefans-beta-api-1 crefans-api:ai-presets-20261114 true 0 false\n/crefans-beta-worker-1 crefans-api:ai-presets-20261114 true 0 false\n/crefans-beta-admin-1 crefans-admin:ai-shop-20261114 true 0 false\n/crefans-beta-database-1 mysql:8.0 true 0 false\n/crefans-beta-proxy-1 caddy:2-alpine true 0 false\n{\"success\":true,\"data\":{\"status\":\"ready\",\"version\":\"v1\"},\"errorMessage\":null,\"errorCode\":null}0\n",
+    "browser": {
+      "bg1": "PASS WebKit390/320: 7 background images decode; search/select/deselect; paging; no JS errors or document overflow. Preview fixture, no live generation.\n",
+      "bg3": "PASS WebKit390/320: 6 background images decode; search/select/deselect; paging; no JS errors or document overflow. Preview fixture, no live generation.\n",
+      "bg2": "PASS WebKit390/320: 9 background images decode; search/select/deselect; paging; no JS errors or document overflow. Preview fixture, no live generation.\n",
+      "poses": "PASS WebKit390/320: 9 pose images decode; search/select/deselect; paging; no JS errors or document overflow. Preview fixture, no live generation.\n"
+    },
+    "apiReferences": "22 deployed background file SHA256 matches local; library/quota anonymous401",
+    "localTests": "front73/73; server37+OpenAPI14=51/51; type/build pass; same feature tree after dev/prod merge",
+    "recoveries": [
+      "/Users/ethan/crefans-recovery/20261114/ai-presets-api",
+      "/Users/ethan/crefans-recovery/20261114/front-ai-presets-20261114"
+    ],
+    "recoveryVerification": "SHA256, tar contents, image tag/ID and layer blobs verified before old server image/temporary settings removal",
+    "db": "No schema or dependency changes, no migration applied",
+    "limitations": [
+      "Browser verified live domain design-system preview, not authenticated real editing",
+      "No live paid Seedream generation",
+      "No full payment or membership regression"
+    ]
+  },
+  "incidents": [
+    "Local shasum locale C.UTF-8 failed before deployment; retried with LC_ALL=C, no service impact"
+  ],
+  "logHashes": {
+    "/Users/ethan/repository/crefans_front-preset-expansion/.local/ai-presets-release/front-deploy.log": "332869f61524462effb2709f369c58fc443c4519b3d83aa3f92710be703c017c",
+    "/Users/ethan/repository/crefans_front-preset-expansion/.local/ai-presets-release/front-preflight.log": "59cea8d47c8e5bde2a0af9a1d4cbdb017632d470b4b8b61005069ce161b02617",
+    "/Users/ethan/repository/crefans_server-ai-shop/.local/ai-presets-release/deploy.log": "87bfa19bd6df715ffcb73a7c1ef5ce09fc1b440734e8569da404995a3c7294fe",
+    "/Users/ethan/repository/crefans_server-ai-shop/.local/ai-presets-release/production-background-hashes.txt": "0f70fcbbdace62432baeaa57dc267b12112d4b7787cd3da6c74d2e32413de306"
+  }
+}
