@@ -1,0 +1,70 @@
+{
+  "checkedAt": "2026-11-14T05:17:49.872843+00:00",
+  "environment": "macOS-15.2-arm64-arm-64bit-Mach-O",
+  "repositories": [
+    {
+      "path": "/Users/ethan/repository/crefans_front-preset-expansion",
+      "base": "77af869fa772406e21bfcfe61cec531ce4c8347c",
+      "dirty": true
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_server-ai-shop",
+      "base": "be4af6a2cf8fd237c4f2fd87130ce5bf1d2fc8d0",
+      "dirty": true
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_admin-ai-shop",
+      "base": "20702fa51ac5e1ec03911d8b3bf673268db3b570",
+      "dirty": true
+    }
+  ],
+  "checks": [
+    {
+      "command": "node --test tests/platform-ai-shop.test.cjs tests/platform-ai-photo.test.cjs tests/platform-ai-photo-grants.test.cjs tests/platform-openapi.test.cjs",
+      "log": "/Users/ethan/repository/crefans_server-ai-shop/.local/ai-shop/regression.log",
+      "logSha256": "e7685b72d04ee389b8d4187df77cf2b90bedde5f475aa8d6a701f7eeebd14cec",
+      "logModifiedAt": "2026-11-14T05:08:36.097435+00:00",
+      "exitCode": 0,
+      "passed": 53
+    },
+    {
+      "command": "node --test tests/studio-ai-photo-binding.test.cjs tests/studio-ai-photo.test.cjs",
+      "log": "/Users/ethan/repository/crefans_front-preset-expansion/.local/ai-shop-front-test.log",
+      "logSha256": "3411c5a95bf5446fab4af942acf1b11bb0d15bc521ccc91d65b8bbae1339a912",
+      "logModifiedAt": "2026-11-14T05:03:50.140419+00:00",
+      "exitCode": 0,
+      "passed": 58
+    },
+    {
+      "command": "node .local/ai-shop/browser.cjs",
+      "log": "/Users/ethan/repository/crefans_front-preset-expansion/.local/ai-shop/browser.log",
+      "logSha256": "12d4cf0653bbfde217a9f4141cf5be000d1f1833bd5c1e8cf113d42ed9331659",
+      "logModifiedAt": "2026-11-14T05:16:37.047430+00:00",
+      "exitCode": 0,
+      "passed": 1
+    },
+    {
+      "command": "npm run check:layers",
+      "log": "/Users/ethan/repository/crefans_front-preset-expansion/.local/ai-shop/layers.log",
+      "logSha256": "528d24d299fa18904499fae0048fdf14bf2597891114e91345892bae55c0e963",
+      "logModifiedAt": "2026-11-14T05:15:24.828670+00:00",
+      "exitCode": 0,
+      "passed": 462
+    },
+    {
+      "command": "npm run typecheck",
+      "log": "/Users/ethan/repository/crefans_front-preset-expansion/.local/ai-shop-typecheck.log",
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+      "logModifiedAt": "2026-11-14T05:15:18.085570+00:00",
+      "exitCode": 0,
+      "passed": null
+    }
+  ],
+  "limits": [
+    "Local isolated MySQL / fake PG and AI; no live charges",
+    "Admin browser registration and order detail only, not exhaustive edit/delete UI",
+    "No live product seeded; price/count/validity remain operator decisions",
+    "PG webhook not registered; periodic reconciliation retained",
+    "Deployment evidence follows separately"
+  ]
+}

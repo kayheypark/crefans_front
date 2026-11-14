@@ -15,7 +15,7 @@ export const studioNavGroups=[
  {id:'community',label:'구독자 관리',icon:'user',items:[{label:'구독자',path:'subscribers'},{label:'메시지',path:'messages'}]},
  {id:'reports',label:'리포트',icon:'chart',items:[{label:'통계 요약',path:'analytics'},{label:'순수익 리포트',path:'reports/revenue'},{label:'구독자 리포트',path:'reports/subscribers'},{label:'팔로워 리포트',path:'reports/followers'}]},
  {id:'finance',label:'수익,정산,출금 관리',icon:'coin',items:[{label:'콩 후원·출금',path:'beans'},{label:'수익 현황',path:'earnings'},{label:'정산 내역',path:'settlements'},{label:'출금 신청',path:'withdraw'},{label:'출금 내역',path:'withdrawals'}]},
- {id:'advertising',label:'홍보',icon:'chart',items:[{label:'광고상품',path:'advertising'}]},
+ {id:'advertising',label:'상점·홍보',icon:'chart',items:[{label:'상점',path:'shop'},{label:'광고상품',path:'advertising'}]},
  {id:'settings',label:'설정',icon:'settings',items:[{label:'정산 계좌',path:'accounts'},{label:'출금 PIN 설정',path:'security'},{label:'크리에이터 설정',path:'settings'}]},
 ] as const;
 export const studioNav=[{label:'대시보드',path:''},...studioNavGroups.flatMap<{label:string;path:string}>(group=>group.items)];

@@ -2009,6 +2009,23 @@
         "server/infra/platform/backup-alerts/server_notify.py",
         "server/docs/backup-telegram-alerts-20261104.json"
       ]
+    },
+    "server/docs/ai-ticket-shop.md": {
+      "kind": "current",
+      "review": "2026-11-14 사용자 결정 횟수권·잔여 비례 환불, 서버 가격 검증/멱등 지급/예약 복구/환불 잠금과 대역 검사 대조. 가격·수량·유효기간 미결정, 실 PG 및 운영 검증 별도.",
+      "evidence": [
+        "server/src/platform/ai-shop.ts",
+        "server/src/platform/ai-shop.controller.ts",
+        "server/tests/platform-ai-shop.test.cjs"
+      ]
+    },
+    "server/docs/bean-charge-limit-draft-20261109.md": {
+      "kind": "mixed-history",
+      "review": "2026-11-14 인벤토리 누락 검토. 11월9일 당시 미게시·미발송 문구 초안이며 한도·계약 미확정 자리표시를 현재 판매 정책으로 적용하지 않는다. 이번 AI 횟수권과 별개인 콩 충전 설계 이력.",
+      "evidence": [
+        "server/docs/bean-charge-limit-draft-20261109.md",
+        "server/src/platform/bean-policy.ts"
+      ]
     }
   }
 }

@@ -22,6 +22,7 @@ import {ImageUploadCatalog} from './ImageUploadCatalog';
 import {DataDisplayCatalog} from './DataDisplayCatalog';
 import {ServicePatternCatalog} from './ServicePatternCatalog';
 import {AdvisorChatCatalog} from './AdvisorChatCatalog';
+import {ShopCatalog} from './ShopCatalog';
 import {AiPhotoCatalog} from './AiPhotoCatalog';
 import s from './custom.module.css';
 
@@ -56,7 +57,7 @@ export default function CustomDesignSystem(){
  <ImageUploadCatalog/>
  <Section title="탐색과 선택" subtitle="Chip은 항상 ChipRow 안에 한 줄로 둡니다. 넘치면 좌우 스크롤·마우스 드래그로 확인하고, 드래그는 클릭으로 처리되지 않습니다."><ChipRow label="분야 선택">{['전체','운동','게임','코스프레','음악','사진','여행','뷰티','피트니스','라이프스타일','아트','브이로그','라이브','커버'].map(x=><Chip key={x} selected={category===x} onClick={()=>setCategory(x)}>{x}</Chip>)}</ChipRow><p className={s.muted}>선택한 분야: {category}</p><div className={s.row}><Badge>멤버 전용</Badge><Badge tone="success">공개됨</Badge><Badge tone="danger">확인 필요</Badge></div></Section></>}
  {page==='tables' && <DataDisplayCatalog/>}
- {page==='patterns' && <><ServicePatternCatalog/><AdvisorChatCatalog/><AiPhotoCatalog/></>}
+ {page==='patterns' && <><ServicePatternCatalog/><AdvisorChatCatalog/><AiPhotoCatalog/><ShopCatalog/></>}
  {page==='states' && <>
  <Section title="필요한 순간에만, 분명한 피드백" subtitle="완료 안내는 하단 스낵바로 4초 동안 표시합니다. 본문 위치와 포커스를 유지하며 닫기 버튼으로 바로 숨길 수 있습니다."><div className={s.row}><Button onClick={()=>setToast('변경 사항을 저장했습니다.')}>스낵바 보기</Button><Button tone="secondary" onClick={()=>setDialog('confirm')}>확인창 보기</Button><Button tone="secondary" onClick={()=>window.open('/preview/signup/complete','_blank','noopener')}>회원가입 완료 화면 보기</Button><Button tone="secondary" onClick={()=>window.open('/preview/studio/guard','_blank','noopener')}>크리에이터 전환 안내 보기</Button><Button tone="secondary" onClick={()=>setBetaClosed(true)}>베타 종료 안내 보기</Button><Button tone="secondary" onClick={()=>setDialog('sheet')}>바텀시트 보기</Button><Button loading={busy} onClick={()=>{setBusy(true);setTimeout(()=>{setBusy(false);setToast('예시 로딩이 완료되었습니다.');},1200);}}>로딩 실행</Button></div><div className={s.row} aria-label="배지 종류"><Badge>브랜드</Badge><Badge tone="success">성공</Badge><Badge tone="danger">오류</Badge><Badge tone="outline" label="광고">AD</Badge></div><div className={s.alert} role="note"><Badge tone="danger">오류</Badge><p>내용을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p><Button tone="quiet" onClick={()=>setToast('다시 시도하는 예시입니다.')}>다시 시도</Button></div><EmptyState title="아직 나눈 이야기가 없어요" description="첫 콘텐츠가 새로운 만남의 시작이 됩니다." action={<Button onClick={()=>setToast('콘텐츠 작성 진입 예시입니다.')}>첫 이야기 만들기</Button>}/></Section>
  <Section title="수익과 출금은 다른 상태입니다" subtitle="금액과 상태를 props로 받아 표현합니다. 실제 출금 요청은 발생하지 않습니다."><LedgerRow title="멤버십 수익" detail="2026.09.12" amount={9900} status={<Badge tone="success">처리 완료</Badge>} onClick={()=>setDialog('sheet')}/><LedgerRow title="출금 신청" detail="2026.09.12" amount={9900} status={<Badge>접수됨</Badge>} onClick={()=>setDialog('sheet')}/></Section></>}

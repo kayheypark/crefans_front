@@ -1,3 +1,4 @@
+import type {ShopModel} from './crefans-shop';
 import type {ApiResult} from './crefans';
 import type {CreatorTerms} from '@/lib/crefans/creator-payout-policy';
 
@@ -17,6 +18,7 @@ export type StudioSubscriber={id:string;name:string;handle:string;image?:string;
 export type ContentInput=Omit<StudioContent,'id'|'updatedAt'>&{id?:string};
 export type MembershipInput={id?:string;name:string;rank?:number;price:number;benefits:string[];image?:string};
 export type StudioManagementModel={
+  shop?:ShopModel;
   now:string;
   contents:StudioContent[];
   memberships:StudioMembership[];
@@ -26,7 +28,7 @@ export type StudioManagementModel={
   selectedSubscriberId?:string;
   notice?:string;
   /** Today's AI photo edits left; absent when the editor is not offered. */
-  aiPhotoQuota?:{remaining:number;limit:number;/** Storable reset tickets (2026-11-13): spend one to clear today's usage. */resetTickets?:{count:number;nextExpiresAt:string|null};/** Median seconds of recent real edits; null until one has finished. */typicalSeconds?:number|null};
+  aiPhotoQuota?:{paidRemaining?:number;remaining:number;limit:number;/** Storable reset tickets (2026-11-13): spend one to clear today's usage. */resetTickets?:{count:number;nextExpiresAt:string|null};/** Median seconds of recent real edits; null until one has finished. */typicalSeconds?:number|null};
   /** The creator's own fee terms from the studio finance API; absent means the default rate. */
   creatorTerms?:CreatorTerms|null;
   actions:{

@@ -10,7 +10,7 @@ const {mockAiPhotoEdit}=loadTypeScript('components/preview/studio/ai-photo-fixtu
 const dialog=props=>el('section',null,props.children);
 const paintedMask=new Blob(['painted-mask'],{type:'image/png'});
 let maskCalls=[];
-const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'./AiPhotoMask':{AiPhotoMask:props=>el('div',{'data-mask-editor':true,...props}),buildAiMask:async(...args)=>{maskCalls.push(args);return paintedMask;}},'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Dialog:({open,children,title,onClose})=>open?el('section',{role:'dialog','aria-label':title,onClose},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props})}});
+const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'./ShopPage':{ShopPage:()=>el('div',null,'상점')},'./AiPhotoMask':{AiPhotoMask:props=>el('div',{'data-mask-editor':true,...props}),buildAiMask:async(...args)=>{maskCalls.push(args);return paintedMask;}},'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Chip:({children,...props})=>el('button',props,children),Dialog:({open,children,title,onClose})=>open?el('section',{role:'dialog','aria-label':title,onClose},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props})}});
 const text=node=>typeof node==='string'?node:(Array.isArray(node)?node:node?.children||[]).map(text).join('');
 const photo={id:'p1',type:'image',url:'/p1.png'};
 const base={prompt:'벚꽃 아래 앉은 포즈',consent:true,kind:'pose',hasMask:false,remaining:3};
@@ -111,7 +111,7 @@ test('compact stages: edit settings preserves prompt, source, style, consent and
 
  await click('1장 만들기');assert.equal(r.root.findAllByType('textarea').length,0);
  await click('설정 수정');assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
- assert.match(text(r.toJSON()),/오늘 남은 횟수 9\/10/);
+ assert.match(text(r.toJSON()),/남은 생성 횟수 9회/);
  await click('1장 만들기');assert.equal(calls.length,2);assert.deepEqual(calls[1],calls[0]);
 });
 
@@ -127,7 +127,7 @@ test('compact stages: provider failure restores the editable form without losing
  await act(async()=>r.root.findByProps({'aria-label':'AI 사진 편집 안내'}).props.onClose());
  assert.equal(r.root.findAllByProps({'aria-label':'AI 사진 편집'}).length,1);
  assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
- assert.match(text(r.toJSON()),/오늘 남은 횟수 10\/10/);
+ assert.match(text(r.toJSON()),/남은 생성 횟수 10회/);
 });
 
 test('compact results: cannot add more photos than the remaining post capacity',async()=>{
@@ -339,7 +339,7 @@ test('reset ticket: button refills the count, is off when unused, hidden without
  let r=await render({remaining:0,limit:10,resetTickets:{count:2,nextExpiresAt:'2026-12-13T00:00:00.000Z'}});
  assert.match(text(r.toJSON()),/리셋권 2장/);const [button]=find(r,'1장 써서');assert.equal(button.props.disabled,false);
  await act(async()=>{await button.props.onClick();});
- assert.equal(calls,1);assert.match(text(r.toJSON()),/오늘 남은 횟수 10\/10/);assert.match(text(r.toJSON()),/리셋권 1장을 사용했어요/);
+ assert.equal(calls,1);assert.match(text(r.toJSON()),/남은 생성 횟수 10회/);assert.match(text(r.toJSON()),/리셋권 1장을 사용했어요/);
  r=await render({remaining:10,limit:10,resetTickets:{count:2,nextExpiresAt:null}});assert.equal(find(r,'1장 써서')[0].props.disabled,true,'nothing used today');
  r=await render({remaining:0,limit:10,resetTickets:{count:0,nextExpiresAt:null}});assert.equal(find(r,'1장 써서').length,0,'no tickets, no button');
 });
@@ -579,3 +579,5 @@ test('body continuous range keeps intermediate values, snaps near anchors and ke
  test('entry requires an explicit gender before showing edit controls and sends the choice',async()=>{
  for(const [label,value] of [['남성','male'],['여성','female']]){let r,request;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit:async input=>{request=input;return {success:false,errorMessage:'대역 실패'};},onAdd(){}}));});assert.match(text(r.toJSON()),/남성인가요, 여성인가요/);assert.equal(r.root.findAllByType('textarea').length,0);assert.equal(r.root.findAll(n=>n.props['aria-label']==='1장 만들기').length,0);await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes(label)).props.onClick());assert.equal(r.root.findAllByType('textarea').length,1);const group=r.root.findByProps({'aria-label':'생성 인물 성별'});assert.equal(group.find(n=>n.type==='button'&&text(n)===label).props['aria-pressed'],true);await act(async()=>r.root.findByProps({'aria-label':'1장 만들기'}).props.onClick());assert.equal(request.targetGender,value);await act(async()=>r.unmount());}
  });
+
+test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('1장 만들기');assert.equal(calls.length,0);assert.equal(refresh,1);assert.equal(r.root.findAllByProps({'aria-label':'횟수권 구매'}).length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'보존할 편집 내용');});
