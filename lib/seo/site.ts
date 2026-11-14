@@ -5,7 +5,7 @@ import type {Metadata} from 'next';
 export const SITE_URL=(process.env.NEXT_PUBLIC_SITE_URL||'https://crefans.com').replace(/\/$/,'');
 export const SITE_NAME='크레팬스(Crefans)';
 export const SITE_TITLE=SITE_NAME;
-export const SITE_DESCRIPTION='크리에이터와 팬을 잇는 플랫폼';
+export const SITE_DESCRIPTION='코스어와 팬의 연결고리';
 export const SITE_KEYWORDS=['크레팬스','crefans','크리에이터','멤버십','구독','후원','팬덤','창작자','크리에이터 후원','팬 커뮤니티','유료 구독','코스프레','일러스트','아트'];
 export const DEFAULT_OG_IMAGE={url:'/og/crefans-og-simple-v1.png',width:1730,height:909,alt:'크레팬스 — 크리에이터와 팬을 잇는 플랫폼'};
 
