@@ -1,0 +1,149 @@
+{
+  "purpose": "UI thumbnails; not user-edit image references",
+  "assets": [
+    {
+      "kind": "pose",
+      "title": "뒤돌아보기",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Full body rear view: show the BACK of torso, back of legs and heels, both feet facing AWAY from viewer. Turn ONLY the neck and head over the left shoulder so face looks back toward viewer. Shoulder-overlooking fashion pose. Strong twist between backwards-facing body and face.",
+      "editPrompt": "몸을 뒤로 돌리고 어깨 너머로 카메라를 자연스럽게 돌아보는 전신 포즈로 바꿔줘.",
+      "requestId": "0217946281142675b3fa2cdc51ddff2be86c78e2baff5d7de8332",
+      "at": "2026-11-14T03:48:46.406Z",
+      "sourceSha256": "900bd2228343eab9a365cdcc339a0fbb31cadd4e310b16b06850fc6f67c44798",
+      "asset": "public/brand/ai-photo/pose-mascot/pose-25-v1.webp",
+      "sha256": "8636807b4024d877fbd94a2157952fa089e046924fb64a835b25c17d9143ebad"
+    },
+    {
+      "kind": "pose",
+      "title": "다리 넓혀 서기",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Full body frontal power stance: both straight legs spread WIDE, feet separated by about TWO shoulder widths, forming an obvious inverted V shape with empty space between legs. Both soles planted. Hands on hips. Not a normal narrow stance.",
+      "editPrompt": "두 발을 어깨너비보다 조금 넓게 벌리고 당당하게 서 있는 전신 포즈로 바꿔줘.",
+      "requestId": "021794628113966a4a9e4d164f3c176730993b0b2e8dd9d330bab",
+      "at": "2026-11-14T03:48:48.650Z",
+      "sourceSha256": "26e0de44563045a24b131a751b752e0fcab3145a058ccfec40680d7b1f079658",
+      "asset": "public/brand/ai-photo/pose-mascot/pose-26-v1.webp",
+      "sha256": "a622653add32eb994ca10f1472cafe4b4b45ab577a5f87a84bf8c1a553b8c994"
+    },
+    {
+      "kind": "pose",
+      "title": "양팔 머리 위로",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Full body front view, standing upright, both arms raised overhead with relaxed bent elbows, hands apart.",
+      "editPrompt": "두 팔을 머리 위로 자연스럽게 올리고 편안하게 서 있는 전신 포즈로 바꿔줘.",
+      "requestId": "02179462800057049d9e4e345fff0a9cbe1dfa11f8e7ca0b00145",
+      "at": "2026-11-14T03:46:53.365Z",
+      "sourceSha256": "94e3dc39cf26fbcb857b1fbe47ce19603fa07fd32ee876aa8fc6db93a5d17bf3",
+      "asset": "public/brand/ai-photo/pose-mascot/pose-27-v1.webp",
+      "sha256": "37aacd521ed3afc534a96eaa7cb1b9a66d61d5d4b9376c21d9c4723288921a93"
+    },
+    {
+      "kind": "pose",
+      "title": "의자 거꾸로 앉기",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Full body three-quarter view seated backwards on a simple chair, chair backrest in front of chest, forearms resting on top of backrest, feet on floor.",
+      "editPrompt": "의자 등받이를 앞으로 두고 거꾸로 앉아 등받이에 두 팔을 편하게 얹은 포즈로 바꿔줘.",
+      "requestId": "021794628012804aaaf13501739a5ff290af8d9343e27fc89f572",
+      "at": "2026-11-14T03:47:07.986Z",
+      "sourceSha256": "42153d5a11ff15b7b43691dab9a1e6116d12c15ca9d87a2d06a24574bf9da245",
+      "asset": "public/brand/ai-photo/pose-mascot/pose-28-v1.webp",
+      "sha256": "ff49bde154a02d2c4a239a538ae55ee20e54d9fb423e3c8018e3433fe8bb3cf2"
+    },
+    {
+      "kind": "pose",
+      "title": "다리 꼬아 앉기",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Full body three-quarter view sitting upright on simple chair with legs crossed at knee, hands gently resting on top knee.",
+      "editPrompt": "의자에 앉아 한쪽 다리를 다른 쪽 무릎 위로 자연스럽게 꼬고 두 손을 무릎에 올린 포즈로 바꿔줘.",
+      "requestId": "021794628014155abaf251a9e3e40d15c8e00729ca74a8ebafbfe",
+      "at": "2026-11-14T03:47:08.751Z",
+      "sourceSha256": "c9bea50239b74477b812643f5ce54422458a06d97cd6721d12469f37387e7afb",
+      "asset": "public/brand/ai-photo/pose-mascot/pose-29-v1.webp",
+      "sha256": "c4191a699f496ae6967fe0e51534a768c12c16d86165300cdae1868808baadcc"
+    },
+    {
+      "kind": "pose",
+      "title": "한쪽 무릎 세우기",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Full body three-quarter view seated on floor, one knee raised with foot flat, other leg folded sideways on floor, forearm resting on raised knee.",
+      "editPrompt": "바닥에 편하게 앉아 한쪽 무릎만 세우고 다른 다리는 옆으로 접은 포즈로 바꿔줘.",
+      "requestId": "021794628015329085ce2a5b85bafc715e5d42a46d045517975f6",
+      "at": "2026-11-14T03:47:11.455Z",
+      "sourceSha256": "1a41363d14f69fd4b0e46fc324816b3b1089aed826b7f0fb5a5719edec73df3f",
+      "asset": "public/brand/ai-photo/pose-mascot/pose-30-v1.webp",
+      "sha256": "5306e86366bcf541c897bb1d6bb277903c43d59dab128ee60a50571b6b219004"
+    },
+    {
+      "kind": "expression",
+      "title": "도도한 시선",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Head and shoulders closeup, cool composed self-assured expression with two dark HALF-CIRCLE eyes: eyelid edges perfectly HORIZONTAL, never diagonally angry. No eyebrows. Tiny straight closed mouth. Not smiling, not angry, calm confident gaze.",
+      "editPrompt": "눈매에 살짝 힘을 주고 입을 다문 도도하고 자신감 있는 표정으로 바꿔줘.",
+      "requestId": "021794628114279ca656762e712cf73397b7e77c0d7d164933d3d",
+      "at": "2026-11-14T03:48:48.517Z",
+      "sourceSha256": "cfe080ecf4f81947a97ee666898c75090053a9d8b211c1baefb7ad8090d96fa0",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-14-v1.webp",
+      "sha256": "959835c3857da5c3b5ce088e555a771f6c9d6fe3e773b50913012528f9c3a1f2"
+    },
+    {
+      "kind": "expression",
+      "title": "자신감 있는 미소",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Head and shoulders closeup, confident asymmetric closed smile, one corner raised, two solid dark dot eyes, head upright.",
+      "editPrompt": "카메라를 바라보며 입꼬리 한쪽을 살짝 올린 자신감 있는 미소로 바꿔줘.",
+      "requestId": "021794628029528e0fa5d59a7b50e9f748f37815b909e2898da43",
+      "at": "2026-11-14T03:47:22.100Z",
+      "sourceSha256": "9f3e87e44bf33a1efb6b9c48db6543b020cdb844ea7d1bb5d2975352453ee9a9",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-15-v1.webp",
+      "sha256": "b4fb44caa3db6f29fb5e32c7c325668228d16371124c9531dfea744f795f91be"
+    },
+    {
+      "kind": "expression",
+      "title": "턱 살짝 들기",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Head and shoulders closeup. Head physically tilted BACK by 25 degrees, chin and bottom of spherical head lifted visibly. Dot eyes and small closed smile higher on the face due to upward head tilt. Shoulders horizontal. NO sideways head tilt. No nose.",
+      "editPrompt": "턱을 살짝 들고 시선을 카메라에 둔 당당한 표정으로 바꿔줘.",
+      "requestId": "021794628127263641a02d40a43d449f07de84c480b390d1b42f7",
+      "at": "2026-11-14T03:48:59.096Z",
+      "sourceSha256": "f893334533a06b0d5e54b4b11229b54ed38418b135db95e3d5af4e235583bdb8",
+      "asset": "public/brand/ai-photo/expression-mascot/expression-16-v1.webp",
+      "sha256": "d83fe4076b3056f9f56495f8fc89456da50326e191bc749099bf370864ce8c5b"
+    },
+    {
+      "kind": "camera",
+      "title": "뒤쪽 45도",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Full body view from behind and 45 degrees to side of standing character, at eye level. Character looking straight ahead away from viewer, no head turn.",
+      "editPrompt": "카메라를 인물의 뒤쪽 45도 눈높이에 두고 머리부터 발끝까지 담는 전신 구도로 바꿔줘.",
+      "requestId": "021794628042880a4c6d1552d81c7895c46a24cfcfdd88718e14c",
+      "at": "2026-11-14T03:47:38.275Z",
+      "sourceSha256": "f9ec6033db2f68647915f5826c40aa8cdc4d44e780c9cc81cee171b459f3099f",
+      "asset": "public/brand/ai-photo/camera-mascot/camera-07-v1.webp",
+      "sha256": "0aa0f83941d6785dc13b0d97b84a98f9d6c9c98290ab9039e5d46dfcf110fc50"
+    },
+    {
+      "kind": "camera",
+      "title": "측면 전신",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Full body strict side profile of standing character, eye level, entire head and feet visible, facing right.",
+      "editPrompt": "카메라를 인물의 옆쪽 눈높이에 두고 옆모습을 머리부터 발끝까지 담는 전신 구도로 바꿔줘.",
+      "requestId": "0217946280444678eedaf36e20f5141b2bc84e877dea1f7869953",
+      "at": "2026-11-14T03:47:41.143Z",
+      "sourceSha256": "9dd10a96cd834e2a194e0704c7d56cb6a7f6d190239dff160b382cc257efa7ab",
+      "asset": "public/brand/ai-photo/camera-mascot/camera-08-v1.webp",
+      "sha256": "4f1fdcd3837238dddd65f15659d42606e37b7598824a1009dd58d3379186d58f"
+    },
+    {
+      "kind": "camera",
+      "title": "어깨 중심",
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create exactly ONE square UI preset illustration using the reference as exact character identity and visual style. A simple peach spherical clay head with dark dot eyes and small mouth, NO NOSE, no hair, no ears. Fully clothed in bright lavender long sleeve top, lavender trousers and lavender shoes. Soft matte clay, near-white studio backdrop. One character, no text, no symbols, no watermark, no extra props except the chair when requested. Keep anatomy clear and simple. Tight portrait framing from upper chest to top of head, shoulders prominently filling lower frame, centered at eye level, face looking forward.",
+      "editPrompt": "카메라를 눈높이에 두고 얼굴과 양쪽 어깨가 중심이 되는 타이트한 상반신 구도로 바꿔줘.",
+      "requestId": "02179462804463382fba1344a9ed2fba97aa536d307b6cf8c34c3",
+      "at": "2026-11-14T03:47:36.356Z",
+      "sourceSha256": "7d5e3ec492794c7a636c9f4f970983ed06503e1f067dc11eeb63700ca0bedad5",
+      "asset": "public/brand/ai-photo/camera-mascot/camera-09-v1.webp",
+      "sha256": "73b792754c234205014e5adfc8efb1d1acf1657610b386c9a1f6450787628471"
+    }
+  ]
+}

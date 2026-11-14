@@ -283,13 +283,13 @@ test('body controls select only one adjustment and keep custom input',async()=>{
 });
 
 
-test('every preset has a distinct decodable image including Comic World, 24 poses and Canon lens model prompts',async()=>{
+test('every preset has a distinct decodable image including Comic World, 30 poses and Canon lens model prompts',async()=>{
  const fs=require('fs'),path=require('path'),sharp=require('sharp');const {aiPhotoPresets,aiPhotoPresetImage,aiPhotoComicWorldPreset,aiPhotoPresetTitle,aiPhotoPresetTitles}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const images=[];
- assert.equal(aiPhotoPresets.pose.length,24);assert.equal(aiPhotoPresets.lens.length,6);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
+ assert.equal(aiPhotoPresets.pose.length,30);assert.equal(aiPhotoPresets.lens.length,6);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
  for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}
  }
- const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,13);
- assert.equal(images.length,92);assert.equal(new Set(images).size,92);for(const value of aiPhotoPresets.lens)assert.match(value,/Canon RF.*촬영한? 느낌|Canon RF.*촬영 느낌/);
+ const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,16);
+ assert.equal(images.length,104);assert.equal(new Set(images).size,104);for(const value of aiPhotoPresets.lens)assert.match(value,/Canon RF.*촬영한? 느낌|Canon RF.*촬영 느낌/);
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
@@ -486,7 +486,7 @@ test('preset search filters before pagination, respects gender and handles no ma
  const empty=aiPhotoPresetPage('pose',9,'original','존재하지않는검색어');assert.deepEqual(empty,{examples:[],index:0,pages:1,total:0});
  assert.equal(aiPhotoPresetPage('makeup',0,'male','코랄 립').total,0);
  assert.equal(aiPhotoPresetPage('makeup',0,'female','코랄 립').total,1);
- assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,24);
+ assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,30);
 });
 
 test('search keeps selected poses, resets pages, clears on tabs and finds costumes across categories',async()=>{
@@ -514,4 +514,17 @@ test('clothing detail switch defaults off, sends no guide, and ignores retained 
  await click('설정 수정');await click('옷 세부 지정');await click('1장 만들기');assert.equal(calls.length,1);
  await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));
  await click('옷 세부 지정');maskCalls=[];await click('1장 만들기');assert.equal(calls.length,2);assert.equal(calls[1].mask,undefined);assert.equal(maskCalls.length,0);
+});
+
+
+test('expanded pose, expression and camera selections accumulate and toggle independently',async()=>{
+ const {r,click,calls}=await open();
+ const search=async value=>act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value}}));
+ const tab=async label=>act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());
+ await tab('포즈');await search('의자 거꾸로');await click('의자 거꾸로 앉기');
+ await tab('표정');await search('도도한');await click('도도한 시선');
+ await tab('구도');await search('뒤쪽');await click('뒤쪽 45도');
+ await tab('포즈');await search('의자 거꾸로');assert.equal(r.root.findByProps({'aria-label':'의자 거꾸로 앉기'}).props['aria-pressed'],true);
+ await tab('표정');await search('도도한');await click('도도한 시선');await click('1장 만들기');
+ assert.equal(calls.length,1);assert.deepEqual(calls[0].editKinds,['pose','camera']);assert.match(calls[0].prompt,/거꾸로 앉아/);assert.match(calls[0].prompt,/뒤쪽 45도/);assert.doesNotMatch(calls[0].prompt,/도도|무표정/);
 });

@@ -1,3 +1,12 @@
+## 2026-11-14 포즈·표정·구도 확장 검증 완료
+- 포즈6(뒤돌아보기/다리넓혀서기/양팔머리위/의자거꾸로/다리꼬아앉기/한쪽무릎),표정3(도도/자신감미소/턱들기),구도3(뒤45도/측면전신/어깨중심) 추가. 기존3×2·검색·누적선택·무표정기본유지.
+- Seedream16회HTTP200(12+의미보정4),최종12개384WebP·컨택트시트눈검사. tests/studio-ai-photo{,-binding}.test.cjs 52/52,typecheck0,WebKit모바일3종검색/선택누적/이미지/페이지통과. check:docs는기존형제서버참조누락실패. 실사용자사진편집재호출없음.
+- 근거 design/preset-expansion-20261114/manifest.json 및 .local/preset-expansion/{verification.json,unit-final.log,types-final.log,browser-final.log,contact.png,mobile-*.png}. 운영배포예정.
+
+## 2026-11-14 포즈·표정·구도 확장 진행
+- 요청범위3카테고리: 포즈6/표정3/구도3 추가. 기존 항목·무표정기본·3×2페이징·검색·카테고리누적 유지. 기존Seedream코없는라벤더캐릭터로신규12썸네일생성. 의상/메이크업/생성서버변경없음.
+- 합격:12실생성·시각의미일치/전체이미지매핑/검색선택·복합프롬프트·페이징/타입·회귀/운영에셋SHA·서비스상태. 실제사용자사진편집품질은별도검증.
+
 ## 2026-11-14 표정 캐릭터 운영 배포 완료
 - 프론트682dd83 dev→prod, front-expression-mascot-20261114 03:12:31UTC 운영적용. Seedream5.5 최종표정13종384WebP(총71,156bytes). 무표정기본·프리셋프롬프트/검색/3×2페이징유지.
 - 단위51/51·타입·WebKit모바일검사통과, 최종13개운영HTTP200/image-webp/SHA일치. 기존docs누락실패유지. 실제Seedream18호출성공은썸네일생성검증이며사용자사진편집재시험과구분. manifest에최종프롬프트/요청ID/SHA.
