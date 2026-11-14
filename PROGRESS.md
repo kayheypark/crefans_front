@@ -1,3 +1,7 @@
+## 2026-11-14 구도 캐릭터 운영 완료
+- sourceb6202c5 dev→prod, `crefans-front:front-camera-mascot-20261114`, 01:56:51UTC 배포. 승인시안5개+눈높이정면 총6구도WebP 운영HTTP200/Content-Type/SHA일치. 단위48/48·타입·WebKit 모바일로딩/검색선택통과. 기존문서참조누락으로check:docs실패.
+- 증거 `.local/camera-mascot/verification.json`, public-assets.json,ship.log,mobile.png. 복구 `/Users/ethan/crefans-recovery/20261114/front-camera-mascot-20261114` SHA/OCI/설정검증후서버직전이미지·임시자료정리. 프롬프트/생성로직/서버변경없음.
+
 ## 2026-11-14 구도 캐릭터 검증 완료
 - 승인5시안+눈높이정면6WebP 매핑/384decode,단위48/48·타입0·WebKit iPhone13 로딩/검색/선택유지 통과. 증거 `.local/camera-mascot/` unit/types/browser로그와mobile.png, `design/camera-mascot-20261114/manifest.json` 원본/자산SHA. check:docs 종료1 기존 서버참조누락. 운영배포예정.
 
