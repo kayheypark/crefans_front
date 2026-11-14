@@ -1,3 +1,8 @@
+## 2026-11-14 AI 사진 프리셋 3×3(9개) 페이지 (운영 미배포)
+- 사용자 요청 "3*3으로 프리셋을 보여줘". AI_PHOTO_PRESET_PAGE_SIZE 6→9, 프리셋 그리드·의상 옷장 grid-template-rows 2→3, 옷장 페이지 계산이 같은 상수를 쓰도록 변경. 선택·검색·스와이프·카테고리 동작은 그대로.
+- 검증: AI 사진 관련 3개 테스트 74/74(6개 기준 고정값을 9개 기준으로 갱신: 일반 의상 8종 한 페이지, 오버워치 6페이지, 실내 배경 4페이지 등), 페이지 크기를 6으로 되돌린 대조 실행에서 8건 실패 확인, typecheck 통과. WebKit390/320 디자인시스템 미리보기에서 포즈 그리드 9칸·3열·3행, 옷장 3열, 가로 넘침/JS오류 없음(.local/grid9/mobile.png).
+- AGENTS.md의 3×2·6개 규칙을 3×3·9개로 갱신.
+
 ## 2026-11-14 배경16·포즈8 운영 배포 완료
 - 사용자 지시(운영배포까지). prod front fd493b6 / server 6ade65b(기능 브랜치와 소스 동일). API/worker=crefans-api:x-presets-20261114(costume-expansion 위 src·dist 덮어쓰기, 이미지 내 배경 참조 JS 해시가 로컬 빌드와 일치), frontend=crefans-front:front-x-presets-20261114.
 - 검증: 컨테이너 Running·재시작0, health ready, API 배경 참조 38개·비로그인401·다른 컨테이너 불변, 운영 신규 에셋 24개 HTTP 바이트 SHA-256 전부 일치, 운영 도메인 /design-system WebKit390/320 신규 24종 디코드·검색·선택/해제·탭 이동 유지·JS오류/넘침 없음(실생성 없음).
