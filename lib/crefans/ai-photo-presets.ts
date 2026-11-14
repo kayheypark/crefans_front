@@ -1,5 +1,6 @@
 import {aiPhotoBackgrounds,aiPhotoBackgroundId} from './ai-photo-backgrounds';
 import {aiPhotoMaleBodyControls,aiPhotoBodyPrompt} from './ai-photo';
+import {aiPhotoOutfits,aiPhotoOutfitByPrompt,aiPhotoOutfitImage,type AiPhotoOutfitPart} from './ai-photo-outfits';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 
 // 편집 가능한 제안 문구. 탐색/선택만으로는 생성 요청을 보내지 않는다.
@@ -10,20 +11,7 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
 "camera": ["카메라를 눈높이에 두고 정면에서 촬영한 구도로 바꿔줘.", "카메라를 낮게 두고 살짝 올려다보는 로우 앵글로 바꿔줘.", "카메라를 높게 두고 살짝 내려다보는 하이 앵글로 바꿔줘.", "얼굴과 어깨를 담는 클로즈업 구도로 바꿔줘.", "허리 위 상반신을 담는 구도로 바꿔줘.", "머리부터 발끝까지 잘리지 않는 전신 구도로 바꿔줘.", "카메라를 인물의 뒤쪽 45도 눈높이에 두고 머리부터 발끝까지 담는 전신 구도로 바꿔줘.", "카메라를 인물의 옆쪽 눈높이에 두고 옆모습을 머리부터 발끝까지 담는 전신 구도로 바꿔줘.", "카메라를 눈높이에 두고 얼굴과 양쪽 어깨가 중심이 되는 타이트한 상반신 구도로 바꿔줘."],
 "lens": ["스마트폰 전면 카메라로 정면 셀카를 찍은 구도로 바꿔줘. 팔을 뻗어 촬영한 자연스러운 가까운 거리와 가벼운 광각 느낌을 표현하고 얼굴이 중심에 오게 해줘. 거울은 추가하지 마.", "거울 앞에서 휴대폰을 들고 찍은 거울 셀카로 바꿔줘. 휴대폰과 자연스러운 거울 반사가 보이게 하되 얼굴을 과도하게 가리지 말고 인물과 손이 중복되지 않게 해줘.", "다른 사람이 DSLR로 촬영한 자연스러운 인물 사진 느낌으로 바꿔줘. 눈높이의 자연스러운 원근감, 또렷한 인물과 적당한 배경 흐림을 표현해줘. 촬영 장비는 화면에 추가하지 마.", "다른 사람이 먼 거리에서 대형 망원렌즈로 촬영한 인물 사진 느낌으로 바꿔줘. 얼굴 비율은 자연스럽게 유지하고 망원 특유의 압축된 거리감과 크게 흐려진 배경을 표현해줘. 촬영 장비는 화면에 추가하지 마."],
 "body": ["가슴 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "가슴 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "전신의 키 비율을 조금 작아 보이게 자연스럽게 보정해줘.", "전신의 키 비율을 조금 커 보이게 자연스럽게 보정해줘."],
- "outfit": [
-  "상의 색을 차분한 하늘색으로 바꿔줘.",
-  "상의에 작은 리본 장식을 더해줘.",
-  "칠한 옷 부분을 흰 셔츠로 바꿔줘.",
-  "상의에 은은한 체크무늬를 넣어줘.",
-  "옷의 광택을 줄이고 무광 느낌으로 바꿔줘.",
-  "칠한 소매를 단정한 긴소매로 바꿔줘.",
-  "상의의 리본 색을 연한 분홍색으로 바꿔줘.",
-  "칠한 옷 부분을 차분한 네이비 톤으로 바꿔줘.",
-  "옷의 주름을 자연스럽게 정돈해줘.",
-  "상의 장식을 줄여 깔끔하게 바꿔줘.",
-  "칠한 부분을 부드러운 니트 소재로 바꿔줘.",
-  "의상 색을 전체적으로 톤 다운해줘."
- ],
+ "outfit": aiPhotoOutfits.map(item=>item.prompt),
  "makeup": [
   "입술을 자연스러운 코랄 톤으로 바꿔줘.",
   "볼에 은은한 생기를 더해줘.",
@@ -107,15 +95,16 @@ export type AiPhotoPosePosture='sitting'|'standing';
 const sittingPoseIndexes=new Set([12,13,14,16,19,20,27,28,29,30,31,37,38,45,46]);
 export function aiPhotoPosePosture(example:string):AiPhotoPosePosture{return sittingPoseIndexes.has(aiPhotoPresets.pose.indexOf(example))?'sitting':'standing';}
 
-export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture,backgroundCategory?:AiPhotoBackgroundCategory){
+export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture,backgroundCategory?:AiPhotoBackgroundCategory,outfitPart?:AiPhotoOutfitPart){
  const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter((_,index)=>(index%2===0?'female':'male')===gender):aiPhotoPresets[kind];
  const ordered=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available;
- const examples=ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
+ const examples=ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&(kind!=='outfit'||((gender==='original'||aiPhotoOutfitByPrompt(example)?.gender===gender)&&(!outfitPart||aiPhotoOutfitByPrompt(example)?.part===outfitPart)))&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;
  return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages,total:examples.length};
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
+ if(kind==='outfit'){const outfit=aiPhotoOutfitByPrompt(example);if(outfit)return aiPhotoOutfitImage(outfit);}
  if(kind==='background'&&aiPhotoBackgroundId(example))return `/brand/ai-photo/background/${aiPhotoBackgroundId(example)}.webp`;
  if(kind==='background'){const files=['presets/background-comicworld-v1','background/room-night-v1','background/room-day-v1','background/living-room-v1','presets/background-01-v1','background/studio-black-v1','presets/background-04-v1','presets/background-05-v1','presets/background-09-v1','presets/background-10-v1'];return `/brand/ai-photo/${files[aiPhotoPresets.background.indexOf(example)]}.webp`;}
  if(kind==='pose'){const index=aiPhotoPresets.pose.indexOf(example);return `/brand/ai-photo/pose-mascot/pose-${String(index+1).padStart(2,'0')}-${index===19?'v2':'v1'}.webp`;}
@@ -130,7 +119,7 @@ export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'origi
 
 // 카드의 짧은 이름과 실제 생성 요청을 분리한다. 순서는 각 프리셋과 같다.
 export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
- "outfit":["하늘색 상의", "리본 포인트", "화이트 셔츠", "은은한 체크", "무광 소재", "단정한 긴소매", "핑크 리본", "네이비 톤", "주름 정돈", "장식 줄이기", "포근한 니트", "차분한 색감"],
+ "outfit":aiPhotoOutfits.map(item=>item.name),
  "makeup":["코랄 립", "생기 있는 볼", "브라운 아이", "로즈 립", "펄 줄이기", "얇은 아이라인", "자연스러운 눈썹", "피치 블러셔", "은은한 음영", "매트 립", "데일리 메이크업", "피부 톤 정돈"],
  "expression":["무표정", "환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소", "도도한 시선", "자신감 있는 미소", "턱 살짝 들기"],
  "pose":["손인사", "살짝 돌아서기", "두 손 모으기", "허리에 손", "고개 기울이기", "브이", "정면 서기", "작은 손인사", "앞으로 기대기", "턱에 손", "손하트", "옆모습 시선", "의자에 앉기", "벤치에 앉기", "쪼그려 앉기", "벽에 기대 쉬기", "바닥에 앉기", "시선 밖 스냅", "걷다 돌아보기", "대화하는 스냅", "계단에 앉기", "난간에 기대기", "기지개", "산책 스냅", "뒤돌아보기", "다리 넓혀 서기", "양팔 머리 위로", "의자 거꾸로 앉기", "다리 꼬아 앉기", "한쪽 무릎 세우기", "무릎 꿇고 앉기", "다리 모아 옆앉기", "카메라로 손 뻗기", "이마에 손 대기", "뒤로 손 짚고 기대기", "한 발 뒤로 접기", "양손으로 소품 들기", "무릎 안고 앉기", "앉아서 팔 올리기", "한쪽 무릎 들기", "한 손 머리에 올리기", "소품 어깨에 메기", "한 다리 뻗어 런지", "고양이 손 포즈", "검지 쉿 포즈", "의자 위 무릎 세워 앉기", "다리 뻗고 앉기"],
