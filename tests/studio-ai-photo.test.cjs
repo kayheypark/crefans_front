@@ -598,13 +598,24 @@ test('background subcategories show thirty-five indoor and thirteen outdoor pres
  const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('1장 만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
 });
 
-test('download converts the stored image to PNG in the browser and reports failure without changing selected result',async()=>{
- const previous={fetch:global.fetch,document:global.document,setTimeout:global.setTimeout,create:URL.createObjectURL,revoke:URL.revokeObjectURL,bitmap:global.createImageBitmap};let clicked=0,removed=0,saved,revoked,drawn,link={click(){clicked++},remove(){removed++}};const bytes=new Blob(['original'],{type:'image/webp'}),png=new Blob(['png'],{type:'image/png'});
+test('share sends the result as a PNG file to the system share sheet, ignores cancel, falls back to saving, and reports failure',async()=>{
+ const previous={fetch:global.fetch,document:global.document,setTimeout:global.setTimeout,create:URL.createObjectURL,revoke:URL.revokeObjectURL,bitmap:global.createImageBitmap,navigator:Object.getOwnPropertyDescriptor(globalThis,'navigator')};
+ let clicked=0,saved,drawn,shared=[],cancel=false,link={click(){clicked++},remove(){}};const bytes=new Blob(['original'],{type:'image/webp'}),png=new Blob(['png'],{type:'image/png'});
  const canvas={width:0,height:0,getContext:()=>({drawImage:(b,x,y)=>{drawn=[b.width,b.height,x,y]}}),toBlob:(done,type)=>{assert.equal(type,'image/png');done(png)}};global.createImageBitmap=async blob=>{assert.equal(blob,bytes);return {width:640,height:800,close(){}}};
- try{global.fetch=async url=>{assert.equal(url,'/a1.png');return {ok:true,blob:async()=>bytes}};global.document={createElement:tag=>tag==='canvas'?canvas:link,body:{appendChild(){}}};URL.createObjectURL=blob=>{saved=blob;return 'blob:download'};URL.revokeObjectURL=url=>{revoked=url};global.setTimeout=fn=>{fn();return 0};
- const {r,click}=await open();await click('1장 만들기');await click('결과 1 다운로드');assert.equal(clicked,1);assert.equal(removed,1);assert.equal(saved,png);assert.deepEqual(drawn,[640,800,0,0]);assert.equal([canvas.width,canvas.height].join('x'),'640x800');assert.equal(link.download,'crefans-ai-a1.png');assert.equal(revoked,'blob:download');assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);
- global.fetch=async()=>({ok:false});await click('결과 1 다운로드');assert.match(text(r.toJSON()),/다운로드하지 못했어요/);assert.equal(clicked,1);
- }finally{global.fetch=previous.fetch;global.document=previous.document;global.setTimeout=previous.setTimeout;URL.createObjectURL=previous.create;URL.revokeObjectURL=previous.revoke;global.createImageBitmap=previous.bitmap;}
+ const setNavigator=value=>Object.defineProperty(globalThis,'navigator',{value,configurable:true,writable:true});
+ try{global.fetch=async url=>{assert.equal(url,'/a1.png');return {ok:true,blob:async()=>bytes}};global.document={createElement:tag=>tag==='canvas'?canvas:link,body:{appendChild(){}}};URL.createObjectURL=blob=>{saved=blob;return 'blob:x'};URL.revokeObjectURL=()=>{};global.setTimeout=fn=>{fn();return 0};
+ setNavigator({canShare:({files})=>files.every(f=>f.type==='image/png'),share:async data=>{if(cancel){const e=new Error('cancel');e.name='AbortError';throw e;}shared.push(data);}});
+ const {r,click}=await open();await click('1장 만들기');await click('결과 1 공유');
+ assert.equal(shared.length,1);const file=shared[0].files[0];assert.equal(file.name,'crefans-ai-a1.png');assert.equal(file.type,'image/png');assert.equal(await file.text(),'png');assert.deepEqual(drawn,[640,800,0,0]);assert.equal(clicked,0,'no download when sharing works');assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);
+ cancel=true;await click('결과 1 공유');assert.doesNotMatch(text(r.toJSON()),/공유하지 못했어요/);cancel=false;
+ setNavigator({});await click('결과 1 공유');assert.equal(clicked,1);assert.equal(saved.type,'image/png');assert.equal(link.download,'crefans-ai-a1.png');
+ }finally{global.fetch=previous.fetch;global.document=previous.document;global.setTimeout=previous.setTimeout;URL.createObjectURL=previous.create;URL.revokeObjectURL=previous.revoke;global.createImageBitmap=previous.bitmap;if(previous.navigator)Object.defineProperty(globalThis,'navigator',previous.navigator);}
+});
+
+test('share failure shows the error dialog text and keeps the result selection',async()=>{
+ const previous={fetch:global.fetch,navigator:Object.getOwnPropertyDescriptor(globalThis,'navigator')};
+ try{Object.defineProperty(globalThis,'navigator',{value:{},configurable:true,writable:true});const {r,click}=await open();await click('1장 만들기');global.fetch=async()=>({ok:false});await click('결과 1 공유');assert.match(text(r.toJSON()),/공유하지 못했어요/);assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);}
+ finally{global.fetch=previous.fetch;if(previous.navigator)Object.defineProperty(globalThis,'navigator',previous.navigator);}
 });
 
 test('viewer ignores pinch and cancelled pointer gestures while permitting browser zoom',async()=>{
