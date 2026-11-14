@@ -1,0 +1,112 @@
+{
+  "at": "2026-11-14T06:23:52.901323+00:00",
+  "source": {
+    "front": "78c5bf01cf05a010d36de6f78e15a2ed12f3cf5b",
+    "server": "26d6359183f63515c6993a63fbb607199d282767"
+  },
+  "images": {
+    "front": "crefans-front:front-ai-hearts-v2-20261114",
+    "apiWorker": "crefans-api:ai-hearts-v2-20261114"
+  },
+  "productionAssets": {
+    "count": 62,
+    "sha256Match": true,
+    "paths": [
+      "/brand/ai-photo/costumes/overwatch-dva-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-lifeweaver-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-domina-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-pharah-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-shion-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-kiriko-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-juno-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-roadhog-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-sombra-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-mizuki-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-tracer-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-jetpack-cat-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-wuyang-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-bastion-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-mercy-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-zarya-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-vendetta-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-zenyatta-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-hanzo-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-sigma-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-reinhardt-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-brigitte-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-junkrat-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-anran-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-wrecking-ball-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-winston-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-doctrine-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-reaper-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-junker-queen-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-torbjorn-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-sojourn-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-cassidy-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-hazard-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-sierra-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-mauga-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-doomfist-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-emre-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-ana-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-genji-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-soldier-76-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-ramattra-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-echo-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-moira-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-baptiste-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-mei-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-symmetra-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-dmon-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-lucio-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-freja-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-orisa-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-illari-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-ashe-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-widow-v2.webp",
+      "/brand/ai-photo/costumes/overwatch-venture-v2.webp",
+      "/brand/ai-photo/background/living-room-v1.webp",
+      "/brand/ai-photo/background/studio-black-v1.webp",
+      "/brand/ai-photo/background/room-day-v1.webp",
+      "/brand/ai-photo/background/room-night-v1.webp",
+      "/brand/ai-photo/shoot-concept/shoot-01-v1.webp",
+      "/brand/ai-photo/shoot-concept/shoot-03-v1.webp",
+      "/brand/ai-photo/shoot-concept/shoot-02-v1.webp",
+      "/brand/ai-photo/shoot-concept/shoot-04-v1.webp"
+    ]
+  },
+  "checks": {
+    "migration": "new3 tables applied; schema current",
+    "api": "health ready; unauthenticated hearts401; no worker errors",
+    "containers": "/crefans-beta-api-1 crefans-api:ai-hearts-v2-20261114 true 0 false\n/crefans-beta-worker-1 crefans-api:ai-hearts-v2-20261114 true 0 false\n/crefans-beta-frontend-1 crefans-front:front-ai-hearts-v2-20261114 true 0 false\n{\"success\":true,\"data\":{\"status\":\"ready\",\"version\":\"v1\"},\"errorMessage\":null,\"errorCode\":null}",
+    "browser": "PASS WebKit390: download saved, fullscreen viewer permits pinch, no overflow/errors\n",
+    "unitIntegration": "front65 server30 OpenAPI14 passed",
+    "frontDeployExit": 0,
+    "apiV2DeployExit": 0
+  },
+  "incident": {
+    "initialApi": "Missing OpenAPI contract prevented startup; temporary502 observed",
+    "resolution": "Rolled back old API, added contract,14 initialization tests passed, deployed v2",
+    "logs": "server .local/heart-release/deploy.log and deploy-v2.log"
+  },
+  "recovery": {
+    "api": {
+      "sha256": "9f368e72398a087b1fd51015e0a46824f51cd184287c68300e688c2aafb6b48c",
+      "id": "d0fb085ed08ec0998f25be1a6dafdca58440e282627d83243c3a9ee98d685463",
+      "blobs": 83
+    },
+    "runtime": {
+      "sha256": "feb946289e0932fc62f7cc481d9edcbdfb4abd9e3b5daac7c2d16abbc0171b69",
+      "databases": 2,
+      "settingsVerified": true,
+      "successfulDeployMarker": true
+    },
+    "front": "/Users/ethan/crefans-recovery/20261114/front-ai-hearts-v2-20261114; ship script verified"
+  },
+  "limitations": [
+    "No real-user paid image generation performed",
+    "No physical iPhone pinch test",
+    "No unbounded bot-abuse guarantee"
+  ]
+}
