@@ -1,3 +1,7 @@
+## 2026-11-14 하트 모으기 운영 배포 완료
+- 93f22ed dev→prod, front-waiting-hearts-20261114 04:18:39UTC 운영교체. 운영게임/점수/모션감소번들·캐릭터HTTP200/SHA확인,주요페이지/헬스정상·다른컨테이너유지. 단위55/55·타입·계층454·WebKit모바일통과,docs기존형제참조누락실패. 공급사실생성은재호출하지않음.
+- 이전이미지/설정은 /Users/ethan/crefans-recovery/20261114/front-waiting-hearts-20261114 SHA/OCI/태그/15blobs검증후서버사본·임시정리. 증거 .local/waiting-hearts/{production.json,ship.log,verification.json,mobile.png}. 게임추가과금/API호출/보상/저장없음.
+
 ## 2026-11-14 생성 대기 하트 게임 검증 완료
 - 공용AiPhotoWaiting:클릭/키보드하트5개·위치변경·점수,기존라벤더캐릭터재사용. 생성요청과독립,실패/완료게임제거·재시도0점·결과제목포커스. 실제경과/평균시간유지,가상퍼센트/플레이스홀더/중복버튼제거. 모션감소지원. 디자인카탈로그30초대기상태등록.
 - 단위55/55(게임조작요청불변·실패/성공/초기화포함),타입0,계층454파일통과. WebKit모바일터치/Enter/Space·320px·reduced-motion·완료포커스통과. 최종화면직접눈검사,docs기존형제서버참조누락실패. 공급사/운영실생성미실행.
