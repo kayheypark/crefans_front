@@ -216,11 +216,11 @@ test('mask icon tools: all brush sizes paint correctly, undo removes one stroke,
  await act(async()=>r.update(el(AiPhotoMask,{src:photo.url,alt:'원본',strokes:[],onChange(){},disabled:true})));assert.ok(r.root.findAllByType('button').every(b=>b.props.disabled));
 });
 
-test('costume categories: nine populated groups, existing eight general styles, and 32 unique short prompts',()=>{
+test('costume categories: nine populated groups, existing eight general styles, and 90 unique short prompts',()=>{
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumeCategories.length,9);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,4,4,4,4,4,4,4,4]);
+ assert.equal(aiPhotoCostumeCategories.length,9);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,4,4,4,54,4,4,4,4]);
  assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['773106','80974e','ffb58f','666147','b4bf5d','e614f6','190513','ab36e8']);
- assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,40);
+ assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,90);
  for(const c of aiPhotoCostumes){assert.ok(aiPhotoCostumeCategories.some(g=>g.value===c.category));assert.ok(c.prompt.length<=300);assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');}
 });
 
@@ -285,13 +285,13 @@ test('body controls select only one adjustment and keep custom input',async()=>{
 });
 
 
-test('every preset has a distinct decodable image including Comic World, 30 poses and Canon lens model prompts',async()=>{
+test('every preset has a distinct decodable image including Comic World, 30 poses and four shooting concepts',async()=>{
  const fs=require('fs'),path=require('path'),sharp=require('sharp');const {aiPhotoPresets,aiPhotoPresetImage,aiPhotoComicWorldPreset,aiPhotoPresetTitle,aiPhotoPresetTitles}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const images=[];
- assert.equal(aiPhotoPresets.pose.length,30);assert.equal(aiPhotoPresets.lens.length,6);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
+ assert.equal(aiPhotoPresets.pose.length,30);assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
  for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}
  }
  const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,16);
- assert.equal(images.length,104);assert.equal(new Set(images).size,104);for(const value of aiPhotoPresets.lens)assert.match(value,/Canon RF.*촬영한? 느낌|Canon RF.*촬영 느낌/);
+ assert.equal(images.length,99);assert.equal(new Set(images).size,99);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
@@ -346,8 +346,8 @@ test('reset ticket: button refills the count, is off when unused, hidden without
 
 test('complete cosplay look: catalog hair and accessories reach the request after leaving the wardrobe',async()=>{
  const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumes.length,40);
- for(const item of aiPhotoCostumes){assert.match(item.wig,/가발/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
+ assert.equal(aiPhotoCostumes.length,90);
+ for(const item of aiPhotoCostumes){assert.match(item.wig,/가발|후드|머리장식/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
  const {r,calls,click}=await open();await click('코스어 모드');await click('리본 메이드');
  assert.doesNotMatch(text(r.toJSON()),/옷을 바꿀 영역을 칠해 주세요/);await click('일반 모드');
  await click('옷 세부 지정');await act(async()=>{r.root.find(n=>n.props['data-mask-editor']).props.onChange([{size:.1,points:[{x:.5,y:.5}]}]);});
@@ -504,7 +504,7 @@ test('search keeps selected poses, resets pages, clears on tabs and finds costum
 });
 
 
-test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,40);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
+test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,90);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
 
 test('clothing detail switch defaults off, sends no guide, and ignores retained strokes when off',async()=>{
  const {r,click,calls}=await open({},true);
@@ -581,3 +581,39 @@ test('body continuous range keeps intermediate values, snaps near anchors and ke
  });
 
 test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('1장 만들기');assert.equal(calls.length,0);assert.equal(refresh,1);assert.equal(r.root.findAllByProps({'aria-label':'횟수권 구매'}).length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'보존할 편집 내용');});
+
+test('Overwatch has nine six-card pages; Roadhog search preserves its reference selection',async()=>{
+ const {r,click,calls}=await open({},true);await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('overwatch'));assert.match(text(r.toJSON()),/54종/);assert.match(text(r.toJSON()),/1 \/ 9/);await click('로드호그 코스튬');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(r.root.findByProps({'aria-label':'로드호그 코스튬'}).props['aria-pressed'],true);await click('1장 만들기');const c=loadTypeScript('lib/crefans/ai-photo-costumes.ts').aiPhotoCostumes.find(x=>x.name==='로드호그 코스튬');assert.deepEqual(calls[0].costumeIds,[c.id]);assert.doesNotMatch(calls[0].prompt,/방독면|갈고리/);
+});
+
+test('shooting concepts replace Canon choices and retain other selected edits',async()=>{
+ const {r,click,calls}=await open();await click('쪼그려 앉기');await click('촬영컨셉');assert.doesNotMatch(text(r.toJSON()),/캐논|RF85|렌즈/);for(const name of ['셀카 폰카(정면)','거울샷','DSLR','대포카메라'])assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']===name).length,1);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],true);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],false);await click('DSLR');await click('1장 만들기');assert.ok(calls[0].editKinds.includes('pose'));assert.ok(calls[0].editKinds.includes('lens'));assert.match(calls[0].prompt,/DSLR/);assert.match(calls[0].prompt,/쪼그려/);
+});
+
+test('background subcategories show six indoor and four outdoor presets and preserve selection',async()=>{
+ const {aiPhotoPresetPage,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
+ const indoor=aiPhotoPresetPage('background',9,'female','',undefined,'indoor'),outdoor=aiPhotoPresetPage('background',0,'female','',undefined,'outdoor');
+ assert.equal(indoor.total,6);assert.equal(indoor.index,0);assert.equal(outdoor.total,4);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['햇살 공원','벚꽃길','노을 바다','도시 야경']);
+ assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'indoor').total,2);assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'outdoor').total,0);
+ const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('1장 만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
+});
+
+test('download saves original bytes and reports failure without changing selected result',async()=>{
+ const previous={fetch:global.fetch,document:global.document,setTimeout:global.setTimeout,create:URL.createObjectURL,revoke:URL.revokeObjectURL};let clicked=0,removed=0,saved,revoked,link={click(){clicked++},remove(){removed++}};const bytes=new Blob(['original'],{type:'image/webp'});
+ try{global.fetch=async url=>{assert.equal(url,'/a1.png');return {ok:true,blob:async()=>bytes}};global.document={createElement:()=>link,body:{appendChild(){}}};URL.createObjectURL=blob=>{saved=blob;return 'blob:download'};URL.revokeObjectURL=url=>{revoked=url};global.setTimeout=fn=>{fn();return 0};
+ const {r,click}=await open();await click('1장 만들기');await click('결과 1 다운로드');assert.equal(clicked,1);assert.equal(removed,1);assert.equal(saved,bytes);assert.equal(link.download,'crefans-ai-a1.webp');assert.equal(revoked,'blob:download');assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);
+ global.fetch=async()=>({ok:false});await click('결과 1 다운로드');assert.match(text(r.toJSON()),/다운로드하지 못했어요/);assert.equal(clicked,1);
+ }finally{global.fetch=previous.fetch;global.document=previous.document;global.setTimeout=previous.setTimeout;URL.createObjectURL=previous.create;URL.revokeObjectURL=previous.revoke;}
+});
+
+test('viewer ignores pinch and cancelled pointer gestures while permitting browser zoom',async()=>{
+ const fs=require('node:fs');assert.match(fs.readFileSync('components/crefans/studio/ai-photo.module.css','utf8'),/\.viewer\{[^}]*touch-action:pan-x pan-y pinch-zoom/);
+ const {r,click}=await open({onEdit:async()=>({success:true,data:{images:[{id:'a1',url:'/a1.png',type:'image'},{id:'a2',url:'/a2.png',type:'image'}],remaining:9}})});await click('1장 만들기');await click('결과 1 크게 보기');const v=()=>r.root.find(n=>n.props.role==='group'&&n.props['aria-label']==='결과 1 크게 보기');
+ await act(async()=>{v().props.onPointerDown({pointerId:1,clientX:200});v().props.onPointerDown({pointerId:2,clientX:100});v().props.onPointerUp({pointerId:2,clientX:0});v().props.onPointerUp({pointerId:1,clientX:0});});assert.match(text(v()),/결과 1 \/ 2/);
+ await act(async()=>{v().props.onPointerDown({pointerId:1,clientX:200});v().props.onPointerCancel({pointerId:1});v().props.onPointerUp({pointerId:1,clientX:0});});assert.match(text(v()),/결과 1 \/ 2/);
+});
+
+test('signed-in heart game submits pieces not scores and shows cumulative conversion',async()=>{
+ const actions=[];const {r,click,calls}=await open({quota:{remaining:10,limit:10,hearts:85},onHeartGame:async input=>{actions.push(input);return {success:true,data:input.action==='start'?{id:'game1',kinds:['heart','candy','heart','moon','heart']}:input.action==='finish'?{earned:30,hearts:5,credits:11,converted:11}:{score:1}};}});
+ await click('1장 만들기');assert.equal(calls[0].heartGameId,'game1');assert.deepEqual(actions.map(x=>x.action),['start','finish']);assert.match(text(r.toJSON()),/하트 110개를 생성 11회로 바꿨어요/);assert.match(text(r.toJSON()),/모은 하트 30개/);assert.ok(actions.every(x=>!('score' in x)));
+});

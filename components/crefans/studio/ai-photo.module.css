@@ -99,7 +99,7 @@
 .resultItem{position:relative}
 .zoom{position:absolute;right:8px;bottom:8px;z-index:1;display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid var(--cf-color-border);border-radius:8px;background:rgb(255 255 255 / 94%);color:var(--cf-color-text);cursor:pointer}
 .zoom:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
-.viewer{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:#0b0d12;color:#fff;touch-action:pan-y}
+.viewer{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:#0b0d12;color:#fff;touch-action:pan-x pan-y pinch-zoom}
 .viewerBar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:max(12px,env(safe-area-inset-top)) 16px 12px;font-size:14px}
 .viewerClose{min-height:44px;padding:0 16px;border:1px solid rgb(255 255 255 / 30%);border-radius:999px;background:transparent;color:#fff;font:inherit;font-size:14px;cursor:pointer}
 .viewerStage{position:relative;flex:1 1 0;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0 12px}
@@ -223,3 +223,7 @@
 .footer .createWithQuota{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.createLabel{grid-column:2;white-space:nowrap}.createQuota{grid-column:3;justify-self:end;padding:3px 8px;border-radius:999px;background:rgb(255 255 255 / 18%);color:inherit;font-size:12px;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
 
 .genderEntry{background:#fff;display:flex;flex:1;flex-direction:column;justify-content:center;gap:32px;padding:48px 24px;min-height:360px}.genderEntry h3{margin:0;text-align:center;font-size:24px;line-height:1.4}.genderEntryChoices{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:440px;margin:0 auto}.genderEntryChoices button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;min-height:168px;border:1px solid #dedbea;border-radius:20px;background:#f7f5ff;color:#32264f;font:inherit;font-size:22px;font-weight:700;cursor:pointer}.genderEntryChoices button span{font-size:44px;line-height:1;color:#8657df}.genderEntryChoices button:hover{background:#eee8ff}.genderEntryChoices button:focus-visible{outline:3px solid #8657df;outline-offset:3px}
+
+.viewerTools{display:flex;gap:8px}.resultName button{margin-left:auto;border:0;background:transparent;color:var(--cf-color-accent);font:inherit;min-height:44px;cursor:pointer}.resultName button:disabled{opacity:.5}
+
+.heartFinished{position:relative;z-index:2;margin:0;padding:80px 16px;text-align:center;font-weight:600;line-height:1.7;background:rgb(255 255 255 / 86%)}

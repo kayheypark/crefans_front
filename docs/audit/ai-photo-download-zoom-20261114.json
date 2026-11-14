@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-14T05:56:38.683623+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-preset-expansion",
+  "baseCommit": "c6690b5cb7b589f2de267fb637c63966f9dcee68",
+  "state": "uncommitted implementation verified",
+  "checks": [
+    {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "63/63 including download HTTP failure control and multitouch cancel"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "pass"
+    },
+    {
+      "command": "node .local/download-zoom/browser.cjs",
+      "exitCode": 0,
+      "result": "WebKit390 real download saved, computed pinch-zoom allowed, no overflow/pageerror; screenshot inspected"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/touch-action",
+      "applied": "Allow native pan and pinch, do not hijack zoom with swipe"
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a",
+      "applied": "Fetch original bytes into same-origin Blob download URL"
+    }
+  ],
+  "files": {
+    "components/crefans/studio/AiPhotoDialog.tsx": "60cf501dc3b2a8e501ca1abbe577a67c6a9979b9e500f512a065a11c3f1cd40d",
+    "components/crefans/studio/ai-photo.module.css": "e844f233edbfca777f7e69d7c9f5224cef9c69cbcc8f3377fe93a18a51811d00",
+    ".local/download-zoom/downloaded-image": "75a06ba96ada7671a0623db126e8cc10ce9a51488e0ba4f99a2ddd700959348c"
+  },
+  "limitations": [
+    "Physical iPhone pinch gesture not executed",
+    "Not deployed"
+  ],
+  "logs": ".local/download-zoom"
+}

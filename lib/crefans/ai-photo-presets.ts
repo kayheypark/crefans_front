@@ -7,7 +7,7 @@ export const aiPhotoNeutralExpressionPreset='미소 없이 입을 자연스럽�
 export const AI_PHOTO_PRESET_PAGE_SIZE=6;
 export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
 "camera": ["카메라를 눈높이에 두고 정면에서 촬영한 구도로 바꿔줘.", "카메라를 낮게 두고 살짝 올려다보는 로우 앵글로 바꿔줘.", "카메라를 높게 두고 살짝 내려다보는 하이 앵글로 바꿔줘.", "얼굴과 어깨를 담는 클로즈업 구도로 바꿔줘.", "허리 위 상반신을 담는 구도로 바꿔줘.", "머리부터 발끝까지 잘리지 않는 전신 구도로 바꿔줘.", "카메라를 인물의 뒤쪽 45도 눈높이에 두고 머리부터 발끝까지 담는 전신 구도로 바꿔줘.", "카메라를 인물의 옆쪽 눈높이에 두고 옆모습을 머리부터 발끝까지 담는 전신 구도로 바꿔줘.", "카메라를 눈높이에 두고 얼굴과 양쪽 어깨가 중심이 되는 타이트한 상반신 구도로 바꿔줘."],
-"lens": ["Canon RF15-35mm F2.8 L IS USM을 24mm f/2.8로 촬영한 느낌으로, 주변 공간이 넓게 보이는 광각 원근감을 표현해줘.", "Canon RF24-70mm F2.8 L IS USM을 50mm f/2.8로 촬영한 느낌으로, 자연스러운 원근감과 부드러운 배경 흐림을 표현해줘.", "Canon RF35mm F1.8 MACRO IS STM의 35mm f/1.8 촬영 느낌으로, 인물과 주변 분위기를 함께 담고 배경은 부드럽게 흐려줘.", "Canon RF50mm F1.8 STM의 50mm f/1.8 촬영 느낌으로, 자연스러운 인물 비율과 얕은 심도를 표현해줘.", "Canon RF85mm F1.2 L USM의 85mm f/1.2 촬영 느낌으로, 인물을 또렷하게 하고 배경은 크게 흐려줘.", "Canon RF70-200mm F2.8 L IS USM을 135mm f/2.8로 촬영한 느낌으로, 멀리서 담은 압축감과 부드러운 배경 흐림을 표현해줘."],
+"lens": ["스마트폰 전면 카메라로 정면 셀카를 찍은 구도로 바꿔줘. 팔을 뻗어 촬영한 자연스러운 가까운 거리와 가벼운 광각 느낌을 표현하고 얼굴이 중심에 오게 해줘. 거울은 추가하지 마.", "거울 앞에서 휴대폰을 들고 찍은 거울 셀카로 바꿔줘. 휴대폰과 자연스러운 거울 반사가 보이게 하되 얼굴을 과도하게 가리지 말고 인물과 손이 중복되지 않게 해줘.", "다른 사람이 DSLR로 촬영한 자연스러운 인물 사진 느낌으로 바꿔줘. 눈높이의 자연스러운 원근감, 또렷한 인물과 적당한 배경 흐림을 표현해줘. 촬영 장비는 화면에 추가하지 마.", "다른 사람이 먼 거리에서 대형 망원렌즈로 촬영한 인물 사진 느낌으로 바꿔줘. 얼굴 비율은 자연스럽게 유지하고 망원 특유의 압축된 거리감과 크게 흐려진 배경을 표현해줘. 촬영 장비는 화면에 추가하지 마."],
 "body": ["가슴 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "가슴 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "전신의 키 비율을 조금 작아 보이게 자연스럽게 보정해줘.", "전신의 키 비율을 조금 커 보이게 자연스럽게 보정해줘."],
  "outfit": [
   "상의 색을 차분한 하늘색으로 바꿔줘.",
@@ -78,20 +78,16 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
   "서서 가볍게 기지개를 켜며 쉬는 포즈로 바꿔줘.",
   "카메라 옆의 풍경을 보며 천천히 걷는 포즈로 바꿔줘.",
   "몸을 뒤로 돌리고 어깨 너머로 카메라를 자연스럽게 돌아보는 전신 포즈로 바꿔줘.", "두 발을 어깨너비보다 조금 넓게 벌리고 당당하게 서 있는 전신 포즈로 바꿔줘.", "두 팔을 머리 위로 자연스럽게 올리고 편안하게 서 있는 전신 포즈로 바꿔줘.", "의자 등받이를 앞으로 두고 거꾸로 앉아 등받이에 두 팔을 편하게 얹은 포즈로 바꿔줘.", "의자에 앉아 한쪽 다리를 다른 쪽 무릎 위로 자연스럽게 꼬고 두 손을 무릎에 올린 포즈로 바꿔줘.", "바닥에 편하게 앉아 한쪽 무릎만 세우고 다른 다리는 옆으로 접은 포즈로 바꿔줘."],
- "background": [
-  aiPhotoComicWorldPreset,
+ "background": [aiPhotoComicWorldPreset,
+  "배경을 형광등이 켜진 밤의 아늑한 내 방으로 바꿔줘. 창밖은 어둡고 실내는 흰 형광등 조명으로 비춰줘.",
+  "배경을 낮의 아늑한 내 방으로 바꿔줘. 형광등은 끄고 창문에서 들어오는 자연광으로만 비춰줘.",
+  "배경을 소파와 테이블이 있는 편안한 아파트 거실로 바꿔줘.",
   "배경을 깔끔한 흰 스튜디오로 바꿔줘.",
-  "부드러운 햇빛이 드는 창가로 바꿔줘.",
-  "배경을 차분한 회색 벽으로 바꿔줘.",
+  "배경을 검정 배경지와 검정 바닥이 있는 촬영 스튜디오로 바꿔줘.",
   "배경을 햇살이 부드러운 공원으로 바꿔줘.",
   "멀리 벚꽃이 흐릿하게 보이는 길로 바꿔줘.",
-  "배경을 따뜻한 베이지색 스튜디오로 바꿔줘.",
-  "배경의 복잡한 물건을 줄여 깔끔하게 정리해줘.",
-  "배경을 조용한 카페 창가로 바꿔줘.",
   "해 질 녘 바다가 보이는 배경으로 바꿔줘.",
-  "밤의 도시 불빛이 흐릿하게 보이게 해줘.",
-  "배경을 은은한 파스텔 블루 스튜디오로 바꿔줘.",
-  "초록 식물이 있는 밝은 실내로 배경을 바꿔줘."
+  "밤의 도시 불빛이 흐릿하게 보이게 해줘."
  ]
 };
 
@@ -101,20 +97,25 @@ export function aiPhotoPresetMatches(query:string,...values:string[]){
  return terms.every(term=>text.includes(term));
 }
 
+export type AiPhotoBackgroundCategory='indoor'|'outdoor';
+export function aiPhotoBackgroundCategory(example:string):AiPhotoBackgroundCategory{return aiPhotoPresets.background.indexOf(example)<6?'indoor':'outdoor';}
+
 export type AiPhotoPosePosture='sitting'|'standing';
 const sittingPoseIndexes=new Set([12,13,14,16,19,20,27,28,29]);
 export function aiPhotoPosePosture(example:string):AiPhotoPosePosture{return sittingPoseIndexes.has(aiPhotoPresets.pose.indexOf(example))?'sitting':'standing';}
 
-export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture){
+export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture,backgroundCategory?:AiPhotoBackgroundCategory){
  const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter((_,index)=>(index%2===0?'female':'male')===gender):aiPhotoPresets[kind];
  const ordered=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available;
- const examples=ordered.filter(example=>(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
+ const examples=ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;
  return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages,total:examples.length};
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
+ if(kind==='background'){const files=['presets/background-comicworld-v1','background/room-night-v1','background/room-day-v1','background/living-room-v1','presets/background-01-v1','background/studio-black-v1','presets/background-04-v1','presets/background-05-v1','presets/background-09-v1','presets/background-10-v1'];return `/brand/ai-photo/${files[aiPhotoPresets.background.indexOf(example)]}.webp`;}
  if(kind==='pose'){const index=aiPhotoPresets.pose.indexOf(example);return `/brand/ai-photo/pose-mascot/pose-${String(index+1).padStart(2,'0')}-${index===19?'v2':'v1'}.webp`;}
+ if(kind==='lens')return `/brand/ai-photo/shoot-concept/shoot-${String(aiPhotoPresets.lens.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
  if(kind==='camera')return `/brand/ai-photo/camera-mascot/camera-${String(aiPhotoPresets.camera.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
  if(kind==='expression')return `/brand/ai-photo/expression-mascot/expression-${String(aiPhotoPresets.expression.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
  if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return `/brand/ai-photo/presets/body-male-${control.key}-v1.webp`;}
@@ -129,9 +130,9 @@ export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "makeup":["코랄 립", "생기 있는 볼", "브라운 아이", "로즈 립", "펄 줄이기", "얇은 아이라인", "자연스러운 눈썹", "피치 블러셔", "은은한 음영", "매트 립", "데일리 메이크업", "피부 톤 정돈"],
  "expression":["무표정", "환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소", "도도한 시선", "자신감 있는 미소", "턱 살짝 들기"],
  "pose":["손인사", "살짝 돌아서기", "두 손 모으기", "허리에 손", "고개 기울이기", "브이", "정면 서기", "작은 손인사", "앞으로 기대기", "턱에 손", "손하트", "옆모습 시선", "의자에 앉기", "벤치에 앉기", "쪼그려 앉기", "벽에 기대 쉬기", "바닥에 앉기", "시선 밖 스냅", "걷다 돌아보기", "대화하는 스냅", "계단에 앉기", "난간에 기대기", "기지개", "산책 스냅", "뒤돌아보기", "다리 넓혀 서기", "양팔 머리 위로", "의자 거꾸로 앉기", "다리 꼬아 앉기", "한쪽 무릎 세우기"],
- "background":["서코 실내", "화이트 스튜디오", "햇살 드는 창가", "그레이 스튜디오", "햇살 공원", "벚꽃길", "베이지 스튜디오", "깔끔한 실내", "카페 창가", "노을 바다", "도시 야경", "블루 스튜디오", "식물 가득 실내"],
+ "background":["코믹월드", "내 방(밤 형광등)", "내 방(낮 형광등 끔)", "거실", "촬영스튜디오(흰배경)", "촬영스튜디오(검정배경)", "햇살 공원", "벚꽃길", "노을 바다", "도시 야경"],
  "camera":["눈높이 정면", "로우 앵글", "하이 앵글", "얼굴 클로즈업", "상반신", "전신", "뒤쪽 45도", "측면 전신", "어깨 중심"],
- "lens":["RF15–35mm F2.8", "RF24–70mm F2.8", "RF35mm F1.8", "RF50mm F1.8", "RF85mm F1.2", "RF70–200mm F2.8"],
+ "lens":["셀카 폰카(정면)", "거울샷", "DSLR", "대포카메라"],
  "body":["가슴 조금 작게", "가슴 조금 크게", "힙 조금 작게", "힙 조금 크게", "키 조금 작게", "키 조금 크게"]
 };
 export function aiPhotoPresetTitle(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return control.label;}return aiPhotoPresetTitles[kind][aiPhotoPresets[kind].indexOf(example)];}
