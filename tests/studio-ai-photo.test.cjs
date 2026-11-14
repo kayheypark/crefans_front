@@ -87,7 +87,7 @@ test('legacy two-result response: viewer navigation and existing selections are 
  assert.equal(viewer().length,0);assert.match(text(r.toJSON()),/사진 결정/,'both results are picked and the editor is still open');
 });
 
-test('progress: while making, the button and panel show elapsed seconds and the usual time (or that it is being measured)',async()=>{
+test('progress: the waiting game retains real elapsed and usual time without a fake percentage',async()=>{
  for(const [typical,expect] of [[24,/보통 약 24초 걸려요/],[null,/걸리는 시간을 재는 중/]]){
   let finish;const onEdit=()=>new Promise(resolve=>{finish=resolve;});
   let r;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10,typicalSeconds:typical},room:9,onEdit,onAdd(){}}));});
@@ -95,8 +95,8 @@ test('progress: while making, the button and panel show elapsed seconds and the 
   await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
 
   await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('1장 만들기')).props.onClick();});
-  assert.equal(r.root.find(n=>n.type==='button'&&text(n).startsWith('만드는 중')).props.disabled,true);
-  const all=text(r.toJSON());assert.match(all,expect);assert.match(all,/0초 지남/);assert.match(all,/만드는 중… 0초/);assert.match(all,/창을 닫지 말고/);
+  assert.equal(r.root.findAll(n=>n.type==='button'&&text(n).includes('1장 만들기')).length,0);assert.equal(r.root.findAll(n=>n.type==='button'&&String(n.props['aria-label']).match(/^하트 [1-5] 모으기$/)).length,5);
+  const all=text(r.toJSON());assert.match(all,expect);assert.match(all,/0초 지남/);assert.match(all,/잠시만 화면을 유지/);assert.doesNotMatch(all,/%/);
   await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
   assert.doesNotMatch(text(r.toJSON()),/초 지남/);
  }
@@ -545,4 +545,18 @@ test('posture buttons reset browsing but retain selected pose and other categori
  await select('앉기');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],true);
  await select('서기');await search('다리 넓혀');await click('다리 넓혀 서기');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());assert.equal(r.root.findAllByProps({'aria-label':'포즈 자세'}).length,0);
  await click('1장 만들기');assert.deepEqual(calls[0].editKinds,['pose','expression']);assert.match(calls[0].prompt,/어깨너비보다/);assert.match(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/쪼그려/);
+});
+
+
+test('waiting hearts never change requests; failure and success remove game, retry starts at zero',async()=>{
+ const sent=[];let finish;const {r,click}=await open({onEdit:input=>{sent.push(input);return new Promise(resolve=>{finish=resolve;});}});
+ await click('쪼그려 앉기');await click('1장 만들기');const original=JSON.stringify(sent[0]);
+ const score=()=>text(r.root.findByProps({'aria-label':'모은 하트'}));assert.equal(score(),'0');
+ for(let i=0;i<7;i++)await click(`하트 ${i%5+1} 모으기`);
+ assert.equal(score(),'7');assert.equal(sent.length,1);assert.equal(JSON.stringify(sent[0]),original);
+ await act(async()=>finish({success:false,errorMessage:'생성 실패',errorCode:'PROVIDER_ERROR'}));
+ assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/생성 실패/);
+ await click('확인');await click('1장 만들기');assert.equal(score(),'0');assert.equal(sent.length,2);assert.equal(JSON.stringify(sent[1]),original);
+ await click('하트 1 모으기');assert.equal(score(),'1');await act(async()=>finish({success:true,data:{images:[{id:'done',type:'image',url:'/done.png'}],remaining:9}}));
+ assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/사진 결정/);assert.equal(sent.length,2);
 });

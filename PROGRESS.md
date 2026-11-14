@@ -1,3 +1,12 @@
+## 2026-11-14 생성 대기 하트 게임 검증 완료
+- 공용AiPhotoWaiting:클릭/키보드하트5개·위치변경·점수,기존라벤더캐릭터재사용. 생성요청과독립,실패/완료게임제거·재시도0점·결과제목포커스. 실제경과/평균시간유지,가상퍼센트/플레이스홀더/중복버튼제거. 모션감소지원. 디자인카탈로그30초대기상태등록.
+- 단위55/55(게임조작요청불변·실패/성공/초기화포함),타입0,계층454파일통과. WebKit모바일터치/Enter/Space·320px·reduced-motion·완료포커스통과. 최종화면직접눈검사,docs기존형제서버참조누락실패. 공급사/운영실생성미실행.
+- 근거 .local/waiting-hearts/{verification.json,unit-final.log,types-final.log,layers.log,browser-final.log,mobile.png,mobile-320.png}. 새이미지생성없음. 운영배포예정.
+
+## 2026-11-14 생성 대기 하트 모으기 구현 진행
+- 승인시안적용:대기중라벤더캐릭터+클릭가능하트5개+로컬점수,완료/실패시언마운트·재시도0점. 요청/크레딧/프롬프트와독립. 실제경과·기존평균시간표시유지,가상진행률·회색플레이스홀더·중복만드는중버튼제거.
+- 합격:터치/키보드점수·API추가호출없음·성공/실패전환·재시도초기화·모바일/감소모션·타입/회귀·운영번들. 기존캐릭터에셋재사용,추가이미지생성없음.
+
 ## 2026-11-14 앉기·서기 필터 운영 배포 완료
 - 961482c dev→prod, front-pose-posture-20261114 04:05:01UTC 적용. 운영컨테이너/포즈자세번들/pose-20-v2 HTTP200·WebP·SHA확인. 주요페이지·헬스정상,API등다른컨테이너유지. 54/54·타입·WebKit통과,docs기존참조누락실패.
 - 이전이미지/설정은 /Users/ethan/crefans-recovery/20261114/front-pose-posture-20261114 SHA/OCI/15blobs검증후서버사본·임시정리. 증거 .local/pose-posture/{production.json,ship.log,verification.json}. 대기화면은Seedream시안만제작,하트게임실구현없음.

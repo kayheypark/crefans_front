@@ -3,6 +3,7 @@ import {useEffect,useId,useRef,useState} from 'react';
 import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
 import {SelectField} from '@/components/ui/SelectField';
 import {AiPresetPager} from './AiPresetPager';
+import {AiPhotoWaiting} from './AiPhotoWaiting';
 import {AiPhotoWardrobe} from './AiPhotoWardrobe';
 import type {ApiResult} from '@/types/crefans';
 import type {AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,StudioMedia} from '@/types/crefans-studio-management';
@@ -62,7 +63,7 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
  async function useTicket(){if(!onUseTicket||ticketBusy||busy)return;setTicketBusy(true);setError('');setTicketNote('');
   try{const r=await onUseTicket();if(r.success){setRemaining(r.data.remaining);setTicketNote(r.data.message);}else setError(r.errorMessage||'리셋권을 사용하지 못했어요. 잠시 후 다시 시도해 주세요.');}catch{setError('리셋권을 사용하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setTicketBusy(false);}}
  useEffect(()=>{if(!sources.some(item=>item.id===sourceId))setSourceId(sources[0]?.id||'');},[images,workingSources,sourceId]);
- useEffect(()=>{if(bodyRef.current)bodyRef.current.scrollTop=0;if(stage==='results')resultTitleRef.current?.focus({preventScroll:true});},[stage]);
+ useEffect(()=>{if(bodyRef.current)bodyRef.current.scrollTop=0;if(stage==='results')resultTitleRef.current?.focus({preventScroll:true});},[stage,busy]);
  useEffect(()=>{if(!busy){setElapsed(0);return;}const begun=Date.now();const timer=setInterval(()=>setElapsed(Math.floor((Date.now()-begun)/1000)),1000);return()=>clearInterval(timer);},[busy]);
  const source=sources.find(item=>item.id===sourceId),kindInfo=aiPhotoKinds.find(item=>item.value===(editKinds[0]||kind))!,typical=quota.typicalSeconds;
  function changeSource(id:string){setSourceId(id);setStrokes([]);setDetailedOutfit(false);setSourcePicker(false);setError('');}
@@ -139,25 +140,25 @@ export function AiPhotoDialog({open,onClose,images,quota,room,onEdit,onAdd,onUse
     {composer}
      <p className={s.hint}>만들기를 누르면 본인 또는 사용 허락을 받은 사진임을 확인합니다.</p>
      <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>나체·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
-    </div>:<div className={s.results} aria-busy={busy}>
-     <div className={s.summary}>
+    </div>:<div className={s.results}>
+     {!busy&&<div className={s.summary}>
       {/* eslint-disable-next-line @next/next/no-img-element -- own source thumbnail */}
       {source&&<img src={source.preview||source.url} alt=""/>}<div><strong>{targetGender!=='original'?(editKinds.length?'함께 편집':targetGender==='female'?'여성으로 변경':'남성으로 변경'):editKinds.length>1?'함께 편집':`${kindInfo.label} 바꾸기`}</strong><span>{aiPhotoStyles.find(item=>item.value===style)?.label}</span></div>
       <button ref={editRef} type="button" onClick={()=>{setStage('edit');setError('');}} disabled={busy}>설정 수정</button>
-     </div>
-     <div className={s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{busy?'사진을 만들고 있어요':'만든 사진'}</h3>{!busy&&<span>{selected.length}장 선택</span>}</div>
-     {busy?<><div className={s.progress}><p role="status">{typical?`보통 약 ${typical}초 걸려요.`:'걸리는 시간을 재는 중이에요.'}</p><strong aria-hidden="true">{elapsed}초 지남{typical?` / 보통 약 ${typical}초`:''}</strong>{typical?<span className={s.progressBar} aria-hidden="true"><i style={{width:`${Math.min(95,Math.round(elapsed/typical*100))}%`}}/></span>:null}<small>창을 닫지 말고 기다려 주세요.</small></div><div className={s.placeholder}>{Array.from({length:AI_PHOTO_IMAGES_PER_REQUEST},(_,i)=><span key={i} className={s.loading}/>)}</div></>:
+     </div>}
+     <div className={busy?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{busy?'사진을 만들고 있어요':'만든 사진'}</h3>{!busy&&<span>{selected.length}장 선택</span>}</div>
+     {busy?<AiPhotoWaiting elapsed={elapsed} typical={typical}/>:
       <><p className={s.help}>사진을 선택하거나 크게 볼 수 있어요.</p><div className={s.grid}>{results.map((item,index)=><div key={item.id} className={s.resultItem}><div className={s.resultFrame}><button type="button" className={s.result} aria-pressed={selected.includes(item.id)} aria-label={`결과 ${index+1}`} onClick={()=>toggle(item.id)}>
        {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image */}
        <img src={item.url} alt=""/><span className={s.ai}>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>
        <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button></div><div className={s.resultName}><span>결과 {index+1}</span>{selected.includes(item.id)&&<span>선택됨</span>}</div></div>)}</div></>}
     </div>}
     {stage==='results'&&!busy&&<div className={s.resultActions}><Action type="button" variant="secondary" onClick={()=>{const item=results.find(result=>selected.includes(result.id));if(item)editResult(item);}} disabled={selected.length!==1}>계속 보정</Action><Action type="button" onClick={add} disabled={!selected.length}>사진 결정</Action></div>}
-    {(stage==='edit'||busy||remaining<=0)&&<div className={s.quota}><span>오늘 남은 횟수 <b>{remaining}</b>/{quota.limit}</span>{onUseTicket&&tickets>0&&<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||remaining>=quota.limit} title={remaining>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
+    {(!busy&&(stage==='edit'||remaining<=0))&&<div className={s.quota}><span>오늘 남은 횟수 <b>{remaining}</b>/{quota.limit}</span>{onUseTicket&&tickets>0&&<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||remaining>=quota.limit} title={remaining>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
    </div>
-   {(stage==='edit'||busy)&&<div className={s.footer} inert={viewing}>
-    <Action type="button" onClick={()=>void generate()} disabled={busy}>{busy?`만드는 중… ${elapsed}초`:`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</Action>
+   {stage==='edit'&&<div className={s.footer} inert={viewing}>
+    <Action type="button" onClick={()=>void generate()} disabled={busy}>{`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`}</Action>
    </div>}
   </>}
   {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onToggle={toggle} onClose={closeViewer}/>}
