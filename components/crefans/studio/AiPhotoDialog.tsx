@@ -9,6 +9,7 @@ import {ShopPage} from './ShopPage';
 import type {ShopModel} from '@/types/crefans-shop';
 import {useEffect,useId,useRef,useState} from 'react';
 import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
+import {aiPhotoOutfitByPrompt,type AiPhotoOutfitPart} from '@/lib/crefans/ai-photo-outfits';
 import {SelectField} from '@/components/ui/SelectField';
 import {AiPresetPager} from './AiPresetPager';
 import {AiPhotoWaiting} from './AiPhotoWaiting';
@@ -55,7 +56,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
  const prompt=buildPrompt([...selectedPresets,...libraryPresets],customPrompt,targetGender)||(aspectRatio!=='original'?'Preserve the subject and appearance; adapt the composition to the requested image dimensions.':'');
  const editKinds=Array.from(new Set([...selectedPresets.map(item=>item.kind),...libraryAssets.map(item=>item.category),...(customPrompt.trim()?[kind]:[])]));
- function changeGender(value:'original'|'female'|'male'){if(buildPrompt(selectedPresets,customPrompt,value).length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}if((targetGender==='male')!==(value==='male'))setBodySelection(null);setTargetGender(value);setGenderChosen(true);setPresetPages({});setSelectedPresets(previous=>previous.filter(item=>(item.kind!=='body'||(targetGender==='male')===(value==='male'))&&(item.kind!=='makeup'||aiPhotoPresetPage('makeup',0,value).examples.some(example=>aiPhotoPresetText(example)===item.prompt)||value==='original')));setError('');}
+ function changeGender(value:'original'|'female'|'male'){if(buildPrompt(selectedPresets,customPrompt,value).length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}if((targetGender==='male')!==(value==='male'))setBodySelection(null);setTargetGender(value);setGenderChosen(true);setPresetPages({});setSelectedPresets(previous=>previous.filter(item=>(item.kind!=='body'||(targetGender==='male')===(value==='male'))&&(item.kind!=='makeup'||aiPhotoPresetPage('makeup',0,value).examples.some(example=>aiPhotoPresetText(example)===item.prompt)||value==='original')&&(value==='original'||aiPhotoOutfitByPrompt(item.prompt)?.gender!==(value==='male'?'female':'male'))));setError('');}
  const [workingSources,setWorkingSources]=useState<StudioMedia[]>([]);
  const sources=[...images,...workingSources.filter(item=>!images.some(original=>original.id===item.id))],hasOutfit=editKinds.includes('outfit');
  const [cosplayOpen,setCosplayOpen]=useState(true);
@@ -64,19 +65,20 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const [presetQuery,setPresetQuery]=useState('');
  const [backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor');
  const [posePosture,setPosePosture]=useState<AiPhotoPosePosture>('sitting');
+ const [outfitPart,setOutfitPart]=useState<AiPhotoOutfitPart>('top');
  const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('general');
  const costumes=aiPhotoCostumes.filter(costume=>presetQuery.trim()?aiPhotoPresetMatches(presetQuery,costume.name,costume.detail,aiPhotoCostumeCategories.find(category=>category.value===costume.category)!.label):costume.category===costumeCategory),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
  const cosplay=kind==='outfit'&&cosplayOpen;
  const hasCostume=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>aiPhotoPresetText(costume.prompt)===item.prompt));
  const style=hasOutfit&&(hasCostume||cosplayOpen)?'cosplay':'photo';
  const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
- const panelId=useId(),preset=aiPhotoPresetPage(kind,presetPages[kind]||0,targetGender,presetQuery,posePosture,backgroundCategory);
+ const panelId=useId(),preset=aiPhotoPresetPage(kind,presetPages[kind]||0,targetGender,presetQuery,posePosture,backgroundCategory,outfitPart);
  function searchPresets(value:string){setPresetQuery(value);setPresetPages({});}
  function stepPreset(direction:number){if(busy||preset.pages<=1)return;setPresetPages(previous=>({...previous,[kind]:((previous[kind]||0)+direction+preset.pages)%preset.pages}));}
  function setCustom(value:string){setCustomPrompt(value);setError(buildPrompt(selectedPresets,value,targetGender).length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
  function isPresetSelected(value:string){return selectedPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
  function applyPresets(next:AiPhotoPresetSelection[]){const selection=next,length=buildPrompt(selection,customPrompt,targetGender).length;if(length>AI_PHOTO_PROMPT_MAX&&length>prompt.length){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return false;}setSelectedPresets(selection);setError(length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');return true;}
- function pickPreset(value:string){setLibraryAssets(items=>items.filter(item=>item.category!==kind));applyPresets([...selectedPresets.filter(item=>item.kind!==kind),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
+ function pickPreset(value:string){const part=kind==='outfit'?aiPhotoOutfitByPrompt(aiPhotoPresetText(value))?.part:undefined;setLibraryAssets(items=>items.filter(item=>item.category!==kind));applyPresets([...selectedPresets.filter(item=>item.kind!==kind||(!!part&&!!aiPhotoOutfitByPrompt(item.prompt)&&aiPhotoOutfitByPrompt(item.prompt)!.part!==part)),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
  function changeBody(key:string,level:number){if(applyPresets([...selectedPresets.filter(item=>item.kind!=='body'),...(level?[{kind:'body' as const,prompt:aiPhotoBodyPrompt(key,level)}]:[])]))setBodySelection(level?{key,value:level}:null);}
  function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);searchPresets('');setError('');if(value==='expression'&&!libraryAssets.some(item=>item.category==='expression')&&!selectedPresets.some(item=>item.kind==='expression'))applyPresets([...selectedPresets,{kind:'expression',prompt:aiPhotoNeutralExpressionPreset}]);}
  const [strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
@@ -162,6 +164,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
       if(next===null)return;event.preventDefault();changeKind(aiPhotoKinds[next].value);event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
      }} disabled={busy}><AiPhotoCategoryIcon kind={item.value}/><span>{item.label}</span>{kind===item.value&&<svg className={s.tabCheck} aria-hidden="true" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="m2 6 3 3 5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}</button>)}</div>
      {kind==='background'&&<div className={s.posePosture} role="group" aria-label="배경 카테고리">{(['indoor','outdoor'] as const).map(value=><button key={value} type="button" aria-pressed={backgroundCategory===value} disabled={busy} onClick={()=>{setBackgroundCategory(value);searchPresets('');}}>{value==='indoor'?'실내':'아웃도어'}</button>)}</div>}
+     {kind==='outfit'&&!cosplayOpen&&<div className={s.posePosture} role="group" aria-label="옷 부위">{(['top','bottom'] as const).map(value=><button key={value} type="button" aria-pressed={outfitPart===value} disabled={busy} onClick={()=>{setOutfitPart(value);searchPresets('');}}>{value==='top'?'상의':'하의'}</button>)}</div>}
      {kind==='pose'&&<div className={s.posePosture} role="group" aria-label="포즈 자세">{(['sitting','standing'] as const).map(value=><button key={value} type="button" aria-pressed={posePosture===value} disabled={busy} onClick={()=>{setPosePosture(value);searchPresets('');}}>{value==='sitting'?'앉기':'서기'}</button>)}</div>}
      {kind!=='body'&&<div className={s.presetSearch}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" aria-label="프리셋 검색" placeholder={cosplay?'의상 이름·작품 검색':`${aiPhotoKinds.find(item=>item.value===kind)!.label} 프리셋 검색`} value={presetQuery} onChange={event=>searchPresets(event.target.value)} disabled={busy}/>{presetQuery&&<button type="button" aria-label="검색어 지우기" disabled={busy} onClick={()=>searchPresets('')}>×</button>}</div>}
      {kind==='outfit'&&cosplayOpen?<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.wardrobe}>

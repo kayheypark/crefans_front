@@ -1,0 +1,43 @@
+/** General-mode top/bottom presets. Card images: Seedream (dola-seedream-5-5-261028), text-only product shots, generated 2026-11-15 (.local/outfits). */
+export type AiPhotoOutfitPart='top'|'bottom';
+export type AiPhotoOutfit={id:string;gender:'female'|'male';part:AiPhotoOutfitPart;name:string;prompt:string};
+export const aiPhotoOutfits:readonly AiPhotoOutfit[]=[
+ {id:'f-top-01',gender:'female',part:'top',name:'화이트 블라우스',prompt:'상의를 단정한 흰색 셔츠 칼라 블라우스로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-top-02',gender:'female',part:'top',name:'니트 카디건',prompt:'상의를 연베이지 브이넥 니트 카디건과 흰 이너로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-top-03',gender:'female',part:'top',name:'스트라이프 티',prompt:'상의를 네이비 줄무늬 보트넥 긴소매 티셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-top-04',gender:'female',part:'top',name:'퍼프 블라우스',prompt:'상의를 연분홍 퍼프 소매 블라우스로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-top-05',gender:'female',part:'top',name:'트위드 재킷',prompt:'상의를 아이보리 트위드 크롭 재킷과 흰 이너로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-top-06',gender:'female',part:'top',name:'후드 스웨트셔츠',prompt:'상의를 회색 오버핏 후드 스웨트셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-top-07',gender:'female',part:'top',name:'터틀넥 니트',prompt:'상의를 크림색 골지 터틀넥 니트로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-top-08',gender:'female',part:'top',name:'데님 재킷',prompt:'상의를 연청 데님 재킷과 흰 티셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-top-09',gender:'female',part:'top',name:'리본 블라우스',prompt:'상의를 검정 리본 타이 흰 블라우스로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-bottom-01',gender:'female',part:'bottom',name:'플리츠 미디스커트',prompt:'하의를 베이지 무릎 아래 길이 플리츠 미디스커트로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-bottom-02',gender:'female',part:'bottom',name:'와이드 슬랙스',prompt:'하의를 검정 하이웨이스트 와이드 슬랙스로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-bottom-03',gender:'female',part:'bottom',name:'일자 청바지',prompt:'하의를 중청 하이웨이스트 일자 청바지로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-bottom-04',gender:'female',part:'bottom',name:'롱 플레어 스커트',prompt:'하의를 연하늘색 발목 길이 플레어 롱스커트로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-bottom-05',gender:'female',part:'bottom',name:'A라인 스커트',prompt:'하의를 네이비 무릎 길이 A라인 스커트로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-bottom-06',gender:'female',part:'bottom',name:'체크 스커트',prompt:'하의를 브라운 체크 무릎 길이 랩스커트로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-bottom-07',gender:'female',part:'bottom',name:'조거 팬츠',prompt:'하의를 회색 면 조거 팬츠로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-bottom-08',gender:'female',part:'bottom',name:'코튼 와이드 팬츠',prompt:'하의를 아이보리 면 와이드 팬츠로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'f-bottom-09',gender:'female',part:'bottom',name:'부츠컷 청바지',prompt:'하의를 진청 부츠컷 청바지로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-top-01',gender:'male',part:'top',name:'옥스퍼드 셔츠',prompt:'상의를 하늘색 옥스퍼드 버튼다운 셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-top-02',gender:'male',part:'top',name:'크루넥 니트',prompt:'상의를 네이비 크루넥 니트 스웨터로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-top-03',gender:'male',part:'top',name:'오버핏 티셔츠',prompt:'상의를 흰색 오버핏 반소매 티셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-top-04',gender:'male',part:'top',name:'후드티',prompt:'상의를 검정 후드 스웨트셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-top-05',gender:'male',part:'top',name:'블레이저',prompt:'상의를 차콜 싱글 블레이저와 흰 티셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-top-06',gender:'male',part:'top',name:'트러커 재킷',prompt:'상의를 중청 데님 트러커 재킷과 흰 티셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-top-07',gender:'male',part:'top',name:'폴로 셔츠',prompt:'상의를 카키 카라 반소매 폴로 셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-top-08',gender:'male',part:'top',name:'맨투맨',prompt:'상의를 회색 크루넥 맨투맨 스웨트셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-top-09',gender:'male',part:'top',name:'라이더 재킷',prompt:'상의를 검정 가죽 라이더 재킷과 흰 티셔츠로 바꿔줘. 하의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-bottom-01',gender:'male',part:'bottom',name:'슬림 슬랙스',prompt:'하의를 차콜 슬림 일자 슬랙스로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-bottom-02',gender:'male',part:'bottom',name:'스트레이트 진',prompt:'하의를 중청 일자 청바지로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-bottom-03',gender:'male',part:'bottom',name:'치노 팬츠',prompt:'하의를 베이지 치노 팬츠로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-bottom-04',gender:'male',part:'bottom',name:'카고 팬츠',prompt:'하의를 올리브 카고 팬츠로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-bottom-05',gender:'male',part:'bottom',name:'블랙 조거',prompt:'하의를 검정 조거 팬츠로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-bottom-06',gender:'male',part:'bottom',name:'버뮤다 반바지',prompt:'하의를 네이비 무릎 위 버뮤다 반바지로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-bottom-07',gender:'male',part:'bottom',name:'와이드 데님',prompt:'하의를 연청 와이드 데님 팬츠로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-bottom-08',gender:'male',part:'bottom',name:'코듀로이 팬츠',prompt:'하의를 브라운 코듀로이 팬츠로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+ {id:'m-bottom-09',gender:'male',part:'bottom',name:'트랙 팬츠',prompt:'하의를 네이비 흰 파이핑 트랙 팬츠로 바꿔줘. 상의와 얼굴·체형·자세는 그대로 유지해줘.'},
+];
+export const aiPhotoOutfitByPrompt=(prompt:string)=>aiPhotoOutfits.find(item=>item.prompt===prompt);
+export const aiPhotoOutfitImage=(item:AiPhotoOutfit)=>`/brand/ai-photo/outfit-parts/${item.id}-v1.webp`;

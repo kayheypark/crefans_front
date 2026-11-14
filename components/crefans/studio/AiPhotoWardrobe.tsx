@@ -1,7 +1,7 @@
 'use client';
 import {useState} from 'react';
 import Image from 'next/image';
-import type {AiPhotoCostume} from '@/lib/crefans/ai-photo-costumes';
+import {aiPhotoCostumeGender,type AiPhotoCostume} from '@/lib/crefans/ai-photo-costumes';
 import {aiPhotoPresetText} from '@/lib/crefans/ai-photo';
 import {AI_PHOTO_PRESET_PAGE_SIZE} from '@/lib/crefans/ai-photo-presets';
 import s from './ai-photo.module.css';
@@ -14,6 +14,13 @@ export function AiPhotoWardrobe({items,selectedPrompts,disabled,onPick}:{items:r
  if(!items.length)return <p className={s.presetEmpty} role="status">검색 결과가 없어요. 다른 검색어를 입력해 주세요.</p>;
  return <div className={s.wardrobeLayout}>
   <div className={s.presetNavigation}><button type="button" aria-label="이전 의상 페이지" disabled={disabled||pages<=1} onClick={()=>step(-1)}>‹</button><span aria-live="polite">{pageIndex+1} / {pages}</span><button type="button" aria-label="다음 의상 페이지" disabled={disabled||pages<=1} onClick={()=>step(1)}>›</button></div>
-  <AiPresetPager disabled={disabled||pages<=1} onStep={step}><div className={s.costumeGrid} aria-label="코스프레 의상">{visible.map(costume=><button type="button" key={costume.id} className={s.costumeCard} aria-label={costume.name} aria-pressed={isSelected(costume.prompt)} disabled={disabled} onClick={()=>onPick(costume.prompt)}><span className={s.costumeImage}><Image src={costume.image} alt="" width={240} height={240} sizes="(max-width:767px) 28vw, 180px"/>{isSelected(costume.prompt)&&<span className={s.costumeSelected} aria-hidden="true">✓</span>}</span><strong>{costume.name}</strong></button>)}</div></AiPresetPager>
+  <AiPresetPager disabled={disabled||pages<=1} onStep={step}><div className={s.costumeGrid} aria-label="코스프레 의상">{visible.map(costume=><button type="button" key={costume.id} className={s.costumeCard} aria-label={costume.name} aria-pressed={isSelected(costume.prompt)} disabled={disabled} onClick={()=>onPick(costume.prompt)}><span className={s.costumeImage}><Image src={costume.image} alt="" width={240} height={240} sizes="(max-width:767px) 28vw, 180px"/><CostumeGender gender={aiPhotoCostumeGender(costume)}/>{isSelected(costume.prompt)&&<span className={s.costumeSelected} aria-hidden="true">✓</span>}</span><strong>{costume.name}</strong></button>)}</div></AiPresetPager>
  </div>;
+}
+
+const genderMarks={female:[['female','♀']],male:[['male','♂']],both:[['female','♀'],['male','♂']]} as const;
+const genderTitles={female:'원작 여성',male:'원작 남성',both:'원작 성별 무관·미표기'} as const;
+function CostumeGender({gender}:{gender:keyof typeof genderMarks|undefined}){
+ if(!gender)return null;
+ return <span className={s.costumeGender} title={genderTitles[gender]} data-gender={gender}>{genderMarks[gender].map(([tone,mark])=><span key={tone} className={tone==='female'?s.costumeGenderFemale:s.costumeGenderMale}>{mark}</span>)}</span>;
 }
