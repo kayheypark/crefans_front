@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T07:31:47.952825+00:00",
+  "checkedAt": "2026-11-14T07:37:40.983967+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "6a3fe68bc0f6f848afaf460d39db82f3ad0b4715",
+      "head": "46095c17b8257bca9ea41e128fddfb8cba3aecb2",
       "branch": "feat/ai-ratio-crop-20261114",
       "dirty": true
     },
     "server": {
-      "head": "25449ba92c058b32ec602e2670fbc48548a1fc14",
+      "head": "e0efad1409a5f00032b899a89fae7d6dc36f3457",
       "branch": "feat/ai-ratio-crop-20261114",
       "dirty": true
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "852c1aa342b0068890a92a9ee0a572c0c245c7e7a1c5164c88a961dd17aedcaf",
-      "front/PROGRESS.md": "875f1b1023c4299e719f13615456c2d0c0756cec98877bb3eb91054635e68c0c",
+      "front/PROGRESS.md": "1dbdc8228ad3f1fbbb32bb51b115dd54c62600cfcc8544e80601fccb785077c1",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "37d1f0a055563718c29ac42660d2c73a07b3c9881f35b4f3115c861aa6b8919b",
-      "server/PROGRESS.md": "fd60874cfdb125b4dd3ff443adf7d658c2e57b7d63247985c1a0aa44b738a573",
+      "server/PROGRESS.md": "e317b80bc8b5a44dd349b2edd861d67e8df1590d46d7c5a991af2ae84438f13a",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -758,10 +758,10 @@
       "front/lib/content/events.ts": "afd39ec80497e6a1411dd6a30ddb704ec497e23385764c19dffc49584937f924",
       "front/lib/content/landing.ts": "e72c68777ed985c78f6c32577661fa47e90fa56fe8b5d556de3d2014193229ad",
       "front/lib/crefans/advisor.ts": "a8c4cf3b3d9a4dd150d0a42b17b3a20d16505c7dcdae3c02a0f0fd9797124f33",
-      "front/lib/crefans/ai-photo-backgrounds.ts": "ab70b2fb6c5131bdad49bcd7156e8bfcf8261ceee8b5957a4f0420e040941945",
+      "front/lib/crefans/ai-photo-backgrounds.ts": "63350ba5ecffc911e77a53a2992f1b4b5e341c439f21c7e2cefdb05ef1388dcd",
       "front/lib/crefans/ai-photo-costumes.ts": "1bab13d64791386d7a2426e7cad12224d4baaee3cd280b236f74859c7bbc10e8",
       "front/lib/crefans/ai-photo-crop.ts": "1e31ba7721a7d262d14b7daa1fca3865ccd4175d19bfac1c8926e72d2f8b3a28",
-      "front/lib/crefans/ai-photo-presets.ts": "e9299ded79ba4329b164eaeb8e327669c0ba69e2a7c9d0cf6adb26055db2f26d",
+      "front/lib/crefans/ai-photo-presets.ts": "f43f654f6ca9d28112f9971719fcdb9e7412c8c201d28f34f5bfaa553cc37dd5",
       "front/lib/crefans/ai-photo.ts": "687a64198b8b4f569f78ea6bb5c8adbec62bd9771d9759e7ef7f1ec992d3acbc",
       "front/lib/crefans/bean-history.ts": "37ff0f25c988145d715055a680c7996e68982d625ea9ee24e3cc7475c18a0868",
       "front/lib/crefans/bean-pricing.ts": "ac078546b5515a951cd81ac9bf4a268d7727c89d4ed5ad2da19d75bd3749e94d",
@@ -907,7 +907,7 @@
       "front/tests/shop-routes.test.cjs": "b05cdc709a6db7c74d92d8f3bbaf492cf9f10fb8da5f59ee1a9922395b8a7b3b",
       "front/tests/social-links.test.cjs": "254957c511a965dd0ad78a8fc77f4b125171b48b2669018169dce531062995bd",
       "front/tests/studio-ai-photo-binding.test.cjs": "95ad06f88b45acf27d12f47ba0122b4890a22807485143e7864a9dde07e60924",
-      "front/tests/studio-ai-photo.test.cjs": "c3d513098180176249341801c8f33524c683bfcedaa4519fdfcf35a153079558",
+      "front/tests/studio-ai-photo.test.cjs": "1bfc6ed352e0798258464c6fa8bbb2b98ebe9350fbc4f35bcafc3a932f6d78d4",
       "front/tests/studio-comment-reply.test.cjs": "7dbb13f94b5f23c0ed0432312330256949111a69be7915a7da3bbab81e9d034b",
       "front/tests/studio-community-binding.test.cjs": "5dd8644628deeebc3b7fa6511732fb648f4539dfc66df5a49f2331a1d0366cad",
       "front/tests/studio-loading.test.cjs": "b0a6f46d370d009cf6dc282e55590cf3984e1f16d63eefe9cec5363ca20ce365",
@@ -1214,7 +1214,7 @@
       "server/src/platform/advertising-catalog.ts": "bf119aaea99038655ae0d170a3365d533e6ff39b788485c4fe1a35cb5435eda1",
       "server/src/platform/advertising-use.ts": "296003f5cf4c433dc8e44b917f762164251d8147ba86b03a2ba8b9c112f026a7",
       "server/src/platform/advertising.controller.ts": "9225d42d165355c991bf7be5079fa186f8bde86e86727407b2fb3e56116e97f6",
-      "server/src/platform/ai-photo-background-references.ts": "0fff1b226a98052a5b9d9e56952ad665d555a16daad64bbd34cfd7a883efadb6",
+      "server/src/platform/ai-photo-background-references.ts": "1e86cbf78198e3bcbe3295d170ad31e681d68c319943fb54203c82fe40ff0deb",
       "server/src/platform/ai-photo-costume-references.ts": "b193e8101bbb49dd24e6b01a6fc1ada3dfe3e4d13aae6ee5c4532f2ea9089a7b",
       "server/src/platform/ai-photo-failures.ts": "6035784a75b20794de7b292078f55db7f6839ea7ca5780820ae036f98e4ff8c2",
       "server/src/platform/ai-photo-grants.ts": "569a9c58c9b1029778a77484f9c5d9faf10b1ed34aa293b9879780c1fd97d890",
@@ -1366,7 +1366,7 @@
       "server/tests/platform-admin-totp.test.cjs": "4ab8707b6f988ef54c299410cf517d2c916b8cf2b9cf19be7049e4e3eb4b62e8",
       "server/tests/platform-advertising.test.cjs": "ec8ccc434eef43ff32c806e43747bf633309347b3fe38bacf99bb29a2464ee09",
       "server/tests/platform-ai-photo-grants.test.cjs": "1b6a4be8a4e2ede1b24090118960b88a2a942a7b451ca2bd0f9c7b10e38b2ee4",
-      "server/tests/platform-ai-photo.test.cjs": "f0a687c4a299d2f735e7a76b5be7ab1ceced15be933d19007dd5e5f997450783",
+      "server/tests/platform-ai-photo.test.cjs": "f5bc84bcc3a2bce5a020045ab27a761ac0ed7990ede23677206314cc7e82ab7d",
       "server/tests/platform-ai-shop.test.cjs": "f59d39654a5ded5ea9f0bce4039400ab70ee779121e29a61b7ad5146d9e5aea1",
       "server/tests/platform-audit-export.test.cjs": "39940a4c5038ae24ec871b22704a22c8537ef3ae947656b8a0dcd7b3fdf6144d",
       "server/tests/platform-audit.test.cjs": "9b101a55439e0233d47990e1d94433ecce38c6091eb8afe6c041287a669561d0",

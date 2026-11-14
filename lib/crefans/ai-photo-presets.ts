@@ -100,7 +100,7 @@ export function aiPhotoPresetMatches(query:string,...values:string[]){
 }
 
 export type AiPhotoBackgroundCategory='indoor'|'outdoor';
-export function aiPhotoBackgroundCategory(example:string):AiPhotoBackgroundCategory{return aiPhotoBackgroundId(example)||aiPhotoPresets.background.indexOf(example)<6?'indoor':'outdoor';}
+export function aiPhotoBackgroundCategory(example:string):AiPhotoBackgroundCategory{return aiPhotoBackgrounds.find(item=>item.prompt===example)?.category??(aiPhotoPresets.background.indexOf(example)<6?'indoor':'outdoor');}
 
 export type AiPhotoPosePosture='sitting'|'standing';
 const sittingPoseIndexes=new Set([12,13,14,16,19,20,27,28,29]);
