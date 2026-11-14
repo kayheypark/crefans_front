@@ -111,7 +111,8 @@ export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
  if(kind==='pose')return `/brand/ai-photo/pose-mascot/pose-${String(aiPhotoPresets.pose.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
- if(['expression','camera'].includes(kind))return `/brand/ai-photo/pictograms/${kind}-${String(aiPhotoPresets[kind].indexOf(example)+1).padStart(2,'0')}.svg`;
+ if(kind==='camera')return `/brand/ai-photo/camera-mascot/camera-${String(aiPhotoPresets.camera.indexOf(example)+1).padStart(2,'0')}-v1.webp`;
+ if(kind==='expression')return `/brand/ai-photo/pictograms/${kind}-${String(aiPhotoPresets[kind].indexOf(example)+1).padStart(2,'0')}.svg`;
  if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return `/brand/ai-photo/presets/body-male-${control.key}-v1.webp`;}
  const index=aiPhotoPresets[kind].filter(value=>value!==aiPhotoComicWorldPreset&&value!==aiPhotoNeutralExpressionPreset).indexOf(example);
  const id=example===aiPhotoComicWorldPreset?'background-comicworld':`${kind}-${String(index+1).padStart(2,'0')}`;

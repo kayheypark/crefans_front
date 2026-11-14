@@ -1,3 +1,13 @@
+## 2026-11-14 구도 캐릭터 검증 완료
+- 승인5시안+눈높이정면6WebP 매핑/384decode,단위48/48·타입0·WebKit iPhone13 로딩/검색/선택유지 통과. 증거 `.local/camera-mascot/` unit/types/browser로그와mobile.png, `design/camera-mascot-20261114/manifest.json` 원본/자산SHA. check:docs 종료1 기존 서버참조누락. 운영배포예정.
+
+## 2026-11-14 구도 캐릭터 승인안 적용 진행
+- 승인5시안+기존캐릭터정면서기를 구도6항목에 매핑. 기존명칭/프롬프트/검색/선택 동작 보존. 384WebP·contain으로 표시하며 UI썸네일만 교체. 합격:6파일정상decode/명칭일치·모바일로딩/검색선택·기존회귀. 추가이미지생성 없음.
+
+## 2026-11-14 구도 프리셋 Seedream 시안5종
+- 사용자 요청에 따라 포즈캐릭터 정면서기 원본을 참조, 클로즈업/상반신/전신/하이앵글/로우앵글5장 생성. Seedream5.5 각HTTP200,1024×1024PNG. 직접열람으로 코없는라벤더캐릭터와 크롭/카메라높이 차이 확인. 시안만 제작, 운영교체/배포없음.
+- 결과 `/Users/ethan/Downloads/crefans-camera-{1-closeup,2-half,3-full,4-high,5-low}.png`. 프롬프트·모델·요청ID·시간·SHA 증거 `.local/seedream-camera-five/*.json`, 실행 generate.py.
+
 ## 2026-11-14 캐릭터 포즈·프리셋 검색 운영 완료
 - source025f6b5 dev→prod, `crefans-front:front-pose-mascot-search-20261114`, 배포01:40:21UTC. 24포즈WebP 운영HTTP200/Content-Type/SHA일치. 주요페이지/헬스/정적자산 정상, API·worker·admin 등 다른컨테이너 유지.
 - 단위48/48·타입·계층·WebKit 모바일검색/24이미지 확인. 문서검사는 기존참조누락으로실패. 증거 `.local/pose-mascot-search/verification.json`, public-assets.json,ship.log 및 모바일스크린샷.

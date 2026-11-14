@@ -1,0 +1,43 @@
+{
+  "model": "dola-seedream-5-5-261028",
+  "source": "User approved five camera previews; eye-level front uses approved standing mascot",
+  "purpose": "UI previews only; not added to generation requests",
+  "assets": [
+    {
+      "title": "눈높이 정면",
+      "sourceSha256": "11dc9b9eba81969ec96d2593b29e992a1a3e97871ee7514661c499ad8b37dc35",
+      "asset": "public/brand/ai-photo/camera-mascot/camera-01-v1.webp",
+      "sha256": "d1426e4e042b90aefbe25e0f200a743c63b0ba1ece353891e7b16b076e8f1c9c"
+    },
+    {
+      "title": "로우 앵글",
+      "sourceSha256": "5f80e829089c8dbe78df80899d738413a8fbd7462a9a7ca335e5cefdcc0f8700",
+      "asset": "public/brand/ai-photo/camera-mascot/camera-02-v1.webp",
+      "sha256": "a88c9078e89e6daba72783236207cb65b7558019a5238b213c15a169b7faf826"
+    },
+    {
+      "title": "하이 앵글",
+      "sourceSha256": "a5178a28fea1e3b6bf4dfa1572679ce2e5980fee81db4b8d71deba8dbe9efd58",
+      "asset": "public/brand/ai-photo/camera-mascot/camera-03-v1.webp",
+      "sha256": "b1a6cc7ad6927f548a795d833d17a18dbb23bfee58a166d08032884e93f1223b"
+    },
+    {
+      "title": "얼굴 클로즈업",
+      "sourceSha256": "ec6e588ed3a348fcf098ac4336e38b3a315fb17a02924cff0142e5d437eadf04",
+      "asset": "public/brand/ai-photo/camera-mascot/camera-04-v1.webp",
+      "sha256": "35cf2536e629e62e46c805e606c8ee8ad9861ff6ae46d250403165c865fa8454"
+    },
+    {
+      "title": "상반신",
+      "sourceSha256": "0729a46315add0b4a4063f4d7cf15d67e51b41d143b202a5ff0e356aa610f149",
+      "asset": "public/brand/ai-photo/camera-mascot/camera-05-v1.webp",
+      "sha256": "b31bde40bda9e9c6771c8c7f7e0e17ffe01216c5e08b71ca6f05d566e0886dd6"
+    },
+    {
+      "title": "전신",
+      "sourceSha256": "76bc7e5e0adcabe8076c3ff9a9e552fdf58e2ebc2e5d947cd3dbccbc095ca4fe",
+      "asset": "public/brand/ai-photo/camera-mascot/camera-06-v1.webp",
+      "sha256": "fb3e6b205e3ec4b4465eeca1183f8fa1d43f72a39a8119ceb691ff8678e75af5"
+    }
+  ]
+}
