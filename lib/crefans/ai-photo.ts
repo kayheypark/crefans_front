@@ -14,7 +14,7 @@ export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=
  {value:'pose',label:'포즈',placeholder:'벚꽃 아래 벤치에 앉아 카메라를 바라보는 포즈'},
  {value:'body',label:'신체 보정',placeholder:'가슴·힙 크기와 키 비율을 자연스럽게 보정해줘.'},
  {value:'camera',label:'구도',placeholder:'전신이 잘리지 않는 눈높이 구도로 바꿔줘.'},
- {value:'lens',label:'렌즈',placeholder:'캐논 85mm 렌즈로 담은 얕은 심도 느낌'},
+ {value:'lens',label:'촬영컨셉',placeholder:'거울 앞에서 휴대폰을 들고 찍은 거울샷으로 바꿔줘.'},
  {value:'background',label:'배경',placeholder:'해 질 녘 벚꽃길, 부드러운 역광'},
 ];
 export const aiPhotoStyles:{value:AiPhotoStyle;label:string}[]=[

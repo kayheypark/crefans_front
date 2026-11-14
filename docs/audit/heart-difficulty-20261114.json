@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-14T05:59:39.213627+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-preset-expansion",
+  "baseCommit": "3dba4e9e8eaa4ff2f2f0d4bd9a1ac2e7a95e35bc",
+  "state": "uncommitted verified implementation",
+  "checks": [
+    {
+      "command": "node --test tests/ai-photo-heart-game.test.cjs tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "64/64; hazard faster initially, 5th heart next spawn speeds up, duplicate/miss zero floor, hard30 cap and interval cleanup, generation unchanged"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "pass"
+    }
+  ],
+  "files": {
+    "components/crefans/studio/AiPhotoWaiting.tsx": "6a612ebbac1391de176abfe3329ab49cc95452a95b201573856a68708a197364",
+    "components/crefans/studio/AiPhotoDialog.tsx": "9719cd779c1aee65f2368f1edcd94123eca1f25a94c9148f7cc04417573c24aa",
+    "tests/ai-photo-heart-game.test.cjs": "dab1d5abc7927ac4f11403fefae6bbee9acf4762505e1221070e5aa7aedeba04"
+  },
+  "limitations": [
+    "No production deployment",
+    "No human difficulty playtest",
+    "Reward crediting remains unimplemented"
+  ],
+  "logs": ".local/heart-difficulty"
+}

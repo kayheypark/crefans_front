@@ -1,0 +1,1280 @@
+{
+  "checkedAt": "2026-11-14T05:44:30.039590+00:00",
+  "source": "https://overwatch.blizzard.com/ko-kr/heroes/",
+  "scope": "54 official heroes, one default cosplay outfit each; not every skin",
+  "existing": 4,
+  "new": 50,
+  "roster": [
+    {
+      "slug": "doctrine",
+      "name": "독트린",
+      "id": "20a449",
+      "file": "overwatch-doctrine-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/doctrine/",
+      "existing": false,
+      "sha256": "1b156335d3823cf4b5909fe2e589ddad4698ce7ff13ffac72091928d84d7f118",
+      "bytes": 22928,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:32:55.360Z",
+        "requestId": "0217946343570360f20bbdfc8ca54d9bbb0533a8546905c9ab845",
+        "elapsedMs": 18706
+      },
+      "originalSha256": "b68307975be7f081031cc7bd9d0b6f90f5b33b4864e82330706d80dca5d02e94"
+    },
+    {
+      "slug": "dmon",
+      "name": "D.Mon",
+      "id": "372386",
+      "file": "overwatch-dmon-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/dmon/",
+      "existing": false,
+      "sha256": "71b1daf3861d04290e37b8558c02c717e9c721e1a4d9edcce178b08e055e6b64",
+      "bytes": 23322,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:32:57.479Z",
+        "requestId": "021794634357023b965c2d2b2bb89ed3e2dfeb918ea3f76bb9e81",
+        "elapsedMs": 20883
+      },
+      "originalSha256": "2741e066cb5fd10c7aed55b16d427923821c27565f1c64c16a418b0d747a450f"
+    },
+    {
+      "slug": "dva",
+      "name": "D.Va",
+      "id": "70219a",
+      "file": "overwatch-dva-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/dva/",
+      "existing": true,
+      "sha256": "a136edf4ee50d4c4271cd47a52989da8fc7215a37236e666fd9e21c1130a3673",
+      "bytes": 13862,
+      "dimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "slug": "genji",
+      "name": "겐지",
+      "id": "bf777b",
+      "file": "overwatch-genji-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/genji/",
+      "existing": false,
+      "sha256": "6444d3dbc998b2817eff64d3c7a93a7de117ab1abd400eb0b90b366b0b333155",
+      "bytes": 23088,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:33:00.508Z",
+        "requestId": "021794634357059fdccfc102ca12157f94275e78054dc3b67adb8",
+        "elapsedMs": 23828
+      },
+      "originalSha256": "f5539a0b9ff94e6ec9a020e58bb58c66cceb99c3a86657c66ba0077d7c0ce4e0"
+    },
+    {
+      "slug": "domina",
+      "name": "도미나",
+      "id": "d6ed5b",
+      "file": "overwatch-domina-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/domina/",
+      "existing": false,
+      "sha256": "26f108b0d71b1cecd70bdaa4c67c52b2f50ce1d34b9b014d5ba2a330baee8d1a",
+      "bytes": 29570,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:33:22.354Z",
+        "requestId": "021794634376811798132a7c84228b35f5c1a465b83379ebda473",
+        "elapsedMs": 25866
+      },
+      "originalSha256": "c6cda9225c5fc96fd404a8472b14b5b0fadd09082f711143dc37490d3ac8b9d8"
+    },
+    {
+      "slug": "doomfist",
+      "name": "둠피스트",
+      "id": "bd95fb",
+      "file": "overwatch-doomfist-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/doomfist/",
+      "existing": false,
+      "sha256": "729040a96cbe70684ccd2f79b4d8a89ccf3563d8e73d1f8d05d0575524d440da",
+      "bytes": 26620,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:33:19.838Z",
+        "requestId": "021794634378415c8c5a5589555159fe1f6a4222aeb4c2b759446",
+        "elapsedMs": 21738
+      },
+      "originalSha256": "46472056cf37b8fedea8282a057d5337cefe1aba3b5d81b2f3425cbaabe169ac"
+    },
+    {
+      "slug": "ramattra",
+      "name": "라마트라",
+      "id": "90f439",
+      "file": "overwatch-ramattra-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/ramattra/",
+      "existing": false,
+      "sha256": "28d3e094f4ec83665ad140bcb09b7d0681d21c478335788ee750b53888aca6aa",
+      "bytes": 30612,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:33:22.531Z",
+        "requestId": "021794634381430a4c6d1552d81c7895c46a24cfcfdd8877371a0",
+        "elapsedMs": 21424
+      },
+      "originalSha256": "002fcbf39e99f134d8739cbaf6eadb1f2c257969c1d2b8a6f9189008e661d16a"
+    },
+    {
+      "slug": "lifeweaver",
+      "name": "라이프위버",
+      "id": "136245",
+      "file": "overwatch-lifeweaver-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/lifeweaver/",
+      "existing": false,
+      "sha256": "bc3a204e3558dbd2c96534ea9399916d726b3e81d1512ac87696b71e94d41c56",
+      "bytes": 26750,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:33:41.923Z",
+        "requestId": "021794634400776b52b40748efca76dec1583940832f7e4399ad4",
+        "elapsedMs": 21475
+      },
+      "originalSha256": "cfd1b6d63236671ebeffcd2cff5cf90b1261eb8818afbb98bb330411d6742111"
+    },
+    {
+      "slug": "reinhardt",
+      "name": "라인하르트",
+      "id": "c17e2b",
+      "file": "overwatch-reinhardt-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/reinhardt/",
+      "existing": false,
+      "sha256": "91fc2e6c06d3ac6628c9c3fa43070341e66ffb602c499967bdfc397aa0b57bd4",
+      "bytes": 39776,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:33:44.945Z",
+        "requestId": "02179463440353239debe34dc0faea573b1e9db2da7e27bd16474",
+        "elapsedMs": 21794
+      },
+      "originalSha256": "3487988e424ea90b535f47c202fd180640796cc56d66d04a6b2a4b5747295753"
+    },
+    {
+      "slug": "wrecking-ball",
+      "name": "레킹볼",
+      "id": "3fce14",
+      "file": "overwatch-wrecking-ball-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/wrecking-ball/",
+      "existing": false,
+      "sha256": "892369ca32bd538e184b054550bea30d32309f6bec6b85c0a9b3543d7ccac235",
+      "bytes": 31728,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:33:50.780Z",
+        "requestId": "021794634403629e8a97f786c365ea5f8ca348976dbfcd234ab2a",
+        "elapsedMs": 27474
+      },
+      "originalSha256": "37886d1a77e20cae632d2ecdf8dc42ed45ce9d53adbada696581e51883bcb978"
+    },
+    {
+      "slug": "roadhog",
+      "name": "로드호그",
+      "id": "be80aa",
+      "file": "overwatch-roadhog-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/roadhog/",
+      "existing": false,
+      "sha256": "76d8a790c7c7e373bf61dfeb41bedec4d03ae1cf0aba251e53988ab3f959adee",
+      "bytes": 33902,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:32:10.238Z",
+        "requestId": "02179463430843936582de0ab192f8b1710090b8a2fff5c33f3c6",
+        "elapsedMs": 22123
+      },
+      "originalSha256": "85ad289edaad63091aad3aba5572c7a38324e028d26855ce466347520456c7d9"
+    },
+    {
+      "slug": "lucio",
+      "name": "루시우",
+      "id": "2d7409",
+      "file": "overwatch-lucio-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/lucio/",
+      "existing": false,
+      "sha256": "09ce3aee1b46397064d02fd39acf3c5d3fd8b7c26454fad751c3114e6115b6ba",
+      "bytes": 23974,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:34:05.489Z",
+        "requestId": "021794634422867f419ea1e39f9dd10a4a699a297e9c9a186d1b0",
+        "elapsedMs": 22969
+      },
+      "originalSha256": "ec1a0f8fe3fe439efa2a4f707fd8593f8b3b3208b8343b0f7f23c111e62b8f69"
+    },
+    {
+      "slug": "reaper",
+      "name": "리퍼",
+      "id": "21150b",
+      "file": "overwatch-reaper-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/reaper/",
+      "existing": false,
+      "sha256": "b8152a1241cd4c32f3584f9f23c094e376232900a3a43ff0c364b054b6ba0c2e",
+      "bytes": 21796,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:34:04.926Z",
+        "requestId": "02179463442586989d42e27515f10b9851ac8a38a24d9cd9659c4",
+        "elapsedMs": 19385
+      },
+      "originalSha256": "c9872f421a8595b8c0e5b0b3e6d1b3dd67c6b4dfa863ff4c5856c2292b59e479"
+    },
+    {
+      "slug": "mauga",
+      "name": "마우가",
+      "id": "fe56d9",
+      "file": "overwatch-mauga-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/mauga/",
+      "existing": false,
+      "sha256": "ed8c8e0b9f1fa92dd954138c77c3417eb2ab4bac2124046e4bbd8d27b22e1614",
+      "bytes": 28044,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:34:11.499Z",
+        "requestId": "0217946344316868792bd17575462d883d5a21b523815c5b442b2",
+        "elapsedMs": 20136
+      },
+      "originalSha256": "802e2737e2e75cec221f890dbf5154fa78a102cf5910935eab5337bc1dcbe032"
+    },
+    {
+      "slug": "mercy",
+      "name": "메르시",
+      "id": "7281fe",
+      "file": "overwatch-mercy-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/mercy/",
+      "existing": true,
+      "sha256": "304703ae34b1edbd4569476a8651c37297b19db95c76e2a992d2816a8c29696c",
+      "bytes": 21078,
+      "dimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "slug": "mei",
+      "name": "메이",
+      "id": "22a725",
+      "file": "overwatch-mei-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/mei/",
+      "existing": false,
+      "sha256": "7dfcf3bd560f3933c798a61d19c9a78eb7a4ec91120c49fa774a032a4460519a",
+      "bytes": 25702,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:34:26.579Z",
+        "requestId": "02179463444671134cac430b5ac258905380d809540adb47e2ccb",
+        "elapsedMs": 20233
+      },
+      "originalSha256": "17eb0914f16a0c4ec86ea2e186b0a9d900a3a229679974900b5d1e63b941983d"
+    },
+    {
+      "slug": "moira",
+      "name": "모이라",
+      "id": "5dfc6f",
+      "file": "overwatch-moira-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/moira/",
+      "existing": false,
+      "sha256": "fe4606c0f804fc28cb989c38665199fd879f2a7413aaa37e0dbd3286c70d85ac",
+      "bytes": 21224,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:34:27.382Z",
+        "requestId": "0217946344472517dca00f85baedac28bed28ae8d5f3a99447e7e",
+        "elapsedMs": 20460
+      },
+      "originalSha256": "b83153044930b967815aed1fd6ef328427128304e873fd1bc30d29cdf9d236c8"
+    },
+    {
+      "slug": "mizuki",
+      "name": "미즈키",
+      "id": "d55c25",
+      "file": "overwatch-mizuki-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/mizuki/",
+      "existing": false,
+      "sha256": "c5841c74d9f067fc4e87b91007a8675a38fb47980448095cc9e961eec044cd6a",
+      "bytes": 20686,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:34:31.033Z",
+        "requestId": "02179463445241335b29c922ac7ba22cc26b6e12169d213d1e668",
+        "elapsedMs": 18951
+      },
+      "originalSha256": "78052860c284c2b03a36c7665d83c52879b1d89881aae2da03e0c468489778b0"
+    },
+    {
+      "slug": "bastion",
+      "name": "바스티온",
+      "id": "8fbc01",
+      "file": "overwatch-bastion-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/bastion/",
+      "existing": false,
+      "sha256": "3de94214f5438bd962475a367fccf1d855ac14e27ceb801833fbfa98e9fd7e5a",
+      "bytes": 29766,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:34:52.400Z",
+        "requestId": "0217946344676254883e653edd60bc78b7b920f959874d91f6545",
+        "elapsedMs": 25168
+      },
+      "originalSha256": "8d075440bf3a403c09ae25df0d81a39b720d8741474a73c4a08b06c590c90f62"
+    },
+    {
+      "slug": "baptiste",
+      "name": "바티스트",
+      "id": "f74872",
+      "file": "overwatch-baptiste-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/baptiste/",
+      "existing": false,
+      "sha256": "901a02718680a2252034b27560f42389f9a6993e2dd8189450434909b3e76c7b",
+      "bytes": 20496,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:34:51.468Z",
+        "requestId": "021794634468288023ef2751affb9822ae18449966cb6b9648a93",
+        "elapsedMs": 23512
+      },
+      "originalSha256": "d2fa92d5e15eb2f5f163d26ea896f569503ef5f22ed8302ebf2789a1aa7a1c8b"
+    },
+    {
+      "slug": "vendetta",
+      "name": "벤데타",
+      "id": "14e3be",
+      "file": "overwatch-vendetta-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/vendetta/",
+      "existing": false,
+      "sha256": "8c5466aad0223a4a492e65e20d885d5ae196160faa11d5eb4e1bddb3f8f57558",
+      "bytes": 25870,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:34:53.064Z",
+        "requestId": "0217946344719442b8720b6d986e81ce95e9b006de0a2cb747b49",
+        "elapsedMs": 21444
+      },
+      "originalSha256": "85c90edb55641047c741f4d5a54b827c8802802a69de2a188f02f3faadeb7b5f"
+    },
+    {
+      "slug": "venture",
+      "name": "벤처",
+      "id": "842c82",
+      "file": "overwatch-venture-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/venture/",
+      "existing": false,
+      "sha256": "0514f961d16f7c6e122a010ae6256b398d7d57d67b057abe3d9b5cab5f07fbe1",
+      "bytes": 25440,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:35:11.616Z",
+        "requestId": "02179463449241769d9f56ebaf8adc0cbe3483f4c0cffb8497d55",
+        "elapsedMs": 19527
+      },
+      "originalSha256": "0872b0a659cab2a887819728459d0e559401dacfcdd3631427c4d35bb10a5587"
+    },
+    {
+      "slug": "brigitte",
+      "name": "브리기테",
+      "id": "b456ec",
+      "file": "overwatch-brigitte-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/brigitte/",
+      "existing": false,
+      "sha256": "9987de2036dfb2b12fe5aa433ded52159463cb7f56a1783b1a3d2c3befb27908",
+      "bytes": 25846,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:35:12.463Z",
+        "requestId": "021794634493408e142d87b6a9bdf1f5f94f64260ca2a93582eba",
+        "elapsedMs": 19465
+      },
+      "originalSha256": "a07a4fc3a5978f6cb35f861998e626591c03d0b73b00cf2412dca37596cd1611"
+    },
+    {
+      "slug": "sojourn",
+      "name": "소전",
+      "id": "9bf5e0",
+      "file": "overwatch-sojourn-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/sojourn/",
+      "existing": false,
+      "sha256": "8da7bc75c282f780144b4ee7701502e577698e9bf4d699b1001738ba2f140e13",
+      "bytes": 20492,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:35:15.245Z",
+        "requestId": "021794634494077a4c6d1552d81c7895c46a24cfcfdd887b8d8ff",
+        "elapsedMs": 21511
+      },
+      "originalSha256": "e8ba8800e2a60e0ac70130030b0491d62563f9a0ff64b8df6e2f29b9290b7e34"
+    },
+    {
+      "slug": "soldier-76",
+      "name": "솔저: 76",
+      "id": "6c24e4",
+      "file": "overwatch-soldier-76-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/soldier-76/",
+      "existing": false,
+      "sha256": "d723a7419af36c77816fa26dde2fb84fde0635d46c66c7d96befb26766cc626c",
+      "bytes": 22960,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:35:34.673Z",
+        "requestId": "021794634513224fea0cb63916d8b7cee037e8f30dc2746ca2e68",
+        "elapsedMs": 21792
+      },
+      "originalSha256": "c4b7ffc5d71c481ccc617578c490be3b24e46f1c3c72e61a17a7b52d633c3056"
+    },
+    {
+      "slug": "sombra",
+      "name": "솜브라",
+      "id": "d216c5",
+      "file": "overwatch-sombra-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/sombra/",
+      "existing": false,
+      "sha256": "1031827cae4fd122755ce46794757a514c28e31f846575bd2e774bd8a3f34d30",
+      "bytes": 18716,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:39:44.183Z",
+        "requestId": "0217946347592923c1f91f892e9aff2a902d86b047fe242ae1626",
+        "elapsedMs": 25264
+      },
+      "originalSha256": "cce15f9bc7051ea7b7b3bceec996670164fac01e5461b9521203af2627546d2d"
+    },
+    {
+      "slug": "sigma",
+      "name": "시그마",
+      "id": "2a9d76",
+      "file": "overwatch-sigma-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/sigma/",
+      "existing": false,
+      "sha256": "0ee5d87358f6aa9f95eb7a3127f4206a8f862a810771626ff5df7f1e8f1ff1f9",
+      "bytes": 22548,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:35:37.488Z",
+        "requestId": "021794634516180d3ceb3d471ce278cd568773b7d71d63927cf0a",
+        "elapsedMs": 21635
+      },
+      "originalSha256": "be11a697814fb086f36a2d8085e29968f57c21ac9aa902ec5e22b3933028dc8e"
+    },
+    {
+      "slug": "symmetra",
+      "name": "시메트라",
+      "id": "a46594",
+      "file": "overwatch-symmetra-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/symmetra/",
+      "existing": false,
+      "sha256": "32b561b561eb2ec4e2a296b0ff7d6829c6a9985a3f265770a41fd73dfd46896e",
+      "bytes": 21336,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:35:55.463Z",
+        "requestId": "021794634535622fea0cb63916d8b7cee037e8f30dc27465e177a",
+        "elapsedMs": 20168
+      },
+      "originalSha256": "aee8b04382c1425619e663b7a6e3fdecae301838f938805ee02095d9e63eaf6d"
+    },
+    {
+      "slug": "sierra",
+      "name": "시에라",
+      "id": "0c0f47",
+      "file": "overwatch-sierra-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/sierra/",
+      "existing": false,
+      "sha256": "4b7d6b06c37352a73aea2e40ff3570bfe23b0576c3ef5806a04c99bedf02f43b",
+      "bytes": 20852,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:36:00.118Z",
+        "requestId": "021794634538478f6062c0432612ee8d02c106a4a445010af8a32",
+        "elapsedMs": 21988
+      },
+      "originalSha256": "e73d1713f0d7bb087c10ca2c1c559d13538559b1784740c49fa687d909f0e63c"
+    },
+    {
+      "slug": "shion",
+      "name": "시온",
+      "id": "0ed2b0",
+      "file": "overwatch-shion-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/shion/",
+      "existing": false,
+      "sha256": "bc6c356a29033dc6df57d629f54a5b0675404a156dff679d005b3454a4007033",
+      "bytes": 18232,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:35:57.175Z",
+        "requestId": "0217946345385378eedaf36e20f5141b2bc84e877dea1f7a65602",
+        "elapsedMs": 18959
+      },
+      "originalSha256": "bbd8f8acdd4f4db73da665d1950d6c62ff7d58c7007def832efec2e797e0d22e"
+    },
+    {
+      "slug": "ana",
+      "name": "아나",
+      "id": "69ef61",
+      "file": "overwatch-ana-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/ana/",
+      "existing": false,
+      "sha256": "7ac19d54a39a148e5ad6ba57861c2240c48fa14ceb83fe4c3cd599c6b53fc949",
+      "bytes": 25550,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:39:45.603Z",
+        "requestId": "021794634759217c44e9ddcb918cdd41b22b05ed1b7304a883b0e",
+        "elapsedMs": 26810
+      },
+      "originalSha256": "fad9199c4f40b8eb9cd2fc1b91ce17b79a41ba9ee536260b82dd57b4d4d8fa71"
+    },
+    {
+      "slug": "anran",
+      "name": "안란",
+      "id": "e34f2f",
+      "file": "overwatch-anran-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/anran/",
+      "existing": false,
+      "sha256": "d3a6afa7f2464924e398ed7a64cf95502610c10f3927b7e145cdf05bfcf95ad1",
+      "bytes": 29022,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:36:18.233Z",
+        "requestId": "0217946345581021f48ceb9aa55112abbdf6fec19339eb31d22e1",
+        "elapsedMs": 20459
+      },
+      "originalSha256": "48eb5f2c73a83a337b92cab73dad32c34de144dadf0ed0591b4983524b198436"
+    },
+    {
+      "slug": "ashe",
+      "name": "애쉬",
+      "id": "9a01b2",
+      "file": "overwatch-ashe-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/ashe/",
+      "existing": true,
+      "sha256": "a79dd0a386c834c60c4f2b5cc8296c831410221cea534b8dc7f3d9e60d75c970",
+      "bytes": 13448,
+      "dimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "slug": "echo",
+      "name": "에코",
+      "id": "94975c",
+      "file": "overwatch-echo-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/echo/",
+      "existing": false,
+      "sha256": "2e20baa35c052fd76b503af6aa67e4e95fcc365f5115f727de19188c0fbd5955",
+      "bytes": 20970,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:36:27.520Z",
+        "requestId": "021794634561047023ef2751affb9822ae18449966cb6b95cbde2",
+        "elapsedMs": 26803
+      },
+      "originalSha256": "0a9a7d513d6f1fdb04e4cc0d3817d3c1c4f7964c4ac45498694f6aec9614ae77"
+    },
+    {
+      "slug": "emre",
+      "name": "엠레",
+      "id": "d4a54c",
+      "file": "overwatch-emre-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/emre/",
+      "existing": false,
+      "sha256": "de904945fb8026193f1ff489ed7c7174e0e2a20eb516f9201c7e40b5652c64aa",
+      "bytes": 20970,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:36:42.688Z",
+        "requestId": "021794634579833a2f4933af3443b601e52f5659e0d958f844ccf",
+        "elapsedMs": 23223
+      },
+      "originalSha256": "1cde887a28e1d8c184a87d2fa6c3d6deda4a0d4020385efbb9d0f3e3cccc3cb6"
+    },
+    {
+      "slug": "orisa",
+      "name": "오리사",
+      "id": "7ec222",
+      "file": "overwatch-orisa-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/orisa/",
+      "existing": false,
+      "sha256": "bba6ea2eb6df73a3b224231831dc0d8e463fa367dad8d3878061d7e9b3f5090b",
+      "bytes": 37214,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:36:43.489Z",
+        "requestId": "02179463458033299f4740eadd3360aa6250e68d85f7ec7ce5339",
+        "elapsedMs": 23495
+      },
+      "originalSha256": "bbb1cef8f3342f7452b310b27e6a0f768feb25cc208ae31177aa24467f8ebf52"
+    },
+    {
+      "slug": "wuyang",
+      "name": "우양",
+      "id": "7155c7",
+      "file": "overwatch-wuyang-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/wuyang/",
+      "existing": false,
+      "sha256": "b28003af62f45f499499a2046fc9c5b0a070aa8bfb2dfad4cc563c8753df10e0",
+      "bytes": 25282,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:36:55.383Z",
+        "requestId": "02179463458845734865fa4f4ec67e4268045741fa8093f5aa6e2",
+        "elapsedMs": 27249
+      },
+      "originalSha256": "e01684b3bf83cc78f9b42c72ab40b93ee26e7871afab0c1edfa170aa022ab9fd"
+    },
+    {
+      "slug": "widowmaker",
+      "name": "위도우메이커",
+      "id": "8971c9",
+      "file": "overwatch-widow-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/widowmaker/",
+      "existing": true,
+      "sha256": "f9b19bfa5f2fe2c81a69062b370eef58ddfc27e53d3bbeb12dd2dd05cc7fbd42",
+      "bytes": 13384,
+      "dimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "slug": "winston",
+      "name": "윈스턴",
+      "id": "149795",
+      "file": "overwatch-winston-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/winston/",
+      "existing": false,
+      "sha256": "645aee7d43af0ac56236ea963132588590c535c2aafaecbc76d3e61167288ea8",
+      "bytes": 25816,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:37:02.761Z",
+        "requestId": "021794634603664798132a7c84228b35f5c1a465b83379e4664db",
+        "elapsedMs": 19453
+      },
+      "originalSha256": "5b4a8b8ba30397c0fbe32fab08c634415f0aa74075d554d42d5f31bcb02453fe"
+    },
+    {
+      "slug": "illari",
+      "name": "일리아리",
+      "id": "51e8e0",
+      "file": "overwatch-illari-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/illari/",
+      "existing": false,
+      "sha256": "6529dc8bf9637b4dc8ddbfd98b9810071b37f82913a117bd174e8ff4cc03048d",
+      "bytes": 26492,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:37:05.454Z",
+        "requestId": "02179463460441150b1c418616fd9b5f78a16c5c9d341627da853",
+        "elapsedMs": 21375
+      },
+      "originalSha256": "f36b45d3007eb358e020ccf6c2146a295579849c75d935bd1faaef53bdcc6cc9"
+    },
+    {
+      "slug": "zarya",
+      "name": "자리야",
+      "id": "6b0576",
+      "file": "overwatch-zarya-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/zarya/",
+      "existing": false,
+      "sha256": "b426a7a1be884380767c1e5f751881f4eee2babff35763b132a026d507ba629f",
+      "bytes": 23834,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:37:18.381Z",
+        "requestId": "02179463461633468bed1fb63597428c3971f167251da488333e8",
+        "elapsedMs": 22372
+      },
+      "originalSha256": "0c254f12e9b45f04ba2679fabec57b0bae6d30661aa0c47afd2d6c3255831813"
+    },
+    {
+      "slug": "junker-queen",
+      "name": "정커퀸",
+      "id": "6c0778",
+      "file": "overwatch-junker-queen-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/junker-queen/",
+      "existing": false,
+      "sha256": "1ab892c0e1ceef82ec87a7c5617714bfc43218daa8eadcc8a0d0d5701afafe42",
+      "bytes": 22538,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:37:27.525Z",
+        "requestId": "021794634623730641a02d40a43d449f07de84c480b390dc0c6b6",
+        "elapsedMs": 24125
+      },
+      "originalSha256": "541d1ab64cafe4260ba066b92e7d2f200231acd077e6941f90b50fbcb211a40d"
+    },
+    {
+      "slug": "junkrat",
+      "name": "정크랫",
+      "id": "479a45",
+      "file": "overwatch-junkrat-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/junkrat/",
+      "existing": false,
+      "sha256": "1635dc2d34348b9f739edc32855ab7ff715380587a115243fe519238c8f12f60",
+      "bytes": 24312,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:37:27.443Z",
+        "requestId": "021794634626410085ce2a5b85bafc715e5d42a46d045519838f9",
+        "elapsedMs": 21356
+      },
+      "originalSha256": "6dbcb2f383502d45907e2d1ae2f25a58231f997e0e26351a08a21f335a0ba059"
+    },
+    {
+      "slug": "jetpack-cat",
+      "name": "제트팩 캣",
+      "id": "ecd733",
+      "file": "overwatch-jetpack-cat-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/jetpack-cat/",
+      "existing": false,
+      "sha256": "fd9f7c412a0642728933e04f6a3b6fb8d23194ff52105d4855706e0ab1c59268",
+      "bytes": 29958,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:37:40.757Z",
+        "requestId": "02179463463927132716c93dca5f9defc0d360fd0d690bdb4c9b8",
+        "elapsedMs": 21813
+      },
+      "originalSha256": "36f7a59d89e46b652abd5c0a65b8294ba2d5ef496daa0c5ba4d347334c44b7f0"
+    },
+    {
+      "slug": "zenyatta",
+      "name": "젠야타",
+      "id": "74b6ba",
+      "file": "overwatch-zenyatta-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/zenyatta/",
+      "existing": false,
+      "sha256": "ebb2e7de8129db68708da0fee13358d1059b3c0345f3d85873c2d13d7923d626",
+      "bytes": 26312,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:37:55.005Z",
+        "requestId": "021794634649326e1f2c28e220bf76d8a56e2a46eaa08e9167146",
+        "elapsedMs": 26039
+      },
+      "originalSha256": "49fb59793535386f5529e15ec785e405ec191bbe73802ae7bf4cd64044fa6ffa"
+    },
+    {
+      "slug": "juno",
+      "name": "주노",
+      "id": "e0298c",
+      "file": "overwatch-juno-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/juno/",
+      "existing": false,
+      "sha256": "c57aaf8dcf5599a46a909957aad3bdc2d4e1ef65447dca274cf4bc2f077ec994",
+      "bytes": 23446,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:37:52.242Z",
+        "requestId": "0217946346493559e89f26b858b9d25ce524a85522bfdaf88efaa",
+        "elapsedMs": 23247
+      },
+      "originalSha256": "daa51686b0fb203edcb0881eca773818a56d2bb606cf46dd27c67ffa3e59a4a5"
+    },
+    {
+      "slug": "cassidy",
+      "name": "캐서디",
+      "id": "60b83e",
+      "file": "overwatch-cassidy-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/cassidy/",
+      "existing": false,
+      "sha256": "0cfb1432a26cf7c6cbcf83a386d38f099d7a6351a12bd42aad8c0aab634e82e3",
+      "bytes": 21392,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:38:01.104Z",
+        "requestId": "02179463466170779d39dabdd16daed9e301f9238148b07ff708b",
+        "elapsedMs": 19720
+      },
+      "originalSha256": "ecd321bdedeaf99ccfd23d56923ecade8b9b47c36078c059c157b2bb46de7902"
+    },
+    {
+      "slug": "kiriko",
+      "name": "키리코",
+      "id": "0c643c",
+      "file": "overwatch-kiriko-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/kiriko/",
+      "existing": false,
+      "sha256": "1e2e2eee6d969f270f94017c5d8015d041f0a60a023a4ed2cd88bf312ccda3dc",
+      "bytes": 22020,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:38:13.619Z",
+        "requestId": "0217946346732090d9bd7330cfa68208494cd13d7460bba45af31",
+        "elapsedMs": 20800
+      },
+      "originalSha256": "013ef8a2520bc104568de34846e323867eebf15032ea2cbb64d99c44014e3f0b"
+    },
+    {
+      "slug": "torbjorn",
+      "name": "토르비욘",
+      "id": "4cdbb0",
+      "file": "overwatch-torbjorn-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/torbjorn/",
+      "existing": false,
+      "sha256": "ef9fb75fe941c34a8964995ad5c79d5dc11a9f4d7c0f1adc53f8055f5f2d6ddd",
+      "bytes": 28142,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:38:15.159Z",
+        "requestId": "0217946346759234d21f3e3e165e25fcf12f86815b4407f664fae",
+        "elapsedMs": 19552
+      },
+      "originalSha256": "d78113471288ebb48291bdf0b302fe9d17fb5458cec73ab4976582e47b7a34a5"
+    },
+    {
+      "slug": "tracer",
+      "name": "트레이서",
+      "id": "105dc8",
+      "file": "overwatch-tracer-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/tracer/",
+      "existing": false,
+      "sha256": "5cc05a48dfef5a007b32f760e70673e833205350576d95625b25b03b1e921c2a",
+      "bytes": 19646,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "built-in image_gen",
+        "status": "generated",
+        "at": "2026-11-14T05:41:58.247725+00:00"
+      },
+      "originalSha256": "883c216d3c8ce876e60a21a43b2d99de1cbaceda5353557211b43171a5b55e9d"
+    },
+    {
+      "slug": "pharah",
+      "name": "파라",
+      "id": "0b3d4a",
+      "file": "overwatch-pharah-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/pharah/",
+      "existing": false,
+      "sha256": "1a34a64b9871d3aee128b747911e085db56c90253985a87a0d4f8e1e99d50357",
+      "bytes": 32854,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:38:37.707Z",
+        "requestId": "0217946346945889cf4adffd4482a40b9bfd1b5a653f234dde3b9",
+        "elapsedMs": 23446
+      },
+      "originalSha256": "617bdf071313f37e478472ab1f09a28a32368f45304c5966df4505d969c52854"
+    },
+    {
+      "slug": "freja",
+      "name": "프레야",
+      "id": "6d6994",
+      "file": "overwatch-freja-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/freja/",
+      "existing": false,
+      "sha256": "a50813e30ed6499fae9d042310829c5c9fc0108dff54d8a0e048dde0ad6e0f35",
+      "bytes": 23186,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:38:35.079Z",
+        "requestId": "0217946346961149953a9193bc3926b190298875f636f3eee6e3d",
+        "elapsedMs": 19290
+      },
+      "originalSha256": "c7aa129949d293dff77c7db00fc39a26bc3ec91c2e1c478431fb2f768de6e2c3"
+    },
+    {
+      "slug": "hanzo",
+      "name": "한조",
+      "id": "5841e1",
+      "file": "overwatch-hanzo-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/hanzo/",
+      "existing": false,
+      "sha256": "22878871c4713a2afb5b1464318bc20cb3122bd3d18d34a22cc194de2b151213",
+      "bytes": 21264,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:38:43.282Z",
+        "requestId": "0217946347001314e5823ec317b6ea9d3f5e181cf6332a56070ad",
+        "elapsedMs": 23495
+      },
+      "originalSha256": "0d6e6325369964eca603c7294dd9bddc4d95aa695c1af11769ba274fac3deb5a"
+    },
+    {
+      "slug": "hazard",
+      "name": "해저드",
+      "id": "d79fb8",
+      "file": "overwatch-hazard-v2.webp",
+      "source": "https://overwatch.blizzard.com/ko-kr/heroes/hazard/",
+      "existing": false,
+      "sha256": "b8a6341c44a0deb96ee39f1d629e8791682204dfad2fec985453fba58bbc2891",
+      "bytes": 24730,
+      "dimensions": [
+        512,
+        512
+      ],
+      "generation": {
+        "model": "dola-seedream-5-5-261028",
+        "status": 200,
+        "at": "2026-11-14T05:38:58.611Z",
+        "requestId": "021794634716564600f73c29fbe2d8b6aeb9e23538767e7ad6223",
+        "elapsedMs": 22369
+      },
+      "originalSha256": "a3c679d24afa9f5ae33ec0f4330103b44ed4f44b27f04c2b9b3998ec4e6d28d6"
+    }
+  ],
+  "verification": "local prepared and verified, not deployed",
+  "models": {
+    "newSeedream": 49,
+    "newBuiltInImagegen": 1,
+    "existingReused": 4
+  },
+  "seedreamModel": "dola-seedream-5-5-261028",
+  "retryNotes": {
+    "sombra": "1 rejected output then completed",
+    "ana": "1 rejected output then completed",
+    "tracer": "3 rejected outputs, benign mannequin costume completed with built-in image_gen"
+  },
+  "environment": "macOS-15.2-arm64-arm-64bit-Mach-O",
+  "repositories": {
+    "/Users/ethan/repository/crefans_front-preset-expansion": {
+      "baseHead": "fc1c2386659d9e8840d5c29bb96f79611db032a4",
+      "branch": "feat/overwatch-all-costumes",
+      "dirty": true
+    },
+    "/Users/ethan/repository/crefans_server-ai-shop": {
+      "baseHead": "b06bce6809c8a8cad9d088405c36b455de126cde",
+      "branch": "feat/overwatch-all-costumes",
+      "dirty": true
+    }
+  },
+  "checks": [
+    {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs tests/overwatch-costumes.test.cjs",
+      "root": "/Users/ethan/repository/crefans_front-preset-expansion",
+      "log": "/Users/ethan/repository/crefans_front-preset-expansion/.local/overwatch-all/front-tests.log",
+      "logSha256": "5bf40655dc7f9826ce397a2a4ed7941cf4d28beffc45e5ccaac051173a9b2c4c",
+      "finishedAt": "2026-11-14T05:42:00.956785+00:00",
+      "exitCode": 0,
+      "verifiedCount": 60
+    },
+    {
+      "command": "npm run typecheck",
+      "root": "/Users/ethan/repository/crefans_front-preset-expansion",
+      "log": "/Users/ethan/repository/crefans_front-preset-expansion/.local/overwatch-all/typecheck.log",
+      "logSha256": "257e4a2cb00fa6fae592277d05df5e7b60f895802456510b5c9bfed9c339fe04",
+      "finishedAt": "2026-11-14T05:41:42.721628+00:00",
+      "exitCode": 0,
+      "verifiedCount": null
+    },
+    {
+      "command": "npm run check:layers",
+      "root": "/Users/ethan/repository/crefans_front-preset-expansion",
+      "log": "/Users/ethan/repository/crefans_front-preset-expansion/.local/overwatch-all/layers.log",
+      "logSha256": "528d24d299fa18904499fae0048fdf14bf2597891114e91345892bae55c0e963",
+      "finishedAt": "2026-11-14T05:36:12.249969+00:00",
+      "exitCode": 0,
+      "verifiedCount": 462
+    },
+    {
+      "command": "node .local/overwatch-all/browser.cjs",
+      "root": "/Users/ethan/repository/crefans_front-preset-expansion",
+      "log": "/Users/ethan/repository/crefans_front-preset-expansion/.local/overwatch-all/browser.log",
+      "logSha256": "adcfd3d307994531b618293bc27b517f467167c34249ff0f659db4d52e4e7970",
+      "finishedAt": "2026-11-14T05:43:01.025128+00:00",
+      "exitCode": 0,
+      "verifiedCount": 54
+    },
+    {
+      "command": "npm run build",
+      "root": "/Users/ethan/repository/crefans_server-ai-shop",
+      "log": "/Users/ethan/repository/crefans_server-ai-shop/.local/overwatch-all/build.log",
+      "logSha256": "7aa1638731242a1ef372b25af70d8e696bbb2cf4a43de8594e5172824ec1cad2",
+      "finishedAt": "2026-11-14T05:42:53.541441+00:00",
+      "exitCode": 0,
+      "verifiedCount": null
+    },
+    {
+      "command": "CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs",
+      "root": "/Users/ethan/repository/crefans_server-ai-shop",
+      "log": "/Users/ethan/repository/crefans_server-ai-shop/.local/overwatch-all/tests.log",
+      "logSha256": "70d9bd87a45292d00d2d850042be049b5fc0a34706c75c8f4da852b739f3eaf8",
+      "finishedAt": "2026-11-14T05:43:04.708691+00:00",
+      "exitCode": 0,
+      "verifiedCount": 27
+    }
+  ],
+  "limits": [
+    "No production deployment",
+    "No live user-photo try-on verification",
+    "Generated costume references are interpretations, not official skin renders",
+    "Not every alternate skin; one default costume for each listed hero"
+  ],
+  "negativeControl": {
+    "command": "CREFANS_SERVER_DIR=.local/overwatch-all/missing-server node --test tests/overwatch-costumes.test.cjs",
+    "expectedExit": 1,
+    "actualExit": 1,
+    "logSha256": "3bef7f32189f50e46cdd4e52e525f19e4dd706a46e7ecbed37992d698ac13796"
+  },
+  "sourceSha256": {
+    "/Users/ethan/repository/crefans_front-preset-expansion/lib/crefans/ai-photo-costumes.ts": "1bab13d64791386d7a2426e7cad12224d4baaee3cd280b236f74859c7bbc10e8",
+    "/Users/ethan/repository/crefans_front-preset-expansion/tests/overwatch-costumes.test.cjs": "4d4737717c7740cea0eddc9cb9b359d6206d82c077c71e7cbd36edfb258f9334",
+    "/Users/ethan/repository/crefans_server-ai-shop/src/platform/ai-photo-costume-references.ts": "b193e8101bbb49dd24e6b01a6fc1ada3dfe3e4d13aae6ee5c4532f2ea9089a7b",
+    "/Users/ethan/repository/crefans_server-ai-shop/src/platform/ai-shop.ts": "77f4b764086c7e6d2369933b0ac13f863abe8db2d655ef2319dee510f930f5ce"
+  },
+  "visualReview": {
+    "allNewAssets": 50,
+    "method": "contact sheets and individual Roadhog, Ana, Sombra, Tracer; full body/margins, costume colors, hair/headwear and major props inspected",
+    "mobileScreenshot": "/Users/ethan/repository/crefans_front-preset-expansion/.local/overwatch-all/mobile-overwatch.png",
+    "overview": "/Users/ethan/Downloads/crefans-overwatch-costumes-54-20261114.jpg"
+  },
+  "artifacts": [
+    {
+      "path": "/Users/ethan/Downloads/crefans-overwatch-costumes-54-20261114.zip",
+      "bytes": 1328148,
+      "sha256": "61906515e91b7d9af23730b70d9b756c0aabf9b30b2b3c384852fde6af55e7be"
+    },
+    {
+      "path": "/Users/ethan/Downloads/crefans-overwatch-costumes-54-20261114.jpg",
+      "bytes": 773719,
+      "sha256": "7a0d82937a47cec567d4e7855d26c584a5ac51ffc378cae1fccf7f07f8e51c8e"
+    }
+  ]
+}

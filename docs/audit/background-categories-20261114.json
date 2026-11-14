@@ -1,0 +1,96 @@
+{
+  "at": "2026-11-14T05:54:10.362281+00:00",
+  "repository": "/Users/ethan/repository/crefans_front-preset-expansion",
+  "baseCommit": "37cac1be45c2201ea425c13e594e39c4f9f12655",
+  "branch": "feat/background-categories",
+  "state": "uncommitted implementation verified",
+  "checks": [
+    {
+      "command": "node --test tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "61/61"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "pass"
+    },
+    {
+      "command": "node .local/background-categories/browser.cjs",
+      "exitCode": 0,
+      "result": "WebKit390 indoor6/outdoor4 decoded; no overflow/pageerror"
+    }
+  ],
+  "generation": [
+    {
+      "status": 200,
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create one square photorealistic interior background preset photograph, no people, no text or watermark, realistic architectural photography, tidy natural lived-in detail. A cozy small Korean bedroom at night, bed and desk, window outside dark night, cool white overhead fluorescent ceiling light switched ON, realistic cool indoor lighting.",
+      "elapsedMs": 21676,
+      "requestId": "021794635552667abaf251a9e3e40d15c8e00729ca74a8e67b167",
+      "at": "2026-11-14T05:52:53.994Z",
+      "kind": "room-night",
+      "index": 1,
+      "title": "내 방(밤 형광등)",
+      "editPrompt": "",
+      "output": ".local/background-categories/originals/room-night-1.png",
+      "sha256": "ac404e727e6c44de705b159452ff51cea4dbc4609fb712e1f67d0d5b6b7d28b2"
+    },
+    {
+      "status": 200,
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create one square photorealistic interior background preset photograph, no people, no text or watermark, realistic architectural photography, tidy natural lived-in detail. A cozy small Korean bedroom in daytime, bed and desk, sunlight from window and sheer curtains only, ceiling fluorescent fixture visibly OFF, airy natural daylight.",
+      "elapsedMs": 21150,
+      "requestId": "021794635552761f6ba3ba09f8d739ff3017972d8947b2e949955",
+      "at": "2026-11-14T05:52:53.653Z",
+      "kind": "room-day",
+      "index": 1,
+      "title": "내 방(낮 형광등 끔)",
+      "editPrompt": "",
+      "output": ".local/background-categories/originals/room-day-1.png",
+      "sha256": "caf80694efd3151b72fb9a71292c0074d3be8d48bc69364dc1ea58893d672a84"
+    },
+    {
+      "status": 200,
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create one square photorealistic interior background preset photograph, no people, no text or watermark, realistic architectural photography, tidy natural lived-in detail. A comfortable Korean apartment living room, light neutral sofa, coffee table, soft daylight from large window, realistic warm welcoming space.",
+      "elapsedMs": 22404,
+      "requestId": "021794635552589c0a335079e7be4c79ef57584e00819bab10845",
+      "at": "2026-11-14T05:52:54.670Z",
+      "kind": "living-room",
+      "index": 1,
+      "title": "거실",
+      "editPrompt": "",
+      "output": ".local/background-categories/originals/living-room-1.png",
+      "sha256": "8e986a35dce70bb8d50f9a83e1bae2328f4024e47909e2708665e8a6311f82c9"
+    },
+    {
+      "status": 200,
+      "model": "dola-seedream-5-5-261028",
+      "prompt": "Create one square photorealistic interior background preset photograph, no people, no text or watermark, realistic architectural photography, tidy natural lived-in detail. A professional photo studio with seamless matte black cyclorama backdrop and black floor, subtle side softboxes visible at edges, dark empty center for portrait subject.",
+      "elapsedMs": 18002,
+      "requestId": "02179463557466279d39dabdd16daed9e301f9238148b073fb2fd",
+      "at": "2026-11-14T05:53:12.377Z",
+      "kind": "studio-black",
+      "index": 1,
+      "title": "촬영스튜디오(검정배경)",
+      "editPrompt": "",
+      "output": ".local/background-categories/originals/studio-black-1.png",
+      "sha256": "3711b87209be48cbf7e5b334ce1a678fea2539cf55be66111b869163bd60fde8"
+    }
+  ],
+  "sha256": {
+    "lib/crefans/ai-photo-presets.ts": "95552573078cc4ebd7dd01e4b108626cfc1a9e8c4dda48391d3c2987d5a52e36",
+    "components/crefans/studio/AiPhotoDialog.tsx": "4b79783526abd6b3a3749b2ffcc2cc2522defb4eea67cb0ac4520dafb5ffe709",
+    "public/brand/ai-photo/background/living-room-v1.webp": "5a7e7ff59dafe3b6639549b071b69a8c9f320a0555c75864a924089595b83f76",
+    "public/brand/ai-photo/background/studio-black-v1.webp": "3261a8a44f56671e8d5f37a41140d0860805f83edd69670649804189b888816b",
+    "public/brand/ai-photo/background/room-day-v1.webp": "3a21c6db2ab4ac733891e4f6b05ab226f4ee07f19e3a26e8c0059f4bbd8576ec",
+    "public/brand/ai-photo/background/room-night-v1.webp": "546077e4cbcb23560158e50748a37c70a2c28ecbbf63567bae0331132be4082c"
+  },
+  "limitations": [
+    "No deployment",
+    "No live user-photo edit performed"
+  ],
+  "visualReview": "4 new thumbnails and indoor mobile screenshot inspected",
+  "logs": ".local/background-categories"
+}

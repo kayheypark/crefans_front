@@ -1,3 +1,5 @@
+export type AiHeartInput={action:'start'|'click'|'finish';id?:string;piece?:number;eventId?:string};
+export type AiHeartResult={remaining?:number;id?:string;kinds?:('heart'|'candy'|'moon')[];score?:number;hearts?:number;credits?:number;earned?:number;converted?:number};
 import type {ShopModel} from './crefans-shop';
 import type {ApiResult} from './crefans';
 import type {CreatorTerms} from '@/lib/crefans/creator-payout-policy';
@@ -9,7 +11,7 @@ export type StudioMedia={id:string;type:'image'|'video';url:string;processing?:b
 export type AiPhotoKind='outfit'|'makeup'|'expression'|'pose'|'background'|'camera'|'lens'|'body';
 export type AiPhotoStyle='photo'|'cosplay'|'daily';
 /** `mask`: PNG the size of the source, transparent where the photo may change (outfit edits). `consent`: the creator confirmed the person is themselves or agreed. */
-export type AiPhotoEditInput={source:StudioMedia;mode?:'general'|'cosplay';kind:AiPhotoKind|'combined';editKinds?:AiPhotoKind[];costumeIds?:string[];targetGender?:'female'|'male';prompt:string;style:AiPhotoStyle;mask?:Blob;consent:true};
+export type AiPhotoEditInput={heartGameId?:string;source:StudioMedia;mode?:'general'|'cosplay';kind:AiPhotoKind|'combined';editKinds?:AiPhotoKind[];costumeIds?:string[];targetGender?:'female'|'male';prompt:string;style:AiPhotoStyle;mask?:Blob;consent:true};
 export type AiPhotoEditResult={images:StudioMedia[];remaining:number};
 /** `media` holds images and videos in display order, at most `mediaUploadMaxItems` (10). */
 export type StudioContent={id:string;title:string;body:string;/** Set when an operator hid the post (terms §8); only the author can still see it. */hiddenByOperator?:boolean;/** Set when the author or an operator unpublished the post (postings.is_public=false): only the author sees it until it is made public again. */unpublished?:boolean;media:StudioMedia[];/** Per-post switch; the studio-wide setting still takes precedence. */commentsEnabled:boolean;tipsEnabled?:boolean;accessPlanId:string|null;/** Minimum purchased rank; mutually exclusive with accessPlanId. */accessLevel?:number|null;status:StudioContentStatus;scheduledAt:string|null;updatedAt:string};
@@ -28,7 +30,7 @@ export type StudioManagementModel={
   selectedSubscriberId?:string;
   notice?:string;
   /** Today's AI photo edits left; absent when the editor is not offered. */
-  aiPhotoQuota?:{paidRemaining?:number;remaining:number;limit:number;/** Storable reset tickets (2026-11-13): spend one to clear today's usage. */resetTickets?:{count:number;nextExpiresAt:string|null};/** Median seconds of recent real edits; null until one has finished. */typicalSeconds?:number|null};
+  aiPhotoQuota?:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;/** Storable reset tickets (2026-11-13): spend one to clear today's usage. */resetTickets?:{count:number;nextExpiresAt:string|null};/** Median seconds of recent real edits; null until one has finished. */typicalSeconds?:number|null};
   /** The creator's own fee terms from the studio finance API; absent means the default rate. */
   creatorTerms?:CreatorTerms|null;
   actions:{
@@ -46,6 +48,7 @@ export type StudioManagementModel={
     mediaStatus?:(id:string)=>Promise<ApiResult<{status:'processing'|'completed'|'failed'}>>;
     setMembershipActive:(id:string,active:boolean)=>Promise<ApiResult<{message:string}>>;
     /** AI photo edit (outfit, pose, background). Absent until the server feature is connected: the editor button is hidden. */
+    aiHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;
     aiEditPhoto?:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;
     refreshAiPhotoQuota?:()=>Promise<void>;
     useAiPhotoTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;

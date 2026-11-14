@@ -1,0 +1,62 @@
+{
+  "at": "2026-11-14T06:08:46.699608+00:00",
+  "repositories": [
+    {
+      "path": "/Users/ethan/repository/crefans_front-preset-expansion",
+      "head": "e814f414ca05bc9ec9a4057265979a9c45a938dc",
+      "branch": "feat/ai-heart-rewards",
+      "state": "uncommitted verified implementation"
+    },
+    {
+      "path": "/Users/ethan/repository/crefans_server-ai-shop",
+      "head": "76b57f0d84d5288fba0390962df69ce42ceb13fc",
+      "branch": "feat/ai-heart-rewards",
+      "state": "uncommitted verified implementation"
+    }
+  ],
+  "checks": [
+    {
+      "command": "npm run build (server)",
+      "exitCode": 0,
+      "result": "pass"
+    },
+    {
+      "command": "CREFANS_E2E=true node --test tests/platform-ai-photo.test.cjs",
+      "exitCode": 0,
+      "result": "30/30 isolated MySQL with provider stubs; threshold99/100/109/110/115, foreign/future/fraction/repeated click rejection, concurrent settlement and refund once, actual generation game lifecycle and99+1 conversion"
+    },
+    {
+      "command": "node --test tests/ai-photo-heart-game.test.cjs tests/studio-ai-photo.test.cjs tests/studio-ai-photo-binding.test.cjs",
+      "exitCode": 0,
+      "result": "65/65; no aggregate score sent, result shows verified earned/remainder/conversion"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "result": "pass"
+    },
+    {
+      "command": "CREFANS_SERVER_DIR=../crefans_server-ai-shop npm run check:docs",
+      "exitCode": 0,
+      "result": "PASS 240routes103models61migrations; snapshot not test proof"
+    }
+  ],
+  "files": {
+    "/Users/ethan/repository/crefans_server-ai-shop/src/platform/ai-photo-hearts.ts": "84a877df2bd4bd9a81afb6eaa098326e441b3e705c16f8b5607757b568654523",
+    "/Users/ethan/repository/crefans_server-ai-shop/src/platform/ai-photo.ts": "e8691ade770c0d0a060be365babf0733494562a901482df1de7b598682887492",
+    "/Users/ethan/repository/crefans_server-ai-shop/prisma/schema.prisma": "47c98e8c93d1ee76fa293d79a7c471651846e5897dbce5c6f65dd4cbb4065a24",
+    "/Users/ethan/repository/crefans_front-preset-expansion/components/crefans/studio/AiPhotoDialog.tsx": "e6ea4edbe6e6eb94e6b316e827fd50081a55fe37bbfc878f3a9f94272d6726f6",
+    "/Users/ethan/repository/crefans_front-preset-expansion/features/service/useStudioModel.ts": "b8d06109ffd65e61824d16c888c5b5281d11307a048f2fc1ad6a34c3f8ec0d51"
+  },
+  "source": {
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Business_Logic_Security_Cheat_Sheet.html",
+    "checked": "2026-11-14",
+    "application": "derive score server-side, member lock and atomic idempotent settlement; not a bot-detection guarantee"
+  },
+  "limits": [
+    "No deployment",
+    "No real provider or browser end-to-end reward test",
+    "Existing creator AI access permission retained"
+  ],
+  "logs": ".local/heart-rewards"
+}
