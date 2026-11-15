@@ -5485,3 +5485,12 @@
 - 전체 수: 서버 GET studio/ai-photo/library에 total 추가(server feat/library-total cd346d8). 타입 total?:number, total이 없는 이전 서버면 '불러온 수 + (더 있으면 +)'로 표시. 목업 보관함 사진 2→7장, total 반환.
 - 검증: studio-ai-photo 79 pass(새 앨범 테스트: 분류 7회 요청, '포즈 3·배경 1', 전체보기·복귀, 검색 접힘, 하단 문구 없음; 테스트 하네스 Primitives에 Field 목 추가), 옛 보관함으로 되돌리면 1 fail. tsc 통과, npm test 673 pass/17 fail(기준선 17 동일), check:layers는 기존 AiPhotoDialog fetch 1건만. 로컬 3131 iPhone 14 WebKit 캡처(`.local/library-album/`). 운영 배포 전(서버와 함께 배포 필요).
 - 운영 배포(2026-11-15 13:40 KST, 사용자 지시 "ㅂㅍ"): 서버 먼저 prod 5baa56a → API/worker crefans-api:library-total-20261115(bean-reconcile 위 src·dist, ai-photo-library.js 해시 로컬 prod 빌드와 일치·media.count 포함, 배포 스크립트 PASS, 복구 crefans-recovery/20261115/library-total-api). 프론트 prod 790e52f(feat/library-album + fix/costume-selected-border, 병합 PROGRESS 충돌은 양쪽 유지, 병합본 tsc 통과·npm test 673/17 기준선) → crefans-front:front-library-album-20261115(직전 front-swipe-fix 대체, 복구 사본 검증 OK). API/worker/frontend 재시작0, health ready. 운영 /design-system iPhone 14 WebKit: 보관함 분류별 줄·전체보기 '포즈 3'·선택 2장 트레이, 의상 선택 고리 ::after 2px(WebKit·Chromium). 실제 로그인 보관함 화면·아이폰 실기기는 미확인.
+
+### 2026-11-15 크리에이터가 아닌 회원 글쓰기 (프론트)
+- 사용자 지시와 결정은 서버 feat/member-posts PROGRESS 참고(전체 피드 노출·스튜디오 작성 화면 재사용·AI 회원 허용·약관은 나중에).
+- StudioRouter: 크리에이터가 아니면(overview.started=false) content 목록·작성/수정만 열고 나머지는 기존 안내 페이지. StudioShell memberOnly: 대시보드 대신 '게시물' 메뉴와 '크리에이터 시작하기'. 미리보기 작성자는 viewer를 작성자로 넣어 표시.
+- ContentEditorPage memberMode: 공개 범위·예약·후원 받기 숨김, 저장 시 tipsEnabled:false(서버도 강제). 댓글 허용은 유지.
+- 내 프로필: 크리에이터가 아니면 커버 '스튜디오' 대신 '글쓰기'(/studio/content/new). 내 글 판별·조회수 제외·수정 메뉴는 ownCreatorIds 또는 bootstrap viewerId. 'me'·'member' 화면도 /posts?creatorId로 작성자 글을 불러옴.
+- PublicMemberPage: 고정 빈 상태 대신 그 회원 글(피드·미디어 탭 개수 포함). 피드/미디어 탭 마크업은 CreatorPages의 ProfilePostsPanel로 크리에이터 프로필과 공유.
+- 후원 버튼은 기존대로 post.tipsEnabled=false면 숨김(서버가 회원 글은 false로 내려줌), 회원 프로필에는 후원·멤버십 영역 없음.
+- 검증: tsc 통과, npm test 676 pass/17 fail(기준선 17 동일). 새 테스트: content-post-preview 'member mode editor…'(옛 편집기로 되돌리면 fail), public-member-posts(옛 회원 페이지로 되돌리면 fail), creator-guard 'non-creator opens their own posts…'. 바뀐 동작에 맞춰 creator-guard(가드 대상에서 content 제외)·my-profile-actions(비크리에이터 '글쓰기') 갱신. check:layers는 기존 AiPhotoDialog 1건만. 실제 브라우저·운영 API로 회원 글 작성→피드 노출 흐름은 미확인(로컬 API 없이 단위 검증만). 관리자 콘솔 AI 허용 화면 문구가 '크리에이터 핸들'이면 admin 저장소 수정 필요(미확인). 운영 배포 전.

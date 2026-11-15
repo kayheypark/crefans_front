@@ -46,7 +46,7 @@ import {MembershipThumb} from './MembershipThumb';
 import {getSubscriptionPlan} from '@/lib/crefans/membership-plans';
 import s from './social.module.css';
 
-export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'ownCreatorIds'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>};
+export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'ownCreatorIds'|'viewerId'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>};
 type CommentsModel=Pick<PostDetailModel,'commentsByPost'|'addComment'|'loadReplies'|'commentPaging'>&Pick<PostDetailModel,'editComment'|'deleteComment'|'likeComment'>&Partial<Pick<ServiceViewModel,'basePath'|'reportComment'|'mentionCandidates'>>&{loadComments?:(postId:string)=>Promise<void>};
 type CommentActions={onEdit?:(commentId:string,body:string)=>Promise<SocialActionResult>;onDelete?:(commentId:string)=>Promise<SocialActionResult>};
 export type PostDetailModel=PostCardModel&Pick<ServiceViewModel,'commentsByPost'|'addComment'|'loadReplies'|'loadComments'|'commentPaging'|'editComment'|'deleteComment'|'likeComment'>&{data:PostCardModel['data']&Pick<ServiceData,'posts'>};
@@ -59,7 +59,7 @@ function PostNavigation({href,readOnly,children,className,label}:{href:string;re
 function PostMenu({post,model,readOnly=false}:{post:Post;model:PostCardModel;readOnly?:boolean}){
   const [open,setOpen]=useState(false),[sharing,setSharing]=useState(false),[report,setReport]=useState(false),[reason,setReason]=useState<ReportReason|''>(''),[feedback,setFeedback]=useSnackbarMessage(),[pending,setPending]=useState(false);
   const root=useRef<HTMLDivElement>(null),trigger=useRef<HTMLButtonElement>(null),menuId=useId();
-  const own=!!model.ownCreatorIds?.includes(post.creatorId);
+  const own=!!model.ownCreatorIds?.includes(post.creatorId)||(!!model.viewerId&&post.creatorId===model.viewerId);
   useEffect(()=>{
     if(!open||typeof document==='undefined')return;
     const outside=(event:PointerEvent)=>{if(!root.current?.contains(event.target as Node))setOpen(false);};
@@ -144,7 +144,7 @@ function PostActions({post,model,comments=post.comments,readOnly=false,onComment
  * `preview` (post search, 2026-11-09 "검색은 제외, 피드·상세는 열람"): the server sends membership posts locked even to
  * subscribers so a search never counts as viewing; a viewer who may open it gets a link to the detail instead of a sales notice. */
 export function PostCard({post,model,context,preview=false}:{post:Post;model:PostCardModel&Partial<CommentsModel>;context?:Post[];preview?:boolean}){
-  const exposure=usePostExposure(post.id,model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId),'feed');
+  const exposure=usePostExposure(post.id,model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId)&&post.creatorId!==model.viewerId,'feed');
   const {canAccess,basePath}=model,[commentsOpen,setCommentsOpen]=useState(false),[viewer,setViewer]=useState(0),[viewerOpen,setViewerOpen]=useState(false);
   /** The overlay stays mounted through its exit animation, like the Dialog primitive. */
   const viewerPresent=usePresence(viewerOpen,designTokens.motion.fast);
@@ -163,7 +163,7 @@ function PostOverlay({post:initialPost,model,inline,initialIndex,context,open,on
   const [index,setIndex]=useState(Math.min(initialIndex,Math.max(0,media.length-1))),[commentsOpen,setCommentsOpen]=useState(false);
   const creator=model.data.creators.find(item=>item.id===post.creatorId);
   const overlay=useRef<HTMLDivElement>(null),panelContentId=useId();
-  const exposure=usePostExposure(post.id,open&&model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId),'detail',true);
+  const exposure=usePostExposure(post.id,open&&model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId)&&post.creatorId!==model.viewerId,'detail',true);
   // Start with equal media/detail space on mobile; reopening restores this split.
   const [panelSnap,setPanelSnap]=useState(0),[panelDrag,setPanelDrag]=useState<number|null>(null);
   useEffect(()=>{if(open)setPanelSnap(0);},[open]);
@@ -323,7 +323,7 @@ export function CommentsSection({post,model,count,locked,readOnly=false,collapse
 export function PostDetailPage({id,model,forceLocked=false,readOnly=false}:{id:string;model:PostDetailModel;forceLocked?:boolean;readOnly?:boolean}){
   const {canAccess,data,basePath,commentCounts}=model;
   const post=data.posts.find(item=>item.id===id);
-  const exposure=usePostExposure(id,!!post&&!readOnly&&basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId),'detail');
+  const exposure=usePostExposure(id,!!post&&!readOnly&&basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId)&&post.creatorId!==model.viewerId,'detail');
   const locked=!post||(forceLocked&&(post.requiredRank>0||!!post.requiredPlanId))||!(post.canAccess??canAccess(post.creatorId,post.requiredRank,post.requiredPlanId));
   const [viewer,setViewer]=useState({postId:'',index:0,open:false});
   const viewerOpen=viewer.postId===id&&viewer.open&&!locked&&!readOnly;

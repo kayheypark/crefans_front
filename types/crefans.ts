@@ -31,6 +31,8 @@ export type ServiceViewModel=AccountModel&SocialModel&{
   data:ServiceData;mode:'mock'|'live';today:string;basePath:string;nextRenewAt?:string;
   /** Creators this account manages; their posts get the 수정 menu item. */
   ownCreatorIds?:string[];
+  /** The signed-in member's id (2026-11-15). Members who are not creators may post too; their own posts match this. */
+  viewerId?:string|null;
   signedIn:boolean;setSignedIn:Dispatch<SetStateAction<boolean>>;
   /** 로그인이 필요한 동작을 비로그인 상태에서 눌렀을 때 공용 로그인 필요 창을 띄운다(실제 서비스). 없으면 로그인 화면으로 이동. */
   requireSignIn?:()=>void;
