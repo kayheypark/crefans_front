@@ -5433,3 +5433,8 @@
 - 실제 문제: 글꼴 기호 ♀♂는 글리프 모양 때문에 동그라미 안에서 아래로 치우침(측정상 ♂ 약 0.6px, 기기 글꼴마다 다름). 기호를 SVG 선(viewBox 24, 도형 경계 중심 12,12)으로 그려 기기와 무관하게 가운데에 오게 함. 기호 문자는 숨김 텍스트로 남겨 테스트·보조기술용 텍스트 유지.
 - 확인: 로컬 375px에서 두 원 모두 도형 중심과 원 중심 차이 0px(getBoundingClientRect), 가로 배치 육안 확인, studio-ai-photo 테스트 통과, tsc 통과. 운영 배포 전.
 - 운영 배포(2026-11-15 10:31 KST, 사용자 지시 "배포"): prod 51c6acd → 이미지 `crefans-front:front-gender-glyph-20261115`(직전 front-outfit-parts-20261115 대체), ship-image.sh exit 0, 복구 사본 /Users/ethan/crefans-recovery/20261115/front-gender-glyph-20261115 검증 OK. 컨테이너 crefans-beta-frontend-1 Up·재시작 0, https://crefans.com/design-system 200, 운영 CSS에 가로 배치(column 없음)·SVG 기호 규칙 반영 확인. 운영 화면 육안 확인은 로그인 필요로 미실시.
+
+### 2026-11-15 글쓰기/수정 화면 업로드 썸네일 전체보기
+- 사용자 요청: 게시물 쓰기·수정 페이지의 파일 업로드 썸네일을 누르면 전체보기. 대상은 스튜디오 `ContentEditor`(components/crefans/studio/ManagementPages.tsx, 새 글·수정 공용).
+- `MediaUpload`(components/ui)에 선택 prop `onPreview(index)` 추가: 썸네일 탭·Enter/Space로 호출, 삭제 버튼·순서 끌기 직후의 클릭·변환 실패 항목은 열지 않음, 커서 zoom-in. 레이어 규칙상 ui가 crefans를 가져오지 않도록 전체보기는 호출 쪽에서 기존 `MediaOverlay`(게시물·프로필 사진과 같은 전체 화면 뷰어)로 연결. 좌우 넘김·닫기·Esc는 MediaOverlay 동작 그대로. 멤버십 이미지 업로드에는 적용하지 않음(요청 범위 밖).
+- 검증: tests/media-upload.test.cjs 새 테스트 포함 11 pass, 끌기 후 클릭 차단을 빼면 실패(대조 확인). tsc 통과. npm test 670 pass / 17 fail(dev 기준선 17건과 동일, content-post-preview 'operator-hidden' 실패는 origin/dev에서도 재현). check:layers는 기존 AiPhotoDialog 실패 1건만. 로컬 /preview/studio/content/new 375px에서 사진 2장 업로드 → 실제 탭으로 2번째 사진 전체보기, 이전 이동·닫기·Enter 열기·Esc 닫기, 실제 끌기로 순서만 바뀌고 뷰어는 안 열림 확인. 운영 배포 전.

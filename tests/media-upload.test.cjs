@@ -150,3 +150,29 @@ test('a watermarking photo shows a processing notice instead of requesting the u
  const picker=mount({items:[{id:'photo',type:'image',url:'/api/v1/media/photo/file',processing:true}]});
  try{assert.equal(picker.view.root.findAllByType('img').length,0);assert.match(JSON.stringify(picker.view.toJSON()),/워터마크 적용 중/);picker.update({items:[{id:'photo',type:'image',url:'/api/v1/media/photo/file'}]});assert.equal(picker.view.root.findAllByType('img').length,1);assert.doesNotMatch(JSON.stringify(picker.view.toJSON()),/워터마크 적용 중/);}finally{picker.unmount();}
 });
+
+test('tapping an uploaded thumbnail opens it full screen; drags, the delete button and failed videos do not (2026-11-15)',()=>{
+  const items=[{id:'a',type:'image',url:'/a.png'},{id:'b',type:'video',url:'/b.mp4'},{id:'c',type:'video',url:'/c.mp4',failed:true}];
+  const opened=[],removed=[],boxes=[0,110,220].map(left=>({left,top:0,width:100,height:100}));
+  const tiles=boxes.map(box=>({getBoundingClientRect:()=>box,focus(){},dataset:{},style:{},offsetWidth:100}));
+  let view;act(()=>{view=create(h(MediaUpload,{label:'미디어',items,max:10,accept:'image/png',onFilesSelect(){},onRemove:id=>removed.push(id),onReorder(){},onPreview:index=>opened.push(index)}),{createNodeMock:element=>element.type==='ul'?{children:tiles}:null});});
+  try{
+    const tile=index=>view.root.findAllByType('li')[index];
+    const media={closest:()=>null},pointer=(x,y)=>({pointerId:1,button:0,clientX:x,clientY:y,target:media,currentTarget:{setPointerCapture(){}},preventDefault(){}});
+    act(()=>tile(1).props.onClick({target:media}));
+    assert.deepEqual(opened,[1]);
+    assert.match(tile(0).props['aria-label'],/눌러서 크게 보기/);assert.equal(tile(0).props['data-previewable'],true);
+    act(()=>tile(0).props.onKeyDown({key:'Enter',target:'self',currentTarget:'self',preventDefault(){}}));
+    assert.deepEqual(opened,[1,0]);
+    // A drag past the threshold reorders; the click that follows must not open the viewer.
+    act(()=>tile(0).props.onPointerDown(pointer(50,50)));act(()=>tile(0).props.onPointerMove(pointer(160,50)));act(()=>tile(0).props.onPointerUp());
+    act(()=>tile(0).props.onClick({target:media}));
+    assert.deepEqual(opened,[1,0]);
+    act(()=>tile(0).props.onClick({target:media}));
+    assert.deepEqual(opened,[1,0,0],'the next plain tap opens again');
+    act(()=>tile(0).props.onClick({target:{closest:selector=>selector==='button'?{}:null}}));
+    assert.equal(opened.length,3,'the delete button does not open the viewer');
+    act(()=>tile(2).props.onClick({target:media}));
+    assert.equal(opened.length,3,'a failed conversion is not previewable');assert.equal(tile(2).props['data-previewable'],undefined);
+  }finally{act(()=>view.unmount());}
+});
