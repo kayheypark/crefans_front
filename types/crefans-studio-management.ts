@@ -26,6 +26,8 @@ export type StudioManagementModel={
   now:string;
   contents:StudioContent[];
   memberships:StudioMembership[];
+  /** 2026-11-16: false when the creator has no partnership contract (verified badge); new memberships need it. Unknown = undefined. */
+  membershipPartner?:boolean;
   subscribers:StudioSubscriber[];
   selectedContentStatus?:StudioContentStatus;
   selectedSubscriberPlanId?:string;
