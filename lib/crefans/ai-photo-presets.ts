@@ -3,6 +3,32 @@ import {aiPhotoMaleBodyControls,aiPhotoBodyPrompt} from './ai-photo';
 import {aiPhotoOutfits,aiPhotoOutfitByPrompt,aiPhotoOutfitImage,type AiPhotoOutfitPart} from './ai-photo-outfits';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 
+// 메이크업 카드: 생성 문구·제목·카드 사진의 제작 성별·파일을 한곳에 둔다(2026-11-15).
+// 여성은 사용자가 고른 하얀 코스어 화장 가상 모델(v2), 남성은 기본 4종만(기존 남성 6종은 사용자 지시로 삭제, 추후 추가 예정).
+export type AiPhotoMakeup={prompt:string;title:string;gender:'female'|'male';image:string};
+export const aiPhotoMakeups:readonly AiPhotoMakeup[]=[
+ {prompt:"입술을 자연스러운 코랄 톤으로 바꿔줘.",title:"코랄 립",gender:'female',image:'makeup-01-v2'},
+ {prompt:"눈화장은 부드러운 브라운 톤으로 해줘.",title:"브라운 아이",gender:'female',image:'makeup-03-v2'},
+ {prompt:"메이크업의 반짝임을 조금 줄여줘.",title:"펄 줄이기",gender:'female',image:'makeup-05-v2'},
+ {prompt:"눈썹을 원래 모양에 맞게 자연스럽게 정리해줘.",title:"자연스러운 눈썹",gender:'female',image:'makeup-07-v2'},
+ {prompt:"눈가에 과하지 않은 음영을 더해줘.",title:"은은한 음영",gender:'female',image:'makeup-09-v2'},
+ {prompt:"진한 색조를 줄이고 일상 메이크업처럼 해줘.",title:"데일리 메이크업",gender:'female',image:'makeup-11-v2'},
+ {prompt:"눈 밑부터 콧등까지 분홍 블러셔를 넓게 펴 바른 숙취 메이크업으로 바꿔줘.",title:"숙취 블러셔",gender:'female',image:'makeup-13-v2'},
+ {prompt:"위아래 속눈썹을 또렷하게 살려 맑고 큰 눈매의 인형 같은 메이크업으로 바꿔줘.",title:"인형 메이크업",gender:'female',image:'makeup-14-v2'},
+ {prompt:"눈 밑에 붉은 분홍 음영과 살짝 처진 아이라인을 넣고 입술은 촉촉하게 해서 지뢰계 메이크업으로 바꿔줘.",title:"지뢰계 메이크업",gender:'female',image:'makeup-15-v2'},
+ {prompt:"피부를 뽀얗고 매끈한 매트 베이스로 정돈하고 아랫속눈썹을 그려 애니 코스프레 메이크업으로 바꿔줘.",title:"코스프레 베이스",gender:'female',image:'makeup-16-v2'},
+ {prompt:"한쪽 볼에 작은 별 모양 페이스 스티커를 붙여줘.",title:"별 페이스 스티커",gender:'female',image:'makeup-17-v2'},
+ {prompt:"양 볼에 가는 고양이 수염 무늬를 그려줘.",title:"고양이 수염 페인팅",gender:'female',image:'makeup-18-v2'},
+ {prompt:"눈꼬리 쪽에 붉은 아이섀도를 번지듯 발라 또렷한 눈매로 바꿔줘.",title:"레드 아이섀도",gender:'female',image:'makeup-19-v2'},
+ {prompt:"애교살에 은은한 글리터와 하이라이트를 더해줘.",title:"애교살 글리터",gender:'female',image:'makeup-20-v2'},
+ {prompt:"입술 안쪽부터 번지는 그라데이션 틴트 립으로 바꿔줘.",title:"그라데이션 립",gender:'female',image:'makeup-21-v2'},
+ {prompt:"한쪽 눈 밑에 작은 점을 찍어 포인트를 줘.",title:"눈 밑 점",gender:'female',image:'makeup-22-v2'},
+ {prompt:"피부를 밝고 매끈한 하얀 매트 베이스로 정돈해 코스프레용 하얀 얼굴로 바꿔줘.",title:"하얀 피부 베이스",gender:'male',image:'makeup-male-01-v1'},
+ {prompt:"잡티와 홍조를 자연스럽게 가려 피부 톤을 고르게 정돈해줘.",title:"피부 톤 정돈",gender:'male',image:'makeup-male-02-v1'},
+ {prompt:"눈썹을 깔끔하고 또렷하게 다듬어줘.",title:"눈썹 정리",gender:'male',image:'makeup-male-03-v1'},
+ {prompt:"입술 색을 건강한 자연 톤으로 정돈하고 촉촉하게 해줘.",title:"입술 정돈",gender:'male',image:'makeup-male-04-v1'}
+];
+
 // 편집 가능한 제안 문구. 탐색/선택만으로는 생성 요청을 보내지 않는다.
 export const aiPhotoComicWorldPreset='배경을 높은 트러스 천장과 동인 부스가 있는 서코 실내 행사장 분위기로 바꿔줘.';
 export const aiPhotoNeutralExpressionPreset='미소 없이 입을 자연스럽게 다물고 얼굴에 힘을 뺀 무표정으로 바꿔줘.';
@@ -12,20 +38,7 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
 "lens": ["스마트폰 전면 카메라로 정면 셀카를 찍은 구도로 바꿔줘. 팔을 뻗어 촬영한 자연스러운 가까운 거리와 가벼운 광각 느낌을 표현하고 얼굴이 중심에 오게 해줘. 거울은 추가하지 마.", "거울 앞에서 휴대폰을 들고 찍은 거울 셀카로 바꿔줘. 휴대폰과 자연스러운 거울 반사가 보이게 하되 얼굴을 과도하게 가리지 말고 인물과 손이 중복되지 않게 해줘.", "다른 사람이 DSLR로 촬영한 자연스러운 인물 사진 느낌으로 바꿔줘. 눈높이의 자연스러운 원근감, 또렷한 인물과 적당한 배경 흐림을 표현해줘. 촬영 장비는 화면에 추가하지 마.", "다른 사람이 먼 거리에서 대형 망원렌즈로 촬영한 인물 사진 느낌으로 바꿔줘. 얼굴 비율은 자연스럽게 유지하고 망원 특유의 압축된 거리감과 크게 흐려진 배경을 표현해줘. 촬영 장비는 화면에 추가하지 마."],
 "body": ["가슴 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "가슴 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 작게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "힙 크기를 조금 크게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.", "전신의 키 비율을 조금 작아 보이게 자연스럽게 보정해줘.", "전신의 키 비율을 조금 커 보이게 자연스럽게 보정해줘."],
  "outfit": aiPhotoOutfits.map(item=>item.prompt),
- "makeup": [
-  "입술을 자연스러운 코랄 톤으로 바꿔줘.",
-  "볼에 은은한 생기를 더해줘.",
-  "눈화장은 부드러운 브라운 톤으로 해줘.",
-  "입술 색을 은은한 장밋빛으로 바꿔줘.",
-  "메이크업의 반짝임을 조금 줄여줘.",
-  "아이라인을 얇고 자연스럽게 정리해줘.",
-  "눈썹을 원래 모양에 맞게 자연스럽게 정리해줘.",
-  "볼에 연한 복숭아색 블러셔를 더해줘.",
-  "눈가에 과하지 않은 음영을 더해줘.",
-  "립 메이크업을 부드러운 매트 톤으로 바꿔줘.",
-  "진한 색조를 줄이고 일상 메이크업처럼 해줘.",
-  "피부 결을 살리면서 메이크업 톤을 정돈해줘."
- ],
+ "makeup": aiPhotoMakeups.map(item=>item.prompt),
  "expression": [
   aiPhotoNeutralExpressionPreset,
   "치아가 살짝 보이게 밝게 웃어줘.",
@@ -95,15 +108,28 @@ export type AiPhotoPosePosture='sitting'|'standing';
 const sittingPoseIndexes=new Set([12,13,14,16,19,20,27,28,29,30,31,37,38,45,46]);
 export function aiPhotoPosePosture(example:string):AiPhotoPosePosture{return sittingPoseIndexes.has(aiPhotoPresets.pose.indexOf(example))?'sitting':'standing';}
 
+// '원본 유지' 카드: 고르면 그 탭의 선택을 비운다. 아무것도 고르지 않은 상태와 같고 생성 요청에는 아무 문구도 넣지 않는다.
+export const AI_PHOTO_KEEP_ORIGINAL='__keep_original__';
+export const aiPhotoKeepOriginalKinds:readonly AiPhotoKind[]=['makeup','expression','pose','background','camera','lens'];
+// 메이크업은 여러 개를 함께 고를 수 있다(2026-11-15). 다른 탭은 탭마다 하나.
+export const aiPhotoMultiSelectKinds:readonly AiPhotoKind[]=['makeup'];
+
+// 메이크업 카드 사진의 제작 성별(aiPhotoMakeups).
+export function aiPhotoMakeupGender(example:string):'female'|'male'|undefined{return aiPhotoMakeups.find(item=>item.prompt===example)?.gender;}
+
 export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture,backgroundCategory?:AiPhotoBackgroundCategory,outfitPart?:AiPhotoOutfitPart){
- const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter((_,index)=>(index%2===0?'female':'male')===gender):aiPhotoPresets[kind];
+ const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter(example=>aiPhotoMakeupGender(example)===gender):aiPhotoPresets[kind];
  const ordered=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available;
- const examples=ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&(kind!=='outfit'||((gender==='original'||aiPhotoOutfitByPrompt(example)?.gender===gender)&&(!outfitPart||aiPhotoOutfitByPrompt(example)?.part===outfitPart)))&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
+ const examples=ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&(kind!=='outfit'||((gender==='original'||aiPhotoOutfitByPrompt(example)?.gender===gender)&&(!outfitPart||aiPhotoOutfitByPrompt(example)?.part===outfitPart)))&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example));
+ // 2026-11-15: 의상·신체 보정을 뺀 탭은 첫 카드로 '원본 유지'를 둔다(그 탭은 바꾸지 않음). total은 실제 프리셋 수만 센다.
+ const listed=[...(aiPhotoKeepOriginalKinds.includes(kind)&&aiPhotoPresetMatches(query,'원본 유지')?[AI_PHOTO_KEEP_ORIGINAL]:[]),...examples],pages=Math.max(1,Math.ceil(listed.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;
- return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages,total:examples.length};
+ return {examples:listed.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages,total:examples.length};
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
+ if(example===AI_PHOTO_KEEP_ORIGINAL)return `/brand/ai-photo/${kind}-colorful-flat-v3.png`;
+ if(kind==='makeup'){const makeup=aiPhotoMakeups.find(item=>item.prompt===example);if(makeup)return `/brand/ai-photo/presets/${makeup.image}.webp`;}
  if(kind==='outfit'){const outfit=aiPhotoOutfitByPrompt(example);if(outfit)return aiPhotoOutfitImage(outfit);}
  if(kind==='background'&&aiPhotoBackgroundId(example))return `/brand/ai-photo/background/${aiPhotoBackgroundId(example)}.webp`;
  if(kind==='background'){const files=['presets/background-comicworld-v1','background/room-night-v1','background/room-day-v1','background/living-room-v1','presets/background-01-v1','background/studio-black-v1','presets/background-04-v1','presets/background-05-v1','presets/background-09-v1','presets/background-10-v1'];return `/brand/ai-photo/${files[aiPhotoPresets.background.indexOf(example)]}.webp`;}
@@ -120,7 +146,7 @@ export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'origi
 // 카드의 짧은 이름과 실제 생성 요청을 분리한다. 순서는 각 프리셋과 같다.
 export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "outfit":aiPhotoOutfits.map(item=>item.name),
- "makeup":["코랄 립", "생기 있는 볼", "브라운 아이", "로즈 립", "펄 줄이기", "얇은 아이라인", "자연스러운 눈썹", "피치 블러셔", "은은한 음영", "매트 립", "데일리 메이크업", "피부 톤 정돈"],
+ "makeup":aiPhotoMakeups.map(item=>item.title),
  "expression":["무표정", "환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소", "도도한 시선", "자신감 있는 미소", "턱 살짝 들기"],
  "pose":["손인사", "살짝 돌아서기", "두 손 모으기", "허리에 손", "고개 기울이기", "브이", "정면 서기", "작은 손인사", "앞으로 기대기", "턱에 손", "손하트", "옆모습 시선", "의자에 앉기", "벤치에 앉기", "쪼그려 앉기", "벽에 기대 쉬기", "바닥에 앉기", "시선 밖 스냅", "걷다 돌아보기", "대화하는 스냅", "계단에 앉기", "난간에 기대기", "기지개", "산책 스냅", "뒤돌아보기", "다리 넓혀 서기", "양팔 머리 위로", "의자 거꾸로 앉기", "다리 꼬아 앉기", "한쪽 무릎 세우기", "무릎 꿇고 앉기", "다리 모아 옆앉기", "카메라로 손 뻗기", "이마에 손 대기", "뒤로 손 짚고 기대기", "한 발 뒤로 접기", "양손으로 소품 들기", "무릎 안고 앉기", "앉아서 팔 올리기", "한쪽 무릎 들기", "한 손 머리에 올리기", "소품 어깨에 메기", "한 다리 뻗어 런지", "고양이 손 포즈", "검지 쉿 포즈", "의자 위 무릎 세워 앉기", "다리 뻗고 앉기"],
  "background":["코믹월드", "내 방(밤 형광등)", "내 방(낮 형광등 끔)", "거실", "촬영스튜디오(흰배경)", "촬영스튜디오(검정배경)", "햇살 공원", "벚꽃길", "노을 바다", "도시 야경",...aiPhotoBackgrounds.map(item=>item.title)],
@@ -128,4 +154,4 @@ export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "lens":["셀카 폰카(정면)", "거울샷", "DSLR", "대포카메라"],
  "body":["가슴 조금 작게", "가슴 조금 크게", "힙 조금 작게", "힙 조금 크게", "키 조금 작게", "키 조금 크게"]
 };
-export function aiPhotoPresetTitle(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return control.label;}return aiPhotoPresetTitles[kind][aiPhotoPresets[kind].indexOf(example)];}
+export function aiPhotoPresetTitle(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){if(example===AI_PHOTO_KEEP_ORIGINAL)return '원본 유지';if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return control.label;}return aiPhotoPresetTitles[kind][aiPhotoPresets[kind].indexOf(example)];}
