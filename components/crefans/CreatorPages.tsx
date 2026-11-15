@@ -36,7 +36,7 @@ import {PostMediaTile} from './PostMediaTile';
 import {getPostMedia} from '@/lib/crefans/post-media';
 import {FeedEnd,PostCard} from './SocialPages';
 import {Action,Avatar,Empty,PageTitle} from './ServiceUI';
-import type {ServiceViewModel,Subscription} from '@/types/crefans';
+import type {Post,ServiceViewModel,Subscription} from '@/types/crefans';
 import s from './creator.module.css';
 import {SocialLinks} from './SocialLinks';
 
@@ -105,8 +105,14 @@ export function CreatorProfilePage({model,id,previewLogin}:{model:ServiceViewMod
     <TipButton creatorId={creator.id} name={creator.name} creator={creator} profile/>
     <section className={s.profilePlans} aria-labelledby="profile-plans"><h2 id="profile-plans">멤버십</h2>{onSale.length?<div className={s.planList}>{onSale.map(plan=><MembershipPlanCard key={plan.id} plan={plan} creator={creator} compact selected={plan.id===activePlanId} disabled={plan.id===activePlanId} actionLabel={plan.id===activePlanId?'가입 중':'가입하기'} onSelect={()=>{if(!model.signedIn){signIn(model,router);return;}router.push(`${basePath}/membership/${id}?plan=${plan.id}`);}}/>)}</div>:<Empty title="판매 중인 멤버십이 없어요."/>}</section>
     <div className={s.tabs} aria-label="프로필 내용">{tabs.map(([item,count])=><button key={item} type="button" aria-pressed={tab===item} onClick={()=>setTab(item)}>{item}{count!==null&&<span className={s.tabCount}>{count}</span>}</button>)}</div>
-    {tab==='소개'?<section className={s.about}>{(creator.about||creator.bio)?<p>{creator.about||creator.bio}</p>:<p>아직 등록된 소개가 없습니다.</p>}<SocialLinks links={creator.links}/></section>:tab==='피드'?(ownPosts.length?<div className={s.profileFeed}>{ownPosts.map(post=><PostCard key={post.id} post={post} model={model} context={ownPosts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}</div>:<Empty title="아직 게시물이 없어요" description="팔로우하고 새로운 소식을 기다려 주세요."/>):<>{!mediaPosts.length?<Empty title={model.feedPaging?.hasMore?'불러온 게시물에 미디어가 없어요':'아직 미디어가 없어요'} description={model.feedPaging?.hasMore?'더 보기를 눌러 이전 게시물을 확인하세요.':'사진이나 동영상이 담긴 게시물이 올라오면 여기에 모여요.'}/>:<div className={s.postGrid}>{mediaPosts.map(post=><PostMediaTile key={post.id} post={post} model={model}/>)}</div>}{model.feedPaging?.hasMore&&<div className={s.profileFeed}><Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={model.feedPaging.loading}/></Action></div>}</>}
+    {tab==='소개'?<section className={s.about}>{(creator.about||creator.bio)?<p>{creator.about||creator.bio}</p>:<p>아직 등록된 소개가 없습니다.</p>}<SocialLinks links={creator.links}/></section>:<ProfilePostsPanel tab={tab} posts={ownPosts} model={model}/>}
   </div>;
+}
+
+/** Feed and media tabs of a profile; shared by creator and member profiles (members may post too, 2026-11-15). */
+export function ProfilePostsPanel({tab,posts,model}:{tab:string;posts:Post[];model:ServiceViewModel}){
+ const media=posts.filter(post=>getPostMedia(post).length>0);
+ return <>{tab==='피드'?(posts.length?<div className={s.profileFeed}>{posts.map(post=><PostCard key={post.id} post={post} model={model} context={posts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}</div>:<Empty title="아직 게시물이 없어요" description="팔로우하고 새로운 소식을 기다려 주세요."/>):<>{!media.length?<Empty title={model.feedPaging?.hasMore?'불러온 게시물에 미디어가 없어요':'아직 미디어가 없어요'} description={model.feedPaging?.hasMore?'더 보기를 눌러 이전 게시물을 확인하세요.':'사진이나 동영상이 담긴 게시물이 올라오면 여기에 모여요.'}/>:<div className={s.postGrid}>{media.map(post=><PostMediaTile key={post.id} post={post} model={model}/>)}</div>}{model.feedPaging?.hasMore&&<div className={s.profileFeed}><Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={model.feedPaging.loading}/></Action></div>}</>}</>;
 }
 
 export function MembershipPage({model,id,initialPlanId}:{model:ServiceViewModel;id:string;initialPlanId?:string}){

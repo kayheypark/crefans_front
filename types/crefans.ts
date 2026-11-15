@@ -9,7 +9,7 @@ export type ApiResult<T> =
 /** External profiles the creator manages in the studio; shown on the fan profile's 소개 tab. */
 export type CreatorLinks={youtube?:string;instagram?:string;facebook?:string};
 /** `bio` is the one-line tagline under the name; `about` is the long 소개 text. `promoted` is the paid placement: shown as a full card at the top of explore; everyone else is a one-line row. */
-export type Creator={id:string;name:string;handle:string;tags:string[];image:string;cover?:string;position:string;bio:string;about?:string;links?:CreatorLinks;followers:string;followerCount?:number;followingCount?:number;followersPublic?:boolean;followingPublic?:boolean;promoted?:boolean;isCreator?:boolean;/** Assigned only by an administrator, independently of PASS. */isVerified?:boolean;isFoundingMember?:boolean;searchable?:boolean;postCount?:number};
+export type Creator={/** Signed-out AI photo trial author (2026-11-15): no profile page, shown as 체험 사용자. */isGuest?:boolean;id:string;name:string;handle:string;tags:string[];image:string;cover?:string;position:string;bio:string;about?:string;links?:CreatorLinks;followers:string;followerCount?:number;followingCount?:number;followersPublic?:boolean;followingPublic?:boolean;promoted?:boolean;isCreator?:boolean;/** Assigned only by an administrator, independently of PASS. */isVerified?:boolean;isFoundingMember?:boolean;searchable?:boolean;postCount?:number};
 export type Viewer={name:string;handle:string;bio:string;image:string;cover?:string;isVerified?:boolean;isFoundingMember?:boolean};
 export type Plan={id:string;name:string;price:number;rank:number;benefits:string[];description?:string;recommended?:boolean;image?:string;version?:number;available?:boolean;entitlementMode?:'tier'|'exact'};
 /** `processing`: a video still being optimized or a photo still being watermarked on the server; viewers see a notice instead (photos since 2026-11-13). */
@@ -31,6 +31,8 @@ export type ServiceViewModel=AccountModel&SocialModel&{
   data:ServiceData;mode:'mock'|'live';today:string;basePath:string;nextRenewAt?:string;
   /** Creators this account manages; their posts get the 수정 menu item. */
   ownCreatorIds?:string[];
+  /** The signed-in member's id (2026-11-15). Members who are not creators may post too; their own posts match this. */
+  viewerId?:string|null;
   signedIn:boolean;setSignedIn:Dispatch<SetStateAction<boolean>>;
   /** 로그인이 필요한 동작을 비로그인 상태에서 눌렀을 때 공용 로그인 필요 창을 띄운다(실제 서비스). 없으면 로그인 화면으로 이동. */
   requireSignIn?:()=>void;

@@ -168,3 +168,20 @@ test('published rows link to the fan post; drafts and scheduled rows keep the pr
   assert.equal(button(view,'미리보기')?.props.type,'button','unpublished rows keep the preview button');
  }finally{close(view);}
 });
+
+// 2026-11-15: a member who is not a creator writes public posts only, so the editor hides scope, schedule and tips and always
+// sends tipsEnabled:false with no plan or level.
+test('member mode editor hides scope, schedule and tips and publishes a public post without tips',async()=>{
+ const saved=[];const actions={...management.actions,saveContent:async input=>{saved.push(input);return {success:true,data:{id:'member-post'},errorMessage:null,errorCode:null};}};
+ const view=mount(ContentEditorPage,{model:{...management,contents:[],memberships:[],actions},basePath:'/studio',previewModel:model,previewCreatorId:creator.id,memberMode:true});
+ try{
+  assert.equal(view.root.findAllByType(SelectField).filter(n=>n.props.label==='공개 범위').length,0,'no membership scope');
+  const text=JSON.stringify(view.toJSON());assert.doesNotMatch(text,/이 게시물에서 후원 받기/);assert.doesNotMatch(text,/예약 사용/);
+  await act(async()=>view.root.find(n=>n.type==='input'&&n.props.placeholder==='제목을 입력하세요').props.onChange({target:{value:'회원 글'}}));
+  await act(async()=>view.root.find(n=>n.type==='textarea'&&n.props.placeholder==='내용을 입력하세요').props.onChange({target:{value:'본문'}}));
+  await act(async()=>button(view,'지금 게시하기').props.onClick());
+  assert.equal(saved.length,1);assert.equal(saved[0].tipsEnabled,false);assert.equal(saved[0].accessPlanId,null);assert.equal(saved[0].accessLevel,null);assert.equal(saved[0].status,'published');
+ }finally{act(()=>view.unmount());}
+ const creatorView=mount(ContentEditorPage,{model:{...management,contents:[]},basePath:'/studio',previewModel:model,previewCreatorId:creator.id});
+ try{assert.match(JSON.stringify(creatorView.toJSON()),/이 게시물에서 후원 받기/,'creators keep the tips option');}finally{act(()=>creatorView.unmount());}
+});

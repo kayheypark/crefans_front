@@ -46,7 +46,7 @@ import {MembershipThumb} from './MembershipThumb';
 import {getSubscriptionPlan} from '@/lib/crefans/membership-plans';
 import s from './social.module.css';
 
-export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'ownCreatorIds'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>};
+export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'ownCreatorIds'|'viewerId'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>};
 type CommentsModel=Pick<PostDetailModel,'commentsByPost'|'addComment'|'loadReplies'|'commentPaging'>&Pick<PostDetailModel,'editComment'|'deleteComment'|'likeComment'>&Partial<Pick<ServiceViewModel,'basePath'|'reportComment'|'mentionCandidates'>>&{loadComments?:(postId:string)=>Promise<void>};
 type CommentActions={onEdit?:(commentId:string,body:string)=>Promise<SocialActionResult>;onDelete?:(commentId:string)=>Promise<SocialActionResult>};
 export type PostDetailModel=PostCardModel&Pick<ServiceViewModel,'commentsByPost'|'addComment'|'loadReplies'|'loadComments'|'commentPaging'|'editComment'|'deleteComment'|'likeComment'>&{data:PostCardModel['data']&Pick<ServiceData,'posts'>};
@@ -59,7 +59,7 @@ function PostNavigation({href,readOnly,children,className,label}:{href:string;re
 function PostMenu({post,model,readOnly=false}:{post:Post;model:PostCardModel;readOnly?:boolean}){
   const [open,setOpen]=useState(false),[sharing,setSharing]=useState(false),[report,setReport]=useState(false),[reason,setReason]=useState<ReportReason|''>(''),[feedback,setFeedback]=useSnackbarMessage(),[pending,setPending]=useState(false);
   const root=useRef<HTMLDivElement>(null),trigger=useRef<HTMLButtonElement>(null),menuId=useId();
-  const own=!!model.ownCreatorIds?.includes(post.creatorId);
+  const own=!!model.ownCreatorIds?.includes(post.creatorId)||(!!model.viewerId&&post.creatorId===model.viewerId);
   useEffect(()=>{
     if(!open||typeof document==='undefined')return;
     const outside=(event:PointerEvent)=>{if(!root.current?.contains(event.target as Node))setOpen(false);};
@@ -90,7 +90,7 @@ function PostHeading({post,model,readOnly=false,backButton}:{post:Post;model:Pos
   const creator=model.data.creators.find(item=>item.id===post.creatorId);
   // KRW monthly price of the cheapest on-sale membership that opens this post; memberships are never shown in beans.
   const plans=post.requiredRank>0?getPostMembershipOffer(model.data,post).plans:[],price=plans.length?Math.min(...plans.map(plan=>plan.price)):null;
-  return <header className={s.postHeading}>{backButton}<PostNavigation readOnly={readOnly} href={`${model.basePath}/creator/${post.creatorId}`} className={s.identity}>{creator&&<Avatar creator={creator} size={42}/>}<span><strong><CreatorName person={creator||{name:'크리에이터 정보 없음'}}/></strong><small>{displayTime(post.time)} · {post.requiredRank>0?'멤버십 전용':'전체 공개'}{price!==null&&` · 월 ₩${price.toLocaleString('ko-KR')}${plans.length>1?'부터':''}`}</small></span></PostNavigation><PostMenu post={post} model={model} readOnly={readOnly}/></header>;
+  return <header className={s.postHeading}>{backButton}<PostNavigation readOnly={readOnly||!!creator?.isGuest} href={`${model.basePath}/creator/${post.creatorId}`} className={s.identity}>{creator&&<Avatar creator={creator} size={42}/>}<span><strong><CreatorName person={creator||{name:'크리에이터 정보 없음'}}/></strong><small>{displayTime(post.time)} · {creator?.isGuest?'AI 체험 게시물':post.requiredRank>0?'멤버십 전용':'전체 공개'}{price!==null&&` · 월 ₩${price.toLocaleString('ko-KR')}${plans.length>1?'부터':''}`}</small></span></PostNavigation><PostMenu post={post} model={model} readOnly={readOnly}/></header>;
 }
 
 function PostMedia({post,locked,model,readOnly=false,onOpen}:{post:Post;locked:boolean;model:PostCardModel;readOnly?:boolean;onOpen?:(index:number)=>void}){
@@ -144,7 +144,7 @@ function PostActions({post,model,comments=post.comments,readOnly=false,onComment
  * `preview` (post search, 2026-11-09 "검색은 제외, 피드·상세는 열람"): the server sends membership posts locked even to
  * subscribers so a search never counts as viewing; a viewer who may open it gets a link to the detail instead of a sales notice. */
 export function PostCard({post,model,context,preview=false}:{post:Post;model:PostCardModel&Partial<CommentsModel>;context?:Post[];preview?:boolean}){
-  const exposure=usePostExposure(post.id,model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId),'feed');
+  const exposure=usePostExposure(post.id,model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId)&&post.creatorId!==model.viewerId,'feed');
   const {canAccess,basePath}=model,[commentsOpen,setCommentsOpen]=useState(false),[viewer,setViewer]=useState(0),[viewerOpen,setViewerOpen]=useState(false);
   /** The overlay stays mounted through its exit animation, like the Dialog primitive. */
   const viewerPresent=usePresence(viewerOpen,designTokens.motion.fast);
@@ -163,7 +163,7 @@ function PostOverlay({post:initialPost,model,inline,initialIndex,context,open,on
   const [index,setIndex]=useState(Math.min(initialIndex,Math.max(0,media.length-1))),[commentsOpen,setCommentsOpen]=useState(false);
   const creator=model.data.creators.find(item=>item.id===post.creatorId);
   const overlay=useRef<HTMLDivElement>(null),panelContentId=useId();
-  const exposure=usePostExposure(post.id,open&&model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId),'detail',true);
+  const exposure=usePostExposure(post.id,open&&model.basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId)&&post.creatorId!==model.viewerId,'detail',true);
   // Start with equal media/detail space on mobile; reopening restores this split.
   const [panelSnap,setPanelSnap]=useState(0),[panelDrag,setPanelDrag]=useState<number|null>(null);
   useEffect(()=>{if(open)setPanelSnap(0);},[open]);
@@ -227,6 +227,8 @@ export function FeedPage({model}:{model:ServiceViewModel}){
       <CreatorSearch href={`${basePath}/explore`}/>
       <ChipRow label="관심 카테고리" className={s.feedCategories}>{categories.map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>selectCategory(item)}/>)}</ChipRow>
     </div>
+    {/* 2026-11-15: signed-out visitors can try AI photos and post without an account (live service only). */}
+    {model.mode==='live'&&!model.signedIn&&<Link className={s.trialCta} href={`${basePath}/try`}><span className={s.trialArt} aria-hidden="true"/><span className={s.trialCopy}><strong>로그인 없이 AI 사진 체험하기</strong><span>내 사진을 AI로 바꿔 피드에 올려 보세요 · 10회 무료</span></span><Icon name="chevron" width={18} height={18}/></Link>}
     {posts.length?<>{posts.map(post=><PostCard key={post.id} post={post} model={model} context={posts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}<ServiceFooter basePath={basePath}/></>:<><Empty title={category==='전체'?'아직 게시물이 없어요':'이 카테고리의 게시물이 없어요'} description={category==='전체'?'마음에 드는 크리에이터를 만나보세요.':'다른 카테고리의 게시물을 확인해 보세요.'} action={category==='전체'?<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>:<Action variant="secondary" onClick={()=>selectCategory('전체')}>전체 피드 보기</Action>}/><ServiceFooter basePath={basePath} always/></>}
   </div>;
 }
@@ -323,7 +325,7 @@ export function CommentsSection({post,model,count,locked,readOnly=false,collapse
 export function PostDetailPage({id,model,forceLocked=false,readOnly=false}:{id:string;model:PostDetailModel;forceLocked?:boolean;readOnly?:boolean}){
   const {canAccess,data,basePath,commentCounts}=model;
   const post=data.posts.find(item=>item.id===id);
-  const exposure=usePostExposure(id,!!post&&!readOnly&&basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId),'detail');
+  const exposure=usePostExposure(id,!!post&&!readOnly&&basePath==='/service'&&!model.ownCreatorIds?.includes(post.creatorId)&&post.creatorId!==model.viewerId,'detail');
   const locked=!post||(forceLocked&&(post.requiredRank>0||!!post.requiredPlanId))||!(post.canAccess??canAccess(post.creatorId,post.requiredRank,post.requiredPlanId));
   const [viewer,setViewer]=useState({postId:'',index:0,open:false});
   const viewerOpen=viewer.postId===id&&viewer.open&&!locked&&!readOnly;

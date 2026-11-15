@@ -11,7 +11,7 @@ export const HEART_GAME_LANES=3,HEART_GAME_BASE_SECONDS=4.5;
 export function newPiece(id:number,kind:Kind,delay=0,level=0):Piece{const duration=HEART_GAME_BASE_SECONDS/Math.pow(1.2,Math.min(level,5));return {id,kind,lane:(id-1)%HEART_GAME_LANES,delay,duration,expires:Date.now()+(duration+delay)*1000,burst:false};}
 
 // Preview remains local. Signed-in games use server-issued kinds and report piece IDs; only server-verified points earn rewards.
-export function AiPhotoWaiting({elapsed,typical,score,onCollect,game}:{game?:{kinds:Kind[];onHit:(piece:number)=>void};elapsed:number;typical?:number|null;score:number;onCollect:(delta:number)=>void}){
+export function AiPhotoWaiting({elapsed,typical,score,onCollect,game,showGame=true}:{game?:{kinds:Kind[];onHit:(piece:number)=>void};elapsed:number;typical?:number|null;score:number;onCollect:(delta:number)=>void;showGame?:boolean}){
  const [pieces,setPieces]=useState<Piece[]>(()=>(game?.kinds.slice(0,5)||['heart','candy','heart','moon','heart']).map((kind,index)=>newPiece(index+1,kind as Kind,-index*.45)));
  const nextId=useRef(6),collected=useRef(new Set<number>()),caught=useRef(0),liveScore=useRef(score);
  const [finished,setFinished]=useState(score>=30);
@@ -21,7 +21,7 @@ export function AiPhotoWaiting({elapsed,typical,score,onCollect,game}:{game?:{ki
  return <div className={s.waiting}>
   <p className={s.waitingSubtitle}>완성되면 바로 보여드릴게요</p>
   <div className={s.waitingDots} aria-hidden="true"><i/><i/><i/></div>
-  <section className={s.heartGame} aria-label="기다리는 동안 하트 모으기">
+  {showGame&&<section className={s.heartGame} aria-label="기다리는 동안 하트 모으기">
    <div className={s.heartGameHeading}><h4>기다리는 동안 <span>하트 모으기</span></h4><output aria-label="모은 하트" aria-live="polite"><Symbol kind="heart"/>{score}</output></div>
    <div className={s.heartPlayfield} onClick={()=>{if(liveScore.current<30){game?.onHit(0);changeScore(-1);}}}>
     {/* eslint-disable-next-line @next/next/no-img-element -- existing generated mascot, decorative */}
@@ -30,8 +30,8 @@ export function AiPhotoWaiting({elapsed,typical,score,onCollect,game}:{game?:{ki
      {piece.burst?<span className={s.heartBurst} aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3"><path d="M24 2v8m0 28v8M2 24h8m28 0h8M8 8l6 6m20 20 6 6M8 40l6-6m20-20 6-6"/></svg><b>{piece.kind==='heart'?'+1':'−1'}</b></span>:<Symbol kind={piece.kind}/>}
     </button>)}
    </div>
-  </section>
-  <p className={s.waitingNote}>게임은 사진 결과에 영향을 주지 않아요</p>
+  </section>}
+  {showGame&&<p className={s.waitingNote}>게임은 사진 결과에 영향을 주지 않아요</p>}
   <div className={s.waitingTime}><span aria-hidden="true">{elapsed}초 지남</span><p>{typical?`보통 약 ${typical}초 걸려요.`:'걸리는 시간을 재는 중이에요.'}</p></div>
   <p className={s.waitingNote}>잠시만 화면을 유지해 주세요</p>
  </div>;
