@@ -44,12 +44,22 @@ test('creator guard uses the selected pencil without changing the shared default
 });
 test('non-creator on a studio screen sees the guard, not the start form; buttons go to start and the fan home',()=>{
  setStudio(false);
- for(const segments of [[],['content'],['settings'],['security']]){
+ // 2026-11-15: members may write public posts, so content screens are open to them (next test); everything else stays guarded.
+ for(const segments of [[],['memberships'],['settings'],['security']]){
   const tree=render(el(StudioRouter,{segments}));
   assert.deepEqual(pages(tree),[],segments.join('/'));
   assert.equal(heading(tree),'크리에이터 전환이 필요해요');
   assert.equal(tree.root.findAll(n=>n.props?.['data-shell']==='fan').length,1);
   assert.deepEqual(links(tree),[['크리에이터 시작하기','/service/studio/start'],['팬 화면으로','/service']]);
+ }
+});
+test('non-creator opens their own posts list and editor inside a member-only studio shell (2026-11-15)',()=>{
+ setStudio(false);
+ for(const [segments,page] of [[['content'],'content'],[['content','new'],'editor']]){
+  const tree=render(el(StudioRouter,{segments}));
+  assert.deepEqual(pages(tree),[page],segments.join('/'));
+  assert.equal(tree.root.findAll(n=>n.props?.['data-shell']==='studio').length,1);
+  if(page==='editor')assert.equal(tree.root.findAll(n=>n.props?.memberMode===true&&n.props?.model).length,1,'editor gets memberMode: scope, schedule and tips hidden');
  }
 });
 test('non-creator can still open the start form directly',()=>{

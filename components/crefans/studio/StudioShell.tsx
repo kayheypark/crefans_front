@@ -23,9 +23,11 @@ const matches=(active:string,path:string)=>active===path||!!path&&active.startsW
 // React 19 treats inert as a boolean attribute; an empty string would drop it.
 const inertWhen=(closed:boolean):Record<string,boolean>=>closed?{inert:true}:{};
 
-export default function StudioShell({active,basePath,fanPath,profile,children}:{active:string;basePath:string;fanPath:string;profile:StudioProfile;mock?:boolean;children:ReactNode}){
- const navId=useId(),beansEnabled=useBeans()?.enabled;
- const activeGroup=studioNavGroups.find(group=>group.items.some(item=>matches(active,item.path)));
+// memberOnly (2026-11-15): a member who is not a creator only manages their own posts here, plus a link to become a creator.
+const memberNavGroups=[{id:'content',label:'콘텐츠',icon:'pencil' as const,items:[{label:'게시물',path:'content'}]}];
+export default function StudioShell({active,basePath,fanPath,profile,memberOnly=false,children}:{active:string;basePath:string;fanPath:string;profile:StudioProfile;mock?:boolean;memberOnly?:boolean;children:ReactNode}){
+ const navId=useId(),beansEnabled=useBeans()?.enabled,navGroups=memberOnly?memberNavGroups:studioNavGroups;
+ const activeGroup=navGroups.find(group=>group.items.some(item=>matches(active,item.path)));
  const [openGroups,setOpenGroups]=useState<Record<string,boolean>>(()=>activeGroup?{[activeGroup.id]:true}:{}),[isMobile,setIsMobile]=useState(false),[menuOpen,setMenuOpen]=useState(false),[menuTop,setMenuTop]=useState(0),headerRef=useRef<HTMLElement>(null);
  useEffect(()=>{if(activeGroup)setOpenGroups(previous=>({...previous,[activeGroup.id]:true}));},[active,activeGroup?.id]);
  useEffect(()=>{setMenuOpen(false);},[active]);
@@ -52,11 +54,12 @@ export default function StudioShell({active,basePath,fanPath,profile,children}:{
    <aside id={`${navId}-sidebar`} className={s.sidebar} data-open={!isMobile||menuOpen} data-mobile={isMobile||undefined} aria-hidden={isMobile&&!menuOpen||undefined} {...inertWhen(isMobile&&!menuOpen)}>
     <div className={s.identity}><Avatar creator={{name:profile.name,image:profile.avatar,position:profile.avatarPosition}} size={44}/><div><strong><MarqueeText text={profile.name}/></strong><small><MarqueeText text={`@${profile.handle}`}/></small></div></div>
     <nav aria-label="스튜디오 메뉴">
-     <Link className={s.dashboardLink} href={href('')} aria-current={active===''?'page':undefined}><NavIcon name="home"/>대시보드</Link>
-     {studioNavGroups.map(group=>{const open=!!openGroups[group.id],groupId=`${navId}-${group.id}`;return <div className={s.navGroup} key={group.id}>
+     {!memberOnly&&<Link className={s.dashboardLink} href={href('')} aria-current={active===''?'page':undefined}><NavIcon name="home"/>대시보드</Link>}
+     {navGroups.map(group=>{const open=!!openGroups[group.id],groupId=`${navId}-${group.id}`;return <div className={s.navGroup} key={group.id}>
       <button type="button" id={`${groupId}-toggle`} className={s.groupToggle} aria-expanded={open} aria-controls={groupId} data-active={activeGroup?.id===group.id||undefined} onClick={()=>setOpenGroups(previous=>({...previous,[group.id]:!previous[group.id]}))}><NavIcon name={group.icon}/><span>{group.label}</span><svg className={s.chevron} viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div id={groupId} className={s.groupPanel} data-open={open} role="group" aria-labelledby={`${groupId}-toggle`} aria-hidden={!open||undefined} {...inertWhen(!open)}><div className={s.groupPanelInner}><div className={s.groupItems}>{group.items.filter(item=>item.path!=='beans'||beansEnabled).map(item=><Link key={item.path} href={href(item.path)} aria-current={matches(active,item.path)?'page':undefined}>{item.label}</Link>)}</div></div></div>
      </div>;})}
+     {memberOnly&&<Link className={s.dashboardLink} href={href('start')} aria-current={active==='start'?'page':undefined}><NavIcon name="home"/>크리에이터 시작하기</Link>}
     </nav>
     <Link className={s.onboardingLink} href={href('start')} aria-current={active==='start'?'page':undefined}>크리에이터 시작 안내 ↗</Link>
     <footer className={s.sidebarFooter}><Link href={`${fanPath}/landing`}>서비스 소개</Link><MarqueeMotionControl/></footer>

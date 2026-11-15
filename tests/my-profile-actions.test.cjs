@@ -31,12 +31,13 @@ function model(){
   };
 }
 function mount(Page,data){let tree;act(()=>{tree=create(React.createElement(beanContext.Provider,{value:{enabled:false,signedIn:true,wallet:null,refresh:async()=>{}}},React.createElement(Page,{model:data})));});return tree;}
-test('my page: studio button for a member who is not a creator yet, settings behind a three-bar menu icon',()=>{
+// 2026-11-15: a member who is not a creator gets 글쓰기 (their posts open in the member studio); a creator keeps 스튜디오.
+test('my page: 글쓰기 for a member who is not a creator, 스튜디오 for a creator, settings behind a three-bar menu icon',()=>{
  for(const owners of [[],['me']]){
   const base=model(),tree=mount(pages.MyProfilePage,{...base,data:{...base.data,creatorPlans:{},plans:[]},ownCreatorIds:owners});
   try{
    const links=tree.root.findAllByType('a');
-   const studio=links.filter(link=>link.props.href==='/service/studio');assert.equal(studio.length,1,`studio button with ownCreatorIds=${JSON.stringify(owners)}`);assert.match(JSON.stringify(studio[0].props.children),/스튜디오/);
+   const [href,label]=owners.length?['/service/studio','스튜디오']:['/service/studio/content/new','글쓰기'];const studio=links.filter(link=>link.props.href===href);assert.equal(studio.length,1,`cover button with ownCreatorIds=${JSON.stringify(owners)}`);assert.match(JSON.stringify(studio[0].props.children),new RegExp(label));
    const settings=links.find(link=>link.props['aria-label']==='설정');assert.equal(settings.props.href,'/service/settings');
    assert.equal(settings.findByType('path').props.d,'M4 7h16M4 12h16M4 17h16','three horizontal bars, not the gear');
   }finally{act(()=>tree.unmount());}

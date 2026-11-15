@@ -5485,3 +5485,21 @@
 - 전체 수: 서버 GET studio/ai-photo/library에 total 추가(server feat/library-total cd346d8). 타입 total?:number, total이 없는 이전 서버면 '불러온 수 + (더 있으면 +)'로 표시. 목업 보관함 사진 2→7장, total 반환.
 - 검증: studio-ai-photo 79 pass(새 앨범 테스트: 분류 7회 요청, '포즈 3·배경 1', 전체보기·복귀, 검색 접힘, 하단 문구 없음; 테스트 하네스 Primitives에 Field 목 추가), 옛 보관함으로 되돌리면 1 fail. tsc 통과, npm test 673 pass/17 fail(기준선 17 동일), check:layers는 기존 AiPhotoDialog fetch 1건만. 로컬 3131 iPhone 14 WebKit 캡처(`.local/library-album/`). 운영 배포 전(서버와 함께 배포 필요).
 - 운영 배포(2026-11-15 13:40 KST, 사용자 지시 "ㅂㅍ"): 서버 먼저 prod 5baa56a → API/worker crefans-api:library-total-20261115(bean-reconcile 위 src·dist, ai-photo-library.js 해시 로컬 prod 빌드와 일치·media.count 포함, 배포 스크립트 PASS, 복구 crefans-recovery/20261115/library-total-api). 프론트 prod 790e52f(feat/library-album + fix/costume-selected-border, 병합 PROGRESS 충돌은 양쪽 유지, 병합본 tsc 통과·npm test 673/17 기준선) → crefans-front:front-library-album-20261115(직전 front-swipe-fix 대체, 복구 사본 검증 OK). API/worker/frontend 재시작0, health ready. 운영 /design-system iPhone 14 WebKit: 보관함 분류별 줄·전체보기 '포즈 3'·선택 2장 트레이, 의상 선택 고리 ::after 2px(WebKit·Chromium). 실제 로그인 보관함 화면·아이폰 실기기는 미확인.
+
+### 2026-11-15 크리에이터가 아닌 회원 글쓰기 (프론트)
+- 사용자 지시와 결정은 서버 feat/member-posts PROGRESS 참고(전체 피드 노출·스튜디오 작성 화면 재사용·AI 회원 허용·약관은 나중에).
+- StudioRouter: 크리에이터가 아니면(overview.started=false) content 목록·작성/수정만 열고 나머지는 기존 안내 페이지. StudioShell memberOnly: 대시보드 대신 '게시물' 메뉴와 '크리에이터 시작하기'. 미리보기 작성자는 viewer를 작성자로 넣어 표시.
+- ContentEditorPage memberMode: 공개 범위·예약·후원 받기 숨김, 저장 시 tipsEnabled:false(서버도 강제). 댓글 허용은 유지.
+- 내 프로필: 크리에이터가 아니면 커버 '스튜디오' 대신 '글쓰기'(/studio/content/new). 내 글 판별·조회수 제외·수정 메뉴는 ownCreatorIds 또는 bootstrap viewerId. 'me'·'member' 화면도 /posts?creatorId로 작성자 글을 불러옴.
+- PublicMemberPage: 고정 빈 상태 대신 그 회원 글(피드·미디어 탭 개수 포함). 피드/미디어 탭 마크업은 CreatorPages의 ProfilePostsPanel로 크리에이터 프로필과 공유.
+- 후원 버튼은 기존대로 post.tipsEnabled=false면 숨김(서버가 회원 글은 false로 내려줌), 회원 프로필에는 후원·멤버십 영역 없음.
+- 검증: tsc 통과, npm test 676 pass/17 fail(기준선 17 동일). 새 테스트: content-post-preview 'member mode editor…'(옛 편집기로 되돌리면 fail), public-member-posts(옛 회원 페이지로 되돌리면 fail), creator-guard 'non-creator opens their own posts…'. 바뀐 동작에 맞춰 creator-guard(가드 대상에서 content 제외)·my-profile-actions(비크리에이터 '글쓰기') 갱신. check:layers는 기존 AiPhotoDialog 1건만. 실제 브라우저·운영 API로 회원 글 작성→피드 노출 흐름은 미확인(로컬 API 없이 단위 검증만). 관리자 콘솔 AI 허용 화면 문구가 '크리에이터 핸들'이면 admin 저장소 수정 필요(미확인). 운영 배포 전.
+
+### 2026-11-15 비로그인 AI 사진 체험 (프론트)
+- 사용자 지시·결정은 서버 PROGRESS 참고(즉시 노출, 처리방침 개정+동의, 하루 200회+텔레그램, PD=피드).
+- /service/try: 동의 화면(고지 문구 "이 게시물은 하루가 지나면 접근할 수 없는 비공개 게시글로 전환되며, 현재 브라우저로 회원가입 후 로그인하면 본인의 게시물로 연결됩니다." + 쿠키·IP 변환값·BytePlus/OpenAI 국외 처리·금지 합성·보상 없음 안내 + 처리방침 17항 동의 체크) → 작성(ContentEditorPage guest 모드: 제목 'AI 사진 체험', 고지 표시, 게시만, 댓글·임시저장·공개 범위·예약·후원 숨김, AI 편집 남은 횟수=서버 체험 횟수, 하트 게임 숨김) → /service/try/done(고지+피드 보기+회원가입). 로그인 상태면 /service/studio/content/new로 보냄. app/service 라우트 허용 목록에 try·try/done 추가.
+- 피드: 비로그인(live)일 때 '로그인 없이 AI 사진 체험하기' 입구 카드. 체험 작성자(Creator.isGuest)는 프로필 링크 없이 '체험 사용자 · AI 체험 게시물'로 표시.
+- 계정 연결: 체험을 시작한 브라우저에 localStorage 'crefans-guest-trial' 표시, 로그인 상태 첫 로드에 POST /guest/claim(대기 없음), 연결되면 안내 "체험 게시물 N개를 내 계정으로 연결했어요."를 로그인 직후 이동 뒤에도 한 번 유지. 표시 없는 회원은 요청하지 않음(기존 테스트의 가짜 API가 멈추던 문제도 이것으로 해결).
+- AI 요청 본문은 useStudioModel의 aiPhotoEditBody로 스튜디오와 공유. AiPhotoDialog noHearts, AiPhotoWaiting showGame 추가.
+- 검증: tsc 통과, npm test 676 pass/17 fail(기준선 동일), check:layers 기존 1건. 로컬 E2E(격리 DB, 외부 공급사 끔, 스크립트 .local/guest-trial-e2e.cjs, iPhone 14 WebKit): 피드 입구→동의 전 시작 버튼 비활성→동의 후 cf_guest httpOnly 쿠키→작성 화면 고지 1·임시저장/후원/댓글 없음·AI 버튼 있음→사진 업로드→게시→완료→비로그인 피드에 '체험 사용자'·'AI 체험 게시물'·사진→같은 브라우저 시드 계정 로그인→claim {claimed:1}·안내 표시·쿠키 삭제→내 프로필에 글 표시. 실제 AI 생성(공급사 호출)은 로컬에서 끔이라 서버 단위 테스트로만 확인. 운영 배포 전.
+- 디자인 다듬기(사용자 "다되면 디자인 폴리싱"): 동의 화면을 소개 카드(10회 무료 배지·그림)·3단계(사진 올리기→AI로 바꾸기→피드에 올리기)·주황 고지 상자('하루 뒤 비공개로 바뀌어요'+고지 문구)·'시작 전에 확인해 주세요' 카드·동의 묶음·전체 폭 버튼으로 재구성(guest-trial.module.css). 완료 화면은 체크 아이콘 카드+고지+'회원가입하고 내 게시물로 연결'/'피드에서 보기'. 피드 입구는 그림·꺾쇠가 있는 그라데이션 카드. 로컬 E2E 재실행 전 단계 통과, iPhone 14 WebKit 캡처 확인.
