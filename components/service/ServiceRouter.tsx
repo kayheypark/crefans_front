@@ -15,6 +15,7 @@ import {Suspense} from 'react';
 import {BeanWithdrawContainer} from './BeanWithdrawContainer';
 import {useRouter,useSearchParams} from 'next/navigation';
 import PublicMemberPage from '@/components/crefans/PublicMemberPage';
+import GuestTrialPage from './GuestTrialPage';
 import {useService} from './ServiceProvider';
 import {PaymentResult} from './PaymentResult';
 import {CheckoutPage,BillingResult} from './CheckoutPage';
@@ -49,6 +50,7 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'login':return <LoginPage model={model} next={query.get('next')} navigate={path=>router.replace(path)}/>;
   case 'beans':return id==='referral'?<BeanReferralPage/>:id==='referral-history'?<ReferralHistoryPage/>:id==='withdraw'?<BeanWithdrawContainer signedIn={model.signedIn} basePath={basePath}/>:id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<BeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
   case 'feed':return <FeedPage model={model}/>;
+  case 'try':return <GuestTrialPage model={model} done={id==='done'}/>;
   case 'post':return <PostDetailPage model={model} id={id} forceLocked={query.get('locked')==='1'}/>;
   case 'messages':return <MessagesPage model={model}/>;
   case 'notifications':return <NotificationsPage model={model}/>;

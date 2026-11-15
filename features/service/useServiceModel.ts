@@ -8,6 +8,7 @@ import {useDirectoryModel} from './useDirectoryModel';
 import {usePostSearchModel} from './usePostSearchModel';
 import {verifyIdentity} from '@/lib/api/identity';
 import {startBillingRegistration} from '@/lib/api/billing';
+import {clearGuestTrial,hasGuestTrial} from './useGuestTrialModel';
 import {platformRequest as api} from '@/lib/api/platform';
 import {askAdvisor} from '@/lib/api/advisor';
 import {advisorClientId} from '@/lib/crefans/advisor';
@@ -30,14 +31,20 @@ export function useServiceModel(){
  const mergeSearchCreators=useCallback((creators:any[])=>setState((previous:any)=>previous?({...previous,data:{...previous.data,creatorPlans:{...previous.data.creatorPlans,...profilePlans(creators)},creators:[...previous.data.creators.filter((c:any)=>!creators.some((p:any)=>p.id===c.id)),...creators]}}):previous),[]);
  const postSearch=usePostSearchModel(pathname==='/service/explore',mergeSearchCreators,setError);
  const generation=useRef(0);
+ const guestClaimed=useRef(false);
+ // The claim usually runs right before the post-login redirect; keep its notice for the next page so it is not wiped by that reload.
+ const claimNotice=useRef<string|null>(null);
  // quiet: reload in place (no loading screen), so an open conversation stays mounted after sending.
- const refresh=useCallback(async(options?:{quiet?:boolean})=>{const token=++generation.current;if(!options?.quiet){setError('');setActionNotice(null);setPublicProfile(null);setState(empty);setCommon(null);setComments({});setCommentPages({});setCursor(null);setMoreLoading(false);setLoading(true);}const [response,shared]=await Promise.all([api<any>(`/bootstrap${pathname==='/service/me'&&['saved','liked'].includes(query.get('tab')||'')?`?collection=${query.get('tab')}`:''}`),api<any>('/common')]);if(token!==generation.current)return;
+ const refresh=useCallback(async(options?:{quiet?:boolean})=>{const token=++generation.current;if(!options?.quiet){setError('');setActionNotice(claimNotice.current?{message:claimNotice.current,loginRequired:false}:null);claimNotice.current=null;setPublicProfile(null);setState(empty);setCommon(null);setComments({});setCommentPages({});setCursor(null);setMoreLoading(false);setLoading(true);}const [response,shared]=await Promise.all([api<any>(`/bootstrap${pathname==='/service/me'&&['saved','liked'].includes(query.get('tab')||'')?`?collection=${query.get('tab')}`:''}`),api<any>('/common')]);if(token!==generation.current)return;
   if(response.success){const state=response.data;const [screen,id]=pathname.replace('/service/','').split('/');
    // 2026-11-15: members who are not creators post too, so a member profile and a member's own profile load posts as well.
    const profileId=screen==='creator'||screen==='member'?id:screen==='me'&&state.signedIn&&!['saved','liked'].includes(query.get('tab')||'')?state.ownCreatorIds?.[0]||state.viewerId||undefined:undefined;
    if(screen==='feed'||profileId){const page=await api<any>(`/posts${profileId?`?creatorId=${encodeURIComponent(profileId)}`:activeFeedCategory!=='전체'?`?category=${encodeURIComponent(activeFeedCategory)}`:''}`);if(token!==generation.current)return;if(page.success){state.data.posts=page.data.posts;state.data.creatorPlans={...state.data.creatorPlans,...profilePlans(page.data.creators)};state.data.creators=[...state.data.creators.filter((c:any)=>!page.data.creators.some((next:any)=>next.id===c.id)),...page.data.creators];setCursor(page.data.nextCursor);}else{state.data.posts=[];setError(page.errorMessage);}}
    if(['creator','member','membership'].includes(screen)||(screen==='me'&&profileId)){const profile=await api<any>(`/profiles/${encodeURIComponent(screen==='me'?profileId:id)}`);if(token!==generation.current)return;if(profile.success){if(screen!=='me')setPublicProfile(profile.data);state.data.creatorPlans[profile.data.id]=profile.data.plans||[];state.data.creators=[...state.data.creators.filter((c:any)=>c.id!==profile.data.id),profile.data];}else setError(profile.errorMessage);}
    if(screen==='post'){const post=await api<any>(`/posts/${encodeURIComponent(id)}`);if(post.success){state.data.creatorPlans={...state.data.creatorPlans,...profilePlans([post.data.creator])};state.data.posts=[...state.data.posts.filter((p:any)=>p.id!==id),post.data.post];state.data.creators=[...state.data.creators.filter((c:any)=>c.id!==post.data.creator.id),post.data.creator];}else setError(post.errorMessage);}
+   // 2026-11-15: signing in (or signing up then in) on the browser that made trial posts links them to this account. Only a browser that
+   // started a trial (local flag set by the trial page) asks, once per load and without delaying the page.
+   if(state.signedIn&&!guestClaimed.current&&hasGuestTrial()){guestClaimed.current=true;void api<{claimed:number}>('/guest/claim',{}).then(claim=>{if(!claim.success)return;clearGuestTrial();if(claim.data.claimed>0){const message=`체험 게시물 ${claim.data.claimed}개를 내 계정으로 연결했어요.`;claimNotice.current=message;setActionNotice({message,loginRequired:false});}}).catch(()=>{guestClaimed.current=false;});}
    if(token!==generation.current)return;setState({...state,data:{...state.data,faqs:supportFaqs(state.data.faqs)}});
   }else setError(response.errorMessage);if(shared.success)setCommon(shared.data);setLoadedPath(pathname);setLoading(false);
  },[pathname,query.get('tab'),activeFeedCategory]);

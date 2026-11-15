@@ -5494,3 +5494,11 @@
 - PublicMemberPage: 고정 빈 상태 대신 그 회원 글(피드·미디어 탭 개수 포함). 피드/미디어 탭 마크업은 CreatorPages의 ProfilePostsPanel로 크리에이터 프로필과 공유.
 - 후원 버튼은 기존대로 post.tipsEnabled=false면 숨김(서버가 회원 글은 false로 내려줌), 회원 프로필에는 후원·멤버십 영역 없음.
 - 검증: tsc 통과, npm test 676 pass/17 fail(기준선 17 동일). 새 테스트: content-post-preview 'member mode editor…'(옛 편집기로 되돌리면 fail), public-member-posts(옛 회원 페이지로 되돌리면 fail), creator-guard 'non-creator opens their own posts…'. 바뀐 동작에 맞춰 creator-guard(가드 대상에서 content 제외)·my-profile-actions(비크리에이터 '글쓰기') 갱신. check:layers는 기존 AiPhotoDialog 1건만. 실제 브라우저·운영 API로 회원 글 작성→피드 노출 흐름은 미확인(로컬 API 없이 단위 검증만). 관리자 콘솔 AI 허용 화면 문구가 '크리에이터 핸들'이면 admin 저장소 수정 필요(미확인). 운영 배포 전.
+
+### 2026-11-15 비로그인 AI 사진 체험 (프론트)
+- 사용자 지시·결정은 서버 PROGRESS 참고(즉시 노출, 처리방침 개정+동의, 하루 200회+텔레그램, PD=피드).
+- /service/try: 동의 화면(고지 문구 "이 게시물은 하루가 지나면 접근할 수 없는 비공개 게시글로 전환되며, 현재 브라우저로 회원가입 후 로그인하면 본인의 게시물로 연결됩니다." + 쿠키·IP 변환값·BytePlus/OpenAI 국외 처리·금지 합성·보상 없음 안내 + 처리방침 17항 동의 체크) → 작성(ContentEditorPage guest 모드: 제목 'AI 사진 체험', 고지 표시, 게시만, 댓글·임시저장·공개 범위·예약·후원 숨김, AI 편집 남은 횟수=서버 체험 횟수, 하트 게임 숨김) → /service/try/done(고지+피드 보기+회원가입). 로그인 상태면 /service/studio/content/new로 보냄. app/service 라우트 허용 목록에 try·try/done 추가.
+- 피드: 비로그인(live)일 때 '로그인 없이 AI 사진 체험하기' 입구 카드. 체험 작성자(Creator.isGuest)는 프로필 링크 없이 '체험 사용자 · AI 체험 게시물'로 표시.
+- 계정 연결: 체험을 시작한 브라우저에 localStorage 'crefans-guest-trial' 표시, 로그인 상태 첫 로드에 POST /guest/claim(대기 없음), 연결되면 안내 "체험 게시물 N개를 내 계정으로 연결했어요."를 로그인 직후 이동 뒤에도 한 번 유지. 표시 없는 회원은 요청하지 않음(기존 테스트의 가짜 API가 멈추던 문제도 이것으로 해결).
+- AI 요청 본문은 useStudioModel의 aiPhotoEditBody로 스튜디오와 공유. AiPhotoDialog noHearts, AiPhotoWaiting showGame 추가.
+- 검증: tsc 통과, npm test 676 pass/17 fail(기준선 동일), check:layers 기존 1건. 로컬 E2E(격리 DB, 외부 공급사 끔, 스크립트 .local/guest-trial-e2e.cjs, iPhone 14 WebKit): 피드 입구→동의 전 시작 버튼 비활성→동의 후 cf_guest httpOnly 쿠키→작성 화면 고지 1·임시저장/후원/댓글 없음·AI 버튼 있음→사진 업로드→게시→완료→비로그인 피드에 '체험 사용자'·'AI 체험 게시물'·사진→같은 브라우저 시드 계정 로그인→claim {claimed:1}·안내 표시·쿠키 삭제→내 프로필에 글 표시. 실제 AI 생성(공급사 호출)은 로컬에서 끔이라 서버 단위 테스트로만 확인. 운영 배포 전.

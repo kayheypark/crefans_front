@@ -90,7 +90,7 @@ function PostHeading({post,model,readOnly=false,backButton}:{post:Post;model:Pos
   const creator=model.data.creators.find(item=>item.id===post.creatorId);
   // KRW monthly price of the cheapest on-sale membership that opens this post; memberships are never shown in beans.
   const plans=post.requiredRank>0?getPostMembershipOffer(model.data,post).plans:[],price=plans.length?Math.min(...plans.map(plan=>plan.price)):null;
-  return <header className={s.postHeading}>{backButton}<PostNavigation readOnly={readOnly} href={`${model.basePath}/creator/${post.creatorId}`} className={s.identity}>{creator&&<Avatar creator={creator} size={42}/>}<span><strong><CreatorName person={creator||{name:'크리에이터 정보 없음'}}/></strong><small>{displayTime(post.time)} · {post.requiredRank>0?'멤버십 전용':'전체 공개'}{price!==null&&` · 월 ₩${price.toLocaleString('ko-KR')}${plans.length>1?'부터':''}`}</small></span></PostNavigation><PostMenu post={post} model={model} readOnly={readOnly}/></header>;
+  return <header className={s.postHeading}>{backButton}<PostNavigation readOnly={readOnly||!!creator?.isGuest} href={`${model.basePath}/creator/${post.creatorId}`} className={s.identity}>{creator&&<Avatar creator={creator} size={42}/>}<span><strong><CreatorName person={creator||{name:'크리에이터 정보 없음'}}/></strong><small>{displayTime(post.time)} · {creator?.isGuest?'AI 체험 게시물':post.requiredRank>0?'멤버십 전용':'전체 공개'}{price!==null&&` · 월 ₩${price.toLocaleString('ko-KR')}${plans.length>1?'부터':''}`}</small></span></PostNavigation><PostMenu post={post} model={model} readOnly={readOnly}/></header>;
 }
 
 function PostMedia({post,locked,model,readOnly=false,onOpen}:{post:Post;locked:boolean;model:PostCardModel;readOnly?:boolean;onOpen?:(index:number)=>void}){
@@ -227,6 +227,8 @@ export function FeedPage({model}:{model:ServiceViewModel}){
       <CreatorSearch href={`${basePath}/explore`}/>
       <ChipRow label="관심 카테고리" className={s.feedCategories}>{categories.map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>selectCategory(item)}/>)}</ChipRow>
     </div>
+    {/* 2026-11-15: signed-out visitors can try AI photos and post without an account (live service only). */}
+    {model.mode==='live'&&!model.signedIn&&<Link className={s.trialCta} href={`${basePath}/try`}><strong>로그인 없이 AI 사진 체험하기</strong><span>사진을 올려 AI로 옷·포즈·배경을 바꾸고 피드에 올려 보세요. 10회 무료</span></Link>}
     {posts.length?<>{posts.map(post=><PostCard key={post.id} post={post} model={model} context={posts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}<ServiceFooter basePath={basePath}/></>:<><Empty title={category==='전체'?'아직 게시물이 없어요':'이 카테고리의 게시물이 없어요'} description={category==='전체'?'마음에 드는 크리에이터를 만나보세요.':'다른 카테고리의 게시물을 확인해 보세요.'} action={category==='전체'?<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>:<Action variant="secondary" onClick={()=>selectCategory('전체')}>전체 피드 보기</Action>}/><ServiceFooter basePath={basePath} always/></>}
   </div>;
 }
