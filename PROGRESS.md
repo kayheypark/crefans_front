@@ -1,3 +1,7 @@
+## 2026-11-16 멤버십은 파트너 계약 크리에이터만 (feat/membership-partner)
+- 스튜디오 멤버십 화면: membershipPartner===false(= /studio/finance payoutPartner false)면 '멤버십 만들기' 비활성 + MembershipPartnerNotice(안내·파트너 계약 요청하기). 서버 MEMBERSHIP_PARTNER_REQUIRED가 최종 차단.
+- 검증: tsc 0, crefans-studio-management 26/26(새 테스트: 잠김/열림), 대조(disabled 제거 시 실패), npm test 678/17(기준선 동일).
+
 ## 2026-11-15 홍보물 정정·인스타 재게시 (night-work 후속 결정 '이미지 수정+캡션 단서')
 - 불일치: insta-4 '사이버 아이돌'·'벚꽃 한복 드레스', insta-7 '벚꽃 한복 드레스·화사한 메이크업·봄 정원 배경'은 실제 프리셋에 없음, insta-6 자르기는 비회원 불가.
 - 수정: 실제 프리셋 문구(아이돌 무대복 e614f6·사이버 슈트 b4bf5d·인형 메이크업·벚꽃길 background-05)와 참고 이미지로 Seedream dola-seedream-5-5 3장 재생성(cos-idol·cos-cyber·mix-idol, 가상 인물 base 참조, 요청 3건, 추정 약 $0.12). insta-4 이름 '판타지 마법사·아이돌 무대복·사이버 슈트', insta-7 칩 '아이돌 무대복·인형 메이크업·벚꽃길', insta-6 라벨에 '자르기는 회원 기능'. 해시 .local/promo-20261115/out/sha256-launch-fix.txt.
