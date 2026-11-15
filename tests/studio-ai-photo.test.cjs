@@ -10,7 +10,7 @@ const {mockAiPhotoEdit}=loadTypeScript('components/preview/studio/ai-photo-fixtu
 const dialog=props=>el('section',null,props.children);
 const paintedMask=new Blob(['painted-mask'],{type:'image/png'});
 let maskCalls=[];
-const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'./ShopPage':{ShopPage:()=>el('div',null,'상점')},'./AiPhotoMask':{AiPhotoMask:props=>el('div',{'data-mask-editor':true,...props}),buildAiMask:async(...args)=>{maskCalls.push(args);return paintedMask;}},'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Chip:({children,...props})=>el('button',props,children),Dialog:({open,children,title,onClose})=>open?el('section',{role:'dialog','aria-label':title,onClose},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props})}});
+const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'./ShopPage':{ShopPage:()=>el('div',null,'상점')},'./AiPhotoMask':{AiPhotoMask:props=>el('div',{'data-mask-editor':true,...props}),buildAiMask:async(...args)=>{maskCalls.push(args);return paintedMask;}},'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Chip:({children,...props})=>el('button',props,children),Dialog:({open,children,title,onClose})=>open?el('section',{role:'dialog','aria-label':title,onClose},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props}),Field:({label,...props})=>el('input',{'aria-label':label,label,...props})}});
 const text=node=>typeof node==='string'?node:(Array.isArray(node)?node:node?.children||[]).map(text).join('');
 const photo={id:'p1',type:'image',url:'/p1.png'};
 const base={prompt:'벚꽃 아래 앉은 포즈',consent:true,kind:'pose',hasMask:false,remaining:3};
@@ -765,4 +765,26 @@ test('keep-original card leads every non-outfit preset tab, has an image, hides 
  for(const kind of aiPhotoKeepOriginalKinds){const page=aiPhotoPresetPage(kind,0,'female');assert.equal(page.examples[0],AI_PHOTO_KEEP_ORIGINAL,kind);assert.equal(aiPhotoPresetTitle(kind,AI_PHOTO_KEEP_ORIGINAL),'원본 유지');assert.ok(fs.existsSync(path.join(__dirname,'..','public',aiPhotoPresetImage(kind,AI_PHOTO_KEEP_ORIGINAL))),kind);assert.equal(aiPhotoPresetPage(kind,0,'female','없는검색어').examples.length,0);assert.equal(aiPhotoPresetPage(kind,0,'female','원본').examples[0],AI_PHOTO_KEEP_ORIGINAL);}
  assert.ok(!aiPhotoPresetPage('outfit',0,'female').examples.includes(AI_PHOTO_KEEP_ORIGINAL));
  assert.equal(aiPhotoPresetPage('makeup',0,'female').pages,2);assert.equal(aiPhotoPresetPage('makeup',0,'female').total,16,'total counts real presets only');
+});
+
+// 2026-11-15 user choice B: the library opens as one row per category ("{분류} {전체 수}" + 전체보기), 전체보기 opens that category's grid,
+// search is behind an icon, and the footer shows only the chosen thumbnails and the done button (no "포즈 1 · 배경 1 선택" summary).
+test('library album: category rows with totals, see-all grid and back, search toggle, thumbnail tray without a text summary',async()=>{
+ const asset=(id,category,title)=>({id,type:'image',url:`/${id}.png`,title,category});
+ const all=[asset('p1','pose','앉은 포즈'),asset('p2','pose','선 포즈'),asset('p3','pose','누운 포즈'),asset('b1','background','침실')];const queries=[];
+ const library={list:async query=>{queries.push(query);const rows=all.filter(item=>(!query.category||item.category===query.category)&&item.title.includes(query.q));return {success:true,data:{items:rows.slice(0,query.category==='pose'&&!query.q?2:24),hasMore:query.category==='pose'&&!query.q,total:rows.length},errorMessage:null,errorCode:null};},upload:async()=>{},save:async()=>{},remove:async()=>{}};
+ const {r,click}=await open({library});await click('내 보관함');await act(async()=>{await new Promise(resolve=>setTimeout(resolve,10));});
+ const heads=()=>r.root.findAll(n=>n.type==='h3').map(text);
+ assert.deepEqual(heads().filter(t=>/포즈|배경|의상/.test(t)),['포즈 3','배경 1'],'only non-empty categories, server total shown even when the first page holds fewer');
+ assert.equal(queries.filter(q=>q.page===0&&!q.q).length,7,'one first-page request per category');
+ assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='전체보기').length===2);
+ await act(async()=>{r.root.find(n=>n.props['aria-label']==='앉은 포즈 선택').props.onClick();});
+ const lib=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
+ assert.equal(lib().findByProps({'aria-label':'고른 사진'}).findAll(n=>n.type==='img').length,1);assert.equal(lib().findAll(n=>n.type==='button'&&text(n)==='선택 완료').length,1);assert.doesNotMatch(text(lib()),/포즈 1 ·|선택됨|개 선택/,'no text summary of the selection');
+ await act(async()=>{r.root.findAll(n=>n.type==='button'&&text(n)==='전체보기')[0].props.onClick();});await act(async()=>{await new Promise(resolve=>setTimeout(resolve,10));});
+ assert.ok(heads().includes('포즈 3'));assert.equal(queries.at(-1).category,'pose');assert.ok(r.root.findAllByProps({'aria-label':'분류별 보기로 돌아가기'}).length);
+ await act(async()=>{r.root.find(n=>n.props['aria-label']==='분류별 보기로 돌아가기').props.onClick();});await act(async()=>{await new Promise(resolve=>setTimeout(resolve,10));});
+ assert.deepEqual(heads().filter(t=>/포즈|배경/.test(t)),['포즈 3','배경 1']);
+ assert.equal(lib().findAll(n=>n.type==='input'&&n.props.label==='사진 검색').length,0,'search is folded behind the icon');
+ await act(async()=>{lib().find(n=>n.type==='button'&&n.props['aria-label']==='사진 검색').props.onClick();});assert.equal(lib().findAll(n=>n.type==='input'&&n.props.label==='사진 검색').length,1);
 });
