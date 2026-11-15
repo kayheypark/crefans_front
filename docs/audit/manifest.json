@@ -2026,6 +2026,21 @@
         "server/docs/bean-charge-limit-draft-20261109.md",
         "server/src/platform/bean-policy.ts"
       ]
+    },
+    "server/docs/contracts/modusign-20261112/README.txt": {
+      "kind": "current",
+      "review": "2026-11-12 모두싸인 첨부용 우대 조건 확인서·약관 사본 생성기 안내(feat/contract-apple-gothic 5d2db6e). 2026-11-15 서명본 계보 병합 시 등록.",
+      "evidence": [
+        "server/docs/contracts/modusign-20261112/build.cjs",
+        "server/docs/contracts/modusign-20261112/preferential-terms.html"
+      ]
+    },
+    "server/docs/contracts/modusign-20261112/output/verify-terms-copy.txt": {
+      "kind": "asset-record",
+      "review": "2026-11-12 약관 사본 PDF 검증 결과 기록. 2026-11-15 서명본 계보 병합 시 등록.",
+      "evidence": [
+        "server/docs/contracts/modusign-20261112/build.cjs"
+      ]
     }
   }
 }
