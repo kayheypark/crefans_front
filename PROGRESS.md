@@ -5427,3 +5427,7 @@
 - 2026-11-14 검증: 게임 경계·실수·중복클릭·30개 종료/타이머정리 포함64/64 통과, 타입검사 통과. 난이도는 신규조각에 적용해 이동 중 갑작스런 위치변화 방지; 단계상한5(하트 약2초/기타약1.29초), 생성간격650ms. reduced-motion 기존 정지표시 유지. 브라우저 실제 사용자 난이도 체감 테스트/운영배포 미실행. 보상 지급은 아직 미연결이며100개 기준의 계정누적 확정 후 후속 작업 필요. 증거 docs/audit/heart-difficulty-20261114.json.
 
 - 최종: 서버build·실제격리DB/공급자대역30/30, 프론트65/65·typecheck, 문서계약240라우트/103모델/61migration 통과. 기능 feat/ai-heart-rewards, 서버신규migration은격리DB만적용. 실공급자/운영/브라우저통합검증 미실행. 증거 프론트 docs/audit/ai-heart-rewards-20261114.json. 다음: 요청 시 기존 미배포 묶음과 함께dev→prod통합·migration→API/프론트배포. 하트잔액은반복100개도달마다전환하며1회해금후매10개자동전환은아님.
+
+### 2026-11-15 성별 배지 세로 배치
+- 사용자 요청 "성별표시 세로 얼라인": ♀♂ 두 표시를 가로 나열에서 세로(위 ♀, 아래 ♂)로 바꿈. `.costumeGender`에 `flex-direction:column` 추가(ai-photo.module.css).
+- 확인: 로컬 375px 화면에서 카드 왼쪽 위 세로 배치 확인, `node --test tests/studio-ai-photo.test.cjs` 76 pass / 0 fail. 운영 배포 전.
