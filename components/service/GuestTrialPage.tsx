@@ -31,10 +31,10 @@ export default function GuestTrialPage({model,done=false}:{model:ServiceViewMode
   <ol className={t.steps} aria-label="체험 순서"><li><b>1</b>사진 올리기</li><li><b>2</b>AI로 바꾸기</li><li><b>3</b>피드에 올리기</li></ol>
   {warning}
   <section className={t.card} aria-labelledby="guest-trial-checks"><h2 id="guest-trial-checks">시작 전에 확인해 주세요</h2><ul className={t.checks}>
-   <li>이 브라우저를 구분하는 쿠키(최대 30일)와 접속 IP를 되돌릴 수 없게 바꾼 값으로 체험 횟수를 관리해요.</li>
+   <li>이 브라우저를 구분하는 쿠키(최대 30일)와 접속 IP를 서버 보안키로 바꾼 값으로 체험 횟수를 관리해요. 체험 시작 기록에는 접속 IP가 보안 기록으로 남아요.</li>
    <li>올린 사진과 요청은 AI 사진 생성(BytePlus, 해외)과 유해성 검사(OpenAI, 해외)에 쓰여요.</li>
    <li>사진 속 인물은 본인이거나 동의를 받은 사람이어야 해요. 노출·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요.</li>
-   <li>체험 게시물에는 댓글·후원·멤버십이 없고, 하트 같은 보상은 주지 않아요.</li>
+   <li>체험 게시물에는 AI로 만든 사진만 올릴 수 있어요. 댓글·후원·멤버십이 없고, 하트 같은 보상은 주지 않아요.</li>
   </ul></section>
   <div className={t.consent}><Checkbox label="위 내용과 개인정보 처리방침 17항(비회원 AI 사진 체험)에 동의합니다" checked={agreed} disabled={pending} onChange={setAgreed}/><div className={t.links}><Link href="/service/legal/privacy">개인정보 처리방침 보기</Link><Link href="/service/login?next=/service/studio/content/new">이미 회원이라면 로그인</Link></div></div>
   {error&&<p className={t.error} role="alert">{error}</p>}
