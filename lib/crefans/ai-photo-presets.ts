@@ -106,18 +106,28 @@ export type AiPhotoPosePosture='sitting'|'standing';
 const sittingPoseIndexes=new Set([12,13,14,16,19,20,27,28,29,30,31,37,38,45,46]);
 export function aiPhotoPosePosture(example:string):AiPhotoPosePosture{return sittingPoseIndexes.has(aiPhotoPresets.pose.indexOf(example))?'sitting':'standing';}
 
+// '원본 유지' 카드: 고르면 그 탭의 선택을 비운다. 아무것도 고르지 않은 상태와 같고 생성 요청에는 아무 문구도 넣지 않는다.
+export const AI_PHOTO_KEEP_ORIGINAL='__keep_original__';
+export const aiPhotoKeepOriginalKinds:readonly AiPhotoKind[]=['makeup','expression','pose','background','camera','lens'];
+// 메이크업은 여러 개를 함께 고를 수 있다(2026-11-15). 다른 탭은 탭마다 하나.
+export const aiPhotoMultiSelectKinds:readonly AiPhotoKind[]=['makeup'];
+
 // 메이크업 카드 사진의 제작 성별: 1~12번은 여성·남성이 번갈아 있고, 13번부터는 여성 사진이다.
 export function aiPhotoMakeupGender(example:string):'female'|'male'|undefined{const index=aiPhotoPresets.makeup.indexOf(example);return index<0?undefined:index>=12||index%2===0?'female':'male';}
 
 export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture,backgroundCategory?:AiPhotoBackgroundCategory,outfitPart?:AiPhotoOutfitPart){
  const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter(example=>aiPhotoMakeupGender(example)===gender):aiPhotoPresets[kind];
  const ordered=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available;
- const examples=ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&(kind!=='outfit'||((gender==='original'||aiPhotoOutfitByPrompt(example)?.gender===gender)&&(!outfitPart||aiPhotoOutfitByPrompt(example)?.part===outfitPart)))&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
+ const examples=ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&(kind!=='outfit'||((gender==='original'||aiPhotoOutfitByPrompt(example)?.gender===gender)&&(!outfitPart||aiPhotoOutfitByPrompt(example)?.part===outfitPart)))&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example));
+ // 2026-11-15: 의상·신체 보정을 뺀 탭은 첫 카드로 '원본 유지'를 둔다(그 탭은 바꾸지 않음). total은 실제 프리셋 수만 센다.
+ const listed=[...(aiPhotoKeepOriginalKinds.includes(kind)&&aiPhotoPresetMatches(query,'원본 유지')?[AI_PHOTO_KEEP_ORIGINAL]:[]),...examples],pages=Math.max(1,Math.ceil(listed.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;
- return {examples:examples.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages,total:examples.length};
+ return {examples:listed.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages,total:examples.length};
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
+ if(example===AI_PHOTO_KEEP_ORIGINAL)return `/brand/ai-photo/${kind}-colorful-flat-v3.png`;
+ if(kind==='makeup'&&aiPhotoMakeupGender(example)==='female')return `/brand/ai-photo/presets/makeup-${String(aiPhotoPresets.makeup.indexOf(example)+1).padStart(2,'0')}-v2.webp`;
  if(kind==='outfit'){const outfit=aiPhotoOutfitByPrompt(example);if(outfit)return aiPhotoOutfitImage(outfit);}
  if(kind==='background'&&aiPhotoBackgroundId(example))return `/brand/ai-photo/background/${aiPhotoBackgroundId(example)}.webp`;
  if(kind==='background'){const files=['presets/background-comicworld-v1','background/room-night-v1','background/room-day-v1','background/living-room-v1','presets/background-01-v1','background/studio-black-v1','presets/background-04-v1','presets/background-05-v1','presets/background-09-v1','presets/background-10-v1'];return `/brand/ai-photo/${files[aiPhotoPresets.background.indexOf(example)]}.webp`;}
@@ -142,4 +152,4 @@ export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "lens":["셀카 폰카(정면)", "거울샷", "DSLR", "대포카메라"],
  "body":["가슴 조금 작게", "가슴 조금 크게", "힙 조금 작게", "힙 조금 크게", "키 조금 작게", "키 조금 크게"]
 };
-export function aiPhotoPresetTitle(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return control.label;}return aiPhotoPresetTitles[kind][aiPhotoPresets[kind].indexOf(example)];}
+export function aiPhotoPresetTitle(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){if(example===AI_PHOTO_KEEP_ORIGINAL)return '원본 유지';if(kind==='body'&&gender==='male'){const control=aiPhotoMaleBodyControls.find(item=>aiPhotoBodyPrompt(item.key,1)===example);if(control)return control.label;}return aiPhotoPresetTitles[kind][aiPhotoPresets[kind].indexOf(example)];}
