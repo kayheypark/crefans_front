@@ -5474,3 +5474,9 @@
 - 사용자 요청: 코스어 의상 카드 이미지와 테두리 사이 여백 제거. .costumeCard padding 6px→0(아래 10px 유지)·overflow hidden·radius 10px(일반 프리셋 카드와 동일), .costumeImage radius 0, 이미지 object-fit contain→cover(칸 비율 차이로 생기던 위아래 띠 제거, 375px에서 머리·발 잘림 없음), 제목 좌우 8px. 측정: 코스어·일반 카드 모두 이미지-카드 간격 1px(테두리 두께)로 동일.
 - 검증: studio-ai-photo 78 pass, tsc 통과, npm test 672 pass/17 fail(기준선 동일). 운영 배포 전.
 - 운영 배포(2026-11-15 13:03 KST, 사용자 지시 "ㅂㅍ"): prod c422fb8 → `crefans-front:front-swipe-fix-20261115`(직전 front-library-heart3-20261115 대체). ship-image.sh exit 0, 복구 사본 crefans-recovery/20261115/front-swipe-fix-20261115 검증 OK, 컨테이너 Up·재시작0. 운영 https://crefans.com/design-system 에서 같은 실터치 스크립트(BASE=https://crefans.com, 목업 카탈로그라 운영 데이터 변경 없음): 일반 포즈 1/2→2/2→1/2, 코스어 블루 아카이브 1/13→2/13→1/13, 세로 스와이프 스크롤만, 카드 탭 선택 OK, 의상·일반 카드 이미지-테두리 간격 모두 1px. iOS 실기기는 사용자 확인 필요.
+
+### 2026-11-15 내 보관함 B안(분류별 앨범) 적용
+- 사용자 선택: 시안 3종 중 B안 "분류별 선택", 줄 제목 "{분류} {전체 수} 전체보기", 하단 "포즈 1 · 배경 1 선택" 문구 삭제. 시안 원본 front-border `.local/library-designs/`(HTML 목업+운영 이미지, Seedream 미사용).
+- AiPhotoLibrary: 검색·분류가 없으면 분류 7종의 첫 페이지를 동시에 불러 사진이 있는 분류만 가로 줄로 표시(끝에 그 분류로 시작하는 '추가' 칸). 전체보기→그 분류 3열 그리드(24개 페이지, ‹로 복귀). 검색은 돋보기 아이콘으로 접고, 사진 추가는 + 아이콘. 하단 고정 영역은 고른 사진 미니(× 해제)와 '선택 완료/닫기'만. 분류 SelectField·안내 문구·이름 표시 카드 제거. 선택 규칙(분류당 1장·최대 4장)은 AiPhotoDialog 그대로.
+- 전체 수: 서버 GET studio/ai-photo/library에 total 추가(server feat/library-total cd346d8). 타입 total?:number, total이 없는 이전 서버면 '불러온 수 + (더 있으면 +)'로 표시. 목업 보관함 사진 2→7장, total 반환.
+- 검증: studio-ai-photo 79 pass(새 앨범 테스트: 분류 7회 요청, '포즈 3·배경 1', 전체보기·복귀, 검색 접힘, 하단 문구 없음; 테스트 하네스 Primitives에 Field 목 추가), 옛 보관함으로 되돌리면 1 fail. tsc 통과, npm test 673 pass/17 fail(기준선 17 동일), check:layers는 기존 AiPhotoDialog fetch 1건만. 로컬 3131 iPhone 14 WebKit 캡처(`.local/library-album/`). 운영 배포 전(서버와 함께 배포 필요).
