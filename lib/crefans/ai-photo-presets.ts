@@ -24,7 +24,18 @@ export const aiPhotoPresets:Record<AiPhotoKind,readonly string[]>={
   "눈가에 과하지 않은 음영을 더해줘.",
   "립 메이크업을 부드러운 매트 톤으로 바꿔줘.",
   "진한 색조를 줄이고 일상 메이크업처럼 해줘.",
-  "피부 결을 살리면서 메이크업 톤을 정돈해줘."
+  "피부 결을 살리면서 메이크업 톤을 정돈해줘.",
+  // 2026-11-15 X 좋아요 사진에서 고른 여성 메이크업 10종(카드는 makeup-13~22, 메타데이터 .local/makeup-x/items.json).
+  "눈 밑부터 콧등까지 분홍 블러셔를 넓게 펴 바른 숙취 메이크업으로 바꿔줘.",
+  "위아래 속눈썹을 또렷하게 살려 맑고 큰 눈매의 인형 같은 메이크업으로 바꿔줘.",
+  "눈 밑에 붉은 분홍 음영과 살짝 처진 아이라인을 넣고 입술은 촉촉하게 해서 지뢰계 메이크업으로 바꿔줘.",
+  "피부를 뽀얗고 매끈한 매트 베이스로 정돈하고 아랫속눈썹을 그려 애니 코스프레 메이크업으로 바꿔줘.",
+  "한쪽 볼에 작은 별 모양 페이스 스티커를 붙여줘.",
+  "양 볼에 가는 고양이 수염 무늬를 그려줘.",
+  "눈꼬리 쪽에 붉은 아이섀도를 번지듯 발라 또렷한 눈매로 바꿔줘.",
+  "애교살에 은은한 글리터와 하이라이트를 더해줘.",
+  "입술 안쪽부터 번지는 그라데이션 틴트 립으로 바꿔줘.",
+  "한쪽 눈 밑에 작은 점을 찍어 포인트를 줘."
  ],
  "expression": [
   aiPhotoNeutralExpressionPreset,
@@ -95,8 +106,11 @@ export type AiPhotoPosePosture='sitting'|'standing';
 const sittingPoseIndexes=new Set([12,13,14,16,19,20,27,28,29,30,31,37,38,45,46]);
 export function aiPhotoPosePosture(example:string):AiPhotoPosePosture{return sittingPoseIndexes.has(aiPhotoPresets.pose.indexOf(example))?'sitting':'standing';}
 
+// 메이크업 카드 사진의 제작 성별: 1~12번은 여성·남성이 번갈아 있고, 13번부터는 여성 사진이다.
+export function aiPhotoMakeupGender(example:string):'female'|'male'|undefined{const index=aiPhotoPresets.makeup.indexOf(example);return index<0?undefined:index>=12||index%2===0?'female':'male';}
+
 export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture,backgroundCategory?:AiPhotoBackgroundCategory,outfitPart?:AiPhotoOutfitPart){
- const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter((_,index)=>(index%2===0?'female':'male')===gender):aiPhotoPresets[kind];
+ const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter(example=>aiPhotoMakeupGender(example)===gender):aiPhotoPresets[kind];
  const ordered=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available;
  const examples=ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&(kind!=='outfit'||((gender==='original'||aiPhotoOutfitByPrompt(example)?.gender===gender)&&(!outfitPart||aiPhotoOutfitByPrompt(example)?.part===outfitPart)))&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),pages=Math.max(1,Math.ceil(examples.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;
@@ -120,7 +134,7 @@ export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'origi
 // 카드의 짧은 이름과 실제 생성 요청을 분리한다. 순서는 각 프리셋과 같다.
 export const aiPhotoPresetTitles:Record<AiPhotoKind,readonly string[]>={
  "outfit":aiPhotoOutfits.map(item=>item.name),
- "makeup":["코랄 립", "생기 있는 볼", "브라운 아이", "로즈 립", "펄 줄이기", "얇은 아이라인", "자연스러운 눈썹", "피치 블러셔", "은은한 음영", "매트 립", "데일리 메이크업", "피부 톤 정돈"],
+ "makeup":["코랄 립", "생기 있는 볼", "브라운 아이", "로즈 립", "펄 줄이기", "얇은 아이라인", "자연스러운 눈썹", "피치 블러셔", "은은한 음영", "매트 립", "데일리 메이크업", "피부 톤 정돈", "숙취 블러셔", "인형 메이크업", "지뢰계 메이크업", "코스프레 베이스", "별 페이스 스티커", "고양이 수염 페인팅", "레드 아이섀도", "애교살 글리터", "그라데이션 립", "눈 밑 점"],
  "expression":["무표정", "환한 미소", "잔잔한 미소", "눈웃음", "편안한 표정", "놀란 표정", "윙크", "활짝 웃기", "차분한 표정", "반가운 표정", "수줍은 미소", "힘 뺀 미소", "장난스러운 미소", "도도한 시선", "자신감 있는 미소", "턱 살짝 들기"],
  "pose":["손인사", "살짝 돌아서기", "두 손 모으기", "허리에 손", "고개 기울이기", "브이", "정면 서기", "작은 손인사", "앞으로 기대기", "턱에 손", "손하트", "옆모습 시선", "의자에 앉기", "벤치에 앉기", "쪼그려 앉기", "벽에 기대 쉬기", "바닥에 앉기", "시선 밖 스냅", "걷다 돌아보기", "대화하는 스냅", "계단에 앉기", "난간에 기대기", "기지개", "산책 스냅", "뒤돌아보기", "다리 넓혀 서기", "양팔 머리 위로", "의자 거꾸로 앉기", "다리 꼬아 앉기", "한쪽 무릎 세우기", "무릎 꿇고 앉기", "다리 모아 옆앉기", "카메라로 손 뻗기", "이마에 손 대기", "뒤로 손 짚고 기대기", "한 발 뒤로 접기", "양손으로 소품 들기", "무릎 안고 앉기", "앉아서 팔 올리기", "한쪽 무릎 들기", "한 손 머리에 올리기", "소품 어깨에 메기", "한 다리 뻗어 런지", "고양이 손 포즈", "검지 쉿 포즈", "의자 위 무릎 세워 앉기", "다리 뻗고 앉기"],
  "background":["코믹월드", "내 방(밤 형광등)", "내 방(낮 형광등 끔)", "거실", "촬영스튜디오(흰배경)", "촬영스튜디오(검정배경)", "햇살 공원", "벚꽃길", "노을 바다", "도시 야경",...aiPhotoBackgrounds.map(item=>item.title)],

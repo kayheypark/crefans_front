@@ -5433,3 +5433,10 @@
 - 실제 문제: 글꼴 기호 ♀♂는 글리프 모양 때문에 동그라미 안에서 아래로 치우침(측정상 ♂ 약 0.6px, 기기 글꼴마다 다름). 기호를 SVG 선(viewBox 24, 도형 경계 중심 12,12)으로 그려 기기와 무관하게 가운데에 오게 함. 기호 문자는 숨김 텍스트로 남겨 테스트·보조기술용 텍스트 유지.
 - 확인: 로컬 375px에서 두 원 모두 도형 중심과 원 중심 차이 0px(getBoundingClientRect), 가로 배치 육안 확인, studio-ai-photo 테스트 통과, tsc 통과. 운영 배포 전.
 - 운영 배포(2026-11-15 10:31 KST, 사용자 지시 "배포"): prod 51c6acd → 이미지 `crefans-front:front-gender-glyph-20261115`(직전 front-outfit-parts-20261115 대체), ship-image.sh exit 0, 복구 사본 /Users/ethan/crefans-recovery/20261115/front-gender-glyph-20261115 검증 OK. 컨테이너 crefans-beta-frontend-1 Up·재시작 0, https://crefans.com/design-system 200, 운영 CSS에 가로 배치(column 없음)·SVG 기호 규칙 반영 확인. 운영 화면 육안 확인은 로그인 필요로 미실시.
+
+### 2026-11-15 X 좋아요 사진 → 메이크업 프리셋 10종 (/add-preset, 이번만 메이크업 범위)
+- 사용자 요청: "X에서 다운받은 사진중에 메이크업 카테고리도 이번만 add preset". 대상: ~/x-likes/likes 235장(기존 x-presets 인벤토리·SHA 재사용). 얼굴이 잘 보이는 후보 20장을 확대 검토해 원본 사진마다 메이크업 유형을 골랐고, 원본은 모두 여성이라 새 10종은 여성 전용으로 등록.
+- 신규(여성, 카드 makeup-13~22): 숙취 블러셔·인형 메이크업·지뢰계 메이크업·코스프레 베이스·별 페이스 스티커·고양이 수염 페인팅·레드 아이섀도·애교살 글리터·그라데이션 립·눈 밑 점. 기존 12종과 겹치지 않음(립 색·블러셔 위치·눈매 기법으로 구분). 참고 원본 번호·SHA는 `.local/makeup-x/items.json`.
+- 카드 그림: Seedream(dola-seedream-5-5-261028) 1024² → 384² WebP. 참조는 기존 여성 카드 makeup-01(같은 가상 모델)만 보내고 X 원본 사진은 공급사로 보내지 않음(실존 인물 얼굴 복제 방지). 13회 호출 모두 200(첫 10장 중 인형·애교살·눈 밑 점 3장이 약해 문구 강화 후 재생성, 첫 시도는 `.local/makeup-x/rejected/`). 추정 $0.364(실청구 미확인). 해시 `.local/makeup-x/SHA256SUMS`.
+- 코드: `aiPhotoPresets.makeup`/제목 10개 추가, 짝·홀 규칙을 `aiPhotoMakeupGender`로 명시. `AiPhotoDialog.changeGender`가 첫 페이지 9개 안에서만 메이크업을 찾던 문제(여성 목록이 16개가 되면 2쪽 선택이 풀림)를 성별 판정으로 교체. 서버는 메이크업 문구 허용 목록이 없어(origin/prod src grep) 서버 변경 없음.
+- 검증: studio-ai-photo 76 pass(이미지 총수 178→188, 여성16·남성6·원본22, 2쪽 선택 유지, 남성 전환 시 해제). 대조: 옛 첫 페이지 검사로 되돌리면 1 fail, 짝·홀 규칙만 쓰면 1 fail. tsc 통과. npm test 669 pass/17 fail(dev 기준선 17건 동일). 로컬 3127 /design-system 375px: 여성 1/2쪽 9개+2/2쪽 7개(새 10장 이미지 로딩 OK), 남성 6개 1쪽. 실제 생성 결과·운영 화면 미확인, 운영 배포 전.
