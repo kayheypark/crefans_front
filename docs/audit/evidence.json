@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-15T23:07:00.540691+00:00",
+  "checkedAt": "2026-11-15T23:09:56.890131+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "33f682f25d375b889e75948090102cd11c1ad107",
+      "head": "32188313a88a6fc48bee5ba939ca5fa3fb5d13a2",
       "branch": "feat/password-change-docs",
       "dirty": false
     },
     "server": {
-      "head": "3c09c7a8c3d9ebac943cc1ce82900abf515335cc",
+      "head": "49a9d5b90bdd630d67f8c300bb3e36b5792ccbc4",
       "branch": "",
       "dirty": false
     }
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "cf5629866b4dd36d308724029505a5cea0de418683c43a314188b0d3f537d9e3",
-      "server/PROGRESS.md": "adc2228bcb253d217c1b83cfbdf00129e69d36fc07e295a9d63ba3ba127ebf4f",
+      "server/PROGRESS.md": "9f4667ba2387322caa1698cfac1980d748baa1e5ccff762bfc302d62a2a15da9",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
