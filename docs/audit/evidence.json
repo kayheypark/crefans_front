@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-15T13:55:22.300948+00:00",
+  "checkedAt": "2026-11-15T23:07:00.540691+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "0eb9861b6226507aab6cb088ef13d93534263aad",
-      "branch": "feat/launch-hardening",
-      "dirty": true
+      "head": "33f682f25d375b889e75948090102cd11c1ad107",
+      "branch": "feat/password-change-docs",
+      "dirty": false
     },
     "server": {
-      "head": "70ffbb38452dd2610525543a0e5ca187fc7694d4",
+      "head": "3c09c7a8c3d9ebac943cc1ce82900abf515335cc",
       "branch": "",
       "dirty": false
     }
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "cf5629866b4dd36d308724029505a5cea0de418683c43a314188b0d3f537d9e3",
-      "server/PROGRESS.md": "7120f92e5d6b1f941b7ca2fd81e4a278ba3a8a15cd3e279f65c85ed3ce1a6a3b",
+      "server/PROGRESS.md": "adc2228bcb253d217c1b83cfbdf00129e69d36fc07e295a9d63ba3ba127ebf4f",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -108,7 +108,7 @@
       "server/docs/live-payment-launch-20261031.md": "9863a7c3c3e37cfdda2342dda51289399bb9304dcb3af6fe1809f06ae9367c75",
       "server/docs/local-member-migration.md": "12c7dd11c9009870f95bfb4a8961bf72107367c2c5ae38c01fec7012fd53172c",
       "server/docs/operational-logging.md": "522f5b1ebc0f9afcbb1670d8d858b9d28107653b5b8b1833f69727876ace01e9",
-      "server/docs/platform-api.md": "ccf3c95c8a874d9f733b36853774057c492a2deb45788836d4e87706953ccfee",
+      "server/docs/platform-api.md": "525f1ece4bbce4a1b60fefcaf511b020d1da62c95e2769feeb18a1c42f900d53",
       "server/docs/platform-implementation.md": "71ac479db7f23153e792ad0fddf81fc37c3ce4488d488e6bc2f17d8488105d5f",
       "server/docs/prd.md": "4acd7a59320dd75f569cac956225942022f960ade6ca2f2518a2dd71e1669299",
       "server/docs/private-media.md": "a398d6de0e8abb0eae017396e3cfb96d3aaae1880cf16fb70b68eba13c6d5820",
@@ -1151,7 +1151,7 @@
       "server/src/auth/local/local-member.module.ts": "66fd4695d04bdc411a27fab03886c74a85d7ed485cb64e0aeb6c201163fc84e6",
       "server/src/auth/local/local-member.service.ts": "b76963855db848febe6e400a33f6b37e8dbf42bb2cc53a5d4e27b00f39bcf168",
       "server/src/auth/local/mail/logo.ts": "cf9a5d0f2f326d14bcc7155e4fe047ac35d56113f5c60913e6ace091e1330393",
-      "server/src/auth/local/mail/templates.ts": "a5610894e007702203f12675e131cb2915d7d81d594a2523878b57ab255f498d",
+      "server/src/auth/local/mail/templates.ts": "da8223c1a9d8be92684805e87c70c4e6e046d6f62ead5f0eeeb986b048468c71",
       "server/src/auth/local/member-mail.service.ts": "d26e672cc8b5a08d8ebd8c427c79f6a63e458d1f72c2d7f51578a5deb6c57caa",
       "server/src/auth/utils/cookie.util.ts": "9362343d6cd1b5bee3f8e5f15cf8b3a08a4a59a56984a2eccb80b924ebe9b181",
       "server/src/board/admin-board-category.controller.ts": "9d918c61da5272b61e0b551e14d7ab7740789674d790d4c0c3e91da362828591",
@@ -1257,7 +1257,7 @@
       "server/src/platform/categories.service.ts": "8dbbac93230026a5637f7c207368d70836865e4c40252a9169c209df7e65cff1",
       "server/src/platform/category-catalog.ts": "82be338640a377dabf31e8dea8c2f62c0efa67f20993b35f4d49320b82a91c89",
       "server/src/platform/client-errors.ts": "21e152e7315fd2c5eeec74e7b70cdc3e42b1ea7083e22a04f2b02d7f6215a97c",
-      "server/src/platform/controller.ts": "f764c6fbf71c5c4337fd1427ff6e3a747db0969fc44ec69517a02c2eee5a4cdb",
+      "server/src/platform/controller.ts": "830575e8f72e70a480e920284955664dbae5f2edef95656772474c7a4c597968",
       "server/src/platform/creator-provision.ts": "eb1d42120b9174d53e13fe4f6cc658507091ab0c0b2a63f74f4fb8958213af88",
       "server/src/platform/disk-alert.ts": "8580dcb28f5a5f8110df9074fcf654205de4c9e7879df13c7fa52462bbdacff2",
       "server/src/platform/email-change.service.ts": "08faa608f2fa64ff9e3bd66625694131e0545cb2219099d11f6d9db76e3f561a",
@@ -1283,14 +1283,14 @@
       "server/src/platform/media-watermark-render.ts": "50a9fca4885bad5ff05fdf5b1cd5928e4d7f63a8168736ac3fa6cbb2c4b9135f",
       "server/src/platform/media-watermark.ts": "54d70c5ae8e0ad97655dadc79b28a14c45b51af5f1c38ffe58c7d04e0be75e17",
       "server/src/platform/media.controller.ts": "1a9e12c88497f28a91ebc466649eaed955b81337fd8d37a1d91170d7de5dfd1a",
-      "server/src/platform/member-notices.ts": "e89a926235d15fd3f6d0173dd11f9c6824335d35323e7ac19f383bbc29d657af",
+      "server/src/platform/member-notices.ts": "2fb98756def767a9c89779a1e1aaffada8239997b2c4698d0946486d8ebbd861",
       "server/src/platform/member-purge.ts": "6d2f95f1d9d94902352274193e10189cefeaf87d10a0c5a5cbcd0b486bc831f0",
       "server/src/platform/membership-notices.ts": "b2ac1d559b52429e1fa3a38f6a244017e3a8e4242805c5dfdd3c63b3b7666571",
       "server/src/platform/middleware.ts": "1ed1e60e98ba7d4d73627c108c7659289921be1ab77bd42c6728df38beb1974f",
       "server/src/platform/moderation-retention.ts": "18a3f23d26ff374d4e6b31b200b2dee4f19940337ac4216bdee7749e96f9dde6",
       "server/src/platform/moderation.ts": "f18c655fc69e7540d1f42a723f4a5946fdf69e0bde3be09207f6163d6e4a7aeb",
       "server/src/platform/module.ts": "d69cf2fd239e7084b0cbbf8c34909732ace52729ee8258cf2543edaaab9bc6ec",
-      "server/src/platform/openapi-contract.ts": "2f4cd9d13ae9b794bbb705279941ff957257d1ff3b5ccf0c1323a43eb3ac54e2",
+      "server/src/platform/openapi-contract.ts": "8f4c9ddfaba26d5dd309462e8b50ad07f514285caab0e83249a6cec1fb635051",
       "server/src/platform/openapi.ts": "5d316d5b041099870b973b69b338d5c59fd853d49d7f7fe344f640386fd4166a",
       "server/src/platform/operations-events.ts": "fd9f0a020e0aa2f2fe0de7f20f1b9bc76c32f9a406e8e58f215926525a53d9e1",
       "server/src/platform/operations.service.ts": "c0d6d950fed3638dea236e83aad009cb9896c485dd216abd1abfa1524db78048",
@@ -1307,7 +1307,7 @@
       "server/src/platform/request-context.ts": "6918d05ad00b22891a504aeba2938df10e13ad4c33133e8916720a2e904f8cd1",
       "server/src/platform/reserved-handles.ts": "383234a843b9927ca96ad61d7e7ad09db4f99605b902a6dc32a1d62a6aecbafa",
       "server/src/platform/security.service.ts": "01ce7b56af876e3250e6181f573222683addf0c2930769fdf4e49411069fa3ef",
-      "server/src/platform/service.ts": "d86eccc59552229630a091b7e02c83e58b13d306dbecdca7828e81fbdca2ae22",
+      "server/src/platform/service.ts": "d50c369509b2ea982d65b54ca09a82ac088d2f81468fe384d3fbed96f141f209",
       "server/src/platform/settlement-receipts.ts": "026b58c72353c04d5f7d067d4b06fd57a170cd567317e492eb23aa139dad18a4",
       "server/src/platform/share-image.ts": "9b5e180924129ea11d73584468458b355d3b535921d843d667e975aa7f839fcb",
       "server/src/platform/signup-invites.controller.ts": "5de2d3fb4248694bc15f28b35aa1a59656e1727fdb8ebd0f8df87ad3f4c342c1",
@@ -1431,6 +1431,7 @@
       "server/tests/platform-operations-http.test.cjs": "9dad998737d75e3d0c150fe8d64448d3d3df6bb38046f94ef233015f68ba75f9",
       "server/tests/platform-operations.test.cjs": "4dbb9ead7552c7772a54afd391745b8bbd14cc6269e491c64496bdbf768c60a5",
       "server/tests/platform-partner-request.test.cjs": "d98970ce7dbe63641a108ddacc1d410dd5ef15e64f5978cbe25c41f444394500",
+      "server/tests/platform-password-change.test.cjs": "d28d78cd19b97f8b077c79b7b4d32022f9ce4d489a98827f95bf9acbfd359f4b",
       "server/tests/platform-payment-http.test.cjs": "d913ac08cd9cfef2f956cfda22706e031afcb62d11d65c32188941ca707165ce",
       "server/tests/platform-payment-lifecycle.test.cjs": "8410b7415e8270794828f3a50e15f093ab9dc999a2f3b7b91e54a8a4c3fb8fcc",
       "server/tests/platform-pilot-followups.test.cjs": "cce002e19fe9b8a288c73e1ecd9890d90c9fd57d194cd5ac6f74b67230a8d4c1",
