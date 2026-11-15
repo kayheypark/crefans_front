@@ -691,6 +691,12 @@ test('library metadata removal clears selection and library entry exists before 
  const library={list:async()=>({success:true,data:{items:[],hasMore:false}})};const {r}=await open({library,images:[]});assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='내 보관함').length);
 });
 
+// 2026-11-15: the 내 보관함 entry shows only a right chevron, no '사진 추가 · 선택' / 'N개 선택' text.
+test('library entry shows a right chevron only',async()=>{
+ const library={list:async()=>({success:true,data:{items:[],hasMore:false}})};const {r}=await open({library});
+ const entry=r.root.findByProps({className:'libraryEntry'}).findAllByType('button')[0];assert.equal(text(entry),'내 보관함');assert.ok(entry.findAll(n=>n.props&&n.props.name==='chevron').length>=1,'right chevron icon');assert.doesNotMatch(JSON.stringify(r.toJSON()),/사진 추가 · 선택/);
+});
+
 test('public background catalog is searchable indoors and selection sends image ID; deselection removes it',async()=>{
  const {aiPhotoBackgrounds}=loadTypeScript('lib/crefans/ai-photo-backgrounds.ts');const presets=loadTypeScript('lib/crefans/ai-photo-presets.ts');const fs=require('fs');
  for(const item of aiPhotoBackgrounds){assert.equal(presets.aiPhotoBackgroundCategory(item.prompt),item.category);assert.ok(presets.aiPhotoPresetPage('background',0,'female',item.title,undefined,item.category).examples.includes(item.prompt));assert.ok(fs.existsSync('public'+presets.aiPhotoPresetImage('background',item.prompt)));}
