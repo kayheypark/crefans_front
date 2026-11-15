@@ -4,7 +4,8 @@ const {loadTypeScript}=require('./load-typescript.cjs');
 // received tips / payout history); withdraw, tips and payouts each have their own page; notices sit at the very bottom.
 global.IS_REACT_ACT_ENVIRONMENT=true;
 const {BeanContext}=loadTypeScript('components/crefans/BeanContext.tsx');
-const {BeanStudioPage}=loadTypeScript('components/crefans/BeanPages.tsx',{'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'next/image':({sizes,draggable,...props})=>React.createElement('img',props),'./BeanContext':{useBeans:()=>React.useContext(BeanContext),BeanContext}});
+const partnerCalls=[];
+const {BeanStudioPage}=loadTypeScript('components/crefans/BeanPages.tsx',{'@/lib/api/platform':{platformRequest:async(path,body)=>{partnerCalls.push({path,body});return{success:true,data:{requested:true,message:'파트너 계약을 요청했어요.'}};}},'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'next/image':({sizes,draggable,...props})=>React.createElement('img',props),'./BeanContext':{useBeans:()=>React.useContext(BeanContext),BeanContext}});
 const studio={availableBeans:3050,pinConfigured:true,policy:{minimumWithdrawalBeans:1000,withdrawalFeeBps:2000,minimumWithdrawalKrw:100000},accounts:[{id:'a1',label:'국민은행 · •••• 1234',isDefault:true,verified:true}],
  receivedByType:[{sourceType:'post',count:1,paid:2000,promotion:0}],tips:{items:[],page:1},payouts:[],wallet:{spendableBeans:2600,withdrawableBeans:3050,accounts:[]}};
 const model={enabled:true,signedIn:true,basePath:'/service',mode:'live',loading:false,error:'',wallet:studio.wallet,studio,refresh:async()=>{},quote:async()=>({success:false}),authorize:async()=>({success:false}),withdraw:async()=>({success:false})};
@@ -51,4 +52,15 @@ test('withdraw page without the partner contract shows the notice and inquiry li
  const saved=model.studio;model.studio={...studio,payoutPartner:false};
  try{const {page,links}=render('withdraw');assert.match(page,/파트너 계약 후 출금할 수 있어요/);assert.doesNotMatch(page,/출금 내용 확인/);assert.ok(links.includes('/service/support?tab=qna'));}
  finally{model.studio=saved;}
+});
+
+// 2026-11-15 user decision: the creator asks for the Modusign contract from the withdrawal screen.
+test('without the partner contract the withdraw page offers a contract request that calls the server once',async()=>{
+ const saved=model.studio;model.studio={...studio,payoutPartner:false};let tree;
+ try{act(()=>{tree=create(React.createElement(BeanContext.Provider,{value:model},React.createElement(BeanStudioPage,{view:'withdraw'})));});
+  const isRequest=n=>n.type==='button'&&n.props.children==='파트너 계약 요청하기',button=tree.root.findAll(isRequest)[0];assert.ok(button,'request button');
+  await act(async()=>{button.props.onClick();});
+  assert.deepEqual(partnerCalls,[{path:'/studio/partner-request',body:{}}]);assert.match(words(tree.toJSON()),/파트너 계약을 요청했어요/);
+  assert.equal(tree.root.findAll(isRequest).length,0,'button replaced by the result');
+ }finally{act(()=>tree.unmount());model.studio=saved;}
 });
