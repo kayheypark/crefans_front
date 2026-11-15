@@ -14,7 +14,7 @@ import {SelectField} from '@/components/ui/SelectField';
 import {AiPresetPager} from './AiPresetPager';
 import {AiPhotoWaiting} from './AiPhotoWaiting';
 import {AiBodyAdjustments} from './AiBodyAdjustments';
-import {AiPhotoWardrobe} from './AiPhotoWardrobe';
+import {AiPhotoWardrobe,CostumeGender} from './AiPhotoWardrobe';
 import type {ApiResult} from '@/types/crefans';
 import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,StudioMedia} from '@/types/crefans-studio-management';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
@@ -178,7 +178,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
       <div className={s.presetHeading}><span>{presetQuery.trim()?`검색 결과 ${preset.total}개`:'프리셋'}</span><div className={s.presetNavigation}><button type="button" aria-label="이전 프리셋 페이지" disabled={busy||preset.pages<=1} onClick={()=>stepPreset(-1)}>‹</button><span aria-live="polite">{preset.index+1} / {preset.pages}</span><button type="button" aria-label="다음 프리셋 페이지" disabled={busy||preset.pages<=1} onClick={()=>stepPreset(1)}>›</button></div></div>
       <AiPresetPager key={`${kind}-${presetQuery}`} onStep={stepPreset} disabled={busy||preset.pages<=1}><div className={s.photoPresetGrid}>{preset.examples.map(example=><button type="button" key={example} className={s.preset} aria-label={aiPhotoPresetTitle(kind,example,targetGender)} aria-pressed={isPresetSelected(example)} onClick={()=>pickPreset(example)} disabled={busy}>
        {/* eslint-disable-next-line @next/next/no-img-element -- static preset illustration or example photograph */}
-       <img className={['expression','pose','camera','lens'].includes(kind)||example===AI_PHOTO_KEEP_ORIGINAL?s.presetIllustration:undefined} src={aiPhotoPresetImage(kind,example,targetGender)} alt="" loading="lazy"/><span>{aiPhotoPresetTitle(kind,example,targetGender)}</span><span className={s.presetCheck} aria-hidden="true">{isPresetSelected(example)?'✓':''}</span></button>)}</div></AiPresetPager>
+       <img className={['expression','pose','camera','lens'].includes(kind)||example===AI_PHOTO_KEEP_ORIGINAL?s.presetIllustration:undefined} src={aiPhotoPresetImage(kind,example,targetGender)} alt="" loading="lazy"/>{kind==='makeup'&&aiPhotoMakeupGender(example)&&<CostumeGender gender={aiPhotoMakeupGender(example)} title={aiPhotoMakeupGender(example)==='male'?'남성 메이크업':'여성 메이크업'}/>}<span>{aiPhotoPresetTitle(kind,example,targetGender)}</span><span className={s.presetCheck} aria-hidden="true">{isPresetSelected(example)?'✓':''}</span></button>)}</div></AiPresetPager>
       {preset.total===0&&<p className={s.presetEmpty} role="status">검색 결과가 없어요. 다른 검색어를 입력해 주세요.</p>}
       {!['expression','pose','camera','lens'].includes(kind)&&<p className={s.hint}>사진은 AI로 만든 예시예요. 선택한 요청을 내 사진에 적용해요.</p>}
      </>}

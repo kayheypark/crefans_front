@@ -20,7 +20,8 @@ export function AiPhotoWardrobe({items,selectedPrompts,disabled,onPick}:{items:r
 
 const genderMarks={female:[['female','♀']],male:[['male','♂']],both:[['female','♀'],['male','♂']]} as const;
 const genderTitles={female:'원작 여성',male:'원작 남성',both:'원작 성별 무관·미표기'} as const;
-function CostumeGender({gender}:{gender:keyof typeof genderMarks|undefined}){
+// 코스튬(원작 성별)과 메이크업(카드 성별)이 같이 쓰는 ♀/♂ 배지. title은 쓰는 곳에서 바꿀 수 있다.
+export function CostumeGender({gender,title}:{gender:keyof typeof genderMarks|undefined;title?:string}){
  if(!gender)return null;
- return <span className={s.costumeGender} title={genderTitles[gender]} data-gender={gender}>{genderMarks[gender].map(([tone,mark])=><span key={tone} className={tone==='female'?s.costumeGenderFemale:s.costumeGenderMale}><svg viewBox="0 0 24 24" aria-hidden="true">{tone==='female'?<path d="M12 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 0v7m-3-3h6"/>:<path d="M10 19a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm3.5-8.5L19 5m-5 0h5v5"/>}</svg><span className={s.costumeGenderText}>{mark}</span></span>)}</span>;
+ return <span className={s.costumeGender} title={title??genderTitles[gender]} data-gender={gender}>{genderMarks[gender].map(([tone,mark])=><span key={tone} className={tone==='female'?s.costumeGenderFemale:s.costumeGenderMale}><svg viewBox="0 0 24 24" aria-hidden="true">{tone==='female'?<path d="M12 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 0v7m-3-3h6"/>:<path d="M10 19a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm3.5-8.5L19 5m-5 0h5v5"/>}</svg><span className={s.costumeGenderText}>{mark}</span></span>)}</span>;
 }
