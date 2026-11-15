@@ -408,6 +408,15 @@ test('preset paging: nine cards, circular single-page gestures, preserved select
  await drag(180);assert.deepEqual(labels(),initial);assert.equal(r.root.findByProps({'aria-label':'의자에 앉기'}).props['aria-pressed'],true);
  await drag(-20);assert.deepEqual(labels(),initial);await drag(20,120);assert.deepEqual(labels(),initial);await drag(-180,0,true);assert.deepEqual(labels(),initial);
  await click('이전 프리셋 페이지');assert.notDeepEqual(labels(),initial);await click('다음 프리셋 페이지');assert.deepEqual(labels(),initial);
+ // 2026-11-15 mobile fix: a touch starts captured by the card; taking capture makes that card fire lostpointercapture, which bubbles
+ // to the pager and must not cancel the drag. Only the pager's own capture loss ends it.
+ const viewport={clientWidth:360,setPointerCapture(){}};const touch=(x)=>({isPrimary:true,button:0,pointerId:2,clientX:x,clientY:0,currentTarget:viewport});
+ await act(async()=>pager().props.onPointerDown(touch(200)));await act(async()=>pager().props.onPointerMove(touch(20)));
+ await act(async()=>pager().props.onLostPointerCapture({target:{},currentTarget:viewport}));await act(async()=>pager().props.onPointerUp(touch(20)));
+ assert.notDeepEqual(labels(),initial,'a bubbled card capture loss keeps the swipe');
+ await act(async()=>pager().props.onPointerDown(touch(200)));await act(async()=>pager().props.onPointerMove(touch(380)));
+ await act(async()=>pager().props.onLostPointerCapture({target:viewport,currentTarget:viewport}));await act(async()=>pager().props.onPointerUp(touch(380)));
+ assert.notDeepEqual(labels(),initial,'the pager losing its own capture cancels the swipe');
 });
 
 

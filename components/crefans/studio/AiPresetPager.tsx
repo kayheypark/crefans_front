@@ -26,7 +26,9 @@ export function AiPresetPager({children,onStep,disabled}:{children:ReactNode;onS
    const distance=event.clientX-from.x;if(Math.abs(distance)>=Math.min(64,event.currentTarget.clientWidth*.2))onStep(distance<0?1:-1);
   }}
   onPointerCancel={()=>{start.current=null;setOffset(0);}}
-  onLostPointerCapture={()=>{start.current=null;setOffset(0);}}
+  // Touch pointers are implicitly captured by the card under the finger. Taking capture for a horizontal drag makes that card fire
+  // lostpointercapture, which bubbles here; only the viewport's own loss ends the drag (2026-11-15 mobile swipe fix).
+  onLostPointerCapture={event=>{if(event.target!==event.currentTarget)return;start.current=null;setOffset(0);}}
   onClickCapture={event=>{if(dragged.current&&event.detail!==0){event.preventDefault();event.stopPropagation();}}}>
   <div style={{transform:`translateX(${offset}px)`}}>{children}</div>
  </div>;
