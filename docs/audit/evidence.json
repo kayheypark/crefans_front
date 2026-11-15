@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-15T13:50:28.953326+00:00",
+  "checkedAt": "2026-11-15T13:55:22.300948+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -8,10 +8,10 @@
   },
   "scope": "working trees; inline local Markdown file targets; AST routes; preview catalog; full Prisma source; template keys; package scripts; immutable original hierarchy",
   "summary": {
-    "documents": 79,
+    "documents": 81,
     "documentsByRepo": {
       "front": 41,
-      "server": 38
+      "server": 40
     },
     "routes": 250,
     "screens": 58,
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "02a974d140b996727b2b8336509edad10af992f3",
+      "head": "0eb9861b6226507aab6cb088ef13d93534263aad",
       "branch": "feat/launch-hardening",
       "dirty": true
     },
     "server": {
-      "head": "172558f237ae9356215619def00d511e24bfc415",
+      "head": "70ffbb38452dd2610525543a0e5ca187fc7694d4",
       "branch": "",
       "dirty": false
     }
@@ -83,8 +83,8 @@
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
-      "server/AGENTS.md": "5493a142dc9dc355c5b47fbe175ed284ff86cb51ff241e85f291a33880584721",
-      "server/PROGRESS.md": "9b947fb8d923c131baa0b141eb0e1eeb52883cf74e6d86f7ceb0d75b3e8ee222",
+      "server/AGENTS.md": "cf5629866b4dd36d308724029505a5cea0de418683c43a314188b0d3f537d9e3",
+      "server/PROGRESS.md": "7120f92e5d6b1f941b7ca2fd81e4a278ba3a8a15cd3e279f65c85ed3ce1a6a3b",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -92,9 +92,11 @@
       "server/docs/bean-charge-limit-draft-20261109.md": "4aeb1d5b27b42fe2fbbdd69f5e23afa9818d9c6b3420db9a5781a90eb09635b4",
       "server/docs/bean-refund-research-20261029.md": "6510fcd50f3f5d5b8d4cd82c4e566e2043fa7d1298e705438415b68721cfc91b",
       "server/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
-      "server/docs/contracts/README.txt": "688dd7062379ed2cf368bb44a92197a3f29c89d727801d0cfc4322b73cb6b427",
+      "server/docs/contracts/README.txt": "2f12d89f2bff454d8c4eb8fa15a3f28226c1c4f90b2f4074bb2353519c581f99",
       "server/docs/contracts/creator-agreement-research-20261030.txt": "855c2168a69964f2b2a387ab62386688bdf8fd56d5309fa171ebcb2fede5a196",
-      "server/docs/contracts/crefans-creator-agreement-draft-20261030.txt": "75ea4d8a8e41cb9f634ffb94f2574c84d56f994b568a04cca9e889144aa1c692",
+      "server/docs/contracts/crefans-creator-agreement-draft-20261030.txt": "682c0aa41e79524f35cad3802fd85e618988cd783eb107037a153b120322b83d",
+      "server/docs/contracts/modusign-20261112/README.txt": "3ab3fa2038d11c2aa667c0309eca22829efbdf663fde7b2c841d881a59c1fd54",
+      "server/docs/contracts/modusign-20261112/output/verify-terms-copy.txt": "22e755fa8eefb42d8bffca246fe6717d67fb3c66dee1425718ad9d864831e9b4",
       "server/docs/current-contracts.md": "74db57456cfa2cd962daaf7a1fcce8e936039e97f6d62ee914496fbcac7c2f3f",
       "server/docs/database-schema.md": "a35b1a6dbf45ed0125df0c81a400d1bb2004707883ad98da4438ba94e2b03132",
       "server/docs/deployment-setup.md": "b7764f6d2e665c8018f83f58b836db49e66b700cddcaee3c3c3d40a46348601c",
@@ -123,7 +125,7 @@
       "server/lambda/video-processing/README.md": "5a1c1d7ad0e83bbce6e47acda674994fb3c73d3bdce341fb737adc4a650944dd",
       "guidance/home": "22b33758424a7d5f25e784ebd408271c28eb242418c1a7c92a115474bc8b9c7b",
       "guidance/codex": "b8dd2001b72eb4670ac0d0ac7ccb6204b9b8eb92b1d8a4e91e18cbc6632452e6",
-      "audit/manifest": "9450f139d6540778cc26ce3b4e1baee4fce176fb479086db28803b9d20b2f5e8"
+      "audit/manifest": "dc1a3371d7d90b5802d5efd04a2384e633849670ac3e1daf54b49c199704d824"
     },
     "sources": {
       "front/.env.example": "7576ef4fe352877c696cb0cc69498de94fdabc778e2fb5bf0a511b7087d6ac0a",
@@ -977,11 +979,18 @@
       "server/docs/bean-charge-expiry-20261031.json": "b55503724d834373fb83478115b5a29ff0ba34a272d17aba4991718d8d150503",
       "server/docs/billing-recovery-20261022.json": "1c85a11744574e357e856525c3a22a44521b543f5872d9f170e2a35d917740c5",
       "server/docs/billing-results-deployment-20261105.json": "1751f2972fcd3e96ed80c8122823fb7395bf38509410d40159e5da503f0601dc",
-      "server/docs/contracts/build-contract-html.py": "d0fe7febebba20de6105f36c1f6119d731c81ff4dfd30aa5c2ecb5b0358b9644",
-      "server/docs/contracts/build-contract-pdf.cjs": "4f113ff7ae6e7f081e2f327d490147e5e2d6fcbf22b8aaf84bbdabaab8890574",
+      "server/docs/contracts/build-contract-html.py": "206c7484f743bf9d2b9c8a929e55f64508379fc1336c88e0acc4feed40bf99a6",
+      "server/docs/contracts/build-contract-pdf.cjs": "50ea69d8a2fcb491d4b8e465a9656f1d45d7fda320d1b9fb5588493d498a57e0",
       "server/docs/contracts/contract-pdf-layout-20261031.json": "0cce058c6e10b627f6a6dd2cf2e34647d06b8931ec1c1792ad52812d23545a3b",
       "server/docs/contracts/creator-agreement-verification-20261030.json": "23cc5cda21913b6ec3262317197825637a70046a486578aec9cc25e8e35d140e",
-      "server/docs/contracts/layout/contract.css": "176e40c6058886142552e6cd111b6219afe904e3d7bfe9cf4cdb4a903b4397da",
+      "server/docs/contracts/design-two-column-20261103/build.cjs": "2d06820298266ae338df00d25031f06c2e75b21414e44b887ae9b4e33ce1002e",
+      "server/docs/contracts/design-two-column-20261103/design.css": "eff142d00c5a9a4d8a774c1bc1842797c9ec53da1af3e441ecaa94e0437855cf",
+      "server/docs/contracts/design-two-column-20261103/verification.json": "05a7acbd53244187756c43059e9f28e4b0ded4042564d2d36e9c6e6ef1784846",
+      "server/docs/contracts/design-two-column-20261103/verify.py": "348ee80e3534bf41666988cace93997b4be4c2a890cb03d97d7cb3225e4baf75",
+      "server/docs/contracts/layout/contract.css": "b062eedafbc728416eebfd4adcf81b061761d12132c81f1c3eed16daf16371c7",
+      "server/docs/contracts/modusign-20261112/build.cjs": "eb06aaaf8d98310418794349f259c575304ad5c8231f8f3c26eb55a85d059ca5",
+      "server/docs/contracts/modusign-20261112/extra.css": "11dd8319258d9f25fb761b22be18cc9a84331bf1dfd0f63aa697cc308a3f1936",
+      "server/docs/contracts/modusign-20261112/output/build-report.json": "350bb89fdbbf8c498495a573f590aa84ab07ff79c0c1eb07542bdc92b054d91d",
       "server/docs/contracts/verify-contract-pdf.py": "ba1df728e8e8f02eec12342ce89aa3a85b7e791e53facc1ecfac55b31fa09747",
       "server/docs/costume-hash-ids-20261114.json": "368bba3e23c44ee877d7891bdf15a775648755640f7420f250053545d294e5a6",
       "server/docs/email-simple-blue-20261103.json": "bc1fd46e4a8aaf40d2e39d22b6431bf1bb0ea40512b4170362e665515778a7a1",
