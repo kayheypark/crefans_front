@@ -5465,3 +5465,11 @@
 - 사용자 요청: "하트모으기 미니게임에서 6줄이 아니라 3줄로하고 하트도 좀 크개… 하트 속도와 별사탕 따위의 속도는 같아야함(5개 모을때마다 점점 빨라저야함) 하단애 설명택스트는 지우고". AiPhotoWaiting: 줄 5→3(HEART_GAME_LANES, top 8/38/68%), 조각 48→64px, 하트·별사탕·달 모두 4.5초(HEART_GAME_BASE_SECONDS, 기존 하트 5초·나머지 3.2초), 하트 5개마다 1.2배(최대 5단계) 빨라지는 규칙은 유지, 게임 안 하단 "하트 +1 · 별사탕·달·빈 공간 −1 · 최대 30개" 문구 삭제. 서버 하트 검증(ai-photo-hearts.ts)은 조각 종류만 보므로 서버 변경 없음. 게임 밖 "게임은 사진 결과에 영향을 주지 않아요" 안내는 유지.
 - 검증: studio-ai-photo 78 pass(새 꺾쇠 테스트), ai-photo-heart-game 1 pass(같은 속도·3줄·문구 없음). 대조: 옛 대화상자로 되돌리면 꺾쇠 테스트 fail, 옛 게임으로 되돌리면 게임 테스트 fail. tsc 통과. 로컬 3128 /design-system 375px에서 꺾쇠 버튼과 생성 대기 게임(조각 64px·3줄·4.5s) 확인.
 - 운영 배포(2026-11-15 12:49 KST, 사용자 지시 "콩 관련도 이때 같이 운영배포"): front prod 4c34c91 → `crefans-front:front-library-heart3-20261115`(직전 front-makeup-keep-original-20261115 대체), 서버 콩 대사 수정과 함께. ship-image.sh exit 0, 복구 사본 crefans-recovery/20261115/front-library-heart3-20261115 검증 OK. 컨테이너 Up·재시작0, /design-system 200, 운영 CSS·JS에 libraryChevron·조각 64px·collect-flow -64px·4.5초 공통 속도 반영, 게임 하단 설명 문구 없음 확인. 운영 화면 육안은 로그인 필요로 미실시.
+
+### 2026-11-15 모바일 프리셋 스와이프 수정·코스어 의상 카드 여백 제거
+- 사용자 요청: "팝업이라 그런지 모바일에서 프리셋 항목들 스와이프가 안되는데 될 때까지 테스트". 재현: Playwright Pixel 7(Chromium) + CDP Input.dispatchTouchEvent 실제 터치 스와이프(스크립트 `.local/swipe.cjs`, dev 3129)로 일반 모드 포즈 1/2에서 왼쪽 220px 밀어도 1/2 유지 확인.
+- 원인: 터치 포인터는 손가락 아래 카드 버튼이 암묵적으로 캡처한다. 가로 드래그 시작 때 AiPresetPager가 setPointerCapture로 캡처를 가져오면 카드에서 lostpointercapture가 발생해 뷰포트로 버블링되고, onLostPointerCapture가 드래그를 취소했다(이벤트 기록: pointerdown→pointermove→lostpointercapture 직후 시작 정보 소실). 마우스는 암묵적 캡처가 없어 PC에선 정상이었다.
+- 수정: onLostPointerCapture는 event.target===currentTarget(뷰포트 자신)일 때만 취소. 팝업(dialog) 자체는 원인이 아니었다.
+- 확인(실터치): 일반 포즈 1/2→2/2→1/2, 코스어 블루 아카이브 검색 1/13→2/13→1/13, 세로 스와이프는 대화상자 스크롤만(524→783, 페이지 유지), 카드 탭 선택 aria-pressed=true. 단위 테스트: 버블된 카드 캡처 손실은 유지·뷰포트 자신의 손실은 취소(옛 코드로 되돌리면 1 fail). iOS 실기기·WebKit 실터치는 미검증(Playwright WebKit은 터치 이동 주입 불가).
+- 사용자 요청: 코스어 의상 카드 이미지와 테두리 사이 여백 제거. .costumeCard padding 6px→0(아래 10px 유지)·overflow hidden·radius 10px(일반 프리셋 카드와 동일), .costumeImage radius 0, 이미지 object-fit contain→cover(칸 비율 차이로 생기던 위아래 띠 제거, 375px에서 머리·발 잘림 없음), 제목 좌우 8px. 측정: 코스어·일반 카드 모두 이미지-카드 간격 1px(테두리 두께)로 동일.
+- 검증: studio-ai-photo 78 pass, tsc 통과, npm test 672 pass/17 fail(기준선 동일). 운영 배포 전.
