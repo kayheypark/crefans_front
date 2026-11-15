@@ -5474,3 +5474,8 @@
 - 사용자 요청: 코스어 의상 카드 이미지와 테두리 사이 여백 제거. .costumeCard padding 6px→0(아래 10px 유지)·overflow hidden·radius 10px(일반 프리셋 카드와 동일), .costumeImage radius 0, 이미지 object-fit contain→cover(칸 비율 차이로 생기던 위아래 띠 제거, 375px에서 머리·발 잘림 없음), 제목 좌우 8px. 측정: 코스어·일반 카드 모두 이미지-카드 간격 1px(테두리 두께)로 동일.
 - 검증: studio-ai-photo 78 pass, tsc 통과, npm test 672 pass/17 fail(기준선 동일). 운영 배포 전.
 - 운영 배포(2026-11-15 13:03 KST, 사용자 지시 "ㅂㅍ"): prod c422fb8 → `crefans-front:front-swipe-fix-20261115`(직전 front-library-heart3-20261115 대체). ship-image.sh exit 0, 복구 사본 crefans-recovery/20261115/front-swipe-fix-20261115 검증 OK, 컨테이너 Up·재시작0. 운영 https://crefans.com/design-system 에서 같은 실터치 스크립트(BASE=https://crefans.com, 목업 카탈로그라 운영 데이터 변경 없음): 일반 포즈 1/2→2/2→1/2, 코스어 블루 아카이브 1/13→2/13→1/13, 세로 스와이프 스크롤만, 카드 탭 선택 OK, 의상·일반 카드 이미지-테두리 간격 모두 1px. iOS 실기기는 사용자 확인 필요.
+
+### 2026-11-15 코스어 의상 카드 선택 테두리 고르게
+- 사용자 제보(아이폰 캡처): 선택된 의상 카드 테두리가 올곧지 않음. 원인: 직전 배포에서 그림을 카드 테두리까지 채우면서, 선택 표시(1px border + box-shadow 1px)가 카드 overflow:hidden·둥근 모서리 잘라내기와 겹쳐 iOS Safari에서 두께가 들쭉날쭉하게 보임.
+- 수정: 선택 고리를 ::after 덮개(inset -1px, 2px, radius 10px, z-index 3)로 그림 위에 그리고 box-shadow 제거. 카드의 overflow:hidden을 없애고 그림 칸(.costumeImage)만 위쪽 radius 9px로 직접 잘라 덮개가 잘리지 않게 함(처음 시도에서 카드가 덮개를 잘라 모서리에 얇은 이중선이 생겨 이 방식으로 바꿈). 카드에 position:relative·isolation:isolate.
+- 확인: Playwright WebKit(iPhone 14)·Chromium(Pixel 7)에서 '율하 코스튬' 선택 카드 캡처 비교(`.local/ring.cjs`), 고친 뒤 네 모서리 모두 2px 한 줄·그림 모서리와 곡선 일치. studio-ai-photo 78 pass. 아이폰 실기기는 사용자 확인 필요. 운영 배포 전.
