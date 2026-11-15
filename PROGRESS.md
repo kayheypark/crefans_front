@@ -1,3 +1,10 @@
+## 2026-11-15 가입·체험·출금 안내 동기화 (night-work 후속, feat/launch-hardening)
+- FAQ '누가 가입할 수 있나요?' → 만 19세 이상 누구나 이메일 인증(서버 약관 2026-11-15.open.1과 일치).
+- 비회원 체험 동의 화면: IP는 서버 보안키 변환값·체험 시작 기록에 접속 IP, 체험 게시물은 AI 사진만. 동의 버전 2026-11-15.guest.2(서버와 같이 배포해야 함).
+- 출금 안내(PartnerPayoutNotice): '서명이 끝나면 바로 출금' → '서명 후 운영자가 확인하면 인증 배지가 붙어 출금'.
+- 검증: tsc 0, npm test 677/17(기준선 동일), check:docs PASS(CREFANS_SERVER_DIR=서버 병합본, 증거 재생성).
+- 가이드: crefans_guide feat/launch-copy(가입 4쪽·출금 2쪽·크리에이터 시작) → dev c05036a → prod 9aea39f(운영 소스 docs/sync-20261115 포함, 메인 체크아웃은 다른 세션 미커밋 PROGRESS 때문에 HEAD 분리). 빌드(Node 22.23.4, 109파일)·check:search·check:advisor PASS.
+
 ## 2026-11-15 AI 체험·코스튬 홍보물 (인스타·X, 미게시)
 - 사용자 지시: 인스타·X 홍보물(AI 체험·코스튬·나만의 의상·의상 체인지). 형태는 인스타 캐러셀 5장(1080×1350)+X 1장(1600×900)+문구 초안. 가입 오픈 공지·홍보 문구는 넣지 않음.
 - 산출물: .local/promo-20261115/out/(insta-1~5.png, x-1.png, captions.md, manifest.json). Seedream 4장(가상 인물 원본 1+참조 편집 3, 오리지널 의상), 레이아웃은 slides.html→render.cjs. 이미지에 '가상 인물 · AI 생성 이미지' 표기. 실제 게시는 하지 않음.
