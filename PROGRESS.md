@@ -5454,3 +5454,7 @@
 - 구조: 짝·홀 index 규칙을 없애고 `aiPhotoMakeups`(prompt·title·gender·image)로 메이크업을 한곳에서 관리. 더 이상 쓰지 않는 makeup-01~12-v1.webp 12개 삭제(git 이력에 남음).
 - 배지: AiPhotoWardrobe의 CostumeGender를 export해 메이크업 카드에도 ♀/♂(title 여성/남성 메이크업) 표시. 원본 유지 카드에는 없음. `.preset>span` 줄임 규칙과 겹치지 않도록 CSS 한 줄 추가.
 - 검증: studio-ai-photo 77 pass(이미지 총수 186, 남성 4·여성 16·전체 20, 배지 성별·title). 대조: 배지 렌더링을 빼면 1 fail. tsc 통과. 로컬 3127 375px 남성(원본 유지+♂4)·여성(원본 유지+♀8 첫 쪽) 이미지 로딩·배지 확인.
+### 2026-11-15 글쓰기/수정 화면 업로드 썸네일 전체보기
+- 사용자 요청: 게시물 쓰기·수정 페이지의 파일 업로드 썸네일을 누르면 전체보기. 대상은 스튜디오 `ContentEditor`(components/crefans/studio/ManagementPages.tsx, 새 글·수정 공용).
+- `MediaUpload`(components/ui)에 선택 prop `onPreview(index)` 추가: 썸네일 탭·Enter/Space로 호출, 삭제 버튼·순서 끌기 직후의 클릭·변환 실패 항목은 열지 않음, 커서 zoom-in. 레이어 규칙상 ui가 crefans를 가져오지 않도록 전체보기는 호출 쪽에서 기존 `MediaOverlay`(게시물·프로필 사진과 같은 전체 화면 뷰어)로 연결. 좌우 넘김·닫기·Esc는 MediaOverlay 동작 그대로. 멤버십 이미지 업로드에는 적용하지 않음(요청 범위 밖).
+- 검증: tests/media-upload.test.cjs 새 테스트 포함 11 pass, 끌기 후 클릭 차단을 빼면 실패(대조 확인). tsc 통과. npm test 670 pass / 17 fail(dev 기준선 17건과 동일, content-post-preview 'operator-hidden' 실패는 origin/dev에서도 재현). check:layers는 기존 AiPhotoDialog 실패 1건만. 로컬 /preview/studio/content/new 375px에서 사진 2장 업로드 → 실제 탭으로 2번째 사진 전체보기, 이전 이동·닫기·Enter 열기·Esc 닫기, 실제 끌기로 순서만 바뀌고 뷰어는 안 열림 확인. 운영 배포 전.
