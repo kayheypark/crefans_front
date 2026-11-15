@@ -5,7 +5,7 @@ import {creatorPayoutPolicy,payoutScheduleNote,payoutTaxNote} from './creator-pa
 const {feeRatePercent,settlementHoldDays,minimumWithdrawalKrw}=creatorPayoutPolicy;
 
 export const betaFaqs:Faq[]=[
- {question:'누가 가입할 수 있나요?',answer:'현재 기간(2026년 11월까지)에는 사전 협의된 초대 이메일의 만 19세 이상 회원만 가입할 수 있습니다. 이메일 가입은 본인·성인인증 완료를 의미하지 않으며 현재는 일반 콘텐츠만 제공합니다.'},
+ {question:'누가 가입할 수 있나요?',answer:'만 19세 이상이면 누구나 이메일 인증으로 가입할 수 있습니다. 이메일 가입은 본인·성인인증 완료를 의미하지 않으며 현재는 일반 콘텐츠만 제공합니다.'},
  {question:'지금 결제하면 실제로 청구되나요?',answer:'결제는 개시 전이라 아직 실제 청구를 하지 않습니다. 유료 결제를 시작할 때 공지하고 새 결제 동의를 받습니다. 크리에이터 출금은 회사가 공지한 시작일부터 확인된 본인 명의 계좌로 운영팀이 직접 이체하며, 시작 전에는 실제로 송금하지 않습니다.'},
  {question:'멤버십 구독은 어떻게 하나요?',answer:'크리에이터 프로필에서 멤버십을 선택하고 혜택·가격과 크리에이터 정보 제공 동의를 확인한 뒤 결제하세요. 카드 등록만으로 구독이 시작되지는 않습니다.'},
  {question:'구독을 해지하고 싶어요.',answer:'내 구독에서 다음 결제를 해지예약하세요. 이미 결제한 이용 기간은 유지됩니다. 이용 기간이 끝나면 멤버십 전용 콘텐츠를 볼 수 없습니다.'},
