@@ -2,6 +2,7 @@
 - 사용자 지시: 가입 전체 개방(서버 SIGNUP_OPEN), 크리에이터 전환 즉시, 출금은 모두싸인 전자계약 후. 계약 시작은 "요청 버튼+텔레그램".
 - PartnerPayoutNotice(콩·멤버십 출금 화면 공통): 모두싸인 전자계약 안내 + '파트너 계약 요청하기'(POST /studio/partner-request, features/service/usePartnerRequest.ts) → 서버 안내 문구로 바뀜, '계약 문의하기' 링크 유지. 목업은 서버 호출 없이 안내.
 - 검증: tsc 통과, bean-studio-pages 7/7(새 요청 테스트, 옛 안내로 되돌리면 1 fail), npm test 677 pass/17 fail(기준선 17), check:layers 기존 1건.
+- 운영 배포(2026-11-15 15:07 KST): prod 3b1ea98 → crefans-front:front-partner-request-20261115(ship exit 0, 복구 검증 OK). 운영 /service/signup 200, 초대 안내 문구 없음(iPhone 14 WebKit 읽기만). 계약 요청 버튼의 운영 클릭은 미실행.
 
 ## 2026-11-15 원작 성별 배지·일반 모드 상의/하의 운영 배포 완료
 - prod 6945a87 → 이미지 `crefans-front:front-outfit-parts-20261115`(sha256:cb8139c5…), 직전 `front-terms-sync-20261115`. ship-image.sh exit 0(16:42:52Z~16:44:43Z), 레이어 일치, 복구 보관 `/Users/ethan/crefans-recovery/20261115/front-outfit-parts-20261115` 검증 OK.
