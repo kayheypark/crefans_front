@@ -1,8 +1,16 @@
+## 2026-11-15 홍보물 정정·인스타 재게시 (night-work 후속 결정 '이미지 수정+캡션 단서')
+- 불일치: insta-4 '사이버 아이돌'·'벚꽃 한복 드레스', insta-7 '벚꽃 한복 드레스·화사한 메이크업·봄 정원 배경'은 실제 프리셋에 없음, insta-6 자르기는 비회원 불가.
+- 수정: 실제 프리셋 문구(아이돌 무대복 e614f6·사이버 슈트 b4bf5d·인형 메이크업·벚꽃길 background-05)와 참고 이미지로 Seedream dola-seedream-5-5 3장 재생성(cos-idol·cos-cyber·mix-idol, 가상 인물 base 참조, 요청 3건, 추정 약 $0.12). insta-4 이름 '판타지 마법사·아이돌 무대복·사이버 슈트', insta-7 칩 '아이돌 무대복·인형 메이크업·벚꽃길', insta-6 라벨에 '자르기는 회원 기능'. 해시 .local/promo-20261115/out/sha256-launch-fix.txt.
+- 인스타(crefans.official, 23:0x KST): 기존 기능 소개 캐러셀(p/Dfwu9vCH6Sa) 삭제(사용자 승인 '재게시 필요, 삭제 포함') → 수정본 8장 재게시 p/Dfw7JB2n1Z5(4:5, AI 라벨 켬, 캡션에 '자르기는 회원 기능'·'브라우저당 10회, 하루 이용량이 많으면 일찍 마감' 단서, 프로필 링크 대신 주소 직접 표기) + 링크 댓글. 카테고리 캐러셀(p/DfwvGRHn1bV)은 캡션만 편집해 같은 단서 추가. 그리드 2건만 확인(캡처 .local/promo-20261115/ig-reposted-20261115.jpg).
+- X는 수정 불가(무료 계정)라 그대로 둠(이미지 속 가짜 프리셋 이름은 X 글에는 없음: x-1·hero만 사용).
+- 남은 것: insta-6 화면 속 하트 '0/100' 안내(비회원 결과 화면 버그) 미수정, 인스타 프로필 링크 미설정.
+
 ## 2026-11-15 가입·체험·출금 안내 동기화 (night-work 후속, feat/launch-hardening)
 - FAQ '누가 가입할 수 있나요?' → 만 19세 이상 누구나 이메일 인증(서버 약관 2026-11-15.open.1과 일치).
 - 비회원 체험 동의 화면: IP는 서버 보안키 변환값·체험 시작 기록에 접속 IP, 체험 게시물은 AI 사진만. 동의 버전 2026-11-15.guest.2(서버와 같이 배포해야 함).
 - 출금 안내(PartnerPayoutNotice): '서명이 끝나면 바로 출금' → '서명 후 운영자가 확인하면 인증 배지가 붙어 출금'.
 - 검증: tsc 0, npm test 677/17(기준선 동일), check:docs PASS(CREFANS_SERVER_DIR=서버 병합본, 증거 재생성).
+- 운영 배포(2026-11-15 22:4x KST): prod 8df42b4 → crefans-front:front-launch-20261115(ship-image exit 0, 레이어 일치, 복구 crefans-recovery/20261115/front-launch-20261115 검증 OK). 운영 JS에서 새 동의 문구·guest.2·FAQ·출금 안내 문자열 확인(읽기만). API launch-hardening과 함께 배포.
 - 가이드: crefans_guide feat/launch-copy(가입 4쪽·출금 2쪽·크리에이터 시작) → dev c05036a → prod 9aea39f(운영 소스 docs/sync-20261115 포함, 메인 체크아웃은 다른 세션 미커밋 PROGRESS 때문에 HEAD 분리). 빌드(Node 22.23.4, 109파일)·check:search·check:advisor PASS.
 
 ## 2026-11-15 AI 체험·코스튬 홍보물 (인스타·X, 미게시)
