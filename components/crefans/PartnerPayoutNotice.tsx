@@ -13,3 +13,13 @@ export function PartnerPayoutNotice({supportHref,mock=false}:{supportHref:string
     {partner.error&&<p role="alert">{partner.error}</p>}
     <ActionLink variant="secondary" href={supportHref}>계약 문의하기</ActionLink></section>;
 }
+
+// 2026-11-16 user decision: only partner creators can open a new membership (server MEMBERSHIP_PARTNER_REQUIRED). Existing
+// memberships stay on sale and can be edited or paused; reopening a paused one also needs the contract.
+export function MembershipPartnerNotice({mock=false}:{mock?:boolean}){
+  const partner=usePartnerRequest(mock);
+  return <section aria-labelledby="membership-partner-title"><h2 id="membership-partner-title">파트너 계약 후 멤버십을 열 수 있어요</h2>
+    <Notice>새 멤버십은 크레팬스와 파트너 계약을 맺은 크리에이터(인증 배지)만 만들 수 있어요. 이미 연 멤버십은 계속 판매하고 수정·중지할 수 있지만, 중지한 멤버십을 다시 여는 것도 계약 후에 할 수 있어요. 후원은 계약 전에도 받을 수 있어요.</Notice>
+    {partner.message?<p role="status">{partner.message}</p>:<Action variant="brand" disabled={partner.pending} onClick={()=>void partner.request()}>{partner.pending?'요청 중…':'파트너 계약 요청하기'}</Action>}
+    {partner.error&&<p role="alert">{partner.error}</p>}</section>;
+}

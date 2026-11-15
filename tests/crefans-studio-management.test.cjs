@@ -357,3 +357,17 @@ test('membership pricing displays the applied creator rate and concise per-payme
 });
 
  test('preview deletion also rejects an incorrect confirmation without removing the post',async()=>{const probe=fixtureHook();try{let result;await act(async()=>{result=await probe.model.actions.deleteContent(initialContent.id,'wrong');});assert.equal(result.success,false);assert.equal(probe.model.contents.length,1);await act(async()=>{result=await probe.model.actions.deleteContent(initialContent.id,initialContent.title);});assert.equal(result.success,true);assert.equal(probe.model.contents.length,0);}finally{probe.close();}});
+
+// 2026-11-16 user decision: only partner creators (verified badge) can open a new membership.
+test('without the partner contract the membership page disables 멤버십 만들기 and offers the contract request',()=>{
+ const probe=fixtureHook();
+ const locked=mount(MembershipManagementPage,{...probe.model,membershipPartner:false});
+ try{
+  assert.equal(button(locked,'멤버십 만들기').props.disabled,true);
+  assert.match(json(locked),/파트너 계약 후 멤버십을 열 수 있어요/);
+  assert.ok(locked.root.findAll(n=>n.type==='button'&&n.props.children==='파트너 계약 요청하기').length===1,'request button');
+ }finally{act(()=>locked.unmount());}
+ const open=mount(MembershipManagementPage,{...probe.model,membershipPartner:true});
+ try{assert.notEqual(button(open,'멤버십 만들기').props.disabled,true);assert.doesNotMatch(json(open),/파트너 계약 후 멤버십을 열 수 있어요/);}
+ finally{act(()=>open.unmount());probe.close();}
+});
