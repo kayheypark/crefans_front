@@ -22,5 +22,5 @@ const genderMarks={female:[['female','♀']],male:[['male','♂']],both:[['femal
 const genderTitles={female:'원작 여성',male:'원작 남성',both:'원작 성별 무관·미표기'} as const;
 function CostumeGender({gender}:{gender:keyof typeof genderMarks|undefined}){
  if(!gender)return null;
- return <span className={s.costumeGender} title={genderTitles[gender]} data-gender={gender}>{genderMarks[gender].map(([tone,mark])=><span key={tone} className={tone==='female'?s.costumeGenderFemale:s.costumeGenderMale}>{mark}</span>)}</span>;
+ return <span className={s.costumeGender} title={genderTitles[gender]} data-gender={gender}>{genderMarks[gender].map(([tone,mark])=><span key={tone} className={tone==='female'?s.costumeGenderFemale:s.costumeGenderMale}><svg viewBox="0 0 24 24" aria-hidden="true">{tone==='female'?<path d="M12 13a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 0v7m-3-3h6"/>:<path d="M10 19a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm3.5-8.5L19 5m-5 0h5v5"/>}</svg><span className={s.costumeGenderText}>{mark}</span></span>)}</span>;
 }
