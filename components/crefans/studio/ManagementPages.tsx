@@ -19,6 +19,9 @@ import {TextLink} from '@/components/ui/TextLink';
 import {SelectField} from '@/components/ui/SelectField';
 import {BenefitsField} from '@/components/ui/BenefitsField';
 import {MediaUpload} from '@/components/ui/MediaUpload';
+import {usePresence} from '@/components/ui/usePresence';
+import {designTokens} from '@/lib/design/tokens';
+import {MediaOverlay} from '../MediaOverlay';
 import {moveItem} from '@/components/ui/media-order';
 import {postCommentsAllowed} from '@/lib/crefans/comments';
 import {OptionalImage} from '@/components/ui/OptionalImage';
@@ -138,6 +141,9 @@ export function ContentEditorPage({model,basePath,id,previewModel,previewCreator
 function ContentEditor({model,basePath,content,previewModel,previewCreatorId,commentsGloballyEnabled=true}:EditorProps&{content?:StudioContent}){
   const [previewOpen,setPreviewOpen]=useState(false),[savedId,setSavedId]=useState(content?.id),[title,setTitle]=useState(content?.title||''),[body,setBody]=useState(content?.body||''),[media,setMedia]=useState<StudioMedia[]>(content?.media||[]),[tipsEnabled,setTipsEnabled]=useState(content?.tipsEnabled??true),[commentsEnabled,setCommentsEnabled]=useState(content?.commentsEnabled??true),[access,setAccess]=useState(content?.accessLevel?`level:${content.accessLevel}`:content?.accessPlanId||''),[scheduledAt,setScheduledAt]=useState(localDateInput(content?.scheduledAt||null)),[scheduleEnabled,setScheduleEnabled]=useState(content?.status==='scheduled'),[error,setError]=useState('');
   const [mediaError,setMediaError]=useState(''),[uploading,setUploading]=useState(false),[aiOpen,setAiOpen]=useState(false);
+  // Tapping an uploaded thumbnail opens it full screen, like on the post page (2026-11-15).
+  const [viewIndex,setViewIndex]=useState<number|null>(null),viewPresent=usePresence(viewIndex!==null,designTokens.motion.fast),[viewLast,setViewLast]=useState(0);
+  const viewable=media.filter(item=>!item.failed);
   const aiDescriptionId=useId();
   const accessLevel=access.startsWith('level:')?Number(access.slice(6)):null,accessPlanId=accessLevel===null?access:'';
   const levels=Array.from(new Set([...model.memberships.map(plan=>plan.rank??1),...(accessLevel?[accessLevel]:[])])).sort((a,b)=>a-b);
@@ -195,7 +201,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     <form className={s.editor} onSubmit={e=>{e.preventDefault();save(status==='published'?'published':'draft');}}>
       <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
       <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
-      <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={upload} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
+      <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={upload} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
       {model.actions.aiEditPhoto&&(()=>{const photos=media.filter(item=>item.type==='image'&&!item.processing&&!item.failed);return <div className={ai.aiAction}><button type="button" className={ai.aiWide} aria-label="AI 사진 편집" aria-describedby={aiDescriptionId} onClick={()=>{setAiOpen(true);void model.actions.refreshAiPhotoQuota?.();}} disabled={task.busy||uploading||media.length>=mediaUploadMaxItems}><Image src="/brand/featured-creators-v1.png" alt="" width={24} height={24} sizes="24px"/><span className={ai.aiActionCopy}><span>AI 사진 편집</span><small id={aiDescriptionId}>메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경</small></span><Icon name="chevron" width={18} height={18}/></button>
         <AiPhotoDialog library={model.photoLibrary} onCrop={model.actions.aiCropPhoto} onHeartGame={model.actions.aiHeartGame} shop={model.shop} shopBasePath={basePath} open={aiOpen} onClose={()=>setAiOpen(false)} images={photos} quota={model.aiPhotoQuota||{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT}} room={mediaUploadMaxItems-media.length} onEdit={model.actions.aiEditPhoto!} onUseTicket={model.actions.useAiPhotoTicket} onAdd={made=>{draftMedia.current=[...draftMedia.current,...made.map(item=>item.url)];setMedia(previous=>[...previous,...made]);setMediaError('');}}/></div>;})()}
       <div className={s.editorOptions}><SelectField marquee label="공개 범위" value={access} onChange={setAccess} options={[{value:'',label:'전체 공개'},...levels.map(rank=>({value:`level:${rank}`,label:`레벨 ${rank} 이상`})),...model.memberships.map(plan=>({value:plan.id,label:`${plan.name} 전용${!plan.active?' · 신규 가입 중단':''}`}))]} searchable/>{status!=='published'&&<section className={s.scheduleBox} aria-label="예약 게시 설정"><Toggle label="예약 사용" checked={scheduleEnabled} disabled={task.busy} onChange={enabled=>{setScheduleEnabled(enabled);if(!enabled)setScheduledAt('');setError('');}}/><Field label="예약 게시 시각" type="datetime-local" value={scheduledAt} min={localDateInput(model.now)} disabled={!scheduleEnabled||task.busy} clearable onClear={()=>{setScheduledAt('');setError('');}} onChange={e=>{setScheduledAt(e.target.value);setError('');}} hint="현재 기기의 시간대를 기준으로 선택해주세요."/></section>}</div>
@@ -208,6 +214,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     </form>{model.notice&&<Notice>{model.notice}</Notice>}
     </div>
     <aside className={s.previewPane} aria-label="팬 화면 미리보기"><h2 className={s.previewTitle}>팬 화면 미리보기</h2><ContentPostPreview content={draft} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/></aside>
+     {viewPresent&&viewable.length>0&&<MediaOverlay media={viewable.map(item=>({type:item.type,url:item.url,processing:item.processing}))} title={title.trim()||'첨부 미디어'} alt={title.trim()||'첨부 미디어'} index={Math.min(viewIndex??viewLast,viewable.length-1)} onIndexChange={index=>{setViewIndex(index);setViewLast(index);}} open={viewIndex!==null} onClose={()=>setViewIndex(null)}/>}
      <Dialog open={previewOpen} onClose={()=>setPreviewOpen(false)} title="팬 화면 미리보기">{previewOpen&&<ContentPostPreview content={draft} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/>}</Dialog>
     </div>
   </section>;

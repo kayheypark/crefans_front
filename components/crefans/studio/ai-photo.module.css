@@ -232,3 +232,6 @@
 .editSettings{flex-shrink:0;border:0;background:transparent;padding:8px 0 8px 8px;min-height:44px;font:inherit;font-size:12px;color:var(--cf-color-textMuted);cursor:pointer}
 
 .libraryEntry{display:flex;flex-direction:column;gap:10px}.libraryEntry>button{display:flex;align-items:center;gap:8px;min-height:48px;padding:12px;border:1px solid var(--cf-color-border);border-radius:12px;background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;cursor:pointer}.libraryEntry>button>span{margin-left:auto;font-size:12px;color:var(--cf-color-textMuted)}.librarySelected{display:flex;flex-wrap:wrap;gap:6px}.librarySelected button{display:flex;align-items:center;gap:6px;padding:4px 8px 4px 4px;border:1px solid var(--cf-color-accent);border-radius:8px;background:#eff6ff;color:var(--cf-color-accent);font-size:12px;max-width:100%;cursor:pointer}.librarySelected img{width:28px;height:32px;object-fit:cover;border-radius:5px}.librarySelected span:first-of-type{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* 메이크업 카드의 ♀/♂ 배지: .preset>span 줄임 규칙보다 앞서도록 한 단계 더 구체적으로 둔다(2026-11-15). */
+.preset>span.costumeGender.costumeGender{display:flex;overflow:visible;-webkit-line-clamp:unset}

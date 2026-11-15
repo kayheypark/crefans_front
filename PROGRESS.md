@@ -5433,3 +5433,28 @@
 - 실제 문제: 글꼴 기호 ♀♂는 글리프 모양 때문에 동그라미 안에서 아래로 치우침(측정상 ♂ 약 0.6px, 기기 글꼴마다 다름). 기호를 SVG 선(viewBox 24, 도형 경계 중심 12,12)으로 그려 기기와 무관하게 가운데에 오게 함. 기호 문자는 숨김 텍스트로 남겨 테스트·보조기술용 텍스트 유지.
 - 확인: 로컬 375px에서 두 원 모두 도형 중심과 원 중심 차이 0px(getBoundingClientRect), 가로 배치 육안 확인, studio-ai-photo 테스트 통과, tsc 통과. 운영 배포 전.
 - 운영 배포(2026-11-15 10:31 KST, 사용자 지시 "배포"): prod 51c6acd → 이미지 `crefans-front:front-gender-glyph-20261115`(직전 front-outfit-parts-20261115 대체), ship-image.sh exit 0, 복구 사본 /Users/ethan/crefans-recovery/20261115/front-gender-glyph-20261115 검증 OK. 컨테이너 crefans-beta-frontend-1 Up·재시작 0, https://crefans.com/design-system 200, 운영 CSS에 가로 배치(column 없음)·SVG 기호 규칙 반영 확인. 운영 화면 육안 확인은 로그인 필요로 미실시.
+
+### 2026-11-15 X 좋아요 사진 → 메이크업 프리셋 10종 (/add-preset, 이번만 메이크업 범위)
+- 사용자 요청: "X에서 다운받은 사진중에 메이크업 카테고리도 이번만 add preset". 대상: ~/x-likes/likes 235장(기존 x-presets 인벤토리·SHA 재사용). 얼굴이 잘 보이는 후보 20장을 확대 검토해 원본 사진마다 메이크업 유형을 골랐고, 원본은 모두 여성이라 새 10종은 여성 전용으로 등록.
+- 신규(여성, 카드 makeup-13~22): 숙취 블러셔·인형 메이크업·지뢰계 메이크업·코스프레 베이스·별 페이스 스티커·고양이 수염 페인팅·레드 아이섀도·애교살 글리터·그라데이션 립·눈 밑 점. 기존 12종과 겹치지 않음(립 색·블러셔 위치·눈매 기법으로 구분). 참고 원본 번호·SHA는 `.local/makeup-x/items.json`.
+- 카드 그림: Seedream(dola-seedream-5-5-261028) 1024² → 384² WebP. 참조는 기존 여성 카드 makeup-01(같은 가상 모델)만 보내고 X 원본 사진은 공급사로 보내지 않음(실존 인물 얼굴 복제 방지). 13회 호출 모두 200(첫 10장 중 인형·애교살·눈 밑 점 3장이 약해 문구 강화 후 재생성, 첫 시도는 `.local/makeup-x/rejected/`). 추정 $0.364(실청구 미확인). 해시 `.local/makeup-x/SHA256SUMS`.
+- 코드: `aiPhotoPresets.makeup`/제목 10개 추가, 짝·홀 규칙을 `aiPhotoMakeupGender`로 명시. `AiPhotoDialog.changeGender`가 첫 페이지 9개 안에서만 메이크업을 찾던 문제(여성 목록이 16개가 되면 2쪽 선택이 풀림)를 성별 판정으로 교체. 서버는 메이크업 문구 허용 목록이 없어(origin/prod src grep) 서버 변경 없음.
+- 검증: studio-ai-photo 76 pass(이미지 총수 178→188, 여성16·남성6·원본22, 2쪽 선택 유지, 남성 전환 시 해제). 대조: 옛 첫 페이지 검사로 되돌리면 1 fail, 짝·홀 규칙만 쓰면 1 fail. tsc 통과. npm test 669 pass/17 fail(dev 기준선 17건 동일). 로컬 3127 /design-system 375px: 여성 1/2쪽 9개+2/2쪽 7개(새 10장 이미지 로딩 OK), 남성 6개 1쪽. 실제 생성 결과·운영 화면 미확인, 운영 배포 전.
+
+### 2026-11-15 메이크업 모델 교체·메이크업 다중 선택·원본 유지 카드
+- 모델: 사용자가 "여성모델이 너무 안예쁜데 추출한 얼굴로" 요청. X 사진 속 실존 인물 얼굴 복제는 초상권 문제로 하지 않고, 분위기를 글로 설명한 가상 얼굴 4종 → A 선택 → 인형 3종·하얀 코스어 화장 3종 중 사용자가 하얀 화장 3번 선택(`.local/makeup-x/model/white-3.png`). 하얀 화장 첫 시도 3장은 피부가 덜 하얘서 재생성(`model/rejected/`).
+- 여성 메이크업 카드 16장(기존 여성6+신규10)을 white-3 참조로 재생성해 `makeup-NN-v2.webp`로 추가(16/16 성공). 기존 여성 v1 6장은 남겨 두고(운영 캐시 보호) 미배포였던 신규 13~22 v1은 삭제. 남성 6장은 v1 유지. 모델 후보 13장+카드 16장 생성, 이 단계 추정 약 $0.79(실청구 미확인), 기록 `.local/makeup-x/ledger.jsonl`.
+- 다중 선택: 사용자 지시로 메이크업 탭은 여러 카드를 함께 고르고 재클릭으로 하나씩 해제(`aiPhotoMultiSelectKinds`). 다른 탭은 탭마다 하나. 같은 kind라 요청은 kind makeup 하나로 묶인다.
+- 원본 유지: 의상을 뺀 모든 탭에 첫 카드로 추가(카테고리 아이콘 그림). 그 탭에 선택이 없으면 눌린 상태, 누르면 그 탭 선택과 보관함 참조만 비움, 요청 문구 없음. 검색어가 '원본'과 맞지 않으면 숨김. total은 실제 프리셋 수만. 표정 탭 무표정 자동 선택 제거(사용자: 원본 유지가 기본). 신체 보정은 슬라이더 중앙이 이미 '원본 유지'라 그대로.
+- 검증: studio-ai-photo 77 pass(새 원본 유지 테스트 1개, 기존 9개 테스트를 새 동작으로 갱신: 무표정 기본→원본 유지, 메이크업 교체→다중, 첫 페이지 목록에 원본 유지). 대조: 다중 선택 제거 1 fail, 무표정 자동 선택 복원 3 fail, 표정 원본 유지 제거 4 fail. tsc 통과, check:layers는 기존 AiPhotoDialog fetch 1건만. 로컬 3127 375px: 6개 탭 첫 카드 원본 유지 눌림, 코랄 립+브라운 아이 동시 선택, v2 이미지 로딩 확인. 실제 생성·운영 미확인, 운영 배포 전.
+
+### 2026-11-15 남성 메이크업 기본 4종·성별 배지
+- 사용자 지시: "남자는 메이크업 기존것 지우고, 하얀얼굴 등 기본적인것만 넣어줘. 남녀표시 있어야하고 남자는 빈약하니까 추후에 넣을게".
+- 기존 남성 6종(생기 볼·로즈 립·얇은 아이라인·피치 블러셔·매트 립·피부 톤 정돈) 삭제. 남성 기본 4종 추가: 하얀 피부 베이스·피부 톤 정돈·눈썹 정리·입술 정돈. 카드는 새 가상 남성 모델(text-only, `.local/makeup-x/male/model-male.png`)을 참조해 Seedream 생성. 하얀 피부 첫 시도가 얼굴만 페인트처럼 하얘서 재생성(`male/rejected/`). 6회 호출, 추정 $0.152.
+- 구조: 짝·홀 index 규칙을 없애고 `aiPhotoMakeups`(prompt·title·gender·image)로 메이크업을 한곳에서 관리. 더 이상 쓰지 않는 makeup-01~12-v1.webp 12개 삭제(git 이력에 남음).
+- 배지: AiPhotoWardrobe의 CostumeGender를 export해 메이크업 카드에도 ♀/♂(title 여성/남성 메이크업) 표시. 원본 유지 카드에는 없음. `.preset>span` 줄임 규칙과 겹치지 않도록 CSS 한 줄 추가.
+- 검증: studio-ai-photo 77 pass(이미지 총수 186, 남성 4·여성 16·전체 20, 배지 성별·title). 대조: 배지 렌더링을 빼면 1 fail. tsc 통과. 로컬 3127 375px 남성(원본 유지+♂4)·여성(원본 유지+♀8 첫 쪽) 이미지 로딩·배지 확인.
+### 2026-11-15 글쓰기/수정 화면 업로드 썸네일 전체보기
+- 사용자 요청: 게시물 쓰기·수정 페이지의 파일 업로드 썸네일을 누르면 전체보기. 대상은 스튜디오 `ContentEditor`(components/crefans/studio/ManagementPages.tsx, 새 글·수정 공용).
+- `MediaUpload`(components/ui)에 선택 prop `onPreview(index)` 추가: 썸네일 탭·Enter/Space로 호출, 삭제 버튼·순서 끌기 직후의 클릭·변환 실패 항목은 열지 않음, 커서 zoom-in. 레이어 규칙상 ui가 crefans를 가져오지 않도록 전체보기는 호출 쪽에서 기존 `MediaOverlay`(게시물·프로필 사진과 같은 전체 화면 뷰어)로 연결. 좌우 넘김·닫기·Esc는 MediaOverlay 동작 그대로. 멤버십 이미지 업로드에는 적용하지 않음(요청 범위 밖).
+- 검증: tests/media-upload.test.cjs 새 테스트 포함 11 pass, 끌기 후 클릭 차단을 빼면 실패(대조 확인). tsc 통과. npm test 670 pass / 17 fail(dev 기준선 17건과 동일, content-post-preview 'operator-hidden' 실패는 origin/dev에서도 재현). check:layers는 기존 AiPhotoDialog 실패 1건만. 로컬 /preview/studio/content/new 375px에서 사진 2장 업로드 → 실제 탭으로 2번째 사진 전체보기, 이전 이동·닫기·Enter 열기·Esc 닫기, 실제 끌기로 순서만 바뀌고 뷰어는 안 열림 확인. 운영 배포 전.

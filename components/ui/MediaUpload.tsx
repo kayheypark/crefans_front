@@ -8,16 +8,16 @@ import {MediaTypeIcon} from './MediaTypeIcon';
 import s from './media-upload.module.css';
 
 export type MediaUploadItem={id:string;type:'image'|'video';url:string;processing?:boolean;failed?:boolean;preview?:string;aiGenerated?:boolean};
-type Props={label:string;items:MediaUploadItem[];max:number;onFilesSelect:(files:File[])=>void|Promise<void>;onRemove:(id:string)=>void;onReorder?:(from:number,to:number)=>void;accept:string;disabled?:boolean;uploading?:boolean;error?:string;hint?:string;addLabel?:string};
+type Props={label:string;items:MediaUploadItem[];max:number;onFilesSelect:(files:File[])=>void|Promise<void>;onRemove:(id:string)=>void;onReorder?:(from:number,to:number)=>void;accept:string;disabled?:boolean;uploading?:boolean;error?:string;hint?:string;addLabel?:string;/** Opens the item full screen (2026-11-15). Failed conversions are not previewable. */onPreview?:(index:number)=>void};
 type Drag={from:number;to:number;dx:number;dy:number;boxes:Box[]};
 const DRAG_THRESHOLD=6;
 
-export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,accept,disabled=false,uploading=false,error,hint,addLabel='사진·동영상 추가'}:Props){
+export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,accept,disabled=false,uploading=false,error,hint,addLabel='사진·동영상 추가',onPreview}:Props){
   const id=useId(),input=useRef<HTMLInputElement>(null),list=useRef<HTMLUListElement>(null),[dragging,setDragging]=useState(false);
   const full=items.length>=max,blocked=disabled||uploading||full,canReorder=!!onReorder&&!disabled&&!uploading&&items.length>1;
   const [drag,setDrag]=useState<Drag|null>(null),[announce,setAnnounce]=useState('');
   const pointer=useRef<{pointerId:number;from:number;startX:number;startY:number;active:boolean;boxes:Box[]}|null>(null);
-  const settle=useRef<{id:string;left:number;top:number}|null>(null);
+  const settle=useRef<{id:string;left:number;top:number}|null>(null),dragged=useRef(false);
   const tiles=()=>Array.from(list.current?.children||[]) as HTMLElement[];
   const measure=():Box[]=>tiles().map(tile=>{const rect=tile.getBoundingClientRect();return {left:rect.left,top:rect.top,width:rect.width,height:rect.height};});
   function finishDrag(commit:boolean){
@@ -40,12 +40,21 @@ export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,ac
     const state=pointer.current;
     if(!state||state.pointerId!==event.pointerId)return;
     const dx=event.clientX-state.startX,dy=event.clientY-state.startY;
-    if(!state.active){if(Math.hypot(dx,dy)<DRAG_THRESHOLD)return;state.active=true;state.boxes=measure();}
+    if(!state.active){if(Math.hypot(dx,dy)<DRAG_THRESHOLD)return;state.active=true;dragged.current=true;state.boxes=measure();}
     event.preventDefault();
     const to=indexAt(state.boxes,event.clientX,event.clientY,drag?.to??state.from);
     setDrag({from:state.from,to,dx,dy,boxes:state.boxes});
   }
+  const previewable=(item:MediaUploadItem)=>!!onPreview&&!item.failed;
+  // A drag that just ended also fires a click; only a plain tap opens the preview.
+  function tilePointerDown(event:PointerEvent<HTMLLIElement>,index:number){dragged.current=false;pointerDown(event,index);}
+  function tileClick(event:{target:EventTarget},index:number){
+    if(dragged.current){dragged.current=false;return;}
+    if((event.target as HTMLElement).closest('button')||!previewable(items[index]))return;
+    onPreview?.(index);
+  }
   function keyReorder(event:KeyboardEvent<HTMLLIElement>,index:number){
+    if((event.key==='Enter'||event.key===' ')&&event.target===event.currentTarget&&previewable(items[index])){event.preventDefault();onPreview?.(index);return;}
     if(!canReorder||!onReorder)return;
     const to=event.key==='ArrowLeft'||event.key==='ArrowUp'?index-1:event.key==='ArrowRight'||event.key==='ArrowDown'?index+1:null;
     if(to===null||to<0||to>=items.length)return;
@@ -82,7 +91,7 @@ export function MediaUpload({label,items,max,onFilesSelect,onRemove,onReorder,ac
       <span>{uploading?'미디어 확인 중…':full?`최대 ${max}개까지 추가할 수 있어요`:addLabel}</span>
     </button>
     {hint&&<small id={`${id}-hint`} className={s.hint}>{hint}</small>}
-    {items.length>0&&<ul ref={list} className={s.grid} aria-label={`${label} 목록`} data-reorderable={canReorder||undefined}>{items.map((item,index)=><li key={item.id} className={s.tile} data-media-id={item.id} data-dragging={drag?.from===index||undefined} style={tileStyle(index)} tabIndex={canReorder?0:undefined} aria-label={canReorder?`${index+1}번째 ${item.type==='video'?'동영상':'이미지'}, 끌거나 화살표 키로 순서 변경`:undefined} onPointerDown={event=>pointerDown(event,index)} onPointerMove={pointerMove} onPointerUp={()=>finishDrag(true)} onPointerCancel={()=>finishDrag(false)} onKeyDown={event=>keyReorder(event,index)}>
+    {items.length>0&&<ul ref={list} className={s.grid} aria-label={`${label} 목록`} data-reorderable={canReorder||undefined}>{items.map((item,index)=><li key={item.id} className={s.tile} data-media-id={item.id} data-dragging={drag?.from===index||undefined} style={tileStyle(index)} data-previewable={previewable(item)||undefined} tabIndex={canReorder||previewable(item)?0:undefined} aria-label={canReorder||previewable(item)?`${index+1}번째 ${item.type==='video'?'동영상':'이미지'}${previewable(item)?', 눌러서 크게 보기':''}${canReorder?', 끌거나 화살표 키로 순서 변경':''}`:undefined} onClick={event=>tileClick(event,index)} onPointerDown={event=>tilePointerDown(event,index)} onPointerMove={pointerMove} onPointerUp={()=>finishDrag(true)} onPointerCancel={()=>finishDrag(false)} onKeyDown={event=>keyReorder(event,index)}>
       <div className={s.preview}>
       {item.failed?<span className={s.pending} data-failed="true">변환 실패<br/>삭제 후 다시 올려 주세요</span>:item.type==='image'&&item.processing?<span className={s.pending}>워터마크 적용 중</span>:item.type==='video'&&item.processing?<VideoProcessing variant="upload">{item.preview&&<MediaVideo className={s.media} src={item.preview} firstFrame muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>}</VideoProcessing>:item.type==='video'?<MediaVideo className={s.media} src={item.url} firstFrame muted playsInline preload="metadata" aria-label={`동영상 ${index+1}`}/>:<img className={s.media} src={item.url} alt={`이미지 ${index+1}`} draggable={false}/>}
       {item.aiGenerated&&<span className={s.aiBadge}>AI 생성</span>}
