@@ -146,7 +146,8 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   const [previewOpen,setPreviewOpen]=useState(false),[savedId,setSavedId]=useState(content?.id),[title,setTitle]=useState(content?.title||''),[body,setBody]=useState(content?.body||''),[media,setMedia]=useState<StudioMedia[]>(content?.media||[]),[tipsEnabled,setTipsEnabled]=useState(content?.tipsEnabled??true),[commentsEnabled,setCommentsEnabled]=useState(content?.commentsEnabled??true),[access,setAccess]=useState(content?.accessLevel?`level:${content.accessLevel}`:content?.accessPlanId||''),[scheduledAt,setScheduledAt]=useState(localDateInput(content?.scheduledAt||null)),[scheduleEnabled,setScheduleEnabled]=useState(content?.status==='scheduled'),[error,setError]=useState('');
   const [mediaError,setMediaError]=useState(''),[uploading,setUploading]=useState(false),[aiOpen,setAiOpen]=useState(false);
   // Guest trial caption: what was chosen in the AI editor, and the AI-written draft shown before publishing (2026-11-16).
-  const captionMode=!!guest?.caption,captionItems=useRef(new Set<string>()),captionPrompt=useRef(''),[captionDraft,setCaptionDraft]=useState<{title:string;body:string}|null>(null),[captionBusy,setCaptionBusy]=useState(false);
+  // Guest trial (2026-11-16 revision): title/body appear only after an AI photo is added, with an 'AI로 내용 작성' button beside them.
+  const captionMode=!!guest?.caption,captionItems=useRef(new Set<string>()),captionPrompt=useRef(''),[captionBusy,setCaptionBusy]=useState(false),aiMade=media.some(item=>item.aiGenerated);
   // Tapping an uploaded thumbnail opens it full screen, like on the post page (2026-11-15).
   const [viewIndex,setViewIndex]=useState<number|null>(null),viewPresent=usePresence(viewIndex!==null,designTokens.motion.fast),[viewLast,setViewLast]=useState(0);
   const viewable=media.filter(item=>!item.failed);
@@ -185,19 +186,14 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     }catch{if(request===mediaRequest.current)setMediaError('미디어를 불러오지 못했어요. 다시 선택해주세요.');}
     finally{if(request===mediaRequest.current)setUploading(false);}
   }
-  async function publishWithCaption(){
-    if(!guest?.caption||captionBusy)return;setError('');
-    if(!media.length){setError('AI 사진 편집으로 만든 사진을 먼저 추가해 주세요.');return;}
-    if(media.some(item=>item.failed)){setError('변환에 실패한 동영상을 지우고 다시 올려 주세요.');return;}
-    setCaptionBusy(true);
+  async function writeCaption(){
+    if(!guest?.caption||captionBusy)return;setError('');setCaptionBusy(true);
     try{const result=await guest.caption({items:Array.from(captionItems.current),prompt:captionPrompt.current});
-      if(!result.success){setError(result.errorMessage||'제목과 본문을 만들지 못했어요. 직접 입력해 주세요.');return;}
-      setCaptionDraft({title:title.trim()||result.data.title,body:body.trim()||result.data.body});}
-    catch{setError('제목과 본문을 만들지 못했어요. 직접 입력해 주세요.');}finally{setCaptionBusy(false);}
+      if(!result.success){setError(result.errorMessage||'제목과 내용을 만들지 못했어요. 직접 입력해 주세요.');return;}
+      setTitle(result.data.title);setBody(result.data.body);}
+    catch{setError('제목과 내용을 만들지 못했어요. 직접 입력해 주세요.');}finally{setCaptionBusy(false);}
   }
-  // The caption review publishes its own draft text; other callers use the fields as typed.
-  function save(nextStatus:StudioContentStatus,text?:{title:string;body:string}){saveWith(nextStatus,text?.title??title,text?.body??body);}
-  function saveWith(nextStatus:StudioContentStatus,title:string,body:string){setError('');if(!title.trim()){setError('제목을 입력해주세요.');return;}
+  function save(nextStatus:StudioContentStatus){setError('');if(!title.trim()){setError('제목을 입력해주세요.');return;}
     // A failed conversion would be refused by the server; say what to do instead (2026-11-01).
     if(media.some(item=>item.failed)){setError('변환에 실패한 동영상을 지우고 다시 올려 주세요.');return;}if(nextStatus!=='draft'&&!body.trim()){setError('게시할 내용을 입력해주세요.');return;}
     const scheduled=scheduleEnabled&&scheduledAt?new Date(scheduledAt):null;
@@ -222,11 +218,13 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={upload} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
       {model.actions.aiEditPhoto&&(()=>{const photos=media.filter(item=>item.type==='image'&&!item.processing&&!item.failed);return <div className={ai.aiAction}><button type="button" className={ai.aiWide} aria-label="AI 사진 편집" aria-describedby={aiDescriptionId} onClick={()=>{setAiOpen(true);void model.actions.refreshAiPhotoQuota?.();}} disabled={task.busy||uploading||media.length>=mediaUploadMaxItems}><Image src="/brand/featured-creators-v1.png" alt="" width={24} height={24} sizes="24px"/><span className={ai.aiActionCopy}><span>AI 사진 편집</span><small id={aiDescriptionId}>메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경</small></span><Icon name="chevron" width={18} height={18}/></button>
         <AiPhotoDialog noHearts={!!guest} library={model.photoLibrary} onCrop={model.actions.aiCropPhoto} onHeartGame={model.actions.aiHeartGame} shop={model.shop} shopBasePath={basePath} open={aiOpen} onClose={()=>setAiOpen(false)} images={photos} quota={model.aiPhotoQuota||{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT}} room={mediaUploadMaxItems-media.length} onEdit={model.actions.aiEditPhoto!} onUseTicket={model.actions.useAiPhotoTicket} onAdd={(made,context)=>{if(context){context.labels.forEach(label=>captionItems.current.add(label));if(context.prompt)captionPrompt.current=context.prompt;}draftMedia.current=[...draftMedia.current,...made.map(item=>item.url)];setMedia(previous=>[...previous,...made]);setMediaError('');}}/></div>;})()}
-      <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder={captionMode?'비워 두면 게시할 때 AI가 써요':'제목을 입력하세요'}/>
-      <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder={captionMode?'비워 두면 게시할 때 AI가 써요':'내용을 입력하세요'}/>
+      {aiMade?<section className={s.captionFields} aria-label="제목과 내용"><div className={s.captionBar}><Action variant="secondary" type="button" disabled={captionBusy||task.busy} onClick={()=>void writeCaption()}>{captionBusy?'쓰는 중…':'AI로 내용 작성'}</Action><p className={s.captionHint}>고른 항목 이름과 요청 문장만 OpenAI(해외)로 보내 제목·내용을 써요. 게시 전에 고칠 수 있어요.</p></div>
+      <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
+      <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
+      </section>:<p className={s.captionHint}>AI 사진을 만들면 제목과 내용을 쓸 수 있어요.</p>}
       </>:<>
-      <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder={captionMode?'비워 두면 게시할 때 AI가 써요':'제목을 입력하세요'}/>
-      <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder={captionMode?'비워 두면 게시할 때 AI가 써요':'내용을 입력하세요'}/>
+      <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
+      <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
       <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={upload} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
       {model.actions.aiEditPhoto&&(()=>{const photos=media.filter(item=>item.type==='image'&&!item.processing&&!item.failed);return <div className={ai.aiAction}><button type="button" className={ai.aiWide} aria-label="AI 사진 편집" aria-describedby={aiDescriptionId} onClick={()=>{setAiOpen(true);void model.actions.refreshAiPhotoQuota?.();}} disabled={task.busy||uploading||media.length>=mediaUploadMaxItems}><Image src="/brand/featured-creators-v1.png" alt="" width={24} height={24} sizes="24px"/><span className={ai.aiActionCopy}><span>AI 사진 편집</span><small id={aiDescriptionId}>메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경</small></span><Icon name="chevron" width={18} height={18}/></button>
         <AiPhotoDialog noHearts={!!guest} library={model.photoLibrary} onCrop={model.actions.aiCropPhoto} onHeartGame={model.actions.aiHeartGame} shop={model.shop} shopBasePath={basePath} open={aiOpen} onClose={()=>setAiOpen(false)} images={photos} quota={model.aiPhotoQuota||{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT}} room={mediaUploadMaxItems-media.length} onEdit={model.actions.aiEditPhoto!} onUseTicket={model.actions.useAiPhotoTicket} onAdd={(made,context)=>{if(context){context.labels.forEach(label=>captionItems.current.add(label));if(context.prompt)captionPrompt.current=context.prompt;}draftMedia.current=[...draftMedia.current,...made.map(item=>item.url)];setMedia(previous=>[...previous,...made]);setMediaError('');}}/></div>;})()}
@@ -237,13 +235,8 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       {(error||task.error)&&<p className={s.error} role="alert">{error||task.error}</p>}<Toast message={task.message} onClose={task.clearMessage}/>
       {/* Narrow screens (one column): the fan preview opens in its own dialog instead of sitting below the form (2026-11-01). */}
       <Action variant="secondary" type="button" className={s.mobilePreview} onClick={()=>setPreviewOpen(true)}>미리보기</Action>
-      <div className={s.editorActions}>{status==='published'?<Action type="submit" disabled={task.busy||uploading||!title.trim()||!body.trim()}>수정 저장</Action>:<>{!guest&&<Action variant="secondary" type="submit" disabled={task.busy||uploading||!title.trim()}>{status==='scheduled'?'예약 취소 후 임시저장':'임시저장'}</Action>}<Action variant="brand" type="button" disabled={task.busy||uploading||captionBusy||(!guest?.caption&&(!title.trim()||!body.trim()))||scheduleEnabled&&!scheduledAt} onClick={()=>{if(guest?.caption&&(!title.trim()||!body.trim())){void publishWithCaption();return;}save(scheduling?'scheduled':'published');}}>{captionBusy?'제목·본문 쓰는 중…':scheduling?'예약하기':'지금 게시하기'}</Action></>}</div>
-    </form>{guest?.caption&&<p className={s.captionHint}>제목·본문을 비워 두면 게시할 때 고른 항목 이름과 요청 문장만 OpenAI(해외)로 보내 AI가 써요. 게시 전에 보여 드려요.</p>}{model.notice&&<Notice>{model.notice}</Notice>}
-    <Dialog open={!!captionDraft} title="AI가 제목과 본문을 썼어요" onClose={()=>{if(!task.busy)setCaptionDraft(null);}}>{captionDraft&&<div className={s.captionReview}>
-      <p>비워 둔 제목·본문을 AI가 작성했어요. 확인을 누르면 이대로 게시돼요.</p>
-      <dl><div><dt>제목</dt><dd>{captionDraft.title}</dd></div><div><dt>본문</dt><dd>{captionDraft.body}</dd></div></dl>
-      <DialogActions><Action variant="secondary" disabled={task.busy} onClick={()=>{setTitle(captionDraft.title);setBody(captionDraft.body);setCaptionDraft(null);}}>직접 고치기</Action><Action variant="brand" disabled={task.busy} onClick={()=>{const draft=captionDraft;setTitle(draft.title);setBody(draft.body);save('published',draft);}}>확인하고 게시</Action></DialogActions>
-    </div>}</Dialog>
+      <div className={s.editorActions}>{status==='published'?<Action type="submit" disabled={task.busy||uploading||!title.trim()||!body.trim()}>수정 저장</Action>:<>{!guest&&<Action variant="secondary" type="submit" disabled={task.busy||uploading||!title.trim()}>{status==='scheduled'?'예약 취소 후 임시저장':'임시저장'}</Action>}<Action variant="brand" type="button" disabled={task.busy||uploading||captionBusy||!title.trim()||!body.trim()||scheduleEnabled&&!scheduledAt} onClick={()=>save(scheduling?'scheduled':'published')}>{scheduling?'예약하기':'지금 게시하기'}</Action></>}</div>
+    </form>{model.notice&&<Notice>{model.notice}</Notice>}
     </div>
     <aside className={s.previewPane} aria-label="팬 화면 미리보기"><h2 className={s.previewTitle}>팬 화면 미리보기</h2><ContentPostPreview content={draft} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/></aside>
      {viewPresent&&viewable.length>0&&<MediaOverlay media={viewable.map(item=>({type:item.type,url:item.url,processing:item.processing}))} title={title.trim()||'첨부 미디어'} alt={title.trim()||'첨부 미디어'} index={Math.min(viewIndex??viewLast,viewable.length-1)} onIndexChange={index=>{setViewIndex(index);setViewLast(index);}} open={viewIndex!==null} onClose={()=>setViewIndex(null)}/>}
