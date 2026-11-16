@@ -1,4 +1,5 @@
 'use client';
+import {useScrollTopOnChange} from '@/lib/design/scroll-top';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanIncomeLink} from '../BeanPages';
@@ -74,6 +75,7 @@ export function WithdrawalPage({model,basePath}:Props){
   const [accountId,setAccountId]=useState(()=>accounts.find(account=>account.verified&&account.isDefault)?.id||accounts.find(account=>account.verified)?.id||'');
   const [quote,setQuote]=useState<WithdrawalQuote|null>(null);
   const [result,setResult]=useState<{withdrawal:StudioWithdrawal;message:string}|null>(null);
+  useScrollTopOnChange(result?'result':quote?'quote':'form');
   const [pending,setPending]=useState(false);
   const busy=useRef(false);
   const [error,setError]=useState('');

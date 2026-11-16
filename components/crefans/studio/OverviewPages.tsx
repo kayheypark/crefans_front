@@ -1,4 +1,5 @@
 'use client';
+import {useScrollTopOnChange} from '@/lib/design/scroll-top';
 import {SOCIAL_PREFIX,socialHandle,socialLinkValid,socialUrl} from '@/lib/crefans/social-links';
 import {ContentPerformance} from './ContentPerformance';
 import {Toast} from '@/components/ui/Toast';
@@ -43,6 +44,7 @@ function ProfileFields({value,onChange,categories,categoryIcons}:{value:Pick<Stu
 }
 export function CreatorStartPage({model,basePath}:Props){
  const [step,setStep]=useState(1),[profile,setProfile]=useState({...model.profile}),[agreed,setAgreed]=useState(false),[pending,setPending]=useState(false),[error,setError]=useState(''),[done,setDone]=useState('');
+ useScrollTopOnChange(done?'done':String(step));
  const profileReady=!!profile.name.trim()&&!!profile.category;// the profile address is the account user name (2026-10-31), not entered here
  function next(event:FormEvent){event.preventDefault();setError('');if(!profileReady){setError('활동명과 분야를 확인해주세요.');return;}setStep(2);}
  async function complete(){if(pending||!agreed)return;setPending(true);setError('');try{const result=await model.completeOnboarding(profile);if(result.success)setDone(result.data.message);else setError(result.errorMessage);}catch{setError('설정을 완료하지 못했습니다. 다시 시도해주세요.');}finally{setPending(false);}}

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T02:49:48.888608+00:00",
+  "checkedAt": "2026-11-16T03:05:44.021421+00:00",
   "environment": {
     "node": "v22.23.4",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "2f931b893b5c1c8d43e7d782a69505156544b95a",
-      "branch": "feat/cosplay-banner-title",
+      "head": "f77ec82000f5e566d6783ebee98a29b999d42942",
+      "branch": "fix/guest-trial-scroll-top",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "26747a5e52957cdd59c35a2a6e5cc93730f02a6bcef7e6385bc036c9748f69fa",
-      "front/PROGRESS.md": "6c559b07dc71a66da7cb02640f6095a90f02221610887505c3b11f28d80dd62d",
+      "front/PROGRESS.md": "a5c2c73ed558667b1acb29864779225daf34cb9c3c98cb77e4898bfe4037c70c",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -215,7 +215,7 @@
       "front/components/crefans/CommentLikeButton.tsx": "1ebea1122e408819d9122c8f0ff9f7a3ec6a765ab3b2bdd297cd850175ceb4cc",
       "front/components/crefans/CommentMention.tsx": "0429430a1d5c19433c27d7fff96ba164cb5efaeb7c0706353d552a69876ea12d",
       "front/components/crefans/CommentMentions.tsx": "7b88d6d313a00a531ca9d824822dd26f5b8502cbdc9a8387666c7751828de4fb",
-      "front/components/crefans/CommonPages.tsx": "7ab779a7fee9b91fda2009e7dbde6f84b68384d405da3df0a322fe8d392eb5c5",
+      "front/components/crefans/CommonPages.tsx": "d91aa65f656818599b782ced8e0d73ca3f19353a3d570b384962133bbb1277f3",
       "front/components/crefans/CreatorCard.tsx": "35912857354ceb01ed50d99d1a1b7e94a6c3694fdc2696937e4203deff406c8c",
       "front/components/crefans/CreatorClosingNotes.tsx": "3896773614dac11325e690c9c8b58b526107c3d86bdbc55def1412be42be62d9",
       "front/components/crefans/CreatorName.tsx": "c75ddac5d7b51ee42aa48a1c8a4eef3750323630c7e40410e73d297e820d7caf",
@@ -308,9 +308,9 @@
       "front/components/crefans/studio/ContentPerformance.tsx": "3f4f0bf30a7c8fe484e90a9a9e9beddee59f381413d6ffa514768bdc8b4fdd9c",
       "front/components/crefans/studio/ContentPostPreview.tsx": "5809f36d8bfdfb0e513e208249ea87696b29a9a5e35278b7fbbb131cc72a4e7b",
       "front/components/crefans/studio/DashboardPage.tsx": "0bf3e4ff2c755836b79514a15148eed7cedbe864b2d04f0219d7ca3c793daf69",
-      "front/components/crefans/studio/FinancePages.tsx": "21b990c0f0a12e5803a8e21e387ef4c39b700065ed1e5fb49d6a6e8d07553541",
+      "front/components/crefans/studio/FinancePages.tsx": "6cf9ae9d0a1afcd87b9419aeee8fc114e61555e78e4a68e8f618c525dc97aed3",
       "front/components/crefans/studio/ManagementPages.tsx": "9a3b874348b5aa100a3779ac0eaef3156d31344a0523cf9f3a95a5cb3d4adfb4",
-      "front/components/crefans/studio/OverviewPages.tsx": "a149cd19e75b4984fadfbc678679824cce32843b49b4a87efc6bd2d1bdbe3707",
+      "front/components/crefans/studio/OverviewPages.tsx": "f57dba51a5a0ab4f79477b2941635dfa583ba5e39dcd0f7c6e7222fb2f37e110",
       "front/components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
       "front/components/crefans/studio/ReportPage.tsx": "8faa564cedf335b708efc3d15ff8d2e34c5b4127b72447e327602e59e1faf2d1",
       "front/components/crefans/studio/ShopPage.tsx": "174eedcdee95df80b58093491d1e9392ccfd576fb8b07816a6370150b5818fa3",
@@ -432,7 +432,7 @@
       "front/components/service/CheckoutPage.tsx": "99e980250ccd8b7077d092a7073cfbc0e6f59d76a0a05aa6124eb91fdbf9147a",
       "front/components/service/FoundingBadgeEventDetail.tsx": "d44b241c60a08594d5f80d3686a062d95cf5f33ed418fc38094f4732b7de089e",
       "front/components/service/FoundingBadgeSettings.tsx": "6e36cca9a06a27d2996fb0505d719d6d08d32de0257749e72282c3c24efa913c",
-      "front/components/service/GuestTrialPage.tsx": "5567e3663d68f504dced54c5b2dc8e33b48b3128d2fe4fb38c96a9b9e9f66311",
+      "front/components/service/GuestTrialPage.tsx": "b8c2b02c7d3187f3a4128e6c152b929b917eec6ca3315b7aea81907ce87228ae",
       "front/components/service/Landing.tsx": "38df82cba82d5c76e3b84674a020836e2936c6f11291cd42e40340e2a350a9c0",
       "front/components/service/PaymentResult.tsx": "ffef2218e71a4f51eae5e4c7985fff57aea2319f1e739c7f708f2dac0f50c14a",
       "front/components/service/PromotionEventDetail.tsx": "73e35bbef310add02cca82bb47cc8c6fb9c61e4d3f689f5fbb160bf9f54126b7",
@@ -791,6 +791,7 @@
       "front/lib/design/amount-presets.ts": "0e7a2ad4b13b954419742403f323e6cb6e8f776908aaefd0eaf0f2285edbc911",
       "front/lib/design/image-optimize.ts": "6e6408c1700fdd4ac77c34799165f1d478c0ee8b3292503f59319c09c74daf6a",
       "front/lib/design/image-upload.ts": "944da71300fe59671d62654e8d0605cc03c5069176f9801857f44956bb3624b1",
+      "front/lib/design/scroll-top.ts": "9847dfb22a56bb1b95cb11e54ae1c3b4fd6e93974d576a09e5f56c6455beab6c",
       "front/lib/design/theme.ts": "11b7448072f1a8a734cdec153f04f94cafd008dbd107de235d579fd6c4b05436",
       "front/lib/design/tokens.ts": "66eea7bc6d97eacd0d4b9f2c66c3b7e32c7c9547de2c1a2c882ff1463221fc9d",
       "front/lib/seo/service-metadata.ts": "deb8d4f64037ef78b4f9a48f1dcd90e0c7740a1b4289a15c9b425bd6002bb774",
@@ -908,6 +909,7 @@
       "front/tests/referral-history-page.test.cjs": "a5908a71c4fa40e242d44cefefc86716f37f376a0f811c6798bee886d690f13a",
       "front/tests/render-preservation.test.cjs": "9bc4b6e996d8bb6ee2c4a0fbbf4318bf8f5f7a5f36cd2d7a9ff71511e9eedddc",
       "front/tests/render-signature.cjs": "4ebd7b04561faa63be206e1c6075367243f79d79929cb584ae1c39795697ff5a",
+      "front/tests/scroll-top.test.cjs": "6dc6f59ae7e499656e36d9a21e6f30178a53ee619356c7d568d5a9fdbf621511",
       "front/tests/select-field.test.cjs": "fd4f0f41ac2c6d655f1c074936caff7679d3128de6cb3b486462d610bdde12e3",
       "front/tests/seo-metadata.test.cjs": "743dc8b442f423ddbfaa07b038d438295beb73d935eed9638671711b1dac7cf5",
       "front/tests/service-access-state.test.cjs": "10bc6a3650e38978465f9ee4016dd916d28e96e661f44fb14e88b0757c26d724",
