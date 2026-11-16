@@ -1,9 +1,24 @@
+## 2026-11-16 무통장입금 회원 화면 (feat/bank-transfer, origin/prod 2b6dc1d 기반, 운영 미배포)
+- 사용자 결정: 콩 충전·AI 이용권·광고상품만 무통장입금(멤버십 그대로), 입금 기한 24시간 후 자동 취소, 운영자가 금액 일치 시 수동 확인. 카드(토스, 테스트 키)는 GET /payments/methods 의 card:true일 때만 표시. 현금영수증 선택(소득공제 휴대폰/지출증빙 사업자번호 10자리). 무통장 구매 환불은 회원 환불 계좌(은행·계좌번호·예금주) 입력, 운영자가 영업일 3일 안에 이체. 서버 계약은 server feat/bank-transfer(미배포)의 /payments/methods, /payments/bank-transfer/:kind/:orderId.
+- 공용: types/crefans-payments.ts, lib/api/payments.ts, features/service/usePaymentMethods.ts, lib/crefans/bank-transfer.ts(서버 bank-transfer.ts와 같은 검사 규칙·KST 기한 표기), components/crefans/BankTransfer.tsx(PaymentMethodChoice·PaymentPreparing·BankTransferFields·BankTransferInstructions(계좌번호 복사)·RefundAccountFields). 디자인 시스템 상점 견본에 무통장입금 상태 8종·'결제 준비 중' 추가.
+- 콩: BeanChargePage 무통장이면 method·depositorName·cashReceipt로 주문 생성 후 결제창 없이 입금 안내 표시, 두 방법이 다 닫히면 '결제 준비 중'. 충전 내역 입금 대기/주문 취소·입금 기한·'입금 안내 보기', 카드 '결제 계속'은 card:true일 때만. 무통장 충전 환불은 환불 계좌 필수·영업일 3일 안내. 목업 콩 모델에 무통장(예시 계좌) 추가.
+- AI 이용권: ShopPage 구매 창에서 무통장 주문(팝업 없음)→입금 안내, 구매 내역 '입금 안내 보기', 무통장 환불은 계좌 입력·환불 이체 대기 안내. ShopPayment(결제 탭)는 무통장 주문이면 입금 안내, 카드 결제 버튼은 card:true일 때만.
+- 광고상품: purchaseReady=methods.bankTransfer(기존 하드코딩 false 제거), 구매 창에 입금자명·현금영수증·확인 동의, POST /studio/advertising/orders, 구매 내역 statusLabel·입금 안내·'사용'은 useStatus==='ready'일 때만·refundable이면 환불 신청(계좌). 목업 AdvertisingPreview도 입금 대기 주문으로 변경.
+- 테스트 결제 문구: 해당 세 상품 화면에는 '테스트 결제' 문구가 없었음(멤버십 MembershipCheckout 문구 유지). BeanBalanceSummary의 '미입금·보류·동결·테스트 결제…' 출금 제외 설명은 기존 카드 시험 결제에도 해당해 그대로 둠.
+- 검증(2026-11-16 15:2x KST, 미커밋 상태 기준): npx tsc --noEmit -p . exit0. 새 tests/bank-transfer.test.cjs 10/10(카드 숨김·결제 준비 중, 입금자명/현금영수증 검사, 충전 생성 본문, 입금 안내 표시·복사, 충전 내역, 콩/AI 이용권 환불 계좌 필수, 광고 purchaseReady·주문 본문, 광고 내역 동작, 실서비스 콩 모델 요청 본문). 대조: 카드 항상 표시로 바꾸면 2건, 환불 계좌 필수 제거 시 1건, purchaseReady false 복원 시 1건 실패 후 원복. 기존 bean-charge-page·bean-continue-payment 테스트는 card:true 모델로 갱신. npm test 713 중 695 pass/18 fail, 실패 18건 목록은 변경 전 기준선(685/18)과 동일(comm 비교 신규·해소 0). check:layers는 기존 AiPhotoDialog 1건만(변경 무관). 로컬 dev(3141, 종료함) /preview/beans/charge 375px: 무통장 선택→입금 안내, 충전 내역 '입금 대기'·'입금 안내 보기' 육안 확인.
+- 미실행/남은 일: 실서버 연동(서버 미배포) 및 실제 입금 확인 흐름, Playwright e2e 미실행 — e2e/advertising.spec.ts 목업 구매 단계('구매하기'→'사용 전')는 무통장(입금자명·동의·'… 무통장입금 주문'→입금 대기)으로 갱신 필요. check:docs·docs:record 미실행(상위 작업에서 실행). 운영 배포 안 함.
+
 ## 2026-11-16 11:15 KST 코스어 체험 배너·비회원 하트 게임 운영 배포 완료
 - 사용자 운영배포 요청. 운영 소스 769f0c0, 이미지 crefans-front:front-guest-cosplay-20261116 (sha256:3303ba3db9a88db9ec52005b168844826382ee19108eb6f3984b95c2f3b90829). 동시 소개서 배포 기록 f5c8850 보존. dev 푸시 경합 후 prod 푸시가 먼저 진행되어 dev를 같은 이력으로 동기화한 뒤 소스 동등성 확인, 그 이후 운영배포. 강제 푸시 없음.
 - 통합 typecheck exit0·관련82/82. Docker linux/amd64 next build 성공, 이미지 커밋·레이어 대조. 초기에 작업 Docker 설정 플러그인 경로 오류와 로컬 shasum locale 오류가 있었으나 운영 변경 전 중단, 작업 설정·LC_ALL=C로 해결 후 ship-image exit0.
 - 운영 프론트만 교체: feed/landing/legal/health·정적CSS·이미지 HTTP200, 리다이렉트301. 다른 컨테이너 불변. Playwright 신규 비로그인 세션에서 배너 노출·/service/try 이동·사전동의 화면 확인, 390px 캡처 육안확인. 실AI 생성·운영 게임 클릭은 미실행(대역 단위테스트82개로 검증).
 - 복구: /Users/ethan/crefans-recovery/20261116/front-guest-cosplay-20261116/ 이미지·설정 아카이브 SHA256, OCI blob15개 해시·이전 이미지ID 확인. 서버 이전 태그·설정백업·전송임시파일 정리 완료. 활성 이미지·DB·업로드 보존. 복구 저장소 보관본 삭제 없음.
 - 증거 .local/ship-front-guest-cosplay-20261116/{ship,build,deploy}.log 및 .local/guest-cosplay/{live-check.json,live-banner.png,integrated-tests.log,integrated-typecheck.log}. 이전 문서·계층 검사 제한은 아래 기록 참고.
+
+## 2026-11-16 체험 제목·내용: AI 사진 후 노출 + 'AI로 내용 작성' 버튼 (feat/guest-caption-button, 미배포)
+- 사용자 정정: 비워 두면 게시 때 작성하는 방식이 아니라, AI 사진을 만든 뒤(aiGenerated 미디어가 있을 때)에만 제목·내용 칸이 보이고 그 옆 'AI로 내용 작성' 버튼으로 채운다. 게시 시 자동 작성·확인 창 제거, 게시는 제목·내용 필수(기존 규칙). 고지는 버튼 옆 문구.
+- 체험 동의 안내 문구 변경 → GUEST_CONSENT_VERSION 2026-11-16.guest.4(서버도 같은 판으로 올려야 함: 서버 feat/bank-transfer에 포함해 함께 배포).
+- 검증: tsc 0, crefans-studio-management 29/29(체험 흐름 테스트 교체, 대조: 칸 항상 노출 시 1실패), npm test 685/18(실패 목록 동일).
 
 ## 2026-11-16 비회원 체험: 사진 먼저, 제목·본문은 게시 때 AI 작성 (feat/guest-ai-caption → prod 8c8e9b2, 운영 배포)
 - 운영 배포: front-ai-caption-20261116(API ai-caption-20261116 직후), 운영 번들에 guest.3·/guest/content/caption·확인하고 게시 확인, 복구 crefans-recovery/20261116/front-ai-caption-20261116. 운영 caption 실호출 source=ai 정상.

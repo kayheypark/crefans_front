@@ -34,10 +34,8 @@ button.textButton:not(:disabled):hover,.tabs button:not(:disabled):hover{backgro
 .scheduleBox{display:flex;flex-direction:column;gap:16px;min-width:0;padding:18px;border:1px solid var(--cf-landing-line);border-radius:var(--cf-radius-control)}
 .scheduleBox input[type=datetime-local]{padding-inline:0;min-width:0;font-variant-numeric:tabular-nums}
 .status[data-status=unpublished]{background:var(--cf-color-warningSoft);color:var(--cf-color-warning)}.visibilityBox{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 16px;margin-bottom:22px;padding:14px 16px;border:1px solid var(--cf-color-border);border-radius:var(--cf-radius-control)}.visibilityText{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 240px}.visibilityText strong{font-size:max(13px,var(--cf-mobile-font-min,0px))}.visibilityBox>p{flex-basis:100%;margin:0}
-/* Guest trial caption (2026-11-16): publish-time AI title/body notice and review dialog. */
+/* Guest trial caption (2026-11-16): 'AI로 내용 작성' button and notice beside the title/body fields. */
 .captionHint{margin:8px 0 0;font-size:12px;line-height:1.6;color:var(--cf-color-textMuted);word-break:keep-all}
-.captionReview{display:grid;gap:12px}
-.captionReview>p{margin:0;font-size:14px;line-height:1.6;color:var(--cf-color-textMuted);word-break:keep-all}
-.captionReview dl{display:grid;gap:10px;margin:0;padding:14px;border-radius:12px;background:var(--cf-color-surfaceMuted,#f6f7fa)}
-.captionReview dt{font-size:12px;font-weight:700;color:var(--cf-color-textMuted)}
-.captionReview dd{margin:2px 0 0;font-size:15px;line-height:1.55;white-space:pre-wrap;word-break:keep-all}
+.captionFields{display:grid;gap:12px}
+.captionBar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.captionBar .captionHint{margin:0;flex:1 1 220px}

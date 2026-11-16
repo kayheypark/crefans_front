@@ -384,37 +384,33 @@ test('without the partner contract a paused membership cannot be switched back o
  try{act(()=>button(partner,'비활성화').props.onClick());assert.equal(toggles(partner)[0].props.disabled,false);}finally{act(()=>partner.unmount());probe.close();}
 });
 
-// 2026-11-16 user decision: the guest trial starts with the AI photo; empty title/body are written by AI at publish time and the
-// visitor sees them first (confirm publishes, '직접 고치기' returns to the fields). Members keep writing their own title/body.
-test('guest trial: photo first, AI writes empty title/body at publish, the visitor confirms before it is posted',async()=>{
+// 2026-11-16 user decisions: the guest trial starts with the AI photo; the title/body fields appear only after an AI photo is added,
+// with an 'AI로 내용 작성' button that fills them from the chosen item names and request text. The visitor edits and publishes.
+test('guest trial: fields appear after an AI photo; the AI button fills title/body; publishing needs both',async()=>{
  const probe=fixtureHook(),saved=[],captions=[];
  const made={id:'ai1',type:'image',url:'/media/ai1.webp',aiGenerated:true};
  const model={...probe.model,contents:[],actions:{...probe.model.actions,aiEditPhoto:async()=>({success:true,data:{images:[]}}),saveContent:async input=>{saved.push(input);return {success:true,data:{message:'게시',id:'g1'}};}}};
  const guest={backHref:'/service/feed',doneHref:'/service/try/done',notice:'notice',caption:async input=>{captions.push(input);return {success:true,data:{title:'오늘은 마법사로 변신',body:'판타지 마법사 의상으로 만들어 봤어요',source:'ai'}};}};
  let tree;act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest}));});
  try{
-  const text=json(tree);assert.ok(text.indexOf('파일 업로드')<text.indexOf('제목'),'the photo comes before the text fields');assert.match(text,/비워 두면 게시할 때 AI가 써요/);assert.match(text,/고른 항목 이름과 요청 문장만 OpenAI/);
-  await act(async()=>button(tree,'지금 게시하기').props.onClick());assert.equal(captions.length,0,'no photo, no caption request');assert.match(json(tree),/AI 사진 편집으로 만든 사진을 먼저 추가해 주세요/);
+  assert.equal(tree.root.findAllByProps({label:'제목'}).length,0,'no title field before an AI photo');assert.match(json(tree),/AI 사진을 만들면 제목과 내용을 쓸 수 있어요/);assert.equal(button(tree,'AI로 내용 작성'),undefined);
+  assert.equal(button(tree,'지금 게시하기').props.disabled,true);
   const dialog=tree.root.findAll(node=>typeof node.props.onAdd==='function'&&node.props.room!==undefined)[0];
   act(()=>dialog.props.onAdd([made],{labels:['판타지 마법사','스튜디오 배경'],prompt:'신비로운 분위기'}));
   act(()=>dialog.props.onAdd([],{labels:['판타지 마법사'],prompt:''}));
-  const publish=()=>button(tree,'지금 게시하기');assert.equal(publish().props.disabled,false,'empty fields do not block the guest publish');
-  await act(async()=>publish().props.onClick());
-  assert.deepEqual(captions,[{items:['판타지 마법사','스튜디오 배경'],prompt:'신비로운 분위기'}]);assert.equal(saved.length,0,'nothing is posted before the visitor confirms');
-  assert.match(json(tree),/AI가 제목과 본문을 썼어요/);assert.match(json(tree),/오늘은 마법사로 변신/);
-  act(()=>button(tree,'직접 고치기').props.onClick());
-  assert.equal(saved.length,0);assert.doesNotMatch(json(tree),/AI가 제목과 본문을 썼어요/);
-  assert.equal(tree.root.findByProps({label:'제목'}).props.value,'오늘은 마법사로 변신');
-  act(()=>tree.root.findByProps({label:'본문'}).props.onChange({target:{value:''}}));
-  await act(async()=>publish().props.onClick());
-  assert.equal(captions.length,2);assert.match(json(tree),/오늘은 마법사로 변신/,'a title the visitor kept is not replaced');
-  await act(async()=>button(tree,'확인하고 게시').props.onClick());
-  assert.equal(saved.length,1);assert.equal(saved[0].title,'오늘은 마법사로 변신');assert.equal(saved[0].body,'판타지 마법사 의상으로 만들어 봤어요');assert.equal(saved[0].status,'published');assert.deepEqual(saved[0].media.map(m=>m.id),['ai1']);
+  const text=json(tree);assert.ok(text.indexOf('파일 업로드')<text.indexOf('제목'),'the photo comes before the text fields');assert.match(text,/고른 항목 이름과 요청 문장만 OpenAI/);
+  assert.equal(button(tree,'지금 게시하기').props.disabled,true,'title/body are still required');
+  await act(async()=>button(tree,'AI로 내용 작성').props.onClick());
+  assert.deepEqual(captions,[{items:['판타지 마법사','스튜디오 배경'],prompt:'신비로운 분위기'}]);assert.equal(saved.length,0,'writing does not publish');
+  assert.equal(tree.root.findByProps({label:'제목'}).props.value,'오늘은 마법사로 변신');assert.equal(tree.root.findByProps({label:'본문'}).props.value,'판타지 마법사 의상으로 만들어 봤어요');
+  act(()=>tree.root.findByProps({label:'제목'}).props.onChange({target:{value:'내가 고친 제목'}}));
+  await act(async()=>button(tree,'지금 게시하기').props.onClick());
+  assert.equal(saved.length,1);assert.equal(saved[0].title,'내가 고친 제목');assert.equal(saved[0].body,'판타지 마법사 의상으로 만들어 봤어요');assert.equal(saved[0].status,'published');assert.deepEqual(saved[0].media.map(m=>m.id),['ai1']);
  }finally{act(()=>tree.unmount());probe.close();}
 });
 
 test('member editor keeps writing its own title/body: no AI caption and publishing still needs both',()=>{
  const probe=fixtureHook();const tree=mount(ContentEditorPage,{...probe.model,contents:[]});
- try{assert.equal(button(tree,'지금 게시하기').props.disabled,true);assert.doesNotMatch(json(tree),/AI가 써요|OpenAI/);assert.ok(json(tree).indexOf('제목')<json(tree).indexOf('파일 업로드'));}
+ try{assert.equal(button(tree,'지금 게시하기').props.disabled,true);assert.doesNotMatch(json(tree),/AI로 내용 작성|OpenAI/);assert.ok(json(tree).indexOf('제목')<json(tree).indexOf('파일 업로드'));}
  finally{act(()=>tree.unmount());probe.close();}
 });
