@@ -143,7 +143,7 @@ test('AI 이용권: card hidden when card:false, bank order shows the instructio
  const order={id:'o1',name:'AI 사진 10회권',amount:1000,benefit:'AI 사진 10회 생성',createdAt:'2026-11-16T06:00:00.000Z',quantity:10,remaining:10,status:'pending',statusLabel:'입금 대기',method:'bank_transfer'};
  let t;act(()=>{t=create(el(ShopPage,{basePath:'/service/studio',model:shopModel({purchase:async(p,payment)=>{purchases.push(payment);return ok({message:'접수',order});},bankTransfer:async()=>ok({...transfer,kind:'ai-shop',amount:1000})})}));});
  try{
-  act(()=>byText(t,'구매하기').props.onClick());
+  act(()=>buttons(t).find(b=>b.props['aria-label']==='AI 사진 10회권 상품 안내').props.onClick());
   assert.equal(radios(t).filter(r=>words(r.parent.children).includes('카드')).length,0);assert.match(words(t.toJSON()),/무통장입금/);
   check(t,'상품 내용과');const pay=()=>byText(t,'1,000원 무통장입금 주문');assert.equal(pay().props.disabled,true,'입금자명 missing');
   type(t,'입금자명','홍길동');assert.equal(pay().props.disabled,false);
@@ -152,7 +152,7 @@ test('AI 이용권: card hidden when card:false, bank order shows the instructio
  }finally{act(()=>t.unmount());}
  // Methods closed: 결제 준비 중 and no pay button.
  act(()=>{t=create(el(ShopPage,{basePath:'/service/studio',model:shopModel({paymentMethods:methods(false,false)})}));});
- try{act(()=>byText(t,'구매하기').props.onClick());assert.match(words(t.toJSON()),/결제 준비 중/);assert.equal(buttons(t).some(b=>/주문|결제하기/.test(words(b.props.children))),false);}finally{act(()=>t.unmount());}
+ try{act(()=>buttons(t).find(b=>b.props['aria-label']==='AI 사진 10회권 상품 안내').props.onClick());assert.match(words(t.toJSON()),/결제 준비 중/);assert.equal(buttons(t).some(b=>/주문|결제하기/.test(words(b.props.children))),false);}finally{act(()=>t.unmount());}
  const paid={...order,status:'paid',statusLabel:'구매 완료',remaining:4};
  act(()=>{t=create(el(ShopPage,{basePath:'/service/studio',model:shopModel({orders:[paid],refund:async(o,account)=>{refunds.push([o.id,account]);return ok({...paid,status:'refunding'});}})}));});
  try{

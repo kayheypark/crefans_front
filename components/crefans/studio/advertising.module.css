@@ -29,3 +29,6 @@
 /* 2026-11-16 무통장입금: 입금 안내·환불 신청·사용 actions beside the period. */
 .orderBottom>.orderActions{flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px}.orderActions small{flex-basis:100%;text-align:right;color:var(--cf-color-textSecondary);font-size:13px}
 .orderStatus[data-state=cancelled],.orderStatus[data-state=refunded]{background:var(--cf-landing-soft);color:var(--cf-color-textMuted)}.orderStatus[data-state=pending],.orderStatus[data-state=refunding]{background:#fff4d6;color:#8a5a00}
+
+/* 2026-11-16: product icon beside the dialog title (flame for ads, sparkle for AI 이용권). */
+.detailTitle{display:flex;align-items:center;gap:10px}.detailTitle img{flex:none;object-fit:contain}
