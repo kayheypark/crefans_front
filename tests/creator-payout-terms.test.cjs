@@ -4,7 +4,7 @@ const {membershipPayoutNotesFor,beanPayoutNotesFor,minimumWithdrawalHintFor,memb
 test('studio payout notes follow a creator\'s own terms and fall back per field',()=>{
  const terms={platformFeeBps:1550,settlementHoldDays:null,beanWithdrawalFeeBps:1000,minimumWithdrawalKrw:50000};
  const notes=membershipPayoutNotesFor(terms);assert.match(notes[0],/총 공제율 15\.5%/);assert.match(notes[1],/7일 보류/);assert.match(notes[2],/최소 50,000원/);
- assert.match(beanPayoutNotesFor(terms)[3],/500콩\(총액 50,000원\)부터 신청하며 수수료는 출금 시 10%/);
+ assert.match(beanPayoutNotesFor(terms)[3],/1,000콩\(총액 100,000원\)부터 신청하며 수수료는 출금 시 10%/,'2026-11-17: the 콩 minimum no longer follows the KRW minimum');assert.match(beanPayoutNotesFor({...terms,minimumWithdrawalBeans:300})[3],/300콩\(총액 30,000원\)부터/);
  assert.equal(minimumWithdrawalHintFor(terms),'최소 50,000원부터 신청할 수 있습니다. 전액은 출금 가능 금액을 입력합니다.');
  assert.deepEqual(membershipPayoutNotesFor(null),membershipPayoutNotes);assert.equal(minimumWithdrawalHintFor(undefined),minimumWithdrawalHint);assert.match(membershipPayoutNotes[0],/총 공제율 20%/);
 });
