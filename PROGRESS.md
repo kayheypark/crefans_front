@@ -8,6 +8,10 @@
 - 검증(2026-11-16 15:2x KST, 미커밋 상태 기준): npx tsc --noEmit -p . exit0. 새 tests/bank-transfer.test.cjs 10/10(카드 숨김·결제 준비 중, 입금자명/현금영수증 검사, 충전 생성 본문, 입금 안내 표시·복사, 충전 내역, 콩/AI 이용권 환불 계좌 필수, 광고 purchaseReady·주문 본문, 광고 내역 동작, 실서비스 콩 모델 요청 본문). 대조: 카드 항상 표시로 바꾸면 2건, 환불 계좌 필수 제거 시 1건, purchaseReady false 복원 시 1건 실패 후 원복. 기존 bean-charge-page·bean-continue-payment 테스트는 card:true 모델로 갱신. npm test 713 중 695 pass/18 fail, 실패 18건 목록은 변경 전 기준선(685/18)과 동일(comm 비교 신규·해소 0). check:layers는 기존 AiPhotoDialog 1건만(변경 무관). 로컬 dev(3141, 종료함) /preview/beans/charge 375px: 무통장 선택→입금 안내, 충전 내역 '입금 대기'·'입금 안내 보기' 육안 확인.
 - 미실행/남은 일: 실서버 연동(서버 미배포) 및 실제 입금 확인 흐름, Playwright e2e 미실행 — e2e/advertising.spec.ts 목업 구매 단계('구매하기'→'사용 전')는 무통장(입금자명·동의·'… 무통장입금 주문'→입금 대기)으로 갱신 필요. check:docs·docs:record 미실행(상위 작업에서 실행). 운영 배포 안 함.
 
+## 2026-11-16 AI 랜딩 다듬기: 소제목 삭제·여백 통일·굵은 강조 (feat/ai-landing)
+- 사용자 요청. 상단 작은 글씨(크레팬스 AI 사진 편집)·편집 섹션 설명 삭제. 섹션 패딩 모바일 40px/PC 64px, 제목→내용 16px로 통일(측정), 섹션 사이 구분선, 헤더를 본문 폭에 정렬, h1·h2 굵기 800, 핵심 문구 <strong> 25곳, 결과 썸네일 라벨 줄바꿈 방지.
+- 검증: tsc 0, ai-photo-landing 1/1, 로컬 390·1280px 넘침 0·깨진 이미지 0·오류 0.
+
 ## 2026-11-16 AI 사진 편집 랜딩 /service/landing-ai-image-generation (feat/ai-landing)
 - 사용자 요청: 실제 동작하는 컴포넌트·화면 기반 랜딩 + 운영 배포, 경로 landing-ai-image-generation. components/service/AiPhotoLanding.tsx(+module.css), app/service/landing-ai-image-generation/page.tsx(메타·OG).
 - 구성: 원본/결과 비교 슬라이더(range 입력, 가상 인물 Seedream 결과 5종 public/illustrations/landing/ai-photo/*.webp, 'AI 생성' 표시), 편집 종류 탭(aiPhotoKinds에서 신체 보정 제외, aiPhotoPresetTitles 실제 프리셋 이름), 옷 탭은 aiPhotoCostumes 일반 카테고리 중 5종(게임·애니 캐릭터·노출 의상 제외), 3단계 안내, 이용 방법(비회원 10회·크리에이터 하루 10회·AI 이용권 무통장입금), 지켜 주세요, CTA 모두 /service/try.
