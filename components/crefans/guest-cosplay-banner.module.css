@@ -1,0 +1,13 @@
+.banner{display:flex;align-items:center;justify-content:space-between;gap:16px;overflow:hidden;position:relative;margin-bottom:16px;padding:24px;border-radius:20px;background:var(--cf-landing-banner,#20293e);color:#fff;text-decoration:none}
+.copy{display:flex;flex-direction:column;align-items:flex-start;gap:10px;position:relative;z-index:1}
+.eyebrow{font-size:12px;color:var(--cf-landing-onBanner,#e2e8f3)}
+.title{font-size:28px;line-height:1.15;white-space:nowrap;font-weight:700}
+.title em{font-size:46px;font-style:normal;font-weight:800;color:var(--cf-landing-signature,#bfdbfe)}
+.description{font-size:13px;line-height:1.5;word-break:keep-all;color:var(--cf-landing-onBanner,#e2e8f3)}
+.action{display:flex;gap:12px;align-items:center;min-height:44px;padding:0 16px;margin-top:4px;border-radius:8px;background:var(--cf-color-accent);color:#fff;font-size:14px;font-weight:700}
+.cards{display:flex;align-items:center;flex-shrink:0;width:210px;height:160px;padding:10px 0}
+.card{position:relative;flex-shrink:0;width:88px;height:132px;overflow:hidden;border:2px solid #fff;border-radius:14px;background:#e8e2f7;transform:rotate(-10deg)}
+.card img{object-fit:cover}.card:nth-child(2){margin-left:-26px;transform:translateY(-8px);z-index:1}.card:nth-child(3){margin-left:-26px;transform:rotate(10deg)}
+.banner:focus-visible{outline:3px solid var(--cf-color-focus);outline-offset:3px}.banner:hover .action{background:var(--cf-color-accentHover)}
+@media(max-width:600px){.banner{padding:20px;gap:10px}.cards{width:130px}.card{width:70px;height:112px}.card:nth-child(2),.card:nth-child(3){margin-left:-40px}.title{font-size:22px}.title em{font-size:40px}}
+@media(max-width:380px){.banner{padding:18px;flex-wrap:wrap}.cards{display:none}.copy{max-width:100%}.title em{font-size:38px}.description{max-width:230px}}

@@ -11,7 +11,7 @@ export const HEART_GAME_LANES=3,HEART_GAME_BASE_SECONDS=4.5;
 export function newPiece(id:number,kind:Kind,delay=0,level=0):Piece{const duration=HEART_GAME_BASE_SECONDS/Math.pow(1.2,Math.min(level,5));return {id,kind,lane:(id-1)%HEART_GAME_LANES,delay,duration,expires:Date.now()+(duration+delay)*1000,burst:false};}
 
 // Preview remains local. Signed-in games use server-issued kinds and report piece IDs; only server-verified points earn rewards.
-export function AiPhotoWaiting({elapsed,typical,score,onCollect,game,showGame=true}:{game?:{kinds:Kind[];onHit:(piece:number)=>void};elapsed:number;typical?:number|null;score:number;onCollect:(delta:number)=>void;showGame?:boolean}){
+export function AiPhotoWaiting({elapsed,typical,score,onCollect,game,showGame=true,practiceOnly=false}:{game?:{kinds:Kind[];onHit:(piece:number)=>void};elapsed:number;typical?:number|null;score:number;onCollect:(delta:number)=>void;showGame?:boolean;practiceOnly?:boolean}){
  const [pieces,setPieces]=useState<Piece[]>(()=>(game?.kinds.slice(0,5)||['heart','candy','heart','moon','heart']).map((kind,index)=>newPiece(index+1,kind as Kind,-index*.45)));
  const nextId=useRef(6),collected=useRef(new Set<number>()),caught=useRef(0),liveScore=useRef(score);
  const [finished,setFinished]=useState(score>=30);
@@ -31,7 +31,7 @@ export function AiPhotoWaiting({elapsed,typical,score,onCollect,game,showGame=tr
     </button>)}
    </div>
   </section>}
-  {showGame&&<p className={s.waitingNote}>게임은 사진 결과에 영향을 주지 않아요</p>}
+  {showGame&&<p className={s.waitingNote}>{practiceOnly?'체험 게임이에요. 하트는 적립되거나 이용권으로 바뀌지 않아요.':'게임은 사진 결과에 영향을 주지 않아요'}</p>}
   <div className={s.waitingTime}><span aria-hidden="true">{elapsed}초 지남</span><p>{typical?`보통 약 ${typical}초 걸려요.`:'걸리는 시간을 재는 중이에요.'}</p></div>
   <p className={s.waitingNote}>잠시만 화면을 유지해 주세요</p>
  </div>;
