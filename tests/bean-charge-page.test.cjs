@@ -4,7 +4,7 @@ const {loadTypeScript}=require('./load-typescript.cjs');
 const ok=data=>({success:true,data,errorMessage:null,errorCode:null});
 const fail=message=>({success:false,data:null,errorMessage:message,errorCode:'REJECTED'});
 function setup(overrides={}){
- const calls={created:[],paid:[]},model={enabled:true,signedIn:true,mode:'mock',basePath:'/preview',wallet:{accounts:[{bucket:'purchased',balance:'100'}]},refresh:async()=>{},createCharge:async(q,key)=>{calls.created.push({q,key});return ok({id:key,quantity:q,amount:q*110,status:'pending',environment:'test'});},payCharge:async(id,terms)=>{calls.paid.push(id);calls.terms=(calls.terms||[]).concat(terms);return ok({message:'대역 결제 완료'});},...overrides};
+ const calls={created:[],paid:[]},model={enabled:true,signedIn:true,mode:'mock',basePath:'/preview',paymentMethods:{bankTransfer:false,card:true,deadlineHours:24,refundBusinessDays:3},wallet:{accounts:[{bucket:'purchased',balance:'100'}]},refresh:async()=>{},createCharge:async(q,key,payment)=>{calls.created.push({q,key,payment});return ok({id:key,quantity:q,amount:q*110,status:'pending',environment:'test'});},payCharge:async(id,terms)=>{calls.paid.push(id);calls.terms=(calls.terms||[]).concat(terms);return ok({message:'대역 결제 완료'});},...overrides};
  const {BeanChargePage}=loadTypeScript('components/crefans/BeanChargePage.tsx',{'./BeanContext':{useBeans:()=>model},'next/link':({children,...p})=>React.createElement('a',p,children),'@/components/ui/InfoTooltip':{InfoTooltip:()=>null}});
  let tree;act(()=>{tree=create(React.createElement(BeanChargePage));});return{tree,calls,model};
 }

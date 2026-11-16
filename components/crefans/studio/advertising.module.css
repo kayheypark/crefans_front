@@ -26,3 +26,6 @@
 
 .detailTitle{font-size:18px;word-break:keep-all;overflow-wrap:anywhere}.detail .activationGuide{color:var(--cf-color-textSecondary);font-size:13px}.purchaseDetails{border-top:1px solid var(--cf-color-border);padding-top:16px}.purchaseDetails summary{cursor:pointer;font-weight:600;line-height:1.6;min-height:32px}.purchaseDetails>div{display:grid;gap:12px;padding-top:12px;font-size:13px;line-height:1.7;color:var(--cf-color-textSecondary)}.purchaseDetails summary:focus-visible{outline:2px solid var(--cf-color-accent);outline-offset:4px}.detail .purchaseDetails .comparisonBasis{font-size:12px}
 .embedded{color:var(--cf-color-text);font-size:14px;padding-bottom:32px}
+/* 2026-11-16 무통장입금: 입금 안내·환불 신청·사용 actions beside the period. */
+.orderBottom>.orderActions{flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px}.orderActions small{flex-basis:100%;text-align:right;color:var(--cf-color-textSecondary);font-size:13px}
+.orderStatus[data-state=cancelled],.orderStatus[data-state=refunded]{background:var(--cf-landing-soft);color:var(--cf-color-textMuted)}.orderStatus[data-state=pending],.orderStatus[data-state=refunding]{background:#fff4d6;color:#8a5a00}
