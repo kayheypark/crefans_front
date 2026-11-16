@@ -1,3 +1,10 @@
+## 2026-11-16 11:15 KST 코스어 체험 배너·비회원 하트 게임 운영 배포 완료
+- 사용자 운영배포 요청. 운영 소스 769f0c0, 이미지 crefans-front:front-guest-cosplay-20261116 (sha256:3303ba3db9a88db9ec52005b168844826382ee19108eb6f3984b95c2f3b90829). 동시 소개서 배포 기록 f5c8850 보존. dev 푸시 경합 후 prod 푸시가 먼저 진행되어 dev를 같은 이력으로 동기화한 뒤 소스 동등성 확인, 그 이후 운영배포. 강제 푸시 없음.
+- 통합 typecheck exit0·관련82/82. Docker linux/amd64 next build 성공, 이미지 커밋·레이어 대조. 초기에 작업 Docker 설정 플러그인 경로 오류와 로컬 shasum locale 오류가 있었으나 운영 변경 전 중단, 작업 설정·LC_ALL=C로 해결 후 ship-image exit0.
+- 운영 프론트만 교체: feed/landing/legal/health·정적CSS·이미지 HTTP200, 리다이렉트301. 다른 컨테이너 불변. Playwright 신규 비로그인 세션에서 배너 노출·/service/try 이동·사전동의 화면 확인, 390px 캡처 육안확인. 실AI 생성·운영 게임 클릭은 미실행(대역 단위테스트82개로 검증).
+- 복구: /Users/ethan/crefans-recovery/20261116/front-guest-cosplay-20261116/ 이미지·설정 아카이브 SHA256, OCI blob15개 해시·이전 이미지ID 확인. 서버 이전 태그·설정백업·전송임시파일 정리 완료. 활성 이미지·DB·업로드 보존. 복구 저장소 보관본 삭제 없음.
+- 증거 .local/ship-front-guest-cosplay-20261116/{ship,build,deploy}.log 및 .local/guest-cosplay/{live-check.json,live-banner.png,integrated-tests.log,integrated-typecheck.log}. 이전 문서·계층 검사 제한은 아래 기록 참고.
+
 ## 2026-11-16 서비스 소개에 AI 사진 편집 + 소개서 PDF 링크 (feat/ai-photo-intro, 운영 미배포)
 - 사용자 요청: 서비스·가이드·소개서 PDF에 AI 사진 편집 내용.
 - 랜딩(LandingPage·lib/content/landing.ts aiPhoto): 'AI 사진 편집' 섹션(가상 인물 AI 생성 이미지 /illustrations/landing/ai-photo-costume-v1.webp, 기능 4줄, '로그인 없이 체험하기' /service/try, '서비스 소개서 PDF' 가이드 다운로드 링크). ServiceLinks(사이드바·푸터·설정)에 '서비스 소개서 PDF ↗'.
