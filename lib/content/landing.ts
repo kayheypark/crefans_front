@@ -14,16 +14,17 @@ export const landingCreators:Creator[] = [
 ];
 
 export const landingAssetContent:LandingContent={
-  hero:{title:['2026년 12월,','새로운 팬 플랫폼이 등장합니다'],description:['멤버십과 후원으로 함께하는 크리에이터·팬 플랫폼'],image:'/illustrations/creators/moka/cover-v1.png',imageAlt:'분홍 머리와 리본으로 코스프레 촬영을 하는 가상 크리에이터 모카',position:'center top'},
+  // 2026-11-16 user decision: AI photo editing is the main service; posting and creator features follow.
+  hero:{title:['사진 한 장으로','오늘의 캐릭터가 되어 보세요'],description:['의상·메이크업·포즈·배경을 바꾸는 AI 사진 편집 서비스, 크레팬스'],image:'/illustrations/creators/moka/cover-v1.png',imageAlt:'분홍 머리와 리본으로 코스프레 촬영을 하는 가상 크리에이터 모카',position:'center top'},
   creators:landingCreators.slice(0,5),
   creatorDisclosure:'이 서비스 소개에 표시된 크리에이터는 가상의 인물입니다.',
   collage:[landingCreators[0],landingCreators[2],landingCreators[6],landingCreators[5]],
   steps:[
-    {icon:'card',title:'멤버십 구독',description:['새로운 이야기와 일상을','꾸준히 만나보세요.']},
-    {icon:'heart',title:'게시물 후원',description:['마음에 드는 작품에','응원을 전해 보세요.']},
-    {icon:'heart',title:'창작자 후원',description:['크리에이터의 다음 순간을','함께 만들어 가세요.']},
+    {icon:'search',title:'사진 올리기',description:['본인 사진 한 장을','올려 주세요.']},
+    {icon:'card',title:'프리셋 고르기',description:['의상·메이크업·포즈·배경을','골라 담으세요.']},
+    {icon:'heart',title:'게시물로 공유',description:['완성한 사진을','게시물로 올려 보세요.']},
   ],
-  aiPhoto:{title:'AI 사진 편집',description:['사진 한 장을 AI로 바꿔 게시물에 바로 쓰세요.','의상·메이크업·포즈·배경 프리셋을 골라 담기만 하면 됩니다.'],
+  aiPhoto:{title:'AI 사진 편집',description:['사진 한 장을 AI로 바꿔 새 사진을 만드세요.','의상·메이크업·포즈·배경 프리셋을 골라 담기만 하면 됩니다.'],
    points:['일반·게임·애니메이션 의상 300종 이상, 가발·소품까지 함께','메이크업·표정·포즈·신체 보정·구도·촬영 컨셉·배경 프리셋','결과는 이어서 보정하거나 잘라서 게시','운영팀이 허용한 크리에이터 하루 10회 무료, 로그인 없이 10회 체험'],
    image:'/illustrations/landing/ai-photo-costume-v1.webp',imageAlt:'AI로 판타지 마법사 의상을 입힌 가상 인물 사진(AI 생성)',trialHref:'/service/try',brochureHref:`${guideSiteUrl}downloads/crefans-service-introduction.pdf`},
   notice:'공지사항 화면은 준비 중입니다.',

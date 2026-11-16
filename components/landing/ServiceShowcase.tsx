@@ -10,7 +10,7 @@ import s from "./showcase.module.css";
 const scenes = [
   { title: "공개 콘텐츠", headline: "나의 일상이, 첫 만남이 되도록.", description: "운동 기록과 사진을 공개하고, 나의 스타일에 공감하는 팬을 만나보세요. 익숙한 피드에서 창작자의 이야기가 시작됩니다." },
   { title: "멤버십", headline: "나의 콘텐츠에 맞는 멤버십.", description: "가격과 혜택을 직접 구성하세요. 팬은 자신에게 맞는 멤버십을 선택하고, 좋아하는 크리에이터의 다음 창작을 함께합니다." },
-  { title: "전용 콘텐츠", headline: "함께하는 팬에게, 더 깊은 이야기.", description: "멤버십 전용 콘텐츠로 한 걸음 더 가까워지세요. 공개 게시글과 같은 편안한 화면에서 멤버를 위한 이야기를 이어갑니다." },
+  { title: "전용 콘텐츠", headline: "멤버에게 전하는 전용 게시물.", description: "멤버십 전용 콘텐츠로 한 걸음 더 가까워지세요. 공개 게시글과 같은 편안한 화면에서 멤버를 위한 이야기를 이어갑니다." },
 ];
 const noop = () => {};
 const router = { push: noop, replace: noop, refresh: noop, back: noop, forward: noop, prefetch: async () => {} };
@@ -24,7 +24,7 @@ export default function ServiceShowcase() {
       <div className={s.inner} data-reveal>
         <div className={s.copy}>
           <p className={s.eyebrow}>크레팬스 미리보기</p>
-          <h2 id="showcase-title">창작을 나누는 순간부터,<br />팬과 함께하는 일상까지.</h2>
+          <h2 id="showcase-title">만든 사진을 나누는 순간부터,<br />크리에이터 기능까지.</h2>
           <div className={s.steps} aria-label="서비스 예시 화면 선택">
             {scenes.map((item, index) => (
               <button key={item.title} type="button" aria-pressed={scene === index} aria-controls="service-demo-screen" onClick={() => setScene(index)}>
