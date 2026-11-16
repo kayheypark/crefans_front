@@ -99,3 +99,7 @@
 .smsHint{padding:0 14px 14px;font-size:12px;color:#6e6e73;text-align:center}
 .smsQr{display:flex;flex-direction:column;align-items:center;gap:8px;margin:0}.smsQr img{border-radius:8px}.smsQr figcaption{font-size:12px;color:var(--cf-color-textSecondary);text-align:center}
 .smsRetry{border:0;background:none;padding:0;color:var(--cf-color-accent);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
+
+/* 2026-11-16 user: the open-messages control was too small → full-width 52px buttons on phones. */
+.smsActions{display:grid;gap:10px;margin-top:2px}.smsActions .smsMain{width:100%;min-height:52px;font-size:17px;font-weight:700;border-radius:14px}
+.smsBack{justify-self:center;border:0;background:none;padding:10px 12px;color:var(--cf-color-textSecondary);font:inherit;font-size:15px;cursor:pointer}
