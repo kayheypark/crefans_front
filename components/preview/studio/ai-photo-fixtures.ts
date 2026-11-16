@@ -13,7 +13,7 @@ export function mockAiPhotoEdit({start=AI_PHOTO_DAILY_LIMIT,mode='normal' as Moc
  return async(input:AiPhotoEditInput):Promise<ApiResult<AiPhotoEditResult>>=>{
   await new Promise(resolve=>setTimeout(resolve,delay));
   if(!input.consent)return {success:false,data:null,errorMessage:'사진 속 인물 확인에 동의해 주세요.',errorCode:'CONSENT_REQUIRED'};
-  if(remaining<=0)return {success:false,data:null,errorMessage:'무료 횟수를 모두 썼어요. 매일 오전 9시에 다시 채워지고, 횟수권을 구매하면 계속 만들 수 있어요.',errorCode:'DAILY_LIMIT'};
+  if(remaining<=0)return {success:false,data:null,errorMessage:'무료 횟수를 모두 썼어요. 매일 오전 9시에 다시 채워지고, AI 이용권을 구매하면 계속 만들 수 있어요.',errorCode:'DAILY_LIMIT'};
   if(mode==='error')return {success:false,data:null,errorMessage:'사진을 만들지 못했어요. 잠시 후 다시 시도해 주세요.',errorCode:'PROVIDER_ERROR'};
   if(mode==='blocked')return {success:false,data:null,errorMessage:'안전 기준에 맞지 않는 요청이라 만들 수 없어요. 다른 표현으로 다시 적어 주세요.',errorCode:'UNSAFE_INPUT'};
   remaining-=1;onRemaining?.(remaining);

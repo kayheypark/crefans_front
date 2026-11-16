@@ -371,3 +371,15 @@ test('without the partner contract the membership page disables 멤버십 만들
  try{assert.notEqual(button(open,'멤버십 만들기').props.disabled,true);assert.doesNotMatch(json(open),/파트너 계약 후 멤버십을 열 수 있어요/);}
  finally{act(()=>open.unmount());probe.close();}
 });
+
+// 2026-11-16 (/pilot-work): reopening a paused membership needs the contract too, so its switch is off without the badge.
+test('without the partner contract a paused membership cannot be switched back on; an active one can still be paused',()=>{
+ const probe=fixtureHook(),paused={...plan,id:'p-off',name:'Paused plan',active:false},live={...plan,id:'p-on',name:'Live plan',active:true};
+ const toggles=t=>t.root.findAll(n=>n.props?.label==='멤버십 활성화'&&typeof n.props.onChange==='function');
+ const locked=mount(MembershipManagementPage,{...probe.model,memberships:[live],membershipPartner:false});
+ try{assert.equal(toggles(locked)[0].props.disabled,false,'pausing stays possible');}finally{act(()=>locked.unmount());}
+ const lockedArchived=mount(MembershipManagementPage,{...probe.model,memberships:[paused],membershipPartner:false});
+ try{act(()=>button(lockedArchived,'비활성화').props.onClick());assert.equal(toggles(lockedArchived)[0].props.disabled,true,'reopening needs the badge');}finally{act(()=>lockedArchived.unmount());}
+ const partner=mount(MembershipManagementPage,{...probe.model,memberships:[paused],membershipPartner:true});
+ try{act(()=>button(partner,'비활성화').props.onClick());assert.equal(toggles(partner)[0].props.disabled,false);}finally{act(()=>partner.unmount());probe.close();}
+});
