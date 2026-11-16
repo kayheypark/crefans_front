@@ -1,3 +1,8 @@
+## 2026-11-16 휴대폰 번호 확인: 문자 미리보기 + 메시지 앱 열기 (feat/phone-sms-preview, 서버 feat/phone-sms-preview)
+- 사용자 지시: 업계 표준처럼 보낼 문자를 미리보기로 인지시키고 '인증하러 가기'로 안드로이드·아이폰 메시지 앱이 열려야 함. 웹 조사(2026-11-16): sms: 본문 구분자는 표준이 없고 Android '?body=', iOS 8+ '&body='(sms-href 라이브러리 상수, west-wind 정리; '?&body=' 혼합형은 일부 안드로이드 앱에서 본문 누락 보고). OCTOMO QR API(/public/message/qr-code {text,width}→{qrCode}) 공식 문서 확인.
+- 변경: lib/crefans/sms-link.ts(smsPlatform: iPhone/iPad·터치 Mac=ios, Android, 그 외 desktop / smsHref 플랫폼별), PhoneCheckDialog 재설계(번호 입력→'다음'→받는 사람 1666-3538 + 파란 말풍선 코드 미리보기→모바일 '인증하러 가기'(메시지 앱 열기, 못 열면 '다시 열기')→'보냈어요', 앱에서 돌아오면 1회 조용히 자동 확인 / PC는 서버가 OCTOMO QR을 받아 표시+수동 안내). 서버 start에 qr:true면 qrCode(PNG data URL만 통과).
+- 검증: tsc 0, sms-link 1/1, phone-check-dialog 2/2(대조: 인증하러 가기 제거 시 실패), crefans-account·promotion-claim 통과, npm test 709/18(기준선 동일). 로컬 dev+iPhone 13 에뮬레이션: 미리보기 화면 캡처, '인증하러 가기' 클릭 시 sms:16663538&body=482913 이동 확인. 서버 platform-phone-verification 4/4, 실제 OCTOMO QR 응답 형식 확인. 실기기(안드로이드·아이폰) 메시지 앱 열림은 미확인.
+
 ## 2026-11-16 회원가입 휴대폰 번호 확인 화면 (feat/signup-phone)
 - 서버 signupRequirements.phoneRequired일 때 이메일 인증 아래 '휴대폰 번호 확인' 행 → PhoneCheckDialog(가입용 안내 문구)로 1666-3538 문자 확인 → 완료해야 가입 버튼 활성. 이메일을 바꾸면 확인 초기화. 가입 요청에 phone·phoneProof 동봉(useServiceModel proofs). 미리보기 목업은 signupPhone 없음 → 표시 안 함.
 - 검증: tsc 0, crefans-account 새 테스트 통과(대조: 조건 제거 시 실패), npm test 706/18(기준선 동일).

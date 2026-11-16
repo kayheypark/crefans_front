@@ -79,3 +79,13 @@
 .phoneCheck{display:grid;gap:14px}.phoneCheck p{margin:0;line-height:1.6}.phoneSms{display:grid;gap:10px;margin:0;padding:14px 16px;border-radius:12px;background:var(--cf-landing-soft)}
 .phoneSms div{display:flex;justify-content:space-between;gap:12px}.phoneSms dt{color:var(--cf-color-textSecondary)}.phoneSms dd{margin:0;font-weight:600}.phoneSms strong{font-size:20px;letter-spacing:.08em}
 .phoneSmsLink{justify-self:start;color:var(--cf-color-accent);font-weight:600}.phoneNote{color:var(--cf-color-textMuted);font-size:13px}
+
+/* 2026-11-16 SMS preview (what the messaging app will send) and PC QR. */
+.smsPreview{margin:0;border:1px solid var(--cf-color-border);border-radius:16px;overflow:hidden;background:var(--cf-color-surface)}
+.smsHeader{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 12px;border-bottom:1px solid var(--cf-color-border);background:var(--cf-landing-soft)}
+.smsHeader span{font-size:11px;color:var(--cf-color-textMuted)}.smsHeader strong{font-size:15px}
+.smsBody{display:flex;flex-direction:column;align-items:flex-end;gap:4px;padding:16px 14px 12px}
+.smsBubble{padding:9px 14px;border-radius:18px 18px 4px 18px;background:#0a84ff;color:#fff;font-size:18px;font-weight:700;letter-spacing:.08em}
+.smsBody small{font-size:11px;color:var(--cf-color-textMuted)}
+.smsQr{display:flex;flex-direction:column;align-items:center;gap:8px;margin:0}.smsQr img{border-radius:8px}.smsQr figcaption{font-size:12px;color:var(--cf-color-textSecondary);text-align:center}
+.smsRetry{border:0;background:none;padding:0;color:var(--cf-color-accent);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
