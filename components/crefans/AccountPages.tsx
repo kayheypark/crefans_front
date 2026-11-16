@@ -1,5 +1,6 @@
 'use client';
 import {Toast} from '@/components/ui/Toast';
+import {PhoneCheckDialog} from './PhoneCheckDialog';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanWalletLink} from './BeanPages';
 import {SignInPrompt} from './SignInPrompt';
@@ -68,6 +69,8 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
   // Requirements come from the server; deferring PASS never marks the identity as verified.
   const [codeSent,setCodeSent]=useState(false),[code,setCode]=useState(''),[emailVerified,setEmailVerified]=useState(false),[emailNotice,setEmailNotice]=useState(''),[emailError,setEmailError]=useState(''),[verifying,setVerifying]=useState(false);
   const identityRequired=account.signupRequirements?.identityRequired!==false;
+  // 2026-11-16: phone-number check (OCTOMO, ownership only) after the email code when the server asks for it.
+  const phoneRequired=account.signupRequirements?.phoneRequired===true&&!!accountActions.signupPhone,[phoneOpen,setPhoneOpen]=useState(false),[phoneVerified,setPhoneVerified]=useState(false);
   const [ageAcknowledged,setAgeAcknowledged]=useState(false);
   // A referral link stored for this browser session asks for the disclosure agreement (2026-11-02); read after mount (sessionStorage).
   const [referred,setReferred]=useState(false),[referralDisclosure,setReferralDisclosure]=useState(false);
@@ -76,8 +79,8 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
   const errors={email:!emailIsValid(email)?'올바른 이메일 주소를 입력해주세요.':'',password:password.length<8?'비밀번호를 8자 이상 입력해주세요.':'',confirm:confirm!==password?'비밀번호가 서로 일치하지 않습니다.':'',nickname:!nickname.trim()?'닉네임을 입력해주세요.':''};
   const policiesReady=model.mode!=='live'||(account.agreements?.signupReady??account.agreements?.published)===true;
   const [inviteNotice,setInviteNotice]=useState('');
-  const ready=policiesReady&&!Object.values(errors).some(Boolean)&&terms&&privacy&&emailVerified&&(identityRequired?identityVerified:ageAcknowledged)&&(!referred||referralDisclosure);
-  function changeEmail(value:string){setEmail(value);setCodeSent(false);setCode('');setEmailVerified(false);setEmailNotice('');setEmailError('');}
+  const ready=policiesReady&&!Object.values(errors).some(Boolean)&&terms&&privacy&&emailVerified&&(!phoneRequired||phoneVerified)&&(identityRequired?identityVerified:ageAcknowledged)&&(!referred||referralDisclosure);
+  function changeEmail(value:string){setEmail(value);setCodeSent(false);setCode('');setEmailVerified(false);setPhoneVerified(false);setEmailNotice('');setEmailError('');}
   async function requestCode(){if(verifying||!emailIsValid(email))return;setVerifying(true);setEmailError('');setEmailNotice('');try{const result=await accountActions.requestSignupCode(email);if(result.success){setCodeSent(true);setEmailNotice(result.data.message);}else if(result.errorCode==='SIGNUP_INVITE_REQUIRED')setInviteNotice(result.errorMessage||'');else{setEmailError(result.errorMessage);if(result.errorCode==='RESEND_COOLDOWN')setCodeSent(true);}}catch{setEmailError('인증 코드를 보내지 못했어요. 다시 시도해주세요.');}finally{setVerifying(false);}}
   async function verifyCode(){if(verifying||!code.trim())return;setVerifying(true);setEmailError('');try{const result=await accountActions.verifySignupCode({email,code:code.trim()});if(result.success){setEmailVerified(true);setEmailNotice(result.data.message);}else setEmailError(result.errorMessage);}catch{setEmailError('인증 코드를 확인하지 못했어요. 다시 시도해주세요.');}finally{setVerifying(false);}}
   async function verifyPass(){if(passPending)return;setPassPending(true);setPassError('');try{const result=await accountActions.verifyIdentity();if(result.success){setIdentityVerified(true);setPassOpen(false);}else setPassError(result.errorMessage);}catch{setPassError('본인인증을 완료하지 못했어요. 다시 시도해주세요.');}finally{setPassPending(false);}}
@@ -90,6 +93,8 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
         <div className={s.verifyRow}><Field label="이메일" type="email" autoComplete="email" value={email} readOnly={emailVerified} onChange={e=>changeEmail(e.target.value)} placeholder="이메일을 입력하세요" error={submitted?errors.email:undefined}/>{emailVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={verifying||!emailIsValid(email)} onClick={()=>void requestCode()}>{codeSent?'다시 받기':'인증 코드 받기'}</Action>}</div>
         {codeSent&&!emailVerified&&<div className={s.verifyRow}><Field label="인증 코드" inputMode="numeric" maxLength={6} value={code} onChange={e=>setCode(e.target.value)} placeholder="6자리 코드"/><Action type="button" variant="secondary" disabled={verifying||!code.trim()} onClick={()=>void verifyCode()}>확인</Action></div>}
         {emailNotice&&<p className={s.hint} role="status">{emailNotice}</p>}{emailError&&<p className={s.error} role="alert">{emailError}</p>}
+        {phoneRequired&&<div className={s.identityRow}><div><strong>휴대폰 번호 확인</strong><span>{phoneVerified?'휴대폰 번호 확인 완료':emailVerified?'번호 하나에 계정 하나만 만들 수 있어요.':'이메일 인증 후 진행해 주세요.'}</span></div>{phoneVerified?<span className={s.verified}>확인 완료</span>:<Action type="button" variant="secondary" disabled={!emailVerified} onClick={()=>setPhoneOpen(true)}>휴대폰 확인</Action>}</div>}
+        {phoneRequired&&submitted&&!phoneVerified&&<p className={s.error} role="alert">휴대폰 번호 확인이 필요해요.</p>}
         <Field label="비밀번호" type="password" showPasswordToggle autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="비밀번호를 입력하세요" hint="8자 이상 입력해주세요." error={submitted?errors.password:undefined}/>
         <Field label="비밀번호 확인" type="password" showPasswordToggle autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)} placeholder="비밀번호를 다시 입력하세요" error={confirm&&confirm!==password?errors.confirm:undefined}/>
         <Field label="닉네임" autoComplete="nickname" maxLength={20} value={nickname} onChange={e=>setNickname(e.target.value)} placeholder="닉네임을 입력하세요" error={submitted?errors.nickname:undefined}/>
@@ -107,6 +112,7 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
         {task.error&&<p className={s.error} role="alert">{task.error}</p>}
         <Action type="submit" disabled={task.busy||!ready}>{task.busy?'확인 중…':'동의하고 가입하기'}</Action>
       </form>
+    {phoneRequired&&accountActions.signupPhone&&<PhoneCheckDialog open={phoneOpen} onClose={()=>setPhoneOpen(false)} check={accountActions.signupPhone} onVerified={()=>setPhoneVerified(true)} intro="번호 하나에 계정 하나만 만들 수 있어요. 번호를 입력하면 보낼 문자를 알려 드려요."/>}
     {identityRequired&&<Dialog open={passOpen} onClose={()=>{if(!passPending)setPassOpen(false);}} title="PASS 본인인증"><div className={s.dialogBody}><p>통신사 PASS 앱으로 연결해 본인인증을 진행합니다. 인증이 끝나면 이 화면으로 돌아옵니다.</p>{model.mode!=='live'&&<p className={s.hint}>목업에서는 아래 버튼을 누르면 인증이 완료된 것으로 처리됩니다.</p>}{passError&&<p className={s.error} role="alert">{passError}</p>}<DialogActions><Action variant="secondary" disabled={passPending} onClick={()=>setPassOpen(false)}>취소</Action><Action disabled={passPending} onClick={()=>void verifyPass()}>{passPending?'연결 중…':'PASS 앱으로 인증하기'}</Action></DialogActions></div></Dialog>}
     <Dialog open={!!inviteNotice} onClose={()=>setInviteNotice('')} title="가입 안내"><div className={s.dialogBody}><p>{inviteNotice}</p><DialogActions><Action type="button" onClick={()=>setInviteNotice('')}>확인</Action></DialogActions></div></Dialog>
     <Dialog open={!!policy} onClose={()=>setPolicy(null)} title={policy==='terms'?'이용약관':policy==='marketing'?'마케팅 정보 수신 동의':'개인정보 처리방침'}><div className={s.dialogBody}>{policy&&(account.agreements?<>{policy==='privacy'&&<LegalDocumentBody document={account.agreements.collection} idPrefix="signup-collection"/>}<LegalDocumentBody document={account.agreements.documents[policy]} idPrefix={`signup-${policy}`}/></>:<p className={s.ticketMessage}>{policy==='marketing'?'선택 동의입니다.':account.policies[policy]}</p>)}<DialogActions><Action variant="secondary" onClick={()=>setPolicy(null)}>확인</Action></DialogActions></div></Dialog>
