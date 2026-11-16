@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T22:30:54.814145+00:00",
+  "checkedAt": "2026-11-16T22:53:47.071126+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "c098285083095f8de549c39778058be67867bc0f",
+      "head": "1030d8a0504a2cb4f2837e3892cd1b0b5eaacae2",
       "branch": "",
       "dirty": false
     },
     "server": {
-      "head": "619a47471a3a785df93b731aeb962aac98d89ebf",
+      "head": "aa9c283df00de3926699e6ae0f2ebebe0407f957",
       "branch": "",
       "dirty": false
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "6efbecc09838e0579710c8ed0ff126f45e4fe33f80fe8e6f479b7772cd351595",
-      "front/PROGRESS.md": "829482ad9451ebfc3017c75b6b0f5e72fe597817e25db99d7e4c13cec53bfafd",
+      "front/PROGRESS.md": "0a0fe44cacfcf2263ee693b89a4b4e58c71a30f26c79303fbc67ecc0e4ce04cb",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "17a62e8140cea7913bb083d5d2e85595923b85f9bac4d8af90d4e2812320a47f",
       "server/AGENTS.md": "904a398cf606b21c59cf64ebc4f78b306f955ed22aea38a9a6f6a8334e16c8f7",
-      "server/PROGRESS.md": "344c59c0ff09ba87f2efd2149a100f54d9827d824b78cea2841edf16b2030a71",
+      "server/PROGRESS.md": "a52306de472980deb30c0e6a33f978596afb0dce345475a133644f6243e79953",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -500,7 +500,7 @@
       "front/components/ui/date-range-picker.module.css": "933e610d3914c565b6855270e2a0ff564d10689bcff87fbab14519467ec275bd",
       "front/components/ui/date-range.ts": "619b518545fc88e57a955eba0e5fd68fceb2bc4076f1be23fef72cd9d56d44f4",
       "front/components/ui/dialog-actions.module.css": "b2e062c782277e5f97617c05c4b9b9f84dc760ba279891df1e0209d758e4e569",
-      "front/components/ui/field.module.css": "4bdfdd583ff4bf2cf7e01a3df2f9ef1ca747acfa90ba527d9aa315b441227c6e",
+      "front/components/ui/field.module.css": "30481ca3899efd78c728989cdadd1665018722c0ae9bfcbab577838f89539d12",
       "front/components/ui/image-upload.module.css": "c0f00619e82bae7baa5f7a86fe8e1f1bcb15bf2adaffc8a69b73ebe22795a6f9",
       "front/components/ui/info-tooltip.module.css": "c730a69e21fffe24157761c32f1b9152c361eb8400bfc28de9d0ebfb6e5a6e6f",
       "front/components/ui/loading-spinner.module.css": "6694ad8aeb8af6e8c86e16ff051c3f84daf291febad57ed8a42fe6bf0fb94d0d",
@@ -1307,14 +1307,14 @@
       "server/src/platform/guest-caption.ts": "3ef3abc1f2fc6dc4a06da23acd693a83850a0f072390d58a1834ce0dae4ec919",
       "server/src/platform/guest-policy.ts": "42704cea10097c9344196e6c8bdd426f350036d18ae85441a37ec82e38df33cb",
       "server/src/platform/guest.ts": "0dd688bcd48d1f10d889f2f9312c50f4611c120f719c2f753f84f5eb3fe0b838",
-      "server/src/platform/guide-advisor.ts": "6bf00b13d95e636c01200bcb11ade75933d8b1c8ec794df2e9f68c5775f15dda",
+      "server/src/platform/guide-advisor.ts": "4f7ca4cd591e2830c513c82de006d05575ec218d4ee464919e9a683bed228b21",
       "server/src/platform/handles.ts": "616e7fbcf12c28bb9e22dd924cd3bf4b448b4fab240e79f7db88f9bc8a63fa5d",
       "server/src/platform/http.ts": "fa6719725948b8119c078cea4dd2a2264e77ba0d773a37cf5bef4d7988434f09",
       "server/src/platform/identity-provider.ts": "d3460eb36d68cc48503a7cc433c8d7ec19b4ac9b61051f93478bbd1056be1af3",
       "server/src/platform/identity.controller.ts": "75c26a2fc5fdf824d29ebe46d5b334c531ab4584790023dc0ccbf76642011330",
       "server/src/platform/inicis-billing.ts": "6f8d20588af562da2c3125e70e8ecde3ff274ecc63d5c489a65d0941663b0ea8",
       "server/src/platform/jobs.service.ts": "522844c82499f2bdfb6a8993b3a36b7c705dce56e566b253d08f8e531d1f1b91",
-      "server/src/platform/legal-documents.ts": "a5efbef3a13163dcf670e9636c65c2f1e2135b513c217abb9101a1a9044dc270",
+      "server/src/platform/legal-documents.ts": "405cd2a93c27984d8557e6f601b2f1690a13fa66c30e4319fd58b2987edd69d2",
       "server/src/platform/main.ts": "d61ee75b7f8c146e8d5e09e81e57fce5f6d61cf3af6d9ed72dc3f57404558d9f",
       "server/src/platform/marketing.controller.ts": "a09e8057aa2e19e0faa8f330b1bf2887fde14541496d703f4caa9626172b598b",
       "server/src/platform/marketing.service.ts": "5827b5846a8796978d905490beb4e112a1918705756f7d9f3732d0e5ecd43cf7",
@@ -1454,10 +1454,10 @@
       "server/tests/platform-founding-badge.test.cjs": "84b2680a364274b486adc058b771ef02836666fe3424773b29c7367ce7b25cca",
       "server/tests/platform-guest-caption.test.cjs": "cf34382bb0662f0a95a1179b2aa607965198688d5b14e5a3de5c3481a9cc20ca",
       "server/tests/platform-guest.test.cjs": "59c03c8e36866d0d5e72217197117b7dc48fa9db0c7a3667b18baefad03aa630",
-      "server/tests/platform-guide-advisor.test.cjs": "a12db9c4f2484928ef9b7b640371d6a4a73df9d0a1b473448d129c64a7f2cc7a",
+      "server/tests/platform-guide-advisor.test.cjs": "edd2d9643ce975e29282c3aeea73c627b986a1ed8bf500c705aee3560e9c99e0",
       "server/tests/platform-handle-unify.test.cjs": "197d118455a196c09663d7ac7163c8af3b41bc960269a8681e4e65fe90e70252",
       "server/tests/platform-jobs.test.cjs": "830e4c9ab485dfbec44c6bb2e1801d8b090fb814cbb21aa4bba427a3a0e097fe",
-      "server/tests/platform-legal.test.cjs": "d6a352398b1234dad888eac11c5238a25b168285fc30187fe7282b78d3ee0f0b",
+      "server/tests/platform-legal.test.cjs": "c2168ee9fc75838dbc54234f0076499642ea27f82d8606fd367cb7936cafdb0a",
       "server/tests/platform-log-config.test.cjs": "3f51cbb8743cce0b5a93d2e03ea458f2f102039a6e5b7db0613ba934af8e72d1",
       "server/tests/platform-mail.integration.test.cjs": "a637580ef18796ed8cd0af92e3d89470813035800ab13d90061a251210ccc8ca",
       "server/tests/platform-manual-payouts.test.cjs": "236128d0a67a45ff9a13a3ad5f03e9f0822a69c47524c44cc0d415e91fe4a920",
