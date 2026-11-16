@@ -40,3 +40,7 @@
 .heroVisual figcaption{font-size:12px;font-weight:600;color:var(--cf-color-textSecondary)}.heroArrow{color:var(--cf-color-textSecondary);font-size:20px;margin-bottom:22px}
 .heroNote{align-self:center;color:var(--cf-color-textMuted);font-size:11px}
 .steps li img{width:44px;height:44px}
+
+/* 2026-11-16 v3: original photo with the chosen costume overlapping its bottom-right corner → the result. */
+.heroBefore{position:relative;display:block}.heroVisual .heroCostume{position:absolute;right:-8px;bottom:-8px;width:52px;height:65px;border-radius:10px;border:2px solid var(--cf-color-surface);box-shadow:0 2px 8px rgb(32 35 51/.18)}
+.heroBefore+figcaption{margin-top:6px}
