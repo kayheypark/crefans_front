@@ -1,5 +1,6 @@
 import type {Creator} from '@/types/crefans';
 import type {LandingContent} from '@/types/crefans-landing';
+import {guideSiteUrl} from './business';
 
 export const landingCreators:Creator[] = [
   {id:'moka',isVerified:true,name:'모카의 분홍빛 코스프레와 일상이야기',handle:'moka_cosplay_story_daily',tags:['코스프레','아트'],image:'/illustrations/creators/moka/avatar-v1.png',cover:'/illustrations/creators/moka/cover-v1.png',position:'center 30%',bio:'분홍빛 상상을 코스프레로 만들어요.',about:'안녕하세요, 코스프레 크리에이터 모카예요. 좋아하는 색과 작은 소품으로 나만의 캐릭터를 만들고 있어요.\n\n완성된 화보부터 리본을 고르고 촬영을 준비하는 순간까지, 작업의 여러 모습을 이곳에 기록합니다.',followers:'1.2K',followerCount:1240,followingCount:38,postCount:3,promoted:true,isCreator:true},
@@ -22,5 +23,8 @@ export const landingAssetContent:LandingContent={
     {icon:'heart',title:'게시물 후원',description:['마음에 드는 작품에','응원을 전해 보세요.']},
     {icon:'heart',title:'창작자 후원',description:['크리에이터의 다음 순간을','함께 만들어 가세요.']},
   ],
+  aiPhoto:{title:'AI 사진 편집',description:['사진 한 장을 AI로 바꿔 게시물에 바로 쓰세요.','의상·메이크업·포즈·배경 프리셋을 골라 담기만 하면 됩니다.'],
+   points:['일반·게임·애니메이션 의상 300종 이상, 가발·소품까지 함께','메이크업·표정·포즈·신체 보정·구도·촬영 컨셉·배경 프리셋','결과는 이어서 보정하거나 잘라서 게시','운영팀이 허용한 크리에이터 하루 10회 무료, 로그인 없이 10회 체험'],
+   image:'/illustrations/landing/ai-photo-costume-v1.webp',imageAlt:'AI로 판타지 마법사 의상을 입힌 가상 인물 사진(AI 생성)',trialHref:'/service/try',brochureHref:`${guideSiteUrl}downloads/crefans-service-introduction.pdf`},
   notice:'공지사항 화면은 준비 중입니다.',
 };
