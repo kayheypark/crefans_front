@@ -14,7 +14,8 @@ const model=patch=>({products:[pack,plan],orders:[],loading:false,error:'',refre
 const flat=t=>words(t.toJSON()).replace(/\s+/g,'');
 const buttons=t=>t.root.findAll(n=>n.type==='button');const byText=(t,s)=>buttons(t).find(b=>words(b.props.children).trim()===s);
 const render=m=>{let t;act(()=>{t=create(el(ShopPage,{model:m,basePath:'/service/studio'}));});return t;};
-const openPlan=t=>act(()=>byText(t,'구독하기').props.onClick());
+const opener=(t,name)=>buttons(t).find(b=>b.props['aria-label']===`${name} 상품 안내`);
+const openPlan=t=>act(()=>opener(t,plan.name).props.onClick());
 const agree=t=>act(()=>t.root.find(n=>n.type==='input'&&n.props.type==='checkbox').props.onChange({target:{checked:true}}));
 const applyButton=t=>byText(t,'월 3,000원 구독 신청');
 
@@ -23,8 +24,7 @@ test('subscription plans sit in their own section; the 횟수형 list keeps only
  try{
   const text=words(t.toJSON());
   assert.match(text,/AI 이용권 구독형/);assert.match(text,/AI 이용권 횟수형/);assert.match(flat(t),/월3,000원/);assert.match(flat(t),/매달AI사진30회/);assert.match(flat(t),/1회100원/);
-  assert.equal(buttons(t).filter(b=>words(b.props.children).trim()==='구매하기').length,1,'only the pack can be bought once');
-  assert.ok(byText(t,'구독하기'));
+  assert.equal(buttons(t).filter(b=>/ 상품 안내$/.test(b.props['aria-label']||'')).length,2,'one row per product, like 광고상품');assert.ok(opener(t,pack.name));assert.ok(opener(t,plan.name));
  }finally{act(()=>t.unmount());}
  const old=render(model({subscriptions:null}));
  try{const text=words(old.toJSON());assert.doesNotMatch(text,/구독형/,'older server: section hidden');assert.doesNotMatch(text,/월 30회 구독/);}finally{act(()=>old.unmount());}
@@ -47,7 +47,7 @@ test('available=false: button stays enabled, click shows the 점검 alert withou
  const calls=[];
  let t=render(model({subscriptions:{available:false,items:[]},subscribe:async()=>{calls.push(1);return ok({window:null});}}));
  try{
-  assert.equal(byText(t,'구독하기').props.disabled,false);assert.doesNotMatch(words(t.toJSON()),/준비 중|연동 전/);
+  assert.equal(opener(t,plan.name).props.disabled,false);assert.doesNotMatch(words(t.toJSON()),/준비 중|연동 전/);
   openPlan(t);agree(t);assert.equal(applyButton(t).props.disabled,false);
   await act(async()=>{await applyButton(t).props.onClick();});
   assert.equal(calls.length,0,'no server call');assert.ok(t.root.findAll(n=>n.props?.['aria-label']==='점검 중입니다').length);
@@ -88,5 +88,16 @@ test('purchase history: subscription orders point to 구독 관리 instead of th
   act(()=>byText(t,'구매 내역').props.onClick());
   assert.equal(buttons(t).filter(b=>words(b.props.children).trim()==='잔여 횟수 환불').length,1,'only the pack order keeps the refund button');
   assert.match(flat(t),/구독관리에서환불할수있어요/);
+ }finally{act(()=>t.unmount());}
+});
+
+test('rows follow the 광고상품 list: reference price (highest 횟수형 1회 단가 × count) crossed out with the discount rate; the base pack shows none',()=>{
+ const p10={...pack,id:'a',name:'AI 이용권 10회',amount:2200,quantity:10,unitPrice:220},p50={...pack,id:'b',name:'AI 이용권 50회',amount:10450,quantity:50,unitPrice:209},sub={...plan,id:'c',name:'구독 라이트',amount:8800,quantity:50,unitPrice:176};
+ const t=render(model({products:[p10,p50,sub]}));
+ try{
+  const struck=t.root.findAll(n=>n.type==='s').map(n=>words(n.props.children));
+  assert.deepEqual(struck,['11,000원','11,000원'],'50회 횟수형 and 구독 50회 compare with 220원 × 50');
+  const text=flat(t);assert.match(text,/11,000원5%10,450원/);assert.match(text,/11,000원20%월8,800원/);assert.doesNotMatch(text,/%2,200원/,'the base pack has no discount');
+  assert.equal(t.root.findAll(n=>n.type==='img'&&n.props.src==='/brand/featured-creators-v1.png').length>=4,true,'sparkle icon on AI rows and headings');
  }finally{act(()=>t.unmount());}
 });
