@@ -80,3 +80,13 @@ test('submitPaymentWindow builds a hidden POST form with the given action and fi
  assert.deepEqual(form.children.map(i=>[i.type,i.name,i.value]),[['hidden','mid','INIBillTst'],['hidden','price','3000']]);
  assert.throws(()=>submitPaymentWindow({action:'http://evil.example/',fields:{}},doc));
 });
+
+test('purchase history: subscription orders point to 구독 관리 instead of the single refund button (field missing → unchanged)',()=>{
+ const order={id:'o1',name:'월 30회 구독',amount:3000,benefit:'AI 사진 30회 생성',createdAt:'2026-11-16T06:00:00.000Z',quantity:30,remaining:12,status:'paid',statusLabel:'결제 완료',method:'card'};
+ const t=render(model({orders:[{...order,subscription:true},{...order,id:'o2',name:'AI 사진 10회권'}]}));
+ try{
+  act(()=>byText(t,'구매 내역').props.onClick());
+  assert.equal(buttons(t).filter(b=>words(b.props.children).trim()==='잔여 횟수 환불').length,1,'only the pack order keeps the refund button');
+  assert.match(flat(t),/구독관리에서환불할수있어요/);
+ }finally{act(()=>t.unmount());}
+});

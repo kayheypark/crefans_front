@@ -1,3 +1,10 @@
+## 2026-11-16 카드 진입점 점검 알림 + 구독 주문 환불 안내 (feat/ai-subscription-ui 이어서, 미배포)
+- 사용자 결정 '카드 진입점 전부': 공용 components/crefans/CardMaintenance.tsx(CARD_MAINTENANCE=true, useCardMaintenance, 공용 Dialog '점검 중입니다'·'카드 결제 점검 중입니다. 잠시 후 다시 이용해 주세요.')를 상점 구독 신청·멤버십 결제(결제하고 가입/다시 결제하기/한 달만 결제하기/카드 등록, MembershipCheckout cardMaintenance prop, 서비스 CheckoutPage만 켬)·결제수단 관리 '결제수단 등록'(실서비스 분기만)·카드 등록 결과 '다시 등록하기'가 같이 씀. 버튼은 평소 규칙대로 활성, 누르면 토스 SDK·서버 호출 없음. '결제 결과 확인'(진행 중 주문 결과 조회)은 새 결제가 아니라 그대로 둠. 미리보기 목업·무료/콩 경로·숨긴 카드 선택지는 변경 없음. 카드 재개는 CARD_MAINTENANCE=false 한 줄.
+- 상점 구매 내역: subscription===true 주문은 '잔여 횟수 환불' 대신 '구독 관리에서 환불할 수 있어요.'(필드 없으면 기존 동작).
+- 기존 테스트 수정(삭제 없음): checkout-page '결제하고 가입 클릭 시 약관 버전 전송' → 점검 알림 표시·결제/한 달 결제/카드 등록 호출 0, crefans-common '결제수단 등록이 PG 액션 1회 호출' → 호출 0·점검 대화상자 표시.
+- 검증: tsc 0, shop-subscription 6/6, checkout-page·crefans-common 12/12. 대조: subscription 분기 제거·CheckoutPage cardMaintenance 제거·결제수단 등록 점검 분기 제거 각각 1건 실패 후 원복. npm test 721 중 703 pass/18 fail(기준선 목록과 동일).
+- 미실행: e2e. 영향 가능 스펙(실서비스 결제/카드 등록 클릭): e2e/service.spec.ts, qa-journey.spec.ts, membership-complete.spec.ts, membership-checkout-layout.spec.ts, legal-notices.spec.ts, billing-complete.spec.ts, billing-recovery.spec.ts. 구형 경로 app/subscription/[creatorId]·components/modals/MembershipJoinModal(토스 requestBillingAuth 직접 호출)은 범위 밖이라 그대로.
+
 ## 2026-11-16 AI 이용권 구독형/횟수형 상점 구역·구독 신청·관리 UI (feat/ai-subscription-ui, origin/prod 기반, 미배포)
 - 서버 계약: server feat/ai-subscription(미배포) 상품 kind/kindLabel/unitPrice, /studio/shop/subscriptions(GET·POST·:id/cancel·:id/refund). kind 없으면 횟수형, 구독 API 실패(구서버 404)면 구독 구역 숨김.
 - ShopPage: 'AI 이용권 구독형'(상품 카드 이름·월 금액·월 횟수·1회 단가, 내 구독 카드: 상태·카드·이번 기간·다음 결제일·남은 횟수·[해지 예약]·[남은 횟수 환불]) / 'AI 이용권 횟수형'(기존 구매 흐름, kind!=='subscription'만). 해지·환불은 확인 창 후 실행. 해지 예약 상태에서는 [해지 예약] 숨김(이미 예약됨), 종료·환불된 구독은 목록에서 제외.
