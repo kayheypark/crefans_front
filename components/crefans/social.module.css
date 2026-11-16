@@ -19,6 +19,11 @@
 .identity small{font-size:max(11px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted)}
 .more{font-size:21px;text-decoration:none;color:var(--cf-color-textSecondary);padding:5px 12px;letter-spacing:2px}
 .postImage{display:block;width:100%;aspect-ratio:1.25;object-fit:cover;border-radius:8px}
+/* 2026-11-16 user request: feed media keep their own shape between landscape 1.25:1 and portrait 9:16 instead of a fixed crop.
+   cqw = the media box width, so the limits follow the card width; slides in a gallery share the tallest slide's height. */
+.mediaWrap{container-type:inline-size}
+.mediaWrap .postImage{aspect-ratio:auto;height:auto;min-height:80cqw;max-height:calc(100cqw * 16 / 9)}
+.mediaWrap .gallerySlide{display:flex}.mediaWrap .gallerySlide>.zoom,.mediaWrap .gallerySlide>.postImage{flex:1 1 auto}.mediaWrap .gallerySlide .zoom img.postImage,.mediaWrap .gallerySlide>.postImage{height:100%}
 .lockedMedia{aspect-ratio:1.25;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:13px;border-radius:8px;background:radial-gradient(ellipse at 18% 35%,color-mix(in srgb,var(--cf-color-textMuted) 54%,transparent),transparent 45%),radial-gradient(ellipse at 80% 72%,color-mix(in srgb,var(--cf-color-textSecondary) 54%,transparent),transparent 55%),color-mix(in srgb,var(--cf-landing-ink) 76%,var(--cf-color-textMuted));color:var(--cf-color-surface);padding:22px}
 .lockedMedia strong{font-size:17px}
 .lockedMedia{position:relative;isolation:isolate;overflow:hidden}
@@ -120,7 +125,7 @@
 .srOnly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:1100px){.messages{grid-template-columns:245px minmax(0,1fr)}.contact{padding-left:12px;padding-right:12px;gap:8px}.contact time{font-size:max(8px,var(--cf-mobile-font-min,0px));right:9px}.messageScroll{padding:18px}.roomHeading{padding:13px 17px}.messageForm{margin:14px 17px}}
 @media(max-width:767px){.listTitle{margin:0 0 20px}.messages{display:block;margin-inline:-16px;padding-inline:16px;height:100%;min-height:0;border:0;border-radius:0;max-height:none}.conversationList{height:100%;border-right:0;padding-top:3px}.conversationList h1{font-size:var(--cf-typography-h2-size);line-height:1.3;letter-spacing:-.8px;margin:0 0 20px}.conversationList>.search{margin:0 0 14px}.contacts{margin-inline:-16px}.contact strong{font-size:14px}.contact small{font-size:max(12px,var(--cf-mobile-font-min,0px))}.contact time{font-size:max(10px,var(--cf-mobile-font-min,0px));right:16px;top:18px}.room{height:100%;display:none}.messages[data-room-open=true] .conversationList{display:none}.messages[data-room-open=true] .room{display:flex}.roomHeading .mobileBack{display:grid}.roomHeading{padding:5px 0 14px;min-height:65px}.messageScroll{padding:18px 3px}.messageForm{margin:12px 0}.notifications{max-width:none}.notification{margin-inline:-16px}.contact,.notification{padding:16px;gap:12px}.notificationText{font-size:max(12px,var(--cf-mobile-font-min,0px))}.notification>svg{width:13px}.notificationText small{font-size:max(10px,var(--cf-mobile-font-min,0px))}}
-@media(max-width:700px){.postImage,.lockedMedia{aspect-ratio:1.03}.postHeading{margin-bottom:12px}.post{padding-top:17px;margin-inline:-16px;padding-inline:16px}.post .mediaWrap,.post .lockedMedia{margin-inline:-16px}.post .postImage,.post .galleryTrack,.post .lockedMedia{border-radius:0}.postCopy p{font-size:max(12px,var(--cf-mobile-font-min,0px))}}
+@media(max-width:700px){.postImage,.lockedMedia{aspect-ratio:1.03}.mediaWrap .postImage{aspect-ratio:auto}.postHeading{margin-bottom:12px}.post{padding-top:17px;margin-inline:-16px;padding-inline:16px}.post .mediaWrap,.post .lockedMedia{margin-inline:-16px}.post .postImage,.post .galleryTrack,.post .lockedMedia{border-radius:0}.postCopy p{font-size:max(12px,var(--cf-mobile-font-min,0px))}}
 
 .postActions button.liked:not(:disabled):hover{color:var(--cf-color-danger)}
 button.contact:not(:disabled):not([data-unread=true]):hover{background:color-mix(in srgb,var(--cf-color-accent) 12%,var(--cf-color-surface))}

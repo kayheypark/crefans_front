@@ -1,3 +1,10 @@
+## 2026-11-16 피드 사진 비율 유동화 + AI 랜딩 검색 노출 (feat/feed-ratio-seo, origin/prod 기반)
+- 사용자 요청: "피드에서는 항상 정방형이 아니라 19:6으로 세로로 길게" → 9:16으로 해석. `components/crefans/social.module.css` `.mediaWrap{container-type:inline-size}`, `.mediaWrap .postImage`를 고유 비율로 두고 가로 1.25:1(min-height 80cqw)~세로 9:16(max-height 177.8cqw)로 제한. 범위 밖은 기존처럼 cover 크롭. 갤러리는 가장 긴 슬라이드 높이에 맞춰 나머지를 cover로 채움. 잠긴 미디어(.lockedMedia) 비율은 변경 없음.
+- 브라우저 하네스(같은 CSS 규칙, 360px 카드): 9:16→360x640 전체 표시, 1:3→9:16으로 제한, 4:5·1:1 원비율, 16:9→1.25 크롭, 갤러리(16:9+9:16) 둘 다 640.
+- 랜딩 SEO: sitemap에 `/service/landing-ai-image-generation`(priority .9) 추가. `/service/try`는 noindex라 sitemap에서 제외. `public/llms.txt`에 'AI 사진 편집' 절(랜딩·체험). 페이지 openGraph에 type/siteName/locale/url 보강(페이지 openGraph가 루트를 덮어써 누락됐음), twitter, keywords, JSON-LD(WebPage·WebApplication 무료 체험 Offer·BreadcrumbList).
+- 검증: tsc 0, `node --test tests/ai-photo-landing.test.cjs` 2/2(사이트맵 줄 삭제 대조 시 실패 확인), npm test 697 pass/18 fail(기준선 18과 동일, 신규 실패 0).
+- 남은 일: 구글 Search Console·네이버 서치어드바이저에 사이트맵 제출/URL 검사는 사용자 계정 작업.
+
 ## 2026-11-16 무통장입금 회원 화면 (feat/bank-transfer, origin/prod 2b6dc1d 기반, 운영 미배포)
 - 사용자 결정: 콩 충전·AI 이용권·광고상품만 무통장입금(멤버십 그대로), 입금 기한 24시간 후 자동 취소, 운영자가 금액 일치 시 수동 확인. 카드(토스, 테스트 키)는 GET /payments/methods 의 card:true일 때만 표시. 현금영수증 선택(소득공제 휴대폰/지출증빙 사업자번호 10자리). 무통장 구매 환불은 회원 환불 계좌(은행·계좌번호·예금주) 입력, 운영자가 영업일 3일 안에 이체. 서버 계약은 server feat/bank-transfer(미배포)의 /payments/methods, /payments/bank-transfer/:kind/:orderId.
 - 공용: types/crefans-payments.ts, lib/api/payments.ts, features/service/usePaymentMethods.ts, lib/crefans/bank-transfer.ts(서버 bank-transfer.ts와 같은 검사 규칙·KST 기한 표기), components/crefans/BankTransfer.tsx(PaymentMethodChoice·PaymentPreparing·BankTransferFields·BankTransferInstructions(계좌번호 복사)·RefundAccountFields). 디자인 시스템 상점 견본에 무통장입금 상태 8종·'결제 준비 중' 추가.
