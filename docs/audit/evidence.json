@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T09:23:26.982851+00:00",
+  "checkedAt": "2026-11-16T10:29:36.871847+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "ce86dde0ae1c0e3fd2abfd6b6f2213c3bcc67926",
+      "head": "c5fed05ae8e682d5853931346706f3e1680c81c6",
       "branch": "",
       "dirty": false
     },
     "server": {
-      "head": "bc7345ce60a7055eb8bf4851f260ef92933cc224",
+      "head": "3ce0fc6109ae76f262ac324d4293d788aa02e6aa",
       "branch": "",
       "dirty": false
     }
   },
   "state": {
     "documents": {
-      "front/AGENTS.md": "26747a5e52957cdd59c35a2a6e5cc93730f02a6bcef7e6385bc036c9748f69fa",
-      "front/PROGRESS.md": "82fe1ba4cbd3aa4c571950edcc07cacf88be71a41238d754ebb873eab23c5083",
+      "front/AGENTS.md": "6efbecc09838e0579710c8ed0ff126f45e4fe33f80fe8e6f479b7772cd351595",
+      "front/PROGRESS.md": "00ee897be5166a58a4aaa49458a2ec58d7b9a94677d428baf6510a74de132ac8",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -83,8 +83,8 @@
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "16198f94a776c60326e7a85d71e41ddbc243a3727d2ecefe32fffe7e8cd5e39a",
-      "server/AGENTS.md": "cf5629866b4dd36d308724029505a5cea0de418683c43a314188b0d3f537d9e3",
-      "server/PROGRESS.md": "4098f0b056072b98aea7b8014056debe4517f290bc01a0058ab5197f62203e85",
+      "server/AGENTS.md": "904a398cf606b21c59cf64ebc4f78b306f955ed22aea38a9a6f6a8334e16c8f7",
+      "server/PROGRESS.md": "924417d2480c2b64ea36f6acc846f0727bdeaa0067aac059ddd908a7c09a7afa",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -437,7 +437,7 @@
       "front/components/service/CheckoutPage.tsx": "c56f0fd7c33c7a7fbcdc25b8a3dd2b3c1029d25047c22b517a6abaf3651055ec",
       "front/components/service/FoundingBadgeEventDetail.tsx": "d44b241c60a08594d5f80d3686a062d95cf5f33ed418fc38094f4732b7de089e",
       "front/components/service/FoundingBadgeSettings.tsx": "6e36cca9a06a27d2996fb0505d719d6d08d32de0257749e72282c3c24efa913c",
-      "front/components/service/GuestTrialPage.tsx": "9d737c6235469fcbd4d9e7212c77adee258263eb7dd52f4cad3da578822f53ab",
+      "front/components/service/GuestTrialPage.tsx": "2ce1ade4d1445c0533f8aafdb28b56e1c077160babdfbace4b782f5192f44411",
       "front/components/service/Landing.tsx": "38df82cba82d5c76e3b84674a020836e2936c6f11291cd42e40340e2a350a9c0",
       "front/components/service/PaymentResult.tsx": "ffef2218e71a4f51eae5e4c7985fff57aea2319f1e739c7f708f2dac0f50c14a",
       "front/components/service/PromotionEventDetail.tsx": "73e35bbef310add02cca82bb47cc8c6fb9c61e4d3f689f5fbb160bf9f54126b7",
@@ -447,7 +447,7 @@
       "front/components/service/ShopPayment.tsx": "7ee5037667d3d353c610d09b6caf9bf5b5e16d34506d653007ef12f9631b9da1",
       "front/components/service/StudioRouter.tsx": "8ef8e4992309749032f93dc819f11486993dc12301497de301e75b7caee727d1",
       "front/components/service/ai-photo-landing.module.css": "3ab10a26df63b42ae9270361d43d688bc560015e95afb53846c991f8c8797d15",
-      "front/components/service/guest-trial.module.css": "05ac9917070294064a0303b85d648eb369772d2114534ea32e358d2e06d67aa8",
+      "front/components/service/guest-trial.module.css": "4dcee5195f05401e4b3476653c28e6a20dadafe18c2713954d35410a119df9dd",
       "front/components/settings/Settings.tsx": "f505dbbc972b7a0e4ee4d919e3ae450e90ef5c2481571ed174b377637f2dab8e",
       "front/components/ui/Accordion.tsx": "6df9c21b2a9d5b1925af52b5052f0fcf8fdfb8fccc090ad1ac7b2affb5d0386c",
       "front/components/ui/AmountPresets.tsx": "93ba6e96505cda34508e01e0e79d112580f7eb74ee26dcfa2a8f637f1797106f",
@@ -1268,7 +1268,7 @@
       "server/src/platform/auth.service.ts": "b71fead074af0b6ad3e2fe3a807465c9aa6ca98e8e2497b9b0fa473bb06feb60",
       "server/src/platform/bank-provider.ts": "9652abe52f0d48d282a1d9f26b9a13a5ffc510cf4f225e03e451883e2adb019f",
       "server/src/platform/bank-transfer.controller.ts": "eba4577513376e23506c9e0a8d7b7e8b800b2f3dd3363aa9902be366241c8297",
-      "server/src/platform/bank-transfer.ts": "48116d8f54a3f7379e02cde3e021fdf7a06394ecf710a44a932a2a7a48c9ea6a",
+      "server/src/platform/bank-transfer.ts": "daf394b4c9a0d4c612847b4df8a65dd40423bb820a87e3e5a04034831f85320b",
       "server/src/platform/bean-attribution.ts": "468e37ffbf84699750abe1232bee95b4752d54a0abbd0a4fcea3cb28353f0f9d",
       "server/src/platform/bean-history.ts": "49b1240a1c6e37f1b7079d4d0999b38d1f50adcc854610e9941fa36369696bf2",
       "server/src/platform/bean-ledger.ts": "306616ca82454a17f6d561434f0f3035382156d0369983b9002ab567de26c90d",
@@ -1299,7 +1299,7 @@
       "server/src/platform/identity-provider.ts": "d3460eb36d68cc48503a7cc433c8d7ec19b4ac9b61051f93478bbd1056be1af3",
       "server/src/platform/identity.controller.ts": "75c26a2fc5fdf824d29ebe46d5b334c531ab4584790023dc0ccbf76642011330",
       "server/src/platform/inicis-billing.ts": "6f8d20588af562da2c3125e70e8ecde3ff274ecc63d5c489a65d0941663b0ea8",
-      "server/src/platform/jobs.service.ts": "adc27d620a75984fc9f79808ed9de0a830cc0faafae41e4307b741501f89e7b7",
+      "server/src/platform/jobs.service.ts": "522844c82499f2bdfb6a8993b3a36b7c705dce56e566b253d08f8e531d1f1b91",
       "server/src/platform/legal-documents.ts": "4d243dc6c1362568df14d5cc9395689456ec516bb94193b1dc196024801d4ecc",
       "server/src/platform/main.ts": "d61ee75b7f8c146e8d5e09e81e57fce5f6d61cf3af6d9ed72dc3f57404558d9f",
       "server/src/platform/marketing.controller.ts": "a09e8057aa2e19e0faa8f330b1bf2887fde14541496d703f4caa9626172b598b",
@@ -1319,8 +1319,8 @@
       "server/src/platform/module.ts": "989159764caacd1e3d7d6c7f7b491fe2662a3a2bfe2c18521d897fd8e540d14f",
       "server/src/platform/openapi-contract.ts": "b39891fb112d841198f0f197f539b9d937f51cabbed11afcd247c19193569379",
       "server/src/platform/openapi.ts": "5d316d5b041099870b973b69b338d5c59fd853d49d7f7fe344f640386fd4166a",
-      "server/src/platform/operations-events.ts": "fd9f0a020e0aa2f2fe0de7f20f1b9bc76c32f9a406e8e58f215926525a53d9e1",
-      "server/src/platform/operations.service.ts": "a64e740db231f6338eeac9e6433197a1211476320dcdd6fa4619f396856613ba",
+      "server/src/platform/operations-events.ts": "08181dc9f06ec9c76cf1d2570fb6ef282f6df107bacd828a61f15bbbceb4c1f3",
+      "server/src/platform/operations.service.ts": "fa30043687407389f33b51a37048726a2c612bdd2288de26ec685b214dd142bc",
       "server/src/platform/partner-policy.ts": "e49a655f15d5b488e1a55b89e9211d75bfa10aaa3993497caf17087873283f3a",
       "server/src/platform/payment-provider.ts": "989ff90a64db3f9ce15542c917434116dc61d2c2aef59a33453734586eb643a2",
       "server/src/platform/payment-terms.ts": "4f773b0b2c9cfbef99c850588847f95f9e3e08a5777b41f069eea1b1663df878",
@@ -1417,7 +1417,7 @@
       "server/tests/platform-audit.test.cjs": "9b101a55439e0233d47990e1d94433ecce38c6091eb8afe6c041287a669561d0",
       "server/tests/platform-auth-hardening.test.cjs": "2c2857cfe66d58fbfe4f4f1e31ff45581d1c424838e6f0ac8b85324a0f858ac0",
       "server/tests/platform-auth.test.cjs": "518c912824945ef7d709a0a6abf8db0ab8c62d95e4170901c098d6ad0b4d4188",
-      "server/tests/platform-bank-transfer.test.cjs": "7cd5f5b9a52fac3f8224d45e9b2a58352aa885268a4566b4a07e65d2601e0973",
+      "server/tests/platform-bank-transfer.test.cjs": "21c0f8db9ee2c05af9bca2dba56d25aba3f79e53071ce14b3c1f04bead615120",
       "server/tests/platform-bean-charge-limit.test.cjs": "16eba8150fca084386ae6767824b380d14be846d76761ba6a8ae8b645b53a24a",
       "server/tests/platform-bean-ledger.test.cjs": "8d0ba2b05318b87ecd008c1fe7908330215959a6707245374f6bb08013c3f989",
       "server/tests/platform-beans.test.cjs": "2b41ffea8759a3a71504209e8bb40b49e8bdce2d45d41d2be2b358ceca03a4b5",

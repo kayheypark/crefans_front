@@ -1,0 +1,19 @@
+{
+ "status": 200,
+ "model": "dola-seedream-5-5-261028",
+ "responseModel": "dola-seedream-5-5-261028",
+ "requestId": "021794824818540e40cd0a5f20110aac1f60c7d99b546345b73ff",
+ "prompt": "A social feed post card with a heart bubble and a send paper-plane, meaning post to the feed; soft 3D clay icon, rounded glossy shapes, pastel pink lavender and periwinkle blue palette with small warm accents, studio lighting, centered single object, pure white background, no text, no letters, no logos, no watermark, no people",
+ "size": "1024x1024",
+ "references": [],
+ "elapsedMs": 21008,
+ "at": "2026-11-16T10:27:19.154671+00:00",
+ "output": "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/step3.png",
+ "sha256": "5a05d80f102af23bc740304014d77ccb997a93b542e09f2ab19bc073e90962a7",
+ "usage": {
+  "input_images": 0,
+  "generated_images": 1,
+  "output_tokens": 4096,
+  "total_tokens": 4096
+ }
+}
