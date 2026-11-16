@@ -5,6 +5,13 @@
 - 복구: /Users/ethan/crefans-recovery/20261116/front-guest-cosplay-20261116/ 이미지·설정 아카이브 SHA256, OCI blob15개 해시·이전 이미지ID 확인. 서버 이전 태그·설정백업·전송임시파일 정리 완료. 활성 이미지·DB·업로드 보존. 복구 저장소 보관본 삭제 없음.
 - 증거 .local/ship-front-guest-cosplay-20261116/{ship,build,deploy}.log 및 .local/guest-cosplay/{live-check.json,live-banner.png,integrated-tests.log,integrated-typecheck.log}. 이전 문서·계층 검사 제한은 아래 기록 참고.
 
+## 2026-11-16 같은 주소 단계 전환 시 스크롤 맨 위 (fix/guest-trial-scroll-top)
+- 사용자 요청: '동의하고 체험 시작' 뒤 다음 화면이 스크롤 아래에서 시작 → 맨 위로, 비슷한 구간 전수조사 후 운영 배포.
+- 원인: 경로가 바뀌면 Next(창)·ServiceShell(모바일 [data-service-scroll], scrollKey=경로)이 맨 위로 보내지만, 같은 경로에서 state로 화면 전체를 바꾸는 흐름은 스크롤을 유지함.
+- 전수조사(useState step/stage/result/requested 등 grep): 수정 4곳 — GuestTrialPage(동의→편집기), CreatorStartPage(1→2단계→완료), WithdrawalPage(금액→요청 확인→접수 결과), PasswordResetPage(이메일→코드→완료). 제외: AiPhotoDialog(이미 결과 단계에서 body scrollTop=0), 회원가입 인증코드(같은 폼 안 펼침), 출금 PIN 설정 enter→confirm(같은 키패드 자리), 카드 등록·콩 후원 확인(대화상자), 경로 이동 흐름(라우터가 처리).
+- 구현: lib/design/scroll-top.ts useScrollTopOnChange(key) — 첫 렌더는 건너뛰고 key가 바뀌면 window와 [data-service-scroll]을 0으로.
+- 검증: tsc 0, tests/scroll-top.test.cjs 2건(훅 동작+4곳 연결), 대조(스크롤 코드 제거 시 1건 실패), npm test 683 pass/18 fail(실패 목록 변경 전과 동일). Playwright: 체험(API 모의) 모바일 shell 488→0·PC 창 479→0, 수정 전 코드는 467·444로 남음(대조). 크리에이터 시작 모바일 450→0·PC 558→0, 비밀번호 재설정 26→0·106→0. 출금은 미리보기가 PIN 설정 화면이라 브라우저 흐름 미실행(단위 테스트로 연결만 확인).
+
 ## 2026-11-16 비로그인 코스어 배너 문구·색 변경 (feat/cosplay-banner-title)
 - 사용자 결정: 제목 '나도 코스어'(코스어 46px 확대) → '내가 코스어가 된다면?'(코스어는 제목과 같은 크기, 분홍 강조), 설명 문장 삭제, 버튼 '로그인 없이 무료 체험'(비회원 10회 무료, server GUEST_AI_LIMIT=10). 색은 남색 배경 → 흰 배경+분홍 테두리, 강조 #ec4899, 버튼 #db2777(흰 글씨 대비 4.5 이상), 위쪽 작은 글씨 #be185d. 380px 이하에서도 의상 카드 표시(기존엔 숨김), 340px 이하 규칙 추가.
 - 검증: tsc 0, npm test 681 pass/18 fail — 변경 전후 실패 목록 동일(18건 모두 기존). Playwright로 /service/feed 비로그인 1280·390·360·320px 캡처, 배너 scrollWidth=clientWidth(넘침 없음), 제목 1줄.
