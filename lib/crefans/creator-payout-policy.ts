@@ -12,8 +12,9 @@ export const payoutTaxNote='법령상 원천징수가 필요한 경우 그 세�
 export const payoutScheduleNote=`화요일 23:59(한국 시간)까지 신청한 출금은 그 주 ${payoutWeekday}에 지급하며, ${payoutWeekday}이 공휴일이면 다음 영업일에 지급합니다.`;
 
 /** Effective terms from studio finance (signup-invites studioTerms); static defaults are only for general policy notes. */
-export type CreatorTerms={platformFeeBps:number|null;settlementHoldDays:number|null;beanWithdrawalFeeBps:number|null;minimumWithdrawalKrw:number|null};
-const pick=(t:CreatorTerms|null|undefined)=>({fee:t?.platformFeeBps!=null?t.platformFeeBps/100:feeRatePercent,hold:t?.settlementHoldDays??settlementHoldDays,beanFee:t?.beanWithdrawalFeeBps!=null?t.beanWithdrawalFeeBps/100:feeRatePercent,minimum:t?.minimumWithdrawalKrw??minimumWithdrawalKrw});
+// 2026-11-17 (signed contract Schedule A): the 콩 minimum is its own term (default 1,000콩), not membership KRW ÷ 100.
+export type CreatorTerms={platformFeeBps:number|null;settlementHoldDays:number|null;beanWithdrawalFeeBps:number|null;minimumWithdrawalKrw:number|null;minimumWithdrawalBeans?:number|null};
+const pick=(t:CreatorTerms|null|undefined)=>({fee:t?.platformFeeBps!=null?t.platformFeeBps/100:feeRatePercent,hold:t?.settlementHoldDays??settlementHoldDays,beanFee:t?.beanWithdrawalFeeBps!=null?t.beanWithdrawalFeeBps/100:feeRatePercent,minimum:t?.minimumWithdrawalKrw??minimumWithdrawalKrw,minimumBeans:t?.minimumWithdrawalBeans??1000});
 
 // 2026-11-12 user decision (ask-me): terms article 6, revision 2026-11-13.partner.1.
 export const partnerPayoutNote='출금은 크레팬스와 파트너 계약을 맺은 크리에이터(인증 배지)만 신청할 수 있습니다. 정산 계좌와 출금 PIN은 계약 전에도 미리 등록할 수 있습니다.';
@@ -26,11 +27,11 @@ export function membershipPayoutNotesFor(terms?:CreatorTerms|null){const {fee,ho
 ];}
 export const membershipPayoutNotes=membershipPayoutNotesFor();
 
-export function beanPayoutNotesFor(terms?:CreatorTerms|null){const {beanFee,minimum}=pick(terms);return [
+export function beanPayoutNotesFor(terms?:CreatorTerms|null){const {beanFee,minimumBeans}=pick(terms);return [
   '후원받은 일반콩과 프로모션콩을 출금할 수 있습니다.',
   `후원받은 콩은 후원 후 ${beanTipHoldDays}일 보류가 끝나야 출금할 수 있습니다. 일반콩은 실제 입금 확인도 필요하고, 프로모션콩은 지급 출처를 확인합니다.`,
   '직접 충전한 콩과 운영자·이벤트·친구 초대 보상 등으로 무상 지급받은 프로모션콩은 출금할 수 없습니다.',
-  `${Math.ceil(minimum/100).toLocaleString('ko-KR')}콩(총액 ${won(minimum)})부터 신청하며 수수료는 출금 시 ${beanFee}%입니다.`,
+  `${minimumBeans.toLocaleString('ko-KR')}콩(총액 ${won(minimumBeans*100)})부터 신청하며 수수료는 출금 시 ${beanFee}%입니다.`,
   payoutScheduleNote,
   payoutTaxNote,
   partnerPayoutNote,
