@@ -11,7 +11,7 @@ async function toPreview(t){const input=t.root.find(n=>n.type==='input'&&n.props
 test('mobile: preview shows receiver and code, then 인증하러 가기 → 보냈어요; no QR request',async()=>{
  const calls=[],check={start:async(phone,options)=>{calls.push(options);return ok({code:'654321',receiver:'1666-3538',smsUri:'x',expiresAt:'z'});},confirm:async()=>ok({verified:true})};
  const t=mount('ios',check);await toPreview(t);const text=words(t.toJSON());
- assert.match(text,/\+82 1666-3538/);assert.match(text,/문자 메시지 · SMS/);assert.match(text,/전송 버튼만/);assert.match(text,/1666-3538/);assert.match(text,/654321/);assert.equal(calls[0],undefined,'mobile does not ask for a QR');
+ assert.match(text,/\+82 1666-3538/);assert.match(text,/문자 메시지 · SMS/);assert.doesNotMatch(text,/채워져 있어요/,'no caption under the preview');assert.match(text,/ㅂ/,'keyboard peek');assert.match(text,/1666-3538/);assert.match(text,/654321/);assert.equal(calls[0],undefined,'mobile does not ask for a QR');
  assert.ok(btn(t,'인증하러 가기'));assert.equal(btn(t,'보냈어요'),undefined,'confirm comes after opening the app');
  act(()=>btn(t,'인증하러 가기').props.onClick());assert.ok(btn(t,'보냈어요'));assert.match(words(t.toJSON()),/다시 열기/);act(()=>t.unmount());
 });

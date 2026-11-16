@@ -96,7 +96,7 @@
 @keyframes smsBlink{50%{opacity:0}}@media(prefers-reduced-motion:reduce){.smsCaret{animation:none}}
 .smsSend{display:grid;place-items:center;flex:none;width:30px;height:30px;margin-left:-40px;border-radius:50%;background:#34c759}
 .smsSend svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.smsHint{padding:0 14px 14px;font-size:12px;color:#6e6e73;text-align:center}
+.smsKeyboard{display:grid;gap:9px;height:74px;overflow:hidden;padding:8px 3px 0;background:#d3d5db;-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}.smsKeyboard div{display:flex;justify-content:center;gap:5px}.smsKeyboard div:nth-child(2){padding:0 5%}.smsKeyboard span{flex:1;max-width:34px;display:grid;place-items:center;height:40px;border-radius:5px;background:#fff;box-shadow:0 1px 0 #898a8d;font-size:18px;color:#111}
 .smsQr{display:flex;flex-direction:column;align-items:center;gap:8px;margin:0}.smsQr img{border-radius:8px}.smsQr figcaption{font-size:12px;color:var(--cf-color-textSecondary);text-align:center}
 .smsRetry{border:0;background:none;padding:0;color:var(--cf-color-accent);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
 
