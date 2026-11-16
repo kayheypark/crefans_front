@@ -2,6 +2,13 @@
 - 사용자 요청: 서비스·가이드·소개서 PDF에 AI 사진 편집 내용.
 - 랜딩(LandingPage·lib/content/landing.ts aiPhoto): 'AI 사진 편집' 섹션(가상 인물 AI 생성 이미지 /illustrations/landing/ai-photo-costume-v1.webp, 기능 4줄, '로그인 없이 체험하기' /service/try, '서비스 소개서 PDF' 가이드 다운로드 링크). ServiceLinks(사이드바·푸터·설정)에 '서비스 소개서 PDF ↗'.
 - 검증: tsc 0, npm test 698 중 681/17(기준선 동일, 링크 목록 고정 테스트 갱신), 로컬 dev /preview/landing WebKit 모바일·PC 캡처 확인.
+## 2026-11-16 비로그인 코스어 배너·하트 체험 게임 (로컬 완료, 미배포)
+- 최신 origin/prod 16db2f5에서 feat/guest-cosplay-banner 격리 작업. 기존 메인 미커밋 보존.
+- 선택한 3안 기반 GuestCosplayBanner 공용 컴포넌트: 네이비 배경, 나도 코스어 제목(코스어 46px/모바일38~40px), 실제 의상 프리셋3종, 기존 /service/try 연결. 비로그인 실제 피드에만 노출, 디자인 시스템도 동일 컴포넌트 사용. 320px에서는 장식을 생략해 제목 가독성 유지.
+- noHearts는 게임 숨김이 아니라 보상 미지급을 뜻함. 비회원 생성 중 로컬 게임·30개 상한·차감·가속 유지. 보상 API 시작 차단, 생성 요청에 heartGameId 없음. 완료 점수와 비적립 안내, 잘못된 /100·10회권 안내 제거. 회원 보상 경로 유지. 카탈로그 비로그인 대기 상태 추가. 기존 비회원 보상 미지급 정책 유지(GuestTrialPage 명시).
+- 검증: 관련 node --test 82/82, npm run typecheck exit0. 대조검사에서 게임 숨김을 복원하면 새 비회원 테스트 실패(exit1), 원복 후82/82. Playwright 공용 컴포넌트 정적 렌더 720/390/320px 이미지로드·가로넘침0 및 제목 크기 확인, 캡처 육안 검수. 실AI 호출·운영검증 아님. 증거 .local/guest-cosplay/.
+- npm run check:docs exit1: 형제 서버 누락 소스·기존 계약 문서 stale. check:layers exit1: 기존 AiPhotoDialog photoFile fetch(기준HEAD에도 동일). 범위 밖이라 변경하지 않음.
+- 다음: 승인된 배포 요청 시 dev 통합/검증→prod 및 운영배포. 이번 요청에는 배포 수행하지 않음.
 
 ## 2026-11-16 11:10 KST 서비스 소개 AI 사진 편집 운영 배포 (feat/ai-photo-intro → prod c46c684)
 - 사용자 승인(/pilot-work "가이드+서비스 랜딩 둘 다 배포"). check:docs PASS(docs:record 후), ship-image front-ai-intro-20261116 exit0: 레이어 일치, front-partner-sync-20261116 → front-ai-intro-20261116, 복구 crefans-recovery/20261116/front-ai-intro-20261116 검증 OK.
