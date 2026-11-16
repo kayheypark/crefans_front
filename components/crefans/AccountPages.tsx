@@ -60,6 +60,9 @@ function useActionFeedback(){
   return {busy,error,run,clearError:()=>setError('')};
 }
 
+// 2026-11-16 user request: a finished email/phone check reads in green with a check-circle icon.
+function VerifiedNote({children}:{children:string}){return <p className={s.verifiedNote} role="status"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/><path d="m6 10.2 2.6 2.6L14 7.6" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>{children}</p>;}
+
 /** `onComplete` is the router's move to the completion page (presentation does not navigate by itself). */
 export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete?:()=>void}){
   const {account,accountActions,basePath}=model,task=useActionFeedback();
@@ -71,6 +74,7 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
   const identityRequired=account.signupRequirements?.identityRequired!==false;
   // 2026-11-16: phone-number check (OCTOMO, ownership only) after the email code when the server asks for it.
   const phoneRequired=account.signupRequirements?.phoneRequired===true&&!!accountActions.signupPhone,[phoneOpen,setPhoneOpen]=useState(false),[phoneVerified,setPhoneVerified]=useState(false);
+  const [phone,setPhone]=useState(''),phoneDigits=phone.replace(/[^0-9]/g,''),phoneValid=/^010[0-9]{8}$/.test(phoneDigits);
   const [ageAcknowledged,setAgeAcknowledged]=useState(false);
   // A referral link stored for this browser session asks for the disclosure agreement (2026-11-02); read after mount (sessionStorage).
   const [referred,setReferred]=useState(false),[referralDisclosure,setReferralDisclosure]=useState(false);
@@ -92,8 +96,10 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
       <form onSubmit={submit} noValidate className={s.form}>
         <div className={s.verifyRow}><Field label="이메일" type="email" autoComplete="email" value={email} readOnly={emailVerified} onChange={e=>changeEmail(e.target.value)} placeholder="이메일을 입력하세요" error={submitted?errors.email:undefined}/>{emailVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={verifying||!emailIsValid(email)} onClick={()=>void requestCode()}>{codeSent?'다시 받기':'인증 코드 받기'}</Action>}</div>
         {codeSent&&!emailVerified&&<div className={s.verifyRow}><Field label="인증 코드" inputMode="numeric" maxLength={6} value={code} onChange={e=>setCode(e.target.value)} placeholder="6자리 코드"/><Action type="button" variant="secondary" disabled={verifying||!code.trim()} onClick={()=>void verifyCode()}>확인</Action></div>}
-        {emailNotice&&<p className={s.hint} role="status">{emailNotice}</p>}{emailError&&<p className={s.error} role="alert">{emailError}</p>}
-        {phoneRequired&&<div className={s.identityRow}><div><strong>휴대폰 번호 확인</strong><span>{phoneVerified?'휴대폰 번호 확인 완료':emailVerified?'번호 하나에 계정 하나만 만들 수 있어요.':'이메일 인증 후 진행해 주세요.'}</span></div>{phoneVerified?<span className={s.verified}>확인 완료</span>:<Action type="button" variant="secondary" disabled={!emailVerified} onClick={()=>setPhoneOpen(true)}>휴대폰 확인</Action>}</div>}
+        {emailNotice&&(emailVerified?<VerifiedNote>{emailNotice}</VerifiedNote>:<p className={s.hint} role="status">{emailNotice}</p>)}{emailError&&<p className={s.error} role="alert">{emailError}</p>}
+        {/* 2026-11-16 user request: the number is typed right in the form; '인증하기' opens the message preview directly. */}
+        {phoneRequired&&<div className={s.verifyRow}><Field label="휴대폰 번호" type="tel" inputMode="numeric" autoComplete="tel" maxLength={13} value={phone} readOnly={phoneVerified} onChange={e=>setPhone(e.target.value)} placeholder="01012345678"/>{phoneVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={!emailVerified||!phoneValid} onClick={()=>setPhoneOpen(true)}>인증하기</Action>}</div>}
+        {phoneRequired&&(phoneVerified?<VerifiedNote>휴대폰 번호 인증이 완료되었습니다.</VerifiedNote>:<p className={s.hint}>{emailVerified?'번호 하나에 계정 하나만 만들 수 있어요.':'이메일 인증 후 진행해 주세요.'}</p>)}
         {phoneRequired&&submitted&&!phoneVerified&&<p className={s.error} role="alert">휴대폰 번호 확인이 필요해요.</p>}
         <Field label="비밀번호" type="password" showPasswordToggle autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="비밀번호를 입력하세요" hint="8자 이상 입력해주세요." error={submitted?errors.password:undefined}/>
         <Field label="비밀번호 확인" type="password" showPasswordToggle autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)} placeholder="비밀번호를 다시 입력하세요" error={confirm&&confirm!==password?errors.confirm:undefined}/>
@@ -112,7 +118,7 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
         {task.error&&<p className={s.error} role="alert">{task.error}</p>}
         <Action type="submit" disabled={task.busy||!ready}>{task.busy?'확인 중…':'동의하고 가입하기'}</Action>
       </form>
-    {phoneRequired&&accountActions.signupPhone&&<PhoneCheckDialog open={phoneOpen} onClose={()=>setPhoneOpen(false)} check={accountActions.signupPhone} onVerified={()=>setPhoneVerified(true)} intro="번호 하나에 계정 하나만 만들 수 있어요. 번호를 입력하면 보낼 문자를 알려 드려요."/>}
+    {phoneRequired&&accountActions.signupPhone&&<PhoneCheckDialog open={phoneOpen} onClose={()=>setPhoneOpen(false)} check={accountActions.signupPhone} onVerified={()=>setPhoneVerified(true)} initialPhone={phoneDigits} intro="번호 하나에 계정 하나만 만들 수 있어요. 번호를 입력하면 보낼 문자를 알려 드려요."/>}
     {identityRequired&&<Dialog open={passOpen} onClose={()=>{if(!passPending)setPassOpen(false);}} title="PASS 본인인증"><div className={s.dialogBody}><p>통신사 PASS 앱으로 연결해 본인인증을 진행합니다. 인증이 끝나면 이 화면으로 돌아옵니다.</p>{model.mode!=='live'&&<p className={s.hint}>목업에서는 아래 버튼을 누르면 인증이 완료된 것으로 처리됩니다.</p>}{passError&&<p className={s.error} role="alert">{passError}</p>}<DialogActions><Action variant="secondary" disabled={passPending} onClick={()=>setPassOpen(false)}>취소</Action><Action disabled={passPending} onClick={()=>void verifyPass()}>{passPending?'연결 중…':'PASS 앱으로 인증하기'}</Action></DialogActions></div></Dialog>}
     <Dialog open={!!inviteNotice} onClose={()=>setInviteNotice('')} title="가입 안내"><div className={s.dialogBody}><p>{inviteNotice}</p><DialogActions><Action type="button" onClick={()=>setInviteNotice('')}>확인</Action></DialogActions></div></Dialog>
     <Dialog open={!!policy} onClose={()=>setPolicy(null)} title={policy==='terms'?'이용약관':policy==='marketing'?'마케팅 정보 수신 동의':'개인정보 처리방침'}><div className={s.dialogBody}>{policy&&(account.agreements?<>{policy==='privacy'&&<LegalDocumentBody document={account.agreements.collection} idPrefix="signup-collection"/>}<LegalDocumentBody document={account.agreements.documents[policy]} idPrefix={`signup-${policy}`}/></>:<p className={s.ticketMessage}>{policy==='marketing'?'선택 동의입니다.':account.policies[policy]}</p>)}<DialogActions><Action variant="secondary" onClick={()=>setPolicy(null)}>확인</Action></DialogActions></div></Dialog>
