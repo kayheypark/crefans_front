@@ -81,7 +81,7 @@ export default function AiPhotoLanding(){
    <h2 id="ai-photo-plans">이용 방법</h2>
    <div className={s.plans}>
     <article><h3>비회원 체험</h3><p className={s.planValue}>10회 무료</p><p><strong>로그인 없이</strong> 브라우저에서 바로 써 봐요. 게시물은 <strong>24시간</strong> 동안 피드에 보이고, 같은 브라우저로 가입하면 내 계정으로 옮겨져요.</p><Link className={s.primary} href={TRY}>지금 체험하기</Link></article>
-    <article><h3>크리에이터</h3><p className={s.planValue}>하루 10회 무료</p><p>스튜디오 게시물 작성에서 써요. <strong>매일 오전 9시</strong>에 다시 채워지고, <strong>하트 게임 보상</strong>으로 더 만들 수 있어요(운영팀이 허용한 크리에이터).</p><Link className={s.secondary} href="/service/studio">스튜디오 열기</Link></article>
+    <article><h3>회원</h3><p className={s.planValue}>하루 10회 무료</p><p>게시물 작성에서 써요. <strong>매일 오전 9시</strong>에 다시 채워지고, <strong>하트 게임 보상</strong>으로 더 만들 수 있어요.</p><Link className={s.secondary} href="/service/studio">스튜디오 열기</Link></article>
     <article><h3>AI 이용권</h3><p className={s.planValue}>필요한 만큼</p><p>무료 횟수를 다 쓰면 스튜디오 상점에서 <strong>AI 이용권</strong>을 무통장입금으로 구매할 수 있어요. <strong>남은 횟수는 환불</strong>받을 수 있어요.</p><Link className={s.secondary} href="/service/studio/shop">상점 보기</Link></article>
    </div>
   </section>
