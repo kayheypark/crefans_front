@@ -63,10 +63,10 @@ export function BankTransferInstructions({transfer}:{transfer:BankTransfer}){
   </dl>
   {error&&<p role="alert" className={s.error}>{error}</p>}
   {awaiting?<ul className={s.notes}>
-   <li>주문 후 24시간 안에 입금해 주세요. 기한까지 입금하지 않으면 주문이 자동으로 취소돼요.</li>
+   <li>주문 후 24시간 안에 입금해 주세요. 기한까지 입금하지 않으면 주문이 자동으로 취소되고, 기한이 지난 뒤 들어온 입금은 확인 후 전액 돌려드려요.</li>
    <li>입금은 운영자가 직접 확인해요. 주문 금액과 정확히 같은 금액을 입금해야 확인할 수 있어요.</li>
    <li>입금자명이 다르면 확인이 늦어질 수 있어요.</li>
-  </ul>:transfer.status==='confirmed'?<p className={s.done}>입금이 확인되었어요.</p>:<p className={s.closed}>입금 기한이 지나 주문이 취소되었어요. 필요하면 다시 주문해 주세요.</p>}
+  </ul>:transfer.status==='confirmed'?<p className={s.done}>입금이 확인되었어요.</p>:<p className={s.closed}>입금 기한이 지나 주문이 취소되었어요. 이미 입금하셨다면 확인 후 전액 돌려드려요(고객센터로 알려 주세요). 필요하면 다시 주문해 주세요.</p>}
   <Toast message={notice} onClose={()=>setNotice('')}/>
  </section>;
 }
