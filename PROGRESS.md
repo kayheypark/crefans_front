@@ -1,3 +1,8 @@
+## 2026-11-16 서비스 소개에 AI 사진 편집 + 소개서 PDF 링크 (feat/ai-photo-intro, 운영 미배포)
+- 사용자 요청: 서비스·가이드·소개서 PDF에 AI 사진 편집 내용.
+- 랜딩(LandingPage·lib/content/landing.ts aiPhoto): 'AI 사진 편집' 섹션(가상 인물 AI 생성 이미지 /illustrations/landing/ai-photo-costume-v1.webp, 기능 4줄, '로그인 없이 체험하기' /service/try, '서비스 소개서 PDF' 가이드 다운로드 링크). ServiceLinks(사이드바·푸터·설정)에 '서비스 소개서 PDF ↗'.
+- 검증: tsc 0, npm test 698 중 681/17(기준선 동일, 링크 목록 고정 테스트 갱신), 로컬 dev /preview/landing WebKit 모바일·PC 캡처 확인.
+
 ## 2026-11-16 파트너·상점 정합성 (/pilot-work, feat/partner-sync)
 - 멤버십: 계약 전(membershipPartner false)에는 중지한 멤버십 스위치 비활성, 숨기기 확인창 '다시 공개하려면 파트너 계약 필요', 빈 화면 안내 분기. 광고 화면 제목 '상점'(service·preview), 목업 목록 '상점(광고상품)'. 'AI 이용권' 통일(AI 편집 창 제목·결제 완료·무료 소진 안내·디자인 시스템).
 - 검증: tsc 0, 새 테스트(중지 멤버십 재공개 스위치) + 대조, npm test 698 중 681/17(기준선 동일).

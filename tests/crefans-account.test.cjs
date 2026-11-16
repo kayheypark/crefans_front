@@ -215,7 +215,7 @@ test('settings categories filter their own items and keep account actions in acc
     ['알림과 결제',['알림 설정','결제수단 관리','로그아웃'],['/service/subscriptions']],
     // 2026-11-07: 로그아웃 moved out of 계정 관리 to the very bottom of the settings footer (standalone when the footer is filtered out).
     ['계정 관리',['차단한 사용자','로그아웃'],[]],
-    ['서비스 안내',['로그아웃'],['/service/landing','/service/support','/service/notices','/service/events','/service/legal/terms','/service/legal/privacy','/service/legal/policy','/service/studio/shop','/service/studio','https://guide.crefans.com/','https://www.ftc.go.kr/bizCommPop.do?wrkr_no=3770202940']],
+    ['서비스 안내',['로그아웃'],['/service/landing','/service/support','/service/notices','/service/events','/service/legal/terms','/service/legal/privacy','/service/legal/policy','/service/studio/shop','/service/studio','https://guide.crefans.com/','https://guide.crefans.com/downloads/crefans-service-introduction.pdf','https://www.ftc.go.kr/bizCommPop.do?wrkr_no=3770202940']],
   ];
   for(const [category,buttons,links] of cases){
     choose(category);assert.deepEqual(headings(),[category]);

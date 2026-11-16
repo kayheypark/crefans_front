@@ -6,5 +6,5 @@ const links=[{path:'landing',label:'서비스 소개'},{path:'support',label:'�
 
 /** Shared destinations for the sidebar and the page footer (the footer omits the motion toggle, which stays in settings). */
 export function ServiceLinks({basePath,motionControl=true}:{basePath:string;motionControl?:boolean}){
-  return <>{links.map(({path,label})=><Link key={path} href={`${basePath}/${path}`}>{label}</Link>)}<a href={guideSiteUrl} target="_blank" rel="noopener noreferrer">크레팬스 가이드 ↗</a>{motionControl&&<MarqueeMotionControl/>}</>;
+  return <>{links.map(({path,label})=><Link key={path} href={`${basePath}/${path}`}>{label}</Link>)}<a href={guideSiteUrl} target="_blank" rel="noopener noreferrer">크레팬스 가이드 ↗</a><a href={`${guideSiteUrl}downloads/crefans-service-introduction.pdf`} target="_blank" rel="noopener noreferrer">서비스 소개서 PDF ↗</a>{motionControl&&<MarqueeMotionControl/>}</>;
 }
