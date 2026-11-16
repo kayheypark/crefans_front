@@ -8,6 +8,7 @@ import {BackButton} from '@/components/crefans/BackButton';
 import {Checkbox} from '@/components/ui/Choice';
 import {DelayedSpinner} from '@/components/ui/DelayedSpinner';
 import {useGuestTrialModel} from '@/features/service/useGuestTrialModel';
+import {useScrollTopOnChange} from '@/lib/design/scroll-top';
 import type {ServiceViewModel} from '@/types/crefans';
 import type {StudioManagementModel} from '@/types/crefans-studio-management';
 import t from './guest-trial.module.css';
@@ -22,6 +23,8 @@ export default function GuestTrialPage({model,done=false}:{model:ServiceViewMode
  const router=useRouter(),guest=useGuestTrialModel(!model.signedIn&&!done),[agreed,setAgreed]=useState(false),[pending,setPending]=useState(false),[error,setError]=useState('');
  // A signed-in member writes from their own studio instead (their posts are not trial posts).
  useEffect(()=>{if(model.signedIn&&!done)router.replace('/service/studio/content/new');},[model.signedIn,done,router]);
+ // After '동의하고 체험 시작' the same route swaps to the editor; start it from the top (mobile scrolls the shell body, desktop the window).
+ useScrollTopOnChange(guest.session?.active?'editor':'consent');
  const warning=<div className={t.notice} role="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6m0 4h.01"/></svg><div><strong>하루 뒤 비공개로 바뀌어요</strong>{GUEST_POST_NOTICE}</div></div>;
  if(done)return <section className={t.page}><PageTitle back={<BackButton href={feedPath} label="피드로 돌아가기"/>}>체험 완료</PageTitle><div className={t.done}><span className={t.doneIcon} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 4 4L19 6"/></svg></span><h1>체험 게시물을 올렸어요</h1><p>지금부터 24시간 동안 피드에서 모두가 볼 수 있어요.</p></div>{warning}<div className={t.actions}><Action variant="brand" onClick={()=>router.push('/service/signup')}>회원가입하고 내 게시물로 연결</Action><Action variant="secondary" onClick={()=>router.push(feedPath)}>피드에서 보기</Action></div></section>;
  if(model.signedIn)return <DelayedSpinner/>;
