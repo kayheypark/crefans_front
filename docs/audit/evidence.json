@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T00:26:46.520451+00:00",
+  "checkedAt": "2026-11-16T00:35:07.979923+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "1f29a66474e07e7acdfcd8acec5dd0a9f9c8b1f6",
+      "head": "a7cae7166a108455374f5ffb3022bfa14aeef5ab",
       "branch": "feat/partner-sync",
       "dirty": true
     },
     "server": {
-      "head": "f97b98953dd761e59471337666af4eb8d2ac8742",
+      "head": "976ff49365670833d5902622215fbaa0237afbca",
       "branch": "",
       "dirty": false
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "26747a5e52957cdd59c35a2a6e5cc93730f02a6bcef7e6385bc036c9748f69fa",
-      "front/PROGRESS.md": "fd01c02b048c6d1e2ec782b1f3541baa21c906bb6f7c2d645ff68e702955cd0c",
+      "front/PROGRESS.md": "d9c74fdbd67c9e64a7dd5de780a011040ee1434bf899b16f1bff5cfea64e3d9b",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "cf5629866b4dd36d308724029505a5cea0de418683c43a314188b0d3f537d9e3",
-      "server/PROGRESS.md": "99b0f51178d95aad21afcccd0cd6396cd64f06d59ac85caf292797d525f81788",
+      "server/PROGRESS.md": "d8e3c14bc52b8531719667d6d436d07373bbbd37b39fe9910a927bd64ad7e12e",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
