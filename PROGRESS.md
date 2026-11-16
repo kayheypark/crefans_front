@@ -8,7 +8,7 @@
 - 검증(2026-11-16 15:2x KST, 미커밋 상태 기준): npx tsc --noEmit -p . exit0. 새 tests/bank-transfer.test.cjs 10/10(카드 숨김·결제 준비 중, 입금자명/현금영수증 검사, 충전 생성 본문, 입금 안내 표시·복사, 충전 내역, 콩/AI 이용권 환불 계좌 필수, 광고 purchaseReady·주문 본문, 광고 내역 동작, 실서비스 콩 모델 요청 본문). 대조: 카드 항상 표시로 바꾸면 2건, 환불 계좌 필수 제거 시 1건, purchaseReady false 복원 시 1건 실패 후 원복. 기존 bean-charge-page·bean-continue-payment 테스트는 card:true 모델로 갱신. npm test 713 중 695 pass/18 fail, 실패 18건 목록은 변경 전 기준선(685/18)과 동일(comm 비교 신규·해소 0). check:layers는 기존 AiPhotoDialog 1건만(변경 무관). 로컬 dev(3141, 종료함) /preview/beans/charge 375px: 무통장 선택→입금 안내, 충전 내역 '입금 대기'·'입금 안내 보기' 육안 확인.
 - 미실행/남은 일: 실서버 연동(서버 미배포) 및 실제 입금 확인 흐름, Playwright e2e 미실행 — e2e/advertising.spec.ts 목업 구매 단계('구매하기'→'사용 전')는 무통장(입금자명·동의·'… 무통장입금 주문'→입금 대기)으로 갱신 필요. check:docs·docs:record 미실행(상위 작업에서 실행). 운영 배포 안 함.
 
-## 2026-11-16 댓글 닫힌 게시물: '닫힘' 대신 실제 댓글 수 + 반투명 (fix/comment-closed-count, 미배포)
+## 2026-11-16 댓글 닫힌 게시물: '닫힘' 대신 실제 댓글 수 + 반투명 (fix/comment-closed-count)
 - 사용자 요청. PostActions의 commentsClosed: 텍스트 '닫힘' → 실제 댓글 수(toLocaleString), 스타일 opacity .45·cursor default, aria-label '댓글 N개, 댓글 닫힘'·title 유지(클릭 불가 그대로).
 - 검증: tsc 0, crefans-social 35 pass/5 fail(5건은 기존 실패 목록), 대조('닫힘'으로 되돌리면 1건 추가 실패), npm test 695/18(실패 목록 동일).
 
