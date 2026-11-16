@@ -2,6 +2,7 @@
 import {useState} from 'react';
 import Link from 'next/link';
 import {Brand} from '@/components/crefans/Brand';
+import {ServiceFooter} from '@/components/crefans/ServiceFooter';
 import {aiPhotoKinds} from '@/lib/crefans/ai-photo';
 import {aiPhotoPresetTitles} from '@/lib/crefans/ai-photo-presets';
 import {aiPhotoCostumes} from '@/lib/crefans/ai-photo-costumes';
@@ -96,5 +97,7 @@ export default function AiPhotoLanding(){
   </section>
 
   <section className={s.final}><h2>오늘은 어떤 캐릭터가 될까요?</h2><Link className={s.primary} href={TRY}>로그인 없이 무료 체험</Link><p className={s.small}>이 페이지의 인물은 가상 인물이며, 결과 사진은 AI로 생성했어요.</p></section>
+  {/* 2026-11-17: PG review needs the operator details at the bottom of the home page; same footer as the service landing. */}
+  <div className={s.siteFooter}><ServiceFooter basePath="/service" always business/></div>
  </main>;
 }
