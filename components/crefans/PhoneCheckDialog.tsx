@@ -49,7 +49,7 @@ export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모
     {mobile&&mobileActions}
     {!mobile&&sent.qrCode&&<figure className={s.smsQr}>{/* eslint-disable-next-line @next/next/no-img-element -- server-issued PNG data URL */}<img src={sent.qrCode} alt="메시지 앱을 여는 QR 코드" width={160} height={160}/><figcaption>QR이 안 되면 휴대폰에서 직접 {sent.receiver}로 {sent.code}을(를) 보내 주세요.</figcaption></figure>}
    </>}
-   <p className={s.phoneNote}>번호는 단방향 암호화 값으로만 저장됩니다.</p>
+   <p className={s.phoneNote}>번호는 암호화해 안전하게 보관합니다.</p>
    {error&&<p className={s.claimError} role="alert">{error}</p>}
   </div>
   {sent&&mobile?null:<DialogActions style={{marginTop:20}}>
