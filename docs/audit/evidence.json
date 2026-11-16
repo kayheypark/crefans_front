@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T05:26:14.429175+00:00",
+  "checkedAt": "2026-11-16T05:29:47.569810+00:00",
   "environment": {
     "node": "v22.23.4",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "72dc6d26ad9ebdf4270339a15b93e015d2e98dcb",
+      "head": "8c8e9b2510fcd54cb07b1ba824d7d9859052bbce",
       "branch": "feat/guest-ai-caption",
-      "dirty": false
+      "dirty": true
     },
     "server": {
-      "head": "263cbf0e60ed69087931b7b77c642ebc5f159347",
+      "head": "073a8de75986f95dc496e08194c61027b7310aa9",
       "branch": "",
       "dirty": false
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "26747a5e52957cdd59c35a2a6e5cc93730f02a6bcef7e6385bc036c9748f69fa",
-      "front/PROGRESS.md": "0cf55bd23fbd08a80e3fce5e6c4d3cf9a198828ca4ff80a02b460389150abdfc",
+      "front/PROGRESS.md": "575521367985516f8ea8c8ec25eb28fcedcdfc9a5afea2c58a09539c980bbc99",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "4c70a78ab2fbd9f11e1fa0aba0abfef959e9cf90175e2bd425afc01e3d843905",
       "server/AGENTS.md": "cf5629866b4dd36d308724029505a5cea0de418683c43a314188b0d3f537d9e3",
-      "server/PROGRESS.md": "cba6c2ab3cdc41c8ab68c4f880bc95cccbad8dc4ed2c7e315f1999c973c0be13",
+      "server/PROGRESS.md": "2c3e9e99dff830952e8562f962353a502a3e2acf8330bb4ae5a6a38cf8248fe7",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",

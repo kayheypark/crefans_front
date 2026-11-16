@@ -5,7 +5,8 @@
 - 복구: /Users/ethan/crefans-recovery/20261116/front-guest-cosplay-20261116/ 이미지·설정 아카이브 SHA256, OCI blob15개 해시·이전 이미지ID 확인. 서버 이전 태그·설정백업·전송임시파일 정리 완료. 활성 이미지·DB·업로드 보존. 복구 저장소 보관본 삭제 없음.
 - 증거 .local/ship-front-guest-cosplay-20261116/{ship,build,deploy}.log 및 .local/guest-cosplay/{live-check.json,live-banner.png,integrated-tests.log,integrated-typecheck.log}. 이전 문서·계층 검사 제한은 아래 기록 참고.
 
-## 2026-11-16 비회원 체험: 사진 먼저, 제목·본문은 게시 때 AI 작성 (feat/guest-ai-caption, 미배포)
+## 2026-11-16 비회원 체험: 사진 먼저, 제목·본문은 게시 때 AI 작성 (feat/guest-ai-caption → prod 8c8e9b2, 운영 배포)
+- 운영 배포: front-ai-caption-20261116(API ai-caption-20261116 직후), 운영 번들에 guest.3·/guest/content/caption·확인하고 게시 확인, 복구 crefans-recovery/20261116/front-ai-caption-20261116. 운영 caption 실호출 source=ai 정상.
 - 사용자 결정: 체험(/service/try)만. 편집 화면에서 파일 업로드·AI 사진 편집을 제목·본문보다 위로, 제목·본문은 비워 둬도 게시 가능. 게시 시 비어 있는 칸만 서버 /guest/content/caption(고른 항목 이름 + 직접 입력한 요청 문장)으로 채우고 확인 창 '확인하고 게시'/'직접 고치기'. 사진 없으면 요청 전 안내. 회원 스튜디오 글쓰기는 그대로.
 - 구현: lib/crefans/ai-photo-labels.ts(aiPhotoSelectionLabels: 코스튬·일반 의상·프리셋 제목·보관함 이름), AiPhotoDialog onAdd(images,context), ManagementPages GuestEditor.caption·captionMode·publishWithCaption·save(text?)→saveWith, management.module.css captionHint/captionReview, useGuestTrialModel caption·GUEST_CONSENT_VERSION 2026-11-16.guest.3, GuestTrialPage 동의 안내 문구.
 - 검증: tsc 0, crefans-studio-management 29/29(체험 흐름·회원 유지 2건 추가, 대조: 확인 흐름 제거 시 1실패), npm test 685 pass/18 fail(실패 목록 기존과 동일), check:docs PASS. Playwright(API 모의, 390px): 업로드→AI 편집→제목 순서, 빈 칸 게시 시 caption 요청 1회·확인 창 표시.
