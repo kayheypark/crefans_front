@@ -1,3 +1,8 @@
+## 2026-11-16 상점 한 페이지(AI 이용권 | 광고상품) + 구매 내역 오른쪽 (feat/shop-ads-tabs, 운영 미배포)
+- 사용자 요청: 상점과 광고상품을 한 페이지에서, 구매 내역은 탭과 같은 줄 오른쪽.
+- ShopPage: 카테고리 칩(AI 이용권·광고상품) 왼쪽, '구매 내역' 토글 버튼 오른쪽(margin-left:auto, aria-pressed). 광고상품은 AdvertisingPage embedded(자체 제목·탭 없이 상점 view를 따름). /studio/advertising은 상점의 광고상품 카테고리로 열림. 옛 '광고상품 보기' 링크·AdvertisingContainer 제거. 디자인 시스템 상점 견본에 광고 견본 추가.
+- 검증: tsc 0, 새 tests/shop-ads-tabs.test.cjs 2/2(행 구성·전환·embedded 제목 1개·구매 내역 토글·초기 광고 카테고리), 대조(구매 내역을 왼쪽으로 옮기면 실패), npm test 697 중 680/17(기준선 17). 로컬 dev(3132) 디자인 시스템 WebKit iPhone14 캡처 3장 확인. 서버 변경 없음.
+
 ## 2026-11-16 멤버십은 파트너 계약 크리에이터만 (feat/membership-partner)
 - 스튜디오 멤버십 화면: membershipPartner===false(= /studio/finance payoutPartner false)면 '멤버십 만들기' 비활성 + MembershipPartnerNotice(안내·파트너 계약 요청하기). 서버 MEMBERSHIP_PARTNER_REQUIRED가 최종 차단.
 - 검증: tsc 0, crefans-studio-management 26/26(새 테스트: 잠김/열림), 대조(disabled 제거 시 실패), npm test 678/17(기준선 동일).

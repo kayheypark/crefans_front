@@ -25,3 +25,4 @@
 @media(max-width:600px){.productRow{padding-right:24px;gap:8px}.productOpen>svg{width:16px;height:16px}}
 
 .detailTitle{font-size:18px;word-break:keep-all;overflow-wrap:anywhere}.detail .activationGuide{color:var(--cf-color-textSecondary);font-size:13px}.purchaseDetails{border-top:1px solid var(--cf-color-border);padding-top:16px}.purchaseDetails summary{cursor:pointer;font-weight:600;line-height:1.6;min-height:32px}.purchaseDetails>div{display:grid;gap:12px;padding-top:12px;font-size:13px;line-height:1.7;color:var(--cf-color-textSecondary)}.purchaseDetails summary:focus-visible{outline:2px solid var(--cf-color-accent);outline-offset:4px}.detail .purchaseDetails .comparisonBasis{font-size:12px}
+.embedded{color:var(--cf-color-text);font-size:14px;padding-bottom:32px}
