@@ -1,0 +1,21 @@
+{
+ "status": 200,
+ "model": "dola-seedream-5-5-261028",
+ "responseModel": "dola-seedream-5-5-261028",
+ "requestId": "021794826567477c195b830dbec85207d05ecc18a972ce6d19368",
+ "prompt": "A rounded-square photo icon with a white upward arrow badge, meaning upload a photo; glossy 3D rendered icon in the exact same style and blue color as the reference image (smooth glossy blue #2563EB plastic with white glyph, soft studio lighting, gentle shadow), simple single object, centered, pure white background, no text, no letters, no logos, no people",
+ "size": "1024x1024",
+ "references": [
+  "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/v5/link3d-a.png"
+ ],
+ "elapsedMs": 13788,
+ "at": "2026-11-16T10:56:20.868813+00:00",
+ "output": "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/v6/step1.png",
+ "sha256": "abada1f86891b27d13220098ba35884d644615ae095e5c54c450112ce406b80e",
+ "usage": {
+  "input_images": 1,
+  "generated_images": 1,
+  "output_tokens": 4096,
+  "total_tokens": 4096
+ }
+}
