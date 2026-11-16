@@ -3,6 +3,11 @@
 - 랜딩(LandingPage·lib/content/landing.ts aiPhoto): 'AI 사진 편집' 섹션(가상 인물 AI 생성 이미지 /illustrations/landing/ai-photo-costume-v1.webp, 기능 4줄, '로그인 없이 체험하기' /service/try, '서비스 소개서 PDF' 가이드 다운로드 링크). ServiceLinks(사이드바·푸터·설정)에 '서비스 소개서 PDF ↗'.
 - 검증: tsc 0, npm test 698 중 681/17(기준선 동일, 링크 목록 고정 테스트 갱신), 로컬 dev /preview/landing WebKit 모바일·PC 캡처 확인.
 
+## 2026-11-16 11:10 KST 서비스 소개 AI 사진 편집 운영 배포 (feat/ai-photo-intro → prod c46c684)
+- 사용자 승인(/pilot-work "가이드+서비스 랜딩 둘 다 배포"). check:docs PASS(docs:record 후), ship-image front-ai-intro-20261116 exit0: 레이어 일치, front-partner-sync-20261116 → front-ai-intro-20261116, 복구 crefans-recovery/20261116/front-ai-intro-20261116 검증 OK.
+- 운영 확인: /service/landing에 #ai-photo·'로그인 없이 체험하기'·'서비스 소개서 PDF' 링크 존재, 이미지·가이드 PDF·/api/v1/common 200. 루트(/)는 /service/feed로 이동하므로 랜딩은 /service/landing.
+- 가이드도 같은 시각 배포(crefans_guide prod b84197f, 소개서 14쪽 기준일 11-16, PDF sha256 a7d84560…).
+
 ## 2026-11-16 파트너·상점 정합성 (/pilot-work, feat/partner-sync)
 - 멤버십: 계약 전(membershipPartner false)에는 중지한 멤버십 스위치 비활성, 숨기기 확인창 '다시 공개하려면 파트너 계약 필요', 빈 화면 안내 분기. 광고 화면 제목 '상점'(service·preview), 목업 목록 '상점(광고상품)'. 'AI 이용권' 통일(AI 편집 창 제목·결제 완료·무료 소진 안내·디자인 시스템).
 - 검증: tsc 0, 새 테스트(중지 멤버십 재공개 스위치) + 대조, npm test 698 중 681/17(기준선 동일).

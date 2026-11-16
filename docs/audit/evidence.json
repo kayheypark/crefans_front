@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T02:08:44.880165+00:00",
+  "checkedAt": "2026-11-16T02:11:42.920078+00:00",
   "environment": {
     "node": "v22.23.4",
     "python": "3.14.5",
@@ -30,9 +30,9 @@
   ],
   "repositories": {
     "front": {
-      "head": "044fceebc51117c54afc4624697099e118f6317b",
+      "head": "c46c684dce6f16bf38cb9f372d60a4aff090e710",
       "branch": "feat/ai-photo-intro",
-      "dirty": false
+      "dirty": true
     },
     "server": {
       "head": "976ff49365670833d5902622215fbaa0237afbca",
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "26747a5e52957cdd59c35a2a6e5cc93730f02a6bcef7e6385bc036c9748f69fa",
-      "front/PROGRESS.md": "bbedc2dba8c97318be43c6182a5cd8b4089ea56260ee54b61057088702cc042a",
+      "front/PROGRESS.md": "c973394e66c25d519e3aa92405947caf29ddee6ff28dec22484a41087098ee16",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
