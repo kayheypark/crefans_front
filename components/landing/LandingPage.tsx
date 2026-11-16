@@ -69,7 +69,7 @@ function LandingView({ model }: { model: ReturnType<typeof useLandingModel> }) {
         </Link>
         <nav className={s.nav} aria-label="주요 메뉴">
           <a href="#possibilities">크레팬스 소개</a>
-          <a href="#creators">크리에이터를 위해</a>
+          <a href="/service/landing-ai-image-generation">AI 사진 편집</a>
           <Link href="/explore">
             둘러보기 <span aria-hidden="true">↗</span>
           </Link>
@@ -90,17 +90,17 @@ function LandingView({ model }: { model: ReturnType<typeof useLandingModel> }) {
         <section className={`${s.hero} ${s.editorialHero}`} aria-labelledby="hero-title">
           <div className={s.heroCopy}>
             <h1 id="hero-title">
-              크리에이터와 팬이<br />
-              <em>만들어나가는</em><br />
-              플랫폼
+              사진 한 장으로<br />
+              <em>바꾸는</em><br />
+              AI 사진 편집
             </h1>
             <div className={s.actions}>
               <button className={s.primary} onClick={model.start}>
                 {model.signedIn ? "내 피드로 가기" : "시작하기"}
                 <ArrowRightOutlined />
               </button>
-              <Link href="/explore" className={s.heroExplore}>
-                생태계 둘러보기 <ArrowRightOutlined />
+              <Link href="/service/try" className={s.heroExplore}>
+                무료 체험하기 <ArrowRightOutlined />
               </Link>
             </div>
             <div className={s.iconMarquee} aria-hidden="true">
@@ -124,10 +124,10 @@ function LandingView({ model }: { model: ReturnType<typeof useLandingModel> }) {
           <HeroSlider />
         </section>
         <div className={s.interlude}>
-          <span>각자의 취향, 하나의 연결.</span>
+          <span>의상·메이크업·포즈·배경을 고르면, AI가 새 사진으로.</span>
           <div>
-            그림 <i aria-hidden="true" /> 사진 <i aria-hidden="true" /> 음악{" "}
-            <i aria-hidden="true" /> 영상 <i aria-hidden="true" /> 이야기{" "}
+            의상 <i aria-hidden="true" /> 메이크업 <i aria-hidden="true" /> 포즈{" "}
+            <i aria-hidden="true" /> 배경 <i aria-hidden="true" /> 구도{" "}
             <i aria-hidden="true" /> 그리고 당신
           </div>
         </div>
@@ -138,7 +138,7 @@ function LandingView({ model }: { model: ReturnType<typeof useLandingModel> }) {
         <Link href="/" className={s.brand}>
           <img src="/logo.png" alt="crefans" width={251} height={50} />
         </Link>
-        <p>창작하는 당신과, 좋아하는 우리.</p>
+        <p>사진 한 장으로 바꾸는 AI 사진 편집, 크레팬스.</p>
         <small>
           © {new Date().getFullYear()} CREFANS. All rights reserved.
         </small>
