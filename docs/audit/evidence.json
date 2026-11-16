@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T08:29:15.233879+00:00",
+  "checkedAt": "2026-11-16T09:23:26.982851+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "ce87840b04fc72d2b27903774842b5404bb3ce93",
+      "head": "ce86dde0ae1c0e3fd2abfd6b6f2213c3bcc67926",
       "branch": "",
       "dirty": false
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "26747a5e52957cdd59c35a2a6e5cc93730f02a6bcef7e6385bc036c9748f69fa",
-      "front/PROGRESS.md": "545bbd3e9719e3db3df9539d6ba03eff40418dcf98b453563ea298caf36e6130",
+      "front/PROGRESS.md": "82fe1ba4cbd3aa4c571950edcc07cacf88be71a41238d754ebb873eab23c5083",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -222,7 +222,7 @@
       "front/components/crefans/CreatorCard.tsx": "35912857354ceb01ed50d99d1a1b7e94a6c3694fdc2696937e4203deff406c8c",
       "front/components/crefans/CreatorClosingNotes.tsx": "3896773614dac11325e690c9c8b58b526107c3d86bdbc55def1412be42be62d9",
       "front/components/crefans/CreatorName.tsx": "c75ddac5d7b51ee42aa48a1c8a4eef3750323630c7e40410e73d297e820d7caf",
-      "front/components/crefans/CreatorPages.tsx": "be127c9c87d931f67b11cb7c1715b41271403fb441c090ad180b6b3ea48847db",
+      "front/components/crefans/CreatorPages.tsx": "9d06334f4cdd6a24885b4adcb7cf9be7d863270389872e949d57d66f422f90bf",
       "front/components/crefans/CreatorSearch.tsx": "07411d6374bb3decd9d849d67be25120537761aaec4970ea12667fe730a0c182",
       "front/components/crefans/EventPages.tsx": "8faa58d8a49325f7d193dbc041b99be8afe70002220fc4fd6679201b8b89b42c",
       "front/components/crefans/FollowButton.tsx": "351e0114e0288d38fa46d0af4fbee47891ccd4e7b294d736d470f50da9b9fc95",
@@ -298,7 +298,7 @@
       "front/components/crefans/service.module.css": "bab94c0f7b60a36df78b9e08b431ab4f9a7abe33dbbc22c2aa71d0fd61934e56",
       "front/components/crefans/signup-complete.module.css": "7f25070acf261fbfb4c9ca6203266075115a3450070629bfcd6a29775d274f6e",
       "front/components/crefans/social.module.css": "e0f7c15e3b7af3452b322113ba09ea233ace3e9c8def9c9de5bb30e1845177c8",
-      "front/components/crefans/studio/AdvertisingPage.tsx": "06ecc0b8350c635d94c1f1a00759d00851b350bc624f3b9e3ff4e0b03e173034",
+      "front/components/crefans/studio/AdvertisingPage.tsx": "b581d35f0101993e400e57aad445e593efb22c16f3713efae6bf783269bb9669",
       "front/components/crefans/studio/AiBodyAdjustments.tsx": "79962e853d9118b40a52e1f3521a89173e9c3ac02935c54d252767f7ce43bc08",
       "front/components/crefans/studio/AiPhotoCategoryIcon.tsx": "903527ba6652132489715098f888ff24cb867e61803448fcb4db7e7eba60aeb8",
       "front/components/crefans/studio/AiPhotoCrop.tsx": "d26a8711219c0cdb4f181d319fd32df6303b753ae4ee2fe7bd776e111b9a7b90",
@@ -317,11 +317,11 @@
       "front/components/crefans/studio/OverviewPages.tsx": "f57dba51a5a0ab4f79477b2941635dfa583ba5e39dcd0f7c6e7222fb2f37e110",
       "front/components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
       "front/components/crefans/studio/ReportPage.tsx": "8faa564cedf335b708efc3d15ff8d2e34c5b4127b72447e327602e59e1faf2d1",
-      "front/components/crefans/studio/ShopPage.tsx": "6b208c92054eabd30d1a93d5130e996da278b5898639b69751147b608385ef1e",
+      "front/components/crefans/studio/ShopPage.tsx": "0948518ae5f804df6eb970b36afc9de2be59baaeae0dd0edeaf3d565bc612e8f",
       "front/components/crefans/studio/StudioCommentReply.tsx": "c9a18ec81fdd19c797fb8a69224ff65d0fd29526de5a172bad67e82689a0b536",
       "front/components/crefans/studio/StudioShell.tsx": "026354aa5fd91de4dc501ecb361600200ecf5532586de5d2c8a03d7d2381f715",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "2843536dd513f2a6f61ed32bf09bb6e005d1cbdf601fba75f6db5691f5da2bb6",
-      "front/components/crefans/studio/advertising.module.css": "01046f0f8c40ed75c93b8545e7cf7133f2633ec6c0d0a505f9d7fab29b3686e7",
+      "front/components/crefans/studio/advertising.module.css": "2162096ec06a62a521875053216ad642e6257c9b82fd15550849b4aaa8af6cff",
       "front/components/crefans/studio/ai-photo.module.css": "d94383658ca384b7688bc4acdc539b9ce9785701af59ddcfa3dc987629662a25",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-list.module.css": "50f5927048e6507421ecc94607ed9e3016e63e198fcccfa76351af28bda11bca",
@@ -560,7 +560,7 @@
       "front/docs/design/creator-guard-pencil-v1.generation.json": "81f17fd5e6ef82fc67df4d6885e935be33c872822053eaba5ce986c3a3c16a68",
       "front/docs/design/landing-concepts-20261103.json": "c5e296c1f87ad34bccbe0242bb52b82a80cdda11dc30501c092e62a35d2f4c14",
       "front/docs/design/post-support-icon-v1.generation.json": "18a6f9a3532c4254a637a25231522910e7342d12b550200f4ae9814bafa78743",
-      "front/e2e/advertising.spec.ts": "95cbb7a47b1b9c1254d87042d2725d454f0102b406a50cec7f636a040d82e9bb",
+      "front/e2e/advertising.spec.ts": "f9f4bf7b00da805303c63f4973fd34137c50814aa074c4b45a8171b7bf6207b2",
       "front/e2e/bean-refund-closing.spec.ts": "3122261e6fcaae608fef98a1ca8067785dcd17c920bfbb81b96bec39307bd671",
       "front/e2e/beans.spec.ts": "e9d3495561d8bc7a9d9df069265cfe5f88acccd4d232a32659f17e47ba8538fc",
       "front/e2e/beta-closed.spec.ts": "7446ab3031a1af0290d2434184f0f061a5b78fa7fdd12d1fb9d49a169ac0da33",
@@ -836,7 +836,7 @@
       "front/tests/amount-presets.test.cjs": "720e713320db21dd5ceddc8bbc0160a9df612e582f6658188b1264e2762f1355",
       "front/tests/api-contracts.test.cjs": "d607262ef8ab70095f31911841faa779c4bdd6979aef0108071357b64865d491",
       "front/tests/avatar.test.cjs": "a3a281f0cb6b5ccd3a7bb0124b965a41cad9de7895e5805b50361bbe09dcf018",
-      "front/tests/bank-transfer.test.cjs": "ee49fcddc9ef2b88d6508a8f00ebc7648dfbfefa521802142a0a2b698d1d3c89",
+      "front/tests/bank-transfer.test.cjs": "e7998c9ebb659bb3c6558c7411602348626a1f70e76d129b39f9fb01c3b4b8ac",
       "front/tests/bean-attribution.test.cjs": "31a95c7248a6be1157cd5981803eb9162d6ed43dd12846bd07a6f753feb619a1",
       "front/tests/bean-balance-summary.test.cjs": "a01daf8e327e78214101a9ce6dfd76380c38a3547f5010e5396a4bdf98ae17d9",
       "front/tests/bean-charge-page.test.cjs": "fd1f03c63fe4ce8b81f4f738cdfda2189038aa18185dd38fdf7abba30e3d495a",
@@ -930,7 +930,7 @@
       "front/tests/shared-short-bio.test.cjs": "b1156a7cf844d076e380c148d8fda838c44dd28bb99aa65f9f0fbaa93794d39e",
       "front/tests/shop-ads-tabs.test.cjs": "ce6f642d991e7b092a7bbf3072c037c0c521839194e24d02863eeb2c991fe24b",
       "front/tests/shop-routes.test.cjs": "b05cdc709a6db7c74d92d8f3bbaf492cf9f10fb8da5f59ee1a9922395b8a7b3b",
-      "front/tests/shop-subscription.test.cjs": "cbae250438702be7a3b6626eff61073913d5d7d837189842519aaf1bc6d89359",
+      "front/tests/shop-subscription.test.cjs": "23bb38fa6cd0a8e4eb3cb73fd810c88f818776549ce0cf08f5bad165fedd2ebe",
       "front/tests/social-links.test.cjs": "254957c511a965dd0ad78a8fc77f4b125171b48b2669018169dce531062995bd",
       "front/tests/studio-ai-photo-binding.test.cjs": "95ad06f88b45acf27d12f47ba0122b4890a22807485143e7864a9dde07e60924",
       "front/tests/studio-ai-photo.test.cjs": "eb94aed00904db7f793d2f87612d892b91c76c8abe6cd01a9f09820d84b54065",
