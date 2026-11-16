@@ -5,6 +5,11 @@
 - 복구: /Users/ethan/crefans-recovery/20261116/front-guest-cosplay-20261116/ 이미지·설정 아카이브 SHA256, OCI blob15개 해시·이전 이미지ID 확인. 서버 이전 태그·설정백업·전송임시파일 정리 완료. 활성 이미지·DB·업로드 보존. 복구 저장소 보관본 삭제 없음.
 - 증거 .local/ship-front-guest-cosplay-20261116/{ship,build,deploy}.log 및 .local/guest-cosplay/{live-check.json,live-banner.png,integrated-tests.log,integrated-typecheck.log}. 이전 문서·계층 검사 제한은 아래 기록 참고.
 
+## 2026-11-16 체험 제목·내용: AI 사진 후 노출 + 'AI로 내용 작성' 버튼 (feat/guest-caption-button, 미배포)
+- 사용자 정정: 비워 두면 게시 때 작성하는 방식이 아니라, AI 사진을 만든 뒤(aiGenerated 미디어가 있을 때)에만 제목·내용 칸이 보이고 그 옆 'AI로 내용 작성' 버튼으로 채운다. 게시 시 자동 작성·확인 창 제거, 게시는 제목·내용 필수(기존 규칙). 고지는 버튼 옆 문구.
+- 체험 동의 안내 문구 변경 → GUEST_CONSENT_VERSION 2026-11-16.guest.4(서버도 같은 판으로 올려야 함: 서버 feat/bank-transfer에 포함해 함께 배포).
+- 검증: tsc 0, crefans-studio-management 29/29(체험 흐름 테스트 교체, 대조: 칸 항상 노출 시 1실패), npm test 685/18(실패 목록 동일).
+
 ## 2026-11-16 비회원 체험: 사진 먼저, 제목·본문은 게시 때 AI 작성 (feat/guest-ai-caption → prod 8c8e9b2, 운영 배포)
 - 운영 배포: front-ai-caption-20261116(API ai-caption-20261116 직후), 운영 번들에 guest.3·/guest/content/caption·확인하고 게시 확인, 복구 crefans-recovery/20261116/front-ai-caption-20261116. 운영 caption 실호출 source=ai 정상.
 - 사용자 결정: 체험(/service/try)만. 편집 화면에서 파일 업로드·AI 사진 편집을 제목·본문보다 위로, 제목·본문은 비워 둬도 게시 가능. 게시 시 비어 있는 칸만 서버 /guest/content/caption(고른 항목 이름 + 직접 입력한 요청 문장)으로 채우고 확인 창 '확인하고 게시'/'직접 고치기'. 사진 없으면 요청 전 안내. 회원 스튜디오 글쓰기는 그대로.

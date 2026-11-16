@@ -8,7 +8,7 @@ import type {AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefa
 
 // Signed-out AI photo trial (2026-11-15). The server identifies the visitor by an httpOnly cookie set after consent
 // (POST /guest/session); this model never sees the token. Limits and the 24-hour public window are enforced by the server.
-export const GUEST_CONSENT_VERSION='2026-11-16.guest.3';
+export const GUEST_CONSENT_VERSION='2026-11-16.guest.4';
 // A non-secret local flag: this browser started a trial, so ask the server to link its posts after sign-in. The guest token itself
 // stays in the httpOnly cookie. Storage can be blocked; then the link simply happens on a later visit with storage.
 const TRIAL_FLAG='crefans-guest-trial';
@@ -30,7 +30,7 @@ export function useGuestTrialModel(enabled:boolean){
   const body=new FormData();body.append('file',await optimizeImage(original));return api<StudioMedia>('/media/guest',body);
  };
  const save=(input:unknown)=>api<{id?:string;message?:string}>('/guest/content',input);
- // Empty title/body are written at publish time from the chosen item names and request text (2026-11-16); the visitor confirms first.
+ // 'AI로 내용 작성' writes the title/body from the chosen item names and request text (2026-11-16); the visitor edits before posting.
  const caption=(input:{items:string[];prompt:string})=>api<GuestCaption>('/guest/content/caption',input);
  const aiEdit=async(input:AiPhotoEditInput)=>{const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});return result;};
  return{session,error,start,upload,save,aiEdit,refresh,caption};
