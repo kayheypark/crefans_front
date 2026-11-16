@@ -53,3 +53,4 @@
 /* Two-line title: no marquee scrolling inside this modal. */
 .askDialog h2,.askDialog h2 [data-marquee],.askDialog h2 [data-marquee] *{white-space:pre-line;overflow:visible;text-overflow:clip;animation:none!important;transform:none!important;mask-image:none!important;-webkit-mask-image:none!important}.askDialog h2{text-align:center}
 .askArt>img{width:116px;height:116px;margin:-10px -6px}
+.steps li img{width:52px;height:52px}
