@@ -35,7 +35,7 @@ export default function GuestTrialPage({model,done=false}:{model:ServiceViewMode
   {warning}
   <section className={t.card} aria-labelledby="guest-trial-checks"><h2 id="guest-trial-checks">시작 전에 확인해 주세요</h2><ul className={t.checks}>
    <li>이 브라우저를 구분하는 쿠키(최대 30일)와 접속 IP를 서버 보안키로 바꾼 값으로 체험 횟수를 관리해요. 체험 시작 기록에는 접속 IP가 보안 기록으로 남아요.</li>
-   <li>올린 사진과 요청은 AI 사진 생성(BytePlus, 해외)과 유해성 검사(OpenAI, 해외)에 쓰여요.</li>
+   <li>올린 사진과 요청은 AI 사진 생성(BytePlus, 해외)과 유해성 검사(OpenAI, 해외)에 쓰여요. 게시할 때 제목·본문을 비워 두면 고른 항목 이름과 요청 문장만 OpenAI(해외)로 보내 AI가 써 주고, 게시 전에 보여 드려요.</li>
    <li>사진 속 인물은 본인이거나 동의를 받은 사람이어야 해요. 노출·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요.</li>
    <li>체험 게시물에는 AI로 만든 사진만 올릴 수 있어요. 댓글·후원·멤버십이 없고, 하트 같은 보상은 주지 않아요.</li>
   </ul></section>
@@ -48,5 +48,5 @@ export default function GuestTrialPage({model,done=false}:{model:ServiceViewMode
    deleteContent:unsupported,setContentPublic:unsupported,saveMembership:unsupported,deleteMembership:unsupported,uploadMembershipImage:unsupported,discardMembershipImage(){},setMembershipActive:unsupported}};
  const author={id:'guest-preview',name:'체험 사용자',handle:'',image:'',position:'center',bio:'',tags:[],followers:'',isGuest:true,isCreator:false};
  const previewModel={...model,data:{...model.data,creators:[...model.data.creators,author as unknown as ServiceViewModel['data']['creators'][number]]}};
- return <ContentEditorPage model={management} basePath="/service/try" previewModel={previewModel} previewCreatorId={author.id} guest={{backHref:feedPath,doneHref:donePath,notice:GUEST_POST_NOTICE}}/>;
+ return <ContentEditorPage model={management} basePath="/service/try" previewModel={previewModel} previewCreatorId={author.id} guest={{backHref:feedPath,doneHref:donePath,notice:GUEST_POST_NOTICE,caption:guest.caption}}/>;
 }

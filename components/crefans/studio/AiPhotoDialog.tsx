@@ -19,6 +19,7 @@ import Icon from '../Icon';
 import type {ApiResult} from '@/types/crefans';
 import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,StudioMedia} from '@/types/crefans-studio-management';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
+import {aiPhotoSelectionLabels,type AiPhotoCaptionContext} from '@/lib/crefans/ai-photo-labels';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,aiPhotoBodyPrompt,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
 import {Action} from '../ServiceUI';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
@@ -30,7 +31,7 @@ import s from './ai-photo.module.css';
 
 type Props={/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
- onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[])=>void};
+ onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext)=>void};
 
 const buildPrompt=(presets:AiPhotoPresetSelection[],custom:string,gender:'original'|'female'|'male')=>buildAiPhotoPrompt(aiPhotoCostumeRequest(presets).presets,custom,gender);
 
@@ -47,6 +48,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const [targetGender,setTargetGender]=useState<'original'|'female'|'male'>('original');
  const [aspectRatio,setAspectRatio]=useState<AiPhotoRatio>('original'),[cropItem,setCropItem]=useState<StudioMedia|null>(null);
  const [sharing,setSharing]=useState(false),photoFiles=useRef(new Map<string,Promise<File>>());
+ const captionContext=useRef<AiPhotoCaptionContext>({labels:[],prompt:''});
  // 2026-11-14 user decision: results are shared through the system share sheet as PNG files converted in the browser.
  // Files are prepared ahead so the share call stays inside the tap's user activation (iOS Safari rejects late calls).
  function photoFile(item:StudioMedia){let file=photoFiles.current.get(item.id);if(!file){file=(async()=>{const response=await fetch(item.url);if(!response.ok)throw new Error('download');const blob=await response.blob();if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],`crefans-ai-${item.id.replace(/[^a-zA-Z0-9_-]/g,'')}.png`,{type:'image/png'});})();photoFiles.current.set(item.id,file);file.catch(()=>photoFiles.current.delete(item.id));}return file;}
@@ -116,6 +118,8 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   if(prompt.length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.');return;}
   const requestKind=editKinds[0]||(targetGender!=='original'?'pose':aspectRatio!=='original'?'camera':kind);
   const problem=aiPhotoProblem({prompt,consent:true,kind:hasOutfit?'outfit':requestKind,requireMask:requiresMask,hasMask:strokes.length>0,remaining});if(problem){setError(problem);return;}
+  // Remembered for the guest trial caption: names of what was chosen plus the visitor's own request text (no prompt internals).
+  captionContext.current={labels:aiPhotoSelectionLabels(selectedPresets,libraryAssets,targetGender),prompt:customPrompt.trim()};
   let game:typeof heartGame=null;
   if(!noHearts&&onHeartGame){setBusy(true);try{const r=await onHeartGame({action:'start'});if(!r.success||!r.data.id||!r.data.kinds){setError(r.errorMessage||'하트 게임을 시작하지 못했어요.');return;}game={id:r.data.id,kinds:r.data.kinds};setHeartGame(game);heartQueue.current=Promise.resolve();gameEvent.current=0;}catch{setError('하트 게임을 시작하지 못했어요.');return;}finally{setBusy(false);}}
   setRewardNote('');heartScoreRef.current=0;setHeartScore(0);setBusy(true);setError('');setStage('results');
@@ -134,7 +138,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   const picked=results.filter(item=>selected.includes(item.id));
   if(!picked.length){setError('게시물에 넣을 사진을 골라 주세요.');return;}
   if(picked.length>room){setError(`사진은 ${room}장만 더 넣을 수 있어요.`);return;}
-  onAdd(picked);sourceOrigins.current.clear();setAspectRatio('original');setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
+  onAdd(picked,captionContext.current);sourceOrigins.current.clear();setAspectRatio('original');setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
  }
  function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('pose');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setStage('edit');}
  const viewing=viewer!==null||sourceViewer;
