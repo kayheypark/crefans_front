@@ -74,3 +74,8 @@
 .reward[data-theme="advertising"]{background:linear-gradient(115deg,#eeeaff,#e6edff)}
 .reward[data-theme="beans"]{background:linear-gradient(115deg,#e3f5eb,#d8f4e8)}
 .reward[data-theme="badge"]{background:linear-gradient(115deg,#f2eaf9,#eee3fa)}
+
+/* 2026-11-16 phone-number check dialog (OCTOMO). */
+.phoneCheck{display:grid;gap:14px}.phoneCheck p{margin:0;line-height:1.6}.phoneSms{display:grid;gap:10px;margin:0;padding:14px 16px;border-radius:12px;background:var(--cf-landing-soft)}
+.phoneSms div{display:flex;justify-content:space-between;gap:12px}.phoneSms dt{color:var(--cf-color-textSecondary)}.phoneSms dd{margin:0;font-weight:600}.phoneSms strong{font-size:20px;letter-spacing:.08em}
+.phoneSmsLink{justify-self:start;color:var(--cf-color-accent);font-weight:600}.phoneNote{color:var(--cf-color-textMuted);font-size:13px}
