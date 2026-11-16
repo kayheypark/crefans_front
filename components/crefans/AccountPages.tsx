@@ -60,6 +60,9 @@ function useActionFeedback(){
   return {busy,error,run,clearError:()=>setError('')};
 }
 
+// 2026-11-16 user request: a finished email/phone check reads in green with a check-circle icon.
+function VerifiedNote({children}:{children:string}){return <p className={s.verifiedNote} role="status"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/><path d="m6 10.2 2.6 2.6L14 7.6" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>{children}</p>;}
+
 /** `onComplete` is the router's move to the completion page (presentation does not navigate by itself). */
 export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete?:()=>void}){
   const {account,accountActions,basePath}=model,task=useActionFeedback();
@@ -93,10 +96,10 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
       <form onSubmit={submit} noValidate className={s.form}>
         <div className={s.verifyRow}><Field label="이메일" type="email" autoComplete="email" value={email} readOnly={emailVerified} onChange={e=>changeEmail(e.target.value)} placeholder="이메일을 입력하세요" error={submitted?errors.email:undefined}/>{emailVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={verifying||!emailIsValid(email)} onClick={()=>void requestCode()}>{codeSent?'다시 받기':'인증 코드 받기'}</Action>}</div>
         {codeSent&&!emailVerified&&<div className={s.verifyRow}><Field label="인증 코드" inputMode="numeric" maxLength={6} value={code} onChange={e=>setCode(e.target.value)} placeholder="6자리 코드"/><Action type="button" variant="secondary" disabled={verifying||!code.trim()} onClick={()=>void verifyCode()}>확인</Action></div>}
-        {emailNotice&&<p className={s.hint} role="status">{emailNotice}</p>}{emailError&&<p className={s.error} role="alert">{emailError}</p>}
+        {emailNotice&&(emailVerified?<VerifiedNote>{emailNotice}</VerifiedNote>:<p className={s.hint} role="status">{emailNotice}</p>)}{emailError&&<p className={s.error} role="alert">{emailError}</p>}
         {/* 2026-11-16 user request: the number is typed right in the form; '인증하기' opens the message preview directly. */}
-        {phoneRequired&&<div className={s.verifyRow}><Field label="휴대폰 번호" type="tel" inputMode="numeric" autoComplete="tel" maxLength={13} value={phone} readOnly={phoneVerified} onChange={e=>setPhone(e.target.value)} placeholder="01012345678"/>{phoneVerified?<span className={s.verified}>확인 완료</span>:<Action type="button" variant="secondary" disabled={!emailVerified||!phoneValid} onClick={()=>setPhoneOpen(true)}>인증하기</Action>}</div>}
-        {phoneRequired&&<p className={s.hint}>{phoneVerified?'휴대폰 번호 확인 완료':emailVerified?'번호 하나에 계정 하나만 만들 수 있어요.':'이메일 인증 후 진행해 주세요.'}</p>}
+        {phoneRequired&&<div className={s.verifyRow}><Field label="휴대폰 번호" type="tel" inputMode="numeric" autoComplete="tel" maxLength={13} value={phone} readOnly={phoneVerified} onChange={e=>setPhone(e.target.value)} placeholder="01012345678"/>{phoneVerified?<span className={s.verified}>인증 완료</span>:<Action type="button" variant="secondary" disabled={!emailVerified||!phoneValid} onClick={()=>setPhoneOpen(true)}>인증하기</Action>}</div>}
+        {phoneRequired&&(phoneVerified?<VerifiedNote>휴대폰 번호 인증이 완료되었습니다.</VerifiedNote>:<p className={s.hint}>{emailVerified?'번호 하나에 계정 하나만 만들 수 있어요.':'이메일 인증 후 진행해 주세요.'}</p>)}
         {phoneRequired&&submitted&&!phoneVerified&&<p className={s.error} role="alert">휴대폰 번호 확인이 필요해요.</p>}
         <Field label="비밀번호" type="password" showPasswordToggle autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="비밀번호를 입력하세요" hint="8자 이상 입력해주세요." error={submitted?errors.password:undefined}/>
         <Field label="비밀번호 확인" type="password" showPasswordToggle autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)} placeholder="비밀번호를 다시 입력하세요" error={confirm&&confirm!==password?errors.confirm:undefined}/>

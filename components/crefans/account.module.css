@@ -71,3 +71,4 @@
 
 /* 2026-11-07: 고객센터 문의하기 탭의 내 문의 내역 진입 줄 */
 .historyEntry{margin-top:24px}
+.verifiedNote{display:flex;align-items:center;gap:6px;margin:0;font-size:max(12px,var(--cf-mobile-font-min,0px));line-height:1.65;font-weight:600;color:var(--cf-color-success)}.verifiedNote svg{flex:none}
