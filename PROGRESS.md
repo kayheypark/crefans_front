@@ -5,6 +5,10 @@
 - 복구: /Users/ethan/crefans-recovery/20261116/front-guest-cosplay-20261116/ 이미지·설정 아카이브 SHA256, OCI blob15개 해시·이전 이미지ID 확인. 서버 이전 태그·설정백업·전송임시파일 정리 완료. 활성 이미지·DB·업로드 보존. 복구 저장소 보관본 삭제 없음.
 - 증거 .local/ship-front-guest-cosplay-20261116/{ship,build,deploy}.log 및 .local/guest-cosplay/{live-check.json,live-banner.png,integrated-tests.log,integrated-typecheck.log}. 이전 문서·계층 검사 제한은 아래 기록 참고.
 
+## 2026-11-16 AI 사진 결과 공유 문구 (feat/ai-photo-share-text, 미배포)
+- 사용자 결정(추천 4안): 결과 공유 시트에 PNG와 함께 문구 '이거 AI로 옷만 바꾼 거임 😳 / 나도 해 보기 → https://crefans.com/service/try / (AI 생성 이미지)'. 링크는 미리보기 환경에서도 운영 체험 주소로 고정. 파일 공유 미지원 브라우저(PC 저장 폴백)는 문구 없음.
+- 검증: tsc 0, studio-ai-photo 80/80(공유 text 단언 추가), 대조(문구 제거 시 1건 실패), npm test 683/18(실패 목록 동일). 실기기 공유 시트에서 앱별(인스타·카톡 등) 문구 표시 여부는 미확인(앱마다 파일과 함께 온 text를 버리기도 함).
+
 ## 2026-11-16 같은 주소 단계 전환 시 스크롤 맨 위 (fix/guest-trial-scroll-top)
 - 사용자 요청: '동의하고 체험 시작' 뒤 다음 화면이 스크롤 아래에서 시작 → 맨 위로, 비슷한 구간 전수조사 후 운영 배포.
 - 원인: 경로가 바뀌면 Next(창)·ServiceShell(모바일 [data-service-scroll], scrollKey=경로)이 맨 위로 보내지만, 같은 경로에서 state로 화면 전체를 바꾸는 흐름은 스크롤을 유지함.

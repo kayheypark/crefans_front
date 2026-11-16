@@ -34,6 +34,8 @@ type Props={/** Signed-out trial: local game only; no balance or reward conversi
 
 const buildPrompt=(presets:AiPhotoPresetSelection[],custom:string,gender:'original'|'female'|'male')=>buildAiPhotoPrompt(aiPhotoCostumeRequest(presets).presets,custom,gender);
 
+// 2026-11-16 user decision: the share sheet carries this caption with the PNG (trial link + AI-generated label).
+export const AI_PHOTO_SHARE_TEXT='이거 AI로 옷만 바꾼 거임 😳\n나도 해 보기 → https://crefans.com/service/try\n(AI 생성 이미지)';
 function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
 
 export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,shop,shopBasePath='/service/studio',noHearts=false}:Props){
@@ -48,7 +50,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  // 2026-11-14 user decision: results are shared through the system share sheet as PNG files converted in the browser.
  // Files are prepared ahead so the share call stays inside the tap's user activation (iOS Safari rejects late calls).
  function photoFile(item:StudioMedia){let file=photoFiles.current.get(item.id);if(!file){file=(async()=>{const response=await fetch(item.url);if(!response.ok)throw new Error('download');const blob=await response.blob();if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],`crefans-ai-${item.id.replace(/[^a-zA-Z0-9_-]/g,'')}.png`,{type:'image/png'});})();photoFiles.current.set(item.id,file);file.catch(()=>photoFiles.current.delete(item.id));}return file;}
- async function sharePhoto(item:StudioMedia){if(sharing)return;setSharing(true);try{const file=await photoFile(item);if(typeof navigator.share==='function'&&navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:'크레팬스 AI 사진'});return;}
+ async function sharePhoto(item:StudioMedia){if(sharing)return;setSharing(true);try{const file=await photoFile(item);if(typeof navigator.share==='function'&&navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:'크레팬스 AI 사진',text:AI_PHOTO_SHARE_TEXT});return;}
   // Browsers without file sharing (most desktops) save the PNG instead.
   const url=URL.createObjectURL(file),link=document.createElement('a');link.href=url;link.download=file.name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
   catch(error){if((error as Error)?.name!=='AbortError')setError('사진을 공유하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setSharing(false);}}
