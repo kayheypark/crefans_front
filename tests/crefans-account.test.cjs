@@ -408,10 +408,10 @@ test('2026-11-16 phone at signup: when the server asks, signup stays disabled un
  const tree=mount(pages.SignupPage,data),button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name)),submit=()=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
  change(field(tree,'이메일'),'phone@example.invalid');change(field(tree,'비밀번호'),'Beta-test-123!');change(field(tree,'비밀번호 확인'),'Beta-test-123!');change(field(tree,'닉네임'),'폰');
  const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');act(()=>{for(const i of [0,1,2])checks[i].props.onChange({target:{checked:true}});});
- assert.equal(button('휴대폰 확인').props.disabled,true,'phone check waits for the email code');
+ change(field(tree,'휴대폰 번호'),'010-1234-5678');assert.equal(button('인증하기').props.disabled,true,'phone check waits for the email code');
  await act(async()=>button('인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button('확인').props.onClick());
- assert.equal(submit().props.disabled,true,'email alone is not enough');assert.equal(button('휴대폰 확인').props.disabled,false);
- act(()=>button('휴대폰 확인').props.onClick());change(field(tree,'휴대폰 번호'),'010-1234-5678');await act(async()=>button('다음').props.onClick());assert.match(text(tree),/1666-3538/);assert.match(text(tree),/123456/);assert.match(text(tree),/문자 메시지 · SMS/,'message preview before opening the app');
+ assert.equal(submit().props.disabled,true,'email alone is not enough');assert.equal(button('인증하기').props.disabled,false);
+ await act(async()=>{button('인증하기').props.onClick();await new Promise(r=>setTimeout(r,5));});assert.match(text(tree),/1666-3538/);assert.match(text(tree),/123456/);assert.match(text(tree),/문자 메시지 · SMS/,'message preview before opening the app');
  const go=button('인증하러 가기');if(go)act(()=>go.props.onClick());
  await act(async()=>button('보냈어요').props.onClick());assert.deepEqual(phoneCalls,[['start','01012345678'],['confirm','01012345678']]);
  assert.equal(submit().props.disabled,false);await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.length,1);act(()=>tree.unmount());
