@@ -1,3 +1,8 @@
+## 2026-11-16 AI 사진 체험(/service/try) 동의 화면 다듬기 (feat/try-polish)
+- 사용자 요청: 구분점(목록 점) 색을 다른 페이지처럼 회색 계열, 가운뎃점(·)→콤마, Seedream 에셋으로 디자인 폴리싱, 소제목 삭제, 운영 배포.
+- 변경: GuestTrialPage 문구의 '·' 4곳 → ', ', 히어로 설명 문장(소제목) 삭제(배지 유지), .checks li::before를 currentColor 4px 점(다른 페이지 목록 점 규칙), 히어로 티셔츠 아이콘 → Seedream 히어로 일러스트, 단계 1·2·3에 Seedream 아이콘(번호는 작은 검정 원). 이미지는 Seedream 5.5(dola-seedream-5-5-261028) 생성 → 브라우저 캔버스로 가장자리 흰 배경 투명 처리 → WebP(public/illustrations/try/*-v1.webp, 생성 기록 *-v1.generation.json). 사람·문자·로고 없음.
+- 검증: tsc 0, npm test 704/18(기준선 동일), 로컬 dev(3132)+운영 API GET 프록시 Playwright iPhone 13 화면 확인(목록 점 rgb(84,91,112)=본문색, 화면에 '·' 0개).
+
 ## 2026-11-16 AI 이용권 목록을 광고상품 디자인으로 통일 + 주목할 크리에이터 불꽃 아이콘 (feat/shop-card-consistency, origin/prod df0fe00 기반)
 - 사용자 요청: "광고상품처럼 횟수권과 구독형도 디자인 일관성", "주목할 크리에이터 아이콘은 스파클 말고 불꽃". 불꽃은 오늘 09:07 다른 세션(crefans_front-shop-icons, 미커밋)이 만든 사용자 채택 `public/brand/featured-creators-flame-v1.webp`(sha256 81386d31…, 사용자가 같은 그림 재첨부)를 복사. 그 작업 트리는 건드리지 않음(옛 prod 기반이라 이번 작업으로 대체).
 - 변경: 탐색 주목할 크리에이터·광고상품 행/특가 제목/구매 안내 제목 → 불꽃. AI 이용권(구독형·횟수형)은 광고상품과 같은 섹션 제목·행(아이콘·이름·설명·가격·셰브론, 행 클릭=안내 창)·가격 블록. 비교가 = 횟수형 중 최고 1회 단가 × 횟수(취소선+할인율, 안내 창에 '기준가: … × N회 (VAT 포함)' 근거). 스파클은 AI 이용권에 유지.

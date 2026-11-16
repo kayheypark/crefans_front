@@ -1,0 +1,19 @@
+{
+ "status": 200,
+ "model": "dola-seedream-5-5-261028",
+ "responseModel": "dola-seedream-5-5-261028",
+ "requestId": "02179482481854068bed1fb63597428c3971f167251da48852d84",
+ "prompt": "A photo card with a small mountain-and-sun picture and an upward arrow badge, meaning upload a photo; soft 3D clay icon, rounded glossy shapes, pastel pink lavender and periwinkle blue palette with small warm accents, studio lighting, centered single object, pure white background, no text, no letters, no logos, no watermark, no people",
+ "size": "1024x1024",
+ "references": [],
+ "elapsedMs": 15032,
+ "at": "2026-11-16T10:27:13.179149+00:00",
+ "output": "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/step1.png",
+ "sha256": "a16a9faca0d6eb2e17829eadad09f1731cfc450036a7114ddddf484329143fe2",
+ "usage": {
+  "input_images": 0,
+  "generated_images": 1,
+  "output_tokens": 4096,
+  "total_tokens": 4096
+ }
+}

@@ -15,7 +15,7 @@
 .card h2{margin:0 0 10px;font-size:15px;font-weight:800}
 .checks{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
 .checks li{display:flex;gap:10px;color:var(--cf-color-textSecondary);font-size:13px;line-height:1.6;word-break:keep-all}
-.checks li::before{content:"";flex:none;width:6px;height:6px;margin-top:8px;border-radius:50%;background:var(--cf-color-accent)}
+.checks li::before{content:"";flex:none;width:4px;height:4px;margin-top:9px;border-radius:50%;background:currentColor}
 .consent{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:16px;background:var(--cf-color-surfaceSubtle)}
 .links{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
 .links a{color:var(--cf-color-textSecondary);text-decoration:underline;text-underline-offset:3px}
@@ -28,3 +28,8 @@
 .done h1{margin:0;font-size:22px;font-weight:800}
 .done p{margin:0;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.6;word-break:keep-all}
 @media(prefers-reduced-motion:no-preference){.hero,.done{animation:rise .32s cubic-bezier(.2,0,0,1) both}@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}}
+
+/* 2026-11-16 design polish: Seedream illustrations (white background blends into the hero gradient), step icons above the labels. */
+.hero img{right:-14px;bottom:-14px;width:150px;height:150px;opacity:1}
+.steps li{gap:4px;padding:12px 6px 14px}.steps li img{display:block;width:56px;height:56px;object-fit:contain}
+.steps li span{display:inline-flex;align-items:center;gap:5px}.steps b{width:18px;height:18px;font-size:11px;background:var(--cf-color-text);color:var(--cf-color-surface)}
