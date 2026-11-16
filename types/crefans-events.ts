@@ -1,7 +1,7 @@
 import type {ApiResult} from './crefans';
 export type PromotionClaimStatus={status:'available'|'claimed'|'ineligible'|'unavailable';quantity:100;claimedAt:string|null;expiresAt?:string|null;/** 2026-11-16: OCTOMO phone-number check before the 100콩 (present only while the server has it on). */phoneRequired?:boolean;phoneVerified?:boolean};
-export type PhoneCheckStart={code:string;receiver:string;smsUri:string;expiresAt:string};
-export type PhoneCheckModel={start:(phone:string)=>Promise<ApiResult<PhoneCheckStart>>;confirm:(phone:string)=>Promise<ApiResult<{verified:boolean}>>};
+export type PhoneCheckStart={code:string;receiver:string;smsUri:string;expiresAt:string;/** PC only (qr:true): PNG data URL from OCTOMO. */qrCode?:string};
+export type PhoneCheckModel={start:(phone:string,options?:{qr?:boolean})=>Promise<ApiResult<PhoneCheckStart>>;confirm:(phone:string)=>Promise<ApiResult<{verified:boolean}>>};
 export type PromotionClaimModel={status:PromotionClaimStatus['status']|'signed-out'|'loading'|'error';expiresAt?:string|null;busy:boolean;error:string;onClaim:()=>void;onReload:()=>void;/** Set when the 100콩 needs a verified phone number first. */phone?:PhoneCheckModel&{verified:boolean;onVerified:()=>void}};
 export type ServiceEvent={
  id:string;

@@ -8,7 +8,7 @@ import {usePaymentMethods} from './usePaymentMethods';
 import type {BeanModel,BeanWallet,BeanTip,BeanStudio,BeanHistoryQuery,ReferralHistory,ReferralHistoryStatus,ReferralSummary} from '@/types/crefans-beans';
 const getPromotionClaim=()=>api<PromotionClaimStatus>('/events/promotion-beans');
 // 2026-11-16 OCTOMO phone-number check (number ownership only) before the 100콩.
-const phoneCheck={start:(phone:string)=>api<import('@/types/crefans-events').PhoneCheckStart>('/me/phone-verification/start',{phone}),confirm:(phone:string)=>api<{verified:boolean}>('/me/phone-verification/confirm',{phone})};
+const phoneCheck={start:(phone:string,options?:{qr?:boolean})=>api<import('@/types/crefans-events').PhoneCheckStart>('/me/phone-verification/start',{phone,...(options?.qr?{qr:true}:{})}),confirm:(phone:string)=>api<{verified:boolean}>('/me/phone-verification/confirm',{phone})};
 export function useBeansModel(enabled:boolean,signedIn:boolean,ownCreatorIds:string[]):BeanModel{
  const payments=usePaymentMethods(enabled&&signedIn);
  const [postSupporterCounts,setPostSupporterCounts]=useState<Record<string,number>>({});
