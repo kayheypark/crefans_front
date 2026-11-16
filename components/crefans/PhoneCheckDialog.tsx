@@ -22,6 +22,11 @@ export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모
  // Coming back from the messaging app: one quiet check (a not-yet-delivered SMS is not shown as an error).
  useEffect(()=>{if(!sent||!opened||typeof document==='undefined')return;const back=()=>{if(document.visibilityState==='visible'&&!autoChecked.current){autoChecked.current=true;setTimeout(()=>void confirm(true),1500);}};document.addEventListener('visibilitychange',back);return()=>document.removeEventListener('visibilitychange',back);});
  function openMessages(){if(!sent)return;setOpened(true);autoChecked.current=false;if(typeof window!=='undefined'&&window.location)window.location.href=smsHref(sent.receiver,sent.code,platform);}
+ const mobileActions=<div className={s.smsActions}>
+   {!opened?<Action className={s.smsMain} onClick={openMessages}>인증하러 가기</Action>
+    :<><Action className={s.smsMain} disabled={busy} onClick={()=>void confirm()}>{busy?'확인 중…':'보냈어요'}</Action><Action className={s.smsMain} variant="secondary" disabled={busy} onClick={openMessages}>메시지 앱 다시 열기</Action></>}
+   <button type="button" className={s.smsBack} disabled={busy} onClick={()=>{setSent(null);setError('');setOpened(false);}}>번호 다시 입력</button>
+  </div>;
  return <Dialog open={open} onClose={()=>{if(!busy)onClose();}} title="휴대폰 번호 확인">
   <div className={s.phoneCheck}>
    {!sent?<><p>{intro} 메시지 앱으로 문자 한 통을 보내 번호를 확인해요.</p>
@@ -36,18 +41,16 @@ export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모
      <div className={s.smsComposer}><span className={s.smsPlus} aria-hidden="true">+</span><span className={s.smsInput}>{sent.code}<i className={s.smsCaret} aria-hidden="true"/></span><span className={s.smsSend} aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V6m0 0-5.5 5.5M12 6l5.5 5.5"/></svg></span></div>
      <figcaption className={s.smsHint}>메시지 앱이 열리면 이렇게 채워져 있어요. 초록 전송 버튼만 누르세요.</figcaption>
     </figure>
+    {mobile&&mobileActions}
     {!mobile&&sent.qrCode&&<figure className={s.smsQr}>{/* eslint-disable-next-line @next/next/no-img-element -- server-issued PNG data URL */}<img src={sent.qrCode} alt="메시지 앱을 여는 QR 코드" width={160} height={160}/><figcaption>QR이 안 되면 휴대폰에서 직접 {sent.receiver}로 {sent.code}을(를) 보내 주세요.</figcaption></figure>}
     <p className={s.phoneNote}>문자 요금은 요금제에 따라 나올 수 있어요. 10분 안에 보내 주세요.</p>
    </>}
    <p className={s.phoneNote}>번호를 가지고 있는지만 확인하며, 회사는 번호를 되돌릴 수 없는 값으로만 보관해요.</p>
    {error&&<p className={s.claimError} role="alert">{error}</p>}
   </div>
-  <DialogActions style={{marginTop:20}}>
+  {sent&&mobile?null:<DialogActions style={{marginTop:20}}>
    <Action variant="secondary" disabled={busy} onClick={sent?()=>{setSent(null);setError('');}:onClose}>{sent?'번호 다시 입력':'닫기'}</Action>
-   {!sent?<Action disabled={!valid||busy} onClick={()=>void start()}>{busy?'준비 중…':'다음'}</Action>
-    :mobile&&!opened?<Action onClick={openMessages}>인증하러 가기</Action>
-    :<Action disabled={busy} onClick={()=>void confirm()}>{busy?'확인 중…':'보냈어요'}</Action>}
-  </DialogActions>
-  {sent&&mobile&&opened&&<p className={s.phoneNote} style={{marginTop:10,textAlign:'center'}}>메시지 앱이 안 열렸나요? <button type="button" className={s.smsRetry} onClick={openMessages}>다시 열기</button></p>}
+   {!sent?<Action disabled={!valid||busy} onClick={()=>void start()}>{busy?'준비 중…':'다음'}</Action>:<Action disabled={busy} onClick={()=>void confirm()}>{busy?'확인 중…':'보냈어요'}</Action>}
+  </DialogActions>}
  </Dialog>;
 }
