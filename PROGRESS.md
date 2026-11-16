@@ -1,3 +1,10 @@
+## 2026-11-16 포트원 작업 보관·브랜치 분리
+- 사용자 결정: 포트원(KG이니시스 V2) 연동은 연습으로 보고 보관, 이니시스 직접 계약(11/14 신청, 사전심사 대기)을 기다림.
+- 보관 브랜치 archive/portone-inicis-practice (서버·프론트 로컬): 단건결제 PG 스위치(ONE_TIME_PAYMENT_PROVIDER), 광고상품 카드 결제·대사, 결제자 휴대폰 입력. 로컬 실결제 2,200원 결제·환불 검증 기록 포함. 운영 배포 안 함.
+- 포트원과 무관한 작업은 origin/prod 기준 새 브랜치로 분리(cherry-pick -x): 서버 feat/guest-edit-claim(비로그인 글 제목·내용 수정, 연동 전 개수 조회), 프론트 feat/guest-edit-shop(수정 메뉴, 상점 콩 충전 칩·구매 내역 버튼·섹션 아이콘 제거, 로그인 후 연동 확인 창). 미배포.
+- 검증: 프론트 npm test 711/18(기준선 동일), 서버 guest·openapi 22/24 — 실패 2건은 e2e DB의 비회원 하루 한도(200) 소진으로 보관 브랜치에서도 같음.
+- 로컬 테스트 자료(로컬 DB만): portone-local@crefans.test 계정, 테스트 상품 2개. ~/.crefans/portone.env 에 테스트 상점 키.
+
 ## 2026-11-16 비밀번호 안내·미리보기 키보드·'AI 필터' (fix/phone-button-nowrap)
 - 가입: 비밀번호 8자 이상이면 초록 체크 '사용할 수 있는 비밀번호입니다.'(VerifiedNote).
 - 문자 미리보기: 아이폰 한글 키보드 윗줄이 살짝 보이게(.smsKeyboard), '이렇게 채워져 있어요' 문구 삭제.

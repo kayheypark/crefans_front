@@ -132,7 +132,7 @@ test('refunding a bank-transfer charge requires the refund account and explains 
  try{assert.doesNotMatch(words(t.toJSON()),/환불받을 계좌/,'card refunds go back to the card');assert.equal(byText(t,'3,300원 환불 신청').props.disabled,false);act(()=>byText(t,'3,300원 환불 신청').props.onClick());assert.deepEqual(confirmed.at(-1),undefined);}finally{act(()=>t.unmount());}
 });
 
-const ui={Action:({children,variant,...p})=>el('button',p,children),Empty:({title})=>el('section',null,title),PageTitle:({children})=>el('h1',null,children)};
+const ui={Action:({children,variant,...p})=>el('button',p,children),Empty:({title})=>el('section',null,title),PageTitle:({children,action})=>el('header',null,el('h1',null,children),action)};
 const studio={...common,'../ServiceUI':ui,'@/components/ui/LoadingSpinner':{LoadingSpinner:()=>null},'@/components/ui/useDelayedLoading':{useDelayedLoading:()=>false},'@/components/ui/DialogActions':{DialogActions:({children})=>el('div',null,children)},'../BackButton':{BackButton:()=>null},'./shop.module.css':{__esModule:true,default:css},'./advertising.module.css':{__esModule:true,default:css}};
 const {AdvertisingPage}=loadTypeScript('components/crefans/studio/AdvertisingPage.tsx',studio);
 const {ShopPage}=loadTypeScript('components/crefans/studio/ShopPage.tsx',{...studio,'./AdvertisingPage':{AdvertisingPage}});
