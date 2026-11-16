@@ -1,3 +1,8 @@
+## 2026-11-17 비로그인 상점 둘러보기 (feat/phone-console-shop, 운영 front-phone-20261117)
+- /service/studio/shop: 로그인 없이 상품 목록(GET /shop/products), 상품을 누르면 '로그인하고 구매하기'(로그인 후 상점으로 복귀). 구매 내역 버튼·뒤로가기 숨김. 크리에이터가 아닌 회원도 상점 접근(가드 예외에 shop 추가).
+- 휴대폰 확인 문구: '번호는 암호화해 안전하게 보관합니다.'(처리방침 phone.3).
+- 검증: tsc, npm test 711 통과·실패 18(기준선과 동일, 새 실패 0), 로컬 e2e에서 비로그인 목록·로그인 안내 화면 확인.
+
 ## 2026-11-16 대표 서비스를 'AI 사진 편집'으로 (feat/ai-photo-positioning, 운영 front-ai-positioning-20261116)
 - SITE_DESCRIPTION·키워드·OG alt, 프로필/탐색 SEO 문구, llms.txt(소개·AI 절 맨 앞), /service/landing(hero·CTA 체험·AI 절과 이용 순서를 크리에이터보다 앞), 루트 랜딩(hero·구간 문구, 도파민·라텍스·충성 고객·활동 팬 표현 제거). 테스트 고정 원문(tests/fixtures/landing-content-original.json)을 새 문구로 갱신.
 - 검증: npm test 711/18(기준선 동일), 운영 /service/feed meta description·llms.txt·/service/landing 새 문구 확인.
