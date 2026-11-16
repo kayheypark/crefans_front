@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T06:52:15.863870+00:00",
+  "checkedAt": "2026-11-16T07:06:24.118653+00:00",
   "environment": {
     "node": "v22.23.4",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "e91b4e32a55915e75c648a1a56ede1f1b4008bd4",
-      "branch": "fix/comment-closed-count",
+      "head": "2594691cff9ce9a57c20a30f1d7ed0aafb679f5d",
+      "branch": "feat/ai-landing",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "26747a5e52957cdd59c35a2a6e5cc93730f02a6bcef7e6385bc036c9748f69fa",
-      "front/PROGRESS.md": "609d30e5730ede9aca370a2f99535e9994e671d596fb3f80f32308661585ed33",
+      "front/PROGRESS.md": "1ac60ff940be14849d08289db48e23fe975edea51c7fbf0c41b34bc1ad8f150e",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -173,6 +173,7 @@
       "front/app/robots.ts": "2f804eed08cac6d3db5b29752a52631cfb4c77bd828b10f50e2c188124a57b8e",
       "front/app/service/[...screen]/page.tsx": "c001236b48a75cbbb3b291b934fb59819388fa011271a77e37cfc1aac779be49",
       "front/app/service/error.tsx": "47d8aeafda52d6cac3db1772fa4305b8d35eac21fda9c68fb6e2f04b0d4f3e0e",
+      "front/app/service/landing-ai-image-generation/page.tsx": "c2ca1ceffaf5dd5ac3b1477854b32c4a58e0f830df0ddf0d8c5314adb2bb2c71",
       "front/app/service/landing/page.tsx": "4f39eb37f3bcaf8bd66eb577f2986cb085e7e2a00721ad00878693a1462b0abd",
       "front/app/service/layout.tsx": "2b5f89efaf7206d8773a5468d742d43c8590c86e4bc40d3cb7b0c5e09a372ae8",
       "front/app/service/page.tsx": "365a0e01a5f23be08c3e39bccf978354a93656f6e82329f938cc6a0c9555e553",
@@ -427,6 +428,7 @@
       "front/components/profile/Profile.tsx": "91583baf187e8097f2bfb10baacbfccb38020cd205d9d3140a46b210ff1bde8d",
       "front/components/providers/ApplicationProviders.tsx": "95d9dcf4b3f66237ac3d5dc804ee202bf6469e90e8315c9ecae94083d39a79ba",
       "front/components/providers/PresentationProviders.tsx": "deda60079037c24274efed727c3a7089799c3386f1a6070237e9cba9f0f48e26",
+      "front/components/service/AiPhotoLanding.tsx": "db346db5a7b62d7f9d612b131fe8cd1d94c39b5129fe22f8fb6f8485d39cc24b",
       "front/components/service/BeanPaymentResult.tsx": "4ea92ddf2aab3e05708b31c982f9ae291b0c29bae682e8e46720139b9453a717",
       "front/components/service/BeanWithdrawContainer.tsx": "9914aefd2d86d980ed012720283a3dcdd5226e7ef706d3c2a0331b3d776cb2ab",
       "front/components/service/BetaClosedNotice.tsx": "477689dce150592f20daad7d555720dc9b5593b2de5f3834b80269f7f2f7a142",
@@ -443,6 +445,7 @@
       "front/components/service/ShopContainer.tsx": "3cace36eeb2d3d04b0d29986cd2544c5b197154e9a306fced097fe0699c7587f",
       "front/components/service/ShopPayment.tsx": "7ee5037667d3d353c610d09b6caf9bf5b5e16d34506d653007ef12f9631b9da1",
       "front/components/service/StudioRouter.tsx": "8ef8e4992309749032f93dc819f11486993dc12301497de301e75b7caee727d1",
+      "front/components/service/ai-photo-landing.module.css": "11419a030e3078c2b961b9c69b908d1bda2e9aa46f570b0aea3a26af517087da",
       "front/components/service/guest-trial.module.css": "05ac9917070294064a0303b85d648eb369772d2114534ea32e358d2e06d67aa8",
       "front/components/settings/Settings.tsx": "f505dbbc972b7a0e4ee4d919e3ae450e90ef5c2481571ed174b377637f2dab8e",
       "front/components/ui/Accordion.tsx": "6df9c21b2a9d5b1925af52b5052f0fcf8fdfb8fccc090ad1ac7b2affb5d0386c",
@@ -827,6 +830,7 @@
       "front/scripts/generate-ai-preset-illustrations.cjs": "c1ab00f58c88169ae892aed0407199e8b1c67e74112fba9d9f03266522948d72",
       "front/scripts/render-og.cjs": "e6abecd6eef8b94d012e1337774a05d1dd120b41672b8e60f16d003d395a66bc",
       "front/tests/ai-photo-heart-game.test.cjs": "eef8c9e607c408faff3ca5031ef5be94dd85f7e845e49ed1b9a852957fb9de7f",
+      "front/tests/ai-photo-landing.test.cjs": "67a5f06200ef2be080f4a40fd6c06fc16bfc5f25350e0254bd63172705fa85dd",
       "front/tests/amount-presets.test.cjs": "720e713320db21dd5ceddc8bbc0160a9df612e582f6658188b1264e2762f1355",
       "front/tests/api-contracts.test.cjs": "d607262ef8ab70095f31911841faa779c4bdd6979aef0108071357b64865d491",
       "front/tests/avatar.test.cjs": "a3a281f0cb6b5ccd3a7bb0124b965a41cad9de7895e5805b50361bbe09dcf018",
