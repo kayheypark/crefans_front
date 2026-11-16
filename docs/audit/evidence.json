@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T12:51:52.957274+00:00",
+  "checkedAt": "2026-11-16T12:53:14.028204+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "eedb1506069d82b4cc6f29817e41e5e07bb40b46",
+      "head": "226ca8041ffc37af6f15a31ff7283c2a2530924a",
       "branch": "",
       "dirty": false
     },
@@ -195,7 +195,7 @@
       "front/components/common/FollowButton.tsx": "b760e25e7dcccc5c6c342cd0bd3ee42071cf233aae7aba2e60c92326ec87c4ee",
       "front/components/common/MembershipCard.tsx": "0cfc3b27f15c64f8708c72aa4cd770ceb3ef29d8f168728dd8fa6b597e927ab8",
       "front/components/common/PaymentHistoryItem.tsx": "0efc13f7c8087d3b1170f0c7f5391a0f85b438c0388198c9cfb224da499f58ac",
-      "front/components/crefans/AccountPages.tsx": "24a6ea6d5e0ad881396fe4a06ddf4eeb20f4221c05c0aae2e4859151aac8cf79",
+      "front/components/crefans/AccountPages.tsx": "39596298f638b2aa4aa4497e3196420c0cb928f7d0a49b16f9cc7af47927f96d",
       "front/components/crefans/AdvisorChat.tsx": "f509fc40f08517876d9b367266dc032bf251e20d5d1560683fe8f91e2c2966b7",
       "front/components/crefans/ApiState.tsx": "f1405f8759696eeccb69be1ad947e49232dd85bfdfed108ce953846168c890ae",
       "front/components/crefans/BackButton.tsx": "1e1f05b76e123caa8cc8cb8a5df529fd58cd75683eddbe63c18454e7bcfb5e83",
@@ -266,7 +266,7 @@
       "front/components/crefans/SocialLinks.tsx": "0c379cfc014741cda3bfde0c312660bf880025543ffa4073e8ac5740bc7993b1",
       "front/components/crefans/SocialPages.tsx": "7e3910e09776db2436afe525aecfb62808433fb6eea00dd0d1ebc187a0614978",
       "front/components/crefans/SubscriptionResumeDialog.tsx": "768f57d06a69e27af33ed7c7e0d590f62769414b7f531ca9ff62677174b4cc82",
-      "front/components/crefans/account.module.css": "0d22d0bde1527ee3ca03c358a847be0555b83f15c5517edd000b71ef6f5b869b",
+      "front/components/crefans/account.module.css": "2bd8c6d7ac6d3828a7d3de1137e03080cf6558d3f19735fcecc61abc537b2e37",
       "front/components/crefans/advisor.module.css": "547b3b833b95beb7412b84da95d87ed750d558e8351900a7761bace133d6f25d",
       "front/components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
       "front/components/crefans/bank-transfer.module.css": "462868aa704cfb2fe57356580aa941865f4da75c0d021b3cc1beee6748e67175",
