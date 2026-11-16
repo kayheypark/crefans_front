@@ -1,3 +1,10 @@
+## 2026-11-16 AI 이용권 구독형/횟수형 상점 구역·구독 신청·관리 UI (feat/ai-subscription-ui, origin/prod 기반, 미배포)
+- 서버 계약: server feat/ai-subscription(미배포) 상품 kind/kindLabel/unitPrice, /studio/shop/subscriptions(GET·POST·:id/cancel·:id/refund). kind 없으면 횟수형, 구독 API 실패(구서버 404)면 구독 구역 숨김.
+- ShopPage: 'AI 이용권 구독형'(상품 카드 이름·월 금액·월 횟수·1회 단가, 내 구독 카드: 상태·카드·이번 기간·다음 결제일·남은 횟수·[해지 예약]·[남은 횟수 환불]) / 'AI 이용권 횟수형'(기존 구매 흐름, kind!=='subscription'만). 해지·환불은 확인 창 후 실행. 해지 예약 상태에서는 [해지 예약] 숨김(이미 예약됨), 종료·환불된 구독은 목록에서 제외.
+- 구독 신청 창: 자동결제 조건 5개 + 동의 체크 전 버튼 비활성. 서버 window가 있으면 lib/crefans/payment-window.ts가 숨은 POST 폼(https만)으로 같은 창 이동. 사용자 추가 지시: available=false여도 버튼은 활성, 누르면 공용 Dialog '점검 중입니다'(서버 호출 없음), BILLING_UNAVAILABLE·window 없음도 같은 알림. '준비 중' 표기 없음.
+- 검증: tsc 0, 새 tests/shop-subscription.test.cjs 5/5. 대조: kind 필터 제거·available 검사 제거·동의 조건 제거 각각 해당 테스트 1건 실패 후 원복. npm test 720 중 702 pass/18 fail, 실패 목록 기준선과 동일(comm 신규·해소 0).
+- 남은 일: 실서버 연동·KG이니시스 카드 등록 창 실호출 미실행. 구독 결제로 생긴 ai_shop_orders가 구매 내역에 '잔여 횟수 환불' 버튼과 함께 보이는데 서버는 SUBSCRIPTION_ORDER로 거부함(구독 주문 표시 구분 필요, 서버 주문 응답에 구독 표식 필요). 디자인 시스템 상점 견본에 구독 상태 미추가. check:docs·docs:record 미실행(병합 시 실행).
+
 ## 2026-11-16 피드 사진 비율 유동화 + AI 랜딩 검색 노출 (feat/feed-ratio-seo, origin/prod 기반)
 - 사용자 요청: "피드에서는 항상 정방형이 아니라 19:6으로 세로로 길게" → 9:16으로 해석. `components/crefans/social.module.css` `.mediaWrap{container-type:inline-size}`, `.mediaWrap .postImage`를 고유 비율로 두고 가로 1.25:1(min-height 80cqw)~세로 9:16(max-height 177.8cqw)로 제한. 범위 밖은 기존처럼 cover 크롭. 갤러리는 가장 긴 슬라이드 높이에 맞춰 나머지를 cover로 채움. 잠긴 미디어(.lockedMedia) 비율은 변경 없음.
 - 브라우저 하네스(같은 CSS 규칙, 360px 카드): 9:16→360x640 전체 표시, 1:3→9:16으로 제한, 4:5·1:1 원비율, 16:9→1.25 크롭, 갤러리(16:9+9:16) 둘 다 640.
