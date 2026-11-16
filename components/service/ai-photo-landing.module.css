@@ -54,3 +54,12 @@
 .notice a{color:var(--cf-color-accent,#2563eb)}
 .final{display:grid;justify-items:center;gap:16px;max-width:1080px;margin:0 auto;padding:48px 16px 64px;text-align:center;border-top:1px solid var(--cf-color-border,#e5e8ef)}
 @media(min-width:860px){.hero{grid-template-columns:1.05fr .95fr;align-items:center;padding:64px 16px}.section,.notice{padding:64px 16px}.final{padding:64px 16px 80px}.steps,.plans{grid-template-columns:repeat(3,1fr)}}
+
+/* 2026-11-17: service links and operator details at the bottom (PG review), laid out like the service landing footer. */
+.siteFooter{width:calc(100% - 32px);max-width:1080px;margin:0 auto;padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
+@media(min-width:768px){
+ .siteFooter.siteFooter>footer{max-width:none;margin:0;padding-top:28px}
+ .siteFooter.siteFooter>footer nav{justify-content:flex-start;column-gap:24px}
+ .siteFooter.siteFooter>footer address{flex-direction:row;flex-wrap:wrap;column-gap:20px;row-gap:2px}
+ .siteFooter.siteFooter>footer address>:is(strong,small,span:last-of-type){flex-basis:100%}
+}

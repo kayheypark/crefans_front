@@ -1,3 +1,7 @@
+## 2026-11-17 입력칸 채움형 디자인 (feat/filled-input, 운영 front-input-20261117)
+- 공통 Field(components/ui/field.module.css)만 수정: 연회색 채움(surfaceSubtle), 테두리 투명(오류 시 빨강), 좌우 16px. 입력·여러 줄 입력 전체에 적용. 선택 상자(SelectField)는 아직 테두리형.
+- 검증: npm test 711/18(기준선 동일), 디자인 시스템·운영 로그인 화면 확인.
+
 ## 2026-11-17 비로그인 상점 둘러보기 (feat/phone-console-shop, 운영 front-phone-20261117)
 - /service/studio/shop: 로그인 없이 상품 목록(GET /shop/products), 상품을 누르면 '로그인하고 구매하기'(로그인 후 상점으로 복귀). 구매 내역 버튼·뒤로가기 숨김. 크리에이터가 아닌 회원도 상점 접근(가드 예외에 shop 추가).
 - 휴대폰 확인 문구: '번호는 암호화해 안전하게 보관합니다.'(처리방침 phone.3).
