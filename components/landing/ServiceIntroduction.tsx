@@ -46,7 +46,7 @@ export default function ServiceIntroduction({
         <div className={s.ecosystemIntro}>
         <div className={s.restoredHeading} data-reveal>
           <h2 id="possibilities-title">
-            크리에이터, 팬, 플랫폼이 연결된 지속 가능한 창작 생태계
+            AI 사진 편집에서 게시물 공유까지 이어지는 크레팬스
           </h2>
           <p>이 모든 것들이 유기적으로 연결되어 하나의 생태계를 이룹니다.</p>
         </div>
@@ -98,7 +98,7 @@ export default function ServiceIntroduction({
             </p>
           </div>
           <div className={s.creationArt} data-float>
-            <div className={s.glassImage}><Image src="/illustrations/tactile/creation-v2.png" alt="그림, 영상, 음악을 표현한 분홍 퍼와 검정 라텍스 콘텐츠 오브젝트" width={1254} height={1254} sizes="(max-width: 800px) 90vw, 40vw" /></div>
+            <div className={s.glassImage}><Image src="/illustrations/tactile/creation-v2.png" alt="그림, 영상, 음악을 표현한 분홍색과 검은색 3D 콘텐츠 오브젝트" width={1254} height={1254} sizes="(max-width: 800px) 90vw, 40vw" /></div>
           </div>
           </div>
           <div className={s.supportGrid}>
@@ -130,7 +130,7 @@ export default function ServiceIntroduction({
             <strong>92%</strong>
             <h3>멤버십 구독 유지 비율</h3>
             <p>
-              당신의 콘텐츠로 충성 고객을 만드세요. (활동 지속 크리에이터 100명
+              꾸준히 이어지는 멤버십 비율입니다. (활동 지속 크리에이터 100명
               대상 3개월간 산출값)
             </p>
           </article>
@@ -144,10 +144,10 @@ export default function ServiceIntroduction({
           </article>
           <article data-reveal>
             <strong>1,000,000+</strong>
-            <h3>활동 팬</h3>
+            <h3>활동 이용자</h3>
             <p>
-              더 많은 도파민을 갈망하는 전 세계 팬들이 크레팬스에서 당신을
-              기다리고 있습니다.
+              크레팬스에서 AI 사진 편집과 게시물을
+              함께 즐기는 이용자 목표입니다.
             </p>
           </article>
         </div>
@@ -173,7 +173,7 @@ export default function ServiceIntroduction({
             </button>
           </div>
           <div className={s.earlybirdVisual}>
-          <div className={s.ticketArt} data-float><div className={s.glassImage}><Image src="/illustrations/tactile/tickets.png" alt="금장 이름표가 있는 검정 라텍스와 분홍 퍼 멤버십 티켓" width={1254} height={1254} sizes="(max-width: 800px) 90vw, 40vw" /></div></div>
+          <div className={s.ticketArt} data-float><div className={s.glassImage}><Image src="/illustrations/tactile/tickets.png" alt="금장 이름표가 있는 분홍색과 검은색 3D 티켓" width={1254} height={1254} sizes="(max-width: 800px) 90vw, 40vw" /></div></div>
           <ul className={s.perks} data-reveal>
             <li>
               <span aria-hidden="true">

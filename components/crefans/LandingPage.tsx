@@ -20,7 +20,7 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
     <a className={s.skip} href="#main">본문으로 이동</a>
     <header className={s.header}><div className={s.headerInner}>
       <Brand href={`${basePath}/feed`} className={s.brand}/>
-      <nav aria-label="주요 메뉴"><a href="#creators">크리에이터</a><a href="#membership">이용안내</a><Link href={`${basePath}/notices`}>공지사항</Link></nav>
+      <nav aria-label="주요 메뉴"><a href="#ai-photo">AI 사진 편집</a><a href="#membership">이용안내</a><a href="#creators">크리에이터</a><Link href={`${basePath}/notices`}>공지사항</Link></nav>
       <form className={s.search} onSubmit={findCreators} role="search"><Icon name="search" width={16} height={16}/><input aria-label="크리에이터 검색" placeholder="크리에이터 검색" value={search} onChange={event=>setSearch(event.target.value)}/></form>
       <div className={s.account}><Link href={`${basePath}/login`}>로그인</Link><Link className={s.primary} href={`${basePath}/signup`}>회원가입</Link></div>
     </div></header>
@@ -29,7 +29,15 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
         <img className={s.heroMark} src="/icon.svg" width={40} height={40} alt="" aria-hidden="true"/>
         <h1 id="hero-heading">{hero.title.map((line,index)=><span key={index}>{line}</span>)}</h1>
         <p>{hero.description.join(' ')}</p>
-        <div className={s.actions}><Link className={s.primary} href={`${basePath}/signup`}>지금 시작하기</Link><a className={s.textAction} href="#creators">크리에이터 둘러보기 <Icon name="arrow"/></a></div>
+        <div className={s.actions}><Link className={s.primary} href="/service/try">로그인 없이 체험하기</Link><a className={s.textAction} href="#ai-photo">AI 사진 편집 알아보기 <Icon name="arrow"/></a></div>
+      </section>}
+      {content.aiPhoto&&<section id="ai-photo" className={s.aiPhoto} aria-labelledby="ai-photo-heading">
+        <figure className={s.aiPhotoImage}><img src={content.aiPhoto.image} alt={content.aiPhoto.imageAlt} width={720} height={900} loading="lazy"/><figcaption>가상 인물 · AI 생성 이미지</figcaption></figure>
+        <div className={s.aiPhotoCopy}><h2 id="ai-photo-heading">{content.aiPhoto.title}</h2><p>{content.aiPhoto.description.join(' ')}</p><ul>{content.aiPhoto.points.map(point=><li key={point}>{point}</li>)}</ul>
+          <div className={s.actions}><Link className={s.primary} href={content.aiPhoto.trialHref}>로그인 없이 체험하기</Link><a className={s.textAction} href={content.aiPhoto.brochureHref} target="_blank" rel="noopener noreferrer">서비스 소개서 PDF <Icon name="arrow"/></a></div></div>
+      </section>}
+      {steps.length>0&&<section id="membership" className={s.services} aria-label="AI 사진 편집 이용 순서">
+        {steps.map(step=><article key={step.title}><Icon name={step.icon}/><div><h2>{step.title}</h2><p>{step.description.join(' ')}</p></div></article>)}
       </section>}
       {creators.length>0&&<section id="creators" className={s.creators} aria-labelledby="creators-heading">
         <div className={s.sectionHeading}><div className={s.titleLine}><h2 id="creators-heading">크리에이터 둘러보기</h2>{content.creatorDisclosure&&<InfoTooltip label="크리에이터 안내" content={content.creatorDisclosure}/>}</div><p>프로필을 눌러 미리 만나보세요.</p></div>
@@ -38,14 +46,6 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
           <div className={s.creatorInfo}><Link href={`${creatorBasePath}/creator/${creator.id}`} className={s.creatorName}><CreatorName person={creator} alwaysAnimate/></Link><p className={s.tags}>{creator.tags.join(' · ')}</p><Link className={s.profileLink} href={`${creatorBasePath}/creator/${creator.id}`}>프로필 보기 <Icon name="arrow"/></Link></div>
         </article>)}</div>
         <Link className={s.browseLink} href={`${creatorBasePath}/explore`}>더 많은 크리에이터 둘러보기 <Icon name="arrow"/></Link>
-      </section>}
-      {content.aiPhoto&&<section id="ai-photo" className={s.aiPhoto} aria-labelledby="ai-photo-heading">
-        <figure className={s.aiPhotoImage}><img src={content.aiPhoto.image} alt={content.aiPhoto.imageAlt} width={720} height={900} loading="lazy"/><figcaption>가상 인물 · AI 생성 이미지</figcaption></figure>
-        <div className={s.aiPhotoCopy}><h2 id="ai-photo-heading">{content.aiPhoto.title}</h2><p>{content.aiPhoto.description.join(' ')}</p><ul>{content.aiPhoto.points.map(point=><li key={point}>{point}</li>)}</ul>
-          <div className={s.actions}><Link className={s.primary} href={content.aiPhoto.trialHref}>로그인 없이 체험하기</Link><a className={s.textAction} href={content.aiPhoto.brochureHref} target="_blank" rel="noopener noreferrer">서비스 소개서 PDF <Icon name="arrow"/></a></div></div>
-      </section>}
-      {steps.length>0&&<section id="membership" className={s.services} aria-label="크레팬스 이용안내">
-        {steps.map(step=><article key={step.title}><Icon name={step.icon}/><div><h2>{step.title}</h2><p>{step.description.join(' ')}</p></div></article>)}
       </section>}
     </main>
     {/* 2026-11-08: 랜딩 하단 서비스 링크·사업자 정보(통신판매업 신고번호 포함)를 모바일·PC 모두 노출. */}

@@ -11,7 +11,7 @@ const suffix=(text:string)=>`${text} | ${SITE_NAME}`;
 const org={'@type':'Organization','@id':`${SITE_URL}/#organization`,name:SITE_NAME,alternateName:'Crefans',url:SITE_URL,logo:absoluteUrl('/brand/crefans-mark.svg')};
 const site={'@context':'https://schema.org','@graph':[org,{'@type':'WebSite','@id':`${SITE_URL}/#website`,name:SITE_NAME,alternateName:'Crefans',url:SITE_URL,inLanguage:'ko-KR',publisher:{'@id':`${SITE_URL}/#organization`},potentialAction:{'@type':'SearchAction',target:`${SITE_URL}/service/explore?q={search_term_string}`,'query-input':'required name=search_term_string'}}]};
 const name=(p:Profile)=>p.handle?`${p.name}(@${p.handle})`:p.name;
-const about=(p:Profile)=>clip(p.bio||p.about||`${p.name}님의 크레팬스 프로필입니다. 멤버십 구독과 후원으로 응원해 보세요.`);
+const about=(p:Profile)=>clip(p.bio||p.about||`${p.name}님의 크레팬스 프로필입니다. AI 사진 편집으로 만든 사진과 게시물을 둘러보세요.`);
 /** Creators who opted out of search, fan profiles and missing profiles are never indexed. */
 const indexable=(p:Profile)=>p.isCreator!==false&&p.searchable!==false;
 
@@ -26,7 +26,7 @@ export async function serviceSeo(screen:string,id:string|undefined,fallbackTitle
  const page=(title:string,description:string,extra:Partial<Parameters<typeof shareMetadata>[0]>={},jsonLd:object[]=[]):ServiceSeo=>({metadata:shareMetadata({title,description,path,index:true,...extra}),jsonLd});
  switch(screen){
   case 'feed':return page(SITE_TITLE,SITE_DESCRIPTION,{},[site]);
-  case 'explore':return page(suffix('크리에이터 탐색'),'코스프레·아트·일상 등 다양한 분야의 크리에이터를 찾아보세요. 마음에 드는 크리에이터를 팔로우하고 멤버십으로 응원할 수 있습니다.',{},[site]);
+  case 'explore':return page(suffix('크리에이터 탐색'),'AI 사진 편집으로 만든 코스프레·아트·일상 사진과 크리에이터를 둘러보세요.',{},[site]);
   case 'notices':return page(suffix('공지사항'),'크레팬스 서비스 공지사항입니다.');
   case 'support':return page(suffix('고객센터'),'크레팬스 이용 중 궁금한 점은 자주 묻는 질문과 1:1 문의로 해결하세요.');
   case 'legal':return page(suffix(legal[id||'']||'서비스 정책'),`크레팬스 ${legal[id||'']||'서비스 정책'} 전문입니다.`);
