@@ -2041,6 +2041,18 @@
       "evidence": [
         "server/docs/contracts/modusign-20261112/build.cjs"
       ]
+    },
+    "server/docs/terms-amendment-ai-positioning-draft-20261116.md": {
+      "kind": "current",
+      "review": "2026-11-16 AI 사진 편집 중심 약관 개정안과 시행 기록. 제1조 정의·통신판매 문장(약관·front business.ts·메일 동일), 제13조 모든 회원 개방, 처리방침 1·16·17항을 legal-documents.ts 2026-11-16.ai.1·aiPhotoAllowed와 대조. 공지 기간은 공정위 지침 권고(7일)와 다르게 사용자 결정으로 즉시 시행.",
+      "evidence": [
+        "server/src/platform/legal-documents.ts",
+        "server/src/platform/ai-photo-grants.ts",
+        "server/src/auth/local/mail/templates.ts",
+        "front/lib/content/business.ts"
+      ],
+      "reviewedAt": "2026-11-16",
+      "reviewExtent": "current-claims/code-cross-check"
     }
   }
 }
