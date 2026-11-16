@@ -25,7 +25,7 @@ export type AccountModel={
     inquiryCategories:string[];
     banner:{src:string;alt:string}|null;
     policies:{terms:string;privacy:string};
-    signupRequirements?:{identityRequired:boolean;inviteOnly:boolean};
+    signupRequirements?:{identityRequired:boolean;inviteOnly:boolean;/** 2026-11-16 OCTOMO phone-number check at signup (server key set). */phoneRequired?:boolean};
     agreements?:{published:boolean;documentsPublished?:boolean;signupReady?:boolean;blockingMessage?:string|null;documents:Record<'terms'|'privacy'|'marketing',LegalDocument>;collection:LegalDocument;versions:Record<string,string>};
     guidance:Partial<Record<'signup'|'login'|'credentials'|'profile'|'preferences'|'payment'|'withdraw'|'support'|'ticket',string>>;
     route:{profileTab:'saved'|'liked'|null;supportTab:'faq'|'qna'|'history';settingsSection:'account'|'password'|'email'|'notifications'|'payment'|'privacy'|'blocked'|null};
@@ -35,6 +35,8 @@ export type AccountModel={
     /** Email verification happens inside the signup step. */
     requestSignupCode:(email:string)=>Promise<AccountActionResult>;
     verifySignupCode:(input:{email:string;code:string})=>Promise<AccountActionResult>;
+    /** 2026-11-16 phone-number check at signup (after the email code). Optional: the preview has none. */
+    signupPhone?:import('./crefans-events').PhoneCheckModel;
     /** PASS 본인인증. The mock resolves immediately; live wiring opens the PASS flow. */
     verifyIdentity:()=>Promise<AccountActionResult>;
     login:(input:{email:string;password:string;remember:boolean})=>Promise<AccountActionResult>;

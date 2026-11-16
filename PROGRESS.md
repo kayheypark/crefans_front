@@ -1,3 +1,7 @@
+## 2026-11-16 회원가입 휴대폰 번호 확인 화면 (feat/signup-phone)
+- 서버 signupRequirements.phoneRequired일 때 이메일 인증 아래 '휴대폰 번호 확인' 행 → PhoneCheckDialog(가입용 안내 문구)로 1666-3538 문자 확인 → 완료해야 가입 버튼 활성. 이메일을 바꾸면 확인 초기화. 가입 요청에 phone·phoneProof 동봉(useServiceModel proofs). 미리보기 목업은 signupPhone 없음 → 표시 안 함.
+- 검증: tsc 0, crefans-account 새 테스트 통과(대조: 조건 제거 시 실패), npm test 706/18(기준선 동일).
+
 ## 2026-11-16 프로모션 100콩 휴대폰 번호 확인 화면 (feat/octomo-phone, 서버 feat/octomo-phone)
 - 서버가 phoneRequired(=OCTOMO 키 설정)일 때만 '휴대폰 확인하고 100콩 받기' → PhoneCheckDialog(번호 입력→보낼 문자: 1666-3538·6자리 코드·문자 앱 열기→'보냈어요' 확인)→확인 성공 시 자동으로 한 번 수령. 수령 409 PHONE_VERIFICATION_REQUIRED도 같은 단계로. 키가 없으면 화면은 기존과 동일. 미리보기 목업은 변경 없음.
 - 문구: 번호 소유만 확인, 되돌릴 수 없는 값으로만 보관(성인 인증 아님).
