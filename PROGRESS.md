@@ -37,6 +37,8 @@
 - 사용자 요청: 실제 동작하는 컴포넌트·화면 기반 랜딩 + 운영 배포, 경로 landing-ai-image-generation. components/service/AiPhotoLanding.tsx(+module.css), app/service/landing-ai-image-generation/page.tsx(메타·OG).
 - 구성: 원본/결과 비교 슬라이더(range 입력, 가상 인물 Seedream 결과 5종 public/illustrations/landing/ai-photo/*.webp, 'AI 생성' 표시), 편집 종류 탭(aiPhotoKinds에서 신체 보정 제외, aiPhotoPresetTitles 실제 프리셋 이름), 옷 탭은 aiPhotoCostumes 일반 카테고리 중 5종(게임·애니 캐릭터·노출 의상 제외), 3단계 안내, 이용 방법(비회원 10회·크리에이터 하루 10회·AI 이용권 무통장입금), 지켜 주세요, CTA 모두 /service/try.
 - 검증: tsc 0, tests/ai-photo-landing.test.cjs 1/1(대조: 비치 투피스 포함 시 실패), npm test 696/18(실패 목록 동일). 로컬 Playwright 390·1280px: 200, 가로 넘침 없음, 깨진 이미지 0, 페이지 오류 0, 결과 전환·탭·슬라이더 동작.
+## 2026-11-16 체험 동의 판 2026-11-16.guest.5 (fix/guest-consent-5, 미배포)
+- 서버 처리방침 2026-11-16.prompt.1(7·17항: AI 사진 요청 문구·옵션을 성공한 요청도 30일 암호화 보관)로 17항이 바뀌어 동의 판만 올림(화면 문구 변경 없음). 서버와 같은 판으로 함께 배포해야 체험 시작 가능.
 
 ## 2026-11-16 댓글 닫힌 게시물: '닫힘' 대신 실제 댓글 수 + 반투명 (fix/comment-closed-count)
 - 사용자 요청. PostActions의 commentsClosed: 텍스트 '닫힘' → 실제 댓글 수(toLocaleString), 스타일 opacity .45·cursor default, aria-label '댓글 N개, 댓글 닫힘'·title 유지(클릭 불가 그대로).

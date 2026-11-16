@@ -8,7 +8,7 @@ import type {AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefa
 
 // Signed-out AI photo trial (2026-11-15). The server identifies the visitor by an httpOnly cookie set after consent
 // (POST /guest/session); this model never sees the token. Limits and the 24-hour public window are enforced by the server.
-export const GUEST_CONSENT_VERSION='2026-11-16.guest.4';
+export const GUEST_CONSENT_VERSION='2026-11-16.guest.5';
 // A non-secret local flag: this browser started a trial, so ask the server to link its posts after sign-in. The guest token itself
 // stays in the httpOnly cookie. Storage can be blocked; then the link simply happens on a later visit with storage.
 const TRIAL_FLAG='crefans-guest-trial';
