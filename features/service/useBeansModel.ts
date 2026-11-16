@@ -7,6 +7,8 @@ import {getBankTransfer} from '@/lib/api/payments';
 import {usePaymentMethods} from './usePaymentMethods';
 import type {BeanModel,BeanWallet,BeanTip,BeanStudio,BeanHistoryQuery,ReferralHistory,ReferralHistoryStatus,ReferralSummary} from '@/types/crefans-beans';
 const getPromotionClaim=()=>api<PromotionClaimStatus>('/events/promotion-beans');
+// 2026-11-16 OCTOMO phone-number check (number ownership only) before the 100콩.
+const phoneCheck={start:(phone:string)=>api<import('@/types/crefans-events').PhoneCheckStart>('/me/phone-verification/start',{phone}),confirm:(phone:string)=>api<{verified:boolean}>('/me/phone-verification/confirm',{phone})};
 export function useBeansModel(enabled:boolean,signedIn:boolean,ownCreatorIds:string[]):BeanModel{
  const payments=usePaymentMethods(enabled&&signedIn);
  const [postSupporterCounts,setPostSupporterCounts]=useState<Record<string,number>>({});
@@ -24,7 +26,7 @@ export function useBeansModel(enabled:boolean,signedIn:boolean,ownCreatorIds:str
  // Stable identity: the history page refetches whenever this function changes.
  const referralHistory=useCallback((query:{status?:ReferralHistoryStatus;page?:number})=>{const params=new URLSearchParams();if(query.status)params.set('status',query.status);if(query.page&&query.page>1)params.set('page',String(query.page));return api<ReferralHistory>(`/me/referral/history${params.size?`?${params}`:''}`);},[]);
  const claimPromotion=useCallback(async()=>{const result=await api<PromotionClaimStatus>('/events/promotion-beans/claim',{});if(result.success&&result.data.status==='claimed')await refresh();return result;},[refresh]);
- return{getPromotionClaim,claimPromotion,postSupporterCounts,enabled,signedIn,ownCreatorIds,basePath:'/service',mode:'live',referral,referralHistory,wallet,sent,sentTotal,studio,loading,error,refresh,
+ return{phoneCheck,getPromotionClaim,claimPromotion,postSupporterCounts,enabled,signedIn,ownCreatorIds,basePath:'/service',mode:'live',referral,referralHistory,wallet,sent,sentTotal,studio,loading,error,refresh,
  paymentMethods:payments.methods,refreshPaymentMethods:payments.refresh,bankTransfer:id=>getBankTransfer('bean',id),
  createCharge:(quantity,requestId,payment)=>api('/beans/charges',{quantity,requestId,...payment}),getCharge:id=>api(`/beans/charges/${encodeURIComponent(id)}`),refundQuote:id=>api(`/beans/charges/${encodeURIComponent(id)}/refund-quote`),refundCharge:(id,requestId,refundAccount)=>api(`/beans/charges/${encodeURIComponent(id)}/refund`,{requestId,...(refundAccount?{refundAccount}:{})}),confirmCharge:(id,input)=>api(`/beans/charges/${encodeURIComponent(id)}/confirm`,input),
  payCharge:async(id,paymentTerms)=>{const r=await api<{clientKey:string;customerKey:string;orderId:string;amount:number;orderName:string}>(`/beans/charges/${encodeURIComponent(id)}/payment-window`,{paymentTerms});if(!r.success)return r;try{const {loadTossPayments}=await import('@tosspayments/tosspayments-sdk');const sdk=await loadTossPayments(r.data.clientKey);await sdk.payment({customerKey:r.data.customerKey}).requestPayment({method:'CARD',amount:{currency:'KRW',value:r.data.amount},orderId:r.data.orderId,orderName:r.data.orderName,successUrl:`${location.origin}/service/beans/success?id=${id}`,failUrl:`${location.origin}/service/beans/fail?id=${id}`});return{success:true,data:{message:'충전 결제창을 열었습니다.'},errorMessage:null,errorCode:null};}catch{return{success:false,data:null,errorMessage:'결제창을 닫았거나 열지 못했습니다. 같은 주문으로 다시 시도해주세요.',errorCode:'BEAN_PAYMENT_CANCELLED'};}},

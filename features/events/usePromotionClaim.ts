@@ -1,10 +1,11 @@
 'use client';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import type {ApiResult} from '@/types/crefans';
-import type {PromotionClaimModel,PromotionClaimStatus} from '@/types/crefans-events';
+import type {PhoneCheckModel,PromotionClaimModel,PromotionClaimStatus} from '@/types/crefans-events';
 
 type Request=()=>Promise<ApiResult<PromotionClaimStatus>>;
-export function usePromotionClaim(signedIn:boolean,load?:Request,claim?:Request):PromotionClaimModel{
+export function usePromotionClaim(signedIn:boolean,load?:Request,claim?:Request,phoneCheck?:PhoneCheckModel):PromotionClaimModel{
+ const [phone,setPhone]=useState<{required:boolean;verified:boolean}>({required:false,verified:false});
  const [status,setStatus]=useState<PromotionClaimModel['status']>(signedIn?'loading':'signed-out');
  const [expiresAt,setExpiresAt]=useState<string|null>(null);
  const [error,setError]=useState(''),[busy,setBusy]=useState(false);
@@ -17,7 +18,7 @@ export function usePromotionClaim(signedIn:boolean,load?:Request,claim?:Request)
   if(!load){setStatus('unavailable');return;}
   setStatus('loading');setError('');
   try{const r=await load();if(token!==generation.current)return;
-   if(r.success){setStatus(r.data.status);setExpiresAt(r.data.expiresAt||null);}
+   if(r.success){setStatus(r.data.status);setExpiresAt(r.data.expiresAt||null);setPhone({required:!!r.data.phoneRequired,verified:!!r.data.phoneVerified});}
    else{setStatus(r.errorCode==='UNAUTHORIZED'?'signed-out':'error');setError(r.errorMessage);}
   }catch{if(token===generation.current){setStatus('error');setError('지급 상태를 확인하지 못했어요. 다시 확인해 주세요.');}}
  },[signedIn,load]);
@@ -27,9 +28,11 @@ export function usePromotionClaim(signedIn:boolean,load?:Request,claim?:Request)
   inFlight.current=true;const token=++generation.current;setBusy(true);setError('');
   try{const r=await claim();if(token!==generation.current)return;
    if(r.success){setStatus(r.data.status);setExpiresAt(r.data.expiresAt||null);}
+   else if(r.errorCode==='PHONE_VERIFICATION_REQUIRED'){setPhone({required:true,verified:false});}
    else{if(r.errorCode==='UNAUTHORIZED')setStatus('signed-out');setError(r.errorMessage);}
   }catch{if(token===generation.current)setError('지급 결과를 확인하지 못했어요. 다시 눌러도 중복 지급되지 않아요.');}
   finally{if(token===generation.current){inFlight.current=false;setBusy(false);}}
  };
- return{status:signedIn?status:'signed-out',expiresAt:signedIn&&status==='claimed'?expiresAt:null,busy,error,onClaim:()=>{void receive();},onReload:()=>{void reload();}};
+ return{status:signedIn?status:'signed-out',expiresAt:signedIn&&status==='claimed'?expiresAt:null,busy,error,onClaim:()=>{void receive();},onReload:()=>{void reload();},
+  ...(phoneCheck&&phone.required?{phone:{...phoneCheck,verified:phone.verified,onVerified:()=>{setPhone({required:true,verified:true});inFlight.current=false;void receive();}}}:{})};
 }

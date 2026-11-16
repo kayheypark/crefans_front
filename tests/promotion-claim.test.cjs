@@ -12,3 +12,17 @@ test('ineligible and unavailable responses never call grant',async()=>{for(const
 test('read error offers reload without granting',async()=>{let n=0,calls=0;const m=await mount({signedIn:true,load:async()=>++n===1?{success:false,errorMessage:'연결 오류',errorCode:'FAIL'}:ok('available'),claim:async()=>{calls++;return ok('claimed')}});assert.equal(m.model.status,'error');await act(async()=>m.model.onReload());assert.equal(m.model.status,'available');assert.equal(calls,0);m.close();});
 
 test('receipt expiry comes from the server, survives reload and clears on logout',async()=>{const expiry='2026-12-03T06:24:30.000Z',receipt={success:true,data:{status:'claimed',quantity:100,claimedAt:'2026-11-03T06:24:30.000Z',expiresAt:expiry}};let received=false;const load=async()=>received?receipt:ok('available'),claim=async()=>{received=true;return receipt};const m=await mount({signedIn:true,load,claim});assert.equal(m.model.expiresAt,null);await act(async()=>m.model.onClaim());assert.equal(m.model.expiresAt,expiry);await act(async()=>m.model.onReload());assert.equal(m.model.expiresAt,expiry);await m.update({signedIn:false,load,claim});assert.equal(m.model.expiresAt,null);m.close();});
+
+test('2026-11-16 phone check: required+unverified exposes the phone step; claim 409 PHONE_VERIFICATION_REQUIRED opens it; verified retries the claim once',async()=>{
+ let claims=0;const phoneCheck={start:async()=>({success:true,data:{code:'123456',receiver:'1666-3538',smsUri:'sms:16663538?&body=123456',expiresAt:'2026-11-16T12:00:00Z'}}),confirm:async()=>({success:true,data:{verified:true}})};
+ let model,tree;function Probe(p){model=usePromotionClaim(p.signedIn,p.load,p.claim,p.phoneCheck);return null;}
+ const load=async()=>({success:true,data:{status:'available',quantity:100,claimedAt:null,phoneRequired:true,phoneVerified:false}});
+ const claim=async()=>{claims++;return claims===1?{success:false,errorCode:'PHONE_VERIFICATION_REQUIRED',errorMessage:'휴대폰 번호를 확인하면 받을 수 있어요.'}:ok('claimed');};
+ await act(async()=>{tree=create(React.createElement(Probe,{signedIn:true,load,claim,phoneCheck}));});
+ assert.ok(model.phone);assert.equal(model.phone.verified,false);assert.equal(typeof model.phone.start,'function');
+ await act(async()=>{model.onClaim();});assert.equal(claims,1);assert.equal(model.error,'','the 409 is not shown as an error; the phone step handles it');assert.equal(model.status,'available');
+ await act(async()=>{model.phone.onVerified();});assert.equal(claims,2);assert.equal(model.status,'claimed');
+ const plain=[],plainLoad=async()=>ok('available'),plainClaim=async()=>ok('claimed');function Plain(){plain.push(usePromotionClaim(true,plainLoad,plainClaim,phoneCheck));return null;}
+ let plainTree;await act(async()=>{plainTree=create(React.createElement(Plain));});act(()=>plainTree.unmount());assert.equal(plain.at(-1).phone,undefined,'server without the check: no phone step');
+ act(()=>tree.unmount());
+});

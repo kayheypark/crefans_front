@@ -7,6 +7,6 @@ import type {ServiceEvent} from '@/types/crefans-events';
 /** Both routes inject their own BeanContext; the preview never calls the service API. */
 export function PromotionEventDetail({event,basePath}:{event:ServiceEvent|undefined;basePath:string}){
  const beans=useBeans();
- const claim=usePromotionClaim(beans?.signedIn===true,beans?.getPromotionClaim,beans?.claimPromotion);
+ const claim=usePromotionClaim(beans?.signedIn===true,beans?.getPromotionClaim,beans?.claimPromotion,beans?.phoneCheck);
  return <EventDetailPage event={event} basePath={basePath} claim={claim}/>;
 }
