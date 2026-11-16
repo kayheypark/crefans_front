@@ -33,3 +33,10 @@
 .hero img{right:-14px;bottom:-14px;width:150px;height:150px;opacity:1}
 .steps li{gap:4px;padding:12px 6px 14px}.steps li img{display:block;width:56px;height:56px;object-fit:contain}
 .steps li span{display:inline-flex;align-items:center;gap:5px}.steps b{width:18px;height:18px;font-size:11px;background:var(--cf-color-text);color:var(--cf-color-surface)}
+
+/* 2026-11-16 v2 (user: simpler assets, a woman model in the hero, outfit → wearing it): before/after row inside the hero. */
+.hero h1{max-width:none}.heroVisual{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px}.heroVisual figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.heroVisual img{position:static;display:block;width:120px;height:150px;object-fit:cover;border-radius:14px;background:var(--cf-color-surface);opacity:1}
+.heroVisual figcaption{font-size:12px;font-weight:600;color:var(--cf-color-textSecondary)}.heroArrow{color:var(--cf-color-textSecondary);font-size:20px;margin-bottom:22px}
+.heroNote{align-self:center;color:var(--cf-color-textMuted);font-size:11px}
+.steps li img{width:44px;height:44px}

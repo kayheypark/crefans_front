@@ -1,3 +1,8 @@
+## 2026-11-16 AI 사진 체험 히어로·아이콘 v2 (feat/try-polish-simple)
+- 사용자 지시: 이미지가 너무 화려함 → 심플하게, 히어로에 여자 모델, '의상 → 의상 입은 모습'.
+- 변경: 히어로 휴대폰 일러스트 삭제 → '의상(costume-v1, Seedream으로 랜딩 cos1-v1 가상 인물 사진의 의상만 옷걸이에 단 이미지) → 입은 모습(model-v1 = 랜딩 cos1-v1 재인코딩)' 2장+화살표, '가상 인물, AI 생성 예시' 표기. 단계 아이콘을 2색 플랫(step1~3-v2, 배경 투명 처리)으로 교체, 44px. 제목 두 줄. v1 이미지 삭제.
+- 검증: tsc 0, npm test 704/18(기준선 동일), 로컬+운영 API GET 프록시 iPhone 13 화면 확인.
+
 ## 2026-11-16 AI 사진 체험(/service/try) 동의 화면 다듬기 (feat/try-polish)
 - 사용자 요청: 구분점(목록 점) 색을 다른 페이지처럼 회색 계열, 가운뎃점(·)→콤마, Seedream 에셋으로 디자인 폴리싱, 소제목 삭제, 운영 배포.
 - 변경: GuestTrialPage 문구의 '·' 4곳 → ', ', 히어로 설명 문장(소제목) 삭제(배지 유지), .checks li::before를 currentColor 4px 점(다른 페이지 목록 점 규칙), 히어로 티셔츠 아이콘 → Seedream 히어로 일러스트, 단계 1·2·3에 Seedream 아이콘(번호는 작은 검정 원). 이미지는 Seedream 5.5(dola-seedream-5-5-261028) 생성 → 브라우저 캔버스로 가장자리 흰 배경 투명 처리 → WebP(public/illustrations/try/*-v1.webp, 생성 기록 *-v1.generation.json). 사람·문자·로고 없음.
