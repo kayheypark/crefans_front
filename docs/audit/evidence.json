@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T14:21:06.073836+00:00",
+  "checkedAt": "2026-11-16T14:42:27.822626+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,14 +30,14 @@
   ],
   "repositories": {
     "front": {
-      "head": "e95135472a14a9e1f484eb045be257f7d20f4327",
+      "head": "dcb1637a7219e79b66ee27102a6db6280281c064",
       "branch": "",
       "dirty": false
     },
     "server": {
-      "head": "9a4909f4ce01521dbb28dd39cc8f9a27d2c36dde",
+      "head": "9c8cd22e738631e54475a4ee57536ed15811ab31",
       "branch": "",
-      "dirty": true
+      "dirty": false
     }
   },
   "state": {
@@ -82,7 +82,7 @@
       "front/public/illustrations/creators/cosplay-v2-prompt.md": "c662f2ecf1b6196787fd4edee45ac1894f168660fec27cf9418d010c512121f0",
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
-      "front/public/llms.txt": "16198f94a776c60326e7a85d71e41ddbc243a3727d2ecefe32fffe7e8cd5e39a",
+      "front/public/llms.txt": "17a62e8140cea7913bb083d5d2e85595923b85f9bac4d8af90d4e2812320a47f",
       "server/AGENTS.md": "904a398cf606b21c59cf64ebc4f78b306f955ed22aea38a9a6f6a8334e16c8f7",
       "server/PROGRESS.md": "dba0bf15e0fc67464a6bc00de9a82e3dbf61d8e27910267c45b3a9fc27b4176f",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
@@ -231,7 +231,7 @@
       "front/components/crefans/GuestCosplayBanner.tsx": "d238a13cde2cf31220b92799fa7b304d1d2d049ea6621fad044fc6c51638317c",
       "front/components/crefans/HeaderAccountMenu.tsx": "210819d850d9ba5f29b1d69c045c3aee7bb653518d7b62d60054efeac60fd0f3",
       "front/components/crefans/Icon.tsx": "2ec9b9c4d1ded001d286a300096b29a755d8170de3d4c6042bc31982fff08faa",
-      "front/components/crefans/LandingPage.tsx": "831a803313867f0ff6f2228794be7e8240585c683a6aae151692b58c67deb85e",
+      "front/components/crefans/LandingPage.tsx": "542f2e8cc8aadb3c7d59be5dcdb9c56dc5188e8beb6d52552351cdc2bfc02963",
       "front/components/crefans/LegalDocumentBody.tsx": "894deea6a153b5c478598a48859517faf369e24668ab5c0d17d03d6a328becc2",
       "front/components/crefans/MediaOverlay.tsx": "edc9aae8a74cf8ddb5b1a4c1bc97a61efd6aa2d5eabfbfbabcaee640aa5a9e7b",
       "front/components/crefans/MediaSummary.tsx": "1761d1b6cfca5b7c144c24b7a86b99a6c4a66c3b357c925a332689a5cd4d5600",
@@ -373,9 +373,9 @@
       "front/components/explore/Explore.tsx": "7db6b75a075baf8dea7ba13c05ac8205e41b875aa65ecf6cbf7e1eeb29fe8368",
       "front/components/feed/Feed.tsx": "f2b8a22d731882c46eb80cd3da6816c4efbb342c2062edbccb1eff8add213570",
       "front/components/landing/HeroSlider.tsx": "c32a6e56a94b2b54ab10176d68fa23d8a25601e9813ca25204207d709ec832c2",
-      "front/components/landing/LandingPage.tsx": "1b6942a79e9ef6af6a12825eefd2abbef441cb0d6fa3141d7be7f5d7133ae40c",
-      "front/components/landing/ServiceIntroduction.tsx": "f22f1842edcddd0764282e1d7bcfb50bb22c13fa0a21d635d220fde891da4bec",
-      "front/components/landing/ServiceShowcase.tsx": "38a3005af5d4f1952f54065cad09450f870bf9f096fd2f3684842f5431d3f43a",
+      "front/components/landing/LandingPage.tsx": "d283dfd67364dc79548fc26b32812178feb53c76a9b1793f345d7d143ba6dd33",
+      "front/components/landing/ServiceIntroduction.tsx": "4e4b3403aba24c57fefecbf7cb1c43c84a3a768a6b8cd9be77f03beb7616cd84",
+      "front/components/landing/ServiceShowcase.tsx": "71b8070ed7ac7c3e87ffe00bc751aed0702f5555d3b18222b35d24dbfd86ff93",
       "front/components/landing/landing.module.css": "a3a8407de29c86a493944c5edd839607750cc453ba2f7a2ddfd7067ba415ed5d",
       "front/components/landing/showcase.module.css": "745a1378c529d5a2a77f31d7359f41df718f3c27bcdb9803be03d12239647fae",
       "front/components/layout/CreatorCenterLayout.tsx": "c57cdc1bdd2ddd439512be44deca21a5395ab19d9e9dcf50b440ccf21e7e7cb0",
@@ -774,7 +774,7 @@
       "front/lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
       "front/lib/content/business.ts": "264b3fa69e6ce6d3c6ca641645ef8d8c321c4aa52a06d1ef9a1abb40fe2acfc2",
       "front/lib/content/events.ts": "5c82d9180b3270908942a1938630012654eec405fa3162e3e40c205fffaf08ea",
-      "front/lib/content/landing.ts": "67f0031f49439f994ab38ff08e9eab97bc7037aeb35ed452bcbddd82b05f2936",
+      "front/lib/content/landing.ts": "857ebbc5d216558f6f3712c73b4ef2edb4b1ca1d5e4b64a3c3184a1aa781ee9e",
       "front/lib/crefans/advisor.ts": "a8c4cf3b3d9a4dd150d0a42b17b3a20d16505c7dcdae3c02a0f0fd9797124f33",
       "front/lib/crefans/ai-photo-backgrounds.ts": "6eea96b9cd02323a09cf37bf73c06197350dd11979f52df1dbc1c2e136e548a5",
       "front/lib/crefans/ai-photo-costumes.ts": "755765ed38deb4be14beb6c04ce5b313f08373c67783b30003a533ecc923a6bb",
@@ -809,8 +809,8 @@
       "front/lib/design/scroll-top.ts": "9847dfb22a56bb1b95cb11e54ae1c3b4fd6e93974d576a09e5f56c6455beab6c",
       "front/lib/design/theme.ts": "11b7448072f1a8a734cdec153f04f94cafd008dbd107de235d579fd6c4b05436",
       "front/lib/design/tokens.ts": "66eea7bc6d97eacd0d4b9f2c66c3b7e32c7c9547de2c1a2c882ff1463221fc9d",
-      "front/lib/seo/service-metadata.ts": "deb8d4f64037ef78b4f9a48f1dcd90e0c7740a1b4289a15c9b425bd6002bb774",
-      "front/lib/seo/site.ts": "bbc8bdbbe7e414a02e1e2342b48c588577130a17f9c7650a6cd06cc6c1844337",
+      "front/lib/seo/service-metadata.ts": "5dc65b085455bcbd5c1cb82c4fa399bb9b9f98d1fe0e8ebd86e3d5b65aeab012",
+      "front/lib/seo/site.ts": "e57223513cc54cdd6d5124f72c519e3c2ab2c351214bbc12c49fa77b0855ecb1",
       "front/lib/theme.ts": "2f5c7b82d95f1e49fdfd297ed566436e491f759d051e192e60988b628598dde6",
       "front/lib/tossPayments.ts": "9bdb4d808a7cc9ec5d1c5fd7a0c954f896d33466b3eb4099302ccc2473a4111a",
       "front/lib/utils/dateUtils.ts": "59fdd7677430f4561c5d54a60698d0e0dd7db11f0d8cbb98ac3db1497645e04a",
@@ -886,7 +886,7 @@
       "front/tests/empty-state-asset.test.cjs": "a8929913344e96dad83433fcb2851538c4a41bb93021b462f018e99bf56bafb8",
       "front/tests/feed-data.test.cjs": "22ab6d63b0e389f56783a8619ca1db0184f376583d58e1f422c77bf59ba6c672",
       "front/tests/field.test.cjs": "d3f4c58cdd7c322ed66ef119c387c6c5734ec01da0075d27ca766fec26ad9296",
-      "front/tests/fixtures/landing-content-original.json": "1d9a808447c34849b2a2bb31b91d26d784f80bc05f1982a439489a53819c4164",
+      "front/tests/fixtures/landing-content-original.json": "3bdfd21d9f70fa7e3db22fcb0c312e858325635ad05f46fb0a5ab4b094db6405",
       "front/tests/fixtures/render-baseline.json": "3bd20a8b9af812c8dfa4f2749be77ffe07359ecf6f042f9bdf01e018526c0076",
       "front/tests/follow-button.test.cjs": "d3b9e8092a3ec5e24b05cac09bb8923ad20def260835f3af13710a98f54a82e7",
       "front/tests/founding-badge.test.cjs": "7ee88fe222fafae96fe0209f4531e142465627e82ca9375e245b1a57f07e7acd",
