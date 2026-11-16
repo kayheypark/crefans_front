@@ -1,3 +1,8 @@
+## 2026-11-16 대표 서비스를 'AI 사진 편집'으로 (feat/ai-photo-positioning, 운영 front-ai-positioning-20261116)
+- SITE_DESCRIPTION·키워드·OG alt, 프로필/탐색 SEO 문구, llms.txt(소개·AI 절 맨 앞), /service/landing(hero·CTA 체험·AI 절과 이용 순서를 크리에이터보다 앞), 루트 랜딩(hero·구간 문구, 도파민·라텍스·충성 고객·활동 팬 표현 제거). 테스트 고정 원문(tests/fixtures/landing-content-original.json)을 새 문구로 갱신.
+- 검증: npm test 711/18(기준선 동일), 운영 /service/feed meta description·llms.txt·/service/landing 새 문구 확인.
+- 남음: 통신판매중개 문장(business.ts)은 약관 개정 시행 때 함께(서버 docs/terms-amendment-ai-positioning-draft-20261116.md). crefans.com/ → /service/feed 이동은 그대로.
+
 ## 2026-11-16 포트원 작업 보관·브랜치 분리
 - 사용자 결정: 포트원(KG이니시스 V2) 연동은 연습으로 보고 보관, 이니시스 직접 계약(11/14 신청, 사전심사 대기)을 기다림.
 - 보관 브랜치 archive/portone-inicis-practice (서버·프론트 로컬): 단건결제 PG 스위치(ONE_TIME_PAYMENT_PROVIDER), 광고상품 카드 결제·대사, 결제자 휴대폰 입력. 로컬 실결제 2,200원 결제·환불 검증 기록 포함. 운영 배포 안 함.

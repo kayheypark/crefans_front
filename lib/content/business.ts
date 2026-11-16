@@ -17,7 +17,7 @@ export const businessInfo={
  * 통신판매중개자 고지(전자상거래법 제20조①, 시행규칙 제11조의2: 초기 화면과 청약 절차에 미리 고지). 문구는 이용약관 제1조
  * (server src/platform/legal-documents.ts)와 같다. 바꾸면 약관과 함께 바꾼다. 2026-11-06 사용자 결정.
  */
-export const intermediaryNotice='크레팬스는 크리에이터 멤버십 거래의 통신판매중개자로 거래 당사자가 아니며, 멤버십의 판매자는 각 크리에이터입니다. 콩은 크레팬스가 직접 판매합니다.';
+export const intermediaryNotice='AI 이용권·콩·광고상품은 크레팬스가 직접 판매합니다. 크리에이터 멤버십 거래에서 크레팬스는 통신판매중개자로 거래 당사자가 아니며, 멤버십의 판매자는 각 크리에이터입니다.';
 
 /** Public product guide (crefans_guide), opened in a new tab from the sidebar and settings. */
 export const guideSiteUrl='https://guide.crefans.com/';
