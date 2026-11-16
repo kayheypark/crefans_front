@@ -80,12 +80,22 @@
 .phoneSms div{display:flex;justify-content:space-between;gap:12px}.phoneSms dt{color:var(--cf-color-textSecondary)}.phoneSms dd{margin:0;font-weight:600}.phoneSms strong{font-size:20px;letter-spacing:.08em}
 .phoneSmsLink{justify-self:start;color:var(--cf-color-accent);font-weight:600}.phoneNote{color:var(--cf-color-textMuted);font-size:13px}
 
-/* 2026-11-16 SMS preview (what the messaging app will send) and PC QR. */
-.smsPreview{margin:0;border:1px solid var(--cf-color-border);border-radius:16px;overflow:hidden;background:var(--cf-color-surface)}
-.smsHeader{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 12px;border-bottom:1px solid var(--cf-color-border);background:var(--cf-landing-soft)}
-.smsHeader span{font-size:11px;color:var(--cf-color-textMuted)}.smsHeader strong{font-size:15px}
-.smsBody{display:flex;flex-direction:column;align-items:flex-end;gap:4px;padding:16px 14px 12px}
-.smsBubble{padding:9px 14px;border-radius:18px 18px 4px 18px;background:#0a84ff;color:#fff;font-size:18px;font-weight:700;letter-spacing:.08em}
-.smsBody small{font-size:11px;color:var(--cf-color-textMuted)}
+/* 2026-11-16 SMS preview: the Messages compose screen (recipient pill, SMS label, composer with the code and a green send button). */
+.smsPreview{margin:0;border-radius:22px;overflow:hidden;background:#fff;border:1px solid #e5e5ea;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',var(--cf-font-sans,system-ui),sans-serif}
+.smsTop{display:flex;flex-direction:column;align-items:center;gap:0;padding:16px 12px 6px}
+.smsAvatar{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:linear-gradient(180deg,#a7b4d6,#7b86b8)}
+.smsAvatar svg{width:34px;height:34px;fill:#fff;stroke:#fff;stroke-width:0}.smsAvatar svg path{fill:#fff}
+.smsNumber{margin-top:-8px;padding:6px 14px;border-radius:999px;background:#fff;box-shadow:0 2px 10px rgb(0 0 0/.08);font-size:15px;font-weight:700;letter-spacing:-.01em}
+.smsNumber i{margin-left:6px;color:#b0b0b5;font-style:normal;font-weight:600}
+.smsMeta{margin:8px 0 0!important;text-align:center;font-size:11px;color:#8e8e93}
+.smsSpace{height:44px}
+.smsComposer{display:flex;align-items:center;gap:8px;padding:8px 10px 12px}
+.smsPlus{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:#f2f2f7;color:#3a3a3c;font-size:22px;line-height:1}
+.smsInput{flex:1;display:flex;align-items:center;min-height:36px;padding:0 44px 0 14px;border-radius:18px;background:#fff;border:1px solid #e5e5ea;font-size:17px;letter-spacing:.02em;color:#111}
+.smsCaret{display:inline-block;width:2px;height:20px;margin-left:2px;background:#0a84ff;animation:smsBlink 1s steps(1) infinite}
+@keyframes smsBlink{50%{opacity:0}}@media(prefers-reduced-motion:reduce){.smsCaret{animation:none}}
+.smsSend{display:grid;place-items:center;flex:none;width:30px;height:30px;margin-left:-40px;border-radius:50%;background:#34c759}
+.smsSend svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.smsHint{padding:0 14px 14px;font-size:12px;color:#6e6e73;text-align:center}
 .smsQr{display:flex;flex-direction:column;align-items:center;gap:8px;margin:0}.smsQr img{border-radius:8px}.smsQr figcaption{font-size:12px;color:var(--cf-color-textSecondary);text-align:center}
 .smsRetry{border:0;background:none;padding:0;color:var(--cf-color-accent);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}

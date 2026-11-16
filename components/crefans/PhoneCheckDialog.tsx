@@ -27,10 +27,14 @@ export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모
    {!sent?<><p>{intro} 메시지 앱으로 문자 한 통을 보내 번호를 확인해요.</p>
     <Field label="휴대폰 번호" inputMode="numeric" autoComplete="tel" placeholder="01012345678" value={phone} onChange={event=>setPhone(event.target.value)} disabled={busy}/></>
    :<>
-    <p>아래 문자를 <strong>{digits.replace(/^(010)(\d{4})(\d{4})$/,'$1-$2-$3')}</strong>에서 보내면 확인돼요.{mobile?' 메시지 앱이 열리면 내용이 채워져 있어요. 전송만 눌러 주세요.':' 휴대폰 카메라로 QR을 찍으면 메시지 앱이 열려요.'}</p>
-    <figure className={s.smsPreview} aria-label="보낼 문자 미리보기">
-     <div className={s.smsHeader}><span>받는 사람</span><strong>{sent.receiver}</strong></div>
-     <div className={s.smsBody}><span className={s.smsBubble}>{sent.code}</span><small>문자 메시지</small></div>
+    <p>아래 문자를 <strong>{digits.replace(/^(010)(\d{4})(\d{4})$/,'$1-$2-$3')}</strong>에서 보내면 확인돼요.{mobile?'':' 휴대폰 카메라로 QR을 찍으면 메시지 앱이 열려요.'}</p>
+    {/* Same look as the Messages compose screen (2026-11-16 user reference): recipient on top, the code already in the input, green send. */}
+    <figure className={s.smsPreview} aria-label={`보낼 문자 미리보기: 받는 사람 ${sent.receiver}, 내용 ${sent.code}`}>
+     <div className={s.smsTop}><span className={s.smsAvatar} aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4.2"/><path d="M4.5 20.5c1.2-4 4.2-6 7.5-6s6.3 2 7.5 6"/></svg></span><span className={s.smsNumber}>+82 {sent.receiver}<i aria-hidden="true">›</i></span></div>
+     <p className={s.smsMeta}>문자 메시지 · SMS</p>
+     <div className={s.smsSpace}/>
+     <div className={s.smsComposer}><span className={s.smsPlus} aria-hidden="true">+</span><span className={s.smsInput}>{sent.code}<i className={s.smsCaret} aria-hidden="true"/></span><span className={s.smsSend} aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V6m0 0-5.5 5.5M12 6l5.5 5.5"/></svg></span></div>
+     <figcaption className={s.smsHint}>메시지 앱이 열리면 이렇게 채워져 있어요. 초록 전송 버튼만 누르세요.</figcaption>
     </figure>
     {!mobile&&sent.qrCode&&<figure className={s.smsQr}>{/* eslint-disable-next-line @next/next/no-img-element -- server-issued PNG data URL */}<img src={sent.qrCode} alt="메시지 앱을 여는 QR 코드" width={160} height={160}/><figcaption>QR이 안 되면 휴대폰에서 직접 {sent.receiver}로 {sent.code}을(를) 보내 주세요.</figcaption></figure>}
     <p className={s.phoneNote}>문자 요금은 요금제에 따라 나올 수 있어요. 10분 안에 보내 주세요.</p>
