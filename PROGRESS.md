@@ -5,6 +5,10 @@
 - 복구: /Users/ethan/crefans-recovery/20261116/front-guest-cosplay-20261116/ 이미지·설정 아카이브 SHA256, OCI blob15개 해시·이전 이미지ID 확인. 서버 이전 태그·설정백업·전송임시파일 정리 완료. 활성 이미지·DB·업로드 보존. 복구 저장소 보관본 삭제 없음.
 - 증거 .local/ship-front-guest-cosplay-20261116/{ship,build,deploy}.log 및 .local/guest-cosplay/{live-check.json,live-banner.png,integrated-tests.log,integrated-typecheck.log}. 이전 문서·계층 검사 제한은 아래 기록 참고.
 
+## 2026-11-16 비로그인 코스어 배너 문구·색 변경 (feat/cosplay-banner-title)
+- 사용자 결정: 제목 '나도 코스어'(코스어 46px 확대) → '내가 코스어가 된다면?'(코스어는 제목과 같은 크기, 분홍 강조), 설명 문장 삭제, 버튼 '로그인 없이 무료 체험'(비회원 10회 무료, server GUEST_AI_LIMIT=10). 색은 남색 배경 → 흰 배경+분홍 테두리, 강조 #ec4899, 버튼 #db2777(흰 글씨 대비 4.5 이상), 위쪽 작은 글씨 #be185d. 380px 이하에서도 의상 카드 표시(기존엔 숨김), 340px 이하 규칙 추가.
+- 검증: tsc 0, npm test 681 pass/18 fail — 변경 전후 실패 목록 동일(18건 모두 기존). Playwright로 /service/feed 비로그인 1280·390·360·320px 캡처, 배너 scrollWidth=clientWidth(넘침 없음), 제목 1줄.
+
 ## 2026-11-16 서비스 소개에 AI 사진 편집 + 소개서 PDF 링크 (feat/ai-photo-intro, 운영 미배포)
 - 사용자 요청: 서비스·가이드·소개서 PDF에 AI 사진 편집 내용.
 - 랜딩(LandingPage·lib/content/landing.ts aiPhoto): 'AI 사진 편집' 섹션(가상 인물 AI 생성 이미지 /illustrations/landing/ai-photo-costume-v1.webp, 기능 4줄, '로그인 없이 체험하기' /service/try, '서비스 소개서 PDF' 가이드 다운로드 링크). ServiceLinks(사이드바·푸터·설정)에 '서비스 소개서 PDF ↗'.
