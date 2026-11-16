@@ -11,6 +11,7 @@ import s from './events.module.css';
 // 2026-11-16: OCTOMO number-ownership check (MO: the member texts a code from their own phone). It is not identity or age verification.
 // User decision: show a preview of the exact message first, then '인증하러 가기' opens the messaging app (Android/iPhone links differ);
 // on PC a QR from OCTOMO opens it from the phone camera. Returning from the messaging app checks once automatically.
+const SMS_KEY_ROWS=['ㅂㅈㄷㄱㅅㅛㅕㅑㅐㅔ','ㅁㄴㅇㄹㅎㅗㅓㅏㅣ'];
 export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모션 100콩은 휴대폰 번호 하나에 한 번 받을 수 있어요.',initialPhone,platform:fixedPlatform}:{open:boolean;onClose:()=>void;check:PhoneCheckModel;onVerified:()=>void;intro?:string;/** A number already typed in the page: the dialog opens straight on the message preview. */initialPhone?:string;/** Tests pin the platform. */platform?:SmsPlatform}){
  const [phone,setPhone]=useState(''),[sent,setSent]=useState<PhoneCheckStart|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[opened,setOpened]=useState(false);
  const [platform,setPlatform]=useState<SmsPlatform>(fixedPlatform??'android');
@@ -42,7 +43,8 @@ export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모
      <p className={s.smsMeta}>문자 메시지 · SMS</p>
      <div className={s.smsSpace}/>
      <div className={s.smsComposer}><span className={s.smsPlus} aria-hidden="true">+</span><span className={s.smsInput}>{sent.code}<i className={s.smsCaret} aria-hidden="true"/></span><span className={s.smsSend} aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V6m0 0-5.5 5.5M12 6l5.5 5.5"/></svg></span></div>
-     <figcaption className={s.smsHint}>메시지 앱이 열리면 이렇게 채워져 있어요. 초록 전송 버튼만 누르세요.</figcaption>
+     {/* The top of the iOS keyboard peeks in, as on the real compose screen (2026-11-16 user request). */}
+     <div className={s.smsKeyboard} aria-hidden="true">{SMS_KEY_ROWS.map(row=><div key={row}>{Array.from(row).map(key=><span key={key}>{key}</span>)}</div>)}</div>
     </figure>
     {mobile&&mobileActions}
     {!mobile&&sent.qrCode&&<figure className={s.smsQr}>{/* eslint-disable-next-line @next/next/no-img-element -- server-issued PNG data URL */}<img src={sent.qrCode} alt="메시지 앱을 여는 QR 코드" width={160} height={160}/><figcaption>QR이 안 되면 휴대폰에서 직접 {sent.receiver}로 {sent.code}을(를) 보내 주세요.</figcaption></figure>}
