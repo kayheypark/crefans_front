@@ -4,3 +4,4 @@
 .status[data-state=cancelled]{background:var(--cf-landing-soft);color:var(--cf-color-textMuted)}
 /* 2026-11-16: AI 이용권 구독형 | 횟수형 sections. */
 .section{margin:8px 0 0;font-size:16px}.sectionNote{margin:-6px 0 0;color:var(--cf-color-textMuted);font-size:13px}.product h3,.order h3{margin:0;font-size:18px}ul.terms{margin:0;padding-left:18px}@media(max-width:480px){.product h3,.order h3{font-size:16px}}
+.historyButton{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:40px;padding:9px 14px;border:0;border-radius:var(--cf-radius-pill);background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;font-size:14px;font-weight:600;white-space:nowrap;box-shadow:0 2px 10px #22222216;cursor:pointer}.historyButton:hover{background:var(--cf-color-surfaceSubtle)}.historyButton[aria-pressed=true]{color:var(--cf-color-accent)}.historyButton:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px}
