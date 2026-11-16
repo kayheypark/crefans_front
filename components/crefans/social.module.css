@@ -272,3 +272,4 @@ button.contact:not(:disabled):not([data-unread=true]):hover{background:color-mix
 .commentMetadata time{white-space:nowrap;flex:none}
 
 /* 2026-11-15 signed-out AI photo trial entry on the feed */
+.guestEditForm{display:grid;gap:14px}
