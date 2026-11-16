@@ -1,0 +1,21 @@
+{
+ "status": 200,
+ "model": "dola-seedream-5-5-261028",
+ "responseModel": "dola-seedream-5-5-261028",
+ "requestId": "0217948251654852e03d1d5cb4d12864ab68947fc6ea20769fcb2",
+ "prompt": "Only the outfit from the reference image, the same fantasy mage costume displayed alone on a simple wooden hanger, front view, nobody wearing it, no person, no mannequin, clean light studio background, product photo",
+ "size": "1024x1280",
+ "references": [
+  "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/v2/model-ref.png"
+ ],
+ "elapsedMs": 13784,
+ "at": "2026-11-16T10:32:58.878412+00:00",
+ "output": "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/v2/costume.png",
+ "sha256": "0d0d44a8055953a259c1a63b7e271017a1c211eaa0369543aaf742cf4a02501d",
+ "usage": {
+  "input_images": 1,
+  "generated_images": 1,
+  "output_tokens": 5120,
+  "total_tokens": 5120
+ }
+}
