@@ -399,3 +399,19 @@ test('a referral signup asks for the masked-email disclosure and sends it; a pla
   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(referred.calls[0].referralDisclosure,true);act(()=>tree.unmount());
  }finally{delete global.sessionStorage;}
 });
+
+test('2026-11-16 phone at signup: when the server asks, signup stays disabled until the phone check (after the email code) succeeds',async()=>{
+ const data=model(),calls=[];data.account.signupRequirements={identityRequired:false,inviteOnly:false,phoneRequired:true};data.account.agreements=loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements;
+ const ok=d=>({success:true,data:d,errorMessage:null,errorCode:null});
+ data.accountActions.requestSignupCode=async()=>ok({message:'코드 전송'});data.accountActions.verifySignupCode=async()=>ok({message:'인증 완료'});data.accountActions.signup=async value=>{calls.push(value);return ok({message:'가입 완료'});};
+ const phoneCalls=[];data.accountActions.signupPhone={start:async phone=>{phoneCalls.push(['start',phone]);return ok({code:'123456',receiver:'1666-3538',smsUri:'sms:16663538?&body=123456',expiresAt:'2026-11-16T12:00:00Z'});},confirm:async phone=>{phoneCalls.push(['confirm',phone]);return ok({verified:true});}};
+ const tree=mount(pages.SignupPage,data),button=name=>tree.root.findAllByType('button').find(node=>node.children.includes(name)),submit=()=>tree.root.findAllByType('button').find(node=>node.props.type==='submit');
+ change(field(tree,'이메일'),'phone@example.invalid');change(field(tree,'비밀번호'),'Beta-test-123!');change(field(tree,'비밀번호 확인'),'Beta-test-123!');change(field(tree,'닉네임'),'폰');
+ const checks=tree.root.findAllByType('input').filter(n=>n.props.type==='checkbox');act(()=>{for(const i of [0,1,2])checks[i].props.onChange({target:{checked:true}});});
+ assert.equal(button('휴대폰 확인').props.disabled,true,'phone check waits for the email code');
+ await act(async()=>button('인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button('확인').props.onClick());
+ assert.equal(submit().props.disabled,true,'email alone is not enough');assert.equal(button('휴대폰 확인').props.disabled,false);
+ act(()=>button('휴대폰 확인').props.onClick());change(field(tree,'휴대폰 번호'),'010-1234-5678');await act(async()=>button('보낼 문자 받기').props.onClick());assert.match(text(tree),/1666-3538/);assert.match(text(tree),/123456/);
+ await act(async()=>button('보냈어요').props.onClick());assert.deepEqual(phoneCalls,[['start','01012345678'],['confirm','01012345678']]);
+ assert.equal(submit().props.disabled,false);await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.length,1);act(()=>tree.unmount());
+});
