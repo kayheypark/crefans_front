@@ -35,7 +35,7 @@ export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모
    {!sent?<><p>{intro} 메시지 앱으로 문자 한 통을 보내 번호를 확인해요.</p>
     <Field label="휴대폰 번호" inputMode="numeric" autoComplete="tel" placeholder="01012345678" value={phone} onChange={event=>setPhone(event.target.value)} disabled={busy}/></>
    :<>
-    <p>아래 문자를 <strong>{digits.replace(/^(010)(\d{4})(\d{4})$/,'$1-$2-$3')}</strong>에서 보내면 확인돼요.{mobile?'':' 휴대폰 카메라로 QR을 찍으면 메시지 앱이 열려요.'}</p>
+    {!mobile&&<p>휴대폰 카메라로 QR을 찍으면 메시지 앱이 열려요.</p>}
     {/* Same look as the Messages compose screen (2026-11-16 user reference): recipient on top, the code already in the input, green send. */}
     <figure className={s.smsPreview} aria-label={`보낼 문자 미리보기: 받는 사람 ${sent.receiver}, 내용 ${sent.code}`}>
      <div className={s.smsTop}><span className={s.smsAvatar} aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4.2"/><path d="M4.5 20.5c1.2-4 4.2-6 7.5-6s6.3 2 7.5 6"/></svg></span><span className={s.smsNumber}>+82 {sent.receiver}<i aria-hidden="true">›</i></span></div>
@@ -46,7 +46,6 @@ export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모
     </figure>
     {mobile&&mobileActions}
     {!mobile&&sent.qrCode&&<figure className={s.smsQr}>{/* eslint-disable-next-line @next/next/no-img-element -- server-issued PNG data URL */}<img src={sent.qrCode} alt="메시지 앱을 여는 QR 코드" width={160} height={160}/><figcaption>QR이 안 되면 휴대폰에서 직접 {sent.receiver}로 {sent.code}을(를) 보내 주세요.</figcaption></figure>}
-    <p className={s.phoneNote}>문자 요금은 요금제에 따라 나올 수 있어요. 10분 안에 보내 주세요.</p>
    </>}
    <p className={s.phoneNote}>번호를 가지고 있는지만 확인하며, 회사는 번호를 되돌릴 수 없는 값으로만 보관해요.</p>
    {error&&<p className={s.claimError} role="alert">{error}</p>}
