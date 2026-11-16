@@ -2,7 +2,7 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 // 2026-11-06 user decision: the initial screen shows the hosting provider and the intermediary notice
 // (전자상거래법 제10조①·시행령 제11조의4·시행규칙 제7조, 제20조①·시행규칙 제11조의2), and the membership checkout
 // repeats the notice next to the seller in the same type size. Wording matches 이용약관 제1조.
-const NOTICE='크레팬스는 크리에이터 멤버십 거래의 통신판매중개자로 거래 당사자가 아니며, 멤버십의 판매자는 각 크리에이터입니다. 콩은 크레팬스가 직접 판매합니다.';
+const NOTICE='AI 이용권·콩·광고상품은 크레팬스가 직접 판매합니다. 크리에이터 멤버십 거래에서 크레팬스는 통신판매중개자로 거래 당사자가 아니며, 멤버십의 판매자는 각 크리에이터입니다.';
 const text=tree=>JSON.stringify(tree.toJSON());
 const inner=node=>typeof node==='string'?node:node.children.map(inner).join('');
 test('business info names the hosting provider and carries the intermediary notice',()=>{
