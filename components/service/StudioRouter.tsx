@@ -1,6 +1,7 @@
 'use client';
 import {ShopContainer} from './ShopContainer';
 import {ShopPayment} from './ShopPayment';
+import {PublicShop} from './PublicShop';
 
 import {BeanStudioPage,type BeanStudioView} from '@/components/crefans/BeanPages';
 import StudioShell from '@/components/crefans/studio/StudioShell';
@@ -23,12 +24,14 @@ export default function StudioRouter({segments}:{segments:string[]}){
  // The account loads first; until then signedIn is the empty default, so the login prompt must not flash (2026-10-31).
  // Loading rule: both waits return the same element, so one 1s timer spans the account and studio requests.
  if(fanLoading)return <DelayedSpinner/>;
+ // 2026-11-17 user decision: the shop is open to signed-out visitors for browsing; buying asks them to sign in.
+ if(!fan.signedIn&&screen==='shop'&&!id)return <ServiceShell model={fan} active="studio"><PublicShop/></ServiceShell>;
  if(!fan.signedIn)return <ServiceShell model={fan} active="studio" auth><SignInPrompt basePath="/service" description="크리에이터 스튜디오를 이용하려면 로그인해주세요."/></ServiceShell>;
  if(loading)return <DelayedSpinner/>;
  // Members who have not switched to creator get the guard page on every studio screen except the start form (2026-11-07)
  // and, since 2026-11-15, their own posts (members may write public posts without tips or memberships).
  const memberMode=!!overview&&!overview.started;
- if(memberMode&&screen!=='start'&&screen!=='content')return <ServiceShell model={fan} active="studio"><CreatorGuardPage studioPath={basePath} fanPath="/service"/></ServiceShell>;
+ if(memberMode&&screen!=='start'&&screen!=='content'&&screen!=='shop')return <ServiceShell model={fan} active="studio"><CreatorGuardPage studioPath={basePath} fanPath="/service"/></ServiceShell>;
  if(!overview||!management||!finance||!community)return <div role="alert"><p>{error||'화면을 불러오지 못했습니다.'}</p><button onClick={()=>void refresh()}>다시 불러오기</button></div>;
  const previewModel=memberMode&&fan.viewerId&&!fan.data.creators.some(creator=>creator.id===fan.viewerId)?{...fan,data:{...fan.data,creators:[...fan.data.creators,{...fan.viewer,id:fan.viewerId,isCreator:false} as unknown as (typeof fan.data.creators)[number]]}}:fan,previewCreatorId=memberMode?fan.viewerId||undefined:fan.data.creators.find(creator=>creator.handle===overview.profile.handle)?.id;
  const page=screen==='shop'?(id==='pay'?<ShopPayment/>:<ShopContainer/>):screen==='advertising'?<ShopContainer initialCategory="ads"/>:screen==='beans'?(['withdraw','tips','payouts'].includes(id||'')||!id?<BeanStudioPage receivables={finance.data.receivables} closingBlockers={finance.data.closingBlockers} view={(id||'overview') as BeanStudioView}/>:null):screen==='reports'?<ReportPage model={reports[(id||'revenue') as StudioReportId]} basePath={basePath}/>:screen==='start'?<CreatorStartPage model={overview} basePath={basePath}/>:screen==='content'?(id?<ContentEditorPage id={id==='new'?undefined:id} model={management} previewModel={previewModel} previewCreatorId={previewCreatorId} basePath={basePath} commentsGloballyEnabled={memberMode||overview.profile.commentsEnabled} memberMode={memberMode}/>:<ContentManagementPage model={management} previewModel={previewModel} previewCreatorId={previewCreatorId} basePath={basePath} commentsGloballyEnabled={memberMode||overview.profile.commentsEnabled}/>):screen==='memberships'?<MembershipManagementPage model={management} basePath={basePath}/>:screen==='subscribers'?<SubscriberManagementPage model={management} basePath={basePath}/>:screen==='messages'?<CreatorMessagesPage model={community} basePath={basePath}/>:screen==='comments'?<CreatorCommentsPage model={community} basePath={basePath}/>:screen==='analytics'?<AnalyticsPage model={overview} basePath={basePath}/>:screen==='earnings'?<EarningsPage model={finance} basePath={basePath}/>:screen==='settlements'?<SettlementsPage model={finance} basePath={basePath}/>:screen==='withdraw'?<WithdrawalPage model={finance} basePath={basePath}/>:screen==='withdrawals'?<WithdrawalsPage model={finance} basePath={basePath}/>:screen==='accounts'?<SettlementAccountsPage model={finance} basePath={basePath}/>:screen==='settings'?<CreatorSettingsPage model={overview} basePath={basePath} previewModel={fan} previewCreatorId={fan.data.creators.find(creator=>creator.handle===overview.profile.handle)?.id}/>:<DashboardPage model={overview} basePath={basePath}/>;
