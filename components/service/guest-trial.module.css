@@ -52,3 +52,4 @@
 .ask{display:grid;gap:8px;text-align:center}.ask p{margin:0;font-size:15px;line-height:1.6}.ask .askNote{color:var(--cf-color-textSecondary);font-size:13px}
 /* Two-line title: no marquee scrolling inside this modal. */
 .askDialog h2,.askDialog h2 [data-marquee],.askDialog h2 [data-marquee] *{white-space:pre-line;overflow:visible;text-overflow:clip;animation:none!important;transform:none!important;mask-image:none!important;-webkit-mask-image:none!important}.askDialog h2{text-align:center}
+.askArt>img{width:116px;height:116px;margin:-10px -6px}

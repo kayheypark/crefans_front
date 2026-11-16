@@ -1,0 +1,21 @@
+{
+ "status": 200,
+ "model": "dola-seedream-5-5-261028",
+ "responseModel": "dola-seedream-5-5-261028",
+ "requestId": "02179482627906199b13dab45b2d10982c2cf34f4d4639dd0c9ae",
+ "prompt": "A rounded-square photo icon in glossy blue (#2563EB) with a white mountain-and-sun picture glyph, and a small round glossy blue badge with a white chain-link symbol overlapping its bottom-right corner; glossy 3D rendered icon in the exact same style as the reference image (smooth glossy candy-like plastic, soft studio lighting, subtle highlights, gentle shadow), centered single object, pure white background, no text, no letters, no logos, no people",
+ "size": "1024x1024",
+ "references": [
+  "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/v5/beans-ref.png"
+ ],
+ "elapsedMs": 16374,
+ "at": "2026-11-16T10:51:35.064506+00:00",
+ "output": "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/v5/link3d-a.png",
+ "sha256": "ed4d605fe4aad16d5f7ff2efbf667968d96d55816a617c43ec438305310b043f",
+ "usage": {
+  "input_images": 1,
+  "generated_images": 1,
+  "output_tokens": 4096,
+  "total_tokens": 4096
+ }
+}
