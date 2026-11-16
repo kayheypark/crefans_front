@@ -285,6 +285,7 @@ test('posts with comments closed by the creator hide the comment toggle and show
   try{
     assert.equal(card.root.findAllByType('button').some(button=>button.props['aria-controls']==='comments-closed'),false);
     assert.match(JSON.stringify(card.toJSON()),/댓글 닫힘/);
+    const closed=card.root.findByProps({className:'commentsClosed'});assert.equal(closed.props['aria-label'],`댓글 ${closedPost.comments.toLocaleString()}개, 댓글 닫힘`);const shown=closed.children.filter(child=>typeof child==='string').join('');assert.doesNotMatch(shown,/닫힘/,'the badge shows the real count, not the word 닫힘');assert.equal(shown,closedPost.comments.toLocaleString());
   }finally{close(card);}
   const detail=mount(PostDetailPage,{id:'closed',model:input});
   try{
