@@ -1,0 +1,21 @@
+{
+ "status": 200,
+ "model": "dola-seedream-5-5-261028",
+ "responseModel": "dola-seedream-5-5-261028",
+ "requestId": "02179482656747350b1c418616fd9b5f78a16c5c9d3416227fff0",
+ "prompt": "A rounded-square photo icon with a small white magic wand and two tiny sparkles, meaning AI edit; glossy 3D rendered icon in the exact same style and blue color as the reference image (smooth glossy blue #2563EB plastic with white glyph, soft studio lighting, gentle shadow), simple single object, centered, pure white background, no text, no letters, no logos, no people",
+ "size": "1024x1024",
+ "references": [
+  "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/v5/link3d-a.png"
+ ],
+ "elapsedMs": 14380,
+ "at": "2026-11-16T10:56:21.460477+00:00",
+ "output": "/Users/ethan/repository/crefans_front-member-posts/.local/try-polish-20261116/v6/step2.png",
+ "sha256": "a87cfe0a33117aac37274aaa9e8c5d3a6675fd13448bb80b83d811de778005aa",
+ "usage": {
+  "input_images": 1,
+  "generated_images": 1,
+  "output_tokens": 4096,
+  "total_tokens": 4096
+ }
+}
