@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T06:49:42.004028+00:00",
+  "checkedAt": "2026-11-16T06:52:15.863870+00:00",
   "environment": {
     "node": "v22.23.4",
     "python": "3.14.5",
@@ -30,8 +30,8 @@
   ],
   "repositories": {
     "front": {
-      "head": "7ed0e9d5c6f15d64be611d7d14daba99618cb3b5",
-      "branch": "",
+      "head": "e91b4e32a55915e75c648a1a56ede1f1b4008bd4",
+      "branch": "fix/comment-closed-count",
       "dirty": true
     },
     "server": {
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "26747a5e52957cdd59c35a2a6e5cc93730f02a6bcef7e6385bc036c9748f69fa",
-      "front/PROGRESS.md": "5998edbb52ae61b473f1ffb93a08bfe7c6c6f2d99dc376fd9a901adec0d37de2",
+      "front/PROGRESS.md": "609d30e5730ede9aca370a2f99535e9994e671d596fb3f80f32308661585ed33",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -261,7 +261,7 @@
       "front/components/crefans/SignInPrompt.tsx": "429630ac8194a54ec8f571c1cdb212e82bf9d89872eb70a7c35dc47c109ef7dd",
       "front/components/crefans/SignupCompletePage.tsx": "ea2e4b4b3c3f2a09b33a6eb7b28621f1469a2b0012c21504cb92e56c2a458a5d",
       "front/components/crefans/SocialLinks.tsx": "0c379cfc014741cda3bfde0c312660bf880025543ffa4073e8ac5740bc7993b1",
-      "front/components/crefans/SocialPages.tsx": "b1e14f4f6630f63619755b71559cf9594a8441b62aee62306829b7dfe2eb6507",
+      "front/components/crefans/SocialPages.tsx": "7e3910e09776db2436afe525aecfb62808433fb6eea00dd0d1ebc187a0614978",
       "front/components/crefans/SubscriptionResumeDialog.tsx": "768f57d06a69e27af33ed7c7e0d590f62769414b7f531ca9ff62677174b4cc82",
       "front/components/crefans/account.module.css": "1c426fd5a7b09f41a92ea6bdfd6b46cdfd7b80773c149715c59e314a5b8e4710",
       "front/components/crefans/advisor.module.css": "547b3b833b95beb7412b84da95d87ed750d558e8351900a7761bace133d6f25d",
@@ -295,7 +295,7 @@
       "front/components/crefans/service-footer.module.css": "10175d6de19bf5eee9210a41a4e3295f9fd7e5333ac5f19b4df162fd23dfe143",
       "front/components/crefans/service.module.css": "bab94c0f7b60a36df78b9e08b431ab4f9a7abe33dbbc22c2aa71d0fd61934e56",
       "front/components/crefans/signup-complete.module.css": "7f25070acf261fbfb4c9ca6203266075115a3450070629bfcd6a29775d274f6e",
-      "front/components/crefans/social.module.css": "bd12ca44364f45b826505c6fa63133e45b7d02b6eca3accd6873bb3bc0bf6ba5",
+      "front/components/crefans/social.module.css": "c14794fae6c64a504fb0b5bba5b56da75ca851f3b5aca022926d92bc91a69916",
       "front/components/crefans/studio/AdvertisingPage.tsx": "06ecc0b8350c635d94c1f1a00759d00851b350bc624f3b9e3ff4e0b03e173034",
       "front/components/crefans/studio/AiBodyAdjustments.tsx": "79962e853d9118b40a52e1f3521a89173e9c3ac02935c54d252767f7ce43bc08",
       "front/components/crefans/studio/AiPhotoCategoryIcon.tsx": "903527ba6652132489715098f888ff24cb867e61803448fcb4db7e7eba60aeb8",
@@ -863,7 +863,7 @@
       "front/tests/crefans-creator.test.cjs": "42d202008bc1b4c9c250637bfd0444afb8579aefcc8a8d61b1d9e43c0c401c27",
       "front/tests/crefans-events.test.cjs": "d38860c813f4627145b002a745cc4ea121de83b37492f33b9ee887fc9ad43460",
       "front/tests/crefans-finance.test.cjs": "74d9441c38bbad57f835dac14b42c1250888beae99fd4a3dbcd8e21d1d6da9f0",
-      "front/tests/crefans-social.test.cjs": "e74899fc481b4fc267c40e210bfd413437635b6c677c26de707e626f0b201796",
+      "front/tests/crefans-social.test.cjs": "897d0100621b57604e8f1975646bd044b7b7767a308575aeba3bacb74aff786a",
       "front/tests/crefans-studio-management.test.cjs": "e6f5927e43ec2f3aa1206f7eab485b7b2de385be0ffbee61d944e0eebeac07bf",
       "front/tests/crefans-studio-reports.test.cjs": "3dd2217203a29af33b35cdf7bd25294b86165ff767f582a859af5938f07f63a2",
       "front/tests/custom-ui.test.cjs": "3836b5e9d3a0bf61f1f5eb1edbd879ea0a9bbd67325f168bea42b07b41472583",
