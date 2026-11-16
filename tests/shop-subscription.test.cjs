@@ -2,7 +2,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),React=require('react'),{create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const el=React.createElement,css=new Proxy({},{get:(_,k)=>String(k)}),words=n=>n==null?'':typeof n==='string'?n:Array.isArray(n)?n.map(words).join(' '):(n.children||[]).map(words).join(' ');
-const ui={Action:({children,variant,...p})=>el('button',p,children),Empty:({title})=>el('section',null,title),PageTitle:({children})=>el('h1',null,children)};
+const ui={Action:({children,variant,...p})=>el('button',p,children),Empty:({title})=>el('section',null,title),PageTitle:({children,action})=>el('header',null,el('h1',null,children),action)};
 const submitted=[];
 const mocks={'../ServiceUI':ui,'@/components/ui/Primitives':{Dialog:({open,title,children})=>open?el('div',{role:'dialog','aria-label':title},children):null,Chip:({children,selected,...p})=>el('button',{...p,'aria-pressed':!!selected},children)},'@/components/ui/Toast':{Toast:()=>null},'@/components/ui/LoadingSpinner':{LoadingSpinner:()=>null},'@/components/ui/useDelayedLoading':{useDelayedLoading:()=>false},'@/components/ui/DialogActions':{DialogActions:({children})=>el('div',null,children)},'../BackButton':{BackButton:()=>null},'./shop.module.css':{__esModule:true,default:css},'./AdvertisingPage':{AdvertisingPage:()=>null},'@/lib/crefans/payment-window':{submitPaymentWindow:w=>submitted.push(w)}};
 const {ShopPage}=loadTypeScript('components/crefans/studio/ShopPage.tsx',mocks);
@@ -98,6 +98,6 @@ test('rows follow the 광고상품 list: reference price (highest 횟수형 1회
   const struck=t.root.findAll(n=>n.type==='s').map(n=>words(n.props.children));
   assert.deepEqual(struck,['11,000원','11,000원'],'50회 횟수형 and 구독 50회 compare with 220원 × 50');
   const text=flat(t);assert.match(text,/11,000원5%10,450원/);assert.match(text,/11,000원20%월8,800원/);assert.doesNotMatch(text,/%2,200원/,'the base pack has no discount');
-  assert.equal(t.root.findAll(n=>n.type==='img'&&n.props.src==='/brand/featured-creators-v1.png').length>=4,true,'sparkle icon on AI rows and headings');
+  assert.equal(t.root.findAll(n=>n.type==='img'&&n.props.src==='/brand/featured-creators-v1.png').length>=2,true,'sparkle icon on AI rows');assert.equal(t.root.findAll(n=>n.type==='h2').flatMap(h=>h.findAllByType('img')).length,0,'2026-11-16: no icon beside section names');
  }finally{act(()=>t.unmount());}
 });

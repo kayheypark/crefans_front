@@ -757,3 +757,21 @@ test('comment report is in the top menu for comments and replies while relative 
  act(()=>triggers()[1].props.onClick());menu=tree.root.findByProps({'aria-label':'댓글 메뉴'});const root=tree.root.findAllByType('div').find(n=>typeof n.props.onKeyDown==='function'&&n.props.className==='menuRoot commentMenu'&&n.findAllByProps({role:'menu'}).length);act(()=>root.props.onKeyDown({key:'Escape',stopPropagation(){}}));assert.equal(triggers()[1].props['aria-expanded'],false);close(tree);
  const readOnly=mount(PostDetailPage,{id:open.id,model:input,readOnly:true});assert.equal(readOnly.root.findAllByType('button').filter(n=>(n.props['aria-label']||'').endsWith('댓글 더보기')).length,0);close(readOnly);
 });
+
+test('2026-11-16: a signed-out author gets 수정 on their own trial post (title and body only, no delete); other visitors do not',async()=>{
+  const calls=[];const guestPost={...post,creatorId:'guest:abc'};
+  const edit=async(id,input)=>{calls.push([id,input]);return {success:true,data:{id,message:'게시물을 수정했어요.'},errorMessage:null,errorCode:null};};
+  const items=tree=>tree.root.findByProps({role:'menu'}).findAll(node=>node.props.role==='menuitem'&&typeof node.type==='string').map(item=>item.children.join(''));
+  const open=tree=>act(()=>tree.root.findAllByType('button').find(button=>button.props['aria-haspopup']==='menu').props.onClick());
+  let other;act(()=>{other=create(element(PostCard,{post:guestPost,model:model({data,guestAuthorId:'guest:zzz',editGuestPost:edit})}));});
+  open(other);assert.deepEqual(items(other),['신고','공유'],'another visitor sees no 수정');act(()=>other.unmount());
+  let tree;act(()=>{tree=create(element(PostCard,{post:guestPost,model:model({data,guestAuthorId:'guest:abc',editGuestPost:edit})}));});
+  try{
+    open(tree);assert.deepEqual(items(tree),['신고','공유','수정'],'no 삭제 for a trial post');
+    act(()=>tree.root.findByProps({role:'menu'}).findAll(node=>node.props.role==='menuitem'&&typeof node.type==='string')[2].props.onClick());
+    const inputs=tree.root.findAll(node=>node.type==='input'||node.type==='textarea');assert.equal(inputs.length,2,'only title and body');
+    act(()=>inputs[0].props.onChange({target:{value:' 새 제목 '}}));act(()=>inputs[1].props.onChange({target:{value:'새 내용'}}));
+    await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+    assert.deepEqual(calls,[[guestPost.id,{title:'새 제목',body:'새 내용'}]]);assert.equal(tree.root.findAllByType('form').length,0,'dialog closes after saving');
+  }finally{act(()=>tree.unmount());}
+});

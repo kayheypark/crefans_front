@@ -1,4 +1,5 @@
 'use client';
+import {GuestClaimDialog} from './GuestClaimDialog';
 import {FoundingBadgeSettings} from '@/components/service/FoundingBadgeSettings';
 import {FoundingBadgeEventDetail} from '@/components/service/FoundingBadgeEventDetail';
 import {PromotionEventDetail} from '@/components/service/PromotionEventDetail';
@@ -34,7 +35,7 @@ import s from '@/components/crefans/service.module.css';
 
 
 export default function ServiceRouter({segments}:{segments:string[]}){
- const {model,common,loading,error,refresh,publicProfile,actionNotice,dismissFeedback}=useService(),query=useSearchParams(),router=useRouter(),[screen,id]=segments,basePath=model.basePath;
+ const {model,common,loading,error,refresh,publicProfile,actionNotice,dismissFeedback,guestClaim}=useService(),query=useSearchParams(),router=useRouter(),[screen,id]=segments,basePath=model.basePath;
  const feedback=actionNotice||(error?{message:error,loginRequired:false}:null);
  // Loading rule: a page change shows nothing for the first second, then the shared spinner (no '불러오는 중…' text on every tab tap).
  const slow=useDelayedLoading(loading);
@@ -67,5 +68,5 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'reset-password':return common&&<PasswordResetPage model={common} basePath={basePath}/>;
   default:return <FeedPage model={model}/>;
  }}
- return <ServiceShell model={model} authLoading={loading} active={screen} scrollKey={segments.join('/')} auth={['signup','login','reset-password'].includes(screen)}><Suspense fallback={<p className={s.loading}>화면을 준비하고 있어요.</p>}>{content()}</Suspense><Dialog open={!!feedback} onClose={dismissFeedback} title={feedback?.loginRequired?'로그인이 필요해요':actionNotice?'알림':'화면을 불러오지 못했어요'}>{/* 2026-11-08: the login-needed notice reuses the sign-in prompt layout (lock, 로그인·회원가입). */}{feedback?.loginRequired?<SignInPrompt basePath={basePath} variant="dialog" hideTitle description="로그인 후 더 많은 기능을 이용해보세요." onNavigate={dismissFeedback}/>:<><p>{feedback?.message}</p><DialogActions style={{marginTop:24}}>{actionNotice?<Action onClick={dismissFeedback}>확인</Action>:<><Action variant="secondary" onClick={dismissFeedback}>닫기</Action><Action onClick={()=>{dismissFeedback();void refresh();}}>다시 불러오기</Action></>}</DialogActions></>}</Dialog></ServiceShell>;
+ return <ServiceShell model={model} authLoading={loading} active={screen} scrollKey={segments.join('/')} auth={['signup','login','reset-password'].includes(screen)}><Suspense fallback={<p className={s.loading}>화면을 준비하고 있어요.</p>}>{content()}</Suspense><GuestClaimDialog claim={guestClaim}/><Dialog open={!!feedback} onClose={dismissFeedback} title={feedback?.loginRequired?'로그인이 필요해요':actionNotice?'알림':'화면을 불러오지 못했어요'}>{/* 2026-11-08: the login-needed notice reuses the sign-in prompt layout (lock, 로그인·회원가입). */}{feedback?.loginRequired?<SignInPrompt basePath={basePath} variant="dialog" hideTitle description="로그인 후 더 많은 기능을 이용해보세요." onNavigate={dismissFeedback}/>:<><p>{feedback?.message}</p><DialogActions style={{marginTop:24}}>{actionNotice?<Action onClick={dismissFeedback}>확인</Action>:<><Action variant="secondary" onClick={dismissFeedback}>닫기</Action><Action onClick={()=>{dismissFeedback();void refresh();}}>다시 불러오기</Action></>}</DialogActions></>}</Dialog></ServiceShell>;
 }

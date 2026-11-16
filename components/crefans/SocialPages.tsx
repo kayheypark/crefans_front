@@ -18,6 +18,7 @@ import {VideoProcessing} from '@/components/ui/VideoProcessing';
 
 
 import {DialogActions} from '@/components/ui/DialogActions';
+import {Field,TextAreaField} from '@/components/ui/Field';
 import Link from 'next/link';
 import {TextLink} from '@/components/ui/TextLink';
 import {useContext,useEffect,useId,useRef,useState,type CSSProperties,type FormEvent,type PointerEvent as ReactPointerEvent,type ReactNode} from 'react';
@@ -27,7 +28,7 @@ import {Radio} from '@/components/ui/Choice';
 import {reportReasons,type ReportReason} from '@/lib/crefans/report-reasons';
 import {ChipRow} from '@/components/ui/ChipRow';
 import {CategoryChip} from './CategoryChip';
-import type {Post,ServiceData,ServiceViewModel} from '@/types/crefans';
+import type {ApiResult,Post,ServiceData,ServiceViewModel} from '@/types/crefans';
 import type {MessagesViewModel,SocialActionResult,SocialComment,SocialReply} from '@/types/crefans-social';
 import Icon from './Icon';
 import CommentIcon from './CommentIcon';
@@ -47,7 +48,7 @@ import {MembershipThumb} from './MembershipThumb';
 import {getSubscriptionPlan} from '@/lib/crefans/membership-plans';
 import s from './social.module.css';
 
-export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'ownCreatorIds'|'viewerId'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>};
+export type PostCardModel=Pick<ServiceViewModel,'basePath'|'canAccess'|'liked'|'saved'|'toggleLike'|'toggleSave'|'likeCounts'|'commentCounts'>&Partial<Pick<ServiceViewModel,'ownCreatorIds'|'viewerId'|'guestAuthorId'|'editGuestPost'|'reportPost'|'reportComment'|'mentionCandidates'>>&{data:Pick<ServiceData,'creators'|'plans'|'creatorPlans'>};
 type CommentsModel=Pick<PostDetailModel,'commentsByPost'|'addComment'|'loadReplies'|'commentPaging'>&Pick<PostDetailModel,'editComment'|'deleteComment'|'likeComment'>&Partial<Pick<ServiceViewModel,'basePath'|'reportComment'|'mentionCandidates'>>&{loadComments?:(postId:string)=>Promise<void>};
 type CommentActions={onEdit?:(commentId:string,body:string)=>Promise<SocialActionResult>;onDelete?:(commentId:string)=>Promise<SocialActionResult>};
 export type PostDetailModel=PostCardModel&Pick<ServiceViewModel,'commentsByPost'|'addComment'|'loadReplies'|'loadComments'|'commentPaging'|'editComment'|'deleteComment'|'likeComment'>&{data:PostCardModel['data']&Pick<ServiceData,'posts'>};
@@ -61,6 +62,8 @@ function PostMenu({post,model,readOnly=false}:{post:Post;model:PostCardModel;rea
   const [open,setOpen]=useState(false),[sharing,setSharing]=useState(false),[report,setReport]=useState(false),[reason,setReason]=useState<ReportReason|''>(''),[feedback,setFeedback]=useSnackbarMessage(),[pending,setPending]=useState(false);
   const root=useRef<HTMLDivElement>(null),trigger=useRef<HTMLButtonElement>(null),menuId=useId();
   const own=!!model.ownCreatorIds?.includes(post.creatorId)||(!!model.viewerId&&post.creatorId===model.viewerId);
+  // 2026-11-16 user decision: a signed-out visitor's own trial post can be edited (title and body only); it cannot be deleted.
+  const guestOwn=!own&&!!model.editGuestPost&&!!model.guestAuthorId&&post.creatorId===model.guestAuthorId,[editing,setEditing]=useState(false);
   useEffect(()=>{
     if(!open||typeof document==='undefined')return;
     const outside=(event:PointerEvent)=>{if(!root.current?.contains(event.target as Node))setOpen(false);};
@@ -80,11 +83,28 @@ function PostMenu({post,model,readOnly=false}:{post:Post;model:PostCardModel;rea
       <button type="button" role="menuitem" onClick={()=>{setOpen(false);setReport(true);}}>신고</button>
       <button type="button" role="menuitem" onClick={()=>{trigger.current?.focus();setOpen(false);setSharing(true);}}>공유</button>
       {own&&<Link role="menuitem" href={`${model.basePath}/studio/content/${post.id}/edit`} onClick={()=>setOpen(false)}>수정</Link>}
+      {guestOwn&&<button type="button" role="menuitem" onClick={()=>{setOpen(false);setEditing(true);}}>수정</button>}
     </div>}
     <Toast message={feedback} onClose={()=>setFeedback('')}/>
+    {guestOwn&&<GuestPostEditDialog open={editing} post={post} onClose={()=>setEditing(false)} onSave={input=>model.editGuestPost!(post.id,input)} onSaved={message=>setFeedback(message)}/>}
     <PostShareDialog open={sharing} onClose={()=>setSharing(false)} basePath={model.basePath} postId={post.id} title={post.title} previewImage={post.media?.length?(post.media[0].type==='image'&&!post.media[0].processing?post.media[0].url:undefined):post.image}/>
     <Dialog open={report} onClose={()=>{if(!pending)setReport(false);}} title="게시물을 신고할까요?"><p className={s.dialogCopy}>부적절한 게시물을 신고하면 운영팀이 검토합니다. 신고 내용은 크리에이터에게 공개되지 않습니다.</p><fieldset className={s.reportReasons}><legend>신고 사유</legend>{reportReasons.map(option=><Radio key={option.value} name={`report-${post.id}`} label={option.label} checked={reason===option.value} disabled={pending} onChange={()=>setReason(option.value)}/>)}</fieldset><DialogActions style={{marginTop:16}}><Action variant="secondary" disabled={pending} onClick={()=>setReport(false)}>취소</Action><Action variant="danger" disabled={pending||!reason} onClick={()=>void submitReport()}>{pending?'접수 중...':'신고하기'}</Action></DialogActions></Dialog>
   </div>;
+}
+
+/** Title and body only: photos, visibility and deletion of a trial post stay as published. */
+function GuestPostEditDialog({open,post,onClose,onSave,onSaved}:{open:boolean;post:Post;onClose:()=>void;onSave:(input:{title:string;body:string})=>Promise<ApiResult<{id:string;message:string}>>;onSaved:(message:string)=>void}){
+  const [title,setTitle]=useState(post.title),[body,setBody]=useState(post.body),[busy,setBusy]=useState(false),[error,setError]=useState('');
+  useEffect(()=>{if(open){setTitle(post.title);setBody(post.body);setError('');}},[open,post.title,post.body]);
+  async function save(event:FormEvent){event.preventDefault();if(busy)return;if(!title.trim()||!body.trim()){setError('제목과 내용을 입력해 주세요.');return;}setBusy(true);setError('');
+    try{const r=await onSave({title:title.trim(),body:body.trim()});if(r.success){onSaved(r.data.message);onClose();}else setError(r.errorMessage);}catch{setError('저장하지 못했어요. 다시 시도해 주세요.');}finally{setBusy(false);}}
+  return <Dialog open={open} onClose={()=>{if(!busy)onClose();}} title="게시물 수정"><form onSubmit={event=>void save(event)} className={s.guestEditForm}>
+    <Field label="제목" value={title} maxLength={200} disabled={busy} onChange={event=>setTitle(event.target.value)}/>
+    <TextAreaField label="내용" value={body} maxLength={10000} rows={6} disabled={busy} onChange={event=>setBody(event.target.value)}/>
+    <p className={s.dialogCopy}>제목과 내용만 고칠 수 있어요. 사진은 바꿀 수 없고, 체험 게시물은 삭제할 수 없어요.</p>
+    {error&&<p className={s.error} role="alert">{error}</p>}
+    <DialogActions><Action type="button" variant="secondary" disabled={busy} onClick={onClose}>취소</Action><Action type="submit" disabled={busy}>{busy?'저장 중…':'저장'}</Action></DialogActions>
+  </form></Dialog>;
 }
 
 function PostHeading({post,model,readOnly=false,backButton}:{post:Post;model:PostCardModel;readOnly?:boolean;backButton?:ReactNode}){
