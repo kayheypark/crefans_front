@@ -135,7 +135,7 @@ export function ContentManagementPage({model,basePath,fanPath=basePath.replace(/
 
 // memberMode (2026-11-15): a member who is not a creator writes public posts only; no membership scope, tips or scheduling.
 // guest (2026-11-15): a signed-out AI photo trial reuses the editor; it publishes only (no draft/comments) and shows its notice.
-type GuestEditor={backHref:string;doneHref:string;notice:ReactNode;caption?:(input:{items:string[];prompt:string})=>Promise<ApiResult<{title:string;body:string;source:'ai'|'template'}>>};
+type GuestEditor={backHref:string;doneHref:string;notice:ReactNode;/** 2026-11-17: a fictional sample photo placed in the trial so a visitor without a photo can start right away. */samplePhoto?:{url:string;name:string};caption?:(input:{items:string[];prompt:string})=>Promise<ApiResult<{title:string;body:string;source:'ai'|'template'}>>};
 type EditorProps=Props&ContentPreviewProps&{memberMode?:boolean;guest?:GuestEditor};
 export function ContentEditorPage({model,basePath,id,previewModel,previewCreatorId,commentsGloballyEnabled=true,memberMode=false,guest}:EditorProps){
   const content=id?model.contents.find(item=>item.id===id):undefined;
@@ -171,21 +171,30 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     setMedia(previous=>{const item=previous.find(entry=>entry.id===id);dropPreview(item?.preview);if(item&&draftMedia.current.includes(item.url)){discard.current(item.url);draftMedia.current=draftMedia.current.filter(url=>url!==item.url);}return previous.filter(entry=>entry.id!==id);});
     setMediaError('');
   }
-  async function upload(files:File[]){
-    const request=++mediaRequest.current,room=mediaUploadMaxItems-media.length;
+  async function upload(files:File[]):Promise<StudioMedia[]>{
+    const request=++mediaRequest.current,room=mediaUploadMaxItems-media.length,added:StudioMedia[]=[];
     setMediaError(room<files.length?`미디어는 최대 ${mediaUploadMaxItems}개까지 추가할 수 있어요. ${Math.max(room,0)}개만 추가했어요.`:'');
-    if(room<=0)return;
+    if(room<=0)return added;
     setUploading(true);
     try{
       for(const file of files.slice(0,room)){
         const result=await model.actions.uploadContentMedia(file);
-        if(request!==mediaRequest.current){if(result.success)discard.current(result.data.url);return;}
-        if(result.success){draftMedia.current=[...draftMedia.current,result.data.url];let preview:string|undefined;if(result.data.processing&&typeof URL.createObjectURL==='function'){preview=URL.createObjectURL(file);previews.current.add(preview);}setMedia(previous=>[...previous,{...result.data,...(preview?{preview}:{})}]);}
+        if(request!==mediaRequest.current){if(result.success)discard.current(result.data.url);return added;}
+        if(result.success){added.push(result.data);draftMedia.current=[...draftMedia.current,result.data.url];let preview:string|undefined;if(result.data.processing&&typeof URL.createObjectURL==='function'){preview=URL.createObjectURL(file);previews.current.add(preview);}setMedia(previous=>[...previous,{...result.data,...(preview?{preview}:{})}]);}
         else{setMediaError(result.errorMessage);break;}
       }
     }catch{if(request===mediaRequest.current)setMediaError('미디어를 불러오지 못했어요. 다시 선택해주세요.');}
     finally{if(request===mediaRequest.current)setUploading(false);}
+    return added;
   }
+  // 2026-11-17 user decision: the guest trial starts with the landing page's fictional person already added, so a visitor with
+  // no photo at hand can try the AI editor at once; removing it and uploading their own photo works as before.
+  const sampleTried=useRef(false),[sampleId,setSampleId]=useState<string>();
+  useEffect(()=>{const sample=guest?.samplePhoto;if(!sample||content||sampleTried.current)return;sampleTried.current=true;
+    void (async()=>{try{const response=await fetch(sample.url);if(!response.ok)return;const blob=await response.blob();const added=await upload([new File([blob],sample.name,{type:blob.type||'image/webp'})]);if(added[0])setSampleId(added[0].id);}catch{/* the visitor can still upload a photo */}})();
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once when the trial editor opens
+  },[]);
+  const sampleShown=!!sampleId&&media.some(item=>item.id===sampleId);
   async function writeCaption(){
     if(!guest?.caption||captionBusy)return;setError('');setCaptionBusy(true);
     try{const result=await guest.caption({items:Array.from(captionItems.current),prompt:captionPrompt.current});
@@ -215,7 +224,8 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     <form className={s.editor} onSubmit={e=>{e.preventDefault();save(guest||status==='published'?'published':'draft');}}>
       {/* Guest trial (2026-11-16): the photo and AI edit come first; title/body may stay empty and are written at publish time. */}
       {captionMode?<>
-      <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={upload} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
+      <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={files=>void upload(files)} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
+      {sampleShown&&<p className={s.captionHint} role="note">가상 인물 샘플 사진이 미리 들어가 있어요. 바로 AI 사진 편집을 눌러 보세요. 내 사진으로 하려면 샘플을 지우고 올려 주세요.</p>}
       {model.actions.aiEditPhoto&&(()=>{const photos=media.filter(item=>item.type==='image'&&!item.processing&&!item.failed);return <div className={ai.aiAction}><button type="button" className={ai.aiWide} aria-label="AI 사진 편집" aria-describedby={aiDescriptionId} onClick={()=>{setAiOpen(true);void model.actions.refreshAiPhotoQuota?.();}} disabled={task.busy||uploading||media.length>=mediaUploadMaxItems}><Image src="/brand/featured-creators-v1.png" alt="" width={24} height={24} sizes="24px"/><span className={ai.aiActionCopy}><span>AI 사진 편집</span><small id={aiDescriptionId}>메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경</small></span><Icon name="chevron" width={18} height={18}/></button>
         <AiPhotoDialog noHearts={!!guest} library={model.photoLibrary} onCrop={model.actions.aiCropPhoto} onHeartGame={model.actions.aiHeartGame} shop={model.shop} shopBasePath={basePath} open={aiOpen} onClose={()=>setAiOpen(false)} images={photos} quota={model.aiPhotoQuota||{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT}} room={mediaUploadMaxItems-media.length} onEdit={model.actions.aiEditPhoto!} onUseTicket={model.actions.useAiPhotoTicket} onAdd={(made,context)=>{if(context){context.labels.forEach(label=>captionItems.current.add(label));if(context.prompt)captionPrompt.current=context.prompt;}draftMedia.current=[...draftMedia.current,...made.map(item=>item.url)];setMedia(previous=>[...previous,...made]);setMediaError('');}}/></div>;})()}
       {aiMade?<section className={s.captionFields} aria-label="제목과 내용"><div className={s.captionBar}><Action variant="secondary" type="button" disabled={captionBusy||task.busy} onClick={()=>void writeCaption()}>{captionBusy?'쓰는 중…':'AI로 내용 작성'}</Action><p className={s.captionHint}>고른 항목 이름과 요청 문장만 OpenAI(해외)로 보내 제목·내용을 써요. 게시 전에 고칠 수 있어요.</p></div>
@@ -225,7 +235,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       </>:<>
       <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
       <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
-      <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={upload} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
+      <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={files=>void upload(files)} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
       {model.actions.aiEditPhoto&&(()=>{const photos=media.filter(item=>item.type==='image'&&!item.processing&&!item.failed);return <div className={ai.aiAction}><button type="button" className={ai.aiWide} aria-label="AI 사진 편집" aria-describedby={aiDescriptionId} onClick={()=>{setAiOpen(true);void model.actions.refreshAiPhotoQuota?.();}} disabled={task.busy||uploading||media.length>=mediaUploadMaxItems}><Image src="/brand/featured-creators-v1.png" alt="" width={24} height={24} sizes="24px"/><span className={ai.aiActionCopy}><span>AI 사진 편집</span><small id={aiDescriptionId}>메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경</small></span><Icon name="chevron" width={18} height={18}/></button>
         <AiPhotoDialog noHearts={!!guest} library={model.photoLibrary} onCrop={model.actions.aiCropPhoto} onHeartGame={model.actions.aiHeartGame} shop={model.shop} shopBasePath={basePath} open={aiOpen} onClose={()=>setAiOpen(false)} images={photos} quota={model.aiPhotoQuota||{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT}} room={mediaUploadMaxItems-media.length} onEdit={model.actions.aiEditPhoto!} onUseTicket={model.actions.useAiPhotoTicket} onAdd={(made,context)=>{if(context){context.labels.forEach(label=>captionItems.current.add(label));if(context.prompt)captionPrompt.current=context.prompt;}draftMedia.current=[...draftMedia.current,...made.map(item=>item.url)];setMedia(previous=>[...previous,...made]);setMediaError('');}}/></div>;})()}
       </>}
