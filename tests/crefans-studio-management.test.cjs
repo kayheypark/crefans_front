@@ -21,7 +21,7 @@ function fixtureHook(){
 const pushed=[];
 const {ContentManagementPage,ContentEditorPage,MembershipManagementPage,SubscriberManagementPage}=loadTypeScript('components/crefans/studio/ManagementPages.tsx',{
   './social.module.css':styles,'./chip-row.module.css':styles,'./content-post-preview.module.css':styles,'./phone-frame.module.css':styles,
-  './management.module.css':styles,'./benefits-field.module.css':styles,'./data-table.module.css':styles,'./pagination.module.css':styles,'./media-upload.module.css':styles,'./toggle.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./optional-image.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./image-upload.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./toggle.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./service.module.css':styles,'./ui.module.css':styles,'./avatar.module.css':styles,'./select.module.css':styles,'./field.module.css':styles,
+  './management.module.css':styles,'./ai-photo.module.css':{__esModule:true,default:styles},'./benefits-field.module.css':styles,'./data-table.module.css':styles,'./pagination.module.css':styles,'./media-upload.module.css':styles,'./toggle.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./optional-image.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./image-upload.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./toggle.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./service.module.css':styles,'./ui.module.css':styles,'./avatar.module.css':styles,'./select.module.css':styles,'./field.module.css':styles,
   'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),
   'next/navigation':{useRouter:()=>({push:url=>pushed.push(url)})},
   '@/components/ui/Primitives':{
@@ -400,7 +400,13 @@ test('guest trial: fields appear after an AI photo; the AI button fills title/bo
   act(()=>dialog.props.onAdd([],{labels:['판타지 마법사'],prompt:''}));
   const text=json(tree);assert.ok(text.indexOf('파일 업로드')<text.indexOf('제목'),'the photo comes before the text fields');assert.match(text,/고른 항목 이름과 요청 문장만 OpenAI/);
   assert.equal(button(tree,'지금 게시하기').props.disabled,true,'title/body are still required');
+  // 2026-11-17: the caption button is nudged (bubble + pink pulse) until pressed once; then the publish button once both are filled.
+  assert.match(json(tree),/여기를 눌러 빠르게 작성하세요/);assert.match(button(tree,'AI로 내용 작성').props.className,/aiNudge/);assert.doesNotMatch(json(tree),/이제 게시하기를 눌러/);
   await act(async()=>button(tree,'AI로 내용 작성').props.onClick());
+  assert.doesNotMatch(json(tree),/여기를 눌러 빠르게 작성하세요/);assert.doesNotMatch(button(tree,'AI로 내용 작성').props.className,/aiNudge/);
+  assert.match(json(tree),/이제 게시하기를 눌러 올려 보세요/);assert.match(button(tree,'지금 게시하기').props.className,/aiNudge/);
+  act(()=>tree.root.findByProps({label:'본문'}).props.onChange({target:{value:'  '}}));assert.doesNotMatch(json(tree),/이제 게시하기를 눌러/,'needs a non-empty body');
+  act(()=>tree.root.findByProps({label:'본문'}).props.onChange({target:{value:'판타지 마법사 의상으로 만들어 봤어요'}}));assert.match(json(tree),/이제 게시하기를 눌러/,'typed text counts too');
   assert.deepEqual(captions,[{items:['판타지 마법사','스튜디오 배경'],prompt:'신비로운 분위기'}]);assert.equal(saved.length,0,'writing does not publish');
   assert.equal(tree.root.findByProps({label:'제목'}).props.value,'오늘은 마법사로 변신');assert.equal(tree.root.findByProps({label:'본문'}).props.value,'판타지 마법사 의상으로 만들어 봤어요');
   act(()=>tree.root.findByProps({label:'제목'}).props.onChange({target:{value:'내가 고친 제목'}}));
@@ -411,6 +417,6 @@ test('guest trial: fields appear after an AI photo; the AI button fills title/bo
 
 test('member editor keeps writing its own title/body: no AI caption and publishing still needs both',()=>{
  const probe=fixtureHook();const tree=mount(ContentEditorPage,{...probe.model,contents:[]});
- try{assert.equal(button(tree,'지금 게시하기').props.disabled,true);assert.doesNotMatch(json(tree),/AI로 내용 작성|OpenAI/);assert.ok(json(tree).indexOf('제목')<json(tree).indexOf('파일 업로드'));}
+ try{assert.equal(button(tree,'지금 게시하기').props.disabled,true);assert.doesNotMatch(json(tree),/AI로 내용 작성|OpenAI/);act(()=>tree.root.findByProps({label:'제목'}).props.onChange({target:{value:'제목'}}));act(()=>tree.root.findByProps({label:'본문'}).props.onChange({target:{value:'본문'}}));assert.doesNotMatch(json(tree),/이제 게시하기를 눌러/,'member editor has no nudge');assert.ok(json(tree).indexOf('제목')<json(tree).indexOf('파일 업로드'));}
  finally{act(()=>tree.unmount());probe.close();}
 });
