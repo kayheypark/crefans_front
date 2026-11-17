@@ -1,3 +1,7 @@
+## 2026-11-17 성별 선택 아이콘 (feat/gender-icons, 운영 front-gender-20261117)
+- AI 사진 편집 첫 화면 '남성인가요, 여성인가요?'의 ♂/♀ 기호를 Seedream으로 만든 컬러 플랫 상반신 아이콘(public/brand/ai-photo/gender-{male,female}-v1.webp, 256px, 생성 기록 .local/gender-icons/*.png.json)으로 교체. 흰 원 배경.
+- 검증: studio-ai-photo 83/83, typecheck 0, WebKit 390 디자인 시스템 화면 두 아이콘 디코드·캡처.
+
 ## 2026-11-17 체험 다음 단계 강조 + 랜딩 프리셋 이어받기 (fix/trial-next-step, 운영 front-trial-20261117)
 - 사용자 피드백: 샘플 사진 다음에 뭘 눌러야 할지 모름 → 샘플이 들어가 있고 AI 편집을 아직 안 열었으면 'AI 사진 편집' 버튼에 분홍 테두리 맥동·빛줄기와 말풍선 '이제 여기를 눌러 의상·포즈를 골라 보세요'(한 번 열면 사라짐, reduced-motion 정지).
 - 사용자 피드백: 랜딩 '이 프리셋으로 무료 체험' 후 선택이 안 남음 → 클릭 시 고른 프리셋 문구를 이 브라우저 localStorage(1시간, lib/crefans/ai-photo-handoff.ts)에 저장, AI 편집기가 처음 열릴 때 한 번 적용하고 지움(의상이 있으면 코스어 모드, 첫 프리셋 탭).
