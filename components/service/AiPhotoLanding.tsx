@@ -40,7 +40,7 @@ const illustrated=['expression','pose','camera','lens'];
 // whole hint disappears for good once the line has moved. The range input stays for keyboard use.
 // Pointing hand (index finger raised on the left), Lucide 'pointer' outline (ISC licence).
 const HINT_FINGER=['M22 14a8 8 0 0 1-8 8','M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2','M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1','M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10','M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'];
-const INTRO_MS=1400;
+const INTRO_MS=1400,HANDLE_HIT=60;
 export function AiPhotoCompare({before,after,label}:{before:string;after:string;label:string}){
  // 2026-11-17 user request: on entry the line starts at the far right (all original) and eases in-out to 20%; hints follow.
  const [split,setSplit]=useState(100),[intro,setIntro]=useState(true),[moved,setMoved]=useState(false),[dragging,setDragging]=useState(false);
@@ -48,7 +48,9 @@ export function AiPhotoCompare({before,after,label}:{before:string;after:string;
   const move=(value:number)=>{setIntro(false);setSplit(Math.round(Math.min(100,Math.max(0,value))));setMoved(true);};
  const at=(event:{clientX:number;currentTarget:HTMLElement})=>{const r=event.currentTarget.getBoundingClientRect();return r.width?((event.clientX-r.left)/r.width)*100:split;};
  return <div className={s.compare} data-dragging={dragging||undefined} data-intro={intro||undefined}
-  onPointerDown={event=>{if(event.button>0)return;move(at(event));setDragging(true);event.currentTarget.setPointerCapture?.(event.pointerId);}}
+  // 2026-11-17 user request: the handle keeps its look but grabs within 60px (30px each side of the line) — a press there starts
+  // a drag without jumping; a press elsewhere moves the line to that spot.
+  onPointerDown={event=>{if(event.button>0)return;const r=event.currentTarget.getBoundingClientRect(),onHandle=Math.abs(event.clientX-(r.left+r.width*split/100))<=HANDLE_HIT/2;if(onHandle){setIntro(false);setMoved(true);}else move(at(event));setDragging(true);event.currentTarget.setPointerCapture?.(event.pointerId);}}
   onPointerMove={event=>{if(dragging)move(at(event));}}
   onPointerUp={()=>setDragging(false)} onPointerCancel={()=>setDragging(false)}>
   {/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}
