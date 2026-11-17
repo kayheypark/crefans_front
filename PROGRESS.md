@@ -1,3 +1,7 @@
+## 2026-11-17 AI 랜딩 모바일 푸터를 서비스 랜딩과 맞춤 (fix/ai-landing-footer, 운영 front-footer2-20261117)
+- 운영 비교(WebKit 390): 링크 배치·글자·폭은 같고 배경(AI 랜딩만 canvas #FAFBFD)과 공식 계정 아이콘 색(서비스 랜딩은 .page a{color:inherit}로 진한 색)이 달랐음. AI 랜딩 .page 배경을 surface(#FFF)로, 푸터 공식 계정 링크 색을 inherit로.
+- 검증: 로컬 WebKit 계산 스타일(배경 #FFF, 아이콘 rgb(32,35,51) = 서비스 랜딩과 같음), ai-photo-landing·official-social-links 테스트 통과.
+
 ## 2026-11-17 체험 버튼 빛줄기 애니메이션 (feat/cta-shine, 운영 front-shine-20261117)
 - AI 사진 랜딩 주 버튼(.primary)과 피드 상단 체험 배너 버튼(.action)에 3.2초 주기로 빛줄기가 지나가는 ::after 애니메이션. reduced-motion이면 끔. CSS만 변경.
 - 검증: WebKit 390 계산 스타일(애니메이션 적용·overflow hidden·reduced-motion에서 display none), 중간 프레임 캡처 확인, ai-photo-landing 테스트 통과.

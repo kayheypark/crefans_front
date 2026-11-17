@@ -1,5 +1,5 @@
 /* AI photo editing landing (2026-11-16). Service tokens only; mobile first. */
-.page{min-height:100vh;background:var(--cf-color-canvas,#fff);color:var(--cf-color-text,#202333);font-family:var(--cf-typography-fontFamily,inherit)}
+.page{min-height:100vh;background:var(--cf-color-surface,#fff);color:var(--cf-color-text,#202333);font-family:var(--cf-typography-fontFamily,inherit)}
 .header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px max(16px,calc((100% - 1080px)/2 + 16px));background:color-mix(in srgb,var(--cf-color-canvas,#fff) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--cf-color-border,#e5e8ef)}
 .headerLink{font-size:14px;font-weight:700;color:var(--cf-color-accent,#2563eb);text-decoration:none}
 .hero{display:grid;gap:32px;max-width:1080px;margin:0 auto;padding:32px 16px 40px}
@@ -57,3 +57,7 @@
 .primary::after{content:"";position:absolute;inset:-20% auto -20% -60%;width:40%;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.08) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,.08) 70%,transparent 100%);transform:skewX(-18deg);animation:primaryShine 3.2s ease-in-out infinite;pointer-events:none}
 @keyframes primaryShine{0%{left:-60%}45%{left:125%}100%{left:125%}}
 @media(prefers-reduced-motion:reduce){.primary::after{animation:none;display:none}}
+
+/* 2026-11-17 user request: the footer matches the service landing on mobile — white page and dark official-account icons
+   (the service landing's `.page a{color:inherit}` makes them dark there). */
+.siteFooter ul[aria-label] a{color:inherit}
