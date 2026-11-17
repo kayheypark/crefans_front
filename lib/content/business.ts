@@ -24,3 +24,9 @@ export const guideSiteUrl='https://guide.crefans.com/';
 // 2026-10-31: the closed beta host now only points visitors to the main service (components/service/BetaClosedNotice).
 export const mainServiceOrigin='https://crefans.com';
 export const closedBetaHost='beta.crefans.com';
+// 2026-11-17 user request: official social accounts linked at the bottom of the service footer and the PC sidebar.
+export const officialSocialLinks=[
+  {id:'x',label:'X',href:'https://x.com/crefans_app'},
+  {id:'instagram',label:'인스타그램',href:'https://www.instagram.com/crefans.official'},
+  {id:'discord',label:'디스코드',href:'https://discord.gg/DupBW53n6'},
+] as const;
