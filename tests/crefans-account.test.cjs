@@ -221,7 +221,11 @@ test('settings categories filter their own items and keep account actions in acc
     choose(category);assert.deepEqual(headings(),[category]);
     assert.deepEqual(categories.findAllByType('button').filter(node=>node.props['aria-pressed']).map(flat),[category]);
     assert.deepEqual(tree.root.findAllByType('button').filter(node=>node.props['aria-pressed']===undefined).map(node=>flat(node).trim()),buttons);
-    assert.deepEqual(tree.root.findAllByType('a').map(node=>node.props.href).filter(href=>!/^(mailto|tel):/.test(href)),['/service/me',...links]);
+    // 2026-11-17: the footer also ends with the official X·Instagram·Discord links (tests/official-social-links.test.cjs); they are
+    // checked separately so this list stays about the settings menu itself.
+    const official=['https://x.com/crefans_app','https://www.instagram.com/crefans.official','https://discord.gg/DupBW53n6'],hrefs=tree.root.findAllByType('a').map(node=>node.props.href);
+    assert.deepEqual(hrefs.filter(href=>!/^(mailto|tel):/.test(href)&&!official.includes(href)),['/service/me',...links]);
+    if(category==='서비스 안내')assert.deepEqual(hrefs.filter(href=>official.includes(href)),official);
     assert.equal(tree.root.findAllByProps({'aria-label':'사업자 정보'}).length,category==='서비스 안내'?1:0);
     assert.equal(tree.root.findAllByType('footer').length,category==='서비스 안내'?1:0);
     const logout=button(tree,'로그아웃');assert.ok(logout,'logout is always reachable on settings');

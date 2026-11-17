@@ -21,7 +21,7 @@ import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPho
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {aiPhotoSelectionLabels,type AiPhotoCaptionContext} from '@/lib/crefans/ai-photo-labels';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,aiPhotoBodyPrompt,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
-import {Action} from '../ServiceUI';
+import {Action,ActionLink} from '../ServiceUI';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
 import {AI_PHOTO_KEEP_ORIGINAL,aiPhotoMultiSelectKinds,aiPhotoMakeupGender,aiPhotoPresetMatches,aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoPresetTitle,type AiPhotoPosePosture,type AiPhotoBackgroundCategory} from '@/lib/crefans/ai-photo-presets';
 import {AiPhotoCategoryIcon} from './AiPhotoCategoryIcon';
@@ -89,7 +89,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);searchPresets('');setError('');}
  const [strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
  // 2026-11-17: when the image server refuses the result (try not used up), the notice offers to try again.
- const [retryable,setRetryable]=useState(false);
+ const [retryable,setRetryable]=useState(false),[signupOffer,setSignupOffer]=useState(false);
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
  useEffect(()=>{if(typeof navigator!=='undefined'&&typeof navigator.share==='function')for(const item of results)void photoFile(item).catch(()=>{});},[results]);// eslint-disable-line react-hooks/exhaustive-deps
  const [heartGame,setHeartGame]=useState<{id:string;kinds:('heart'|'candy'|'moon')[]}|null>(null),[heartBalance,setHeartBalance]=useState(quota.hearts||0),[rewardNote,setRewardNote]=useState('');
@@ -115,7 +115,10 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  async function generate(retryImproved=false){
   if(busy)return;
   if(!source){setError('편집할 사진을 먼저 올려 주세요.');return;}
-  if(remaining<=0){if(shop){setShopOpen(true);void shop.refresh();return;}setError(tickets>0?'오늘 만들 수 있는 횟수를 모두 썼어요. 리셋권을 사용하면 다시 만들 수 있어요.':'오늘 만들 수 있는 횟수를 모두 썼어요. 매일 오전 9시에 다시 이용할 수 있어요.');return;}
+  if(remaining<=0){if(shop){setShopOpen(true);void shop.refresh();return;}
+   // 2026-11-17 user decision: a signed-out visitor's 10 tries never refill, so the trial points to signup instead of the 9 AM refill.
+   if(noHearts){setSignupOffer(true);setError(`체험 AI 사진 ${quota.limit}회를 모두 썼어요. 회원가입하면 매일 무료로 계속 만들 수 있어요.`);return;}
+   setError(tickets>0?'오늘 만들 수 있는 횟수를 모두 썼어요. 리셋권을 사용하면 다시 만들 수 있어요.':'오늘 만들 수 있는 횟수를 모두 썼어요. 매일 오전 9시에 다시 이용할 수 있어요.');return;}
   if(!prompt.trim()){setError('프리셋을 고르거나 커스텀 프롬프트를 적어 주세요.');return;}
   if(prompt.length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.');return;}
   const requestKind=editKinds[0]||(targetGender!=='original'?'pose':aspectRatio!=='original'?'camera':kind);
@@ -217,8 +220,8 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  {library&&<AiPhotoLibrary open={open&&libraryOpen} model={library} selected={libraryAssets} onSelect={selectLibrary} onChanged={id=>setLibraryAssets(items=>items.filter(item=>item.id!==id))} onClose={()=>setLibraryOpen(false)}/>}
  {open&&cropItem&&onCrop&&<AiPhotoCrop key={cropItem.id} item={cropItem} onClose={()=>setCropItem(null)} onApply={async crop=>{const r=await onCrop({sourceId:cropItem.id,...crop});if(!r.success)throw new Error(r.errorMessage||'사진을 저장하지 못했어요.');const next={...r.data,aiGenerated:true};sourceOrigins.current.set(next.id,sourceOrigins.current.get(cropItem.id)||sourceId);setResults(items=>items.map(item=>item.id===cropItem.id?next:item));setSelected(ids=>ids.map(id=>id===cropItem.id?next.id:id));setCropItem(null);}}/>}
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="AI 이용권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
- <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);}} title="AI 사진 편집 안내" persistent>
-  <div className={s.errorMessage}><p role="alert">{error}</p>{retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>
+ <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);setSignupOffer(false);}} title="AI 사진 편집 안내" persistent>
+  <div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href="/service/signup">회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>
  </Dialog></>;
 }
 

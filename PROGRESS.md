@@ -1,3 +1,9 @@
+## 2026-11-17 night-work 조사·후속 수정 (fix/guest-exhausted-signup, 운영 front-night-20261117)
+- 조사 문서: .local/night-work/2026-11-17-1418.md(70건, 상위 10, 결정 질문). 사용자 결정 반영: 서버 crefans-api:night-20261117(보관함 정리 제외, 성인 차단 스위치 ADULT_CONTENT_BLOCKED, AI 잠금 members 행, 차단 반환 하루 5회), 콘솔 crefans-admin:night-20261117(우대 종료일 하루 끝까지).
+- 프론트: 비회원이 체험 10회를 다 쓰면 회원용 '오전 9시' 대신 가입 안내 + 회원가입 버튼(AiPhotoDialog noHearts). 공식 계정 링크로 깨진 crefans-account 설정 링크 기대값 갱신(공식 링크는 따로 검사).
+- 검증: studio-ai-photo 81/81, npm test 731 중 실패 18(기준선과 동일 목록, 새 실패 0), typecheck 0.
+- 남은 결정: 문서 '결정 필요' 11~13번(결제 수단, 홍보물 첫 이미지, 미츠리·복구 묶음·비회원 연령·휴대폰 열람 권한 등).
+
 ## 2026-11-17 랜딩 OG 이미지 가로 모더니아 버전 (feat/landing-og-modernia, 운영 front-og-20261117)
 - /service/landing-ai-image-generation openGraph·twitter·JSON-LD 이미지를 og-modernia-v1.jpg(1200×630, 원본 썸네일+모더니아 결과, 현재 로고·히어로 문구)로 교체. 세로 cos1이 링크 미리보기에서 얼굴이 잘리는 문제 대응. 사용자 시안 승인 후 배포.
 - 검증: ai-photo-landing 2/2(이미지 경로·크기 확인 추가), typecheck 0. X 카드 캐시는 기존 게시물에 바로 반영되지 않을 수 있음.

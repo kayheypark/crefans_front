@@ -10,7 +10,7 @@ const {mockAiPhotoEdit}=loadTypeScript('components/preview/studio/ai-photo-fixtu
 const dialog=props=>el('section',null,props.children);
 const paintedMask=new Blob(['painted-mask'],{type:'image/png'});
 let maskCalls=[];
-const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'./ShopPage':{ShopPage:()=>el('div',null,'상점')},'./AiPhotoMask':{AiPhotoMask:props=>el('div',{'data-mask-editor':true,...props}),buildAiMask:async(...args)=>{maskCalls.push(args);return paintedMask;}},'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Chip:({children,...props})=>el('button',props,children),Dialog:({open,children,title,onClose})=>open?el('section',{role:'dialog','aria-label':title,onClose},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props}),Field:({label,...props})=>el('input',{'aria-label':label,label,...props})}});
+const {AiPhotoDialog}=loadTypeScript('components/crefans/studio/AiPhotoDialog.tsx',{'next/link':({href,children,...props})=>el('a',{href,...props},children),'./ShopPage':{ShopPage:()=>el('div',null,'상점')},'./AiPhotoMask':{AiPhotoMask:props=>el('div',{'data-mask-editor':true,...props}),buildAiMask:async(...args)=>{maskCalls.push(args);return paintedMask;}},'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,key)=>String(key)})},'@/components/ui/Primitives':{Chip:({children,...props})=>el('button',props,children),Dialog:({open,children,title,onClose})=>open?el('section',{role:'dialog','aria-label':title,onClose},children):null,TextAreaField:({label,...props})=>el('textarea',{'aria-label':label,...props}),Field:({label,...props})=>el('input',{'aria-label':label,label,...props})}});
 const text=node=>typeof node==='string'?node:(Array.isArray(node)?node:node?.children||[]).map(text).join('');
 const photo={id:'p1',type:'image',url:'/p1.png'};
 const base={prompt:'벚꽃 아래 앉은 포즈',consent:true,kind:'pose',hasMask:false,remaining:3};
@@ -804,4 +804,15 @@ test('guest can play while generating without reward API or conversion claims',a
  assert.doesNotMatch(text(r.toJSON()),/100개가 모이면|누적 하트|1\/100/);
  assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);
  }finally{await act(async()=>r.unmount());}
+});
+
+// 2026-11-17 user decision: a signed-out visitor who used all 10 tries gets a signup offer, not the members' 9 AM refill line.
+test('guest with no tries left is offered signup; members still see the 9 AM refill',async()=>{
+ const make=async noHearts=>{let r,calls=0;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:0,limit:10},room:9,noHearts,onEdit:async()=>{calls++;return {success:false};},onAdd(){}}));});
+  await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes('여성')).props.onClick());
+  await act(async()=>{await r.root.find(n=>n.type==='button'&&text(n).includes('1장 만들기')).props.onClick();});return {r,calls:()=>calls};};
+ const guest=await make(true);const shown=text(guest.r.toJSON());
+ assert.match(shown,/체험 AI 사진 10회를 모두 썼어요\. 회원가입하면 매일 무료로 계속 만들 수 있어요\./);assert.doesNotMatch(shown,/오전 9시/);assert.equal(guest.calls(),0);
+ assert.equal(guest.r.root.findAll(n=>n.props?.href==='/service/signup').length>=1,true,'signup link');
+ const member=await make(false);assert.match(text(member.r.toJSON()),/매일 오전 9시에 다시 이용할 수 있어요/);assert.equal(member.r.root.findAll(n=>n.props?.href==='/service/signup').length,0);
 });
