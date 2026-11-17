@@ -11,3 +11,9 @@
 @media(max-width:600px){.banner{padding:20px;gap:8px}.cards{width:116px}.card{width:70px;height:112px}.card:nth-child(2),.card:nth-child(3){margin-left:-44px}.title{font-size:20px}}
 @media(max-width:380px){.banner{padding:18px;gap:6px}.cards{width:92px}.card{width:56px;height:90px}.card:nth-child(2),.card:nth-child(3){margin-left:-36px}.title{font-size:19px}.action{gap:8px;padding:0 12px;font-size:13px}}
 @media(max-width:340px){.banner{padding:16px}.cards{width:78px}.card{width:50px;height:80px}.card:nth-child(2),.card:nth-child(3){margin-left:-34px}.title{font-size:18px}}
+
+/* 2026-11-17 user request: a light streak sweeps across the call-to-action every few seconds; still under reduced motion. */
+.action{position:relative;overflow:hidden;isolation:isolate}
+.action::after{content:"";position:absolute;inset:-20% auto -20% -60%;width:45%;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.08) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,.08) 70%,transparent 100%);transform:skewX(-18deg);animation:actionShine 3.2s ease-in-out infinite;pointer-events:none}
+@keyframes actionShine{0%{left:-60%}45%{left:125%}100%{left:125%}}
+@media(prefers-reduced-motion:reduce){.action::after{animation:none;display:none}}

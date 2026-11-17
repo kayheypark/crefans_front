@@ -1,3 +1,7 @@
+## 2026-11-17 체험 버튼 빛줄기 애니메이션 (feat/cta-shine, 운영 front-shine-20261117)
+- AI 사진 랜딩 주 버튼(.primary)과 피드 상단 체험 배너 버튼(.action)에 3.2초 주기로 빛줄기가 지나가는 ::after 애니메이션. reduced-motion이면 끔. CSS만 변경.
+- 검증: WebKit 390 계산 스타일(애니메이션 적용·overflow hidden·reduced-motion에서 display none), 중간 프레임 캡처 확인, ai-photo-landing 테스트 통과.
+
 ## 2026-11-17 체험 샘플 자동 등록 스낵바 (feat/sample-snackbar, 미배포)
 - 샘플 사진이 자동으로 올라가면 공용 하단 스낵바로 '샘플 원본을 등록해드렸어요.'(useSnackbarMessage, 공용 호스트 없을 땐 같은 Toast).
 - 검증: content-post-preview 샘플 테스트(스낵바 문구 제거 시 실패 대조), npm test 실패 18(기준선 동일), typecheck 0.
