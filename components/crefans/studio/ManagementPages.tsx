@@ -189,9 +189,9 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   }
   // 2026-11-17 user decision: the guest trial starts with the landing page's fictional person already added, so a visitor with
   // no photo at hand can try the AI editor at once; removing it and uploading their own photo works as before.
-  const sampleTried=useRef(false),[sampleId,setSampleId]=useState<string>();
+  const sampleTried=useRef(false),[sampleId,setSampleId]=useState<string>(),[sampleNotice,setSampleNotice]=useSnackbarMessage();
   useEffect(()=>{const sample=guest?.samplePhoto;if(!sample||content||sampleTried.current)return;sampleTried.current=true;
-    void (async()=>{try{const response=await fetch(sample.url);if(!response.ok)return;const blob=await response.blob();const added=await upload([new File([blob],sample.name,{type:blob.type||'image/webp'})]);if(added[0])setSampleId(added[0].id);}catch{/* the visitor can still upload a photo */}})();
+    void (async()=>{try{const response=await fetch(sample.url);if(!response.ok)return;const blob=await response.blob();const added=await upload([new File([blob],sample.name,{type:blob.type||'image/webp'})]);if(added[0]){setSampleId(added[0].id);setSampleNotice('샘플 원본을 등록해드렸어요.');}}catch{/* the visitor can still upload a photo */}})();
   // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once when the trial editor opens
   },[]);
   const sampleShown=!!sampleId&&media.some(item=>item.id===sampleId);
@@ -242,7 +242,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       {!memberMode&&<div className={s.editorOptions}><SelectField marquee label="공개 범위" value={access} onChange={setAccess} options={[{value:'',label:'전체 공개'},...levels.map(rank=>({value:`level:${rank}`,label:`레벨 ${rank} 이상`})),...model.memberships.map(plan=>({value:plan.id,label:`${plan.name} 전용${!plan.active?' · 신규 가입 중단':''}`}))]} searchable/>{status!=='published'&&<section className={s.scheduleBox} aria-label="예약 게시 설정"><Toggle label="예약 사용" checked={scheduleEnabled} disabled={task.busy} onChange={enabled=>{setScheduleEnabled(enabled);if(!enabled)setScheduledAt('');setError('');}}/><Field label="예약 게시 시각" type="datetime-local" value={scheduledAt} min={localDateInput(model.now)} disabled={!scheduleEnabled||task.busy} clearable onClear={()=>{setScheduledAt('');setError('');}} onChange={e=>{setScheduledAt(e.target.value);setError('');}} hint="현재 기기의 시간대를 기준으로 선택해주세요."/></section>}</div>}
       {!memberMode&&<div className={s.commentOption}><Checkbox label="이 게시물에서 후원 받기" description="전체공개 게시물에서도 후원을 받을 수 있습니다." checked={tipsEnabled} disabled={task.busy} onChange={setTipsEnabled}/></div>}
       {!guest&&<div className={s.commentOption}><Toggle label="댓글 허용" description={commentsGloballyEnabled?'끄면 이 게시물에서만 댓글을 닫습니다.':'스튜디오 설정에서 댓글 기능이 꺼져 있어 모든 게시물의 댓글이 닫힙니다. 크리에이터 설정에서 먼저 켜 주세요.'} checked={commentsEnabled} disabled={task.busy||!commentsGloballyEnabled} onChange={setCommentsEnabled}/></div>}
-      {(error||task.error)&&<p className={s.error} role="alert">{error||task.error}</p>}<Toast message={task.message} onClose={task.clearMessage}/>
+      {(error||task.error)&&<p className={s.error} role="alert">{error||task.error}</p>}<Toast message={task.message} onClose={task.clearMessage}/><Toast message={sampleNotice} onClose={()=>setSampleNotice('')}/>
       {/* Narrow screens (one column): the fan preview opens in its own dialog instead of sitting below the form (2026-11-01). */}
       <Action variant="secondary" type="button" className={s.mobilePreview} onClick={()=>setPreviewOpen(true)}>미리보기</Action>
       <div className={s.editorActions}>{status==='published'?<Action type="submit" disabled={task.busy||uploading||!title.trim()||!body.trim()}>수정 저장</Action>:<>{!guest&&<Action variant="secondary" type="submit" disabled={task.busy||uploading||!title.trim()}>{status==='scheduled'?'예약 취소 후 임시저장':'임시저장'}</Action>}<Action variant="brand" type="button" disabled={task.busy||uploading||captionBusy||!title.trim()||!body.trim()||scheduleEnabled&&!scheduledAt} onClick={()=>save(scheduling?'scheduled':'published')}>{scheduling?'예약하기':'지금 게시하기'}</Action></>}</div>

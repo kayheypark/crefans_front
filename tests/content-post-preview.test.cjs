@@ -195,6 +195,7 @@ test('guest trial editor adds the fictional sample photo once and says how to re
   await act(async()=>{view=create(element(ContentEditorPage,{model:guestModel,basePath:'/service/try',previewModel:model,previewCreatorId:creator.id,guest:{backHref:'/service/feed',doneHref:'/service/try?done=1',notice:'안내',caption:async()=>({success:false}),samplePhoto:{url:'/illustrations/landing/ai-photo/base-v1.webp',name:'crefans-sample-virtual-person.webp'}}}));await new Promise(r=>setTimeout(r,10));});
   assert.deepEqual(uploads,['crefans-sample-virtual-person.webp'],'uploaded once through the normal trial upload');
   assert.match(JSON.stringify(view.toJSON()),/가상 인물 샘플 사진이 미리 들어가 있어요/);
+  assert.match(JSON.stringify(view.toJSON()),/샘플 원본을 등록해드렸어요\./,'snackbar tells the visitor the sample was added');
   await act(async()=>{await new Promise(r=>setTimeout(r,10));});assert.equal(uploads.length,1,'not repeated on re-render');
  }finally{global.fetch=previousFetch;if(view)act(()=>view.unmount());}
 });

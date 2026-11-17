@@ -1,3 +1,7 @@
+## 2026-11-17 체험 샘플 자동 등록 스낵바 (feat/sample-snackbar, 미배포)
+- 샘플 사진이 자동으로 올라가면 공용 하단 스낵바로 '샘플 원본을 등록해드렸어요.'(useSnackbarMessage, 공용 호스트 없을 땐 같은 Toast).
+- 검증: content-post-preview 샘플 테스트(스낵바 문구 제거 시 실패 대조), npm test 실패 18(기준선 동일), typecheck 0.
+
 ## 2026-11-17 비회원 체험 기본 샘플 사진 (feat/guest-sample-photo, 운영 front-sample-20261117)
 - 사용자 결정: 사진이 없는 방문자도 바로 해 볼 수 있게, 체험 편집 화면이 열리면 AI 생성 가상 인물 샘플(guest-sample-v1.webp: 사용자가 준 AI 생성 코스프레 사진을 같은 자세·방에서 평범한 회색 잠옷으로 Seedream 편집, 기록 .local/guest-sample/pajama-1.png.json)을 일반 체험 업로드 경로로 한 번 올려 둔다(서버 변경 없음, 소유권·입력 안전검사 그대로). 안내 '가상 인물 샘플 사진이 미리 들어가 있어요…'. 지우고 내 사진을 올리면 기존과 같음.
 - 사용자 확인: 원본 사진은 AI 생성물이라 권리 문제 없음.
