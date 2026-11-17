@@ -1,3 +1,8 @@
+## 2026-11-18 가입 완료·가드 화면 아이콘-제목 여백 복구 (fix/signup-complete-spacing, 미배포)
+- 증상: 가입 화면에서 완료 화면으로 이동하면 체크 아이콘과 제목이 붙음(직접 열면 정상).
+- 원인: `.service_root h1{margin-top:0}`이 `.page h1`과 같은 우선순위이고 클라이언트 이동 시 나중에 로드되어 24px 여백을 덮음(devbox 실측 margin 0 → 미리보기 24px).
+- 수정: GuardPage 제목에 `s.title` 클래스, CSS `.page .title`로 우선순위 상향. tsc 통과, creator-guard 테스트 9/9.
+
 ## 2026-11-17 체험 'AI로 내용 작성'·게시하기 강조 (feat/caption-publish-nudge, 운영 front-nudge-20261117)
 - 사용자 요청: 체험에서 AI 사진을 만든 뒤 'AI로 내용 작성'을 아직 안 눌렀으면 그 버튼 위에 말풍선 '여기를 눌러 빠르게 작성하세요'와 분홍 테두리 맥동·빛줄기(한 번 누르면 사라짐). 제목·본문이 모두 채워지면(AI·직접 입력 무관) '지금 게시하기'에 같은 강조와 오른쪽 정렬 말풍선 '이제 게시하기를 눌러 올려 보세요'. 강조는 한 번에 하나(제목·본문이 채워지면 게시 강조가 우선). 회원 편집기는 그대로.
 - CSS: `.aiWide.aiNudge`를 공용 `.aiNudge`로 일반화(키프레임·reduced-motion 재사용), 게시 말풍선용 `.aiNudgeHintRow` 추가.

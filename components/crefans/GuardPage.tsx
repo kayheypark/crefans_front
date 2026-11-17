@@ -16,7 +16,7 @@ export function GuardPage({image,title,description,primary,secondary}:{image?:Gu
   useEffect(()=>{let n=0,frame=0;const tick=()=>{const el=heading.current;if(el&&el.getClientRects().length){el.focus();if(document.activeElement===el)return;}if(++n<60)frame=requestAnimationFrame(tick);};frame=requestAnimationFrame(tick);return()=>cancelAnimationFrame(frame);},[]);
   return <section className={s.page}>
     {image?<img className={s.image} src={image.src} alt={image.alt||''} width={88} height={88}/>:<span className={s.check}><Icon name="check" width={50} height={50} strokeWidth={2.6}/></span>}
-    <h1 ref={heading} tabIndex={-1}>{title}</h1>
+    <h1 ref={heading} tabIndex={-1} className={s.title}>{title}</h1>
     <div className={s.content}>
       <p>{description}</p>
       <Link href={primary.href} className={s.login}>{primary.label}</Link>
