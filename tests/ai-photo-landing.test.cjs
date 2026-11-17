@@ -37,6 +37,6 @@ test('landing is discoverable: sitemap lists it, llms.txt describes it, the noin
  const fs=require('fs');const sitemap=fs.readFileSync('app/sitemap.ts','utf8'),llms=fs.readFileSync('public/llms.txt','utf8'),pageSrc=fs.readFileSync('app/service/landing-ai-image-generation/page.tsx','utf8');
  assert.match(sitemap,/'\/service\/landing-ai-image-generation'/);assert.doesNotMatch(sitemap,/'\/service\/try'/);
  assert.match(llms,/https:\/\/crefans\.com\/service\/landing-ai-image-generation/);assert.match(llms,/## AI 사진 편집/);
- assert.match(pageSrc,/application\/ld\+json/);assert.match(pageSrc,/'@type':'WebApplication'/);assert.match(pageSrc,/siteName:SITE_NAME/);
+ assert.match(pageSrc,/application\/ld\+json/);assert.match(pageSrc,/'@type':'WebApplication'/);assert.match(pageSrc,/siteName:SITE_NAME/);assert.match(pageSrc,/og-modernia-v1\.jpg',width:1200,height:630/);
  const robots=fs.readFileSync('app/robots.ts','utf8');assert.doesNotMatch(robots,/'\/service\/landing/);
 });
