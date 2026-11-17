@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T02:49:27.992818+00:00",
+  "checkedAt": "2026-11-17T03:05:21.028174+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "dcebd5d2aa255b2a9e51ef18c03bd9be9dd46744",
+      "head": "b46fd77bdb6a6cdde4ab4efb2b6e7ce9a64d6739",
       "branch": "",
       "dirty": false
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "1899a09f31849ddb32c4ab05ce9e7a382ee0939e401498de53cea5eae853eb49",
+      "front/PROGRESS.md": "7f2ee0516ac6574164ccb6ba4a1ecbeadb204db78031652a7e7786fed79a3a4c",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -431,7 +431,7 @@
       "front/components/profile/Profile.tsx": "91583baf187e8097f2bfb10baacbfccb38020cd205d9d3140a46b210ff1bde8d",
       "front/components/providers/ApplicationProviders.tsx": "95d9dcf4b3f66237ac3d5dc804ee202bf6469e90e8315c9ecae94083d39a79ba",
       "front/components/providers/PresentationProviders.tsx": "deda60079037c24274efed727c3a7089799c3386f1a6070237e9cba9f0f48e26",
-      "front/components/service/AiPhotoLanding.tsx": "013f0470913abdc0a5a89e7841b690e1833f8d49e6332dcdbf1f107a7fe86bae",
+      "front/components/service/AiPhotoLanding.tsx": "ac1c17b491dcffe124b06909cdae16f1742bd27a8a00567036c8afd5fd3cfd5d",
       "front/components/service/BeanPaymentResult.tsx": "4ea92ddf2aab3e05708b31c982f9ae291b0c29bae682e8e46720139b9453a717",
       "front/components/service/BeanWithdrawContainer.tsx": "9914aefd2d86d980ed012720283a3dcdd5226e7ef706d3c2a0331b3d776cb2ab",
       "front/components/service/BetaClosedNotice.tsx": "477689dce150592f20daad7d555720dc9b5593b2de5f3834b80269f7f2f7a142",
@@ -450,7 +450,7 @@
       "front/components/service/ShopContainer.tsx": "3cace36eeb2d3d04b0d29986cd2544c5b197154e9a306fced097fe0699c7587f",
       "front/components/service/ShopPayment.tsx": "7ee5037667d3d353c610d09b6caf9bf5b5e16d34506d653007ef12f9631b9da1",
       "front/components/service/StudioRouter.tsx": "da31567b4de71dd077d26080f90578b920a1cbd170dc9b5f20aaf92cddc8d237",
-      "front/components/service/ai-photo-landing.module.css": "192f1146b746a7686fa3de5fbb7fc7756cc1dd7dd5c93959843a26ee4583fd94",
+      "front/components/service/ai-photo-landing.module.css": "9e87ae81d543046e303851dca080d9fa0551df7cea14fdc9e0438e0688be6efa",
       "front/components/service/guest-claim.module.css": "a95d96f4997d98eec77a9341c0d3f10dc3a49e4c2405954e3ea194d9975ad5f1",
       "front/components/service/guest-trial.module.css": "742222107f1ee64d433b3a38711c6560435f102a04d1bbed237a5a7389965226",
       "front/components/settings/Settings.tsx": "f505dbbc972b7a0e4ee4d919e3ae450e90ef5c2481571ed174b377637f2dab8e",
@@ -839,7 +839,7 @@
       "front/scripts/generate-ai-preset-illustrations.cjs": "c1ab00f58c88169ae892aed0407199e8b1c67e74112fba9d9f03266522948d72",
       "front/scripts/render-og.cjs": "e6abecd6eef8b94d012e1337774a05d1dd120b41672b8e60f16d003d395a66bc",
       "front/tests/ai-photo-heart-game.test.cjs": "eef8c9e607c408faff3ca5031ef5be94dd85f7e845e49ed1b9a852957fb9de7f",
-      "front/tests/ai-photo-landing.test.cjs": "ef41339413ee5a517955789b77f7d0c93d58c8204006aa388670a4fe7891341f",
+      "front/tests/ai-photo-landing.test.cjs": "523b99b2887a4f57fc2d71f863ca5ea428974a5c0b2c3657f391537d906ab0c9",
       "front/tests/amount-presets.test.cjs": "720e713320db21dd5ceddc8bbc0160a9df612e582f6658188b1264e2762f1355",
       "front/tests/api-contracts.test.cjs": "d607262ef8ab70095f31911841faa779c4bdd6979aef0108071357b64865d491",
       "front/tests/avatar.test.cjs": "a3a281f0cb6b5ccd3a7bb0124b965a41cad9de7895e5805b50361bbe09dcf018",
