@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T03:05:21.028174+00:00",
+  "checkedAt": "2026-11-17T03:59:48.044818+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "b46fd77bdb6a6cdde4ab4efb2b6e7ce9a64d6739",
+      "head": "e5312c13008d5689f904448d29546c730bee4d5a",
       "branch": "",
       "dirty": false
     },
     "server": {
-      "head": "3ca75f8966ec504d457ad27ce49f126b0014c5a4",
+      "head": "564cbf0b4d4a680220f5845add9850e34194a745",
       "branch": "",
       "dirty": false
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "7f2ee0516ac6574164ccb6ba4a1ecbeadb204db78031652a7e7786fed79a3a4c",
+      "front/PROGRESS.md": "50b164417687ccbd0842f9ef9b6bf1111d346486a022350199aada5bb7450119",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -241,6 +241,7 @@
       "front/components/crefans/MembershipPlanCard.tsx": "675e97ab401a0601763213c6ca61075967b2873d6c34cfbad9e2a4bb4080d647",
       "front/components/crefans/MembershipThumb.tsx": "63b49cb3d2b6e7f060656a441e17b19581bc68108906d24a7e5c46b3cba68a9b",
       "front/components/crefans/NavigationIcon.tsx": "6ba2bdeb668202bd7ab98fce9db6b711f5e04e73ce530ddabb3b1c893bd2a9f7",
+      "front/components/crefans/OfficialSocialLinks.tsx": "5b02d50cf6568a8bbb8159c1c9ef4aac1c91687950351f44fae8712a23da6589",
       "front/components/crefans/PartnerPayoutNotice.tsx": "206f042e425ecd709a08b4c7fcea86152ae679d0aba211e9ebc7bf2a676e33b5",
       "front/components/crefans/PaymentTerms.tsx": "0d42fcfa47204309956041ca8d6d2d385232d1fd168635c4494e609b6b85e034",
       "front/components/crefans/PhoneCheckDialog.tsx": "45869594f3b541d2e7b334c2a0de07d097484ed0103728082f222d75b159ce0a",
@@ -258,9 +259,9 @@
       "front/components/crefans/PullToRefresh.tsx": "35bec9880a8e528c8f351d4d7a851d72275526b3aea04c96a761bc51488400b4",
       "front/components/crefans/ReferralCard.tsx": "1631a86b21f7144010d4e7e3dc96e0336c9fc74a9e235b1ec46a3a4c3f1c1180",
       "front/components/crefans/ReferralHistoryPage.tsx": "582afd0a45264cda90237e8640220d9a4f05b56a7ff290be399394a3d26df5b9",
-      "front/components/crefans/ServiceFooter.tsx": "79e726b7a6273fc3f1a1c7d567dc20ed6a61468de09a2fff88269ff1976ad187",
+      "front/components/crefans/ServiceFooter.tsx": "2cef64c5fac10aa7fa6f930f17d95190b33de60e847da1c0396d1a4284eb2e54",
       "front/components/crefans/ServiceLinks.tsx": "813a26dd7fed842e5258056dc77b845de2e85110dc2d9d2834d79f6d16e04050",
-      "front/components/crefans/ServiceShell.tsx": "9324aa2abb666401743d019b713a9faa7d2a793bf64203cb17ad4b6fe6debf92",
+      "front/components/crefans/ServiceShell.tsx": "f142a0e8192f627d8a25c2dcd9c8485e96dcd99832df87a17b41cc4dfb5c6553",
       "front/components/crefans/ServiceUI.tsx": "acf223eb3a6ab9928bbc136221ccba8d34d7c04695a5ebc91deaa861a0610bf2",
       "front/components/crefans/SignInPrompt.tsx": "429630ac8194a54ec8f571c1cdb212e82bf9d89872eb70a7c35dc47c109ef7dd",
       "front/components/crefans/SignupCompletePage.tsx": "ea2e4b4b3c3f2a09b33a6eb7b28621f1469a2b0012c21504cb92e56c2a458a5d",
@@ -287,6 +288,7 @@
       "front/components/crefans/membership-complete.module.css": "f93dcd1323e008b73c5397b27f18eb7440aee5f062ec1f566b4a15a753afadbb",
       "front/components/crefans/membership-thumb.module.css": "49e94a8e7cff6f2d5191755a4feca9ea9d5b4f4a083bcd14a2e6f1f5b706420d",
       "front/components/crefans/navigation-icon.module.css": "f7d03cc17dfb95e9ad57ca08744fa9041f89b5fe6341c2a45d68ae35769e5091",
+      "front/components/crefans/official-social-links.module.css": "97f5c1d12473d49433f20ff2cfd12caa78f84b2a306e483f48fa1533c8d9033f",
       "front/components/crefans/payment-terms.module.css": "8aebae6349a0e8cb31337d350cc5810bcf2bb42bfc99431b98a5f561ee5fbd9a",
       "front/components/crefans/policy-notes.module.css": "0a29f6e15d8081f32825af1c5fda5ee834351aff8e75ef1659477a950f86337e",
       "front/components/crefans/post-share-dialog.module.css": "e3f6a25b9d84a1f2cda731893b3c220aabb369d99115b9d47a98cdf700b7fe53",
@@ -296,8 +298,8 @@
       "front/components/crefans/pull-to-refresh.module.css": "b299540b08d7e271dd0892d9a8ba6e2e9ff917dcad5d5d858c4bcc1010284f02",
       "front/components/crefans/referral-history.module.css": "dd41250c76b9630f57751069af17c7d7d24def521cceda5756d4cae4c6d25b2d",
       "front/components/crefans/referral.module.css": "797752fa30dcc4a256851ca30d9c14a69bbc5edc3bb03c432b235783e36ab451",
-      "front/components/crefans/service-footer.module.css": "10175d6de19bf5eee9210a41a4e3295f9fd7e5333ac5f19b4df162fd23dfe143",
-      "front/components/crefans/service.module.css": "bab94c0f7b60a36df78b9e08b431ab4f9a7abe33dbbc22c2aa71d0fd61934e56",
+      "front/components/crefans/service-footer.module.css": "73711174721c07110f9d8a643a05bae7eb4efec1d4e566747cd780210da3c015",
+      "front/components/crefans/service.module.css": "31f868ea90e5e68b49c32c14ab96f98f1a30622bf64c2d58acccc7a41a4c56f7",
       "front/components/crefans/signup-complete.module.css": "7f25070acf261fbfb4c9ca6203266075115a3450070629bfcd6a29775d274f6e",
       "front/components/crefans/social.module.css": "e3e8eb81c0c26e4c933da5489e4a76f6adc342ed59e3e9a0e22886a64f50aa60",
       "front/components/crefans/studio/AdvertisingPage.tsx": "bc57c0fa4bb3fc86c853c263d771f09d5201ec9897ae26f1fa1925cafa1e9c16",
@@ -324,7 +326,7 @@
       "front/components/crefans/studio/StudioShell.tsx": "026354aa5fd91de4dc501ecb361600200ecf5532586de5d2c8a03d7d2381f715",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "2843536dd513f2a6f61ed32bf09bb6e005d1cbdf601fba75f6db5691f5da2bb6",
       "front/components/crefans/studio/advertising.module.css": "2162096ec06a62a521875053216ad642e6257c9b82fd15550849b4aaa8af6cff",
-      "front/components/crefans/studio/ai-photo.module.css": "1e1f964fe2cd29b193c4813a6b5da161608e26748f8df3057d659697838660ff",
+      "front/components/crefans/studio/ai-photo.module.css": "1abe21413a17f63eddb537010e4595d5c1c81927f785d9a774549af4feb5abcf",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-list.module.css": "50f5927048e6507421ecc94607ed9e3016e63e198fcccfa76351af28bda11bca",
       "front/components/crefans/studio/content-performance.module.css": "6d4be5a99f503a53337abad363dfaafe3e92c7f611176dfe10fe53840f123c36",
@@ -775,7 +777,7 @@
       "front/lib/constants/loadingTexts.ts": "0068c9e2fe0fb4b64cecd837f1eeaa1db881083dad9bcfba19bfe230840f92b3",
       "front/lib/constants/modalStyles.ts": "4a80ae8bb24de98c42e2e168754a9db32beb297fbd177597726ff336cfd103cd",
       "front/lib/constants/spacings.ts": "b78ce3c9d5cbe975b50b638b0b5d0f0aa2b6099ece9f19e9b4ecae5361ceca38",
-      "front/lib/content/business.ts": "fdae32e63d6f164a792590955f46355548f364f66ac263439e13388889d3e1b2",
+      "front/lib/content/business.ts": "6c1d04a2067d2935c3f51da9f255c0324ba1cabc311f29f71449a6613426436d",
       "front/lib/content/events.ts": "5c82d9180b3270908942a1938630012654eec405fa3162e3e40c205fffaf08ea",
       "front/lib/content/landing.ts": "683a3e8374d8d420cb523e87fa4e589ed3849ae914f988c2b51759278d363956",
       "front/lib/crefans/advisor.ts": "a8c4cf3b3d9a4dd150d0a42b17b3a20d16505c7dcdae3c02a0f0fd9797124f33",
@@ -909,6 +911,7 @@
       "front/tests/membership-thumb.test.cjs": "053483d370de01ddb39b52c2701a8b80557be67805bf175a06d2adce374ea91b",
       "front/tests/my-profile-actions.test.cjs": "ae2e7c0d223c99cb69187c4317ab757b978292cc95dc052a0defcc81499dbc5f",
       "front/tests/my-profile-posts.test.cjs": "f607ed20ce88c21ad5d830e5d96d7525062d06d331bedbd750d274b18ecece17",
+      "front/tests/official-social-links.test.cjs": "185eb4331f812c3a9ffd517ba631148427f6ad403aeb63571eca55a6a69236b0",
       "front/tests/one-time-payment.test.cjs": "f1ac35c5361f6231bf18e0f2c13203cfaf50a93897f57cb04c73eb47da3872ab",
       "front/tests/overlay-motion.test.cjs": "574c8c81bda1b330a3894aa6027a3a69ce3b3e9e0ff648a685828f1541190a4c",
       "front/tests/overwatch-costumes.test.cjs": "4d4737717c7740cea0eddc9cb9b359d6206d82c077c71e7cbd36edfb258f9334",
@@ -1272,7 +1275,7 @@
       "server/src/platform/ai-photo-hearts.ts": "b629d9db84ac45c08d1da57d3a6b25d8089afc974d2d4dbf82cfedb86608f2f5",
       "server/src/platform/ai-photo-library.ts": "aedf6d2022424aec533602df1922e4984509cc2ce397b7bac1fa209b8943919e",
       "server/src/platform/ai-photo-tickets.ts": "46a6ce5523cda9c1f8452beacad7b1b9e246cfc0f3c3f0f06f26aab5b8068be5",
-      "server/src/platform/ai-photo.ts": "253923e0471956697f0741f11f80d6ea1f381c73454cf459061ad1c6925caff6",
+      "server/src/platform/ai-photo.ts": "ff68a15d28fe194e18c182b2963bf3b85f60dd50446e9099f794191465a4f512",
       "server/src/platform/ai-shop.controller.ts": "3e1a9b0a3da8852f7aa16e2e3c6f2dfe27bc340fb75074ef2c0b9cad5ac7ea24",
       "server/src/platform/ai-shop.ts": "85318fc50a897a6d288c8c697a224018f30dc3988a0ef564b6c5cd82a8c17b86",
       "server/src/platform/ai-subscription.ts": "881dfa367efed21e40b498770ff57766eaf35a7a054038c976d94d8a91ea9956",
@@ -1425,7 +1428,7 @@
       "server/tests/platform-admin-totp.test.cjs": "4ab8707b6f988ef54c299410cf517d2c916b8cf2b9cf19be7049e4e3eb4b62e8",
       "server/tests/platform-advertising.test.cjs": "ec8ccc434eef43ff32c806e43747bf633309347b3fe38bacf99bb29a2464ee09",
       "server/tests/platform-ai-photo-grants.test.cjs": "f51d2164b8186dd42b611796f85f7742e8dfedb4c583a425251a802d6ea01980",
-      "server/tests/platform-ai-photo.test.cjs": "3a4e38404099d74b4899f2bc6a59be3bcf12c5a4f75c8859c76da585269d336a",
+      "server/tests/platform-ai-photo.test.cjs": "a88e6477118c4467c6340997707c0a57c843ead5a5d6d4eb04754bc2c69e5802",
       "server/tests/platform-ai-shop.test.cjs": "0d480bbacf351f65cab0e859a64d5093fa039ae69282814ea65ebcfd96f96bab",
       "server/tests/platform-ai-subscription.test.cjs": "3a4825c38a7191950a8e67268f35f47160476ff112a2d7ab214f567e810caeec",
       "server/tests/platform-audit-export.test.cjs": "39940a4c5038ae24ec871b22704a22c8537ef3ae947656b8a0dcd7b3fdf6144d",
