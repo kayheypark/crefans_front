@@ -88,6 +88,8 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  // 2026-11-15: 표정 탭도 '원본 유지'가 기본이다(무표정 자동 선택 없음).
  function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);searchPresets('');setError('');}
  const [strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
+ // 2026-11-17: when the image server refuses the result (try not used up), the notice offers to try again.
+ const [retryable,setRetryable]=useState(false);
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
  useEffect(()=>{if(typeof navigator!=='undefined'&&typeof navigator.share==='function')for(const item of results)void photoFile(item).catch(()=>{});},[results]);// eslint-disable-line react-hooks/exhaustive-deps
  const [heartGame,setHeartGame]=useState<{id:string;kinds:('heart'|'candy'|'moon')[]}|null>(null),[heartBalance,setHeartBalance]=useState(quota.hearts||0),[rewardNote,setRewardNote]=useState('');
@@ -127,7 +129,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
    const result=await onEdit({backgroundId:aiPhotoBackgroundId(selectedPresets.find(item=>item.kind==='background')?.prompt),aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
-   if(!result.success){if(result.errorCode==='DAILY_LIMIT'&&shop){setRemaining(0);setShopOpen(true);void shop.refresh();}else setError(result.errorMessage);setStage(results.length?'results':'edit');return;}
+   if(!result.success){if(result.errorCode==='DAILY_LIMIT'&&shop){setRemaining(0);setShopOpen(true);void shop.refresh();}else{setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setError(result.errorMessage);}setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));for(const item of made)sourceOrigins.current.set(item.id,sourceOrigins.current.get(source.id)||source.id);
    setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
   }catch{setError('사진을 만들지 못했어요. 잠시 후 다시 시도해 주세요.');setStage(results.length?'results':'edit');}
@@ -215,8 +217,8 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  {library&&<AiPhotoLibrary open={open&&libraryOpen} model={library} selected={libraryAssets} onSelect={selectLibrary} onChanged={id=>setLibraryAssets(items=>items.filter(item=>item.id!==id))} onClose={()=>setLibraryOpen(false)}/>}
  {open&&cropItem&&onCrop&&<AiPhotoCrop key={cropItem.id} item={cropItem} onClose={()=>setCropItem(null)} onApply={async crop=>{const r=await onCrop({sourceId:cropItem.id,...crop});if(!r.success)throw new Error(r.errorMessage||'사진을 저장하지 못했어요.');const next={...r.data,aiGenerated:true};sourceOrigins.current.set(next.id,sourceOrigins.current.get(cropItem.id)||sourceId);setResults(items=>items.map(item=>item.id===cropItem.id?next:item));setSelected(ids=>ids.map(id=>id===cropItem.id?next.id:id));setCropItem(null);}}/>}
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="AI 이용권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
- <Dialog open={open&&!!error} onClose={()=>setError('')} title="AI 사진 편집 안내" persistent>
-  <div className={s.errorMessage}><p role="alert">{error}</p><Action type="button" onClick={()=>setError('')}>확인</Action></div>
+ <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);}} title="AI 사진 편집 안내" persistent>
+  <div className={s.errorMessage}><p role="alert">{error}</p>{retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>닫기</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate();}}>다시 시도</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>
  </Dialog></>;
 }
 
