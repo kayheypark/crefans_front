@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T07:22:10.357685+00:00",
+  "checkedAt": "2026-11-17T07:30:27.980019+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "0d163e9c583c2957ea6df43d0db6c6c794d1b524",
+      "head": "1c01f8e059b1816ed27c6151583ca689f1b43327",
       "branch": "",
       "dirty": false
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "c413be59a00881e6b4292592a9129db2e0fc34a484f075b2c3140837b0a05f0a",
+      "front/PROGRESS.md": "a9c87f5eda552b43266cd5480545cbfead0b325a124ad557e1c2bdcdf5f0343f",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -281,7 +281,7 @@
       "front/components/crefans/creator-search.module.css": "58cf7fe4f52d60b97e73045a70ade3f2b8ddfb4ce98b9591f41cfd6d0ebde08d",
       "front/components/crefans/creator.module.css": "9764205483b19b6d4fecdd49cc548b5c4eb2d30447bbc84da55d7d77cb8d5bec",
       "front/components/crefans/events.module.css": "81ba5dfdc1ea63551ce16b20d252d5adddf6248a25437f4f73d8f6ffdbcfb949",
-      "front/components/crefans/guest-cosplay-banner.module.css": "c20b1dfb70b70392c94898be2a3ef1dffe8acc28b9aa76e865911aa5b90a4ba2",
+      "front/components/crefans/guest-cosplay-banner.module.css": "5ad583ff9a252d880138d578a7adf2f86db9fd6e7d9b652342bf2b4aa9a3ef40",
       "front/components/crefans/header-account-menu.module.css": "543b7e12e910b016e4d02192bab5e74ff1abcf59824ac5a49fbe206aa8e10d92",
       "front/components/crefans/landing.module.css": "80edbdf954678ca39681b306460df1fc87322ad4ea28fc1c3c10aee331aba01d",
       "front/components/crefans/membership-checkout.module.css": "d09de0e1f362d20b97686a047741f29f500c66af4b70147869ce71bd0abc9555",
@@ -452,7 +452,7 @@
       "front/components/service/ShopContainer.tsx": "3cace36eeb2d3d04b0d29986cd2544c5b197154e9a306fced097fe0699c7587f",
       "front/components/service/ShopPayment.tsx": "7ee5037667d3d353c610d09b6caf9bf5b5e16d34506d653007ef12f9631b9da1",
       "front/components/service/StudioRouter.tsx": "da31567b4de71dd077d26080f90578b920a1cbd170dc9b5f20aaf92cddc8d237",
-      "front/components/service/ai-photo-landing.module.css": "9e87ae81d543046e303851dca080d9fa0551df7cea14fdc9e0438e0688be6efa",
+      "front/components/service/ai-photo-landing.module.css": "ba15b080b20f18753eaf231d02e259d7cbfc0ef7233cae6169a5b93ebe81ecad",
       "front/components/service/guest-claim.module.css": "a95d96f4997d98eec77a9341c0d3f10dc3a49e4c2405954e3ea194d9975ad5f1",
       "front/components/service/guest-trial.module.css": "742222107f1ee64d433b3a38711c6560435f102a04d1bbed237a5a7389965226",
       "front/components/settings/Settings.tsx": "f505dbbc972b7a0e4ee4d919e3ae450e90ef5c2481571ed174b377637f2dab8e",
