@@ -1,4 +1,4 @@
-## 2026-11-17 체험 'AI로 내용 작성'·게시하기 강조 (feat/caption-publish-nudge, 미배포)
+## 2026-11-17 체험 'AI로 내용 작성'·게시하기 강조 (feat/caption-publish-nudge, 운영 front-nudge-20261117)
 - 사용자 요청: 체험에서 AI 사진을 만든 뒤 'AI로 내용 작성'을 아직 안 눌렀으면 그 버튼 위에 말풍선 '여기를 눌러 빠르게 작성하세요'와 분홍 테두리 맥동·빛줄기(한 번 누르면 사라짐). 제목·본문이 모두 채워지면(AI·직접 입력 무관) '지금 게시하기'에 같은 강조와 오른쪽 정렬 말풍선 '이제 게시하기를 눌러 올려 보세요'. 강조는 한 번에 하나(제목·본문이 채워지면 게시 강조가 우선). 회원 편집기는 그대로.
 - CSS: `.aiWide.aiNudge`를 공용 `.aiNudge`로 일반화(키프레임·reduced-motion 재사용), 게시 말풍선용 `.aiNudgeHintRow` 추가.
 - 검증: crefans-studio-management 29/29(대조: 기능 코드 제거 시 실패 확인), npm test 실패 18(기준선 동일 목록), typecheck 0, 로컬 WebKit 390 임시 화면에서 두 말풍선·분홍 테두리 계산 스타일·캡처(.local/caption-nudge-390.png, .local/publish-nudge-390.png). 운영 체험 전체 흐름은 미확인.
