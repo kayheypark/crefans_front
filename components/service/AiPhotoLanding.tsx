@@ -1,5 +1,5 @@
 'use client';
-import {useState,type CSSProperties} from 'react';
+import {useEffect,useState,type CSSProperties} from 'react';
 import Link from 'next/link';
 import {Brand} from '@/components/crefans/Brand';
 import {ServiceFooter} from '@/components/crefans/ServiceFooter';
@@ -35,18 +35,35 @@ export const landingLooks=looks.map(look=>{const costume=aiPhotoCostumes.find(it
 export const landingKinds=aiPhotoKinds.filter(kind=>kind.value!=='body');
 const illustrated=['expression','pose','camera','lens'];
 
+// 2026-11-17 user request: the comparison starts at 20% (more of the result shows), a floating bubble on the handle and
+// pointing-finger markers with a burst on both sides invite a drag or tap; tapping either side moves the line there, and the
+// whole hint disappears for good once the line has moved. The range input stays for keyboard use.
+// Pointing hand (index finger raised on the left), Lucide 'pointer' outline (ISC licence).
+const HINT_FINGER=['M22 14a8 8 0 0 1-8 8','M18 11v-1a2 2 0 0 0-2-2a2 2 0 0 0-2 2','M14 10V9a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1','M10 9.5V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v10','M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15'];
+const INTRO_MS=1400;
 export function AiPhotoCompare({before,after,label}:{before:string;after:string;label:string}){
- const [split,setSplit]=useState(50);
- return <div className={s.compare}>
+ // 2026-11-17 user request: on entry the line starts at the far right (all original) and eases in-out to 20%; hints follow.
+ const [split,setSplit]=useState(100),[intro,setIntro]=useState(true),[moved,setMoved]=useState(false),[dragging,setDragging]=useState(false);
+ useEffect(()=>{const start=setTimeout(()=>setSplit(current=>current===100?20:current),120),done=setTimeout(()=>setIntro(false),120+INTRO_MS);return()=>{clearTimeout(start);clearTimeout(done);};},[]);
+  const move=(value:number)=>{setIntro(false);setSplit(Math.round(Math.min(100,Math.max(0,value))));setMoved(true);};
+ const at=(event:{clientX:number;currentTarget:HTMLElement})=>{const r=event.currentTarget.getBoundingClientRect();return r.width?((event.clientX-r.left)/r.width)*100:split;};
+ return <div className={s.compare} data-dragging={dragging||undefined} data-intro={intro||undefined}
+  onPointerDown={event=>{if(event.button>0)return;move(at(event));setDragging(true);event.currentTarget.setPointerCapture?.(event.pointerId);}}
+  onPointerMove={event=>{if(dragging)move(at(event));}}
+  onPointerUp={()=>setDragging(false)} onPointerCancel={()=>setDragging(false)}>
   {/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}
-  <img className={s.compareImage} src={before} alt="원본 사진(가상 인물)" width={720} height={900}/>
+  <img className={s.compareImage} src={before} alt="원본 사진(가상 인물)" width={720} height={900} draggable={false}/>
   <div className={s.compareAfter} style={{clipPath:`inset(0 0 0 ${split}%)`}}>
    {/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}
-   <img className={s.compareImage} src={after} alt={`${label} 결과(가상 인물, AI 생성)`} width={720} height={900}/>
+   <img className={s.compareImage} src={after} alt={`${label} 결과(가상 인물, AI 생성)`} width={720} height={900} draggable={false}/>
   </div>
-  <div className={s.compareLine} style={{left:`${split}%`}} aria-hidden="true"><span>‹ ›</span></div>
+  <div className={s.compareLine} style={{left:`${split}%`}} aria-hidden="true"><span>‹ ›</span>{!moved&&!intro&&<em className={s.compareBubble} style={{transform:`translateX(${split<30?-18:split>70?-82:-50}%)`}}>밀거나 눌러서 비교해 보세요</em>}</div>
+  {!moved&&!intro&&[{side:'left',x:split/2},{side:'right',x:split+(100-split)/2}].map(hint=><span key={hint.side} className={s.compareHint} data-side={hint.side} style={{left:`${hint.x}%`}} aria-hidden="true">
+   <svg className={s.compareBurst} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3"><path d="M24 2v8m0 28v8M2 24h8m28 0h8M8 8l6 6m20 20 6 6M8 40l6-6m20-20 6-6"/></svg>
+   <svg className={s.compareFinger} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">{HINT_FINGER.map(d=><path key={d} d={d}/>)}</svg>
+  </span>)}
   <span className={s.compareTag} data-side="before">원본</span><span className={s.compareTag} data-side="after">{label}</span>
-  <input className={s.compareRange} type="range" min={0} max={100} value={split} onChange={event=>setSplit(Number(event.target.value))} aria-label="원본과 결과 비교 위치"/>
+  <input className={s.compareRange} type="range" min={0} max={100} value={split} onChange={event=>move(Number(event.target.value))} aria-label="원본과 결과 비교 위치"/>
   <span className={s.aiMark}>가상 인물 · AI 생성 이미지</span>
  </div>;
 }
