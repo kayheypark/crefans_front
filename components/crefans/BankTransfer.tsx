@@ -6,6 +6,7 @@ import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {bankTransferFormErrors,kstDateTime,refundAccountErrors,type BankTransferForm} from '@/lib/crefans/bank-transfer';
 import type {BankTransfer,PaymentMethods,RefundAccount} from '@/types/crefans-payments';
+import type {ApiResult} from '@/types/crefans';
 import {Action} from './ServiceUI';
 import Icon from './Icon';
 import s from './bank-transfer.module.css';
@@ -46,8 +47,9 @@ export function BankTransferFields({value,onChange,disabled,deadlineHours=24}:{v
 }
 
 /** 입금 안내: where and how much to send, until when, and the current state of the deposit. */
-export function BankTransferInstructions({transfer}:{transfer:BankTransfer}){
- const [notice,setNotice]=useSnackbarMessage(),[error,setError]=useState('');
+export function BankTransferInstructions({transfer,onReportDeposit}:{transfer:BankTransfer;/** 2026-11-17: '입금했어요' tells operators (Telegram) once per order. */onReportDeposit?:()=>Promise<ApiResult<{reported:boolean;message:string}>>}){
+ const [notice,setNotice]=useSnackbarMessage(),[error,setError]=useState(''),[reporting,setReporting]=useState(false),[reported,setReported]=useState(false);
+ async function report(){if(!onReportDeposit||reporting||reported)return;setError('');setReporting(true);try{const r=await onReportDeposit();if(r.success){setReported(true);setNotice(r.data.message);}else setError(r.errorMessage||'알리지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setReporting(false);}}
  async function copy(){setError('');try{await navigator.clipboard.writeText(transfer.account.accountNumber);setNotice('계좌번호를 복사했어요.');}catch{setError('복사하지 못했어요. 계좌번호를 직접 입력해 주세요.');}}
  const awaiting=transfer.status==='awaiting';
  return <section className={s.instructions} aria-label="입금 안내">
@@ -62,6 +64,7 @@ export function BankTransferInstructions({transfer}:{transfer:BankTransfer}){
    {transfer.cashReceipt&&<div><dt>현금영수증</dt><dd>{transfer.cashReceipt.type==='income'?'소득공제':'지출증빙'} · {transfer.cashReceipt.issued?'발급 완료':'입금 확인 후 발급'}</dd></div>}
   </dl>
   {error&&<p role="alert" className={s.error}>{error}</p>}
+  {awaiting&&onReportDeposit&&<Action type="button" className={s.reportDeposit} variant={reported?'secondary':'primary'} disabled={reporting||reported} onClick={()=>void report()}>{reported?'입금 알림을 보냈어요':reporting?'알리는 중…':'입금했어요'}</Action>}
   {awaiting?<ul className={s.notes}>
    <li>주문 후 24시간 안에 입금해 주세요. 기한까지 입금하지 않으면 주문이 자동으로 취소되고, 기한이 지난 뒤 들어온 입금은 확인 후 전액 돌려드려요.</li>
    <li>입금은 운영자가 직접 확인해요. 주문 금액과 정확히 같은 금액을 입금해야 확인할 수 있어요.</li>

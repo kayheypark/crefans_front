@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T12:01:23.925069+00:00",
+  "checkedAt": "2026-11-17T12:47:11.518542+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "e51458a8b7d50d9582a08c53c7fdf10425dbc432",
+      "head": "e6d26f3f7d64b040e1ea6c6a0751b91317daaa02",
       "branch": "",
       "dirty": false
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "74ba3e491b68e1bd7e2a1de08c94ff652da143ff025f53c6405b62046772d852",
+      "front/PROGRESS.md": "35281303e4678bc2e9a3fbde2b77f97c4144f7b7345be866739f8640cca8c316",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -306,7 +306,7 @@
       "front/components/crefans/studio/AiBodyAdjustments.tsx": "79962e853d9118b40a52e1f3521a89173e9c3ac02935c54d252767f7ce43bc08",
       "front/components/crefans/studio/AiPhotoCategoryIcon.tsx": "903527ba6652132489715098f888ff24cb867e61803448fcb4db7e7eba60aeb8",
       "front/components/crefans/studio/AiPhotoCrop.tsx": "d26a8711219c0cdb4f181d319fd32df6303b753ae4ee2fe7bd776e111b9a7b90",
-      "front/components/crefans/studio/AiPhotoDialog.tsx": "9d575f648c986e5ce1a7b577a4f3b70a6853da55cffe289e31f22c33495e9685",
+      "front/components/crefans/studio/AiPhotoDialog.tsx": "3f83920fc2b8aa7934c681157c968bf8c8475a2b743f1b508a261f412dda04dc",
       "front/components/crefans/studio/AiPhotoLibrary.tsx": "62e9c9b6f43e8740e90e4b27ca7fc0389699022012884f98c53ba2d1b5b98f27",
       "front/components/crefans/studio/AiPhotoMask.tsx": "7326907d157c8460a130b27693b192d8ddfa63d2b485393ff4157d8324064be7",
       "front/components/crefans/studio/AiPhotoWaiting.tsx": "e6d630c83fefa87436d7d4460b7fc147b328a56b97c94bba1f96b3d30be09f1d",
@@ -326,7 +326,7 @@
       "front/components/crefans/studio/StudioShell.tsx": "026354aa5fd91de4dc501ecb361600200ecf5532586de5d2c8a03d7d2381f715",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "2843536dd513f2a6f61ed32bf09bb6e005d1cbdf601fba75f6db5691f5da2bb6",
       "front/components/crefans/studio/advertising.module.css": "2162096ec06a62a521875053216ad642e6257c9b82fd15550849b4aaa8af6cff",
-      "front/components/crefans/studio/ai-photo.module.css": "77c9f6bb93f3b4ef31ee1fccd62b1ff296c3791e5d0438f787088e4524f87db2",
+      "front/components/crefans/studio/ai-photo.module.css": "75523c8455ae4e9754c2fa0bbd182ae2441cbae767741aeba6225ad93ea7e999",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-list.module.css": "50f5927048e6507421ecc94607ed9e3016e63e198fcccfa76351af28bda11bca",
       "front/components/crefans/studio/content-performance.module.css": "6d4be5a99f503a53337abad363dfaafe3e92c7f611176dfe10fe53840f123c36",
