@@ -28,8 +28,14 @@ test('hero results come from real presets, the preset browser reuses the editor 
   const tab=tree.root.findAll(node=>node.props.role==='tab').find(node=>node.findAllByType('span').some(span=>span.props.children==='포즈'));act(()=>tab.props.onClick());
   const card=()=>tree.root.find(node=>node.type==='button'&&node.props['aria-label']==='벽에 기대 쉬기');
   assert.equal(card().props['aria-pressed'],false);act(()=>card().props.onClick());assert.equal(card().props['aria-pressed'],true);act(()=>card().props.onClick());assert.equal(card().props['aria-pressed'],false);
-  const range=tree.root.find(node=>node.type==='input'&&node.props.type==='range');act(()=>range.props.onChange({target:{value:'20'}}));
-  assert.ok(tree.root.findAll(node=>node.props.style?.clipPath==='inset(0 0 0 20%)').length===1,'the compare slider moves the split');
+  // 2026-11-17: enters at 100% (all original), eases to 20% (more of the result), hints appear after the intro and stay until the line moves.
+  assert.ok(tree.root.findAll(node=>node.props.style?.clipPath==='inset(0 0 0 100%)').length===1,'enters from the far right');assert.doesNotMatch(text(tree),/밀거나 눌러서/);
+  await act(async()=>{await new Promise(r=>setTimeout(r,1650));});
+  assert.ok(tree.root.findAll(node=>node.props.style?.clipPath==='inset(0 0 0 20%)').length===1,'settles at 20%');
+  assert.match(text(tree),/밀거나 눌러서 비교해 보세요/);assert.equal(tree.root.findAll(node=>node.props['data-side']==='left'&&node.type==='span'&&String(node.props.className).includes('compareHint')).length,1);
+  const range=tree.root.find(node=>node.type==='input'&&node.props.type==='range');act(()=>range.props.onChange({target:{value:'60'}}));
+  assert.ok(tree.root.findAll(node=>node.props.style?.clipPath==='inset(0 0 0 60%)').length===1,'the compare slider moves the split');
+  assert.doesNotMatch(text(tree),/밀거나 눌러서 비교해 보세요/);assert.equal(tree.root.findAll(node=>String(node.props.className||'').includes('compareHint')).length,0,'hints disappear after the first move');
  }finally{act(()=>tree.unmount());}
 });
 
