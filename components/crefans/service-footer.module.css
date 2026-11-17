@@ -9,3 +9,8 @@
 /* Mobile: links in a repeating two-column grid (2026-11-01). */
 @media(max-width:767px){.footer nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}.footer nav a{justify-content:flex-start;overflow-wrap:anywhere}}
 @media(min-width:768px){.footer:not([data-always]),.footer:not([data-business]) .business,.footer:not([data-business]) .social{display:none}}
+
+/* 2026-11-17 user request: the footer reads at the same size everywhere on mobile — pages outside the service shell (landings)
+   do not set --cf-mobile-font-min, so the footer sets it like the shell does (body size). The home link is mobile only. */
+@media(max-width:767px){.footer{--cf-mobile-font-min:var(--cf-typography-body-size,14px)}}
+@media(min-width:768px){.footer nav .home{display:none}}
