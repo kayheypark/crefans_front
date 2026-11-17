@@ -1,3 +1,8 @@
+## 2026-11-17 미츠리 하오리 숨김 + /ask-me 결정 (fix/hide-mitsuri, 운영 front-mitsuri-20261117, API crefans-api:mitsuri-20261117)
+- 6ee320(미츠리 하오리)을 카탈로그에서 숨김(hiddenCostumeIds, 원본 항목은 기록용 유지). 귀멸의 칼날 31→30종, 전체 353→352종. 서버도 COSTUME_UNAVAILABLE로 거절.
+- 결정: 무통장 계좌는 사용자가 콘솔에서 직접 등록 / 랜딩·OG 모더니아는 현행 유지(IP 위험 인지) / 복구 묶음 24개(약 13.1GB) 삭제.
+- 검증: studio-ai-photo·ai-photo-landing 83/83, npm test 실패 18(기준선 동일), typecheck 0.
+
 ## 2026-11-17 night-work 조사·후속 수정 (fix/guest-exhausted-signup, 운영 front-night-20261117)
 - 조사 문서: .local/night-work/2026-11-17-1418.md(70건, 상위 10, 결정 질문). 사용자 결정 반영: 서버 crefans-api:night-20261117(보관함 정리 제외, 성인 차단 스위치 ADULT_CONTENT_BLOCKED, AI 잠금 members 행, 차단 반환 하루 5회), 콘솔 crefans-admin:night-20261117(우대 종료일 하루 끝까지).
 - 프론트: 비회원이 체험 10회를 다 쓰면 회원용 '오전 9시' 대신 가입 안내 + 회원가입 버튼(AiPhotoDialog noHearts). 공식 계정 링크로 깨진 crefans-account 설정 링크 기대값 갱신(공식 링크는 따로 검사).
