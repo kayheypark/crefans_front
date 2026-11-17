@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T08:03:09.424791+00:00",
+  "checkedAt": "2026-11-17T12:01:23.925069+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "2bd1c10b096de3f73f19c3b4e3771894c3a61154",
+      "head": "e51458a8b7d50d9582a08c53c7fdf10425dbc432",
       "branch": "",
       "dirty": false
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "296d3fee6c6ecc1b92d36b1d25e807429ffdfabd06930e4db2b881a264aeaca5",
+      "front/PROGRESS.md": "74ba3e491b68e1bd7e2a1de08c94ff652da143ff025f53c6405b62046772d852",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -306,7 +306,7 @@
       "front/components/crefans/studio/AiBodyAdjustments.tsx": "79962e853d9118b40a52e1f3521a89173e9c3ac02935c54d252767f7ce43bc08",
       "front/components/crefans/studio/AiPhotoCategoryIcon.tsx": "903527ba6652132489715098f888ff24cb867e61803448fcb4db7e7eba60aeb8",
       "front/components/crefans/studio/AiPhotoCrop.tsx": "d26a8711219c0cdb4f181d319fd32df6303b753ae4ee2fe7bd776e111b9a7b90",
-      "front/components/crefans/studio/AiPhotoDialog.tsx": "b706b7160ef1cb6c624dc6a62a16e77484cd21c996355e45f7492a27e67b8aef",
+      "front/components/crefans/studio/AiPhotoDialog.tsx": "9d575f648c986e5ce1a7b577a4f3b70a6853da55cffe289e31f22c33495e9685",
       "front/components/crefans/studio/AiPhotoLibrary.tsx": "62e9c9b6f43e8740e90e4b27ca7fc0389699022012884f98c53ba2d1b5b98f27",
       "front/components/crefans/studio/AiPhotoMask.tsx": "7326907d157c8460a130b27693b192d8ddfa63d2b485393ff4157d8324064be7",
       "front/components/crefans/studio/AiPhotoWaiting.tsx": "e6d630c83fefa87436d7d4460b7fc147b328a56b97c94bba1f96b3d30be09f1d",
@@ -317,7 +317,7 @@
       "front/components/crefans/studio/ContentPostPreview.tsx": "5809f36d8bfdfb0e513e208249ea87696b29a9a5e35278b7fbbb131cc72a4e7b",
       "front/components/crefans/studio/DashboardPage.tsx": "0bf3e4ff2c755836b79514a15148eed7cedbe864b2d04f0219d7ca3c793daf69",
       "front/components/crefans/studio/FinancePages.tsx": "6cf9ae9d0a1afcd87b9419aeee8fc114e61555e78e4a68e8f618c525dc97aed3",
-      "front/components/crefans/studio/ManagementPages.tsx": "576af7178da833580228787fa61561646ff87aff12717c3793f1cc71a73e81b0",
+      "front/components/crefans/studio/ManagementPages.tsx": "14eee949b749c1190726e1e904985a6657e724afa51389370c98f210aefb138f",
       "front/components/crefans/studio/OverviewPages.tsx": "f57dba51a5a0ab4f79477b2941635dfa583ba5e39dcd0f7c6e7222fb2f37e110",
       "front/components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
       "front/components/crefans/studio/ReportPage.tsx": "8faa564cedf335b708efc3d15ff8d2e34c5b4127b72447e327602e59e1faf2d1",
@@ -326,7 +326,7 @@
       "front/components/crefans/studio/StudioShell.tsx": "026354aa5fd91de4dc501ecb361600200ecf5532586de5d2c8a03d7d2381f715",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "2843536dd513f2a6f61ed32bf09bb6e005d1cbdf601fba75f6db5691f5da2bb6",
       "front/components/crefans/studio/advertising.module.css": "2162096ec06a62a521875053216ad642e6257c9b82fd15550849b4aaa8af6cff",
-      "front/components/crefans/studio/ai-photo.module.css": "1abe21413a17f63eddb537010e4595d5c1c81927f785d9a774549af4feb5abcf",
+      "front/components/crefans/studio/ai-photo.module.css": "77c9f6bb93f3b4ef31ee1fccd62b1ff296c3791e5d0438f787088e4524f87db2",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-list.module.css": "50f5927048e6507421ecc94607ed9e3016e63e198fcccfa76351af28bda11bca",
       "front/components/crefans/studio/content-performance.module.css": "6d4be5a99f503a53337abad363dfaafe3e92c7f611176dfe10fe53840f123c36",
@@ -433,7 +433,7 @@
       "front/components/profile/Profile.tsx": "91583baf187e8097f2bfb10baacbfccb38020cd205d9d3140a46b210ff1bde8d",
       "front/components/providers/ApplicationProviders.tsx": "95d9dcf4b3f66237ac3d5dc804ee202bf6469e90e8315c9ecae94083d39a79ba",
       "front/components/providers/PresentationProviders.tsx": "deda60079037c24274efed727c3a7089799c3386f1a6070237e9cba9f0f48e26",
-      "front/components/service/AiPhotoLanding.tsx": "68c41f38bfd22c4a03f93fcfcbe4c1703faf95f69b93838f0aa07d2ac80a581b",
+      "front/components/service/AiPhotoLanding.tsx": "0cd2ab327fcb194e2b8b733c1d3593c63ae63b98f415ae80dc47e1275fa7d5ea",
       "front/components/service/BeanPaymentResult.tsx": "4ea92ddf2aab3e05708b31c982f9ae291b0c29bae682e8e46720139b9453a717",
       "front/components/service/BeanWithdrawContainer.tsx": "9914aefd2d86d980ed012720283a3dcdd5226e7ef706d3c2a0331b3d776cb2ab",
       "front/components/service/BetaClosedNotice.tsx": "477689dce150592f20daad7d555720dc9b5593b2de5f3834b80269f7f2f7a142",
@@ -784,6 +784,7 @@
       "front/lib/crefans/ai-photo-backgrounds.ts": "97626b4173660ee58cadbd175ac0cc65eef3f9789390c61bc224435e484e8453",
       "front/lib/crefans/ai-photo-costumes.ts": "320d0e0c80a9c709d5e4e2e3b80bcbd102334a0af86af1eb90a44f30d66b440a",
       "front/lib/crefans/ai-photo-crop.ts": "1e31ba7721a7d262d14b7daa1fca3865ccd4175d19bfac1c8926e72d2f8b3a28",
+      "front/lib/crefans/ai-photo-handoff.ts": "3a58f612b32a44b9851243136da7c0e774a60506188f1e5d7e600d562e247140",
       "front/lib/crefans/ai-photo-labels.ts": "adc4423c2a8c18c8d5f82bae9b06475c6d4ab3ae7fd098ef3eeabf1ea73a4386",
       "front/lib/crefans/ai-photo-outfits.ts": "517a2722043beebf4423eaf4206d5eb6c8a4b40016d29a1fccad28993a205b69",
       "front/lib/crefans/ai-photo-presets.ts": "ebf29460e054808b3ef7d90761da429e724a9764116b3c487beefe3df581aba1",
@@ -867,7 +868,7 @@
       "front/tests/comment-fixtures.test.cjs": "b6bbda4d04052ec7074c71f519d0c59ff9d8c902a7fab0db412c294b7dd48c02",
       "front/tests/comment-likes.test.cjs": "e9485dfe838348f067d39ccabd9ce4fa846b2b76a2604893a7ed5c691c19b725",
       "front/tests/comment-time.test.cjs": "d5224f8d58bfe6e5c9e215028a6aef5a5180cbef54383c7c8bd36fea6d04e1e9",
-      "front/tests/content-post-preview.test.cjs": "0ccf421c7437baee9a70a82d81eede305a937565e57a5dff3ab6c70806e3aa67",
+      "front/tests/content-post-preview.test.cjs": "698006f4fe78a8c340df7469d789cd61616e9f449b1710526c0837e275c839a3",
       "front/tests/creator-guard.test.cjs": "bf3195542c41b82d0776135f123ba8dcd0ede1900ff3d987590335a23993caf0",
       "front/tests/creator-payout-terms.test.cjs": "57d82131431f1ef0bd2a454435435c6c546e3f479b518cc4ba37ee0bff7c1218",
       "front/tests/creator-verification.test.cjs": "b14e5d1d17f40e8828d28e19f58080cf54fd4697f59da8e10c8bcfdab6ff83e4",
@@ -946,7 +947,7 @@
       "front/tests/sms-link.test.cjs": "ee3f9f40ae9bc29c3892cbb5c9ebb5ef18654975073f1da897813fdfb97b3737",
       "front/tests/social-links.test.cjs": "254957c511a965dd0ad78a8fc77f4b125171b48b2669018169dce531062995bd",
       "front/tests/studio-ai-photo-binding.test.cjs": "95ad06f88b45acf27d12f47ba0122b4890a22807485143e7864a9dde07e60924",
-      "front/tests/studio-ai-photo.test.cjs": "0ddcc614406ce41e6323c9748c61e6f02dc63037b7909895cf3d61e2c77bcf03",
+      "front/tests/studio-ai-photo.test.cjs": "0cacf3233b5195436b1a0fc26f861a6504f797fddaf4b7963b4967065b632fa7",
       "front/tests/studio-comment-reply.test.cjs": "7dbb13f94b5f23c0ed0432312330256949111a69be7915a7da3bbab81e9d034b",
       "front/tests/studio-community-binding.test.cjs": "5dd8644628deeebc3b7fa6511732fb648f4539dfc66df5a49f2331a1d0366cad",
       "front/tests/studio-loading.test.cjs": "b0a6f46d370d009cf6dc282e55590cf3984e1f16d63eefe9cec5363ca20ce365",
