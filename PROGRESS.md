@@ -1,4 +1,4 @@
-## 2026-11-17 입금했어요 버튼 (feat/deposit-reported, 미배포)
+## 2026-11-17 입금했어요 버튼 (feat/deposit-reported, 운영 front-deposit-20261117)
 - 입금 안내(BankTransferInstructions)에 '입금했어요' 버튼: 누르면 서버가 운영 텔레그램에 주문당 1회 알림, 버튼은 '입금 알림을 보냈어요'로 바뀌고 스낵바 안내. 상점·콩 충전·콩 내역·광고상품 입금 안내에 연결(model.reportDeposit), 동작이 없으면 버튼 숨김.
 - 서버 feat/order-telegram(주문 알림 상품명 + deposited API)과 함께 배포해야 함.
 - 검증: bank-transfer 11/11(1회 전송·보낸 상태·동작 없으면 숨김), npm test 실패 18(기준선 동일), typecheck 0.
