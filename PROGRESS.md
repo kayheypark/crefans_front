@@ -1,3 +1,8 @@
+## 2026-11-17 푸터·PC 사이드바 공식 계정 링크 (feat/footer-social-links, 미배포)
+- X https://x.com/crefans_app, 인스타그램 https://www.instagram.com/crefans.official, 디스코드 https://discord.gg/DupBW53n6(사용자 제공). 단일 출처 lib/content/business.ts officialSocialLinks, 표시 components/crefans/OfficialSocialLinks.tsx(모노 아이콘, 새 탭, noopener). ServiceFooter 맨 아래와 PC 사이드바 사업자 정보 아래.
+- 검증: tests/official-social-links 1/1, prompt-layout 2/2, typecheck 0, WebKit 390 푸터·1280 사이드바 링크 3개·가로 넘침 없음.
+- 같은 날 별도 브랜치 fix/ai-photo-tab-nowrap(23b8055, 편집 카테고리 이름 한 줄 고정)도 미배포.
+
 ## 2026-11-17 AI 사진 랜딩 실제 프리셋 버전 (feat/landing-real-presets, 미배포)
 - 히어로 결과 5장을 실제 프리셋으로 다시 생성: 모더니아+지뢰계+의자에 앉기 / 고딕 오프숄더+코스프레 베이스+거울샷 / 리본 메이드+인형 메이크업+손하트 / 판타지 마법사+환한 미소+양팔 벌려 서기 / 아이돌 무대복+브이+로우 앵글. 편집기와 같은 요청문(buildAiPhotoPrompt→서버 aiPhotoPrompt, 의상 참조 이미지)으로 가상 인물 base-v1에 Seedream 생성. 결과 아래에 쓴 프리셋 카드 표시.
 - 사용자 요청 '디바'는 카탈로그에 없어 니케 다른 의상으로 대체하기로 했으나 라피·아니스 모두 공급사 저작권 거절 → 재시도 없이 고딕 오프숄더로 대체(세일러는 거울샷 구도 오류·앳된 인상으로 제외).
