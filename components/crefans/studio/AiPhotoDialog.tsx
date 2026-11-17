@@ -8,6 +8,7 @@ import type {AiPhotoCropInput} from '@/types/crefans-studio-management';
 import {ShopPage} from './ShopPage';
 import type {ShopModel} from '@/types/crefans-shop';
 import {useEffect,useId,useRef,useState} from 'react';
+import {takeAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
 import {aiPhotoOutfitByPrompt,type AiPhotoOutfitPart} from '@/lib/crefans/ai-photo-outfits';
 import {SelectField} from '@/components/ui/SelectField';
@@ -84,6 +85,12 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  function isPresetSelected(value:string){if(value===AI_PHOTO_KEEP_ORIGINAL)return !selectedPresets.some(item=>item.kind===kind)&&!libraryAssets.some(item=>item.category===kind);return selectedPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
  function applyPresets(next:AiPhotoPresetSelection[]){const selection=next,length=buildPrompt(selection,customPrompt,targetGender).length;if(length>AI_PHOTO_PROMPT_MAX&&length>prompt.length){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return false;}setSelectedPresets(selection);setError(length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');return true;}
  function pickPreset(value:string){setLibraryAssets(items=>items.filter(item=>item.category!==kind));if(value===AI_PHOTO_KEEP_ORIGINAL){applyPresets(selectedPresets.filter(item=>item.kind!==kind));return;}const part=kind==='outfit'?aiPhotoOutfitByPrompt(aiPhotoPresetText(value))?.part:undefined,multi=aiPhotoMultiSelectKinds.includes(kind);applyPresets([...selectedPresets.filter(item=>item.kind!==kind||(multi&&item.prompt!==aiPhotoPresetText(value))||(!!part&&!!aiPhotoOutfitByPrompt(item.prompt)&&aiPhotoOutfitByPrompt(item.prompt)!.part!==part)),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
+ // 2026-11-17 user request: presets picked on the AI photo landing are applied the first time the editor opens.
+ const handoffTried=useRef(false);
+ useEffect(()=>{if(!open||handoffTried.current)return;handoffTried.current=true;const presets=takeAiPhotoHandoff();if(!presets.length)return;
+  if(applyPresets(presets)){if(presets.some(item=>item.kind==='outfit'))setCosplayOpen(true);setKind(presets[0].kind);}
+ // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on the first open
+ },[open]);
  function changeBody(key:string,level:number){if(applyPresets([...selectedPresets.filter(item=>item.kind!=='body'),...(level?[{kind:'body' as const,prompt:aiPhotoBodyPrompt(key,level)}]:[])]))setBodySelection(level?{key,value:level}:null);}
  // 2026-11-15: 표정 탭도 '원본 유지'가 기본이다(무표정 자동 선택 없음).
  function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);searchPresets('');setError('');}
