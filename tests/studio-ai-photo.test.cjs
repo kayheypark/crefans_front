@@ -825,3 +825,17 @@ test('generation request lists chosen preset titles for usage stats (not outfit 
  const body=aiPhotoEditBody({source:{id:'s1'},prompt:'p',kind:'pose',editKinds:['pose'],consent:true,presetKeys:[{kind:'pose',key:'쪼그려 앉기'}]});
  assert.equal(body.get('presetKeys'),JSON.stringify([{kind:'pose',key:'쪼그려 앉기'}]));
 });
+
+// 2026-11-17 user request: presets picked on the landing carry over and are applied once when the editor first opens.
+test('landing preset handoff is applied once on first open and then cleared',async()=>{
+ const store=new Map(),previous=global.localStorage;global.localStorage={getItem:k=>store.has(k)?store.get(k):null,setItem:(k,v)=>store.set(k,String(v)),removeItem:k=>store.delete(k)};
+ try{
+  const {saveAiPhotoHandoff,takeAiPhotoHandoff}=loadTypeScript('lib/crefans/ai-photo-handoff.ts');
+  const {aiPhotoPresets,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const pose=aiPhotoPresets.pose.find(e=>aiPhotoPresetTitle('pose',e)==='쪼그려 앉기');
+  saveAiPhotoHandoff([{kind:'pose',prompt:pose}]);
+  const {r}=await open();
+  const card=r.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='쪼그려 앉기');assert.equal(card.length,1,'the pose tab is shown');assert.equal(card[0].props['aria-pressed'],true,'handed-off preset is selected');
+  assert.deepEqual(takeAiPhotoHandoff(),[],'consumed once');
+  store.set('crefans:ai-photo-handoff',JSON.stringify({at:Date.now()-2*3600000,presets:[{kind:'pose',prompt:pose}]}));assert.deepEqual(takeAiPhotoHandoff(),[],'older than an hour is ignored');
+ }finally{global.localStorage=previous;}
+});

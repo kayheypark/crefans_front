@@ -189,13 +189,16 @@ test('member mode editor hides scope, schedule and tips and publishes a public p
 // 2026-11-17 user decision: the signed-out trial starts with the landing page's fictional person already added.
 test('guest trial editor adds the fictional sample photo once and says how to replace it',async()=>{
  const uploads=[],previousFetch=global.fetch;global.fetch=async url=>({ok:true,blob:async()=>new Blob(['img'],{type:'image/webp'}),url});
- const guestModel={now:content.updatedAt,contents:[],memberships:[],subscribers:[],actions:{saveContent:async()=>({success:false}),uploadContentMedia:async file=>{uploads.push(file.name);return {success:true,data:{id:'sample-1',type:'image',url:'/api/v1/media/sample-1/file'}};},discardContentMedia(){}}};
+ const guestModel={now:content.updatedAt,contents:[],memberships:[],subscribers:[],actions:{aiEditPhoto:async()=>({success:false}),saveContent:async()=>({success:false}),uploadContentMedia:async file=>{uploads.push(file.name);return {success:true,data:{id:'sample-1',type:'image',url:'/api/v1/media/sample-1/file'}};},discardContentMedia(){}}};
  let view;
  try{
   await act(async()=>{view=create(element(ContentEditorPage,{model:guestModel,basePath:'/service/try',previewModel:model,previewCreatorId:creator.id,guest:{backHref:'/service/feed',doneHref:'/service/try?done=1',notice:'안내',caption:async()=>({success:false}),samplePhoto:{url:'/illustrations/landing/ai-photo/base-v1.webp',name:'crefans-sample-virtual-person.webp'}}}));await new Promise(r=>setTimeout(r,10));});
   assert.deepEqual(uploads,['crefans-sample-virtual-person.webp'],'uploaded once through the normal trial upload');
   assert.match(JSON.stringify(view.toJSON()),/가상 인물 샘플 사진이 미리 들어가 있어요/);
   assert.match(JSON.stringify(view.toJSON()),/샘플 원본을 등록해드렸어요\./,'snackbar tells the visitor the sample was added');
+  // 2026-11-17: the next step is highlighted until the AI editor is opened once.
+  assert.match(JSON.stringify(view.toJSON()),/이제 여기를 눌러 의상·포즈를 골라 보세요/);const aiButton=view.root.find(node=>node.type==='button'&&node.props['aria-label']==='AI 사진 편집');
+  act(()=>aiButton.props.onClick());assert.doesNotMatch(JSON.stringify(view.toJSON()),/이제 여기를 눌러/);
   await act(async()=>{await new Promise(r=>setTimeout(r,10));});assert.equal(uploads.length,1,'not repeated on re-render');
  }finally{global.fetch=previousFetch;if(view)act(()=>view.unmount());}
 });
