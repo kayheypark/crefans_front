@@ -7,6 +7,7 @@ test('footer ends with the three official account links, opened safely in a new 
   const list=tree.root.find(node=>node.props['aria-label']==='크레팬스 공식 계정');
   const links=list.findAllByType('a').map(a=>[a.props.href,a.props.target,a.props.rel,a.props['aria-label']]);
   assert.deepEqual(links,[['https://x.com/crefans_app','_blank','noopener noreferrer','크레팬스 X'],['https://www.instagram.com/crefans.official','_blank','noopener noreferrer','크레팬스 인스타그램'],['https://discord.gg/DupBW53n6','_blank','noopener noreferrer','크레팬스 디스코드']]);
+  const nav=tree.root.find(node=>node.type==='nav');assert.equal(nav.findAllByType('a')[0].props.href,'/service/feed','mobile footer starts with 홈');assert.equal(nav.findAllByType('a')[0].children.join(''),'홈');
   const json=tree.toJSON();assert.equal(json.type,'footer');assert.equal(json.children.at(-1).type,'ul','social links sit at the bottom of the footer');assert.equal(json.children.at(-1).props['aria-label'],'크레팬스 공식 계정');
  }finally{act(()=>tree.unmount());}
 });
