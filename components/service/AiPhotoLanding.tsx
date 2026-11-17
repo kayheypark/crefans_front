@@ -1,30 +1,39 @@
 'use client';
-import {useState} from 'react';
+import {useState,type CSSProperties} from 'react';
 import Link from 'next/link';
 import {Brand} from '@/components/crefans/Brand';
 import {ServiceFooter} from '@/components/crefans/ServiceFooter';
-import {aiPhotoKinds} from '@/lib/crefans/ai-photo';
-import {aiPhotoPresetTitles} from '@/lib/crefans/ai-photo-presets';
-import {aiPhotoCostumes} from '@/lib/crefans/ai-photo-costumes';
+import {SelectField} from '@/components/ui/SelectField';
+import {AiPhotoCategoryIcon} from '@/components/crefans/studio/AiPhotoCategoryIcon';
+import {AiPhotoWardrobe,CostumeGender} from '@/components/crefans/studio/AiPhotoWardrobe';
+import {AiPresetPager} from '@/components/crefans/studio/AiPresetPager';
+import e from '@/components/crefans/studio/ai-photo.module.css';
+import {aiPhotoKinds,aiPhotoPresetText} from '@/lib/crefans/ai-photo';
+import {AI_PHOTO_KEEP_ORIGINAL,aiPhotoMakeupGender,aiPhotoPresetImage,aiPhotoPresetMatches,aiPhotoPresetPage,aiPhotoPresetTitle,aiPhotoPresets,type AiPhotoBackgroundCategory,type AiPhotoPosePosture} from '@/lib/crefans/ai-photo-presets';
+import {aiPhotoCostumeCategories,aiPhotoCostumes,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
+import type {AiPhotoKind} from '@/types/crefans-studio-management';
+import {designVariables} from '@/lib/design/tokens';
 import s from './ai-photo-landing.module.css';
 
-// AI photo editing landing page (2026-11-16 user request). Built from the service's own catalog data: the costume chips and the
-// edit categories come from the same lists the editor uses, the demo results were made with the same model (Seedream) on a
-// fictional person, and every call to action opens the real signed-out trial at /service/try.
+// AI photo editing landing page (2026-11-16 user request; 2026-11-17 real-preset version). Built from the service's own catalog:
+// each hero result was made with Seedream from the fictional base person and exactly the presets listed under it (the same
+// request text the editor composes), and the preset browser below reuses the editor's cards, wardrobe and pager.
 const TRY='/service/try';
-const demo=[
- {id:'mage',label:'판타지 마법사',image:'/illustrations/landing/ai-photo/cos1-v1.webp'},
- {id:'idol',label:'핑크 아이돌',image:'/illustrations/landing/ai-photo/cos-idol-v1.webp'},
- {id:'cyber-idol',label:'사이버 아이돌',image:'/illustrations/landing/ai-photo/cos2-v1.webp'},
- {id:'hanbok',label:'벚꽃 한복',image:'/illustrations/landing/ai-photo/cos3-v1.webp'},
- {id:'cyber',label:'사이버 슈트',image:'/illustrations/landing/ai-photo/cos-cyber-v1.webp'},
+type LookPreset={kind:AiPhotoKind;title:string};
+const looks:{id:string;costume:string;presets:LookPreset[]}[]=[
+ {id:'modernia',costume:'4a0c8f',presets:[{kind:'makeup',title:'지뢰계 메이크업'},{kind:'pose',title:'의자에 앉기'}]},
+ {id:'gothic',costume:'ffb58f',presets:[{kind:'makeup',title:'코스프레 베이스'},{kind:'lens',title:'거울샷'}]},
+ {id:'maid',costume:'773106',presets:[{kind:'makeup',title:'인형 메이크업'},{kind:'pose',title:'손하트'}]},
+ {id:'mage',costume:'666147',presets:[{kind:'expression',title:'환한 미소'},{kind:'pose',title:'양팔 벌려 서기'}]},
+ {id:'idol',costume:'e614f6',presets:[{kind:'pose',title:'브이'},{kind:'camera',title:'로우 앵글'}]},
 ];
-// Catalog costumes shown on a public page: original designs only (no game/anime characters) and no revealing outfits.
-const showcase=['773106','80974e','666147','b4bf5d','e614f6'];
-export const landingCostumes=aiPhotoCostumes.filter(item=>showcase.includes(item.id));
-const kindImages:Record<string,string>={outfit:'outfit',makeup:'makeup',expression:'expression',pose:'pose',body:'body',camera:'camera',lens:'lens',background:'background'};
+const presetByTitle=(kind:AiPhotoKind,title:string)=>{const example=aiPhotoPresets[kind].find(item=>aiPhotoPresetTitle(kind,item)===title);if(!example)throw new Error(`landing preset missing: ${kind} ${title}`);return example;};
+/** Hero results with the real catalog entries behind them; a renamed or removed preset fails loudly instead of showing a stale card. */
+export const landingLooks=looks.map(look=>{const costume=aiPhotoCostumes.find(item=>item.id===look.costume);if(!costume)throw new Error(`landing costume missing: ${look.costume}`);
+ return {id:look.id,label:costume.name,image:`/illustrations/landing/ai-photo/hero-${look.id}-v1.webp`,cards:[{kind:'outfit' as AiPhotoKind,title:costume.name,image:costume.image},...look.presets.map(item=>({kind:item.kind,title:item.title,image:aiPhotoPresetImage(item.kind,presetByTitle(item.kind,item.title))}))]};});
 // Body presets are not advertised on the public page.
 export const landingKinds=aiPhotoKinds.filter(kind=>kind.value!=='body');
+const illustrated=['expression','pose','camera','lens'];
 
 export function AiPhotoCompare({before,after,label}:{before:string;after:string;label:string}){
  const [split,setSplit]=useState(50);
@@ -42,49 +51,63 @@ export function AiPhotoCompare({before,after,label}:{before:string;after:string;
  </div>;
 }
 
+/** The editor's preset browser (cosplay mode) on the landing: same tabs, wardrobe, filters, search and 3x3 pages. Picking only marks cards. */
+export function LandingPresetBrowser(){
+ const [kind,setKind]=useState<AiPhotoKind>('outfit'),[page,setPage]=useState(0),[query,setQuery]=useState(''),[costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>(aiPhotoCostumeCategories[0].value);
+ const [posture,setPosture]=useState<AiPhotoPosePosture>('standing'),[backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor'),[picked,setPicked]=useState<Record<string,string[]>>({});
+ const category=aiPhotoCostumeCategories.find(item=>item.value===costumeCategory)!;
+ const costumes=aiPhotoCostumes.filter(item=>query.trim()?aiPhotoPresetMatches(query,item.name,item.detail,aiPhotoCostumeCategories.find(c=>c.value===item.category)!.label):item.category===costumeCategory);
+ const preset=aiPhotoPresetPage(kind,page,'original',query,kind==='pose'?posture:undefined,kind==='background'?backgroundCategory:undefined);
+ const chosen=picked[kind]||[];
+ function change(next:AiPhotoKind){setKind(next);setPage(0);setQuery('');}
+ function search(value:string){setQuery(value);setPage(0);}
+ function pick(value:string){setPicked(previous=>{const current=previous[kind]||[];if(value===AI_PHOTO_KEEP_ORIGINAL)return {...previous,[kind]:[]};
+  const next=current.includes(value)?current.filter(item=>item!==value):kind==='makeup'?[...current,value]:[value];return {...previous,[kind]:next};});}
+ const selected=(value:string)=>value===AI_PHOTO_KEEP_ORIGINAL?chosen.length===0:chosen.includes(value);
+ return <div className={`${e.controls} ${s.browser}`}>
+  <div className={e.tabs} role="tablist" aria-label="편집 카테고리">{landingKinds.map(item=><button key={item.value} type="button" role="tab" aria-selected={kind===item.value} onClick={()=>change(item.value)}><AiPhotoCategoryIcon kind={item.value}/><span>{item.label}</span>{kind===item.value&&<svg className={e.tabCheck} aria-hidden="true" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="m2 6 3 3 5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}</button>)}</div>
+  {kind==='background'&&<div className={e.posePosture} role="group" aria-label="배경 카테고리">{(['indoor','outdoor'] as const).map(value=><button key={value} type="button" aria-pressed={backgroundCategory===value} onClick={()=>{setBackgroundCategory(value);search('');}}>{value==='indoor'?'실내':'아웃도어'}</button>)}</div>}
+  {kind==='pose'&&<div className={e.posePosture} role="group" aria-label="포즈 자세">{(['sitting','standing'] as const).map(value=><button key={value} type="button" aria-pressed={posture===value} onClick={()=>{setPosture(value);search('');}}>{value==='sitting'?'앉기':'서기'}</button>)}</div>}
+  <div className={e.presetSearch}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" aria-label="프리셋 검색" placeholder={kind==='outfit'?'의상 이름·작품 검색':`${landingKinds.find(item=>item.value===kind)!.label} 프리셋 검색`} value={query} onChange={event=>search(event.target.value)}/>{query&&<button type="button" aria-label="검색어 지우기" onClick={()=>search('')}>×</button>}</div>
+  {kind==='outfit'?<div role="tabpanel" aria-label="코스튬 프리셋" className={e.wardrobe}>
+   <div className={e.wardrobeHeading}><h3>어떤 의상을 입어볼까요?</h3></div>
+   <div className={e.costumeCategoryBar}><SelectField className={e.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);search('');}} options={aiPhotoCostumeCategories.map(item=>({value:item.value,label:item.label,image:item.image}))}/><span>{query.trim()?'전체 의상 검색':category.group} · {costumes.length}종</span></div>
+   <AiPhotoWardrobe key={`${costumeCategory}-${query}`} items={costumes} selectedPrompts={picked.outfit||[]} disabled={false} onPick={value=>{const text=aiPhotoPresetText(value);setPicked(previous=>({...previous,outfit:(previous.outfit||[]).includes(text)?[]:[text]}));}}/>
+  </div>:<div role="tabpanel" aria-label={`${landingKinds.find(item=>item.value===kind)!.label} 프리셋`} className={e.presets}>
+   <div className={e.presetHeading}><span>{query.trim()?`검색 결과 ${preset.total}개`:'프리셋'}</span><div className={e.presetNavigation}><button type="button" aria-label="이전 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index-1)}>‹</button><span aria-live="polite">{preset.index+1} / {preset.pages}</span><button type="button" aria-label="다음 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index+1)}>›</button></div></div>
+   <AiPresetPager key={`${kind}-${query}`} onStep={step=>setPage(preset.index+step)} disabled={preset.pages<=1}><div className={e.photoPresetGrid}>{preset.examples.map(example=><button type="button" key={example} className={e.preset} aria-label={aiPhotoPresetTitle(kind,example)} aria-pressed={selected(example)} onClick={()=>pick(example)}>
+    {/* eslint-disable-next-line @next/next/no-img-element -- static preset illustration or example photograph */}
+    <img className={illustrated.includes(kind)||example===AI_PHOTO_KEEP_ORIGINAL?e.presetIllustration:undefined} src={aiPhotoPresetImage(kind,example)} alt="" loading="lazy"/>{kind==='makeup'&&aiPhotoMakeupGender(example)&&<CostumeGender gender={aiPhotoMakeupGender(example)} title={aiPhotoMakeupGender(example)==='male'?'남성 메이크업':'여성 메이크업'}/>}<span>{aiPhotoPresetTitle(kind,example)}</span><span className={e.presetCheck} aria-hidden="true">{selected(example)?'✓':''}</span></button>)}</div></AiPresetPager>
+   {preset.total===0&&<p className={e.presetEmpty} role="status">검색 결과가 없어요. 다른 검색어를 입력해 주세요.</p>}
+  </div>}
+ </div>;
+}
+
 export default function AiPhotoLanding(){
- const [look,setLook]=useState(demo[0].id),[kind,setKind]=useState(landingKinds[0].value);
- const current=demo.find(item=>item.id===look)||demo[0];
- const presets=kind==='outfit'?landingCostumes.map(item=>item.name):aiPhotoPresetTitles[kind].slice(0,12);
- return <main className={s.page}>
+ const [look,setLook]=useState(landingLooks[0].id);
+ const current=landingLooks.find(item=>item.id===look)||landingLooks[0];
+ return <main className={s.page} style={designVariables as CSSProperties}>
   <header className={s.header}><Brand href="/service/feed"/><Link className={s.headerLink} href={TRY}>무료 체험</Link></header>
 
   <section className={s.hero} aria-labelledby="ai-photo-title">
    <div className={s.heroCopy}>
     <h1 id="ai-photo-title">사진 한 장으로,<br/>오늘의 <em>캐릭터</em>가 되어 보세요</h1>
     <p className={s.lead}>원하는 <strong>코스튬과 메이크업, 포즈와 배경</strong>을 고르면 AI가 사진을 새로 만들어요. <strong>원본 사진은 그대로</strong> 두고, 마음에 드는 결과만 골라 게시해요.</p>
-    <div className={s.actions}><Link className={s.primary} href={TRY}>로그인 없이 무료 체험</Link><a className={s.secondary} href="#how">어떻게 쓰나요?</a></div>
+    <div className={s.actions}><Link className={s.primary} href={TRY}>로그인 없이 무료 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
     <p className={s.small}>비회원은 브라우저당 <strong>10회까지 무료</strong>로 만들어 볼 수 있어요.</p>
    </div>
    <div className={s.heroDemo}>
     <AiPhotoCompare before="/illustrations/landing/ai-photo/base-v1.webp" after={current.image} label={current.label}/>
-    <div className={s.looks} role="radiogroup" aria-label="결과 코스튬 고르기">{demo.map(item=><button key={item.id} type="button" role="radio" aria-checked={item.id===look} className={s.look} onClick={()=>setLook(item.id)}>{/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}<img src={item.image} alt="" width={56} height={70}/><span>{item.label}</span></button>)}</div>
+    <div className={s.looks} role="radiogroup" aria-label="결과 사진 고르기">{landingLooks.map(item=><button key={item.id} type="button" role="radio" aria-checked={item.id===look} className={s.look} onClick={()=>setLook(item.id)}>{/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}<img src={item.image} alt="" width={56} height={70}/><span>{item.label}</span></button>)}</div>
+    <div className={s.used}><p>이 사진에 고른 프리셋</p><ul className={s.usedCards}>{current.cards.map(card=><li key={`${card.kind}-${card.title}`} className={s.usedCard}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset images */}<img src={card.image} alt="" width={72} height={72} data-illustrated={illustrated.includes(card.kind)||undefined}/><span>{landingKinds.find(item=>item.value===card.kind)?.label}</span><strong>{card.title}</strong></li>)}</ul></div>
    </div>
   </section>
 
-  <section className={s.section} aria-labelledby="ai-photo-kinds">
-   <h2 id="ai-photo-kinds">고를 수 있는 편집</h2>
-   <div className={s.kinds} role="tablist" aria-label="편집 종류">{landingKinds.map(item=><button key={item.value} type="button" role="tab" aria-selected={item.value===kind} className={s.kind} onClick={()=>setKind(item.value)}>{/* eslint-disable-next-line @next/next/no-img-element -- category icons */}<img src={`/brand/ai-photo/${kindImages[item.value]}-colorful-flat-v3.png`} alt="" width={36} height={36}/><span>{item.label}</span></button>)}</div>
-   {kind==='outfit'?<div className={s.costumes} role="tabpanel" aria-label="코스튬 프리셋">{landingCostumes.map(item=><figure key={item.id} className={s.costume}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog images */}<img src={item.image} alt="" width={160} height={200}/><figcaption><strong>{item.name}</strong><span>{item.detail}</span></figcaption></figure>)}<p className={s.more}>게임·애니메이션 의상을 포함해 <strong>300종이 넘는 코스튬</strong>이 있어요.</p></div>
-    :<ul className={s.presetList} role="tabpanel" aria-label={`${landingKinds.find(item=>item.value===kind)?.label} 프리셋`}>{presets.map(name=><li key={name}>{name}</li>)}</ul>}
-  </section>
-
-  <section className={s.section} id="how" aria-labelledby="ai-photo-how">
-   <h2 id="ai-photo-how">세 단계면 끝나요</h2>
-   <ol className={s.steps}>
-    <li><b>1</b><strong>사진 올리기</strong><span><strong>내 사진</strong>이나 동의를 받은 사람의 사진을 올려요.</span></li>
-    <li><b>2</b><strong>골라 담기</strong><span>코스튬·메이크업·포즈·배경을 고르면 <strong>AI가 한 장으로</strong> 만들어요. 결과를 보고 <strong>이어서 보정</strong>할 수 있어요.</span></li>
-    <li><b>3</b><strong>바로 게시</strong><span>마음에 드는 사진을 고르고, <strong>‘AI로 내용 작성’</strong>으로 제목·내용까지 채워 피드에 올려요.</span></li>
-   </ol>
-  </section>
-
-  <section className={s.section} aria-labelledby="ai-photo-plans">
-   <h2 id="ai-photo-plans">이용 방법</h2>
-   <div className={s.plans}>
-    <article><h3>비회원 체험</h3><p className={s.planValue}>10회 무료</p><p><strong>로그인 없이</strong> 브라우저에서 바로 써 봐요. 게시물은 <strong>24시간</strong> 동안 피드에 보이고, 같은 브라우저로 가입하면 내 계정으로 옮겨져요.</p><Link className={s.primary} href={TRY}>지금 체험하기</Link></article>
-    <article><h3>회원</h3><p className={s.planValue}>하루 10회 무료</p><p>게시물 작성에서 써요. <strong>매일 오전 9시</strong>에 다시 채워지고, <strong>하트 게임 보상</strong>으로 더 만들 수 있어요.</p><Link className={s.secondary} href="/service/studio">스튜디오 열기</Link></article>
-    <article><h3>AI 이용권</h3><p className={s.planValue}>필요한 만큼</p><p>무료 횟수를 다 쓰면 스튜디오 상점에서 <strong>AI 이용권</strong>을 무통장입금으로 구매할 수 있어요. <strong>남은 횟수는 환불</strong>받을 수 있어요.</p><Link className={s.secondary} href="/service/studio/shop">상점 보기</Link></article>
-   </div>
+  <section className={s.section} aria-labelledby="ai-photo-kinds-title" id="ai-photo-kinds">
+   <h2 id="ai-photo-kinds-title">고를 수 있는 편집</h2>
+   <p className={s.sectionLead}>실제 편집 화면과 같은 프리셋이에요. 눌러서 둘러보고, 체험에서 내 사진에 적용해 보세요.</p>
+   <LandingPresetBrowser/>
+   <Link className={s.primary} href={TRY}>이 프리셋으로 무료 체험</Link>
   </section>
 
   <section className={s.notice} aria-labelledby="ai-photo-rules">

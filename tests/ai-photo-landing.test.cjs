@@ -5,19 +5,29 @@ const React=require('react');
 const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const styles=new Proxy({},{get:(_,key)=>String(key)});
-const page=loadTypeScript('components/service/AiPhotoLanding.tsx',{'./ai-photo-landing.module.css':{__esModule:true,default:styles},'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'@/components/crefans/Brand':{Brand:()=>React.createElement('span',null,'crefans')}});
+const page=loadTypeScript('components/service/AiPhotoLanding.tsx',{'./ai-photo-landing.module.css':{__esModule:true,default:styles},'@/components/crefans/studio/ai-photo.module.css':{__esModule:true,default:styles},'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'@/components/crefans/Brand':{Brand:()=>React.createElement('span',null,'crefans')}});
 const text=node=>JSON.stringify(node.toJSON());
-test('landing uses catalog costumes without game/anime characters or revealing outfits, and every CTA opens the real trial',()=>{
- assert.deepEqual(page.landingCostumes.map(item=>item.category),['general','general','general','general','general']);
- assert.ok(!page.landingCostumes.some(item=>/비치|오프숄더|치어/.test(item.name)));assert.ok(!page.landingKinds.some(item=>item.value==='body'));
+test('hero results come from real presets, the preset browser reuses the editor cards, and the removed sections stay gone',async()=>{
+ const fs=require('fs'),sharp=require('sharp');
+ // 2026-11-17 user request: hero results made with real presets (Modernia + 지뢰계 + 의자, 코스프레 베이스 + 거울샷, …).
+ assert.deepEqual(page.landingLooks.map(item=>item.id),['modernia','gothic','maid','mage','idol']);
+ const first=page.landingLooks[0];assert.equal(first.label,'모더니아 코스튬');assert.deepEqual(first.cards.map(card=>card.title),['모더니아 코스튬','지뢰계 메이크업','의자에 앉기']);
+ assert.deepEqual(page.landingLooks[1].cards.slice(1).map(card=>card.title),['코스프레 베이스','거울샷']);
+ for(const look of page.landingLooks){const meta=await sharp(fs.readFileSync('public'+look.image)).metadata();assert.equal(meta.width,720);assert.equal(meta.height,900);for(const card of look.cards)assert.ok(fs.existsSync('public'+card.image),card.image);}
+ assert.ok(!page.landingKinds.some(item=>item.value==='body'));
  let tree;act(()=>{tree=create(React.createElement(page.default));});
  try{
   const links=tree.root.findAllByType('a').map(a=>a.props.href);assert.ok(links.filter(href=>href==='/service/try').length>=3);
-  assert.match(text(tree),/가상 인물 · AI 생성 이미지/);assert.match(text(tree),/로그인 없이 무료 체험/);
-  const radio=tree.root.findAll(node=>node.props.role==='radio').find(node=>node.findByType('span').props.children==='사이버 슈트');act(()=>radio.props.onClick());
-  assert.ok(tree.root.findAll(node=>node.type==='img'&&/사이버 슈트 결과/.test(node.props.alt||'')).length===1,'choosing a look swaps the result image');
-  const tab=tree.root.findAll(node=>node.props.role==='tab').find(node=>node.findByType('span').props.children==='포즈');act(()=>tab.props.onClick());
-  assert.match(text(tree),/손인사/,'the pose tab lists the real preset names');
+  assert.match(text(tree),/가상 인물 · AI 생성 이미지/);assert.doesNotMatch(text(tree),/세 단계면 끝나요|이용 방법|하루 10회 무료/);
+  assert.match(text(tree),/지뢰계 메이크업/);
+  const radio=tree.root.findAll(node=>node.props.role==='radio').find(node=>node.findByType('span').props.children==='판타지 마법사');act(()=>radio.props.onClick());
+  assert.ok(tree.root.findAll(node=>node.type==='img'&&/판타지 마법사 결과/.test(node.props.alt||'')).length===1,'choosing a look swaps the result image');
+  assert.match(text(tree),/양팔 벌려 서기/);assert.doesNotMatch(text(tree),/지뢰계 메이크업/);
+  // The browser opens on the wardrobe like the editor's cosplay mode, then other tabs page through the real catalog.
+  assert.ok(tree.root.findAll(node=>node.type==='button'&&node.props['aria-label']==='리본 메이드').length===1);
+  const tab=tree.root.findAll(node=>node.props.role==='tab').find(node=>node.findAllByType('span').some(span=>span.props.children==='포즈'));act(()=>tab.props.onClick());
+  const card=()=>tree.root.find(node=>node.type==='button'&&node.props['aria-label']==='벽에 기대 쉬기');
+  assert.equal(card().props['aria-pressed'],false);act(()=>card().props.onClick());assert.equal(card().props['aria-pressed'],true);act(()=>card().props.onClick());assert.equal(card().props['aria-pressed'],false);
   const range=tree.root.find(node=>node.type==='input'&&node.props.type==='range');act(()=>range.props.onChange({target:{value:'20'}}));
   assert.ok(tree.root.findAll(node=>node.props.style?.clipPath==='inset(0 0 0 20%)').length===1,'the compare slider moves the split');
  }finally{act(()=>tree.unmount());}
