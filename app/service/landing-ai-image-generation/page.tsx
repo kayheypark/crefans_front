@@ -7,7 +7,8 @@ export const dynamic='force-dynamic';
 const PATH='/service/landing-ai-image-generation';
 const TITLE='AI 사진 편집 · 사진 한 장으로 코스튬 체인지 | 크레팬스';
 const DESCRIPTION='원하는 코스튬·메이크업·포즈·배경을 고르면 AI가 사진을 새로 만들어요. 로그인 없이 10회 무료로 체험해 보세요.';
-const IMAGE={url:'/illustrations/landing/ai-photo/cos1-v1.webp',width:720,height:900,alt:'AI 사진 편집 결과 예시(가상 인물, AI 생성)'};
+// 2026-11-17 user request: landscape share image (1200×630) with the Modernia result so the face is never cropped in link previews.
+const IMAGE={url:'/illustrations/landing/ai-photo/og-modernia-v1.jpg',width:1200,height:630,alt:'크레팬스 AI 사진 편집 원본과 모더니아 코스튬 결과(가상 인물, AI 생성)'};
 export const metadata:Metadata={title:TITLE,description:DESCRIPTION,keywords:['AI 사진 편집','AI 코스프레','AI 코스튬','AI 이미지 생성','사진 의상 변경','크레팬스'],alternates:{canonical:PATH},robots:{index:true,follow:true},
  // Page-level openGraph replaces the root one, so the site fields are repeated here.
  openGraph:{type:'website',siteName:SITE_NAME,locale:'ko_KR',url:PATH,title:'크레팬스 AI 사진 편집',description:'사진 한 장으로 오늘의 캐릭터가 되어 보세요. 로그인 없이 10회 무료 체험.',images:[IMAGE]},

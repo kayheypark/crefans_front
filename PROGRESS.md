@@ -1,3 +1,7 @@
+## 2026-11-17 랜딩 OG 이미지 가로 모더니아 버전 (feat/landing-og-modernia, 운영 front-og-20261117)
+- /service/landing-ai-image-generation openGraph·twitter·JSON-LD 이미지를 og-modernia-v1.jpg(1200×630, 원본 썸네일+모더니아 결과, 현재 로고·히어로 문구)로 교체. 세로 cos1이 링크 미리보기에서 얼굴이 잘리는 문제 대응. 사용자 시안 승인 후 배포.
+- 검증: ai-photo-landing 2/2(이미지 경로·크기 확인 추가), typecheck 0. X 카드 캐시는 기존 게시물에 바로 반영되지 않을 수 있음.
+
 ## 2026-11-17 푸터·PC 사이드바 공식 계정 링크 (feat/footer-social-links, 운영 front-social-20261117)
 - X https://x.com/crefans_app, 인스타그램 https://www.instagram.com/crefans.official, 디스코드 https://discord.gg/DupBW53n6(사용자 제공). 단일 출처 lib/content/business.ts officialSocialLinks, 표시 components/crefans/OfficialSocialLinks.tsx(모노 아이콘, 새 탭, noopener). ServiceFooter 맨 아래와 PC 사이드바 사업자 정보 아래.
 - 검증: tests/official-social-links 1/1, prompt-layout 2/2, typecheck 0, WebKit 390 푸터·1280 사이드바 링크 3개·가로 넘침 없음.
