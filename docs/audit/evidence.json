@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T03:59:48.044818+00:00",
+  "checkedAt": "2026-11-17T04:23:01.386177+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,9 +30,9 @@
   ],
   "repositories": {
     "front": {
-      "head": "e5312c13008d5689f904448d29546c730bee4d5a",
+      "head": "70528c42736370d3b8f3256e8466342453523102",
       "branch": "",
-      "dirty": false
+      "dirty": true
     },
     "server": {
       "head": "564cbf0b4d4a680220f5845add9850e34194a745",
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "50b164417687ccbd0842f9ef9b6bf1111d346486a022350199aada5bb7450119",
+      "front/PROGRESS.md": "ab3a797ff8f7273a30aa05157fbfc7f5f79a0961b75ff1f21efa0b88246a4cc0",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -174,7 +174,7 @@
       "front/app/robots.ts": "2f804eed08cac6d3db5b29752a52631cfb4c77bd828b10f50e2c188124a57b8e",
       "front/app/service/[...screen]/page.tsx": "c001236b48a75cbbb3b291b934fb59819388fa011271a77e37cfc1aac779be49",
       "front/app/service/error.tsx": "47d8aeafda52d6cac3db1772fa4305b8d35eac21fda9c68fb6e2f04b0d4f3e0e",
-      "front/app/service/landing-ai-image-generation/page.tsx": "d76c60ab7e95d5e95231ea52e98c6b1c6d48950ef0349740e718f1ea1e25768e",
+      "front/app/service/landing-ai-image-generation/page.tsx": "089177277e01bab2556bb9de77de652a4d425504ef97d61d6e067bd081505a5d",
       "front/app/service/landing/page.tsx": "4f39eb37f3bcaf8bd66eb577f2986cb085e7e2a00721ad00878693a1462b0abd",
       "front/app/service/layout.tsx": "2b5f89efaf7206d8773a5468d742d43c8590c86e4bc40d3cb7b0c5e09a372ae8",
       "front/app/service/page.tsx": "365a0e01a5f23be08c3e39bccf978354a93656f6e82329f938cc6a0c9555e553",
@@ -841,7 +841,7 @@
       "front/scripts/generate-ai-preset-illustrations.cjs": "c1ab00f58c88169ae892aed0407199e8b1c67e74112fba9d9f03266522948d72",
       "front/scripts/render-og.cjs": "e6abecd6eef8b94d012e1337774a05d1dd120b41672b8e60f16d003d395a66bc",
       "front/tests/ai-photo-heart-game.test.cjs": "eef8c9e607c408faff3ca5031ef5be94dd85f7e845e49ed1b9a852957fb9de7f",
-      "front/tests/ai-photo-landing.test.cjs": "523b99b2887a4f57fc2d71f863ca5ea428974a5c0b2c3657f391537d906ab0c9",
+      "front/tests/ai-photo-landing.test.cjs": "43878927718ee0a9e1ec4c360a3fa299742f2223c6ac402d64fdab94a0a1cbf8",
       "front/tests/amount-presets.test.cjs": "720e713320db21dd5ceddc8bbc0160a9df612e582f6658188b1264e2762f1355",
       "front/tests/api-contracts.test.cjs": "d607262ef8ab70095f31911841faa779c4bdd6979aef0108071357b64865d491",
       "front/tests/avatar.test.cjs": "a3a281f0cb6b5ccd3a7bb0124b965a41cad9de7895e5805b50361bbe09dcf018",
