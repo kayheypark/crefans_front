@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T14:01:50.636762+00:00",
+  "checkedAt": "2026-11-17T14:27:01.653090+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,9 +30,9 @@
   ],
   "repositories": {
     "front": {
-      "head": "8dadfb4df57a6af049e42236b6f74a0d6627980b",
+      "head": "044273eff92bebcaa4fc11abe194aaeefd746556",
       "branch": "",
-      "dirty": true
+      "dirty": false
     },
     "server": {
       "head": "d0637d37884b7452fe2f657abae54b1d4aeb53f6",
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "de8c50d1ec3409ed7b7d1a414c324217db1a62d03d4c8a565dba261b051d1455",
+      "front/PROGRESS.md": "5adf26850b9fbeea483d5a2cf3ecd44cbb7f398ee6d85294d4da17fcb1f1d04f",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -317,7 +317,7 @@
       "front/components/crefans/studio/ContentPostPreview.tsx": "5809f36d8bfdfb0e513e208249ea87696b29a9a5e35278b7fbbb131cc72a4e7b",
       "front/components/crefans/studio/DashboardPage.tsx": "0bf3e4ff2c755836b79514a15148eed7cedbe864b2d04f0219d7ca3c793daf69",
       "front/components/crefans/studio/FinancePages.tsx": "6cf9ae9d0a1afcd87b9419aeee8fc114e61555e78e4a68e8f618c525dc97aed3",
-      "front/components/crefans/studio/ManagementPages.tsx": "14eee949b749c1190726e1e904985a6657e724afa51389370c98f210aefb138f",
+      "front/components/crefans/studio/ManagementPages.tsx": "d12f724a22906d56c4dcedceb0a5b0732aa5c2f9fe62e730ac6024a06658efa1",
       "front/components/crefans/studio/OverviewPages.tsx": "f57dba51a5a0ab4f79477b2941635dfa583ba5e39dcd0f7c6e7222fb2f37e110",
       "front/components/crefans/studio/PhoneFrame.tsx": "9c83a77bdd1e3f2449bb566775ca9fe85be2379aa8d11b15ad13a5380ef2d88e",
       "front/components/crefans/studio/ReportPage.tsx": "8faa564cedf335b708efc3d15ff8d2e34c5b4127b72447e327602e59e1faf2d1",
@@ -326,7 +326,7 @@
       "front/components/crefans/studio/StudioShell.tsx": "026354aa5fd91de4dc501ecb361600200ecf5532586de5d2c8a03d7d2381f715",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "2843536dd513f2a6f61ed32bf09bb6e005d1cbdf601fba75f6db5691f5da2bb6",
       "front/components/crefans/studio/advertising.module.css": "2162096ec06a62a521875053216ad642e6257c9b82fd15550849b4aaa8af6cff",
-      "front/components/crefans/studio/ai-photo.module.css": "75523c8455ae4e9754c2fa0bbd182ae2441cbae767741aeba6225ad93ea7e999",
+      "front/components/crefans/studio/ai-photo.module.css": "37057cae4e679493f1ad9ba9abb864e6479bc2514fe2b3f59d3ad12658f47ca9",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-list.module.css": "50f5927048e6507421ecc94607ed9e3016e63e198fcccfa76351af28bda11bca",
       "front/components/crefans/studio/content-performance.module.css": "6d4be5a99f503a53337abad363dfaafe3e92c7f611176dfe10fe53840f123c36",
@@ -880,7 +880,7 @@
       "front/tests/crefans-events.test.cjs": "d38860c813f4627145b002a745cc4ea121de83b37492f33b9ee887fc9ad43460",
       "front/tests/crefans-finance.test.cjs": "74d9441c38bbad57f835dac14b42c1250888beae99fd4a3dbcd8e21d1d6da9f0",
       "front/tests/crefans-social.test.cjs": "f4a9a88cc0ae3eab4702445cee340b7a64922390171b7b474470fa4ec2aaf2ac",
-      "front/tests/crefans-studio-management.test.cjs": "e6f5927e43ec2f3aa1206f7eab485b7b2de385be0ffbee61d944e0eebeac07bf",
+      "front/tests/crefans-studio-management.test.cjs": "3e6b1db9f2a1678f37de51f49efef60336d03f253fad87208dbb32358bbe5655",
       "front/tests/crefans-studio-reports.test.cjs": "3dd2217203a29af33b35cdf7bd25294b86165ff767f582a859af5938f07f63a2",
       "front/tests/custom-ui.test.cjs": "3836b5e9d3a0bf61f1f5eb1edbd879ea0a9bbd67325f168bea42b07b41472583",
       "front/tests/dashboard-links.test.cjs": "295afb74bada420d212997723dd4bd153f73cca29668dd3e9822489210815282",
