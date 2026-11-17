@@ -18,7 +18,7 @@
 .compareAfter{position:absolute;inset:0}
 .compareLine{position:absolute;top:0;bottom:0;width:3px;margin-left:-1.5px;background:#fff;pointer-events:none}
 .compareLine span{position:absolute;top:50%;left:50%;display:grid;place-items:center;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:#fff;color:#db2777;font-weight:800;box-shadow:0 2px 10px rgba(0,0,0,.25)}
-.compareRange{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compareRange{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;pointer-events:none}
 .compareTag{position:absolute;top:12px;padding:4px 10px;border-radius:999px;background:rgba(32,35,51,.7);color:#fff;font-size:12px;font-weight:700;pointer-events:none}
 .compareTag[data-side="before"]{left:12px}.compareTag[data-side="after"]{right:12px;background:rgba(219,39,119,.88)}
 .aiMark{position:absolute;right:10px;bottom:8px;font-size:11px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);pointer-events:none}
@@ -61,3 +61,24 @@
 /* 2026-11-17 user request: the footer matches the service landing on mobile — white page and dark official-account icons
    (the service landing's `.page a{color:inherit}` makes them dark there). */
 .siteFooter ul[aria-label] a{color:inherit}
+
+/* 2026-11-17 user request: compare hints — tap/drag anywhere moves the line; a floating bubble and two pointing fingers with a
+   repeating burst invite it until the line has moved once. Pointer handling lives on .compare; the range input is keyboard only. */
+.compare{touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.compare:has(.compareRange:focus-visible){outline:3px solid var(--cf-color-focus,#2563eb);outline-offset:3px}
+.compareLine{transition:left .25s ease}.compare[data-dragging] .compareLine,.compare[data-dragging] .compareAfter{transition:none}
+.compareAfter{transition:clip-path .25s ease}
+.compareBubble{position:absolute;left:50%;top:calc(50% - 74px);transform:translateX(-50%);padding:7px 12px;border-radius:999px;background:#202333;color:#fff;font-size:12px;font-style:normal;font-weight:700;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.25);animation:compareFloat 1.6s ease-in-out infinite}
+.compareBubble::after{content:"";position:absolute;left:50%;bottom:-5px;width:10px;height:10px;margin-left:-5px;background:#202333;transform:rotate(45deg)}
+@keyframes compareFloat{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.compareHint{position:absolute;top:62%;width:56px;height:56px;margin-left:-28px;display:grid;place-items:center;color:#f45091;pointer-events:none}
+.compareFinger{position:relative;width:34px;height:34px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35));animation:compareTap 1.6s ease-in-out infinite}
+.compareBurst{position:absolute;inset:0;width:100%;height:100%;opacity:0;animation:compareBurst 1.6s ease-out infinite}
+.compareHint[data-side="right"] .compareFinger,.compareHint[data-side="right"] .compareBurst{animation-delay:.8s}
+@keyframes compareTap{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(4px) scale(.92)}}
+@keyframes compareBurst{0%,30%{opacity:0;transform:scale(.5)}40%{opacity:1}75%{opacity:0;transform:scale(1.45)}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.compareBubble,.compareFinger,.compareBurst{animation:none}.compareBurst{opacity:0}.compareLine,.compareAfter{transition:none}}
+.compareHint::before{content:"";position:absolute;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.compareFinger{width:26px;height:26px;filter:none}
+.compare[data-intro] .compareLine{transition:left 1.4s cubic-bezier(.65,0,.35,1)}.compare[data-intro] .compareAfter{transition:clip-path 1.4s cubic-bezier(.65,0,.35,1)}
+@media(prefers-reduced-motion:reduce){.compare[data-intro] .compareLine,.compare[data-intro] .compareAfter{transition:none}}

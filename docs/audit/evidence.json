@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T07:47:52.166397+00:00",
+  "checkedAt": "2026-11-17T07:50:20.885283+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "1b50da2e8362c0fb969ae473f4c7392b52b0f30f",
+      "head": "ad01db0eacce1d570240a250df83849c0d5684e3",
       "branch": "",
       "dirty": false
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "d948c089eb78dbfcd05679e6cb3f890d5efa9c8bc9487792ede1ee4f3f5a45f0",
+      "front/PROGRESS.md": "5a4c04e5b5a6ab8964f625db6b99ffb66ac46378071bf383f60e5d1aff9abee5",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -259,7 +259,7 @@
       "front/components/crefans/PullToRefresh.tsx": "35bec9880a8e528c8f351d4d7a851d72275526b3aea04c96a761bc51488400b4",
       "front/components/crefans/ReferralCard.tsx": "1631a86b21f7144010d4e7e3dc96e0336c9fc74a9e235b1ec46a3a4c3f1c1180",
       "front/components/crefans/ReferralHistoryPage.tsx": "582afd0a45264cda90237e8640220d9a4f05b56a7ff290be399394a3d26df5b9",
-      "front/components/crefans/ServiceFooter.tsx": "2cef64c5fac10aa7fa6f930f17d95190b33de60e847da1c0396d1a4284eb2e54",
+      "front/components/crefans/ServiceFooter.tsx": "ba99b2c86f10d0c82ef9111e2ab86857a831612d02bf3ea0222d884a7e64981f",
       "front/components/crefans/ServiceLinks.tsx": "813a26dd7fed842e5258056dc77b845de2e85110dc2d9d2834d79f6d16e04050",
       "front/components/crefans/ServiceShell.tsx": "f142a0e8192f627d8a25c2dcd9c8485e96dcd99832df87a17b41cc4dfb5c6553",
       "front/components/crefans/ServiceUI.tsx": "acf223eb3a6ab9928bbc136221ccba8d34d7c04695a5ebc91deaa861a0610bf2",
@@ -298,7 +298,7 @@
       "front/components/crefans/pull-to-refresh.module.css": "b299540b08d7e271dd0892d9a8ba6e2e9ff917dcad5d5d858c4bcc1010284f02",
       "front/components/crefans/referral-history.module.css": "dd41250c76b9630f57751069af17c7d7d24def521cceda5756d4cae4c6d25b2d",
       "front/components/crefans/referral.module.css": "797752fa30dcc4a256851ca30d9c14a69bbc5edc3bb03c432b235783e36ab451",
-      "front/components/crefans/service-footer.module.css": "73711174721c07110f9d8a643a05bae7eb4efec1d4e566747cd780210da3c015",
+      "front/components/crefans/service-footer.module.css": "669f664bbf96e43d316c87c72aab128d382d9da9b295e0d94bd257fab7a01010",
       "front/components/crefans/service.module.css": "31f868ea90e5e68b49c32c14ab96f98f1a30622bf64c2d58acccc7a41a4c56f7",
       "front/components/crefans/signup-complete.module.css": "7f25070acf261fbfb4c9ca6203266075115a3450070629bfcd6a29775d274f6e",
       "front/components/crefans/social.module.css": "e3e8eb81c0c26e4c933da5489e4a76f6adc342ed59e3e9a0e22886a64f50aa60",
@@ -871,7 +871,7 @@
       "front/tests/creator-guard.test.cjs": "bf3195542c41b82d0776135f123ba8dcd0ede1900ff3d987590335a23993caf0",
       "front/tests/creator-payout-terms.test.cjs": "57d82131431f1ef0bd2a454435435c6c546e3f479b518cc4ba37ee0bff7c1218",
       "front/tests/creator-verification.test.cjs": "b14e5d1d17f40e8828d28e19f58080cf54fd4697f59da8e10c8bcfdab6ff83e4",
-      "front/tests/crefans-account.test.cjs": "253db38f0fe90faa91aeed234d2976d318afe091c0ad9317e4016f24f3309da0",
+      "front/tests/crefans-account.test.cjs": "ad85679027550c92ef4f036d7b09c0e27298587e1638ce5effdd65db1cf4d7bd",
       "front/tests/crefans-common.test.cjs": "6391397247ee4ad98b3c5cf85305a78761ae65234ea771e81c250f109a4dae50",
       "front/tests/crefans-community.test.cjs": "2aaf1a6ec78d78afbd3ac7e389a8409e3dd53bde83987b5126bff4040a92ede4",
       "front/tests/crefans-contract.test.cjs": "3a37df6c540365dba1927abeee5442578a0a030af2a79bc1528abdece3da24f5",
@@ -911,7 +911,7 @@
       "front/tests/membership-thumb.test.cjs": "053483d370de01ddb39b52c2701a8b80557be67805bf175a06d2adce374ea91b",
       "front/tests/my-profile-actions.test.cjs": "ae2e7c0d223c99cb69187c4317ab757b978292cc95dc052a0defcc81499dbc5f",
       "front/tests/my-profile-posts.test.cjs": "f607ed20ce88c21ad5d830e5d96d7525062d06d331bedbd750d274b18ecece17",
-      "front/tests/official-social-links.test.cjs": "185eb4331f812c3a9ffd517ba631148427f6ad403aeb63571eca55a6a69236b0",
+      "front/tests/official-social-links.test.cjs": "7366ee393542b3e22bccbd06d2ce4ef3822b5c81b76c5be3fa9fe21a2bb6a173",
       "front/tests/one-time-payment.test.cjs": "f1ac35c5361f6231bf18e0f2c13203cfaf50a93897f57cb04c73eb47da3872ab",
       "front/tests/overlay-motion.test.cjs": "574c8c81bda1b330a3894aa6027a3a69ce3b3e9e0ff648a685828f1541190a4c",
       "front/tests/overwatch-costumes.test.cjs": "4d4737717c7740cea0eddc9cb9b359d6206d82c077c71e7cbd36edfb258f9334",
