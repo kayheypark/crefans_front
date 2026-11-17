@@ -1,3 +1,8 @@
+## 2026-11-17 모바일 푸터 글자 크기·홈 링크 (fix/footer-size-home, 운영 front-footer3-20261117)
+- 랜딩처럼 서비스 셸 밖 화면은 --cf-mobile-font-min이 없어 푸터 글자가 12px로 작았음 → 푸터가 모바일에서 직접 본문 크기(14px)를 지정해 설정 화면 푸터와 같게.
+- 모바일 푸터 첫 링크로 '홈'(basePath/feed) 추가, PC(≥768px)에서는 숨김.
+- 검증: 로컬 WebKit 390(첫 링크 홈·링크/주소 14px), 1280에서 홈 숨김, crefans-account·official-social-links 갱신, npm test 실패 18(기준선 동일 목록), typecheck 0.
+
 ## 2026-11-17 AI 랜딩 모바일 푸터를 서비스 랜딩과 맞춤 (fix/ai-landing-footer, 운영 front-footer2-20261117)
 - 운영 비교(WebKit 390): 링크 배치·글자·폭은 같고 배경(AI 랜딩만 canvas #FAFBFD)과 공식 계정 아이콘 색(서비스 랜딩은 .page a{color:inherit}로 진한 색)이 달랐음. AI 랜딩 .page 배경을 surface(#FFF)로, 푸터 공식 계정 링크 색을 inherit로.
 - 검증: 로컬 WebKit 계산 스타일(배경 #FFF, 아이콘 rgb(32,35,51) = 서비스 랜딩과 같음), ai-photo-landing·official-social-links 테스트 통과.
