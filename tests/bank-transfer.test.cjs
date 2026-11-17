@@ -206,3 +206,15 @@ test('live bean model sends the bank transfer input with the charge and the refu
   assert.deepEqual(requests,[['/beans/charges/c1/refund',{requestId:'req-2',refundAccount:account}],['/payments/bank-transfer/bean/c1',undefined]]);
  }finally{act(()=>t.unmount());}
 });
+
+// 2026-11-17 user decision: '입금했어요' alerts operators once; the button turns into a sent state and is not shown without the action.
+test('입금했어요 sends one report, then shows it was sent',async()=>{
+ let calls=0;const onReportDeposit=async()=>{calls++;return ok({reported:true,message:'입금했다고 운영팀에 알렸어요. 입금이 확인되면 바로 지급돼요.'});};
+ let t;act(()=>{t=create(el(BankTransferInstructions,{transfer,onReportDeposit}));});
+ const button=()=>t.root.findAll(n=>n.type==='button'&&/입금했어요|입금 알림을 보냈어요|알리는 중/.test(words(n.children)))[0];
+ assert.match(words(button().children),/입금했어요/);
+ await act(async()=>{await button().props.onClick();});await act(async()=>{await button().props.onClick();});
+ assert.equal(calls,1,'reported once');assert.equal(button().props.disabled,true);assert.match(words(button().children),/입금 알림을 보냈어요/);
+ act(()=>t.update(el(BankTransferInstructions,{transfer})));assert.equal(t.root.findAll(n=>n.type==='button'&&/입금했어요/.test(words(n.children))).length,0,'no button without the action');
+ act(()=>t.unmount());
+});
