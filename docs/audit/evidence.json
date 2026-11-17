@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T00:44:25.099751+00:00",
+  "checkedAt": "2026-11-17T01:04:37.060059+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "cd0acb8937d23a331f486e23ab5bad85fe06277b",
+      "head": "15696a5e06f6f03a80a877559aa81edbced7abbb",
       "branch": "",
       "dirty": false
     },
@@ -42,7 +42,7 @@
   },
   "state": {
     "documents": {
-      "front/AGENTS.md": "6efbecc09838e0579710c8ed0ff126f45e4fe33f80fe8e6f479b7772cd351595",
+      "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
       "front/PROGRESS.md": "e759d1336b20aac6b5a42178c93ebf5fd079b08d961232303e8666d0f489dbe7",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
@@ -780,7 +780,7 @@
       "front/lib/content/landing.ts": "683a3e8374d8d420cb523e87fa4e589ed3849ae914f988c2b51759278d363956",
       "front/lib/crefans/advisor.ts": "a8c4cf3b3d9a4dd150d0a42b17b3a20d16505c7dcdae3c02a0f0fd9797124f33",
       "front/lib/crefans/ai-photo-backgrounds.ts": "6eea96b9cd02323a09cf37bf73c06197350dd11979f52df1dbc1c2e136e548a5",
-      "front/lib/crefans/ai-photo-costumes.ts": "76700c5d4005d649a6ecf277582cc219025dc093989fba87a96bdeeea0e2c87f",
+      "front/lib/crefans/ai-photo-costumes.ts": "d73427d1839e69a27c3d2fffc5f7c7631263505d57e17c2f06739552700d7e20",
       "front/lib/crefans/ai-photo-crop.ts": "1e31ba7721a7d262d14b7daa1fca3865ccd4175d19bfac1c8926e72d2f8b3a28",
       "front/lib/crefans/ai-photo-labels.ts": "adc4423c2a8c18c8d5f82bae9b06475c6d4ab3ae7fd098ef3eeabf1ea73a4386",
       "front/lib/crefans/ai-photo-outfits.ts": "517a2722043beebf4423eaf4206d5eb6c8a4b40016d29a1fccad28993a205b69",
