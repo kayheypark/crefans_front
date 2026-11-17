@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T23:31:59.670843+00:00",
+  "checkedAt": "2026-11-17T00:44:25.099751+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "40281825635605a3825e0602e1e07b863e9aa701",
+      "head": "cd0acb8937d23a331f486e23ab5bad85fe06277b",
       "branch": "",
       "dirty": false
     },
     "server": {
-      "head": "c25f961fc4fe0d1d78034adbfa03754afe3196ed",
+      "head": "9b2b643c7a1d6a6920cba78a41feeb3f5980bbdc",
       "branch": "",
       "dirty": false
     }
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "17a62e8140cea7913bb083d5d2e85595923b85f9bac4d8af90d4e2812320a47f",
       "server/AGENTS.md": "904a398cf606b21c59cf64ebc4f78b306f955ed22aea38a9a6f6a8334e16c8f7",
-      "server/PROGRESS.md": "9068dd5f1c361af93926e44ac2ad8a7e5a3fd613472a6a53ed8213d6af98d086",
+      "server/PROGRESS.md": "fa312fc5b193557dc72ee610c7e3d2383dbcb17cc8941fdbb614ee1456b1dc5b",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -780,7 +780,7 @@
       "front/lib/content/landing.ts": "683a3e8374d8d420cb523e87fa4e589ed3849ae914f988c2b51759278d363956",
       "front/lib/crefans/advisor.ts": "a8c4cf3b3d9a4dd150d0a42b17b3a20d16505c7dcdae3c02a0f0fd9797124f33",
       "front/lib/crefans/ai-photo-backgrounds.ts": "6eea96b9cd02323a09cf37bf73c06197350dd11979f52df1dbc1c2e136e548a5",
-      "front/lib/crefans/ai-photo-costumes.ts": "755765ed38deb4be14beb6c04ce5b313f08373c67783b30003a533ecc923a6bb",
+      "front/lib/crefans/ai-photo-costumes.ts": "76700c5d4005d649a6ecf277582cc219025dc093989fba87a96bdeeea0e2c87f",
       "front/lib/crefans/ai-photo-crop.ts": "1e31ba7721a7d262d14b7daa1fca3865ccd4175d19bfac1c8926e72d2f8b3a28",
       "front/lib/crefans/ai-photo-labels.ts": "adc4423c2a8c18c8d5f82bae9b06475c6d4ab3ae7fd098ef3eeabf1ea73a4386",
       "front/lib/crefans/ai-photo-outfits.ts": "517a2722043beebf4423eaf4206d5eb6c8a4b40016d29a1fccad28993a205b69",
