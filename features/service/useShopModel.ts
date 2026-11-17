@@ -1,14 +1,14 @@
 'use client';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {platformRequest as api} from '@/lib/api/platform';
-import {getBankTransfer} from '@/lib/api/payments';
+import {getBankTransfer,reportBankTransferDeposit} from '@/lib/api/payments';
 import {usePaymentMethods} from './usePaymentMethods';
 import type {ShopModel,ShopProduct,ShopOrder,ShopSubscriptions,ShopSubscription} from '@/types/crefans-shop';
 export function useShopModel(enabled=true):ShopModel{
  const [products,setProducts]=useState<ShopProduct[]>([]),[orders,setOrders]=useState<ShopOrder[]>([]),[loading,setLoading]=useState(false),[error,setError]=useState(''),[subscriptions,setSubscriptions]=useState<ShopSubscriptions|null>(null);const sequence=useRef(0),keys=useRef<Record<string,string>>({}),payments=usePaymentMethods(enabled);
  const refresh=useCallback(async()=>{if(!enabled)return;const seq=++sequence.current;setLoading(true);try{const [p,o,sub]=await Promise.all([api<ShopProduct[]>('/studio/shop/products'),api<ShopOrder[]>('/studio/shop/orders'),api<ShopSubscriptions>('/studio/shop/subscriptions')]);if(seq!==sequence.current)return;setSubscriptions(sub.success?sub.data:null);if(p.success&&o.success){setProducts(p.data);setOrders(o.data);setError('');}else setError(!p.success?p.errorMessage:!o.success?o.errorMessage:'상점을 불러오지 못했어요.');}catch{if(seq===sequence.current)setError('상점을 불러오지 못했어요. 다시 시도해 주세요.');}finally{if(seq===sequence.current)setLoading(false);}},[enabled]);
  useEffect(()=>{if(typeof window==='undefined')return;void refresh();window.addEventListener('focus',refresh);return()=>{sequence.current++;window.removeEventListener('focus',refresh);};},[refresh]);
- return{products,orders,loading,error,paymentMethods:payments.methods,refreshPaymentMethods:payments.refresh,bankTransfer:id=>getBankTransfer('ai-shop',id),refresh,subscriptions,
+ return{products,orders,loading,error,paymentMethods:payments.methods,refreshPaymentMethods:payments.refresh,bankTransfer:id=>getBankTransfer('ai-shop',id),reportDeposit:id=>reportBankTransferDeposit('ai-shop',id),refresh,subscriptions,
  subscribe:product=>api('/studio/shop/subscriptions',{productId:product.id,version:product.version,termsVersion:product.termsVersion}),
  cancelSubscription:async id=>{const result=await api<ShopSubscription>(`/studio/shop/subscriptions/${encodeURIComponent(id)}/cancel`,{});await refresh();return result;},
  refundSubscription:async id=>{const result=await api<ShopSubscription>(`/studio/shop/subscriptions/${encodeURIComponent(id)}/refund`,{});await refresh();return result;},

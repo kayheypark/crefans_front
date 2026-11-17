@@ -1,3 +1,8 @@
+## 2026-11-17 입금했어요 버튼 (feat/deposit-reported, 미배포)
+- 입금 안내(BankTransferInstructions)에 '입금했어요' 버튼: 누르면 서버가 운영 텔레그램에 주문당 1회 알림, 버튼은 '입금 알림을 보냈어요'로 바뀌고 스낵바 안내. 상점·콩 충전·콩 내역·광고상품 입금 안내에 연결(model.reportDeposit), 동작이 없으면 버튼 숨김.
+- 서버 feat/order-telegram(주문 알림 상품명 + deposited API)과 함께 배포해야 함.
+- 검증: bank-transfer 11/11(1회 전송·보낸 상태·동작 없으면 숨김), npm test 실패 18(기준선 동일), typecheck 0.
+
 ## 2026-11-17 성별 선택 아이콘 (feat/gender-icons, 운영 front-gender-20261117)
 - AI 사진 편집 첫 화면 '남성인가요, 여성인가요?'의 ♂/♀ 기호를 Seedream으로 만든 컬러 플랫 상반신 아이콘(public/brand/ai-photo/gender-{male,female}-v1.webp, 256px, 생성 기록 .local/gender-icons/*.png.json)으로 교체. 흰 원 배경.
 - 검증: studio-ai-photo 83/83, typecheck 0, WebKit 390 디자인 시스템 화면 두 아이콘 디코드·캡처.
