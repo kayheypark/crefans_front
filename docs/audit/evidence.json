@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T22:53:47.071126+00:00",
+  "checkedAt": "2026-11-16T23:31:59.670843+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "1030d8a0504a2cb4f2837e3892cd1b0b5eaacae2",
+      "head": "40281825635605a3825e0602e1e07b863e9aa701",
       "branch": "",
       "dirty": false
     },
     "server": {
-      "head": "aa9c283df00de3926699e6ae0f2ebebe0407f957",
+      "head": "c25f961fc4fe0d1d78034adbfa03754afe3196ed",
       "branch": "",
       "dirty": false
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "6efbecc09838e0579710c8ed0ff126f45e4fe33f80fe8e6f479b7772cd351595",
-      "front/PROGRESS.md": "0a0fe44cacfcf2263ee693b89a4b4e58c71a30f26c79303fbc67ecc0e4ce04cb",
+      "front/PROGRESS.md": "e759d1336b20aac6b5a42178c93ebf5fd079b08d961232303e8666d0f489dbe7",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "17a62e8140cea7913bb083d5d2e85595923b85f9bac4d8af90d4e2812320a47f",
       "server/AGENTS.md": "904a398cf606b21c59cf64ebc4f78b306f955ed22aea38a9a6f6a8334e16c8f7",
-      "server/PROGRESS.md": "a52306de472980deb30c0e6a33f978596afb0dce345475a133644f6243e79953",
+      "server/PROGRESS.md": "9068dd5f1c361af93926e44ac2ad8a7e5a3fd613472a6a53ed8213d6af98d086",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -431,7 +431,7 @@
       "front/components/profile/Profile.tsx": "91583baf187e8097f2bfb10baacbfccb38020cd205d9d3140a46b210ff1bde8d",
       "front/components/providers/ApplicationProviders.tsx": "95d9dcf4b3f66237ac3d5dc804ee202bf6469e90e8315c9ecae94083d39a79ba",
       "front/components/providers/PresentationProviders.tsx": "deda60079037c24274efed727c3a7089799c3386f1a6070237e9cba9f0f48e26",
-      "front/components/service/AiPhotoLanding.tsx": "327bfaeed7f5b5ce2293575dd3de97def68bce6f8dfb3fa3e64b0dd35f6ea9ce",
+      "front/components/service/AiPhotoLanding.tsx": "013f0470913abdc0a5a89e7841b690e1833f8d49e6332dcdbf1f107a7fe86bae",
       "front/components/service/BeanPaymentResult.tsx": "4ea92ddf2aab3e05708b31c982f9ae291b0c29bae682e8e46720139b9453a717",
       "front/components/service/BeanWithdrawContainer.tsx": "9914aefd2d86d980ed012720283a3dcdd5226e7ef706d3c2a0331b3d776cb2ab",
       "front/components/service/BetaClosedNotice.tsx": "477689dce150592f20daad7d555720dc9b5593b2de5f3834b80269f7f2f7a142",
@@ -450,7 +450,7 @@
       "front/components/service/ShopContainer.tsx": "3cace36eeb2d3d04b0d29986cd2544c5b197154e9a306fced097fe0699c7587f",
       "front/components/service/ShopPayment.tsx": "7ee5037667d3d353c610d09b6caf9bf5b5e16d34506d653007ef12f9631b9da1",
       "front/components/service/StudioRouter.tsx": "da31567b4de71dd077d26080f90578b920a1cbd170dc9b5f20aaf92cddc8d237",
-      "front/components/service/ai-photo-landing.module.css": "3ab10a26df63b42ae9270361d43d688bc560015e95afb53846c991f8c8797d15",
+      "front/components/service/ai-photo-landing.module.css": "192f1146b746a7686fa3de5fbb7fc7756cc1dd7dd5c93959843a26ee4583fd94",
       "front/components/service/guest-claim.module.css": "a95d96f4997d98eec77a9341c0d3f10dc3a49e4c2405954e3ea194d9975ad5f1",
       "front/components/service/guest-trial.module.css": "742222107f1ee64d433b3a38711c6560435f102a04d1bbed237a5a7389965226",
       "front/components/settings/Settings.tsx": "f505dbbc972b7a0e4ee4d919e3ae450e90ef5c2481571ed174b377637f2dab8e",
