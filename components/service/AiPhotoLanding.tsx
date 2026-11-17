@@ -13,6 +13,7 @@ import {AI_PHOTO_KEEP_ORIGINAL,aiPhotoMakeupGender,aiPhotoPresetImage,aiPhotoPre
 import {aiPhotoCostumeCategories,aiPhotoCostumes,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 import {designVariables} from '@/lib/design/tokens';
+import {saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import s from './ai-photo-landing.module.css';
 
 // AI photo editing landing page (2026-11-16 user request; 2026-11-17 real-preset version). Built from the service's own catalog:
@@ -74,9 +75,10 @@ export function AiPhotoCompare({before,after,label}:{before:string;after:string;
 }
 
 /** The editor's preset browser (cosplay mode) on the landing: same tabs, wardrobe, filters, search and 3x3 pages. Picking only marks cards. */
-export function LandingPresetBrowser(){
+export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string,string[]>)=>void}={}){
  const [kind,setKind]=useState<AiPhotoKind>('outfit'),[page,setPage]=useState(0),[query,setQuery]=useState(''),[costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>(aiPhotoCostumeCategories[0].value);
- const [posture,setPosture]=useState<AiPhotoPosePosture>('standing'),[backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor'),[picked,setPicked]=useState<Record<string,string[]>>({});
+ const [posture,setPosture]=useState<AiPhotoPosePosture>('standing'),[backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor'),[picked,setPickedState]=useState<Record<string,string[]>>({});
+ const setPicked=(update:(previous:Record<string,string[]>)=>Record<string,string[]>)=>setPickedState(previous=>{const next=update(previous);onPicked?.(next);return next;});
  const category=aiPhotoCostumeCategories.find(item=>item.value===costumeCategory)!;
  const costumes=aiPhotoCostumes.filter(item=>query.trim()?aiPhotoPresetMatches(query,item.name,item.detail,aiPhotoCostumeCategories.find(c=>c.value===item.category)!.label):item.category===costumeCategory);
  const preset=aiPhotoPresetPage(kind,page,'original',query,kind==='pose'?posture:undefined,kind==='background'?backgroundCategory:undefined);
@@ -106,7 +108,7 @@ export function LandingPresetBrowser(){
 }
 
 export default function AiPhotoLanding(){
- const [look,setLook]=useState(landingLooks[0].id);
+ const [look,setLook]=useState(landingLooks[0].id),[landingPicked,setLandingPicked]=useState<Record<string,string[]>>({});
  const current=landingLooks.find(item=>item.id===look)||landingLooks[0];
  return <main className={s.page} style={designVariables as CSSProperties}>
   <header className={s.header}><Brand href="/service/feed"/><Link className={s.headerLink} href={TRY}>무료 체험</Link></header>
@@ -128,8 +130,9 @@ export default function AiPhotoLanding(){
   <section className={s.section} aria-labelledby="ai-photo-kinds-title" id="ai-photo-kinds">
    <h2 id="ai-photo-kinds-title">고를 수 있는 편집</h2>
    <p className={s.sectionLead}>실제 편집 화면과 같은 프리셋이에요. 눌러서 둘러보고, 체험에서 내 사진에 적용해 보세요.</p>
-   <LandingPresetBrowser/>
-   <Link className={s.primary} href={TRY}>이 프리셋으로 무료 체험</Link>
+   <LandingPresetBrowser onPicked={setLandingPicked}/>
+   {/* 2026-11-17 user request: the picked presets carry over to the trial editor (this browser only). */}
+   <Link className={s.primary} href={TRY} onClick={()=>saveAiPhotoHandoff(Object.entries(landingPicked).flatMap(([kind,values])=>values.filter(value=>value!==AI_PHOTO_KEEP_ORIGINAL).map(value=>({kind:kind as AiPhotoKind,prompt:aiPhotoPresetText(value)}))))}>이 프리셋으로 무료 체험</Link>
   </section>
 
   <section className={s.notice} aria-labelledby="ai-photo-rules">
