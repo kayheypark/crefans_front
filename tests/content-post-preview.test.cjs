@@ -185,3 +185,16 @@ test('member mode editor hides scope, schedule and tips and publishes a public p
  const creatorView=mount(ContentEditorPage,{model:{...management,contents:[]},basePath:'/studio',previewModel:model,previewCreatorId:creator.id});
  try{assert.match(JSON.stringify(creatorView.toJSON()),/이 게시물에서 후원 받기/,'creators keep the tips option');}finally{act(()=>creatorView.unmount());}
 });
+
+// 2026-11-17 user decision: the signed-out trial starts with the landing page's fictional person already added.
+test('guest trial editor adds the fictional sample photo once and says how to replace it',async()=>{
+ const uploads=[],previousFetch=global.fetch;global.fetch=async url=>({ok:true,blob:async()=>new Blob(['img'],{type:'image/webp'}),url});
+ const guestModel={now:content.updatedAt,contents:[],memberships:[],subscribers:[],actions:{saveContent:async()=>({success:false}),uploadContentMedia:async file=>{uploads.push(file.name);return {success:true,data:{id:'sample-1',type:'image',url:'/api/v1/media/sample-1/file'}};},discardContentMedia(){}}};
+ let view;
+ try{
+  await act(async()=>{view=create(element(ContentEditorPage,{model:guestModel,basePath:'/service/try',previewModel:model,previewCreatorId:creator.id,guest:{backHref:'/service/feed',doneHref:'/service/try?done=1',notice:'안내',caption:async()=>({success:false}),samplePhoto:{url:'/illustrations/landing/ai-photo/base-v1.webp',name:'crefans-sample-virtual-person.webp'}}}));await new Promise(r=>setTimeout(r,10));});
+  assert.deepEqual(uploads,['crefans-sample-virtual-person.webp'],'uploaded once through the normal trial upload');
+  assert.match(JSON.stringify(view.toJSON()),/가상 인물 샘플 사진이 미리 들어가 있어요/);
+  await act(async()=>{await new Promise(r=>setTimeout(r,10));});assert.equal(uploads.length,1,'not repeated on re-render');
+ }finally{global.fetch=previousFetch;if(view)act(()=>view.unmount());}
+});

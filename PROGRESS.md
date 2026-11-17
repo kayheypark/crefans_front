@@ -1,3 +1,8 @@
+## 2026-11-17 비회원 체험 기본 샘플 사진 (feat/guest-sample-photo, 운영 front-sample-20261117)
+- 사용자 결정: 사진이 없는 방문자도 바로 해 볼 수 있게, 체험 편집 화면이 열리면 AI 생성 가상 인물 샘플(guest-sample-v1.webp: 사용자가 준 AI 생성 코스프레 사진을 같은 자세·방에서 평범한 회색 잠옷으로 Seedream 편집, 기록 .local/guest-sample/pajama-1.png.json)을 일반 체험 업로드 경로로 한 번 올려 둔다(서버 변경 없음, 소유권·입력 안전검사 그대로). 안내 '가상 인물 샘플 사진이 미리 들어가 있어요…'. 지우고 내 사진을 올리면 기존과 같음.
+- 사용자 확인: 원본 사진은 AI 생성물이라 권리 문제 없음.
+- 검증: content-post-preview 새 테스트(1회 업로드·안내 표시·재렌더 반복 없음), npm test 실패 18(기준선 동일), typecheck 0. 실제 운영 체험 흐름은 미확인.
+
 ## 2026-11-17 AI 프리셋 사용 집계 전송 (feat/preset-usage-stats, 미배포)
 - 생성 요청에 고른 프리셋 카드 제목(presetKeys: [{kind,key}])을 함께 보냄. 의상과 참조 배경은 기존 costumeIds·backgroundId로 서버가 집계. 서버 표 ai_preset_usage_daily(집계만, 개인정보 없음).
 - 나중에 HOT 배지·정렬은 이 집계를 보고 프론트에 하드코딩(사용자 계획). 데이터는 배포 후부터 쌓임.
