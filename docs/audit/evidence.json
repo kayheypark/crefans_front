@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17T07:30:27.980019+00:00",
+  "checkedAt": "2026-11-17T07:47:52.166397+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "1c01f8e059b1816ed27c6151583ca689f1b43327",
+      "head": "1b50da2e8362c0fb969ae473f4c7392b52b0f30f",
       "branch": "",
       "dirty": false
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "a9c87f5eda552b43266cd5480545cbfead0b325a124ad557e1c2bdcdf5f0343f",
+      "front/PROGRESS.md": "d948c089eb78dbfcd05679e6cb3f890d5efa9c8bc9487792ede1ee4f3f5a45f0",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -452,7 +452,7 @@
       "front/components/service/ShopContainer.tsx": "3cace36eeb2d3d04b0d29986cd2544c5b197154e9a306fced097fe0699c7587f",
       "front/components/service/ShopPayment.tsx": "7ee5037667d3d353c610d09b6caf9bf5b5e16d34506d653007ef12f9631b9da1",
       "front/components/service/StudioRouter.tsx": "da31567b4de71dd077d26080f90578b920a1cbd170dc9b5f20aaf92cddc8d237",
-      "front/components/service/ai-photo-landing.module.css": "ba15b080b20f18753eaf231d02e259d7cbfc0ef7233cae6169a5b93ebe81ecad",
+      "front/components/service/ai-photo-landing.module.css": "d7211e2ae9cebc7d1624ee1ab770ea7694adf9981ed201c13cd9bb4820b3cfcc",
       "front/components/service/guest-claim.module.css": "a95d96f4997d98eec77a9341c0d3f10dc3a49e4c2405954e3ea194d9975ad5f1",
       "front/components/service/guest-trial.module.css": "742222107f1ee64d433b3a38711c6560435f102a04d1bbed237a5a7389965226",
       "front/components/settings/Settings.tsx": "f505dbbc972b7a0e4ee4d919e3ae450e90ef5c2481571ed174b377637f2dab8e",
