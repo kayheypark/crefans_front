@@ -816,3 +816,12 @@ test('guest with no tries left is offered signup; members still see the 9 AM ref
  assert.equal(guest.r.root.findAll(n=>n.props?.href==='/service/signup').length>=1,true,'signup link');
  const member=await make(false);assert.match(text(member.r.toJSON()),/매일 오전 9시에 다시 이용할 수 있어요/);assert.equal(member.r.root.findAll(n=>n.props?.href==='/service/signup').length,0);
 });
+
+// 2026-11-17 user decision: generation requests carry the chosen preset titles so the server can count HOT presets.
+test('generation request lists chosen preset titles for usage stats (not outfit or reference backgrounds)',async()=>{
+ const {r,click,calls}=await open();await click('쪼그려 앉기');await click('1장 만들기');
+ assert.deepEqual(calls[0].presetKeys,[{kind:'pose',key:'쪼그려 앉기'}]);
+ const {aiPhotoEditBody}=loadTypeScript('features/service/useStudioModel.ts',{'@/lib/api/client':{api:async()=>({success:true})}});
+ const body=aiPhotoEditBody({source:{id:'s1'},prompt:'p',kind:'pose',editKinds:['pose'],consent:true,presetKeys:[{kind:'pose',key:'쪼그려 앉기'}]});
+ assert.equal(body.get('presetKeys'),JSON.stringify([{kind:'pose',key:'쪼그려 앉기'}]));
+});

@@ -1,3 +1,8 @@
+## 2026-11-17 AI 프리셋 사용 집계 전송 (feat/preset-usage-stats, 미배포)
+- 생성 요청에 고른 프리셋 카드 제목(presetKeys: [{kind,key}])을 함께 보냄. 의상과 참조 배경은 기존 costumeIds·backgroundId로 서버가 집계. 서버 표 ai_preset_usage_daily(집계만, 개인정보 없음).
+- 나중에 HOT 배지·정렬은 이 집계를 보고 프론트에 하드코딩(사용자 계획). 데이터는 배포 후부터 쌓임.
+- 검증: studio-ai-photo 새 테스트, npm test 실패 18(기준선 동일), typecheck 0.
+
 ## 2026-11-17 미츠리 하오리 숨김 + /ask-me 결정 (fix/hide-mitsuri, 운영 front-mitsuri-20261117, API crefans-api:mitsuri-20261117)
 - 6ee320(미츠리 하오리)을 카탈로그에서 숨김(hiddenCostumeIds, 원본 항목은 기록용 유지). 귀멸의 칼날 31→30종, 전체 353→352종. 서버도 COSTUME_UNAVAILABLE로 거절.
 - 결정: 무통장 계좌는 사용자가 콘솔에서 직접 등록 / 랜딩·OG 모더니아는 현행 유지(IP 위험 인지) / 복구 묶음 24개(약 13.1GB) 삭제.
