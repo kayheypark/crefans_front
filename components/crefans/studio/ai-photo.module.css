@@ -241,14 +241,18 @@
 .preset>span.costumeGender.costumeGender{display:flex;overflow:visible;-webkit-line-clamp:unset}
 
 /* 2026-11-17: next-step nudge on the AI button after the trial's sample photo is added (until it is opened once). */
-.aiNudgeHint{position:relative;align-self:flex-start;margin:0 0 10px;padding:7px 12px;border-radius:999px;background:#202333;color:#fff;font-size:13px;font-weight:700;animation:aiNudgeFloat 1.6s ease-in-out infinite}
+.aiNudgeHint{position:relative;align-self:flex-start;justify-self:start;margin:0 0 10px;padding:7px 12px;border-radius:999px;background:#202333;color:#fff;font-size:13px;font-weight:700;animation:aiNudgeFloat 1.6s ease-in-out infinite}
 .aiNudgeHint::after{content:"";position:absolute;left:28px;bottom:-5px;width:10px;height:10px;background:#202333;transform:rotate(45deg)}
-.aiWide.aiNudge{position:relative;overflow:hidden;isolation:isolate;box-shadow:0 0 0 2px #db2777,0 6px 18px rgba(219,39,119,.25);animation:aiNudgePulse 1.6s ease-in-out infinite}
-.aiWide.aiNudge::after{content:"";position:absolute;inset:-20% auto -20% -60%;width:40%;background:linear-gradient(105deg,transparent,rgba(219,39,119,.18) 50%,transparent);transform:skewX(-18deg);animation:aiNudgeShine 2.4s ease-in-out infinite;pointer-events:none}
+.aiNudge{position:relative;overflow:hidden;isolation:isolate;box-shadow:0 0 0 2px #db2777,0 6px 18px rgba(219,39,119,.25);animation:aiNudgePulse 1.6s ease-in-out infinite}
+.aiNudge::after{content:"";position:absolute;inset:-20% auto -20% -60%;width:40%;background:linear-gradient(105deg,transparent,rgba(219,39,119,.18) 50%,transparent);transform:skewX(-18deg);animation:aiNudgeShine 2.4s ease-in-out infinite;pointer-events:none}
+/* 2026-11-17: the same nudge on the trial's 'AI로 내용 작성' and publish buttons; the publish hint sits on its own row, pointing right. */
+.aiNudgeHintRow{flex-basis:100%;display:flex;justify-content:flex-end;margin:0}
+.aiNudgeHintRow .aiNudgeHint{margin:0}
+.aiNudgeHintRow .aiNudgeHint::after{left:auto;right:28px}
 @keyframes aiNudgeFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
 @keyframes aiNudgePulse{0%,100%{box-shadow:0 0 0 2px #db2777,0 6px 18px rgba(219,39,119,.25)}50%{box-shadow:0 0 0 4px rgba(219,39,119,.55),0 8px 22px rgba(219,39,119,.35)}}
 @keyframes aiNudgeShine{0%{left:-60%}50%{left:125%}100%{left:125%}}
-@media(prefers-reduced-motion:reduce){.aiNudgeHint,.aiWide.aiNudge,.aiWide.aiNudge::after{animation:none}}
+@media(prefers-reduced-motion:reduce){.aiNudgeHint,.aiNudge,.aiNudge::after{animation:none}}
 
 /* 2026-11-17: gender entry cards show character icons (white round avatar on the lavender card). */
 .genderEntryChoices button img{width:88px;height:88px;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(134,87,223,.15)}
