@@ -31,3 +31,9 @@ test('disabled tipping and feature flag remain hidden, own profile cannot tip it
  for(const disabled of [false,true])check(base({enabled:false}),{...props,disabled},root=>assert.equal(root.findAllByType('img').length,0));
  check(base({ownCreatorIds:['creator']}),{creatorId:'creator',name:'작성자',profile:true},root=>assert.equal(root.findAllByType('button').length,0));
 });
+test('2026-11-18: a post with a game/anime costume photo shows a no-tip note instead of the button',()=>{
+ const restricted={...props,post:{...post,commercialRestricted:true,tipsEnabled:false}};
+ check(base(),restricted,root=>{assert.equal(root.findAllByType('button').length,0);const note=root.findByProps({'data-commercial-restricted':'true'});assert.equal(note.props['aria-label'],'게임·애니메이션 의상을 사용한 게시물은 저작권 문제로 후원을 받을 수 없어요.');assert.equal(note.findByType('small').children[0],'후원 불가');});
+ check(base(),props,root=>{assert.equal(root.findAllByType('button').length,1);assert.equal(root.findAllByProps({'data-commercial-restricted':'true'}).length,0);});
+ check(base({enabled:false}),restricted,root=>assert.equal(root.findAllByType('img').length,0));
+});

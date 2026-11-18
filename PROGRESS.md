@@ -1,3 +1,8 @@
+## 2026-11-18 게임·애니메이션 의상 AI 사진 — 후원 버튼 숨김·공개 범위 잠금 (feat/franchise-costume-commercial-block)
+- 사용자 결정(2026-11-18): 게임·애니메이션 의상(카탈로그 general 외)으로 만든 사진이 들어간 게시물은 게시물 후원·멤버십 전용 불가(전체 공개만). 서버 짝: crefans_server 같은 브랜치(서버가 판정·강제, 응답 commercialRestricted·미디어 franchiseCostume).
+- 변경: BeanPages TipButton — commercialRestricted면 버튼 대신 흐린 아이콘+'후원 불가'(aria-label·title '게임·애니메이션 의상을 사용한 게시물은 저작권 문제로 후원을 받을 수 없어요.', 콩 기능 꺼짐이면 숨김). ManagementPages 편집기 — 첨부에 franchiseCostume이 있으면 공개 범위를 '전체 공개'로 표시·잠금(hint '게임·애니메이션 의상 사진이 있어 전체 공개로만 올릴 수 있어요.'), 저장 시 accessPlanId·accessLevel null, 후원 체크박스 해제·잠금(설명 문구), 사진을 빼면 원래 선택 복원. ContentPostPreview도 반영. AiPhotoDialog — 게임·애니 의상 선택 시 한 줄 안내 '게임·애니 의상으로 만든 사진은 후원·멤버십 전용 게시물에 쓸 수 없어요.'. lib/crefans/ai-photo-costumes.ts isFranchiseCostume·안내 문구, support.ts FAQ 1줄. 타입 StudioMedia/StudioContent/PostMediaItem/Post 필드 추가.
+- 검증: tsc 0, build 0, npm test 756 중 738 통과·18 실패(기준선 fail-base2 18건과 동일 목록, 새 실패 0). 새 테스트 3개(편집기 잠금·저장값과 일반 사진 대조, 후원 안내·일반 게시물 버튼 유지·콩 꺼짐 숨김, 의상 안내 표시·기본 의상 미표시·해제 시 사라짐). 대조(소스 변형 후 원복): 잠금 제거·안내 분기 제거·의상 판정 무시 각각 해당 테스트 실패.
+
 ## 2026-11-18 가입 시 광고성 정보 수신 동의 혜택 모달·설정 안내 (feat/marketing-consent-reward)
 - 사용자 지시(2026-11-18): 체크 해제 후 가입하면 한 번 콩 이미지 모달('프로모션 콩 10개를 바로 드려요'), 설정에서 언제든 켜고 끄기. 서버 짝: crefans_server feat/marketing-consent-reward(첫 동의 1회 10콩·30일).
 - SignupPage: bootstrap `marketingReward`(서버, 콩 꺼짐이면 null)가 있을 때만 체크박스 아래 '동의 시 프로모션 콩 10개' 표시. 미체크로 제출하면 가입 흐름당 1회 Dialog(illustration /brand/events/open-beta-v2/beans.webp, 본문: 전송자·광고성 정보 수신·30일·출금/환불 불가·설정에서 끌 수 있고 꺼도 콩 유지·거부해도 제한 없음, 동의 전문 펼치기) — '동의 없이 가입'(marketing:false로 진행)과 '동의하고 10콩 받기'(체크 후 marketing:true로 진행)를 같은 크기 버튼으로 나란히. 닫기·재제출 시 다시 묻지 않음. 기본 체크 없음 유지.

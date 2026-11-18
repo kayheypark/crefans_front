@@ -46,6 +46,7 @@ export function BeanWalletLink({basePath,className}:{basePath:string;className?:
  if(!model?.enabled)return null;const balance=model.wallet?model.wallet.spendableBeans??(model.wallet.accounts||[]).filter(a=>['purchased','promotion'].includes(a.bucket)).reduce((n,a)=>n+Number(a.balance),0):null;
  return className?<Link href={`${basePath}/beans`} className={className} aria-label={balance===null?'내 지갑':`내 지갑 · 사용 가능한 ${beans(balance)}`}><Image src="/brand/beans/soft3d-v2/10.png" width={20} height={20} sizes="20px" alt="" draggable={false}/><span>{balance!==null?beans(balance):pending?(slow?<LoadingSpinner inline/>:null):'내 지갑'}</span></Link>:<div style={{padding:'12px 16px'}}><Link href={`${basePath}/beans`}>내 콩 지갑</Link></div>;}
 export function BeanIncomeLink({basePath}:{basePath:string}){const model=useBeans();return model?.enabled?<p className={s.incomeLink}>이 화면은 멤버십 원화 수익 기준입니다. <Link href={`${basePath}/beans`}>콩 후원 수익·출금 보기</Link></p>:null;}
+const FRANCHISE_TIP_NOTICE='게임·애니메이션 의상을 사용한 게시물은 저작권 문제로 후원을 받을 수 없어요.';
 export function TipButton({creatorId,name,postId,post,creator,disabled=false,profile=false}:{creatorId:string;name:string;postId?:string;post?:Post;creator?:Creator;disabled?:boolean;profile?:boolean}){
  const model=useBeans(),[open,setOpen]=useState(false),[confirming,setConfirming]=useState(false),[quantity,setQuantity]=useState('10'),[message,setMessage]=useState(''),[error,setError]=useState(''),[result,setResult]=useState<BeanTip|null>(null),[pending,setPending]=useState(false),[shared,setShared]=useState(false),request=useRef(''),busy=useRef(false);
  useEffect(()=>{if(typeof window!=='undefined'&&(profile||!!postId)&&new URLSearchParams(window.location.search).get('tip')==='1'){setOpen(true);const url=new URL(window.location.href);url.searchParams.delete('tip');window.history.replaceState(window.history.state,'',url.toString());}},[profile,postId]);
@@ -53,6 +54,8 @@ export function TipButton({creatorId,name,postId,post,creator,disabled=false,pro
  const balancePending=!!model&&(model.loading||(!model.wallet&&!model.error)),slowBalance=useDelayedLoading(open&&balancePending);
  const own=!!model?.ownCreatorIds.includes(creatorId),supporterCount=model?.postSupporterCounts?.[postId||'']??post?.supporterCount??0;
  const postIcon=<><Image className={s.postTipIcon} src="/brand/post-actions/support-coin-flat-v1.png" width={24} height={24} sizes="24px" alt="" aria-hidden="true" draggable={false}/><span>{supporterCount.toLocaleString()}</span></>;
+ // 2026-11-18: posts with a game/anime costume photo take no tips (copyright); a quiet note replaces the button.
+ if(postId&&post?.commercialRestricted&&model?.enabled!==false)return <span className={`${s.postTip} ${s.postTipRestricted}`} data-commercial-restricted="true" role="note" title={FRANCHISE_TIP_NOTICE} aria-label={FRANCHISE_TIP_NOTICE}>{postIcon}<small>후원 불가</small></span>;
  if(post?.tipsEnabled===false||(model&&!model.enabled))return null;
  // Ownership and preview mode prevent donations, but still show the post's support count.
  if(postId&&(disabled||own||!model))return <span className={s.postTip} data-post-support-count={true} role="img" aria-label={`게시물 후원 · ${supporterCount}명`}>{postIcon}</span>;
