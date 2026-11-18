@@ -35,6 +35,8 @@ test('landing_view carries only an external referrer host and a valid utm_source
 test('landing_view also carries valid utm_medium and utm_campaign',async()=>{
  const page=load(memory(),{search:'?utm_source=daangn&utm_medium=cpc&utm_campaign=daangn_202611&utm_term=x'});page.reportFunnelStep('landing_view');await new Promise(r=>setImmediate(r));
  assert.deepEqual(JSON.parse(page.calls[0].options.body),{step:'landing_view',utmSource:'daangn',utmMedium:'cpc',utmCampaign:'daangn_202611'});
+ const ad=load(memory(),{search:'?utm_source=daangn&utm_campaign=daangn_202611&utm_content=2'});ad.reportFunnelStep('landing_view');await new Promise(r=>setImmediate(r));
+ assert.deepEqual(JSON.parse(ad.calls[0].options.body),{step:'landing_view',utmSource:'daangn',utmCampaign:'daangn_202611',utmContent:'2'});
  const bad=load(memory(),{search:'?utm_source=daangn&utm_medium=c%20pc&utm_campaign='+'a'.repeat(41)});bad.reportFunnelStep('landing_view');await new Promise(r=>setImmediate(r));
  assert.deepEqual(JSON.parse(bad.calls[0].options.body),{step:'landing_view',utmSource:'daangn'});
 });
