@@ -5,6 +5,8 @@ import {imageUploadMaxBytes,imageUploadMaxLabel} from '@/lib/design/image-upload
 import {optimizeImage} from '@/lib/design/image-optimize';
 import {aiPhotoEditBody} from './useStudioModel';
 import {aiProps,captureEvent} from '@/lib/analytics/posthog';
+import {reportShare} from '@/lib/api/share-report';
+import type {AiPhotoFunnelStep} from '@/types/crefans-studio-management';
 import type {AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefans-studio-management';
 
 // Signed-out AI photo trial (2026-11-15). The server identifies the visitor by an httpOnly cookie set after consent
@@ -34,5 +36,6 @@ export function useGuestTrialModel(enabled:boolean){
  // 'AI로 내용 작성' writes the title/body from the chosen item names and request text (2026-11-16); the visitor edits before posting.
  const caption=async(input:{items:string[];prompt:string})=>{const r=await api<GuestCaption>('/guest/content/caption',input);if(r.success)captureEvent('caption_written',{actor:'guest'});return r;};
  const aiEdit=async(input:AiPhotoEditInput)=>{const props=aiProps('guest',input);captureEvent('ai_generation_started',props);const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});return result;};
- return{session,error,start,upload,save,aiEdit,refresh,caption};
+ const track=(step:AiPhotoFunnelStep,props:{mode:string})=>captureEvent(step,{actor:'guest',mode:props.mode});
+ return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track};
 }
