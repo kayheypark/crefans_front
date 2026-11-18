@@ -1,3 +1,21 @@
+## 2026-11-19 — 의상 초기 니케·모더니아 선택 유도
+
+- 랜딩/편집기 의상 초기 카테고리를 니케로 통일. 모더니아4a0c8f 카드 이미지 하단에 사용자 지정 ‘가장 인기 있어요’ 핑크 말풍선 표시. 자동 선택 없음, 선택하면 말풍선 숨김. 인기 문구는 사용자 지정 고정 카피이며 실시간 통계 기반 아님.
+- 실제 공용 컴포넌트 SSR로 첫 페이지 말풍선1개, 선택 시 제거 확인. 양쪽 초기값 소스 검사·타입 검사·diff 검사 통과. 증거 `.local/body-icons/check-modernia-hint.cjs`, `modernia-hint-verification.json`(시각·커밋·해시). 브라우저 상호작용 미검증.
+- 모바일 랜딩 가장자리 스크롤 개선과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 모바일 랜딩 코스튬 스크롤을 화면 양끝까지 확장
+
+- 검색 카테고리 ChipRow의 여백 상쇄·내부 패딩 방식 참고. 767px이하 looks를100vw로 확장, 가운데 기준 음수 마진과 내부 여백으로 첫 카드 기존 위치 유지. 넓은 모바일에서도440px 기준 기존 시작점 유지, heroDemo min-width0로 페이지 가로 넘침 방지. 데스크톱 유지.
+- 실제 개발 랜딩에 로컬 CSS override를 적용한 Chromium390/600/1280px 검사: 첫 카드 좌표 전후 동일, 모바일 스크롤 영역 x0·폭viewport, 가로 이동 가능, 문서 overflow 없음, 데스크톱 변화 없음. 종료0. diff 검사 종료0.
+- 증거 `.local/body-icons/check-landing-edge-scroll.cjs`, `landing-edge-scroll-verification.json`(시각·기준커밋·CSS해시), `landing-edge-scroll-mobile.png`. 개발 서버 변경 배포는 미실행, 로컬 코드/문서 미커밋.
+
+## 2026-11-19 — 랜딩52px·0원 체험·사진 카드 개발 배포 완료
+
+- 기능c32639f → dev602e5555e436b889209154c2f72afd4ea83384cc. origin/dev·github/dev push, last-success SHA 일치. deploy-dev.sh front 종료0, 빌드·타입 검사·기동·스모크 통과. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-025341.log`.
+- 실제 개발 랜딩 Chromium390/1280px: 로그인 없이0원 체험2곳·무료 체험 미존재, 사진 카드 padding0·사진 너비 꽉 채움·이름 absolute, 원본 유지6종52×52px 확인. 모바일 카드 스크린샷 시각 확인.
+- 증거 기능 작업본 `.local/body-icons/verify-dev-landing.cjs`, `dev-landing-verification.json`, `dev-landing-cards-390.png`, `dev-landing-original-390.png` 및1280px판. AI 생성 요청 없음. 운영 배포 없음. 이 완료 기록만 로컬 미커밋.
+
 ## 2026-11-19 — 랜딩 코스튬 선택 카드 사진 꽉 채우기
 
 - look 카드84×105px·padding0, 사진100% cover, 하단 흰색 이름+어두운 그라데이션 오버레이. 긴 이름 줄바꿈, 선택 상태 핑크 안쪽 테두리, 포커스 유지. 기존168×210 썸네일 사용.
