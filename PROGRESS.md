@@ -1,3 +1,11 @@
+## 2026-11-18 PostHog 녹화 흰 화면 — Safari에서 랜딩 → /service/try 이동 후 화면 누락 (fix/replay-blank-trial, 운영 미배포)
+- 증상(사용자 녹화): /service/landing-ai-image-generation 에서 '로그인 없이 무료 체험'(클라이언트 이동) 직후부터 /service/try 녹화가 모바일 폭 전체 흰 화면, 이후 일부 모달만 보임.
+- 원인(재현 확정): posthog-js 1.445.1 녹화기(rrweb 포크, 1.450.1도 동일 코드)가 WebKit/Safari에서 ShadowRoot.getSelection 부재로 프로토타입을 '오염'으로 판정 → 숨은 iframe[__rrwebUntaintedPrototype](rr-block ph-no-capture)을 body 끝에 남기고, 이 iframe은 녹화 미러에 없음(id -1). 이동 시 새 페이지 루트(service_root)가 이 iframe 바로 앞에 삽입되면 다음 형제를 못 찾아 하위 노드 전체를 버림(콘솔 `[rrweb] dropped 146 node(s) with unresolved parent at emit`, 이후 변경도 연쇄 누락) → 다음 전체 스냅숏(무활동 후 재개 등) 전까지 흰 화면. Chrome에서는 iframe이 제거돼 재현 안 됨.
+- 배제: 가설 (a) dialog top layer — Chrome·WebKit 모두 모달 재생 정상, (c) 차단 선택자 — /service/try 초기·동의 후·편집기에서 화면을 덮는 일치 요소 없음(일치는 102×102 API 미디어 1개뿐), (d) 마스킹 무관, (b) syncReplay — 두 경로 모두 허용 목록이라 stop/start 없음(startSessionRecording()은 설정만 갱신).
+- 수정: app/service/layout.tsx — 서비스 레이아웃 전체를 서버 렌더 `<div data-service-root style="display:contents">`로 감쌈. /service 이동 동안 유지되므로 새 페이지 루트가 body 직속(iframe 옆)이 아니라 이 래퍼 안에 삽입됨. display:contents라 배치 변화 없음. 개인정보 설정(blockSelector·maskAllInputs·허용 경로)은 변경 없음.
+- 검증: (1) 운영 페이지 + 실제 posthog-js(Playwright WebKit iPhone 13, PostHog POST는 페이지 안에서 가로채 미전송) — 수정 전 /service/try 재생 전체 흰색 재현, 같은 녹화기를 load 후 시작하는 주입 방식으로도 재현. (2) 로컬 next dev(수정 전/후) 같은 경로 — 수정 전 dropped 153 node(s)·재생 흰색, 수정 후 경고 0·이동 변경 +184 노드·재생에 화면 표시. 대조: iframe을 body 앞으로 옮기면 경고 사라짐(원인 확인용, 수정에는 미사용). (3) tests/posthog.test.cjs 새 테스트(래퍼 위치·display:contents), 레이아웃을 되돌리면 실패. tsc 0, npm test 757 중 739 통과·18 실패(기준선 fail-base2 18건과 동일, 새 실패 0).
+- 남은 일: dev 배포 후 WebKit 주입 재검증, 운영 배포는 사용자 승인 후. 실제 iPhone Safari·PostHog 클라우드 재생 확인은 운영 배포 뒤 가능.
+
 ## 2026-11-18 18:38~18:41 KST 운영 배포 front-franchise-r2-20261118 (게임·애니 의상 제한, prod 085b22a)
 - devbox 빌드(`devbox-release.sh front`): check-transfer OK → 1차 태그 franchise-20261118은 릴리스 검사 문구 grep 불일치(번들에서 가운뎃점이 \xb7로 바뀜)로 자동 롤백 → 검사 수정 후 franchise-r2-20261118 교체 OK(주요 URL·정적·이미지, 안내 문구 3개 번들 포함). 복구본 /Users/ethan/crefans-recovery/20261118/franchise-r2-20261118-front(이전 front-mktreward-20261118), finalize 완료. 실패 시도 이미지·백업 폴더는 운영에서 삭제. API는 먼저 franchise-20261118 배포(서버 PROGRESS).
 - 운영 화면 확인(읽기 전용, 비로그인): 의상 게시물 상세에 후원 버튼 없음·'후원 불가' 안내, 고객센터 FAQ 새 문항 표시. 운영 보정 결과 제한 게시물 8개(모두 공개), 기존 멤버십 전용 의상 게시물 0개.
