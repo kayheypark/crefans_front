@@ -8,6 +8,11 @@ RUN npm ci
 COPY . .
 ARG NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY=
 ENV NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY=$NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY
+# PostHog (2026-11-18): an empty key keeps PostHog out of the build output entirely (lib/analytics/posthog.ts).
+ARG NEXT_PUBLIC_POSTHOG_KEY=
+ENV NEXT_PUBLIC_POSTHOG_KEY=$NEXT_PUBLIC_POSTHOG_KEY
+ARG NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+ENV NEXT_PUBLIC_POSTHOG_HOST=$NEXT_PUBLIC_POSTHOG_HOST
 RUN npm run build
 # The trace copied the build platform's sharp binaries; fetch the target's lockfile version instead (download only, no emulation).
 ARG TARGETARCH

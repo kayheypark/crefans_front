@@ -1,3 +1,21 @@
+## 2026-11-18 PostHog 분석·세션 리플레이 준비 (feat/posthog, 배포·dev 통합 없음)
+- 사용자 결정(11-18): PostHog Cloud US(프로젝트 745445), 쿠키 저장 + 세션 리플레이, 목적은 퍼널 이탈 파악. 수집은 개인정보처리방침 문안 승인·공개 후 시작(server feat/posthog-policy 초안, 미공개).
+- 구현: `posthog-js` 1.445.1 정확 고정(2026-11-03 배포, 2주 경과; 하위 의존성도 `--before=2026-11-04`로 해석). `lib/analytics/posthog.ts`(설정·허용 경로·URL 정리·이벤트), `components/service/PostHogAnalytics.tsx`를 `/service` 레이아웃에만 장착. /preview·디자인 시스템·명함·관리자 콘솔에는 없음. 빌드 시 `NEXT_PUBLIC_POSTHOG_KEY`가 없으면 posthog-js를 import하지 않음(동적 import), 이벤트도 버림. `NEXT_PUBLIC_POSTHOG_HOST` 기본 https://us.i.posthog.com. 키 하드코딩 없음.
+- 개인정보 보호 설정(공식 문서 https://posthog.com/docs/session-replay/privacy, https://posthog.com/docs/libraries/js/config 및 설치본 @posthog/types 주석, 확인일 2026-11-18): identify 안 함(person_profiles identified_only → 익명 쿠키 ID만; 회원 UUID·이메일·닉네임 미전송), 브라우저 Do Not Track이면 수집 안 함(respect_dnt, 처리방침 초안의 거부 방법), maskAllInputs + 모든 입력 유형 마스킹, `img,picture,video,audio,canvas,svg image,iframe,[style*="url("],input[type=file|hidden]` blockSelector(업로드 원본·AI 결과·보관함·게시물·아바타·유료 미디어 전부 같은 크기 빈 상자), 휴대폰 확인 대화상자에 `ph-no-capture`. 리플레이는 허용 경로만(랜딩·체험·피드·탐색·게시물/크리에이터 상세·이벤트/공지·스튜디오 글쓰기): 결제·지갑/콩·출금/정산·설정·로그인/가입/비밀번호·메시지·내 정보·기타 스튜디오는 꺼짐, 경로 이동 시 layout effect로 중지/재개. 자동수집은 a/button 클릭만, 텍스트·속성 미수집. 네트워크·콘솔·성능·히트맵·데드클릭·예외·설문 끔. before_send가 모든 절대 URL의 query·hash 제거, 리플레이 페이지 URL은 maskCapturedNetworkRequestFn으로 제거.
+- 이벤트(서버 퍼널 표와 동일 단계, 속성은 actor guest/member·mode·kind·preset_kinds·error_code만): landing_view, guest_consent_view, signup_view(useFunnelStep에서 서버 전송과 함께), guest_consent_agreed, ai_generation_started/succeeded/failed(브라우저 관찰), caption_written, post_published, signup_completed. 서버 집계(lib/api/funnel.ts)는 변경 없음.
+- 빌드 키 전달: `infra/platform/Dockerfile`에 NEXT_PUBLIC_POSTHOG_KEY/HOST ARG·ENV 추가, `ship-image.sh`는 FRONTEND_BUILD_ENV의 모든 NEXT_PUBLIC_* 줄을 같은 이름 --build-arg로(값은 환경 변수로만) 넘기고, Dockerfile에 ARG가 없으면 중단, PostHog 키가 있으면 번들 포함을 검사. 파서는 실제 env 파일(이름만 출력)·미등록 이름 파일로 대조 확인, 실제 docker 빌드는 미실행.
+- 검증 2026-11-18(Node 22, macOS): `tsc --noEmit` 0; `node --test tests/posthog.test.cjs` 8/8, 변이 대조(beans 허용·URL 정리 제거·키 검사 제거·img 차단 제거) 각각 실패 확인; `npm test` 749 중 731 통과·18 실패 = 기준 18건과 동일(신규 0); `npm run check:layers`의 AiPhotoDialog/ManagementPages 2건은 기존(미수정 파일). `next build` 키 없음·임시 더미 키 모두 0. 실행 확인(로컬 next start, posthog.com 요청은 브라우저에서 차단): 키 없음 → PostHog 요청·청크·ph_ 쿠키 0, 더미 키 → config/flags 요청 시도·ph_ 쿠키 생성. 번들: 첫 로드 +약1.3KB(gzip, 레이아웃 기준; 랜딩 +2.6KB), posthog-js 청크 117.6KB gzip은 키가 있을 때만 로드, 리플레이 허용 경로에서 PostHog CDN recorder 약68KB gzip 추가. 실 PostHog 수신·리플레이 화면은 미검증(키 적용 배포 전).
+- `docs/posthog-setup.md`는 `check:docs` 문서 인벤토리 미등록 오류를 추가하므로 만들지 않고 아래 체크리스트로 둠(check:docs는 작업 전에도 server 쪽 문서 원인으로 실패 중).
+- PostHog 프로젝트 UI 체크리스트(운영자): ① Settings > Project > General "IP data capture configuration"을 Discard로(원하면 GeoIP 변환도 끔 — 끄지 않으면 IP 폐기 후에도 국가·도시 추정값 저장) ② Session replay 켜기, Data retention 확인(무료 최대 30일, 종량제 최대 90일) ③ 이벤트 보존은 무료 1년 고정/유료 기본 2년 — 요금제를 처리방침 보유기간과 일치 확인 ④ Authorized domains/URLs에 https://crefans.com(필요 시 www) 등록, Toolbar 허용 도메인 동일 ⑤ Replay "Privacy and masking"을 코드와 같이(입력 마스킹) 유지 — 코드 설정이 우선 ⑥ 선택: Replay URL blocklist에 /service/(beans|payment|checkout|billing|payment-methods|subscriptions|settings|login|signup|reset-password|messages|me)·/service/studio 이중 차단 ⑦ Product analytics > New insight > Funnel: landing_view → guest_consent_view → guest_consent_agreed → ai_generation_started → ai_generation_succeeded → caption_written → post_published → signup_view → signup_completed(breakdown actor) ⑧ 데이터 처리 계약(DPA)·국외이전 근거 확인.
+
+## 2026-11-18 13:27 KST 운영 프론트 배포 front-today-20261118 (prod f8c0204)
+- ship-image.sh: 사전 검사 12.5GB 여유, 빌드 55s, 레이어 일치, front-gap-20261118 → front-today-20261118, 스모크(feed·landing·legal·health·static·image) 통과. 확인: / 302→/service/feed, /service/landing-ai-image-generation 200, /brand/mail/welcome-base-v1.jpg 200(Cache-Control public, max-age=31536000, immutable). 직전 이미지 복구본 /Users/ethan/crefans-recovery/20261118/front-today-20261118(SHA256SUMS), 서버 이전 태그 삭제.
+- 같은 날 API 배포는 검사 스크립트(Origin 헤더 누락) 실패로 자동 롤백되어 운영 API는 ordertg-20261117. 새 프론트의 유입 집계 호출(telemetry/funnel)은 API 반영 전까지 404(집계 안 됨).
+
+## 2026-11-18 13:2x KST prod 승격 — fix/help-text-sync·feat/funnel-stats·feat/landing-perf-seo·feat/signup-autologin-welcome
+- 사용자 승인(2026-11-18, dev 서버 검증 후). origin/prod ae0979c에서 --no-ff 병합(PROGRESS 충돌만, 모두 유지). git diff origin/dev HEAD: 코드 차이 0(PROGRESS·docs/audit/evidence.json만).
+- 검증: tsc 0, npm test 724 통과·18 실패(기준선 fail-base2 18건과 동일, 새 실패 0), build 0. CREFANS_SERVER_DIR=서버 prod 트리로 docs:contracts·docs:record·check:docs PASS(라우트 286·마이그레이션 69).
+
 ## 2026-11-18 dev 통합 — 오늘 프론트 작업 4개 병합 (dev, 미배포·prod 미반영)
 - 병합 순서(--no-ff): fix/help-text-sync → feat/funnel-stats → feat/landing-perf-seo → feat/signup-autologin-welcome. 충돌은 PROGRESS.md 상단 기록뿐(모두 유지).
 - 검증(2026-11-18 11:4x~11:5x KST): tsc 0, npm test 742 중 724 통과·18 실패(기존 기준선 18건과 동일, 새 실패 0), npm run build 0. 문서: 서버 dev 통합 트리(311af28) 기준 docs:contracts·docs:record·check:docs PASS, docs/audit/evidence.json 갱신. 실제 화면·운영 검증 없음.
@@ -252,6 +270,7 @@
 - 사용자 요청: 실제 동작하는 컴포넌트·화면 기반 랜딩 + 운영 배포, 경로 landing-ai-image-generation. components/service/AiPhotoLanding.tsx(+module.css), app/service/landing-ai-image-generation/page.tsx(메타·OG).
 - 구성: 원본/결과 비교 슬라이더(range 입력, 가상 인물 Seedream 결과 5종 public/illustrations/landing/ai-photo/*.webp, 'AI 생성' 표시), 편집 종류 탭(aiPhotoKinds에서 신체 보정 제외, aiPhotoPresetTitles 실제 프리셋 이름), 옷 탭은 aiPhotoCostumes 일반 카테고리 중 5종(게임·애니 캐릭터·노출 의상 제외), 3단계 안내, 이용 방법(비회원 10회·크리에이터 하루 10회·AI 이용권 무통장입금), 지켜 주세요, CTA 모두 /service/try.
 - 검증: tsc 0, tests/ai-photo-landing.test.cjs 1/1(대조: 비치 투피스 포함 시 실패), npm test 696/18(실패 목록 동일). 로컬 Playwright 390·1280px: 200, 가로 넘침 없음, 깨진 이미지 0, 페이지 오류 0, 결과 전환·탭·슬라이더 동작.
+
 ## 2026-11-16 체험 동의 판 2026-11-16.guest.5 (fix/guest-consent-5, 미배포)
 - 서버 처리방침 2026-11-16.prompt.1(7·17항: AI 사진 요청 문구·옵션을 성공한 요청도 30일 암호화 보관)로 17항이 바뀌어 동의 판만 올림(화면 문구 변경 없음). 서버와 같은 판으로 함께 배포해야 체험 시작 가능.
 
@@ -303,6 +322,7 @@
 - 사용자 요청: 서비스·가이드·소개서 PDF에 AI 사진 편집 내용.
 - 랜딩(LandingPage·lib/content/landing.ts aiPhoto): 'AI 사진 편집' 섹션(가상 인물 AI 생성 이미지 /illustrations/landing/ai-photo-costume-v1.webp, 기능 4줄, '로그인 없이 체험하기' /service/try, '서비스 소개서 PDF' 가이드 다운로드 링크). ServiceLinks(사이드바·푸터·설정)에 '서비스 소개서 PDF ↗'.
 - 검증: tsc 0, npm test 698 중 681/17(기준선 동일, 링크 목록 고정 테스트 갱신), 로컬 dev /preview/landing WebKit 모바일·PC 캡처 확인.
+
 ## 2026-11-16 비로그인 코스어 배너·하트 체험 게임 (로컬 완료, 미배포)
 - 최신 origin/prod 16db2f5에서 feat/guest-cosplay-banner 격리 작업. 기존 메인 미커밋 보존.
 - 선택한 3안 기반 GuestCosplayBanner 공용 컴포넌트: 네이비 배경, 나도 코스어 제목(코스어 46px/모바일38~40px), 실제 의상 프리셋3종, 기존 /service/try 연결. 비로그인 실제 피드에만 노출, 디자인 시스템도 동일 컴포넌트 사용. 320px에서는 장식을 생략해 제목 가독성 유지.
@@ -791,6 +811,7 @@
 - 수정: `AiPresetPager`에 passive:false touchmove 리스너. 첫 움직임이 가로 우세면 그 터치의 touchmove를 preventDefault(네이티브 스크롤 시작 차단), 세로 우세·두 손가락·한 페이지(disabled)는 건드리지 않음. 포인터 기반 페이지 넘김 로직은 그대로. 프리셋과 코스프레 의상 목록이 같은 컴포넌트를 씀.
 - 검증: 단위 테스트 1건 추가(가로·대각 가로 차단, 세로·핀치·비활성 미차단), preventDefault 제거 시 실패 확인. AI 사진 테스트 46/46, 전체 635 통과/16 실패(기존 기준선과 같음), tsc 통과. 목업 화면(모바일 375px, Chromium)에서 실제 DOM 터치 이벤트로 가로만 차단되는 것과 드래그로 1/4→2/4 넘어가는 것을 확인.
 - 미검증: 실제 아이폰 사파리. 이 맥에 iOS 시뮬레이터 런타임이 없고 디스크 여유(약 6.7GB)로 설치 불가. 배포 후 실기기 확인 필요.
+
 ## 2026-11-14 원신 프론트 검증 완료
 - 기능46/46·타입·레이어 통과,WebKit390×844 원신로고/4카드 로딩·선택 확인. 새4종프론트/서버참조SHA동일. 공식캐릭터페이지/공식번들로고확인2026-11-14,프롬프트 `design/genshin-costumes-20261114/prompts.json`. 실제사용자사진생성품질미검증. 다음서버확인후프론트배포. 증거 `.local/genshin-costumes-20261114/`.
 
@@ -1059,6 +1080,7 @@
 ## 2026-11-13 AI 사진 보관형 리셋권 스튜디오 버튼 — 운영 배포 완료(2026-11-13 16:4x KST)
 - AI 사진 편집 창 횟수 줄에 '리셋권 n장 · M.D. 만료 · 1장 써서 횟수 채우기'. 리셋권이 없으면 숨김, 오늘 사용 0회면 비활성, 성공 시 남은 횟수 갱신·안내 문구. 서버 `POST /studio/ai-photo/reset-ticket`(useStudioModel), 목업·디자인 시스템 '한도 소진 + 리셋권' 상태 추가.
 - 검증: tsc 0, studio-ai-photo 33/33(신규 1, 비활성 조건 제거 대조 실패 확인), 전체 637 중 실패 16(기존 기준선 16 동일). 디자인 시스템 목업에서 데스크톱·모바일 375(가로 넘침 없음) 클릭 동작 확인.
+
 ## 2026-11-13 코스프레 전체 코디 로컬 검증 완료
 - 카탈로그32종에 wig/headwear/accessories/footwear 및 버전2 이미지 경로 추가, 동일 항목이 내부 생성문구에 포함된다. 머리 없는 기존v1은 보존. image_gen 각1회32개 생성,512px WebP489628bytes. 전신 마네킹 가발/소품/신발 육안검토·해시기록.
 - cosplay+outfit은 원본+분홍 가이드로 전달, 가발·헤어·머리장식·소품·신발의 명시적 변경을 옷 영역 밖에서도 허용. 일반 photo outfit은 hard mask 유지. 원본구도 가시범위·얼굴/정체성·미요청부분 보존 지시. 의상 선택 후 옷장 닫기/다른탭 이동에도 cosplay 유지.
@@ -1409,6 +1431,7 @@
 ## 2026-11-09 로그인 필요 창 설명 문구 (feat/login-prompt-copy, 미배포)
 - 사용자 결정(/ask-me 기타 입력): 공용 로그인 필요 창(ServiceRouter loginRequired) 설명을 '로그인하면 팔로우, 좋아요, 저장 기능을 이용할 수 있어요.' → '로그인 후 더 많은 기능을 이용해보세요.' (멤버십 가입 가드에도 쓰이므로). typecheck 0. 배포 승인 대기.
 - 같은 /ask-me: E2E 테스트 갱신·재실행 진행(test/e2e-refresh-20261109), 로컬 개발 DB 테스트 표식 데이터 삭제, 예전 회신 초안의 평문 비밀번호 파일은 그대로 둠(사용자 결정).
+
 ## 2026-11-09 AI 사진 편집 메뉴형 버튼 적용 (09:26 KST 운영 배포 완료)
 - 사용자 선택: 3안 메뉴형. 버튼 바깥 기존 설명 삭제, 버튼 안 제목 아래 ‘메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경’ 표시. 시안의 ‘AI 사진 편집’ 제목 채택으로 적용.
 - origin/prod 6326e6c 재확인 후 같은 작업 브랜치에서 공용 ContentEditor의 진입 버튼/전용 CSS만 변경. 회색 배경·24px 기존 스파클·좌측 제목/설명·우측 공용 꺾쇠, 좁은 화면 설명 줄바꿈, aria-describedby 연결. 실제 서비스·목업 동일 컴포넌트. 생성 기능·API·편집 창 내부의 탭·제목은 이번 범위에서 변경하지 않음.
@@ -1476,6 +1499,7 @@
 - 검증: typecheck 0, check:layers 446, npm test 569/585(실패 16 origin/prod 와 동일). 브라우저(로컬 3108 + 로컬 API/개발 DB): 아이폰·PC 검색 전 탭 없음, '분류 게시물' → 크리에이터 0·게시물 20+, 카드 20→더 보기 40, 멤버십 글은 제목 일치·본문 잠김, 없는 단어 빈 상태, 목업 탭 표시, pageerror 0.
 
 ## 2026-11-08 공용 PromptLayout(로그인 필요 레이아웃 재사용) (feat/ai-photo-fullscreen, 미병합·미배포)
+
 ## 2026-11-08 공용 PromptLayout(로그인 필요 레이아웃 재사용) (feat/post-search, 운영 컴팩트 디자인 위로 옮김)
 - 사용자 요청: AI 사진 창의 '사진 먼저 올리기' 화면을 로그인 필요 레이아웃처럼, 재사용 구조로. 팔로우 시 로그인 필요 창도 기존 로그인 필요 레이아웃 사용.
 - 구현: components/crefans/PromptLayout.tsx(+prompt-layout.module.css: 그림·제목·설명·버튼, page/dialog, promptPrimary). SignInPrompt 를 PromptLayout 위로 옮김(겉모양 동일, hideTitle·onNavigate 추가), account.module.css 의 signIn* 12줄 이동. AiPhotoDialog 빈 상태=스파클 그림+'바꿀 사진을 먼저 올려 주세요'+'사진 올리러 가기'. ServiceRouter 로그인 필요 알림=SignInPrompt dialog(hideTitle, 링크 누르면 닫힘), 쓰지 않게 된 loginHref·ActionLink·useCurrentLoginHref import 제거.
@@ -1527,6 +1551,7 @@
 - 로그아웃: 푸터 맨 아래 유지, `menuList` 줄(빨간 글씨+Chevron 17px)로 바꾸고 `.logoutSection` 에 기존 그룹과 같은 8px `--cf-landing-soft` 띠(::before, -16px 전폭). ServiceFooter `.bottom` 은 여백만(테두리·가운데 정렬 제거), 미사용 `.footerLogout` 삭제.
 - 알림 설정: settingsItems 의 notifications 에 iconSize:22, 나머지 20 유지.
 - 검증(2026-11-07): typecheck 0. crefans-account 19/23(실패 1·3·8·13 은 기존 기준선과 동일, 설정 카테고리 테스트 통과). 화면 실측(iPhone13): 알림 설정 22/17px 나머지 20/17px, 모든 항목 높이 53px, 로그아웃 53px·빨간색·푸터 마지막. 캡처 .local/settings-logout-20261107/.
+
 ## 2026-11-07 크리에이터 전환 안내 연필 아이콘 적용 (운영 미배포)
 - 사용자 01 연필 시안 채택. public/brand/guards/creator-pencil-v1.png에 생성 원본을 복사하고 CreatorGuardPage의 creatorGuardImage에 연결. 88×88px·투명 배경·기존 간격/문구/버튼 유지. 공용 GuardPage 기본 체크와 회원가입 완료 화면 유지.
 - 합격 조건: 실제 서비스 가드·목업·카탈로그에서 연필 로딩/88px, PC·모바일·320px 가로 넘침 없음, 기존 시작하기/팬 화면 링크 및 가입 완료 동작 유지. 단위8/8·브라우저16/16·typecheck 통과; PC/모바일 캡처 육안 확인. API 대역/로컬 Chromium 검증이며 실제 기기/운영 검증 아님. 단순 이미지 교체라 별도 전체 빌드·전체 테스트는 추가하지 않음.
@@ -1549,6 +1574,7 @@
 - 목업 `/preview/studio/guard`(목업 계정은 이미 크리에이터라 별도 주소), 전체 화면 목록·상태·피드백 카탈로그 '크리에이터 전환 안내 보기' 버튼, docs/design-system.md·preview-pages.md 기록. Empty/ServiceUI 는 건드리지 않음.
 - 검증(2026-11-07 KST, node_modules=메인 체크아웃 링크): typecheck 0, check:layers 436 통과. 새 tests/creator-guard 8/8. 대조: StudioRouter 가드 줄 삭제 또는 origin/prod 원본으로 되돌리면 '미전환 회원 가드' 테스트 1건 실패. npm test 549/565, 실패 16건 = origin/prod 0518f51 기준선 541/557 의 16건과 이름 동일(새 실패 0). e2e `playwright.creator-guard.config.ts`(3023, API 대역·목업, 서버/DB 미기동) PC Chromium·Pixel 7 16/16(creator-guard 4 + 기존 signup-complete 4, 각 2기기). e2e 대조: StudioRouter 를 origin/prod 로 되돌리면 PC 미전환 2건 실패. 화면 .local/creator-guard-20261107/{pc,mobile}-{guard,start,preview-guard}.png, mobile-preview-guard-320.png 육안 확인.
 - check:docs 는 종료 1: 실패 항목 전부 ../crefans_server(현재 dev 체크아웃)의 누락 파일·contracts stale 로 이번 프론트 변경과 무관. docs:record(해시 스냅샷)는 실행하지 않음. 실서버·실회원·실물 iPhone 검증 아님.
+
 ## 2026-11-07 "데이터 없음" 빈 화면을 운영 콘솔 빈 문서 그림으로 일괄 변경 (feat/empty-state-asset, 로컬 커밋·미배포)
 - 사용자 요청: "아직 {정보}가 없어요" 같은 노 데이터 화면을 운영 콘솔의 페이지 이미지 에셋으로. 콘솔 origin/prod 06290e2 `EmptyState`의 회색 접힌 문서 SVG(36×44, #d5dae2/#8e97a3)를 `public/brand/empty/empty-page-v1.svg`로 복사(출처·SHA-256 `empty-page-v1.source.json`, 런타임 의존 없음). 프론트는 다크 모드가 없어 라이트 색을 파일에 고정.
 - 공용 `EmptyIllustration`(alt=""·aria-hidden)을 서비스 `Empty`·카탈로그 `EmptyState`·빈 `DataTable`이 문구 위에 표시. 문구·설명·동작 props 유지. 오류·찾을 수 없음·이용 불가·비공개·사전조건 안내 14곳은 `illustration={false}`로 그림 제외, 로딩 규칙 불변. 직접 그리던 빈 상태 8곳을 공용 Empty로 전환하고 남은 고아 CSS 제거. 빈 표는 가로 스크롤 시에도 보이는 영역 가운데 표시(container query + sticky).
@@ -1572,6 +1598,7 @@
 - 적용: 프로필·내 프로필 멤버십 카드(48px, `MembershipPlanCard` creator prop), 내 구독(54px, 기존 크리에이터 아바타 자리), 멤버십 결제 확인(52px, snapshot.image 타입 추가, 판매자 사진은 `/profiles/:id` 응답 image 를 `sellerImage` 로 전달). 목업 결제는 landingCreators 로 판매자 이름·사진 주입.
 - 검증(2026-11-07): typecheck 0, check:layers 435. 새 tests/membership-thumb 3/3(사진+배지, 사진 없음 대체, 로드 실패 대체), 대조: 배지 조건 제거 시 2건 실패. npm test 538/551(실패 13 = 기존 수, 새 3건 통과). legal-notices e2e 9 통과·1 skip. membership-complete e2e 는 다른 세션이 3011 사용 중이라 미실행. 화면: .local/membership-thumb-20261107/{mobile,pc}-{profile,subscriptions,checkout}.png.
 - 미확인: 운영 /profiles 응답의 image 필드 실제 값, 판매 중단 멤버십 사진 403 시 대체 동작(코드상 onError 대체).
+
 ## 2026-11-07 활동 분야 선택 이미지 지원 (로컬 구현, 운영 미배포)
 - 사용자 요청: 스튜디오 첫 전환의 주요 활동 분야 옵션에 탐색과 같은 운영 등록 이미지를 표시. origin/prod c7ac3cd에서 feat/category-select-images 분기.
 - 공통 SelectOption.image를 추가하여 목록과 단일 선택 값 왼쪽에 20px 장식 이미지를 주입. 이미지 없음/null/로드 실패는 텍스트 유지, 다중 선택 요약/키보드/읽기 전용/비활성 동작 보존. 디자인 시스템에 이미지·없음·실패·비활성·읽기 전용 등록.
@@ -1592,6 +1619,7 @@
 - 산출물: `/Users/ethan/.codex/generated_images/01a19f9c-49fa-7323-bd30-4a5bc1b45efd/exec-69f5f5e1-42f5-4d2d-97db-8c68f9366bba.png` (내장 image_gen 편집, SHA-256 `7c11589ca8a54defe15f13bd52247e6cc8d67bce8a5f7d9a182a1c3bf7220a71`). 첫 시안은 같은 디렉터리의 `exec-2af00a25-9110-4c25-8164-f7f8e9d87678.png`. 사진·카드의 크기가 줄었으며 글자·가입 버튼이 남아 있는 것을 출력 이미지로 육안 확인. 36px은 구현 목표이며 생성 이미지의 정확한 CSS 픽셀 검증은 아니다.
 - 현행 MembershipPlanCard.tsx의 compact 분기는 plan.image를 표시하지 않음. 다음: 사용자 시안 승인 후 마이/타인 프로필에서 사용하는 공용 compact 카드에 연결, 이미지 유무·좁은 모바일·PC 검증. 제품 코드·API·데이터 변경/배포 없음.
 - 작업 기준 origin/prod `4120fbc9771383636afcf8a6c6b42067cfab4b0c`, `feat/membership-avatar-preview`. 기존 AGENTS.md 유지. 이번 변경은 PROGRESS.md만 미커밋이며 디자인 설명 기록이므로 제품 테스트·문서 증거 재생성은 수행하지 않았다.
+
 ## 2026-11-07 스튜디오 게시물 목록: 발행 글은 '팬 화면' 이동, 미발행 글만 미리보기 (feat/studio-fan-link, 로컬 커밋·미배포)
 - 사용자 요청: 게시글 리스트에서 미리보기가 아닌 팬 화면 이동 버튼. 결정(클릭): 임시저장·예약 글은 미리보기 유지 / 배포는 로컬까지만.
 - `ContentManagementPage`: status==='published'(미공개 포함 — 작성자는 상세 열람 가능) 행은 PC 표·모바일 카드 모두 `${fanPath}/post/{id}` 같은 탭 링크 '팬 화면'. fanPath 는 선택 prop, 기본은 basePath 의 `/studio` 를 뗀 값(/service, /preview). draft·scheduled 는 기존 미리보기 대화상자.
@@ -2001,6 +2029,7 @@
 - 검증: node --test tests/post-share.test.cjs 8/8 통과(SDK·브라우저 대역, react-test-renderer/act 경고 있음). 최초 check:docs는 변경된5문서 해시 만료로 실패, 수동 검토·manifest 검토내용 갱신 후 docs:record→check:docs exit0(76문서·196라우트·57화면·89모델·50migration). 2026-11-03 12:47 KST snapshot-only이며 전체 제품 시험으로 주장하지 않는다. 명령/상태/해시는 서버 .local/kakao-identity-20261103/verification.json에 기록.
 - 인계 자료: ../crefans_server-kakao-identity/.local/kakao-identity-20261103/{automation-policy,share-checklist,identity-research,contract-inquiry-draft}.md. 서버의 인증 구현은 사용자 범위 결정/계약 확인 전 보류, 여기서는 공유 연결 준비만 수행. 콘솔 열람·키 입력·실제 API/전송·배포·약관 변경 없음.
 - 다음: 사용자가 등록/키 입력 완료 사실을 알려주면 SDK 준비·PC 대상선택·취소 확인. 실폰 수신 및 유료글 비구독자 차단은 별도 검증. 운영 재빌드/배포와 본인 대상1회 실제 발송은 별도 승인 후 진행. 원격 dev/prod 통합은 아직 하지 않음.
+
 ## 2026-11-03 기간 2배 광고 이벤트 상품 — 운영 배포·4종 등록 완료
 - 사용자 확정: 일반1/3/7/30일 유지, 이벤트2/6/14/60일=3,900/11,700/27,300/117,000원(VAT 포함). 같은 기간 기준가7,800/23,400/54,600/234,000원 대비50%. 기간은 이미 혜택을 포함한 총기간이며 재차2배/기존 구매 소급 적용하지 않는다.
 - feat/advertising-event-products→dev 통합·검증→prod. 기능 승격 server01bec50/front532796c/admin803d8fc. 운영은 API·worker·front·admin advertising-event-20261103. DB 백업 후 추가형 migration20261103180000_ad_product_comparison_price 적용(운영 총51개). 프론트 파일해시·API/worker 소스/Prisma·공개4경로200·기존상품 불변·설정 보존·DB/proxy 컨테이너 불변 검증.
@@ -2101,7 +2130,6 @@
 - 최초 실패: 과거 공통 유의사항 검사1건이 참여방법 미정 문구를 고정 기대→콩 이벤트의 확정된 즉시 지급 방법을 검사하도록 수정. 문서 계약2API·서버 환경키 재생성, 변경문서/소스 근거 검토. 최종 문서 검사와 명령별 로그/파일 SHA는 docs/audit/promotion-event-claim-20261103.json 및 .local/event-claim-20261103/에 보존.
 - 미실행/다음: 운영 배포·실계정 지급·실물iPhone·실SMTP/은행/PG. 대상 명단 확인 후 dev 통합→prod 승격과 운영 배포가 필요하다. 지급 대상을 전체 회원 등으로 바꾸려면 사용자 답변을 먼저 반영한다. 현재 기능 브랜치에서만 작업.
 
-
 ## 2026-11-03 네이버페이 이벤트 이메일 접수 안내 — 완료·미배포
 - 요청: 네이버페이 포인트 이벤트 내용을 강화하고 khpark@crefans.com으로 피드백을 받는다. 최신 origin/prod88237ff에서 feat/feedback-event-email 생성. 소개글 통합 작업은 별도 profile-bio 작업트리에 보존(통합 범위 답변 대기).
 - 변경: 오류/사용성/기능 제안 예시와 작성 순서, 핸들/참여 유형, 선택 참고 항목, 수신 주소·제목·본문이 채워진 mailto 링크. 기존 최대3명·1만원·참여 확정 회원·미정 일정 유지. 피드백에만 접수 방법 확정 문구를 적용하고 다른 이벤트는 유지.
@@ -2115,6 +2143,7 @@
 - SettingsPage의 두 항목에 기존 menuList 스타일 재사용: 전체 너비 행, 이름 왼쪽·16px 꺾쇠 오른쪽, PC54px/모바일53px 높이, 기존 색상·모바일 구분 배경띠 유지. 기존 작은 버튼 전용 중복 CSS 제거. 회원 탈퇴는 위험 색상 유지. 실제/목업 공통 화면, 헤더 드롭다운·서버 변경 없음.
 - 검증: typecheck 및 기존 crefans-account23건 통과. 로컬 목업 PC Chromium/모바일 WebKit에서 폭·오른쪽 정렬·가로넘침 없음·탈퇴 안내창·로그아웃 후 landing 이동 확인, PC 키보드 포커스 표시 확인. 화면 캡처 육안 검토. 실기기/운영 계정 요청·배포는 하지 않았다.
 - 증거: [설정 계정 메뉴 검증](docs/audit/settings-account-actions-20261103.json), 로그·화면 `.local/settings-account-actions-20261103/`. 문서 설명 검토 후 스냅샷 갱신·check:docs 실행. 다음 배포 요청 시 dev 통합 검증→prod 승격. 미해결 제품 결정 없음.
+
 ## 2026-11-03 모바일 내 프로필 스튜디오 바로가기 — 수정·검증 완료, 운영 미배포
 - 요청: 크리에이터인 경우 상단 오른쪽 설정 왼쪽에 제목 ‘스튜디오’ 버튼. ownCreatorIds로 표시 조건을 정하고 basePath/studio로 이동한다. 모바일767px 이하에만 표시, 기존 흰색 커버 버튼/44px 높이·포커스 규칙을 재사용한다. 지갑이 비활성이어도 오른쪽 설정 옆에 배치한다.
 - 최신origin/prod88237ff에서 feat/my-profile-studio 생성 후 직전 프로필 수정00207ee를 fast-forward로 보존. 원래 두 브랜치와 다른 작업 체크아웃은 유지한다. 운영 미배포.
@@ -2128,6 +2157,7 @@
 - 이전 API 대역 회귀에 더해 실제 격리 API/DB 세션으로 로그인→사진 업로드/게시물 연결→내 프로필 피드/미디어→상세→공개 프로필→재진입/새로고침 시험을 추가했다. 서버는 현재prod d4238d9와 동일한 crefans_server-membership-release 사용. 운영 데이터/실결제/실SMTP/배포는 수행하지 않았다.
 - 검증: npm run check(계층·타입·516단위), 운영 빌드(35페이지), 브라우저14건(PC7·iPhone13 WebKit7) 통과. 브라우저 중 실제 API/격리DB2건·API대역12건이며 원래prod코드 대조검사3실패→수정복원3통과. 사진·영상 썸네일/유형별 개수, 저장·좋아요 분리, 오류 안내, 더보기 작성자 필터 확인. 최초 모바일 시험은 전체 문서 전환 중 지갑/후원 요청 취소로 런타임 오류를 탐지했으며 요청 완료 후 이동하도록 시험만 보완, 오류 감지는 유지하고 최종14통과. 물리 iPhone·운영 로그인 검증은 미실행.
 - 증거: [이번 검증 기록](docs/audit/my-profile-current-20261103.json), 상세 `.local/my-profile-current-20261103/`. 최신 멤버십 수정 보존, 서버 소스·DB 구조 변경 없음. 다음: 배포 요청 시 이 feature를 dev→prod에 통합하고 운영 소스/화면을 대조한다. 원래 31a3c92/77555b4를 다시 중복 적용하지 않는다.
+
 ## 2026-11-03 예약 핸들 관리 문서 계약 — 로컬 완료·미배포
 - origin/prod88237ff → feat/reserved-handles-docs. 서버 feat/reserved-handles(d4238d9 기준)·운영 콘솔 feat/reserved-handles(602cecf 기준)의 짝 문서 작업. 팬 프론트 실행 코드 변경 없음.
 - 승인된103개 초기 예약·후보/예약/삭제 상태·기존 보유자 유지·retired_handles 독립 보호·공유 잠금·5개 API·권한/감사를 서버 문서 및 코드와 대조. 최초 문서 검사에서 API표 형식으로 신규5경로가 누락 검출되어 Method/경로/계약 형식으로 정정, 이후 예상된 소스/문서 hash 만료만 남음을 확인했다.
@@ -2158,6 +2188,7 @@
 - PC·모바일 empty/selected 화면 육안 확인. 상세 로그·명령/시각·소스 해시·검증 화면은 `.local/membership-upload-20261102/`, 공개 검증 요약은 `docs/audit/membership-image-upload-20261102.json`. 문서 검사 결과는 해당 증거에 기록한다.
 - 기준 origin/prod feef422에서 feat/membership-image-upload, 작업 폴더 /Users/ethan/repository/crefans_front-membership-upload. 선행 업로드 안내 간소화는 별도 feat/upload-hint-compact 49c507d에 있으며 이 작업은 그 게시물 문구를 덮어쓰지 않는다.
 - 다음: 요청 시 미배포 작업과 함께 dev 통합 검증 → prod 승격 → 배포. 현재 커밋만 준비하며 운영 배포 없음. 기존 체크아웃의 미커밋 파일 보존.
+
 ## 2026-11-02 스튜디오 파일 업로드 안내 간소화 — 로컬 완료·미배포
 - 요청: 크리에이터 파일 업로드 설명에는 허용 파일 유형과 크기만 간략히 표시한다.
 - 게시물 작성·수정 공통 `ManagementPages.tsx`와 디자인 시스템의 동일 예시를 `JPG·PNG·WebP 5MB 이하 · MP4·WebM·MOV 300MB 이하`로 변경했다. 기존 accept·용량 상수와 대조했으며 워터마크·알림·개수·길이·해상도 설명은 도움말에서 제거했다. 업로드 최대 개수 카운터, 검증·변환·알림 동작은 유지한다. 실제/목업이 같은 공통 컴포넌트를 사용한다.
@@ -2180,7 +2211,6 @@
 - 검증: dev에서 npm run check489건(계층·타입 포함), 실제 배포 이미지 변환4건, 배포된 공용 작성 화면 PC·모바일2건 통과. 서버 회귀48건·운영 워커/S3 비공개 시험2건 통과 후 시험 데이터 정리. 실기기 전체 가입·업로드·게시 E2E는 미실시.
 - origin/prod → feat/creator-media-watermark → dev 검증 → prod push 완료(front4360c2e, serveread6288). 운영 watermark-20261101 API·worker·front 배포, additive migration 하나 적용, admin/DB/proxy 보존. 현재+직전2 이미지·롤백 유지.
 - [검증 증거](../crefans_server/docs/watermark-20261101.json), 사본·로그·캡처 `.local/watermark-deploy-20261101/`.
-
 
 ## 2026-11-01 스튜디오 모바일 메뉴 첫 화면 닫힘 + 약관 시행일 선택 시안
 - b8dfd43 → studio-menu-20261101 프론트만 배포(사용자 승인): 모바일 드로어 CSS가 data-mobile(화면 크기 감지 후에만 붙음)을 요구 → 첫 프레임에 메뉴가 열려 보이지 않음. 운영 CSS에 규칙 반영 확인, 검증 studio-navigation 7 pass(되돌리면 2 fail), 전체 487 pass.
@@ -2218,7 +2248,6 @@
 - 로딩 규칙 12곳(서브에이전트): 프론트 fd3fba7, 관리자 b04aaf7. 스냅숏 474 pass, ApiState 되돌리면 2 fail. 프론트 e2e/advertising 문구는 미실행.
 - 약관: 사용자 결정 '별도 개정으로 새로 공지' — 레퍼럴 조항·원천징수 회사 부담 문구를 담은 새 개정본(30일 전 공지)을 준비할 차례. 공지 게시·시행일은 사용자 확인 필요.
 - 19:25 video-harden-20261101 운영 배포 완료(사용자 '배포' 승인): API·워커·프론트 교체, 관리자·DB·프록시 유지, 마이그레이션 없음. 배포 직전 기준선 API save-fix·프론트 message-read 일치, 진단 기동 성공. 배포 후 APP_RELEASE=video-harden-20261101, /service/feed·/api/v1/health 200, media status 무인증 401, api healthy, 워커 5분 로그 오류 0건. 이미지 정리 --keep 3(롤백용 save-fix·message-read·ad-form 보호) 로컬·원격 각 3개 삭제. 증거: crefans_front/.local/video-harden-deploy-20261101/. 실제 아이폰 영상 업로드·10분/4K 거부·재시도는 운영에서 직접 시험하지 않음.
-
 
 ## 2026-11-01 15:43 night-work 조사 문서
 
@@ -2300,7 +2329,6 @@
 - 최초 실패/보완: 관리자 기존 테스트가 모바일 메뉴를 열지 않았고 Next route-announcer까지 alert로 선택해 실패. 검증 selector를 보정 후 재통과. 캡처 전 스낵바 opacity=1 대기 추가, 모바일 표 이메일 줄바꿈 보완 후 최종 재검증. 제품의 결제/보상/계정 정책 변경 없음.
 - 증거: `.local/referral-polish-20261101/verification.json`에 HEAD·미커밋 상태·변경 파일 SHA256·명령/시각/종료코드·캡처 위치. before/원본, ui-first 및 results-first 실패 증거, check-final/ui-final 최종 로그 보존. AGENTS의 공통 스낵바 규약 유지. 기존 타 작업 변경을 보존했고 커밋/푸시/운영 배포 없음.
 - 다음: 운영 반영 요청 시 최신 운영 소스·이미지 기준을 확인해 해당 변경만 배포. 미결정 정책 없음. 프론트 docs:record/check:docs는 기존 server/docs/referral-design-20261101.md 미분류, 레퍼럴4개·프로필 사진1개 API 설명 누락 및 생성 계약 만료로 실패했다. UI 수정 범위 밖의 기존 계약 문서를 임의 갱신하지 않았으며 문서 현행화 작업이 남았다. 상세는 같은 증거 폴더 docs-checks.json.
-
 
 ## 2026-10-31 20:49 KST 자기 팔로우·로그인 필요 공통 모달 복구 및 운영 배포
 - 요구/합격 조건: 자기 팔로우 오류가 페이지 맨 위 텍스트·다시 불러오기 버튼으로 출력되는 문제를 없애고 기존 공통 Dialog 디자인으로 표시한다. 비로그인 팔로우·좋아요·저장은 로그인/나중에 안내, 만료 세션도 로그인 이동과 원래 화면 복귀를 지원한다. 기존 정상 팔로우·해제와 페이지 위치를 유지한다.
@@ -2432,7 +2460,6 @@
 - 새 Chromium 세션에서 운영 두 URL을 조회(exit 0): 모두 HTTP 200·원래 URL 유지·로그인 입력창 노출. `/service/login`에는 목업 안내 없음, `/preview/login`에만 안내 있음. 이전 실제 로컬 가입→로그인 3환경 통과 증거도 확인. 이번에는 운영 가입을 재실행하지 않았다.
 - 결론: 현재 배포 코드에서 실제 가입 CTA가 목업 로그인으로 연결되는 문제는 발견되지 않음. 근거 `.local/signup-link-check-20261031/result.json`. 후속 수정 없음.
 
-
 ## 2026-10-31 회원가입 완료 모달 개선·운영 배포
 - 선택한 4안 v3를 공용 `SignupCompleteDialog`로 구현. 흰 모달, 88px 파란 원형 체크(내부 SVG 50px), 가운데 제목·환영 안내·48px 로그인 CTA. 스파클·하늘색 박스 없음. 실제 `/service/signup`, 목업 `/preview/signup`, 디자인 시스템에서 재사용한다.
 - 공통 Dialog의 선택적 illustration만 추가해 기존 일반 모달을 보존. 초기 포커스는 제목, Tab·Escape·닫기 및 키보드 복귀 검증. 가입 성공 후 입력 초기화로 비밀번호 오류가 다시 나타나는 기존 미커밋 보완도 포함.
@@ -2440,7 +2467,6 @@
 - 배포: `signup-success-20261031`, 기존 운영 프론트 스냅샷에 대상 6파일만 적용. 이미지 소스 695개 SHA-256 일치 확인. 프론트만 교체하고 API·worker·admin·DB·proxy 동일 ID 유지. 운영 회원가입·목업·피드·API health·관리자 로그인 HTTP 200. 이전 프론트 롤백 이미지 보존.
 - 증거: `docs/audit/signup-complete-deployment-20261031.json`, `.local/signup-success-20261031/`의 로그·결과·PC/Mobile 화면. 구현 커밋 `5b354a5`, 브랜치 `feat/signup-success-dialog`; 원래 작업 트리의 무관한 변경 보존.
 - 검증 경계: 실제 iPhone 기기·운영 신규가입·SMTP 재전송은 이번 디자인 작업에서 미실행. `check:docs`는 기존 서버 미분류 문서 4개 때문에 실패했으며 전체 문서 검증 통과로 표시하지 않는다.
-
 
 ## 2026-10-31 가입 완료 모달 4안 스파클 제거 시안
 - 사용자 요청대로 4안 v2의 반짝임 아이콘 제거, 기존 파란 원형 체크만 가로 가운데 정렬. 하늘색 배경 박스 없이 흰 모달 유지. 문구·로그인 CTA·닫기·모달 구성 보존.
@@ -2617,11 +2643,9 @@
 - 아바타 옆 이름에 공용 CreatorName 인증배지, 아래 @핸들에 공용 MarqueeText 적용. BeanTip creatorHandle/creatorIsVerified를 목업 초기내역·새후원 및 실제 서버 후원목록 응답에 연결. 미인증은 배지없음, 핸들없음은 행생략.
 - 단위9개·프론트typecheck·서버build 통과. 목업 PC/모바일 표시 검증은 front `.local/bean-history-edge-20261030/identity-*`. 운영 미배포·실API 응답 검증 미실행.
 
-
 ## 2026-10-30 보낸 후원 크리에이터 아바타
 - 공용 BeanHistoryView 크리에이터 링크에 공용 Avatar36px 추가. creatorAvatar 선택필드를 BeanTip 및 목업 초기내역/새후원 데이터에 연결. 서버 후원목록 creators조회에서 avatar를 선택해 creatorAvatar로 반환(미등록null), 기존권한/결제/후원처리 불변.
 - 검증: 프론트 bean-history/bean-wallet-pages 9검사·typecheck 종료0, 서버 npm run build 종료0. 목업 Chromium390/1280에서 각20항목 아바타20개·이미지로드·가로넘침없음 확인, 모바일 육안확인. 증거 front `.local/bean-history-edge-20261030/avatar-*`. 실API 수신 검증과 운영 배포는 미실행.
-
 
 ## 2026-10-30 콩 이력 모바일 세로 간격 후속 보정
 - 필터 내부12px, 필터→건수20px, 건수→첫 항목16px. 항목 상하24px(첫 항목 위16px), 날짜→정보12px, 금액4px/메타6px/후원 내용8px/버튼12px로 관련정보 묶음. 기존 전체너비·좌우16px 유지, PC는 변경하지 않음.
@@ -2637,6 +2661,7 @@
 - 검증: `npm run -s check` 통과, e2e beans·marquee-text 통과(아래 커밋 메시지 참조).
 
 - 운영 배포 2026-10-30 KST `tip-consent-20261030`(`crefans_front/.local/tip-consent-deploy-20261030/`): build·capture_before·ship exit 0, 마이그레이션 없음, 관리자 콘솔 소스 변경 없음. 배포 스크립트가 비로그인 후원 401/403, signupReady=true, 처리방침 2026-10-30.3을 확인. 외부 확인: signupReady True, 처리방침 2026-10-30.3에 후원 제공 문단, 비로그인 POST /creators/x/tips 401. 이미지 정리 로컬·운영 보존9·삭제3·오류0. 실제 회원 후원 1건은 미실행.
+
 ## 2026-10-30 후원 확인창 크리에이터 제공 동의 + 확인 항목 상단 정렬 (운영 배포 tip-consent-20261030, 커밋 완료·푸시 안 함)
 - 후원 확인 대화상자에 받는 사람·항목·목적·보유 기간과 '(필수) 제공 동의' 체크, 체크 전 '확인하고 후원하기' 비활성. 요청에 creatorProvision(TIP_PROVISION 버전) 전송.
 - 사용자 요청 "vertical align top": 멤버십 확인창 `.summaryRows` 행과 후원 동의 `.provisionRows` 행을 align-items:flex-start로 맞춰 여러 줄 값 옆 라벨이 위에 붙도록 함.
@@ -2893,7 +2918,6 @@
 - 검증: 관련 단위8/8, 레이어·타입 종료0. 격리소스3013에서 Chromium/WebKit×375/1280의 목업·서비스 대역 24조건 통과, 페이지오류0. 모바일·PC 캡처 검수. 초기 검사 정규식이 9,900을19,900의 부분문자로 잡는 오류는 검사만 수정해 재통과. 증거 docs/audit/membership-notice-price-20261029.json, .local/membership-notice-price-20261029/.
 - 운영 배포·실기기·실PG/DB쓰기 없음. 현재 가이드 배포 요청과 별도 프론트 작업으로 유지. 이벤트4종 분리도 여전히 프론트 운영 미배포. 기존 미커밋 보존, 커밋/푸시 없음. 문서 기록·검사 결과는 가이드 비교 작업의 docs-checks.json 참고.
 
-
 ## 2026-10-29 미구독 게시물 멤버십 가격 표시 (단위 확인 대기·코드 미변경)
 
 - 사용자 요청: 미구독 게시물 안내에 멤버십 이름뿐 아니라 필요한 콩 개수도 표시. PostMembershipNotice/getPostMembershipOffer 및 서버 finance.service.createOrder를 조사했다. 현재 멤버십은 plan.price 원화 카드 정기결제이며 콩 구독은 지원하지 않는다. 콩 충전가는 VAT포함110원, 후원/출금 기준가치는100원으로 서로 다르다.
@@ -3014,8 +3038,6 @@
 - 초기 검사의 실제 서비스 완료 안내 소실은 공용 호스트로 보완, 기존 단위검사 모듈 대역/포털 타이밍 문제도 수정 후 재검증. 초기 실패 로그 보존. 격리3011/.next-e2e만 사용했으며 기존3010 유지. 실제 API/DB·금융 실행·외부 발송·실기기·운영 검증은 하지 않음. 운영 콘솔 별도 저장소는 수정하지 않음.
 - 증거: `docs/audit/snackbar-20261029.json`, `.local/snackbar-20261029/`. 문서 기록·검사 결과는 해당 폴더 `docs-checks.json` 참고(해시 스냅샷과 제품 테스트 구분). 기존 미커밋 보존, 운영 배포·커밋·푸시 없음. 앞선 갤러리 이미지 탭·후원 동전 에셋과 함께 배포 대기.
 
-
-
 ## 2026-10-29 모바일 갤러리 이미지 탭 전체 보기 (로컬 완료·운영 미배포)
 
 - 공용 MediaOverlay 이미지 탭 콜백을 PostOverlay의 기존 확대·축소 상태에 연결.767px 이하에서 이미지 탭→상세 패널 숨김·미디어100%, 다시 탭→이전 패널 크기 복원. 기존 우하단 버튼·원본 비율·미디어 인덱스 유지. 한 장짜리 사진도 지원.
@@ -3059,25 +3081,12 @@
 - 검증 경계: macOS Playwright의 모바일 WebKit/Chromium 에뮬레이션과 CSS 계산값 검증이다. 실제 iPhone의 네이티브 키보드·핀치 동작은 미검증. 콘솔 정책 화면은 브라우저 안에서만 API 대역을 사용했고 로그인/정책 저장/운영 데이터 변경 없음. 로컬 `/service/login`은 API 대역 주입 후에도 `불러오는 중…` 상태여서 해당 경로의 입력 실측은 미완료(목업 로그인·회원가입의 동일 표시 컴포넌트는 검증). 최종 PC 비교는 모달 애니메이션의 미세한 너비차를 구분하고 글자는 완전 일치·너비1px 미만 기준을 적용했다.
 - `feat/iphone-input-zoom` 브랜치, 기존 미커밋 작업 보존. 운영 배포·커밋·푸시 미실행. 다음: 두 프론트 배포 후 실제 iPhone Safari에서 입력·키보드 닫기·가로 화면 확인. 증거 front `docs/audit/iphone-input-zoom-20261028.json`, 상세 측정/스크린샷/재실행 스크립트 front `.local/iphone-input-20261028/`; 콘솔 `.local/iphone-input-20261028/`에는 변경 전 사본과 기준 기록.
 
-
 ## 스튜디오 답글 작성자 표시·수정·삭제 (2026-10-28, 운영 미배포)
 
 - 요청: 댓글 관리에서 내 답글에도 프로필 사진·이름을 표시하고 수정·삭제 제공. 기존 Avatar·CreatorName(긴 이름/인증 배지)·Dialog를 재사용하는 `StudioCommentReply`를 목업·실서비스·디자인 시스템에 연결. 작성자 표시, 수정 초안/실패 유지, 빈값·변경 없는 제출 차단, 삭제 확인·중복 제출 방지. 팬 답글에는 수정·삭제 없음.
 - 목업은 선택한 크리에이터의 활동명·사진·인증 여부를 사용(모카 로그인 포함). 서비스는 `CommunityReply.author/fromCreator`와 PUT/DELETE `/studio/comments/:id/replies/:replyId`에 연결. 서버가 게시물 소유자·답글 작성자·부모 관계·삭제 상태를 검증하고 소프트 삭제·댓글 수 1회 변경·감사를 같은 트랜잭션에서 처리. DB 마이그레이션 없음.
 - 검증: 프론트 `npm run check` 379/379(타입/레이어 포함), 서버 build 및 답글 HTTP·OpenAPI 16/16. 실제 로컬 격리 MySQL·회원 세션으로 타 계정/부모 불일치/삭제 대상/빈값 거절, 동시 삭제 200·404와 카운트 1회 감소 확인. Chromium 375/1280(모카), WebKit 375(하늘)에서 아바타 로드·등록→수정→삭제·취소 보존·팬 버튼 미노출·가로 넘침 없음·페이지 오류 없음 확인.
 - `feat/studio-comment-replies`에서 작업, 기존 미커밋 변경 보존. 운영 배포·커밋·푸시 미실행. 운영 반영 시 프론트와 신규 답글 API를 함께 반영해야 함. 근거·해시·범위: 프론트 `docs/audit/studio-comment-replies-20261028.json`, 각 리포 `.local/studio-replies-20261028/`. 문서 계약·표는 구현과 대조 후 갱신하며 docs:record는 문서 해시 기록일 뿐 제품 테스트 증명이 아님.
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## FAQ 최소 출금 금액 불일치 수정 (2026-10-28, 운영 배포 완료: faq-payout-20261028)
 
@@ -3201,13 +3210,11 @@
 - 버튼은 비밀번호나 비교값을 갖지 않고 PreviewProvider의 모카 페르소나/로그인 플래그만 선택한 뒤 `/preview/studio` 이동. 실제 회원 인증/쿠키/토큰/DB 변경과 API 호출 없음. 기존 지정 자격정보 입력 로그인 경로는 그대로 유지. 이미 모카로 선택된 뒤 로그아웃한 경우도 signedIn을 명시적으로 복구. 새로고침 시 기존 탭 선택 유지.
 - 검증: npm run check372/372(타입·레이어 포함), 액션 위임·live/액션 없음 미노출 단위 검사, 로컬 Chromium에서 하늘 미노출/모카 표시·모바일44px 이상·원클릭 스튜디오·새로고침·로그아웃된 모카 재진입 통과. API0·pageerror0. docs/audit/moka-demo-button-20261027.json 및 .local/moka-demo-button-20261027/. 운영 배포 없음. 기존 미커밋·금융/서버 설정 보존. 다음: 필요 시 이번 버튼 변경만 별도 배포.
 
-
 ## 모카 목업 로그인 운영 배포 (2026-10-27, 완료)
 
 - 사용자 배포 요청에 따라 현재 운영 landing-ready-20261027에서 검증된 목업/서버 경로9파일과 날짜 표시1파일만 분리해 moka-preview-ready-20261027 배포. 변경10파일이 로컬371검사 대상 소스 SHA와 일치함을 격리 이미지에서 대조, amd64 빌드/타입검사 통과. 실제 /service 계정 생성·인증·Nest API/DB 변경 없음. 비공개 비교값은 Compose frontend 환경변수로만 전달. 초기 공개 비교값 배포는 자동 검토에서 거절되어 배포하지 않았고 서버 전용 방식으로 교체 후 재검증. 기존 미배포 출금/약관·QA 작업 제외.
 - 운영 https://beta.crefans.com/preview/login 에서 모카 지정 자격정보 성공→studio, 오입력 거절, 모카 게시물·멤버십·프로필 및 새로고침 유지, 일반 팬 전환 확인. 목업 확인 경로2호출·실제 회원 API0·pageerror0. 자격정보는 임시 시험 후 삭제하고 증거에 원문 미포함.
 - 운영 이미지654소스 해시·RootFS/manifest 대조·공개에셋 비밀값 미포함/주입 대조 검사·운영 외부출처403/정상출처 오입력401/쿠키미발급 확인, HTTPS12경로 통과, API/worker/admin/DB/proxy5개 컨테이너 ID·재시작 수 보존. 콘텐츠 목록의 UTC서버/KST브라우저 날짜 표시 불일치를 실패 검사로 재현 후 Asia/Seoul 표시로만 보완(예약/금융 계산 불변). 최종 빌드 중 기본8GiB 여유검사 실패를 기록했으며, 빌드는 완료되어 추가 빌드 없이 1GiB 전송 단계 검사 후 스트리밍했다. 오래된 캐시와 동일 이미지로 복구 가능한 중복 소스 사본만 정리, 복구 이미지/저장소/DB 유지. 배포 설정 스크립트 문법 오류로 최초 중단 후 기존 컨테이너 ID 보존을 확인하고 수정·사전 AST/쉘 검사 뒤 재개. 최초 운영 브라우저는 CloudFront 원본 Host 때문에403이어서 목업 경로에만 공개 Host 전달하도록 보완하고 최종 재검증. 배포 준비502횟수는 증거에 기록. 기존 집 SSH 규칙 유지. 증거 docs/audit/moka-preview-deployment-20261027.json 및 .local/moka-preview-ready-20261027/(초기 조치는 .local/moka-preview-deploy-20261027/). 다음: 사용자 목업 검수. 실제 인증 기능으로 간주하지 않으며 스튜디오 금융 수치는 예시 유지.
-
 
 ## 모카 목업 로그인 배포 보안 보완 (2026-10-27, 완료)
 
@@ -3215,21 +3222,17 @@
 - 서버 변수 CREFANS_PREVIEW_LOGIN_HASH는 NEXT_PUBLIC 접두사 없이 Compose frontend에만 전달, 기본 빈 값은503. 동일 출처 검사·작업 프로세스당20회/분·입력 길이 제한·응답 no-store. 실제 회원 로그인 /api/v1과 분리. 로컬 수정 후 전체370검사와 브라우저 목업 로그인/오입력/모카 데이터/새로고침 통과. 원래 ‘API0’은 초기안 기록이며 현재 목업 검증 경로 호출만 생기고 실제 회원 API0 유지.
 - 공식 근거 확인2026-10-27: Next14 Environment Variables https://nextjs.org/docs/14/app/building-your-application/configuring/environment-variables 및 Route Handlers https://nextjs.org/docs/14/app/building-your-application/routing/route-handlers, Node crypto https://nodejs.org/api/crypto.html (scrypt/무작위 salt/timingSafeEqual). 브라우저 공개 에셋에서 비밀번호·구형 비교값·서버 설정 미포함과 주입 대조 검사를 배포 전에 확인했고 최종 배포 증거에 기록했다. 비공개 env 원문은 증거/빌드 소스/로그에 보존하지 않음.
 
-
 ## 모카 목업 스튜디오 로그인 (2026-10-27, 초기 로컬안·서버 전용안으로 대체)
 
 - 요청: 지정한 모카 이메일·비밀번호로 목업에서만 모카 크리에이터 스튜디오 진입. 실제 계정 생성/서비스 인증/DB/운영 배포 없음. 자격정보 원문은 문서·증거에 남기지 않고 프론트 목업은 비교용 digest만 보관(실인증 수단 아님).
 - 구현: preview login 전용 분기, 오입력은 세션/이동 전 거절. 성공 시 /preview/studio, Viewer/ownCreatorIds/스튜디오 프로필·게시물·멤버십을 모카로 선택. 한 탭 sessionStorage에는 선택 ID/로그인 여부만 저장해 새로고침 유지. 일반 팬 로그인 시 기존 하늘 스튜디오 목업으로 복귀. 콩 목업의 본인 후원 제한도 선택된 소유자 ID 사용. 금융/보고서 수치는 기존 예시이며 실제 모카 수익 아님. 목업 편집 내용은 이전처럼 새로고침 시 초기화.
 - 합격 조건/증거: npm run check368/368(타입·레이어 포함), 오입력 시 상태/이동 불변 단위검사, 로컬 Chromium1440에서 제공 자격정보 성공·오입력 거절·모카 게시물/멤버십/설정·새로고침 유지·일반 팬 전환 확인. 실제 API 요청0·pageerror0. 활동분야 초기화에서 tags 없는 구형 단위 fixture1건 실패를 optional 기본값으로 수정 후368건 재통과. docs/audit/moka-preview-login-20261027.json 및 .local/moka-preview-login-20261027/. 비밀번호는 브라우저 시험에만 사용하고 보존하지 않음. 기존 미커밋/금융 정책 보존. 당시 다음 단계였던 배포는 위 서버 전용 보완 후 완료.
 
-
 ## PC 서비스 소개 준비 화면 정지 조사 (2026-10-27)
 
 - 신고: PC에서 ‘화면을 준비하고 있어요.’가 계속 표시됨. 사용자는 business.crefans.com/card에서 발생했다고 확인. 실제 PC Chrome은 정상 명함→소개 이동, PC Chromium/WebKit 명함8장애조건에서도 표시됨. 현재 명함200응답에는 신고 문구가 없고 cache private/no-store. 정확한 당사자 원인은 미확정. 해당 문구는 service/preview Suspense에 있고 명함 컴포넌트에는 없음. 서비스 소개는 공통 ServiceProvider의 useSearchParams로 정적 HTML이 로딩 fallback만 제공되는 구조.
 - 최소 수정: service/landing만 Next14 force-dynamic으로 요청 시 HTML을 렌더해 에셋 소개 본문을 스크립트 실행 전에 제공. 회원/금융 API와 인증을 바꾸지 않고 기존 데이터 플래그와 표시 컴포넌트 유지. JS 없는 환경에서 버튼 동작까지 보장하지 않음.
 - 근거 확인2026-10-27: https://nextjs.org/docs/14/app/api-reference/functions/use-search-params 의 Static/Dynamic Rendering 및 force-dynamic 예시. 합격 조건: PC Chromium/WebKit 정상·JS 비활성·스크립트 차단 모두 소개 본문 표시, 정상 탐색과 명함 자동 입장 유지, 격리 배포 소스/운영 이미지 확인. 운영 landing-ready-20261027 배포 완료. 수정 전 소개 PC 정상2조건 통과/JS 비활성·차단4조건 본문없음 재현, 수정 후 로컬·운영 Chromium/WebKit6조건 모두 본문표시·로딩문구없음·pageerror0. amd64 빌드/타입검사·HTTPS12건·명함제어4조건 회귀 통과, API/worker/admin/DB/proxy5컨테이너 ID·재시작수 유지. 운영 준비502횟수·공간정리는 증거에 기록. 전체 단위/제품 회귀는 이번 한줄 라우트 설정 변경에서 반복하지 않음. 증거 docs/audit/landing-ready-20261027.json 및 .local/landing-ready-20261027/. 소개 보완을 신고된 명함 증상의 실제 원인 규명으로 간주하지 않음. 기존 미배포 금융/법률 변경 보존.
-
-
 
 ## 명함 미노출 조사·복구 (2026-10-27)
 
@@ -3239,12 +3242,10 @@
 - 근거 확인2026-10-27: MDN requestAnimationFrame https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame (백그라운드 중단), Page Visibility https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API (가시성 처리), HTMLImageElement.complete https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/complete (완료만으로 정상 이미지 판정 불가; 기존 naturalWidth 검사 유지). 해당 현상이 당사자의 실제 원인이라는 뜻은 아님.
 - 합격 조건: 뒷면 지연/JS 비활성·스크립트 차단에서도 받은 앞면이 보임, 프레임 정지/hidden 구간이 타이머를 건너뛰지 않음, 정상 회전/중지/재생/다시보기/5초 입장 회귀. 운영 card-visible-20261027 배포 완료. npm run check367/367(명함11개)·긴 프레임 상한 제거 대조 검사 실패 및 원복 확인·amd64 빌드·HTTPS12건 통과. Chromium/WebKit에서 뒷면 지연·JS 비활성·스크립트 차단·8.1초 프레임 지연8조건 및 정상 회전/제어/자동입장4조건 통과. 스크립트/스타일 모두 실패해도 SSR의 영구 inline 숨김은 제거(양쪽 실패 시 디자인 육안인증은 아님). 다른5컨테이너 ID/재시작 수 유지. 배포 준비 중502 발생 수는 증거에 기록. 증거 docs/audit/card-visible-20261027.json, 원본 .local/card-visible-20261027/. 실제 당사자 원인과 실기기 미확인 한계 유지. 타 미커밋·금융 정책 보존.
 
-
 ## 명함 인사말 확정 (2026-10-27)
 
 - 요청: 상단 인사를 ‘안녕하세요, 만나서 반갑습니다.’로 변경하고 운영 배포. 문구와 기존 렌더링 검사 기대값·현재 문서만 갱신. fade-up/명함 연출/중지·재생·다시보기·자동 입장 유지.
 - 합격 조건: 정확한 문구, 모바일/PC 줄 넘침 없음, 운영 소스 동일성과 HTTPS. 운영 card-greeting-20261027 배포 완료. 기존 명함8검사 통과, amd64 빌드/타입검사 통과, HTTPS12건·Chrome320/390/1280 및 WebKit390에서 정확한 문구/넘침 없음/제어3개 유지/pageerror0 확인. API/worker/admin/DB/proxy5컨테이너ID·재시작수 유지. 증거 docs/audit/card-greeting-20261027.json 및 .local/card-greeting-20261027/. 문구 변경이므로 기존 명함 검사와 운영 화면 확인을 사용하고 신규 테스트 추가 없음. 타 미커밋 변경은 배포에서 제외.
-
 
 ## 명함 최소 UI·재생 제어 (2026-10-27)
 
@@ -3252,13 +3253,11 @@
 - 동작: 단일 requestAnimationFrame 시간축으로 등장0.8초/뒷면1초/flip0.7초/진행5초를 관리. 중지는 진행뿐 아니라 등장·뒤집기까지 현재 위치에서 정지, 재생은 남은 구간을 이어가며 다시보기는 제목/명함/진행 모두 처음부터 시작. 동작 줄이기 설정은 입체/제목 이동을 생략. 외부 라이브러리 추가 없음.
 - 합격 조건: 삭제 UI 미노출·제목/아이콘3개·중지/이어재생/연속 다시보기·타이머 중복 없음·양면 로드/실패·최종 고정 주소 입장·모바일/PC/WebKit·reduced-motion·운영 이미지 동일성. 운영 card-controls-20261027 배포 완료. npm run check364/364(타입·레이어 포함), pause guard 제거 시 회전정지 대조 시험 실패·원복, HTTPS12건과 Chromium390/1280·WebKit390·동작 줄이기390에서 UI제거/반가워요/아이콘3개·44px·오른쪽위치/회전·진행정지/재생/다시보기·자동입장/넘침없음/pageerror0 확인. API/worker/admin/DB/proxy5컨테이너ID·재시작수 보존. 첫 배포는 용량 부족으로 전송 전 중단, 로컬 동일 복구본을 확인한 미사용 과거 frontend 이미지만 정리하고 현재·직전/DB/볼륨 보존 후 재배포. 증거 docs/audit/card-controls-20261027.json 및 .local/card-controls-20261027/. 기존 미배포 금융 정책과 타 작업 보존.
 
-
 ## PC·모바일 프로필 동기화 및 시간대 명함 (2026-10-27)
 
 - 요청: PC 프로필의 구형 내 콩 지갑 링크를 모바일과 동기화, 모바일 전용 누락 기능 대조. 별도 PC 지갑 wrapper를 제거하고 배경사진 위의 동일 지갑/설정 버튼만 사용. 설정 서비스 안내 그룹·카테고리도 PC에서 동일하게 표시하며 화면 크기 변경 시 카테고리를 강제로 리셋하는 코드를 제거. 프로필 사진·인증/공개 목록·후원·탭은 기존 공유 JSX이며 여백/배열 같은 반응형 차이는 유지.
 - 명함: 맨 위 영어 문구 제거, 서비스 소개 버튼으로 단축. 기기 Date.getHours 기준05~10시 아침/11~16시 점심/17~04시 저녁. 클라이언트 마운트 후 결정하고1분마다 갱신해 서버 시간/시간대 추정 및 hydration 차이 방지. 기존3D 연출/앞면5초/중지 동작 유지.
 - 합격 조건: PC/모바일 지갑 단일 버튼·동일 목적지 및 서비스 안내 접근, 기기 시간 경계 인사/영어 미노출/버튼 명칭, 기존3D/타이머 회귀. 운영 profile-card-sync-20261027 배포 완료. npm run check362/362(타입·레이어 포함), 기기시간 경계 오류 대조 시험 실패·원복 확인, HTTPS12건, Chromium390/1280·WebKit390에서 지갑1개/44px/동일 목적지·서비스 안내·카테고리 크기변경 유지·아침/점심/저녁·영어 제거·버튼 문구 통과. 초기 WebKit의 진행 중 RSC 미리읽기 오류를 별도 명함 페이지/네트워크 종료 대기로 재확인. 충전 페이지 preview/beans/charge의 미리읽기 경고1건이 남아 브라우저 결과에 그대로 기록했고 콘솔 무오류를 주장하지 않음. 관련 충전 컴포넌트는 이번 변경 대상이 아니며 별도 후속 확인 항목. API/worker/admin/DB/proxy5컨테이너ID·재시작수 유지. 첫 준비 중502 한 번 후 정상화. 증거 docs/audit/profile-card-sync-20261027.json 및 .local/profile-card-sync-20261027/. 기존 미커밋 출금 정책·QA 산출물 보존.
-
 
 ## 명함 3D 등장·뒤집기 및 진행 막대 (2026-10-27)
 
@@ -3267,7 +3266,6 @@
 - 변경 범위: `components/business-card/BusinessCard.tsx`, CSS, `public/brand/business-cards/khpark-back.png`, 관련 검사·문서. 명함 뒷면은 기존 핑크09 원본, 기존 운영 release의3파일만 덮어써 별도 출금 정책 미배포 변경 제외. 서버/DB/API/Caddy 변경 없음.
 - 합격 조건: 양면 로드 전 숨김·뒷면1초·앞면 이후5초·막대 흐름/정지·캐시 이미지·즉시 이동·모바일/PC/WebKit/reduced-motion·넘침/브라우저 오류 없음. 운영 `business-card-animation-20261027` 배포 완료. check360/360·신규5시험/시간축 대조 실패 확인·HTTPS12건·운영 Chromium390/1280/WebKit390/동작 줄이기390에서 순서/막대 진행·정지/즉시 이동/자동 입장/넘침 없음/pageerror0 확인. WebKit 이미지 면의 거울상 잔류를 발견해 div 양면 구조와 앞면 상태의 뒷면 숨김으로 보완, 최종 캡처로 앞면 확인. 배포 준비 중502 한 번 후 정상화, 나머지5컨테이너 ID·재시작 수 유지. 공개 증거 `docs/audit/business-card-animation-20261027.json`, 비공개 증거 디렉터리 `.local/business-card-animation-20261027/`.
 
-
 ## 공개 명함 QR 페이지 (2026-10-27)
 
 - 요청: `business.crefans.com/card?who=khpark`에서 박경호 대표 핑크 명함 표시 후 서비스 소개 홈 이동, 운영 배포. 명함 이미지 로드 후5초, 계속 보기로 중지, 바로 보기로 즉시 고정 주소 `https://beta.crefans.com/service/landing` 이동. 임의 redirect 파라미터는 사용하지 않는다. 잘못된/누락/중복 who는 middleware404. 공개 업무 연락처·명함만 제공하고 회원/결제 데이터는 사용하지 않는다.
@@ -3275,8 +3273,6 @@
 - 검증: front check360/360(타입·레이어 포함). 신규5검사에서5초/중지/unknown·중복/캐시 이미지 처리 확인, 캐시 감지 제거 시 해당 시험 실패·원복 확인. 첫 운영 WebKit 캐시 이미지 자동 이동 실패를 발견하여 수정했고 최종 운영 검증은 아래 증거로 보완한다. 최초 교체 중 health 재시도에서502 한 번 발생 후 정상화, 무중단 보장은 하지 않는다.
 - 배포 범위: 기존 운영 source `notice-category-20261026`에서 명함 관련7파일만 반영. 미커밋 출금 최소액/약관/QA 산출물 변경은 배포에서 제외했고 원본 작업 파일은 보존. 회원 DB/API/worker/admin 컨테이너 및 금융/가입 정책 유지. 커밋/푸시 없음.
 - 최종 상태: `business-card-fix-20261027` 운영 배포 완료. HTTPS12검사·Chromium390/1280·WebKit390에서 자동 이동5.1~5.3초/중지/즉시 이동/가로 넘침 없음·pageerror0 확인. API/worker/admin/DB/proxy5개 컨테이너ID·재시작 수 보존. 최종 증거 front `docs/audit/business-card-20261027.json`. macOS의 DNS 이전 음성 캐시로 최종 검사는 공개/권한 DNS의 A를 명시해 연결했고 TLS검증은 유지했다. 공개 DNS5개 정상 및 Route53 INSYNC. 비공개 실행·소스해시·로그는 front `.local/business-card-fix-20261027/`, 최초 배포 이력은 `.local/business-card-20261027/`. 실제 인쇄물의 휴대폰 QR 스캔은 별도.
-
-
 
 ## 출금 최소액 10만원 상향 (2026-10-27, 로컬)
 
@@ -3301,7 +3297,6 @@
 - 알려진 실제 비밀번호·개인키·AWS 액세스키·Telegram 토큰·Toss 운영 비밀키 패턴 검사에서 후보 없음(이 패턴 검사는 모든 비밀정보 부재의 보장이 아님). 검증 결과와 커밋 후 clean 확인은 /tmp/crefans-commit-cleanup-20261026에 저장.
 - 이번 정리 검증: npm run check: 레이어·타입·단위355건 통과. 추가 실금융/E2E 재실행은 하지 않음.
 - 이번 작업은 소스 보존/커밋 정리이며 운영 배포·원격 push·브랜치 병합을 수행하지 않음. 현재 기능/배포 상태와 미결정 정책은 아래 로그 유지. 다음: 운영 피드백 및 별도 요청 시 통합/푸시.
-
 
 ## 공지사항 카테고리 제거 (2026-10-26, 운영 배포 완료)
 
@@ -3429,14 +3424,12 @@
 - 최신 시안 design/beta-event-concepts/20261026/03-editorial-text-v3.png, .generation.json. 사용자 첨부 원본 03-editorial-user-reference.jpg 보존. 1024×1536·복사해시 확인, 제목/일러스트4개/배치·문구 육안대조. 생성 편집 결과를 픽셀 단위 동일하다고 보장하지 않음.
 - 증거 docs/audit/beta-event-editorial-text-v3-20261026.json. 기존 운영포스터/소비코드 SHA 유지, 제품 테스트/운영 배포 미실행. 다음: 이 최신 시안을 기준으로 후속 피드백/적용. 앞선 텍스트전용v2로 되돌리지 말 것. AGENTS 유지.
 
-
 ## 베타 이벤트 타이포그래피 전환 (2026-10-26, 수정 시안·미배포)
 
 - 사용자 후속 요청: 플랫 수정본의 문구를 유지하고 타이포그래피 중심으로 변경. 큰 일러스트/색상카드 제거, 흰 배경·네이비 제목·보라 수치·얇은 구분선으로 구성.
 - ‘원년멤버 한정판 뱃지’ 한줄, 프로필 노출 안내, 모든 보조문구 별표+문장형, 팬13명 우측하단 유지. 기존4개 혜택/인원/표시 선택/일정 별도 안내 문구 육안 대조.
 - ImageGen으로 design/beta-event-concepts/20261026/03-typography-v2.png 제작. 동일 경로 .generation.json에 입력/프롬프트 보존.1024×1536·원본복사 SHA 확인. 증거 docs/audit/beta-event-typography-v2-20261026.json.
 - 운영포스터·소비코드 유지, 앱 테스트/재배포 미실행. 다음: 시안 피드백 또는 운영 적용 요청 시 문구/이미지 함께 반영. AGENTS 유지.
-
 
 ## 베타 이벤트 플랫 시안 문구 수정 (2026-10-26, 수정 시안·미배포)
 
@@ -3445,14 +3438,12 @@
 - ImageGen 편집으로 design/beta-event-concepts/20261026/02-round-flat-v2.png 및 .generation.json 저장. 1024×1536, 제목 한줄·별표·정확한 한글·혜택 육안 검토, 원본복사 해시 일치. 증거 docs/audit/beta-event-flat-v2-20261026.json.
 - 운영 포스터/소비코드는 아직 기존 이미지 유지(운영 배포본 SHA 대조). 앱 로직 변경/제품 테스트/운영 재배포 없음. 다음: 이미지 후속 피드백 또는 배포 요청 시 HTML 혜택 설명과 함께 적용. AGENTS 유지.
 
-
 ## 베타 이벤트 이미지 5개 비교 시안 (2026-10-26, 선택 전·미배포)
 
 - 사용자 수정: 팬 참여자13명을 제목/배지로 강조하지 않고 팬 혜택 영역 오른쪽 아래 작은 보조 문구로 이동. 프로모션100콩 및 기존 모든 혜택·대상 수 유지.
 - ImageGen 내장 도구로 ①소프트3D ②라운드플랫 ③타이포그래피 ④민트·콩 ⑤딥퍼플 5개 제작. design/beta-event-concepts/20261026/ 에 PNG5개와 prompts.json 보존, 대화에 번호별 이미지 표시. 각1024×1536, 한글·혜택4개·13명 우측하단 배치 육안 확인.
 - 운영 이벤트 이미지/페이지는 기존 beta-events-20261026 유지(원본 SHA-256 일치). 비교 시안 요청으로 아직 소비 코드에 연결/배포하지 않음. 선택 후 해당 이미지를 교체하고 브라우저 확인·배포하면 됨. 추천1번(현재 브랜드 분위기 연속성).
 - 증거 docs/audit/beta-event-concepts-20261026.json: 이미지5개 크기/해시·복사동일성·프롬프트·육안검토 범위. 제품 로직 변경 없음, 앱 테스트/운영 재배포 미실행. AGENTS 유지. 다음: 사용자가 시안 선택, 기존 일정/혜택 지급 기능 미결정은 계속 별도.
-
 
 ## 베타 1기 감사 이벤트 안내 (2026-10-26, 운영 배포 완료)
 
@@ -3462,7 +3453,6 @@
 - 배지 실제 발급·표시숨김 기능, 혜택 지급·선정·30일 노출 실행은 이번 안내 작업에 포함하지 않음. 이미지의 배지 표현은 행사 시안이며 인증배지와 별도. 금융·DB·계정 정책 변경 없음.
 - 공통 레이어/타입/단위353 통과. 로컬 Chrome320/390/1280 가로 넘침 없음, 목록→상세→뒤로·모바일설정 진입·4혜택·이미지로드 확인. 운영 Chrome390/1280에서도 목록→상세→뒤로·설정·PC사이드바·실서비스 비로그인 상세·4혜택·이미지 로드 확인. 로컬 실서비스 API 오프라인 안내는 관측했으나 운영 실서비스는 오류안내 없음. AGENTS 유지.
 - frontend beta-events-20261026 배포. 실행626파일 해시·이미지레이어 일치,6HTTPS·6컨테이너 정상, API/worker/admin/DB/proxy 보존. 복구 /opt/crefans-backup-beta-events-20261026. 문서60·카탈로그52 계약 확인. 증거 docs/audit/beta-events-20261026.json. 다음: 참여기간/지급·선정 일정 확정 및 실제 배지·혜택 지급 구현은 별도.
-
 
 ## 좋아요·저장 선택 색상 유지 (2026-10-26, 운영 배포 완료)
 
@@ -3672,7 +3662,6 @@
 - Chromium320/390/1280·WebKit390에서 기본 펼침/접기,3개 박스2열,60px충전버튼,그라데이션/한알PNG,3개 전용경로와 뒤로가기,가로넘침0/깨진이미지0/pageerror0 확인. PC/모바일 지갑 상하단 및 충전주문·후원 화면 직접 검수. 증거 docs/audit/bean-wallet-pages-20261026.json, 재현 .local/bean-wallet-pages-20261026/.
 - 현재 로컬 반영 완료, 이번 요청에는 운영 배포를 수행하지 않았다. 직전 콩 완료 화면과 함께 배포 대기이며 운영은 bean-vat-20261025 유지. 다음: 요청 시 프론트 운영 배포. 기존 dirty 작업 보존/commit·push 없음. 실기기와 실제 PG 검증은 미실행. AGENTS의 공유 UI/증거 규약 유지, 문서 의미 검토 후 계약·해시 재기록.
 
-
 ## 콩 충전 완료 화면 (2026-10-26)
 
 - 공용 BeanPaymentResultPage 신설: 기존 콩 이미지, 충전 수량·VAT 포함 저장 결제 금액·주문번호, 지갑/탐색 CTA. mock/live/디자인 카탈로그 같은 UI, 카탈로그에 완료/로딩/미확정/중단/실패 상태 등록. `/preview/beans/success` 직접 미리보기와 목업 충전 후 주문별 이동 연결.
@@ -3680,7 +3669,6 @@
 - `npm run check` 339검사 통과. 첫 실행3실패는 신규 receipt 검사에서 React 텍스트 노드 분할을 문자열 결합으로 검사하지 않은 부분과 기존 Provider 테스트2개의 navigation 대역 누락으로 수정. 최종 재검사 종료0. Playwright6시나리오 통과(격리 DB·PG/은행 대역): 목업 충전→완료→지갑/후원, 실제 승인·새로고침·잔액 단일 반영, 승인 전 직접 접근·금액 변조·타인 주문 거부, 기존 출금/PIN 회귀.
 - Chromium320/390/1280·WebKit390 로컬 브라우저4조합의 수량/가격·48px버튼·이미지 정상/가로넘침0/pageerror0 확인, 모바일/PC 캡처 직접 검수. 증거 `docs/audit/bean-completion-20261026.json`, 로그·캡처 `.local/bean-completion-20261026/`. 토스 공식 성공 콜백/승인 분리 근거를 docs/service-api-binding에 기록.
 - 현재 로컬 구현·검증 완료. 운영은 직전 bean-vat-20261025이며 이번 변경은 미배포. 실제 PG 결제와 물리 iPhone 검수는 하지 않았다. 다음 작업은 요청 시 운영 프론트 배포. 기존 미커밋 변경 보존, commit/push 없음. 목업 전체 새로고침 시 주문이 사라지는 기존 메모리 모델 한계 유지; 실제 주문 복원은 검증했다.
-
 
 ## 콩 충전 VAT포함 가격·30/50이미지 교환 운영 배포 (2026-10-25)
 
@@ -3690,7 +3678,6 @@
 - bean-vat-20261025 프론트/API/worker 운영 반영,amd642빌드·동결소스/운영실행806파일SHA 일치,14HTTPS·9이미지SHA·6컨테이너정상·새worker heartbeat failures={} 확인. DB/admin/proxy ID·21migration·금융건수·20%/7일정책·비공개설정(이미지/APP_RELEASE 제외) 불변. 집IP SSH 유지.
 - 증거 docs/audit/bean-vat-deployment-20261025.json, 재현 .local/bean-vat-deploy-20261025. Toss공식 세금/결제창문서 확인; 가격정책 구현과 세무분류/실제PG승인은 구분,판매/지급gate유지. 실결제/메일/커밋 없음. 용량확보는 과거 생성 전송압축본8개만 삭제,소스/로그/현재복구이미지 보존. 복구 /opt/crefans-backup-bean-vat-20261025(front bean-icons-v7/API bean-wallet). 문서 의미검토 후 docs:record/check:docs. 다음: 운영 화면 피드백 대응.
 
-
 ## 콩 최신 시안 v7 공용 화면·운영 배포 (2026-10-25)
 
 - 사용자 운영배포 요청에 따라 BeanChargePage 경로를 최신9종으로 연결:10흩어진콩·30지퍼백(v6),50꼬치·300바구니·5000나무상자(v5),100컵·500종이상자·1000비단보따리·10000택배트럭(v7).50만 공용 ×10 표시.500/1000은 이전 반대 수량 이미지의 바이트동일 복사이며 수량/가격·결제 로직은 그대로다.
@@ -3698,13 +3685,11 @@
 - 운영 프론트 crefans-front:bean-icons-v7-20261025.14 HTTPS응답 정상,6컨테이너 running/restart0/OOMfalse,API/worker/admin/DB/proxy5개 ID와 runtime.env 보존.21migration/금융건수·수수료20%/7일보류·실판매/송금 gate 불변. 집IP SSH규칙 유지. 복구 /opt/crefans-backup-bean-icons-v7-20261025 및 이전 bean-soft3d-20261025.
 - 증거 docs/audit/bean-icons-v7-deployment-20261025.json, 재현 .local/bean-icons-v7-deploy-20261025. 최초 브라우저 검사에서 로그인 문단을 heading으로 찾던 harness만 수정 후 전체 재실행. 로컬 API연결 불가는 로컬 범위 한계로 기록, 운영 API별도 확인. 실제 PG·지급/메일·실기기 시험/커밋 없음. 문서 의미 검토 후 docs:record/check:docs. 아래 v6로컬/v7시안만 기록은 과거 시점이며 이번 배포로 대체된다. 다음: 운영 화면 피드백 대응.
 
-
 ## 콩 컵·택배 트럭 및500/1000교환 v7 시안 (2026-10-25)
 
 - 사용자 시안 요청으로100콩=크림/민트 컵(큰콩4개),10000콩=콩 심벌 택배 트럭을 기본 image_gen 각각1회 생성. 기존500보따리→1000,기존1000종이박스→500으로 바이트동일 복사. public/brand/beans/soft3d-v7/{100,500,1000,10000}.png. 컵/트럭 투명PNG1254px,RGBA알파0~255/원본SHA 확인.
 - 전체9종 시안은10/30(v6),50/300/5000(v5),새4종(v7) 조합.100의×10 제거·50만×10 유지. docs/design/bean-soft3d-v7.preview.html/.png와 generation.json에 정확한프롬프트·참조/생성원본/매핑/해시 저장. Chromium930/390에서18이미지로드,9가격/라벨,50배수만,80px크기,넘침/오류없음 검사,큰비교판/모바일80px 직접확인.
 - 이번 요청은 시안만: 공용 BeanChargePage는 이전v6해시동일,운영은bean-soft3d-20261025(v5)유지.제품검사/배포/실금융/커밋 없음. 증거 docs/audit/bean-soft3d-v7-20261025.json, 재현 .local/bean-soft3d-v7-20261025. AGENTS 유지, 문서검토 후 docs:record/check:docs. 다음: 사용자 시안 피드백/선택 후 요청 범위에서 공용UI 경로와×10 조건 반영.
-
 
 ## 콩10/30/100 모티프 수정 v6 (2026-10-25, 로컬 적용)
 
@@ -3713,13 +3698,11 @@
 - npm run check의 레이어/타입·328테스트 통과. Chromium390/1280 및 WebKit390에서9이미지로드/가격·이미지선택·선택전 제출비활성·50/100배수글꼴동일·30배수없음·가로넘침없음 확인,3캡처 직접 검토,pageerror0. 새3PNG1254px·RGBA알파0~255 및 원본복사 SHA 검증. docs/design/bean-soft3d-v6.preview.png는 실제 로컬 모바일 그리드 캡처.
 - 증거 docs/audit/bean-soft3d-v6-20261025.json, 재현 .local/bean-soft3d-v6-20261025. AGENTS 기존규약 유지. 제품 공유UI는 로컬 적용, 운영은 bean-soft3d-20261025 유지이며 이번 요청에서 배포하지 않음. 실PG/외부발송/커밋 없음. 문서 대조 후 docs:record/check:docs. 다음: 사용자 시안 피드백 또는 운영배포 요청 대응.
 
-
 ## 선택한 명함 A안·작은 Pretendard 적용 v4 (2026-10-25)
 
 - 사용자가 위쪽 A안을 선택하고 더 작은 글씨·많이 쓰는 글꼴을 요청. A의 상단 로고/회사명과 하단 이름/연락처 배치를 유지하고 Pretendard1.3.9 Regular/Medium으로 교체. 이름16.5→12pt, 연락처8.5→7.5pt, 웹주소8→7.5pt, 회사명7.6→7pt, CEO7.5→6.8pt. 이름 자간1.15→0.5pt 및 CEO 간격도 축소. 원본 로고 크기·제공 연락처는 유지.
 - Pretendard 공식 저장소 README/라이선스 확인, 버전고정 원본 woff2와 OFL 라이선스를 HTML에 포함. 산출물 output/design/crefans-business-card/crefans-business-card-front-v4.html/.png/.pdf 및 front-v4-specification.json. 이전 시안 보존.
 - DOM 필드·로고·경계, 실제 custom font(Pretendard), PDF1페이지90×50mm·연락처 추출/글꼴내장 확인, PNG/최종 Poppler180dpi PDF 렌더 검수 통과. 증거 docs/audit/business-card-front-pretendard-20261025.json, 재현 .local/business-card-front-v4-20261025. RGB 시안, 실물 인쇄/CMYK 미검증. 제품/운영/커밋 변경 없음. AGENTS 유지, 문서검토 후 docs:record/check:docs. 다음: 앞면 피드백 또는 뒷면 요청 대응.
-
 
 ## 명함 앞면 서체·배치 재설계 v3 (2026-10-25)
 
@@ -3728,7 +3711,6 @@
 - 산출물: 같은 폴더 crefans-business-card-front-v3-a/b.html/.png/.pdf 및 comparison.html/.png. PDF 스킬 시작마커, DOM 제공정보·로고 로드·요소 경계, Chromium 실제 custom font(시스템대체 없음), PDF 각1페이지90×50mm·연락처 추출·글꼴 내장 검증 통과. 비교 PNG와 두 최종 PDF Poppler180dpi 렌더 직접 확인. RGB 시안이며 실물 인쇄·CMYK 색교정은 미진행.
 - 증거 docs/audit/business-card-front-typography-20261025.json, 재현 .local/business-card-front-v3-20261025. AGENTS 기존 규약 유지, 이전 시안 보존. 제품·운영 변경/배포/커밋 없음. PROGRESS 변경을 검토 후 docs:record/check:docs 수행. 다음: 사용자 시안 선택·조정 요청에 따라 앞면 확정.
 
-
 ## 실제 명함 사례 웹조사·앞면 v2 재디자인 (2026-10-25)
 
 - 사용자 요청으로 MOO의 minimal-business-cards 글(2022-07-01, Fos&Co. 포함)과 Jukebox Print의 typography-first 사례집(2026-01-23 갱신)을 웹검색·원문 확인했다. 인앱 브라우저에서 Fos&Co.·Hugh McCarthy·Animis 사진을 직접 열어 확인. 두 인쇄업체가 소개한 사례이며 모든 디자인의 원제작자가 해당 인쇄업체라고 주장하지 않는다. 원문/날짜·관찰과 적용 판단은 output/design/crefans-business-card/front-v2-research.json.
@@ -3736,14 +3718,12 @@
 - 산출물 output/design/crefans-business-card/crefans-business-card-front-v2.html/.png/.pdf. PDF 스킬 시작마커 실행, 1페이지90×50mm·벡터 로고/Type3 글리프 확인. DOM 제공정보 일치/로고로드/모든 요소 카드내부, PDF 연락처 추출(공백정규화)·실제규격 및 최종 Poppler180dpi 렌더 육안검토 통과. RGB 시안이며 인쇄소 색교정 미실행.
 - 증거 docs/audit/business-card-front-research-20261025.json, 재현 .local/business-card-front-v2-20261025. 기존 AGENTS 유지·제품/운영/외부발송 불변·제품검사/배포/커밋 없음. 문서 검토 후 docs:record/check:docs. 다음: 사용자 앞면 피드백 후 필요시 후면 톤 조정/인쇄소 규격 대응.
 
-
 ## CEO 양면 명함 디자인 (2026-10-25)
 
 - 사용자가 제공한 이름·CEO·회사명·전화·이메일로 크레팬스 양면 명함을 제작했다. 전화는 구분 하이픈만 추가, 추가 정보는 브랜드 도메인 crefans.com. 기존 public/brand/crefans-logo.svg와 inverse.svg를 그대로 재사용해 정확한 로고·타이포그래피를 유지했다. 흰 앞면의 연락처/이름·얇은 분홍/보라/파랑 그라데이션, 짙은남색 뒷면의 흰 로고·확대 심벌 구성. 새 로고 생성/이미지젠은 필요 없어 수행하지 않았다.
 - 산출물 output/design/crefans-business-card: self-contained HTML, 앞/뒤/양면 PNG 시안, 90×50mm 양면2페이지 PDF, 3mm 재단여유의96×56mm/TrimBox90×50mm PDF, design-specification.json. PDF 스킬 적용·시작 마커 실행. 원본 SVG와 Type3 벡터 글리프 내장, RGB 시안이며 인쇄소 CMYK/실물색교정은 미진행.
 - DOM에서 제공 정보와 이미지 로드 확인, PDF2종×2페이지에서 실제크기/TrimBox·연락정보 텍스트(추출기 공백정규화)·독립 글리프 검사. 최종 PDF4페이지를 Poppler180dpi 렌더해 모두 직접 확인. 증거 docs/audit/business-card-design-20261025.json, 재현 스크립트 .local/business-card-20261025. 연락처 원문은 요청 산출물에만 두고 감사기록에는 재기재하지 않았다.
 - 기존 AGENTS/제품코드·API·운영은 불변, 제품 단위/E2E 재시험/배포·발송·커밋 없음. 문서 검토 후 docs:record/check:docs 수행. 다음: 사용자 시안 피드백 반영 또는 인쇄소 규격에 맞춘 색상 교정. 운영 프론트는 bean-soft3d-20261025 유지.
-
 
 ## 소프트3D 콩9종·배수 글자 통일 및 운영 배포 (2026-10-25)
 
@@ -3754,14 +3734,12 @@
 - 운영 프론트 crefans-front:bean-soft3d-20261025 배포. API/worker는 bean-wallet-20261025 유지, 나머지5컨테이너 ID·runtime.env 바이트 동일.14 HTTPS경로/6컨테이너 정상·restart0/OOMfalse,21migration/금융건수·20%/7일보류·worker failures={} 불변. 집IP SSH 지속허용 보존. 복구: bean-clay-20261025와 /opt/crefans-backup-bean-soft3d-20261025.
 - 증거 docs/audit/bean-soft3d-deployment-20261025.json, 원본 .local/bean-soft3d-deploy-20261025. Mac 용량 확보는 생성된 과거 전송압축본3개 약1.56GB만 삭제, 소스/로그/캡처/DB 보존. 새 압축본은 SSH 직접전송·해시검증/적재 후 생성 원격본만 삭제. 실금융/메일·가입/실판매 gate 변경·커밋/푸시 없음. 아래 미적용 문구는 과거 시점이며 최신 적용 상태는 본 항목이 우선한다. 다음: 운영 화면 피드백 대응.
 
-
 ## 50콩5개×10 확정·v4전체9종 시안 완성 (2026-10-25, 운영 미적용)
 
 - 사용자가50콩=5개꼬치×10 권장안에 ‘응’으로확정. 기본image_gen1회로기존5개꼬치에×10을추가한실제투명PNG 제작·5개/1꼬치/×10육안확인,PNG/알파0~255/원본복사SHA검증. 정확한프롬프트·원본은 docs/design/bean-skewer-v4-fifty.generation.json.
 - 전체9종선택을완성했다:10=5개꼬치2개,30=3개×10,50=5개×10,100=10개×10,300소쿠리,500비단,1000종이,5000나무,10000금상자. public/brand/beans/soft3d-v4/{수량}.png,4소량은v4개별생성·나머지5개는검증된v3복사.은색없음,9개서로다른SHA·새복사원본일치·처음4개수산술일치 확인.관찰개수는수동검수이며자동객체인식아님.
 - docs/design/bean-soft3d-series-v4.selection.json과 .preview.html/.preview.png로최종비교판생성. Chromium9카드/36이미지·9라벨/은색0·80/112px정확크기·PC/390가로넘침없음/오류0 확인,9종/80px캡처직접검토.검은×10은밝은배경용이며어두운배경문자가독성완료를주장하지않는다.
 - 증거 docs/audit/bean-series-v4-complete-20261025.json,원본 .local/bean-series-v4-complete-20261025.이전50확인대기/v4부분완료기록은그시점의이력이며이제해소됨.현재디자인선택은완전v4지만공유충전UI/운영은여전히clay-v1·bean-clay-20261025,실금융/API/정책/메일/배포/커밋없음.제품코드불변으로단위/E2E재실행없음;문서검사별도.다음:요청시v4로공용충전카드경로교체/시각검수·운영배포.기존AGENTS/스킬규약유지.
-
 
 ## 소량 꼬치·×10 수정3종/50콩 수량 확인 대기 (2026-10-25)
 
@@ -3770,14 +3748,12 @@
 - public/brand/beans/soft3d-v4/{10,30,100}.png 저장,정확한프롬프트3+보정·참조·PNG/알파/해시·관찰개수는 docs/design/bean-skewer-v4.generation.json. 꼬치별개수·×10을 직접검토,원본복사SHA/PNG/알파0~255확인. 정적HTML/비교캡처 bean-skewer-v4.preview.html/.png,80/112px정확크기·9이미지로드·390가로넘침없음/오류0 확인. 작은크기의개수판독 사용자시험은 아님.
 - 증거 docs/audit/bean-skewer-v4-20261025.json,원본 .local/bean-skewer-v4-20261025. UI/운영은clay-v1·bean-clay-20261025 유지,상품수량/가격·결제/API/금융/외부발송·배포/커밋 없음. 제품검사 재실행 없음;문서검사별도. 다음:50콩 답변받아해당이미지 제작 후 v3의300/500/1000종이/5000나무/10000금색과9종비교판 통합. AGENTS/스킬규약 유지.
 
-
 ## 콩 시안1천=종이박스·5천=나무상자 재배치 (2026-10-25)
 
 - 사용자 지시로 현재 소프트3D 선택본에서 은색상자를 제외,1000콩은 기존 종이상자 대안·5000콩은 기존1000나무상자로 바꿨다. 나머지7수량 유지. 종이상자가 기본에 포함되어 대안은2꼬치묶음1개만 남긴다. 새로운 그림 생성/픽셀편집 없이 검수된 PNG를 재사용했다.
 - 현재 선택 public/brand/beans/soft3d-v3/{수량}.png9개+alternatives/double-skewer.png. 이전v2/은색은 과거 시안·증거로 보존하며 현재 선택에는 포함하지 않는다. docs/design/bean-soft3d-series-v3.selection.json에 원본/새경로/해시 기록. 원본SHA10개일치·RGBA알파0~255·은색SHA선택0 확인.
 - v3.preview.html/.preview.png/.alternatives.png 갱신,Chromium에서9카드/1대안·1000종이박스/5000나무상자라벨·은색라벨0·40이미지로드·80/112px·PC/390가로넘침없음/오류0 확인,최종9종판 직접검토. 증거 docs/audit/bean-soft3d-remap-20261025.json,원본 .local/bean-soft3d-remap-20261025.
 - UI/운영은 기존clay-v1/bean-clay-20261025 유지,상품금액/API·금융·외부발송·배포/커밋 없음. 제품코드 불변으로 단위/E2E 재실행 불필요;문서검사 별도. 다음: 요청시 현재v3선택으로 공유충전카드 적용·검수·배포. 기존AGENTS/진행로그 규약 유지.
-
 
 ## 콩10~10000 소프트3D 개별에셋9종·대안2종 (2026-10-25, 제작 완료·운영 미적용)
 
@@ -3787,7 +3763,6 @@
 - 개별 PNG를 그대로 참조하는 비교 HTML·브라우저 캡처를 docs/design/bean-soft3d-series-v2.preview.html/.preview.png/.alternatives.png로 제작했다(상품UI 아님). Chromium에서9기본/2대안라벨·44이미지로드·80/112px정확치·PC/390가로넘침없음/오류0 확인. 두크기/밝고어두운배경·최종비교판 직접 검토. 원본이미지 리사이즈/합성편집이 아니라 HTML표시의 캡처다.
 - 증거 docs/audit/bean-soft3d-series-20261025.json, 원본 .local/bean-soft3d-series-20261025. UI/운영은 여전히 clay-v1·bean-clay-20261025, 배포/실금융/메일/프로모션/커밋 없음. 제품코드 불변으로 단위/결제E2E 재실행 없음. 문서검사 별도. 다음: 사용자 시리즈/대안 선택 후 공용 충전카드의에셋경로 교체/시각검수·요청시 배포. 기존AGENTS/스킬규약 유지.
 
-
 ## 꼬치·소쿠리 추가/열린 용기8종 소프트3D 시안 (2026-10-25)
 
 - 최신 사용자 요청이 이전 닫힌용기 규칙을 대체한다. 콩1/2/3개·꼬치·나무소쿠리·열린보따리·열린종이상자·열린나무보물상자8종2×4 비교보드로 재구성. 용기 내용물은 큼직한콩3~5개만 보이는 방향, 실제 상품 수량/가격 매핑은 미지정이다.
@@ -3795,13 +3770,11 @@
 - 최종 docs/design/bean-soft3d-open-eight-v1.png, 최초 -initial.png 보존. 정확한2프롬프트·레퍼런스/원본/해상도/SHA는 동명.generation.json, 증거 docs/audit/bean-soft3d-open-eight-20261025.json. PNG원본복사SHA/규격 검증 통과, 사용자에게 이미지 제시.
 - 단일 흰배경 비교보드로 개별투명에셋·모바일80/PC112px·공유UI 적용은 아직 아니다. 운영 bean-clay-20261025 유지, 배포/금융/외부발송/커밋 없음. 제품코드 불변으로 단위/E2E 재실행 없음; 문서검사 별도. 다음: 사용자 디자인 선택 후 수량매핑·개별에셋·공유카드 적용검수. 기존 AGENTS/스킬규약 유지.
 
-
 ## 콩1·2·3개/보따리/종이상자/나무보물상자6종 시안 (2026-10-25)
 
 - 사용자 지정6모티프를 기존 소프트3D 보드 참조로 기본 image_gen1회 생성,2×3 비교보드로 제시. 상단 콩1/2/3개, 하단 매듭 보따리·테이프 종이상자·둥근뚜껑 나무보물상자. 모든 용기는 닫힘·무더기/쏟아짐 없음, 민트/크림에 나무색 추가. 실제 충전수량/가격 대응은 지정하지 않았다.
 - 최종 docs/design/bean-soft3d-six-v1.png, 정확한프롬프트/참조·원본·SHA는 동명.generation.json.6라벨/개체수/재료 구별을 직접 검토,PNG규격/해상도·원본복사SHA 확인. 증거 docs/audit/bean-soft3d-six-20261025.json.
 - 단일 비교보드이며 개별투명에셋·카드검수·UI/운영배포 미수행. 기존 시안 보존·운영 bean-clay-20261025 유지,금융/외부발송/커밋 없음. 제품검사 재실행 불필요,문서검사 별도. 다음: 사용자 선택 후 수량별 매핑과 개별에셋/공유UI 적용 진행. 기존 AGENTS/스킬규약 유지.
-
 
 ## 콩 소프트3D 비교 보드 추가 (2026-10-25, 시안 제시·운영 미적용)
 
@@ -3810,14 +3783,12 @@
 - 비교보드1장으로 개별투명9종/80·112px카드검수는 아직 아니다. 기존 플랫/클레이 원본 보존, UI·운영배포·금융·외부발송·커밋 없음. 운영은 bean-clay-20261025 유지. 이미지 작업이라 제품검사 재실행 없음; 문서/manifest 검토 후 docs:record/check:docs 갱신. 공통 AGENTS/스킬규약 유지.
 - 다음: 선택된 방향의 개별운영에셋 제작·공유카드 적용 검수. 승인 전 기존 운영이미지를 교체하지 않는다.
 
-
 ## 콩 플랫9종 비교 보드 시안 (2026-10-25, 사용자 제시·운영 미적용)
 
 - 사용자 ‘응 보여줘’에 따라 기본 image_gen 스킬로9수량3×3 비교 보드1장을 생성했다. 콩1/2/3개, 닫힌주머니1개, 선물상자1개와 단순 리본/별만 표시. 민트/크림·큰 여백·수량 라벨, 무더기/쏟아짐/다수개체 없음. 첫 보드의 잔음영을 줄이는 style-transfer1회 후 최종 보드를 사용자에게 표시했다.
 - docs/design/bean-flat-sheet-v1.png가 최종, -initial.png는 첫 시안 보존. 정확한2프롬프트·레퍼런스·원본경로/해시는 bean-flat-sheet-v1.generation.json. PNG규격/해상도·원본과복사본SHA 일치와9라벨/1~3개체·닫힌용기·여백을 직접 확인했다. 픽셀 전체가 균일한 벡터라고 주장하지 않는다.
 - 증거 docs/audit/bean-flat-preview-20261025.json. 흰 배경의 비교 보드이며9개 투명 개별 운영에셋은 아직 제작하지 않았다. 표시/UI/운영·금융/외부발송/커밋 변경 없음, 운영은 bean-clay-20261025 유지. 제품코드 불변으로 단위/E2E 재실행 없음.
 - 다음: 사용자 디자인 피드백 후 개별 투명9종을 제작하고 모바일80px/PC112px·공유 충전카드 적용을 검수한다. 공통 AGENTS의 스택/PROGRESS·공유UI·이미지/검증 규약 유지, 문서/manifest 검토 후 docs:record/check:docs 갱신.
-
 
 ## 콩 플랫 재설계 공식 사례 조사 (2026-10-25, 조사 완료·제작/배포 전)
 
@@ -3826,7 +3797,6 @@
 - 권장: 콩 개체는 최대3개, 큰 수량은 닫힌 주머니/선물상자1개·콩문양/리본/작은별로 표현. 질감/광택/실사 홈·주름/쏟아지는 무더기 금지, 민트/크림2D와 충분한 여백. 구체적인 최대개수/색은 사용자 요구에 맞춘 제안이며 공인 표준이 아니다. 정확한 수량/가격은 기존 텍스트로 유지한다.
 - 다음: 대표 플랫 시안을 실제80/112px로 비교한 뒤9수량 시리즈/공유 충전카드 적용을 진행. 이번 요청은 먼저 조사이므로 아직 이미지 생성/적용/운영 배포하지 않았다. 별도 로그인/결제/외부 발송/커밋 없음.
 - 증거 docs/audit/bean-flat-research-20261025.json(공식6출처·확인시각·방법·한계·파일SHA), 원본 .local/bean-flat-research-20261025. docs/design-system.md에 재사용할 설계 근거 기록, 관련 manifest 검토 후 docs:record/check:docs. 제품 코드 불변이라 단위/금융/E2E 재실행은 하지 않았다. AGENTS의 공유UI·조사/증거·PROGRESS 우선 규약을 그대로 유지한다.
-
 
 ## 클레이 콩 충전 카드 적용·운영 배포 (2026-10-25)
 
@@ -3837,7 +3807,6 @@
 - Mac 용량 확보는 과거 생성한 전송압축본6개(약3.13GB)만 삭제했으며 소스·로그/캡처·Docker 복구이미지·DB볼륨 보존. 새 압축본532,715,646바이트는 SSH로 직접 전송,검증/적재 후 원격 생성본만 삭제했다.
 - 증거 docs/audit/bean-clay-deployment-20261025.json, 원본 front .local/bean-clay-deploy-20261025. 실PG/송금·후원·프로모션·메일 시험발송/물리iPhone 검수는 수행하지 않았다. 가입·실판매/은행/광고메일 차단 유지, 기존 미커밋 보존·커밋/푸시 없음. 아래 미배포 문구는 각 제작 시점 기록이며 현재 적용/배포는 본 항목이 우선한다. 다음: 사용자 화면 피드백 대응.
 
-
 ## 클레이 콩 전체 수량 이미지 제작 (2026-10-25, 제작 완료·운영 미배포)
 
 - 사용자 선택②클레이로1/10/30/50/100/300/500/1000/5000/10000콩 총10종을 준비했다. 기존1콩은 승인 원본 그대로 재사용, 나머지9종은 같은 로컬 이미지를 편집 대상/스타일 기준으로 기본 image_gen에서 개별 생성했다(3개 병행). 원본/이전 시안 보존.
@@ -3845,20 +3814,17 @@
 - 정확한 프롬프트9개/기존1개·원본경로·해시/크기·기본 도구/레퍼런스는 docs/design/bean-clay-series-v1.generation.json. 증거 docs/audit/bean-clay-series-20261025.json, 계획 .local/bean-clay-series-20261025/plan.json.
 - 이미지 제작만 수행, 아직 충전 카드 UI에 적용하지 않았고 운영 배포/금융/외부 발송·커밋 없음. 이전 지갑 개별 목업 안내 제거도 운영 미배포다. 다음: 요청 시 전체 이미지 충전 카드 적용·소형 표시 검수 후 안내 제거와 함께 프론트 배포.
 
-
 ## 1콩 추가 스타일4종 비교 시안 (2026-10-25, 운영 미배포)
 
 - 사용자 요청으로 기본 image_gen에서 각각 독립 생성4회:①플랫(flat),②클레이(clay),③라인 스티커(sticker),④픽셀(pixel). 모두 단일 초록 콩·크림색 홈·투명 배경으로 콘셉트를 맞추고 스타일을 비교할 수 있게 했다. 기존 광택 시안은 보존, 현재 총5종이다. 수량별10~10000콩 이미지를 만든 것은 아니다.
 - docs/design/bean-one-{flat,clay,sticker,pixel}-v1.png에 비파괴 복사, 각 .generation.json과 bean-style-variants-v1.generation.json에 정확한 프롬프트/기본도구·원본/경로·SHA 저장.4개 그림 직접 검토·PNG알파0~255/서로 다른 해시4개 검사 통과.
 - 증거 docs/audit/bean-style-variants-20261025.json. UI적용/배포·제품 로직/금융/외부 발송·커밋 없음. 이전 지갑 목업 안내 제거도 여전히 운영 미배포다. 다음: 사용자 스타일 선택 후 수량별 시리즈/충전 카드 적용.
 
-
 ## 1콩 이미지 시안·지갑 중복 목업 안내 제거 (2026-10-25, 운영 미배포)
 
 - 기본 image_gen으로1콩 단일 시안만 생성했다. 초록 콩1개·크림색 홈·둥근 음영 스타일/투명 배경, 글자/얼굴/추가 물체 없음. docs/design/bean-one-v1.png에 원본을 비파괴 복사했고 정확한 프롬프트·생성방식·SHA/알파 검사는 동명의 .generation.json에 저장했다. 충전 카드에 아직 적용하지 않았고 수량별 시리즈는 생성하지 않았다.
 - 지갑 안 노란 목업 지갑입니다 안내를 제거했다. 상단 공용 목업 페이지입니다 띠는 유지한다. 로컬3010 모바일 브라우저에서 해당 안내 미존재·공통 띠·두 잔액 요약 유지를 확인했다. 수정은 해당 JSX조건1개 제거뿐이다.
 - 증거 docs/audit/bean-icon-draft-20261025.json, 로컬 캡처/검사 .local/bean-icon-draft-20261025. 단일 콩 구성 직접 확인·PNG알파 검증(시스템 Python의 Pillow 미설치는 번들 Python으로 검사해 해결, 이미지 편집 없음). 실금융/외부 발송·운영 배포/커밋 없음. 다음: 사용자 시안 피드백 후 수량별 이미지/충전 화면 적용, 요청 시 안내 제거와 함께 프론트 배포.
-
 
 ## 지갑·충전·잔액 계층 운영 배포 (2026-10-25)
 
@@ -3869,7 +3835,6 @@
 - 신규 실제 지갑 필드의 인증 운영 호출은 미실행이며, 격리DB/공급사 대역29검사·프론트328검사와 실제 운영 소스/가드 검사를 구분한다. 가입 signupReady=false/빈 초대 명단, email-only/beta/live콩판매false/실출금false/광고메일false 유지.
 - 증거 front docs/audit/bean-wallet-deployment-20261025.json, 원본 server .local/bean-wallet-deploy-20261025. 두 리포 feat/bean-support 누적미커밋 보존·커밋/푸시 없음. 아래 미배포 로그는 이전 시점 기록이며 현재 배포 상태는 이 로그가 우선한다. 다음: 사용자 화면 확인·버그 대응.
 
-
 ## 콩 잔액 주요 지표·세부 계층 (2026-10-25, 운영 미배포)
 
 - 지갑/스튜디오 공용 BeanBalanceSummary에서 사용 가능한 콩·출금 가능한 콩 두 지표만 크게 표시한다. 일반/프로모션·출금조건충족 일반후원·사용보류/출금제외 후원/받은프로모션/출금처리중은 기존 AccordionItem의 기본 접힘 안 계층 리스트다. 총합과 하위 분류가 혼동되지 않게 출금 제외 그룹을 별도로 명시한다.
@@ -3877,7 +3842,6 @@
 - 서버 build+격리DB/PG·은행 대역 콩/원장/Swagger29검사 통과(동결 구매 제외·입금 전0/후1100·보류/동결0·예약1000 후가용100). front 레이어356파일·타입·328검사 통과(신규 요약3개 포함). 로컬3010 브라우저9개:360/390/767/1280 요약/계층/목업충전 반영8개+스튜디오 예약·20%견적1개. 모바일/PC 캡처 확인.
 - 처음 브라우저의 region 다중일치 locator를 명시 패널로 수정했고, 펼침 중 캡처는 애니메이션 최종 높이를 기다려 다시 생성했다. 증거 docs/audit/bean-balance-hierarchy-20261025.json, 원본 양 리포 .local/bean-balance-hierarchy-20261025. 실금융/외부발송·운영배포·커밋 없음.
 - 다음: 요청 시 서버 추가 응답과 직전 충전/지갑 UI를 함께 배포. 운영 신규 필드 미반영 상태에서 합계를 임의 추정하지 않는다. 기존 가입/실금융 차단·외부 준비 미완료는 유지한다.
-
 
 ## 콩 충전 전용 페이지 (2026-10-25, 운영 미배포)
 
@@ -3887,14 +3851,12 @@
 - 카탈로그46화면·문서/자동계약 갱신. e2e/beans.spec.ts 목업 충전 진입을 새 경로로 바꿨지만 실제 DB/공급사 E2E 전체는 재실행하지 않았다. 증거 docs/audit/bean-charge-page-20261025.json, 원본 .local/bean-charge-page-20261025. 기존 dev 서버 사용·실금융/외부 발송/운영배포·커밋 없음.
 - 다음: 사용자 확인 후 요청 시 직전 지갑 툴팁/모바일 프로필 버튼 변경과 함께 프론트 운영 배포. 기존 법률/초대·live PG/은행 차단 조건은 유지한다.
 
-
 ## 콩 지갑 툴팁·모바일 내 프로필 진입 (2026-10-25, 운영 미배포)
 
 - 콩 지갑의 상시 단위 설명을 제목 옆 기존 InfoTooltip으로 이동했다. 내용은 1콩=100원·프로모션콩 우선 사용 그대로다. 공용 BeanWalletPage로 preview/service 동시 적용, 충전·후원·출금 API 변경 없음.
 - 모바일(<=767px) 내 프로필 배경 왼쪽 위에 내 지갑, 오른쪽 위에 설정을 배치했다. 양쪽44px 이상 클릭영역, 기존 기능 활성화 조건·basePath를 유지한다. PC 기존 지갑 링크·설정 위치 보존, 모바일에서 중복 링크 미노출.
 - 타입 검사·354파일 레이어 검사 및 계정 기존12개 통과. 로컬3010 브라우저8개(360/390/767/1280 각각 지갑이동·툴팁 열기/닫기·화면 이탈 없음) 통과, 모바일 캡처 직접 확인. 기존 dev 서버 사용, 별도 금융 실행/운영 배포·커밋 없음.
 - 증거 docs/audit/bean-wallet-ui-20261025.json, 원본 .local/bean-wallet-ui-20261025. 다음: 사용자 확인 후 요청 시 프론트 배포. 기존 가입/실금융 차단·외부 준비 미완료는 이전 기록과 동일하다.
-
 
 ## 잔여 미배포 대조·PASS 보류 설정 반영 (2026-10-25)
 
@@ -3903,7 +3865,6 @@
 - 운영 HTTP16개, 브라우저8개(기존 콩6개와390/1280 실제 가입 화면 PASS 미노출·연령 확인·약관 차단2개), 서버196/프론트551 실행 파일 SHA·3이미지 전체 RootFS, 6컨테이너 restart0/OOMfalse 및 배치 failures={}를 재검사했다. DB/프록시 ID 유지, 실제 원장 균형·회사1억·정책 version2 수수료20%/보류7일 확인. 캡처 직접 확인.
 - 가입은 빈 초대 명단·signupReady=false로 아직 닫혀 있다. 실결제·은행출금·광고메일 비활성화 유지. 이메일 연령 체크를 본인/성인인증으로 간주하지 않는다. 실제 금융·프로모션·메일·별도봇 테스트 발송 없음. 실PG 승인/은행 bridge·실제 개인정보 처리 사실/시행일·초대 명단 및 부하/복원 검수는 남아 있다.
 - 증거: front docs/audit/release-completeness-20261025.json, 원본 server .local/release-completeness-20261025. 문서에 남아 있던 PASS 미적용·DB정책/결제migration 미적용 현재 설명을 갱신했다. 과거 실행 기록은 당시 상태로 보존한다. 세 리포 feat/bean-support의 누적 미커밋 보존, 커밋/푸시 없음.
-
 
 ## 콩 기능 운영 테스트 배포 (2026-10-25)
 
@@ -3916,7 +3877,6 @@
 - 복구: API/worker post-views-20261025, frontend gallery-close-soft-20261025, admin creator-verification-20261024와 백업설정으로 앱4개만 복구한다. 추가 DB테이블·원장·정책감사이력은 보존한다. down/볼륨삭제/seed/DB reset 금지. 집IP SSH 지속규칙 유지. 커밋/푸시 없음, 누적미커밋보존.
 - 증거 front docs/audit/bean-deployment-20261025.json, 원본 server .local/bean-deploy-20261025. 다음은 사용자 실제화면 확인·버그수정이며 실PG 업종승인·법정환급/충전동의·은행연동/실입금·실출금 및 운영 부하/복원 검수는 별도다. 이번 배포검사에서 실제 사용자 충전/후원/프로모션/출금·메일·별도봇테스트 발송은 수행하지 않았다.
 
-
 ## 콩 상품 전체 연결·배포 준비 (2026-10-25, 운영 미배포)
 
 - 팬 지갑/충전·결과/보낸 후원, 프로필·게시물·갤러리의 후원 레이어, 스튜디오 받은 후원·출금/PIN·내역, 독립 관리자 콩 지표·프로모션 지급·원주문 실입금 대사·출금 승인/사유 반려·개인지갑 출처 추적을 연결했다. BeanContext/BeanPages는 preview/service 공유, 기존 목업 URL 유지. 새 카탈로그 /preview/beans와 /preview/studio/beans, 실제 /service/beans 및 /service/studio/beans.
@@ -3927,14 +3887,12 @@
 - feature BEAN_LEDGER_ENABLED/live 판매 BEAN_LIVE_PAYMENTS_APPROVED 기본false, actual 환경 미활성화. beta 은행송금 차단과 테스트콩 실제출금 금지를 유지한다. 실제 PG 충전/후원/환금성 업종 승인·판매약관/충전동의·법정 환급/유효기간·일한도, 은행/계좌검증 bridge·실입금 대사/실송금, 운영 migration/배포·부하/장애복구 검수는 남아 있다. 이 조건 없이 실금융 개방 완료/출시 무결함을 주장하지 않는다.
 - 증거: 프론트 docs/audit/bean-product-20261025.json, 의미/근거/배포 순서는 서버 docs/platform-api.md·docs/platform-implementation.md·infra/platform/README.md 및 별도 콘솔 README. 세 리포 feat/bean-support의 기존 누적 미커밋 보존, 커밋/푸시·운영배포 없음. 과거 아래의 상품 미연결/정책 답변대기 기록은 이 로그와 정책 확정 기록으로 대체한다.
 
-
 ## 콩 정책 확정·최소 출금10만원 (2026-10-25)
 
 - 사용자가 권장3안을 수락: 프로모션콩 우선 사용, 프로모션콩 후원 가능/현금출금 불가, 본인 구매콩 출금 불가·후원받은 일반콩만 수익출금. 콩 최소 출금은 수수료 차감 전 신청액100,000원=1,000콩으로 해석·안내했다. 수수료20% 20,000원/실지급80,000원. 기존 멤버십 원화 출금 정책은 이번 콩 정책 변경에 자동 합치지 않는다.
 - `server/src/platform/bean-policy.ts`에 정책을 모으고 `beanWithdrawalQuote`가 받은일반콩 계정/최소1,000콩을 검사한다. 999콩 거부,1,000콩/1,001콩 견적, 구매·프로모션·프로모션수익·예약/회사지갑 거부를 검사했다. 일반 가치계산 beanCashQuote는 최소 출금액과 분리한다.
 - 상세 설계의 답변대기/최소액 미정 부분을 확정값으로 갱신했다. 상품 충전/후원/은행 API·UI·집계는 여전히 후속 구현이며 운영 배포/DB/외부 금융 변경은 없다. 다음: 확정 정책에 따라 충전주문/재고예약/출처lot→후원/프로모션 우선 소비→출금/은행→공용UI·스튜디오/콘솔·대사 순서. PG/법정환급 조건과 실금융 검증은 별도다.
 - 증거: front `docs/audit/bean-policy-confirmed-20261025.json`. 이전 로그의 답변대기는 이 기록으로 해소한다. 기존 미커밋과 feat/bean-support 유지.
-
 
 ## 콩 후원 설계·원장 기반 (2026-10-25, 상품 기능 미연결)
 
@@ -3944,7 +3902,6 @@
 - **답변 대기:** 프로모션콩 현금화/회사부담, 구매자 자기충전잔액 출금 범위, 사용순서. 권장 묶음을 질문했으며 임의 채택하지 않는다. 후원 취소 UI 미제공과 법정 충전금 환급·오결제·차지백을 분리해야 한다. PG 충전/후원/환금성 계약 및 법적 분류 미확인. 출금 최소액 총액/실지급액 기준 등도 결정 필요.
 - 새 migration은 격리 E2E DB만 적용, 운영/개발 DB·환경·배포·외부 발송/결제/지급 없음. 원장 코드에는 공개 API/기존 수익원 연결이 없어 기존 매출을 늘리지 않는다. 검증: 서버 build·Prisma validate, 원장4+OpenAPI11개와 실제 격리API/DB 가입 Chromium1개(지갑1/계정5) 통과. 증거 front docs/audit/bean-support-20261025.json. 다음: 답변 확정 후 충전주문/회사재고예약/출처lot→후원→출금예약/은행→공용UI/콘솔/3Swagger→기존구독회귀 순서.
 
-
 ## 확정 베타 정책 구현·검증 (2026-10-25, 운영 미배포)
 
 - 사용자 선택7.C/10.C/13.B/16.C·나머지A를 구현했다. 베타 빈 초대명단 거부·일반 콘텐츠·테스트 키만 허용·실송금 차단, 신규 미사용7일 환불과 기존 계약 보존,24시간 간격 추가3회 갱신, 테스트→실과금 차단, PG 입금 대사/미확인잔액 제외·최소1만원·수요일 신규 지급(기처리 송금 확인은 매일)을 적용했다. 수수료/보류 원본은 기존 DB version/감사 경로이며 운영 선택값2000bps/7일 적용은 배포 단계에서 수행한다.
@@ -3953,7 +3910,6 @@
 - 새 migration2개는 전용 crefans_platform_e2e에만 적용했다. 개발/운영 DB migration·환경값 변경·배포·실외부발송·커밋/푸시는 없다. 두 리포 feat/beta-signup의 누적 미커밋 변경을 보존했다. 테스트 통과를 실서비스 개방/무결함 보장으로 보고하지 않는다.
 - **개방 전 남음:** 초대 이메일·베타 시작일, 실제 탈퇴/항목별 보유·파기, AWS/Google/Telegram 계약·국가·보유기간, 사업자/PG·세무 사실 확인. 법률문서 effectiveAt=null/signupReady=false 유지. 광고 서명키/발송 활성화·실SMTP/DKIM, 실제 PG/은행·수요일 공휴일/마감은 별도 확인한다. 실제17명 동시 사용·운영 부하는 미검증이다.
 - 최신 근거는 front `docs/audit/beta-policy-implementation-20261025.json`, 선택표/개방 조건은 front `docs/beta-role-test-plan.md`, 적용 절차는 server `docs/platform-api.md`의 확정 베타 정책 절이다. 문서 계약104 API(유저58/스튜디오37/콘솔28),43화면,19migration·60문서 검증과 잘못된 링크/누락/변경 탐지 대조 검사도 통과했다. 다음은 실제 처리 사실·초대명단 준비와 가입 시행본 확인 후 별도 운영 적용이다.
-
 
 ## 정책 결정 당시 기록 (2026-10-25, 아래 구현 대기는 상단 최신 로그로 대체)
 
@@ -4353,14 +4309,12 @@
 - 기존 배지 브라우저 검사의 인증 예시에 세 인물을 포함하고, 미인증 대조 대상을 서연으로 바꿨다. PC·모바일 Chromium·모바일 WebKit의 기존 브라우저 검사 3개 통과. 검증 기록: `docs/audit/creator-badge-fixtures-20261024.json`. 배지의 이전 구현 기록은 당시 결과이며 이 목업 데이터 변경의 최신 증거는 새 기록을 따른다.
 - 로컬 반영, 운영 미배포. 다음 배포 시 앞서 완성한 배지 기능과 함께 반영한다. 별도 미결정 사항 없음.
 
-
 ## 인증 크리에이터 배지 (2026-10-24, 로컬 구현)
 
 - 사용자 결정: 운영자가 직접 부여·해제하며 PASS 본인인증과 분리한다. 생성형 이미지로 파란 체크 배지를 만들고 공통 CreatorName에 적용했다. 목업 하늘·모카·지우 예시와 미인증 비교 예시, 프로필·피드·탐색·멤버십·메시지·댓글·팔로잉/팔로워 및 디자인 카탈로그를 공유한다.
 - 서버 Creator.is_verified 기본 false + migration, 활성 ADMIN/SUPER_ADMIN 전용 PUT /api/v1/admin/creators/:id/verification, 수정 필드 허용목록, 트랜잭션/행 잠금/변경 이력과 공개 isVerified 응답을 연결했다. 별도 관리자 콘솔에서 부여/해제 확인, 저장 실패 표시와 재조회. 일반 회원/PASS/광고 상태로 자동 부여되지 않는다.
 - 검증 범위: 프론트300검사, API/권한/감사/Swagger23검사, 관리자5검사, 실제 API·격리 DB 관리자 E2E1 및 프론트 PC/모바일 Chromium·WebKit 6개. 화면·긴 이름·미인증·해제·실패/취소·권한 거부·중복 해제 감사 이력 대조. 문서 계약은 API100개(유저56/스튜디오37/콘솔26), migration17개. 증거는 front/docs/audit/creator-verification-20261024.json.
 - 로컬 개발 DB와 격리 테스트 DB에 새 migration을 적용했다. 운영 DB/앱 미배포, 커밋·푸시 없음. 기존 모바일 댓글 입력바 등 미커밋 작업 보존. 운영 배포는 migration → API·콘솔·프론트 순서이며 기존 화면 인증 상태는 다음 조회 시 갱신된다. 실제 기기 검수·인증 판정 정책 자체는 검증 범위 밖이다.
-
 
 ## 최신 UI 수정 (2026-10-24) — 모바일 댓글 하단 한 줄 입력바
 
@@ -5094,13 +5048,11 @@
 - 초기실패: Docker타입검사참조lib/utils COPY누락2회보완후build성공,bot가입update미수신은승인된채널연결메시지로chat확인, Caddy재기동/TLS발급중일시연결오류는제한재시도후정상공인TLS로재검증(보안경고우회없음). 이전162전체테스트를다시돌렸다고확대하지않는다. 상세HEAD/dirty/sourceSHA/image/명령결과/미검증경계는crefans_admin/docs/deployment-20261022.json. 실운영매출화면docs/screenshots/admin-live-revenue.png,로컬합성알림수신telegram-connected.png. 민감값/실제접속IP는공개증거에포함하지않음.
 - 다음: 필요시회원정지/콘텐츠숨김·보호미디어관리, PASS/은행/실PG·실가입,실1시간요약수신,외부장애감시. 운영콘솔/Telegram접속완료를상용출시완료로단정하지않는다.
 
-
 ## 2026-10-22 운영 사고 추적 연결 (로컬 검증)
 
 - /service 공통 레이아웃에서 전역 JS/rejection, error boundary 수집. features/service 훅→lib/api 전송 계층 유지, /preview에는 적용하지 않음. 원문 메시지·URL/query·개인정보·stack 미전송, 허용 정적JS위치/오류종류만, 페이지5건/중복제거.
 - 실제 API 응답 X-Request-ID를 로컬 프록시가 전달하고 서비스5xx 안내에 표시. 운영 로그 UI는 별도 crefans_admin /console/logs에만 구현.
 - layer/TS/단위276 PASS, 서버 로그55+별도 실제MySQL19·금융/인증/SMTP회귀137·관리자 TS/5/브라우저9·Caddy 실컨테이너 확인. 공급사 대역/로컬SMTP이며 실PG/외부메일 발송 없음. 운영 배포는 아직 하지 않았다. docs/service-api-binding.md, 서버 docs/operational-logging.md 및 logging-implementation-20261022.json에 범위/명령/해시/한계 기록. 문서 계약은 신규4라우트/감사스키마/환경 예시를 대조해 재생성하며 해시 snapshot과 실행 검증은 구분한다.
-
 
 ## 2026-10-22 정기결제 카드 불능 안내 (진행 중)
 
@@ -5108,7 +5060,6 @@
 - 합격 기준: 분실 카드 오류→이용권한 회수→카드 변경→1회 복구, 해지 후 카드변경시 미청구, PC/390px 실제 브라우저. 서버 금융/권한/SMTP outbox 및 운영 배포 증거를 연결할 예정.
 
 - 2026-10-22 운영 반영 완료: crefans-front:billing-recovery-20261022. 카드 변경 안내/불능 카드 기본·청구 버튼 비활성/갱신 대기·해지 동선, PC390px 브라우저2 PASS·front276/TS/layer·amd64 build PASS. API/worker/admin/Caddy와 함께 배포하고 원본 DB 컨테이너/볼륨 보존. 운영 공개20 PASS 및 실제 Chrome 보호 화면 확인, 임시SSH회수. 공급사 대역/실DB 증거와 실제 운영 상태를 구분하며 서버 docs/billing-recovery-20261022.json 참조.
-
 
 ## 2026-10-22 초기 수수료·운영비 재검토
 
@@ -5119,13 +5070,11 @@
 - 추천: 초기초대크리에이터한정총공제10%(PG·수수료VAT포함)를CDN/비용통제조건으로검토. 기존20%추천은확정아님을연결문서에도명시. 무자본·영구10%·사업전체흑자보장없음. 초기부족예산/우대기간·실제구독료/PG/PASS/은행·세무구조는미결정,DB미적용.
 - 증거 docs/audit/commission-model-20261022.py 및json. Decimal재계산,400/1155사례,344부족·345충당경계PASS. 문서financial.md·release-test-scenarios/manifest의범위·링크검증은 npm run check:docs,해시갱신은docs:record로구분. 제품코드변경없어제품테스트재실행없음. 최종명령/시각/종료코드/문서SHA는docs/audit/commission-research-verification-20261022.json에보존.
 
-
 ## 2026-10-22 구독료1만원 이상 수요 커뮤니티 조사
 
 - 디시와 커뮤니티 조사 요청. 디시ASMR2개·Reddit3개 본문 대조: 국내2023년3만원 만족/지속 의사, 별도후기의예산상간헐구독, 해외10달러실결제후업로드지속성요구·10/25달러상이한가격수용·오래응원한창작자20달러지불. 영수증/대표성/현재가격/장기갱신미검증, 국내유효가격표본이오래됐음을명시. 게임/OTT/굿즈/광고/출처불명SEO 및2020회사평균2만원을현재수요증거로채택하지않음.
 - 월1만원은이전산술가정이지검증된시장평균아님. 기본9900/강한기존팬14900은가격실험제안이며DB미변경. 초기적자허용을반영해유료전환·2/3회차갱신·실제구독당매출측정권장. F15만원/10%모델의5000/9900/10000/14900가격별경계690/349/345/232건(50건씩유지시14/7/7/5명), 가격별수요동일가정·인건비별도·CDN미도입경계유지.
 - docs/financial.md에원문링크/날짜/근거수준/한계추가, 기존계산스크립트의가격민감도정수경계검사추가. 제품코드/금융정책/배포/발송변경없음. 이번명령·HEAD/dirty·SHA·문서검사결과는docs/audit/subscription-price-research-20261022.json. 이전수수료검증은이번문서변경이전스냅샷으로보존.
-
 
 ## 2026-10-22 성장별 서버 확장 비용 가정 보정
 
@@ -5133,7 +5082,6 @@
 - AWS공식확인2026-10-22: CloudFrontPro15USD/50TB·10M요청,OAC/signedURLs,지속초과시성능조정/가입이력조건; S3용량·보관·요청과서버부하별증설은별도.현재미도입CDN/S3분리가저비용예산전제.기존계산기단가를이용하면1000건/3.3TB EC2직접전송AWS만약68.6만원.무료이용/시청시간/원본보관/요청수미확정.
 - 과금관계수와동시이용구분,API/DB/worker/디스크병목실측후증설.20%기여1330.74원/건,월15/20/30/50만원충당경계113/151/226/376건.인건비등제외;운영금융정책/인프라/배포변경없음.
 - financial.md·docs/audit/growth-scaling-20261022.py/json에자료·가정·산술경계·문서검증기록. 다음:미디어S3/CDN실구현검증,무료/유료동시부하·영상시청/업로드/보관량측정후구성별견적확정.이번문서조사로성능/출시/흑자를보장하지않음.
-
 
 ## 2026-10-22 빈 홈 피드의 서비스 안내 링크
 
@@ -5167,7 +5115,6 @@
 - Docker의 public 파일 읽기 권한을 COPY --chown=node:node로 보정해 image runtime 사용자로462파일 해시를 대조. 배포 결과는 서버 docs/private-media.md 및 실행 증거 참조.
 
 - 운영 최종 결과: 2026-10-22 14:52 KST media-cdn-20261022 배포. 실제 HTTPS 이미지/영상 S3 업로드와 CDN 응답/권한 차단 확인, 테스트 자료 정리. 14:53 API/feed/preview/정적이미지200, 컨테이너 restart0/OOMfalse. 서버 docs/media-migration-20261022.json에 초기 실패·수정·롤백 및 최종 증거를 보존.
-
 
 ## 2026-10-22 공유 링크의 비구독 접근 차단 (진행 중)
 
@@ -5673,6 +5620,7 @@
 - ‘크리에이터 둘러보기’ 제목 옆 공용 InfoTooltip에 정확한 요청 문구를 콘텐츠로 주입했다. 실제 데이터 모드에서는 가상 인물 안내를 숨긴다. 로그인/가입/공지/목업 검색·둘러보기 경로 유지. API·인증·금융 동작 변경 없음.
 - 합격 조건: 가로 넘침 없음,5명 링크 유지,정확한 안내·마우스/키보드/터치·Escape·팝업 화면 경계·프로필 이동. Chromium1440/768/320 및 iPhone13 WebKit390에서4환경 통과·페이지 오류0. 단위3건·타입·계층 검사 통과. PC·모바일 캡처 직접 확인. 로컬 목업 공용화면 검증이며 API common503은 로컬 API 미실행으로 기존 안내 로더에서 발생; 실제 운영 API/실물 iPhone 검증 아님.
 - 증거 .local/landing-typography-20261103/의 unit.log,typecheck.log,layers.log,verification.json,PC·모바일PNG. 운영 미배포. 별도 답변으로 확정된 짧은 소개글 통합도 이어서 진행하며 긴 상세 소개는 유지한다. AGENTS 공용 컴포넌트·브랜치 규칙 유지.
+
 ## 2026-11-03 짧은 프로필 소개 공유 — feat/shared-short-bio, 미배포
 - 최신 origin/prod15d611d에서 분기. 사용자 확정대로 회원·크리에이터 상단 소개를 공유하고, 상세 소개는 별도 유지. 실제 API는 user_profiles.bio 하나를 사용하며 프론트는 기존 저장 후 재조회/경로 변경 재조회를 유지한다.
 - 목업 PreviewProvider/useMockOverview도 같은 소개를 사용. 회원/스튜디오 입력 120자 통일, 긴 소개 1,000자 유지. 양쪽 툴팁을 공유 안내로 교체. 활동명 우선 노출·핸들 규칙 등은 유지한다.
@@ -5735,7 +5683,6 @@
 - profile-tip-20261104 운영1차 배포에서 모바일 기본/클릭 정상, PC hover는 공통 secondary 선택자와 동일 specificity여서 운영 CSS 순서에 따라 실패. 운영 검증에서 발견해 추가 수정: hover 선택자에 기존 aria-disabled 조건을 포함하여 우선순위 확보. 개발 검사만으로 운영 CSS 순서 문제를 확인할 수 없었으므로 재배포 후 운영 PC hover를 다시 검사한다.
 
 - a1d639d dev→prod 후 profile-tip-hover-20261104 운영 재배포 완료.38페이지 빌드·HTTP200·타컨테이너 불변. LIVE_QA=1 브라우저2건 최종 종료0: 실제 /crefans PC/iPhone 기본·포커스·PChover 배경/글자/44px 및 모달 진입. CSS 임시주입 없이 최종 통과, 후원 실행 없음. 두 배포 이전 이미지·구성 외부 검증 후 서버 태그·임시소스 정리. docs/audit/profile-tip-style-20261104.json. 이전 인증배지 미푸시 문서도 prod반영 완료.
-
 
 ## 2026-11-06 멤버십 가입 완료 디자인 통일 (로컬 검증 완료·운영 배포 진행)
 - 요청: 회원가입·카드 등록 완료와 같은 큰 파란 체크, 중앙 안내, 주요 이동 버튼으로 멤버십 가입 완료를 개선하고 운영 배포.

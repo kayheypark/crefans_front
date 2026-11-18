@@ -10,7 +10,8 @@
 #
 # 환경 변수
 #   CREFANS_SSH            ssh 래퍼(기본 crefans_server/.local/cancel-now-20261106/ssh.sh). "$CREFANS_SSH 'cmd'" 형태로 호출.
-#   FRONTEND_BUILD_ENV     NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY=... 한 줄 파일(권한 600). 값은 출력·기록하지 않는다.
+#   FRONTEND_BUILD_ENV     NAME=value 줄 파일(권한 600). NEXT_PUBLIC_* 줄은 모두 같은 이름의 --build-arg 로 넘긴다(Dockerfile 에 ARG 필수).
+#                          NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY 필수, NEXT_PUBLIC_POSTHOG_KEY/HOST 선택(없으면 PostHog 미로드). 값은 출력·기록하지 않는다.
 #   CREFANS_RECOVERY_DIR   이전 이미지 보관 위치(기본 /Users/ethan/crefans-recovery). 삭제는 RETENTION.md 대로 사용자 승인 후 별도로.
 #   DOCKER_CONFIG          Docker Desktop 자격 증명 도우미가 멈출 때 credsStore 없는 설정 폴더로 지정.
 set -euo pipefail
@@ -43,17 +44,31 @@ if [ "$SKIP_BUILD" = 0 ]; then
   [ "$(stat -f %Lp "$FRONTEND_BUILD_ENV")" = 600 ] || { echo 'FRONTEND_BUILD_ENV 권한은 600' >&2; exit 1; }
   KAKAO=$(sed -n 's/^NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY=//p' "$FRONTEND_BUILD_ENV")
   [ -n "$KAKAO" ] || { echo 'NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY 비어 있음' >&2; exit 1; }
+  # 파일의 NEXT_PUBLIC_* 를 전부 환경 변수로만 넘긴다(명령줄·로그에 값 없음). Dockerfile 에 ARG 가 없으면 조용히 빠지므로 중단.
+  BUILD_ARGS=() BUILD_NAMES=()
+  while IFS= read -r line || [ -n "$line" ]; do
+    [[ "$line" =~ ^(NEXT_PUBLIC_[A-Z0-9_]+)=(.*)$ ]] || continue
+    name=${BASH_REMATCH[1]}
+    grep -q "^ARG $name=" infra/platform/Dockerfile || { echo "Dockerfile 에 ARG $name 없음" >&2; exit 1; }
+    export "$name=${BASH_REMATCH[2]}"; BUILD_ARGS+=(--build-arg "$name"); BUILD_NAMES+=("$name")
+  done < "$FRONTEND_BUILD_ENV"
+  log "build args: ${BUILD_NAMES[*]}"
   python3 infra/platform/deploy-preflight.py --required-gib 8 | tee -a "$OUT/ship.log"
   s=$(date +%s)
-  NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY=$KAKAO docker buildx build --platform linux/amd64 --load \
-    --build-arg NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY \
+  docker buildx build --platform linux/amd64 --load \
+    "${BUILD_ARGS[@]}" \
     --label org.opencontainers.image.revision="$HEAD_SHA" \
     -f infra/platform/Dockerfile -t "$IMG" . >"$OUT/build.log" 2>&1 || { tail -20 "$OUT/build.log"; exit 1; }
   log "build $(( $(date +%s)-s ))s"
   # 카카오 키가 클라이언트 번들에 들어갔는지(값은 환경 변수로만 넘기고 출력하지 않음)
   KAKAO_CHECK=$KAKAO docker run --rm --platform linux/amd64 -e KAKAO_CHECK --entrypoint sh "$IMG" -c \
     'grep -rqF "$KAKAO_CHECK" .next/static' </dev/null || { echo '번들에 카카오 키 없음' >&2; exit 1; }
-  unset KAKAO
+  if [ -n "${NEXT_PUBLIC_POSTHOG_KEY:-}" ]; then
+    POSTHOG_CHECK=$NEXT_PUBLIC_POSTHOG_KEY docker run --rm --platform linux/amd64 -e POSTHOG_CHECK --entrypoint sh "$IMG" -c \
+      'grep -rqF "$POSTHOG_CHECK" .next/static' </dev/null || { echo '번들에 PostHog 키 없음' >&2; exit 1; }
+    log 'PostHog 키 번들 포함 확인'
+  else log 'PostHog 키 없음: PostHog 미로드 빌드'; fi
+  unset KAKAO "${BUILD_NAMES[@]}"
 fi
 
 # 3. 이미지 검사: 아키텍처·소스 커밋·실행 파일·amd64 sharp
