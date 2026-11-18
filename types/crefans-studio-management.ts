@@ -1,6 +1,10 @@
 export type AiHeartInput={action:'start'|'click'|'finish';id?:string;piece?:number;eventId?:string};
 export type AiHeartResult={remaining?:number;id?:string;kinds?:('heart'|'candy'|'moon')[];score?:number;hearts?:number;credits?:number;earned?:number;converted?:number};
 import type {ShopModel} from './crefans-shop';
+import type {ShareReport} from '@/lib/api/share-report';
+export type {ShareReport};
+// 2026-11-19 이탈 분석: AI 사진 퍼널 단계(편집창 열림·사진 결정·결과 공유 완료). actor는 모델이 붙인다.
+export type AiPhotoFunnelStep='ai_editor_opened'|'photo_decided'|'ai_result_shared';
 import type {ApiResult} from './crefans';
 import type {CreatorTerms} from '@/lib/crefans/creator-payout-policy';
 
@@ -57,6 +61,9 @@ export type StudioManagementModel={
     aiEditPhoto?:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;
     refreshAiPhotoQuota?:()=>Promise<void>;
     useAiPhotoTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
+    // 2026-11-19: share-button report and AI photo funnel steps go through the model (components never call API/analytics directly).
+    reportShare?:(report:ShareReport)=>void;
+    trackAiPhoto?:(step:AiPhotoFunnelStep,props:{mode:string})=>void;
   };
 };
 

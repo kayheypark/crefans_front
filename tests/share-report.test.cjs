@@ -7,10 +7,23 @@ test('reportShare posts only the labels, keepalive, and swallows network errors'
  assert.equal(calls[0].url,'/api/v1/telemetry/share');assert.deepEqual(JSON.parse(calls[0].o.body),{where:'post',method:'kakao',outcome:'done',postId:'abc-1'});assert.equal(calls[0].o.keepalive,true);
  const {reportShare:broken}=load(()=>{throw Error('sync');});assert.doesNotThrow(()=>broken({where:'ai_result',method:'native',outcome:'done'}));
 });
-test('both share places report done, cancelled and failed',()=>{
- const ai=fs.readFileSync('components/crefans/studio/AiPhotoDialog.tsx','utf8'),post=fs.readFileSync('features/post-share/usePostShare.ts','utf8');
- assert.match(ai,/method='native';await navigator\.share\([^)]*\);reportShare\(\{where:'ai_result',method,outcome:'done'\}\)/);
- assert.match(ai,/revokeObjectURL\(url\),60000\);reportShare\(\{where:'ai_result',method,outcome:'done'\}\)/,'download fallback is reported too');
- assert.match(ai,/reportShare\(\{where:'ai_result',method,outcome:aborted\?'cancelled':'failed'\}\)/);
+test('both share places report done, cancelled and failed; the AI editor gets it from the page model (no direct API import)',()=>{
+ const ai=fs.readFileSync('components/crefans/studio/AiPhotoDialog.tsx','utf8'),post=fs.readFileSync('features/post-share/usePostShare.ts','utf8'),pages=fs.readFileSync('components/crefans/studio/ManagementPages.tsx','utf8');
+ assert.doesNotMatch(ai,/lib\/api|\bfetch\s*\(/,'display component stays off API clients (AGENTS.md, crefans-contract)');
+ assert.match(ai,/method='native';await navigator\.share\([^)]*\);onShareReport\?\.\(\{where:'ai_result',method,outcome:'done'\}\)/);
+ assert.match(ai,/revokeObjectURL\(url\),60000\);onShareReport\?\.\(\{where:'ai_result',method,outcome:'done'\}\)/,'download fallback is reported too');
+ assert.match(ai,/onShareReport\?\.\(\{where:'ai_result',method,outcome:aborted\?'cancelled':'failed'\}\)/);
+ assert.equal((pages.match(/onShareReport=\{model\.actions\.reportShare\} onTrack=\{model\.actions\.trackAiPhoto\}/g)||[]).length,2,'member and guest editors both wire it');
+ assert.match(fs.readFileSync('features/service/useStudioModel.ts','utf8'),/management\.actions\.reportShare=reportShare;management\.actions\.trackAiPhoto=\(step,props\)=>captureEvent\(step,\{actor:'member',mode:props\.mode\}\)/);
+ assert.match(fs.readFileSync('features/service/useGuestTrialModel.ts','utf8'),/captureEvent\(step,\{actor:'guest',mode:props\.mode\}\)/);
+ assert.match(fs.readFileSync('components/service/GuestTrialPage.tsx','utf8'),/reportShare:guest\.share,trackAiPhoto:guest\.track/);
  assert.match(post,/reportShare\(\{where:'post',method:kind,outcome:'done',postId\}\)/);assert.match(post,/outcome:kind==='more'&&aborted\?'cancelled':'failed'/);
+});
+// 2026-11-19 이탈 분석: 생성 전후 퍼널 단계(편집창 열림·사진 결정·결과 공유 완료)를 PostHog로 남긴다(actor·mode만).
+test('AI editor funnel steps: opened on each open, decided before adding, shared only on success',()=>{
+ const ai=fs.readFileSync('components/crefans/studio/AiPhotoDialog.tsx','utf8');
+ assert.match(ai,/useEffect\(\(\)=>\{if\(open\)onTrack\?\.\('ai_editor_opened'/);
+ assert.match(ai,/onTrack\?\.\('photo_decided',\{mode:[^}]*\}\);onAdd\(picked/);
+ assert.equal((ai.match(/onTrack\?\.\('ai_result_shared'/g)||[]).length,2,'native share and download, never on cancel/fail');
+ assert.match(fs.readFileSync('lib/analytics/posthog.ts','utf8'),/'ai_editor_opened'.*'photo_decided'\|'ai_result_shared'/);
 });

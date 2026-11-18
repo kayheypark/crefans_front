@@ -49,7 +49,7 @@ export default function GuestTrialPage({model,done=false}:{model:ServiceViewMode
   <div className={t.actions}><Action variant="brand" disabled={!agreed||pending} onClick={async()=>{setPending(true);setError('');const r=await guest.start();if(!r.success)setError(r.errorMessage||'체험을 시작하지 못했어요.');setPending(false);}}>{pending?'준비 중…':'동의하고 체험 시작'}</Action></div>
  </section>;
  const management:StudioManagementModel={now:new Date().toISOString(),contents:[],memberships:[],subscribers:[],aiPhotoQuota:{remaining:guest.session.remaining,limit:guest.session.limit},
-  actions:{saveContent:input=>guest.save(input) as ReturnType<StudioManagementModel['actions']['saveContent']>,uploadContentMedia:guest.upload,discardContentMedia(){},aiEditPhoto:guest.aiEdit,refreshAiPhotoQuota:guest.refresh,
+  actions:{saveContent:input=>guest.save(input) as ReturnType<StudioManagementModel['actions']['saveContent']>,uploadContentMedia:guest.upload,discardContentMedia(){},aiEditPhoto:guest.aiEdit,refreshAiPhotoQuota:guest.refresh,reportShare:guest.share,trackAiPhoto:guest.track,
    deleteContent:unsupported,setContentPublic:unsupported,saveMembership:unsupported,deleteMembership:unsupported,uploadMembershipImage:unsupported,discardMembershipImage(){},setMembershipActive:unsupported}};
  const author={id:'guest-preview',name:'체험 사용자',handle:'',image:'',position:'center',bio:'',tags:[],followers:'',isGuest:true,isCreator:false};
  const previewModel={...model,data:{...model.data,creators:[...model.data.creators,author as unknown as ServiceViewModel['data']['creators'][number]]}};
