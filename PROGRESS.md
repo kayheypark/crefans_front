@@ -1,3 +1,7 @@
+## 2026-11-18 dev 통합 — 오늘 프론트 작업 4개 병합 (dev, 미배포·prod 미반영)
+- 병합 순서(--no-ff): fix/help-text-sync → feat/funnel-stats → feat/landing-perf-seo → feat/signup-autologin-welcome. 충돌은 PROGRESS.md 상단 기록뿐(모두 유지).
+- 검증(2026-11-18 11:4x~11:5x KST): tsc 0, npm test 742 중 724 통과·18 실패(기존 기준선 18건과 동일, 새 실패 0), npm run build 0. 문서: 서버 dev 통합 트리(311af28) 기준 docs:contracts·docs:record·check:docs PASS, docs/audit/evidence.json 갱신. 실제 화면·운영 검증 없음.
+
 ## 2026-11-18 앱 FAQ·이벤트 문구 현행화 (fix/help-text-sync, 미배포)
 - 사용자 결정(2026-11-18): 앱 FAQ+가이드 일괄 정정. 근거 `.local/night-work/2026-11-18-1016/notes-guide.md`, 서버 origin/prod d0637d3(phone-verification.ts, beans.service.ts:98 100콩 휴대폰 확인, bank-transfer.ts 입금했어요, beans.service.ts:165 입금 확인일 기산).
 - lib/crefans/support.ts: 결제 FAQ(무통장입금 실제 결제, 멤버십 카드만 테스트), 가입 FAQ(휴대폰 번호 확인·번호당 1계정), 콩 유효기간(입금 확인일 기산, 이벤트 100콩 30일·7일 전 알림), '유료 결제 시작' FAQ를 멤버십 카드로 한정, FAQ 3개 추가(휴대폰 확인, 무통장 미반영·입금했어요, AI 하루 무료 횟수). lib/content/events.ts: 2배 이벤트 schedule을 11/16~12/31로(같은 파일 note와 일치), 100콩 참여 방법에 휴대폰 확인.
