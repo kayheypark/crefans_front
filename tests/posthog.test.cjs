@@ -28,6 +28,13 @@ test('posthog-js is imported only dynamically by lib/analytics and mounted only 
  const lib=fs.readFileSync('lib/analytics/posthog.ts','utf8');assert.match(lib,/import type \{[^}]*\} from 'posthog-js'/);assert.match(lib,/import\('posthog-js'\)/);
  assert.doesNotMatch(lib,/phc_/);
 });
+test('service pages render inside a persistent wrapper so Safari replays keep client-navigated pages',()=>{
+ // posthog-js 1.445.1 on WebKit leaves an untracked iframe[__rrwebUntaintedPrototype] at the end of <body>; a page root inserted
+ // right before it is dropped from the replay (white screen after landing → /service/try). The wrapper must sit outside Suspense
+ // and add no box of its own.
+ const layout=fs.readFileSync('app/service/layout.tsx','utf8');
+ assert.match(layout,/return <div data-service-root="" style=\{\{display:'contents'\}\}><Suspense[\s\S]*<\/Suspense><\/div>;\}/);
+});
 test('with a key it initialises once with the hardened config and flushes queued funnel events',async()=>{
  const {mod,calls}=load('phc_test_only');
  await withWindow('/service/landing-ai-image-generation',async()=>{mod.captureEvent('landing_view');await mod.loadPostHog();await mod.loadPostHog();mod.captureEvent('ai_generation_started',mod.aiProps('guest',{mode:'cosplay',kind:'combined',presetKeys:[{kind:'pose',key:'a'},{kind:'background',key:'b'},{kind:'pose',key:'c'}]}));});

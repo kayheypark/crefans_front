@@ -4,6 +4,15 @@
 - 배지 명칭 '오픈 기념 한정판 배지'로 통일: FoundingBadgeClaim 제목, CreatorName 설명 버튼·툴팁·title, events.ts 요약 2곳(코드 식별자 그대로).
 - 고치지 않음: SignUpModal.tsx(/home 리다이렉트로 미도달)·creator-center/settings(307)·preview legal-fixtures의 '마케팅' 문구, landing.ts '의상 300종' 홍보 줄(수익화 약속 없음).
 - 검증: tsc 0, npm test 738/756(실패 18 = 기존 기준 목록과 동일, 새 실패 0; support-faq-policy에 새 문구·'마케팅' 없음 단언 추가), docs:record·check:docs PASS(server 작업트리 기준, snapshot-only), 대조: 기록 후 support.ts 변경 시 check:docs 'Evidence expired' 실패.
+## 2026-11-18 PostHog 녹화 흰 화면 — Safari에서 랜딩 → /service/try 이동 후 화면 누락 (fix/replay-blank-trial, 운영 미배포)
+- 증상(사용자 녹화): /service/landing-ai-image-generation 에서 '로그인 없이 무료 체험'(클라이언트 이동) 직후부터 /service/try 녹화가 모바일 폭 전체 흰 화면, 이후 일부 모달만 보임.
+- 원인(재현 확정): posthog-js 1.445.1 녹화기(rrweb 포크, 1.450.1도 동일 코드)가 WebKit/Safari에서 ShadowRoot.getSelection 부재로 프로토타입을 '오염'으로 판정 → 숨은 iframe[__rrwebUntaintedPrototype](rr-block ph-no-capture)을 body 끝에 남기고, 이 iframe은 녹화 미러에 없음(id -1). 이동 시 새 페이지 루트(service_root)가 이 iframe 바로 앞에 삽입되면 다음 형제를 못 찾아 하위 노드 전체를 버림(콘솔 `[rrweb] dropped 146 node(s) with unresolved parent at emit`, 이후 변경도 연쇄 누락) → 다음 전체 스냅숏(무활동 후 재개 등) 전까지 흰 화면. Chrome에서는 iframe이 제거돼 재현 안 됨.
+- 배제: 가설 (a) dialog top layer — Chrome·WebKit 모두 모달 재생 정상, (c) 차단 선택자 — /service/try 초기·동의 후·편집기에서 화면을 덮는 일치 요소 없음(일치는 102×102 API 미디어 1개뿐), (d) 마스킹 무관, (b) syncReplay — 두 경로 모두 허용 목록이라 stop/start 없음(startSessionRecording()은 설정만 갱신).
+- 수정: app/service/layout.tsx — 서비스 레이아웃 전체를 서버 렌더 `<div data-service-root style="display:contents">`로 감쌈. /service 이동 동안 유지되므로 새 페이지 루트가 body 직속(iframe 옆)이 아니라 이 래퍼 안에 삽입됨. display:contents라 배치 변화 없음. 개인정보 설정(blockSelector·maskAllInputs·허용 경로)은 변경 없음.
+- 검증: (1) 운영 페이지 + 실제 posthog-js(Playwright WebKit iPhone 13, PostHog POST는 페이지 안에서 가로채 미전송) — 수정 전 /service/try 재생 전체 흰색 재현, 같은 녹화기를 load 후 시작하는 주입 방식으로도 재현. (2) 로컬 next dev(수정 전/후) 같은 경로 — 수정 전 dropped 153 node(s)·재생 흰색, 수정 후 경고 0·이동 변경 +184 노드·재생에 화면 표시. 대조: iframe을 body 앞으로 옮기면 경고 사라짐(원인 확인용, 수정에는 미사용). (3) tests/posthog.test.cjs 새 테스트(래퍼 위치·display:contents), 레이아웃을 되돌리면 실패. tsc 0, npm test 757 중 739 통과·18 실패(기준선 fail-base2 18건과 동일, 새 실패 0).
+- dev 검증(2026-11-18 19:5x KST, Jenkins 배포 b7c05be, dev는 PostHog 키 없음 → 같은 녹화기 1.445.1을 load 후 주입): WebKit 랜딩 → /service/try 이동 시 dropped 경고 0·이동 변경 +179/+4/+85 노드(같은 시각 운영은 dropped 146/4/85), 재생에 체험 화면 표시. 레이아웃 동일(WebKit iPhone 13 기준 service_root 0,0,390×664·h1 y=30.4, dev/운영 같음, 래퍼 display:contents).
+- 참고: PostHog 문제 해결 문서의 CSS crossorigin·CORS 항목은 이번 원인이 아님(노드 자체가 녹화에서 빠졌고 스타일 누락이면 화면이 흰색이 아니라 서식 없는 글자로 보임).
+- 남은 일: 운영 배포는 사용자 승인 후. 실제 iPhone Safari·PostHog 클라우드 재생 확인은 운영 배포 뒤 가능.
 
 ## 2026-11-18 18:38~18:41 KST 운영 배포 front-franchise-r2-20261118 (게임·애니 의상 제한, prod 085b22a)
 - devbox 빌드(`devbox-release.sh front`): check-transfer OK → 1차 태그 franchise-20261118은 릴리스 검사 문구 grep 불일치(번들에서 가운뎃점이 \xb7로 바뀜)로 자동 롤백 → 검사 수정 후 franchise-r2-20261118 교체 OK(주요 URL·정적·이미지, 안내 문구 3개 번들 포함). 복구본 /Users/ethan/crefans-recovery/20261118/franchise-r2-20261118-front(이전 front-mktreward-20261118), finalize 완료. 실패 시도 이미지·백업 폴더는 운영에서 삭제. API는 먼저 franchise-20261118 배포(서버 PROGRESS).
