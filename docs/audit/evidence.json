@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-18T10:06:03.100061+00:00",
+  "checkedAt": "2026-11-18T10:35:14.621339+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,9 +30,9 @@
   ],
   "repositories": {
     "front": {
-      "head": "9ba33935bfa2c4fb25aae2bf0b59c44d0e9d1544",
+      "head": "d9cc18780eb95a0a437a1c6e37b0a96795b738cf",
       "branch": "",
-      "dirty": true
+      "dirty": false
     },
     "server": {
       "head": "b7d3e1ce8dc9a288c28fada0e26f1d8d3d0b34b4",
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "a56d75e454de612e9e351b69d93ad8732571cf563bc566a864b8a18855fccda7",
+      "front/PROGRESS.md": "dfa2b0cd4594b33b08242a3b47e7a2ea11a33f0c84d902d2af8ac8f9d7058a6a",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -176,7 +176,7 @@
       "front/app/service/error.tsx": "47d8aeafda52d6cac3db1772fa4305b8d35eac21fda9c68fb6e2f04b0d4f3e0e",
       "front/app/service/landing-ai-image-generation/page.tsx": "089177277e01bab2556bb9de77de652a4d425504ef97d61d6e067bd081505a5d",
       "front/app/service/landing/page.tsx": "4f39eb37f3bcaf8bd66eb577f2986cb085e7e2a00721ad00878693a1462b0abd",
-      "front/app/service/layout.tsx": "2607996cad2015c5570a2042f3b1c03eaccfafe988c5a886d89be6c311436fda",
+      "front/app/service/layout.tsx": "005acd1f746d1ca1937f3eca1fec6d6f02e67c653f17308b339125c7fa977153",
       "front/app/service/page.tsx": "365a0e01a5f23be08c3e39bccf978354a93656f6e82329f938cc6a0c9555e553",
       "front/app/service/studio/[[...screen]]/page.tsx": "1a92a68d8801f5d6e9d3757efb3c299ca2c95095c0a73350d55931ea2487b2c9",
       "front/app/sitemap.ts": "b7ea7af4822596861e6c86863441bed5da559673483fc7d0525bd34e25aea766",
@@ -929,7 +929,7 @@
       "front/tests/post-share.test.cjs": "d5ace10101c56dd7f7e7ff5b285e222d858471438e4bc400f4daf9048a1865bd",
       "front/tests/post-support-visibility.test.cjs": "1f391007b710fec570a62bd04da504d967b7bfd803a32246333d4c8ae472b22d",
       "front/tests/post-views.test.cjs": "810520d757b92df136fb0c5d2ff720045a7212418a4a8f400bc6eae764235178",
-      "front/tests/posthog.test.cjs": "e0e7a069ed76f8e927ccdb43029efcfade7b8ab5b68f5374ac537d2513756634",
+      "front/tests/posthog.test.cjs": "a1add3a349e4fe0698dde2e4168323af65f1fd5816a8bae0c1287aaea6dec851",
       "front/tests/preview-access.test.cjs": "34973f67c12f462afa1f04a7ae4a9bdfb55054fd094e81de37c6fd7326525f60",
       "front/tests/preview-login-route.test.cjs": "d43f08d1c24d37e5d5344908eac28433b2c06f2bdc0c88882a35d62be3a36c3a",
       "front/tests/profile-media-tab.test.cjs": "ddca73aad1b9d7015ab6f26e631dfcc43d2d82d6d57a28980b2e109091fe0200",
