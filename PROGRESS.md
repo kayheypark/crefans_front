@@ -1,3 +1,7 @@
+## 2026-11-18 15:55 KST 운영 배포 front-landingalert-20261118 (랜딩 방문 알림 유입 출처)
+- prod 124f817(ship-image.sh exit 0, 빌드 54s, PostHog 키 번들 포함, 레이어 일치, 스모크 통과). front-replayimg-20261118 → front-landingalert-20261118. API는 먼저 landingalert-20261118 배포(서버 PROGRESS).
+- 운영 테스트 알림 1건(utm_source=deploy_test) outbox 전송 완료(delivered_at 15:55:58 KST). 복구본 /Users/ethan/crefans-recovery/20261118/front-landingalert-20261118.
+
 ## 2026-11-18 랜딩 방문 텔레그램 알림 — 유입 출처 전송 (feat/landing-visit-alert)
 - 사용자 지시 "랜딩페이지에 누가 들어오면 텔레그램으로 알림" + "배포해". 서버(feat/landing-visit-alert)가 landing_view 집계 시 운영 텔레그램 '랜딩 방문'을 보냄.
 - 변경: lib/api/funnel.ts — landing_view에만 외부 referrer의 호스트 이름(`new URL(document.referrer).hostname`, 같은 사이트·비http 제외, 전체 URL·경로·쿼리 안 보냄)과 utm_source(`^[A-Za-z0-9_.-]{1,40}$`만)를 함께 보냄. 탭(세션)당 1회·오류 무시는 그대로, 다른 단계는 step만.
