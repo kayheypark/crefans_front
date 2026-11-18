@@ -55,7 +55,14 @@ test('replay is off on sensitive routes and follows navigation',async()=>{
 test('all media and the phone check dialog are blocked from replay',()=>{
  const {mod}=load('');
  const blocked=mod.REPLAY_BLOCK_SELECTOR.split(',');
- for(const tag of ['img','picture','video','canvas','iframe','input[type="file"]','[style*="url("]'])assert.ok(blocked.includes(tag),tag);
+ for(const tag of ['picture','video','canvas','iframe','input[type="file"]'])assert.ok(blocked.includes(tag),tag);
+ // Images: only public app artwork under /brand/ and /illustrations/ is exempt; every other <img> (API media, blob:, data:) is blocked.
+ assert.equal(blocked.find(s=>s.startsWith('img')),'img:not([src^="/brand/"]):not([src^="/_next/image?url=%2Fbrand%2F"]):not([src^="/illustrations/"]):not([src^="/_next/image?url=%2Fillustrations%2F"])');
+ assert.ok(blocked.some(s=>s.startsWith('[style*="url("]:not(')),'background images blocked unless public artwork');
+ const imgRule=blocked.find(s=>s.startsWith('img'));const exempt=[...imgRule.matchAll(/\^="([^"]+)"/g)].map(m=>m[1]);
+ const matches=src=>!exempt.some(prefix=>src.startsWith(prefix));
+ for(const src of ['/api/v1/media/abc','/_next/image?url=%2Fapi%2Fv1%2Fmedia%2Fabc&w=640','blob:https://crefans.com/1','data:image/png;base64,AA','https://cdn.example/x.jpg','/uploads/a.png'])assert.equal(matches(src),true,src);
+ for(const src of ['/brand/ai-photo/costume-1.webp','/_next/image?url=%2Fbrand%2Fai-photo%2Fcostumes%2Fa.webp&w=256','/illustrations/landing/ai-photo/base-v1.webp'])assert.equal(matches(src),false,src);
  assert.equal(mod.REPLAY_BLOCK_CLASS,'ph-no-capture');
  assert.match(fs.readFileSync('components/crefans/PhoneCheckDialog.tsx','utf8'),/title="휴대폰 번호 확인" className=\{REPLAY_BLOCK_CLASS\}/);
  // Service media is rendered as <img>/<video>, never as a CSS background that the selector could miss.

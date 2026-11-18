@@ -1,3 +1,8 @@
+## 2026-11-18 PostHog 녹화에서 공개 이미지 표시 (feat/replay-public-images, 미배포)
+- 사용자 요청: 녹화에서 프리셋 썸네일·랜딩 예시까지 회색 상자로 보여 어떤 프리셋을 골랐는지 알 수 없음.
+- 변경: `/brand/`·`/illustrations/` 공개 파일(및 next/image 변환 URL)만 녹화에 보이게, 회원 미디어(API·blob·data)는 계속 차단. lib/analytics/posthog.ts REPLAY_BLOCK_SELECTOR.
+- 검증: posthog 테스트 8/8(회원 미디어 URL 차단·공개 URL 허용 대조), 운영 랜딩 이미지 27개 모두 공개 경로로 판정(실브라우저 selector 검사), tsc 0, npm test 실패 18건 기준선 동일.
+
 ## 2026-11-18 14:5x KST prod 승격 feat/posthog — 운영 프론트 배포는 디스크 부족으로 보류
 - 사용자 승인(2026-11-18). origin/prod에서 분리 HEAD 작업 트리(crefans_front-prod-posthog)로 --no-ff 병합(e29683f, 충돌 없음) + 문서 증거 재기록(a8a064a). git diff origin/dev HEAD: 코드 차이 0(PROGRESS·evidence.json만).
 - 검증: tsc 0, npm test 750 중 732 통과·18 실패(fail-base2와 동일, 새 실패 0), next build 0, CREFANS_SERVER_DIR=서버 prod 트리로 docs:contracts(변경 없음)·docs:record·check:docs PASS(문서 82·라우트 286).
