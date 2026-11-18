@@ -1,3 +1,10 @@
+## 2026-11-18 앱 FAQ·배지 문구 동기화 (fix/copy-sync-20261118)
+- 사용자 결정(/pilot-work 2026-11-18, .local/pilot-work/2026-11-18-consistency.md 1·6·8항). 서버 약관 2026-11-18.beans.1(server feat/terms-bean-fee-expiry)과 같은 날 배포.
+- FAQ(lib/crefans/support.ts): 콩 유효기간 — 100콩과 '광고성 정보 수신에 처음 동의해 받은 프로모션 10콩'은 30일·7일 전 안내 / 수수료·출금 — '후원받은 콩은 출금할 때 20%를 공제하고 최소 1,000콩부터, 은행 이체 수수료는 플랫폼 부담' 추가 / 광고 메일 — '설정에서 광고 메일 수신을 끄거나' → '설정 → 알림 설정에서 '광고성 정보 수신'을 끄거나'.
+- 배지 명칭 '오픈 기념 한정판 배지'로 통일: FoundingBadgeClaim 제목, CreatorName 설명 버튼·툴팁·title, events.ts 요약 2곳(코드 식별자 그대로).
+- 고치지 않음: SignUpModal.tsx(/home 리다이렉트로 미도달)·creator-center/settings(307)·preview legal-fixtures의 '마케팅' 문구, landing.ts '의상 300종' 홍보 줄(수익화 약속 없음).
+- 검증: tsc 0, npm test 738/756(실패 18 = 기존 기준 목록과 동일, 새 실패 0; support-faq-policy에 새 문구·'마케팅' 없음 단언 추가), docs:record·check:docs PASS(server 작업트리 기준, snapshot-only), 대조: 기록 후 support.ts 변경 시 check:docs 'Evidence expired' 실패.
+
 ## 2026-11-18 18:38~18:41 KST 운영 배포 front-franchise-r2-20261118 (게임·애니 의상 제한, prod 085b22a)
 - devbox 빌드(`devbox-release.sh front`): check-transfer OK → 1차 태그 franchise-20261118은 릴리스 검사 문구 grep 불일치(번들에서 가운뎃점이 \xb7로 바뀜)로 자동 롤백 → 검사 수정 후 franchise-r2-20261118 교체 OK(주요 URL·정적·이미지, 안내 문구 3개 번들 포함). 복구본 /Users/ethan/crefans-recovery/20261118/franchise-r2-20261118-front(이전 front-mktreward-20261118), finalize 완료. 실패 시도 이미지·백업 폴더는 운영에서 삭제. API는 먼저 franchise-20261118 배포(서버 PROGRESS).
 - 운영 화면 확인(읽기 전용, 비로그인): 의상 게시물 상세에 후원 버튼 없음·'후원 불가' 안내, 고객센터 FAQ 새 문항 표시. 운영 보정 결과 제한 게시물 8개(모두 공개), 기존 멤버십 전용 의상 게시물 0개.

@@ -26,7 +26,7 @@ test('beta appreciation content preserves the approved four rewards without inve
   {audience:'유용한 피드백 제공자 최대 3명',title:'네이버페이\n1만원 상품권',details:['유용한 피드백을 주신 분 중 최대 3명에게 드립니다.']},
   {audience:'기간 2배 이벤트 상품',title:'주목할 크리에이터\n노출기간 2배',details:['일반 상품 가격으로 두 배의 기간을 이용하는 별도 이벤트 상품입니다.','2일 3,900원 · 6일 11,700원 · 14일 27,300원 · 60일 117,000원 (VAT 포함)']},
   {audience:'전체 회원 · 계정당 1회',title:'프로모션 100콩',details:['전체 회원에게 계정당 한 번, 받기 버튼으로 즉시 지급합니다.','프로모션 콩은 후원받은 사람이 출금할 수 있습니다.']},
-  {audience:'전체 회원 · 계정당 1회',title:'오픈 기념 한정판 배지',details:['크레팬스 전체 회원, 받기 버튼으로 오픈 기념 배지를 받아보세요.','받기 버튼을 누르면 프로필에 바로 표시됩니다.','표시 여부는 직접 선택할 수 있습니다.']},
+  {audience:'전체 회원 · 계정당 1회',title:'오픈 기념 한정판 배지',details:['크레팬스 전체 회원, 받기 버튼으로 오픈 기념 한정판 배지를 받아보세요.','받기 버튼을 누르면 프로필에 바로 표시됩니다.','표시 여부는 직접 선택할 수 있습니다.']},
  ]);
  assert.ok(serviceEvents.filter(event=>!['promotion-beans','founding-badge','creator-advertising'].includes(event.id)).every(event=>event.schedule.includes('미정')));
  // 2026-11-18: the 2배 event schedule matches its own note (11/16~12/31), no longer '미정'.
