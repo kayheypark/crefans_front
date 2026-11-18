@@ -1,3 +1,7 @@
+## 2026-11-18 13:2x KST prod 승격 — fix/help-text-sync·feat/funnel-stats·feat/landing-perf-seo·feat/signup-autologin-welcome
+- 사용자 승인(2026-11-18, dev 서버 검증 후). origin/prod ae0979c에서 --no-ff 병합(PROGRESS 충돌만, 모두 유지). git diff origin/dev HEAD: 코드 차이 0(PROGRESS·docs/audit/evidence.json만).
+- 검증: tsc 0, npm test 724 통과·18 실패(기준선 fail-base2 18건과 동일, 새 실패 0), build 0. CREFANS_SERVER_DIR=서버 prod 트리로 docs:contracts·docs:record·check:docs PASS(라우트 286·마이그레이션 69).
+
 ## 2026-11-18 앱 FAQ·이벤트 문구 현행화 (fix/help-text-sync, 미배포)
 - 사용자 결정(2026-11-18): 앱 FAQ+가이드 일괄 정정. 근거 `.local/night-work/2026-11-18-1016/notes-guide.md`, 서버 origin/prod d0637d3(phone-verification.ts, beans.service.ts:98 100콩 휴대폰 확인, bank-transfer.ts 입금했어요, beans.service.ts:165 입금 확인일 기산).
 - lib/crefans/support.ts: 결제 FAQ(무통장입금 실제 결제, 멤버십 카드만 테스트), 가입 FAQ(휴대폰 번호 확인·번호당 1계정), 콩 유효기간(입금 확인일 기산, 이벤트 100콩 30일·7일 전 알림), '유료 결제 시작' FAQ를 멤버십 카드로 한정, FAQ 3개 추가(휴대폰 확인, 무통장 미반영·입금했어요, AI 하루 무료 횟수). lib/content/events.ts: 2배 이벤트 schedule을 11/16~12/31로(같은 파일 note와 일치), 100콩 참여 방법에 휴대폰 확인.
