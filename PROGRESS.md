@@ -1,3 +1,53 @@
+## 2026-11-19 — 승인 카테고리 소프트3D 투명 아이콘 적용
+
+- 승인 v2 시트의 흰 배경을 이미지 편집 도구로 제거, RGBA 마스터 보존. 알파를 유지한 8개96px PNG로 내보내기, 공용 AiPhotoCategoryIcon24px 연결. master-v2.png 및 manifest.json(셀/크롭/알파 개수/SHA256)을 public/brand/ai-photo/category-soft3d에 보관.
+- 8개 모두 완전 투명 픽셀과 불투명 픽셀 존재 검사 통과. 회색/파란 배경24px 시각 검사에서 흰 박스 없음. 증거 `.local/body-icons/export-category-alpha.cjs`, `category-alpha-preview.png`. 타입 검사·diff 검사 종료0.
+- 이전 미배포 문구 삭제·비율 아래16px 간격·원본 제목 제거·미리보기 오른쪽 아래 스위치 이동·체험 첫 화면 안내 제거를 함께 개발 배포. 다음: dev 통합·배포 후 실제 화면/마스크 토글 확인. 운영 배포 안 함.
+
+## 2026-11-19 — 카테고리 아이콘 시안 v2 색상·포즈 수정
+
+- 사용자 피드백: 포즈 로봇 느낌 제거, 보라색 비중 축소, 립스틱 유지. Seedream 참조 편집1장 HTTP200·종료0. 포즈 피치 둥근 캐릭터, 신체 코랄, 구도 민트, 카메라 하늘색. 립스틱 기존 외형 유지 지시 및 육안 확인(픽셀 동일성 보장 아님).
+- `.local/body-icons/seedream/category-soft3d-set-v2.png`, `category-set-v2-manifest.json`에 산출물·프롬프트·requestId·시각·SHA256. 24px 미리보기 `category-small-preview-v2.png` 육안 확인. 제품 코드 적용·배포 없음. 다음: 사용자 선택 후 연결. 기존 미배포 수정 보존.
+
+## 2026-11-19 — 카테고리 소프트3D 아이콘 8종 세트 시안
+
+- 옷·메이크업·표정·포즈·신체 보정·구도·촬영컨셉·배경 8개를 4×2 한 장으로 Seedream5.5 생성. 기존 2안 참조, 핑크/라벤더·매트 클레이 스타일. HTTP200·생성기 종료0, 추가 생성 없음.
+- 출력 `.local/body-icons/seedream/category-soft3d-set-v1.png`; 생성 메타데이터+분류 `category-set-manifest.json`. 8개 순서 육안 확인 및 Chromium24px 탭 미리보기 `.local/body-icons/category-small-preview.png` 확인. 실제 제품 적용·배포 없음.
+- 다음: 사용자 선택 후 실제 카테고리 자산으로 연결. 기존 미배포 수정 보존. 이 기록은 로컬 미커밋.
+
+## 2026-11-19 — AI 체험 첫 화면 안내 두 문단 제거
+
+- ManagementPages의 가상 인물 샘플 사전 입력 안내 전체 문단 및 ‘AI 사진을 만들면 제목과 내용을 쓸 수 있어요.’ 안내 제거. 샘플 입력·사진 편집·생성 후 제목/본문 작성 기능 유지.
+- 지정한 두 문구 미존재 소스 assertion 통과. 증거 `.local/body-icons/trial-copy-removal.json`(시각·기준 커밋·파일 SHA256). 브라우저 검증 미실행. 기존 UI 수정과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 원본 제목 제거·옷 세부 지정 스위치 미리보기 안으로 이동
+
+- 편집 미리보기 위 제목 제거. 여러 장이면 사진 선택 버튼만 오른쪽 유지, 한 장이면 빈 제목 행 없음. 이미지 대체텍스트·확대 화면 명칭 유지.
+- 옷 세부 지정 버튼을 previewFrame 오른쪽/아래10px에 불투명 배경으로 배치. AiPhotoMask에 선택적 overlay를 전달해 활성화 후에도 사진 프레임 동일 위치에 스위치 유지(하단 붓 도구와 분리). 원래 토글·disabled 로직 유지.
+- npm run typecheck, git diff --check 종료0. 실제 CSS 격리 Chromium390/1280px에서 previewFrame/maskFrame 모두 오른쪽·아래10px, 확대 버튼과 비겹침, 클릭·키보드 포커스 검사 통과. 모바일 시각 확인. 전체 React 마스크 전환 통합 검증은 미실행.
+- 증거 `.local/body-icons/check-preview-switch.cjs`, `preview-switch-verification.json`(시각·기준 커밋·파일 SHA256), `preview-switch-mobile.png`. 기존 미배포 수정과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 의상 선택 제목 삭제
+
+- 랜딩 AiPhotoLanding 및 편집기 AiPhotoDialog에서 ‘어떤 의상을 입어볼까요?’ 제목과 해당 래퍼 삭제. 말풍선·카테고리 선택 유지.
+- 양쪽 정확히 한 곳 삭제 및 요청 문구 미존재 assertion 통과. git diff --check 종료0. 증거 `.local/body-icons/wardrobe-title-removal.json`(시각·기준 커밋·파일 SHA256). 브라우저 미실행. 기존 코디 안내 삭제·프롬프트 간격 변경과 함께 미커밋, 개발/운영 미배포.
+
+## 2026-11-19 — 비율 프리셋과 커스텀 프롬프트 간격 조정
+
+- composer 직속 비율 프리셋에 하단10px 추가해 기존 flex gap6px와 합쳐 다음 제목까지16px 확보. 비율 제목↔버튼 간격과 별도 자르기 화면 비율 선택은 유지.
+- 실제 CSS 격리 Chromium390/1280px에서 다음 필드 간격16px·자르기 비율 margin0 확인, 종료0. git diff --check 종료0. 증거 `.local/body-icons/check-ratio-spacing.cjs`, `ratio-spacing-verification.json`(시각·커밋·CSS SHA256). 전체 앱 시각 검증 미실행. 코디 안내 삭제와 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 코디 참조 이미지 안내 문구 삭제
+
+- AiPhotoDialog 의상 목록 아래 사용자가 지정한 ‘선택한 코디 사진을 … 결과는 달라질 수 있어요.’ 문단 하나 삭제. 이미지 참조 전송 기능 및 다른 안내 유지.
+- 정확한 단일 문단 삭제·요청 문구 미존재 assertion 통과. 증거 `.local/body-icons/costume-note-removal.json`(시각·기준 커밋·파일 SHA256). 브라우저 미실행. 코드 및 기록 미커밋, 개발/운영 미배포.
+
+## 2026-11-19 — 키 비율 3D 아이콘 개발 배포 완료
+
+- 기능74e244e → dev bdc3246f8e58683828d330d886c4566e66d0f49f. origin/dev·github/dev push, devbox last-success 일치 확인. 공식 deploy-dev.sh front 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-021303.log`.
+- 실제 개발 도메인 Chromium 카탈로그 편집기에서 가슴·힙·키 3개 이미지 연결, 새 키 이미지 HTTP200 및 로컬 원본 SHA256 일치 확인. 스크린샷 시각 확인. 기존 문구 및 하트 확장 CSS 검사도 통과. 증거 기능 작업본 `.local/body-icons/verify-dev-height.cjs`, `dev-height-verification.json`, `dev-height-3d.png`. AI 생성/적립 기능 실요청 없음.
+- 운영 배포 없음. 이 완료 기록만 로컬 미커밋. 다음 할 일 없음.
+
 ## 2026-11-19 — 키 비율 3D 아이콘 제작·개발 배포 준비
 
 - 기존 2안 가슴·힙 이미지를 스타일 참고로 Seedream5.5 한 장 생성. 보라색 둥근 사람+키 측정자·핑크 상단 막대. 공급사 HTTP200, 생성기 종료0. 메타데이터 `public/brand/ai-photo/body-icons/height-manifest.json`에 모델·시각·SHA256·프롬프트 보관.
