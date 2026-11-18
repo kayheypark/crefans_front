@@ -1,4 +1,6 @@
 'use client';
+import {useRef} from 'react';
+import {PullToRefresh} from './PullToRefresh';
 import {Action,PageTitle} from './ServiceUI';
 import {BackButton} from './BackButton';
 import {Checkbox} from '@/components/ui/Choice';
@@ -6,9 +8,10 @@ import s from './guest-trial-consent.module.css';
 
 type Props={agreed:boolean;pending:boolean;error:string;onAgree:(value:boolean)=>void;onStart:()=>void};
 export function GuestTrialConsent({agreed,pending,error,onAgree,onStart}:Props){
+ const scrollRef=useRef<HTMLDivElement>(null);
  return <section className={s.page} data-guest-consent>
   <div className={s.heading}><PageTitle back={<BackButton href="/service/feed" label="피드로 돌아가기"/>}>AI 사진 체험</PageTitle></div>
-  <div className={s.body} tabIndex={0} aria-label="체험 안내">
+  <div ref={scrollRef} className={s.body} tabIndex={0} aria-label="체험 안내">
    <h2>내 사진으로<br/><em>모더니아가 되어볼까요?</em></h2>
    <p className={s.subtitle}>사진을 올리고, 코스튬을 골라 바꿔 보세요.</p>
    <div className={s.hero} aria-label="내 사진과 코스튬으로 코스어가 되는 예시">
@@ -31,10 +34,11 @@ export function GuestTrialConsent({agreed,pending,error,onAgree,onStart}:Props){
 
    </ul></details>
   </div>
+  <PullToRefresh scrollRef={scrollRef} enabled={!pending} routeKey="guest-consent"/>
   <div className={s.footer}>
    <Checkbox label="위 내용과 개인정보 처리방침 17항(비회원 AI 사진 체험)에 동의합니다" checked={agreed} disabled={pending} onChange={onAgree}/>
    {error&&<p className={s.error} role="alert">{error}</p>}
-   <Action variant="brand" disabled={!agreed||pending} onClick={onStart}>{pending?'준비 중…':'동의하고 체험 시작'}</Action>
+   <Action variant="brand" disabled={!agreed||pending} onClick={onStart}>{pending?'준비 중…':'동의하고 0원체험'}</Action>
    <p className={s.hint}>사진 생성은 다음 화면에서 진행해요</p>
   </div>
  </section>;

@@ -1,3 +1,27 @@
+## 2026-11-19 — 버튼 문구 정정: 동의하고 0원체험 (미배포)
+
+- 사용자 최종 문구 ‘동의하고 0원체험’으로 버튼 및 E2E 선택자 변경. 이전 ‘영원 체험’ 기록을 대체. 처리 중 문구와 동작 유지.
+- 소스 assertion 통과: 새 문구·처리 중 문자열 보존 및 테스트 선택자 일치. 단순 문구 정정이라 브라우저 검사 재실행 없음. `.local/consent-pink/zero-won-label-verification.json`에 시각·해시 기록. 당겨 새로고침 변경과 함께 개발/운영 미배포.
+
+## 2026-11-19 — 체험 동의 공통 당겨 새로고침 연결 (미배포)
+
+- 기존 PullToRefresh를 GuestTrialConsent 내부 본문 scrollRef에 직접 연결. 별도 제스처 로직 없음. 공통 96px 임계값, 최상단·모바일 coarse pointer·단일 터치·놓을 때 reload 규칙 유지. 시간 기준 새 동작은 만들지 않음.
+- 체험 시작 pending 중 비활성. 동의 컴포넌트에서만 사용하므로 편집 화면으로 확장하지 않음. 고정 동의 버튼·모바일 내비게이션 숨김 유지.
+- 검증: `npm run typecheck` 종료0; Chromium4+WebKit4 총8건 통과. API 대역 및 합성 TouchEvent: 짧은 당김·본문 스크롤 중 reload 없음, 최상단 130px 당김 시 안내·놓은 뒤 navigation type reload 확인. 실물 기기 제스처/AI 생성 미검증.
+- 증거 `.local/consent-pink/pull-refresh-verification.json`; 테스트 `e2e/guest-consent-pink.spec.ts`. 현재 버튼 문구 변경 포함 개발/운영 미배포.
+
+## 2026-11-19 — 체험 시작 버튼 문구 변경 (미배포)
+
+- 사용자 지정 문구 그대로 ‘동의하고 영원 체험’으로 변경. 처리 중 ‘준비 중…’ 및 동의/요청 동작 유지. E2E 버튼 이름 선택자 동기화.
+- 소스 assertion으로 요청 문자열과 처리 중 문자열 보존 확인(종료0). 단순 문구 변경으로 브라우저 검사 재실행 없음. `.local/consent-pink/button-label-verification.json` 기록. 개발/운영 미배포.
+
+## 2026-11-19 01:43 KST — 보조 링크·모바일 내비게이션 비노출 개발 배포 완료
+
+- 사용자 배포 지시. 기능30f8f9c → dev 통합6b99f1118278aefb10e2d6cbc7f2d7a127765086. origin/dev·github/dev 동기화 완료, 통합 타입 검사 종료0.
+- 공식 devbox `deploy-dev.sh front` 직접 실행 종료0, 이미지 빌드·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-014121.log`. last-success SHA와 통합 SHA 일치. 이번 실행은 Jenkins 정기 실행과 동일 스크립트의 직접 배포이며 별도 Jenkins 완료 확인은 하지 않음.
+- 실제 https://www-dev.crefans.com/service/try Chromium390×844 검증 종료0: 처리방침17항·기존회원 로그인 보조 링크 없음, 모바일 하단 nav 숨김, 동의 버튼 유지 및 체크 후 활성, 기존 비교 이미지·안내 유지. 생성 요청 안 함. 증거 기능 작업본 `.local/consent-pink/dev-cleanup-check.json`, `dev-cleanup.png`.
+- 운영 미반영. 동의 체크박스의 처리방침 문구는 유지. 다음: 개발 확인 후 별도 운영 배포 지시 대기.
+
 ## 2026-11-19 — 모바일 체험 동의 화면 하단 내비게이션 숨김 (미배포)
 
 - 사용자 요청: 모바일(767px 이하) 동의 화면의 하단 내비게이션만 숨김. `[data-guest-consent]`가 셸에 있을 때만 적용하므로 편집/완료 등 동의 화면을 벗어나면 기존 내비게이션 표시. PC 사이드 메뉴 및 동의·시작 버튼 유지. 버튼 하단 safe-area 여백 추가.
