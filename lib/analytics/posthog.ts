@@ -33,10 +33,21 @@ function scrub(value:unknown):unknown{
  if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([key,item])=>[key,scrub(item)]));
  return value;
 }
+// 2026-11-19 (처리방침 2026-11-19.posthog.2 9조 ④ 화면 오류 정보): exception messages may embed URLs, e-mails or numbers typed by
+// the visitor. Inside every string of an $exception event: URLs lose query/hash, e-mails and digit runs of 6+ are replaced, length ≤ 500.
+const URL_IN_TEXT=/https?:\/\/[^\s'"<>)]+/g,EMAIL=/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g,DIGITS=/\d{6,}/g;
+export function scrubErrorText(value:string){return value.replace(URL_IN_TEXT,url=>stripUrl(url)).replace(EMAIL,'<email>').replace(DIGITS,'<number>').slice(0,500);}
+function scrubError(value:unknown):unknown{
+ if(typeof value==='string')return scrubErrorText(value);
+ if(Array.isArray(value))return value.map(scrubError);
+ if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([key,item])=>[key,scrubError(item)]));
+ return value;
+}
 /** before_send: every absolute URL in properties/$set/$set_once loses its query and hash ($current_url, $referrer, $session_entry_url…). */
 export function beforeSend(event:CaptureResult|null):CaptureResult|null{
  if(!event||event.event==='$snapshot')return event; // replay URLs are cleaned by maskCapturedNetworkRequestFn below
- return{...event,properties:scrub(event.properties) as CaptureResult['properties'],...(event.$set?{$set:scrub(event.$set) as CaptureResult['$set']}:{}),...(event.$set_once?{$set_once:scrub(event.$set_once) as CaptureResult['$set_once']}:{})};
+ const properties=event.event==='$exception'?scrubError(scrub(event.properties)):scrub(event.properties);
+ return{...event,properties:properties as CaptureResult['properties'],...(event.$set?{$set:scrub(event.$set) as CaptureResult['$set']}:{}),...(event.$set_once?{$set_once:scrub(event.$set_once) as CaptureResult['$set_once']}:{})};
 }
 
 export function posthogConfig(pathname:string):Partial<PostHogConfig>{
@@ -49,8 +60,8 @@ export function posthogConfig(pathname:string):Partial<PostHogConfig>{
   // Clicks on links/buttons only, without element text or attributes (names, hrefs with ids); inputs/changes/submits are never autocaptured.
   autocapture:{dom_event_allowlist:['click'],element_allowlist:['a','button']},mask_all_text:true,mask_all_element_attributes:true,
   // 2026-11-19 user decision (이탈 분석): dead clicks (a click with no page reaction) are on — they are clicks, already in the privacy
-  // policy's PostHog item; text/attributes stay masked. Exceptions stay off: error messages are not in that item yet (needs a policy change).
-  capture_dead_clicks:true,capture_heatmaps:false,capture_exceptions:false,capture_performance:false,disable_surveys:true,
+  // policy's PostHog item; text/attributes stay masked. 2026-11-19 posthog.2: exceptions on too (screen error information, scrubbed below).
+  capture_dead_clicks:true,capture_heatmaps:false,capture_exceptions:true,capture_performance:false,disable_surveys:true,
   enable_recording_console_log:false,
   disable_session_recording:!replayAllowed(pathname),
   session_recording:{
