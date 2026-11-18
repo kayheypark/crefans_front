@@ -42,8 +42,8 @@ test('with a key it initialises once with the hardened config and flushes queued
  assert.equal(c.api_host,'https://us.i.posthog.com');assert.equal(c.persistence,'cookie');assert.equal(c.respect_dnt,true);assert.equal(c.person_profiles,'identified_only');assert.equal(c.disable_session_recording,false);
  assert.equal(c.session_recording.maskAllInputs,true);assert.equal(c.session_recording.maskInputOptions.text,true);assert.equal(c.session_recording.maskInputOptions.textarea,true);
  assert.equal(c.session_recording.recordBody,false);assert.equal(c.capture_performance,false);assert.equal(c.enable_recording_console_log,false);
- // 2026-11-19: dead clicks on (clicks, masked); exceptions and console logs off until the privacy policy names error data.
- assert.equal(c.capture_dead_clicks,true);assert.equal(c.capture_exceptions,false);
+ // 2026-11-19: dead clicks on (clicks, masked); exceptions on after privacy posthog.2 named screen error information; console logs off.
+ assert.equal(c.capture_dead_clicks,true);assert.equal(c.capture_exceptions,true);
  assert.deepEqual(c.autocapture,{dom_event_allowlist:['click'],element_allowlist:['a','button']});assert.equal(c.mask_all_text,true);assert.equal(c.mask_all_element_attributes,true);
  assert.deepEqual(calls.capture,[['landing_view',{}],['ai_generation_started',{actor:'guest',mode:'cosplay',kind:'combined',preset_kinds:['background','pose']}]]);
 });
@@ -98,4 +98,13 @@ test('funnel views, consent, AI generation, caption, publish and signup send Pos
  assert.match(studio,/input\.status==='published'&&!input\.id\)captureEvent\('post_published',\{actor:'member'\}\)/);
  assert.match(service,/if\(result\.success\)captureEvent\('signup_completed',\{actor:'member'\}\)/);
  assert.doesNotMatch(fs.readFileSync('lib/api/funnel.ts','utf8'),/posthog/i);
+});
+
+test('exception events are scrubbed: URL query/hash, e-mails and long digit runs never leave the browser',()=>{
+ const {mod}=load('phc_test_only');
+ const out=mod.beforeSend({event:'$exception',properties:{$exception_list:[{type:'TypeError',value:'failed https://crefans.com/service/post/1?token=abc#x for kay@example.com 01012345678',stacktrace:{frames:[{filename:'https://crefans.com/_next/static/chunks/app.js?v=1',lineno:3}]}}],$current_url:'https://crefans.com/service/try?code=1'}});
+ const ex=out.properties.$exception_list[0];
+ assert.equal(ex.value,'failed https://crefans.com/service/post/1 for <email> <number>');assert.equal(ex.stacktrace.frames[0].filename,'https://crefans.com/_next/static/chunks/app.js');assert.equal(out.properties.$current_url,'https://crefans.com/service/try');
+ assert.equal(mod.scrubErrorText('x'.repeat(900)).length,500);
+ const normal=mod.beforeSend({event:'landing_view',properties:{note:'call 01012345678'}});assert.equal(normal.properties.note,'call 01012345678','only exception events get the text scrub');
 });
