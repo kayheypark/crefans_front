@@ -1,0 +1,21 @@
+{
+  "status": 200,
+  "model": "dola-seedream-5-5-261028",
+  "responseModel": "dola-seedream-5-5-261028",
+  "requestId": "0217950218942890c64a0471125ddcff16fb53685966178dce577",
+  "prompt": "Create exactly ONE height proportion adjustment app icon, matching the supplied reference soft 3D clay style, matte smooth material, pink and lavender palette, clean white background. A simple friendly full-body faceless lavender mannequin standing upright next to a purple vertical height ruler with 4 large white ticks and a small pink horizontal top measuring bar. Arms at sides, feet together. Non-realistic miniature toy figure with simple rounded forms. Front orthographic view, subtle soft shading, no cast shadow outside icon. Square composition, icon centered occupying 90 percent of canvas height, modest margin. Extremely legible at 24 pixels. No letters, no numbers, no words, no extra icons. Reference is style only; do not reproduce chest or shorts icons.",
+  "size": "1024x1024",
+  "references": [
+    "body-3d-v1.png"
+  ],
+  "elapsedMs": 19397,
+  "at": "2026-11-18T17:11:53.125194+00:00",
+  "sha256": "a2a6084a372dd603efc2807f8eaf3b7acfd46ce41c2acaba36b1078f721d022b",
+  "usage": {
+    "input_images": 1,
+    "generated_images": 1,
+    "output_tokens": 4096,
+    "total_tokens": 4096
+  },
+  "asset": "height-3d-v1.png"
+}

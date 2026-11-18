@@ -1,3 +1,15 @@
+## 2026-11-19 — 키 비율 3D 아이콘 제작·개발 배포 준비
+
+- 기존 2안 가슴·힙 이미지를 스타일 참고로 Seedream5.5 한 장 생성. 보라색 둥근 사람+키 측정자·핑크 상단 막대. 공급사 HTTP200, 생성기 종료0. 메타데이터 `public/brand/ai-photo/body-icons/height-manifest.json`에 모델·시각·SHA256·프롬프트 보관.
+- 키 비율의 기존 벡터를 새 정적 이미지로 교체, 24px 및 슬라이더 동작 유지. 원본 이미지 및 실제 컴포넌트 미리보기 육안 확인(`.local/body-icons/preview-height-3d.png`). `npm run typecheck`, `git diff --check` 종료0. 다음: dev 통합·배포 후 실화면 확인. 운영 배포 없음.
+
+## 2026-11-19 — 3D 아이콘 및 대기 UI 변경 개발 배포 완료
+
+- 기능 dcdf166 → dev ebdde38baa5743a8d7a508bd9d3a3d4881186331. origin/dev·github/dev 동기화, 서버 last-success SHA 일치. 통합 타입 검사 종료0.
+- `bash ~/crefans-dev/deploy-dev.sh front` 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-020823.log`. 운영 배포 없음.
+- 실제 개발 도메인 카탈로그 편집 모달 검증 종료0: 새 작품명·흰색 말풍선, 디아블로 마지막, 배경 프리셋 예시 문단 없음, 가슴/힙 3D 자산 HTTP200 및 선택한 원본 SHA256 일치, 하트 클릭 영역 확장 CSS 확인. 스크린샷 육안 확인. `.local/body-icons/verify-dev-3d.cjs`, `dev-3d-verification.json`, `dev-icons-3d.png`(기능 작업본). 최초 검사는 브라우저 CSS 선택자 따옴표 정규화 때문에 실패, 검사 선택자만 보정 후 통과.
+- 하트 실제 포인터 동작은 앞선 격리 브라우저 검증 범위. 카탈로그 대역 데이터 사용, 실제 AI 생성·서버 적립 요청 없음. 이 배포 결과 기록만 로컬 미커밋이며 아래 미배포 기록을 대체함.
+
 ## 2026-11-19 — 선택한 2안 3D 아이콘 적용·개발 배포 준비
 
 - 가슴/힙은 Seedream 2안 원본 PNG를 공용 정적 자산으로 보존하고 SVG viewBox로 각각 표시. 재생성·변형 없이 선택한 시안 사용. 24px 크기·슬라이더 동작·다른 아이콘 유지.
