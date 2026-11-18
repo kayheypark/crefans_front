@@ -13,6 +13,7 @@ import {BeanWalletPage,BeanHistoryPage,BeanReferralPage} from '@/components/cref
 import {ReferralHistoryPage} from '@/components/crefans/ReferralHistoryPage';
 import {BeanPaymentResult} from '@/components/service/BeanPaymentResult';
 import {Suspense} from 'react';
+import {useFunnelStep} from '@/features/service/useFunnelStep';
 import {BeanWithdrawContainer} from './BeanWithdrawContainer';
 import {useRouter,useSearchParams} from 'next/navigation';
 import PublicMemberPage from '@/components/crefans/PublicMemberPage';
@@ -39,6 +40,8 @@ export default function ServiceRouter({segments}:{segments:string[]}){
  const feedback=actionNotice||(error?{message:error,loginRequired:false}:null);
  // Loading rule: a page change shows nothing for the first second, then the shared spinner (no '불러오는 중…' text on every tab tap).
  const slow=useDelayedLoading(loading);
+ // Funnel count (2026-11-18): the live signup form was shown to a signed-out visitor (once per tab session).
+ useFunnelStep('signup_view',!loading&&!model.signedIn&&screen==='signup'&&id!=='complete');
  function content(){if(loading)return slow?<LoadingSpinner/>:null;if(!model.signedIn&&!(['following','followers'].includes(screen)&&query.get('profile'))&&['messages','notifications','me','subscriptions','settings','following','followers','payment-methods','checkout','beans'].includes(screen))return <SignInPrompt basePath={basePath}/>;switch(screen){
   case 'checkout':return <CheckoutPage id={id}/>;
   case 'payment':return <PaymentResult success={id==='success'}/>;

@@ -15,6 +15,7 @@ import type {AiPhotoKind} from '@/types/crefans-studio-management';
 import {designVariables} from '@/lib/design/tokens';
 import {saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import s from './ai-photo-landing.module.css';
+import {useFunnelStep} from '@/features/service/useFunnelStep';
 
 // AI photo editing landing page (2026-11-16 user request; 2026-11-17 real-preset version). Built from the service's own catalog:
 // each hero result was made with Seedream from the fictional base person and exactly the presets listed under it (the same
@@ -108,6 +109,7 @@ export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string
 }
 
 export default function AiPhotoLanding(){
+ useFunnelStep('landing_view');
  const [look,setLook]=useState(landingLooks[0].id),[landingPicked,setLandingPicked]=useState<Record<string,string[]>>({});
  const current=landingLooks.find(item=>item.id===look)||landingLooks[0];
  return <main className={s.page} style={designVariables as CSSProperties}>
