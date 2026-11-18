@@ -5,9 +5,11 @@ import {DialogActions} from '@/components/ui/DialogActions';
 import {Field} from '@/components/ui/Field';
 import {Action} from './ServiceUI';
 import {smsHref,smsPlatform,type SmsPlatform} from '@/lib/crefans/sms-link';
+import {REPLAY_BLOCK_CLASS} from '@/lib/analytics/posthog';
 import type {PhoneCheckModel,PhoneCheckStart} from '@/types/crefans-events';
 import s from './events.module.css';
 
+// 2026-11-18: the dialog (number, SMS code) is blocked from PostHog replay even on pages where replay is allowed (events).
 // 2026-11-16: OCTOMO number-ownership check (MO: the member texts a code from their own phone). It is not identity or age verification.
 // User decision: show a preview of the exact message first, then '인증하러 가기' opens the messaging app (Android/iPhone links differ);
 // on PC a QR from OCTOMO opens it from the phone camera. Returning from the messaging app checks once automatically.
@@ -31,7 +33,7 @@ export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모
     :<><Action className={s.smsMain} disabled={busy} onClick={()=>void confirm()}>{busy?'확인 중…':'보냈어요'}</Action><Action className={s.smsMain} variant="secondary" disabled={busy} onClick={openMessages}>메시지 앱 다시 열기</Action></>}
    <button type="button" className={s.smsBack} disabled={busy} onClick={()=>{setSent(null);setError('');setOpened(false);}}>번호 다시 입력</button>
   </div>;
- return <Dialog open={open} onClose={()=>{if(!busy)onClose();}} title="휴대폰 번호 확인">
+ return <Dialog open={open} onClose={()=>{if(!busy)onClose();}} title="휴대폰 번호 확인" className={REPLAY_BLOCK_CLASS}>
   <div className={s.phoneCheck}>
    {!sent?<><p>{intro} 메시지 앱으로 문자 한 통을 보내 번호를 확인해요.</p>
     <Field label="휴대폰 번호" inputMode="numeric" autoComplete="tel" placeholder="01012345678" value={phone} onChange={event=>setPhone(event.target.value)} disabled={busy}/></>

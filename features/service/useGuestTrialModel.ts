@@ -4,6 +4,7 @@ import {platformRequest as api} from '@/lib/api/platform';
 import {imageUploadMaxBytes,imageUploadMaxLabel} from '@/lib/design/image-upload';
 import {optimizeImage} from '@/lib/design/image-optimize';
 import {aiPhotoEditBody} from './useStudioModel';
+import {aiProps,captureEvent} from '@/lib/analytics/posthog';
 import type {AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefans-studio-management';
 
 // Signed-out AI photo trial (2026-11-15). The server identifies the visitor by an httpOnly cookie set after consent
@@ -23,15 +24,15 @@ export function useGuestTrialModel(enabled:boolean){
  useEffect(()=>{if(enabled)void refresh();},[enabled,refresh]);
  // An existing trial session (cookie) also keeps the flag, e.g. after storage was cleared.
  useEffect(()=>{if(session?.active)markGuestTrial();},[session?.active]);
- const start=async()=>{const r=await api<{active:boolean}>('/guest/session',{consent:true,version:GUEST_CONSENT_VERSION});if(r.success){markGuestTrial();await refresh();}return r;};
+ const start=async()=>{const r=await api<{active:boolean}>('/guest/session',{consent:true,version:GUEST_CONSENT_VERSION});if(r.success){markGuestTrial();captureEvent('guest_consent_agreed',{actor:'guest'});await refresh();}return r;};
  const upload=async(original:File)=>{
   if(!original.type.startsWith('image/'))return {success:false as const,data:null,errorMessage:'체험에서는 사진만 올릴 수 있어요.',errorCode:'GUEST_IMAGE_ONLY'};
   if(original.size>imageUploadMaxBytes)return {success:false as const,data:null,errorMessage:`사진은 한 장에 ${imageUploadMaxLabel}까지 올릴 수 있어요.`,errorCode:'INVALID_IMAGE_SIZE'};
   const body=new FormData();body.append('file',await optimizeImage(original));return api<StudioMedia>('/media/guest',body);
  };
- const save=(input:unknown)=>api<{id?:string;message?:string}>('/guest/content',input);
+ const save=async(input:unknown)=>{const r=await api<{id?:string;message?:string}>('/guest/content',input);if(r.success)captureEvent('post_published',{actor:'guest'});return r;};
  // 'AI로 내용 작성' writes the title/body from the chosen item names and request text (2026-11-16); the visitor edits before posting.
- const caption=(input:{items:string[];prompt:string})=>api<GuestCaption>('/guest/content/caption',input);
- const aiEdit=async(input:AiPhotoEditInput)=>{const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});return result;};
+ const caption=async(input:{items:string[];prompt:string})=>{const r=await api<GuestCaption>('/guest/content/caption',input);if(r.success)captureEvent('caption_written',{actor:'guest'});return r;};
+ const aiEdit=async(input:AiPhotoEditInput)=>{const props=aiProps('guest',input);captureEvent('ai_generation_started',props);const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});return result;};
  return{session,error,start,upload,save,aiEdit,refresh,caption};
 }

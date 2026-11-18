@@ -1,0 +1,85 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {loadTypeScript}=require('./load-typescript.cjs');
+// 2026-11-18 PostHog (lib/analytics/posthog.ts): nothing loads without the build key, replay is limited to allowlisted routes,
+// all media is blocked from replay, and URLs lose query strings/hashes before they leave the browser.
+function load(key){
+ const previous=process.env.NEXT_PUBLIC_POSTHOG_KEY;if(key)process.env.NEXT_PUBLIC_POSTHOG_KEY=key;else delete process.env.NEXT_PUBLIC_POSTHOG_KEY;
+ const calls={required:0,init:[],capture:[],start:0,stop:0},state={started:false};
+ const fake={init:(k,config)=>calls.init.push({k,config}),capture:(name,props)=>calls.capture.push([name,props]),sessionRecordingStarted:()=>state.started,startSessionRecording:()=>{calls.start++;state.started=true;},stopSessionRecording:()=>{calls.stop++;state.started=false;}};
+ const mocks={get 'posthog-js'(){calls.required++;return{__esModule:true,default:fake};}};
+ const mod=loadTypeScript('lib/analytics/posthog.ts',mocks);
+ if(previous===undefined)delete process.env.NEXT_PUBLIC_POSTHOG_KEY;else process.env.NEXT_PUBLIC_POSTHOG_KEY=previous;
+ return{mod,calls,state};
+}
+const withWindow=async(pathname,run)=>{global.window={location:{pathname}};try{return await run();}finally{delete global.window;}};
+
+test('without NEXT_PUBLIC_POSTHOG_KEY posthog-js is never imported and events are dropped',async()=>{
+ const {mod,calls}=load('');
+ await withWindow('/service/feed',async()=>{assert.equal(await mod.loadPostHog(),null);mod.captureEvent('landing_view');mod.syncReplay('/service/beans');});
+ assert.equal(calls.required,0);assert.equal(calls.init.length,0);assert.equal(calls.capture.length,0);
+ const component=fs.readFileSync('components/service/PostHogAnalytics.tsx','utf8');
+ assert.match(component,/if\(POSTHOG_KEY\)void loadPostHog\(\)/);assert.match(component,/if\(POSTHOG_KEY\)syncReplay\(pathname\)/);
+});
+test('posthog-js is imported only dynamically by lib/analytics and mounted only in the /service layout',()=>{
+ const walk=dir=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);
+ const sources=['app','components','features','lib','hooks','contexts'].flatMap(walk).filter(f=>/\.(t|j)sx?$/.test(f));
+ const users=sources.filter(f=>/['"]posthog-js['"]/.test(fs.readFileSync(f,'utf8'))),mounts=sources.filter(f=>/<PostHogAnalytics\/>/.test(fs.readFileSync(f,'utf8')));
+ assert.deepEqual(users,['lib/analytics/posthog.ts']);assert.deepEqual(mounts,['app/service/layout.tsx']);
+ const lib=fs.readFileSync('lib/analytics/posthog.ts','utf8');assert.match(lib,/import type \{[^}]*\} from 'posthog-js'/);assert.match(lib,/import\('posthog-js'\)/);
+ assert.doesNotMatch(lib,/phc_/);
+});
+test('with a key it initialises once with the hardened config and flushes queued funnel events',async()=>{
+ const {mod,calls}=load('phc_test_only');
+ await withWindow('/service/landing-ai-image-generation',async()=>{mod.captureEvent('landing_view');await mod.loadPostHog();await mod.loadPostHog();mod.captureEvent('ai_generation_started',mod.aiProps('guest',{mode:'cosplay',kind:'combined',presetKeys:[{kind:'pose',key:'a'},{kind:'background',key:'b'},{kind:'pose',key:'c'}]}));});
+ assert.equal(calls.init.length,1);const c=calls.init[0].config;
+ assert.equal(c.api_host,'https://us.i.posthog.com');assert.equal(c.persistence,'cookie');assert.equal(c.person_profiles,'identified_only');assert.equal(c.disable_session_recording,false);
+ assert.equal(c.session_recording.maskAllInputs,true);assert.equal(c.session_recording.maskInputOptions.text,true);assert.equal(c.session_recording.maskInputOptions.textarea,true);
+ assert.equal(c.session_recording.recordBody,false);assert.equal(c.capture_performance,false);assert.equal(c.enable_recording_console_log,false);
+ assert.deepEqual(c.autocapture,{dom_event_allowlist:['click'],element_allowlist:['a','button']});assert.equal(c.mask_all_text,true);assert.equal(c.mask_all_element_attributes,true);
+ assert.deepEqual(calls.capture,[['landing_view',{}],['ai_generation_started',{actor:'guest',mode:'cosplay',kind:'combined',preset_kinds:['background','pose']}]]);
+});
+test('events from /preview or the design system are never queued',async()=>{
+ const {mod,calls}=load('phc_test_only');
+ await withWindow('/preview/landing',async()=>mod.captureEvent('landing_view'));await withWindow('/service/feed',()=>mod.loadPostHog());
+ assert.deepEqual(calls.capture,[]);
+});
+test('replay is off on sensitive routes and follows navigation',async()=>{
+ const {mod,calls,state}=load('phc_test_only');
+ const sensitive=['/service/beans','/service/beans/charge','/service/beans/withdraw','/service/payment/abc','/service/checkout/p1','/service/billing/x','/service/payment-methods','/service/subscriptions','/service/settings','/service/login','/service/signup','/service/signup/complete','/service/reset-password','/service/messages','/service/me','/service/membership/c1','/service/studio','/service/studio/withdraw','/service/studio/withdrawals','/service/studio/accounts','/service/studio/security','/service/studio/security/reset','/service/studio/beans/payouts','/service/studio/shop/pay','/service/studio/settlements','/service/studio/earnings','/service/studio/settings','/service/studio/messages','/service/studio/subscribers','/preview/feed','/design-system','/card'];
+ const allowed=['/service/landing-ai-image-generation','/service/landing','/service/try','/service/try/done','/service/feed','/service/explore','/service/post/p1','/service/creator/c1','/service/events/feedback','/service/studio/content/new','/service/studio/content/p1/edit'];
+ for(const p of sensitive)assert.equal(mod.replayAllowed(p),false,p);
+ for(const p of allowed)assert.equal(mod.replayAllowed(p),true,p);
+ await withWindow('/service/beans/charge',()=>mod.loadPostHog());assert.equal(calls.init[0].config.disable_session_recording,true);
+ mod.syncReplay('/service/feed');assert.equal(state.started,true);mod.syncReplay('/service/checkout/p1');assert.equal(state.started,false);assert.deepEqual([calls.start,calls.stop],[1,1]);
+});
+test('all media and the phone check dialog are blocked from replay',()=>{
+ const {mod}=load('');
+ const blocked=mod.REPLAY_BLOCK_SELECTOR.split(',');
+ for(const tag of ['img','picture','video','canvas','iframe','input[type="file"]','[style*="url("]'])assert.ok(blocked.includes(tag),tag);
+ assert.equal(mod.REPLAY_BLOCK_CLASS,'ph-no-capture');
+ assert.match(fs.readFileSync('components/crefans/PhoneCheckDialog.tsx','utf8'),/title="휴대폰 번호 확인" className=\{REPLAY_BLOCK_CLASS\}/);
+ // Service media is rendered as <img>/<video>, never as a CSS background that the selector could miss.
+ const walk=dir=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);
+ const offenders=['components/crefans','components/service','components/ui'].flatMap(walk).filter(f=>/backgroundImage|background(-image)?:\s*`?url\(\$\{/.test(fs.readFileSync(f,'utf8')));
+ assert.deepEqual(offenders,[]);
+});
+test('before_send and the replay URL mask strip query strings and hashes',()=>{
+ const {mod}=load('');
+ const event={event:'$pageview',properties:{$current_url:'https://crefans.com/service/reset-password?token=secret#x',$referrer:'https://mail.example/?email=a@b.c',$pathname:'/service/feed',nested:{u:'https://crefans.com/a?b=1'},list:['https://x.test/?q=1']},$set_once:{$initial_current_url:'https://crefans.com/service/login?next=/me'}};
+ const out=mod.beforeSend(event);
+ assert.equal(out.properties.$current_url,'https://crefans.com/service/reset-password');assert.equal(out.properties.$referrer,'https://mail.example/');assert.equal(out.properties.$pathname,'/service/feed');
+ assert.equal(out.properties.nested.u,'https://crefans.com/a');assert.deepEqual(out.properties.list,['https://x.test/']);assert.equal(out.$set_once.$initial_current_url,'https://crefans.com/service/login');
+ assert.equal(event.properties.$current_url.includes('token'),true,'input is not mutated');
+ const mask=mod.posthogConfig('/service/feed').session_recording.maskCapturedNetworkRequestFn;
+ assert.equal(mask({name:'https://crefans.com/service/try?code=1#h'}).name,'https://crefans.com/service/try');
+ assert.equal(mod.beforeSend(null),null);
+});
+test('funnel views, consent, AI generation, caption, publish and signup send PostHog events without changing the server count',()=>{
+ assert.match(fs.readFileSync('features/service/useFunnelStep.ts','utf8'),/reportFunnelStep\(step\);captureEvent\(step\);/);
+ const guest=fs.readFileSync('features/service/useGuestTrialModel.ts','utf8'),studio=fs.readFileSync('features/service/useStudioModel.ts','utf8'),service=fs.readFileSync('features/service/useServiceModel.ts','utf8');
+ for(const name of ['guest_consent_agreed','ai_generation_started','caption_written','post_published'])assert.match(guest,new RegExp(`captureEvent\\('${name}'`));
+ assert.match(guest,/'ai_generation_succeeded':'ai_generation_failed'/);assert.match(studio,/'ai_generation_succeeded':'ai_generation_failed'/);
+ assert.match(studio,/input\.status==='published'&&!input\.id\)captureEvent\('post_published',\{actor:'member'\}\)/);
+ assert.match(service,/if\(result\.success\)captureEvent\('signup_completed',\{actor:'member'\}\)/);
+ assert.doesNotMatch(fs.readFileSync('lib/api/funnel.ts','utf8'),/posthog/i);
+});
