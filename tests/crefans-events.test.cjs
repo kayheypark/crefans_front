@@ -28,7 +28,10 @@ test('beta appreciation content preserves the approved four rewards without inve
   {audience:'전체 회원 · 계정당 1회',title:'프로모션 100콩',details:['전체 회원에게 계정당 한 번, 받기 버튼으로 즉시 지급합니다.','프로모션 콩은 후원받은 사람이 출금할 수 있습니다.']},
   {audience:'전체 회원 · 계정당 1회',title:'오픈 기념 한정판 배지',details:['크레팬스 전체 회원, 받기 버튼으로 오픈 기념 배지를 받아보세요.','받기 버튼을 누르면 프로필에 바로 표시됩니다.','표시 여부는 직접 선택할 수 있습니다.']},
  ]);
- assert.ok(serviceEvents.filter(event=>!['promotion-beans','founding-badge'].includes(event.id)).every(event=>event.schedule.includes('미정')));
+ assert.ok(serviceEvents.filter(event=>!['promotion-beans','founding-badge','creator-advertising'].includes(event.id)).every(event=>event.schedule.includes('미정')));
+ // 2026-11-18: the 2배 event schedule matches its own note (11/16~12/31), no longer '미정'.
+ assert.match(serviceEvents[1].schedule,/2026년 11월 16일부터 2026년 12월 31일까지/);assert.doesNotMatch(serviceEvents[1].schedule,/미정/);
+ assert.ok(serviceEvents[2].notes.flatMap(note=>note.items).some(note=>note.includes('휴대폰 번호 확인이 필요')));
  assert.match(serviceEvents[3].schedule,/받기 버튼.*즉시 지급/);
  assert.ok(serviceEvents[2].notes.flatMap(note=>note.items).some(note=>note.includes('직접 출금하거나 환불받을 수 없습니다')));
 });

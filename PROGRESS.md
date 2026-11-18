@@ -1,3 +1,9 @@
+## 2026-11-18 앱 FAQ·이벤트 문구 현행화 (fix/help-text-sync, 미배포)
+- 사용자 결정(2026-11-18): 앱 FAQ+가이드 일괄 정정. 근거 `.local/night-work/2026-11-18-1016/notes-guide.md`, 서버 origin/prod d0637d3(phone-verification.ts, beans.service.ts:98 100콩 휴대폰 확인, bank-transfer.ts 입금했어요, beans.service.ts:165 입금 확인일 기산).
+- lib/crefans/support.ts: 결제 FAQ(무통장입금 실제 결제, 멤버십 카드만 테스트), 가입 FAQ(휴대폰 번호 확인·번호당 1계정), 콩 유효기간(입금 확인일 기산, 이벤트 100콩 30일·7일 전 알림), '유료 결제 시작' FAQ를 멤버십 카드로 한정, FAQ 3개 추가(휴대폰 확인, 무통장 미반영·입금했어요, AI 하루 무료 횟수). lib/content/events.ts: 2배 이벤트 schedule을 11/16~12/31로(같은 파일 note와 일치), 100콩 참여 방법에 휴대폰 확인.
+- 테스트: tests/support-faq-policy·crefans-events 갱신(옛 문구로 되돌리면 2건 실패 확인), e2e/beta-policy FAQ 정규식 갱신(e2e 미실행). 운영 DB FAQ '베타서비스 준비중'(E4)은 운영 데이터라 미변경.
+- 검증: npx tsc --noEmit 0, npm test 736건 중 718 통과·18 실패(기존 18건과 동일 목록). 운영 배포·dev/prod 병합 안 함.
+
 ## 2026-11-18 가입 완료·가드 화면 아이콘-제목 여백 복구 (fix/signup-complete-spacing, 미배포)
 - 증상: 가입 화면에서 완료 화면으로 이동하면 체크 아이콘과 제목이 붙음(직접 열면 정상).
 - 원인: `.service_root h1{margin-top:0}`이 `.page h1`과 같은 우선순위이고 클라이언트 이동 시 나중에 로드되어 24px 여백을 덮음(devbox 실측 margin 0 → 미리보기 24px).
