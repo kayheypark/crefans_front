@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-18T04:24:35.045787+00:00",
+  "checkedAt": "2026-11-18T04:32:17.655859+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "56d73e56f47d3c13c89d6ad48d5b6960e58cc23f",
+      "head": "ed729c1687801e7c3995b181623f4020e79bb643",
       "branch": "",
       "dirty": false
     },
     "server": {
-      "head": "dade06da0ee9af373e320f91f9d3d8c5c1c49aee",
+      "head": "6f13378827fc528e454e9935f3269603d1fa887f",
       "branch": "",
       "dirty": false
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "80da4514b1e1b280f35bb66c7a5473219b66b64d95c775fda475ca1a3cd236e9",
+      "front/PROGRESS.md": "a3208593547cc8b261ec4b83bc1af524735fed4ecbf0402aca9ba143accf94cf",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "17a62e8140cea7913bb083d5d2e85595923b85f9bac4d8af90d4e2812320a47f",
       "server/AGENTS.md": "904a398cf606b21c59cf64ebc4f78b306f955ed22aea38a9a6f6a8334e16c8f7",
-      "server/PROGRESS.md": "fb5a518780c6a7dd77c81eea584cee31bd2d1a0b8cbe1d96676b53ccbf75e818",
+      "server/PROGRESS.md": "e13c6115ae195b5cf3e27ecb78bcb578e5443355cf3af01bd16d1151559a910c",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
