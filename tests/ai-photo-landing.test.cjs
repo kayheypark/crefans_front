@@ -10,7 +10,7 @@ const text=node=>JSON.stringify(node.toJSON());
 test('hero results come from real presets, the preset browser reuses the editor cards, and the removed sections stay gone',async()=>{
  const fs=require('fs'),sharp=require('sharp');
  // 2026-11-17 user request: hero results made with real presets (Modernia + 지뢰계 + 의자, 코스프레 베이스 + 거울샷, …).
- assert.deepEqual(page.landingLooks.map(item=>item.id),['modernia','gothic','maid','mage','idol']);
+ assert.deepEqual(page.landingLooks.map(item=>item.id),['modernia','gothic','maid','idol','mage']);
  const first=page.landingLooks[0];assert.equal(first.label,'모더니아 코스튬');assert.deepEqual(first.cards.map(card=>card.title),['모더니아 코스튬','지뢰계 메이크업','의자에 앉기']);
  assert.deepEqual(page.landingLooks[1].cards.slice(1).map(card=>card.title),['코스프레 베이스','거울샷']);
  for(const look of page.landingLooks){const meta=await sharp(fs.readFileSync('public'+look.image)).metadata();assert.equal(meta.width,720);assert.equal(meta.height,900);const thumb=await sharp(fs.readFileSync('public'+look.thumb)).metadata();assert.deepEqual([thumb.width,thumb.height],[168,210]);for(const card of look.cards)assert.ok(fs.existsSync('public'+card.image),card.image);}
@@ -45,4 +45,10 @@ test('landing is discoverable: sitemap lists it, llms.txt describes it, the noin
  assert.match(llms,/https:\/\/crefans\.com\/service\/landing-ai-image-generation/);assert.match(llms,/## AI 사진 편집/);
  assert.match(pageSrc,/application\/ld\+json/);assert.match(pageSrc,/'@type':'WebApplication'/);assert.match(pageSrc,/siteName:SITE_NAME/);assert.match(pageSrc,/og-modernia-v1\.jpg',width:1200,height:630/);
  const robots=fs.readFileSync('app/robots.ts','utf8');assert.doesNotMatch(robots,/'\/service\/landing/);
+});
+// 2026-11-19 user request: exact speech-bubble wording over the costume select on the landing and in the editor; idol is the 4th look.
+test('costume select bubble says exactly "니케, 원신, 블루아카이브, 진격거" on the landing and in the editor',()=>{
+ const fs=require('fs');assert.match(fs.readFileSync('lib/crefans/ai-photo-costumes.ts','utf8'),/export const AI_PHOTO_COSTUME_HINT='니케, 원신, 블루아카이브, 진격거';/);
+ for(const f of ['components/service/AiPhotoLanding.tsx','components/crefans/studio/AiPhotoDialog.tsx'])assert.match(fs.readFileSync(f,'utf8'),/<p className=\{[es]\.costumeHint\}>\{AI_PHOTO_COSTUME_HINT\}<\/p>\s*<div className=\{[es]\.costumeCategoryBar\}>/,f);
+ const css=fs.readFileSync('components/crefans/studio/ai-photo.module.css','utf8');assert.match(css,/\.costumeHint\{[^}]*animation:/);assert.match(css,/prefers-reduced-motion:reduce\)\{\.costumeHint\{animation:none\}/);
 });
