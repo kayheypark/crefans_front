@@ -1,3 +1,8 @@
+## 2026-11-18 14:4x KST dev 통합 — feat/posthog (PostHog 분석·세션 리플레이)
+- 사용자 승인(2026-11-18) 직접 통합. origin/dev babd2a8에서 분리 HEAD 작업 트리(crefans_front-dev-posthog)로 --no-ff 병합(0134480). 충돌은 PROGRESS(양쪽 절 유지)·docs/audit/evidence.json(dev 쪽 유지 후 재기록).
+- 검증(2026-11-18 14:4x KST): tsc --noEmit 0, npm test 750 중 732 통과·18 실패(기준선 fail-base2 18건과 동일, 새 실패 0), next build 0(키 없음). CREFANS_SERVER_DIR=서버 dev 트리(2bec901 이전 병합 d04ee06 내용)로 docs:contracts(변경 없음)·docs:record·check:docs PASS(문서 82·라우트 286). 기록 전 check:docs는 병합 변경 파일 17건 증거 만료로 실패(예상된 원인).
+- dev 서버 빌드에는 PostHog 키가 없어 PostHog 미로드가 정상.
+
 ## 2026-11-18 PostHog 분석·세션 리플레이 준비 (feat/posthog, 배포·dev 통합 없음)
 - 사용자 결정(11-18): PostHog Cloud US(프로젝트 745445), 쿠키 저장 + 세션 리플레이, 목적은 퍼널 이탈 파악. 수집은 개인정보처리방침 문안 승인·공개 후 시작(server feat/posthog-policy 초안, 미공개).
 - 구현: `posthog-js` 1.445.1 정확 고정(2026-11-03 배포, 2주 경과; 하위 의존성도 `--before=2026-11-04`로 해석). `lib/analytics/posthog.ts`(설정·허용 경로·URL 정리·이벤트), `components/service/PostHogAnalytics.tsx`를 `/service` 레이아웃에만 장착. /preview·디자인 시스템·명함·관리자 콘솔에는 없음. 빌드 시 `NEXT_PUBLIC_POSTHOG_KEY`가 없으면 posthog-js를 import하지 않음(동적 import), 이벤트도 버림. `NEXT_PUBLIC_POSTHOG_HOST` 기본 https://us.i.posthog.com. 키 하드코딩 없음.
