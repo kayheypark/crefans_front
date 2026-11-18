@@ -34,7 +34,7 @@ export default function LandingPage({model,content,creatorBasePath=model.basePat
       {content.aiPhoto&&<section id="ai-photo" className={s.aiPhoto} aria-labelledby="ai-photo-heading">
         <figure className={s.aiPhotoImage}><img src={content.aiPhoto.image} alt={content.aiPhoto.imageAlt} width={720} height={900} loading="lazy"/><figcaption>가상 인물 · AI 생성 이미지</figcaption></figure>
         <div className={s.aiPhotoCopy}><h2 id="ai-photo-heading">{content.aiPhoto.title}</h2><p>{content.aiPhoto.description.join(' ')}</p><ul>{content.aiPhoto.points.map(point=><li key={point}>{point}</li>)}</ul>
-          <div className={s.actions}><Link className={s.primary} href={content.aiPhoto.trialHref}>로그인 없이 체험하기</Link><a className={s.textAction} href={content.aiPhoto.brochureHref} target="_blank" rel="noopener noreferrer">서비스 소개서 PDF <Icon name="arrow"/></a></div></div>
+          <div className={s.actions}><Link className={s.primary} href={content.aiPhoto.trialHref}>로그인 없이 체험하기</Link>{/* 2026-11-18 SEO fix: crawlable link to the AI photo landing. */}<Link className={s.textAction} href="/service/landing-ai-image-generation">AI 사진 편집 자세히 보기 <Icon name="arrow"/></Link><a className={s.textAction} href={content.aiPhoto.brochureHref} target="_blank" rel="noopener noreferrer">서비스 소개서 PDF <Icon name="arrow"/></a></div></div>
       </section>}
       {steps.length>0&&<section id="membership" className={s.services} aria-label="AI 사진 편집 이용 순서">
         {steps.map(step=><article key={step.title}><Icon name={step.icon}/><div><h2>{step.title}</h2><p>{step.description.join(' ')}</p></div></article>)}
