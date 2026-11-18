@@ -1,3 +1,7 @@
+## 2026-11-18 18:38~18:41 KST 운영 배포 front-franchise-r2-20261118 (게임·애니 의상 제한, prod 085b22a)
+- devbox 빌드(`devbox-release.sh front`): check-transfer OK → 1차 태그 franchise-20261118은 릴리스 검사 문구 grep 불일치(번들에서 가운뎃점이 \xb7로 바뀜)로 자동 롤백 → 검사 수정 후 franchise-r2-20261118 교체 OK(주요 URL·정적·이미지, 안내 문구 3개 번들 포함). 복구본 /Users/ethan/crefans-recovery/20261118/franchise-r2-20261118-front(이전 front-mktreward-20261118), finalize 완료. 실패 시도 이미지·백업 폴더는 운영에서 삭제. API는 먼저 franchise-20261118 배포(서버 PROGRESS).
+- 운영 화면 확인(읽기 전용, 비로그인): 의상 게시물 상세에 후원 버튼 없음·'후원 불가' 안내, 고객센터 FAQ 새 문항 표시. 운영 보정 결과 제한 게시물 8개(모두 공개), 기존 멤버십 전용 의상 게시물 0개.
+
 ## 2026-11-18 게임·애니메이션 의상 AI 사진 — 후원 버튼 숨김·공개 범위 잠금 (feat/franchise-costume-commercial-block)
 - 사용자 결정(2026-11-18): 게임·애니메이션 의상(카탈로그 general 외)으로 만든 사진이 들어간 게시물은 게시물 후원·멤버십 전용 불가(전체 공개만). 서버 짝: crefans_server 같은 브랜치(서버가 판정·강제, 응답 commercialRestricted·미디어 franchiseCostume).
 - 변경: BeanPages TipButton — commercialRestricted면 버튼 대신 흐린 아이콘+'후원 불가'(aria-label·title '게임·애니메이션 의상을 사용한 게시물은 저작권 문제로 후원을 받을 수 없어요.', 콩 기능 꺼짐이면 숨김). ManagementPages 편집기 — 첨부에 franchiseCostume이 있으면 공개 범위를 '전체 공개'로 표시·잠금(hint '게임·애니메이션 의상 사진이 있어 전체 공개로만 올릴 수 있어요.'), 저장 시 accessPlanId·accessLevel null, 후원 체크박스 해제·잠금(설명 문구), 사진을 빼면 원래 선택 복원. ContentPostPreview도 반영. AiPhotoDialog — 게임·애니 의상 선택 시 한 줄 안내 '게임·애니 의상으로 만든 사진은 후원·멤버십 전용 게시물에 쓸 수 없어요.'. lib/crefans/ai-photo-costumes.ts isFranchiseCostume·안내 문구, support.ts FAQ 1줄. 타입 StudioMedia/StudioContent/PostMediaItem/Post 필드 추가.
