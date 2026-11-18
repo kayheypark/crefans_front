@@ -1,3 +1,40 @@
+## 2026-11-19 — 게시 공개 기간 안내 문구·빨간색 강조 (미배포)
+
+- 사용자 선택 확정: 현재 비공개 전환 동작 유지. 안내를 ‘게시하면 피드에 공개돼요. 하지만 하루가 지나면 피드에서 사라져요.’로 변경하고 ‘피드에서 사라져요’만 공통 danger 빨간색 토큰으로 강조.
+- 삭제를 의미하는 ‘완벽히 사라져요’는 사용하지 않음. 아래 비공개 전환·같은 브라우저 가입 후 게시물 연결 설명은 보존.
+- 검증: 원문 치환·강조 span/CSS 소스 assertion 통과(종료 0). 단순 문구·색상 수정으로 브라우저 검사 재실행 없음. 증거 `.local/consent-pink/feed-notice-verification.json`. 이전 시안은 변경 전 문구이며 운영 미배포.
+
+## 2026-11-19 — 비교 이미지 하단 예시 문구 삭제 (미배포)
+
+- 사용자 요청으로 ‘가상 인물 · AI 생성 예시’ 표시 문단과 미사용 heroNote 스타일만 제거. 타이틀·사진+코스튬 비교·하단 동의 버튼 유지.
+- 검증: Python 원문 제거/미사용 스타일 부재 assertion 통과(종료 0). 단순 표시 문구 삭제라 브라우저 검사 재실행 없음. 증거 `.local/consent-pink/note-removal-verification.json`. 기존 스크린샷에는 삭제 전 문구가 있어 현재 시안으로 재사용하지 않음. 운영 미배포.
+
+## 2026-11-19 — 정정: 타이틀 유지·무료 배지 제거 (미배포)
+
+- 직전 ‘소제목’ 해석이 잘못됐음. 최종 사용자 의도: **AI 사진 체험 타이틀 유지**, **로그인 없이 10회 무료 배지 삭제**, 단계 안내 삭제 유지. PageTitle 복원, 사용하지 않는 limit prop 및 배지 스타일 제거. 비교 히어로와 하단 동의 버튼 유지.
+- 검증: `npm run typecheck` 종료 0, Chromium E2E 320/390/1280 3건 통과(API 대역), `title-restored-390.png` 수동 확인. 실행 증거 `.local/consent-pink/title-restored-verification.json`. 운영 미배포. 다음 배포 절차/문서 검사 제한은 이전 기록 참조.
+
+## 2026-11-19 — 상단 소제목·단계 제거 (미배포)
+
+- 사용자 요청으로 맨 위 ‘AI 사진 체험’ 소제목과 01~03 단계 제거. 뒤로 가기와 무료 횟수 배지는 한 줄로 배치, 메인 문구는 h1로 유지. 사진+코스튬→결과 및 핑크 하단 동의 버튼 유지.
+- 검증: `npm run typecheck` 종료 0; `npx playwright test --config .local/consent-pink/playwright.config.cjs` Chromium 320/390/1280 3건 통과(API 대역). 수정 화면 수동 확인. 시안 `.local/consent-pink/simplified-390.png`, 증거 `.local/consent-pink/simplified-verification.json`. 운영 미배포, 전체 문서 증거 만료는 이전 기록 참조.
+
+## 2026-11-19 — 사용자 피드백: 변환 전후 히어로 복원 (미배포)
+
+- 단일 모더니아 사진 대신 **내 사진 + 코스튬 → 코스어가 된 내 모습!** 구성을 복원. 원본 사진 오른쪽 아래에 모더니아 코스튬을 겹치고 오른쪽에 적용 결과를 배치. 기존 랜딩 원본·모더니아 결과와 공용 의상 에셋 재사용(신규 생성 비용 없음).
+- 핑크 강조색, 동의 문구, 하단 고정 버튼 유지. `GuestTrialConsent.tsx`, 전용 CSS 및 기존 E2E의 3개 이미지 로딩·비교 라벨 검사를 갱신.
+- 검증: `npm run typecheck` 종료 0, `npx playwright test --config .local/consent-pink/playwright.config.cjs` Chromium 3/3(320·390·1280), `git diff --check` 종료 0. 실제 로컬 화면 수동 확인. API 대역이며 실운영·실기기 검증 아님. 이번 개정 WebKit 재실행은 하지 않았으며 앞 기록은 이전 단일 히어로 기준.
+- 증거 `.local/consent-pink/comparison-verification.json`, 시안 `.local/consent-pink/comparison-390.png`. 기존 문서 증거 만료는 미해결. 다음: 사용자 배포 요청 시 dev/Jenkins → prod → 운영.
+
+## 2026-11-19 — AI 체험 동의 1안 · 핑크 (로컬 적용, 미배포)
+
+- `feat/consent-pink`, 기준 `6dfbbacbbba18a03d86aa4a43711f002075e2f18`. 모더니아 기존 에셋 재사용, 동의 화면 강조색 #be185d. 본문만 스크롤하고 체크·시작 버튼은 셸 안에서 하단 유지. 동의 원문 4항·버전·요청 계약 유지.
+- `GuestTrialConsent` 공용 화면을 실제 페이지와 AI 사진 카탈로그(기본/시작 중/실패)에서 재사용. 기존 완료 화면은 유지. 시작 예외도 오류 표시 후 재시도 가능.
+- 합격 조건: 320×568·390×844·1280×900에서 버튼 접근 가능, 안내 펼침/스크롤에도 위치 유지, 가로 넘침 없음, 미동의 차단·처리 중 잠금·실패 후 동의 보존, 모더니아 로드 및 핑크 버튼/체크.
+- 검증: Chromium 3건 + WebKit 3건 통과(API 대역). `npm run typecheck`, `npm run check:layers`, 기존 `guest-claim-dialog` 1건, `git diff --check` 통과. 초기 타입 검사는 기존 node_modules의 posthog-js 누락으로 실패했으며, 해당 의존성이 있는 기존 작업본 node_modules를 연결한 후 통과.
+- `check:docs`: 기본 서버 작업본에 파일 누락. `CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-prod-20261118`로 확인하면 파일/계약 누락은 없으나 기존 서버 및 변경 프론트 증거 해시가 만료되어 실패. 광범위 문서 검증 완료로 간주하지 않음.
+- 실행시각·파일 SHA-256·명령 결과: `.local/consent-pink/verification.json`; 화면 증거 `.local/consent-pink/verified-{320,390,1280}.png`. 실제 공급사·운영·실물 휴대폰 검증 아님. 배포 요청 시 dev/Jenkins 검증 → prod → 운영 순서.
+
 ## 2026-11-19 01:00~01:13 KST 계층 규칙 정리·AI 퍼널 단계 — 운영 프론트 layer-20261119
 - 사용자 지시 "고칠점 다 배포까지". 원인: 공유 보고 연결(share-20261119)이 AiPhotoDialog에서 lib/api를 직접 import(AGENTS 136·tests/crefans-contract 위반), 기존에도 AiPhotoDialog·ManagementPages가 fetch 직접 호출. 계약 테스트를 전체로 돌리지 않아 놓침.
 - 변경: types에 reportShare·trackAiPhoto 액션(AiPhotoFunnelStep), useStudioModel(actor member)·useGuestTrialModel(actor guest)·GuestTrialPage가 공급, ManagementPages가 AiPhotoDialog에 props로 전달. 이미지 다운로드는 lib/browser/media-file.ts(fetchImageBlob). 이탈 분석 자동 수정안(replay-fix/20261119-0016, 계층 위반이라 보류)의 퍼널 이벤트 ai_editor_opened·photo_decided·ai_result_shared를 규칙에 맞게 반영(actor·mode만).
