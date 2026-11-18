@@ -2,6 +2,17 @@
 - 사용자 승인(2026-11-18) 직접 통합. origin/dev babd2a8에서 분리 HEAD 작업 트리(crefans_front-dev-posthog)로 --no-ff 병합(0134480). 충돌은 PROGRESS(양쪽 절 유지)·docs/audit/evidence.json(dev 쪽 유지 후 재기록).
 - 검증(2026-11-18 14:4x KST): tsc --noEmit 0, npm test 750 중 732 통과·18 실패(기준선 fail-base2 18건과 동일, 새 실패 0), next build 0(키 없음). CREFANS_SERVER_DIR=서버 dev 트리(2bec901 이전 병합 d04ee06 내용)로 docs:contracts(변경 없음)·docs:record·check:docs PASS(문서 82·라우트 286). 기록 전 check:docs는 병합 변경 파일 17건 증거 만료로 실패(예상된 원인).
 - dev 서버 빌드에는 PostHog 키가 없어 PostHog 미로드가 정상.
+## 2026-11-18 PostHog 녹화에서 공개 이미지 표시 (feat/replay-public-images, 미배포)
+- 사용자 요청: 녹화에서 프리셋 썸네일·랜딩 예시까지 회색 상자로 보여 어떤 프리셋을 골랐는지 알 수 없음.
+- 변경: `/brand/`·`/illustrations/` 공개 파일(및 next/image 변환 URL)만 녹화에 보이게, 회원 미디어(API·blob·data)는 계속 차단. lib/analytics/posthog.ts REPLAY_BLOCK_SELECTOR.
+- 검증: posthog 테스트 8/8(회원 미디어 URL 차단·공개 URL 허용 대조), 운영 랜딩 이미지 27개 모두 공개 경로로 판정(실브라우저 selector 검사), tsc 0, npm test 실패 18건 기준선 동일.
+
+## 2026-11-18 14:5x KST prod 승격 feat/posthog — 운영 프론트 배포는 디스크 부족으로 보류
+- 사용자 승인(2026-11-18). origin/prod에서 분리 HEAD 작업 트리(crefans_front-prod-posthog)로 --no-ff 병합(e29683f, 충돌 없음) + 문서 증거 재기록(a8a064a). git diff origin/dev HEAD: 코드 차이 0(PROGRESS·evidence.json만).
+- 검증: tsc 0, npm test 750 중 732 통과·18 실패(fail-base2와 동일, 새 실패 0), next build 0, CREFANS_SERVER_DIR=서버 prod 트리로 docs:contracts(변경 없음)·docs:record·check:docs PASS(문서 82·라우트 286).
+- dev: Jenkins #38 SUCCESS(front 491b252), 헤드리스 Chrome으로 dev 랜딩(?utm 포함) 로드 시 posthog.com 요청 0·ph_ 쿠키 0(키 없는 빌드).
+- 선행 조건 충족: 서버 처리방침 2026-11-18.posthog.1이 14:57:14 KST 운영 공개·시행(서버 PROGRESS).
+- 보류: deploy-preflight --required-gib 8 → 여유 5.9GB로 미달. 승인된 정리(image-retention --keep 3 --apply: 4개 태그 삭제, builder prune until=24h: 0B) 후 6.5GB로 여전히 미달, API 배포 후 2.8GB. 추가 정리는 사용자 승인 필요하므로 ship-image.sh(front-posthog-20261118) 미실행 → 운영 PostHog 수집은 아직 시작 안 됨.
 
 ## 2026-11-18 PostHog 분석·세션 리플레이 준비 (feat/posthog, 배포·dev 통합 없음)
 - 사용자 결정(11-18): PostHog Cloud US(프로젝트 745445), 쿠키 저장 + 세션 리플레이, 목적은 퍼널 이탈 파악. 수집은 개인정보처리방침 문안 승인·공개 후 시작(server feat/posthog-policy 초안, 미공개).
