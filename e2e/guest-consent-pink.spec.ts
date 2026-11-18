@@ -14,7 +14,7 @@ for(const viewport of [{width:320,height:568},{width:390,height:844},{width:1280
    await route.fulfill({json:{success:true,data,errorMessage:null,errorCode:null}});
   });
   await page.goto('/service/try');
-  const root=page.locator('[data-guest-consent]'),button=root.getByRole('button',{name:'동의하고 체험 시작'}),checkbox=root.getByRole('checkbox');
+  const root=page.locator('[data-guest-consent]'),button=root.getByRole('button',{name:'동의하고 0원체험'}),checkbox=root.getByRole('checkbox');
   if(viewport.width<768)await expect(page.getByRole('navigation',{name:'하단 메뉴',exact:true})).toBeHidden();
   else await expect(page.getByRole('navigation',{name:'사이드 메뉴',exact:true})).toBeVisible();
   await expect(button).toBeDisabled();await expect(checkbox).not.toBeChecked();expect(starts).toBe(0);
@@ -39,3 +39,15 @@ for(const viewport of [{width:320,height:568},{width:390,height:844},{width:1280
   if(viewport.width<768){await root.evaluate(e=>e.removeAttribute('data-guest-consent'));await expect(page.getByRole('navigation',{name:'하단 메뉴',exact:true})).toBeVisible();}
  });
 }
+
+test('모바일 동의 본문 최상단 당김은 공통 새로고침을 실행하고 스크롤 중·짧은 당김은 유지한다',async({browser})=>{
+ const context=await browser.newContext({baseURL:test.info().project.use.baseURL,viewport:{width:390,height:844},hasTouch:true});const page=await context.newPage();
+ await page.route('**/api/v1/**',route=>route.fulfill({json:{success:true,data:new URL(route.request().url()).pathname.endsWith('/bootstrap')?bootstrap:new URL(route.request().url()).pathname.endsWith('/guest/session')?{active:false,limit:10,remaining:10,postHours:24}:{}}}));
+ await page.goto('/service/try');const root=page.locator('[data-guest-consent]'),body=root.locator('[aria-label="체험 안내"]');await expect(root).toBeVisible();await expect(page.locator('#page-content')).not.toHaveAttribute('inert');
+ const gesture=async(dy:number,release=true)=>body.evaluate((node,args)=>{const send=(type:string,touches:object[])=>{const e=new Event(type,{bubbles:true,cancelable:true});Object.defineProperty(e,'touches',{value:touches});node.dispatchEvent(e);};send('touchstart',[{identifier:1,clientX:150,clientY:200}]);send('touchmove',[{identifier:1,clientX:150,clientY:200+args.dy}]);if(args.release)send('touchend',[]);},{dy,release});
+ await page.evaluate(()=>{(window as any).__consentPreserved=true;});await gesture(40);await expect(page.getByText('놓으면 새로고침',{exact:true})).toHaveCount(0);
+ await root.locator('details').evaluate(e=>(e as HTMLDetailsElement).open=true);await body.evaluate(e=>e.scrollTop=100);expect(await body.evaluate(e=>e.scrollTop)).toBeGreaterThan(0);await gesture(130);expect(await page.evaluate(()=>(window as any).__consentPreserved)).toBe(true);await expect(page.getByText('놓으면 새로고침',{exact:true})).toHaveCount(0);
+ await body.evaluate(e=>e.scrollTop=0);await gesture(130,false);await expect(page.getByText('놓으면 새로고침',{exact:true})).toBeVisible();
+ const loaded=page.waitForEvent('domcontentloaded');await body.evaluate(node=>{const e=new Event('touchend',{bubbles:true,cancelable:true});Object.defineProperty(e,'touches',{value:[]});node.dispatchEvent(e);});await loaded;
+ expect(await page.evaluate(()=>(performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming).type)).toBe('reload');await expect(root).toBeVisible();await expect(page.getByRole('navigation',{name:'하단 메뉴',exact:true})).toBeHidden();await context.close();
+});
