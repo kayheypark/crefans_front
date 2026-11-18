@@ -423,3 +423,44 @@ test('2026-11-16 phone at signup: when the server asks, signup stays disabled un
  await act(async()=>button('보냈어요').props.onClick());assert.deepEqual(phoneCalls,[['start','01012345678'],['confirm','01012345678']]);
  assert.equal(submit().props.disabled,false);await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));assert.equal(calls.length,1);act(()=>tree.unmount());
 });
+
+test('2026-11-18 advertising-consent reward: one equal-choice reminder when left unchecked, never when checked or when beans are off',async()=>{
+ const setup=reward=>{const data=model(),calls=[];data.marketingReward=reward;data.account.signupRequirements={identityRequired:false,inviteOnly:false};data.account.agreements=loadTypeScript('components/preview/service/legal-fixtures.ts').previewAgreements;
+  data.accountActions.requestSignupCode=async()=>success('코드 전송');data.accountActions.verifySignupCode=async()=>success('인증 완료');data.accountActions.signup=async value=>{calls.push(value);return calls.length===1&&data.failFirst?failure('잠시 후 다시 시도해주세요.'):success('가입 완료');};return{data,calls};};
+ const button=(tree,name)=>tree.root.findAllByType('button').find(node=>node.children.includes(name));
+ const fill=async tree=>{change(field(tree,'이메일'),'reward@example.invalid');change(field(tree,'비밀번호'),'Beta-test-123!');change(field(tree,'비밀번호 확인'),'Beta-test-123!');change(field(tree,'닉네임'),'혜택');
+  await act(async()=>button(tree,'인증 코드 받기').props.onClick());change(field(tree,'인증 코드'),'123456');await act(async()=>button(tree,'확인').props.onClick());
+  for(const label of['만 19세 이상입니다 (필수)','이용약관 동의 (필수)','개인정보 처리방침 확인 (필수)'])act(()=>tree.root.findAll(node=>node.props.label===label&&typeof node.type!=='string')[0].props.onChange(true));};
+ const submit=tree=>act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+ const dialog=tree=>tree.root.findAll(node=>node.props['data-dialog']==='프로모션 콩 10개를 바로 드려요');
+ const marketingBox=tree=>tree.root.findAll(node=>node.props.label==='광고성 정보 수신 동의 (선택)'&&typeof node.type!=='string')[0];
+ const offer={beans:10,validDays:30,eligible:true};
+ // Unchecked: the reminder opens instead of signing up; declining signs up without consent.
+ {const {data,calls}=setup(offer),tree=mount(pages.SignupPage,data);await fill(tree);
+  assert.equal(marketingBox(tree).props.checked,false,'never pre-checked');assert.equal(marketingBox(tree).props.description,'동의 시 프로모션 콩 10개');
+  await submit(tree);assert.equal(calls.length,0);assert.equal(dialog(tree).length,1);
+  const t=text(tree);for(const phrase of['광고성 정보 수신','30일','언제든 수신을 끌 수','받은 콩은 그대로','아무 제한이 없어요'])assert.match(t,new RegExp(phrase),phrase);
+  const decline=button(tree,'동의 없이 가입'),accept=button(tree,'동의하고 10콩 받기');assert.ok(decline&&accept,'both choices are buttons in the same action row');
+  await act(async()=>decline.props.onClick());assert.equal(calls.length,1);assert.equal(calls[0].marketing,false);assert.equal(dialog(tree).length,0);act(()=>tree.unmount());}
+ // Accepting turns the consent on and signs up with it.
+ {const {data,calls}=setup(offer),tree=mount(pages.SignupPage,data);await fill(tree);await submit(tree);
+  await act(async()=>button(tree,'동의하고 10콩 받기').props.onClick());assert.equal(calls.length,1);assert.equal(calls[0].marketing,true);assert.ok(calls[0].policyVersions.marketing);act(()=>tree.unmount());}
+ // Only once per signup flow: a failed attempt and a second submit go straight to signup.
+ {const {data,calls}=setup(offer);data.failFirst=true;const tree=mount(pages.SignupPage,data);await fill(tree);await submit(tree);assert.equal(dialog(tree).length,1);
+  await act(async()=>button(tree,'동의 없이 가입').props.onClick());assert.equal(calls.length,1);assert.match(text(tree),/잠시 후 다시 시도해주세요/);
+  await submit(tree);assert.equal(calls.length,2);assert.equal(dialog(tree).length,0,'the reminder is not shown a second time');act(()=>tree.unmount());}
+ // Checked: no reminder.
+ {const {data,calls}=setup(offer),tree=mount(pages.SignupPage,data);await fill(tree);act(()=>marketingBox(tree).props.onChange(true));await submit(tree);assert.equal(dialog(tree).length,0);assert.equal(calls.length,1);assert.equal(calls[0].marketing,true);act(()=>tree.unmount());}
+ // Beans off (bootstrap null): no hint, no reminder, nothing promised.
+ {const {data,calls}=setup(null),tree=mount(pages.SignupPage,data);await fill(tree);assert.equal(marketingBox(tree).props.description,undefined);await submit(tree);assert.equal(dialog(tree).length,0);assert.equal(calls.length,1);assert.equal(calls[0].marketing,false);assert.doesNotMatch(text(tree),/프로모션 콩/);act(()=>tree.unmount());}
+});
+
+test('2026-11-18 settings: the advertising toggle is always offered; the first-consent bean hint only while the server says eligible',async()=>{
+ const base=model(),saved=[];
+ const page=(reward,marketingAlert=false)=>mount(pages.SettingsPage,{...base,marketingReward:reward,account:{...base.account,preferences:{...base.account.preferences,marketingAlert},route:{...base.account.route,settingsSection:'notifications'}},accountActions:{...base.accountActions,updateSettings:async input=>{saved.push(input);return success('설정을 저장했어요. 프로모션 콩 10개를 넣어드렸어요.');}}});
+ const toggle=tree=>tree.root.findAll(node=>node.props?.label==='광고성 정보 수신'&&typeof node.type!=='string')[0];
+ let tree=page({beans:10,validDays:30,eligible:true});assert.ok(toggle(tree));assert.match(toggle(tree).props.description,/처음 켜면 프로모션 콩 10개를 드려요\(30일 사용\)/);
+ act(()=>toggle(tree).props.onChange(true));await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+ assert.equal(saved[0].marketingAlert,true);assert.match(text(tree),/프로모션 콩 10개를 넣어드렸어요/,'the server message is shown as the toast');act(()=>tree.unmount());
+ for(const [reward,on] of [[{beans:10,validDays:30,eligible:false},false],[null,false],[{beans:10,validDays:30,eligible:true},true]]){tree=page(reward,on);assert.ok(toggle(tree),'toggle always present');assert.doesNotMatch(toggle(tree).props.description,/프로모션 콩/);act(()=>tree.unmount());}
+});
