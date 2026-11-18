@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-18T08:35:48.886894+00:00",
+  "checkedAt": "2026-11-18T09:17:47.370909+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "482a3140db4b4c6ee7b9ce7bcc257a12fe1c1c9c",
-      "branch": "feat/marketing-consent-reward",
-      "dirty": false
+      "head": "a0f1ba9a5cfeda2da642915912952be6d3929339",
+      "branch": "docs/devbox-release",
+      "dirty": true
     },
     "server": {
-      "head": "43cf3a6f7069193936d52121ae269ff2876abe8a",
-      "branch": "feat/marketing-consent-reward",
-      "dirty": false
+      "head": "c041cd3747eeaa3cafea8d3d1e998f65dfe52f3c",
+      "branch": "docs/devbox-release",
+      "dirty": true
     }
   },
   "state": {
     "documents": {
-      "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "48b25ed7d99b3807aa779fc78eaf4f4b21e5a2ae4fca8d6b9f4b4a3067b8db11",
+      "front/AGENTS.md": "e92d20bedf95219db7967271448c5ea049be456c0d517f4ec9f9c85dcc104a2c",
+      "front/PROGRESS.md": "332eef64e1d050b59abcfb56c731883fb0c0b4dc981a689f9a56dad49f68b9c4",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -83,8 +83,8 @@
       "front/public/illustrations/creators/gaming-broadcast-v2-prompt.md": "f91db90a4e1963d0d5de225f3f71680cf133d2b97fdad51a6d488fd99e87d20e",
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "17a62e8140cea7913bb083d5d2e85595923b85f9bac4d8af90d4e2812320a47f",
-      "server/AGENTS.md": "904a398cf606b21c59cf64ebc4f78b306f955ed22aea38a9a6f6a8334e16c8f7",
-      "server/PROGRESS.md": "f44a422b05f7d3a872f381a054a6f7b11cadb0e4724b34baf1cc389f569b0165",
+      "server/AGENTS.md": "22e59f161f2db658c9a15384359e1662ae0c72a00cafc4306bb0bb68cdb419f0",
+      "server/PROGRESS.md": "52aaa730000ae04cce8c8b076cbb71eba90892d3d3a6bbd35499bb93e4974de1",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -118,7 +118,7 @@
       "server/docs/terms-amendment-ai-positioning-draft-20261116.md": "a88ca78a06a61f62e0270731a2d1b375f78f51f70ad4ee5aa7c229ed9496b847",
       "server/docs/terms-draft-20261030.md": "1cca2dab6954932d9771d2d518b35510981b668becdbae6207085b5483265942",
       "server/docs/video-processing-cost-analysis.md": "fc3498863d51afdb158c670b708290b60b5077d280b9ce0f1c83442ca493fdd6",
-      "server/infra/platform/README.md": "88af653d9ea6818caac44b9d7d011746398aab9c79a10797e943d86789745edd",
+      "server/infra/platform/README.md": "a6d05a7863a66d9edc531feb7287e57e6b48d465c43f7f15f37db9d83ffe58bf",
       "server/infra/platform/backup-alerts/README.md": "a88e21ed3aacd29edf20efb81ac7141c5e5b967cdab66cd7b375f138cac6e17a",
       "server/infra/platform/resilience-runbook.md": "21a10144edbf8645bdd547e78776014a467a0e28a3c37777efcc4977f93dfd35",
       "server/lambda/custom-message/README.md": "a28d7e8506634078412940aaace8c6cedec92a21ffc16a638d73d561963e0024",

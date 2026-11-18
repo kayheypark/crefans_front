@@ -1,3 +1,7 @@
+## 2026-11-18 운영 front 이미지 빌드를 devbox로 이전 (docs/devbox-release, 운영 변경 없음)
+- 사용자 지시: 운영 이미지는 개발 PC에서만 빌드. `ship-image.sh`(맥 빌드)는 더 쓰지 않고 devbox `~/crefans-release/bin/front.sh`가 같은 검사(빌드 env NEXT_PUBLIC_* ARG 확인, 카카오·PostHog 키 번들, server.js·static·public·sharp-linux-x64, 운영 사전 검사·전송·교체·복구본)를 수행한다. 상세·검증 수치는 server `PROGRESS.md` 같은 날 항목.
+- 검증: prod a0f1ba9 `--build-only` 빌드 112s(맥 기록 61~64s), 압축 301.5MB, 키 2종 번들 포함; `--check-transfer` 301.5MB 3s 운영 해시 일치. 운영 frontend 불변.
+
 ## 2026-11-18 가입 시 광고성 정보 수신 동의 혜택 모달·설정 안내 (feat/marketing-consent-reward)
 - 사용자 지시(2026-11-18): 체크 해제 후 가입하면 한 번 콩 이미지 모달('프로모션 콩 10개를 바로 드려요'), 설정에서 언제든 켜고 끄기. 서버 짝: crefans_server feat/marketing-consent-reward(첫 동의 1회 10콩·30일).
 - SignupPage: bootstrap `marketingReward`(서버, 콩 꺼짐이면 null)가 있을 때만 체크박스 아래 '동의 시 프로모션 콩 10개' 표시. 미체크로 제출하면 가입 흐름당 1회 Dialog(illustration /brand/events/open-beta-v2/beans.webp, 본문: 전송자·광고성 정보 수신·30일·출금/환불 불가·설정에서 끌 수 있고 꺼도 콩 유지·거부해도 제한 없음, 동의 전문 펼치기) — '동의 없이 가입'(marketing:false로 진행)과 '동의하고 10콩 받기'(체크 후 marketing:true로 진행)를 같은 크기 버튼으로 나란히. 닫기·재제출 시 다시 묻지 않음. 기본 체크 없음 유지.

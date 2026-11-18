@@ -182,6 +182,7 @@ style: 공통 컴포넌트 코드 포맷 정리
 
 - 콩 후원은 server `docs/platform-implementation.md`의 콩 확장 설계를 따른다. 구형 Wallet/Transfer와 신규 Bean 원장을 자동 혼합하지 않고, 충전·후원·출금은 중복 집계하지 않는다. 공유 지갑/후원/출금과 독립 콘솔은 연결되어 있다. 기능/live 판매 기본 off 및 실공급자 미확인 경계·배포 상태는 PROGRESS.md에서 확인한다.
 
+- 2026-11-18 사용자 지시: 운영 이미지(front·api·admin)는 집 개발 PC(devbox)에서만 빌드한다. 맥에서 `infra/platform/ship-image.sh`로 운영 이미지를 빌드하지 않는다(맥 빌드 금지). 실행은 맥 `crefans_server/.local/release-tools/devbox-release.sh front <tag> [--build-only|--check-transfer]`, 빌드 값은 devbox `~/.crefans/frontend-build.env`(600). 절차·검사는 server `infra/platform/README.md` devbox 절과 devbox `~/crefans-release/README.md`. 아래 맥 빌드 관련 문장은 devbox 빌드에도 같은 원칙(사전 여유공간·소스 해시 대조·복구본 외부 보관)으로 적용한다.
 - 운영 이미지 빌드 전 `python3 infra/platform/deploy-preflight.py`로 여유공간(기본8GiB)·Docker 연결을 확인한다. 프론트/API는 순차 빌드하고 이미지 내부 소스 해시를 대조한다. 배포 압축은 가능하면 스트리밍하고 과거 생성 아카이브·오래된 미사용 빌드 캐시만 정리한다. DB 볼륨은 삭제하지 않는다. 복구 자료는 아래 운영 외부 보관 규칙을 따른다.
 - 2026-10-29: 배포 후 `osascript -e 'quit app "Docker"'`로 Docker Desktop을 끄지 않는다. 두 번 연속 반쯤 멈춘 상태로 남아 다음 `docker info`/빌드가 걸렸다. 걸리면 Docker 프로세스를 강제 종료 후 `open -a Docker`로 재시작하고, `docker` 호출은 시간 제한(예: `perl -e 'alarm 8; exec @ARGV' docker info`)을 둔다.
 - 2026-11-04 사용자 지시: 복구용 이미지·DB/설정 배포백업을 운영 서버에 장기 보관하지 않는다. 운영 밖 비공개 저장소(현재 `/Users/ethan/crefans-recovery`, 디렉터리700/파일600)에 먼저 전송하고 SHA-256·아카이브 무결성·이미지 태그/ID를 검증한 뒤 서버 사본을 정리한다. 운영에는 컨테이너가 사용하는 이미지와 진행 중 배포에 필요한 일시 자료만 둔다. 사용 중 이미지·볼륨·실제 설정·업로드는 삭제 금지. 복구는 외부 아카이브 재전송/docker load로 수행한다. 전송 또는 검증 실패 시 원본 보존. 예전 keep3 운영 보관 지침은 폐기한다.
