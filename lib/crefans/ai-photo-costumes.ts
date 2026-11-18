@@ -411,3 +411,5 @@ const costumeGenderById=new Map(Object.entries(costumeGenderIds).flatMap(([gende
 export function aiPhotoCostumeGender(costume:Pick<AiPhotoCostume,'id'|'category'>):AiPhotoCostumeGender|undefined{
  return costumeGenderByCategory[costume.category]??costumeGenderById.get(costume.id);
 }
+// 2026-11-19 user request: speech-bubble hint over the costume category select (editor and landing), exact wording.
+export const AI_PHOTO_COSTUME_HINT='니케, 원신, 블루아카이브, 진격거';

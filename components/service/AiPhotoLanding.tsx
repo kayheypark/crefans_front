@@ -10,7 +10,7 @@ import {AiPresetPager} from '@/components/crefans/studio/AiPresetPager';
 import e from '@/components/crefans/studio/ai-photo.module.css';
 import {aiPhotoKinds,aiPhotoPresetText} from '@/lib/crefans/ai-photo';
 import {AI_PHOTO_KEEP_ORIGINAL,aiPhotoMakeupGender,aiPhotoPresetImage,aiPhotoPresetMatches,aiPhotoPresetPage,aiPhotoPresetTitle,aiPhotoPresets,type AiPhotoBackgroundCategory,type AiPhotoPosePosture} from '@/lib/crefans/ai-photo-presets';
-import {aiPhotoCostumeCategories,aiPhotoCostumes,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
+import {aiPhotoCostumeCategories,aiPhotoCostumes,type AiPhotoCostumeCategory,AI_PHOTO_COSTUME_HINT} from '@/lib/crefans/ai-photo-costumes';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 import {designVariables} from '@/lib/design/tokens';
 import {saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
@@ -26,8 +26,9 @@ const looks:{id:string;costume:string;presets:LookPreset[]}[]=[
  {id:'modernia',costume:'4a0c8f',presets:[{kind:'makeup',title:'지뢰계 메이크업'},{kind:'pose',title:'의자에 앉기'}]},
  {id:'gothic',costume:'ffb58f',presets:[{kind:'makeup',title:'코스프레 베이스'},{kind:'lens',title:'거울샷'}]},
  {id:'maid',costume:'773106',presets:[{kind:'makeup',title:'인형 메이크업'},{kind:'pose',title:'손하트'}]},
- {id:'mage',costume:'666147',presets:[{kind:'expression',title:'환한 미소'},{kind:'pose',title:'양팔 벌려 서기'}]},
+ // 2026-11-19 user request: 아이돌 무대복을 네 번째로(마지막에서 앞으로).
  {id:'idol',costume:'e614f6',presets:[{kind:'pose',title:'브이'},{kind:'camera',title:'로우 앵글'}]},
+ {id:'mage',costume:'666147',presets:[{kind:'expression',title:'환한 미소'},{kind:'pose',title:'양팔 벌려 서기'}]},
 ];
 const presetByTitle=(kind:AiPhotoKind,title:string)=>{const example=aiPhotoPresets[kind].find(item=>aiPhotoPresetTitle(kind,item)===title);if(!example)throw new Error(`landing preset missing: ${kind} ${title}`);return example;};
 /** Hero results with the real catalog entries behind them; a renamed or removed preset fails loudly instead of showing a stale card.
@@ -98,6 +99,7 @@ export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string
   <div className={e.presetSearch}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" aria-label="프리셋 검색" placeholder={kind==='outfit'?'의상 이름·작품 검색':`${landingKinds.find(item=>item.value===kind)!.label} 프리셋 검색`} value={query} onChange={event=>search(event.target.value)}/>{query&&<button type="button" aria-label="검색어 지우기" onClick={()=>search('')}>×</button>}</div>
   {kind==='outfit'?<div role="tabpanel" aria-label="코스튬 프리셋" className={e.wardrobe}>
    <div className={e.wardrobeHeading}><h3>어떤 의상을 입어볼까요?</h3></div>
+   <p className={e.costumeHint}>{AI_PHOTO_COSTUME_HINT}</p>
    <div className={e.costumeCategoryBar}><SelectField className={e.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);search('');}} options={aiPhotoCostumeCategories.map(item=>({value:item.value,label:item.label,image:item.image}))}/><span>{query.trim()?'전체 의상 검색':category.group} · {costumes.length}종</span></div>
    <AiPhotoWardrobe key={`${costumeCategory}-${query}`} items={costumes} selectedPrompts={picked.outfit||[]} disabled={false} onPick={value=>{const text=aiPhotoPresetText(value);setPicked(previous=>({...previous,outfit:(previous.outfit||[]).includes(text)?[]:[text]}));}}/>
   </div>:<div role="tabpanel" aria-label={`${landingKinds.find(item=>item.value===kind)!.label} 프리셋`} className={e.presets}>
