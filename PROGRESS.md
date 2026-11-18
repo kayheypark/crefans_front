@@ -1,3 +1,26 @@
+## 2026-11-19 — 가슴·힙 보정 아이콘 재디자인 (미배포)
+
+- AiBodyAdjustments의 가슴 아이콘은 앞면 상체+핑크 가슴 강조, 힙 아이콘은 뒷면 골반+보라색 곡선 강조로 교체. 기존 24px 플랫 SVG 방식 유지해 확대 시 선명하며 신규 이미지 생성 비용 없음. 키/근육/어깨 아이콘·슬라이더 동작 유지.
+- 검증: `npm run typecheck` 종료0. 실제 컴포넌트를 SSR 렌더링한 격리 Chromium 미리보기에서 24px 및 확대 아이콘 수동 확인. `.local/body-icons/preview.png`, `preview.cjs`, `verification.json`. 실제 편집 모달 전체 흐름 검증은 아님.
+- 말풍선 흰색·디아블로 마지막 순서 변경과 함께 개발/운영 미배포.
+
+## 2026-11-19 — 의상 셀렉트박스 디아블로 맨 아래 이동 (미배포)
+
+- 공용 aiPhotoCostumeCategories의 디아블로 항목을 마지막으로 이동. 편집기·랜딩 셀렉트박스에 공통 적용. 다른 8개 순서·카테고리 값·의상 데이터 유지.
+- 소스 검사: 전체9개 유지, 디아블로 마지막, 나머지 상대 순서 동일 assertion 통과. 증거 `.local/consent-pink/category-order-verification.json`. 단순 순서 변경으로 브라우저 검사 추가 없음. 말풍선 흰색 수정과 함께 개발/운영 미배포.
+
+## 2026-11-19 — 의상 안내 말풍선 흰색 글자 수정 (미배포)
+
+- ‘어떤 의상을 입어볼까요?’ 아래 파란 말풍선은 기존 costumeHint 흰색보다 `.editor .wardrobe p` 회색 규칙의 우선순위가 높아 편집기에서 회색으로 표시됨. 해당 말풍선 선택자만 우선순위를 높여 흰색을 유지. 일반 설명·랜딩 글자색은 유지.
+- 실제 ai-photo.module.css를 사용한 격리 Chromium DOM 검사: 수정 전 editor rgb(100,116,139) 재현, 수정 후 editor·landing rgb(255,255,255), 일반 설명 rgb(100,116,139) 보존. 종료0. 전체 앱/운영 검증은 아님.
+- 증거 `.local/consent-pink/hint-color-verification.json`, 실행 `.local/consent-pink/check-hint-color.cjs`. 개발/운영 미배포.
+
+## 2026-11-19 01:50 KST — 0원체험 문구·당겨 새로고침 개발 반영 완료
+
+- 기능f38e532 → dev 통합a35bb805c3b0720acd14a1cf01af9b20d993ed59. origin/dev·github/dev 동기화, 통합 타입 검사 종료0. 공식 devbox deploy-dev.sh front 직접 실행 종료0, 빌드/스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-014741.log`, last-success SHA 일치.
+- 실제 https://www-dev.crefans.com/service/try Chromium390×844·터치 환경에서 ‘동의하고 0원체험’ 문구 및 기존 비노출/하단 버튼 확인. 합성 당김→안내→release 후 navigation type reload 검증 통과. 최초 검사는 체크박스 포커스로 공통 입력 보호가 작동해 실패했고 blur 후 재검증 통과(제품 변경 없음). 실물 손가락 제스처는 미검증.
+- 증거 `.local/consent-pink/dev-refresh-check.json`, `dev-refresh.png` 및 `verify-refresh.cjs`(기능 작업본). AI 생성·결제 요청 없음. 운영 배포 안 함. Jenkins 정기 실행과 동일 스크립트 직접 배포이며 별도 Jenkins 결과는 확인하지 않음.
+
 ## 2026-11-19 — 버튼 문구 정정: 동의하고 0원체험 (미배포)
 
 - 사용자 최종 문구 ‘동의하고 0원체험’으로 버튼 및 E2E 선택자 변경. 이전 ‘영원 체험’ 기록을 대체. 처리 중 문구와 동작 유지.
