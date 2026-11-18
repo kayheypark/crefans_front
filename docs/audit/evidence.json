@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-18T16:09:17.990311+00:00",
+  "checkedAt": "2026-11-18T16:36:13.525493+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "83aaedbb35b54fa67a3e69a0102fccba38b447b8",
+      "head": "4fc52ed4d7fc1a2f3807de7b4a5b9e327934484f",
       "branch": "",
       "dirty": false
     },
     "server": {
-      "head": "bd719902409da57a412df01f3208c0eab6061ec6",
+      "head": "e4583d71263fb11135fe905c533c3fba5ce5dd39",
       "branch": "",
       "dirty": false
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "8729db2bb5fea18241306baa39fdaeff9ca332ebecf785b88eec6f2a6aa5faf8",
+      "front/PROGRESS.md": "62307a4066d1ff159292fb1c9555222e598673c51bfefcc5922b29cfd1443d73",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -743,7 +743,7 @@
       "front/infra/platform/deploy-preflight.py": "363ffd665856b7afe1fdffd080b6c43079a6cfe669da44a5df1a282df67801da",
       "front/infra/platform/image-retention.py": "270fee56db7bd1f50d64da199c1d873a5034b5be94c34437cf93c97696c17600",
       "front/lib/AntdRegistry.tsx": "37ee1b3ccd31febc3e2ed403b8a1899efcd5e7c5ae65ba21da8b8c4a7ec2d5a3",
-      "front/lib/analytics/posthog.ts": "3f4d9e5b132e50cc784a11ca2fa83763994da6f76cd040802a723d09b86ce66b",
+      "front/lib/analytics/posthog.ts": "35a2c24aea017a4056ea23e191d8833a2262518acaa06fe22ee0684ec940f6cc",
       "front/lib/api/advisor.ts": "0d99e3f487fe69f1dd76594c5dd22d244e4e97e10fb6367ccf80de9e055dedff",
       "front/lib/api/auth.ts": "4a2a5991f9da503b87edac10fdbfba9a629caadfa2373c2d7f73a5cb335e9753",
       "front/lib/api/billing.ts": "bd888539e42009d1d56adcb135a5b88a3e901dfb76136b21c248a7380c1910d9",
@@ -931,7 +931,7 @@
       "front/tests/post-share.test.cjs": "d5ace10101c56dd7f7e7ff5b285e222d858471438e4bc400f4daf9048a1865bd",
       "front/tests/post-support-visibility.test.cjs": "1f391007b710fec570a62bd04da504d967b7bfd803a32246333d4c8ae472b22d",
       "front/tests/post-views.test.cjs": "810520d757b92df136fb0c5d2ff720045a7212418a4a8f400bc6eae764235178",
-      "front/tests/posthog.test.cjs": "64b559a87b9122bda4f00cf398cb9c3711bd43f6a26332be7eec506709a7fc3f",
+      "front/tests/posthog.test.cjs": "31f3888a41521e88e570621831955bbd955f48bfde8e77f0495470cd4afc5c15",
       "front/tests/preview-access.test.cjs": "34973f67c12f462afa1f04a7ae4a9bdfb55054fd094e81de37c6fd7326525f60",
       "front/tests/preview-login-route.test.cjs": "d43f08d1c24d37e5d5344908eac28433b2c06f2bdc0c88882a35d62be3a36c3a",
       "front/tests/profile-media-tab.test.cjs": "ddca73aad1b9d7015ab6f26e631dfcc43d2d82d6d57a28980b2e109091fe0200",
@@ -1334,7 +1334,7 @@
       "server/src/platform/identity.controller.ts": "75c26a2fc5fdf824d29ebe46d5b334c531ab4584790023dc0ccbf76642011330",
       "server/src/platform/inicis-billing.ts": "6f8d20588af562da2c3125e70e8ecde3ff274ecc63d5c489a65d0941663b0ea8",
       "server/src/platform/jobs.service.ts": "71147e6b1de7a6a7a2495e9a35f133fda946381c4d04098ad2888cd0a03729d8",
-      "server/src/platform/legal-documents.ts": "e397cb920614b81a9c8f8487f9115c1dd50031c6dc9297e8f4cc17bf277f0fa8",
+      "server/src/platform/legal-documents.ts": "6c24e2c0eae7e7ac9421aecd288dd50b78bb0e0bbf9992d6939c5dc18786cb0a",
       "server/src/platform/main.ts": "d61ee75b7f8c146e8d5e09e81e57fce5f6d61cf3af6d9ed72dc3f57404558d9f",
       "server/src/platform/marketing-reward.ts": "cdc78003e9ce9167ad4e15b1ba51e831e80767d88c2354017e80e4da4ee3aeae",
       "server/src/platform/marketing.controller.ts": "a09e8057aa2e19e0faa8f330b1bf2887fde14541496d703f4caa9626172b598b",
@@ -1482,7 +1482,7 @@
       "server/tests/platform-guide-advisor.test.cjs": "edd2d9643ce975e29282c3aeea73c627b986a1ed8bf500c705aee3560e9c99e0",
       "server/tests/platform-handle-unify.test.cjs": "197d118455a196c09663d7ac7163c8af3b41bc960269a8681e4e65fe90e70252",
       "server/tests/platform-jobs.test.cjs": "52a3d4c35f1abc05ad991f50c75469f548f9e342433d90d27512534d80b0308f",
-      "server/tests/platform-legal.test.cjs": "99faa37f1775d7936138dd63123d1f7f96fd63b23b81e81de9d796b2e74bda0a",
+      "server/tests/platform-legal.test.cjs": "66b2e98645daff27a9e71ab74533be00891503e8c3bc1770a9184053d367cb6d",
       "server/tests/platform-log-config.test.cjs": "3f51cbb8743cce0b5a93d2e03ea458f2f102039a6e5b7db0613ba934af8e72d1",
       "server/tests/platform-mail.integration.test.cjs": "a637580ef18796ed8cd0af92e3d89470813035800ab13d90061a251210ccc8ca",
       "server/tests/platform-manual-payouts.test.cjs": "236128d0a67a45ff9a13a3ad5f03e9f0822a69c47524c44cc0d415e91fe4a920",
