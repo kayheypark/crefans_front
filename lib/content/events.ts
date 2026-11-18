@@ -176,7 +176,7 @@ export const serviceEvents:readonly ServiceEvent[]=[
   ...campaign,
   "id": "founding-badge",
  "title": "오픈 기념 한정판 배지 이벤트",
- "summary": "크레팬스 전체 회원, 받기 버튼으로 오픈 기념 배지를 받아보세요.",
+ "summary": "크레팬스 전체 회원, 받기 버튼으로 오픈 기념 한정판 배지를 받아보세요.",
  "theme": "badge",
  "schedule": "로그인한 뒤 받기 버튼을 누르면 배지가 즉시 지급됩니다. 계정당 한 번 받을 수 있으며 표시 여부는 직접 선택할 수 있습니다.",
  "banner": {
@@ -193,7 +193,7 @@ export const serviceEvents:readonly ServiceEvent[]=[
    "title": "오픈 기념 한정판 배지",
    "image": "/brand/events/open-beta-v2/badge.webp",
    "details": [
-    "크레팬스 전체 회원, 받기 버튼으로 오픈 기념 배지를 받아보세요.",
+    "크레팬스 전체 회원, 받기 버튼으로 오픈 기념 한정판 배지를 받아보세요.",
     "받기 버튼을 누르면 프로필에 바로 표시됩니다.",
     "표시 여부는 직접 선택할 수 있습니다."
    ]

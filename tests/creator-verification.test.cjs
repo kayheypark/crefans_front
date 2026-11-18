@@ -52,9 +52,9 @@ test('preview badge recipients match their comment and profile identities withou
 
 test('on the profile each badge is a button that shows its short meaning when clicked; elsewhere badges stay plain images',()=>{
  let view;act(()=>{view=create(React.createElement(CreatorName,{person:{name:'원년 작가',isVerified:true,isFoundingMember:true},explain:true}));});
- const buttons=view.root.findAllByType('button');assert.deepEqual(buttons.map(b=>b.props['aria-label']),['인증 크리에이터 배지 설명','오픈 기념 배지 설명']);
+ const buttons=view.root.findAllByType('button');assert.deepEqual(buttons.map(b=>b.props['aria-label']),['인증 크리에이터 배지 설명','오픈 기념 한정판 배지 설명']);
  assert.equal(view.root.findAllByProps({role:'tooltip'}).length,0);
- act(()=>buttons[1].props.onClick());const tip=view.root.findByProps({role:'tooltip'});assert.equal(tip.children.join(''),'크레팬스 오픈을 기념하는 배지예요.');
+ act(()=>buttons[1].props.onClick());const tip=view.root.findByProps({role:'tooltip'});assert.equal(tip.children.join(''),'오픈 기념 한정판 배지: 크레팬스 오픈을 기념하는 배지예요.');
  act(()=>buttons[1].props.onClick());assert.equal(view.root.findAllByProps({role:'tooltip'}).length,0,'a second click closes it');
  act(()=>buttons[0].props.onClick());assert.match(view.root.findByProps({role:'tooltip'}).children.join(''),/크레팬스와 파트너 계약을 맺은 크리에이터/);
  view.unmount();

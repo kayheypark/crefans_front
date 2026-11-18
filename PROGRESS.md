@@ -1,3 +1,9 @@
+## 2026-11-18 앱 FAQ·배지 문구 동기화 (fix/copy-sync-20261118)
+- 사용자 결정(/pilot-work 2026-11-18, .local/pilot-work/2026-11-18-consistency.md 1·6·8항). 서버 약관 2026-11-18.beans.1(server feat/terms-bean-fee-expiry)과 같은 날 배포.
+- FAQ(lib/crefans/support.ts): 콩 유효기간 — 100콩과 '광고성 정보 수신에 처음 동의해 받은 프로모션 10콩'은 30일·7일 전 안내 / 수수료·출금 — '후원받은 콩은 출금할 때 20%를 공제하고 최소 1,000콩부터, 은행 이체 수수료는 플랫폼 부담' 추가 / 광고 메일 — '설정에서 광고 메일 수신을 끄거나' → '설정 → 알림 설정에서 '광고성 정보 수신'을 끄거나'.
+- 배지 명칭 '오픈 기념 한정판 배지'로 통일: FoundingBadgeClaim 제목, CreatorName 설명 버튼·툴팁·title, events.ts 요약 2곳(코드 식별자 그대로).
+- 고치지 않음: SignUpModal.tsx(/home 리다이렉트로 미도달)·creator-center/settings(307)·preview legal-fixtures의 '마케팅' 문구, landing.ts '의상 300종' 홍보 줄(수익화 약속 없음).
+- 검증: tsc 0, npm test 738/756(실패 18 = 기존 기준 목록과 동일, 새 실패 0; support-faq-policy에 새 문구·'마케팅' 없음 단언 추가), docs:record·check:docs PASS(server 작업트리 기준, snapshot-only), 대조: 기록 후 support.ts 변경 시 check:docs 'Evidence expired' 실패.
 ## 2026-11-18 PostHog 녹화 흰 화면 — Safari에서 랜딩 → /service/try 이동 후 화면 누락 (fix/replay-blank-trial, 운영 미배포)
 - 증상(사용자 녹화): /service/landing-ai-image-generation 에서 '로그인 없이 무료 체험'(클라이언트 이동) 직후부터 /service/try 녹화가 모바일 폭 전체 흰 화면, 이후 일부 모달만 보임.
 - 원인(재현 확정): posthog-js 1.445.1 녹화기(rrweb 포크, 1.450.1도 동일 코드)가 WebKit/Safari에서 ShadowRoot.getSelection 부재로 프로토타입을 '오염'으로 판정 → 숨은 iframe[__rrwebUntaintedPrototype](rr-block ph-no-capture)을 body 끝에 남기고, 이 iframe은 녹화 미러에 없음(id -1). 이동 시 새 페이지 루트(service_root)가 이 iframe 바로 앞에 삽입되면 다음 형제를 못 찾아 하위 노드 전체를 버림(콘솔 `[rrweb] dropped 146 node(s) with unresolved parent at emit`, 이후 변경도 연쇄 누락) → 다음 전체 스냅숏(무활동 후 재개 등) 전까지 흰 화면. Chrome에서는 iframe이 제거돼 재현 안 됨.
