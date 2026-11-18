@@ -1,3 +1,8 @@
+## 2026-11-18 랜딩 방문 텔레그램 알림 — 유입 출처 전송 (feat/landing-visit-alert)
+- 사용자 지시 "랜딩페이지에 누가 들어오면 텔레그램으로 알림" + "배포해". 서버(feat/landing-visit-alert)가 landing_view 집계 시 운영 텔레그램 '랜딩 방문'을 보냄.
+- 변경: lib/api/funnel.ts — landing_view에만 외부 referrer의 호스트 이름(`new URL(document.referrer).hostname`, 같은 사이트·비http 제외, 전체 URL·경로·쿼리 안 보냄)과 utm_source(`^[A-Za-z0-9_.-]{1,40}$`만)를 함께 보냄. 탭(세션)당 1회·오류 무시는 그대로, 다른 단계는 step만.
+- 검증: tests/funnel.test.cjs 4/4(외부 호스트·utm 전송, 같은 사이트·잘못된 utm·깨진 referrer 미전송, 다른 단계 step만). 대조: funnel.ts를 되돌리면 새 테스트 실패. tsc 0, npm test 733/751(실패 18건 = 기존 기준선과 동일 목록).
+
 ## 2026-11-18 PostHog 녹화에서 공개 이미지 표시 (feat/replay-public-images, 미배포)
 - 사용자 요청: 녹화에서 프리셋 썸네일·랜딩 예시까지 회색 상자로 보여 어떤 프리셋을 골랐는지 알 수 없음.
 - 변경: `/brand/`·`/illustrations/` 공개 파일(및 next/image 변환 URL)만 녹화에 보이게, 회원 미디어(API·blob·data)는 계속 차단. lib/analytics/posthog.ts REPLAY_BLOCK_SELECTOR.

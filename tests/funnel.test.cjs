@@ -1,8 +1,8 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),ts=require('typescript');
 // 2026-11-18: funnel view steps are sent once per tab session, carry only the step name, and fail silently.
-function load(storage){
+function load(storage,page={}){
  const code=ts.transpileModule(fs.readFileSync('lib/api/funnel.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText,calls=[],module={exports:{}};
- new Function('module','exports','fetch','window',code)(module,module.exports,async(url,options)=>{calls.push({url,options});throw Error('offline');},{sessionStorage:storage});
+ new Function('module','exports','fetch','window','document',code)(module,module.exports,async(url,options)=>{calls.push({url,options});throw Error('offline');},{sessionStorage:storage,location:{hostname:'crefans.com',search:page.search||''}},{referrer:page.referrer||''});
  return{...module.exports,calls};
 }
 const memory=()=>{const map=new Map();return{getItem:k=>map.has(k)?map.get(k):null,setItem:(k,v)=>map.set(k,String(v))};};
@@ -20,4 +20,14 @@ test('the landing, consent screen and live signup form report their step',()=>{
  assert.match(fs.readFileSync('components/service/AiPhotoLanding.tsx','utf8'),/useFunnelStep\('landing_view'\)/);
  assert.match(fs.readFileSync('components/service/GuestTrialPage.tsx','utf8'),/useFunnelStep\('guest_consent_view',!model\.signedIn&&!done&&guest\.session\?\.active===false\)/);
  assert.match(fs.readFileSync('components/service/ServiceRouter.tsx','utf8'),/useFunnelStep\('signup_view',!loading&&!model\.signedIn&&screen==='signup'&&id!=='complete'\)/);
+});
+// 2026-11-18 랜딩 방문 알림: only the external referrer host and utm_source go with landing_view; never the full URL.
+test('landing_view carries only an external referrer host and a valid utm_source',async()=>{
+ const first=load(memory(),{referrer:'https://m.search.naver.com/search.naver?query=secret',search:'?utm_source=insta_bio&x=1'});first.reportFunnelStep('landing_view');first.reportFunnelStep('signup_view');await new Promise(r=>setImmediate(r));
+ assert.deepEqual(JSON.parse(first.calls[0].options.body),{step:'landing_view',referrerHost:'m.search.naver.com',utmSource:'insta_bio'});
+ assert.deepEqual(JSON.parse(first.calls[1].options.body),{step:'signup_view'},'other steps stay step-only');
+ const internal=load(memory(),{referrer:'https://crefans.com/service/x?a=b',search:'?utm_source=bad%20value!'});internal.reportFunnelStep('landing_view');await new Promise(r=>setImmediate(r));
+ assert.deepEqual(JSON.parse(internal.calls[0].options.body),{step:'landing_view'},'same-site referrer and invalid utm are not sent');
+ const broken=load(memory(),{referrer:'not a url'});broken.reportFunnelStep('landing_view');await new Promise(r=>setImmediate(r));
+ assert.deepEqual(JSON.parse(broken.calls[0].options.body),{step:'landing_view'});
 });
