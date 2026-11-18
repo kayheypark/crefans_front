@@ -133,7 +133,7 @@ export default function AiPhotoLanding(){
   </section>
 
   <section className={s.section} aria-labelledby="ai-photo-kinds-title" id="ai-photo-kinds">
-   <h2 id="ai-photo-kinds-title">고를 수 있는 편집</h2>
+   <h2 id="ai-photo-kinds-title">100억+가지 조합</h2>
    <p className={s.sectionLead}>실제 편집 화면과 같은 프리셋이에요. 눌러서 둘러보고, 체험에서 내 사진에 적용해 보세요.</p>
    <LandingPresetBrowser onPicked={setLandingPicked}/>
    {/* 2026-11-17 user request: the picked presets carry over to the trial editor (this browser only). */}
@@ -141,7 +141,7 @@ export default function AiPhotoLanding(){
   </section>
 
   <section className={s.notice} aria-labelledby="ai-photo-rules">
-   <h2 id="ai-photo-rules">꼭 지켜 주세요</h2>
+   <h2 id="ai-photo-rules">유의사항</h2>
    <ul>
     <li>사진 속 인물은 <strong>본인이거나 동의를 받은 사람</strong>이어야 해요. <strong>다른 사람 얼굴 합성, 미성년자, 노출·성적인 합성은 만들 수 없어요.</strong></li>
     <li>게시물에 넣은 AI 사진에는 <strong>‘AI 생성’ 표시</strong>가 붙어요. 결과는 원본 사진과 요청에 따라 달라질 수 있어요.</li>
