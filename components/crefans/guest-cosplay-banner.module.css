@@ -17,3 +17,8 @@
 .action::after{content:"";position:absolute;inset:-20% auto -20% -60%;width:45%;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.08) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,.08) 70%,transparent 100%);transform:skewX(-18deg);animation:actionShine 3.2s ease-in-out infinite;pointer-events:none}
 @keyframes actionShine{0%{left:-60%}45%{left:125%}100%{left:125%}}
 @media(prefers-reduced-motion:reduce){.action::after{animation:none;display:none}}
+
+/* 2026-11-18 SEO fix: quiet text link to the AI photo landing right under the banner. */
+.about{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-height:44px;margin:-12px 4px 8px;font-size:13px;font-weight:600;color:#db2777;text-decoration:none}
+.about:hover{color:#be185d;text-decoration:underline;text-underline-offset:3px}
+.about:focus-visible{outline:3px solid var(--cf-color-focus);outline-offset:2px;border-radius:6px}
