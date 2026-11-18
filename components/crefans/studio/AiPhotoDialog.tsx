@@ -8,6 +8,7 @@ import type {AiPhotoCropInput} from '@/types/crefans-studio-management';
 import {ShopPage} from './ShopPage';
 import type {ShopModel} from '@/types/crefans-shop';
 import {useEffect,useId,useRef,useState} from 'react';
+import {reportShare} from '@/lib/api/share-report';
 import {takeAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,franchiseCostumeNotice,isFranchiseCostume,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
 import {aiPhotoOutfitByPrompt,type AiPhotoOutfitPart} from '@/lib/crefans/ai-photo-outfits';
@@ -54,10 +55,10 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  // 2026-11-14 user decision: results are shared through the system share sheet as PNG files converted in the browser.
  // Files are prepared ahead so the share call stays inside the tap's user activation (iOS Safari rejects late calls).
  function photoFile(item:StudioMedia){let file=photoFiles.current.get(item.id);if(!file){file=(async()=>{const response=await fetch(item.url);if(!response.ok)throw new Error('download');const blob=await response.blob();if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],`crefans-ai-${item.id.replace(/[^a-zA-Z0-9_-]/g,'')}.png`,{type:'image/png'});})();photoFiles.current.set(item.id,file);file.catch(()=>photoFiles.current.delete(item.id));}return file;}
- async function sharePhoto(item:StudioMedia){if(sharing)return;setSharing(true);try{const file=await photoFile(item);if(typeof navigator.share==='function'&&navigator.canShare?.({files:[file]})){await navigator.share({files:[file],title:'크레팬스 AI 사진',text:AI_PHOTO_SHARE_TEXT});return;}
+ async function sharePhoto(item:StudioMedia){if(sharing)return;setSharing(true);let method:'native'|'download'='download';try{const file=await photoFile(item);if(typeof navigator.share==='function'&&navigator.canShare?.({files:[file]})){method='native';await navigator.share({files:[file],title:'크레팬스 AI 사진',text:AI_PHOTO_SHARE_TEXT});reportShare({where:'ai_result',method,outcome:'done'});return;}
   // Browsers without file sharing (most desktops) save the PNG instead.
-  const url=URL.createObjectURL(file),link=document.createElement('a');link.href=url;link.download=file.name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
-  catch(error){if((error as Error)?.name!=='AbortError')setError('사진을 공유하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setSharing(false);}}
+  const url=URL.createObjectURL(file),link=document.createElement('a');link.href=url;link.download=file.name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);reportShare({where:'ai_result',method,outcome:'done'});}
+  catch(error){const aborted=(error as Error)?.name==='AbortError';reportShare({where:'ai_result',method,outcome:aborted?'cancelled':'failed'});if(!aborted)setError('사진을 공유하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setSharing(false);}}
  const [shopOpen,setShopOpen]=useState(false);
  const [genderChosen,setGenderChosen]=useState(false);
  const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
