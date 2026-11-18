@@ -1,3 +1,7 @@
+## 2026-11-18 13:27 KST 운영 프론트 배포 front-today-20261118 (prod f8c0204)
+- ship-image.sh: 사전 검사 12.5GB 여유, 빌드 55s, 레이어 일치, front-gap-20261118 → front-today-20261118, 스모크(feed·landing·legal·health·static·image) 통과. 확인: / 302→/service/feed, /service/landing-ai-image-generation 200, /brand/mail/welcome-base-v1.jpg 200(Cache-Control public, max-age=31536000, immutable). 직전 이미지 복구본 /Users/ethan/crefans-recovery/20261118/front-today-20261118(SHA256SUMS), 서버 이전 태그 삭제.
+- 같은 날 API 배포는 검사 스크립트(Origin 헤더 누락) 실패로 자동 롤백되어 운영 API는 ordertg-20261117. 새 프론트의 유입 집계 호출(telemetry/funnel)은 API 반영 전까지 404(집계 안 됨).
+
 ## 2026-11-18 13:2x KST prod 승격 — fix/help-text-sync·feat/funnel-stats·feat/landing-perf-seo·feat/signup-autologin-welcome
 - 사용자 승인(2026-11-18, dev 서버 검증 후). origin/prod ae0979c에서 --no-ff 병합(PROGRESS 충돌만, 모두 유지). git diff origin/dev HEAD: 코드 차이 0(PROGRESS·docs/audit/evidence.json만).
 - 검증: tsc 0, npm test 724 통과·18 실패(기준선 fail-base2 18건과 동일, 새 실패 0), build 0. CREFANS_SERVER_DIR=서버 prod 트리로 docs:contracts·docs:record·check:docs PASS(라우트 286·마이그레이션 69).
