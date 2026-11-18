@@ -27,6 +27,8 @@ export type ServiceData={creators:Creator[];newCreatorIds?:string[];plans:Plan[]
 /** Presentation inputs. Containers may back these with fixtures or API/model adapters. */
 export type ServiceViewModel=AccountModel&SocialModel&{
   beanSupport?:boolean;
+  /** 2026-11-18 bootstrap: first advertising-consent reward. null/absent while beans are off; eligible false once received or consented before. */
+  marketingReward?:{beans:number;validDays:number;eligible:boolean}|null;
   foundingBadge?:FoundingBadgeActions;
   data:ServiceData;mode:'mock'|'live';today:string;basePath:string;nextRenewAt?:string;
   /** Creators this account manages; their posts get the 수정 menu item. */

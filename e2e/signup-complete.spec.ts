@@ -18,7 +18,7 @@ async function checkCompletion(page:Page){
 test('전체 동의는 보이는 항목을 함께 켜고 끄며, 하나를 풀면 전체 동의도 풀린다',async({page})=>{
  await page.goto('/preview/signup');
  const all=page.getByRole('checkbox',{name:/^전체 동의/});
- const items=['만 19세 이상입니다 (필수)','이용약관 동의 (필수)','개인정보 처리방침 확인 (필수)','마케팅 정보 수신 동의 (선택)'].map(name=>page.getByRole('checkbox',{name,exact:true}));
+ const items=['만 19세 이상입니다 (필수)','이용약관 동의 (필수)','개인정보 처리방침 확인 (필수)','광고성 정보 수신 동의 (선택)'].map(name=>page.getByRole('checkbox',{name,exact:true}));
  await all.check();for(const item of items)await expect(item).toBeChecked();
  await items[3].uncheck();await expect(all).not.toBeChecked();for(const item of items.slice(0,3))await expect(item).toBeChecked();
  await items[3].check();await expect(all).toBeChecked();
