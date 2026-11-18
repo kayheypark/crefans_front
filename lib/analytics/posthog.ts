@@ -10,7 +10,14 @@ export const POSTHOG_HOST=process.env.NEXT_PUBLIC_POSTHOG_HOST||'https://us.i.po
 export const REPLAY_BLOCK_CLASS='ph-no-capture';
 // Every picture/video/canvas is blocked, so uploaded originals, AI results, library photos, post media, avatars and paid media
 // never reach a replay whichever component renders them. File/hidden inputs are blocked because replay records their values.
-export const REPLAY_BLOCK_SELECTOR='img,picture,video,audio,canvas,svg image,iframe,[style*="url("],input[type="file"],input[type="hidden"]';
+// 2026-11-18 user decision: public static artwork shipped with the app (/brand/…, /illustrations/…: preset thumbnails, landing
+// examples of AI-made virtual models, icons, banners) stays visible so replays show which preset was picked. Member media is
+// served from the API, blob: or data: URLs and never from these paths, so it stays blocked.
+export const PUBLIC_REPLAY_IMAGE_PREFIXES=['/brand/','/illustrations/'];
+// next/image serves the same public files as /_next/image?url=%2Fbrand%2F… (URL-encoded); those stay visible too.
+const publicImage=PUBLIC_REPLAY_IMAGE_PREFIXES.flatMap(prefix=>[prefix,`/_next/image?url=${encodeURIComponent(prefix)}`]).map(prefix=>`:not([src^="${prefix}"])`).join('');
+const publicBackground=PUBLIC_REPLAY_IMAGE_PREFIXES.map(prefix=>`:not([style*="url(${prefix}"]):not([style*="url('${prefix}"]):not([style*='url("${prefix}'])`).join('');
+export const REPLAY_BLOCK_SELECTOR=`img${publicImage},picture,video,audio,canvas,svg image,iframe,[style*="url("]${publicBackground},input[type="file"],input[type="hidden"]`;
 
 // Replay is opt-in per route (allowlist): payment, wallet/beans, payouts, account settings, login/signup, messages and every
 // studio page except post writing stay unrecorded, including routes added later. Events are still captured on every /service page.
