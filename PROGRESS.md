@@ -1,3 +1,25 @@
+## 2026-11-19 — 랜딩 코스튬 선택 카드 사진 꽉 채우기
+
+- look 카드84×105px·padding0, 사진100% cover, 하단 흰색 이름+어두운 그라데이션 오버레이. 긴 이름 줄바꿈, 선택 상태 핑크 안쪽 테두리, 포커스 유지. 기존168×210 썸네일 사용.
+- 실제 CSS·실제 썸네일 격리 Chromium390/1280에서 카드 padding0·사진 너비 일치·라벨 카드 내부 확인. 모바일 시각 확인, diff 검사 종료0. 증거 `.local/body-icons/preview-landing-look.cjs`, `landing-look-verification.json`(시각·커밋·CSS해시), `landing-look-390.png`.
+- 랜딩52px·0원 체험 문구와 함께 미커밋·개발/운영 미배포. 전체 앱 검증 미실행.
+
+## 2026-11-19 — 랜딩 무료 체험을0원 체험으로 통일
+
+- AI 사진 랜딩 CTA4곳 무료 체험→0원 체험. 메인/하단 ‘로그인 없이0원 체험’, 헤더 ‘0원 체험’, 프리셋 CTA ‘이 프리셋으로0원 체험’(실제 문구 띄어쓰기 유지). 링크·체험 전달 동작 유지.
+- 소스 assertion으로4곳 교체·기존 문구 미존재 확인, diff 검사 종료0. 증거 `.local/body-icons/landing-zero-won-copy.json`(시각·커밋·SHA256). 브라우저 미실행. 랜딩52px 변경과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 랜딩 원본 유지 아이콘도52px 적용
+
+- AiPhotoLanding의 원본 유지6종에 편집기와 동일 keepOriginalPreview 공용 래퍼 및52px 이미지 적용. 기존 랜딩 프리셋 높이 변수·다른 카드 유지.
+- 소스 연결 assertion, 타입 검사·diff 검사 종료0. 공용 CSS52px 검증은 앞선 증거 재사용. 증거 `.local/body-icons/landing-original-52-verification.json`(시각·커밋·파일SHA256). 랜딩 전체 브라우저 검증 및 개발/운영 배포 미실행, 미커밋.
+
+## 2026-11-19 — 원본 유지52px 개발 배포 완료
+
+- 기능552a25f → dev7daf1b2ea1cbc362260c31e3077164878fd238a3. origin/dev·github/dev push, last-success SHA 일치. deploy-dev.sh front 종료0, 빌드·타입·기동·스모크 통과. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-024801.log`.
+- 실제 개발 카탈로그 Chromium390/1280px에서6종 원본 유지 렌더52×52px·원본96px 확인. 기존 간격/미노출/의상 순서 검사도 통과. 증거 기능 작업본 `.local/body-icons/verify-dev-original-52.cjs`, `dev-original-52-verification.json`.
+- 카탈로그 대역 데이터 검증, 실제 AI 요청 없음. 운영 배포 없음. 이 완료 기록만 로컬 미커밋.
+
 ## 2026-11-19 — 원본 유지 아이콘 52px로 조정
 
 - 사용자 지정52px를 JSX width/height 및 CSS에 반영. 카드 높이·중앙 배치·이미지 자산 유지.
