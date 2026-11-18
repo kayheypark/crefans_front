@@ -13,7 +13,7 @@ test('hero results come from real presets, the preset browser reuses the editor 
  assert.deepEqual(page.landingLooks.map(item=>item.id),['modernia','gothic','maid','mage','idol']);
  const first=page.landingLooks[0];assert.equal(first.label,'모더니아 코스튬');assert.deepEqual(first.cards.map(card=>card.title),['모더니아 코스튬','지뢰계 메이크업','의자에 앉기']);
  assert.deepEqual(page.landingLooks[1].cards.slice(1).map(card=>card.title),['코스프레 베이스','거울샷']);
- for(const look of page.landingLooks){const meta=await sharp(fs.readFileSync('public'+look.image)).metadata();assert.equal(meta.width,720);assert.equal(meta.height,900);for(const card of look.cards)assert.ok(fs.existsSync('public'+card.image),card.image);}
+ for(const look of page.landingLooks){const meta=await sharp(fs.readFileSync('public'+look.image)).metadata();assert.equal(meta.width,720);assert.equal(meta.height,900);const thumb=await sharp(fs.readFileSync('public'+look.thumb)).metadata();assert.deepEqual([thumb.width,thumb.height],[168,210]);for(const card of look.cards)assert.ok(fs.existsSync('public'+card.image),card.image);}
  assert.ok(!page.landingKinds.some(item=>item.value==='body'));
  let tree;act(()=>{tree=create(React.createElement(page.default));});
  try{

@@ -27,6 +27,14 @@ const nextConfig = {
       .concat(['service', 'preview'].map(base => ({source: `/${base}/events/beta-first`, destination: `/${base}/events`, statusCode: 301})))
       .concat(legacyRedirects.map(([source, destination]) => ({source, destination, permanent: false})));
   },
+  // 2026-11-18 성능 수정: public 의 버전 파일명(…-v1.webp 등)만 1년 immutable 캐시. 버전 없는 파일은 Next 기본(max-age=0) 유지.
+  // 이 규칙 때문에 버전 파일은 같은 이름으로 내용을 바꾸면 안 되고, 바꿀 때는 반드시 -v 번호를 올린다.
+  async headers() {
+    return [{
+      source: '/:dir(illustrations|brand|og)/:file(.*-v\\d+\\.[A-Za-z0-9]+)',
+      headers: [{key: 'Cache-Control', value: 'public, max-age=31536000, immutable'}],
+    }];
+  },
   htmlLimitedBots: /[\w-]+-Google|Google-[\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight|kakaotalk-scrap|Daum|Daumoa|NaverBot|naver|Line\/|TelegramBot|BAND|Pinterest/i,
 }
 
