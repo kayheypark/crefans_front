@@ -211,7 +211,6 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
        {/* eslint-disable-next-line @next/next/no-img-element -- static preset illustration or example photograph */}
        <img className={['expression','pose','camera','lens'].includes(kind)||example===AI_PHOTO_KEEP_ORIGINAL?s.presetIllustration:undefined} src={aiPhotoPresetImage(kind,example,targetGender)} alt="" loading="lazy"/>{kind==='makeup'&&aiPhotoMakeupGender(example)&&<CostumeGender gender={aiPhotoMakeupGender(example)} title={aiPhotoMakeupGender(example)==='male'?'남성 메이크업':'여성 메이크업'}/>}<span>{aiPhotoPresetTitle(kind,example,targetGender)}</span><span className={s.presetCheck} aria-hidden="true">{isPresetSelected(example)?'✓':''}</span></button>)}</div></AiPresetPager>
       {preset.total===0&&<p className={s.presetEmpty} role="status">검색 결과가 없어요. 다른 검색어를 입력해 주세요.</p>}
-      {!['expression','pose','camera','lens'].includes(kind)&&<p className={s.hint}>사진은 AI로 만든 예시예요. 선택한 요청을 내 사진에 적용해요.</p>}
      </>}
      </div>}
     {composer}

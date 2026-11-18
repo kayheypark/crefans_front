@@ -1,3 +1,38 @@
+## 2026-11-19 — 선택한 2안 3D 아이콘 적용·개발 배포 준비
+
+- 가슴/힙은 Seedream 2안 원본 PNG를 공용 정적 자산으로 보존하고 SVG viewBox로 각각 표시. 재생성·변형 없이 선택한 시안 사용. 24px 크기·슬라이더 동작·다른 아이콘 유지.
+- `npm run typecheck`, `git diff --check` 종료0. 실제 컴포넌트 SSR+Chromium 24px/확대 미리보기 육안 확인(`.local/body-icons/preview-3d.png`). 하트 클릭 확대 검증은 앞선 기록 참고.
+- 프리셋 안내 제거·말풍선 작품명 변경·하트 클릭 영역 확대와 함께 개발 배포 요청 수락. 다음: dev 통합→배포→실화면 확인. 운영 배포 범위 아님.
+
+## 2026-11-19 — 미니게임 하트만 클릭 영역 확대
+
+- 하트 버튼의 비가시 ::before 영역을 사방12px 확장(64×64 → 클릭88×88). 외관·이동 속도·점수 로직 그대로. 별사탕/달은 기존64×64, 터진 하트는 확장 제외 및 기존 pointer-events:none 유지.
+- 실제 CSS 격리 Chromium 클릭 검증 종료0: 하트 경계 밖8px 상하좌우는 하트, 별사탕/달 경계 밖은 빈 공간, 중앙은 각 항목, 터진 하트는 클릭 안 됨. 확장 규칙 제거 대조검사 종료1(하트 주변4곳 empty)로 검증 유효성 확인.
+- 증거 `.local/body-icons/check-heart-hit.cjs`, `heart-hit-verification.json`(시각·커밋·CSS SHA256). 실제 움직이는 게임/서버 적립 미검증. 기존 문구 변경과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 의상 안내 말풍선 작품명 변경
+
+- 공통 AI_PHOTO_COSTUME_HINT에서 진격거 제거, 귀칼·주술회전·오버워치 추가. 최종 ‘니케, 원신, 블루아카이브, 귀칼, 주술회전, 오버워치’. 랜딩·편집기 공통 적용, 실제 카테고리 목록은 유지.
+- 정확한 문자열 교체 소스 assertion 통과. 증거 `.local/body-icons/costume-hint-copy-verification.json`(시각·기준 커밋·SHA256). 브라우저 미실행. 기존 프리셋 안내 제거와 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 프리셋 하단 AI 예시 안내 미노출
+
+- AiPhotoDialog 프리셋 하단 ‘사진은 AI로 만든 예시예요. 선택한 요청을 내 사진에 적용해요.’ 안내 문단 제거. 별도 AI 생성 표시 및 이용 안내와 사진 사용권 안내 유지.
+- 단일 JSX 문단 삭제 확인, 요청 문구 미존재·별도 안내 보존 소스 assertion 통과. 증거 `.local/body-icons/preset-caption-verification.json`(시각·기준 커밋·파일 SHA256). 브라우저 미실행. 코드와 기록 미커밋, 개발/운영 미배포.
+
+## 2026-11-19 — Seedream 가슴·힙 아이콘 3종 시안
+
+- 사용자 CDM 요청을 대화 맥락상 시드림으로 해석해 안내 후 Seedream 5.5로 3장 생성(각 장 가슴·힙 한 쌍). 1안 플랫, 2안 클레이3D, 3안 라인. 핑크·보라 유지, 불투명 운동복 도식.
+- 공급사 3건 모두 종료0·HTTP200, 실제 출력 이미지 육안 확인. 산출물 `.local/body-icons/seedream/variant-{1,2,3}.png`, 프롬프트·모델·requestId·시각·SHA256·usage는 `manifest.json`에 보관. 키 기록 없음.
+- 디자인 시안만 생성. 코드 변경·배포 없음. 이미지와 이 기록은 로컬 자료. 다음: 사용자 선택 후 아이콘별 분리·배경 처리 및 실제 24px 가독성 확인 후 적용.
+
+## 2026-11-19 — 의상 말풍선·카테고리·신체 아이콘 개발 배포 완료
+
+- 기능 커밋 706484e → dev 통합 bc82cc61299b85a1f46083ec2cfcfe753b0a25d8. origin/dev와 github/dev push 완료. 통합 타입 검사·diff 검사 종료0.
+- devbox 공식 `bash ~/crefans-dev/deploy-dev.sh front` 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-015756.log`. last-success SHA와 통합 커밋 일치 확인.
+- 배포된 https://www-dev.crefans.com/design-system 의 서비스 UI 편집 모달 Chromium 검증 종료0: 말풍선 computed color 흰색, 의상 카테고리 마지막 디아블로, 가슴/힙 슬라이더 및 신규 SVG 확인. 스크린샷 시각 확인. 카탈로그 대역 데이터 사용, 실제 AI 생성·결제는 실행하지 않음.
+- 증거: 기능 작업본 `.local/body-icons/verify-dev.cjs`, `dev-verification.json`, `dev-icons.png`. 운영 배포 없음. 이 결과가 아래 미배포 기록의 개발 상태를 대체함. 이 배포 결과 기록은 로컬 미커밋 문서임.
+
 ## 2026-11-19 — 가슴·힙 보정 아이콘 재디자인 (미배포)
 
 - AiBodyAdjustments의 가슴 아이콘은 앞면 상체+핑크 가슴 강조, 힙 아이콘은 뒷면 골반+보라색 곡선 강조로 교체. 기존 24px 플랫 SVG 방식 유지해 확대 시 선명하며 신규 이미지 생성 비용 없음. 키/근육/어깨 아이콘·슬라이더 동작 유지.

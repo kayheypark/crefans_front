@@ -412,4 +412,4 @@ export function aiPhotoCostumeGender(costume:Pick<AiPhotoCostume,'id'|'category'
  return costumeGenderByCategory[costume.category]??costumeGenderById.get(costume.id);
 }
 // 2026-11-19 user request: speech-bubble hint over the costume category select (editor and landing), exact wording.
-export const AI_PHOTO_COSTUME_HINT='니케, 원신, 블루아카이브, 진격거';
+export const AI_PHOTO_COSTUME_HINT='니케, 원신, 블루아카이브, 귀칼, 주술회전, 오버워치';
