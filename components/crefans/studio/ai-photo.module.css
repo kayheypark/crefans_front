@@ -6,7 +6,7 @@
 .editor>header button{min-width:44px;min-height:44px}
 .body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:20px 24px 24px}
 .controls{display:flex;flex-direction:column;gap:16px;min-width:0}
-.sourceHeading{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--cf-color-textSecondary);font-size:14px}
+.sourceHeading{display:flex;align-items:center;justify-content:flex-end;gap:12px;color:var(--cf-color-textSecondary);font-size:14px}
 .sourceHeading button,.summary button{border:0;background:transparent;padding:4px 0;color:var(--cf-color-accent);font:inherit;cursor:pointer;min-height:32px}
 .sources{display:flex;gap:8px;overflow-x:auto;padding:2px}
 .source{position:relative;flex:none;width:64px;height:64px;padding:0;border:2px solid transparent;border-radius:12px;overflow:hidden;background:var(--cf-color-surfaceSubtle);cursor:pointer}
@@ -110,7 +110,7 @@
 .sourceSection .sourceHeading{margin-bottom:8px}
 .sourceSection .previewFrame,.sourceSection .maskFrame{height:var(--ai-photo-source-height)}
 .sourceSection .preview{height:100%}
-.sourceSection .maskFrame{display:grid;place-items:center;background:var(--cf-color-surfaceSubtle);border-radius:12px;overflow:hidden}
+.sourceSection .maskFrame{position:relative;display:grid;place-items:center;background:var(--cf-color-surfaceSubtle);border-radius:12px;overflow:hidden}
 .sourceSection .maskStage img{max-height:var(--ai-photo-source-height)}
 .sourceSection .hint{margin:4px 0}
 .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:72px;font-size:12px;box-shadow:none}
@@ -123,6 +123,7 @@
 .presetCheck{flex:none;width:19px;height:19px;border:1px solid var(--cf-color-border);border-radius:50%;display:grid;place-items:center;font-size:12px}
 .preset[aria-pressed=true] .presetCheck{background:var(--cf-color-accent);border-color:var(--cf-color-accent);color:var(--cf-color-surface)}
 .composer{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.composer>.ratioPresets{margin-bottom:10px}
 .composer textarea{min-height:64px;max-height:120px;resize:vertical;font-size:16px}
 .consent>label{font-size:12px;line-height:1.5}
 @media(max-width:767px){.body{padding:12px 16px}.controls{gap:12px}.footer{padding-top:8px}.quota{margin-bottom:8px}.tabs button{font-size:11px;min-height:64px}.tabs button img{width:24px;height:24px}}
@@ -194,7 +195,7 @@
 .presetSearch input::-webkit-search-cancel-button{-webkit-appearance:none}.presetSearch button{flex:none;width:32px;height:32px;border:0;border-radius:8px;background:transparent;color:inherit;font-size:24px;cursor:pointer}
 .presetEmpty{padding:24px 8px;margin:0;text-align:center;color:var(--cf-color-textMuted);font-size:14px}
 
-.outfitSwitch{display:flex;align-items:center;gap:10px;align-self:flex-end;border:0;background:transparent;padding:8px 0;color:var(--text-secondary,#64748b);font-size:13px;cursor:pointer}.outfitSwitch span{width:34px;height:20px;border-radius:12px;background:#cbd5e1;padding:3px;transition:background .15s}.outfitSwitch span::after{content:"";display:block;width:14px;height:14px;border-radius:50%;background:white;transition:transform .15s}.outfitSwitch[aria-checked="true"] span{background:#2563eb}.outfitSwitch[aria-checked="true"] span::after{transform:translateX(14px)}
+.outfitSwitch{position:absolute;right:10px;bottom:10px;z-index:2;display:flex;align-items:center;gap:10px;min-height:40px;border:1px solid var(--cf-color-border);border-radius:10px;background:var(--cf-color-surface,#fff);padding:8px 10px;color:var(--cf-color-text,#202333);font-size:13px;cursor:pointer}.outfitSwitch:focus-visible{outline:2px solid var(--cf-color-focus,#2563eb);outline-offset:2px}.outfitSwitch:disabled{opacity:.5;cursor:default}.outfitSwitch span{width:34px;height:20px;border-radius:12px;background:#cbd5e1;padding:3px;transition:background .15s}.outfitSwitch span::after{content:"";display:block;width:14px;height:14px;border-radius:50%;background:white;transition:transform .15s}.outfitSwitch[aria-checked="true"] span{background:#2563eb}.outfitSwitch[aria-checked="true"] span::after{transform:translateX(14px)}
 
 .posePosture{display:flex;align-self:flex-start;gap:4px;padding:3px;border-radius:10px;background:var(--cf-color-surfaceSubtle)}
 .posePosture button{min-width:72px;min-height:40px;padding:8px 18px;border:0;border-radius:8px;background:transparent;color:var(--cf-color-textSecondary);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
