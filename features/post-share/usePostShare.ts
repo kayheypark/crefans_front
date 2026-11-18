@@ -1,5 +1,6 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
+import {reportShare} from '@/lib/api/share-report';
 import {kakaoJavaScriptKey,postShareImage,postShareData,prepareKakaoShare,shareToKakao} from '@/lib/browser/post-share';
 
 export function usePostShare({open,basePath,postId,title,previewImage}:{open:boolean;basePath:string;postId:string;title:string;previewImage?:string}){
@@ -23,8 +24,10 @@ export function usePostShare({open,basePath,postId,title,previewImage}:{open:boo
    if(kind==='copy')await navigator.clipboard.writeText(data.url);
    else if(kind==='more')await navigator.share(data);
    else await shareToKakao(data,postShareImage(window.location.origin,basePath,postId,previewImage));
+   reportShare({where:'post',method:kind,outcome:'done',postId});
    if(token===generation.current)setMessage(kind==='copy'?'링크를 복사했어요.':kind==='kakao'?'카카오톡에서 공유 대상을 선택해 주세요.':'');
   }catch(cause){
+   const aborted=(cause as {name?:string})?.name==='AbortError';reportShare({where:'post',method:kind,outcome:kind==='more'&&aborted?'cancelled':'failed',postId});
    if(token!==generation.current)return;
    if(kind==='more'&&(cause as {name?:string})?.name==='AbortError')return;
    setError(kind==='copy'?'링크를 복사하지 못했어요. 아래 주소를 직접 복사해 주세요.':kind==='kakao'?'카카오톡 공유를 열지 못했어요. 잠시 후 다시 시도해 주세요.':'기기 공유창을 열지 못했어요. 복사를 이용해 주세요.');
