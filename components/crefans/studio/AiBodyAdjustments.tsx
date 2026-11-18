@@ -2,7 +2,7 @@
 import {aiPhotoBodySnap,aiPhotoBodyStrength} from '@/lib/crefans/ai-photo';
 import s from './ai-photo.module.css';
 
-type Props={controls:readonly {key:string;label:string}[];selection:{key:string;value:number}|null;disabled?:boolean;onChange:(key:string,value:number)=>void};
+type Props={controls:readonly {key:string;label:string}[];selection:Readonly<Record<string,number>>;disabled?:boolean;onChange:(key:string,value:number)=>void};
 function BodyIcon({kind}:{kind:string}){
  if(kind==='height')return <svg className={s.bodyIcon} viewBox="90 100 830 830" aria-hidden="true"><image href="/brand/ai-photo/body-icons/height-3d-v1.png" width="1024" height="1024"/></svg>;
  if(kind==='chest'||kind==='hip')return <svg className={s.bodyIcon} viewBox={kind==='chest'?'80 285 430 430':'525 285 430 430'} aria-hidden="true"><image href="/brand/ai-photo/body-icons/body-3d-v1.png" width="1024" height="1024"/></svg>;
@@ -11,7 +11,7 @@ function BodyIcon({kind}:{kind:string}){
  </svg>;
 }
 export function AiBodyAdjustments({controls,selection,disabled,onChange}:Props){
- return <div className={s.bodyAdjustments}>{controls.map(control=>{const value=selection?.key===control.key?selection.value:0,text=value===0?'원본 유지':`보정 강도 ${value>0?'+':'−'}${aiPhotoBodyStrength(value)}%`;return <label key={control.key}>
+ return <div className={s.bodyAdjustments}>{controls.map(control=>{const value=selection[control.key]??0,text=value===0?'원본 유지':`보정 강도 ${value>0?'+':'−'}${aiPhotoBodyStrength(value)}%`;return <label key={control.key}>
   <span><span className={s.bodyLabel}><BodyIcon kind={control.key}/>{control.label}</span><output>{text}</output></span>
   <input type="range" aria-label={control.label} aria-valuetext={text} min={-2} max={2} step="any" value={value} onChange={event=>onChange(control.key,aiPhotoBodySnap(Number(event.target.value)))} onKeyDown={event=>{const direction=event.key==='ArrowRight'||event.key==='ArrowUp'?1:event.key==='ArrowLeft'||event.key==='ArrowDown'?-1:0;const next=direction?Math.round((value+direction*.02)*10000)/10000:event.key==='Home'?-2:event.key==='End'?2:event.key==='PageUp'?Math.floor(value)+1:event.key==='PageDown'?Math.ceil(value)-1:null;if(next===null)return;event.preventDefault();onChange(control.key,Math.max(-2,Math.min(2,next)));}} disabled={disabled}/>
   <span className={s.bodyTicks} aria-hidden="true"><i/><i/><i/><i/><i/></span>

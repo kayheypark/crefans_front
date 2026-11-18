@@ -1,0 +1,22 @@
+const test=require('node:test'),assert=require('node:assert/strict'),React=require('react'),{renderToStaticMarkup}=require('react-dom/server'),{loadTypeScript}=require('./load-typescript.cjs');
+const {updateAiPhotoBodySelection:update,buildAiPhotoPrompt,aiPhotoBodyControls,aiPhotoMaleBodyControls}=loadTypeScript('lib/crefans/ai-photo.ts');
+const {AiBodyAdjustments}=loadTypeScript('components/crefans/studio/AiBodyAdjustments.tsx',{'./ai-photo.module.css':{__esModule:true,default:new Proxy({},{get:(_,k)=>String(k)})}});
+for(const [name,controls] of [['female',aiPhotoBodyControls],['male',aiPhotoMaleBodyControls]])test(`${name}: independent body controls retain values and generation prompts`,()=>{
+ const other={kind:'background',prompt:'배경 유지'};
+ let state={values:{},presets:[other]};
+ controls.forEach((c,i)=>{state=update(state.presets,state.values,c.key,i%2?-.5:1);});
+ assert.equal(state.presets.filter(p=>p.kind==='body').length,controls.length);
+ assert.equal(state.presets[0],other);
+ for(const [i,c] of controls.entries())assert.equal(state.values[c.key],i%2?-.5:1);
+ const html=renderToStaticMarkup(React.createElement(AiBodyAdjustments,{controls,selection:state.values,onChange:()=>{}}));
+ for(const [i,c] of controls.entries())assert.match(html,new RegExp(`aria-label="${c.label}"[^>]*value="${i%2?-.5:1}"`));
+ const prompt=buildAiPhotoPrompt(state.presets,'추가 요청',name);
+ for(const p of state.presets)assert(prompt.includes(p.prompt));
+ const first=controls[0].key,second=controls[1].key;
+ state=update(state.presets,state.values,first,1.4);
+ assert.equal(state.values[second],-.5);
+ assert.equal(state.presets.filter(p=>p.kind==='body').length,controls.length);
+ state=update(state.presets,state.values,first,0);
+ assert.equal(state.values[first],undefined);assert.equal(state.values[second],-.5);
+ assert.equal(state.presets.filter(p=>p.kind==='body').length,controls.length-1);
+});
