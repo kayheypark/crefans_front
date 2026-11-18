@@ -1,3 +1,13 @@
+## 2026-11-18 AI 랜딩 성능·SEO 빠른 수정 4건 (feat/landing-perf-seo, 미배포)
+- 근거: `.local/night-work/2026-11-18-1016/notes-seo-perf.md` 우선순위 1·2·3·9. 사용자 결정 "빠른 수정 하고 배포"(배포·dev/prod 병합은 이 브랜치에서 하지 않음).
+- ① LCP: AI 랜딩 원본 사진(`base-v1.webp`)에 `fetchPriority="high"`(Link 헤더 preload 에도 반영), "이 사진에 고른 프리셋" 카드는 `loading="lazy"` 로 바꿔 HTML preload 4건(코스튬·메이크업·포즈·108KB PNG) 제거.
+- ② 크기 맞춤: 결과 고르기 56×70 썸네일을 720px 원본 대신 `thumb-<id>-v1.webp`(168×210, 4.4~6.7KB) 사용. 의상 카테고리 '일반' 아이콘을 108KB PNG 대신 `category-logos/general-v1.webp`(96px, 3.2KB). 프리셋 ID·카탈로그 의미 변경 없음(카테고리 이미지는 표시 전용 확인).
+- ③ 캐시: `next.config.js` `headers()` 로 `/illustrations|brand|og/…-vN.확장자` 만 `public, max-age=31536000, immutable`. 버전 없는 파일은 기존 `max-age=0`. **이후 버전 파일은 같은 이름으로 내용 교체 금지(번호 올리기)** — 과거 이력상 제자리 수정 0건 확인(`git log --diff-filter=M`).
+- ④ 내부 링크: 공용 `ServiceLinks` 에 'AI 사진 편집'(피드 사이드바·모든 서비스 푸터, SSR), `/service/landing` AI 사진 편집 섹션에 '자세히 보기', 피드 비로그인 배너 아래 'AI 사진 편집 더 알아보기'. 모바일 피드는 사이드바가 숨겨지므로 배너 아래 링크로 노출.
+- 검증 2026-11-18 11:26~11:40 KST, 기준 origin/prod `ae0979c`: `npx tsc --noEmit` 0, `npm test` 실패 18(기준선 목록과 동일, 신규 0; 서비스 링크 목록 고정 테스트 1건은 의도된 항목 추가로 갱신), 썸네일 크기 테스트 추가(파일 제거 대조 시 실패 확인), `npm run build` 0.
+- 로컬 실측(`next start` :3199, 헤드리스 Chrome 390px DPR3 캐시 끔, 같은 perf.mjs): 전송 975,131B→701,748B(−28%), 이미지 491,765B→218,271B. LCP 요소 base-v1.webp 동일, LCP 무스로틀 396~420→92~400ms, 스로틀 1,304/1,304→1,312/960ms(로컬은 FCP 에 묶여 편차 범위, 운영 개선폭은 배포 후 재측정 필요). curl 대조: 버전 파일 3종 immutable, 버전 없는 `crefans-logo.svg`·`logo.png`·`advisor-chat-search.png`·`*-v1.generation.json` 은 max-age=0 유지. SSR href: 피드 0→1, /service/landing 0→2. 390px 캡처(피드·랜딩·AI 랜딩) 육안 확인. 원자료: 세션 스크래치 `perf-local/`.
+- 미확인: 운영 프록시(Caddy)가 Cache-Control 을 그대로 전달하는지, 실기기·운영 LCP. 썸네일 전환으로 다른 결과 사진(35~74KB)은 클릭 시점에 받음.
+
 ## 2026-11-18 가입 완료·가드 화면 아이콘-제목 여백 복구 (fix/signup-complete-spacing, 미배포)
 - 증상: 가입 화면에서 완료 화면으로 이동하면 체크 아이콘과 제목이 붙음(직접 열면 정상).
 - 원인: `.service_root h1{margin-top:0}`이 `.page h1`과 같은 우선순위이고 클라이언트 이동 시 나중에 로드되어 24px 여백을 덮음(devbox 실측 margin 0 → 미리보기 24px).
