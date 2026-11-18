@@ -4,7 +4,7 @@ import {PhoneCheckDialog} from './PhoneCheckDialog';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanWalletLink} from './BeanPages';
 import {SignInPrompt} from './SignInPrompt';
-import {SIGNUP_COMPLETE_KEY,loginTarget} from '@/lib/crefans/login-return';
+import {SIGNUP_COMPLETE_KEY,loginTarget,signupHref} from '@/lib/crefans/login-return';
 import {REFERRAL_DISCLOSURE_LABEL,REFERRAL_DISCLOSURE_NOTICE,storedReferral} from '@/lib/crefans/referral';
 export {SignInPrompt} from './SignInPrompt';
 import {MarqueeText,MarqueeMotionControl} from '@/components/ui/MarqueeText';
@@ -141,7 +141,7 @@ export function LoginPage({model,next=null,navigate}:{model:ServiceViewModel;nex
       <div className={s.loginOptions}><Checkbox label="로그인 상태 유지" checked={remember} onChange={setRemember}/><TextLink href={`${basePath}/reset-password`}>비밀번호 찾기</TextLink></div>
       {task.error&&<p className={s.error} role="alert">{task.error}</p>}<Action type="submit" disabled={task.busy||!emailIsValid(email)||password.length<8}>{task.busy?'로그인 중…':'로그인'}</Action>
     </form>
-    <p className={s.authFoot}>계정이 없으신가요? <TextLink href={`${basePath}/signup`}>회원가입</TextLink></p>
+    <p className={s.authFoot}>계정이 없으신가요? <TextLink href={next?signupHref(basePath,target):`${basePath}/signup`}>회원가입</TextLink></p>
     <Guidance text={account.guidance.login}/>
     <BackButton className={s.homeLink} href={`${basePath}/landing`} label="메인으로 돌아가기"/>
   </section>;

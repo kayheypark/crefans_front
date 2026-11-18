@@ -20,6 +20,12 @@
 - 로컬 실측(`next start` :3199, 헤드리스 Chrome 390px DPR3 캐시 끔, 같은 perf.mjs): 전송 975,131B→701,748B(−28%), 이미지 491,765B→218,271B. LCP 요소 base-v1.webp 동일, LCP 무스로틀 396~420→92~400ms, 스로틀 1,304/1,304→1,312/960ms(로컬은 FCP 에 묶여 편차 범위, 운영 개선폭은 배포 후 재측정 필요). curl 대조: 버전 파일 3종 immutable, 버전 없는 `crefans-logo.svg`·`logo.png`·`advisor-chat-search.png`·`*-v1.generation.json` 은 max-age=0 유지. SSR href: 피드 0→1, /service/landing 0→2. 390px 캡처(피드·랜딩·AI 랜딩) 육안 확인. 원자료: 세션 스크래치 `perf-local/`.
 - 미확인: 운영 프록시(Caddy)가 Cache-Control 을 그대로 전달하는지, 실기기·운영 LCP. 썸네일 전환으로 다른 결과 사진(35~74KB)은 클릭 시점에 받음.
 
+## 2026-11-18 가입 후 자동 로그인·시작 화면 복귀 + 축하 메일 이미지 (feat/signup-autologin-welcome, 미배포)
+- 서버(같은 브랜치명)가 가입 성공 시 로그인 쿠키를 발급(autoLogin). 회원가입 링크(헤더·로그인 필요 안내·AI 사진 체험 횟수 소진 안내·로그인 화면 하단)가 `?next=현재 경로`를 붙이고(`signupHref`, loginHref와 같은 검증), 가입 완료 화면은 로그인 상태면 '계속하기'(next 검증, 없거나 잘못되면 피드), 아니면 '로그인하러 가기'(next 유지). 세션 확인 중에는 버튼을 그리지 않음.
+- 체험 게시물 연동: 완료 화면 이동 시 bootstrap이 로그인 상태를 받으면 기존 GuestClaimDialog 흐름(hasGuestTrial)이 그대로 뜸(코드 변경 없음, 실제 브라우저 확인은 미실행). 체험 완료 화면의 '가입하고 연동하기'는 next 없이 피드로 복귀(로그인 상태에서 완료 화면 재표시 방지).
+- 메일 이미지: `public/brand/mail/welcome-{base,maid,gothic,idol}-v1.jpg`(500×625, 기존 webp에서 sharp), `welcome-popper-v1.png`(176px, 배경 순백 보정). 서버 `WELCOME_MAIL_ENABLED`는 이 프론트 배포 후에만 켤 것.
+- 검증(11:3x KST): tsc 0, 신규 tests/signup-autologin 3/3, prompt-layout(회원가입 링크 next 반영으로 기대값 갱신) 2/2, creator-guard 9/9, npm test 738 중 실패 18 = 기준선 18과 동일 목록(신규 실패 0). 대조: SignupCompletePage를 origin/prod로 되돌리면 2건 실패.
+
 ## 2026-11-18 가입 완료·가드 화면 아이콘-제목 여백 복구 (fix/signup-complete-spacing, 미배포)
 - 증상: 가입 화면에서 완료 화면으로 이동하면 체크 아이콘과 제목이 붙음(직접 열면 정상).
 - 원인: `.service_root h1{margin-top:0}`이 `.page h1`과 같은 우선순위이고 클라이언트 이동 시 나중에 로드되어 24px 여백을 덮음(devbox 실측 margin 0 → 미리보기 24px).

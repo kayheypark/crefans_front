@@ -4,6 +4,10 @@ const authScreen=/^\/[^/]+\/(login|signup|reset-password)(\/|\?|#|$)/;
 export function loginHref(basePath:string,currentPath:string){
   return currentPath.startsWith(basePath+'/')&&!authScreen.test(currentPath)?`${basePath}/login?next=${encodeURIComponent(currentPath)}`:`${basePath}/login`;
 }
+// 2026-11-18: signup links carry the same return path; signup now signs the member in, and the completion page continues there.
+export function signupHref(basePath:string,currentPath:string){
+  return currentPath.startsWith(basePath+'/')&&!authScreen.test(currentPath)?`${basePath}/signup?next=${encodeURIComponent(currentPath)}`:`${basePath}/signup`;
+}
 export function loginTarget(basePath:string,next:string|null){
   return next&&next.startsWith(basePath+'/')&&!/[\\\s]/.test(next)&&!authScreen.test(next)?next:`${basePath}/feed`;
 }

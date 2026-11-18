@@ -23,6 +23,7 @@ import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {aiPhotoSelectionLabels,type AiPhotoCaptionContext} from '@/lib/crefans/ai-photo-labels';
 import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,aiPhotoBodyPrompt,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
 import {Action,ActionLink} from '../ServiceUI';
+import {useCurrentSignupHref} from '../useCurrentLoginHref';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
 import {AI_PHOTO_KEEP_ORIGINAL,aiPhotoMultiSelectKinds,aiPhotoMakeupGender,aiPhotoPresetMatches,aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoPresetTitle,type AiPhotoPosePosture,type AiPhotoBackgroundCategory} from '@/lib/crefans/ai-photo-presets';
 import {AiPhotoCategoryIcon} from './AiPhotoCategoryIcon';
@@ -97,6 +98,8 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const [strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
  // 2026-11-17: when the image server refuses the result (try not used up), the notice offers to try again.
  const [retryable,setRetryable]=useState(false),[signupOffer,setSignupOffer]=useState(false);
+ // 2026-11-18: signup from the guest trial comes back here (signup signs the member in, the completion page offers 계속하기).
+ const signupLink=useCurrentSignupHref('/service');
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
  useEffect(()=>{if(typeof navigator!=='undefined'&&typeof navigator.share==='function')for(const item of results)void photoFile(item).catch(()=>{});},[results]);// eslint-disable-line react-hooks/exhaustive-deps
  const [heartGame,setHeartGame]=useState<{id:string;kinds:('heart'|'candy'|'moon')[]}|null>(null),[heartBalance,setHeartBalance]=useState(quota.hearts||0),[rewardNote,setRewardNote]=useState('');
@@ -228,7 +231,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  {open&&cropItem&&onCrop&&<AiPhotoCrop key={cropItem.id} item={cropItem} onClose={()=>setCropItem(null)} onApply={async crop=>{const r=await onCrop({sourceId:cropItem.id,...crop});if(!r.success)throw new Error(r.errorMessage||'사진을 저장하지 못했어요.');const next={...r.data,aiGenerated:true};sourceOrigins.current.set(next.id,sourceOrigins.current.get(cropItem.id)||sourceId);setResults(items=>items.map(item=>item.id===cropItem.id?next:item));setSelected(ids=>ids.map(id=>id===cropItem.id?next.id:id));setCropItem(null);}}/>}
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="AI 이용권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
  <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);setSignupOffer(false);}} title="AI 사진 편집 안내" persistent>
-  <div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href="/service/signup">회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>
+  <div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href={signupLink}>회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>
  </Dialog></>;
 }
 
