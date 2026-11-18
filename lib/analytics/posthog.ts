@@ -48,7 +48,9 @@ export function posthogConfig(pathname:string):Partial<PostHogConfig>{
   capture_pageview:'history_change',capture_pageleave:true,
   // Clicks on links/buttons only, without element text or attributes (names, hrefs with ids); inputs/changes/submits are never autocaptured.
   autocapture:{dom_event_allowlist:['click'],element_allowlist:['a','button']},mask_all_text:true,mask_all_element_attributes:true,
-  capture_dead_clicks:false,capture_heatmaps:false,capture_exceptions:false,capture_performance:false,disable_surveys:true,
+  // 2026-11-19 user decision (이탈 분석): dead clicks (a click with no page reaction) are on — they are clicks, already in the privacy
+  // policy's PostHog item; text/attributes stay masked. Exceptions stay off: error messages are not in that item yet (needs a policy change).
+  capture_dead_clicks:true,capture_heatmaps:false,capture_exceptions:false,capture_performance:false,disable_surveys:true,
   enable_recording_console_log:false,
   disable_session_recording:!replayAllowed(pathname),
   session_recording:{

@@ -42,6 +42,8 @@ test('with a key it initialises once with the hardened config and flushes queued
  assert.equal(c.api_host,'https://us.i.posthog.com');assert.equal(c.persistence,'cookie');assert.equal(c.respect_dnt,true);assert.equal(c.person_profiles,'identified_only');assert.equal(c.disable_session_recording,false);
  assert.equal(c.session_recording.maskAllInputs,true);assert.equal(c.session_recording.maskInputOptions.text,true);assert.equal(c.session_recording.maskInputOptions.textarea,true);
  assert.equal(c.session_recording.recordBody,false);assert.equal(c.capture_performance,false);assert.equal(c.enable_recording_console_log,false);
+ // 2026-11-19: dead clicks on (clicks, masked); exceptions and console logs off until the privacy policy names error data.
+ assert.equal(c.capture_dead_clicks,true);assert.equal(c.capture_exceptions,false);
  assert.deepEqual(c.autocapture,{dom_event_allowlist:['click'],element_allowlist:['a','button']});assert.equal(c.mask_all_text,true);assert.equal(c.mask_all_element_attributes,true);
  assert.deepEqual(calls.capture,[['landing_view',{}],['ai_generation_started',{actor:'guest',mode:'cosplay',kind:'combined',preset_kinds:['background','pose']}]]);
 });
