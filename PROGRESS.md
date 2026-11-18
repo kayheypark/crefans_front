@@ -1,3 +1,9 @@
+## 2026-11-18 11:3x KST AI 사진 체험 유입 단계 화면 집계 (feat/funnel-stats, 미배포)
+- 사용자 결정 "방법 1 서버 집계": 랜딩(/service/landing-ai-image-generation)·체험 동의 화면(비로그인, 세션 비활성)·실서비스 회원가입 화면(비로그인, complete 제외)에서 POST /api/v1/telemetry/funnel {step}. 탭(sessionStorage)당 단계별 한 번만 보내는 대략값, 저장소 차단 시에도 전송·오류 무시.
+- 파일: lib/api/funnel.ts, features/service/useFunnelStep.ts(레이어 규칙상 뷰는 훅만 사용), AiPhotoLanding·GuestTrialPage·ServiceRouter. 서버 단계(동의 완료·AI·글 작성·게시·가입 완료)는 서버가 직접 셈.
+- 검증: tsc 0, tests/funnel.test.cjs 3/3(대조: 세션 플래그 제거 시 1실패), npm test 738 중 720 pass/18 fail(실패 목록 기준선 fail-base2와 동일). check:layers의 AiPhotoDialog·ManagementPages 실패는 기존.
+- 미실행: 브라우저 실행 확인, 통합·배포.
+
 ## 2026-11-18 가입 완료·가드 화면 아이콘-제목 여백 복구 (fix/signup-complete-spacing, 미배포)
 - 증상: 가입 화면에서 완료 화면으로 이동하면 체크 아이콘과 제목이 붙음(직접 열면 정상).
 - 원인: `.service_root h1{margin-top:0}`이 `.page h1`과 같은 우선순위이고 클라이언트 이동 시 나중에 로드되어 24px 여백을 덮음(devbox 실측 margin 0 → 미리보기 24px).
