@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-18T06:28:34.492677+00:00",
+  "checkedAt": "2026-11-18T06:45:16.659406+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,12 +30,12 @@
   ],
   "repositories": {
     "front": {
-      "head": "469c42c4f221af0e243f3b22636c0beb4c870028",
+      "head": "dfd9f9db592abb641ea984c0f4c63299f7acaa72",
       "branch": "",
       "dirty": false
     },
     "server": {
-      "head": "da97716bd3bcd5c0967e5de354dc4b25abf2b19b",
+      "head": "ccfdbc57e7a9e65186a5d1e58032c8ea47cff971",
       "branch": "",
       "dirty": false
     }
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "8de3eed21f6f117ec7c8591f929ef1b0999890dc3741d20fc7d8e1cc2a058d3b",
+      "front/PROGRESS.md": "da1aaccc791079721e2f51b30abb8708f1c5a7991ba42defa4857467b92dbdf4",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "17a62e8140cea7913bb083d5d2e85595923b85f9bac4d8af90d4e2812320a47f",
       "server/AGENTS.md": "904a398cf606b21c59cf64ebc4f78b306f955ed22aea38a9a6f6a8334e16c8f7",
-      "server/PROGRESS.md": "81b00b3ec2340df06ce91dcf505e975b211f9bce76bc1a218233070445482003",
+      "server/PROGRESS.md": "5f472b5b8b943801f9ab84076f8be1ccfa93d259d73e6081c59aa8f33a5a4376",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "cd79648157711943e0c099209f3b5f7aa4bd6175760cdfdb28bc4944eab87c3c",
@@ -108,7 +108,7 @@
       "server/docs/live-payment-launch-20261031.md": "9863a7c3c3e37cfdda2342dda51289399bb9304dcb3af6fe1809f06ae9367c75",
       "server/docs/local-member-migration.md": "12c7dd11c9009870f95bfb4a8961bf72107367c2c5ae38c01fec7012fd53172c",
       "server/docs/operational-logging.md": "522f5b1ebc0f9afcbb1670d8d858b9d28107653b5b8b1833f69727876ace01e9",
-      "server/docs/platform-api.md": "4304567e4406ce6433e6e1359838badf9cf5610c7d5605dcb5d26c70d66c43dd",
+      "server/docs/platform-api.md": "6119b840d72ce2f159cb4033b810d2378018012b48e7ef1881ce9b0249fe0532",
       "server/docs/platform-implementation.md": "71ac479db7f23153e792ad0fddf81fc37c3ce4488d488e6bc2f17d8488105d5f",
       "server/docs/prd.md": "4acd7a59320dd75f569cac956225942022f960ade6ca2f2518a2dd71e1669299",
       "server/docs/private-media.md": "a398d6de0e8abb0eae017396e3cfb96d3aaae1880cf16fb70b68eba13c6d5820",
@@ -756,7 +756,7 @@
       "front/lib/api/explore.ts": "400bede78be0583878b08d6802ba6c2dcbfcbec76de6345294c8cd1bd9aa7894",
       "front/lib/api/feed.ts": "c9db9dc556065fa6df680e3d956320f44e9236e73bf51c2595b5e272b15a0e5c",
       "front/lib/api/follow.ts": "70be85a57c8aa79a19364501666488294eacfd2c697ca9be23e967eb23e92d31",
-      "front/lib/api/funnel.ts": "e2d8bef394d125ae1e2cdad2371df03a0b0150dabf1583f43da9aa9eef5b0e7a",
+      "front/lib/api/funnel.ts": "9a11051a3b173d975a3b3ee00b11ec9f79b42f06c6ab9547f41bc244adf2b433",
       "front/lib/api/identity.ts": "a9dab45ef5b638a04011ab7f0badcae70c8af3d7133da4e866ef99b6327b4a12",
       "front/lib/api/index.ts": "1233b7b4359785eef408ffea35b850ede887610bd95ad45171d6c0d3e1249ed4",
       "front/lib/api/legal.ts": "6654104088e8f7217b30cb71654aa72a958c19d74617840b7f745602f9e1704f",
@@ -900,7 +900,7 @@
       "front/tests/fixtures/render-baseline.json": "3bd20a8b9af812c8dfa4f2749be77ffe07359ecf6f042f9bdf01e018526c0076",
       "front/tests/follow-button.test.cjs": "d3b9e8092a3ec5e24b05cac09bb8923ad20def260835f3af13710a98f54a82e7",
       "front/tests/founding-badge.test.cjs": "7ee88fe222fafae96fe0209f4531e142465627e82ca9375e245b1a57f07e7acd",
-      "front/tests/funnel.test.cjs": "db60e583128981e27e3c996f06e415104f30f71e863738132e675ee6e2b22afe",
+      "front/tests/funnel.test.cjs": "0187d187845648b9998253e632dbd252885d989e23b845ec6d0fa42b12319058",
       "front/tests/gnb-unread.test.cjs": "ccc6b23a3a1f178fb2bb0c9aa3a7c3326683a3ab215f924640fc5a5b283ca3e6",
       "front/tests/guest-claim-dialog.test.cjs": "f389840db6befb7797ac2b1cd77610e97636f2ec2a2f7bc5bdf7c6651fa80b77",
       "front/tests/handle-link.test.cjs": "49a0daa75914eb78d2196d3571e568b26ef07f481d87443a6f8b9e5a9917d58c",
@@ -1319,7 +1319,7 @@
       "server/src/platform/finance.service.ts": "7291cd4b224d69305b074354b5954d61151fde998583643c6185772a0ef30e0f",
       "server/src/platform/financial-policy.ts": "60a520fc725ce31f7576bcdc40ffbdda93962f208ee1c6dcaaaf366262be17d5",
       "server/src/platform/founding-badge.ts": "f9d91056a086e6979bddaa13d9eea1468a3d807c82582e0da7d82e33f5e28607",
-      "server/src/platform/funnel-stats.ts": "5e0611f31c1da62868b5e1fb0b8f86ce6baf4af7ae181a275a57a60b5cdf0b1b",
+      "server/src/platform/funnel-stats.ts": "fd9216a4986b93ab0ba1d536e1787098a0effed99de31acb744b3179d387b28a",
       "server/src/platform/guest-caption.ts": "3ef3abc1f2fc6dc4a06da23acd693a83850a0f072390d58a1834ce0dae4ec919",
       "server/src/platform/guest-policy.ts": "1568349fae77a1ccf36f7cb61bad4a9ff2354251664e7d796b6f6e56bca09611",
       "server/src/platform/guest.ts": "7f7046989b486c2b3693114573c2ad76eb05c796aa7d45fd3d8e1fbf926cace3",
@@ -1347,11 +1347,11 @@
       "server/src/platform/moderation-retention.ts": "18a3f23d26ff374d4e6b31b200b2dee4f19940337ac4216bdee7749e96f9dde6",
       "server/src/platform/moderation.ts": "f18c655fc69e7540d1f42a723f4a5946fdf69e0bde3be09207f6163d6e4a7aeb",
       "server/src/platform/module.ts": "9d7c434d795b22b2d788242063c695969001be9c7ef481b3bae1bb0c49de2a8a",
-      "server/src/platform/openapi-contract.ts": "233f8b85760feb68fc756d084284b154106be02070d3dc028698f08af4756f20",
+      "server/src/platform/openapi-contract.ts": "d3be2b072b4633af6d2ddc4251890ca4e5fe89e6e218595faa338d4f5e0f6974",
       "server/src/platform/openapi.ts": "5d316d5b041099870b973b69b338d5c59fd853d49d7f7fe344f640386fd4166a",
       "server/src/platform/operations-alert-policy.ts": "d772bb44ede353b3578125092fa4860da9826712e3a8a3696721420ecf39fea9",
       "server/src/platform/operations-events.ts": "f3c8429bf133302458317ad1c7dfe9e694584e4cfd314b6a2d62d086622a4a76",
-      "server/src/platform/operations.service.ts": "30c6a29f8e6757ec1fcaca1264474dd63a07efa50082a2df51271694aec11c12",
+      "server/src/platform/operations.service.ts": "0e5c861921978fac9c139b6ea1429d8d2d5c4540131aa910743a95bffaeeaf91",
       "server/src/platform/partner-policy.ts": "e49a655f15d5b488e1a55b89e9211d75bfa10aaa3993497caf17087873283f3a",
       "server/src/platform/payment-provider.ts": "989ff90a64db3f9ce15542c917434116dc61d2c2aef59a33453734586eb643a2",
       "server/src/platform/payment-terms.ts": "4f773b0b2c9cfbef99c850588847f95f9e3e08a5777b41f069eea1b1663df878",
@@ -1376,7 +1376,7 @@
       "server/src/platform/studio.controller.ts": "0933b7312a1992a9ded18fb9c7647c857853bc048f8ef1974986baa9c40ed92b",
       "server/src/platform/studio.service.ts": "8ca1e3d7afe672a807f3351c82703ba296bd19741815e885fc788a5ede9d72b7",
       "server/src/platform/suspension.ts": "cb6af47bc9729a610e9d25c40adc5f60ac06dbbadc1ae1666bbecfb36f75a601",
-      "server/src/platform/telemetry.controller.ts": "7fff89e8daf9bacc1a2ec36d96564c752a3afecfebfdd3dcad587f435a488a1d",
+      "server/src/platform/telemetry.controller.ts": "791d1f3df96a3a05e7ebbc3be447e48e30bca1bca6682372794c4af473330eae",
       "server/src/platform/video-transcode.ts": "982cb7ebdbcea861c266dc3c6f982f17aa880a3833e362b7a7f38c3d6f195086",
       "server/src/platform/withdrawal-pin.ts": "fd8b6fcf6587417b9cfb2e5090d1fb48dd3cedc3ea82b68fd2d8134ffd784d7a",
       "server/src/platform/worker.ts": "77043b8814ba431a7c74ee302ba43d666e464f22149b4d0764713c77f861a9e1",
@@ -1469,7 +1469,7 @@
       "server/tests/platform-finance.test.cjs": "34347fb850d81419c60a77f33abf7577fe837e1d2aefd078e21e241a8b3c9f76",
       "server/tests/platform-financial-policy.test.cjs": "0f88994c9aee82782570806f7756d967c2397f78f844798abdf3e5f01a2e7ffd",
       "server/tests/platform-founding-badge.test.cjs": "84b2680a364274b486adc058b771ef02836666fe3424773b29c7367ce7b25cca",
-      "server/tests/platform-funnel.test.cjs": "520dfb027b34cdd4356f70d5f8f98d00ecdc1c7e8144a34c5f7ec7913e92ee3e",
+      "server/tests/platform-funnel.test.cjs": "7346c20a1ebd1646c61de06714d7b72ee5b97d334fd6b6e108c626cf05a1d9df",
       "server/tests/platform-guest-caption.test.cjs": "b77373d9b706f094baf0a3a076d31947e89ab601098d9d15cf681395b1b72a29",
       "server/tests/platform-guest.test.cjs": "59c03c8e36866d0d5e72217197117b7dc48fa9db0c7a3667b18baefad03aa630",
       "server/tests/platform-guide-advisor.test.cjs": "edd2d9643ce975e29282c3aeea73c627b986a1ed8bf500c705aee3560e9c99e0",
