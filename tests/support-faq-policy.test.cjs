@@ -12,5 +12,8 @@ test('payment, signup and bean-expiry FAQs match the live product (2026-11-18)',
  const payment=answer('지금 결제하면 실제로 청구되나요?');
  assert.match(payment,/무통장입금으로 실제 결제/);assert.match(payment,/멤버십 카드 결제는 아직 테스트 결제/);assert.doesNotMatch(payment,/결제는 개시 전/);
  assert.match(answer('누가 가입할 수 있나요?'),/휴대폰 번호 확인/);
- assert.match(answer('콩은 환불되나요? 유효기간이 있나요?'),/프로모션 100콩은 받은 시각부터 30일/);
+ const beans=answer('콩은 환불되나요? 유효기간이 있나요?');assert.match(beans,/프로모션 100콩과 광고성 정보 수신에 처음 동의해 받은 프로모션 10콩은 받은 시각부터 30일/);assert.match(beans,/기한 7일 전에 알려 드립니다/);
+ // 2026-11-18 /pilot-work: terms 2026-11-18.beans.1 (bean withdrawal fee/minimum) and the settings toggle name.
+ assert.match(answer('크리에이터 수수료와 출금 기준은 무엇인가요?'),/후원받은 콩은 출금할 때 20%를 공제하고 최소 1,000콩부터/);
+ const ad=answer('광고 메일 수신을 중단하고 싶어요.');assert.match(ad,/알림 설정에서 '광고성 정보 수신'을 끄거나/);assert.doesNotMatch(ad,/마케팅/);
 });
