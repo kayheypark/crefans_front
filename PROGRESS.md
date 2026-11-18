@@ -1,3 +1,34 @@
+## 2026-11-19 — 니케 모더니아·누아르 바니 위치 교환
+
+- 공용 의상 카탈로그의 모더니아4a0c8f와 누아르 바니ce1f18 항목 위치만 교환. ID·프롬프트·이미지 및 다른 항목 순서 유지.
+- 실제 카탈로그 로딩 전후 전체 항목 비교로 두 위치만 교환·나머지 데이터 동일 확인, diff 검사 종료0. 증거 `.local/body-icons/nikke-order-verification.json`(시각·커밋·SHA256·니케 최종 순서). 브라우저 미실행. 기존 미배포 수정과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 원본 유지 프리셋도 승인 소프트3D로 교체
+
+- 공용 aiPhotoPresetImage의 KEEP_ORIGINAL 분기를 category-soft3d/{kind}-v2.png로 변경. 메이크업·표정·포즈·배경·구도·촬영컨셉 전체6종에 동일 적용, 성별/포즈/배경 하위분류도 공용 함수 사용. 원본 유지 선택 동작·제목 유지.
+- 실제 TypeScript 이미지 결정 함수 호출: 6종×3성별18건 경로 일치·파일 존재·제목 유지 통과. diff 검사 종료0. 증거 `.local/body-icons/keep-original-3d-verification.json`(시각·기준 커밋·소스SHA256·검사목록). 브라우저 미실행. 기존 섹션 간격·세부 지정 미노출·중복 잔여 횟수 제거와 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 하단 중복 생성 잔여 횟수 제거
+
+- AiPhotoDialog 하단 ‘남은 생성 횟수 N회’ 삭제, 만들기 버튼 오른쪽 ‘남은 N회’와 접근성 연결 유지. 리셋권 보유 시 사용 컨트롤 유지, 미보유 시 빈 quota 행도 숨김.
+- 소스 assertion으로 문구 제거·버튼 표시·리셋권 기능 보존 확인. 증거 `.local/body-icons/quota-duplicate-removal.json`(시각·기준 커밋·파일 SHA256). 앞선 섹션 간격·옷 세부 지정 미노출과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 옷 세부 지정 임시 미노출
+
+- 사용자 ‘당분간 미노출 또는 문구 축소’에서 미노출 선택. OUTFIT_DETAIL_ENABLED=false로 문구·스위치, 마스크 편집기, 마스크 요청 조건 차단. 재활성화를 위해 기존 편집 코드는 보존.
+- 소스 assertion·npm run typecheck·git diff --check 통과. 증거 `.local/body-icons/outfit-detail-hidden.json`(시각·커밋·파일 SHA256). 브라우저/개발·운영 배포 미실행. 앞선 섹션 여백 수정과 함께 미커밋.
+
+## 2026-11-19 — 비율·커스텀 프롬프트 섹션 간격 재정리
+
+- 비율 제목과 버튼들을 ratioSection으로 묶어 내부8px, composer의 섹션 사이24px로 분리. 기존 비율 버튼 margin10px 방식 제거. 보관함이 있으면 동일24px 간격 적용. 자르기 화면 비율 선택 유지.
+- 타입 검사·diff 검사 종료0. 실제 CSS 격리 Chromium390/1280px에서 비율 버튼 끝↔다음 필드24px, 자르기 비율 margin0 확인. 증거 `.local/body-icons/check-ratio-sections.cjs`, `ratio-section-spacing-verification.json`(시각·커밋·파일 SHA256). 전체 앱 검증·개발/운영 배포 미실행. 코드/기록 미커밋.
+
+## 2026-11-19 — 투명 카테고리 아이콘·누적 화면 정리 개발 배포 완료
+
+- 기능96e9d62 → dev3e878964500b99a5d88bc71af39a028b0e97c4c3. origin/dev·github/dev 동기화, last-success SHA 일치. deploy-dev.sh front 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-022828.log`. 운영 배포 없음.
+- 실제 개발 도메인 Chromium390/1280px 카탈로그 공용 편집기 확인: 아이콘8개 로딩, 원본/의상 제목·코디 안내 미노출, 옷 세부 지정 토글 on/off와 캔버스 표시/해제, 두 상태 프레임 오른쪽/아래10px, 비율 아래16px 통과. 공개 아이콘8개 HTTP200·원본 SHA256 일치·alpha 확인. 스크린샷 시각 확인.
+- 증거 기능 작업본 `.local/body-icons/verify-dev-alpha.cjs`, `dev-alpha-verification.json`, `dev-alpha-390.png`, `dev-alpha-1280.png`. 카탈로그 대역 데이터 사용, 실제 AI 생성/적립 요청 없음. 체험 첫 화면 안내 제거는 소스 및 빌드 확인 범위. 이 결과 기록만 로컬 미커밋, 아래 미배포 기록을 대체함.
+
 ## 2026-11-19 — 승인 카테고리 소프트3D 투명 아이콘 적용
 
 - 승인 v2 시트의 흰 배경을 이미지 편집 도구로 제거, RGBA 마스터 보존. 알파를 유지한 8개96px PNG로 내보내기, 공용 AiPhotoCategoryIcon24px 연결. master-v2.png 및 manifest.json(셀/크롭/알파 개수/SHA256)을 public/brand/ai-photo/category-soft3d에 보관.

@@ -128,7 +128,7 @@ export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){
- if(example===AI_PHOTO_KEEP_ORIGINAL)return `/brand/ai-photo/${kind}-colorful-flat-v3.png`;
+ if(example===AI_PHOTO_KEEP_ORIGINAL)return `/brand/ai-photo/category-soft3d/${kind}-v2.png`;
  if(kind==='makeup'){const makeup=aiPhotoMakeups.find(item=>item.prompt===example);if(makeup)return `/brand/ai-photo/presets/${makeup.image}.webp`;}
  if(kind==='outfit'){const outfit=aiPhotoOutfitByPrompt(example);if(outfit)return aiPhotoOutfitImage(outfit);}
  if(kind==='background'&&aiPhotoBackgroundId(example))return `/brand/ai-photo/background/${aiPhotoBackgroundId(example)}.webp`;

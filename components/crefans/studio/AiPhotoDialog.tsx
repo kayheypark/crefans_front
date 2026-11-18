@@ -42,6 +42,9 @@ const buildPrompt=(presets:AiPhotoPresetSelection[],custom:string,gender:'origin
 export const AI_PHOTO_SHARE_TEXT='이거 AI로 옷만 바꾼 거임 😳\n나도 해 보기 → https://crefans.com/service/try\n(AI 생성 이미지)';
 function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
 
+// Temporarily hidden at user request; keep the mask editor for later reactivation.
+const OUTFIT_DETAIL_ENABLED=false;
+
 export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false}:Props){
  const [libraryOpen,setLibraryOpen]=useState(false),[libraryAssets,setLibraryAssets]=useState<PhotoAsset[]>([]);
  const sourceOrigins=useRef(new Map<string,string>());
@@ -69,7 +72,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const sources=[...images,...workingSources.filter(item=>!images.some(original=>original.id===item.id))],hasOutfit=editKinds.includes('outfit');
  const [cosplayOpen,setCosplayOpen]=useState(true);
  const [detailedOutfit,setDetailedOutfit]=useState(false);
- const requiresMask=hasOutfit&&detailedOutfit;
+ const requiresMask=OUTFIT_DETAIL_ENABLED&&hasOutfit&&detailedOutfit;
  const [presetQuery,setPresetQuery]=useState('');
  const [backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor');
  const [posePosture,setPosePosture]=useState<AiPhotoPosePosture>('sitting');
@@ -166,10 +169,10 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const viewing=viewer!==null||sourceViewer;
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
  function selectLibrary(item:PhotoAsset){if(libraryAssets.some(value=>value.id===item.id)){setLibraryAssets(items=>items.filter(value=>value.id!==item.id));return;}const next=[...libraryAssets.filter(value=>value.category!==item.category),item];if(next.length>4){setError('내 보관함 사진은 최대 4개까지 선택해 주세요.');setLibraryOpen(false);return;}setSelectedPresets(items=>items.filter(value=>value.kind!==item.category));setLibraryAssets(next);}
- const outfitSwitch=(kind==='outfit'||hasOutfit)&&<button type="button" role="switch" aria-checked={detailedOutfit} className={s.outfitSwitch} disabled={busy} onClick={()=>{setDetailedOutfit(!detailedOutfit);setError('');}}>옷 세부 지정<span aria-hidden="true"/></button>;
+ const outfitSwitch=OUTFIT_DETAIL_ENABLED&&(kind==='outfit'||hasOutfit)&&<button type="button" role="switch" aria-checked={detailedOutfit} className={s.outfitSwitch} disabled={busy} onClick={()=>{setDetailedOutfit(!detailedOutfit);setError('');}}>옷 세부 지정<span aria-hidden="true"/></button>;
  const composer=<div className={s.composer}>
   {library&&<div className={s.libraryEntry}><button type="button" disabled={busy} onClick={()=>setLibraryOpen(true)}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 7V4h7l2 3h9v13H3Z"/><path d="m8 16 3-3 2 2 2-2 3 4"/></svg>내 보관함<Icon name="chevron" width={18} height={18} className={s.libraryChevron}/></button>{libraryAssets.length>0&&<div className={s.librarySelected}>{libraryAssets.map(item=><button key={item.id} type="button" onClick={()=>setLibraryAssets(items=>items.filter(value=>value.id!==item.id))} aria-label={`${item.title} 선택 해제`}><img src={item.url} alt=""/><span>{photoAssetLabel(item.category)} · {item.title}</span><span aria-hidden="true">×</span></button>)}</div>}</div>}
-  <strong>비율</strong><AiPhotoRatioPresets value={aspectRatio} onChange={setAspectRatio} disabled={busy}/>
+  <div className={s.ratioSection}><strong>비율</strong><AiPhotoRatioPresets value={aspectRatio} onChange={setAspectRatio} disabled={busy}/></div>
   <TextAreaField label="커스텀 프롬프트" rows={3} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={customPrompt} onChange={event=>setCustom(event.target.value)} placeholder="선택한 프리셋에 더하고 싶은 내용을 적어 주세요." disabled={busy}/>
  </div>;
 
@@ -181,7 +184,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
      {sourcePicker&&<div className={s.sources} role="radiogroup" aria-label="편집할 이미지 고르기">{sources.map((item,index)=><button key={item.id} type="button" role="radio" aria-checked={item.id===sourceId} aria-label={`${index+1}번 사진`} className={s.source} onClick={()=>changeSource(item.id)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- uploaded draft thumbnail */}
       <img src={item.preview||item.url} alt=""/>{item.aiGenerated&&<span className={s.ai}>AI</span>}</button>)}</div>}
-     {source&&((kind==='outfit'||hasOutfit)&&detailedOutfit?<><AiPhotoMask overlay={outfitSwitch} src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'} strokes={strokes} onChange={next=>{setStrokes(next);setError('');}} disabled={busy}/></>:<div className={s.previewFrame}>
+     {source&&(OUTFIT_DETAIL_ENABLED&&(kind==='outfit'||hasOutfit)&&detailedOutfit?<><AiPhotoMask overlay={outfitSwitch} src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'} strokes={strokes} onChange={next=>{setStrokes(next);setError('');}} disabled={busy}/></>:<div className={s.previewFrame}>
       {/* eslint-disable-next-line @next/next/no-img-element -- creator's own uploaded photo */}
       <img className={s.preview} src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'}/><button ref={editRef} type="button" className={s.zoom} aria-label="원본 사진 크게 보기" onClick={()=>setSourceViewer(true)}><ZoomIcon/></button>
       {outfitSwitch}
@@ -224,7 +227,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
        <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button><div className={s.resultTools}>{onCrop&&<button type="button" onClick={()=>setCropItem(item)} aria-label={`결과 ${index+1} 자르기`}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3v13a2 2 0 0 0 2 2h13M3 6h13a2 2 0 0 1 2 2v13"/></svg>자르기</button>}<button type="button" disabled={sharing} onClick={()=>void sharePhoto(item)} aria-label={`결과 ${index+1} 공유`}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V3m-5 5 5-5 5 5M5 12v8h14v-8"/></svg>{sharing?'준비 중…':'공유'}</button></div></div></div>)}</div><div className={s.heartResult}>{noHearts?<><strong>이번 게임에서 하트 {resultHearts}개를 모았어요</strong><p>체험 게임의 하트는 적립되거나 이용권으로 바뀌지 않아요.</p></>:<><strong aria-label={`누적 하트 ${onHeartGame?heartBalance:resultHearts}개 / 100개`}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/></svg><span>{onHeartGame?heartBalance:resultHearts}/100</span></strong><p>100개가 모이면 10번의 기회가 생겨요</p>{rewardNote&&<p role="status">{rewardNote}</p>}</>}</div></>}
     </div>}
     {stage==='results'&&!busy&&<div className={s.resultActions}><Action type="button" variant="secondary" disabled={!originalSource} onClick={()=>{if(originalSource)editResult(originalSource);}}>원본으로</Action><Action type="button" variant="secondary" onClick={()=>{const item=results.find(result=>selected.includes(result.id));if(item)editResult(item);}} disabled={selected.length!==1}>계속 보정</Action><Action type="button" onClick={add} disabled={!selected.length}>사진 결정</Action></div>}
-    {(!busy&&(stage==='edit'||remaining<=0))&&<div className={s.quota}><span>남은 생성 횟수 <b>{remaining}</b>회</span>{onUseTicket&&tickets>0&&<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
+    {(!busy&&(stage==='edit'||remaining<=0)&&onUseTicket&&tickets>0)&&<div className={s.quota}>{<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
    </div>
    {stage==='edit'&&<div className={s.footer} inert={viewing}>
