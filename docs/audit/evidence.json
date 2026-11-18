@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-18T08:27:23.895549+00:00",
+  "checkedAt": "2026-11-18T08:35:48.886894+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,14 +30,14 @@
   ],
   "repositories": {
     "front": {
-      "head": "314a8836bb3f8fd174d523644348848b3f384af3",
+      "head": "482a3140db4b4c6ee7b9ce7bcc257a12fe1c1c9c",
       "branch": "feat/marketing-consent-reward",
-      "dirty": true
+      "dirty": false
     },
     "server": {
-      "head": "38dff9ddc4d53110312f91112450cde5d9a12da5",
+      "head": "43cf3a6f7069193936d52121ae269ff2876abe8a",
       "branch": "feat/marketing-consent-reward",
-      "dirty": true
+      "dirty": false
     }
   },
   "state": {
@@ -268,7 +268,7 @@
       "front/components/crefans/SocialLinks.tsx": "0c379cfc014741cda3bfde0c312660bf880025543ffa4073e8ac5740bc7993b1",
       "front/components/crefans/SocialPages.tsx": "ad3457a0444679177b45abc4fa0f43b670867d70ed34f155ecb2e2a72c1139bd",
       "front/components/crefans/SubscriptionResumeDialog.tsx": "768f57d06a69e27af33ed7c7e0d590f62769414b7f531ca9ff62677174b4cc82",
-      "front/components/crefans/account.module.css": "a7bb535b77b18e7219fea2d11b63a859dd3ee129fbde85d0c44fd794d1a7e6df",
+      "front/components/crefans/account.module.css": "eff2f886e9f232bf2ca1fb9c16bb6d852a4abf746f8b214160de9510f80047ea",
       "front/components/crefans/advisor.module.css": "547b3b833b95beb7412b84da95d87ed750d558e8351900a7761bace133d6f25d",
       "front/components/crefans/back-button.module.css": "b2363491a90185878c16c0e866e43ebd27c246770958c7493668ec744861138c",
       "front/components/crefans/bank-transfer.module.css": "132461c4da1f32e0351c81af34ebea40f2e998ac8a6fa9f3edcad150372cf830",
