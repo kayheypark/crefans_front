@@ -1,3 +1,9 @@
+## 2026-11-19 01:15~01:52 KST 처리방침 posthog.2·PostHog 화면 오류 수집 — 운영 API privacy2-20261119, 프론트 errors-20261119
+- 사용자 결정("응 허용", 운영 게시 "오늘 시행으로 배포"): 처리방침 2026-11-19.posthog.2(2026-11-19 시행) — 9조 ④ PostHog 항목에 "화면 오류 정보(화면에서 난 오류의 종류·메시지와 오류가 난 서비스 코드 위치. 주소 뒤 검색어·인증값, 이메일 주소, 긴 숫자는 지우고 보냄)" 추가, 다른 조항 불변(테스트로 확인). 시행 방식은 posthog.1과 같은 게시일 즉시 시행.
+- 프론트: capture_exceptions 켬. beforeSend가 $exception 이벤트의 모든 문자열에서 주소 검색어·해시 제거, 이메일→<email>, 6자리 이상 숫자→<number>, 500자 제한. 다른 이벤트는 기존 그대로. 콘솔 기록은 계속 끔.
+- 순서: 서버(처리방침) 운영 게시 확인(/api/v1/common privacy 2026-11-19.posthog.2, 화면 오류 정보 포함) 후 프론트 배포. 운영 번들 capture_exceptions:!0 확인.
+- 검증: server platform-legal 36/36(posthog.2 신규 1건), front posthog 10/10(오류 정리 신규 1건), 대조: 이전 posthog.ts로 2건 실패. 개발 서버 처리방침 페이지 문구·"2026.11.19 시행" 확인.
+- 이탈 분석 fetch.py: $exception_list 첫 항목의 종류·메시지도 timeline에 넣도록 보강.
 ## 2026-11-19 01:00~01:13 KST 계층 규칙 정리·AI 퍼널 단계 — 운영 프론트 layer-20261119
 - 사용자 지시 "고칠점 다 배포까지". 원인: 공유 보고 연결(share-20261119)이 AiPhotoDialog에서 lib/api를 직접 import(AGENTS 136·tests/crefans-contract 위반), 기존에도 AiPhotoDialog·ManagementPages가 fetch 직접 호출. 계약 테스트를 전체로 돌리지 않아 놓침.
 - 변경: types에 reportShare·trackAiPhoto 액션(AiPhotoFunnelStep), useStudioModel(actor member)·useGuestTrialModel(actor guest)·GuestTrialPage가 공급, ManagementPages가 AiPhotoDialog에 props로 전달. 이미지 다운로드는 lib/browser/media-file.ts(fetchImageBlob). 이탈 분석 자동 수정안(replay-fix/20261119-0016, 계층 위반이라 보류)의 퍼널 이벤트 ai_editor_opened·photo_decided·ai_result_shared를 규칙에 맞게 반영(actor·mode만).
