@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import {Action,PageTitle} from './ServiceUI';
 import {BackButton} from './BackButton';
 import {Checkbox} from '@/components/ui/Choice';
@@ -31,7 +30,6 @@ export function GuestTrialConsent({agreed,pending,error,onAgree,onStart}:Props){
    <li>체험 게시물에는 AI로 만든 사진만 올릴 수 있어요. 댓글, 후원, 멤버십이 없고, 하트 같은 보상은 주지 않아요.</li>
 
    </ul></details>
-   <div className={s.links}><Link href="/service/legal/privacy">개인정보 처리방침 17항</Link><Link href="/service/login?next=/service/studio/content/new">이미 회원이라면 로그인</Link></div>
   </div>
   <div className={s.footer}>
    <Checkbox label="위 내용과 개인정보 처리방침 17항(비회원 AI 사진 체험)에 동의합니다" checked={agreed} disabled={pending} onChange={onAgree}/>

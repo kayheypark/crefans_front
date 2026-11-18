@@ -15,6 +15,8 @@ for(const viewport of [{width:320,height:568},{width:390,height:844},{width:1280
   });
   await page.goto('/service/try');
   const root=page.locator('[data-guest-consent]'),button=root.getByRole('button',{name:'동의하고 체험 시작'}),checkbox=root.getByRole('checkbox');
+  if(viewport.width<768)await expect(page.getByRole('navigation',{name:'하단 메뉴',exact:true})).toBeHidden();
+  else await expect(page.getByRole('navigation',{name:'사이드 메뉴',exact:true})).toBeVisible();
   await expect(button).toBeDisabled();await expect(checkbox).not.toBeChecked();expect(starts).toBe(0);
   await expect(root.getByRole('img',{name:'내 사진 예시, 가상 인물',exact:true})).toHaveJSProperty('naturalWidth',720);
   await expect(root.getByRole('img',{name:'선택한 모더니아 코스튬',exact:true})).toHaveJSProperty('naturalWidth',512);
@@ -30,9 +32,10 @@ for(const viewport of [{width:320,height:568},{width:390,height:844},{width:1280
   await root.locator('details').evaluate(e=>(e as HTMLDetailsElement).open=false);
   await root.locator('[aria-label="체험 안내"]').evaluate(e=>e.scrollTop=0);
   await expect.poll(()=>checkbox.evaluate(e=>getComputedStyle(e).backgroundColor)).toBe('rgb(190, 24, 93)');
-  await page.screenshot({path:`.local/consent-pink/title-restored-${viewport.width}.png`});
+  await page.screenshot({path:`.local/consent-pink/no-mobile-nav-${viewport.width}.png`});
   await button.click();await expect(root.getByRole('button',{name:'준비 중…'})).toBeDisabled();await expect(checkbox).toBeDisabled();
   await expect.poll(()=>starts).toBe(1);release!();
   await expect(root.getByRole('alert')).toContainText('다시 시도');await expect(checkbox).toBeChecked();await expect(button).toBeEnabled();
+  if(viewport.width<768){await root.evaluate(e=>e.removeAttribute('data-guest-consent'));await expect(page.getByRole('navigation',{name:'하단 메뉴',exact:true})).toBeVisible();}
  });
 }

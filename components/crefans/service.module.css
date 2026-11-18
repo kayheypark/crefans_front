@@ -39,5 +39,5 @@
 
 /* 2026-11-17: official account links under the sidebar operator details. */
 .sidebarSocial{padding:8px 6px 0}
-/* Trial consent keeps its action area inside the shell, above the mobile navigation. */
-@media(max-width:767px){.root[data-mobile-shell]>.body:has([data-guest-consent]){overflow:hidden}.root[data-mobile-shell] .main:has([data-guest-consent]){height:100%;min-height:0;padding:0}}
+/* Trial consent owns the mobile bottom area; navigation returns after consent. */
+@media(max-width:767px){.root[data-mobile-shell]:has([data-guest-consent])>.bottomNav{display:none}.root[data-mobile-shell]>.body:has([data-guest-consent]){overflow:hidden}.root[data-mobile-shell] .main:has([data-guest-consent]){height:100%;min-height:0;padding:0}}
