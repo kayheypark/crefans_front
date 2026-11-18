@@ -1,3 +1,8 @@
+## 2026-11-18 랜딩 방문 텔레그램 알림 — 유입 출처 전송 (feat/landing-visit-alert)
+- 사용자 지시 "랜딩페이지에 누가 들어오면 텔레그램으로 알림" + "배포해". 서버(feat/landing-visit-alert)가 landing_view 집계 시 운영 텔레그램 '랜딩 방문'을 보냄.
+- 변경: lib/api/funnel.ts — landing_view에만 외부 referrer의 호스트 이름(`new URL(document.referrer).hostname`, 같은 사이트·비http 제외, 전체 URL·경로·쿼리 안 보냄)과 utm_source(`^[A-Za-z0-9_.-]{1,40}$`만)를 함께 보냄. 탭(세션)당 1회·오류 무시는 그대로, 다른 단계는 step만.
+- 검증: tests/funnel.test.cjs 4/4(외부 호스트·utm 전송, 같은 사이트·잘못된 utm·깨진 referrer 미전송, 다른 단계 step만). 대조: funnel.ts를 되돌리면 새 테스트 실패. tsc 0, npm test 733/751(실패 18건 = 기존 기준선과 동일 목록).
+
 ## 2026-11-18 14:4x KST dev 통합 — feat/posthog (PostHog 분석·세션 리플레이)
 - 사용자 승인(2026-11-18) 직접 통합. origin/dev babd2a8에서 분리 HEAD 작업 트리(crefans_front-dev-posthog)로 --no-ff 병합(0134480). 충돌은 PROGRESS(양쪽 절 유지)·docs/audit/evidence.json(dev 쪽 유지 후 재기록).
 - 검증(2026-11-18 14:4x KST): tsc --noEmit 0, npm test 750 중 732 통과·18 실패(기준선 fail-base2 18건과 동일, 새 실패 0), next build 0(키 없음). CREFANS_SERVER_DIR=서버 dev 트리(2bec901 이전 병합 d04ee06 내용)로 docs:contracts(변경 없음)·docs:record·check:docs PASS(문서 82·라우트 286). 기록 전 check:docs는 병합 변경 파일 17건 증거 만료로 실패(예상된 원인).
