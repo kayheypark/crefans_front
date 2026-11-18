@@ -47,7 +47,8 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'creator':return publicProfile?.isCreator===false?<PublicMemberPage profile={publicProfile} model={model}/>:<CreatorProfilePage model={model} id={publicProfile?.id||id}/>;
   case 'member':return publicProfile?<PublicMemberPage profile={publicProfile} model={model}/>:null;
   case 'membership':return <MembershipPage model={model} id={publicProfile?.id||id} initialPlanId={query.get('plan')||undefined}/>;
-  case 'signup':return id==='complete'?<SignupCompletePage basePath={basePath} live leave={path=>router.replace(path)}/>:<SignupPage model={model} onComplete={()=>router.push(`${basePath}/signup/complete`)}/>;
+  // 2026-11-18: signup signs the member in; the return path (?next) rides along to the completion page's 계속하기.
+  case 'signup':return id==='complete'?<SignupCompletePage basePath={basePath} live leave={path=>router.replace(path)} next={query.get('next')} signedIn={loading?undefined:model.signedIn}/>:<SignupPage model={model} onComplete={()=>router.push(`${basePath}/signup/complete${query.get('next')?`?next=${encodeURIComponent(query.get('next')!)}`:''}`)}/>;
   case 'login':return <LoginPage model={model} next={query.get('next')} navigate={path=>router.replace(path)}/>;
   case 'beans':return id==='referral'?<BeanReferralPage/>:id==='referral-history'?<ReferralHistoryPage/>:id==='withdraw'?<BeanWithdrawContainer signedIn={model.signedIn} basePath={basePath}/>:id==='charges'||id==='history'||id==='tips'?<BeanHistoryPage key={id} kind={id}/>:id==='charge'?<BeanChargePage/>:id?<BeanPaymentResult success={id==='success'}/>:<BeanWalletPage/>;
   case 'feed':return <FeedPage model={model}/>;
