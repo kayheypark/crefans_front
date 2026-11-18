@@ -77,7 +77,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const [backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor');
  const [posePosture,setPosePosture]=useState<AiPhotoPosePosture>('sitting');
  const [outfitPart,setOutfitPart]=useState<AiPhotoOutfitPart>('top');
- const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('general');
+ const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('nikke');
  const costumes=aiPhotoCostumes.filter(costume=>presetQuery.trim()?aiPhotoPresetMatches(presetQuery,costume.name,costume.detail,aiPhotoCostumeCategories.find(category=>category.value===costume.category)!.label):costume.category===costumeCategory),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
  const cosplay=kind==='outfit'&&cosplayOpen;
  const hasCostume=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>aiPhotoPresetText(costume.prompt)===item.prompt));

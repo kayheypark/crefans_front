@@ -80,7 +80,7 @@ export function AiPhotoCompare({before,after,label}:{before:string;after:string;
 
 /** The editor's preset browser (cosplay mode) on the landing: same tabs, wardrobe, filters, search and 3x3 pages. Picking only marks cards. */
 export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string,string[]>)=>void}={}){
- const [kind,setKind]=useState<AiPhotoKind>('outfit'),[page,setPage]=useState(0),[query,setQuery]=useState(''),[costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>(aiPhotoCostumeCategories[0].value);
+ const [kind,setKind]=useState<AiPhotoKind>('outfit'),[page,setPage]=useState(0),[query,setQuery]=useState(''),[costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('nikke');
  const [posture,setPosture]=useState<AiPhotoPosePosture>('standing'),[backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor'),[picked,setPickedState]=useState<Record<string,string[]>>({});
  const setPicked=(update:(previous:Record<string,string[]>)=>Record<string,string[]>)=>setPickedState(previous=>{const next=update(previous);onPicked?.(next);return next;});
  const category=aiPhotoCostumeCategories.find(item=>item.value===costumeCategory)!;
