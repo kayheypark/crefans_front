@@ -1,3 +1,10 @@
+## 2026-11-18 14:5x KST prod 승격 feat/posthog — 운영 프론트 배포는 디스크 부족으로 보류
+- 사용자 승인(2026-11-18). origin/prod에서 분리 HEAD 작업 트리(crefans_front-prod-posthog)로 --no-ff 병합(e29683f, 충돌 없음) + 문서 증거 재기록(a8a064a). git diff origin/dev HEAD: 코드 차이 0(PROGRESS·evidence.json만).
+- 검증: tsc 0, npm test 750 중 732 통과·18 실패(fail-base2와 동일, 새 실패 0), next build 0, CREFANS_SERVER_DIR=서버 prod 트리로 docs:contracts(변경 없음)·docs:record·check:docs PASS(문서 82·라우트 286).
+- dev: Jenkins #38 SUCCESS(front 491b252), 헤드리스 Chrome으로 dev 랜딩(?utm 포함) 로드 시 posthog.com 요청 0·ph_ 쿠키 0(키 없는 빌드).
+- 선행 조건 충족: 서버 처리방침 2026-11-18.posthog.1이 14:57:14 KST 운영 공개·시행(서버 PROGRESS).
+- 보류: deploy-preflight --required-gib 8 → 여유 5.9GB로 미달. 승인된 정리(image-retention --keep 3 --apply: 4개 태그 삭제, builder prune until=24h: 0B) 후 6.5GB로 여전히 미달, API 배포 후 2.8GB. 추가 정리는 사용자 승인 필요하므로 ship-image.sh(front-posthog-20261118) 미실행 → 운영 PostHog 수집은 아직 시작 안 됨.
+
 ## 2026-11-18 PostHog 분석·세션 리플레이 준비 (feat/posthog, 배포·dev 통합 없음)
 - 사용자 결정(11-18): PostHog Cloud US(프로젝트 745445), 쿠키 저장 + 세션 리플레이, 목적은 퍼널 이탈 파악. 수집은 개인정보처리방침 문안 승인·공개 후 시작(server feat/posthog-policy 초안, 미공개).
 - 구현: `posthog-js` 1.445.1 정확 고정(2026-11-03 배포, 2주 경과; 하위 의존성도 `--before=2026-11-04`로 해석). `lib/analytics/posthog.ts`(설정·허용 경로·URL 정리·이벤트), `components/service/PostHogAnalytics.tsx`를 `/service` 레이아웃에만 장착. /preview·디자인 시스템·명함·관리자 콘솔에는 없음. 빌드 시 `NEXT_PUBLIC_POSTHOG_KEY`가 없으면 posthog-js를 import하지 않음(동적 import), 이벤트도 버림. `NEXT_PUBLIC_POSTHOG_HOST` 기본 https://us.i.posthog.com. 키 하드코딩 없음.
