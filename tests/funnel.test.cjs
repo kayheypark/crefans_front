@@ -31,3 +31,10 @@ test('landing_view carries only an external referrer host and a valid utm_source
  const broken=load(memory(),{referrer:'not a url'});broken.reportFunnelStep('landing_view');await new Promise(r=>setImmediate(r));
  assert.deepEqual(JSON.parse(broken.calls[0].options.body),{step:'landing_view'});
 });
+// 2026-11-18 당근 캠페인: utm_medium and utm_campaign go with landing_view the same way; invalid values are dropped one by one.
+test('landing_view also carries valid utm_medium and utm_campaign',async()=>{
+ const page=load(memory(),{search:'?utm_source=daangn&utm_medium=cpc&utm_campaign=daangn_202611&utm_term=x'});page.reportFunnelStep('landing_view');await new Promise(r=>setImmediate(r));
+ assert.deepEqual(JSON.parse(page.calls[0].options.body),{step:'landing_view',utmSource:'daangn',utmMedium:'cpc',utmCampaign:'daangn_202611'});
+ const bad=load(memory(),{search:'?utm_source=daangn&utm_medium=c%20pc&utm_campaign='+'a'.repeat(41)});bad.reportFunnelStep('landing_view');await new Promise(r=>setImmediate(r));
+ assert.deepEqual(JSON.parse(bad.calls[0].options.body),{step:'landing_view',utmSource:'daangn'});
+});
