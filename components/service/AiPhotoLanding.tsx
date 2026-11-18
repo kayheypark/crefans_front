@@ -29,9 +29,10 @@ const looks:{id:string;costume:string;presets:LookPreset[]}[]=[
  {id:'idol',costume:'e614f6',presets:[{kind:'pose',title:'브이'},{kind:'camera',title:'로우 앵글'}]},
 ];
 const presetByTitle=(kind:AiPhotoKind,title:string)=>{const example=aiPhotoPresets[kind].find(item=>aiPhotoPresetTitle(kind,item)===title);if(!example)throw new Error(`landing preset missing: ${kind} ${title}`);return example;};
-/** Hero results with the real catalog entries behind them; a renamed or removed preset fails loudly instead of showing a stale card. */
+/** Hero results with the real catalog entries behind them; a renamed or removed preset fails loudly instead of showing a stale card.
+ * thumb is a 168×210 copy of the hero for the 56×70 picker (2026-11-18 performance fix: the picker loaded the 720px originals). */
 export const landingLooks=looks.map(look=>{const costume=aiPhotoCostumes.find(item=>item.id===look.costume);if(!costume)throw new Error(`landing costume missing: ${look.costume}`);
- return {id:look.id,label:costume.name,image:`/illustrations/landing/ai-photo/hero-${look.id}-v1.webp`,cards:[{kind:'outfit' as AiPhotoKind,title:costume.name,image:costume.image},...look.presets.map(item=>({kind:item.kind,title:item.title,image:aiPhotoPresetImage(item.kind,presetByTitle(item.kind,item.title))}))]};});
+ return {id:look.id,label:costume.name,image:`/illustrations/landing/ai-photo/hero-${look.id}-v1.webp`,thumb:`/illustrations/landing/ai-photo/thumb-${look.id}-v1.webp`,cards:[{kind:'outfit' as AiPhotoKind,title:costume.name,image:costume.image},...look.presets.map(item=>({kind:item.kind,title:item.title,image:aiPhotoPresetImage(item.kind,presetByTitle(item.kind,item.title))}))]};});
 // Body presets are not advertised on the public page.
 export const landingKinds=aiPhotoKinds.filter(kind=>kind.value!=='body');
 const illustrated=['expression','pose','camera','lens'];
@@ -57,8 +58,9 @@ export function AiPhotoCompare({before,after,label}:{before:string;after:string;
   onPointerMove={event=>{const p=press.current;if(!p)return;if(p.mode==='pending'){const dx=Math.abs(event.clientX-p.x),dy=Math.abs(event.clientY-p.y);if(dx<TAP_SLOP&&dy<TAP_SLOP)return;if(dy>dx){press.current=null;return;}p.mode='drag';setDragging(true);event.currentTarget.setPointerCapture?.(event.pointerId);}move(at(event)-p.offset);}}
   onPointerUp={event=>{const p=press.current;press.current=null;setDragging(false);if(p?.mode==='pending'){if(p.onHandle){setIntro(false);setMoved(true);}else move(at(event));}}}
   onPointerCancel={()=>{press.current=null;setDragging(false);}}>
+  {/* 2026-11-18 performance fix: the original photo is the mobile LCP element, so it is fetched first. */}
   {/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}
-  <img className={s.compareImage} src={before} alt="원본 사진(가상 인물)" width={720} height={900} draggable={false}/>
+  <img className={s.compareImage} src={before} alt="원본 사진(가상 인물)" width={720} height={900} draggable={false} fetchPriority="high"/>
   <div className={s.compareAfter} style={{clipPath:`inset(0 0 0 ${split}%)`}}>
    {/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}
    <img className={s.compareImage} src={after} alt={`${label} 결과(가상 인물, AI 생성)`} width={720} height={900} draggable={false}/>
@@ -122,8 +124,8 @@ export default function AiPhotoLanding(){
    </div>
    <div className={s.heroDemo}>
     <AiPhotoCompare before="/illustrations/landing/ai-photo/base-v1.webp" after={current.image} label={current.label}/>
-    <div className={s.looks} role="radiogroup" aria-label="결과 사진 고르기">{landingLooks.map(item=><button key={item.id} type="button" role="radio" aria-checked={item.id===look} className={s.look} onClick={()=>setLook(item.id)}>{/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}<img src={item.image} alt="" width={56} height={70}/><span>{item.label}</span></button>)}</div>
-    <div className={s.used}><p>이 사진에 고른 프리셋</p><ul className={s.usedCards}>{current.cards.map(card=><li key={`${card.kind}-${card.title}`} className={s.usedCard}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset images */}<img src={card.image} alt="" width={72} height={72} data-illustrated={illustrated.includes(card.kind)||undefined}/><span>{landingKinds.find(item=>item.value===card.kind)?.label}</span><strong>{card.title}</strong></li>)}</ul></div>
+    <div className={s.looks} role="radiogroup" aria-label="결과 사진 고르기">{landingLooks.map(item=><button key={item.id} type="button" role="radio" aria-checked={item.id===look} className={s.look} onClick={()=>setLook(item.id)}>{/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}<img src={item.thumb} alt="" width={56} height={70}/><span>{item.label}</span></button>)}</div>
+    <div className={s.used}><p>이 사진에 고른 프리셋</p><ul className={s.usedCards}>{current.cards.map(card=><li key={`${card.kind}-${card.title}`} className={s.usedCard}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset images */}<img src={card.image} alt="" width={72} height={72} loading="lazy" data-illustrated={illustrated.includes(card.kind)||undefined}/><span>{landingKinds.find(item=>item.value===card.kind)?.label}</span><strong>{card.title}</strong></li>)}</ul></div>
    </div>
   </section>
 
