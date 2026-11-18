@@ -5,10 +5,12 @@ export type FunnelViewStep='landing_view'|'guest_consent_view'|'signup_view';
 const FLAG='crefans-funnel:';
 // 2026-11-18 user decision (랜딩 방문 텔레그램 알림): the landing view also names where the visit came from — only the external
 // referrer's host name (never the full URL, path or query) and the utm_source value. The server validates and may drop both.
+// 2026-11-18 user decision (당근 캠페인): utm_medium and utm_campaign are sent the same way so the alert shows the campaign.
+const UTM_FIELDS=[['utm_source','utmSource'],['utm_medium','utmMedium'],['utm_campaign','utmCampaign']] as const;
 function landingSource(){
- const source:{referrerHost?:string;utmSource?:string}={};
+ const source:{referrerHost?:string;utmSource?:string;utmMedium?:string;utmCampaign?:string}={};
  try{const ref=document.referrer?new URL(document.referrer):null;if(ref&&/^https?:$/.test(ref.protocol)&&ref.hostname!==window.location.hostname)source.referrerHost=ref.hostname.toLowerCase();}catch{}
- try{const utm=new URLSearchParams(window.location.search).get('utm_source');if(utm&&/^[A-Za-z0-9_.-]{1,40}$/.test(utm))source.utmSource=utm;}catch{}
+ try{const query=new URLSearchParams(window.location.search);for(const [param,key] of UTM_FIELDS){const utm=query.get(param);if(utm&&/^[A-Za-z0-9_.-]{1,40}$/.test(utm))source[key]=utm;}}catch{}
  return source;
 }
 export function reportFunnelStep(step:FunnelViewStep){
