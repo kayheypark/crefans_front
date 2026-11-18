@@ -1,24 +1,10 @@
-/* Signed-out AI photo trial (2026-11-15): consent, done screen. */
+/* Signed-out AI photo trial: loading/error and done screen. */
 .page{display:flex;flex-direction:column;gap:18px;max-width:560px;margin:0 auto;padding:4px 0 32px;color:var(--cf-color-text)}
-.hero{position:relative;display:flex;flex-direction:column;gap:10px;padding:22px 20px 20px;border-radius:20px;background:linear-gradient(135deg,#eef4ff 0%,#fdf0f8 100%);overflow:hidden}
-.hero img{position:absolute;right:-6px;bottom:-10px;width:112px;height:112px;object-fit:contain;opacity:.95;pointer-events:none}
-.badge{align-self:flex-start;padding:4px 10px;border-radius:999px;background:var(--cf-color-surface);color:var(--cf-color-accent);font-size:12px;font-weight:700;box-shadow:0 1px 2px rgb(32 35 51/.08)}
-.hero h1{margin:0;max-width:calc(100% - 96px);font-size:24px;line-height:1.3;font-weight:800;word-break:keep-all}
-.hero p{margin:0;max-width:calc(100% - 100px);color:var(--cf-color-textSecondary);font-size:14px;line-height:1.6;word-break:keep-all}
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0;padding:0;list-style:none}
-.steps li{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border:1px solid var(--cf-color-border);border-radius:14px;background:var(--cf-color-surface);font-size:13px;font-weight:600;text-align:center;word-break:keep-all}
-.steps b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--cf-color-accent);color:var(--cf-color-onAccent);font-size:13px}
+
 .notice{display:flex;gap:10px;padding:14px 16px;border:1px solid #fcd9a8;border-radius:14px;background:#fff8ec;color:#7a4a0c;font-size:14px;line-height:1.6;word-break:keep-all}
 .notice svg{flex:none;width:20px;height:20px;margin-top:1px;color:#d97706}
 .notice strong{display:block;margin-bottom:2px;color:#92400e;font-size:14px}
-.card{padding:16px;border:1px solid var(--cf-color-border);border-radius:16px;background:var(--cf-color-surface)}
-.card h2{margin:0 0 10px;font-size:15px;font-weight:800}
-.checks{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
-.checks li{display:flex;gap:10px;color:var(--cf-color-textSecondary);font-size:13px;line-height:1.6;word-break:keep-all}
-.checks li::before{content:"";flex:none;width:4px;height:4px;margin-top:9px;border-radius:50%;background:currentColor}
-.consent{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:16px;background:var(--cf-color-surfaceSubtle)}
-.links{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
-.links a{color:var(--cf-color-textSecondary);text-decoration:underline;text-underline-offset:3px}
+
 .actions{display:flex;flex-direction:column;gap:8px}
 .actions button{width:100%;min-height:52px;font-size:16px}
 .error{margin:0;color:var(--cf-color-danger);font-size:13px}
@@ -27,23 +13,7 @@
 .doneIcon svg{width:28px;height:28px}
 .done h1{margin:0;font-size:22px;font-weight:800}
 .done p{margin:0;color:var(--cf-color-textSecondary);font-size:14px;line-height:1.6;word-break:keep-all}
-@media(prefers-reduced-motion:no-preference){.hero,.done{animation:rise .32s cubic-bezier(.2,0,0,1) both}@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}}
-
-/* 2026-11-16 design polish: Seedream illustrations (white background blends into the hero gradient), step icons above the labels. */
-.hero img{right:-14px;bottom:-14px;width:150px;height:150px;opacity:1}
-.steps li{gap:4px;padding:12px 6px 14px}.steps li img{display:block;width:56px;height:56px;object-fit:contain}
-.steps li span{display:inline-flex;align-items:center;gap:5px}.steps b{width:18px;height:18px;font-size:11px;background:var(--cf-color-text);color:var(--cf-color-surface)}
-
-/* 2026-11-16 v2 (user: simpler assets, a woman model in the hero, outfit → wearing it): before/after row inside the hero. */
-.hero h1{max-width:none}.heroVisual{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px}.heroVisual figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:6px}
-.heroVisual img{position:static;display:block;width:120px;height:150px;object-fit:cover;border-radius:14px;background:var(--cf-color-surface);opacity:1}
-.heroVisual figcaption{font-size:12px;font-weight:600;color:var(--cf-color-textSecondary)}.heroArrow{color:var(--cf-color-textSecondary);font-size:20px;margin-bottom:22px}
-.heroNote{align-self:center;color:var(--cf-color-textMuted);font-size:11px}
-.steps li img{width:44px;height:44px}
-
-/* 2026-11-16 v3: original photo with the chosen costume overlapping its bottom-right corner → the result. */
-.heroBefore{position:relative;display:block}.heroVisual .heroCostume{position:absolute;right:-8px;bottom:-8px;width:52px;height:65px;border-radius:10px;border:2px solid var(--cf-color-surface);box-shadow:0 2px 8px rgb(32 35 51/.18)}
-.heroBefore+figcaption{margin-top:6px}
+@media(prefers-reduced-motion:no-preference){.done{animation:rise .32s cubic-bezier(.2,0,0,1) both}@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}}
 
 /* 2026-11-16: question modal on the done screen — post-link icon + promotion 100콩. */
 .askArt{display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 0 4px}.askArt img{display:block;width:96px;height:96px;object-fit:contain}
@@ -53,4 +23,3 @@
 /* Two-line title: no marquee scrolling inside this modal. */
 .askDialog h2,.askDialog h2 [data-marquee],.askDialog h2 [data-marquee] *{white-space:pre-line;overflow:visible;text-overflow:clip;animation:none!important;transform:none!important;mask-image:none!important;-webkit-mask-image:none!important}.askDialog h2{text-align:center}
 .askArt>img{width:116px;height:116px;margin:-10px -6px}
-.steps li img{width:52px;height:52px}
