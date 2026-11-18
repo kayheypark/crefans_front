@@ -1,3 +1,14 @@
+## 2026-11-19 — 원본 유지 카드 아이콘 크기 축소
+
+- 원본 유지6종을 전용 프리뷰 래퍼로 감싸 기존 카드 이미지 영역 높이 유지, 중앙48×48px 표시. 96px 투명 원본을 사용하므로2x 해상도 지원. 다른 실제 프리셋 이미지 크기는 유지.
+- npm run typecheck·git diff --check 종료0. 실제 CSS 격리 Chromium390/1280에서6종 모두48px·원본96px·프레임144px 확인. 증거 `.local/body-icons/check-keep-original-size.cjs`, `keep-original-size-verification.json`(시각·커밋·해시), `keep-original-small.png`. 전체 앱 검증·개발/운영 배포 미실행, 미커밋.
+
+## 2026-11-19 — 프리셋·간격·미노출 누적 변경 개발 배포 완료
+
+- 기능9f2b665 → dev38e9d998b22c97f51a8c3e067a0eebda7642afc1, origin/dev·github/dev push 및 last-success 일치. 타입 검사·diff 검사 종료0. deploy-dev.sh front 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-023731.log`.
+- 실제 개발 도메인 카탈로그 Chromium390/1280px: 옷 세부 지정 스위치 없음, 중복 남은 생성 횟수 없음·버튼 남은10회 유지, 니케 모더니아4번째(누아르의 기존 자리), 6개 탭 원본 유지 소프트3D 이미지, 비율 아래24px 간격 확인. 모바일 스크린샷 시각 확인.
+- 증거 기능 작업본 `.local/body-icons/verify-dev-cleanup.cjs`, `dev-cleanup-verification.json`, `dev-cleanup-390.png`, `dev-cleanup-1280.png`. 카탈로그 대역 데이터, AI 생성·적립 요청 없음. 운영 배포 없음. 이 결과 기록만 로컬 미커밋, 아래 미배포 기록을 대체함.
+
 ## 2026-11-19 — 니케 모더니아·누아르 바니 위치 교환
 
 - 공용 의상 카탈로그의 모더니아4a0c8f와 누아르 바니ce1f18 항목 위치만 교환. ID·프롬프트·이미지 및 다른 항목 순서 유지.
