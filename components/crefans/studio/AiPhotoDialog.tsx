@@ -4,11 +4,11 @@ import type {PhotoAsset,PhotoLibraryModel} from '@/types/crefans-photo-library';
 import {photoAssetLabel} from '@/lib/crefans/photo-library';
 import {AiPhotoCrop,AiPhotoRatioPresets} from './AiPhotoCrop';
 import type {AiPhotoRatio} from '@/lib/crefans/ai-photo-crop';
-import type {AiPhotoCropInput} from '@/types/crefans-studio-management';
+import type {AiPhotoCropInput,ShareReport,AiPhotoFunnelStep} from '@/types/crefans-studio-management';
 import {ShopPage} from './ShopPage';
 import type {ShopModel} from '@/types/crefans-shop';
 import {useEffect,useId,useRef,useState} from 'react';
-import {reportShare} from '@/lib/api/share-report';
+import {fetchImageBlob} from '@/lib/browser/media-file';
 import {takeAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,franchiseCostumeNotice,isFranchiseCostume,type AiPhotoCostumeCategory,AI_PHOTO_COSTUME_HINT} from '@/lib/crefans/ai-photo-costumes';
 import {aiPhotoOutfitByPrompt,type AiPhotoOutfitPart} from '@/lib/crefans/ai-photo-outfits';
@@ -32,7 +32,7 @@ import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
 
-type Props={/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
+type Props={/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext)=>void};
 
@@ -42,7 +42,7 @@ const buildPrompt=(presets:AiPhotoPresetSelection[],custom:string,gender:'origin
 export const AI_PHOTO_SHARE_TEXT='이거 AI로 옷만 바꾼 거임 😳\n나도 해 보기 → https://crefans.com/service/try\n(AI 생성 이미지)';
 function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
 
-export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,shop,shopBasePath='/service/studio',noHearts=false}:Props){
+export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false}:Props){
  const [libraryOpen,setLibraryOpen]=useState(false),[libraryAssets,setLibraryAssets]=useState<PhotoAsset[]>([]);
  const sourceOrigins=useRef(new Map<string,string>());
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('outfit');
@@ -54,11 +54,11 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const captionContext=useRef<AiPhotoCaptionContext>({labels:[],prompt:''});
  // 2026-11-14 user decision: results are shared through the system share sheet as PNG files converted in the browser.
  // Files are prepared ahead so the share call stays inside the tap's user activation (iOS Safari rejects late calls).
- function photoFile(item:StudioMedia){let file=photoFiles.current.get(item.id);if(!file){file=(async()=>{const response=await fetch(item.url);if(!response.ok)throw new Error('download');const blob=await response.blob();if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],`crefans-ai-${item.id.replace(/[^a-zA-Z0-9_-]/g,'')}.png`,{type:'image/png'});})();photoFiles.current.set(item.id,file);file.catch(()=>photoFiles.current.delete(item.id));}return file;}
- async function sharePhoto(item:StudioMedia){if(sharing)return;setSharing(true);let method:'native'|'download'='download';try{const file=await photoFile(item);if(typeof navigator.share==='function'&&navigator.canShare?.({files:[file]})){method='native';await navigator.share({files:[file],title:'크레팬스 AI 사진',text:AI_PHOTO_SHARE_TEXT});reportShare({where:'ai_result',method,outcome:'done'});return;}
+ function photoFile(item:StudioMedia){let file=photoFiles.current.get(item.id);if(!file){file=(async()=>{const blob=await fetchImageBlob(item.url);if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],`crefans-ai-${item.id.replace(/[^a-zA-Z0-9_-]/g,'')}.png`,{type:'image/png'});})();photoFiles.current.set(item.id,file);file.catch(()=>photoFiles.current.delete(item.id));}return file;}
+ async function sharePhoto(item:StudioMedia){if(sharing)return;setSharing(true);let method:'native'|'download'='download';try{const file=await photoFile(item);if(typeof navigator.share==='function'&&navigator.canShare?.({files:[file]})){method='native';await navigator.share({files:[file],title:'크레팬스 AI 사진',text:AI_PHOTO_SHARE_TEXT});onShareReport?.({where:'ai_result',method,outcome:'done'});onTrack?.('ai_result_shared',{mode:cosplayOpen?'cosplay':'general'});return;}
   // Browsers without file sharing (most desktops) save the PNG instead.
-  const url=URL.createObjectURL(file),link=document.createElement('a');link.href=url;link.download=file.name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);reportShare({where:'ai_result',method,outcome:'done'});}
-  catch(error){const aborted=(error as Error)?.name==='AbortError';reportShare({where:'ai_result',method,outcome:aborted?'cancelled':'failed'});if(!aborted)setError('사진을 공유하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setSharing(false);}}
+  const url=URL.createObjectURL(file),link=document.createElement('a');link.href=url;link.download=file.name;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);onShareReport?.({where:'ai_result',method,outcome:'done'});onTrack?.('ai_result_shared',{mode:cosplayOpen?'cosplay':'general'});}
+  catch(error){const aborted=(error as Error)?.name==='AbortError';onShareReport?.({where:'ai_result',method,outcome:aborted?'cancelled':'failed'});if(!aborted)setError('사진을 공유하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setSharing(false);}}
  const [shopOpen,setShopOpen]=useState(false);
  const [genderChosen,setGenderChosen]=useState(false);
  const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
@@ -89,6 +89,10 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  function isPresetSelected(value:string){if(value===AI_PHOTO_KEEP_ORIGINAL)return !selectedPresets.some(item=>item.kind===kind)&&!libraryAssets.some(item=>item.category===kind);return selectedPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
  function applyPresets(next:AiPhotoPresetSelection[]){const selection=next,length=buildPrompt(selection,customPrompt,targetGender).length;if(length>AI_PHOTO_PROMPT_MAX&&length>prompt.length){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return false;}setSelectedPresets(selection);setError(length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');return true;}
  function pickPreset(value:string){setLibraryAssets(items=>items.filter(item=>item.category!==kind));if(value===AI_PHOTO_KEEP_ORIGINAL){applyPresets(selectedPresets.filter(item=>item.kind!==kind));return;}const part=kind==='outfit'?aiPhotoOutfitByPrompt(aiPhotoPresetText(value))?.part:undefined,multi=aiPhotoMultiSelectKinds.includes(kind);applyPresets([...selectedPresets.filter(item=>item.kind!==kind||(multi&&item.prompt!==aiPhotoPresetText(value))||(!!part&&!!aiPhotoOutfitByPrompt(item.prompt)&&aiPhotoOutfitByPrompt(item.prompt)!.part!==part)),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
+ // 2026-11-19 이탈 분석: 편집창이 열릴 때마다 퍼널 단계를 남긴다(모델이 actor를 붙여 PostHog로 보냄).
+ useEffect(()=>{if(open)onTrack?.('ai_editor_opened',{mode:cosplayOpen?'cosplay':'general'});
+ // eslint-disable-next-line react-hooks/exhaustive-deps -- count each open
+ },[open]);
  // 2026-11-17 user request: presets picked on the AI photo landing are applied the first time the editor opens.
  const handoffTried=useRef(false);
  useEffect(()=>{if(!open||handoffTried.current)return;handoffTried.current=true;const presets=takeAiPhotoHandoff();if(!presets.length)return;
@@ -156,7 +160,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   const picked=results.filter(item=>selected.includes(item.id));
   if(!picked.length){setError('게시물에 넣을 사진을 골라 주세요.');return;}
   if(picked.length>room){setError(`사진은 ${room}장만 더 넣을 수 있어요.`);return;}
-  onAdd(picked,captionContext.current);sourceOrigins.current.clear();setAspectRatio('original');setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
+  onTrack?.('photo_decided',{mode:cosplayOpen?'cosplay':'general'});onAdd(picked,captionContext.current);sourceOrigins.current.clear();setAspectRatio('original');setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
  }
  function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('pose');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setStage('edit');}
  const viewing=viewer!==null||sourceViewer;
