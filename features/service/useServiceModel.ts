@@ -10,6 +10,7 @@ import {verifyIdentity} from '@/lib/api/identity';
 import {startBillingRegistration} from '@/lib/api/billing';
 import {clearGuestTrial,hasGuestTrial} from './useGuestTrialModel';
 import {platformRequest as api} from '@/lib/api/platform';
+import {captureEvent} from '@/lib/analytics/posthog';
 import {askAdvisor} from '@/lib/api/advisor';
 import {advisorClientId} from '@/lib/crefans/advisor';
 import {rememberReferral,storedReferral} from '@/lib/crefans/referral';
@@ -79,7 +80,7 @@ export function useServiceModel(){
  const model:ServiceViewModel={...state,guestAuthorId,editGuestPost:guestAuthorId?(id,input)=>action<{id:string;message:string}>(`/guest/content/${encodeURIComponent(id)}`,input):undefined,foundingBadge:{load:loadFoundingBadge,claim:claimBadge,setVisible:updateBadge},directory,postSearch,feedCategory:{value:feedCategory,select:setFeedCategory},feedPaging:{hasMore:!!cursor,loading:moreLoading,loadMore},mode:'live',basePath:'/service',today,commentsByPost:comments,commentPaging:Object.fromEntries(Object.entries(commentPages).map(([id,page])=>[id,{hasMore:page.offset!==null,loading:page.loading,loadMore:()=>moreComments(id)}])),likeCounts:Object.fromEntries(state.data.posts.map((p:any)=>[p.id,p.likes])),commentCounts:Object.fromEntries(state.data.posts.map((p:any)=>[p.id,p.comments])),blockedCreatorIds:state.account.blockedCreatorIds,conversationLabels:{},socialCopy:{reportDescription:'대화를 신고할까요?',blockDescription:'차단하면 메시지를 주고받을 수 없습니다.'},setSignedIn:()=>{void refresh();},setViewer:(value:any)=>{if(typeof value==='function')setState((previous:any)=>({...previous,viewer:value(previous.viewer)}));else setState((previous:any)=>({...previous,viewer:value}));},
  account:{...state.account,route:{profileTab:['saved','liked'].includes(query.get('tab')||'')?query.get('tab'):null,supportTab:query.get('tab')==='qna'?'qna':query.get('tab')==='history'?'history':'faq',settingsSection:query.get('section')}},
  accountActions:{
-  signup:input=>api('/auth/signup',{...input,emailProof:proofs.current.email,identityProof:proofs.current.identity,...(proofs.current.phone?{phone:proofs.current.phoneNumber,phoneProof:proofs.current.phone}:{}),referralCode:storedReferral()}),
+  signup:async input=>{const result=await api('/auth/signup',{...input,emailProof:proofs.current.email,identityProof:proofs.current.identity,...(proofs.current.phone?{phone:proofs.current.phoneNumber,phoneProof:proofs.current.phone}:{}),referralCode:storedReferral()});if(result.success)captureEvent('signup_completed',{actor:'member'});return result;},
   // 2026-11-16 OCTOMO phone-number check after the email code; the one-time proof goes with the signup request.
   signupPhone:{start:(phone:string,options?:{qr?:boolean})=>api('/auth/signup/phone/start',{email:proofs.current.signupEmail,emailProof:proofs.current.email,phone,...(options?.qr?{qr:true}:{})}),confirm:async(phone:string)=>{const result=await api<{verified:boolean;proof:string}>('/auth/signup/phone/confirm',{email:proofs.current.signupEmail,emailProof:proofs.current.email,phone});if(result.success){proofs.current.phone=result.data.proof;proofs.current.phoneNumber=phone;}return result;}},
   requestSignupCode:email=>api('/auth/signup/email/request',{email,referralCode:storedReferral()}),
