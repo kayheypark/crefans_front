@@ -1,3 +1,9 @@
+## 2026-11-18 가입 시 광고성 정보 수신 동의 혜택 모달·설정 안내 (feat/marketing-consent-reward)
+- 사용자 지시(2026-11-18): 체크 해제 후 가입하면 한 번 콩 이미지 모달('프로모션 콩 10개를 바로 드려요'), 설정에서 언제든 켜고 끄기. 서버 짝: crefans_server feat/marketing-consent-reward(첫 동의 1회 10콩·30일).
+- SignupPage: bootstrap `marketingReward`(서버, 콩 꺼짐이면 null)가 있을 때만 체크박스 아래 '동의 시 프로모션 콩 10개' 표시. 미체크로 제출하면 가입 흐름당 1회 Dialog(illustration /brand/events/open-beta-v2/beans.webp, 본문: 전송자·광고성 정보 수신·30일·출금/환불 불가·설정에서 끌 수 있고 꺼도 콩 유지·거부해도 제한 없음, 동의 전문 펼치기) — '동의 없이 가입'(marketing:false로 진행)과 '동의하고 10콩 받기'(체크 후 marketing:true로 진행)를 같은 크기 버튼으로 나란히. 닫기·재제출 시 다시 묻지 않음. 기본 체크 없음 유지.
+- 문구: KISA 안내서 7차(동의는 '광고성 정보 수신동의'로 명확히, '마케팅 동의' 형태는 명시적 동의로 보지 않음)에 따라 가입 체크박스 '마케팅 정보 수신 동의 (선택)'→'광고성 정보 수신 동의 (선택)', 전체 동의 설명·동의 전문 창 제목, 설정 토글 '마케팅 알림'→'광고성 정보 수신'(설명에 '광고 메일 발송'). 설정 토글은 원래 있었고(PUT /me/settings notifications, marketingVersion), 서버가 eligible일 때만 '처음 켜면 프로모션 콩 10개를 드려요(30일 사용)' 추가. 지급 토스트는 서버 메시지('…프로모션 콩 10개를 넣어드렸어요.')를 기존 Toast로 표시. e2e 스펙 2곳 라벨 갱신(실행 안 함).
+- 검증: tsc 0, build 0, npm test 753 중 735 통과·18 실패(기준선 fail-base2 18건과 동일, 신규 0), crefans-account 새 2건(미체크 시 1회 모달·거절은 marketing false·수락은 true·재제출 시 재표시 없음·체크 시 모달 없음·콩 꺼짐이면 힌트·모달 없음 / 설정 토글 항상 존재·eligible일 때만 콩 안내·토스트). 대조(소스 변형 후 원복): 1회 조건 제거·콩 꺼짐 조건 제거·체크 조건 제거·거절이 동의 전송·힌트 상시·설정 eligible 무시 각각 해당 테스트 실패.
+
 ## 2026-11-18 15:55 KST 운영 배포 front-landingalert-20261118 (랜딩 방문 알림 유입 출처)
 - prod 124f817(ship-image.sh exit 0, 빌드 54s, PostHog 키 번들 포함, 레이어 일치, 스모크 통과). front-replayimg-20261118 → front-landingalert-20261118. API는 먼저 landingalert-20261118 배포(서버 PROGRESS).
 - 운영 테스트 알림 1건(utm_source=deploy_test) outbox 전송 완료(delivered_at 15:55:58 KST). 복구본 /Users/ethan/crefans-recovery/20261118/front-landingalert-20261118.
