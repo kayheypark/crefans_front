@@ -2,6 +2,7 @@
 
 .profileTip.profileTip{display:flex;box-sizing:border-box;width:100%;height:44px;min-height:44px;max-height:44px;padding:4px 16px;margin:12px 0;border:0;font-size:16px;font-weight:700;background:linear-gradient(110deg,#48800c 0%,#16813c 36%,#078164 70%,#0b757b 100%);color:#fff}.profileTip.profileTip img{width:28px;height:28px}.profileTip.profileTip.profileTip:not(:disabled):not([aria-disabled=true]):hover{background:linear-gradient(110deg,#48800c 0%,#16813c 36%,#078164 70%,#0b757b 100%);color:#fff}
 .postTip.postTip{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:7px 2px;border:0;white-space:nowrap;background:transparent;color:var(--cf-color-textSecondary);font-size:14px;font-weight:400}button.postTip.postTip:not(:disabled):hover{background:transparent;color:var(--cf-color-accent)}
+.postTipRestricted.postTipRestricted{opacity:.6;cursor:default}.postTipRestricted small{font-size:12px}
 .postTipIcon{display:block;width:24px;height:24px;flex-shrink:0;object-fit:contain}
 
 .chargeLink{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 24px;border-radius:var(--cf-radius-control);background:var(--cf-color-accent);color:var(--cf-color-onAccent);font-weight:600;text-decoration:none}.chargeLink:hover{background:var(--cf-color-accentHover)}

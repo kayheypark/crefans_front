@@ -9,7 +9,7 @@ import {ShopPage} from './ShopPage';
 import type {ShopModel} from '@/types/crefans-shop';
 import {useEffect,useId,useRef,useState} from 'react';
 import {takeAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
-import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
+import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,franchiseCostumeNotice,isFranchiseCostume,type AiPhotoCostumeCategory} from '@/lib/crefans/ai-photo-costumes';
 import {aiPhotoOutfitByPrompt,type AiPhotoOutfitPart} from '@/lib/crefans/ai-photo-outfits';
 import {SelectField} from '@/components/ui/SelectField';
 import {AiPresetPager} from './AiPresetPager';
@@ -78,6 +78,8 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const cosplay=kind==='outfit'&&cosplayOpen;
  const hasCostume=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>aiPhotoPresetText(costume.prompt)===item.prompt));
  const style=hasOutfit&&(hasCostume||cosplayOpen)?'cosplay':'photo';
+ // 2026-11-18: a game/anime costume is picked → the result cannot go on tip or membership-only posts.
+ const franchisePicked=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>isFranchiseCostume(costume)&&aiPhotoPresetText(costume.prompt)===item.prompt));
  const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
  const panelId=useId(),preset=aiPhotoPresetPage(kind,presetPages[kind]||0,targetGender,presetQuery,posePosture,backgroundCategory,outfitPart);
  function searchPresets(value:string){setPresetQuery(value);setPresetPages({});}
@@ -195,6 +197,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
       <div className={s.costumeCategoryBar}><SelectField className={s.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);searchPresets('');}} options={aiPhotoCostumeCategories.map(category=>({value:category.value,label:category.label,image:category.image}))} disabled={busy}/><span>{presetQuery.trim()?'전체 의상 검색':costumeCategoryInfo.group} · {costumes.length}종</span></div>
       <AiPhotoWardrobe key={`${costumeCategory}-${presetQuery}`} items={costumes} selectedPrompts={selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)} disabled={busy} onPick={pickPreset}/>
       <p className={s.costumeNote}>선택한 코디 사진을 가발·소품·신발의 참조 이미지로 함께 보내요. 원본 구도에 보이는 범위에 적용하며 결과는 달라질 수 있어요.</p>
+      {franchisePicked&&<p className={s.costumeNote} role="note" data-franchise-notice="true">{franchiseCostumeNotice}</p>}
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
       {kind==='body'?<AiBodyAdjustments controls={targetGender==='male'?aiPhotoMaleBodyControls:aiPhotoBodyControls} selection={bodySelection} onChange={changeBody} disabled={busy}/>:<>
       <div className={s.presetHeading}><span>{presetQuery.trim()?`검색 결과 ${preset.total}개`:'프리셋'}</span><div className={s.presetNavigation}><button type="button" aria-label="이전 프리셋 페이지" disabled={busy||preset.pages<=1} onClick={()=>stepPreset(-1)}>‹</button><span aria-live="polite">{preset.index+1} / {preset.pages}</span><button type="button" aria-label="다음 프리셋 페이지" disabled={busy||preset.pages<=1} onClick={()=>stepPreset(1)}>›</button></div></div>

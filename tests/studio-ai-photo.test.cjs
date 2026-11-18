@@ -839,3 +839,10 @@ test('landing preset handoff is applied once on first open and then cleared',asy
   store.set('crefans:ai-photo-handoff',JSON.stringify({at:Date.now()-2*3600000,presets:[{kind:'pose',prompt:pose}]}));assert.deepEqual(takeAiPhotoHandoff(),[],'older than an hour is ignored');
  }finally{global.localStorage=previous;}
 });
+test('2026-11-18: picking a game/anime costume shows the one-line commercial-use notice; a basic costume does not',async()=>{
+ const {r,click}=await open();const notice=()=>r.root.findAll(n=>n.type==='p'&&n.props['data-franchise-notice']==='true');
+ await click('코스어 모드');await click('고딕 오프숄더');assert.equal(notice().length,0,'basic costume');
+ await act(async()=>r.root.findAll(n=>n.type?.name==='SelectField'&&n.props.label==='의상 카테고리')[0].props.onChange('aot'));
+ await click('조사병단 제복');assert.equal(notice().length,1);assert.equal(text(notice()[0]),'게임·애니 의상으로 만든 사진은 후원·멤버십 전용 게시물에 쓸 수 없어요.');
+ await click('조사병단 제복');assert.equal(notice().length,0,'unpicking removes it');
+});

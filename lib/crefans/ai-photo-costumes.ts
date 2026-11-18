@@ -362,6 +362,10 @@ const catalogCostumes=[
 // The entry stays in the source for history; the server refuses the ID too (COSTUME_UNAVAILABLE).
 export const hiddenCostumeIds:ReadonlySet<string>=new Set(['6ee320']);
 export const aiPhotoCostumes=catalogCostumes.filter(costume=>!hiddenCostumeIds.has(costume.id));
+// 2026-11-18 user decision: costumes from games and anime (every category but 'general') may carry copyright, so photos made with
+// them cannot be used commercially. The server records this on the result and enforces it; this only drives the notice.
+export const isFranchiseCostume=(costume:Pick<AiPhotoCostume,'category'>)=>costume.category!=='general';
+export const franchiseCostumeNotice='게임·애니 의상으로 만든 사진은 후원·멤버십 전용 게시물에 쓸 수 없어요.';
 
 /** Keep selection order and other edits, replacing verbose costume descriptions with image references. */
 export function aiPhotoCostumeRequest(selected:AiPhotoPresetSelection[]){

@@ -420,3 +420,19 @@ test('member editor keeps writing its own title/body: no AI caption and publishi
  try{assert.equal(button(tree,'지금 게시하기').props.disabled,true);assert.doesNotMatch(json(tree),/AI로 내용 작성|OpenAI/);act(()=>tree.root.findByProps({label:'제목'}).props.onChange({target:{value:'제목'}}));act(()=>tree.root.findByProps({label:'본문'}).props.onChange({target:{value:'본문'}}));assert.doesNotMatch(json(tree),/이제 게시하기를 눌러/,'member editor has no nudge');assert.ok(json(tree).indexOf('제목')<json(tree).indexOf('파일 업로드'));}
  finally{act(()=>tree.unmount());probe.close();}
 });
+test('2026-11-18: a game/anime costume photo locks visibility to 전체 공개 and turns tips off in the editor; general photos do not',async()=>{
+ for(const franchise of [true,false]){
+  const probe=fixtureHook(),calls=[];
+  const content={...initialContent,accessPlanId:'plan1',media:[{id:'m1',type:'image',url:'/m1.webp',aiGenerated:true,...(franchise?{franchiseCostume:true}:{})}]};
+  const model={...probe.model,contents:[content],actions:{...probe.model.actions,saveContent:async input=>{calls.push(input);return {success:true,data:{message:'Saved',id:input.id}};}}};
+  const tree=mount(ContentEditorPage,model,'draft1');
+  try{
+   const field=tree.root.findAll(node=>node.type?.name==='SelectField'&&node.props.label==='공개 범위')[0];
+   const tips=tree.root.findAll(node=>node.type?.name==='Checkbox'&&node.props.label==='이 게시물에서 후원 받기')[0];
+   if(franchise){assert.equal(field.props.value,'');assert.equal(field.props.disabled,true);assert.match(field.props.hint,/게임·애니메이션 의상 사진이 있어 전체 공개로만/);assert.equal(tips.props.disabled,true);assert.equal(tips.props.checked,false);assert.match(tips.props.description,/후원을 받을 수 없어요/);}
+   else{assert.equal(field.props.value,'plan1');assert.equal(field.props.disabled,false);assert.equal(field.props.hint,undefined);assert.equal(tips.props.disabled,false);}
+   await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+   assert.equal(calls[0].accessPlanId,franchise?null:'plan1');assert.equal(calls[0].accessLevel,null);
+  }finally{act(()=>tree.unmount());probe.close();}
+ }
+});
