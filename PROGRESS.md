@@ -1,3 +1,14 @@
+## 2026-11-19 — 원본 유지 아이콘 52px로 조정
+
+- 사용자 지정52px를 JSX width/height 및 CSS에 반영. 카드 높이·중앙 배치·이미지 자산 유지.
+- 실제 CSS 격리 Chromium390/1280px에서6종52×52px 확인, diff 검사 종료0. 증거 `.local/body-icons/check-keep-original-52.cjs`, `keep-original-52-verification.json`(시각·커밋·해시). 전체 앱 검증·개발/운영 배포 미실행, 미커밋.
+
+## 2026-11-19 — 원본 유지 48px 아이콘 개발 배포 완료
+
+- 기능796afcf → dev0f2a1a9dde0f0d471e5864d2515b01550ed34cb1. origin/dev·github/dev push 및 last-success 일치 확인. 공식 deploy-dev.sh front 종료0, 빌드·타입 검사·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-024316.log`.
+- 실제 개발 도메인 Chromium390/1280px 공용 편집 모달에서 원본 유지6종 모두 렌더48×48px·원본96px 확인. 기존24px 섹션 간격·세부 지정/중복 횟수 숨김·버튼 잔여 표시·모더니아 위치 검사도 통과.
+- 증거 기능 작업본 `.local/body-icons/verify-dev-small-original.cjs`, `dev-small-original-verification.json`. 카탈로그 대역 데이터, 실제 AI 생성 요청 없음. 운영 배포 없음. 이 결과 기록만 로컬 미커밋.
+
 ## 2026-11-19 — 원본 유지 카드 아이콘 크기 축소
 
 - 원본 유지6종을 전용 프리뷰 래퍼로 감싸 기존 카드 이미지 영역 높이 유지, 중앙48×48px 표시. 96px 투명 원본을 사용하므로2x 해상도 지원. 다른 실제 프리셋 이미지 크기는 유지.
