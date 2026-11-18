@@ -36,6 +36,8 @@ export function posthogConfig(pathname:string):Partial<PostHogConfig>{
  return{
   api_host:POSTHOG_HOST,ui_host:'https://us.posthog.com',
   persistence:'cookie',secure_cookie:true,person_profiles:'identified_only',
+  // Browser 'Do Not Track' opts out (the privacy-policy draft names it as a way to refuse; best-effort per PostHog docs).
+  respect_dnt:true,
   capture_pageview:'history_change',capture_pageleave:true,
   // Clicks on links/buttons only, without element text or attributes (names, hrefs with ids); inputs/changes/submits are never autocaptured.
   autocapture:{dom_event_allowlist:['click'],element_allowlist:['a','button']},mask_all_text:true,mask_all_element_attributes:true,

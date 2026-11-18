@@ -32,7 +32,7 @@ test('with a key it initialises once with the hardened config and flushes queued
  const {mod,calls}=load('phc_test_only');
  await withWindow('/service/landing-ai-image-generation',async()=>{mod.captureEvent('landing_view');await mod.loadPostHog();await mod.loadPostHog();mod.captureEvent('ai_generation_started',mod.aiProps('guest',{mode:'cosplay',kind:'combined',presetKeys:[{kind:'pose',key:'a'},{kind:'background',key:'b'},{kind:'pose',key:'c'}]}));});
  assert.equal(calls.init.length,1);const c=calls.init[0].config;
- assert.equal(c.api_host,'https://us.i.posthog.com');assert.equal(c.persistence,'cookie');assert.equal(c.person_profiles,'identified_only');assert.equal(c.disable_session_recording,false);
+ assert.equal(c.api_host,'https://us.i.posthog.com');assert.equal(c.persistence,'cookie');assert.equal(c.respect_dnt,true);assert.equal(c.person_profiles,'identified_only');assert.equal(c.disable_session_recording,false);
  assert.equal(c.session_recording.maskAllInputs,true);assert.equal(c.session_recording.maskInputOptions.text,true);assert.equal(c.session_recording.maskInputOptions.textarea,true);
  assert.equal(c.session_recording.recordBody,false);assert.equal(c.capture_performance,false);assert.equal(c.enable_recording_console_log,false);
  assert.deepEqual(c.autocapture,{dom_event_allowlist:['click'],element_allowlist:['a','button']});assert.equal(c.mask_all_text,true);assert.equal(c.mask_all_element_attributes,true);
