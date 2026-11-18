@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-18T06:00:56.790562+00:00",
+  "checkedAt": "2026-11-18T06:28:34.492677+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "d771c0d1ba6fe61d18dc702ec772a10fe2c4a32e",
+      "head": "469c42c4f221af0e243f3b22636c0beb4c870028",
       "branch": "",
       "dirty": false
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "41d6617ab6a9e45af7d38b49cf8f77d3c7dc4eaf12c12a8b3d52c5b263255ec6",
-      "front/PROGRESS.md": "f2398d06f62e0094c9ec23e43b165c6dadecb0b419414e4d95ed3338b8548b9c",
+      "front/PROGRESS.md": "8de3eed21f6f117ec7c8591f929ef1b0999890dc3741d20fc7d8e1cc2a058d3b",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -743,7 +743,7 @@
       "front/infra/platform/deploy-preflight.py": "363ffd665856b7afe1fdffd080b6c43079a6cfe669da44a5df1a282df67801da",
       "front/infra/platform/image-retention.py": "270fee56db7bd1f50d64da199c1d873a5034b5be94c34437cf93c97696c17600",
       "front/lib/AntdRegistry.tsx": "37ee1b3ccd31febc3e2ed403b8a1899efcd5e7c5ae65ba21da8b8c4a7ec2d5a3",
-      "front/lib/analytics/posthog.ts": "fd1f419ea36e5a00ea4726937384b22c73645cbb2c1fec4536a2906c76063fa0",
+      "front/lib/analytics/posthog.ts": "acabda4e950cff3911deb3d28b122006a02acbbdae1bb66ecc82a6c7306283e7",
       "front/lib/api/advisor.ts": "0d99e3f487fe69f1dd76594c5dd22d244e4e97e10fb6367ccf80de9e055dedff",
       "front/lib/api/auth.ts": "4a2a5991f9da503b87edac10fdbfba9a629caadfa2373c2d7f73a5cb335e9753",
       "front/lib/api/billing.ts": "bd888539e42009d1d56adcb135a5b88a3e901dfb76136b21c248a7380c1910d9",
@@ -929,7 +929,7 @@
       "front/tests/post-share.test.cjs": "d5ace10101c56dd7f7e7ff5b285e222d858471438e4bc400f4daf9048a1865bd",
       "front/tests/post-support-visibility.test.cjs": "cb1ea78e6bb22355bd2949deae6b9052e86d9fe8defdf7b1ae0a5ecee4a43fb9",
       "front/tests/post-views.test.cjs": "810520d757b92df136fb0c5d2ff720045a7212418a4a8f400bc6eae764235178",
-      "front/tests/posthog.test.cjs": "8b0633cde4564c43bae295c4e4841f69a484cdaa21de50c8cfca08547eb83481",
+      "front/tests/posthog.test.cjs": "e0e7a069ed76f8e927ccdb43029efcfade7b8ab5b68f5374ac537d2513756634",
       "front/tests/preview-access.test.cjs": "34973f67c12f462afa1f04a7ae4a9bdfb55054fd094e81de37c6fd7326525f60",
       "front/tests/preview-login-route.test.cjs": "d43f08d1c24d37e5d5344908eac28433b2c06f2bdc0c88882a35d62be3a36c3a",
       "front/tests/profile-media-tab.test.cjs": "ddca73aad1b9d7015ab6f26e631dfcc43d2d82d6d57a28980b2e109091fe0200",
