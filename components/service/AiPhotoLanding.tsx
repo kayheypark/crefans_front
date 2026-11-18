@@ -80,7 +80,7 @@ export function AiPhotoCompare({before,after,label}:{before:string;after:string;
 
 /** The editor's preset browser (cosplay mode) on the landing: same tabs, wardrobe, filters, search and 3x3 pages. Picking only marks cards. */
 export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string,string[]>)=>void}={}){
- const [kind,setKind]=useState<AiPhotoKind>('outfit'),[page,setPage]=useState(0),[query,setQuery]=useState(''),[costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>(aiPhotoCostumeCategories[0].value);
+ const [kind,setKind]=useState<AiPhotoKind>('outfit'),[page,setPage]=useState(0),[query,setQuery]=useState(''),[costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('nikke');
  const [posture,setPosture]=useState<AiPhotoPosePosture>('standing'),[backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor'),[picked,setPickedState]=useState<Record<string,string[]>>({});
  const setPicked=(update:(previous:Record<string,string[]>)=>Record<string,string[]>)=>setPickedState(previous=>{const next=update(previous);onPicked?.(next);return next;});
  const category=aiPhotoCostumeCategories.find(item=>item.value===costumeCategory)!;
@@ -98,7 +98,6 @@ export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string
   {kind==='pose'&&<div className={e.posePosture} role="group" aria-label="포즈 자세">{(['sitting','standing'] as const).map(value=><button key={value} type="button" aria-pressed={posture===value} onClick={()=>{setPosture(value);search('');}}>{value==='sitting'?'앉기':'서기'}</button>)}</div>}
   <div className={e.presetSearch}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" aria-label="프리셋 검색" placeholder={kind==='outfit'?'의상 이름·작품 검색':`${landingKinds.find(item=>item.value===kind)!.label} 프리셋 검색`} value={query} onChange={event=>search(event.target.value)}/>{query&&<button type="button" aria-label="검색어 지우기" onClick={()=>search('')}>×</button>}</div>
   {kind==='outfit'?<div role="tabpanel" aria-label="코스튬 프리셋" className={e.wardrobe}>
-   <div className={e.wardrobeHeading}><h3>어떤 의상을 입어볼까요?</h3></div>
    <p className={e.costumeHint}>{AI_PHOTO_COSTUME_HINT}</p>
    <div className={e.costumeCategoryBar}><SelectField className={e.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);search('');}} options={aiPhotoCostumeCategories.map(item=>({value:item.value,label:item.label,image:item.image}))}/><span>{query.trim()?'전체 의상 검색':category.group} · {costumes.length}종</span></div>
    <AiPhotoWardrobe key={`${costumeCategory}-${query}`} items={costumes} selectedPrompts={picked.outfit||[]} disabled={false} onPick={value=>{const text=aiPhotoPresetText(value);setPicked(previous=>({...previous,outfit:(previous.outfit||[]).includes(text)?[]:[text]}));}}/>
@@ -106,7 +105,7 @@ export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string
    <div className={e.presetHeading}><span>{query.trim()?`검색 결과 ${preset.total}개`:'프리셋'}</span><div className={e.presetNavigation}><button type="button" aria-label="이전 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index-1)}>‹</button><span aria-live="polite">{preset.index+1} / {preset.pages}</span><button type="button" aria-label="다음 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index+1)}>›</button></div></div>
    <AiPresetPager key={`${kind}-${query}`} onStep={step=>setPage(preset.index+step)} disabled={preset.pages<=1}><div className={e.photoPresetGrid}>{preset.examples.map(example=><button type="button" key={example} className={e.preset} aria-label={aiPhotoPresetTitle(kind,example)} aria-pressed={selected(example)} onClick={()=>pick(example)}>
     {/* eslint-disable-next-line @next/next/no-img-element -- static preset illustration or example photograph */}
-    <img className={illustrated.includes(kind)||example===AI_PHOTO_KEEP_ORIGINAL?e.presetIllustration:undefined} src={aiPhotoPresetImage(kind,example)} alt="" loading="lazy"/>{kind==='makeup'&&aiPhotoMakeupGender(example)&&<CostumeGender gender={aiPhotoMakeupGender(example)} title={aiPhotoMakeupGender(example)==='male'?'남성 메이크업':'여성 메이크업'}/>}<span>{aiPhotoPresetTitle(kind,example)}</span><span className={e.presetCheck} aria-hidden="true">{selected(example)?'✓':''}</span></button>)}</div></AiPresetPager>
+    {example===AI_PHOTO_KEEP_ORIGINAL?<div className={e.keepOriginalPreview}><img src={aiPhotoPresetImage(kind,example)} alt="" width={52} height={52} loading="lazy"/></div>:<img className={illustrated.includes(kind)?e.presetIllustration:undefined} src={aiPhotoPresetImage(kind,example)} alt="" loading="lazy"/>}{kind==='makeup'&&aiPhotoMakeupGender(example)&&<CostumeGender gender={aiPhotoMakeupGender(example)} title={aiPhotoMakeupGender(example)==='male'?'남성 메이크업':'여성 메이크업'}/>}<span>{aiPhotoPresetTitle(kind,example)}</span><span className={e.presetCheck} aria-hidden="true">{selected(example)?'✓':''}</span></button>)}</div></AiPresetPager>
    {preset.total===0&&<p className={e.presetEmpty} role="status">검색 결과가 없어요. 다른 검색어를 입력해 주세요.</p>}
   </div>}
  </div>;
@@ -117,13 +116,13 @@ export default function AiPhotoLanding(){
  const [look,setLook]=useState(landingLooks[0].id),[landingPicked,setLandingPicked]=useState<Record<string,string[]>>({});
  const current=landingLooks.find(item=>item.id===look)||landingLooks[0];
  return <main className={s.page} style={designVariables as CSSProperties}>
-  <header className={s.header}><Brand href="/service/feed"/><Link className={s.headerLink} href={TRY}>무료 체험</Link></header>
+  <header className={s.header}><Brand href="/service/feed"/><Link className={s.headerLink} href={TRY}>0원 체험</Link></header>
 
   <section className={s.hero} aria-labelledby="ai-photo-title">
    <div className={s.heroCopy}>
     <h1 id="ai-photo-title">사진 한 장으로,<br/>오늘의 <em>캐릭터</em>가 되어 보세요</h1>
     <p className={s.lead}>원하는 <strong>코스튬과 메이크업, 포즈와 배경</strong>을 고르면 AI가 사진을 새로 만들어요. <strong>원본 사진은 그대로</strong> 두고, 마음에 드는 결과만 골라 게시해요.</p>
-    <div className={s.actions}><Link className={s.primary} href={TRY}>로그인 없이 무료 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
+    <div className={s.actions}><Link className={s.primary} href={TRY}>로그인 없이 0원 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
     <p className={s.small}>비회원은 브라우저당 <strong>10회까지 무료</strong>로 만들어 볼 수 있어요.</p>
    </div>
    <div className={s.heroDemo}>
@@ -134,15 +133,15 @@ export default function AiPhotoLanding(){
   </section>
 
   <section className={s.section} aria-labelledby="ai-photo-kinds-title" id="ai-photo-kinds">
-   <h2 id="ai-photo-kinds-title">고를 수 있는 편집</h2>
+   <h2 id="ai-photo-kinds-title">100억+가지 조합</h2>
    <p className={s.sectionLead}>실제 편집 화면과 같은 프리셋이에요. 눌러서 둘러보고, 체험에서 내 사진에 적용해 보세요.</p>
    <LandingPresetBrowser onPicked={setLandingPicked}/>
    {/* 2026-11-17 user request: the picked presets carry over to the trial editor (this browser only). */}
-   <Link className={s.primary} href={TRY} onClick={()=>saveAiPhotoHandoff(Object.entries(landingPicked).flatMap(([kind,values])=>values.filter(value=>value!==AI_PHOTO_KEEP_ORIGINAL).map(value=>({kind:kind as AiPhotoKind,prompt:aiPhotoPresetText(value)}))))}>이 프리셋으로 무료 체험</Link>
+   <Link className={s.primary} href={TRY} onClick={()=>saveAiPhotoHandoff(Object.entries(landingPicked).flatMap(([kind,values])=>values.filter(value=>value!==AI_PHOTO_KEEP_ORIGINAL).map(value=>({kind:kind as AiPhotoKind,prompt:aiPhotoPresetText(value)}))))}>이 프리셋으로 0원 체험</Link>
   </section>
 
   <section className={s.notice} aria-labelledby="ai-photo-rules">
-   <h2 id="ai-photo-rules">꼭 지켜 주세요</h2>
+   <h2 id="ai-photo-rules">유의사항</h2>
    <ul>
     <li>사진 속 인물은 <strong>본인이거나 동의를 받은 사람</strong>이어야 해요. <strong>다른 사람 얼굴 합성, 미성년자, 노출·성적인 합성은 만들 수 없어요.</strong></li>
     <li>게시물에 넣은 AI 사진에는 <strong>‘AI 생성’ 표시</strong>가 붙어요. 결과는 원본 사진과 요청에 따라 달라질 수 있어요.</li>
@@ -150,7 +149,7 @@ export default function AiPhotoLanding(){
    </ul>
   </section>
 
-  <section className={s.final}><h2>오늘은 어떤 캐릭터가 될까요?</h2><Link className={s.primary} href={TRY}>로그인 없이 무료 체험</Link><p className={s.small}>이 페이지의 인물은 가상 인물이며, 결과 사진은 AI로 생성했어요.</p></section>
+  <section className={s.final}><h2>오늘은 어떤 캐릭터가 될까요?</h2><Link className={s.primary} href={TRY}>로그인 없이 0원 체험</Link><p className={s.small}>이 페이지의 인물은 가상 인물이며, 결과 사진은 AI로 생성했어요.</p></section>
   {/* 2026-11-17: PG review needs the operator details at the bottom of the home page; same footer as the service landing. */}
   <div className={s.siteFooter}><ServiceFooter basePath="/service" always business/></div>
  </main>;

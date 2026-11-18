@@ -202,3 +202,35 @@ test('guest trial editor adds the fictional sample photo once and says how to re
   await act(async()=>{await new Promise(r=>setTimeout(r,10));});assert.equal(uploads.length,1,'not repeated on re-render');
  }finally{global.fetch=previousFetch;if(view)act(()=>view.unmount());}
 });
+
+test('AI photo decision replaces only the source attachment in both editor layouts',async()=>{
+ let aiProps;
+ const {ContentEditorPage:Editor}=loadTypeScript('components/crefans/studio/ManagementPages.tsx',{...mocks,'next/navigation':{useRouter:()=>({push(){}})},'./AiPhotoDialog':{AiPhotoDialog:props=>{aiProps=props;return null;}},'@/components/ui/MediaUpload':{MediaUpload:props=>element('div',{'data-attachment-ids':props.items.map(i=>i.id).join(',')})}});
+ for(const memberMode of [false,true]){
+  const discarded=[],editing={...content,media:[{id:'source',type:'image',url:'/source.jpg'},{id:'other',type:'image',url:'/other.jpg'},{id:'video',type:'video',url:'/video.mp4'}]};
+  const management={now:content.updatedAt,contents:[editing],memberships:[],subscribers:[],actions:{aiEditPhoto:async()=>({success:false}),saveContent:async()=>({success:false}),discardContentMedia:url=>discarded.push(url)}};
+  const view=mount(Editor,{model:management,basePath:'/studio',id:editing.id,memberMode});
+  assert.equal(view.root.findByProps({'data-attachment-ids':'source,other,video'}).type,'div');
+  await act(async()=>aiProps.onAdd([{id:'made',type:'image',url:'/made.jpg',aiGenerated:true}],undefined,['source']));
+  assert.equal(view.root.findByProps({'data-attachment-ids':'other,video,made'}).type,'div');
+  assert.deepEqual(discarded,[],'previously saved attachments are not physically deleted');
+  close(view);
+ }
+});
+
+test('guest caption fields appear only after successful AI writing and remain editable',async()=>{
+ let resolve;
+ const editing={...content,media:[{id:'made',type:'image',url:'/made.jpg',aiGenerated:true}]};
+ const management={now:content.updatedAt,contents:[editing],memberships:[],subscribers:[],actions:{saveContent:async()=>({success:false}),discardContentMedia(){}}};
+ const view=mount(ContentEditorPage,{model:management,basePath:'/service/try',id:editing.id,guest:{backHref:'/feed',doneHref:'/done',notice:'안내',caption:()=>new Promise(r=>{resolve=r;})}});
+ const fields=()=>view.root.findAll(n=>n.type==='input'&&n.props.placeholder==='제목을 입력하세요'||n.type==='textarea'&&n.props.placeholder==='내용을 입력하세요');
+ try{
+  assert.equal(fields().length,0);assert.doesNotMatch(json(view),/고른 항목 이름과 요청 문장만/);
+  await act(async()=>button(view,'AI로 내용 작성').props.onClick());assert.equal(fields().length,0);assert(button(view,'쓰는 중…').props.disabled);
+  await act(async()=>resolve({success:false,errorMessage:'작성 실패'}));assert.equal(fields().length,0);assert(button(view,'AI로 내용 작성'));
+  await act(async()=>button(view,'AI로 내용 작성').props.onClick());await act(async()=>resolve({success:true,data:{title:'AI 제목',body:'AI 본문',source:'ai'}}));
+  assert.equal(fields().length,2);assert.deepEqual(fields().map(n=>n.props.value),['AI 제목','AI 본문']);
+  await act(async()=>fields()[0].props.onChange({target:{value:'내 제목'}}));assert.equal(fields()[0].props.value,'내 제목');
+  await act(async()=>button(view,'AI로 내용 작성').props.onClick());await act(async()=>resolve({success:false,errorMessage:'재작성 실패'}));assert.equal(fields()[0].props.value,'내 제목');assert.equal(fields().length,2);
+ }finally{close(view);}
+});

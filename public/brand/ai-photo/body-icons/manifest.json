@@ -1,0 +1,20 @@
+{
+  "status": 200,
+  "model": "dola-seedream-5-5-261028",
+  "responseModel": "dola-seedream-5-5-261028",
+  "requestId": "02179502132242369d9f56ebaf8adc0cbe3483f4c0cffb8a4a204",
+  "prompt": "Design a polished app UI icon pair for a Korean photo editor body adjustment control. Exactly TWO icons side by side on a plain white background, evenly spaced, no words, no letters, no decorations. Left: chest-size control represented by a headless front-view upper torso wearing an opaque pink athletic camisole, recognizable bust contour, modest fully covered clothing. Right: hip-size control represented by a rear-view waist and hips wearing opaque purple fitted shorts, recognizable rounded hip silhouette. No faces, no skin details, no nudity, no erotic imagery. Simple friendly proportions, strong silhouette, readable at 24 pixels. Both icons equal visual size, isolated with generous empty margin. Colors pink #db2777 and lavender purple #7c3aed. Soft 3D clay app icons. Smooth matte material, gently rounded volume, restrained shading, front orthographic view, no perspective distortion.",
+  "size": "1024x1024",
+  "references": [],
+  "elapsedMs": 17519,
+  "at": "2026-11-18T17:02:19.476036+00:00",
+  "sha256": "5717f0aa3308ed46fb9c500191f1975ac8dd16be0fce2572d24e64bf5967d91f",
+  "usage": {
+    "input_images": 0,
+    "generated_images": 1,
+    "output_tokens": 4096,
+    "total_tokens": 4096
+  },
+  "asset": "body-3d-v1.png",
+  "rendering": "chest viewBox 80 285 430 430; hip viewBox 525 285 430 430"
+}

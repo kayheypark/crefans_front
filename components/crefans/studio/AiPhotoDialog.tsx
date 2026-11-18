@@ -22,7 +22,7 @@ import type {ApiResult} from '@/types/crefans';
 import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,StudioMedia} from '@/types/crefans-studio-management';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {aiPhotoSelectionLabels,type AiPhotoCaptionContext} from '@/lib/crefans/ai-photo-labels';
-import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,aiPhotoBodyPrompt,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
+import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
 import {Action,ActionLink} from '../ServiceUI';
 import {useCurrentSignupHref} from '../useCurrentLoginHref';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
@@ -34,7 +34,7 @@ import s from './ai-photo.module.css';
 
 type Props={/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
- onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext)=>void};
+ onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext,replaceSourceIds?:string[])=>void};
 
 const buildPrompt=(presets:AiPhotoPresetSelection[],custom:string,gender:'original'|'female'|'male')=>buildAiPhotoPrompt(aiPhotoCostumeRequest(presets).presets,custom,gender);
 
@@ -42,12 +42,15 @@ const buildPrompt=(presets:AiPhotoPresetSelection[],custom:string,gender:'origin
 export const AI_PHOTO_SHARE_TEXT='이거 AI로 옷만 바꾼 거임 😳\n나도 해 보기 → https://crefans.com/service/try\n(AI 생성 이미지)';
 function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
 
+// Temporarily hidden at user request; keep the mask editor for later reactivation.
+const OUTFIT_DETAIL_ENABLED=false;
+
 export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false}:Props){
  const [libraryOpen,setLibraryOpen]=useState(false),[libraryAssets,setLibraryAssets]=useState<PhotoAsset[]>([]);
  const sourceOrigins=useRef(new Map<string,string>());
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('outfit');
  const [selectedPresets,setSelectedPresets]=useState<AiPhotoPresetSelection[]>([]),[customPrompt,setCustomPrompt]=useState('');
- const [bodySelection,setBodySelection]=useState<{key:string;value:number}|null>(null);
+ const [bodySelection,setBodySelection]=useState<Record<string,number>>({});
  const [targetGender,setTargetGender]=useState<'original'|'female'|'male'>('original');
  const [aspectRatio,setAspectRatio]=useState<AiPhotoRatio>('original'),[cropItem,setCropItem]=useState<StudioMedia|null>(null);
  const [sharing,setSharing]=useState(false),photoFiles=useRef(new Map<string,Promise<File>>());
@@ -64,17 +67,17 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
  const prompt=buildPrompt([...selectedPresets,...libraryPresets],customPrompt,targetGender)||(aspectRatio!=='original'?'Preserve the subject and appearance; adapt the composition to the requested image dimensions.':'');
  const editKinds=Array.from(new Set([...selectedPresets.map(item=>item.kind),...libraryAssets.map(item=>item.category),...(customPrompt.trim()?[kind]:[])]));
- function changeGender(value:'original'|'female'|'male'){if(buildPrompt(selectedPresets,customPrompt,value).length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}if((targetGender==='male')!==(value==='male'))setBodySelection(null);setTargetGender(value);setGenderChosen(true);setPresetPages({});setSelectedPresets(previous=>previous.filter(item=>(item.kind!=='body'||(targetGender==='male')===(value==='male'))&&(item.kind!=='makeup'||value==='original'||aiPhotoMakeupGender(item.prompt)===value)&&(value==='original'||aiPhotoOutfitByPrompt(item.prompt)?.gender!==(value==='male'?'female':'male'))));setError('');}
+ function changeGender(value:'original'|'female'|'male'){if(buildPrompt(selectedPresets,customPrompt,value).length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}if((targetGender==='male')!==(value==='male'))setBodySelection({});setTargetGender(value);setGenderChosen(true);setPresetPages({});setSelectedPresets(previous=>previous.filter(item=>(item.kind!=='body'||(targetGender==='male')===(value==='male'))&&(item.kind!=='makeup'||value==='original'||aiPhotoMakeupGender(item.prompt)===value)&&(value==='original'||aiPhotoOutfitByPrompt(item.prompt)?.gender!==(value==='male'?'female':'male'))));setError('');}
  const [workingSources,setWorkingSources]=useState<StudioMedia[]>([]);
  const sources=[...images,...workingSources.filter(item=>!images.some(original=>original.id===item.id))],hasOutfit=editKinds.includes('outfit');
  const [cosplayOpen,setCosplayOpen]=useState(true);
  const [detailedOutfit,setDetailedOutfit]=useState(false);
- const requiresMask=hasOutfit&&detailedOutfit;
+ const requiresMask=OUTFIT_DETAIL_ENABLED&&hasOutfit&&detailedOutfit;
  const [presetQuery,setPresetQuery]=useState('');
  const [backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor');
  const [posePosture,setPosePosture]=useState<AiPhotoPosePosture>('sitting');
  const [outfitPart,setOutfitPart]=useState<AiPhotoOutfitPart>('top');
- const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('general');
+ const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('nikke');
  const costumes=aiPhotoCostumes.filter(costume=>presetQuery.trim()?aiPhotoPresetMatches(presetQuery,costume.name,costume.detail,aiPhotoCostumeCategories.find(category=>category.value===costume.category)!.label):costume.category===costumeCategory),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
  const cosplay=kind==='outfit'&&cosplayOpen;
  const hasCostume=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>aiPhotoPresetText(costume.prompt)===item.prompt));
@@ -99,7 +102,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   if(applyPresets(presets)){if(presets.some(item=>item.kind==='outfit'))setCosplayOpen(true);setKind(presets[0].kind);}
  // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on the first open
  },[open]);
- function changeBody(key:string,level:number){if(applyPresets([...selectedPresets.filter(item=>item.kind!=='body'),...(level?[{kind:'body' as const,prompt:aiPhotoBodyPrompt(key,level)}]:[])]))setBodySelection(level?{key,value:level}:null);}
+ function changeBody(key:string,level:number){const next=updateAiPhotoBodySelection(selectedPresets,bodySelection,key,level);if(applyPresets(next.presets))setBodySelection(next.values);}
  // 2026-11-15: 표정 탭도 '원본 유지'가 기본이다(무표정 자동 선택 없음).
  function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);searchPresets('');setError('');}
  const [strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
@@ -159,16 +162,18 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  function add(){
   const picked=results.filter(item=>selected.includes(item.id));
   if(!picked.length){setError('게시물에 넣을 사진을 골라 주세요.');return;}
-  if(picked.length>room){setError(`사진은 ${room}장만 더 넣을 수 있어요.`);return;}
-  onTrack?.('photo_decided',{mode:cosplayOpen?'cosplay':'general'});onAdd(picked,captionContext.current);sourceOrigins.current.clear();setAspectRatio('original');setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
+  const replaceSourceIds=Array.from(new Set(picked.map(item=>sourceOrigins.current.get(item.id)).filter((id):id is string=>!!id&&images.some(image=>image.id===id))));
+  if(picked.length>room+replaceSourceIds.length){setError(`사진은 ${room+replaceSourceIds.length}장만 넣을 수 있어요.`);return;}
+  onTrack?.('photo_decided',{mode:cosplayOpen?'cosplay':'general'});onAdd(picked,captionContext.current,replaceSourceIds);sourceOrigins.current.clear();setAspectRatio('original');setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection({});setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
  }
- function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection(null);setKind('pose');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setStage('edit');}
+ function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection({});setKind('pose');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setStage('edit');}
  const viewing=viewer!==null||sourceViewer;
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
  function selectLibrary(item:PhotoAsset){if(libraryAssets.some(value=>value.id===item.id)){setLibraryAssets(items=>items.filter(value=>value.id!==item.id));return;}const next=[...libraryAssets.filter(value=>value.category!==item.category),item];if(next.length>4){setError('내 보관함 사진은 최대 4개까지 선택해 주세요.');setLibraryOpen(false);return;}setSelectedPresets(items=>items.filter(value=>value.kind!==item.category));setLibraryAssets(next);}
+ const outfitSwitch=OUTFIT_DETAIL_ENABLED&&(kind==='outfit'||hasOutfit)&&<button type="button" role="switch" aria-checked={detailedOutfit} className={s.outfitSwitch} disabled={busy} onClick={()=>{setDetailedOutfit(!detailedOutfit);setError('');}}>옷 세부 지정<span aria-hidden="true"/></button>;
  const composer=<div className={s.composer}>
   {library&&<div className={s.libraryEntry}><button type="button" disabled={busy} onClick={()=>setLibraryOpen(true)}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 7V4h7l2 3h9v13H3Z"/><path d="m8 16 3-3 2 2 2-2 3 4"/></svg>내 보관함<Icon name="chevron" width={18} height={18} className={s.libraryChevron}/></button>{libraryAssets.length>0&&<div className={s.librarySelected}>{libraryAssets.map(item=><button key={item.id} type="button" onClick={()=>setLibraryAssets(items=>items.filter(value=>value.id!==item.id))} aria-label={`${item.title} 선택 해제`}><img src={item.url} alt=""/><span>{photoAssetLabel(item.category)} · {item.title}</span><span aria-hidden="true">×</span></button>)}</div>}</div>}
-  <strong>비율</strong><AiPhotoRatioPresets value={aspectRatio} onChange={setAspectRatio} disabled={busy}/>
+  <div className={s.ratioSection}><strong>비율</strong><AiPhotoRatioPresets value={aspectRatio} onChange={setAspectRatio} disabled={busy}/></div>
   <TextAreaField label="커스텀 프롬프트" rows={3} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={customPrompt} onChange={event=>setCustom(event.target.value)} placeholder="선택한 프리셋에 더하고 싶은 내용을 적어 주세요." disabled={busy}/>
  </div>;
 
@@ -176,14 +181,14 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   {!sources.length?<div className={s.body}><PromptLayout variant="dialog" icon="/brand/featured-creators-v1.png" title="바꿀 사진을 먼저 올려 주세요" description="게시물에 사진을 올리면 AI로 옷·포즈·배경을 바꿀 수 있어요." actions={<><Action type="button" className={promptPrimary} onClick={onClose}>사진 올리러 가기</Action>{library&&<Action type="button" variant="secondary" onClick={()=>setLibraryOpen(true)}>내 보관함</Action>}</>}/></div>:!genderChosen?<div className={s.genderEntry}><h3>남성인가요, 여성인가요?</h3><div className={s.genderEntryChoices}>{(['male','female'] as const).map(value=><button key={value} type="button" onClick={()=>changeGender(value)}>{/* 2026-11-17 user request: Seedream-made flat character icons instead of ♂/♀ symbols. */}{/* eslint-disable-next-line @next/next/no-img-element -- small static icon */}<img src={`/brand/ai-photo/gender-${value}-v1.webp`} alt="" width={88} height={88}/>{value==='male'?'남성':'여성'}</button>)}</div></div>:<>
    <div ref={bodyRef} className={s.body} inert={viewing}>
    {stage==='edit'&&<div className={s.sourceSection}>
-     <div className={s.sourceHeading}><span>{source?.aiGenerated?'편집할 이미지':'원본 사진'}</span>{sources.length>1&&<button type="button" aria-expanded={sourcePicker} onClick={()=>setSourcePicker(!sourcePicker)}>사진 선택</button>}</div>
+     {sources.length>1&&<div className={s.sourceHeading}><button type="button" aria-expanded={sourcePicker} onClick={()=>setSourcePicker(!sourcePicker)}>사진 선택</button></div>}
      {sourcePicker&&<div className={s.sources} role="radiogroup" aria-label="편집할 이미지 고르기">{sources.map((item,index)=><button key={item.id} type="button" role="radio" aria-checked={item.id===sourceId} aria-label={`${index+1}번 사진`} className={s.source} onClick={()=>changeSource(item.id)}>
       {/* eslint-disable-next-line @next/next/no-img-element -- uploaded draft thumbnail */}
       <img src={item.preview||item.url} alt=""/>{item.aiGenerated&&<span className={s.ai}>AI</span>}</button>)}</div>}
-     {(kind==='outfit'||hasOutfit)&&<button type="button" role="switch" aria-checked={detailedOutfit} className={s.outfitSwitch} disabled={busy} onClick={()=>{setDetailedOutfit(!detailedOutfit);setError('');}}>옷 세부 지정<span aria-hidden="true"/></button>}
-     {source&&((kind==='outfit'||hasOutfit)&&detailedOutfit?<><AiPhotoMask src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'} strokes={strokes} onChange={next=>{setStrokes(next);setError('');}} disabled={busy}/></>:<div className={s.previewFrame}>
+     {source&&(OUTFIT_DETAIL_ENABLED&&(kind==='outfit'||hasOutfit)&&detailedOutfit?<><AiPhotoMask overlay={outfitSwitch} src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'} strokes={strokes} onChange={next=>{setStrokes(next);setError('');}} disabled={busy}/></>:<div className={s.previewFrame}>
       {/* eslint-disable-next-line @next/next/no-img-element -- creator's own uploaded photo */}
       <img className={s.preview} src={source.url} alt={source.aiGenerated?'편집할 이미지':'원본 사진'}/><button ref={editRef} type="button" className={s.zoom} aria-label="원본 사진 크게 보기" onClick={()=>setSourceViewer(true)}><ZoomIcon/></button>
+      {outfitSwitch}
      </div>)}
    </div>}
     {stage==='edit'?<div className={s.controls}>
@@ -198,20 +203,17 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
      {kind==='pose'&&<div className={s.posePosture} role="group" aria-label="포즈 자세">{(['sitting','standing'] as const).map(value=><button key={value} type="button" aria-pressed={posePosture===value} disabled={busy} onClick={()=>{setPosePosture(value);searchPresets('');}}>{value==='sitting'?'앉기':'서기'}</button>)}</div>}
      {kind!=='body'&&<div className={s.presetSearch}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" aria-label="프리셋 검색" placeholder={cosplay?'의상 이름·작품 검색':`${aiPhotoKinds.find(item=>item.value===kind)!.label} 프리셋 검색`} value={presetQuery} onChange={event=>searchPresets(event.target.value)} disabled={busy}/>{presetQuery&&<button type="button" aria-label="검색어 지우기" disabled={busy} onClick={()=>searchPresets('')}>×</button>}</div>}
      {kind==='outfit'&&cosplayOpen?<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.wardrobe}>
-      <div className={s.wardrobeHeading}><h3>어떤 의상을 입어볼까요?</h3></div>
       <p className={s.costumeHint}>{AI_PHOTO_COSTUME_HINT}</p>
       <div className={s.costumeCategoryBar}><SelectField className={s.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);searchPresets('');}} options={aiPhotoCostumeCategories.map(category=>({value:category.value,label:category.label,image:category.image}))} disabled={busy}/><span>{presetQuery.trim()?'전체 의상 검색':costumeCategoryInfo.group} · {costumes.length}종</span></div>
       <AiPhotoWardrobe key={`${costumeCategory}-${presetQuery}`} items={costumes} selectedPrompts={selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)} disabled={busy} onPick={pickPreset}/>
-      <p className={s.costumeNote}>선택한 코디 사진을 가발·소품·신발의 참조 이미지로 함께 보내요. 원본 구도에 보이는 범위에 적용하며 결과는 달라질 수 있어요.</p>
       {franchisePicked&&<p className={s.costumeNote} role="note" data-franchise-notice="true">{franchiseCostumeNotice}</p>}
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
       {kind==='body'?<AiBodyAdjustments controls={targetGender==='male'?aiPhotoMaleBodyControls:aiPhotoBodyControls} selection={bodySelection} onChange={changeBody} disabled={busy}/>:<>
       <div className={s.presetHeading}><span>{presetQuery.trim()?`검색 결과 ${preset.total}개`:'프리셋'}</span><div className={s.presetNavigation}><button type="button" aria-label="이전 프리셋 페이지" disabled={busy||preset.pages<=1} onClick={()=>stepPreset(-1)}>‹</button><span aria-live="polite">{preset.index+1} / {preset.pages}</span><button type="button" aria-label="다음 프리셋 페이지" disabled={busy||preset.pages<=1} onClick={()=>stepPreset(1)}>›</button></div></div>
       <AiPresetPager key={`${kind}-${presetQuery}`} onStep={stepPreset} disabled={busy||preset.pages<=1}><div className={s.photoPresetGrid}>{preset.examples.map(example=><button type="button" key={example} className={s.preset} aria-label={aiPhotoPresetTitle(kind,example,targetGender)} aria-pressed={isPresetSelected(example)} onClick={()=>pickPreset(example)} disabled={busy}>
        {/* eslint-disable-next-line @next/next/no-img-element -- static preset illustration or example photograph */}
-       <img className={['expression','pose','camera','lens'].includes(kind)||example===AI_PHOTO_KEEP_ORIGINAL?s.presetIllustration:undefined} src={aiPhotoPresetImage(kind,example,targetGender)} alt="" loading="lazy"/>{kind==='makeup'&&aiPhotoMakeupGender(example)&&<CostumeGender gender={aiPhotoMakeupGender(example)} title={aiPhotoMakeupGender(example)==='male'?'남성 메이크업':'여성 메이크업'}/>}<span>{aiPhotoPresetTitle(kind,example,targetGender)}</span><span className={s.presetCheck} aria-hidden="true">{isPresetSelected(example)?'✓':''}</span></button>)}</div></AiPresetPager>
+       {example===AI_PHOTO_KEEP_ORIGINAL?<div className={s.keepOriginalPreview}><img src={aiPhotoPresetImage(kind,example,targetGender)} alt="" width={52} height={52} loading="lazy"/></div>:<img className={['expression','pose','camera','lens'].includes(kind)?s.presetIllustration:undefined} src={aiPhotoPresetImage(kind,example,targetGender)} alt="" loading="lazy"/>}{kind==='makeup'&&aiPhotoMakeupGender(example)&&<CostumeGender gender={aiPhotoMakeupGender(example)} title={aiPhotoMakeupGender(example)==='male'?'남성 메이크업':'여성 메이크업'}/>}<span>{aiPhotoPresetTitle(kind,example,targetGender)}</span><span className={s.presetCheck} aria-hidden="true">{isPresetSelected(example)?'✓':''}</span></button>)}</div></AiPresetPager>
       {preset.total===0&&<p className={s.presetEmpty} role="status">검색 결과가 없어요. 다른 검색어를 입력해 주세요.</p>}
-      {!['expression','pose','camera','lens'].includes(kind)&&<p className={s.hint}>사진은 AI로 만든 예시예요. 선택한 요청을 내 사진에 적용해요.</p>}
      </>}
      </div>}
     {composer}
@@ -226,7 +228,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
        <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button><div className={s.resultTools}>{onCrop&&<button type="button" onClick={()=>setCropItem(item)} aria-label={`결과 ${index+1} 자르기`}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3v13a2 2 0 0 0 2 2h13M3 6h13a2 2 0 0 1 2 2v13"/></svg>자르기</button>}<button type="button" disabled={sharing} onClick={()=>void sharePhoto(item)} aria-label={`결과 ${index+1} 공유`}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V3m-5 5 5-5 5 5M5 12v8h14v-8"/></svg>{sharing?'준비 중…':'공유'}</button></div></div></div>)}</div><div className={s.heartResult}>{noHearts?<><strong>이번 게임에서 하트 {resultHearts}개를 모았어요</strong><p>체험 게임의 하트는 적립되거나 이용권으로 바뀌지 않아요.</p></>:<><strong aria-label={`누적 하트 ${onHeartGame?heartBalance:resultHearts}개 / 100개`}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/></svg><span>{onHeartGame?heartBalance:resultHearts}/100</span></strong><p>100개가 모이면 10번의 기회가 생겨요</p>{rewardNote&&<p role="status">{rewardNote}</p>}</>}</div></>}
     </div>}
     {stage==='results'&&!busy&&<div className={s.resultActions}><Action type="button" variant="secondary" disabled={!originalSource} onClick={()=>{if(originalSource)editResult(originalSource);}}>원본으로</Action><Action type="button" variant="secondary" onClick={()=>{const item=results.find(result=>selected.includes(result.id));if(item)editResult(item);}} disabled={selected.length!==1}>계속 보정</Action><Action type="button" onClick={add} disabled={!selected.length}>사진 결정</Action></div>}
-    {(!busy&&(stage==='edit'||remaining<=0))&&<div className={s.quota}><span>남은 생성 횟수 <b>{remaining}</b>회</span>{onUseTicket&&tickets>0&&<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
+    {(!busy&&(stage==='edit'||remaining<=0)&&onUseTicket&&tickets>0)&&<div className={s.quota}>{<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
    </div>
    {stage==='edit'&&<div className={s.footer} inert={viewing}>

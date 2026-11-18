@@ -1,9 +1,365 @@
+## 2026-11-19 — 모바일 AI 본문 입력란 두 줄 높이
+
+- 767px 이하에서 체험 captionFields 본문만 line-height1.5·높이3em+패딩/테두리26px로 조정(내용2줄). 공용120px 최소 높이 해제, 긴 내용 내부 세로 스크롤. 데스크톱 및 일반 작성 입력란 유지.
+- 실제 CSS 격리 Chromium390px: 글자16px·줄24px·전체74px, 긴 내용 scrollHeight768>clientHeight72. 1280px: 기존12줄 높이333px 유지. 소스 assertion·diff 검사 종료0. 증거 `.local/body-icons/caption-mobile-height.json`(시각·커밋·CSS해시).
+- 로컬 미커밋·미배포. 앞선 변경·개발 배포 차단 상태 유지.
+
+## 2026-11-19 — AI 내용 작성 후 입력란 공개
+
+- 체험 captionMode의 ‘AI로 내용 작성’ 오른쪽 설명 제거, 미사용 captionHint CSS 제거. 제목/본문은 captionReady(작성 성공 시 true) 이후에만 렌더. 일반 게시물 편집 입력란은 유지.
+- 최초 작성 전·작성 중·최초 실패는 입력란 숨김, 성공 후 값과 함께 공개·수정 가능. 재작성 실패 시 이전 내용/입력란 보존. 실패 기본 문구를 직접 입력 안내에서 재시도 안내로 변경.
+- 실제 React 편집기 대역 caption 테스트 통과(미노출/로딩/실패/성공/수동수정/재실패), 타입 검사·diff 검사 종료0. 증거 `.local/body-icons/caption-reveal.log`, `caption-reveal-verification.json` 시각·커밋·해시. 브라우저 시각·실공급사 검증 미실행.
+- 이전 변경과 함께 로컬 미커밋·개발/운영 미배포. 기존 개발 배포 차단 미해소.
+
+## 2026-11-19 — 사진 결정 시 최초 원본 자동 교체
+
+- AiPhotoDialog의 기존 sourceOrigins 계보로 확정 결과의 최초 원본ID를 부모에 전달. 계속 보정/자르기 계보 유지, 현재 images에 있는 원본만 대상으로 중복 제거. 결정 전에는 원본 제거 없음.
+- ManagementPages 양쪽 레이아웃의 onAdd가 해당 원본만 기존 removeMedia로 제거 후 결과 추가. 다른 사진/동영상 보존. 새 업로드는 기존 draftMedia 폐기 규칙 사용; 이미 저장된 게시물 사진 파일은 직접 폐기하지 않음. 첨부 상한에 원본 교체 자리 포함, 가득 찬 상태에서도 편집 진입 가능.
+- 실제 React 테스트: 가득 찬 첨부 교체·반복 보정 최초 원본 추적2건, 부모 일반/회원 레이아웃 첨부 보존1건 통과. 타입 검사·diff 검사 종료0. 증거 `.local/body-icons/photo-replacement-verification.json`, `photo-replace-dialog.log`, `photo-replace-parent.log`. 대역 생성이며 실제 공급사/운영 파일 삭제 검증 아님.
+- 로컬 미커밋·개발/운영 미배포. 기존 개발 배포 차단 미해소. 앞선 신체 독립 조절/랜딩 문구/말풍선 변경도 포함된 작업본.
+
+## 2026-11-19 — 신체 보정 슬라이더 독립 조절 버그 수정
+
+- 원인: bodySelection이 단일 key/value이며 changeBody가 기존 body 요청 전체를 제거. 항목별 값 맵으로 변경하고 전체 활성 신체 보정 요청을 재구성. 한 슬라이더를0으로 되돌려도 다른 값/요청 유지. 요청 길이 초과로 적용 거절 시 값도 유지. 성별 계열 변경·새 결과 편집·사진 결정 시 기존 전체 초기화 유지.
+- 여성3종/남성4종 독립 값 및 요청 누적, 한 항목 원본 복귀, 다른 프리셋 보존을 테스트. 실제 React 대화상자의 연속 조절·대역 생성 요청 및 성별 초기화 포함 집중4건 통과. 단일 선택 동작을 재주입한 대조 검사 실패 확인. 타입 검사·diff 검사 종료0.
+- 관련 기존 테스트 전체는87건 중65통과22실패. HEAD 변경 전에도 같은22건 실패(이전 마스크/카테고리/화면 요구사항 불일치); 새 실패0. 이전 단일 선택 기대 테스트2건은 새 요구사항으로 갱신. 증거 `.local/body-icons/body-independent-verification.json`, `body-focused.log`, `body-baseline-tests.log`, `body-updated-tests.log`, `body-independent-negative.log`.
+- 대상 파일 AiPhotoDialog.tsx, AiBodyAdjustments.tsx, lib/crefans/ai-photo.ts 및 회귀 테스트. AGENTS 단일 선택 규약 수정. 로컬 미커밋, 개발/운영 배포·실제 AI 공급사 검증 없음. 앞선 개발 배포 차단 미해소.
+
+## 2026-11-19 — 랜딩 100억+가지 조합 확정
+
+- 사용자 확인에 따라 섹션 제목을 ‘100억+가지 조합’으로 교체.
+- 카탈로그 실측: 여성 메이크업16종 다중선택(미선택 포함2^16) × 표정16 × 포즈60 × 배경142 × 구도9 × 촬영컨셉4 =321,619,230,720가지 설정 조합. 원본 유지 제외·프롬프트 중복 제거. 가장 긴 조합은 실제 buildAiPhotoPrompt 여성 요청 기준838자(상한2000). 의상·신체 보정은 산식 제외. 실제 생성 성공/서로 다른 결과 사진 수 보장 아님.
+- node assertion·git diff --check 종료0. 증거 `.local/body-icons/landing-100-billion-verification.json`에 시각·기준커밋·파일해시·계산 기록. 로컬 미커밋·미배포, 이전 개발 배포 차단 유지.
+
+## 2026-11-19 — 1만 이상 조합 문구 근거 확인
+
+- 실제 ai-photo-presets 카탈로그를 TS loader로 읽고 원본 유지 제외·정규화 프롬프트 중복 제거: 표정16×포즈60×배경142=136,320개 선택 조합. 의상·메이크업·구도 등은 계산에서 제외. 세 항목 요청 합산 최대153자로2000자 제한 이내.
+- 랜딩 pick의 카테고리별 선택 보존과 편집기 selectedPresets 누적·combined 요청 코드를 확인. 선택 가능한 설정 조합 수이며 실제 서로 다른 결과 사진 수나 모든 생성 성공을 의미하지 않음.
+- 로컬 node 계산 종료0, 시각·기준 커밋·결과 `.local/body-icons/preset-combination-count.json`. 배포/실공급사 호출 없음. 10,000+ 문구 변경 전에는 미계산 상태였으며 이번에 근거를 확인함.
+
+## 2026-11-19 — 모더니아 추천 말풍선 빨강·애니메이션
+
+- 랜딩/편집기 초기 니케 유지 확인. 공용 모더니아 말풍선 ‘가장 인기 있어요’를 빨강#dc2626·흰색으로 변경, 꼬리도 빨강. 1.8초 주기로4px 위아래 이동하며 모션 감소 설정이면 정지. 모더니아 선택 시 숨김 유지.
+- 실제 컴포넌트 SSR(니케 초기값·말풍선1개·선택 시 숨김), CSS 소스 assertion, diff 검사 통과. `.local/body-icons/modernia-red-animation-verification.json` 시각·커밋·CSS해시 기록. Chromium은 환경 권한으로 기동 실패하여 브라우저 시각 검증 미완료.
+- 이전 문구 수정과 함께 로컬 미커밋·미배포. 개발 배포 차단은 아직 해소되지 않음.
+
+## 2026-11-19 — 랜딩 유의사항 제목 간소화
+
+- AiPhotoLanding.tsx의 ‘꼭 지켜 주세요’를 ‘유의사항’으로 변경. 안내 본문·구조·스타일 유지.
+- 정확한 제목 교체·이전 제목 미존재 assertion 및 git diff --check 종료0. 증거 `.local/body-icons/landing-rules-copy-verification.json`에 시각·기준 커밋·파일SHA256 기록. 소스 검증만 수행.
+- 앞선 조합 수 제목 변경과 함께 로컬 미커밋·미배포. 개발 배포 차단 상태 유지.
+
+## 2026-11-19 — 랜딩 편집 섹션 제목 변경
+
+- AiPhotoLanding.tsx의 ‘고를 수 있는 편집’을 사용자 지정 ‘10,000+개 이상의 조합’으로 변경. 구조·스타일 유지.
+- 정확한 제목 교체·이전 문구 미존재 assertion, git diff --check 종료0. 증거 `.local/body-icons/landing-combinations-copy-verification.json`에 시각·기준 커밋·파일SHA256 기록. 문구 변경 범위 소스 검증이며 브라우저 검증 미실행.
+- 로컬 미커밋·미배포. 이전 개발 배포 차단 상태 유지.
+
+## 2026-11-19 — 니케 추천·모바일 스크롤 개발 배포 차단
+
+- 사용자 명시적 개발 배포 요청에 따라 기능29c3505를 개발 통합 브랜치에 병합 완료. SSR 검사와 git diff --check 종료0.
+- origin/dev·github/dev push 및 deploy-dev.sh front 실행은 자동 승인 검토에서 승인 근거 부족이라는 이유로 거부되어 실행되지 않음. 우회하지 않음. 실제 개발 서버는 이전602e555 상태이며 새 변경 배포·실제 화면 검증 미완료.
+- 다음: 사용자 재승인 후 두 원격 dev 동기화 → 개발 배포 → 니케 초기값/모더니아 말풍선 선택 전후/모바일 가장자리 스크롤 실제 화면 확인. 운영 배포 범위 아님.
+
+## 2026-11-19 — 의상 초기 니케·모더니아 선택 유도
+
+- 랜딩/편집기 의상 초기 카테고리를 니케로 통일. 모더니아4a0c8f 카드 이미지 하단에 사용자 지정 ‘가장 인기 있어요’ 핑크 말풍선 표시. 자동 선택 없음, 선택하면 말풍선 숨김. 인기 문구는 사용자 지정 고정 카피이며 실시간 통계 기반 아님.
+- 실제 공용 컴포넌트 SSR로 첫 페이지 말풍선1개, 선택 시 제거 확인. 양쪽 초기값 소스 검사·타입 검사·diff 검사 통과. 증거 `.local/body-icons/check-modernia-hint.cjs`, `modernia-hint-verification.json`(시각·커밋·해시). 브라우저 상호작용 미검증.
+- 모바일 랜딩 가장자리 스크롤 개선과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 모바일 랜딩 코스튬 스크롤을 화면 양끝까지 확장
+
+- 검색 카테고리 ChipRow의 여백 상쇄·내부 패딩 방식 참고. 767px이하 looks를100vw로 확장, 가운데 기준 음수 마진과 내부 여백으로 첫 카드 기존 위치 유지. 넓은 모바일에서도440px 기준 기존 시작점 유지, heroDemo min-width0로 페이지 가로 넘침 방지. 데스크톱 유지.
+- 실제 개발 랜딩에 로컬 CSS override를 적용한 Chromium390/600/1280px 검사: 첫 카드 좌표 전후 동일, 모바일 스크롤 영역 x0·폭viewport, 가로 이동 가능, 문서 overflow 없음, 데스크톱 변화 없음. 종료0. diff 검사 종료0.
+- 증거 `.local/body-icons/check-landing-edge-scroll.cjs`, `landing-edge-scroll-verification.json`(시각·기준커밋·CSS해시), `landing-edge-scroll-mobile.png`. 개발 서버 변경 배포는 미실행, 로컬 코드/문서 미커밋.
+
+## 2026-11-19 — 랜딩52px·0원 체험·사진 카드 개발 배포 완료
+
+- 기능c32639f → dev602e5555e436b889209154c2f72afd4ea83384cc. origin/dev·github/dev push, last-success SHA 일치. deploy-dev.sh front 종료0, 빌드·타입 검사·기동·스모크 통과. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-025341.log`.
+- 실제 개발 랜딩 Chromium390/1280px: 로그인 없이0원 체험2곳·무료 체험 미존재, 사진 카드 padding0·사진 너비 꽉 채움·이름 absolute, 원본 유지6종52×52px 확인. 모바일 카드 스크린샷 시각 확인.
+- 증거 기능 작업본 `.local/body-icons/verify-dev-landing.cjs`, `dev-landing-verification.json`, `dev-landing-cards-390.png`, `dev-landing-original-390.png` 및1280px판. AI 생성 요청 없음. 운영 배포 없음. 이 완료 기록만 로컬 미커밋.
+
+## 2026-11-19 — 랜딩 코스튬 선택 카드 사진 꽉 채우기
+
+- look 카드84×105px·padding0, 사진100% cover, 하단 흰색 이름+어두운 그라데이션 오버레이. 긴 이름 줄바꿈, 선택 상태 핑크 안쪽 테두리, 포커스 유지. 기존168×210 썸네일 사용.
+- 실제 CSS·실제 썸네일 격리 Chromium390/1280에서 카드 padding0·사진 너비 일치·라벨 카드 내부 확인. 모바일 시각 확인, diff 검사 종료0. 증거 `.local/body-icons/preview-landing-look.cjs`, `landing-look-verification.json`(시각·커밋·CSS해시), `landing-look-390.png`.
+- 랜딩52px·0원 체험 문구와 함께 미커밋·개발/운영 미배포. 전체 앱 검증 미실행.
+
+## 2026-11-19 — 랜딩 무료 체험을0원 체험으로 통일
+
+- AI 사진 랜딩 CTA4곳 무료 체험→0원 체험. 메인/하단 ‘로그인 없이0원 체험’, 헤더 ‘0원 체험’, 프리셋 CTA ‘이 프리셋으로0원 체험’(실제 문구 띄어쓰기 유지). 링크·체험 전달 동작 유지.
+- 소스 assertion으로4곳 교체·기존 문구 미존재 확인, diff 검사 종료0. 증거 `.local/body-icons/landing-zero-won-copy.json`(시각·커밋·SHA256). 브라우저 미실행. 랜딩52px 변경과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 랜딩 원본 유지 아이콘도52px 적용
+
+- AiPhotoLanding의 원본 유지6종에 편집기와 동일 keepOriginalPreview 공용 래퍼 및52px 이미지 적용. 기존 랜딩 프리셋 높이 변수·다른 카드 유지.
+- 소스 연결 assertion, 타입 검사·diff 검사 종료0. 공용 CSS52px 검증은 앞선 증거 재사용. 증거 `.local/body-icons/landing-original-52-verification.json`(시각·커밋·파일SHA256). 랜딩 전체 브라우저 검증 및 개발/운영 배포 미실행, 미커밋.
+
+## 2026-11-19 — 원본 유지52px 개발 배포 완료
+
+- 기능552a25f → dev7daf1b2ea1cbc362260c31e3077164878fd238a3. origin/dev·github/dev push, last-success SHA 일치. deploy-dev.sh front 종료0, 빌드·타입·기동·스모크 통과. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-024801.log`.
+- 실제 개발 카탈로그 Chromium390/1280px에서6종 원본 유지 렌더52×52px·원본96px 확인. 기존 간격/미노출/의상 순서 검사도 통과. 증거 기능 작업본 `.local/body-icons/verify-dev-original-52.cjs`, `dev-original-52-verification.json`.
+- 카탈로그 대역 데이터 검증, 실제 AI 요청 없음. 운영 배포 없음. 이 완료 기록만 로컬 미커밋.
+
+## 2026-11-19 — 원본 유지 아이콘 52px로 조정
+
+- 사용자 지정52px를 JSX width/height 및 CSS에 반영. 카드 높이·중앙 배치·이미지 자산 유지.
+- 실제 CSS 격리 Chromium390/1280px에서6종52×52px 확인, diff 검사 종료0. 증거 `.local/body-icons/check-keep-original-52.cjs`, `keep-original-52-verification.json`(시각·커밋·해시). 전체 앱 검증·개발/운영 배포 미실행, 미커밋.
+
+## 2026-11-19 — 원본 유지 48px 아이콘 개발 배포 완료
+
+- 기능796afcf → dev0f2a1a9dde0f0d471e5864d2515b01550ed34cb1. origin/dev·github/dev push 및 last-success 일치 확인. 공식 deploy-dev.sh front 종료0, 빌드·타입 검사·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-024316.log`.
+- 실제 개발 도메인 Chromium390/1280px 공용 편집 모달에서 원본 유지6종 모두 렌더48×48px·원본96px 확인. 기존24px 섹션 간격·세부 지정/중복 횟수 숨김·버튼 잔여 표시·모더니아 위치 검사도 통과.
+- 증거 기능 작업본 `.local/body-icons/verify-dev-small-original.cjs`, `dev-small-original-verification.json`. 카탈로그 대역 데이터, 실제 AI 생성 요청 없음. 운영 배포 없음. 이 결과 기록만 로컬 미커밋.
+
+## 2026-11-19 — 원본 유지 카드 아이콘 크기 축소
+
+- 원본 유지6종을 전용 프리뷰 래퍼로 감싸 기존 카드 이미지 영역 높이 유지, 중앙48×48px 표시. 96px 투명 원본을 사용하므로2x 해상도 지원. 다른 실제 프리셋 이미지 크기는 유지.
+- npm run typecheck·git diff --check 종료0. 실제 CSS 격리 Chromium390/1280에서6종 모두48px·원본96px·프레임144px 확인. 증거 `.local/body-icons/check-keep-original-size.cjs`, `keep-original-size-verification.json`(시각·커밋·해시), `keep-original-small.png`. 전체 앱 검증·개발/운영 배포 미실행, 미커밋.
+
+## 2026-11-19 — 프리셋·간격·미노출 누적 변경 개발 배포 완료
+
+- 기능9f2b665 → dev38e9d998b22c97f51a8c3e067a0eebda7642afc1, origin/dev·github/dev push 및 last-success 일치. 타입 검사·diff 검사 종료0. deploy-dev.sh front 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-023731.log`.
+- 실제 개발 도메인 카탈로그 Chromium390/1280px: 옷 세부 지정 스위치 없음, 중복 남은 생성 횟수 없음·버튼 남은10회 유지, 니케 모더니아4번째(누아르의 기존 자리), 6개 탭 원본 유지 소프트3D 이미지, 비율 아래24px 간격 확인. 모바일 스크린샷 시각 확인.
+- 증거 기능 작업본 `.local/body-icons/verify-dev-cleanup.cjs`, `dev-cleanup-verification.json`, `dev-cleanup-390.png`, `dev-cleanup-1280.png`. 카탈로그 대역 데이터, AI 생성·적립 요청 없음. 운영 배포 없음. 이 결과 기록만 로컬 미커밋, 아래 미배포 기록을 대체함.
+
+## 2026-11-19 — 니케 모더니아·누아르 바니 위치 교환
+
+- 공용 의상 카탈로그의 모더니아4a0c8f와 누아르 바니ce1f18 항목 위치만 교환. ID·프롬프트·이미지 및 다른 항목 순서 유지.
+- 실제 카탈로그 로딩 전후 전체 항목 비교로 두 위치만 교환·나머지 데이터 동일 확인, diff 검사 종료0. 증거 `.local/body-icons/nikke-order-verification.json`(시각·커밋·SHA256·니케 최종 순서). 브라우저 미실행. 기존 미배포 수정과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 원본 유지 프리셋도 승인 소프트3D로 교체
+
+- 공용 aiPhotoPresetImage의 KEEP_ORIGINAL 분기를 category-soft3d/{kind}-v2.png로 변경. 메이크업·표정·포즈·배경·구도·촬영컨셉 전체6종에 동일 적용, 성별/포즈/배경 하위분류도 공용 함수 사용. 원본 유지 선택 동작·제목 유지.
+- 실제 TypeScript 이미지 결정 함수 호출: 6종×3성별18건 경로 일치·파일 존재·제목 유지 통과. diff 검사 종료0. 증거 `.local/body-icons/keep-original-3d-verification.json`(시각·기준 커밋·소스SHA256·검사목록). 브라우저 미실행. 기존 섹션 간격·세부 지정 미노출·중복 잔여 횟수 제거와 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 하단 중복 생성 잔여 횟수 제거
+
+- AiPhotoDialog 하단 ‘남은 생성 횟수 N회’ 삭제, 만들기 버튼 오른쪽 ‘남은 N회’와 접근성 연결 유지. 리셋권 보유 시 사용 컨트롤 유지, 미보유 시 빈 quota 행도 숨김.
+- 소스 assertion으로 문구 제거·버튼 표시·리셋권 기능 보존 확인. 증거 `.local/body-icons/quota-duplicate-removal.json`(시각·기준 커밋·파일 SHA256). 앞선 섹션 간격·옷 세부 지정 미노출과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 옷 세부 지정 임시 미노출
+
+- 사용자 ‘당분간 미노출 또는 문구 축소’에서 미노출 선택. OUTFIT_DETAIL_ENABLED=false로 문구·스위치, 마스크 편집기, 마스크 요청 조건 차단. 재활성화를 위해 기존 편집 코드는 보존.
+- 소스 assertion·npm run typecheck·git diff --check 통과. 증거 `.local/body-icons/outfit-detail-hidden.json`(시각·커밋·파일 SHA256). 브라우저/개발·운영 배포 미실행. 앞선 섹션 여백 수정과 함께 미커밋.
+
+## 2026-11-19 — 비율·커스텀 프롬프트 섹션 간격 재정리
+
+- 비율 제목과 버튼들을 ratioSection으로 묶어 내부8px, composer의 섹션 사이24px로 분리. 기존 비율 버튼 margin10px 방식 제거. 보관함이 있으면 동일24px 간격 적용. 자르기 화면 비율 선택 유지.
+- 타입 검사·diff 검사 종료0. 실제 CSS 격리 Chromium390/1280px에서 비율 버튼 끝↔다음 필드24px, 자르기 비율 margin0 확인. 증거 `.local/body-icons/check-ratio-sections.cjs`, `ratio-section-spacing-verification.json`(시각·커밋·파일 SHA256). 전체 앱 검증·개발/운영 배포 미실행. 코드/기록 미커밋.
+
+## 2026-11-19 — 투명 카테고리 아이콘·누적 화면 정리 개발 배포 완료
+
+- 기능96e9d62 → dev3e878964500b99a5d88bc71af39a028b0e97c4c3. origin/dev·github/dev 동기화, last-success SHA 일치. deploy-dev.sh front 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-022828.log`. 운영 배포 없음.
+- 실제 개발 도메인 Chromium390/1280px 카탈로그 공용 편집기 확인: 아이콘8개 로딩, 원본/의상 제목·코디 안내 미노출, 옷 세부 지정 토글 on/off와 캔버스 표시/해제, 두 상태 프레임 오른쪽/아래10px, 비율 아래16px 통과. 공개 아이콘8개 HTTP200·원본 SHA256 일치·alpha 확인. 스크린샷 시각 확인.
+- 증거 기능 작업본 `.local/body-icons/verify-dev-alpha.cjs`, `dev-alpha-verification.json`, `dev-alpha-390.png`, `dev-alpha-1280.png`. 카탈로그 대역 데이터 사용, 실제 AI 생성/적립 요청 없음. 체험 첫 화면 안내 제거는 소스 및 빌드 확인 범위. 이 결과 기록만 로컬 미커밋, 아래 미배포 기록을 대체함.
+
+## 2026-11-19 — 승인 카테고리 소프트3D 투명 아이콘 적용
+
+- 승인 v2 시트의 흰 배경을 이미지 편집 도구로 제거, RGBA 마스터 보존. 알파를 유지한 8개96px PNG로 내보내기, 공용 AiPhotoCategoryIcon24px 연결. master-v2.png 및 manifest.json(셀/크롭/알파 개수/SHA256)을 public/brand/ai-photo/category-soft3d에 보관.
+- 8개 모두 완전 투명 픽셀과 불투명 픽셀 존재 검사 통과. 회색/파란 배경24px 시각 검사에서 흰 박스 없음. 증거 `.local/body-icons/export-category-alpha.cjs`, `category-alpha-preview.png`. 타입 검사·diff 검사 종료0.
+- 이전 미배포 문구 삭제·비율 아래16px 간격·원본 제목 제거·미리보기 오른쪽 아래 스위치 이동·체험 첫 화면 안내 제거를 함께 개발 배포. 다음: dev 통합·배포 후 실제 화면/마스크 토글 확인. 운영 배포 안 함.
+
+## 2026-11-19 — 카테고리 아이콘 시안 v2 색상·포즈 수정
+
+- 사용자 피드백: 포즈 로봇 느낌 제거, 보라색 비중 축소, 립스틱 유지. Seedream 참조 편집1장 HTTP200·종료0. 포즈 피치 둥근 캐릭터, 신체 코랄, 구도 민트, 카메라 하늘색. 립스틱 기존 외형 유지 지시 및 육안 확인(픽셀 동일성 보장 아님).
+- `.local/body-icons/seedream/category-soft3d-set-v2.png`, `category-set-v2-manifest.json`에 산출물·프롬프트·requestId·시각·SHA256. 24px 미리보기 `category-small-preview-v2.png` 육안 확인. 제품 코드 적용·배포 없음. 다음: 사용자 선택 후 연결. 기존 미배포 수정 보존.
+
+## 2026-11-19 — 카테고리 소프트3D 아이콘 8종 세트 시안
+
+- 옷·메이크업·표정·포즈·신체 보정·구도·촬영컨셉·배경 8개를 4×2 한 장으로 Seedream5.5 생성. 기존 2안 참조, 핑크/라벤더·매트 클레이 스타일. HTTP200·생성기 종료0, 추가 생성 없음.
+- 출력 `.local/body-icons/seedream/category-soft3d-set-v1.png`; 생성 메타데이터+분류 `category-set-manifest.json`. 8개 순서 육안 확인 및 Chromium24px 탭 미리보기 `.local/body-icons/category-small-preview.png` 확인. 실제 제품 적용·배포 없음.
+- 다음: 사용자 선택 후 실제 카테고리 자산으로 연결. 기존 미배포 수정 보존. 이 기록은 로컬 미커밋.
+
+## 2026-11-19 — AI 체험 첫 화면 안내 두 문단 제거
+
+- ManagementPages의 가상 인물 샘플 사전 입력 안내 전체 문단 및 ‘AI 사진을 만들면 제목과 내용을 쓸 수 있어요.’ 안내 제거. 샘플 입력·사진 편집·생성 후 제목/본문 작성 기능 유지.
+- 지정한 두 문구 미존재 소스 assertion 통과. 증거 `.local/body-icons/trial-copy-removal.json`(시각·기준 커밋·파일 SHA256). 브라우저 검증 미실행. 기존 UI 수정과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 원본 제목 제거·옷 세부 지정 스위치 미리보기 안으로 이동
+
+- 편집 미리보기 위 제목 제거. 여러 장이면 사진 선택 버튼만 오른쪽 유지, 한 장이면 빈 제목 행 없음. 이미지 대체텍스트·확대 화면 명칭 유지.
+- 옷 세부 지정 버튼을 previewFrame 오른쪽/아래10px에 불투명 배경으로 배치. AiPhotoMask에 선택적 overlay를 전달해 활성화 후에도 사진 프레임 동일 위치에 스위치 유지(하단 붓 도구와 분리). 원래 토글·disabled 로직 유지.
+- npm run typecheck, git diff --check 종료0. 실제 CSS 격리 Chromium390/1280px에서 previewFrame/maskFrame 모두 오른쪽·아래10px, 확대 버튼과 비겹침, 클릭·키보드 포커스 검사 통과. 모바일 시각 확인. 전체 React 마스크 전환 통합 검증은 미실행.
+- 증거 `.local/body-icons/check-preview-switch.cjs`, `preview-switch-verification.json`(시각·기준 커밋·파일 SHA256), `preview-switch-mobile.png`. 기존 미배포 수정과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 의상 선택 제목 삭제
+
+- 랜딩 AiPhotoLanding 및 편집기 AiPhotoDialog에서 ‘어떤 의상을 입어볼까요?’ 제목과 해당 래퍼 삭제. 말풍선·카테고리 선택 유지.
+- 양쪽 정확히 한 곳 삭제 및 요청 문구 미존재 assertion 통과. git diff --check 종료0. 증거 `.local/body-icons/wardrobe-title-removal.json`(시각·기준 커밋·파일 SHA256). 브라우저 미실행. 기존 코디 안내 삭제·프롬프트 간격 변경과 함께 미커밋, 개발/운영 미배포.
+
+## 2026-11-19 — 비율 프리셋과 커스텀 프롬프트 간격 조정
+
+- composer 직속 비율 프리셋에 하단10px 추가해 기존 flex gap6px와 합쳐 다음 제목까지16px 확보. 비율 제목↔버튼 간격과 별도 자르기 화면 비율 선택은 유지.
+- 실제 CSS 격리 Chromium390/1280px에서 다음 필드 간격16px·자르기 비율 margin0 확인, 종료0. git diff --check 종료0. 증거 `.local/body-icons/check-ratio-spacing.cjs`, `ratio-spacing-verification.json`(시각·커밋·CSS SHA256). 전체 앱 시각 검증 미실행. 코디 안내 삭제와 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 코디 참조 이미지 안내 문구 삭제
+
+- AiPhotoDialog 의상 목록 아래 사용자가 지정한 ‘선택한 코디 사진을 … 결과는 달라질 수 있어요.’ 문단 하나 삭제. 이미지 참조 전송 기능 및 다른 안내 유지.
+- 정확한 단일 문단 삭제·요청 문구 미존재 assertion 통과. 증거 `.local/body-icons/costume-note-removal.json`(시각·기준 커밋·파일 SHA256). 브라우저 미실행. 코드 및 기록 미커밋, 개발/운영 미배포.
+
+## 2026-11-19 — 키 비율 3D 아이콘 개발 배포 완료
+
+- 기능74e244e → dev bdc3246f8e58683828d330d886c4566e66d0f49f. origin/dev·github/dev push, devbox last-success 일치 확인. 공식 deploy-dev.sh front 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-021303.log`.
+- 실제 개발 도메인 Chromium 카탈로그 편집기에서 가슴·힙·키 3개 이미지 연결, 새 키 이미지 HTTP200 및 로컬 원본 SHA256 일치 확인. 스크린샷 시각 확인. 기존 문구 및 하트 확장 CSS 검사도 통과. 증거 기능 작업본 `.local/body-icons/verify-dev-height.cjs`, `dev-height-verification.json`, `dev-height-3d.png`. AI 생성/적립 기능 실요청 없음.
+- 운영 배포 없음. 이 완료 기록만 로컬 미커밋. 다음 할 일 없음.
+
+## 2026-11-19 — 키 비율 3D 아이콘 제작·개발 배포 준비
+
+- 기존 2안 가슴·힙 이미지를 스타일 참고로 Seedream5.5 한 장 생성. 보라색 둥근 사람+키 측정자·핑크 상단 막대. 공급사 HTTP200, 생성기 종료0. 메타데이터 `public/brand/ai-photo/body-icons/height-manifest.json`에 모델·시각·SHA256·프롬프트 보관.
+- 키 비율의 기존 벡터를 새 정적 이미지로 교체, 24px 및 슬라이더 동작 유지. 원본 이미지 및 실제 컴포넌트 미리보기 육안 확인(`.local/body-icons/preview-height-3d.png`). `npm run typecheck`, `git diff --check` 종료0. 다음: dev 통합·배포 후 실화면 확인. 운영 배포 없음.
+
+## 2026-11-19 — 3D 아이콘 및 대기 UI 변경 개발 배포 완료
+
+- 기능 dcdf166 → dev ebdde38baa5743a8d7a508bd9d3a3d4881186331. origin/dev·github/dev 동기화, 서버 last-success SHA 일치. 통합 타입 검사 종료0.
+- `bash ~/crefans-dev/deploy-dev.sh front` 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-020823.log`. 운영 배포 없음.
+- 실제 개발 도메인 카탈로그 편집 모달 검증 종료0: 새 작품명·흰색 말풍선, 디아블로 마지막, 배경 프리셋 예시 문단 없음, 가슴/힙 3D 자산 HTTP200 및 선택한 원본 SHA256 일치, 하트 클릭 영역 확장 CSS 확인. 스크린샷 육안 확인. `.local/body-icons/verify-dev-3d.cjs`, `dev-3d-verification.json`, `dev-icons-3d.png`(기능 작업본). 최초 검사는 브라우저 CSS 선택자 따옴표 정규화 때문에 실패, 검사 선택자만 보정 후 통과.
+- 하트 실제 포인터 동작은 앞선 격리 브라우저 검증 범위. 카탈로그 대역 데이터 사용, 실제 AI 생성·서버 적립 요청 없음. 이 배포 결과 기록만 로컬 미커밋이며 아래 미배포 기록을 대체함.
+
+## 2026-11-19 — 선택한 2안 3D 아이콘 적용·개발 배포 준비
+
+- 가슴/힙은 Seedream 2안 원본 PNG를 공용 정적 자산으로 보존하고 SVG viewBox로 각각 표시. 재생성·변형 없이 선택한 시안 사용. 24px 크기·슬라이더 동작·다른 아이콘 유지.
+- `npm run typecheck`, `git diff --check` 종료0. 실제 컴포넌트 SSR+Chromium 24px/확대 미리보기 육안 확인(`.local/body-icons/preview-3d.png`). 하트 클릭 확대 검증은 앞선 기록 참고.
+- 프리셋 안내 제거·말풍선 작품명 변경·하트 클릭 영역 확대와 함께 개발 배포 요청 수락. 다음: dev 통합→배포→실화면 확인. 운영 배포 범위 아님.
+
+## 2026-11-19 — 미니게임 하트만 클릭 영역 확대
+
+- 하트 버튼의 비가시 ::before 영역을 사방12px 확장(64×64 → 클릭88×88). 외관·이동 속도·점수 로직 그대로. 별사탕/달은 기존64×64, 터진 하트는 확장 제외 및 기존 pointer-events:none 유지.
+- 실제 CSS 격리 Chromium 클릭 검증 종료0: 하트 경계 밖8px 상하좌우는 하트, 별사탕/달 경계 밖은 빈 공간, 중앙은 각 항목, 터진 하트는 클릭 안 됨. 확장 규칙 제거 대조검사 종료1(하트 주변4곳 empty)로 검증 유효성 확인.
+- 증거 `.local/body-icons/check-heart-hit.cjs`, `heart-hit-verification.json`(시각·커밋·CSS SHA256). 실제 움직이는 게임/서버 적립 미검증. 기존 문구 변경과 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 의상 안내 말풍선 작품명 변경
+
+- 공통 AI_PHOTO_COSTUME_HINT에서 진격거 제거, 귀칼·주술회전·오버워치 추가. 최종 ‘니케, 원신, 블루아카이브, 귀칼, 주술회전, 오버워치’. 랜딩·편집기 공통 적용, 실제 카테고리 목록은 유지.
+- 정확한 문자열 교체 소스 assertion 통과. 증거 `.local/body-icons/costume-hint-copy-verification.json`(시각·기준 커밋·SHA256). 브라우저 미실행. 기존 프리셋 안내 제거와 함께 미커밋·개발/운영 미배포.
+
+## 2026-11-19 — 프리셋 하단 AI 예시 안내 미노출
+
+- AiPhotoDialog 프리셋 하단 ‘사진은 AI로 만든 예시예요. 선택한 요청을 내 사진에 적용해요.’ 안내 문단 제거. 별도 AI 생성 표시 및 이용 안내와 사진 사용권 안내 유지.
+- 단일 JSX 문단 삭제 확인, 요청 문구 미존재·별도 안내 보존 소스 assertion 통과. 증거 `.local/body-icons/preset-caption-verification.json`(시각·기준 커밋·파일 SHA256). 브라우저 미실행. 코드와 기록 미커밋, 개발/운영 미배포.
+
+## 2026-11-19 — Seedream 가슴·힙 아이콘 3종 시안
+
+- 사용자 CDM 요청을 대화 맥락상 시드림으로 해석해 안내 후 Seedream 5.5로 3장 생성(각 장 가슴·힙 한 쌍). 1안 플랫, 2안 클레이3D, 3안 라인. 핑크·보라 유지, 불투명 운동복 도식.
+- 공급사 3건 모두 종료0·HTTP200, 실제 출력 이미지 육안 확인. 산출물 `.local/body-icons/seedream/variant-{1,2,3}.png`, 프롬프트·모델·requestId·시각·SHA256·usage는 `manifest.json`에 보관. 키 기록 없음.
+- 디자인 시안만 생성. 코드 변경·배포 없음. 이미지와 이 기록은 로컬 자료. 다음: 사용자 선택 후 아이콘별 분리·배경 처리 및 실제 24px 가독성 확인 후 적용.
+
+## 2026-11-19 — 의상 말풍선·카테고리·신체 아이콘 개발 배포 완료
+
+- 기능 커밋 706484e → dev 통합 bc82cc61299b85a1f46083ec2cfcfe753b0a25d8. origin/dev와 github/dev push 완료. 통합 타입 검사·diff 검사 종료0.
+- devbox 공식 `bash ~/crefans-dev/deploy-dev.sh front` 종료0, 빌드·기동·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-015756.log`. last-success SHA와 통합 커밋 일치 확인.
+- 배포된 https://www-dev.crefans.com/design-system 의 서비스 UI 편집 모달 Chromium 검증 종료0: 말풍선 computed color 흰색, 의상 카테고리 마지막 디아블로, 가슴/힙 슬라이더 및 신규 SVG 확인. 스크린샷 시각 확인. 카탈로그 대역 데이터 사용, 실제 AI 생성·결제는 실행하지 않음.
+- 증거: 기능 작업본 `.local/body-icons/verify-dev.cjs`, `dev-verification.json`, `dev-icons.png`. 운영 배포 없음. 이 결과가 아래 미배포 기록의 개발 상태를 대체함. 이 배포 결과 기록은 로컬 미커밋 문서임.
+
+## 2026-11-19 — 가슴·힙 보정 아이콘 재디자인 (미배포)
+
+- AiBodyAdjustments의 가슴 아이콘은 앞면 상체+핑크 가슴 강조, 힙 아이콘은 뒷면 골반+보라색 곡선 강조로 교체. 기존 24px 플랫 SVG 방식 유지해 확대 시 선명하며 신규 이미지 생성 비용 없음. 키/근육/어깨 아이콘·슬라이더 동작 유지.
+- 검증: `npm run typecheck` 종료0. 실제 컴포넌트를 SSR 렌더링한 격리 Chromium 미리보기에서 24px 및 확대 아이콘 수동 확인. `.local/body-icons/preview.png`, `preview.cjs`, `verification.json`. 실제 편집 모달 전체 흐름 검증은 아님.
+- 말풍선 흰색·디아블로 마지막 순서 변경과 함께 개발/운영 미배포.
+
+## 2026-11-19 — 의상 셀렉트박스 디아블로 맨 아래 이동 (미배포)
+
+- 공용 aiPhotoCostumeCategories의 디아블로 항목을 마지막으로 이동. 편집기·랜딩 셀렉트박스에 공통 적용. 다른 8개 순서·카테고리 값·의상 데이터 유지.
+- 소스 검사: 전체9개 유지, 디아블로 마지막, 나머지 상대 순서 동일 assertion 통과. 증거 `.local/consent-pink/category-order-verification.json`. 단순 순서 변경으로 브라우저 검사 추가 없음. 말풍선 흰색 수정과 함께 개발/운영 미배포.
+
+## 2026-11-19 — 의상 안내 말풍선 흰색 글자 수정 (미배포)
+
+- ‘어떤 의상을 입어볼까요?’ 아래 파란 말풍선은 기존 costumeHint 흰색보다 `.editor .wardrobe p` 회색 규칙의 우선순위가 높아 편집기에서 회색으로 표시됨. 해당 말풍선 선택자만 우선순위를 높여 흰색을 유지. 일반 설명·랜딩 글자색은 유지.
+- 실제 ai-photo.module.css를 사용한 격리 Chromium DOM 검사: 수정 전 editor rgb(100,116,139) 재현, 수정 후 editor·landing rgb(255,255,255), 일반 설명 rgb(100,116,139) 보존. 종료0. 전체 앱/운영 검증은 아님.
+- 증거 `.local/consent-pink/hint-color-verification.json`, 실행 `.local/consent-pink/check-hint-color.cjs`. 개발/운영 미배포.
+
+## 2026-11-19 01:50 KST — 0원체험 문구·당겨 새로고침 개발 반영 완료
+
+- 기능f38e532 → dev 통합a35bb805c3b0720acd14a1cf01af9b20d993ed59. origin/dev·github/dev 동기화, 통합 타입 검사 종료0. 공식 devbox deploy-dev.sh front 직접 실행 종료0, 빌드/스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-014741.log`, last-success SHA 일치.
+- 실제 https://www-dev.crefans.com/service/try Chromium390×844·터치 환경에서 ‘동의하고 0원체험’ 문구 및 기존 비노출/하단 버튼 확인. 합성 당김→안내→release 후 navigation type reload 검증 통과. 최초 검사는 체크박스 포커스로 공통 입력 보호가 작동해 실패했고 blur 후 재검증 통과(제품 변경 없음). 실물 손가락 제스처는 미검증.
+- 증거 `.local/consent-pink/dev-refresh-check.json`, `dev-refresh.png` 및 `verify-refresh.cjs`(기능 작업본). AI 생성·결제 요청 없음. 운영 배포 안 함. Jenkins 정기 실행과 동일 스크립트 직접 배포이며 별도 Jenkins 결과는 확인하지 않음.
+
 ## 2026-11-19 01:15~01:52 KST 처리방침 posthog.2·PostHog 화면 오류 수집 — 운영 API privacy2-20261119, 프론트 errors-20261119
 - 사용자 결정("응 허용", 운영 게시 "오늘 시행으로 배포"): 처리방침 2026-11-19.posthog.2(2026-11-19 시행) — 9조 ④ PostHog 항목에 "화면 오류 정보(화면에서 난 오류의 종류·메시지와 오류가 난 서비스 코드 위치. 주소 뒤 검색어·인증값, 이메일 주소, 긴 숫자는 지우고 보냄)" 추가, 다른 조항 불변(테스트로 확인). 시행 방식은 posthog.1과 같은 게시일 즉시 시행.
 - 프론트: capture_exceptions 켬. beforeSend가 $exception 이벤트의 모든 문자열에서 주소 검색어·해시 제거, 이메일→<email>, 6자리 이상 숫자→<number>, 500자 제한. 다른 이벤트는 기존 그대로. 콘솔 기록은 계속 끔.
 - 순서: 서버(처리방침) 운영 게시 확인(/api/v1/common privacy 2026-11-19.posthog.2, 화면 오류 정보 포함) 후 프론트 배포. 운영 번들 capture_exceptions:!0 확인.
 - 검증: server platform-legal 36/36(posthog.2 신규 1건), front posthog 10/10(오류 정리 신규 1건), 대조: 이전 posthog.ts로 2건 실패. 개발 서버 처리방침 페이지 문구·"2026.11.19 시행" 확인.
 - 이탈 분석 fetch.py: $exception_list 첫 항목의 종류·메시지도 timeline에 넣도록 보강.
+## 2026-11-19 — 버튼 문구 정정: 동의하고 0원체험 (미배포)
+
+- 사용자 최종 문구 ‘동의하고 0원체험’으로 버튼 및 E2E 선택자 변경. 이전 ‘영원 체험’ 기록을 대체. 처리 중 문구와 동작 유지.
+- 소스 assertion 통과: 새 문구·처리 중 문자열 보존 및 테스트 선택자 일치. 단순 문구 정정이라 브라우저 검사 재실행 없음. `.local/consent-pink/zero-won-label-verification.json`에 시각·해시 기록. 당겨 새로고침 변경과 함께 개발/운영 미배포.
+
+## 2026-11-19 — 체험 동의 공통 당겨 새로고침 연결 (미배포)
+
+- 기존 PullToRefresh를 GuestTrialConsent 내부 본문 scrollRef에 직접 연결. 별도 제스처 로직 없음. 공통 96px 임계값, 최상단·모바일 coarse pointer·단일 터치·놓을 때 reload 규칙 유지. 시간 기준 새 동작은 만들지 않음.
+- 체험 시작 pending 중 비활성. 동의 컴포넌트에서만 사용하므로 편집 화면으로 확장하지 않음. 고정 동의 버튼·모바일 내비게이션 숨김 유지.
+- 검증: `npm run typecheck` 종료0; Chromium4+WebKit4 총8건 통과. API 대역 및 합성 TouchEvent: 짧은 당김·본문 스크롤 중 reload 없음, 최상단 130px 당김 시 안내·놓은 뒤 navigation type reload 확인. 실물 기기 제스처/AI 생성 미검증.
+- 증거 `.local/consent-pink/pull-refresh-verification.json`; 테스트 `e2e/guest-consent-pink.spec.ts`. 현재 버튼 문구 변경 포함 개발/운영 미배포.
+
+## 2026-11-19 — 체험 시작 버튼 문구 변경 (미배포)
+
+- 사용자 지정 문구 그대로 ‘동의하고 영원 체험’으로 변경. 처리 중 ‘준비 중…’ 및 동의/요청 동작 유지. E2E 버튼 이름 선택자 동기화.
+- 소스 assertion으로 요청 문자열과 처리 중 문자열 보존 확인(종료0). 단순 문구 변경으로 브라우저 검사 재실행 없음. `.local/consent-pink/button-label-verification.json` 기록. 개발/운영 미배포.
+
+## 2026-11-19 01:43 KST — 보조 링크·모바일 내비게이션 비노출 개발 배포 완료
+
+- 사용자 배포 지시. 기능30f8f9c → dev 통합6b99f1118278aefb10e2d6cbc7f2d7a127765086. origin/dev·github/dev 동기화 완료, 통합 타입 검사 종료0.
+- 공식 devbox `deploy-dev.sh front` 직접 실행 종료0, 이미지 빌드·스모크 실패0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-014121.log`. last-success SHA와 통합 SHA 일치. 이번 실행은 Jenkins 정기 실행과 동일 스크립트의 직접 배포이며 별도 Jenkins 완료 확인은 하지 않음.
+- 실제 https://www-dev.crefans.com/service/try Chromium390×844 검증 종료0: 처리방침17항·기존회원 로그인 보조 링크 없음, 모바일 하단 nav 숨김, 동의 버튼 유지 및 체크 후 활성, 기존 비교 이미지·안내 유지. 생성 요청 안 함. 증거 기능 작업본 `.local/consent-pink/dev-cleanup-check.json`, `dev-cleanup.png`.
+- 운영 미반영. 동의 체크박스의 처리방침 문구는 유지. 다음: 개발 확인 후 별도 운영 배포 지시 대기.
+
+## 2026-11-19 — 모바일 체험 동의 화면 하단 내비게이션 숨김 (미배포)
+
+- 사용자 요청: 모바일(767px 이하) 동의 화면의 하단 내비게이션만 숨김. `[data-guest-consent]`가 셸에 있을 때만 적용하므로 편집/완료 등 동의 화면을 벗어나면 기존 내비게이션 표시. PC 사이드 메뉴 및 동의·시작 버튼 유지. 버튼 하단 safe-area 여백 추가.
+- 검증: Chromium3/WebKit3 총6건 통과(320×568,390×844,1280×900; API 대역). 모바일 nav 숨김, 동의 상태 표식 제거 시 nav 복원, PC 메뉴 유지, 버튼 접근·체크/대기/실패 상태 확인. 표식 제거는 CSS 대조 검사이며 실제 생성 성공/전체 편집 흐름 검증은 아님. 390 화면 수동 확인.
+- 증거 `.local/consent-pink/mobile-nav-verification.json`, `no-mobile-nav-390.png`. 직전 보조 링크 제거 포함 작업본 상태이며 개발/운영 미배포.
+
+## 2026-11-19 — 체험 동의 보조 링크 비노출 (작업본 반영)
+
+- 사용자 요청: ‘개인정보 처리방침 17항’ 및 ‘이미 회원이라면 로그인’ 보조 링크 제거. 해당 Link import·전용 links 스타일 제거. 동의 체크박스의 처리방침 17항 문구 유지.
+- 검증: 두 링크 부재·체크박스 문구 보존 소스 assertion 통과. 증거 `.local/consent-pink/links-hidden-verification.json`. 단순 링크 삭제로 브라우저 테스트 추가 없음. 이번 수정은 개발/운영 서버에 아직 반영하지 않음.
+
+## 2026-11-19 01:31 KST — AI 체험 동의 개선 개발 배포 완료
+
+- 사용자 개발 배포 지시. 기능 커밋 `563b549`, 최신 origin/dev 통합 `796b2b737df100c107351ad650589b2bc84382a0`. 충돌은 PROGRESS.md만 발생해 양쪽 기록 보존. GitLab origin/dev와 GitHub github/dev 동일 커밋 push 완료. prod/main 미변경.
+- 통합본 `npm run typecheck` 종료 0. devbox 공식 `bash ~/crefans-dev/deploy-dev.sh front` 직접 실행: 이미지 빌드·타입 검사·컨테이너 기동·스모크 테스트 실패 0, 종료 0. 로그 `/home/khpark/crefans-dev/deploy-logs/20261119-012822.log`. 마지막 성공 SHA `796b2b7` 확인.
+- Jenkins `crefans-dev-user-front` #69 SUCCESS(01:31:01). 직접 배포 후 정기 실행에서 동일 SHA 변경 없음 확인. 최초 HTTP 빌드 트리거는 인증 부족 403으로 실행되지 않아 공식 SSH 배포를 사용했음.
+- 실제 개발 `http://172.30.1.16/service/try`, 390×844 Chromium 검증 통과: 타이틀·비교 이미지 유지, 무료 배지/단계/예시 문구 없음, ‘피드에서 사라져요’ rgb(220,38,38), 미동의 비활성·체크 후 활성, 버튼 화면 내 노출. 시작/이미지 생성 요청은 하지 않음. `.local/consent-pink/dev-live-check.json`, `dev-deployed.png`(기능 작업본 경로) 증거. 화면 수동 확인.
+- 운영 배포 안 함. 다음: 사용자 개발 확인 후 명시적 운영 배포 요청 시 검증된 작업만 prod 승격. 전체 문서 증거 만료는 이전 기록의 별도 제한으로 유지.
+
+## 2026-11-19 — 게시 공개 기간 안내 문구·빨간색 강조 (미배포)
+
+- 사용자 선택 확정: 현재 비공개 전환 동작 유지. 안내를 ‘게시하면 피드에 공개돼요. 하지만 하루가 지나면 피드에서 사라져요.’로 변경하고 ‘피드에서 사라져요’만 공통 danger 빨간색 토큰으로 강조.
+- 삭제를 의미하는 ‘완벽히 사라져요’는 사용하지 않음. 아래 비공개 전환·같은 브라우저 가입 후 게시물 연결 설명은 보존.
+- 검증: 원문 치환·강조 span/CSS 소스 assertion 통과(종료 0). 단순 문구·색상 수정으로 브라우저 검사 재실행 없음. 증거 `.local/consent-pink/feed-notice-verification.json`. 이전 시안은 변경 전 문구이며 운영 미배포.
+
+## 2026-11-19 — 비교 이미지 하단 예시 문구 삭제 (미배포)
+
+- 사용자 요청으로 ‘가상 인물 · AI 생성 예시’ 표시 문단과 미사용 heroNote 스타일만 제거. 타이틀·사진+코스튬 비교·하단 동의 버튼 유지.
+- 검증: Python 원문 제거/미사용 스타일 부재 assertion 통과(종료 0). 단순 표시 문구 삭제라 브라우저 검사 재실행 없음. 증거 `.local/consent-pink/note-removal-verification.json`. 기존 스크린샷에는 삭제 전 문구가 있어 현재 시안으로 재사용하지 않음. 운영 미배포.
+
+## 2026-11-19 — 정정: 타이틀 유지·무료 배지 제거 (미배포)
+
+- 직전 ‘소제목’ 해석이 잘못됐음. 최종 사용자 의도: **AI 사진 체험 타이틀 유지**, **로그인 없이 10회 무료 배지 삭제**, 단계 안내 삭제 유지. PageTitle 복원, 사용하지 않는 limit prop 및 배지 스타일 제거. 비교 히어로와 하단 동의 버튼 유지.
+- 검증: `npm run typecheck` 종료 0, Chromium E2E 320/390/1280 3건 통과(API 대역), `title-restored-390.png` 수동 확인. 실행 증거 `.local/consent-pink/title-restored-verification.json`. 운영 미배포. 다음 배포 절차/문서 검사 제한은 이전 기록 참조.
+
+## 2026-11-19 — 상단 소제목·단계 제거 (미배포)
+
+- 사용자 요청으로 맨 위 ‘AI 사진 체험’ 소제목과 01~03 단계 제거. 뒤로 가기와 무료 횟수 배지는 한 줄로 배치, 메인 문구는 h1로 유지. 사진+코스튬→결과 및 핑크 하단 동의 버튼 유지.
+- 검증: `npm run typecheck` 종료 0; `npx playwright test --config .local/consent-pink/playwright.config.cjs` Chromium 320/390/1280 3건 통과(API 대역). 수정 화면 수동 확인. 시안 `.local/consent-pink/simplified-390.png`, 증거 `.local/consent-pink/simplified-verification.json`. 운영 미배포, 전체 문서 증거 만료는 이전 기록 참조.
+
+## 2026-11-19 — 사용자 피드백: 변환 전후 히어로 복원 (미배포)
+
+- 단일 모더니아 사진 대신 **내 사진 + 코스튬 → 코스어가 된 내 모습!** 구성을 복원. 원본 사진 오른쪽 아래에 모더니아 코스튬을 겹치고 오른쪽에 적용 결과를 배치. 기존 랜딩 원본·모더니아 결과와 공용 의상 에셋 재사용(신규 생성 비용 없음).
+- 핑크 강조색, 동의 문구, 하단 고정 버튼 유지. `GuestTrialConsent.tsx`, 전용 CSS 및 기존 E2E의 3개 이미지 로딩·비교 라벨 검사를 갱신.
+- 검증: `npm run typecheck` 종료 0, `npx playwright test --config .local/consent-pink/playwright.config.cjs` Chromium 3/3(320·390·1280), `git diff --check` 종료 0. 실제 로컬 화면 수동 확인. API 대역이며 실운영·실기기 검증 아님. 이번 개정 WebKit 재실행은 하지 않았으며 앞 기록은 이전 단일 히어로 기준.
+- 증거 `.local/consent-pink/comparison-verification.json`, 시안 `.local/consent-pink/comparison-390.png`. 기존 문서 증거 만료는 미해결. 다음: 사용자 배포 요청 시 dev/Jenkins → prod → 운영.
+
+## 2026-11-19 — AI 체험 동의 1안 · 핑크 (로컬 적용, 미배포)
+
+- `feat/consent-pink`, 기준 `6dfbbacbbba18a03d86aa4a43711f002075e2f18`. 모더니아 기존 에셋 재사용, 동의 화면 강조색 #be185d. 본문만 스크롤하고 체크·시작 버튼은 셸 안에서 하단 유지. 동의 원문 4항·버전·요청 계약 유지.
+- `GuestTrialConsent` 공용 화면을 실제 페이지와 AI 사진 카탈로그(기본/시작 중/실패)에서 재사용. 기존 완료 화면은 유지. 시작 예외도 오류 표시 후 재시도 가능.
+- 합격 조건: 320×568·390×844·1280×900에서 버튼 접근 가능, 안내 펼침/스크롤에도 위치 유지, 가로 넘침 없음, 미동의 차단·처리 중 잠금·실패 후 동의 보존, 모더니아 로드 및 핑크 버튼/체크.
+- 검증: Chromium 3건 + WebKit 3건 통과(API 대역). `npm run typecheck`, `npm run check:layers`, 기존 `guest-claim-dialog` 1건, `git diff --check` 통과. 초기 타입 검사는 기존 node_modules의 posthog-js 누락으로 실패했으며, 해당 의존성이 있는 기존 작업본 node_modules를 연결한 후 통과.
+- `check:docs`: 기본 서버 작업본에 파일 누락. `CREFANS_SERVER_DIR=/Users/ethan/repository/crefans_server-prod-20261118`로 확인하면 파일/계약 누락은 없으나 기존 서버 및 변경 프론트 증거 해시가 만료되어 실패. 광범위 문서 검증 완료로 간주하지 않음.
+- 실행시각·파일 SHA-256·명령 결과: `.local/consent-pink/verification.json`; 화면 증거 `.local/consent-pink/verified-{320,390,1280}.png`. 실제 공급사·운영·실물 휴대폰 검증 아님. 배포 요청 시 dev/Jenkins 검증 → prod → 운영 순서.
+
 ## 2026-11-19 01:00~01:13 KST 계층 규칙 정리·AI 퍼널 단계 — 운영 프론트 layer-20261119
 - 사용자 지시 "고칠점 다 배포까지". 원인: 공유 보고 연결(share-20261119)이 AiPhotoDialog에서 lib/api를 직접 import(AGENTS 136·tests/crefans-contract 위반), 기존에도 AiPhotoDialog·ManagementPages가 fetch 직접 호출. 계약 테스트를 전체로 돌리지 않아 놓침.
 - 변경: types에 reportShare·trackAiPhoto 액션(AiPhotoFunnelStep), useStudioModel(actor member)·useGuestTrialModel(actor guest)·GuestTrialPage가 공급, ManagementPages가 AiPhotoDialog에 props로 전달. 이미지 다운로드는 lib/browser/media-file.ts(fetchImageBlob). 이탈 분석 자동 수정안(replay-fix/20261119-0016, 계층 위반이라 보류)의 퍼널 이벤트 ai_editor_opened·photo_decided·ai_result_shared를 규칙에 맞게 반영(actor·mode만).

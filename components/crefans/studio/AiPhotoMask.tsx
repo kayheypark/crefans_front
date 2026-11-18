@@ -1,7 +1,7 @@
 'use client';
 // 의상 교체용 영역 칠하기. 칠한 곳만 바뀌도록 원본 크기의 마스크 PNG(칠한 곳 투명)를 만든다.
 // 좌표와 붓 크기는 사진 폭 대비 비율로 저장해 화면 크기와 무관하게 같은 마스크가 나온다.
-import {useEffect,useRef,useState,type PointerEvent} from 'react';
+import {useEffect,useRef,useState,type ReactNode,type PointerEvent} from 'react';
 import LandingIcon from '../Icon';
 import s from './ai-photo.module.css';
 
@@ -27,7 +27,7 @@ export async function buildAiMask(src:string,strokes:MaskStroke[]):Promise<Blob|
  return new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
 }
 
-export function AiPhotoMask({src,alt,strokes,onChange,disabled}:{src:string;alt:string;strokes:MaskStroke[];onChange:(strokes:MaskStroke[])=>void;disabled?:boolean}){
+export function AiPhotoMask({src,alt,strokes,onChange,disabled,overlay}:{overlay?:ReactNode;src:string;alt:string;strokes:MaskStroke[];onChange:(strokes:MaskStroke[])=>void;disabled?:boolean}){
  const canvas=useRef<HTMLCanvasElement>(null),current=useRef<MaskStroke|null>(null),[brush,setBrush]=useState(BRUSHES[1].size),[box,setBox]=useState({width:0,height:0});
  useEffect(()=>{
   const node=canvas.current;if(!node)return;
@@ -48,7 +48,7 @@ export function AiPhotoMask({src,alt,strokes,onChange,disabled}:{src:string;alt:
    {/* eslint-disable-next-line @next/next/no-img-element -- creator's own uploaded photo at its natural ratio */}
    <img src={src} alt={alt} draggable={false}/>
    <canvas ref={canvas} aria-label="바꿀 옷 부분 칠하기" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} data-disabled={disabled||undefined}/>
-  </div></div>
+  </div>{overlay}</div>
   <div className={s.maskTools}>
    <div className={s.maskBrushes} role="group" aria-label="붓 크기"><span className={s.maskLabel} title="붓 크기"><LandingIcon name="brush" width={18} height={18}/></span>
    {BRUSHES.map((item,index)=><button key={item.label} type="button" className={s.chip} aria-label={`붓 크기 ${item.label}`} title={`붓 크기 ${item.label}`} aria-pressed={brush===item.size} onClick={()=>setBrush(item.size)} disabled={disabled}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r={2+index*2} fill="currentColor"/></svg></button>)}</div>

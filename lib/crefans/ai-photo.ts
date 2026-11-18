@@ -51,3 +51,10 @@ const aiPhotoGenderPrompts={female:'생성 인물을 성인 여성으로 바꿔�
 export function buildAiPhotoPrompt(presets:readonly AiPhotoPresetSelection[],custom:string,gender:'original'|'female'|'male'){
  return [...presets.map(item=>item.prompt),...(gender==='original'?[]:[aiPhotoGenderPrompts[gender]]),custom.trim()].filter(Boolean).join('\n');
 }
+
+/** Update one body control while retaining the other controls and non-body presets. */
+export function updateAiPhotoBodySelection(presets:readonly AiPhotoPresetSelection[],current:Readonly<Record<string,number>>,key:string,level:number){
+ const values={...current,[key]:level};
+ if(!level)delete values[key];
+ return {values,presets:[...presets.filter(item=>item.kind!=='body'),...Object.entries(values).map(([key,value])=>({kind:'body' as const,prompt:aiPhotoBodyPrompt(key,value)}))]};
+}
