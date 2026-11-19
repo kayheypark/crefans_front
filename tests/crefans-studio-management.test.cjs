@@ -449,7 +449,7 @@ test('guest trial: the floating share ticket reopens the share-reward guide and 
  try{
   assert.equal(fab(tree).length,1);assert.equal(guide(tree).length,0);
   act(()=>fab(tree)[0].props.onClick());
-  assert.equal(guide(tree).length,1);assert.equal(fab(tree).length,0,'hidden while the guide is open');assert.ok(guide(tree)[0].findAll(n=>n.type==='p'&&String(n.props.children).includes('링크를 복사하면 이용권 3장을 바로 받아요')).length===1);
+  assert.equal(guide(tree).length,1);assert.equal(fab(tree).length,0,'hidden while the guide is open');assert.ok(guide(tree)[0].findAll(n=>n.type==='p'&&String(n.props.children).includes('링크를 복사하면 이용권 3장을 바로 받을 수 있어요')).length===1);
   act(()=>button(tree,'AI 사진 만들러 가기').props.onClick());
   assert.equal(guide(tree).length,0);assert.equal(fab(tree).length,0,'hidden while the AI editor is open');
   const editor=tree.root.findAll(n=>typeof n.props.onAdd==='function'&&n.props.room!==undefined)[0];assert.equal(editor.props.open,true);

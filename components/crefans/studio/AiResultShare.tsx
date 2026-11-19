@@ -60,7 +60,7 @@ export function AiResultShare({item,eligible,prepare,onReport,onClose}:{item:Stu
    <button type="button" className={s.resultSharePrimary} disabled={!file||!link||busy} aria-describedby={eligible?`${rewardId} ${termsId}`:undefined} onClick={()=>void send()}>{busy?'공유하는 중…':'사진과 링크 공유'}</button>
    <button type="button" className={s.resultShareCopy} disabled={!link} onClick={()=>void copy()}>링크 복사</button>
   </div>
-  {eligible&&<p className={s.resultShareTerms} id={termsId}>사진과 링크를 공유하거나 링크를 복사하면 이용권 3장을 바로 받아요(한 번).</p>}
+  {eligible&&<p className={s.resultShareTerms} id={termsId}>사진과 링크를 공유하거나 링크를 복사하면 이용권 3장을 바로 받을 수 있어요(한 번).</p>}
   {notice&&<p className={s.resultShareTerms} role="status">{notice}</p>}
   {notice.startsWith('아래 링크')&&<input aria-label="복사할 체험 링크" className={s.resultShareLink} readOnly value={link} onFocus={event=>event.currentTarget.select()}/>}
  </Dialog>;

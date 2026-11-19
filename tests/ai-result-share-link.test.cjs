@@ -25,7 +25,7 @@ test('the share sheet calls no API, offers the plain /s link and reports a copy 
  let tree;
  try{
   await act(async()=>{tree=create(React.createElement(AiResultShare,{item:{id:'m1',url:'/m1.png'},eligible:true,prepare:async()=>({name:'a.png'}),onReport:r=>reports.push(r),onClose(){}}));});
-  const text=JSON.stringify(tree.toJSON());assert.match(text,/링크를 복사하면 이용권 3장을 바로 받아요/);assert.doesNotMatch(text,/첫 방문이 확인되면/);
+  const text=JSON.stringify(tree.toJSON());assert.match(text,/링크를 복사하면 이용권 3장을 바로 받을 수 있어요/);assert.doesNotMatch(text,/첫 방문이 확인되면/);
   await act(async()=>tree.root.findAll(n=>n.type==='button'&&n.props.children==='링크 복사')[0].props.onClick());
   assert.deepEqual(copied,['https://crefans.com/s']);assert.deepEqual(reports,[{where:'ai_result',method:'copy',outcome:'done'}]);
  }finally{if(tree)await act(async()=>tree.unmount());delete global.window;delete global.navigator;}
