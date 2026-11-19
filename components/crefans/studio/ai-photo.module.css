@@ -351,4 +351,3 @@
 @keyframes shareTicketBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @media(prefers-reduced-motion:reduce){.shareTicketFab{animation:none}}
 @media(min-width:1024px){.shareTicketFab{bottom:120px}}
-.shareGuideSteps{display:grid;gap:4px;margin:4px 0 0;padding:0;list-style:none;text-align:center;font-size:14px;color:var(--cf-color-text)}
