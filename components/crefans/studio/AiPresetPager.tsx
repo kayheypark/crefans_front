@@ -41,9 +41,9 @@ export function AiPresetPager({children,onStep,disabled}:{children:ReactNode;onS
   onClickCapture={event=>{if(dragged.current&&event.detail!==0){event.preventDefault();event.stopPropagation();}}}>
   <div style={{transform:`translateX(${offset}px)`}}>{children}</div>
   {overlay&&<span className={s.swipeOverlay} aria-hidden="true" onAnimationEnd={event=>{if(event.target===event.currentTarget)setOverlayDone(true);}}>
-   {/* 2026-11-19: Seedream-made 3D hand (scratchpad hand-b.png, black background keyed to alpha), 192px WebP shown at 64px. */}
+   {/* 2026-11-19: Seedream-made 3D hand seen from the back like the viewer's own dragging hand (scratchpad back-b.png, black background keyed to alpha), 192px WebP shown at 64px. */}
    {/* eslint-disable-next-line @next/next/no-img-element -- tiny decorative overlay image */}
-   <img className={s.swipeHand} src="/brand/ai-photo/swipe-hand-v1.webp" alt="" width={64} height={64}/>
+   <img className={s.swipeHand} src="/brand/ai-photo/swipe-hand-v2.webp" alt="" width={64} height={64}/>
    <span>좌우로 밀어서 넘겨 보세요</span></span>}
  </div></>;
 }
