@@ -16,6 +16,8 @@ import {designVariables} from '@/lib/design/tokens';
 import {saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import s from './ai-photo-landing.module.css';
 import {useFunnelStep} from '@/features/service/useFunnelStep';
+import {Dialog} from '@/components/ui/Primitives';
+import {DialogActions} from '@/components/ui/DialogActions';
 
 // AI photo editing landing page (2026-11-16 user request; 2026-11-17 real-preset version). Built from the service's own catalog:
 // each hero result was made with Seedream from the fictional base person and exactly the presets listed under it (the same
@@ -79,7 +81,8 @@ export function AiPhotoCompare({before,after,label}:{before:string;after:string;
 }
 
 /** The editor's preset browser (cosplay mode) on the landing: same tabs, wardrobe, filters, search and 3x3 pages. Picking only marks cards. */
-export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string,string[]>)=>void}={}){
+export type LandingChosen={kind:AiPhotoKind;title:string;image:string};
+export function LandingPresetBrowser({onPicked,onChoose}:{onPicked?:(picked:Record<string,string[]>)=>void;/** A card was newly selected (not unselected). */onChoose?:(card:LandingChosen)=>void}={}){
  const [kind,setKind]=useState<AiPhotoKind>('outfit'),[page,setPage]=useState(0),[query,setQuery]=useState(''),[costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('nikke');
  const [posture,setPosture]=useState<AiPhotoPosePosture>('standing'),[backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor'),[picked,setPickedState]=useState<Record<string,string[]>>({});
  const setPicked=(update:(previous:Record<string,string[]>)=>Record<string,string[]>)=>setPickedState(previous=>{const next=update(previous);onPicked?.(next);return next;});
@@ -89,7 +92,7 @@ export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string
  const chosen=picked[kind]||[];
  function change(next:AiPhotoKind){setKind(next);setPage(0);setQuery('');}
  function search(value:string){setQuery(value);setPage(0);}
- function pick(value:string){setPicked(previous=>{const current=previous[kind]||[];if(value===AI_PHOTO_KEEP_ORIGINAL)return {...previous,[kind]:[]};
+ function pick(value:string){if(value!==AI_PHOTO_KEEP_ORIGINAL&&!chosen.includes(value))onChoose?.({kind,title:aiPhotoPresetTitle(kind,value),image:aiPhotoPresetImage(kind,value)});setPicked(previous=>{const current=previous[kind]||[];if(value===AI_PHOTO_KEEP_ORIGINAL)return {...previous,[kind]:[]};
   const next=current.includes(value)?current.filter(item=>item!==value):kind==='makeup'?[...current,value]:[value];return {...previous,[kind]:next};});}
  const selected=(value:string)=>value===AI_PHOTO_KEEP_ORIGINAL?chosen.length===0:chosen.includes(value);
  return <div className={`${e.controls} ${s.browser}`}>
@@ -100,7 +103,7 @@ export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string
   {kind==='outfit'?<div role="tabpanel" aria-label="코스튬 프리셋" className={e.wardrobe}>
    <p className={e.costumeHint}>{AI_PHOTO_COSTUME_HINT}</p>
    <div className={e.costumeCategoryBar}><SelectField className={e.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);search('');}} options={aiPhotoCostumeCategories.map(item=>({value:item.value,label:item.label,image:item.image}))}/><span>{query.trim()?'전체 의상 검색':category.group} · {costumes.length}종</span></div>
-   <AiPhotoWardrobe key={`${costumeCategory}-${query}`} items={costumes} selectedPrompts={picked.outfit||[]} disabled={false} onPick={value=>{const text=aiPhotoPresetText(value);setPicked(previous=>({...previous,outfit:(previous.outfit||[]).includes(text)?[]:[text]}));}}/>
+   <AiPhotoWardrobe key={`${costumeCategory}-${query}`} items={costumes} selectedPrompts={picked.outfit||[]} disabled={false} onPick={value=>{const text=aiPhotoPresetText(value);const costume=costumes.find(item=>item.prompt===value);if(costume&&!(picked.outfit||[]).includes(text))onChoose?.({kind:'outfit',title:costume.name,image:costume.image});setPicked(previous=>({...previous,outfit:(previous.outfit||[]).includes(text)?[]:[text]}));}}/>
   </div>:<div role="tabpanel" aria-label={`${landingKinds.find(item=>item.value===kind)!.label} 프리셋`} className={e.presets}>
    <div className={e.presetHeading}><span>{query.trim()?`검색 결과 ${preset.total}개`:'프리셋'}</span><div className={e.presetNavigation}><button type="button" aria-label="이전 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index-1)}>‹</button><span aria-live="polite">{preset.index+1} / {preset.pages}</span><button type="button" aria-label="다음 프리셋 페이지" disabled={preset.pages<=1} onClick={()=>setPage(preset.index+1)}>›</button></div></div>
    <AiPresetPager key={`${kind}-${query}`} onStep={step=>setPage(preset.index+step)} disabled={preset.pages<=1}><div className={e.photoPresetGrid}>{preset.examples.map(example=><button type="button" key={example} className={e.preset} aria-label={aiPhotoPresetTitle(kind,example)} aria-pressed={selected(example)} onClick={()=>pick(example)}>
@@ -113,7 +116,8 @@ export function LandingPresetBrowser({onPicked}:{onPicked?:(picked:Record<string
 
 export default function AiPhotoLanding(){
  useFunnelStep('landing_view');
- const [look,setLook]=useState(landingLooks[0].id),[landingPicked,setLandingPicked]=useState<Record<string,string[]>>({});
+ const [look,setLook]=useState(landingLooks[0].id),[landingPicked,setLandingPicked]=useState<Record<string,string[]>>({}),[asked,setAsked]=useState<LandingChosen|null>(null);
+ const handoff=()=>saveAiPhotoHandoff(Object.entries(landingPicked).flatMap(([kind,values])=>values.filter(value=>value!==AI_PHOTO_KEEP_ORIGINAL).map(value=>({kind:kind as AiPhotoKind,prompt:aiPhotoPresetText(value)}))));
  const current=landingLooks.find(item=>item.id===look)||landingLooks[0];
  return <main className={s.page} style={designVariables as CSSProperties}>
   <header className={s.header}><Brand href="/service/feed"/><Link className={s.headerLink} href={TRY}>0원 체험</Link></header>
@@ -135,9 +139,14 @@ export default function AiPhotoLanding(){
   <section className={s.section} aria-labelledby="ai-photo-kinds-title" id="ai-photo-kinds">
    <h2 id="ai-photo-kinds-title">100억+가지 조합</h2>
    <p className={s.sectionLead}>실제 편집 화면과 같은 프리셋이에요. 눌러서 둘러보고, 체험에서 내 사진에 적용해 보세요.</p>
-   <LandingPresetBrowser onPicked={setLandingPicked}/>
+   <LandingPresetBrowser onPicked={setLandingPicked} onChoose={setAsked}/>
    {/* 2026-11-17 user request: the picked presets carry over to the trial editor (this browser only). */}
-   <Link className={s.primary} href={TRY} onClick={()=>saveAiPhotoHandoff(Object.entries(landingPicked).flatMap(([kind,values])=>values.filter(value=>value!==AI_PHOTO_KEEP_ORIGINAL).map(value=>({kind:kind as AiPhotoKind,prompt:aiPhotoPresetText(value)}))))}>이 프리셋으로 0원 체험</Link>
+   <Link className={s.primary} href={TRY} onClick={handoff}>이 프리셋으로 0원 체험</Link>
+   {/* 2026-11-19 user request: picking any preset asks right away whether to try it (the picks so far carry over). */}
+   <Dialog open={!!asked} onClose={()=>setAsked(null)} title={asked?.kind==='outfit'?'이 코스튬으로 만들어볼까요?':'이 프리셋으로 만들어볼까요?'}>
+    {asked&&<div className={s.askPreset}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset image */}<img src={asked.image} alt="" width={120} height={120} data-illustrated={illustrated.includes(asked.kind)||undefined}/><strong>{asked.title}</strong><p>로그인 없이 체험 이용권으로 0원에 만들어 볼 수 있어요.</p></div>}
+    <DialogActions><button type="button" className={s.secondary} onClick={()=>setAsked(null)}>더 골라볼게요</button><Link className={s.primary} href={TRY} onClick={handoff}>0원으로 만들기</Link></DialogActions>
+   </Dialog>
   </section>
 
   <section className={s.notice} aria-labelledby="ai-photo-rules">
