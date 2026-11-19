@@ -436,3 +436,25 @@ test('2026-11-18: a game/anime costume photo locks visibility to 전체 공개 a
   }finally{act(()=>tree.unmount());probe.close();}
  }
 });
+
+// 2026-11-20 user request: while the share reward is still available, a floating ticket (bottom right) reopens the share-reward guide
+// once every sheet/modal is closed; the guide leads to the AI photo editor. Without the reward there is no ticket.
+test('guest trial: the floating share ticket reopens the share-reward guide and hides while a modal is open',async()=>{
+ const probe=fixtureHook();
+ const model={...probe.model,contents:[],actions:{...probe.model.actions,aiEditPhoto:async()=>({success:true,data:{images:[]}})}};
+ const base={backHref:'/service/feed',doneHref:'/service/try/done',notice:'notice'};
+ const fab=tree=>tree.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='공유하고 이용권 3장 받기 안내');
+ const guide=tree=>tree.root.findAll(n=>n.type==='section'&&n.props['data-dialog']==='공유하고 이용권 3장 받기');
+ let tree;act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:{...base,shareReward:{refresh:async()=>{},claim:async()=>true}}}));});
+ try{
+  assert.equal(fab(tree).length,1);assert.equal(guide(tree).length,0);
+  act(()=>fab(tree)[0].props.onClick());
+  assert.equal(guide(tree).length,1);assert.equal(fab(tree).length,0,'hidden while the guide is open');assert.ok(guide(tree)[0].findAll(n=>n.type==='p'&&String(n.props.children).includes('링크를 복사하면 이용권 3장을 바로 받아요')).length===1);
+  act(()=>button(tree,'AI 사진 만들러 가기').props.onClick());
+  assert.equal(guide(tree).length,0);assert.equal(fab(tree).length,0,'hidden while the AI editor is open');
+  const editor=tree.root.findAll(n=>typeof n.props.onAdd==='function'&&n.props.room!==undefined)[0];assert.equal(editor.props.open,true);
+  act(()=>editor.props.onClose());assert.equal(fab(tree).length,1,'back after every modal is closed');
+ }finally{act(()=>tree.unmount());}
+ act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:base}));});
+ try{assert.equal(fab(tree).length,0,'no ticket once the reward is used');}finally{act(()=>tree.unmount());}
+});
