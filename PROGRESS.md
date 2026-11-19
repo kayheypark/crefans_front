@@ -6307,3 +6307,12 @@
 - 프론트 61cc109: posthog.ts REPLAY_UNMASK_ATTR(data-ph-unmask) — html에 이 속성이 있으면 blockSelector의 미디어 부분이 빠지고 maskInputFn이 입력을 그대로 기록(비밀번호·파일·숨김 입력·ph-no-capture는 계속 가림). useGuestTrialModel이 session.active && replayConsented일 때만 켜고 떠날 때 끔.
 - 검증: server tsc·build, platform-legal 38/38(새 대조 테스트 포함), platform-guest·openapi 중 1건 실패(200-a-day: 로컬 테스트 DB 오늘 누적+quota_generation 칼럼 미적용으로 보이는 환경 문제, 이번 변경 무관 추정·미확정). front posthog 13/13, 대조(해제 로직 제거 시 2건 실패) 확인, crefans-contract 2번은 기준선부터 실패(dev AiResultShare.tsx가 lib/api 직접 import, 다른 세션). 개발 서버 deploy-dev 실패 0, .last-success server 9adfe12·front 61cc109, API terms ai-units.1·privacy guest-limits.1. Playwright(비로그인, http://172.30.1.16): 동의 전 속성 없음 → 동의 후 replayConsented true·속성 켜짐·회원 미디어 img 비차단·file input 차단 → 피드 이동 시 속성 꺼짐. 127.0.0.1 출처로는 동의가 "허용되지 않은 요청"으로 거절(출처 검사, 정상).
 - 미확인: 실제 PostHog 녹화 화면(개발 빌드의 PostHog 키 여부 미확인), 운영 배포.
+
+### 2026-11-19 22:4x 랜딩 프리셋 확인 창·의상 카드 스타일·스와이프 힌트 (dev·개발 서버까지)
+- 사용자 요청 3건. 브랜치 `feat/landing-preset-modal`(origin/prod 기준) → dev 체리픽 `f4370da`,`96a99c1`,`ecbaa66`,`e4cf5d6`. 운영 미배포.
+- 랜딩(`components/service/AiPhotoLanding.tsx`): 프리셋을 새로 고르면(해제·원본 유지 제외) 확인 창. 코스튬 "이 코스튬으로 만들어볼까요?", 그 밖 "이 프리셋으로 만들어볼까요?". '0원으로 만들기'는 고른 프리셋을 체험 편집기로 넘김(saveAiPhotoHandoff), '더 골라볼게요'는 닫기. 제목은 공용 Dialog의 MarqueeText라 390px에서 흐름.
+- 의상 카드(`ai-photo.module.css`, 공용이라 편집기에도 적용): 사진이 카드를 채우고 이름은 하단 그래디언트 위 흰 글씨. '가장 인기 있어요' 말풍선은 이름 위(bottom 40px).
+- 프리셋 페이저(`AiPresetPager.tsx`, 랜딩·편집기 공용): 2쪽 이상이면 '‹ 좌우로 밀어서 넘겨 보세요 ›' 표시, 첫 스와이프 후 방문 동안 숨김.
+- 검증: tsc 통과. ai-photo-landing 새 테스트 통과(모달 연결 빼면 실패 확인). studio-ai-photo 페이징 테스트에 힌트 단언 추가·통과(힌트 되돌리면 실패). 개발 웹 390px Playwright: 모달 제목·닫기·해제 시 안 뜸, 힌트 1개→스와이프 후 0개, 카드 캡처 확인.
+- 기존 실패(이번 변경 무관, 변경 전후 동일): ai-photo-landing 2건(카탈로그 바뀐 고정값), studio-ai-photo 18건, crefans-contract 계층 1건(AiResultShare.tsx).
+- 미확인: 편집기(로그인/체험 화면) 안에서 바뀐 의상 카드·힌트 실제 화면.
