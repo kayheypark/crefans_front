@@ -17,7 +17,22 @@ export const PUBLIC_REPLAY_IMAGE_PREFIXES=['/brand/','/illustrations/'];
 // next/image serves the same public files as /_next/image?url=%2Fbrand%2F… (URL-encoded); those stay visible too.
 const publicImage=PUBLIC_REPLAY_IMAGE_PREFIXES.flatMap(prefix=>[prefix,`/_next/image?url=${encodeURIComponent(prefix)}`]).map(prefix=>`:not([src^="${prefix}"])`).join('');
 const publicBackground=PUBLIC_REPLAY_IMAGE_PREFIXES.map(prefix=>`:not([style*="url(${prefix}"]):not([style*="url('${prefix}"]):not([style*='url("${prefix}'])`).join('');
-export const REPLAY_BLOCK_SELECTOR=`img${publicImage},picture,video,audio,canvas,svg image,iframe,[style*="url("]${publicBackground},input[type="file"],input[type="hidden"]`;
+// 2026-11-19 user decision (처리방침 2026-11-19.guest-replay.1 17항): a signed-out visitor who recorded the replay consent is
+// recorded unmasked on the trial screens only. The trial model sets this attribute on <html> while the trial page is open for such a
+// visitor and removes it on leave; media and inputs inside are then recorded as shown. File/hidden inputs and passwords stay masked.
+export const REPLAY_UNMASK_ATTR='data-ph-unmask';
+const unlessUnmasked=`:not(html[${REPLAY_UNMASK_ATTR}] *)`;
+export const REPLAY_BLOCK_SELECTOR=[`img${publicImage}`,'picture','video','audio','canvas','svg image','iframe',`[style*="url("]${publicBackground}`].map(part=>part+unlessUnmasked).concat('input[type="file"]','input[type="hidden"]').join(',');
+/** Session-replay input masking: everything is masked unless the trial page unmasked it for a consenting visitor (never passwords). */
+export function maskReplayInput(text:string,element?:HTMLElement){
+ const unmasked=!!element?.closest?.(`html[${REPLAY_UNMASK_ATTR}]`)&&(element as HTMLInputElement).type!=='password';
+ return unmasked?text:'*'.repeat(text.length);
+}
+/** Called by the guest trial model only: on for a visitor with a recorded replay consent while the trial page is open. */
+export function setReplayUnmasked(on:boolean){
+ if(typeof document==='undefined')return;
+ if(on)document.documentElement.setAttribute(REPLAY_UNMASK_ATTR,'');else document.documentElement.removeAttribute(REPLAY_UNMASK_ATTR);
+}
 
 // Replay is opt-in per route (allowlist): payment, wallet/beans, payouts, account settings, login/signup, messages and every
 // studio page except post writing stay unrecorded, including routes added later. Events are still captured on every /service page.
@@ -67,6 +82,7 @@ export function posthogConfig(pathname:string):Partial<PostHogConfig>{
   session_recording:{
    maskAllInputs:true,
    maskInputOptions:{password:true,email:true,text:true,textarea:true,tel:true,number:true,search:true,url:true,select:true,date:true},
+   maskInputFn:maskReplayInput,
    blockClass:REPLAY_BLOCK_CLASS,blockSelector:REPLAY_BLOCK_SELECTOR,
    recordHeaders:false,recordBody:false,
    // Also applied by the recorder to the page URL stored with each replay (meta href).

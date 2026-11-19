@@ -63,7 +63,7 @@ test('replay is off on sensitive routes and follows navigation',async()=>{
 });
 test('all media and the phone check dialog are blocked from replay',()=>{
  const {mod}=load('');
- const blocked=mod.REPLAY_BLOCK_SELECTOR.split(',');
+ const unless=':not(html[data-ph-unmask] *)',blocked=mod.REPLAY_BLOCK_SELECTOR.split(',').map(s=>s.endsWith(unless)?s.slice(0,-unless.length):s);
  for(const tag of ['picture','video','canvas','iframe','input[type="file"]'])assert.ok(blocked.includes(tag),tag);
  // Images: only public app artwork under /brand/ and /illustrations/ is exempt; every other <img> (API media, blob:, data:) is blocked.
  assert.equal(blocked.find(s=>s.startsWith('img')),'img:not([src^="/brand/"]):not([src^="/_next/image?url=%2Fbrand%2F"]):not([src^="/illustrations/"]):not([src^="/_next/image?url=%2Fillustrations%2F"])');
@@ -107,4 +107,27 @@ test('exception events are scrubbed: URL query/hash, e-mails and long digit runs
  assert.equal(ex.value,'failed https://crefans.com/service/post/1 for <email> <number>');assert.equal(ex.stacktrace.frames[0].filename,'https://crefans.com/_next/static/chunks/app.js');assert.equal(out.properties.$current_url,'https://crefans.com/service/try');
  assert.equal(mod.scrubErrorText('x'.repeat(900)).length,500);
  const normal=mod.beforeSend({event:'landing_view',properties:{note:'call 01012345678'}});assert.equal(normal.properties.note,'call 01012345678','only exception events get the text scrub');
+});
+
+
+// 2026-11-19 user decision (처리방침 2026-11-19.guest-replay.1 17항): only a guest with a recorded replay consent, only on the trial page.
+test('consenting guests are recorded unmasked on the trial page only; file/hidden inputs, passwords and the phone dialog stay masked',async()=>{
+ const {mod,calls}=load('phc_test_only');
+ const parts=mod.REPLAY_BLOCK_SELECTOR.split(','),unless=`:not(html[${mod.REPLAY_UNMASK_ATTR}] *)`;
+ assert.equal(mod.REPLAY_UNMASK_ATTR,'data-ph-unmask');
+ for(const part of parts.filter(s=>!s.startsWith('input')))assert.ok(part.endsWith(unless),part);
+ assert.ok(parts.includes('input[type="file"]')&&parts.includes('input[type="hidden"]'),'file/hidden inputs are always blocked');
+ const on={closest:sel=>sel==='html[data-ph-unmask]'?{}:null,type:'text'},off={closest:()=>null,type:'text'},pw={closest:()=>({}),type:'password'};
+ assert.equal(mod.maskReplayInput('제목',on),'제목');assert.equal(mod.maskReplayInput('제목',off),'**');assert.equal(mod.maskReplayInput('secret',pw),'******');assert.equal(mod.maskReplayInput('ab'),'**');
+ const attrs=new Map();global.document={documentElement:{setAttribute:(k,v)=>attrs.set(k,v),removeAttribute:k=>attrs.delete(k)}};
+ try{mod.setReplayUnmasked(true);assert.ok(attrs.has('data-ph-unmask'));mod.setReplayUnmasked(false);assert.ok(!attrs.has('data-ph-unmask'));}finally{delete global.document;}
+ await withWindow('/service/try',()=>mod.loadPostHog());
+ const rec=calls.init[0].config.session_recording;assert.equal(rec.maskAllInputs,true);assert.equal(rec.maskInputFn,mod.maskReplayInput);assert.equal(rec.blockSelector,mod.REPLAY_BLOCK_SELECTOR);
+});
+test('only the guest trial model toggles unmasking, gated on a recorded replay consent',()=>{
+ const walk=dir=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);
+ const users=['app','components','features','lib','hooks','contexts'].flatMap(walk).filter(f=>/\.(t|j)sx?$/.test(f)&&f!=='lib/analytics/posthog.ts'&&/setReplayUnmasked\(/.test(fs.readFileSync(f,'utf8')));
+ assert.deepEqual(users,['features/service/useGuestTrialModel.ts']);
+ const model=fs.readFileSync('features/service/useGuestTrialModel.ts','utf8');
+ assert.match(model,/if\(!enabled\|\|!session\?\.active\|\|!session\.replayConsented\)return;setReplayUnmasked\(true\);return\(\)=>setReplayUnmasked\(false\);/);
 });
