@@ -262,8 +262,8 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
    </div>
    {stage==='edit'&&<div className={s.footer} inert={viewing}>
-    <div className={s.methodHeader}><strong id={`${panelId}-method`}>생성 방식</strong><small>사진 1장당 이용권</small></div>
-    <div role="radiogroup" aria-labelledby={`${panelId}-method`} className={s.methodChoices}>
+    {/* 2026-11-19 user request: no '생성 방식' title or '사진 1장당 이용권' caption; the group keeps its accessible name. */}
+    <div role="radiogroup" aria-label="생성 방식" className={s.methodChoices}>
      {aiPhotoGenerationMethods.map(option=><label key={option.value}>
       <input type="radio" name={`${panelId}-method`} value={option.value} checked={method.value===option.value} disabled={busy} onChange={()=>setMethod(option)} aria-label={`${option.label}, 이용권 ${option.cost}개`}/>
       <span><strong>{option.label}</strong><small>{option.cost}개</small></span>
