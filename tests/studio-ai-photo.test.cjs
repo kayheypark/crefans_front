@@ -969,3 +969,16 @@ test('the body correction tab is hidden while AI_PHOTO_BODY_OPEN is false',async
  const {r}=await open();const tabs=r.root.findAll(n=>n.type==='button'&&n.props.role==='tab').map(n=>text(n));
  assert.ok(tabs.length>=6);assert.ok(!tabs.some(t=>t.includes('신체 보정')),tabs.join(','));assert.ok(tabs.some(t=>t.includes('포즈')));
 });
+// 2026-11-20 user request: the publish-reward offer waits until the visitor has seen the result — 2 seconds after the result screen
+// (or the edit screen they went back to) is showing; a screen change restarts the 2 seconds.
+test('publish-reward offer appears 2 seconds after the result screen, restarting when the visitor goes back to edit',async()=>{
+ const wait=ms=>act(async()=>{await new Promise(r=>setTimeout(r,ms));});
+ const onEdit=async()=>({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:1},errorMessage:null,errorCode:null});
+ const {r,click}=await open({quota:{remaining:3,limit:3},onEdit,publishReward:{credits:3,onWrite(){}}});
+ const offer=()=>r.root.findAll(n=>n.props.role==='dialog'&&n.props['aria-label']==='게시하고 이용권 3장 받기');
+ await wait(2100);assert.equal(offer().length,0,'plenty of credits: no offer');
+ await click('만들기');assert.equal(offer().length,0,'not on top of the fresh result');
+ await wait(1000);assert.equal(offer().length,0,'still looking at the result');
+ await click('원본으로');await wait(1500);assert.equal(offer().length,0,'going back to edit restarts the 2 seconds');
+ await wait(700);assert.equal(offer().length,1,'2 seconds after the edit screen');
+});
