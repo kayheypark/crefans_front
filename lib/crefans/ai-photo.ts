@@ -13,6 +13,9 @@ export const aiPhotoGenerationMethods=[
 export type AiPhotoGenerationMethod=(typeof aiPhotoGenerationMethods)[number]['value'];
 export const AI_PHOTO_PROMPT_MAX=2000;
 export const aiPhotoPresetText=(value:string)=>value.replace(' 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.','').trim();
+// 2026-11-20 user decision: the body correction tab is hidden until the clothing/neckline problem is solved (a bigger bust
+// opened a V in a closed hoodie in dev tests). Set to true to reopen it; the body code stays in place.
+export const AI_PHOTO_BODY_OPEN=false;
 export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=[
  {value:'outfit',label:'옷',placeholder:'옷을 흰색 세일러 교복 코스튬으로'},
  {value:'makeup',label:'메이크업',placeholder:'입술을 자연스러운 코랄 톤으로 바꿔줘.'},
