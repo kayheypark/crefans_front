@@ -192,7 +192,8 @@ test('guest trial editor uploads the verified front-facing sample once and previ
  const sampleMedia={id:'sample-1',type:'image',url:'/api/v1/media/sample-1/file'};
  const uploads=[],requests=[],previousFetch=global.fetch;
  const guest={
-  session:{active:true,remaining:10,limit:10},
+  session:{active:true,remaining:3,limit:3,postReward:3,postRewardClaimed:false},
+  caption:()=>assert.fail('reading the offer must not generate a caption'),
   upload:async file=>{uploads.push(file);return {success:true,data:sampleMedia};},
   aiEdit:()=>assert.fail('opening the editor must not generate a photo'),
  };
@@ -209,6 +210,9 @@ test('guest trial editor uploads the verified front-facing sample once and previ
  let view;
  try{
   await act(async()=>{view=create(element(GuestTrialPage,{model:{...model,signedIn:false}}));});
+  assert.match(json(view),/게시하고 3장 더 받아가세요/);
+  assert.equal(button(view,'지금 게시하기').props.disabled,true,'publishing stays disabled before writing');
+  assert.doesNotMatch(json(view),/제목을 입력하세요|내용을 입력하세요/);
   assert.deepEqual(requests,[sampleUrl]);
   assert.equal(uploads.length,1);
   assert.equal(uploads[0].name,'crefans-sample-virtual-person.webp');

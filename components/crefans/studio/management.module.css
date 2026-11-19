@@ -38,3 +38,11 @@ button.textButton:not(:disabled):hover,.tabs button:not(:disabled):hover{backgro
 .captionFields{display:grid;gap:12px}
 .captionBar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 @media(max-width:767px){.page .captionFields textarea{height:calc(3em + 26px);min-height:0;line-height:1.5;overflow-y:auto}}
+
+.rewardPublishActions {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  padding: 12px 0;
+  background: var(--cf-color-surface);
+}
