@@ -6364,3 +6364,7 @@
 - 사용자 지시 "운영까지 배포". 서버 prod `bbac3d6` = 857e8bc + 공유 즉시 보상(5c54d21, guest_share_links 삭제 마이그레이션, 처리방침 2026-11-20.guest-share.1·약관 2026-11-20.share-reward.1) + 신체 지시문 2건. 프론트 prod `0870233` = e7c8dbc + 밀기 오버레이 3 + 공유 보상·이용권 버튼 5 + 신체 탭 숨김 + 병합으로 되살아난 옛 .swipeHand CSS 제거(같은 수정을 dev에도 e37868d로 반영, 개발 오버레이 손 깨짐 해소). 가슴 컵·힙 사이즈 버튼(feat/body-cup-size)은 탭이 숨겨져 있어 운영 제외.
 - 운영 검사: privacy guest-share.1·terms share-reward.1, share-done 쿠키 없이 401, share-visit 404, 체험·랜딩 200, /s 302, swipe-hand-v2·share-ticket-v1 200, iPhone 랜딩 오버레이 손이 오버레이 안·4초 후 사라짐. 복구본 /Users/ethan/crefans-recovery/20261120/share-reward-20261120-{api,front}.
 - 미확인(운영 실데이터가 생겨 생략): 운영 체험 편집기에서 신체 탭 미노출·공유 즉시 지급·이용권 버튼 실제 화면(개발 서버에서는 확인).
+
+### 2026-11-20 06:3x 게시 보상 안내 창 2초 지연 (운영 front publish-offer-20261120)
+- 사용자 요청: 결과를 보기 전에 창이 떠서 '나중에 하기'만 누름. `AiPhotoDialog` 자동 표시 조건(남은 이용권 ≤1)을 결과 화면/돌아간 편집 화면이 보인 뒤 2초(PUBLISH_OFFER_DELAY_MS) 타이머로, 화면(stage) 바뀌면 다시 셈. 만들기 때 부족·GUEST_AI_LIMIT 오류는 기존대로 즉시.
+- feat/publish-offer-delay `5a1d7ac` → dev 440e7bb → prod 5a1d7ac(origin/prod 0870233에서 빨리감기). 검증: 새 테스트(직후·1초 없음, 편집 복귀 시 재계산, 2초 뒤 표시) 통과·이전 코드면 실패, studio 18건 동일. 개발 실생성 1회(정밀하게, 잔여 3→1): 0.5초 0개·2.5초 1개. 운영 검사 landing·/s·이미지 200. 복구본 /Users/ethan/crefans-recovery/20261120/publish-offer-20261120-front.
