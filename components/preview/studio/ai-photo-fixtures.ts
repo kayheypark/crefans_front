@@ -1,7 +1,7 @@
 // 목업 AI 사진 편집 대역: 서버·OpenAI 를 호출하지 않는다. 결과는 서비스 소개용 가상 크리에이터(모카) 사진이다.
 import type {ApiResult} from '@/types/crefans';
 import type {AiPhotoCropInput,StudioMedia,AiPhotoEditInput,AiPhotoEditResult} from '@/types/crefans-studio-management';
-import {AI_PHOTO_DAILY_LIMIT,AI_PHOTO_IMAGES_PER_REQUEST} from '@/lib/crefans/ai-photo';
+import {aiPhotoGenerationMethods,AI_PHOTO_DAILY_LIMIT,AI_PHOTO_IMAGES_PER_REQUEST} from '@/lib/crefans/ai-photo';
 
 export const mockAiPhotoResults=['/illustrations/creators/moka/editorial-v1.png','/illustrations/creators/moka/backstage-v1.png','/illustrations/creators/moka/cover-v1.png','/illustrations/creators/moka/avatar-v1.png'];
 export type MockAiPhotoMode='normal'|'error'|'blocked';
@@ -13,10 +13,11 @@ export function mockAiPhotoEdit({start=AI_PHOTO_DAILY_LIMIT,mode='normal' as Moc
  return async(input:AiPhotoEditInput):Promise<ApiResult<AiPhotoEditResult>>=>{
   await new Promise(resolve=>setTimeout(resolve,delay));
   if(!input.consent)return {success:false,data:null,errorMessage:'사진 속 인물 확인에 동의해 주세요.',errorCode:'CONSENT_REQUIRED'};
-  if(remaining<=0)return {success:false,data:null,errorMessage:'무료 횟수를 모두 썼어요. 매일 오전 9시에 다시 채워지고, AI 이용권을 구매하면 계속 만들 수 있어요.',errorCode:'DAILY_LIMIT'};
+  const cost=aiPhotoGenerationMethods.find(method=>method.value===input.generationMethod)?.cost??1;
+  if(remaining<cost)return {success:false,data:null,errorMessage:'선택한 생성 방식에 필요한 이용권이 부족해요.',errorCode:'DAILY_LIMIT'};
   if(mode==='error')return {success:false,data:null,errorMessage:'사진을 만들지 못했어요. 잠시 후 다시 시도해 주세요.',errorCode:'PROVIDER_ERROR'};
   if(mode==='blocked')return {success:false,data:null,errorMessage:'안전 기준에 맞지 않는 요청이라 만들 수 없어요. 다른 표현으로 다시 적어 주세요.',errorCode:'UNSAFE_INPUT'};
-  remaining-=1;onRemaining?.(remaining);
+  remaining-=cost;onRemaining?.(remaining);
   const images=Array.from({length:AI_PHOTO_IMAGES_PER_REQUEST},(_,i)=>({id:`ai-${++sequence}`,type:'image' as const,url:mockAiPhotoResults[(sequence+i)%mockAiPhotoResults.length],aiGenerated:true}));
   images.forEach(item=>previewPhotos.set(item.id,item.url));
   return {success:true,data:{images,remaining},errorMessage:null,errorCode:null};
