@@ -85,3 +85,18 @@ test('picking a preset opens the try-it dialog; unpicking does not; the dialog l
   handedOff.length=0;go.props.onClick();assert.match(JSON.stringify(handedOff),/"kind":"pose"/,'the picked pose is handed to the trial editor');
  }finally{await act(async()=>tree.unmount());}
 });
+// 2026-11-19 user request: each preset under the hero result opens a detail dialog.
+test('hero preset cards open a detail dialog with the catalog details and a try-this-combination link',async()=>{
+ let tree;await act(async()=>{tree=create(React.createElement(page.default));});
+ try{
+  const dialog=()=>tree.root.findAll(n=>n.type==='section'&&n.props['data-dialog']);
+  const card=tree.root.find(n=>n.type==='button'&&n.props['aria-label']==='모더니아 코스튬 자세히 보기');await act(async()=>card.props.onClick());
+  assert.equal(dialog().length,1);assert.equal(dialog()[0].props['data-dialog'],'모더니아 코스튬');
+  const lines=dialog()[0].findAllByType('li').map(n=>n.props.children);assert.ok(lines.some(line=>/^가발 /.test(line))&&lines.some(line=>/^신발 /.test(line)),'costume parts are listed');
+  handedOff.length=0;dialog()[0].findAll(n=>n.type==='a').find(n=>n.props.children==='이 조합으로 0원 체험').props.onClick();
+  assert.deepEqual(handedOff[0].map(item=>item.kind),['outfit','makeup','pose'],'the whole look is handed to the trial editor');
+  await act(async()=>dialog()[0].findAll(n=>n.type==='button').find(n=>n.props.children==='닫기').props.onClick());assert.equal(dialog().length,0);
+  const pose=tree.root.find(n=>n.type==='button'&&n.props['aria-label']==='의자에 앉기 자세히 보기');await act(async()=>pose.props.onClick());
+  assert.equal(dialog()[0].props['data-dialog'],'의자에 앉기');assert.equal(dialog()[0].findAllByType('li').length,1,'other presets show their request text');
+ }finally{await act(async()=>tree.unmount());}
+});

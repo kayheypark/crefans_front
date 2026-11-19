@@ -1,5 +1,5 @@
 import {aiPhotoBackgrounds,aiPhotoBackgroundId} from './ai-photo-backgrounds';
-import {aiPhotoMaleBodyControls,aiPhotoBodyPrompt} from './ai-photo';
+import {aiPhotoMaleBodyControls,aiPhotoBodyPrompt,aiPhotoPresetText} from './ai-photo';
 import {aiPhotoOutfits,aiPhotoOutfitByPrompt,aiPhotoOutfitImage,type AiPhotoOutfitPart} from './ai-photo-outfits';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 
@@ -125,6 +125,17 @@ export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'
  const listed=[...(aiPhotoKeepOriginalKinds.includes(kind)&&aiPhotoPresetMatches(query,'원본 유지')?[AI_PHOTO_KEEP_ORIGINAL]:[]),...examples],pages=Math.max(1,Math.ceil(listed.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;
  return {examples:listed.slice(index*AI_PHOTO_PRESET_PAGE_SIZE,(index+1)*AI_PHOTO_PRESET_PAGE_SIZE),index,pages,total:examples.length};
+}
+
+// 2026-11-19 user request: a selected preset (e.g. picked on the landing) opens on its own page, sub-category and posture.
+/** Where a selected preset text is listed: its catalog example, pose posture / background category, and page (0 when not found). */
+export function aiPhotoPresetLocation(kind:AiPhotoKind,prompt:string,gender:'original'|'female'|'male'='original',outfitPart?:AiPhotoOutfitPart){
+ const example=aiPhotoPresets[kind]?.find(item=>aiPhotoPresetText(item)===prompt);
+ if(!example)return null;
+ const posture=kind==='pose'?aiPhotoPosePosture(example):undefined,backgroundCategory=kind==='background'?aiPhotoBackgroundCategory(example):undefined;
+ const pages=aiPhotoPresetPage(kind,0,gender,'',posture,backgroundCategory,outfitPart).pages;
+ let page=0;for(let index=0;index<pages;index++)if(aiPhotoPresetPage(kind,index,gender,'',posture,backgroundCategory,outfitPart).examples.includes(example)){page=index;break;}
+ return {example,posture,backgroundCategory,page};
 }
 
 export function aiPhotoPresetImage(kind:AiPhotoKind,example:string,gender:'original'|'female'|'male'='original'){

@@ -912,3 +912,21 @@ test('generation methods: 0.5 left is enough for fast; other tiers route to the 
   await act(async()=>r.unmount());
  }
 });
+// 2026-11-19 user request: presets picked on the landing open on their own category, posture and page in the trial editor.
+test('handed-off presets open on the page, posture and costume category that list them',async()=>{
+ const store=new Map(),previous=global.localStorage;global.localStorage={getItem:k=>store.has(k)?store.get(k):null,setItem:(k,v)=>store.set(k,String(v)),removeItem:k=>store.delete(k)};
+ try{
+  const {saveAiPhotoHandoff}=loadTypeScript('lib/crefans/ai-photo-handoff.ts');
+  const presets=loadTypeScript('lib/crefans/ai-photo-presets.ts'),{aiPhotoPresetText}=loadTypeScript('lib/crefans/ai-photo.ts'),{aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
+  const pose=presets.aiPhotoPresets.pose.find(e=>{const at=presets.aiPhotoPresetLocation('pose',aiPhotoPresetText(e));return at&&at.posture==='standing'&&at.page>0;});
+  assert.ok(pose,'a standing pose past the first page');const title=presets.aiPhotoPresetTitle('pose',pose);
+  const category=['bluearchive','genshin','aot','overwatch','demon-slayer','jujutsu','diablo'].find(value=>aiPhotoCostumes.filter(c=>c.category===value).length>=10);
+  const costume=aiPhotoCostumes.filter(c=>c.category===category)[9];assert.ok(costume,'a costume on the second page of a non-default category');
+  saveAiPhotoHandoff([{kind:'pose',prompt:aiPhotoPresetText(pose)},{kind:'outfit',prompt:aiPhotoPresetText(costume.prompt)}]);
+  const {r,click}=await open();
+  const card=name=>r.root.findAll(n=>n.type==='button'&&n.props['aria-label']===name);
+  assert.equal(card(title).length,1,'the pose page with the handed-off pose is shown');assert.equal(card(title)[0].props['aria-pressed'],true);
+  await click('표정');await click('포즈');assert.equal(card(title).length,1,'coming back to the tab reopens its page');
+  await click('코스어 모드');assert.equal(card(costume.name).length,1,'the wardrobe opens on the costume category and page');assert.equal(card(costume.name)[0].props['aria-pressed'],true);
+ }finally{global.localStorage=previous;}
+});
