@@ -930,3 +930,10 @@ test('handed-off presets open on the page, posture and costume category that lis
   await click('코스어 모드');assert.equal(card(costume.name).length,1,'the wardrobe opens on the costume category and page');assert.equal(card(costume.name)[0].props['aria-pressed'],true);
  }finally{global.localStorage=previous;}
 });
+// 2026-11-19 user request: the generation method choices show no '생성 방식' title or '사진 1장당 이용권' caption.
+test('generation method choices have no visible title or per-photo caption but keep an accessible name',async()=>{
+ const {r}=await open();
+ const all=JSON.stringify(r.toJSON());assert.doesNotMatch(all,/사진 1장당 이용권/);assert.doesNotMatch(all,/\["생성 방식"\]/);
+ const group=r.root.findAll(n=>n.props.role==='radiogroup'&&n.props['aria-label']==='생성 방식');assert.equal(group.length,1);
+ assert.equal(group[0].findAll(n=>n.type==='input'&&n.props.type==='radio').length,3);
+});
