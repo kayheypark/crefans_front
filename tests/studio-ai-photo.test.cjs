@@ -57,7 +57,7 @@ test('dialog: no consent checkbox; explicit create confirms rights and sends one
  assert.equal(calls.length,0);assert.match(text(r.toJSON()),/만들기를 누르면 본인 또는 사용 허락을 받은 사진임을 확인합니다/);
 
  assert.doesNotMatch(text(r.toJSON()),/동의해 주세요/);
- await click('1장 만들기');
+ await click('만들기');
  assert.equal(calls.length,1);assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.equal(calls[0].consent,true);
  assert.equal(r.root.findAllByType('textarea').length,0,'the result screen replaces the editor');
  assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-pressed']===true&&String(n.props['aria-label']).startsWith('결과')).length,1);
@@ -69,14 +69,14 @@ test('dialog: outfit needs painted area before calling the server',async()=>{
  const {r,calls,click}=await open();
  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='옷').props.onClick();});
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'교복 코스튬'}});});
- await click('옷 세부 지정');await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/옷 부분을 사진 위에 칠해/);
+ await click('옷 세부 지정');await click('만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/옷 부분을 사진 위에 칠해/);
 });
 
 test('legacy two-result response: viewer navigation and existing selections are preserved',async()=>{
  const {r,click}=await open({onEdit:async()=>({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'},{id:'a2',type:'image',url:'/a2.png'}],remaining:9}})});
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
 
- await click('1장 만들기');
+ await click('만들기');
  await act(async()=>{r.root.findByProps({'aria-label':'결과 2 크게 보기','title':'크게 보기'}).props.onClick();});
  const viewer=()=>r.root.findAll(n=>n.props.role==='group'&&String(n.props['aria-label']).endsWith('크게 보기'));
  assert.equal(viewer().length,1);assert.match(text(viewer()[0]),/결과 2 \/ 2/);
@@ -96,8 +96,8 @@ test('progress: the waiting game retains real elapsed and usual time without a f
   await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());
   await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
 
-  await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('1장 만들기')).props.onClick();});
-  assert.equal(r.root.findAll(n=>n.type==='button'&&text(n).includes('1장 만들기')).length,0);assert.equal(r.root.findAll(n=>n.type==='button'&&String(n.props['aria-label']).match(/^하트 [1-5] 모으기$/)).length,3);
+  await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('만들기')).props.onClick();});
+  assert.equal(r.root.findAll(n=>n.type==='button'&&text(n).includes('만들기')).length,0);assert.equal(r.root.findAll(n=>n.type==='button'&&String(n.props['aria-label']).match(/^하트 [1-5] 모으기$/)).length,3);
   const all=text(r.toJSON());assert.match(all,expect);assert.match(all,/0초 지남/);assert.match(all,/잠시만 화면을 유지/);assert.doesNotMatch(all,/%/);
   await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
   assert.doesNotMatch(text(r.toJSON()),/초 지남/);
@@ -109,32 +109,32 @@ test('compact stages: edit settings preserves prompt, source, style, consent and
  const {r,click,calls}=await open();
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
 
- await click('1장 만들기');assert.equal(r.root.findAllByType('textarea').length,0);
+ await click('만들기');assert.equal(r.root.findAllByType('textarea').length,0);
  await click('설정 수정');assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
- assert.match(text(r.toJSON()),/보유 9개/);
- await click('1장 만들기');assert.equal(calls.length,2);assert.deepEqual(calls[1],calls[0]);
+ assert.match(text(r.toJSON()),/9장 보유/);
+ await click('만들기');assert.equal(calls.length,2);assert.deepEqual(calls[1],calls[0]);
 });
 
 test('compact stages: provider failure restores the editable form without losing the request',async()=>{
  const {r,click}=await open({onEdit:async()=>({success:false,errorMessage:'생성에 실패했어요',errorCode:'PROVIDER_ERROR'})});
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
 
- await click('1장 만들기');
+ await click('만들기');
  const notice=r.root.findByProps({'aria-label':'AI 사진 편집 안내'});
  assert.match(text(notice),/생성에 실패했어요/);
  await click('확인');assert.equal(r.root.findAllByProps({'aria-label':'AI 사진 편집 안내'}).length,0);
- await click('1장 만들기');assert.equal(r.root.findAllByProps({'aria-label':'AI 사진 편집 안내'}).length,1);
+ await click('만들기');assert.equal(r.root.findAllByProps({'aria-label':'AI 사진 편집 안내'}).length,1);
  await act(async()=>r.root.findByProps({'aria-label':'AI 사진 편집 안내'}).props.onClose());
  assert.equal(r.root.findAllByProps({'aria-label':'AI 사진 편집'}).length,1);
  assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
- assert.match(text(r.toJSON()),/보유 10개/);
+ assert.match(text(r.toJSON()),/10장 보유/);
 });
 
 test('compact results: deciding a replacement is allowed at full post capacity',async()=>{
  let replaced;const {r,click,added}=await open({room:0,onAdd:(made,context,ids)=>{replaced=ids;added.push(...made);}});
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
 
- await click('1장 만들기');
+ await click('만들기');
  await click('사진 결정');assert.equal(added.length,1);assert.deepEqual(replaced,['p1']);
 });
 
@@ -143,7 +143,7 @@ test('regenerate failure keeps the previously selected photos available to add',
  let count=0;const {r,click,added}=await open({onEdit:async()=>++count===1?{success:true,data:{images:[{id:'keep',type:'image',url:'/keep.png'}],remaining:9}}:{success:false,errorMessage:'다시 만들지 못했어요',errorCode:'PROVIDER_ERROR'}});
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
 
- await click('1장 만들기');await click('계속 보정');await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'부드러운 조명'}}));await click('1장 만들기');assert.match(text(r.toJSON()),/다시 만들지 못했어요/);
+ await click('만들기');await click('계속 보정');await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'부드러운 조명'}}));await click('만들기');assert.match(text(r.toJSON()),/다시 만들지 못했어요/);
  await click('사진 결정');assert.deepEqual(added.map(i=>i.id),['keep']);
 });
 
@@ -159,17 +159,17 @@ test('preset editor: browsing and toggling preserves custom-only input and never
 test('preset selection and custom input are independent and both reach the provider',async()=>{
  const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='메이크업').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
  await act(async()=>field().props.onChange({target:{value:'내 메이크업 추가 요청'}}));await click('코랄 립');await click('코랄 립');assert.equal(field().props.value,'내 메이크업 추가 요청');await click('코랄 립');
- await click('1장 만들기');assert.equal(calls[0].kind,'makeup');assert.equal(calls[0].prompt,'입술을 자연스러운 코랄 톤으로 바꿔줘.\n생성 인물을 성인 여성으로 바꿔줘.\n내 메이크업 추가 요청');assert.equal(calls[0].mask,undefined);
+ await click('만들기');assert.equal(calls[0].kind,'makeup');assert.equal(calls[0].prompt,'입술을 자연스러운 코랄 톤으로 바꿔줘.\n생성 인물을 성인 여성으로 바꿔줘.\n내 메이크업 추가 요청');assert.equal(calls[0].mask,undefined);
 });
 
 
 test('single-image flow: inline generation method and create stay in footer; presets scroll in the body',async()=>{
  const {r,click}=await open();const footer=r.root.findByProps({className:'footer'}),body=r.root.findByProps({className:'body'});
- assert.equal(footer.findAllByType('button').length,1);assert.equal(footer.findAll(n=>n.type==='input'&&n.props.type==='radio').length,3);assert.match(text(footer),/1장 만들기 · 0.5개 사용보유 10개/);assert.equal(footer.findAllByType('textarea').length,0);
+ assert.equal(footer.findAllByType('button').length,1);assert.equal(footer.findAll(n=>n.type==='input'&&n.props.type==='radio').length,3);assert.match(text(footer),/만들기10장 보유/);assert.equal(footer.findAllByType('textarea').length,0);
  assert.equal(body.findAllByProps({className:'sourceSection'}).length,1);assert.equal(body.findAllByProps({className:'composer'}).length,1);assert.equal(body.findAllByProps({className:'methodChoices'}).length,0);
  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝게 웃어줘'}}));
 
- await click('1장 만들기');assert.equal(r.root.findAllByProps({'aria-label':'결과 1'}).length,1);assert.equal(r.root.findAllByProps({'aria-label':'결과 2'}).length,0);
+ await click('만들기');assert.equal(r.root.findAllByProps({'aria-label':'결과 1'}).length,1);assert.equal(r.root.findAllByProps({'aria-label':'결과 2'}).length,0);
  assert.equal(r.root.findAllByProps({className:'footer'}).length,0);assert.equal(r.root.findByProps({className:'body'}).findAllByProps({className:'resultActions'}).length,1);
 });
 
@@ -184,10 +184,10 @@ test('cosplay wardrobe: selected outfits toggle independently and never overwrit
 test('cosplay wardrobe keeps the outfit mask gate and submits cosplay style only with a painted mask',async()=>{
  const {r,click,calls}=await open();await click('코스어 모드');await click('사이버 슈트');
 
- await click('옷 세부 지정');await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/옷 부분을 사진 위에 칠해/);
+ await click('옷 세부 지정');await click('만들기');assert.equal(calls.length,0);assert.match(text(r.toJSON()),/옷 부분을 사진 위에 칠해/);
  await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));
- maskCalls=[];await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'outfit');assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(maskCalls.length,1);assert.equal(maskCalls[0][0],photo.url);assert.equal(calls[0].prompt,'의상 참조 사진 1의 코디를 적용해줘.\n생성 인물을 성인 여성으로 바꿔줘.');assert.deepEqual(calls[0].costumeIds,['b4bf5d']);assert.equal(calls[0].mode,'cosplay');
- await click('설정 수정');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());await click('환한 미소');await click('1장 만들기');assert.equal(calls[1].style,'cosplay');assert.equal(calls[1].kind,'combined');assert.deepEqual(calls[1].editKinds,['outfit','expression']);assert.equal(calls[1].mask,paintedMask);assert.deepEqual(calls[1].costumeIds,['b4bf5d']);
+ maskCalls=[];await click('만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'outfit');assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(maskCalls.length,1);assert.equal(maskCalls[0][0],photo.url);assert.equal(calls[0].prompt,'의상 참조 사진 1의 코디를 적용해줘.\n생성 인물을 성인 여성으로 바꿔줘.');assert.deepEqual(calls[0].costumeIds,['b4bf5d']);assert.equal(calls[0].mode,'cosplay');
+ await click('설정 수정');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());await click('환한 미소');await click('만들기');assert.equal(calls[1].style,'cosplay');assert.equal(calls[1].kind,'combined');assert.deepEqual(calls[1].editKinds,['outfit','expression']);assert.equal(calls[1].mask,paintedMask);assert.deepEqual(calls[1].costumeIds,['b4bf5d']);
 });
 
 test('wardrobe is card-only with no view picker and preserves the draft and painted mask',async()=>{
@@ -196,7 +196,7 @@ test('wardrobe is card-only with no view picker and preserves the draft and pain
  const strokes=[{size:.06,points:[{x:.5,y:.6}]}];await click('옷 세부 지정');await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange(strokes));
  assert.equal(r.root.findAll(n=>n.props.label==='보기 형식').length,0);assert.equal(r.root.findAllByProps({'aria-label':'의상 크게 보기'}).length,0);
  assert.equal(r.root.findByProps({'aria-label':'코스프레 의상'}).findAllByType('button').length,8);
- await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].style,'cosplay');assert.match(calls[0].prompt,/배경 유지/);
+ await click('만들기');assert.equal(calls.length,1);assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].style,'cosplay');assert.match(calls[0].prompt,/배경 유지/);
  await click('설정 수정');assert.equal(field().props.value,'배경 유지');assert.deepEqual(r.root.findByProps({'data-mask-editor':true}).props.strokes,strokes);
 });
 
@@ -231,7 +231,7 @@ test('Mitsuri Haori can be selected in the Demon Slayer wardrobe and sends its e
   const card=()=>r.root.find(n=>n.type==='button'&&n.props['aria-label']==='미츠리 하오리');
   assert.ok(decodeURIComponent(card().findByType('img').props.src).includes('/brand/ai-photo/costumes/demon-mitsuri-v2.webp'));
   await act(async()=>card().props.onClick());assert.equal(card().props['aria-pressed'],true);
-  await click('1장 만들기');assert.deepEqual(calls[0].costumeIds,['6ee320']);
+  await click('만들기');assert.deepEqual(calls[0].costumeIds,['6ee320']);
  }finally{await act(async()=>r.unmount());}
 });
 
@@ -249,7 +249,7 @@ test('category filters: all nine use cards without losing request or mask',async
   await act(async()=>r.root.findByProps({'aria-label':items[0].name}).props.onClick());chosen.push(rules.aiPhotoPresetText(items[0].prompt));assert.equal(field().props.value,previous);
  }
  assert.equal(calls.length,0,'filtering/browsing/picking never generates');
- await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].prompt,['의상 참조 사진 1의 코디를 적용해줘.','생성 인물을 성인 여성으로 바꿔줘.',previous].join('\n'));assert.deepEqual(calls[0].costumeIds,[aiPhotoCostumes.find(c=>c.category==='jujutsu').id]);
+ await click('만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mask,paintedMask);assert.equal(calls[0].prompt,['의상 참조 사진 1의 코디를 적용해줘.','생성 인물을 성인 여성으로 바꿔줘.',previous].join('\n'));assert.deepEqual(calls[0].costumeIds,[aiPhotoCostumes.find(c=>c.category==='jujutsu').id]);
  await click('설정 수정');assert.equal(category().props.value,'jujutsu');
  await act(async()=>category().props.onChange('nikke'));await click('누아르 바니');await click('누아르 바니');assert.equal(field().props.value,previous);
 });
@@ -260,7 +260,7 @@ test('hidden prompt: selections toggle across five categories, custom text stays
   await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());const example=aiPhotoPresetPage(kind,0).examples.filter(item=>item!==AI_PHOTO_KEEP_ORIGINAL)[0],name=aiPhotoPresetTitle(kind,example);snippets.push(example);await click(name);assert.equal(field().props.value,'');assert.equal(r.root.findByProps({'aria-label':name}).props['aria-pressed'],true);await click(name);assert.equal(r.root.findByProps({'aria-label':name}).props['aria-pressed'],false);await click(name);
  }
  assert.equal(r.root.findAllByProps({'aria-label':'최종 프롬프트'}).length,0);assert.equal(r.root.findAllByType('textarea').length,1);for(const snippet of snippets)assert.ok(!JSON.stringify(r.toJSON()).includes(snippet),'accumulated preset text is not rendered');assert.equal(calls.length,0);
- await click('옷 세부 지정');await act(async()=>field().props.onChange({target:{value:'내가 추가로 원하는 모습'}}));await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'combined');assert.deepEqual(calls[0].editKinds,['outfit','makeup','expression','pose','background']);assert.equal(calls[0].prompt,[...snippets,'생성 인물을 성인 여성으로 바꿔줘.','내가 추가로 원하는 모습'].join('\n'));assert.equal(calls[0].mask,paintedMask);
+ await click('옷 세부 지정');await act(async()=>field().props.onChange({target:{value:'내가 추가로 원하는 모습'}}));await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));await click('만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'combined');assert.deepEqual(calls[0].editKinds,['outfit','makeup','expression','pose','background']);assert.equal(calls[0].prompt,[...snippets,'생성 인물을 성인 여성으로 바꿔줘.','내가 추가로 원하는 모습'].join('\n'));assert.equal(calls[0].mask,paintedMask);
 });
 
 
@@ -268,11 +268,11 @@ test('generated image editing: uses generated source, resets final request and m
  const sent=[];let count=0;
  const {r,click,added}=await open({onEdit:async input=>{sent.push(input);count++;return count<3?{success:true,data:{images:[{id:'made-'+count,type:'image',url:'/made-'+count+'.png'}],remaining:10-count}}:{success:false,errorMessage:'편집 실패',errorCode:'PROVIDER_ERROR'};}});
  const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});
- await act(async()=>field().props.onChange({target:{value:'앉은 포즈로 바꿔줘'}}));await click('1장 만들기');
+ await act(async()=>field().props.onChange({target:{value:'앉은 포즈로 바꿔줘'}}));await click('만들기');
  await click('계속 보정');assert.equal(field().props.value,'');assert.equal(r.root.findAllByType('textarea').length,1);assert.match(text(r.toJSON()),/편집할 이미지/);
- await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='배경').props.onClick());await act(async()=>field().props.onChange({target:{value:'흰 스튜디오 배경'}}));await click('1장 만들기');
+ await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='배경').props.onClick());await act(async()=>field().props.onChange({target:{value:'흰 스튜디오 배경'}}));await click('만들기');
  assert.equal(sent[0].source.id,'p1');assert.equal(sent[1].source.id,'made-1');assert.equal(sent[1].kind,'background');assert.equal(sent[1].mask,undefined);assert.equal(sent[1].prompt,'흰 스튜디오 배경');
- await click('계속 보정');await act(async()=>field().props.onChange({target:{value:'다시 웃는 포즈'}}));await click('1장 만들기');assert.equal(sent[2].source.id,'made-2');assert.match(text(r.toJSON()),/편집 실패/);
+ await click('계속 보정');await act(async()=>field().props.onChange({target:{value:'다시 웃는 포즈'}}));await click('만들기');assert.equal(sent[2].source.id,'made-2');assert.match(text(r.toJSON()),/편집 실패/);
  await click('사진 결정');assert.equal(added[0].id,'made-2');assert.equal(photo.id,'p1');
 });
 
@@ -284,7 +284,7 @@ test('category logos: all nine options provide local images and do not alter cat
 
 
 test('gender is composed internally without appearing in or changing the custom input',async()=>{
- const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'부드러운 조명'}}));await click('남성');await click('여성');assert.equal(field().props.value,'부드러운 조명');await click('남성');await click('1장 만들기');assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].prompt,'생성 인물을 성인 남성으로 바꿔줘.\n부드러운 조명');
+ const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'부드러운 조명'}}));await click('남성');await click('여성');assert.equal(field().props.value,'부드러운 조명');await click('남성');await click('만들기');assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].prompt,'생성 인물을 성인 남성으로 바꿔줘.\n부드러운 조명');
 });
 
 
@@ -292,7 +292,7 @@ test('body controls retain independent adjustments and keep custom input',async(
  const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}),range=label=>r.root.find(n=>n.type==='input'&&n.props['aria-label']===label);await act(async()=>field().props.onChange({target:{value:'자연스럽게'}}));
  assert.equal(r.root.findAllByProps({'aria-label':'프리셋 검색'}).length,0);assert.equal(r.root.findAllByProps({'aria-label':'프리셋 페이지'}).length,0);assert.equal(range('가슴 크기').props.step,'any');
  await act(async()=>range('가슴 크기').props.onChange({target:{value:'-2'}}));await act(async()=>range('힙 크기').props.onChange({target:{value:'-1'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'2'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'0'}}));assert.equal(field().props.value,'자연스럽게');
- assert.equal(range('가슴 크기').props.value,-2);assert.equal(range('힙 크기').props.value,-1);assert.equal(range('키 비율').props.value,0);await click('1장 만들기');assert.equal(calls[0].kind,'body');const {aiPhotoBodyPrompt}=loadTypeScript('lib/crefans/ai-photo.ts');assert.ok(calls[0].prompt.includes(aiPhotoBodyPrompt('chest',-2)));assert.ok(calls[0].prompt.includes(aiPhotoBodyPrompt('hip',-1)));assert.ok(!calls[0].prompt.includes(aiPhotoBodyPrompt('height',2)));assert.ok(calls[0].prompt.endsWith('자연스럽게'));
+ assert.equal(range('가슴 크기').props.value,-2);assert.equal(range('힙 크기').props.value,-1);assert.equal(range('키 비율').props.value,0);await click('만들기');assert.equal(calls[0].kind,'body');const {aiPhotoBodyPrompt}=loadTypeScript('lib/crefans/ai-photo.ts');assert.ok(calls[0].prompt.includes(aiPhotoBodyPrompt('chest',-2)));assert.ok(calls[0].prompt.includes(aiPhotoBodyPrompt('hip',-1)));assert.ok(!calls[0].prompt.includes(aiPhotoBodyPrompt('height',2)));assert.ok(calls[0].prompt.endsWith('자연스럽게'));
 });
 
 
@@ -306,7 +306,7 @@ test('every preset has a distinct decodable image including Comic World, 60 pose
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
- const {r,click,calls}=await open();await click('코스어 모드');await click('남성');await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.match(text(r.toJSON()),/사진이 완성됐어요/);
+ const {r,click,calls}=await open();await click('코스어 모드');await click('남성');await click('만들기');assert.equal(calls.length,1);assert.equal(calls[0].targetGender,'male');assert.equal(calls[0].kind,'pose');assert.equal(calls[0].mask,undefined);assert.match(text(r.toJSON()),/사진이 완성됐어요/);
 });
 
 
@@ -316,7 +316,7 @@ test('switching categories preserves costume, mask and makeup in a combined requ
  await click('옷 세부 지정');await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));
  await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='메이크업').props.onClick());assert.equal(r.root.findAllByProps({'data-mask-editor':true}).length,1);await click('코랄 립');
  assert.equal(r.root.findAllByProps({'data-mask-editor':true}).length,1);assert.equal(r.root.findAll(n=>n.type==='button'&&n.props.role==='tab'&&n.props['aria-selected']).length,1);
- await click('1장 만들기');
+ await click('만들기');
  assert.equal(calls[0].kind,'combined');assert.equal(calls[0].style,'cosplay');assert.deepEqual(calls[0].costumeIds,['b4bf5d']);assert.equal(calls[0].mask,paintedMask);assert.deepEqual(calls[0].editKinds,['outfit','makeup']);assert.match(calls[0].prompt,/의상 참조/);assert.ok(calls[0].prompt.endsWith('내 추가 요청'));
 });
 
@@ -331,7 +331,7 @@ test('expression diagrams stay gender-neutral while generation gender, selection
  const previews=()=>r.root.findAll(n=>n.type==='img'&&String(n.props.src).startsWith('/brand/ai-photo/expression-mascot/expression-')).map(n=>n.props.src);
  await click('여성');assert.deepEqual(previews(),[1,2,3,4,5,6,7,8].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(field().props.value,'자연스러운 조명');
  await click('남성');assert.deepEqual(previews(),[1,2,3,4,5,6,7,8].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(calls.length,0);
- await click('1장 만들기');assert.equal(calls[0].source.id,'p1');assert.equal(calls[0].kind,'expression');assert.equal(calls[0].targetGender,'male');assert.match(calls[0].prompt,/치아가 살짝 보이게/);assert.match(calls[0].prompt,/성인 남성/);assert.doesNotMatch(calls[0].prompt,/성인 여성/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));
+ await click('만들기');assert.equal(calls[0].source.id,'p1');assert.equal(calls[0].kind,'expression');assert.equal(calls[0].targetGender,'male');assert.match(calls[0].prompt,/치아가 살짝 보이게/);assert.match(calls[0].prompt,/성인 남성/);assert.doesNotMatch(calls[0].prompt,/성인 여성/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));
 });
 
 
@@ -340,7 +340,7 @@ test('keep-original is the expression default; alternatives replace it, other ca
  const {r,click,calls}=await open();const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'자연스러운 조명'}}));await click('쪼그려 앉기');
  const tab=label=>act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)===label).props.onClick());await tab('표정');const buttons=()=>r.root.findByProps({className:'photoPresetGrid'}).findAllByType('button');assert.equal(buttons()[0].props['aria-label'],'원본 유지');assert.equal(buttons()[0].props['aria-pressed'],true);assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],false,'no automatic neutral expression');assert.equal(field().props.value,'자연스러운 조명');
  await click('환한 미소');assert.equal(buttons()[0].props['aria-pressed'],false);assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);await click('환한 미소');assert.equal(buttons()[0].props['aria-pressed'],true,'unselecting returns to keep-original');await click('무표정');await click('원본 유지');assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],false,'keep-original clears the tab');await click('무표정');await tab('포즈');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],true);assert.equal(r.root.findByProps({'aria-label':'원본 유지'}).props['aria-pressed'],false);await tab('표정');assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],true);await click('여성');assert.equal(r.root.findByProps({'aria-label':'무표정'}).props['aria-pressed'],true);
- await click('1장 만들기');assert.equal(calls[0].kind,'combined');assert.deepEqual(calls[0].editKinds,['pose','expression']);assert.match(calls[0].prompt,/쪼그려/);assert.match(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/치아가 살짝/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));await click('사진 결정');await click('여성');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],false,'new draft starts in cosplay without an automatic costume selection');
+ await click('만들기');assert.equal(calls[0].kind,'combined');assert.deepEqual(calls[0].editKinds,['pose','expression']);assert.match(calls[0].prompt,/쪼그려/);assert.match(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/치아가 살짝/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));await click('사진 결정');await click('여성');assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],false,'new draft starts in cosplay without an automatic costume selection');
 });
 
 // 2026-11-13: storable reset tickets — shown with count and expiry, spending one refills today's count; off while nothing was used.
@@ -351,7 +351,7 @@ test('reset ticket: button refills the count, is off when unused, hidden without
  let r=await render({remaining:0,limit:10,resetTickets:{count:2,nextExpiresAt:'2026-12-13T00:00:00.000Z'}});
  assert.match(text(r.toJSON()),/리셋권 2장/);const [button]=find(r,'1장 써서');assert.equal(button.props.disabled,false);
  await act(async()=>{await button.props.onClick();});
- assert.equal(calls,1);assert.match(text(r.toJSON()),/보유 10개/);assert.match(text(r.toJSON()),/리셋권 1장을 사용했어요/);
+ assert.equal(calls,1);assert.match(text(r.toJSON()),/10장 보유/);assert.match(text(r.toJSON()),/리셋권 1장을 사용했어요/);
  r=await render({remaining:10,limit:10,resetTickets:{count:2,nextExpiresAt:null}});assert.equal(find(r,'1장 써서')[0].props.disabled,true,'nothing used today');
  r=await render({remaining:0,limit:10,resetTickets:{count:0,nextExpiresAt:null}});assert.equal(find(r,'1장 써서').length,0,'no tickets, no button');
 });
@@ -363,7 +363,7 @@ test('complete cosplay look: catalog hair and accessories reach the request afte
  const {r,calls,click}=await open({},true);
  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('general'));
  await click('리본 메이드');await click('일반 모드');
- await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mode,'general');assert.equal(calls[0].prompt,'의상 참조 사진 1의 코디를 적용해줘.\n생성 인물을 성인 여성으로 바꿔줘.');assert.deepEqual(calls[0].costumeIds,['773106']);
+ await click('만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mode,'general');assert.equal(calls[0].prompt,'의상 참조 사진 1의 코디를 적용해줘.\n생성 인물을 성인 여성으로 바꿔줘.');assert.deepEqual(calls[0].costumeIds,['773106']);
 });
 
 
@@ -391,19 +391,19 @@ test('costume references replace only catalog descriptions, preserve order and d
 test('same category replaces or toggles only its preset; other categories and mask persist',async()=>{
  const {r,click,calls}=await open();await click('코스어 모드');await click('리본 메이드');await click('사이버 슈트');
  assert.equal(r.root.findByProps({'aria-label':'리본 메이드'}).props['aria-pressed'],false);assert.equal(r.root.findByProps({'aria-label':'사이버 슈트'}).props['aria-pressed'],true);
- await click('옷 세부 지정');await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));await click('1장 만들기');assert.deepEqual(calls[0].costumeIds,['b4bf5d']);assert.equal(calls[0].mode,'cosplay');assert.equal(calls[0].kind,'outfit');
+ await click('옷 세부 지정');await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));await click('만들기');assert.deepEqual(calls[0].costumeIds,['b4bf5d']);assert.equal(calls[0].mode,'cosplay');assert.equal(calls[0].kind,'outfit');
  await click('설정 수정');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='메이크업').props.onClick());await click('코랄 립');await click('브라운 아이');assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],true,'2026-11-15: makeup is multi-select');assert.equal(r.root.findByProps({'aria-label':'브라운 아이'}).props['aria-pressed'],true);await click('브라운 아이');assert.equal(r.root.findByProps({'aria-label':'브라운 아이'}).props['aria-pressed'],false);assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],true);await click('원본 유지');assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],false);
  await click('코스어 모드');assert.equal(r.root.findByProps({'aria-label':'사이버 슈트'}).props['aria-pressed'],true);assert.equal(r.root.findByProps({'data-mask-editor':true}).props.strokes.length,1);
 });
 
 test('create availability: exhausted quota stays clickable and explains without sending, ticket restores generation',async()=>{
  const {r,click,calls}=await open({quota:{remaining:0,limit:10,resetTickets:{count:1,nextExpiresAt:null}},onUseTicket:async()=>({success:true,data:{remaining:10,limit:10,resetTickets:{count:0,nextExpiresAt:null},message:'횟수 복원'}})});
- const createButton=()=>r.root.find(n=>n.type==='button'&&n.props['aria-label']==='1장 만들기');
+ const createButton=()=>r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기');
  assert.equal(createButton().props.disabled,false);
- await click('1장 만들기');assert.equal(calls.length,0);assert.match(text(r.root.findByProps({'aria-label':'AI 사진 편집 안내'})),/리셋권/);
+ await click('만들기');assert.equal(calls.length,0);assert.match(text(r.root.findByProps({'aria-label':'AI 사진 편집 안내'})),/리셋권/);
  await click('확인');await click('1장 써서');
  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝게 웃어줘'}}));
- await click('1장 만들기');assert.equal(calls.length,1);
+ await click('만들기');assert.equal(calls.length,1);
 });
 
 
@@ -476,7 +476,7 @@ test('male body: four flat icons and ranges without photos, independent selectio
  await act(async()=>range('상체 근육').props.onChange({target:{value:'-2'}}));await act(async()=>range('하체 근육').props.onChange({target:{value:'2'}}));assert.equal(range('상체 근육').props.value,-2);
  await act(async()=>range('어깨 너비').props.onChange({target:{value:'-1'}}));assert.equal(range('하체 근육').props.value,2);await act(async()=>range('어깨 너비').props.onChange({target:{value:'0'}}));
  await act(async()=>range('상체 근육').props.onChange({target:{value:'1'}}));await click('여성');assert.deepEqual(sliders().map(n=>n.props['aria-label']),['가슴 크기','힙 크기','키 비율']);await click('남성');assert.ok(sliders().every(n=>n.props.value===0));
- assert.equal(calls.length,0);await act(async()=>range('하체 근육').props.onChange({target:{value:'-2'}}));await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'body');assert.match(calls[0].prompt,/허벅지·종아리의 하체 근육 볼륨을 좀 더 슬림하게/);assert.match(calls[0].prompt,/옷과 포즈는 유지/);assert.doesNotMatch(calls[0].prompt,/가슴 크기|힙 크기/);
+ assert.equal(calls.length,0);await act(async()=>range('하체 근육').props.onChange({target:{value:'-2'}}));await click('만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'body');assert.match(calls[0].prompt,/허벅지·종아리의 하체 근육 볼륨을 좀 더 슬림하게/);assert.match(calls[0].prompt,/옷과 포즈는 유지/);assert.doesNotMatch(calls[0].prompt,/가슴 크기|힙 크기/);
 });
 test('male body prompts and generated assets cover four categories and five levels',async()=>{
  const sharp=require('sharp'),fs=require('node:fs');
@@ -491,7 +491,7 @@ test('gender picker exposes only female and male reflects the explicit entry cho
 });
 
 test('result actions: only continue editing and confirm appear in the action row',async()=>{
- const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 조명'}}));await click('1장 만들기');
+ const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 조명'}}));await click('만들기');
  const buttons=r.root.findByProps({className:'resultActions'}).findAllByType('button');assert.deepEqual(buttons.map(text),['원본으로','계속 보정','사진 결정']);assert.doesNotMatch(text(r.toJSON()),/다시 만들기|이미지 편집|게시물에 추가/);await click('계속 보정');assert.equal(calls.length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'');
 });
 
@@ -539,11 +539,11 @@ test('clothing detail switch defaults off, sends no guide, and ignores retained 
  const {r,click,calls}=await open({},true);
  assert.equal(r.root.findByProps({role:'switch'}).props['aria-checked'],false);
  assert.equal(r.root.findAllByProps({'data-mask-editor':true}).length,0);
- await click('리본 메이드');maskCalls=[];await click('1장 만들기');
+ await click('리본 메이드');maskCalls=[];await click('만들기');
  assert.equal(calls[0].mask,undefined);assert.equal(maskCalls.length,0);assert.deepEqual(calls[0].costumeIds,['773106']);
- await click('설정 수정');await click('옷 세부 지정');await click('1장 만들기');assert.equal(calls.length,1);
+ await click('설정 수정');await click('옷 세부 지정');await click('만들기');assert.equal(calls.length,1);
  await act(async()=>r.root.findByProps({'data-mask-editor':true}).props.onChange([{size:.06,points:[{x:.5,y:.6}]}]));
- await click('옷 세부 지정');maskCalls=[];await click('1장 만들기');assert.equal(calls.length,2);assert.equal(calls[1].mask,undefined);assert.equal(maskCalls.length,0);
+ await click('옷 세부 지정');maskCalls=[];await click('만들기');assert.equal(calls.length,2);assert.equal(calls[1].mask,undefined);assert.equal(maskCalls.length,0);
 });
 
 
@@ -555,7 +555,7 @@ test('expanded pose, expression and camera selections accumulate and toggle inde
  await tab('표정');await search('도도한');await click('도도한 시선');
  await tab('구도');await search('뒤쪽');await click('뒤쪽 45도');
  await tab('포즈');await search('의자 거꾸로');assert.equal(r.root.findByProps({'aria-label':'의자 거꾸로 앉기'}).props['aria-pressed'],true);
- await tab('표정');await search('도도한');await click('도도한 시선');await click('1장 만들기');
+ await tab('표정');await search('도도한');await click('도도한 시선');await click('만들기');
  assert.equal(calls.length,1);assert.deepEqual(calls[0].editKinds,['pose','camera']);assert.match(calls[0].prompt,/거꾸로 앉아/);assert.match(calls[0].prompt,/뒤쪽 45도/);assert.doesNotMatch(calls[0].prompt,/도도|무표정/);
 });
 
@@ -574,13 +574,13 @@ test('posture buttons reset browsing but retain selected pose and other categori
  await click('쪼그려 앉기');await click('다음 프리셋 페이지');await search('없는 검색');await select('서기');assert.equal(r.root.findByProps({'aria-label':'프리셋 검색'}).props.value,'');assert.equal(r.root.findAllByProps({'aria-label':'쪼그려 앉기'}).length,0);
  await select('앉기');assert.equal(r.root.findByProps({'aria-label':'쪼그려 앉기'}).props['aria-pressed'],true);
  await select('서기');await search('다리 넓혀');await click('다리 넓혀 서기');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());assert.equal(r.root.findAllByProps({'aria-label':'포즈 자세'}).length,0);
- assert.equal(r.root.findByProps({'aria-label':'원본 유지'}).props['aria-pressed'],true);await click('1장 만들기');assert.equal(calls[0].kind,'pose');assert.match(calls[0].prompt,/어깨너비보다/);assert.doesNotMatch(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/쪼그려/);
+ assert.equal(r.root.findByProps({'aria-label':'원본 유지'}).props['aria-pressed'],true);await click('만들기');assert.equal(calls[0].kind,'pose');assert.match(calls[0].prompt,/어깨너비보다/);assert.doesNotMatch(calls[0].prompt,/무표정/);assert.doesNotMatch(calls[0].prompt,/쪼그려/);
 });
 
 
 test('waiting hearts never change requests; failure and success remove game, retry starts at zero',async()=>{
  const sent=[];let finish;const {r,click}=await open({onEdit:input=>{sent.push(input);return new Promise(resolve=>{finish=resolve;});}});
- await click('쪼그려 앉기');await click('1장 만들기');const original=JSON.stringify(sent[0]);
+ await click('쪼그려 앉기');await click('만들기');const original=JSON.stringify(sent[0]);
  const score=()=>text(r.root.findByProps({'aria-label':'모은 하트'}));assert.equal(score(),'0');
  await click('달 4');assert.equal(score(),'0');
  const first=r.root.findByProps({'aria-label':'하트 1 모으기'}).props.onClick;await act(async()=>{first();first();});assert.equal(score(),'1');
@@ -588,7 +588,7 @@ test('waiting hearts never change requests; failure and success remove game, ret
  assert.equal(score(),'2');assert.equal(sent.length,1);assert.equal(JSON.stringify(sent[0]),original);
  await act(async()=>finish({success:false,errorMessage:'생성 실패',errorCode:'PROVIDER_ERROR'}));
  assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/생성 실패/);
- await click('확인');await click('1장 만들기');assert.equal(score(),'0');assert.equal(sent.length,2);assert.equal(JSON.stringify(sent[1]),original);
+ await click('확인');await click('만들기');assert.equal(score(),'0');assert.equal(sent.length,2);assert.equal(JSON.stringify(sent[1]),original);
  await click('하트 1 모으기');assert.equal(score(),'1');await act(async()=>finish({success:true,data:{images:[{id:'done',type:'image',url:'/done.png'}],remaining:9}}));
  assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/사진 결정/);assert.match(text(r.toJSON()),/사진이 완성됐어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 1개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/1\/100/);assert.match(text(r.toJSON()),/100개가 모이면 이용권 10개를 받아요/);assert.equal(sent.length,2);
 });
@@ -602,21 +602,21 @@ test('body continuous range keeps intermediate values, snaps near anchors and ke
  await act(async()=>range().props.onChange({target:{value:'.95'}}));assert.equal(range().props.value,1);
  let prevented=false;await act(async()=>range().props.onKeyDown({key:'ArrowRight',preventDefault(){prevented=true;}}));assert.ok(prevented);assert.equal(range().props.value,1.02);
  await act(async()=>range().props.onKeyDown({key:'Home',preventDefault(){}}));assert.equal(range().props.value,-2);
- await act(async()=>range().props.onChange({target:{value:'.37'}}));await click('1장 만들기');assert.match(calls[0].prompt,/18.5/);
+ await act(async()=>range().props.onChange({target:{value:'.37'}}));await click('만들기');assert.match(calls[0].prompt,/18.5/);
 });
 
  test('entry requires an explicit gender before showing edit controls and sends the choice',async()=>{
- for(const [label,value] of [['남성','male'],['여성','female']]){let r,request;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit:async input=>{request=input;return {success:false,errorMessage:'대역 실패'};},onAdd(){}}));});assert.match(text(r.toJSON()),/남성인가요, 여성인가요/);assert.equal(r.root.findAllByType('textarea').length,0);assert.equal(r.root.findAll(n=>n.props['aria-label']==='1장 만들기').length,0);await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes(label)).props.onClick());assert.equal(r.root.findAllByType('textarea').length,1);const group=r.root.findByProps({'aria-label':'생성 인물 성별'});assert.equal(group.find(n=>n.type==='button'&&text(n)===label).props['aria-pressed'],true);await act(async()=>r.root.findByProps({'aria-label':'1장 만들기'}).props.onClick());assert.equal(request.targetGender,value);await act(async()=>r.unmount());}
+ for(const [label,value] of [['남성','male'],['여성','female']]){let r,request;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit:async input=>{request=input;return {success:false,errorMessage:'대역 실패'};},onAdd(){}}));});assert.match(text(r.toJSON()),/남성인가요, 여성인가요/);assert.equal(r.root.findAllByType('textarea').length,0);assert.equal(r.root.findAll(n=>n.props['aria-label']==='만들기').length,0);await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes(label)).props.onClick());assert.equal(r.root.findAllByType('textarea').length,1);const group=r.root.findByProps({'aria-label':'생성 인물 성별'});assert.equal(group.find(n=>n.type==='button'&&text(n)===label).props['aria-pressed'],true);await act(async()=>r.root.findByProps({'aria-label':'만들기'}).props.onClick());assert.equal(request.targetGender,value);await act(async()=>r.unmount());}
  });
 
-test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('이용권 구매');assert.equal(calls.length,0);assert.equal(refresh,1);assert.equal(r.root.findAllByProps({'aria-label':'AI 이용권 구매'}).length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'보존할 편집 내용');});
+test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('만들기');assert.equal(calls.length,0);assert.equal(refresh,1);assert.equal(r.root.findAllByProps({'aria-label':'AI 이용권 구매'}).length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'보존할 편집 내용');});
 
 test('Overwatch has six nine-card pages; Roadhog search preserves its reference selection',async()=>{
- const {r,click,calls}=await open({},true);await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('overwatch'));assert.match(text(r.toJSON()),/54종/);assert.match(text(r.toJSON()),/1 \/ 6/);await click('로드호그 코스튬');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(r.root.findByProps({'aria-label':'로드호그 코스튬'}).props['aria-pressed'],true);await click('1장 만들기');const c=loadTypeScript('lib/crefans/ai-photo-costumes.ts').aiPhotoCostumes.find(x=>x.name==='로드호그 코스튬');assert.deepEqual(calls[0].costumeIds,[c.id]);assert.doesNotMatch(calls[0].prompt,/방독면|갈고리/);
+ const {r,click,calls}=await open({},true);await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('overwatch'));assert.match(text(r.toJSON()),/54종/);assert.match(text(r.toJSON()),/1 \/ 6/);await click('로드호그 코스튬');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(r.root.findByProps({'aria-label':'로드호그 코스튬'}).props['aria-pressed'],true);await click('만들기');const c=loadTypeScript('lib/crefans/ai-photo-costumes.ts').aiPhotoCostumes.find(x=>x.name==='로드호그 코스튬');assert.deepEqual(calls[0].costumeIds,[c.id]);assert.doesNotMatch(calls[0].prompt,/방독면|갈고리/);
 });
 
 test('shooting concepts replace Canon choices and retain other selected edits',async()=>{
- const {r,click,calls}=await open();await click('쪼그려 앉기');await click('촬영컨셉');assert.doesNotMatch(text(r.toJSON()),/캐논|RF85|렌즈/);for(const name of ['셀카 폰카(정면)','거울샷','DSLR','대포카메라'])assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']===name).length,1);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],true);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],false);await click('DSLR');await click('1장 만들기');assert.ok(calls[0].editKinds.includes('pose'));assert.ok(calls[0].editKinds.includes('lens'));assert.match(calls[0].prompt,/DSLR/);assert.match(calls[0].prompt,/쪼그려/);
+ const {r,click,calls}=await open();await click('쪼그려 앉기');await click('촬영컨셉');assert.doesNotMatch(text(r.toJSON()),/캐논|RF85|렌즈/);for(const name of ['셀카 폰카(정면)','거울샷','DSLR','대포카메라'])assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']===name).length,1);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],true);await click('거울샷');assert.equal(r.root.findByProps({'aria-label':'거울샷'}).props['aria-pressed'],false);await click('DSLR');await click('만들기');assert.ok(calls[0].editKinds.includes('pose'));assert.ok(calls[0].editKinds.includes('lens'));assert.match(calls[0].prompt,/DSLR/);assert.match(calls[0].prompt,/쪼그려/);
 });
 
 test('background subcategories show ninety-eight indoor and forty-four outdoor presets and preserve selection',async()=>{
@@ -624,7 +624,7 @@ test('background subcategories show ninety-eight indoor and forty-four outdoor p
  const indoor=aiPhotoPresetPage('background',9,'female','',undefined,'indoor'),outdoor=aiPhotoPresetPage('background',0,'female','',undefined,'outdoor');
  assert.equal(indoor.total,98);assert.equal(indoor.index,9);assert.equal(outdoor.total,44);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['원본 유지','햇살 공원','벚꽃길','노을 바다','도시 야경','도심 광장 야경','야경 테라스 난간','햇살 석조 테라스','노을 자갈 해변']);
  assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'indoor').total,3);assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'outdoor').total,0);
- const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('1장 만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
+ const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
 });
 
 test('share sends the result as a PNG file to the system share sheet, ignores cancel, falls back to saving, and reports failure',async()=>{
@@ -634,7 +634,7 @@ test('share sends the result as a PNG file to the system share sheet, ignores ca
  const setNavigator=value=>Object.defineProperty(globalThis,'navigator',{value,configurable:true,writable:true});
  try{global.fetch=async url=>{assert.equal(url,'/a1.png');return {ok:true,blob:async()=>bytes}};global.document={createElement:tag=>tag==='canvas'?canvas:link,body:{appendChild(){}}};URL.createObjectURL=blob=>{saved=blob;return 'blob:x'};URL.revokeObjectURL=()=>{};global.setTimeout=fn=>{fn();return 0};
  setNavigator({canShare:({files})=>files.every(f=>f.type==='image/png'),share:async data=>{if(cancel){const e=new Error('cancel');e.name='AbortError';throw e;}shared.push(data);}});
- const {r,click}=await open();await click('1장 만들기');await click('결과 1 공유');
+ const {r,click}=await open();await click('만들기');await click('결과 1 공유');
  assert.equal(shared.length,1);assert.equal(shared[0].text,'이거 AI로 옷만 바꾼 거임 😳\n나도 해 보기 → https://crefans.com/service/try\n(AI 생성 이미지)');const file=shared[0].files[0];assert.equal(file.name,'crefans-ai-a1.png');assert.equal(file.type,'image/png');assert.equal(await file.text(),'png');assert.deepEqual(drawn,[640,800,0,0]);assert.equal(clicked,0,'no download when sharing works');assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);
  cancel=true;await click('결과 1 공유');assert.doesNotMatch(text(r.toJSON()),/공유하지 못했어요/);cancel=false;
  setNavigator({});await click('결과 1 공유');assert.equal(clicked,1);assert.equal(saved.type,'image/png');assert.equal(link.download,'crefans-ai-a1.png');
@@ -643,41 +643,41 @@ test('share sends the result as a PNG file to the system share sheet, ignores ca
 
 test('share failure shows the error dialog text and keeps the result selection',async()=>{
  const previous={fetch:global.fetch,navigator:Object.getOwnPropertyDescriptor(globalThis,'navigator')};
- try{Object.defineProperty(globalThis,'navigator',{value:{},configurable:true,writable:true});const {r,click}=await open();await click('1장 만들기');global.fetch=async()=>({ok:false});await click('결과 1 공유');assert.match(text(r.toJSON()),/공유하지 못했어요/);assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);}
+ try{Object.defineProperty(globalThis,'navigator',{value:{},configurable:true,writable:true});const {r,click}=await open();await click('만들기');global.fetch=async()=>({ok:false});await click('결과 1 공유');assert.match(text(r.toJSON()),/공유하지 못했어요/);assert.equal(r.root.findByProps({'aria-label':'결과 1'}).props['aria-pressed'],true);}
  finally{global.fetch=previous.fetch;if(previous.navigator)Object.defineProperty(globalThis,'navigator',previous.navigator);}
 });
 
 test('viewer ignores pinch and cancelled pointer gestures while permitting browser zoom',async()=>{
  const fs=require('node:fs');assert.match(fs.readFileSync('components/crefans/studio/ai-photo.module.css','utf8'),/\.viewer\{[^}]*touch-action:pan-x pan-y pinch-zoom/);
- const {r,click}=await open({onEdit:async()=>({success:true,data:{images:[{id:'a1',url:'/a1.png',type:'image'},{id:'a2',url:'/a2.png',type:'image'}],remaining:9}})});await click('1장 만들기');await click('결과 1 크게 보기');const v=()=>r.root.find(n=>n.props.role==='group'&&n.props['aria-label']==='결과 1 크게 보기');
+ const {r,click}=await open({onEdit:async()=>({success:true,data:{images:[{id:'a1',url:'/a1.png',type:'image'},{id:'a2',url:'/a2.png',type:'image'}],remaining:9}})});await click('만들기');await click('결과 1 크게 보기');const v=()=>r.root.find(n=>n.props.role==='group'&&n.props['aria-label']==='결과 1 크게 보기');
  await act(async()=>{v().props.onPointerDown({pointerId:1,clientX:200});v().props.onPointerDown({pointerId:2,clientX:100});v().props.onPointerUp({pointerId:2,clientX:0});v().props.onPointerUp({pointerId:1,clientX:0});});assert.match(text(v()),/결과 1 \/ 2/);
  await act(async()=>{v().props.onPointerDown({pointerId:1,clientX:200});v().props.onPointerCancel({pointerId:1});v().props.onPointerUp({pointerId:1,clientX:0});});assert.match(text(v()),/결과 1 \/ 2/);
 });
 
 test('signed-in heart game submits pieces not scores and shows cumulative conversion',async()=>{
  const actions=[];const {r,click,calls}=await open({quota:{remaining:10,limit:10,hearts:85},onHeartGame:async input=>{actions.push(input);return {success:true,data:input.action==='start'?{id:'game1',kinds:['heart','candy','heart','moon','heart']}:input.action==='finish'?{earned:30,hearts:5,credits:11,converted:11}:{score:1}};}});
- await click('1장 만들기');assert.equal(calls[0].heartGameId,'game1');assert.deepEqual(actions.map(x=>x.action),['start','finish']);assert.match(text(r.toJSON()),/하트 110개를 이용권 11개로 바꿨어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 5개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/5\/100/);assert.doesNotMatch(text(r.toJSON()),/30\/100/);assert.ok(actions.every(x=>!('score' in x)));
+ await click('만들기');assert.equal(calls[0].heartGameId,'game1');assert.deepEqual(actions.map(x=>x.action),['start','finish']);assert.match(text(r.toJSON()),/하트 110개를 이용권 11개로 바꿨어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 5개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/5\/100/);assert.doesNotMatch(text(r.toJSON()),/30\/100/);assert.ok(actions.every(x=>!('score' in x)));
 });
 
 test('continue editing preserves selected cosplay or general mode in UI and next request',async()=>{
  for(const [label,mode] of [['코스어 모드','cosplay'],['일반 모드','general']]){
-  const {r,click,calls}=await open();await click(label);await click('1장 만들기');await click('계속 보정');
+  const {r,click,calls}=await open();await click(label);await click('만들기');await click('계속 보정');
   const group=r.root.findByProps({'aria-label':'편집 모드'});assert.equal(group.find(n=>n.type==='button'&&text(n).includes(label)).props['aria-pressed'],true);assert.equal(calls.length,1);
-  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'자연스러운 미소'}}));await click('1장 만들기');assert.equal(calls[1].mode,mode);assert.equal(calls[1].source.id,'a1');await act(async()=>r.unmount());
+  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'자연스러운 미소'}}));await click('만들기');assert.equal(calls[1].mode,mode);assert.equal(calls[1].source.id,'a1');await act(async()=>r.unmount());
  }
 });
 
 test('original action returns to the correct uploaded photo after chained edits without generating',async()=>{
  const second={id:'p2',type:'image',url:'/p2.png'};let made=0;const {r,click,calls}=await open({images:[photo,second],onEdit:async input=>{calls.push(input);return {success:true,data:{images:[{id:'chain-'+(++made),type:'image',url:'/generated.png'}],remaining:9}};}},true);
- await click('사진 선택');await act(async()=>r.root.findByProps({'aria-label':'2번 사진'}).props.onClick());await click('1장 만들기');await click('계속 보정');
- await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'미소'}}));await click('1장 만들기');assert.equal(calls[1].source.id,'chain-1');await click('원본으로');assert.equal(calls.length,2);
+ await click('사진 선택');await act(async()=>r.root.findByProps({'aria-label':'2번 사진'}).props.onClick());await click('만들기');await click('계속 보정');
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'미소'}}));await click('만들기');assert.equal(calls[1].source.id,'chain-1');await click('원본으로');assert.equal(calls.length,2);
  const mode=r.root.findByProps({'aria-label':'편집 모드'});assert.equal(mode.find(n=>n.type==='button'&&text(n).includes('코스어 모드')).props['aria-pressed'],true);
- await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 배경'}}));await click('1장 만들기');assert.equal(calls[2].source.id,'p2');await act(async()=>r.unmount());
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 배경'}}));await click('만들기');assert.equal(calls[2].source.id,'p2');await act(async()=>r.unmount());
 });
 
 test('ratio choice travels to generation; crop replaces selected media for decision and keeps AI mark',async()=>{
  const cropCalls=[];const {r,calls,added,click}=await open({onCrop:async input=>{cropCalls.push(input);return {success:true,data:{id:'cropped',type:'image',url:'/cropped.webp',aiGenerated:true}};}});
- await click('4:5');await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'앉은 포즈'}}));await click('1장 만들기');assert.equal(calls[0].aspectRatio,'4:5');
+ await click('4:5');await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'앉은 포즈'}}));await click('만들기');assert.equal(calls[0].aspectRatio,'4:5');
  await click('결과 1 자르기');await act(async()=>r.root.findByProps({alt:'자르기 미리보기'}).props.onLoad({currentTarget:{naturalWidth:1000,naturalHeight:1500}}));
  await click('1:1');await click('자르기 적용');assert.deepEqual(cropCalls,[{sourceId:'a1',left:0,top:250,width:1000,height:1000}]);
  assert.ok(r.root.findAll(n=>n.type==='img'&&n.props.src==='/cropped.webp').length);await click('사진 결정');assert.equal(added[0].id,'cropped');assert.equal(added[0].aiGenerated,true);
@@ -685,7 +685,7 @@ test('ratio choice travels to generation; crop replaces selected media for decis
 
 test('crop failure preserves original result and supports cancel',async()=>{
  const {r,added,click}=await open({onCrop:async()=>({success:false,errorMessage:'저장 실패'})});
- await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'앉은 포즈'}}));await click('1장 만들기');await click('결과 1 자르기');
+ await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'앉은 포즈'}}));await click('만들기');await click('결과 1 자르기');
  await act(async()=>r.root.findByProps({alt:'자르기 미리보기'}).props.onLoad({currentTarget:{naturalWidth:1000,naturalHeight:1500}}));await click('자르기 적용');assert.match(text(r.toJSON()),/저장 실패/);await click('취소');await click('사진 결정');assert.equal(added[0].id,'a1');
 });
 
@@ -701,9 +701,9 @@ test('personal references select independently across categories, toggle off and
  const library={list:async()=>({success:true,data:{items:[],hasMore:false}}),upload:async()=>{},save:async()=>{},remove:async()=>{}};
  const {r,calls,click}=await open({library});const panel=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
  const pose={id:'private-pose',type:'image',url:'/pose.png',title:'앉기 참고',category:'pose'},bg={id:'private-bg',type:'image',url:'/bg.png',title:'공원 참고',category:'background'};
- await act(async()=>{panel().props.onSelect(pose);});await act(async()=>{panel().props.onSelect(bg);});await click('1장 만들기');assert.deepEqual(calls[0].libraryIds,['private-pose','private-bg']);assert.deepEqual(calls[0].editKinds,['pose','background']);
+ await act(async()=>{panel().props.onSelect(pose);});await act(async()=>{panel().props.onSelect(bg);});await click('만들기');assert.deepEqual(calls[0].libraryIds,['private-pose','private-bg']);assert.deepEqual(calls[0].editKinds,['pose','background']);
  await click('설정 수정');await act(async()=>panel().props.onSelect(pose));assert.equal(r.root.findAllByProps({'aria-label':'앉기 참고 선택 해제'}).length,0);assert.equal(r.root.findAllByProps({'aria-label':'공원 참고 선택 해제'}).length,1);
- await act(async()=>panel().props.onSelect(pose));await click('의자에 앉기');await click('1장 만들기');assert.deepEqual(calls[1].libraryIds,['private-bg']);await click('설정 수정');await act(async()=>panel().props.onChanged('private-bg'));assert.equal(r.root.findAllByProps({'aria-label':'공원 참고 선택 해제'}).length,0);
+ await act(async()=>panel().props.onSelect(pose));await click('의자에 앉기');await click('만들기');assert.deepEqual(calls[1].libraryIds,['private-bg']);await click('설정 수정');await act(async()=>panel().props.onChanged('private-bg'));assert.equal(r.root.findAllByProps({'aria-label':'공원 참고 선택 해제'}).length,0);
 });
 
 test('library metadata removal clears selection and library entry exists before a source is uploaded',async()=>{
@@ -721,12 +721,12 @@ test('public background catalog is searchable indoors and selection sends image 
  for(const item of aiPhotoBackgrounds){assert.equal(presets.aiPhotoBackgroundCategory(item.prompt),item.category);assert.ok(presets.aiPhotoPresetPage('background',0,'female',item.title,undefined,item.category).examples.includes(item.prompt));assert.ok(fs.existsSync('public'+presets.aiPhotoPresetImage('background',item.prompt)));}
  const {r,click,calls}=await open();await click('배경');
  await act(async()=>r.root.find(n=>n.type==='input'&&n.props.placeholder?.includes('검색')).props.onChange({target:{value:'차분한 침실'}}));
- await click('차분한 침실');await click('차분한 침실');assert.equal(r.root.findByProps({'aria-label':'차분한 침실'}).props['aria-pressed'],false);await click('차분한 침실');await click('1장 만들기');assert.equal(calls[0].backgroundId,'b7a101');assert.equal(calls[0].kind,'background');
+ await click('차분한 침실');await click('차분한 침실');assert.equal(r.root.findByProps({'aria-label':'차분한 침실'}).props['aria-pressed'],false);await click('차분한 침실');await click('만들기');assert.equal(calls[0].backgroundId,'b7a101');assert.equal(calls[0].kind,'background');
 });
 
 test('all 33 supplied photos map to valid public poses and nine new poses send their matching prompt',async()=>{
  const mapping=require('../docs/audit/pose-source-classification-20261114.json').mapping;const {aiPhotoPresets,aiPhotoPresetTitle,aiPhotoPosePosture}=loadTypeScript('lib/crefans/ai-photo-presets.ts');assert.equal(mapping.length,33);assert.equal(new Set(mapping.map(x=>x.batch+':'+x.photo)).size,33);for(const m of mapping)assert.ok(aiPhotoPresetTitle('pose',aiPhotoPresets.pose[m.poseNumber-1]));
- for(let n=31;n<=39;n++){const value=aiPhotoPresets.pose[n-1],title=aiPhotoPresetTitle('pose',value);const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'포즈 자세'}).find(n=>n.type==='button'&&text(n)===(aiPhotoPosePosture(value)==='sitting'?'앉기':'서기')).props.onClick());await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:title}}));await click(title);await click(title);assert.equal(r.root.findByProps({'aria-label':title}).props['aria-pressed'],false);await click(title);await click('1장 만들기');assert.ok(calls[0].prompt.includes(value));await act(async()=>r.unmount());}
+ for(let n=31;n<=39;n++){const value=aiPhotoPresets.pose[n-1],title=aiPhotoPresetTitle('pose',value);const {r,click,calls}=await open();await act(async()=>r.root.findByProps({'aria-label':'포즈 자세'}).find(n=>n.type==='button'&&text(n)===(aiPhotoPosePosture(value)==='sitting'?'앉기':'서기')).props.onClick());await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:title}}));await click(title);await click(title);assert.equal(r.root.findByProps({'aria-label':title}).props['aria-pressed'],false);await click(title);await click('만들기');assert.ok(calls[0].prompt.includes(value));await act(async()=>r.unmount());}
 });
 
 test('every costume card shows its original character gender (female pink, male blue, unspecified both)',async()=>{
@@ -755,7 +755,7 @@ test('general mode outfit tab splits 상의/하의 by the chosen gender and keep
  assert.deepEqual(titles(),aiPhotoOutfits.filter(o=>o.gender==='female'&&o.part==='bottom').map(o=>o.name));
  await click('일자 청바지');await click('부츠컷 청바지');
  assert.equal(r.root.findByProps({'aria-label':'부츠컷 청바지'}).props['aria-pressed'],true);assert.equal(r.root.findByProps({'aria-label':'일자 청바지'}).props['aria-pressed'],false);
- await click('1장 만들기');const blouse=aiPhotoOutfits.find(o=>o.name==='화이트 블라우스').prompt,boot=aiPhotoOutfits.find(o=>o.name==='부츠컷 청바지').prompt;
+ await click('만들기');const blouse=aiPhotoOutfits.find(o=>o.name==='화이트 블라우스').prompt,boot=aiPhotoOutfits.find(o=>o.name==='부츠컷 청바지').prompt;
  assert.ok(calls[0].prompt.includes(blouse),calls[0].prompt);assert.ok(calls[0].prompt.includes(boot));assert.doesNotMatch(calls[0].prompt,/일자 청바지|하이웨이스트 일자/);assert.equal(calls[0].style,'photo');
 });
 
@@ -765,7 +765,7 @@ test('switching the person to male drops female tops/bottoms and shows male ones
  await click('화이트 블라우스');await act(async()=>r.root.find(n=>n.type==='button'&&text(n)==='남성').props.onClick());
  const titles=r.root.findAll(n=>n.type==='button'&&n.props.className==='preset').map(n=>n.props['aria-label']);
  assert.deepEqual(titles,aiPhotoOutfits.filter(o=>o.gender==='male'&&o.part==='top').map(o=>o.name));
- await click('옥스퍼드 셔츠');await click('1장 만들기');assert.doesNotMatch(calls[0].prompt,/블라우스/);assert.match(calls[0].prompt,/옥스퍼드/);
+ await click('옥스퍼드 셔츠');await click('만들기');assert.doesNotMatch(calls[0].prompt,/블라우스/);assert.match(calls[0].prompt,/옥스퍼드/);
 });
 
 // 2026-11-15: every tab except outfit (and the body sliders, whose centre already reads 원본 유지) leads with a selected 원본 유지 card that sends nothing.
@@ -803,7 +803,7 @@ test('guest can play while generating without reward API or conversion claims',a
  let finish;const sent=[],actions=[];
  const {r,click}=await open({noHearts:true,onHeartGame:async input=>{actions.push(input);throw Error('guest must not call rewards');},onEdit:input=>{sent.push(input);return new Promise(resolve=>{finish=resolve;});}});
  try{
- await click('쪼그려 앉기');await click('1장 만들기');
+ await click('쪼그려 앉기');await click('만들기');
  assert.match(text(r.toJSON()),/체험 게임이에요/);
  await click('하트 1 모으기');assert.equal(text(r.root.findByProps({'aria-label':'모은 하트'})),'1');
  await click('별사탕 2');assert.equal(text(r.root.findByProps({'aria-label':'모은 하트'})),'0');
@@ -820,7 +820,7 @@ test('guest can play while generating without reward API or conversion claims',a
 test('guest with no tries left is offered signup; members still see the 9 AM refill',async()=>{
  const make=async noHearts=>{let r,calls=0;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:0,limit:10},room:9,noHearts,onEdit:async()=>{calls++;return {success:false};},onAdd(){}}));});
   await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes('여성')).props.onClick());
-  await act(async()=>{await r.root.find(n=>n.type==='button'&&text(n).includes(noHearts?'회원가입 안내':'1장 만들기')).props.onClick();});return {r,calls:()=>calls};};
+  await act(async()=>{await r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});return {r,calls:()=>calls};};
  const guest=await make(true);const shown=text(guest.r.toJSON());
  assert.match(shown,/체험 이용권을 모두 썼어요\. 회원가입하면 매일 무료로 계속 만들 수 있어요\./);assert.doesNotMatch(shown,/오전 9시/);assert.equal(guest.calls(),0);
  assert.equal(guest.r.root.findAll(n=>n.props?.href==='/service/signup').length>=1,true,'signup link');
@@ -829,7 +829,7 @@ test('guest with no tries left is offered signup; members still see the 9 AM ref
 
 // 2026-11-17 user decision: generation requests carry the chosen preset titles so the server can count HOT presets.
 test('generation request lists chosen preset titles for usage stats (not outfit or reference backgrounds)',async()=>{
- const {r,click,calls}=await open();await click('쪼그려 앉기');await click('1장 만들기');
+ const {r,click,calls}=await open();await click('쪼그려 앉기');await click('만들기');
  assert.deepEqual(calls[0].presetKeys,[{kind:'pose',key:'쪼그려 앉기'}]);
  const {aiPhotoEditBody}=loadTypeScript('features/service/useStudioModel.ts',{'@/lib/api/client':{api:async()=>({success:true})}});
  const body=aiPhotoEditBody({source:{id:'s1'},prompt:'p',kind:'pose',editKinds:['pose'],consent:true,presetKeys:[{kind:'pose',key:'쪼그려 앉기'}]});
@@ -859,9 +859,9 @@ test('2026-11-18: picking a game/anime costume shows the one-line commercial-use
 
 test('deciding a repeatedly edited photo replaces only its initial source',async()=>{
  let replacement,count=0;const {r,click}=await open({images:[photo,{id:'other',type:'image',url:'/other.png'}],onEdit:async()=>({success:true,data:{images:[{id:`result-${++count}`,type:'image',url:`/result-${count}.png`}],remaining:8}}),onAdd:(made,context,ids)=>{replacement={made,ids};}});
- await click('1장 만들기');assert.equal(replacement,undefined);
+ await click('만들기');assert.equal(replacement,undefined);
  await click('계속 보정');assert.equal(replacement,undefined);
- await click('여성');await click('1장 만들기');await click('사진 결정');
+ await click('여성');await click('만들기');await click('사진 결정');
  assert.deepEqual(replacement.ids,['p1']);assert.equal(replacement.made[0].id,'result-2');
 });
 
@@ -876,14 +876,15 @@ test('generation methods: member and guest submit the chosen tier, display fract
   assert.doesNotMatch(text(r.root.findByProps({className:'footer'})),/seedream|byteplus|flash|pro/i);
   for(const [value,cost,left] of [['precise',2,1.5],['standard',1,0.5],['fast',0.5,0]]){
    await act(async()=>radio(value).props.onChange());
-   assert.match(text(r.root.findByProps({className:'createLabel'})),new RegExp(cost+'개 사용'));
-   await click('1장 만들기');
+   assert.equal(text(r.root.findByProps({className:'createLabel'})),'만들기');
+   assert.ok(radio(value).props['aria-label'].endsWith(`이용권 ${cost}개`));
+   await click('만들기');
    await act(async()=>{await pending;});
    assert.equal(submitted.at(-1).get('generationMethod'),value);
    assert.equal(submitted.at(-1).has('model'),false);
    await click('설정 수정');
    assert.equal(radio(value).props.checked,true);
-   assert.equal(text(r.root.findByProps({className:'createQuota'})),`보유 ${left}개`);
+   assert.equal(text(r.root.findByProps({className:'createQuota'})),`${left}장 보유`);
   }
   assert.equal(submitted.length,3);
   await act(async()=>r.unmount());
@@ -898,14 +899,14 @@ test('generation methods: 0.5 left is enough for fast; other tiers route to the 
   const choose=async value=>act(async()=>r.root.find(n=>n.type==='input'&&n.props.type==='radio'&&n.props.value===value).props.onChange());
   await choose('precise');
   assert.equal(text(r.root.findByProps({className:'methodShortage'})),'이용권이 1.5개 더 필요해요.');
-  await click(noHearts?'회원가입 안내':'이용권 구매');
+  await click('만들기');
   const notice=r.root.findByProps({'aria-label':noHearts?'AI 사진 편집 안내':'AI 이용권 구매'});
   if(noHearts)assert.match(text(notice),/빠르게로 바꾸거나 회원가입/);else assert.equal(refreshes,1);
   assert.equal(requests,0);
   await act(async()=>notice.props.onClose());
-  await choose('fast');await click('1장 만들기');
+  await choose('fast');await click('만들기');
   assert.equal(requests,1);
-  assert.equal(text(r.root.findByProps({className:'createQuota'})),'보유 0.5개');
+  assert.equal(text(r.root.findByProps({className:'createQuota'})),'0.5장 보유');
   await act(async()=>r.unmount());
  }
 });

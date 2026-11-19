@@ -23,7 +23,7 @@ import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPho
 import Image from 'next/image';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {aiPhotoSelectionLabels,type AiPhotoCaptionContext} from '@/lib/crefans/ai-photo-labels';
-import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
+import {AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
 import {Action,ActionLink} from '../ServiceUI';
 import {useCurrentSignupHref} from '../useCurrentLoginHref';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
@@ -115,7 +115,6 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
  const [publishOffer,setPublishOffer]=useState(false),publishOfferShown=useRef(false);
  const shortage=Math.max(0,method.cost-remaining);
- const createLabel=shortage>0&&shop?'이용권 구매':shortage>0&&publishReward?'이용권 더 받기':shortage>0&&noHearts?'회원가입 안내':`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`;
  useEffect(()=>{if(typeof navigator!=='undefined'&&typeof navigator.share==='function')for(const item of results)void photoFile(item).catch(()=>{});},[results]);// eslint-disable-line react-hooks/exhaustive-deps
  const [heartGame,setHeartGame]=useState<{id:string;kinds:('heart'|'candy'|'moon')[]}|null>(null),[heartBalance,setHeartBalance]=useState(quota.hearts||0),[rewardNote,setRewardNote]=useState('');
  const heartQueue=useRef(Promise.resolve()),gameEvent=useRef(0);
@@ -250,7 +249,9 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
       <span><strong>{option.label}</strong><small>{option.cost}개</small></span>
      </label>)}
     </div>
-    <Action type="button" className={s.createWithQuota} aria-label={createLabel} aria-describedby={`${panelId}-remaining ${panelId}-${shortage===0?'cost':'shortage'}`} onClick={()=>void generate()} disabled={busy}><span className={s.createLabel}>{createLabel}{shortage===0&&<small id={`${panelId}-cost`}> · {method.cost}개 사용</small>}</span><span id={`${panelId}-remaining`} className={s.createQuota}>보유 {remaining}개</span></Action>
+    <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>void generate()} disabled={busy}>
+     <span className={s.createLabel}>만들기</span><span id={`${panelId}-remaining`} className={s.createQuota}>{remaining}장 보유</span>
+    </Action>
     {shortage>0&&<p id={`${panelId}-shortage`} role="status" className={s.methodShortage}>이용권이 {shortage}개 더 필요해요.</p>}
    </div>}
   </>}

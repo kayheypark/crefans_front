@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-19T05:28:10.662592+00:00",
+  "checkedAt": "2026-11-19T05:33:01.498211+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,7 +30,7 @@
   ],
   "repositories": {
     "front": {
-      "head": "c2cb37aee481d75305618ae3eae8e6b48f03fdb2",
+      "head": "267e89e72e44d3e9a473fdedceab2afb47957f21",
       "branch": "feat/guest-publish-credit",
       "dirty": true
     },
@@ -43,7 +43,7 @@
   "state": {
     "documents": {
       "front/AGENTS.md": "03264583992bf8e5bb434bcf747f4c9d7d9c75c1c75d98c674a2014e2fc3efd5",
-      "front/PROGRESS.md": "c95a4c3ac0c6e7bf0e776152d60f85064b1c753fc284436edff913997eba3745",
+      "front/PROGRESS.md": "ab569ae810ba553d4a1ac96b9a973734364dbbe8469d52d2c16e749d85c097ca",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -308,7 +308,7 @@
       "front/components/crefans/studio/AiBodyAdjustments.tsx": "15a8d14bef3200c0fe073a876bc996d34d5cffcba6296926ccba6e7ce775c3b5",
       "front/components/crefans/studio/AiPhotoCategoryIcon.tsx": "056c217329210061cee65cdf396278e1d5d148bf413a7195e857e97cd9fcc8a4",
       "front/components/crefans/studio/AiPhotoCrop.tsx": "d26a8711219c0cdb4f181d319fd32df6303b753ae4ee2fe7bd776e111b9a7b90",
-      "front/components/crefans/studio/AiPhotoDialog.tsx": "9eec4f082f764e77dfd942006c623aa5f3d4d2b1448d37e0d5f459a15da01334",
+      "front/components/crefans/studio/AiPhotoDialog.tsx": "29e88038acf72f1704941e6fb1a0aac220f6bd279739efa8156164dd3c6c4f39",
       "front/components/crefans/studio/AiPhotoLibrary.tsx": "62e9c9b6f43e8740e90e4b27ca7fc0389699022012884f98c53ba2d1b5b98f27",
       "front/components/crefans/studio/AiPhotoMask.tsx": "46a9346a92bf36774e43d0959567f49bc0c3ee8024729f4172423acb23e32449",
       "front/components/crefans/studio/AiPhotoWaiting.tsx": "e6d630c83fefa87436d7d4460b7fc147b328a56b97c94bba1f96b3d30be09f1d",
@@ -328,7 +328,7 @@
       "front/components/crefans/studio/StudioShell.tsx": "026354aa5fd91de4dc501ecb361600200ecf5532586de5d2c8a03d7d2381f715",
       "front/components/crefans/studio/WithdrawalSecurityPage.tsx": "2843536dd513f2a6f61ed32bf09bb6e005d1cbdf601fba75f6db5691f5da2bb6",
       "front/components/crefans/studio/advertising.module.css": "2162096ec06a62a521875053216ad642e6257c9b82fd15550849b4aaa8af6cff",
-      "front/components/crefans/studio/ai-photo.module.css": "6523bb83870d5f980b61458a8c4dbe846c09f7a324cf1dfe28abac87aebc36e4",
+      "front/components/crefans/studio/ai-photo.module.css": "d39bb5db7fe8dddd519d6f42157f00cd68b16846f2c636cebfd08574fc8ce012",
       "front/components/crefans/studio/community.module.css": "04524c8cc2dca03f1d53964af5b5b49762eb1d0d25b495627daf7e1411e91d7e",
       "front/components/crefans/studio/content-list.module.css": "50f5927048e6507421ecc94607ed9e3016e63e198fcccfa76351af28bda11bca",
       "front/components/crefans/studio/content-performance.module.css": "6d4be5a99f503a53337abad363dfaafe3e92c7f611176dfe10fe53840f123c36",
@@ -961,7 +961,7 @@
       "front/tests/sms-link.test.cjs": "ee3f9f40ae9bc29c3892cbb5c9ebb5ef18654975073f1da897813fdfb97b3737",
       "front/tests/social-links.test.cjs": "254957c511a965dd0ad78a8fc77f4b125171b48b2669018169dce531062995bd",
       "front/tests/studio-ai-photo-binding.test.cjs": "95ad06f88b45acf27d12f47ba0122b4890a22807485143e7864a9dde07e60924",
-      "front/tests/studio-ai-photo.test.cjs": "c0a2e9a464d0c6e4dd2fa31be709aec40439089784249511fa3b5b1c57f8bb27",
+      "front/tests/studio-ai-photo.test.cjs": "f8bff1ab2e74bdeb841c0cf053232ff0ee89a6ece3a5d74338fd84262dfbef5a",
       "front/tests/studio-comment-reply.test.cjs": "7dbb13f94b5f23c0ed0432312330256949111a69be7915a7da3bbab81e9d034b",
       "front/tests/studio-community-binding.test.cjs": "5dd8644628deeebc3b7fa6511732fb648f4539dfc66df5a49f2331a1d0366cad",
       "front/tests/studio-loading.test.cjs": "b0a6f46d370d009cf6dc282e55590cf3984e1f16d63eefe9cec5363ca20ce365",
