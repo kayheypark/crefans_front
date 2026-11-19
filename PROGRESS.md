@@ -6343,3 +6343,9 @@
 ### 2026-11-19 23:5x 프리셋 밀기 힌트를 카드 위 강조 + 손 스와이프 안내로 (운영 front hint2-20261119)
 - 사용자 지적 "안 보여": 카드 아래 회색 작은 글씨라 휴대폰에서 첫 화면 밖이었다. `AiPresetPager`가 힌트를 카드 바로 위 분홍 알약으로 그리고, 카드가 절반 이상 보이면(IntersectionObserver) 손 모양이 좌우로 두 번 밀고 사라진다. 첫 스와이프 후 둘 다 숨김, reduced-motion은 손 없음. 랜딩·편집기 공통.
 - feat/preset-swipe-hint-visible `e7c8dbc` → dev `06a2973` → prod `e7c8dbc`. 검증: tsc, 페이징 테스트(힌트가 카드 위·손 표시·스와이프 후 숨김, 되돌리면 실패), 기존 실패 18건 동일. 운영 iPhone(WebKit) Playwright: 스크롤 전 손 0 → 보이면 1 → 스와이프 후 힌트·손 0.
+
+### 2026-11-20 05:0x 밀기 오버레이 손·신체 보정 컵/사이즈·공유 즉시 보상·이용권 떠 있는 버튼 (dev·개발 서버, 운영 대기)
+- 밀기 힌트: 카드 위 반투명 오버레이 + 흰 글씨, 손은 Seedream 3D 손등 드래그 손(`public/brand/ai-photo/swipe-hand-v2.webp`, 검정 배경 투명 변환), 약 4초 또는 첫 터치에 사라짐. feat/preset-swipe-overlay(f9ddbf4·34f5449·4d80b73).
+- 신체 보정(여성): 가슴 [원본 유지·A~E컵], 힙 [원본 유지·S~XXL] 버튼(`aiPhotoBodyOptions`), 요청 문구 'D컵 정도로', '의류 M 사이즈 정도의 볼륨으로'. 키 비율 슬라이더·남성 보정 그대로. feat/body-cup-size(bb48aad dev). AI 결과라 정확한 컵·사이즈 보장 안 함.
+- 공유 보상(사용자 결정): 공유 창 완료 또는 링크 복사 시 `/guest/ai-photo/share-done`으로 3장 즉시 1회 지급, '이용권 3장을 받았어요!' 창. 사진 저장(다운로드)은 제외. `/s`는 코드 없이 랜딩으로, `lib/api/ai-result-share.ts`·방문 확인 삭제(계층 검사 위반 해소). 보상 받을 수 있는 비회원에게 모든 창이 닫혀 있으면 오른쪽 아래 이용권(+3) 버튼(Seedream 티켓 `share-ticket-v1.webp`) → 공유 보상 안내 창 → 'AI 사진 만들러 가기'. feat/share-reward-on-share(6c94dab·02c6429).
+- 검증: tsc, 새 테스트(공유 링크·시트·모델 3, 편집기 즉시 지급 1, 떠 있는 버튼 1, 신체 버튼, 페이징 오버레이) 통과·되돌리면 실패, crefans-contract 2/2 통과(이전 1건 해소), 기존 실패 동일. 개발 웹 iPhone: 버튼→안내→편집기 열림(그동안 버튼 숨김), share-done 원본 404·첫 공유 granted true·두 번째 false·잔여 3→6·이후 버튼 사라짐. 개발 DB 테스트 사진 1건(f4a5658c)을 aiGenerated로 표시해 시험(실생성 과금 회피).
