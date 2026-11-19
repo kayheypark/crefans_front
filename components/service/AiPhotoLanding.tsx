@@ -36,7 +36,7 @@ const presetByTitle=(kind:AiPhotoKind,title:string)=>{const example=aiPhotoPrese
 /** Hero results with the real catalog entries behind them; a renamed or removed preset fails loudly instead of showing a stale card.
  * thumb is a 168×210 copy of the hero for the 56×70 picker (2026-11-18 performance fix: the picker loaded the 720px originals). */
 export const landingLooks=looks.map(look=>{const costume=aiPhotoCostumes.find(item=>item.id===look.costume);if(!costume)throw new Error(`landing costume missing: ${look.costume}`);
- return {id:look.id,label:costume.name,image:`/illustrations/landing/ai-photo/hero-${look.id}-v1.webp`,thumb:`/illustrations/landing/ai-photo/thumb-${look.id}-v1.webp`,cards:[{kind:'outfit' as AiPhotoKind,title:costume.name,image:costume.image},...look.presets.map(item=>({kind:item.kind,title:item.title,image:aiPhotoPresetImage(item.kind,presetByTitle(item.kind,item.title))}))]};});
+ return {id:look.id,label:costume.name,image:`/illustrations/landing/ai-photo/hero-${look.id}-v1.webp`,thumb:`/illustrations/landing/ai-photo/thumb-${look.id}-v1.webp`,cards:[{kind:'outfit' as AiPhotoKind,title:costume.name,image:costume.image,prompt:aiPhotoPresetText(costume.prompt),details:[costume.detail,`가발 ${costume.wig}`,`머리장식 ${costume.headwear}`,`소품 ${costume.accessories}`,`신발 ${costume.footwear}`]},...look.presets.map(item=>{const example=presetByTitle(item.kind,item.title);return {kind:item.kind,title:item.title,image:aiPhotoPresetImage(item.kind,example),prompt:aiPhotoPresetText(example),details:[aiPhotoPresetText(example)]};})]};});
 // Body presets are not advertised on the public page.
 export const landingKinds=aiPhotoKinds.filter(kind=>kind.value!=='body');
 const illustrated=['expression','pose','camera','lens'];
@@ -116,7 +116,7 @@ export function LandingPresetBrowser({onPicked,onChoose}:{onPicked?:(picked:Reco
 
 export default function AiPhotoLanding(){
  useFunnelStep('landing_view');
- const [look,setLook]=useState(landingLooks[0].id),[landingPicked,setLandingPicked]=useState<Record<string,string[]>>({}),[asked,setAsked]=useState<LandingChosen|null>(null);
+ const [look,setLook]=useState(landingLooks[0].id),[landingPicked,setLandingPicked]=useState<Record<string,string[]>>({}),[asked,setAsked]=useState<LandingChosen|null>(null),[detail,setDetail]=useState<(typeof landingLooks)[number]['cards'][number]|null>(null);
  const handoff=()=>saveAiPhotoHandoff(Object.entries(landingPicked).flatMap(([kind,values])=>values.filter(value=>value!==AI_PHOTO_KEEP_ORIGINAL).map(value=>({kind:kind as AiPhotoKind,prompt:aiPhotoPresetText(value)}))));
  const current=landingLooks.find(item=>item.id===look)||landingLooks[0];
  return <main className={s.page} style={designVariables as CSSProperties}>
@@ -132,7 +132,12 @@ export default function AiPhotoLanding(){
    <div className={s.heroDemo}>
     <AiPhotoCompare before="/illustrations/landing/ai-photo/base-v1.webp" after={current.image} label={current.label}/>
     <div className={s.looks} role="radiogroup" aria-label="결과 사진 고르기">{landingLooks.map(item=><button key={item.id} type="button" role="radio" aria-checked={item.id===look} className={s.look} onClick={()=>setLook(item.id)}>{/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}<img src={item.thumb} alt="" width={56} height={70}/><span>{item.label}</span></button>)}</div>
-    <div className={s.used}><p>이 사진에 고른 프리셋</p><ul className={s.usedCards}>{current.cards.map(card=><li key={`${card.kind}-${card.title}`} className={s.usedCard}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset images */}<img src={card.image} alt="" width={72} height={72} loading="lazy" data-illustrated={illustrated.includes(card.kind)||undefined}/><span>{landingKinds.find(item=>item.value===card.kind)?.label}</span><strong>{card.title}</strong></li>)}</ul></div>
+    <div className={s.used}><p>이 사진에 고른 프리셋</p><ul className={s.usedCards}>{current.cards.map(card=><li key={`${card.kind}-${card.title}`}><button type="button" className={s.usedCard} aria-label={`${card.title} 자세히 보기`} onClick={()=>setDetail(card)}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset images */}<img src={card.image} alt="" width={72} height={72} loading="lazy" data-illustrated={illustrated.includes(card.kind)||undefined}/><span>{landingKinds.find(item=>item.value===card.kind)?.label}</span><strong>{card.title}</strong></button></li>)}</ul></div>
+    {/* 2026-11-19 user request: each preset under the result opens a detail dialog. */}
+    <Dialog open={!!detail} onClose={()=>setDetail(null)} title={detail?.title||''}>
+     {detail&&<div className={s.presetDetail}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset image */}<img src={detail.image} alt="" width={200} height={200} data-illustrated={illustrated.includes(detail.kind)||undefined}/><span>{landingKinds.find(item=>item.value===detail.kind)?.label}</span><ul>{detail.details.map(line=><li key={line}>{line}</li>)}</ul></div>}
+     <DialogActions><button type="button" className={s.secondary} onClick={()=>setDetail(null)}>닫기</button><Link className={s.primary} href={TRY} onClick={()=>saveAiPhotoHandoff(current.cards.map(card=>({kind:card.kind,prompt:card.prompt})))}>이 조합으로 0원 체험</Link></DialogActions>
+    </Dialog>
    </div>
   </section>
 

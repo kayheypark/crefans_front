@@ -1,15 +1,12 @@
 import {platformRequest} from './platform';
 
-const landing='/service/landing-ai-image-generation';
 const fragment='result-share';
-const tokenPattern=/^[A-Za-z0-9_-]{16}\.[A-Za-z0-9_-]{22}\.[A-Za-z0-9_-]{1,200}$/;
+// 2026-11-19 user request: short links (/s/<8-character code>, see app/s/[[...code]]/route.ts). Long encrypted tokens from
+// links shared before then stay accepted until they expire (7 days).
+const tokenPattern=/^(?:[A-Za-z0-9]{8}|[A-Za-z0-9_-]{16}\.[A-Za-z0-9_-]{22}\.[A-Za-z0-9_-]{1,200})$/;
 
 export function aiResultShareUrl(token?:string){
- const url=new URL(landing,window.location.origin);
- url.search=new URLSearchParams({utm_source:'crefans_share',utm_medium:'share',utm_campaign:'ai_photo',utm_content:'result'}).toString();
- // The opaque reward token stays out of HTTP URLs and referral analytics.
- if(token)url.hash=new URLSearchParams({[fragment]:token}).toString();
- return url.href;
+ return new URL(token&&/^[A-Za-z0-9]{8}$/.test(token)?`/s/${token}`:'/s',window.location.origin).href;
 }
 
 export async function reportAiResultShareVisit(){

@@ -8,7 +8,8 @@ import s from './ai-photo.module.css';
 import {AiPresetPager} from './AiPresetPager';
 
 export function AiPhotoWardrobe({items,selectedPrompts,disabled,onPick}:{items:readonly AiPhotoCostume[];selectedPrompts:readonly string[];disabled:boolean;onPick:(prompt:string)=>void}){
- const [page,setPage]=useState(0),pages=Math.max(1,Math.ceil(items.length/AI_PHOTO_PRESET_PAGE_SIZE)),pageIndex=page%pages,visible=items.slice(pageIndex*AI_PHOTO_PRESET_PAGE_SIZE,(pageIndex+1)*AI_PHOTO_PRESET_PAGE_SIZE);
+ // 2026-11-19 user request: open on the page that holds the selected costume.
+ const [page,setPage]=useState(()=>Math.max(0,Math.floor(items.findIndex(item=>selectedPrompts.includes(aiPhotoPresetText(item.prompt)))/AI_PHOTO_PRESET_PAGE_SIZE))),pages=Math.max(1,Math.ceil(items.length/AI_PHOTO_PRESET_PAGE_SIZE)),pageIndex=page%pages,visible=items.slice(pageIndex*AI_PHOTO_PRESET_PAGE_SIZE,(pageIndex+1)*AI_PHOTO_PRESET_PAGE_SIZE);
  function step(direction:number){if(!disabled)setPage(previous=>(previous+direction+pages)%pages);}
  const isSelected=(value:string)=>selectedPrompts.includes(aiPhotoPresetText(value));
  if(!items.length)return <p className={s.presetEmpty} role="status">검색 결과가 없어요. 다른 검색어를 입력해 주세요.</p>;

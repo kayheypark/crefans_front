@@ -95,3 +95,9 @@
 .askPreset img{width:120px;height:120px;border-radius:12px;object-fit:cover;background:#f3f4f6}.askPreset img[data-illustrated]{object-fit:contain}
 .askPreset strong{font-size:16px}.askPreset p{margin:0;color:var(--cf-color-text-muted,#667085);font-size:14px}
 button.secondary{cursor:pointer}
+/* 2026-11-19: hero preset cards open a detail dialog */
+button.usedCard{width:100%;color:inherit;font:inherit;text-align:left;cursor:pointer}button.usedCard:hover{border-color:#db2777}button.usedCard:focus-visible{outline:2px solid #db2777;outline-offset:2px}
+.presetDetail{display:grid;justify-items:center;gap:8px;padding:4px 0 16px}
+.presetDetail img{width:200px;height:200px;border-radius:12px;object-fit:cover;background:#f3f4f6}.presetDetail img[data-illustrated]{object-fit:contain}
+.presetDetail span{padding:2px 10px;border-radius:999px;background:#fce7f3;color:#be185d;font-size:12px;font-weight:700}
+.presetDetail ul{display:grid;gap:4px;width:100%;margin:0;padding:0 0 0 18px;color:var(--cf-color-text,#202333);font-size:14px;line-height:1.5}

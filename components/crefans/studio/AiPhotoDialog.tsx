@@ -28,7 +28,7 @@ import {AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem
 import {Action,ActionLink} from '../ServiceUI';
 import {useCurrentSignupHref} from '../useCurrentLoginHref';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
-import {AI_PHOTO_KEEP_ORIGINAL,aiPhotoMultiSelectKinds,aiPhotoMakeupGender,aiPhotoPresetMatches,aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoPresetTitle,type AiPhotoPosePosture,type AiPhotoBackgroundCategory} from '@/lib/crefans/ai-photo-presets';
+import {aiPhotoPresetLocation,AI_PHOTO_KEEP_ORIGINAL,aiPhotoMultiSelectKinds,aiPhotoMakeupGender,aiPhotoPresetMatches,aiPhotoPresetPage,aiPhotoPresetImage,aiPhotoPresetTitle,type AiPhotoPosePosture,type AiPhotoBackgroundCategory} from '@/lib/crefans/ai-photo-presets';
 import {AiPhotoCategoryIcon} from './AiPhotoCategoryIcon';
 import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
@@ -82,9 +82,12 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  // 2026-11-18: a game/anime costume is picked → the result cannot go on tip or membership-only posts.
  const franchisePicked=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>isFranchiseCostume(costume)&&aiPhotoPresetText(costume.prompt)===item.prompt));
  const [presetPages,setPresetPages]=useState<Partial<Record<AiPhotoKind,number>>>({});
- const panelId=useId(),preset=aiPhotoPresetPage(kind,presetPages[kind]||0,targetGender,presetQuery,posePosture,backgroundCategory,outfitPart);
+ // 2026-11-19 user request: with no page chosen yet, a tab opens on the page of its selected preset (landing handoff included).
+ const chosenHere=presetQuery.trim()?undefined:selectedPresets.find(item=>item.kind===kind),located=chosenHere?aiPhotoPresetLocation(kind,chosenHere.prompt,targetGender,outfitPart):null;
+ const selectedPage=located&&(!located.posture||located.posture===posePosture)&&(!located.backgroundCategory||located.backgroundCategory===backgroundCategory)?located.page:0;
+ const panelId=useId(),preset=aiPhotoPresetPage(kind,presetPages[kind]??selectedPage,targetGender,presetQuery,posePosture,backgroundCategory,outfitPart);
  function searchPresets(value:string){setPresetQuery(value);setPresetPages({});}
- function stepPreset(direction:number){if(busy||preset.pages<=1)return;setPresetPages(previous=>({...previous,[kind]:((previous[kind]||0)+direction+preset.pages)%preset.pages}));}
+ function stepPreset(direction:number){if(busy||preset.pages<=1)return;setPresetPages(previous=>({...previous,[kind]:((previous[kind]??selectedPage)+direction+preset.pages)%preset.pages}));}
  function setCustom(value:string){setCustomPrompt(value);setError(buildPrompt(selectedPresets,value,targetGender).length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
  function isPresetSelected(value:string){if(value===AI_PHOTO_KEEP_ORIGINAL)return !selectedPresets.some(item=>item.kind===kind)&&!libraryAssets.some(item=>item.category===kind);return selectedPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
  function applyPresets(next:AiPhotoPresetSelection[]){const selection=next,length=buildPrompt(selection,customPrompt,targetGender).length;if(length>AI_PHOTO_PROMPT_MAX&&length>prompt.length){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return false;}setSelectedPresets(selection);setError(length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');return true;}
@@ -96,12 +99,19 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  // 2026-11-17 user request: presets picked on the AI photo landing are applied the first time the editor opens.
  const handoffTried=useRef(false);
  useEffect(()=>{if(!open||handoffTried.current)return;handoffTried.current=true;const presets=takeAiPhotoHandoff();if(!presets.length)return;
-  if(applyPresets(presets)){if(presets.some(item=>item.kind==='outfit'))setCosplayOpen(true);setKind(presets[0].kind);}
+  if(applyPresets(presets)){if(presets.some(item=>item.kind==='outfit'))setCosplayOpen(true);setKind(presets[0].kind);for(const item of presets)revealSelection(item.kind,presets);}
  // eslint-disable-next-line react-hooks/exhaustive-deps -- once, on the first open
  },[open]);
  function changeBody(key:string,level:number){const next=updateAiPhotoBodySelection(selectedPresets,bodySelection,key,level);if(applyPresets(next.presets))setBodySelection(next.values);}
  // 2026-11-15: 표정 탭도 '원본 유지'가 기본이다(무표정 자동 선택 없음).
- function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);searchPresets('');setError('');}
+ function changeKind(value:AiPhotoKind){if(value===kind)return;setKind(value);searchPresets('');setError('');revealSelection(value);}
+ // 2026-11-19 user request: a tab opens on the costume category / posture / background category of its selected preset (the page follows, see selectedPage).
+ const [revealed,setRevealed]=useState(0);
+ function revealSelection(value:AiPhotoKind,selection=selectedPresets){
+  const chosen=selection.find(item=>item.kind===value);if(!chosen)return;
+  if(value==='outfit'){const costume=aiPhotoCostumes.find(item=>aiPhotoPresetText(item.prompt)===chosen.prompt);if(costume){setCostumeCategory(costume.category);setRevealed(count=>count+1);}return;}
+  const location=aiPhotoPresetLocation(value,chosen.prompt,targetGender,outfitPart);if(!location)return;
+  if(location.posture)setPosePosture(location.posture);if(location.backgroundCategory)setBackgroundCategory(location.backgroundCategory);}
  const [strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
  // 2026-11-17: when the image server refuses the result (try not used up), the notice offers to try again.
  const [retryable,setRetryable]=useState(false),[signupOffer,setSignupOffer]=useState(false);
@@ -219,7 +229,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
      {kind==='outfit'&&cosplayOpen?<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.wardrobe}>
       <p className={s.costumeHint}>{AI_PHOTO_COSTUME_HINT}</p>
       <div className={s.costumeCategoryBar}><SelectField className={s.costumeCategoryPicker} label="의상 카테고리" hideLabel value={costumeCategory} onChange={value=>{setCostumeCategory(value as AiPhotoCostumeCategory);searchPresets('');}} options={aiPhotoCostumeCategories.map(category=>({value:category.value,label:category.label,image:category.image}))} disabled={busy}/><span>{presetQuery.trim()?'전체 의상 검색':costumeCategoryInfo.group} · {costumes.length}종</span></div>
-      <AiPhotoWardrobe key={`${costumeCategory}-${presetQuery}`} items={costumes} selectedPrompts={selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)} disabled={busy} onPick={pickPreset}/>
+      <AiPhotoWardrobe key={`${costumeCategory}-${presetQuery}-${revealed}`} items={costumes} selectedPrompts={selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)} disabled={busy} onPick={pickPreset}/>
       {franchisePicked&&<p className={s.costumeNote} role="note" data-franchise-notice="true">{franchiseCostumeNotice}</p>}
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
       {kind==='body'?<AiBodyAdjustments controls={targetGender==='male'?aiPhotoMaleBodyControls:aiPhotoBodyControls} selection={bodySelection} onChange={changeBody} disabled={busy}/>:<>
