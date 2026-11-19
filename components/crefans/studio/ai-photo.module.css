@@ -297,3 +297,26 @@
 .publishOfferBody strong{color:var(--cf-color-text)}
 .publishOfferActions{display:grid;gap:8px}
 .publishOfferActions button{width:100%;min-height:44px}
+
+/* AI result share and referral reward. */
+.resultShareArea{display:grid;justify-items:center;gap:10px;margin:16px 0 12px}
+.resultShareBubble{position:relative;display:inline-block;background:#a91556;color:#fff;font-size:13px;font-weight:700;line-height:1.3;padding:7px 13px;border-radius:999px;animation:resultShareBob 1.9s ease-in-out infinite}
+.resultShareBubble::after{content:'';position:absolute;width:8px;height:8px;bottom:-3px;left:calc(50% - 4px);border-radius:1px;background:inherit;transform:rotate(45deg)}
+@keyframes resultShareBob{50%{transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){.resultShareBubble{animation:none}}
+.resultShareTrigger,.resultSharePrimary,.resultShareCopy{width:100%;min-height:44px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #f1b7d3;border-radius:10px;background:#fff4fa;color:#a91556;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.resultShareTrigger:disabled,.resultSharePrimary:disabled,.resultShareCopy:disabled{opacity:.56;cursor:default}
+.resultShareSheet{padding:20px 18px max(18px,env(safe-area-inset-bottom))}
+.resultShareSheet>header{margin-bottom:12px}
+.resultShareSheet>header h2{font-size:20px}
+.resultShareCard{display:flex;align-items:center;gap:12px;background:#f7f5f8;border:1px solid #ede8f0;border-radius:12px;padding:9px;color:var(--cf-color-text)}
+.resultShareCard img{width:50px;height:58px;border-radius:7px;object-fit:cover}
+.resultShareCard strong,.resultShareCard small{display:block}
+.resultShareCard strong{font-size:14px;margin-bottom:3px}
+.resultShareCard small{font-size:12px;color:var(--cf-color-textSecondary)}
+.resultShareActions{display:grid;justify-items:center;gap:9px;margin-top:16px}
+.resultSharePrimary{background:#db2777;color:#fff;border-color:#db2777}
+.resultShareCopy{background:#fff;color:var(--cf-color-text);border-color:var(--cf-color-border,#e8e5eb)}
+.resultShareSheet .resultShareTerms{margin:9px 0 0;text-align:center;font-size:12px;line-height:1.45;word-break:keep-all}
+.resultShareLink{width:100%;margin-top:8px;padding:6px;font:inherit;font-size:12px}
+.resultShareToast{margin:0;color:#a91556;font-weight:700;font-size:13px}
