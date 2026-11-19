@@ -6335,3 +6335,7 @@
 - 사용자 요청·승인. 당근 광고 사진(사용자 확인: AI 가상 인물)을 기존 og-modernia와 같은 1200×630 배치(왼쪽 로고·문구·'로그인 없이 0원 체험', 오른쪽 사진, 'AI 코스튬' 배지)로 렌더해 `public/illustrations/landing/ai-photo/og-idol-mirror-v1.jpg`(SHA-256 앞 23e60aed1f544f8d). openGraph·twitter·JSON-LD가 이 파일을 씀. og-modernia-v1.jpg는 이미 공유된 카드용으로 남김.
 - feat/landing-og-idol `b23b073` → dev `956ac73` → prod `b23b073`. 운영 검사: og:image 태그, 이미지 해시 일치, service/try 200. 복구본 /Users/ethan/crefans-recovery/20261119/og-idol-20261119-front.
 - 이미 올린 X 글 카드는 X 캐시라 바뀌지 않음(새 글부터 적용).
+
+### 2026-11-19 23:4x AI 사진 생성 방식 제목·'사진 1장당 이용권' 문구 제거 (운영 front method-20261119)
+- 사용자 요청. `AiPhotoDialog.tsx` methodHeader 삭제, radiogroup은 aria-label="생성 방식" 유지, `.methodHeader` CSS 삭제. feat/ai-photo-method-header-remove `7d67850` → dev `c725236` → prod `7d67850`.
+- 검증: tsc, studio-ai-photo 새 테스트(되돌리면 실패), 기존 실패 18건 동일. 개발 웹 체험 편집기(390px): 제목·문구 0, 선택지 3개, 스와이프 힌트 1. 운영: try·landing 200, 운영 JS 묶음에 '사진 1장당 이용권' 없음·'정밀하게'·'좌우로 밀어서 넘겨 보세요' 있음. 운영 체험 화면 직접 확인은 실데이터(업로드)가 생겨 생략.
