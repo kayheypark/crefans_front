@@ -36,6 +36,7 @@ test('mock edit: one AI image per request, counts down and stops at the limit',a
  assert.equal((await mockAiPhotoEdit({delay:0,mode:'blocked'})(input)).errorCode,'UNSAFE_INPUT');
 });
 
+const BODY_SKIP=loadTypeScript('lib/crefans/ai-photo.ts').AI_PHOTO_BODY_OPEN?{}:{skip:'신체 보정 탭 미노출(2026-11-20 사용자 결정)'};
 async function open(props={},initialMode=false){
  let r,added=[],calls=[];
  const onEdit=async input=>{calls.push(input);return {success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null};};
@@ -288,7 +289,7 @@ test('gender is composed internally without appearing in or changing the custom 
 });
 
 
-test('body controls retain independent adjustments and keep custom input',async()=>{
+test('body controls retain independent adjustments and keep custom input',BODY_SKIP,async()=>{
  const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}),range=label=>r.root.find(n=>n.type==='input'&&n.props['aria-label']===label);await act(async()=>field().props.onChange({target:{value:'자연스럽게'}}));
  assert.equal(r.root.findAllByProps({'aria-label':'프리셋 검색'}).length,0);assert.equal(r.root.findAllByProps({'aria-label':'프리셋 페이지'}).length,0);assert.equal(range('키 비율').props.step,'any');
  // 2026-11-20 user decision: chest is a cup (원본 유지·A–E컵), hip a size (원본 유지·S–XXL); height stays a slider.
@@ -477,7 +478,7 @@ test('default cosplay wardrobe keeps all eight general costumes on one nine-card
  await click('남성');await click('여성');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'눈 밑 점'}}));assert.equal(r.root.findByProps({'aria-label':'눈 밑 점'}).props['aria-pressed'],false,'switching to male clears a women-only look');
  });
 
-test('male body: four flat icons and ranges without photos, independent selection and gender reset',async()=>{
+test('male body: four flat icons and ranges without photos, independent selection and gender reset',BODY_SKIP,async()=>{
  const {r,click,calls}=await open();await click('남성');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());
  const sliders=()=>r.root.findAll(n=>n.type==='input'&&n.props.type==='range'),range=label=>sliders().find(n=>n.props['aria-label']===label);
  const labels=['상체 근육','하체 근육','어깨 너비','키 비율'];assert.deepEqual(sliders().map(n=>n.props['aria-label']),labels);
@@ -603,7 +604,7 @@ test('waiting hearts never change requests; failure and success remove game, ret
 });
 
 
-test('body continuous range keeps intermediate values, snaps near anchors and keyboard escapes snaps',async()=>{
+test('body continuous range keeps intermediate values, snaps near anchors and keyboard escapes snaps',BODY_SKIP,async()=>{
  for(const [input,expected] of [[.37,.37],[.95,1],[1.06,1],[1.2,1.2],[-.94,-1],[.05,0],[-1.95,-2],[1.95,2]])assert.equal(rules.aiPhotoBodySnap(input),expected);
  assert.notEqual(rules.aiPhotoBodyPrompt('height',.37),rules.aiPhotoBodyPrompt('height',.67));assert.match(rules.aiPhotoBodyPrompt('height',.37),/18.5/);
  const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());const range=()=>r.root.find(n=>n.type==='input'&&n.props['aria-label']==='키 비율');
@@ -961,4 +962,10 @@ test('share reward: a finished share or link copy claims the reward for that res
  assert.equal(modal().length,1);assert.equal(r.root.findAll(n=>typeof n.props.onReport==='function'&&typeof n.props.prepare==='function').length,0,'the share sheet closes');
  await click('계속 만들기');assert.equal(modal().length,0);
  }finally{if(!hadWindow)delete global.window;}
+});
+
+// 2026-11-20 user decision: the body correction tab is hidden until it is fixed; flip AI_PHOTO_BODY_OPEN to reopen it.
+test('the body correction tab is hidden while AI_PHOTO_BODY_OPEN is false',async()=>{
+ const {r}=await open();const tabs=r.root.findAll(n=>n.type==='button'&&n.props.role==='tab').map(n=>text(n));
+ assert.ok(tabs.length>=6);assert.ok(!tabs.some(t=>t.includes('신체 보정')),tabs.join(','));assert.ok(tabs.some(t=>t.includes('포즈')));
 });

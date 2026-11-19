@@ -25,7 +25,7 @@ import Image from 'next/image';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
 import {aiPhotoSelectionLabels,type AiPhotoCaptionContext} from '@/lib/crefans/ai-photo-labels';
-import {AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
+import {AI_PHOTO_BODY_OPEN,AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
 import {Action,ActionLink} from '../ServiceUI';
 import {useCurrentSignupHref} from '../useCurrentLoginHref';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
@@ -128,6 +128,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const [heartScore,setHeartScore]=useState(0),[resultHearts,setResultHearts]=useState(0);
  const heartScoreRef=useRef(0);
  function collectHeart(delta:number){heartScoreRef.current=Math.max(0,Math.min(30,heartScoreRef.current+delta));setHeartScore(heartScoreRef.current);}
+ const editorKinds=AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body');
  const [stage,setStage]=useState<'edit'|'results'>('edit'),[sourcePicker,setSourcePicker]=useState(false);
  useEffect(()=>{
   if(!open||!publishReward||!genderChosen||busy||error||publishOfferShown.current)return;
@@ -211,9 +212,9 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
     {stage==='edit'?<div className={s.controls}>
      <div className={s.modePicker}><div role="group" aria-label="편집 모드"><button type="button" className={s.cosplayMode} aria-pressed={cosplayOpen} disabled={busy} onClick={()=>{changeKind('outfit');setCosplayOpen(true);searchPresets('');}}>{cosplayOpen&&<span className={s.modeHearts} aria-hidden="true">{Array.from({length:12},(_,index)=><svg key={index} viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/></svg>)}</span>}<span className={s.modeLabel}>코스어 모드</span></button><button type="button" aria-pressed={!cosplayOpen} disabled={busy} onClick={()=>{setCosplayOpen(false);searchPresets('');}}>일반 모드</button></div></div>
      <div className={s.genderPicker}><span>생성 인물</span><div role="group" aria-label="생성 인물 성별">{(['female','male'] as const).map(value=><button key={value} type="button" aria-pressed={targetGender===value} disabled={busy} onClick={()=>changeGender(value)}>{value==='female'?'여성':'남성'}</button>)}</div></div>
-     <div className={s.tabs} role="tablist" aria-label="편집 카테고리">{aiPhotoKinds.map((item,index)=><button key={item.value} id={`${panelId}-${item.value}`} type="button" role="tab" aria-controls={panelId} tabIndex={kind===item.value?0:-1} aria-selected={kind===item.value} onClick={()=>changeKind(item.value)} onKeyDown={event=>{
-      const next=event.key==='ArrowRight'?(index+1)%aiPhotoKinds.length:event.key==='ArrowLeft'?(index+aiPhotoKinds.length-1)%aiPhotoKinds.length:event.key==='Home'?0:event.key==='End'?aiPhotoKinds.length-1:null;
-      if(next===null)return;event.preventDefault();changeKind(aiPhotoKinds[next].value);event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
+     <div className={s.tabs} role="tablist" aria-label="편집 카테고리">{editorKinds.map((item,index)=><button key={item.value} id={`${panelId}-${item.value}`} type="button" role="tab" aria-controls={panelId} tabIndex={kind===item.value?0:-1} aria-selected={kind===item.value} onClick={()=>changeKind(item.value)} onKeyDown={event=>{
+      const next=event.key==='ArrowRight'?(index+1)%editorKinds.length:event.key==='ArrowLeft'?(index+editorKinds.length-1)%editorKinds.length:event.key==='Home'?0:event.key==='End'?editorKinds.length-1:null;
+      if(next===null)return;event.preventDefault();changeKind(editorKinds[next].value);event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
      }} disabled={busy}><AiPhotoCategoryIcon kind={item.value}/><span>{item.label}</span>{kind===item.value&&<svg className={s.tabCheck} aria-hidden="true" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="m2 6 3 3 5-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}</button>)}</div>
      {kind==='background'&&<div className={s.posePosture} role="group" aria-label="배경 카테고리">{(['indoor','outdoor'] as const).map(value=><button key={value} type="button" aria-pressed={backgroundCategory===value} disabled={busy} onClick={()=>{setBackgroundCategory(value);searchPresets('');}}>{value==='indoor'?'실내':'아웃도어'}</button>)}</div>}
      {kind==='outfit'&&!cosplayOpen&&<div className={s.posePosture} role="group" aria-label="옷 부위">{(['top','bottom'] as const).map(value=><button key={value} type="button" aria-pressed={outfitPart===value} disabled={busy} onClick={()=>{setOutfitPart(value);searchPresets('');}}>{value==='top'?'상의':'하의'}</button>)}</div>}
