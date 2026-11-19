@@ -6330,3 +6330,8 @@
 - 사용자 승인 후 prod `1f90fbc` = e2a5697 + 969dfe9·5e13ccd·78f705a·0957ce7·a36b266 + 61cc109 체리픽(1f90fbc, tests/posthog.test.cjs 충돌은 prod에 없는 다른 세션 테스트를 빼고 해소).
 - 운영 검사: landing·service/try·privacy 200, /s/Ab3dE9xK → 302 랜딩(#result-share). Playwright(crefans.com 390px): 확인 창 제목·닫기·해제 시 안 뜸, 힌트 1→스와이프 후 0. 복구본 /Users/ethan/crefans-recovery/20261119/landing-share-20261119-front.
 - X @crefans_app 홍보 1건 게시(사용자 문구 승인, utm_campaign=ai_photo_202611). 게시 직후 X graduated-access 안내 표시.
+
+### 2026-11-19 23:3x 랜딩 공유 미리보기를 핑크 아이돌 거울샷으로 (운영 front og-idol-20261119)
+- 사용자 요청·승인. 당근 광고 사진(사용자 확인: AI 가상 인물)을 기존 og-modernia와 같은 1200×630 배치(왼쪽 로고·문구·'로그인 없이 0원 체험', 오른쪽 사진, 'AI 코스튬' 배지)로 렌더해 `public/illustrations/landing/ai-photo/og-idol-mirror-v1.jpg`(SHA-256 앞 23e60aed1f544f8d). openGraph·twitter·JSON-LD가 이 파일을 씀. og-modernia-v1.jpg는 이미 공유된 카드용으로 남김.
+- feat/landing-og-idol `b23b073` → dev `956ac73` → prod `b23b073`. 운영 검사: og:image 태그, 이미지 해시 일치, service/try 200. 복구본 /Users/ethan/crefans-recovery/20261119/og-idol-20261119-front.
+- 이미 올린 X 글 카드는 X 캐시라 바뀌지 않음(새 글부터 적용).
