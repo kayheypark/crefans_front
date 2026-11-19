@@ -619,7 +619,9 @@ test('body continuous range keeps intermediate values, snaps near anchors and ke
  for(const [label,value] of [['남성','male'],['여성','female']]){let r,request;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit:async input=>{request=input;return {success:false,errorMessage:'대역 실패'};},onAdd(){}}));});assert.match(text(r.toJSON()),/남성인가요, 여성인가요/);assert.equal(r.root.findAllByType('textarea').length,0);assert.equal(r.root.findAll(n=>n.props['aria-label']==='만들기').length,0);await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes(label)).props.onClick());assert.equal(r.root.findAllByType('textarea').length,1);const group=r.root.findByProps({'aria-label':'생성 인물 성별'});assert.equal(group.find(n=>n.type==='button'&&text(n)===label).props['aria-pressed'],true);await act(async()=>r.root.findByProps({'aria-label':'만들기'}).props.onClick());assert.equal(request.targetGender,value);await act(async()=>r.unmount());}
  });
 
-test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('만들기');assert.equal(calls.length,0);assert.equal(refresh,1);assert.equal(r.root.findAllByProps({'aria-label':'AI 이용권 구매'}).length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'보존할 편집 내용');});
+test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('만들기');assert.equal(calls.length,0);
+ // 2026-11-20 user request: the refill notice comes first; its 이용권 구매 button opens the shop.
+ assert.equal(r.root.findAllByProps({'aria-label':'매일 이용권 횟수는 초기화돼요'}).length,1);assert.equal(refresh,0);await click('이용권 구매');assert.equal(refresh,1);assert.equal(r.root.findAllByProps({'aria-label':'AI 이용권 구매'}).length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'보존할 편집 내용');});
 
 test('Overwatch has six nine-card pages; Roadhog search preserves its reference selection',async()=>{
  const {r,click,calls}=await open({},true);await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('overwatch'));assert.match(text(r.toJSON()),/54종/);assert.match(text(r.toJSON()),/1 \/ 6/);await click('로드호그 코스튬');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(r.root.findByProps({'aria-label':'로드호그 코스튬'}).props['aria-pressed'],true);await click('만들기');const c=loadTypeScript('lib/crefans/ai-photo-costumes.ts').aiPhotoCostumes.find(x=>x.name==='로드호그 코스튬');assert.deepEqual(calls[0].costumeIds,[c.id]);assert.doesNotMatch(calls[0].prompt,/방독면|갈고리/);
@@ -827,14 +829,15 @@ test('guest can play while generating without reward API or conversion claims',a
 });
 
 // 2026-11-17 user decision: a signed-out visitor who used all 10 tries gets a signup offer, not the members' 9 AM refill line.
-test('guest with no tries left is offered signup; members still see the 9 AM refill',async()=>{
+// 2026-11-20 user decision: guest credits refill daily too, so both see the refill notice with an add-to-calendar link; guests also get signup.
+test('with no credits left guests and members see the morning refill notice with a calendar link; guests also get signup',async()=>{
  const make=async noHearts=>{let r,calls=0;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:0,limit:10},room:9,noHearts,onEdit:async()=>{calls++;return {success:false};},onAdd(){}}));});
   await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes('여성')).props.onClick());
   await act(async()=>{await r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});return {r,calls:()=>calls};};
- const guest=await make(true);const shown=text(guest.r.toJSON());
- assert.match(shown,/체험 이용권을 모두 썼어요\. 회원가입하면 매일 무료로 계속 만들 수 있어요\./);assert.doesNotMatch(shown,/오전 9시/);assert.equal(guest.calls(),0);
- assert.equal(guest.r.root.findAll(n=>n.props?.href==='/service/signup').length>=1,true,'signup link');
- const member=await make(false);assert.match(text(member.r.toJSON()),/매일 오전 9시에 다시 이용할 수 있어요/);assert.equal(member.r.root.findAll(n=>n.props?.href==='/service/signup').length,0);
+ const notice=r=>r.root.findAll(n=>n.props.role==='dialog'&&n.props['aria-label']==='매일 이용권 횟수는 초기화돼요');
+ const guest=await make(true);assert.equal(notice(guest.r).length,1);assert.match(text(guest.r.toJSON()),/오전에 또 만나요/);assert.match(text(guest.r.toJSON()),/매일 오전 9시\(한국 시간\)에 다시 채워져요/);assert.equal(guest.calls(),0);
+ assert.equal(guest.r.root.findAll(n=>n.props?.href==='/service/signup').length>=1,true,'signup link');assert.equal(guest.r.root.findAll(n=>n.props?.href==='/calendar/ai-photo-reset.ics').length,1);
+ const member=await make(false);assert.equal(notice(member.r).length,1);assert.equal(member.r.root.findAll(n=>n.props?.href==='/service/signup').length,0);assert.equal(member.r.root.findAll(n=>n.props?.href==='/calendar/ai-photo-reset.ics?for=member').length,1);
 });
 
 // 2026-11-17 user decision: generation requests carry the chosen preset titles so the server can count HOT presets.
@@ -981,4 +984,24 @@ test('publish-reward offer appears 2 seconds after the result screen, restarting
  await wait(1000);assert.equal(offer().length,0,'still looking at the result');
  await click('원본으로');await wait(1500);assert.equal(offer().length,0,'going back to edit restarts the 2 seconds');
  await wait(700);assert.equal(offer().length,1,'2 seconds after the edit screen');
+});
+
+// 2026-11-20 user request: the add-to-calendar file is an event at the next 09:00 KST refill (00:00 UTC) with an on-time alert.
+test('the refill calendar file is an iCalendar event at the next 09:00 KST with an alert and the right link',()=>{
+ const {aiPhotoRefillCalendar,nextAiPhotoRefill}=loadTypeScript('lib/crefans/ai-photo-calendar.ts');
+ const evening=Date.parse('2026-11-20T13:30:00Z'),dawn=Date.parse('2026-11-20T20:00:00Z');// 22:30 KST, 05:00 KST next day
+ assert.equal(nextAiPhotoRefill(evening).toISOString(),'2026-11-21T00:00:00.000Z');assert.equal(nextAiPhotoRefill(dawn).toISOString(),'2026-11-21T00:00:00.000Z');
+ const ics=aiPhotoRefillCalendar(evening,false);
+ assert.match(ics,/^BEGIN:VCALENDAR\r\n/);assert.match(ics,/DTSTART:20261121T000000Z\r\n/);assert.match(ics,/DTEND:20261121T001500Z\r\n/);assert.match(ics,/BEGIN:VALARM\r\nACTION:DISPLAY/);assert.match(ics,/URL:https:\/\/crefans\.com\/service\/try\r\n/);assert.match(ics,/END:VCALENDAR\r\n$/);
+ assert.match(aiPhotoRefillCalendar(evening,true),/URL:https:\/\/crefans\.com\/service\/studio\r\n/);
+ const route=require('fs').readFileSync('app/calendar/ai-photo-reset.ics/route.ts','utf8');assert.match(route,/text\/calendar/);assert.doesNotMatch(route,/export (function|const)/,'route exports only GET');
+});
+
+// 2026-11-20: when the last credit is used, the refill notice appears 2 seconds after the result (no publish reward to offer).
+test('using the last credit shows the refill notice 2 seconds after the result',async()=>{
+ const wait=ms=>act(async()=>{await new Promise(r=>setTimeout(r,ms));});
+ const onEdit=async()=>({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:0},errorMessage:null,errorCode:null});
+ const {r,click}=await open({quota:{remaining:1,limit:10},onEdit});
+ const notice=()=>r.root.findAll(n=>n.props.role==='dialog'&&n.props['aria-label']==='매일 이용권 횟수는 초기화돼요');
+ await click('만들기');assert.equal(notice().length,0);await wait(1000);assert.equal(notice().length,0);await wait(1200);assert.equal(notice().length,1);
 });

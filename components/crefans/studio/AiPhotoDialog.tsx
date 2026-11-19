@@ -117,6 +117,9 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const [strokes,setStrokes]=useState<MaskStroke[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
  // 2026-11-17: when the image server refuses the result (try not used up), the notice offers to try again.
  const [retryable,setRetryable]=useState(false),[signupOffer,setSignupOffer]=useState(false);
+ // 2026-11-20 user request: when the credits run out, members and guests see that credits refill every morning (09:00 KST) and can
+ // add the refill to their calendar. Guests still get the publish-reward offer first while it is available.
+ const [refillNotice,setRefillNotice]=useState(false),refillShown=useRef(false);
  // 2026-11-18: signup from the guest trial comes back here (signup signs the member in, the completion page offers 계속하기).
  const signupLink=useCurrentSignupHref('/service');
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
@@ -146,6 +149,12 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  useEffect(()=>{setRemaining(quota.remaining);},[quota.remaining]);
  useEffect(()=>{setHeartBalance(quota.hearts||0);},[quota.hearts]);
  const [ticketBusy,setTicketBusy]=useState(false),[ticketNote,setTicketNote]=useState(''),tickets=quota.resetTickets?.count??0;
+ // Credits used up (and no publish reward to offer): the refill notice, also 2 seconds after the screen is showing.
+ useEffect(()=>{
+  if(!open||publishReward||busy||error||refillShown.current||remaining>0||tickets>0)return;
+  const timer=setTimeout(()=>{refillShown.current=true;setRefillNotice(true);},PUBLISH_OFFER_DELAY_MS);
+  return()=>clearTimeout(timer);
+ },[open,publishReward,busy,error,remaining,tickets,stage]);
  async function useTicket(){if(!onUseTicket||ticketBusy||busy)return;setTicketBusy(true);setError('');setTicketNote('');
   try{const r=await onUseTicket();if(r.success){setRemaining(r.data.remaining);setTicketNote(r.data.message);}else setError(r.errorMessage||'리셋권을 사용하지 못했어요. 잠시 후 다시 시도해 주세요.');}catch{setError('리셋권을 사용하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setTicketBusy(false);}}
  useEffect(()=>{if(!sources.some(item=>item.id===sourceId))setSourceId(sources[0]?.id||'');},[images,workingSources,sourceId]);
@@ -156,9 +165,9 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  async function generate(retryImproved=false){
   if(busy)return;
   if(!source){setError('편집할 사진을 먼저 올려 주세요.');return;}
-  if(shortage>0){if(shop){setShopOpen(true);void shop.refresh();return;}
-   // 2026-11-17 user decision: a signed-out visitor's 10 tries never refill, so the trial points to signup instead of the 9 AM refill.
-   if(publishReward){publishOfferShown.current=true;setPublishOffer(true);return;}
+  if(shortage>0){if(publishReward){publishOfferShown.current=true;setPublishOffer(true);return;}
+   if(remaining<=0&&tickets<=0){refillShown.current=true;setRefillNotice(true);return;}
+   if(shop){setShopOpen(true);void shop.refresh();return;}
    if(noHearts){setSignupOffer(true);setError(remaining>0?'선택한 방식에 필요한 이용권이 부족해요. 빠르게로 바꾸거나 회원가입 후 계속 만들 수 있어요.':'체험 이용권을 모두 썼어요. 회원가입하면 매일 무료로 계속 만들 수 있어요.');return;}
    setError(remaining>0?'선택한 생성 방식에 필요한 이용권이 부족해요. 다른 방식을 선택해 주세요.':tickets>0?'오늘 만들 수 있는 횟수를 모두 썼어요. 리셋권을 사용하면 다시 만들 수 있어요.':'오늘 만들 수 있는 횟수를 모두 썼어요. 매일 오전 9시에 다시 이용할 수 있어요.');return;}
   if(!prompt.trim()){setError('프리셋을 고르거나 커스텀 프롬프트를 적어 주세요.');return;}
@@ -174,7 +183,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
    const result=await onEdit({generationMethod:method.value,...(retryImproved?{retryImproved:true}:{}),backgroundId:aiPhotoBackgroundId(selectedPresets.find(item=>item.kind==='background')?.prompt),presetKeys:selectedPresets.filter(item=>item.kind!=='outfit'&&!(item.kind==='background'&&aiPhotoBackgroundId(item.prompt))).map(item=>({kind:item.kind,key:aiPhotoPresetTitle(item.kind,item.prompt,targetGender)})).filter(item=>item.key),aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
-   if(!result.success){if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else{if(noHearts&&result.errorCode==='GUEST_AI_LIMIT')setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
+   if(!result.success){if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else if((result.errorCode==='DAILY_LIMIT'||result.errorCode==='GUEST_AI_LIMIT')&&tickets<=0){refillShown.current=true;setRefillNotice(true);}else if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{{if(noHearts&&result.errorCode==='GUEST_AI_LIMIT')setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));for(const item of made)sourceOrigins.current.set(item.id,sourceOrigins.current.get(source.id)||source.id);
    setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
   }catch{setError('사진을 만들지 못했어요. 잠시 후 다시 시도해 주세요.');setStage(results.length?'results':'edit');}
@@ -296,6 +305,11 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
    </div>
   </div>
  </Dialog>}
+ <Dialog open={open&&refillNotice} onClose={()=>setRefillNotice(false)} title="매일 이용권 횟수는 초기화돼요" className={s.publishOffer}
+  illustration={<div className={s.publishOfferArt}><Image src="/illustrations/try/guest-ticket-v1.webp" alt="" width={112} height={112}/></div>}>
+  <div className={s.publishOfferBody}><p>{new Date(Date.now()+9*3600000).getUTCHours()<9?'오늘':'내일'} 오전에 또 만나요<br/><small>매일 오전 9시(한국 시간)에 다시 채워져요.</small></p>
+   <div className={s.publishOfferActions}>{noHearts?<ActionLink href={signupLink} variant="secondary">회원가입하면 하루 10장</ActionLink>:shop?<Action type="button" variant="secondary" onClick={()=>{setRefillNotice(false);setShopOpen(true);void shop.refresh();}}>이용권 구매</Action>:null}<a className={s.refillCalendar} href={`/calendar/ai-photo-reset.ics${noHearts?'':'?for=member'}`}>캘린더에 추가하기</a></div></div>
+ </Dialog>
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="AI 이용권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
  <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);setSignupOffer(false);}} title="AI 사진 편집 안내" persistent>
   <div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href={signupLink}>회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>
