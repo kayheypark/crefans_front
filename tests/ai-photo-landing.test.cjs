@@ -5,7 +5,8 @@ const React=require('react');
 const {create,act}=require('react-test-renderer');
 const {loadTypeScript}=require('./load-typescript.cjs');
 const styles=new Proxy({},{get:(_,key)=>String(key)});
-const page=loadTypeScript('components/service/AiPhotoLanding.tsx',{'./ai-photo-landing.module.css':{__esModule:true,default:styles},'@/components/crefans/studio/ai-photo.module.css':{__esModule:true,default:styles},'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'@/components/crefans/Brand':{Brand:()=>React.createElement('span',null,'crefans')}});
+const handedOff=[];
+const page=loadTypeScript('components/service/AiPhotoLanding.tsx',{'./ai-photo-landing.module.css':{__esModule:true,default:styles},'@/components/crefans/studio/ai-photo.module.css':{__esModule:true,default:styles},'next/link':({href,children,...props})=>React.createElement('a',{href,...props},children),'@/components/crefans/Brand':{Brand:()=>React.createElement('span',null,'crefans')},'@/components/ui/Primitives':{Dialog:({open,title,onClose,children})=>open?React.createElement('section',{'data-dialog':title,onClose},children):null},'@/components/ui/DialogActions':{DialogActions:({children})=>React.createElement('div',null,children)},'@/features/service/useFunnelStep':{useFunnelStep:()=>{}},'@/lib/crefans/ai-photo-handoff':{saveAiPhotoHandoff:presets=>{handedOff.push(presets);}}});
 const text=node=>JSON.stringify(node.toJSON());
 test('hero results come from real presets, the preset browser reuses the editor cards, and the removed sections stay gone',async()=>{
  const fs=require('fs'),sharp=require('sharp');
@@ -63,4 +64,24 @@ test('costume select bubble says exactly "니케, 원신, 블루아카이브, �
  const fs=require('fs');assert.match(fs.readFileSync('lib/crefans/ai-photo-costumes.ts','utf8'),/export const AI_PHOTO_COSTUME_HINT='니케, 원신, 블루아카이브, 진격거';/);
  for(const f of ['components/service/AiPhotoLanding.tsx','components/crefans/studio/AiPhotoDialog.tsx'])assert.match(fs.readFileSync(f,'utf8'),/<p className=\{[es]\.costumeHint\}>\{AI_PHOTO_COSTUME_HINT\}<\/p>\s*<div className=\{[es]\.costumeCategoryBar\}>/,f);
  const css=fs.readFileSync('components/crefans/studio/ai-photo.module.css','utf8');assert.match(css,/\.costumeHint\{[^}]*animation:/);assert.match(css,/prefers-reduced-motion:reduce\)\{\.costumeHint\{animation:none\}/);
+});
+
+// 2026-11-19 user request: picking any preset on the landing asks right away whether to try it.
+test('picking a preset opens the try-it dialog; unpicking does not; the dialog link carries the picks',async()=>{
+ let tree;await act(async()=>{tree=create(React.createElement(page.default));});
+ try{
+  const dialog=()=>tree.root.findAll(n=>n.type==='section'&&n.props['data-dialog']);
+  assert.equal(dialog().length,0);
+  const costume=()=>tree.root.find(n=>n.type==='button'&&n.props['aria-label']==='모더니아 코스튬');
+  await act(async()=>costume().props.onClick());
+  assert.equal(dialog().length,1);assert.equal(dialog()[0].props['data-dialog'],'이 코스튬으로 만들어볼까요?');assert.equal(dialog()[0].findByType('strong').props.children,'모더니아 코스튬');
+  const more=dialog()[0].findAll(n=>n.type==='button').find(n=>n.props.children==='더 골라볼게요');await act(async()=>more.props.onClick());
+  assert.equal(dialog().length,0,'closes');
+  await act(async()=>costume().props.onClick());assert.equal(costume().props['aria-pressed'],false);assert.equal(dialog().length,0,'unpicking does not ask');
+  const tab=tree.root.findAll(n=>n.props.role==='tab').find(n=>n.findAllByType('span').some(span=>span.props.children==='포즈'));await act(async()=>tab.props.onClick());
+  const pose=tree.root.find(n=>n.type==='button'&&n.props['aria-label']==='벽에 기대 쉬기');await act(async()=>pose.props.onClick());
+  assert.equal(dialog()[0].props['data-dialog'],'이 프리셋으로 만들어볼까요?');
+  const go=dialog()[0].findAll(n=>n.type==='a').find(n=>n.props.children==='0원으로 만들기');assert.equal(go.props.href,'/service/try');
+  handedOff.length=0;go.props.onClick();assert.match(JSON.stringify(handedOff),/"kind":"pose"/,'the picked pose is handed to the trial editor');
+ }finally{await act(async()=>tree.unmount());}
 });

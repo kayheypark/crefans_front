@@ -90,3 +90,8 @@
 
 /* Keep the initial card inset while allowing mobile scrolling to the viewport edges. */
 @media(max-width:767px){.heroDemo{min-width:0}.looks{box-sizing:border-box;width:100vw;max-width:none;margin-inline:calc(50% - 50vw);padding-inline:max(16px,calc((100vw - 440px)/2));scroll-padding-inline:max(16px,calc((100vw - 440px)/2))}}
+/* 2026-11-19: preset pick confirmation */
+.askPreset{display:grid;justify-items:center;gap:8px;padding:4px 0 16px;text-align:center}
+.askPreset img{width:120px;height:120px;border-radius:12px;object-fit:cover;background:#f3f4f6}.askPreset img[data-illustrated]{object-fit:contain}
+.askPreset strong{font-size:16px}.askPreset p{margin:0;color:var(--cf-color-text-muted,#667085);font-size:14px}
+button.secondary{cursor:pointer}
