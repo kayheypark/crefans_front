@@ -1,3 +1,9 @@
+## 2026-11-19 — 미츠리 하오리 의상 선택 복구
+
+- 공용 의상 카탈로그에서 기존 미츠리 하오리(`6ee320`)를 다시 표시한다. 귀멸의 칼날 31종, 전체 353종이며 원래 카드 이미지와 가발·소품 참조를 유지한다.
+- 로컬 Node 22.7.0, 기준 `origin/prod@48d3ba0`. 10:08 KST 랜딩 검색·선택과 편집기 선택·요청 ID 검사는 변경 전 두 건 모두 카드 미발견으로 실패, 변경 후 통과했다. 관련 카탈로그·성별·요청을 포함한 6건, 타입 검사, diff 검사 종료 0.
+- `node --test --test-name-pattern='Mitsuri Haori|costume categories:|catalog request IDs|every costume card|complete cosplay look' tests/ai-photo-landing.test.cjs tests/studio-ai-photo.test.cjs`로 재현한다. 편집 요청은 대역으로 검증했다. `npm run check:docs`는 종전부터 있던 문서 증거 만료 항목을 포함해 실패했다.
+
 ## 2026-11-19 — 모바일 AI 본문 입력란 두 줄 높이
 
 - 767px 이하에서 체험 captionFields 본문만 line-height1.5·높이3em+패딩/테두리26px로 조정(내용2줄). 공용120px 최소 높이 해제, 긴 내용 내부 세로 스크롤. 데스크톱 및 일반 작성 입력란 유지.

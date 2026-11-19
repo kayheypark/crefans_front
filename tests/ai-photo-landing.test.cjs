@@ -39,6 +39,18 @@ test('hero results come from real presets, the preset browser reuses the editor 
  }finally{act(()=>tree.unmount());}
 });
 
+test('Mitsuri Haori is searchable and selectable on the AI photo landing page',async()=>{
+ let tree;
+ await act(async()=>{tree=create(React.createElement(page.default));});
+ try{
+  const search=tree.root.findByProps({'aria-label':'프리셋 검색'});
+  await act(async()=>search.props.onChange({target:{value:'미츠리 하오리'}}));
+  const card=()=>tree.root.find(n=>n.type==='button'&&n.props['aria-label']==='미츠리 하오리');
+  assert.equal(card().props['aria-pressed'],false);
+  await act(async()=>card().props.onClick());assert.equal(card().props['aria-pressed'],true);
+ }finally{await act(async()=>tree.unmount());}
+});
+
 test('landing is discoverable: sitemap lists it, llms.txt describes it, the noindex trial stays out of the sitemap, page has JSON-LD',()=>{
  const fs=require('fs');const sitemap=fs.readFileSync('app/sitemap.ts','utf8'),llms=fs.readFileSync('public/llms.txt','utf8'),pageSrc=fs.readFileSync('app/service/landing-ai-image-generation/page.tsx','utf8');
  assert.match(sitemap,/'\/service\/landing-ai-image-generation'/);assert.doesNotMatch(sitemap,/'\/service\/try'/);

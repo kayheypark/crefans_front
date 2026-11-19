@@ -358,9 +358,7 @@ const catalogCostumes=[
  {"id": "b25a15", "detail": "하늘 · 요정 드레스", "wig": "금발 아주 긴 하이 포니테일 가발", "headwear": "은색 별 티아라, 청록 리본", "accessories": "투명 요정 날개 소품, 지팡이 모양 폼 소품", "footwear": "의상에 맞춘 신발", "category": "genshin", "name": "베스나 코스튬", "prompt": "의상을 원신의 베스나 기본 코스튬으로 바꿔줘. 하늘색 코르셋 상의, 흰 털 장식 소매, 흰 짧은 스커트, 분홍 허리 리본, 금 장식, 불투명 이너로 노출 보완. 가발은 금발 아주 긴 하이 포니테일 가발, 머리장식은 은색 별 티아라, 청록 리본, 소품은 투명 요정 날개 소품, 지팡이 모양 폼 소품, 신발은 의상에 맞춘 신발로 함께 맞춰줘. 원본 구도 안에서 보이는 범위에 적용하고 얼굴과 체형은 유지해줘.", "image": "/brand/ai-photo/costumes/genshin-vesna-v2.webp"},
  {"id": "a1dd79", "detail": "흰 · 물의 요정", "wig": "청록색 아주 긴 장발(끝 보라빛) 가발", "headwear": "흰 꽃 머리장식", "accessories": "은색 팔찌", "footwear": "의상에 맞춘 신발", "category": "genshin", "name": "보댜니차 코스튬", "prompt": "의상을 원신의 보댜니차 기본 코스튬으로 바꿔줘. 흰 프릴 블라우스형 원피스(퍼프 소매·흰 리본), 하늘·보라빛 반투명 겹 스커트 자락, 불투명 이너로 노출 보완. 가발은 청록색 아주 긴 장발(끝 보라빛) 가발, 머리장식은 흰 꽃 머리장식, 소품은 은색 팔찌, 신발은 의상에 맞춘 신발로 함께 맞춰줘. 원본 구도 안에서 보이는 범위에 적용하고 얼굴과 체형은 유지해줘.", "image": "/brand/ai-photo/costumes/genshin-vodyanitsa-v2.webp"},
 ] as const satisfies readonly AiPhotoCostume[];
-// 2026-11-17 user decision: 미츠리 하오리(6ee320) is hidden — the image server refused every request on copyright grounds.
-// The entry stays in the source for history; the server refuses the ID too (COSTUME_UNAVAILABLE).
-export const hiddenCostumeIds:ReadonlySet<string>=new Set(['6ee320']);
+export const hiddenCostumeIds:ReadonlySet<string>=new Set();
 export const aiPhotoCostumes=catalogCostumes.filter(costume=>!hiddenCostumeIds.has(costume.id));
 // 2026-11-18 user decision: costumes from games and anime (every category but 'general') may carry copyright, so photos made with
 // them cannot be used commercially. The server records this on the result and enforces it; this only drives the notice.
