@@ -19,14 +19,14 @@ export function hasGuestTrial(){try{return typeof window!=='undefined'&&window.l
 export function clearGuestTrial(){try{window.localStorage.removeItem(TRIAL_FLAG);}catch{}}
 function markGuestTrial(){try{window.localStorage.setItem(TRIAL_FLAG,'1');}catch{}}
 export type GuestCaption={title:string;body:string;source:'ai'|'template'};
-export type GuestSession={active:boolean;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;postReward?:number};
+export type GuestSession={active:boolean;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;postReward?:number;replayConsentVersion?:string};
 export function useGuestTrialModel(enabled:boolean){
  const [session,setSession]=useState<GuestSession|null>(null),[error,setError]=useState('');
  const refresh=useCallback(async()=>{const r=await api<GuestSession>('/guest/session');if(r.success)setSession(r.data);else setError(r.errorMessage||'체험 정보를 불러오지 못했어요.');},[]);
  useEffect(()=>{if(enabled)void refresh();},[enabled,refresh]);
  // An existing trial session (cookie) also keeps the flag, e.g. after storage was cleared.
  useEffect(()=>{if(session?.active)markGuestTrial();},[session?.active]);
- const start=async()=>{const r=await api<{active:boolean}>('/guest/session',{consent:true,version:GUEST_CONSENT_VERSION});if(r.success){markGuestTrial();captureEvent('guest_consent_agreed',{actor:'guest'});await refresh();}return r;};
+ const start=async(replayAgreed=false)=>{const replayVersion=replayAgreed?session?.replayConsentVersion:undefined;const r=await api<{active:boolean}>('/guest/session',{consent:true,version:GUEST_CONSENT_VERSION,...(replayVersion?{replayConsent:{agreed:true,version:replayVersion}}:{})});if(r.success){markGuestTrial();captureEvent('guest_consent_agreed',{actor:'guest'});await refresh();}return r;};
  const upload=async(original:File)=>{
   if(!original.type.startsWith('image/'))return {success:false as const,data:null,errorMessage:'체험에서는 사진만 올릴 수 있어요.',errorCode:'GUEST_IMAGE_ONLY'};
   if(original.size>imageUploadMaxBytes)return {success:false as const,data:null,errorMessage:`사진은 한 장에 ${imageUploadMaxLabel}까지 올릴 수 있어요.`,errorCode:'INVALID_IMAGE_SIZE'};
