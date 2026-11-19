@@ -41,8 +41,12 @@ export function aiPhotoProblem({prompt,consent,kind,hasMask,remaining,requireMas
 // 2026-11-20 user decision: chest is picked as a cup (A–G) and hip as a size (S–XXXL) besides '원본 유지'; height stays a slider.
 // The value is the 1-based option index (0 = original). The result is an AI rendering, not a measured size.
 export const aiPhotoBodyOptions:Readonly<Record<string,readonly string[]>>={chest:['A컵','B컵','C컵','D컵','E컵','F컵','G컵'],hip:['S','M','L','XL','XXL','XXXL']};
-/** 2026-11-20: the server attaches a fictional-model size reference for each chosen chest cup / hip size (chest-A…G, hip-S…XXXL). */
-export function aiPhotoBodyReferenceIds(selection:Readonly<Record<string,number>>){return (['chest','hip'] as const).flatMap(key=>{const option=aiPhotoBodyOptions[key][(selection[key]??0)-1];return option?[`${key}-${option.replace('컵','')}`]:[];});}
+// 2026-11-20 user decision: prompt-only control (no reference images), in the wording that produced the graded side-profile
+// reference photos (Seedream: "change only her bust volume … to a <size> bust, like a natural <cup> cup").
+const chestWords:Record<string,string>={A:'very small and flat',B:'small',C:'medium',D:'full',E:'very full',F:'very large, clearly larger than an E cup',G:'extremely large, clearly larger than an F cup'};
+const hipWords:Record<string,string>={S:'slim and narrow',M:'medium, average',L:'moderately full and rounded',XL:'full and well-rounded',XXL:'very full, wide and rounded',XXXL:'extremely full, very wide and very rounded, clearly larger than XXL'};
+const article=(words:string)=>(/^[aeiou]/i.test(words)?'an ':'a ')+words;
+const KEEP_CLOTHES='Keep the same clothing exactly: the same garment, neckline height, length, coverage and design; never open, cut or lower a neckline and never show more skin. The clothes only stretch and drape over the new body shape.';
 export const aiPhotoBodyControls=[{key:'chest',label:'가슴 크기'},{key:'hip',label:'힙 크기'},{key:'height',label:'키 비율'}] as const;
 export const aiPhotoMaleBodyControls=[{key:'upper',label:'상체 근육'},{key:'lower',label:'하체 근육'},{key:'shoulder',label:'어깨 너비'},{key:'height',label:'키 비율'}] as const;
 // Native range uses step=any; pointer values within 2% of the full track snap to five anchors.
@@ -51,8 +55,8 @@ export function aiPhotoBodyStrength(value:number){return Number((Math.abs(value)
 export function aiPhotoBodyPrompt(key:string,level:number){
  if(!level)return '';
  const option=aiPhotoBodyOptions[key]?.[level-1];
- if(key==='chest'&&option)return `가슴 크기를 ${option} 정도로 보이게 자연스럽게 보정해줘. 옷은 원본과 같은 옷 그대로 두고 목선 높이·가림 정도·디자인을 바꾸지 마. 목선을 파거나 노출을 늘리지 말고 옷이 새 체형에 맞게 늘어나게만 해줘.`;
- if(key==='hip'&&option)return `힙 크기를 의류 ${option} 사이즈 정도의 볼륨으로 보이게 자연스럽게 보정해줘. 옷은 원본과 같은 옷 그대로 두고 길이·가림 정도·디자인을 바꾸지 마. 노출을 늘리지 말고 옷이 새 체형에 맞게 늘어나게만 해줘.`;
+ if(key==='chest'&&option){const cup=option.replace('컵','');return `Change only her bust volume to ${article(chestWords[cup])} bust, like a natural ${cup} cup, with the waist, hips and legs unchanged. ${KEEP_CLOTHES}`;}
+ if(key==='hip'&&option)return `Change only her hip and buttock volume to ${article(hipWords[option])} shape, like clothing size ${option} hips, with the waist, chest and legs otherwise natural. ${KEEP_CLOTHES}`;
  const amount=Math.abs(level)<=1?'조금':'좀 더',direction=level>0?'크게':'작게';
  const strength=Number.isInteger(level)?'':` 보정 강도는 최대 100 중 ${aiPhotoBodyStrength(level)}로 적용해줘.`;
  if(key==='upper'||key==='lower')return `${key==='upper'?'가슴·팔·등의 상체':'허벅지·종아리의 하체'} 근육 볼륨을 ${amount} ${level>0?'탄탄하게':'슬림하게'} 자연스럽게 보정해줘. 옷과 포즈는 유지해줘.`+strength;
