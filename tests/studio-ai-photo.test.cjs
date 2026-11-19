@@ -216,12 +216,23 @@ test('mask icon tools: all brush sizes paint correctly, undo removes one stroke,
  await act(async()=>r.update(el(AiPhotoMask,{src:photo.url,alt:'원본',strokes:[],onChange(){},disabled:true})));assert.ok(r.root.findAllByType('button').every(b=>b.props.disabled));
 });
 
-test('costume categories: nine populated groups, existing eight general styles, and 90 unique short prompts',()=>{
+test('costume categories: nine populated groups, eight general styles, and unique short prompts',()=>{
  const {aiPhotoCostumes,aiPhotoCostumeCategories}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumeCategories.length,9);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,116,16,103,54,4,5,30,16]);
+ assert.equal(aiPhotoCostumeCategories.length,9);assert.deepEqual(aiPhotoCostumeCategories.map(c=>aiPhotoCostumes.filter(x=>x.category===c.value).length),[8,116,16,103,54,5,31,16,4]);
  assert.deepEqual(aiPhotoCostumes.filter(c=>c.category==='general').map(c=>c.id),['773106','80974e','ffb58f','666147','b4bf5d','e614f6','190513','ab36e8']);
- assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,352);assert.ok(!aiPhotoCostumes.some(c=>c.id==='6ee320'),'미츠리 하오리 is hidden (2026-11-17)');
+ assert.equal(new Set(aiPhotoCostumes.map(c=>c.prompt)).size,353);
  for(const c of aiPhotoCostumes){assert.ok(aiPhotoCostumeCategories.some(g=>g.value===c.category));assert.ok(c.prompt.length<=450)/* 2026-11-17: stocking material wording (user-approved, e.g. 4a0c8f) needs room; was 300 */;assert.equal(rules.aiPhotoProblem({...base,kind:'outfit',prompt:c.prompt,hasMask:true}),'');}
+});
+
+test('Mitsuri Haori can be selected in the Demon Slayer wardrobe and sends its existing costume ID',async()=>{
+ const {r,click,calls}=await open({},true);
+ try{
+  await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('demon-slayer'));
+  const card=()=>r.root.find(n=>n.type==='button'&&n.props['aria-label']==='미츠리 하오리');
+  assert.ok(decodeURIComponent(card().findByType('img').props.src).includes('/brand/ai-photo/costumes/demon-mitsuri-v2.webp'));
+  await act(async()=>card().props.onClick());assert.equal(card().props['aria-pressed'],true);
+  await click('1장 만들기');assert.deepEqual(calls[0].costumeIds,['6ee320']);
+ }finally{await act(async()=>r.unmount());}
 });
 
 test('category filters: all nine use cards without losing request or mask',async()=>{
@@ -347,13 +358,12 @@ test('reset ticket: button refills the count, is off when unused, hidden without
 
 test('complete cosplay look: catalog hair and accessories reach the request after leaving the wardrobe',async()=>{
  const {aiPhotoCostumes}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');
- assert.equal(aiPhotoCostumes.length,352);
+ assert.equal(aiPhotoCostumes.length,353);
  for(const item of aiPhotoCostumes){assert.match(item.wig,/가발|후드|머리장식/);assert.ok(item.accessories);assert.ok(item.footwear);assert.match(item.image,/-v2\.webp$/);for(const part of [item.wig,item.headwear,item.accessories,item.footwear])assert.ok(item.prompt.includes(part),item.id+':'+part);}
- const {r,calls,click}=await open();await click('코스어 모드');await click('리본 메이드');
- assert.doesNotMatch(text(r.toJSON()),/옷을 바꿀 영역을 칠해 주세요/);await click('일반 모드');
- await click('옷 세부 지정');await act(async()=>{r.root.find(n=>n.props['data-mask-editor']).props.onChange([{size:.1,points:[{x:.5,y:.5}]}]);});
-
- await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mode,'general');assert.equal(calls[0].prompt,'의상 참조 사진 1의 코디를 적용해줘.\n생성 인물을 성인 여성으로 바꿔줘.');assert.deepEqual(calls[0].costumeIds,['773106']);assert.ok(calls[0].mask);
+ const {r,calls,click}=await open({},true);
+ await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('general'));
+ await click('리본 메이드');await click('일반 모드');
+ await click('1장 만들기');assert.equal(calls.length,1);assert.equal(calls[0].style,'cosplay');assert.equal(calls[0].mode,'general');assert.equal(calls[0].prompt,'의상 참조 사진 1의 코디를 적용해줘.\n생성 인물을 성인 여성으로 바꿔줘.');assert.deepEqual(calls[0].costumeIds,['773106']);
 });
 
 
@@ -523,7 +533,7 @@ test('search keeps selected poses, resets pages, clears on tabs and finds costum
 });
 
 
-test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,352);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
+test('catalog request IDs are unique stable six-character hashes',()=>{const {aiPhotoCostumes,aiPhotoCostumeRequest}=loadTypeScript('lib/crefans/ai-photo-costumes.ts');assert.equal(new Set(aiPhotoCostumes.map(c=>c.id)).size,353);for(const item of aiPhotoCostumes){assert.match(item.id,/^[a-f0-9]{6}$/);assert.deepEqual(aiPhotoCostumeRequest([{kind:'outfit',prompt:rules.aiPhotoPresetText(item.prompt)}]).costumeIds,[item.id]);}});
 
 test('clothing detail switch defaults off, sends no guide, and ignores retained strokes when off',async()=>{
  const {r,click,calls}=await open({},true);
@@ -724,9 +734,9 @@ test('every costume card shows its original character gender (female pink, male 
  const missing=aiPhotoCostumes.filter(c=>!aiPhotoCostumeGender(c));assert.deepEqual(missing.map(c=>c.name),[]);
  const src=require('fs').readFileSync(require('path').join(__dirname,'..','lib/crefans/ai-photo-costumes.ts'),'utf8').split('const costumeGenderIds')[1].split('const costumeGenderById')[0];
  const listed=[...src.matchAll(/'([0-9a-f]{6})'/g)].map(m=>m[1]),ids=new Set(aiPhotoCostumes.map(c=>c.id));
- assert.equal(new Set(listed).size,listed.length,'an id is listed under two genders');assert.deepEqual(listed.filter(id=>!ids.has(id)),['6ee320'],'only the hidden costume keeps a gender entry without a card');
+ assert.equal(new Set(listed).size,listed.length,'an id is listed under two genders');assert.deepEqual(listed.filter(id=>!ids.has(id)),[],'every gender entry has a visible card');
  const by=name=>aiPhotoCostumeGender(aiPhotoCostumes.find(c=>c.name===name));
- for(const [name,gender] of [['로드호그 코스튬','male'],['트레이서 코스튬','female'],['D.Mon 코스튬','female'],['벤처 코스튬','both'],['바스티온 코스튬','both'],['고죠 하이넥','male'],['호시 키라라 코스튬','both'],['시로코 교복','female'],['리본 메이드','both'],['원소술사 로브','both'],['가비 브라운 코스튬','female'],['조사병단 제복','both']])assert.equal(by(name),gender,name);
+ for(const [name,gender] of [['로드호그 코스튬','male'],['트레이서 코스튬','female'],['D.Mon 코스튬','female'],['벤처 코스튬','both'],['바스티온 코스튬','both'],['고죠 하이넥','male'],['미츠리 하오리','female'],['호시 키라라 코스튬','both'],['시로코 교복','female'],['리본 메이드','both'],['원소술사 로브','both'],['가비 브라운 코스튬','female'],['조사병단 제복','both']])assert.equal(by(name),gender,name);
  const {r}=await open({},true);await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('overwatch'));
  const badge=name=>r.root.findByProps({'aria-label':name}).find(n=>n.props['data-gender']);
  await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(badge('로드호그 코스튬').props['data-gender'],'male');assert.equal(text(badge('로드호그 코스튬')),'♂');
