@@ -20,9 +20,10 @@ import {AiPhotoWardrobe,CostumeGender} from './AiPhotoWardrobe';
 import Icon from '../Icon';
 import type {ApiResult} from '@/types/crefans';
 import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,StudioMedia} from '@/types/crefans-studio-management';
+import Image from 'next/image';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {aiPhotoSelectionLabels,type AiPhotoCaptionContext} from '@/lib/crefans/ai-photo-labels';
-import {AI_PHOTO_IMAGES_PER_REQUEST,AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
+import {AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection} from '@/lib/crefans/ai-photo';
 import {Action,ActionLink} from '../ServiceUI';
 import {useCurrentSignupHref} from '../useCurrentLoginHref';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
@@ -32,7 +33,7 @@ import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
 
-type Props={/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
+type Props={publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext,replaceSourceIds?:string[])=>void};
 
@@ -45,7 +46,7 @@ function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBo
 // Temporarily hidden at user request; keep the mask editor for later reactivation.
 const OUTFIT_DETAIL_ENABLED=false;
 
-export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false}:Props){
+export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false,publishReward}:Props){
  const [libraryOpen,setLibraryOpen]=useState(false),[libraryAssets,setLibraryAssets]=useState<PhotoAsset[]>([]);
  const sourceOrigins=useRef(new Map<string,string>());
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('outfit');
@@ -112,8 +113,8 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  // 2026-11-18: signup from the guest trial comes back here (signup signs the member in, the completion page offers 계속하기).
  const signupLink=useCurrentSignupHref('/service');
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
+ const [publishOffer,setPublishOffer]=useState(false),publishOfferShown=useRef(false);
  const shortage=Math.max(0,method.cost-remaining);
- const createLabel=shortage>0&&shop?'이용권 구매':shortage>0&&noHearts?'회원가입 안내':`${AI_PHOTO_IMAGES_PER_REQUEST}장 만들기`;
  useEffect(()=>{if(typeof navigator!=='undefined'&&typeof navigator.share==='function')for(const item of results)void photoFile(item).catch(()=>{});},[results]);// eslint-disable-line react-hooks/exhaustive-deps
  const [heartGame,setHeartGame]=useState<{id:string;kinds:('heart'|'candy'|'moon')[]}|null>(null),[heartBalance,setHeartBalance]=useState(quota.hearts||0),[rewardNote,setRewardNote]=useState('');
  const heartQueue=useRef(Promise.resolve()),gameEvent=useRef(0);
@@ -122,6 +123,11 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  const heartScoreRef=useRef(0);
  function collectHeart(delta:number){heartScoreRef.current=Math.max(0,Math.min(30,heartScoreRef.current+delta));setHeartScore(heartScoreRef.current);}
  const [stage,setStage]=useState<'edit'|'results'>('edit'),[sourcePicker,setSourcePicker]=useState(false);
+ useEffect(()=>{
+  if(!open||!publishReward||!genderChosen||busy||error||publishOfferShown.current)return;
+  if(remaining<=1||shortage>0){publishOfferShown.current=true;setPublishOffer(true);}
+ },[open,publishReward,genderChosen,busy,error,remaining,shortage]);
+
  const [viewer,setViewer]=useState<number|null>(null),[sourceViewer,setSourceViewer]=useState(false),[elapsed,setElapsed]=useState(0);
  const bodyRef=useRef<HTMLDivElement>(null),resultTitleRef=useRef<HTMLHeadingElement>(null),editRef=useRef<HTMLButtonElement>(null);
  useEffect(()=>{if(genderChosen)bodyRef.current?.querySelector<HTMLButtonElement>('[aria-label="생성 인물 성별"] button[aria-pressed="true"]')?.focus({preventScroll:true});},[genderChosen]);
@@ -140,6 +146,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   if(!source){setError('편집할 사진을 먼저 올려 주세요.');return;}
   if(shortage>0){if(shop){setShopOpen(true);void shop.refresh();return;}
    // 2026-11-17 user decision: a signed-out visitor's 10 tries never refill, so the trial points to signup instead of the 9 AM refill.
+   if(publishReward){publishOfferShown.current=true;setPublishOffer(true);return;}
    if(noHearts){setSignupOffer(true);setError(remaining>0?'선택한 방식에 필요한 이용권이 부족해요. 빠르게로 바꾸거나 회원가입 후 계속 만들 수 있어요.':'체험 이용권을 모두 썼어요. 회원가입하면 매일 무료로 계속 만들 수 있어요.');return;}
    setError(remaining>0?'선택한 생성 방식에 필요한 이용권이 부족해요. 다른 방식을 선택해 주세요.':tickets>0?'오늘 만들 수 있는 횟수를 모두 썼어요. 리셋권을 사용하면 다시 만들 수 있어요.':'오늘 만들 수 있는 횟수를 모두 썼어요. 매일 오전 9시에 다시 이용할 수 있어요.');return;}
   if(!prompt.trim()){setError('프리셋을 고르거나 커스텀 프롬프트를 적어 주세요.');return;}
@@ -155,7 +162,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
    const result=await onEdit({generationMethod:method.value,...(retryImproved?{retryImproved:true}:{}),backgroundId:aiPhotoBackgroundId(selectedPresets.find(item=>item.kind==='background')?.prompt),presetKeys:selectedPresets.filter(item=>item.kind!=='outfit'&&!(item.kind==='background'&&aiPhotoBackgroundId(item.prompt))).map(item=>({kind:item.kind,key:aiPhotoPresetTitle(item.kind,item.prompt,targetGender)})).filter(item=>item.key),aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
-   if(!result.success){if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{if(noHearts&&result.errorCode==='GUEST_AI_LIMIT')setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setError(result.errorMessage);}setStage(results.length?'results':'edit');return;}
+   if(!result.success){if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else{if(noHearts&&result.errorCode==='GUEST_AI_LIMIT')setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));for(const item of made)sourceOrigins.current.set(item.id,sourceOrigins.current.get(source.id)||source.id);
    setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
   }catch{setError('사진을 만들지 못했어요. 잠시 후 다시 시도해 주세요.');setStage(results.length?'results':'edit');}
@@ -242,7 +249,9 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
       <span><strong>{option.label}</strong><small>{option.cost}개</small></span>
      </label>)}
     </div>
-    <Action type="button" className={s.createWithQuota} aria-label={createLabel} aria-describedby={`${panelId}-remaining ${panelId}-${shortage===0?'cost':'shortage'}`} onClick={()=>void generate()} disabled={busy}><span className={s.createLabel}>{createLabel}{shortage===0&&<small id={`${panelId}-cost`}> · {method.cost}개 사용</small>}</span><span id={`${panelId}-remaining`} className={s.createQuota}>보유 {remaining}개</span></Action>
+    <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>void generate()} disabled={busy}>
+     <span className={s.createLabel}>만들기</span><span id={`${panelId}-remaining`} className={s.createQuota}>{remaining}장 보유</span>
+    </Action>
     {shortage>0&&<p id={`${panelId}-shortage`} role="status" className={s.methodShortage}>이용권이 {shortage}개 더 필요해요.</p>}
    </div>}
   </>}
@@ -251,6 +260,16 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  </Dialog>
  {library&&<AiPhotoLibrary open={open&&libraryOpen} model={library} selected={libraryAssets} onSelect={selectLibrary} onChanged={id=>setLibraryAssets(items=>items.filter(item=>item.id!==id))} onClose={()=>setLibraryOpen(false)}/>}
  {open&&cropItem&&onCrop&&<AiPhotoCrop key={cropItem.id} item={cropItem} onClose={()=>setCropItem(null)} onApply={async crop=>{const r=await onCrop({sourceId:cropItem.id,...crop});if(!r.success)throw new Error(r.errorMessage||'사진을 저장하지 못했어요.');const next={...r.data,aiGenerated:true};sourceOrigins.current.set(next.id,sourceOrigins.current.get(cropItem.id)||sourceId);setResults(items=>items.map(item=>item.id===cropItem.id?next:item));setSelected(ids=>ids.map(id=>id===cropItem.id?next.id:id));setCropItem(null);}}/>}
+ {publishReward&&<Dialog open={open&&publishOffer} onClose={()=>setPublishOffer(false)} title={`게시하고 이용권 ${publishReward.credits}장 받기`} className={s.publishOffer}
+   illustration={<div className={s.publishOfferArt}><Image src="/illustrations/try/guest-ticket-v1.webp" alt="" width={112} height={112}/></div>}>
+  <div className={s.publishOfferBody}>
+   <p>첫 게시글을 올리면 이용권 <strong>{publishReward.credits}장</strong>을 바로 받아요. 사진 편집을 이어서 즐겨 보세요.</p>
+   <div className={s.publishOfferActions}>
+    <Action type="button" variant="brand" onClick={()=>{setPublishOffer(false);if(stage==='results'&&selected.length)add();else onClose();publishReward.onWrite();}}>게시글 작성하기</Action>
+    <Action type="button" variant="secondary" onClick={()=>setPublishOffer(false)}>나중에</Action>
+   </div>
+  </div>
+ </Dialog>}
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="AI 이용권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
  <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);setSignupOffer(false);}} title="AI 사진 편집 안내" persistent>
   <div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href={signupLink}>회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>

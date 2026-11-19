@@ -242,7 +242,6 @@
 .methodChoices input:focus-visible+span{outline:2px solid var(--cf-color-focus);outline-offset:1px}
 .footer .createWithQuota{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:3px;margin-top:9px;padding-inline:9px}
 .createLabel{grid-column:2;white-space:nowrap;font-size:15px}
-.createLabel small{font-size:12px;font-weight:550}
 .createQuota{grid-column:3;justify-self:end;padding:3px 7px;border-radius:999px;background:rgb(255 255 255 / 18%);color:inherit;font-size:11px;font-weight:550;white-space:nowrap;font-variant-numeric:tabular-nums}
 .methodShortage{margin:7px 0 0;color:var(--cf-color-danger);font-size:12px}
 @media(max-width:360px){.footer .createWithQuota{grid-template-columns:minmax(0,1fr) auto;gap:6px}.createLabel{grid-column:1}.createQuota{grid-column:2}}
@@ -287,3 +286,14 @@
 
 @keyframes costumePopularFloat{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-4px)}}
 @media(prefers-reduced-motion:reduce){.costumePopular{animation:none}}
+
+.publishOffer{max-width:420px;border-radius:24px}
+.publishOffer>header{margin-bottom:10px}
+.publishOffer>header h2{font-size:22px;letter-spacing:-.035em}
+.publishOfferArt{display:grid;width:100%;min-height:128px;place-items:center;border-radius:18px;background:radial-gradient(ellipse at 50% 30%,#fff 0%,#eef1ff 55%,#e8edff 100%)}
+.publishOfferArt img{object-fit:contain}
+.publishOfferBody{text-align:center}
+.publishOfferBody p{max-width:270px;margin:14px auto 20px;font-size:15px}
+.publishOfferBody strong{color:var(--cf-color-text)}
+.publishOfferActions{display:grid;gap:8px}
+.publishOfferActions button{width:100%;min-height:44px}
