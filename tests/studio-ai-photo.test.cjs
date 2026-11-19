@@ -415,11 +415,11 @@ test('preset paging: nine cards, circular single-page gestures, preserved select
  const event=(x,y=0)=>({isPrimary:true,button:0,pointerId:1,clientX:x,clientY:y,currentTarget:{clientWidth:360,setPointerCapture(){}}});
  async function drag(x,y=0,cancel=false){await act(async()=>pager().props.onPointerDown(event(200)));await act(async()=>pager().props.onPointerMove(event(200+x,y)));await act(async()=>cancel?pager().props.onPointerCancel():pager().props.onPointerUp(event(200+x,y)));}
  // 2026-11-19: a swipe hint shows until the first swipe.
- const hint=()=>r.root.findAll(n=>n.type==='p'&&n.props.className==='swipeHint').length;assert.equal(hint(),1);
- // 2026-11-19 user report "안 보여": the hint sits above the cards and a hand animation runs over them.
- const siblings=pager().parent.children,at=siblings.indexOf(pager());assert.ok(at>0&&siblings[at-1].type==='p'&&siblings[at-1].props.className==='swipeHint','hint is right above the cards');
- assert.equal(pager().findAll(n=>n.type==='span'&&n.props.className==='swipeHand').length,1);
- await drag(-180);assert.notDeepEqual(labels(),initial);assert.equal(hint(),0,'hint hides after a swipe');assert.equal(r.root.findAll(n=>n.type==='span'&&n.props.className==='swipeHand').length,0,'the hand hides after a swipe');let suppressed=false;pager().props.onClickCapture({detail:1,preventDefault(){suppressed=true;},stopPropagation(){}});assert.equal(suppressed,true);assert.equal(calls.length,0);
+ const overlay=()=>pager().findAll(n=>n.type==='span'&&n.props.className==='swipeOverlay');
+ // 2026-11-19 user report "오버레이로, 손가락이 잘림": the hint is an overlay on the cards with a whole hand (padded viewBox) and text, never blocking taps.
+ assert.equal(overlay().length,1);assert.ok(overlay()[0].findAll(n=>n.type==='span'&&n.props.children==='좌우로 밀어서 넘겨 보세요').length===1);assert.equal(overlay()[0].findByType('svg').props.viewBox,'-4 -3 32 32');
+ assert.equal(r.root.findAll(n=>n.type==='p'&&n.props.className==='swipeHint').length,0,'no separate hint line');
+ await drag(-180);assert.notDeepEqual(labels(),initial);assert.equal(overlay().length,0,'the overlay goes at the first touch');let suppressed=false;pager().props.onClickCapture({detail:1,preventDefault(){suppressed=true;},stopPropagation(){}});assert.equal(suppressed,true);assert.equal(calls.length,0);
  await drag(180);assert.deepEqual(labels(),initial);assert.equal(r.root.findByProps({'aria-label':'의자에 앉기'}).props['aria-pressed'],true);
  await drag(-20);assert.deepEqual(labels(),initial);await drag(20,120);assert.deepEqual(labels(),initial);await drag(-180,0,true);assert.deepEqual(labels(),initial);
  await click('이전 프리셋 페이지');assert.notDeepEqual(labels(),initial);await click('다음 프리셋 페이지');assert.deepEqual(labels(),initial);
