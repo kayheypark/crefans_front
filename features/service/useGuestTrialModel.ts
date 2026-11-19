@@ -4,7 +4,7 @@ import {platformRequest as api} from '@/lib/api/platform';
 import {imageUploadMaxBytes,imageUploadMaxLabel} from '@/lib/design/image-upload';
 import {optimizeImage} from '@/lib/design/image-optimize';
 import {aiPhotoEditBody} from './useStudioModel';
-import {aiProps,captureEvent} from '@/lib/analytics/posthog';
+import {aiProps,captureEvent,setReplayUnmasked} from '@/lib/analytics/posthog';
 import {reportShare} from '@/lib/api/share-report';
 import type {AiPhotoFunnelStep} from '@/types/crefans-studio-management';
 import type {AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefans-studio-management';
@@ -19,13 +19,15 @@ export function hasGuestTrial(){try{return typeof window!=='undefined'&&window.l
 export function clearGuestTrial(){try{window.localStorage.removeItem(TRIAL_FLAG);}catch{}}
 function markGuestTrial(){try{window.localStorage.setItem(TRIAL_FLAG,'1');}catch{}}
 export type GuestCaption={title:string;body:string;source:'ai'|'template'};
-export type GuestSession={active:boolean;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;postReward?:number;replayConsentVersion?:string};
+export type GuestSession={active:boolean;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};
 export function useGuestTrialModel(enabled:boolean){
  const [session,setSession]=useState<GuestSession|null>(null),[error,setError]=useState('');
  const refresh=useCallback(async()=>{const r=await api<GuestSession>('/guest/session');if(r.success)setSession(r.data);else setError(r.errorMessage||'체험 정보를 불러오지 못했어요.');},[]);
  useEffect(()=>{if(enabled)void refresh();},[enabled,refresh]);
  // An existing trial session (cookie) also keeps the flag, e.g. after storage was cleared.
  useEffect(()=>{if(session?.active)markGuestTrial();},[session?.active]);
+ // 2026-11-19 user decision (처리방침 17항): unmask session replay on the trial screens only for a visitor whose replay consent is recorded.
+ useEffect(()=>{if(!enabled||!session?.active||!session.replayConsented)return;setReplayUnmasked(true);return()=>setReplayUnmasked(false);},[enabled,session?.active,session?.replayConsented]);
  const start=async(replayAgreed=false)=>{const replayVersion=replayAgreed?session?.replayConsentVersion:undefined;const r=await api<{active:boolean}>('/guest/session',{consent:true,version:GUEST_CONSENT_VERSION,...(replayVersion?{replayConsent:{agreed:true,version:replayVersion}}:{})});if(r.success){markGuestTrial();captureEvent('guest_consent_agreed',{actor:'guest'});await refresh();}return r;};
  const upload=async(original:File)=>{
   if(!original.type.startsWith('image/'))return {success:false as const,data:null,errorMessage:'체험에서는 사진만 올릴 수 있어요.',errorCode:'GUEST_IMAGE_ONLY'};
