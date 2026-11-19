@@ -19,7 +19,7 @@ export function hasGuestTrial(){try{return typeof window!=='undefined'&&window.l
 export function clearGuestTrial(){try{window.localStorage.removeItem(TRIAL_FLAG);}catch{}}
 function markGuestTrial(){try{window.localStorage.setItem(TRIAL_FLAG,'1');}catch{}}
 export type GuestCaption={title:string;body:string;source:'ai'|'template'};
-export type GuestSession={active:boolean;consentVersion:string;limit:number;postHours:number;remaining:number};
+export type GuestSession={active:boolean;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;postReward?:number};
 export function useGuestTrialModel(enabled:boolean){
  const [session,setSession]=useState<GuestSession|null>(null),[error,setError]=useState('');
  const refresh=useCallback(async()=>{const r=await api<GuestSession>('/guest/session');if(r.success)setSession(r.data);else setError(r.errorMessage||'체험 정보를 불러오지 못했어요.');},[]);

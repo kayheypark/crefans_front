@@ -23,3 +23,7 @@
 /* Two-line title: no marquee scrolling inside this modal. */
 .askDialog h2,.askDialog h2 [data-marquee],.askDialog h2 [data-marquee] *{white-space:pre-line;overflow:visible;text-overflow:clip;animation:none!important;transform:none!important;mask-image:none!important;-webkit-mask-image:none!important}.askDialog h2{text-align:center}
 .askArt>img{width:116px;height:116px;margin:-10px -6px}
+
+.rewardCard{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:10px 14px;padding:16px;border-radius:18px;background:#eef1ff;color:#202333}
+.rewardCard p{margin:4px 0 0;color:#49546c;font-size:14px}
+.rewardCard button{grid-column:1/-1;width:100%}
