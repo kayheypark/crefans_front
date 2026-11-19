@@ -19,13 +19,14 @@ export function AiPresetPager({children,onStep,disabled}:{children:ReactNode;onS
    if(axis==='x'&&event.cancelable)event.preventDefault();};
   el.addEventListener('touchstart',down,{passive:true});el.addEventListener('touchmove',move,{passive:false});
   return()=>{el.removeEventListener('touchstart',down);el.removeEventListener('touchmove',move);};},[]);
- const hint=!disabled&&!swiped,[seen,setSeen]=useState(false);
+ const [seen,setSeen]=useState(false),[overlayDone,setOverlayDone]=useState(false),overlay=!disabled&&!swiped&&seen&&!overlayDone;
  // The hand plays once the cards are half on screen (the landing grid starts below the fold); without IntersectionObserver it plays at once.
  useEffect(()=>{if(seen)return;const el=viewport.current;if(!el||typeof IntersectionObserver==='undefined'){setSeen(true);return;}
   const io=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){setSeen(true);io.disconnect();}},{threshold:.5});io.observe(el);return()=>io.disconnect();},[seen]);
- // 2026-11-19 user report "안 보여": the hint sits above the cards in the accent colour, and a hand swipes across the cards on first view.
- return <>{hint&&<p className={s.swipeHint}><span aria-hidden="true">‹</span>좌우로 밀어서 넘겨 보세요<span aria-hidden="true">›</span></p>}<div ref={viewport} className={s.presetViewport} role="group" aria-label="프리셋 페이지" onDragStart={event=>event.preventDefault()}
-  onPointerDown={event=>{if(disabled||!event.isPrimary||event.button!==0)return;dragged.current=false;start.current={id:event.pointerId,x:event.clientX,y:event.clientY,horizontal:false};}}
+ // 2026-11-19 user report "오버레이로, 손가락이 잘림": a dimmed overlay on the cards with a whole hand and the text swipes twice, then fades out
+ // (or goes at the first touch). It never blocks taps.
+ return <><div ref={viewport} className={s.presetViewport} role="group" aria-label="프리셋 페이지" onDragStart={event=>event.preventDefault()}
+  onPointerDown={event=>{setOverlayDone(true);if(disabled||!event.isPrimary||event.button!==0)return;dragged.current=false;start.current={id:event.pointerId,x:event.clientX,y:event.clientY,horizontal:false};}}
   onPointerMove={event=>{const from=start.current;if(!from||from.id!==event.pointerId)return;const x=event.clientX-from.x,y=event.clientY-from.y;
    if(!from.horizontal){if(Math.abs(y)>8&&Math.abs(y)>Math.abs(x)){start.current=null;return;}if(Math.abs(x)<8)return;from.horizontal=true;dragged.current=true;event.currentTarget.setPointerCapture(event.pointerId);}
    setOffset(Math.max(-event.currentTarget.clientWidth,Math.min(event.currentTarget.clientWidth,x)));
@@ -39,6 +40,8 @@ export function AiPresetPager({children,onStep,disabled}:{children:ReactNode;onS
   onLostPointerCapture={event=>{if(event.target!==event.currentTarget)return;start.current=null;setOffset(0);}}
   onClickCapture={event=>{if(dragged.current&&event.detail!==0){event.preventDefault();event.stopPropagation();}}}>
   <div style={{transform:`translateX(${offset}px)`}}>{children}</div>
-  {hint&&seen&&<span className={s.swipeHand} aria-hidden="true"><svg width="44" height="44" viewBox="0 0 24 24" fill="#fff" stroke="#1f2233" strokeWidth="1.2" strokeLinejoin="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-1a6 6 0 0 1-4.6-2.2L4 15.6a1.5 1.5 0 0 1 2.2-2L9 15.5"/></svg></span>}
+  {overlay&&<span className={s.swipeOverlay} aria-hidden="true" onAnimationEnd={event=>{if(event.target===event.currentTarget)setOverlayDone(true);}}>
+   <svg className={s.swipeHand} width="56" height="56" viewBox="-4 -3 32 32" fill="#fff" stroke="#1f2233" strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-1a6 6 0 0 1-4.6-2.2L4 15.6a1.5 1.5 0 0 1 2.2-2L9 15.5"/></svg>
+   <span>좌우로 밀어서 넘겨 보세요</span></span>}
  </div></>;
 }
