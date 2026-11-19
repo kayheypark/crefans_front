@@ -186,21 +186,46 @@ test('member mode editor hides scope, schedule and tips and publishes a public p
  try{assert.match(JSON.stringify(creatorView.toJSON()),/이 게시물에서 후원 받기/,'creators keep the tips option');}finally{act(()=>creatorView.unmount());}
 });
 
-// 2026-11-17 user decision: the signed-out trial starts with the landing page's fictional person already added.
-test('guest trial editor adds the fictional sample photo once and says how to replace it',async()=>{
- const uploads=[],previousFetch=global.fetch;global.fetch=async url=>({ok:true,blob:async()=>new Blob(['img'],{type:'image/webp'}),url});
- const guestModel={now:content.updatedAt,contents:[],memberships:[],subscribers:[],actions:{aiEditPhoto:async()=>({success:false}),saveContent:async()=>({success:false}),uploadContentMedia:async file=>{uploads.push(file.name);return {success:true,data:{id:'sample-1',type:'image',url:'/api/v1/media/sample-1/file'}};},discardContentMedia(){}}};
+test('guest trial editor uploads the verified front-facing sample once and previews it as the AI edit source',async()=>{
+ const fs=require('node:fs'),path=require('node:path');
+ const sampleUrl='/illustrations/landing/ai-photo/base-v1.webp',publicDir=path.join(__dirname,'../public');
+ const sampleMedia={id:'sample-1',type:'image',url:'/api/v1/media/sample-1/file'};
+ const uploads=[],requests=[],previousFetch=global.fetch;
+ const guest={
+  session:{active:true,remaining:10,limit:10},
+  upload:async file=>{uploads.push(file);return {success:true,data:sampleMedia};},
+  aiEdit:()=>assert.fail('opening the editor must not generate a photo'),
+ };
+ const {default:GuestTrialPage}=loadTypeScript('components/service/GuestTrialPage.tsx',{
+  ...mocks,'next/navigation':{useRouter:()=>({})},
+  '@/components/crefans/studio/ManagementPages':{ContentEditorPage},
+  '@/features/service/useGuestTrialModel':{useGuestTrialModel:()=>guest},
+  '@/features/service/useFunnelStep':{useFunnelStep(){}},
+ });
+ global.fetch=async url=>{
+  requests.push(url);
+  return new Response(fs.readFileSync(path.join(publicDir,url)),{headers:{'Content-Type':'image/webp'}});
+ };
  let view;
  try{
-  await act(async()=>{view=create(element(ContentEditorPage,{model:guestModel,basePath:'/service/try',previewModel:model,previewCreatorId:creator.id,guest:{backHref:'/service/feed',doneHref:'/service/try?done=1',notice:'안내',caption:async()=>({success:false}),samplePhoto:{url:'/illustrations/landing/ai-photo/base-v1.webp',name:'crefans-sample-virtual-person.webp'}}}));await new Promise(r=>setTimeout(r,10));});
-  assert.deepEqual(uploads,['crefans-sample-virtual-person.webp'],'uploaded once through the normal trial upload');
-  assert.match(JSON.stringify(view.toJSON()),/가상 인물 샘플 사진이 미리 들어가 있어요/);
-  assert.match(JSON.stringify(view.toJSON()),/샘플 원본을 등록해드렸어요\./,'snackbar tells the visitor the sample was added');
-  // 2026-11-17: the next step is highlighted until the AI editor is opened once.
-  assert.match(JSON.stringify(view.toJSON()),/이제 여기를 눌러 의상·포즈를 골라 보세요/);const aiButton=view.root.find(node=>node.type==='button'&&node.props['aria-label']==='AI 사진 편집');
-  act(()=>aiButton.props.onClick());assert.doesNotMatch(JSON.stringify(view.toJSON()),/이제 여기를 눌러/);
-  await act(async()=>{await new Promise(r=>setTimeout(r,10));});assert.equal(uploads.length,1,'not repeated on re-render');
- }finally{global.fetch=previousFetch;if(view)act(()=>view.unmount());}
+  await act(async()=>{view=create(element(GuestTrialPage,{model:{...model,signedIn:false}}));});
+  assert.deepEqual(requests,[sampleUrl]);
+  assert.equal(uploads.length,1);
+  assert.equal(uploads[0].name,'crefans-sample-virtual-person.webp');
+  assert.equal(uploads[0].type,'image/webp');
+  const uploadedBytes=Buffer.from(await uploads[0].arrayBuffer());
+  assert.deepEqual(uploadedBytes,fs.readFileSync(path.join(publicDir,sampleUrl)));
+  assert.equal(require('node:crypto').createHash('sha256').update(uploadedBytes).digest('hex'),
+   '8d2f3b361d783d86c1bf2056b8c7df25e555162c73486631e98c6d4f626c7462','the portrait used for the successful Hoshino trial');
+  assert.doesNotMatch(json(view),/가상 인물 샘플 사진이 미리 들어가 있어요/);
+  assert.match(json(view),/샘플 원본을 등록해드렸어요/);
+  assert.match(json(view),/이제 여기를 눌러 의상·포즈를 골라 보세요/);
+  act(()=>view.root.findByProps({'aria-label':'AI 사진 편집'}).props.onClick());
+  act(()=>button(view,'여성').props.onClick());
+  assert.equal(view.root.findByProps({alt:'원본 사진'}).props.src,sampleMedia.url);
+  assert.doesNotMatch(json(view),/이제 여기를 눌러/);
+  assert.equal(uploads.length,1,'opening the editor must reuse the attached sample');
+ }finally{global.fetch=previousFetch;if(view)close(view);}
 });
 
 test('AI photo decision replaces only the source attachment in both editor layouts',async()=>{

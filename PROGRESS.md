@@ -1,3 +1,8 @@
+## 2026-11-19 비회원 AI 사진 체험 기본 원본 교체
+
+- 비회원 체험에 처음 자동 첨부하는 사진을 얼굴이 보이는 회색 후드 정면 원본으로 교체했다. 기존 공개 파일 `public/illustrations/landing/ai-photo/base-v1.webp`를 재사용한다. 호시노 교복이 두 번 실제 생성된 실험의 첫 입력 PNG와 이 파일의 720×900 RGB 픽셀 SHA-256이 `2f8e72a712030fc8d63384049ab01bfee06a74d8fbe39ea964a6ab475c40c7d5`로 일치했다. 두 실험 모두 결과 1장, HTTP 200. 이번 작업 중 새 유료 생성은 0회다.
+- 기준 `origin/prod@66a4e6c`, macOS arm64 Node 22.7.0. `node --test --test-name-pattern='guest trial editor|AI photo decision|guest caption fields' tests/content-post-preview.test.cjs` 3/3. 실제 GuestTrialPage에서 정적 파일을 요청해 업로드하는 바이트와 편집 화면이 여는 첨부 ID를 검증했다. 종전 버전은 예전 거울 사진 URL로 대조 검사에 실패했다. `tsc --noEmit --incremental false`, `git diff --check` 종료 0. 해당 테스트 파일 전체는 14/15였고, 운영자 숨김 게시물 행 수 기대값 오류 1건은 변경 전에도 재현됐다. 근거는 `.local/front-sample/`에 보관했다.
+
 ## 2026-11-19 — 미츠리 하오리 의상 선택 복구
 
 - 공용 의상 카탈로그에서 기존 미츠리 하오리(`6ee320`)를 다시 표시한다. 귀멸의 칼날 31종, 전체 353종이며 원래 카드 이미지와 가발·소품 참조를 유지한다.
