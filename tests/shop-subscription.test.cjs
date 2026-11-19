@@ -23,7 +23,7 @@ test('subscription plans sit in their own section; the 횟수형 list keeps only
  const t=render(model());
  try{
   const text=words(t.toJSON());
-  assert.match(text,/AI 이용권 구독형/);assert.match(text,/AI 이용권 횟수형/);assert.match(flat(t),/월3,000원/);assert.match(flat(t),/매달AI사진30회/);assert.match(flat(t),/1회100원/);
+  assert.match(text,/AI 이용권 구독형/);assert.match(text,/AI 이용권 횟수형/);assert.match(flat(t),/월3,000원/);assert.match(flat(t),/매달이용권30개/);assert.match(flat(t),/1개100원/);
   assert.equal(buttons(t).filter(b=>/ 상품 안내$/.test(b.props['aria-label']||'')).length,2,'one row per product, like 광고상품');assert.ok(opener(t,pack.name));assert.ok(opener(t,plan.name));
  }finally{act(()=>t.unmount());}
  const old=render(model({subscriptions:null}));
@@ -35,7 +35,7 @@ test('apply stays disabled until the auto-billing terms are agreed; the window p
  const t=render(model({subscribe:async p=>{calls.push(p.id);return ok({id:'s1',amount:3000,name:p.name,window:w});}}));
  try{
   openPlan(t);const text=words(t.toJSON());
-  for(const term of[/매달 같은 날/,/이월되지 않아요/,/24시간 간격으로 3번/,/해지 예약할 수 있어요/,/남은 횟수 × 1회 단가/])assert.match(text,term);
+  for(const term of[/매달 같은 날/,/이월되지 않아요/,/24시간 간격으로 3번/,/해지 예약할 수 있어요/,/남은 이용권 수에 1개 단가/])assert.match(text,term);
   assert.equal(applyButton(t).props.disabled,true,'disabled before consent');
   agree(t);assert.equal(applyButton(t).props.disabled,false);
   await act(async()=>{await applyButton(t).props.onClick();});
@@ -58,18 +58,18 @@ test('available=false: button stays enabled, click shows the 점검 alert withou
 });
 
 test('my subscription card: status, card, period, next charge, remaining, cancel and confirmed refund',async()=>{
- const done=[],item={id:'sub1',productId:'m1',name:'월 30회 구독',amount:3000,quantity:30,unitPrice:100,status:'active',statusLabel:'구독 중',cardLabel:'신한카드 1234',currentPeriodStart:'2026-11-16T03:00:00.000Z',currentPeriodEnd:'2026-12-16T03:00:00.000Z',nextChargeAt:'2026-12-16T03:00:00.000Z',remaining:12,lastFailureCode:null};
+ const done=[],item={id:'sub1',productId:'m1',name:'월 30회 구독',amount:6270,quantity:30,unitPrice:209,status:'active',statusLabel:'구독 중',cardLabel:'신한카드 1234',currentPeriodStart:'2026-11-16T03:00:00.000Z',currentPeriodEnd:'2026-12-16T03:00:00.000Z',nextChargeAt:'2026-12-16T03:00:00.000Z',remaining:0.5,lastFailureCode:null};
  const t=render(model({subscriptions:{available:true,items:[item,{...item,id:'old',status:'ended',statusLabel:'구독 종료'}]},refundSubscription:async id=>{done.push(['refund',id]);return ok({...item,status:'refunded'});},cancelSubscription:async id=>{done.push(['cancel',id]);return ok(item);}}));
  try{
   const text=words(t.toJSON());
-  assert.match(text,/구독 중/);assert.match(text,/신한카드 1234/);assert.match(flat(t),/이번기간2026\.11\.16~2026\.12\.16/);assert.match(flat(t),/다음결제일2026\.12\.16/);assert.match(flat(t),/남은12회/);assert.doesNotMatch(text,/구독 종료/,'ended subscriptions are not listed');
-  act(()=>byText(t,'남은 횟수 환불').props.onClick());assert.equal(done.length,0,'refund waits for confirmation');
-  assert.match(flat(t),/남은12회×1회100원=1,200원을결제한카드로환불/);
+  assert.match(text,/구독 중/);assert.match(text,/신한카드 1234/);assert.match(flat(t),/이번기간2026\.11\.16~2026\.12\.16/);assert.match(flat(t),/다음결제일2026\.12\.16/);assert.match(flat(t),/남은이용권0\.5개/);assert.doesNotMatch(text,/구독 종료/,'ended subscriptions are not listed');
+  act(()=>byText(t,'남은 이용권 환불').props.onClick());assert.equal(done.length,0,'refund waits for confirmation');
+  assert.match(flat(t),/남은이용권0\.5개×1개209원=104원을결제한카드로환불/);
   await act(async()=>{await byText(t,'환불 요청').props.onClick();});assert.deepEqual(done,[['refund','sub1']]);
   act(()=>byText(t,'해지 예약').props.onClick());await act(async()=>{await buttons(t).filter(b=>words(b.props.children).trim()==='해지 예약').at(-1).props.onClick();});assert.deepEqual(done.at(-1),['cancel','sub1']);
  }finally{act(()=>t.unmount());}
  const none=render(model({subscriptions:{available:true,items:[{...item,status:'cancel_scheduled',statusLabel:'해지 예약',remaining:0,nextChargeAt:null}]}}));
- try{assert.equal(byText(none,'남은 횟수 환불'),undefined);assert.equal(buttons(none).filter(b=>words(b.props.children).trim()==='해지 예약').length,0);}finally{act(()=>none.unmount());}
+ try{assert.equal(byText(none,'남은 이용권 환불'),undefined);assert.equal(buttons(none).filter(b=>words(b.props.children).trim()==='해지 예약').length,0);}finally{act(()=>none.unmount());}
 });
 
 test('submitPaymentWindow builds a hidden POST form with the given action and fields',()=>{
@@ -86,7 +86,7 @@ test('purchase history: subscription orders point to 구독 관리 instead of th
  const t=render(model({orders:[{...order,subscription:true},{...order,id:'o2',name:'AI 사진 10회권'}]}));
  try{
   act(()=>byText(t,'구매 내역').props.onClick());
-  assert.equal(buttons(t).filter(b=>words(b.props.children).trim()==='잔여 횟수 환불').length,1,'only the pack order keeps the refund button');
+  assert.equal(buttons(t).filter(b=>words(b.props.children).trim()==='잔여 이용권 환불').length,1,'only the pack order keeps the refund button');
   assert.match(flat(t),/구독관리에서환불할수있어요/);
  }finally{act(()=>t.unmount());}
 });

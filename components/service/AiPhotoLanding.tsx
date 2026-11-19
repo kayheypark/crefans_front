@@ -123,7 +123,7 @@ export default function AiPhotoLanding(){
     <h1 id="ai-photo-title">사진 한 장으로,<br/>오늘의 <em>캐릭터</em>가 되어 보세요</h1>
     <p className={s.lead}>원하는 <strong>코스튬과 메이크업, 포즈와 배경</strong>을 고르면 AI가 사진을 새로 만들어요. <strong>원본 사진은 그대로</strong> 두고, 마음에 드는 결과만 골라 게시해요.</p>
     <div className={s.actions}><Link className={s.primary} href={TRY}>로그인 없이 0원 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
-    <p className={s.small}>비회원은 브라우저당 <strong>10회까지 무료</strong>로 만들어 볼 수 있어요.</p>
+    <p className={s.small}>로그인 없이 브라우저당 <strong>체험 이용권 10개</strong>를 쓸 수 있어요.</p>
    </div>
    <div className={s.heroDemo}>
     <AiPhotoCompare before="/illustrations/landing/ai-photo/base-v1.webp" after={current.image} label={current.label}/>
