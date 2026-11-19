@@ -111,7 +111,7 @@ test('compact stages: edit settings preserves prompt, source, style, consent and
 
  await click('1장 만들기');assert.equal(r.root.findAllByType('textarea').length,0);
  await click('설정 수정');assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
- assert.match(text(r.toJSON()),/남은 생성 횟수 9회/);
+ assert.match(text(r.toJSON()),/보유 9개/);
  await click('1장 만들기');assert.equal(calls.length,2);assert.deepEqual(calls[1],calls[0]);
 });
 
@@ -127,7 +127,7 @@ test('compact stages: provider failure restores the editable form without losing
  await act(async()=>r.root.findByProps({'aria-label':'AI 사진 편집 안내'}).props.onClose());
  assert.equal(r.root.findAllByProps({'aria-label':'AI 사진 편집'}).length,1);
  assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'따뜻한 스튜디오 배경');
- assert.match(text(r.toJSON()),/남은 생성 횟수 10회/);
+ assert.match(text(r.toJSON()),/보유 10개/);
 });
 
 test('compact results: deciding a replacement is allowed at full post capacity',async()=>{
@@ -163,10 +163,10 @@ test('preset selection and custom input are independent and both reach the provi
 });
 
 
-test('single-image flow: only generate stays in footer and all editor fields scroll in the body',async()=>{
+test('single-image flow: inline generation method and create stay in footer; presets scroll in the body',async()=>{
  const {r,click}=await open();const footer=r.root.findByProps({className:'footer'}),body=r.root.findByProps({className:'body'});
- assert.equal(footer.findAllByType('button').length,1);assert.equal(text(footer),'1장 만들기남은 10회');assert.equal(footer.findAllByType('textarea').length,0);
- assert.equal(body.findAllByProps({className:'sourceSection'}).length,1);assert.equal(body.findAllByProps({className:'composer'}).length,1);assert.equal(body.findAllByProps({className:'quota'}).length,1);
+ assert.equal(footer.findAllByType('button').length,1);assert.equal(footer.findAll(n=>n.type==='input'&&n.props.type==='radio').length,3);assert.match(text(footer),/1장 만들기 · 0.5개 사용보유 10개/);assert.equal(footer.findAllByType('textarea').length,0);
+ assert.equal(body.findAllByProps({className:'sourceSection'}).length,1);assert.equal(body.findAllByProps({className:'composer'}).length,1);assert.equal(body.findAllByProps({className:'methodChoices'}).length,0);
  await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝게 웃어줘'}}));
 
  await click('1장 만들기');assert.equal(r.root.findAllByProps({'aria-label':'결과 1'}).length,1);assert.equal(r.root.findAllByProps({'aria-label':'결과 2'}).length,0);
@@ -351,7 +351,7 @@ test('reset ticket: button refills the count, is off when unused, hidden without
  let r=await render({remaining:0,limit:10,resetTickets:{count:2,nextExpiresAt:'2026-12-13T00:00:00.000Z'}});
  assert.match(text(r.toJSON()),/리셋권 2장/);const [button]=find(r,'1장 써서');assert.equal(button.props.disabled,false);
  await act(async()=>{await button.props.onClick();});
- assert.equal(calls,1);assert.match(text(r.toJSON()),/남은 생성 횟수 10회/);assert.match(text(r.toJSON()),/리셋권 1장을 사용했어요/);
+ assert.equal(calls,1);assert.match(text(r.toJSON()),/보유 10개/);assert.match(text(r.toJSON()),/리셋권 1장을 사용했어요/);
  r=await render({remaining:10,limit:10,resetTickets:{count:2,nextExpiresAt:null}});assert.equal(find(r,'1장 써서')[0].props.disabled,true,'nothing used today');
  r=await render({remaining:0,limit:10,resetTickets:{count:0,nextExpiresAt:null}});assert.equal(find(r,'1장 써서').length,0,'no tickets, no button');
 });
@@ -590,7 +590,7 @@ test('waiting hearts never change requests; failure and success remove game, ret
  assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/생성 실패/);
  await click('확인');await click('1장 만들기');assert.equal(score(),'0');assert.equal(sent.length,2);assert.equal(JSON.stringify(sent[1]),original);
  await click('하트 1 모으기');assert.equal(score(),'1');await act(async()=>finish({success:true,data:{images:[{id:'done',type:'image',url:'/done.png'}],remaining:9}}));
- assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/사진 결정/);assert.match(text(r.toJSON()),/사진이 완성됐어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 1개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/1\/100/);assert.match(text(r.toJSON()),/100개가 모이면 10번의 기회가 생겨요/);assert.equal(sent.length,2);
+ assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);assert.match(text(r.toJSON()),/사진 결정/);assert.match(text(r.toJSON()),/사진이 완성됐어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 1개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/1\/100/);assert.match(text(r.toJSON()),/100개가 모이면 이용권 10개를 받아요/);assert.equal(sent.length,2);
 });
 
 
@@ -609,7 +609,7 @@ test('body continuous range keeps intermediate values, snaps near anchors and ke
  for(const [label,value] of [['남성','male'],['여성','female']]){let r,request;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit:async input=>{request=input;return {success:false,errorMessage:'대역 실패'};},onAdd(){}}));});assert.match(text(r.toJSON()),/남성인가요, 여성인가요/);assert.equal(r.root.findAllByType('textarea').length,0);assert.equal(r.root.findAll(n=>n.props['aria-label']==='1장 만들기').length,0);await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes(label)).props.onClick());assert.equal(r.root.findAllByType('textarea').length,1);const group=r.root.findByProps({'aria-label':'생성 인물 성별'});assert.equal(group.find(n=>n.type==='button'&&text(n)===label).props['aria-pressed'],true);await act(async()=>r.root.findByProps({'aria-label':'1장 만들기'}).props.onClick());assert.equal(request.targetGender,value);await act(async()=>r.unmount());}
  });
 
-test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('1장 만들기');assert.equal(calls.length,0);assert.equal(refresh,1);assert.equal(r.root.findAllByProps({'aria-label':'AI 이용권 구매'}).length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'보존할 편집 내용');});
+test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('이용권 구매');assert.equal(calls.length,0);assert.equal(refresh,1);assert.equal(r.root.findAllByProps({'aria-label':'AI 이용권 구매'}).length,1);assert.equal(r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.value,'보존할 편집 내용');});
 
 test('Overwatch has six nine-card pages; Roadhog search preserves its reference selection',async()=>{
  const {r,click,calls}=await open({},true);await act(async()=>r.root.find(n=>typeof n.type==='function'&&n.props.label==='의상 카테고리').props.onChange('overwatch'));assert.match(text(r.toJSON()),/54종/);assert.match(text(r.toJSON()),/1 \/ 6/);await click('로드호그 코스튬');await act(async()=>r.root.findByProps({'aria-label':'프리셋 검색'}).props.onChange({target:{value:'로드호그'}}));assert.equal(r.root.findByProps({'aria-label':'로드호그 코스튬'}).props['aria-pressed'],true);await click('1장 만들기');const c=loadTypeScript('lib/crefans/ai-photo-costumes.ts').aiPhotoCostumes.find(x=>x.name==='로드호그 코스튬');assert.deepEqual(calls[0].costumeIds,[c.id]);assert.doesNotMatch(calls[0].prompt,/방독면|갈고리/);
@@ -656,7 +656,7 @@ test('viewer ignores pinch and cancelled pointer gestures while permitting brows
 
 test('signed-in heart game submits pieces not scores and shows cumulative conversion',async()=>{
  const actions=[];const {r,click,calls}=await open({quota:{remaining:10,limit:10,hearts:85},onHeartGame:async input=>{actions.push(input);return {success:true,data:input.action==='start'?{id:'game1',kinds:['heart','candy','heart','moon','heart']}:input.action==='finish'?{earned:30,hearts:5,credits:11,converted:11}:{score:1}};}});
- await click('1장 만들기');assert.equal(calls[0].heartGameId,'game1');assert.deepEqual(actions.map(x=>x.action),['start','finish']);assert.match(text(r.toJSON()),/하트 110개를 생성 11회로 바꿨어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 5개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/5\/100/);assert.doesNotMatch(text(r.toJSON()),/30\/100/);assert.ok(actions.every(x=>!('score' in x)));
+ await click('1장 만들기');assert.equal(calls[0].heartGameId,'game1');assert.deepEqual(actions.map(x=>x.action),['start','finish']);assert.match(text(r.toJSON()),/하트 110개를 이용권 11개로 바꿨어요/);assert.equal(r.root.findByProps({'aria-label':'누적 하트 5개 / 100개'}).type,'strong');assert.match(text(r.toJSON()),/5\/100/);assert.doesNotMatch(text(r.toJSON()),/30\/100/);assert.ok(actions.every(x=>!('score' in x)));
 });
 
 test('continue editing preserves selected cosplay or general mode in UI and next request',async()=>{
@@ -820,9 +820,9 @@ test('guest can play while generating without reward API or conversion claims',a
 test('guest with no tries left is offered signup; members still see the 9 AM refill',async()=>{
  const make=async noHearts=>{let r,calls=0;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:0,limit:10},room:9,noHearts,onEdit:async()=>{calls++;return {success:false};},onAdd(){}}));});
   await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes('여성')).props.onClick());
-  await act(async()=>{await r.root.find(n=>n.type==='button'&&text(n).includes('1장 만들기')).props.onClick();});return {r,calls:()=>calls};};
+  await act(async()=>{await r.root.find(n=>n.type==='button'&&text(n).includes(noHearts?'회원가입 안내':'1장 만들기')).props.onClick();});return {r,calls:()=>calls};};
  const guest=await make(true);const shown=text(guest.r.toJSON());
- assert.match(shown,/체험 AI 사진 10회를 모두 썼어요\. 회원가입하면 매일 무료로 계속 만들 수 있어요\./);assert.doesNotMatch(shown,/오전 9시/);assert.equal(guest.calls(),0);
+ assert.match(shown,/체험 이용권을 모두 썼어요\. 회원가입하면 매일 무료로 계속 만들 수 있어요\./);assert.doesNotMatch(shown,/오전 9시/);assert.equal(guest.calls(),0);
  assert.equal(guest.r.root.findAll(n=>n.props?.href==='/service/signup').length>=1,true,'signup link');
  const member=await make(false);assert.match(text(member.r.toJSON()),/매일 오전 9시에 다시 이용할 수 있어요/);assert.equal(member.r.root.findAll(n=>n.props?.href==='/service/signup').length,0);
 });
@@ -863,4 +863,49 @@ test('deciding a repeatedly edited photo replaces only its initial source',async
  await click('계속 보정');assert.equal(replacement,undefined);
  await click('여성');await click('1장 만들기');await click('사진 결정');
  assert.deepEqual(replacement.ids,['p1']);assert.equal(replacement.made[0].id,'result-2');
+});
+
+test('generation methods: member and guest submit the chosen tier, display fractional balances and keep the selection',async()=>{
+ const {aiPhotoEditBody}=loadTypeScript('features/service/useStudioModel.ts');
+ for(const noHearts of [false,true]){
+  const submitted=[];
+  const edit=mockAiPhotoEdit({start:3.5,delay:0});let pending;
+  const {r,click}=await open({noHearts,quota:{remaining:3.5,limit:10},onEdit:input=>{submitted.push(aiPhotoEditBody(input));pending=edit(input);return pending;}});
+  const radio=value=>r.root.find(n=>n.type==='input'&&n.props.type==='radio'&&n.props.value===value);
+  assert.equal(radio('fast').props.checked,true);
+  assert.doesNotMatch(text(r.root.findByProps({className:'footer'})),/seedream|byteplus|flash|pro/i);
+  for(const [value,cost,left] of [['precise',2,1.5],['standard',1,0.5],['fast',0.5,0]]){
+   await act(async()=>radio(value).props.onChange());
+   assert.match(text(r.root.findByProps({className:'createLabel'})),new RegExp(cost+'개 사용'));
+   await click('1장 만들기');
+   await act(async()=>{await pending;});
+   assert.equal(submitted.at(-1).get('generationMethod'),value);
+   assert.equal(submitted.at(-1).has('model'),false);
+   await click('설정 수정');
+   assert.equal(radio(value).props.checked,true);
+   assert.equal(text(r.root.findByProps({className:'createQuota'})),`보유 ${left}개`);
+  }
+  assert.equal(submitted.length,3);
+  await act(async()=>r.unmount());
+ }
+});
+
+test('generation methods: 0.5 left is enough for fast; other tiers route to the shop or guest signup without spending',async()=>{
+ for(const noHearts of [false,true]){
+  let requests=0,refreshes=0;
+  const shop=noHearts?undefined:{products:[],orders:[],loading:false,error:'',refresh:async()=>{refreshes++;}};
+  const {r,click}=await open({noHearts,shop,quota:{remaining:0.5,limit:10},onEdit:async()=>{requests++;return {success:false,errorCode:'PROVIDER_ERROR',errorMessage:'생성 실패'};}});
+  const choose=async value=>act(async()=>r.root.find(n=>n.type==='input'&&n.props.type==='radio'&&n.props.value===value).props.onChange());
+  await choose('precise');
+  assert.equal(text(r.root.findByProps({className:'methodShortage'})),'이용권이 1.5개 더 필요해요.');
+  await click(noHearts?'회원가입 안내':'이용권 구매');
+  const notice=r.root.findByProps({'aria-label':noHearts?'AI 사진 편집 안내':'AI 이용권 구매'});
+  if(noHearts)assert.match(text(notice),/빠르게로 바꾸거나 회원가입/);else assert.equal(refreshes,1);
+  assert.equal(requests,0);
+  await act(async()=>notice.props.onClose());
+  await choose('fast');await click('1장 만들기');
+  assert.equal(requests,1);
+  assert.equal(text(r.root.findByProps({className:'createQuota'})),'보유 0.5개');
+  await act(async()=>r.unmount());
+ }
 });

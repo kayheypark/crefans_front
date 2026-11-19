@@ -5,6 +5,12 @@ import type {AiPhotoKind,AiPhotoStyle} from '@/types/crefans-studio-management';
 
 export const AI_PHOTO_DAILY_LIMIT=10;
 export const AI_PHOTO_IMAGES_PER_REQUEST=1;
+export const aiPhotoGenerationMethods=[
+ {value:'fast',label:'빠르게',cost:0.5},
+ {value:'standard',label:'표준',cost:1},
+ {value:'precise',label:'정밀하게',cost:2},
+] as const;
+export type AiPhotoGenerationMethod=(typeof aiPhotoGenerationMethods)[number]['value'];
 export const AI_PHOTO_PROMPT_MAX=2000;
 export const aiPhotoPresetText=(value:string)=>value.replace(' 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.','').trim();
 export const aiPhotoKinds:{value:AiPhotoKind;label:string;placeholder:string}[]=[
