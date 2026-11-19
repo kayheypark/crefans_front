@@ -6339,3 +6339,7 @@
 ### 2026-11-19 23:4x AI 사진 생성 방식 제목·'사진 1장당 이용권' 문구 제거 (운영 front method-20261119)
 - 사용자 요청. `AiPhotoDialog.tsx` methodHeader 삭제, radiogroup은 aria-label="생성 방식" 유지, `.methodHeader` CSS 삭제. feat/ai-photo-method-header-remove `7d67850` → dev `c725236` → prod `7d67850`.
 - 검증: tsc, studio-ai-photo 새 테스트(되돌리면 실패), 기존 실패 18건 동일. 개발 웹 체험 편집기(390px): 제목·문구 0, 선택지 3개, 스와이프 힌트 1. 운영: try·landing 200, 운영 JS 묶음에 '사진 1장당 이용권' 없음·'정밀하게'·'좌우로 밀어서 넘겨 보세요' 있음. 운영 체험 화면 직접 확인은 실데이터(업로드)가 생겨 생략.
+
+### 2026-11-19 23:5x 프리셋 밀기 힌트를 카드 위 강조 + 손 스와이프 안내로 (운영 front hint2-20261119)
+- 사용자 지적 "안 보여": 카드 아래 회색 작은 글씨라 휴대폰에서 첫 화면 밖이었다. `AiPresetPager`가 힌트를 카드 바로 위 분홍 알약으로 그리고, 카드가 절반 이상 보이면(IntersectionObserver) 손 모양이 좌우로 두 번 밀고 사라진다. 첫 스와이프 후 둘 다 숨김, reduced-motion은 손 없음. 랜딩·편집기 공통.
+- feat/preset-swipe-hint-visible `e7c8dbc` → dev `06a2973` → prod `e7c8dbc`. 검증: tsc, 페이징 테스트(힌트가 카드 위·손 표시·스와이프 후 숨김, 되돌리면 실패), 기존 실패 18건 동일. 운영 iPhone(WebKit) Playwright: 스크롤 전 손 0 → 보이면 1 → 스와이프 후 힌트·손 0.
