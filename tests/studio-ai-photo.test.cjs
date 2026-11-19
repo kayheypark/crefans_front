@@ -290,9 +290,13 @@ test('gender is composed internally without appearing in or changing the custom 
 
 test('body controls retain independent adjustments and keep custom input',async()=>{
  const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='신체 보정').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}),range=label=>r.root.find(n=>n.type==='input'&&n.props['aria-label']===label);await act(async()=>field().props.onChange({target:{value:'자연스럽게'}}));
- assert.equal(r.root.findAllByProps({'aria-label':'프리셋 검색'}).length,0);assert.equal(r.root.findAllByProps({'aria-label':'프리셋 페이지'}).length,0);assert.equal(range('가슴 크기').props.step,'any');
- await act(async()=>range('가슴 크기').props.onChange({target:{value:'-2'}}));await act(async()=>range('힙 크기').props.onChange({target:{value:'-1'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'2'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'0'}}));assert.equal(field().props.value,'자연스럽게');
- assert.equal(range('가슴 크기').props.value,-2);assert.equal(range('힙 크기').props.value,-1);assert.equal(range('키 비율').props.value,0);await click('만들기');assert.equal(calls[0].kind,'body');const {aiPhotoBodyPrompt}=loadTypeScript('lib/crefans/ai-photo.ts');assert.ok(calls[0].prompt.includes(aiPhotoBodyPrompt('chest',-2)));assert.ok(calls[0].prompt.includes(aiPhotoBodyPrompt('hip',-1)));assert.ok(!calls[0].prompt.includes(aiPhotoBodyPrompt('height',2)));assert.ok(calls[0].prompt.endsWith('자연스럽게'));
+ assert.equal(r.root.findAllByProps({'aria-label':'프리셋 검색'}).length,0);assert.equal(r.root.findAllByProps({'aria-label':'프리셋 페이지'}).length,0);assert.equal(range('키 비율').props.step,'any');
+ // 2026-11-20 user decision: chest is a cup (원본 유지·A–E컵), hip a size (원본 유지·S–XXL); height stays a slider.
+ const group=label=>r.root.find(n=>n.props.role==='group'&&n.props['aria-label']===label),pick=async(label,option)=>act(async()=>group(label).findAll(n=>n.type==='button'&&n.props.children===option)[0].props.onClick());
+ assert.deepEqual(group('가슴 크기').findAllByType('button').map(n=>n.props.children),['원본 유지','A컵','B컵','C컵','D컵','E컵']);assert.deepEqual(group('힙 크기').findAllByType('button').map(n=>n.props.children),['원본 유지','S','M','L','XL','XXL']);
+ assert.equal(r.root.findAll(n=>n.type==='input'&&(n.props['aria-label']==='가슴 크기'||n.props['aria-label']==='힙 크기')).length,0,'no chest/hip sliders');
+ await pick('가슴 크기','D컵');await pick('힙 크기','M');await act(async()=>range('키 비율').props.onChange({target:{value:'2'}}));await act(async()=>range('키 비율').props.onChange({target:{value:'0'}}));assert.equal(field().props.value,'자연스럽게');
+ const pressed=label=>group(label).findAll(n=>n.type==='button'&&n.props['aria-pressed']===true).map(n=>n.props.children);assert.deepEqual(pressed('가슴 크기'),['D컵']);assert.deepEqual(pressed('힙 크기'),['M']);assert.equal(range('키 비율').props.value,0);await click('만들기');assert.equal(calls[0].kind,'body');assert.match(calls[0].prompt,/가슴 크기를 D컵 정도로 보이게/);assert.match(calls[0].prompt,/힙 크기를 의류 M 사이즈 정도의 볼륨으로/);const {aiPhotoBodyPrompt}=loadTypeScript('lib/crefans/ai-photo.ts');assert.ok(!calls[0].prompt.includes(aiPhotoBodyPrompt('height',2)));assert.ok(calls[0].prompt.endsWith('자연스럽게'));
 });
 
 
@@ -480,7 +484,7 @@ test('male body: four flat icons and ranges without photos, independent selectio
  assert.equal(r.root.findAll(n=>n.type==='img'&&String(n.props.src).includes('/presets/body-')).length,0);assert.equal(r.root.findAllByProps({'aria-label':'프리셋 검색'}).length,0);
  await act(async()=>range('상체 근육').props.onChange({target:{value:'-2'}}));await act(async()=>range('하체 근육').props.onChange({target:{value:'2'}}));assert.equal(range('상체 근육').props.value,-2);
  await act(async()=>range('어깨 너비').props.onChange({target:{value:'-1'}}));assert.equal(range('하체 근육').props.value,2);await act(async()=>range('어깨 너비').props.onChange({target:{value:'0'}}));
- await act(async()=>range('상체 근육').props.onChange({target:{value:'1'}}));await click('여성');assert.deepEqual(sliders().map(n=>n.props['aria-label']),['가슴 크기','힙 크기','키 비율']);await click('남성');assert.ok(sliders().every(n=>n.props.value===0));
+ await act(async()=>range('상체 근육').props.onChange({target:{value:'1'}}));await click('여성');assert.deepEqual(sliders().map(n=>n.props['aria-label']),['키 비율']);assert.equal(r.root.findAll(n=>n.props.role==='group'&&(n.props['aria-label']==='가슴 크기'||n.props['aria-label']==='힙 크기')).length,2);await click('남성');assert.ok(sliders().every(n=>n.props.value===0));
  assert.equal(calls.length,0);await act(async()=>range('하체 근육').props.onChange({target:{value:'-2'}}));await click('만들기');assert.equal(calls.length,1);assert.equal(calls[0].kind,'body');assert.match(calls[0].prompt,/허벅지·종아리의 하체 근육 볼륨을 좀 더 슬림하게/);assert.match(calls[0].prompt,/옷과 포즈는 유지/);assert.doesNotMatch(calls[0].prompt,/가슴 크기|힙 크기/);
 });
 test('male body prompts and generated assets cover four categories and five levels',async()=>{

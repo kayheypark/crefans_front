@@ -332,3 +332,13 @@
 @keyframes swipeOverlay{0%{opacity:0}8%,85%{opacity:1}100%{opacity:0}}
 @keyframes swipeHand{0%,100%{transform:translateX(40px)}50%{transform:translateX(-40px)}}
 @media(prefers-reduced-motion:reduce){.swipeHand{animation:none}.swipeOverlay{animation-duration:2.5s}}
+.swipeHand{position:absolute;left:50%;top:50%;z-index:4;margin:-22px 0 0 -22px;pointer-events:none;filter:drop-shadow(0 2px 6px #0006);opacity:0;animation:swipeHand 1.6s ease-in-out .6s 2 both}
+@keyframes swipeHand{0%{opacity:0;transform:translateX(50px)}15%{opacity:1;transform:translateX(50px)}70%{opacity:1;transform:translateX(-50px)}100%{opacity:0;transform:translateX(-50px)}}
+@media(prefers-reduced-motion:reduce){.swipeHint span,.swipeHand{animation:none}.swipeHand{display:none}}
+/* 2026-11-20 user decision: chest cup / hip size buttons */
+.bodyOptions{display:grid;gap:8px}.bodyOptions>span{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;font-weight:600}.bodyOptions output{color:var(--cf-color-accent);font-size:13px}
+.bodyOptions>div{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.bodyOptions button{min-height:40px;padding:0 4px;border:1px solid var(--cf-color-border);border-radius:10px;background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer}
+.bodyOptions button:first-child{font-size:11px}
+.bodyOptions button[aria-pressed=true]{border-color:var(--cf-color-accent);background:var(--cf-color-accentSoft,#eef4ff);color:var(--cf-color-accent)}
+.bodyOptions button:disabled{opacity:.5;cursor:default}.bodyOptions button:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}

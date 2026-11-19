@@ -1,5 +1,5 @@
 'use client';
-import {aiPhotoBodySnap,aiPhotoBodyStrength} from '@/lib/crefans/ai-photo';
+import {aiPhotoBodyOptions,aiPhotoBodySnap,aiPhotoBodyStrength} from '@/lib/crefans/ai-photo';
 import s from './ai-photo.module.css';
 
 type Props={controls:readonly {key:string;label:string}[];selection:Readonly<Record<string,number>>;disabled?:boolean;onChange:(key:string,value:number)=>void};
@@ -11,7 +11,13 @@ function BodyIcon({kind}:{kind:string}){
  </svg>;
 }
 export function AiBodyAdjustments({controls,selection,disabled,onChange}:Props){
- return <div className={s.bodyAdjustments}>{controls.map(control=>{const value=selection[control.key]??0,text=value===0?'원본 유지':`보정 강도 ${value>0?'+':'−'}${aiPhotoBodyStrength(value)}%`;return <label key={control.key}>
+ return <div className={s.bodyAdjustments}>{controls.map(control=>{const options=aiPhotoBodyOptions[control.key];
+  // 2026-11-20 user decision: chest cups / hip sizes are picked from buttons ('원본 유지' first).
+  if(options){const value=selection[control.key]??0;return <div key={control.key} className={s.bodyOptions} role="group" aria-label={control.label}>
+   <span><span className={s.bodyLabel}><BodyIcon kind={control.key}/>{control.label}</span><output>{value?options[value-1]:'원본 유지'}</output></span>
+   <div>{['원본 유지',...options].map((option,index)=><button key={option} type="button" aria-pressed={value===index} disabled={disabled} onClick={()=>onChange(control.key,index)}>{option}</button>)}</div>
+  </div>;}
+  const value=selection[control.key]??0,text=value===0?'원본 유지':`보정 강도 ${value>0?'+':'−'}${aiPhotoBodyStrength(value)}%`;return <label key={control.key}>
   <span><span className={s.bodyLabel}><BodyIcon kind={control.key}/>{control.label}</span><output>{text}</output></span>
   <input type="range" aria-label={control.label} aria-valuetext={text} min={-2} max={2} step="any" value={value} onChange={event=>onChange(control.key,aiPhotoBodySnap(Number(event.target.value)))} onKeyDown={event=>{const direction=event.key==='ArrowRight'||event.key==='ArrowUp'?1:event.key==='ArrowLeft'||event.key==='ArrowDown'?-1:0;const next=direction?Math.round((value+direction*.02)*10000)/10000:event.key==='Home'?-2:event.key==='End'?2:event.key==='PageUp'?Math.floor(value)+1:event.key==='PageDown'?Math.ceil(value)-1:null;if(next===null)return;event.preventDefault();onChange(control.key,Math.max(-2,Math.min(2,next)));}} disabled={disabled}/>
   <span className={s.bodyTicks} aria-hidden="true"><i/><i/><i/><i/><i/></span>

@@ -38,6 +38,9 @@ export function aiPhotoProblem({prompt,consent,kind,hasMask,remaining,requireMas
  return '';
 }
 
+// 2026-11-20 user decision: chest is picked as a cup (A–E) and hip as a size (S–XXL) besides '원본 유지'; height stays a slider.
+// The value is the 1-based option index (0 = original). The result is an AI rendering, not a measured size.
+export const aiPhotoBodyOptions:Readonly<Record<string,readonly string[]>>={chest:['A컵','B컵','C컵','D컵','E컵'],hip:['S','M','L','XL','XXL']};
 export const aiPhotoBodyControls=[{key:'chest',label:'가슴 크기'},{key:'hip',label:'힙 크기'},{key:'height',label:'키 비율'}] as const;
 export const aiPhotoMaleBodyControls=[{key:'upper',label:'상체 근육'},{key:'lower',label:'하체 근육'},{key:'shoulder',label:'어깨 너비'},{key:'height',label:'키 비율'}] as const;
 // Native range uses step=any; pointer values within 2% of the full track snap to five anchors.
@@ -45,6 +48,9 @@ export function aiPhotoBodySnap(value:number){const bounded=Math.max(-2,Math.min
 export function aiPhotoBodyStrength(value:number){return Number((Math.abs(value)*50).toFixed(1));}
 export function aiPhotoBodyPrompt(key:string,level:number){
  if(!level)return '';
+ const option=aiPhotoBodyOptions[key]?.[level-1];
+ if(key==='chest'&&option)return `가슴 크기를 ${option} 정도로 보이게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.`;
+ if(key==='hip'&&option)return `힙 크기를 의류 ${option} 사이즈 정도의 볼륨으로 보이게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.`;
  const amount=Math.abs(level)<=1?'조금':'좀 더',direction=level>0?'크게':'작게';
  const strength=Number.isInteger(level)?'':` 보정 강도는 최대 100 중 ${aiPhotoBodyStrength(level)}로 적용해줘.`;
  if(key==='upper'||key==='lower')return `${key==='upper'?'가슴·팔·등의 상체':'허벅지·종아리의 하체'} 근육 볼륨을 ${amount} ${level>0?'탄탄하게':'슬림하게'} 자연스럽게 보정해줘. 옷과 포즈는 유지해줘.`+strength;
