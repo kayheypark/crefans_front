@@ -108,3 +108,24 @@ test('exception events are scrubbed: URL query/hash, e-mails and long digit runs
  assert.equal(mod.scrubErrorText('x'.repeat(900)).length,500);
  const normal=mod.beforeSend({event:'landing_view',properties:{note:'call 01012345678'}});assert.equal(normal.properties.note,'call 01012345678','only exception events get the text scrub');
 });
+
+// 2026-11-19 이탈 분석: guest publish/caption failures were not measured (only successes were sent). A failure now sends only the
+// error code; title/body text, server messages and ids never leave the browser.
+test('guest publish and caption failures send post_publish_failed / caption_failed with the error code only',async()=>{
+ const sent=[],responses=[];
+ const mocks={
+  react:{useState:init=>[init,()=>{}],useCallback:fn=>fn,useEffect:()=>{}},
+  '@/lib/api/platform':{platformRequest:async()=>responses.shift()},
+  '@/lib/analytics/posthog':{captureEvent:(name,props)=>sent.push([name,props]),aiProps:()=>({})},
+  '@/lib/design/image-upload':{imageUploadMaxBytes:1,imageUploadMaxLabel:'1B'},'@/lib/design/image-optimize':{optimizeImage:async f=>f},
+  './useStudioModel':{aiPhotoEditBody:x=>x},'@/lib/api/share-report':{reportShare:()=>{}},
+ };
+ const guest=loadTypeScript('features/service/useGuestTrialModel.ts',mocks).useGuestTrialModel(false);
+ responses.push({success:false,data:null,errorMessage:'제목에 kay@example.com 금지',errorCode:'GUEST_AI_RESULT_ONLY'},{success:false,data:null,errorMessage:'실패',errorCode:null});
+ await guest.save({title:'비밀 제목',body:'비밀 본문'});await guest.caption({items:['판타지 마법사'],prompt:'요청 문장'});
+ assert.deepEqual(sent,[['post_publish_failed',{actor:'guest',error_code:'GUEST_AI_RESULT_ONLY'}],['caption_failed',{actor:'guest',error_code:'UNKNOWN'}]]);
+ responses.push({success:true,data:{id:'g1'}},{success:true,data:{title:'t',body:'b',source:'ai'}});
+ await guest.save({title:'t',body:'b'});await guest.caption({items:[],prompt:''});
+ assert.deepEqual(sent.slice(2),[['post_published',{actor:'guest'}],['caption_written',{actor:'guest'}]],'success events are unchanged');
+ assert.match(fs.readFileSync('lib/analytics/posthog.ts','utf8'),/'caption_failed'.*'post_publish_failed'/);
+});

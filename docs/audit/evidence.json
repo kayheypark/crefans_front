@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-19T04:09:06.206182+00:00",
+  "checkedAt": "2026-11-19T03:57:42.488131+00:00",
   "environment": {
     "node": "v22.7.0",
     "python": "3.14.5",
@@ -30,20 +30,20 @@
   ],
   "repositories": {
     "front": {
-      "head": "ab9a3d8c528861dcc3a90e560fd5141ce4e38bb9",
-      "branch": "release/ai-photo-methods-prod",
-      "dirty": true
+      "head": "6193394920fd896d3ca16a84afec304cb9517523",
+      "branch": "integrate/inline-methods-dev",
+      "dirty": false
     },
     "server": {
-      "head": "19dbcfec673debf8f64b4c3b4f6fef7716eb49ce",
-      "branch": "release/ai-photo-methods-prod",
+      "head": "55f3c7e35f49b999b3a6ab427b1fe3dae0ba24b0",
+      "branch": "integrate/photo-methods-dev",
       "dirty": true
     }
   },
   "state": {
     "documents": {
       "front/AGENTS.md": "03264583992bf8e5bb434bcf747f4c9d7d9c75c1c75d98c674a2014e2fc3efd5",
-      "front/PROGRESS.md": "0a778d7df98fb5945f1a2c8fc67659784fd1e7339e0cb99dc69a82752f244e4b",
+      "front/PROGRESS.md": "d2253d440e2d7e02ca02d0294f3c1e5f6ab0371b3f755e680cb048b6ee0d64b1",
       "front/README.md": "0de0f8d964614de998678551fff964ce7e99fd1c28868161471073fa7114a229",
       "front/docs/beta-role-test-plan.md": "06767bf0ad09f0aff8327315b11bfb9b30754eb4e0a9d7d5175eee1e48804f1f",
       "front/docs/branch-workflow.md": "004c8c1a8705f8b8644ffbe6b124a7bb37da9be1b173af73d720830f28e42574",
@@ -84,7 +84,7 @@
       "front/public/illustrations/tactile/creation-v2-prompt.md": "15b5a11ddc9d4fffa83d67bbcb9c5610658f067e0ffae54f24f8dba318109c39",
       "front/public/llms.txt": "17a62e8140cea7913bb083d5d2e85595923b85f9bac4d8af90d4e2812320a47f",
       "server/AGENTS.md": "139927d5039963f1fe2fd7f0cd18ab49690dfdd7656ed2dfcbb29725dcaf22ce",
-      "server/PROGRESS.md": "a05cfc6bd9f80c5322050f6ea74461c4f24deea5619acbe3718a4180b5102d50",
+      "server/PROGRESS.md": "f287dc2303919e37f18268fc79c66583abe9029b22ff68b812ebcf96459ee284",
       "server/docs/ADMIN_AUTH_IMPLEMENTATION.md": "a99fe3fc2dea4cd906795fc8a892b36dd5de6772ec503baf8600658d1cc417a8",
       "server/docs/README.md": "f0f418561c25ed7b6d18a6d3f16c1edc1bcc56ecfd3ac98c0ab45d900abf88f9",
       "server/docs/ai-ticket-shop.md": "c76e01dc0338ce767e1c96fcb3bd45682211569a737f65cc0944244502b51811",
@@ -718,7 +718,7 @@
       "front/features/service/useCheckoutModel.ts": "62739bcdb94aedf1427068ab23447ab0e2808c3ba4dd4f999e40c45f53b4bd83",
       "front/features/service/useDirectoryModel.ts": "eef5ae8690fa65bcaba63d46454c4f5a8ee60e27aeecfec125c59c10dae2d5a5",
       "front/features/service/useFunnelStep.ts": "1ee7b395fbab728d25ab39a91b6988f17a14877dfecbc96ddc8a8b26da23f64e",
-      "front/features/service/useGuestTrialModel.ts": "25d13494d311307a92973502cf9787ba4cfda61740aa26df503e4c5311805cfa",
+      "front/features/service/useGuestTrialModel.ts": "675ff3498a8e07b0a64683f698aa2f2558d990006c657b2e17a10ee6d2dcf550",
       "front/features/service/useOneTimePayment.ts": "bbe0528172d19d168bdeb1260d51b632a8321c2ab2e03793a0ca1982ad742792",
       "front/features/service/usePartnerRequest.ts": "6340cc649a1d1176dec132681e6250ef8aaa5abfdae41cf7794c859265c2ceae",
       "front/features/service/usePaymentMethods.ts": "a0fca679a0b797a81cc73d6ed00cb7ef9dbac3a962885f6db902e558579c0a59",
@@ -746,7 +746,7 @@
       "front/infra/platform/deploy-preflight.py": "363ffd665856b7afe1fdffd080b6c43079a6cfe669da44a5df1a282df67801da",
       "front/infra/platform/image-retention.py": "270fee56db7bd1f50d64da199c1d873a5034b5be94c34437cf93c97696c17600",
       "front/lib/AntdRegistry.tsx": "37ee1b3ccd31febc3e2ed403b8a1899efcd5e7c5ae65ba21da8b8c4a7ec2d5a3",
-      "front/lib/analytics/posthog.ts": "35a2c24aea017a4056ea23e191d8833a2262518acaa06fe22ee0684ec940f6cc",
+      "front/lib/analytics/posthog.ts": "68c4a05f8a4902f4f4ff2b97228c391e4ebf5ef9b64d20b6b75585b24f9b816e",
       "front/lib/api/advisor.ts": "0d99e3f487fe69f1dd76594c5dd22d244e4e97e10fb6367ccf80de9e055dedff",
       "front/lib/api/auth.ts": "4a2a5991f9da503b87edac10fdbfba9a629caadfa2373c2d7f73a5cb335e9753",
       "front/lib/api/billing.ts": "bd888539e42009d1d56adcb135a5b88a3e901dfb76136b21c248a7380c1910d9",
@@ -935,7 +935,7 @@
       "front/tests/post-share.test.cjs": "d5ace10101c56dd7f7e7ff5b285e222d858471438e4bc400f4daf9048a1865bd",
       "front/tests/post-support-visibility.test.cjs": "1f391007b710fec570a62bd04da504d967b7bfd803a32246333d4c8ae472b22d",
       "front/tests/post-views.test.cjs": "810520d757b92df136fb0c5d2ff720045a7212418a4a8f400bc6eae764235178",
-      "front/tests/posthog.test.cjs": "31f3888a41521e88e570621831955bbd955f48bfde8e77f0495470cd4afc5c15",
+      "front/tests/posthog.test.cjs": "d9537fb0d7edcace09e03827cb048d7a53dc3d232400da702ca56eca520a389a",
       "front/tests/preview-access.test.cjs": "34973f67c12f462afa1f04a7ae4a9bdfb55054fd094e81de37c6fd7326525f60",
       "front/tests/preview-login-route.test.cjs": "d43f08d1c24d37e5d5344908eac28433b2c06f2bdc0c88882a35d62be3a36c3a",
       "front/tests/profile-media-tab.test.cjs": "ddca73aad1b9d7015ab6f26e631dfcc43d2d82d6d57a28980b2e109091fe0200",

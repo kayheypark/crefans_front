@@ -32,9 +32,12 @@ export function useGuestTrialModel(enabled:boolean){
   if(original.size>imageUploadMaxBytes)return {success:false as const,data:null,errorMessage:`사진은 한 장에 ${imageUploadMaxLabel}까지 올릴 수 있어요.`,errorCode:'INVALID_IMAGE_SIZE'};
   const body=new FormData();body.append('file',await optimizeImage(original));return api<StudioMedia>('/media/guest',body);
  };
- const save=async(input:unknown)=>{const r=await api<{id?:string;message?:string}>('/guest/content',input);if(r.success)captureEvent('post_published',{actor:'guest'});return r;};
+ // 2026-11-19 이탈 분석: publish/caption failures were not measured (only successes were sent). A failure now sends its error code
+ // only — never the title, body, server message or ids.
+ const failed=(r:{success:boolean;errorCode?:string|null})=>({actor:'guest' as const,error_code:r.errorCode||'UNKNOWN'});
+ const save=async(input:unknown)=>{const r=await api<{id?:string;message?:string}>('/guest/content',input);if(r.success)captureEvent('post_published',{actor:'guest'});else captureEvent('post_publish_failed',failed(r));return r;};
  // 'AI로 내용 작성' writes the title/body from the chosen item names and request text (2026-11-16); the visitor edits before posting.
- const caption=async(input:{items:string[];prompt:string})=>{const r=await api<GuestCaption>('/guest/content/caption',input);if(r.success)captureEvent('caption_written',{actor:'guest'});return r;};
+ const caption=async(input:{items:string[];prompt:string})=>{const r=await api<GuestCaption>('/guest/content/caption',input);if(r.success)captureEvent('caption_written',{actor:'guest'});else captureEvent('caption_failed',failed(r));return r;};
  const aiEdit=async(input:AiPhotoEditInput)=>{const props=aiProps('guest',input);captureEvent('ai_generation_started',props);const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});else if(result.errorCode==='GUEST_AI_LIMIT')await refresh();return result;};
  const track=(step:AiPhotoFunnelStep,props:{mode:string})=>captureEvent(step,{actor:'guest',mode:props.mode});
  return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track};
