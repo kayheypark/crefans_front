@@ -417,7 +417,7 @@ test('preset paging: nine cards, circular single-page gestures, preserved select
  // 2026-11-19: a swipe hint shows until the first swipe.
  const overlay=()=>pager().findAll(n=>n.type==='span'&&n.props.className==='swipeOverlay');
  // 2026-11-19 user report "오버레이로, 손가락이 잘림": the hint is an overlay on the cards with a whole hand (padded viewBox) and text, never blocking taps.
- assert.equal(overlay().length,1);assert.ok(overlay()[0].findAll(n=>n.type==='span'&&n.props.children==='좌우로 밀어서 넘겨 보세요').length===1);assert.equal(overlay()[0].findByType('svg').props.viewBox,'-4 -3 32 32');
+ assert.equal(overlay().length,1);assert.ok(overlay()[0].findAll(n=>n.type==='span'&&n.props.children==='좌우로 밀어서 넘겨 보세요').length===1);assert.equal(overlay()[0].findByType('img').props.src,'/brand/ai-photo/swipe-hand-v1.webp');assert.ok(require('fs').existsSync('public/brand/ai-photo/swipe-hand-v1.webp'));
  assert.equal(r.root.findAll(n=>n.type==='p'&&n.props.className==='swipeHint').length,0,'no separate hint line');
  await drag(-180);assert.notDeepEqual(labels(),initial);assert.equal(overlay().length,0,'the overlay goes at the first touch');let suppressed=false;pager().props.onClickCapture({detail:1,preventDefault(){suppressed=true;},stopPropagation(){}});assert.equal(suppressed,true);assert.equal(calls.length,0);
  await drag(180);assert.deepEqual(labels(),initial);assert.equal(r.root.findByProps({'aria-label':'의자에 앉기'}).props['aria-pressed'],true);
