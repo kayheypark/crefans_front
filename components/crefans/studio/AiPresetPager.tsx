@@ -2,10 +2,13 @@
 import {useEffect,useRef,useState,type ReactNode} from 'react';
 import s from './ai-photo.module.css';
 
+// 2026-11-19 user request: a hint that presets also page by dragging left/right. Hidden for the rest of the visit after the first swipe.
+let swipedOnce=false;
+
 /** Horizontal page gestures leave vertical scrolling and pinch zoom to the browser. */
 export function AiPresetPager({children,onStep,disabled}:{children:ReactNode;onStep:(direction:number)=>void;disabled:boolean}){
  const start=useRef<{id:number;x:number;y:number;horizontal:boolean}|null>(null),dragged=useRef(false),viewport=useRef<HTMLDivElement>(null),off=useRef(disabled);
- const [offset,setOffset]=useState(0);
+ const [offset,setOffset]=useState(0),[swiped,setSwiped]=useState(swipedOnce);
  off.current=disabled;
  // iOS Safari still starts a vertical scroll on a mostly horizontal drag inside touch-action:pan-y and then cancels the pointer
  // (WebKit bug 203335). Claiming the first touchmove of a horizontal drag stops that scroll; React touch handlers are passive.
@@ -16,14 +19,14 @@ export function AiPresetPager({children,onStep,disabled}:{children:ReactNode;onS
    if(axis==='x'&&event.cancelable)event.preventDefault();};
   el.addEventListener('touchstart',down,{passive:true});el.addEventListener('touchmove',move,{passive:false});
   return()=>{el.removeEventListener('touchstart',down);el.removeEventListener('touchmove',move);};},[]);
- return <div ref={viewport} className={s.presetViewport} role="group" aria-label="프리셋 페이지" onDragStart={event=>event.preventDefault()}
+ return <><div ref={viewport} className={s.presetViewport} role="group" aria-label="프리셋 페이지" onDragStart={event=>event.preventDefault()}
   onPointerDown={event=>{if(disabled||!event.isPrimary||event.button!==0)return;dragged.current=false;start.current={id:event.pointerId,x:event.clientX,y:event.clientY,horizontal:false};}}
   onPointerMove={event=>{const from=start.current;if(!from||from.id!==event.pointerId)return;const x=event.clientX-from.x,y=event.clientY-from.y;
    if(!from.horizontal){if(Math.abs(y)>8&&Math.abs(y)>Math.abs(x)){start.current=null;return;}if(Math.abs(x)<8)return;from.horizontal=true;dragged.current=true;event.currentTarget.setPointerCapture(event.pointerId);}
    setOffset(Math.max(-event.currentTarget.clientWidth,Math.min(event.currentTarget.clientWidth,x)));
   }}
   onPointerUp={event=>{const from=start.current;start.current=null;setOffset(0);if(!from||from.id!==event.pointerId||!from.horizontal||disabled)return;
-   const distance=event.clientX-from.x;if(Math.abs(distance)>=Math.min(64,event.currentTarget.clientWidth*.2))onStep(distance<0?1:-1);
+   const distance=event.clientX-from.x;if(Math.abs(distance)>=Math.min(64,event.currentTarget.clientWidth*.2)){swipedOnce=true;setSwiped(true);onStep(distance<0?1:-1);}
   }}
   onPointerCancel={()=>{start.current=null;setOffset(0);}}
   // Touch pointers are implicitly captured by the card under the finger. Taking capture for a horizontal drag makes that card fire
@@ -31,5 +34,5 @@ export function AiPresetPager({children,onStep,disabled}:{children:ReactNode;onS
   onLostPointerCapture={event=>{if(event.target!==event.currentTarget)return;start.current=null;setOffset(0);}}
   onClickCapture={event=>{if(dragged.current&&event.detail!==0){event.preventDefault();event.stopPropagation();}}}>
   <div style={{transform:`translateX(${offset}px)`}}>{children}</div>
- </div>;
+ </div>{!disabled&&!swiped&&<p className={s.swipeHint}><span aria-hidden="true">‹</span>좌우로 밀어서 넘겨 보세요<span aria-hidden="true">›</span></p>}</>;
 }
