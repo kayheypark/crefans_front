@@ -144,7 +144,7 @@ export default function AiPhotoLanding(){
    <Link className={s.primary} href={TRY} onClick={handoff}>이 프리셋으로 0원 체험</Link>
    {/* 2026-11-19 user request: picking any preset asks right away whether to try it (the picks so far carry over). */}
    <Dialog open={!!asked} onClose={()=>setAsked(null)} title={asked?.kind==='outfit'?'이 코스튬으로 만들어볼까요?':'이 프리셋으로 만들어볼까요?'}>
-    {asked&&<div className={s.askPreset}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset image */}<img src={asked.image} alt="" width={120} height={120} data-illustrated={illustrated.includes(asked.kind)||undefined}/><strong>{asked.title}</strong><p>로그인 없이 체험 이용권으로 0원에 만들어 볼 수 있어요.</p></div>}
+    {asked&&<div className={s.askPreset}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset image */}<img src={asked.image} alt="" width={120} height={120} data-illustrated={illustrated.includes(asked.kind)||undefined}/><strong>{asked.title}</strong><p>로그인 없이 0원으로 만들어 볼 수 있어요.</p></div>}
     <DialogActions><button type="button" className={s.secondary} onClick={()=>setAsked(null)}>더 골라볼게요</button><Link className={s.primary} href={TRY} onClick={handoff}>0원으로 만들기</Link></DialogActions>
    </Dialog>
   </section>
