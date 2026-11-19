@@ -1,8 +1,6 @@
 'use client';
 import {useEffect,useId,useState} from 'react';
 import {Dialog} from '@/components/ui/Primitives';
-import {platformRequest} from '@/lib/api/platform';
-import {aiResultShareUrl} from '@/lib/api/ai-result-share';
 import type {StudioMedia,ShareReport} from '@/types/crefans-studio-management';
 import s from './ai-photo.module.css';
 
@@ -15,12 +13,8 @@ export function AiResultShare({item,eligible,prepare,onReport,onClose}:{item:Stu
  useEffect(()=>{
   let alive=true;
   void prepare(item).then(png=>{if(alive)setFile(png);},()=>{if(alive)setNotice('사진을 불러오지 못했어요. 링크는 복사할 수 있어요.');});
-  void (async()=>{
-   const result=eligible?await platformRequest<{token:string}>('/guest/ai-photo/share-link',{mediaId:item.id}):null;
-   if(!alive)return;
-   if(result&&!result.success){setNotice('보상 링크를 준비하지 못했어요. 공유 화면을 닫고 다시 열어 주세요.');return;}
-   setLink(aiResultShareUrl(result?.data.token));
-  })();
+  // 2026-11-20: the link carries no code (the reward is paid at the share); /s redirects to the landing with share tags.
+  setLink(new URL('/s',window.location.origin).href);
   return()=>{alive=false;};
   // The parent mounts a fresh sheet for each selected result; its file cache survives.
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,7 +60,7 @@ export function AiResultShare({item,eligible,prepare,onReport,onClose}:{item:Stu
    <button type="button" className={s.resultSharePrimary} disabled={!file||!link||busy} aria-describedby={eligible?`${rewardId} ${termsId}`:undefined} onClick={()=>void send()}>{busy?'공유하는 중…':'사진과 링크 공유'}</button>
    <button type="button" className={s.resultShareCopy} disabled={!link} onClick={()=>void copy()}>링크 복사</button>
   </div>
-  {eligible&&<p className={s.resultShareTerms} id={termsId}>공유 링크를 통한 첫 방문이 확인되면 보상이 한 번 지급돼요.</p>}
+  {eligible&&<p className={s.resultShareTerms} id={termsId}>사진과 링크를 공유하거나 링크를 복사하면 이용권 3장을 바로 받아요(한 번).</p>}
   {notice&&<p className={s.resultShareTerms} role="status">{notice}</p>}
   {notice.startsWith('아래 링크')&&<input aria-label="복사할 체험 링크" className={s.resultShareLink} readOnly value={link} onFocus={event=>event.currentTarget.select()}/>}
  </Dialog>;

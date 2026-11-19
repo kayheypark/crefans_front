@@ -317,7 +317,6 @@
 .resultShareCopy{background:#fff;color:var(--cf-color-text);border-color:var(--cf-color-border,#e8e5eb)}
 .resultShareSheet .resultShareTerms{margin:9px 0 0;text-align:center;font-size:12px;line-height:1.45;word-break:keep-all}
 .resultShareLink{width:100%;margin-top:8px;padding:6px;font:inherit;font-size:12px}
-.resultShareToast{margin:0;color:#a91556;font-weight:700;font-size:13px}
 /* 2026-11-19 user request: costume cards like the landing result cards — photo fills the card, white name over a dark bottom gradient. */
 .costumeCard{padding:0;overflow:hidden;border-radius:12px}
 .costumeCard[aria-pressed=true]::after{border-radius:12px}
@@ -332,3 +331,17 @@
 @keyframes swipeOverlay{0%{opacity:0}8%,85%{opacity:1}100%{opacity:0}}
 @keyframes swipeHand{0%,100%{transform:translateX(40px)}50%{transform:translateX(-40px)}}
 @media(prefers-reduced-motion:reduce){.swipeHand{animation:none}.swipeOverlay{animation-duration:2.5s}}
+.swipeHand{position:absolute;left:50%;top:50%;z-index:4;margin:-22px 0 0 -22px;pointer-events:none;filter:drop-shadow(0 2px 6px #0006);opacity:0;animation:swipeHand 1.6s ease-in-out .6s 2 both}
+@keyframes swipeHand{0%{opacity:0;transform:translateX(50px)}15%{opacity:1;transform:translateX(50px)}70%{opacity:1;transform:translateX(-50px)}100%{opacity:0;transform:translateX(-50px)}}
+@media(prefers-reduced-motion:reduce){.swipeHint span,.swipeHand{animation:none}.swipeHand{display:none}}
+
+/* 2026-11-20: share reward arrived modal */
+.shareRewardDone{display:grid;justify-items:center;gap:10px;padding:4px 0 16px;text-align:center}.shareRewardDone img{width:120px;height:120px}.shareRewardDone p{margin:0;color:var(--cf-color-textSecondary);font-size:14px}
+/* 2026-11-20 user request: floating share-reward ticket (bottom right, above the mobile tab bar) */
+.shareTicketFab{position:fixed;right:16px;bottom:calc(96px + env(safe-area-inset-bottom));z-index:30;display:grid;place-items:center;width:72px;height:72px;padding:0;border:0;border-radius:50%;background:#fff;box-shadow:0 6px 18px #db27774d,0 2px 6px #0002;cursor:pointer;animation:shareTicketBob 2.4s ease-in-out infinite}
+.shareTicketFab img{width:56px;height:56px}.shareTicketFab span{position:absolute;top:-4px;right:-4px;min-width:28px;padding:3px 6px;border-radius:999px;background:#db2777;color:#fff;font-size:13px;font-weight:800;line-height:1.2}
+.shareTicketFab:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px}
+@keyframes shareTicketBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){.shareTicketFab{animation:none}}
+@media(min-width:1024px){.shareTicketFab{bottom:32px}}
+.shareGuideSteps{display:grid;gap:4px;margin:4px 0 0;padding-left:20px;text-align:left;font-size:14px;color:var(--cf-color-text)}

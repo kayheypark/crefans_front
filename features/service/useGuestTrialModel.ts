@@ -39,5 +39,7 @@ export function useGuestTrialModel(enabled:boolean){
  const caption=async(input:{items:string[];prompt:string})=>{const r=await api<GuestCaption>('/guest/content/caption',input);if(r.success)captureEvent('caption_written',{actor:'guest'});return r;};
  const aiEdit=async(input:AiPhotoEditInput)=>{const props=aiProps('guest',input);captureEvent('ai_generation_started',props);const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});else if(result.errorCode==='GUEST_AI_LIMIT')await refresh();return result;};
  const track=(step:AiPhotoFunnelStep,props:{mode:string})=>captureEvent(step,{actor:'guest',mode:props.mode});
- return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track};
+ // 2026-11-20 user decision: the share reward is paid when the result is shared (share sheet finished or link copied).
+ const shareDone=async(mediaId:string)=>{const r=await api<{granted:boolean}>('/guest/ai-photo/share-done',{mediaId});if(r.success)await refresh();return r.success&&r.data.granted;};
+ return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track,shareDone};
 }

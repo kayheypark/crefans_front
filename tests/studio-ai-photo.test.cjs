@@ -940,3 +940,21 @@ test('generation method choices have no visible title or per-photo caption but k
  const group=r.root.findAll(n=>n.props.role==='radiogroup'&&n.props['aria-label']==='생성 방식');assert.equal(group.length,1);
  assert.equal(group[0].findAll(n=>n.type==='input'&&n.props.type==='radio').length,3);
 });
+// 2026-11-20 user decision: sharing (share sheet finished) or copying the link pays the share reward at once, and a modal says so.
+// Saving the photo (download fallback) pays nothing.
+test('share reward: a finished share or link copy claims the reward for that result and shows the arrival modal',async()=>{
+ const hadWindow='window' in global;if(!hadWindow)global.window={location:{origin:'https://crefans.com',href:'https://crefans.com/service/try'},setInterval,clearInterval,addEventListener(){},removeEventListener(){}};
+ try{
+ const claims=[];const {r,click}=await open({shareReward:{refresh:async()=>{},claim:async id=>{claims.push(id);return claims.length===2;}}});
+ await click('만들기');
+ const trigger=r.root.findAll(n=>n.type==='button'&&text(n).includes('이 결과 공유하기'))[0];await act(async()=>trigger.props.onClick());
+ const sheet=()=>r.root.findAll(n=>typeof n.props.onReport==='function'&&typeof n.props.prepare==='function')[0];
+ await act(async()=>sheet().props.onReport({where:'ai_result',method:'download',outcome:'done'}));assert.deepEqual(claims,[],'saving the photo is not a share');
+ await act(async()=>sheet().props.onReport({where:'ai_result',method:'native',outcome:'cancelled'}));assert.deepEqual(claims,[]);
+ await act(async()=>sheet().props.onReport({where:'ai_result',method:'native',outcome:'done'}));assert.deepEqual(claims,['a1']);
+ const modal=()=>r.root.findAll(n=>n.props.role==='dialog'&&n.props['aria-label']==='이용권 3장을 받았어요!');assert.equal(modal().length,0,'not paid (already used) → no modal');
+ await act(async()=>sheet().props.onReport({where:'ai_result',method:'copy',outcome:'done'}));assert.deepEqual(claims,['a1','a1']);
+ assert.equal(modal().length,1);assert.equal(r.root.findAll(n=>typeof n.props.onReport==='function'&&typeof n.props.prepare==='function').length,0,'the share sheet closes');
+ await click('계속 만들기');assert.equal(modal().length,0);
+ }finally{if(!hadWindow)delete global.window;}
+});
