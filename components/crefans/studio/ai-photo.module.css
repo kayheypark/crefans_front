@@ -336,7 +336,7 @@
 @media(prefers-reduced-motion:reduce){.swipeHint span,.swipeHand{animation:none}.swipeHand{display:none}}
 /* 2026-11-20 user decision: chest cup / hip size buttons */
 .bodyOptions{display:grid;gap:8px}.bodyOptions>span{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;font-weight:600}.bodyOptions output{color:var(--cf-color-accent);font-size:13px}
-.bodyOptions>div{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.bodyOptions>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .bodyOptions button{min-height:40px;padding:0 4px;border:1px solid var(--cf-color-border);border-radius:10px;background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer}
 .bodyOptions button:first-child{font-size:11px}
 .bodyOptions button[aria-pressed=true]{border-color:var(--cf-color-accent);background:var(--cf-color-accentSoft,#eef4ff);color:var(--cf-color-accent)}

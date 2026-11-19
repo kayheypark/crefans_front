@@ -38,9 +38,11 @@ export function aiPhotoProblem({prompt,consent,kind,hasMask,remaining,requireMas
  return '';
 }
 
-// 2026-11-20 user decision: chest is picked as a cup (A–E) and hip as a size (S–XXL) besides '원본 유지'; height stays a slider.
+// 2026-11-20 user decision: chest is picked as a cup (A–G) and hip as a size (S–XXXL) besides '원본 유지'; height stays a slider.
 // The value is the 1-based option index (0 = original). The result is an AI rendering, not a measured size.
-export const aiPhotoBodyOptions:Readonly<Record<string,readonly string[]>>={chest:['A컵','B컵','C컵','D컵','E컵'],hip:['S','M','L','XL','XXL']};
+export const aiPhotoBodyOptions:Readonly<Record<string,readonly string[]>>={chest:['A컵','B컵','C컵','D컵','E컵','F컵','G컵'],hip:['S','M','L','XL','XXL','XXXL']};
+/** 2026-11-20: the server attaches a fictional-model size reference for each chosen chest cup / hip size (chest-A…G, hip-S…XXXL). */
+export function aiPhotoBodyReferenceIds(selection:Readonly<Record<string,number>>){return (['chest','hip'] as const).flatMap(key=>{const option=aiPhotoBodyOptions[key][(selection[key]??0)-1];return option?[`${key}-${option.replace('컵','')}`]:[];});}
 export const aiPhotoBodyControls=[{key:'chest',label:'가슴 크기'},{key:'hip',label:'힙 크기'},{key:'height',label:'키 비율'}] as const;
 export const aiPhotoMaleBodyControls=[{key:'upper',label:'상체 근육'},{key:'lower',label:'하체 근육'},{key:'shoulder',label:'어깨 너비'},{key:'height',label:'키 비율'}] as const;
 // Native range uses step=any; pointer values within 2% of the full track snap to five anchors.
