@@ -156,7 +156,7 @@ test('AI 이용권: card hidden when card:false, bank order shows the instructio
  const paid={...order,status:'paid',statusLabel:'구매 완료',remaining:4};
  act(()=>{t=create(el(ShopPage,{basePath:'/service/studio',model:shopModel({orders:[paid],refund:async(o,account)=>{refunds.push([o.id,account]);return ok({...paid,status:'refunding'});}})}));});
  try{
-  act(()=>byText(t,'구매 내역').props.onClick());act(()=>byText(t,'잔여 횟수 환불').props.onClick());
+  act(()=>byText(t,'구매 내역').props.onClick());act(()=>byText(t,'잔여 이용권 환불').props.onClick());
   assert.match(flat(t.toJSON()),/영업일기준3일/);assert.equal(byText(t,'환불 요청').props.disabled,true);
   type(t,'은행','국민은행');type(t,'계좌번호','123456789012');type(t,'예금주','홍길동');assert.equal(byText(t,'환불 요청').props.disabled,false);
   await act(async()=>byText(t,'환불 요청').props.onClick());assert.deepEqual(refunds,[['o1',{bankName:'국민은행',accountNumber:'123456789012',holder:'홍길동'}]]);
