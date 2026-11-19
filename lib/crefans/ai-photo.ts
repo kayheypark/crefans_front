@@ -51,8 +51,8 @@ export function aiPhotoBodyStrength(value:number){return Number((Math.abs(value)
 export function aiPhotoBodyPrompt(key:string,level:number){
  if(!level)return '';
  const option=aiPhotoBodyOptions[key]?.[level-1];
- if(key==='chest'&&option)return `가슴 크기를 ${option} 정도로 보이게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.`;
- if(key==='hip'&&option)return `힙 크기를 의류 ${option} 사이즈 정도의 볼륨으로 보이게 자연스럽게 보정해줘. 옷은 입은 상태로 유지해줘.`;
+ if(key==='chest'&&option)return `가슴 크기를 ${option} 정도로 보이게 자연스럽게 보정해줘. 옷은 원본과 같은 옷 그대로 두고 목선 높이·가림 정도·디자인을 바꾸지 마. 목선을 파거나 노출을 늘리지 말고 옷이 새 체형에 맞게 늘어나게만 해줘.`;
+ if(key==='hip'&&option)return `힙 크기를 의류 ${option} 사이즈 정도의 볼륨으로 보이게 자연스럽게 보정해줘. 옷은 원본과 같은 옷 그대로 두고 길이·가림 정도·디자인을 바꾸지 마. 노출을 늘리지 말고 옷이 새 체형에 맞게 늘어나게만 해줘.`;
  const amount=Math.abs(level)<=1?'조금':'좀 더',direction=level>0?'크게':'작게';
  const strength=Number.isInteger(level)?'':` 보정 강도는 최대 100 중 ${aiPhotoBodyStrength(level)}로 적용해줘.`;
  if(key==='upper'||key==='lower')return `${key==='upper'?'가슴·팔·등의 상체':'허벅지·종아리의 하체'} 근육 볼륨을 ${amount} ${level>0?'탄탄하게':'슬림하게'} 자연스럽게 보정해줘. 옷과 포즈는 유지해줘.`+strength;
