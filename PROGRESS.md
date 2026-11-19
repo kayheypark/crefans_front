@@ -6325,3 +6325,8 @@
 - 검증: tsc 통과. 새 테스트 ai-result-share-link 3개, 랜딩 상세 창 1개, 편집기 핸드오프 페이지 1개 통과(옷장·편집기 변경 되돌리면 실패 확인). studio-ai-photo 기존 실패 18건은 변경 전후 동일.
 - 개발 웹 390px Playwright: /s/Ab3dE9xK → 랜딩, share-visit에 코드 전송. 상세 창 제목·구성 표시. 랜딩에서 아스나 코스튬(블루 아카이브 2쪽)+손인사(서기 4쪽) 고르고 체험 동의·업로드 → 편집기에서 블루 아카이브·2/13쪽·선택됨, 포즈 탭 서기·4/5쪽·선택됨.
 - 미확인: 실제 생성 결과로 짧은 링크 발급·다른 네트워크 방문 보상(개발 생성이 BytePlus 실과금이라 생략, 서버 테스트로만 확인).
+
+### 2026-11-19 23:1x 운영 배포: 랜딩 프리셋 확인 창·의상 카드·스와이프 힌트·히어로 상세·선택 페이지 열기·짧은 공유 링크·녹화 가리기 해제 (front landing-share-20261119)
+- 사용자 승인 후 prod `1f90fbc` = e2a5697 + 969dfe9·5e13ccd·78f705a·0957ce7·a36b266 + 61cc109 체리픽(1f90fbc, tests/posthog.test.cjs 충돌은 prod에 없는 다른 세션 테스트를 빼고 해소).
+- 운영 검사: landing·service/try·privacy 200, /s/Ab3dE9xK → 302 랜딩(#result-share). Playwright(crefans.com 390px): 확인 창 제목·닫기·해제 시 안 뜸, 힌트 1→스와이프 후 0. 복구본 /Users/ethan/crefans-recovery/20261119/landing-share-20261119-front.
+- X @crefans_app 홍보 1건 게시(사용자 문구 승인, utm_campaign=ai_photo_202611). 게시 직후 X graduated-access 안내 표시.
