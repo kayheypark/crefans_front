@@ -341,3 +341,8 @@
 @keyframes shareTicketBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @media(prefers-reduced-motion:reduce){.shareTicketFab{animation:none}}
 @media(min-width:1024px){.shareTicketFab{bottom:120px}}
+/* 2026-11-20 user request: credits-refill notice with an add-to-calendar link */
+.publishOfferActions a{width:100%;min-height:44px}
+.publishOfferBody small{display:block;margin-top:6px;color:var(--cf-color-textSecondary);font-size:13px}
+.refillCalendar{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;padding:0 16px;border-radius:12px;background:var(--cf-color-accent);color:#fff;font-size:15px;font-weight:700;text-decoration:none}
+.refillCalendar:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}

@@ -17,7 +17,7 @@ export const metadata:Metadata={title:TITLE,description:DESCRIPTION,keywords:['A
 // Structured data states only what the page itself says: a web app with a free signed-out trial (10 uses per browser).
 const jsonLd={'@context':'https://schema.org','@graph':[
  {'@type':'WebPage','@id':`${SITE_URL}${PATH}#webpage`,url:absoluteUrl(PATH),name:TITLE,description:DESCRIPTION,inLanguage:'ko-KR',isPartOf:{'@id':`${SITE_URL}/#website`},primaryImageOfPage:absoluteUrl(IMAGE.url),mainEntity:{'@id':`${SITE_URL}${PATH}#app`}},
- {'@type':'WebApplication','@id':`${SITE_URL}${PATH}#app`,name:'크레팬스 AI 사진 편집',url:absoluteUrl('/service/try'),applicationCategory:'MultimediaApplication',operatingSystem:'Web',inLanguage:'ko-KR',description:DESCRIPTION,image:absoluteUrl(IMAGE.url),publisher:{'@type':'Organization','@id':`${SITE_URL}/#organization`,name:SITE_NAME,url:SITE_URL},offers:{'@type':'Offer',price:0,priceCurrency:'KRW',description:'비회원 브라우저당 체험 이용권 3장'}},
+ {'@type':'WebApplication','@id':`${SITE_URL}${PATH}#app`,name:'크레팬스 AI 사진 편집',url:absoluteUrl('/service/try'),applicationCategory:'MultimediaApplication',operatingSystem:'Web',inLanguage:'ko-KR',description:DESCRIPTION,image:absoluteUrl(IMAGE.url),publisher:{'@type':'Organization','@id':`${SITE_URL}/#organization`,name:SITE_NAME,url:SITE_URL},offers:{'@type':'Offer',price:0,priceCurrency:'KRW',description:'비회원 매일 체험 이용권 3장'}},
  {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:SITE_NAME,item:absoluteUrl('/service/feed')},{'@type':'ListItem',position:2,name:'AI 사진 편집',item:absoluteUrl(PATH)}]},
 ]};
 export default function Page(){return <><script type="application/ld+json" dangerouslySetInnerHTML={{__html:jsonLdText(jsonLd)}}/><AiPhotoLanding/></>;}
