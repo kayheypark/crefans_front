@@ -441,7 +441,7 @@ test('2026-11-18: a game/anime costume photo locks visibility to 전체 공개 a
 // once every sheet/modal is closed; the guide leads to the AI photo editor. Without the reward there is no ticket.
 test('guest trial: the floating share ticket reopens the share-reward guide and hides while a modal is open',async()=>{
  const probe=fixtureHook();
- const model={...probe.model,contents:[],actions:{...probe.model.actions,aiEditPhoto:async()=>({success:true,data:{images:[]}})}};
+ const model={...probe.model,contents:[],aiPhotoQuota:{remaining:1,limit:3},actions:{...probe.model.actions,aiEditPhoto:async()=>({success:true,data:{images:[]}})}};
  const base={backHref:'/service/feed',doneHref:'/service/try/done',notice:'notice'};
  const fab=tree=>tree.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='공유하고 이용권 3장 받기 안내');
  const guide=tree=>tree.root.findAll(n=>n.type==='section'&&n.props['data-dialog']==='공유하고 이용권 3장 받기');
@@ -457,4 +457,6 @@ test('guest trial: the floating share ticket reopens the share-reward guide and 
  }finally{act(()=>tree.unmount());}
  act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:base}));});
  try{assert.equal(fab(tree).length,0,'no ticket once the reward is used');}finally{act(()=>tree.unmount());}
+ // 2026-11-20 user request: only when vouchers run low (≤1 left), like the editor's publish-reward offer.
+ for(const [remaining,shown] of [[3,0],[1.5,0],[1,1],[0.5,1],[0,1]]){act(()=>{tree=create(React.createElement(ContentEditorPage,{model:{...model,aiPhotoQuota:{remaining,limit:3}},basePath:'/service/try',guest:{...base,shareReward:{refresh:async()=>{},claim:async()=>true}}}));});try{assert.equal(fab(tree).length,shown,`remaining ${remaining}`);}finally{act(()=>tree.unmount());}}
 });
