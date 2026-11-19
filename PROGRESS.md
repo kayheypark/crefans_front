@@ -6286,3 +6286,9 @@
 - AI 요청 본문은 useStudioModel의 aiPhotoEditBody로 스튜디오와 공유. AiPhotoDialog noHearts, AiPhotoWaiting showGame 추가.
 - 검증: tsc 통과, npm test 676 pass/17 fail(기준선 동일), check:layers 기존 1건. 로컬 E2E(격리 DB, 외부 공급사 끔, 스크립트 .local/guest-trial-e2e.cjs, iPhone 14 WebKit): 피드 입구→동의 전 시작 버튼 비활성→동의 후 cf_guest httpOnly 쿠키→작성 화면 고지 1·임시저장/후원/댓글 없음·AI 버튼 있음→사진 업로드→게시→완료→비로그인 피드에 '체험 사용자'·'AI 체험 게시물'·사진→같은 브라우저 시드 계정 로그인→claim {claimed:1}·안내 표시·쿠키 삭제→내 프로필에 글 표시. 실제 AI 생성(공급사 호출)은 로컬에서 끔이라 서버 단위 테스트로만 확인. 운영 배포 전.
 - 디자인 다듬기(사용자 "다되면 디자인 폴리싱"): 동의 화면을 소개 카드(10회 무료 배지·그림)·3단계(사진 올리기→AI로 바꾸기→피드에 올리기)·주황 고지 상자('하루 뒤 비공개로 바뀌어요'+고지 문구)·'시작 전에 확인해 주세요' 카드·동의 묶음·전체 폭 버튼으로 재구성(guest-trial.module.css). 완료 화면은 체크 아이콘 카드+고지+'회원가입하고 내 게시물로 연결'/'피드에서 보기'. 피드 입구는 그림·꺾쇠가 있는 그라데이션 카드. 로컬 E2E 재실행 전 단계 통과, iPhone 14 WebKit 캡처 확인.
+
+## 2026-11-19 비회원 체험 녹화 동의를 필수 1개로 합침 (개발 서버 시험만)
+- 사용자 결정: '(선택) 사용성 분석' 체크박스를 없애고 처리방침 17항 필수 동의 1개로 화면 녹화(PostHog) 동의까지 보낸다. 녹화 안내는 본문 '자세히' 목록으로 이동. 원래 작업은 다른 세션의 미커밋 사본(front guest-publish-prod, server guest-publish-credit)에서 가져와 dev에 커밋(front e19a309, server 82b3238).
+- 개발 서버 runtime.env에 GUEST_REPLAY_CONTENT_CONSENT_VERSION=2026-11-19.replay.1 추가(백업 runtime.env.bak-replay-consent-20261119). 운영 runtime.env에는 없음 → 운영은 녹화 동의를 주고받지 않음.
+- 검증: server tsc·build OK, platform-guest 11/11. front tsc(posthog-js 미설치 기존 오류 외 0), guest-claim-dialog·crefans-contract·posthog 14/14. 개발 서버 배포 스모크 실패 0. API: 올바른 판 동의 200, 옛 판 400 GUEST_REPLAY_CONSENT_INVALID. 비로그인 브라우저(Playwright, 375px): 체크박스 1개, 자세히 목록에 PostHog 안내 있음.
+- 미결: 처리방침 17항 본문에 녹화 미포함. 운영 반영 전 구분 동의(개인정보보호법 22조 1항)·선택 동의 거부 시 서비스 거부 금지(22조 5항) 재검토 필요. 녹화 동의 여부에 따라 실제 녹화를 켜고 끄는 로직은 이 변경 범위에 없음.
