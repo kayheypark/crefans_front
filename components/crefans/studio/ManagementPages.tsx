@@ -14,6 +14,7 @@ import {VideoProcessing} from '@/components/ui/VideoProcessing';
 
 
 import {DialogActions} from '@/components/ui/DialogActions';
+import {AiResultShare} from './AiResultShare';
 import {useState,useEffect,useRef,useId,type FormEvent,type ReactNode} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -40,7 +41,7 @@ import {Action,ActionLink,Avatar,Empty,Notice,PageTitle} from '../ServiceUI';
 import Icon from '../Icon';
 import type {PostDetailModel} from '../SocialPages';
 import {ContentPostPreview} from './ContentPostPreview';
-import {AiPhotoDialog} from './AiPhotoDialog';
+import {AiPhotoDialog,toPng} from './AiPhotoDialog';
 import {AI_PHOTO_DAILY_LIMIT} from '@/lib/crefans/ai-photo';
 import s from './management.module.css';
 import ai from './ai-photo.module.css';
@@ -148,6 +149,11 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   const [previewOpen,setPreviewOpen]=useState(false),[savedId,setSavedId]=useState(content?.id),[title,setTitle]=useState(content?.title||''),[body,setBody]=useState(content?.body||''),[media,setMedia]=useState<StudioMedia[]>(content?.media||[]),[tipsEnabled,setTipsEnabled]=useState(content?.tipsEnabled??true),[commentsEnabled,setCommentsEnabled]=useState(content?.commentsEnabled??true),[access,setAccess]=useState(content?.accessLevel?`level:${content.accessLevel}`:content?.accessPlanId||''),[scheduledAt,setScheduledAt]=useState(localDateInput(content?.scheduledAt||null)),[scheduleEnabled,setScheduleEnabled]=useState(content?.status==='scheduled'),[error,setError]=useState('');
   // 2026-11-20 user request: while the share reward is still available, a floating ticket (bottom right) reopens the share-reward guide.
   const [shareGuideOpen,setShareGuideOpen]=useState(false);
+  // 2026-11-20 user decision (시안 B): posting a real-face photo can feel like too much, so the trial editor offers sharing the AI result
+  // next to 지금 게시하기. Same share sheet and the same once-a-day share reward as the AI result screen.
+  const [editorShare,setEditorShare]=useState<StudioMedia|null>(null),[editorShareRewarded,setEditorShareRewarded]=useState(false);
+  const editorShareFiles=useRef(new Map<string,Promise<File>>());
+  function editorShareFile(item:StudioMedia){let file=editorShareFiles.current.get(item.id);if(!file){file=(async()=>{const blob=await fetchImageBlob(item.url);if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],'crefans-ai-photo.png',{type:'image/png'});})();editorShareFiles.current.set(item.id,file);file.catch(()=>editorShareFiles.current.delete(item.id));}return file;}
   const [mediaError,setMediaError]=useState(''),[uploading,setUploading]=useState(false),[aiOpen,setAiOpen]=useState(false);
   // Guest trial caption: what was chosen in the AI editor, and the AI-written draft shown before publishing (2026-11-16).
   // Guest trial (2026-11-16 revision): title/body appear only after an AI photo is added, with an 'AI로 내용 작성' button beside them.
@@ -220,7 +226,9 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     if(writeForReward&&!aiOpen)writeSection.current?.focus();
   },[writeForReward,aiOpen]);
   const publishReward=guest?.postReward?{credits:guest.postReward,onWrite:()=>{setCaptionReady(true);setWriteForReward(true);}}:undefined;
-  const publishRewardNoteId=publishReward?`${aiDescriptionId}-publish-reward`:undefined;
+  const shareTarget=guest&&status!=='published'?[...media].reverse().find(item=>item.type==='image'&&item.aiGenerated&&!item.processing&&!item.failed):undefined;
+  const shareOffer=!!(shareTarget&&guest?.shareReward);
+  const publishRewardNoteId=publishReward||shareOffer?`${aiDescriptionId}-publish-reward`:undefined;
   const [captionTouched,setCaptionTouched]=useState(false),nudgePublish=captionMode&&!!title.trim()&&!!body.trim(),nudgeCaption=captionMode&&aiMade&&!captionTouched&&!nudgePublish;
   async function writeCaption(){
     if(!guest?.caption||captionBusy)return;setError('');setCaptionBusy(true);
@@ -272,12 +280,18 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       {(error||task.error)&&<p className={s.error} role="alert">{error||task.error}</p>}<Toast message={task.message} onClose={task.clearMessage}/><Toast message={sampleNotice} onClose={()=>setSampleNotice('')}/>
       {/* Narrow screens (one column): the fan preview opens in its own dialog instead of sitting below the form (2026-11-01). */}
       <Action variant="secondary" type="button" className={s.mobilePreview} onClick={()=>setPreviewOpen(true)}>미리보기</Action>
-      <div className={publishRewardNoteId&&status!=='published'?`${s.editorActions} ${s.rewardPublishActions}`:s.editorActions}>{status==='published'?<Action type="submit" disabled={task.busy||uploading||!title.trim()||!body.trim()}>수정 저장</Action>:<>{!guest&&<Action variant="secondary" type="submit" disabled={task.busy||uploading||!title.trim()}>{status==='scheduled'?'예약 취소 후 임시저장':'임시저장'}</Action>}{(publishReward||nudgePublish)&&<p id={publishRewardNoteId} className={ai.aiNudgeHintRow} role="note"><span className={ai.aiNudgeHint}>{publishReward?`이용권 ${publishReward.credits}장을 더 받아가세요`:'이제 게시하기를 눌러 올려 보세요'}</span></p>}<Action variant="brand" type="button" className={nudgePublish?ai.aiNudge:''} aria-describedby={publishRewardNoteId} disabled={task.busy||uploading||captionBusy||!title.trim()||!body.trim()||scheduleEnabled&&!scheduledAt} onClick={()=>save(scheduling?'scheduled':'published')}>{scheduling?'예약하기':'지금 게시하기'}</Action></>}</div>
+      <div className={publishRewardNoteId&&status!=='published'?`${s.editorActions} ${s.rewardPublishActions}`:s.editorActions}>{status==='published'?<Action type="submit" disabled={task.busy||uploading||!title.trim()||!body.trim()}>수정 저장</Action>:<>{!guest&&<Action variant="secondary" type="submit" disabled={task.busy||uploading||!title.trim()}>{status==='scheduled'?'예약 취소 후 임시저장':'임시저장'}</Action>}{(shareOffer||publishReward||nudgePublish)&&<p id={publishRewardNoteId} className={shareOffer?`${ai.aiNudgeHintRow} ${s.shareOfferNote}`:ai.aiNudgeHintRow} role="note"><span className={ai.aiNudgeHint}>{shareOffer?'게시 대신 공유만 해도 이용권 3장':publishReward?`이용권 ${publishReward.credits}장을 더 받아가세요`:'이제 게시하기를 눌러 올려 보세요'}</span></p>}{shareTarget&&<Action variant="secondary" type="button" className={s.editorShare} aria-describedby={shareOffer?publishRewardNoteId:undefined} disabled={task.busy} onClick={()=>setEditorShare(shareTarget)}>결과 공유</Action>}<Action variant="brand" type="button" className={nudgePublish?ai.aiNudge:''} aria-describedby={publishRewardNoteId} disabled={task.busy||uploading||captionBusy||!title.trim()||!body.trim()||scheduleEnabled&&!scheduledAt} onClick={()=>save(scheduling?'scheduled':'published')}>{scheduling?'예약하기':'지금 게시하기'}</Action></>}</div>
     </form>{model.notice&&<Notice>{model.notice}</Notice>}
     </div>
     <aside className={s.previewPane} aria-label="팬 화면 미리보기"><h2 className={s.previewTitle}>팬 화면 미리보기</h2><ContentPostPreview content={draft} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/></aside>
      {viewPresent&&viewable.length>0&&<MediaOverlay media={viewable.map(item=>({type:item.type,url:item.url,processing:item.processing}))} title={title.trim()||'첨부 미디어'} alt={title.trim()||'첨부 미디어'} index={Math.min(viewIndex??viewLast,viewable.length-1)} onIndexChange={index=>{setViewIndex(index);setViewLast(index);}} open={viewIndex!==null} onClose={()=>setViewIndex(null)}/>}
      <Dialog open={previewOpen} onClose={()=>setPreviewOpen(false)} title="팬 화면 미리보기">{previewOpen&&<ContentPostPreview content={draft} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/>}</Dialog>
+     {editorShare&&<AiResultShare key={editorShare.id} item={editorShare} eligible={!!guest?.shareReward} prepare={editorShareFile} onClose={()=>setEditorShare(null)} onReport={report=>{
+      model.actions.reportShare?.(report);
+      if(report.outcome==='done'){model.actions.trackAiPhoto?.('ai_result_shared',{mode:'editor'});
+       if(guest?.shareReward&&(report.method==='native'||report.method==='copy'))void guest.shareReward.claim(editorShare.id).then(paid=>{if(paid){setEditorShare(null);setEditorShareRewarded(true);}});}
+     }}/>}
+     <Dialog open={editorShareRewarded} onClose={()=>setEditorShareRewarded(false)} title="이용권 3장을 받았어요!"><div className={ai.shareRewardDone}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={120} height={120}/><p>공유해 줘서 고마워요.<br/>받은 이용권으로 사진을 더 만들어 보세요.</p></div><DialogActions><Action type="button" onClick={()=>setEditorShareRewarded(false)}>확인</Action></DialogActions></Dialog>
      {/* 2026-11-20 user request: only when the vouchers run low (≤1 left), the same moment the editor offers the publish reward. */}
      {guest?.shareReward&&(model.aiPhotoQuota?.remaining??Infinity)<=1&&!aiOpen&&!previewOpen&&!viewPresent&&!shareGuideOpen&&<button type="button" className={ai.shareTicketFab} aria-label="공유하고 이용권 3장 받기 안내" onClick={()=>setShareGuideOpen(true)}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={64} height={64}/><span aria-hidden="true">+3</span></button>}
      <Dialog open={!!guest?.shareReward&&shareGuideOpen} onClose={()=>setShareGuideOpen(false)} title="공유하고 이용권 3장 받기"><div className={ai.shareRewardDone}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={120} height={120}/><p>AI로 만든 결과 사진을 공유하거나 링크를 복사하면 이용권 3장을 바로 받을 수 있어요(하루 한 번).</p></div><DialogActions><Action type="button" variant="secondary" onClick={()=>setShareGuideOpen(false)}>닫기</Action><Action type="button" onClick={()=>{setShareGuideOpen(false);setAiOpen(true);}}>AI 사진 만들러 가기</Action></DialogActions></Dialog>

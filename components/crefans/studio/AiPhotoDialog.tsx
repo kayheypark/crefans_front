@@ -318,7 +318,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
 
 /** Full-screen look at one result: swipe or arrows to move, pick it from here, Esc or 닫기 returns to the editor (the editor stays open). */
 // 2026-11-14 user decision: downloads are always PNG, converted in the browser from the stored image (no server change).
-async function toPng(blob:Blob){
+export async function toPng(blob:Blob){
  if(blob.type==='image/png')return blob;
  const bitmap=await createImageBitmap(blob),canvas=document.createElement('canvas');canvas.width=bitmap.width;canvas.height=bitmap.height;
  const context=canvas.getContext('2d');if(!context)throw new Error('canvas');context.drawImage(bitmap,0,0);bitmap.close?.();
