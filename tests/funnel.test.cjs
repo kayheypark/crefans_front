@@ -2,7 +2,7 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 // 2026-11-18: funnel view steps are sent once per tab session, carry only the step name, and fail silently.
 function load(storage,page={}){
  const code=ts.transpileModule(fs.readFileSync('lib/api/funnel.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText,calls=[],module={exports:{}};
- new Function('module','exports','fetch','window','document',code)(module,module.exports,async(url,options)=>{calls.push({url,options});throw Error('offline');},{sessionStorage:storage,location:{hostname:'crefans.com',search:page.search||''}},{referrer:page.referrer||''});
+ new Function('module','exports','fetch','window','document',code)(module,module.exports,async(url,options)=>{calls.push({url,options});throw Error('offline');},{sessionStorage:storage,location:{hostname:'crefans.com',search:page.search||'',pathname:page.pathname||'/service/feed'}},{referrer:page.referrer||''});
  return{...module.exports,calls};
 }
 const memory=()=>{const map=new Map();return{getItem:k=>map.has(k)?map.get(k):null,setItem:(k,v)=>map.set(k,String(v))};};
@@ -39,4 +39,15 @@ test('landing_view also carries valid utm_medium and utm_campaign',async()=>{
  assert.deepEqual(JSON.parse(ad.calls[0].options.body),{step:'landing_view',utmSource:'daangn',utmCampaign:'daangn_202611',utmContent:'2'});
  const bad=load(memory(),{search:'?utm_source=daangn&utm_medium=c%20pc&utm_campaign='+'a'.repeat(41)});bad.reportFunnelStep('landing_view');await new Promise(r=>setImmediate(r));
  assert.deepEqual(JSON.parse(bad.calls[0].options.body),{step:'landing_view',utmSource:'daangn'});
+});
+
+// 2026-11-20 AI 사진 체험 관리 유입 경로: the tab's first page and source are kept and reused (first touch), then sent with the consent.
+test('entry source: first page of the tab is remembered and reused; only host, utm_* and path',()=>{
+ const storage=memory();
+ const first=load(storage,{referrer:'https://www.daangn.com/ads/123?x=1',search:'?utm_source=daangn&utm_campaign=ai_photo&email=a@b.c',pathname:'/service/landing-ai-image-generation'});
+ assert.deepEqual(first.rememberEntrySource(),{referrerHost:'www.daangn.com',utmSource:'daangn',utmCampaign:'ai_photo',landingPath:'/service/landing-ai-image-generation'});
+ const later=load(storage,{search:'',pathname:'/service/try'});
+ assert.equal(later.rememberEntrySource().utmSource,'daangn','a later page in the same tab keeps the first entry');
+ assert.match(fs.readFileSync('features/service/useGuestTrialModel.ts','utf8'),/'\/guest\/session',\{consent:true,version:GUEST_CONSENT_VERSION,source:rememberEntrySource\(\),/);
+ assert.match(fs.readFileSync('features/service/useServiceModel.ts','utf8'),/useEffect\(\(\)=>\{rememberEntrySource\(\);\},\[\]\);/);
 });

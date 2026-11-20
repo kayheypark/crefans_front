@@ -14,7 +14,18 @@ function landingSource(){
  try{const query=new URLSearchParams(window.location.search);for(const [param,key] of UTM_FIELDS){const utm=query.get(param);if(utm&&/^[A-Za-z0-9_.-]{1,40}$/.test(utm))source[key]=utm;}}catch{}
  return source;
 }
+// 2026-11-20 user request (AI 사진 체험 관리 유입 경로): the first page of this tab's visit and where it came from, kept for the tab
+// (sessionStorage) and sent once with the trial consent. Same fields and rules as the landing alert, plus the first page's path.
+const ENTRY='crefans-entry-source';
+export type EntrySource=ReturnType<typeof landingSource>&{landingPath?:string};
+export function rememberEntrySource():EntrySource{
+ try{const saved=window.sessionStorage.getItem(ENTRY);if(saved)return JSON.parse(saved) as EntrySource;}catch{}
+ const source:EntrySource={...landingSource(),landingPath:window.location.pathname.slice(0,120)};
+ try{window.sessionStorage.setItem(ENTRY,JSON.stringify(source));}catch{}
+ return source;
+}
 export function reportFunnelStep(step:FunnelViewStep){
+ rememberEntrySource();
  try{if(window.sessionStorage.getItem(FLAG+step)==='1')return;window.sessionStorage.setItem(FLAG+step,'1');}catch{}
  const body=step==='landing_view'?{step,...landingSource()}:{step};
  void fetch('/api/v1/telemetry/funnel',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),keepalive:true}).catch(()=>{});
