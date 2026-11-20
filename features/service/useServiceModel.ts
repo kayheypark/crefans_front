@@ -3,6 +3,7 @@ import {optimizeImage} from '@/lib/design/image-optimize';
 import {CREATOR_PROVISION} from '@/lib/crefans/creator-provision';
 import {supportFaqs} from '@/lib/crefans/support';
 import {useCallback,useEffect,useRef,useState} from 'react';
+import {rememberEntrySource} from '@/lib/api/funnel';
 import {useSearchParams,usePathname} from 'next/navigation';
 import {useDirectoryModel} from './useDirectoryModel';
 import {usePostSearchModel} from './usePostSearchModel';
@@ -23,7 +24,7 @@ const loadFoundingBadge=()=>api<FoundingBadgeStatus>('/events/founding-badge');
 const profilePlans=(creators:any[])=>Object.fromEntries(creators.filter(creator=>Array.isArray(creator.plans)).map(creator=>[creator.id,creator.plans]));
 const PROCESSING_POLL_MS=5000,PROCESSING_POLL_LIMIT=24;
 export function useServiceModel(){
- const query=useSearchParams(),referral=query.get('ref');useEffect(()=>rememberReferral(referral),[referral]);const pathname=usePathname(),[cursor,setCursor]=useState<string|null>(null),[moreLoading,setMoreLoading]=useState(false),[publicProfile,setPublicProfile]=useState<any>(null),[state,setState]=useState<any>(empty),[common,setCommon]=useState<any>(null),[loading,setLoading]=useState(true),[error,setError]=useState(''),[comments,setComments]=useState<any>({}),[commentPages,setCommentPages]=useState<Record<string,{offset:number|null;loading:boolean}>>({}),proofs=useRef<{email:string;identity:string;signupEmail?:string;phone?:string;phoneNumber?:string}>({email:'',identity:''});
+ const query=useSearchParams(),referral=query.get('ref');useEffect(()=>rememberReferral(referral),[referral]);useEffect(()=>{rememberEntrySource();},[]);const pathname=usePathname(),[cursor,setCursor]=useState<string|null>(null),[moreLoading,setMoreLoading]=useState(false),[publicProfile,setPublicProfile]=useState<any>(null),[state,setState]=useState<any>(empty),[common,setCommon]=useState<any>(null),[loading,setLoading]=useState(true),[error,setError]=useState(''),[comments,setComments]=useState<any>({}),[commentPages,setCommentPages]=useState<Record<string,{offset:number|null;loading:boolean}>>({}),proofs=useRef<{email:string;identity:string;signupEmail?:string;phone?:string;phoneNumber?:string}>({email:'',identity:''});
  const [loadedPath,setLoadedPath]=useState('');
  const [actionNotice,setActionNotice]=useState<{message:string;loginRequired:boolean}|null>(null);
  const [feedCategory,setFeedCategory]=useState('전체');
