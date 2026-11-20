@@ -6296,3 +6296,8 @@
 - 검사: tsc 0, studio-management·contract·content-post-preview 47 통과/2 실패(기존 실패: 운영자 숨김 글, 체험 입력칸). 배포 점검 try·landing 200, deploy OK, 복구본 /Users/ethan/crefans-recovery/20261120/trial-ux-20261120-front 검증 OK.
 - 운영 확인: 동의 화면 말풍선 1개(iPhone13 WebKit, 동의는 누르지 않음), 운영 번들에 임시저장 키·owner 비교·말풍선 CSS 포함. 운영에서 체험 시작·복원 실동작은 미확인(운영 체험 데이터·이용권을 만들지 않으려고).
 - 14:4x 운영 실동작(사용자 지시 "맥북 시크릿모드에서 테스트", 새 Playwright 컨텍스트 iPhone13 WebKit, 사진 업로드만·AI 생성/게시 안 함): 업로드 후 피드 갔다 복귀 2/10 유지, 쿠키 삭제·재동의 시 이전 임시저장 버리고 새 체험 1장. 게시하기 말풍선이 흰 바 없이 떠 있음. 테스트로 운영에 비회원 체험 2건(업로드 사진 포함)이 생김, 게시물 없음.
+
+### 2026-11-20 16:1x AI 사진 체험 관리·리플레이 연동 운영 배포
+- 사용자 지시 "운영배포해": api ai-trials-20261120(07:01Z), front replay-link-20261120(07:09Z), admin ai-trials-20261120(07:11Z). 점검: health·try·landing 200, 무쿠키 guest/replay-session 401, admin /login 200, 무인증 admin/ai-trials 401. 복구본 /Users/ethan/crefans-recovery/20261120/{ai-trials-20261120-api,replay-link-20261120-front,ai-trials-20261120-admin} 검증 OK.
+- 운영 실동작: 새 Playwright 브라우저(iPhone13)로 체험 동의 → guest/replay-session 201 recorded:true(운영 체험 1건 생김). 콘솔 화면·PostHog 링크 이동은 사용자 로그인 필요라 미확인.
+- 과거분: 사진·게시·생성 횟수는 보관 기간 내 표시, 의상·배경·요청 문장은 30일, 프리셋 이름과 리플레이 링크는 이번 배포 이후분만.
