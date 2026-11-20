@@ -152,6 +152,10 @@ test('only the guest trial model toggles unmasking, gated on a recorded replay c
  assert.match(model,/if\(!enabled\|\|!session\?\.active\|\|!session\.replayConsented\)return;setReplayUnmasked\(true\);setReplayInlineImages\(true\);return\(\)=>\{setReplayInlineImages\(false\);setReplayUnmasked\(false\);\};/);
  const inliners=['app','components','features','lib','hooks','contexts'].flatMap(walk).filter(f=>/\.(t|j)sx?$/.test(f)&&f!=='lib/analytics/posthog.ts'&&/setReplayInlineImages\(/.test(fs.readFileSync(f,'utf8')));
  assert.deepEqual(inliners,['features/service/useGuestTrialModel.ts']);
+ // 2026-11-20: the replay session ID (console trial history link) is reported only for a recorded replay consent.
+ assert.match(model,/useEffect\(\(\)=>\{if\(enabled&&session\?\.active&&session\.replayConsented\)void reportReplaySession\(\);/);
+ assert.match(model,/aiEdit=async\(input:AiPhotoEditInput\)=>\{if\(session\?\.replayConsented\)void reportReplaySession\(\);/);
+ assert.match(model,/save=async\(input:unknown\)=>\{if\(session\?\.replayConsented\)void reportReplaySession\(\);/);
 });
 
 // 2026-11-20 user report: replays showed the AI result as a broken image (private URL needs the visitor's session). While unmasked,

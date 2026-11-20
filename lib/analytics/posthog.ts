@@ -134,6 +134,9 @@ export function loadPostHog(){
  loading??=import('posthog-js').then(({default:posthog})=>{posthog.init(POSTHOG_KEY,posthogConfig(window.location.pathname));client=posthog;for(const [name,props] of pending.splice(0))posthog.capture(name,props);return posthog;}).catch(()=>null);
  return loading;
 }
+/** The PostHog session (replay) ID of this tab, or null without PostHog (no key, e.g. the dev server). 2026-11-20: the console
+ * trial history links to the replay; only this random UUID is sent to our server, never replay content. */
+export async function replaySessionId(){try{const posthog=await loadPostHog();const id=posthog?.get_session_id?.();return typeof id==='string'&&/^[0-9a-f-]{36}$/i.test(id)?id:null;}catch{return null;}}
 /** Route change: stop replay before a page outside the allowlist is recorded, resume on allowed pages. */
 export function syncReplay(pathname:string){
  if(!client)return;
