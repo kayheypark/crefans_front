@@ -6415,3 +6415,11 @@
 - 사용자 요청: 진짜 내 사진이면 게시가 부담돼 등록까지 안 이어짐 → 게시 화면에도 결과 공유. 시안 A(사진 위 아이콘)/B(하단 나란히)/C(안내 카드) 중 B 선택.
 - 구현: AI 결과 사진이 첨부돼 있으면 하단에 [결과 공유](1) + [지금 게시하기](1.4). 공유 보상 대상이면 말풍선 "게시 대신 공유만 해도 이용권 3장"(왼쪽, 공유 버튼을 가리킴), 아니면 기존 게시 말풍선. 공유창·보상은 AI 결과 화면과 같은 AiResultShare·shareReward.claim(하루 한 번) 재사용, 보상 시 "이용권 3장을 받았어요!" 창. AI 결과가 없으면 버튼 없음.
 - 커밋 feat/editor-share-button(origin/prod 기준) → dev dabc9c2. 테스트 'guest editor share button' 통과(버튼 제거 시 실패 대조), studio-management 32/33(28번 기존 실패). 개발 서버 iPhone13 WebKit: 버튼 16~166 / 게시 174~374, 말풍선 왼쪽, 공유 시트 열림. 실제 공유·보상 지급은 미확인(AI 생성 없이 표시만 바꿔서 확인).
+
+## 2026-11-20 19:0x 배경 '내 사진'·체험 유입 경로 (dev만, 운영 미배포)
+- 사용자 요청: ① 올린 장소 사진을 결과 배경으로 합성(결정: AI 자동 판별 대신 배경 탭에서 사용자가 고름) ② 콘솔 체험 히스토리에 유입 경로.
+- ①: 배경 탭 [실내·아웃도어·내 사진]. 내 사진=원본 외 올린 사진 + '배경 사진 올리기'(uploadContentMedia). 선택 시 배경 프리셋 대체(배경 1개), 요청에 backgroundMediaId. 서버는 본인·완료·미삭제·원본과 다른 사진만, 개인 배경 참고(LIBRARY_REFERENCE_RULES.background)로 첨부·안전검사, 공용/보관함 배경과 동시 불가. 테스트 platform-ai-photo 'own background photo'(첨부 제거 시 실패 대조), 전체 실패 8건은 운영 코드 기준선과 동일.
+- ②: 탭 첫 페이지와 유입(외부 사이트 host·utm_*·첫 경로)을 sessionStorage에 기억(rememberEntrySource), 체험 동의 때 source로 전송 → guest.entry_source 감사(체험당 1회, 감사 허용 키에 referrerHost·utm*·landingPath 추가). 콘솔 목록 '유입' 열·히스토리 '유입 경로'. 이전 체험은 '기록 없음'.
+- 개발 서버 확인(Chromium iPhone13 에뮬레이션, WebKit은 맥 로컬망 차단으로 대체): 배경 탭 내 사진 업로드·선택, 가로 넘침 없음(scrollWidth 390). 콘솔 목록·히스토리 '당근 · utm_source=daangn · … · 첫 페이지 /service/landing-ai-image-generation'. 실제 AI 생성(배경 합성 결과)은 비용 때문에 미실행.
+- 같은 수정: 생성 방식 안내 두 문장 사이 띄어쓰기 누락(운영에도 있음) 수정 — 운영 배포 필요.
+- 개발 배포 중 Node SIGSEGV(빌드·단순 연산 반복 실패)가 재부팅 직후 20여 분 지속 후 사라짐. 하드웨어 변경 없음(사용자 확인), 커널·패키지·도커 변화 없음. 원인 미확정.
