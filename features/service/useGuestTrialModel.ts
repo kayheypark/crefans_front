@@ -7,7 +7,7 @@ import {aiPhotoEditBody} from './useStudioModel';
 import {aiProps,captureEvent,replaySessionId,setReplayInlineImages,setReplayUnmasked} from '@/lib/analytics/posthog';
 import {reportShare} from '@/lib/api/share-report';
 import type {AiPhotoFunnelStep} from '@/types/crefans-studio-management';
-import type {AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefans-studio-management';
+import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefans-studio-management';
 
 // Signed-out AI photo trial (2026-11-15). The server identifies the visitor by an httpOnly cookie set after consent
 // (POST /guest/session); this model never sees the token. Limits and the 24-hour public window are enforced by the server.
@@ -23,7 +23,7 @@ const reportedReplays=new Set<string>();
 async function reportReplaySession(){const id=await replaySessionId();if(!id||reportedReplays.has(id))return;reportedReplays.add(id);const r=await api<{recorded:boolean}>('/guest/replay-session',{sessionId:id});if(!r.success)reportedReplays.delete(id);}
 function markGuestTrial(){try{window.localStorage.setItem(TRIAL_FLAG,'1');}catch{}}
 export type GuestCaption={title:string;body:string;source:'ai'|'template'};
-export type GuestSession={active:boolean;authorId?:string;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};
+export type GuestSession={active:boolean;authorId?:string;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;heartReward?:number;heartRewardMax?:number;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};
 export function useGuestTrialModel(enabled:boolean){
  const [session,setSession]=useState<GuestSession|null>(null),[error,setError]=useState('');
  const refresh=useCallback(async()=>{const r=await api<GuestSession>('/guest/session');if(r.success)setSession(r.data);else setError(r.errorMessage||'체험 정보를 불러오지 못했어요.');},[]);
@@ -46,5 +46,7 @@ export function useGuestTrialModel(enabled:boolean){
  const track=(step:AiPhotoFunnelStep,props:{mode:string})=>captureEvent(step,{actor:'guest',mode:props.mode});
  // 2026-11-20 user decision: the share reward is paid when the result is shared (share sheet finished or link copied).
  const shareDone=async(mediaId:string)=>{const r=await api<{granted:boolean}>('/guest/ai-photo/share-done',{mediaId});if(r.success)await refresh();return r.success&&r.data.granted;};
- return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track,shareDone};
+ // 2026-11-21: the server-verified waiting game for visitors (30 hearts → 0.5 credit, 3 a day per browser and network).
+ const heartGame=(input:AiHeartInput)=>api<AiHeartResult>('/guest/ai-photo/hearts',input);
+ return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track,shareDone,heartGame};
 }

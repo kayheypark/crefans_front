@@ -1,5 +1,5 @@
 export type AiHeartInput={action:'start'|'click'|'finish';id?:string;piece?:number;eventId?:string};
-export type AiHeartResult={remaining?:number;id?:string;kinds?:('heart'|'candy'|'moon')[];score?:number;hearts?:number;credits?:number;earned?:number;converted?:number};
+export type AiHeartResult={remaining?:number;id?:string;kinds?:('heart'|'candy'|'moon')[];score?:number;hearts?:number;credits?:number;earned?:number;converted?:number;/** 2026-11-21 guest: credit paid for this game (0 or 0.5) and whether today's cap stopped it. */ticket?:number;capped?:boolean};
 import type {ShopModel} from './crefans-shop';
 import type {ShareReport} from '@/lib/api/share-report';
 export type {ShareReport};

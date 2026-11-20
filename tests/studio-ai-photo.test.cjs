@@ -807,20 +807,32 @@ test('library album: category rows with totals, see-all grid and back, search to
  await act(async()=>{lib().find(n=>n.type==='button'&&n.props['aria-label']==='사진 검색').props.onClick();});assert.equal(lib().findAll(n=>n.type==='input'&&n.props.label==='사진 검색').length,1);
 });
 
-test('guest can play while generating without reward API or conversion claims',async()=>{
- let finish;const sent=[],actions=[];
- const {r,click}=await open({noHearts:true,onHeartGame:async input=>{actions.push(input);throw Error('guest must not call rewards');},onEdit:input=>{sent.push(input);return new Promise(resolve=>{finish=resolve;});}});
+// 2026-11-21 user decision: signed-out visitors play the server-verified game too; 30 hearts → 0.5 credit (3 a day, server caps).
+test('guest plays the server game while generating; the result shows the 0.5 credit or the daily cap, never member heart totals',async()=>{
+ for(const [reward,note] of [[{ticket:0.5,capped:false,earned:30,remaining:2.5},/하트 30개! 체험 이용권 0\.5장을 받았어요/],[{ticket:0,capped:true,earned:30,remaining:2},/오늘 받을 수 있는 하트 보상\(3장\)을 모두 받았어요/]]){
+  let finish;const sent=[],actions=[];
+  const {r,click}=await open({noHearts:true,onHeartGame:async input=>{actions.push(input);return input.action==='start'?{success:true,data:{id:'g1',kinds:['heart','candy','heart','moon','heart']}}:input.action==='finish'?{success:true,data:reward}:{success:true,data:{score:1}};},onEdit:input=>{sent.push(input);return new Promise(resolve=>{finish=resolve;});}});
+  try{
+   await click('쪼그려 앉기');await click('만들기');
+   assert.equal(actions[0].action,'start');assert.equal(sent[0].heartGameId,'g1');
+   assert.match(text(r.toJSON()),/하트 30개를 모으면 체험 이용권 0\.5장을 드려요 \(하루 최대 3장\)/);assert.doesNotMatch(text(r.toJSON()),/체험 게임이에요/);
+   await click('하트 1 모으기');
+   await act(async()=>finish({success:true,data:{images:[{id:'guest-made',type:'image',url:'/guest.png'}],remaining:2}}));
+   assert.ok(actions.some(a=>a.action==='click'));assert.equal(actions.at(-1).action,'finish');
+   assert.match(text(r.toJSON()),/이번 게임에서 하트 30개를 모았어요/);assert.match(text(r.toJSON()),note);
+   assert.doesNotMatch(text(r.toJSON()),/100개가 모이면|누적 하트|\/100/);
+  }finally{await act(async()=>r.unmount());}
+ }
+});
+test('guest without a server game keeps the local practice game and never claims rewards',async()=>{
+ let finish;const sent=[];
+ const {r,click}=await open({noHearts:true,onEdit:input=>{sent.push(input);return new Promise(resolve=>{finish=resolve;});}});
  try{
- await click('쪼그려 앉기');await click('만들기');
- assert.match(text(r.toJSON()),/체험 게임이에요/);
- await click('하트 1 모으기');assert.equal(text(r.root.findByProps({'aria-label':'모은 하트'})),'1');
- await click('별사탕 2');assert.equal(text(r.root.findByProps({'aria-label':'모은 하트'})),'0');
- await click('하트 3 모으기');
- await act(async()=>finish({success:true,data:{images:[{id:'guest-made',type:'image',url:'/guest.png'}],remaining:9}}));
- assert.equal(actions.length,0);assert.equal(sent[0].heartGameId,undefined);
- assert.match(text(r.toJSON()),/이번 게임에서 하트 1개를 모았어요/);
- assert.doesNotMatch(text(r.toJSON()),/100개가 모이면|누적 하트|1\/100/);
- assert.equal(r.root.findAllByProps({'aria-label':'모은 하트'}).length,0);
+  await click('쪼그려 앉기');await click('만들기');
+  assert.match(text(r.toJSON()),/체험 게임이에요/);
+  await click('하트 1 모으기');await click('별사탕 2');await click('하트 3 모으기');
+  await act(async()=>finish({success:true,data:{images:[{id:'guest-made',type:'image',url:'/guest.png'}],remaining:9}}));
+  assert.equal(sent[0].heartGameId,undefined);assert.match(text(r.toJSON()),/이번 게임에서 하트 1개를 모았어요/);assert.match(text(r.toJSON()),/체험 게임의 하트는 적립되거나 이용권으로 바뀌지 않아요/);
  }finally{await act(async()=>r.unmount());}
 });
 
