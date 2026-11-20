@@ -1,3 +1,10 @@
+## 2026-11-21 AI 사진 생성 방식 기본값 빠르게→표준 (feat/ai-photo-default-standard)
+
+- 사용자 지시(01:3x KST): 랜딩 이후 체험하기의 생성 방식 기본값을 라이트(느낌만 빠르게, 0.5장)에서 표준(1장)으로. 맥 빌드로 운영까지 배포.
+- 변경: `lib/crefans/ai-photo.ts` AI_PHOTO_DEFAULT_METHOD(standard) 추가·주석, `components/crefans/studio/AiPhotoDialog.tsx` 초기 선택을 목록 첫 항목(fast) 대신 이 값으로(회원 편집기·비회원 체험 공용). 버튼 순서·소모량(0.5/1/2)·서버 차감은 그대로.
+- 검증(맥, node --test tests/studio-ai-photo.test.cjs): 95개 중 74 통과·18 실패·3 기타, 실패 18개는 변경 전 origin/dev에서도 동일 목록(기존 실패, 이번 변경과 무관 — 원인 미조사). 기본값 테스트를 standard로 바꿔 통과, 대조: 기존 기대(fast)로 되돌리면 실패 1개 추가.
+- 주의: 잔액 0.5장인 비회원은 표준이 기본이라 처음부터 부족 안내가 보임(빠르게로 바꾸면 사용 가능, 기존 부족 안내 흐름 그대로).
+
 ## 2026-11-19 비로그인 체험 이용권과 첫 게시 보상
 
 - 개발 웹 `4ece774` 배포 실패 0건. 14:35 KST Chromium 390×844에서 버튼 내부가 “만들기”, “3장 보유” 두 항목뿐인 것을 확인했다. 생성과 게시 보상 흐름도 대역으로 통과했다. 근거 `.local/create-button-label/`.
