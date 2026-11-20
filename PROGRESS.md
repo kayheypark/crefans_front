@@ -4,6 +4,8 @@
 - 변경: `lib/crefans/ai-photo.ts` AI_PHOTO_DEFAULT_METHOD(standard) 추가·주석, `components/crefans/studio/AiPhotoDialog.tsx` 초기 선택을 목록 첫 항목(fast) 대신 이 값으로(회원 편집기·비회원 체험 공용). 버튼 순서·소모량(0.5/1/2)·서버 차감은 그대로.
 - 검증(맥, node --test tests/studio-ai-photo.test.cjs): 95개 중 74 통과·18 실패·3 기타, 실패 18개는 변경 전 origin/dev에서도 동일 목록(기존 실패, 이번 변경과 무관 — 원인 미조사). 기본값 테스트를 standard로 바꿔 통과, 대조: 기존 기대(fast)로 되돌리면 실패 1개 추가.
 - 주의: 잔액 0.5장인 비회원은 표준이 기본이라 처음부터 부족 안내가 보임(빠르게로 바꾸면 사용 가능, 기존 부족 안내 흐름 그대로).
+- 운영 배포(2026-11-21 01:37~01:41 KST, 사용자 지시 "맥에서라도 이미지 빌드해서 운영까지"): prod 78633be(이 커밋만 cherry-pick, import 줄 충돌만 해소, prod 트리 테스트 결과 동일). 맥에서 git archive 깨끗한 트리 + devbox frontend-build.env(NEXT_PUBLIC 3개) → `infra/platform/Dockerfile` buildx linux/amd64(Next는 맥 네이티브 빌드) 1분 49초 → 검사(카카오·PostHog 키 번들, linux/amd64, revision 라벨, /app 읽기, server.js·static·public·sharp-linux-x64, 번들에 `find(e=>"standard"===e.value)`) → `docker save|gzip -1` 스트림 sha256 일치·load·레이어 일치 → devbox remote/deploy-front.sh(sha256 2a778296…) 운영 bash -s rc=0: frontend `crefans-front:defaultstd-20261121`, feed·landing·terms·health·redirect·static·image·try·landing-ai-image-generation 정상, standard 기본값 번들 2개, 다른 컨테이너 불변.
+- 복구본 /Users/ethan/crefans-recovery/20261121/defaultstd-20261121-front(이전 method-copy2-20261120 태그·ID·SHA256SUMS OK) 후 운영 이전 이미지·백업 삭제. 맥 Docker 빌드 캐시 12.3GB 정리. 미실행: 개발 서버 배포(devbox 루트 XFS 손상 수리 후), 실제 체험 화면에서 표준 선택 상태 눈으로 확인.
 
 ## 2026-11-19 비로그인 체험 이용권과 첫 게시 보상
 
