@@ -14,6 +14,9 @@ export const aiPhotoGenerationMethods=[
 ] as const;
 export type AiPhotoGenerationMethod=(typeof aiPhotoGenerationMethods)[number]['value'];
 export const AI_PHOTO_PROMPT_MAX=2000;
+// 2026-11-20 user request: visitors upload a place photo and want it as the result's background. Picked in the background tab
+// ('내 사진'); the server sends that photo as a background reference (environment and lighting only, never its people).
+export const AI_PHOTO_OWN_BACKGROUND_PROMPT='배경을 내가 고른 배경 사진 속 장소로 바꿔줘. 그 사진 속 사람이나 글자는 넣지 마.';
 export const aiPhotoPresetText=(value:string)=>value.replace(' 내 얼굴·나이·체형·피부색과 배경은 그대로 유지해줘.','').trim();
 // 2026-11-20 user decision: the body correction tab is hidden until the clothing/neckline problem is solved (a bigger bust
 // opened a V in a closed hoodie in dev tests). Set to true to reopen it; the body code stays in place.

@@ -357,3 +357,11 @@
 /* 2026-11-20 user decision: one line under the method choices sets expectations (fast = quick feel check). */
 .methodHint{margin:6px 2px 8px;font-size:12px;line-height:1.4;color:var(--cf-color-textSecondary);text-align:center;text-wrap:balance;word-break:keep-all}
 .methodHint span{display:inline-block}
+
+/* 2026-11-20 '내 사진' background picker: the uploaded photos plus an upload tile. */
+.ownBackground{display:grid;gap:10px}
+.ownBackground .sources{display:flex;flex-wrap:wrap;gap:8px}
+.ownBackgroundUpload{position:relative;width:64px;height:64px;border-radius:10px;border:1.5px dashed var(--cf-color-border);display:grid;place-items:center;align-content:center;gap:2px;color:var(--cf-color-textSecondary);cursor:pointer;text-align:center}
+.ownBackgroundUpload input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.ownBackgroundUpload span{font-size:20px;line-height:1}.ownBackgroundUpload small{font-size:9px;line-height:1.2}
+.ownBackgroundUpload[aria-disabled=true]{opacity:.5;pointer-events:none}
