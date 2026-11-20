@@ -25,7 +25,7 @@ import Image from 'next/image';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
 import {aiPhotoSelectionLabels,type AiPhotoCaptionContext} from '@/lib/crefans/ai-photo-labels';
-import {AI_PHOTO_BODY_OPEN,AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection,AI_PHOTO_OWN_BACKGROUND_PROMPT} from '@/lib/crefans/ai-photo';
+import {AI_PHOTO_BODY_OPEN,AI_PHOTO_DEFAULT_METHOD,AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection,AI_PHOTO_OWN_BACKGROUND_PROMPT} from '@/lib/crefans/ai-photo';
 import {Action,ActionLink} from '../ServiceUI';
 import {useCurrentSignupHref} from '../useCurrentLoginHref';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
@@ -61,7 +61,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
  // Files are prepared ahead so the share call stays inside the tap's user activation (iOS Safari rejects late calls).
  function photoFile(item:StudioMedia){let file=photoFiles.current.get(item.id);if(!file){file=(async()=>{const blob=await fetchImageBlob(item.url);if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],'crefans-ai-photo.png',{type:'image/png'});})();photoFiles.current.set(item.id,file);file.catch(()=>photoFiles.current.delete(item.id));}return file;}
  const [shopOpen,setShopOpen]=useState(false);
- const [method,setMethod]=useState<(typeof aiPhotoGenerationMethods)[number]>(aiPhotoGenerationMethods[0]);
+ const [method,setMethod]=useState<(typeof aiPhotoGenerationMethods)[number]>(AI_PHOTO_DEFAULT_METHOD);
  const [genderChosen,setGenderChosen]=useState(false);
  const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
  const prompt=buildPrompt([...selectedPresets,...libraryPresets],customPrompt,targetGender)||(aspectRatio!=='original'?'Preserve the subject and appearance; adapt the composition to the requested image dimensions.':'');

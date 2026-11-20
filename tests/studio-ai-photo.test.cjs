@@ -885,7 +885,7 @@ test('generation methods: member and guest submit the chosen tier, display fract
   const edit=mockAiPhotoEdit({start:3.5,delay:0});let pending;
   const {r,click}=await open({noHearts,quota:{remaining:3.5,limit:10},onEdit:input=>{submitted.push(aiPhotoEditBody(input));pending=edit(input);return pending;}});
   const radio=value=>r.root.find(n=>n.type==='input'&&n.props.type==='radio'&&n.props.value===value);
-  assert.equal(radio('fast').props.checked,true);
+  assert.equal(radio('standard').props.checked,true,'standard (1 ticket) is the default (2026-11-21)');assert.equal(radio('fast').props.checked,false);
   assert.doesNotMatch(text(r.root.findByProps({className:'footer'})),/seedream|byteplus|flash|pro/i);
   for(const [value,cost,left] of [['precise',2,1.5],['standard',1,0.5],['fast',0.5,0]]){
    await act(async()=>radio(value).props.onChange());
