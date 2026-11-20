@@ -6290,3 +6290,8 @@
 - AI 요청 본문은 useStudioModel의 aiPhotoEditBody로 스튜디오와 공유. AiPhotoDialog noHearts, AiPhotoWaiting showGame 추가.
 - 검증: tsc 통과, npm test 676 pass/17 fail(기준선 동일), check:layers 기존 1건. 로컬 E2E(격리 DB, 외부 공급사 끔, 스크립트 .local/guest-trial-e2e.cjs, iPhone 14 WebKit): 피드 입구→동의 전 시작 버튼 비활성→동의 후 cf_guest httpOnly 쿠키→작성 화면 고지 1·임시저장/후원/댓글 없음·AI 버튼 있음→사진 업로드→게시→완료→비로그인 피드에 '체험 사용자'·'AI 체험 게시물'·사진→같은 브라우저 시드 계정 로그인→claim {claimed:1}·안내 표시·쿠키 삭제→내 프로필에 글 표시. 실제 AI 생성(공급사 호출)은 로컬에서 끔이라 서버 단위 테스트로만 확인. 운영 배포 전.
 - 디자인 다듬기(사용자 "다되면 디자인 폴리싱"): 동의 화면을 소개 카드(10회 무료 배지·그림)·3단계(사진 올리기→AI로 바꾸기→피드에 올리기)·주황 고지 상자('하루 뒤 비공개로 바뀌어요'+고지 문구)·'시작 전에 확인해 주세요' 카드·동의 묶음·전체 폭 버튼으로 재구성(guest-trial.module.css). 완료 화면은 체크 아이콘 카드+고지+'회원가입하고 내 게시물로 연결'/'피드에서 보기'. 피드 입구는 그림·꺾쇠가 있는 그라데이션 카드. 로컬 E2E 재실행 전 단계 통과, iPhone 14 WebKit 캡처 확인.
+
+### 2026-11-20 14:3x 체험 UX 3건 운영 배포 (front trial-ux-20261120)
+- 사용자 지시 "운영 모두 배포": ① 체험 작성 브라우저 임시저장(24시간, 게스트 번호 일치 시만 복원) ② 동의 화면 샘플 셀카 말풍선 ③ 게시하기 말풍선 흰 배경 겹침 수정. origin/prod에 9212d85·4f4e958·7ba0d9c·6acb51a cherry-pick → prod(GitLab·GitHub).
+- 검사: tsc 0, studio-management·contract·content-post-preview 47 통과/2 실패(기존 실패: 운영자 숨김 글, 체험 입력칸). 배포 점검 try·landing 200, deploy OK, 복구본 /Users/ethan/crefans-recovery/20261120/trial-ux-20261120-front 검증 OK.
+- 운영 확인: 동의 화면 말풍선 1개(iPhone13 WebKit, 동의는 누르지 않음), 운영 번들에 임시저장 키·owner 비교·말풍선 CSS 포함. 운영에서 체험 시작·복원 실동작은 미확인(운영 체험 데이터·이용권을 만들지 않으려고).
