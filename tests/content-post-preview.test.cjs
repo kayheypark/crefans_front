@@ -210,7 +210,7 @@ test('guest trial editor uploads the verified front-facing sample once and previ
  let view;
  try{
   await act(async()=>{view=create(element(GuestTrialPage,{model:{...model,signedIn:false}}));});
-  assert.match(json(view),/게시하고 3장 더 받아가세요/);
+  assert.match(json(view),/이용권 3장을 더 받아가세요/);// 2026-11-20 user wording
   assert.equal(button(view,'지금 게시하기').props.disabled,true,'publishing stays disabled before writing');
   assert.doesNotMatch(json(view),/제목을 입력하세요|내용을 입력하세요/);
   assert.deepEqual(requests,[sampleUrl]);
