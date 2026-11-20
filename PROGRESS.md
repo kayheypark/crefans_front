@@ -6384,3 +6384,5 @@
 - 사용자 지적: 녹화 재생에서 AI 결과 사진이 깨진 이미지(?)로 보임. 원인: 녹화엔 비공개 주소 /api/v1/media/:id/file만 남고 재생기는 방문자 세션 없이 못 엶(가리기는 정상 해제). posthog-js 1.445.1은 rrweb inlineImages를 허용 옵션 목록에 넣지 않아 설정으로 못 켬.
 - 수정 fix/replay-inline-private-images `512f476`(dev): `lib/analytics/posthog.ts` inlineReplayImage/setReplayInlineImages — 가리기 해제 중(녹화 동의 비회원 체험 화면)에만 비공개 사진을 긴 변 720px JPEG(0.82) data URL로 교체(MutationObserver, srcset 제거, 해제되면 중단). useGuestTrialModel이 해제와 함께 켜고 끔. 처리방침 17항(guest-replay)이 업로드 썸네일·AI 사진 전송을 이미 고지.
 - 검증: posthog 13/13(새 테스트, 기능 빼면 실패)·계층 검사 통과. 개발 웹: 체험 화면 사진 2장 data URL(약 72KB), 피드에선 해제·변환 0. 미확인: PostHog 재생 화면에서 실제 표시(새 녹화가 처리된 뒤 확인 필요).
+- 10:2x 사용자 승인("1,2 진행"): 운영 배포 front replay-inline-20261120(prod 6fe797d, 검사 title·JSON-LD·robots·체험·사이트맵 OK, 복구본 /Users/ethan/crefans-recovery/20261120/replay-inline-20261120-front). 운영 정리: 1차 SEO 배포 잔여 이미지 crefans-front:seo-cosplay-20261120 삭제, /opt/crefans-backup-front-seo-cosplay-20261120(.env 백업, FRONTEND_IMAGE 줄 외 현재 .env와 SHA-256 앞 16자리 동일 확인) 삭제. 앞서 '빈 폴더'라고 보고한 것은 틀림(.env가 있었음).
+- 운영 확인: 체험 화면(가상 기준 사진 업로드, 생성 없음)에서 가리기 해제·사진 2장 data URL. PostHog 녹화 반영 여부는 확인 중.
