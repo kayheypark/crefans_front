@@ -1,5 +1,6 @@
 'use client';
-import {useEffect,useRef,useState,type CSSProperties} from 'react';
+import {useEffect,useRef,useState,type CSSProperties,type MouseEvent} from 'react';
+import {createPortal} from 'react-dom';
 import s from './ai-photo.module.css';
 
 type Kind='heart'|'candy'|'moon';
@@ -10,22 +11,43 @@ function Symbol({kind}:{kind:Kind}){return <svg aria-hidden="true" viewBox="0 0 
 export const HEART_GAME_LANES=3,HEART_GAME_BASE_SECONDS=4.5;
 export function newPiece(id:number,kind:Kind,delay=0,level=0):Piece{const duration=HEART_GAME_BASE_SECONDS/Math.pow(1.2,Math.min(level,5));return {id,kind,lane:(id-1)%HEART_GAME_LANES,delay,duration,expires:Date.now()+(duration+delay)*1000,burst:false};}
 
+// 2026-11-21 user request: a penalty (empty space or a non-heart piece) flashes a red vignette on all four screen edges, like
+// an FPS hit. It is a manual popover so it sits above the modal dialog (top layer) and never takes clicks.
+function HitVignette({flash}:{flash:number}){
+ const ref=useRef<HTMLDivElement>(null);
+ useEffect(()=>{const node=ref.current;if(!flash||!node||typeof node.showPopover!=='function')return;if(!node.matches(':popover-open'))node.showPopover();const timer=setTimeout(()=>{if(node.isConnected&&node.matches(':popover-open'))node.hidePopover();},450);return()=>clearTimeout(timer);},[flash]);
+ if(!flash)return null;
+ const node=<div ref={ref} key={flash} popover="manual" className={s.hitVignette} data-testid="heart-hit-vignette" aria-hidden="true"/>;
+ return typeof document!=='undefined'&&document.body?createPortal(node,document.body):node;
+}
+
 // Preview remains local. Signed-in games use server-issued kinds and report piece IDs; only server-verified points earn rewards.
 export function AiPhotoWaiting({elapsed,typical,score,onCollect,game,showGame=true,practiceOnly=false}:{game?:{kinds:Kind[];onHit:(piece:number)=>void};elapsed:number;typical?:number|null;score:number;onCollect:(delta:number)=>void;showGame?:boolean;practiceOnly?:boolean}){
  const [pieces,setPieces]=useState<Piece[]>(()=>(game?.kinds.slice(0,5)||['heart','candy','heart','moon','heart']).map((kind,index)=>newPiece(index+1,kind as Kind,-index*.45)));
- const nextId=useRef(6),collected=useRef(new Set<number>()),caught=useRef(0),liveScore=useRef(score);
+ const nextId=useRef(6),collected=useRef(new Set<number>()),caught=useRef(0),liveScore=useRef(score),missId=useRef(0);
+ const [flash,setFlash]=useState(0),[misses,setMisses]=useState<{id:number;x:number;y:number}[]>([]);
+ useEffect(()=>()=>{missId.current=-1;},[]);
  const [finished,setFinished]=useState(score>=30);
  function changeScore(delta:number){if(liveScore.current>=30)return;const next=Math.max(0,Math.min(30,liveScore.current+delta));onCollect(next-liveScore.current);liveScore.current=next;if(next===30){setFinished(true);setPieces([]);}}
  useEffect(()=>{if(finished)return;const timer=setInterval(()=>{const id=nextId.current++,roll=Math.random(),piece=newPiece(id,game?.kinds[id-1]||(roll<.7?'heart':roll<.85?'candy':'moon'),0,Math.floor(caught.current/5));setPieces(previous=>[...previous.filter(item=>item.expires>Date.now()),piece]);},650);return()=>clearInterval(timer);},[finished]);
- function collect(piece:Piece){if(liveScore.current>=30||piece.expires<=Date.now()||piece.burst||collected.current.has(piece.id))return;collected.current.add(piece.id);game?.onHit(piece.id);if(piece.kind==='heart')caught.current++;changeScore(piece.kind==='heart'?1:-1);setPieces(previous=>previous.map(item=>item.id===piece.id?{...item,burst:true,expires:Date.now()+380}:item));}
+ function collect(piece:Piece){if(liveScore.current>=30||piece.expires<=Date.now()||piece.burst||collected.current.has(piece.id))return;collected.current.add(piece.id);game?.onHit(piece.id);if(piece.kind==='heart')caught.current++;changeScore(piece.kind==='heart'?1:-1);if(piece.kind!=='heart')setFlash(value=>value+1);setPieces(previous=>previous.map(item=>item.id===piece.id?{...item,burst:true,expires:Date.now()+380}:item));}
+
+ // 2026-11-21 user request: tapping empty space also shows a "−1" where the finger landed (it already cost a heart silently).
+ function miss(event?:MouseEvent<HTMLDivElement>){
+  if(liveScore.current>=30)return;game?.onHit(0);changeScore(-1);setFlash(value=>value+1);
+  const box=event?.currentTarget?.getBoundingClientRect?.(),x=box&&event?event.clientX-box.left:undefined,y=box&&event?event.clientY-box.top:undefined;
+  const id=++missId.current;setMisses(previous=>[...previous.slice(-4),{id,x:x??0,y:y??0}]);
+  setTimeout(()=>{if(missId.current>=0)setMisses(previous=>previous.filter(item=>item.id!==id));},650);
+ }
  return <div className={s.waiting}>
   <p className={s.waitingSubtitle}>완성되면 바로 보여드릴게요</p>
   <div className={s.waitingDots} aria-hidden="true"><i/><i/><i/></div>
   {showGame&&<section className={s.heartGame} aria-label="기다리는 동안 하트 모으기">
    <div className={s.heartGameHeading}><h4>기다리는 동안 <span>하트 모으기</span></h4><output aria-label="모은 하트" aria-live="polite"><Symbol kind="heart"/>{score}</output></div>
-   <div className={s.heartPlayfield} onClick={()=>{if(liveScore.current<30){game?.onHit(0);changeScore(-1);}}}>
+   <div className={s.heartPlayfield} onClick={miss}>
     {/* eslint-disable-next-line @next/next/no-img-element -- existing generated mascot, decorative */}
     <img className={s.heartMascot} src="/brand/ai-photo/pose-mascot/pose-01-v1.webp" alt="" draggable={false}/>
+    {misses.map(item=><b key={item.id} className={s.missMark} data-testid="heart-miss" aria-hidden="true" style={{left:item.x,top:item.y}}>−1</b>)}
     {finished?<p className={s.heartFinished} role="status">하트 30개를 모았어요!<br/>사진이 완성될 때까지 잠시 기다려 주세요.</p>:pieces.map(piece=><button key={piece.id} type="button" className={s.collectHeart} data-kind={piece.kind} data-burst={piece.burst||undefined} aria-label={`${names[piece.kind]} ${piece.id}${piece.kind==='heart'?' 모으기':' 피하기 · 하트 1개 차감'}`} disabled={piece.burst} style={{top:`${8+piece.lane*30}%`,animationDelay:`${piece.delay}s`,animationDuration:`${piece.duration}s`,'--rest-left':`${8+piece.id%3*27}%`} as CSSProperties} onClick={event=>{event?.stopPropagation();collect(piece);}}>
      {piece.burst?<span className={s.heartBurst} aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="3"><path d="M24 2v8m0 28v8M2 24h8m28 0h8M8 8l6 6m20 20 6 6M8 40l6-6m20-20 6-6"/></svg><b>{piece.kind==='heart'?'+1':'−1'}</b></span>:<Symbol kind={piece.kind}/>}
     </button>)}
@@ -34,5 +56,6 @@ export function AiPhotoWaiting({elapsed,typical,score,onCollect,game,showGame=tr
   {showGame&&<p className={s.waitingNote}>{practiceOnly?'체험 게임이에요. 하트는 적립되거나 이용권으로 바뀌지 않아요.':'게임은 사진 결과에 영향을 주지 않아요'}</p>}
   <div className={s.waitingTime}><span aria-hidden="true">{elapsed}초 지남</span><p>{typical?`보통 약 ${typical}초 걸려요.`:'걸리는 시간을 재는 중이에요.'}</p></div>
   <p className={s.waitingNote}>잠시만 화면을 유지해 주세요</p>
+  <HitVignette flash={flash}/>
  </div>;
 }

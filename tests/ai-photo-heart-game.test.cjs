@@ -14,3 +14,29 @@ test('equal-speed pieces on three lanes, five-heart difficulty, miss penalties a
  await act(async()=>r.unmount());
  }finally{global.setInterval=old.interval;global.clearInterval=old.clear;Math.random=old.random;}
 });
+
+// 2026-11-21 user request: empty-space taps show "−1" where the finger landed, and every penalty (empty space or a
+// non-heart piece) flashes the red hit vignette; collecting a heart does not.
+test('miss feedback: −1 at the tap point and a red hit vignette for each penalty, none for hearts',async()=>{
+ const old={interval:global.setInterval,clear:global.clearInterval,random:Math.random};let score=0,r;
+ global.setInterval=()=>1;global.clearInterval=()=>{};Math.random=()=>0;
+ try{
+  await act(async()=>{r=create(React.createElement(AiPhotoWaiting,{elapsed:1,score:2,onCollect:delta=>{score+=delta}}))});
+  const field=()=>r.root.findByProps({className:'heartPlayfield'});
+  const flashes=()=>r.root.find(n=>typeof n.props.flash==='number').props.flash;
+  const vignette=()=>r.root.findAll(n=>n.props['data-testid']==='heart-hit-vignette');
+  const marks=()=>r.root.findAll(n=>n.props['data-testid']==='heart-miss');
+  const piece=kind=>r.root.findAll(n=>n.type==='button').find(p=>p.props['data-kind']===kind);
+  assert.equal(flashes(),0);assert.equal(vignette().length,0,'no vignette before any penalty');
+  await act(async()=>field().props.onClick({clientX:160,clientY:90,currentTarget:{getBoundingClientRect:()=>({left:100,top:50})}}));
+  assert.equal(score,-1);assert.equal(flashes(),1);assert.equal(vignette().length,1);assert.equal(vignette()[0].props.popover,'manual');assert.equal(vignette()[0].props['aria-hidden'],'true');
+  assert.equal(marks().length,1);assert.deepEqual(marks()[0].props.style,{left:60,top:40},'the mark sits where the tap landed');assert.equal(marks()[0].children.join(''),'−1');
+  await act(async()=>piece('heart').props.onClick({stopPropagation(){}}));
+  assert.equal(score,0);assert.equal(flashes(),1,'a heart does not flash');assert.equal(marks().length,1,'a heart adds no miss mark');
+  await act(async()=>piece('candy').props.onClick({stopPropagation(){}}));
+  assert.equal(score,-1);assert.equal(flashes(),2,'a candy penalty flashes again');assert.equal(marks().length,1,'pieces keep their own −1 burst');
+  await act(async()=>field().props.onClick());
+  assert.equal(flashes(),3);assert.equal(marks().length,2,'a click without coordinates still shows a mark');
+  await act(async()=>r.unmount());
+ }finally{global.setInterval=old.interval;global.clearInterval=old.clear;Math.random=old.random;}
+});
