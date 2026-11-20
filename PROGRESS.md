@@ -6395,3 +6395,9 @@
 ### 2026-11-20 13:1x 게시하기 말풍선 문구 변경 (운영 front bubble-20261120)
 - 사용자 요청: '게시하고 3장 더 받아가세요' → '이용권 3장을 더 받아가세요'(수량은 publishReward.credits). fix/publish-bubble-copy `26d17fb`(dev b3ffe58) → prod 26d17fb. 개발 웹에서 새 문구 1·옛 문구 0, 운영 try·landing 200. 복구본 /Users/ethan/crefans-recovery/20261120/bubble-20261120-front.
 - 체험 작성 임시 저장(feat/guest-trial-draft)은 보완(새 동의 시 삭제, 열리지 않는 사진 제외, 추가 시험) 전이라 운영 제외, dev에만 있음.
+
+## 2026-11-20 비회원 체험 브라우저 임시저장 (dev만, 운영 미배포)
+- 사용자 요청: 체험 작성 중 피드로 뒤로 갔다 돌아오면 사진·제목·본문이 사라짐 → 브라우저(localStorage `crefans:guest-trial-draft`) 24시간 임시저장·복원. 게시하면 삭제.
+- 결정: 저장 시 게스트 번호(`/guest/session` authorId)를 함께 두고 같은 체험일 때만 복원(쿠키가 바뀌면 사진이 안 열리고 게시가 거절되므로 버림). 안 열리는 사진 자동 제거는 하지 않음(일시 네트워크 오류 때 정상 사진을 잃음) — 사용자 승인.
+- 커밋: feat/guest-trial-draft 13c1ff9·3e916a8, dev f71eec2. 테스트 `guest trial draft` 통과, 번호 확인 제거 시 실패(대조). tsc 0. studio-management 실패 1건은 기존 "guest trial: fields appear…".
+- 개발 서버(Playwright, iPhone13 WebKit·Pixel7 Chromium 에뮬레이션): 업로드 후 피드 갔다 복귀 2/10 유지, 쿠키 삭제·재동의 시 이전 임시저장 버림(1/10 새 샘플만). 미확인: 실기기, 새 탭 복원(안내 문구가 잠깐만 떠서 판정 못함), 가입 후 복귀, AI 결과 '사진 결정' 전 이탈은 저장 안 됨(알려진 한계).
