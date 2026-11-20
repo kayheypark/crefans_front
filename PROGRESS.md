@@ -6410,3 +6410,8 @@
 - 사용자 제보(실기기 캡처): 체험 편집 하단 sticky 바(.rewardPublishActions, 흰 배경) 안에 말풍선이 들어가 바가 커지고 위 콘텐츠(AI 사진 편집 카드)를 가림.
 - 수정: 말풍선을 바 위로 absolute 배치(배경 없음, pointer-events:none), 바는 버튼만 덮음. 맨 아래까지 스크롤 시 겹치지 않게 바 margin-top 44px. fix/publish-bubble-backdrop 24d38f7(origin/prod 기준), dev 1d3ed0b.
 - 개발 서버 iPhone13 WebKit 측정: 흰 바 높이 69px(말풍선 제외), 맨 아래 스크롤 시 카드(245~318)와 말풍선(436~471) 겹침 없음. 남은 점: 첫 화면에서 sticky 바 자체가 화면 맨 아래 콘텐츠를 덮는 것은 sticky 특성상 그대로.
+
+## 2026-11-20 체험 게시 화면 '결과 공유' 버튼 (시안 B, dev만, 운영 미배포)
+- 사용자 요청: 진짜 내 사진이면 게시가 부담돼 등록까지 안 이어짐 → 게시 화면에도 결과 공유. 시안 A(사진 위 아이콘)/B(하단 나란히)/C(안내 카드) 중 B 선택.
+- 구현: AI 결과 사진이 첨부돼 있으면 하단에 [결과 공유](1) + [지금 게시하기](1.4). 공유 보상 대상이면 말풍선 "게시 대신 공유만 해도 이용권 3장"(왼쪽, 공유 버튼을 가리킴), 아니면 기존 게시 말풍선. 공유창·보상은 AI 결과 화면과 같은 AiResultShare·shareReward.claim(하루 한 번) 재사용, 보상 시 "이용권 3장을 받았어요!" 창. AI 결과가 없으면 버튼 없음.
+- 커밋 feat/editor-share-button(origin/prod 기준) → dev dabc9c2. 테스트 'guest editor share button' 통과(버튼 제거 시 실패 대조), studio-management 32/33(28번 기존 실패). 개발 서버 iPhone13 WebKit: 버튼 16~166 / 게시 174~374, 말풍선 왼쪽, 공유 시트 열림. 실제 공유·보상 지급은 미확인(AI 생성 없이 표시만 바꿔서 확인).
