@@ -4,7 +4,7 @@ import {platformRequest as api} from '@/lib/api/platform';
 import {imageUploadMaxBytes,imageUploadMaxLabel} from '@/lib/design/image-upload';
 import {optimizeImage} from '@/lib/design/image-optimize';
 import {aiPhotoEditBody} from './useStudioModel';
-import {aiProps,captureEvent,setReplayInlineImages,setReplayUnmasked} from '@/lib/analytics/posthog';
+import {aiProps,captureEvent,replaySessionId,setReplayInlineImages,setReplayUnmasked} from '@/lib/analytics/posthog';
 import {reportShare} from '@/lib/api/share-report';
 import type {AiPhotoFunnelStep} from '@/types/crefans-studio-management';
 import type {AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefans-studio-management';
@@ -17,6 +17,10 @@ export const GUEST_CONSENT_VERSION='2026-11-16.guest.5';
 const TRIAL_FLAG='crefans-guest-trial';
 export function hasGuestTrial(){try{return typeof window!=='undefined'&&window.localStorage.getItem(TRIAL_FLAG)==='1';}catch{return false;}}
 export function clearGuestTrial(){try{window.localStorage.removeItem(TRIAL_FLAG);}catch{}}
+// 2026-11-20 user request: link the trial to its PostHog replay in the console (AI 사진 체험 관리). Each session ID is sent once per tab;
+// PostHog may start a new session after 30 idle minutes, so the editor reports again before each AI generation and post.
+const reportedReplays=new Set<string>();
+async function reportReplaySession(){const id=await replaySessionId();if(!id||reportedReplays.has(id))return;reportedReplays.add(id);const r=await api<{recorded:boolean}>('/guest/replay-session',{sessionId:id});if(!r.success)reportedReplays.delete(id);}
 function markGuestTrial(){try{window.localStorage.setItem(TRIAL_FLAG,'1');}catch{}}
 export type GuestCaption={title:string;body:string;source:'ai'|'template'};
 export type GuestSession={active:boolean;authorId?:string;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};
@@ -28,16 +32,17 @@ export function useGuestTrialModel(enabled:boolean){
  useEffect(()=>{if(session?.active)markGuestTrial();},[session?.active]);
  // 2026-11-19 user decision (처리방침 17항): unmask session replay on the trial screens only for a visitor whose replay consent is recorded.
  useEffect(()=>{if(!enabled||!session?.active||!session.replayConsented)return;setReplayUnmasked(true);setReplayInlineImages(true);return()=>{setReplayInlineImages(false);setReplayUnmasked(false);};},[enabled,session?.active,session?.replayConsented]);
+ useEffect(()=>{if(enabled&&session?.active&&session.replayConsented)void reportReplaySession();},[enabled,session?.active,session?.replayConsented]);
  const start=async(replayAgreed=false)=>{const replayVersion=replayAgreed?session?.replayConsentVersion:undefined;const r=await api<{active:boolean}>('/guest/session',{consent:true,version:GUEST_CONSENT_VERSION,...(replayVersion?{replayConsent:{agreed:true,version:replayVersion}}:{})});if(r.success){markGuestTrial();captureEvent('guest_consent_agreed',{actor:'guest'});await refresh();}return r;};
  const upload=async(original:File)=>{
   if(!original.type.startsWith('image/'))return {success:false as const,data:null,errorMessage:'체험에서는 사진만 올릴 수 있어요.',errorCode:'GUEST_IMAGE_ONLY'};
   if(original.size>imageUploadMaxBytes)return {success:false as const,data:null,errorMessage:`사진은 한 장에 ${imageUploadMaxLabel}까지 올릴 수 있어요.`,errorCode:'INVALID_IMAGE_SIZE'};
   const body=new FormData();body.append('file',await optimizeImage(original));return api<StudioMedia>('/media/guest',body);
  };
- const save=async(input:unknown)=>{const r=await api<{id?:string;message?:string}>('/guest/content',input);if(r.success)captureEvent('post_published',{actor:'guest'});return r;};
+ const save=async(input:unknown)=>{if(session?.replayConsented)void reportReplaySession();const r=await api<{id?:string;message?:string}>('/guest/content',input);if(r.success)captureEvent('post_published',{actor:'guest'});return r;};
  // 'AI로 내용 작성' writes the title/body from the chosen item names and request text (2026-11-16); the visitor edits before posting.
  const caption=async(input:{items:string[];prompt:string})=>{const r=await api<GuestCaption>('/guest/content/caption',input);if(r.success)captureEvent('caption_written',{actor:'guest'});return r;};
- const aiEdit=async(input:AiPhotoEditInput)=>{const props=aiProps('guest',input);captureEvent('ai_generation_started',props);const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});else if(result.errorCode==='GUEST_AI_LIMIT')await refresh();return result;};
+ const aiEdit=async(input:AiPhotoEditInput)=>{if(session?.replayConsented)void reportReplaySession();const props=aiProps('guest',input);captureEvent('ai_generation_started',props);const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});else if(result.errorCode==='GUEST_AI_LIMIT')await refresh();return result;};
  const track=(step:AiPhotoFunnelStep,props:{mode:string})=>captureEvent(step,{actor:'guest',mode:props.mode});
  // 2026-11-20 user decision: the share reward is paid when the result is shared (share sheet finished or link copied).
  const shareDone=async(mediaId:string)=>{const r=await api<{granted:boolean}>('/guest/ai-photo/share-done',{mediaId});if(r.success)await refresh();return r.success&&r.data.granted;};
