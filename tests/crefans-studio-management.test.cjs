@@ -507,3 +507,29 @@ test('guest trial draft: restored on return without a new sample, saved on chang
   assert.ok(!json(tree).includes('작성하던 내용을 이어서 불러왔어요'));assert.equal(store.has(KEY),false);
  }finally{if(tree)await act(async()=>tree.unmount());global.localStorage=prev;global.fetch=fetchPrev;}
 });
+
+// 2026-11-20 user decision (시안 B): the trial editor offers 결과 공유 next to 지금 게시하기 once an AI result is attached.
+test('guest editor share button: shown only with an AI result, offers the share reward, opens the share sheet',async()=>{
+ const store=new Map(),prev=global.localStorage;global.localStorage={getItem:k=>store.has(k)?store.get(k):null,setItem:(k,v)=>store.set(k,String(v)),removeItem:k=>store.delete(k)};
+ const probe=fixtureHook(),model={...probe.model,contents:[],actions:{...probe.model.actions,uploadContentMedia:async()=>({success:true,data:{id:'s1',type:'image',url:'/api/v1/media/s1/file'}})}};
+ const base={authorId:'guest-a',backHref:'/service/feed',doneHref:'/service/try/done',notice:'notice',shareReward:{refresh:async()=>{},claim:async()=>true}};
+ const fetchPrev=global.fetch;global.fetch=async()=>({ok:true,blob:async()=>new Blob(['x'],{type:'image/webp'})});
+ const windowPrev=global.window;global.window={...(windowPrev||{}),location:{origin:'https://crefans.com',href:'https://crefans.com/service/try',pathname:'/service/try'}};
+ const shareButton=tree=>tree.root.findAllByType('button').filter(node=>node.children.includes('결과 공유'));
+ let tree;
+ try{
+  store.set('crefans:guest-trial-draft',JSON.stringify({at:Date.now(),owner:'guest-a',media:[{id:'up1',type:'image',url:'/api/v1/media/up1/file'}],title:'',body:''}));
+  await act(async()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:base}));});
+  assert.equal(shareButton(tree).length,0,'no AI result → no share button');
+  await act(async()=>tree.unmount());
+  store.set('crefans:guest-trial-draft',JSON.stringify({at:Date.now(),owner:'guest-a',media:[{id:'up1',type:'image',url:'/api/v1/media/up1/file'},{id:'ai1',type:'image',url:'/api/v1/media/ai1/file',aiGenerated:true}],title:'',body:''}));
+  await act(async()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:base}));});
+  assert.equal(shareButton(tree).length,1,'AI result → share button');
+  assert.match(json(tree),/게시 대신 공유만 해도 이용권 3장/);
+  await act(async()=>shareButton(tree)[0].props.onClick());
+  assert.match(json(tree),/이 결과 공유하기/,'the share sheet opens');
+  await act(async()=>tree.unmount());
+  await act(async()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:{...base,shareReward:undefined}}));});
+  assert.equal(shareButton(tree).length,1,'sharing stays available after the reward');assert.ok(!json(tree).includes('게시 대신 공유만 해도'));
+ }finally{if(tree)await act(async()=>tree.unmount());global.localStorage=prev;global.fetch=fetchPrev;global.window=windowPrev;}
+});

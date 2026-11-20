@@ -58,3 +58,9 @@ button.textButton:not(:disabled):hover,.tabs button:not(:disabled):hover{backgro
   bottom: calc(100% - 4px);
   pointer-events: none;
 }
+
+/* 2026-11-20 user decision (시안 B): 결과 공유 sits left of 지금 게시하기 (1 : 1.4); the share-offer bubble points at it. */
+.editorActions>.editorShare{flex:1 1 0}
+.editorActions>.editorShare+button{flex:1.4 1 0}
+.rewardPublishActions>p[role="note"].shareOfferNote{left:0;right:auto}
+.rewardPublishActions .shareOfferNote span::after{left:28px;right:auto}
