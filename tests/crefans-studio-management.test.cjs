@@ -462,12 +462,12 @@ test('guest trial: the floating share ticket reopens the share-reward guide and 
 });
 
 // 2026-11-20 user request: a visitor who goes back to the feed to check and returns keeps the trial draft from this browser.
-test('guest trial draft: restored on return without a new sample, saved on change, cleared after publishing, expired drafts ignored',async()=>{
+test('guest trial draft: restored on return without a new sample, saved on change, cleared after publishing, expired or other-trial drafts ignored',async()=>{
  const store=new Map(),prev=global.localStorage;global.localStorage={getItem:k=>store.has(k)?store.get(k):null,setItem:(k,v)=>store.set(k,String(v)),removeItem:k=>store.delete(k)};
  const KEY='crefans:guest-trial-draft',probe=fixtureHook(),uploads=[],saved=[];
  const model={...probe.model,contents:[],actions:{...probe.model.actions,aiEditPhoto:async()=>({success:true,data:{images:[]}}),uploadContentMedia:async file=>{uploads.push(file);return {success:true,data:{id:'s1',type:'image',url:'/api/v1/media/s1/file'}};},saveContent:async input=>{saved.push(input);return {success:true,data:{message:'게시',id:'g1'}};}}};
- const guest={backHref:'/service/feed',doneHref:'/service/try/done',notice:'notice',samplePhoto:{url:'/sample.webp',name:'sample.webp'}};
- const draft={at:Date.now(),media:[{id:'up1',type:'image',url:'/api/v1/media/up1/file'},{id:'ai1',type:'image',url:'/api/v1/media/ai1/file',aiGenerated:true},{id:'bad',type:'image',url:'https://evil.example/x'}],title:'마법사 변신',body:'오늘의 코스프레'};
+ const guest={authorId:'guest-a',backHref:'/service/feed',doneHref:'/service/try/done',notice:'notice',samplePhoto:{url:'/sample.webp',name:'sample.webp'}};
+ const draft={at:Date.now(),owner:'guest-a',media:[{id:'up1',type:'image',url:'/api/v1/media/up1/file'},{id:'ai1',type:'image',url:'/api/v1/media/ai1/file',aiGenerated:true},{id:'bad',type:'image',url:'https://evil.example/x'}],title:'마법사 변신',body:'오늘의 코스프레'};
  store.set(KEY,JSON.stringify(draft));
  const fetchPrev=global.fetch;global.fetch=async()=>({ok:true,blob:async()=>new Blob(['x'],{type:'image/webp'})});
  let tree;
@@ -488,5 +488,22 @@ test('guest trial draft: restored on return without a new sample, saved on chang
   await act(async()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest}));});
   await act(async()=>{await new Promise(r=>setTimeout(r,20));});
   assert.equal(uploads.length,1,'sample added');assert.ok(!json(tree).includes('작성하던 내용을 이어서 불러왔어요'));
+ }finally{if(tree)await act(async()=>tree.unmount());}
+ // A draft from another trial (cookie changed: signup, cleared cookies, another person) is dropped: its photos would not open.
+ for(const owner of ['guest-b',undefined]){
+  store.set(KEY,JSON.stringify({...draft,owner}));uploads.length=0;
+  try{
+   await act(async()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest}));});
+   await act(async()=>{await new Promise(r=>setTimeout(r,20));});
+   assert.equal(uploads.length,1,`sample added (${owner})`);assert.ok(!json(tree).includes('작성하던 내용을 이어서 불러왔어요'));
+   assert.equal(JSON.parse(store.get(KEY)).owner,'guest-a','the new draft belongs to the current trial');
+  }finally{if(tree)await act(async()=>tree.unmount());}
+ }
+ // Without the trial's id nothing is saved or restored.
+ store.set(KEY,JSON.stringify({...draft,owner:'guest-a'}));uploads.length=0;
+ try{
+  await act(async()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:{...guest,authorId:undefined}}));});
+  await act(async()=>{await new Promise(r=>setTimeout(r,20));});
+  assert.ok(!json(tree).includes('작성하던 내용을 이어서 불러왔어요'));assert.equal(store.has(KEY),false);
  }finally{if(tree)await act(async()=>tree.unmount());global.localStorage=prev;global.fetch=fetchPrev;}
 });
