@@ -6379,3 +6379,8 @@
 - 사용자 요청. feat/seo-free-ai-cosplay `2ae712d`(dev 0231da6, prod 2ae712d): 제목 '무료 AI 코스프레 생성 · 사진 한 장으로 코스튬 체인지 | 크레팬스', 설명 첫머리, keywords 앞쪽, OG/트위터 제목, JSON-LD WebApplication 이름(+alternateName 기존 이름)·빵부스러기, H1 윗줄(span, 분홍 작은 글씨), 결과 사진 alt, 사이트맵 lastModified 2026-11-20, llms.txt. 설명의 비회원 이용권도 매일 3장으로.
 - 1차 배포(seo-cosplay-20261120)는 검사 스크립트의 사이트맵 날짜 비교 오류(UTC 2026-11-19T15:00로 저장)로 자동 롤백, 검사 수정 후 2차 배포 성공. 운영 확인: title·description·JSON-LD·robots index·체험 200·사이트맵 lastmod. 1차 잔여: 운영 이미지 crefans-front:seo-cosplay-20261120(미사용, 같은 커밋)·/opt/crefans-backup-front-seo-cosplay-20261120(8K) — 사용자 승인 후 삭제 예정.
 - 검색 반영은 검색엔진 재수집 이후. 구글 서치콘솔·네이버 서치어드바이저 URL 검사/수집 요청은 사용자 몫(계정).
+
+### 2026-11-20 10:0x PostHog 녹화에서 결과 사진이 깨지는 문제 (dev·개발 서버, 운영 대기)
+- 사용자 지적: 녹화 재생에서 AI 결과 사진이 깨진 이미지(?)로 보임. 원인: 녹화엔 비공개 주소 /api/v1/media/:id/file만 남고 재생기는 방문자 세션 없이 못 엶(가리기는 정상 해제). posthog-js 1.445.1은 rrweb inlineImages를 허용 옵션 목록에 넣지 않아 설정으로 못 켬.
+- 수정 fix/replay-inline-private-images `512f476`(dev): `lib/analytics/posthog.ts` inlineReplayImage/setReplayInlineImages — 가리기 해제 중(녹화 동의 비회원 체험 화면)에만 비공개 사진을 긴 변 720px JPEG(0.82) data URL로 교체(MutationObserver, srcset 제거, 해제되면 중단). useGuestTrialModel이 해제와 함께 켜고 끔. 처리방침 17항(guest-replay)이 업로드 썸네일·AI 사진 전송을 이미 고지.
+- 검증: posthog 13/13(새 테스트, 기능 빼면 실패)·계층 검사 통과. 개발 웹: 체험 화면 사진 2장 data URL(약 72KB), 피드에선 해제·변환 0. 미확인: PostHog 재생 화면에서 실제 표시(새 녹화가 처리된 뒤 확인 필요).
