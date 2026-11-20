@@ -16,6 +16,7 @@ import {designVariables} from '@/lib/design/tokens';
 import {saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import s from './ai-photo-landing.module.css';
 import {useFunnelStep} from '@/features/service/useFunnelStep';
+import {trackLandingCta} from '@/features/service/useLandingCta';
 import {Dialog} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
 
@@ -120,13 +121,13 @@ export default function AiPhotoLanding(){
  const handoff=()=>saveAiPhotoHandoff(Object.entries(landingPicked).flatMap(([kind,values])=>values.filter(value=>value!==AI_PHOTO_KEEP_ORIGINAL).map(value=>({kind:kind as AiPhotoKind,prompt:aiPhotoPresetText(value)}))));
  const current=landingLooks.find(item=>item.id===look)||landingLooks[0];
  return <main className={s.page} style={designVariables as CSSProperties}>
-  <header className={s.header}><Brand href="/service/feed"/><Link className={s.headerLink} href={TRY}>0원 체험</Link></header>
+  <header className={s.header}><Brand href="/service/feed"/><Link className={s.headerLink} href={TRY} onClick={()=>trackLandingCta('header')}>0원 체험</Link></header>
 
   <section className={s.hero} aria-labelledby="ai-photo-title">
    <div className={s.heroCopy}>
     <h1 id="ai-photo-title"><span className={s.eyebrow}>무료 AI 코스프레 생성</span>사진 한 장으로,<br/>오늘의 <em>캐릭터</em>가 되어 보세요</h1>
     <p className={s.lead}>원하는 <strong>코스튬과 메이크업, 포즈와 배경</strong>을 고르면 AI가 사진을 새로 만들어요. <strong>원본 사진은 그대로</strong> 두고, 마음에 드는 결과만 골라 게시해요.</p>
-    <div className={s.actions}><Link className={s.primary} href={TRY}>로그인 없이 0원 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
+    <div className={s.actions}><Link className={s.primary} href={TRY} onClick={()=>trackLandingCta('hero')}>로그인 없이 0원 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
     <p className={s.small}>로그인 없이 <strong>매일 체험 이용권 3장</strong>을 쓰고, 게시하거나 공유하면 3장씩 더 받아요.</p>
    </div>
    <div className={s.heroDemo}>
@@ -136,7 +137,7 @@ export default function AiPhotoLanding(){
     {/* 2026-11-19 user request: each preset under the result opens a detail dialog. */}
     <Dialog open={!!detail} onClose={()=>setDetail(null)} title={detail?.title||''}>
      {detail&&<div className={s.presetDetail}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset image */}<img src={detail.image} alt="" width={200} height={200} data-illustrated={illustrated.includes(detail.kind)||undefined}/><span>{landingKinds.find(item=>item.value===detail.kind)?.label}</span><ul>{detail.details.map(line=><li key={line}>{line}</li>)}</ul></div>}
-     <DialogActions><button type="button" className={s.secondary} onClick={()=>setDetail(null)}>닫기</button><Link className={s.primary} href={TRY} onClick={()=>saveAiPhotoHandoff(current.cards.map(card=>({kind:card.kind,prompt:card.prompt})))}>이 조합으로 0원 체험</Link></DialogActions>
+     <DialogActions><button type="button" className={s.secondary} onClick={()=>setDetail(null)}>닫기</button><Link className={s.primary} href={TRY} onClick={()=>{trackLandingCta('look_detail');saveAiPhotoHandoff(current.cards.map(card=>({kind:card.kind,prompt:card.prompt})));}}>이 조합으로 0원 체험</Link></DialogActions>
     </Dialog>
    </div>
   </section>
@@ -146,11 +147,11 @@ export default function AiPhotoLanding(){
    <p className={s.sectionLead}>실제 편집 화면과 같은 프리셋이에요. 눌러서 둘러보고, 체험에서 내 사진에 적용해 보세요.</p>
    <LandingPresetBrowser onPicked={setLandingPicked} onChoose={setAsked}/>
    {/* 2026-11-17 user request: the picked presets carry over to the trial editor (this browser only). */}
-   <Link className={s.primary} href={TRY} onClick={handoff}>이 프리셋으로 0원 체험</Link>
+   <Link className={s.primary} href={TRY} onClick={()=>{trackLandingCta('preset');handoff();}}>이 프리셋으로 0원 체험</Link>
    {/* 2026-11-19 user request: picking any preset asks right away whether to try it (the picks so far carry over). */}
    <Dialog open={!!asked} onClose={()=>setAsked(null)} title={asked?.kind==='outfit'?'이 코스튬으로 만들어볼까요?':'이 프리셋으로 만들어볼까요?'}>
     {asked&&<div className={s.askPreset}>{/* eslint-disable-next-line @next/next/no-img-element -- catalog preset image */}<img src={asked.image} alt="" width={120} height={120} data-illustrated={illustrated.includes(asked.kind)||undefined}/><strong>{asked.title}</strong><p>로그인 없이 0원으로 만들어 볼 수 있어요.</p></div>}
-    <DialogActions><button type="button" className={s.secondary} onClick={()=>setAsked(null)}>더 골라볼게요</button><Link className={s.primary} href={TRY} onClick={handoff}>0원으로 만들기</Link></DialogActions>
+    <DialogActions><button type="button" className={s.secondary} onClick={()=>setAsked(null)}>더 골라볼게요</button><Link className={s.primary} href={TRY} onClick={()=>{trackLandingCta('preset_dialog');handoff();}}>0원으로 만들기</Link></DialogActions>
    </Dialog>
   </section>
 
@@ -163,7 +164,7 @@ export default function AiPhotoLanding(){
    </ul>
   </section>
 
-  <section className={s.final}><h2>오늘은 어떤 캐릭터가 될까요?</h2><Link className={s.primary} href={TRY}>로그인 없이 0원 체험</Link><p className={s.small}>이 페이지의 인물은 가상 인물이며, 결과 사진은 AI로 생성했어요.</p></section>
+  <section className={s.final}><h2>오늘은 어떤 캐릭터가 될까요?</h2><Link className={s.primary} href={TRY} onClick={()=>trackLandingCta('final')}>로그인 없이 0원 체험</Link><p className={s.small}>이 페이지의 인물은 가상 인물이며, 결과 사진은 AI로 생성했어요.</p></section>
   {/* 2026-11-17: PG review needs the operator details at the bottom of the home page; same footer as the service landing. */}
   <div className={s.siteFooter}><ServiceFooter basePath="/service" always business/></div>
  </main>;

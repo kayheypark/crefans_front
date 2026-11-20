@@ -141,10 +141,12 @@ export function syncReplay(pathname:string){
  else if(client.sessionRecordingStarted())client.stopSessionRecording();
 }
 
-export type AnalyticsEvent='landing_view'|'guest_consent_view'|'guest_consent_agreed'|'ai_editor_opened'|'ai_generation_started'|'ai_generation_succeeded'|'ai_generation_failed'|'photo_decided'|'ai_result_shared'|'caption_written'|'caption_failed'|'post_published'|'post_publish_failed'|'signup_view'|'signup_completed';
+export type AnalyticsEvent='landing_view'|'guest_consent_view'|'guest_consent_agreed'|'ai_editor_opened'|'ai_generation_started'|'ai_generation_succeeded'|'ai_generation_failed'|'photo_decided'|'ai_result_shared'|'ai_result_closed'|'ai_result_original'|'ai_result_continue'|'landing_cta_clicked'|'caption_written'|'caption_failed'|'post_published'|'post_publish_failed'|'signup_view'|'signup_completed';
+/** 2026-11-20 이탈 분석: which fixed landing CTA was clicked (PostHog masks click text, so the button cannot be told apart otherwise). */
+export type LandingCtaPlace='header'|'hero'|'look_detail'|'preset'|'preset_dialog'|'final';
 export function aiProps(actor:'guest'|'member',input:{mode?:string;kind:string;presetKeys?:{kind:string}[]}):AnalyticsProps{return{actor,mode:input.mode||'general',kind:input.kind,preset_kinds:Array.from(new Set((input.presetKeys||[]).map(preset=>preset.kind))).sort()};}
 /** Non-personal properties only: actor type, mode and catalog/category keys, error codes. Never names, e-mail, ids or text. */
-export type AnalyticsProps={actor?:'guest'|'member';mode?:string;kind?:string;preset_kinds?:string[];error_code?:string};
+export type AnalyticsProps={actor?:'guest'|'member';mode?:string;kind?:string;preset_kinds?:string[];error_code?:string;place?:LandingCtaPlace};
 export function captureEvent(name:AnalyticsEvent,props:AnalyticsProps={}){
  // Shared components also render in /preview and the design system: only the /service app reports.
  if(!POSTHOG_KEY||typeof window==='undefined'||!window.location.pathname.startsWith('/service'))return;
