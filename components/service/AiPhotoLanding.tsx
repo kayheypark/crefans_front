@@ -67,7 +67,7 @@ export function AiPhotoCompare({before,after,label}:{before:string;after:string;
   <img className={s.compareImage} src={before} alt="원본 사진(가상 인물)" width={720} height={900} draggable={false} fetchPriority="high"/>
   <div className={s.compareAfter} style={{clipPath:`inset(0 0 0 ${split}%)`}}>
    {/* eslint-disable-next-line @next/next/no-img-element -- fixed demo images */}
-   <img className={s.compareImage} src={after} alt={`${label} 결과(가상 인물, AI 생성)`} width={720} height={900} draggable={false}/>
+   <img className={s.compareImage} src={after} alt={`${label} AI 코스프레 결과(가상 인물, AI 생성)`} width={720} height={900} draggable={false}/>
   </div>
   <div className={s.compareLine} style={{left:`${split}%`}} aria-hidden="true"><span>‹ ›</span>{!moved&&!intro&&<em className={s.compareBubble} style={{transform:`translateX(${split<30?-18:split>70?-82:-50}%)`}}>밀거나 눌러서 비교해 보세요</em>}</div>
   {!moved&&!intro&&[{side:'left',x:split/2},{side:'right',x:split+(100-split)/2}].map(hint=><span key={hint.side} className={s.compareHint} data-side={hint.side} style={{left:`${hint.x}%`}} aria-hidden="true">
@@ -124,7 +124,7 @@ export default function AiPhotoLanding(){
 
   <section className={s.hero} aria-labelledby="ai-photo-title">
    <div className={s.heroCopy}>
-    <h1 id="ai-photo-title">사진 한 장으로,<br/>오늘의 <em>캐릭터</em>가 되어 보세요</h1>
+    <h1 id="ai-photo-title"><span className={s.eyebrow}>무료 AI 코스프레 생성</span>사진 한 장으로,<br/>오늘의 <em>캐릭터</em>가 되어 보세요</h1>
     <p className={s.lead}>원하는 <strong>코스튬과 메이크업, 포즈와 배경</strong>을 고르면 AI가 사진을 새로 만들어요. <strong>원본 사진은 그대로</strong> 두고, 마음에 드는 결과만 골라 게시해요.</p>
     <div className={s.actions}><Link className={s.primary} href={TRY}>로그인 없이 0원 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
     <p className={s.small}>로그인 없이 <strong>매일 체험 이용권 3장</strong>을 쓰고, 게시하거나 공유하면 3장씩 더 받아요.</p>
