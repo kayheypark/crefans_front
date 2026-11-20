@@ -12,6 +12,12 @@
 .details{margin-top:16px;border-top:1px solid var(--cf-color-border);padding-top:12px}.details summary{font-size:14px;font-weight:700;cursor:pointer;min-height:44px;align-content:center}.details ul{padding-left:18px;margin:10px 0;font-size:13px;line-height:1.7;color:var(--cf-color-textSecondary)}.details li+li{margin-top:10px}
 
 .footer{flex:none;border-top:1px solid var(--cf-color-border);padding:14px 20px 12px;background:var(--cf-color-surface);display:grid;gap:10px;box-shadow:0 -5px 16px #20233305}.footer input[type=checkbox]:checked{background:var(--cf-service-brand);border-color:var(--cf-service-brand)}.footer label{font-size:13px;line-height:1.5}.footer button{width:100%;min-height:48px}.hint{font-size:11px;color:var(--cf-color-textMuted);text-align:center;margin:0}.error{font-size:13px;color:var(--cf-color-danger);margin:0;max-height:72px;overflow:auto}
+/* Same look as the editor's publish bubble (studio .aiNudgeHint), tail centred on the start button. */
+.sampleBubbleRow{display:flex;justify-content:center;margin:2px 0 -2px}
+.sampleBubble{position:relative;padding:7px 12px;border-radius:999px;background:#202333;color:#fff;font-size:13px;font-weight:700;animation:sampleBubbleFloat 1.6s ease-in-out infinite}
+.sampleBubble::after{content:"";position:absolute;left:calc(50% - 5px);bottom:-5px;width:10px;height:10px;background:#202333;transform:rotate(45deg)}
+@keyframes sampleBubbleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.sampleBubble{animation:none}}
 @media(max-width:767px){.page{height:100%;min-height:0;max-width:none}.heading{padding-top:16px}.body h2{font-size:26px}.footer{padding-bottom:max(12px,env(safe-area-inset-bottom))}}
 @media(max-width:359px){.heading,.body,.footer{padding-left:16px;padding-right:16px}.body h2{font-size:23px}}
 

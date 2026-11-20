@@ -39,6 +39,8 @@ export function GuestTrialConsent({agreed,pending,error,onAgree,onStart,replay=f
   <div className={s.footer}>
    <Checkbox label="위 내용과 개인정보 처리방침 17항(비회원 AI 사진 체험)에 동의합니다" checked={agreed} disabled={pending} onChange={onAgree}/>
    {error&&<p className={s.error} role="alert">{error}</p>}
+   {/* 2026-11-20 user request: some visitors leave here thinking they must upload their own photo; the editor adds a sample selfie. */}
+   <p className={s.sampleBubbleRow} role="note"><span className={s.sampleBubble}>내 사진이 없어도 샘플 셀카로 할 수 있어요</span></p>
    <Action variant="brand" disabled={!agreed||pending} onClick={onStart}>{pending?'준비 중…':'동의하고 0원체험'}</Action>
    <p className={s.hint}>사진 생성은 다음 화면에서 진행해요</p>
   </div>
