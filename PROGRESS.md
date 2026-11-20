@@ -6391,3 +6391,7 @@
 - 사용자 지적: 게시 확인하려 피드로 뒤로 갔다 오면 첨부 사진·AI 결과·제목·본문이 사라짐. 코드 점검: ContentEditorPage 상태는 화면 메모리뿐(GuestTrialPage contents:[]), 돌아오면 샘플 사진만 다시 올라감 → 실제 발생 확인.
 - 수정 feat/guest-trial-draft `2c8c2cf`(dev): `lib/crefans/guest-trial-draft.ts`(localStorage 'crefans:guest-trial-draft', 24시간, 사진은 id·주소(/로 시작)·AI 표시만, 최대 10장, 업로드 중·실패 제외, 제목 120·본문 5000자). ManagementPages 체험 모드에서 열 때 복원('작성하던 내용을 이어서 불러왔어요', 제목·본문 있으면 입력란 열림, 샘플 재업로드 안 함), 변경마다 저장, 게시 성공 시 삭제. 편집 창 안의 미결정 결과 목록은 저장하지 않음('사진 결정' 후 첨부된 것만).
 - 검증: 새 테스트(복원·샘플 생략·잘못된 주소 제외·변경 저장·게시 후 삭제·만료 무시, 이전 코드면 실패), 기존 실패 동일. 개발 웹 iPhone: 피드→체험→업로드→AI 생성→사진 결정→뒤로(피드)→앞으로(체험)·새로고침 모두 사진 그대로(AI 생성 표시 유지). 실생성 3회(스크립트 실수로 2회 버림).
+
+### 2026-11-20 13:1x 게시하기 말풍선 문구 변경 (운영 front bubble-20261120)
+- 사용자 요청: '게시하고 3장 더 받아가세요' → '이용권 3장을 더 받아가세요'(수량은 publishReward.credits). fix/publish-bubble-copy `26d17fb`(dev b3ffe58) → prod 26d17fb. 개발 웹에서 새 문구 1·옛 문구 0, 운영 try·landing 200. 복구본 /Users/ethan/crefans-recovery/20261120/bubble-20261120-front.
+- 체험 작성 임시 저장(feat/guest-trial-draft)은 보완(새 동의 시 삭제, 열리지 않는 사진 제외, 추가 시험) 전이라 운영 제외, dev에만 있음.
