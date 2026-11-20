@@ -3,6 +3,7 @@ import {fetchImageBlob} from '@/lib/browser/media-file';
 import {useRouter} from 'next/navigation';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
+import {clearGuestTrialDraft,loadGuestTrialDraft,saveGuestTrialDraft} from '@/lib/crefans/guest-trial-draft';
 import {MarqueeText} from '@/components/ui/MarqueeText';
 import {TypedConfirmDialog} from '@/components/ui/TypedConfirmDialog';
 import {membershipPriceHint} from '@/lib/crefans/creator-payout-policy';
@@ -195,6 +196,15 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   // 2026-11-17 user decision: the guest trial starts with the landing page's fictional person already added, so a visitor with
   // no photo at hand can try the AI editor at once; removing it and uploading their own photo works as before.
   const sampleTried=useRef(false),[sampleId,setSampleId]=useState<string>(),[sampleNotice,setSampleNotice]=useSnackbarMessage();
+  // 2026-11-20 user request: a visitor who went back to the feed and returns keeps the trial draft (photos, AI results, title, body)
+  // from this browser; then no new sample photo is added. Saved on every change once restored; cleared after publishing.
+  const [draftReady,setDraftReady]=useState(false);
+  useEffect(()=>{if(!guest||content)return;const draft=loadGuestTrialDraft();
+    if(draft){sampleTried.current=true;setMedia(draft.media);setTitle(draft.title);setBody(draft.body);if(draft.title||draft.body)setCaptionReady(true);setSampleNotice('작성하던 내용을 이어서 불러왔어요.');}
+    setDraftReady(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when the trial editor opens
+  },[]);
+  useEffect(()=>{if(guest&&!content&&draftReady)saveGuestTrialDraft({media,title,body});},[guest,content,draftReady,media,title,body]);
   useEffect(()=>{const sample=guest?.samplePhoto;if(!sample||content||sampleTried.current)return;sampleTried.current=true;
     void (async()=>{try{const blob=await fetchImageBlob(sample.url).catch(()=>null);if(!blob)return;const added=await upload([new File([blob],sample.name,{type:blob.type||'image/webp'})]);if(added[0]){setSampleId(added[0].id);setSampleNotice('샘플 원본을 등록해드렸어요.');}}catch{/* the visitor can still upload a photo */}})();
   // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once when the trial editor opens
@@ -227,7 +237,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     if(nextStatus==='scheduled'&&(!scheduled||!Number.isFinite(scheduled.getTime())||scheduled.getTime()<=Date.parse(model.now))){setError('예약 시각을 현재보다 미래로 선택해주세요.');return;}
     void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:publishableMedia.map(({id,type,url,aiGenerated})=>({id,type,url,...(aiGenerated?{aiGenerated}:{})})),commentsEnabled,tipsEnabled:memberMode?false:tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);
       // Publishing, scheduling or saving a published post returns to the list; a draft save keeps editing (2026-11-01).
-      if(nextStatus!=='draft'){router.push(guest?guest.doneHref:`${basePath}/content`);return;}
+      if(nextStatus!=='draft'){if(guest)clearGuestTrialDraft();router.push(guest?guest.doneHref:`${basePath}/content`);return;}
       setScheduleEnabled(false);setScheduledAt('');});
   }
   // With a schedule time set, the main button schedules instead of publishing now (2026-11-01); the schedule toggle alone does not publish.
