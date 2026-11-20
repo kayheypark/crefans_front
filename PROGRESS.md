@@ -6368,3 +6368,9 @@
 ### 2026-11-20 06:3x 게시 보상 안내 창 2초 지연 (운영 front publish-offer-20261120)
 - 사용자 요청: 결과를 보기 전에 창이 떠서 '나중에 하기'만 누름. `AiPhotoDialog` 자동 표시 조건(남은 이용권 ≤1)을 결과 화면/돌아간 편집 화면이 보인 뒤 2초(PUBLISH_OFFER_DELAY_MS) 타이머로, 화면(stage) 바뀌면 다시 셈. 만들기 때 부족·GUEST_AI_LIMIT 오류는 기존대로 즉시.
 - feat/publish-offer-delay `5a1d7ac` → dev 440e7bb → prod 5a1d7ac(origin/prod 0870233에서 빨리감기). 검증: 새 테스트(직후·1초 없음, 편집 복귀 시 재계산, 2초 뒤 표시) 통과·이전 코드면 실패, studio 18건 동일. 개발 실생성 1회(정밀하게, 잔여 3→1): 0.5초 0개·2.5초 1개. 운영 검사 landing·/s·이미지 200. 복구본 /Users/ethan/crefans-recovery/20261120/publish-offer-20261120-front.
+
+### 2026-11-20 09:1x 비회원 이용권 매일 충전·이용권 소진 안내+캘린더·공유 완료 창 줄바꿈 (운영 api/front guest-daily-20261120)
+- 사용자 결정: 비회원도 매일 오전 9시 3장으로 충전, 첫 게시·첫 공유 보상(각 3장)은 하루 한 번씩 그날만 사용, '매일 이용권 횟수는 초기화돼요 / 내일 오전에 또 만나요 [캘린더에 추가하기]'는 회원·비회원 모두 이용권 소진 시, 캘린더는 .ics 파일.
+- 서버 feat/guest-daily-credits `4c227dd`(prod 1a040b1): 비회원 사용량 창 GUEST_LIFETIME(10년)→DAY(UTC 자정=09:00 KST), 보상 ID에 날짜·만료=다음 충전, 처리방침 17항·약관 13조 `2026-11-20.guest-daily.1`(같은 날 guest-share/share-reward 대체). 배포 시점 기존 비회원 사용량은 새 하루 창으로 계산돼 모두 3장부터, 예전에 받은 보상은 오늘 다시 받아야 함.
+- 프론트 feat/guest-daily-credits `083c42e`+fix `0af1279`(prod a1b55f4): AiPhotoDialog 소진 안내(결과 2초 뒤·만들기 시·DAILY_LIMIT/GUEST_AI_LIMIT, 비회원은 게시 보상 안내 먼저, 회원가입/이용권 구매 버튼, 9시 전이면 '오늘'), `/calendar/ai-photo-reset.ics`(lib/crefans/ai-photo-calendar.ts, 다음 00:00Z·15분·정시 알림·try/studio 링크), 랜딩·도움말·공유 안내·llms.txt 문구.
+- 검증: 서버 legal 40/40·다음 날 초기화 테스트(이전 코드면 실패)·openapi 15/15·ai-photo 기존 3건 외 통과, 프론트 새 테스트(캘린더 파일, 마지막 이용권 2초 뒤 안내)·갱신 2건 통과·studio 18건 동일. 운영: 약관 판 guest-daily.1, share-done 401, 체험·랜딩 200, 캘린더 200 text/calendar·알림 포함. 미확인: 운영 편집기에서 소진 안내 창 실제 화면(실생성 필요).
