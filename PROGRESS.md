@@ -6301,3 +6301,6 @@
 - 사용자 지시 "운영배포해": api ai-trials-20261120(07:01Z), front replay-link-20261120(07:09Z), admin ai-trials-20261120(07:11Z). 점검: health·try·landing 200, 무쿠키 guest/replay-session 401, admin /login 200, 무인증 admin/ai-trials 401. 복구본 /Users/ethan/crefans-recovery/20261120/{ai-trials-20261120-api,replay-link-20261120-front,ai-trials-20261120-admin} 검증 OK.
 - 운영 실동작: 새 Playwright 브라우저(iPhone13)로 체험 동의 → guest/replay-session 201 recorded:true(운영 체험 1건 생김). 콘솔 화면·PostHog 링크 이동은 사용자 로그인 필요라 미확인.
 - 과거분: 사진·게시·생성 횟수는 보관 기간 내 표시, 의상·배경·요청 문장은 30일, 프리셋 이름과 리플레이 링크는 이번 배포 이후분만.
+
+### 2026-11-20 16:3x 결과 공유 버튼 운영 배포 (front editor-share-20261120)
+- 사용자 지시 "배포". prod 9fe135e. 점검 try·landing 200, deploy OK, 복구본 /Users/ethan/crefans-recovery/20261120/editor-share-20261120-front 검증 OK. 운영 화면 확인은 아래 결과 참고(체험 1건 생성, 업로드 사진을 AI 결과로 표시만 바꿔 버튼·공유창 확인, 실제 공유·보상 미확인).
