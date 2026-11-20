@@ -6304,3 +6304,8 @@
 
 ### 2026-11-20 16:3x 결과 공유 버튼 운영 배포 (front editor-share-20261120)
 - 사용자 지시 "배포". prod 9fe135e. 점검 try·landing 200, deploy OK, 복구본 /Users/ethan/crefans-recovery/20261120/editor-share-20261120-front 검증 OK. 운영 화면 확인은 아래 결과 참고(체험 1건 생성, 업로드 사진을 AI 결과로 표시만 바꿔 버튼·공유창 확인, 실제 공유·보상 미확인).
+
+### 2026-11-20 17:5x AI 생성 방식 문구 운영 배포 (front method-copy2-20261120)
+- 사용자 결정: 빠르게→'느낌만 빠르게', 정밀하게→'디테일 정밀하게', 고른 방식 아래 한 줄 안내(빠르게: 분위기만 빠르게 확인해요. 의상·포즈가 다르게 나올 수 있어요 / 표준: 대부분 원하는 모습에 가깝게 나와요 / 정밀: 의상·얼굴을 가장 꼼꼼하게 맞춰요), 문장 단위 줄바꿈. 기본 선택은 빠르게 유지. 부족 안내 '느낌만 빠르게로 바꾸거나'.
+- 검사: tsc 0, studio-ai-photo 실패 18건은 기존 기준선과 동일. 개발 서버 iPhone SE·13 캡처(글자 넘침 없음) 사용자에게 먼저 전송.
+- 운영: 1차 method-copy-20261120은 devbox 빌드 중 Next.js 작업자 SIGSEGV로 빌드 단계 중단(운영 무변경), 2차 method-copy2-20261120 deploy OK, try·landing 200, 복구본 /Users/ethan/crefans-recovery/20261120/method-copy2-20261120-front 검증 OK.
