@@ -6386,3 +6386,8 @@
 - 검증: posthog 13/13(새 테스트, 기능 빼면 실패)·계층 검사 통과. 개발 웹: 체험 화면 사진 2장 data URL(약 72KB), 피드에선 해제·변환 0. 미확인: PostHog 재생 화면에서 실제 표시(새 녹화가 처리된 뒤 확인 필요).
 - 10:2x 사용자 승인("1,2 진행"): 운영 배포 front replay-inline-20261120(prod 6fe797d, 검사 title·JSON-LD·robots·체험·사이트맵 OK, 복구본 /Users/ethan/crefans-recovery/20261120/replay-inline-20261120-front). 운영 정리: 1차 SEO 배포 잔여 이미지 crefans-front:seo-cosplay-20261120 삭제, /opt/crefans-backup-front-seo-cosplay-20261120(.env 백업, FRONTEND_IMAGE 줄 외 현재 .env와 SHA-256 앞 16자리 동일 확인) 삭제. 앞서 '빈 폴더'라고 보고한 것은 틀림(.env가 있었음).
 - 운영 확인: 체험 화면(가상 기준 사진 업로드, 생성 없음)에서 가리기 해제·사진 2장 data URL. PostHog 녹화 반영 여부는 확인 중.
+
+### 2026-11-20 12:3x 비회원 체험 작성 내용 브라우저 임시 저장 (dev·개발 서버, 운영 대기)
+- 사용자 지적: 게시 확인하려 피드로 뒤로 갔다 오면 첨부 사진·AI 결과·제목·본문이 사라짐. 코드 점검: ContentEditorPage 상태는 화면 메모리뿐(GuestTrialPage contents:[]), 돌아오면 샘플 사진만 다시 올라감 → 실제 발생 확인.
+- 수정 feat/guest-trial-draft `2c8c2cf`(dev): `lib/crefans/guest-trial-draft.ts`(localStorage 'crefans:guest-trial-draft', 24시간, 사진은 id·주소(/로 시작)·AI 표시만, 최대 10장, 업로드 중·실패 제외, 제목 120·본문 5000자). ManagementPages 체험 모드에서 열 때 복원('작성하던 내용을 이어서 불러왔어요', 제목·본문 있으면 입력란 열림, 샘플 재업로드 안 함), 변경마다 저장, 게시 성공 시 삭제. 편집 창 안의 미결정 결과 목록은 저장하지 않음('사진 결정' 후 첨부된 것만).
+- 검증: 새 테스트(복원·샘플 생략·잘못된 주소 제외·변경 저장·게시 후 삭제·만료 무시, 이전 코드면 실패), 기존 실패 동일. 개발 웹 iPhone: 피드→체험→업로드→AI 생성→사진 결정→뒤로(피드)→앞으로(체험)·새로고침 모두 사진 그대로(AI 생성 표시 유지). 실생성 3회(스크립트 실수로 2회 버림).
