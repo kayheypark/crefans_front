@@ -168,7 +168,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   if(shortage>0){if(publishReward){publishOfferShown.current=true;setPublishOffer(true);return;}
    if(remaining<=0&&tickets<=0){refillShown.current=true;setRefillNotice(true);return;}
    if(shop){setShopOpen(true);void shop.refresh();return;}
-   if(noHearts){setSignupOffer(true);setError(remaining>0?'선택한 방식에 필요한 이용권이 부족해요. 빠르게로 바꾸거나 회원가입 후 계속 만들 수 있어요.':'체험 이용권을 모두 썼어요. 회원가입하면 매일 무료로 계속 만들 수 있어요.');return;}
+   if(noHearts){setSignupOffer(true);setError(remaining>0?'선택한 방식에 필요한 이용권이 부족해요. 느낌만 빠르게로 바꾸거나 회원가입 후 계속 만들 수 있어요.':'체험 이용권을 모두 썼어요. 회원가입하면 매일 무료로 계속 만들 수 있어요.');return;}
    setError(remaining>0?'선택한 생성 방식에 필요한 이용권이 부족해요. 다른 방식을 선택해 주세요.':tickets>0?'오늘 만들 수 있는 횟수를 모두 썼어요. 리셋권을 사용하면 다시 만들 수 있어요.':'오늘 만들 수 있는 횟수를 모두 썼어요. 매일 오전 9시에 다시 이용할 수 있어요.');return;}
   if(!prompt.trim()){setError('프리셋을 고르거나 커스텀 프롬프트를 적어 주세요.');return;}
   if(prompt.length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.');return;}
@@ -276,6 +276,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
       <span><strong>{option.label}</strong><small>{option.cost}개</small></span>
      </label>)}
     </div>
+    <p className={s.methodHint} role="status">{method.hint}</p>
     <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>void generate()} disabled={busy}>
      <span className={s.createLabel}>만들기</span><span id={`${panelId}-remaining`} className={s.createQuota}>{remaining}장 보유</span>
     </Action>

@@ -6,9 +6,11 @@ import type {AiPhotoKind,AiPhotoStyle} from '@/types/crefans-studio-management';
 export const AI_PHOTO_DAILY_LIMIT=10;
 export const AI_PHOTO_IMAGES_PER_REQUEST=1;
 export const aiPhotoGenerationMethods=[
- {value:'fast',label:'빠르게',cost:0.5},
- {value:'standard',label:'표준',cost:1},
- {value:'precise',label:'정밀하게',cost:2},
+// 2026-11-20 user decision: the fast method often misses the requested outfit/pose, so its name and the line below the choices say
+// it is for a quick feel check (default stays fast).
+ {value:'fast',label:'느낌만 빠르게',cost:0.5,hint:'분위기만 빠르게 확인해요. 의상·포즈가 다르게 나올 수 있어요.'},
+ {value:'standard',label:'표준',cost:1,hint:'대부분 원하는 모습에 가깝게 나와요.'},
+ {value:'precise',label:'디테일 정밀하게',cost:2,hint:'의상·얼굴을 가장 꼼꼼하게 맞춰요.'},
 ] as const;
 export type AiPhotoGenerationMethod=(typeof aiPhotoGenerationMethods)[number]['value'];
 export const AI_PHOTO_PROMPT_MAX=2000;
