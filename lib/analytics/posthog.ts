@@ -33,6 +33,41 @@ export function setReplayUnmasked(on:boolean){
  if(typeof document==='undefined')return;
  if(on)document.documentElement.setAttribute(REPLAY_UNMASK_ATTR,'');else document.documentElement.removeAttribute(REPLAY_UNMASK_ATTR);
 }
+// 2026-11-20 user report: in replays of a consenting guest's trial page the AI result photo showed as a broken image — the
+// recording keeps only its private URL (/api/v1/media/:id/file), which the replay player cannot open without the visitor's session.
+// While unmasking is on, private photos on the page are swapped for a downscaled copy (JPEG, longest side 720px) so the replay
+// carries the image itself. Privacy 17항 (guest-replay) already lists the uploaded thumbnails and AI photos sent to PostHog.
+const PRIVATE_MEDIA=/\/api\/v1\/media\/[^/?#]+\/file|\/_next\/image\?url=%2Fapi%2Fv1%2Fmedia%2F/;
+const REPLAY_IMAGE_MAX=720;
+let inlineObserver:MutationObserver|null=null;
+const inlined=new WeakMap<HTMLImageElement,string>();
+export async function inlineReplayImage(img:HTMLImageElement){
+ const src=img.getAttribute('src')||'';
+ if(!PRIVATE_MEDIA.test(src)||inlined.get(img)===src)return false;
+ inlined.set(img,src);
+ try{
+  const response=await fetch(src,{credentials:'include'});if(!response.ok)return false;
+  const bitmap=await createImageBitmap(await response.blob());
+  const scale=Math.min(1,REPLAY_IMAGE_MAX/Math.max(bitmap.width,bitmap.height));
+  const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));
+  canvas.getContext('2d')?.drawImage(bitmap,0,0,canvas.width,canvas.height);
+  // Unmasking may have ended (left the trial page) or the image may show another photo by now.
+  if(!document.documentElement.hasAttribute(REPLAY_UNMASK_ATTR)||img.getAttribute('src')!==src)return false;
+  const data=canvas.toDataURL('image/jpeg',.82);inlined.set(img,data);img.removeAttribute('srcset');img.setAttribute('src',data);return true;
+ }catch{return false;}
+}
+export function setReplayInlineImages(on:boolean){
+ if(typeof document==='undefined'||typeof MutationObserver==='undefined')return;
+ if(!on){inlineObserver?.disconnect();inlineObserver=null;return;}
+ if(inlineObserver)return;
+ const scan=(root:ParentNode)=>root.querySelectorAll('img').forEach(img=>void inlineReplayImage(img));
+ scan(document);
+ inlineObserver=new MutationObserver(records=>{for(const record of records){
+  if(record.type==='attributes'&&record.target instanceof HTMLImageElement)void inlineReplayImage(record.target);
+  record.addedNodes.forEach(node=>{if(node instanceof HTMLImageElement)void inlineReplayImage(node);else if(node instanceof Element)scan(node);});
+ }});
+ inlineObserver.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['src']});
+}
 
 // Replay is opt-in per route (allowlist): payment, wallet/beans, payouts, account settings, login/signup, messages and every
 // studio page except post writing stay unrecorded, including routes added later. Events are still captured on every /service page.
