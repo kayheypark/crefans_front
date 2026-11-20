@@ -6374,3 +6374,8 @@
 - 서버 feat/guest-daily-credits `4c227dd`(prod 1a040b1): 비회원 사용량 창 GUEST_LIFETIME(10년)→DAY(UTC 자정=09:00 KST), 보상 ID에 날짜·만료=다음 충전, 처리방침 17항·약관 13조 `2026-11-20.guest-daily.1`(같은 날 guest-share/share-reward 대체). 배포 시점 기존 비회원 사용량은 새 하루 창으로 계산돼 모두 3장부터, 예전에 받은 보상은 오늘 다시 받아야 함.
 - 프론트 feat/guest-daily-credits `083c42e`+fix `0af1279`(prod a1b55f4): AiPhotoDialog 소진 안내(결과 2초 뒤·만들기 시·DAILY_LIMIT/GUEST_AI_LIMIT, 비회원은 게시 보상 안내 먼저, 회원가입/이용권 구매 버튼, 9시 전이면 '오늘'), `/calendar/ai-photo-reset.ics`(lib/crefans/ai-photo-calendar.ts, 다음 00:00Z·15분·정시 알림·try/studio 링크), 랜딩·도움말·공유 안내·llms.txt 문구.
 - 검증: 서버 legal 40/40·다음 날 초기화 테스트(이전 코드면 실패)·openapi 15/15·ai-photo 기존 3건 외 통과, 프론트 새 테스트(캘린더 파일, 마지막 이용권 2초 뒤 안내)·갱신 2건 통과·studio 18건 동일. 운영: 약관 판 guest-daily.1, share-done 401, 체험·랜딩 200, 캘린더 200 text/calendar·알림 포함. 미확인: 운영 편집기에서 소진 안내 창 실제 화면(실생성 필요).
+
+### 2026-11-20 09:3x 랜딩 SEO '무료 AI 코스프레 생성' (운영 front seo-cosplay2-20261120)
+- 사용자 요청. feat/seo-free-ai-cosplay `2ae712d`(dev 0231da6, prod 2ae712d): 제목 '무료 AI 코스프레 생성 · 사진 한 장으로 코스튬 체인지 | 크레팬스', 설명 첫머리, keywords 앞쪽, OG/트위터 제목, JSON-LD WebApplication 이름(+alternateName 기존 이름)·빵부스러기, H1 윗줄(span, 분홍 작은 글씨), 결과 사진 alt, 사이트맵 lastModified 2026-11-20, llms.txt. 설명의 비회원 이용권도 매일 3장으로.
+- 1차 배포(seo-cosplay-20261120)는 검사 스크립트의 사이트맵 날짜 비교 오류(UTC 2026-11-19T15:00로 저장)로 자동 롤백, 검사 수정 후 2차 배포 성공. 운영 확인: title·description·JSON-LD·robots index·체험 200·사이트맵 lastmod. 1차 잔여: 운영 이미지 crefans-front:seo-cosplay-20261120(미사용, 같은 커밋)·/opt/crefans-backup-front-seo-cosplay-20261120(8K) — 사용자 승인 후 삭제 예정.
+- 검색 반영은 검색엔진 재수집 이후. 구글 서치콘솔·네이버 서치어드바이저 URL 검사/수집 요청은 사용자 몫(계정).
