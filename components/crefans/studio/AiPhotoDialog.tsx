@@ -246,7 +246,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
       {franchisePicked&&<p className={s.costumeNote} role="note" data-franchise-notice="true">{franchiseCostumeNotice}</p>}
      </div>:<div id={panelId} role="tabpanel" aria-labelledby={`${panelId}-${kind}`} className={s.presets}>
       {kind==='background'&&ownBackgroundTab?<div className={s.ownBackground}>
-       <p className={s.costumeHint}>배경으로 쓸 장소 사진을 골라 주세요. 사진 속 장소와 분위기만 쓰고, 그 사진에 나온 사람은 넣지 않아요. 다른 사람이 나온 사진은 쓰지 말아 주세요.</p>
+       <p className={s.ownBackgroundHint}>배경으로 쓸 장소 사진을 골라 주세요. 사진 속 장소와 분위기만 쓰고, 그 사진에 나온 사람은 넣지 않아요. 다른 사람이 나온 사진은 쓰지 말아 주세요.</p>
        <div className={s.sources} role="radiogroup" aria-label="배경으로 쓸 사진 고르기">{[...sources.filter(item=>item.id!==sourceId&&!item.aiGenerated),...uploadedBackgrounds.filter(item=>!sources.some(other=>other.id===item.id))].map(item=><button key={item.id} type="button" role="radio" aria-checked={ownBackground?.id===item.id} aria-label="배경 사진" className={s.source} disabled={busy} onClick={()=>pickOwnBackground(ownBackground?.id===item.id?null:item)}>
         {/* eslint-disable-next-line @next/next/no-img-element -- the user's own uploaded photo */}
         <img src={item.preview||item.url} alt=""/></button>)}
@@ -288,7 +288,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
       <span><strong>{option.label}</strong><small>{option.cost}개</small></span>
      </label>)}
     </div>
-    <p className={s.methodHint} role="status">{method.hint.split(/(?<=\.) /).map(part=><span key={part}>{part} </span>)}</p>
+    <p className={s.methodHint} role="status">{method.hint.split(/(?<=\.) /).map(part=><span key={part}>{part}</span>)}</p>
     <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>void generate()} disabled={busy}>
      <span className={s.createLabel}>만들기</span><span id={`${panelId}-remaining`} className={s.createQuota}>{remaining}장 보유</span>
     </Action>
