@@ -46,3 +46,15 @@ button.textButton:not(:disabled):hover,.tabs button:not(:disabled):hover{backgro
   padding: 12px 0;
   background: var(--cf-color-surface);
 }
+/* 2026-11-20 user report: the bubble sat inside the sticky white bar, so the bar grew and hid the content behind it (AI 사진 편집).
+   The bubble now floats above the bar with no backdrop; the white bar only covers the button. Taps pass through the bubble.
+   The top margin keeps the end of the form clear of the bubble once scrolled to the bottom. */
+.rewardPublishActions:has(> p[role="note"]) {
+  margin-top: 44px;
+}
+.rewardPublishActions > p[role="note"] {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% - 4px);
+  pointer-events: none;
+}
