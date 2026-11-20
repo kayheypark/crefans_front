@@ -137,7 +137,7 @@ export function ContentManagementPage({model,basePath,fanPath=basePath.replace(/
 
 // memberMode (2026-11-15): a member who is not a creator writes public posts only; no membership scope, tips or scheduling.
 // guest (2026-11-15): a signed-out AI photo trial reuses the editor; it publishes only (no draft/comments) and shows its notice.
-type GuestEditor={postReward?:number;shareReward?:{refresh:()=>Promise<void>;claim:(mediaId:string)=>Promise<boolean>};backHref:string;doneHref:string;notice:ReactNode;/** 2026-11-17: a fictional sample photo placed in the trial so a visitor without a photo can start right away. */samplePhoto?:{url:string;name:string};caption?:(input:{items:string[];prompt:string})=>Promise<ApiResult<{title:string;body:string;source:'ai'|'template'}>>};
+type GuestEditor={/** 2026-11-20: the trial's author id; the browser draft is restored only for the same trial. */authorId?:string;postReward?:number;shareReward?:{refresh:()=>Promise<void>;claim:(mediaId:string)=>Promise<boolean>};backHref:string;doneHref:string;notice:ReactNode;/** 2026-11-17: a fictional sample photo placed in the trial so a visitor without a photo can start right away. */samplePhoto?:{url:string;name:string};caption?:(input:{items:string[];prompt:string})=>Promise<ApiResult<{title:string;body:string;source:'ai'|'template'}>>};
 type EditorProps=Props&ContentPreviewProps&{memberMode?:boolean;guest?:GuestEditor};
 export function ContentEditorPage({model,basePath,id,previewModel,previewCreatorId,commentsGloballyEnabled=true,memberMode=false,guest}:EditorProps){
   const content=id?model.contents.find(item=>item.id===id):undefined;
@@ -199,12 +199,12 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   // 2026-11-20 user request: a visitor who went back to the feed and returns keeps the trial draft (photos, AI results, title, body)
   // from this browser; then no new sample photo is added. Saved on every change once restored; cleared after publishing.
   const [draftReady,setDraftReady]=useState(false);
-  useEffect(()=>{if(!guest||content)return;const draft=loadGuestTrialDraft();
+  useEffect(()=>{if(!guest||content)return;const draft=loadGuestTrialDraft(guest.authorId);
     if(draft){sampleTried.current=true;setMedia(draft.media);setTitle(draft.title);setBody(draft.body);if(draft.title||draft.body)setCaptionReady(true);setSampleNotice('작성하던 내용을 이어서 불러왔어요.');}
     setDraftReady(true);
   // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when the trial editor opens
   },[]);
-  useEffect(()=>{if(guest&&!content&&draftReady)saveGuestTrialDraft({media,title,body});},[guest,content,draftReady,media,title,body]);
+  useEffect(()=>{if(guest&&!content&&draftReady)saveGuestTrialDraft(guest.authorId,{media,title,body});},[guest,content,draftReady,media,title,body]);
   useEffect(()=>{const sample=guest?.samplePhoto;if(!sample||content||sampleTried.current)return;sampleTried.current=true;
     void (async()=>{try{const blob=await fetchImageBlob(sample.url).catch(()=>null);if(!blob)return;const added=await upload([new File([blob],sample.name,{type:blob.type||'image/webp'})]);if(added[0]){setSampleId(added[0].id);setSampleNotice('샘플 원본을 등록해드렸어요.');}}catch{/* the visitor can still upload a photo */}})();
   // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once when the trial editor opens
