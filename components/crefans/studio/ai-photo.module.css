@@ -353,3 +353,6 @@
 .publishOfferBody small{display:block;margin-top:6px;color:var(--cf-color-textSecondary);font-size:13px}
 .refillCalendar{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;padding:0 16px;border-radius:12px;background:var(--cf-color-accent);color:#fff;font-size:15px;font-weight:700;text-decoration:none}
 .refillCalendar:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
+
+/* 2026-11-20 user decision: one line under the method choices sets expectations (fast = quick feel check). */
+.methodHint{margin:6px 2px 8px;font-size:12px;line-height:1.4;color:var(--cf-color-textSecondary);text-align:center}
