@@ -6295,3 +6295,4 @@
 - 사용자 지시 "운영 모두 배포": ① 체험 작성 브라우저 임시저장(24시간, 게스트 번호 일치 시만 복원) ② 동의 화면 샘플 셀카 말풍선 ③ 게시하기 말풍선 흰 배경 겹침 수정. origin/prod에 9212d85·4f4e958·7ba0d9c·6acb51a cherry-pick → prod(GitLab·GitHub).
 - 검사: tsc 0, studio-management·contract·content-post-preview 47 통과/2 실패(기존 실패: 운영자 숨김 글, 체험 입력칸). 배포 점검 try·landing 200, deploy OK, 복구본 /Users/ethan/crefans-recovery/20261120/trial-ux-20261120-front 검증 OK.
 - 운영 확인: 동의 화면 말풍선 1개(iPhone13 WebKit, 동의는 누르지 않음), 운영 번들에 임시저장 키·owner 비교·말풍선 CSS 포함. 운영에서 체험 시작·복원 실동작은 미확인(운영 체험 데이터·이용권을 만들지 않으려고).
+- 14:4x 운영 실동작(사용자 지시 "맥북 시크릿모드에서 테스트", 새 Playwright 컨텍스트 iPhone13 WebKit, 사진 업로드만·AI 생성/게시 안 함): 업로드 후 피드 갔다 복귀 2/10 유지, 쿠키 삭제·재동의 시 이전 임시저장 버리고 새 체험 1장. 게시하기 말풍선이 흰 바 없이 떠 있음. 테스트로 운영에 비회원 체험 2건(업로드 사진 포함)이 생김, 게시물 없음.
