@@ -101,3 +101,6 @@ button.usedCard{width:100%;color:inherit;font:inherit;text-align:left;cursor:poi
 .presetDetail img{width:200px;height:200px;border-radius:12px;object-fit:cover;background:#f3f4f6}.presetDetail img[data-illustrated]{object-fit:contain}
 .presetDetail span{padding:2px 10px;border-radius:999px;background:#fce7f3;color:#be185d;font-size:12px;font-weight:700}
 .presetDetail ul{display:grid;gap:4px;width:100%;margin:0;padding:0 0 0 18px;color:var(--cf-color-text,#202333);font-size:14px;line-height:1.5}
+
+/* 2026-11-20 user request: the search phrase '무료 AI 코스프레 생성' as a small line above the H1 headline (part of the H1) */
+.eyebrow{display:block;margin-bottom:10px;color:#db2777;font-size:15px;font-weight:800;letter-spacing:.02em}

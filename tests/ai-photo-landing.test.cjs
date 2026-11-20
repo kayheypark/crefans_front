@@ -100,3 +100,14 @@ test('hero preset cards open a detail dialog with the catalog details and a try-
   assert.equal(dialog()[0].props['data-dialog'],'의자에 앉기');assert.equal(dialog()[0].findAllByType('li').length,1,'other presets show their request text');
  }finally{await act(async()=>tree.unmount());}
 });
+
+// 2026-11-20 user request: the landing targets the search phrase '무료 AI 코스프레 생성'.
+test("the landing targets '무료 AI 코스프레 생성' in title, description, keywords, H1, structured data, sitemap and llms.txt",async()=>{
+ const fs=require('fs'),src=fs.readFileSync('app/service/landing-ai-image-generation/page.tsx','utf8'),phrase='무료 AI 코스프레 생성';
+ assert.match(src,/const TITLE='무료 AI 코스프레 생성 · /);assert.match(src,/const DESCRIPTION='무료 AI 코스프레 생성: /);assert.match(src,/keywords:\['무료 AI 코스프레 생성',/);
+ assert.match(src,/title:'무료 AI 코스프레 생성 \| 크레팬스'/);assert.match(src,/name:'크레팬스 무료 AI 코스프레 생성'/);
+ let tree;await act(async()=>{tree=create(React.createElement(page.default));});
+ try{const h1=tree.root.findByType('h1');assert.equal(h1.findByType('span').props.children,phrase);}finally{await act(async()=>tree.unmount());}
+ assert.match(fs.readFileSync('app/sitemap.ts','utf8'),/landing-ai-image-generation'\),changeFrequency:'weekly',priority:0\.9,lastModified:new Date\('2026-11-20/);
+ assert.ok(fs.readFileSync('public/llms.txt','utf8').includes(phrase));
+});

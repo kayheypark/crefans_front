@@ -11,7 +11,7 @@ export default async function sitemap():Promise<MetadataRoute.Sitemap>{
  const fixed:MetadataRoute.Sitemap=[
   {url:url('/service/feed'),changeFrequency:'daily',priority:1,lastModified:now},
   {url:url('/service/explore'),changeFrequency:'daily',priority:0.9,lastModified:now},
-  {url:url('/service/landing-ai-image-generation'),changeFrequency:'weekly',priority:0.9,lastModified:new Date('2026-11-16T00:00:00+09:00')},
+  {url:url('/service/landing-ai-image-generation'),changeFrequency:'weekly',priority:0.9,lastModified:new Date('2026-11-20T00:00:00+09:00')},
   {url:url('/service/events'),changeFrequency:'weekly',priority:0.6},
   ...serviceEvents.map(event=>({url:url(`/service/events/${event.id}`),changeFrequency:'weekly' as const,priority:0.5})),
   {url:url('/service/notices'),changeFrequency:'weekly',priority:0.5},
