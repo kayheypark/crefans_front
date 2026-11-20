@@ -129,5 +129,30 @@ test('only the guest trial model toggles unmasking, gated on a recorded replay c
  const users=['app','components','features','lib','hooks','contexts'].flatMap(walk).filter(f=>/\.(t|j)sx?$/.test(f)&&f!=='lib/analytics/posthog.ts'&&/setReplayUnmasked\(/.test(fs.readFileSync(f,'utf8')));
  assert.deepEqual(users,['features/service/useGuestTrialModel.ts']);
  const model=fs.readFileSync('features/service/useGuestTrialModel.ts','utf8');
- assert.match(model,/if\(!enabled\|\|!session\?\.active\|\|!session\.replayConsented\)return;setReplayUnmasked\(true\);return\(\)=>setReplayUnmasked\(false\);/);
+ assert.match(model,/if\(!enabled\|\|!session\?\.active\|\|!session\.replayConsented\)return;setReplayUnmasked\(true\);setReplayInlineImages\(true\);return\(\)=>\{setReplayInlineImages\(false\);setReplayUnmasked\(false\);\};/);
+ const inliners=['app','components','features','lib','hooks','contexts'].flatMap(walk).filter(f=>/\.(t|j)sx?$/.test(f)&&f!=='lib/analytics/posthog.ts'&&/setReplayInlineImages\(/.test(fs.readFileSync(f,'utf8')));
+ assert.deepEqual(inliners,['features/service/useGuestTrialModel.ts']);
+});
+
+// 2026-11-20 user report: replays showed the AI result as a broken image (private URL needs the visitor's session). While unmasked,
+// private photos are swapped for a downscaled embedded copy so the replay carries the image; public images and masked pages are untouched.
+test('unmasked replays embed private photos as downscaled data URLs; public images and masked pages are left alone',async()=>{
+ const {mod}=load('phc_test_only');
+ let unmasked=true,drawn=null;const fetched=[];
+ const saved={document:global.document,fetch:global.fetch,createImageBitmap:global.createImageBitmap};
+ global.document={documentElement:{hasAttribute:()=>unmasked},createElement:()=>({width:0,height:0,getContext:()=>({drawImage:(b,x,y,w,h)=>{drawn=[w,h];}}),toDataURL(type,q){return `data:${type};q=${q};${this.width}x${this.height}`;}})};
+ global.fetch=async(url,init)=>{fetched.push([url,init.credentials]);return {ok:true,blob:async()=>'blob'};};
+ global.createImageBitmap=async()=>({width:1440,height:1800});
+ const img=src=>{const attrs={src,srcset:'x 1x'};return {getAttribute:k=>attrs[k]??null,setAttribute:(k,v)=>{attrs[k]=v;},removeAttribute:k=>{delete attrs[k];},attrs};};
+ try{
+  const result=img('/api/v1/media/0df01137-1c9c-423d-9c2f-1f1400000000/file');
+  assert.equal(await mod.inlineReplayImage(result),true);
+  assert.deepEqual(fetched,[['/api/v1/media/0df01137-1c9c-423d-9c2f-1f1400000000/file','include']]);assert.deepEqual(drawn,[576,720]);
+  assert.equal(result.attrs.src,'data:image/jpeg;q=0.82;576x720');assert.equal(result.attrs.srcset,undefined);
+  assert.equal(await mod.inlineReplayImage(result),false,'already embedded');
+  const optimized=img('/_next/image?url=%2Fapi%2Fv1%2Fmedia%2Fabc%2Ffile&w=640&q=75');assert.equal(await mod.inlineReplayImage(optimized),true);
+  const brand=img('/brand/ai-photo/swipe-hand-v2.webp');assert.equal(await mod.inlineReplayImage(brand),false);assert.equal(brand.attrs.src,'/brand/ai-photo/swipe-hand-v2.webp');
+  unmasked=false;const later=img('/api/v1/media/zzz/file');assert.equal(await mod.inlineReplayImage(later),false);assert.equal(later.attrs.src,'/api/v1/media/zzz/file','masked page keeps the private URL');
+  assert.equal(fetched.length,3);
+ }finally{Object.assign(global,saved);for(const k of Object.keys(saved))if(saved[k]===undefined)delete global[k];}
 });

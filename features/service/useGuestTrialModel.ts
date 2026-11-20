@@ -4,7 +4,7 @@ import {platformRequest as api} from '@/lib/api/platform';
 import {imageUploadMaxBytes,imageUploadMaxLabel} from '@/lib/design/image-upload';
 import {optimizeImage} from '@/lib/design/image-optimize';
 import {aiPhotoEditBody} from './useStudioModel';
-import {aiProps,captureEvent,setReplayUnmasked} from '@/lib/analytics/posthog';
+import {aiProps,captureEvent,setReplayInlineImages,setReplayUnmasked} from '@/lib/analytics/posthog';
 import {reportShare} from '@/lib/api/share-report';
 import type {AiPhotoFunnelStep} from '@/types/crefans-studio-management';
 import type {AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefans-studio-management';
@@ -27,7 +27,7 @@ export function useGuestTrialModel(enabled:boolean){
  // An existing trial session (cookie) also keeps the flag, e.g. after storage was cleared.
  useEffect(()=>{if(session?.active)markGuestTrial();},[session?.active]);
  // 2026-11-19 user decision (처리방침 17항): unmask session replay on the trial screens only for a visitor whose replay consent is recorded.
- useEffect(()=>{if(!enabled||!session?.active||!session.replayConsented)return;setReplayUnmasked(true);return()=>setReplayUnmasked(false);},[enabled,session?.active,session?.replayConsented]);
+ useEffect(()=>{if(!enabled||!session?.active||!session.replayConsented)return;setReplayUnmasked(true);setReplayInlineImages(true);return()=>{setReplayInlineImages(false);setReplayUnmasked(false);};},[enabled,session?.active,session?.replayConsented]);
  const start=async(replayAgreed=false)=>{const replayVersion=replayAgreed?session?.replayConsentVersion:undefined;const r=await api<{active:boolean}>('/guest/session',{consent:true,version:GUEST_CONSENT_VERSION,...(replayVersion?{replayConsent:{agreed:true,version:replayVersion}}:{})});if(r.success){markGuestTrial();captureEvent('guest_consent_agreed',{actor:'guest'});await refresh();}return r;};
  const upload=async(original:File)=>{
   if(!original.type.startsWith('image/'))return {success:false as const,data:null,errorMessage:'체험에서는 사진만 올릴 수 있어요.',errorCode:'GUEST_IMAGE_ONLY'};
