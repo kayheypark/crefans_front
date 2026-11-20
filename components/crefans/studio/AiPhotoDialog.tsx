@@ -276,7 +276,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
       <span><strong>{option.label}</strong><small>{option.cost}개</small></span>
      </label>)}
     </div>
-    <p className={s.methodHint} role="status">{method.hint}</p>
+    <p className={s.methodHint} role="status">{method.hint.split(/(?<=\.) /).map(part=><span key={part}>{part} </span>)}</p>
     <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>void generate()} disabled={busy}>
      <span className={s.createLabel}>만들기</span><span id={`${panelId}-remaining`} className={s.createQuota}>{remaining}장 보유</span>
     </Action>
