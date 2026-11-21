@@ -25,5 +25,7 @@ test('AI editor funnel steps: opened on each open, decided before adding, shared
  assert.match(ai,/useEffect\(\(\)=>\{if\(open\)onTrack\?\.\('ai_editor_opened'/);
  assert.match(ai,/onTrack\?\.\('photo_decided',\{mode:[^}]*\}\);onAdd\(picked/);
  assert.equal((ai.match(/onTrack\?\.\('ai_result_shared'/g)||[]).length,2,'native share and download, never on cancel/fail');
- assert.match(fs.readFileSync('lib/analytics/posthog.ts','utf8'),/'ai_editor_opened'.*'photo_decided'\|'ai_result_shared'/);
+ assert.match(fs.readFileSync('lib/analytics/posthog.ts','utf8'),/'ai_editor_opened'.*'photo_decided'\|'ai_result_share_clicked'\|'ai_result_shared'\|'costume_shop_clicked'/);
+ // 2026-11-21: the share button press and the Coupang link click are captured too (PostHog funnel).
+ assert.match(ai,/onTrack\?\.\('ai_result_share_clicked'/);assert.match(ai,/data-testid="costume-shop-link" onClick=\{\(\)=>onTrack\?\.\('costume_shop_clicked',\{mode:[^}]*kind:shopLink\.category\}\)\}/);
 });

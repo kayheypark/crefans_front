@@ -39,7 +39,7 @@ import {costumeShopLink,COSTUME_SHOP_NOTICE} from '@/lib/crefans/costume-shop-li
 const PUBLISH_OFFER_DELAY_MS=2000;
 // 2026-11-21 user decision: guests earn 0.5 credit for 30 hearts, at most 3 a day (server guest-policy).
 const GUEST_HEART_NOTE='하트 30개를 모으면 체험 이용권 0.5장을 드려요 (하루 최대 3장)';
-type Props={shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
+type Props={shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext,replaceSourceIds?:string[])=>void};
 
@@ -267,7 +267,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
     </div>}
     {stage==='results'&&!busy&&<><div className={s.resultShareArea}>
      {shareReward&&<span className={s.resultShareBubble}>공유하고 이용권 3장 받기</span>}
-     <button type="button" className={s.resultShareTrigger} disabled={!sharedResult} onClick={()=>{if(sharedResult)setShareItem(sharedResult);}}>
+     <button type="button" className={s.resultShareTrigger} disabled={!sharedResult} onClick={()=>{if(sharedResult){onTrack?.('ai_result_share_clicked',{mode:cosplayOpen?'cosplay':'general'});setShareItem(sharedResult);}}}>
       <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V3m-4 4 4-4 4 4M6 11H4v10h16V11h-2"/></svg>이 결과 공유하기
      </button>
     </div><div className={s.resultActions}><Action type="button" variant="secondary" disabled={!originalSource} onClick={()=>{if(originalSource)editResult(originalSource);}}>원본으로</Action><Action type="button" variant="secondary" onClick={()=>{const item=results.find(result=>selected.includes(result.id));if(item)editResult(item);}} disabled={selected.length!==1}>계속 보정</Action><Action type="button" onClick={add} disabled={!selected.length}>사진 결정</Action></div>
@@ -278,7 +278,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
         <span className={s.shopThumbBadge} data-testid="costume-shop-badge"><Image src="/brand/coupang-app-icon-v1.jpg" width={25} height={25} alt="" unoptimized/></span>
        </span>
        <div className={s.shopLinkCopy}><span className={s.shopLinkTag}>{shopLink.affiliate?'제휴 링크':'의상 검색'}</span><strong>{shopLink.name}</strong></div>
-       <a className={s.shopLinkAction} href={shopLink.url} target="_blank" rel={shopLink.affiliate?'sponsored noopener noreferrer':'noopener noreferrer'} data-testid="costume-shop-link" aria-label={`${shopLink.name} 쿠팡에서 ${shopLink.affiliate?'보기':'검색'}`} aria-describedby={shopLink.affiliate?`${panelId}-shop-notice`:undefined}>
+       <a className={s.shopLinkAction} href={shopLink.url} target="_blank" rel={shopLink.affiliate?'sponsored noopener noreferrer':'noopener noreferrer'} data-testid="costume-shop-link" onClick={()=>onTrack?.('costume_shop_clicked',{mode:cosplayOpen?'cosplay':'general',kind:shopLink.category})} aria-label={`${shopLink.name} 쿠팡에서 ${shopLink.affiliate?'보기':'검색'}`} aria-describedby={shopLink.affiliate?`${panelId}-shop-notice`:undefined}>
         쿠팡에서 {shopLink.affiliate?'보기':'검색'}<svg aria-hidden="true" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M13 4h7v7m0-7-9 9m7 0v7H4V6h7"/></svg>
        </a>
       </div>

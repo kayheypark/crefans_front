@@ -144,7 +144,7 @@ export function syncReplay(pathname:string){
  else if(client.sessionRecordingStarted())client.stopSessionRecording();
 }
 
-export type AnalyticsEvent='landing_view'|'guest_consent_view'|'guest_consent_agreed'|'ai_editor_opened'|'ai_generation_started'|'ai_generation_succeeded'|'ai_generation_failed'|'photo_decided'|'ai_result_shared'|'caption_written'|'post_published'|'signup_view'|'signup_completed';
+export type AnalyticsEvent='landing_view'|'guest_consent_view'|'guest_consent_agreed'|'ai_editor_opened'|'ai_generation_started'|'ai_generation_succeeded'|'ai_generation_failed'|'photo_decided'|'ai_result_share_clicked'|'ai_result_shared'|'costume_shop_clicked'|'caption_written'|'post_published'|'signup_view'|'signup_completed';
 export function aiProps(actor:'guest'|'member',input:{mode?:string;kind:string;presetKeys?:{kind:string}[]}):AnalyticsProps{return{actor,mode:input.mode||'general',kind:input.kind,preset_kinds:Array.from(new Set((input.presetKeys||[]).map(preset=>preset.kind))).sort()};}
 /** Non-personal properties only: actor type, mode and catalog/category keys, error codes. Never names, e-mail, ids or text. */
 export type AnalyticsProps={actor?:'guest'|'member';mode?:string;kind?:string;preset_kinds?:string[];error_code?:string};

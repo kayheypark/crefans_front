@@ -371,7 +371,7 @@ export function costumeShopLink(outfitPrompts:string[]){
   const affiliateUrl=COSTUME_SHOP_LINKS[costume.id];
   const category=isFranchiseCostume(costume)?aiPhotoCostumeCategories.find(item=>item.value===costume.category)?.label:undefined;
   const query=[category,costume.name,'코스프레 의상'].filter(Boolean).join(' ');
-  return{name:costume.name,image:costume.image,url:affiliateUrl||costumeSearchUrl(query),affiliate:!!affiliateUrl};
+  return{name:costume.name,category:costume.category,image:costume.image,url:affiliateUrl||costumeSearchUrl(query),affiliate:!!affiliateUrl};
  }
  return null;
 }
