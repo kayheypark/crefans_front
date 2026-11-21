@@ -38,7 +38,7 @@ export function AiPhotoReview({done,draft,onDraft,onSubmit}:{done?:string;draft:
    <p className={s.reviewFieldLabel}>한 줄 평가</p>
    <div className={s.reviewChoices} role="radiogroup" aria-label="한 줄 평가" aria-required="true">
     {sentiments.map(item=><button key={item.value} type="button" role="radio" aria-checked={sentiment===item.value} onClick={()=>setSentiment(item.value)}>
-     <Image src={`${reviewArt}/${item.value}.webp`} width={34} height={34} alt="" unoptimized/>
+     <Image src={`${reviewArt}/${item.value}-v2.webp`} width={34} height={34} alt="" unoptimized/>
      <span>{item.label}</span>
     </button>)}
    </div>
