@@ -5,7 +5,7 @@ test('완료 layer shows, swallows taps and closes itself after its time',async 
  t.mock.timers.enable({apis:['setTimeout']});let done=0,r;
  await act(async()=>{r=create(React.createElement(AiPhotoDone,{show:1,onDone:()=>done++}))});
  const layer=r.root.findByProps({'data-testid':'ai-photo-done'});
- assert.equal(layer.props.role,'status');assert.match(JSON.stringify(r.toJSON()),/사진이 완료됐어요/);
+ assert.equal(layer.props.role,'status');assert.match(JSON.stringify(r.toJSON()),/생성이 완료됐어요/);
  let stopped=0;const ev={preventDefault(){stopped++},stopPropagation(){stopped++}};layer.props.onPointerDown(ev);layer.props.onClick(ev);assert.equal(stopped,4,'taps never reach the result below');
  await act(async()=>t.mock.timers.tick(AI_PHOTO_DONE_MS-1));assert.equal(done,0);await act(async()=>t.mock.timers.tick(1));assert.equal(done,1);
  assert.ok(AI_PHOTO_TAP_LOCK_MS>AI_PHOTO_DONE_MS,'taps stay locked a little after the layer');
