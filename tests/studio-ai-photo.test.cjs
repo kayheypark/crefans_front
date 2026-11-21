@@ -36,12 +36,16 @@ test('mock edit: one AI image per request, counts down and stops at the limit',a
  assert.equal((await mockAiPhotoEdit({delay:0,mode:'blocked'})(input)).errorCode,'UNSAFE_INPUT');
 });
 
+// 2026-11-21: 만들기 opens "이 사진으로 만들까요?"; confirm it.
+async function confirmSource(r){const ok=r.root.findAll(n=>n.type==='button'&&text(n)==='이 사진으로 만들기');if(ok.length)await act(async()=>ok[0].props.onClick());}
 const BODY_SKIP=loadTypeScript('lib/crefans/ai-photo.ts').AI_PHOTO_BODY_OPEN?{}:{skip:'신체 보정 탭 미노출(2026-11-20 사용자 결정)'};
 async function open(props={},initialMode=false){
  let r,added=[],calls=[];
  const onEdit=async input=>{calls.push(input);return {success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null};};
  await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit,onAdd:x=>added.push(...x),...props}));});
- const click=async name=>act(async()=>{r.root.find(n=>n.type==='button'&&(text(n).includes(name)||String(n.props['aria-label']||'').includes(name))).props.onClick();});
+ const press=async name=>act(async()=>{r.root.find(n=>n.type==='button'&&(text(n).includes(name)||String(n.props['aria-label']||'').includes(name))).props.onClick();});
+ // 2026-11-21: 만들기 asks "이 사진으로 만들까요?" first; existing tests accept it.
+ const click=async name=>{await press(name);if(name==='만들기'){const ok=r.root.findAll(n=>n.type==='button'&&text(n)==='이 사진으로 만들기');if(ok.length)await act(async()=>ok[0].props.onClick());}};
  if(props.images?.length!==0)await click('여성');
  if(!initialMode&&props.images?.length!==0){await click('일반 모드');await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());}
  return {r,added,calls,click};
@@ -49,6 +53,22 @@ async function open(props={},initialMode=false){
 
 test('dialog: without an uploaded photo it asks for one first',async()=>{
  const {r}=await open({images:[]});assert.match(text(r.toJSON()),/바꿀 사진을 먼저 올려 주세요/);assert.match(text(r.toJSON()),/사진 올리러 가기/);
+});
+
+test('2026-11-21: 만들기 confirms the photo; 대상 변경 picks another photo or offers to upload one',async()=>{
+ const second={...photo,id:'p2',url:'/p2.png'};
+ const {r,calls}=await open({images:[photo,second]});
+ const press=async label=>act(async()=>r.root.find(n=>n.type==='button'&&(text(n)===label||n.props['aria-label']===label)).props.onClick());
+ await press('만들기');assert.equal(calls.length,0,'nothing is sent before confirming');assert.equal(r.root.findAllByProps({'aria-label':'이 사진으로 만들까요?'}).length>0,true);
+ assert.equal(r.root.findByProps({alt:'AI로 바꿀 사진'}).props.src,photo.url);
+ await press('대상 변경');assert.equal(r.root.findAllByProps({'aria-label':'바꿀 사진을 골라 주세요'}).length>0,true);
+ await press('2번 사진');assert.equal(r.root.findByProps({alt:'AI로 바꿀 사진'}).props.src,'/p2.png');
+ await press('이 사진으로 만들기');assert.equal(calls.length,1);assert.equal(calls[0].source.id,'p2');
+ let closed=0;const one=await open({onClose(){closed++;}});
+ await act(async()=>one.r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick());
+ await act(async()=>one.r.root.find(n=>n.type==='button'&&text(n)==='대상 변경').props.onClick());
+ assert.equal(one.r.root.findAllByProps({'aria-label':'다른 사진으로 바꿀까요?'}).length>0,true);assert.equal(one.calls.length,0);
+ await act(async()=>one.r.root.find(n=>n.type==='button'&&text(n)==='사진 올리러 가기').props.onClick());assert.equal(closed,1);
 });
 
 test('dialog: no consent checkbox; explicit create confirms rights and sends one image request',async()=>{
@@ -99,7 +119,7 @@ test('progress: the waiting game retains real elapsed and usual time without a f
   await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='포즈').props.onClick());
   await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'벚꽃 아래 앉은 포즈'}});});
 
-  await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('만들기')).props.onClick();});
+  await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('만들기')).props.onClick();});await confirmSource(r);
   assert.equal(r.root.findAll(n=>n.type==='button'&&text(n).includes('만들기')).length,0);assert.equal(r.root.findAll(n=>n.type==='button'&&String(n.props['aria-label']).match(/^하트 [1-5] 모으기$/)).length,3);
   const all=text(r.toJSON());assert.match(all,expect);assert.match(all,/0초 지남/);assert.match(all,/잠시만 화면을 유지/);assert.doesNotMatch(all,/%/);
   await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
@@ -614,7 +634,7 @@ test('body continuous range keeps intermediate values, snaps near anchors and ke
 });
 
  test('entry requires an explicit gender before showing edit controls and sends the choice',async()=>{
- for(const [label,value] of [['남성','male'],['여성','female']]){let r,request;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit:async input=>{request=input;return {success:false,errorMessage:'대역 실패'};},onAdd(){}}));});assert.match(text(r.toJSON()),/남성인가요, 여성인가요/);assert.equal(r.root.findAllByType('textarea').length,0);assert.equal(r.root.findAll(n=>n.props['aria-label']==='만들기').length,0);await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes(label)).props.onClick());assert.equal(r.root.findAllByType('textarea').length,1);const group=r.root.findByProps({'aria-label':'생성 인물 성별'});assert.equal(group.find(n=>n.type==='button'&&text(n)===label).props['aria-pressed'],true);await act(async()=>r.root.findByProps({'aria-label':'만들기'}).props.onClick());assert.equal(request.targetGender,value);await act(async()=>r.unmount());}
+ for(const [label,value] of [['남성','male'],['여성','female']]){let r,request;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:10,limit:10},room:9,onEdit:async input=>{request=input;return {success:false,errorMessage:'대역 실패'};},onAdd(){}}));});assert.match(text(r.toJSON()),/남성인가요, 여성인가요/);assert.equal(r.root.findAllByType('textarea').length,0);assert.equal(r.root.findAll(n=>n.props['aria-label']==='만들기').length,0);await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes(label)).props.onClick());assert.equal(r.root.findAllByType('textarea').length,1);const group=r.root.findByProps({'aria-label':'생성 인물 성별'});assert.equal(group.find(n=>n.type==='button'&&text(n)===label).props['aria-pressed'],true);await act(async()=>r.root.findByProps({'aria-label':'만들기'}).props.onClick());await confirmSource(r);assert.equal(request.targetGender,value);await act(async()=>r.unmount());}
  });
 
 test('zero available uses opens the shop without generating or discarding the prompt',async()=>{let refresh=0;const shop={products:[],orders:[],loading:false,error:'',refresh:async()=>{refresh++;},purchase:async()=>{},refund:async()=>{}};const {r,click,calls}=await open({quota:{remaining:0,limit:10},shop});await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'보존할 편집 내용'}}));await click('만들기');assert.equal(calls.length,0);
@@ -843,7 +863,7 @@ test('guest without a server game keeps the local practice game and never claims
 test('with no credits left guests and members see the morning refill notice with a calendar link; guests also get signup',async()=>{
  const make=async noHearts=>{let r,calls=0;await act(async()=>{r=create(el(AiPhotoDialog,{open:true,onClose(){},images:[photo],quota:{remaining:0,limit:10},room:9,noHearts,onEdit:async()=>{calls++;return {success:false};},onAdd(){}}));});
   await act(async()=>r.root.find(n=>n.type==='button'&&text(n).includes('여성')).props.onClick());
-  await act(async()=>{await r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});return {r,calls:()=>calls};};
+  await act(async()=>{await r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});await confirmSource(r);return {r,calls:()=>calls};};
  const notice=r=>r.root.findAll(n=>n.props.role==='dialog'&&n.props['aria-label']==='매일 이용권 횟수는 초기화돼요');
  const guest=await make(true);assert.equal(notice(guest.r).length,1);assert.match(text(guest.r.toJSON()),/오전에 또 만나요/);assert.match(text(guest.r.toJSON()),/매일 오전 9시\(한국 시간\)에 다시 채워져요/);assert.equal(guest.calls(),0);
  assert.equal(guest.r.root.findAll(n=>n.props?.href==='/service/signup').length>=1,true,'signup link');assert.equal(guest.r.root.findAll(n=>n.props?.href==='/calendar/ai-photo-reset.ics').length,1);
@@ -1035,7 +1055,7 @@ test('waiting banner: guests see 매일 10장 while the photo is made, with noth
   let finish;const pending=new Promise(r=>{finish=r;});
   const {r,click}=await open({noHearts:guest,onEdit:()=>pending});
   await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
-  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});
+  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});await confirmSource(r);
   const banners=r.root.findAll(n=>n.type==='aside'&&n.props['aria-label']==='회원 혜택');
   assert.equal(banners.length,guest?1:0);
   if(guest){assert.match(text(banners[0]),/매일 10장/);assert.match(text(banners[0]),/하루 3장/);assert.equal(banners[0].findAll(n=>n.type==='a'||n.type==='button').length,0);}
@@ -1071,7 +1091,7 @@ test('review: eligible → no heart game, review gates the result in either comp
   const onReview={status:async()=>({success:true,data:eligible?{eligible:true,rewardHearts:20}:{eligible:false}}),submit:async input=>{if(++attempts===1&&order==='image-first')return {success:false,errorMessage:'리뷰 저장 실패'};sent=input;return {success:true,data:{id:'r1',hearts:20,tickets:0,capped:false,wallet:{hearts:25,credits:0}}};}};
   const {r}=await open({onEdit:()=>pending,onHeartGame,onReview});
   await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
-  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});
+  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});await confirmSource(r);
   const card=()=>r.root.findAll(n=>n.type==='section'&&n.props['aria-label']==='AI 사진 리뷰');
   const game=()=>r.root.findAll(n=>n.props?.['aria-label']==='기다리는 동안 하트 모으기');
   if(!eligible){assert.equal(games,1);assert.equal(card().length,0);assert.equal(game().length,1);await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});continue;}

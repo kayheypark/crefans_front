@@ -140,7 +140,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,onReview,open,onClose,
  function collectHeart(delta:number){heartScoreRef.current=Math.max(0,Math.min(30,heartScoreRef.current+delta));setHeartScore(heartScoreRef.current);}
  const editorKinds=AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body');
  const [shopLink,setShopLink]=useState<ReturnType<typeof costumeShopLink>>(null);
- const [stage,setStage]=useState<'edit'|'results'>('edit'),[closeAsk,setCloseAsk]=useState(false),[review,setReview]=useState<null|{done?:string}>(null),[reviewDraft,setReviewDraft]=useState<AiReviewDraft>(emptyReviewDraft),[resumed,setResumed]=useState(false),[signupNudge,setSignupNudge]=useState(false),[sourcePicker,setSourcePicker]=useState(false);
+ const [stage,setStage]=useState<'edit'|'results'>('edit'),[closeAsk,setCloseAsk]=useState(false),[review,setReview]=useState<null|{done?:string}>(null),[reviewDraft,setReviewDraft]=useState<AiReviewDraft>(emptyReviewDraft),[resumed,setResumed]=useState(false),[signupNudge,setSignupNudge]=useState(false),[sourcePicker,setSourcePicker]=useState(false),[sourceConfirm,setSourceConfirm]=useState<null|'ask'|'pick'>(null),[changeUpload,setChangeUpload]=useState(false);
  // Keep the same waiting subtree until the review is saved, even if the image arrives first.
  const waiting=busy||(stage==='results'&&!!review&&!review.done);
  useEffect(()=>{
@@ -313,7 +313,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,onReview,open,onClose,
      </label>)}
     </div>
     <p className={s.methodHint} role="status">{method.hint.split(/(?<=\.) /).map(part=><span key={part}>{part} </span>)}</p>
-    <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>void generate()} disabled={busy}>
+    <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>{if(!source){void generate();return;}setSourceConfirm('ask');}} disabled={busy}>
      <span className={s.createLabel}>만들기</span><span id={`${panelId}-remaining`} className={s.createQuota}>{remaining}장 보유</span>
     </Action>
     {shortage>0&&<p id={`${panelId}-shortage`} role="status" className={s.methodShortage}>이용권이 {shortage}개 더 필요해요.</p>}
@@ -358,6 +358,21 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,onReview,open,onClose,
  {/* 2026-11-21 user request: closing with made photos says they stay (until the page is left) so nobody closes by mistake or thinks they are gone. */}
  <Dialog open={open&&closeAsk} onClose={()=>setCloseAsk(false)} title="AI 사진 편집을 닫을까요?" persistent>
   <div className={s.errorMessage}><p>닫아도 괜찮아요. 만든 사진은 그대로 있어요.<br/>다시 <strong>「AI 사진 편집」</strong> 버튼을 누르면 이전 작업 내용을 바로 확인할 수 있어요.<br/><small>이 페이지를 나가거나 새로고침하면 사라져요.</small></p><div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>setCloseAsk(false)}>계속 보기</Action><Action type="button" onClick={()=>{setCloseAsk(false);setResumed(true);onClose();}}>닫기</Action></div></div>
+ </Dialog>
+ {/* 2026-11-21 user request: 만들기 first asks whether this is the right photo; 대상 변경 picks another one (or closes the editor to upload one). */}
+ <Dialog open={open&&!!sourceConfirm&&!!source} onClose={()=>setSourceConfirm(null)} title={sourceConfirm==='pick'?'바꿀 사진을 골라 주세요':'이 사진으로 만들까요?'}>
+  {source&&<div className={s.sourceConfirm}>{sourceConfirm==='pick'?<div className={s.sourceConfirmPick} role="radiogroup" aria-label="편집할 이미지 고르기">{sources.map((item,index)=><button key={item.id} type="button" role="radio" aria-checked={item.id===sourceId} aria-label={`${index+1}번 사진`} className={s.source} onClick={()=>{changeSource(item.id);setSourceConfirm('ask');}}>
+    {/* eslint-disable-next-line @next/next/no-img-element -- uploaded draft thumbnail */}
+    <img src={item.preview||item.url} alt=""/>{item.aiGenerated&&<span className={s.ai}>AI</span>}</button>)}</div>:<>
+   {/* eslint-disable-next-line @next/next/no-img-element -- creator's own uploaded photo */}
+   <img className={s.sourceConfirmImage} src={source.url} alt="AI로 바꿀 사진"/>
+   <p>이 사진을 AI로 바꿔요. 다른 사진이라면 대상 변경을 눌러 주세요.</p></>}
+   <div className={s.errorActions}>{sourceConfirm==='pick'?<Action type="button" variant="secondary" onClick={()=>setSourceConfirm('ask')}>돌아가기</Action>:<><Action type="button" variant="secondary" onClick={()=>{if(sources.length>1){setSourceConfirm('pick');return;}setSourceConfirm(null);setChangeUpload(true);}}>대상 변경</Action><Action type="button" onClick={()=>{setSourceConfirm(null);void generate();}}>이 사진으로 만들기</Action></>}</div>
+  </div>}
+ </Dialog>
+ {/* Only one photo: another one is uploaded on the post form, so the editor closes (its choices stay for the next open). */}
+ <Dialog open={open&&changeUpload} onClose={()=>setChangeUpload(false)} title="다른 사진으로 바꿀까요?">
+  <div className={s.errorMessage}><p>편집 창을 닫고 게시물의 <strong>파일 업로드</strong>에서 사진을 올려 주세요.<br/>다시 <strong>「AI 사진 편집」</strong>을 누르면 고른 옷·포즈는 그대로 있어요.</p><div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>setChangeUpload(false)}>취소</Action><Action type="button" onClick={()=>{setChangeUpload(false);onClose();}}>사진 올리러 가기</Action></div></div>
  </Dialog>
  <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);setSignupOffer(false);}} title="AI 사진 편집 안내" persistent>
   <div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href={signupLink}>회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>

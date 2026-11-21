@@ -430,3 +430,9 @@
 .reviewSubmit:disabled{background:#f3eaf1;color:#766471;cursor:default}
 .reviewDone{margin:0;font-size:14px;font-weight:600;text-align:center}.reviewDone span{color:var(--cf-color-accent)}
 .review :focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
+/* 2026-11-21: 만들기 confirms the photo to change. */
+.sourceConfirm{padding:0 24px 24px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
+.sourceConfirm p{margin:0;font-size:14px;line-height:1.5;color:var(--cf-color-text);word-break:keep-all}
+.sourceConfirmImage{display:block;max-width:100%;max-height:min(46vh,360px);border-radius:14px;object-fit:contain;background:var(--cf-color-surfaceSubtle)}
+.sourceConfirmPick{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:2px}
+.sourceConfirm .errorActions{width:100%}
