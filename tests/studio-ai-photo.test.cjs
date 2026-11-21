@@ -1067,11 +1067,12 @@ test('close with results: asks, says photos stay, reopening shows the resume not
 });
 
 // 2026-11-21 user request: after a first success the waiting game becomes a review (1–5 whole stars, 3 choices, optional words).
-test('review: eligible → no heart game, review while waiting and on the result until sent; not eligible → heart game',async()=>{
- for(const eligible of [true,false]){
-  let finish,games=0,sent=null;const pending=new Promise(r=>{finish=r;});
+test('review: eligible → no heart game, review gates the result in either completion order; not eligible → heart game',async()=>{
+ for(const order of ['image-first','review-first','generation-failed','ineligible']){
+  const eligible=order!=='ineligible';
+  let finish,games=0,sent=null,attempts=0;const pending=new Promise(r=>{finish=r;});
   const onHeartGame=async input=>{if(input.action==='start'){games++;return {success:true,data:{id:'g1',kinds:['heart','heart','heart','heart','heart']}};}return {success:true,data:{hearts:5,earned:0}};};
-  const onReview={status:async()=>({success:true,data:eligible?{eligible:true,rewardHearts:20}:{eligible:false}}),submit:async input=>{sent=input;return {success:true,data:{id:'r1',hearts:20,tickets:0,capped:false,wallet:{hearts:25,credits:0}}};}};
+  const onReview={status:async()=>({success:true,data:eligible?{eligible:true,rewardHearts:20}:{eligible:false}}),submit:async input=>{if(++attempts===1&&order==='image-first')return {success:false,errorMessage:'리뷰 저장 실패'};sent=input;return {success:true,data:{id:'r1',hearts:20,tickets:0,capped:false,wallet:{hearts:25,credits:0}}};}};
   const {r}=await open({onEdit:()=>pending,onHeartGame,onReview});
   await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
   await act(async()=>{r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});
@@ -1079,6 +1080,12 @@ test('review: eligible → no heart game, review while waiting and on the result
   const game=()=>r.root.findAll(n=>n.props?.['aria-label']==='기다리는 동안 하트 모으기');
   if(!eligible){assert.equal(games,1);assert.equal(card().length,0);assert.equal(game().length,1);await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});continue;}
   assert.equal(games,0,'no heart game');assert.equal(game().length,0);assert.equal(card().length,1);
+  if(order==='generation-failed'){
+   await act(async()=>{finish({success:false,data:null,errorCode:'UPSTREAM',errorMessage:'사진 생성 실패'});});
+   assert.equal(card().length,0,'generation failure releases the review screen');
+   assert.equal(r.root.findAll(n=>n.props?.role==='alert'&&text(n)==='사진 생성 실패').length,1);
+   continue;
+  }
   assert.doesNotMatch(text(card()[0]),/하트 20개|체험 이용권/);
   const radios=()=>card()[0].findAll(n=>n.type==='button'&&n.props.role==='radio');
   assert.equal(radios().some(n=>n.props['aria-checked']),false);
@@ -1089,10 +1096,32 @@ test('review: eligible → no heart game, review while waiting and on the result
   await act(async()=>card()[0].find(n=>n.type==='button'&&text(n)==='별로예요').props.onClick());
   assert.equal(send().props.disabled,false,'rating and choice can submit');
   await act(async()=>card()[0].find(n=>n.type==='textarea').props.onChange({target:{value:'  얼굴이 조금 달라요 '}}));
-  await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
-  assert.equal(card().length,1,'unsent review stays on the result screen');
-  assert.equal(card()[0].findAll(n=>n.props?.['data-on']).length,4,'stars kept across screens');
-  await act(async()=>send().props.onClick());
+  const finishImage=()=>act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
+  const result=()=>r.root.findAllByProps({'aria-label':'결과 1'});
+  const doneLayer=()=>r.root.findAllByProps({'data-testid':'ai-photo-done'});
+  if(order==='image-first'){
+   const memo=card()[0].findByType('textarea');
+   await finishImage();
+   assert.equal(result().length,0,'image stays hidden');
+   assert.equal(doneLayer().length,0,'completion layer waits for review');
+   assert.equal(r.root.findAll(n=>n.type==='h3'&&text(n)==='리뷰를 마저 작성해 주세요').length,1);
+   assert.equal(card()[0].findByType('textarea'),memo,'review field stays mounted');
+   assert.equal(memo.props.value,'  얼굴이 조금 달라요 ');
+   assert.equal(card()[0].findAll(n=>n.props?.['data-on']).length,4);
+   await act(async()=>send().props.onClick());
+   assert.equal(sent,null);
+   assert.match(text(card()[0]),/리뷰 저장 실패/);
+   assert.equal(result().length,0,'failed review keeps the result hidden');
+   await act(async()=>send().props.onClick());
+  }else{
+   await act(async()=>send().props.onClick());
+   assert.equal(r.root.findAll(n=>n.type==='h3'&&text(n)==='사진을 만들고 있어요').length,1);
+   assert.equal(result().length,0,'successful review keeps waiting for the image');
+   assert.equal(doneLayer().length,0);
+   await finishImage();
+  }
+  assert.equal(result().length,1,'result appears after image and review are ready');
+  assert.equal(doneLayer().length,1,'completion layer appears with the result');
   assert.deepEqual(sent,{rating:4,sentiment:'bad',comment:'얼굴이 조금 달라요'});
   assert.match(text(card()[0]),/고마워요! 하트 20개를 받았어요/);assert.equal(card()[0].findAll(n=>n.type==='button').length,0,'sent: no form any more');
   assert.ok(r.root.findAll(n=>n.props?.['aria-label']==='누적 하트 25개 / 100개').length===1,'heart balance updated from the review');
