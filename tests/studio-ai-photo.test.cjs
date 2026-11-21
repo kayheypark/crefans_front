@@ -1032,3 +1032,18 @@ test('signup nudge: guests see the strip and modal with a signup link; members d
  await act(async()=>modal.find(n=>n.type==='button'&&text(n)==='나중에').props.onClick());
  assert.equal(guest.r.root.findAll(n=>n.props?.['aria-label']==='회원가입하면 매일 10장').length,0);
 });
+
+// 2026-11-21 user request: the ~30 s waiting screen shows the member benefit to signed-out visitors; it has no link or button.
+test('waiting banner: guests see 매일 10장 while the photo is made, with nothing to tap; members do not',async()=>{
+ for(const guest of [true,false]){
+  let finish;const pending=new Promise(r=>{finish=r;});
+  const {r,click}=await open({noHearts:guest,onEdit:()=>pending});
+  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});
+  const banners=r.root.findAll(n=>n.type==='aside'&&n.props['aria-label']==='회원 혜택');
+  assert.equal(banners.length,guest?1:0);
+  if(guest){assert.match(text(banners[0]),/매일 10장/);assert.match(text(banners[0]),/하루 3장/);assert.equal(banners[0].findAll(n=>n.type==='a'||n.type==='button').length,0);}
+  await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
+  assert.equal(r.root.findAll(n=>n.type==='aside'&&n.props['aria-label']==='회원 혜택').length,0,'gone once the result is shown');
+ }
+});

@@ -277,7 +277,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
     </div>:<div className={s.results}>
      <div className={busy?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{!busy&&<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m12 1 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/></svg>}{busy?'사진을 만들고 있어요':'사진이 완성됐어요'}</h3>{!busy&&<button ref={editRef} type="button" className={s.editSettings} onClick={()=>{setStage('edit');setError('');}}>설정 수정</button>}</div>
      <AiPhotoDone show={doneLayer} onDone={()=>setDoneLayer(0)}/>
-    {busy?<AiPhotoWaiting elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined}/>:
+    {busy?<AiPhotoWaiting elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined} banner={noHearts?<SignupWaitBanner/>:undefined}/>:
       <><div className={s.grid}>{results.map((item,index)=><div key={item.id} className={s.resultItem}><div className={s.resultFrame}><button type="button" className={s.result} aria-pressed={selected.includes(item.id)} aria-label={`결과 ${index+1}`} onClick={()=>toggle(item.id)}>
        {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image */}
        <img src={item.url} alt=""/><span className={s.ai}>{/* eslint-disable-next-line @next/next/no-img-element -- existing decorative brand icon */}<img src="/brand/featured-creators-v1.png" alt="" aria-hidden="true" width={14} height={14} style={{width:14,height:14,flexShrink:0}}/>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>
@@ -387,4 +387,13 @@ function AiResultViewer({items,index,selected,onIndex,onToggle,onClose,onShare,o
   </div>
   {onToggle&&<div className={s.viewerActions}><Action type="button" variant={picked?'secondary':'primary'} aria-pressed={picked} onClick={()=>onToggle(item.id)}>{picked?'선택됨 ✓':'이 사진 선택'}</Action></div>}
  </div>;
+}
+
+/** 2026-11-21 user request: signed-out visitors read the member benefit during the ~30 s wait. Not tappable: leaving now would lose the photo being made, and fingers are busy with the heart game. */
+function SignupWaitBanner(){
+ return <aside className={s.signupWait} aria-label="회원 혜택">
+  <Image src="/illustrations/try/guest-ticket-v1.webp" alt="" width={56} height={56}/>
+  <div><p className={s.signupWaitTitle}>회원은 <strong>매일 10장</strong> 무료</p><p className={s.signupWaitText}>비회원은 기본 하루 3장이에요.<br/>사진이 완성되면 가입해 보세요.</p></div>
+  <span className={s.signupWaitChip}>매일 오전 9시 충전</span>
+ </aside>;
 }
