@@ -34,6 +34,7 @@ import {AiPhotoCategoryIcon} from './AiPhotoCategoryIcon';
 import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
+import {AiPhotoDone,AI_PHOTO_TAP_LOCK_MS} from './AiPhotoDone';
 import {costumeShopLink,COSTUME_SHOP_NOTICE} from '@/lib/crefans/costume-shop-links';
 
 const PUBLISH_OFFER_DELAY_MS=2000;
@@ -138,6 +139,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
  function recordHeart(piece:number){if(!heartGame||!onHeartGame)return;const id=heartGame.id,eventId=String(++gameEvent.current);heartQueue.current=heartQueue.current.then(async()=>{await onHeartGame({action:'click',id,piece,eventId});}).catch(()=>{});}
  const [heartScore,setHeartScore]=useState(0),[resultHearts,setResultHearts]=useState(0);
  const heartScoreRef=useRef(0);
+ const [doneLayer,setDoneLayer]=useState(0),tapLockUntil=useRef(0);
  function collectHeart(delta:number){heartScoreRef.current=Math.max(0,Math.min(30,heartScoreRef.current+delta));setHeartScore(heartScoreRef.current);}
  const editorKinds=AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body');
  const [shopLink,setShopLink]=useState<ReturnType<typeof costumeShopLink>>(null);
@@ -188,6 +190,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
   // 2026-11-21: signed-out visitors also play the server-verified game (30 hearts → 0.5 credit, 3 a day).
   if(onHeartGame){setBusy(true);try{const r=await onHeartGame({action:'start'});if(!r.success||!r.data.id||!r.data.kinds){setError(r.errorMessage||'하트 게임을 시작하지 못했어요.');return;}game={id:r.data.id,kinds:r.data.kinds};setHeartGame(game);heartQueue.current=Promise.resolve();gameEvent.current=0;}catch{setError('하트 게임을 시작하지 못했어요.');return;}finally{setBusy(false);}}
   setRewardNote('');heartScoreRef.current=0;setHeartScore(0);setBusy(true);setError('');setStage('results');
+  let madeOk=false;
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
@@ -196,11 +199,13 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
    if(!result.success){if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else if((result.errorCode==='DAILY_LIMIT'||result.errorCode==='GUEST_AI_LIMIT')&&tickets<=0){refillShown.current=true;setRefillNotice(true);}else if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{{if(noHearts&&result.errorCode==='GUEST_AI_LIMIT')setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));for(const item of made)sourceOrigins.current.set(item.id,sourceOrigins.current.get(source.id)||source.id);
    setShopLink(costumeShopLink(selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)));
-   setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
+   if(made.length)madeOk=true;setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
   }catch{setError('사진을 만들지 못했어요. 잠시 후 다시 시도해 주세요.');setStage(results.length?'results':'edit');}
-  finally{if(game&&onHeartGame){await heartQueue.current;try{const reward=await onHeartGame({action:'finish',id:game.id});if(reward.success){setResultHearts(reward.data.earned||0);setHeartBalance(reward.data.hearts||0);if(reward.data.remaining!==undefined)setRemaining(reward.data.remaining);if(reward.data.ticket!==undefined){setRewardNote(reward.data.ticket>0?`하트 30개! 체험 이용권 ${reward.data.ticket}장을 받았어요`:reward.data.capped?'오늘 받을 수 있는 하트 보상(3장)을 모두 받았어요':'');}else if(reward.data.converted){setRewardNote(`하트 ${reward.data.converted*10}개를 이용권 ${reward.data.converted}개로 바꿨어요`);}}else setRewardNote('하트 적립 확인이 지연되고 있어요.');}catch{setRewardNote('하트 적립 확인이 지연되고 있어요.');}setHeartGame(null);}setBusy(false);}
+  finally{if(game&&onHeartGame){await heartQueue.current;try{const reward=await onHeartGame({action:'finish',id:game.id});if(reward.success){setResultHearts(reward.data.earned||0);setHeartBalance(reward.data.hearts||0);if(reward.data.remaining!==undefined)setRemaining(reward.data.remaining);if(reward.data.ticket!==undefined){setRewardNote(reward.data.ticket>0?`하트 30개! 체험 이용권 ${reward.data.ticket}장을 받았어요`:reward.data.capped?'오늘 받을 수 있는 하트 보상(3장)을 모두 받았어요':'');}else if(reward.data.converted){setRewardNote(`하트 ${reward.data.converted*10}개를 이용권 ${reward.data.converted}개로 바꿨어요`);}}else setRewardNote('하트 적립 확인이 지연되고 있어요.');}catch{setRewardNote('하트 적립 확인이 지연되고 있어요.');}setHeartGame(null);}if(madeOk){tapLockUntil.current=Date.now()+AI_PHOTO_TAP_LOCK_MS;setDoneLayer(Date.now());}setBusy(false);}
  }
- function toggle(id:string){setSelected(previous=>previous.includes(id)?previous.filter(item=>item!==id):[...previous,id]);setError('');}
+ // 2026-11-21 user report: taps that kept going from the heart game landed on the result and unselected it, so 사진 결정 was
+ // disabled. Taps are ignored while the 완료 layer is up and briefly after, and a single result can't be unselected.
+ function toggle(id:string){if(Date.now()<tapLockUntil.current)return;setSelected(previous=>previous.includes(id)?(results.length===1?previous:previous.filter(item=>item!==id)):[...previous,id]);setError('');}
  function add(){
   const picked=results.filter(item=>selected.includes(item.id));
   if(!picked.length){setError('게시물에 넣을 사진을 골라 주세요.');return;}
@@ -271,7 +276,8 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
      <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>나체·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
     </div>:<div className={s.results}>
      <div className={busy?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{!busy&&<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m12 1 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/></svg>}{busy?'사진을 만들고 있어요':'사진이 완성됐어요'}</h3>{!busy&&<button ref={editRef} type="button" className={s.editSettings} onClick={()=>{setStage('edit');setError('');}}>설정 수정</button>}</div>
-     {busy?<AiPhotoWaiting elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined}/>:
+     <AiPhotoDone show={doneLayer} onDone={()=>setDoneLayer(0)}/>
+    {busy?<AiPhotoWaiting elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined}/>:
       <><div className={s.grid}>{results.map((item,index)=><div key={item.id} className={s.resultItem}><div className={s.resultFrame}><button type="button" className={s.result} aria-pressed={selected.includes(item.id)} aria-label={`결과 ${index+1}`} onClick={()=>toggle(item.id)}>
        {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image */}
        <img src={item.url} alt=""/><span className={s.ai}>{/* eslint-disable-next-line @next/next/no-img-element -- existing decorative brand icon */}<img src="/brand/featured-creators-v1.png" alt="" aria-hidden="true" width={14} height={14} style={{width:14,height:14,flexShrink:0}}/>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>
