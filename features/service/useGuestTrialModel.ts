@@ -7,7 +7,7 @@ import {aiPhotoEditBody} from './useStudioModel';
 import {aiProps,captureEvent,replaySessionId,setReplayInlineImages,setReplayUnmasked} from '@/lib/analytics/posthog';
 import {reportShare} from '@/lib/api/share-report';
 import type {AiPhotoFunnelStep} from '@/types/crefans-studio-management';
-import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,StudioMedia} from '@/types/crefans-studio-management';
+import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiReviewInput,AiReviewResult,AiReviewStatus,StudioMedia} from '@/types/crefans-studio-management';
 
 // Signed-out AI photo trial (2026-11-15). The server identifies the visitor by an httpOnly cookie set after consent
 // (POST /guest/session); this model never sees the token. Limits and the 24-hour public window are enforced by the server.
@@ -48,5 +48,7 @@ export function useGuestTrialModel(enabled:boolean){
  const shareDone=async(mediaId:string)=>{const r=await api<{granted:boolean}>('/guest/ai-photo/share-done',{mediaId});if(r.success)await refresh();return r.success&&r.data.granted;};
  // 2026-11-21: the server-verified waiting game for visitors (30 hearts → 0.5 credit, 3 a day per browser and network).
  const heartGame=(input:AiHeartInput)=>api<AiHeartResult>('/guest/ai-photo/hearts',input);
- return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track,shareDone,heartGame};
+ // 2026-11-21: review instead of the game once a day after a first success (0.5 credit, same daily limit as the game).
+ const review={status:()=>api<AiReviewStatus>('/guest/ai-photo/review'),submit:async(input:AiReviewInput)=>{const r=await api<AiReviewResult>('/guest/ai-photo/review',input);if(r.success)await refresh();return r;}};
+ return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track,shareDone,heartGame,review};
 }

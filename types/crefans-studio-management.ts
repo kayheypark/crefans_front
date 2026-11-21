@@ -1,3 +1,8 @@
+/** 2026-11-21: review instead of the heart game on a repeat generation. */
+export type AiReviewInput={rating:number;sentiment:'good'|'bad'|'unsure';comment?:string};
+export type AiReviewStatus={eligible:boolean;rewardHearts?:number;rewardTickets?:number};
+export type AiReviewResult={id:string;hearts:number;tickets:number;capped:boolean;wallet?:{hearts:number;credits:number}};
+export type AiReviewModel={status:()=>Promise<ApiResult<AiReviewStatus>>;submit:(input:AiReviewInput)=>Promise<ApiResult<AiReviewResult>>};
 export type AiHeartInput={action:'start'|'click'|'finish';id?:string;piece?:number;eventId?:string};
 export type AiHeartResult={remaining?:number;id?:string;kinds?:('heart'|'candy'|'moon')[];score?:number;hearts?:number;credits?:number;earned?:number;converted?:number;/** 2026-11-21 guest: credit paid for this game (0 or 0.5) and whether today's cap stopped it. */ticket?:number;capped?:boolean};
 import type {ShopModel} from './crefans-shop';
@@ -58,6 +63,7 @@ export type StudioManagementModel={
     setMembershipActive:(id:string,active:boolean)=>Promise<ApiResult<{message:string}>>;
     /** AI photo edit (outfit, pose, background). Absent until the server feature is connected: the editor button is hidden. */
     aiHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;
+    aiReview?:AiReviewModel;
     aiCropPhoto?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;
     aiEditPhoto?:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;
     refreshAiPhotoQuota?:()=>Promise<void>;

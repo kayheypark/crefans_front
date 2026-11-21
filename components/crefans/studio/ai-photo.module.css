@@ -409,3 +409,19 @@
 @media(max-width:767px){.waitingHeading{padding-top:4px}.waitingHeading h3{font-size:20px}.waiting{gap:10px;padding-bottom:12px}.waitingDots{padding:2px 0 4px}.heartGame{padding:12px 10px}.heartPlayfield{height:200px;margin-top:4px}.heartMascot{width:46%}}
 /* 2026-11-21 user request: reopening the editor says the earlier results are still here. */
 .resumeNote{margin:0;padding:10px 12px;border-radius:12px;background:var(--cf-color-accentSoft);color:var(--cf-color-text);font-size:13px;line-height:1.45;text-align:center;word-break:keep-all}
+/* 2026-11-21 user request: review card instead of the heart game on a repeat generation (same card language as the game). */
+.review{width:100%;padding:16px 14px;border-radius:20px;background:linear-gradient(145deg,#f0e9ff,#f9f7ff);color:#272438;display:flex;flex-direction:column;gap:10px}
+.reviewHeading h4{margin:0;font-size:15px;font-weight:700;line-height:1.4}
+.reviewHeading p{margin:2px 0 0;font-size:12px;color:#5b5670}.reviewHeading strong{color:var(--cf-color-accent)}
+.reviewStars{display:flex;justify-content:center;gap:6px}
+.reviewStars button{width:44px;height:44px;border:0;border-radius:12px;background:rgb(255 255 255 / 70%);color:#d6d1e4;font-size:26px;line-height:1;cursor:pointer;touch-action:manipulation}
+.reviewStars button[data-on]{color:#f5a524}
+.reviewChoices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.reviewChoices button{min-height:38px;padding:6px 4px;border:1px solid #ddd6f3;border-radius:999px;background:#fff;color:#3b3650;font-size:13px;font-weight:600;cursor:pointer;word-break:keep-all}
+.reviewChoices button[aria-checked=true]{border-color:var(--cf-color-accent);background:var(--cf-color-accentSoft);color:var(--cf-color-accent)}
+.reviewText{width:100%;min-height:56px;padding:10px 12px;border:1px solid #ddd6f3;border-radius:12px;background:#fff;color:#272438;font:inherit;font-size:13px;resize:vertical}
+.reviewError{margin:0;font-size:12px;color:var(--cf-color-danger,#d92d20)}
+.reviewSubmit{min-height:44px;border:0;border-radius:12px;background:var(--cf-color-accent);color:var(--cf-color-onAccent,#fff);font-size:15px;font-weight:700;cursor:pointer}
+.reviewSubmit:disabled{opacity:.45;cursor:default}
+.reviewDone{margin:0;font-size:14px;font-weight:600;text-align:center}.reviewDone span{color:var(--cf-color-accent)}
+.review :focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:2px}
