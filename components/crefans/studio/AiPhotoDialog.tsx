@@ -16,11 +16,12 @@ import {SelectField} from '@/components/ui/SelectField';
 import {AiPresetPager} from './AiPresetPager';
 import {AiResultShare} from './AiResultShare';
 import {AiPhotoWaiting} from './AiPhotoWaiting';
+import {AiPhotoReview,emptyReviewDraft,type AiReviewDraft} from './AiPhotoReview';
 import {AiBodyAdjustments} from './AiBodyAdjustments';
 import {AiPhotoWardrobe,CostumeGender} from './AiPhotoWardrobe';
 import Icon from '../Icon';
 import type {ApiResult} from '@/types/crefans';
-import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,StudioMedia} from '@/types/crefans-studio-management';
+import type {AiHeartInput,AiHeartResult,AiPhotoEditInput,AiPhotoEditResult,AiPhotoKind,AiPhotoTicketResult,AiReviewInput,AiReviewModel,StudioMedia} from '@/types/crefans-studio-management';
 import Image from 'next/image';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
@@ -40,7 +41,7 @@ import {costumeShopLink,COSTUME_SHOP_NOTICE} from '@/lib/crefans/costume-shop-li
 const PUBLISH_OFFER_DELAY_MS=2000;
 // 2026-11-21 user decision: guests earn 0.5 credit for 30 hearts, at most 3 a day (server guest-policy).
 const GUEST_HEART_NOTE='하트 30개를 모으면 체험 이용권 0.5장을 드려요 (하루 최대 3장)';
-type Props={shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
+type Props={shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;/** 2026-11-21: review instead of the game on a repeat generation. */onReview?:AiReviewModel;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;/** 2026-11-20: upload a place photo to use as the background ('내 사진'). */onUploadBackground?:(file:File)=>Promise<ApiResult<StudioMedia>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext,replaceSourceIds?:string[])=>void};
 
@@ -51,7 +52,7 @@ function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBo
 // Temporarily hidden at user request; keep the mask editor for later reactivation.
 const OUTFIT_DETAIL_ENABLED=false;
 
-export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false,publishReward,shareReward}:Props){
+export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onReview,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false,publishReward,shareReward}:Props){
  const [libraryOpen,setLibraryOpen]=useState(false),[libraryAssets,setLibraryAssets]=useState<PhotoAsset[]>([]);
  const sourceOrigins=useRef(new Map<string,string>());
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('outfit');
@@ -143,7 +144,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
  function collectHeart(delta:number){heartScoreRef.current=Math.max(0,Math.min(30,heartScoreRef.current+delta));setHeartScore(heartScoreRef.current);}
  const editorKinds=AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body');
  const [shopLink,setShopLink]=useState<ReturnType<typeof costumeShopLink>>(null);
- const [stage,setStage]=useState<'edit'|'results'>('edit'),[closeAsk,setCloseAsk]=useState(false),[resumed,setResumed]=useState(false),[signupNudge,setSignupNudge]=useState(false),[sourcePicker,setSourcePicker]=useState(false);
+ const [stage,setStage]=useState<'edit'|'results'>('edit'),[closeAsk,setCloseAsk]=useState(false),[review,setReview]=useState<null|{reward:string;done?:string}>(null),[reviewDraft,setReviewDraft]=useState<AiReviewDraft>(emptyReviewDraft),[resumed,setResumed]=useState(false),[signupNudge,setSignupNudge]=useState(false),[sourcePicker,setSourcePicker]=useState(false);
  useEffect(()=>{
   if(!open||!publishReward||!genderChosen||busy||error||publishOfferShown.current)return;
   if(!(remaining<=1||shortage>0))return;
@@ -186,9 +187,11 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
   const problem=aiPhotoProblem({prompt,consent:true,kind:hasOutfit?'outfit':requestKind,requireMask:requiresMask,hasMask:strokes.length>0,remaining});if(problem){setError(problem);return;}
   // Remembered for the guest trial caption: names of what was chosen plus the visitor's own request text (no prompt internals).
   captionContext.current={labels:aiPhotoSelectionLabels(selectedPresets,libraryAssets,targetGender),prompt:customPrompt.trim()};
-  let game:typeof heartGame=null;
+  let game:typeof heartGame=null,reviewing=false;
+  // 2026-11-21 user request: after a first successful photo, the waiting game becomes a review (server decides who and how often).
+  if(onReview){try{const st=await onReview.status();reviewing=!!(st.success&&st.data?.eligible);setReviewDraft(emptyReviewDraft);setReview(reviewing&&st.data?{reward:st.data.rewardTickets?`체험 이용권 ${st.data.rewardTickets}장`:`하트 ${st.data.rewardHearts||20}개`}:null);}catch{setReview(null);}}
   // 2026-11-21: signed-out visitors also play the server-verified game (30 hearts → 0.5 credit, 3 a day).
-  if(onHeartGame){setBusy(true);try{const r=await onHeartGame({action:'start'});if(!r.success||!r.data.id||!r.data.kinds){setError(r.errorMessage||'하트 게임을 시작하지 못했어요.');return;}game={id:r.data.id,kinds:r.data.kinds};setHeartGame(game);heartQueue.current=Promise.resolve();gameEvent.current=0;}catch{setError('하트 게임을 시작하지 못했어요.');return;}finally{setBusy(false);}}
+  if(onHeartGame&&!reviewing){setBusy(true);try{const r=await onHeartGame({action:'start'});if(!r.success||!r.data.id||!r.data.kinds){setError(r.errorMessage||'하트 게임을 시작하지 못했어요.');return;}game={id:r.data.id,kinds:r.data.kinds};setHeartGame(game);heartQueue.current=Promise.resolve();gameEvent.current=0;}catch{setError('하트 게임을 시작하지 못했어요.');return;}finally{setBusy(false);}}
   setResumed(false);setRewardNote('');heartScoreRef.current=0;setHeartScore(0);setBusy(true);setError('');setStage('results');
   let madeOk=false;
   try{
@@ -216,6 +219,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
  function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection({});setKind('pose');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setStage('edit');}
  const sharedResult=results.find(item=>selected.includes(item.id));
  const viewing=viewer!==null||sourceViewer;
+ async function sendReview(input:AiReviewInput){if(!onReview)return '';const r=await onReview.submit(input);if(!r.success)return r.errorMessage||'리뷰를 저장하지 못했어요.';const d=r.data;if(d.wallet)setHeartBalance(d.wallet.hearts);setReview(v=>v&&{...v,done:d.tickets?`체험 이용권 ${d.tickets}장을 받았어요.`:d.hearts?`하트 ${d.hearts}개를 받았어요.`:'오늘 받을 수 있는 보상은 모두 받았어요.'});return '';}
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
  function selectLibrary(item:PhotoAsset){if(libraryAssets.some(value=>value.id===item.id)){setLibraryAssets(items=>items.filter(value=>value.id!==item.id));return;}const next=[...libraryAssets.filter(value=>value.category!==item.category),item];if(next.length>4){setError('내 보관함 사진은 최대 4개까지 선택해 주세요.');setLibraryOpen(false);return;}setSelectedPresets(items=>items.filter(value=>value.kind!==item.category));setLibraryAssets(next);}
  const outfitSwitch=OUTFIT_DETAIL_ENABLED&&(kind==='outfit'||hasOutfit)&&<button type="button" role="switch" aria-checked={detailedOutfit} className={s.outfitSwitch} disabled={busy} onClick={()=>{setDetailedOutfit(!detailedOutfit);setError('');}}>옷 세부 지정<span aria-hidden="true"/></button>;
@@ -278,12 +282,12 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
      {resumed&&!busy&&<p className={s.resumeNote} role="status">닫기 전에 만든 사진이 그대로 있어요. 이 페이지를 나가거나 새로고침하면 사라져요.</p>}
      <div className={busy?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{!busy&&<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m12 1 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/></svg>}{busy?'사진을 만들고 있어요':'사진이 완성됐어요'}</h3>{!busy&&<button ref={editRef} type="button" className={s.editSettings} onClick={()=>{setStage('edit');setError('');}}>설정 수정</button>}</div>
      <AiPhotoDone show={doneLayer} onDone={()=>setDoneLayer(0)}/>
-    {busy?<AiPhotoWaiting elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined} banner={noHearts?<SignupWaitBanner/>:undefined}/>:
+    {busy?<AiPhotoWaiting elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined} showGame={!review} banner={<>{review&&<AiPhotoReview reward={review.reward} done={review.done} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{noHearts&&<SignupWaitBanner/>}</>}/>:
       <><div className={s.grid}>{results.map((item,index)=><div key={item.id} className={s.resultItem}><div className={s.resultFrame}><button type="button" className={s.result} aria-pressed={selected.includes(item.id)} aria-label={`결과 ${index+1}`} onClick={()=>toggle(item.id)}>
        {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image */}
        <img src={item.url} alt=""/><span className={s.ai}>{/* eslint-disable-next-line @next/next/no-img-element -- existing decorative brand icon */}<img src="/brand/featured-creators-v1.png" alt="" aria-hidden="true" width={14} height={14} style={{width:14,height:14,flexShrink:0}}/>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>
        <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button><div className={s.resultTools}>{onCrop&&<button type="button" onClick={()=>setCropItem(item)} aria-label={`결과 ${index+1} 자르기`}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3v13a2 2 0 0 0 2 2h13M3 6h13a2 2 0 0 1 2 2v13"/></svg>자르기</button>}</div></div></div>)}</div>
-      <div className={s.heartResult}>{noHearts?<><strong>이번 게임에서 하트 {resultHearts}개를 모았어요</strong>{onHeartGame?<p role="status">{rewardNote||GUEST_HEART_NOTE}</p>:<p>체험 게임의 하트는 적립되거나 이용권으로 바뀌지 않아요.</p>}</>:<><strong aria-label={`누적 하트 ${onHeartGame?heartBalance:resultHearts}개 / 100개`}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/></svg><span>{onHeartGame?heartBalance:resultHearts}/100</span></strong><p>100개가 모이면 이용권 10개를 받아요</p>{rewardNote&&<p role="status">{rewardNote}</p>}</>}</div></>}
+      {review&&<AiPhotoReview reward={review.reward} done={review.done} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{(!review||(review.done&&!noHearts))&&<div className={s.heartResult}>{noHearts?<><strong>이번 게임에서 하트 {resultHearts}개를 모았어요</strong>{onHeartGame?<p role="status">{rewardNote||GUEST_HEART_NOTE}</p>:<p>체험 게임의 하트는 적립되거나 이용권으로 바뀌지 않아요.</p>}</>:<><strong aria-label={`누적 하트 ${onHeartGame?heartBalance:resultHearts}개 / 100개`}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/></svg><span>{onHeartGame?heartBalance:resultHearts}/100</span></strong><p>100개가 모이면 이용권 10개를 받아요</p>{rewardNote&&<p role="status">{rewardNote}</p>}</>}</div>}</>}
     </div>}
     {stage==='results'&&!busy&&<><div className={s.resultShareArea}>
      {shareReward&&<span className={s.resultShareBubble}>공유하고 이용권 3장 받기</span>}
