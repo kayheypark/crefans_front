@@ -380,7 +380,6 @@ function AiResultViewer({items,index,selected,onIndex,onToggle,onClose,onShare,o
 function SignupWaitBanner(){
  return <aside className={s.signupWait} aria-label="회원 혜택">
   <Image src="/illustrations/try/guest-ticket-v1.webp" alt="" width={56} height={56}/>
-  <div><p className={s.signupWaitTitle}>회원은 <strong>매일 10장</strong> 무료</p><p className={s.signupWaitText}>비회원은 기본 하루 3장이에요.<br/>사진이 완성되면 가입해 보세요.</p></div>
-  <span className={s.signupWaitChip}>매일 오전 9시 충전</span>
+  <div><p className={s.signupWaitTitle}>회원은 <strong>매일 10장</strong> 무료</p><p className={s.signupWaitText}>비회원은 하루 3장 · 매일 오전 9시 충전<br/>사진이 완성되면 가입해 보세요.</p></div>
  </aside>;
 }
