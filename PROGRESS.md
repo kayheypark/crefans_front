@@ -1,3 +1,23 @@
+## 2026-11-21 쿠팡 의상 카드 2안 개발 반영
+
+- 확정 2안으로 결과 행동 버튼 아래에 의상 카드를 배치했다. 등록된 프리셋 사진 56px와 우하단 쿠팡 아이콘 25px, 오른쪽 ‘쿠팡에서 보기’, 아래 기존 수수료 고지를 연결한다. 링크는 생성 성공한 결과에만 대응하며 새 탭 제휴 속성 유지. 쿠팡 아이콘 출처는 [쿠팡 앱의 App Store 등록 정보](https://apps.apple.com/kr/app/id454434967), 확인일 2026-11-21. 3안 코드는 `.local/coupang-design/shopping-bar-option3.patch`에 보존.
+- `9a9ee43` 위 변경에 대한 macOS `npm run typecheck`, `node --test tests/costume-shop-links.test.cjs` 1/1 및 `git diff --check` 종료 0. 사용자가 개발 배포만 승인. 개발 완료·화면 검증 대기.
+
+## 2026-11-21 쿠팡 의상 카드 2안 · 썸네일 배지 시안
+
+- 사용자가 멤버십 썸네일과 같은 방식의 배치를 요청했다. `components/crefans/MembershipThumb.tsx`와 `membership-thumb.module.css`의 썸네일 56px 및 우하단 작성자 배지 패턴을 참고해 2안을 별도 제작했다. 의상 썸네일 우하단에 쿠팡 앱 아이콘을 겹치고, 오른쪽 링크 버튼과 하단 제휴 고지를 둔다. [쿠팡 공식 App Store 등록 정보](https://apps.apple.com/kr/app/id454434967) 2026-11-21 확인. 앱 아이콘은 시안에만 사용했다.
+- 09:49 KST 프론트 `9a9ee43` 기준, 기존 3안 미커밋 코드를 유지했다. macOS Chromium `node .local/coupang-design/render-card-badge.cjs` 종료 0, 390px 너비·썸네일 우하단 겹침·정확한 고지·외부 요청 0회 및 육안 확인. `.local/coupang-design/card-badge-mobile.png`, SHA-256 `3d694c29a1eb0d5599d50c35f7ac0f4d78966fee09b5104635428564aeed4fac`. 2안은 디자인 시안 단계.
+
+## 2026-11-21 AI 사진 결과 쿠팡 링크 3안 구현
+
+- 결과 이미지 그룹 아래 진한 보라색 쇼핑 바를 붙이고 쇼핑백·의상명·제휴 링크·‘쿠팡에서 보기’를 한 영역으로 표시했다. 공유·사진 결정보다 앞에 위치한다. 고지 문구 원문과 기존 일반 의상 매핑·새 탭 동작 유지. 새 생성에 성공했을 때만 링크를 갱신해, 재생성이 실패해 이전 결과가 살아나면 이전 의상 링크도 그대로 보인다.
+- 09:48 KST 프론트 `9a9ee43` 위 로컬 미커밋 변경. macOS `npm run typecheck`, `node --test tests/costume-shop-links.test.cjs` 1/1, `git diff --check` 종료 0. 실제 로컬 Next.js를 Chromium 390×844에서 가상 생성 응답으로 실행해 결과 사진과 쇼핑 바 사이 1px 미만, 링크 높이 44px 이상, 고지 연결, 실패 시 이전 링크 유지, 미매핑 의상 숨김, 외부 요청 0회 확인했다(`node .local/coupang-design/verify-shopping-bar.cjs`, 종료 0). 캡처 `.local/coupang-design/shopping-bar-mobile.png` SHA-256 `35f467e7e429aeb3a7144ef42587545df6aecf4f9d0e8f17290872c55ced55e7`. 커밋·푸시·배포 전.
+
+## 2026-11-21 AI 사진 결과 화면 쿠팡 파트너스 디자인 시안
+
+- 09:42 KST `feat/coupang-costume-link` 작업본은 확인 시 clean. 프론트 변경은 `b8e4c15`와 `9a9ee43`에 커밋됐으며 개발 서버 마지막 성공 SHA는 `9a9ee4323218`. 개발 PC의 운영 브랜치 참조 `ae0979c`에서 링크 모듈 미포함 확인. 결과 행동 버튼 아래 일반 의상의 등록된 제휴 링크만 표시하며 현재 매핑은 세일러 코스튬 1종. 링크는 일치 상품 하나가 아닌 의상 검색으로 연결되는 것으로 소스에 기록돼 있다. 실제 제휴 링크 호출·운영 변경 없음.
+- 보유 세일러 프리셋 예시로 1안 핑크 버튼, 2안 의상 카드, 3안 사진 아래 쇼핑 바를 제작했다. 기존 고지 문구 유지. macOS Chromium `node .local/coupang-design/render.cjs` 종료 0, 시안 3장·390px 넘침 없음·고지 문구·외부 전송 0회 및 합본 육안 확인. `node --test tests/costume-shop-links.test.cjs` 1/1. 합본 `.local/coupang-design/coupang-link-concepts.png` SHA-256 `13302829788937fa65751dcd0c8eff72b1c3f5463c3c5f292313b7ee92569fef`. 시안만 제작, 앱 코드 수정·배포 전.
+
 ## 2026-11-21 하트 미니게임 빗나감 피드백(−1·빨간 피격 비네트) — 개발만 (feat/heart-miss-feedback)
 
 - 사용자 지시(02:0x KST): 하트 게임에서 빈 공간이나 하트가 아닌 아이콘을 누르면 마이너스 표시, 또는 동시에 FPS 피격처럼 화면 상하좌우 빨간 그라데이션. 개발에만 배포.

@@ -8,7 +8,7 @@ export const COSTUME_SHOP_NOTICE='이 포스팅은 쿠팡 파트너스 활동의
 export function costumeShopLink(outfitPrompts:string[]){
  for(const prompt of outfitPrompts){
   const costume=aiPhotoCostumes.find(item=>aiPhotoPresetText(item.prompt)===prompt);
-  if(costume&&costume.category==='general'&&COSTUME_SHOP_LINKS[costume.id])return{name:costume.name,url:COSTUME_SHOP_LINKS[costume.id]};
+  if(costume&&costume.category==='general'&&COSTUME_SHOP_LINKS[costume.id])return{name:costume.name,image:costume.image,url:COSTUME_SHOP_LINKS[costume.id]};
  }
  return null;
 }
