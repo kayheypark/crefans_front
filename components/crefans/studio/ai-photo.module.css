@@ -436,3 +436,5 @@
 .sourceConfirmImage{display:block;max-width:100%;max-height:min(46vh,360px);border-radius:14px;object-fit:contain;background:var(--cf-color-surfaceSubtle)}
 .sourceConfirmPick{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:2px}
 .sourceConfirm .errorActions{width:100%}
+.sourceConfirm .errorActions:has(> :only-child){grid-template-columns:1fr}
+.sourceConfirm .errorActions>*{white-space:nowrap}
