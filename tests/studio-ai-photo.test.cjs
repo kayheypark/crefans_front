@@ -1019,3 +1019,16 @@ test('using the last credit shows the refill notice 2 seconds after the result',
  const notice=()=>r.root.findAll(n=>n.props.role==='dialog'&&n.props['aria-label']==='매일 이용권 횟수는 초기화돼요');
  await click('만들기');assert.equal(notice().length,0);await wait(1000);assert.equal(notice().length,0);await wait(1200);assert.equal(notice().length,1);
 });
+
+// 2026-11-21 user request: signed-out visitors always see the 매일 10장 strip under 만들기; it opens the signup modal. Members never see it.
+test('signup nudge: guests see the strip and modal with a signup link; members do not',async()=>{
+ const strip=r=>r.root.findAll(n=>n.type==='button'&&text(n).includes('매일 10장')&&text(n).includes('가입하기'));
+ const member=await open();assert.equal(strip(member.r).length,0);
+ const guest=await open({noHearts:true});assert.equal(strip(guest.r).length,1);
+ await act(async()=>strip(guest.r)[0].props.onClick());
+ const modal=guest.r.root.findByProps({'aria-label':'회원가입하면 매일 10장'});
+ assert.match(text(modal),/하루 3장/);assert.match(text(modal),/오전 9시/);
+ assert.ok(modal.findAll(n=>n.type==='a'&&text(n)==='무료로 회원가입'&&String(n.props.href).includes('signup')).length===1);
+ await act(async()=>modal.find(n=>n.type==='button'&&text(n)==='나중에').props.onClick());
+ assert.equal(guest.r.root.findAll(n=>n.props?.['aria-label']==='회원가입하면 매일 10장').length,0);
+});

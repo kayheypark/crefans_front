@@ -143,7 +143,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
  function collectHeart(delta:number){heartScoreRef.current=Math.max(0,Math.min(30,heartScoreRef.current+delta));setHeartScore(heartScoreRef.current);}
  const editorKinds=AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body');
  const [shopLink,setShopLink]=useState<ReturnType<typeof costumeShopLink>>(null);
- const [stage,setStage]=useState<'edit'|'results'>('edit'),[sourcePicker,setSourcePicker]=useState(false);
+ const [stage,setStage]=useState<'edit'|'results'>('edit'),[signupNudge,setSignupNudge]=useState(false),[sourcePicker,setSourcePicker]=useState(false);
  useEffect(()=>{
   if(!open||!publishReward||!genderChosen||busy||error||publishOfferShown.current)return;
   if(!(remaining<=1||shortage>0))return;
@@ -320,6 +320,8 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
      <span className={s.createLabel}>만들기</span><span id={`${panelId}-remaining`} className={s.createQuota}>{remaining}장 보유</span>
     </Action>
     {shortage>0&&<p id={`${panelId}-shortage`} role="status" className={s.methodShortage}>이용권이 {shortage}개 더 필요해요.</p>}
+    {/* 2026-11-21 user request: signed-out visitors always see the member benefit under 만들기; tap opens the signup modal. */}
+    {noHearts&&<button type="button" className={s.signupNudge} onClick={()=>setSignupNudge(true)}><span aria-hidden="true">🎁</span> 회원가입하면 <strong>매일 10장</strong> 무료 <span className={s.signupNudgeGo}>가입하기 ›</span></button>}
    </div>}
   </>}
   {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onShare={setShareItem} onToggle={toggle} onClose={closeViewer}/>}
@@ -351,6 +353,11 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
    <div className={s.publishOfferActions}>{noHearts?<ActionLink href={signupLink} variant="secondary">회원가입하면 하루 10장</ActionLink>:shop?<Action type="button" variant="secondary" onClick={()=>{setRefillNotice(false);setShopOpen(true);void shop.refresh();}}>이용권 구매</Action>:null}<a className={s.refillCalendar} href={`/calendar/ai-photo-reset.ics${noHearts?'':'?for=member'}`}>캘린더에 추가하기</a></div></div>
  </Dialog>
  <Dialog open={open&&shopOpen} onClose={()=>setShopOpen(false)} title="AI 이용권 구매" fullscreenOnMobile>{shop&&<ShopPage model={shop} basePath={shopBasePath}/>}</Dialog>
+ {noHearts&&<Dialog open={open&&signupNudge} onClose={()=>setSignupNudge(false)} title="회원가입하면 매일 10장" className={s.publishOffer}
+  illustration={<div className={s.publishOfferArt}><Image src="/illustrations/try/guest-ticket-v1.webp" alt="" width={112} height={112}/></div>}>
+  <div className={s.publishOfferBody}><p>비회원은 기본 하루 3장이지만<br/>회원은 <strong>매일 10장</strong>을 무료로 만들 수 있어요.<br/><small>매일 오전 9시(한국 시간)에 다시 채워져요.</small></p>
+   <div className={s.publishOfferActions}><ActionLink href={signupLink}>무료로 회원가입</ActionLink><Action type="button" variant="secondary" onClick={()=>setSignupNudge(false)}>나중에</Action></div></div>
+ </Dialog>}
  <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);setSignupOffer(false);}} title="AI 사진 편집 안내" persistent>
   <div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href={signupLink}>회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>
  </Dialog></>;
