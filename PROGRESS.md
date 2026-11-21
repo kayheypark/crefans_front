@@ -1,7 +1,12 @@
+## 2026-11-21 전 코스튬 의상 카드 확대
+
+- 일반·게임·애니메이션 카탈로그 353개 전부 의상 카드를 연결한다. 일반 세일러 1종은 기존 발급 파트너스 링크·수수료 고지를 유지하고, 그 외 코스튬은 의상명(작품 의상에는 작품명 포함)으로 쿠팡 일반 검색을 연다. 작품 의상은 기존 정책대로 제휴 수수료가 붙지 않고, 게시물 후원 및 유료 공개 제한도 유지한다. 검색 결과의 상품 재고·정품·라이선스는 보장하지 않는다. [쿠팡 파트너스 공식 안내](https://partners.coupang.com/) 2026-11-21 확인.
+- `904b11d` 위의 macOS `npm run typecheck`, `node --test tests/costume-shop-links.test.cjs` 2/2(353개 전체 순회), `git diff --check` 종료 0. 먼저 개발 서버에서 배포·확인 후 운영 승격한다.
+
 ## 2026-11-21 쿠팡 의상 카드 2안 개발 반영
 
 - 확정 2안으로 결과 행동 버튼 아래에 의상 카드를 배치했다. 등록된 프리셋 사진 56px와 우하단 쿠팡 아이콘 25px, 오른쪽 ‘쿠팡에서 보기’, 아래 기존 수수료 고지를 연결한다. 링크는 생성 성공한 결과에만 대응하며 새 탭 제휴 속성 유지. 쿠팡 아이콘 출처는 [쿠팡 앱의 App Store 등록 정보](https://apps.apple.com/kr/app/id454434967), 확인일 2026-11-21. 3안 코드는 `.local/coupang-design/shopping-bar-option3.patch`에 보존.
-- `9a9ee43` 위 변경에 대한 macOS `npm run typecheck`, `node --test tests/costume-shop-links.test.cjs` 1/1 및 `git diff --check` 종료 0. 사용자가 개발 배포만 승인. 개발 완료·화면 검증 대기.
+- `9a9ee43` 위 변경에 대한 macOS `npm run typecheck`, `node --test tests/costume-shop-links.test.cjs` 1/1 및 `git diff --check` 종료 0. 사용자가 개발 배포만 승인. `904b11d` GitLab·GitHub dev 동기화. 개발 자동 배포가 바로 시작되지 않아 devbox `~/crefans-dev/deploy-dev.sh` 직접 실행, 프론트만 교체, 종료 0·점검 실패 0건(`deploy-logs/20261121-095512.log`), 마지막 성공 SHA `904b11d`. 09:58 KST 개발 HTTPS 쿠팡 아이콘 파일 바이트 일치, macOS Chromium `CREFANS_CARD_TEST_ORIGIN=https://www-dev.crefans.com node .local/coupang-design/verify-costume-card.cjs` 종료 0. 실제 개발 UI 320/390px, 썸네일·아이콘·고지·실패 시 이전 링크 유지·미등록 숨김 검증. 생성 응답 대역, 제휴 링크 호출 0회. 이미지 `.local/coupang-design/costume-card-dev.png`, SHA-256 `cbb86f308af1cb1426d4af5a8f831d79c8a7203d6300f2d53ef8cabc12c7b0f0`. 운영 변경 없음.
 
 ## 2026-11-21 쿠팡 의상 카드 2안 · 썸네일 배지 시안
 

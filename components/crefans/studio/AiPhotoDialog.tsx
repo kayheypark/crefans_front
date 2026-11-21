@@ -290,12 +290,12 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
         <Image className={s.shopThumbImage} src={shopLink.image} width={56} height={56} alt=""/>
         <span className={s.shopThumbBadge} data-testid="costume-shop-badge"><Image src="/brand/coupang-app-icon-v1.jpg" width={25} height={25} alt="" unoptimized/></span>
        </span>
-       <div className={s.shopLinkCopy}><span className={s.shopLinkTag}>제휴 링크</span><strong>{shopLink.name}</strong></div>
-       <a className={s.shopLinkAction} href={shopLink.url} target="_blank" rel="sponsored noopener noreferrer" data-testid="costume-shop-link" aria-label={`${shopLink.name} 쿠팡에서 보기`} aria-describedby={`${panelId}-shop-notice`}>
-        쿠팡에서 보기<svg aria-hidden="true" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M13 4h7v7m0-7-9 9m7 0v7H4V6h7"/></svg>
+       <div className={s.shopLinkCopy}><span className={s.shopLinkTag}>{shopLink.affiliate?'제휴 링크':'의상 검색'}</span><strong>{shopLink.name}</strong></div>
+       <a className={s.shopLinkAction} href={shopLink.url} target="_blank" rel={shopLink.affiliate?'sponsored noopener noreferrer':'noopener noreferrer'} data-testid="costume-shop-link" aria-label={`${shopLink.name} 쿠팡에서 ${shopLink.affiliate?'보기':'검색'}`} aria-describedby={shopLink.affiliate?`${panelId}-shop-notice`:undefined}>
+        쿠팡에서 {shopLink.affiliate?'보기':'검색'}<svg aria-hidden="true" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M13 4h7v7m0-7-9 9m7 0v7H4V6h7"/></svg>
        </a>
       </div>
-      <p id={`${panelId}-shop-notice`} className={s.shopLinkNotice}>{COSTUME_SHOP_NOTICE}</p>
+      {shopLink.affiliate&&<p id={`${panelId}-shop-notice`} className={s.shopLinkNotice}>{COSTUME_SHOP_NOTICE}</p>}
      </div>}
     </>}
     {(!busy&&(stage==='edit'||remaining<=0)&&onUseTicket&&tickets>0)&&<div className={s.quota}>{<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
