@@ -3,7 +3,8 @@ import {useEffect,useRef} from 'react';
 import {createPortal} from 'react-dom';
 import s from './ai-photo.module.css';
 
-export const AI_PHOTO_DONE_MS=1200;
+// 2026-11-21 user request: fade in over 1s, stay 0.85s, fade out over 0.4s (keyframes in ai-photo.module.css .doneLayer).
+export const AI_PHOTO_DONE_MS=2250;
 /** Taps are ignored this long after the result appears (the layer's time plus a short tail) so heart-game taps can't hit it. */
 export const AI_PHOTO_TAP_LOCK_MS=AI_PHOTO_DONE_MS+500;
 
