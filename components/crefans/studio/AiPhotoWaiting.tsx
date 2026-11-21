@@ -40,7 +40,7 @@ export function AiPhotoWaiting({elapsed,typical,score,onCollect,game,showGame=tr
   setTimeout(()=>{if(missId.current>=0)setMisses(previous=>previous.filter(item=>item.id!==id));},650);
  }
  return <div className={s.waiting}>
-  <p className={s.waitingSubtitle}>완성되면 바로 보여드릴게요</p>
+  {/* 2026-11-21 user request: one phone screen — the subtitle repeated the heading, so it is gone. */}
   <div className={s.waitingDots} aria-hidden="true"><i/><i/><i/></div>
   {showGame&&<section className={s.heartGame} aria-label="기다리는 동안 하트 모으기">
    <div className={s.heartGameHeading}><h4>기다리는 동안 <span>하트 모으기</span></h4><output aria-label="모은 하트" aria-live="polite"><Symbol kind="heart"/>{score}</output></div>
