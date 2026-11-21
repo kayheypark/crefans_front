@@ -32,7 +32,9 @@ test('result screen: 계속 보정, 원본으로 and closing each report their o
  await generate();assert.ok(r.root.findAllByProps({className:'resultActions'}).length>0,'result screen is shown');
  await click('계속 보정');assert.deepEqual(steps(),[['ai_result_continue',{mode:'general'}]]);
  await generate();await click('원본으로');assert.deepEqual(steps().at(-1),['ai_result_original',{mode:'general'}]);
- await generate();await closeDialog();assert.deepEqual(steps().at(-1),['ai_result_closed',{mode:'general'}]);assert.equal(closed.length,2,'closing still closes');
+ await generate();await closeDialog();
+ // 2026-11-21: closing with results asks first; the step is reported when 닫기 is confirmed.
+ await act(async()=>r.root.find(node=>node.props?.['aria-label']==='AI 사진 편집을 닫을까요?').find(node=>node.type==='button'&&text(node)==='닫기').props.onClick());assert.deepEqual(steps().at(-1),['ai_result_closed',{mode:'general'}]);assert.equal(closed.length,2,'closing still closes');
  for(const [,props] of steps())assert.deepEqual(Object.keys(props),['mode'],'no ids, text or photos');
 });
 
