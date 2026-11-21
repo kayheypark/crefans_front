@@ -141,14 +141,19 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,onReview,open,onClose,
  const editorKinds=AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body');
  const [shopLink,setShopLink]=useState<ReturnType<typeof costumeShopLink>>(null);
  const [stage,setStage]=useState<'edit'|'results'>('edit'),[closeAsk,setCloseAsk]=useState(false),[review,setReview]=useState<null|{done?:string}>(null),[reviewDraft,setReviewDraft]=useState<AiReviewDraft>(emptyReviewDraft),[resumed,setResumed]=useState(false),[signupNudge,setSignupNudge]=useState(false),[sourcePicker,setSourcePicker]=useState(false);
+ // Keep the same waiting subtree until the review is saved, even if the image arrives first.
+ const waiting=busy||(stage==='results'&&!!review&&!review.done);
  useEffect(()=>{
-  if(!open||!publishReward||!genderChosen||busy||error||publishOfferShown.current)return;
+  if(!waiting&&doneLayer)tapLockUntil.current=Date.now()+AI_PHOTO_TAP_LOCK_MS;
+ },[waiting,doneLayer]);
+ useEffect(()=>{
+  if(!open||!publishReward||!genderChosen||waiting||error||publishOfferShown.current)return;
   if(!(remaining<=1||shortage>0))return;
   // 2026-11-20 user request: let the visitor see the result first. Offer the publish reward 2 seconds after the result screen
   // (or the edit screen they went back to) is showing; a screen change restarts the 2 seconds.
   const timer=setTimeout(()=>{publishOfferShown.current=true;setPublishOffer(true);},PUBLISH_OFFER_DELAY_MS);
   return()=>clearTimeout(timer);
- },[open,publishReward,genderChosen,busy,error,remaining,shortage,stage]);
+ },[open,publishReward,genderChosen,waiting,error,remaining,shortage,stage]);
 
  const [viewer,setViewer]=useState<number|null>(null),[sourceViewer,setSourceViewer]=useState(false),[elapsed,setElapsed]=useState(0);
  const bodyRef=useRef<HTMLDivElement>(null),resultTitleRef=useRef<HTMLHeadingElement>(null),editRef=useRef<HTMLButtonElement>(null);
@@ -158,14 +163,14 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,onReview,open,onClose,
  const [ticketBusy,setTicketBusy]=useState(false),[ticketNote,setTicketNote]=useState(''),tickets=quota.resetTickets?.count??0;
  // Credits used up (and no publish reward to offer): the refill notice, also 2 seconds after the screen is showing.
  useEffect(()=>{
-  if(!open||publishReward||busy||error||refillShown.current||remaining>0||tickets>0)return;
+  if(!open||publishReward||waiting||error||refillShown.current||remaining>0||tickets>0)return;
   const timer=setTimeout(()=>{refillShown.current=true;setRefillNotice(true);},PUBLISH_OFFER_DELAY_MS);
   return()=>clearTimeout(timer);
- },[open,publishReward,busy,error,remaining,tickets,stage]);
+ },[open,publishReward,waiting,error,remaining,tickets,stage]);
  async function useTicket(){if(!onUseTicket||ticketBusy||busy)return;setTicketBusy(true);setError('');setTicketNote('');
   try{const r=await onUseTicket();if(r.success){setRemaining(r.data.remaining);setTicketNote(r.data.message);}else setError(r.errorMessage||'리셋권을 사용하지 못했어요. 잠시 후 다시 시도해 주세요.');}catch{setError('리셋권을 사용하지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setTicketBusy(false);}}
  useEffect(()=>{if(!sources.some(item=>item.id===sourceId))setSourceId(sources[0]?.id||'');},[images,workingSources,sourceId]);
- useEffect(()=>{if(bodyRef.current)bodyRef.current.scrollTop=0;if(stage==='results')resultTitleRef.current?.focus({preventScroll:true});},[stage,busy]);
+ useEffect(()=>{if(bodyRef.current)bodyRef.current.scrollTop=0;if(stage==='results')resultTitleRef.current?.focus({preventScroll:true});},[stage,waiting]);
  useEffect(()=>{if(!busy){setElapsed(0);return;}const begun=Date.now();const timer=setInterval(()=>setElapsed(Math.floor((Date.now()-begun)/1000)),1000);return()=>clearInterval(timer);},[busy]);
  const source=sources.find(item=>item.id===sourceId),originalSource=sources.find(item=>item.id===(sourceOrigins.current.get(sourceId)||sourceId)),typical=quota.typicalSeconds;
  function changeSource(id:string){setSourceId(id);setStrokes([]);setDetailedOutfit(false);setSourcePicker(false);setError('');}
@@ -188,7 +193,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,onReview,open,onClose,
   if(onReview){try{const st=await onReview.status();reviewing=!!(st.success&&st.data?.eligible);setReviewDraft(emptyReviewDraft);setReview(reviewing?{}:null);}catch{setReview(null);}}
   // 2026-11-21: signed-out visitors also play the server-verified game (30 hearts → 0.5 credit, 3 a day).
   if(onHeartGame&&!reviewing){setBusy(true);try{const r=await onHeartGame({action:'start'});if(!r.success||!r.data.id||!r.data.kinds){setError(r.errorMessage||'하트 게임을 시작하지 못했어요.');return;}game={id:r.data.id,kinds:r.data.kinds};setHeartGame(game);heartQueue.current=Promise.resolve();gameEvent.current=0;}catch{setError('하트 게임을 시작하지 못했어요.');return;}finally{setBusy(false);}}
-  setResumed(false);setRewardNote('');heartScoreRef.current=0;setHeartScore(0);setBusy(true);setError('');setStage('results');
+  setResumed(false);setDoneLayer(0);setRewardNote('');heartScoreRef.current=0;setHeartScore(0);setBusy(true);setError('');setStage('results');
   let madeOk=false;
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
@@ -199,7 +204,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,onReview,open,onClose,
    setShopLink(costumeShopLink(selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)));
    if(made.length)madeOk=true;setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
   }catch{setError('사진을 만들지 못했어요. 잠시 후 다시 시도해 주세요.');setStage(results.length?'results':'edit');}
-  finally{if(game&&onHeartGame){await heartQueue.current;try{const reward=await onHeartGame({action:'finish',id:game.id});if(reward.success){setResultHearts(reward.data.earned||0);setHeartBalance(reward.data.hearts||0);if(reward.data.remaining!==undefined)setRemaining(reward.data.remaining);if(reward.data.ticket!==undefined){setRewardNote(reward.data.ticket>0?`하트 30개! 체험 이용권 ${reward.data.ticket}장을 받았어요`:reward.data.capped?'오늘 받을 수 있는 하트 보상(3장)을 모두 받았어요':'');}else if(reward.data.converted){setRewardNote(`하트 ${reward.data.converted*10}개를 이용권 ${reward.data.converted}개로 바꿨어요`);}}else setRewardNote('하트 적립 확인이 지연되고 있어요.');}catch{setRewardNote('하트 적립 확인이 지연되고 있어요.');}setHeartGame(null);}if(madeOk){tapLockUntil.current=Date.now()+AI_PHOTO_TAP_LOCK_MS;setDoneLayer(Date.now());}setBusy(false);}
+  finally{if(game&&onHeartGame){await heartQueue.current;try{const reward=await onHeartGame({action:'finish',id:game.id});if(reward.success){setResultHearts(reward.data.earned||0);setHeartBalance(reward.data.hearts||0);if(reward.data.remaining!==undefined)setRemaining(reward.data.remaining);if(reward.data.ticket!==undefined){setRewardNote(reward.data.ticket>0?`하트 30개! 체험 이용권 ${reward.data.ticket}장을 받았어요`:reward.data.capped?'오늘 받을 수 있는 하트 보상(3장)을 모두 받았어요':'');}else if(reward.data.converted){setRewardNote(`하트 ${reward.data.converted*10}개를 이용권 ${reward.data.converted}개로 바꿨어요`);}}else setRewardNote('하트 적립 확인이 지연되고 있어요.');}catch{setRewardNote('하트 적립 확인이 지연되고 있어요.');}setHeartGame(null);}if(madeOk)setDoneLayer(Date.now());else setReview(previous=>previous?.done?previous:null);setBusy(false);}
  }
  // 2026-11-21 user report: taps that kept going from the heart game landed on the result and unselected it, so 사진 결정 was
  // disabled. Taps are ignored while the 완료 layer is up and briefly after, and a single result can't be unselected.
@@ -267,16 +272,16 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,onReview,open,onClose,
      <p className={s.hint}>만들기를 누르면 본인 또는 사용 허락을 받은 사진임을 확인합니다.</p>
      <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>나체·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
     </div>:<div className={s.results}>
-     {resumed&&!busy&&<p className={s.resumeNote} role="status">닫기 전에 만든 사진이 그대로 있어요. 이 페이지를 나가거나 새로고침하면 사라져요.</p>}
-     <div className={busy?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{!busy&&<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m12 1 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/></svg>}{busy?'사진을 만들고 있어요':'사진이 완성됐어요'}</h3>{!busy&&<button ref={editRef} type="button" className={s.editSettings} onClick={()=>{setStage('edit');setError('');}}>설정 수정</button>}</div>
-     <AiPhotoDone show={doneLayer} onDone={()=>setDoneLayer(0)}/>
-    {busy?<AiPhotoWaiting elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined} showGame={!review} banner={<>{review&&<AiPhotoReview done={review.done} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{noHearts&&<SignupWaitBanner/>}</>}/>:
+     {resumed&&!waiting&&<p className={s.resumeNote} role="status">닫기 전에 만든 사진이 그대로 있어요. 이 페이지를 나가거나 새로고침하면 사라져요.</p>}
+     <div className={waiting?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{!waiting&&<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m12 1 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/></svg>}{busy?'사진을 만들고 있어요':waiting?'리뷰를 마저 작성해 주세요':'사진이 완성됐어요'}</h3>{!waiting&&<button ref={editRef} type="button" className={s.editSettings} onClick={()=>{setStage('edit');setError('');}}>설정 수정</button>}</div>
+     <AiPhotoDone show={waiting?0:doneLayer} onDone={()=>setDoneLayer(0)}/>
+    {waiting?<AiPhotoWaiting generating={busy} elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined} showGame={!review} banner={<>{review&&<AiPhotoReview done={review.done} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{noHearts&&<SignupWaitBanner/>}</>}/>:
       <><div className={s.grid}>{results.map((item,index)=><div key={item.id} className={s.resultItem}><div className={s.resultFrame}><button type="button" className={s.result} aria-pressed={selected.includes(item.id)} aria-label={`결과 ${index+1}`} onClick={()=>toggle(item.id)}>
        {/* eslint-disable-next-line @next/next/no-img-element -- generated draft image */}
        <img src={item.url} alt=""/><span className={s.ai}>{/* eslint-disable-next-line @next/next/no-img-element -- existing decorative brand icon */}<img src="/brand/featured-creators-v1.png" alt="" aria-hidden="true" width={14} height={14} style={{width:14,height:14,flexShrink:0}}/>AI 생성</span><span className={s.selection} aria-hidden="true">{selected.includes(item.id)?'✓':''}</span></button>
        <button type="button" className={s.zoom} aria-label={`결과 ${index+1} 크게 보기`} title="크게 보기" onClick={()=>setViewer(index)}><ZoomIcon/></button><div className={s.resultTools}>{onCrop&&<button type="button" onClick={()=>setCropItem(item)} aria-label={`결과 ${index+1} 자르기`}><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M6 3v13a2 2 0 0 0 2 2h13M3 6h13a2 2 0 0 1 2 2v13"/></svg>자르기</button>}</div></div></div>)}</div>{review&&<AiPhotoReview done={review.done} draft={reviewDraft} onDraft={setReviewDraft} onSubmit={sendReview}/>}{(!review||(review.done&&!noHearts))&&<div className={s.heartResult}>{noHearts?<><strong>이번 게임에서 하트 {resultHearts}개를 모았어요</strong>{onHeartGame?<p role="status">{rewardNote||GUEST_HEART_NOTE}</p>:<p>체험 게임의 하트는 적립되거나 이용권으로 바뀌지 않아요.</p>}</>:<><strong aria-label={`누적 하트 ${onHeartGame?heartBalance:resultHearts}개 / 100개`}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12Z"/></svg><span>{onHeartGame?heartBalance:resultHearts}/100</span></strong><p>100개가 모이면 이용권 10개를 받아요</p>{rewardNote&&<p role="status">{rewardNote}</p>}</>}</div>}</>}
     </div>}
-    {stage==='results'&&!busy&&<><div className={s.resultShareArea}>
+    {stage==='results'&&!waiting&&<><div className={s.resultShareArea}>
      {shareReward&&<span className={s.resultShareBubble}>공유하고 이용권 3장 받기</span>}
      <button type="button" className={s.resultShareTrigger} disabled={!sharedResult} onClick={()=>{if(sharedResult){onTrack?.('ai_result_share_clicked',{mode:cosplayOpen?'cosplay':'general'});setShareItem(sharedResult);}}}>
       <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V3m-4 4 4-4 4 4M6 11H4v10h16V11h-2"/></svg>이 결과 공유하기
@@ -296,7 +301,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,onReview,open,onClose,
       {shopLink.affiliate&&<p id={`${panelId}-shop-notice`} className={s.shopLinkNotice}>{COSTUME_SHOP_NOTICE}</p>}
      </div>}
     </>}
-    {(!busy&&(stage==='edit'||remaining<=0)&&onUseTicket&&tickets>0)&&<div className={s.quota}>{<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
+    {(!waiting&&(stage==='edit'||remaining<=0)&&onUseTicket&&tickets>0)&&<div className={s.quota}>{<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
    </div>
    {stage==='edit'&&<div className={s.footer} inert={viewing}>
