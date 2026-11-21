@@ -228,6 +228,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   const publishReward=guest?.postReward?{credits:guest.postReward,onWrite:()=>{setCaptionReady(true);setWriteForReward(true);}}:undefined;
   const shareTarget=guest&&status!=='published'?[...media].reverse().find(item=>item.type==='image'&&item.aiGenerated&&!item.processing&&!item.failed):undefined;
   const shareOffer=!!(shareTarget&&guest?.shareReward);
+  const aiLeft=model.aiPhotoQuota?.remaining??Infinity;
   const publishRewardNoteId=publishReward||shareOffer?`${aiDescriptionId}-publish-reward`:undefined;
   const [captionTouched,setCaptionTouched]=useState(false),nudgePublish=captionMode&&!!title.trim()&&!!body.trim(),nudgeCaption=captionMode&&aiMade&&!captionTouched&&!nudgePublish;
   async function writeCaption(){
@@ -294,8 +295,11 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
      }}/>}
      <Dialog open={editorShareRewarded} onClose={()=>setEditorShareRewarded(false)} title="이용권 3장을 받았어요!"><div className={ai.shareRewardDone}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={120} height={120}/><p>공유해 줘서 고마워요.<br/>받은 이용권으로 사진을 더 만들어 보세요.</p></div><DialogActions><Action type="button" onClick={()=>setEditorShareRewarded(false)}>확인</Action></DialogActions></Dialog>
      {/* 2026-11-20 user request: only when the vouchers run low (≤1 left), the same moment the editor offers the publish reward. */}
-     {guest?.shareReward&&(model.aiPhotoQuota?.remaining??Infinity)<=1&&!aiOpen&&!previewOpen&&!viewPresent&&!shareGuideOpen&&<button type="button" className={ai.shareTicketFab} aria-label="공유하고 이용권 3장 받기 안내" onClick={()=>setShareGuideOpen(true)}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={64} height={64}/><span aria-hidden="true">+3</span></button>}
-     <Dialog open={!!guest?.shareReward&&shareGuideOpen} onClose={()=>setShareGuideOpen(false)} title="공유하고 이용권 3장 받기"><div className={ai.shareRewardDone}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={120} height={120}/><p>AI로 만든 결과 사진을 공유하거나 링크를 복사하면 이용권 3장을 바로 받을 수 있어요(하루 한 번).</p></div><DialogActions><Action type="button" variant="secondary" onClick={()=>setShareGuideOpen(false)}>닫기</Action><Action type="button" onClick={()=>{setShareGuideOpen(false);setAiOpen(true);}}>AI 사진 만들러 가기</Action></DialogActions></Dialog>
+     {/* 2026-11-22 user report: with no vouchers left the guide's 'AI 사진 만들러 가기' dead-ended (nothing can be generated, so no share
+         screen). With an AI result in the editor the guide opens its share sheet directly; with neither a result nor vouchers there is
+         nothing to share, so the ticket is not shown. */}
+     {guest?.shareReward&&aiLeft<=1&&(shareTarget||aiLeft>0)&&!aiOpen&&!previewOpen&&!viewPresent&&!shareGuideOpen&&<button type="button" className={ai.shareTicketFab} aria-label="공유하고 이용권 3장 받기 안내" onClick={()=>setShareGuideOpen(true)}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={64} height={64}/><span aria-hidden="true">+3</span></button>}
+     <Dialog open={!!guest?.shareReward&&shareGuideOpen} onClose={()=>setShareGuideOpen(false)} title="공유하고 이용권 3장 받기"><div className={ai.shareRewardDone}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={120} height={120}/><p>AI로 만든 결과 사진을 공유하거나 링크를 복사하면 이용권 3장을 바로 받을 수 있어요(하루 한 번).</p></div><DialogActions><Action type="button" variant="secondary" onClick={()=>setShareGuideOpen(false)}>닫기</Action>{shareTarget?<Action type="button" onClick={()=>{setShareGuideOpen(false);setEditorShare(shareTarget);}}>결과 사진 공유하기</Action>:<Action type="button" onClick={()=>{setShareGuideOpen(false);setAiOpen(true);}}>AI 사진 만들러 가기</Action>}</DialogActions></Dialog>
     </div>
   </section>;
 }
