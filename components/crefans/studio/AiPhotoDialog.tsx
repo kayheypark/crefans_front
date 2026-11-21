@@ -34,6 +34,7 @@ import {AiPhotoCategoryIcon} from './AiPhotoCategoryIcon';
 import {PromptLayout,promptPrimary} from '../PromptLayout';
 import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
+import {costumeShopLink,COSTUME_SHOP_NOTICE} from '@/lib/crefans/costume-shop-links';
 
 const PUBLISH_OFFER_DELAY_MS=2000;
 // 2026-11-21 user decision: guests earn 0.5 credit for 30 hearts, at most 3 a day (server guest-policy).
@@ -139,6 +140,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
  const heartScoreRef=useRef(0);
  function collectHeart(delta:number){heartScoreRef.current=Math.max(0,Math.min(30,heartScoreRef.current+delta));setHeartScore(heartScoreRef.current);}
  const editorKinds=AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body');
+ const [shopLink,setShopLink]=useState<ReturnType<typeof costumeShopLink>>(null);
  const [stage,setStage]=useState<'edit'|'results'>('edit'),[sourcePicker,setSourcePicker]=useState(false);
  useEffect(()=>{
   if(!open||!publishReward||!genderChosen||busy||error||publishOfferShown.current)return;
@@ -186,6 +188,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
   // 2026-11-21: signed-out visitors also play the server-verified game (30 hearts → 0.5 credit, 3 a day).
   if(onHeartGame){setBusy(true);try{const r=await onHeartGame({action:'start'});if(!r.success||!r.data.id||!r.data.kinds){setError(r.errorMessage||'하트 게임을 시작하지 못했어요.');return;}game={id:r.data.id,kinds:r.data.kinds};setHeartGame(game);heartQueue.current=Promise.resolve();gameEvent.current=0;}catch{setError('하트 게임을 시작하지 못했어요.');return;}finally{setBusy(false);}}
   setRewardNote('');heartScoreRef.current=0;setHeartScore(0);setBusy(true);setError('');setStage('results');
+  setShopLink(costumeShopLink(selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)));
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
@@ -279,7 +282,8 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,ope
      <button type="button" className={s.resultShareTrigger} disabled={!sharedResult} onClick={()=>{if(sharedResult)setShareItem(sharedResult);}}>
       <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V3m-4 4 4-4 4 4M6 11H4v10h16V11h-2"/></svg>이 결과 공유하기
      </button>
-    </div><div className={s.resultActions}><Action type="button" variant="secondary" disabled={!originalSource} onClick={()=>{if(originalSource){onTrack?.('ai_result_original',{mode:cosplayOpen?'cosplay':'general'});editResult(originalSource);}}}>원본으로</Action><Action type="button" variant="secondary" onClick={()=>{const item=results.find(result=>selected.includes(result.id));if(item){onTrack?.('ai_result_continue',{mode:cosplayOpen?'cosplay':'general'});editResult(item);}}} disabled={selected.length!==1}>계속 보정</Action><Action type="button" onClick={add} disabled={!selected.length}>사진 결정</Action></div></>}
+    </div><div className={s.resultActions}><Action type="button" variant="secondary" disabled={!originalSource} onClick={()=>{if(originalSource){onTrack?.('ai_result_original',{mode:cosplayOpen?'cosplay':'general'});editResult(originalSource);}}}>원본으로</Action><Action type="button" variant="secondary" onClick={()=>{const item=results.find(result=>selected.includes(result.id));if(item){onTrack?.('ai_result_continue',{mode:cosplayOpen?'cosplay':'general'});editResult(item);}}} disabled={selected.length!==1}>계속 보정</Action><Action type="button" onClick={add} disabled={!selected.length}>사진 결정</Action></div>
+     {shopLink&&<div className={s.shopLink}><a href={shopLink.url} target="_blank" rel="sponsored noopener noreferrer" data-testid="costume-shop-link">{shopLink.name} 의상 쿠팡에서 보기</a><small>{COSTUME_SHOP_NOTICE}</small></div>}</>}
     {(!busy&&(stage==='edit'||remaining<=0)&&onUseTicket&&tickets>0)&&<div className={s.quota}>{<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
    </div>

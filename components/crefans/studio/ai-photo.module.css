@@ -375,3 +375,6 @@
 .hitVignette::backdrop{display:none}
 @keyframes heartHitFlash{0%{opacity:0}18%{opacity:1}100%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.missMark{animation:none;opacity:1}.hitVignette{animation-duration:.3s}}
+.shopLink{display:grid;justify-items:center;gap:6px;margin-top:14px;text-align:center}
+.shopLink a{color:var(--brand,#e5487a);font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:3px}
+.shopLink small{color:var(--text-muted,#6b7280);font-size:12px;line-height:1.4}
