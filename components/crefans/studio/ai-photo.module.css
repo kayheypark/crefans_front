@@ -391,13 +391,13 @@
 .editor .shopLinkNotice{margin:8px 2px 0;color:var(--cf-color-textSecondary);font-size:12px;line-height:1.45;word-break:keep-all}
 
 /* 2026-11-21: "사진이 완료됐어요" layer between the heart game and the result (top layer, swallows taps). */
-.doneLayer{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:24px;border:0;display:grid;place-items:center;background:rgb(17 10 24 / 62%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:doneFade 1.2s ease both;touch-action:none;user-select:none}
+.doneLayer{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:24px;border:0;display:grid;place-items:center;background:rgb(17 10 24 / 62%);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:doneFade 2.25s linear both;touch-action:none;user-select:none}
 .doneLayer:not(:popover-open){display:none}
 .doneLayer::backdrop{display:none}
-.doneCard{display:grid;justify-items:center;gap:10px;padding:28px 36px;border-radius:22px;background:#fff;box-shadow:0 18px 48px rgb(0 0 0 / 28%);animation:donePop 1.2s cubic-bezier(.22,1,.36,1) both}
+.doneCard{display:grid;justify-items:center;gap:10px;padding:28px 36px;border-radius:22px;background:#fff;box-shadow:0 18px 48px rgb(0 0 0 / 28%);animation:donePop 2.25s ease-out both}
 .doneCard strong{font-size:20px;font-weight:800;color:#1f1024;letter-spacing:-.02em}
 .doneSub{font-size:13px;color:#7a6a80}
 .doneCheck{display:grid;place-items:center;width:64px;height:64px;border-radius:999px;background:#e00078;color:#fff;box-shadow:0 0 0 8px rgb(224 0 120 / 14%)}
-@keyframes doneFade{0%{opacity:0}12%{opacity:1}82%{opacity:1}100%{opacity:0}}
-@keyframes donePop{0%{transform:scale(.86)}18%{transform:scale(1.04)}30%{transform:scale(1)}100%{transform:scale(1)}}
+@keyframes doneFade{0%{opacity:0;animation-timing-function:ease-out}44.4%{opacity:1}82.2%{opacity:1;animation-timing-function:ease-in}100%{opacity:0}}
+@keyframes donePop{0%{transform:scale(.86)}38%{transform:scale(1.03)}44.4%{transform:scale(1)}100%{transform:scale(1)}}
 @media(prefers-reduced-motion:reduce){.doneLayer,.doneCard{animation:none}}

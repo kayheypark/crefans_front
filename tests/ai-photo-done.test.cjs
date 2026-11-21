@@ -17,3 +17,9 @@ test('dialog: layer only after a made photo, taps locked meanwhile, a single res
  assert.match(src,/function toggle\(id:string\)\{if\(Date\.now\(\)<tapLockUntil\.current\)return;setSelected\(previous=>previous\.includes\(id\)\?\(results\.length===1\?previous:/);
  assert.match(src,/<AiPhotoDone show=\{doneLayer\} onDone=\{\(\)=>setDoneLayer\(0\)\}\/>/);
 });
+test('timing: 1s fade-in, 0.85s hold, 0.4s fade-out — CSS matches the timer',()=>{
+ const css=fs.readFileSync('components/crefans/studio/ai-photo.module.css','utf8');
+ assert.equal(AI_PHOTO_DONE_MS,2250);assert.match(css,/animation:doneFade 2\.25s/);
+ assert.match(css,/@keyframes doneFade\{0%\{opacity:0[^}]*\}44\.4%\{opacity:1\}82\.2%\{opacity:1[^}]*\}100%\{opacity:0\}\}/);
+ assert.equal(Math.round(AI_PHOTO_DONE_MS*.444),999);assert.equal(Math.round(AI_PHOTO_DONE_MS*(1-.822)),401);
+});
