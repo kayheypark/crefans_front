@@ -457,6 +457,9 @@ test('guest trial: the floating share ticket reopens the share-reward guide and 
  }finally{act(()=>tree.unmount());}
  act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:base}));});
  try{assert.equal(fab(tree).length,0,'no ticket once the reward is used');}finally{act(()=>tree.unmount());}
+ // 2026-11-21 user request: signed-out visitors get no 미리보기 button.
+ act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:base}));});
+ try{assert.equal(tree.root.findAll(n=>n.type==='button'&&n.props.children==="미리보기").length,0,"no preview button for guests");}finally{act(()=>tree.unmount());}
  // 2026-11-20 user request: only when vouchers run low (≤1 left), like the editor's publish-reward offer.
  for(const [remaining,shown] of [[3,0],[1.5,0],[1,1],[0.5,1],[0,1]]){act(()=>{tree=create(React.createElement(ContentEditorPage,{model:{...model,aiPhotoQuota:{remaining,limit:3}},basePath:'/service/try',guest:{...base,shareReward:{refresh:async()=>{},claim:async()=>true}}}));});try{assert.equal(fab(tree).length,shown,`remaining ${remaining}`);}finally{act(()=>tree.unmount());}}
 });
