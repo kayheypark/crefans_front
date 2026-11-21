@@ -1075,11 +1075,15 @@ test('review: eligible → no heart game, review while waiting and on the result
   const game=()=>r.root.findAll(n=>n.props?.['aria-label']==='기다리는 동안 하트 모으기');
   if(!eligible){assert.equal(games,1);assert.equal(card().length,0);assert.equal(game().length,1);await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});continue;}
   assert.equal(games,0,'no heart game');assert.equal(game().length,0);assert.equal(card().length,1);
-  assert.match(text(card()[0]),/하트 20개를 드려요/);
+  assert.doesNotMatch(text(card()[0]),/하트 20개|체험 이용권/);
+  const radios=()=>card()[0].findAll(n=>n.type==='button'&&n.props.role==='radio');
+  assert.equal(radios().some(n=>n.props['aria-checked']),false);
   const send=()=>card()[0].find(n=>n.type==='button'&&text(n)==='리뷰 보내기');assert.equal(send().props.disabled,true,'needs stars and a choice');
   await act(async()=>card()[0].find(n=>n.props['aria-label']==='별 4개').props.onClick());
   assert.equal(card()[0].findAll(n=>n.props?.['data-on']).length,4);
+  assert.equal(send().props.disabled,true,'rating alone cannot submit');
   await act(async()=>card()[0].find(n=>n.type==='button'&&text(n)==='별로예요').props.onClick());
+  assert.equal(send().props.disabled,false,'rating and choice can submit');
   await act(async()=>card()[0].find(n=>n.type==='textarea').props.onChange({target:{value:'  얼굴이 조금 달라요 '}}));
   await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
   assert.equal(card().length,1,'unsent review stays on the result screen');
