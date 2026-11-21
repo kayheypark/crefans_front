@@ -461,7 +461,30 @@ test('guest trial: the floating share ticket reopens the share-reward guide and 
  act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest:base}));});
  try{assert.equal(tree.root.findAll(n=>n.type==='button'&&n.props.children==="미리보기").length,0,"no preview button for guests");}finally{act(()=>tree.unmount());}
  // 2026-11-20 user request: only when vouchers run low (≤1 left), like the editor's publish-reward offer.
- for(const [remaining,shown] of [[3,0],[1.5,0],[1,1],[0.5,1],[0,1]]){act(()=>{tree=create(React.createElement(ContentEditorPage,{model:{...model,aiPhotoQuota:{remaining,limit:3}},basePath:'/service/try',guest:{...base,shareReward:{refresh:async()=>{},claim:async()=>true}}}));});try{assert.equal(fab(tree).length,shown,`remaining ${remaining}`);}finally{act(()=>tree.unmount());}}
+ for(const [remaining,shown] of [[3,0],[1.5,0],[1,1],[0.5,1],[0,0]]){act(()=>{tree=create(React.createElement(ContentEditorPage,{model:{...model,aiPhotoQuota:{remaining,limit:3}},basePath:'/service/try',guest:{...base,shareReward:{refresh:async()=>{},claim:async()=>true}}}));});try{assert.equal(fab(tree).length,shown,`remaining ${remaining}`);}finally{act(()=>tree.unmount());}}
+});
+
+// 2026-11-22 user report: with no vouchers left, the guide's 'AI 사진 만들러 가기' dead-ended. With an AI result in the editor the
+// guide now opens that result's share sheet directly.
+test('guest trial: with no vouchers left the share guide opens the AI result share sheet',async()=>{
+ const probe=fixtureHook();
+ const content={...initialContent,status:'draft',media:[{id:'ai1',type:'image',url:'/ai1.webp',aiGenerated:true}]};
+ const model={...probe.model,contents:[content],aiPhotoQuota:{remaining:0,limit:3},actions:{...probe.model.actions,aiEditPhoto:async()=>({success:true,data:{images:[]}})}};
+ const guest={backHref:'/service/feed',doneHref:'/service/try/done',notice:'notice',shareReward:{refresh:async()=>{},claim:async()=>true}};
+ const fab=tree=>tree.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='공유하고 이용권 3장 받기 안내');
+ const windowPrev=global.window;global.window={...(windowPrev||{}),location:{origin:'https://crefans.com',href:'https://crefans.com/service/try',pathname:'/service/try'}};
+ let tree;act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',id:'draft1',guest}));});
+ try{
+  assert.equal(fab(tree).length,1,'fab');act(()=>fab(tree)[0].props.onClick());
+  assert.equal(tree.root.findAll(n=>n.type==='button'&&n.props.children==='AI 사진 만들러 가기').length,0,'no dead-end button');
+  act(()=>button(tree,'결과 사진 공유하기').props.onClick());
+  const sheet=tree.root.findAll(n=>n.type==='section'&&n.props['data-dialog']==='이 결과 공유하기');
+  assert.equal(sheet.length,1,'share sheet opens');
+  assert.equal(tree.root.findAll(n=>n.type==='section'&&n.props['data-dialog']==='공유하고 이용권 3장 받기').length,0);
+ }finally{act(()=>tree.unmount());probe.close();global.window=windowPrev;}
+ // No AI result and no vouchers: nothing to share, so no ticket.
+ act(()=>{tree=create(React.createElement(ContentEditorPage,{model:{...model,contents:[{...content,media:[]}]},basePath:'/service/try',id:'draft1',guest}));});
+ try{assert.equal(fab(tree).length,0);}finally{act(()=>tree.unmount());}
 });
 
 // 2026-11-20 user request: a visitor who goes back to the feed to check and returns keeps the trial draft from this browser.
