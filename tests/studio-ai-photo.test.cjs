@@ -84,7 +84,9 @@ test('legacy two-result response: viewer navigation and existing selections are 
  assert.equal(r.root.findAll(n=>n.type==='img'&&n.props.alt==='결과 2 (AI 생성 사진)').length,1);
  await act(async()=>{r.root.findByProps({'aria-label':'이전 결과'}).props.onClick();});assert.match(text(viewer()[0]),/결과 1 \/ 2/);
  await act(async()=>{viewer()[0].props.onKeyDown({key:'ArrowRight',preventDefault(){},stopPropagation(){}});});assert.match(text(viewer()[0]),/결과 2 \/ 2/);
- await click('이 사진 선택');assert.match(text(viewer()[0]),/선택됨/);
+ // 2026-11-21: picks are locked while the 완료 layer is up and briefly after (AI_PHOTO_TAP_LOCK_MS); the user taps later.
+ const realNow=Date.now;Date.now=()=>realNow()+2000;
+ try{await click('이 사진 선택');}finally{Date.now=realNow;}assert.match(text(viewer()[0]),/선택됨/);
  await act(async()=>{viewer()[0].props.onKeyDown({key:'Escape',preventDefault(){},stopPropagation(){}});});
  assert.equal(viewer().length,0);assert.match(text(r.toJSON()),/사진 결정/,'both results are picked and the editor is still open');
 });
