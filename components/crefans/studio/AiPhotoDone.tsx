@@ -25,7 +25,7 @@ export function AiPhotoDone({show,onDone}:{show:number;onDone:()=>void}){
   onPointerDown={stop} onPointerUp={stop} onClick={stop} onTouchStart={stop} onTouchEnd={stop}>
   <div className={s.doneCard}>
    <span className={s.doneCheck} aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
-   <strong>사진이 완료됐어요</strong>
+   <strong>생성이 완료됐어요</strong>
    <span className={s.doneSub}>결과를 보여 드릴게요</span>
   </div>
  </div>;
