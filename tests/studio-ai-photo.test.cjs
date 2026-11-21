@@ -1058,7 +1058,7 @@ test('close with results: asks, says photos stay, reopening shows the resume not
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
  await click('만들기');
  await act(async()=>editor().props.onClose());assert.equal(closed,1);assert.equal(ask().length,1);
- assert.match(text(ask()[0]),/그대로 남아 있어요/);assert.match(text(ask()[0]),/나가거나 새로고침하면 사라/);
+ assert.match(text(ask()[0]),/닫아도 괜찮아요/);assert.match(text(ask()[0]),/다시 「AI 사진 편집」 버튼을 누르면 이전 작업 내용을 바로 확인/);assert.match(text(ask()[0]),/나가거나 새로고침하면 사라/);
  await click('계속 보기');assert.equal(ask().length,0);assert.equal(closed,1);assert.equal(note().length,0);
  await act(async()=>editor().props.onClose());
  await act(async()=>ask()[0].find(n=>n.type==='button'&&text(n)==='닫기').props.onClick());assert.equal(closed,2);
