@@ -139,7 +139,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
  function collectHeart(delta:number){heartScoreRef.current=Math.max(0,Math.min(30,heartScoreRef.current+delta));setHeartScore(heartScoreRef.current);}
  const editorKinds=AI_PHOTO_BODY_OPEN?aiPhotoKinds:aiPhotoKinds.filter(item=>item.value!=='body');
  const [shopLink,setShopLink]=useState<ReturnType<typeof costumeShopLink>>(null);
- const [stage,setStage]=useState<'edit'|'results'>('edit'),[signupNudge,setSignupNudge]=useState(false),[sourcePicker,setSourcePicker]=useState(false);
+ const [stage,setStage]=useState<'edit'|'results'>('edit'),[closeAsk,setCloseAsk]=useState(false),[resumed,setResumed]=useState(false),[signupNudge,setSignupNudge]=useState(false),[sourcePicker,setSourcePicker]=useState(false);
  useEffect(()=>{
   if(!open||!publishReward||!genderChosen||busy||error||publishOfferShown.current)return;
   if(!(remaining<=1||shortage>0))return;
@@ -185,7 +185,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   let game:typeof heartGame=null;
   // 2026-11-21: signed-out visitors also play the server-verified game (30 hearts → 0.5 credit, 3 a day).
   if(onHeartGame){setBusy(true);try{const r=await onHeartGame({action:'start'});if(!r.success||!r.data.id||!r.data.kinds){setError(r.errorMessage||'하트 게임을 시작하지 못했어요.');return;}game={id:r.data.id,kinds:r.data.kinds};setHeartGame(game);heartQueue.current=Promise.resolve();gameEvent.current=0;}catch{setError('하트 게임을 시작하지 못했어요.');return;}finally{setBusy(false);}}
-  setRewardNote('');heartScoreRef.current=0;setHeartScore(0);setBusy(true);setError('');setStage('results');
+  setResumed(false);setRewardNote('');heartScoreRef.current=0;setHeartScore(0);setBusy(true);setError('');setStage('results');
   let madeOk=false;
   try{
    const mask=requiresMask?await buildAiMask(source.url,strokes):undefined;
@@ -206,7 +206,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   if(!picked.length){setError('게시물에 넣을 사진을 골라 주세요.');return;}
   const replaceSourceIds=Array.from(new Set(picked.map(item=>sourceOrigins.current.get(item.id)).filter((id):id is string=>!!id&&images.some(image=>image.id===id))));
   if(picked.length>room+replaceSourceIds.length){setError(`사진은 ${room+replaceSourceIds.length}장만 넣을 수 있어요.`);return;}
-  onTrack?.('photo_decided',{mode:cosplayOpen?'cosplay':'general'});onAdd(picked,captionContext.current,replaceSourceIds);sourceOrigins.current.clear();setAspectRatio('original');setMethod(aiPhotoGenerationMethods[0]);setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection({});setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
+  setResumed(false);onTrack?.('photo_decided',{mode:cosplayOpen?'cosplay':'general'});onAdd(picked,captionContext.current,replaceSourceIds);sourceOrigins.current.clear();setAspectRatio('original');setMethod(aiPhotoGenerationMethods[0]);setResults([]);setSelected([]);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection({});setKind('outfit');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setWorkingSources([]);setTargetGender('original');setGenderChosen(false);setStrokes([]);setDetailedOutfit(false);setError('');setStage('edit');setCosplayOpen(true);onClose();
  }
  function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection({});setKind('pose');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setStage('edit');}
  const sharedResult=results.find(item=>selected.includes(item.id));
@@ -220,7 +220,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   <TextAreaField label="커스텀 프롬프트" rows={3} showCount maxLength={AI_PHOTO_PROMPT_MAX} value={customPrompt} onChange={event=>setCustom(event.target.value)} placeholder="선택한 프리셋에 더하고 싶은 내용을 적어 주세요." disabled={busy}/>
  </div>;
 
- return <><Dialog open={open} onClose={()=>{if(viewing){closeViewer();return;}if(!busy)onClose();}} title="AI 사진 편집" persistent fullscreenOnMobile className={s.editor}>
+ return <><Dialog open={open} onClose={()=>{if(viewing){closeViewer();return;}if(busy)return;if(results.length){setCloseAsk(true);return;}onClose();}} title="AI 사진 편집" persistent fullscreenOnMobile className={s.editor}>
   {!sources.length?<div className={s.body}><PromptLayout variant="dialog" icon="/brand/featured-creators-v1.png" title="바꿀 사진을 먼저 올려 주세요" description="게시물에 사진을 올리면 AI로 옷·포즈·배경을 바꿀 수 있어요." actions={<><Action type="button" className={promptPrimary} onClick={onClose}>사진 올리러 가기</Action>{library&&<Action type="button" variant="secondary" onClick={()=>setLibraryOpen(true)}>내 보관함</Action>}</>}/></div>:!genderChosen?<div className={s.genderEntry}><h3>남성인가요, 여성인가요?</h3><div className={s.genderEntryChoices}>{(['male','female'] as const).map(value=><button key={value} type="button" onClick={()=>changeGender(value)}>{/* 2026-11-17 user request: Seedream-made flat character icons instead of ♂/♀ symbols. */}{/* eslint-disable-next-line @next/next/no-img-element -- small static icon */}<img src={`/brand/ai-photo/gender-${value}-v1.webp`} alt="" width={88} height={88}/>{value==='male'?'남성':'여성'}</button>)}</div></div>:<>
    <div ref={bodyRef} className={s.body} inert={viewing}>
    {stage==='edit'&&<div className={s.sourceSection}>
@@ -263,6 +263,7 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
      <p className={s.hint}>만들기를 누르면 본인 또는 사용 허락을 받은 사진임을 확인합니다.</p>
      <details className={s.notice}><summary>AI 생성 표시 및 이용 안내</summary><p>나체·성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요. 만든 사진에는 ‘AI 생성’ 표시가 붙어요.</p></details>
     </div>:<div className={s.results}>
+     {resumed&&!busy&&<p className={s.resumeNote} role="status">닫기 전에 만든 사진이 그대로 있어요. 이 페이지를 나가거나 새로고침하면 사라져요.</p>}
      <div className={busy?s.waitingHeading:s.resultHeading}><h3 ref={resultTitleRef} tabIndex={-1}>{!busy&&<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m12 1 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"/></svg>}{busy?'사진을 만들고 있어요':'사진이 완성됐어요'}</h3>{!busy&&<button ref={editRef} type="button" className={s.editSettings} onClick={()=>{setStage('edit');setError('');}}>설정 수정</button>}</div>
      <AiPhotoDone show={doneLayer} onDone={()=>setDoneLayer(0)}/>
     {busy?<AiPhotoWaiting elapsed={elapsed} typical={typical} score={heartScore} game={heartGame?{kinds:heartGame.kinds,onHit:recordHeart}:undefined} onCollect={collectHeart} practiceOnly={noHearts&&!heartGame} note={noHearts&&heartGame?GUEST_HEART_NOTE:undefined} banner={noHearts?<SignupWaitBanner/>:undefined}/>:
@@ -345,6 +346,10 @@ export function AiPhotoDialog({library,onCrop,onHeartGame,open,onClose,images,qu
   <div className={s.publishOfferBody}><p>비회원은 기본 하루 3장이지만<br/>회원은 <strong>매일 10장</strong>을 무료로 만들 수 있어요.<br/><small>매일 오전 9시(한국 시간)에 다시 채워져요.</small></p>
    <div className={s.publishOfferActions}><ActionLink href={signupLink}>무료로 회원가입</ActionLink><Action type="button" variant="secondary" onClick={()=>setSignupNudge(false)}>나중에</Action></div></div>
  </Dialog>}
+ {/* 2026-11-21 user request: closing with made photos says they stay (until the page is left) so nobody closes by mistake or thinks they are gone. */}
+ <Dialog open={open&&closeAsk} onClose={()=>setCloseAsk(false)} title="AI 사진 편집을 닫을까요?" persistent>
+  <div className={s.errorMessage}><p>만든 사진은 그대로 남아 있어요. 다시 「AI 사진 편집」을 누르면 이어서 볼 수 있어요.<br/><small>이 페이지를 나가거나 새로고침하면 사라지니, 쓸 사진은 「사진 결정」을 눌러 주세요.</small></p><div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>setCloseAsk(false)}>계속 보기</Action><Action type="button" onClick={()=>{setCloseAsk(false);setResumed(true);onClose();}}>닫기</Action></div></div>
+ </Dialog>
  <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);setSignupOffer(false);}} title="AI 사진 편집 안내" persistent>
   <div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href={signupLink}>회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>
  </Dialog></>;

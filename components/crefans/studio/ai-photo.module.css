@@ -407,3 +407,5 @@
 .signupWaitText{margin:2px 0 0;color:var(--cf-color-textSecondary);font-size:12px;line-height:1.45;word-break:keep-all}
 /* 2026-11-21 user request: the whole waiting screen fits one phone screen (smaller heading gap, game and mascot). */
 @media(max-width:767px){.waitingHeading{padding-top:4px}.waitingHeading h3{font-size:20px}.waiting{gap:10px;padding-bottom:12px}.waitingDots{padding:2px 0 4px}.heartGame{padding:12px 10px}.heartPlayfield{height:200px;margin-top:4px}.heartMascot{width:46%}}
+/* 2026-11-21 user request: reopening the editor says the earlier results are still here. */
+.resumeNote{margin:0;padding:10px 12px;border-radius:12px;background:var(--cf-color-accentSoft);color:var(--cf-color-text);font-size:13px;line-height:1.45;text-align:center;word-break:keep-all}

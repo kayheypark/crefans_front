@@ -1043,3 +1043,21 @@ test('waiting banner: guests see 매일 10장 while the photo is made, with noth
   assert.equal(r.root.findAll(n=>n.type==='aside'&&n.props['aria-label']==='회원 혜택').length,0,'gone once the result is shown');
  }
 });
+
+// 2026-11-21 user request: closing with made photos asks first and says they stay; reopening says so again; a new generation clears the note.
+test('close with results: asks, says photos stay, reopening shows the resume note',async()=>{
+ let closed=0;const {r,click}=await open({onClose(){closed++;}});
+ const editor=()=>r.root.findByProps({'aria-label':'AI 사진 편집'});
+ const ask=()=>r.root.findAll(n=>n.props?.['aria-label']==='AI 사진 편집을 닫을까요?');
+ const note=()=>r.root.findAll(n=>n.type==='p'&&text(n).startsWith('닫기 전에 만든 사진이 그대로 있어요'));
+ await act(async()=>editor().props.onClose());assert.equal(closed,1,'nothing made: closes at once');
+ await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
+ await click('만들기');
+ await act(async()=>editor().props.onClose());assert.equal(closed,1);assert.equal(ask().length,1);
+ assert.match(text(ask()[0]),/그대로 남아 있어요/);assert.match(text(ask()[0]),/나가거나 새로고침하면 사라/);
+ await click('계속 보기');assert.equal(ask().length,0);assert.equal(closed,1);assert.equal(note().length,0);
+ await act(async()=>editor().props.onClose());
+ await act(async()=>ask()[0].find(n=>n.type==='button'&&text(n)==='닫기').props.onClick());assert.equal(closed,2);
+ assert.equal(note().length,1,'results kept and the note shows when reopened');assert.ok(r.root.findAll(n=>n.props?.['aria-label']==='결과 1').length>0);
+ await click('설정 수정');await click('만들기');assert.equal(note().length,0,'a new photo clears the note');
+});
