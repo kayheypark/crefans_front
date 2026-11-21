@@ -19,7 +19,7 @@ async function openEditor(){
  const click=async name=>act(async()=>{r.root.find(node=>node.type==='button'&&(text(node).includes(name)||String(node.props['aria-label']||'').includes(name))).props.onClick();});
  await click('여성');await click('일반 모드');
  await act(async()=>r.root.find(node=>node.type==='button'&&node.props.role==='tab'&&text(node)==='포즈').props.onClick());
- const generate=async()=>{await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 조명'}}));await click('만들기');};
+ const generate=async()=>{await act(async()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'밝은 조명'}}));await click('만들기');await click('이 사진으로 만들기');};
  const closeDialog=async()=>act(async()=>r.root.find(node=>node.type==='section'&&node.props['aria-label']==='AI 사진 편집').props.onClose());
  const steps=()=>tracked.filter(([step])=>step!=='ai_editor_opened');
  return {r,click,generate,closeDialog,steps,closed};

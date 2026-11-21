@@ -58,7 +58,7 @@ test('deciding a photo resets the generation method to the standard default, lik
   await click('여성');
   assert.equal(radio('standard').props.checked,true,'first open uses the default');
   await act(async()=>radio('precise').props.onChange());assert.equal(radio('precise').props.checked,true);
-  await click('만들기');await click('사진 결정');
+  await click('만들기');await click('이 사진으로 만들기');await click('사진 결정');
   assert.equal(added.length,1,'the result was added to the post');
   await click('여성'); // deciding clears the gender choice; the method cards show again once it is picked
   assert.equal(radio('standard').props.checked,true,'after deciding, the editor is back on the standard default');
