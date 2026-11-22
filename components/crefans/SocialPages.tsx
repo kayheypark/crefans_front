@@ -249,7 +249,7 @@ export function FeedPage({model}:{model:ServiceViewModel}){
       <ChipRow label="관심 카테고리" className={s.feedCategories}>{categories.map(item=><CategoryChip key={item} label={item} iconUrl={model.data.categoryIcons?.[item]} selected={category===item} onClick={()=>selectCategory(item)}/>)}</ChipRow>
     </div>
     {/* 2026-11-15: signed-out visitors can try AI photos and post without an account (live service only). */}
-    {model.mode==='live'&&!model.signedIn&&<GuestCosplayBanner href={`${basePath}/try`} aboutHref="/service/landing-ai-image-generation"/>}
+    {model.mode==='live'&&!model.signedIn&&<GuestCosplayBanner href="/service/landing-ai-image-generation" aboutHref="/service/landing-ai-image-generation"/>}
     {posts.length?<>{posts.map(post=><PostCard key={post.id} post={post} model={model} context={posts}/>)}{model.feedPaging?.hasMore?<Action variant="secondary" disabled={model.feedPaging.loading} onClick={()=>void model.feedPaging?.loadMore()}>더 보기<DelayedInlineSpinner loading={!!model.feedPaging.loading}/></Action>:<FeedEnd/>}<ServiceFooter basePath={basePath}/></>:<><Empty title={category==='전체'?'아직 게시물이 없어요':'이 카테고리의 게시물이 없어요'} description={category==='전체'?'마음에 드는 크리에이터를 만나보세요.':'다른 카테고리의 게시물을 확인해 보세요.'} action={category==='전체'?<TextLink className={s.textLink} href={`${basePath}/explore`}>크리에이터 둘러보기</TextLink>:<Action variant="secondary" onClick={()=>selectCategory('전체')}>전체 피드 보기</Action>}/><ServiceFooter basePath={basePath} always/></>}
   </div>;
 }
