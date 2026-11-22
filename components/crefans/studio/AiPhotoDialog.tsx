@@ -26,7 +26,7 @@ import Image from 'next/image';
 import {Dialog,TextAreaField} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
 import {aiPhotoSelectionLabels,type AiPhotoCaptionContext} from '@/lib/crefans/ai-photo-labels';
-import {AI_PHOTO_BODY_OPEN,AI_PHOTO_DEFAULT_METHOD,AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection,AI_PHOTO_OWN_BACKGROUND_PROMPT} from '@/lib/crefans/ai-photo';
+import {AI_PHOTO_BODY_OPEN,AI_PHOTO_DEFAULT_METHOD,AI_PHOTO_PROMPT_MAX,aiPhotoGenerationMethods,aiPhotoKinds,aiPhotoProblem,aiPhotoPresetText,aiPhotoBodyControls,aiPhotoMaleBodyControls,updateAiPhotoBodySelection,buildAiPhotoPrompt,type AiPhotoPresetSelection,type AiPhotoPromptPart,AI_PHOTO_OWN_BACKGROUND_PROMPT} from '@/lib/crefans/ai-photo';
 import {Action,ActionLink} from '../ServiceUI';
 import {useCurrentSignupHref} from '../useCurrentLoginHref';
 import {aiPhotoBackgroundId} from '@/lib/crefans/ai-photo-backgrounds';
@@ -45,7 +45,7 @@ type Props={/** 2026-11-22: signed-out trial — opening the Coupang costume lin
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;/** 2026-11-20: upload a place photo to use as the background ('내 사진'). */onUploadBackground?:(file:File)=>Promise<ApiResult<StudioMedia>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext,replaceSourceIds?:string[])=>void};
 
-const buildPrompt=(presets:AiPhotoPresetSelection[],custom:string,gender:'original'|'female'|'male')=>buildAiPhotoPrompt(aiPhotoCostumeRequest(presets).presets,custom,gender);
+const buildPrompt=(presets:AiPhotoPromptPart[],custom:string,gender:'original'|'female'|'male')=>buildAiPhotoPrompt(aiPhotoCostumeRequest(presets).presets,custom,gender);
 
 function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg>;}
 
@@ -226,6 +226,14 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onR
  const viewing=viewer!==null||sourceViewer;
  async function sendReview(input:AiReviewInput){if(!onReview)return '';const r=await onReview.submit(input);if(!r.success)return r.errorMessage||'리뷰를 저장하지 못했어요.';const d=r.data;if(d.wallet)setHeartBalance(d.wallet.hearts);setReview(v=>v&&{...v,done:d.tickets?`체험 이용권 ${d.tickets}장을 받았어요.`:d.hearts?`하트 ${d.hearts}개를 받았어요.`:'오늘 받을 수 있는 보상은 모두 받았어요.'});return '';}
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
+ // 2026-11-22 user request: a library photo can be the edit target itself, and the one last chosen opens as the target on every entry.
+ function pickLibrarySource(item:PhotoAsset){setWorkingSources(previous=>previous.some(value=>value.id===item.id)?previous:[...previous,item]);changeSource(item.id);setLibraryAssets(items=>items.filter(value=>value.id!==item.id));setLibraryOpen(false);setStage('edit');void library?.rememberSource?.(item.id);}
+ const recentSourceAsked=useRef(false);
+ useEffect(()=>{if(!open){recentSourceAsked.current=false;return;}if(recentSourceAsked.current||!library?.recentSource)return;recentSourceAsked.current=true;let live=true;
+  void library.recentSource().then(r=>{const item=r.success?r.data.item:null;if(!live||!item)return;setWorkingSources(previous=>previous.some(value=>value.id===item.id)?previous:[...previous,item]);changeSource(item.id);}).catch(()=>{});
+  return()=>{live=false;};
+ // eslint-disable-next-line react-hooks/exhaustive-deps -- once per opening
+ },[open]);
  function selectLibrary(item:PhotoAsset){if(libraryAssets.some(value=>value.id===item.id)){setLibraryAssets(items=>items.filter(value=>value.id!==item.id));return;}const next=[...libraryAssets.filter(value=>value.category!==item.category),item];if(next.length>4){setError('내 보관함 사진은 최대 4개까지 선택해 주세요.');setLibraryOpen(false);return;}setSelectedPresets(items=>items.filter(value=>value.kind!==item.category));setLibraryAssets(next);}
  const outfitSwitch=OUTFIT_DETAIL_ENABLED&&(kind==='outfit'||hasOutfit)&&<button type="button" role="switch" aria-checked={detailedOutfit} className={s.outfitSwitch} disabled={busy} onClick={()=>{setDetailedOutfit(!detailedOutfit);setError('');}}>옷 세부 지정<span aria-hidden="true"/></button>;
  const composer=<div className={s.composer}>
@@ -338,7 +346,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onR
   {viewer!==null&&results[viewer]&&<AiResultViewer items={results} index={viewer} selected={selected} onIndex={setViewer} onShare={setShareItem} onToggle={toggle} onClose={closeViewer}/>}
   {sourceViewer&&source&&<AiResultViewer items={[source]} index={0} selected={[]} onIndex={()=>{}} onClose={closeViewer} original/>}
  </Dialog>
- {library&&<AiPhotoLibrary open={open&&libraryOpen} model={library} selected={libraryAssets} onSelect={selectLibrary} onChanged={id=>setLibraryAssets(items=>items.filter(item=>item.id!==id))} onClose={()=>setLibraryOpen(false)}/>}
+ {library&&<AiPhotoLibrary open={open&&libraryOpen} model={library} selected={libraryAssets} onSelect={selectLibrary} onEditSource={pickLibrarySource} onChanged={id=>setLibraryAssets(items=>items.filter(item=>item.id!==id))} onClose={()=>setLibraryOpen(false)}/>}
  {open&&shareItem&&<AiResultShare key={shareItem.id} item={shareItem} eligible={!!shareReward} prepare={photoFile} onClose={()=>setShareItem(null)} onReport={report=>{
   onShareReport?.(report);
   if(report.outcome==='done'){onTrack?.('ai_result_shared',{mode:cosplayOpen?'cosplay':'general'});

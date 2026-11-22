@@ -366,7 +366,7 @@ export const isFranchiseCostume=(costume:Pick<AiPhotoCostume,'category'>)=>costu
 export const franchiseCostumeNotice='게임·애니 의상으로 만든 사진은 후원·멤버십 전용 게시물에 쓸 수 없어요.';
 
 /** Keep selection order and other edits, replacing verbose costume descriptions with image references. */
-export function aiPhotoCostumeRequest(selected:AiPhotoPresetSelection[]){
+export function aiPhotoCostumeRequest<T extends {kind:string;prompt:string}=AiPhotoPresetSelection>(selected:T[]){
  const costumeIds:string[]=[];
  const presets=selected.map(item=>{
   const costume=item.kind==='outfit'?aiPhotoCostumes.find(c=>aiPhotoPresetText(c.prompt)===item.prompt):undefined;

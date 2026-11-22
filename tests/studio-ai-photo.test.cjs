@@ -740,6 +740,23 @@ test('personal references select independently across categories, toggle off and
  await act(async()=>panel().props.onSelect(pose));await click('의자에 앉기');await click('만들기');assert.deepEqual(calls[1].libraryIds,['private-bg']);await click('설정 수정');await act(async()=>panel().props.onChanged('private-bg'));assert.equal(r.root.findAllByProps({'aria-label':'공원 참고 선택 해제'}).length,0);
 });
 
+// 2026-11-22 user request: '얼굴' library reference, a library photo as the edit target itself, and the last chosen one preselected on entry.
+test('face library reference is sent as its own edit kind',async()=>{
+ const library={list:async()=>({success:true,data:{items:[],hasMore:false}})};const {r,calls,click}=await open({library});const panel=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
+ await act(async()=>{panel().props.onSelect({id:'private-face',type:'image',url:'/face.png',title:'내 얼굴',category:'face'});});await click('만들기');
+ assert.deepEqual(calls[0].libraryIds,['private-face']);assert.equal(calls[0].kind,'face');assert.match(calls[0].prompt,/참고 사진의 얼굴 적용/);
+});
+test('편집하기 makes a library photo the edit target and remembers it; the remembered one is the target on the next entry',async()=>{
+ const remembered=[],target={id:'lib-target',type:'image',url:'/lib.png',title:'보관 사진',category:'pose'};
+ const library={list:async()=>({success:true,data:{items:[],hasMore:false}}),rememberSource:async id=>{remembered.push(id);return {success:true,data:{item:target}};}};
+ const {r,calls,click}=await open({library});const panel=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
+ await act(async()=>{panel().props.onEditSource(target);});assert.deepEqual(remembered,['lib-target']);await click('의자에 앉기');await click('만들기');assert.equal(calls[0].source.id,'lib-target');
+ const next=await open({library:{...library,recentSource:async()=>({success:true,data:{item:target}})}});await act(async()=>{await new Promise(resolve=>setTimeout(resolve,10));});
+ await next.click('의자에 앉기');await next.click('만들기');assert.equal(next.calls[0].source.id,'lib-target');
+ const none=await open({library:{...library,recentSource:async()=>({success:true,data:{item:null}})}});await act(async()=>{await new Promise(resolve=>setTimeout(resolve,10));});
+ await none.click('의자에 앉기');await none.click('만들기');assert.equal(none.calls[0].source.id,'p1','no remembered photo keeps the post photo');
+});
+
 test('library metadata removal clears selection and library entry exists before a source is uploaded',async()=>{
  const library={list:async()=>({success:true,data:{items:[],hasMore:false}})};const {r}=await open({library,images:[]});assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='내 보관함').length);
 });
@@ -820,7 +837,7 @@ test('library album: category rows with totals, see-all grid and back, search to
  const {r,click}=await open({library});await click('내 보관함');await act(async()=>{await new Promise(resolve=>setTimeout(resolve,10));});
  const heads=()=>r.root.findAll(n=>n.type==='h3').map(text);
  assert.deepEqual(heads().filter(t=>/포즈|배경|의상/.test(t)),['포즈 3','배경 1'],'only non-empty categories, server total shown even when the first page holds fewer');
- assert.equal(queries.filter(q=>q.page===0&&!q.q).length,7,'one first-page request per category');
+ assert.equal(queries.filter(q=>q.page===0&&!q.q).length,8,'one first-page request per category (8 since 2026-11-22: 얼굴)');
  assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='전체보기').length===2);
  await act(async()=>{r.root.find(n=>n.props['aria-label']==='앉은 포즈 선택').props.onClick();});
  const lib=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
