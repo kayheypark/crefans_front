@@ -137,6 +137,8 @@ export function loadPostHog(){
 /** The PostHog session (replay) ID of this tab, or null without PostHog (no key, e.g. the dev server). 2026-11-20: the console
  * trial history links to the replay; only this random UUID is sent to our server, never replay content. */
 export async function replaySessionId(){try{const posthog=await loadPostHog();const id=posthog?.get_session_id?.();return typeof id==='string'&&/^[0-9a-f-]{36}$/i.test(id)?id:null;}catch{return null;}}
+/** 2026-11-22: the PostHog visitor number (anonymous distinct_id, a random UUID) so the console can also find the trial by it. */
+export async function replayVisitorId(){try{const posthog=await loadPostHog();const id=posthog?.get_distinct_id?.();return typeof id==='string'&&/^[0-9a-f-]{36}$/i.test(id)?id:null;}catch{return null;}}
 /** Route change: stop replay before a page outside the allowlist is recorded, resume on allowed pages. */
 export function syncReplay(pathname:string){
  if(!client)return;
