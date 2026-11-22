@@ -41,7 +41,7 @@ import {costumeShopLink,COSTUME_SHOP_NOTICE} from '@/lib/crefans/costume-shop-li
 const PUBLISH_OFFER_DELAY_MS=2000;
 // 2026-11-21 user decision: guests earn 0.5 credit for 30 hearts, at most 3 a day (server guest-policy).
 const GUEST_HEART_NOTE='하트 30개를 모으면 체험 이용권 0.5장을 드려요 (하루 최대 3장)';
-type Props={shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;/** 2026-11-21: review instead of the game on a repeat generation. */onReview?:AiReviewModel;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
+type Props={/** 2026-11-22: signed-out trial — opening the Coupang costume link pays 3 credits once a day; true when paid now. */shopReward?:{claim:()=>Promise<boolean>};shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;/** 2026-11-21: review instead of the game on a repeat generation. */onReview?:AiReviewModel;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;/** 2026-11-20: upload a place photo to use as the background ('내 사진'). */onUploadBackground?:(file:File)=>Promise<ApiResult<StudioMedia>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext,replaceSourceIds?:string[])=>void};
 
@@ -52,7 +52,7 @@ function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBo
 // Temporarily hidden at user request; keep the mask editor for later reactivation.
 const OUTFIT_DETAIL_ENABLED=false;
 
-export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onReview,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false,publishReward,shareReward}:Props){
+export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onReview,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false,publishReward,shareReward,shopReward}:Props){
  const [libraryOpen,setLibraryOpen]=useState(false),[libraryAssets,setLibraryAssets]=useState<PhotoAsset[]>([]);
  const sourceOrigins=useRef(new Map<string,string>());
  const [sourceId,setSourceId]=useState(images[0]?.id||''),[kind,setKind]=useState<AiPhotoKind>('outfit');
@@ -60,7 +60,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onR
  const [bodySelection,setBodySelection]=useState<Record<string,number>>({});
  const [targetGender,setTargetGender]=useState<'original'|'female'|'male'>('original');
  const [aspectRatio,setAspectRatio]=useState<AiPhotoRatio>('original'),[cropItem,setCropItem]=useState<StudioMedia|null>(null);
- const [shareItem,setShareItem]=useState<StudioMedia|null>(null),[shareRewardOpen,setShareRewardOpen]=useState(false),photoFiles=useRef(new Map<string,Promise<File>>());
+ const [shareItem,setShareItem]=useState<StudioMedia|null>(null),[shareRewardOpen,setShareRewardOpen]=useState(false),[shopRewardOpen,setShopRewardOpen]=useState(false),photoFiles=useRef(new Map<string,Promise<File>>());
  const captionContext=useRef<AiPhotoCaptionContext>({labels:[],prompt:''});
  // 2026-11-14 user decision: results are shared through the system share sheet as PNG files converted in the browser.
  // Files are prepared ahead so the share call stays inside the tap's user activation (iOS Safari rejects late calls).
@@ -301,13 +301,14 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onR
      </button>
     </div><div className={s.resultActions}><Action type="button" variant="secondary" disabled={!originalSource} onClick={()=>{if(originalSource){onTrack?.('ai_result_original',{mode:cosplayOpen?'cosplay':'general'});editResult(originalSource);}}}>원본으로</Action><Action type="button" variant="secondary" onClick={()=>{const item=results.find(result=>selected.includes(result.id));if(item){onTrack?.('ai_result_continue',{mode:cosplayOpen?'cosplay':'general'});editResult(item);}}} disabled={selected.length!==1}>계속 보정</Action><Action type="button" onClick={add} disabled={!selected.length}>사진 결정</Action></div>
      {shopLink&&<div className={s.shopLink}>
+      {shopReward&&<div className={s.shopRewardBubble}><span className={s.resultShareBubble}>혹시 진짜로 입어볼 생각도 있어요? (3장)</span></div>}
       <div className={s.shopCard} data-testid="costume-shop-card">
        <span className={s.shopThumb}>
         <Image className={s.shopThumbImage} src={shopLink.image} width={56} height={56} alt=""/>
         <span className={s.shopThumbBadge} data-testid="costume-shop-badge"><Image src="/brand/coupang-app-icon-v1.jpg" width={25} height={25} alt="" unoptimized/></span>
        </span>
        <div className={s.shopLinkCopy}><span className={s.shopLinkTag}>{shopLink.affiliate?'제휴 링크':'의상 검색'}</span><strong>{shopLink.name}</strong></div>
-       <a className={s.shopLinkAction} href={shopLink.url} target="_blank" rel={shopLink.affiliate?'sponsored noopener noreferrer':'noopener noreferrer'} data-testid="costume-shop-link" onClick={()=>onTrack?.('costume_shop_clicked',{mode:cosplayOpen?'cosplay':'general',kind:shopLink.category})} aria-label={`${shopLink.name} 쿠팡에서 ${shopLink.affiliate?'보기':'검색'}`} aria-describedby={shopLink.affiliate?`${panelId}-shop-notice`:undefined}>
+       <a className={s.shopLinkAction} href={shopLink.url} target="_blank" rel={shopLink.affiliate?'sponsored noopener noreferrer':'noopener noreferrer'} data-testid="costume-shop-link" onClick={()=>{onTrack?.('costume_shop_clicked',{mode:cosplayOpen?'cosplay':'general',kind:shopLink.category});if(shopReward)void shopReward.claim().then(paid=>{if(paid)setShopRewardOpen(true);});}} aria-label={`${shopLink.name} 쿠팡에서 ${shopLink.affiliate?'보기':'검색'}`} aria-describedby={shopLink.affiliate?`${panelId}-shop-notice`:undefined}>
         쿠팡에서 {shopLink.affiliate?'보기':'검색'}<svg aria-hidden="true" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M13 4h7v7m0-7-9 9m7 0v7H4V6h7"/></svg>
        </a>
       </div>
@@ -345,6 +346,7 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onR
    if(shareReward&&(report.method==='native'||report.method==='copy'))void shareReward.claim(shareItem.id).then(paid=>{if(paid){setShareItem(null);setShareRewardOpen(true);}});}
  }}/>}
  {/* 2026-11-20 user report: a modal says the share reward arrived. */}
+ <Dialog open={open&&shopRewardOpen} onClose={()=>setShopRewardOpen(false)} title="이용권 3장을 받았어요!"><div className={s.shareRewardDone}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={120} height={120}/><p>의상 구경 고마워요.<br/>받은 이용권으로 사진을 더 만들어 보세요.</p></div><DialogActions><Action type="button" onClick={()=>setShopRewardOpen(false)}>계속 만들기</Action></DialogActions></Dialog>
  <Dialog open={open&&shareRewardOpen} onClose={()=>setShareRewardOpen(false)} title="이용권 3장을 받았어요!"><div className={s.shareRewardDone}>{/* eslint-disable-next-line @next/next/no-img-element -- decorative ticket */}<img src="/brand/ai-photo/share-ticket-v1.webp" alt="" width={120} height={120}/><p>공유해 줘서 고마워요.<br/>받은 이용권으로 사진을 더 만들어 보세요.</p></div><DialogActions><Action type="button" onClick={()=>setShareRewardOpen(false)}>계속 만들기</Action></DialogActions></Dialog>
  {open&&cropItem&&onCrop&&<AiPhotoCrop key={cropItem.id} item={cropItem} onClose={()=>setCropItem(null)} onApply={async crop=>{const r=await onCrop({sourceId:cropItem.id,...crop});if(!r.success)throw new Error(r.errorMessage||'사진을 저장하지 못했어요.');const next={...r.data,aiGenerated:true};sourceOrigins.current.set(next.id,sourceOrigins.current.get(cropItem.id)||sourceId);setResults(items=>items.map(item=>item.id===cropItem.id?next:item));setSelected(ids=>ids.map(id=>id===cropItem.id?next.id:id));setCropItem(null);}}/>}
  {publishReward&&<Dialog open={open&&publishOffer} onClose={()=>setPublishOffer(false)} title={`게시하고 이용권 ${publishReward.credits}장 받기`} className={s.publishOffer}
