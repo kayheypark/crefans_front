@@ -33,7 +33,7 @@ export const aiPhotoStyles:{value:AiPhotoStyle;label:string}[]=[
  {value:'photo',label:'실사 사진 느낌'},{value:'cosplay',label:'코스프레 촬영'},{value:'daily',label:'일상 스냅'},
 ];
 /** First problem with the request, or '' when it can be sent. The server repeats every check. */
-export function aiPhotoProblem({prompt,consent,kind,hasMask,remaining,requireMask=false}:{prompt:string;consent:boolean;kind:AiPhotoKind;hasMask:boolean;remaining:number;requireMask?:boolean}){
+export function aiPhotoProblem({prompt,consent,kind,hasMask,remaining,requireMask=false}:{prompt:string;consent:boolean;kind:import('@/types/crefans-studio-management').AiPhotoEditKind;hasMask:boolean;remaining:number;requireMask?:boolean}){
  const text=prompt.trim();
  if(remaining<=0)return '무료 횟수를 모두 썼어요. 매일 오전 9시에 다시 채워지고, AI 이용권을 구매하면 계속 만들 수 있어요.';
  if(kind==='outfit'&&requireMask&&!hasMask)return '바꿀 옷 부분을 사진 위에 칠해 주세요.';
@@ -59,8 +59,10 @@ export function aiPhotoBodyPrompt(key:string,level:number){
 }
 
 export type AiPhotoPresetSelection={kind:AiPhotoKind;prompt:string};
+/** A preset or a personal library reference (2026-11-22: library may add 'face'). */
+export type AiPhotoPromptPart={kind:import('@/types/crefans-studio-management').AiPhotoEditKind;prompt:string};
 const aiPhotoGenderPrompts={female:'생성 인물을 성인 여성으로 바꿔줘.',male:'생성 인물을 성인 남성으로 바꿔줘.'};
-export function buildAiPhotoPrompt(presets:readonly AiPhotoPresetSelection[],custom:string,gender:'original'|'female'|'male'){
+export function buildAiPhotoPrompt(presets:readonly {prompt:string}[],custom:string,gender:'original'|'female'|'male'){
  return [...presets.map(item=>item.prompt),...(gender==='original'?[]:[aiPhotoGenderPrompts[gender]]),custom.trim()].filter(Boolean).join('\n');
 }
 
