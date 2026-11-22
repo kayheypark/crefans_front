@@ -398,8 +398,15 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onR
   </div>}
  </Dialog>
  {/* Only one photo: another one is uploaded on the post form, so the editor closes (its choices stay for the next open). */}
- <Dialog open={open&&changeUpload} onClose={()=>setChangeUpload(false)} title="다른 사진으로 바꿀까요?">
-  <div className={s.errorMessage}><p>편집 창을 닫고 게시물의 <strong>파일 업로드</strong>에서 사진을 올려 주세요.<br/>다시 <strong>「AI 사진 편집」</strong>을 누르면 고른 옷·포즈는 그대로 있어요.</p><div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>setChangeUpload(false)}>취소</Action><Action type="button" onClick={()=>{setChangeUpload(false);onClose();}}>사진 올리러 가기</Action></div></div>
+ <Dialog open={open&&changeUpload} onClose={()=>setChangeUpload(false)} title="다른 사진으로 바꿀까요?" className={s.changeUploadDialog}>
+  <div className={s.changeUploadBody}>
+   <p>게시물의 <strong>파일 업로드</strong>에서 새 사진을 올린 뒤 AI 사진 편집을 다시 열어 주세요.</p>
+   <p>선택한 옷과 포즈는 그대로 유지돼요.</p>
+   <div className={s.changeUploadActions}>
+    <Action type="button" variant="secondary" onClick={()=>setChangeUpload(false)}>취소</Action>
+    <Action type="button" onClick={()=>{setChangeUpload(false);onClose();}}>사진 올리러 가기</Action>
+   </div>
+  </div>
  </Dialog>
  <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);setSignupOffer(false);}} title="AI 사진 편집 안내" persistent>
   <div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href={signupLink}>회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>
