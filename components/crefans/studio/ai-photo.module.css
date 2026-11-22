@@ -439,3 +439,5 @@
 .sourceConfirm .errorActions{width:100%}
 .sourceConfirm .errorActions:has(> :only-child){grid-template-columns:1fr}
 .sourceConfirm .errorActions>*{white-space:nowrap}
+/* 2026-11-22: preset used for the result being edited (selection itself stays 원본 유지) */
+.previousResultTag{position:absolute;left:6px;top:6px;z-index:1;padding:2px 8px;border-radius:999px;background:#7c3aed;color:#fff;box-shadow:0 1px 3px rgb(0 0 0/.2);font-size:11px;font-weight:700;line-height:16px;pointer-events:none}
