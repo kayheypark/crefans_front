@@ -10,6 +10,8 @@ type MediaOverlayProps=Omit<HTMLAttributes<HTMLDivElement>,'title'> & {
   index:number;onIndexChange:(index:number)=>void;open:boolean;onClose:()=>void;stageAction?:ReactNode;onImageClick?:()=>void;
 };
 const overlaySwipeThreshold=40,overlayDragThreshold=6;
+/** 2026-11-22: while the page is pinch-zoomed (photos allow it, like the AI result viewer) a one-finger drag pans the photo instead of changing slides. */
+const pinchZoomed=()=>typeof window!=='undefined'&&(window.visualViewport?.scale||1)>1.01;
 /** Shared full-screen media stage. Optional children supply a detail panel; URLs and access decisions belong to the caller. */
 export const MediaOverlay=forwardRef<HTMLDivElement,MediaOverlayProps>(function MediaOverlay({media,title,alt,index,onIndexChange,open,onClose,stageAction,onImageClick,children,...props},ref){
   const closeButton=useRef<HTMLButtonElement>(null);
@@ -20,6 +22,7 @@ export const MediaOverlay=forwardRef<HTMLDivElement,MediaOverlayProps>(function 
     suppressImageClick.current=false;
     const target=event.target as HTMLElement;
     if((media.length<2&&!onImageClick)||target.tagName==='VIDEO'||target.closest?.('button,a,input,textarea,select'))return;
+    if(pinchZoomed()){suppressImageClick.current=true;return;}
     swipe.current={id:event.pointerId,x:event.clientX,y:event.clientY,axis:null};
   };
   const swipeMove=(event:ReactPointerEvent<HTMLDivElement>)=>{const start=swipe.current;if(!start||start.id!==event.pointerId)return;const dx=event.clientX-start.x,dy=event.clientY-start.y;if(!start.axis){if(Math.abs(dx)<overlayDragThreshold&&Math.abs(dy)<overlayDragThreshold)return;start.axis=Math.abs(dx)>=Math.abs(dy)?'x':'y';suppressImageClick.current=true;}if(start.axis!=='x'||media.length<2)return;const atEdge=(index===0&&dx>0)||(index===media.length-1&&dx<0);setOffset(atEdge?dx/3:dx);};
