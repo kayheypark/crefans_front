@@ -4,7 +4,7 @@ import {platformRequest as api} from '@/lib/api/platform';
 import {imageUploadMaxBytes,imageUploadMaxLabel} from '@/lib/design/image-upload';
 import {optimizeImage} from '@/lib/design/image-optimize';
 import {aiPhotoEditBody} from './useStudioModel';
-import {aiProps,captureEvent,replaySessionId,setReplayInlineImages,setReplayUnmasked} from '@/lib/analytics/posthog';
+import {aiProps,captureEvent,replaySessionId,replayVisitorId,setReplayInlineImages,setReplayUnmasked} from '@/lib/analytics/posthog';
 import {rememberEntrySource} from '@/lib/api/funnel';
 import {reportShare} from '@/lib/api/share-report';
 import type {AiPhotoFunnelStep} from '@/types/crefans-studio-management';
@@ -21,7 +21,7 @@ export function clearGuestTrial(){try{window.localStorage.removeItem(TRIAL_FLAG)
 // 2026-11-20 user request: link the trial to its PostHog replay in the console (AI 사진 체험 관리). Each session ID is sent once per tab;
 // PostHog may start a new session after 30 idle minutes, so the editor reports again before each AI generation and post.
 const reportedReplays=new Set<string>();
-async function reportReplaySession(){const id=await replaySessionId();if(!id||reportedReplays.has(id))return;reportedReplays.add(id);const r=await api<{recorded:boolean}>('/guest/replay-session',{sessionId:id});if(!r.success)reportedReplays.delete(id);}
+async function reportReplaySession(){const id=await replaySessionId();if(!id||reportedReplays.has(id))return;reportedReplays.add(id);const distinctId=await replayVisitorId();const r=await api<{recorded:boolean}>('/guest/replay-session',{sessionId:id,...(distinctId?{distinctId}:{})});if(!r.success)reportedReplays.delete(id);}
 function markGuestTrial(){try{window.localStorage.setItem(TRIAL_FLAG,'1');}catch{}}
 export type GuestCaption={title:string;body:string;source:'ai'|'template'};
 export type GuestSession={active:boolean;authorId?:string;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;heartReward?:number;heartRewardMax?:number;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};

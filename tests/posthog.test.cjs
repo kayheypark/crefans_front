@@ -156,6 +156,8 @@ test('only the guest trial model toggles unmasking, gated on a recorded replay c
  assert.match(model,/useEffect\(\(\)=>\{if\(enabled&&session\?\.active&&session\.replayConsented\)void reportReplaySession\(\);/);
  assert.match(model,/aiEdit=async\(input:AiPhotoEditInput\)=>\{if\(session\?\.replayConsented\)void reportReplaySession\(\);/);
  assert.match(model,/save=async\(input:unknown\)=>\{if\(session\?\.replayConsented\)void reportReplaySession\(\);/);
+ // 2026-11-22: the anonymous PostHog visitor number (distinct_id) rides along so the console can search by it.
+ assert.match(model,/const distinctId=await replayVisitorId\(\);const r=await api<\{recorded:boolean\}>\('\/guest\/replay-session',\{sessionId:id,\.\.\.\(distinctId\?\{distinctId\}:\{\}\)\}\);/);
 });
 
 // 2026-11-20 user report: replays showed the AI result as a broken image (private URL needs the visitor's session). While unmasked,
