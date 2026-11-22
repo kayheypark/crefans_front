@@ -25,7 +25,7 @@ const reportedReplays=new Set<string>();
 async function reportReplaySession(){const id=await replaySessionId();if(!id||reportedReplays.has(id))return;reportedReplays.add(id);const distinctId=await replayVisitorId();const r=await api<{recorded:boolean}>('/guest/replay-session',{sessionId:id,...(distinctId?{distinctId}:{})});if(!r.success)reportedReplays.delete(id);}
 function markGuestTrial(){try{window.localStorage.setItem(TRIAL_FLAG,'1');}catch{}}
 export type GuestCaption={title:string;body:string;source:'ai'|'template'};
-export type GuestSession={active:boolean;authorId?:string;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;heartReward?:number;heartRewardMax?:number;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};
+export type GuestSession={active:boolean;authorId?:string;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;shopRewardClaimed?:boolean;shopReward?:number;heartReward?:number;heartRewardMax?:number;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};
 export function useGuestTrialModel(enabled:boolean){
  const [session,setSession]=useState<GuestSession|null>(null),[error,setError]=useState('');
  const refresh=useCallback(async()=>{const r=await api<GuestSession>('/guest/session');if(r.success)setSession(r.data);else setError(r.errorMessage||'체험 정보를 불러오지 못했어요.');},[]);
@@ -47,10 +47,11 @@ export function useGuestTrialModel(enabled:boolean){
  const aiEdit=async(input:AiPhotoEditInput)=>{if(session?.replayConsented)void reportReplaySession();const props=aiProps('guest',input);captureEvent('ai_generation_started',props);xEvent('ai_photo');const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});else if(result.errorCode==='GUEST_AI_LIMIT')await refresh();return result;};
  const track=(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>captureEvent(step,{actor:'guest',mode:props.mode,...(props.kind?{kind:props.kind}:{})});
  // 2026-11-20 user decision: the share reward is paid when the result is shared (share sheet finished or link copied).
+ const shopClick=async()=>{const r=await api<{granted:boolean}>('/guest/ai-photo/shop-click',{});if(r.success)await refresh();return r.success&&r.data.granted;};
  const shareDone=async(mediaId:string)=>{const r=await api<{granted:boolean}>('/guest/ai-photo/share-done',{mediaId});if(r.success)await refresh();return r.success&&r.data.granted;};
  // 2026-11-21: the server-verified waiting game for visitors (30 hearts → 0.5 credit, 3 a day per browser and network).
  const heartGame=(input:AiHeartInput)=>api<AiHeartResult>('/guest/ai-photo/hearts',input);
  // 2026-11-21: review instead of the game once a day after a first success (0.5 credit, same daily limit as the game).
  const review={status:()=>api<AiReviewStatus>('/guest/ai-photo/review'),submit:async(input:AiReviewInput)=>{const r=await api<AiReviewResult>('/guest/ai-photo/review',input);if(r.success)await refresh();return r;}};
- return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track,shareDone,heartGame,review};
+ return{session,error,start,upload,save,aiEdit,refresh,caption,share:reportShare,track,shareDone,shopClick,heartGame,review};
 }
