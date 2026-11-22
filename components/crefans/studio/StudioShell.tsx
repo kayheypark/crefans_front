@@ -63,7 +63,7 @@ export default function StudioShell({active,basePath,fanPath,profile,memberOnly=
      {memberOnly&&<Link className={s.dashboardLink} href={href('start')} aria-current={active==='start'?'page':undefined}><NavIcon name="home"/>크리에이터 시작하기</Link>}
     </nav>
     <Link className={s.onboardingLink} href={href('start')} aria-current={active==='start'?'page':undefined}>크리에이터 시작 안내 ↗</Link>
-    <footer className={s.sidebarFooter}><Link href={`${fanPath}/landing`}>서비스 소개</Link><MarqueeMotionControl/></footer>
+    <footer className={s.sidebarFooter}><MarqueeMotionControl/></footer>
    </aside>
    <main id="studio-content" className={s.main}>{children}</main>
   </div>
