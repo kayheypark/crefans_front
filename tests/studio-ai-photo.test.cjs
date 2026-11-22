@@ -319,13 +319,13 @@ test('body controls retain independent adjustments and keep custom input',BODY_S
 });
 
 
-test('every preset has a distinct decodable image including Comic World, 60 poses and four shooting concepts',async()=>{
+test('every preset has a distinct decodable image including Comic World, 61 poses and four shooting concepts',async()=>{
  const fs=require('fs'),path=require('path'),sharp=require('sharp');const {aiPhotoPresets,aiPhotoPresetImage,aiPhotoComicWorldPreset,aiPhotoPresetTitle,aiPhotoPresetTitles}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const images=[];
- assert.equal(aiPhotoPresets.pose.length,60);assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
+ assert.equal(aiPhotoPresets.pose.length,61);// 61 (2026-11-22): +카메라 응시하기assert.equal(aiPhotoPresets.lens.length,4);assert.equal(aiPhotoPresets.background[0],aiPhotoComicWorldPreset);
  for(const [kind,values] of Object.entries(aiPhotoPresets)){assert.equal(aiPhotoPresetTitles[kind].length,values.length);assert.equal(new Set(aiPhotoPresetTitles[kind]).size,values.length);for(const example of values){assert.ok(aiPhotoPresetTitle(kind,example));assert.ok(aiPhotoPresetTitle(kind,example).length<=20);const image=aiPhotoPresetImage(kind,example);assert.match(image,/\.webp$/);images.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,/background\/(b7a10|c8b20|d9c30|ead4|fb50)/.test(image)?1024:384);assert.equal(meta.height,/background\/(b7a10|c8b20|d9c30|ead4|fb50)/.test(image)?1536:384);}
  }
  const genderPaths=[];for(const gender of ['female','male'])for(const example of aiPhotoPresets.expression){const image=aiPhotoPresetImage('expression',example,gender);genderPaths.push(image);const meta=await sharp(fs.readFileSync(path.join(__dirname,'../public',image))).metadata();assert.equal(meta.width,384);assert.equal(meta.height,384);}assert.equal(new Set(genderPaths).size,16);
- assert.equal(images.length,293);assert.equal(new Set(images).size,293);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
+ assert.equal(images.length,294);assert.equal(new Set(images).size,294);assert.deepEqual(aiPhotoPresetTitles.lens,['셀카 폰카(정면)','거울샷','DSLR','대포카메라']);assert.match(aiPhotoPresets.lens[0],/전면 카메라/);assert.match(aiPhotoPresets.lens[1],/거울 반사/);assert.match(aiPhotoPresets.lens[2],/DSLR/);assert.match(aiPhotoPresets.lens[3],/대형 망원렌즈/);
 });
 
 test('gender-only request on outfit tab does not require clothing painting or send an outfit edit',async()=>{
@@ -544,7 +544,7 @@ test('preset search filters before pagination, respects gender and handles no ma
  const empty=aiPhotoPresetPage('pose',9,'original','존재하지않는검색어');assert.deepEqual(empty,{examples:[],index:0,pages:1,total:0});
  assert.equal(aiPhotoPresetPage('makeup',0,'male','코랄 립').total,0);
  assert.equal(aiPhotoPresetPage('makeup',0,'female','코랄 립').total,1);
- assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,60);
+ assert.equal(aiPhotoPresetPage('pose',0,'original','  ').total,61);
 });
 
 test('search keeps selected poses, resets pages, clears on tabs and finds costumes across categories',async()=>{
@@ -587,10 +587,10 @@ test('expanded pose, expression and camera selections accumulate and toggle inde
  assert.equal(calls.length,1);assert.deepEqual(calls[0].editKinds,['pose','camera']);assert.match(calls[0].prompt,/거꾸로 앉아/);assert.match(calls[0].prompt,/뒤쪽 45도/);assert.doesNotMatch(calls[0].prompt,/도도|무표정/);
 });
 
-test('pose posture splits all sixty cards into exclusive sitting and standing pages',()=>{
+test('pose posture splits all 61 cards into exclusive sitting and standing pages',()=>{
  const {aiPhotoPresets,aiPhotoPresetPage,aiPhotoPosePosture,aiPhotoPresetTitle,AI_PHOTO_KEEP_ORIGINAL}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
- const seen=[];for(const [posture,total] of [['sitting',21],['standing',39]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);assert.equal(first.examples[0],AI_PHOTO_KEEP_ORIGINAL);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=9);for(const e of result.examples.filter(item=>item!==AI_PHOTO_KEEP_ORIGINAL)){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
- assert.equal(new Set(seen).size,60);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
+ const seen=[];for(const [posture,total] of [['sitting',21],['standing',40]]){const first=aiPhotoPresetPage('pose',0,'original','',posture);assert.equal(first.total,total);assert.equal(first.examples[0],AI_PHOTO_KEEP_ORIGINAL);for(let page=0;page<first.pages;page++){const result=aiPhotoPresetPage('pose',page,'original','',posture);assert.ok(result.examples.length<=9);for(const e of result.examples.filter(item=>item!==AI_PHOTO_KEEP_ORIGINAL)){assert.equal(aiPhotoPosePosture(e),posture);seen.push(e);}}assert.equal(aiPhotoPresetPage('pose',first.pages,'original','',posture).index,0);}
+ assert.equal(new Set(seen).size,61);assert.deepEqual(new Set(seen),new Set(aiPhotoPresets.pose));
  assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','sitting').total,0);assert.equal(aiPhotoPresetPage('pose',0,'original','다리 넓혀','standing').total,1);
  assert.equal(aiPhotoPresetTitle('pose',aiPhotoPresetPage('pose',0,'original','쪼그려','sitting').examples[0]),'쪼그려 앉기');
 });
@@ -737,6 +737,11 @@ test('personal references select independently across categories, toggle off and
 });
 
 // 2026-11-22 user request: '얼굴' library reference, a library photo as the edit target itself, and the last chosen one preselected on entry.
+test('2026-11-22 pose preset 카메라 응시하기: standing, own mascot image, searchable',()=>{
+ const {aiPhotoPresets,aiPhotoPresetTitle,aiPhotoPresetImage,aiPhotoPosePosture,aiPhotoPresetPage}=loadTypeScript('lib/crefans/ai-photo-presets.ts');const example=aiPhotoPresets.pose[60];
+ assert.equal(aiPhotoPresetTitle('pose',example),'카메라 응시하기');assert.equal(aiPhotoPosePosture(example),'standing');assert.equal(aiPhotoPresetImage('pose',example),'/brand/ai-photo/pose-mascot/pose-61-v1.webp');
+ assert.ok(require('node:fs').existsSync('public/brand/ai-photo/pose-mascot/pose-61-v1.webp'));assert.ok(aiPhotoPresetPage('pose',0,'original','응시').total>=1);
+});
 test('face library reference is sent as its own edit kind',async()=>{
  const library={list:async()=>({success:true,data:{items:[],hasMore:false}})};const {r,calls,click}=await open({library});const panel=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
  await act(async()=>{panel().props.onSelect({id:'private-face',type:'image',url:'/face.png',title:'내 얼굴',category:'face'});});await click('만들기');
