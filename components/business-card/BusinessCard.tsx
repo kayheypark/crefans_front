@@ -2,7 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import styles from './business-card.module.css';
 
-const introduction='https://crefans.com/service/landing';
+const introduction='https://crefans.com/service/landing-ai-image-generation';// 2026-11-22: basic landing removed
 const totalDuration=7500;
 export default function BusinessCard(){
  const card=useRef<HTMLImageElement>(null),back=useRef<HTMLImageElement>(null),elapsedRef=useRef(0);
