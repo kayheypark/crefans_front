@@ -746,6 +746,16 @@ test('2026-11-22 pose preset 카메라 응시하기: standing, own mascot image,
  assert.equal(aiPhotoPresetTitle('pose',example),'카메라 응시하기');assert.equal(aiPhotoPosePosture(example),'standing');assert.equal(aiPhotoPresetImage('pose',example),'/brand/ai-photo/pose-mascot/pose-61-v1.webp');
  assert.ok(require('node:fs').existsSync('public/brand/ai-photo/pose-mascot/pose-61-v1.webp'));assert.ok(aiPhotoPresetPage('pose',0,'original','응시').total>=1);
 });
+// 2026-11-22 user request: editing a result again keeps 원본 유지 selected but tags the presets that made it '이전 결과'.
+test('계속 보정 tags the presets used for that result as 이전 결과; the original photo has no tags',async()=>{
+ const {r,click}=await open();
+ const card=name=>r.root.find(n=>n.type==='button'&&n.props['aria-label']===name);
+ const tagged=name=>card(name).findAll(n=>n.type==='span'&&text(n)==='이전 결과').length;
+ await click('의자에 앉기');await click('만들기');await click('계속 보정');
+ assert.equal(tagged('의자에 앉기'),1);assert.equal(card('의자에 앉기').props['aria-pressed'],false,'only a tag, not selected');
+ assert.equal(card('원본 유지').props['aria-pressed'],true);assert.equal(tagged('벤치에 앉기'),0);assert.equal(tagged('원본 유지'),0);
+ await click('사진 선택');await click('1번 사진');assert.equal(tagged('의자에 앉기'),0,'the original photo was not made with presets');
+});
 test('face library reference is sent as its own edit kind',async()=>{
  const library={list:async()=>({success:true,data:{items:[],hasMore:false}})};const {r,calls,click}=await open({library});const panel=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
  await act(async()=>{panel().props.onSelect({id:'private-face',type:'image',url:'/face.png',title:'내 얼굴',category:'face'});});await click('만들기');
