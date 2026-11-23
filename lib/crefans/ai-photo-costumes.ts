@@ -409,5 +409,12 @@ const costumeGenderById=new Map(Object.entries(costumeGenderIds).flatMap(([gende
 export function aiPhotoCostumeGender(costume:Pick<AiPhotoCostume,'id'|'category'>):AiPhotoCostumeGender|undefined{
  return costumeGenderByCategory[costume.category]??costumeGenderById.get(costume.id);
 }
+// 2026-11-23 user decision: costumes that Seedream rejects as copyrighted characters (production 11/16-11/23: 0 successes, 3+ blocks each)
+// show a "low success rate" tag but stay selectable. Evidence: Seedream OutputImageSensitiveContentDetected (copyright); rewording the
+// prompt, dropping the wig or sending text only still reproduced the block.
+export const AI_PHOTO_LOW_SUCCESS_COSTUME_IDS:readonly string[]=['4298dc','b516a6','752866','9e6184','6ee320','313a28','105dc8'];
+export function aiPhotoCostumeLowSuccess(costume:Pick<AiPhotoCostume,'id'>):boolean{
+ return AI_PHOTO_LOW_SUCCESS_COSTUME_IDS.includes(costume.id);
+}
 // 2026-11-19 user request: speech-bubble hint over the costume category select (editor and landing), exact wording.
 export const AI_PHOTO_COSTUME_HINT='니케, 원신, 블루아카이브, 귀칼, 주술회전, 오버워치';
