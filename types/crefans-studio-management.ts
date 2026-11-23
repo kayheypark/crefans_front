@@ -76,6 +76,8 @@ export type StudioManagementModel={
     // 2026-11-19: share-button report and AI photo funnel steps go through the model (components never call API/analytics directly).
     reportShare?:(report:ShareReport)=>void;
     trackAiPhoto?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>void;
+    /** 2026-11-24: the trial's 'AI로 내용 작성' for signed-in members (POST /studio/content/caption). */
+    writeCaption?:(input:{items:string[];prompt:string})=>Promise<ApiResult<{title:string;body:string;source:'ai'|'template'}>>;
   };
 };
 

@@ -1,3 +1,10 @@
+## 2026-11-24 회원도 'AI로 내용 작성' (feat/member-ai-caption) — dev까지, 운영 배포는 사용자
+
+- 사용자 지시(2026-11-24): 로그인 회원(크리에이터 스튜디오·일반 회원 memberMode, 새 글·수정)도 AI 사진(aiGenerated)이 있으면 'AI로 내용 작성'. 서버 짝 POST `/studio/content/caption`.
+- `useStudioModel.ts` actions.writeCaption(PostHog caption_written/caption_failed actor=member) → `ManagementPages.tsx` ContentEditor 회원 분기 제목 위에 비회원과 같은 `s.captionBar` + Action secondary. 넛지는 비회원만.
+- 회원은 제목·본문에 이미 글이 있으면 'AI 글로 바꿀까요?' 확인 후 덮어씀(취소 시 유지). 비회원은 기존대로 바로 덮어씀. captionItems/captionPrompt는 회원 분기 AiPhotoDialog onAdd에서 이미 채워짐.
+- 검증(맥, 2026-11-24, worktree npm ci): typecheck 0, npm test 891건 중 실패 52(origin/dev 890건 실패 52, 같은 목록), 새 테스트 1건 통과(확인창 제거한 대조에서 실패). check:layers 실패 1건(PostHogAnalytics.tsx)은 origin/dev도 같음. check:docs 미실행.
+
 ## 2026-11-24 일반 팬과도 메시지 주고받기 (fix/fan-messages) — dev까지, 운영 배포는 사용자
 
 - 사용자 지시(2026-11-24): "지금 왜 일반 팬인 사람한테는 메시지 전송이 안 되지?" → "응, 고쳐서 배포해". 서버 짝 crefans_server fix/fan-messages(bootstrap `messageContacts`).

@@ -243,9 +243,12 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   const aiLeft=model.aiPhotoQuota?.remaining??Infinity;
   const publishRewardNoteId=publishReward||shareOffer?`${aiDescriptionId}-publish-reward`:undefined;
   const [captionTouched,setCaptionTouched]=useState(false),nudgePublish=captionMode&&!!title.trim()&&!!body.trim(),nudgeCaption=captionMode&&aiMade&&!captionTouched&&!nudgePublish;
+  // 2026-11-24: signed-in members (creator studio and member posts, new and edit) get the same button through the studio model.
+  // A member may already have typed a title/body, so it is replaced only after a confirmation; the trial keeps writing directly.
+  const caption=guest?.caption||(guest?undefined:model.actions.writeCaption),[captionConfirm,setCaptionConfirm]=useState(false);
   async function writeCaption(){
-    if(!guest?.caption||captionBusy)return;setError('');setCaptionBusy(true);
-    try{const result=await guest.caption({items:Array.from(captionItems.current),prompt:captionPrompt.current});
+    if(!caption||captionBusy)return;setError('');setCaptionBusy(true);
+    try{const result=await caption({items:Array.from(captionItems.current),prompt:captionPrompt.current});
       if(!result.success){setError(result.errorMessage||'제목과 내용을 만들지 못했어요. 다시 시도해 주세요.');return;}
       setTitle(result.data.title);setBody(result.data.body);setCaptionReady(true);}
     catch{setError('제목과 내용을 만들지 못했어요. 다시 시도해 주세요.');}finally{setCaptionBusy(false);}
@@ -284,6 +287,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       </section>:null}
       </>:<>
       {/* 2026-11-23 user request: PostHog replay records the member's post title/body as typed (lib/analytics/posthog.ts REPLAY_POST_TEXT_ATTR). */}
+      {aiMade&&caption&&<div className={s.captionBar}><Action variant="secondary" type="button" disabled={captionBusy||task.busy} onClick={()=>{if(title.trim()||body.trim())setCaptionConfirm(true);else void writeCaption();}}>{captionBusy?'쓰는 중…':'AI로 내용 작성'}</Action></div>}
       <Field label="제목" value={title} maxLength={120} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
       {/* 2026-11-23 user request: a member's body field is two lines tall on mobile, like the trial's (management.module.css .memberBody). */}
       <TextAreaField label="본문" value={body} rows={12} maxLength={10000} className={memberMode?s.memberBody:undefined} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
@@ -303,6 +307,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     </div>
     <aside className={s.previewPane} aria-label="팬 화면 미리보기"><h2 className={s.previewTitle}>팬 화면 미리보기</h2><ContentPostPreview content={draft} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/></aside>
      {viewPresent&&viewable.length>0&&<MediaOverlay media={viewable.map(item=>({type:item.type,url:item.url,processing:item.processing}))} title={title.trim()||'첨부 미디어'} alt={title.trim()||'첨부 미디어'} index={Math.min(viewIndex??viewLast,viewable.length-1)} onIndexChange={index=>{setViewIndex(index);setViewLast(index);}} open={viewIndex!==null} onClose={()=>setViewIndex(null)}/>}
+     <Dialog open={captionConfirm} onClose={()=>setCaptionConfirm(false)} title="AI 글로 바꿀까요?"><div className={s.dialogBody}><p>지금 쓴 제목과 본문을 AI가 쓴 글로 바꿔요. 바꾼 뒤에도 직접 고칠 수 있어요.</p><DialogActions><Action variant="secondary" type="button" onClick={()=>setCaptionConfirm(false)}>취소</Action><Action variant="brand" type="button" onClick={()=>{setCaptionConfirm(false);void writeCaption();}}>바꾸기</Action></DialogActions></div></Dialog>
      <Dialog open={previewOpen} onClose={()=>setPreviewOpen(false)} title="팬 화면 미리보기">{previewOpen&&<ContentPostPreview content={draft} memberships={model.memberships} model={previewModel} creatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled}/>}</Dialog>
      {editorShare&&<AiResultShare key={editorShare.id} item={editorShare} eligible={!!guest?.shareReward} prepare={editorShareFile} onClose={()=>setEditorShare(null)} onReport={report=>{
       model.actions.reportShare?.(report);

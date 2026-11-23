@@ -420,6 +420,35 @@ test('member editor keeps writing its own title/body: no AI caption and publishi
  try{assert.equal(button(tree,'지금 게시하기').props.disabled,true);assert.doesNotMatch(json(tree),/AI로 내용 작성|OpenAI/);act(()=>tree.root.findByProps({label:'제목'}).props.onChange({target:{value:'제목'}}));act(()=>tree.root.findByProps({label:'본문'}).props.onChange({target:{value:'본문'}}));assert.doesNotMatch(json(tree),/이제 게시하기를 눌러/,'member editor has no nudge');assert.ok(json(tree).indexOf('제목')<json(tree).indexOf('파일 업로드'));}
  finally{act(()=>tree.unmount());probe.close();}
 });
+// 2026-11-24 user request: signed-in members get the trial's 'AI로 내용 작성' (studio model writeCaption) once an AI photo is in the
+// post, new or edited; no nudge. A title/body the member already wrote is replaced only after a confirmation.
+test('member editor: AI caption button after an AI photo, no nudge, confirmation before replacing written text',async()=>{
+ const probe=fixtureHook(),captions=[];
+ const writeCaption=async input=>{captions.push(input);return {success:true,data:{title:'AI 제목',body:'AI 본문',source:'ai'}};};
+ const model={...probe.model,contents:[],actions:{...probe.model.actions,aiEditPhoto:async()=>({success:true,data:{images:[]}}),writeCaption}};
+ const tree=mount(ContentEditorPage,model);
+ const title=()=>tree.root.findByProps({label:'제목'}).props.value,body=()=>tree.root.findByProps({label:'본문'}).props.value;
+ try{
+  assert.equal(button(tree,'AI로 내용 작성'),undefined,'no button before an AI photo');
+  const dialog=tree.root.findAll(node=>typeof node.props.onAdd==='function'&&node.props.room!==undefined)[0];
+  act(()=>dialog.props.onAdd([{id:'ai1',type:'image',url:'/media/ai1.webp',aiGenerated:true}],{labels:['메이드복'],prompt:'귀엽게'}));
+  assert.doesNotMatch(button(tree,'AI로 내용 작성').props.className||'',/aiNudge/);assert.doesNotMatch(json(tree),/여기를 눌러 빠르게 작성하세요/);
+  await act(async()=>button(tree,'AI로 내용 작성').props.onClick());
+  assert.deepEqual(captions,[{items:['메이드복'],prompt:'귀엽게'}]);assert.equal(title(),'AI 제목');assert.equal(body(),'AI 본문');
+  act(()=>tree.root.findByProps({label:'제목'}).props.onChange({target:{value:'내가 쓴 제목'}}));
+  await act(async()=>button(tree,'AI로 내용 작성').props.onClick());
+  assert.equal(captions.length,1,'written text: asks first');assert.match(json(tree),/AI 글로 바꿀까요/);
+  await act(async()=>button(tree,'취소').props.onClick());assert.equal(captions.length,1);assert.equal(title(),'내가 쓴 제목');
+  await act(async()=>button(tree,'AI로 내용 작성').props.onClick());await act(async()=>button(tree,'바꾸기').props.onClick());
+  assert.equal(captions.length,2);assert.equal(title(),'AI 제목');
+ }finally{act(()=>tree.unmount());}
+ // Editing a saved post with an AI photo shows the button too; without writeCaption (e.g. the preview mock) it stays hidden.
+ const saved={...initialContent,media:[{id:'m1',type:'image',url:'/m1.webp',aiGenerated:true}]};
+ const edit=mount(ContentEditorPage,{...model,contents:[saved]},'draft1');
+ try{assert.ok(button(edit,'AI로 내용 작성'));}finally{act(()=>edit.unmount());}
+ const none=mount(ContentEditorPage,{...model,contents:[saved],actions:{...model.actions,writeCaption:undefined}},'draft1');
+ try{assert.equal(button(none,'AI로 내용 작성'),undefined);}finally{act(()=>none.unmount());probe.close();}
+});
 test('2026-11-18: a game/anime costume photo locks visibility to 전체 공개 and turns tips off in the editor; general photos do not',async()=>{
  for(const franchise of [true,false]){
   const probe=fixtureHook(),calls=[];
