@@ -1,7 +1,7 @@
 "use client";
 import {AiPhotoLibrary} from './AiPhotoLibrary';
 import type {PhotoAsset,PhotoLibraryModel} from '@/types/crefans-photo-library';
-import {photoAssetLabel} from '@/lib/crefans/photo-library';
+import {PHOTO_LIBRARY_REFERENCE_MAX,photoAssetKind,photoAssetLabel} from '@/lib/crefans/photo-library';
 import {AiPhotoCrop,AiPhotoRatioPresets} from './AiPhotoCrop';
 import type {AiPhotoRatio} from '@/lib/crefans/ai-photo-crop';
 import type {AiPhotoCropInput,ShareReport,AiPhotoFunnelStep} from '@/types/crefans-studio-management';
@@ -75,9 +75,9 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  const [methodToast,setMethodToast]=useState<{text:string;key:number}|null>(null);
  useEffect(()=>{if(!methodToast)return;const timer=setTimeout(()=>setMethodToast(null),2200);return()=>clearTimeout(timer);},[methodToast]);
  const [genderChosen,setGenderChosen]=useState(false);
- const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
+ const libraryPresets=libraryAssets.map(item=>({kind:photoAssetKind(item.category),prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
  const prompt=buildPrompt([...selectedPresets,...libraryPresets],customPrompt,targetGender)||(aspectRatio!=='original'?'Preserve the subject and appearance; adapt the composition to the requested image dimensions.':'');
- const editKinds=Array.from(new Set([...selectedPresets.map(item=>item.kind),...libraryAssets.map(item=>item.category),...(customPrompt.trim()?[kind]:[])]));
+ const editKinds=Array.from(new Set([...selectedPresets.map(item=>item.kind),...libraryAssets.map(item=>photoAssetKind(item.category)),...(customPrompt.trim()?[kind]:[])]));
  function changeGender(value:'original'|'female'|'male'){if(buildPrompt(selectedPresets,customPrompt,value).length>AI_PHOTO_PROMPT_MAX){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return;}if((targetGender==='male')!==(value==='male'))setBodySelection({});setTargetGender(value);setGenderChosen(true);setPresetPages({});setSelectedPresets(previous=>previous.filter(item=>(item.kind!=='body'||(targetGender==='male')===(value==='male'))&&(item.kind!=='makeup'||value==='original'||aiPhotoMakeupGender(item.prompt)===value)&&(value==='original'||aiPhotoOutfitByPrompt(item.prompt)?.gender!==(value==='male'?'female':'male'))));setError('');}
  const [workingSources,setWorkingSources]=useState<StudioMedia[]>([]);
  const sources=[...images,...workingSources.filter(item=>!images.some(original=>original.id===item.id))],hasOutfit=editKinds.includes('outfit');
@@ -106,12 +106,12 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  function setCustom(value:string){setCustomPrompt(value);setError(buildPrompt(selectedPresets,value,targetGender).length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');}
  const previousPresets=resultPresets.current.get(sourceId)||[];
  function fromPreviousResult(value:string){return value!==AI_PHOTO_KEEP_ORIGINAL&&previousPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
- function isPresetSelected(value:string){if(value===AI_PHOTO_KEEP_ORIGINAL)return !selectedPresets.some(item=>item.kind===kind)&&!libraryAssets.some(item=>item.category===kind);return selectedPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
+ function isPresetSelected(value:string){if(value===AI_PHOTO_KEEP_ORIGINAL)return !selectedPresets.some(item=>item.kind===kind)&&!libraryAssets.some(item=>photoAssetKind(item.category)===kind);return selectedPresets.some(item=>item.kind===kind&&item.prompt===aiPhotoPresetText(value));}
  function applyPresets(next:AiPhotoPresetSelection[]){const selection=next,length=buildPrompt(selection,customPrompt,targetGender).length;if(length>AI_PHOTO_PROMPT_MAX&&length>prompt.length){setError('선택한 프리셋과 커스텀 프롬프트가 너무 길어요. 내용을 줄여 주세요.');return false;}setSelectedPresets(selection);setError(length>AI_PHOTO_PROMPT_MAX?'선택한 프리셋과 커스텀 프롬프트는 합쳐서 2000자까지 사용할 수 있어요.':'');return true;}
  // '내 사진' background: one uploaded photo; it replaces a background preset and vice versa (the server accepts one background).
  function pickOwnBackground(item:StudioMedia|null){setOwnBackground(item);const rest=selectedPresets.filter(preset=>preset.kind!=='background');applyPresets(item?[...rest,{kind:'background',prompt:AI_PHOTO_OWN_BACKGROUND_PROMPT}]:rest);setError('');}
  async function uploadOwnBackground(file:File){if(!onUploadBackground)return;setBackgroundUploading(true);setError('');try{const r=await onUploadBackground(file);if(!r.success||!r.data){setError(r.errorMessage||'사진을 올리지 못했어요.');return;}const item=r.data;setUploadedBackgrounds(items=>[...items,item]);pickOwnBackground(item);}catch{setError('사진을 올리지 못했어요. 잠시 후 다시 시도해 주세요.');}finally{setBackgroundUploading(false);}}
- function pickPreset(value:string){setLibraryAssets(items=>items.filter(item=>item.category!==kind));if(kind==='background')setOwnBackground(null);if(value===AI_PHOTO_KEEP_ORIGINAL){applyPresets(selectedPresets.filter(item=>item.kind!==kind));return;}const part=kind==='outfit'?aiPhotoOutfitByPrompt(aiPhotoPresetText(value))?.part:undefined,multi=aiPhotoMultiSelectKinds.includes(kind);applyPresets([...selectedPresets.filter(item=>item.kind!==kind||(multi&&item.prompt!==aiPhotoPresetText(value))||(!!part&&!!aiPhotoOutfitByPrompt(item.prompt)&&aiPhotoOutfitByPrompt(item.prompt)!.part!==part)),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
+ function pickPreset(value:string){setLibraryAssets(items=>items.filter(item=>photoAssetKind(item.category)!==kind));if(kind==='background')setOwnBackground(null);if(value===AI_PHOTO_KEEP_ORIGINAL){applyPresets(selectedPresets.filter(item=>item.kind!==kind));return;}const part=kind==='outfit'?aiPhotoOutfitByPrompt(aiPhotoPresetText(value))?.part:undefined,multi=aiPhotoMultiSelectKinds.includes(kind);applyPresets([...selectedPresets.filter(item=>item.kind!==kind||(multi&&item.prompt!==aiPhotoPresetText(value))||(!!part&&!!aiPhotoOutfitByPrompt(item.prompt)&&aiPhotoOutfitByPrompt(item.prompt)!.part!==part)),...(isPresetSelected(value)?[]:[{kind,prompt:aiPhotoPresetText(value)}])]);}
  // 2026-11-19 이탈 분석: 편집창이 열릴 때마다 퍼널 단계를 남긴다(모델이 actor를 붙여 PostHog로 보냄).
  useEffect(()=>{if(open)onTrack?.('ai_editor_opened',{mode:cosplayOpen?'cosplay':'general'});
  // eslint-disable-next-line react-hooks/exhaustive-deps -- count each open
@@ -254,7 +254,8 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
   return()=>{live=false;};
  // eslint-disable-next-line react-hooks/exhaustive-deps -- once per opening
  },[open]);
- function selectLibrary(item:PhotoAsset){if(libraryAssets.some(value=>value.id===item.id)){setLibraryAssets(items=>items.filter(value=>value.id!==item.id));return;}const next=[...libraryAssets.filter(value=>value.category!==item.category),item];if(next.length>4){setError('내 보관함 사진은 최대 4개까지 선택해 주세요.');setLibraryOpen(false);return;}setSelectedPresets(items=>items.filter(value=>value.kind!==item.category));setLibraryAssets(next);}
+ // 2026-11-24: one library photo per edit kind (거울샷·셀카·카메라 뒷면 replace each other, 뒷모습 replaces 포즈), up to PHOTO_LIBRARY_REFERENCE_MAX.
+ function selectLibrary(item:PhotoAsset){if(libraryAssets.some(value=>value.id===item.id)){setLibraryAssets(items=>items.filter(value=>value.id!==item.id));return;}const itemKind=photoAssetKind(item.category),next=[...libraryAssets.filter(value=>photoAssetKind(value.category)!==itemKind),item];if(next.length>PHOTO_LIBRARY_REFERENCE_MAX){setError(`내 보관함 사진은 최대 ${PHOTO_LIBRARY_REFERENCE_MAX}개까지 선택해 주세요.`);setLibraryOpen(false);return;}setSelectedPresets(items=>items.filter(value=>value.kind!==itemKind));setLibraryAssets(next);}
  const outfitSwitch=OUTFIT_DETAIL_ENABLED&&(kind==='outfit'||hasOutfit)&&<button type="button" role="switch" aria-checked={detailedOutfit} className={s.outfitSwitch} disabled={busy} onClick={()=>{setDetailedOutfit(!detailedOutfit);setError('');}}>옷 세부 지정<span aria-hidden="true"/></button>;
  const composer=<div className={s.composer}>
   {library&&<div className={s.libraryEntry}><button type="button" disabled={busy} onClick={()=>setLibraryOpen(true)}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 7V4h7l2 3h9v13H3Z"/><path d="m8 16 3-3 2 2 2-2 3 4"/></svg>내 보관함<Icon name="chevron" width={18} height={18} className={s.libraryChevron}/></button>{libraryAssets.length>0&&<div className={s.librarySelected}>{libraryAssets.map(item=><button key={item.id} type="button" onClick={()=>setLibraryAssets(items=>items.filter(value=>value.id!==item.id))} aria-label={`${item.title} 선택 해제`}><img src={item.url} alt=""/><span>{photoAssetLabel(item.category)} · {item.title}</span><span aria-hidden="true">×</span></button>)}</div>}</div>}

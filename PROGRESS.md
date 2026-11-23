@@ -1,3 +1,11 @@
+## 2026-11-24 AI 사진 내 보관함 새 분류 (feat/ai-photo-library-ext) — dev까지, 운영·devbox 배포 안 함
+
+- 서버 짝: crefans_server 같은 브랜치(분류·편집 항목 연결·최대 6장·소프트 삭제·콘솔 열람).
+- 팬 접근: 변경 없음. 크리에이터가 아닌 회원도 스튜디오 게시물 작성(memberMode의 content 화면)에서 AI 편집·내 보관함을 이미 씀(aiQuota.allowed = 서버 회원 전체).
+- `lib/crefans/photo-library.ts`: 분류 내 얼굴·포즈·배경·옷·카메라 뒷면·거울샷·셀카·뒷모습 + legacy 구도·촬영 컨셉·메이크업·표정(목록·필터에 보이고 새 저장 선택지에서는 숨김, 그 분류 사진 수정 때만). `photoAssetKind`(서버 LIBRARY_KIND와 같음), `PHOTO_LIBRARY_REFERENCE_MAX`=6.
+- `AiPhotoDialog`: editKinds·문구·프리셋 교체를 분류 대신 편집 항목 기준으로(거울샷·셀카·카메라 뒷면은 서로, 뒷모습은 포즈와 교체), 최대 6장. 보관함 행 요청 8→12개. 디자인 시스템 대역에 거울샷·뒷모습 예시.
+- 검증(맥, 2026-11-24 KST, worktree npm ci): typecheck 0, studio-ai-photo 85/104(실패 19는 origin/prod 동일, 새 테스트 1·수정 2), npm test 836/888 실패 52 = origin/prod 기준선 52(새 실패 0). /design-system 대역 화면 390px 확인(보관함 '옷·거울샷·뒷모습' 행, 저장 분류 8개).
+
 ## 2026-11-24 일반 팬과도 메시지 주고받기 (fix/fan-messages) — dev까지, 운영 배포는 사용자
 
 - 사용자 지시(2026-11-24): "지금 왜 일반 팬인 사람한테는 메시지 전송이 안 되지?" → "응, 고쳐서 배포해". 서버 짝 crefans_server fix/fan-messages(bootstrap `messageContacts`).
