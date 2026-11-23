@@ -9,7 +9,7 @@ const PublicMemberPage=loadTypeScript('components/crefans/PublicMemberPage.tsx',
  '@/lib/crefans/post-media':{getPostMedia:post=>post.media||[]}}).default;
 test('member profile shows only that member\'s posts with feed and media counts',()=>{
  const posts=[{id:'m1',creatorId:'member',media:[{type:'image',url:'/a'}]},{id:'m2',creatorId:'member',media:[]},{id:'c1',creatorId:'creator',media:[]}];
- const model={basePath:'/service',following:[],toggleFollow(){},data:{posts}};let view;
+ const model={basePath:'/service',following:[],blockedCreatorIds:[],toggleFollow(){},data:{posts}};let view;
  act(()=>{view=create(el(PublicMemberPage,{profile:{id:'member',name:'회원',handle:'member',bio:'',postCount:2,followers:'0',followingCount:0},model}));});
  const panel=()=>view.root.find(n=>n.props['data-panel']);
  assert.equal(panel().props['data-panel'],'피드');assert.equal(panel().props['data-posts'],'m1,m2','other authors are left out');

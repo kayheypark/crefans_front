@@ -57,7 +57,7 @@ export default function ServiceRouter({segments}:{segments:string[]}){
   case 'feed':return <FeedPage model={model}/>;
   case 'try':return <GuestTrialPage model={model} done={id==='done'}/>;
   case 'post':return <PostDetailPage model={model} id={id} forceLocked={query.get('locked')==='1'}/>;
-  case 'messages':return <MessagesPage model={model}/>;
+  case 'messages':return <MessagesPage model={model} startWith={query.get('to')||undefined}/>;
   case 'notifications':return <NotificationsPage model={model}/>;
   case 'me':return <MyProfilePage model={model}/>;
   case 'subscriptions':return <SubscriptionsPage model={model}/>;

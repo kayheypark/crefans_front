@@ -858,3 +858,44 @@ test('2026-11-16: a signed-out author gets 수정 on their own trial post (title
     assert.deepEqual(calls,[[guestPost.id,{title:'새 제목',body:'새 내용'}]]);assert.equal(tree.root.findAllByType('form').length,0,'dialog closes after saving');
   }finally{act(()=>tree.unmount());}
 });
+
+// 2026-11-24: any member may message any member. Conversations with fans (not in data.creators) come from messageContacts,
+// a closed account reads 탈퇴한 사용자 without a send box, and ?to= opens a first conversation from a member profile.
+test('fan conversations from messageContacts are listed and can send; creators keep their profile (control: without messageContacts the fan is missing)',async()=>{
+  const fan={id:'fan-2',name:'다른 팬',handle:'fan2',image:'/fan2.png',isCreator:false,withdrawn:false};
+  const messages={[creator.id]:[{id:1,mine:false,body:'작가 메시지',time:'어제'}],[fan.id]:[{id:2,mine:false,body:'팬 메시지',time:'어제'}]};
+  const without=mount(MessagesPage,{model:model({data,messagesByCreator:messages})});
+  assert.doesNotMatch(JSON.stringify(without.toJSON()),/다른 팬/);close(without);
+  const sent=[];
+  const tree=mount(MessagesPage,{model:model({data,messagesByCreator:messages,messageContacts:[{...creator,name:'다른 이름',isCreator:true},fan],sendMessage:async(id,body)=>{sent.push([id,body]);return ok;}})});
+  const names=()=>tree.root.findAllByProps({className:'contact'}).map(row=>row.findByType('img').props.alt);
+  assert.deepEqual(names(),['새로운 작가','다른 팬']);
+  act(()=>tree.root.findAllByProps({className:'contact'})[1].props.onClick());
+  assert.match(JSON.stringify(tree.toJSON()),/회원/);
+  act(()=>tree.root.findByProps({id:'message-draft'}).props.onChange({target:{value:'팬에게 답장'}}));
+  await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+  assert.deepEqual(sent,[[fan.id,'팬에게 답장']]);
+  close(tree);
+});
+test('a closed account reads 탈퇴한 사용자 with no send box or profile link',()=>{
+  const gone={id:'gone',name:'탈퇴한 사용자',handle:'',image:'',isCreator:false,withdrawn:true};
+  const tree=mount(MessagesPage,{model:model({data,messagesByCreator:{gone:[{id:3,mine:false,body:'예전 메시지',time:'어제'}]},messageContacts:[gone]})});
+  const text=JSON.stringify(tree.toJSON());
+  assert.match(text,/탈퇴한 사용자에게는 메시지를 보낼 수 없어요/);
+  assert.equal(tree.root.findAllByType('form').length,0);
+  assert.equal(tree.root.findAll(n=>n.type==='a'&&String(n.props.href).includes('gone')).length,0);
+  close(tree);
+});
+test('startWith opens a first conversation with a member who has none yet',async()=>{
+  const fan={id:'fan-3',name:'처음 팬',handle:'fan3',image:'/fan3.png',tags:[],isCreator:false};
+  const sent=[];
+  const tree=mount(MessagesPage,{startWith:fan.id,model:model({data:{...data,creators:[creator,fan]},messagesByCreator:{[creator.id]:[]},sendMessage:async(id,body)=>{sent.push(id);return ok;}})});
+  assert.equal(tree.root.findByProps({className:'room'}).props['aria-label'],'처음 팬님과의 대화');
+  act(()=>tree.root.findByProps({id:'message-draft'}).props.onChange({target:{value:'처음 인사'}}));
+  await act(async()=>tree.root.findByType('form').props.onSubmit({preventDefault(){}}));
+  assert.deepEqual(sent,[fan.id]);
+  close(tree);
+  const plain=mount(MessagesPage,{model:model({data:{...data,creators:[creator,fan]},messagesByCreator:{[creator.id]:[]}})});
+  assert.doesNotMatch(JSON.stringify(plain.toJSON()),/처음 팬/,'control: without startWith a member with no conversation is not listed');
+  close(plain);
+});

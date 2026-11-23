@@ -1,3 +1,11 @@
+## 2026-11-24 일반 팬과도 메시지 주고받기 (fix/fan-messages) — dev까지, 운영 배포는 사용자
+
+- 사용자 지시(2026-11-24): "지금 왜 일반 팬인 사람한테는 메시지 전송이 안 되지?" → "응, 고쳐서 배포해". 서버 짝 crefans_server fix/fan-messages(bootstrap `messageContacts`).
+- `SocialPages.tsx` MessagesPage: 대화 목록 = data.creators(크리에이터 프로필 우선) + `messageContacts`(팬·탈퇴 회원). 팬은 '회원', 탈퇴 회원은 '탈퇴한 사용자'·입력창 대신 안내·프로필 링크 없음. `startWith`(?to=)로 아직 대화 없는 회원과 첫 대화.
+- 진입점: `PublicMemberPage.tsx`(회원 공개 프로필) 팔로우 옆 **메시지** → `/service/messages?to=<id>`(본인·내가 차단·체험 작성자면 숨김). `useServiceModel`이 ?to 회원 프로필을 불러옴. 스튜디오 메시지도 같은 연락처 정보(팬 '회원', 탈퇴 표시).
+- 검증(맥, 2026-11-24, worktree npm ci): 새 테스트 5건 통과(대조: messageContacts·startWith 없으면 팬 안 보임), 전체 829 통과·52 실패(origin/dev 824·52, 실패 목록 동일), typecheck 0, build 0.
+- 미확인: 실제 브라우저·휴대폰 화면, 상대가 나를 차단한 경우는 보내기 때 서버 오류 문구로만 안내.
+
 ## 2026-11-24 회원 세션 리플레이: 사진·영상·입력 표시 (feat/member-replay-ai-history) — dev까지
 
 - 사용자 지시: 로그인 회원도 비회원 체험처럼 리플레이에 사진·이미지·입력이 보이게. 처리방침 짝 crefans_server 2026-11-24.generic.5(9조 ④).

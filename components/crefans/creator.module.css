@@ -184,3 +184,4 @@ button.receiptRow:not(:disabled):hover{background:var(--cf-color-accentSoft)}
 .tabs.searchTabs{margin:4px 0 16px}
 /* 피드 페이지(social.module.css .feed)와 같은 폭 */
 .searchPosts{display:flex;flex-direction:column;gap:16px;width:100%;max-width:480px}
+.coverAction:has(>.coverMessage){display:flex;gap:8px} /* 2026-11-24: 팔로우 + 메시지 on a member profile */

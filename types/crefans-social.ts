@@ -40,9 +40,12 @@ export type SocialModel={
 };
 
 /** The same inbox supports creator contacts in the fan app and fan contacts in the studio. */
-export type InboxContact={id:string;name:string;image:string;position?:string;isVerified?:boolean;isFoundingMember?:boolean};
+/** 2026-11-24: `isCreator` false for a fan (any member may message any member); `withdrawn` for a closed account (name '탈퇴한 사용자', no new messages). */
+export type InboxContact={id:string;name:string;image:string;position?:string;isVerified?:boolean;isFoundingMember?:boolean;handle?:string;isCreator?:boolean;withdrawn?:boolean};
 export type MessagesViewModel=Pick<SocialModel,'messagesByCreator'|'blockedCreatorIds'|'conversationLabels'|'socialCopy'|'sendMessage'|'setConversationBlocked'|'reportConversation'|'markConversationRead'>&{
   data:{creators:InboxContact[]};
+  /** 2026-11-24 bootstrap: everyone the viewer has a conversation with (fans and closed accounts too); `data.creators` alone missed them. */
+  messageContacts?:InboxContact[];
   basePath:string;
   contactHref?:(id:string)=>string;
   contactRoleLabel?:string;

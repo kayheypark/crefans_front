@@ -1,7 +1,7 @@
 import type {FoundingBadgeActions} from './crefans-events';
 import type {Dispatch,SetStateAction} from 'react';
 import type {AccountModel} from './crefans-account';
-import type {SocialModel} from './crefans-social';
+import type {InboxContact,SocialModel} from './crefans-social';
 /** Proposed API envelope. A failure never supplies stale success data. */
 export type ApiResult<T> =
   | {success:true;data:T;errorMessage:null;errorCode:null}
@@ -31,6 +31,8 @@ export type ServiceViewModel=AccountModel&SocialModel&{
   marketingReward?:{beans:number;validDays:number;eligible:boolean}|null;
   foundingBadge?:FoundingBadgeActions;
   data:ServiceData;mode:'mock'|'live';today:string;basePath:string;nextRenewAt?:string;
+  /** 2026-11-24 bootstrap: who each conversation in messagesByCreator is with, fans and closed accounts included. */
+  messageContacts?:InboxContact[];
   /** Creators this account manages; their posts get the 수정 menu item. */
   ownCreatorIds?:string[];
   /** The signed-in member's id (2026-11-15). Members who are not creators may post too; their own posts match this. */
