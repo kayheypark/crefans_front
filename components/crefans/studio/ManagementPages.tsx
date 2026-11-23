@@ -3,7 +3,7 @@ import {fetchImageBlob} from '@/lib/browser/media-file';
 import {useRouter} from 'next/navigation';
 import {Toast} from '@/components/ui/Toast';
 import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
-import {clearGuestTrialDraft,loadGuestTrialDraft,saveGuestTrialDraft} from '@/lib/crefans/guest-trial-draft';
+import {clearGuestTrialDraft,loadGuestTrialDraft,memberDraftOwner,saveGuestTrialDraft} from '@/lib/crefans/guest-trial-draft';
 import {MarqueeText} from '@/components/ui/MarqueeText';
 import {TypedConfirmDialog} from '@/components/ui/TypedConfirmDialog';
 import {membershipPriceHint} from '@/lib/crefans/creator-payout-policy';
@@ -139,14 +139,14 @@ export function ContentManagementPage({model,basePath,fanPath=basePath.replace(/
 // memberMode (2026-11-15): a member who is not a creator writes public posts only; no membership scope, tips or scheduling.
 // guest (2026-11-15): a signed-out AI photo trial reuses the editor; it publishes only (no draft/comments) and shows its notice.
 type GuestEditor={/** 2026-11-22: Coupang costume link click reward (AiPhotoDialog). */shopReward?:{claim:()=>Promise<boolean>};/** 2026-11-20: the trial's author id; the browser draft is restored only for the same trial. */authorId?:string;postReward?:number;shareReward?:{refresh:()=>Promise<void>;claim:(mediaId:string)=>Promise<boolean>};backHref:string;doneHref:string;notice:ReactNode;/** 2026-11-17: a fictional sample photo placed in the trial so a visitor without a photo can start right away. */samplePhoto?:{url:string;name:string};caption?:(input:{items:string[];prompt:string})=>Promise<ApiResult<{title:string;body:string;source:'ai'|'template'}>>};
-type EditorProps=Props&ContentPreviewProps&{memberMode?:boolean;guest?:GuestEditor};
+type EditorProps=Props&ContentPreviewProps&{memberMode?:boolean;guest?:GuestEditor;/** 2026-11-23: the signed-in member's id; a trial draft linked at sign-up opens in their new post. */draftOwner?:string};
 export const GUEST_AI_PHOTO_REQUIRED='AI로 만든 사진을 한 장 이상 넣어야 게시할 수 있어요. 「AI 사진 편집」에서 사진을 만들고 「사진 결정」을 눌러 주세요. 직접 올린 사진은 체험 게시물에 올라가지 않아요.';
-export function ContentEditorPage({model,basePath,id,previewModel,previewCreatorId,commentsGloballyEnabled=true,memberMode=false,guest}:EditorProps){
+export function ContentEditorPage({model,basePath,id,previewModel,previewCreatorId,commentsGloballyEnabled=true,memberMode=false,guest,draftOwner}:EditorProps){
   const content=id?model.contents.find(item=>item.id===id):undefined;
   if(id&&!content)return <section className={s.page}><PageTitle back={<BackButton href={`${basePath}/content`} label="콘텐츠 목록으로"/>}>게시물 수정</PageTitle><Empty title="게시물을 찾을 수 없어요" illustration={false} description="삭제되었거나 접근할 수 없는 게시물입니다."/></section>;
-  return <ContentEditor key={id||'new'} model={model} basePath={basePath} content={content} previewModel={previewModel} previewCreatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled} memberMode={memberMode||!!guest} guest={guest}/>;
+  return <ContentEditor key={id||'new'} model={model} basePath={basePath} content={content} previewModel={previewModel} previewCreatorId={previewCreatorId} commentsGloballyEnabled={commentsGloballyEnabled} memberMode={memberMode||!!guest} guest={guest} draftOwner={draftOwner}/>;
 }
-function ContentEditor({model,basePath,content,previewModel,previewCreatorId,commentsGloballyEnabled=true,memberMode=false,guest}:EditorProps&{content?:StudioContent}){
+function ContentEditor({model,basePath,content,previewModel,previewCreatorId,commentsGloballyEnabled=true,memberMode=false,guest,draftOwner}:EditorProps&{content?:StudioContent}){
   const [previewOpen,setPreviewOpen]=useState(false),[savedId,setSavedId]=useState(content?.id),[title,setTitle]=useState(content?.title||''),[body,setBody]=useState(content?.body||''),[media,setMedia]=useState<StudioMedia[]>(content?.media||[]),[tipsEnabled,setTipsEnabled]=useState(content?.tipsEnabled??true),[commentsEnabled,setCommentsEnabled]=useState(content?.commentsEnabled??true),[access,setAccess]=useState(content?.accessLevel?`level:${content.accessLevel}`:content?.accessPlanId||''),[scheduledAt,setScheduledAt]=useState(localDateInput(content?.scheduledAt||null)),[scheduleEnabled,setScheduleEnabled]=useState(content?.status==='scheduled'),[error,setError]=useState('');
   // 2026-11-20 user request: while the share reward is still available, a floating ticket (bottom right) reopens the share-reward guide.
   const [shareGuideOpen,setShareGuideOpen]=useState(false);
@@ -212,6 +212,13 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
   // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when the trial editor opens
   },[]);
   useEffect(()=>{if(guest&&!content&&draftReady)saveGuestTrialDraft(guest.authorId,{media,title,body});},[guest,content,draftReady,media,title,body]);
+  // 2026-11-23 user request (C 테스트): after sign-up the linked trial draft (photos, title, body) continues in the member's new post.
+  // It stays stored until a save succeeds, so leaving the editor does not lose it.
+  const memberDraft=useRef(false);
+  useEffect(()=>{if(guest||content)return;const draft=loadGuestTrialDraft(memberDraftOwner(draftOwner),Date.now(),false);if(!draft)return;
+    memberDraft.current=true;setMedia(draft.media);setTitle(draft.title);setBody(draft.body);setSampleNotice('체험에서 작성하던 내용을 이어서 불러왔어요.');
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when a new post opens
+  },[draftOwner]);
   useEffect(()=>{const sample=guest?.samplePhoto;if(!sample||content||sampleTried.current)return;sampleTried.current=true;
     void (async()=>{try{const blob=await fetchImageBlob(sample.url).catch(()=>null);if(!blob)return;const added=await upload([new File([blob],sample.name,{type:blob.type||'image/webp'})]);if(added[0]){setSampleId(added[0].id);setSampleNotice('샘플 원본을 등록해드렸어요.');}}catch{/* the visitor can still upload a photo */}})();
   // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once when the trial editor opens
@@ -250,7 +257,7 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
     if(media.some(item=>item.failed)){setError('변환에 실패한 동영상을 지우고 다시 올려 주세요.');return;}if(nextStatus!=='draft'&&!body.trim()){setError('게시할 내용을 입력해주세요.');return;}
     const scheduled=scheduleEnabled&&scheduledAt?new Date(scheduledAt):null;
     if(nextStatus==='scheduled'&&(!scheduled||!Number.isFinite(scheduled.getTime())||scheduled.getTime()<=Date.parse(model.now))){setError('예약 시각을 현재보다 미래로 선택해주세요.');return;}
-    void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:publishableMedia.map(({id,type,url,aiGenerated})=>({id,type,url,...(aiGenerated?{aiGenerated}:{})})),commentsEnabled,tipsEnabled:memberMode?false:tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);
+    void task.run(()=>model.actions.saveContent({id:savedId,title,body,media:publishableMedia.map(({id,type,url,aiGenerated})=>({id,type,url,...(aiGenerated?{aiGenerated}:{})})),commentsEnabled,tipsEnabled:memberMode?false:tipsEnabled,accessPlanId:accessPlanId||null,accessLevel,status:nextStatus,scheduledAt:nextStatus==='scheduled'?scheduled!.toISOString():null}),data=>{if(data.id)setSavedId(data.id);if(memberDraft.current){memberDraft.current=false;clearGuestTrialDraft();}
       // Publishing, scheduling or saving a published post returns to the list; a draft save keeps editing (2026-11-01).
       if(nextStatus!=='draft'){if(guest)clearGuestTrialDraft();router.push(guest?guest.doneHref:`${basePath}/content`);return;}
       setScheduleEnabled(false);setScheduledAt('');});

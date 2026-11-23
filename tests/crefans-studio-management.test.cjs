@@ -592,3 +592,30 @@ test('member editor body uses the two-line mobile style; the creator editor does
  assert.match(page,/<TextAreaField label="본문" value=\{body\} rows=\{12\} maxLength=\{10000\} className=\{memberMode\?s\.memberBody:undefined\}/);
  assert.equal((page.match(/s\.memberBody/g)||[]).length,1,'only the member body field');
 });
+
+// 2026-11-23 user request (C 테스트, dev 실측: 가입 후 게시글 작성이 빈 화면): the trial draft linked at sign-up continues in the member's
+// new post; it is removed only after a save succeeds. A trial draft that was not linked (still the guest's) is neither loaded nor removed.
+test('member editor continues a trial draft linked at sign-up; an unlinked guest draft is left alone',async()=>{
+ const KEY='crefans:guest-trial-draft',store=new Map(),prev=global.localStorage;global.localStorage={getItem:k=>store.has(k)?store.get(k):null,setItem:(k,v)=>store.set(k,String(v)),removeItem:k=>store.delete(k)};
+ const probe=fixtureHook(),saved=[];
+ const model={...probe.model,contents:[],actions:{...probe.model.actions,saveContent:async input=>{saved.push(input);return {success:true,data:{message:'게시',id:'p1'}};}}};
+ const draft={at:Date.now(),media:[{id:'up1',type:'image',url:'/api/v1/media/up1/file'},{id:'ai1',type:'image',url:'/api/v1/media/ai1/file',aiGenerated:true}],title:'체험 제목',body:'체험 본문'};
+ let tree;
+ try{
+  store.set(KEY,JSON.stringify({...draft,owner:'guest:abc'}));
+  await act(async()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/studio',memberMode:true,draftOwner:'m1'}));});
+  assert.equal(tree.root.findByProps({label:'제목'}).props.value,'','a guest-owned draft is not loaded');assert.ok(store.has(KEY),'and not removed');
+  await act(async()=>tree.unmount());
+  store.set(KEY,JSON.stringify({...draft,owner:'member:m1'}));
+  await act(async()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/studio',memberMode:true,draftOwner:'m1'}));});
+  assert.equal(tree.root.findByProps({label:'제목'}).props.value,'체험 제목');assert.equal(tree.root.findByProps({label:'본문'}).props.value,'체험 본문');
+  assert.match(json(tree),/체험에서 작성하던 내용을 이어서 불러왔어요/);
+  await act(async()=>button(tree,'지금 게시하기').props.onClick());
+  assert.equal(saved.length,1);assert.deepEqual(saved[0].media.map(m=>m.id),['up1','ai1'],'own photo and AI photo both go into the member post');assert.equal(saved[0].status,'published');
+  assert.ok(!store.has(KEY),'cleared after the save');
+  await act(async()=>tree.unmount());
+  store.set(KEY,JSON.stringify({...draft,owner:'member:m2'}));
+  await act(async()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/studio',memberMode:true,draftOwner:'m1'}));});
+  assert.equal(tree.root.findByProps({label:'제목'}).props.value,'','another member\'s draft is not loaded');
+ }finally{if(tree)await act(async()=>tree.unmount());probe.close();global.localStorage=prev;}
+});

@@ -10,6 +10,7 @@ import {usePostSearchModel} from './usePostSearchModel';
 import {verifyIdentity} from '@/lib/api/identity';
 import {startBillingRegistration} from '@/lib/api/billing';
 import {clearGuestTrial,hasGuestTrial} from './useGuestTrialModel';
+import {adoptGuestTrialDraft,guestTrialDraftSummary} from '@/lib/crefans/guest-trial-draft';
 import {platformRequest as api} from '@/lib/api/platform';
 import {captureEvent} from '@/lib/analytics/posthog';
 import {askAdvisor} from '@/lib/api/advisor';
@@ -36,8 +37,11 @@ export function useServiceModel(){
  const guestClaimed=useRef(false);
  // The claim usually runs right before the post-login redirect; keep its notice for the next page so it is not wiped by that reload.
  const [guestAuthorId,setGuestAuthorId]=useState<string|null>(null);
- const [guestClaim,setGuestClaim]=useState<{posts:number;busy:boolean}|null>(null);
- async function acceptGuestClaim(){if(!guestClaim||guestClaim.busy)return;setGuestClaim({...guestClaim,busy:true});const claim=await api<{claimed:number}>('/guest/claim',{}).catch(()=>null);if(!claim?.success){setGuestClaim({...guestClaim,busy:false});setActionNotice({message:claim?.errorMessage||'연동하지 못했어요. 잠시 후 다시 시도해 주세요.',loginRequired:false});return;}clearGuestTrial();setGuestClaim(null);await refresh({quiet:true});setActionNotice({message:`체험 게시물 ${claim.data.claimed}개를 내 계정으로 연동했어요.`,loginRequired:false});}
+ const [guestClaim,setGuestClaim]=useState<{posts:number;draftPhotos?:number;member?:string;busy:boolean}|null>(null);
+ async function acceptGuestClaim(){if(!guestClaim||guestClaim.busy)return false;setGuestClaim({...guestClaim,busy:true});const claim=await api<{claimed:number}>('/guest/claim',{}).catch(()=>null);if(!claim?.success){setGuestClaim({...guestClaim,busy:false});setActionNotice({message:claim?.errorMessage||'연동하지 못했어요. 잠시 후 다시 시도해 주세요.',loginRequired:false});return false;}
+  // 2026-11-23: the claim also moved the photos of a trial draft; the draft now opens in the member's post editor.
+  const draft=guestClaim.draftPhotos!==undefined&&adoptGuestTrialDraft(guestClaim.member);
+  clearGuestTrial();setGuestClaim(null);await refresh({quiet:true});setActionNotice({message:claim.data.claimed?`체험 게시물 ${claim.data.claimed}개를 내 계정으로 연동했어요.${draft?' 작성하던 내용은 게시글 작성에서 이어서 쓸 수 있어요.':''}`:'작성하던 체험 내용을 가져왔어요. 게시글 작성에서 이어서 쓸 수 있어요.',loginRequired:false});return true;}
  // Declining leaves the trial posts as they are (anonymous, closed after 24 hours) and stops asking on this browser.
  function declineGuestClaim(){clearGuestTrial();setGuestClaim(null);}
  // quiet: reload in place (no loading screen), so an open conversation stays mounted after sending.
@@ -50,7 +54,7 @@ export function useServiceModel(){
    if(screen==='post'){const post=await api<any>(`/posts/${encodeURIComponent(id)}`);if(post.success){state.data.creatorPlans={...state.data.creatorPlans,...profilePlans([post.data.creator])};state.data.posts=[...state.data.posts.filter((p:any)=>p.id!==id),post.data.post];state.data.creators=[...state.data.creators.filter((c:any)=>c.id!==post.data.creator.id),post.data.creator];}else setError(post.errorMessage);}
    // 2026-11-16 user decision (replaces the automatic link of 2026-11-15): after signing in on the browser that made trial posts,
    // the member is asked first. Only a browser that started a trial (local flag) asks, once per load, without delaying the page.
-   if(state.signedIn&&!guestClaimed.current&&hasGuestTrial()){guestClaimed.current=true;void api<{posts:number}>('/guest/claim').then(preview=>{if(!preview.success){guestClaimed.current=false;return;}if(preview.data.posts>0)setGuestClaim({posts:preview.data.posts,busy:false});else clearGuestTrial();}).catch(()=>{guestClaimed.current=false;});}
+   if(state.signedIn&&!guestClaimed.current&&hasGuestTrial()){guestClaimed.current=true;void api<{posts:number}>('/guest/claim').then(preview=>{if(!preview.success){guestClaimed.current=false;return;}const draft=guestTrialDraftSummary();/* 2026-11-23: an unpublished trial draft is offered too */if(preview.data.posts>0||draft)setGuestClaim({posts:preview.data.posts,...(draft?{draftPhotos:draft.photos}:{}),member:state.viewerId||undefined,busy:false});else clearGuestTrial();}).catch(()=>{guestClaimed.current=false;});}
    // 2026-11-16: a signed-out browser that made trial posts learns its author id, so those posts get 수정 (title and body only).
    if(!state.signedIn&&hasGuestTrial()){const guest=await api<{authorId?:string}>('/guest/session');if(token!==generation.current)return;setGuestAuthorId(guest.success?guest.data.authorId||null:null);}else setGuestAuthorId(null);
    if(token!==generation.current)return;setState({...state,data:{...state.data,faqs:supportFaqs(state.data.faqs)}});
