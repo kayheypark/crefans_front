@@ -514,3 +514,5 @@ dialog.changeUploadDialog{padding:22px 20px 20px;width:min(420px,calc(100vw - 32
 @media(max-width:767px){.methodToast{position:fixed;left:50%;top:50%;z-index:15;display:block;max-width:min(300px,calc(100vw - 48px));padding:12px 18px;border-radius:14px;background:rgb(0 0 0 / 82%);color:#fff;font-size:14px;font-weight:600;line-height:1.5;text-align:center;word-break:keep-all;transform:translate(-50%,-50%);pointer-events:none;animation:methodToast 1s ease both}}
 @keyframes methodToast{0%{opacity:0;transform:translate(-50%,-46%)}12%,80%{opacity:1;transform:translate(-50%,-50%)}100%{opacity:0;transform:translate(-50%,-50%)}}
 @media(prefers-reduced-motion:reduce){.methodToast{animation:none}}
+/* 2026-11-23: on phones the ✓ before the picked method pushed '디테일 정밀하게 2개' onto two lines; the white pill already marks it. */
+@media(max-width:767px){.editor .methodChoices input:checked+span strong::before{content:none}}
