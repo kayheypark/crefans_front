@@ -1,3 +1,10 @@
+## 2026-11-24 공식 계정 로그인 시 AI 체험 게시물 댓글 입력창 (feat/official-comment-service) — dev까지
+
+- 사용자 지시(2026-11-24): "여기서 쓸 수 있게 하라고", "모든 유저가 댓글은 확인할 수 있어야지". 서버 짝 crefans_server 같은 브랜치(Post.canComment).
+- `SocialPages.tsx`: 작성자 guest:… 체험 게시물은 회색 닫힘 배지 대신 모든 사용자에게 댓글 버튼 활성(91187be는 onComments만 바꿔 배지가 여전히 회색이었음). 목록은 공식 댓글만 읽기 전용, 닫힘 안내 없음, 0개면 '댓글이 없습니다'. canComment=true(공식 계정)면 입력창·본인 수정/삭제, 답글·댓글 좋아요는 없음. 크리에이터가 닫은 일반 게시물은 기존 그대로.
+- 검증(맥, 2026-11-24, worktree npm ci): 새 테스트 2건 통과, 전체 879건 실패 52(origin/dev 이전 876건 실패 52, 실패 목록 동일), typecheck 0, build 0. 대조: origin/dev(91187be 포함) SocialPages로 되돌리면 새 테스트 2건 실패.
+- 미확인: 실제 브라우저·휴대폰 화면.
+
 ## 2026-11-24 댓글 닫힌 게시물(AI 체험)에 공식 계정 댓글 표시 (feat/official-trial-comment) — dev까지
 
 - 사용자 지시: AI 체험 게시물에 운영자가 '크레팬스 공식 계정'으로 쓴 댓글을 보여 주되 일반 입력창은 계속 숨김. 서버 짝 crefans_server feat/official-trial-comment(댓글 official:true).

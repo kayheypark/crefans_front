@@ -312,6 +312,58 @@ test('a closed post (AI trial) shows only official comments, read-only, and load
   try{assert.deepEqual(noLoads,[],'nothing to fetch when the post has no comments');}finally{close(empty);}
 });
 
+// 2026-11-24 user requests: on a visitor's AI trial post (author guest:…) everyone can open the comments (active button, read-only
+// official list); only the official account (server canComment) gets the composer, without replies or likes.
+test('AI trial post: the comment button stays active for every viewer and opens the official comments read-only',()=>{
+  const trialPost={...post,id:'trial-g',creatorId:'guest:'+'a'.repeat(40),commentsEnabled:false,canComment:false,comments:1},loads=[];
+  const official={id:'o1',author:{name:'크레팬스',image:'',isVerified:true},body:'OFFICIAL_WELCOME',time:'어제',official:true,likes:0,replyCount:0};
+  const input=model({data:{...data,posts:[trialPost]},commentsByPost:{'trial-g':[official,{id:'c',author:creator,body:'HIDDEN_COMMENT',time:'어제'}]},commentPaging:{'trial-g':{loading:false,hasMore:false,loadMore:async()=>{}}},loadComments:async id=>{loads.push(id);},loadReplies:async()=>ok,addComment:async()=>ok,likeComment:async()=>ok});
+  const card=mount(PostCard,{post:trialPost,model:input});
+  try{
+    assert.equal(card.root.findAllByProps({className:'commentsClosed'}).length,0,'no greyed closed badge');
+    const toggle=card.root.findAllByType('button').find(button=>button.props['aria-controls']==='comments-trial-g');
+    assert.ok(toggle,'active comment button');assert.equal(toggle.props.disabled,false);
+    act(()=>toggle.props.onClick());
+    const json=JSON.stringify(card.toJSON());
+    assert.match(json,/OFFICIAL_WELCOME/);assert.doesNotMatch(json,/HIDDEN_COMMENT/);assert.doesNotMatch(json,/닫아두었어요/,'no closed notice');assert.doesNotMatch(json,/답글 달기/);
+    assert.equal(card.root.findAllByType('textarea').length,0,'no composer for other viewers');
+    assert.deepEqual(loads,['trial-g']);
+  }finally{close(card);}
+  // Detail: the count links to the list (not the closed badge); zero comments still loads and shows the empty notice.
+  const empty={...trialPost,id:'trial-0',comments:0},emptyLoads=[];
+  const detail=mount(PostDetailPage,{id:'trial-0',model:model({data:{...data,posts:[empty]},commentsByPost:{'trial-0':[]},commentPaging:{'trial-0':{loading:false,hasMore:false,loadMore:async()=>{}}},loadComments:async id=>{emptyLoads.push(id);},loadReplies:async()=>ok})});
+  try{
+    assert.equal(detail.root.findAllByProps({className:'commentsClosed'}).length,0);
+    assert.ok(detail.root.findAllByType('a').some(a=>a.props.href==='/actual-service/post/trial-0#comments-trial-0'),'comment count links to the list');
+    const json=JSON.stringify(detail.toJSON());assert.match(json,/댓글이 없습니다/);assert.doesNotMatch(json,/닫아두었어요/);
+    assert.equal(detail.root.findAllByType('textarea').length,0);assert.deepEqual(emptyLoads,['trial-0']);
+  }finally{close(detail);}
+  // Control: a creator's own closed post keeps the greyed badge and no toggle.
+  const creatorClosed={...post,id:'closed-c',commentsEnabled:false,canComment:false};
+  const closedCard=mount(PostCard,{post:creatorClosed,model:input});
+  try{assert.equal(closedCard.root.findAllByProps({className:'commentsClosed'}).length,1);assert.equal(closedCard.root.findAllByType('button').some(b=>b.props['aria-controls']==='comments-closed-c'),false);}finally{close(closedCard);}
+});
+
+test('AI trial post: the official account (canComment) gets the composer and its own delete, but no replies or likes',async()=>{
+  const trialPost={...post,id:'trial-o',creatorId:'guest:'+'b'.repeat(40),commentsEnabled:false,canComment:true,comments:1},added=[],deleted=[];
+  const mine={id:'m1',author:{name:'크레팬스',image:'',isVerified:true},body:'MY_OFFICIAL',time:'어제',official:true,own:true,likes:0,replyCount:0};
+  const input=model({data:{...data,posts:[trialPost]},commentsByPost:{'trial-o':[mine]},commentPaging:{'trial-o':{loading:false,hasMore:false,loadMore:async()=>{}}},loadComments:async()=>{},loadReplies:async()=>ok,addComment:async(id,body,parentId)=>{added.push([id,body,parentId]);return ok;},editComment:async()=>ok,deleteComment:async(id,commentId)=>{deleted.push([id,commentId]);return ok;},likeComment:async()=>ok});
+  const detail=mount(PostDetailPage,{id:'trial-o',model:input});
+  try{
+    const json=JSON.stringify(detail.toJSON());
+    assert.match(json,/MY_OFFICIAL/);assert.doesNotMatch(json,/닫아두었어요/);assert.doesNotMatch(json,/답글 달기/);
+    assert.equal(detail.root.findAllByType('textarea').length,1,'composer');
+    assert.equal(detail.root.findByProps({'aria-label':'댓글 좋아요'}).props.disabled,true,'comment like stays off');
+    assert.ok(detail.root.findAllByType('button').some(b=>b.children.includes('삭제')),'own delete');
+    const textarea=detail.root.findByType('textarea');act(()=>textarea.props.onChange({target:{value:'새 공식 댓글'},currentTarget:{value:'새 공식 댓글'}}));
+    const form=detail.root.findAllByType('form').find(f=>f.findAllByType('textarea').length);await act(async()=>{await form.props.onSubmit({preventDefault(){}});});
+    assert.deepEqual(added,[['trial-o','새 공식 댓글',undefined]]);
+  }finally{close(detail);}
+  // Control: the same post for another viewer (canComment false) has no composer.
+  const other=mount(PostDetailPage,{id:'trial-o',model:model({...input,data:{...data,posts:[{...trialPost,canComment:false}]}})});
+  try{assert.equal(other.root.findAllByType('textarea').length,0);}finally{close(other);}
+});
+
 for(const surface of ['feed','detail'])test(`clicking a ${surface} image opens the post overlay with the media stage and a white detail panel; arrows, Escape and backdrop work`,async()=>{
   const gallery={...post,media:[{type:'image',url:'/one.png'},{type:'video',url:'/two.mp4'},{type:'image',url:'/three.png'}],body:'OVERLAY_BODY_SENTINEL'};
   const input=model({data:{...data,posts:[gallery]},commentsByPost:{[post.id]:[]},loadReplies:async()=>ok});
