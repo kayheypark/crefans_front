@@ -506,3 +506,6 @@ dialog.changeUploadDialog{padding:22px 20px 20px;width:min(420px,calc(100vw - 32
    scrolls (title included) and only the footer stays at the bottom; the desktop layout keeps its fixed title and scrolling body.
    The footer sits above in-body overlays (swipe hint z-index 5, card labels 2-3) but below the photo viewer (20). */
 @media(max-width:767px){.editor[open]{display:block;overflow-y:auto;overscroll-behavior:contain}.editor>header{position:static}.editor .body{overflow:visible;min-height:0}.editor .footer{position:sticky;bottom:0;z-index:10}}
+/* 2026-11-23 user request: the pinned footer still covered too much of the phone screen. On phones the method choices fit on one
+   line (label · cost), the method hint is kept only for screen readers, and the 만들기 button and signup line get slimmer. */
+@media(max-width:767px){.editor .footer{padding:8px 16px max(10px,env(safe-area-inset-bottom))}.editor .methodChoices label>span{display:flex;justify-content:center;align-items:baseline;gap:4px;min-height:36px}.editor .methodChoices strong{font-size:12.5px}.editor .methodHint{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0}.editor .footer .createWithQuota{min-height:44px;margin-top:8px}.editor .footer .signupNudge{min-height:30px;margin-top:6px;padding:5px 10px;font-size:12.5px}}
