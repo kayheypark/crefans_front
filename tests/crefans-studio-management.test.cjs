@@ -559,3 +559,36 @@ test('guest editor share button: shown only with an AI result, offers the share 
   assert.equal(shareButton(tree).length,1,'sharing stays available after the reward');assert.ok(!json(tree).includes('게시 대신 공유만 해도'));
  }finally{if(tree)await act(async()=>tree.unmount());global.localStorage=prev;global.fetch=fetchPrev;global.window=windowPrev;}
 });
+
+// 2026-11-23 이탈 분석(PostHog 01a205ea…, 운영 게시물 d6d4e304 사진 0장): the publish-reward offer opened the title/body fields while
+// the AI editor had no decided result; the visitor's own selfie was left out (trial posts carry AI photos only) and the post went out
+// with no photo. A trial post now needs at least one decided AI photo; the visitor is told how.
+test('guest trial: publishing without a decided AI photo is refused with guidance; own uploads alone are not enough',async()=>{
+ const probe=fixtureHook(),saved=[];
+ const model={...probe.model,contents:[],actions:{...probe.model.actions,aiEditPhoto:async()=>({success:true,data:{images:[]}}),
+  uploadContentMedia:async()=>({success:true,data:{id:'own1',type:'image',url:'/media/own1.webp'}}),
+  saveContent:async input=>{saved.push(input);return {success:true,data:{message:'게시',id:'g1'}};}}};
+ const guest={backHref:'/service/feed',doneHref:'/service/try/done',notice:'notice',postReward:3,caption:async()=>({success:true,data:{title:'t',body:'b',source:'ai'}})};
+ let tree;act(()=>{tree=create(React.createElement(ContentEditorPage,{model,basePath:'/service/try',guest}));});
+ try{
+  await act(async()=>{await tree.root.findAll(node=>typeof node.props.onFilesSelect==='function')[0].props.onFilesSelect([{name:'selfie.jpg',type:'image/jpeg',size:10}]);});
+  const dialog=()=>tree.root.findAll(node=>typeof node.props.onAdd==='function'&&node.props.room!==undefined)[0];
+  act(()=>dialog().props.publishReward.onWrite());// '게시글 작성하기' in the offer while no result is decided
+  act(()=>tree.root.findByProps({label:'제목'}).props.onChange({target:{value:'제목'}}));
+  act(()=>tree.root.findByProps({label:'본문'}).props.onChange({target:{value:'본문'}}));
+  await act(async()=>button(tree,'지금 게시하기').props.onClick());
+  assert.equal(saved.length,0,'nothing is published without an AI photo');assert.match(json(tree),/AI로 만든 사진을 한 장 이상 넣어야 게시할 수 있어요/);
+  act(()=>dialog().props.onAdd([{id:'ai1',type:'image',url:'/media/ai1.webp',aiGenerated:true}]));
+  await act(async()=>button(tree,'지금 게시하기').props.onClick());
+  assert.equal(saved.length,1);assert.deepEqual(saved[0].media.map(m=>m.id),['ai1'],'only the AI photo goes into the trial post');
+ }finally{act(()=>tree.unmount());probe.close();}
+});
+
+// 2026-11-23 user request: a member's body field is two lines tall on mobile like the trial's; creators keep the tall field.
+test('member editor body uses the two-line mobile style; the creator editor does not',()=>{
+ const fs=require('node:fs'),css=fs.readFileSync('components/crefans/studio/management.module.css','utf8'),page=fs.readFileSync('components/crefans/studio/ManagementPages.tsx','utf8');
+ assert.match(css,/@media\(max-width:767px\)\{\.page \.captionFields textarea,\.page textarea\.memberBody\{height:calc\(3em \+ 26px\)/);
+ // (this file mocks management.module.css without a default export, so the class is checked in the source)
+ assert.match(page,/<TextAreaField label="본문" value=\{body\} rows=\{12\} maxLength=\{10000\} className=\{memberMode\?s\.memberBody:undefined\}/);
+ assert.equal((page.match(/s\.memberBody/g)||[]).length,1,'only the member body field');
+});
