@@ -4,7 +4,7 @@ import {Dialog} from '@/components/ui/Primitives';
 import {DialogActions} from '@/components/ui/DialogActions';
 import {Field} from '@/components/ui/Field';
 import {Action} from './ServiceUI';
-import {smsHref,smsPlatform,type SmsPlatform} from '@/lib/crefans/sms-link';
+import {mobileDigits,smsHref,smsPlatform,type SmsPlatform} from '@/lib/crefans/sms-link';
 import {REPLAY_BLOCK_CLASS} from '@/lib/analytics/posthog';
 import type {PhoneCheckModel,PhoneCheckStart} from '@/types/crefans-events';
 import s from './events.module.css';
@@ -18,7 +18,7 @@ export function PhoneCheckDialog({open,onClose,check,onVerified,intro='프로모
  const [phone,setPhone]=useState(''),[sent,setSent]=useState<PhoneCheckStart|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[opened,setOpened]=useState(false);
  const [platform,setPlatform]=useState<SmsPlatform>(fixedPlatform??'android');
  useEffect(()=>{if(!fixedPlatform&&typeof navigator!=='undefined')setPlatform(smsPlatform(navigator.userAgent,navigator.maxTouchPoints||0));},[fixedPlatform]);
- const digits=phone.replace(/[^0-9]/g,''),valid=/^010[0-9]{8}$/.test(digits),mobile=platform!=='desktop';
+ const digits=mobileDigits(phone),valid=/^010[0-9]{8}$/.test(digits),mobile=platform!=='desktop';
  const busyRef=useRef(false),autoChecked=useRef(false);
  // Opened with a number from the page: start right away (the platform was read on mount, before the page could open this).
  useEffect(()=>{if(!open||!initialPhone||!/^010[0-9]{8}$/.test(initialPhone))return;setPhone(initialPhone);setSent(null);setError('');void start(initialPhone);// eslint-disable-next-line react-hooks/exhaustive-deps

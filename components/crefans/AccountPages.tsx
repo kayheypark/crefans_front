@@ -5,6 +5,7 @@ import {useSnackbarMessage} from '@/components/ui/SnackbarProvider';
 import {BeanWalletLink} from './BeanPages';
 import {SignInPrompt} from './SignInPrompt';
 import {SIGNUP_COMPLETE_KEY,loginTarget,signupHref} from '@/lib/crefans/login-return';
+import {mobileDigits} from '@/lib/crefans/sms-link';
 import {REFERRAL_DISCLOSURE_LABEL,REFERRAL_DISCLOSURE_NOTICE,storedReferral} from '@/lib/crefans/referral';
 export {SignInPrompt} from './SignInPrompt';
 import {MarqueeText,MarqueeMotionControl} from '@/components/ui/MarqueeText';
@@ -74,7 +75,7 @@ export function SignupPage({model,onComplete}:{model:ServiceViewModel;onComplete
   const identityRequired=account.signupRequirements?.identityRequired!==false;
   // 2026-11-16: phone-number check (OCTOMO, ownership only) after the email code when the server asks for it.
   const phoneRequired=account.signupRequirements?.phoneRequired===true&&!!accountActions.signupPhone,[phoneOpen,setPhoneOpen]=useState(false),[phoneVerified,setPhoneVerified]=useState(false);
-  const [phone,setPhone]=useState(''),phoneDigits=phone.replace(/[^0-9]/g,''),phoneValid=/^010[0-9]{8}$/.test(phoneDigits);
+  const [phone,setPhone]=useState(''),phoneDigits=mobileDigits(phone),phoneValid=/^010[0-9]{8}$/.test(phoneDigits);
   const [ageAcknowledged,setAgeAcknowledged]=useState(false);
   // A referral link stored for this browser session asks for the disclosure agreement (2026-11-02); read after mount (sessionStorage).
   const [referred,setReferred]=useState(false),[referralDisclosure,setReferralDisclosure]=useState(false);

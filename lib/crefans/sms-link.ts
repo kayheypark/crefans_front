@@ -11,3 +11,9 @@ export function smsHref(receiver:string,body:string,platform:SmsPlatform){
  const number=receiver.replace(/[^0-9+]/g,''),text=encodeURIComponent(body);
  return platform==='ios'?`sms:${number}&body=${text}`:`sms:${number}?body=${text}`;
 }
+// 2026-11-23 user report: browser/phone autofill entered '+821044679801', the 010-only check kept '인증하기' disabled and no request
+// was sent. Accept the +82 / 82 country-code form and turn it into the domestic 010 digits.
+export function mobileDigits(value:string){
+ const digits=value.replace(/[^0-9]/g,'');
+ return /^8210[0-9]{8}$/.test(digits)?'0'+digits.slice(2):digits;
+}
