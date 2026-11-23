@@ -489,7 +489,7 @@ dialog.changeUploadDialog{padding:22px 20px 20px;width:min(420px,calc(100vw - 32
 .changeUploadActions{margin-top:20px;display:grid;grid-template-columns:1fr 1.7fr;gap:8px}
 .changeUploadActions>button{min-width:0;min-height:46px;padding:0 10px;font-size:14px;font-weight:650;white-space:nowrap}
 /* 2026-11-23: guest watermark box (always on) and the signup offer when a guest tries to clear it. */
-.watermarkOption{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 2px 4px}
+.watermarkOption{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:16px 0 0;padding-top:12px;border-top:1px solid var(--cf-color-border)}
 .watermarkOption label{font-size:14px;font-weight:600}
 .watermarkOffer>header{margin-bottom:12px}
 .watermarkOffer>header h2{font-size:13px;font-weight:500;letter-spacing:0;color:var(--cf-color-textSecondary)}

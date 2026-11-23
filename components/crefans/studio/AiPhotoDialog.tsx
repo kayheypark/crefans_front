@@ -342,6 +342,8 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
     </>}
     {(!waiting&&(stage==='edit'||remaining<=0)&&onUseTicket&&tickets>0)&&<div className={s.quota}>{<span className={s.ticket}>리셋권 {tickets}장{quota.resetTickets?.nextExpiresAt&&<small> · {new Date(quota.resetTickets.nextExpiresAt).toLocaleDateString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric'})} 만료</small>}<button type="button" onClick={()=>void useTicket()} disabled={ticketBusy||busy||(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit} title={(remaining-(quota.paidRemaining||0)-(quota.rewardRemaining||0))>=quota.limit?'오늘 아직 사용한 횟수가 없어요':undefined}>{ticketBusy?'사용 중…':'1장 써서 횟수 채우기'}</button></span>}</div>}
     {ticketNote&&<p className={s.ticketNote} role="status">{ticketNote}</p>}
+    {/* 2026-11-23 user request: the fixed footer was too tall, so 워터마크 넣기 sits at the end of the scrolling body instead. */}
+    {stage==='edit'&&noHearts&&<GuestWatermarkOption disabled={busy} onTryClear={()=>setWatermarkOffer(true)}/>}
    </div>
    {stage==='edit'&&<div className={s.footer} inert={viewing}>
     {/* 2026-11-19 user request: no '생성 방식' title or '사진 1장당 이용권' caption; the group keeps its accessible name. */}
@@ -353,7 +355,6 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
     </div>
     <p className={s.methodHint} role="status">{method.hint.split(/(?<=\.) /).map(part=><span key={part}>{part}</span>)}</p>
     {/* 2026-11-23 user decision: guests see the watermark box checked; it cannot be cleared (clearing opens the signup offer). */}
-    {noHearts&&<GuestWatermarkOption disabled={busy} onTryClear={()=>setWatermarkOffer(true)}/>}
     <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>{if(!source){void generate();return;}setSourceConfirm('ask');}} disabled={busy}>
      <span className={s.createLabel}>만들기</span><span id={`${panelId}-remaining`} className={s.createQuota}>{remaining}장 보유</span>
     </Action>

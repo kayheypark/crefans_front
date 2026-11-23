@@ -78,3 +78,11 @@ test('mobile editor: sheet scrolls with the title, footer sticks to the bottom',
  const footerZ=Number(css.match(/\.editor \.footer\{position:sticky;bottom:0;z-index:(\d+)/)[1]),swipeZ=Number(css.match(/\.swipeOverlay\{[^}]*z-index:(\d+)/)[1]),viewerZ=Number(css.match(/\.viewer\{[^}]*z-index:(\d+)/)[1]);
  assert.ok(footerZ>swipeZ&&footerZ<viewerZ,'footer above the swipe hint, below the photo viewer');
 });
+
+// 2026-11-23 user request: 워터마크 넣기 lives at the end of the scrolling body, not in the fixed footer above 만들기.
+test('guest watermark box is in the body, not the fixed footer',()=>{
+ const src=require('node:fs').readFileSync(require('node:path').join(__dirname,'../components/crefans/studio/AiPhotoDialog.tsx'),'utf8');
+ const footer=src.slice(src.indexOf("{stage==='edit'&&<div className={s.footer}"));
+ assert.doesNotMatch(footer.slice(0,footer.indexOf('</div>}')),/GuestWatermarkOption/);
+ assert.ok(src.indexOf('<GuestWatermarkOption')<src.indexOf("{stage==='edit'&&<div className={s.footer}"),'rendered before the footer, inside the body');
+});
