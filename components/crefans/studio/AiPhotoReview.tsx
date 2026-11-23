@@ -38,7 +38,7 @@ export function AiPhotoReview({done,reward,draft,onDraft,onSubmit}:{done?:string
    <p className={s.reviewFieldLabel}>별점</p>
    <div className={s.reviewStars} role="radiogroup" aria-label="별점" aria-required="true">
     {[1,2,3,4,5].map(n=><button key={n} type="button" role="radio" aria-checked={rating===n} aria-label={`별 ${n}개`} data-on={n<=rating||undefined} onClick={()=>setRating(n)}>
-     <svg width="27" height="27" aria-hidden="true" viewBox="0 0 24 24"><path d="M11.45 3.15Q12.00 2.00 12.55 3.15L14.33 6.89Q14.88 8.04 16.14 8.20L20.25 8.74Q21.51 8.91 20.59 9.78L17.58 12.64Q16.66 13.51 16.89 14.76L17.65 18.84Q17.88 20.09 16.76 19.48L13.12 17.51Q12.00 16.90 10.88 17.51L7.24 19.48Q6.12 20.09 6.35 18.84L7.11 14.76Q7.34 13.51 6.42 12.64L3.41 9.78Q2.49 8.91 3.75 8.74L7.86 8.20Q9.12 8.04 9.67 6.89Z"/></svg>
+     <svg width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><path d="M11.45 3.15Q12.00 2.00 12.55 3.15L14.33 6.89Q14.88 8.04 16.14 8.20L20.25 8.74Q21.51 8.91 20.59 9.78L17.58 12.64Q16.66 13.51 16.89 14.76L17.65 18.84Q17.88 20.09 16.76 19.48L13.12 17.51Q12.00 16.90 10.88 17.51L7.24 19.48Q6.12 20.09 6.35 18.84L7.11 14.76Q7.34 13.51 6.42 12.64L3.41 9.78Q2.49 8.91 3.75 8.74L7.86 8.20Q9.12 8.04 9.67 6.89Z"/></svg>
     </button>)}
    </div>
   </div>
@@ -52,7 +52,7 @@ export function AiPhotoReview({done,reward,draft,onDraft,onSubmit}:{done?:string
    </div>
   </div>
   <label>
-   <span className={s.reviewFieldLabel}>한마디 <span className={s.reviewOptional}>선택</span></span>
+   <span className={s.reviewFieldLabel}>응원메시지 <span className={s.reviewOptional}>선택</span></span>
    <textarea className={s.reviewText} placeholder="좋은 점, 아쉬운 점, 응원메시지 모두!" maxLength={500} rows={2} value={comment} onChange={e=>setComment(e.target.value)}/>
    <span className={s.reviewOptional}>의견 확인을 위해 OpenAI(해외)로 보내요. 개인정보는 쓰지 마세요.</span>
   </label>
