@@ -437,10 +437,11 @@ test('member editor: AI caption button after an AI photo, no nudge, confirmation
   assert.deepEqual(captions,[{items:['메이드복'],prompt:'귀엽게'}]);assert.equal(title(),'AI 제목');assert.equal(body(),'AI 본문');
   act(()=>tree.root.findByProps({label:'제목'}).props.onChange({target:{value:'내가 쓴 제목'}}));
   await act(async()=>button(tree,'AI로 내용 작성').props.onClick());
-  assert.equal(captions.length,1,'written text: asks first');assert.match(json(tree),/AI 글로 바꿀까요/);
+  assert.equal(captions.length,1,'written text: asks first');assert.match(json(tree),/쓴 글을 AI로 다듬을까요/);assert.doesNotMatch(json(tree),/AI 글로 바꿀까요/);
   await act(async()=>button(tree,'취소').props.onClick());assert.equal(captions.length,1);assert.equal(title(),'내가 쓴 제목');
-  await act(async()=>button(tree,'AI로 내용 작성').props.onClick());await act(async()=>button(tree,'바꾸기').props.onClick());
-  assert.equal(captions.length,2);assert.equal(title(),'AI 제목');
+  await act(async()=>button(tree,'AI로 내용 작성').props.onClick());await act(async()=>button(tree,'다듬기').props.onClick());
+  // 2026-11-24 user decision: confirming polishes the written title/body (sent along) instead of writing a new caption.
+  assert.equal(captions.length,2);assert.deepEqual(captions[1],{items:['메이드복'],prompt:'귀엽게',title:'내가 쓴 제목',body:'AI 본문'});assert.equal(title(),'AI 제목');
  }finally{act(()=>tree.unmount());}
  // Editing a saved post with an AI photo shows the button too; without writeCaption (e.g. the preview mock) it stays hidden.
  const saved={...initialContent,media:[{id:'m1',type:'image',url:'/m1.webp',aiGenerated:true}]};

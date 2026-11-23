@@ -1,3 +1,10 @@
+## 2026-11-24 'AI로 내용 작성' 기존 글 다듬기 (feat/ai-caption-polish) — dev까지, 운영 배포는 사용자
+
+- 사용자 결정(2026-11-24): 비회원·회원 모두 제목·본문에 글이 있으면 '쓴 글을 AI로 다듬을까요?' 확인 → '다듬기'면 기존 제목·본문을 함께 보내 서버가 다듬은 글로 채움, 취소면 그대로. 비어 있으면 기존처럼 바로 새로 작성. 회원의 'AI 글로 바꿀까요?'를 대체. 서버 짝 커밋(title/body 입력, 실패는 오류).
+- `ManagementPages.tsx` ContentEditor `askCaption`/`writeCaption(polish)`: 실패 시 서버 오류 문구만 표시하고 글 유지. 비회원은 칸이 보일 때(captionReady)만 '쓴 글'로 봄. 타입: `types/crefans-studio-management.ts`, `useGuestTrialModel.ts` 입력에 title?/body?.
+- 동의 문구 충돌(수정 안 함): `components/crefans/GuestTrialConsent.tsx:31` '고른 항목 이름과 요청 문장만 OpenAI(해외)로 보내' — 다듬기는 쓴 제목·본문도 보냄. 처리방침 충돌 목록은 서버 PROGRESS 같은 날 항목.
+- 검증(맥, 2026-11-24 02:53 KST, worktree npm ci): typecheck 0, npm test 892건 중 실패 52(같은 worktree에서 변경 stash한 origin/dev 기준 892건 실패 52, 실패 목록 diff 동일). 대조: ManagementPages 변경만 되돌리면 갱신한 테스트 2건(guest caption fields, member editor AI caption) 실패.
+
 ## 2026-11-24 AI 가이드 질문을 회원·체험·리플레이에 연결 (feat/advisor-log) — dev까지, 운영 배포는 사용자
 
 - 사용자 지시: 서버가 AI 가이드 질문·답변을 저장해 콘솔에서 본다. `lib/api/advisor.ts`가 credentials omit→same-origin(로그인 회원 access_token·비회원 체험 cf_guest가 서버로 가서 기록에 연결), PostHog 세션·방문자 번호(replaySessionId/replayVisitorId, 키 없으면 생략)를 `replay`로 함께 보냄.

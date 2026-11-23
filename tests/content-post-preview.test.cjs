@@ -248,10 +248,10 @@ test('AI photo decision replaces only the source attachment in both editor layou
 });
 
 test('guest caption fields appear only after successful AI writing and remain editable',async()=>{
- let resolve;
+ let resolve;const inputs=[];
  const editing={...content,media:[{id:'made',type:'image',url:'/made.jpg',aiGenerated:true}]};
  const management={now:content.updatedAt,contents:[editing],memberships:[],subscribers:[],actions:{saveContent:async()=>({success:false}),discardContentMedia(){}}};
- const view=mount(ContentEditorPage,{model:management,basePath:'/service/try',id:editing.id,guest:{backHref:'/feed',doneHref:'/done',notice:'안내',caption:()=>new Promise(r=>{resolve=r;})}});
+ const view=mount(ContentEditorPage,{model:management,basePath:'/service/try',id:editing.id,guest:{backHref:'/feed',doneHref:'/done',notice:'안내',caption:input=>{inputs.push(input);return new Promise(r=>{resolve=r;});}}});
  const fields=()=>view.root.findAll(n=>n.type==='input'&&n.props.placeholder==='제목을 입력하세요'||n.type==='textarea'&&n.props.placeholder==='내용을 입력하세요');
  try{
   assert.equal(fields().length,0);assert.doesNotMatch(json(view),/고른 항목 이름과 요청 문장만/);
@@ -260,6 +260,13 @@ test('guest caption fields appear only after successful AI writing and remain ed
   await act(async()=>button(view,'AI로 내용 작성').props.onClick());await act(async()=>resolve({success:true,data:{title:'AI 제목',body:'AI 본문',source:'ai'}}));
   assert.equal(fields().length,2);assert.deepEqual(fields().map(n=>n.props.value),['AI 제목','AI 본문']);
   await act(async()=>fields()[0].props.onChange({target:{value:'내 제목'}}));assert.equal(fields()[0].props.value,'내 제목');
-  await act(async()=>button(view,'AI로 내용 작성').props.onClick());await act(async()=>resolve({success:false,errorMessage:'재작성 실패'}));assert.equal(fields()[0].props.value,'내 제목');assert.equal(fields().length,2);
+  // 2026-11-24 user decision: written text is polished only after a confirmation; cancel and a failed polish both keep it.
+  await act(async()=>button(view,'AI로 내용 작성').props.onClick());assert.equal(inputs.length,2,'asks before sending written text');assert.match(json(view),/뜻은 그대로 두고 맞춤법·문장·말투를 AI가 다듬어요/);
+  await act(async()=>button(view,'취소').props.onClick());assert.equal(inputs.length,2);assert.equal(fields()[0].props.value,'내 제목');
+  await act(async()=>button(view,'AI로 내용 작성').props.onClick());await act(async()=>button(view,'다듬기').props.onClick());
+  assert.deepEqual(inputs[2],{items:[],prompt:'',title:'내 제목',body:'AI 본문'});
+  await act(async()=>resolve({success:false,errorMessage:'다듬기 실패'}));assert.deepEqual(fields().map(n=>n.props.value),['내 제목','AI 본문']);assert.equal(fields().length,2);assert.match(json(view),/다듬기 실패/);
+  await act(async()=>button(view,'AI로 내용 작성').props.onClick());await act(async()=>button(view,'다듬기').props.onClick());await act(async()=>resolve({success:true,data:{title:'다듬은 제목',body:'다듬은 본문',source:'ai'}}));
+  assert.deepEqual(fields().map(n=>n.props.value),['다듬은 제목','다듬은 본문']);
  }finally{close(view);}
 });
