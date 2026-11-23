@@ -91,7 +91,7 @@ test('guest watermark box is in the body, not the fixed footer',()=>{
 test('mobile footer is compact: one-line method choices, hint only for screen readers, slimmer button and signup line',()=>{
  const css=require('node:fs').readFileSync(require('node:path').join(__dirname,'../components/crefans/studio/ai-photo.module.css'),'utf8');
  const block=css.slice(css.lastIndexOf('@media(max-width:767px){.editor .footer{padding:8px'));
- assert.match(block,/\.editor \.methodChoices label>span\{display:flex;[^}]*min-height:36px\}/);
+ assert.match(block,/\.editor \.methodChoices label>span\{display:flex;[^}]*min-height:36px;[^}]*\}/);
  assert.match(block,/\.editor \.methodHint\{position:absolute;width:1px;height:1px;overflow:hidden/);
  assert.match(block,/\.editor \.footer \.createWithQuota\{min-height:44px/);
  assert.match(block,/\.editor \.footer \.signupNudge\{min-height:30px/);
