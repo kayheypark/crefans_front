@@ -21,17 +21,50 @@ const publicBackground=PUBLIC_REPLAY_IMAGE_PREFIXES.map(prefix=>`:not([style*="u
 // recorded unmasked on the trial screens only. The trial model sets this attribute on <html> while the trial page is open for such a
 // visitor and removes it on leave; media and inputs inside are then recorded as shown. File/hidden inputs and passwords stay masked.
 export const REPLAY_UNMASK_ATTR='data-ph-unmask';
-const unlessUnmasked=`:not(html[${REPLAY_UNMASK_ATTR}] *)`;
-export const REPLAY_BLOCK_SELECTOR=[`img${publicImage}`,'picture','video','audio','canvas','svg image','iframe',`[style*="url("]${publicBackground}`].map(part=>part+unlessUnmasked).concat('input[type="file"]','input[type="hidden"]').join(',');
+// 2026-11-24 user decision (처리방침 2026-11-24.generic.5 9조 ④): a signed-in member is recorded like a consenting guest — photos/videos
+// on screen (own uploads, AI results, public post media) and typed text — on the replay routes only. PostHogAnalytics sets this
+// attribute while a member is on an allowed route. Sensitive inputs (sensitiveReplayInput) and file/hidden inputs stay masked.
+// Another creator's membership-only (paid) media stays blocked: render sites put REPLAY_PAID_ATTR on it (replayBlocksPost) and the
+// inliner refuses it (setReplayRestrictedMedia). Reason: that media is sold to subscribers only; copying it into an analytics
+// recording would hand paid content to a third party (PostHog) and to operators outside the creator's sale, and the privacy policy
+// names only the member's own photos and public media. Its private URL alone stays unreadable in the player (needs the viewer's login).
+export const REPLAY_MEMBER_ATTR='data-ph-member';
+/** Always blocked, also on unmasked screens: the element and everything inside it is an empty box in the replay. */
+export const REPLAY_PAID_ATTR='data-ph-paid';
+const unlessUnmasked=`:not(html[${REPLAY_UNMASK_ATTR}] *):not(html[${REPLAY_MEMBER_ATTR}] *)`;
+export const REPLAY_BLOCK_SELECTOR=[`img${publicImage}`,'picture','video','audio','canvas','svg image','iframe',`[style*="url("]${publicBackground}`].map(part=>part+unlessUnmasked).concat('input[type="file"]','input[type="hidden"]',`[${REPLAY_PAID_ATTR}]`).join(',');
 // 2026-11-23 user request: the title and body a member types in the post editor are recorded as typed. Only those two fields carry
 // this attribute; every other input (password, e-mail, phone, payment, verification codes) stays masked.
 export const REPLAY_POST_TEXT_ATTR='data-ph-post-text';
-/** Session-replay input masking: everything is masked unless the trial page unmasked it for a consenting visitor, or it is a member's
- * post title/body field (never passwords). */
+// 2026-11-24: inputs that stay masked even on unmasked screens — by type, autocomplete token, inputmode and name/id. Covers passwords,
+// e-mail, phone, verification codes, card/payment, bank account, resident/identity numbers, real name, birth date and address.
+const SENSITIVE_TYPES=new Set(['password','email','tel','file','hidden']);
+const SENSITIVE_AUTOCOMPLETE=/(^|\s)(username|email|tel(-[a-z-]+)?|current-password|new-password|one-time-code|cc-[a-z-]+|transaction-[a-z-]+|name|given-name|family-name|additional-name|bday(-[a-z]+)?|street-address|address-line\d|address-level\d|postal-code)(\s|$)/i;
+const SENSITIVE_INPUTMODE=new Set(['tel','email','numeric']);
+const SENSITIVE_NAME=/pass|pwd|\bpw|pin|otp|code|verif|auth|token|secret|e-?mail|phone|mobile|\btel|card|\bcc|cvc|cvv|expir|account|bank|iban|routing|holder|depositor|rrn|resident|jumin|ssn|birth|identity|realname|real_name|address/i;
+const attr=(element:HTMLElement,name:string)=>{const value=(element as any)[name];return typeof value==='string'?value:element.getAttribute?.(name)||'';};
+export function sensitiveReplayInput(element:HTMLElement){
+ if(SENSITIVE_TYPES.has(attr(element,'type').toLowerCase()))return true;
+ if(SENSITIVE_AUTOCOMPLETE.test(element.getAttribute?.('autocomplete')||''))return true;
+ if(SENSITIVE_INPUTMODE.has((element.getAttribute?.('inputmode')||'').toLowerCase()))return true;
+ return SENSITIVE_NAME.test(`${attr(element,'name')} ${attr(element,'id')}`);
+}
+/** Session-replay input masking: everything is masked unless the screen is unmasked (consenting guest on the trial page, a signed-in
+ * member on a replay route) or it is a member's post title/body field; sensitive inputs are always masked. */
 export function maskReplayInput(text:string,element?:HTMLElement){
- const unmasked=!!(element?.closest?.(`html[${REPLAY_UNMASK_ATTR}]`)||element?.closest?.(`[${REPLAY_POST_TEXT_ATTR}]`))&&(element as HTMLInputElement).type!=='password';
+ const unmasked=!!element&&!sensitiveReplayInput(element)&&!!(element.closest?.(`html[${REPLAY_UNMASK_ATTR}]`)||element.closest?.(`html[${REPLAY_MEMBER_ATTR}]`)||element.closest?.(`[${REPLAY_POST_TEXT_ATTR}]`));
  return unmasked?text:'*'.repeat(text.length);
 }
+/** True when this post's media must stay out of replays for this viewer: membership-only and not the viewer's own (see REPLAY_MEMBER_ATTR). */
+export function replayBlocksPost(post:{creatorId:string;requiredRank:number;requiredPlanId?:string},viewer:{ownCreatorIds?:string[];viewerId?:string|null}){
+ const paid=post.requiredRank>0||!!post.requiredPlanId,own=!!viewer.ownCreatorIds?.includes(post.creatorId)||(!!viewer.viewerId&&post.creatorId===viewer.viewerId);
+ return paid&&!own;
+}
+const MEDIA_ID=/\/api\/v1\/media\/([^/?#&]+)\/file/;
+function mediaIdOf(src:string){try{return MEDIA_ID.exec(decodeURIComponent(src))?.[1]||null;}catch{return MEDIA_ID.exec(src)?.[1]||null;}}
+let restrictedMedia=new Set<string>();
+/** Media ids of other creators' membership-only posts on screen (PostHogAnalytics, from the loaded posts): never embedded in a replay. */
+export function setReplayRestrictedMedia(urls:Iterable<string>){restrictedMedia=new Set(Array.from(urls,mediaIdOf).filter((id):id is string=>!!id));}
 /** Called by the guest trial model only: on for a visitor with a recorded replay consent while the trial page is open. */
 export function setReplayUnmasked(on:boolean){
  if(typeof document==='undefined')return;
@@ -41,36 +74,71 @@ export function setReplayUnmasked(on:boolean){
 // recording keeps only its private URL (/api/v1/media/:id/file), which the replay player cannot open without the visitor's session.
 // While unmasking is on, private photos on the page are swapped for a downscaled copy (JPEG, longest side 720px) so the replay
 // carries the image itself. Privacy 17항 (guest-replay) already lists the uploaded thumbnails and AI photos sent to PostHog.
-const PRIVATE_MEDIA=/\/api\/v1\/media\/[^/?#]+\/file|\/_next\/image\?url=%2Fapi%2Fv1%2Fmedia%2F/;
-const REPLAY_IMAGE_MAX=720;
+// 2026-11-24: members too (REPLAY_MEMBER_ATTR), and local previews (blob:) of photos being uploaded in the post editor. A member's
+// copy is 1080px on the longest side: the swap also changes what the member sees on feed/post pages, where 720px looked soft.
+const PRIVATE_MEDIA=/\/api\/v1\/media\/[^/?#]+\/file|\/_next\/image\?url=%2Fapi%2Fv1%2Fmedia%2F|^blob:/;
+const REPLAY_IMAGE_MAX=720,MEMBER_REPLAY_IMAGE_MAX=1080;
 let inlineObserver:MutationObserver|null=null;
-const inlined=new WeakMap<HTMLImageElement,string>();
+const inlineOwners=new Set<string>();
+const inlined=new WeakMap<HTMLImageElement|HTMLVideoElement,string>();
+const replayUnmasked=()=>document.documentElement.hasAttribute(REPLAY_UNMASK_ATTR)||document.documentElement.hasAttribute(REPLAY_MEMBER_ATTR);
+const replayImageMax=()=>document.documentElement.hasAttribute(REPLAY_UNMASK_ATTR)?REPLAY_IMAGE_MAX:MEMBER_REPLAY_IMAGE_MAX;
+/** Media that must not be embedded: inside a blocked element (another creator's paid post) or a restricted media id. */
+function replayRestricted(element:Element,src:string){const id=mediaIdOf(src);return !!element.closest?.(`.${REPLAY_BLOCK_CLASS},[${REPLAY_PAID_ATTR}]`)||(!!id&&restrictedMedia.has(id));}
+function downscale(source:CanvasImageSource,width:number,height:number){
+ const scale=Math.min(1,replayImageMax()/Math.max(width,height));
+ const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(width*scale));canvas.height=Math.max(1,Math.round(height*scale));
+ canvas.getContext('2d')?.drawImage(source,0,0,canvas.width,canvas.height);
+ return canvas.toDataURL('image/jpeg',.82);
+}
 export async function inlineReplayImage(img:HTMLImageElement){
  const src=img.getAttribute('src')||'';
- if(!PRIVATE_MEDIA.test(src)||inlined.get(img)===src)return false;
+ if(!PRIVATE_MEDIA.test(src)||inlined.get(img)===src||replayRestricted(img,src))return false;
  inlined.set(img,src);
  try{
   const response=await fetch(src,{credentials:'include'});if(!response.ok)return false;
   const bitmap=await createImageBitmap(await response.blob());
-  const scale=Math.min(1,REPLAY_IMAGE_MAX/Math.max(bitmap.width,bitmap.height));
-  const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));
-  canvas.getContext('2d')?.drawImage(bitmap,0,0,canvas.width,canvas.height);
-  // Unmasking may have ended (left the trial page) or the image may show another photo by now.
-  if(!document.documentElement.hasAttribute(REPLAY_UNMASK_ATTR)||img.getAttribute('src')!==src)return false;
-  const data=canvas.toDataURL('image/jpeg',.82);inlined.set(img,data);img.removeAttribute('srcset');img.setAttribute('src',data);return true;
+  const data=downscale(bitmap,bitmap.width,bitmap.height);
+  // Unmasking may have ended (left the page or signed out) or the image may show another photo by now.
+  if(!replayUnmasked()||img.getAttribute('src')!==src||replayRestricted(img,src))return false;
+  inlined.set(img,data);img.removeAttribute('srcset');img.setAttribute('src',data);return true;
  }catch{return false;}
 }
-export function setReplayInlineImages(on:boolean){
+/** Private/local videos get a downscaled first-frame poster, which the replay shows (the player cannot open the private file). */
+export function inlineReplayVideo(video:HTMLVideoElement){
+ const src=video.getAttribute('src')||'';
+ if(!PRIVATE_MEDIA.test(src)||video.hasAttribute('poster')||inlined.get(video)===src||replayRestricted(video,src))return false;
+ inlined.set(video,src);
+ const capture=()=>{try{
+  if(!replayUnmasked()||video.getAttribute('src')!==src||replayRestricted(video,src)||!video.videoWidth)return;
+  video.setAttribute('poster',downscale(video,video.videoWidth,video.videoHeight));
+ }catch{}};
+ if(video.readyState>=2)capture();else video.addEventListener('loadeddata',capture,{once:true});
+ return true;
+}
+function inlineReplayMedia(element:Element){
+ if(element instanceof HTMLImageElement)void inlineReplayImage(element);
+ else if(typeof HTMLVideoElement!=='undefined'&&element instanceof HTMLVideoElement)inlineReplayVideo(element);
+}
+/** `owner` lets the guest trial model and the member mode switch embedding independently; it stops when neither wants it. */
+export function setReplayInlineImages(on:boolean,owner='guest'){
  if(typeof document==='undefined'||typeof MutationObserver==='undefined')return;
- if(!on){inlineObserver?.disconnect();inlineObserver=null;return;}
+ if(on)inlineOwners.add(owner);else inlineOwners.delete(owner);
+ if(!inlineOwners.size){inlineObserver?.disconnect();inlineObserver=null;return;}
  if(inlineObserver)return;
- const scan=(root:ParentNode)=>root.querySelectorAll('img').forEach(img=>void inlineReplayImage(img));
+ const scan=(root:ParentNode)=>root.querySelectorAll('img,video').forEach(inlineReplayMedia);
  scan(document);
  inlineObserver=new MutationObserver(records=>{for(const record of records){
-  if(record.type==='attributes'&&record.target instanceof HTMLImageElement)void inlineReplayImage(record.target);
-  record.addedNodes.forEach(node=>{if(node instanceof HTMLImageElement)void inlineReplayImage(node);else if(node instanceof Element)scan(node);});
+  if(record.type==='attributes'&&record.target instanceof Element)inlineReplayMedia(record.target);
+  record.addedNodes.forEach(node=>{if(node instanceof Element){inlineReplayMedia(node);scan(node);}});
  }});
  inlineObserver.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['src']});
+}
+/** Called by PostHogAnalytics only: on while a signed-in member is on a replay route (REPLAY_MEMBER_ATTR). */
+export function setMemberReplay(on:boolean){
+ if(typeof document==='undefined')return;
+ if(on)document.documentElement.setAttribute(REPLAY_MEMBER_ATTR,'');else document.documentElement.removeAttribute(REPLAY_MEMBER_ATTR);
+ setReplayInlineImages(on,'member');
 }
 
 // Replay is opt-in per route (allowlist): payment, wallet/beans, payouts, account settings, login/signup, messages and every

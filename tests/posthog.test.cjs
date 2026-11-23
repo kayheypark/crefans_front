@@ -63,7 +63,7 @@ test('replay is off on sensitive routes and follows navigation',async()=>{
 });
 test('all media and the phone check dialog are blocked from replay',()=>{
  const {mod}=load('');
- const unless=':not(html[data-ph-unmask] *)',blocked=mod.REPLAY_BLOCK_SELECTOR.split(',').map(s=>s.endsWith(unless)?s.slice(0,-unless.length):s);
+ const unless=':not(html[data-ph-unmask] *):not(html[data-ph-member] *)',blocked=mod.REPLAY_BLOCK_SELECTOR.split(',').map(s=>s.endsWith(unless)?s.slice(0,-unless.length):s);
  for(const tag of ['picture','video','canvas','iframe','input[type="file"]'])assert.ok(blocked.includes(tag),tag);
  // Images: only public app artwork under /brand/ and /illustrations/ is exempt; every other <img> (API media, blob:, data:) is blocked.
  assert.equal(blocked.find(s=>s.startsWith('img')),'img:not([src^="/brand/"]):not([src^="/_next/image?url=%2Fbrand%2F"]):not([src^="/illustrations/"]):not([src^="/_next/image?url=%2Fillustrations%2F"])');
@@ -133,9 +133,9 @@ test('guest publish and caption failures send post_publish_failed / caption_fail
 // 2026-11-19 user decision (처리방침 2026-11-19.guest-replay.1 17항): only a guest with a recorded replay consent, only on the trial page.
 test('consenting guests are recorded unmasked on the trial page only; file/hidden inputs, passwords and the phone dialog stay masked',async()=>{
  const {mod,calls}=load('phc_test_only');
- const parts=mod.REPLAY_BLOCK_SELECTOR.split(','),unless=`:not(html[${mod.REPLAY_UNMASK_ATTR}] *)`;
+ const parts=mod.REPLAY_BLOCK_SELECTOR.split(','),unless=`:not(html[${mod.REPLAY_UNMASK_ATTR}] *):not(html[${mod.REPLAY_MEMBER_ATTR}] *)`;
  assert.equal(mod.REPLAY_UNMASK_ATTR,'data-ph-unmask');
- for(const part of parts.filter(s=>!s.startsWith('input')))assert.ok(part.endsWith(unless),part);
+ for(const part of parts.filter(s=>!s.startsWith('input')&&s!=='[data-ph-paid]'))assert.ok(part.endsWith(unless),part);
  assert.ok(parts.includes('input[type="file"]')&&parts.includes('input[type="hidden"]'),'file/hidden inputs are always blocked');
  const on={closest:sel=>sel==='html[data-ph-unmask]'?{}:null,type:'text'},off={closest:()=>null,type:'text'},pw={closest:()=>({}),type:'password'};
  assert.equal(mod.maskReplayInput('제목',on),'제목');assert.equal(mod.maskReplayInput('제목',off),'**');assert.equal(mod.maskReplayInput('secret',pw),'******');assert.equal(mod.maskReplayInput('ab'),'**');
@@ -197,4 +197,70 @@ test('member post title/body are unmasked in replay; passwords and every other i
  const page=fs.readFileSync(users[0],'utf8'),marked=page.split('\n').filter(line=>line.includes('{...{[REPLAY_POST_TEXT_ATTR]'));
  assert.equal(marked.length,2);assert.match(marked[0],/<Field label="제목"/);assert.match(marked[1],/<TextAreaField label="본문"/);
  assert.ok(!marked.some(line=>/captionFields|type="(password|email|tel)"/.test(line)));
+});
+
+// 2026-11-24 user decision (처리방침 2026-11-24.generic.5 9조 ④): signed-in members are recorded like consenting guests on the replay
+// routes — media and typed text — except sensitive inputs and other creators' membership-only media.
+const input=(type,extra={})=>{const attrs=extra.attrs||{};return {type,name:extra.name||'',id:extra.id||'',getAttribute:k=>attrs[k]??null,closest:sel=>sel===(extra.scope||'html[data-ph-member]')?{}:null};};
+test('members: media is unblocked and typed text is recorded on member screens; sensitive inputs stay masked everywhere',()=>{
+ const {mod}=load('phc_test_only');
+ assert.equal(mod.REPLAY_MEMBER_ATTR,'data-ph-member');
+ const parts=mod.REPLAY_BLOCK_SELECTOR.split(',');
+ for(const tag of ['img','picture','video','canvas','[style*="url("]'])assert.ok(parts.some(p=>p.startsWith(tag)&&p.endsWith(':not(html[data-ph-member] *)')),tag);
+ assert.ok(parts.includes('input[type="file"]')&&parts.includes('input[type="hidden"]'),'file/hidden inputs stay blocked for members');
+ assert.ok(parts.includes('[data-ph-paid]'),'paid media of other creators is always blocked (no unmask exemption)');
+ assert.equal(mod.maskReplayInput('제목',input('text')),'제목');assert.equal(mod.maskReplayInput('본문',input('textarea')),'본문');assert.equal(mod.maskReplayInput('코스프레',input('search')),'코스프레');
+ assert.equal(mod.maskReplayInput('제목',input('text',{scope:'none'})),'**','not a member screen → masked');
+ const sensitive=[input('password'),input('email'),input('tel'),input('hidden'),input('file'),input('text',{attrs:{autocomplete:'one-time-code'}}),input('text',{attrs:{autocomplete:'cc-number'}}),input('text',{attrs:{autocomplete:'section-a email'}}),input('text',{attrs:{autocomplete:'tel-national'}}),input('text',{attrs:{autocomplete:'name'}}),input('text',{attrs:{autocomplete:'bday'}}),input('text',{attrs:{inputmode:'numeric'}}),input('text',{name:'verificationCode'}),input('text',{name:'accountNumber'}),input('text',{name:'bankHolder'}),input('text',{id:'card-cvc'}),input('text',{name:'residentNumber'}),input('text',{name:'withdrawPin'}),input('text',{name:'phone'})];
+ for(const el of sensitive)assert.equal(mod.maskReplayInput('123456',el),'******',JSON.stringify({type:el.type,name:el.name,id:el.id}));
+ for(const el of [input('email',{scope:'html[data-ph-unmask]'}),input('text',{attrs:{autocomplete:'one-time-code'},scope:'[data-ph-post-text]'})])assert.equal(mod.maskReplayInput('123456',el),'******','guest unmask and post fields never reveal sensitive inputs');
+ const attrs=new Map();global.document={documentElement:{setAttribute:(k,v)=>attrs.set(k,v),removeAttribute:k=>attrs.delete(k)}};
+ try{mod.setMemberReplay(true);assert.ok(attrs.has('data-ph-member'));mod.setMemberReplay(false);assert.ok(!attrs.has('data-ph-member'));}finally{delete global.document;}
+});
+test('members: member mode is switched by PostHogAnalytics only while signed in on a replay route',()=>{
+ const component=fs.readFileSync('components/service/PostHogAnalytics.tsx','utf8');
+ assert.match(component,/member=POSTHOG_KEY!==''&&!!model\?\.signedIn&&replayAllowed\(pathname\)/);
+ assert.match(component,/useLayoutEffect\(\(\)=>\{if\(!member\)return;setMemberReplay\(true\);return\(\)=>setMemberReplay\(false\);\},\[member\]\)/);
+ assert.match(component,/setReplayRestrictedMedia\(posts\.filter\(post=>replayBlocksPost\(post,\{ownCreatorIds,viewerId\}\)\)/);
+ const walk=dir=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);
+ const users=['app','components','features','lib','hooks','contexts'].flatMap(walk).filter(f=>/\.(t|j)sx?$/.test(f)&&f!=='lib/analytics/posthog.ts'&&/setMemberReplay\(/.test(fs.readFileSync(f,'utf8')));
+ assert.deepEqual(users,['components/service/PostHogAnalytics.tsx']);
+});
+test('members: another creator\'s membership-only media stays blocked; own and public media do not',()=>{
+ const {mod}=load('');
+ const paid={creatorId:'c2',requiredRank:1},plan={creatorId:'c2',requiredRank:0,requiredPlanId:'p1'},free={creatorId:'c2',requiredRank:0};
+ assert.equal(mod.replayBlocksPost(paid,{ownCreatorIds:['c1'],viewerId:'m1'}),true);assert.equal(mod.replayBlocksPost(plan,{}),true);
+ assert.equal(mod.replayBlocksPost(free,{ownCreatorIds:['c1']}),false,'public media is recorded');
+ assert.equal(mod.replayBlocksPost(paid,{ownCreatorIds:['c2']}),false,'own paid media (creator) is recorded');
+ assert.equal(mod.replayBlocksPost({...paid,creatorId:'m1'},{viewerId:'m1'}),false,'own paid media (member) is recorded');
+ // every render site of post media in the replayed service screens carries the block class for that case
+ const social=fs.readFileSync('components/crefans/SocialPages.tsx','utf8'),tile=fs.readFileSync('components/crefans/PostMediaTile.tsx','utf8'),overlay=fs.readFileSync('components/crefans/MediaOverlay.tsx','utf8');
+ assert.match(social,/<div className=\{s\.mediaWrap\} data-ph-paid=\{replayBlocksPost\(post,model\)\|\|undefined\}>/);
+ assert.match(social,/<MediaOverlay ref=\{[^\n]*?replayBlocked=\{replayBlocksPost\(post,model\)\}/);
+ assert.match(overlay,/<div className=\{s\.stage\} data-ph-paid=\{replayBlocked\|\|undefined\}/);
+ assert.match(tile,/<Link className=\{s\.postTile\} data-ph-paid=\{replayBlocksPost\(post,model\)\|\|undefined\}/);
+});
+test('members: own/public private photos and local previews are embedded (1080px), restricted or blocked ones never; videos get a poster',async()=>{
+ const {mod}=load('phc_test_only');
+ const html=new Set(['data-ph-member']);let drawn=null;const fetched=[];
+ const saved={document:global.document,fetch:global.fetch,createImageBitmap:global.createImageBitmap};
+ global.document={documentElement:{hasAttribute:k=>html.has(k)},createElement:()=>({width:0,height:0,getContext:()=>({drawImage:(b,x,y,w,h)=>{drawn=[w,h];}}),toDataURL(type,q){return `data:${type};q=${q};${this.width}x${this.height}`;}})};
+ global.fetch=async url=>{fetched.push(url);return {ok:true,blob:async()=>'blob'};};
+ global.createImageBitmap=async()=>({width:1440,height:1800});
+ const img=(src,blocked=false)=>{const attrs={src};return {getAttribute:k=>attrs[k]??null,setAttribute:(k,v)=>{attrs[k]=v;},removeAttribute:k=>{delete attrs[k];},closest:sel=>blocked&&sel==='.ph-no-capture,[data-ph-paid]'?{}:null,attrs};};
+ try{
+  const own=img('/api/v1/media/own-1/file');assert.equal(await mod.inlineReplayImage(own),true);assert.deepEqual(drawn,[864,1080]);assert.equal(own.attrs.src,'data:image/jpeg;q=0.82;864x1080');
+  const preview=img('blob:https://crefans.com/abc');assert.equal(await mod.inlineReplayImage(preview),true,'editor preview (blob:) is embedded');
+  mod.setReplayRestrictedMedia(['/api/v1/media/paid-1/file','/api/v1/media/paid-2/file']);
+  for(const src of ['/api/v1/media/paid-1/file','/_next/image?url=%2Fapi%2Fv1%2Fmedia%2Fpaid-2%2Ffile&w=640','/api/v1/media/paid-1/file?media_retry=1']){const x=img(src);assert.equal(await mod.inlineReplayImage(x),false,src);assert.equal(x.attrs.src,src);}
+  const inBlocked=img('/api/v1/media/other/file',true);assert.equal(await mod.inlineReplayImage(inBlocked),false,'inside a blocked element');assert.equal(inBlocked.attrs.src,'/api/v1/media/other/file');
+  // control: the same media is embedded once it is no longer restricted
+  mod.setReplayRestrictedMedia([]);assert.equal(await mod.inlineReplayImage(img('/api/v1/media/paid-1/file')),true);
+  assert.ok(!fetched.some(u=>u.includes('paid-2')),'a restricted photo is never even fetched for embedding');
+  html.clear();const later=img('/api/v1/media/zzz/file');assert.equal(await mod.inlineReplayImage(later),false,'signed out → not embedded');
+  html.add('data-ph-member');
+  const video=(src,blocked=false)=>{const attrs={src};const listeners={};return {readyState:2,videoWidth:1920,videoHeight:1080,getAttribute:k=>attrs[k]??null,hasAttribute:k=>k in attrs,setAttribute:(k,v)=>{attrs[k]=v;},addEventListener:(k,f)=>{listeners[k]=f;},closest:sel=>blocked&&sel==='.ph-no-capture,[data-ph-paid]'?{}:null,attrs};};
+  const v=video('/api/v1/media/v1/file#t=0.001');assert.equal(mod.inlineReplayVideo(v),true);assert.equal(v.attrs.poster,'data:image/jpeg;q=0.82;1080x608');
+  const paidVideo=video('/api/v1/media/v2/file#t=0.001',true);assert.equal(mod.inlineReplayVideo(paidVideo),false);assert.equal(paidVideo.attrs.poster,undefined);
+ }finally{mod.setReplayRestrictedMedia([]);Object.assign(global,saved);for(const k of Object.keys(saved))if(saved[k]===undefined)delete global[k];}
 });

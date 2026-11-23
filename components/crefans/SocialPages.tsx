@@ -41,6 +41,7 @@ import {MediaSummary} from './MediaSummary';
 import {usePresence} from '@/components/ui/usePresence';
 import {designTokens} from '@/lib/design/tokens';
 import {MediaOverlay} from './MediaOverlay';
+import {replayBlocksPost} from '@/lib/analytics/posthog';
 import {CommentComposer,CommentDock,CommentDockProvider} from './CommentComposer';
 import {PostMembershipNotice} from './PostMembershipNotice';
 import {ServiceFooter} from './ServiceFooter';
@@ -120,7 +121,8 @@ function PostMedia({post,locked,model,readOnly=false,onOpen}:{post:Post;locked:b
   const alt=`${creator?.name||'크리에이터'}의 ${post.title}`;
   const media=post.media&&post.media.length>0?post.media:post.image?[{type:'image' as const,url:post.image}]:[];
   if(!media.length)return null;
-  return <div className={s.mediaWrap}>{post.media&&post.media.length>0?<PostGallery media={post.media} alt={alt} position={post.position} onOpen={onOpen} readOnly={readOnly}/>:<Zoomable onOpen={onOpen?()=>onOpen(0):undefined} label={`${alt} 크게 보기`}><img className={s.postImage} src={post.image} alt={alt} style={{objectPosition:post.position}}/></Zoomable>}<MediaSummary media={media}/></div>;
+  // 2026-11-24: another creator's membership-only media stays an empty box in session replays (lib/analytics/posthog.ts).
+  return <div className={s.mediaWrap} data-ph-paid={replayBlocksPost(post,model)||undefined}>{post.media&&post.media.length>0?<PostGallery media={post.media} alt={alt} position={post.position} onOpen={onOpen} readOnly={readOnly}/>:<Zoomable onOpen={onOpen?()=>onOpen(0):undefined} label={`${alt} 크게 보기`}><img className={s.postImage} src={post.image} alt={alt} style={{objectPosition:post.position}}/></Zoomable>}<MediaSummary media={media}/></div>;
 }
 
 /** My message receipt: one check when sent, two checks with '읽음' once the other side has opened it (2026-11-01). */
@@ -217,7 +219,7 @@ function PostOverlay({post:initialPost,model,inline,initialIndex,context,open,on
   const position=viewable.findIndex(item=>item.id===post.id),previousPost=position>0?viewable[position-1]:undefined,nextPost=position>=0?viewable[position+1]:undefined;
   const jump=(target?:Post)=>{if(!target)return;setPost(target);setIndex(0);setCommentsOpen(false);};
   const alt=`${creator?.name||'크리에이터'}의 ${post.title}`;
-  return <MediaOverlay ref={node=>{overlay.current=node;exposure.current=node;}} media={media} title={post.title} alt={alt} index={index} onIndexChange={setIndex} open={open} onClose={onClose} onImageClick={()=>{if(overlay.current&&overlay.current.clientWidth<=767)toggleMediaExpanded();}} data-panel-snap={panelSnap} data-panel-dragging={panelDrag!==null||undefined} data-media-expanded={mediaExpanded||undefined} style={{'--post-media-height':`${mediaExpanded?100:(panelDrag??panelStops[panelSnap])*100}%`} as CSSProperties} stageAction={<button type="button" className={s.mediaExpand} aria-label={mediaExpanded?'미디어 축소':'미디어 확대'} aria-controls={panelContentId} aria-expanded={!mediaExpanded} title={mediaExpanded?'상세 패널 다시 보기':'상세 패널 숨기고 크게 보기'} onPointerDown={event=>event.stopPropagation()} onClick={event=>{event.stopPropagation();toggleMediaExpanded();}}><Icon name={mediaExpanded?'shrink':'expand'}/></button>}>
+  return <MediaOverlay ref={node=>{overlay.current=node;exposure.current=node;}} replayBlocked={replayBlocksPost(post,model)} media={media} title={post.title} alt={alt} index={index} onIndexChange={setIndex} open={open} onClose={onClose} onImageClick={()=>{if(overlay.current&&overlay.current.clientWidth<=767)toggleMediaExpanded();}} data-panel-snap={panelSnap} data-panel-dragging={panelDrag!==null||undefined} data-media-expanded={mediaExpanded||undefined} style={{'--post-media-height':`${mediaExpanded?100:(panelDrag??panelStops[panelSnap])*100}%`} as CSSProperties} stageAction={<button type="button" className={s.mediaExpand} aria-label={mediaExpanded?'미디어 축소':'미디어 확대'} aria-controls={panelContentId} aria-expanded={!mediaExpanded} title={mediaExpanded?'상세 패널 다시 보기':'상세 패널 숨기고 크게 보기'} onPointerDown={event=>event.stopPropagation()} onClick={event=>{event.stopPropagation();toggleMediaExpanded();}}><Icon name={mediaExpanded?'shrink':'expand'}/></button>}>
     <CommentDockProvider viewportRef={overlay}><aside className={s.panel} onClick={event=>event.stopPropagation()}>
       <button type="button" className={s.panelHandle} aria-label={`상세 패널 크기: ${panelModes[panelSnap]}`} aria-controls={panelContentId} title="위아래로 드래그하거나 눌러 크기 변경" onPointerDown={panelStart} onPointerMove={panelMove} onPointerUp={panelEnd} onPointerCancel={panelCancel} onLostPointerCapture={panelCancel} onClick={event=>{if(event.detail===0||!suppressPanelClick.current)setPanelSnap(current=>(current+1)%panelStops.length);suppressPanelClick.current=false;}} onKeyDown={event=>{if(!['ArrowUp','ArrowDown','Home','End'].includes(event.key))return;event.preventDefault();setPanelSnap(current=>event.key==='Home'?0:event.key==='End'?2:Math.max(0,Math.min(2,current+(event.key==='ArrowUp'?1:-1))));}}><span aria-hidden="true"/></button>
       <div id={panelContentId} className={s.panelContent}>
