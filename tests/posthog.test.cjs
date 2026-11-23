@@ -264,3 +264,25 @@ test('members: own/public private photos and local previews are embedded (1080px
   const paidVideo=video('/api/v1/media/v2/file#t=0.001',true);assert.equal(mod.inlineReplayVideo(paidVideo),false);assert.equal(paidVideo.attrs.poster,undefined);
  }finally{mod.setReplayRestrictedMedia([]);Object.assign(global,saved);for(const k of Object.keys(saved))if(saved[k]===undefined)delete global[k];}
 });
+
+// 2026-11-24 user request: the member's AI photo editing (studio post editor: upload, library pick, presets/costumes, waiting, result,
+// crop, attaching to the post) is recorded with its photos, and the console links the member's replays (session number reported).
+test('members: the post editor and its AI photo editor are replayed with media; nothing in them carries a block marker',()=>{
+ const {mod}=load('');
+ for(const p of ['/service/studio/content/new','/service/studio/content/p1/edit'])assert.equal(mod.replayAllowed(p),true,p);
+ const walk=dir=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);
+ const studio=walk('components/crefans/studio').filter(f=>/\.tsx?$/.test(f));
+ assert.ok(studio.includes('components/crefans/studio/AiPhotoDialog.tsx')&&studio.includes('components/crefans/studio/AiPhotoCrop.tsx'));
+ const marked=studio.filter(f=>/REPLAY_BLOCK_CLASS|ph-no-capture|data-ph-paid|replayBlocksPost/.test(fs.readFileSync(f,'utf8')));
+ assert.deepEqual(marked,[],'no editor media is excluded');
+ // The editor is only reachable from the post editor routes (ManagementPages), which are on the replay allowlist.
+ const users=['app','components','features'].flatMap(walk).filter(f=>/\.tsx?$/.test(f)&&!f.startsWith('components/design-system')&&f!=='components/crefans/studio/AiPhotoDialog.tsx'&&/<AiPhotoDialog\b/.test(fs.readFileSync(f,'utf8')));
+ assert.deepEqual(users,['components/crefans/studio/ManagementPages.tsx']);
+});
+test('members: the browser reports its PostHog session/visitor number to studio/replay-session while member mode is on',()=>{
+ const component=fs.readFileSync('components/service/PostHogAnalytics.tsx','utf8');
+ assert.match(component,/const r=await platformRequest<\{recorded:boolean\}>\('\/studio\/replay-session',\{sessionId:id,\.\.\.\(distinctId\?\{distinctId\}:\{\}\)\}\);if\(!r\.success\)reportedReplays\.delete\(id\);/);
+ assert.match(component,/useEffect\(\(\)=>\{if\(member\)void reportMemberReplay\(\);\},\[member,pathname\]\);/);
+ // Nothing identifying the member goes to PostHog: no identify/register/people calls anywhere.
+ const lib=fs.readFileSync('lib/analytics/posthog.ts','utf8');assert.doesNotMatch(lib+component,/\.identify\(|\.register\(|\.people\b|setPersonProperties/);
+});

@@ -3,6 +3,7 @@
 - 사용자 지시: 로그인 회원도 비회원 체험처럼 리플레이에 사진·이미지·입력이 보이게. 처리방침 짝 crefans_server 2026-11-24.generic.5(9조 ④).
 - `lib/analytics/posthog.ts`: html[data-ph-member](로그인+녹화 허용 경로일 때 `PostHogAnalytics`가 켬)면 미디어 차단 해제·입력 마스킹 해제, 비공개 사진(/api/v1/media·blob:)은 1080px JPEG 사본으로 교체(비회원 720px 유지), 비공개 영상은 첫 프레임 poster. `sensitiveReplayInput`: 비밀번호·이메일·전화·file·hidden 타입, autocomplete(one-time-code·cc-*·email·tel·name·bday·주소), inputmode tel/email/numeric, name/id(pass·pin·code·card·account·bank·resident·birth 등)는 회원·비회원·글쓰기 필드 모두 계속 가림.
 - 다른 크리에이터의 멤버십 전용 미디어: `replayBlocksPost`가 참이면 `data-ph-paid`(항상 차단)를 게시물 미디어(SocialPages PostMedia·오버레이 stage·PostMediaTile)에 붙이고, 로드된 게시물에서 만든 제한 목록으로 사본 생성도 거부. 본인 소유·공개 미디어만 사본. 녹화 제외 경로 목록은 그대로.
+- 추가(같은 날 사용자 확인 요구): 회원 AI 사진 편집기(AiPhotoDialog·자르기·보관함, 글쓰기 화면 ManagementPages)는 녹화 허용 경로(/service/studio/content/new, /:id/edit)라 회원 모드가 그대로 적용(편집기에 차단 표식 없음을 테스트로 고정). 회원 모드일 때 페이지마다 PostHog 세션·방문자 번호를 POST /studio/replay-session으로 서버에 보고(회원 id 연결은 서버 DB에만, PostHog identify 없음). 테스트 885건 중 실패 52(목록 동일), 대조: 보고 호출 제거 시 새 테스트 실패.
 - 확인 못 함: 실제 PostHog 녹화 재생(키 있는 빌드·운영)에서의 표시, 사진 교체로 피드 화질이 1080px로 낮아지는 체감.
 - 검증(맥, 2026-11-24): node --test 880건 중 실패 52(origin/dev 876건 실패 52, 실패 목록 동일), typecheck 0, posthog 19/19. 대조: 제한 검사·민감 입력 검사·유료 판정을 각각 끄면 새 테스트 실패.
 ## 2026-11-24 공식 계정 로그인 시 AI 체험 게시물 댓글 입력창 (feat/official-comment-service) — dev까지

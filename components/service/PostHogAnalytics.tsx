@@ -2,8 +2,15 @@
 import {useEffect,useLayoutEffect} from 'react';
 import {usePathname} from 'next/navigation';
 import {xEvent} from '@/lib/analytics/x-pixel';
-import {POSTHOG_KEY,loadPostHog,replayAllowed,replayBlocksPost,setMemberReplay,setReplayRestrictedMedia,syncReplay} from '@/lib/analytics/posthog';
+import {POSTHOG_KEY,loadPostHog,replayAllowed,replayBlocksPost,replaySessionId,replayVisitorId,setMemberReplay,setReplayRestrictedMedia,syncReplay} from '@/lib/analytics/posthog';
+import {platformRequest} from '@/lib/api/platform';
 import {useOptionalService} from './ServiceProvider';
+
+// 2026-11-24 user request: the console member AI record links to the member's replays. The signed-in browser reports the PostHog
+// session number (and anonymous visitor number) once per session to our server, which keeps it with the member id (studio/replay-session,
+// 처리방침 generic.5 9조 ④). PostHog itself never receives the member's id, e-mail or nickname.
+const reportedReplays=new Set<string>();
+async function reportMemberReplay(){const id=await replaySessionId();if(!id||reportedReplays.has(id))return;reportedReplays.add(id);const distinctId=await replayVisitorId();const r=await platformRequest<{recorded:boolean}>('/studio/replay-session',{sessionId:id,...(distinctId?{distinctId}:{})});if(!r.success)reportedReplays.delete(id);}
 
 // 2026-11-18: PostHog for the /service app only (lib/analytics/posthog.ts). Without NEXT_PUBLIC_POSTHOG_KEY nothing loads.
 // The layout effect stops replay in the same commit that renders a page outside the replay allowlist, before its DOM is recorded.
@@ -15,6 +22,8 @@ export function PostHogAnalytics(){
  // 2026-11-24 user decision (처리방침 generic.5 9조 ④): a signed-in member's replay shows photos/videos and typed text like a
  // consenting guest's, except other creators' membership-only media (restricted below) and sensitive inputs.
  useLayoutEffect(()=>{if(!member)return;setMemberReplay(true);return()=>setMemberReplay(false);},[member]);
+ // Checked on every replayed page: PostHog starts a new session after 30 minutes idle.
+ useEffect(()=>{if(member)void reportMemberReplay();},[member,pathname]);
  const posts=model?.data.posts,ownCreatorIds=model?.ownCreatorIds,viewerId=model?.viewerId;
  useEffect(()=>{if(!member||!posts)return;setReplayRestrictedMedia(posts.filter(post=>replayBlocksPost(post,{ownCreatorIds,viewerId})).flatMap(post=>[...(post.media||[]).map(item=>item.url),post.image].filter(Boolean)));},[member,posts,ownCreatorIds,viewerId]);
  // 2026-11-22: X pixel page views for client-side navigation too (the base code in app/layout.tsx only sees the first load).
