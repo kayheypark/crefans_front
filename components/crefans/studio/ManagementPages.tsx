@@ -42,6 +42,7 @@ import Icon from '../Icon';
 import type {PostDetailModel} from '../SocialPages';
 import {ContentPostPreview} from './ContentPostPreview';
 import {AiPhotoDialog,toPng} from './AiPhotoDialog';
+import {REPLAY_POST_TEXT_ATTR} from '@/lib/analytics/posthog';
 import {AI_PHOTO_DAILY_LIMIT} from '@/lib/crefans/ai-photo';
 import s from './management.module.css';
 import ai from './ai-photo.module.css';
@@ -282,9 +283,10 @@ function ContentEditor({model,basePath,content,previewModel,previewCreatorId,com
       <TextAreaField label="본문" value={body} rows={12} maxLength={10000} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/></>}
       </section>:null}
       </>:<>
-      <Field label="제목" value={title} maxLength={120} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
+      {/* 2026-11-23 user request: PostHog replay records the member's post title/body as typed (lib/analytics/posthog.ts REPLAY_POST_TEXT_ATTR). */}
+      <Field label="제목" value={title} maxLength={120} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setTitle(e.target.value)} placeholder="제목을 입력하세요"/>
       {/* 2026-11-23 user request: a member's body field is two lines tall on mobile, like the trial's (management.module.css .memberBody). */}
-      <TextAreaField label="본문" value={body} rows={12} maxLength={10000} className={memberMode?s.memberBody:undefined} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
+      <TextAreaField label="본문" value={body} rows={12} maxLength={10000} className={memberMode?s.memberBody:undefined} {...{[REPLAY_POST_TEXT_ATTR]:''}} onChange={e=>setBody(e.target.value)} placeholder="내용을 입력하세요"/>
       <MediaUpload label="파일 업로드" items={media} max={mediaUploadMaxItems} onFilesSelect={files=>void upload(files).then(pickUploaded)} onRemove={removeMedia} onReorder={(from,to)=>setMedia(previous=>moveItem(previous,from,to))} onPreview={index=>{const at=viewable.indexOf(media[index]);if(at>=0){setViewIndex(at);setViewLast(at);}}} accept={mediaUploadAccept} disabled={task.busy} uploading={uploading} error={mediaError} hint="JPG·PNG·WebP 사진 한 장 50MB까지(자동으로 줄여서 올려요) · MP4·WebM·MOV 300MB 이하"/>
       {model.actions.aiEditPhoto&&(()=>{const photos=media.filter(item=>item.type==='image'&&!item.processing&&!item.failed);return <div className={ai.aiAction}>{nudgeAi&&<p className={ai.aiNudgeHint} role="note">이제 여기를 눌러 의상·포즈를 골라 보세요</p>}<button type="button" className={`${ai.aiWide} ${nudgeAi?ai.aiNudge:''}`} aria-label="AI 사진 편집" aria-describedby={aiDescriptionId} onClick={()=>{setAiOpen(true);setAiTouched(true);void model.actions.refreshAiPhotoQuota?.();}} disabled={task.busy||uploading}><Image src="/brand/featured-creators-v1.png" alt="" width={24} height={24} sizes="24px"/><span className={ai.aiActionCopy}><span>AI 사진 편집</span><small id={aiDescriptionId}>메이크업, 헤어변경, 옷변경, 포즈변경, 배경변경</small></span><Icon name="chevron" width={18} height={18}/></button>
         <AiPhotoDialog shopReward={guest?.shopReward} preferSourceId={uploadedSourceId} onUploadBackground={model.actions.uploadContentMedia} shareReward={guest?.shareReward} publishReward={publishReward} noHearts={!!guest} library={model.photoLibrary} onCrop={model.actions.aiCropPhoto} onHeartGame={model.actions.aiHeartGame} onReview={model.actions.aiReview} shop={model.shop} shopBasePath={basePath} open={aiOpen} onClose={()=>setAiOpen(false)} images={photos} quota={model.aiPhotoQuota||{remaining:AI_PHOTO_DAILY_LIMIT,limit:AI_PHOTO_DAILY_LIMIT}} room={mediaUploadMaxItems-media.length} onEdit={model.actions.aiEditPhoto!} onUseTicket={model.actions.useAiPhotoTicket} onShareReport={model.actions.reportShare} onTrack={model.actions.trackAiPhoto} onAdd={(made,context,replaceSourceIds=[])=>{replaceSourceIds.forEach(removeMedia);if(context){context.labels.forEach(label=>captionItems.current.add(label));if(context.prompt)captionPrompt.current=context.prompt;}draftMedia.current=[...draftMedia.current,...made.map(item=>item.url)];setMedia(previous=>[...previous,...made]);setMediaError('');}}/></div>;})()}

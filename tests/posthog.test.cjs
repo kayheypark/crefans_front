@@ -182,3 +182,19 @@ test('unmasked replays embed private photos as downscaled data URLs; public imag
   assert.equal(fetched.length,3);
  }finally{Object.assign(global,saved);for(const k of Object.keys(saved))if(saved[k]===undefined)delete global[k];}
 });
+
+// 2026-11-23 user request: a member's post title/body are recorded as typed; every other input stays masked.
+test('member post title/body are unmasked in replay; passwords and every other input stay masked',()=>{
+ const {mod}=load('phc_test_only');
+ assert.equal(mod.REPLAY_POST_TEXT_ATTR,'data-ph-post-text');
+ const post={closest:sel=>sel==='[data-ph-post-text]'?{}:null,type:'text'},postArea={closest:sel=>sel==='[data-ph-post-text]'?{}:null,type:'textarea'};
+ const email={closest:()=>null,type:'email'},tel={closest:()=>null,type:'tel'},pwInPost={closest:sel=>sel==='[data-ph-post-text]'?{}:null,type:'password'};
+ assert.equal(mod.maskReplayInput('제목',post),'제목');assert.equal(mod.maskReplayInput('본문',postArea),'본문');
+ assert.equal(mod.maskReplayInput('a@b.co',email),'******');assert.equal(mod.maskReplayInput('0101234',tel),'*******');assert.equal(mod.maskReplayInput('secret',pwInPost),'******');
+ const walk=dir=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);
+ const users=['app','components','features','lib'].flatMap(walk).filter(f=>/\.tsx?$/.test(f)&&f!=='lib/analytics/posthog.ts'&&/REPLAY_POST_TEXT_ATTR|data-ph-post-text/.test(fs.readFileSync(f,'utf8')));
+ assert.deepEqual(users,['components/crefans/studio/ManagementPages.tsx']);
+ const page=fs.readFileSync(users[0],'utf8'),marked=page.split('\n').filter(line=>line.includes('{...{[REPLAY_POST_TEXT_ATTR]'));
+ assert.equal(marked.length,2);assert.match(marked[0],/<Field label="제목"/);assert.match(marked[1],/<TextAreaField label="본문"/);
+ assert.ok(!marked.some(line=>/captionFields|type="(password|email|tel)"/.test(line)));
+});

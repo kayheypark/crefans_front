@@ -23,9 +23,13 @@ const publicBackground=PUBLIC_REPLAY_IMAGE_PREFIXES.map(prefix=>`:not([style*="u
 export const REPLAY_UNMASK_ATTR='data-ph-unmask';
 const unlessUnmasked=`:not(html[${REPLAY_UNMASK_ATTR}] *)`;
 export const REPLAY_BLOCK_SELECTOR=[`img${publicImage}`,'picture','video','audio','canvas','svg image','iframe',`[style*="url("]${publicBackground}`].map(part=>part+unlessUnmasked).concat('input[type="file"]','input[type="hidden"]').join(',');
-/** Session-replay input masking: everything is masked unless the trial page unmasked it for a consenting visitor (never passwords). */
+// 2026-11-23 user request: the title and body a member types in the post editor are recorded as typed. Only those two fields carry
+// this attribute; every other input (password, e-mail, phone, payment, verification codes) stays masked.
+export const REPLAY_POST_TEXT_ATTR='data-ph-post-text';
+/** Session-replay input masking: everything is masked unless the trial page unmasked it for a consenting visitor, or it is a member's
+ * post title/body field (never passwords). */
 export function maskReplayInput(text:string,element?:HTMLElement){
- const unmasked=!!element?.closest?.(`html[${REPLAY_UNMASK_ATTR}]`)&&(element as HTMLInputElement).type!=='password';
+ const unmasked=!!(element?.closest?.(`html[${REPLAY_UNMASK_ATTR}]`)||element?.closest?.(`[${REPLAY_POST_TEXT_ATTR}]`))&&(element as HTMLInputElement).type!=='password';
  return unmasked?text:'*'.repeat(text.length);
 }
 /** Called by the guest trial model only: on for a visitor with a recorded replay consent while the trial page is open. */
