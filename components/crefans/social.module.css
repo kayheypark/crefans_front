@@ -119,6 +119,7 @@
 .notification[data-unread=true]{background:var(--cf-color-warningSoft)}
 .notificationText{display:grid;gap:7px;flex:1;min-width:0;font-size:max(13px,var(--cf-mobile-font-min,0px));line-height:1.7;overflow-wrap:anywhere}
 .notificationText small{font-size:max(11px,var(--cf-mobile-font-min,0px));color:var(--cf-color-textMuted)}
+.notificationTicket{display:block;flex:none;object-fit:contain}
 .systemIcon{display:grid;place-items:center;flex:none;width:43px;height:43px;border-radius:50%;background:var(--cf-color-textMuted);color:var(--cf-color-surface)}
 .unreadDot{width:6px;height:6px;border-radius:50%;background:var(--cf-color-danger);flex:none}
 .notification>svg{flex:none;color:var(--cf-color-textMuted)}

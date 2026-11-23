@@ -766,13 +766,14 @@ test('membership notices show the membership square with the creator badge; othe
   close(none);
 });
 
-test('operator-sent AI photo 이용권 notice (2026-11-24): ticket icon, its own filter chip, opens the AI photo editor',()=>{
+test('operator-sent AI photo 이용권 notice (2026-11-24): ticket image, its own filter chip, opens the AI photo editor',()=>{
   const notifications=[{id:'g1',creatorId:null,type:'AI 이용권',text:'운영자가 AI 사진 이용권 2.5장을 보냈어요. “이벤트 당첨을 축하해요”',time:'2030-01-01T00:00:00Z',href:'/service/studio/content/new'},{id:'s1',creatorId:null,type:'정산',text:'정산 안내',time:'2030-01-01T00:00:00Z',href:'/service/studio/settlements'}];
   const tree=mount(NotificationsPage,{model:model({data:{...data,notifications}})});
   try{
     const link=tree.root.findAll(node=>node.type==='a'&&node.props.href==='/service/studio/content/new');
     assert.equal(link.length,1);
-    assert.equal(link[0].findAll(node=>node.type==='svg'&&node.props['data-icon']==='ticket').length,1,'ticket icon');
+    assert.equal(link[0].findAll(node=>node.type==='img'&&node.props.src==='/illustrations/try/guest-ticket-v1.webp'&&node.props.alt==='').length,1,'decorative ticket image');
+    assert.equal(link[0].findAll(node=>node.type==='svg'&&node.props['data-icon']==='ticket').length,0);
     const other=tree.root.findAll(node=>node.type==='a'&&node.props.href==='/service/studio/settlements')[0];
     assert.equal(other.findAll(node=>node.type==='svg'&&node.props['data-icon']==='card').length,1,'other system notices keep the card icon');
     assert.ok(tree.root.findAll(node=>node.type==='button'&&node.props.children==='AI 이용권').length===1,'filter chip');
