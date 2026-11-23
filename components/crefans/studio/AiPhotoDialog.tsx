@@ -133,7 +133,8 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  const [retryable,setRetryable]=useState(false),[signupOffer,setSignupOffer]=useState(false);
  // 2026-11-23 user decision: the image server refused the uploaded photo itself; the notice asks for a different photo.
  // 'returned' = the try was given back (PROVIDER_INPUT_BLOCKED), 'used' = past the daily give-back cap (INPUT_BLOCKED_LIMIT).
- const [inputBlocked,setInputBlocked]=useState<''|'returned'|'used'>('');
+ // 2026-11-23 user request: our own safety check (UNSAFE_INPUT, never charged) gets the same polished notice with its own art and words.
+ const [inputBlocked,setInputBlocked]=useState<''|'returned'|'used'|'unsafe'>('');
  // 2026-11-20 user request: when the credits run out, members and guests see that credits refill every morning (09:00 KST) and can
  // add the refill to their calendar. Guests still get the publish-reward offer first while it is available.
  const [refillNotice,setRefillNotice]=useState(false),refillShown=useRef(false);
@@ -215,7 +216,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
    if(requiresMask&&!mask){setError('칠한 영역을 처리하지 못했어요. 다시 칠해 주세요.');setStage('edit');return;}
    const ownBackgroundId=ownBackground&&selectedPresets.some(item=>item.kind==='background'&&item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT)?ownBackground.id:undefined;
    const result=await onEdit({generationMethod:method.value,...(ownBackgroundId?{backgroundMediaId:ownBackgroundId}:{}),...(retryImproved?{retryImproved:true}:{}),backgroundId:aiPhotoBackgroundId(selectedPresets.find(item=>item.kind==='background')?.prompt),presetKeys:selectedPresets.filter(item=>item.kind!=='outfit'&&!(item.kind==='background'&&(aiPhotoBackgroundId(item.prompt)||item.prompt===AI_PHOTO_OWN_BACKGROUND_PROMPT))).map(item=>({kind:item.kind,key:aiPhotoPresetTitle(item.kind,item.prompt,targetGender)})).filter(item=>item.key),aspectRatio,...(libraryAssets.length?{libraryIds:libraryAssets.map(item=>item.id)}:{}),...(game?{heartGameId:game.id}:{}),source,mode:cosplayOpen?'cosplay':'general',kind:editKinds.length>1?'combined':requestKind,...(editKinds.length>1?{editKinds}:{}),prompt:prompt.trim(),style,...(hasCostume?{costumeIds:aiPhotoCostumeRequest(selectedPresets).costumeIds}:{}),...(targetGender!=='original'?{targetGender}:{}),...(mask?{mask}:{}),consent:true});
-   if(!result.success){if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else if((result.errorCode==='DAILY_LIMIT'||result.errorCode==='GUEST_AI_LIMIT')&&tickets<=0){refillShown.current=true;setRefillNotice(true);}else if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{{/* 2026-11-23 이탈 분석: the network (GUEST_IP_LIMIT) and all-guest daily (GUEST_DAILY_CLOSED) limits also say "sign up to continue". */if(noHearts&&(result.errorCode==='GUEST_AI_LIMIT'||result.errorCode==='GUEST_IP_LIMIT'||result.errorCode==='GUEST_DAILY_CLOSED'))setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setInputBlocked(result.errorCode==='PROVIDER_INPUT_BLOCKED'?'returned':result.errorCode==='INPUT_BLOCKED_LIMIT'?'used':'');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
+   if(!result.success){if(publishReward&&result.errorCode==='GUEST_AI_LIMIT'){publishOfferShown.current=true;setPublishOffer(true);}else if((result.errorCode==='DAILY_LIMIT'||result.errorCode==='GUEST_AI_LIMIT')&&tickets<=0){refillShown.current=true;setRefillNotice(true);}else if(result.errorCode==='DAILY_LIMIT'&&shop){setShopOpen(true);void shop.refresh();}else{{/* 2026-11-23 이탈 분석: the network (GUEST_IP_LIMIT) and all-guest daily (GUEST_DAILY_CLOSED) limits also say "sign up to continue". */if(noHearts&&(result.errorCode==='GUEST_AI_LIMIT'||result.errorCode==='GUEST_IP_LIMIT'||result.errorCode==='GUEST_DAILY_CLOSED'))setSignupOffer(true);setRetryable(result.errorCode==='OUTPUT_MATERIAL_BLOCKED'||result.errorCode==='PROVIDER_OUTPUT_BLOCKED');setInputBlocked(result.errorCode==='PROVIDER_INPUT_BLOCKED'?'returned':result.errorCode==='INPUT_BLOCKED_LIMIT'?'used':result.errorCode==='UNSAFE_INPUT'?'unsafe':'');setError(result.errorMessage);}}setStage(results.length?'results':'edit');return;}
    const made=result.data.images.map(item=>({...item,aiGenerated:true}));for(const item of made){sourceOrigins.current.set(item.id,sourceOrigins.current.get(source.id)||source.id);resultPresets.current.set(item.id,selectedPresets);}
    setShopLink(costumeShopLink(selectedPresets.filter(item=>item.kind==='outfit').map(item=>item.prompt)));
    if(made.length)madeOk=true;setResultHearts(heartScoreRef.current);setResults(made);setSelected(made.slice(0,1).map(item=>item.id));setRemaining(result.data.remaining);
@@ -420,15 +421,14 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  </Dialog>
  <Dialog open={open&&!!error} onClose={()=>{setError('');setRetryable(false);setSignupOffer(false);setInputBlocked('');}} title="AI 사진 편집 안내" persistent className={inputBlocked?s.inputBlocked:''}>
   {inputBlocked?<div className={s.inputBlockedBody}>
-   <div className={s.publishOfferArt}><Image src="/brand/ai-photo/input-blocked-v1.webp" alt="" width={142} height={142}/></div>
-   <h3>이 원본 사진은 이미 인형 같아서<br/>코스프레 할 이유가 없어 보이는데요?</h3>
-   <p role="alert">{error}</p>
+   <div className={s.publishOfferArt}><Image src={inputBlocked==='unsafe'?'/brand/ai-photo/unsafe-input-v1.webp':'/brand/ai-photo/input-blocked-v1.webp'} alt="" width={142} height={142}/></div>
+   {inputBlocked==='unsafe'?<><h3>이 사진으로는<br/>AI 편집을 할 수 없어요</h3><p role="alert">노출이 많거나 안전 기준에 맞지 않는 사진·요청은 만들 수 없어요. 옷을 갖춰 입은 다른 사진으로 다시 시도해 주세요.</p></>:<><h3>이 원본 사진은 이미 인형 같아서<br/>코스프레 할 이유가 없어 보이는데요?</h3><p role="alert">{error}</p></>}
    <div className={s.publishOfferActions}>
     {/* Same path as 대상 변경: pick another uploaded photo, or go upload one. */}
     <Action type="button" variant="brand" onClick={()=>{setError('');setInputBlocked('');if(sources.length>1){setSourceConfirm('pick');return;}setChangeUpload(true);}}>다른 사진 고르기</Action>
     <Action type="button" variant="secondary" onClick={()=>{setError('');setInputBlocked('');}}>닫기</Action>
    </div>
-   {inputBlocked==='returned'&&<small>이번 시도로 기회는 차감되지 않았어요.</small>}
+   {(inputBlocked==='returned'||inputBlocked==='unsafe')&&<small>이번 시도로 기회는 차감되지 않았어요.</small>}
   </div>:<div className={s.errorMessage}><p role="alert">{error}</p>{signupOffer?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setSignupOffer(false);}}>닫기</Action><ActionLink href={signupLink}>회원가입</ActionLink></div>:retryable?<div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>{setError('');setRetryable(false);}}>아니요</Action><Action type="button" onClick={()=>{setError('');setRetryable(false);void generate(true);}}>네</Action></div>:<Action type="button" onClick={()=>setError('')}>확인</Action>}</div>}
  </Dialog></>;
 }

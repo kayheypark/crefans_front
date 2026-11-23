@@ -63,3 +63,17 @@ test('control: other errors keep the plain notice (no heading, no 다른 사진 
   finally{await act(async()=>r.unmount());}
  }
 });
+
+// 2026-11-23 user request: our own safety check (UNSAFE_INPUT, never charged) uses the same polished layout with its own art and words.
+test('UNSAFE_INPUT shows the safety notice: shield art, its own heading and body, two buttons, not-deducted note',async()=>{
+ const {r,notice,buttons}=await failWith('UNSAFE_INPUT',{message:'안전 기준에 맞지 않는 사진이나 요청이라 만들 수 없어요.'});
+ try{
+  const n=notice();assert.ok(n);
+  assert.equal(text(n.find(x=>x.type==='h3')),'이 사진으로는AI 편집을 할 수 없어요');
+  assert.equal(text(n.find(x=>x.props.role==='alert')),'노출이 많거나 안전 기준에 맞지 않는 사진·요청은 만들 수 없어요. 옷을 갖춰 입은 다른 사진으로 다시 시도해 주세요.');
+  assert.deepEqual(buttons(n),['다른 사진 고르기','닫기']);
+  assert.equal(text(n.find(x=>x.type==='small')),NOTE);
+  assert.ok(n.findAll(x=>String(x.props.src||'').includes('/brand/ai-photo/unsafe-input-v1.webp')).length>=1,'shield art');
+  assert.ok(!text(n).includes('인형'),'not the playful input-blocked heading');
+ }finally{await act(async()=>r.unmount());}
+});
