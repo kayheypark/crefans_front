@@ -71,9 +71,9 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  function photoFile(item:StudioMedia){let file=photoFiles.current.get(item.id);if(!file){file=(async()=>{const blob=await fetchImageBlob(item.url);if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],'crefans-ai-photo.png',{type:'image/png'});})();photoFiles.current.set(item.id,file);file.catch(()=>photoFiles.current.delete(item.id));}return file;}
  const [shopOpen,setShopOpen]=useState(false);
  const [method,setMethod]=useState<(typeof aiPhotoGenerationMethods)[number]>(AI_PHOTO_DEFAULT_METHOD);
- // 2026-11-23 user request: on phones the method hint is hidden, so picking a method flashes it in the middle of the screen for ~1s.
+ // 2026-11-23 user request: on phones the method hint is hidden, so picking a method flashes it in the middle of the screen (2.2s: 1s was too short to read).
  const [methodToast,setMethodToast]=useState<{text:string;key:number}|null>(null);
- useEffect(()=>{if(!methodToast)return;const timer=setTimeout(()=>setMethodToast(null),1000);return()=>clearTimeout(timer);},[methodToast]);
+ useEffect(()=>{if(!methodToast)return;const timer=setTimeout(()=>setMethodToast(null),2200);return()=>clearTimeout(timer);},[methodToast]);
  const [genderChosen,setGenderChosen]=useState(false);
  const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
  const prompt=buildPrompt([...selectedPresets,...libraryPresets],customPrompt,targetGender)||(aspectRatio!=='original'?'Preserve the subject and appearance; adapt the composition to the requested image dimensions.':'');
