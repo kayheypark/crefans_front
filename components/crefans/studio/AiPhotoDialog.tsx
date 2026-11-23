@@ -254,7 +254,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
   return()=>{live=false;};
  // eslint-disable-next-line react-hooks/exhaustive-deps -- once per opening
  },[open]);
- // 2026-11-24: one library photo per edit kind (거울샷·셀카·카메라 뒷면 replace each other, 뒷모습 replaces 포즈), up to PHOTO_LIBRARY_REFERENCE_MAX.
+ // 2026-11-24: one library photo per edit kind (거울샷·셀카 replace each other, 뒷모습 replaces 포즈), up to PHOTO_LIBRARY_REFERENCE_MAX.
  function selectLibrary(item:PhotoAsset){if(libraryAssets.some(value=>value.id===item.id)){setLibraryAssets(items=>items.filter(value=>value.id!==item.id));return;}const itemKind=photoAssetKind(item.category),next=[...libraryAssets.filter(value=>photoAssetKind(value.category)!==itemKind),item];if(next.length>PHOTO_LIBRARY_REFERENCE_MAX){setError(`내 보관함 사진은 최대 ${PHOTO_LIBRARY_REFERENCE_MAX}개까지 선택해 주세요.`);setLibraryOpen(false);return;}setSelectedPresets(items=>items.filter(value=>value.kind!==itemKind));setLibraryAssets(next);}
  const outfitSwitch=OUTFIT_DETAIL_ENABLED&&(kind==='outfit'||hasOutfit)&&<button type="button" role="switch" aria-checked={detailedOutfit} className={s.outfitSwitch} disabled={busy} onClick={()=>{setDetailedOutfit(!detailedOutfit);setError('');}}>옷 세부 지정<span aria-hidden="true"/></button>;
  const composer=<div className={s.composer}>
