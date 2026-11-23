@@ -1,3 +1,9 @@
+## 2026-11-24 AI 가이드 질문을 회원·체험·리플레이에 연결 (feat/advisor-log) — dev까지, 운영 배포는 사용자
+
+- 사용자 지시: 서버가 AI 가이드 질문·답변을 저장해 콘솔에서 본다. `lib/api/advisor.ts`가 credentials omit→same-origin(로그인 회원 access_token·비회원 체험 cf_guest가 서버로 가서 기록에 연결), PostHog 세션·방문자 번호(replaySessionId/replayVisitorId, 키 없으면 생략)를 `replay`로 함께 보냄.
+- 안내 문구(AdvisorChat.tsx 166 '대화는 이 브라우저에 남아요')와 처리방침 15조는 수정 안 함(사용자 수기 개정 예정).
+- 검증(맥, 2026-11-24): typecheck 0, support-advisor 11/11(새 1, credentials omit 되돌린 대조 실패), npm test 892건 중 실패 52(기준선 52, advisor 관련 없음). ESLint 설정 없음(기존).
+
 ## 2026-11-24 회원도 'AI로 내용 작성' (feat/member-ai-caption) — dev까지, 운영 배포는 사용자
 
 - 사용자 지시(2026-11-24): 로그인 회원(크리에이터 스튜디오·일반 회원 memberMode, 새 글·수정)도 AI 사진(aiGenerated)이 있으면 'AI로 내용 작성'. 서버 짝 POST `/studio/content/caption`.

@@ -143,3 +143,18 @@ test('answers pointing to a screen get allow-listed shortcut buttons; unrelated 
  const nav=renderer.root.findAll(n=>n.type==='nav'&&n.props['aria-label']==='바로 가기');assert.equal(nav.length,1);
  const links=nav[0].findAllByType('a');assert.deepEqual(links.map(a=>a.props.href),['/service/studio/start']);assert.match(text(links[0]),/크리에이터 시작하기/);
 });
+
+// 2026-11-24 user request: the server keeps each question for the console. The service page sends its own cookies (same origin) so the
+// record links to the signed-in member or the guest trial, plus the PostHog session/visitor numbers when PostHog is loaded.
+test('askAdvisor sends same-origin cookies and the PostHog numbers, and leaves them out without PostHog',async()=>{
+ const calls=[],realFetch=global.fetch;let ids=['0190f3a2-7c1d-7e2a-9b3c-4d5e6f708192','0190f3a2-7c1d-7e2a-9b3c-4d5e6f708193'];
+ global.fetch=async(url,init)=>{calls.push({url,init});return{json:async()=>ok({answer:'답',sources:[],found:true})};};
+ try{
+  const {askAdvisor}=loadTypeScript('lib/api/advisor.ts',{'@/lib/analytics/posthog':{replaySessionId:async()=>ids[0],replayVisitorId:async()=>ids[1]}});
+  assert.equal((await askAdvisor('환불 기준','c'.repeat(16))).success,true);
+  assert.equal(calls[0].url,'/api/v1/guide/advisor');assert.equal(calls[0].init.credentials,'same-origin');
+  assert.deepEqual(JSON.parse(calls[0].init.body),{question:'환불 기준',client:'c'.repeat(16),replay:{sessionId:ids[0],distinctId:ids[1]}});
+  ids=[null,null];await askAdvisor('환불 기준');
+  assert.deepEqual(JSON.parse(calls[1].init.body),{question:'환불 기준'});
+ }finally{global.fetch=realFetch;}
+});
