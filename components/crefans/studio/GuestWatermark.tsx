@@ -10,7 +10,6 @@ import s from './ai-photo.module.css';
 // The server marks every guest result regardless of what is sent (src/platform/ai-photo.ts in crefans_server).
 export const GUEST_WATERMARK_COPY={
  label:'워터마크 넣기',
- lock:'해제는 회원 전용',
  title:'워터마크 해제',
  badge:'매일 10장',
  heading:['워터마크 없는 사진은','회원만 만들 수 있어요'],
@@ -24,7 +23,6 @@ export const GUEST_WATERMARK_COPY={
 export function GuestWatermarkOption({onTryClear,disabled}:{onTryClear:()=>void;disabled?:boolean}){
  return <div className={s.watermarkOption}>
   <Checkbox label={GUEST_WATERMARK_COPY.label} checked disabled={disabled} onChange={()=>onTryClear()}/>
-  <span className={s.watermarkLock}>{GUEST_WATERMARK_COPY.lock}</span>
  </div>;
 }
 

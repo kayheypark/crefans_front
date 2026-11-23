@@ -491,7 +491,6 @@ dialog.changeUploadDialog{padding:22px 20px 20px;width:min(420px,calc(100vw - 32
 /* 2026-11-23: guest watermark box (always on) and the signup offer when a guest tries to clear it. */
 .watermarkOption{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 2px 4px}
 .watermarkOption label{font-size:14px;font-weight:600}
-.watermarkLock{flex:none;padding:3px 9px;border-radius:999px;background:#fce7f3;color:#be185d;font-size:12px;font-weight:700;white-space:nowrap}
 .watermarkOffer>header{margin-bottom:12px}
 .watermarkOffer>header h2{font-size:13px;font-weight:500;letter-spacing:0;color:var(--cf-color-textSecondary)}
 .watermarkOfferArt{position:relative;min-height:140px}
@@ -502,3 +501,7 @@ dialog.changeUploadDialog{padding:22px 20px 20px;width:min(420px,calc(100vw - 32
 .publishOfferActions .watermarkOfferSignup{background:#db2777;color:#fff;border-color:#db2777}
 .publishOfferActions .watermarkOfferSignup:hover{background:#be185d}
 .publishOfferBody .watermarkOfferNote{margin-top:12px;font-size:12px;color:var(--cf-color-textMuted)}
+
+/* 2026-11-23 user request: on phones the fixed footer is tall, so the editor title bar no longer stays pinned. The whole sheet
+   scrolls (title included) and only the footer stays at the bottom; the desktop layout keeps its fixed title and scrolling body. */
+@media(max-width:767px){.editor[open]{display:block;overflow-y:auto;overscroll-behavior:contain}.editor>header{position:static}.editor .body{overflow:visible;min-height:0}.editor .footer{position:sticky;bottom:0;z-index:4}}

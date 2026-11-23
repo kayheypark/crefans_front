@@ -1,5 +1,5 @@
 // 2026-11-23 user decision (replaces 11-18 "guest AI results without a watermark"): the signed-out editor shows a checked
-// '워터마크 넣기' box with a '해제는 회원 전용' badge. Clearing it is refused: the box stays checked and a signup offer opens.
+// '워터마크 넣기' box (2026-11-23: the '해제는 회원 전용' badge was removed). Clearing it is refused: the box stays checked and a signup offer opens.
 // Guest requests always send watermark=true; the member editor and member requests are unchanged.
 const test=require('node:test'),assert=require('node:assert/strict'),React=require('react'),{create,act}=require('react-test-renderer'),{loadTypeScript}=require('./load-typescript.cjs');
 global.IS_REACT_ACT_ENVIRONMENT=true;
@@ -22,7 +22,7 @@ test('guest editor: the watermark box is shown checked, with the members-only ba
  const {r,boxes,offer}=await render(true);
  try{
   assert.equal(boxes().length,1);assert.equal(boxes()[0].props.checked,true,'checked by default');
-  assert.match(text(r.toJSON()),/해제는 회원 전용/);
+  assert.doesNotMatch(text(r.toJSON()),/해제는 회원 전용/,'badge removed');
   assert.equal(offer().length,0);
  }finally{await act(async()=>r.unmount());}
 });
@@ -69,4 +69,10 @@ test('requests: a guest body always carries watermark=true; a member body has no
   const [,body]=sent.find(([path])=>path==='/guest/ai-photo/edit');
   assert.equal(body.get('watermark'),'true');assert.equal(body.get('sourceId'),'s');
  }finally{act(()=>tree.unmount());}
+});
+
+// 2026-11-23 user request: on phones the editor title scrolls with the sheet; only the footer stays pinned.
+test('mobile editor: sheet scrolls with the title, footer sticks to the bottom',()=>{
+ const css=require('node:fs').readFileSync(require('node:path').join(__dirname,'../components/crefans/studio/ai-photo.module.css'),'utf8');
+ assert.match(css,/@media\(max-width:767px\)\{\.editor\[open\]\{display:block;overflow-y:auto;[^}]*\}\.editor>header\{position:static\}\.editor \.body\{overflow:visible;[^}]*\}\.editor \.footer\{position:sticky;bottom:0;/);
 });
