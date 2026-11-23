@@ -1,3 +1,10 @@
+## 2026-11-23 입력 사진 거절 전용 안내 (feat/input-blocked-notice) — dev까지
+
+- 사용자 승인 시안(2026-11-23): 서버 PROVIDER_INPUT_BLOCKED / INPUT_BLOCKED_LIMIT(서버 PROGRESS 같은 날) 이면 'AI 사진 편집 안내' 대화상자를 전용 레이아웃으로 — 작은 제목+닫기, 연보라 그림(`public/brand/ai-photo/input-blocked-v1.webp`), 큰 제목 '이 원본 사진은 이미 인형 같아서 / 코스프레 할 이유가 없어 보이는데요?', 서버 문구, '다른 사진 고르기'(대상 변경과 같은 경로: 사진 2장 이상이면 고르기, 1장이면 업로드 안내)·'닫기', PROVIDER_INPUT_BLOCKED일 때만 '이번 시도로 기회는 차감되지 않았어요.'. 다른 오류는 그대로.
+- 변경: `AiPhotoDialog.tsx`(inputBlocked 상태), `ai-photo.module.css`(.inputBlocked 계열, publishOfferArt·publishOfferActions 재사용), 새 테스트 `tests/ai-photo-input-blocked.test.cjs`.
+- 검증(맥, 2026-11-23 22:5x KST, worktree npm ci): typecheck 0, 새 테스트 5/5, `npm test` 865건 810 통과·52 실패 — origin/dev 기준 860건 52 실패와 실패 목록 동일. 대조: origin/dev 화면에 새 테스트를 돌리면 4건 실패(다른 오류 대조 1건만 통과).
+- 미확인: 실제 브라우저·휴대폰 화면 확인 안 함(시안 대비 픽셀 비교 없음).
+
 ## 2026-11-23 AI 사진 리뷰 개편 화면 (feat/review-reward-tiers) — dev까지
 
 - 사용자 결정: 별 5·'좋아요' 기본 선택, 제출 시 defaultsKept(별점·평가를 건드리지 않았으면 true), 보상 안내 '별점만 하트 10 · 한마디까지 쓰면 하트 30'(비회원 '별점만 체험 이용권 0.5장 · 한마디까지 쓰면 1장', 서버 status.reward 값으로 표시). 입력란 이름 '한마디', 'OpenAI(해외)로 보내요·개인정보 쓰지 마세요' 즉시 안내. 서버가 REVIEW_COMMENT_UNCLEAR로 거부하면 안내 문구 표시·초안 유지. 근거: FTC 16 CFR 465.4(리뷰 내용(긍정·부정)을 조건으로 한 보상 금지, Cornell LII 원문 2026-11-23 확인), 공정위 「추천·보증 등에 관한 표시·광고 심사지침」(사용자 인용, 이번 작업에서 원문 재확인 안 함) → 보상은 점수 무관, '한마디 작성 여부'로만 차등(사용자 선택).
