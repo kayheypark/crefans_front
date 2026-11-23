@@ -12,7 +12,7 @@ const ui={
   PageTitle:({children,action})=>element('header',null,[element('h1',{key:'title'},children),action&&element('div',{key:'action'},action)]),
 };
 const {FeedPage,PostDetailPage,PostCard,MessagesPage,NotificationsPage}=loadTypeScript('components/crefans/SocialPages.tsx',{
-  './social.module.css':{__esModule:true,default:styles},'./chip-row.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./ServiceUI':ui,'./Icon':()=>element('svg'),
+  './social.module.css':{__esModule:true,default:styles},'./chip-row.module.css':styles,'./dialog-actions.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./text-link.module.css':new Proxy({},{get:(_,key)=>String(key)}),'./ServiceUI':ui,'./Icon':props=>element('svg',{'data-icon':props.name}),
   'next/link':({children,...props})=>element('a',props,children),
   '@/components/ui/Primitives':{Chip:({selected,children,onClick})=>element('button',{type:'button','aria-pressed':selected,onClick},children),TextAreaField:loadTypeScript('components/ui/Field.tsx',{'./field.module.css':new Proxy({},{get:(_,key)=>String(key)})}).TextAreaField,Dialog:({open,children})=>open?element('dialog',null,children):null},
 });
@@ -695,6 +695,20 @@ test('membership notices show the membership square with the creator badge; othe
   const none=mount(NotificationsPage,{model:model({data:{...data,notifications:[notifications[0]]},subscriptions:[]})});
   assert.equal(none.root.findAll(node=>node.props?.['data-membership-thumb']==='creator'&&typeof node.type==='string').length,1,'no subscription photo: creator fills the square');
   close(none);
+});
+
+test('operator-sent AI photo 이용권 notice (2026-11-24): ticket icon, its own filter chip, opens the AI photo editor',()=>{
+  const notifications=[{id:'g1',creatorId:null,type:'AI 이용권',text:'운영자가 AI 사진 이용권 2.5장을 보냈어요. “이벤트 당첨을 축하해요”',time:'2030-01-01T00:00:00Z',href:'/service/studio/content/new'},{id:'s1',creatorId:null,type:'정산',text:'정산 안내',time:'2030-01-01T00:00:00Z',href:'/service/studio/settlements'}];
+  const tree=mount(NotificationsPage,{model:model({data:{...data,notifications}})});
+  try{
+    const link=tree.root.findAll(node=>node.type==='a'&&node.props.href==='/service/studio/content/new');
+    assert.equal(link.length,1);
+    assert.equal(link[0].findAll(node=>node.type==='svg'&&node.props['data-icon']==='ticket').length,1,'ticket icon');
+    const other=tree.root.findAll(node=>node.type==='a'&&node.props.href==='/service/studio/settlements')[0];
+    assert.equal(other.findAll(node=>node.type==='svg'&&node.props['data-icon']==='card').length,1,'other system notices keep the card icon');
+    assert.ok(tree.root.findAll(node=>node.type==='button'&&node.props.children==='AI 이용권').length===1,'filter chip');
+    assert.ok(JSON.stringify(tree.toJSON()).includes('이벤트 당첨을 축하해요'));
+  }finally{close(tree);}
 });
 
 test('search preview: a subscriber gets a detail link (no sales notice, no inline comments); others keep the membership notice',()=>{

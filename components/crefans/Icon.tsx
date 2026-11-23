@@ -1,5 +1,5 @@
 import type {SVGProps} from 'react';
-export type LandingIconName='bell'|'heart'|'search'|'card'|'users'|'user'|'lock'|'shield'|'ban'|'mail'|'bookmark'|'settings'|'menu'|'arrow'|'arrowUp'|'arrowLeft'|'refresh'|'chevron'|'plus'|'check'|'youtube'|'instagram'|'facebook'|'expand'|'shrink'|'close'|'copy'|'share'|'brush'|'undo'|'eraser';
+export type LandingIconName='bell'|'heart'|'search'|'card'|'users'|'user'|'lock'|'shield'|'ban'|'mail'|'bookmark'|'settings'|'menu'|'arrow'|'arrowUp'|'arrowLeft'|'refresh'|'chevron'|'plus'|'check'|'youtube'|'instagram'|'facebook'|'expand'|'shrink'|'close'|'copy'|'share'|'brush'|'undo'|'eraser'|'ticket';
 export default function LandingIcon({name,...props}:SVGProps<SVGSVGElement>&{name:LandingIconName}){
   const paths = {
     brush:<><path d="m13 14 7-9a2 2 0 0 0-3-3l-7 9m0 0 3 3"/><path d="M10 12c-3-1-5 1-5 4 0 2-2 3-3 3 5 3 10 0 9-4"/></>,
@@ -12,6 +12,7 @@ export default function LandingIcon({name,...props}:SVGProps<SVGSVGElement>&{nam
     shrink:<path d="M3 8h5V3m8 0v5h5M8 21v-5H3m13 5v-5h5"/>,
     bell:<><path d="M6 17h12l-1.5-2.5V10a4.5 4.5 0 0 0-9 0v4.5L6 17Z"/><path d="M10 20h4"/></>,heart:<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>,
     search:<><circle cx="10.7" cy="10.7" r="7.3"/><path d="m16 16 5 5"/></>,
+    ticket:<><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2.5a2.5 2.5 0 0 0 0 5V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2.5a2.5 2.5 0 0 0 0-5V7Z"/><path d="M14 5v14" strokeDasharray="2 2"/></>,
     card:<><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 9h18M6.5 15h4"/></>,
     users:<><circle cx="9" cy="6" r="3"/><path d="M3 20v-3a6 6 0 0 1 12 0v3M17 4a3 3 0 0 1 0 6m1 3a5 5 0 0 1 3 4v3"/></>,
     lock:<><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></>,

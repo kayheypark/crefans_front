@@ -56,6 +56,7 @@ export const notifications=[
   {id:'n2',creatorId:'jiwoo',type:'댓글',text:'지우님이 회원님의 댓글에 답글을 남겼어요.',time:'5시간 전',href:'/preview/post/travel'},
   {id:'n3',creatorId:'seoyeon',type:'라이브',text:'서연님의 새로운 소식이 도착했어요.',time:'어제',href:'/preview/creator/seoyeon'},
   {id:'n4',creatorId:'minji',type:'좋아요',text:'민지님이 회원님의 응원을 좋아합니다.',time:'1일 전',href:'/preview/creator/minji'},
+  {id:'n-ai-credit',creatorId:null,type:'AI 이용권',text:'운영자가 AI 사진 이용권 3장을 보냈어요. “이벤트 참여 감사해요”',time:'1일 전',href:'/preview/studio/content/new'},
   {id:'n5',creatorId:null,type:'시스템',text:'계정과 구독 정보를 확인해 주세요.',time:'2일 전',href:'/preview/subscriptions'},
 ];
 

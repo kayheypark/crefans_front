@@ -1,3 +1,10 @@
+## 2026-11-24 알림센터 'AI 이용권' 알림 (feat/admin-grant-tickets) — dev까지
+
+- 사용자 지시(2026-11-24): 운영자가 보낸 AI 사진 이용권을 회원이 알림센터에서 확인. 서버 짝 crefans_server 같은 브랜치(type ai_credit → 라벨 'AI 이용권', href /service/studio/content/new).
+- `SocialPages.tsx` 알림 행 아이콘: 'AI 이용권'이면 새 `ticket` 아이콘(`Icon.tsx`), 그 외 시스템 알림은 기존 card. 필터 칩은 기존 로직으로 자동. 미리보기 fixture에 예시 1건.
+- 검증(맥, 2026-11-24 00:3x KST, worktree npm ci): typecheck 0, 새 테스트 1건 통과(티켓 아이콘·칩·링크·메시지), `npm test` 875건 820 통과·52 실패 — origin/dev 874건 52 실패와 실패 목록 동일. check:docs 오류는 origin/dev보다 줄어듦(새 라우트 설명 추가, stale 해소).
+- 미확인: 실제 브라우저·휴대폰 화면 확인 안 함.
+
 ## 2026-11-23 비회원 '워터마크 넣기' 체크박스(해제 불가)·해제 시 회원가입 안내 (feat/guest-watermark-option) — dev까지
 
 - 사용자 결정(2026-11-23, 11-18 '비회원 AI 결과는 워터마크 없이' 대체): 비회원 편집기에 '워터마크 넣기'(기본 체크). 같은 날 변경: "비회원은 체크박스를 볼 수 있지만 해제할 수 없다. 체크를 풀려고 하면 체크는 그대로 두고 회원가입 유도 안내 창" + 승인 시안(scratchpad/notice-mock).
