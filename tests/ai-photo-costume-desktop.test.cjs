@@ -34,7 +34,8 @@ function assertTagsOnlyOnTargets(items,expectedIds){
 // The desktop rule: inside min-width:768px, the editor body is a size container and costume images take a third of it.
 function assertDesktopGridRule(source){
  const blocks=[...source.matchAll(/@media\s*\(([^)]*)\)\s*\{((?:[^{}]|\{[^{}]*\})*)\}/g)].map(match=>({query:match[1].replace(/\s/g,''),body:match[2]}));
- const desktop=blocks.filter(block=>block.query==='min-width:768px'&&/\.wardrobeLayout \.costumeImage\{[^}]*height:clamp\(72px,calc\(\(100cqh - 40px\)\/3\),var\(--ai-photo-preset-height\)\)/.test(block.body));
+ const desktop=blocks.filter(block=>block.query==='min-width:768px'&&/\.wardrobeLayout \.costumeImage\{[^}]*height:clamp\(72px,calc\(\(100cqh - 40px\)\/3\),240px\)/.test(block.body)&&/\.wardrobeLayout \.costumeImage img\{object-position:center top\}/.test(block.body));
+ // 2026-11-23 user report (PC): faces were cut off; desktop cards may grow to 240px and crop from the top.
  assert.equal(desktop.length,1,'desktop costume height rule');
  assert.match(desktop[0].body,/\.body:has\(\.wardrobeLayout\)\{container-type:size\}/);
  for(const block of blocks.filter(block=>/max-width/.test(block.query)))assert.doesNotMatch(block.body,/costumeImage|container-type/,'mobile blocks stay untouched');

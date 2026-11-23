@@ -190,7 +190,10 @@
    (1280x720: 398px visible, 463px needed). Desktop cards now take a third of the editor body height: 100cqh is the content box, so
    the 44px vertical padding comes back, minus the pager row (44+8), two 8px gaps, card borders (6) and ~10px slack = -40px.
    Never taller than before; mobile keeps its layout. */
-@media(min-width:768px){.body:has(.wardrobeLayout){container-type:size}.wardrobeLayout .costumeImage{height:clamp(72px,calc((100cqh - 40px)/3),var(--ai-photo-preset-height))}}
+/* 2026-11-23 user report (PC): costume cards were wide and short, so the centered crop cut off the face. On desktop the cards may
+   grow up to 240px when the editor has room (still a third of the body, so three rows and the pager fit), and the photo is
+   anchored to the top so the face and wig stay visible when it is cropped. */
+@media(min-width:768px){.body:has(.wardrobeLayout){container-type:size}.wardrobeLayout .costumeImage{height:clamp(72px,calc((100cqh - 40px)/3),240px)}.wardrobeLayout .costumeImage img{object-position:center top}}
 /* 2026-11-23 user decision: same pill as .previousResultTag in a caution orange, under the gender badge. */
 .costumeLowSuccess{position:absolute;left:6px;top:30px;z-index:1;padding:2px 8px;border-radius:999px;background:#c2410c;color:#fff;box-shadow:0 1px 3px rgb(0 0 0/.2);font-size:11px;font-weight:700;line-height:16px;pointer-events:none}
 
