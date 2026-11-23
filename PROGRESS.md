@@ -1,3 +1,9 @@
+## 2026-11-24 '카메라 뒷면'→'뒷모습' 통합 (feat/rejoin-withdrawn) — dev까지, 운영 배포는 사용자
+
+- 사용자 설명 "카메라 뒷면은 모델의 뒷모습": `lib/crefans/photo-library.ts`·`types/crefans-photo-library.ts`에서 rear_camera 제거(저장 선택지·보관함 분류 줄·편집 항목 연결). 예전 저장분은 서버가 back_view로 돌려줌(서버 짝 커밋).
+- 재가입 허용(서버 짝): 프론트 변경 없음. 화면 문구 충돌(수정 안 함): `lib/content/events.ts`:138·144·151·155(100콩 '계정당 한 번' — 이제 같은 사람의 이전 계정이 받았으면 'ineligible'), `components/crefans/PromotionClaim.tsx`:13 '전체 회원이 계정당 한 번'.
+- 검증(맥 2026-11-24, worktree npm ci): typecheck 0, studio-ai-photo 85/104(실패 19는 변경 stash한 origin/dev와 같은 목록, 수정 2건), npm test 893건 실패 52(기존 기준선 52).
+
 ## 2026-11-24 AI 사진 내 보관함 새 분류 (feat/ai-photo-library-ext) — dev까지, 운영·devbox 배포 안 함
 
 - 서버 짝: crefans_server 같은 브랜치(분류·편집 항목 연결·최대 6장·소프트 삭제·콘솔 열람).

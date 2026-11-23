@@ -761,7 +761,7 @@ test('face library reference is sent as its own edit kind',async()=>{
  await act(async()=>{panel().props.onSelect({id:'private-face',type:'image',url:'/face.png',title:'내 얼굴',category:'face'});});await click('만들기');
  assert.deepEqual(calls[0].libraryIds,['private-face']);assert.equal(calls[0].kind,'face');assert.match(calls[0].prompt,/참고 사진의 내 얼굴 적용/);
 });
-// 2026-11-24 user request: 거울샷·셀카·카메라 뒷면 are shooting-concept (lens) references and replace each other; 뒷모습 is a pose
+// 2026-11-24 user request: 거울샷·셀카 are shooting-concept (lens) references and replace each other; 뒷모습 is a pose
 // reference and replaces a pose photo; up to 6 library photos; legacy categories stay labelled but are not offered for new saves.
 test('2026-11-24 library categories map to edit kinds, one photo per kind, up to six',async()=>{
  const library={list:async()=>({success:true,data:{items:[],hasMore:false}})};const {r,calls,click}=await open({library});const panel=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
@@ -769,9 +769,9 @@ test('2026-11-24 library categories map to edit kinds, one photo per kind, up to
  for(const item of [asset('mirror','mirror'),asset('selfie','selfie'),asset('pose','pose'),asset('back','back_view')])await act(async()=>{panel().props.onSelect(item);});
  await click('만들기');assert.deepEqual(calls[0].libraryIds,['selfie','back']);assert.deepEqual(calls[0].editKinds,['lens','pose']);assert.match(calls[0].prompt,/참고 사진의 셀카 적용/);assert.match(calls[0].prompt,/참고 사진의 뒷모습 적용/);
  const lib=loadTypeScript('lib/crefans/photo-library.ts');
- assert.deepEqual(lib.photoAssetSaveOptions().map(o=>o.label),['내 얼굴','포즈','배경','옷','카메라 뒷면','거울샷','셀카','뒷모습']);
+ assert.deepEqual(lib.photoAssetSaveOptions().map(o=>o.label),['내 얼굴','포즈','배경','옷','거울샷','셀카','뒷모습']);
  assert.ok(lib.photoAssetSaveOptions('makeup').some(o=>o.value==='makeup'),'a legacy photo keeps its own category when edited');
- assert.equal(lib.photoAssetLabel('lens'),'촬영 컨셉');assert.equal(lib.photoAssetKind('rear_camera'),'lens');assert.equal(lib.PHOTO_LIBRARY_REFERENCE_MAX,6);
+ assert.equal(lib.photoAssetLabel('lens'),'촬영 컨셉');assert.equal(lib.photoAssetKind('back_view'),'pose');assert.equal(lib.photoAssetCategories.some(o=>o.value==='rear_camera'),false,'카메라 뒷면 merged into 뒷모습');assert.equal(lib.PHOTO_LIBRARY_REFERENCE_MAX,6);
 });
 test('편집하기 makes a library photo the edit target and remembers it; the remembered one is the target on the next entry',async()=>{
  const remembered=[],target={id:'lib-target',type:'image',url:'/lib.png',title:'보관 사진',category:'pose'};
@@ -864,7 +864,7 @@ test('library album: category rows with totals, see-all grid and back, search to
  const {r,click}=await open({library});await click('내 보관함');await act(async()=>{await new Promise(resolve=>setTimeout(resolve,10));});
  const heads=()=>r.root.findAll(n=>n.type==='h3').map(text);
  assert.deepEqual(heads().filter(t=>/포즈|배경|의상/.test(t)),['포즈 3','배경 1'],'only non-empty categories, server total shown even when the first page holds fewer');
- assert.equal(queries.filter(q=>q.page===0&&!q.q).length,12,'one first-page request per category (12 since 2026-11-24: 8 current + 4 legacy)');
+ assert.equal(queries.filter(q=>q.page===0&&!q.q).length,11,'one first-page request per category (11 since 2026-11-24: 7 current + 4 legacy; 카메라 뒷면 merged into 뒷모습)');
  assert.ok(r.root.findAll(n=>n.type==='button'&&text(n)==='전체보기').length===2);
  await act(async()=>{r.root.find(n=>n.props['aria-label']==='앉은 포즈 선택').props.onClick();});
  const lib=()=>r.root.find(n=>n.type?.name==='AiPhotoLibrary');
