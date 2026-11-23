@@ -45,9 +45,17 @@ test('landing_view also carries valid utm_medium and utm_campaign',async()=>{
 test('entry source: first page of the tab is remembered and reused; only host, utm_* and path',()=>{
  const storage=memory();
  const first=load(storage,{referrer:'https://www.daangn.com/ads/123?x=1',search:'?utm_source=daangn&utm_campaign=ai_photo&email=a@b.c',pathname:'/service/landing-ai-image-generation'});
- assert.deepEqual(first.rememberEntrySource(),{referrerHost:'www.daangn.com',utmSource:'daangn',utmCampaign:'ai_photo',landingPath:'/service/landing-ai-image-generation'});
+ const before=Date.now(),{firstSeenAt,...entry}=first.rememberEntrySource();
+ assert.deepEqual(entry,{referrerHost:'www.daangn.com',utmSource:'daangn',utmCampaign:'ai_photo',landingPath:'/service/landing-ai-image-generation'});
+ // 2026-11-23 가입 시 첫 유입 utm 저장: the first page's time is kept as an ISO string with the entry.
+ assert.match(firstSeenAt,/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);assert.ok(Math.abs(Date.parse(firstSeenAt)-before)<5000);
  const later=load(storage,{search:'',pathname:'/service/try'});
  assert.equal(later.rememberEntrySource().utmSource,'daangn','a later page in the same tab keeps the first entry');
+ assert.equal(later.rememberEntrySource().firstSeenAt,firstSeenAt,'and its first time');
  assert.match(fs.readFileSync('features/service/useGuestTrialModel.ts','utf8'),/'\/guest\/session',\{consent:true,version:GUEST_CONSENT_VERSION,source:rememberEntrySource\(\),/);
  assert.match(fs.readFileSync('features/service/useServiceModel.ts','utf8'),/useEffect\(\(\)=>\{rememberEntrySource\(\);\},\[\]\);/);
+});
+// 2026-11-23 user decision (가입 시 첫 유입 utm 저장): the signup request carries the same first entry of the tab.
+test('signup sends the tab first entry as source',()=>{
+ assert.match(fs.readFileSync('features/service/useServiceModel.ts','utf8'),/api\('\/auth\/signup',\{\.\.\.input,.*referralCode:storedReferral\(\),source:rememberEntrySource\(\)\}\)/);
 });

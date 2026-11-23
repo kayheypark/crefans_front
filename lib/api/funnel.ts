@@ -17,10 +17,11 @@ function landingSource(){
 // 2026-11-20 user request (AI 사진 체험 관리 유입 경로): the first page of this tab's visit and where it came from, kept for the tab
 // (sessionStorage) and sent once with the trial consent. Same fields and rules as the landing alert, plus the first page's path.
 const ENTRY='crefans-entry-source';
-export type EntrySource=ReturnType<typeof landingSource>&{landingPath?:string};
+// 2026-11-23 user decision (가입 시 첫 유입 utm 저장): the same entry also goes with the signup, with the time of that first page.
+export type EntrySource=ReturnType<typeof landingSource>&{landingPath?:string;firstSeenAt?:string};
 export function rememberEntrySource():EntrySource{
  try{const saved=window.sessionStorage.getItem(ENTRY);if(saved)return JSON.parse(saved) as EntrySource;}catch{}
- const source:EntrySource={...landingSource(),landingPath:window.location.pathname.slice(0,120)};
+ const source:EntrySource={...landingSource(),landingPath:window.location.pathname.slice(0,120),firstSeenAt:new Date().toISOString()};
  try{window.sessionStorage.setItem(ENTRY,JSON.stringify(source));}catch{}
  return source;
 }
