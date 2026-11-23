@@ -7,7 +7,7 @@ export type CommentMention={id:string;name:string};
 /** `own`: written by the viewer (edit/delete shown). `edited`: shows "수정됨". `deleted`: placeholder kept for remaining replies (no author/body). */
 /** Someone who can be tagged in a comment of a post: its creator and its commenters. */
 export type MentionCandidate={name:string;image:string};
-export type SocialComment={id:string;author:Pick<Viewer,'name'|'image'|'isVerified'|'isFoundingMember'>;body:string;time:string;likes?:number;liked?:boolean;mentions?:CommentMention[];fromCreator?:boolean;replyCount?:number;own?:boolean;edited?:boolean;deleted?:boolean};
+export type SocialComment={id:string;author:Pick<Viewer,'name'|'image'|'isVerified'|'isFoundingMember'>;body:string;time:string;likes?:number;liked?:boolean;mentions?:CommentMention[];fromCreator?:boolean;replyCount?:number;own?:boolean;edited?:boolean;deleted?:boolean;/** 2026-11-24: written by an operator as the official crefans account (shown even on a post with comments closed, e.g. an AI trial post). */official?:boolean};
 export type SocialReply=Omit<SocialComment,'replyCount'>;
 export type SocialMessage=Message&{statusLabel?:string};
 export type CommentLikeResult=ApiResult<{liked:boolean;likes:number}>;

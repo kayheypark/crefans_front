@@ -295,6 +295,23 @@ test('posts with comments closed by the creator hide the comment toggle and show
   }finally{close(detail);}
 });
 
+// 2026-11-24 user request: operators comment on AI trial posts as the official crefans account; the post stays closed to everyone else.
+test('a closed post (AI trial) shows only official comments, read-only, and loads them when it has any',()=>{
+  const closedPost={...post,id:'trial',commentsEnabled:false,comments:2},loads=[];
+  const official={id:'o1',author:{name:'크레팬스',image:'',isVerified:true},body:'OFFICIAL_WELCOME',time:'어제',official:true,likes:0,replyCount:0};
+  const input=model({data:{...data,posts:[closedPost]},commentCounts:{},commentsByPost:{trial:[official,{id:'c',author:creator,body:'HIDDEN_COMMENT',time:'어제'}]},loadComments:async id=>{loads.push(id);},loadReplies:async()=>ok,addComment:async()=>ok});
+  const detail=mount(PostDetailPage,{id:'trial',model:input});
+  try{
+    const json=JSON.stringify(detail.toJSON());
+    assert.match(json,/OFFICIAL_WELCOME/);assert.match(json,/크레팬스/);assert.doesNotMatch(json,/HIDDEN_COMMENT/);assert.match(json,/댓글을 닫아두었어요/);
+    assert.equal(detail.root.findAllByType('textarea').length,0,'no comment input');assert.doesNotMatch(json,/답글 달기/);
+    assert.deepEqual(loads,['trial']);
+  }finally{close(detail);}
+  const none={...closedPost,id:'none',comments:0},noLoads=[];
+  const empty=mount(PostDetailPage,{id:'none',model:model({data:{...data,posts:[none]},loadComments:async id=>{noLoads.push(id);}})});
+  try{assert.deepEqual(noLoads,[],'nothing to fetch when the post has no comments');}finally{close(empty);}
+});
+
 for(const surface of ['feed','detail'])test(`clicking a ${surface} image opens the post overlay with the media stage and a white detail panel; arrows, Escape and backdrop work`,async()=>{
   const gallery={...post,media:[{type:'image',url:'/one.png'},{type:'video',url:'/two.mp4'},{type:'image',url:'/three.png'}],body:'OVERLAY_BODY_SENTINEL'};
   const input=model({data:{...data,posts:[gallery]},commentsByPost:{[post.id]:[]},loadReplies:async()=>ok});

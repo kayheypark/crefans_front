@@ -1,3 +1,9 @@
+## 2026-11-24 댓글 닫힌 게시물(AI 체험)에 공식 계정 댓글 표시 (feat/official-trial-comment) — dev까지
+
+- 사용자 지시: AI 체험 게시물에 운영자가 '크레팬스 공식 계정'으로 쓴 댓글을 보여 주되 일반 입력창은 계속 숨김. 서버 짝 crefans_server feat/official-trial-comment(댓글 official:true).
+- `SocialPages.tsx` CommentsSection: 댓글 닫힌 게시물은 댓글 수가 있으면 목록을 불러와 official 댓글만 읽기 전용(입력·답글·좋아요·메뉴 없음)으로 보이고, 아래 기존 닫힘 안내 유지. 작성자 표시는 기존 CreatorName(인증 배지) 그대로. 피드 카드 댓글 수는 서버 comment_count 그대로.
+- 보고만: 체험 동의 화면 '댓글·후원·멤버십은 없고'와 처리방침 17항 '댓글·후원·멤버십을 쓸 수 없습니다'는 공식 댓글이 보이게 되면서 문구가 사실과 어긋남(수정 안 함, 사용자 결정 필요).
+- 검증(맥, 2026-11-24): node --test 875건 중 실패 52(origin/dev 874건 실패 52, 실패 목록 동일), typecheck 0. 대조: 기존 SocialPages로·official 필터 빼면 새 테스트 실패. check:docs는 형제 저장소 경로가 없어 worktree에서 실행 못 함.
 ## 2026-11-24 알림센터 'AI 이용권' 알림 (feat/admin-grant-tickets) — dev까지
 
 - 사용자 지시(2026-11-24): 운영자가 보낸 AI 사진 이용권을 회원이 알림센터에서 확인. 서버 짝 crefans_server 같은 브랜치(type ai_credit → 라벨 'AI 이용권', href /service/studio/content/new).
