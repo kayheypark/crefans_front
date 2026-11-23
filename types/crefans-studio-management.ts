@@ -1,6 +1,8 @@
 /** 2026-11-21: review instead of the heart game on a repeat generation. */
-export type AiReviewInput={rating:number;sentiment:'good'|'bad'|'unsure';comment?:string};
-export type AiReviewStatus={eligible:boolean;rewardHearts?:number;rewardTickets?:number};
+/** 2026-11-23: shown after two AI successes; reward by effort (stars vs stars + comment), never by score. defaultsKept = 5/좋아요 untouched. */
+export type AiReviewInput={rating:number;sentiment:'good'|'bad'|'unsure';comment?:string;defaultsKept?:boolean};
+export type AiReviewReward={unit:'hearts'|'tickets';rating:number;comment:number};
+export type AiReviewStatus={eligible:boolean;reward?:AiReviewReward};
 export type AiReviewResult={id:string;hearts:number;tickets:number;capped:boolean;wallet?:{hearts:number;credits:number}};
 export type AiReviewModel={status:()=>Promise<ApiResult<AiReviewStatus>>;submit:(input:AiReviewInput)=>Promise<ApiResult<AiReviewResult>>};
 export type AiHeartInput={action:'start'|'click'|'finish';id?:string;piece?:number;eventId?:string};

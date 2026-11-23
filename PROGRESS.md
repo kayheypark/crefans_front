@@ -1,3 +1,10 @@
+## 2026-11-23 AI 사진 리뷰 개편 화면 (feat/review-reward-tiers) — dev까지
+
+- 사용자 결정: 별 5·'좋아요' 기본 선택, 제출 시 defaultsKept(별점·평가를 건드리지 않았으면 true), 보상 안내 '별점만 하트 10 · 한마디까지 쓰면 하트 30'(비회원 '별점만 체험 이용권 0.5장 · 한마디까지 쓰면 1장', 서버 status.reward 값으로 표시). 입력란 이름 '한마디', 'OpenAI(해외)로 보내요·개인정보 쓰지 마세요' 즉시 안내. 서버가 REVIEW_COMMENT_UNCLEAR로 거부하면 안내 문구 표시·초안 유지. 근거: FTC 16 CFR 465.4(리뷰 내용(긍정·부정)을 조건으로 한 보상 금지, Cornell LII 원문 2026-11-23 확인), 공정위 「추천·보증 등에 관한 표시·광고 심사지침」(사용자 인용, 이번 작업에서 원문 재확인 안 함) → 보상은 점수 무관, '한마디 작성 여부'로만 차등(사용자 선택).
+- 변경: `AiPhotoReview.tsx`(defaultReviewDraft, reviewRewardText), `AiPhotoDialog.tsx`(status.reward 전달), 타입 AiReviewReward/defaultsKept, css .reviewReward.
+- 검증(맥, 2026-11-23 16:3x KST, worktree npm ci): typecheck 0, `npm test` 860건 805 통과·52 실패 — origin/dev 기준 859건 52 실패와 실패 목록 동일(diff 없음), 새 테스트 1건(비회원 문구·기본값 플래그·거부 후 초안 유지). 대조: defaultsKept 항상 true로 바꾸면 1 실패, 보상 문구 제거 시 1 실패.
+- 미확인: 실제 브라우저 화면 확인 안 함, 비회원 체험 동의 화면 문구는 그대로(동의 판 올림 여부 사용자 결정).
+
 ## 2026-11-23 의상 '성공률 낮음' 태그를 서버 일일 계산값으로 (feat/costume-low-success-batch) — dev까지
 
 - 사용자 결정: 서버 워커가 매일 최근 14일 기록으로 다시 계산(서버 PROGRESS 같은 날짜 항목). 프론트는 `GET /api/v1/ai-photo/low-success-costumes`의 ids를 쓰고, null·오류·형식 이상이면 정적 `AI_PHOTO_LOW_SUCCESS_COSTUME_IDS`(7개) 폴백.

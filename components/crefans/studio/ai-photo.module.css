@@ -431,6 +431,7 @@
 .reviewHeading img{flex:none;mix-blend-mode:multiply}
 .reviewFieldLabel{display:block;margin:0 0 5px;font-size:12px;font-weight:800;color:#352d41}
 .reviewOptional{font-size:10px;font-weight:400;color:#71677a}
+.reviewReward{margin:0;font-size:12px;font-weight:700;color:#b2386f}
 .reviewStars{display:flex}
 .reviewStars button{display:grid;place-items:center;flex:0 1 44px;min-width:0;height:44px;padding:0;border:0;background:transparent;color:#d0cdd7;cursor:pointer;touch-action:manipulation}
 .reviewStars svg{fill:currentColor;max-width:100%}
