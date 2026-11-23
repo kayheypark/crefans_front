@@ -503,5 +503,6 @@ dialog.changeUploadDialog{padding:22px 20px 20px;width:min(420px,calc(100vw - 32
 .publishOfferBody .watermarkOfferNote{margin-top:12px;font-size:12px;color:var(--cf-color-textMuted)}
 
 /* 2026-11-23 user request: on phones the fixed footer is tall, so the editor title bar no longer stays pinned. The whole sheet
-   scrolls (title included) and only the footer stays at the bottom; the desktop layout keeps its fixed title and scrolling body. */
-@media(max-width:767px){.editor[open]{display:block;overflow-y:auto;overscroll-behavior:contain}.editor>header{position:static}.editor .body{overflow:visible;min-height:0}.editor .footer{position:sticky;bottom:0;z-index:4}}
+   scrolls (title included) and only the footer stays at the bottom; the desktop layout keeps its fixed title and scrolling body.
+   The footer sits above in-body overlays (swipe hint z-index 5, card labels 2-3) but below the photo viewer (20). */
+@media(max-width:767px){.editor[open]{display:block;overflow-y:auto;overscroll-behavior:contain}.editor>header{position:static}.editor .body{overflow:visible;min-height:0}.editor .footer{position:sticky;bottom:0;z-index:10}}

@@ -74,5 +74,7 @@ test('requests: a guest body always carries watermark=true; a member body has no
 // 2026-11-23 user request: on phones the editor title scrolls with the sheet; only the footer stays pinned.
 test('mobile editor: sheet scrolls with the title, footer sticks to the bottom',()=>{
  const css=require('node:fs').readFileSync(require('node:path').join(__dirname,'../components/crefans/studio/ai-photo.module.css'),'utf8');
- assert.match(css,/@media\(max-width:767px\)\{\.editor\[open\]\{display:block;overflow-y:auto;[^}]*\}\.editor>header\{position:static\}\.editor \.body\{overflow:visible;[^}]*\}\.editor \.footer\{position:sticky;bottom:0;/);
+ assert.match(css,/@media\(max-width:767px\)\{\.editor\[open\]\{display:block;overflow-y:auto;[^}]*\}\.editor>header\{position:static\}\.editor \.body\{overflow:visible;[^}]*\}\.editor \.footer\{position:sticky;bottom:0;z-index:(\d+)/);
+ const footerZ=Number(css.match(/\.editor \.footer\{position:sticky;bottom:0;z-index:(\d+)/)[1]),swipeZ=Number(css.match(/\.swipeOverlay\{[^}]*z-index:(\d+)/)[1]),viewerZ=Number(css.match(/\.viewer\{[^}]*z-index:(\d+)/)[1]);
+ assert.ok(footerZ>swipeZ&&footerZ<viewerZ,'footer above the swipe hint, below the photo viewer');
 });
