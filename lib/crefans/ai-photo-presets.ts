@@ -2,6 +2,7 @@ import {aiPhotoBackgrounds,aiPhotoBackgroundId} from './ai-photo-backgrounds';
 import {aiPhotoMaleBodyControls,aiPhotoBodyPrompt,aiPhotoPresetText} from './ai-photo';
 import {aiPhotoOutfits,aiPhotoOutfitByPrompt,aiPhotoOutfitImage,type AiPhotoOutfitPart} from './ai-photo-outfits';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
+import {aiPhotoSortByUsage} from './ai-photo-popularity';
 
 // 메이크업 카드: 생성 문구·제목·카드 사진의 제작 성별·파일을 한곳에 둔다(2026-11-15).
 // 여성은 사용자가 고른 하얀 코스어 화장 가상 모델(v2), 남성은 기본 4종만(기존 남성 6종은 사용자 지시로 삭제, 추후 추가 예정).
@@ -120,7 +121,7 @@ export function aiPhotoMakeupGender(example:string):'female'|'male'|undefined{re
 export function aiPhotoPresetPage(kind:AiPhotoKind,page:number,gender:'original'|'female'|'male'='original',query='',posture?:AiPhotoPosePosture,backgroundCategory?:AiPhotoBackgroundCategory,outfitPart?:AiPhotoOutfitPart){
  const available=kind==='body'&&gender==='male'?aiPhotoMaleBodyControls.map(control=>aiPhotoBodyPrompt(control.key,1)):kind==='makeup'&&gender!=='original'?aiPhotoPresets.makeup.filter(example=>aiPhotoMakeupGender(example)===gender):aiPhotoPresets[kind];
  const ordered=kind==='pose'?[...aiPhotoPresets.pose.slice(12),...aiPhotoPresets.pose.slice(0,12)]:available;
- const examples=ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&(kind!=='outfit'||((gender==='original'||aiPhotoOutfitByPrompt(example)?.gender===gender)&&(!outfitPart||aiPhotoOutfitByPrompt(example)?.part===outfitPart)))&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example));
+ const examples=aiPhotoSortByUsage(kind,ordered.filter(example=>(kind!=='background'||!backgroundCategory||aiPhotoBackgroundCategory(example)===backgroundCategory)&&(kind!=='pose'||!posture||aiPhotoPosePosture(example)===posture)&&(kind!=='outfit'||((gender==='original'||aiPhotoOutfitByPrompt(example)?.gender===gender)&&(!outfitPart||aiPhotoOutfitByPrompt(example)?.part===outfitPart)))&&aiPhotoPresetMatches(query,aiPhotoPresetTitle(kind,example,gender),example)),example=>kind==='background'&&aiPhotoBackgroundId(example)||aiPhotoPresetTitle(kind,example,gender));
  // 2026-11-15: 의상·신체 보정을 뺀 탭은 첫 카드로 '원본 유지'를 둔다(그 탭은 바꾸지 않음). total은 실제 프리셋 수만 센다.
  const listed=[...(aiPhotoKeepOriginalKinds.includes(kind)&&aiPhotoPresetMatches(query,'원본 유지')?[AI_PHOTO_KEEP_ORIGINAL]:[]),...examples],pages=Math.max(1,Math.ceil(listed.length/AI_PHOTO_PRESET_PAGE_SIZE));
  const index=((page%pages)+pages)%pages;

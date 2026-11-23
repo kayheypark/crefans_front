@@ -27,7 +27,7 @@ test('hero results come from real presets, the preset browser reuses the editor 
   // The browser opens on the wardrobe like the editor's cosplay mode, then other tabs page through the real catalog.
   assert.ok(tree.root.findAll(node=>node.type==='button'&&node.props['aria-label']==='리본 메이드').length===1);
   const tab=tree.root.findAll(node=>node.props.role==='tab').find(node=>node.findAllByType('span').some(span=>span.props.children==='포즈'));act(()=>tab.props.onClick());
-  const card=()=>tree.root.find(node=>node.type==='button'&&node.props['aria-label']==='벽에 기대 쉬기');
+  const card=()=>tree.root.find(node=>node.type==='button'&&node.props['aria-label']==='소품 어깨에 메기');
   assert.equal(card().props['aria-pressed'],false);act(()=>card().props.onClick());assert.equal(card().props['aria-pressed'],true);act(()=>card().props.onClick());assert.equal(card().props['aria-pressed'],false);
   // 2026-11-17: enters at 100% (all original), eases to 20% (more of the result), hints appear after the intro and stay until the line moves.
   assert.ok(tree.root.findAll(node=>node.props.style?.clipPath==='inset(0 0 0 100%)').length===1,'enters from the far right');assert.doesNotMatch(text(tree),/밀거나 눌러서/);
@@ -79,7 +79,7 @@ test('picking a preset opens the try-it dialog; unpicking does not; the dialog l
   assert.equal(dialog().length,0,'closes');
   await act(async()=>costume().props.onClick());assert.equal(costume().props['aria-pressed'],false);assert.equal(dialog().length,0,'unpicking does not ask');
   const tab=tree.root.findAll(n=>n.props.role==='tab').find(n=>n.findAllByType('span').some(span=>span.props.children==='포즈'));await act(async()=>tab.props.onClick());
-  const pose=tree.root.find(n=>n.type==='button'&&n.props['aria-label']==='벽에 기대 쉬기');await act(async()=>pose.props.onClick());
+  const pose=tree.root.find(n=>n.type==='button'&&n.props['aria-label']==='소품 어깨에 메기');await act(async()=>pose.props.onClick());
   assert.equal(dialog()[0].props['data-dialog'],'이 프리셋으로 만들어볼까요?');
   const go=dialog()[0].findAll(n=>n.type==='a').find(n=>n.props.children==='0원으로 만들기');assert.equal(go.props.href,'/service/try');
   handedOff.length=0;go.props.onClick();assert.match(JSON.stringify(handedOff),/"kind":"pose"/,'the picked pose is handed to the trial editor');

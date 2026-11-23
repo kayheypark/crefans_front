@@ -11,6 +11,7 @@ import e from '@/components/crefans/studio/ai-photo.module.css';
 import {aiPhotoKinds,aiPhotoPresetText} from '@/lib/crefans/ai-photo';
 import {AI_PHOTO_KEEP_ORIGINAL,aiPhotoMakeupGender,aiPhotoPresetImage,aiPhotoPresetMatches,aiPhotoPresetPage,aiPhotoPresetTitle,aiPhotoPresets,type AiPhotoBackgroundCategory,type AiPhotoPosePosture} from '@/lib/crefans/ai-photo-presets';
 import {aiPhotoCostumeCategories,aiPhotoCostumes,type AiPhotoCostumeCategory,AI_PHOTO_COSTUME_HINT} from '@/lib/crefans/ai-photo-costumes';
+import {aiPhotoSortByUsage} from '@/lib/crefans/ai-photo-popularity';
 import type {AiPhotoKind} from '@/types/crefans-studio-management';
 import {designVariables} from '@/lib/design/tokens';
 import {saveAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
@@ -88,7 +89,7 @@ export function LandingPresetBrowser({onPicked,onChoose}:{onPicked?:(picked:Reco
  const [posture,setPosture]=useState<AiPhotoPosePosture>('standing'),[backgroundCategory,setBackgroundCategory]=useState<AiPhotoBackgroundCategory>('indoor'),[picked,setPickedState]=useState<Record<string,string[]>>({});
  const setPicked=(update:(previous:Record<string,string[]>)=>Record<string,string[]>)=>setPickedState(previous=>{const next=update(previous);onPicked?.(next);return next;});
  const category=aiPhotoCostumeCategories.find(item=>item.value===costumeCategory)!;
- const costumes=aiPhotoCostumes.filter(item=>query.trim()?aiPhotoPresetMatches(query,item.name,item.detail,aiPhotoCostumeCategories.find(c=>c.value===item.category)!.label):item.category===costumeCategory);
+ const costumes=aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(item=>query.trim()?aiPhotoPresetMatches(query,item.name,item.detail,aiPhotoCostumeCategories.find(c=>c.value===item.category)!.label):item.category===costumeCategory),costume=>costume.id);
  const preset=aiPhotoPresetPage(kind,page,'original',query,kind==='pose'?posture:undefined,kind==='background'?backgroundCategory:undefined);
  const chosen=picked[kind]||[];
  function change(next:AiPhotoKind){setKind(next);setPage(0);setQuery('');}

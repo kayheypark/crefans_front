@@ -11,6 +11,7 @@ import {useEffect,useId,useRef,useState} from 'react';
 import {fetchImageBlob} from '@/lib/browser/media-file';
 import {takeAiPhotoHandoff} from '@/lib/crefans/ai-photo-handoff';
 import {aiPhotoCostumes,aiPhotoCostumeCategories,aiPhotoCostumeRequest,franchiseCostumeNotice,isFranchiseCostume,type AiPhotoCostumeCategory,AI_PHOTO_COSTUME_HINT} from '@/lib/crefans/ai-photo-costumes';
+import {aiPhotoSortByUsage} from '@/lib/crefans/ai-photo-popularity';
 import {aiPhotoOutfitByPrompt,type AiPhotoOutfitPart} from '@/lib/crefans/ai-photo-outfits';
 import {SelectField} from '@/components/ui/SelectField';
 import {AiPresetPager} from './AiPresetPager';
@@ -85,7 +86,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  const [posePosture,setPosePosture]=useState<AiPhotoPosePosture>('sitting');
  const [outfitPart,setOutfitPart]=useState<AiPhotoOutfitPart>('top');
  const [costumeCategory,setCostumeCategory]=useState<AiPhotoCostumeCategory>('nikke');
- const costumes=aiPhotoCostumes.filter(costume=>presetQuery.trim()?aiPhotoPresetMatches(presetQuery,costume.name,costume.detail,aiPhotoCostumeCategories.find(category=>category.value===costume.category)!.label):costume.category===costumeCategory),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
+ const costumes=aiPhotoSortByUsage('outfit',aiPhotoCostumes.filter(costume=>presetQuery.trim()?aiPhotoPresetMatches(presetQuery,costume.name,costume.detail,aiPhotoCostumeCategories.find(category=>category.value===costume.category)!.label):costume.category===costumeCategory),costume=>costume.id),costumeCategoryInfo=aiPhotoCostumeCategories.find(category=>category.value===costumeCategory)!;
  const cosplay=kind==='outfit'&&cosplayOpen;
  const hasCostume=selectedPresets.some(item=>item.kind==='outfit'&&aiPhotoCostumes.some(costume=>aiPhotoPresetText(costume.prompt)===item.prompt));
  const style=hasOutfit&&(hasCostume||cosplayOpen)?'cosplay':'photo';

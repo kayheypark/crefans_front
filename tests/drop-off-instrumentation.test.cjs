@@ -59,7 +59,7 @@ test('landing: every fixed CTA reports its place before going to the trial',asyn
   const card=tree.root.find(node=>node.type==='button'&&node.props['aria-label']==='모더니아 코스튬 자세히 보기');await act(async()=>card.props.onClick());
   await go('이 조합으로 0원 체험');assert.equal(places.at(-1),'look_detail');
   const tab=tree.root.findAll(node=>node.props.role==='tab').find(node=>node.findAllByType('span').some(span=>span.props.children==='포즈'));await act(async()=>tab.props.onClick());
-  await act(async()=>tree.root.find(node=>node.type==='button'&&node.props['aria-label']==='벽에 기대 쉬기').props.onClick());
+  await act(async()=>tree.root.find(node=>node.type==='button'&&node.props['aria-label']==='소품 어깨에 메기').props.onClick());
   await go('0원으로 만들기');assert.equal(places.at(-1),'preset_dialog');
  }finally{await act(async()=>tree.unmount());}
 });

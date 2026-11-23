@@ -356,8 +356,8 @@ test('combined length is bounded without truncating custom input or blocking des
 test('expression diagrams stay gender-neutral while generation gender, selection and custom input remain intact',async()=>{
  const {r,click,calls}=await open();await act(async()=>r.root.find(n=>n.type==='button'&&n.props.role==='tab'&&text(n)==='표정').props.onClick());const field=()=>r.root.findByProps({'aria-label':'커스텀 프롬프트'});await act(async()=>field().props.onChange({target:{value:'자연스러운 조명'}}));await click('환한 미소');
  const previews=()=>r.root.findAll(n=>n.type==='img'&&String(n.props.src).startsWith('/brand/ai-photo/expression-mascot/expression-')).map(n=>n.props.src);
- await click('여성');assert.deepEqual(previews(),[1,2,3,4,5,6,7,8].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(field().props.value,'자연스러운 조명');
- await click('남성');assert.deepEqual(previews(),[1,2,3,4,5,6,7,8].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(calls.length,0);
+ await click('여성');assert.deepEqual(previews(),[1,3,4,7,14,2,11,12].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(field().props.value,'자연스러운 조명');
+ await click('남성');assert.deepEqual(previews(),[1,3,4,7,14,2,11,12].map(i=>`/brand/ai-photo/expression-mascot/expression-${String(i).padStart(2,'0')}-v1.webp`));assert.equal(r.root.findByProps({'aria-label':'환한 미소'}).props['aria-pressed'],true);assert.equal(calls.length,0);
  await click('만들기');assert.equal(calls[0].source.id,'p1');assert.equal(calls[0].kind,'expression');assert.equal(calls[0].targetGender,'male');assert.match(calls[0].prompt,/치아가 살짝 보이게/);assert.match(calls[0].prompt,/성인 남성/);assert.doesNotMatch(calls[0].prompt,/성인 여성/);assert.ok(calls[0].prompt.endsWith('자연스러운 조명'));
 });
 
@@ -488,7 +488,7 @@ test('default cosplay wardrobe keeps all eight general costumes on one nine-card
  await click('코랄 립');await click('남성');assert.deepEqual(previews(),[1,2,3,4].map(id=>`/brand/ai-photo/presets/makeup-male-${String(id).padStart(2,'0')}-v1.webp`),'2026-11-15: men get only the four basic looks');
  const badges=()=>r.root.findAll(n=>n.props['data-gender']&&n.props.className==='costumeGender').map(n=>n.props['data-gender']);assert.deepEqual(badges(),['male','male','male','male']);assert.equal(r.root.findByProps({'aria-label':'하얀 피부 베이스'}).findByProps({'data-gender':'male'}).props.title,'남성 메이크업');
  assert.equal(r.root.findAll(n=>n.type==='button'&&n.props['aria-label']==='코랄 립').length,0);
- await click('여성');assert.deepEqual(previews(),[1,3,5,7,9,11,13,14].map(id=>`/brand/ai-photo/presets/makeup-${String(id).padStart(2,'0')}-v2.webp`),'women use the v2 model cards after the keep-original card');assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],false);
+ await click('여성');assert.deepEqual(previews(),[16,14,15,1,11,5,9,13].map(id=>`/brand/ai-photo/presets/makeup-${String(id).padStart(2,'0')}-v2.webp`),'women use the v2 model cards after the keep-original card');assert.equal(r.root.findByProps({'aria-label':'코랄 립'}).props['aria-pressed'],false);
  assert.deepEqual(badges(),Array(8).fill('female'),'women cards carry the ♀ mark; keep-original has none');await click('남성');assert.equal(previews().length,4);assert.equal(calls.length,0);
  // 2026-11-15: ten X-sourced women's looks (cards 13-22) join the female list only; a selection on page 2 survives a same-gender click.
  const {aiPhotoPresetPage,aiPhotoMakeupGender}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
@@ -656,9 +656,9 @@ test('shooting concepts replace Canon choices and retain other selected edits',a
 test('background subcategories show ninety-eight indoor and forty-four outdoor presets and preserve selection',async()=>{
  const {aiPhotoPresetPage,aiPhotoPresetTitle}=loadTypeScript('lib/crefans/ai-photo-presets.ts');
  const indoor=aiPhotoPresetPage('background',9,'female','',undefined,'indoor'),outdoor=aiPhotoPresetPage('background',0,'female','',undefined,'outdoor');
- assert.equal(indoor.total,98);assert.equal(indoor.index,9);assert.equal(outdoor.total,44);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['원본 유지','햇살 공원','벚꽃길','노을 바다','도시 야경','도심 광장 야경','야경 테라스 난간','햇살 석조 테라스','노을 자갈 해변']);
+ assert.equal(indoor.total,98);assert.equal(indoor.index,9);assert.equal(outdoor.total,44);assert.deepEqual(outdoor.examples.map(x=>aiPhotoPresetTitle('background',x)),['원본 유지','벚꽃길','도심 광장 야경','햇살 공원','노을 바다','도시 야경','야경 테라스 난간','햇살 석조 테라스','노을 자갈 해변']);
  assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'indoor').total,3);assert.equal(aiPhotoPresetPage('background',0,'female','형광등',undefined,'outdoor').total,0);
- const {r,click,calls}=await open();await click('배경');await click('내 방(밤 형광등)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'내 방(밤 형광등)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],true);await click('내 방(밤 형광등)');assert.equal(r.root.findByProps({'aria-label':'내 방(밤 형광등)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/형광등/);
+ const {r,click,calls}=await open();await click('배경');await click('촬영스튜디오(흰배경)');await click('아웃도어');assert.equal(r.root.findAllByProps({'aria-label':'촬영스튜디오(흰배경)'}).length,0);await click('실내');assert.equal(r.root.findByProps({'aria-label':'촬영스튜디오(흰배경)'}).props['aria-pressed'],true);await click('촬영스튜디오(흰배경)');assert.equal(r.root.findByProps({'aria-label':'촬영스튜디오(흰배경)'}).props['aria-pressed'],false);await click('아웃도어');await click('노을 바다');await click('만들기');assert.match(calls[0].prompt,/해 질 녘 바다/);assert.doesNotMatch(calls[0].prompt,/흰 스튜디오/);
 });
 
 test('share sends the result as a PNG file to the system share sheet, ignores cancel, falls back to saving, and reports failure',async()=>{
