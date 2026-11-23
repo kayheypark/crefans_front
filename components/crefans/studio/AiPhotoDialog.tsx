@@ -71,6 +71,9 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  function photoFile(item:StudioMedia){let file=photoFiles.current.get(item.id);if(!file){file=(async()=>{const blob=await fetchImageBlob(item.url);if(!blob.type.startsWith('image/'))throw new Error('image');return new File([await toPng(blob)],'crefans-ai-photo.png',{type:'image/png'});})();photoFiles.current.set(item.id,file);file.catch(()=>photoFiles.current.delete(item.id));}return file;}
  const [shopOpen,setShopOpen]=useState(false);
  const [method,setMethod]=useState<(typeof aiPhotoGenerationMethods)[number]>(AI_PHOTO_DEFAULT_METHOD);
+ // 2026-11-23 user request: on phones the method hint is hidden, so picking a method flashes it in the middle of the screen for ~1s.
+ const [methodToast,setMethodToast]=useState<{text:string;key:number}|null>(null);
+ useEffect(()=>{if(!methodToast)return;const timer=setTimeout(()=>setMethodToast(null),1000);return()=>clearTimeout(timer);},[methodToast]);
  const [genderChosen,setGenderChosen]=useState(false);
  const libraryPresets=libraryAssets.map(item=>({kind:item.category,prompt:`참고 사진의 ${photoAssetLabel(item.category)} 적용`}));
  const prompt=buildPrompt([...selectedPresets,...libraryPresets],customPrompt,targetGender)||(aspectRatio!=='original'?'Preserve the subject and appearance; adapt the composition to the requested image dimensions.':'');
@@ -349,10 +352,11 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
     {/* 2026-11-19 user request: no '생성 방식' title or '사진 1장당 이용권' caption; the group keeps its accessible name. */}
     <div role="radiogroup" aria-label="생성 방식" className={s.methodChoices}>
      {aiPhotoGenerationMethods.map(option=><label key={option.value}>
-      <input type="radio" name={`${panelId}-method`} value={option.value} checked={method.value===option.value} disabled={busy} onChange={()=>setMethod(option)} aria-label={`${option.label}, 이용권 ${option.cost}개`}/>
+      <input type="radio" name={`${panelId}-method`} value={option.value} checked={method.value===option.value} disabled={busy} onChange={()=>{setMethod(option);setMethodToast({text:option.hint,key:Date.now()});}} aria-label={`${option.label}, 이용권 ${option.cost}개`}/>
       <span><strong>{option.label}</strong><small>{option.cost}개</small></span>
      </label>)}
     </div>
+    {methodToast&&<div key={methodToast.key} className={s.methodToast} aria-hidden="true">{methodToast.text}</div>}
     <p className={s.methodHint} role="status">{method.hint.split(/(?<=\.) /).map(part=><span key={part}>{part}</span>)}</p>
     {/* 2026-11-23 user decision: guests see the watermark box checked; it cannot be cleared (clearing opens the signup offer). */}
     <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>{if(!source){void generate();return;}setSourceConfirm('ask');}} disabled={busy}>
