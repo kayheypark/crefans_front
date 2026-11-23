@@ -121,7 +121,7 @@ test('progress: the waiting game retains real elapsed and usual time without a f
 
   await act(async()=>{r.root.find(n=>n.type==='button'&&text(n).includes('만들기')).props.onClick();});await confirmSource(r);
   assert.equal(r.root.findAll(n=>n.type==='button'&&text(n).includes('만들기')).length,0);assert.equal(r.root.findAll(n=>n.type==='button'&&String(n.props['aria-label']).match(/^하트 [1-5] 모으기$/)).length,3);
-  const all=text(r.toJSON());assert.match(all,expect);assert.match(all,/0초 지남/);assert.match(all,/잠시만 화면을 유지/);assert.doesNotMatch(all,/%/);
+  const all=text(r.toJSON());assert.match(all,expect);assert.match(all,/0초 지남/);assert.doesNotMatch(all,/잠시만 화면을 유지/);assert.doesNotMatch(all,/%/);
   await act(async()=>{finish({success:true,data:{images:[{id:'a1',type:'image',url:'/a1.png'}],remaining:9},errorMessage:null,errorCode:null});});
   assert.doesNotMatch(text(r.toJSON()),/초 지남/);
  }
@@ -1139,7 +1139,7 @@ test('review: eligible → no heart game, review gates the result in either comp
    continue;
   }
   // 2026-11-23: the reward line is shown up front and depends on the comment, not the score; 5 stars + 좋아요 are preselected.
-  assert.match(text(card()[0]),/별점만 하트 10 · 한마디까지 쓰면 하트 30/);
+  assert.match(text(card()[0]),/별점만 남기면하트 10개한마디까지 쓰면하트 30개/);
   const radios=()=>card()[0].findAll(n=>n.type==='button'&&n.props.role==='radio');
   assert.deepEqual(radios().filter(n=>n.props['aria-checked']).map(n=>n.props['aria-label']||text(n)),['별 5개','좋아요']);
   const send=()=>card()[0].find(n=>n.type==='button'&&text(n)==='리뷰 보내기');assert.equal(send().props.disabled,false,'defaults can be sent as they are');
@@ -1191,12 +1191,18 @@ test('review: visitor reward wording, defaultsKept for untouched 5/좋아요, re
  await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
  await act(async()=>{r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});await confirmSource(r);
  const card=()=>r.root.findAll(n=>n.type==='section'&&n.props['aria-label']==='AI 사진 리뷰')[0];
- assert.match(text(card()),/별점만 체험 이용권 0\.5장 · 한마디까지 쓰면 1장/);assert.match(text(card()),/OpenAI\(해외\)/);
+ assert.match(text(card()),/별점만 남기면체험 이용권 0\.5장한마디까지 쓰면체험 이용권 1장/);assert.match(text(card()),/OpenAI\(해외\)/);
  const send=()=>card().find(n=>n.type==='button'&&text(n)==='리뷰 보내기');
  await act(async()=>card().find(n=>n.type==='textarea').props.onChange({target:{value:'ㅁㄴㅇㄹ'}}));
  await act(async()=>send().props.onClick());
  assert.deepEqual(sent[0],{rating:5,sentiment:'good',comment:'ㅁㄴㅇㄹ',defaultsKept:true});
- assert.match(text(card()),/한마디를 조금 더 구체적으로/);assert.equal(card().find(n=>n.type==='textarea').props.value,'ㅁㄴㅇㄹ','draft kept');
+ assert.doesNotMatch(text(card()),/한마디를 조금 더 구체적으로/);
+ const notice=()=>r.root.findAllByProps({role:'dialog','aria-label':'한마디를 확인해 주세요'});
+ assert.equal(notice().length,1);
+ assert.match(text(notice()[0]),/한마디를 조금 더 구체적으로/);
+ await act(async()=>notice()[0].find(n=>n.type==='button'&&text(n)==='확인').props.onClick());
+ assert.equal(notice().length,0);
+ assert.equal(card().find(n=>n.type==='textarea').props.value,'ㅁㄴㅇㄹ','draft kept');
  await act(async()=>card().find(n=>n.type==='textarea').props.onChange({target:{value:''}}));
  await act(async()=>send().props.onClick());
  assert.deepEqual(sent[1],{rating:5,sentiment:'good',defaultsKept:true},'stars only, defaults untouched');

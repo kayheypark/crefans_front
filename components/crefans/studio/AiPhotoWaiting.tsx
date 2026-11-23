@@ -55,8 +55,7 @@ export function AiPhotoWaiting({elapsed,typical,score,onCollect,game,generating=
   </section>}
   {showGame&&<p className={s.waitingNote}>{note?note:practiceOnly?'체험 게임이에요. 하트는 적립되거나 이용권으로 바뀌지 않아요.':'게임은 사진 결과에 영향을 주지 않아요'}</p>}
   {banner}
-  {generating&&<><div className={s.waitingTime}><span aria-hidden="true">{elapsed}초 지남</span><p>{typical?`보통 약 ${typical}초 걸려요.`:'걸리는 시간을 재는 중이에요.'}</p></div>
-  <p className={s.waitingNote}>잠시만 화면을 유지해 주세요</p></>}
+  {generating&&<div className={s.waitingTime}><span aria-hidden="true">{elapsed}초 지남</span><p>{typical?`보통 약 ${typical}초 걸려요.`:'걸리는 시간을 재는 중이에요.'}</p></div>}
   <HitVignette flash={flash}/>
  </div>;
 }

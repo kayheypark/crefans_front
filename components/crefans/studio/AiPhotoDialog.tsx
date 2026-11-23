@@ -232,7 +232,10 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  function editResult(item:StudioMedia){setTargetGender('original');setWorkingSources(previous=>previous.some(source=>source.id===item.id)?previous:[...previous,item]);changeSource(item.id);setCustomPrompt('');setSelectedPresets([]);setLibraryAssets([]);setBodySelection({});setKind('pose');setPosePosture('sitting');setBackgroundCategory('indoor');searchPresets('');setStage('edit');}
  const sharedResult=results.find(item=>selected.includes(item.id));
  const viewing=viewer!==null||sourceViewer;
- async function sendReview(input:AiReviewInput){if(!onReview)return '';const r=await onReview.submit(input);if(!r.success)return r.errorMessage||'리뷰를 저장하지 못했어요.';const d=r.data;if(d.wallet)setHeartBalance(d.wallet.hearts);setReview(v=>v&&{...v,done:d.tickets?`체험 이용권 ${d.tickets}장을 받았어요.`:d.hearts?`하트 ${d.hearts}개를 받았어요.`:'오늘 받을 수 있는 보상은 모두 받았어요.'});return '';}
+ async function sendReview(input:AiReviewInput){if(!onReview)return '';const r=await onReview.submit(input);if(!r.success){
+  if(r.errorCode==='REVIEW_COMMENT_UNCLEAR')return {invalidComment:r.errorMessage||'한마디를 조금 더 구체적으로 한국어로 써 주세요. 별점만 남겨도 돼요.'};
+  return r.errorMessage||'리뷰를 저장하지 못했어요.';
+ }const d=r.data;if(d.wallet)setHeartBalance(d.wallet.hearts);setReview(v=>v&&{...v,done:d.tickets?`체험 이용권 ${d.tickets}장을 받았어요.`:d.hearts?`하트 ${d.hearts}개를 받았어요.`:'오늘 받을 수 있는 보상은 모두 받았어요.'});return '';}
  function closeViewer(){setViewer(null);setSourceViewer(false);if(typeof requestAnimationFrame==='function')requestAnimationFrame(()=>editRef.current?.focus({preventScroll:true}));}
  // 2026-11-22 user request: a library photo can be the edit target itself, and the one last chosen opens as the target on every entry.
  function pickLibrarySource(item:PhotoAsset){setWorkingSources(previous=>previous.some(value=>value.id===item.id)?previous:[...previous,item]);changeSource(item.id);setLibraryAssets(items=>items.filter(value=>value.id!==item.id));setLibraryOpen(false);setStage('edit');void library?.rememberSource?.(item.id);}
