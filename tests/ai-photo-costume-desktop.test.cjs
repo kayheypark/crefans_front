@@ -65,3 +65,35 @@ test('control: the CSS check fails without the desktop rule or when the rule mov
  assert.throws(()=>assertDesktopGridRule(css.replace(rule,'')),assert.AssertionError);
  assert.throws(()=>assertDesktopGridRule(css.replace(rule,rule.replace('min-width:768px','max-width:767px'))),assert.AssertionError);
 });
+
+// 2026-11-23 user decision: the server recounts the tag daily; the card uses its list when it answers, the built-in seven otherwise.
+async function taggedIdsWith(ids){
+ const api={requestLowSuccessCostumeIds:()=>Promise.resolve(ids)};
+ const {AiPhotoWardrobe:Wardrobe}=loadTypeScript('components/crefans/studio/AiPhotoWardrobe.tsx',{...mocks,'@/lib/api/ai-costume-low-success':api});
+ const page=catalog.aiPhotoCostumes.filter(item=>targets.includes(item.id)||item.id==='773106').slice(0,9),byName=new Map(page.map(item=>[item.name,item.id]));
+ let tree;await act(async()=>{tree=create(React.createElement(Wardrobe,{items:page,selectedPrompts:[],disabled:false,onPick:()=>{}}));});
+ const tagged=tree.root.findAll(node=>node.type==='button'&&node.props.className==='costumeCard'&&node.findAll(child=>child.props.className==='costumeLowSuccess').length>0).map(card=>byName.get(card.props['aria-label']));
+ act(()=>tree.unmount());
+ return {tagged:tagged.sort(),page:page.map(item=>item.id)};
+}
+test('server list replaces the built-in tags; no server list keeps the built-in seven',async()=>{
+ const fromServer=await taggedIdsWith(['773106','b516a6']);
+ assert.ok(fromServer.page.includes('773106'));
+ assert.deepEqual(fromServer.tagged,['773106','b516a6']);
+ const fallback=await taggedIdsWith(null);
+ assert.deepEqual(fallback.tagged,fallback.page.filter(id=>targets.includes(id)).sort());
+ assert.deepEqual(await taggedIdsWith([]).then(r=>r.tagged),[],'an empty server list means nothing is tagged');
+});
+test('API client: ids from a success envelope, null for errors, bad shapes and network failures; one request per load',async()=>{
+ const original=globalThis.fetch;const calls=[];
+ const load=response=>{globalThis.fetch=async(url,options)=>{calls.push([url,options]);if(response instanceof Error)throw response;return{json:async()=>response};};return loadTypeScript('lib/api/ai-costume-low-success.ts').requestLowSuccessCostumeIds;};
+ try{
+  const request=load({success:true,data:{ids:['773106'],computedAt:'2099-01-01T00:00:00.000Z'}});
+  assert.deepEqual(await request(),['773106']);assert.deepEqual(await request(),['773106']);assert.equal(calls.length,1);
+  assert.equal(calls[0][0],'/api/v1/ai-photo/low-success-costumes');assert.equal(calls[0][1].credentials,'omit');
+  assert.equal(await load({success:true,data:{ids:null,computedAt:null}})(),null,'not computed yet');
+  assert.equal(await load({success:false,data:null,errorCode:'INTERNAL_ERROR'})(),null);
+  assert.equal(await load({success:true,data:{ids:['773106',7]}})(),null);
+  assert.equal(await load(new TypeError('offline'))(),null);
+ }finally{globalThis.fetch=original;}
+});

@@ -1,3 +1,9 @@
+## 2026-11-23 의상 '성공률 낮음' 태그를 서버 일일 계산값으로 (feat/costume-low-success-batch) — dev까지
+
+- 사용자 결정: 서버 워커가 매일 최근 14일 기록으로 다시 계산(서버 PROGRESS 같은 날짜 항목). 프론트는 `GET /api/v1/ai-photo/low-success-costumes`의 ids를 쓰고, null·오류·형식 이상이면 정적 `AI_PHOTO_LOW_SUCCESS_COSTUME_IDS`(7개) 폴백.
+- 변경: `lib/api/ai-costume-low-success.ts`(쿠키 없이 페이지당 1회 요청, 결과 공유), `features/service/useLowSuccessCostumeIds.ts`(첫 화면은 정적 목록, 응답 오면 교체), `AiPhotoWardrobe.tsx`가 훅 사용(편집기·랜딩 공통). 인기순 정렬(ai-photo-popularity.ts) 손대지 않음.
+- 검증(맥, 2026-11-23 15:3x KST, node_modules는 같은 lock 체크아웃 복제): `tests/ai-photo-costume-desktop.test.cjs` 6/6(새 2건: 서버 목록이 태그 대체·null이면 정적 7개·빈 목록이면 태그 없음, API 클라이언트 성공·null·실패 envelope·잘못된 id·네트워크 오류·요청 1회·credentials omit). 대조: 훅이 응답을 무시하게 바꾸면 1건 실패 확인 후 복원. 전체 node --test 859건 중 실패 52(변경 전 857건 실패 52, 실패 목록 동일), typecheck 0, check:layers 통과.
+
 ## 2026-11-23 비회원 체험 동의 화면 보상 문구 (/pilot-work 문서·문구 동기화) — dev까지
 
 - 사용자 합의(/pilot-work 2026-11-23): 체험에도 이용권 보상(첫 게시·첫 공유, 처리방침 17항·약관 13조)이 있으므로 GuestTrialConsent '…댓글, 후원, 멤버십이 없고, 하트 같은 보상은 주지 않아요.' → '…댓글·후원·멤버십은 없고, 체험 이용권 보상은 개인정보 처리방침 17항과 이용약관 13조를 따라요.' '서버 보안키로 바꾼 값' 문구는 사용자 결정으로 유지.

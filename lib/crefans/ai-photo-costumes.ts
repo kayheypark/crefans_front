@@ -412,6 +412,7 @@ export function aiPhotoCostumeGender(costume:Pick<AiPhotoCostume,'id'|'category'
 // 2026-11-23 user decision: costumes that Seedream rejects as copyrighted characters (production 11/16-11/23: 0 successes, 3+ blocks each)
 // show a "low success rate" tag but stay selectable. Evidence: Seedream OutputImageSensitiveContentDetected (copyright); rewording the
 // prompt, dropping the wig or sending text only still reproduced the block.
+// Since 2026-11-23 the server recounts the list daily (GET /api/v1/ai-photo/low-success-costumes); this list is the fallback.
 export const AI_PHOTO_LOW_SUCCESS_COSTUME_IDS:readonly string[]=['4298dc','b516a6','752866','9e6184','6ee320','313a28','105dc8'];
 export function aiPhotoCostumeLowSuccess(costume:Pick<AiPhotoCostume,'id'>):boolean{
  return AI_PHOTO_LOW_SUCCESS_COSTUME_IDS.includes(costume.id);
