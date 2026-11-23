@@ -1,7 +1,7 @@
 /** 2026-11-21: review instead of the heart game on a repeat generation. */
-/** 2026-11-23: shown after two AI successes; reward by effort (stars vs stars + comment), never by score. defaultsKept = 5/좋아요 untouched. */
+/** 2026-11-23: shown after two AI successes; standard rewards by effort; detailed 1-star feedback may earn tickets. defaultsKept = 5/좋아요 untouched. */
 export type AiReviewInput={rating:number;sentiment:'good'|'bad'|'unsure';comment?:string;defaultsKept?:boolean};
-export type AiReviewReward={unit:'hearts'|'tickets';rating:number;comment:number};
+export type AiReviewReward={unit:'hearts'|'tickets';rating:number;comment:number;detailedOneStarTickets?:number};
 export type AiReviewStatus={eligible:boolean;reward?:AiReviewReward};
 export type AiReviewResult={id:string;hearts:number;tickets:number;capped:boolean;wallet?:{hearts:number;credits:number}};
 export type AiReviewModel={status:()=>Promise<ApiResult<AiReviewStatus>>;submit:(input:AiReviewInput)=>Promise<ApiResult<AiReviewResult>>};

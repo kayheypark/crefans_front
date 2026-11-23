@@ -1124,7 +1124,7 @@ test('review: eligible → no heart game, review gates the result in either comp
   const eligible=order!=='ineligible';
   let finish,games=0,sent=null,attempts=0;const pending=new Promise(r=>{finish=r;});
   const onHeartGame=async input=>{if(input.action==='start'){games++;return {success:true,data:{id:'g1',kinds:['heart','heart','heart','heart','heart']}};}return {success:true,data:{hearts:5,earned:0}};};
-  const onReview={status:async()=>({success:true,data:eligible?{eligible:true,reward:{unit:'hearts',rating:10,comment:30}}:{eligible:false}}),submit:async input=>{if(++attempts===1&&order==='image-first')return {success:false,errorMessage:'리뷰 저장 실패'};sent=input;return {success:true,data:{id:'r1',hearts:30,tickets:0,capped:false,wallet:{hearts:25,credits:0}}};}};
+  const onReview={status:async()=>({success:true,data:eligible?{eligible:true,reward:{unit:'hearts',rating:10,comment:30,detailedOneStarTickets:3}}:{eligible:false}}),submit:async input=>{if(++attempts===1&&order==='image-first')return {success:false,errorMessage:'리뷰 저장 실패'};sent=input;return {success:true,data:{id:'r1',hearts:30,tickets:0,capped:false,wallet:{hearts:25,credits:0}}};}};
   const {r}=await open({onEdit:()=>pending,onHeartGame,onReview});
   await act(async()=>{r.root.findByProps({'aria-label':'커스텀 프롬프트'}).props.onChange({target:{value:'따뜻한 스튜디오 배경'}});});
   await act(async()=>{r.root.find(n=>n.type==='button'&&n.props['aria-label']==='만들기').props.onClick();});await confirmSource(r);
@@ -1143,7 +1143,15 @@ test('review: eligible → no heart game, review gates the result in either comp
   const radios=()=>card()[0].findAll(n=>n.type==='button'&&n.props.role==='radio');
   assert.deepEqual(radios().filter(n=>n.props['aria-checked']).map(n=>n.props['aria-label']||text(n)),['별 5개','좋아요']);
   const send=()=>card()[0].find(n=>n.type==='button'&&text(n)==='리뷰 보내기');assert.equal(send().props.disabled,false,'defaults can be sent as they are');
+  assert.doesNotMatch(text(card()[0]),/의견은 공개되지 않아요/);
+  await act(async()=>card()[0].find(n=>n.props['aria-label']==='별 1개').props.onClick());
+  const detail=card()[0].findByProps({'aria-label':'상세 피드백 보상'});
+  assert.match(text(detail),/어떤 점이 아쉬웠나요\?/);
+  assert.match(text(detail),/이용권 3장/);
+  assert.match(text(detail),/AI가 구체적인 이유를 확인하면/);
+  assert.match(text(detail),/이 의견은 공개되지 않아요/);
   await act(async()=>card()[0].find(n=>n.props['aria-label']==='별 4개').props.onClick());
+  assert.doesNotMatch(text(card()[0]),/의견은 공개되지 않아요/);
   assert.equal(card()[0].findAll(n=>n.props?.['data-on']).length,4);
   await act(async()=>card()[0].find(n=>n.type==='button'&&text(n)==='별로예요').props.onClick());
   assert.equal(send().props.disabled,false);

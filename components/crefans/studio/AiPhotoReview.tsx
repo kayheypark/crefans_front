@@ -51,6 +51,14 @@ export function AiPhotoReview({done,reward,draft,onDraft,onSubmit}:{done?:string
     </button>)}
    </div>
   </div>
+  {rating===1&&!!reward?.detailedOneStarTickets&&<aside className={s.reviewDetailReward} aria-label="상세 피드백 보상">
+   <div className={s.reviewDetailHeading}>
+    <h5>어떤 점이 아쉬웠나요?</h5>
+    <strong>{reward.unit==='tickets'?'체험 ':''}이용권 {reward.detailedOneStarTickets}장</strong>
+   </div>
+   <p>자세히 알려주시면 서비스 개선에 도움이 돼요. AI가 구체적인 이유를 확인하면 보상을 드려요.</p>
+   <p className={s.reviewDetailNote}>이 의견은 공개되지 않아요.{reward.unit==='tickets'&&' 비회원은 같은 네트워크에서 하루 한 번 받을 수 있어요.'}</p>
+  </aside>}
   <label>
    <span className={s.reviewFieldLabel}>응원메시지 <span className={s.reviewOptional}>선택</span></span>
    <textarea className={s.reviewText} placeholder="좋은 점, 아쉬운 점, 응원메시지 모두!" maxLength={500} rows={2} value={comment} onChange={e=>setComment(e.target.value)}/>
