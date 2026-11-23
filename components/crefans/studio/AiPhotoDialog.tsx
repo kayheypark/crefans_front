@@ -41,7 +41,7 @@ import {costumeShopLink,COSTUME_SHOP_NOTICE} from '@/lib/crefans/costume-shop-li
 const PUBLISH_OFFER_DELAY_MS=2000;
 // 2026-11-21 user decision: guests earn 0.5 credit for 30 hearts, at most 3 a day (server guest-policy).
 const GUEST_HEART_NOTE='하트 30개를 모으면 체험 이용권 0.5장을 드려요 (하루 최대 3장)';
-type Props={/** 2026-11-22: signed-out trial — opening the Coupang costume link pays 3 credits once a day; true when paid now. */shopReward?:{claim:()=>Promise<boolean>};shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;/** 2026-11-21: review instead of the game on a repeat generation. */onReview?:AiReviewModel;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
+type Props={/** 2026-11-23 user decision: signed-out trial — the photo the visitor just uploaded; it becomes the edit target once it is in images. */preferSourceId?:string;/** 2026-11-22: signed-out trial — opening the Coupang costume link pays 3 credits once a day; true when paid now. */shopReward?:{claim:()=>Promise<boolean>};shareReward?:{refresh:()=>Promise<void>;/** 2026-11-20: pays the share reward for this result; true when it was paid now. */claim:(mediaId:string)=>Promise<boolean>};publishReward?:{credits:number;onWrite:()=>void};/** Signed-out trial: local game only; no balance or reward conversion. */noHearts?:boolean;/** 2026-11-19: share-button report and funnel steps, supplied by the page model. */onShareReport?:(report:ShareReport)=>void;onTrack?:(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>void;library?:PhotoLibraryModel;onCrop?:(input:AiPhotoCropInput)=>Promise<ApiResult<StudioMedia>>;onHeartGame?:(input:AiHeartInput)=>Promise<ApiResult<AiHeartResult>>;/** 2026-11-21: review instead of the game on a repeat generation. */onReview?:AiReviewModel;shop?:ShopModel;shopBasePath?:string;open:boolean;onClose:()=>void;images:StudioMedia[];quota:{hearts?:number;rewardRemaining?:number;paidRemaining?:number;remaining:number;limit:number;typicalSeconds?:number|null;resetTickets?:{count:number;nextExpiresAt:string|null}};room:number;
  onUseTicket?:()=>Promise<ApiResult<AiPhotoTicketResult>>;
  onEdit:(input:AiPhotoEditInput)=>Promise<ApiResult<AiPhotoEditResult>>;/** 2026-11-20: upload a place photo to use as the background ('내 사진'). */onUploadBackground?:(file:File)=>Promise<ApiResult<StudioMedia>>;onAdd:(images:StudioMedia[],context?:AiPhotoCaptionContext,replaceSourceIds?:string[])=>void};
 
@@ -52,7 +52,7 @@ function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBo
 // Temporarily hidden at user request; keep the mask editor for later reactivation.
 const OUTFIT_DETAIL_ENABLED=false;
 
-export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onReview,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false,publishReward,shareReward,shopReward}:Props){
+export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,onHeartGame,onReview,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false,publishReward,shareReward,shopReward}:Props){
  const [libraryOpen,setLibraryOpen]=useState(false),[libraryAssets,setLibraryAssets]=useState<PhotoAsset[]>([]);
  const sourceOrigins=useRef(new Map<string,string>());
  // 2026-11-22 user request: presets used for each result, so editing that result tags those cards '이전 결과' (selection stays 원본 유지).
@@ -182,6 +182,9 @@ export function AiPhotoDialog({onUploadBackground,library,onCrop,onHeartGame,onR
  useEffect(()=>{if(!busy){setElapsed(0);return;}const begun=Date.now();const timer=setInterval(()=>setElapsed(Math.floor((Date.now()-begun)/1000)),1000);return()=>clearInterval(timer);},[busy]);
  const source=sources.find(item=>item.id===sourceId),originalSource=sources.find(item=>item.id===(sourceOrigins.current.get(sourceId)||sourceId)),typical=quota.typicalSeconds;
  function changeSource(id:string){setSourceId(id);setStrokes([]);setDetailedOutfit(false);setSourcePicker(false);setError('');}
+ // 2026-11-23 user decision: like the member's recent-source pick, a newly uploaded trial photo is selected once (not the sample).
+ const preferredApplied=useRef('');
+ useEffect(()=>{if(!preferSourceId||preferredApplied.current===preferSourceId||!images.some(item=>item.id===preferSourceId))return;preferredApplied.current=preferSourceId;changeSource(preferSourceId);},[preferSourceId,images]);
  async function generate(retryImproved=false){
   if(busy)return;
   if(!source){setError('편집할 사진을 먼저 올려 주세요.');return;}

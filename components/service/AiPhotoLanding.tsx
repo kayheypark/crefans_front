@@ -126,6 +126,8 @@ export default function AiPhotoLanding(){
   <section className={s.hero} aria-labelledby="ai-photo-title">
    <div className={s.heroCopy}>
     <h1 id="ai-photo-title"><span className={s.eyebrow}>무료 AI 코스프레 생성</span>사진 한 장으로,<br/>오늘의 <em>캐릭터</em>가 되어 보세요</h1>
+    {/* 2026-11-23 user decision: match the Instagram ad copy "셀카·의상 없어도 OK" above the fold. */}
+    <p className={s.selfieNote}>셀카 한 장이면 돼요 · 의상 없어도 OK</p>
     <p className={s.lead}>원하는 <strong>코스튬과 메이크업, 포즈와 배경</strong>을 고르면 AI가 사진을 새로 만들어요. <strong>원본 사진은 그대로</strong> 두고, 마음에 드는 결과만 골라 게시해요.</p>
     <div className={s.actions}><Link className={s.primary} href={TRY} onClick={()=>trackLandingCta('hero')}>로그인 없이 0원 체험</Link><a className={s.secondary} href="#ai-photo-kinds">프리셋 둘러보기</a></div>
     <p className={s.small}>로그인 없이 <strong>매일 체험 이용권 3장</strong>을 쓰고, 게시하거나 공유하면 3장씩 더 받아요.</p>
