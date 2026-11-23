@@ -7,6 +7,7 @@ import Script from "next/script";
 import { DelayedSpinner } from "@/components/ui/DelayedSpinner";
 import "antd/dist/reset.css";
 import "./globals.css";
+import { X_PIXEL_BASE_CODE } from "@/lib/analytics/x-pixel";
 import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo/site";
 
 // Site-wide search and share defaults (lib/seo/site.ts); public service pages refine them, private ones opt out.
@@ -70,13 +71,11 @@ export default function RootLayout({
             />
           </>
         )}
-        {/* X conversion tracking base code (pixel rjls2), 2026-11-21 사용자 요청. 운영 빌드에는 NEXT_PUBLIC_APP_ENV 가 없어 조건 없이 모든 페이지에 로드 */}
+        {/* X conversion tracking base code (pixel rjls2), 2026-11-21 사용자 요청. 운영 빌드에는 NEXT_PUBLIC_APP_ENV 가 없어 조건 없이 모든 페이지에 로드.
+            2026-11-23: 결제·카드등록 복귀 쿼리가 주소에 있으면 uwt.js 로드를 미룬다 (lib/analytics/x-pixel.ts) */}
         {(
           <Script id="x-pixel" strategy="afterInteractive">
-            {`!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
-a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-twq('config','rjls2');`}
+            {X_PIXEL_BASE_CODE}
           </Script>
         )}
       </head>

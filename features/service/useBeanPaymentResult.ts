@@ -2,6 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {useSearchParams,useRouter} from 'next/navigation';
 import type {BeanModel,BeanCharge,BeanPaymentStatus} from '@/types/crefans-beans';
+import {xPurchase} from '@/lib/analytics/x-pixel';
 type Result={status:BeanPaymentStatus;charge:BeanCharge|null;message:string};
 const validId=(id:string)=>/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(id);
 export function useBeanPaymentResult(model:BeanModel|null,success:boolean){
@@ -30,6 +31,8 @@ export function useBeanPaymentResult(model:BeanModel|null,success:boolean){
    const charge=result.data;
    if(charge.status==='paid'){
     done.current=true;input.current.paymentKey='';
+    // X Purchase only for this return's payment (paymentKey present), not when an already paid order is reopened.
+    if(success&&body.paymentKey)xPurchase(charge.amount,'bean-'+id);
     setState({status:'success',charge,message:''});
     // Wallet refresh failure must not turn an approved charge into a failed payment.
     try{await current.refresh();}catch{}
