@@ -31,7 +31,7 @@ export function GuestTrialConsent({agreed,pending,error,onAgree,onStart,replay=f
    <li>올린 사진과 요청은 AI 사진 생성(BytePlus, 해외)과 유해성 검사(OpenAI, 해외)에 쓰여요. AI 사진을 만든 뒤 'AI로 내용 작성'을 누르면 고른 항목 이름과 요청 문장만 OpenAI(해외)로 보내 제목, 본문을 써 드리고, 게시 전에 고칠 수 있어요.</li>
    <li>사진 속 인물은 본인이거나 동의를 받은 사람이어야 해요. 노출, 성적인 합성, 미성년자, 다른 사람 얼굴 합성은 만들 수 없어요.</li>
    {replay&&<li>사용 흐름과 불편을 분석하려고 화면 녹화(업로드 썸네일, AI 생성 결과, 게시글 제목·본문, 프리셋·의상 검색어)를 HTTPS로 PostHog, Inc.(미국, privacy@posthog.com)에 전송하고 최대 30일 보관해요.</li>}
-   <li>체험 게시물에는 AI로 만든 사진만 올릴 수 있어요. 댓글, 후원, 멤버십이 없고, 하트 같은 보상은 주지 않아요.</li>
+   <li>체험 게시물에는 AI로 만든 사진만 올릴 수 있어요. 댓글·후원·멤버십은 없고, 체험 이용권 보상은 개인정보 처리방침 17항과 이용약관 13조를 따라요.</li>
 
    </ul></details>
   </div>
