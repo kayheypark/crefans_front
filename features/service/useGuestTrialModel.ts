@@ -26,6 +26,8 @@ async function reportReplaySession(){const id=await replaySessionId();if(!id||re
 function markGuestTrial(){try{window.localStorage.setItem(TRIAL_FLAG,'1');}catch{}}
 export type GuestCaption={title:string;body:string;source:'ai'|'template'};
 export type GuestSession={active:boolean;authorId?:string;consentVersion:string;limit:number;postHours:number;remaining:number;postRewardClaimed?:boolean;shareRewardClaimed?:boolean;shopRewardClaimed?:boolean;shopReward?:number;heartReward?:number;heartRewardMax?:number;postReward?:number;replayConsentVersion?:string;replayConsented?:boolean};
+// 2026-11-23 user decision: guest results always carry the watermark (the server also ignores watermark=false from a guest).
+export function guestAiPhotoEditBody(input:AiPhotoEditInput){const body=aiPhotoEditBody(input);body.append('watermark','true');return body;}
 export function useGuestTrialModel(enabled:boolean){
  const [session,setSession]=useState<GuestSession|null>(null),[error,setError]=useState('');
  const refresh=useCallback(async()=>{const r=await api<GuestSession>('/guest/session');if(r.success)setSession(r.data);else setError(r.errorMessage||'체험 정보를 불러오지 못했어요.');},[]);
@@ -49,7 +51,7 @@ export function useGuestTrialModel(enabled:boolean){
  const caption=async(input:{items:string[];prompt:string})=>{const r=await api<GuestCaption>('/guest/content/caption',input);if(r.success)captureEvent('caption_written',{actor:'guest'});else captureEvent('caption_failed',failed(r));return r;};
  // 2026-11-21 이탈 분석: any failed generation re-reads the server balance. A NETWORK_ERROR may still have been charged on the server,
  // and only refreshing on GUEST_AI_LIMIT left a stale balance that made the next try hit the limit at once.
- const aiEdit=async(input:AiPhotoEditInput)=>{if(session?.replayConsented)void reportReplaySession();const props=aiProps('guest',input);captureEvent('ai_generation_started',props);xEvent('ai_photo');const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',aiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});else await refresh();return result;};
+ const aiEdit=async(input:AiPhotoEditInput)=>{if(session?.replayConsented)void reportReplaySession();const props=aiProps('guest',input);captureEvent('ai_generation_started',props);xEvent('ai_photo');const result=await api<AiPhotoEditResult>('/guest/ai-photo/edit',guestAiPhotoEditBody(input));captureEvent(result.success?'ai_generation_succeeded':'ai_generation_failed',result.success?props:{...props,error_code:result.errorCode||'UNKNOWN'});if(result.success)setSession(previous=>previous&&{...previous,remaining:result.data.remaining});else await refresh();return result;};
  const track=(step:AiPhotoFunnelStep,props:{mode:string;kind?:string})=>captureEvent(step,{actor:'guest',mode:props.mode,...(props.kind?{kind:props.kind}:{})});
  // 2026-11-20 user decision: the share reward is paid when the result is shared (share sheet finished or link copied).
  const shopClick=async()=>{const r=await api<{granted:boolean}>('/guest/ai-photo/shop-click',{});if(r.success)await refresh();return r.success&&r.data.granted;};

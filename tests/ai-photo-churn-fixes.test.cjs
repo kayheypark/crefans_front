@@ -15,7 +15,7 @@ test('guest trial: a NETWORK_ERROR generation re-reads the trial balance and sho
   '@/lib/api/platform':{platformRequest:async path=>{calls.push(path);if(path==='/guest/session')return ok({active:true,consentVersion:'v',limit:3,postHours:24,remaining});if(path==='/guest/ai-photo/edit')return fail('NETWORK_ERROR');return ok({});}},
   '@/lib/analytics/posthog':{aiProps:()=>({}),captureEvent:()=>{},replaySessionId:async()=>null,setReplayInlineImages:()=>{},setReplayUnmasked:()=>{}},
   '@/lib/api/funnel':{rememberEntrySource:()=>undefined},'@/lib/api/share-report':{reportShare:()=>{}},
-  '@/lib/design/image-optimize':{optimizeImage:async f=>f},'./useStudioModel':{aiPhotoEditBody:x=>x},
+  '@/lib/design/image-optimize':{optimizeImage:async f=>f},'./useStudioModel':{aiPhotoEditBody:()=>new FormData()},
  });
  function Probe(){model=useGuestTrialModel(true);return null;}
  await act(async()=>{tree=create(el(Probe));});

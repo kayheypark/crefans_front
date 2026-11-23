@@ -38,6 +38,7 @@ import {AiPhotoMask,buildAiMask,type MaskStroke} from './AiPhotoMask';
 import s from './ai-photo.module.css';
 import {AiPhotoDone,AI_PHOTO_TAP_LOCK_MS} from './AiPhotoDone';
 import {costumeShopLink,COSTUME_SHOP_NOTICE} from '@/lib/crefans/costume-shop-links';
+import {GuestWatermarkOffer,GuestWatermarkOption} from './GuestWatermark';
 
 const PUBLISH_OFFER_DELAY_MS=2000;
 // 2026-11-21 user decision: guests earn 0.5 credit for 30 hearts, at most 3 a day (server guest-policy).
@@ -142,6 +143,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
  const signupLink=useCurrentSignupHref('/service');
  const [results,setResults]=useState<StudioMedia[]>([]),[selected,setSelected]=useState<string[]>([]),[remaining,setRemaining]=useState(quota.remaining);
  const [publishOffer,setPublishOffer]=useState(false),publishOfferShown=useRef(false);
+ const [watermarkOffer,setWatermarkOffer]=useState(false);
  const shortage=Math.max(0,method.cost-remaining);
  useEffect(()=>{if(typeof navigator!=='undefined'&&typeof navigator.share==='function')for(const item of results)void photoFile(item).catch(()=>{});},[results]);// eslint-disable-line react-hooks/exhaustive-deps
  const [heartGame,setHeartGame]=useState<{id:string;kinds:('heart'|'candy'|'moon')[]}|null>(null),[heartBalance,setHeartBalance]=useState(quota.hearts||0),[rewardNote,setRewardNote]=useState('');
@@ -350,6 +352,8 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
      </label>)}
     </div>
     <p className={s.methodHint} role="status">{method.hint.split(/(?<=\.) /).map(part=><span key={part}>{part}</span>)}</p>
+    {/* 2026-11-23 user decision: guests see the watermark box checked; it cannot be cleared (clearing opens the signup offer). */}
+    {noHearts&&<GuestWatermarkOption disabled={busy} onTryClear={()=>setWatermarkOffer(true)}/>}
     <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>{if(!source){void generate();return;}setSourceConfirm('ask');}} disabled={busy}>
      <span className={s.createLabel}>만들기</span><span id={`${panelId}-remaining`} className={s.createQuota}>{remaining}장 보유</span>
     </Action>
@@ -393,6 +397,7 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
   <div className={s.publishOfferBody}><p>비회원은 기본 하루 3장이지만<br/>회원은 <strong>매일 10장</strong>을 무료로 만들 수 있어요.<br/><small>매일 오전 9시(한국 시간)에 다시 채워져요.</small></p>
    <div className={s.publishOfferActions}><ActionLink href={signupLink}>무료로 회원가입</ActionLink><Action type="button" variant="secondary" onClick={()=>setSignupNudge(false)}>나중에</Action></div></div>
  </Dialog>}
+ {noHearts&&<GuestWatermarkOffer open={open&&watermarkOffer} onClose={()=>setWatermarkOffer(false)} signupHref={signupLink}/>}
  {/* 2026-11-21 user request: closing with made photos says they stay (until the page is left) so nobody closes by mistake or thinks they are gone. */}
  <Dialog open={open&&closeAsk} onClose={()=>setCloseAsk(false)} title="AI 사진 편집을 닫을까요?" persistent>
   <div className={s.errorMessage}><p>닫아도 괜찮아요. 만든 사진은 그대로 있어요.<br/>다시 <strong>「AI 사진 편집」</strong> 버튼을 누르면 이전 작업 내용을 바로 확인할 수 있어요.<br/><small>이 페이지를 나가거나 새로고침하면 사라져요.</small></p><div className={s.errorActions}><Action type="button" variant="secondary" onClick={()=>setCloseAsk(false)}>계속 보기</Action><Action type="button" onClick={()=>{setCloseAsk(false);setResumed(true);if(stage==='results')onTrack?.('ai_result_closed',{mode:cosplayOpen?'cosplay':'general'});onClose();}}>닫기</Action></div></div>

@@ -1,3 +1,9 @@
+## 2026-11-23 비회원 '워터마크 넣기' 체크박스(해제 불가)·해제 시 회원가입 안내 (feat/guest-watermark-option) — dev까지
+
+- 사용자 결정(2026-11-23, 11-18 '비회원 AI 결과는 워터마크 없이' 대체): 비회원 편집기에 '워터마크 넣기'(기본 체크). 같은 날 변경: "비회원은 체크박스를 볼 수 있지만 해제할 수 없다. 체크를 풀려고 하면 체크는 그대로 두고 회원가입 유도 안내 창" + 승인 시안(scratchpad/notice-mock).
+- 변경: 새 `components/crefans/studio/GuestWatermark.tsx`(GuestWatermarkOption 체크박스+'해제는 회원 전용' 배지, GuestWatermarkOffer 창, 문구는 GUEST_WATERMARK_COPY 한 곳), `AiPhotoDialog.tsx`(noHearts일 때만 만들기 위에 표시), `useGuestTrialModel.ts`(guestAiPhotoEditBody: 항상 watermark=true), css .watermark* (publishOffer 계열 재사용). 회원 편집기·요청 변경 없음. '매일 10장'은 서버 AI_PHOTO_DAILY_LIMIT=10과 일치.
+- 검증(맥, 2026-11-23 23:2x KST, worktree npm ci): typecheck 0, build 0, 새 테스트 4/4(비회원 체크 표시·기본 체크, 해제 시도 → 체크 유지+창 열림·가입 링크·계속하기로 닫힘, 회원 없음, 전송값 비회원 true·회원 없음). 대조: 체크 해제 허용으로 바꾸면 2건 실패. `npm test` 870건 52 실패 — origin/dev 866건 52 실패와 목록 동일. churn-fixes 테스트의 aiPhotoEditBody 대역을 FormData 반환으로 수정.
+
 ## 2026-11-23 입력 사진 거절 전용 안내 (feat/input-blocked-notice) — dev까지
 
 - 사용자 승인 시안(2026-11-23): 서버 PROVIDER_INPUT_BLOCKED / INPUT_BLOCKED_LIMIT(서버 PROGRESS 같은 날) 이면 'AI 사진 편집 안내' 대화상자를 전용 레이아웃으로 — 작은 제목+닫기, 연보라 그림(`public/brand/ai-photo/input-blocked-v1.webp`), 큰 제목 '이 원본 사진은 이미 인형 같아서 / 코스프레 할 이유가 없어 보이는데요?', 서버 문구, '다른 사진 고르기'(대상 변경과 같은 경로: 사진 2장 이상이면 고르기, 1장이면 업로드 안내)·'닫기', PROVIDER_INPUT_BLOCKED일 때만 '이번 시도로 기회는 차감되지 않았어요.'. 다른 오류는 그대로.
