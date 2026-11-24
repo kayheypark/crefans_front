@@ -1,0 +1,20 @@
+{
+  "status": 200,
+  "model": "dola-seedream-5-5-261028",
+  "responseModel": "dola-seedream-5-5-261028",
+  "requestId": "021795540247857dc50f194675e1cbc6bc0c2210aaea0b0200c43",
+  "prompt": "A clean premium 3D product illustration for a Korean cosplay app media library, a single open translucent cobalt-blue acrylic photo folder displaying exactly three overlapping photographic prints with white borders: a pastel violet fantasy costume on a dress form, a pair of silver star hair ornaments, a pale hydrangea flower photograph. Front-on slightly elevated view, soft cool blue daylight, crisp materials, soft shadow, solid pale powder blue background #dcecff extending to all edges. Centered compact composition with all edges of the folder visible and generous margins. No letters, text, logos, labels, UI, watermark or people. Wide landscape.",
+  "size": "1536x864",
+  "references": [],
+  "elapsedMs": 23441,
+  "at": "2026-11-24T17:11:10.987115+00:00",
+  "sha256": "59544e49e838f8f61a73bb257a187a6f2fcb618b0b138f8e05ed04d8d6bbefe1",
+  "usage": {
+    "input_images": 0,
+    "generated_images": 1,
+    "output_tokens": 5184,
+    "total_tokens": 5184
+  },
+  "webp": "public/brand/feed/member-library-seedream.webp",
+  "webpSha256": "dd768fb7d657e8bf68633529d7839ae672e0249c20d50db7d8ce7e28bb657e87"
+}
