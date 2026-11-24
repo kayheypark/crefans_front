@@ -5,3 +5,25 @@
 /* 2026-11-16: AI 이용권 구독형 | 횟수형 sections. */
 .section{margin:8px 0 0;font-size:16px}.sectionNote{margin:-6px 0 0;color:var(--cf-color-textMuted);font-size:13px}.product h3,.order h3{margin:0;font-size:18px}ul.terms{margin:0;padding-left:18px}@media(max-width:480px){.product h3,.order h3{font-size:16px}}
 .historyButton{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:40px;padding:9px 14px;border:0;border-radius:var(--cf-radius-pill);background:var(--cf-color-surface);color:var(--cf-color-text);font:inherit;font-size:14px;font-weight:600;white-space:nowrap;box-shadow:0 2px 10px #22222216;cursor:pointer}.historyButton:hover{background:var(--cf-color-surfaceSubtle)}.historyButton[aria-pressed=true]{color:var(--cf-color-accent)}.historyButton:focus-visible{outline:2px solid var(--cf-color-focus);outline-offset:3px}
+
+.historyList{border-top:1px solid var(--cf-color-border)}
+.historyItem{padding:18px 2px;border-bottom:1px solid var(--cf-color-border);display:grid;gap:8px;min-width:0}
+.historyMeta,.historyTitle{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.historyMeta{font-size:13px;color:var(--cf-color-textMuted)}
+.historyMeta span{font-weight:650}
+.historyMeta span[data-state="paid"]{color:var(--cf-color-accent)}
+.historyTitle h2{margin:0;font-size:17px;line-height:1.45;overflow-wrap:anywhere}
+.historyTitle strong{white-space:nowrap;font-size:17px;font-variant-numeric:tabular-nums}
+.balance,.historyActions p{margin:0;color:var(--cf-color-textSecondary);font-size:14px}
+.historyActions{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:0 12px}
+.historyActions details{display:contents}
+.historyActions summary,.historyActions button,.historyActions a{font:inherit;font-size:14px;line-height:1.4;cursor:pointer;min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+.historyActions summary{grid-column:1;grid-row:1;justify-self:start;color:var(--cf-color-textMuted);gap:6px;list-style:none}
+.historyActions summary::-webkit-details-marker{display:none}
+.historyActions summary::after{content:'';width:6px;height:6px;border:solid currentColor;border-width:0 1px 1px 0;transform:translateY(-2px) rotate(45deg)}
+.historyActions details[open] summary::after{transform:translateY(2px) rotate(225deg)}
+.historyActions dl{grid-column:1/-1;grid-row:2;margin:4px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;padding:12px;border-radius:8px;background:var(--cf-color-accentSoft);font-size:13px}
+.historyActions dt{color:var(--cf-color-textMuted)}
+.historyActions dd{margin:0;overflow-wrap:anywhere}
+.historyActions>div{grid-column:2;grid-row:1;justify-self:end;align-self:center;max-width:100%;text-align:right}
+.historyActions button,.historyActions a{min-width:0;white-space:nowrap;padding:0 12px;border:1px solid var(--cf-color-border);border-radius:8px;color:var(--cf-color-text);background:var(--cf-color-surface);text-decoration:none}
