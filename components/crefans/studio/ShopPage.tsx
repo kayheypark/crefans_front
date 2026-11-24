@@ -34,7 +34,7 @@ export function ShopPage({model,basePath,advertising,initialCategory='ai',onGues
  const [refundOrder,setRefundOrder]=useState<ShopOrder|null>(null),[refundAccount,setRefundAccount]=useState(emptyRefundAccount);
  // 2026-11-16 무통장입금: bank transfer when the account is set; card only while the server reports card:true.
  const [chosen,setChosen]=useState<'bank_transfer'|'card'|null>(null),[bankForm,setBankForm]=useState(emptyBankTransferForm),[transfer,setTransfer]=useState<BankTransfer|null>(null),[instructions,setInstructions]=useState<{transfer:BankTransfer|null;error:string}|null>(null);
- const methods=model.paymentMethods,method=chosen&&(chosen==='card'?methods?.card:methods?.bankTransfer)?chosen:defaultPaymentMethod(methods),bank=method==='bank_transfer',days=methods?.refundBusinessDays??3;
+ const methods=selected?.portOneCard&&model.paymentMethods?{...model.paymentMethods,card:true}:model.paymentMethods,method=chosen&&(chosen==='card'?methods?.card:methods?.bankTransfer)?chosen:defaultPaymentMethod(methods),bank=method==='bank_transfer',days=methods?.refundBusinessDays??3;
  const bankRefund=refundOrder?.method==='bank_transfer';
  async function refund(){if(!refundOrder||busy.current||bankRefund&&!refundAccountValid(refundAccount))return;busy.current=true;setPending(true);setError('');try{const result=await model.refund(refundOrder,bankRefund?refundAccountInput(refundAccount):undefined);if(result.success){setRefundOrder(null);setNotice(bankRefund?`환불 신청을 접수했어요. 영업일 기준 ${days}일 안에 입력한 계좌로 보내 드려요.`:'잔여 이용권 환불이 완료되었어요.');}else setError(result.errorMessage);}catch{setError('환불 결과를 확인 중이에요. 같은 주문으로 다시 확인해 주세요.');}finally{busy.current=false;setPending(false);}}
  const busy=useRef(false),slow=useDelayedLoading(model.loading);
