@@ -106,13 +106,13 @@ test('picking a method shows its hint overlay, which stays about 2 seconds, then
   const toast=()=>r.root.findAll(n=>n.type==='div'&&n.props['aria-hidden']==='true'&&hints.includes(text(n)));
   assert.equal(toast().length,0,'nothing before a pick');
   const radio=r.root.find(n=>n.type==='input'&&n.props.type==='radio'&&n.props.value==='precise');
-  await act(async()=>radio.props.onChange());
+  await act(async()=>{radio.props.onChange();radio.props.onClick();});
   assert.equal(toast().length,1);assert.equal(text(toast()[0]),'의상·얼굴을 가장 꼼꼼하게 맞춰요.');
   await act(async()=>new Promise(res=>setTimeout(res,1200)));
   assert.equal(toast().length,1,'still readable after 1.2s');
   await act(async()=>new Promise(res=>setTimeout(res,1100)));
   assert.equal(toast().length,0,'gone after ~2.2s');
   const css=require('node:fs').readFileSync(require('node:path').join(__dirname,'../components/crefans/studio/ai-photo.module.css'),'utf8');
-  assert.match(css,/@media\(max-width:767px\)\{\.methodToast\{position:fixed;left:50%;top:50%;[^}]*background:rgb\(0 0 0 \/ 82%\);color:#fff/);
+  assert.match(css,/\.methodToast\{position:fixed;inset:auto;left:50%;top:50%;[^}]*background:rgb\(0 0 0 \/ 82%\);color:#fff/);
  }finally{await act(async()=>r.unmount());}
 });

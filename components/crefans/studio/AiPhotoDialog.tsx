@@ -54,6 +54,11 @@ function ZoomIcon(){return <svg aria-hidden="true" width="18" height="18" viewBo
 // Temporarily hidden at user request; keep the mask editor for later reactivation.
 const OUTFIT_DETAIL_ENABLED=false;
 
+// A manual popover stays in the browser's top layer above the scrolling editor.
+function showMethodHint(node:HTMLDivElement|null){
+ if(node)node.showPopover?.();
+}
+
 export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,onHeartGame,onReview,open,onClose,images,quota,room,onEdit,onAdd,onUseTicket,onShareReport,onTrack,shop,shopBasePath='/service/studio',noHearts=false,publishReward,shareReward,shopReward}:Props){
  const [libraryOpen,setLibraryOpen]=useState(false),[libraryAssets,setLibraryAssets]=useState<PhotoAsset[]>([]);
  const sourceOrigins=useRef(new Map<string,string>());
@@ -353,11 +358,11 @@ export function AiPhotoDialog({preferSourceId,onUploadBackground,library,onCrop,
     {/* 2026-11-19 user request: no '생성 방식' title or '사진 1장당 이용권' caption; the group keeps its accessible name. */}
     <div role="radiogroup" aria-label="생성 방식" className={s.methodChoices}>
      {aiPhotoGenerationMethods.map(option=><label key={option.value}>
-      <input type="radio" name={`${panelId}-method`} value={option.value} checked={method.value===option.value} disabled={busy} onChange={()=>{setMethod(option);setMethodToast({text:option.hint,key:Date.now()});}} aria-label={`${option.label}, 이용권 ${option.cost}개`}/>
+      <input type="radio" name={`${panelId}-method`} value={option.value} checked={method.value===option.value} disabled={busy} onChange={()=>setMethod(option)} onClick={()=>setMethodToast({text:option.hint,key:Date.now()})} aria-label={`${option.label}, 이용권 ${option.cost}개`}/>
       <span><strong>{option.label}</strong><small>{option.cost}개</small></span>
      </label>)}
     </div>
-    {methodToast&&<div key={methodToast.key} className={s.methodToast} aria-hidden="true">{methodToast.text}</div>}
+    {methodToast&&<div key={methodToast.key} ref={showMethodHint} popover="manual" className={s.methodToast} aria-hidden="true">{methodToast.text}</div>}
     <p className={s.methodHint} role="status">{method.hint.split(/(?<=\.) /).map(part=><span key={part}>{part}</span>)}</p>
     {/* 2026-11-23 user decision: guests see the watermark box checked; it cannot be cleared (clearing opens the signup offer). */}
     <Action type="button" className={s.createWithQuota} aria-label="만들기" aria-describedby={shortage>0?`${panelId}-remaining ${panelId}-shortage`:`${panelId}-remaining`} onClick={()=>{if(!source){void generate();return;}setSourceConfirm('ask');}} disabled={busy}>
